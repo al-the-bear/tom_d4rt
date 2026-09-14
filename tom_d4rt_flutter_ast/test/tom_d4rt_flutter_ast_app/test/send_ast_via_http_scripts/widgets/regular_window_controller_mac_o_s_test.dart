@@ -114,11 +114,11 @@ class _FakeRegularWindowControllerMacOS extends ChangeNotifier {
     required Size? preferredSize,
     BoxConstraints? preferredConstraints,
     String? title,
-  })  : _owner = owner,
-        _delegate = delegate,
-        _contentSize = preferredSize ?? const Size(640, 480),
-        _constraints = preferredConstraints ?? const BoxConstraints(),
-        _title = title ?? '' {
+  }) : _owner = owner,
+       _delegate = delegate,
+       _contentSize = preferredSize ?? const Size(640, 480),
+       _constraints = preferredConstraints ?? const BoxConstraints(),
+       _title = title ?? '' {
     _owner._activeControllers.add(this);
   }
 
@@ -220,7 +220,8 @@ class _FakeRegularWindowControllerMacOS extends ChangeNotifier {
 
   void activate() {
     _ensureNotDestroyed();
-    for (final _FakeRegularWindowControllerMacOS other in _owner._activeControllers) {
+    for (final _FakeRegularWindowControllerMacOS other
+        in _owner._activeControllers) {
       if (other != this && other._activated) {
         other._activated = false;
         other.notifyListeners();
@@ -290,7 +291,9 @@ final _FakeWindowingOwnerMacOS _liveOwner = _FakeWindowingOwnerMacOS();
 class _LoggingDelegate with _FakeRegularWindowControllerDelegate {
   _LoggingDelegate(this.label);
   final String label;
-  final ValueNotifier<List<String>> log = ValueNotifier<List<String>>(<String>[]);
+  final ValueNotifier<List<String>> log = ValueNotifier<List<String>>(
+    <String>[],
+  );
 
   void _push(String entry) {
     log.value = <String>[...log.value, '[$label] $entry'];
@@ -312,18 +315,18 @@ class _LoggingDelegate with _FakeRegularWindowControllerDelegate {
 final _LoggingDelegate _primaryDelegate = _LoggingDelegate('primary');
 
 final _FakeRegularWindowControllerMacOS _primaryController = (() {
-  final _FakeRegularWindowControllerMacOS c =
-      _liveOwner.createRegularWindowController(
-    delegate: _primaryDelegate,
-    preferredSize: const Size(820, 540),
-    preferredConstraints: const BoxConstraints(
-      minWidth: 320,
-      minHeight: 240,
-      maxWidth: 2048,
-      maxHeight: 1536,
-    ),
-    title: 'Primary Window',
-  );
+  final _FakeRegularWindowControllerMacOS c = _liveOwner
+      .createRegularWindowController(
+        delegate: _primaryDelegate,
+        preferredSize: const Size(820, 540),
+        preferredConstraints: const BoxConstraints(
+          minWidth: 320,
+          minHeight: 240,
+          maxWidth: 2048,
+          maxHeight: 1536,
+        ),
+        title: 'Primary Window',
+      );
   c.addListener(() {
     if (!c.isDestroyed) {
       _primaryFocus.value = c.isActivated;
@@ -336,21 +339,21 @@ final _FakeRegularWindowControllerMacOS _primaryController = (() {
 
 // A secondary controller for the multi-window orchestration scenario.
 final _LoggingDelegate _secondaryDelegate = _LoggingDelegate('secondary');
-final _FakeRegularWindowControllerMacOS _secondaryController =
-    _liveOwner.createRegularWindowController(
-  delegate: _secondaryDelegate,
-  preferredSize: const Size(420, 320),
-  title: 'Secondary Window',
-);
+final _FakeRegularWindowControllerMacOS _secondaryController = _liveOwner
+    .createRegularWindowController(
+      delegate: _secondaryDelegate,
+      preferredSize: const Size(420, 320),
+      title: 'Secondary Window',
+    );
 
 // A tertiary controller for the multi-window orchestration scenario.
 final _LoggingDelegate _tertiaryDelegate = _LoggingDelegate('tertiary');
-final _FakeRegularWindowControllerMacOS _tertiaryController =
-    _liveOwner.createRegularWindowController(
-  delegate: _tertiaryDelegate,
-  preferredSize: const Size(380, 280),
-  title: 'Tertiary Window',
-);
+final _FakeRegularWindowControllerMacOS _tertiaryController = _liveOwner
+    .createRegularWindowController(
+      delegate: _tertiaryDelegate,
+      preferredSize: const Size(380, 280),
+      title: 'Tertiary Window',
+    );
 
 // ---------------------------------------------------------------------------
 // Section 4 — Painters: traffic lights, title bar, body chrome, fullscreen
@@ -455,14 +458,16 @@ class _WindowChromePainter extends CustomPainter {
       canvas.drawRect(titleBar, titlePaint);
     } else {
       final Path tbPath = Path()
-        ..addRRect(RRect.fromLTRBAndCorners(
-          0,
-          0,
-          size.width,
-          _kTitlebarHeight,
-          topLeft: const Radius.circular(_kCornerRadius),
-          topRight: const Radius.circular(_kCornerRadius),
-        ));
+        ..addRRect(
+          RRect.fromLTRBAndCorners(
+            0,
+            0,
+            size.width,
+            _kTitlebarHeight,
+            topLeft: const Radius.circular(_kCornerRadius),
+            topRight: const Radius.circular(_kCornerRadius),
+          ),
+        );
       canvas.drawPath(tbPath, titlePaint);
     }
 
@@ -580,8 +585,7 @@ class _MultiWindowGridPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _MultiWindowGridPainter old) =>
-      old.dark != dark;
+  bool shouldRepaint(covariant _MultiWindowGridPainter old) => old.dark != dark;
 }
 
 // ---------------------------------------------------------------------------
@@ -589,7 +593,11 @@ class _MultiWindowGridPainter extends CustomPainter {
 // ---------------------------------------------------------------------------
 
 class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.title, required this.subtitle, required this.child});
+  const _SectionCard({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
   final String title;
   final String subtitle;
   final Widget child;
@@ -609,8 +617,9 @@ class _SectionCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 14),
             child,
@@ -713,7 +722,9 @@ class _ChromePreview extends StatelessWidget {
                     fullscreen: controller.isFullscreen,
                     minimized: controller.isMinimized,
                     maximized: controller.isMaximized,
-                    title: controller.isDestroyed ? '(destroyed)' : controller.title,
+                    title: controller.isDestroyed
+                        ? '(destroyed)'
+                        : controller.title,
                   ),
                 ),
               ),
@@ -735,15 +746,21 @@ class _ChromePreview extends StatelessWidget {
                 Positioned(
                   right: 8,
                   top: 4,
-                  child: Icon(Icons.crop_din,
-                      size: 16, color: dark ? Colors.white70 : Colors.black54),
+                  child: Icon(
+                    Icons.crop_din,
+                    size: 16,
+                    color: dark ? Colors.white70 : Colors.black54,
+                  ),
                 ),
               if (controller.isFullscreen)
                 Positioned(
                   right: 8,
                   top: 6,
-                  child: Icon(Icons.fullscreen,
-                      size: 18, color: dark ? Colors.white70 : Colors.black54),
+                  child: Icon(
+                    Icons.fullscreen,
+                    size: 18,
+                    color: dark ? Colors.white70 : Colors.black54,
+                  ),
                 ),
             ],
           ),
@@ -766,32 +783,47 @@ class _StateBadges extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: <Widget>[
-            _badge('isActivated',
-                controller.isDestroyed ? false : controller.isActivated),
-            _badge('isMaximized',
-                controller.isDestroyed ? false : controller.isMaximized),
-            _badge('isMinimized',
-                controller.isDestroyed ? false : controller.isMinimized),
-            _badge('isFullscreen',
-                controller.isDestroyed ? false : controller.isFullscreen),
-            _badge('isDestroyed', controller.isDestroyed,
-                colorOn: Colors.red, colorOff: Colors.green),
+            _badge(
+              'isActivated',
+              controller.isDestroyed ? false : controller.isActivated,
+            ),
+            _badge(
+              'isMaximized',
+              controller.isDestroyed ? false : controller.isMaximized,
+            ),
+            _badge(
+              'isMinimized',
+              controller.isDestroyed ? false : controller.isMinimized,
+            ),
+            _badge(
+              'isFullscreen',
+              controller.isDestroyed ? false : controller.isFullscreen,
+            ),
+            _badge(
+              'isDestroyed',
+              controller.isDestroyed,
+              colorOn: Colors.red,
+              colorOff: Colors.green,
+            ),
           ],
         );
       },
     );
   }
 
-  Widget _badge(String label, bool on,
-      {Color colorOn = Colors.green, Color colorOff = Colors.grey}) {
+  Widget _badge(
+    String label,
+    bool on, {
+    Color colorOn = Colors.green,
+    Color colorOff = Colors.grey,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: on ? colorOn.withValues(alpha: 0.15) : colorOff.withValues(alpha: 0.10),
-        border: Border.all(
-          color: on ? colorOn : colorOff,
-          width: 0.8,
-        ),
+        color: on
+            ? colorOn.withValues(alpha: 0.15)
+            : colorOff.withValues(alpha: 0.10),
+        border: Border.all(color: on ? colorOn : colorOff, width: 0.8),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -844,8 +876,10 @@ class _DelegateLogPanel extends StatelessWidget {
                 children: <Widget>[
                   const Icon(Icons.list_alt, size: 16),
                   const SizedBox(width: 6),
-                  Text('Delegate log (${entries.length})',
-                      style: const TextStyle(fontWeight: FontWeight.w600)),
+                  Text(
+                    'Delegate log (${entries.length})',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
                   const Spacer(),
                   TextButton.icon(
                     onPressed: () {
@@ -859,10 +893,13 @@ class _DelegateLogPanel extends StatelessWidget {
               if (entries.isEmpty)
                 Padding(
                   padding: const EdgeInsets.all(6),
-                  child: Text('no events yet',
-                      style: TextStyle(
-                          color: Theme.of(ctx).colorScheme.onSurfaceVariant,
-                          fontStyle: FontStyle.italic)),
+                  child: Text(
+                    'no events yet',
+                    style: TextStyle(
+                      color: Theme.of(ctx).colorScheme.onSurfaceVariant,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 )
               else
                 ConstrainedBox(
@@ -898,8 +935,9 @@ class _DelegateLogPanel extends StatelessWidget {
 
 final ValueNotifier<double> _resizeWidth = ValueNotifier<double>(820);
 final ValueNotifier<double> _resizeHeight = ValueNotifier<double>(540);
-final ValueNotifier<String> _titleEditValue =
-    ValueNotifier<String>('Primary Window');
+final ValueNotifier<String> _titleEditValue = ValueNotifier<String>(
+  'Primary Window',
+);
 
 // ---------------------------------------------------------------------------
 // Section 7 — Scenario builders.
@@ -936,23 +974,28 @@ Widget _buildPlatformBanner(BuildContext context) {
                 isMac
                     ? 'Running on macOS — RegularWindowControllerMacOS demo'
                     : 'This window controller only works on macOS — running on $platform',
-                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 isMac
                     ? 'On a real macOS Flutter build with the experimental windowing flag enabled, '
-                        '`WindowingOwnerMacOS().createRegularWindowController(...)` would mint a real '
-                        'controller. Because the type is `@internal` and lives in a private file, this '
-                        'demo uses a faithful local mirror so the API surface, state machine, and '
-                        'visual chrome can still be exercised.'
+                          '`WindowingOwnerMacOS().createRegularWindowController(...)` would mint a real '
+                          'controller. Because the type is `@internal` and lives in a private file, this '
+                          'demo uses a faithful local mirror so the API surface, state machine, and '
+                          'visual chrome can still be exercised.'
                     : 'The native FFI bindings only resolve on macOS. Below you still see live '
-                        '`_FakeRegularWindowControllerMacOS` instances driving accurate state, plus '
-                        'CustomPainter chrome that mirrors macOS traffic-lights, title bar, fullscreen, '
-                        'and minimize/zoom semantics.',
+                          '`_FakeRegularWindowControllerMacOS` instances driving accurate state, plus '
+                          'CustomPainter chrome that mirrors macOS traffic-lights, title bar, fullscreen, '
+                          'and minimize/zoom semantics.',
                 style: TextStyle(
                   fontSize: 12.5,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.78),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.78),
                 ),
               ),
             ],
@@ -989,7 +1032,11 @@ Widget _buildAnatomySection(BuildContext context) {
           'are NOT exported by `package:flutter/widgets.dart`. The constructor '
           'is also annotated `@internal` and runtime-guarded by '
           '`isWindowingEnabled`.',
-          style: TextStyle(fontFamily: 'monospace', fontSize: 12.5, height: 1.45),
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12.5,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 14),
         _CodeSnippet(
@@ -1035,7 +1082,8 @@ Widget _buildChromeAnatomy(BuildContext context) {
                         emoji: '●',
                         color: _macosRed,
                         title: 'Close (red)',
-                        body: 'Triggers `delegate.onWindowCloseRequested(controller)`. '
+                        body:
+                            'Triggers `delegate.onWindowCloseRequested(controller)`. '
                             'The default `RegularWindowControllerDelegate` calls '
                             '`controller.destroy()`. Override to confirm before close.',
                       ),
@@ -1043,14 +1091,16 @@ Widget _buildChromeAnatomy(BuildContext context) {
                         emoji: '●',
                         color: _macosYellow,
                         title: 'Minimize (yellow)',
-                        body: 'Calls `controller.setMinimized(true)`; restore via '
+                        body:
+                            'Calls `controller.setMinimized(true)`; restore via '
                             '`setMinimized(false)`. Reads back via `isMinimized`.',
                       ),
                       _AnatomyBullet(
                         emoji: '●',
                         color: _macosGreen,
                         title: 'Zoom (green)',
-                        body: 'Toggles maximize/zoom via `setMaximized(true/false)`. '
+                        body:
+                            'Toggles maximize/zoom via `setMaximized(true/false)`. '
                             'Holding option toggles fullscreen via `setFullscreen(true)`.',
                       ),
                     ],
@@ -1092,18 +1142,21 @@ class _AnatomyBullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(emoji,
-              style: TextStyle(color: color, fontSize: 22, height: 1.0)),
+          Text(
+            emoji,
+            style: TextStyle(color: color, fontSize: 22, height: 1.0),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title,
-                    style: const TextStyle(fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
-                Text(body,
-                    style: const TextStyle(fontSize: 12.5, height: 1.4)),
+                Text(body, style: const TextStyle(fontSize: 12.5, height: 1.4)),
               ],
             ),
           ),
@@ -1186,11 +1239,15 @@ Widget _buildResizeSection(BuildContext context) {
                                 onChanged: (double v) {
                                   _resizeWidth.value = v;
                                   _primaryController.setSize(
-                                      Size(v, _resizeHeight.value));
+                                    Size(v, _resizeHeight.value),
+                                  );
                                 },
                               ),
                             ),
-                            SizedBox(width: 60, child: Text(w.toStringAsFixed(0))),
+                            SizedBox(
+                              width: 60,
+                              child: Text(w.toStringAsFixed(0)),
+                            ),
                           ],
                         ),
                         Row(
@@ -1206,11 +1263,15 @@ Widget _buildResizeSection(BuildContext context) {
                                 onChanged: (double v) {
                                   _resizeHeight.value = v;
                                   _primaryController.setSize(
-                                      Size(_resizeWidth.value, v));
+                                    Size(_resizeWidth.value, v),
+                                  );
                                 },
                               ),
                             ),
-                            SizedBox(width: 60, child: Text(h.toStringAsFixed(0))),
+                            SizedBox(
+                              width: 60,
+                              child: Text(h.toStringAsFixed(0)),
+                            ),
                           ],
                         ),
                       ],
@@ -1229,10 +1290,7 @@ Widget _buildResizeSection(BuildContext context) {
                 return Text(
                   'controller.contentSize  ⇒  '
                   'Size(${cs.width.toStringAsFixed(0)}, ${cs.height.toStringAsFixed(0)})',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
                 );
               },
             ),
@@ -1432,12 +1490,16 @@ Widget _buildFullscreenSection(BuildContext context) {
                           : (bool v) => _primaryController.setFullscreen(v),
                     ),
                     const SizedBox(width: 8),
-                    Text('setFullscreen($fs)',
-                        style: const TextStyle(fontFamily: 'monospace')),
+                    Text(
+                      'setFullscreen($fs)',
+                      style: const TextStyle(fontFamily: 'monospace'),
+                    ),
                     const SizedBox(width: 16),
                     Chip(
-                      avatar: Icon(fs ? Icons.fullscreen : Icons.fullscreen_exit,
-                          size: 18),
+                      avatar: Icon(
+                        fs ? Icons.fullscreen : Icons.fullscreen_exit,
+                        size: 18,
+                      ),
                       label: Text('isFullscreen = $fs'),
                     ),
                   ],
@@ -1524,7 +1586,8 @@ Widget _buildCloseSection(BuildContext context) {
 Widget _buildFocusSection(BuildContext context) {
   return _SectionCard(
     title: '9 · Focus / activate · activate · isActivated',
-    subtitle: 'Activating a controller deactivates siblings (per the macOS HIG).',
+    subtitle:
+        'Activating a controller deactivates siblings (per the macOS HIG).',
     child: ValueListenableBuilder<bool>(
       valueListenable: _darkMode,
       builder: (BuildContext ctx, bool dark, _) {
@@ -1562,7 +1625,11 @@ Widget _buildFocusSection(BuildContext context) {
   );
 }
 
-Widget _focusTile(String label, _FakeRegularWindowControllerMacOS c, bool dark) {
+Widget _focusTile(
+  String label,
+  _FakeRegularWindowControllerMacOS c,
+  bool dark,
+) {
   return InkWell(
     onTap: c.isDestroyed ? null : c.activate,
     child: Container(
@@ -1594,8 +1661,7 @@ Widget _focusTile(String label, _FakeRegularWindowControllerMacOS c, bool dark) 
                     : Colors.grey,
               ),
               const SizedBox(width: 6),
-              Text(label,
-                  style: const TextStyle(fontWeight: FontWeight.w600)),
+              Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
             ],
           ),
           const SizedBox(height: 6),
@@ -1920,20 +1986,23 @@ Widget _buildRecipeGallery(BuildContext context) {
                         ),
                         borderRadius: BorderRadius.circular(8),
                         color: selected
-                            ? Theme.of(c)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: 0.06)
+                            ? Theme.of(
+                                c,
+                              ).colorScheme.primary.withValues(alpha: 0.06)
                             : Colors.transparent,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('${i + 1}. ${r.title}',
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w600),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis),
+                          Text(
+                            '${i + 1}. ${r.title}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           const SizedBox(height: 6),
                           Expanded(
                             child: _RecipePreview(spec: r, miniature: true),
@@ -1946,7 +2015,9 @@ Widget _buildRecipeGallery(BuildContext context) {
               ),
             ),
             const SizedBox(height: 14),
-            Center(child: _RecipePreview(spec: _recipes[sel], miniature: false)),
+            Center(
+              child: _RecipePreview(spec: _recipes[sel], miniature: false),
+            ),
             const SizedBox(height: 12),
             _CodeSnippet(code: _recipes[sel].code),
           ],
@@ -2070,28 +2141,32 @@ Widget _buildPitfallsSection(BuildContext context) {
               children: <Widget>[
                 CircleAvatar(
                   radius: 12,
-                  backgroundColor: Theme.of(context)
-                      .colorScheme
-                      .primary
-                      .withValues(alpha: 0.12),
-                  child: Text('${i + 1}',
-                      style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).colorScheme.primary)),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.12),
+                  child: Text(
+                    '${i + 1}',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(rows[i][0],
-                          style:
-                              const TextStyle(fontWeight: FontWeight.w700)),
+                      Text(
+                        rows[i][0],
+                        style: const TextStyle(fontWeight: FontWeight.w700),
+                      ),
                       const SizedBox(height: 4),
-                      Text(rows[i][1],
-                          style: const TextStyle(
-                              fontSize: 12.5, height: 1.45)),
+                      Text(
+                        rows[i][1],
+                        style: const TextStyle(fontSize: 12.5, height: 1.45),
+                      ),
                     ],
                   ),
                 ),
@@ -2105,7 +2180,10 @@ Widget _buildPitfallsSection(BuildContext context) {
 
 Widget _buildReferenceTable(BuildContext context) {
   const List<List<String>> apiRows = <List<String>>[
-    <String>['Constructor', 'RegularWindowControllerMacOS({owner, delegate, preferredSize, preferredConstraints, title})'],
+    <String>[
+      'Constructor',
+      'RegularWindowControllerMacOS({owner, delegate, preferredSize, preferredConstraints, title})',
+    ],
     <String>['contentSize', 'Size — current content area'],
     <String>['title', 'String — current window title'],
     <String>['constraints', 'BoxConstraints — current min/max'],
@@ -2113,38 +2191,61 @@ Widget _buildReferenceTable(BuildContext context) {
     <String>['isMinimized', 'bool — getter'],
     <String>['isFullscreen', 'bool — getter'],
     <String>['isActivated', 'bool — getter'],
-    <String>['setSize(Size)', 'set content size (FFI: InternalFlutter_Window_SetContentSize)'],
-    <String>['setConstraints(BoxConstraints)', 'set min/max (FFI: InternalFlutter_Window_SetConstraints)'],
-    <String>['setTitle(String)', 'sets window title (FFI: InternalFlutter_Window_SetTitle)'],
+    <String>[
+      'setSize(Size)',
+      'set content size (FFI: InternalFlutter_Window_SetContentSize)',
+    ],
+    <String>[
+      'setConstraints(BoxConstraints)',
+      'set min/max (FFI: InternalFlutter_Window_SetConstraints)',
+    ],
+    <String>[
+      'setTitle(String)',
+      'sets window title (FFI: InternalFlutter_Window_SetTitle)',
+    ],
     <String>['setMaximized(bool)', 'green-button zoom toggle'],
     <String>['setMinimized(bool)', 'yellow-button miniaturize / unminiaturize'],
-    <String>['setFullscreen(bool, {Display? display})', 'native Space transition'],
-    <String>['activate()', 'raise + key window (FFI: InternalFlutter_Window_Activate)'],
+    <String>[
+      'setFullscreen(bool, {Display? display})',
+      'native Space transition',
+    ],
+    <String>[
+      'activate()',
+      'raise + key window (FFI: InternalFlutter_Window_Activate)',
+    ],
     <String>['destroy()', 'tear down the NSWindow + close NativeCallables'],
     <String>['getWindowHandle()', 'Pointer<Void> to NSWindow*'],
   ];
   const List<List<String>> delegateRows = <List<String>>[
-    <String>['onWindowCloseRequested(controller)', 'user clicked ⊗; default = controller.destroy()'],
+    <String>[
+      'onWindowCloseRequested(controller)',
+      'user clicked ⊗; default = controller.destroy()',
+    ],
     <String>['onWindowDestroyed()', 'NSWindow has been torn down'],
   ];
 
   return _SectionCard(
     title: '13 · Reference table',
-    subtitle: 'Full API surface for `RegularWindowControllerMacOS` and its delegate.',
+    subtitle:
+        'Full API surface for `RegularWindowControllerMacOS` and its delegate.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
-          child: Text('RegularWindowControllerMacOS',
-              style: Theme.of(context).textTheme.titleMedium),
+          child: Text(
+            'RegularWindowControllerMacOS',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
         ),
         _refTable(context, apiRows),
         const SizedBox(height: 14),
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
-          child: Text('RegularWindowControllerDelegate',
-              style: Theme.of(context).textTheme.titleMedium),
+          child: Text(
+            'RegularWindowControllerDelegate',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
         ),
         _refTable(context, delegateRows),
       ],
@@ -2261,27 +2362,32 @@ Widget _buildHeader(BuildContext context) {
           width: 44,
           height: 44,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.14),
+            color: Theme.of(
+              context,
+            ).colorScheme.primary.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(10),
           ),
           alignment: Alignment.center,
-          child: Icon(Icons.desktop_mac,
-              color: Theme.of(context).colorScheme.primary),
+          child: Icon(
+            Icons.desktop_mac,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         const SizedBox(width: 14),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('RegularWindowControllerMacOS',
-                  style: Theme.of(context).textTheme.headlineSmall),
+              Text(
+                'RegularWindowControllerMacOS',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
               const SizedBox(height: 2),
               Text(
                 'Deep demo · Flutter experimental multi-window API · macOS impl',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color:
-                          Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -2297,8 +2403,10 @@ Widget _buildHeader(BuildContext context) {
                   size: 16,
                   color: focused ? Colors.green : Colors.grey,
                 ),
-                label: Text(focused ? 'primary focused' : 'primary blurred',
-                    style: const TextStyle(fontSize: 11)),
+                label: Text(
+                  focused ? 'primary focused' : 'primary blurred',
+                  style: const TextStyle(fontSize: 11),
+                ),
                 visualDensity: VisualDensity.compact,
               ),
             );

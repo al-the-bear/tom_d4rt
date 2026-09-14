@@ -133,9 +133,7 @@ class _ObservatoryShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: _Palette.background,
-      body: SafeArea(
-        child: _ObservatoryBody(),
-      ),
+      body: SafeArea(child: _ObservatoryBody()),
     );
   }
 }
@@ -292,8 +290,10 @@ class _ObservatoryBodyState extends State<_ObservatoryBody>
       _idleTransitions++;
     });
     _controller.jumpTo(target);
-    debugPrint('ScrollActivityDelegate: jumpTo($target) '
-        'calls setPixels synchronously — no new activity is constructed.');
+    debugPrint(
+      'ScrollActivityDelegate: jumpTo($target) '
+      'calls setPixels synchronously — no new activity is constructed.',
+    );
   }
 
   Future<void> _triggerAnimateHome() async {
@@ -444,12 +444,8 @@ class _Oscilloscope extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: <Widget>[
-          Positioned.fill(
-            child: CustomPaint(painter: _GridPainter()),
-          ),
-          Positioned.fill(
-            child: CustomPaint(painter: _OscilloTracePainter()),
-          ),
+          Positioned.fill(child: CustomPaint(painter: _GridPainter())),
+          Positioned.fill(child: CustomPaint(painter: _OscilloTracePainter())),
           Positioned(
             top: 10,
             left: 14,
@@ -520,7 +516,8 @@ class _OscilloTracePainter extends CustomPainter {
     for (int i = 0; i < 160; i++) {
       final double x = i * (size.width / 160);
       final double phase = i / 160 * math.pi * 4;
-      final double y = midY +
+      final double y =
+          midY +
           math.sin(phase) * 18 +
           math.sin(phase * 2.3) * 6 -
           (i > 90 && i < 120 ? 20 : 0);
@@ -616,7 +613,9 @@ class _PhaseDashboard extends StatelessWidget {
                   duration: const Duration(milliseconds: 220),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: _Palette.overscroll.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
@@ -736,11 +735,7 @@ class _PhaseBadge extends StatelessWidget {
               ),
             ],
           ),
-          child: Icon(
-            phase.icon,
-            color: phase.color,
-            size: 28,
-          ),
+          child: Icon(phase.icon, color: phase.color, size: 28),
         );
       },
     );
@@ -831,7 +826,9 @@ class _LiveMonitorCard extends StatelessWidget {
                   controller: controller,
                   itemCount: 80,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   itemBuilder: (BuildContext context, int index) {
                     return _MonitorRow(index: index);
                   },
@@ -870,9 +867,7 @@ class _MonitorRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: _Palette.cardRaised,
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: hue, width: 3),
-        ),
+        border: Border(left: BorderSide(color: hue, width: 3)),
       ),
       child: Row(
         children: <Widget>[
@@ -1002,13 +997,13 @@ class _SparklineCard extends StatelessWidget {
                       samples.isEmpty
                           ? 'no samples yet'
                           : 'samples: ${samples.length}/120   last: '
-                              '${samples.last.toStringAsFixed(2)}',
+                                '${samples.last.toStringAsFixed(2)}',
                       style: const TextStyle(
                         color: _Palette.textFaint,
                         fontSize: 10,
                         letterSpacing: 1.0,
                         fontFeatures: <FontFeature>[
-                          FontFeature.tabularFigures()
+                          FontFeature.tabularFigures(),
                         ],
                       ),
                     ),
@@ -1348,20 +1343,59 @@ class _StateMachinePainter extends CustomPainter {
     ];
 
     // edges
-    _drawEdge(canvas, nodes[0].pos, nodes[1].pos,
-        label: 'touch down', labelColor: _Palette.hold);
-    _drawEdge(canvas, nodes[1].pos, nodes[2].pos,
-        label: 'move', labelColor: _Palette.drag);
-    _drawEdge(canvas, nodes[0].pos, nodes[2].pos,
-        label: 'drag start', labelColor: _Palette.drag, dashed: true);
-    _drawEdge(canvas, nodes[2].pos, nodes[3].pos,
-        label: 'goBallistic(v)', labelColor: _Palette.ballistic);
-    _drawEdge(canvas, nodes[3].pos, nodes[0].pos,
-        label: 'goIdle()', labelColor: _Palette.idle, curveUp: true);
-    _drawEdge(canvas, nodes[0].pos, nodes[4].pos,
-        label: 'animateTo()', labelColor: _Palette.driven, dashed: true);
-    _drawEdge(canvas, nodes[4].pos, nodes[0].pos,
-        label: 'complete', labelColor: _Palette.idle, curveUp: false);
+    _drawEdge(
+      canvas,
+      nodes[0].pos,
+      nodes[1].pos,
+      label: 'touch down',
+      labelColor: _Palette.hold,
+    );
+    _drawEdge(
+      canvas,
+      nodes[1].pos,
+      nodes[2].pos,
+      label: 'move',
+      labelColor: _Palette.drag,
+    );
+    _drawEdge(
+      canvas,
+      nodes[0].pos,
+      nodes[2].pos,
+      label: 'drag start',
+      labelColor: _Palette.drag,
+      dashed: true,
+    );
+    _drawEdge(
+      canvas,
+      nodes[2].pos,
+      nodes[3].pos,
+      label: 'goBallistic(v)',
+      labelColor: _Palette.ballistic,
+    );
+    _drawEdge(
+      canvas,
+      nodes[3].pos,
+      nodes[0].pos,
+      label: 'goIdle()',
+      labelColor: _Palette.idle,
+      curveUp: true,
+    );
+    _drawEdge(
+      canvas,
+      nodes[0].pos,
+      nodes[4].pos,
+      label: 'animateTo()',
+      labelColor: _Palette.driven,
+      dashed: true,
+    );
+    _drawEdge(
+      canvas,
+      nodes[4].pos,
+      nodes[0].pos,
+      label: 'complete',
+      labelColor: _Palette.idle,
+      curveUp: false,
+    );
 
     // nodes
     for (final _Node n in nodes) {
@@ -1370,19 +1404,12 @@ class _StateMachinePainter extends CustomPainter {
         ..color = n.color
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.6;
-      final Rect rect = Rect.fromCenter(
-        center: n.pos,
-        width: 84,
-        height: 34,
-      );
+      final Rect rect = Rect.fromCenter(center: n.pos, width: 84, height: 34);
       final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(10));
       canvas.drawRRect(rr, bg);
       canvas.drawRRect(rr, border);
       final TextPainter tp = makeText(n.label, n.color);
-      tp.paint(
-        canvas,
-        n.pos - Offset(tp.width / 2, tp.height / 2),
-      );
+      tp.paint(canvas, n.pos - Offset(tp.width / 2, tp.height / 2));
     }
   }
 
@@ -1575,7 +1602,9 @@ class _MethodRow extends StatelessWidget {
                 width: 160,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: _Palette.cardSunken,
                     borderRadius: BorderRadius.circular(6),
@@ -1901,10 +1930,7 @@ class _TeachingBullet extends StatelessWidget {
           margin: const EdgeInsets.only(top: 4),
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: phase.color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: phase.color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1943,9 +1969,7 @@ class _Caveat extends StatelessWidget {
       decoration: BoxDecoration(
         color: _Palette.overscroll.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: _Palette.overscroll.withValues(alpha: 0.45),
-        ),
+        border: Border.all(color: _Palette.overscroll.withValues(alpha: 0.45)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

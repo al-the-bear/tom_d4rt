@@ -153,10 +153,7 @@ class _SectionShell extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: theme.colorScheme.surface,
-        border: Border.all(
-          color: accent.withOpacity(0.18),
-          width: 1.0,
-        ),
+        border: Border.all(color: accent.withOpacity(0.18), width: 1.0),
         boxShadow: [
           BoxShadow(
             color: accent.withOpacity(0.06),
@@ -290,10 +287,7 @@ class _Bullet extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 13.5,
-                height: 1.35,
-              ),
+              style: const TextStyle(fontSize: 13.5, height: 1.35),
             ),
           ),
         ],
@@ -665,10 +659,7 @@ class _ResponsiveBreakpointsSectionState
           ),
           const SizedBox(height: 8),
           Center(
-            child: SizedBox(
-              width: _width,
-              child: const _BreakpointCard(),
-            ),
+            child: SizedBox(width: _width, child: const _BreakpointCard()),
           ),
           const SizedBox(height: 8),
           const _Bullet(
@@ -935,17 +926,21 @@ class _AdaptiveGridSectionState extends State<_AdaptiveGridSection> {
               width: _availableWidth,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final columns =
-                      _columnsFor(constraints.maxWidth, _itemMinWidth);
-                  final tileWidth = (constraints.maxWidth -
-                          (columns - 1) * _itemSpacing) /
+                  final columns = _columnsFor(
+                    constraints.maxWidth,
+                    _itemMinWidth,
+                  );
+                  final tileWidth =
+                      (constraints.maxWidth - (columns - 1) * _itemSpacing) /
                       columns;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEF6C00),
                           borderRadius: BorderRadius.circular(6),
@@ -1119,26 +1114,22 @@ class _SliverLayoutBuilderSectionState
                           return SliverGrid(
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              mainAxisSpacing: 6,
-                              crossAxisSpacing: 6,
-                              childAspectRatio: 1.4,
-                            ),
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 6,
+                                  crossAxisSpacing: 6,
+                                  childAspectRatio: 1.4,
+                                ),
                             delegate: SliverChildBuilderDelegate(
-                              (context, index) => _SliverItem(
-                                index: index,
-                                isGrid: true,
-                              ),
+                              (context, index) =>
+                                  _SliverItem(index: index, isGrid: true),
                               childCount: 24,
                             ),
                           );
                         } else {
                           return SliverList(
                             delegate: SliverChildBuilderDelegate(
-                              (context, index) => _SliverItem(
-                                index: index,
-                                isGrid: false,
-                              ),
+                              (context, index) =>
+                                  _SliverItem(index: index, isGrid: false),
                               childCount: 24,
                             ),
                           );
@@ -1163,9 +1154,7 @@ class _SliverLayoutBuilderSectionState
           const _Bullet(
             'crossAxisExtent < 380 -> SliverList (vertical, dense).',
           ),
-          const _Bullet(
-            'crossAxisExtent >= 380 -> SliverGrid (3 columns).',
-          ),
+          const _Bullet('crossAxisExtent >= 380 -> SliverGrid (3 columns).'),
           const _Bullet(
             'SliverConstraints carries scrollOffset, axisDirection, '
             'crossAxisExtent, etc. The builder is only called when these '
@@ -1415,15 +1404,11 @@ class _ComparisonCard extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(6),
@@ -1440,10 +1425,7 @@ class _ComparisonCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 11, height: 1.3),
-          ),
+          Text(description, style: const TextStyle(fontSize: 11, height: 1.3)),
           const SizedBox(height: 8),
           child,
         ],
@@ -1556,8 +1538,7 @@ class _AspectRatioCompositionSectionState
               height: _height,
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final ratio =
-                      constraints.maxWidth / constraints.maxHeight;
+                  final ratio = constraints.maxWidth / constraints.maxHeight;
                   final isWide = ratio >= 1.4;
                   return Container(
                     decoration: BoxDecoration(
@@ -1571,7 +1552,9 @@ class _AspectRatioCompositionSectionState
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 3),
+                            horizontal: 6,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(0xFF455A64),
                             borderRadius: BorderRadius.circular(6),
@@ -1596,13 +1579,17 @@ class _AspectRatioCompositionSectionState
                                     Expanded(
                                       flex: 2,
                                       child: _DemoBlock(
-                                          label: 'Hero', height: 0),
+                                        label: 'Hero',
+                                        height: 0,
+                                      ),
                                     ),
                                     SizedBox(width: 8),
                                     Expanded(
                                       flex: 3,
                                       child: _DemoBlock(
-                                          label: 'Detail', height: 0),
+                                        label: 'Detail',
+                                        height: 0,
+                                      ),
                                     ),
                                   ],
                                 )
@@ -1613,13 +1600,17 @@ class _AspectRatioCompositionSectionState
                                     Expanded(
                                       flex: 2,
                                       child: _DemoBlock(
-                                          label: 'Hero', height: 0),
+                                        label: 'Hero',
+                                        height: 0,
+                                      ),
                                     ),
                                     SizedBox(height: 8),
                                     Expanded(
                                       flex: 3,
                                       child: _DemoBlock(
-                                          label: 'Detail', height: 0),
+                                        label: 'Detail',
+                                        height: 0,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1737,11 +1728,10 @@ class _LiveConstraintsInspectorSectionState
             child: ConstrainedBox(
               constraints: _tight
                   ? BoxConstraints.tightFor(
-                      width: _maxWidth, height: _maxHeight)
-                  : BoxConstraints(
-                      maxWidth: _maxWidth,
-                      maxHeight: _maxHeight,
-                    ),
+                      width: _maxWidth,
+                      height: _maxHeight,
+                    )
+                  : BoxConstraints(maxWidth: _maxWidth, maxHeight: _maxHeight),
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   return Container(
@@ -1750,7 +1740,9 @@ class _LiveConstraintsInspectorSectionState
                     decoration: BoxDecoration(
                       color: const Color(0xFFEDE7F6),
                       border: Border.all(
-                          color: const Color(0xFF4527A0), width: 2),
+                        color: const Color(0xFF4527A0),
+                        width: 2,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     padding: const EdgeInsets.all(12),
@@ -1779,32 +1771,29 @@ class _ConstraintsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget row(String label, String value) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 110,
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                ),
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 110,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
               ),
-              Expanded(
-                child: Text(
-                  value,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        );
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+          ),
+        ],
+      ),
+    );
 
     String fmt(double v) {
       if (v == double.infinity) return 'infinity';
@@ -1827,14 +1816,10 @@ class _ConstraintsView extends StatelessWidget {
         row('maxHeight', fmt(constraints.maxHeight)),
         const Divider(),
         row('isTight', constraints.isTight.toString()),
-        row('hasBoundedWidth',
-            constraints.hasBoundedWidth.toString()),
-        row('hasBoundedHeight',
-            constraints.hasBoundedHeight.toString()),
-        row('hasInfiniteWidth',
-            constraints.hasInfiniteWidth.toString()),
-        row('hasInfiniteHeight',
-            constraints.hasInfiniteHeight.toString()),
+        row('hasBoundedWidth', constraints.hasBoundedWidth.toString()),
+        row('hasBoundedHeight', constraints.hasBoundedHeight.toString()),
+        row('hasInfiniteWidth', constraints.hasInfiniteWidth.toString()),
+        row('hasInfiniteHeight', constraints.hasInfiniteHeight.toString()),
       ],
     );
   }
@@ -1871,7 +1856,8 @@ class _PitfallsSection extends StatelessWidget {
         accent: Color(0xFFE65100),
       ),
       _Pitfall(
-        title: 'SliverLayoutBuilder lives in widgets/sliver_layout_builder.dart',
+        title:
+            'SliverLayoutBuilder lives in widgets/sliver_layout_builder.dart',
         body:
             'Importing only "package:flutter/material.dart" is fine — it '
             'transitively exports widgets. But know that '
@@ -1987,7 +1973,8 @@ class _RecipeGallerySection extends StatelessWidget {
               'icon and move actions into an overflow menu.',
           'Above 360px, show the full title and inline action buttons.',
         ],
-        body: 'AppBar(\n'
+        body:
+            'AppBar(\n'
             '  title: LayoutBuilder(\n'
             '    builder: (ctx, c) => c.maxWidth < 360\n'
             '        ? const Icon(Icons.menu_book)\n'
@@ -2014,7 +2001,8 @@ class _RecipeGallerySection extends StatelessWidget {
               'side panel using a Row.',
           'Driven by a single LayoutBuilder around the Scaffold body.',
         ],
-        body: 'LayoutBuilder(\n'
+        body:
+            'LayoutBuilder(\n'
             '  builder: (ctx, c) {\n'
             '    if (c.maxWidth < 1100) {\n'
             '      return Scaffold(drawer: const _MyDrawer(), body: body);\n'
@@ -2038,7 +2026,8 @@ class _RecipeGallerySection extends StatelessWidget {
           'No MediaQuery — driven entirely by the constraints handed to '
               'the layout builder.',
         ],
-        body: 'LayoutBuilder(\n'
+        body:
+            'LayoutBuilder(\n'
             '  builder: (ctx, c) {\n'
             '    final twoPane = c.maxWidth >= 720;\n'
             '    return twoPane\n'
@@ -2059,7 +2048,8 @@ class _RecipeGallerySection extends StatelessWidget {
           'Narrow viewport: SliverList of compact rows.',
           'Wider viewport: SliverGrid with image thumbnails.',
         ],
-        body: 'SliverLayoutBuilder(\n'
+        body:
+            'SliverLayoutBuilder(\n'
             '  builder: (ctx, c) {\n'
             '    if (c.crossAxisExtent < 480) return const _CompactList();\n'
             '    return _ThumbnailGrid(columns: c.crossAxisExtent ~/ 160);\n'
@@ -2205,19 +2195,18 @@ class _ReferenceTableSection extends StatelessWidget {
       index: 11,
       accent: const Color(0xFF263238),
       title: 'Reference table',
-      subtitle:
-          'Symbols touched by this demo, with one-line notes for each.',
+      subtitle: 'Symbols touched by this demo, with one-line notes for each.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
             decoration: BoxDecoration(
               color: const Color(0xFF263238),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(8)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(8),
+              ),
             ),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             child: Row(
               children: const [
                 Expanded(
@@ -2270,12 +2259,10 @@ class _ReferenceTableSection extends StatelessWidget {
                       : BorderSide.none,
                 ),
                 borderRadius: i == rows.length - 1
-                    ? const BorderRadius.vertical(
-                        bottom: Radius.circular(8))
+                    ? const BorderRadius.vertical(bottom: Radius.circular(8))
                     : BorderRadius.zero,
               ),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: rows[i],
             ),
         ],
@@ -2348,10 +2335,7 @@ class _Footer extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 12,
-            color: Theme.of(context)
-                .colorScheme
-                .onSurface
-                .withOpacity(0.6),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
           ),
         ),
       ),

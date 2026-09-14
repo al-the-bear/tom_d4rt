@@ -247,7 +247,7 @@ Widget _buildConceptTab(Color accent) {
           Icons.swap_horiz,
           'Value Transitions',
           'Animate between two values (opacity, size, color, position) '
-          'driven by state changes.',
+              'driven by state changes.',
           accent,
         ),
         const SizedBox(height: 8),
@@ -255,7 +255,7 @@ Widget _buildConceptTab(Color accent) {
           Icons.widgets,
           'Custom Implicit Animations',
           'Build animations that aren\u0027t covered by built-in '
-          'AnimatedFoo widgets like AnimatedOpacity.',
+              'AnimatedFoo widgets like AnimatedOpacity.',
           accent,
         ),
         const SizedBox(height: 8),
@@ -263,7 +263,7 @@ Widget _buildConceptTab(Color accent) {
           Icons.code_off,
           'Reducing Boilerplate',
           'Avoid the ceremony of AnimationController, vsync, '
-          'forward(), reverse(), and dispose().',
+              'forward(), reverse(), and dispose().',
           accent,
         ),
         const SizedBox(height: 8),
@@ -271,7 +271,7 @@ Widget _buildConceptTab(Color accent) {
           Icons.refresh,
           'One-Shot Entry Animations',
           'Animate a widget into view on first build by setting '
-          'an initial value different from the target.',
+              'an initial value different from the target.',
           accent,
         ),
         const SizedBox(height: 24),
@@ -352,9 +352,9 @@ Widget _buildApiTab(Color accent) {
           'tween',
           'Tween<T>',
           'Defines the range of values to interpolate between. '
-          'The begin value is the starting point and end is the target. '
-          'When end changes, a new animation runs from the current '
-          'interpolated value to the new end.',
+              'The begin value is the starting point and end is the target. '
+              'When end changes, a new animation runs from the current '
+              'interpolated value to the new end.',
           accent,
           isRequired: true,
         ),
@@ -363,8 +363,8 @@ Widget _buildApiTab(Color accent) {
           'duration',
           'Duration',
           'How long the animation takes to complete from start to finish. '
-          'Typical values range from 200ms for micro-interactions to '
-          '1000ms+ for dramatic transitions.',
+              'Typical values range from 200ms for micro-interactions to '
+              '1000ms+ for dramatic transitions.',
           accent,
           isRequired: true,
         ),
@@ -373,8 +373,8 @@ Widget _buildApiTab(Color accent) {
           'builder',
           'Widget Function(BuildContext, T, Widget?)',
           'Called every frame with the current interpolated value. '
-          'Receives context, the animated value of type T, and an '
-          'optional pre-built child widget for optimization.',
+              'Receives context, the animated value of type T, and an '
+              'optional pre-built child widget for optimization.',
           accent,
           isRequired: true,
         ),
@@ -383,8 +383,8 @@ Widget _buildApiTab(Color accent) {
           'curve',
           'Curve',
           'Defines the easing function applied to the animation timeline. '
-          'Defaults to Curves.linear. Common choices include easeIn, '
-          'easeOut, easeInOut, and bounceOut.',
+              'Defaults to Curves.linear. Common choices include easeIn, '
+              'easeOut, easeInOut, and bounceOut.',
           accent,
         ),
         const SizedBox(height: 12),
@@ -392,8 +392,8 @@ Widget _buildApiTab(Color accent) {
           'child',
           'Widget?',
           'An optional pre-built widget passed through to the builder. '
-          'Use this for parts of the subtree that don\u0027t depend on '
-          'the animated value, improving performance.',
+              'Use this for parts of the subtree that don\u0027t depend on '
+              'the animated value, improving performance.',
           accent,
         ),
         const SizedBox(height: 12),
@@ -401,8 +401,8 @@ Widget _buildApiTab(Color accent) {
           'onEnd',
           'VoidCallback?',
           'Called when the animation finishes. Useful for chaining '
-          'animations, triggering side effects, or updating state '
-          'after the transition completes.',
+              'animations, triggering side effects, or updating state '
+              'after the transition completes.',
           accent,
         ),
         const SizedBox(height: 24),
@@ -484,7 +484,11 @@ Widget _buildApiTab(Color accent) {
             children: [
               _buildHierarchyRow('Widget', 0, Colors.grey),
               _buildHierarchyRow('StatefulWidget', 1, Colors.grey),
-              _buildHierarchyRow('ImplicitlyAnimatedWidget', 2, Colors.blueGrey),
+              _buildHierarchyRow(
+                'ImplicitlyAnimatedWidget',
+                2,
+                Colors.blueGrey,
+              ),
               _buildHierarchyRow('TweenAnimationBuilder<T>', 3, accent),
             ],
           ),
@@ -604,7 +608,7 @@ Widget _buildTweenTypesTab(Color accent) {
         _buildTweenTypeCard(
           'DecorationTween',
           'Interpolates BoxDecoration properties including color, '
-          'border, shadow, and gradient.',
+              'border, shadow, and gradient.',
           'DecorationTween(\n  begin: BoxDecoration(color: Colors.white),\n  end: BoxDecoration(color: Colors.blue),\n)',
           'Card elevation, container styling, hover effects',
           Icons.format_paint,
@@ -782,21 +786,61 @@ Widget _buildCurvesTab(Color accent) {
         const SizedBox(height: 20),
 
         // Visual curve representation table
-        _buildCurveRow('linear', '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500', 'Constant speed', accent),
+        _buildCurveRow(
+          'linear',
+          '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+          'Constant speed',
+          accent,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('easeIn', '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571\u2571\u2571\u2502\u2502', 'Starts slow, ends fast', Colors.blue),
+        _buildCurveRow(
+          'easeIn',
+          '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2571\u2571\u2571\u2502\u2502',
+          'Starts slow, ends fast',
+          Colors.blue,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('easeOut', '\u2502\u2502\u2572\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500', 'Starts fast, ends slow', Colors.green),
+        _buildCurveRow(
+          'easeOut',
+          '\u2502\u2502\u2572\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+          'Starts fast, ends slow',
+          Colors.green,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('easeInOut', '\u2500\u2500\u2500\u2571\u2571\u2572\u2572\u2500\u2500\u2500\u2500\u2500', 'Slow start and end', Colors.purple),
+        _buildCurveRow(
+          'easeInOut',
+          '\u2500\u2500\u2500\u2571\u2571\u2572\u2572\u2500\u2500\u2500\u2500\u2500',
+          'Slow start and end',
+          Colors.purple,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('bounceOut', '\u2502\u25cb\u2502\u25cb\u2502\u2500\u25cb\u2500\u2500\u2500\u2500\u2500', 'Bounces at the end', Colors.orange),
+        _buildCurveRow(
+          'bounceOut',
+          '\u2502\u25cb\u2502\u25cb\u2502\u2500\u25cb\u2500\u2500\u2500\u2500\u2500',
+          'Bounces at the end',
+          Colors.orange,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('elasticOut', '\u2502\u2500\u223c\u223c\u2500\u223c\u2500\u2500\u2500\u2500\u2500\u2500', 'Spring-like overshoot', Colors.red),
+        _buildCurveRow(
+          'elasticOut',
+          '\u2502\u2500\u223c\u223c\u2500\u223c\u2500\u2500\u2500\u2500\u2500\u2500',
+          'Spring-like overshoot',
+          Colors.red,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('decelerate', '\u2502\u2502\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500', 'Quick deceleration', Colors.teal),
+        _buildCurveRow(
+          'decelerate',
+          '\u2502\u2502\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+          'Quick deceleration',
+          Colors.teal,
+        ),
         const SizedBox(height: 8),
-        _buildCurveRow('fastOutSlowIn', '\u2502\u2502\u2572\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500', 'Material Design default', Colors.indigo),
+        _buildCurveRow(
+          'fastOutSlowIn',
+          '\u2502\u2502\u2572\u2572\u2572\u2500\u2500\u2500\u2500\u2500\u2500\u2500',
+          'Material Design default',
+          Colors.indigo,
+        ),
         const SizedBox(height: 24),
 
         // Usage with TweenAnimationBuilder
@@ -974,9 +1018,17 @@ Widget _buildCurvesTab(Color accent) {
             children: [
               _buildCurveFlipRow('Original', 'Curves.easeIn', accent),
               const Divider(),
-              _buildCurveFlipRow('Flipped', 'Curves.easeIn.flipped', Colors.red),
+              _buildCurveFlipRow(
+                'Flipped',
+                'Curves.easeIn.flipped',
+                Colors.red,
+              ),
               const Divider(),
-              _buildCurveFlipRow('Built-in reverse', 'Curves.easeOut', Colors.green),
+              _buildCurveFlipRow(
+                'Built-in reverse',
+                'Curves.easeOut',
+                Colors.green,
+              ),
             ],
           ),
         ),
@@ -991,7 +1043,11 @@ Widget _buildCurvesTab(Color accent) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb_outline, color: Colors.amber.shade800, size: 20),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade800,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -1073,7 +1129,7 @@ Widget _buildBuilderTab(Color accent) {
         _buildBuilderParamCard(
           'context',
           'Standard BuildContext from the widget tree. '
-          'Can be used to access Theme, MediaQuery, or inherited widgets.',
+              'Can be used to access Theme, MediaQuery, or inherited widgets.',
           Icons.account_tree,
           Colors.blue,
         ),
@@ -1081,7 +1137,7 @@ Widget _buildBuilderTab(Color accent) {
         _buildBuilderParamCard(
           'value',
           'The interpolated value of type T at the current animation frame. '
-          'Changes every frame from tween.begin towards tween.end.',
+              'Changes every frame from tween.begin towards tween.end.',
           Icons.timeline,
           accent,
         ),
@@ -1089,8 +1145,8 @@ Widget _buildBuilderTab(Color accent) {
         _buildBuilderParamCard(
           'child',
           'The optional widget passed via the child parameter of '
-          'TweenAnimationBuilder. This is NOT rebuilt each frame \u2014 '
-          'it\u0027s built once and reused for performance.',
+              'TweenAnimationBuilder. This is NOT rebuilt each frame \u2014 '
+              'it\u0027s built once and reused for performance.',
           Icons.child_care,
           Colors.green,
         ),
@@ -1349,42 +1405,42 @@ Widget _buildLifecycleTab(Color accent) {
           '1',
           'Widget Created',
           'TweenAnimationBuilder is inserted into the widget tree. '
-          'Internal AnimationController is created.',
+              'Internal AnimationController is created.',
           accent,
         ),
         _buildTimelineEvent(
           '2',
           'Initial Animation',
           'If tween.begin differs from tween.end, animation starts '
-          'immediately from begin to end.',
+              'immediately from begin to end.',
           accent,
         ),
         _buildTimelineEvent(
           '3',
           'Builder Called Each Frame',
           'builder(context, currentValue, child) is invoked ~60 times '
-          'per second during animation.',
+              'per second during animation.',
           accent,
         ),
         _buildTimelineEvent(
           '4',
           'Animation Completes',
           'The onEnd callback fires when the value reaches tween.end. '
-          'The widget remains displaying the final value.',
+              'The widget remains displaying the final value.',
           accent,
         ),
         _buildTimelineEvent(
           '5',
           'Target Changes',
           'When parent rebuilds with a new tween.end, a new animation '
-          'starts from the current value to the new end.',
+              'starts from the current value to the new end.',
           accent,
         ),
         _buildTimelineEvent(
           '6',
           'Widget Removed',
           'The internal AnimationController is disposed automatically. '
-          'No manual cleanup needed.',
+              'No manual cleanup needed.',
           accent,
         ),
         const SizedBox(height: 24),
@@ -1520,7 +1576,11 @@ Widget _buildLifecycleTab(Color accent) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.warning_amber, color: Colors.red.shade700, size: 22),
+                  Icon(
+                    Icons.warning_amber,
+                    color: Colors.red.shade700,
+                    size: 22,
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     'Common Pitfall',
@@ -1633,16 +1693,16 @@ Widget _buildPatternsTab(Color accent) {
           'Fade-In on Mount',
           'Animate opacity from 0 to 1 when the widget first appears.',
           'TweenAnimationBuilder<double>(\n'
-          '  tween: Tween(begin: 0.0, end: 1.0),\n'
-          '  duration: Duration(milliseconds: 500),\n'
-          '  builder: (context, opacity, child) {\n'
-          '    return Opacity(\n'
-          '      opacity: opacity,\n'
-          '      child: child,\n'
-          '    );\n'
-          '  },\n'
-          '  child: MyContentWidget(),\n'
-          ')',
+              '  tween: Tween(begin: 0.0, end: 1.0),\n'
+              '  duration: Duration(milliseconds: 500),\n'
+              '  builder: (context, opacity, child) {\n'
+              '    return Opacity(\n'
+              '      opacity: opacity,\n'
+              '      child: child,\n'
+              '    );\n'
+              '  },\n'
+              '  child: MyContentWidget(),\n'
+              ')',
           Icons.visibility,
           accent,
         ),
@@ -1653,17 +1713,17 @@ Widget _buildPatternsTab(Color accent) {
           'Slide + Fade Entrance',
           'Combine translation and opacity for a polished entry effect.',
           'TweenAnimationBuilder<double>(\n'
-          '  tween: Tween(begin: 0.0, end: 1.0),\n'
-          '  duration: Duration(milliseconds: 600),\n'
-          '  curve: Curves.easeOutCubic,\n'
-          '  builder: (context, t, child) {\n'
-          '    return Transform.translate(\n'
-          '      offset: Offset(0, 30 * (1 - t)),\n'
-          '      child: Opacity(opacity: t, child: child),\n'
-          '    );\n'
-          '  },\n'
-          '  child: Card(child: ListTile(...)),\n'
-          ')',
+              '  tween: Tween(begin: 0.0, end: 1.0),\n'
+              '  duration: Duration(milliseconds: 600),\n'
+              '  curve: Curves.easeOutCubic,\n'
+              '  builder: (context, t, child) {\n'
+              '    return Transform.translate(\n'
+              '      offset: Offset(0, 30 * (1 - t)),\n'
+              '      child: Opacity(opacity: t, child: child),\n'
+              '    );\n'
+              '  },\n'
+              '  child: Card(child: ListTile(...)),\n'
+              ')',
           Icons.north_east,
           Colors.blue,
         ),
@@ -1674,19 +1734,19 @@ Widget _buildPatternsTab(Color accent) {
           'Background Color Transition',
           'Smoothly transition a container\u0027s background color.',
           'TweenAnimationBuilder<Color?>(\n'
-          '  tween: ColorTween(\n'
-          '    begin: Colors.blue,\n'
-          '    end: isActive ? Colors.green : Colors.grey,\n'
-          '  ),\n'
-          '  duration: Duration(milliseconds: 400),\n'
-          '  builder: (context, color, child) {\n'
-          '    return Container(\n'
-          '      color: color,\n'
-          '      child: child,\n'
-          '    );\n'
-          '  },\n'
-          '  child: Text(\u0027Status\u0027),\n'
-          ')',
+              '  tween: ColorTween(\n'
+              '    begin: Colors.blue,\n'
+              '    end: isActive ? Colors.green : Colors.grey,\n'
+              '  ),\n'
+              '  duration: Duration(milliseconds: 400),\n'
+              '  builder: (context, color, child) {\n'
+              '    return Container(\n'
+              '      color: color,\n'
+              '      child: child,\n'
+              '    );\n'
+              '  },\n'
+              '  child: Text(\u0027Status\u0027),\n'
+              ')',
           Icons.format_color_fill,
           Colors.green,
         ),
@@ -1697,18 +1757,18 @@ Widget _buildPatternsTab(Color accent) {
           'Scale Pulse Effect',
           'Make a widget grow slightly then settle when state changes.',
           'TweenAnimationBuilder<double>(\n'
-          '  key: ValueKey(notificationCount),\n'
-          '  tween: Tween(begin: 1.2, end: 1.0),\n'
-          '  duration: Duration(milliseconds: 300),\n'
-          '  curve: Curves.elasticOut,\n'
-          '  builder: (context, scale, child) {\n'
-          '    return Transform.scale(\n'
-          '      scale: scale,\n'
-          '      child: child,\n'
-          '    );\n'
-          '  },\n'
-          '  child: Badge(count: notificationCount),\n'
-          ')',
+              '  key: ValueKey(notificationCount),\n'
+              '  tween: Tween(begin: 1.2, end: 1.0),\n'
+              '  duration: Duration(milliseconds: 300),\n'
+              '  curve: Curves.elasticOut,\n'
+              '  builder: (context, scale, child) {\n'
+              '    return Transform.scale(\n'
+              '      scale: scale,\n'
+              '      child: child,\n'
+              '    );\n'
+              '  },\n'
+              '  child: Badge(count: notificationCount),\n'
+              ')',
           Icons.lens,
           Colors.purple,
         ),
@@ -1719,19 +1779,19 @@ Widget _buildPatternsTab(Color accent) {
           'Animated Progress Bar',
           'Smoothly animate a progress bar when the value changes.',
           'TweenAnimationBuilder<double>(\n'
-          '  tween: Tween(begin: 0, end: progress),\n'
-          '  duration: Duration(milliseconds: 500),\n'
-          '  curve: Curves.easeInOut,\n'
-          '  builder: (context, value, _) {\n'
-          '    return LinearProgressIndicator(\n'
-          '      value: value,\n'
-          '      backgroundColor: Colors.grey[200],\n'
-          '      valueColor: AlwaysStoppedAnimation(\n'
-          '        Colors.blue,\n'
-          '      ),\n'
-          '    );\n'
-          '  },\n'
-          ')',
+              '  tween: Tween(begin: 0, end: progress),\n'
+              '  duration: Duration(milliseconds: 500),\n'
+              '  curve: Curves.easeInOut,\n'
+              '  builder: (context, value, _) {\n'
+              '    return LinearProgressIndicator(\n'
+              '      value: value,\n'
+              '      backgroundColor: Colors.grey[200],\n'
+              '      valueColor: AlwaysStoppedAnimation(\n'
+              '        Colors.blue,\n'
+              '      ),\n'
+              '    );\n'
+              '  },\n'
+              ')',
           Icons.linear_scale,
           Colors.teal,
         ),
@@ -1742,19 +1802,19 @@ Widget _buildPatternsTab(Color accent) {
           'Rotation Animation',
           'Rotate a widget to a target angle when state changes.',
           'TweenAnimationBuilder<double>(\n'
-          '  tween: Tween(\n'
-          '    begin: 0,\n'
-          '    end: isExpanded ? 3.14159 / 2 : 0,\n'
-          '  ),\n'
-          '  duration: Duration(milliseconds: 200),\n'
-          '  builder: (context, angle, child) {\n'
-          '    return Transform.rotate(\n'
-          '      angle: angle,\n'
-          '      child: child,\n'
-          '    );\n'
-          '  },\n'
-          '  child: Icon(Icons.chevron_right),\n'
-          ')',
+              '  tween: Tween(\n'
+              '    begin: 0,\n'
+              '    end: isExpanded ? 3.14159 / 2 : 0,\n'
+              '  ),\n'
+              '  duration: Duration(milliseconds: 200),\n'
+              '  builder: (context, angle, child) {\n'
+              '    return Transform.rotate(\n'
+              '      angle: angle,\n'
+              '      child: child,\n'
+              '    );\n'
+              '  },\n'
+              '  child: Icon(Icons.chevron_right),\n'
+              ')',
           Icons.rotate_right,
           Colors.orange,
         ),
@@ -1765,22 +1825,22 @@ Widget _buildPatternsTab(Color accent) {
           'Staggered List Items',
           'Delay each item\u0027s animation by its index for cascade effect.',
           '// Inside a ListView.builder\n'
-          'TweenAnimationBuilder<double>(\n'
-          '  tween: Tween(begin: 0.0, end: 1.0),\n'
-          '  duration: Duration(milliseconds: 400),\n'
-          '  curve: Interval(\n'
-          '    (index * 0.1).clamp(0.0, 1.0),\n'
-          '    ((index * 0.1) + 0.6).clamp(0.0, 1.0),\n'
-          '    curve: Curves.easeOut,\n'
-          '  ),\n'
-          '  builder: (context, t, child) {\n'
-          '    return Opacity(\n'
-          '      opacity: t,\n'
-          '      child: child,\n'
-          '    );\n'
-          '  },\n'
-          '  child: ListTile(title: Text(items[index])),\n'
-          ')',
+              'TweenAnimationBuilder<double>(\n'
+              '  tween: Tween(begin: 0.0, end: 1.0),\n'
+              '  duration: Duration(milliseconds: 400),\n'
+              '  curve: Interval(\n'
+              '    (index * 0.1).clamp(0.0, 1.0),\n'
+              '    ((index * 0.1) + 0.6).clamp(0.0, 1.0),\n'
+              '    curve: Curves.easeOut,\n'
+              '  ),\n'
+              '  builder: (context, t, child) {\n'
+              '    return Opacity(\n'
+              '      opacity: t,\n'
+              '      child: child,\n'
+              '    );\n'
+              '  },\n'
+              '  child: ListTile(title: Text(items[index])),\n'
+              ')',
           Icons.format_list_numbered,
           Colors.indigo,
         ),
@@ -1820,10 +1880,15 @@ Widget _buildSummaryTab(Color accent) {
             children: [
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   color: accent.withOpacity(0.1),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(11)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(11),
+                  ),
                 ),
                 child: Text(
                   'Key Properties',
@@ -1841,7 +1906,10 @@ Widget _buildSummaryTab(Color accent) {
               _buildSummaryRow('Dispose', 'Automatic'),
               _buildSummaryRow('Trigger', 'Change tween.end value'),
               _buildSummaryRow('Callback', 'onEnd when animation finishes'),
-              _buildSummaryRow('Performance', 'Use child parameter for optimization'),
+              _buildSummaryRow(
+                'Performance',
+                'Use child parameter for optimization',
+              ),
             ],
           ),
         ),
@@ -1964,7 +2032,7 @@ Widget _buildSummaryTab(Color accent) {
         _buildGotchaCard(
           'Tween.begin ignored on rebuild',
           'Only tween.end changes trigger new animations. '
-          'Use a Key to force full recreation.',
+              'Use a Key to force full recreation.',
           Icons.warning_amber,
           Colors.red,
         ),
@@ -1972,7 +2040,7 @@ Widget _buildSummaryTab(Color accent) {
         _buildGotchaCard(
           'Missing child optimization',
           'Not passing the child parameter means the entire '
-          'subtree rebuilds every frame.',
+              'subtree rebuilds every frame.',
           Icons.speed,
           Colors.orange,
         ),
@@ -1980,7 +2048,7 @@ Widget _buildSummaryTab(Color accent) {
         _buildGotchaCard(
           'Redundant with built-in widgets',
           'Check if AnimatedContainer, AnimatedOpacity, or '
-          'another AnimatedFoo already covers your use case.',
+              'another AnimatedFoo already covers your use case.',
           Icons.layers,
           Colors.amber,
         ),
@@ -1988,8 +2056,8 @@ Widget _buildSummaryTab(Color accent) {
         _buildGotchaCard(
           'Creating Tweens in build()',
           'Creating a new Tween object every build causes the '
-          'animation to restart. Preserve the Tween instance or '
-          'keep tween.end stable when unchanged.',
+              'animation to restart. Preserve the Tween instance or '
+              'keep tween.end stable when unchanged.',
           Icons.refresh,
           Colors.blue,
         ),
@@ -2062,10 +2130,7 @@ Widget _buildReasonCard(IconData icon, String title, String desc, Color color) {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 13, height: 1.5),
-              ),
+              Text(desc, style: const TextStyle(fontSize: 13, height: 1.5)),
             ],
           ),
         ),
@@ -2139,10 +2204,7 @@ Widget _buildApiParamCard(
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          description,
-          style: const TextStyle(fontSize: 13, height: 1.5),
-        ),
+        Text(description, style: const TextStyle(fontSize: 13, height: 1.5)),
       ],
     ),
   );
@@ -2415,10 +2477,7 @@ Widget _buildTimelineEvent(
           width: 32,
           height: 32,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Text(
             number,
             style: const TextStyle(
@@ -2531,7 +2590,11 @@ Widget _buildPatternCard(
         const SizedBox(height: 6),
         Text(
           description,
-          style: const TextStyle(fontSize: 13, color: Colors.black87, height: 1.4),
+          style: const TextStyle(
+            fontSize: 13,
+            color: Colors.black87,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 12),
         Container(

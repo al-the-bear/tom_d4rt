@@ -478,7 +478,8 @@ WidgetSpan _alignedWidgetSpan({
   required PlaceholderAlignment alignment,
   required Widget child,
 }) {
-  final needsBaseline = alignment == PlaceholderAlignment.baseline ||
+  final needsBaseline =
+      alignment == PlaceholderAlignment.baseline ||
       alignment == PlaceholderAlignment.aboveBaseline ||
       alignment == PlaceholderAlignment.belowBaseline;
   return WidgetSpan(

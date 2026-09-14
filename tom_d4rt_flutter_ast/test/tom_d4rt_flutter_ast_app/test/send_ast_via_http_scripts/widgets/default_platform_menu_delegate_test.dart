@@ -73,17 +73,29 @@ const List<_PmMenuEntry> _pmSampleMenuBar = [
     icon: Icons.folder_outlined,
     children: [
       _PmMenuEntry(label: 'New', shortcut: '⌘N', icon: Icons.note_add_outlined),
-      _PmMenuEntry(label: 'Open...', shortcut: '⌘O', icon: Icons.folder_open_outlined),
-      _PmMenuEntry(label: 'Open Recent', icon: Icons.history, children: [
-        _PmMenuEntry(label: 'project_alpha.dart'),
-        _PmMenuEntry(label: 'main.dart'),
-        _PmMenuEntry(label: 'pubspec.yaml'),
-        _PmMenuEntry(isDivider: true),
-        _PmMenuEntry(label: 'Clear Recent'),
-      ]),
+      _PmMenuEntry(
+        label: 'Open...',
+        shortcut: '⌘O',
+        icon: Icons.folder_open_outlined,
+      ),
+      _PmMenuEntry(
+        label: 'Open Recent',
+        icon: Icons.history,
+        children: [
+          _PmMenuEntry(label: 'project_alpha.dart'),
+          _PmMenuEntry(label: 'main.dart'),
+          _PmMenuEntry(label: 'pubspec.yaml'),
+          _PmMenuEntry(isDivider: true),
+          _PmMenuEntry(label: 'Clear Recent'),
+        ],
+      ),
       _PmMenuEntry(isDivider: true),
       _PmMenuEntry(label: 'Save', shortcut: '⌘S', icon: Icons.save_outlined),
-      _PmMenuEntry(label: 'Save As...', shortcut: '⇧⌘S', icon: Icons.save_as_outlined),
+      _PmMenuEntry(
+        label: 'Save As...',
+        shortcut: '⇧⌘S',
+        icon: Icons.save_as_outlined,
+      ),
       _PmMenuEntry(isDivider: true),
       _PmMenuEntry(label: 'Close', shortcut: '⌘W'),
       _PmMenuEntry(label: 'Quit', shortcut: '⌘Q', icon: Icons.exit_to_app),
@@ -139,7 +151,10 @@ Widget _pmBadge(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(text, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -192,9 +207,23 @@ Widget _pmInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _pmTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _pmTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _pmTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _pmTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -225,7 +254,11 @@ Widget _pmMenuItemRow(_PmMenuEntry entry, {int depth = 0}) {
       children: [
         SizedBox(width: depth * 20.0),
         if (entry.icon != null) ...[
-          Icon(entry.icon, size: 16, color: entry.enabled ? _pmPrimary : _pmDisabled),
+          Icon(
+            entry.icon,
+            size: 16,
+            color: entry.enabled ? _pmPrimary : _pmDisabled,
+          ),
           SizedBox(width: 8),
         ],
         if (entry.checked) ...[
@@ -243,8 +276,16 @@ Widget _pmMenuItemRow(_PmMenuEntry entry, {int depth = 0}) {
           ),
         ),
         if (entry.shortcut != null)
-          Text(entry.shortcut!, style: TextStyle(fontSize: 11, color: _pmTextMedium, fontFamily: 'monospace')),
-        if (hasChildren) Icon(Icons.chevron_right, size: 16, color: _pmTextMedium),
+          Text(
+            entry.shortcut!,
+            style: TextStyle(
+              fontSize: 11,
+              color: _pmTextMedium,
+              fontFamily: 'monospace',
+            ),
+          ),
+        if (hasChildren)
+          Icon(Icons.chevron_right, size: 16, color: _pmTextMedium),
       ],
     ),
   );
@@ -271,7 +312,10 @@ Widget _pmSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _pmSectionTitle('1 · Platform Menu Delegate Overview', Icons.account_tree_outlined),
+      _pmSectionTitle(
+        '1 · Platform Menu Delegate Overview',
+        Icons.account_tree_outlined,
+      ),
       _pmInfoCard(
         'What is DefaultPlatformMenuDelegate?',
         'The default implementation of PlatformMenuDelegate that translates '
@@ -314,7 +358,11 @@ Widget _pmSection1Overview() {
             SizedBox(height: 8),
             Text(
               'Menu definitions flow through the delegate to the platform layer',
-              style: TextStyle(fontSize: 11, color: _pmTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11,
+                color: _pmTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -354,7 +402,14 @@ Widget _pmSection2Hierarchy() {
               children: [
                 Icon(Icons.menu, size: 16, color: _pmPrimary),
                 SizedBox(width: 6),
-                Text('Menu Bar', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _pmTextDark)),
+                Text(
+                  'Menu Bar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                    color: _pmTextDark,
+                  ),
+                ),
               ],
             ),
             Divider(color: _pmDivider, height: 8),
@@ -406,7 +461,14 @@ Widget _pmSection3ItemTypes() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Type comparison', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _pmTextDark)),
+            Text(
+              'Type comparison',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _pmTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -415,8 +477,18 @@ Widget _pmSection3ItemTypes() {
                     children: [
                       Icon(Icons.touch_app, size: 28, color: _pmPrimary),
                       SizedBox(height: 4),
-                      Text('MenuItem', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _pmTextDark)),
-                      Text('leaf action', style: TextStyle(fontSize: 10, color: _pmTextMedium)),
+                      Text(
+                        'MenuItem',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _pmTextDark,
+                        ),
+                      ),
+                      Text(
+                        'leaf action',
+                        style: TextStyle(fontSize: 10, color: _pmTextMedium),
+                      ),
                     ],
                   ),
                 ),
@@ -425,18 +497,42 @@ Widget _pmSection3ItemTypes() {
                     children: [
                       Icon(Icons.folder, size: 28, color: _pmAccentDark),
                       SizedBox(height: 4),
-                      Text('Menu', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _pmTextDark)),
-                      Text('submenu', style: TextStyle(fontSize: 10, color: _pmTextMedium)),
+                      Text(
+                        'Menu',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _pmTextDark,
+                        ),
+                      ),
+                      Text(
+                        'submenu',
+                        style: TextStyle(fontSize: 10, color: _pmTextMedium),
+                      ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Column(
                     children: [
-                      Icon(Icons.view_agenda, size: 28, color: Color(0xFF00796B)),
+                      Icon(
+                        Icons.view_agenda,
+                        size: 28,
+                        color: Color(0xFF00796B),
+                      ),
                       SizedBox(height: 4),
-                      Text('Group', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _pmTextDark)),
-                      Text('divider group', style: TextStyle(fontSize: 10, color: _pmTextMedium)),
+                      Text(
+                        'Group',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _pmTextDark,
+                        ),
+                      ),
+                      Text(
+                        'divider group',
+                        style: TextStyle(fontSize: 10, color: _pmTextMedium),
+                      ),
                     ],
                   ),
                 ),
@@ -467,7 +563,10 @@ Widget _pmSection4Shortcuts() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _pmSectionTitle('4 · Shortcut Binding & Accelerators', Icons.keyboard_outlined),
+      _pmSectionTitle(
+        '4 · Shortcut Binding & Accelerators',
+        Icons.keyboard_outlined,
+      ),
       _pmInfoCard(
         'MenuSerializableShortcut',
         'Each PlatformMenuItem can carry a MenuSerializableShortcut (typically '
@@ -487,32 +586,87 @@ Widget _pmSection4Shortcuts() {
           children: [
             Row(
               children: [
-                Expanded(flex: 3, child: Text('Action', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _pmTextDark))),
-                Expanded(flex: 2, child: Text('Shortcut', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _pmTextDark))),
-                Expanded(flex: 3, child: Text('Activator', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _pmTextDark))),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Action',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _pmTextDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Shortcut',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _pmTextDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    'Activator',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _pmTextDark,
+                    ),
+                  ),
+                ),
               ],
             ),
             Divider(color: _pmDivider, height: 8),
-            ...shortcuts.map((s) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                children: [
-                  Expanded(flex: 3, child: Text(s['action']!, style: TextStyle(fontSize: 12, color: _pmTextDark))),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: _pmSurfaceDark,
-                        borderRadius: BorderRadius.circular(4),
+            ...shortcuts.map(
+              (s) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        s['action']!,
+                        style: TextStyle(fontSize: 12, color: _pmTextDark),
                       ),
-                      child: Text(s['key']!, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _pmPrimary, fontWeight: FontWeight.w600)),
                     ),
-                  ),
-                  Expanded(flex: 3, child: Text(s['type']!, style: TextStyle(fontSize: 11, color: _pmTextMedium))),
-                ],
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _pmSurfaceDark,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          s['key']!,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            color: _pmPrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        s['type']!,
+                        style: TextStyle(fontSize: 11, color: _pmTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -555,12 +709,43 @@ Widget _pmSection5StateManagement() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('State examples', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _pmTextDark)),
+            Text(
+              'State examples',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _pmTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            _pmMenuItemRow(_PmMenuEntry(label: 'Enabled item', icon: Icons.check_circle_outline, enabled: true)),
-            _pmMenuItemRow(_PmMenuEntry(label: 'Disabled item', icon: Icons.cancel_outlined, enabled: false)),
-            _pmMenuItemRow(_PmMenuEntry(label: 'Checked item', checked: true, icon: Icons.visibility)),
-            _pmMenuItemRow(_PmMenuEntry(label: 'Unchecked item', checked: false, icon: Icons.visibility_off)),
+            _pmMenuItemRow(
+              _PmMenuEntry(
+                label: 'Enabled item',
+                icon: Icons.check_circle_outline,
+                enabled: true,
+              ),
+            ),
+            _pmMenuItemRow(
+              _PmMenuEntry(
+                label: 'Disabled item',
+                icon: Icons.cancel_outlined,
+                enabled: false,
+              ),
+            ),
+            _pmMenuItemRow(
+              _PmMenuEntry(
+                label: 'Checked item',
+                checked: true,
+                icon: Icons.visibility,
+              ),
+            ),
+            _pmMenuItemRow(
+              _PmMenuEntry(
+                label: 'Unchecked item',
+                checked: false,
+                icon: Icons.visibility_off,
+              ),
+            ),
           ],
         ),
       ),
@@ -611,13 +796,28 @@ Widget _pmSection6DynamicUpdates() {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: _pmPrimary.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _pmPrimary.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Column(
                           children: [
-                            Text('Before', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _pmPrimary)),
+                            Text(
+                              'Before',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                                color: _pmPrimary,
+                              ),
+                            ),
                             SizedBox(height: 4),
-                            Text('File  Edit  View', style: TextStyle(fontSize: 11, color: _pmTextDark)),
+                            Text(
+                              'File  Edit  View',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _pmTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -626,7 +826,11 @@ Widget _pmSection6DynamicUpdates() {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Icon(Icons.arrow_forward, color: _pmAccentDark, size: 20),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: _pmAccentDark,
+                    size: 20,
+                  ),
                 ),
                 Expanded(
                   child: Column(
@@ -636,13 +840,28 @@ Widget _pmSection6DynamicUpdates() {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: _pmAccentDark.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _pmAccentDark.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Column(
                           children: [
-                            Text('After', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _pmAccentDark)),
+                            Text(
+                              'After',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                                color: _pmAccentDark,
+                              ),
+                            ),
                             SizedBox(height: 4),
-                            Text('File  Edit  View  Tools', style: TextStyle(fontSize: 11, color: _pmTextDark)),
+                            Text(
+                              'File  Edit  View  Tools',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _pmTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -654,7 +873,11 @@ Widget _pmSection6DynamicUpdates() {
             SizedBox(height: 8),
             Text(
               'setMenus() re-serialises the updated menu tree',
-              style: TextStyle(fontSize: 11, color: _pmTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11,
+                color: _pmTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -700,26 +923,48 @@ Widget _pmSection7Serialisation() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Serialised fields', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _pmTextDark)),
-            Divider(color: _pmDivider, height: 12),
-            ...channelFields.map((f) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                children: [
-                  Container(
-                    width: 120,
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: _pmSurfaceDark,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(f['field']!, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _pmPrimary, fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(f['desc']!, style: TextStyle(fontSize: 11, color: _pmTextMedium))),
-                ],
+            Text(
+              'Serialised fields',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _pmTextDark,
               ),
-            )),
+            ),
+            Divider(color: _pmDivider, height: 12),
+            ...channelFields.map(
+              (f) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 120,
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: _pmSurfaceDark,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        f['field']!,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: _pmPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        f['desc']!,
+                        style: TextStyle(fontSize: 11, color: _pmTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -735,7 +980,10 @@ Widget _pmSection8Callbacks() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _pmSectionTitle('8 · Callback Routing & Action Dispatch', Icons.call_split),
+      _pmSectionTitle(
+        '8 · Callback Routing & Action Dispatch',
+        Icons.call_split,
+      ),
       _pmInfoCard(
         'onSelected callbacks',
         'Every PlatformMenuItem has an onSelected callback. When the native '
@@ -761,7 +1009,14 @@ Widget _pmSection8Callbacks() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Callback flow', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _pmTextDark)),
+            Text(
+              'Callback flow',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _pmTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -801,11 +1056,36 @@ Widget _pmSection8Callbacks() {
 // ---------------------------------------------------------------------------
 Widget _pmSection9Lifecycle() {
   final phases = <Map<String, dynamic>>[
-    {'label': 'Widget mounts', 'icon': Icons.play_circle_outline, 'color': _pmSuccess, 'desc': 'PlatformMenuBar inserted into widget tree'},
-    {'label': 'setMenus()', 'icon': Icons.upload, 'color': _pmPrimary, 'desc': 'Delegate serialises & sends to platform'},
-    {'label': 'Update', 'icon': Icons.refresh, 'color': _pmAccentDark, 'desc': 'Menu tree changes → setMenus() called again'},
-    {'label': 'User selects', 'icon': Icons.touch_app, 'color': Color(0xFF1565C0), 'desc': 'Platform notifies → callback invoked'},
-    {'label': 'clearMenus()', 'icon': Icons.delete_outline, 'color': _pmError, 'desc': 'Widget disposes → menu removed from platform'},
+    {
+      'label': 'Widget mounts',
+      'icon': Icons.play_circle_outline,
+      'color': _pmSuccess,
+      'desc': 'PlatformMenuBar inserted into widget tree',
+    },
+    {
+      'label': 'setMenus()',
+      'icon': Icons.upload,
+      'color': _pmPrimary,
+      'desc': 'Delegate serialises & sends to platform',
+    },
+    {
+      'label': 'Update',
+      'icon': Icons.refresh,
+      'color': _pmAccentDark,
+      'desc': 'Menu tree changes → setMenus() called again',
+    },
+    {
+      'label': 'User selects',
+      'icon': Icons.touch_app,
+      'color': Color(0xFF1565C0),
+      'desc': 'Platform notifies → callback invoked',
+    },
+    {
+      'label': 'clearMenus()',
+      'icon': Icons.delete_outline,
+      'color': _pmError,
+      'desc': 'Widget disposes → menu removed from platform',
+    },
   ];
 
   return Column(
@@ -838,9 +1118,19 @@ Widget _pmSection9Lifecycle() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(p['label'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _pmTextDark)),
+                    Text(
+                      p['label'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _pmTextDark,
+                      ),
+                    ),
                     SizedBox(height: 2),
-                    Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _pmTextMedium)),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _pmTextMedium),
+                    ),
                   ],
                 ),
               ),
@@ -854,7 +1144,10 @@ Widget _pmSection9Lifecycle() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_pmPrimary.withValues(alpha: 0.08), _pmAccent.withValues(alpha: 0.08)],
+            colors: [
+              _pmPrimary.withValues(alpha: 0.08),
+              _pmAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _pmPrimary.withValues(alpha: 0.2)),
@@ -865,7 +1158,11 @@ Widget _pmSection9Lifecycle() {
             SizedBox(height: 8),
             Text(
               'DefaultPlatformMenuDelegate',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _pmTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _pmTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -925,7 +1222,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Platform menu bridge — translating declarative menu trees into native menus',
-                style: TextStyle(fontSize: 12, color: _pmOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _pmOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

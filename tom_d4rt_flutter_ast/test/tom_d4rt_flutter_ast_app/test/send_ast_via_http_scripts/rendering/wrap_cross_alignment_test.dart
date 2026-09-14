@@ -11,8 +11,14 @@ Widget wcSectionHeader(String title, IconData icon) {
         Icon(icon, color: Color(0xFF6A1B9A), size: 22.0),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(title,
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: Color(0xFF4A148C))),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4A148C),
+            ),
+          ),
         ),
       ],
     ),
@@ -23,7 +29,10 @@ Widget wcChip(String label, Color bg) {
   return Container(
     margin: EdgeInsets.only(right: 6.0, bottom: 6.0),
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(12.0)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(12.0),
+    ),
     child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.white)),
   );
 }
@@ -34,10 +43,23 @@ Widget wcInfoRow(String label, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 140.0,
-          child: Text(label, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Color(0xFF4A148C)))),
+        SizedBox(
+          width: 140.0,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF4A148C),
+            ),
+          ),
+        ),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 12.0, color: Color(0xFF6A5B7B)))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF6A5B7B)),
+          ),
+        ),
       ],
     ),
   );
@@ -47,17 +69,45 @@ Widget wcCodeBlock(String code) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(10.0),
-    decoration: BoxDecoration(color: Color(0xFFF3E5F5), borderRadius: BorderRadius.circular(6.0)),
-    child: Text(code, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF4A148C))),
+    decoration: BoxDecoration(
+      color: Color(0xFFF3E5F5),
+      borderRadius: BorderRadius.circular(6.0),
+    ),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontSize: 10.0,
+        fontFamily: 'monospace',
+        color: Color(0xFF4A148C),
+      ),
+    ),
   );
 }
 
-Widget wcAlignmentBox(String label, Color bg, {double w = 40.0, double h = 40.0}) {
+Widget wcAlignmentBox(
+  String label,
+  Color bg, {
+  double w = 40.0,
+  double h = 40.0,
+}) {
   return Container(
-    width: w, height: h,
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4.0)),
-    child: Center(child: Text(label, textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.w600, color: Colors.white))),
+    width: w,
+    height: h,
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4.0),
+    ),
+    child: Center(
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 8.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+      ),
+    ),
   );
 }
 
@@ -73,7 +123,8 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [Color(0xFF6A1B9A), Color(0xFF4A148C)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
     ),
@@ -85,20 +136,30 @@ dynamic build(BuildContext context) {
             Icon(Icons.wrap_text, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('WrapCrossAlignment',
-                  style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text(
+                'WrapCrossAlignment',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('How children align on the cross axis within each run of a Wrap',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFCE93D8))),
+        Text(
+          'How children align on the cross axis within each run of a Wrap',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFCE93D8)),
+        ),
         SizedBox(height: 8.0),
-        Wrap(children: [
-          wcChip('start', Color(0xFF8E24AA)),
-          wcChip('end', Color(0xFF7B1FA2)),
-          wcChip('center', Color(0xFF6A1B9A)),
-        ]),
+        Wrap(
+          children: [
+            wcChip('start', Color(0xFF8E24AA)),
+            wcChip('end', Color(0xFF7B1FA2)),
+            wcChip('center', Color(0xFF6A1B9A)),
+          ],
+        ),
       ],
     ),
   );
@@ -110,12 +171,24 @@ dynamic build(BuildContext context) {
   }
 
   final alignValues = <Map<String, dynamic>>[
-    {'value': WrapCrossAlignment.start, 'icon': Icons.align_vertical_top,
-     'color': Color(0xFF8E24AA), 'desc': 'Children placed at start of cross axis in each run'},
-    {'value': WrapCrossAlignment.end, 'icon': Icons.align_vertical_bottom,
-     'color': Color(0xFF7B1FA2), 'desc': 'Children placed at end of cross axis in each run'},
-    {'value': WrapCrossAlignment.center, 'icon': Icons.align_vertical_center,
-     'color': Color(0xFF6A1B9A), 'desc': 'Children centered on cross axis in each run'},
+    {
+      'value': WrapCrossAlignment.start,
+      'icon': Icons.align_vertical_top,
+      'color': Color(0xFF8E24AA),
+      'desc': 'Children placed at start of cross axis in each run',
+    },
+    {
+      'value': WrapCrossAlignment.end,
+      'icon': Icons.align_vertical_bottom,
+      'color': Color(0xFF7B1FA2),
+      'desc': 'Children placed at end of cross axis in each run',
+    },
+    {
+      'value': WrapCrossAlignment.center,
+      'icon': Icons.align_vertical_center,
+      'color': Color(0xFF6A1B9A),
+      'desc': 'Children centered on cross axis in each run',
+    },
   ];
 
   final wcEnumSection = Container(
@@ -135,17 +208,40 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: (av['color'] as Color).withValues(alpha: 0.3)),
+            border: Border.all(
+              color: (av['color'] as Color).withValues(alpha: 0.3),
+            ),
           ),
           child: Column(
             children: [
-              Icon(av['icon'] as IconData, color: av['color'] as Color, size: 28.0),
+              Icon(
+                av['icon'] as IconData,
+                color: av['color'] as Color,
+                size: 28.0,
+              ),
               SizedBox(height: 4.0),
-              Text(wca.name, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: av['color'] as Color)),
-              Text('index: ${wca.index}', style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF6A5B7B))),
+              Text(
+                wca.name,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: av['color'] as Color,
+                ),
+              ),
+              Text(
+                'index: ${wca.index}',
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF6A5B7B),
+                ),
+              ),
               SizedBox(height: 2.0),
-              Text(av['desc'] as String, textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 8.0, color: Color(0xFF6A5B7B))),
+              Text(
+                av['desc'] as String,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 8.0, color: Color(0xFF6A5B7B)),
+              ),
             ],
           ),
         );
@@ -166,8 +262,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Children align to the top (horizontal) or left (vertical) of each run',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Children align to the top (horizontal) or left (vertical) of each run',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
@@ -178,7 +280,8 @@ dynamic build(BuildContext context) {
             border: Border.all(color: Color(0xFF8E24AA).withValues(alpha: 0.3)),
           ),
           child: Wrap(
-            spacing: 6.0, runSpacing: 6.0,
+            spacing: 6.0,
+            runSpacing: 6.0,
             crossAxisAlignment: WrapCrossAlignment.start,
             children: [
               wcAlignmentBox('A', Color(0xFF8E24AA), h: 50.0),
@@ -191,9 +294,14 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        Text('All items align to the TOP of each run', style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B))),
+        Text(
+          'All items align to the TOP of each run',
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+        ),
         SizedBox(height: 8.0),
-        wcCodeBlock('Wrap(\n  crossAxisAlignment: WrapCrossAlignment.start,\n  children: [...],\n)'),
+        wcCodeBlock(
+          'Wrap(\n  crossAxisAlignment: WrapCrossAlignment.start,\n  children: [...],\n)',
+        ),
       ],
     ),
   );
@@ -211,8 +319,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Children align to the bottom (horizontal) or right (vertical) of each run',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Children align to the bottom (horizontal) or right (vertical) of each run',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
@@ -223,7 +337,8 @@ dynamic build(BuildContext context) {
             border: Border.all(color: Color(0xFF7B1FA2).withValues(alpha: 0.3)),
           ),
           child: Wrap(
-            spacing: 6.0, runSpacing: 6.0,
+            spacing: 6.0,
+            runSpacing: 6.0,
             crossAxisAlignment: WrapCrossAlignment.end,
             children: [
               wcAlignmentBox('A', Color(0xFF8E24AA), h: 50.0),
@@ -236,7 +351,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        Text('All items align to the BOTTOM of each run', style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B))),
+        Text(
+          'All items align to the BOTTOM of each run',
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+        ),
       ],
     ),
   );
@@ -254,8 +372,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Children vertically centered within each run',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Children vertically centered within each run',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
@@ -266,7 +390,8 @@ dynamic build(BuildContext context) {
             border: Border.all(color: Color(0xFF6A1B9A).withValues(alpha: 0.3)),
           ),
           child: Wrap(
-            spacing: 6.0, runSpacing: 6.0,
+            spacing: 6.0,
+            runSpacing: 6.0,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               wcAlignmentBox('A', Color(0xFF8E24AA), h: 50.0),
@@ -279,7 +404,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        Text('All items CENTERED vertically within each run', style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B))),
+        Text(
+          'All items CENTERED vertically within each run',
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+        ),
       ],
     ),
   );
@@ -298,15 +426,33 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Text(align.name, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: accent)),
+            Text(
+              align.name,
+              style: TextStyle(
+                fontSize: 10.0,
+                fontWeight: FontWeight.w700,
+                color: accent,
+              ),
+            ),
             SizedBox(height: 4.0),
             Wrap(
-              spacing: 3.0, runSpacing: 3.0,
+              spacing: 3.0,
+              runSpacing: 3.0,
               crossAxisAlignment: align,
               children: [
                 wcAlignmentBox('1', accent, w: 28.0, h: 40.0),
-                wcAlignmentBox('2', accent.withValues(alpha: 0.7), w: 28.0, h: 20.0),
-                wcAlignmentBox('3', accent.withValues(alpha: 0.5), w: 28.0, h: 50.0),
+                wcAlignmentBox(
+                  '2',
+                  accent.withValues(alpha: 0.7),
+                  w: 28.0,
+                  h: 20.0,
+                ),
+                wcAlignmentBox(
+                  '3',
+                  accent.withValues(alpha: 0.5),
+                  w: 28.0,
+                  h: 50.0,
+                ),
               ],
             ),
           ],
@@ -346,15 +492,26 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('When direction is Axis.vertical, cross-axis is horizontal',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'When direction is Axis.vertical, cross-axis is horizontal',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: WrapCrossAlignment.values.map((wca) {
-            final colors = [Color(0xFF8E24AA), Color(0xFF7B1FA2), Color(0xFF6A1B9A)];
+            final colors = [
+              Color(0xFF8E24AA),
+              Color(0xFF7B1FA2),
+              Color(0xFF6A1B9A),
+            ];
             return Container(
-              width: 100.0, height: 100.0,
+              width: 100.0,
+              height: 100.0,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6.0),
@@ -364,12 +521,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(2.0),
-                    child: Text(wca.name, style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w700, color: Color(0xFF4A148C))),
+                    child: Text(
+                      wca.name,
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A148C),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Wrap(
                       direction: Axis.vertical,
-                      spacing: 3.0, runSpacing: 3.0,
+                      spacing: 3.0,
+                      runSpacing: 3.0,
                       crossAxisAlignment: wca,
                       children: [
                         wcAlignmentBox('', colors[0], w: 20.0, h: 30.0),
@@ -384,8 +549,10 @@ dynamic build(BuildContext context) {
           }).toList(),
         ),
         SizedBox(height: 6.0),
-        Text('Vertical: start = LEFT, center = MIDDLE, end = RIGHT',
-            style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B))),
+        Text(
+          'Vertical: start = LEFT, center = MIDDLE, end = RIGHT',
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+        ),
       ],
     ),
   );
@@ -409,8 +576,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Spacing affects gaps between items; runSpacing between runs',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Spacing affects gaps between items; runSpacing between runs',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         ...spacingVals.map((sv) {
           return Padding(
@@ -418,14 +591,22 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${sv['label']} — spacing: ${(sv['spacing'] as double).toStringAsFixed(0)}, runSpacing: ${(sv['runSpacing'] as double).toStringAsFixed(0)}',
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Color(0xFF4A148C))),
+                Text(
+                  '${sv['label']} — spacing: ${(sv['spacing'] as double).toStringAsFixed(0)}, runSpacing: ${(sv['runSpacing'] as double).toStringAsFixed(0)}',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF4A148C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(6.0),
                   decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
                   child: Wrap(
                     spacing: sv['spacing'] as double,
                     runSpacing: sv['runSpacing'] as double,
@@ -454,12 +635,36 @@ dynamic build(BuildContext context) {
   }
 
   final mainAligns = <Map<String, dynamic>>[
-    {'value': WrapAlignment.start, 'color': Color(0xFF8E24AA), 'desc': 'Items packed at start'},
-    {'value': WrapAlignment.center, 'color': Color(0xFF7B1FA2), 'desc': 'Items centered'},
-    {'value': WrapAlignment.end, 'color': Color(0xFF6A1B9A), 'desc': 'Items packed at end'},
-    {'value': WrapAlignment.spaceBetween, 'color': Color(0xFF4A148C), 'desc': 'Even space between'},
-    {'value': WrapAlignment.spaceAround, 'color': Color(0xFF8E24AA), 'desc': 'Equal space around each'},
-    {'value': WrapAlignment.spaceEvenly, 'color': Color(0xFF7B1FA2), 'desc': 'Equal space everywhere'},
+    {
+      'value': WrapAlignment.start,
+      'color': Color(0xFF8E24AA),
+      'desc': 'Items packed at start',
+    },
+    {
+      'value': WrapAlignment.center,
+      'color': Color(0xFF7B1FA2),
+      'desc': 'Items centered',
+    },
+    {
+      'value': WrapAlignment.end,
+      'color': Color(0xFF6A1B9A),
+      'desc': 'Items packed at end',
+    },
+    {
+      'value': WrapAlignment.spaceBetween,
+      'color': Color(0xFF4A148C),
+      'desc': 'Even space between',
+    },
+    {
+      'value': WrapAlignment.spaceAround,
+      'color': Color(0xFF8E24AA),
+      'desc': 'Equal space around each',
+    },
+    {
+      'value': WrapAlignment.spaceEvenly,
+      'color': Color(0xFF7B1FA2),
+      'desc': 'Equal space everywhere',
+    },
   ];
 
   final wcMainAlignSection = Container(
@@ -472,8 +677,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('WrapAlignment controls main-axis distribution (partner to cross-axis)',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'WrapAlignment controls main-axis distribution (partner to cross-axis)',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 8.0),
         ...mainAligns.map((ma) {
           final wa = ma['value'] as WrapAlignment;
@@ -481,13 +692,33 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.only(bottom: 6.0),
             child: Row(
               children: [
-                Container(width: 8.0, height: 8.0,
-                  decoration: BoxDecoration(color: ma['color'] as Color, shape: BoxShape.circle)),
+                Container(
+                  width: 8.0,
+                  height: 8.0,
+                  decoration: BoxDecoration(
+                    color: ma['color'] as Color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
                 SizedBox(width: 8.0),
-                SizedBox(width: 100.0,
-                  child: Text('.${wa.name}', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
-                      fontFamily: 'monospace', color: ma['color'] as Color))),
-                Expanded(child: Text(ma['desc'] as String, style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)))),
+                SizedBox(
+                  width: 100.0,
+                  child: Text(
+                    '.${wa.name}',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'monospace',
+                      color: ma['color'] as Color,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    ma['desc'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+                  ),
+                ),
               ],
             ),
           );
@@ -509,22 +740,44 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('runAlignment distributes runs on the cross axis (like mainAxisAlignment for runs)',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'runAlignment distributes runs on the cross axis (like mainAxisAlignment for runs)',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 8.0),
         Row(
           children: [
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Properties:', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF4A148C))),
+                    Text(
+                      'Properties:',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A148C),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Text('alignment → along main axis\ncrossAxis → items within run\nrunAlignment → runs within wrap',
-                        style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF6A5B7B))),
+                    Text(
+                      'alignment → along main axis\ncrossAxis → items within run\nrunAlignment → runs within wrap',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF6A5B7B),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -533,14 +786,30 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Difference:', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF4A148C))),
+                    Text(
+                      'Difference:',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A148C),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Text('crossAxisAlignment\n  → within ONE run\nrunAlignment\n  → between ALL runs',
-                        style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF6A5B7B))),
+                    Text(
+                      'crossAxisAlignment\n  → within ONE run\nrunAlignment\n  → between ALL runs',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF6A5B7B),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -548,7 +817,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 8.0),
-        wcCodeBlock('Wrap(\n  alignment: WrapAlignment.center,\n  crossAxisAlignment: WrapCrossAlignment.center,\n  runAlignment: WrapAlignment.spaceEvenly,\n)'),
+        wcCodeBlock(
+          'Wrap(\n  alignment: WrapAlignment.center,\n  crossAxisAlignment: WrapCrossAlignment.center,\n  runAlignment: WrapAlignment.spaceEvenly,\n)',
+        ),
       ],
     ),
   );
@@ -566,15 +837,25 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Cross alignment is most visible with mixed-height children',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Cross alignment is most visible with mixed-height children',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Wrap(
-            spacing: 8.0, runSpacing: 8.0,
+            spacing: 8.0,
+            runSpacing: 8.0,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               wcAlignmentBox('XS', Color(0xFF8E24AA), w: 50.0, h: 20.0),
@@ -589,8 +870,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        Text('Varying sizes clearly show center alignment effect',
-            style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B))),
+        Text(
+          'Varying sizes clearly show center alignment effect',
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF6A5B7B)),
+        ),
       ],
     ),
   );
@@ -598,7 +881,18 @@ dynamic build(BuildContext context) {
   // ── Section 12: Chip/Tag Pattern ─────────────────────────────
   print('\n[12] Real-World: Chip/Tag Layout');
 
-  final tags = ['Flutter', 'Dart', 'Wrap', 'Cross', 'Align', 'Demo', 'Layout', 'Widget', 'UI', 'Berry'];
+  final tags = [
+    'Flutter',
+    'Dart',
+    'Wrap',
+    'Cross',
+    'Align',
+    'Demo',
+    'Layout',
+    'Widget',
+    'UI',
+    'Berry',
+  ];
 
   final wcTagSection = Container(
     padding: EdgeInsets.all(12.0),
@@ -610,16 +904,30 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Wrap is commonly used for chip/tag layouts',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Wrap is commonly used for chip/tag layouts',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Wrap(
-          spacing: 8.0, runSpacing: 6.0,
+          spacing: 8.0,
+          runSpacing: 6.0,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: tags.asMap().entries.map((entry) {
-            final shade = Color.lerp(Color(0xFF8E24AA), Color(0xFF4A148C), entry.key / tags.length)!;
+            final shade = Color.lerp(
+              Color(0xFF8E24AA),
+              Color(0xFF4A148C),
+              entry.key / tags.length,
+            )!;
             return Chip(
-              label: Text(entry.value, style: TextStyle(fontSize: 11.0, color: Colors.white)),
+              label: Text(
+                entry.value,
+                style: TextStyle(fontSize: 11.0, color: Colors.white),
+              ),
               backgroundColor: shade,
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               side: BorderSide.none,
@@ -627,7 +935,9 @@ dynamic build(BuildContext context) {
           }).toList(),
         ),
         SizedBox(height: 8.0),
-        wcCodeBlock('Wrap(\n  spacing: 8.0,\n  runSpacing: 6.0,\n  crossAxisAlignment: WrapCrossAlignment.center,\n  children: tags.map((t) => Chip(label: Text(t))).toList(),\n)'),
+        wcCodeBlock(
+          'Wrap(\n  spacing: 8.0,\n  runSpacing: 6.0,\n  crossAxisAlignment: WrapCrossAlignment.center,\n  children: tags.map((t) => Chip(label: Text(t))).toList(),\n)',
+        ),
       ],
     ),
   );
@@ -645,27 +955,58 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Text and vertical direction affect how start/end are interpreted',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF4A148C))),
+        Text(
+          'Text and vertical direction affect how start/end are interpreted',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A148C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           children: [
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   children: [
-                    Text('LTR + start', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF8E24AA))),
+                    Text(
+                      'LTR + start',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF8E24AA),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
                     Wrap(
                       textDirection: TextDirection.ltr,
                       crossAxisAlignment: WrapCrossAlignment.start,
                       spacing: 3.0,
                       children: [
-                        wcAlignmentBox('1', Color(0xFF8E24AA), w: 24.0, h: 30.0),
-                        wcAlignmentBox('2', Color(0xFF7B1FA2), w: 24.0, h: 20.0),
-                        wcAlignmentBox('3', Color(0xFF6A1B9A), w: 24.0, h: 40.0),
+                        wcAlignmentBox(
+                          '1',
+                          Color(0xFF8E24AA),
+                          w: 24.0,
+                          h: 30.0,
+                        ),
+                        wcAlignmentBox(
+                          '2',
+                          Color(0xFF7B1FA2),
+                          w: 24.0,
+                          h: 20.0,
+                        ),
+                        wcAlignmentBox(
+                          '3',
+                          Color(0xFF6A1B9A),
+                          w: 24.0,
+                          h: 40.0,
+                        ),
                       ],
                     ),
                   ],
@@ -676,19 +1017,44 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   children: [
-                    Text('RTL + end', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF6A1B9A))),
+                    Text(
+                      'RTL + end',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF6A1B9A),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
                     Wrap(
                       textDirection: TextDirection.rtl,
                       crossAxisAlignment: WrapCrossAlignment.end,
                       spacing: 3.0,
                       children: [
-                        wcAlignmentBox('1', Color(0xFF8E24AA), w: 24.0, h: 30.0),
-                        wcAlignmentBox('2', Color(0xFF7B1FA2), w: 24.0, h: 20.0),
-                        wcAlignmentBox('3', Color(0xFF6A1B9A), w: 24.0, h: 40.0),
+                        wcAlignmentBox(
+                          '1',
+                          Color(0xFF8E24AA),
+                          w: 24.0,
+                          h: 30.0,
+                        ),
+                        wcAlignmentBox(
+                          '2',
+                          Color(0xFF7B1FA2),
+                          w: 24.0,
+                          h: 20.0,
+                        ),
+                        wcAlignmentBox(
+                          '3',
+                          Color(0xFF6A1B9A),
+                          w: 24.0,
+                          h: 40.0,
+                        ),
                       ],
                     ),
                   ],
@@ -705,15 +1071,47 @@ dynamic build(BuildContext context) {
   print('\n[14] Complete Wrap Properties');
 
   final wrapProps = <Map<String, dynamic>>[
-    {'prop': 'direction', 'type': 'Axis', 'desc': 'Main axis direction (horizontal/vertical)'},
-    {'prop': 'alignment', 'type': 'WrapAlignment', 'desc': 'Main-axis alignment within each run'},
-    {'prop': 'spacing', 'type': 'double', 'desc': 'Gap between children on main axis'},
-    {'prop': 'runAlignment', 'type': 'WrapAlignment', 'desc': 'Cross-axis distribution of runs'},
+    {
+      'prop': 'direction',
+      'type': 'Axis',
+      'desc': 'Main axis direction (horizontal/vertical)',
+    },
+    {
+      'prop': 'alignment',
+      'type': 'WrapAlignment',
+      'desc': 'Main-axis alignment within each run',
+    },
+    {
+      'prop': 'spacing',
+      'type': 'double',
+      'desc': 'Gap between children on main axis',
+    },
+    {
+      'prop': 'runAlignment',
+      'type': 'WrapAlignment',
+      'desc': 'Cross-axis distribution of runs',
+    },
     {'prop': 'runSpacing', 'type': 'double', 'desc': 'Gap between runs'},
-    {'prop': 'crossAxisAlignment', 'type': 'WrapCrossAlignment', 'desc': 'Cross-axis alignment within each run'},
-    {'prop': 'textDirection', 'type': 'TextDirection?', 'desc': 'Text direction for main axis'},
-    {'prop': 'verticalDirection', 'type': 'VerticalDirection', 'desc': 'Vertical run stacking order'},
-    {'prop': 'clipBehavior', 'type': 'Clip', 'desc': 'How to clip overflowing children'},
+    {
+      'prop': 'crossAxisAlignment',
+      'type': 'WrapCrossAlignment',
+      'desc': 'Cross-axis alignment within each run',
+    },
+    {
+      'prop': 'textDirection',
+      'type': 'TextDirection?',
+      'desc': 'Text direction for main axis',
+    },
+    {
+      'prop': 'verticalDirection',
+      'type': 'VerticalDirection',
+      'desc': 'Vertical run stacking order',
+    },
+    {
+      'prop': 'clipBehavior',
+      'type': 'Clip',
+      'desc': 'How to clip overflowing children',
+    },
   ];
 
   final wcPropsSection = Container(
@@ -726,7 +1124,11 @@ dynamic build(BuildContext context) {
     child: Column(
       children: wrapProps.asMap().entries.map((entry) {
         final wp = entry.value;
-        final shade = Color.lerp(Color(0xFF8E24AA), Color(0xFF4A148C), entry.key / wrapProps.length)!;
+        final shade = Color.lerp(
+          Color(0xFF8E24AA),
+          Color(0xFF4A148C),
+          entry.key / wrapProps.length,
+        )!;
         return Container(
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 4.0),
@@ -738,11 +1140,25 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              SizedBox(width: 120.0,
-                child: Text(wp['prop'] as String,
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, fontFamily: 'monospace', color: shade))),
+              SizedBox(
+                width: 120.0,
+                child: Text(
+                  wp['prop'] as String,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                    color: shade,
+                  ),
+                ),
+              ),
               wcChip(wp['type'] as String, shade.withValues(alpha: 0.6)),
-              Expanded(child: Text(wp['desc'] as String, style: TextStyle(fontSize: 9.0, color: Color(0xFF6A5B7B)))),
+              Expanded(
+                child: Text(
+                  wp['desc'] as String,
+                  style: TextStyle(fontSize: 9.0, color: Color(0xFF6A5B7B)),
+                ),
+              ),
             ],
           ),
         );
@@ -772,9 +1188,14 @@ dynamic build(BuildContext context) {
         wcInfoRow('start.index:', WrapCrossAlignment.start.index.toString()),
         wcInfoRow('center.index:', WrapCrossAlignment.center.index.toString()),
         wcInfoRow('end.index:', WrapCrossAlignment.end.index.toString()),
-        wcInfoRow('values.length:', WrapCrossAlignment.values.length.toString()),
+        wcInfoRow(
+          'values.length:',
+          WrapCrossAlignment.values.length.toString(),
+        ),
         SizedBox(height: 8.0),
-        wcCodeBlock('switch (crossAlignment) {\n  case WrapCrossAlignment.start:\n    // align to top of run\n  case WrapCrossAlignment.center:\n    // align to center of run\n  case WrapCrossAlignment.end:\n    // align to bottom of run\n}'),
+        wcCodeBlock(
+          'switch (crossAlignment) {\n  case WrapCrossAlignment.start:\n    // align to top of run\n  case WrapCrossAlignment.center:\n    // align to center of run\n  case WrapCrossAlignment.end:\n    // align to bottom of run\n}',
+        ),
       ],
     ),
   );
@@ -790,14 +1211,21 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [Color(0xFF4A148C), Color(0xFF6A1B9A)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(
       children: [
-        Text('WrapCrossAlignment Dashboard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(
+          'WrapCrossAlignment Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -805,23 +1233,37 @@ dynamic build(BuildContext context) {
             return Column(
               children: [
                 Container(
-                  width: 48.0, height: 48.0,
+                  width: 48.0,
+                  height: 48.0,
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(child: Text(wca.name[0].toUpperCase(),
-                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white))),
+                  child: Center(
+                    child: Text(
+                      wca.name[0].toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 4.0),
-                Text('.${wca.name}', style: TextStyle(fontSize: 11.0, color: Color(0xFFCE93D8))),
+                Text(
+                  '.${wca.name}',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFCE93D8)),
+                ),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 10.0),
         Wrap(
-          spacing: 6.0, runSpacing: 4.0, alignment: WrapAlignment.center,
+          spacing: 6.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.center,
           children: [
             wcChip('Cross-axis', Color(0xFF8E24AA)),
             wcChip('Within run', Color(0xFF7B1FA2)),

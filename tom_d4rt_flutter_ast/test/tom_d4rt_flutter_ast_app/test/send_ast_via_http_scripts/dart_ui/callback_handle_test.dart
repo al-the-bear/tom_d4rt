@@ -125,10 +125,7 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(16.0), child: child),
         ],
       ),
     );
@@ -173,9 +170,7 @@ dynamic build(BuildContext context) {
         // No borderRadius: only `left` is set on the Border, so the other
         // sides default to BorderSide.none with non-uniform colors. A
         // BoxDecoration with borderRadius + non-uniform Border asserts.
-        border: Border(
-          left: BorderSide(color: a, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: a, width: 4.0)),
       ),
       child: Text(
         text,
@@ -282,11 +277,7 @@ dynamic build(BuildContext context) {
                   width: 1.4,
                 ),
               ),
-              child: const Icon(
-                Icons.link,
-                color: Colors.white,
-                size: 36.0,
-              ),
+              child: const Icon(Icons.link, color: Colors.white, size: 36.0),
             ),
             const SizedBox(width: 16.0),
             Expanded(
@@ -655,10 +646,7 @@ dynamic build(BuildContext context) {
                 width: 36.0,
                 height: 36.0,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: c,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: c, shape: BoxShape.circle),
                 child: Icon(
                   r['icon'] as IconData,
                   color: Colors.white,
@@ -680,10 +668,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 10.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: paletteInk,
               borderRadius: BorderRadius.circular(6.0),
@@ -1010,10 +995,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 10.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: paletteInk,
               borderRadius: BorderRadius.circular(6.0),
@@ -1030,10 +1012,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             b['extra'] as String,
-            style: const TextStyle(
-              color: paletteInkSoft,
-              fontSize: 11.5,
-            ),
+            style: const TextStyle(color: paletteInkSoft, fontSize: 11.5),
           ),
         ],
       ),
@@ -1150,10 +1129,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: c.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20.0),
@@ -1186,10 +1162,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: paletteInk,
             borderRadius: BorderRadius.circular(10.0),
@@ -1277,10 +1250,7 @@ dynamic build(BuildContext context) {
             width: 44.0,
             height: 44.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             child: Icon(icon, color: Colors.white, size: 22.0),
           ),
           const SizedBox(height: 8.0),
@@ -1305,10 +1275,7 @@ dynamic build(BuildContext context) {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: Container(
-              height: 2.5,
-              color: color.withValues(alpha: 0.6),
-            ),
+            child: Container(height: 2.5, color: color.withValues(alpha: 0.6)),
           ),
           Icon(Icons.arrow_forward, color: color, size: 18.0),
         ],
@@ -1417,10 +1384,7 @@ dynamic build(BuildContext context) {
             width: 38.0,
             height: 38.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             child: Text(
               '$index',
               style: const TextStyle(
@@ -1636,17 +1600,13 @@ dynamic build(BuildContext context) {
             Container(
               height: 60.0 * (width.clamp(0.0, 1.0)),
               decoration: BoxDecoration(
-                color:
-                    (fires ? color : paletteInkSoft).withValues(alpha: 0.55),
+                color: (fires ? color : paletteInkSoft).withValues(alpha: 0.55),
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.circular(4.0),
                 ),
               ),
             ),
-            Container(
-              height: 4.0,
-              color: fires ? color : paletteOutline,
-            ),
+            Container(height: 4.0, color: fires ? color : paletteOutline),
             const SizedBox(height: 4.0),
             Text(
               time,
@@ -1845,10 +1805,7 @@ dynamic build(BuildContext context) {
           Container(
             width: 8.0,
             height: 8.0,
-            decoration: BoxDecoration(
-              color: c,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: c, shape: BoxShape.circle),
           ),
           const SizedBox(width: 8.0),
           SizedBox(
@@ -1880,10 +1837,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               e['detail'] as String,
-              style: const TextStyle(
-                color: paletteInkSoft,
-                fontSize: 11.5,
-              ),
+              style: const TextStyle(color: paletteInkSoft, fontSize: 11.5),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -1982,10 +1936,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            c.withValues(alpha: 0.12),
-            c.withValues(alpha: 0.04),
-          ],
+          colors: <Color>[c.withValues(alpha: 0.12), c.withValues(alpha: 0.04)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2001,10 +1952,7 @@ dynamic build(BuildContext context) {
                 width: 30.0,
                 height: 30.0,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: c,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: c, shape: BoxShape.circle),
                 child: Text(
                   p['id'] as String,
                   style: const TextStyle(
@@ -2152,19 +2100,13 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 3.0),
                 Text(
                   f['detail'] as String,
-                  style: const TextStyle(
-                    color: paletteInkSoft,
-                    fontSize: 11.5,
-                  ),
+                  style: const TextStyle(color: paletteInkSoft, fontSize: 11.5),
                 ),
               ],
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: c.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20.0),
@@ -2376,22 +2318,22 @@ dynamic build(BuildContext context) {
       'icon': Icons.cancel,
     },
     <String, dynamic>{
-      'text': 'Capture mutable state in the function — only static state at '
+      'text':
+          'Capture mutable state in the function — only static state at '
           'startup survives in the background isolate.',
       'color': paletteCrimson,
       'icon': Icons.cancel,
     },
     <String, dynamic>{
-      'text': 'Assume the handle remains stable across hot reloads — '
+      'text':
+          'Assume the handle remains stable across hot reloads — '
           'always re-register at app start.',
       'color': paletteCrimson,
       'icon': Icons.cancel,
     },
   ];
 
-  final List<Widget> doDontRows = doDontEntries.map((
-    Map<String, dynamic> d,
-  ) {
+  final List<Widget> doDontRows = doDontEntries.map((Map<String, dynamic> d) {
     final Color c = d['color'] as Color;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -2401,9 +2343,7 @@ dynamic build(BuildContext context) {
         // No borderRadius: only `left` is set on the Border, so the other
         // sides default to BorderSide.none with non-uniform colors. A
         // BoxDecoration with borderRadius + non-uniform Border asserts.
-        border: Border(
-          left: BorderSide(color: c, width: 5.0),
-        ),
+        border: Border(left: BorderSide(color: c, width: 5.0)),
       ),
       child: Row(
         children: <Widget>[
@@ -2458,11 +2398,7 @@ dynamic build(BuildContext context) {
             color: paletteSuccess,
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.verified,
-            color: Colors.white,
-            size: 24.0,
-          ),
+          child: const Icon(Icons.verified, color: Colors.white, size: 24.0),
         ),
         const SizedBox(width: 12.0),
         const Expanded(
@@ -2491,10 +2427,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF111827),
-          Color(0xFF1F2937),
-        ],
+        colors: <Color>[Color(0xFF111827), Color(0xFF1F2937)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -2588,10 +2521,7 @@ dynamic build(BuildContext context) {
       elevation: 0,
       title: const Text(
         'dart:ui CallbackHandle — Deep Demo',
-        style: TextStyle(
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.3,
-        ),
+        style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.3),
       ),
     ),
     body: SingleChildScrollView(

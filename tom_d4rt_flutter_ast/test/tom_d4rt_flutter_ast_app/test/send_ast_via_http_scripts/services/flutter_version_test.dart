@@ -224,8 +224,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget sectionHeader(String number, String title, String subtitle,
-      {Color accent = forest}) {
+  Widget sectionHeader(
+    String number,
+    String title,
+    String subtitle, {
+    Color accent = forest,
+  }) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 30, bottom: 16),
@@ -311,11 +315,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         body,
-        style: const TextStyle(
-          color: bark,
-          fontSize: 13,
-          height: 1.5,
-        ),
+        style: const TextStyle(color: bark, fontSize: 13, height: 1.5),
       ),
     );
   }
@@ -374,7 +374,11 @@ dynamic build(BuildContext context) {
   // SECTION 1 — Anatomy of a Flutter version string
   // ─────────────────────────────────────────────────────────────────────
   Widget anatomyFieldRow(
-      String name, String type, String value, String comment) {
+    String name,
+    String type,
+    String value,
+    String comment,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -456,22 +460,54 @@ dynamic build(BuildContext context) {
         'app. Nothing is resolved at runtime: each field is either a '
         'String literal or null.',
       ),
-      anatomyFieldRow('FlutterVersion.version', 'String?',
-          '"3.41.6"', 'Semantic framework version. Stable channel uses MAJOR.MINOR.PATCH.'),
-      anatomyFieldRow('FlutterVersion.channel', 'String?',
-          '"stable"', 'Release channel: stable / beta / dev / master.'),
-      anatomyFieldRow('FlutterVersion.dartVersion', 'String?',
-          '"3.6.0 (stable) ..."', 'Dart SDK version that compiled the framework.'),
-      anatomyFieldRow('FlutterVersion.engineRevision', 'String?',
-          'a1b2c3d4e5f6...', '40-char git SHA of the engine build root.'),
-      anatomyFieldRow('FlutterVersion.frameworkRevision', 'String?',
-          '0fedcba98765...', '40-char git SHA of the framework HEAD.'),
-      anatomyFieldRow('FlutterVersion.gitUrl', 'String?',
-          'https://github.com/flutter/flutter.git', 'The framework repository URL.'),
-      anatomyFieldRow('(buildDate)', 'String',
-          '2025-10-15T08:21:43Z', 'Conceptual only — Flutter does not expose a build-date constant.'),
-      anatomyFieldRow('(buildNumber)', 'String',
-          '12489', 'Comes from app pubspec/CI, not from FlutterVersion.'),
+      anatomyFieldRow(
+        'FlutterVersion.version',
+        'String?',
+        '"3.41.6"',
+        'Semantic framework version. Stable channel uses MAJOR.MINOR.PATCH.',
+      ),
+      anatomyFieldRow(
+        'FlutterVersion.channel',
+        'String?',
+        '"stable"',
+        'Release channel: stable / beta / dev / master.',
+      ),
+      anatomyFieldRow(
+        'FlutterVersion.dartVersion',
+        'String?',
+        '"3.6.0 (stable) ..."',
+        'Dart SDK version that compiled the framework.',
+      ),
+      anatomyFieldRow(
+        'FlutterVersion.engineRevision',
+        'String?',
+        'a1b2c3d4e5f6...',
+        '40-char git SHA of the engine build root.',
+      ),
+      anatomyFieldRow(
+        'FlutterVersion.frameworkRevision',
+        'String?',
+        '0fedcba98765...',
+        '40-char git SHA of the framework HEAD.',
+      ),
+      anatomyFieldRow(
+        'FlutterVersion.gitUrl',
+        'String?',
+        'https://github.com/flutter/flutter.git',
+        'The framework repository URL.',
+      ),
+      anatomyFieldRow(
+        '(buildDate)',
+        'String',
+        '2025-10-15T08:21:43Z',
+        'Conceptual only — Flutter does not expose a build-date constant.',
+      ),
+      anatomyFieldRow(
+        '(buildNumber)',
+        'String',
+        '12489',
+        'Comes from app pubspec/CI, not from FlutterVersion.',
+      ),
       proseCard(
         'Mental model: "version" is what marketing prints, "channel" is '
         'how the engine was built, the two SHAs are what git engineers '
@@ -500,8 +536,7 @@ dynamic build(BuildContext context) {
         ),
       ),
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         leading: Container(
           width: 38,
           height: 38,
@@ -563,8 +598,7 @@ dynamic build(BuildContext context) {
             // Header strip
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 18, vertical: 18),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [forest, moss],
@@ -586,8 +620,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: sage, width: 2),
                     ),
-                    child: const Icon(Icons.flutter_dash,
-                        color: forest, size: 32),
+                    child: const Icon(
+                      Icons.flutter_dash,
+                      color: forest,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(width: 14),
                   Expanded(
@@ -664,8 +701,7 @@ dynamic build(BuildContext context) {
             // Footer
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: parchment,
                 borderRadius: const BorderRadius.only(
@@ -846,8 +882,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget badgeWithChannel(String version, String channel,
-      Color versionBg, Color channelBg, Color fg) {
+  Widget badgeWithChannel(
+    String version,
+    String channel,
+    Color versionBg,
+    Color channelBg,
+    Color fg,
+  ) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Row(
@@ -933,20 +974,23 @@ dynamic build(BuildContext context) {
         physics: const NeverScrollableScrollPhysics(),
         childAspectRatio: 2.6,
         children: [
-          badgeCell('PILL',
-              badgePill('Version 3.41.6', leaf, Colors.white)),
-          badgeCell('RIBBON',
-              badgeRibbon('Version 3.41.6', clay, Colors.white)),
+          badgeCell('PILL', badgePill('Version 3.41.6', leaf, Colors.white)),
+          badgeCell(
+            'RIBBON',
+            badgeRibbon('Version 3.41.6', clay, Colors.white),
+          ),
           badgeCell('CHIP', badgeChip('Version 3.41.6', mint, forest)),
           badgeCell('CODE BLOCK', badgeCodeBlock('v3.41.6')),
           badgeCell('MONOSPACED', badgeMonospace('Version 3.41.6')),
           badgeCell('GRADIENT', badgeGradient('Version 3.41.6')),
-          badgeCell('WITH CHECK',
-              badgeWithCheck('Version 3.41.6', mint, forest)),
           badgeCell(
-              'VERSION + CHANNEL',
-              badgeWithChannel(
-                  '3.41.6', 'STABLE', parchment, forest, bark)),
+            'WITH CHECK',
+            badgeWithCheck('Version 3.41.6', mint, forest),
+          ),
+          badgeCell(
+            'VERSION + CHANNEL',
+            badgeWithChannel('3.41.6', 'STABLE', parchment, forest, bark),
+          ),
         ],
       ),
     ],
@@ -1001,7 +1045,9 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(4),
@@ -1108,8 +1154,7 @@ dynamic build(BuildContext context) {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: slate,
                 borderRadius: BorderRadius.circular(6),
@@ -1200,8 +1245,7 @@ dynamic build(BuildContext context) {
                     color: umber.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(Icons.fingerprint,
-                      color: umber, size: 20),
+                  child: const Icon(Icons.fingerprint, color: umber, size: 20),
                 ),
                 const SizedBox(width: 10),
                 const Text(
@@ -1216,7 +1260,9 @@ dynamic build(BuildContext context) {
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 3),
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: forest,
                     borderRadius: BorderRadius.circular(6),
@@ -1285,13 +1331,7 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-              if (!isLast)
-                Expanded(
-                  child: Container(
-                    width: 2,
-                    color: sage,
-                  ),
-                ),
+              if (!isLast) Expanded(child: Container(width: 2, color: sage)),
             ],
           ),
           const SizedBox(width: 14),
@@ -1321,7 +1361,9 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 10),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 7, vertical: 2),
+                          horizontal: 7,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: color.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(5),
@@ -1373,7 +1415,8 @@ dynamic build(BuildContext context) {
       timelineCard(
         version: '3.36.0',
         date: '2025-01-14',
-        headline: 'Wayland default on Linux desktop. New Material slider variants.',
+        headline:
+            'Wayland default on Linux desktop. New Material slider variants.',
         color: forest,
         isLast: false,
       ),
@@ -1436,43 +1479,43 @@ dynamic build(BuildContext context) {
       codeBlock(
         'package_info_plus  /  Platform.version',
         '// 1) App version + build number from native side.\n'
-        'final info = await PackageInfo.fromPlatform();\n'
-        'final appVersion = info.version;          // "1.4.2"\n'
-        'final appBuild   = info.buildNumber;      // "12489"\n'
-        '\n'
-        '// 2) Flutter framework / engine compile-time constants.\n'
-        'final fwVersion  = FlutterVersion.version            ?? "n/a";\n'
-        'final fwChannel  = FlutterVersion.channel            ?? "n/a";\n'
-        'final fwRev      = FlutterVersion.frameworkRevision  ?? "n/a";\n'
-        'final engineRev  = FlutterVersion.engineRevision     ?? "n/a";\n'
-        'final gitUrl     = FlutterVersion.gitUrl             ?? "n/a";\n'
-        '\n'
-        '// 3) Dart SDK version (runtime, not compile-time).\n'
-        'import "dart:io" show Platform;\n'
-        'final dartVer    = Platform.version; // "3.6.0 (stable) ..."\n'
-        '\n'
-        '// 4) Compose into a single human-readable label.\n'
-        'final label =\n'
-        '   "Acme \$appVersion (\$appBuild) — Flutter \$fwVersion '
-        '(\$fwChannel) on Dart \$dartVer";',
+            'final info = await PackageInfo.fromPlatform();\n'
+            'final appVersion = info.version;          // "1.4.2"\n'
+            'final appBuild   = info.buildNumber;      // "12489"\n'
+            '\n'
+            '// 2) Flutter framework / engine compile-time constants.\n'
+            'final fwVersion  = FlutterVersion.version            ?? "n/a";\n'
+            'final fwChannel  = FlutterVersion.channel            ?? "n/a";\n'
+            'final fwRev      = FlutterVersion.frameworkRevision  ?? "n/a";\n'
+            'final engineRev  = FlutterVersion.engineRevision     ?? "n/a";\n'
+            'final gitUrl     = FlutterVersion.gitUrl             ?? "n/a";\n'
+            '\n'
+            '// 3) Dart SDK version (runtime, not compile-time).\n'
+            'import "dart:io" show Platform;\n'
+            'final dartVer    = Platform.version; // "3.6.0 (stable) ..."\n'
+            '\n'
+            '// 4) Compose into a single human-readable label.\n'
+            'final label =\n'
+            '   "Acme \$appVersion (\$appBuild) — Flutter \$fwVersion '
+            '(\$fwChannel) on Dart \$dartVer";',
         accent: violet,
       ),
       codeBlock(
         'usage in About-screen builder',
         '@override\n'
-        'Widget build(BuildContext context) {\n'
-        '  return FutureBuilder<PackageInfo>(\n'
-        '    future: PackageInfo.fromPlatform(),\n'
-        '    builder: (ctx, snap) {\n'
-        '      final pi = snap.data;\n'
-        '      if (pi == null) return const CircularProgressIndicator();\n'
-        '      return Column(children: [\n'
-        '        Text("Version \${pi.version} (\${pi.buildNumber})"),\n'
-        '        Text("Channel: \${FlutterVersion.channel ?? "unknown"}"),\n'
-        '      ]);\n'
-        '    },\n'
-        '  );\n'
-        '}',
+            'Widget build(BuildContext context) {\n'
+            '  return FutureBuilder<PackageInfo>(\n'
+            '    future: PackageInfo.fromPlatform(),\n'
+            '    builder: (ctx, snap) {\n'
+            '      final pi = snap.data;\n'
+            '      if (pi == null) return const CircularProgressIndicator();\n'
+            '      return Column(children: [\n'
+            '        Text("Version \${pi.version} (\${pi.buildNumber})"),\n'
+            '        Text("Channel: \${FlutterVersion.channel ?? "unknown"}"),\n'
+            '      ]);\n'
+            '    },\n'
+            '  );\n'
+            '}',
         accent: sky,
       ),
       proseCard(
@@ -1559,41 +1602,41 @@ dynamic build(BuildContext context) {
       caveat(
         "Don't ship debug builds to users.",
         'Debug builds embed FlutterVersion.channel = "master" or include '
-        'kDebugMode banners. Always release with `flutter build --release` '
-        'so the version metadata in your About screen is meaningful.',
+            'kDebugMode banners. Always release with `flutter build --release` '
+            'so the version metadata in your About screen is meaningful.',
         Icons.bug_report,
         crimson,
       ),
       caveat(
         "Don't expose internal SHAs in user-facing UI.",
         'frameworkRevision and engineRevision are 40-char hashes that '
-        'mean nothing to end users. Hide them behind "developer options" '
-        'or only include them in copy-to-clipboard diagnostic dumps.',
+            'mean nothing to end users. Hide them behind "developer options" '
+            'or only include them in copy-to-clipboard diagnostic dumps.',
         Icons.visibility_off,
         clay,
       ),
       caveat(
         'Version vs build vs revision: pick the right one.',
         '"version" is what you advertise (3.41.6). "buildNumber" is what '
-        'app stores increment per upload (12489). "revision" is the git '
-        'SHA your QA team uses to reproduce a bug. They are NOT '
-        'interchangeable.',
+            'app stores increment per upload (12489). "revision" is the git '
+            'SHA your QA team uses to reproduce a bug. They are NOT '
+            'interchangeable.',
         Icons.compare_arrows,
         sun,
       ),
       caveat(
         'Localise your version *labels*, not your version *numbers*.',
         '"Version 3.41.6" → translate "Version" but keep "3.41.6" as '
-        'literal ASCII. Never localise digits or dots; semantic version '
-        'comparators must keep working.',
+            'literal ASCII. Never localise digits or dots; semantic version '
+            'comparators must keep working.',
         Icons.translate,
         sky,
       ),
       caveat(
         'Cache the version once at app start.',
         'PackageInfo.fromPlatform() crosses the platform channel. Read '
-        'it once during splash, store it in a top-level final, and '
-        'render synchronously after that.',
+            'it once during splash, store it in a top-level final, and '
+            'render synchronously after that.',
         Icons.speed,
         forest,
       ),
@@ -1652,8 +1695,7 @@ dynamic build(BuildContext context) {
   final _BuildInfo roundtripped = _BuildInfo.fromMap(sampleMap);
   final Map<String, String> reEncoded = roundtripped.toMap();
 
-  Widget mapCard(String title, IconData icon, Color accent,
-      List<Widget> rows) {
+  Widget mapCard(String title, IconData icon, Color accent, List<Widget> rows) {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -1708,57 +1750,57 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: mapCard(
-              'sampleMap',
-              Icons.data_object,
-              sky,
-              [
-                kvRow('version', sampleMap['version'] ?? '', sky, bark),
-                kvRow('channel', sampleMap['channel'] ?? '', sky, bark),
-                kvRow('dartVersion', sampleMap['dartVersion'] ?? '', sky, bark),
-                kvRow('engineRev', sampleMap['engineRevision'] ?? '', sky, bark),
-                kvRow('frameworkRev', sampleMap['frameworkRevision'] ?? '', sky, bark),
-                kvRow('gitUrl', sampleMap['gitUrl'] ?? '', sky, bark),
-                kvRow('buildDate', sampleMap['buildDate'] ?? '', sky, bark),
-                kvRow('buildNumber', sampleMap['buildNumber'] ?? '', sky, bark),
-              ],
-            ),
+            child: mapCard('sampleMap', Icons.data_object, sky, [
+              kvRow('version', sampleMap['version'] ?? '', sky, bark),
+              kvRow('channel', sampleMap['channel'] ?? '', sky, bark),
+              kvRow('dartVersion', sampleMap['dartVersion'] ?? '', sky, bark),
+              kvRow('engineRev', sampleMap['engineRevision'] ?? '', sky, bark),
+              kvRow(
+                'frameworkRev',
+                sampleMap['frameworkRevision'] ?? '',
+                sky,
+                bark,
+              ),
+              kvRow('gitUrl', sampleMap['gitUrl'] ?? '', sky, bark),
+              kvRow('buildDate', sampleMap['buildDate'] ?? '', sky, bark),
+              kvRow('buildNumber', sampleMap['buildNumber'] ?? '', sky, bark),
+            ]),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: mapCard(
-              '_BuildInfo (typed)',
-              Icons.account_tree,
-              forest,
-              [
-                kvRow('version', roundtripped.version, forest, bark),
-                kvRow('channel', roundtripped.channel, forest, bark),
-                kvRow('dartVersion', roundtripped.dartVersion, forest, bark),
-                kvRow('engineRev', roundtripped.engineRevision, forest, bark),
-                kvRow('frameworkRev', roundtripped.frameworkRevision, forest, bark),
-                kvRow('gitUrl', roundtripped.gitUrl, forest, bark),
-                kvRow('buildDate', roundtripped.buildDate, forest, bark),
-                kvRow('buildNumber', roundtripped.buildNumber, forest, bark),
-              ],
-            ),
+            child: mapCard('_BuildInfo (typed)', Icons.account_tree, forest, [
+              kvRow('version', roundtripped.version, forest, bark),
+              kvRow('channel', roundtripped.channel, forest, bark),
+              kvRow('dartVersion', roundtripped.dartVersion, forest, bark),
+              kvRow('engineRev', roundtripped.engineRevision, forest, bark),
+              kvRow(
+                'frameworkRev',
+                roundtripped.frameworkRevision,
+                forest,
+                bark,
+              ),
+              kvRow('gitUrl', roundtripped.gitUrl, forest, bark),
+              kvRow('buildDate', roundtripped.buildDate, forest, bark),
+              kvRow('buildNumber', roundtripped.buildNumber, forest, bark),
+            ]),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: mapCard(
-              'reEncoded',
-              Icons.repeat,
-              clay,
-              [
-                kvRow('version', reEncoded['version'] ?? '', clay, bark),
-                kvRow('channel', reEncoded['channel'] ?? '', clay, bark),
-                kvRow('dartVersion', reEncoded['dartVersion'] ?? '', clay, bark),
-                kvRow('engineRev', reEncoded['engineRevision'] ?? '', clay, bark),
-                kvRow('frameworkRev', reEncoded['frameworkRevision'] ?? '', clay, bark),
-                kvRow('gitUrl', reEncoded['gitUrl'] ?? '', clay, bark),
-                kvRow('buildDate', reEncoded['buildDate'] ?? '', clay, bark),
-                kvRow('buildNumber', reEncoded['buildNumber'] ?? '', clay, bark),
-              ],
-            ),
+            child: mapCard('reEncoded', Icons.repeat, clay, [
+              kvRow('version', reEncoded['version'] ?? '', clay, bark),
+              kvRow('channel', reEncoded['channel'] ?? '', clay, bark),
+              kvRow('dartVersion', reEncoded['dartVersion'] ?? '', clay, bark),
+              kvRow('engineRev', reEncoded['engineRevision'] ?? '', clay, bark),
+              kvRow(
+                'frameworkRev',
+                reEncoded['frameworkRevision'] ?? '',
+                clay,
+                bark,
+              ),
+              kvRow('gitUrl', reEncoded['gitUrl'] ?? '', clay, bark),
+              kvRow('buildDate', reEncoded['buildDate'] ?? '', clay, bark),
+              kvRow('buildNumber', reEncoded['buildNumber'] ?? '', clay, bark),
+            ]),
           ),
         ],
       ),
@@ -1779,11 +1821,7 @@ dynamic build(BuildContext context) {
                 'Map → _BuildInfo → Map: structurally identical. Use this '
                 'pattern in your crash reporter to keep client and server '
                 'on the same shape.',
-                style: TextStyle(
-                  color: bark,
-                  fontSize: 12,
-                  height: 1.45,
-                ),
+                style: TextStyle(color: bark, fontSize: 12, height: 1.45),
               ),
             ),
           ],
@@ -1818,22 +1856,14 @@ dynamic build(BuildContext context) {
             height: 38,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  accent,
-                  accent.withValues(alpha: 0.6),
-                ],
+                colors: [accent, accent.withValues(alpha: 0.6)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Center(
-              child: Text(
-                flag,
-                style: const TextStyle(
-                  fontSize: 22,
-                ),
-              ),
+              child: Text(flag, style: const TextStyle(fontSize: 22)),
             ),
           ),
           const SizedBox(width: 14),
@@ -1855,10 +1885,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 2),
                 Text(
                   language,
-                  style: const TextStyle(
-                    color: umber,
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(color: umber, fontSize: 11),
                 ),
               ],
             ),
@@ -1866,8 +1893,7 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 10),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: parchment,
                 borderRadius: BorderRadius.circular(8),
@@ -2046,26 +2072,49 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 14),
-        summaryRow('Real fields', 'version, channel, gitUrl, frameworkRevision, '
-            'engineRevision, dartVersion', sun),
+        summaryRow(
+          'Real fields',
+          'version, channel, gitUrl, frameworkRevision, '
+              'engineRevision, dartVersion',
+          sun,
+        ),
         summaryRow('Type', 'static const String? (every field nullable)', leaf),
-        summaryRow('Source', '--dart-define flags emitted by `flutter` build', sky),
-        summaryRow('NOT a field', 'frameworkCommitDate, devToolsVersion, '
-            'flutterRoot, repositoryUrl', crimson),
-        summaryRow('Surface in UI', 'About / Settings, footer of debug menus, '
-            'crash-report payloads', mint),
-        summaryRow('Avoid', 'Inline ignores. .withOpacity(). for-in over '
-            'bridged values. Subclassing Flutter abstracts.', sun),
-        summaryRow('Demo lines', '> 900 lines, 11 distinct sections, 8 badge '
-            'styles, 4 channels, 6 timeline cards, 4 locales.', leaf),
+        summaryRow(
+          'Source',
+          '--dart-define flags emitted by `flutter` build',
+          sky,
+        ),
+        summaryRow(
+          'NOT a field',
+          'frameworkCommitDate, devToolsVersion, '
+              'flutterRoot, repositoryUrl',
+          crimson,
+        ),
+        summaryRow(
+          'Surface in UI',
+          'About / Settings, footer of debug menus, '
+              'crash-report payloads',
+          mint,
+        ),
+        summaryRow(
+          'Avoid',
+          'Inline ignores. .withOpacity(). for-in over '
+              'bridged values. Subclassing Flutter abstracts.',
+          sun,
+        ),
+        summaryRow(
+          'Demo lines',
+          '> 900 lines, 11 distinct sections, 8 badge '
+              'styles, 4 channels, 6 timeline cards, 4 locales.',
+          leaf,
+        ),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
           decoration: BoxDecoration(
             color: cream.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-                color: cream.withValues(alpha: 0.3), width: 1),
+            border: Border.all(color: cream.withValues(alpha: 0.3), width: 1),
           ),
           child: Text(
             'tom_d4rt_flutter_ast • services/flutter_version_test.dart • '
@@ -2093,26 +2142,26 @@ dynamic build(BuildContext context) {
   // the Column scrolls instead of overflowing.
   return SingleChildScrollView(
     child: Container(
-    color: parchment,
-    padding: const EdgeInsets.all(18),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        pageBanner(),
-        gap(8),
-        section1,
-        section2,
-        section3,
-        section4,
-        section5,
-        section6,
-        section7,
-        section8,
-        section9,
-        section10,
-        section11,
-      ],
+      color: parchment,
+      padding: const EdgeInsets.all(18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          pageBanner(),
+          gap(8),
+          section1,
+          section2,
+          section3,
+          section4,
+          section5,
+          section6,
+          section7,
+          section8,
+          section9,
+          section10,
+          section11,
+        ],
+      ),
     ),
-  ),
   );
 }

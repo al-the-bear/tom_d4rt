@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: rawSienna, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: warmTan.withValues(alpha: 0.6)),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: umber.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: umber.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -103,16 +112,18 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: brickRed,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: brickRed,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: umber)),
+            child: Text(detail, style: TextStyle(fontSize: 12, color: umber)),
           ),
         ],
       ),
@@ -126,9 +137,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -161,16 +173,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: brickRed)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: brickRed,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -188,11 +200,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? brickRed : umber)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? brickRed : umber,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -209,18 +224,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? brickRed : terracotta,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: clay),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: clay),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -240,13 +260,14 @@ dynamic build(BuildContext context) {
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
       child: Center(
-        child: Text(label,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: color.computeLuminance() > 0.5
-                    ? umber
-                    : Colors.white)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color.computeLuminance() > 0.5 ? umber : Colors.white,
+          ),
+        ),
       ),
     );
   }
@@ -269,7 +290,11 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            avLayerBox('Flutter Widget Tree', terracotta.withValues(alpha: 0.15), 40),
+            avLayerBox(
+              'Flutter Widget Tree',
+              terracotta.withValues(alpha: 0.15),
+              40,
+            ),
             avLayerBox('Platform View Slot', adobe, 50),
             avLayerBox('Native Android View', brickRed, 40),
             avLayerBox('Android Activity', umber.withValues(alpha: 0.15), 40),
@@ -287,8 +312,11 @@ dynamic build(BuildContext context) {
         'Why Platform Views Exist',
         Column(
           children: [
-            avRow(['Use Case', 'Native Widget', 'Why Not Pure Flutter'],
-                isHeader: true),
+            avRow([
+              'Use Case',
+              'Native Widget',
+              'Why Not Pure Flutter',
+            ], isHeader: true),
             avRow(['Maps', 'MapView', 'Google Maps SDK is native-only']),
             avRow(['WebView', 'WebView', 'Full browser engine needed']),
             avRow(['Camera', 'CameraPreview', 'Hardware-accelerated preview']),
@@ -318,18 +346,48 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _avLifecycleStep('1', 'CREATE', 'PlatformViewsService.initAndroidView()',
-                'System creates the native view via a factory', brickRed),
-            _avLifecycleStep('2', 'AWAIT', 'await controller.create()',
-                'Waits for the native view to be fully initialized', terracotta),
-            _avLifecycleStep('3', 'RESIZE', 'controller.setSize(Size(w, h))',
-                'Matches the native view to Flutter\'s layout size', clay),
-            _avLifecycleStep('4', 'OFFSET', 'controller.setOffset(Offset(x, y))',
-                'Positions the native view on screen', umber),
-            _avLifecycleStep('5', 'INTERACT', 'Touch forwarding active',
-                'MotionEvents routed from Flutter to native view', rawSienna),
-            _avLifecycleStep('6', 'DISPOSE', 'controller.dispose()',
-                'Releases native resources, removes from scene', kiln),
+            _avLifecycleStep(
+              '1',
+              'CREATE',
+              'PlatformViewsService.initAndroidView()',
+              'System creates the native view via a factory',
+              brickRed,
+            ),
+            _avLifecycleStep(
+              '2',
+              'AWAIT',
+              'await controller.create()',
+              'Waits for the native view to be fully initialized',
+              terracotta,
+            ),
+            _avLifecycleStep(
+              '3',
+              'RESIZE',
+              'controller.setSize(Size(w, h))',
+              'Matches the native view to Flutter\'s layout size',
+              clay,
+            ),
+            _avLifecycleStep(
+              '4',
+              'OFFSET',
+              'controller.setOffset(Offset(x, y))',
+              'Positions the native view on screen',
+              umber,
+            ),
+            _avLifecycleStep(
+              '5',
+              'INTERACT',
+              'Touch forwarding active',
+              'MotionEvents routed from Flutter to native view',
+              rawSienna,
+            ),
+            _avLifecycleStep(
+              '6',
+              'DISPOSE',
+              'controller.dispose()',
+              'Releases native resources, removes from scene',
+              kiln,
+            ),
           ],
         ),
       ),
@@ -369,8 +427,16 @@ dynamic build(BuildContext context) {
             avRow(['viewType', 'String', 'Factory lookup key']),
             avRow(['layoutDirection', 'TextDirection', 'LTR or RTL layout']),
             avRow(['creationParams', 'dynamic', 'Init data for native side']),
-            avRow(['creationParamsCodec', 'MessageCodec', 'Serialization codec']),
-            avRow(['onFocus', 'VoidCallback?', 'Called when native gets focus']),
+            avRow([
+              'creationParamsCodec',
+              'MessageCodec',
+              'Serialization codec',
+            ]),
+            avRow([
+              'onFocus',
+              'VoidCallback?',
+              'Called when native gets focus',
+            ]),
           ],
         ),
       ),
@@ -398,17 +464,23 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Dart Side',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: brickRed)),
+                        Text(
+                          'Dart Side',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: brickRed,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text('AndroidView(\n  viewType: "my_map",\n  creationParams: {...}\n)',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: umber)),
+                        Text(
+                          'AndroidView(\n  viewType: "my_map",\n  creationParams: {...}\n)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: umber,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -427,17 +499,23 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Android Side',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: brickRed)),
+                        Text(
+                          'Android Side',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: brickRed,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text('registry.register(\n  "my_map",\n  MyMapFactory()\n)',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: umber)),
+                        Text(
+                          'registry.register(\n  "my_map",\n  MyMapFactory()\n)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: umber,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -478,7 +556,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  avLayerBox('Flutter Scene', terracotta.withValues(alpha: 0.2), 30),
+                  avLayerBox(
+                    'Flutter Scene',
+                    terracotta.withValues(alpha: 0.2),
+                    30,
+                  ),
                   Container(
                     width: double.infinity,
                     height: 50,
@@ -486,21 +568,31 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: warmTan.withValues(alpha: 0.4),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: rawSienna, style: BorderStyle.solid),
+                      border: Border.all(
+                        color: rawSienna,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Texture (pixels copied)',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: clay)),
+                        Text(
+                          'Texture (pixels copied)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: clay,
+                          ),
+                        ),
                         Icon(Icons.image, size: 16, color: clay),
                       ],
                     ),
                   ),
-                  avLayerBox('VirtualDisplay (off-screen)', adobe.withValues(alpha: 0.3), 30),
+                  avLayerBox(
+                    'VirtualDisplay (off-screen)',
+                    adobe.withValues(alpha: 0.3),
+                    30,
+                  ),
                 ],
               ),
             ),
@@ -529,14 +621,21 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  avLayerBox('Flutter Overlay Layer', terracotta.withValues(alpha: 0.2), 28),
+                  avLayerBox(
+                    'Flutter Overlay Layer',
+                    terracotta.withValues(alpha: 0.2),
+                    28,
+                  ),
                   Container(
                     width: double.infinity,
                     height: 50,
                     margin: const EdgeInsets.only(bottom: 4),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [brickRed.withValues(alpha: 0.15), adobe.withValues(alpha: 0.2)],
+                        colors: [
+                          brickRed.withValues(alpha: 0.15),
+                          adobe.withValues(alpha: 0.2),
+                        ],
                       ),
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(color: brickRed, width: 1.5),
@@ -544,16 +643,23 @@ dynamic build(BuildContext context) {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Native View (in-place)',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: brickRed)),
+                        Text(
+                          'Native View (in-place)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: brickRed,
+                          ),
+                        ),
                         Icon(Icons.android, size: 16, color: brickRed),
                       ],
                     ),
                   ),
-                  avLayerBox('Flutter Background Layer', terracotta.withValues(alpha: 0.2), 28),
+                  avLayerBox(
+                    'Flutter Background Layer',
+                    terracotta.withValues(alpha: 0.2),
+                    28,
+                  ),
                 ],
               ),
             ),
@@ -572,8 +678,11 @@ dynamic build(BuildContext context) {
         'Mode Comparison',
         Column(
           children: [
-            avRow(['Aspect', 'Virtual Display', 'Hybrid Composition'],
-                isHeader: true),
+            avRow([
+              'Aspect',
+              'Virtual Display',
+              'Hybrid Composition',
+            ], isHeader: true),
             avRow(['Rendering', 'Off-screen texture', 'In-place native']),
             avRow(['Touch events', 'May have issues', 'Correct']),
             avRow(['Accessibility', 'Limited', 'Full']),
@@ -613,14 +722,30 @@ dynamic build(BuildContext context) {
               'Native Android View',
             ]),
             const SizedBox(height: 14),
-            _avTouchDemo('Tap', Icons.touch_app, 'MotionEvent.ACTION_DOWN + UP',
-                terracotta),
-            _avTouchDemo('Long Press', Icons.pan_tool, 'ACTION_DOWN + delay + UP',
-                clay),
-            _avTouchDemo('Drag/Swipe', Icons.swipe, 'ACTION_DOWN + MOVEs + UP',
-                umber),
-            _avTouchDemo('Pinch Zoom', Icons.pinch, 'Multiple pointers + MOVEs',
-                brickRed),
+            _avTouchDemo(
+              'Tap',
+              Icons.touch_app,
+              'MotionEvent.ACTION_DOWN + UP',
+              terracotta,
+            ),
+            _avTouchDemo(
+              'Long Press',
+              Icons.pan_tool,
+              'ACTION_DOWN + delay + UP',
+              clay,
+            ),
+            _avTouchDemo(
+              'Drag/Swipe',
+              Icons.swipe,
+              'ACTION_DOWN + MOVEs + UP',
+              umber,
+            ),
+            _avTouchDemo(
+              'Pinch Zoom',
+              Icons.pinch,
+              'Multiple pointers + MOVEs',
+              brickRed,
+            ),
           ],
         ),
       ),
@@ -671,44 +796,67 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: brickRed,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('AndroidView',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14)),
+                    child: const Text(
+                      'AndroidView',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  Text('viewType: "google_maps"',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: umber)),
+                  Text(
+                    'viewType: "google_maps"',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      color: umber,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.map, color: clay, size: 20),
                       const SizedBox(width: 4),
-                      Text('Native MapView renders here',
-                          style: TextStyle(fontSize: 11, color: clay)),
+                      Text(
+                        'Native MapView renders here',
+                        style: TextStyle(fontSize: 11, color: clay),
+                      ),
                     ],
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 10),
-            avCode('viewType', 'String matching registered PlatformViewFactory'),
+            avCode(
+              'viewType',
+              'String matching registered PlatformViewFactory',
+            ),
             avCode('onPlatformViewCreated', 'Callback with viewId when ready'),
             avCode('creationParams', 'Map or object to pass to the factory'),
             avCode('creationParamsCodec', 'StandardMessageCodec (default)'),
-            avCode('hitTestBehavior', 'How to handle hit testing (opaque, translucent)'),
-            avCode('gestureRecognizers', 'Set of gesture recognizers for the view'),
-            avCode('clipBehavior', 'Clip.hardEdge by default for native content'),
+            avCode(
+              'hitTestBehavior',
+              'How to handle hit testing (opaque, translucent)',
+            ),
+            avCode(
+              'gestureRecognizers',
+              'Set of gesture recognizers for the view',
+            ),
+            avCode(
+              'clipBehavior',
+              'Clip.hardEdge by default for native content',
+            ),
           ],
         ),
       ),
@@ -745,12 +893,15 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.build, color: brickRed, size: 20),
                     const SizedBox(height: 4),
-                    Text('Controller\nFactory',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: brickRed)),
+                    Text(
+                      'Controller\nFactory',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: brickRed,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -769,12 +920,15 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.layers, color: terracotta, size: 20),
                     const SizedBox(height: 4),
-                    Text('Surface\nFactory',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: terracotta)),
+                    Text(
+                      'Surface\nFactory',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: terracotta,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -793,12 +947,15 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.delete_outline, color: clay, size: 20),
                     const SizedBox(height: 4),
-                    Text('onDispose\nCallback',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: clay)),
+                    Text(
+                      'onDispose\nCallback',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: clay,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -813,7 +970,10 @@ dynamic build(BuildContext context) {
             avRow(['Component', 'Responsibility'], isHeader: true),
             avRow(['viewType', 'String key for the native factory']),
             avRow(['surfaceFactory', 'Builds PlatformViewSurface widget']),
-            avRow(['onCreatePlatformView', 'Creates the PlatformViewController']),
+            avRow([
+              'onCreatePlatformView',
+              'Creates the PlatformViewController',
+            ]),
           ],
         ),
       ),
@@ -852,10 +1012,18 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.fullscreen, color: terracotta, size: 22),
-                        Text('Expanded',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: terracotta)),
-                        Text('Fills parent constraints',
-                            style: TextStyle(fontSize: 9, color: clay)),
+                        Text(
+                          'Expanded',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: terracotta,
+                          ),
+                        ),
+                        Text(
+                          'Fills parent constraints',
+                          style: TextStyle(fontSize: 9, color: clay),
+                        ),
                       ],
                     ),
                   ),
@@ -873,10 +1041,18 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.aspect_ratio, color: brickRed, size: 22),
-                        Text('Fixed Size',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: brickRed)),
-                        Text('SizedBox wrapping',
-                            style: TextStyle(fontSize: 9, color: clay)),
+                        Text(
+                          'Fixed Size',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: brickRed,
+                          ),
+                        ),
+                        Text(
+                          'SizedBox wrapping',
+                          style: TextStyle(fontSize: 9, color: clay),
+                        ),
                       ],
                     ),
                   ),
@@ -894,10 +1070,18 @@ dynamic build(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.height, color: clay, size: 22),
-                        Text('AspectRatio',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: clay)),
-                        Text('16:9, 4:3, etc.',
-                            style: TextStyle(fontSize: 9, color: umber)),
+                        Text(
+                          'AspectRatio',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: clay,
+                          ),
+                        ),
+                        Text(
+                          '16:9, 4:3, etc.',
+                          style: TextStyle(fontSize: 9, color: umber),
+                        ),
                       ],
                     ),
                   ),
@@ -906,7 +1090,10 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 8),
             avCode('setSize()', 'Tells native view to resize to match layout'),
-            avCode('setOffset()', 'Positions native view at the correct screen coordinates'),
+            avCode(
+              'setOffset()',
+              'Positions native view at the correct screen coordinates',
+            ),
           ],
         ),
       ),
@@ -946,18 +1133,28 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.code, size: 24, color: Color(0xFF1565C0)),
+                            const Icon(
+                              Icons.code,
+                              size: 24,
+                              color: Color(0xFF1565C0),
+                            ),
                             const SizedBox(height: 4),
-                            Text('Dart',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: brickRed)),
-                            Text('MethodChannel\n.invokeMethod()',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 9,
-                                    fontFamily: 'monospace',
-                                    color: umber)),
+                            Text(
+                              'Dart',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: brickRed,
+                              ),
+                            ),
+                            Text(
+                              'MethodChannel\n.invokeMethod()',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontFamily: 'monospace',
+                                color: umber,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -969,16 +1166,22 @@ dynamic build(BuildContext context) {
                     Icon(Icons.arrow_forward, size: 16, color: terracotta),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 4),
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: terracotta.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text('MethodChannel',
-                          style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                              color: terracotta)),
+                      child: Text(
+                        'MethodChannel',
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: terracotta,
+                        ),
+                      ),
                     ),
                     Icon(Icons.arrow_back, size: 16, color: terracotta),
                   ],
@@ -995,18 +1198,28 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.android, size: 24, color: const Color(0xFF2E7D32)),
+                            Icon(
+                              Icons.android,
+                              size: 24,
+                              color: const Color(0xFF2E7D32),
+                            ),
                             const SizedBox(height: 4),
-                            Text('Android',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: brickRed)),
-                            Text('MethodChannel\n.setMethodCallHandler()',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 9,
-                                    fontFamily: 'monospace',
-                                    color: umber)),
+                            Text(
+                              'Android',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: brickRed,
+                              ),
+                            ),
+                            Text(
+                              'MethodChannel\n.setMethodCallHandler()',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontFamily: 'monospace',
+                                color: umber,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1017,9 +1230,21 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             avRow(['Channel', 'Direction', 'Purpose'], isHeader: true),
-            avRow(['flutter/platform_views', 'Dart → Native', 'Create/dispose views']),
-            avRow(['flutter/platform_views/N', 'Bidirectional', 'View-specific messages']),
-            avRow(['Custom channel', 'Bidirectional', 'App-specific communication']),
+            avRow([
+              'flutter/platform_views',
+              'Dart → Native',
+              'Create/dispose views',
+            ]),
+            avRow([
+              'flutter/platform_views/N',
+              'Bidirectional',
+              'View-specific messages',
+            ]),
+            avRow([
+              'Custom channel',
+              'Bidirectional',
+              'App-specific communication',
+            ]),
           ],
         ),
       ),
@@ -1044,7 +1269,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             avRow(['Aspect', 'Android', 'iOS'], isHeader: true),
-            avRow(['Controller', 'AndroidViewController', 'UiKitViewController']),
+            avRow([
+              'Controller',
+              'AndroidViewController',
+              'UiKitViewController',
+            ]),
             avRow(['Widget', 'AndroidView', 'UiKitView']),
             avRow(['Rendering', 'Hybrid / VirtualDisplay', 'Hybrid only']),
             avRow(['Touch', 'MotionEvent forwarding', 'UIEvent forwarding']),
@@ -1069,10 +1298,20 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.android, color: const Color(0xFF2E7D32), size: 28),
+                        Icon(
+                          Icons.android,
+                          color: const Color(0xFF2E7D32),
+                          size: 28,
+                        ),
                         const SizedBox(height: 4),
-                        Text('AndroidView',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: brickRed)),
+                        Text(
+                          'AndroidView',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: brickRed,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1081,9 +1320,11 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
                     children: [
-                      Text('Platform\n.isAndroid?',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 9, color: umber)),
+                      Text(
+                        'Platform\n.isAndroid?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 9, color: umber),
+                      ),
                       Icon(Icons.device_unknown, size: 18, color: clay),
                     ],
                   ),
@@ -1099,8 +1340,14 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.apple, color: umber, size: 28),
                         const SizedBox(height: 4),
-                        Text('UiKitView',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: umber)),
+                        Text(
+                          'UiKitView',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: umber,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1157,8 +1404,14 @@ dynamic build(BuildContext context) {
         'Resolution Strategy',
         Column(
           children: [
-            avCode('EagerGestureRecognizer', 'Flutter always wins gesture arena'),
-            avCode('VerticalDragGestureRecognizer', 'Flutter handles vertical drags'),
+            avCode(
+              'EagerGestureRecognizer',
+              'Flutter always wins gesture arena',
+            ),
+            avCode(
+              'VerticalDragGestureRecognizer',
+              'Flutter handles vertical drags',
+            ),
             avCode('Empty set {}', 'All gestures go to native view (default)'),
           ],
         ),
@@ -1181,18 +1434,48 @@ dynamic build(BuildContext context) {
         'Popular Platform View Plugins',
         Column(
           children: [
-            _avUseCaseRow(Icons.map, 'Google Maps', 'google_maps_flutter',
-                'Full native Google Maps SDK', terracotta),
-            _avUseCaseRow(Icons.web, 'WebView', 'webview_flutter',
-                'Chromium-based web rendering', clay),
-            _avUseCaseRow(Icons.camera_alt, 'Camera Preview', 'camera',
-                'Hardware-accelerated camera feed', brickRed),
-            _avUseCaseRow(Icons.monetization_on, 'Ads', 'google_mobile_ads',
-                'AdMob & Ad Manager native ads', umber),
-            _avUseCaseRow(Icons.play_circle, 'Video Player', 'video_player',
-                'Native video playback engine', rawSienna),
-            _avUseCaseRow(Icons.fingerprint, 'Biometrics', 'local_auth',
-                'Fingerprint/face prompt (iOS only)', kiln),
+            _avUseCaseRow(
+              Icons.map,
+              'Google Maps',
+              'google_maps_flutter',
+              'Full native Google Maps SDK',
+              terracotta,
+            ),
+            _avUseCaseRow(
+              Icons.web,
+              'WebView',
+              'webview_flutter',
+              'Chromium-based web rendering',
+              clay,
+            ),
+            _avUseCaseRow(
+              Icons.camera_alt,
+              'Camera Preview',
+              'camera',
+              'Hardware-accelerated camera feed',
+              brickRed,
+            ),
+            _avUseCaseRow(
+              Icons.monetization_on,
+              'Ads',
+              'google_mobile_ads',
+              'AdMob & Ad Manager native ads',
+              umber,
+            ),
+            _avUseCaseRow(
+              Icons.play_circle,
+              'Video Player',
+              'video_player',
+              'Native video playback engine',
+              rawSienna,
+            ),
+            _avUseCaseRow(
+              Icons.fingerprint,
+              'Biometrics',
+              'local_auth',
+              'Fingerprint/face prompt (iOS only)',
+              kiln,
+            ),
           ],
         ),
       ),
@@ -1260,14 +1543,26 @@ dynamic build(BuildContext context) {
         'Common Failure Modes',
         Column(
           children: [
-            _avErrorRow('Unregistered viewType', 'PlatformException',
-                'Ensure registerViewFactory is called on native side'),
-            _avErrorRow('Factory exception', 'PlatformException',
-                'Debug native factory code; check logcat'),
-            _avErrorRow('Disposed controller', 'StateError',
-                'Null-check controller before method calls'),
-            _avErrorRow('Size mismatch', 'Visual glitch',
-                'Always constrain size in Flutter layout'),
+            _avErrorRow(
+              'Unregistered viewType',
+              'PlatformException',
+              'Ensure registerViewFactory is called on native side',
+            ),
+            _avErrorRow(
+              'Factory exception',
+              'PlatformException',
+              'Debug native factory code; check logcat',
+            ),
+            _avErrorRow(
+              'Disposed controller',
+              'StateError',
+              'Null-check controller before method calls',
+            ),
+            _avErrorRow(
+              'Size mismatch',
+              'Visual glitch',
+              'Always constrain size in Flutter layout',
+            ),
           ],
         ),
       ),
@@ -1292,12 +1587,28 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             avRow(['Tool', 'Side', 'What It Shows'], isHeader: true),
-            avRow(['DevTools Inspector', 'Flutter', 'Widget tree, PlatformView node']),
-            avRow(['Layout Explorer', 'Flutter', 'Size & position of the view']),
-            avRow(['Android Studio', 'Native', 'Layout Inspector for native views']),
+            avRow([
+              'DevTools Inspector',
+              'Flutter',
+              'Widget tree, PlatformView node',
+            ]),
+            avRow([
+              'Layout Explorer',
+              'Flutter',
+              'Size & position of the view',
+            ]),
+            avRow([
+              'Android Studio',
+              'Native',
+              'Layout Inspector for native views',
+            ]),
             avRow(['Logcat', 'Native', 'Native error messages and traces']),
             avRow(['adb shell dumpsys', 'Native', 'View hierarchy dump']),
-            avRow(['Profile mode', 'Flutter', 'Frame timing with platform views']),
+            avRow([
+              'Profile mode',
+              'Flutter',
+              'Frame timing with platform views',
+            ]),
           ],
         ),
       ),
@@ -1360,11 +1671,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('AndroidViewController — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'AndroidViewController — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From creation to disposal, rendering modes to gesture conflict '
@@ -1395,10 +1709,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -1410,8 +1736,13 @@ dynamic build(BuildContext context) {
 // Top-level helpers
 // ═══════════════════════════════════════════════════
 
-Widget _avLifecycleStep(String num, String phase, String code,
-    String desc, Color accent) {
+Widget _avLifecycleStep(
+  String num,
+  String phase,
+  String code,
+  String desc,
+  Color accent,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -1425,11 +1756,14 @@ Widget _avLifecycleStep(String num, String phase, String code,
             borderRadius: BorderRadius.circular(14),
           ),
           child: Center(
-            child: Text(num,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              num,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -1437,18 +1771,26 @@ Widget _avLifecycleStep(String num, String phase, String code,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(phase,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: accent)),
-              Text(code,
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: accent.withValues(alpha: 0.7))),
-              Text(desc,
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF635147))),
+              Text(
+                phase,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: accent,
+                ),
+              ),
+              Text(
+                code,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: accent.withValues(alpha: 0.7),
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 11, color: Color(0xFF635147)),
+              ),
             ],
           ),
         ),
@@ -1471,18 +1813,24 @@ Widget _avTouchDemo(String gesture, IconData icon, String detail, Color color) {
         children: [
           Icon(icon, size: 18, color: color),
           const SizedBox(width: 10),
-          Text(gesture,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: color)),
+          Text(
+            gesture,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: color.withValues(alpha: 0.7))),
+            child: Text(
+              detail,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: color.withValues(alpha: 0.7),
+              ),
+            ),
           ),
         ],
       ),
@@ -1490,8 +1838,12 @@ Widget _avTouchDemo(String gesture, IconData icon, String detail, Color color) {
   );
 }
 
-Widget _avGestureConflict(String title, String conflict,
-    IconData icon, Color color) {
+Widget _avGestureConflict(
+  String title,
+  String conflict,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1507,24 +1859,38 @@ Widget _avGestureConflict(String title, String conflict,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(conflict,
-                  style: TextStyle(fontSize: 11, color: const Color(0xFF635147))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                conflict,
+                style: TextStyle(fontSize: 11, color: const Color(0xFF635147)),
+              ),
             ],
           ),
         ),
-        Icon(Icons.warning_amber, size: 18, color: color.withValues(alpha: 0.6)),
+        Icon(
+          Icons.warning_amber,
+          size: 18,
+          color: color.withValues(alpha: 0.6),
+        ),
       ],
     ),
   );
 }
 
-Widget _avUseCaseRow(IconData icon, String name, String plugin,
-    String desc, Color color) {
+Widget _avUseCaseRow(
+  IconData icon,
+  String name,
+  String plugin,
+  String desc,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -1543,19 +1909,26 @@ Widget _avUseCaseRow(IconData icon, String name, String plugin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(plugin,
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: color.withValues(alpha: 0.7))),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF635147))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                plugin,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF635147)),
+              ),
             ],
           ),
         ),
@@ -1571,13 +1944,18 @@ Widget _avPerfBar(String label, double fraction, Color color, String level) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: const TextStyle(fontSize: 11, color: Color(0xFF635147))),
-          Text(level,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color)),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 11, color: Color(0xFF635147)),
+          ),
+          Text(
+            level,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ],
       ),
       const SizedBox(height: 3),
@@ -1619,17 +1997,25 @@ Widget _avErrorRow(String error, String type, String fix) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(error,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600)),
-              Text('Throws: $type',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: const Color(0xFF993322))),
-              Text('Fix: $fix',
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF635147))),
+              Text(
+                error,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                'Throws: $type',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: const Color(0xFF993322),
+                ),
+              ),
+              Text(
+                'Fix: $fix',
+                style: const TextStyle(fontSize: 10, color: Color(0xFF635147)),
+              ),
             ],
           ),
         ),

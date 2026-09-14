@@ -88,11 +88,7 @@ dynamic build(BuildContext context) {
             'four read-only getters — tristate, radioValue, enabled, focusNode — '
             'and a registry setter that handles automatic registration and '
             'unregistration. Typically mixed with a State class.',
-            style: TextStyle(
-              fontSize: 13.5,
-              color: aqua100,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 13.5, color: aqua100, height: 1.5),
           ),
         ],
       ),
@@ -136,9 +132,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: teal900.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: teal700, width: 3.5),
-          ),
+          border: Border(left: BorderSide(color: teal700, width: 3.5)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,11 +173,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 prop['desc']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: teal800,
-                  height: 1.3,
-                ),
+                style: TextStyle(fontSize: 12.0, color: teal800, height: 1.3),
               ),
             ),
           ],
@@ -234,7 +224,8 @@ dynamic build(BuildContext context) {
       'role': 'StatefulWidget — the container',
       'icon': Icons.group_work,
       'color': Color(0xFF1565C0),
-      'desc': 'Wraps a subtree of radios, manages groupValue, '
+      'desc':
+          'Wraps a subtree of radios, manages groupValue, '
           'provides keyboard shortcuts (arrow keys, Space, Tab)',
     },
     {
@@ -242,7 +233,8 @@ dynamic build(BuildContext context) {
       'role': 'Abstract interface — the contract',
       'icon': Icons.article,
       'color': Color(0xFF6A1B9A),
-      'desc': 'Defines groupValue getter, registerClient/unregisterClient, '
+      'desc':
+          'Defines groupValue getter, registerClient/unregisterClient, '
           'and onChanged callback. _RadioGroupState implements this.',
     },
     {
@@ -250,7 +242,8 @@ dynamic build(BuildContext context) {
       'role': 'Mixin — the participant',
       'icon': Icons.radio_button_checked,
       'color': teal600,
-      'desc': 'Each radio mixes this in. Exposes tristate, radioValue, '
+      'desc':
+          'Each radio mixes this in. Exposes tristate, radioValue, '
           'enabled, focusNode. Auto-registers via registry setter.',
     },
   ];
@@ -308,7 +301,10 @@ dynamic build(BuildContext context) {
                       if (isClient) ...[
                         SizedBox(width: 8.0),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6.0,
+                            vertical: 2.0,
+                          ),
                           decoration: BoxDecoration(
                             color: teal500,
                             borderRadius: BorderRadius.circular(4.0),
@@ -433,7 +429,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.toggle_on,
       'color': Color(0xFFEF6C00),
       'purpose': 'Toggleable behavior',
-      'detail': 'When true, selecting an already-selected radio deselects it '
+      'detail':
+          'When true, selecting an already-selected radio deselects it '
           '(calls onChanged(null)). When false, once selected, the radio '
           'can only be unselected by selecting another radio in the group.',
       'used': 'Registry reads this to decide whether Space key toggles off',
@@ -443,7 +440,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.label,
       'color': Color(0xFF1565C0),
       'purpose': 'Identity in the group',
-      'detail': 'The value this radio represents. When this equals '
+      'detail':
+          'The value this radio represents. When this equals '
           'groupValue, this radio is the selected one. The type T is the '
           'generic type of the entire RadioGroup.',
       'used': 'Registry compares this to groupValue for selection state',
@@ -453,7 +451,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.block,
       'color': Color(0xFFC62828),
       'purpose': 'Interaction gate',
-      'detail': 'If false, the registry skips this client during keyboard '
+      'detail':
+          'If false, the registry skips this client during keyboard '
           'navigation (arrow keys will jump over disabled radios). '
           'The radio is still visible but not interactive.',
       'used': 'Arrow key navigation filters out disabled radios',
@@ -463,7 +462,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.center_focus_strong,
       'color': Color(0xFF2E7D32),
       'purpose': 'Keyboard focus target',
-      'detail': 'Used by the registry for keyboard navigation — arrow keys '
+      'detail':
+          'Used by the registry for keyboard navigation — arrow keys '
           'call focusNode.requestFocus() on the next/previous radio. '
           'Also used to detect which radio currently has focus.',
       'used': 'Registry sorts focusNodes in reading order for traversal',
@@ -608,11 +608,7 @@ dynamic build(BuildContext context) {
           Text(
             'The registry setter is the heart of RadioClient. It handles '
             'registration lifecycle automatically:',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: teal800,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 12.5, color: teal800, height: 1.4),
           ),
         ],
       ),
@@ -651,19 +647,14 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: teal600.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(
-            left: BorderSide(color: teal500, width: 3.0),
-          ),
+          border: Border(left: BorderSide(color: teal500, width: 3.0)),
         ),
         child: Row(
           children: [
             Container(
               width: 26.0,
               height: 26.0,
-              decoration: BoxDecoration(
-                color: teal600,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: teal600, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   step['step']!,
@@ -713,9 +704,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: Color(0xFFE65100), width: 3.5),
-        ),
+        border: Border(left: BorderSide(color: Color(0xFFE65100), width: 3.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -806,11 +795,7 @@ dynamic build(BuildContext context) {
             'RadioClient<T> and ToggleableStateMixin. Both Material Radio '
             'and CupertinoRadio use RawRadio internally, providing their '
             'own builder for the visual appearance.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.5),
           ),
         ],
       ),
@@ -824,7 +809,11 @@ dynamic build(BuildContext context) {
     {'name': 'RawRadio<T> (shared)', 'depth': 1, 'color': Color(0xFF37474F)},
     {'name': '_RawRadioState<T>', 'depth': 2, 'color': Color(0xFF37474F)},
     {'name': 'with RadioClient<T>', 'depth': 3, 'color': teal600},
-    {'name': 'with ToggleableStateMixin', 'depth': 3, 'color': Color(0xFF6A1B9A)},
+    {
+      'name': 'with ToggleableStateMixin',
+      'depth': 3,
+      'color': Color(0xFF6A1B9A),
+    },
   ];
 
   for (final node in radioHierarchy) {
@@ -846,8 +835,12 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(8.0),
           border: isClient
               ? Border.all(color: teal500, width: 2.0)
-              : Border(left: BorderSide(
-                  color: (node['color'] as Color).withValues(alpha: 0.4), width: 3.0)),
+              : Border(
+                  left: BorderSide(
+                    color: (node['color'] as Color).withValues(alpha: 0.4),
+                    width: 3.0,
+                  ),
+                ),
         ),
         child: Row(
           children: [
@@ -948,7 +941,8 @@ dynamic build(BuildContext context) {
     {
       'keys': 'Space',
       'action': 'Toggle selection',
-      'detail': 'Selects focused radio; if tristate and already selected, unselects',
+      'detail':
+          'Selects focused radio; if tristate and already selected, unselects',
       'icon': Icons.space_bar,
     },
   ];
@@ -986,7 +980,10 @@ dynamic build(BuildContext context) {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 3.0,
+                        ),
                         decoration: BoxDecoration(
                           color: teal700,
                           borderRadius: BorderRadius.circular(4.0),
@@ -1093,10 +1090,25 @@ dynamic build(BuildContext context) {
 
   // Visual radio group simulation
   final radioOptions = <Map<String, dynamic>>[
-    {'label': 'Small', 'value': 'S', 'selected': false, 'icon': Icons.text_fields},
-    {'label': 'Medium', 'value': 'M', 'selected': true, 'icon': Icons.format_size},
+    {
+      'label': 'Small',
+      'value': 'S',
+      'selected': false,
+      'icon': Icons.text_fields,
+    },
+    {
+      'label': 'Medium',
+      'value': 'M',
+      'selected': true,
+      'icon': Icons.format_size,
+    },
     {'label': 'Large', 'value': 'L', 'selected': false, 'icon': Icons.title},
-    {'label': 'Extra Large', 'value': 'XL', 'selected': false, 'icon': Icons.format_bold},
+    {
+      'label': 'Extra Large',
+      'value': 'XL',
+      'selected': false,
+      'icon': Icons.format_bold,
+    },
   ];
 
   visualRadioCards.add(
@@ -1130,12 +1142,12 @@ dynamic build(BuildContext context) {
               margin: EdgeInsets.only(bottom: 8.0),
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                color: selected
-                    ? teal600.withValues(alpha: 0.1)
-                    : Colors.white,
+                color: selected ? teal600.withValues(alpha: 0.1) : Colors.white,
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
-                  color: selected ? teal500 : Colors.grey.withValues(alpha: 0.3),
+                  color: selected
+                      ? teal500
+                      : Colors.grey.withValues(alpha: 0.3),
                   width: selected ? 2.0 : 1.0,
                 ),
               ),
@@ -1179,7 +1191,9 @@ dynamic build(BuildContext context) {
                           opt['label'] as String,
                           style: TextStyle(
                             fontSize: 13.0,
-                            fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                            fontWeight: selected
+                                ? FontWeight.bold
+                                : FontWeight.normal,
                             color: selected ? teal800 : Color(0xFF37474F),
                           ),
                         ),
@@ -1196,7 +1210,10 @@ dynamic build(BuildContext context) {
                   ),
                   if (selected)
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 3.0,
+                      ),
                       decoration: BoxDecoration(
                         color: teal600,
                         borderRadius: BorderRadius.circular(4.0),
@@ -1277,7 +1294,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF2E7D32).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF2E7D32).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -1323,7 +1342,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFFEF6C00).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Color(0xFFEF6C00).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFFEF6C00).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -1382,16 +1403,14 @@ dynamic build(BuildContext context) {
         'checks: if radioValue != groupValue, it calls onChanged(radioValue). '
         'But if radioValue == groupValue AND tristate is true, it calls '
         'onChanged(null) — deselecting the current selection.',
-        style: TextStyle(
-          fontSize: 12.0,
-          color: teal800,
-          height: 1.5,
-        ),
+        style: TextStyle(fontSize: 12.0, color: teal800, height: 1.5),
       ),
     ),
   );
 
-  print('  tristate false: standard radio (can only deselect by selecting another)');
+  print(
+    '  tristate false: standard radio (can only deselect by selecting another)',
+  );
   print('  tristate true: tapping selected radio unselects it (null)');
 
   // ============================================================
@@ -1458,11 +1477,7 @@ dynamic build(BuildContext context) {
             'only includes the selected radio (or the first radio if none '
             'is selected). Unselected radios are skipped by Tab — they are '
             'only reachable via arrow keys within the group.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.5),
           ),
         ],
       ),
@@ -1504,7 +1519,9 @@ dynamic build(BuildContext context) {
                           : Colors.grey.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
-                        color: label == 'B' ? teal500 : Colors.grey.withValues(alpha: 0.3),
+                        color: label == 'B'
+                            ? teal500
+                            : Colors.grey.withValues(alpha: 0.3),
                         width: label == 'B' ? 2.0 : 1.0,
                       ),
                     ),
@@ -1538,7 +1555,9 @@ dynamic build(BuildContext context) {
                           label,
                           style: TextStyle(
                             fontSize: 12.0,
-                            fontWeight: label == 'B' ? FontWeight.bold : FontWeight.normal,
+                            fontWeight: label == 'B'
+                                ? FontWeight.bold
+                                : FontWeight.normal,
                             color: label == 'B' ? teal700 : Colors.grey,
                           ),
                         ),
@@ -1646,15 +1665,15 @@ dynamic build(BuildContext context) {
           color: !isEnabled
               ? Colors.grey.withValues(alpha: 0.08)
               : isSelected
-                  ? teal600.withValues(alpha: 0.1)
-                  : aqua50,
+              ? teal600.withValues(alpha: 0.1)
+              : aqua50,
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
             color: !isEnabled
                 ? Colors.grey.withValues(alpha: 0.2)
                 : isSelected
-                    ? teal500
-                    : aqua200,
+                ? teal500
+                : aqua200,
           ),
         ),
         child: Row(
@@ -1665,7 +1684,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: !isEnabled ? Colors.grey.withValues(alpha: 0.3) : teal600,
+                  color: !isEnabled
+                      ? Colors.grey.withValues(alpha: 0.3)
+                      : teal600,
                   width: 2.0,
                 ),
               ),
@@ -1832,7 +1853,10 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 6.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF2E7D32),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1861,7 +1885,11 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Icon(Icons.radio_button_unchecked, color: Colors.grey, size: 28.0),
+                  Icon(
+                    Icons.radio_button_unchecked,
+                    color: Colors.grey,
+                    size: 28.0,
+                  ),
                   SizedBox(height: 6.0),
                   Text(
                     'Without RadioGroup',
@@ -1886,7 +1914,10 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 6.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFFE65100),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1909,7 +1940,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  print('  With RadioGroup: full keyboard nav, APG semantics, RadioClient registered');
+  print(
+    '  With RadioGroup: full keyboard nav, APG semantics, RadioClient registered',
+  );
   print('  Without: manual groupValue, no keyboard nav, no RadioClient');
 
   // ============================================================
@@ -1948,11 +1981,13 @@ dynamic build(BuildContext context) {
   final apgPoints = <Map<String, String>>[
     {
       'requirement': 'role="radiogroup"',
-      'implementation': 'RadioGroup wraps its build in Semantics(role: SemanticsRole.radioGroup)',
+      'implementation':
+          'RadioGroup wraps its build in Semantics(role: SemanticsRole.radioGroup)',
     },
     {
       'requirement': 'Tab moves to selected radio',
-      'implementation': '_SkipUnselectedRadioPolicy skips unselected radios for Tab',
+      'implementation':
+          '_SkipUnselectedRadioPolicy skips unselected radios for Tab',
     },
     {
       'requirement': 'Arrow keys move between radios',
@@ -1960,7 +1995,8 @@ dynamic build(BuildContext context) {
     },
     {
       'requirement': 'Space selects the focused radio',
-      'implementation': '_toggleFocusedRadio() handles Space via VoidCallbackIntent',
+      'implementation':
+          '_toggleFocusedRadio() handles Space via VoidCallbackIntent',
     },
     {
       'requirement': 'Arrow wraps from last to first',
@@ -2060,7 +2096,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Mix RadioClient<T> into State',
-      'desc': 'class _MyRadioState<T> extends State<MyRadio<T>> with RadioClient<T>',
+      'desc':
+          'class _MyRadioState<T> extends State<MyRadio<T>> with RadioClient<T>',
     },
     {
       'step': '3',
@@ -2092,9 +2129,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: teal600.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: teal500, width: 3.0),
-          ),
+          border: Border(left: BorderSide(color: teal500, width: 3.0)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2102,10 +2137,7 @@ dynamic build(BuildContext context) {
             Container(
               width: 26.0,
               height: 26.0,
-              decoration: BoxDecoration(
-                color: teal600,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: teal600, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   step['step']!,
@@ -2197,7 +2229,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF1565C0).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Color(0xFF1565C0).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF1565C0).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -2254,7 +2288,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFFE65100).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Color(0xFFE65100).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFFE65100).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -2342,9 +2378,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.fromLTRB(12.0, 20.0, 12.0, 8.0),
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [teal900, teal700],
-        ),
+        gradient: LinearGradient(colors: [teal900, teal700]),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Row(
@@ -2375,7 +2409,8 @@ dynamic build(BuildContext context) {
     },
     {
       'key': 'Getters',
-      'value': 'tristate, radioValue, enabled, focusNode — all read by registry',
+      'value':
+          'tristate, radioValue, enabled, focusNode — all read by registry',
     },
     {
       'key': 'Registry',
@@ -2383,7 +2418,8 @@ dynamic build(BuildContext context) {
     },
     {
       'key': 'Consumers',
-      'value': 'RawRadio (via Radio, CupertinoRadio) is the primary implementor',
+      'value':
+          'RawRadio (via Radio, CupertinoRadio) is the primary implementor',
     },
     {
       'key': 'Keyboard',
@@ -2397,10 +2433,7 @@ dynamic build(BuildContext context) {
       'key': 'APG',
       'value': 'Fully compliant with W3C ARIA radio group pattern',
     },
-    {
-      'key': 'Tristate',
-      'value': 'Optional: allows deselection back to null',
-    },
+    {'key': 'Tristate', 'value': 'Optional: allows deselection back to null'},
     {
       'key': 'Custom',
       'value': '6-step pattern to create custom RadioClient-based widgets',
@@ -2415,9 +2448,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: teal600.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(
-            left: BorderSide(color: aqua400, width: 3.0),
-          ),
+          border: Border(left: BorderSide(color: aqua400, width: 3.0)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2436,11 +2467,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 point['value']!,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: teal800,
-                  height: 1.3,
-                ),
+                style: TextStyle(fontSize: 12.0, color: teal800, height: 1.3),
               ),
             ),
           ],

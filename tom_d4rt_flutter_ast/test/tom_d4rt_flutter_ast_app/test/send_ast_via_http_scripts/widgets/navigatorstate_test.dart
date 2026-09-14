@@ -52,30 +52,42 @@ import 'package:flutter/material.dart';
 // that's the embedded one, not the root MaterialApp navigator.)
 // -----------------------------------------------------------------------------
 
-final GlobalKey<NavigatorState> _pushPopNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'pushPopNav');
-final GlobalKey<NavigatorState> _namedNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'namedNav');
-final GlobalKey<NavigatorState> _replaceTopNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'replaceTopNav');
-final GlobalKey<NavigatorState> _removeUntilNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'removeUntilNav');
-final GlobalKey<NavigatorState> _popUntilNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'popUntilNav');
-final GlobalKey<NavigatorState> _canPopNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'canPopNav');
-final GlobalKey<NavigatorState> _replaceMidNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'replaceMidNav');
-final GlobalKey<NavigatorState> _restorableNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'restorableNav');
-final GlobalKey<NavigatorState> _observerNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'observerNav');
-final GlobalKey<NavigatorState> _loginNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'loginNav');
-final GlobalKey<NavigatorState> _modalNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'modalNav');
-final GlobalKey<NavigatorState> _deepLinkNavKey =
-    GlobalKey<NavigatorState>(debugLabel: 'deepLinkNav');
+final GlobalKey<NavigatorState> _pushPopNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'pushPopNav',
+);
+final GlobalKey<NavigatorState> _namedNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'namedNav',
+);
+final GlobalKey<NavigatorState> _replaceTopNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'replaceTopNav',
+);
+final GlobalKey<NavigatorState> _removeUntilNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'removeUntilNav',
+);
+final GlobalKey<NavigatorState> _popUntilNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'popUntilNav',
+);
+final GlobalKey<NavigatorState> _canPopNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'canPopNav',
+);
+final GlobalKey<NavigatorState> _replaceMidNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'replaceMidNav',
+);
+final GlobalKey<NavigatorState> _restorableNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'restorableNav',
+);
+final GlobalKey<NavigatorState> _observerNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'observerNav',
+);
+final GlobalKey<NavigatorState> _loginNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'loginNav',
+);
+final GlobalKey<NavigatorState> _modalNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'modalNav',
+);
+final GlobalKey<NavigatorState> _deepLinkNavKey = GlobalKey<NavigatorState>(
+  debugLabel: 'deepLinkNav',
+);
 
 // =============================================================================
 // build — entry point used by the harness.
@@ -93,7 +105,8 @@ dynamic build(BuildContext context) {
   print('root mounted                    : ${root.mounted}');
   print('root overlay runtimeType        : ${root.overlay?.runtimeType}');
   print(
-      'Navigator.maybeOf identical     : ${identical(root, Navigator.maybeOf(context))}');
+    'Navigator.maybeOf identical     : ${identical(root, Navigator.maybeOf(context))}',
+  );
   print('Navigator.defaultRouteName      : ${Navigator.defaultRouteName}');
 
   return MaterialApp(
@@ -105,9 +118,7 @@ dynamic build(BuildContext context) {
       brightness: Brightness.light,
     ),
     home: Scaffold(
-      appBar: AppBar(
-        title: const Text('NavigatorState — Deep Demo'),
-      ),
+      appBar: AppBar(title: const Text('NavigatorState — Deep Demo')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -295,10 +306,7 @@ class _SectionHeader extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: TextStyle(
-                    color: cs.onSurfaceVariant,
-                    height: 1.3,
-                  ),
+                  style: TextStyle(color: cs.onSurfaceVariant, height: 1.3),
                 ),
               ],
             ),
@@ -323,10 +331,7 @@ class _CodeChip extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 12.5,
-        ),
+        style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
       ),
     );
   }
@@ -355,16 +360,10 @@ class _DemoCard extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            Text(
-              description,
-              style: const TextStyle(height: 1.3),
-            ),
+            Text(description, style: const TextStyle(height: 1.3)),
             const SizedBox(height: 12),
             child,
           ],
@@ -392,8 +391,7 @@ class _Toolbar extends StatelessWidget {
             icon: Icon(b.icon, size: 16),
             label: Text(b.label),
             style: ElevatedButton.styleFrom(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
@@ -449,41 +447,53 @@ class _AnatomyCard extends StatelessWidget {
         children: <Widget>[
           const Text('Obtain a NavigatorState:'),
           const SizedBox(height: 4),
-          Wrap(spacing: 6, runSpacing: 4, children: const <Widget>[
-            _CodeChip('Navigator.of(context)'),
-            _CodeChip('Navigator.maybeOf(context)'),
-            _CodeChip('navKey.currentState'),
-          ]),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: const <Widget>[
+              _CodeChip('Navigator.of(context)'),
+              _CodeChip('Navigator.maybeOf(context)'),
+              _CodeChip('navKey.currentState'),
+            ],
+          ),
           const SizedBox(height: 10),
           const Text('Mutating methods (return Future<T?> when applicable):'),
           const SizedBox(height: 4),
-          Wrap(spacing: 6, runSpacing: 4, children: const <Widget>[
-            _CodeChip('push(route)'),
-            _CodeChip('pushNamed(name, arguments: a)'),
-            _CodeChip('pushReplacement(route)'),
-            _CodeChip('pushReplacementNamed(name)'),
-            _CodeChip('pushAndRemoveUntil(route, predicate)'),
-            _CodeChip('pushNamedAndRemoveUntil(name, predicate)'),
-            _CodeChip('pop([result])'),
-            _CodeChip('maybePop([result])'),
-            _CodeChip('popUntil(predicate)'),
-            _CodeChip('replace(oldRoute: r1, newRoute: r2)'),
-            _CodeChip('replaceRouteBelow(anchorRoute: a, newRoute: r2)'),
-            _CodeChip('removeRoute(route)'),
-            _CodeChip('removeRouteBelow(anchorRoute: a)'),
-            _CodeChip('restorablePush(routeBuilder, arguments: a)'),
-            _CodeChip('restorablePushNamed(name, arguments: a)'),
-          ]),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: const <Widget>[
+              _CodeChip('push(route)'),
+              _CodeChip('pushNamed(name, arguments: a)'),
+              _CodeChip('pushReplacement(route)'),
+              _CodeChip('pushReplacementNamed(name)'),
+              _CodeChip('pushAndRemoveUntil(route, predicate)'),
+              _CodeChip('pushNamedAndRemoveUntil(name, predicate)'),
+              _CodeChip('pop([result])'),
+              _CodeChip('maybePop([result])'),
+              _CodeChip('popUntil(predicate)'),
+              _CodeChip('replace(oldRoute: r1, newRoute: r2)'),
+              _CodeChip('replaceRouteBelow(anchorRoute: a, newRoute: r2)'),
+              _CodeChip('removeRoute(route)'),
+              _CodeChip('removeRouteBelow(anchorRoute: a)'),
+              _CodeChip('restorablePush(routeBuilder, arguments: a)'),
+              _CodeChip('restorablePushNamed(name, arguments: a)'),
+            ],
+          ),
           const SizedBox(height: 10),
           const Text('Read-only:'),
           const SizedBox(height: 4),
-          Wrap(spacing: 6, runSpacing: 4, children: const <Widget>[
-            _CodeChip('canPop()'),
-            _CodeChip('mounted'),
-            _CodeChip('overlay'),
-            _CodeChip('context'),
-            _CodeChip('widget (Navigator)'),
-          ]),
+          Wrap(
+            spacing: 6,
+            runSpacing: 4,
+            children: const <Widget>[
+              _CodeChip('canPop()'),
+              _CodeChip('mounted'),
+              _CodeChip('overlay'),
+              _CodeChip('context'),
+              _CodeChip('widget (Navigator)'),
+            ],
+          ),
           const SizedBox(height: 10),
           const Text(
             'Predicates: routes carry settings (name, arguments). '
@@ -652,10 +662,7 @@ class _NamedRoutesCard extends StatelessWidget {
         children: <Widget>[
           _Toolbar(<_ToolButton>[
             _ToolButton('pushNamed /detail', Icons.article, () {
-              navKey.currentState?.pushNamed(
-                '/detail',
-                arguments: 'item-42',
-              );
+              navKey.currentState?.pushNamed('/detail', arguments: 'item-42');
             }),
             _ToolButton('pushNamed /settings', Icons.settings, () {
               navKey.currentState?.pushNamed('/settings');
@@ -775,10 +782,8 @@ class _PushReplacementCard extends StatelessWidget {
               navKey.currentState?.pushReplacement(
                 MaterialPageRoute<dynamic>(
                   settings: const RouteSettings(name: '/A'),
-                  builder: (_) => const _ColoredPage(
-                    label: 'A',
-                    color: Color(0xFFFFE0B2),
-                  ),
+                  builder: (_) =>
+                      const _ColoredPage(label: 'A', color: Color(0xFFFFE0B2)),
                 ),
               );
             }),
@@ -786,10 +791,8 @@ class _PushReplacementCard extends StatelessWidget {
               navKey.currentState?.pushReplacement(
                 MaterialPageRoute<dynamic>(
                   settings: const RouteSettings(name: '/B'),
-                  builder: (_) => const _ColoredPage(
-                    label: 'B',
-                    color: Color(0xFFC8E6C9),
-                  ),
+                  builder: (_) =>
+                      const _ColoredPage(label: 'B', color: Color(0xFFC8E6C9)),
                 ),
               );
             }),
@@ -797,10 +800,8 @@ class _PushReplacementCard extends StatelessWidget {
               navKey.currentState?.push(
                 MaterialPageRoute<dynamic>(
                   settings: const RouteSettings(name: '/C'),
-                  builder: (_) => const _ColoredPage(
-                    label: 'C',
-                    color: Color(0xFFBBDEFB),
-                  ),
+                  builder: (_) =>
+                      const _ColoredPage(label: 'C', color: Color(0xFFBBDEFB)),
                 ),
               );
             }),
@@ -845,10 +846,7 @@ class _ColoredPage extends StatelessWidget {
       body: Center(
         child: Text(
           label,
-          style: const TextStyle(
-            fontSize: 64,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 64, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -884,13 +882,16 @@ class _PushAndRemoveUntilCard extends StatelessWidget {
             _ToolButton('Push C', Icons.add, () {
               navKey.currentState?.push(_routeFor('C', Colors.blue.shade100));
             }),
-            _ToolButton('pushAndRemoveUntil shell, false', Icons.layers_clear,
-                () {
-              navKey.currentState?.pushAndRemoveUntil(
-                _routeFor('shell', Colors.amber.shade100),
-                (Route<dynamic> r) => false,
-              );
-            }),
+            _ToolButton(
+              'pushAndRemoveUntil shell, false',
+              Icons.layers_clear,
+              () {
+                navKey.currentState?.pushAndRemoveUntil(
+                  _routeFor('shell', Colors.amber.shade100),
+                  (Route<dynamic> r) => false,
+                );
+              },
+            ),
             _ToolButton('pushAndRemoveUntil shell, isFirst', Icons.layers, () {
               navKey.currentState?.pushAndRemoveUntil(
                 _routeFor('shell', Colors.amber.shade200),
@@ -945,8 +946,9 @@ class _PopUntilCard extends StatelessWidget {
               navKey.currentState?.push(_routeFor('X', Colors.cyan.shade100));
             }),
             _ToolButton('Push Y', Icons.add, () {
-              navKey.currentState
-                  ?.push(_routeFor('Y', Colors.deepPurple.shade100));
+              navKey.currentState?.push(
+                _routeFor('Y', Colors.deepPurple.shade100),
+              );
             }),
             _ToolButton('Push Z', Icons.add, () {
               navKey.currentState?.push(_routeFor('Z', Colors.teal.shade100));
@@ -1021,8 +1023,7 @@ class _CanPopCardState extends State<_CanPopCard> {
               );
             }),
             _ToolButton('canPop?', Icons.question_mark, () {
-              final bool can =
-                  widget.navKey.currentState?.canPop() ?? false;
+              final bool can = widget.navKey.currentState?.canPop() ?? false;
               _append('canPop = $can');
             }),
             _ToolButton('maybePop', Icons.undo, () async {
@@ -1049,18 +1050,14 @@ class _CanPopCardState extends State<_CanPopCard> {
               ),
               child: Text(
                 _log,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
             ),
           const SizedBox(height: 8),
           _NavFrame(
             child: Navigator(
               key: widget.navKey,
-              onGenerateRoute: (_) =>
-                  _routeFor('home', Colors.grey.shade200),
+              onGenerateRoute: (_) => _routeFor('home', Colors.grey.shade200),
             ),
           ),
         ],
@@ -1153,8 +1150,9 @@ class _ReplaceMidCardState extends State<_ReplaceMidCard> {
               widget.navKey.currentState?.push(r);
             }),
             _ToolButton('Push top', Icons.add, () {
-              widget.navKey.currentState
-                  ?.push(_routeFor('top', Colors.pink.shade100));
+              widget.navKey.currentState?.push(
+                _routeFor('top', Colors.pink.shade100),
+              );
             }),
             _ToolButton('Replace middle → middleNEW', Icons.swap_calls, () {
               final Route<dynamic>? old = _middle;
@@ -1163,8 +1161,10 @@ class _ReplaceMidCardState extends State<_ReplaceMidCard> {
                 'middleNEW',
                 Colors.deepOrange.shade100,
               );
-              widget.navKey.currentState
-                  ?.replace(oldRoute: old, newRoute: fresh);
+              widget.navKey.currentState?.replace(
+                oldRoute: old,
+                newRoute: fresh,
+              );
               _middle = fresh;
             }),
             _ToolButton('replaceRouteBelow top → middle2', Icons.layers, () {
@@ -1185,8 +1185,7 @@ class _ReplaceMidCardState extends State<_ReplaceMidCard> {
           _NavFrame(
             child: Navigator(
               key: widget.navKey,
-              onGenerateRoute: (_) =>
-                  _routeFor('home', Colors.grey.shade200),
+              onGenerateRoute: (_) => _routeFor('home', Colors.grey.shade200),
             ),
           ),
         ],
@@ -1208,10 +1207,7 @@ Route<dynamic> _restorableRouteBuilder(
   Object? arguments,
 ) {
   return MaterialPageRoute<dynamic>(
-    settings: RouteSettings(
-      name: '/restorable',
-      arguments: arguments,
-    ),
+    settings: RouteSettings(name: '/restorable', arguments: arguments),
     builder: (_) => _ColoredPage(
       label: 'restorable($arguments)',
       color: Colors.lightGreen.shade100,
@@ -1257,10 +1253,8 @@ class _RestorableCard extends StatelessWidget {
             child: Navigator(
               key: navKey,
               restorationScopeId: 'restorable-demo',
-              onGenerateRoute: (_) => _routeFor(
-                'home',
-                Colors.lightGreen.shade50,
-              ),
+              onGenerateRoute: (_) =>
+                  _routeFor('home', Colors.lightGreen.shade50),
             ),
           ),
         ],
@@ -1347,23 +1341,27 @@ class _ObserverCardState extends State<_ObserverCard> {
         children: <Widget>[
           _Toolbar(<_ToolButton>[
             _ToolButton('push /alpha', Icons.add, () {
-              widget.navKey.currentState
-                  ?.push(_routeFor('alpha', Colors.blue.shade100));
+              widget.navKey.currentState?.push(
+                _routeFor('alpha', Colors.blue.shade100),
+              );
             }),
             _ToolButton('push /beta', Icons.add, () {
-              widget.navKey.currentState
-                  ?.push(_routeFor('beta', Colors.green.shade100));
+              widget.navKey.currentState?.push(
+                _routeFor('beta', Colors.green.shade100),
+              );
             }),
             _ToolButton('push /gamma', Icons.add, () {
-              widget.navKey.currentState
-                  ?.push(_routeFor('gamma', Colors.orange.shade100));
+              widget.navKey.currentState?.push(
+                _routeFor('gamma', Colors.orange.shade100),
+              );
             }),
             _ToolButton('pop', Icons.undo, () {
               widget.navKey.currentState?.pop();
             }),
             _ToolButton('popUntil isFirst', Icons.first_page, () {
-              widget.navKey.currentState
-                  ?.popUntil((Route<dynamic> r) => r.isFirst);
+              widget.navKey.currentState?.popUntil(
+                (Route<dynamic> r) => r.isFirst,
+              );
             }),
             _ToolButton('pushReplacement /omega', Icons.swap_horiz, () {
               widget.navKey.currentState?.pushReplacement(
@@ -1411,9 +1409,7 @@ class _ObserverCardState extends State<_ObserverCard> {
                             for (final String name in _stack.reversed)
                               Text(
                                 '• $name',
-                                style: const TextStyle(
-                                  fontFamily: 'monospace',
-                                ),
+                                style: const TextStyle(fontFamily: 'monospace'),
                               ),
                           ],
                         ),
@@ -1572,13 +1568,15 @@ class _ModalRecipeCardState extends State<_ModalRecipeCard> {
               if (!mounted) return;
               if (ok == true) {
                 setState(() => _decision = 'CONFIRMED – proceeding');
-                nav.push(MaterialPageRoute<dynamic>(
-                  settings: const RouteSettings(name: '/receipt'),
-                  builder: (_) => const _ColoredPage(
-                    label: 'receipt',
-                    color: Color(0xFFB2DFDB),
+                nav.push(
+                  MaterialPageRoute<dynamic>(
+                    settings: const RouteSettings(name: '/receipt'),
+                    builder: (_) => const _ColoredPage(
+                      label: 'receipt',
+                      color: Color(0xFFB2DFDB),
+                    ),
                   ),
-                ));
+                );
               } else {
                 setState(() => _decision = 'cancelled');
               }
@@ -1595,10 +1593,8 @@ class _ModalRecipeCardState extends State<_ModalRecipeCard> {
               key: widget.navKey,
               onGenerateRoute: (_) => MaterialPageRoute<dynamic>(
                 settings: const RouteSettings(name: '/'),
-                builder: (_) => const _ColoredPage(
-                  label: 'cart',
-                  color: Color(0xFFE0F7FA),
-                ),
+                builder: (_) =>
+                    const _ColoredPage(label: 'cart', color: Color(0xFFE0F7FA)),
               ),
             ),
           ),
@@ -1668,8 +1664,7 @@ class _DeepLinkRecipeCard extends StatelessWidget {
               navKey.currentState?.popUntil(ModalRoute.withName('/home'));
             }),
             _ToolButton('Unwind to root', Icons.first_page, () {
-              navKey.currentState
-                  ?.popUntil((Route<dynamic> r) => r.isFirst);
+              navKey.currentState?.popUntil((Route<dynamic> r) => r.isFirst);
             }),
           ]),
           const SizedBox(height: 8),
@@ -1804,10 +1799,7 @@ class _Pitfall extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 2),
           Text(body, style: const TextStyle(height: 1.3)),
         ],
@@ -1835,91 +1827,137 @@ class _ReferenceTableCard extends StatelessWidget {
         },
         defaultVerticalAlignment: TableCellVerticalAlignment.top,
         children: const <TableRow>[
-          TableRow(children: <Widget>[
-            _RefCell('push(route)', isHeader: true),
-            _RefCell('Push route on top of the stack. Returns Future<T?>.',
-                isHeader: true),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pushNamed(name, {arguments})'),
-            _RefCell(
-                'Resolve `name` via routes table or onGenerateRoute and push.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pushReplacement(route)'),
-            _RefCell('Pop the topmost route and push `route` in its place.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pushReplacementNamed(name)'),
-            _RefCell('Same, with named lookup.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pushAndRemoveUntil(route, predicate)'),
-            _RefCell(
-                'Push, then remove all routes underneath that fail predicate.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pushNamedAndRemoveUntil(name, predicate)'),
-            _RefCell('Same, with named lookup.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('pop([result])'),
-            _RefCell('Pop the topmost route, optionally returning `result`.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('maybePop([result])'),
-            _RefCell(
-                'Asks the topmost route for permission first (WillPopScope).'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('canPop()'),
-            _RefCell('True if there is anything underneath the top route.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('popUntil(predicate)'),
-            _RefCell('Pop in a loop until predicate returns true.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('replace(oldRoute:, newRoute:)'),
-            _RefCell('Swap a route in place by reference.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('replaceRouteBelow(anchorRoute:, newRoute:)'),
-            _RefCell('Swap the route directly under an anchor.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('removeRoute(route)'),
-            _RefCell('Quietly remove a route (no transition).'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('removeRouteBelow(anchorRoute:)'),
-            _RefCell('Quietly remove the route directly under an anchor.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('restorablePush(builder, {arguments})'),
-            _RefCell(
-                'Push restorably; needs `restorationScopeId` on Navigator.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('restorablePushNamed(name, {arguments})'),
-            _RefCell('Restorable named push.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('mounted'),
-            _RefCell('Whether the State is currently in the tree.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('overlay'),
-            _RefCell('The OverlayState used to host route overlays.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('context'),
-            _RefCell('BuildContext the navigator was built with.'),
-          ]),
-          TableRow(children: <Widget>[
-            _RefCell('widget'),
-            _RefCell('The Navigator widget configuration.'),
-          ]),
+          TableRow(
+            children: <Widget>[
+              _RefCell('push(route)', isHeader: true),
+              _RefCell(
+                'Push route on top of the stack. Returns Future<T?>.',
+                isHeader: true,
+              ),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pushNamed(name, {arguments})'),
+              _RefCell(
+                'Resolve `name` via routes table or onGenerateRoute and push.',
+              ),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pushReplacement(route)'),
+              _RefCell('Pop the topmost route and push `route` in its place.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pushReplacementNamed(name)'),
+              _RefCell('Same, with named lookup.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pushAndRemoveUntil(route, predicate)'),
+              _RefCell(
+                'Push, then remove all routes underneath that fail predicate.',
+              ),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pushNamedAndRemoveUntil(name, predicate)'),
+              _RefCell('Same, with named lookup.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('pop([result])'),
+              _RefCell('Pop the topmost route, optionally returning `result`.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('maybePop([result])'),
+              _RefCell(
+                'Asks the topmost route for permission first (WillPopScope).',
+              ),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('canPop()'),
+              _RefCell('True if there is anything underneath the top route.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('popUntil(predicate)'),
+              _RefCell('Pop in a loop until predicate returns true.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('replace(oldRoute:, newRoute:)'),
+              _RefCell('Swap a route in place by reference.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('replaceRouteBelow(anchorRoute:, newRoute:)'),
+              _RefCell('Swap the route directly under an anchor.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('removeRoute(route)'),
+              _RefCell('Quietly remove a route (no transition).'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('removeRouteBelow(anchorRoute:)'),
+              _RefCell('Quietly remove the route directly under an anchor.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('restorablePush(builder, {arguments})'),
+              _RefCell(
+                'Push restorably; needs `restorationScopeId` on Navigator.',
+              ),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('restorablePushNamed(name, {arguments})'),
+              _RefCell('Restorable named push.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('mounted'),
+              _RefCell('Whether the State is currently in the tree.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('overlay'),
+              _RefCell('The OverlayState used to host route overlays.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('context'),
+              _RefCell('BuildContext the navigator was built with.'),
+            ],
+          ),
+          TableRow(
+            children: <Widget>[
+              _RefCell('widget'),
+              _RefCell('The Navigator widget configuration.'),
+            ],
+          ),
         ],
       ),
     );

@@ -361,8 +361,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Year-only birth picker',
-      'when':
-          'You only need the year; render YearPicker and ignore month/day.',
+      'when': 'You only need the year; render YearPicker and ignore month/day.',
       'snippet':
           'YearPicker(\n  firstDate: DateTime(1900),\n  lastDate: DateTime.now(),\n  selectedDate: birth,\n  onChanged: (d) => birth = d,\n)',
     },
@@ -461,21 +460,18 @@ dynamic build(BuildContext context) {
       'term': 'initialDate',
       'meaning':
           'The date highlighted when the picker opens. Must fall within '
-              '[firstDate, lastDate].',
+          '[firstDate, lastDate].',
     },
     {
       'term': 'firstDate',
       'meaning': 'The earliest selectable date (inclusive).',
     },
-    {
-      'term': 'lastDate',
-      'meaning': 'The latest selectable date (inclusive).',
-    },
+    {'term': 'lastDate', 'meaning': 'The latest selectable date (inclusive).'},
     {
       'term': 'currentDate',
       'meaning':
           'The date treated as "today" - decorated with a ring even if not '
-              'selected. Defaults to DateTime.now().',
+          'selected. Defaults to DateTime.now().',
     },
     {
       'term': 'selectableDayPredicate',
@@ -496,7 +492,7 @@ dynamic build(BuildContext context) {
       'term': 'Range entry mode',
       'meaning':
           'showDateRangePicker uses the same DatePickerEntryMode enum as '
-              'showDatePicker - there is no separate range-specific type.',
+          'showDatePicker - there is no separate range-specific type.',
     },
     {
       'term': 'DatePickerThemeData',
@@ -556,10 +552,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 8.0),
                   Text(
                     'Deep Demo: CalendarDatePicker, YearPicker, Input, Theme & Enums',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Color(0xFFBBDEFB),
-                    ),
+                    style: TextStyle(fontSize: 16.0, color: Color(0xFFBBDEFB)),
                   ),
                   SizedBox(height: 16.0),
                   Wrap(
@@ -592,13 +585,19 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Flutter ships several Material-styled widgets for date '
-                        'entry. They differ in three axes:',
+                    'entry. They differ in three axes:',
                     style: TextStyle(fontSize: 14.0, height: 1.5),
                   ),
                   SizedBox(height: 8.0),
-                  _bullet('Inline vs modal - some render in place, others pop a dialog.'),
-                  _bullet('Calendar vs text input - some draw a grid, others a text field.'),
-                  _bullet('Single date vs range - showDatePicker vs showDateRangePicker.'),
+                  _bullet(
+                    'Inline vs modal - some render in place, others pop a dialog.',
+                  ),
+                  _bullet(
+                    'Calendar vs text input - some draw a grid, others a text field.',
+                  ),
+                  _bullet(
+                    'Single date vs range - showDatePicker vs showDateRangePicker.',
+                  ),
                   SizedBox(height: 12.0),
                   Text(
                     'When to pick which:',
@@ -608,11 +607,19 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 6.0),
-                  _bullet('Embed CalendarDatePicker when the date is the page focus.'),
-                  _bullet('Use InputDatePickerFormField inside an existing Form.'),
-                  _bullet('Use showDatePicker for ad-hoc modal "pick a date" buttons.'),
+                  _bullet(
+                    'Embed CalendarDatePicker when the date is the page focus.',
+                  ),
+                  _bullet(
+                    'Use InputDatePickerFormField inside an existing Form.',
+                  ),
+                  _bullet(
+                    'Use showDatePicker for ad-hoc modal "pick a date" buttons.',
+                  ),
                   _bullet('Use YearPicker alone for year-only selection.'),
-                  _bullet('Use showDateRangePicker for from/to interval selection.'),
+                  _bullet(
+                    'Use showDateRangePicker for from/to interval selection.',
+                  ),
                 ],
               ),
             ),
@@ -828,7 +835,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'Below: same widget rendered inside three different Theme '
-                        'subtrees configured with DatePickerThemeData.',
+                    'subtrees configured with DatePickerThemeData.',
                     style: TextStyle(fontSize: 12.0, height: 1.4),
                   ),
                   SizedBox(height: 12.0),
@@ -921,10 +928,7 @@ dynamic build(BuildContext context) {
                             SizedBox(height: 4.0),
                             Text(
                               r['when']!,
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                height: 1.4,
-                              ),
+                              style: TextStyle(fontSize: 12.0, height: 1.4),
                             ),
                             SizedBox(height: 8.0),
                             Container(
@@ -1055,15 +1059,11 @@ dynamic build(BuildContext context) {
                             ),
                             Expanded(
                               flex: 2,
-                              child: Center(
-                                child: _yesNo(c['modal']!),
-                              ),
+                              child: Center(child: _yesNo(c['modal']!)),
                             ),
                             Expanded(
                               flex: 2,
-                              child: Center(
-                                child: _yesNo(c['input']!),
-                              ),
+                              child: Center(child: _yesNo(c['input']!)),
                             ),
                             Expanded(
                               flex: 4,
@@ -1121,10 +1121,7 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               g['meaning']!,
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                height: 1.4,
-                              ),
+                              style: TextStyle(fontSize: 12.0, height: 1.4),
                             ),
                           ),
                         ],
@@ -1147,10 +1144,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'A side-by-side composition that brings everything together.',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Color(0xFFB0BEC5),
-                    ),
+                    style: TextStyle(fontSize: 12.0, color: Color(0xFFB0BEC5)),
                   ),
                   SizedBox(height: 12.0),
                   Container(
@@ -1276,10 +1270,7 @@ dynamic build(BuildContext context) {
             Center(
               child: Text(
                 'Deep Demo - Material Date Pickers - Flutter Material',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Color(0xFF9E9E9E),
-                ),
+                style: TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
               ),
             ),
           ],
@@ -1361,10 +1352,7 @@ Widget _bullet(String text) {
           style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold),
         ),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13.0, height: 1.4),
-          ),
+          child: Text(text, style: TextStyle(fontSize: 13.0, height: 1.4)),
         ),
       ],
     ),
@@ -1437,10 +1425,7 @@ Widget _enumRow(String name, String index, String description, Color color) {
           Container(
             width: 24.0,
             height: 24.0,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             child: Center(
               child: Text(
                 index,

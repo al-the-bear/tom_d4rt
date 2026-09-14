@@ -27,11 +27,31 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
 ];
 
 const List<_ModeDescriptor> _modes = <_ModeDescriptor>[
-  _ModeDescriptor(id: _LayoutMode.anchor, title: 'Anchor', subtitle: 'Pin child to normalized anchor point with bias offsets.'),
-  _ModeDescriptor(id: _LayoutMode.orbit, title: 'Orbit', subtitle: 'Move single child on a radial trajectory around parent center.'),
-  _ModeDescriptor(id: _LayoutMode.dock, title: 'Dock', subtitle: 'Dock child to selected edge with configurable margin and fit.'),
-  _ModeDescriptor(id: _LayoutMode.fit, title: 'Aspect Fit', subtitle: 'Constrain child by parent bounds while preserving visual ratio.'),
-  _ModeDescriptor(id: _LayoutMode.insets, title: 'Adaptive Insets', subtitle: 'Allocate child box from dynamic insets and balance factors.'),
+  _ModeDescriptor(
+    id: _LayoutMode.anchor,
+    title: 'Anchor',
+    subtitle: 'Pin child to normalized anchor point with bias offsets.',
+  ),
+  _ModeDescriptor(
+    id: _LayoutMode.orbit,
+    title: 'Orbit',
+    subtitle: 'Move single child on a radial trajectory around parent center.',
+  ),
+  _ModeDescriptor(
+    id: _LayoutMode.dock,
+    title: 'Dock',
+    subtitle: 'Dock child to selected edge with configurable margin and fit.',
+  ),
+  _ModeDescriptor(
+    id: _LayoutMode.fit,
+    title: 'Aspect Fit',
+    subtitle: 'Constrain child by parent bounds while preserving visual ratio.',
+  ),
+  _ModeDescriptor(
+    id: _LayoutMode.insets,
+    title: 'Adaptive Insets',
+    subtitle: 'Allocate child box from dynamic insets and balance factors.',
+  ),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -50,40 +70,34 @@ const List<String> _guideBullets = <String>[
 const List<_FaqItem> _faq = <_FaqItem>[
   _FaqItem(
     question: 'When should I prefer CustomSingleChildLayout over Align?',
-    answer: 'Use it when constraints and positioning rules are more complex than a simple alignment model.',
+    answer:
+        'Use it when constraints and positioning rules are more complex than a simple alignment model.',
   ),
   _FaqItem(
     question: 'Can I make parent size dynamic with this widget?',
-    answer: 'Yes. Delegate getSize can define parent size when constraints permit flexibility.',
+    answer:
+        'Yes. Delegate getSize can define parent size when constraints permit flexibility.',
   ),
   _FaqItem(
     question: 'How do I avoid unnecessary relayouts?',
-    answer: 'Keep delegate fields immutable and compare them carefully in shouldRelayout.',
+    answer:
+        'Keep delegate fields immutable and compare them carefully in shouldRelayout.',
   ),
   _FaqItem(
     question: 'Is this good for animation?',
-    answer: 'Yes. Updating delegate parameters over time creates smooth custom motion paths.',
+    answer:
+        'Yes. Updating delegate parameters over time creates smooth custom motion paths.',
   ),
   _FaqItem(
     question: 'How can I debug clipping and overflow?',
-    answer: 'Render child and parent bounds overlays and inspect margins with probe labels.',
+    answer:
+        'Render child and parent bounds overlays and inspect margins with probe labels.',
   ),
 ];
 
-enum _LayoutMode {
-  anchor,
-  orbit,
-  dock,
-  fit,
-  insets,
-}
+enum _LayoutMode { anchor, orbit, dock, fit, insets }
 
-enum _DockEdge {
-  top,
-  right,
-  bottom,
-  left,
-}
+enum _DockEdge { top, right, bottom, left }
 
 class _ThemePreset {
   const _ThemePreset({
@@ -102,7 +116,11 @@ class _ThemePreset {
 }
 
 class _ModeDescriptor {
-  const _ModeDescriptor({required this.id, required this.title, required this.subtitle});
+  const _ModeDescriptor({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final _LayoutMode id;
   final String title;
@@ -117,7 +135,12 @@ class _FaqItem {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -126,7 +149,11 @@ class _MetricEntry {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -155,10 +182,13 @@ class _RenderCustomSingleChildLayoutBoxStudio extends StatefulWidget {
   const _RenderCustomSingleChildLayoutBoxStudio();
 
   @override
-  State<_RenderCustomSingleChildLayoutBoxStudio> createState() => _RenderCustomSingleChildLayoutBoxStudioState();
+  State<_RenderCustomSingleChildLayoutBoxStudio> createState() =>
+      _RenderCustomSingleChildLayoutBoxStudioState();
 }
 
-class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSingleChildLayoutBoxStudio> with SingleTickerProviderStateMixin {
+class _RenderCustomSingleChildLayoutBoxStudioState
+    extends State<_RenderCustomSingleChildLayoutBoxStudio>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _motion = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 7800),
@@ -333,39 +363,141 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Mode', value: _mode.name, note: 'Active layout delegate strategy.', icon: Icons.account_tree_outlined),
-      _MetricEntry(label: 'Theme', value: _themes[_themeIndex].name, note: 'Visual profile for the studio.', icon: Icons.palette_outlined),
-      _MetricEntry(label: 'Parent', value: '${_parentWidth.toStringAsFixed(0)} x ${_parentHeight.toStringAsFixed(0)}', note: 'CustomSingleChildLayout parent size.', icon: Icons.crop_square_outlined),
-      _MetricEntry(label: 'Child Base', value: '${_childBaseW.toStringAsFixed(0)} x ${_childBaseH.toStringAsFixed(0)}', note: 'Desired child baseline size.', icon: Icons.widgets_outlined),
-      _MetricEntry(label: 'Anchor', value: '${_anchorX.toStringAsFixed(2)}, ${_anchorY.toStringAsFixed(2)}', note: 'Normalized anchor point in parent.', icon: Icons.control_point_outlined),
-      _MetricEntry(label: 'Bias', value: '${_biasX.toStringAsFixed(0)}, ${_biasY.toStringAsFixed(0)}', note: 'Offset bias added after anchor.', icon: Icons.compare_arrows_outlined),
-      _MetricEntry(label: 'Orbit', value: '${_orbitRadius.toStringAsFixed(1)} @ ${_orbitSpeed.toStringAsFixed(2)}', note: 'Orbit radius and speed multipliers.', icon: Icons.radar_outlined),
-      _MetricEntry(label: 'Margin', value: _margin.toStringAsFixed(1), note: 'Dock and fit safety margin.', icon: Icons.margin_outlined),
-      _MetricEntry(label: 'Fit Factor', value: _fitFactor.toStringAsFixed(2), note: 'Constraint scale in aspect-fit mode.', icon: Icons.fit_screen_outlined),
-      _MetricEntry(label: 'Insets', value: '${_insetTop.toStringAsFixed(0)}, ${_insetRight.toStringAsFixed(0)}, ${_insetBottom.toStringAsFixed(0)}, ${_insetLeft.toStringAsFixed(0)}', note: 'Top, right, bottom, left inset values.', icon: Icons.view_sidebar_outlined),
-      _MetricEntry(label: 'Switches', value: 'mode=$_modeSwitches theme=$_themeSwitches', note: 'Mode and theme changes.', icon: Icons.swap_horiz_outlined),
-      _MetricEntry(label: 'Control Edits', value: '$_controlEdits', note: 'Slider and toggle updates.', icon: Icons.tune_outlined),
-      _MetricEntry(label: 'Stage Taps', value: '$_stageTaps', note: 'Probe interactions on stage.', icon: Icons.touch_app_outlined),
-      _MetricEntry(label: 'Phase', value: _phase, note: 'Latest user action category.', icon: Icons.flag_outlined),
-      _MetricEntry(label: 'Snapshot Mode', value: _snapshot.mode, note: 'Last delegate mode in snapshot.', icon: Icons.camera_outlined),
-      _MetricEntry(label: 'Snapshot Child', value: '${_snapshot.childSize.width.toStringAsFixed(0)} x ${_snapshot.childSize.height.toStringAsFixed(0)}', note: 'Actual child size from delegate layout.', icon: Icons.straighten_outlined),
-      _MetricEntry(label: 'Snapshot Offset', value: '${_snapshot.offset.dx.toStringAsFixed(1)}, ${_snapshot.offset.dy.toStringAsFixed(1)}', note: 'Final child offset in parent.', icon: Icons.pin_drop_outlined),
+      _MetricEntry(
+        label: 'Mode',
+        value: _mode.name,
+        note: 'Active layout delegate strategy.',
+        icon: Icons.account_tree_outlined,
+      ),
+      _MetricEntry(
+        label: 'Theme',
+        value: _themes[_themeIndex].name,
+        note: 'Visual profile for the studio.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricEntry(
+        label: 'Parent',
+        value:
+            '${_parentWidth.toStringAsFixed(0)} x ${_parentHeight.toStringAsFixed(0)}',
+        note: 'CustomSingleChildLayout parent size.',
+        icon: Icons.crop_square_outlined,
+      ),
+      _MetricEntry(
+        label: 'Child Base',
+        value:
+            '${_childBaseW.toStringAsFixed(0)} x ${_childBaseH.toStringAsFixed(0)}',
+        note: 'Desired child baseline size.',
+        icon: Icons.widgets_outlined,
+      ),
+      _MetricEntry(
+        label: 'Anchor',
+        value: '${_anchorX.toStringAsFixed(2)}, ${_anchorY.toStringAsFixed(2)}',
+        note: 'Normalized anchor point in parent.',
+        icon: Icons.control_point_outlined,
+      ),
+      _MetricEntry(
+        label: 'Bias',
+        value: '${_biasX.toStringAsFixed(0)}, ${_biasY.toStringAsFixed(0)}',
+        note: 'Offset bias added after anchor.',
+        icon: Icons.compare_arrows_outlined,
+      ),
+      _MetricEntry(
+        label: 'Orbit',
+        value:
+            '${_orbitRadius.toStringAsFixed(1)} @ ${_orbitSpeed.toStringAsFixed(2)}',
+        note: 'Orbit radius and speed multipliers.',
+        icon: Icons.radar_outlined,
+      ),
+      _MetricEntry(
+        label: 'Margin',
+        value: _margin.toStringAsFixed(1),
+        note: 'Dock and fit safety margin.',
+        icon: Icons.margin_outlined,
+      ),
+      _MetricEntry(
+        label: 'Fit Factor',
+        value: _fitFactor.toStringAsFixed(2),
+        note: 'Constraint scale in aspect-fit mode.',
+        icon: Icons.fit_screen_outlined,
+      ),
+      _MetricEntry(
+        label: 'Insets',
+        value:
+            '${_insetTop.toStringAsFixed(0)}, ${_insetRight.toStringAsFixed(0)}, ${_insetBottom.toStringAsFixed(0)}, ${_insetLeft.toStringAsFixed(0)}',
+        note: 'Top, right, bottom, left inset values.',
+        icon: Icons.view_sidebar_outlined,
+      ),
+      _MetricEntry(
+        label: 'Switches',
+        value: 'mode=$_modeSwitches theme=$_themeSwitches',
+        note: 'Mode and theme changes.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricEntry(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Slider and toggle updates.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricEntry(
+        label: 'Stage Taps',
+        value: '$_stageTaps',
+        note: 'Probe interactions on stage.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricEntry(
+        label: 'Phase',
+        value: _phase,
+        note: 'Latest user action category.',
+        icon: Icons.flag_outlined,
+      ),
+      _MetricEntry(
+        label: 'Snapshot Mode',
+        value: _snapshot.mode,
+        note: 'Last delegate mode in snapshot.',
+        icon: Icons.camera_outlined,
+      ),
+      _MetricEntry(
+        label: 'Snapshot Child',
+        value:
+            '${_snapshot.childSize.width.toStringAsFixed(0)} x ${_snapshot.childSize.height.toStringAsFixed(0)}',
+        note: 'Actual child size from delegate layout.',
+        icon: Icons.straighten_outlined,
+      ),
+      _MetricEntry(
+        label: 'Snapshot Offset',
+        value:
+            '${_snapshot.offset.dx.toStringAsFixed(1)}, ${_snapshot.offset.dy.toStringAsFixed(1)}',
+        note: 'Final child offset in parent.',
+        icon: Icons.pin_drop_outlined,
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -426,12 +558,35 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.space_dashboard_outlined, color: scheme.primary, size: 26),
-                Text('RenderCustomSingleChildLayoutBox Studio', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25)),
+                Icon(
+                  Icons.space_dashboard_outlined,
+                  color: scheme.primary,
+                  size: 26,
+                ),
+                Text(
+                  'RenderCustomSingleChildLayoutBox Studio',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_mode.name, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _mode.name,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -455,7 +610,14 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -477,14 +639,24 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Layout Modes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Layout Modes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _modes.map(( _ModeDescriptor descriptor) {
+              children: _modes.map((_ModeDescriptor descriptor) {
                 return FilterChip(
                   selected: _mode == descriptor.id,
                   label: Text(descriptor.title),
@@ -500,7 +672,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               }).toList(),
             ),
             const SizedBox(height: 8),
-            Text(_modes.firstWhere(( _ModeDescriptor d) => d.id == _mode).subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _modes.firstWhere((_ModeDescriptor d) => d.id == _mode).subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -518,13 +693,27 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Delegate Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Delegate Controls',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Tune parent bounds, child constraints, anchor offsets, and mode-specific parameters.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune parent bounds, child constraints, anchor offsets, and mode-specific parameters.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             _sliderRow(
               scheme: scheme,
@@ -536,7 +725,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _parentWidth = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Parent Width', 'Set parent width to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Parent Width',
+                  'Set parent width to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -549,7 +741,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _parentHeight = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Parent Height', 'Set parent height to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Parent Height',
+                  'Set parent height to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -562,7 +757,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _childBaseW = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Child Width', 'Set child base width to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Child Width',
+                  'Set child base width to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -575,7 +773,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _childBaseH = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Child Height', 'Set child base height to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Child Height',
+                  'Set child base height to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -588,7 +789,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _anchorX = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Anchor X', 'Set anchor X to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Anchor X',
+                  'Set anchor X to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -601,7 +805,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _anchorY = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Anchor Y', 'Set anchor Y to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Anchor Y',
+                  'Set anchor Y to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -614,7 +821,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _biasX = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Bias X', 'Set bias X to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Bias X',
+                  'Set bias X to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -627,7 +837,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _biasY = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Bias Y', 'Set bias Y to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Bias Y',
+                  'Set bias Y to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -640,7 +853,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _orbitRadius = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Orbit Radius', 'Set orbit radius to ${v.toStringAsFixed(1)}.');
+                _pushTimeline(
+                  'Orbit Radius',
+                  'Set orbit radius to ${v.toStringAsFixed(1)}.',
+                );
               },
             ),
             _sliderRow(
@@ -653,7 +869,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _orbitSpeed = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Orbit Speed', 'Set orbit speed to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Orbit Speed',
+                  'Set orbit speed to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -666,7 +885,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _margin = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Margin', 'Set margin to ${v.toStringAsFixed(1)}.');
+                _pushTimeline(
+                  'Margin',
+                  'Set margin to ${v.toStringAsFixed(1)}.',
+                );
               },
             ),
             _sliderRow(
@@ -679,7 +901,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _fitFactor = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Fit Factor', 'Set fit factor to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Fit Factor',
+                  'Set fit factor to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -692,7 +917,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _insetTop = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Inset Top', 'Set top inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Inset Top',
+                  'Set top inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -705,7 +933,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _insetRight = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Inset Right', 'Set right inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Inset Right',
+                  'Set right inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -718,7 +949,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _insetBottom = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Inset Bottom', 'Set bottom inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Inset Bottom',
+                  'Set bottom inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -731,7 +965,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _insetLeft = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Inset Left', 'Set left inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Inset Left',
+                  'Set left inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -744,7 +981,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _guideOpacity = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Guide Opacity', 'Set guide opacity to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Guide Opacity',
+                  'Set guide opacity to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -757,15 +997,24 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               onChanged: (double v) => setState(() => _textureDensity = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Texture', 'Set texture density to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Texture',
+                  'Set texture density to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             const SizedBox(height: 8),
-            Text('Dock Edge', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w600)),
+            Text(
+              'Dock Edge',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _DockEdge.values.map(( _DockEdge edge) {
+              children: _DockEdge.values.map((_DockEdge edge) {
                 return ChoiceChip(
                   selected: _dockEdge == edge,
                   label: Text(edge.name),
@@ -775,7 +1024,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                       _controlEdits += 1;
                       _phase = 'dock-edge';
                     });
-                    _pushTimeline('Dock Edge', 'Dock edge switched to ${edge.name}.');
+                    _pushTimeline(
+                      'Dock Edge',
+                      'Dock edge switched to ${edge.name}.',
+                    );
                   },
                 );
               }).toList(),
@@ -784,14 +1036,46 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animateOrbit, onChanged: (bool? v) => _setToggle('animate', v), child: const Text('Animate orbit')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _setToggle('grid', v), child: const Text('Show grid')),
-                CheckboxMenuButton(value: _showBounds, onChanged: (bool? v) => _setToggle('bounds', v), child: const Text('Show bounds')),
-                CheckboxMenuButton(value: _showCenter, onChanged: (bool? v) => _setToggle('center', v), child: const Text('Show center cross')),                
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _setToggle('diagnostics', v), child: const Text('Show diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _setToggle('guide', v), child: const Text('Show guide board')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _setToggle('timeline', v), child: const Text('Show timeline board')),
-                CheckboxMenuButton(value: _showLegend, onChanged: (bool? v) => _setToggle('legend', v), child: const Text('Show legend chips')),
+                CheckboxMenuButton(
+                  value: _animateOrbit,
+                  onChanged: (bool? v) => _setToggle('animate', v),
+                  child: const Text('Animate orbit'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) => _setToggle('grid', v),
+                  child: const Text('Show grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showBounds,
+                  onChanged: (bool? v) => _setToggle('bounds', v),
+                  child: const Text('Show bounds'),
+                ),
+                CheckboxMenuButton(
+                  value: _showCenter,
+                  onChanged: (bool? v) => _setToggle('center', v),
+                  child: const Text('Show center cross'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) => _setToggle('diagnostics', v),
+                  child: const Text('Show diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) => _setToggle('guide', v),
+                  child: const Text('Show guide board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) => _setToggle('timeline', v),
+                  child: const Text('Show timeline board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showLegend,
+                  onChanged: (bool? v) => _setToggle('legend', v),
+                  child: const Text('Show legend chips'),
+                ),
               ],
             ),
           ],
@@ -815,11 +1099,23 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -836,7 +1132,12 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
       margin: _margin,
       dockEdge: _dockEdge,
       fitFactor: _fitFactor,
-      insets: EdgeInsets.fromLTRB(_insetLeft, _insetTop, _insetRight, _insetBottom),
+      insets: EdgeInsets.fromLTRB(
+        _insetLeft,
+        _insetTop,
+        _insetRight,
+        _insetBottom,
+      ),
       childBaseSize: Size(_childBaseW, _childBaseH),
       onSnapshot: _setSnapshot,
     );
@@ -851,9 +1152,19 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Delegate Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Delegate Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Live CustomSingleChildLayout board with parent guides and delegate-computed child position.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Live CustomSingleChildLayout board with parent guides and delegate-computed child position.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             Center(
               child: GestureDetector(
@@ -870,7 +1181,10 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                     _stageTaps += 1;
                     _phase = 'stage-tap';
                   });
-                  _pushTimeline('Stage Tap', 'Anchor moved to ${normalized.dx.toStringAsFixed(2)}, ${normalized.dy.toStringAsFixed(2)}.');
+                  _pushTimeline(
+                    'Stage Tap',
+                    'Anchor moved to ${normalized.dx.toStringAsFixed(2)}, ${normalized.dy.toStringAsFixed(2)}.',
+                  );
                 },
                 child: SizedBox(
                   width: _parentWidth,
@@ -888,12 +1202,20 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                       ),
                       CustomSingleChildLayout(
                         delegate: delegate,
-                        child: _DemoChildCard(mode: _mode, density: _textureDensity, probe: _probe),
+                        child: _DemoChildCard(
+                          mode: _mode,
+                          density: _textureDensity,
+                          probe: _probe,
+                        ),
                       ),
                       if (_showBounds)
                         IgnorePointer(
                           child: CustomPaint(
-                            painter: _OverlayBoundsPainter(snapshot: _snapshot, showCenter: _showCenter, opacity: _guideOpacity),
+                            painter: _OverlayBoundsPainter(
+                              snapshot: _snapshot,
+                              showCenter: _showCenter,
+                              opacity: _guideOpacity,
+                            ),
                           ),
                         ),
                     ],
@@ -908,9 +1230,18 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                 runSpacing: 8,
                 children: <Widget>[
                   _chip('mode ${_mode.name}', scheme.primary),
-                  _chip('anchor ${_anchorX.toStringAsFixed(2)}, ${_anchorY.toStringAsFixed(2)}', scheme.secondary),
-                  _chip('child ${_snapshot.childSize.width.toStringAsFixed(0)}x${_snapshot.childSize.height.toStringAsFixed(0)}', scheme.tertiary),
-                  _chip('offset ${_snapshot.offset.dx.toStringAsFixed(1)}, ${_snapshot.offset.dy.toStringAsFixed(1)}', scheme.primary),
+                  _chip(
+                    'anchor ${_anchorX.toStringAsFixed(2)}, ${_anchorY.toStringAsFixed(2)}',
+                    scheme.secondary,
+                  ),
+                  _chip(
+                    'child ${_snapshot.childSize.width.toStringAsFixed(0)}x${_snapshot.childSize.height.toStringAsFixed(0)}',
+                    scheme.tertiary,
+                  ),
+                  _chip(
+                    'offset ${_snapshot.offset.dx.toStringAsFixed(1)}, ${_snapshot.offset.dy.toStringAsFixed(1)}',
+                    scheme.primary,
+                  ),
                 ],
               ),
           ],
@@ -929,8 +1260,19 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
   Widget _chip(String text, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999), border: Border.all(color: color.withValues(alpha: 0.65))),
-      child: Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: color.withValues(alpha: 0.65)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -958,21 +1300,31 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Mode Gallery', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Mode Gallery',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Quick preview cards for each delegate strategy.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Quick preview cards for each delegate strategy.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1280
                     ? 5
                     : constraints.maxWidth > 980
-                        ? 4
-                        : constraints.maxWidth > 760
-                            ? 3
-                            : constraints.maxWidth > 520
-                                ? 2
-                                : 1;
+                    ? 4
+                    : constraints.maxWidth > 760
+                    ? 3
+                    : constraints.maxWidth > 520
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -993,24 +1345,51 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                           _modeSwitches += 1;
                           _phase = 'gallery-mode';
                         });
-                        _pushTimeline('Gallery', 'Picked ${descriptor.title} mode from gallery.');
+                        _pushTimeline(
+                          'Gallery',
+                          'Picked ${descriptor.title} mode from gallery.',
+                        );
                       },
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           color: scheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: _mode == descriptor.id ? scheme.primary : scheme.outlineVariant, width: _mode == descriptor.id ? 2 : 1),
+                          border: Border.all(
+                            color: _mode == descriptor.id
+                                ? scheme.primary
+                                : scheme.outlineVariant,
+                            width: _mode == descriptor.id ? 2 : 1,
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(descriptor.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                              Text(
+                                descriptor.title,
+                                style: TextStyle(
+                                  color: scheme.onSurface,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               const SizedBox(height: 4),
-                              Text(descriptor.subtitle, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11)),
+                              Text(
+                                descriptor.subtitle,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: scheme.onSurfaceVariant,
+                                  fontSize: 11,
+                                ),
+                              ),
                               const SizedBox(height: 8),
-                              Expanded(child: _ModeMiniPreview(mode: descriptor.id, density: _textureDensity)),
+                              Expanded(
+                                child: _ModeMiniPreview(
+                                  mode: descriptor.id,
+                                  density: _textureDensity,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -1035,9 +1414,19 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Comparison Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Comparison Board',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Contrast delegate-driven single-child layout with common alternatives.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Contrast delegate-driven single-child layout with common alternatives.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1059,14 +1448,31 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                 final Widget fitted = _comparisonCard(
                   scheme: scheme,
                   title: 'FittedBox',
-                  subtitle: 'Scales child to fit but with different constraints model.',
+                  subtitle:
+                      'Scales child to fit but with different constraints model.',
                   color: const Color(0xFFB45309),
                   icon: Icons.fit_screen_outlined,
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[custom, const SizedBox(height: 10), align, const SizedBox(height: 10), fitted]);
+                  return Column(
+                    children: <Widget>[
+                      custom,
+                      const SizedBox(height: 10),
+                      align,
+                      const SizedBox(height: 10),
+                      fitted,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: custom), const SizedBox(width: 10), Expanded(child: align), const SizedBox(width: 10), Expanded(child: fitted)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: custom),
+                    const SizedBox(width: 10),
+                    Expanded(child: align),
+                    const SizedBox(width: 10),
+                    Expanded(child: fitted),
+                  ],
+                );
               },
             ),
           ],
@@ -1075,7 +1481,13 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
     );
   }
 
-  Widget _comparisonCard({required ColorScheme scheme, required String title, required String subtitle, required Color color, required IconData icon}) {
+  Widget _comparisonCard({
+    required ColorScheme scheme,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required IconData icon,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1087,14 +1499,27 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
               height: 96,
-              decoration: BoxDecoration(color: color.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(10), border: Border.all(color: color.withValues(alpha: 0.65))),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: color.withValues(alpha: 0.65)),
+              ),
               child: Center(child: Icon(icon, size: 36, color: color)),
             ),
           ],
@@ -1113,17 +1538,24 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1151,13 +1583,38 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1190,17 +1647,44 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themes[_themeIndex].id} mode=${_mode.name} dock=${_dockEdge.name} phase=$_phase', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('parent=${_parentWidth.toStringAsFixed(0)}x${_parentHeight.toStringAsFixed(0)} child=${_childBaseW.toStringAsFixed(0)}x${_childBaseH.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('anchor=${_anchorX.toStringAsFixed(2)},${_anchorY.toStringAsFixed(2)} bias=${_biasX.toStringAsFixed(0)},${_biasY.toStringAsFixed(0)} orbit=${_orbitRadius.toStringAsFixed(1)}@${_orbitSpeed.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('margin=${_margin.toStringAsFixed(1)} fit=${_fitFactor.toStringAsFixed(2)} insets=${_insetTop.toStringAsFixed(0)},${_insetRight.toStringAsFixed(0)},${_insetBottom.toStringAsFixed(0)},${_insetLeft.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('flags grid=$_showGrid bounds=$_showBounds center=$_showCenter animate=$_animateOrbit guide=$_showGuide timeline=$_showTimeline', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('switches mode=$_modeSwitches theme=$_themeSwitches controls=$_controlEdits taps=$_stageTaps', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('snapshot parent=${_snapshot.parentSize.width.toStringAsFixed(0)}x${_snapshot.parentSize.height.toStringAsFixed(0)} child=${_snapshot.childSize.width.toStringAsFixed(0)}x${_snapshot.childSize.height.toStringAsFixed(0)} offset=${_snapshot.offset.dx.toStringAsFixed(1)},${_snapshot.offset.dy.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themes[_themeIndex].id} mode=${_mode.name} dock=${_dockEdge.name} phase=$_phase',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'parent=${_parentWidth.toStringAsFixed(0)}x${_parentHeight.toStringAsFixed(0)} child=${_childBaseW.toStringAsFixed(0)}x${_childBaseH.toStringAsFixed(0)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'anchor=${_anchorX.toStringAsFixed(2)},${_anchorY.toStringAsFixed(2)} bias=${_biasX.toStringAsFixed(0)},${_biasY.toStringAsFixed(0)} orbit=${_orbitRadius.toStringAsFixed(1)}@${_orbitSpeed.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'margin=${_margin.toStringAsFixed(1)} fit=${_fitFactor.toStringAsFixed(2)} insets=${_insetTop.toStringAsFixed(0)},${_insetRight.toStringAsFixed(0)},${_insetBottom.toStringAsFixed(0)},${_insetLeft.toStringAsFixed(0)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'flags grid=$_showGrid bounds=$_showBounds center=$_showCenter animate=$_animateOrbit guide=$_showGuide timeline=$_showTimeline',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'switches mode=$_modeSwitches theme=$_themeSwitches controls=$_controlEdits taps=$_stageTaps',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'snapshot parent=${_snapshot.parentSize.width.toStringAsFixed(0)}x${_snapshot.parentSize.height.toStringAsFixed(0)} child=${_snapshot.childSize.width.toStringAsFixed(0)}x${_snapshot.childSize.height.toStringAsFixed(0)} offset=${_snapshot.offset.dx.toStringAsFixed(1)},${_snapshot.offset.dy.toStringAsFixed(1)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1216,7 +1700,14 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1224,15 +1715,23 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faq.map(( _FaqItem item) {
+            ..._faq.map((_FaqItem item) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1245,9 +1744,18 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        item.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        item.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1270,32 +1778,74 @@ class _RenderCustomSingleChildLayoutBoxStudioState extends State<_RenderCustomSi
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                TextButton.icon(onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]), icon: const Icon(Icons.clear_all), label: const Text('Clear')),
+                TextButton.icon(
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
+                  icon: const Icon(Icons.clear_all),
+                  label: const Text('Clear'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological log of layout interactions and delegate parameter edits.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological log of layout interactions and delegate parameter edits.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
-                child: Text('Timeline is empty. Interact with controls to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
                     child: ListTile(
-                      leading: CircleAvatar(backgroundColor: scheme.primaryContainer, child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer))),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      leading: CircleAvatar(
+                        backgroundColor: scheme.primaryContainer,
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
+                      ),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1321,7 +1871,10 @@ class _ModeMiniPreview extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: scheme.outlineVariant),
         gradient: LinearGradient(
-          colors: <Color>[scheme.primary.withValues(alpha: 0.16), scheme.secondary.withValues(alpha: 0.10)],
+          colors: <Color>[
+            scheme.primary.withValues(alpha: 0.16),
+            scheme.secondary.withValues(alpha: 0.10),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1330,7 +1883,9 @@ class _ModeMiniPreview extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           CustomPaint(painter: _MiniTexturePainter(density: density)),
-          Center(child: Icon(_iconForMode(mode), color: scheme.primary, size: 26)),
+          Center(
+            child: Icon(_iconForMode(mode), color: scheme.primary, size: 26),
+          ),
         ],
       ),
     );
@@ -1364,16 +1919,25 @@ class _MiniTexturePainter extends CustomPainter {
       ..strokeWidth = 1;
     final double step = (26 - (density * 18)).clamp(7, 26);
     for (double x = -size.height; x < size.width + size.height; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x + size.height, size.height), paint);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x + size.height, size.height),
+        paint,
+      );
     }
   }
 
   @override
-  bool shouldRepaint(covariant _MiniTexturePainter oldDelegate) => oldDelegate.density != density;
+  bool shouldRepaint(covariant _MiniTexturePainter oldDelegate) =>
+      oldDelegate.density != density;
 }
 
 class _DemoChildCard extends StatelessWidget {
-  const _DemoChildCard({required this.mode, required this.density, required this.probe});
+  const _DemoChildCard({
+    required this.mode,
+    required this.density,
+    required this.probe,
+  });
 
   final _LayoutMode mode;
   final double density;
@@ -1387,7 +1951,11 @@ class _DemoChildCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        gradient: LinearGradient(colors: colors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+        gradient: LinearGradient(
+          colors: colors,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         border: Border.all(color: Colors.black.withValues(alpha: 0.20)),
       ),
       child: Stack(
@@ -1401,16 +1969,48 @@ class _DemoChildCard extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(Icons.widgets_outlined, color: Colors.white.withValues(alpha: 0.94), size: 16),
+                    Icon(
+                      Icons.widgets_outlined,
+                      color: Colors.white.withValues(alpha: 0.94),
+                      size: 16,
+                    ),
                     const SizedBox(width: 6),
-                    Expanded(child: Text('Demo Child', style: TextStyle(color: Colors.white.withValues(alpha: 0.96), fontWeight: FontWeight.w800, fontSize: 12))),
-                    Text(mode.name, style: TextStyle(color: Colors.white.withValues(alpha: 0.90), fontSize: 10, fontWeight: FontWeight.w700)),
+                    Expanded(
+                      child: Text(
+                        'Demo Child',
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.96),
+                          fontWeight: FontWeight.w800,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      mode.name,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.90),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
                 const Spacer(),
-                Text('probe ${probe.dx.toStringAsFixed(2)}, ${probe.dy.toStringAsFixed(2)}', style: TextStyle(color: Colors.white.withValues(alpha: 0.90), fontSize: 10)),
+                Text(
+                  'probe ${probe.dx.toStringAsFixed(2)}, ${probe.dy.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.90),
+                    fontSize: 10,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('RenderCustomSingleChildLayoutBox', style: TextStyle(color: Colors.white.withValues(alpha: 0.84), fontSize: 10)),
+                Text(
+                  'RenderCustomSingleChildLayoutBox',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.84),
+                    fontSize: 10,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1420,7 +2020,11 @@ class _DemoChildCard extends StatelessWidget {
             child: Container(
               width: 24,
               height: 24,
-              decoration: BoxDecoration(color: scheme.surface.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(999), border: Border.all(color: Colors.white.withValues(alpha: 0.68))),
+              decoration: BoxDecoration(
+                color: scheme.surface.withValues(alpha: 0.22),
+                borderRadius: BorderRadius.circular(999),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.68)),
+              ),
               child: const Icon(Icons.adjust, size: 14, color: Colors.white),
             ),
           ),
@@ -1446,7 +2050,12 @@ class _DemoChildCard extends StatelessWidget {
 }
 
 class _ParentBackdropPainter extends CustomPainter {
-  const _ParentBackdropPainter({required this.showGrid, required this.showCenter, required this.guideOpacity, required this.density});
+  const _ParentBackdropPainter({
+    required this.showGrid,
+    required this.showCenter,
+    required this.guideOpacity,
+    required this.density,
+  });
 
   final bool showGrid;
   final bool showCenter;
@@ -1457,7 +2066,11 @@ class _ParentBackdropPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()
       ..shader = LinearGradient(
-        colors: <Color>[const Color(0xFF0EA5E9), const Color(0xFF8B5CF6), const Color(0xFFF59E0B)],
+        colors: <Color>[
+          const Color(0xFF0EA5E9),
+          const Color(0xFF8B5CF6),
+          const Color(0xFFF59E0B),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
@@ -1471,12 +2084,18 @@ class _ParentBackdropPainter extends CustomPainter {
       ..strokeWidth = 1;
     final double step = (30 - (density * 20)).clamp(8, 30);
     for (double x = -size.height; x < size.width + size.height; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x + size.height, size.height), stripe);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x + size.height, size.height),
+        stripe,
+      );
     }
 
     if (showGrid) {
       final Paint grid = Paint()
-        ..color = Colors.white.withValues(alpha: (guideOpacity * 0.26).clamp(0.06, 0.28))
+        ..color = Colors.white.withValues(
+          alpha: (guideOpacity * 0.26).clamp(0.06, 0.28),
+        )
         ..strokeWidth = 1;
       const double g = 24;
       for (double x = 0; x <= size.width; x += g) {
@@ -1489,7 +2108,9 @@ class _ParentBackdropPainter extends CustomPainter {
 
     if (showCenter) {
       final Paint center = Paint()
-        ..color = Colors.white.withValues(alpha: (guideOpacity * 0.65).clamp(0.10, 0.65))
+        ..color = Colors.white.withValues(
+          alpha: (guideOpacity * 0.65).clamp(0.10, 0.65),
+        )
         ..strokeWidth = 1.2;
       final Offset c = Offset(size.width / 2, size.height / 2);
       canvas.drawLine(Offset(0, c.dy), Offset(size.width, c.dy), center);
@@ -1500,12 +2121,19 @@ class _ParentBackdropPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ParentBackdropPainter oldDelegate) {
-    return oldDelegate.showGrid != showGrid || oldDelegate.showCenter != showCenter || oldDelegate.guideOpacity != guideOpacity || oldDelegate.density != density;
+    return oldDelegate.showGrid != showGrid ||
+        oldDelegate.showCenter != showCenter ||
+        oldDelegate.guideOpacity != guideOpacity ||
+        oldDelegate.density != density;
   }
 }
 
 class _OverlayBoundsPainter extends CustomPainter {
-  const _OverlayBoundsPainter({required this.snapshot, required this.showCenter, required this.opacity});
+  const _OverlayBoundsPainter({
+    required this.snapshot,
+    required this.showCenter,
+    required this.opacity,
+  });
 
   final _LayoutSnapshot snapshot;
   final bool showCenter;
@@ -1515,11 +2143,15 @@ class _OverlayBoundsPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Rect childRect = snapshot.offset & snapshot.childSize;
     final Paint stroke = Paint()
-      ..color = Colors.white.withValues(alpha: (opacity * 0.92).clamp(0.12, 0.92))
+      ..color = Colors.white.withValues(
+        alpha: (opacity * 0.92).clamp(0.12, 0.92),
+      )
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
     final Paint fill = Paint()
-      ..color = Colors.white.withValues(alpha: (opacity * 0.10).clamp(0.02, 0.10))
+      ..color = Colors.white.withValues(
+        alpha: (opacity * 0.10).clamp(0.02, 0.10),
+      )
       ..style = PaintingStyle.fill;
 
     canvas.drawRect(childRect, fill);
@@ -1535,7 +2167,9 @@ class _OverlayBoundsPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _OverlayBoundsPainter oldDelegate) {
-    return oldDelegate.snapshot != snapshot || oldDelegate.showCenter != showCenter || oldDelegate.opacity != opacity;
+    return oldDelegate.snapshot != snapshot ||
+        oldDelegate.showCenter != showCenter ||
+        oldDelegate.opacity != opacity;
   }
 }
 
@@ -1576,7 +2210,14 @@ abstract class _BaseDelegate extends SingleChildLayoutDelegate {
   final String modeName;
 
   void pushSnapshot(Size parentSize, Size childSize, Offset offset) {
-    config.onSnapshot(_LayoutSnapshot(mode: modeName, parentSize: parentSize, childSize: childSize, offset: offset));
+    config.onSnapshot(
+      _LayoutSnapshot(
+        mode: modeName,
+        parentSize: parentSize,
+        childSize: childSize,
+        offset: offset,
+      ),
+    );
   }
 }
 
@@ -1585,13 +2226,21 @@ class _AnchorDelegate extends _BaseDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    return constraints.constrain(Size(constraints.maxWidth, constraints.maxHeight));
+    return constraints.constrain(
+      Size(constraints.maxWidth, constraints.maxHeight),
+    );
   }
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final double maxW = (constraints.maxWidth - (config.margin * 2)).clamp(40, constraints.maxWidth);
-    final double maxH = (constraints.maxHeight - (config.margin * 2)).clamp(40, constraints.maxHeight);
+    final double maxW = (constraints.maxWidth - (config.margin * 2)).clamp(
+      40,
+      constraints.maxWidth,
+    );
+    final double maxH = (constraints.maxHeight - (config.margin * 2)).clamp(
+      40,
+      constraints.maxHeight,
+    );
     final double w = config.childBaseSize.width.clamp(40, maxW);
     final double h = config.childBaseSize.height.clamp(40, maxH);
     return BoxConstraints.tight(Size(w, h));
@@ -1599,12 +2248,22 @@ class _AnchorDelegate extends _BaseDelegate {
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
-    final Offset anchorPoint = Offset(size.width * config.anchor.dx, size.height * config.anchor.dy);
-    final Offset centered = anchorPoint - Offset(childSize.width / 2, childSize.height / 2);
+    final Offset anchorPoint = Offset(
+      size.width * config.anchor.dx,
+      size.height * config.anchor.dy,
+    );
+    final Offset centered =
+        anchorPoint - Offset(childSize.width / 2, childSize.height / 2);
     final Offset withBias = centered + config.bias;
     final Offset clamped = Offset(
-      withBias.dx.clamp(config.margin, size.width - childSize.width - config.margin),
-      withBias.dy.clamp(config.margin, size.height - childSize.height - config.margin),
+      withBias.dx.clamp(
+        config.margin,
+        size.width - childSize.width - config.margin,
+      ),
+      withBias.dy.clamp(
+        config.margin,
+        size.height - childSize.height - config.margin,
+      ),
     );
     pushSnapshot(size, childSize, clamped);
     return clamped;
@@ -1624,13 +2283,21 @@ class _OrbitDelegate extends _BaseDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    return constraints.constrain(Size(constraints.maxWidth, constraints.maxHeight));
+    return constraints.constrain(
+      Size(constraints.maxWidth, constraints.maxHeight),
+    );
   }
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final double maxW = (constraints.maxWidth * 0.38).clamp(50, constraints.maxWidth);
-    final double maxH = (constraints.maxHeight * 0.38).clamp(50, constraints.maxHeight);
+    final double maxW = (constraints.maxWidth * 0.38).clamp(
+      50,
+      constraints.maxWidth,
+    );
+    final double maxH = (constraints.maxHeight * 0.38).clamp(
+      50,
+      constraints.maxHeight,
+    );
     final double w = config.childBaseSize.width.clamp(48, maxW);
     final double h = config.childBaseSize.height.clamp(48, maxH);
     return BoxConstraints.tight(Size(w, h));
@@ -1640,11 +2307,21 @@ class _OrbitDelegate extends _BaseDelegate {
   Offset getPositionForChild(Size size, Size childSize) {
     final Offset center = Offset(size.width / 2, size.height / 2);
     final double angle = config.progress * math.pi * 2 * config.orbitSpeed;
-    final Offset orbitPoint = Offset(center.dx + math.cos(angle) * config.orbitRadius, center.dy + math.sin(angle) * config.orbitRadius);
-    final Offset offset = orbitPoint - Offset(childSize.width / 2, childSize.height / 2);
+    final Offset orbitPoint = Offset(
+      center.dx + math.cos(angle) * config.orbitRadius,
+      center.dy + math.sin(angle) * config.orbitRadius,
+    );
+    final Offset offset =
+        orbitPoint - Offset(childSize.width / 2, childSize.height / 2);
     final Offset clamped = Offset(
-      offset.dx.clamp(config.margin, size.width - childSize.width - config.margin),
-      offset.dy.clamp(config.margin, size.height - childSize.height - config.margin),
+      offset.dx.clamp(
+        config.margin,
+        size.width - childSize.width - config.margin,
+      ),
+      offset.dy.clamp(
+        config.margin,
+        size.height - childSize.height - config.margin,
+      ),
     );
     pushSnapshot(size, childSize, clamped);
     return clamped;
@@ -1665,13 +2342,21 @@ class _DockDelegate extends _BaseDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    return constraints.constrain(Size(constraints.maxWidth, constraints.maxHeight));
+    return constraints.constrain(
+      Size(constraints.maxWidth, constraints.maxHeight),
+    );
   }
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final double maxW = (constraints.maxWidth - (config.margin * 2)).clamp(60, constraints.maxWidth);
-    final double maxH = (constraints.maxHeight - (config.margin * 2)).clamp(60, constraints.maxHeight);
+    final double maxW = (constraints.maxWidth - (config.margin * 2)).clamp(
+      60,
+      constraints.maxWidth,
+    );
+    final double maxH = (constraints.maxHeight - (config.margin * 2)).clamp(
+      60,
+      constraints.maxHeight,
+    );
     final double w = config.childBaseSize.width.clamp(60, maxW);
     final double h = config.childBaseSize.height.clamp(60, maxH);
     return BoxConstraints.tight(Size(w, h));
@@ -1685,10 +2370,16 @@ class _DockDelegate extends _BaseDelegate {
         offset = Offset((size.width - childSize.width) / 2, config.margin);
         break;
       case _DockEdge.right:
-        offset = Offset(size.width - childSize.width - config.margin, (size.height - childSize.height) / 2);
+        offset = Offset(
+          size.width - childSize.width - config.margin,
+          (size.height - childSize.height) / 2,
+        );
         break;
       case _DockEdge.bottom:
-        offset = Offset((size.width - childSize.width) / 2, size.height - childSize.height - config.margin);
+        offset = Offset(
+          (size.width - childSize.width) / 2,
+          size.height - childSize.height - config.margin,
+        );
         break;
       case _DockEdge.left:
         offset = Offset(config.margin, (size.height - childSize.height) / 2);
@@ -1696,8 +2387,14 @@ class _DockDelegate extends _BaseDelegate {
     }
     final Offset withBias = offset + config.bias;
     final Offset clamped = Offset(
-      withBias.dx.clamp(config.margin, size.width - childSize.width - config.margin),
-      withBias.dy.clamp(config.margin, size.height - childSize.height - config.margin),
+      withBias.dx.clamp(
+        config.margin,
+        size.width - childSize.width - config.margin,
+      ),
+      withBias.dy.clamp(
+        config.margin,
+        size.height - childSize.height - config.margin,
+      ),
     );
     pushSnapshot(size, childSize, clamped);
     return clamped;
@@ -1717,14 +2414,19 @@ class _FitDelegate extends _BaseDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    return constraints.constrain(Size(constraints.maxWidth, constraints.maxHeight));
+    return constraints.constrain(
+      Size(constraints.maxWidth, constraints.maxHeight),
+    );
   }
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final double maxW = (constraints.maxWidth - (config.margin * 2)) * config.fitFactor;
-    final double maxH = (constraints.maxHeight - (config.margin * 2)) * config.fitFactor;
-    final double ratio = config.childBaseSize.width / config.childBaseSize.height;
+    final double maxW =
+        (constraints.maxWidth - (config.margin * 2)) * config.fitFactor;
+    final double maxH =
+        (constraints.maxHeight - (config.margin * 2)) * config.fitFactor;
+    final double ratio =
+        config.childBaseSize.width / config.childBaseSize.height;
     double width = maxW;
     double height = width / ratio;
     if (height > maxH) {
@@ -1738,11 +2440,20 @@ class _FitDelegate extends _BaseDelegate {
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
-    final Offset centered = Offset((size.width - childSize.width) / 2, (size.height - childSize.height) / 2);
+    final Offset centered = Offset(
+      (size.width - childSize.width) / 2,
+      (size.height - childSize.height) / 2,
+    );
     final Offset withBias = centered + config.bias;
     final Offset clamped = Offset(
-      withBias.dx.clamp(config.margin, size.width - childSize.width - config.margin),
-      withBias.dy.clamp(config.margin, size.height - childSize.height - config.margin),
+      withBias.dx.clamp(
+        config.margin,
+        size.width - childSize.width - config.margin,
+      ),
+      withBias.dy.clamp(
+        config.margin,
+        size.height - childSize.height - config.margin,
+      ),
     );
     pushSnapshot(size, childSize, clamped);
     return clamped;
@@ -1762,13 +2473,17 @@ class _InsetsDelegate extends _BaseDelegate {
 
   @override
   Size getSize(BoxConstraints constraints) {
-    return constraints.constrain(Size(constraints.maxWidth, constraints.maxHeight));
+    return constraints.constrain(
+      Size(constraints.maxWidth, constraints.maxHeight),
+    );
   }
 
   @override
   BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    final double width = (constraints.maxWidth - config.insets.horizontal).clamp(40, constraints.maxWidth);
-    final double height = (constraints.maxHeight - config.insets.vertical).clamp(40, constraints.maxHeight);
+    final double width = (constraints.maxWidth - config.insets.horizontal)
+        .clamp(40, constraints.maxWidth);
+    final double height = (constraints.maxHeight - config.insets.vertical)
+        .clamp(40, constraints.maxHeight);
     return BoxConstraints.tight(Size(width, height));
   }
 

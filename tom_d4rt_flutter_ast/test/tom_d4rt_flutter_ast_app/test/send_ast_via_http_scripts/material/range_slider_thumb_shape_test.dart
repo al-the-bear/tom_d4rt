@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum _ThumbProfile {
-  compact,
-  balanced,
-  elevated,
-  accessible,
-  contrast,
-}
+enum _ThumbProfile { compact, balanced, elevated, accessible, contrast }
 
 class _ThumbPreset {
   const _ThumbPreset({
@@ -71,10 +65,7 @@ class _ThumbSnapshot {
 }
 
 class _GuideRow {
-  const _GuideRow({
-    required this.title,
-    required this.body,
-  });
+  const _GuideRow({required this.title, required this.body});
 
   final String title;
   final String body;
@@ -87,7 +78,8 @@ dynamic build(BuildContext context) {
     const _ThumbPreset(
       profile: _ThumbProfile.compact,
       title: 'Compact Precision',
-      subtitle: 'Small thumb footprint for dense dashboards and analytics rails.',
+      subtitle:
+          'Small thumb footprint for dense dashboards and analytics rails.',
       icon: Icons.fit_screen,
       baseColor: Color(0xFF455A64),
       radius: 7,
@@ -111,7 +103,8 @@ dynamic build(BuildContext context) {
     const _ThumbPreset(
       profile: _ThumbProfile.elevated,
       title: 'Elevated Focus',
-      subtitle: 'Higher lift and depth to emphasize direct-manipulation interactions.',
+      subtitle:
+          'Higher lift and depth to emphasize direct-manipulation interactions.',
       icon: Icons.layers,
       baseColor: Color(0xFF7B1FA2),
       radius: 12,
@@ -123,7 +116,8 @@ dynamic build(BuildContext context) {
     const _ThumbPreset(
       profile: _ThumbProfile.accessible,
       title: 'Accessible Reach',
-      subtitle: 'Large touch target profile for accessibility-first interfaces.',
+      subtitle:
+          'Large touch target profile for accessibility-first interfaces.',
       icon: Icons.accessible,
       baseColor: Color(0xFF2E7D32),
       radius: 15,
@@ -149,7 +143,8 @@ dynamic build(BuildContext context) {
   final List<_UseCaseScenario> scenarios = <_UseCaseScenario>[
     const _UseCaseScenario(
       title: 'Budget Corridor',
-      description: 'Price planning with deliberate compact thumbs for dense controls.',
+      description:
+          'Price planning with deliberate compact thumbs for dense controls.',
       icon: Icons.account_balance_wallet,
       profile: _ThumbProfile.compact,
       min: 0,
@@ -171,7 +166,8 @@ dynamic build(BuildContext context) {
     ),
     const _UseCaseScenario(
       title: 'Creative Intensity',
-      description: 'Elevated thumb treatment for highly interactive creative controls.',
+      description:
+          'Elevated thumb treatment for highly interactive creative controls.',
       icon: Icons.brush,
       profile: _ThumbProfile.elevated,
       min: 0,
@@ -182,7 +178,8 @@ dynamic build(BuildContext context) {
     ),
     const _UseCaseScenario(
       title: 'Comfort Band',
-      description: 'Accessibility radius profile for thermostat and control panels.',
+      description:
+          'Accessibility radius profile for thermostat and control panels.',
       icon: Icons.thermostat,
       profile: _ThumbProfile.accessible,
       min: 15,
@@ -193,7 +190,8 @@ dynamic build(BuildContext context) {
     ),
     const _UseCaseScenario(
       title: 'Night Shift Contrast',
-      description: 'High-contrast thumb profile for reduced-luminance environments.',
+      description:
+          'High-contrast thumb profile for reduced-luminance environments.',
       icon: Icons.nightlight_round,
       profile: _ThumbProfile.contrast,
       min: 0,
@@ -262,9 +260,10 @@ dynamic build(BuildContext context) {
   bool enabled = true;
 
   _ThumbPreset presetFor(_ThumbProfile profile) {
-    return presets.firstWhere((
-      _ThumbPreset p,
-    ) => p.profile == profile, orElse: () => presets.first);
+    return presets.firstWhere(
+      (_ThumbPreset p) => p.profile == profile,
+      orElse: () => presets.first,
+    );
   }
 
   String twoDigits(int v) => v.toString().padLeft(2, '0');
@@ -327,7 +326,9 @@ dynamic build(BuildContext context) {
       showValueIndicator: ShowValueIndicator.onDrag,
       rangeValueIndicatorShape: const PaddleRangeSliderValueIndicatorShape(),
       activeTrackColor: enabled ? active : disabledColor,
-      inactiveTrackColor: enabled ? inactive : disabledColor.withValues(alpha: 0.5),
+      inactiveTrackColor: enabled
+          ? inactive
+          : disabledColor.withValues(alpha: 0.5),
       thumbColor: enabled ? active : disabledColor,
       overlayColor: active.withValues(alpha: 0.16),
       valueIndicatorColor: active,
@@ -364,8 +365,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 2),
               Text(
@@ -481,7 +484,10 @@ dynamic build(BuildContext context) {
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.15),
-                        avatar: const Icon(Icons.vertical_align_top, color: Colors.white),
+                        avatar: const Icon(
+                          Icons.vertical_align_top,
+                          color: Colors.white,
+                        ),
                         label: Text(
                           'elevation ${selected.elevation.toStringAsFixed(1)}',
                           style: const TextStyle(color: Colors.white),
@@ -490,7 +496,10 @@ dynamic build(BuildContext context) {
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.15),
-                        avatar: const Icon(Icons.touch_app, color: Colors.white),
+                        avatar: const Icon(
+                          Icons.touch_app,
+                          color: Colors.white,
+                        ),
                         label: Text(
                           'pressed ${selected.pressedElevation.toStringAsFixed(1)}',
                           style: const TextStyle(color: Colors.white),
@@ -528,13 +537,17 @@ dynamic build(BuildContext context) {
                         selected: chosen,
                         selectedColor: preset.baseColor.withValues(alpha: 0.2),
                         labelStyle: TextStyle(
-                          color: chosen ? preset.baseColor : Colors.blueGrey.shade700,
+                          color: chosen
+                              ? preset.baseColor
+                              : Colors.blueGrey.shade700,
                           fontWeight: FontWeight.w700,
                         ),
                         avatar: Icon(
                           preset.icon,
                           size: 18,
-                          color: chosen ? preset.baseColor : Colors.blueGrey.shade600,
+                          color: chosen
+                              ? preset.baseColor
+                              : Colors.blueGrey.shade600,
                         ),
                         label: Text(preset.title),
                         onSelected: (bool value) {
@@ -543,7 +556,9 @@ dynamic build(BuildContext context) {
                           }
                           setState(() {
                             selectedProfile = preset.profile;
-                            divisions = preset.isDiscrete ? (divisions ?? 20) : null;
+                            divisions = preset.isDiscrete
+                                ? (divisions ?? 20)
+                                : null;
                           });
                           log('Selected profile ${preset.title}.');
                         },
@@ -664,7 +679,9 @@ dynamic build(BuildContext context) {
                           setState(() {
                             enabled = value;
                           });
-                          log('Enabled state changed to ${value ? 'true' : 'false'}.');
+                          log(
+                            'Enabled state changed to ${value ? 'true' : 'false'}.',
+                          );
                         },
                       ),
                     ],
@@ -690,7 +707,9 @@ dynamic build(BuildContext context) {
                               timeline.removeLast();
                             }
                           });
-                          log('Captured profile snapshot for ${selected.title}.');
+                          log(
+                            'Captured profile snapshot for ${selected.title}.',
+                          );
                         },
                         icon: const Icon(Icons.add_chart),
                         label: const Text('Capture Snapshot'),
@@ -829,7 +848,9 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             Column(
-              children: scenarios.asMap().entries.map((MapEntry<int, _UseCaseScenario> entry) {
+              children: scenarios.asMap().entries.map((
+                MapEntry<int, _UseCaseScenario> entry,
+              ) {
                 final int index = entry.key;
                 final _UseCaseScenario scenario = entry.value;
                 final _ThumbPreset scenarioPreset = presetFor(scenario.profile);
@@ -856,9 +877,14 @@ dynamic build(BuildContext context) {
                         height: 38,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: scenarioPreset.baseColor.withValues(alpha: 0.22),
+                          color: scenarioPreset.baseColor.withValues(
+                            alpha: 0.22,
+                          ),
                         ),
-                        child: Icon(scenario.icon, color: scenarioPreset.baseColor),
+                        child: Icon(
+                          scenario.icon,
+                          color: scenarioPreset.baseColor,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -945,7 +971,9 @@ dynamic build(BuildContext context) {
               duration: const Duration(milliseconds: 260),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: showComparisonGrid ? Colors.white : Colors.blueGrey.shade50,
+                color: showComparisonGrid
+                    ? Colors.white
+                    : Colors.blueGrey.shade50,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: Colors.blueGrey.shade100),
               ),
@@ -958,9 +986,13 @@ dynamic build(BuildContext context) {
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: p.baseColor.withValues(alpha: highlight ? 0.16 : 0.08),
+                            color: p.baseColor.withValues(
+                              alpha: highlight ? 0.16 : 0.08,
+                            ),
                             border: Border.all(
-                              color: p.baseColor.withValues(alpha: highlight ? 0.45 : 0.25),
+                              color: p.baseColor.withValues(
+                                alpha: highlight ? 0.45 : 0.25,
+                              ),
                             ),
                           ),
                           child: Column(
@@ -1067,7 +1099,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Interaction Timeline',
-              subtitle: 'Snapshots of thumb profile states captured during exploration.',
+              subtitle:
+                  'Snapshots of thumb profile states captured during exploration.',
               icon: Icons.timeline,
             ),
             const SizedBox(height: 10),
@@ -1099,7 +1132,9 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: timeline.asMap().entries.map((MapEntry<int, _ThumbSnapshot> entry) {
+                      children: timeline.asMap().entries.map((
+                        MapEntry<int, _ThumbSnapshot> entry,
+                      ) {
                         final _ThumbSnapshot row = entry.value;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 8),
@@ -1107,7 +1142,9 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: row.color.withValues(alpha: 0.08),
-                            border: Border.all(color: row.color.withValues(alpha: 0.30)),
+                            border: Border.all(
+                              color: row.color.withValues(alpha: 0.30),
+                            ),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1126,7 +1163,9 @@ dynamic build(BuildContext context) {
                                   children: <Widget>[
                                     Text(
                                       row.title,
-                                      style: const TextStyle(fontWeight: FontWeight.w700),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                     const SizedBox(height: 3),
                                     Text(
@@ -1148,7 +1187,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'RangeSliderThumbShape Guide',
-              subtitle: 'Practical guidance for choosing and tuning thumb behavior.',
+              subtitle:
+                  'Practical guidance for choosing and tuning thumb behavior.',
               icon: Icons.menu_book,
             ),
             const SizedBox(height: 10),
@@ -1174,7 +1214,11 @@ dynamic build(BuildContext context) {
                           width: double.infinity,
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border(bottom: BorderSide(color: Colors.blueGrey.shade50)),
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.blueGrey.shade50,
+                              ),
+                            ),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1204,7 +1248,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Reference Pattern',
-              subtitle: 'Canonical SliderTheme usage with RoundRangeSliderThumbShape customization.',
+              subtitle:
+                  'Canonical SliderTheme usage with RoundRangeSliderThumbShape customization.',
               icon: Icons.code,
             ),
             const SizedBox(height: 10),
@@ -1242,7 +1287,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Diagnostics Console',
-              subtitle: 'Session trace of profile changes, scenario loads, and state updates.',
+              subtitle:
+                  'Session trace of profile changes, scenario loads, and state updates.',
               icon: Icons.terminal,
             ),
             const SizedBox(height: 10),
@@ -1342,7 +1388,12 @@ class _ThumbSectionPainter extends CustomPainter {
       bg,
     );
 
-    final Rect track = Rect.fromLTWH(26, size.height * 0.62, size.width - 52, 14);
+    final Rect track = Rect.fromLTWH(
+      26,
+      size.height * 0.62,
+      size.width - 52,
+      14,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(track, const Radius.circular(999)),
       Paint()..color = const Color(0xFFCFD8DC),
@@ -1365,13 +1416,16 @@ class _ThumbSectionPainter extends CustomPainter {
     final Rect active = Rect.fromLTRB(sx, track.top, ex, track.bottom);
     canvas.drawRRect(
       RRect.fromRectAndRadius(active, const Radius.circular(999)),
-      Paint()..color = preset.baseColor.withValues(alpha: isEnabled ? 0.85 : 0.42),
+      Paint()
+        ..color = preset.baseColor.withValues(alpha: isEnabled ? 0.85 : 0.42),
     );
 
     final double radius = isEnabled ? preset.radius : preset.disabledRadius;
 
     void drawThumb(Offset center, bool pressed) {
-      final double shadow = pressed ? preset.pressedElevation : preset.elevation;
+      final double shadow = pressed
+          ? preset.pressedElevation
+          : preset.elevation;
       if (shadow > 0) {
         canvas.drawCircle(
           center.translate(0, shadow * 0.9),
@@ -1435,7 +1489,10 @@ class _ThumbSectionPainter extends CustomPainter {
           ..lineTo(rect.left, rect.bottom - 2)
           ..close();
       }
-      canvas.drawPath(tail, Paint()..color = preset.baseColor.withValues(alpha: 0.92));
+      canvas.drawPath(
+        tail,
+        Paint()..color = preset.baseColor.withValues(alpha: 0.92),
+      );
 
       tp.paint(canvas, Offset(rect.left + 8, rect.top + 5));
     }
@@ -1457,7 +1514,12 @@ class _ThumbSectionPainter extends CustomPainter {
     )..layout(maxWidth: size.width - 16);
     headline.paint(canvas, const Offset(8, 8));
 
-    final Rect info = Rect.fromLTWH(14, size.height * 0.14, size.width - 28, 96);
+    final Rect info = Rect.fromLTWH(
+      14,
+      size.height * 0.14,
+      size.width - 28,
+      96,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(info, const Radius.circular(10)),
       Paint()..color = preset.baseColor.withValues(alpha: 0.10),

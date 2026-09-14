@@ -52,10 +52,7 @@ dynamic build(BuildContext context) {
           Text(
             'Imposes additional size\nconstraints on its child',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.indigo.shade700,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.indigo.shade700),
           ),
         ],
       ),
@@ -285,10 +282,42 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  paramRows.add(paramRow('minWidth',  '100.0', 'Pushes child width to at least 100',  Colors.blue,   Icons.swap_horiz));
-  paramRows.add(paramRow('minHeight', '40.0',  'Pushes child height to at least 40',  Colors.green,  Icons.swap_vert));
-  paramRows.add(paramRow('maxWidth',  '80.0',  'Clamps child width to at most 80',    Colors.purple, Icons.compress));
-  paramRows.add(paramRow('maxHeight', '20.0',  'Clamps child height to at most 20',   Colors.red,    Icons.height));
+  paramRows.add(
+    paramRow(
+      'minWidth',
+      '100.0',
+      'Pushes child width to at least 100',
+      Colors.blue,
+      Icons.swap_horiz,
+    ),
+  );
+  paramRows.add(
+    paramRow(
+      'minHeight',
+      '40.0',
+      'Pushes child height to at least 40',
+      Colors.green,
+      Icons.swap_vert,
+    ),
+  );
+  paramRows.add(
+    paramRow(
+      'maxWidth',
+      '80.0',
+      'Clamps child width to at most 80',
+      Colors.purple,
+      Icons.compress,
+    ),
+  );
+  paramRows.add(
+    paramRow(
+      'maxHeight',
+      '20.0',
+      'Clamps child height to at most 20',
+      Colors.red,
+      Icons.height,
+    ),
+  );
   print('Created ${paramRows.length} parameter rows');
 
   final paramGallery = Container(
@@ -536,46 +565,58 @@ dynamic build(BuildContext context) {
     );
   }
 
-  factoryShowcase.add(factoryCard(
-    name: 'BoxConstraints.tight',
-    signature: 'BoxConstraints.tight(Size(140, 60))',
-    description: 'Both min and max equal the given size — forces an exact size.',
-    color: Colors.deepOrange,
-    icon: Icons.lock,
-    sample: tightBox,
-  ));
-  factoryShowcase.add(factoryCard(
-    name: 'BoxConstraints.loose',
-    signature: 'BoxConstraints.loose(Size(200, 80))',
-    description: 'Max equals the size, min is zero — child may be smaller.',
-    color: Colors.lightBlue,
-    icon: Icons.lock_open,
-    sample: looseBox,
-  ));
-  factoryShowcase.add(factoryCard(
-    name: 'BoxConstraints.expand',
-    signature: 'BoxConstraints.expand(height: 40)',
-    description: 'Tight in both axes — fills parent unless an axis is given.',
-    color: Colors.purple,
-    icon: Icons.open_in_full,
-    sample: expandBox,
-  ));
-  factoryShowcase.add(factoryCard(
-    name: 'BoxConstraints.tightFor',
-    signature: 'BoxConstraints.tightFor(width: 180)',
-    description: 'Tight on the given axis; the other axis is unconstrained.',
-    color: Colors.teal,
-    icon: Icons.compare_arrows,
-    sample: tightForBox,
-  ));
-  factoryShowcase.add(factoryCard(
-    name: 'BoxConstraints.tightForFinite',
-    signature: 'BoxConstraints.tightForFinite(width: 160, height: 30)',
-    description: 'Like tightFor but rejects infinite values, useful in scrollables.',
-    color: Colors.pink,
-    icon: Icons.straighten,
-    sample: tightForFiniteBox,
-  ));
+  factoryShowcase.add(
+    factoryCard(
+      name: 'BoxConstraints.tight',
+      signature: 'BoxConstraints.tight(Size(140, 60))',
+      description:
+          'Both min and max equal the given size — forces an exact size.',
+      color: Colors.deepOrange,
+      icon: Icons.lock,
+      sample: tightBox,
+    ),
+  );
+  factoryShowcase.add(
+    factoryCard(
+      name: 'BoxConstraints.loose',
+      signature: 'BoxConstraints.loose(Size(200, 80))',
+      description: 'Max equals the size, min is zero — child may be smaller.',
+      color: Colors.lightBlue,
+      icon: Icons.lock_open,
+      sample: looseBox,
+    ),
+  );
+  factoryShowcase.add(
+    factoryCard(
+      name: 'BoxConstraints.expand',
+      signature: 'BoxConstraints.expand(height: 40)',
+      description: 'Tight in both axes — fills parent unless an axis is given.',
+      color: Colors.purple,
+      icon: Icons.open_in_full,
+      sample: expandBox,
+    ),
+  );
+  factoryShowcase.add(
+    factoryCard(
+      name: 'BoxConstraints.tightFor',
+      signature: 'BoxConstraints.tightFor(width: 180)',
+      description: 'Tight on the given axis; the other axis is unconstrained.',
+      color: Colors.teal,
+      icon: Icons.compare_arrows,
+      sample: tightForBox,
+    ),
+  );
+  factoryShowcase.add(
+    factoryCard(
+      name: 'BoxConstraints.tightForFinite',
+      signature: 'BoxConstraints.tightForFinite(width: 160, height: 30)',
+      description:
+          'Like tightFor but rejects infinite values, useful in scrollables.',
+      color: Colors.pink,
+      icon: Icons.straighten,
+      sample: tightForFiniteBox,
+    ),
+  );
   print('Created ${factoryShowcase.length} factory cards');
 
   // ============================================================
@@ -688,91 +729,96 @@ dynamic build(BuildContext context) {
 
   final beforeAfterWidgets = <Widget>[];
 
-  beforeAfterWidgets.add(beforeAfter(
-    title: 'Force a minimum width',
-    before: Container(
-      color: Colors.blueGrey.shade200,
-      height: 28.0,
-      child: Text('  hi  '),
-    ),
-    after: ConstrainedBox(
-      constraints: BoxConstraints(minWidth: 120.0),
-      child: Container(
-        color: Colors.blue.shade400,
+  beforeAfterWidgets.add(
+    beforeAfter(
+      title: 'Force a minimum width',
+      before: Container(
+        color: Colors.blueGrey.shade200,
         height: 28.0,
-        child: Center(
-          child: Text('  hi  ', style: TextStyle(color: Colors.white)),
+        child: Text('  hi  '),
+      ),
+      after: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: 120.0),
+        child: Container(
+          color: Colors.blue.shade400,
+          height: 28.0,
+          child: Center(
+            child: Text('  hi  ', style: TextStyle(color: Colors.white)),
+          ),
         ),
       ),
+      afterLabel: 'minWidth=120',
+      accent: Colors.blue,
     ),
-    afterLabel: 'minWidth=120',
-    accent: Colors.blue,
-  ));
+  );
 
-  beforeAfterWidgets.add(beforeAfter(
-    title: 'Cap an oversized child',
-    before: Container(
-      color: Colors.red.shade200,
-      height: 24.0,
-      width: 240.0,
-      child: Text('  too wide  '),
-    ),
-    after: ConstrainedBox(
-      constraints: BoxConstraints(maxWidth: 100.0),
-      child: Container(
-        color: Colors.red.shade400,
+  beforeAfterWidgets.add(
+    beforeAfter(
+      title: 'Cap an oversized child',
+      before: Container(
+        color: Colors.red.shade200,
         height: 24.0,
         width: 240.0,
-        child: Center(
-          child: Text('  capped  ', style: TextStyle(color: Colors.white)),
+        child: Text('  too wide  '),
+      ),
+      after: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 100.0),
+        child: Container(
+          color: Colors.red.shade400,
+          height: 24.0,
+          width: 240.0,
+          child: Center(
+            child: Text('  capped  ', style: TextStyle(color: Colors.white)),
+          ),
         ),
       ),
+      afterLabel: 'maxWidth=100',
+      accent: Colors.red,
     ),
-    afterLabel: 'maxWidth=100',
-    accent: Colors.red,
-  ));
+  );
 
-  beforeAfterWidgets.add(beforeAfter(
-    title: 'Force an exact size',
-    before: Container(
-      color: Colors.green.shade200,
-      child: Text('flexible'),
-    ),
-    after: ConstrainedBox(
-      constraints: BoxConstraints.tight(Size(120.0, 32.0)),
-      child: Container(
-        color: Colors.green.shade500,
-        child: Center(
-          child: Text('exact 120x32', style: TextStyle(color: Colors.white)),
+  beforeAfterWidgets.add(
+    beforeAfter(
+      title: 'Force an exact size',
+      before: Container(color: Colors.green.shade200, child: Text('flexible')),
+      after: ConstrainedBox(
+        constraints: BoxConstraints.tight(Size(120.0, 32.0)),
+        child: Container(
+          color: Colors.green.shade500,
+          child: Center(
+            child: Text('exact 120x32', style: TextStyle(color: Colors.white)),
+          ),
         ),
       ),
+      afterLabel: 'tight 120x32',
+      accent: Colors.green,
     ),
-    afterLabel: 'tight 120x32',
-    accent: Colors.green,
-  ));
+  );
 
-  beforeAfterWidgets.add(beforeAfter(
-    title: 'Bound a stretchy container',
-    before: Container(
-      color: Colors.orange.shade200,
-      height: 26.0,
-      width: 300.0,
-      child: Text('  stretchy  '),
-    ),
-    after: ConstrainedBox(
-      constraints: BoxConstraints.loose(Size(150.0, 40.0)),
-      child: Container(
-        color: Colors.orange.shade400,
-        width: 300.0,
+  beforeAfterWidgets.add(
+    beforeAfter(
+      title: 'Bound a stretchy container',
+      before: Container(
+        color: Colors.orange.shade200,
         height: 26.0,
-        child: Center(
-          child: Text('  bounded  ', style: TextStyle(color: Colors.white)),
+        width: 300.0,
+        child: Text('  stretchy  '),
+      ),
+      after: ConstrainedBox(
+        constraints: BoxConstraints.loose(Size(150.0, 40.0)),
+        child: Container(
+          color: Colors.orange.shade400,
+          width: 300.0,
+          height: 26.0,
+          child: Center(
+            child: Text('  bounded  ', style: TextStyle(color: Colors.white)),
+          ),
         ),
       ),
+      afterLabel: 'loose 150x40',
+      accent: Colors.orange,
     ),
-    afterLabel: 'loose 150x40',
-    accent: Colors.orange,
-  ));
+  );
   print('Created ${beforeAfterWidgets.length} before/after panels');
 
   // ============================================================
@@ -865,10 +911,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     step['step'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   SizedBox(height: 4.0),
                   Text(
@@ -1466,10 +1509,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: conceptCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: conceptCards),
         SizedBox(height: 32.0),
 
         // Section 2
@@ -1487,10 +1527,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: factoryShowcase,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: factoryShowcase),
         SizedBox(height: 32.0),
 
         // Section 4

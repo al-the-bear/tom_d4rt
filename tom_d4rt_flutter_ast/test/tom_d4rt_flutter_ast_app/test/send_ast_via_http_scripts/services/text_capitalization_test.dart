@@ -136,10 +136,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             for (final TextCapitalization v in TextCapitalization.values)
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(20.0),
@@ -259,11 +256,7 @@ dynamic build(BuildContext context) {
               '(index ${TextCapitalization.values.last.index})',
           Icons.last_page,
         ),
-        _buildAnatomyRow(
-          'Default',
-          'TextCapitalization.none',
-          Icons.flag,
-        ),
+        _buildAnatomyRow('Default', 'TextCapitalization.none', Icons.flag),
         _buildAnatomyRow(
           'Used by',
           'TextField, TextFormField, EditableText',
@@ -378,8 +371,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.compare_arrows,
-                color: Colors.deepOrange.shade700, size: 22.0),
+            Icon(
+              Icons.compare_arrows,
+              color: Colors.deepOrange.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Same Input, Four Modes',
@@ -429,24 +425,37 @@ dynamic build(BuildContext context) {
                   : Colors.amber.shade50.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(6.0),
               border: Border(
-                bottom: BorderSide(
-                  color: Colors.orange.shade200,
-                  width: 0.5,
-                ),
+                bottom: BorderSide(color: Colors.orange.shade200, width: 0.5),
               ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _tableCell(sampleInputs[i], flex: 4, mono: true),
-                _tableCell(_capitalizeWords(sampleInputs[i]),
-                    flex: 3, mono: true, accent: Colors.teal.shade800),
-                _tableCell(_capitalizeSentences(sampleInputs[i]),
-                    flex: 3, mono: true, accent: Colors.indigo.shade700),
-                _tableCell(_capitalizeCharacters(sampleInputs[i]),
-                    flex: 3, mono: true, accent: Colors.deepOrange.shade800),
-                _tableCell(_capitalizeNone(sampleInputs[i]),
-                    flex: 3, mono: true, accent: Colors.blueGrey.shade700),
+                _tableCell(
+                  _capitalizeWords(sampleInputs[i]),
+                  flex: 3,
+                  mono: true,
+                  accent: Colors.teal.shade800,
+                ),
+                _tableCell(
+                  _capitalizeSentences(sampleInputs[i]),
+                  flex: 3,
+                  mono: true,
+                  accent: Colors.indigo.shade700,
+                ),
+                _tableCell(
+                  _capitalizeCharacters(sampleInputs[i]),
+                  flex: 3,
+                  mono: true,
+                  accent: Colors.deepOrange.shade800,
+                ),
+                _tableCell(
+                  _capitalizeNone(sampleInputs[i]),
+                  flex: 3,
+                  mono: true,
+                  accent: Colors.blueGrey.shade700,
+                ),
               ],
             ),
           ),
@@ -479,8 +488,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.menu_book_outlined,
-                color: Colors.lightGreenAccent, size: 22.0),
+            Icon(
+              Icons.menu_book_outlined,
+              color: Colors.lightGreenAccent,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Recipes — TextField.textCapitalization',
@@ -557,7 +569,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.warning_amber,
       title: 'IME-dependent enforcement',
-      detail: 'TextCapitalization is a HINT to the platform keyboard. '
+      detail:
+          'TextCapitalization is a HINT to the platform keyboard. '
           'Custom IMEs, hardware keyboards, and software keyboards on '
           'older Android versions may ignore it entirely.',
       tone: Colors.amber,
@@ -565,7 +578,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.public_off,
       title: 'iOS vs. Android divergence',
-      detail: 'iOS honours all four values reliably. Android maps them to '
+      detail:
+          'iOS honours all four values reliably. Android maps them to '
           'TYPE_TEXT_FLAG_CAP_* flags which some keyboards (e.g. SwiftKey) '
           'treat as advisory.',
       tone: Colors.deepOrange,
@@ -573,28 +587,32 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.keyboard_hide,
       title: 'Hardware keyboards bypass it',
-      detail: 'Bluetooth keyboards, USB keyboards, and emulator host-keyboard '
+      detail:
+          'Bluetooth keyboards, USB keyboards, and emulator host-keyboard '
           'input do NOT consult the IME hint — what you type is what you get.',
       tone: Colors.red,
     ),
     _Pitfall(
       icon: Icons.transform,
       title: 'No retroactive transformation',
-      detail: 'Changing textCapitalization at runtime affects FUTURE keystrokes '
+      detail:
+          'Changing textCapitalization at runtime affects FUTURE keystrokes '
           'only. Existing controller text is never rewritten by Flutter.',
       tone: Colors.purple,
     ),
     _Pitfall(
       icon: Icons.web,
       title: 'Web inconsistency',
-      detail: 'On Flutter web the value is forwarded to the autocapitalize '
+      detail:
+          'On Flutter web the value is forwarded to the autocapitalize '
           'HTML attribute — browser support varies, especially on desktop.',
       tone: Colors.blue,
     ),
     _Pitfall(
       icon: Icons.text_format,
       title: 'Validation must NOT rely on it',
-      detail: 'Always normalise (.toUpperCase() / .toLowerCase() / .trim()) '
+      detail:
+          'Always normalise (.toUpperCase() / .toLowerCase() / .trim()) '
           'inside the validator. Never assume the IME enforced your hint.',
       tone: Colors.teal,
     ),
@@ -624,8 +642,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.report_problem,
-                color: Colors.red.shade700, size: 22.0),
+            Icon(Icons.report_problem, color: Colors.red.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls & Platform Caveats',
@@ -741,8 +758,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.lightbulb,
-                  color: Colors.amber.shade700, size: 20.0),
+              Icon(Icons.lightbulb, color: Colors.amber.shade700, size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -767,7 +783,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SECTION 9: ASCII Footer
   // ============================================================
-  final String asciiArt = ''
+  final String asciiArt =
+      ''
       '+======================================================+\n'
       '|   T E X T   C A P I T A L I Z A T I O N             |\n'
       '+------------------------------------------------------+\n'
@@ -802,8 +819,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.terminal,
-                color: Colors.greenAccent.shade200, size: 20.0),
+            Icon(
+              Icons.terminal,
+              color: Colors.greenAccent.shade200,
+              size: 20.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'tom@d4rt:~/services\$',
@@ -858,13 +878,15 @@ dynamic build(BuildContext context) {
               heroHeader,
               SizedBox(height: 20.0),
 
-              _buildSectionTitle('1. Anatomy & Enum Signature',
-                  Icons.account_tree, Colors.indigo),
+              _buildSectionTitle(
+                '1. Anatomy & Enum Signature',
+                Icons.account_tree,
+                Colors.indigo,
+              ),
               anatomyCard,
               SizedBox(height: 18.0),
 
-              _buildSectionTitle(
-                  '2. The Four Modes', Icons.style, Colors.teal),
+              _buildSectionTitle('2. The Four Modes', Icons.style, Colors.teal),
               SizedBox(height: 8.0),
               for (final Widget w in perValueCards) ...<Widget>[
                 w,
@@ -872,8 +894,11 @@ dynamic build(BuildContext context) {
               ],
 
               SizedBox(height: 6.0),
-              _buildSectionTitle('3. Mock Keyboard Previews',
-                  Icons.keyboard_alt, Colors.deepOrange),
+              _buildSectionTitle(
+                '3. Mock Keyboard Previews',
+                Icons.keyboard_alt,
+                Colors.deepOrange,
+              ),
               SizedBox(height: 8.0),
               for (final Widget w in keyboardPreviews) ...<Widget>[
                 w,
@@ -881,28 +906,43 @@ dynamic build(BuildContext context) {
               ],
 
               SizedBox(height: 6.0),
-              _buildSectionTitle('4. Side-by-side Transformations',
-                  Icons.compare_arrows, Colors.orange),
+              _buildSectionTitle(
+                '4. Side-by-side Transformations',
+                Icons.compare_arrows,
+                Colors.orange,
+              ),
               transformationTable,
               SizedBox(height: 18.0),
 
               _buildSectionTitle(
-                  '5. Recipes', Icons.restaurant_menu, Colors.green),
+                '5. Recipes',
+                Icons.restaurant_menu,
+                Colors.green,
+              ),
               recipes,
               SizedBox(height: 18.0),
 
               _buildSectionTitle(
-                  '6. Pitfalls', Icons.report_problem, Colors.red),
+                '6. Pitfalls',
+                Icons.report_problem,
+                Colors.red,
+              ),
               pitfallList,
               SizedBox(height: 18.0),
 
-              _buildSectionTitle('7. IME vs. App Responsibilities',
-                  Icons.account_tree_outlined, Colors.cyan),
+              _buildSectionTitle(
+                '7. IME vs. App Responsibilities',
+                Icons.account_tree_outlined,
+                Colors.cyan,
+              ),
               responsibilityDiagram,
               SizedBox(height: 18.0),
 
               _buildSectionTitle(
-                  '8. ASCII Console Footer', Icons.terminal, Colors.black87),
+                '8. ASCII Console Footer',
+                Icons.terminal,
+                Colors.black87,
+              ),
               asciiFooter,
               SizedBox(height: 24.0),
             ],
@@ -930,9 +970,7 @@ Widget _buildSectionTitle(String text, IconData icon, Color accent) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: accent, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 4.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1058,10 +1096,7 @@ Widget _buildPerValueCard(_CapDescriptor d, String sample) {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(20.0),
@@ -1085,21 +1120,14 @@ Widget _buildPerValueCard(_CapDescriptor d, String sample) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.85),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: d.accent.shade200,
-              width: 1.0,
-            ),
+            border: Border.all(color: d.accent.shade200, width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildInOutRow('input ', sample, Colors.blueGrey.shade700),
               SizedBox(height: 4.0),
-              _buildInOutRow(
-                'output',
-                d.transform(sample),
-                d.accent.shade900,
-              ),
+              _buildInOutRow('output', d.transform(sample), d.accent.shade900),
             ],
           ),
         ),
@@ -1108,12 +1136,20 @@ Widget _buildPerValueCard(_CapDescriptor d, String sample) {
           children: <Widget>[
             Expanded(
               child: _buildMetaPill(
-                  'Use cases', d.use, d.accent, Icons.workspaces_outline),
+                'Use cases',
+                d.use,
+                d.accent,
+                Icons.workspaces_outline,
+              ),
             ),
             SizedBox(width: 8.0),
             Expanded(
               child: _buildMetaPill(
-                  'Example', d.example, d.accent, Icons.science),
+                'Example',
+                d.example,
+                d.accent,
+                Icons.science,
+              ),
             ),
           ],
         ),
@@ -1164,7 +1200,11 @@ Widget _buildInOutRow(String label, String text, Color color) {
 // Meta pill helper
 // ============================================================
 Widget _buildMetaPill(
-    String label, String value, MaterialColor accent, IconData icon) {
+  String label,
+  String value,
+  MaterialColor accent,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -1193,13 +1233,7 @@ Widget _buildMetaPill(
           ],
         ),
         SizedBox(height: 4.0),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 11.0,
-            color: accent.shade900,
-          ),
-        ),
+        Text(value, style: TextStyle(fontSize: 11.0, color: accent.shade900)),
       ],
     ),
   );
@@ -1211,7 +1245,8 @@ Widget _buildMetaPill(
 Widget _buildMockKeyboard(_CapDescriptor d) {
   // Choose a Shift visual based on the mode.
   final bool shiftLatched = d.value == TextCapitalization.characters;
-  final bool shiftActive = d.value == TextCapitalization.words ||
+  final bool shiftActive =
+      d.value == TextCapitalization.words ||
       d.value == TextCapitalization.sentences;
   final Color shiftColor = shiftLatched
       ? Colors.deepOrange.shade600
@@ -1275,10 +1310,7 @@ Widget _buildMockKeyboard(_CapDescriptor d) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          d.accent.shade50,
-          Colors.white,
-        ],
+        colors: <Color>[d.accent.shade50, Colors.white],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1323,8 +1355,8 @@ Widget _buildMockKeyboard(_CapDescriptor d) {
                     shiftLatched
                         ? Icons.lock
                         : (shiftActive
-                            ? Icons.arrow_upward
-                            : Icons.arrow_upward_outlined),
+                              ? Icons.arrow_upward
+                              : Icons.arrow_upward_outlined),
                     size: 12.0,
                     color: shiftColor,
                   ),
@@ -1511,10 +1543,7 @@ Widget _buildRecipeBlock(String title, String code, Color titleColor) {
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: titleColor.withValues(alpha: 0.5),
-        width: 1.0,
-      ),
+      border: Border.all(color: titleColor.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1558,9 +1587,7 @@ Widget _buildPitfallTile(_Pitfall p) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.85),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: p.tone, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: p.tone, width: 4.0)),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: p.tone.withValues(alpha: 0.12),
@@ -1617,10 +1644,7 @@ Widget _buildResponsibilityActor(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          color.shade100,
-          color.shade50,
-        ],
+        colors: <Color>[color.shade100, color.shade50],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),

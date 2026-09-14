@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    theme: ThemeData.light(),
-    home: const AnimatedAlignDemo(),
-  );
+  return MaterialApp(theme: ThemeData.light(), home: const AnimatedAlignDemo());
 }
 
 class AnimatedAlignDemo extends StatefulWidget {
@@ -21,7 +18,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
   // SECTION 1: Basic Alignment Animation Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
   Alignment _basicAlignment = Alignment.topLeft;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: Alignment Preset Variations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -38,17 +35,23 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     Alignment.bottomRight,
   ];
   final List<String> _presetNames = [
-    'topLeft', 'topCenter', 'topRight',
-    'centerLeft', 'center', 'centerRight',
-    'bottomLeft', 'bottomCenter', 'bottomRight',
+    'topLeft',
+    'topCenter',
+    'topRight',
+    'centerLeft',
+    'center',
+    'centerRight',
+    'bottomLeft',
+    'bottomCenter',
+    'bottomRight',
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: Custom Alignment Values
   // ═══════════════════════════════════════════════════════════════════════════
   double _customX = 0.0;
   double _customY = 0.0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: Duration Control
   // ═══════════════════════════════════════════════════════════════════════════
@@ -61,7 +64,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     const Duration(milliseconds: 1000),
     const Duration(milliseconds: 2000),
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: Curve Variations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -80,14 +83,14 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     const MapEntry('slowMiddle', Curves.slowMiddle),
   ];
   int _curveIndex = 3;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: Width and Height Factor
   // ═══════════════════════════════════════════════════════════════════════════
   Alignment _factorAlignment = Alignment.topLeft;
   double? _widthFactor;
   double? _heightFactor;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: Practical Use Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -95,7 +98,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
   bool _isMenuOpen = false;
   int _notificationPosition = 0;
   bool _centerContent = true;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: Combined Animations and Edge Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -120,37 +123,37 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
             _buildSectionHeader('1. Basic Alignment Animation Fundamentals'),
             _buildBasicAlignmentSection(),
             const SizedBox(height: 32),
-            
+
             // Section 2: Alignment Preset Variations
             _buildSectionHeader('2. Alignment Preset Variations'),
             _buildPresetVariationsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 3: Custom Alignment Values
             _buildSectionHeader('3. Custom Alignment Values'),
             _buildCustomAlignmentSection(),
             const SizedBox(height: 32),
-            
+
             // Section 4: Duration Control
             _buildSectionHeader('4. Duration Control'),
             _buildDurationControlSection(),
             const SizedBox(height: 32),
-            
+
             // Section 5: Curve Variations
             _buildSectionHeader('5. Curve Variations'),
             _buildCurveVariationsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 6: Width and Height Factor
             _buildSectionHeader('6. Width and Height Factor'),
             _buildFactorSection(),
             const SizedBox(height: 32),
-            
+
             // Section 7: Practical Use Cases
             _buildSectionHeader('7. Practical Use Cases'),
             _buildPracticalUseCasesSection(),
             const SizedBox(height: 32),
-            
+
             // Section 8: Combined Animations and Edge Cases
             _buildSectionHeader('8. Combined Animations and Edge Cases'),
             _buildCombinedAnimationsSection(),
@@ -169,7 +172,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Current alignment: $_basicAlignment');
     print('AnimatedAlign animates changes to alignment over time');
     print('Default duration is used when not specified');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -182,7 +185,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 200,
@@ -213,7 +216,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Control buttons
             Wrap(
               spacing: 8,
@@ -270,7 +273,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Current preset index: $_presetIndex');
     print('Preset name: ${_presetNames[_presetIndex]}');
     print('Alignment value: ${_alignmentPresets[_presetIndex]}');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -283,7 +286,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Alignment grid visualization
             Container(
               height: 200,
@@ -295,11 +298,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               child: Stack(
                 children: [
                   // Grid lines
-                  Positioned.fill(
-                    child: CustomPaint(
-                      painter: _GridPainter(),
-                    ),
-                  ),
+                  Positioned.fill(child: CustomPaint(painter: _GridPainter())),
                   // Animated element
                   AnimatedAlign(
                     alignment: _alignmentPresets[_presetIndex],
@@ -327,7 +326,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // 3x3 button grid
             GridView.builder(
               shrinkWrap: true,
@@ -343,7 +342,9 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                 final isSelected = _presetIndex == index;
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isSelected ? Colors.orange : Colors.grey.shade300,
+                    backgroundColor: isSelected
+                        ? Colors.orange
+                        : Colors.grey.shade300,
                     foregroundColor: isSelected ? Colors.white : Colors.black87,
                     padding: EdgeInsets.zero,
                   ),
@@ -355,7 +356,13 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     print('Alignment: ${_alignmentPresets[index]}');
                   },
                   child: Text(
-                    _presetNames[index].replaceAll('top', 'T').replaceAll('bottom', 'B').replaceAll('center', 'C').replaceAll('Left', 'L').replaceAll('Right', 'R').replaceAll('Center', 'C'),
+                    _presetNames[index]
+                        .replaceAll('top', 'T')
+                        .replaceAll('bottom', 'B')
+                        .replaceAll('center', 'C')
+                        .replaceAll('Left', 'L')
+                        .replaceAll('Right', 'R')
+                        .replaceAll('Center', 'C'),
                     style: const TextStyle(fontSize: 10),
                   ),
                 );
@@ -380,9 +387,9 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Custom X: $_customX, Custom Y: $_customY');
     print('Alignment range: x and y from -1.0 to 1.0');
     print('(-1, -1) = topLeft, (0, 0) = center, (1, 1) = bottomRight');
-    
+
     final customAlignment = Alignment(_customX, _customY);
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -395,7 +402,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Custom alignment demo
             Container(
               height: 200,
@@ -424,7 +431,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // X slider
             Row(
               children: [
@@ -444,13 +451,10 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     },
                   ),
                 ),
-                SizedBox(
-                  width: 50,
-                  child: Text(_customX.toStringAsFixed(2)),
-                ),
+                SizedBox(width: 50, child: Text(_customX.toStringAsFixed(2))),
               ],
             ),
-            
+
             // Y slider
             Row(
               children: [
@@ -470,14 +474,11 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     },
                   ),
                 ),
-                SizedBox(
-                  width: 50,
-                  child: Text(_customY.toStringAsFixed(2)),
-                ),
+                SizedBox(width: 50, child: Text(_customY.toStringAsFixed(2))),
               ],
             ),
             const SizedBox(height: 8),
-            
+
             // Quick presets for custom values
             Wrap(
               spacing: 8,
@@ -529,7 +530,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Selected duration: $_selectedDuration');
     print('Current alignment: $_durationAlignment');
     print('Duration affects animation speed - longer = smoother but slower');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -542,7 +543,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo with duration
             Container(
               height: 180,
@@ -575,9 +576,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Duration selector
-            const Text('Select Duration:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Select Duration:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -592,14 +596,16 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                       setState(() {
                         _selectedDuration = duration;
                       });
-                      print('Duration changed to: ${duration.inMilliseconds}ms');
+                      print(
+                        'Duration changed to: ${duration.inMilliseconds}ms',
+                      );
                     }
                   },
                 );
               }).toList(),
             ),
             const SizedBox(height: 16),
-            
+
             // Toggle button
             ElevatedButton.icon(
               onPressed: () {
@@ -608,7 +614,9 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                       ? Alignment.bottomRight
                       : Alignment.topLeft;
                 });
-                print('Duration demo alignment toggled to: $_durationAlignment');
+                print(
+                  'Duration demo alignment toggled to: $_durationAlignment',
+                );
               },
               icon: const Icon(Icons.swap_horiz),
               label: const Text('Toggle Position'),
@@ -630,8 +638,10 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('=== Section 5: Curve Variations ===');
     print('Selected curve: ${_curves[_curveIndex].key}');
     print('Curve index: $_curveIndex');
-    print('Curves control animation easing - linear, ease, bounce, elastic, etc.');
-    
+    print(
+      'Curves control animation easing - linear, ease, bounce, elastic, etc.',
+    );
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -644,7 +654,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo with curves
             Container(
               height: 180,
@@ -664,14 +674,20 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     color: Colors.purple.shade600,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.motion_photos_on, color: Colors.white),
+                  child: const Icon(
+                    Icons.motion_photos_on,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Curve selector
-            const Text('Select Curve:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Select Curve:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             SizedBox(
               height: 50,
@@ -700,7 +716,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Toggle with curve animation
             ElevatedButton.icon(
               onPressed: () {
@@ -734,7 +750,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Height factor: $_heightFactor');
     print('Factors constrain child size relative to parent');
     print('null means no constraint, values 0-1 are fractions of parent');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -747,7 +763,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo with factors
             Container(
               height: 200,
@@ -769,13 +785,17 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Center(
-                    child: Icon(Icons.aspect_ratio, color: Colors.white, size: 32),
+                    child: Icon(
+                      Icons.aspect_ratio,
+                      color: Colors.white,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Width factor control
             Row(
               children: [
@@ -801,7 +821,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                 ),
               ],
             ),
-            
+
             // Height factor control
             Row(
               children: [
@@ -828,7 +848,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ],
             ),
             const SizedBox(height: 8),
-            
+
             // Position toggles
             Wrap(
               spacing: 8,
@@ -878,7 +898,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Menu open: $_isMenuOpen');
     print('Notification position: $_notificationPosition');
     print('Center content: $_centerContent');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -891,9 +911,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 1: Expandable FAB
-            const Text('1. Expandable Action Button', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '1. Expandable Action Button',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 100,
@@ -962,9 +985,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 2: Slide-in Menu
-            const Text('2. Slide-in Menu Toggle', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '2. Slide-in Menu Toggle',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 80,
@@ -975,7 +1001,9 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               child: Row(
                 children: [
                   AnimatedAlign(
-                    alignment: _isMenuOpen ? Alignment.centerLeft : const Alignment(-2, 0),
+                    alignment: _isMenuOpen
+                        ? Alignment.centerLeft
+                        : const Alignment(-2, 0),
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,
                     child: Container(
@@ -986,7 +1014,10 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                         color: Colors.amber.shade200,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text('Menu Content', style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'Menu Content',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -1003,9 +1034,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 3: Notification Position
-            const Text('3. Notification Position', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '3. Notification Position',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 100,
@@ -1023,7 +1057,10 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                 duration: const Duration(milliseconds: 300),
                 child: Container(
                   margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.red.shade400,
                     borderRadius: BorderRadius.circular(8),
@@ -1033,7 +1070,10 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                     children: [
                       Icon(Icons.notifications, color: Colors.white, size: 16),
                       SizedBox(width: 4),
-                      Text('3 New', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(
+                        '3 New',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),
@@ -1043,16 +1083,51 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
             Wrap(
               spacing: 8,
               children: [
-                TextButton(onPressed: () { setState(() { _notificationPosition = 0; }); print('Notification: topLeft'); }, child: const Text('TL')),
-                TextButton(onPressed: () { setState(() { _notificationPosition = 1; }); print('Notification: topRight'); }, child: const Text('TR')),
-                TextButton(onPressed: () { setState(() { _notificationPosition = 2; }); print('Notification: bottomLeft'); }, child: const Text('BL')),
-                TextButton(onPressed: () { setState(() { _notificationPosition = 3; }); print('Notification: bottomRight'); }, child: const Text('BR')),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _notificationPosition = 0;
+                    });
+                    print('Notification: topLeft');
+                  },
+                  child: const Text('TL'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _notificationPosition = 1;
+                    });
+                    print('Notification: topRight');
+                  },
+                  child: const Text('TR'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _notificationPosition = 2;
+                    });
+                    print('Notification: bottomLeft');
+                  },
+                  child: const Text('BL'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _notificationPosition = 3;
+                    });
+                    print('Notification: bottomRight');
+                  },
+                  child: const Text('BR'),
+                ),
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 4: Content Centering Toggle
-            const Text('4. Content Centering Toggle', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '4. Content Centering Toggle',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 80,
@@ -1061,7 +1136,9 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: AnimatedAlign(
-                alignment: _centerContent ? Alignment.center : Alignment.centerLeft,
+                alignment: _centerContent
+                    ? Alignment.center
+                    : Alignment.centerLeft,
                 duration: const Duration(milliseconds: 300),
                 child: Container(
                   margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -1101,7 +1178,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('Chained alignment: $_chainedAlignment');
     print('Pattern step: $_patternStep');
     print('Animating pattern: $_animatingPattern');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1114,9 +1191,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Combined with scale/opacity
-            const Text('Combined with Scale and Opacity', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Combined with Scale and Opacity',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 150,
@@ -1145,7 +1225,11 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                         color: Colors.deepPurple,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.auto_awesome, color: Colors.white, size: 20),
+                      child: const Icon(
+                        Icons.auto_awesome,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
@@ -1157,23 +1241,41 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               runSpacing: 8,
               children: [
                 ElevatedButton(
-                  onPressed: () { setState(() { _chainedAlignment = Alignment.topLeft; }); print('Chained: topLeft'); },
+                  onPressed: () {
+                    setState(() {
+                      _chainedAlignment = Alignment.topLeft;
+                    });
+                    print('Chained: topLeft');
+                  },
                   child: const Text('TL'),
                 ),
                 ElevatedButton(
-                  onPressed: () { setState(() { _chainedAlignment = Alignment.center; }); print('Chained: center (scale up)'); },
+                  onPressed: () {
+                    setState(() {
+                      _chainedAlignment = Alignment.center;
+                    });
+                    print('Chained: center (scale up)');
+                  },
                   child: const Text('Center'),
                 ),
                 ElevatedButton(
-                  onPressed: () { setState(() { _chainedAlignment = Alignment.bottomRight; }); print('Chained: bottomRight'); },
+                  onPressed: () {
+                    setState(() {
+                      _chainedAlignment = Alignment.bottomRight;
+                    });
+                    print('Chained: bottomRight');
+                  },
                   child: const Text('BR'),
                 ),
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // Pattern animation
-            const Text('Pattern Animation Sequence', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Pattern Animation Sequence',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 150,
@@ -1209,7 +1311,11 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
                   child: Center(
                     child: Text(
                       '${_patternStep + 1}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ),
@@ -1219,21 +1325,23 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
             Row(
               children: [
                 ElevatedButton.icon(
-                  onPressed: _animatingPattern ? null : () {
-                    setState(() {
-                      _animatingPattern = true;
-                      _patternStep = 0;
-                    });
-                    print('Starting pattern animation');
-                    // Trigger first step
-                    Future.delayed(const Duration(milliseconds: 100), () {
-                      if (mounted && _animatingPattern) {
-                        setState(() {
-                          _patternStep = 1;
-                        });
-                      }
-                    });
-                  },
+                  onPressed: _animatingPattern
+                      ? null
+                      : () {
+                          setState(() {
+                            _animatingPattern = true;
+                            _patternStep = 0;
+                          });
+                          print('Starting pattern animation');
+                          // Trigger first step
+                          Future.delayed(const Duration(milliseconds: 100), () {
+                            if (mounted && _animatingPattern) {
+                              setState(() {
+                                _patternStep = 1;
+                              });
+                            }
+                          });
+                        },
                   icon: const Icon(Icons.play_arrow),
                   label: const Text('Run Pattern'),
                   style: ElevatedButton.styleFrom(
@@ -1255,9 +1363,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Edge case: Rapid changes
-            const Text('Edge Case: Rapid Alignment Changes', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Edge Case: Rapid Alignment Changes',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Text(
               'AnimatedAlign handles rapid changes gracefully by interrupting '
@@ -1265,9 +1376,12 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
               style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
             const SizedBox(height: 8),
-            
+
             // Same alignment (no animation)
-            const Text('Edge Case: Same Alignment', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Edge Case: Same Alignment',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 4),
             Text(
               'Setting the same alignment value triggers no animation. '
@@ -1302,7 +1416,7 @@ class _AnimatedAlignDemoState extends State<AnimatedAlignDemo> {
     print('════════════════════════════════════════════════════════════');
     print(title);
     print('════════════════════════════════════════════════════════════');
-    
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -1330,16 +1444,32 @@ class _GridPainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.grey.shade300
       ..strokeWidth = 1;
-    
+
     // Vertical lines
-    canvas.drawLine(Offset(size.width / 3, 0), Offset(size.width / 3, size.height), paint);
-    canvas.drawLine(Offset(2 * size.width / 3, 0), Offset(2 * size.width / 3, size.height), paint);
-    
+    canvas.drawLine(
+      Offset(size.width / 3, 0),
+      Offset(size.width / 3, size.height),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(2 * size.width / 3, 0),
+      Offset(2 * size.width / 3, size.height),
+      paint,
+    );
+
     // Horizontal lines
-    canvas.drawLine(Offset(0, size.height / 3), Offset(size.width, size.height / 3), paint);
-    canvas.drawLine(Offset(0, 2 * size.height / 3), Offset(size.width, 2 * size.height / 3), paint);
+    canvas.drawLine(
+      Offset(0, size.height / 3),
+      Offset(size.width, size.height / 3),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(0, 2 * size.height / 3),
+      Offset(size.width, 2 * size.height / 3),
+      paint,
+    );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

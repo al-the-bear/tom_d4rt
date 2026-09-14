@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkSpice)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkSpice)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkSpice)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: darkSpice),
+            ),
           ),
         ],
       ),
@@ -148,40 +161,50 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.unfold_more, size: 28,
-                      color: lightTurmeric),
+                  Icon(Icons.unfold_more, size: 28, color: lightTurmeric),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('OptionsViewOpenDirection',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'OptionsViewOpenDirection',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('An enum that controls whether the autocomplete '
-                  'options list opens above, below, or in the direction '
-                  'with the most available screen space',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'An enum that controls whether the autocomplete '
+                'options list opens above, below, or in the direction '
+                'with the most available screen space',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('enum', turmeric, Colors.white),
-                tag('up', softSaffron, darkSpice),
-                tag('down', lightTurmeric, darkSpice),
-                tag('mostSpace', paleSaffron, darkSpice),
-              ]),
+              Wrap(
+                children: [
+                  tag('enum', turmeric, Colors.white),
+                  tag('up', softSaffron, darkSpice),
+                  tag('down', lightTurmeric, darkSpice),
+                  tag('mostSpace', paleSaffron, darkSpice),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is OptionsViewOpenDirection ──────────────────────
-        sectionBanner('1 \u00b7 What Is OptionsViewOpenDirection',
-            'The enum that positions autocomplete dropdowns',
-            deepSaffron, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is OptionsViewOpenDirection',
+          'The enum that positions autocomplete dropdowns',
+          deepSaffron,
+          Colors.white,
+        ),
         noteBox(
           'OptionsViewOpenDirection is an enum introduced to control '
           'the vertical placement of autocomplete options relative to '
@@ -199,9 +222,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Enum values detail ────────────────────────────────────
-        sectionBanner('2 \u00b7 The Three Enum Values',
-            'Each value and its behavior',
-            saffron, Colors.white),
+        sectionBanner(
+          '2 \u00b7 The Three Enum Values',
+          'Each value and its behavior',
+          saffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -212,21 +238,33 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final val in [
-                ('down', 'Options appear below the text field',
-                    'The default value. The options list drops down from '
-                    'the bottom edge of the input. Most common and expected '
-                    'behavior for dropdowns and comboboxes.',
-                    Icons.arrow_downward, saffron),
-                ('up', 'Options appear above the text field',
-                    'The options list rises up from the top edge of the '
-                    'input. Useful when the field is near the bottom of '
-                    'the screen (e.g., chat input, bottom sheets).',
-                    Icons.arrow_upward, deepSaffron),
-                ('mostSpace', 'Opens where there is more room',
-                    'The framework measures available space above and below '
-                    'the field. Opens in the direction with more room. When '
-                    'equal, defaults to down.',
-                    Icons.swap_vert, accentDeep),
+                (
+                  'down',
+                  'Options appear below the text field',
+                  'The default value. The options list drops down from '
+                      'the bottom edge of the input. Most common and expected '
+                      'behavior for dropdowns and comboboxes.',
+                  Icons.arrow_downward,
+                  saffron,
+                ),
+                (
+                  'up',
+                  'Options appear above the text field',
+                  'The options list rises up from the top edge of the '
+                      'input. Useful when the field is near the bottom of '
+                      'the screen (e.g., chat input, bottom sheets).',
+                  Icons.arrow_upward,
+                  deepSaffron,
+                ),
+                (
+                  'mostSpace',
+                  'Opens where there is more room',
+                  'The framework measures available space above and below '
+                      'the field. Opens in the direction with more room. When '
+                      'equal, defaults to down.',
+                  Icons.swap_vert,
+                  accentDeep,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -234,8 +272,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: val.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: val.$5, width: 4)),
+                    border: Border(left: BorderSide(color: val.$5, width: 4)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,17 +283,22 @@ dynamic build(BuildContext context) {
                           const SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 2),
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: val.$5,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Text(val.$1,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'monospace')),
+                            child: Text(
+                              val.$1,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'monospace',
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -265,15 +307,19 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(val.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: val.$5)),
+                            Text(
+                              val.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: val.$5,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(val.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkSpice)),
+                            Text(
+                              val.$3,
+                              style: TextStyle(fontSize: 11, color: darkSpice),
+                            ),
                           ],
                         ),
                       ),
@@ -286,9 +332,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Visual diagram ────────────────────────────────────────
-        sectionBanner('3 \u00b7 Visual Layout',
-            'How each direction positions the options view',
-            turmeric, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Visual Layout',
+          'How each direction positions the options view',
+          turmeric,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -310,11 +359,14 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text('down',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: saffron)),
+                      Text(
+                        'down',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: saffron,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -324,12 +376,12 @@ dynamic build(BuildContext context) {
                           color: saffron,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text('TextField',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 9)),
+                        child: const Text(
+                          'TextField',
+                          style: TextStyle(color: Colors.white, fontSize: 9),
+                        ),
                       ),
-                      Icon(Icons.arrow_downward, size: 12,
-                          color: saffron),
+                      Icon(Icons.arrow_downward, size: 12, color: saffron),
                       Container(
                         width: double.infinity,
                         height: 56,
@@ -338,13 +390,14 @@ dynamic build(BuildContext context) {
                           color: saffron.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: saffron.withValues(alpha: 0.4)),
+                            color: saffron.withValues(alpha: 0.4),
+                          ),
                         ),
-                        child: Text('Options\nList',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: saffron)),
+                        child: Text(
+                          'Options\nList',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 9, color: saffron),
+                        ),
                       ),
                     ],
                   ),
@@ -362,11 +415,14 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text('up',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: deepSaffron)),
+                      Text(
+                        'up',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: deepSaffron,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -376,17 +432,16 @@ dynamic build(BuildContext context) {
                           color: deepSaffron.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: deepSaffron
-                                  .withValues(alpha: 0.4)),
+                            color: deepSaffron.withValues(alpha: 0.4),
+                          ),
                         ),
-                        child: Text('Options\nList',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: deepSaffron)),
+                        child: Text(
+                          'Options\nList',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 9, color: deepSaffron),
+                        ),
                       ),
-                      Icon(Icons.arrow_upward, size: 12,
-                          color: deepSaffron),
+                      Icon(Icons.arrow_upward, size: 12, color: deepSaffron),
                       Container(
                         width: double.infinity,
                         height: 24,
@@ -395,9 +450,10 @@ dynamic build(BuildContext context) {
                           color: deepSaffron,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text('TextField',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 9)),
+                        child: const Text(
+                          'TextField',
+                          style: TextStyle(color: Colors.white, fontSize: 9),
+                        ),
                       ),
                     ],
                   ),
@@ -415,11 +471,14 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text('mostSpace',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentDeep)),
+                      Text(
+                        'mostSpace',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: accentDeep,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -429,16 +488,15 @@ dynamic build(BuildContext context) {
                           color: accentDeep.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: accentDeep
-                                  .withValues(alpha: 0.4)),
+                            color: accentDeep.withValues(alpha: 0.4),
+                          ),
                         ),
-                        child: Text('Options?',
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: accentDeep)),
+                        child: Text(
+                          'Options?',
+                          style: TextStyle(fontSize: 9, color: accentDeep),
+                        ),
                       ),
-                      Icon(Icons.swap_vert, size: 12,
-                          color: accentDeep),
+                      Icon(Icons.swap_vert, size: 12, color: accentDeep),
                       Container(
                         width: double.infinity,
                         height: 24,
@@ -447,12 +505,12 @@ dynamic build(BuildContext context) {
                           color: accentDeep,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text('TextField',
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 9)),
+                        child: const Text(
+                          'TextField',
+                          style: TextStyle(color: Colors.white, fontSize: 9),
+                        ),
                       ),
-                      Icon(Icons.swap_vert, size: 12,
-                          color: accentDeep),
+                      Icon(Icons.swap_vert, size: 12, color: accentDeep),
                       Container(
                         width: double.infinity,
                         height: 28,
@@ -461,13 +519,13 @@ dynamic build(BuildContext context) {
                           color: accentDeep.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: accentDeep
-                                  .withValues(alpha: 0.4)),
+                            color: accentDeep.withValues(alpha: 0.4),
+                          ),
                         ),
-                        child: Text('Options?',
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: accentDeep)),
+                        child: Text(
+                          'Options?',
+                          style: TextStyle(fontSize: 9, color: accentDeep),
+                        ),
                       ),
                     ],
                   ),
@@ -479,9 +537,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. SDK usage in RawAutocomplete ──────────────────────────
-        sectionBanner('4 \u00b7 Usage in RawAutocomplete',
-            'How the enum is consumed by the widget',
-            deepSaffron, Colors.white),
+        sectionBanner(
+          '4 \u00b7 Usage in RawAutocomplete',
+          'How the enum is consumed by the widget',
+          deepSaffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -498,30 +559,31 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepSaffron.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepSaffron.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepSaffron.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'RawAutocomplete<String>(\n'
-                    '  optionsViewOpenDirection:\n'
-                    '      OptionsViewOpenDirection.up,\n'
-                    '  optionsBuilder: (text) {\n'
-                    '    return options.where(\n'
-                    '      (o) => o.contains(text.text));\n'
-                    '  },\n'
-                    '  fieldViewBuilder: (context,\n'
-                    '      controller, focusNode, onSubmit) {\n'
-                    '    return TextField(\n'
-                    '      controller: controller,\n'
-                    '      focusNode: focusNode,\n'
-                    '    );\n'
-                    '  },\n'
-                    '  optionsViewBuilder: ...\n'
-                    ')',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepSaffron)),
+                  'RawAutocomplete<String>(\n'
+                  '  optionsViewOpenDirection:\n'
+                  '      OptionsViewOpenDirection.up,\n'
+                  '  optionsBuilder: (text) {\n'
+                  '    return options.where(\n'
+                  '      (o) => o.contains(text.text));\n'
+                  '  },\n'
+                  '  fieldViewBuilder: (context,\n'
+                  '      controller, focusNode, onSubmit) {\n'
+                  '    return TextField(\n'
+                  '      controller: controller,\n'
+                  '      focusNode: focusNode,\n'
+                  '    );\n'
+                  '  },\n'
+                  '  optionsViewBuilder: ...\n'
+                  ')',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepSaffron,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -537,9 +599,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Internal alignment logic ──────────────────────────────
-        sectionBanner('5 \u00b7 Internal Alignment Logic',
-            'How the SDK translates enum to positioning',
-            saffron, Colors.white),
+        sectionBanner(
+          '5 \u00b7 Internal Alignment Logic',
+          'How the SDK translates enum to positioning',
+          saffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -550,19 +615,25 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final logic in [
-                ('OptionsViewOpenDirection.up',
-                    'alignAbove = true',
-                    'Options anchored to top edge of text field, expanding upward.',
-                    deepSaffron),
-                ('OptionsViewOpenDirection.down',
-                    'alignAbove = false',
-                    'Options anchored to bottom edge of text field, expanding downward.',
-                    saffron),
-                ('OptionsViewOpenDirection.mostSpace',
-                    'alignAbove = spaceAbove > spaceBelow',
-                    'Measures pixel space above and below the field. Picks '
-                    'the direction with more room. Ties go to down.',
-                    accentDeep),
+                (
+                  'OptionsViewOpenDirection.up',
+                  'alignAbove = true',
+                  'Options anchored to top edge of text field, expanding upward.',
+                  deepSaffron,
+                ),
+                (
+                  'OptionsViewOpenDirection.down',
+                  'alignAbove = false',
+                  'Options anchored to bottom edge of text field, expanding downward.',
+                  saffron,
+                ),
+                (
+                  'OptionsViewOpenDirection.mostSpace',
+                  'alignAbove = spaceAbove > spaceBelow',
+                  'Measures pixel space above and below the field. Picks '
+                      'the direction with more room. Ties go to down.',
+                  accentDeep,
+                ),
               ])
                 Container(
                   width: double.infinity,
@@ -571,28 +642,33 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: logic.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: logic.$4, width: 3)),
+                    border: Border(left: BorderSide(color: logic.$4, width: 3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(logic.$1,
-                          style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: logic.$4)),
-                      Text('\u2192 ${logic.$2}',
-                          style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 10,
-                              color: logic.$4
-                                  .withValues(alpha: 0.7))),
+                      Text(
+                        logic.$1,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: logic.$4,
+                        ),
+                      ),
+                      Text(
+                        '\u2192 ${logic.$2}',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: logic.$4.withValues(alpha: 0.7),
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(logic.$3,
-                          style: TextStyle(
-                              fontSize: 11, color: darkSpice)),
+                      Text(
+                        logic.$3,
+                        style: TextStyle(fontSize: 11, color: darkSpice),
+                      ),
                     ],
                   ),
                 ),
@@ -602,9 +678,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Live demo: Autocomplete.down ──────────────────────────
-        sectionBanner('6 \u00b7 Live Demo: Direction \u2192 Down',
-            'Default behavior — options below the field',
-            turmeric, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Live Demo: Direction \u2192 Down',
+          'Default behavior — options below the field',
+          turmeric,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -625,28 +704,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_downward, size: 14,
-                        color: saffron),
+                    Icon(Icons.arrow_downward, size: 14, color: saffron),
                     const SizedBox(width: 6),
-                    Text('direction: down (type "a" to see options)',
-                        style: TextStyle(
-                            fontSize: 10, color: darkSpice)),
+                    Text(
+                      'direction: down (type "a" to see options)',
+                      style: TextStyle(fontSize: 10, color: darkSpice),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Autocomplete<String>(
-                optionsViewOpenDirection:
-                    OptionsViewOpenDirection.down,
+                optionsViewOpenDirection: OptionsViewOpenDirection.down,
                 optionsBuilder: (textEditingValue) {
                   if (textEditingValue.text.isEmpty) {
                     return const Iterable<String>.empty();
                   }
                   return [
-                    'Apple', 'Avocado', 'Apricot',
-                    'Acai', 'Almond',
-                  ].where((o) => o.toLowerCase().contains(
-                      textEditingValue.text.toLowerCase()));
+                    'Apple',
+                    'Avocado',
+                    'Apricot',
+                    'Acai',
+                    'Almond',
+                  ].where(
+                    (o) => o.toLowerCase().contains(
+                      textEditingValue.text.toLowerCase(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -655,9 +739,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Live demo: Autocomplete.up ────────────────────────────
-        sectionBanner('7 \u00b7 Live Demo: Direction \u2192 Up',
-            'Options appear above the field',
-            deepSaffron, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Live Demo: Direction \u2192 Up',
+          'Options appear above the field',
+          deepSaffron,
+          Colors.white,
+        ),
         const SizedBox(height: 100),
         Container(
           width: double.infinity,
@@ -679,28 +766,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_upward, size: 14,
-                        color: deepSaffron),
+                    Icon(Icons.arrow_upward, size: 14, color: deepSaffron),
                     const SizedBox(width: 6),
-                    Text('direction: up (type "b" to see options)',
-                        style: TextStyle(
-                            fontSize: 10, color: darkSpice)),
+                    Text(
+                      'direction: up (type "b" to see options)',
+                      style: TextStyle(fontSize: 10, color: darkSpice),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Autocomplete<String>(
-                optionsViewOpenDirection:
-                    OptionsViewOpenDirection.up,
+                optionsViewOpenDirection: OptionsViewOpenDirection.up,
                 optionsBuilder: (textEditingValue) {
                   if (textEditingValue.text.isEmpty) {
                     return const Iterable<String>.empty();
                   }
                   return [
-                    'Banana', 'Blueberry', 'Blackberry',
-                    'Boysenberry', 'Breadfruit',
-                  ].where((o) => o.toLowerCase().contains(
-                      textEditingValue.text.toLowerCase()));
+                    'Banana',
+                    'Blueberry',
+                    'Blackberry',
+                    'Boysenberry',
+                    'Breadfruit',
+                  ].where(
+                    (o) => o.toLowerCase().contains(
+                      textEditingValue.text.toLowerCase(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -709,9 +801,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. mostSpace behavior details ────────────────────────────
-        sectionBanner('8 \u00b7 mostSpace Deep Dive',
-            'How the framework measures and decides',
-            accentDeep, Colors.white),
+        sectionBanner(
+          '8 \u00b7 mostSpace Deep Dive',
+          'How the framework measures and decides',
+          accentDeep,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -727,11 +822,16 @@ dynamic build(BuildContext context) {
                   margin: const EdgeInsets.symmetric(vertical: 3),
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: [turmeric, saffron, deepSaffron, accentDeep][step]
-                        .withValues(alpha: 0.06),
+                    color: [
+                      turmeric,
+                      saffron,
+                      deepSaffron,
+                      accentDeep,
+                    ][step].withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                        color: [turmeric, saffron, deepSaffron, accentDeep][step]),
+                      color: [turmeric, saffron, deepSaffron, accentDeep][step],
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -740,25 +840,34 @@ dynamic build(BuildContext context) {
                         height: 22,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: [turmeric, saffron, deepSaffron, accentDeep][step],
+                          color: [
+                            turmeric,
+                            saffron,
+                            deepSaffron,
+                            accentDeep,
+                          ][step],
                           borderRadius: BorderRadius.circular(11),
                         ),
-                        child: Text('${step + 1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${step + 1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text([
-                          'Get the field\u0027s position in the overlay (via RenderBox)',
-                          'Calculate spaceAbove = field.top in overlay',
-                          'Calculate spaceBelow = overlay.height - field.bottom',
-                          'if spaceAbove > spaceBelow: align above, else: align below',
-                        ][step],
-                            style: TextStyle(
-                                fontSize: 11, color: darkSpice)),
+                        child: Text(
+                          [
+                            'Get the field\u0027s position in the overlay (via RenderBox)',
+                            'Calculate spaceAbove = field.top in overlay',
+                            'Calculate spaceBelow = overlay.height - field.bottom',
+                            'if spaceAbove > spaceBelow: align above, else: align below',
+                          ][step],
+                          style: TextStyle(fontSize: 11, color: darkSpice),
+                        ),
                       ),
                     ],
                   ),
@@ -777,9 +886,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Material Autocomplete vs RawAutocomplete ─────────────
-        sectionBanner('9 \u00b7 Material vs Raw Autocomplete',
-            'Both widgets accept OptionsViewOpenDirection',
-            saffron, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Material vs Raw Autocomplete',
+          'Both widgets accept OptionsViewOpenDirection',
+          saffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -800,23 +912,26 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.auto_awesome, size: 24,
-                          color: saffron),
+                      Icon(Icons.auto_awesome, size: 24, color: saffron),
                       const SizedBox(height: 4),
-                      Text('Autocomplete',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: saffron)),
+                      Text(
+                        'Autocomplete',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: saffron,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('Material design.\n'
-                          'Built-in field.\n'
-                          'Built-in options.\n'
-                          'Simpler API.\n'
-                          'Uses Material theme.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkSpice)),
+                      Text(
+                        'Material design.\n'
+                        'Built-in field.\n'
+                        'Built-in options.\n'
+                        'Simpler API.\n'
+                        'Uses Material theme.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkSpice),
+                      ),
                     ],
                   ),
                 ),
@@ -832,23 +947,26 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.build, size: 24,
-                          color: accentDeep),
+                      Icon(Icons.build, size: 24, color: accentDeep),
                       const SizedBox(height: 4),
-                      Text('RawAutocomplete',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: accentDeep)),
+                      Text(
+                        'RawAutocomplete',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: accentDeep,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('No Material dep.\n'
-                          'Custom field view.\n'
-                          'Custom options view.\n'
-                          'Full control.\n'
-                          'Theme-agnostic.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkSpice)),
+                      Text(
+                        'No Material dep.\n'
+                        'Custom field view.\n'
+                        'Custom options view.\n'
+                        'Full control.\n'
+                        'Theme-agnostic.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkSpice),
+                      ),
                     ],
                   ),
                 ),
@@ -867,9 +985,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Common use cases ─────────────────────────────────────
-        sectionBanner('10 \u00b7 Common Use Cases',
-            'When to choose each direction value',
-            turmeric, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Common Use Cases',
+          'When to choose each direction value',
+          turmeric,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -880,21 +1001,41 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final useCase in [
-                ('Search bar at top', 'down',
-                    'Plenty of space below for results.',
-                    Icons.search, saffron),
-                ('Chat message input', 'up',
-                    'Input at bottom of screen — options must go up.',
-                    Icons.chat, deepSaffron),
-                ('Form fields anywhere', 'mostSpace',
-                    'Let the framework decide based on scroll position.',
-                    Icons.dynamic_form, accentDeep),
-                ('Bottom sheet search', 'up',
-                    'Sheet leaves no room below — options must go up.',
-                    Icons.expand_less, turmeric),
-                ('AppBar search field', 'down',
-                    'Below the app bar is the natural expansion direction.',
-                    Icons.menu, softSaffron),
+                (
+                  'Search bar at top',
+                  'down',
+                  'Plenty of space below for results.',
+                  Icons.search,
+                  saffron,
+                ),
+                (
+                  'Chat message input',
+                  'up',
+                  'Input at bottom of screen — options must go up.',
+                  Icons.chat,
+                  deepSaffron,
+                ),
+                (
+                  'Form fields anywhere',
+                  'mostSpace',
+                  'Let the framework decide based on scroll position.',
+                  Icons.dynamic_form,
+                  accentDeep,
+                ),
+                (
+                  'Bottom sheet search',
+                  'up',
+                  'Sheet leaves no room below — options must go up.',
+                  Icons.expand_less,
+                  turmeric,
+                ),
+                (
+                  'AppBar search field',
+                  'down',
+                  'Below the app bar is the natural expansion direction.',
+                  Icons.menu,
+                  softSaffron,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -903,13 +1044,13 @@ dynamic build(BuildContext context) {
                     color: useCase.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: useCase.$5, width: 3)),
+                      left: BorderSide(color: useCase.$5, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(useCase.$4, size: 18,
-                          color: useCase.$5),
+                      Icon(useCase.$4, size: 18, color: useCase.$5),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Column(
@@ -917,32 +1058,39 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(useCase.$1,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                        color: useCase.$5)),
+                                Text(
+                                  useCase.$1,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: useCase.$5,
+                                  ),
+                                ),
                                 const SizedBox(width: 6),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 1),
+                                    horizontal: 6,
+                                    vertical: 1,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: useCase.$5,
-                                    borderRadius:
-                                        BorderRadius.circular(4),
+                                    borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text(useCase.$2,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 9,
-                                          fontWeight:
-                                              FontWeight.bold)),
+                                  child: Text(
+                                    useCase.$2,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
-                            Text(useCase.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkSpice)),
+                            Text(
+                              useCase.$3,
+                              style: TextStyle(fontSize: 11, color: darkSpice),
+                            ),
                           ],
                         ),
                       ),
@@ -955,9 +1103,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Enum properties ──────────────────────────────────────
-        sectionBanner('11 \u00b7 Enum Properties',
-            'Standard Dart enum features on OptionsViewOpenDirection',
-            deepSaffron, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Enum Properties',
+          'Standard Dart enum features on OptionsViewOpenDirection',
+          deepSaffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -968,40 +1119,57 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final prop in [
-                ('.values', 'List of all enum values: [up, down, mostSpace]',
-                    saffron),
-                ('.name', 'String name of the value: "up", "down", "mostSpace"',
-                    deepSaffron),
-                ('.index', 'Integer index: up=0, down=1, mostSpace=2',
-                    turmeric),
-                ('switch()', 'Exhaustive pattern matching on all 3 values',
-                    accentDeep),
+                (
+                  '.values',
+                  'List of all enum values: [up, down, mostSpace]',
+                  saffron,
+                ),
+                (
+                  '.name',
+                  'String name of the value: "up", "down", "mostSpace"',
+                  deepSaffron,
+                ),
+                (
+                  '.index',
+                  'Integer index: up=0, down=1, mostSpace=2',
+                  turmeric,
+                ),
+                (
+                  'switch()',
+                  'Exhaustive pattern matching on all 3 values',
+                  accentDeep,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: prop.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: prop.$3, width: 2)),
+                    border: Border(left: BorderSide(color: prop.$3, width: 2)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 80,
-                        child: Text(prop.$1,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: prop.$3)),
+                        child: Text(
+                          prop.$1,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: prop.$3,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(prop.$2,
-                            style: TextStyle(
-                                fontSize: 11, color: darkSpice)),
+                        child: Text(
+                          prop.$2,
+                          style: TextStyle(fontSize: 11, color: darkSpice),
+                        ),
                       ),
                     ],
                   ),
@@ -1012,9 +1180,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Live demo: mostSpace ─────────────────────────────────
-        sectionBanner('12 \u00b7 Live Demo: Direction \u2192 mostSpace',
-            'Framework decides based on available space',
-            accentDeep, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Live Demo: Direction \u2192 mostSpace',
+          'Framework decides based on available space',
+          accentDeep,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1035,28 +1206,33 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.swap_vert, size: 14,
-                        color: accentDeep),
+                    Icon(Icons.swap_vert, size: 14, color: accentDeep),
                     const SizedBox(width: 6),
-                    Text('direction: mostSpace (type "c" to see options)',
-                        style: TextStyle(
-                            fontSize: 10, color: darkSpice)),
+                    Text(
+                      'direction: mostSpace (type "c" to see options)',
+                      style: TextStyle(fontSize: 10, color: darkSpice),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               Autocomplete<String>(
-                optionsViewOpenDirection:
-                    OptionsViewOpenDirection.mostSpace,
+                optionsViewOpenDirection: OptionsViewOpenDirection.mostSpace,
                 optionsBuilder: (textEditingValue) {
                   if (textEditingValue.text.isEmpty) {
                     return const Iterable<String>.empty();
                   }
                   return [
-                    'Cherry', 'Coconut', 'Cranberry',
-                    'Cantaloupe', 'Clementine',
-                  ].where((o) => o.toLowerCase().contains(
-                      textEditingValue.text.toLowerCase()));
+                    'Cherry',
+                    'Coconut',
+                    'Cranberry',
+                    'Cantaloupe',
+                    'Clementine',
+                  ].where(
+                    (o) => o.toLowerCase().contains(
+                      textEditingValue.text.toLowerCase(),
+                    ),
+                  );
                 },
               ),
             ],
@@ -1065,9 +1241,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Accessibility impact ─────────────────────────────────
-        sectionBanner('13 \u00b7 Accessibility Impact',
-            'How direction affects screen readers and keyboard navigation',
-            saffron, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Accessibility Impact',
+          'How direction affects screen readers and keyboard navigation',
+          saffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1078,18 +1257,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final a11y in [
-                ('Screen readers',
-                    'Options are announced regardless of direction — the '
-                    'visual position does not affect semantic ordering.',
-                    Icons.hearing, saffron),
-                ('Keyboard navigation',
-                    'Arrow keys navigate the options list in logical order. '
-                    'Direction only affects visual placement, not key behavior.',
-                    Icons.keyboard, deepSaffron),
-                ('Focus management',
-                    'Focus moves to the options list after typing begins. '
-                    'The direction does not change the focus chain order.',
-                    Icons.center_focus_strong, turmeric),
+                (
+                  'Screen readers',
+                  'Options are announced regardless of direction — the '
+                      'visual position does not affect semantic ordering.',
+                  Icons.hearing,
+                  saffron,
+                ),
+                (
+                  'Keyboard navigation',
+                  'Arrow keys navigate the options list in logical order. '
+                      'Direction only affects visual placement, not key behavior.',
+                  Icons.keyboard,
+                  deepSaffron,
+                ),
+                (
+                  'Focus management',
+                  'Focus moves to the options list after typing begins. '
+                      'The direction does not change the focus chain order.',
+                  Icons.center_focus_strong,
+                  turmeric,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1097,8 +1285,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: a11y.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: a11y.$4, width: 3)),
+                    border: Border(left: BorderSide(color: a11y.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1109,14 +1296,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(a11y.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: a11y.$4)),
-                            Text(a11y.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkSpice)),
+                            Text(
+                              a11y.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: a11y.$4,
+                              ),
+                            ),
+                            Text(
+                              a11y.$2,
+                              style: TextStyle(fontSize: 11, color: darkSpice),
+                            ),
                           ],
                         ),
                       ),
@@ -1129,9 +1320,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Migration note ───────────────────────────────────────
-        sectionBanner('14 \u00b7 Migration Note',
-            'Upgrading from older autocomplete without direction support',
-            turmeric, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Migration Note',
+          'Upgrading from older autocomplete without direction support',
+          turmeric,
+          Colors.white,
+        ),
         noteBox(
           'Before OptionsViewOpenDirection existed, options always opened '
           'downward. The enum was added as a non-breaking change with '
@@ -1149,27 +1343,33 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-              '// Before:\n'
-              'Autocomplete<String>(\n'
-              '  optionsBuilder: ...,\n'
-              ');\n'
-              '\n'
-              '// After (opt-in to new direction):\n'
-              'Autocomplete<String>(\n'
-              '  optionsViewOpenDirection:\n'
-              '      OptionsViewOpenDirection.mostSpace,\n'
-              '  optionsBuilder: ...,\n'
-              ');',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: darkSpice)),
+            '// Before:\n'
+            'Autocomplete<String>(\n'
+            '  optionsBuilder: ...,\n'
+            ');\n'
+            '\n'
+            '// After (opt-in to new direction):\n'
+            'Autocomplete<String>(\n'
+            '  optionsViewOpenDirection:\n'
+            '      OptionsViewOpenDirection.mostSpace,\n'
+            '  optionsBuilder: ...,\n'
+            ');',
+            style: TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: darkSpice,
+            ),
+          ),
         ),
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepSaffron, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepSaffron,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1201,15 +1401,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightTurmeric,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightTurmeric,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

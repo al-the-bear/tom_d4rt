@@ -45,15 +45,20 @@ Widget vdInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 120.0,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF4A2D73))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF4A2D73),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12.0, color: Color(0xFF7B5EA8))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF7B5EA8)),
+          ),
         ),
       ],
     ),
@@ -70,11 +75,14 @@ Widget vdNumberBox(int num, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(6.0),
     ),
-    child: Text('$num',
-        style: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white)),
+    child: Text(
+      '$num',
+      style: TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -94,11 +102,14 @@ Widget vdDirectionColumn(String label, VerticalDirection dir, Color accent) {
     ),
     child: Column(
       children: [
-        Text(label,
-            style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w700,
-                color: accent)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w700,
+            color: accent,
+          ),
+        ),
         SizedBox(height: 6.0),
         Column(
           verticalDirection: dir,
@@ -149,20 +160,23 @@ dynamic build(BuildContext context) {
             Icon(Icons.swap_vert, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('VerticalDirection',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                'VerticalDirection',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
         Text(
-            'Controls whether children are laid out from top-to-bottom '
-            'or bottom-to-top in vertical flex layouts',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFD4C4F0))),
+          'Controls whether children are laid out from top-to-bottom '
+          'or bottom-to-top in vertical flex layouts',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFD4C4F0)),
+        ),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -197,7 +211,8 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
             border: Border(
-                left: BorderSide(color: Color(0xFF6B3FA0), width: 4.0)),
+              left: BorderSide(color: Color(0xFF6B3FA0), width: 4.0),
+            ),
           ),
           child: Row(
             children: [
@@ -207,23 +222,35 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('up',
-                        style: TextStyle(
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF4A2D73))),
-                    Text('Children laid out from bottom to top',
-                        style: TextStyle(
-                            fontSize: 11.0, color: Color(0xFF7B5EA8))),
-                    Text('First child placed at bottom of container',
-                        style: TextStyle(
-                            fontSize: 10.0, color: Color(0xFF9B7AE0))),
+                    Text(
+                      'up',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A2D73),
+                      ),
+                    ),
+                    Text(
+                      'Children laid out from bottom to top',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF7B5EA8),
+                      ),
+                    ),
+                    Text(
+                      'First child placed at bottom of container',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF9B7AE0),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Text('index: 0',
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF999999))),
+              Text(
+                'index: 0',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
+              ),
             ],
           ),
         ),
@@ -234,7 +261,8 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
             border: Border(
-                left: BorderSide(color: Color(0xFF9B7AE0), width: 4.0)),
+              left: BorderSide(color: Color(0xFF9B7AE0), width: 4.0),
+            ),
           ),
           child: Row(
             children: [
@@ -244,23 +272,35 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('down',
-                        style: TextStyle(
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF4A2D73))),
-                    Text('Children laid out from top to bottom (default)',
-                        style: TextStyle(
-                            fontSize: 11.0, color: Color(0xFF7B5EA8))),
-                    Text('First child placed at top of container',
-                        style: TextStyle(
-                            fontSize: 10.0, color: Color(0xFF9B7AE0))),
+                    Text(
+                      'down',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A2D73),
+                      ),
+                    ),
+                    Text(
+                      'Children laid out from top to bottom (default)',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF7B5EA8),
+                      ),
+                    ),
+                    Text(
+                      'First child placed at top of container',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF9B7AE0),
+                      ),
+                    ),
                   ],
                 ),
               ),
-              Text('index: 1',
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF999999))),
+              Text(
+                'index: 1',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF999999)),
+              ),
             ],
           ),
         ),
@@ -281,27 +321,34 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('Same children [1,2,3,4] rendered in both directions',
-            style: TextStyle(
-                fontSize: 11.0,
-                fontStyle: FontStyle.italic,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'Same children [1,2,3,4] rendered in both directions',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-                child: vdDirectionColumn(
-                    'down (default)',
-                    VerticalDirection.down,
-                    Color(0xFF9B7AE0))),
+              child: vdDirectionColumn(
+                'down (default)',
+                VerticalDirection.down,
+                Color(0xFF9B7AE0),
+              ),
+            ),
             SizedBox(width: 12.0),
             Expanded(
-                child: vdDirectionColumn(
-                    'up (reversed)',
-                    VerticalDirection.up,
-                    Color(0xFF6B3FA0))),
+              child: vdDirectionColumn(
+                'up (reversed)',
+                VerticalDirection.up,
+                Color(0xFF6B3FA0),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8.0),
@@ -337,11 +384,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Column Property',
-            style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'Column Property',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
         vdInfoRow('Property:', 'Column.verticalDirection'),
         vdInfoRow('Type:', 'VerticalDirection'),
@@ -366,9 +416,10 @@ dynamic build(BuildContext context) {
             '  ],\n'
             ')',
             style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Color(0xFF4A2D73)),
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF4A2D73),
+            ),
           ),
         ),
       ],
@@ -418,41 +469,48 @@ dynamic build(BuildContext context) {
     child: Column(
       children: [
         Text(
-            '"start" and "end" meanings flip based on verticalDirection',
-            style: TextStyle(
-                fontSize: 11.0,
-                fontStyle: FontStyle.italic,
-                color: Color(0xFF4A2D73))),
+          '"start" and "end" meanings flip based on verticalDirection',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
-        ...mainAxisData.map((m) => Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 6.0),
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Row(
-                children: [
-                  vdChip(m['dir'] as String, m['color'] as Color),
-                  SizedBox(width: 4.0),
-                  Text('+ ${m['align']}',
-                      style: TextStyle(
-                          fontSize: 11.0,
-                          fontFamily: 'monospace',
-                          color: Color(0xFF4A2D73))),
-                  SizedBox(width: 8.0),
-                  Icon(Icons.arrow_right,
-                      color: Color(0xFF6B3FA0), size: 16.0),
-                  SizedBox(width: 4.0),
-                  Expanded(
-                    child: Text(m['meaning'] as String,
-                        style: TextStyle(
-                            fontSize: 11.0, color: Color(0xFF7B5EA8))),
+        ...mainAxisData.map(
+          (m) => Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: 6.0),
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              children: [
+                vdChip(m['dir'] as String, m['color'] as Color),
+                SizedBox(width: 4.0),
+                Text(
+                  '+ ${m['align']}',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF4A2D73),
                   ),
-                ],
-              ),
-            )),
+                ),
+                SizedBox(width: 8.0),
+                Icon(Icons.arrow_right, color: Color(0xFF6B3FA0), size: 16.0),
+                SizedBox(width: 4.0),
+                Expanded(
+                  child: Text(
+                    m['meaning'] as String,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF7B5EA8)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -472,11 +530,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('CrossAxisAlignment is Unaffected',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'CrossAxisAlignment is Unaffected',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -497,9 +558,10 @@ dynamic build(BuildContext context) {
                 'VerticalDirection only affects the main axis (vertical) '
                 'positioning and ordering, not the cross axis (horizontal).',
                 style: TextStyle(
-                    fontSize: 10.0,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xFF9B7AE0)),
+                  fontSize: 10.0,
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF9B7AE0),
+                ),
               ),
             ],
           ),
@@ -576,31 +638,38 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-                color: Color(0xFFD4C4F0).withValues(alpha: 0.5)),
+            border: Border.all(color: Color(0xFFD4C4F0).withValues(alpha: 0.5)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(uc['icon'] as IconData,
-                      color: uc['color'] as Color, size: 16.0),
+                  Icon(
+                    uc['icon'] as IconData,
+                    color: uc['color'] as Color,
+                    size: 16.0,
+                  ),
                   SizedBox(width: 4.0),
                   Expanded(
-                      child: Text(uc['title'] as String,
-                          style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF4A2D73)))),
+                    child: Text(
+                      uc['title'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF4A2D73),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4.0),
               vdChip(uc['dir'] as String, uc['color'] as Color),
               SizedBox(height: 4.0),
-              Text(uc['desc'] as String,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF7B5EA8))),
+              Text(
+                uc['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF7B5EA8)),
+              ),
             ],
           ),
         );
@@ -624,24 +693,39 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Flex Family Widgets',
-            style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'Flex Family Widgets',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
-        _vdFlexCard('Column', 'Uses verticalDirection',
-            'Children ordered top→bottom or bottom→top',
-            Color(0xFF6B3FA0)),
-        _vdFlexCard('Row', 'Ignores verticalDirection',
-            'Uses textDirection for horizontal ordering',
-            Color(0xFF9B7AE0)),
-        _vdFlexCard('Flex(vertical)', 'Uses verticalDirection',
-            'Equivalent to Column with explicit axis',
-            Color(0xFF6B3FA0)),
-        _vdFlexCard('Flex(horizontal)', 'Ignores verticalDirection',
-            'Equivalent to Row — uses textDirection',
-            Color(0xFF9B7AE0)),
+        _vdFlexCard(
+          'Column',
+          'Uses verticalDirection',
+          'Children ordered top→bottom or bottom→top',
+          Color(0xFF6B3FA0),
+        ),
+        _vdFlexCard(
+          'Row',
+          'Ignores verticalDirection',
+          'Uses textDirection for horizontal ordering',
+          Color(0xFF9B7AE0),
+        ),
+        _vdFlexCard(
+          'Flex(vertical)',
+          'Uses verticalDirection',
+          'Equivalent to Column with explicit axis',
+          Color(0xFF6B3FA0),
+        ),
+        _vdFlexCard(
+          'Flex(horizontal)',
+          'Ignores verticalDirection',
+          'Equivalent to Row — uses textDirection',
+          Color(0xFF9B7AE0),
+        ),
       ],
     ),
   );
@@ -666,11 +750,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Dart 3 Switch Expression',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'Dart 3 Switch Expression',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -687,9 +774,10 @@ dynamic build(BuildContext context) {
             '    => "Top to bottom",\n'
             '};',
             style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Color(0xFF4A2D73)),
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF4A2D73),
+            ),
           ),
         ),
         SizedBox(height: 8.0),
@@ -702,11 +790,11 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(vertical: 2.0),
             child: Row(
               children: [
-                Icon(Icons.arrow_right,
-                    color: Color(0xFF6B3FA0), size: 16.0),
-                Text('${v.name} → $desc',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFF7B5EA8))),
+                Icon(Icons.arrow_right, color: Color(0xFF6B3FA0), size: 16.0),
+                Text(
+                  '${v.name} → $desc',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF7B5EA8)),
+                ),
               ],
             ),
           );
@@ -738,17 +826,26 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Text('down ↓',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF9B7AE0))),
+                Text(
+                  'down ↓',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF9B7AE0),
+                  ),
+                ),
                 SizedBox(height: 6.0),
                 _vdFlowItem('Child A', Color(0xFF8B5CF6)),
-                Icon(Icons.arrow_downward,
-                    color: Color(0xFF9B7AE0), size: 14.0),
+                Icon(
+                  Icons.arrow_downward,
+                  color: Color(0xFF9B7AE0),
+                  size: 14.0,
+                ),
                 _vdFlowItem('Child B', Color(0xFF9B7AE0)),
-                Icon(Icons.arrow_downward,
-                    color: Color(0xFF9B7AE0), size: 14.0),
+                Icon(
+                  Icons.arrow_downward,
+                  color: Color(0xFF9B7AE0),
+                  size: 14.0,
+                ),
                 _vdFlowItem('Child C', Color(0xFFA78BCA)),
               ],
             ),
@@ -764,17 +861,18 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Text('up ↑',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF6B3FA0))),
+                Text(
+                  'up ↑',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF6B3FA0),
+                  ),
+                ),
                 SizedBox(height: 6.0),
                 _vdFlowItem('Child C', Color(0xFFA78BCA)),
-                Icon(Icons.arrow_upward,
-                    color: Color(0xFF6B3FA0), size: 14.0),
+                Icon(Icons.arrow_upward, color: Color(0xFF6B3FA0), size: 14.0),
                 _vdFlowItem('Child B', Color(0xFF9B7AE0)),
-                Icon(Icons.arrow_upward,
-                    color: Color(0xFF6B3FA0), size: 14.0),
+                Icon(Icons.arrow_upward, color: Color(0xFF6B3FA0), size: 14.0),
                 _vdFlowItem('Child A', Color(0xFF8B5CF6)),
               ],
             ),
@@ -801,26 +899,38 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             SizedBox(
-                width: 70.0,
-                child: Text('Aspect',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11.0,
-                        color: Color(0xFF4A2D73)))),
+              width: 70.0,
+              child: Text(
+                'Aspect',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF4A2D73),
+                ),
+              ),
+            ),
             Expanded(
-                child: Text('down',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11.0,
-                        color: Color(0xFF9B7AE0)))),
+              child: Text(
+                'down',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9B7AE0),
+                ),
+              ),
+            ),
             Expanded(
-                child: Text('up',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11.0,
-                        color: Color(0xFF6B3FA0)))),
+              child: Text(
+                'up',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF6B3FA0),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFD4C4F0)),
@@ -849,10 +959,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        vdInfoRow('up == up:',
-            '${VerticalDirection.up == VerticalDirection.up}'),
-        vdInfoRow('up == down:',
-            '${VerticalDirection.up == VerticalDirection.down}'),
+        vdInfoRow(
+          'up == up:',
+          '${VerticalDirection.up == VerticalDirection.up}',
+        ),
+        vdInfoRow(
+          'up == down:',
+          '${VerticalDirection.up == VerticalDirection.down}',
+        ),
         vdInfoRow('hashCode up:', '${VerticalDirection.up.hashCode}'),
         vdInfoRow('hashCode down:', '${VerticalDirection.down.hashCode}'),
         SizedBox(height: 6.0),
@@ -885,21 +999,39 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Direction Enum Family',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
+        Text(
+          'Direction Enum Family',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
         SizedBox(height: 8.0),
-        _vdRelatedCard('Axis', 'horizontal | vertical',
-            'Which axis a widget operates on', Color(0xFF6B3FA0)),
-        _vdRelatedCard('TextDirection', 'ltr | rtl',
-            'Horizontal direction for text and layout', Color(0xFF9B7AE0)),
-        _vdRelatedCard('VerticalDirection', 'up | down',
-            'Vertical direction for flex layout', Color(0xFF6B3FA0)),
-        _vdRelatedCard('AxisDirection', 'up | right | down | left',
-            'Combines Axis + direction into single value',
-            Color(0xFF9B7AE0)),
+        _vdRelatedCard(
+          'Axis',
+          'horizontal | vertical',
+          'Which axis a widget operates on',
+          Color(0xFF6B3FA0),
+        ),
+        _vdRelatedCard(
+          'TextDirection',
+          'ltr | rtl',
+          'Horizontal direction for text and layout',
+          Color(0xFF9B7AE0),
+        ),
+        _vdRelatedCard(
+          'VerticalDirection',
+          'up | down',
+          'Vertical direction for flex layout',
+          Color(0xFF6B3FA0),
+        ),
+        _vdRelatedCard(
+          'AxisDirection',
+          'up | right | down | left',
+          'Combines Axis + direction into single value',
+          Color(0xFF9B7AE0),
+        ),
       ],
     ),
   );
@@ -910,7 +1042,8 @@ dynamic build(BuildContext context) {
   final vdPatterns = <Map<String, String>>[
     {
       'title': 'Reversed Column',
-      'code': 'Column(\n'
+      'code':
+          'Column(\n'
           '  verticalDirection:\n'
           '    VerticalDirection.up,\n'
           '  mainAxisAlignment:\n'
@@ -921,7 +1054,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Chat-Style Layout',
-      'code': 'ListView(\n'
+      'code':
+          'ListView(\n'
           '  reverse: true,\n'
           '  // Internally uses VerticalDirection.up\n'
           '  children: messages,\n'
@@ -929,7 +1063,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Conditional Direction',
-      'code': 'Column(\n'
+      'code':
+          'Column(\n'
           '  verticalDirection: isReversed\n'
           '    ? VerticalDirection.up\n'
           '    : VerticalDirection.down,\n'
@@ -958,11 +1093,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(p['title']!,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF6B3FA0))),
+              Text(
+                p['title']!,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF6B3FA0),
+                ),
+              ),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -971,11 +1109,14 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFEDE5F7),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(p['code']!,
-                    style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF4A2D73))),
+                child: Text(
+                  p['code']!,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF4A2D73),
+                  ),
+                ),
               ),
             ],
           ),
@@ -1029,16 +1170,18 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-                color: Color(0xFFD4C4F0).withValues(alpha: 0.6)),
+            border: Border.all(color: Color(0xFFD4C4F0).withValues(alpha: 0.6)),
           ),
           child: Column(
             children: [
-              Text(c['label'] as String,
-                  style: TextStyle(
-                      fontSize: 9.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF6B3FA0))),
+              Text(
+                c['label'] as String,
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF6B3FA0),
+                ),
+              ),
               SizedBox(height: 4.0),
               Expanded(
                 child: Container(
@@ -1052,20 +1195,23 @@ dynamic build(BuildContext context) {
                     mainAxisAlignment: c['align'] as MainAxisAlignment,
                     children: [
                       Container(
-                          width: 28.0,
-                          height: 14.0,
-                          margin: EdgeInsets.symmetric(vertical: 1.0),
-                          color: Color(0xFF8B5CF6)),
+                        width: 28.0,
+                        height: 14.0,
+                        margin: EdgeInsets.symmetric(vertical: 1.0),
+                        color: Color(0xFF8B5CF6),
+                      ),
                       Container(
-                          width: 28.0,
-                          height: 14.0,
-                          margin: EdgeInsets.symmetric(vertical: 1.0),
-                          color: Color(0xFF9B7AE0)),
+                        width: 28.0,
+                        height: 14.0,
+                        margin: EdgeInsets.symmetric(vertical: 1.0),
+                        color: Color(0xFF9B7AE0),
+                      ),
                       Container(
-                          width: 28.0,
-                          height: 14.0,
-                          margin: EdgeInsets.symmetric(vertical: 1.0),
-                          color: Color(0xFFA78BCA)),
+                        width: 28.0,
+                        height: 14.0,
+                        margin: EdgeInsets.symmetric(vertical: 1.0),
+                        color: Color(0xFFA78BCA),
+                      ),
                     ],
                   ),
                 ),
@@ -1096,43 +1242,54 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('VerticalDirection Dashboard',
-            style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        Text(
+          'VerticalDirection Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text('${VerticalDirection.values.length}',
-                    style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFD4C4F0))),
-                Text('Values',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFBFA8E0))),
+                Text(
+                  '${VerticalDirection.values.length}',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFD4C4F0),
+                  ),
+                ),
+                Text(
+                  'Values',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFBFA8E0)),
+                ),
               ],
             ),
             Column(
               children: [
-                Icon(Icons.arrow_downward,
-                    color: Color(0xFFD4C4F0), size: 28.0),
-                Text('Default: down',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFBFA8E0))),
+                Icon(
+                  Icons.arrow_downward,
+                  color: Color(0xFFD4C4F0),
+                  size: 28.0,
+                ),
+                Text(
+                  'Default: down',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFBFA8E0)),
+                ),
               ],
             ),
             Column(
               children: [
-                Icon(Icons.view_column,
-                    color: Color(0xFFD4C4F0), size: 28.0),
-                Text('Used in: Column',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFBFA8E0))),
+                Icon(Icons.view_column, color: Color(0xFFD4C4F0), size: 28.0),
+                Text(
+                  'Used in: Column',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFBFA8E0)),
+                ),
               ],
             ),
           ],
@@ -1170,10 +1327,16 @@ dynamic build(BuildContext context) {
         vdSectionHeader('Column Widget Integration', Icons.text_snippet),
         vdColumnUsage,
         // 5 MainAxis
-        vdSectionHeader('MainAxisAlignment Interaction', Icons.vertical_align_center),
+        vdSectionHeader(
+          'MainAxisAlignment Interaction',
+          Icons.vertical_align_center,
+        ),
         vdMainAxisSection,
         // 6 CrossAxis
-        vdSectionHeader('CrossAxisAlignment (Unaffected)', Icons.horizontal_rule),
+        vdSectionHeader(
+          'CrossAxisAlignment (Unaffected)',
+          Icons.horizontal_rule,
+        ),
         vdCrossAxisSection,
         // 7 Use Cases
         vdSectionHeader('Practical Use Cases', Icons.auto_awesome),
@@ -1211,8 +1374,7 @@ dynamic build(BuildContext context) {
 }
 
 // ── Top-level helpers ───────────────────────────────────────────
-Widget _vdFlexCard(
-    String widget, String status, String detail, Color accent) {
+Widget _vdFlexCard(String widget, String status, String detail, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 8.0),
@@ -1225,19 +1387,26 @@ Widget _vdFlexCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget,
-            style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF4A2D73))),
-        Text(status,
-            style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w600,
-                color: accent)),
-        Text(detail,
-            style: TextStyle(
-                fontSize: 10.0, color: Color(0xFF7B5EA8))),
+        Text(
+          widget,
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF4A2D73),
+          ),
+        ),
+        Text(
+          status,
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w600,
+            color: accent,
+          ),
+        ),
+        Text(
+          detail,
+          style: TextStyle(fontSize: 10.0, color: Color(0xFF7B5EA8)),
+        ),
       ],
     ),
   );
@@ -1252,12 +1421,15 @@ Widget _vdFlowItem(String label, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(4.0),
     ),
-    child: Text(label,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 10.0,
-            fontWeight: FontWeight.w600,
-            color: Colors.white)),
+    child: Text(
+      label,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 10.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -1267,29 +1439,36 @@ Widget _vdCompRow(String aspect, String downVal, String upVal) {
     child: Row(
       children: [
         SizedBox(
-            width: 70.0,
-            child: Text(aspect,
-                style: TextStyle(
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF4A2D73)))),
+          width: 70.0,
+          child: Text(
+            aspect,
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF4A2D73),
+            ),
+          ),
+        ),
         Expanded(
-            child: Text(downVal,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 10.0, color: Color(0xFF7B5EA8)))),
+          child: Text(
+            downVal,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10.0, color: Color(0xFF7B5EA8)),
+          ),
+        ),
         Expanded(
-            child: Text(upVal,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 10.0, color: Color(0xFF7B5EA8)))),
+          child: Text(
+            upVal,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10.0, color: Color(0xFF7B5EA8)),
+          ),
+        ),
       ],
     ),
   );
 }
 
-Widget _vdRelatedCard(
-    String name, String values, String desc, Color accent) {
+Widget _vdRelatedCard(String name, String values, String desc, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 6.0),
@@ -1313,19 +1492,26 @@ Widget _vdRelatedCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF4A2D73))),
-              Text(values,
-                  style: TextStyle(
-                      fontSize: 10.0,
-                      fontFamily: 'monospace',
-                      color: accent)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF7B5EA8))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF4A2D73),
+                ),
+              ),
+              Text(
+                values,
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  color: accent,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF7B5EA8)),
+              ),
             ],
           ),
         ),

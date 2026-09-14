@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_flutter) — the corpus scripts the two Flutter twins share have not been rewritten apart.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 /// Source-based mirror of `suspicious_rewrite_test.dart`
 /// from `tom_d4rt_flutter_ast/test/`. Runs the same 116
 /// suspicious scripts through `SourceFlutterD4rt` on port
@@ -86,7 +94,6 @@ void main() {
       final result = await SendTestRunner.send('cupertino/textfield_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -106,7 +113,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -119,7 +125,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -139,7 +144,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -354,7 +358,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -393,7 +396,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -434,7 +436,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -557,7 +558,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -577,7 +577,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -590,7 +589,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -603,7 +601,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -651,7 +648,6 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 
   // ============================================================
@@ -960,9 +956,7 @@ void main() {
     });
 
     test('sizing_test.dart', () async {
-      final result = await SendTestRunner.send(
-        'widgets/sizing_test.dart',
-      );
+      final result = await SendTestRunner.send('widgets/sizing_test.dart');
       expect(result.success, isTrue, reason: result.error);
     });
 
@@ -972,6 +966,5 @@ void main() {
       );
       expect(result.success, isTrue, reason: result.error);
     });
-
   });
 }

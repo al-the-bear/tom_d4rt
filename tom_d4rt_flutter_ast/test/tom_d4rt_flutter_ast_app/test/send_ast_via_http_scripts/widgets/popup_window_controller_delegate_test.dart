@@ -354,7 +354,9 @@ dynamic build(BuildContext context) {
                 Text(
                   desc,
                   style: TextStyle(
-                    color: isActive ? Colors.white.withValues(alpha: 0.8) : indigo600,
+                    color: isActive
+                        ? Colors.white.withValues(alpha: 0.8)
+                        : indigo600,
                     fontSize: 11,
                   ),
                 ),
@@ -410,10 +412,26 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 12),
                 ...[
                   {'level': 0, 'name': 'ChangeNotifier', 'type': 'base'},
-                  {'level': 1, 'name': 'BaseWindowController (sealed)', 'type': 'sealed'},
-                  {'level': 2, 'name': 'RegularWindowController', 'type': 'regular'},
-                  {'level': 2, 'name': 'PopupWindowController', 'type': 'popup'},
-                  {'level': 3, 'name': 'takes: PopupWindowControllerDelegate', 'type': 'delegate'},
+                  {
+                    'level': 1,
+                    'name': 'BaseWindowController (sealed)',
+                    'type': 'sealed',
+                  },
+                  {
+                    'level': 2,
+                    'name': 'RegularWindowController',
+                    'type': 'regular',
+                  },
+                  {
+                    'level': 2,
+                    'name': 'PopupWindowController',
+                    'type': 'popup',
+                  },
+                  {
+                    'level': 3,
+                    'name': 'takes: PopupWindowControllerDelegate',
+                    'type': 'delegate',
+                  },
                 ].map((node) {
                   final level = node['level'] as int;
                   final isTarget = node['type'] == 'delegate';
@@ -431,7 +449,10 @@ dynamic build(BuildContext context) {
                             ),
                           ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: isTarget
                                 ? indigo300.withValues(alpha: 0.4)
@@ -444,8 +465,12 @@ dynamic build(BuildContext context) {
                           child: Text(
                             node['name'] as String,
                             style: TextStyle(
-                              color: isTarget ? Colors.white : Colors.white.withValues(alpha: 0.9),
-                              fontWeight: isTarget ? FontWeight.w700 : FontWeight.w500,
+                              color: isTarget
+                                  ? Colors.white
+                                  : Colors.white.withValues(alpha: 0.9),
+                              fontWeight: isTarget
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
                               fontSize: 12,
                               fontFamily: 'monospace',
                             ),
@@ -477,29 +502,44 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8),
           buildPhaseBox(
-            step: 1, title: 'Create Controller',
+            step: 1,
+            title: 'Create Controller',
             desc: 'PopupWindowController(parent, anchorRect, delegate)',
-            icon: Icons.add_box_outlined, bg: indigo800, isActive: false,
+            icon: Icons.add_box_outlined,
+            bg: indigo800,
+            isActive: false,
           ),
           buildPhaseBox(
-            step: 2, title: 'Activate',
+            step: 2,
+            title: 'Activate',
             desc: 'controller.activate() → native window created',
-            icon: Icons.launch, bg: indigo800, isActive: false,
+            icon: Icons.launch,
+            bg: indigo800,
+            isActive: false,
           ),
           buildPhaseBox(
-            step: 3, title: 'Render Content',
+            step: 3,
+            title: 'Render Content',
             desc: 'PopupWindow(controller, child) builds widget tree',
-            icon: Icons.widgets_outlined, bg: indigo800, isActive: false,
+            icon: Icons.widgets_outlined,
+            bg: indigo800,
+            isActive: false,
           ),
           buildPhaseBox(
-            step: 4, title: 'Destroy',
+            step: 4,
+            title: 'Destroy',
             desc: 'controller.destroy() or user closes the popup',
-            icon: Icons.close, bg: indigo800, isActive: false,
+            icon: Icons.close,
+            bg: indigo800,
+            isActive: false,
           ),
           buildPhaseBox(
-            step: 5, title: 'Delegate Notified',
+            step: 5,
+            title: 'Delegate Notified',
             desc: 'delegate.onWindowDestroyed() — your cleanup runs',
-            icon: Icons.notifications_active, bg: indigo700, isActive: true,
+            icon: Icons.notifications_active,
+            bg: indigo700,
+            isActive: true,
           ),
 
           const SizedBox(height: 14),
@@ -549,7 +589,11 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'onWindowDestroyed()\n\n(simpler — popups\njust appear and\ndisappear)',
-                              style: TextStyle(color: indigo700, fontSize: 11, height: 1.3),
+                              style: TextStyle(
+                                color: indigo700,
+                                fontSize: 11,
+                                height: 1.3,
+                              ),
                             ),
                           ],
                         ),
@@ -578,7 +622,11 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'onWindowDestroyed()\nonWindowFocusChanged()\nonWindowFullscreen...()\nonWindowMinimized...()',
-                              style: TextStyle(color: indigo700, fontSize: 11, height: 1.3),
+                              style: TextStyle(
+                                color: indigo700,
+                                fontSize: 11,
+                                height: 1.3,
+                              ),
                             ),
                           ],
                         ),
@@ -623,7 +671,11 @@ dynamic build(BuildContext context) {
                         'Multi-window APIs are behind the isWindowingEnabled flag. '
                         'Currently disabled on all platforms. This is internal Flutter '
                         'framework code, not intended for direct use in applications.',
-                        style: TextStyle(color: Color(0xFF795548), fontSize: 12, height: 1.4),
+                        style: TextStyle(
+                          color: Color(0xFF795548),
+                          fontSize: 12,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),
@@ -674,7 +726,8 @@ dynamic build(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 6, height: 6,
+                          width: 6,
+                          height: 6,
                           margin: const EdgeInsets.only(top: 5, right: 8),
                           decoration: BoxDecoration(
                             color: indigo600,
@@ -701,7 +754,9 @@ dynamic build(BuildContext context) {
 
   print('  Live widget built: PopupWindowControllerDelegate demo');
   print('  • Class hierarchy (ChangeNotifier → BaseWindow → Popup)');
-  print('  • 5-step lifecycle flow (create → activate → render → destroy → notify)');
+  print(
+    '  • 5-step lifecycle flow (create → activate → render → destroy → notify)',
+  );
   print('  • Popup vs Regular delegate comparison');
   print('  • Experimental API warning badge');
   print('  • Mixin class explanation (5 points)');
@@ -770,16 +825,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  Indigo 900  ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Indigo 800  ${indigo800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Indigo 700  ${indigo700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Indigo 600  ${indigo600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Indigo 300  ${indigo300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Indigo 200  ${indigo200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Indigo 100  ${indigo100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Indigo 50   ${indigo50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Purple 50   ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
-  print('  │  Blue 900    ${blue900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print(
+    '  │  Indigo 900  ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Indigo 800  ${indigo800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Indigo 700  ${indigo700.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Indigo 600  ${indigo600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Indigo 300  ${indigo300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Indigo 200  ${indigo200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Indigo 100  ${indigo100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Indigo 50   ${indigo50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Purple 50   ${purple50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
+  print(
+    '  │  Blue 900    ${blue900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

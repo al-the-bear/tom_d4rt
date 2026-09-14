@@ -173,11 +173,7 @@ const TextStyle kSectionLeadStyle = TextStyle(
   color: cInk,
 );
 
-const TextStyle kBodyStyle = TextStyle(
-  fontSize: 12,
-  height: 1.45,
-  color: cInk,
-);
+const TextStyle kBodyStyle = TextStyle(fontSize: 12, height: 1.45, color: cInk);
 
 const TextStyle kSmallLabelStyle = TextStyle(
   fontSize: 11,
@@ -262,7 +258,9 @@ dynamic build(BuildContext context) {
     _buildSectionHeader('7. Mini-Scaffold D --- extendBodyBehindAppBar'),
     _buildMiniD(),
     _spacer(18),
-    _buildSectionHeader('8. Mini-Scaffold E --- persistentFooterButtons + bottomSheet'),
+    _buildSectionHeader(
+      '8. Mini-Scaffold E --- persistentFooterButtons + bottomSheet',
+    ),
     _buildMiniE(),
     _spacer(20),
     _buildSectionHeader('9. FloatingActionButtonLocation atlas'),
@@ -620,9 +618,7 @@ Widget _buildSlotMap() {
       child: Stack(
         children: <Widget>[
           // Body region (background)
-          Positioned.fill(
-            child: Container(color: cParchment),
-          ),
+          Positioned.fill(child: Container(color: cParchment)),
           // App bar
           Positioned(
             top: 0,
@@ -632,9 +628,7 @@ Widget _buildSlotMap() {
               height: 36,
               decoration: const BoxDecoration(
                 color: cCinnabar,
-                border: Border(
-                  bottom: BorderSide(color: cBrass, width: 2),
-                ),
+                border: Border(bottom: BorderSide(color: cBrass, width: 2)),
               ),
               alignment: Alignment.center,
               child: const Text('appBar', style: kMiniAppBarStyle),
@@ -677,9 +671,7 @@ Widget _buildSlotMap() {
               width: 22,
               decoration: BoxDecoration(
                 color: cWalnutMid.withValues(alpha: 0.85),
-                border: const Border(
-                  left: BorderSide(color: cBrass, width: 1),
-                ),
+                border: const Border(left: BorderSide(color: cBrass, width: 1)),
               ),
               child: const RotatedBox(
                 quarterTurns: 1,
@@ -747,15 +739,10 @@ Widget _buildSlotMap() {
               height: 36,
               decoration: const BoxDecoration(
                 color: cCharcoal,
-                border: Border(
-                  top: BorderSide(color: cBrass, width: 2),
-                ),
+                border: Border(top: BorderSide(color: cBrass, width: 2)),
               ),
               alignment: Alignment.center,
-              child: const Text(
-                'bottomNavigationBar',
-                style: kMiniAppBarStyle,
-              ),
+              child: const Text('bottomNavigationBar', style: kMiniAppBarStyle),
             ),
           ),
           // Bottom sheet hint (just above the bottom nav)
@@ -836,7 +823,11 @@ Widget _buildSlotMap() {
         _legendRow(cWalnutMid, 'endDrawer', 'Slides in from the trailing edge'),
         _legendRow(cParchmentDim, 'body', 'Centre region, what is left'),
         _legendRow(cParchment, 'bottomSheet', 'Hovers above the bottom nav'),
-        _legendRow(cParchment, 'persistentFooterButtons', 'Row above bottom nav'),
+        _legendRow(
+          cParchment,
+          'persistentFooterButtons',
+          'Row above bottom nav',
+        ),
         _legendRow(cCharcoal, 'bottomNavigationBar', 'Pinned to bottom edge'),
         _legendRow(cCinnabar, 'floatingActionButton', 'Attached to body edge'),
       ],
@@ -848,11 +839,7 @@ Widget _buildSlotMap() {
     children: <Widget>[
       _buildSectionHeader('3. Slot map --- the eight named drawers'),
       const SizedBox(height: 8),
-      Wrap(
-        spacing: 18,
-        runSpacing: 18,
-        children: <Widget>[diagram, legend],
-      ),
+      Wrap(spacing: 18, runSpacing: 18, children: <Widget>[diagram, legend]),
     ],
   );
 }
@@ -903,7 +890,11 @@ Widget _legendRow(Color swatch, String name, String desc) {
 //  We render at 240x240 pixels.
 // ---------------------------------------------------------------------------
 
-Widget _miniViewport(Scaffold scaffold, {double width = 280, double height = 280}) {
+Widget _miniViewport(
+  Scaffold scaffold, {
+  double width = 280,
+  double height = 280,
+}) {
   // The frame around each mini-scaffold: walnut wood with a brass rim.
   final BoxDecoration frameDeco = BoxDecoration(
     color: cWalnutMid,
@@ -927,10 +918,7 @@ Widget _miniViewport(Scaffold scaffold, {double width = 280, double height = 280
         borderRadius: BorderRadius.circular(6),
         child: MediaQuery(
           data: const MediaQueryData(),
-          child: Material(
-            color: cParchmentDim,
-            child: scaffold,
-          ),
+          child: Material(color: cParchmentDim, child: scaffold),
         ),
       ),
     ),
@@ -960,15 +948,18 @@ Widget _miniCaption(String title, String body, {double width = 280}) {
 }
 
 // A reusable mini-AppBar appropriate for our 280-wide miniature.
-PreferredSizeWidget _miniAppBar(String title, {bool translucent = false, bool withMenu = true, bool withTrailing = false}) {
+PreferredSizeWidget _miniAppBar(
+  String title, {
+  bool translucent = false,
+  bool withMenu = true,
+  bool withTrailing = false,
+}) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(28),
     child: Container(
       decoration: BoxDecoration(
         color: translucent ? cCinnabar.withValues(alpha: 0.55) : cCinnabar,
-        border: const Border(
-          bottom: BorderSide(color: cBrass, width: 1),
-        ),
+        border: const Border(bottom: BorderSide(color: cBrass, width: 1)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 6),
       child: Row(
@@ -1023,7 +1014,10 @@ Widget _miniNavItem(IconData icon, String label, {bool selected = false}) {
 }
 
 // A mini chart-grid that pretends to be the body content of each mini.
-Widget _miniChartBody({String label = 'CHART OF THE EASTERN APPROACHES', Color sea = cSeaPale}) {
+Widget _miniChartBody({
+  String label = 'CHART OF THE EASTERN APPROACHES',
+  Color sea = cSeaPale,
+}) {
   return Container(
     color: cParchment,
     padding: const EdgeInsets.all(6),
@@ -1069,9 +1063,7 @@ Widget _miniChartBody({String label = 'CHART OF THE EASTERN APPROACHES', Color s
                   top: 8,
                   right: 8,
                   bottom: 8,
-                  child: CustomPaint(
-                    painter: _RhumbLinePainter(),
-                  ),
+                  child: CustomPaint(painter: _RhumbLinePainter()),
                 ),
                 // Latitude label
                 const Positioned(
@@ -1116,13 +1108,14 @@ class _RhumbLinePainter extends CustomPainter {
       ..color = cCinnabar
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(size.width * 0.15, size.height * 0.85),
-        Offset(size.width * 0.85, size.height * 0.15), p);
+    canvas.drawLine(
+      Offset(size.width * 0.15, size.height * 0.85),
+      Offset(size.width * 0.85, size.height * 0.15),
+      p,
+    );
     final Paint dot = Paint()..color = cCinnabarDeep;
-    canvas.drawCircle(
-        Offset(size.width * 0.15, size.height * 0.85), 2, dot);
-    canvas.drawCircle(
-        Offset(size.width * 0.85, size.height * 0.15), 2, dot);
+    canvas.drawCircle(Offset(size.width * 0.15, size.height * 0.85), 2, dot);
+    canvas.drawCircle(Offset(size.width * 0.85, size.height * 0.15), 2, dot);
   }
 
   @override
@@ -1177,8 +1170,7 @@ Widget _drawerItem(IconData icon, String label) {
       children: <Widget>[
         Icon(icon, size: 12, color: cParchmentDim),
         const SizedBox(width: 6),
-        Text(label,
-            style: const TextStyle(color: cParchmentDim, fontSize: 9)),
+        Text(label, style: const TextStyle(color: cParchmentDim, fontSize: 9)),
       ],
     ),
   );
@@ -1208,10 +1200,10 @@ Widget _buildMiniA() {
       _miniCaption(
         'A. appBar + body (the minimum)',
         'A Scaffold with only an appBar and a body is the workhorse of '
-        'Material screens. The body is sized to whatever is left after '
-        'the AppBar takes its preferred height. No drawer means no menu '
-        'icon is auto-injected; you can still add one manually if the '
-        'screen pushes a route that wants one.',
+            'Material screens. The body is sized to whatever is left after '
+            'the AppBar takes its preferred height. No drawer means no menu '
+            'icon is auto-injected; you can still add one manually if the '
+            'screen pushes a route that wants one.',
       ),
     ],
   );
@@ -1242,10 +1234,10 @@ Widget _buildMiniB() {
       _miniCaption(
         'B. appBar + body + bottomNavigationBar',
         'Adding a bottomNavigationBar pins a strip of icon-buttons at the '
-        'foot of the screen. The body is pressed up by the bar\'s '
-        'preferred height. The bar is OPAQUE by default; if you want the '
-        'body to draw under it (for translucent navs or blurred-glass '
-        'effects), set extendBody: true. Demonstrated in section 10.',
+            'foot of the screen. The body is pressed up by the bar\'s '
+            'preferred height. The bar is OPAQUE by default; if you want the '
+            'body to draw under it (for translucent navs or blurred-glass '
+            'effects), set extendBody: true. Demonstrated in section 10.',
       ),
     ],
   );
@@ -1276,9 +1268,7 @@ Widget _buildMiniC() {
             width: 14,
             decoration: BoxDecoration(
               color: cWalnutMid.withValues(alpha: 0.35),
-              border: const Border(
-                left: BorderSide(color: cBrass, width: 1),
-              ),
+              border: const Border(left: BorderSide(color: cBrass, width: 1)),
             ),
             child: const RotatedBox(
               quarterTurns: 1,
@@ -1317,10 +1307,10 @@ Widget _buildMiniC() {
       _miniCaption(
         'C. FAB + endDrawer hint',
         'A FloatingActionButton is "attached" to the body. Its position '
-        'is decided by floatingActionButtonLocation, NOT by the body. '
-        'The endDrawer exists as a property even when not visible; it is '
-        'invoked via Scaffold.of(context).openEndDrawer() at runtime '
-        '(out of scope for this static demo, so we draw a hint).',
+            'is decided by floatingActionButtonLocation, NOT by the body. '
+            'The endDrawer exists as a property even when not visible; it is '
+            'invoked via Scaffold.of(context).openEndDrawer() at runtime '
+            '(out of scope for this static demo, so we draw a hint).',
       ),
     ],
   );
@@ -1348,7 +1338,12 @@ Widget _buildMiniD() {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[cLampGlow, cCinnabar, cCinnabarDeep, cWalnutDark],
+                colors: <Color>[
+                  cLampGlow,
+                  cCinnabar,
+                  cCinnabarDeep,
+                  cWalnutDark,
+                ],
                 stops: <double>[0.0, 0.35, 0.65, 1.0],
               ),
             ),
@@ -1385,11 +1380,11 @@ Widget _buildMiniD() {
       _miniCaption(
         'D. extendBodyBehindAppBar',
         'When extendBodyBehindAppBar is true, the body is laid out as if '
-        'the AppBar were not there. The AppBar paints OVER the top of '
-        'the body. With a translucent AppBar colour you get a glass '
-        'effect; with an opaque AppBar you get nothing visible (don\'t '
-        'do that --- you would just be wasting layout). Best paired '
-        'with a hero image or a gradient that should bleed to the top.',
+            'the AppBar were not there. The AppBar paints OVER the top of '
+            'the body. With a translucent AppBar colour you get a glass '
+            'effect; with an opaque AppBar you get nothing visible (don\'t '
+            'do that --- you would just be wasting layout). Best paired '
+            'with a hero image or a gradient that should bleed to the top.',
       ),
     ],
   );
@@ -1446,11 +1441,7 @@ Widget _buildMiniE() {
       alignment: Alignment.center,
       child: const Text(
         'bottomSheet --- weather advisory',
-        style: TextStyle(
-          fontSize: 9,
-          color: cInk,
-          fontWeight: FontWeight.w700,
-        ),
+        style: TextStyle(fontSize: 9, color: cInk, fontWeight: FontWeight.w700),
       ),
     ),
   );
@@ -1464,11 +1455,11 @@ Widget _buildMiniE() {
       _miniCaption(
         'E. footer buttons + bottomSheet',
         'persistentFooterButtons is a thin row of TextButtons pinned just '
-        'above the bottomNav. It is great for "Cancel / Save" pairs that '
-        'should always be reachable. A bottomSheet is a panel that hovers '
-        'just above the persistentFooterButtons (or directly above the '
-        'nav if there are none). When all four are present the foot of '
-        'the screen layers up: nav, buttons, sheet, body.',
+            'above the bottomNav. It is great for "Cancel / Save" pairs that '
+            'should always be reachable. A bottomSheet is a panel that hovers '
+            'just above the persistentFooterButtons (or directly above the '
+            'nav if there are none). When all four are present the foot of '
+            'the screen layers up: nav, buttons, sheet, body.',
       ),
     ],
   );
@@ -1534,10 +1525,7 @@ Widget _buildFabAtlas() {
         children: <Widget>[
           _miniViewport(mini, width: 200, height: 220),
           const SizedBox(height: 4),
-          SizedBox(
-            width: 210,
-            child: Text(label, style: kMiniLabelStyle),
-          ),
+          SizedBox(width: 210, child: Text(label, style: kMiniLabelStyle)),
         ],
       ),
     );
@@ -1637,10 +1625,7 @@ Widget _buildExtendBodyComparison() {
         children: <Widget>[
           _miniViewport(mini, width: 200, height: 220),
           const SizedBox(height: 4),
-          SizedBox(
-            width: 210,
-            child: Text(label, style: kMiniLabelStyle),
-          ),
+          SizedBox(width: 210, child: Text(label, style: kMiniLabelStyle)),
         ],
       ),
     );
@@ -1683,11 +1668,7 @@ Widget _buildExtendBodyComparison() {
     runSpacing: 18,
     crossAxisAlignment: WrapCrossAlignment.start,
     children: <Widget>[
-      Wrap(
-        spacing: 14,
-        runSpacing: 14,
-        children: tiles,
-      ),
+      Wrap(spacing: 14, runSpacing: 14, children: tiles),
       caption,
     ],
   );
@@ -1716,10 +1697,7 @@ Widget _buildResizeComparison() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'resizeToAvoidBottomInset = $resize',
-            style: kSmallLabelStyle,
-          ),
+          Text('resizeToAvoidBottomInset = $resize', style: kSmallLabelStyle),
           const SizedBox(height: 8),
           Expanded(
             child: ClipRRect(
@@ -1763,7 +1741,8 @@ Widget _buildResizeComparison() {
                       height: 80,
                       decoration: BoxDecoration(
                         color: cWalnutMid.withValues(
-                            alpha: resize ? 1.0 : 0.85),
+                          alpha: resize ? 1.0 : 0.85,
+                        ),
                         border: const Border(
                           top: BorderSide(color: cBrass, width: 1),
                         ),
@@ -1787,9 +1766,9 @@ Widget _buildResizeComparison() {
           Text(
             resize
                 ? 'Body shrinks to leave room for the keyboard. A focused '
-                    'TextField stays visible.'
+                      'TextField stays visible.'
                 : 'Body keeps its full size; the keyboard COVERS the lower '
-                    'half. A focused TextField may be hidden.',
+                      'half. A focused TextField may be hidden.',
             style: const TextStyle(fontSize: 10, color: cInk, height: 1.3),
           ),
         ],
@@ -1847,97 +1826,97 @@ Widget _buildDoAvoidCallouts() {
       'kind': 'DO',
       'rule':
           'Pass exactly the slots you need. Every named slot has a sensible '
-              'null default; passing null collapses the slot to zero space.',
+          'null default; passing null collapses the slot to zero space.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Putting business state inside the Scaffold and reaching for it '
-              'from descendants. Lift state up to a Provider / Bloc / Riverpod '
-              'scope that surrounds the Scaffold.',
+          'from descendants. Lift state up to a Provider / Bloc / Riverpod '
+          'scope that surrounds the Scaffold.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use extendBodyBehindAppBar with a translucent AppBar to get a '
-              'glass effect over a hero image. Pair with SafeArea inside '
-              'the body so that text avoids the system status bar.',
+          'glass effect over a hero image. Pair with SafeArea inside '
+          'the body so that text avoids the system status bar.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'extendBodyBehindAppBar with an opaque AppBar. The body draws under '
-              'the AppBar but the AppBar covers it: you have just spent a '
-              'layout phase computing pixels nobody can see.',
+          'the AppBar but the AppBar covers it: you have just spent a '
+          'layout phase computing pixels nobody can see.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use floatingActionButtonLocation: FloatingActionButtonLocation.endFloat '
-              'as the default. It matches Material guidance and matches user '
-              'thumb-reach on most phones.',
+          'as the default. It matches Material guidance and matches user '
+          'thumb-reach on most phones.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Putting an icon and a FloatingActionButton at the same top-corner. '
-              'Both will demand space at startTop / endTop and overlap.',
+          'Both will demand space at startTop / endTop and overlap.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use persistentFooterButtons for Cancel / Save pairs that should '
-              'never scroll away. They are pinned above the bottomNav and '
-              'have generous tap targets.',
+          'never scroll away. They are pinned above the bottomNav and '
+          'have generous tap targets.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Persistent footers with more than four items. The row scrolls '
-              'horizontally on overflow but the discoverability is poor; '
-              'use a bottom-sheet menu instead.',
+          'horizontally on overflow but the discoverability is poor; '
+          'use a bottom-sheet menu instead.',
     },
     {
       'kind': 'DO',
       'rule':
           'Trust the default resizeToAvoidBottomInset: true. The keyboard '
-              'will cover the bottom inset and the body will resize. This '
-              'keeps focused TextFields visible.',
+          'will cover the bottom inset and the body will resize. This '
+          'keeps focused TextFields visible.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Setting resizeToAvoidBottomInset: false without compensating with '
-              'a SingleChildScrollView. A focused TextField under the '
-              'keyboard is unreachable and looks like a bug.',
+          'a SingleChildScrollView. A focused TextField under the '
+          'keyboard is unreachable and looks like a bug.',
     },
     {
       'kind': 'DO',
       'rule':
           'Set Scaffold.backgroundColor to your app theme\'s surface colour. '
-              'It will show through whenever the body is transparent, '
-              'including during page transitions.',
+          'It will show through whenever the body is transparent, '
+          'including during page transitions.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Combining a coloured backgroundColor with a body that is its own '
-              'opaque Container of a different colour. The Scaffold colour '
-              'is wasted; either remove it or trim the body to its content.',
+          'opaque Container of a different colour. The Scaffold colour '
+          'is wasted; either remove it or trim the body to its content.',
     },
     {
       'kind': 'DO',
       'rule':
           'Use endDrawer for screens with a primary drawer on the start side '
-              '(navigation) AND a secondary one on the end side (filters, '
-              'tools, history). Two drawers do not collide.',
+          '(navigation) AND a secondary one on the end side (filters, '
+          'tools, history). Two drawers do not collide.',
     },
     {
       'kind': 'AVOID',
       'rule':
           'Stacking many BottomSheets. Scaffold owns ONE bottomSheet slot. '
-              'Use showModalBottomSheet at runtime for transient sheets; '
-              'reserve the slot for a persistent one.',
+          'Use showModalBottomSheet at runtime for transient sheets; '
+          'reserve the slot for a persistent one.',
     },
   ];
 
@@ -1967,10 +1946,7 @@ Widget _buildDoAvoidCallouts() {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Container(
-                  width: 6,
-                  color: isDo ? cMossGreen : cCinnabar,
-                ),
+                Container(width: 6, color: isDo ? cMossGreen : cCinnabar),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -2151,102 +2127,120 @@ Widget _buildGlossary() {
   final List<Map<String, String>> entries = <Map<String, String>>[
     {
       'term': 'Scaffold',
-      'def': 'A Material chassis widget that lays out a fixed set of named '
+      'def':
+          'A Material chassis widget that lays out a fixed set of named '
           'page slots (appBar, body, drawer, etc.) and provides a body in '
           'the middle.',
     },
     {
       'term': 'appBar',
-      'def': 'PreferredSizeWidget pinned to the top of the Scaffold. '
+      'def':
+          'PreferredSizeWidget pinned to the top of the Scaffold. '
           'AppBar (a Material widget) is the most common choice but '
           'anything that returns a PreferredSize works.',
     },
     {
       'term': 'drawer / endDrawer',
-      'def': 'Drawer widgets that slide in from the leading and trailing '
+      'def':
+          'Drawer widgets that slide in from the leading and trailing '
           'edges. A Scaffold may have one of each.',
     },
     {
       'term': 'body',
-      'def': 'The main region of the screen, sized to whatever rectangle '
+      'def':
+          'The main region of the screen, sized to whatever rectangle '
           'is left after the named slots have taken theirs.',
     },
     {
       'term': 'bottomNavigationBar',
-      'def': 'A widget pinned to the bottom of the Scaffold. The '
+      'def':
+          'A widget pinned to the bottom of the Scaffold. The '
           'BottomNavigationBar widget is typical but you can put any '
           'widget here (BottomAppBar, NavigationBar, custom).',
     },
     {
       'term': 'bottomSheet',
-      'def': 'A persistent panel that hovers above the bottomNav. Distinct '
+      'def':
+          'A persistent panel that hovers above the bottomNav. Distinct '
           'from showModalBottomSheet, which is transient and stacked on '
           'top of the entire app.',
     },
     {
       'term': 'floatingActionButton',
-      'def': 'A high-emphasis action attached to the body edge. Its '
+      'def':
+          'A high-emphasis action attached to the body edge. Its '
           'placement is governed by floatingActionButtonLocation.',
     },
     {
       'term': 'floatingActionButtonLocation',
-      'def': 'A class that returns an Offset for the FAB given the layout '
+      'def':
+          'A class that returns an Offset for the FAB given the layout '
           'geometry of the Scaffold. Standard values include endFloat, '
           'centerFloat, endDocked, etc.',
     },
     {
       'term': 'floatingActionButtonAnimator',
-      'def': 'Controls how the FAB animates between locations. The default '
+      'def':
+          'Controls how the FAB animates between locations. The default '
           'scales out and back in.',
     },
     {
       'term': 'persistentFooterButtons',
-      'def': 'A row of TextButtons pinned just above the bottomNav. Used '
+      'def':
+          'A row of TextButtons pinned just above the bottomNav. Used '
           'for "always reachable" actions (Cancel/Save).',
     },
     {
       'term': 'extendBody',
-      'def': 'When true the body is laid out as if there were no '
+      'def':
+          'When true the body is laid out as if there were no '
           'bottomNav --- the body draws DOWN under the bar. Useful with '
           'translucent navs and bleed images.',
     },
     {
       'term': 'extendBodyBehindAppBar',
-      'def': 'When true the body is laid out as if there were no AppBar --- '
+      'def':
+          'When true the body is laid out as if there were no AppBar --- '
           'the body draws UP under the bar. Useful with translucent app '
           'bars and hero images.',
     },
     {
       'term': 'resizeToAvoidBottomInset',
-      'def': 'When true (default), the body is resized so it is not '
+      'def':
+          'When true (default), the body is resized so it is not '
           'covered by the soft keyboard. Set false only with a deliberate '
           'plan for keeping focused fields visible.',
     },
     {
       'term': 'backgroundColor',
-      'def': 'The colour of the canvas behind the Scaffold body. Visible '
+      'def':
+          'The colour of the canvas behind the Scaffold body. Visible '
           'wherever the body is transparent or where extendBody* exposes '
           'it under translucent chrome.',
     },
     {
       'term': 'primary',
-      'def': 'When true (default) the Scaffold tells the AppBar to draw '
+      'def':
+          'When true (default) the Scaffold tells the AppBar to draw '
           'over the system status bar; pertinent on Android.',
     },
     {
       'term': 'drawerEdgeDragWidth',
-      'def': 'How many logical pixels from the edge a horizontal drag '
+      'def':
+          'How many logical pixels from the edge a horizontal drag '
           'must start, to count as a swipe-to-open of the drawer.',
     },
     {
       'term': 'drawerEnableOpenDragGesture',
-      'def': 'When false the drawer can only be opened programmatically. '
+      'def':
+          'When false the drawer can only be opened programmatically. '
           'Useful when the body wants horizontal swipes for something '
           'else (carousels).',
     },
     {
       'term': 'ScaffoldMessenger',
-      'def': 'The static way to show SnackBars and MaterialBanners across '
+      'def':
+          'The static way to show SnackBars and MaterialBanners across '
           'multiple Scaffolds. Lives outside the Scaffold tree so '
           'messages survive page transitions.',
     },
@@ -2344,11 +2338,7 @@ Widget _buildRecapFooter() {
           'piece exactly where Material expects it --- and the room '
           'looks like a chart-table by lamplight, not a pile of widgets '
           'in a corner.',
-          style: TextStyle(
-            color: cParchment,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: TextStyle(color: cParchment, fontSize: 12, height: 1.5),
         ),
       ],
     ),

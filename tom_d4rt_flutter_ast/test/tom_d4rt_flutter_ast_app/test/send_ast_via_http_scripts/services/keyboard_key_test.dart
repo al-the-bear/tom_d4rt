@@ -205,14 +205,26 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _kvLine('LogicalKeyboardKey.shift.keyId',
-                  '0x${LogicalKeyboardKey.shift.keyId.toRadixString(16)}', _cyan300),
-              _kvLine('PhysicalKeyboardKey.shiftLeft.usbHidUsage',
-                  '0x${PhysicalKeyboardKey.shiftLeft.usbHidUsage.toRadixString(16)}', _amber300),
-              _kvLine('LogicalKeyboardKey.shift.debugName',
-                  '${LogicalKeyboardKey.shift.debugName}', _slate300),
-              _kvLine('PhysicalKeyboardKey.shiftLeft.debugName',
-                  '${PhysicalKeyboardKey.shiftLeft.debugName}', _slate300),
+              _kvLine(
+                'LogicalKeyboardKey.shift.keyId',
+                '0x${LogicalKeyboardKey.shift.keyId.toRadixString(16)}',
+                _cyan300,
+              ),
+              _kvLine(
+                'PhysicalKeyboardKey.shiftLeft.usbHidUsage',
+                '0x${PhysicalKeyboardKey.shiftLeft.usbHidUsage.toRadixString(16)}',
+                _amber300,
+              ),
+              _kvLine(
+                'LogicalKeyboardKey.shift.debugName',
+                '${LogicalKeyboardKey.shift.debugName}',
+                _slate300,
+              ),
+              _kvLine(
+                'PhysicalKeyboardKey.shiftLeft.debugName',
+                '${PhysicalKeyboardKey.shiftLeft.debugName}',
+                _slate300,
+              ),
             ],
           ),
         ),
@@ -248,7 +260,8 @@ dynamic build(BuildContext context) {
     final String group = entry['group'] as String;
     final Color accent = _accentForGroup(group);
     print(
-        'LogicalKeyboardKey.${key.debugName} keyId=0x${key.keyId.toRadixString(16)}');
+      'LogicalKeyboardKey.${key.debugName} keyId=0x${key.keyId.toRadixString(16)}',
+    );
     logicalCards.add(_logicalKeycap(glyph, key, accent));
   }
   print('Created ${logicalCards.length} logical key cards');
@@ -274,7 +287,8 @@ dynamic build(BuildContext context) {
     final PhysicalKeyboardKey key = entry['key'] as PhysicalKeyboardKey;
     final String glyph = entry['glyph'] as String;
     print(
-        'PhysicalKeyboardKey.${key.debugName} usbHidUsage=0x${key.usbHidUsage.toRadixString(16)}');
+      'PhysicalKeyboardKey.${key.debugName} usbHidUsage=0x${key.usbHidUsage.toRadixString(16)}',
+    );
     physicalCards.add(_physicalKeycap(glyph, key));
   }
   print('Created ${physicalCards.length} physical key cards');
@@ -318,20 +332,33 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          _comparisonRow('what it represents', 'semantic key (what user pressed)',
-              'physical position (USB HID)'),
           _comparisonRow(
-              'equality on', 'keyId (int)', 'usbHidUsage (int)'),
-          _comparisonRow('layout sensitive', 'YES — US vs AZERTY differ',
-              'NO — same on every layout'),
-          _comparisonRow('typical use', 'shortcuts, text input',
-              'gaming, WASD, layout-independent UI'),
-          _comparisonRow('example (US)',
-              "press 'A' → LogicalKeyboardKey.keyA", 'PhysicalKeyboardKey.keyA'),
-          _comparisonRow('example (AZERTY)',
-              "press 'A' (top-left) → LogicalKeyboardKey.keyQ",
-              'still PhysicalKeyboardKey.keyA',
-              isLast: true),
+            'what it represents',
+            'semantic key (what user pressed)',
+            'physical position (USB HID)',
+          ),
+          _comparisonRow('equality on', 'keyId (int)', 'usbHidUsage (int)'),
+          _comparisonRow(
+            'layout sensitive',
+            'YES — US vs AZERTY differ',
+            'NO — same on every layout',
+          ),
+          _comparisonRow(
+            'typical use',
+            'shortcuts, text input',
+            'gaming, WASD, layout-independent UI',
+          ),
+          _comparisonRow(
+            'example (US)',
+            "press 'A' → LogicalKeyboardKey.keyA",
+            'PhysicalKeyboardKey.keyA',
+          ),
+          _comparisonRow(
+            'example (AZERTY)',
+            "press 'A' (top-left) → LogicalKeyboardKey.keyQ",
+            'still PhysicalKeyboardKey.keyA',
+            isLast: true,
+          ),
         ],
       ),
     ),
@@ -379,11 +406,14 @@ dynamic build(BuildContext context) {
                 color: _cyan700,
                 borderRadius: BorderRadius.circular(6.0),
               ),
-              child: Text('flutter/services',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontFamily: 'monospace')),
+              child: Text(
+                'flutter/services',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ),
           ],
         ),
@@ -605,8 +635,11 @@ dynamic build(BuildContext context) {
         _helpRow('Save', <String>['⌘', 'S'], LogicalKeyboardKey.keyS),
         _helpRow('Find', <String>['⌘', 'F'], LogicalKeyboardKey.keyF),
         _helpRow('Quit', <String>['⌘', 'Q'], LogicalKeyboardKey.keyQ),
-        _helpRow('Toggle theme', <String>['⌘', '⇧', 'T'],
-            LogicalKeyboardKey.keyT),
+        _helpRow('Toggle theme', <String>[
+          '⌘',
+          '⇧',
+          'T',
+        ], LogicalKeyboardKey.keyT),
       ],
     ),
   );
@@ -707,11 +740,14 @@ dynamic build(BuildContext context) {
                 color: _cyan700,
                 borderRadius: BorderRadius.circular(6.0),
               ),
-              child: Text('singleton',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                      fontFamily: 'monospace')),
+              child: Text(
+                'singleton',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ),
           ],
         ),
@@ -721,24 +757,32 @@ dynamic build(BuildContext context) {
           'which keeps two live sets — the currently held LogicalKeyboardKey set and '
           'the currently held PhysicalKeyboardKey set. Shortcuts and Focus consult '
           'these to decide whether a chord like Ctrl+Shift+P is currently active.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: _slate800,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 13.0, color: _slate800, height: 1.45),
         ),
         SizedBox(height: 14.0),
-        _kvBlock('HardwareKeyboard.instance.logicalKeysPressed',
-            'Set<LogicalKeyboardKey>', _cyan700),
+        _kvBlock(
+          'HardwareKeyboard.instance.logicalKeysPressed',
+          'Set<LogicalKeyboardKey>',
+          _cyan700,
+        ),
         SizedBox(height: 6.0),
-        _kvBlock('HardwareKeyboard.instance.physicalKeysPressed',
-            'Set<PhysicalKeyboardKey>', _amber700),
+        _kvBlock(
+          'HardwareKeyboard.instance.physicalKeysPressed',
+          'Set<PhysicalKeyboardKey>',
+          _amber700,
+        ),
         SizedBox(height: 6.0),
-        _kvBlock('HardwareKeyboard.instance.isLogicalKeyPressed(key)',
-            'bool — fast lookup', _slate700),
+        _kvBlock(
+          'HardwareKeyboard.instance.isLogicalKeyPressed(key)',
+          'bool — fast lookup',
+          _slate700,
+        ),
         SizedBox(height: 6.0),
-        _kvBlock('HardwareKeyboard.instance.isPhysicalKeyPressed(key)',
-            'bool — fast lookup', _slate700),
+        _kvBlock(
+          'HardwareKeyboard.instance.isPhysicalKeyPressed(key)',
+          'bool — fast lookup',
+          _slate700,
+        ),
         SizedBox(height: 14.0),
         _codeBlock(
           'final pressed = HardwareKeyboard.instance.logicalKeysPressed;\n'
@@ -855,17 +899,23 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 12.0),
         _recapBullet(
-            'KeyboardKey is abstract; you only ever construct LogicalKeyboardKey or PhysicalKeyboardKey instances.'),
+          'KeyboardKey is abstract; you only ever construct LogicalKeyboardKey or PhysicalKeyboardKey instances.',
+        ),
         _recapBullet(
-            'LogicalKeyboardKey equality is on keyId; PhysicalKeyboardKey equality is on usbHidUsage.'),
+          'LogicalKeyboardKey equality is on keyId; PhysicalKeyboardKey equality is on usbHidUsage.',
+        ),
         _recapBullet(
-            'Use LogicalKeyboardKey.shift for semantic shift; PhysicalKeyboardKey.shiftLeft for "the left shift button".'),
+          'Use LogicalKeyboardKey.shift for semantic shift; PhysicalKeyboardKey.shiftLeft for "the left shift button".',
+        ),
         _recapBullet(
-            'KeyEvent.logicalKey + KeyEvent.physicalKey expose both views of the same press.'),
+          'KeyEvent.logicalKey + KeyEvent.physicalKey expose both views of the same press.',
+        ),
         _recapBullet(
-            'Shortcuts/SingleActivator match LogicalKeyboardKey by default; switch to PhysicalKeyboardKey for layout-independent chords.'),
+          'Shortcuts/SingleActivator match LogicalKeyboardKey by default; switch to PhysicalKeyboardKey for layout-independent chords.',
+        ),
         _recapBullet(
-            'HardwareKeyboard.instance.logicalKeysPressed and HardwareKeyboard.instance.physicalKeysPressed are the source of truth for "what is held right now".'),
+          'HardwareKeyboard.instance.logicalKeysPressed and HardwareKeyboard.instance.physicalKeysPressed are the source of truth for "what is held right now".',
+        ),
       ],
     ),
   );
@@ -889,7 +939,9 @@ dynamic build(BuildContext context) {
           anatomy,
           SizedBox(height: 28.0),
           _sectionHeader(
-              '2. LogicalKeyboardKey gallery (12 keys)', Icons.translate),
+            '2. LogicalKeyboardKey gallery (12 keys)',
+            Icons.translate,
+          ),
           SizedBox(height: 12.0),
           Wrap(
             spacing: 14.0,
@@ -899,7 +951,9 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 28.0),
           _sectionHeader(
-              '3. PhysicalKeyboardKey gallery (8 keys)', Icons.location_on),
+            '3. PhysicalKeyboardKey gallery (8 keys)',
+            Icons.location_on,
+          ),
           SizedBox(height: 12.0),
           Wrap(
             spacing: 14.0,
@@ -1019,10 +1073,7 @@ Widget _anatomyNode(
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: color,
-        width: 2.0,
-      ),
+      border: Border.all(color: color, width: 2.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: color.withValues(alpha: 0.2),
@@ -1117,8 +1168,7 @@ Widget _kvLine(String key, String value, Color valueColor) {
 }
 
 Widget _logicalKeycap(String glyph, LogicalKeyboardKey key, Color accent) {
-  final String hexId =
-      '0x${key.keyId.toRadixString(16).padLeft(8, '0')}';
+  final String hexId = '0x${key.keyId.toRadixString(16).padLeft(8, '0')}';
   return Container(
     width: 140.0,
     padding: EdgeInsets.all(10.0),
@@ -1210,8 +1260,7 @@ Widget _logicalKeycap(String glyph, LogicalKeyboardKey key, Color accent) {
 }
 
 Widget _physicalKeycap(String glyph, PhysicalKeyboardKey key) {
-  final String hex =
-      '0x${key.usbHidUsage.toRadixString(16).padLeft(8, '0')}';
+  final String hex = '0x${key.usbHidUsage.toRadixString(16).padLeft(8, '0')}';
   return Container(
     width: 140.0,
     padding: EdgeInsets.all(10.0),
@@ -1316,17 +1365,19 @@ Widget _tableHead(String label, double width) {
   );
 }
 
-Widget _comparisonRow(String aspect, String logical, String physical,
-    {bool isLast = false}) {
+Widget _comparisonRow(
+  String aspect,
+  String logical,
+  String physical, {
+  bool isLast = false,
+}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
     decoration: BoxDecoration(
       color: Colors.white,
       border: isLast
           ? null
-          : Border(
-              bottom: BorderSide(color: _slate200, width: 1.0),
-            ),
+          : Border(bottom: BorderSide(color: _slate200, width: 1.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1376,10 +1427,7 @@ Widget _codeBlock(String code, Color textColor, {Color? background}) {
     decoration: BoxDecoration(
       color: background ?? _slate800,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: _slate700.withValues(alpha: 0.5),
-        width: 1.0,
-      ),
+      border: Border.all(color: _slate700.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Text(
       code,
@@ -1452,14 +1500,19 @@ List<Widget> _buildKeyChips(List<_ShortcutKey> keys) {
   final List<Widget> chips = <Widget>[];
   for (int i = 0; i < keys.length; i = i + 1) {
     if (i > 0) {
-      chips.add(Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0),
-        child: Text('+',
+      chips.add(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.0),
+          child: Text(
+            '+',
             style: TextStyle(
-                fontSize: 13.0,
-                color: _slate500,
-                fontWeight: FontWeight.w700)),
-      ));
+              fontSize: 13.0,
+              color: _slate500,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
     }
     chips.add(_keycapChip(keys[i].label, isModifier: keys[i].isModifier));
   }
@@ -1550,9 +1603,7 @@ Widget _helpRow(String label, List<String> chips, LogicalKeyboardKey key) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: _slate100, width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: _slate100, width: 1.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1570,11 +1621,15 @@ Widget _helpRow(String label, List<String> chips, LogicalKeyboardKey key) {
           if (i > 0)
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 3.0),
-              child: Text('+',
-                  style: TextStyle(fontSize: 11.0, color: _slate400)),
+              child: Text(
+                '+',
+                style: TextStyle(fontSize: 11.0, color: _slate400),
+              ),
             ),
-          _keycapChip(chips[i],
-              isModifier: chips[i] == '⌘' || chips[i] == '⇧' || chips[i] == '⌃'),
+          _keycapChip(
+            chips[i],
+            isModifier: chips[i] == '⌘' || chips[i] == '⇧' || chips[i] == '⌃',
+          ),
         ],
         SizedBox(width: 8.0),
         Container(
@@ -1707,10 +1762,7 @@ Widget _footgun({
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          color.withValues(alpha: 0.1),
-          Colors.white,
-        ],
+        colors: <Color>[color.withValues(alpha: 0.1), Colors.white],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1751,11 +1803,7 @@ Widget _footgun({
               SizedBox(height: 6.0),
               Text(
                 body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: _slate800,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12.0, color: _slate800, height: 1.4),
               ),
             ],
           ),
@@ -1790,11 +1838,7 @@ Widget _recapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.45),
           ),
         ),
       ],

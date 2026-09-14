@@ -103,9 +103,9 @@ dynamic build(BuildContext context) {
         _teInfoBox(
           'Why a base class?',
           'Having a common ancestor lets the Actions framework handle '
-          'all directional text operations uniformly. A single action '
-          'can check intent.forward to decide whether to delete '
-          'forward or backward, reducing code duplication.',
+              'all directional text operations uniformly. A single action '
+              'can check intent.forward to decide whether to delete '
+              'forward or backward, reducing code duplication.',
         ),
         const SizedBox(height: 24),
 
@@ -242,17 +242,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _teAmber.withValues(alpha: 0.08),
-                _teGold,
-              ],
+              colors: [_teAmber.withValues(alpha: 0.08), _teGold],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _teAmber.withValues(alpha: 0.25),
-            ),
+            border: Border.all(color: _teAmber.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,10 +269,16 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 14),
               _teSummaryRow('Type', 'Abstract Intent base class'),
               _teSummaryRow('Key Property', 'forward (bool)'),
-              _teSummaryRow('Subclasses', 'DeleteCharacter, DeleteToWord, DeleteToLine'),
+              _teSummaryRow(
+                'Subclasses',
+                'DeleteCharacter, DeleteToWord, DeleteToLine',
+              ),
               _teSummaryRow('Forward', 'Delete key — removes after cursor'),
               _teSummaryRow('Backward', 'Backspace — removes before cursor'),
-              _teSummaryRow('Selection', 'Deletes selection regardless of direction'),
+              _teSummaryRow(
+                'Selection',
+                'Deletes selection regardless of direction',
+              ),
               _teSummaryRow('Undo', 'All edits recorded in undo history'),
             ],
           ),
@@ -308,11 +309,7 @@ Widget _teSection(String title) {
 Widget _teBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _teBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _teBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -365,11 +362,7 @@ Widget _teInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _teBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _teBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -396,11 +389,7 @@ Widget _teSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _teBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _teBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -419,11 +408,7 @@ Widget _teChip(String text, {Color? color}) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        color: c,
-        fontSize: 12,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(color: c, fontSize: 12, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -465,12 +450,25 @@ Widget _buildForwardPropertyComparison() {
               const SizedBox(height: 6),
               Text(
                 'Examples:',
-                style: TextStyle(color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 4),
-              Text('\u2022 Delete key', style: TextStyle(color: _teBlack, fontSize: 13)),
-              Text('\u2022 Fn+Backspace (macOS)', style: TextStyle(color: _teBlack, fontSize: 13)),
-              Text('\u2022 Ctrl+Delete (word)', style: TextStyle(color: _teBlack, fontSize: 13)),
+              Text(
+                '\u2022 Delete key',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
+              Text(
+                '\u2022 Fn+Backspace (macOS)',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
+              Text(
+                '\u2022 Ctrl+Delete (word)',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
               const SizedBox(height: 10),
               // Visual: cursor with text after highlighted
               Container(
@@ -482,12 +480,18 @@ Widget _buildForwardPropertyComparison() {
                 ),
                 child: Row(
                   children: [
-                    Text('Hello', style: TextStyle(color: _teBlack, fontSize: 14)),
+                    Text(
+                      'Hello',
+                      style: TextStyle(color: _teBlack, fontSize: 14),
+                    ),
                     Container(width: 2, height: 18, color: _teAmber),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       color: _teError.withValues(alpha: 0.2),
-                      child: Text(' World', style: TextStyle(color: _teError, fontSize: 14)),
+                      child: Text(
+                        ' World',
+                        style: TextStyle(color: _teError, fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
@@ -533,12 +537,25 @@ Widget _buildForwardPropertyComparison() {
               const SizedBox(height: 6),
               Text(
                 'Examples:',
-                style: TextStyle(color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 4),
-              Text('\u2022 Backspace key', style: TextStyle(color: _teBlack, fontSize: 13)),
-              Text('\u2022 Ctrl+Backspace (word)', style: TextStyle(color: _teBlack, fontSize: 13)),
-              Text('\u2022 Cmd+Backspace (line)', style: TextStyle(color: _teBlack, fontSize: 13)),
+              Text(
+                '\u2022 Backspace key',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
+              Text(
+                '\u2022 Ctrl+Backspace (word)',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
+              Text(
+                '\u2022 Cmd+Backspace (line)',
+                style: TextStyle(color: _teBlack, fontSize: 13),
+              ),
               const SizedBox(height: 10),
               Container(
                 padding: const EdgeInsets.all(10),
@@ -552,10 +569,16 @@ Widget _buildForwardPropertyComparison() {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       color: _teError.withValues(alpha: 0.2),
-                      child: Text('Hello', style: TextStyle(color: _teError, fontSize: 14)),
+                      child: Text(
+                        'Hello',
+                        style: TextStyle(color: _teError, fontSize: 14),
+                      ),
                     ),
                     Container(width: 2, height: 18, color: _teDarkAmber),
-                    Text(' World', style: TextStyle(color: _teBlack, fontSize: 14)),
+                    Text(
+                      ' World',
+                      style: TextStyle(color: _teBlack, fontSize: 14),
+                    ),
                   ],
                 ),
               ),
@@ -618,8 +641,11 @@ Widget _buildSubclassShowcase() {
             children: [
               Row(
                 children: [
-                  Icon(subclasses[i]['icon'] as IconData,
-                      color: subclasses[i]['color'] as Color, size: 22),
+                  Icon(
+                    subclasses[i]['icon'] as IconData,
+                    color: subclasses[i]['color'] as Color,
+                    size: 22,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -639,11 +665,19 @@ Widget _buildSubclassShowcase() {
                 children: [
                   SizedBox(
                     width: 90,
-                    child: Text('Granularity:', style: TextStyle(
-                      color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      'Granularity:',
+                      style: TextStyle(
+                        color: _teMuted,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
-                  Text(subclasses[i]['granularity'] as String,
-                      style: TextStyle(color: _teBlack, fontSize: 12)),
+                  Text(
+                    subclasses[i]['granularity'] as String,
+                    style: TextStyle(color: _teBlack, fontSize: 12),
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
@@ -651,11 +685,19 @@ Widget _buildSubclassShowcase() {
                 children: [
                   SizedBox(
                     width: 90,
-                    child: Text('Forward:', style: TextStyle(
-                      color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      'Forward:',
+                      style: TextStyle(
+                        color: _teMuted,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
-                  _teChip(subclasses[i]['forward'] as String,
-                      color: _teSuccess),
+                  _teChip(
+                    subclasses[i]['forward'] as String,
+                    color: _teSuccess,
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
@@ -663,11 +705,16 @@ Widget _buildSubclassShowcase() {
                 children: [
                   SizedBox(
                     width: 90,
-                    child: Text('Backward:', style: TextStyle(
-                      color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      'Backward:',
+                      style: TextStyle(
+                        color: _teMuted,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
-                  _teChip(subclasses[i]['backward'] as String,
-                      color: _teError),
+                  _teChip(subclasses[i]['backward'] as String, color: _teError),
                 ],
               ),
             ],
@@ -683,7 +730,11 @@ Widget _buildKeyboardMappingTable() {
   final mappings = <List<String>>[
     ['Backspace', 'DeleteCharacterIntent(false)', 'All'],
     ['Delete', 'DeleteCharacterIntent(true)', 'All'],
-    ['Ctrl+Backspace', 'DeleteToNextWordBoundaryIntent(false)', 'Windows/Linux'],
+    [
+      'Ctrl+Backspace',
+      'DeleteToNextWordBoundaryIntent(false)',
+      'Windows/Linux',
+    ],
     ['Ctrl+Delete', 'DeleteToNextWordBoundaryIntent(true)', 'Windows/Linux'],
     ['Option+Backspace', 'DeleteToNextWordBoundaryIntent(false)', 'macOS'],
     ['Option+Delete', 'DeleteToNextWordBoundaryIntent(true)', 'macOS'],
@@ -704,26 +755,42 @@ Widget _buildKeyboardMappingTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _teAmber.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text('Shortcut', style: TextStyle(
-                  color: _teAmber, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Shortcut',
+                  style: TextStyle(
+                    color: _teAmber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 5,
-                child: Text('Intent Created', style: TextStyle(
-                  color: _teAmber, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Intent Created',
+                  style: TextStyle(
+                    color: _teAmber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Text('Platform', style: TextStyle(
-                  color: _teAmber, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Platform',
+                  style: TextStyle(
+                    color: _teAmber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -739,20 +806,32 @@ Widget _buildKeyboardMappingTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(row[0], style: TextStyle(
-                    color: _teDarkAmber, fontSize: 12,
-                    fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _teDarkAmber,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 5,
-                  child: Text(row[1], style: TextStyle(
-                    color: _teBlack, fontSize: 11,
-                    fontFamily: 'monospace')),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(
+                      color: _teBlack,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(row[2], style: TextStyle(
-                    color: _teMuted, fontSize: 11)),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(color: _teMuted, fontSize: 11),
+                  ),
                 ),
               ],
             ),
@@ -828,8 +907,11 @@ Widget _buildActionChain() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(steps[i]['icon'] as IconData,
-                    color: _teWhite, size: 18),
+                child: Icon(
+                  steps[i]['icon'] as IconData,
+                  color: _teWhite,
+                  size: 18,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -879,7 +961,10 @@ Widget _buildCharacterDeletionDemo() {
         Text(
           'DeleteCharacterIntent — Step by Step',
           style: TextStyle(
-            color: _teAmber, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _teAmber,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Before state
@@ -890,20 +975,21 @@ Widget _buildCharacterDeletionDemo() {
             const SizedBox(width: 60),
             Icon(Icons.arrow_downward, color: _teAmber, size: 16),
             const SizedBox(width: 6),
-            Text('DeleteCharacterIntent(forward: true)',
-                style: TextStyle(
-                  color: _teAmber, fontSize: 11,
-                  fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+            Text(
+              'DeleteCharacterIntent(forward: true)',
+              style: TextStyle(
+                color: _teAmber,
+                fontSize: 11,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
         _buildTextStateRow('After:', 'Flut', '', 'er', isActive: false),
         const SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          height: 1,
-          color: _teDivider,
-        ),
+        Container(width: double.infinity, height: 1, color: _teDivider),
         const SizedBox(height: 16),
         _buildTextStateRow('Before:', 'Flut', 't', 'er', isActive: true),
         const SizedBox(height: 6),
@@ -912,10 +998,15 @@ Widget _buildCharacterDeletionDemo() {
             const SizedBox(width: 60),
             Icon(Icons.arrow_downward, color: _teDarkAmber, size: 16),
             const SizedBox(width: 6),
-            Text('DeleteCharacterIntent(forward: false)',
-                style: TextStyle(
-                  color: _teDarkAmber, fontSize: 11,
-                  fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+            Text(
+              'DeleteCharacterIntent(forward: false)',
+              style: TextStyle(
+                color: _teDarkAmber,
+                fontSize: 11,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -925,14 +1016,25 @@ Widget _buildCharacterDeletionDemo() {
   );
 }
 
-Widget _buildTextStateRow(String label, String before, String cursor,
-    String after, {required bool isActive}) {
+Widget _buildTextStateRow(
+  String label,
+  String before,
+  String cursor,
+  String after, {
+  required bool isActive,
+}) {
   return Row(
     children: [
       SizedBox(
         width: 56,
-        child: Text(label, style: TextStyle(
-          color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: _teMuted,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -947,20 +1049,38 @@ Widget _buildTextStateRow(String label, String before, String cursor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(before, style: TextStyle(color: _teBlack, fontSize: 15,
-                fontFamily: 'monospace')),
+            Text(
+              before,
+              style: TextStyle(
+                color: _teBlack,
+                fontSize: 15,
+                fontFamily: 'monospace',
+              ),
+            ),
             if (cursor.isNotEmpty)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 1),
                 color: _teError.withValues(alpha: 0.25),
-                child: Text(cursor, style: TextStyle(color: _teError,
-                    fontSize: 15, fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold)),
+                child: Text(
+                  cursor,
+                  style: TextStyle(
+                    color: _teError,
+                    fontSize: 15,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               )
             else
               Container(width: 2, height: 18, color: _teAmber),
-            Text(after, style: TextStyle(color: _teBlack, fontSize: 15,
-                fontFamily: 'monospace')),
+            Text(
+              after,
+              style: TextStyle(
+                color: _teBlack,
+                fontSize: 15,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
       ),
@@ -983,7 +1103,10 @@ Widget _buildWordDeletionDemo() {
         Text(
           'Word Boundary Delete — Visual',
           style: TextStyle(
-            color: _teLightAmber, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _teLightAmber,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Forward word delete
@@ -991,8 +1114,14 @@ Widget _buildWordDeletionDemo() {
           children: [
             SizedBox(
               width: 80,
-              child: Text('Original:', style: TextStyle(
-                color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+              child: Text(
+                'Original:',
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             Expanded(
               child: Container(
@@ -1006,8 +1135,13 @@ Widget _buildWordDeletionDemo() {
                   text: TextSpan(
                     style: TextStyle(fontSize: 14, fontFamily: 'monospace'),
                     children: [
-                      TextSpan(text: 'Hello ', style: TextStyle(color: _teBlack)),
-                      WidgetSpan(child: Container(width: 2, height: 16, color: _teAmber)),
+                      TextSpan(
+                        text: 'Hello ',
+                        style: TextStyle(color: _teBlack),
+                      ),
+                      WidgetSpan(
+                        child: Container(width: 2, height: 16, color: _teAmber),
+                      ),
                       TextSpan(
                         text: 'beautiful',
                         style: TextStyle(
@@ -1015,7 +1149,10 @@ Widget _buildWordDeletionDemo() {
                           backgroundColor: _teError.withValues(alpha: 0.12),
                         ),
                       ),
-                      TextSpan(text: ' world', style: TextStyle(color: _teBlack)),
+                      TextSpan(
+                        text: ' world',
+                        style: TextStyle(color: _teBlack),
+                      ),
                     ],
                   ),
                 ),
@@ -1037,8 +1174,14 @@ Widget _buildWordDeletionDemo() {
           children: [
             SizedBox(
               width: 80,
-              child: Text('Original:', style: TextStyle(
-                color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600)),
+              child: Text(
+                'Original:',
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             Expanded(
               child: Container(
@@ -1052,7 +1195,10 @@ Widget _buildWordDeletionDemo() {
                   text: TextSpan(
                     style: TextStyle(fontSize: 14, fontFamily: 'monospace'),
                     children: [
-                      TextSpan(text: 'Hello ', style: TextStyle(color: _teBlack)),
+                      TextSpan(
+                        text: 'Hello ',
+                        style: TextStyle(color: _teBlack),
+                      ),
                       TextSpan(
                         text: 'beautiful',
                         style: TextStyle(
@@ -1060,8 +1206,17 @@ Widget _buildWordDeletionDemo() {
                           backgroundColor: _teError.withValues(alpha: 0.12),
                         ),
                       ),
-                      WidgetSpan(child: Container(width: 2, height: 16, color: _teDarkAmber)),
-                      TextSpan(text: ' world', style: TextStyle(color: _teBlack)),
+                      WidgetSpan(
+                        child: Container(
+                          width: 2,
+                          height: 16,
+                          color: _teDarkAmber,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' world',
+                        style: TextStyle(color: _teBlack),
+                      ),
                     ],
                   ),
                 ),
@@ -1110,13 +1265,19 @@ Widget _buildLineDeletionDemo() {
         Text(
           'Line Break Delete — Before & After',
           style: TextStyle(
-            color: _teDarkAmber, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _teDarkAmber,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         Text(
           'Forward (Ctrl+K / Cmd+Delete):',
-          style: TextStyle(color: _teAmber, fontSize: 12,
-              fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: _teAmber,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 6),
         Container(
@@ -1134,8 +1295,13 @@ Widget _buildLineDeletionDemo() {
                 text: TextSpan(
                   style: TextStyle(fontSize: 13, fontFamily: 'monospace'),
                   children: [
-                    TextSpan(text: 'The quick ', style: TextStyle(color: _teBlack)),
-                    WidgetSpan(child: Container(width: 2, height: 15, color: _teAmber)),
+                    TextSpan(
+                      text: 'The quick ',
+                      style: TextStyle(color: _teBlack),
+                    ),
+                    WidgetSpan(
+                      child: Container(width: 2, height: 15, color: _teAmber),
+                    ),
                     TextSpan(
                       text: 'brown fox jumps',
                       style: TextStyle(
@@ -1146,20 +1312,30 @@ Widget _buildLineDeletionDemo() {
                   ],
                 ),
               ),
-              Text('over the lazy dog',
-                  style: TextStyle(color: _teBlack, fontSize: 13,
-                      fontFamily: 'monospace')),
+              Text(
+                'over the lazy dog',
+                style: TextStyle(
+                  color: _teBlack,
+                  fontSize: 13,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 4),
-        Text('Deletes "brown fox jumps" (cursor to end of line)',
-            style: TextStyle(color: _teMuted, fontSize: 11)),
+        Text(
+          'Deletes "brown fox jumps" (cursor to end of line)',
+          style: TextStyle(color: _teMuted, fontSize: 11),
+        ),
         const SizedBox(height: 14),
         Text(
           'Backward (Cmd+Backspace):',
-          style: TextStyle(color: _teDarkAmber, fontSize: 12,
-              fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: _teDarkAmber,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 6),
         Container(
@@ -1184,20 +1360,36 @@ Widget _buildLineDeletionDemo() {
                         backgroundColor: _teError.withValues(alpha: 0.12),
                       ),
                     ),
-                    WidgetSpan(child: Container(width: 2, height: 15, color: _teDarkAmber)),
-                    TextSpan(text: ' fox jumps', style: TextStyle(color: _teBlack)),
+                    WidgetSpan(
+                      child: Container(
+                        width: 2,
+                        height: 15,
+                        color: _teDarkAmber,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' fox jumps',
+                      style: TextStyle(color: _teBlack),
+                    ),
                   ],
                 ),
               ),
-              Text('over the lazy dog',
-                  style: TextStyle(color: _teBlack, fontSize: 13,
-                      fontFamily: 'monospace')),
+              Text(
+                'over the lazy dog',
+                style: TextStyle(
+                  color: _teBlack,
+                  fontSize: 13,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 4),
-        Text('Deletes "The quick brown" (start of line to cursor)',
-            style: TextStyle(color: _teMuted, fontSize: 11)),
+        Text(
+          'Deletes "The quick brown" (start of line to cursor)',
+          style: TextStyle(color: _teMuted, fontSize: 11),
+        ),
       ],
     ),
   );
@@ -1219,17 +1411,31 @@ Widget _buildSelectionAwareness() {
           children: [
             Icon(Icons.select_all, color: _teAccent, size: 20),
             const SizedBox(width: 8),
-            Text('Selection Override',
-                style: TextStyle(color: _teAccent, fontSize: 14,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              'Selection Override',
+              style: TextStyle(
+                color: _teAccent,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12),
         // With selection
         Row(
           children: [
-            SizedBox(width: 60, child: Text('Text:', style: TextStyle(
-              color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600))),
+            SizedBox(
+              width: 60,
+              child: Text(
+                'Text:',
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
               decoration: BoxDecoration(
@@ -1241,7 +1447,10 @@ Widget _buildSelectionAwareness() {
                 text: TextSpan(
                   style: TextStyle(fontSize: 14, fontFamily: 'monospace'),
                   children: [
-                    TextSpan(text: 'Hello ', style: TextStyle(color: _teBlack)),
+                    TextSpan(
+                      text: 'Hello ',
+                      style: TextStyle(color: _teBlack),
+                    ),
                     TextSpan(
                       text: 'beautiful',
                       style: TextStyle(
@@ -1249,7 +1458,10 @@ Widget _buildSelectionAwareness() {
                         backgroundColor: _teAccent,
                       ),
                     ),
-                    TextSpan(text: ' world', style: TextStyle(color: _teBlack)),
+                    TextSpan(
+                      text: ' world',
+                      style: TextStyle(color: _teBlack),
+                    ),
                   ],
                 ),
               ),
@@ -1270,8 +1482,11 @@ Widget _buildSelectionAwareness() {
               Text(
                 'forward: true AND forward: false both produce the same '
                 'result when text is selected',
-                style: TextStyle(color: _teMuted, fontSize: 11,
-                    fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -1279,8 +1494,17 @@ Widget _buildSelectionAwareness() {
         const SizedBox(height: 12),
         Row(
           children: [
-            SizedBox(width: 60, child: Text('Result:', style: TextStyle(
-              color: _teMuted, fontSize: 12, fontWeight: FontWeight.w600))),
+            SizedBox(
+              width: 60,
+              child: Text(
+                'Result:',
+                style: TextStyle(
+                  color: _teMuted,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
               decoration: BoxDecoration(
@@ -1291,11 +1515,23 @@ Widget _buildSelectionAwareness() {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Hello ', style: TextStyle(color: _teBlack, fontSize: 14,
-                      fontFamily: 'monospace')),
+                  Text(
+                    'Hello ',
+                    style: TextStyle(
+                      color: _teBlack,
+                      fontSize: 14,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                   Container(width: 2, height: 16, color: _teAccent),
-                  Text(' world', style: TextStyle(color: _teBlack, fontSize: 14,
-                      fontFamily: 'monospace')),
+                  Text(
+                    ' world',
+                    style: TextStyle(
+                      color: _teBlack,
+                      fontSize: 14,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1366,15 +1602,19 @@ Widget _buildPlatformBehaviors() {
             color: (p['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (p['color'] as Color).withValues(alpha: 0.2)),
+              color: (p['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(p['icon'] as IconData,
-                      color: p['color'] as Color, size: 20),
+                  Icon(
+                    p['icon'] as IconData,
+                    color: p['color'] as Color,
+                    size: 20,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1394,7 +1634,11 @@ Widget _buildPlatformBehaviors() {
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Text(
                     '\u2022 $binding',
-                    style: TextStyle(color: _teBlack, fontSize: 11, height: 1.3),
+                    style: TextStyle(
+                      color: _teBlack,
+                      fontSize: 11,
+                      height: 1.3,
+                    ),
                   ),
                 ),
             ],
@@ -1406,10 +1650,7 @@ Widget _buildPlatformBehaviors() {
 
 Widget _buildUndoIntegration() {
   final entries = <Map<String, String>>[
-    {
-      'action': 'Type "Hello"',
-      'undo': 'Grouped as single typing run',
-    },
+    {'action': 'Type "Hello"', 'undo': 'Grouped as single typing run'},
     {
       'action': 'Backspace (delete "o")',
       'undo': 'New undo entry for backward delete',
@@ -1443,9 +1684,14 @@ Widget _buildUndoIntegration() {
           children: [
             Icon(Icons.history, color: _teAmber, size: 20),
             const SizedBox(width: 8),
-            Text('Undo Stack Visualization',
-                style: TextStyle(color: _teAmber, fontSize: 14,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              'Undo Stack Visualization',
+              style: TextStyle(
+                color: _teAmber,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12),
@@ -1510,7 +1756,8 @@ Widget _buildCustomEditorScenario() {
     },
     {
       'step': 'Create custom action',
-      'detail': 'Override DeleteToNextWordBoundaryAction to use custom boundaries',
+      'detail':
+          'Override DeleteToNextWordBoundaryAction to use custom boundaries',
     },
     {
       'step': 'Register in Actions widget',
@@ -1518,12 +1765,14 @@ Widget _buildCustomEditorScenario() {
     },
     {
       'step': 'Check intent.forward',
-      'detail': 'Forward: delete from cursor to next camelCase boundary right. '
+      'detail':
+          'Forward: delete from cursor to next camelCase boundary right. '
           'Backward: delete from cursor to previous boundary left.',
     },
     {
       'step': 'Apply text edit',
-      'detail': 'Update TextEditingController with new value and cursor position',
+      'detail':
+          'Update TextEditingController with new value and cursor position',
     },
   ];
 

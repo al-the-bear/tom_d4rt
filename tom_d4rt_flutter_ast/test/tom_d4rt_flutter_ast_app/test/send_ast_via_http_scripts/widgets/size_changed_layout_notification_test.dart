@@ -272,10 +272,7 @@ class _LegendDot extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        Text(
-          label,
-          style: const TextStyle(color: _paleSkyDim, fontSize: 11),
-        ),
+        Text(label, style: const TextStyle(color: _paleSkyDim, fontSize: 11)),
       ],
     );
   }
@@ -326,10 +323,7 @@ class _SeismographPainter extends CustomPainter {
       )..layout();
       hint.paint(
         canvas,
-        Offset(
-          (size.width - hint.width) / 2,
-          (size.height - hint.height) / 2,
-        ),
+        Offset((size.width - hint.width) / 2, (size.height - hint.height) / 2),
       );
       return;
     }
@@ -385,7 +379,10 @@ class _SeismographPainter extends CustomPainter {
       fontSize: 9,
     );
     final maxPainter = TextPainter(
-      text: TextSpan(text: 'max ${maxMag.toStringAsFixed(1)}', style: labelStyle),
+      text: TextSpan(
+        text: 'max ${maxMag.toStringAsFixed(1)}',
+        style: labelStyle,
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     maxPainter.paint(canvas, const Offset(6, 4));
@@ -398,7 +395,8 @@ class _SeismographPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _SeismographPainter oldDelegate) {
-    return oldDelegate.trace != trace || oldDelegate.trace.length != trace.length;
+    return oldDelegate.trace != trace ||
+        oldDelegate.trace.length != trace.length;
   }
 }
 
@@ -481,9 +479,7 @@ class _ResizerPanelState extends State<_ResizerPanel> {
                       ],
                     ),
                     child: const SizeChangedLayoutNotifier(
-                      child: Center(
-                        child: _ResizerChildContent(),
-                      ),
+                      child: Center(child: _ResizerChildContent()),
                     ),
                   ),
                 ),
@@ -527,7 +523,7 @@ class _ResizerPanelState extends State<_ResizerPanel> {
                     value: _lastSize == null
                         ? '—'
                         : '${(_width - _lastSize!.width).toStringAsFixed(1)}, '
-                            '${(_height - _lastSize!.height).toStringAsFixed(1)}',
+                              '${(_height - _lastSize!.height).toStringAsFixed(1)}',
                     color: _magentaSoft,
                   ),
                 ],
@@ -565,10 +561,7 @@ class _ResizerChildContent extends StatelessWidget {
             fontSize: 13,
           ),
         ),
-        Text(
-          'child',
-          style: TextStyle(color: _paleSkyDim, fontSize: 11),
-        ),
+        Text('child', style: TextStyle(color: _paleSkyDim, fontSize: 11)),
       ],
     );
   }
@@ -668,10 +661,7 @@ class _MiniBadge extends StatelessWidget {
         children: <Widget>[
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 6),
-          Text(
-            label,
-            style: const TextStyle(color: _paleSkyDim, fontSize: 11),
-          ),
+          Text(label, style: const TextStyle(color: _paleSkyDim, fontSize: 11)),
           const SizedBox(width: 6),
           Text(
             value,
@@ -710,7 +700,11 @@ class _NoteBlock extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: _paleSkyDim, fontSize: 12, height: 1.4),
+              style: const TextStyle(
+                color: _paleSkyDim,
+                fontSize: 12,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -1234,8 +1228,8 @@ class _LogRow extends StatelessWidget {
     final magnitudeColor = event.magnitude > 40
         ? _magenta
         : event.magnitude > 10
-            ? _magentaSoft
-            : _paleSkyDim;
+        ? _magentaSoft
+        : _paleSkyDim;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
@@ -1549,9 +1543,7 @@ class _RefRowTile extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _magenta.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                  color: _magenta.withValues(alpha: 0.45),
-                ),
+                border: Border.all(color: _magenta.withValues(alpha: 0.45)),
               ),
               child: Text(
                 row.kind,

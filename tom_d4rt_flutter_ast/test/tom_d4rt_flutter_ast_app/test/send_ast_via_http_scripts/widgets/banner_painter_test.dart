@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    theme: ThemeData.light(),
-    home: const BannerPainterDemo(),
-  );
+  return MaterialApp(theme: ThemeData.light(), home: const BannerPainterDemo());
 }
 
 class BannerPainterDemo extends StatefulWidget {
@@ -27,7 +24,14 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
   // ═══════════════════════════════════════════════════════════════════════════
   int _messageIndex = 0;
   final List<String> _messages = [
-    'DEBUG', 'RELEASE', 'BETA', 'ALPHA', 'STAGING', 'DEV', 'TEST', 'PREVIEW',
+    'DEBUG',
+    'RELEASE',
+    'BETA',
+    'ALPHA',
+    'STAGING',
+    'DEV',
+    'TEST',
+    'PREVIEW',
   ];
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -171,9 +175,16 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.phone_android, size: 40, color: Colors.grey),
+                          Icon(
+                            Icons.phone_android,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
                           SizedBox(height: 8),
-                          Text('App Screen', style: TextStyle(color: Colors.grey)),
+                          Text(
+                            'App Screen',
+                            style: TextStyle(color: Colors.grey),
+                          ),
                         ],
                       ),
                     ),
@@ -188,15 +199,21 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               runSpacing: 8,
               children: [
                 _buildActionButton('DEBUG', () {
-                  setState(() { _basicMessage = 'DEBUG'; });
+                  setState(() {
+                    _basicMessage = 'DEBUG';
+                  });
                   print('Basic message: DEBUG');
                 }),
                 _buildActionButton('RELEASE', () {
-                  setState(() { _basicMessage = 'RELEASE'; });
+                  setState(() {
+                    _basicMessage = 'RELEASE';
+                  });
                   print('Basic message: RELEASE');
                 }),
                 _buildActionButton('DEMO', () {
-                  setState(() { _basicMessage = 'DEMO'; });
+                  setState(() {
+                    _basicMessage = 'DEMO';
+                  });
                   print('Basic message: DEMO');
                 }),
               ],
@@ -271,7 +288,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   selected: _messageIndex == i,
                   onSelected: (s) {
                     if (s) {
-                      setState(() { _messageIndex = i; });
+                      setState(() {
+                        _messageIndex = i;
+                      });
                       print('Message: ${_messages[i]}');
                     }
                   },
@@ -311,7 +330,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                 // LTR banner
                 Column(
                   children: [
-                    const Text('LTR', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'LTR',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 140,
@@ -330,7 +352,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.green.shade200),
                           ),
-                          child: const Center(child: Icon(Icons.format_textdirection_l_to_r)),
+                          child: const Center(
+                            child: Icon(Icons.format_textdirection_l_to_r),
+                          ),
                         ),
                       ),
                     ),
@@ -340,7 +364,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                 // RTL banner
                 Column(
                   children: [
-                    const Text('RTL', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'RTL',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 140,
@@ -359,7 +386,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Colors.orange.shade200),
                           ),
-                          child: const Center(child: Icon(Icons.format_textdirection_r_to_l)),
+                          child: const Center(
+                            child: Icon(Icons.format_textdirection_r_to_l),
+                          ),
                         ),
                       ),
                     ),
@@ -379,7 +408,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                     message: 'TEST',
                     textDirection: _textDirection,
                     location: BannerLocation.topEnd,
-                    color: _textDirection == TextDirection.ltr ? Colors.teal : Colors.deepOrange,
+                    color: _textDirection == TextDirection.ltr
+                        ? Colors.teal
+                        : Colors.deepOrange,
                     layoutDirection: _textDirection,
                   ),
                   child: Container(
@@ -390,7 +421,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                     ),
                     child: Center(
                       child: Text(
-                        _textDirection == TextDirection.ltr ? 'Left to Right' : 'Right to Left',
+                        _textDirection == TextDirection.ltr
+                            ? 'Left to Right'
+                            : 'Right to Left',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -407,7 +440,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   label: const Text('LTR'),
                   selected: _textDirection == TextDirection.ltr,
                   onSelected: (s) {
-                    if (s) setState(() { _textDirection = TextDirection.ltr; });
+                    if (s)
+                      setState(() {
+                        _textDirection = TextDirection.ltr;
+                      });
                     print('Text direction: LTR');
                   },
                 ),
@@ -416,7 +452,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   label: const Text('RTL'),
                   selected: _textDirection == TextDirection.rtl,
                   onSelected: (s) {
-                    if (s) setState(() { _textDirection = TextDirection.rtl; });
+                    if (s)
+                      setState(() {
+                        _textDirection = TextDirection.rtl;
+                      });
                     print('Text direction: RTL');
                   },
                 ),
@@ -476,9 +515,13 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                         ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: isSelected ? Colors.red.shade50 : Colors.grey.shade100,
+                            color: isSelected
+                                ? Colors.red.shade50
+                                : Colors.grey.shade100,
                             border: Border.all(
-                              color: isSelected ? Colors.red : Colors.grey.shade300,
+                              color: isSelected
+                                  ? Colors.red
+                                  : Colors.grey.shade300,
                               width: isSelected ? 2 : 1,
                             ),
                           ),
@@ -486,10 +529,15 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(loc.key, style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                    )),
+                    Text(
+                      loc.key,
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
+                    ),
                   ],
                 );
               }).toList(),
@@ -595,7 +643,12 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                         height: 60,
                         child: CustomPaint(
                           painter: BannerPainter(
-                            message: entry.key.substring(0, entry.key.length > 4 ? 4 : entry.key.length).toUpperCase(),
+                            message: entry.key
+                                .substring(
+                                  0,
+                                  entry.key.length > 4 ? 4 : entry.key.length,
+                                )
+                                .toUpperCase(),
                             textDirection: TextDirection.ltr,
                             location: BannerLocation.topEnd,
                             color: entry.value,
@@ -606,7 +659,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                               color: Colors.grey.shade100,
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(
-                                color: isSelected ? entry.value : Colors.grey.shade300,
+                                color: isSelected
+                                    ? entry.value
+                                    : Colors.grey.shade300,
                                 width: isSelected ? 2 : 1,
                               ),
                             ),
@@ -614,10 +669,15 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                         ),
                       ),
                       const SizedBox(height: 2),
-                      Text(entry.key, style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                      )),
+                      Text(
+                        entry.key,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -820,7 +880,13 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               children: [
                 Column(
                   children: [
-                    const Text('layoutDir: LTR', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    const Text(
+                      'layoutDir: LTR',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 130,
@@ -847,7 +913,13 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                 ),
                 Column(
                   children: [
-                    const Text('layoutDir: RTL', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    const Text(
+                      'layoutDir: RTL',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 130,
@@ -864,7 +936,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                           decoration: BoxDecoration(
                             color: Colors.deepOrange.shade50,
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.deepOrange.shade200),
+                            border: Border.all(
+                              color: Colors.deepOrange.shade200,
+                            ),
                           ),
                           child: const Center(child: Text('topStart')),
                         ),
@@ -877,8 +951,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
             const SizedBox(height: 24),
 
             // All four corners with varying offset
-            const Text('Banner offset visual (px from edge):',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Banner offset visual (px from edge):',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Center(
               child: SizedBox(
@@ -915,7 +991,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               divisions: 20,
               label: _layoutDirection.toStringAsFixed(0),
               onChanged: (val) {
-                setState(() { _layoutDirection = val; });
+                setState(() {
+                  _layoutDirection = val;
+                });
                 print('Layout offset: $val');
               },
             ),
@@ -947,25 +1025,37 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
             const SizedBox(height: 24),
 
             // Use Case 1: Environment indicator
-            const Text('1. Environment Indicator', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '1. Environment Indicator',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             _buildEnvironmentIndicator(),
             const SizedBox(height: 24),
 
             // Use Case 2: Multiple banners on cards
-            const Text('2. Product Status Badges', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '2. Product Status Badges',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             _buildProductStatusBadges(),
             const SizedBox(height: 24),
 
             // Use Case 3: Version ribbon
-            const Text('3. Version Ribbon', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '3. Version Ribbon',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             _buildVersionRibbon(),
             const SizedBox(height: 24),
 
             // Use Case 4: Navigation with banner status
-            const Text('4. Screen Status Overlays', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '4. Screen Status Overlays',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             _buildScreenStatusOverlays(),
           ],
@@ -991,7 +1081,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               message: _envLabel,
               textDirection: TextDirection.ltr,
               location: BannerLocation.topStart,
-              color: envs.firstWhere((e) => e['label'] == _envLabel)['color'] as Color,
+              color:
+                  envs.firstWhere((e) => e['label'] == _envLabel)['color']
+                      as Color,
               layoutDirection: TextDirection.ltr,
             ),
             child: Container(
@@ -1005,7 +1097,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.cloud, size: 32, color: Colors.grey),
-                    Text('My Application', style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                      'My Application',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -1021,7 +1116,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               selected: _envLabel == env['label'],
               onSelected: (s) {
                 if (s) {
-                  setState(() { _envLabel = env['label'] as String; });
+                  setState(() {
+                    _envLabel = env['label'] as String;
+                  });
                   print('Environment: ${env['label']}');
                 }
               },
@@ -1061,7 +1158,10 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                 border: Border.all(color: Colors.grey.shade300),
               ),
               child: Center(
-                child: Icon(Icons.shopping_bag, color: status['color'] as Color),
+                child: Icon(
+                  Icons.shopping_bag,
+                  color: status['color'] as Color,
+                ),
               ),
             ),
           ),
@@ -1097,8 +1197,12 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.info_outline, color: Colors.deepPurple),
-                    Text(_versionText,
-                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                    Text(
+                      _versionText,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
                     ),
                   ],
                 ),
@@ -1115,7 +1219,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               selected: _versionText == v,
               onSelected: (s) {
                 if (s) {
-                  setState(() { _versionText = v; });
+                  setState(() {
+                    _versionText = v;
+                  });
                   print('Version: $v');
                 }
               },
@@ -1166,9 +1272,12 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      _statusIndex == 0 ? Icons.check_circle
-                          : _statusIndex == 1 ? Icons.hourglass_empty
-                          : _statusIndex == 2 ? Icons.error
+                      _statusIndex == 0
+                          ? Icons.check_circle
+                          : _statusIndex == 1
+                          ? Icons.hourglass_empty
+                          : _statusIndex == 2
+                          ? Icons.error
                           : Icons.cloud_off,
                       color: status['color'] as Color,
                     ),
@@ -1195,7 +1304,9 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
               selected: _statusIndex == i,
               onSelected: (s) {
                 if (s) {
-                  setState(() { _statusIndex = i; });
+                  setState(() {
+                    _statusIndex = i;
+                  });
                   print('Status: ${statusItems[i]['name']}');
                 }
               },
@@ -1235,9 +1346,6 @@ class _BannerPainterDemoState extends State<BannerPainterDemo> {
   }
 
   Widget _buildActionButton(String label, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      child: Text(label),
-    );
+    return ElevatedButton(onPressed: onPressed, child: Text(label));
   }
 }

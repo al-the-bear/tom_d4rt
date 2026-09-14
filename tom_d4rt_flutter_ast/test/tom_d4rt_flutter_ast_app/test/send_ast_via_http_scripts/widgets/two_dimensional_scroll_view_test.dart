@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_on,
       'title': 'What is TwoDimensionalScrollView?',
-      'body': 'TwoDimensionalScrollView is the abstract base for widgets '
+      'body':
+          'TwoDimensionalScrollView is the abstract base for widgets '
           'that allow scrolling along both the horizontal and vertical '
           'axes at the same time. Unlike ListView (vertical only) or '
           'SingleChildScrollView (one axis at a time), this enables '
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.open_with,
       'title': 'Why Two Dimensions?',
-      'body': 'Many real-world UIs need simultaneous X+Y scrolling: '
+      'body':
+          'Many real-world UIs need simultaneous X+Y scrolling: '
           'data grids with hundreds of columns and rows, tile-based '
           'game worlds, calendar month views with time slots, '
           'seating charts, and image galleries with infinite canvas.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.memory,
       'title': 'Lazy Rendering',
-      'body': 'Like ListView and GridView, TwoDimensionalScrollView only '
+      'body':
+          'Like ListView and GridView, TwoDimensionalScrollView only '
           'builds and renders the cells currently visible in the '
           'viewport. A 10,000 x 10,000 grid uses the same memory '
           'as the ~20 visible cells.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Architecture',
-      'body': 'TwoDimensionalScrollView creates a TwoDimensionalScrollable '
+      'body':
+          'TwoDimensionalScrollView creates a TwoDimensionalScrollable '
           '(manages two ScrollPositions) which hosts a '
           'TwoDimensionalViewport (performs the 2D layout). You '
           'typically use a concrete subclass or compose your own.',
@@ -124,42 +128,48 @@ dynamic build(BuildContext context) {
     {
       'name': 'verticalDetails',
       'type': 'ScrollableDetails',
-      'desc': 'Configuration for the vertical scrolling axis. Includes '
+      'desc':
+          'Configuration for the vertical scrolling axis. Includes '
           'the ScrollController, scroll direction, physics, and '
           'decoration. Controls how vertical scrolling behaves.',
     },
     {
       'name': 'horizontalDetails',
       'type': 'ScrollableDetails',
-      'desc': 'Configuration for the horizontal scrolling axis. Same '
+      'desc':
+          'Configuration for the horizontal scrolling axis. Same '
           'structure as verticalDetails but for the horizontal '
           'dimension. Both axes are controlled independently.',
     },
     {
       'name': 'diagonalDragBehavior',
       'type': 'DiagonalDragBehavior',
-      'desc': 'How diagonal drag gestures are interpreted: none (lock to '
+      'desc':
+          'How diagonal drag gestures are interpreted: none (lock to '
           'first axis), free (true 2D panning), '
           'weightedEvent/weightedContinuous (prefer dominant axis).',
     },
     {
       'name': 'delegate',
       'type': 'TwoDimensionalChildDelegate',
-      'desc': 'Provides children for the 2D viewport. Can be a builder '
+      'desc':
+          'Provides children for the 2D viewport. Can be a builder '
           'delegate (lazy, for large grids) or a list delegate '
           '(fixed set of children with known positions).',
     },
     {
       'name': 'mainAxis',
       'type': 'Axis',
-      'desc': 'The primary axis for the 2D layout. Determines which '
+      'desc':
+          'The primary axis for the 2D layout. Determines which '
           'direction is laid out first: Axis.vertical means rows '
           'first, Axis.horizontal means columns first.',
     },
     {
       'name': 'cacheExtent',
       'type': 'double?',
-      'desc': 'How many pixels beyond the viewport to pre-render. '
+      'desc':
+          'How many pixels beyond the viewport to pre-render. '
           'Higher values mean smoother scrolling but more memory '
           'usage. Applies to both axes simultaneously.',
     },
@@ -270,9 +280,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: isHeader
                 ? Colors.orange.withOpacity(0.12)
-                : (row.isEven
-                    ? Colors.grey.withOpacity(0.04)
-                    : Colors.white),
+                : (row.isEven ? Colors.grey.withOpacity(0.04) : Colors.white),
             border: Border.all(color: Colors.grey.withOpacity(0.2), width: 0.5),
           ),
           child: Center(
@@ -281,9 +289,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                color: isHeader
-                    ? Colors.orange.shade800
-                    : Colors.grey.shade700,
+                color: isHeader ? Colors.orange.shade800 : Colors.grey.shade700,
               ),
             ),
           ),
@@ -301,23 +307,23 @@ dynamic build(BuildContext context) {
   calendarRows.add(
     Row(
       children: weekDays
-          .map((d) => Container(
-                width: 42,
-                height: 28,
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
-                ),
-                child: Center(
-                  child: Text(
-                    d,
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade700,
-                    ),
+          .map(
+            (d) => Container(
+              width: 42,
+              height: 28,
+              decoration: BoxDecoration(color: Colors.blue.withOpacity(0.1)),
+              child: Center(
+                child: Text(
+                  d,
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700,
                   ),
                 ),
-              ))
+              ),
+            ),
+          )
           .toList(),
     ),
   );
@@ -352,9 +358,7 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday
-                      ? Colors.blue.shade800
-                      : Colors.grey.shade700,
+                  color: isToday ? Colors.blue.shade800 : Colors.grey.shade700,
                 ),
               ),
             ),
@@ -394,10 +398,7 @@ dynamic build(BuildContext context) {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${el['num']}',
-              style: TextStyle(fontSize: 8, color: elColor),
-            ),
+            Text('${el['num']}', style: TextStyle(fontSize: 8, color: elColor)),
             Text(
               el['sym'] as String,
               style: TextStyle(
@@ -421,7 +422,8 @@ dynamic build(BuildContext context) {
   final dragModes = <Map<String, dynamic>>[
     {
       'mode': 'none',
-      'desc': 'Diagonal drags are decomposed into their horizontal and '
+      'desc':
+          'Diagonal drags are decomposed into their horizontal and '
           'vertical components. Each axis scrolls independently. '
           'A diagonal gesture scrolls the dominant axis only.',
       'visual': 'First touch direction locks scrolling axis',
@@ -430,7 +432,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'free',
-      'desc': 'True 2D panning. A diagonal drag moves both axes '
+      'desc':
+          'True 2D panning. A diagonal drag moves both axes '
           'simultaneously with no constraints. Ideal for maps, '
           'game worlds, and canvas-style interfaces.',
       'visual': 'Free movement in any direction',
@@ -439,7 +442,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'weightedEvent',
-      'desc': 'Each pointer event is independently routed to the axis '
+      'desc':
+          'Each pointer event is independently routed to the axis '
           'with greater delta. Fast diagonal drags can alternate '
           'between axes per event. Balanced but jittery.',
       'visual': 'Per-event axis weighting',
@@ -448,7 +452,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'weightedContinuous',
-      'desc': 'Like weightedEvent, but once an axis is chosen it '
+      'desc':
+          'Like weightedEvent, but once an axis is chosen it '
           'continues until the gesture changes direction enough. '
           'Smoother than weightedEvent for typical use.',
       'visual': 'Continuous axis weighting with momentum',
@@ -580,15 +585,21 @@ dynamic build(BuildContext context) {
   final delegateTypes = <Map<String, dynamic>>[
     {
       'name': 'TwoDimensionalChildBuilderDelegate',
-      'desc': 'Lazily builds children on demand using a builder callback. '
+      'desc':
+          'Lazily builds children on demand using a builder callback. '
           'Ideal for large or infinite grids where creating all '
           'children upfront is impractical.',
-      'pros': ['Lazy — builds only visible cells',
-               'Works with infinite grids',
-               'Low memory footprint'],
-      'cons': ['Must specify maxXIndex/maxYIndex for finite grids',
-               'Builder called on each layout pass'],
-      'code': 'TwoDimensionalChildBuilderDelegate(\n'
+      'pros': [
+        'Lazy — builds only visible cells',
+        'Works with infinite grids',
+        'Low memory footprint',
+      ],
+      'cons': [
+        'Must specify maxXIndex/maxYIndex for finite grids',
+        'Builder called on each layout pass',
+      ],
+      'code':
+          'TwoDimensionalChildBuilderDelegate(\n'
           '  maxXIndex: 99,\n'
           '  maxYIndex: 999,\n'
           '  builder: (ctx, vicinity) {\n'
@@ -601,15 +612,21 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'TwoDimensionalChildListDelegate',
-      'desc': 'Provides a fixed 2D list of prebuilt children. Simpler '
+      'desc':
+          'Provides a fixed 2D list of prebuilt children. Simpler '
           'to use when the grid is small and all cells are known '
           'upfront. Less flexible but more predictable.',
-      'pros': ['Simple API — just a List<List<Widget>>',
-               'All children created once',
-               'Easy to reason about'],
-      'cons': ['All children in memory at once',
-               'Not suitable for large grids'],
-      'code': 'TwoDimensionalChildListDelegate(\n'
+      'pros': [
+        'Simple API — just a List<List<Widget>>',
+        'All children created once',
+        'Easy to reason about',
+      ],
+      'cons': [
+        'All children in memory at once',
+        'Not suitable for large grids',
+      ],
+      'code':
+          'TwoDimensionalChildListDelegate(\n'
           '  children: [\n'
           '    [Cell(0,0), Cell(0,1), Cell(0,2)],\n'
           '    [Cell(1,0), Cell(1,1), Cell(1,2)],\n'
@@ -674,30 +691,32 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        ...pros.map((p) => Padding(
-                              padding: const EdgeInsets.only(bottom: 2),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    '\u2713 ',
+                        ...pros.map(
+                          (p) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  '\u2713 ',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    p,
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Colors.green,
+                                      color: Colors.grey.shade700,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      p,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.grey.shade700,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -715,30 +734,32 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        ...cons.map((c) => Padding(
-                              padding: const EdgeInsets.only(bottom: 2),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    '\u2717 ',
+                        ...cons.map(
+                          (c) => Padding(
+                            padding: const EdgeInsets.only(bottom: 2),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  '\u2717 ',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    c,
                                     style: TextStyle(
                                       fontSize: 10,
-                                      color: Colors.red,
+                                      color: Colors.grey.shade700,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      c,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.grey.shade700,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -777,20 +798,24 @@ dynamic build(BuildContext context) {
   final layoutTopics = <Map<String, dynamic>>[
     {
       'title': 'ChildVicinity',
-      'desc': 'Each cell in a 2D grid is identified by a ChildVicinity '
+      'desc':
+          'Each cell in a 2D grid is identified by a ChildVicinity '
           'containing xIndex and yIndex. This replaces the linear '
           'index used in 1D scrollables.',
-      'diagram': '(0,0) (1,0) (2,0) (3,0)\n'
+      'diagram':
+          '(0,0) (1,0) (2,0) (3,0)\n'
           '(0,1) (1,1) (2,1) (3,1)\n'
           '(0,2) (1,2) (2,2) (3,2)',
       'color': Colors.orange,
     },
     {
       'title': 'Main Axis',
-      'desc': 'The mainAxis determines which direction is iterated first. '
+      'desc':
+          'The mainAxis determines which direction is iterated first. '
           'Axis.vertical: iterate rows, lay out cells left-to-right. '
           'Axis.horizontal: iterate columns, lay out cells top-to-bottom.',
-      'diagram': 'Axis.vertical:     Axis.horizontal:\n'
+      'diagram':
+          'Axis.vertical:     Axis.horizontal:\n'
           'Row 0: [C C C C]   Col 0: [C]\n'
           'Row 1: [C C C C]          [C]\n'
           'Row 2: [C C C C]          [C]',
@@ -798,10 +823,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Viewport Extent',
-      'desc': 'The 2D viewport has both a horizontal and vertical extent. '
+      'desc':
+          'The 2D viewport has both a horizontal and vertical extent. '
           'Cells outside the visible extent plus cacheExtent are '
           'garbage collected. This ensures constant memory usage.',
-      'diagram': '+---visible---+  cache\n'
+      'diagram':
+          '+---visible---+  cache\n'
           '|  [C][C][C]  | [c][c]\n'
           '|  [C][C][C]  | [c][c]\n'
           '+-------------+\n'
@@ -929,9 +956,7 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isMain
-              ? cColor.withOpacity(0.1)
-              : cColor.withOpacity(0.04),
+          color: isMain ? cColor.withOpacity(0.1) : cColor.withOpacity(0.04),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: cColor.withOpacity(isMain ? 0.4 : 0.2),
@@ -946,11 +971,7 @@ dynamic build(BuildContext context) {
                 color: cColor.withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                c['icon'] as IconData,
-                color: cColor,
-                size: 22,
-              ),
+              child: Icon(c['icon'] as IconData, color: cColor, size: 22),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -968,17 +989,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 3),
                   Text(
                     'Axes: ${c['axes']}',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                   ),
                   Text(
                     'Lazy: ${c['lazy']}',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                   ),
                   Text(
                     c['use'] as String,
@@ -1005,32 +1020,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.grid_on,
-      'text': 'TwoDimensionalScrollView enables true simultaneous '
+      'text':
+          'TwoDimensionalScrollView enables true simultaneous '
           'horizontal and vertical scrolling for data-heavy UIs.',
     },
     {
       'icon': Icons.memory,
-      'text': 'Only visible cells are rendered. A million-cell grid '
+      'text':
+          'Only visible cells are rendered. A million-cell grid '
           'uses the same memory as the ~20 visible cells.',
     },
     {
       'icon': Icons.open_with,
-      'text': 'Four diagonal drag behaviors control whether gestures '
+      'text':
+          'Four diagonal drag behaviors control whether gestures '
           'lock, pan freely, or weight toward dominant axis.',
     },
     {
       'icon': Icons.build,
-      'text': 'Builder delegates lazily create cells on demand. List '
+      'text':
+          'Builder delegates lazily create cells on demand. List '
           'delegates provide all cells upfront for small grids.',
     },
     {
       'icon': Icons.architecture,
-      'text': 'Composed of TwoDimensionalScrollable (input handling) and '
+      'text':
+          'Composed of TwoDimensionalScrollable (input handling) and '
           'TwoDimensionalViewport (2D layout and painting).',
     },
     {
       'icon': Icons.compare,
-      'text': 'Unlike GridView (1D scrolling) or InteractiveViewer '
+      'text':
+          'Unlike GridView (1D scrolling) or InteractiveViewer '
           '(no lazy rendering), this combines lazy building with 2D scroll.',
     },
   ];
@@ -1224,9 +1245,7 @@ dynamic build(BuildContext context) {
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                          color: Colors.blue.withOpacity(0.3),
-                        ),
+                        border: Border.all(color: Colors.blue.withOpacity(0.3)),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8),

@@ -21,19 +21,20 @@ import 'package:flutter/material.dart';
 /// 8. Best practices and memory efficiency
 
 // ─── palette ───────────────────────────────────────────────
-const _kIndigo      = Color(0xFF3F51B5);
+const _kIndigo = Color(0xFF3F51B5);
 const _kIndigoLight = Color(0xFFC5CAE9);
-const _kIndigoDark  = Color(0xFF1A237E);
-const _kCoral       = Color(0xFFFF7043);
-const _kCoralLight  = Color(0xFFFFCCBC);
-const _kCoralDark   = Color(0xFFBF360C);
-const _kSurface     = Color(0xFFFAFAFC);
-const _kDivider     = Color(0xFFE0E0E0);
-const _kTextDark    = Color(0xFF212121);
-const _kTextMuted   = Color(0xFF757575);
+const _kIndigoDark = Color(0xFF1A237E);
+const _kCoral = Color(0xFFFF7043);
+const _kCoralLight = Color(0xFFFFCCBC);
+const _kCoralDark = Color(0xFFBF360C);
+const _kSurface = Color(0xFFFAFAFC);
+const _kDivider = Color(0xFFE0E0E0);
+const _kTextDark = Color(0xFF212121);
+const _kTextMuted = Color(0xFF757575);
 
 // ─── 1. Overview ───────────────────────────────────────────
-const _kOverview = 'SliverChildBuilderDelegate provides children to SliverList, '
+const _kOverview =
+    'SliverChildBuilderDelegate provides children to SliverList, '
     'SliverGrid, and SliverFixedExtentList on demand. It calls your builder '
     'function only for the indices the viewport needs to display, then recycles '
     'those widgets when they scroll out of view. This lazy construction is the '
@@ -49,31 +50,62 @@ class _Param {
 }
 
 const _kParams = <_Param>[
-  _Param('builder', 'NullableIndexedWidgetBuilder', '(required)',
-      'The callback that creates a child widget for a given index. Return null '
-      'to signal that there are no more children (when childCount is null).'),
-  _Param('childCount', 'int?', 'null',
-      'The total number of children. When null, the builder is called until it '
-      'returns null — useful for infinite or not-yet-known list sizes.'),
-  _Param('addAutomaticKeepAlives', 'bool', 'true',
-      'Wraps each child in an AutomaticKeepAlive to prevent garbage collection '
-      'when the child scrolls out of view (if child wants keepAlive).'),
-  _Param('addRepaintBoundaries', 'bool', 'true',
-      'Wraps each child in a RepaintBoundary, isolating its paint from '
-      'neighbors. Saves repainting the whole viewport on partial changes.'),
-  _Param('addSemanticIndexes', 'bool', 'true',
-      'Wraps each child with an IndexedSemantics widget for accessibility. '
-      'The semanticIndexCallback controls the mapping from child index.'),
-  _Param('semanticIndexCallback', 'SemanticIndexCallback',
-      '(_, localIndex) => localIndex',
-      'Maps the (widget, localIndex) to a semantic index. Override when indices '
-      'don\'t map 1:1 (e.g., separators between real items).'),
-  _Param('semanticIndexOffset', 'int', '0',
-      'Added to the value from semanticIndexCallback to produce the final '
-      'semantic index. Useful when composing multiple delegates.'),
-  _Param('findChildIndexCallback', 'ChildIndexGetter?', 'null',
-      'Given a Key, returns the child\'s index. Enables efficient reordering '
-      'and keeps state stable when the list mutates.'),
+  _Param(
+    'builder',
+    'NullableIndexedWidgetBuilder',
+    '(required)',
+    'The callback that creates a child widget for a given index. Return null '
+        'to signal that there are no more children (when childCount is null).',
+  ),
+  _Param(
+    'childCount',
+    'int?',
+    'null',
+    'The total number of children. When null, the builder is called until it '
+        'returns null — useful for infinite or not-yet-known list sizes.',
+  ),
+  _Param(
+    'addAutomaticKeepAlives',
+    'bool',
+    'true',
+    'Wraps each child in an AutomaticKeepAlive to prevent garbage collection '
+        'when the child scrolls out of view (if child wants keepAlive).',
+  ),
+  _Param(
+    'addRepaintBoundaries',
+    'bool',
+    'true',
+    'Wraps each child in a RepaintBoundary, isolating its paint from '
+        'neighbors. Saves repainting the whole viewport on partial changes.',
+  ),
+  _Param(
+    'addSemanticIndexes',
+    'bool',
+    'true',
+    'Wraps each child with an IndexedSemantics widget for accessibility. '
+        'The semanticIndexCallback controls the mapping from child index.',
+  ),
+  _Param(
+    'semanticIndexCallback',
+    'SemanticIndexCallback',
+    '(_, localIndex) => localIndex',
+    'Maps the (widget, localIndex) to a semantic index. Override when indices '
+        'don\'t map 1:1 (e.g., separators between real items).',
+  ),
+  _Param(
+    'semanticIndexOffset',
+    'int',
+    '0',
+    'Added to the value from semanticIndexCallback to produce the final '
+        'semantic index. Useful when composing multiple delegates.',
+  ),
+  _Param(
+    'findChildIndexCallback',
+    'ChildIndexGetter?',
+    'null',
+    'Given a Key, returns the child\'s index. Enables efficient reordering '
+        'and keeps state stable when the list mutates.',
+  ),
 ];
 
 // ─── 3. Comparison ─────────────────────────────────────────
@@ -85,10 +117,22 @@ class _CompRow {
 }
 
 const _kComparison = <_CompRow>[
-  _CompRow('Construction', 'Lazy — only visible + buffer', 'Eager — all at once'),
-  _CompRow('Memory', 'O(visible) widgets in memory', 'O(n) widgets always alive'),
+  _CompRow(
+    'Construction',
+    'Lazy — only visible + buffer',
+    'Eager — all at once',
+  ),
+  _CompRow(
+    'Memory',
+    'O(visible) widgets in memory',
+    'O(n) widgets always alive',
+  ),
   _CompRow('Infinite lists', 'Supported (childCount null)', 'Not practical'),
-  _CompRow('Separators', 'Built into builder logic', 'Separate list entry needed'),
+  _CompRow(
+    'Separators',
+    'Built into builder logic',
+    'Separate list entry needed',
+  ),
   _CompRow('State retention', 'Via KeepAlive or keys', 'Always retained'),
   _CompRow('Use case', 'Large/dynamic lists', 'Small fixed lists'),
 ];
@@ -119,30 +163,30 @@ const _kBestPractices = <_Practice>[
   _Practice(
     'Always specify childCount when known',
     'Without childCount, the framework must probe one index past the last to '
-    'discover the end. Setting childCount avoids that extra builder call and '
-    'enables accurate scrollbar thumbs.',
+        'discover the end. Setting childCount avoids that extra builder call and '
+        'enables accurate scrollbar thumbs.',
   ),
   _Practice(
     'Return null from builder for out-of-range',
     'If childCount is null, the framework stops when builder returns null. '
-    'Never throw — returning null is the defined termination signal.',
+        'Never throw — returning null is the defined termination signal.',
   ),
   _Practice(
     'Use keys for reorderable lists',
     'When items can be reordered or removed, give each child a ValueKey. '
-    'Combine with findChildIndexCallback so the framework can locate '
-    'existing elements without rebuilding the whole visible range.',
+        'Combine with findChildIndexCallback so the framework can locate '
+        'existing elements without rebuilding the whole visible range.',
   ),
   _Practice(
     'Disable wrapping for cheap children',
     'If your child widgets are stateless and fast to paint (e.g., a simple Text '
-    'row), set addRepaintBoundaries and addAutomaticKeepAlives to false. '
-    'This reduces widget depth and layer count.',
+        'row), set addRepaintBoundaries and addAutomaticKeepAlives to false. '
+        'This reduces widget depth and layer count.',
   ),
   _Practice(
     'Prefer SliverChildBuilderDelegate over SliverChildListDelegate',
     'Even for modest lists (>20 items), the lazy builder avoids the initial '
-    'startup cost of creating every child widget up front.',
+        'startup cost of creating every child widget up front.',
   ),
 ];
 
@@ -159,9 +203,15 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(title,
-              style: TextStyle(color: Colors.white, fontSize: 16,
-                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.4,
+            ),
+          ),
         ),
       ],
     ),
@@ -176,22 +226,40 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 6, offset: Offset(0, 2))],
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
+      ],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(text,
-      style: TextStyle(fontSize: 11, color: _kTextMuted,
-          fontWeight: FontWeight.w600, letterSpacing: 0.6));
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 11,
+      color: _kTextMuted,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.6,
+    ),
+  );
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(text,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5,
-          color: color ?? _kTextDark, height: 1.45));
+  return Text(
+    text,
+    style: TextStyle(
+      fontFamily: 'monospace',
+      fontSize: 12.5,
+      color: color ?? _kTextDark,
+      height: 1.45,
+    ),
+  );
 }
 
 Widget _bullet(String text) {
@@ -200,11 +268,19 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
-            decoration: BoxDecoration(color: _kIndigo, shape: BoxShape.circle)),
+        Container(
+          margin: EdgeInsets.only(top: 7),
+          width: 5,
+          height: 5,
+          decoration: BoxDecoration(color: _kIndigo, shape: BoxShape.circle),
+        ),
         SizedBox(width: 10),
-        Expanded(child: Text(text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
       ],
     ),
   );
@@ -220,7 +296,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: _kIndigo, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: _kIndigo,
+        brightness: Brightness.light,
+      ),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoScaffold(),
@@ -253,9 +332,18 @@ class _DemoScaffoldState extends State<_DemoScaffold> {
         selectedItemColor: _kIndigoDark,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.school_outlined), label: 'Theory'),
-          BottomNavigationBarItem(icon: Icon(Icons.build_outlined), label: 'Builder'),
-          BottomNavigationBarItem(icon: Icon(Icons.view_list_outlined), label: 'Separators'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school_outlined),
+            label: 'Theory',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.build_outlined),
+            label: 'Builder',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.view_list_outlined),
+            label: 'Separators',
+          ),
         ],
       ),
     );
@@ -272,10 +360,17 @@ class _TheoryPage extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 40),
       children: [
         // ── Section 1 ──
-        _sectionHeader('1 · What Is SliverChildBuilderDelegate?', Icons.info_outline),
+        _sectionHeader(
+          '1 · What Is SliverChildBuilderDelegate?',
+          Icons.info_outline,
+        ),
         SizedBox(height: 8),
-        _card(child: Text(_kOverview,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        _card(
+          child: Text(
+            _kOverview,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +385,9 @@ class _TheoryPage extends StatelessWidget {
               _mono('       ),'),
               _mono('     )'),
               SizedBox(height: 8),
-              _bullet('The builder is called only for visible + buffered indices.'),
+              _bullet(
+                'The builder is called only for visible + buffered indices.',
+              ),
               _bullet('Widgets are recycled when they scroll off screen.'),
               _bullet('Memory usage stays constant regardless of list size.'),
             ],
@@ -302,38 +399,69 @@ class _TheoryPage extends StatelessWidget {
         // ── Section 2 ──
         _sectionHeader('2 · Constructor Parameters', Icons.settings_outlined),
         SizedBox(height: 8),
-        ..._kParams.map((p) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: _kIndigoLight, borderRadius: BorderRadius.circular(5)),
-                      child: Text(p.name,
-                          style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
-                              fontSize: 12, color: _kIndigoDark)),
+        ..._kParams.map(
+          (p) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _kIndigoLight,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          p.name,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                            color: _kIndigoDark,
+                          ),
+                        ),
+                      ),
                     ),
+                    SizedBox(width: 8),
+                    Text(
+                      p.defaultValue,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _kCoralDark,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Text(
+                  p.type,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _kTextMuted,
                   ),
-                  SizedBox(width: 8),
-                  Text(p.defaultValue,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 11,
-                          color: _kCoralDark, fontWeight: FontWeight.w600)),
-                ],
-              ),
-              SizedBox(height: 4),
-              Text(p.type,
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: _kTextMuted)),
-              SizedBox(height: 6),
-              Text(p.description,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-            ],
+                ),
+                SizedBox(height: 6),
+                Text(
+                  p.description,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
 
@@ -356,18 +484,43 @@ class _TheoryPage extends StatelessWidget {
                 border: TableBorder.all(color: _kDivider, width: 0.5),
                 children: [
                   TableRow(
-                    decoration: BoxDecoration(color: _kIndigoLight.withOpacity(0.5)),
-                    children: ['Feature', 'BuilderDelegate', 'ListDelegate'].map((h) => Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(h, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.5, color: _kIndigoDark)),
-                    )).toList(),
+                    decoration: BoxDecoration(
+                      color: _kIndigoLight.withOpacity(0.5),
+                    ),
+                    children: ['Feature', 'BuilderDelegate', 'ListDelegate']
+                        .map(
+                          (h) => Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              h,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.5,
+                                color: _kIndigoDark,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
-                  ..._kComparison.map((r) => TableRow(
-                    children: [r.feature, r.builder, r.list].map((c) => Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(c, style: TextStyle(fontSize: 10.5, color: _kTextDark)),
-                    )).toList(),
-                  )),
+                  ..._kComparison.map(
+                    (r) => TableRow(
+                      children: [r.feature, r.builder, r.list]
+                          .map(
+                            (c) => Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Text(
+                                c,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: _kTextDark,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -377,28 +530,45 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
 
         // ── Section 7 ──
-        _sectionHeader('7 · AutomaticKeepAlive & RepaintBoundary', Icons.layers_outlined),
+        _sectionHeader(
+          '7 · AutomaticKeepAlive & RepaintBoundary',
+          Icons.layers_outlined,
+        ),
         SizedBox(height: 8),
-        ..._kWrappingExplanation.entries.map((e) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCoralLight,
-                  borderRadius: BorderRadius.circular(6),
+        ..._kWrappingExplanation.entries.map(
+          (e) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kCoralLight,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    e.key,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kCoralDark,
+                    ),
+                  ),
                 ),
-                child: Text(e.key,
-                    style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w700,
-                        fontSize: 12, color: _kCoralDark)),
-              ),
-              SizedBox(height: 6),
-              Text(e.value,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-            ],
+                SizedBox(height: 6),
+                Text(
+                  e.value,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -424,33 +594,49 @@ class _TheoryPage extends StatelessWidget {
         SizedBox(height: 12),
 
         // ── Section 8 ──
-        _sectionHeader('8 · Best Practices & Memory Efficiency', Icons.lightbulb_outlined),
+        _sectionHeader(
+          '8 · Best Practices & Memory Efficiency',
+          Icons.lightbulb_outlined,
+        ),
         SizedBox(height: 8),
-        ..._kBestPractices.map((p) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.check_circle_outline, color: _kIndigo, size: 18),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(p.tip,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13,
-                            color: _kIndigoDark)),
+        ..._kBestPractices.map(
+          (p) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.check_circle_outline, color: _kIndigo, size: 18),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        p.tip,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                          color: _kIndigoDark,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Padding(
+                  padding: EdgeInsets.only(left: 26),
+                  child: Text(
+                    p.detail,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: _kTextDark,
+                      height: 1.35,
+                    ),
                   ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Padding(
-                padding: EdgeInsets.only(left: 26),
-                child: Text(p.detail,
-                    style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -486,9 +672,15 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('BUILDER TRACKING',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'BUILDER TRACKING',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 6),
               Row(
                 children: [
@@ -496,17 +688,25 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
                   SizedBox(width: 8),
                   _dashChip('Built so far', '${_builtIndices.length}'),
                   SizedBox(width: 8),
-                  _dashChip('Memory ratio', '${(_builtIndices.length * 100 / _totalItems).toStringAsFixed(0)}%'),
+                  _dashChip(
+                    'Memory ratio',
+                    '${(_builtIndices.length * 100 / _totalItems).toStringAsFixed(0)}%',
+                  ),
                 ],
               ),
               SizedBox(height: 8),
               // Item count slider
               Row(
                 children: [
-                  Text('Items: ', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                  Text(
+                    'Items: ',
+                    style: TextStyle(color: Colors.white70, fontSize: 11),
+                  ),
                   Expanded(
                     child: Slider(
-                      value: _totalItems.toDouble(), min: 10, max: 500,
+                      value: _totalItems.toDouble(),
+                      min: 10,
+                      max: 500,
                       activeColor: _kCoral,
                       onChanged: (v) => setState(() {
                         _totalItems = v.toInt();
@@ -518,15 +718,23 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
               ),
               Row(
                 children: [
-                  _toggleChip('KeepAlive', _keepAlives, (v) => setState(() {
-                    _keepAlives = v;
-                    _builtIndices.clear();
-                  })),
+                  _toggleChip(
+                    'KeepAlive',
+                    _keepAlives,
+                    (v) => setState(() {
+                      _keepAlives = v;
+                      _builtIndices.clear();
+                    }),
+                  ),
                   SizedBox(width: 8),
-                  _toggleChip('RepaintBoundary', _repaintBoundaries, (v) => setState(() {
-                    _repaintBoundaries = v;
-                    _builtIndices.clear();
-                  })),
+                  _toggleChip(
+                    'RepaintBoundary',
+                    _repaintBoundaries,
+                    (v) => setState(() {
+                      _repaintBoundaries = v;
+                      _builtIndices.clear();
+                    }),
+                  ),
                 ],
               ),
             ],
@@ -541,14 +749,21 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
                   (context, index) {
                     if (!_builtIndices.contains(index)) {
                       _builtIndices.add(index);
-                      print('[Builder] built index $index (total: ${_builtIndices.length})');
+                      print(
+                        '[Builder] built index $index (total: ${_builtIndices.length})',
+                      );
                       // Schedule a rebuild to update the dashboard
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (mounted) setState(() {});
                       });
                     }
                     final hue = (index * 360 / _totalItems) % 360;
-                    final color = HSVColor.fromAHSV(1, hue, 0.35, 0.95).toColor();
+                    final color = HSVColor.fromAHSV(
+                      1,
+                      hue,
+                      0.35,
+                      0.95,
+                    ).toColor();
                     return Container(
                       key: ValueKey(index),
                       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
@@ -562,22 +777,41 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
                       child: Row(
                         children: [
                           Container(
-                            width: 30, height: 30,
+                            width: 30,
+                            height: 30,
                             decoration: BoxDecoration(
                               color: Colors.white.withOpacity(0.7),
                               shape: BoxShape.circle,
                             ),
                             alignment: Alignment.center,
-                            child: Text('${index + 1}',
-                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: _kTextDark)),
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w800,
+                                color: _kTextDark,
+                              ),
+                            ),
                           ),
                           SizedBox(width: 12),
                           Expanded(
-                            child: Text('Item ${index + 1} of $_totalItems',
-                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _kTextDark)),
+                            child: Text(
+                              'Item ${index + 1} of $_totalItems',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: _kTextDark,
+                              ),
+                            ),
                           ),
-                          Text('hue ${hue.toInt()}°',
-                              style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: _kTextMuted)),
+                          Text(
+                            'hue ${hue.toInt()}°',
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                              color: _kTextMuted,
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -605,8 +839,23 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(color: Colors.white54, fontSize: 9, fontWeight: FontWeight.w600)),
-            Text(value, style: TextStyle(color: _kCoral, fontFamily: 'monospace', fontSize: 13, fontWeight: FontWeight.w700)),
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                color: _kCoral,
+                fontFamily: 'monospace',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
       ),
@@ -620,19 +869,30 @@ class _BuilderDemoPageState extends State<_BuilderDemoPage> {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
-            color: value ? _kCoral.withOpacity(0.3) : Colors.white.withOpacity(0.08),
+            color: value
+                ? _kCoral.withOpacity(0.3)
+                : Colors.white.withOpacity(0.08),
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: value ? _kCoral : Colors.white24),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(value ? Icons.check_box : Icons.check_box_outline_blank,
-                  color: value ? _kCoral : Colors.white54, size: 16),
+              Icon(
+                value ? Icons.check_box : Icons.check_box_outline_blank,
+                color: value ? _kCoral : Colors.white54,
+                size: 16,
+              ),
               SizedBox(width: 6),
               Expanded(
-                child: Text(label,
-                    style: TextStyle(color: Colors.white, fontSize: 10.5, fontWeight: FontWeight.w600)),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -667,31 +927,56 @@ class _SeparatorDemoPageState extends State<_SeparatorDemoPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('SEPARATOR PATTERN',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'SEPARATOR PATTERN',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 6),
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => setState(() => _showSeparators = !_showSeparators),
+                    onTap: () =>
+                        setState(() => _showSeparators = !_showSeparators),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: _showSeparators ? _kCoral.withOpacity(0.3) : Colors.white.withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _showSeparators ? _kCoral : Colors.white24),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
                       ),
-                      child: Text(_showSeparators ? 'Separators ON' : 'Separators OFF',
-                          style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
+                      decoration: BoxDecoration(
+                        color: _showSeparators
+                            ? _kCoral.withOpacity(0.3)
+                            : Colors.white.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(
+                          color: _showSeparators ? _kCoral : Colors.white24,
+                        ),
+                      ),
+                      child: Text(
+                        _showSeparators ? 'Separators ON' : 'Separators OFF',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: 12),
-                  Text('Group: $_groupSize',
-                      style: TextStyle(color: Colors.white70, fontSize: 11)),
+                  Text(
+                    'Group: $_groupSize',
+                    style: TextStyle(color: Colors.white70, fontSize: 11),
+                  ),
                   Expanded(
                     child: Slider(
-                      value: _groupSize.toDouble(), min: 2, max: 10, divisions: 8,
+                      value: _groupSize.toDouble(),
+                      min: 2,
+                      max: 10,
+                      divisions: 8,
                       activeColor: _kCoral,
                       onChanged: (v) => setState(() => _groupSize = v.toInt()),
                     ),
@@ -702,9 +987,13 @@ class _SeparatorDemoPageState extends State<_SeparatorDemoPage> {
               Text(
                 _showSeparators
                     ? 'Builder uses index math: odd indices → separator, even → item. '
-                      'semanticIndexCallback skips separators.'
+                          'semanticIndexCallback skips separators.'
                     : 'Standard 1:1 builder — one widget per index.',
-                style: TextStyle(color: Colors.white70, fontSize: 10.5, height: 1.3),
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -721,58 +1010,87 @@ class _SeparatorDemoPageState extends State<_SeparatorDemoPage> {
                       final itemIndex = index ~/ 2;
                       if (index.isOdd) {
                         // Separator
-                        final isGroupBoundary = (itemIndex + 1) % _groupSize == 0;
+                        final isGroupBoundary =
+                            (itemIndex + 1) % _groupSize == 0;
                         return Container(
                           height: isGroupBoundary ? 24 : 1,
-                          margin: EdgeInsets.symmetric(horizontal: isGroupBoundary ? 0 : 16),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: isGroupBoundary ? 0 : 16,
+                          ),
                           color: isGroupBoundary
                               ? _kIndigoLight.withOpacity(0.5)
                               : _kDivider,
                           child: isGroupBoundary
-                              ? Center(child: Text('Group ${(itemIndex ~/ _groupSize) + 1} / ${(itemIndex ~/ _groupSize) + 2}',
-                                  style: TextStyle(fontSize: 10, color: _kIndigoDark, fontWeight: FontWeight.w600)))
+                              ? Center(
+                                  child: Text(
+                                    'Group ${(itemIndex ~/ _groupSize) + 1} / ${(itemIndex ~/ _groupSize) + 2}',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: _kIndigoDark,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                )
                               : null,
                         );
                       }
                       // Item
                       final hue = (itemIndex * 12.0) % 360;
                       return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 2,
+                        ),
                         height: 50,
                         decoration: BoxDecoration(
-                          color: HSVColor.fromAHSV(1, hue, 0.25, 0.97).toColor(),
+                          color: HSVColor.fromAHSV(
+                            1,
+                            hue,
+                            0.25,
+                            0.97,
+                          ).toColor(),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 14),
-                        child: Text('Item ${itemIndex + 1}',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: _kTextDark)),
+                        child: Text(
+                          'Item ${itemIndex + 1}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: _kTextDark,
+                          ),
+                        ),
                       );
                     },
                     childCount: totalLogicalItems * 2 - 1,
-                    semanticIndexCallback: (widget, localIndex) => localIndex ~/ 2,
+                    semanticIndexCallback: (widget, localIndex) =>
+                        localIndex ~/ 2,
                   ),
                 )
               else
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final hue = (index * 12.0) % 360;
-                      return Container(
-                        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: HSVColor.fromAHSV(1, hue, 0.25, 0.97).toColor(),
-                          borderRadius: BorderRadius.circular(6),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    final hue = (index * 12.0) % 360;
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: HSVColor.fromAHSV(1, hue, 0.25, 0.97).toColor(),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.symmetric(horizontal: 14),
+                      child: Text(
+                        'Item ${index + 1}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: _kTextDark,
                         ),
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.symmetric(horizontal: 14),
-                        child: Text('Item ${index + 1}',
-                            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: _kTextDark)),
-                      );
-                    },
-                    childCount: totalLogicalItems,
-                  ),
+                      ),
+                    );
+                  }, childCount: totalLogicalItems),
                 ),
             ],
           ),

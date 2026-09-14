@@ -16,8 +16,7 @@ dynamic build(BuildContext context) {
   const accentYellow = Color(0xFFFDD835);
 
   // ── Helpers ────────────────────────────────────────────────────────
-  Widget sectionBanner(
-      String title, String subtitle, Color bg, Color fg) {
+  Widget sectionBanner(String title, String subtitle, Color bg, Color fg) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 20, bottom: 8),
@@ -33,17 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -72,15 +78,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepLime)),
+            child: Text(value, style: TextStyle(fontSize: 13, color: deepLime)),
           ),
         ],
       ),
@@ -108,11 +116,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: deepLime.withValues(alpha: 0.2)),
       ),
-      child: Text(name,
-          style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color.computeLuminance() > 0.5 ? deepLime : Colors.white)),
+      child: Text(
+        name,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color.computeLuminance() > 0.5 ? deepLime : Colors.white,
+        ),
+      ),
     );
   }
 
@@ -128,8 +139,11 @@ dynamic build(BuildContext context) {
 
   // Section 2 — basic creation
   final basicChildren = <Widget>[
-    Text('Apple'), Text('Banana'), Text('Cherry'),
-    Text('Date'), Text('Elderberry'),
+    Text('Apple'),
+    Text('Banana'),
+    Text('Cherry'),
+    Text('Date'),
+    Text('Elderberry'),
   ];
   final basicDelegate = ListWheelChildListDelegate(children: basicChildren);
   print('\n--- Basic creation ---');
@@ -234,7 +248,9 @@ dynamic build(BuildContext context) {
   // Section 14 — integration
   print('\n--- Integration ---');
   print('ListWheelScrollView(children: [...]) creates this automatically');
-  print('Or: ListWheelScrollView.useDelegate(childDelegate: ListWheelChildListDelegate(...))');
+  print(
+    'Or: ListWheelScrollView.useDelegate(childDelegate: ListWheelChildListDelegate(...))',
+  );
 
   // Section 15 — summary
   print('\n${'=' * 60}');
@@ -261,30 +277,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('ListWheelChildListDelegate',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                'ListWheelChildListDelegate',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('Pre-built child list for cylindrical wheel scroll views',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9), fontSize: 14)),
+              Text(
+                'Pre-built child list for cylindrical wheel scroll views',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Eager', vibrantGreen, Colors.white),
-                tag('Fixed List', springLeaf, deepLime),
-                tag('Simple', mintGreen, deepLime),
-                tag('Small Sets', paleClover, deepLime),
-              ]),
+              Wrap(
+                children: [
+                  tag('Eager', vibrantGreen, Colors.white),
+                  tag('Fixed List', springLeaf, deepLime),
+                  tag('Simple', mintGreen, deepLime),
+                  tag('Small Sets', paleClover, deepLime),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is ListWheelChildListDelegate',
-            'The simplest wheel delegate: a plain list of widgets',
-            deepLime, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is ListWheelChildListDelegate',
+          'The simplest wheel delegate: a plain list of widgets',
+          deepLime,
+          Colors.white,
+        ),
         noteBox(
           'ListWheelChildListDelegate is the simplest of the three '
           'ListWheelChildDelegate implementations. You give it an explicit '
@@ -301,11 +329,22 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Basic creation ────────────────────────────────────────
-        sectionBanner('2 \u00b7 Basic Creation',
-            'Creating a delegate with an explicit child list',
-            forestChartreuse, Colors.white),
-        dataRow('children.length', '${basicDelegate.children.length}', deepLime),
-        dataRow('estimatedChildCount', '${basicDelegate.estimatedChildCount}', forestChartreuse),
+        sectionBanner(
+          '2 \u00b7 Basic Creation',
+          'Creating a delegate with an explicit child list',
+          forestChartreuse,
+          Colors.white,
+        ),
+        dataRow(
+          'children.length',
+          '${basicDelegate.children.length}',
+          deepLime,
+        ),
+        dataRow(
+          'estimatedChildCount',
+          '${basicDelegate.estimatedChildCount}',
+          forestChartreuse,
+        ),
         dataRow('runtimeType', '${basicDelegate.runtimeType}', vibrantGreen),
         const SizedBox(height: 8),
         Container(
@@ -320,19 +359,31 @@ dynamic build(BuildContext context) {
             diameterRatio: 1.8,
             physics: const FixedExtentScrollPhysics(),
             children: [
-              for (final fruit in ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'])
+              for (final fruit in [
+                'Apple',
+                'Banana',
+                'Cherry',
+                'Date',
+                'Elderberry',
+              ])
                 Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: dewDrop,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(fruit,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: deepLime)),
+                  child: Text(
+                    fruit,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: deepLime,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -340,9 +391,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Build method ──────────────────────────────────────────
-        sectionBanner('3 \u00b7 Build Method — Index-Based Access',
-            'Returns the widget at a given index, or null for out-of-range',
-            vibrantGreen, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Build Method — Index-Based Access',
+          'Returns the widget at a given index, or null for out-of-range',
+          vibrantGreen,
+          Colors.white,
+        ),
         noteBox(
           'build(context, index) returns the child from the children list '
           'at the given position. Indices outside [0, children.length) '
@@ -367,30 +421,37 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 100,
-                        child: Text('build(ctx, $idx)',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: deepLime,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          'build(ctx, $idx)',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: deepLime,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Icon(
                         idx >= 0 && idx < 5 ? Icons.check_circle : Icons.cancel,
                         size: 16,
-                        color: idx >= 0 && idx < 5 ? vibrantGreen : warningOrange,
+                        color: idx >= 0 && idx < 5
+                            ? vibrantGreen
+                            : warningOrange,
                       ),
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
-                            idx >= 0 && idx < 5
-                                ? '${basicDelegate.build(context, idx)}'
-                                : 'null (out of range)',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: idx >= 0 && idx < 5
-                                    ? deepLime
-                                    : warningOrange)),
+                          idx >= 0 && idx < 5
+                              ? '${basicDelegate.build(context, idx)}'
+                              : 'null (out of range)',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: idx >= 0 && idx < 5
+                                ? deepLime
+                                : warningOrange,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -401,9 +462,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. trueIndexOf ───────────────────────────────────────────
-        sectionBanner('4 \u00b7 trueIndexOf — Identity Mapping',
-            'Non-looping delegates return the index unchanged',
-            springLeaf, deepLime),
+        sectionBanner(
+          '4 \u00b7 trueIndexOf — Identity Mapping',
+          'Non-looping delegates return the index unchanged',
+          springLeaf,
+          deepLime,
+        ),
         noteBox(
           'For ListWheelChildListDelegate, trueIndexOf(index) is always '
           'the identity function: it returns the same index. This is because '
@@ -413,15 +477,30 @@ dynamic build(BuildContext context) {
           frostGreen,
         ),
         dataRow('trueIndexOf(0)', '${basicDelegate.trueIndexOf(0)}', deepLime),
-        dataRow('trueIndexOf(2)', '${basicDelegate.trueIndexOf(2)}', forestChartreuse),
-        dataRow('trueIndexOf(4)', '${basicDelegate.trueIndexOf(4)}', vibrantGreen),
-        dataRow('trueIndexOf(99)', '${basicDelegate.trueIndexOf(99)}', springLeaf),
+        dataRow(
+          'trueIndexOf(2)',
+          '${basicDelegate.trueIndexOf(2)}',
+          forestChartreuse,
+        ),
+        dataRow(
+          'trueIndexOf(4)',
+          '${basicDelegate.trueIndexOf(4)}',
+          vibrantGreen,
+        ),
+        dataRow(
+          'trueIndexOf(99)',
+          '${basicDelegate.trueIndexOf(99)}',
+          springLeaf,
+        ),
         const SizedBox(height: 14),
 
         // ── 6. shouldRebuild ─────────────────────────────────────────
-        sectionBanner('5 \u00b7 shouldRebuild Behavior',
-            'Compares children list reference',
-            deepLime, Colors.white),
+        sectionBanner(
+          '5 \u00b7 shouldRebuild Behavior',
+          'Compares children list reference',
+          deepLime,
+          Colors.white,
+        ),
         noteBox(
           'shouldRebuild(oldDelegate) compares the children list references. '
           'If the new delegate uses the same List object, it returns false '
@@ -430,8 +509,16 @@ dynamic build(BuildContext context) {
           deepLime,
           frostGreen,
         ),
-        dataRow('Same list object', '${basicDelegate.shouldRebuild(sameDelegate)}', deepLime),
-        dataRow('Different list', '${basicDelegate.shouldRebuild(diffDelegate)}', warningOrange),
+        dataRow(
+          'Same list object',
+          '${basicDelegate.shouldRebuild(sameDelegate)}',
+          deepLime,
+        ),
+        dataRow(
+          'Different list',
+          '${basicDelegate.shouldRebuild(diffDelegate)}',
+          warningOrange,
+        ),
         noteBox(
           'Tip: To avoid unnecessary rebuilds, keep the same List<Widget> '
           'object between build calls. If you reconstruct the list each '
@@ -442,11 +529,22 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Empty delegate ────────────────────────────────────────
-        sectionBanner('6 \u00b7 Edge Case: Empty Delegate',
-            'What happens with zero children',
-            forestChartreuse, Colors.white),
-        dataRow('estimatedChildCount', '${emptyDelegate.estimatedChildCount}', deepLime),
-        dataRow('build(0)', '${emptyDelegate.build(context, 0)}', warningOrange),
+        sectionBanner(
+          '6 \u00b7 Edge Case: Empty Delegate',
+          'What happens with zero children',
+          forestChartreuse,
+          Colors.white,
+        ),
+        dataRow(
+          'estimatedChildCount',
+          '${emptyDelegate.estimatedChildCount}',
+          deepLime,
+        ),
+        dataRow(
+          'build(0)',
+          '${emptyDelegate.build(context, 0)}',
+          warningOrange,
+        ),
         noteBox(
           'An empty ListWheelChildListDelegate is valid but the wheel '
           'will show nothing. The viewport still renders its cylindrical '
@@ -457,9 +555,17 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Single child ──────────────────────────────────────────
-        sectionBanner('7 \u00b7 Edge Case: Single Child',
-            'A wheel with just one item', vibrantGreen, Colors.white),
-        dataRow('estimatedChildCount', '${singleDelegate.estimatedChildCount}', deepLime),
+        sectionBanner(
+          '7 \u00b7 Edge Case: Single Child',
+          'A wheel with just one item',
+          vibrantGreen,
+          Colors.white,
+        ),
+        dataRow(
+          'estimatedChildCount',
+          '${singleDelegate.estimatedChildCount}',
+          deepLime,
+        ),
         Container(
           height: 100,
           decoration: BoxDecoration(
@@ -478,11 +584,14 @@ dynamic build(BuildContext context) {
                   color: paleClover,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text('The Lonely Item',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: deepLime)),
+                child: Text(
+                  'The Lonely Item',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: deepLime,
+                  ),
+                ),
               ),
             ],
           ),
@@ -490,9 +599,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Fruit picker with styling ─────────────────────────────
-        sectionBanner('8 \u00b7 Styled Fruit Picker',
-            'Each item with emoji and color coding',
-            deepLime, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Styled Fruit Picker',
+          'Each item with emoji and color coding',
+          deepLime,
+          Colors.white,
+        ),
         Container(
           height: 200,
           decoration: BoxDecoration(
@@ -512,24 +624,29 @@ dynamic build(BuildContext context) {
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 2),
+                        horizontal: 12,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: fruit.$3.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                            color: fruit.$3.withValues(alpha: 0.3)),
+                          color: fruit.$3.withValues(alpha: 0.3),
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(fruit.$1,
-                              style: const TextStyle(fontSize: 20)),
+                          Text(fruit.$1, style: const TextStyle(fontSize: 20)),
                           const SizedBox(width: 10),
-                          Text(fruit.$2,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  color: deepLime)),
+                          Text(
+                            fruit.$2,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: deepLime,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -552,15 +669,16 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Color swatch wheel ───────────────────────────────────
-        sectionBanner('9 \u00b7 Color Swatch Selector',
-            'Pre-built color items in a wheel',
-            springLeaf, deepLime),
+        sectionBanner(
+          '9 \u00b7 Color Swatch Selector',
+          'Pre-built color items in a wheel',
+          springLeaf,
+          deepLime,
+        ),
         Wrap(
           spacing: 4,
           runSpacing: 4,
-          children: [
-            for (final s in swatches) colorChip(s.$1, s.$2),
-          ],
+          children: [for (final s in swatches) colorChip(s.$1, s.$2)],
         ),
         const SizedBox(height: 8),
         Container(
@@ -578,7 +696,10 @@ dynamic build(BuildContext context) {
               for (final swatch in swatches)
                 Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -587,8 +708,7 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: swatch.$2.withValues(alpha: 0.4)),
+                    border: Border.all(color: swatch.$2.withValues(alpha: 0.4)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -603,11 +723,14 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Text(swatch.$1,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: deepLime)),
+                      Text(
+                        swatch.$1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: deepLime,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -617,9 +740,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Comparison with builder ──────────────────────────────
-        sectionBanner('10 \u00b7 List vs Builder — Same Data',
-            'Comparing approaches for the same 5 items',
-            deepLime, Colors.white),
+        sectionBanner(
+          '10 \u00b7 List vs Builder — Same Data',
+          'Comparing approaches for the same 5 items',
+          deepLime,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -639,27 +765,36 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Aspect',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Aspect',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('ListDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'ListDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('BuilderDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'BuilderDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -673,20 +808,30 @@ dynamic build(BuildContext context) {
                 TableRow(
                   children: [
                     Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(row.$1,
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: deepLime))),
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: deepLime,
+                        ),
+                      ),
+                    ),
                     Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(row.$2,
-                            style: TextStyle(fontSize: 11, color: deepLime))),
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 11, color: deepLime),
+                      ),
+                    ),
                     Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(row.$3,
-                            style: TextStyle(fontSize: 11, color: deepLime))),
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 11, color: deepLime),
+                      ),
+                    ),
                   ],
                 ),
             ],
@@ -695,9 +840,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Children property access ─────────────────────────────
-        sectionBanner('11 \u00b7 The children Property',
-            'Direct access to the pre-built widget list',
-            forestChartreuse, Colors.white),
+        sectionBanner(
+          '11 \u00b7 The children Property',
+          'Direct access to the pre-built widget list',
+          forestChartreuse,
+          Colors.white,
+        ),
         noteBox(
           'Unlike BuilderDelegate, ListWheelChildListDelegate exposes a '
           'children property giving direct access to the full widget list. '
@@ -708,7 +856,11 @@ dynamic build(BuildContext context) {
         ),
         dataRow('Type', 'List<Widget>', deepLime),
         dataRow('Length', '${basicDelegate.children.length}', forestChartreuse),
-        dataRow('Mutable?', 'The list can be mutated externally', warningOrange),
+        dataRow(
+          'Mutable?',
+          'The list can be mutated externally',
+          warningOrange,
+        ),
         noteBox(
           'Warning: Mutating the children list after creating the delegate '
           'may cause unexpected behavior. Always create a new delegate if '
@@ -719,9 +871,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Implicit creation ────────────────────────────────────
-        sectionBanner('12 \u00b7 Implicit Creation via ListWheelScrollView',
-            'The convenience constructor creates this delegate for you',
-            vibrantGreen, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Implicit Creation via ListWheelScrollView',
+          'The convenience constructor creates this delegate for you',
+          vibrantGreen,
+          Colors.white,
+        ),
         noteBox(
           'When you use ListWheelScrollView(children: [...]), Flutter '
           'internally wraps your children in a ListWheelChildListDelegate. '
@@ -740,62 +895,92 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Equivalent code:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: deepLime)),
+              Text(
+                'Equivalent code:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: deepLime,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('// Implicit (common)',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: forestChartreuse)),
-              Text('ListWheelScrollView(children: [...])',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
+              Text(
+                '// Implicit (common)',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: forestChartreuse,
+                ),
+              ),
+              Text(
+                'ListWheelScrollView(children: [...])',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('// Explicit (equivalent)',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: forestChartreuse)),
-              Text('ListWheelScrollView.useDelegate(',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
-              Text('  childDelegate: ListWheelChildListDelegate(',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
-              Text('    children: [...]',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
-              Text('  ),',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
-              Text(')',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepLime)),
+              Text(
+                '// Explicit (equivalent)',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: forestChartreuse,
+                ),
+              ),
+              Text(
+                'ListWheelScrollView.useDelegate(',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
+              Text(
+                '  childDelegate: ListWheelChildListDelegate(',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
+              Text(
+                '    children: [...]',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
+              Text(
+                '  ),',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
+              Text(
+                ')',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepLime,
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 14. Real-world: day-of-week selector ─────────────────────
-        sectionBanner('13 \u00b7 Real-World: Day Selector',
-            'Fixed 7-item list, perfect for ListDelegate',
-            deepLime, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Real-World: Day Selector',
+          'Fixed 7-item list, perfect for ListDelegate',
+          deepLime,
+          Colors.white,
+        ),
         Container(
           height: 180,
           decoration: BoxDecoration(
@@ -820,7 +1005,10 @@ dynamic build(BuildContext context) {
               ])
                 Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: dewDrop,
                     borderRadius: BorderRadius.circular(10),
@@ -832,26 +1020,33 @@ dynamic build(BuildContext context) {
                         width: 50,
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: deepLime,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(day.$1,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                        child: Text(
+                          day.$1,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
-                      Text(day.$2,
-                          style: const TextStyle(fontSize: 18)),
+                      Text(day.$2, style: const TextStyle(fontSize: 18)),
                       const SizedBox(width: 8),
-                      Text(day.$3,
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: deepLime,
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        day.$3,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: deepLime,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -861,8 +1056,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Inheritance hierarchy ────────────────────────────────
-        sectionBanner('14 \u00b7 Inheritance Hierarchy',
-            'Class relationships', springLeaf, deepLime),
+        sectionBanner(
+          '14 \u00b7 Inheritance Hierarchy',
+          'Class relationships',
+          springLeaf,
+          deepLime,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -882,16 +1081,19 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(line,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: line.contains('\u2605')
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: line.contains('\u2605')
-                              ? deepLime
-                              : forestChartreuse)),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: line.contains('\u2605')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: line.contains('\u2605')
+                          ? deepLime
+                          : forestChartreuse,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -899,8 +1101,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary dashboard ────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepLime, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepLime,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -930,15 +1136,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: accentYellow,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: accentYellow,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

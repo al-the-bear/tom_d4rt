@@ -249,11 +249,7 @@ class _SmbawHeroMarquee extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Container(
-                        height: 2,
-                        width: 120,
-                        color: _kGold,
-                      ),
+                      Container(height: 2, width: 120, color: _kGold),
                       const SizedBox(height: 14),
                       Text(
                         'The abstract base for lazily-producing box-child slivers',
@@ -376,9 +372,7 @@ class _SmbawWingMark extends StatelessWidget {
     return SizedBox(
       width: 56,
       height: 56,
-      child: CustomPaint(
-        painter: _SmbawWingPainter(phase: phase),
-      ),
+      child: CustomPaint(painter: _SmbawWingPainter(phase: phase)),
     );
   }
 }
@@ -853,10 +847,7 @@ class _SmbawCrossSectionPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp2.paint(
-        canvas,
-        Offset(r.center.dx - tp2.width / 2, r.center.dy + 4),
-      );
+      tp2.paint(canvas, Offset(r.center.dx - tp2.width / 2, r.center.dy + 4));
     }
 
     // Connecting arrows.
@@ -934,10 +925,7 @@ class _SmbawPlinthSliverList extends StatelessWidget {
       },
       <String, String>{'t': 'XII', 'l': 'Twelve.'},
       <String, String>{'t': 'XIII', 'l': 'Superstitious but brief'},
-      <String, String>{
-        't': 'XIV',
-        'l': 'Fourteenth of twenty\nstill variable',
-      },
+      <String, String>{'t': 'XIV', 'l': 'Fourteenth of twenty\nstill variable'},
       <String, String>{'t': 'XV', 'l': 'A quarter-closing note'},
       <String, String>{'t': 'XVI', 'l': 'Sixteen'},
       <String, String>{
@@ -963,49 +951,44 @@ class _SmbawPlinthSliverList extends StatelessWidget {
       specimen: CustomScrollView(
         slivers: <Widget>[
           SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final Map<String, String> s = stanzas[index];
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: _kIvory,
-                    border: Border(
-                      left: BorderSide(color: _kGold, width: 3),
+            delegate: SliverChildBuilderDelegate((
+              BuildContext context,
+              int index,
+            ) {
+              final Map<String, String> s = stanzas[index];
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _kIvory,
+                  border: Border(left: BorderSide(color: _kGold, width: 3)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      s['t']!,
+                      style: const TextStyle(
+                        color: _kBurgundy,
+                        fontFamily: 'serif',
+                        fontSize: 11,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        s['t']!,
-                        style: const TextStyle(
-                          color: _kBurgundy,
-                          fontFamily: 'serif',
-                          fontSize: 11,
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w700,
-                        ),
+                    Text(
+                      s['l']!,
+                      style: const TextStyle(
+                        color: _kInk,
+                        fontFamily: 'serif',
+                        fontSize: 11,
+                        height: 1.35,
                       ),
-                      Text(
-                        s['l']!,
-                        style: const TextStyle(
-                          color: _kInk,
-                          fontFamily: 'serif',
-                          fontSize: 11,
-                          height: 1.35,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: stanzas.length,
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: stanzas.length),
           ),
         ],
       ),
@@ -1065,25 +1048,21 @@ class _SmbawPlinthSliverGrid extends StatelessWidget {
                 crossAxisSpacing: 6,
                 childAspectRatio: 1,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: _kBurgundy,
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _kGold, width: 1),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        glyphs[index],
-                        color: _kSoftGold,
-                        size: 22,
-                      ),
-                    ),
-                  );
-                },
-                childCount: glyphs.length,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: _kBurgundy,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(color: _kGold, width: 1),
+                  ),
+                  child: Center(
+                    child: Icon(glyphs[index], color: _kSoftGold, size: 22),
+                  ),
+                );
+              }, childCount: glyphs.length),
             ),
           ),
         ],
@@ -1137,63 +1116,58 @@ class _SmbawPlinthSliverFixedExtent extends StatelessWidget {
         slivers: <Widget>[
           SliverFixedExtentList(
             itemExtent: 44,
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final Map<String, String> c = chapters[index];
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: index.isEven
-                        ? _kIvory
-                        : _kParchment.withValues(alpha: 0.8),
-                    border: Border.all(
-                      color: _kGold.withValues(alpha: 0.3),
+            delegate: SliverChildBuilderDelegate((
+              BuildContext context,
+              int index,
+            ) {
+              final Map<String, String> c = chapters[index];
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  color: index.isEven
+                      ? _kIvory
+                      : _kParchment.withValues(alpha: 0.8),
+                  border: Border.all(color: _kGold.withValues(alpha: 0.3)),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      width: 24,
+                      alignment: Alignment.center,
+                      child: Text(
+                        c['n']!,
+                        style: const TextStyle(
+                          color: _kBurgundy,
+                          fontFamily: 'serif',
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 24,
-                        alignment: Alignment.center,
-                        child: Text(
-                          c['n']!,
-                          style: const TextStyle(
-                            color: _kBurgundy,
-                            fontFamily: 'serif',
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                          ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        c['t']!,
+                        style: const TextStyle(
+                          color: _kInk,
+                          fontFamily: 'serif',
+                          fontSize: 12,
                         ),
                       ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          c['t']!,
-                          style: const TextStyle(
-                            color: _kInk,
-                            fontFamily: 'serif',
-                            fontSize: 12,
-                          ),
-                        ),
+                    ),
+                    Text(
+                      c['p']!,
+                      style: TextStyle(
+                        color: _kInk.withValues(alpha: 0.6),
+                        fontFamily: 'monospace',
+                        fontSize: 10,
                       ),
-                      Text(
-                        c['p']!,
-                        style: TextStyle(
-                          color: _kInk.withValues(alpha: 0.6),
-                          fontFamily: 'monospace',
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: chapters.length,
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: chapters.length),
           ),
         ],
       ),
@@ -1246,59 +1220,53 @@ class _SmbawPlinthSliverPrototypeExtent extends StatelessWidget {
         slivers: <Widget>[
           SliverPrototypeExtentList(
             prototypeItem: Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 4,
-              ),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               padding: const EdgeInsets.all(10),
               child: const Text('Prototype', style: TextStyle(fontSize: 13)),
             ),
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: _kBurgundy,
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _kGold, width: 1),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      const Icon(
-                        Icons.workspace_premium,
-                        color: _kSoftGold,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          badges[index],
-                          style: const TextStyle(
-                            color: _kIvory,
-                            fontFamily: 'serif',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
+            delegate: SliverChildBuilderDelegate((
+              BuildContext context,
+              int index,
+            ) {
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: _kBurgundy,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: _kGold, width: 1),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    const Icon(
+                      Icons.workspace_premium,
+                      color: _kSoftGold,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        badges[index],
+                        style: const TextStyle(
+                          color: _kIvory,
+                          fontFamily: 'serif',
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        '#${(index + 1).toString().padLeft(2, '0')}',
-                        style: TextStyle(
-                          color: _kSoftGold.withValues(alpha: 0.9),
-                          fontFamily: 'monospace',
-                          fontSize: 10,
-                        ),
+                    ),
+                    Text(
+                      '#${(index + 1).toString().padLeft(2, '0')}',
+                      style: TextStyle(
+                        color: _kSoftGold.withValues(alpha: 0.9),
+                        fontFamily: 'monospace',
+                        fontSize: 10,
                       ),
-                    ],
-                  ),
-                );
-              },
-              childCount: badges.length,
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: badges.length),
           ),
         ],
       ),
@@ -1452,8 +1420,8 @@ class _SmbawComparisonTable extends StatelessWidget {
     final Color tint = yes
         ? _kGold
         : no
-            ? _kInk.withValues(alpha: 0.45)
-            : _kBurgundy.withValues(alpha: 0.75);
+        ? _kInk.withValues(alpha: 0.45)
+        : _kBurgundy.withValues(alpha: 0.75);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -1461,19 +1429,15 @@ class _SmbawComparisonTable extends StatelessWidget {
           yes
               ? Icons.check_circle
               : no
-                  ? Icons.remove_circle_outline
-                  : Icons.adjust,
+              ? Icons.remove_circle_outline
+              : Icons.adjust,
           size: 14,
           color: tint,
         ),
         const SizedBox(width: 6),
         Text(
           s,
-          style: TextStyle(
-            color: tint,
-            fontFamily: 'serif',
-            fontSize: 12,
-          ),
+          style: TextStyle(color: tint, fontFamily: 'serif', fontSize: 12),
         ),
       ],
     );
@@ -1506,7 +1470,8 @@ class _SmbawConstructorAnatomyGrid extends StatelessWidget {
             const List<_SmbawAnatomy> anatomies = <_SmbawAnatomy>[
               _SmbawAnatomy(
                 name: 'SliverList',
-                code: 'SliverList({\n'
+                code:
+                    'SliverList({\n'
                     '  Key? key,\n'
                     '  required SliverChildDelegate delegate,\n'
                     '})',
@@ -1517,7 +1482,8 @@ class _SmbawConstructorAnatomyGrid extends StatelessWidget {
               ),
               _SmbawAnatomy(
                 name: 'SliverGrid',
-                code: 'SliverGrid({\n'
+                code:
+                    'SliverGrid({\n'
                     '  Key? key,\n'
                     '  required SliverChildDelegate delegate,\n'
                     '  required SliverGridDelegate gridDelegate,\n'
@@ -1530,7 +1496,8 @@ class _SmbawConstructorAnatomyGrid extends StatelessWidget {
               ),
               _SmbawAnatomy(
                 name: 'SliverFixedExtentList',
-                code: 'SliverFixedExtentList({\n'
+                code:
+                    'SliverFixedExtentList({\n'
                     '  Key? key,\n'
                     '  required SliverChildDelegate delegate,\n'
                     '  required double itemExtent,\n'
@@ -1542,7 +1509,8 @@ class _SmbawConstructorAnatomyGrid extends StatelessWidget {
               ),
               _SmbawAnatomy(
                 name: 'SliverPrototypeExtentList',
-                code: 'SliverPrototypeExtentList({\n'
+                code:
+                    'SliverPrototypeExtentList({\n'
                     '  Key? key,\n'
                     '  required SliverChildDelegate delegate,\n'
                     '  required Widget prototypeItem,\n'
@@ -1630,10 +1598,7 @@ class _SmbawAnatomyCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kBurgundy,
                   borderRadius: BorderRadius.circular(4),
@@ -1693,7 +1658,12 @@ class _SmbawAnatomyCard extends StatelessWidget {
 
   List<InlineSpan> _highlightCode(String code, List<String> highlights) {
     final List<InlineSpan> spans = <InlineSpan>[];
-    final List<String> keywords = <String>['required', 'Key?', 'Widget', 'double'];
+    final List<String> keywords = <String>[
+      'required',
+      'Key?',
+      'Widget',
+      'double',
+    ];
     final RegExp token = RegExp(r'(\w+\??)|(\W+)');
     for (final RegExpMatch m in token.allMatches(code)) {
       final String t = m.group(0)!;
@@ -1840,9 +1810,7 @@ class _SmbawFrame extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: _kParchment,
-                  border: Border.all(
-                    color: accent.withValues(alpha: 0.5),
-                  ),
+                  border: Border.all(color: accent.withValues(alpha: 0.5)),
                 ),
                 child: child,
               ),
@@ -1861,21 +1829,14 @@ class _SmbawWrongSample extends StatelessWidget {
     // pictorially rather than actually throwing at layout time.
     return Stack(
       children: <Widget>[
-        Positioned.fill(
-          child: CustomPaint(
-            painter: _SmbawOverflowPainter(),
-          ),
-        ),
+        Positioned.fill(child: CustomPaint(painter: _SmbawOverflowPainter())),
         Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 3,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 color: const Color(0xFF9B2F3A),
                 child: const Text(
                   'CustomScrollView > ListView.builder(…)',
@@ -1948,10 +1909,7 @@ class _SmbawRightSample extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           sliver: SliverToBoxAdapter(
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6,
-                vertical: 3,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
               color: _kGold,
               child: const Text(
                 'CustomScrollView > SliverList(…)',
@@ -1966,32 +1924,27 @@ class _SmbawRightSample extends StatelessWidget {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
+          delegate: SliverChildBuilderDelegate((
+            BuildContext context,
+            int index,
+          ) {
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: _kIvory,
+                border: Border(left: BorderSide(color: _kGold, width: 3)),
+              ),
+              child: Text(
+                'row $index — participates in scroll',
+                style: const TextStyle(
+                  fontFamily: 'serif',
+                  fontSize: 11,
+                  color: _kInk,
                 ),
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: _kIvory,
-                  border: Border(
-                    left: BorderSide(color: _kGold, width: 3),
-                  ),
-                ),
-                child: Text(
-                  'row $index — participates in scroll',
-                  style: const TextStyle(
-                    fontFamily: 'serif',
-                    fontSize: 11,
-                    color: _kInk,
-                  ),
-                ),
-              );
-            },
-            childCount: 40,
-          ),
+              ),
+            );
+          }, childCount: 40),
         ),
       ],
     );

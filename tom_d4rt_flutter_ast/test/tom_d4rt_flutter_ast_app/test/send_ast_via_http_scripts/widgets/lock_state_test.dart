@@ -33,7 +33,6 @@ final ValueNotifier<int> _displayCounter = ValueNotifier<int>(0);
 /// Buffered increments queued while the lock is held.
 final ValueNotifier<int> _bufferedIncrements = ValueNotifier<int>(0);
 
-
 // ─── Entry point ────────────────────────────────────────────────────────────
 
 dynamic build(BuildContext context) {
@@ -88,10 +87,7 @@ class _LockStateDemoRoot extends StatelessWidget {
             isScrollable: true,
             tabs: List<Tab>.generate(
               _tabLabels.length,
-              (int i) => Tab(
-                icon: Icon(_tabIcons[i]),
-                text: _tabLabels[i],
-              ),
+              (int i) => Tab(icon: Icon(_tabIcons[i]), text: _tabLabels[i]),
             ),
           ),
         ),
@@ -126,9 +122,9 @@ class _SectionTitle extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.primary,
+        ),
       ),
     );
   }
@@ -140,10 +136,7 @@ class _BodyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.bodyMedium,
-    );
+    return Text(text, style: Theme.of(context).textTheme.bodyMedium);
   }
 }
 
@@ -165,9 +158,9 @@ class _InfoCard extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 6),
             Text(body, style: Theme.of(context).textTheme.bodySmall),
@@ -210,7 +203,8 @@ class _ConceptTab extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'LockState',
-                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
                             color: cs.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
@@ -226,8 +220,8 @@ class _ConceptTab extends StatelessWidget {
                 'animated reorders, and shared-element animations where '
                 'mid-flight state changes would cause visual glitches.',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: cs.onPrimary.withAlpha(230),
-                    ),
+                  color: cs.onPrimary.withAlpha(230),
+                ),
               ),
               const SizedBox(height: 12),
               Container(
@@ -242,9 +236,9 @@ class _ConceptTab extends StatelessWidget {
                   'and custom widgets so you can understand the pattern '
                   'and implement it yourself.',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: cs.onPrimary,
-                        fontStyle: FontStyle.italic,
-                      ),
+                    color: cs.onPrimary,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
             ],
@@ -449,16 +443,9 @@ class _ArchitecturePainter extends CustomPainter {
       ..color = const Color(0xFFE53935)
       ..strokeWidth = 2;
 
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
 
-    void drawBox(
-      Rect rect,
-      String label,
-      Color fill, {
-      bool dashed = false,
-    }) {
+    void drawBox(Rect rect, String label, Color fill, {bool dashed = false}) {
       final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(6));
       canvas.drawRRect(rr, Paint()..color = fill);
       if (dashed) {
@@ -494,8 +481,7 @@ class _ArchitecturePainter extends CustomPainter {
     drawBox(root, 'MaterialApp', boxPaint);
 
     // Scaffold
-    final Rect scaffold =
-        Rect.fromLTWH(size.width / 2 - 60, 56, 120, 32);
+    final Rect scaffold = Rect.fromLTWH(size.width / 2 - 60, 56, 120, 32);
     drawBox(scaffold, 'Scaffold', boxPaint);
     drawLine(
       Offset(size.width / 2, root.bottom),
@@ -604,14 +590,17 @@ class _LifecyclePainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..color = const Color(0xFFFFCDD2);
 
-    final TextPainter tp = TextPainter(
-        textDirection: TextDirection.ltr);
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
 
     // Timeline
     const double timelineY = 80;
     final double left = 20;
     final double right = size.width - 20;
-    canvas.drawLine(Offset(left, timelineY), Offset(right, timelineY), linePaint);
+    canvas.drawLine(
+      Offset(left, timelineY),
+      Offset(right, timelineY),
+      linePaint,
+    );
 
     // Phases
     final double lockX = left + (right - left) * 0.2;
@@ -636,19 +625,39 @@ class _LifecyclePainter extends CustomPainter {
     void label(String text, double x, Color color) {
       tp.text = TextSpan(
         text: text,
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 10,
+          color: color,
+          fontWeight: FontWeight.bold,
+        ),
       );
       tp.layout();
       tp.paint(canvas, Offset(x - tp.width / 2, timelineY - tp.height / 2));
     }
 
-    label('Unlocked\n(live)', left + (lockX - left) / 2, const Color(0xFF2E7D32));
-    label('LOCKED\n(frozen)', lockX + (unlockX - lockX) / 2, const Color(0xFFC62828));
-    label('Unlocked\n(flushed)', unlockX + (right - unlockX) / 2, const Color(0xFF2E7D32));
+    label(
+      'Unlocked\n(live)',
+      left + (lockX - left) / 2,
+      const Color(0xFF2E7D32),
+    );
+    label(
+      'LOCKED\n(frozen)',
+      lockX + (unlockX - lockX) / 2,
+      const Color(0xFFC62828),
+    );
+    label(
+      'Unlocked\n(flushed)',
+      unlockX + (right - unlockX) / 2,
+      const Color(0xFF2E7D32),
+    );
 
     // Tick marks
     void tick(double x, String note) {
-      canvas.drawLine(Offset(x, timelineY - 36), Offset(x, timelineY + 36), linePaint);
+      canvas.drawLine(
+        Offset(x, timelineY - 36),
+        Offset(x, timelineY + 36),
+        linePaint,
+      );
       tp.text = TextSpan(
         text: note,
         style: const TextStyle(fontSize: 9, color: Color(0xFF37474F)),
@@ -816,10 +825,9 @@ class _LockPanel extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             title,
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
@@ -837,9 +845,9 @@ class _LockPanel extends StatelessWidget {
             valueListenable: isLocked ? _displayCounter : _rawCounter,
             builder: (_, int v, Widget? child) => Text(
               '$v',
-              style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -1035,10 +1043,9 @@ class _CounterBubble extends StatelessWidget {
             valueListenable: notifier,
             builder: (_, int v, Widget? child) => Text(
               '$v',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -1164,15 +1171,22 @@ class _TransitionDiagramPainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = const Color(0xFFE53935);
 
-    final TextPainter tp =
-        TextPainter(textDirection: TextDirection.ltr);
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
 
-    void label(String text, Offset pos,
-        {double size = 10, Color color = const Color(0xFF37474F)}) {
+    void label(
+      String text,
+      Offset pos, {
+      double size = 10,
+      Color color = const Color(0xFF37474F),
+    }) {
       tp.text = TextSpan(
-          text: text,
-          style: TextStyle(
-              fontSize: size, color: color, fontWeight: FontWeight.w500));
+        text: text,
+        style: TextStyle(
+          fontSize: size,
+          color: color,
+          fontWeight: FontWeight.w500,
+        ),
+      );
       tp.layout(maxWidth: 200);
       tp.paint(canvas, pos);
     }
@@ -1180,25 +1194,52 @@ class _TransitionDiagramPainter extends CustomPainter {
     // Outgoing route
     final Rect out = Rect.fromLTWH(10, 30, size.width * 0.45 - 10, 200);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(out, const Radius.circular(8)), outgoing);
+      RRect.fromRectAndRadius(out, const Radius.circular(8)),
+      outgoing,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(out, const Radius.circular(8)), border);
-    label('Outgoing Route', Offset(out.left + 8, out.top + 6),
-        size: 11, color: const Color(0xFF1565C0));
-    label('(no lock needed\nduring push)', Offset(out.left + 8, out.top + 26),
-        size: 9);
+      RRect.fromRectAndRadius(out, const Radius.circular(8)),
+      border,
+    );
+    label(
+      'Outgoing Route',
+      Offset(out.left + 8, out.top + 6),
+      size: 11,
+      color: const Color(0xFF1565C0),
+    );
+    label(
+      '(no lock needed\nduring push)',
+      Offset(out.left + 8, out.top + 26),
+      size: 9,
+    );
 
     // Incoming route
-    final Rect inc =
-        Rect.fromLTWH(size.width * 0.55, 30, size.width * 0.45 - 10, 200);
+    final Rect inc = Rect.fromLTWH(
+      size.width * 0.55,
+      30,
+      size.width * 0.45 - 10,
+      200,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(inc, const Radius.circular(8)), incoming);
+      RRect.fromRectAndRadius(inc, const Radius.circular(8)),
+      incoming,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(inc, const Radius.circular(8)), border);
-    label('Incoming Route', Offset(inc.left + 8, inc.top + 6),
-        size: 11, color: const Color(0xFFE65100));
-    label('LockState active\n(frozen snapshot)', Offset(inc.left + 8, inc.top + 26),
-        size: 9, color: const Color(0xFFE53935));
+      RRect.fromRectAndRadius(inc, const Radius.circular(8)),
+      border,
+    );
+    label(
+      'Incoming Route',
+      Offset(inc.left + 8, inc.top + 6),
+      size: 11,
+      color: const Color(0xFFE65100),
+    );
+    label(
+      'LockState active\n(frozen snapshot)',
+      Offset(inc.left + 8, inc.top + 26),
+      size: 9,
+      color: const Color(0xFFE53935),
+    );
 
     // Lock bracket
     canvas.drawLine(
@@ -1208,12 +1249,15 @@ class _TransitionDiagramPainter extends CustomPainter {
     );
 
     // Hero overlay
-    final Rect heroRect =
-        Rect.fromLTWH(size.width / 2 - 50, 90, 100, 60);
+    final Rect heroRect = Rect.fromLTWH(size.width / 2 - 50, 90, 100, 60);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(heroRect, const Radius.circular(8)), hero);
+      RRect.fromRectAndRadius(heroRect, const Radius.circular(8)),
+      hero,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(heroRect, const Radius.circular(8)), border);
+      RRect.fromRectAndRadius(heroRect, const Radius.circular(8)),
+      border,
+    );
     label('Hero\nOverlay', Offset(heroRect.left + 20, heroRect.top + 12));
 
     // Arrow
@@ -1225,13 +1269,19 @@ class _TransitionDiagramPainter extends CustomPainter {
         ..color = const Color(0xFF1565C0)
         ..strokeWidth = 2,
     );
-    label('transition →', Offset(size.width / 2 - 30, size.height / 2 - 32),
-        size: 9);
+    label(
+      'transition →',
+      Offset(size.width / 2 - 30, size.height / 2 - 32),
+      size: 9,
+    );
 
     // Timeline at bottom
-    label('Animation: 0ms ────────────────────────── 300ms → settled',
-        Offset(10, size.height - 20),
-        size: 9, color: const Color(0xFF546E7A));
+    label(
+      'Animation: 0ms ────────────────────────── 300ms → settled',
+      Offset(10, size.height - 20),
+      size: 9,
+      color: const Color(0xFF546E7A),
+    );
   }
 
   @override
@@ -1273,16 +1323,18 @@ class _TransitionSimWidget extends StatelessWidget {
       children: <Widget>[
         ValueListenableBuilder<String>(
           valueListenable: _status,
-          builder: (_, String s, Widget? child) => Text(s,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(fontStyle: FontStyle.italic)),
+          builder: (_, String s, Widget? child) => Text(
+            s,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+          ),
         ),
         const SizedBox(height: 8),
         ValueListenableBuilder<double>(
           valueListenable: _progress,
-          builder: (_, double p, Widget? child) => LinearProgressIndicator(value: p == 0 ? null : p),
+          builder: (_, double p, Widget? child) =>
+              LinearProgressIndicator(value: p == 0 ? null : p),
         ),
         const SizedBox(height: 8),
         ValueListenableBuilder<bool>(
@@ -1295,8 +1347,10 @@ class _TransitionSimWidget extends StatelessWidget {
                 color: locked ? cs.error : cs.primary,
               ),
               const SizedBox(width: 8),
-              Text(locked ? 'Locked (frozen)' : 'Unlocked (live)',
-                  style: TextStyle(color: locked ? cs.error : cs.primary)),
+              Text(
+                locked ? 'Locked (frozen)' : 'Unlocked (live)',
+                style: TextStyle(color: locked ? cs.error : cs.primary),
+              ),
             ],
           ),
         ),
@@ -1363,10 +1417,12 @@ class _QueueDemoTab extends StatelessWidget {
 class _QueueDemo extends StatelessWidget {
   _QueueDemo();
 
-  final ValueNotifier<List<String>> _queue =
-      ValueNotifier<List<String>>(<String>[]);
-  final ValueNotifier<List<String>> _rendered =
-      ValueNotifier<List<String>>(<String>[]);
+  final ValueNotifier<List<String>> _queue = ValueNotifier<List<String>>(
+    <String>[],
+  );
+  final ValueNotifier<List<String>> _rendered = ValueNotifier<List<String>>(
+    <String>[],
+  );
   final ValueNotifier<bool> _locked = ValueNotifier<bool>(false);
   final ValueNotifier<int> _msgCount = ValueNotifier<int>(0);
 
@@ -1437,21 +1493,28 @@ class _QueueDemo extends StatelessWidget {
                               if (items.isEmpty) {
                                 return Center(
                                   child: Text(
-                                    locked ? 'No queued messages yet' : 'No messages yet',
+                                    locked
+                                        ? 'No queued messages yet'
+                                        : 'No messages yet',
                                     style: Theme.of(ctx).textTheme.bodySmall,
                                   ),
                                 );
                               }
                               return ListView(
                                 children: items
-                                    .map((String m) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 4),
-                                          child: Text(m,
-                                              style: Theme.of(ctx)
-                                                  .textTheme
-                                                  .bodySmall),
-                                        ))
+                                    .map(
+                                      (String m) => Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 4,
+                                        ),
+                                        child: Text(
+                                          m,
+                                          style: Theme.of(
+                                            ctx,
+                                          ).textTheme.bodySmall,
+                                        ),
+                                      ),
+                                    )
                                     .toList(),
                               );
                             },
@@ -1492,14 +1555,19 @@ class _QueueDemo extends StatelessWidget {
                               }
                               return ListView(
                                 children: items
-                                    .map((String m) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(bottom: 4),
-                                          child: Text(m,
-                                              style: Theme.of(ctx)
-                                                  .textTheme
-                                                  .bodySmall),
-                                        ))
+                                    .map(
+                                      (String m) => Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 4,
+                                        ),
+                                        child: Text(
+                                          m,
+                                          style: Theme.of(
+                                            ctx,
+                                          ).textTheme.bodySmall,
+                                        ),
+                                      ),
+                                    )
                                     .toList(),
                               );
                             },
@@ -1623,27 +1691,27 @@ class _UseCasesTab extends StatelessWidget {
           'rebuilds provides the most value in a Flutter application.',
         ),
         const SizedBox(height: 12),
-        ...List<Widget>.generate(
-          _cases.length,
-          (int i) {
-            final _UseCase uc = _cases[i];
-            return Card(
-              margin: const EdgeInsets.only(bottom: 12),
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primaryContainer,
-                  child: Icon(uc.icon,
-                      color: Theme.of(context).colorScheme.primary),
+        ...List<Widget>.generate(_cases.length, (int i) {
+          final _UseCase uc = _cases[i];
+          return Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                child: Icon(
+                  uc.icon,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
-                title: Text(uc.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
-                subtitle: Text(uc.detail),
-                isThreeLine: true,
               ),
-            );
-          },
-        ),
+              title: Text(
+                uc.title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(uc.detail),
+              isThreeLine: true,
+            ),
+          );
+        }),
         const SizedBox(height: 16),
         _SectionTitle('Pattern summary'),
         Container(
@@ -1773,10 +1841,10 @@ class _ComparisonTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
-    final TextStyle header = Theme.of(context)
-        .textTheme
-        .labelSmall!
-        .copyWith(fontWeight: FontWeight.bold, color: cs.onPrimary);
+    final TextStyle header = Theme.of(context).textTheme.labelSmall!.copyWith(
+      fontWeight: FontWeight.bold,
+      color: cs.onPrimary,
+    );
     final TextStyle cell = Theme.of(context).textTheme.bodySmall!;
 
     return Table(
@@ -1816,8 +1884,7 @@ class _ComparisonTable extends StatelessWidget {
         ),
         _tableRow('LockState (sim)', 'Yes', 'Defers', 'No', 'No', cell, cs),
         _tableRow('RepaintBoundary', 'No', 'N/A', 'No', 'Yes', cell, cs),
-        _tableRow(
-            'AutomaticKeepAlive', 'No', 'N/A', 'No', 'No', cell, cs),
+        _tableRow('AutomaticKeepAlive', 'No', 'N/A', 'No', 'No', cell, cs),
         _tableRow('Offstage', 'No', 'N/A', 'No*', 'No', cell, cs),
         _tableRow('IgnorePointer', 'No', 'N/A', 'Yes', 'No', cell, cs),
       ],
@@ -1836,12 +1903,25 @@ class _ComparisonTable extends StatelessWidget {
     return TableRow(
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.all(6),
-            child: Text(a, style: style.copyWith(fontWeight: FontWeight.w600))),
-        Padding(padding: const EdgeInsets.all(6), child: Text(b, style: style)),
-        Padding(padding: const EdgeInsets.all(6), child: Text(c, style: style)),
-        Padding(padding: const EdgeInsets.all(6), child: Text(d, style: style)),
-        Padding(padding: const EdgeInsets.all(6), child: Text(e, style: style)),
+          padding: const EdgeInsets.all(6),
+          child: Text(a, style: style.copyWith(fontWeight: FontWeight.w600)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Text(b, style: style),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Text(c, style: style),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Text(d, style: style),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(6),
+          child: Text(e, style: style),
+        ),
       ],
     );
   }
@@ -2050,9 +2130,10 @@ class _PitfallCard extends StatelessWidget {
                   child: Text(
                     '$number',
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -2062,8 +2143,8 @@ class _PitfallCard extends StatelessWidget {
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -2071,10 +2152,9 @@ class _PitfallCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               'Problem:',
-              style: Theme.of(context)
-                  .textTheme
-                  .labelSmall
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(description, style: Theme.of(context).textTheme.bodySmall),
@@ -2082,9 +2162,9 @@ class _PitfallCard extends StatelessWidget {
             Text(
               'Solution:',
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             const SizedBox(height: 4),
             Text(solution, style: Theme.of(context).textTheme.bodySmall),

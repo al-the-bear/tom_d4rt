@@ -72,12 +72,7 @@ class _DialMockPainter extends CustomPainter {
     }
 
     // Numerals at 12, 3, 6, 9
-    final numerals = <int, String>{
-      0: '12',
-      3: '3',
-      6: '6',
-      9: '9',
-    };
+    final numerals = <int, String>{0: '12', 3: '3', 6: '6', 9: '9'};
     numerals.forEach((position, label) {
       final angle = (position * 30) * 3.1415926535 / 180.0;
       final spot = Offset(
@@ -163,8 +158,9 @@ dynamic build(BuildContext context) {
   }
 
   // History notifier shared across launcher sections.
-  final ValueNotifier<List<TimeOfDay>> history =
-      ValueNotifier<List<TimeOfDay>>(<TimeOfDay>[]);
+  final ValueNotifier<List<TimeOfDay>> history = ValueNotifier<List<TimeOfDay>>(
+    <TimeOfDay>[],
+  );
 
   // Helper: launch picker and append to history.
   Future<TimeOfDay?> launchPicker(
@@ -177,10 +173,9 @@ dynamic build(BuildContext context) {
     Widget Function(BuildContext, Widget?) wrapper;
     if (use24Hour) {
       wrapper = (innerCtx, child) => MediaQuery(
-            data: MediaQuery.of(innerCtx)
-                .copyWith(alwaysUse24HourFormat: true),
-            child: child ?? const SizedBox.shrink(),
-          );
+        data: MediaQuery.of(innerCtx).copyWith(alwaysUse24HourFormat: true),
+        child: child ?? const SizedBox.shrink(),
+      );
     } else {
       wrapper = (innerCtx, child) => child ?? const SizedBox.shrink();
     }
@@ -244,8 +239,10 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 8.0),
                     Text(
                       'Deep Demo: dial, input, dialOnly, inputOnly',
-                      style:
-                          TextStyle(fontSize: 16.0, color: Color(0xFFBBDEFB)),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Color(0xFFBBDEFB),
+                      ),
                     ),
                     SizedBox(height: 12.0),
                     Text(
@@ -254,7 +251,10 @@ dynamic build(BuildContext context) {
                       'commentary. Use the launchers to see the actual '
                       'platform dialog, then refer to the mocks to recall '
                       'what each entry mode looks like.',
-                      style: TextStyle(fontSize: 13.0, color: Color(0xFFE3F2FD)),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        color: Color(0xFFE3F2FD),
+                      ),
                     ),
                   ],
                 ),
@@ -351,8 +351,10 @@ dynamic build(BuildContext context) {
                           _LiveLauncherTile(
                             mode: mode,
                             onLaunch: () async {
-                              final result =
-                                  await launchPicker(ctx, mode: mode);
+                              final result = await launchPicker(
+                                ctx,
+                                mode: mode,
+                              );
                               setState(() {});
                               return result;
                             },
@@ -501,8 +503,7 @@ dynamic build(BuildContext context) {
                               Expanded(
                                 child: TextField(
                                   enabled: false,
-                                  controller:
-                                      TextEditingController(text: '10'),
+                                  controller: TextEditingController(text: '10'),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontSize: 32.0,
@@ -513,8 +514,7 @@ dynamic build(BuildContext context) {
                                     filled: true,
                                     fillColor: const Color(0xFFEDE7F6),
                                     border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     labelText: 'Hour',
                                   ),
@@ -534,8 +534,7 @@ dynamic build(BuildContext context) {
                               Expanded(
                                 child: TextField(
                                   enabled: false,
-                                  controller:
-                                      TextEditingController(text: '30'),
+                                  controller: TextEditingController(text: '30'),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     fontSize: 32.0,
@@ -546,8 +545,7 @@ dynamic build(BuildContext context) {
                                     filled: true,
                                     fillColor: const Color(0xFFEDE7F6),
                                     border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     labelText: 'Minute',
                                   ),
@@ -736,8 +734,10 @@ dynamic build(BuildContext context) {
                                   onPressed: () async {
                                     final r = await showTimePicker(
                                       context: themedCtx,
-                                      initialTime:
-                                          const TimeOfDay(hour: 8, minute: 15),
+                                      initialTime: const TimeOfDay(
+                                        hour: 8,
+                                        minute: 15,
+                                      ),
                                       initialEntryMode:
                                           TimePickerEntryMode.dial,
                                     );
@@ -757,8 +757,10 @@ dynamic build(BuildContext context) {
                                   onPressed: () async {
                                     final r = await showTimePicker(
                                       context: themedCtx,
-                                      initialTime:
-                                          const TimeOfDay(hour: 8, minute: 15),
+                                      initialTime: const TimeOfDay(
+                                        hour: 8,
+                                        minute: 15,
+                                      ),
                                       initialEntryMode:
                                           TimePickerEntryMode.input,
                                     );
@@ -857,10 +859,8 @@ dynamic build(BuildContext context) {
                                 child: Row(
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor:
-                                          const Color(0xFF3F51B5),
-                                      foregroundColor:
-                                          const Color(0xFFFFFFFF),
+                                      backgroundColor: const Color(0xFF3F51B5),
+                                      foregroundColor: const Color(0xFFFFFFFF),
                                       radius: 12.0,
                                       child: Text(
                                         '${i + 1}',
@@ -888,8 +888,9 @@ dynamic build(BuildContext context) {
                                       ),
                                       decoration: BoxDecoration(
                                         color: const Color(0xFF3F51B5),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(
+                                          12.0,
+                                        ),
                                       ),
                                       child: Text(
                                         items[i].period == DayPeriod.am
@@ -965,8 +966,7 @@ dynamic build(BuildContext context) {
                                 final r = await launchPicker(
                                   ctx,
                                   mode: TimePickerEntryMode.input,
-                                  initial:
-                                      const TimeOfDay(hour: 9, minute: 0),
+                                  initial: const TimeOfDay(hour: 9, minute: 0),
                                 );
                                 choice = r;
                                 setState(() {});
@@ -978,8 +978,7 @@ dynamic build(BuildContext context) {
                                 final r = await launchPicker(
                                   ctx,
                                   mode: TimePickerEntryMode.input,
-                                  initial:
-                                      const TimeOfDay(hour: 0, minute: 0),
+                                  initial: const TimeOfDay(hour: 0, minute: 0),
                                 );
                                 choice = r;
                                 setState(() {});
@@ -1078,9 +1077,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFFFFF),
                             borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              color: const Color(0xFFEF9A9A),
-                            ),
+                            border: Border.all(color: const Color(0xFFEF9A9A)),
                           ),
                           child: const Text(
                             'final result = await showTimePicker(...);\n'
@@ -1134,8 +1131,7 @@ dynamic build(BuildContext context) {
                             final r = await launchPicker(
                               ctx,
                               mode: TimePickerEntryMode.dial,
-                              initial:
-                                  const TimeOfDay(hour: 7, minute: 0),
+                              initial: const TimeOfDay(hour: 7, minute: 0),
                             );
                             lastRecipe = 'Alarm setup';
                             lastTime = r;
@@ -1155,8 +1151,7 @@ dynamic build(BuildContext context) {
                             final r = await launchPicker(
                               ctx,
                               mode: TimePickerEntryMode.inputOnly,
-                              initial:
-                                  const TimeOfDay(hour: 8, minute: 30),
+                              initial: const TimeOfDay(hour: 8, minute: 30),
                             );
                             lastRecipe = 'Report start time';
                             lastTime = r;
@@ -1176,8 +1171,7 @@ dynamic build(BuildContext context) {
                             final r = await launchPicker(
                               ctx,
                               mode: TimePickerEntryMode.dialOnly,
-                              initial:
-                                  const TimeOfDay(hour: 18, minute: 30),
+                              initial: const TimeOfDay(hour: 18, minute: 30),
                             );
                             lastRecipe = 'Child-friendly app';
                             lastTime = r;
@@ -1198,8 +1192,7 @@ dynamic build(BuildContext context) {
                             final r = await launchPicker(
                               ctx,
                               mode: TimePickerEntryMode.inputOnly,
-                              initial:
-                                  const TimeOfDay(hour: 14, minute: 0),
+                              initial: const TimeOfDay(hour: 14, minute: 0),
                             );
                             lastRecipe = 'Accessibility-first form';
                             lastTime = r;
@@ -1218,7 +1211,7 @@ dynamic build(BuildContext context) {
                             lastRecipe == null
                                 ? 'Try a recipe to see the entry mode in action.'
                                 : 'Recipe: $lastRecipe → '
-                                    '${lastTime == null ? 'cancelled' : _format(lastTime!)}',
+                                      '${lastTime == null ? 'cancelled' : _format(lastTime!)}',
                             style: const TextStyle(
                               fontFamily: 'monospace',
                               fontSize: 12.0,
@@ -1402,8 +1395,10 @@ dynamic build(BuildContext context) {
                       'fully branded picker, MediaQuery for 24-hour, and '
                       'initialTime for sensible defaults. Always handle the '
                       'null-cancel return.',
-                      style:
-                          TextStyle(color: Color(0xFFE3F2FD), fontSize: 12.5),
+                      style: TextStyle(
+                        color: Color(0xFFE3F2FD),
+                        fontSize: 12.5,
+                      ),
                     ),
                   ],
                 ),
@@ -1499,11 +1494,7 @@ class _SectionCard extends StatelessWidget {
 }
 
 class _ChipTag extends StatelessWidget {
-  const _ChipTag({
-    required this.label,
-    required this.bg,
-    required this.fg,
-  });
+  const _ChipTag({required this.label, required this.bg, required this.fg});
 
   final String label;
   final Color bg;
@@ -1530,10 +1521,7 @@ class _ChipTag extends StatelessWidget {
 }
 
 class _LiveLauncherTile extends StatefulWidget {
-  const _LiveLauncherTile({
-    required this.mode,
-    required this.onLaunch,
-  });
+  const _LiveLauncherTile({required this.mode, required this.onLaunch});
 
   final TimePickerEntryMode mode;
   final Future<TimeOfDay?> Function() onLaunch;
@@ -1567,8 +1555,7 @@ class _LiveLauncherTileState extends State<_LiveLauncherTile> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             alignment: Alignment.center,
-            child: Icon(_iconFor(widget.mode),
-                color: const Color(0xFFFFFFFF)),
+            child: Icon(_iconFor(widget.mode), color: const Color(0xFFFFFFFF)),
           ),
           const SizedBox(width: 10.0),
           Expanded(
@@ -1818,10 +1805,7 @@ class _GuideRow extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: const Color(0xFF7B1FA2),
               borderRadius: BorderRadius.circular(10.0),
@@ -1841,10 +1825,7 @@ class _GuideRow extends StatelessWidget {
             flex: 3,
             child: Text(
               reason,
-              style: const TextStyle(
-                fontSize: 11.5,
-                color: Color(0xFF424242),
-              ),
+              style: const TextStyle(fontSize: 11.5, color: Color(0xFF424242)),
             ),
           ),
         ],

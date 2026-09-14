@@ -125,7 +125,11 @@ Widget _buildHero() {
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: cAmberDeep, width: 1.2),
       boxShadow: <BoxShadow>[
-        BoxShadow(color: Color(0x44FFB347), blurRadius: 28.0, spreadRadius: 1.0),
+        BoxShadow(
+          color: Color(0x44FFB347),
+          blurRadius: 28.0,
+          spreadRadius: 1.0,
+        ),
       ],
     ),
     child: Column(
@@ -237,7 +241,11 @@ Widget _heroChip(String label) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: cAmber, fontSize: 11.0, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        color: cAmber,
+        fontSize: 11.0,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -331,10 +339,7 @@ Widget _anatomyCard({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Text(
@@ -414,10 +419,7 @@ Widget _celDiagram(List<_Cel> cels) {
               ),
             ),
             Spacer(),
-            Text(
-              'top \u2191',
-              style: TextStyle(color: cDust, fontSize: 10.0),
-            ),
+            Text('top \u2191', style: TextStyle(color: cDust, fontSize: 10.0)),
           ],
         ),
         SizedBox(height: 10.0),
@@ -425,17 +427,18 @@ Widget _celDiagram(List<_Cel> cels) {
         SizedBox(height: 6.0),
         Row(
           children: <Widget>[
-            Text(
-              'light table',
-              style: TextStyle(color: cDust, fontSize: 10.0),
-            ),
+            Text('light table', style: TextStyle(color: cDust, fontSize: 10.0)),
             SizedBox(width: 6.0),
             Expanded(
               child: Container(
                 height: 4.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[Color(0x66FFB347), Color(0x22FFB347), Color(0x66FFB347)],
+                    colors: <Color>[
+                      Color(0x66FFB347),
+                      Color(0x22FFB347),
+                      Color(0x66FFB347),
+                    ],
                   ),
                   borderRadius: BorderRadius.circular(2.0),
                 ),
@@ -519,7 +522,11 @@ class _Cel {
   const _Cel(this.layer, this.note, this.color);
 }
 
-Widget _specimenFrame({required String title, required Widget child, String? caption}) {
+Widget _specimenFrame({
+  required String title,
+  required Widget child,
+  String? caption,
+}) {
   return Container(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
@@ -611,35 +618,44 @@ Widget _buildConceptOverview() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _conceptTier(
-              tier: 'WIDGET',
-              role: 'configuration',
-              detail: 'Immutable description of a UI element. Cheap to '
-                  'create and discard. Rebuilt frequently from setState '
-                  'and InheritedWidgets.',
-              color: cCyan,
-              icon: '\u25C7',
-            )),
+            Expanded(
+              child: _conceptTier(
+                tier: 'WIDGET',
+                role: 'configuration',
+                detail:
+                    'Immutable description of a UI element. Cheap to '
+                    'create and discard. Rebuilt frequently from setState '
+                    'and InheritedWidgets.',
+                color: cCyan,
+                icon: '\u25C7',
+              ),
+            ),
             SizedBox(width: 12.0),
-            Expanded(child: _conceptTier(
-              tier: 'RENDEROBJECT',
-              role: 'layout + paint',
-              detail: 'Mutable, retained, holds layout constraints and '
-                  'size. Each frame: layout pass, paint pass into a '
-                  'PaintingContext. Rare to recreate.',
-              color: cAmber,
-              icon: '\u25A3',
-            )),
+            Expanded(
+              child: _conceptTier(
+                tier: 'RENDEROBJECT',
+                role: 'layout + paint',
+                detail:
+                    'Mutable, retained, holds layout constraints and '
+                    'size. Each frame: layout pass, paint pass into a '
+                    'PaintingContext. Rare to recreate.',
+                color: cAmber,
+                icon: '\u25A3',
+              ),
+            ),
             SizedBox(width: 12.0),
-            Expanded(child: _conceptTier(
-              tier: 'LAYER',
-              role: 'composition',
-              detail: 'A node in the layer tree, output of painting. The '
-                  'engine composites layers via SceneBuilder to produce '
-                  'the final raster.',
-              color: cSuccess,
-              icon: '\u25A4',
-            )),
+            Expanded(
+              child: _conceptTier(
+                tier: 'LAYER',
+                role: 'composition',
+                detail:
+                    'A node in the layer tree, output of painting. The '
+                    'engine composites layers via SceneBuilder to produce '
+                    'the final raster.',
+                color: cSuccess,
+                icon: '\u25A4',
+              ),
+            ),
           ],
         ),
         SizedBox(height: 18.0),
@@ -660,15 +676,23 @@ Widget _buildConceptOverview() {
           'when the painting needs an isolated boundary or a saveLayer-style '
           'compositing operation:',
         ),
-        _bullet('RepaintBoundary forces an OffsetLayer cut so its subtree '
-            'can repaint independently'),
+        _bullet(
+          'RepaintBoundary forces an OffsetLayer cut so its subtree '
+          'can repaint independently',
+        ),
         _bullet('Opacity below 1.0 forces an OpacityLayer (saveLayer)'),
         _bullet('ClipRect / ClipRRect / ClipPath produce a Clip*Layer'),
-        _bullet('Transform with a non-axis-aligned matrix forces a TransformLayer'),
-        _bullet('BackdropFilter forces a BackdropFilterLayer that samples '
-            'the underlying scene'),
-        _bullet('CustomPaint without RepaintBoundary records into the '
-            'parent PictureLayer'),
+        _bullet(
+          'Transform with a non-axis-aligned matrix forces a TransformLayer',
+        ),
+        _bullet(
+          'BackdropFilter forces a BackdropFilterLayer that samples '
+          'the underlying scene',
+        ),
+        _bullet(
+          'CustomPaint without RepaintBoundary records into the '
+          'parent PictureLayer',
+        ),
         SizedBox(height: 14.0),
         _codeBlock(
           'PaintingContext.paintChild(child, offset);\n'
@@ -724,10 +748,7 @@ Widget _conceptTier({
       children: <Widget>[
         Row(
           children: <Widget>[
-            Text(
-              icon,
-              style: TextStyle(color: color, fontSize: 22.0),
-            ),
+            Text(icon, style: TextStyle(color: color, fontSize: 22.0)),
             SizedBox(width: 10.0),
             Text(
               tier,
@@ -743,7 +764,11 @@ Widget _conceptTier({
         SizedBox(height: 6.0),
         Text(
           role,
-          style: TextStyle(color: cMuted, fontSize: 11.0, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: cMuted,
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -779,6 +804,7 @@ Widget _bullet(String text) {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 3: LAYER FAMILY DIAGRAM
 // ============================================================================
@@ -814,8 +840,16 @@ Widget _buildFamilyDiagram() {
                   style: TextStyle(color: cMuted, fontSize: 11.0),
                 ),
               ),
-              _familyBranch(2, 'OffsetLayer', 'translation + RepaintBoundary cut'),
-              _familyBranch(3, 'ClipRectLayer', 'axis-aligned rectangular clip'),
+              _familyBranch(
+                2,
+                'OffsetLayer',
+                'translation + RepaintBoundary cut',
+              ),
+              _familyBranch(
+                3,
+                'ClipRectLayer',
+                'axis-aligned rectangular clip',
+              ),
               _familyBranch(3, 'ClipRRectLayer', 'rounded-rect clip'),
               _familyBranch(3, 'ClipPathLayer', 'arbitrary path clip'),
               _familyBranch(3, 'OpacityLayer', 'alpha composite (saveLayer)'),
@@ -825,8 +859,16 @@ Widget _buildFamilyDiagram() {
               _familyBranch(3, 'TransformLayer', '4x4 matrix transform'),
               _familyBranch(3, 'BackdropFilterLayer', 'samples scene below'),
               _familyBranch(3, 'LeaderLayer', 'anchor point for followers'),
-              _familyBranch(3, 'FollowerLayer', 'positioned relative to a leader'),
-              _familyBranch(3, 'AnnotatedRegionLayer<T>', 'attaches metadata to a region'),
+              _familyBranch(
+                3,
+                'FollowerLayer',
+                'positioned relative to a leader',
+              ),
+              _familyBranch(
+                3,
+                'AnnotatedRegionLayer<T>',
+                'attaches metadata to a region',
+              ),
             ],
           ),
         ),
@@ -925,6 +967,7 @@ Widget _familyLegend(String label, Color color) {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 4: OFFSETLAYER
 // ============================================================================
@@ -943,13 +986,17 @@ Widget _buildOffsetLayer() {
               flex: 1,
               child: _anatomyCard(
                 name: 'OffsetLayer',
-                oneLiner: 'A ContainerLayer subclass that translates its '
+                oneLiner:
+                    'A ContainerLayer subclass that translates its '
                     'children by an Offset. This is also the layer type '
                     'inserted at every RepaintBoundary cut.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
                   <String>['offset', 'Offset to translate child rasters'],
-                  <String>['scrollOffset', 'optional viewport scroll correction'],
+                  <String>[
+                    'scrollOffset',
+                    'optional viewport scroll correction',
+                  ],
                   <String>['produced by', 'RepaintBoundary, root render view'],
                   <String>['cost class', 'cheap (no saveLayer)'],
                   <String>['stops backdrop?', 'no'],
@@ -969,7 +1016,8 @@ Widget _buildOffsetLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  RepaintBoundary + Transform.translate',
-          caption: 'The RepaintBoundary inserts an OffsetLayer; the '
+          caption:
+              'The RepaintBoundary inserts an OffsetLayer; the '
               'Transform.translate also produces an OffsetLayer when its '
               'matrix collapses to a pure translation.',
           child: Container(
@@ -1029,9 +1077,7 @@ Widget _buildOffsetLayer() {
 }
 
 Widget _gridBackground() {
-  return CustomPaint(
-    painter: _GridPainter(),
-  );
+  return CustomPaint(painter: _GridPainter());
 }
 
 class _GridPainter extends CustomPainter {
@@ -1052,6 +1098,7 @@ class _GridPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
 // ============================================================================
 // SECTION 5: CLIPRECTLAYER
 // ============================================================================
@@ -1069,12 +1116,16 @@ Widget _buildClipRectLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ClipRectLayer',
-                oneLiner: 'Clips its children to a rectangle. The cheapest '
+                oneLiner:
+                    'Clips its children to a rectangle. The cheapest '
                     'clip operation in the engine.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
                   <String>['clipRect', 'Rect in parent-coordinate space'],
-                  <String>['clipBehavior', 'antiAlias / hardEdge / antiAliasWithSaveLayer'],
+                  <String>[
+                    'clipBehavior',
+                    'antiAlias / hardEdge / antiAliasWithSaveLayer',
+                  ],
                   <String>['produced by', 'ClipRect, OverflowBox, Viewport'],
                   <String>['cost class', 'cheap'],
                   <String>['stops backdrop?', 'no (unless saveLayer mode)'],
@@ -1093,7 +1144,8 @@ Widget _buildClipRectLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  ClipRect around oversized content',
-          caption: 'The inner Container is 240 wide but only 140 is visible; '
+          caption:
+              'The inner Container is 240 wide but only 140 is visible; '
               'the rest is clipped by the ClipRectLayer.',
           child: ClipRect(
             child: SizedBox(
@@ -1113,7 +1165,10 @@ Widget _buildClipRectLayer() {
                   padding: EdgeInsets.only(left: 10.0),
                   child: Text(
                     'clipped by ClipRect \u2192',
-                    style: TextStyle(color: cBlack, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                      color: cBlack,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
               ),
@@ -1124,6 +1179,7 @@ Widget _buildClipRectLayer() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 6: CLIPRRECTLAYER
 // ============================================================================
@@ -1141,7 +1197,8 @@ Widget _buildClipRRectLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ClipRRectLayer',
-                oneLiner: 'Clips its children to a rounded rectangle. '
+                oneLiner:
+                    'Clips its children to a rounded rectangle. '
                     'The compositor uses fast hardware rounded-rect masking.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
@@ -1203,7 +1260,11 @@ Widget _rrSpecimen(BorderRadius radius, String label) {
           alignment: Alignment.center,
           child: Text(
             'clipped',
-            style: TextStyle(color: cBlack, fontWeight: FontWeight.w700, fontSize: 11.0),
+            style: TextStyle(
+              color: cBlack,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.0,
+            ),
           ),
         ),
       ),
@@ -1212,6 +1273,7 @@ Widget _rrSpecimen(BorderRadius radius, String label) {
     ],
   );
 }
+
 // ============================================================================
 // SECTION 7: CLIPPATHLAYER
 // ============================================================================
@@ -1229,13 +1291,17 @@ Widget _buildClipPathLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ClipPathLayer',
-                oneLiner: 'Clips to a general Path. The engine cannot use '
+                oneLiner:
+                    'Clips to a general Path. The engine cannot use '
                     'simple hardware masking - the path is tessellated and '
                     'applied as a stencil.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
                   <String>['clipPath', 'a ui.Path of any shape'],
-                  <String>['produced by', 'ClipPath with a CustomClipper<Path>'],
+                  <String>[
+                    'produced by',
+                    'ClipPath with a CustomClipper<Path>',
+                  ],
                   <String>['cost class', 'moderate-to-expensive'],
                   <String>['stops backdrop?', 'no'],
                 ],
@@ -1262,9 +1328,7 @@ Widget _buildClipPathLayer() {
                   width: 120.0,
                   height: 120.0,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: <Color>[cAmber, cCyan],
-                    ),
+                    gradient: LinearGradient(colors: <Color>[cAmber, cCyan]),
                   ),
                 ),
               ),
@@ -1331,6 +1395,7 @@ class _DiamondClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
+
 // ============================================================================
 // SECTION 8: OPACITYLAYER
 // ============================================================================
@@ -1348,17 +1413,24 @@ Widget _buildOpacityLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'OpacityLayer',
-                oneLiner: 'Composites its subtree with a uniform alpha. '
+                oneLiner:
+                    'Composites its subtree with a uniform alpha. '
                     'Allocates an offscreen surface (saveLayer) which is '
                     'expensive: prefer alpha on a single Paint when possible.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
                   <String>['alpha', 'int 0..255'],
-                  <String>['produced by', 'Opacity, FadeTransition, AnimatedOpacity'],
+                  <String>[
+                    'produced by',
+                    'Opacity, FadeTransition, AnimatedOpacity',
+                  ],
                   <String>['cost class', 'expensive (saveLayer)'],
                   <String>['stops backdrop?', 'no'],
-                  <String>['tip', 'use Color.withOpacity on a single paint '
-                      'in preference to wrapping subtrees in Opacity'],
+                  <String>[
+                    'tip',
+                    'use Color.withOpacity on a single paint '
+                        'in preference to wrapping subtrees in Opacity',
+                  ],
                 ],
               ),
             ),
@@ -1374,7 +1446,8 @@ Widget _buildOpacityLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  5 alpha frames',
-          caption: 'Each Opacity wrap triggers a fresh OpacityLayer. Notice '
+          caption:
+              'Each Opacity wrap triggers a fresh OpacityLayer. Notice '
               'the curve is perceptual: from 0.0 (fully gone) to 1.0 (fully '
               'composited).',
           child: Row(
@@ -1417,7 +1490,11 @@ Widget _opacityCell(double alpha) {
             alignment: Alignment.center,
             child: Text(
               alpha.toStringAsFixed(2),
-              style: TextStyle(color: cBlack, fontSize: 11.0, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                color: cBlack,
+                fontSize: 11.0,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
         ),
@@ -1430,6 +1507,7 @@ Widget _opacityCell(double alpha) {
     ],
   );
 }
+
 // ============================================================================
 // SECTION 9: SHADERMASKLAYER
 // ============================================================================
@@ -1447,7 +1525,8 @@ Widget _buildShaderMaskLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ShaderMaskLayer',
-                oneLiner: 'Multiplies the subtree against a shader (often a '
+                oneLiner:
+                    'Multiplies the subtree against a shader (often a '
                     'gradient) to produce fade-outs, sweeping highlights, '
                     'or colour-coded overlays.',
                 rows: <List<String>>[
@@ -1492,9 +1571,7 @@ Widget _buildShaderMaskLayer() {
               child: Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[cAmber, cAmberDeep],
-                  ),
+                  gradient: LinearGradient(colors: <Color>[cAmber, cAmberDeep]),
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 child: Text(
@@ -1514,6 +1591,7 @@ Widget _buildShaderMaskLayer() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 10: COLORFILTERLAYER
 // ============================================================================
@@ -1531,12 +1609,16 @@ Widget _buildColorFilterLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ColorFilterLayer',
-                oneLiner: 'Applies a per-pixel colour transform across the '
+                oneLiner:
+                    'Applies a per-pixel colour transform across the '
                     'whole subtree: blend modes, 4x5 colour matrices, '
                     'srgbToLinear conversions.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
-                  <String>['colorFilter', 'ColorFilter.mode / matrix / linearToSrgbGamma'],
+                  <String>[
+                    'colorFilter',
+                    'ColorFilter.mode / matrix / linearToSrgbGamma',
+                  ],
                   <String>['produced by', 'ColorFiltered widget'],
                   <String>['cost class', 'cheap-to-moderate'],
                   <String>['stops backdrop?', 'no'],
@@ -1560,16 +1642,16 @@ Widget _buildColorFilterLayer() {
             runSpacing: 12.0,
             alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
-              _colourFilteredCell('mode (50% red over)', ColorFilter.mode(
-                Color(0x88E04A4A),
-                BlendMode.srcATop,
-              )),
+              _colourFilteredCell(
+                'mode (50% red over)',
+                ColorFilter.mode(Color(0x88E04A4A), BlendMode.srcATop),
+              ),
               _colourFilteredCell('grayscale matrix', _grayscaleFilter()),
               _colourFilteredCell('sepia matrix', _sepiaFilter()),
-              _colourFilteredCell('srcIn cyan tint', ColorFilter.mode(
-                cCyan,
-                BlendMode.srcIn,
-              )),
+              _colourFilteredCell(
+                'srcIn cyan tint',
+                ColorFilter.mode(cCyan, BlendMode.srcIn),
+              ),
             ],
           ),
         ),
@@ -1601,31 +1683,61 @@ Widget _colourFilteredCell(String label, ColorFilter filter) {
         ),
       ),
       SizedBox(height: 6.0),
-      Text(
-        label,
-        style: TextStyle(color: cMuted, fontSize: 10.0),
-      ),
+      Text(label, style: TextStyle(color: cMuted, fontSize: 10.0)),
     ],
   );
 }
 
 ColorFilter _grayscaleFilter() {
   return ColorFilter.matrix(<double>[
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0.2126, 0.7152, 0.0722, 0, 0,
-    0, 0, 0, 1, 0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0.2126,
+    0.7152,
+    0.0722,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
 }
 
 ColorFilter _sepiaFilter() {
   return ColorFilter.matrix(<double>[
-    0.393, 0.769, 0.189, 0, 0,
-    0.349, 0.686, 0.168, 0, 0,
-    0.272, 0.534, 0.131, 0, 0,
-    0, 0, 0, 1, 0,
+    0.393,
+    0.769,
+    0.189,
+    0,
+    0,
+    0.349,
+    0.686,
+    0.168,
+    0,
+    0,
+    0.272,
+    0.534,
+    0.131,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
   ]);
 }
+
 // ============================================================================
 // SECTION 11: IMAGEFILTERLAYER
 // ============================================================================
@@ -1643,15 +1755,22 @@ Widget _buildImageFilterLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'ImageFilterLayer',
-                oneLiner: 'Applies a ui.ImageFilter to the rasterised '
+                oneLiner:
+                    'Applies a ui.ImageFilter to the rasterised '
                     'subtree. Blur is the canonical example, but matrix '
                     'and morphology filters are also supported.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
-                  <String>['imageFilter', 'ui.ImageFilter.blur / matrix / dilate'],
+                  <String>[
+                    'imageFilter',
+                    'ui.ImageFilter.blur / matrix / dilate',
+                  ],
                   <String>['produced by', 'ImageFiltered widget'],
                   <String>['cost class', 'expensive (full subtree resample)'],
-                  <String>['stops backdrop?', 'no (unlike BackdropFilterLayer)'],
+                  <String>[
+                    'stops backdrop?',
+                    'no (unlike BackdropFilterLayer)',
+                  ],
                 ],
               ),
             ),
@@ -1667,7 +1786,8 @@ Widget _buildImageFilterLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  blur(5,5) over a gradient',
-          caption: 'The ImageFiltered widget blurs its own subtree, '
+          caption:
+              'The ImageFiltered widget blurs its own subtree, '
               'unlike BackdropFilter which blurs whatever is behind.',
           child: ImageFiltered(
             imageFilter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
@@ -1698,6 +1818,7 @@ Widget _buildImageFilterLayer() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 12: TRANSFORMLAYER
 // ============================================================================
@@ -1715,13 +1836,17 @@ Widget _buildTransformLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'TransformLayer',
-                oneLiner: 'Applies a Matrix4 to its subtree. Axis-aligned '
+                oneLiner:
+                    'Applies a Matrix4 to its subtree. Axis-aligned '
                     'translations collapse to a cheap OffsetLayer; full '
                     'transforms allocate a TransformLayer.',
                 rows: <List<String>>[
                   <String>['extends', 'OffsetLayer'],
                   <String>['transform', 'Matrix4 (4x4 row-major)'],
-                  <String>['produced by', 'Transform.rotate/scale/translate, Transform(matrix:)'],
+                  <String>[
+                    'produced by',
+                    'Transform.rotate/scale/translate, Transform(matrix:)',
+                  ],
                   <String>['cost class', 'cheap when no saveLayer'],
                   <String>['stops backdrop?', 'no'],
                 ],
@@ -1730,7 +1855,11 @@ Widget _buildTransformLayer() {
             SizedBox(width: 12.0),
             Expanded(
               child: _celDiagram(<_Cel>[
-                _Cel('TransformLayer', 'matrix4 applied during composite', cAmber),
+                _Cel(
+                  'TransformLayer',
+                  'matrix4 applied during composite',
+                  cAmber,
+                ),
                 _Cel('PictureLayer', 'untransformed child paints', cCyan),
               ]),
             ),
@@ -1744,25 +1873,31 @@ Widget _buildTransformLayer() {
             runSpacing: 14.0,
             alignment: WrapAlignment.spaceEvenly,
             children: <Widget>[
-              _transformCell('rotate(.4)', Transform.rotate(
-                angle: 0.4,
-                child: _transformBox('R'),
-              )),
-              _transformCell('scale(.8)', Transform.scale(
-                scale: 0.8,
-                child: _transformBox('S'),
-              )),
-              _transformCell('translate(10,-12)', Transform.translate(
-                offset: Offset(10.0, -12.0),
-                child: _transformBox('T'),
-              )),
-              _transformCell('perspective 4x4', Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.0015)
-                  ..rotateY(0.5),
-                child: _transformBox('P'),
-              )),
+              _transformCell(
+                'rotate(.4)',
+                Transform.rotate(angle: 0.4, child: _transformBox('R')),
+              ),
+              _transformCell(
+                'scale(.8)',
+                Transform.scale(scale: 0.8, child: _transformBox('S')),
+              ),
+              _transformCell(
+                'translate(10,-12)',
+                Transform.translate(
+                  offset: Offset(10.0, -12.0),
+                  child: _transformBox('T'),
+                ),
+              ),
+              _transformCell(
+                'perspective 4x4',
+                Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.0015)
+                    ..rotateY(0.5),
+                  child: _transformBox('P'),
+                ),
+              ),
             ],
           ),
         ),
@@ -1776,9 +1911,7 @@ Widget _transformBox(String letter) {
     width: 80.0,
     height: 80.0,
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: <Color>[cAmber, cAmberDeep],
-      ),
+      gradient: LinearGradient(colors: <Color>[cAmber, cAmberDeep]),
       borderRadius: BorderRadius.circular(6.0),
       border: Border.all(color: cCyan, width: 1.0),
     ),
@@ -1798,18 +1931,12 @@ Widget _transformCell(String label, Widget child) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      SizedBox(
-        width: 110.0,
-        height: 110.0,
-        child: Center(child: child),
-      ),
-      Text(
-        label,
-        style: TextStyle(color: cMuted, fontSize: 10.0),
-      ),
+      SizedBox(width: 110.0, height: 110.0, child: Center(child: child)),
+      Text(label, style: TextStyle(color: cMuted, fontSize: 10.0)),
     ],
   );
 }
+
 // ============================================================================
 // SECTION 13: BACKDROPFILTERLAYER
 // ============================================================================
@@ -1827,7 +1954,8 @@ Widget _buildBackdropFilterLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'BackdropFilterLayer',
-                oneLiner: 'Unlike ImageFilterLayer (which filters its own '
+                oneLiner:
+                    'Unlike ImageFilterLayer (which filters its own '
                     'subtree), BackdropFilterLayer reads back the scene '
                     'composed so far and applies a filter to it.',
                 rows: <List<String>>[
@@ -1836,7 +1964,10 @@ Widget _buildBackdropFilterLayer() {
                   <String>['blendMode', 'BlendMode.srcOver by default'],
                   <String>['produced by', 'BackdropFilter widget'],
                   <String>['cost class', 'very expensive'],
-                  <String>['stops backdrop?', 'YES - all layers below are read back'],
+                  <String>[
+                    'stops backdrop?',
+                    'YES - all layers below are read back',
+                  ],
                 ],
               ),
             ),
@@ -1853,7 +1984,8 @@ Widget _buildBackdropFilterLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  frosted glass panel',
-          caption: 'A ClipRRect + BackdropFilter creates the iOS-style '
+          caption:
+              'A ClipRRect + BackdropFilter creates the iOS-style '
               'frosted panel. The cost: every frame the GPU resamples the '
               'underlying scene through the blur filter.',
           child: SizedBox(
@@ -1922,12 +2054,10 @@ Widget _colorDisc(Color color, double size) {
   return Container(
     width: size,
     height: size,
-    decoration: BoxDecoration(
-      color: color,
-      shape: BoxShape.circle,
-    ),
+    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
   );
 }
+
 // ============================================================================
 // SECTION 14: LEADER / FOLLOWER LAYER
 // ============================================================================
@@ -1945,7 +2075,8 @@ Widget _buildLeaderFollowerLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'LeaderLayer',
-                oneLiner: 'Anchors a point in the scene with a LayerLink. '
+                oneLiner:
+                    'Anchors a point in the scene with a LayerLink. '
                     'Other parts of the tree (Followers) can position '
                     'themselves relative to this anchor.',
                 accent: cCyan,
@@ -1962,7 +2093,8 @@ Widget _buildLeaderFollowerLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'FollowerLayer',
-                oneLiner: 'Reads the linked LeaderLayer position and uses '
+                oneLiner:
+                    'Reads the linked LeaderLayer position and uses '
                     'it to transform its own subtree, possibly with an '
                     'additional offset.',
                 accent: cAmber,
@@ -1988,7 +2120,8 @@ Widget _buildLeaderFollowerLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  static leader/follower diagram',
-          caption: 'A live link requires a controller; in this script the '
+          caption:
+              'A live link requires a controller; in this script the '
               'two widgets are shown side by side with their conceptual '
               'connection drawn between them.',
           child: SizedBox(
@@ -2087,6 +2220,7 @@ Widget _followerBox() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 15: ANNOTATEDREGIONLAYER
 // ============================================================================
@@ -2104,12 +2238,16 @@ Widget _buildAnnotatedRegionLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'AnnotatedRegionLayer<T>',
-                oneLiner: 'A layer that does not draw anything but attaches '
+                oneLiner:
+                    'A layer that does not draw anything but attaches '
                     'a value of type T to a rectangular region. The engine '
                     'queries this when it needs region metadata.',
                 rows: <List<String>>[
                   <String>['extends', 'ContainerLayer'],
-                  <String>['value', 'metadata payload (e.g. SystemUiOverlayStyle)'],
+                  <String>[
+                    'value',
+                    'metadata payload (e.g. SystemUiOverlayStyle)',
+                  ],
                   <String>['size', 'optional explicit size'],
                   <String>['produced by', 'AnnotatedRegion<T> widget'],
                   <String>['cost class', 'free (no drawing)'],
@@ -2129,7 +2267,8 @@ Widget _buildAnnotatedRegionLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  AnnotatedRegion<SystemUiOverlayStyle>',
-          caption: 'The annotated region tells the OS to render the system '
+          caption:
+              'The annotated region tells the OS to render the system '
               'status bar with light icons over this section. The visible '
               'panel itself is just a regular Container.',
           child: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -2167,6 +2306,7 @@ Widget _buildAnnotatedRegionLayer() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 16: PICTURELAYER
 // ============================================================================
@@ -2184,7 +2324,8 @@ Widget _buildPictureLayer() {
             Expanded(
               child: _anatomyCard(
                 name: 'PictureLayer',
-                oneLiner: 'A leaf layer that records a ui.Picture: the '
+                oneLiner:
+                    'A leaf layer that records a ui.Picture: the '
                     'actual drawing commands (drawRect, drawPath, drawText). '
                     'Almost every visible thing ends up inside a PictureLayer.',
                 rows: <List<String>>[
@@ -2192,14 +2333,21 @@ Widget _buildPictureLayer() {
                   <String>['picture', 'ui.Picture - immutable command list'],
                   <String>['canvasBounds', 'cull rect'],
                   <String>['produced by', 'every non-composited RenderObject'],
-                  <String>['cost class', 'cheap to composite, but recording costs CPU'],
+                  <String>[
+                    'cost class',
+                    'cheap to composite, but recording costs CPU',
+                  ],
                 ],
               ),
             ),
             SizedBox(width: 12.0),
             Expanded(
               child: _celDiagram(<_Cel>[
-                _Cel('PictureLayer', 'drawRect, drawPath, drawText, ...', cCyan),
+                _Cel(
+                  'PictureLayer',
+                  'drawRect, drawPath, drawText, ...',
+                  cCyan,
+                ),
               ]),
             ),
           ],
@@ -2207,14 +2355,13 @@ Widget _buildPictureLayer() {
         SizedBox(height: 14.0),
         _specimenFrame(
           title: 'SPECIMEN  CustomPaint',
-          caption: 'CustomPaint records draw calls directly into the parent '
+          caption:
+              'CustomPaint records draw calls directly into the parent '
               'PictureLayer (unless wrapped in a RepaintBoundary).',
           child: SizedBox(
             width: 300.0,
             height: 140.0,
-            child: CustomPaint(
-              painter: _SpectraPainter(),
-            ),
+            child: CustomPaint(painter: _SpectraPainter()),
           ),
         ),
       ],
@@ -2240,8 +2387,8 @@ class _SpectraPainter extends CustomPainter {
     final Path path = Path();
     for (int i = 0; i <= 60; i++) {
       final double x = (i / 60.0) * size.width;
-      final double y = size.height / 2.0 +
-          math.sin(i * 0.45) * (size.height / 3.0);
+      final double y =
+          size.height / 2.0 + math.sin(i * 0.45) * (size.height / 3.0);
       if (i == 0) {
         path.moveTo(x, y);
       } else {
@@ -2261,6 +2408,7 @@ class _SpectraPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
 // ============================================================================
 // SECTION 17: TEXTURE / PLATFORMVIEW LAYERS
 // ============================================================================
@@ -2279,7 +2427,8 @@ Widget _buildTextureAndPlatformView() {
               child: _anatomyCard(
                 name: 'TextureLayer',
                 accent: cCyan,
-                oneLiner: 'A leaf that references a GPU texture managed by '
+                oneLiner:
+                    'A leaf that references a GPU texture managed by '
                     'the embedder. Used to render video frames, camera '
                     'preview, or any externally-produced surface.',
                 rows: <List<String>>[
@@ -2297,15 +2446,22 @@ Widget _buildTextureAndPlatformView() {
               child: _anatomyCard(
                 name: 'PlatformViewLayer',
                 accent: cAmber,
-                oneLiner: 'Embeds a native platform view (UIKit, Android '
+                oneLiner:
+                    'Embeds a native platform view (UIKit, Android '
                     'View, native HTML element) into the Flutter scene. '
                     'Hybrid composition is what makes this work.',
                 rows: <List<String>>[
                   <String>['extends', 'Layer (leaf)'],
                   <String>['viewId', 'int handle of the native view'],
                   <String>['rect', 'screen rectangle'],
-                  <String>['produced by', 'AndroidView, UiKitView, HtmlElementView'],
-                  <String>['cost class', 'expensive (out-of-pipeline composite)'],
+                  <String>[
+                    'produced by',
+                    'AndroidView, UiKitView, HtmlElementView',
+                  ],
+                  <String>[
+                    'cost class',
+                    'expensive (out-of-pipeline composite)',
+                  ],
                   <String>['note', 'forces a raster cut before & after'],
                 ],
               ),
@@ -2351,6 +2507,7 @@ Widget _buildTextureAndPlatformView() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 18: REPAINTBOUNDARY
 // ============================================================================
@@ -2368,17 +2525,27 @@ Widget _buildRepaintBoundarySection() {
             Expanded(
               child: _anatomyCard(
                 name: 'RepaintBoundary',
-                oneLiner: 'A widget whose RenderObject forces an OffsetLayer '
+                oneLiner:
+                    'A widget whose RenderObject forces an OffsetLayer '
                     'at its position in the layer tree. The subtree below '
                     'paints into its own retained PictureLayer, isolated '
                     'from the rest of the scene.',
                 rows: <List<String>>[
                   <String>['produces', 'OffsetLayer (cut)'],
-                  <String>['why', 'subtree repaints alone, parent repaints alone'],
-                  <String>['cost when good', 'fewer pictures re-recorded per frame'],
+                  <String>[
+                    'why',
+                    'subtree repaints alone, parent repaints alone',
+                  ],
+                  <String>[
+                    'cost when good',
+                    'fewer pictures re-recorded per frame',
+                  ],
                   <String>['cost when bad', 'extra raster cache entries'],
-                  <String>['rule of thumb', 'place around expensive subtrees '
-                      'that animate independently'],
+                  <String>[
+                    'rule of thumb',
+                    'place around expensive subtrees '
+                        'that animate independently',
+                  ],
                 ],
               ),
             ),
@@ -2395,23 +2562,29 @@ Widget _buildRepaintBoundarySection() {
         SizedBox(height: 14.0),
         Row(
           children: <Widget>[
-            Expanded(child: _repaintSpecimen(
-              title: 'WITHOUT RepaintBoundary',
-              detail: 'parent and child re-record on every frame',
-              accent: cDanger,
-            )),
+            Expanded(
+              child: _repaintSpecimen(
+                title: 'WITHOUT RepaintBoundary',
+                detail: 'parent and child re-record on every frame',
+                accent: cDanger,
+              ),
+            ),
             SizedBox(width: 12.0),
-            Expanded(child: _repaintSpecimen(
-              title: 'WITH RepaintBoundary',
-              detail: 'subtree paints into a retained PictureLayer',
-              accent: cSuccess,
-            )),
+            Expanded(
+              child: _repaintSpecimen(
+                title: 'WITH RepaintBoundary',
+                detail: 'subtree paints into a retained PictureLayer',
+                accent: cSuccess,
+              ),
+            ),
             SizedBox(width: 12.0),
-            Expanded(child: _repaintSpecimen(
-              title: 'WITH RepaintBoundary on the animated child',
-              detail: 'animation re-records, surroundings cached',
-              accent: cAmber,
-            )),
+            Expanded(
+              child: _repaintSpecimen(
+                title: 'WITH RepaintBoundary on the animated child',
+                detail: 'animation re-records, surroundings cached',
+                accent: cAmber,
+              ),
+            ),
           ],
         ),
       ],
@@ -2453,7 +2626,10 @@ Widget _repaintSpecimen({
           height: 60.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[accent.withOpacity(0.2), accent.withOpacity(0.05)],
+              colors: <Color>[
+                accent.withOpacity(0.2),
+                accent.withOpacity(0.05),
+              ],
             ),
             borderRadius: BorderRadius.circular(4.0),
           ),
@@ -2467,6 +2643,7 @@ Widget _repaintSpecimen({
     ),
   );
 }
+
 // ============================================================================
 // SECTION 19: LAYER TREE VISUALISATION
 // ============================================================================
@@ -2581,6 +2758,7 @@ Widget _treeLine(int depth, String label) {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 20: RECIPE CARDS
 // ============================================================================
@@ -2683,10 +2861,7 @@ Widget _recipeCard(int n, List<String> r) {
               ),
               child: Text(
                 '$n',
-                style: TextStyle(
-                  color: cBlack,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(color: cBlack, fontWeight: FontWeight.w800),
               ),
             ),
             SizedBox(width: 10.0),
@@ -2730,13 +2905,19 @@ Widget _recipeCard(int n, List<String> r) {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 21: COMPARISON TABLE
 // ============================================================================
 Widget _buildComparisonTable() {
   final List<List<String>> rows = <List<String>>[
     <String>['Layer', 'Widget', 'Cost', 'Backdrop?'],
-    <String>['OffsetLayer', 'RepaintBoundary / Transform.translate', 'cheap', 'no'],
+    <String>[
+      'OffsetLayer',
+      'RepaintBoundary / Transform.translate',
+      'cheap',
+      'no',
+    ],
     <String>['ClipRectLayer', 'ClipRect', 'cheap', 'no'],
     <String>['ClipRRectLayer', 'ClipRRect', 'cheap-mod', 'no'],
     <String>['ClipPathLayer', 'ClipPath', 'moderate', 'no'],
@@ -2751,7 +2932,12 @@ Widget _buildComparisonTable() {
     <String>['AnnotatedRegionLayer', 'AnnotatedRegion<T>', 'free', 'no'],
     <String>['PictureLayer', '(implicit) any drawing', 'cheap', 'no'],
     <String>['TextureLayer', 'Texture', 'cheap', 'no'],
-    <String>['PlatformViewLayer', 'AndroidView / UiKitView', 'expensive', 'YES'],
+    <String>[
+      'PlatformViewLayer',
+      'AndroidView / UiKitView',
+      'expensive',
+      'YES',
+    ],
   ];
   return _section(
     '21',
@@ -2789,13 +2975,14 @@ Widget _tableRow(List<String> cells, {bool header = false}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: cGrid, width: 0.6),
-      ),
+      border: Border(bottom: BorderSide(color: cGrid, width: 0.6)),
     ),
     child: Row(
       children: <Widget>[
-        Expanded(flex: 3, child: Text(cells[0], style: header ? style : styleAccent)),
+        Expanded(
+          flex: 3,
+          child: Text(cells[0], style: header ? style : styleAccent),
+        ),
         Expanded(flex: 4, child: Text(cells[1], style: style)),
         Expanded(flex: 2, child: Text(cells[2], style: style)),
         Expanded(flex: 2, child: Text(cells[3], style: style)),
@@ -2803,6 +2990,7 @@ Widget _tableRow(List<String> cells, {bool header = false}) {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 22: PITFALLS
 // ============================================================================
@@ -2913,53 +3101,105 @@ Widget _buildPitfalls() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 23: GLOSSARY
 // ============================================================================
 Widget _buildGlossary() {
   final List<List<String>> terms = <List<String>>[
-    <String>['Layer', 'A node in the layer tree. Concrete subclasses '
-        'describe compositing operations or hold a leaf payload.'],
-    <String>['ContainerLayer', 'A Layer with children. The base class for '
-        'every Layer that contains other Layers.'],
-    <String>['OffsetLayer', 'A ContainerLayer that translates its '
-        'children by an Offset; also the layer produced at every '
-        'RepaintBoundary cut.'],
-    <String>['PictureLayer', 'A leaf layer that holds a ui.Picture, the '
-        'recorded list of drawing commands.'],
-    <String>['RepaintBoundary', 'A widget whose RenderObject forces an '
-        'OffsetLayer, isolating its subtree from the rest of the '
-        'painting work.'],
-    <String>['saveLayer', 'A Canvas operation that allocates an offscreen '
-        'surface, draws into it, and composites the result with a '
-        'specified Paint. Underpins Opacity, ShaderMask and others.'],
-    <String>['compositor', 'The engine subsystem that consumes the layer '
-        'tree and produces the final scene by walking layers and '
-        'invoking SceneBuilder.'],
-    <String>['scene', 'The product of one composition pass; submitted '
-        'to the platform window for display.'],
-    <String>['SceneBuilder', 'Engine API used by layers to add their '
-        'commands (pushOffset, pushClipRect, pushPicture) when '
-        'building the final scene.'],
-    <String>['PaintingContext', 'The Flutter framework wrapper around a '
-        'Canvas/SceneBuilder, exposed to RenderObject.paint to record '
-        'drawing or push a child layer.'],
-    <String>['raster cache', 'A GPU-side cache of rasterised PictureLayer '
-        'or OffsetLayer contents. Keyed by a stable identity.'],
-    <String>['retained mode', 'A rendering model where the system stores '
-        'an explicit tree of drawables (layers) and re-uses retained '
-        'rasters frame to frame.'],
-    <String>['paint pass', 'The walk over the RenderObject tree calling '
-        'paint() on each, recording into the layer tree.'],
-    <String>['composite pass', 'The walk over the layer tree producing a '
-        'scene via the SceneBuilder.'],
-    <String>['hybrid composition', 'A mode where platform views are '
-        'interleaved with Flutter pictures, used by PlatformViewLayer.'],
-    <String>['LayerLink', 'An object shared between LeaderLayer and '
-        'FollowerLayer so the follower can read the leader\u2019s '
-        'transform.'],
-    <String>['needsCompositing', 'A RenderObject flag that is true when '
-        'the subtree must allocate a Layer (clip, transform, opacity, etc.).'],
+    <String>[
+      'Layer',
+      'A node in the layer tree. Concrete subclasses '
+          'describe compositing operations or hold a leaf payload.',
+    ],
+    <String>[
+      'ContainerLayer',
+      'A Layer with children. The base class for '
+          'every Layer that contains other Layers.',
+    ],
+    <String>[
+      'OffsetLayer',
+      'A ContainerLayer that translates its '
+          'children by an Offset; also the layer produced at every '
+          'RepaintBoundary cut.',
+    ],
+    <String>[
+      'PictureLayer',
+      'A leaf layer that holds a ui.Picture, the '
+          'recorded list of drawing commands.',
+    ],
+    <String>[
+      'RepaintBoundary',
+      'A widget whose RenderObject forces an '
+          'OffsetLayer, isolating its subtree from the rest of the '
+          'painting work.',
+    ],
+    <String>[
+      'saveLayer',
+      'A Canvas operation that allocates an offscreen '
+          'surface, draws into it, and composites the result with a '
+          'specified Paint. Underpins Opacity, ShaderMask and others.',
+    ],
+    <String>[
+      'compositor',
+      'The engine subsystem that consumes the layer '
+          'tree and produces the final scene by walking layers and '
+          'invoking SceneBuilder.',
+    ],
+    <String>[
+      'scene',
+      'The product of one composition pass; submitted '
+          'to the platform window for display.',
+    ],
+    <String>[
+      'SceneBuilder',
+      'Engine API used by layers to add their '
+          'commands (pushOffset, pushClipRect, pushPicture) when '
+          'building the final scene.',
+    ],
+    <String>[
+      'PaintingContext',
+      'The Flutter framework wrapper around a '
+          'Canvas/SceneBuilder, exposed to RenderObject.paint to record '
+          'drawing or push a child layer.',
+    ],
+    <String>[
+      'raster cache',
+      'A GPU-side cache of rasterised PictureLayer '
+          'or OffsetLayer contents. Keyed by a stable identity.',
+    ],
+    <String>[
+      'retained mode',
+      'A rendering model where the system stores '
+          'an explicit tree of drawables (layers) and re-uses retained '
+          'rasters frame to frame.',
+    ],
+    <String>[
+      'paint pass',
+      'The walk over the RenderObject tree calling '
+          'paint() on each, recording into the layer tree.',
+    ],
+    <String>[
+      'composite pass',
+      'The walk over the layer tree producing a '
+          'scene via the SceneBuilder.',
+    ],
+    <String>[
+      'hybrid composition',
+      'A mode where platform views are '
+          'interleaved with Flutter pictures, used by PlatformViewLayer.',
+    ],
+    <String>[
+      'LayerLink',
+      'An object shared between LeaderLayer and '
+          'FollowerLayer so the follower can read the leader\u2019s '
+          'transform.',
+    ],
+    <String>[
+      'needsCompositing',
+      'A RenderObject flag that is true when '
+          'the subtree must allocate a Layer (clip, transform, opacity, etc.).',
+    ],
   ];
   return _section(
     '23',
@@ -3010,6 +3250,7 @@ Widget _buildGlossary() {
     ),
   );
 }
+
 // ============================================================================
 // SECTION 24: EPILOGUE
 // ============================================================================

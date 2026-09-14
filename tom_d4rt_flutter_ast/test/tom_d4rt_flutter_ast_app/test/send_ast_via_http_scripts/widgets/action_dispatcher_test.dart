@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.call_split,
       'title': 'What is ActionDispatcher?',
-      'body': 'ActionDispatcher is the object that sits at the center '
+      'body':
+          'ActionDispatcher is the object that sits at the center '
           'of Flutter\'s Actions framework. When an Intent is '
           'invoked — via a keyboard shortcut, a button, or '
           'programmatic call — the dispatcher decides which '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Actions / Intents / Shortcuts',
-      'body': 'Flutter\'s action framework has three layers:\n'
+      'body':
+          'Flutter\'s action framework has three layers:\n'
           '• Shortcuts — maps key combinations to Intents\n'
           '• Intents — describe what should happen (data objects)\n'
           '• Actions — implement the logic for each Intent\n'
@@ -40,7 +42,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.settings_input_component,
       'title': 'Default vs Custom',
-      'body': 'Flutter provides a default ActionDispatcher that '
+      'body':
+          'Flutter provides a default ActionDispatcher that '
           'simply calls action.invoke(intent). You can subclass '
           'it to add logging, analytics, permissions checks, '
           'undo/redo support, or any cross-cutting concern that '
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Scope & Nesting',
-      'body': 'Each Actions widget creates a scope. When an intent '
+      'body':
+          'Each Actions widget creates a scope. When an intent '
           'is dispatched, Flutter walks up the widget tree looking '
           'for an Action that handles that intent type. The dispatcher '
           'at the nearest enclosing Actions widget performs the '
@@ -230,7 +234,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
         Row(
           children: [
-            Icon(Icons.info_outline, size: 16, color: Colors.deepPurple.shade400),
+            Icon(
+              Icons.info_outline,
+              size: 16,
+              color: Colors.deepPurple.shade400,
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -343,9 +351,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withOpacity(0.08),
           borderRadius: BorderRadius.circular(10),
-          border: Border(
-            left: BorderSide(color: color, width: 4),
-          ),
+          border: Border(left: BorderSide(color: color, width: 4)),
         ),
         child: Row(
           children: [
@@ -384,10 +390,7 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     entry['result'] as String,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
                   ),
                 ],
               ),
@@ -411,7 +414,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.receipt_long, color: Colors.deepPurple.shade600, size: 22),
+            Icon(
+              Icons.receipt_long,
+              color: Colors.deepPurple.shade600,
+              size: 22,
+            ),
             const SizedBox(width: 10),
             Text(
               'Dispatch Log (${logEntries.length} events)',
@@ -458,7 +465,9 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(vertical: 3),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: isHighlighted ? color.withOpacity(0.15) : color.withOpacity(0.06),
+          color: isHighlighted
+              ? color.withOpacity(0.15)
+              : color.withOpacity(0.06),
           borderRadius: BorderRadius.circular(8),
           border: isHighlighted
               ? Border.all(color: color, width: 2)
@@ -476,14 +485,19 @@ dynamic build(BuildContext context) {
                   label,
                   style: TextStyle(
                     fontSize: 12,
-                    fontWeight: isHighlighted ? FontWeight.bold : FontWeight.w600,
+                    fontWeight: isHighlighted
+                        ? FontWeight.bold
+                        : FontWeight.w600,
                     color: color,
                   ),
                 ),
                 if (subtitle != null)
                   Text(
                     subtitle,
-                    style: TextStyle(fontSize: 10, color: color.withOpacity(0.7)),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: color.withOpacity(0.7),
+                    ),
                   ),
               ],
             ),
@@ -541,7 +555,11 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.only(left: 32),
           child: Row(
             children: [
-              Container(width: 2, height: 20, color: Colors.deepPurple.shade200),
+              Container(
+                width: 2,
+                height: 20,
+                color: Colors.deepPurple.shade200,
+              ),
               const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -598,7 +616,8 @@ dynamic build(BuildContext context) {
     {
       'intent': 'ActivateIntent',
       'action': 'ActivateAction',
-      'description': 'Triggers the primary action of a focused widget (tap/click)',
+      'description':
+          'Triggers the primary action of a focused widget (tap/click)',
       'icon': Icons.touch_app,
       'color': Colors.green,
       'shortcut': 'Enter / Space',
@@ -630,7 +649,8 @@ dynamic build(BuildContext context) {
     {
       'intent': 'PrioritizedIntents',
       'action': 'PrioritizedAction',
-      'description': 'Tries a list of intents in priority order until one succeeds',
+      'description':
+          'Tries a list of intents in priority order until one succeeds',
       'icon': Icons.sort,
       'color': Colors.purple,
       'shortcut': 'Various (contextual)',
@@ -691,7 +711,11 @@ dynamic build(BuildContext context) {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: Icon(Icons.arrow_forward, size: 12, color: Colors.grey),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          size: 12,
+                          color: Colors.grey,
+                        ),
                       ),
                       Text(
                         reg['action'] as String,
@@ -711,7 +735,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      Icon(Icons.keyboard, size: 12, color: Colors.grey.shade500),
+                      Icon(
+                        Icons.keyboard,
+                        size: 12,
+                        color: Colors.grey.shade500,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         reg['shortcut'] as String,
@@ -778,7 +806,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'Intent Created',
-      'detail': 'An Intent object describes what action to perform. '
+      'detail':
+          'An Intent object describes what action to perform. '
           'For example, ActivateIntent is created when the user '
           'presses Enter on a focused button.',
       'icon': Icons.lightbulb_outline,
@@ -787,7 +816,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'Action Lookup',
-      'detail': 'Flutter walks up the widget tree from the current '
+      'detail':
+          'Flutter walks up the widget tree from the current '
           'BuildContext, checking each Actions widget for a '
           'registered action that handles this intent type.',
       'icon': Icons.search,
@@ -796,7 +826,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'isEnabled Check',
-      'detail': 'Before dispatching, the framework calls '
+      'detail':
+          'Before dispatching, the framework calls '
           'action.isActionEnabled. If false, the action is '
           'skipped and the search continues upward.',
       'icon': Icons.check_circle_outline,
@@ -805,7 +836,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'Dispatcher.invokeAction()',
-      'detail': 'The ActionDispatcher on the Actions widget calls '
+      'detail':
+          'The ActionDispatcher on the Actions widget calls '
           'invokeAction(action, intent, context). This is where '
           'a custom dispatcher can intercept, log, or modify.',
       'icon': Icons.play_circle_outline,
@@ -814,7 +846,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'label': 'Action.invoke()',
-      'detail': 'Inside invokeAction, the dispatcher calls '
+      'detail':
+          'Inside invokeAction, the dispatcher calls '
           'action.invoke(intent). The action performs its work '
           'and optionally returns a result.',
       'icon': Icons.bolt,
@@ -823,7 +856,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'label': 'Result Returned',
-      'detail': 'The result travels back through the dispatcher to '
+      'detail':
+          'The result travels back through the dispatcher to '
           'the original caller. For Actions.invoke(), the result '
           'is returned directly. For shortcuts, it is discarded.',
       'icon': Icons.keyboard_return,
@@ -1037,10 +1071,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          if (child != null) ...[
-            const SizedBox(height: 8),
-            child,
-          ],
+          if (child != null) ...[const SizedBox(height: 8), child],
         ],
       ),
     );
@@ -1094,7 +1125,10 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.green.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.green, style: BorderStyle.solid),
+                border: Border.all(
+                  color: Colors.green,
+                  style: BorderStyle.solid,
+                ),
               ),
               child: Row(
                 children: [
@@ -1104,7 +1138,10 @@ dynamic build(BuildContext context) {
                     child: Text(
                       'Button here → ActivateIntent uses '
                       'CustomActivateAction via LoggingDispatcher',
-                      style: TextStyle(fontSize: 10, color: Colors.green.shade800),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.green.shade800,
+                      ),
                     ),
                   ),
                 ],
@@ -1144,7 +1181,8 @@ dynamic build(BuildContext context) {
     {
       'label': 'Enabled Action',
       'enabled': true,
-      'description': 'When isActionEnabled returns true, the '
+      'description':
+          'When isActionEnabled returns true, the '
           'dispatcher proceeds to call invoke(). This is the '
           'normal path for most actions.',
       'icon': Icons.check_circle,
@@ -1153,7 +1191,8 @@ dynamic build(BuildContext context) {
     {
       'label': 'Disabled Action',
       'enabled': false,
-      'description': 'When isActionEnabled returns false, the '
+      'description':
+          'When isActionEnabled returns false, the '
           'framework skips this action and continues searching '
           'up the widget tree for another handler. Useful for '
           'conditionally available actions like "paste" when '
@@ -1164,7 +1203,8 @@ dynamic build(BuildContext context) {
     {
       'label': 'consumesKey',
       'enabled': true,
-      'description': 'An action can declare whether it consumes '
+      'description':
+          'An action can declare whether it consumes '
           'the key event that triggered it via consumesKey(). '
           'If false, the key event continues to propagate even '
           'after the action runs. Default is true.',
@@ -1277,12 +1317,14 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Logging / Analytics',
-      'description': 'Override invokeAction to log every action dispatch. '
+      'description':
+          'Override invokeAction to log every action dispatch. '
           'Track what users do most, measure time per action, '
           'send telemetry to your analytics backend.',
       'icon': Icons.analytics,
       'color': Colors.deepPurple,
-      'code': 'class LoggingDispatcher extends ActionDispatcher {\n'
+      'code':
+          'class LoggingDispatcher extends ActionDispatcher {\n'
           '  Object? invokeAction(action, intent, [ctx]) {\n'
           '    log("Dispatching: \${intent.runtimeType}");\n'
           '    return super.invokeAction(action, intent, ctx);\n'
@@ -1291,12 +1333,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Undo / Redo System',
-      'description': 'Capture each action invocation and push it onto '
+      'description':
+          'Capture each action invocation and push it onto '
           'an undo stack. When the user presses Ctrl+Z, pop the '
           'last action and invoke its reverse.',
       'icon': Icons.undo,
       'color': Colors.orange,
-      'code': 'class UndoDispatcher extends ActionDispatcher {\n'
+      'code':
+          'class UndoDispatcher extends ActionDispatcher {\n'
           '  final undoStack = <UndoableAction>[];\n'
           '  Object? invokeAction(action, intent, [ctx]) {\n'
           '    if (action is UndoableAction) {\n'
@@ -1308,12 +1352,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Permission Gate',
-      'description': 'Check if the current user has permission to '
+      'description':
+          'Check if the current user has permission to '
           'perform an action before dispatching. Block '
           'unauthorized actions and show a dialog instead.',
       'icon': Icons.security,
       'color': Colors.red,
-      'code': 'class SecureDispatcher extends ActionDispatcher {\n'
+      'code':
+          'class SecureDispatcher extends ActionDispatcher {\n'
           '  Object? invokeAction(action, intent, [ctx]) {\n'
           '    if (!user.can(intent.runtimeType)) {\n'
           '      showAccessDenied(ctx);\n'
@@ -1325,12 +1371,14 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Throttle / Debounce',
-      'description': 'Prevent rapid re-dispatch of the same action. '
+      'description':
+          'Prevent rapid re-dispatch of the same action. '
           'Useful for expensive operations that should not be '
           'triggered faster than once per frame.',
       'icon': Icons.speed,
       'color': Colors.teal,
-      'code': 'class ThrottledDispatcher extends ActionDispatcher {\n'
+      'code':
+          'class ThrottledDispatcher extends ActionDispatcher {\n'
           '  DateTime? _last;\n'
           '  Object? invokeAction(action, intent, [ctx]) {\n'
           '    final now = DateTime.now();\n'
@@ -1508,7 +1556,10 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.deepPurple,
                   borderRadius: BorderRadius.circular(8),
@@ -1572,12 +1623,19 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       '→ Increment',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.compare_arrows, color: Colors.deepPurple.shade300, size: 32),
+              Icon(
+                Icons.compare_arrows,
+                color: Colors.deepPurple.shade300,
+                size: 32,
+              ),
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
@@ -1599,7 +1657,10 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       '→ Reset',
-                      style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -1617,12 +1678,24 @@ dynamic build(BuildContext context) {
   print('=== Section 11: Summary Dashboard ===');
 
   final summaryItems = [
-    {'label': 'Actions Dispatched', 'value': '${logEntries.length}', 'color': Colors.deepPurple},
+    {
+      'label': 'Actions Dispatched',
+      'value': '${logEntries.length}',
+      'color': Colors.deepPurple,
+    },
     {'label': 'Increment Events', 'value': '5', 'color': Colors.green},
     {'label': 'Double Events', 'value': '1', 'color': Colors.blue},
     {'label': 'Reset Events', 'value': '1', 'color': Colors.red},
-    {'label': 'Built-in Registrations', 'value': '${actionRegistrations.length}', 'color': Colors.orange},
-    {'label': 'Custom Use Cases', 'value': '${useCases.length}', 'color': Colors.teal},
+    {
+      'label': 'Built-in Registrations',
+      'value': '${actionRegistrations.length}',
+      'color': Colors.orange,
+    },
+    {
+      'label': 'Custom Use Cases',
+      'value': '${useCases.length}',
+      'color': Colors.teal,
+    },
   ];
 
   final summaryTiles = <Widget>[];
@@ -1652,10 +1725,7 @@ dynamic build(BuildContext context) {
             Text(
               item['label'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -1686,10 +1756,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: summaryTiles,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: summaryTiles),
       ],
     ),
   );

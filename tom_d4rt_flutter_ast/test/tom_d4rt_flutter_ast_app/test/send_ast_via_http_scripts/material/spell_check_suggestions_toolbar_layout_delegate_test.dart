@@ -118,7 +118,12 @@ class _OverlayPlacementPainter extends CustomPainter {
         ).createShader(area),
     );
 
-    final Rect viewportRect = Rect.fromLTWH(16, 16, size.width - 32, size.height - 32);
+    final Rect viewportRect = Rect.fromLTWH(
+      16,
+      16,
+      size.width - 32,
+      size.height - 32,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(viewportRect, const Radius.circular(12)),
       Paint()..color = Colors.white.withValues(alpha: 0.78),
@@ -165,11 +170,16 @@ class _OverlayPlacementPainter extends CustomPainter {
       }
     }
 
-    final double x = viewportRect.left + (anchor.dx / math.max(1, viewport.width)) * viewportRect.width;
-    final double y = viewportRect.top + (anchor.dy / math.max(1, viewport.height)) * viewportRect.height;
+    final double x =
+        viewportRect.left +
+        (anchor.dx / math.max(1, viewport.width)) * viewportRect.width;
+    final double y =
+        viewportRect.top +
+        (anchor.dy / math.max(1, viewport.height)) * viewportRect.height;
 
     if (keyboardInset > 0) {
-      final double h = viewportRect.height * (keyboardInset / math.max(1, viewport.height));
+      final double h =
+          viewportRect.height * (keyboardInset / math.max(1, viewport.height));
       final Rect keyboardRect = Rect.fromLTWH(
         viewportRect.left,
         viewportRect.bottom - h,
@@ -182,11 +192,7 @@ class _OverlayPlacementPainter extends CustomPainter {
       );
     }
 
-    canvas.drawCircle(
-      Offset(x, y),
-      8,
-      Paint()..color = accent,
-    );
+    canvas.drawCircle(Offset(x, y), 8, Paint()..color = accent);
     canvas.drawCircle(
       Offset(x, y),
       15,
@@ -209,7 +215,8 @@ class _OverlayPlacementPainter extends CustomPainter {
 
     final TextPainter tp = TextPainter(
       text: TextSpan(
-        text: 'Anchor (${anchor.dx.toStringAsFixed(1)}, ${anchor.dy.toStringAsFixed(1)})',
+        text:
+            'Anchor (${anchor.dx.toStringAsFixed(1)}, ${anchor.dy.toStringAsFixed(1)})',
         style: const TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w700,
@@ -261,7 +268,9 @@ class _ConstraintHeatmapPainter extends CustomPainter {
         final double dy = y / 23;
         final double ax = anchor.dx / math.max(1, viewport.width);
         final double ay = anchor.dy / math.max(1, viewport.height);
-        final double dist = math.sqrt(math.pow(dx - ax, 2) + math.pow(dy - ay, 2));
+        final double dist = math.sqrt(
+          math.pow(dx - ax, 2) + math.pow(dy - ay, 2),
+        );
         final double influence = (1 - dist * 1.7).clamp(0, 1);
         final Rect cell = Rect.fromLTWH(
           chart.left + chart.width * (x / 24),
@@ -434,12 +443,15 @@ dynamic build(BuildContext context) {
   final List<_LabMatrixRow> matrixRows = <_LabMatrixRow>[
     const _LabMatrixRow(
       topic: 'Top boundary',
-      delegateBehavior: 'Prefers visible placement and avoids clipping past top edge.',
-      recommendation: 'Include safe-area padding in overlays for status bar stability.',
+      delegateBehavior:
+          'Prefers visible placement and avoids clipping past top edge.',
+      recommendation:
+          'Include safe-area padding in overlays for status bar stability.',
     ),
     const _LabMatrixRow(
       topic: 'Bottom boundary',
-      delegateBehavior: 'May reposition above anchor to avoid keyboard/edge obstruction.',
+      delegateBehavior:
+          'May reposition above anchor to avoid keyboard/edge obstruction.',
       recommendation: 'Inject keyboard insets into scene model before layout.',
     ),
     const _LabMatrixRow(
@@ -454,12 +466,14 @@ dynamic build(BuildContext context) {
     ),
     const _LabMatrixRow(
       topic: 'Anchor jitter',
-      delegateBehavior: 'Small anchor changes can shift final position near edges.',
+      delegateBehavior:
+          'Small anchor changes can shift final position near edges.',
       recommendation: 'Debounce update streams when dragging selections.',
     ),
     const _LabMatrixRow(
       topic: 'Reading direction',
-      delegateBehavior: 'Constraint logic remains robust regardless of text direction.',
+      delegateBehavior:
+          'Constraint logic remains robust regardless of text direction.',
       recommendation: 'Validate in both LTR and RTL with realistic content.',
     ),
   ];
@@ -498,7 +512,10 @@ dynamic build(BuildContext context) {
   }
 
   void addTimeline(String title, String detail, Color color) {
-    timeline.insert(0, _LabTimeline(title: title, detail: detail, color: color));
+    timeline.insert(
+      0,
+      _LabTimeline(title: title, detail: detail, color: color),
+    );
     if (timeline.length > 36) {
       timeline.removeLast();
     }
@@ -506,7 +523,10 @@ dynamic build(BuildContext context) {
 
   Offset clampAnchor(Offset value) {
     final double dx = value.dx.clamp(0, viewport.width);
-    final double dy = value.dy.clamp(0, viewport.height - (showKeyboard ? keyboardInset : 0));
+    final double dy = value.dy.clamp(
+      0,
+      viewport.height - (showKeyboard ? keyboardInset : 0),
+    );
     return Offset(dx, dy);
   }
 
@@ -542,21 +562,61 @@ dynamic build(BuildContext context) {
     );
 
     return <_LabMetric>[
-      _LabMetric(label: 'Anchor X', value: formatDouble(anchor.dx), color: accent),
-      _LabMetric(label: 'Anchor Y', value: formatDouble(anchor.dy), color: const Color(0xFF6A1B9A)),
-      _LabMetric(label: 'Viewport W', value: formatDouble(viewport.width), color: const Color(0xFF2E7D32)),
-      _LabMetric(label: 'Viewport H', value: formatDouble(viewport.height), color: const Color(0xFF00838F)),
-      _LabMetric(label: 'Norm X', value: formatDouble(nx), color: const Color(0xFFE65100)),
-      _LabMetric(label: 'Norm Y', value: formatDouble(ny), color: const Color(0xFF455A64)),
+      _LabMetric(
+        label: 'Anchor X',
+        value: formatDouble(anchor.dx),
+        color: accent,
+      ),
+      _LabMetric(
+        label: 'Anchor Y',
+        value: formatDouble(anchor.dy),
+        color: const Color(0xFF6A1B9A),
+      ),
+      _LabMetric(
+        label: 'Viewport W',
+        value: formatDouble(viewport.width),
+        color: const Color(0xFF2E7D32),
+      ),
+      _LabMetric(
+        label: 'Viewport H',
+        value: formatDouble(viewport.height),
+        color: const Color(0xFF00838F),
+      ),
+      _LabMetric(
+        label: 'Norm X',
+        value: formatDouble(nx),
+        color: const Color(0xFFE65100),
+      ),
+      _LabMetric(
+        label: 'Norm Y',
+        value: formatDouble(ny),
+        color: const Color(0xFF455A64),
+      ),
       _LabMetric(
         label: 'Center Dist',
         value: formatDouble(distanceFromCenter),
         color: const Color(0xFF283593),
       ),
-      _LabMetric(label: 'Toolbar actions', value: '$toolbarActions', color: const Color(0xFFAD1457)),
-      _LabMetric(label: 'Rebuilds', value: '$delegateRebuilds', color: const Color(0xFF37474F)),
-      _LabMetric(label: 'Loads', value: '$loads', color: const Color(0xFF5D4037)),
-      _LabMetric(label: 'Drags', value: '$drags', color: const Color(0xFF1565C0)),
+      _LabMetric(
+        label: 'Toolbar actions',
+        value: '$toolbarActions',
+        color: const Color(0xFFAD1457),
+      ),
+      _LabMetric(
+        label: 'Rebuilds',
+        value: '$delegateRebuilds',
+        color: const Color(0xFF37474F),
+      ),
+      _LabMetric(
+        label: 'Loads',
+        value: '$loads',
+        color: const Color(0xFF5D4037),
+      ),
+      _LabMetric(
+        label: 'Drags',
+        value: '$drags',
+        color: const Color(0xFF1565C0),
+      ),
       _LabMetric(label: 'Taps', value: '$taps', color: const Color(0xFF827717)),
     ];
   }
@@ -778,7 +838,10 @@ dynamic build(BuildContext context) {
     required void Function(void Function()) setState,
   }) {
     final double keyboard = showKeyboard ? keyboardInset : 0;
-    final double availableHeight = math.max(120, panelViewport.height - keyboard);
+    final double availableHeight = math.max(
+      120,
+      panelViewport.height - keyboard,
+    );
     final Offset resolvedAnchor = Offset(
       panelAnchor.dx.clamp(0, panelViewport.width),
       panelAnchor.dy.clamp(0, availableHeight),
@@ -790,10 +853,7 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            panelAccent.withValues(alpha: 0.08),
-            Colors.white,
-          ],
+          colors: <Color>[panelAccent.withValues(alpha: 0.08), Colors.white],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: panelAccent.withValues(alpha: 0.36)),
@@ -810,10 +870,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            subtitle,
-            style: TextStyle(color: Colors.blueGrey.shade700),
-          ),
+          Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700)),
           const SizedBox(height: 10),
           Container(
             height: 240,
@@ -826,20 +883,30 @@ dynamic build(BuildContext context) {
               textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  final Size overlaySize = Size(constraints.maxWidth, constraints.maxHeight);
+                  final Size overlaySize = Size(
+                    constraints.maxWidth,
+                    constraints.maxHeight,
+                  );
                   final Offset mappedAnchor = Offset(
-                    (resolvedAnchor.dx / math.max(1, panelViewport.width)) * overlaySize.width,
-                    (resolvedAnchor.dy / math.max(1, panelViewport.height)) * overlaySize.height,
+                    (resolvedAnchor.dx / math.max(1, panelViewport.width)) *
+                        overlaySize.width,
+                    (resolvedAnchor.dy / math.max(1, panelViewport.height)) *
+                        overlaySize.height,
                   );
 
                   return GestureDetector(
                     onPanUpdate: enabled
                         ? (DragUpdateDetails details) {
-                            final RenderBox box = context.findRenderObject()! as RenderBox;
-                            final Offset local = box.globalToLocal(details.globalPosition);
+                            final RenderBox box =
+                                context.findRenderObject()! as RenderBox;
+                            final Offset local = box.globalToLocal(
+                              details.globalPosition,
+                            );
                             final Offset mapped = Offset(
-                              (local.dx / math.max(1, box.size.width)) * panelViewport.width,
-                              (local.dy / math.max(1, box.size.height)) * panelViewport.height,
+                              (local.dx / math.max(1, box.size.width)) *
+                                  panelViewport.width,
+                              (local.dy / math.max(1, box.size.height)) *
+                                  panelViewport.height,
                             );
                             setState(() {
                               anchor = clampAnchor(mapped);
@@ -850,18 +917,25 @@ dynamic build(BuildContext context) {
                         : null,
                     onTapDown: enabled
                         ? (TapDownDetails details) {
-                            final RenderBox box = context.findRenderObject()! as RenderBox;
-                            final Offset local = box.globalToLocal(details.globalPosition);
+                            final RenderBox box =
+                                context.findRenderObject()! as RenderBox;
+                            final Offset local = box.globalToLocal(
+                              details.globalPosition,
+                            );
                             final Offset mapped = Offset(
-                              (local.dx / math.max(1, box.size.width)) * panelViewport.width,
-                              (local.dy / math.max(1, box.size.height)) * panelViewport.height,
+                              (local.dx / math.max(1, box.size.width)) *
+                                  panelViewport.width,
+                              (local.dy / math.max(1, box.size.height)) *
+                                  panelViewport.height,
                             );
                             setState(() {
                               anchor = clampAnchor(mapped);
                               taps += 1;
                               delegateRebuilds += 1;
                             });
-                            addLog('Tapped $title at (${formatDouble(anchor.dx)}, ${formatDouble(anchor.dy)}).');
+                            addLog(
+                              'Tapped $title at (${formatDouble(anchor.dx)}, ${formatDouble(anchor.dy)}).',
+                            );
                           }
                         : null,
                     child: Stack(
@@ -884,9 +958,10 @@ dynamic build(BuildContext context) {
                           top: 12,
                           bottom: 12,
                           child: CustomSingleChildLayout(
-                            delegate: SpellCheckSuggestionsToolbarLayoutDelegate(
-                              anchor: mappedAnchor,
-                            ),
+                            delegate:
+                                SpellCheckSuggestionsToolbarLayoutDelegate(
+                                  anchor: mappedAnchor,
+                                ),
                             child: toolbarEnabled
                                 ? suggestionToolbar(panelAccent)
                                 : const SizedBox.shrink(),
@@ -915,14 +990,21 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             'Tap or drag inside panel to move anchor. Delegate repositions suggestions toolbar around the highlighted misspelling point.',
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.3),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.3,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget presetCard(_AnchorPreset preset, void Function(void Function()) setState) {
+  Widget presetCard(
+    _AnchorPreset preset,
+    void Function(void Function()) setState,
+  ) {
     return Container(
       width: 318,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -955,15 +1037,25 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10),
           Text(
             preset.note,
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.34),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.34,
+            ),
           ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              badge('Anchor', '${formatDouble(preset.anchor.dx)}, ${formatDouble(preset.anchor.dy)}'),
-              badge('Viewport', '${formatDouble(preset.viewport.width)}x${formatDouble(preset.viewport.height)}'),
+              badge(
+                'Anchor',
+                '${formatDouble(preset.anchor.dx)}, ${formatDouble(preset.anchor.dy)}',
+              ),
+              badge(
+                'Viewport',
+                '${formatDouble(preset.viewport.width)}x${formatDouble(preset.viewport.height)}',
+              ),
               badge('Keyboard', formatDouble(preset.keyboardInset)),
             ],
           ),
@@ -1020,14 +1112,25 @@ dynamic build(BuildContext context) {
     final List<Widget> rows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(flex: 2, child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF))),
           Expanded(
-            flex: 3,
-            child: cell('Delegate Behavior', header: true, tint: const Color(0xFFF0F6FF)),
+            flex: 2,
+            child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF)),
           ),
           Expanded(
             flex: 3,
-            child: cell('Recommendation', header: true, tint: const Color(0xFFF0F6FF)),
+            child: cell(
+              'Delegate Behavior',
+              header: true,
+              tint: const Color(0xFFF0F6FF),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: cell(
+              'Recommendation',
+              header: true,
+              tint: const Color(0xFFF0F6FF),
+            ),
           ),
         ],
       ),
@@ -1037,7 +1140,14 @@ dynamic build(BuildContext context) {
       rows.add(
         Row(
           children: <Widget>[
-            Expanded(flex: 2, child: cell(row.topic, tint: const Color(0xFFFBFDFF), header: true)),
+            Expanded(
+              flex: 2,
+              child: cell(
+                row.topic,
+                tint: const Color(0xFFFBFDFF),
+                header: true,
+              ),
+            ),
             Expanded(flex: 3, child: cell(row.delegateBehavior)),
             Expanded(flex: 3, child: cell(row.recommendation)),
           ],
@@ -1059,49 +1169,66 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'Timeline empty. Load a scenario or move anchor to capture delegate placement events.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: timeline.map((item) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: item.color.withValues(alpha: 0.08),
-            border: Border.all(color: item.color.withValues(alpha: 0.3)),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 10,
-                height: 10,
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(color: item.color, shape: BoxShape.circle),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      item.title,
-                      style: TextStyle(color: item.color, fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(item.detail, style: TextStyle(color: Colors.blueGrey.shade800, height: 1.3)),
-                  ],
+    return SingleChildScrollView(
+      child: Column(
+        children: timeline.map((item) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: item.color.withValues(alpha: 0.08),
+              border: Border.all(color: item.color.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: BoxDecoration(
+                    color: item.color,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                          color: item.color,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        item.detail,
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget snapshotPanel() {
@@ -1115,43 +1242,57 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'No anchor snapshots yet. Capture snapshots to compare placement behavior across viewport changes.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: snapshots.map((snapshot) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: snapshot.color.withValues(alpha: 0.08),
-            border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Snapshot #${snapshot.id} | anchor ${formatDouble(snapshot.anchor.dx)}, ${formatDouble(snapshot.anchor.dy)}',
-                style: TextStyle(color: snapshot.color, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'viewport ${formatDouble(snapshot.viewport.width)}x${formatDouble(snapshot.viewport.height)}',
-                style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                snapshot.note,
-                style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+    return SingleChildScrollView(
+      child: Column(
+        children: snapshots.map((snapshot) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: snapshot.color.withValues(alpha: 0.08),
+              border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Snapshot #${snapshot.id} | anchor ${formatDouble(snapshot.anchor.dx)}, ${formatDouble(snapshot.anchor.dy)}',
+                  style: TextStyle(
+                    color: snapshot.color,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'viewport ${formatDouble(snapshot.viewport.width)}x${formatDouble(snapshot.viewport.height)}',
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  snapshot.note,
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget consolePanel() {
@@ -1166,7 +1307,10 @@ dynamic build(BuildContext context) {
           ? const Center(
               child: Text(
                 'No logs yet. Interact with anchor and scenario controls to populate diagnostics.',
-                style: TextStyle(color: Color(0xFFB7C9EA), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Color(0xFFB7C9EA),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             )
           : ListView.builder(
@@ -1238,7 +1382,10 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Visual placement lab for spell-check suggestion overlays: inspect how anchor, constraints, keyboard insets, and pane geometry influence toolbar positioning.',
-                              style: TextStyle(color: Colors.blueGrey.shade700, height: 1.34),
+                              style: TextStyle(
+                                color: Colors.blueGrey.shade700,
+                                height: 1.34,
+                              ),
                             ),
                           ],
                         ),
@@ -1250,9 +1397,18 @@ dynamic build(BuildContext context) {
                     spacing: 8,
                     runSpacing: 8,
                     children: <Widget>[
-                      badge('Anchor', '${formatDouble(constrainedAnchor.dx)}, ${formatDouble(constrainedAnchor.dy)}'),
-                      badge('Viewport', '${formatDouble(viewport.width)}x${formatDouble(viewport.height)}'),
-                      badge('Keyboard', showKeyboard ? formatDouble(keyboardInset) : 'off'),
+                      badge(
+                        'Anchor',
+                        '${formatDouble(constrainedAnchor.dx)}, ${formatDouble(constrainedAnchor.dy)}',
+                      ),
+                      badge(
+                        'Viewport',
+                        '${formatDouble(viewport.width)}x${formatDouble(viewport.height)}',
+                      ),
+                      badge(
+                        'Keyboard',
+                        showKeyboard ? formatDouble(keyboardInset) : 'off',
+                      ),
                       badge('RTL', rtl ? 'on' : 'off'),
                       badge('Grid', showGrid ? 'on' : 'off'),
                       badge('Safe area', showSafeArea ? 'on' : 'off'),
@@ -1268,7 +1424,11 @@ dynamic build(BuildContext context) {
               Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(children: presets.map((preset) => presetCard(preset, setState)).toList()),
+            Wrap(
+              children: presets
+                  .map((preset) => presetCard(preset, setState))
+                  .toList(),
+            ),
             const SizedBox(height: 18),
             sectionTitle(
               'Layout Controls',
@@ -1301,7 +1461,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               delegateRebuilds += 1;
                             });
-                            addLog('Viewport width set to ${formatDouble(viewport.width)}.');
+                            addLog(
+                              'Viewport width set to ${formatDouble(viewport.width)}.',
+                            );
                           },
                           color: accent,
                         ),
@@ -1321,7 +1483,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               delegateRebuilds += 1;
                             });
-                            addLog('Viewport height set to ${formatDouble(viewport.height)}.');
+                            addLog(
+                              'Viewport height set to ${formatDouble(viewport.height)}.',
+                            );
                           },
                           color: const Color(0xFF2E7D32),
                         ),
@@ -1344,7 +1508,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(Offset(value, anchor.dy));
                               delegateRebuilds += 1;
                             });
-                            addLog('Anchor X changed to ${formatDouble(anchor.dx)}.');
+                            addLog(
+                              'Anchor X changed to ${formatDouble(anchor.dx)}.',
+                            );
                           },
                           color: const Color(0xFF6A1B9A),
                         ),
@@ -1354,7 +1520,11 @@ dynamic build(BuildContext context) {
                         child: sliderControl(
                           label: 'Anchor Y',
                           min: 0,
-                          max: math.max(80, viewport.height - (showKeyboard ? keyboardInset : 0)),
+                          max: math.max(
+                            80,
+                            viewport.height -
+                                (showKeyboard ? keyboardInset : 0),
+                          ),
                           divisions: 220,
                           value: constrainedAnchor.dy,
                           valueLabel: formatDouble(constrainedAnchor.dy),
@@ -1363,7 +1533,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(Offset(anchor.dx, value));
                               delegateRebuilds += 1;
                             });
-                            addLog('Anchor Y changed to ${formatDouble(anchor.dy)}.');
+                            addLog(
+                              'Anchor Y changed to ${formatDouble(anchor.dy)}.',
+                            );
                           },
                           color: const Color(0xFFE65100),
                         ),
@@ -1387,7 +1559,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               delegateRebuilds += 1;
                             });
-                            addLog('Keyboard inset changed to ${formatDouble(keyboardInset)}.');
+                            addLog(
+                              'Keyboard inset changed to ${formatDouble(keyboardInset)}.',
+                            );
                           },
                           color: const Color(0xFF455A64),
                         ),
@@ -1420,76 +1594,46 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: toolbarEnabled,
-                          title: const Text('Toolbar enabled'),
-                          subtitle: const Text('Toggle suggestions visibility.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              toolbarEnabled = value;
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'Toolbar enabled.' : 'Toolbar disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: denseToolbar,
-                          title: const Text('Dense toolbar'),
-                          subtitle: const Text('Compact action chips.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              denseToolbar = value;
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'Dense toolbar enabled.' : 'Dense toolbar disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showGrid,
-                          title: const Text('Grid overlay'),
-                          subtitle: const Text('Visualize layout lattice.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showGrid = value;
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'Grid overlay enabled.' : 'Grid overlay disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: toolbarEnabled,
+                            title: const Text('Toolbar enabled'),
+                            subtitle: const Text(
+                              'Toggle suggestions visibility.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                toolbarEnabled = value;
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Toolbar enabled.'
+                                    : 'Toolbar disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showSafeArea,
-                          title: const Text('Safe-area guide'),
-                          subtitle: const Text('Show constrained frame.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showSafeArea = value;
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'Safe-area guide enabled.' : 'Safe-area guide disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: denseToolbar,
+                            title: const Text('Dense toolbar'),
+                            subtitle: const Text('Compact action chips.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                denseToolbar = value;
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Dense toolbar enabled.'
+                                    : 'Dense toolbar disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1500,37 +1644,44 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showKeyboard,
-                          title: const Text('Keyboard inset active'),
-                          subtitle: const Text('Reserve lower screen area.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showKeyboard = value;
-                              anchor = clampAnchor(anchor);
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'Keyboard inset activated.' : 'Keyboard inset deactivated.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showGrid,
+                            title: const Text('Grid overlay'),
+                            subtitle: const Text('Visualize layout lattice.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showGrid = value;
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Grid overlay enabled.'
+                                    : 'Grid overlay disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: rtl,
-                          title: const Text('RTL scene direction'),
-                          subtitle: const Text('Preview right-to-left contexts.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              rtl = value;
-                              delegateRebuilds += 1;
-                            });
-                            addLog(value ? 'RTL mode enabled.' : 'RTL mode disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showSafeArea,
+                            title: const Text('Safe-area guide'),
+                            subtitle: const Text('Show constrained frame.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showSafeArea = value;
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Safe-area guide enabled.'
+                                    : 'Safe-area guide disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1541,34 +1692,95 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showHeatmap,
-                          title: const Text('Heatmap panel'),
-                          subtitle: const Text('Show anchor influence map.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showHeatmap = value;
-                            });
-                            addLog(value ? 'Heatmap panel shown.' : 'Heatmap panel hidden.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showKeyboard,
+                            title: const Text('Keyboard inset active'),
+                            subtitle: const Text('Reserve lower screen area.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showKeyboard = value;
+                                anchor = clampAnchor(anchor);
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Keyboard inset activated.'
+                                    : 'Keyboard inset deactivated.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showThirdScene,
-                          title: const Text('Third scene'),
-                          subtitle: const Text('Enable compact pane comparison.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showThirdScene = value;
-                            });
-                            addLog(value ? 'Third scene enabled.' : 'Third scene hidden.');
-                          },
+                            contentPadding: EdgeInsets.zero,
+                            value: rtl,
+                            title: const Text('RTL scene direction'),
+                            subtitle: const Text(
+                              'Preview right-to-left contexts.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                rtl = value;
+                                delegateRebuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'RTL mode enabled.'
+                                    : 'RTL mode disabled.',
+                              );
+                            },
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showHeatmap,
+                            title: const Text('Heatmap panel'),
+                            subtitle: const Text('Show anchor influence map.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showHeatmap = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Heatmap panel shown.'
+                                    : 'Heatmap panel hidden.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showThirdScene,
+                            title: const Text('Third scene'),
+                            subtitle: const Text(
+                              'Enable compact pane comparison.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showThirdScene = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Third scene enabled.'
+                                    : 'Third scene hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1584,7 +1796,12 @@ dynamic build(BuildContext context) {
                             OutlinedButton(
                               onPressed: () {
                                 setState(() {
-                                  anchor = clampAnchor(Offset(viewport.width / 2, viewport.height / 2));
+                                  anchor = clampAnchor(
+                                    Offset(
+                                      viewport.width / 2,
+                                      viewport.height / 2,
+                                    ),
+                                  );
                                   delegateRebuilds += 1;
                                 });
                                 addLog('Centered anchor in viewport.');
@@ -1603,18 +1820,28 @@ dynamic build(BuildContext context) {
                                   delegateRebuilds += 1;
                                 });
                                 addLog('Moved anchor to top-left corner.');
-                                addTimeline('Top-left probe', 'Anchor moved to corner for edge test', accent);
+                                addTimeline(
+                                  'Top-left probe',
+                                  'Anchor moved to corner for edge test',
+                                  accent,
+                                );
                               },
                               child: const Text('Top-Left Probe'),
                             ),
                             OutlinedButton(
                               onPressed: () {
                                 setState(() {
-                                  anchor = clampAnchor(Offset(viewport.width, viewport.height));
+                                  anchor = clampAnchor(
+                                    Offset(viewport.width, viewport.height),
+                                  );
                                   delegateRebuilds += 1;
                                 });
                                 addLog('Moved anchor to bottom-right corner.');
-                                addTimeline('Bottom-right probe', 'Anchor moved to lower edge', accent);
+                                addTimeline(
+                                  'Bottom-right probe',
+                                  'Anchor moved to lower edge',
+                                  accent,
+                                );
                               },
                               child: const Text('Bottom-Right Probe'),
                             ),
@@ -1642,7 +1869,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 10),
             scenePanel(
               title: 'Primary Editor Viewport',
-              subtitle: 'Main document area with configurable anchor and toolbar actions.',
+              subtitle:
+                  'Main document area with configurable anchor and toolbar actions.',
               panelViewport: viewport,
               panelAnchor: constrainedAnchor,
               panelAccent: accent,
@@ -1652,8 +1880,12 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             scenePanel(
               title: 'Narrow Review Pane',
-              subtitle: 'Constrained width scene emphasizes horizontal clamping behavior.',
-              panelViewport: Size(math.max(170, viewport.width * 0.62), viewport.height),
+              subtitle:
+                  'Constrained width scene emphasizes horizontal clamping behavior.',
+              panelViewport: Size(
+                math.max(170, viewport.width * 0.62),
+                viewport.height,
+              ),
               panelAnchor: constrainedAnchor,
               panelAccent: const Color(0xFF2E7D32),
               enabled: true,
@@ -1663,9 +1895,16 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               scenePanel(
                 title: 'Bottom-Edge + Keyboard Scene',
-                subtitle: 'Focuses on toolbar repositioning with reduced vertical availability.',
-                panelViewport: Size(viewport.width, math.max(280, viewport.height * 0.8)),
-                panelAnchor: Offset(constrainedAnchor.dx, math.max(0, constrainedAnchor.dy + 60)),
+                subtitle:
+                    'Focuses on toolbar repositioning with reduced vertical availability.',
+                panelViewport: Size(
+                  viewport.width,
+                  math.max(280, viewport.height * 0.8),
+                ),
+                panelAnchor: Offset(
+                  constrainedAnchor.dx,
+                  math.max(0, constrainedAnchor.dy + 60),
+                ),
                 panelAccent: const Color(0xFFE65100),
                 enabled: true,
                 setState: setState,
@@ -1765,7 +2004,9 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: guide.color.withValues(alpha: 0.28)),
+                    border: Border.all(
+                      color: guide.color.withValues(alpha: 0.28),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1777,7 +2018,10 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               guide.title,
-                              style: TextStyle(color: guide.color, fontWeight: FontWeight.w800),
+                              style: TextStyle(
+                                color: guide.color,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ],
@@ -1785,7 +2029,11 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 6),
                       Text(
                         guide.body,
-                        style: TextStyle(color: Colors.blueGrey.shade800, height: 1.32, fontSize: 13),
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.32,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
@@ -1860,7 +2108,10 @@ dynamic build(BuildContext context) {
               '${sessionStart.hour.toString().padLeft(2, '0')}:'
               '${sessionStart.minute.toString().padLeft(2, '0')}:'
               '${sessionStart.second.toString().padLeft(2, '0')}.',
-              style: TextStyle(color: Colors.blueGrey.shade600, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                color: Colors.blueGrey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),

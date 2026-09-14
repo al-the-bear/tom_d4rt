@@ -30,7 +30,11 @@ Widget _tfSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _tfLightAmber, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Color(0x1AE65100), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x1AE65100),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -42,9 +46,14 @@ Widget _tfSection(String title, List<Widget> children) {
             color: _tfAmber,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _tfWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _tfWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -56,17 +65,24 @@ Widget _tfSection(String title, List<Widget> children) {
 Widget _tfLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _tfDarkBrown, fontSize: 13, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _tfDarkBrown,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _tfBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _tfGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _tfGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -79,8 +95,10 @@ Widget _tfChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(label,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -92,13 +110,20 @@ Widget _tfInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(key,
-              style: const TextStyle(
-                  color: _tfDarkBrown, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: _tfDarkBrown,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: const TextStyle(color: _tfGray, fontSize: 12)),
+          child: Text(
+            value,
+            style: const TextStyle(color: _tfGray, fontSize: 12),
+          ),
         ),
       ],
     ),
@@ -123,12 +148,15 @@ Widget _tfMono(String text, {Color? color}) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _tfLightAmber.withValues(alpha: 0.4)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color ?? _tfDarkGray,
-            fontSize: 11,
-            fontFamily: 'monospace',
-            height: 1.4)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color ?? _tfDarkGray,
+        fontSize: 11,
+        fontFamily: 'monospace',
+        height: 1.4,
+      ),
+    ),
   );
 }
 
@@ -172,7 +200,7 @@ dynamic build(BuildContext context) {
             _buildCurrencyFormatter(),
             _buildChainedFormatters(),
             _buildSimulatedFormatter(),
-            _buildSummary(), 
+            _buildSummary(),
           ],
         ),
       ),
@@ -196,17 +224,26 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(color: Color(0x40E65100), blurRadius: 12, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x40E65100),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.text_format, size: 52, color: _tfWhite),
         const SizedBox(height: 12),
-        const Text('TextInputFormatter',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: _tfWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+        const Text(
+          'TextInputFormatter',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _tfWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -257,11 +294,23 @@ Widget _buildWhatIsIt() {
         children: [
           _buildFlowNode('User types on keyboard', Icons.keyboard, _tfAmber),
           _buildFlowArrow(),
-          _buildFlowNode('Platform sends text change', Icons.phone_android, _tfMedAmber),
+          _buildFlowNode(
+            'Platform sends text change',
+            Icons.phone_android,
+            _tfMedAmber,
+          ),
           _buildFlowArrow(),
-          _buildFlowNode('formatEditUpdate() called', Icons.text_format, _tfAccentTeal),
+          _buildFlowNode(
+            'formatEditUpdate() called',
+            Icons.text_format,
+            _tfAccentTeal,
+          ),
           _buildFlowArrow(),
-          _buildFlowNode('Filtered text → TextField', Icons.text_fields, _tfAccentBlue),
+          _buildFlowNode(
+            'Filtered text → TextField',
+            Icons.text_fields,
+            _tfAccentBlue,
+          ),
         ],
       ),
     ),
@@ -289,9 +338,14 @@ Widget _buildFlowNode(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
-        Text(label,
-            style: TextStyle(
-                color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -354,9 +408,9 @@ Widget _buildFilteringFormatter() {
     ),
     _buildFilterExample(
       'FilteringTextInputFormatter.deny(\n'
-      '  RegExp(r"[0-9]"),\n'
-      '  replacementString: "*",\n'
-      ')',
+          '  RegExp(r"[0-9]"),\n'
+          '  replacementString: "*",\n'
+          ')',
       'User types: "PIN: 1234"',
       'Result:     "PIN: ****"',
       _tfAccentRed,
@@ -365,7 +419,11 @@ Widget _buildFilteringFormatter() {
 }
 
 Widget _buildFilterExample(
-    String formatter, String input, String result, Color color) {
+  String formatter,
+  String input,
+  String result,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(10),
@@ -377,22 +435,33 @@ Widget _buildFilterExample(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(formatter,
-            style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'monospace')),
+        Text(
+          formatter,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 6),
-        Text(input,
-            style: const TextStyle(
-                color: _tfGray, fontSize: 11, fontFamily: 'monospace')),
-        Text(result,
-            style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+        Text(
+          input,
+          style: const TextStyle(
+            color: _tfGray,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
+        ),
+        Text(
+          result,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
       ],
     ),
   );
@@ -414,15 +483,24 @@ Widget _buildLengthLimiting() {
     _tfBody('Limits input to 10 characters maximum.'),
     _tfDivider(),
     _tfLabel('Truncation Strategy'),
-    _buildTruncationCard('MaxLengthEnforcement.none',
-        'No enforcement, max is advisory only',
-        _tfGray, false),
-    _buildTruncationCard('MaxLengthEnforcement.enforced',
-        'Hard limit, extra characters are dropped',
-        _tfAccentGreen, true),
-    _buildTruncationCard('MaxLengthEnforcement.truncateAfterCompositionEnds',
-        'Allows composing to exceed limit temporarily (CJK IME)',
-        _tfAccentTeal, true),
+    _buildTruncationCard(
+      'MaxLengthEnforcement.none',
+      'No enforcement, max is advisory only',
+      _tfGray,
+      false,
+    ),
+    _buildTruncationCard(
+      'MaxLengthEnforcement.enforced',
+      'Hard limit, extra characters are dropped',
+      _tfAccentGreen,
+      true,
+    ),
+    _buildTruncationCard(
+      'MaxLengthEnforcement.truncateAfterCompositionEnds',
+      'Allows composing to exceed limit temporarily (CJK IME)',
+      _tfAccentTeal,
+      true,
+    ),
     _tfDivider(),
     _tfLabel('Unicode-Aware'),
     Container(
@@ -444,7 +522,12 @@ Widget _buildLengthLimiting() {
   ]);
 }
 
-Widget _buildTruncationCard(String name, String desc, Color color, bool active) {
+Widget _buildTruncationCard(
+  String name,
+  String desc,
+  Color color,
+  bool active,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -458,21 +541,26 @@ Widget _buildTruncationCard(String name, String desc, Color color, bool active) 
     ),
     child: Row(
       children: [
-        Icon(active ? Icons.check_circle : Icons.radio_button_off,
-            size: 16, color: color),
+        Icon(
+          active ? Icons.check_circle : Icons.radio_button_off,
+          size: 16,
+          color: color,
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'monospace')),
-              Text(desc,
-                  style: const TextStyle(color: _tfGray, fontSize: 11)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _tfGray, fontSize: 11)),
             ],
           ),
         ),
@@ -488,9 +576,14 @@ Widget _buildUnicodeRow(String text, int count, String note) {
       children: [
         SizedBox(
           width: 80,
-          child: Text('"$text"',
-              style: const TextStyle(
-                  color: _tfDarkBrown, fontSize: 12, fontFamily: 'monospace')),
+          child: Text(
+            '"$text"',
+            style: const TextStyle(
+              color: _tfDarkBrown,
+              fontSize: 12,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -498,14 +591,21 @@ Widget _buildUnicodeRow(String text, int count, String note) {
             color: _tfAmber.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text('$count',
-              style: const TextStyle(
-                  color: _tfAmber, fontSize: 11, fontWeight: FontWeight.w700)),
+          child: Text(
+            '$count',
+            style: const TextStyle(
+              color: _tfAmber,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(note,
-              style: const TextStyle(color: _tfGray, fontSize: 10)),
+          child: Text(
+            note,
+            style: const TextStyle(color: _tfGray, fontSize: 10),
+          ),
         ),
       ],
     ),
@@ -581,19 +681,19 @@ Widget _buildFormatEditUpdate() {
     _buildScenarioCard(
       'Transform text',
       'return newValue.copyWith(\n'
-      '  text: newValue.text.toUpperCase(),\n'
-      ');',
+          '  text: newValue.text.toUpperCase(),\n'
+          ');',
       'User types "hello" → "HELLO" appears',
       _tfAccentTeal,
     ),
     _buildScenarioCard(
       'Insert formatting',
       'return TextEditingValue(\n'
-      '  text: formatted,\n'
-      '  selection: TextSelection.collapsed(\n'
-      '    offset: newCursorPos,\n'
-      '  ),\n'
-      ');',
+          '  text: formatted,\n'
+          '  selection: TextSelection.collapsed(\n'
+          '    offset: newCursorPos,\n'
+          '  ),\n'
+          ');',
       'User types "1234567890" → "(123) 456-7890"',
       _tfAmber,
     ),
@@ -611,9 +711,14 @@ Widget _buildFormatEditUpdate() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('oldValue',
-                    style: TextStyle(
-                        color: _tfGray, fontSize: 12, fontWeight: FontWeight.w700)),
+                const Text(
+                  'oldValue',
+                  style: TextStyle(
+                    color: _tfGray,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _tfBody('Previous TextEditingValue\nbefore the user\'s change'),
                 _tfBody('text: "Hell"\noffset: 4'),
@@ -633,9 +738,14 @@ Widget _buildFormatEditUpdate() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('newValue',
-                    style: TextStyle(
-                        color: _tfAmber, fontSize: 12, fontWeight: FontWeight.w700)),
+                const Text(
+                  'newValue',
+                  style: TextStyle(
+                    color: _tfAmber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _tfBody('Proposed new value\nafter the user\'s change'),
                 _tfBody('text: "Hello"\noffset: 5'),
@@ -649,7 +759,11 @@ Widget _buildFormatEditUpdate() {
 }
 
 Widget _buildScenarioCard(
-    String title, String code, String effect, Color color) {
+  String title,
+  String code,
+  String effect,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(10),
@@ -661,18 +775,25 @@ Widget _buildScenarioCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: TextStyle(
-                color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+        Text(
+          title,
+          style: TextStyle(
+            color: color,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(code,
-            style: TextStyle(
-                color: color.withValues(alpha: 0.8),
-                fontSize: 10.5,
-                fontFamily: 'monospace')),
+        Text(
+          code,
+          style: TextStyle(
+            color: color.withValues(alpha: 0.8),
+            fontSize: 10.5,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(effect,
-            style: const TextStyle(color: _tfGray, fontSize: 11)),
+        Text(effect, style: const TextStyle(color: _tfGray, fontSize: 11)),
       ],
     ),
   );
@@ -729,9 +850,14 @@ Widget _buildSelectionPreservation() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Collapsed',
-                    style: TextStyle(color: _tfAccentTeal, fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'Collapsed',
+                  style: TextStyle(
+                    color: _tfAccentTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _tfBody('baseOffset == extentOffset'),
                 _buildCursorVisual('Hello|World', 5, 5),
@@ -750,9 +876,14 @@ Widget _buildSelectionPreservation() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Range Selection',
-                    style: TextStyle(color: _tfAccentBlue, fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'Range Selection',
+                  style: TextStyle(
+                    color: _tfAccentBlue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _tfBody('baseOffset != extentOffset'),
                 _buildCursorVisual('He[llo Wo]rld', 2, 8),
@@ -765,16 +896,26 @@ Widget _buildSelectionPreservation() {
   ]);
 }
 
-Widget _buildSelectionStep(String label, String visual, int offset, Color color) {
+Widget _buildSelectionStep(
+  String label,
+  String visual,
+  int offset,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
       children: [
         SizedBox(
           width: 100,
-          child: Text(label,
-              style: TextStyle(
-                  color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -783,14 +924,21 @@ Widget _buildSelectionStep(String label, String visual, int offset, Color color)
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: color.withValues(alpha: 0.3)),
           ),
-          child: Text(visual,
-              style: TextStyle(
-                  color: color, fontSize: 12, fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            visual,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
-        Text('offset: $offset',
-            style: const TextStyle(color: _tfGray, fontSize: 10)),
+        Text(
+          'offset: $offset',
+          style: const TextStyle(color: _tfGray, fontSize: 10),
+        ),
       ],
     ),
   );
@@ -803,21 +951,24 @@ Widget _buildCursorVisual(String text, int base, int extent) {
       children: [
         if (base == extent) ...[
           TextSpan(
-              text: text.substring(0, base),
-              style: const TextStyle(color: _tfDarkBrown)),
+            text: text.substring(0, base),
+            style: const TextStyle(color: _tfDarkBrown),
+          ),
           const TextSpan(
-              text: '│',
-              // TODO: FontWeight.w900 causes crash
-              style: TextStyle(color: _tfAmber, fontWeight: FontWeight.w400)),
+            text: '│',
+            // TODO: FontWeight.w900 causes crash
+            style: TextStyle(color: _tfAmber, fontWeight: FontWeight.w400),
+          ),
           // const TextSpan( text: 'schau mer mal'),
           TextSpan(
-              text: text.substring(base + 1),
-              style: const TextStyle(color: _tfDarkBrown)
-              ),
+            text: text.substring(base + 1),
+            style: const TextStyle(color: _tfDarkBrown),
+          ),
         ] else ...[
           TextSpan(
-              text: text,
-              style: const TextStyle(color: _tfDarkBrown)),
+            text: text,
+            style: const TextStyle(color: _tfDarkBrown),
+          ),
         ],
       ],
     ),
@@ -872,9 +1023,14 @@ Widget _buildPhoneStep(int digitCount, String display, String note) {
         Container(
           width: 24,
           alignment: Alignment.center,
-          child: Text('$digitCount',
-              style: const TextStyle(
-                  color: _tfAmber, fontSize: 11, fontWeight: FontWeight.w700)),
+          child: Text(
+            '$digitCount',
+            style: const TextStyle(
+              color: _tfAmber,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Container(
           width: 130,
@@ -883,11 +1039,14 @@ Widget _buildPhoneStep(int digitCount, String display, String note) {
             color: _tfCream,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(display.isEmpty ? '(empty)' : display,
-              style: TextStyle(
-                  color: display.isEmpty ? _tfGray : _tfDarkBrown,
-                  fontSize: 12,
-                  fontFamily: 'monospace')),
+          child: Text(
+            display.isEmpty ? '(empty)' : display,
+            style: TextStyle(
+              color: display.isEmpty ? _tfGray : _tfDarkBrown,
+              fontSize: 12,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Text(note, style: const TextStyle(color: _tfGray, fontSize: 10)),
@@ -909,13 +1068,16 @@ Widget _buildFormattedField(String text, IconData icon, Color color) {
         Icon(icon, size: 20, color: color),
         const SizedBox(width: 12),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _tfDarkBrown,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'monospace',
-                  letterSpacing: 1.2)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _tfDarkBrown,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+              letterSpacing: 1.2,
+            ),
+          ),
         ),
       ],
     ),
@@ -938,10 +1100,7 @@ Widget _buildCreditCardFormatter() {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            _tfDarkBrown,
-            _tfDarkGray.withValues(alpha: 0.9),
-          ],
+          colors: [_tfDarkBrown, _tfDarkGray.withValues(alpha: 0.9)],
         ),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -958,40 +1117,61 @@ Widget _buildCreditCardFormatter() {
                   color: _tfAmber.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('VISA',
-                    style: TextStyle(
-                        color: _tfLightAmber, fontSize: 10,
-                        fontWeight: FontWeight.w700)),
+                child: const Text(
+                  'VISA',
+                  style: TextStyle(
+                    color: _tfLightAmber,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          const Text('4532 0123 4567 8901',
-              style: TextStyle(
-                  color: _tfWhite,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'monospace',
-                  letterSpacing: 2)),
+          const Text(
+            '4532 0123 4567 8901',
+            style: TextStyle(
+              color: _tfWhite,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+              letterSpacing: 2,
+            ),
+          ),
           const SizedBox(height: 12),
           const Row(
             children: [
-              Text('CARD HOLDER',
-                  style: TextStyle(color: _tfLightAmber, fontSize: 8)),
+              Text(
+                'CARD HOLDER',
+                style: TextStyle(color: _tfLightAmber, fontSize: 8),
+              ),
               Spacer(),
-              Text('EXPIRES',
-                  style: TextStyle(color: _tfLightAmber, fontSize: 8)),
+              Text(
+                'EXPIRES',
+                style: TextStyle(color: _tfLightAmber, fontSize: 8),
+              ),
             ],
           ),
           const Row(
             children: [
-              Text('J. DOE',
-                  style: TextStyle(
-                      color: _tfWhite, fontSize: 11, fontWeight: FontWeight.w500)),
+              Text(
+                'J. DOE',
+                style: TextStyle(
+                  color: _tfWhite,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               Spacer(),
-              Text('12/28',
-                  style: TextStyle(
-                      color: _tfWhite, fontSize: 11, fontWeight: FontWeight.w500)),
+              Text(
+                '12/28',
+                style: TextStyle(
+                  color: _tfWhite,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ],
@@ -1030,15 +1210,25 @@ Widget _buildNetworkRow(String prefix, String name, Color color) {
             color: color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(prefix,
-              style: TextStyle(
-                  color: color, fontSize: 11, fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            prefix,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
-        Text(name,
-            style: TextStyle(
-                color: color, fontSize: 12, fontWeight: FontWeight.w600)),
+        Text(
+          name,
+          style: TextStyle(
+            color: color,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -1100,19 +1290,27 @@ Widget _buildCurrencyStep(String input, String display) {
             color: _tfCream,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text('digits: $input',
-              style: const TextStyle(
-                  color: _tfGray, fontSize: 11, fontFamily: 'monospace')),
+          child: Text(
+            'digits: $input',
+            style: const TextStyle(
+              color: _tfGray,
+              fontSize: 11,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         const Icon(Icons.arrow_forward, size: 12, color: _tfMedAmber),
         const SizedBox(width: 8),
-        Text(display,
-            style: const TextStyle(
-                color: _tfAmber,
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+        Text(
+          display,
+          style: const TextStyle(
+            color: _tfAmber,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
       ],
     ),
   );
@@ -1127,16 +1325,25 @@ Widget _buildLocaleCard(String locale, String example, String note) {
     ),
     child: Column(
       children: [
-        Text(locale,
-            style: const TextStyle(
-                color: _tfAmber, fontSize: 12, fontWeight: FontWeight.w700)),
+        Text(
+          locale,
+          style: const TextStyle(
+            color: _tfAmber,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(example,
-            style: const TextStyle(
-                color: _tfDarkBrown, fontSize: 11, fontFamily: 'monospace')),
+        Text(
+          example,
+          style: const TextStyle(
+            color: _tfDarkBrown,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(note,
-            style: const TextStyle(color: _tfGray, fontSize: 9)),
+        Text(note, style: const TextStyle(color: _tfGray, fontSize: 9)),
       ],
     ),
   );
@@ -1174,14 +1381,26 @@ Widget _buildChainedFormatters() {
       ),
       child: Column(
         children: [
-          _buildChainStep(1, 'FilteringTextInputFormatter',
-              '"abc123def456" → "123456"', _tfAccentRed),
+          _buildChainStep(
+            1,
+            'FilteringTextInputFormatter',
+            '"abc123def456" → "123456"',
+            _tfAccentRed,
+          ),
           _buildChainArrow(),
-          _buildChainStep(2, 'LengthLimitingTextInputFormatter',
-              '"1234567890123" → "1234567890"', _tfAccentTeal),
+          _buildChainStep(
+            2,
+            'LengthLimitingTextInputFormatter',
+            '"1234567890123" → "1234567890"',
+            _tfAccentTeal,
+          ),
           _buildChainArrow(),
-          _buildChainStep(3, 'PhoneNumberFormatter',
-              '"1234567890" → "(123) 456-7890"', _tfAmber),
+          _buildChainStep(
+            3,
+            'PhoneNumberFormatter',
+            '"1234567890" → "(123) 456-7890"',
+            _tfAmber,
+          ),
         ],
       ),
     ),
@@ -1201,9 +1420,14 @@ Widget _buildChainedFormatters() {
             children: [
               Icon(Icons.warning_amber, size: 16, color: _tfAccentRed),
               SizedBox(width: 6),
-              Text('Wrong Order',
-                  style: TextStyle(color: _tfAccentRed, fontSize: 12,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                'Wrong Order',
+                style: TextStyle(
+                  color: _tfAccentRed,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -1233,9 +1457,14 @@ Widget _buildChainStep(int num, String name, String example, Color color) {
           height: 22,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: _tfWhite, fontSize: 10, fontWeight: FontWeight.w800)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: _tfWhite,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -1243,12 +1472,22 @@ Widget _buildChainStep(int num, String name, String example, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 11, fontWeight: FontWeight.w600)),
-              Text(example,
-                  style: const TextStyle(
-                      color: _tfGray, fontSize: 10, fontFamily: 'monospace')),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                example,
+                style: const TextStyle(
+                  color: _tfGray,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
         ),
@@ -1297,18 +1536,22 @@ Widget _buildSimulatedFormatter() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Raw Input',
-                    style: TextStyle(color: _tfGray, fontSize: 9)),
+                const Text(
+                  'Raw Input',
+                  style: TextStyle(color: _tfGray, fontSize: 9),
+                ),
                 const SizedBox(height: 4),
                 RichText(
                   text: const TextSpan(
                     children: [
                       TextSpan(
-                          text: 'a1b2c3d4e5f6g7h8i9j0',
-                          style: TextStyle(
-                              color: _tfDarkBrown,
-                              fontSize: 14,
-                              fontFamily: 'monospace')),
+                        text: 'a1b2c3d4e5f6g7h8i9j0',
+                        style: TextStyle(
+                          color: _tfDarkBrown,
+                          fontSize: 14,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1317,16 +1560,28 @@ Widget _buildSimulatedFormatter() {
           ),
           const SizedBox(height: 8),
           // Step 1: Filter
-          _buildProcessStep('Step 1: digitsOnly',
-              'a1b2c3d4e5f6g7h8i9j0', '12345678 90', _tfAccentRed),
+          _buildProcessStep(
+            'Step 1: digitsOnly',
+            'a1b2c3d4e5f6g7h8i9j0',
+            '12345678 90',
+            _tfAccentRed,
+          ),
           const SizedBox(height: 6),
           // Step 2: Length limit
-          _buildProcessStep('Step 2: maxLength(10)',
-              '1234567890', '1234567890', _tfAccentTeal),
+          _buildProcessStep(
+            'Step 2: maxLength(10)',
+            '1234567890',
+            '1234567890',
+            _tfAccentTeal,
+          ),
           const SizedBox(height: 6),
           // Step 3: Phone format
-          _buildProcessStep('Step 3: phoneFormat',
-              '1234567890', '(123) 456-7890', _tfAmber),
+          _buildProcessStep(
+            'Step 3: phoneFormat',
+            '1234567890',
+            '(123) 456-7890',
+            _tfAmber,
+          ),
           const SizedBox(height: 10),
           // Final field
           Container(
@@ -1347,17 +1602,25 @@ Widget _buildSimulatedFormatter() {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('TextField Display',
-                    style: TextStyle(color: _tfAmber, fontSize: 9,
-                        fontWeight: FontWeight.w600)),
+                Text(
+                  'TextField Display',
+                  style: TextStyle(
+                    color: _tfAmber,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text('(123) 456-7890',
-                    style: TextStyle(
-                        color: _tfDarkBrown,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'monospace',
-                        letterSpacing: 1)),
+                Text(
+                  '(123) 456-7890',
+                  style: TextStyle(
+                    color: _tfDarkBrown,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                    letterSpacing: 1,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1368,7 +1631,11 @@ Widget _buildSimulatedFormatter() {
 }
 
 Widget _buildProcessStep(
-    String label, String input, String output, Color color) {
+  String label,
+  String input,
+  String output,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
@@ -1379,24 +1646,39 @@ Widget _buildProcessStep(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label,
-            style: TextStyle(
-                color: color, fontSize: 10, fontWeight: FontWeight.w700)),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 3),
         Row(
           children: [
             Expanded(
-              child: Text('"$input"',
-                  style: const TextStyle(
-                      color: _tfGray, fontSize: 10, fontFamily: 'monospace')),
+              child: Text(
+                '"$input"',
+                style: const TextStyle(
+                  color: _tfGray,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ),
             Icon(Icons.arrow_forward, size: 12, color: color),
             Expanded(
-              child: Text('"$output"',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      color: color, fontSize: 10, fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700)),
+              child: Text(
+                '"$output"',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ],
         ),

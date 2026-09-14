@@ -12,9 +12,7 @@ dynamic build(BuildContext context) {
   // its API surface. We wire up every callback exactly once and rely
   // on AlwaysStoppedAnimation for any animated value (no real motion).
   // ============================================================
-  final recognizer = MultiTapGestureRecognizer(
-    longTapDelay: Duration.zero,
-  );
+  final recognizer = MultiTapGestureRecognizer(longTapDelay: Duration.zero);
   recognizer.onTapDown = (int pointer, TapDownDetails details) {};
   recognizer.onTapUp = (int pointer, TapUpDetails details) {};
   recognizer.onTap = (int pointer) {};
@@ -38,11 +36,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF512DA8),
-          Color(0xFFAD1457),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFFAD1457)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -76,11 +70,7 @@ dynamic build(BuildContext context) {
                 ),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(
-                Icons.touch_app,
-                size: 56.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.touch_app, size: 56.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -126,11 +116,7 @@ dynamic build(BuildContext context) {
             'each one independently. Unlike TapGestureRecognizer, every '
             'callback is keyed by an int pointer ID so multi-finger UIs '
             'can distinguish which finger went down, up, or got cancelled.',
-            style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 14.0, color: Colors.white, height: 1.45),
           ),
         ),
         SizedBox(height: 14.0),
@@ -175,8 +161,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.architecture,
-                color: Color(0xFF0D47A1), size: 26.0),
+            Icon(Icons.architecture, color: Color(0xFF0D47A1), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Anatomy of the Multi-Tap Arena',
@@ -340,10 +325,7 @@ dynamic build(BuildContext context) {
           children: [
             // Title bar
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 18.0,
-                vertical: 14.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.only(
@@ -410,8 +392,7 @@ dynamic build(BuildContext context) {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.flash_on,
-                          color: color, size: 18.0),
+                      Icon(Icons.flash_on, color: color, size: 18.0),
                       SizedBox(width: 6.0),
                       Expanded(
                         child: Text(
@@ -431,8 +412,7 @@ dynamic build(BuildContext context) {
                     runSpacing: 6.0,
                     children: [
                       _buildArgChip('pointer: int', color),
-                      if (globalPos != 'n/a')
-                        _buildArgChip(globalPos, color),
+                      if (globalPos != 'n/a') _buildArgChip(globalPos, color),
                       if (kind != 'n/a') _buildArgChip(kind, color),
                     ],
                   ),
@@ -475,8 +455,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.pan_tool,
-                color: Color(0xFFBF360C), size: 26.0),
+            Icon(Icons.pan_tool, color: Color(0xFFBF360C), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Multi-Finger Scenarios',
@@ -489,44 +468,32 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _buildScenarioStrip(
-          'Two-finger tap',
-          [
-            _Step('p7 down', 'onTapDown(7)', Color(0xFF2E7D32)),
-            _Step('p9 down', 'onTapDown(9)', Color(0xFF2E7D32)),
-            _Step('p7 up', 'onTapUp(7)/onTap(7)', Color(0xFF6A1B9A)),
-            _Step('p9 up', 'onTapUp(9)/onTap(9)', Color(0xFF6A1B9A)),
-          ],
-        ),
+        _buildScenarioStrip('Two-finger tap', [
+          _Step('p7 down', 'onTapDown(7)', Color(0xFF2E7D32)),
+          _Step('p9 down', 'onTapDown(9)', Color(0xFF2E7D32)),
+          _Step('p7 up', 'onTapUp(7)/onTap(7)', Color(0xFF6A1B9A)),
+          _Step('p9 up', 'onTapUp(9)/onTap(9)', Color(0xFF6A1B9A)),
+        ]),
         SizedBox(height: 12.0),
-        _buildScenarioStrip(
-          'Three-finger drum tap',
-          [
-            _Step('p1 down', 'onTapDown(1)', Color(0xFF2E7D32)),
-            _Step('p2 down', 'onTapDown(2)', Color(0xFF2E7D32)),
-            _Step('p3 down', 'onTapDown(3)', Color(0xFF2E7D32)),
-            _Step('all up', '3x onTap()', Color(0xFF6A1B9A)),
-          ],
-        ),
+        _buildScenarioStrip('Three-finger drum tap', [
+          _Step('p1 down', 'onTapDown(1)', Color(0xFF2E7D32)),
+          _Step('p2 down', 'onTapDown(2)', Color(0xFF2E7D32)),
+          _Step('p3 down', 'onTapDown(3)', Color(0xFF2E7D32)),
+          _Step('all up', '3x onTap()', Color(0xFF6A1B9A)),
+        ]),
         SizedBox(height: 12.0),
-        _buildScenarioStrip(
-          'One drags away',
-          [
-            _Step('p4 down', 'onTapDown(4)', Color(0xFF2E7D32)),
-            _Step('p5 down', 'onTapDown(5)', Color(0xFF2E7D32)),
-            _Step('p4 leaves', 'onTapCancel(4)', Color(0xFFC62828)),
-            _Step('p5 up', 'onTap(5)', Color(0xFF6A1B9A)),
-          ],
-        ),
+        _buildScenarioStrip('One drags away', [
+          _Step('p4 down', 'onTapDown(4)', Color(0xFF2E7D32)),
+          _Step('p5 down', 'onTapDown(5)', Color(0xFF2E7D32)),
+          _Step('p4 leaves', 'onTapCancel(4)', Color(0xFFC62828)),
+          _Step('p5 up', 'onTap(5)', Color(0xFF6A1B9A)),
+        ]),
         SizedBox(height: 12.0),
-        _buildScenarioStrip(
-          'One holds → long tap',
-          [
-            _Step('p2 down', 'onTapDown(2)', Color(0xFF2E7D32)),
-            _Step('delay', 'onLongTapDown(2)', Color(0xFFEF6C00)),
-            _Step('p2 up', 'onTap(2)', Color(0xFF6A1B9A)),
-          ],
-        ),
+        _buildScenarioStrip('One holds → long tap', [
+          _Step('p2 down', 'onTapDown(2)', Color(0xFF2E7D32)),
+          _Step('delay', 'onLongTapDown(2)', Color(0xFFEF6C00)),
+          _Step('p2 up', 'onTap(2)', Color(0xFF6A1B9A)),
+        ]),
       ],
     ),
   );
@@ -558,8 +525,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.restaurant_menu,
-                color: Color(0xFF1B5E20), size: 26.0),
+            Icon(Icons.restaurant_menu, color: Color(0xFF1B5E20), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Recipes',
@@ -658,8 +624,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Color(0xFFB71C1C), size: 26.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFB71C1C),
+              size: 26.0,
+            ),
             SizedBox(width: 10.0),
             Text(
               'Pitfalls',
@@ -679,16 +648,12 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Color(0xFFEF9A9A),
-                width: 1.0,
-              ),
+              border: Border.all(color: Color(0xFFEF9A9A), width: 1.0),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.error_outline,
-                    color: Color(0xFFC62828), size: 20.0),
+                Icon(Icons.error_outline, color: Color(0xFFC62828), size: 20.0),
                 SizedBox(width: 10.0),
                 Expanded(
                   child: Column(
@@ -748,8 +713,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows,
-                color: Color(0xFF311B92), size: 26.0),
+            Icon(Icons.compare_arrows, color: Color(0xFF311B92), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'MultiTap vs Tap',
@@ -776,11 +740,7 @@ dynamic build(BuildContext context) {
                 'Many simultaneously',
                 'One at a time',
               ),
-              _buildCompareRow(
-                'onTap',
-                'onTap(int pointer)',
-                'onTap()',
-              ),
+              _buildCompareRow('onTap', 'onTap(int pointer)', 'onTap()'),
               _buildCompareRow(
                 'onTapDown',
                 'onTapDown(int p, TapDownDetails d)',
@@ -840,8 +800,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.timeline,
-                color: Color(0xFF006064), size: 26.0),
+            Icon(Icons.timeline, color: Color(0xFF006064), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Per-Pointer Lifecycle',
@@ -868,7 +827,9 @@ dynamic build(BuildContext context) {
           Icons.gps_fixed,
         ),
         _buildLifecycleArrow(
-            'longTapDelay → onLongTapDown(P, d)?', Color(0xFFEF6C00)),
+          'longTapDelay → onLongTapDown(P, d)?',
+          Color(0xFFEF6C00),
+        ),
         _buildLifecycleNode(
           'ARENA WON',
           'Tracker has been accepted',
@@ -876,8 +837,9 @@ dynamic build(BuildContext context) {
           Icons.emoji_events,
         ),
         _buildLifecycleArrow(
-            'pointer up → onTapUp(P, d) → onTap(P)',
-            Color(0xFF6A1B9A)),
+          'pointer up → onTapUp(P, d) → onTap(P)',
+          Color(0xFF6A1B9A),
+        ),
         _buildLifecycleNode(
           'COMPLETED',
           'Tracker disposed for P',
@@ -894,17 +856,13 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.alt_route,
-                  color: Color(0xFFC62828), size: 18.0),
+              Icon(Icons.alt_route, color: Color(0xFFC62828), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Cancel branch: rejection / leave / dispose → '
                   'onTapCancel(P) and tracker is removed.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xFFB71C1C),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFFB71C1C)),
                 ),
               ),
             ],
@@ -941,8 +899,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book,
-                color: Color(0xFFE65100), size: 26.0),
+            Icon(Icons.menu_book, color: Color(0xFFE65100), size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Quick Reference',
@@ -964,15 +921,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               _buildRefHeader(),
-              _buildRefRow('onTapDown', 'pointer + TapDownDetails',
-                  'tap arena accepted'),
-              _buildRefRow('onTapUp', 'pointer + TapUpDetails',
-                  'pointer lifted normally'),
+              _buildRefRow(
+                'onTapDown',
+                'pointer + TapDownDetails',
+                'tap arena accepted',
+              ),
+              _buildRefRow(
+                'onTapUp',
+                'pointer + TapUpDetails',
+                'pointer lifted normally',
+              ),
               _buildRefRow('onTap', 'pointer', 'paired with onTapUp'),
-              _buildRefRow('onTapCancel', 'pointer',
-                  'rejected / left / disposed'),
-              _buildRefRow('onLongTapDown', 'pointer + TapDownDetails',
-                  'after longTapDelay'),
+              _buildRefRow(
+                'onTapCancel',
+                'pointer',
+                'rejected / left / disposed',
+              ),
+              _buildRefRow(
+                'onLongTapDown',
+                'pointer + TapDownDetails',
+                'after longTapDelay',
+              ),
               _buildRefRow(
                 'longTapDelay',
                 'Duration field',
@@ -1016,8 +985,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.terminal,
-                color: Color(0xFF80CBC4), size: 22.0),
+            Icon(Icons.terminal, color: Color(0xFF80CBC4), size: 22.0),
             SizedBox(width: 10.0),
             Text(
               'multi_tap.txt',
@@ -1141,10 +1109,7 @@ Widget _buildSectionTitle(String label, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.85),
-          color.withValues(alpha: 0.55),
-        ],
+        colors: [color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1216,10 +1181,7 @@ Widget _buildArgChip(String label, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.40),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.40), width: 1.0),
     ),
     child: Text(
       label,
@@ -1274,10 +1236,7 @@ Widget _buildAnatomyRow(
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black87,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.black87),
               ),
             ],
           ),
@@ -1305,10 +1264,7 @@ Widget _buildPerPointerMatrix(String name, Color color) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.30),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.30), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1361,18 +1317,11 @@ Widget _buildPerPointerMatrix(String name, Color color) {
                   width: 80.0,
                   child: Text(
                     s,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Colors.black87,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: Colors.black87),
                   ),
                 ),
                 for (final int p in pointers)
-                  Expanded(
-                    child: Center(
-                      child: _buildFireDot(name, s, color),
-                    ),
-                  ),
+                  Expanded(child: Center(child: _buildFireDot(name, s, color))),
               ],
             ),
           ),
@@ -1490,10 +1439,7 @@ Widget _buildStepBox(_Step step) {
     decoration: BoxDecoration(
       color: step.color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: step.color.withValues(alpha: 0.40),
-        width: 1.0,
-      ),
+      border: Border.all(color: step.color.withValues(alpha: 0.40), width: 1.0),
     ),
     child: Column(
       children: [
@@ -1642,9 +1588,7 @@ Widget _buildCompareHeader() {
 Widget _buildCompareRow(String aspect, String multi, String single) {
   return Container(
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFEDE7F6), width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFEDE7F6), width: 1.0)),
     ),
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     child: Row(
@@ -1701,10 +1645,7 @@ Widget _buildLifecycleNode(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.85),
-          color.withValues(alpha: 0.55),
-        ],
+        colors: [color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1847,9 +1788,7 @@ Widget _buildRefRow(String name, String type, String notes) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFFFE0B2), width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFFFE0B2), width: 1.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1881,10 +1820,7 @@ Widget _buildRefRow(String name, String type, String notes) {
           flex: 4,
           child: Text(
             notes,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.black54,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.black54),
           ),
         ),
       ],

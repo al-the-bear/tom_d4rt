@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flag,
       'title': 'The Banner Widget',
-      'body': 'A Banner is a diagonal ribbon overlay that sits on top of '
+      'body':
+          'A Banner is a diagonal ribbon overlay that sits on top of '
           'its child widget. It displays a short text message (like '
           '"DEBUG", "SALE", "BETA") across a corner of the widget. '
           'Material\'s Banner widget draws this diagonal strip at one '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'Four Corners',
-      'body': 'BannerLocation has four values: topStart, topEnd, '
+      'body':
+          'BannerLocation has four values: topStart, topEnd, '
           'bottomStart, bottomEnd. "Start" and "End" are directionality-'
           'aware — in LTR layout start=left, end=right. In RTL, '
           'start=right, end=left. This makes banners work correctly '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.star_outline,
       'title': 'Real-World Banner Usage',
-      'body': 'Banners are common in debug overlays (the red "DEBUG" '
+      'body':
+          'Banners are common in debug overlays (the red "DEBUG" '
           'stripe in Flutter debug mode), e-commerce sale tags, beta / '
           'preview indicators, environment markers (DEV, STAGING, PROD), '
           'and feature flags. They give a quick visual signal without '
@@ -48,7 +51,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Overlay, Not Layout',
-      'body': 'Banner doesn\'t affect layout sizing — it paints the ribbon '
+      'body':
+          'Banner doesn\'t affect layout sizing — it paints the ribbon '
           'on top using a custom painter. The child widget renders at '
           'full size underneath. The banner clips to the child\'s bounds.',
       'accent': Colors.indigo[600]!,
@@ -64,15 +68,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -110,7 +115,8 @@ dynamic build(BuildContext context) {
       'position': 'Top-left (LTR) / Top-right (RTL)',
       'icon': Icons.north_west,
       'color': Colors.indigo[700]!,
-      'desc': 'Places the banner in the top-start corner. This is the '
+      'desc':
+          'Places the banner in the top-start corner. This is the '
           'most common location — Flutter\'s debug banner uses topEnd by '
           'default, but topStart is great for left-aligned indicators.',
     },
@@ -119,7 +125,8 @@ dynamic build(BuildContext context) {
       'position': 'Top-right (LTR) / Top-left (RTL)',
       'icon': Icons.north_east,
       'color': Colors.blue[700]!,
-      'desc': 'Places the banner in the top-end corner. This is Flutter\'s '
+      'desc':
+          'Places the banner in the top-end corner. This is Flutter\'s '
           'default for the debug banner. Common for sale / discount tags '
           'in card-based e-commerce layouts.',
     },
@@ -128,7 +135,8 @@ dynamic build(BuildContext context) {
       'position': 'Bottom-left (LTR) / Bottom-right (RTL)',
       'icon': Icons.south_west,
       'color': Colors.deepPurple[700]!,
-      'desc': 'Places the banner in the bottom-start corner. Less common '
+      'desc':
+          'Places the banner in the bottom-start corner. Less common '
           'but useful for status indicators that shouldn\'t compete with '
           'header/title content at the top.',
     },
@@ -137,7 +145,8 @@ dynamic build(BuildContext context) {
       'position': 'Bottom-right (LTR) / Bottom-left (RTL)',
       'icon': Icons.south_east,
       'color': Colors.purple[700]!,
-      'desc': 'Places the banner in the bottom-end corner. Good for '
+      'desc':
+          'Places the banner in the bottom-end corner. Good for '
           '"NEW" or version badges that should be noticed but not dominate.',
     },
   ];
@@ -166,8 +175,11 @@ dynamic build(BuildContext context) {
                   color: (loc['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(loc['icon'] as IconData,
-                    color: loc['color'] as Color, size: 24),
+                child: Icon(
+                  loc['icon'] as IconData,
+                  color: loc['color'] as Color,
+                  size: 24,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -185,8 +197,7 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       loc['position'] as String,
-                      style: TextStyle(
-                          fontSize: 11, color: Colors.grey[600]),
+                      style: TextStyle(fontSize: 11, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -236,9 +247,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: background,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: bannerColor.withOpacity(0.3),
-              ),
+              border: Border.all(color: bannerColor.withOpacity(0.3)),
             ),
             child: Column(
               children: [
@@ -314,42 +323,48 @@ dynamic build(BuildContext context) {
     {
       'name': 'message',
       'type': 'String',
-      'desc': 'The text displayed on the diagonal ribbon. Keep short '
+      'desc':
+          'The text displayed on the diagonal ribbon. Keep short '
           '(4-8 characters) for readability.',
       'icon': Icons.text_fields,
     },
     {
       'name': 'location',
       'type': 'BannerLocation',
-      'desc': 'Which corner the ribbon is placed in. One of the four '
+      'desc':
+          'Which corner the ribbon is placed in. One of the four '
           'enum values (topStart, topEnd, bottomStart, bottomEnd).',
       'icon': Icons.place,
     },
     {
       'name': 'color',
       'type': 'Color',
-      'desc': 'Background color of the ribbon strip. Defaults to a '
+      'desc':
+          'Background color of the ribbon strip. Defaults to a '
           'red color. Use contrasting colors for visibility.',
       'icon': Icons.palette,
     },
     {
       'name': 'textStyle',
       'type': 'TextStyle',
-      'desc': 'Style for the message text. Typically bold, white, and '
+      'desc':
+          'Style for the message text. Typically bold, white, and '
           'small (10-12 sp). Default is white bold text.',
       'icon': Icons.format_size,
     },
     {
       'name': 'textDirection',
       'type': 'TextDirection?',
-      'desc': 'Overrides the ambient text direction for resolving '
+      'desc':
+          'Overrides the ambient text direction for resolving '
           '"start" and "end" locations. Usually inherited from context.',
       'icon': Icons.format_textdirection_l_to_r,
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc': 'The widget below the banner overlay. The child renders '
+      'desc':
+          'The widget below the banner overlay. The child renders '
           'at full size; the ribbon paints on top.',
       'icon': Icons.child_care,
     },
@@ -362,18 +377,12 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.indigo.withOpacity(0.04),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(
-            color: Colors.indigo[600]!,
-            width: 3,
-          ),
-        ),
+        border: Border(left: BorderSide(color: Colors.indigo[600]!, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(prop['icon'] as IconData,
-              color: Colors.indigo[600], size: 20),
+          Icon(prop['icon'] as IconData, color: Colors.indigo[600], size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -393,7 +402,9 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 1),
+                        horizontal: 6,
+                        vertical: 1,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.indigo.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(4),
@@ -434,7 +445,8 @@ dynamic build(BuildContext context) {
       'message': 'DEBUG',
       'color': Colors.red[700]!,
       'icon': Icons.bug_report,
-      'desc': 'Flutter\'s default debug banner uses topEnd. Shows this is '
+      'desc':
+          'Flutter\'s default debug banner uses topEnd. Shows this is '
           'a debug build. Typically removed in release mode via '
           'MaterialApp(debugShowCheckedModeBanner: false).',
     },
@@ -444,7 +456,8 @@ dynamic build(BuildContext context) {
       'message': 'DEV / STAGING',
       'color': Colors.orange[700]!,
       'icon': Icons.cloud,
-      'desc': 'Show which environment the app is running against. '
+      'desc':
+          'Show which environment the app is running against. '
           'Use different colors per environment: green=prod, orange='
           'staging, red=dev. topStart avoids clashing with debug banner.',
     },
@@ -454,7 +467,8 @@ dynamic build(BuildContext context) {
       'message': 'SALE / 50% OFF',
       'color': Colors.pink[600]!,
       'icon': Icons.local_offer,
-      'desc': 'Product cards with sale banners in the corner. topEnd '
+      'desc':
+          'Product cards with sale banners in the corner. topEnd '
           'is natural for LTR layouts, catching the eye as the user '
           'scans left to right.',
     },
@@ -464,7 +478,8 @@ dynamic build(BuildContext context) {
       'message': 'BETA',
       'color': Colors.deepPurple[600]!,
       'icon': Icons.science,
-      'desc': 'Mark experimental features with a subtle beta indicator. '
+      'desc':
+          'Mark experimental features with a subtle beta indicator. '
           'bottomStart is less intrusive than top corners, showing the '
           'feature works but isn\'t finalized.',
     },
@@ -474,7 +489,8 @@ dynamic build(BuildContext context) {
       'message': 'NEW / v2.0',
       'color': Colors.green[700]!,
       'icon': Icons.new_releases,
-      'desc': 'Highlight newly added items or recently updated cards. '
+      'desc':
+          'Highlight newly added items or recently updated cards. '
           'bottomEnd is subtle — users notice it without it competing '
           'with the main content.',
     },
@@ -487,17 +503,18 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (uc['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (uc['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (uc['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(uc['icon'] as IconData,
-                  color: uc['color'] as Color, size: 24),
+              Icon(
+                uc['icon'] as IconData,
+                color: uc['color'] as Color,
+                size: 24,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -510,8 +527,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: (uc['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(4),
@@ -534,8 +550,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 6),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: (uc['color'] as Color).withOpacity(0.08),
               borderRadius: BorderRadius.circular(6),
@@ -620,8 +635,7 @@ dynamic build(BuildContext context) {
               color: style['bgColor'] as Color,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color:
-                    (style['bannerColor'] as Color).withOpacity(0.2),
+                color: (style['bannerColor'] as Color).withOpacity(0.2),
               ),
             ),
             child: Center(
@@ -686,34 +700,42 @@ dynamic build(BuildContext context) {
       children: [
         const SizedBox(
           width: 120,
-          child: Text('BannerLocation',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'BannerLocation',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         const Expanded(
-          child: Text('LTR Position',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'LTR Position',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         const Expanded(
-          child: Text('RTL Position',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'RTL Position',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
       ],
     ),
   );
 
-  final dirTableRows =
-      directionalityData.asMap().entries.map<Widget>((entry) {
+  final dirTableRows = directionalityData.asMap().entries.map<Widget>((entry) {
     final i = entry.key;
     final d = entry.value;
     return Container(
@@ -729,28 +751,37 @@ dynamic build(BuildContext context) {
             width: 120,
             child: Row(
               children: [
-                Icon(d['icon'] as IconData,
-                    size: 16, color: Colors.indigo[600]),
+                Icon(
+                  d['icon'] as IconData,
+                  size: 16,
+                  color: Colors.indigo[600],
+                ),
                 const SizedBox(width: 6),
-                Text(d['value'] as String,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.indigo[700],
-                    )),
+                Text(
+                  d['value'] as String,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.indigo[700],
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
-            child: Text(d['ltr'] as String,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 12)),
+            child: Text(
+              d['ltr'] as String,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12),
+            ),
           ),
           Expanded(
-            child: Text(d['rtl'] as String,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 12)),
+            child: Text(
+              d['rtl'] as String,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -807,7 +838,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Wrap with ClipRRect for rounded corners',
-      'detail': 'Banner\'s ribbon can extend beyond rounded container '
+      'detail':
+          'Banner\'s ribbon can extend beyond rounded container '
           'borders. Wrap the Banner in ClipRRect with the same border '
           'radius so the ribbon clips cleanly at the corners.',
       'icon': Icons.check_circle,
@@ -816,7 +848,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Short messages only (4-8 chars)',
-      'detail': 'The diagonal ribbon has limited space. Keep messages '
+      'detail':
+          'The diagonal ribbon has limited space. Keep messages '
           'short: "SALE", "NEW", "BETA", "DEV". Longer text gets '
           'squeezed and becomes unreadable.',
       'icon': Icons.check_circle,
@@ -825,7 +858,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Environment-based banner visibility',
-      'detail': 'Show banners conditionally: use kDebugMode or an '
+      'detail':
+          'Show banners conditionally: use kDebugMode or an '
           'environment variable to decide whether to wrap the child '
           'in a Banner or pass it through unwrapped.',
       'icon': Icons.check_circle,
@@ -834,7 +868,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Color contrast for accessibility',
-      'detail': 'Ensure the banner color has good contrast with the '
+      'detail':
+          'Ensure the banner color has good contrast with the '
           'white text. Dark saturated colors (indigo, red, green 800+) '
           'work best. Avoid yellow or light grey.',
       'icon': Icons.check_circle,
@@ -843,7 +878,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Banner on small widgets',
-      'detail': 'On very small widgets (< 60x60), the banner can cover '
+      'detail':
+          'On very small widgets (< 60x60), the banner can cover '
           'most of the content. Banner is designed for medium to large '
           'areas like full-screen app or product cards.',
       'icon': Icons.warning_amber,
@@ -852,7 +888,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Stacking multiple banners',
-      'detail': 'Nesting Banner(Banner(child)) creates two ribbons on '
+      'detail':
+          'Nesting Banner(Banner(child)) creates two ribbons on '
           'different corners. While technically possible, it looks '
           'cluttered. Prefer a single banner with the most important '
           'message.',
@@ -862,7 +899,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Ignoring RTL in hardcoded positions',
-      'detail': 'If you hardcode topStart thinking it means "top-left", '
+      'detail':
+          'If you hardcode topStart thinking it means "top-left", '
           'it will flip in RTL locales. If you need always-left, set '
           'textDirection: TextDirection.ltr on the Banner.',
       'icon': Icons.warning_amber,
@@ -878,17 +916,13 @@ dynamic build(BuildContext context) {
         color: (tip['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(
-            color: tip['color'] as Color,
-            width: 4,
-          ),
+          left: BorderSide(color: tip['color'] as Color, width: 4),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(tip['icon'] as IconData,
-              color: tip['color'] as Color, size: 20),
+          Icon(tip['icon'] as IconData, color: tip['color'] as Color, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -898,7 +932,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: (tip['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -946,10 +982,22 @@ dynamic build(BuildContext context) {
   final summaryItems = <Map<String, dynamic>>[
     {'label': 'Locations', 'value': '4', 'icon': Icons.place},
     {'label': 'Live banners', 'value': '4', 'icon': Icons.flag},
-    {'label': 'Properties', 'value': '${anatomyProperties.length}', 'icon': Icons.list},
+    {
+      'label': 'Properties',
+      'value': '${anatomyProperties.length}',
+      'icon': Icons.list,
+    },
     {'label': 'Use cases', 'value': '${useCases.length}', 'icon': Icons.cases},
-    {'label': 'Style demos', 'value': '${stylingExamples.length}', 'icon': Icons.palette},
-    {'label': 'Tips & pitfalls', 'value': '${tips.length}', 'icon': Icons.lightbulb},
+    {
+      'label': 'Style demos',
+      'value': '${stylingExamples.length}',
+      'icon': Icons.palette,
+    },
+    {
+      'label': 'Tips & pitfalls',
+      'value': '${tips.length}',
+      'icon': Icons.lightbulb,
+    },
   ];
 
   final summaryGrid = Wrap(
@@ -973,8 +1021,7 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Icon(item['icon'] as IconData,
-                color: Colors.indigo[700], size: 24),
+            Icon(item['icon'] as IconData, color: Colors.indigo[700], size: 24),
             const SizedBox(height: 6),
             Text(
               item['value'] as String,
@@ -1136,16 +1183,10 @@ dynamic build(BuildContext context) {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border:
-                  Border.all(color: Colors.indigo.withOpacity(0.2)),
+              border: Border.all(color: Colors.indigo.withOpacity(0.2)),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(
-              children: [
-                dirTableHeader,
-                ...dirTableRows,
-              ],
-            ),
+            child: Column(children: [dirTableHeader, ...dirTableRows]),
           ),
           dirNote,
 

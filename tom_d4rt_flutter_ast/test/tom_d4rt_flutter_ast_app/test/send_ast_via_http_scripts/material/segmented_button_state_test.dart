@@ -93,18 +93,9 @@ Widget buildBasicSegmentedButton() {
             SizedBox(height: 12),
             SegmentedButton<String>(
               segments: [
-                ButtonSegment<String>(
-                  value: 'day',
-                  label: Text('Day'),
-                ),
-                ButtonSegment<String>(
-                  value: 'week',
-                  label: Text('Week'),
-                ),
-                ButtonSegment<String>(
-                  value: 'month',
-                  label: Text('Month'),
-                ),
+                ButtonSegment<String>(value: 'day', label: Text('Day')),
+                ButtonSegment<String>(value: 'week', label: Text('Week')),
+                ButtonSegment<String>(value: 'month', label: Text('Month')),
               ],
               selected: selectedValue,
               onSelectionChanged: (Set<String> newSelection) {
@@ -152,15 +143,24 @@ Widget buildMultiSelectionSegmentedButton() {
               segments: [
                 ButtonSegment<String>(
                   value: 'bold',
-                  label: Text('B', style: TextStyle(fontWeight: FontWeight.bold)),
+                  label: Text(
+                    'B',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 ButtonSegment<String>(
                   value: 'italic',
-                  label: Text('I', style: TextStyle(fontStyle: FontStyle.italic)),
+                  label: Text(
+                    'I',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
                 ),
                 ButtonSegment<String>(
                   value: 'underline',
-                  label: Text('U', style: TextStyle(decoration: TextDecoration.underline)),
+                  label: Text(
+                    'U',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  ),
                 ),
               ],
               selected: selectedValues,
@@ -208,18 +208,9 @@ Widget buildEmptySelectionSegmentedButton() {
               emptySelectionAllowed: true,
               multiSelectionEnabled: true,
               segments: [
-                ButtonSegment<int>(
-                  value: 0,
-                  label: Text('Option A'),
-                ),
-                ButtonSegment<int>(
-                  value: 1,
-                  label: Text('Option B'),
-                ),
-                ButtonSegment<int>(
-                  value: 2,
-                  label: Text('Option C'),
-                ),
+                ButtonSegment<int>(value: 0, label: Text('Option A')),
+                ButtonSegment<int>(value: 1, label: Text('Option B')),
+                ButtonSegment<int>(value: 2, label: Text('Option C')),
               ],
               selected: selectedIndices,
               onSelectionChanged: (Set<int> newSelection) {
@@ -513,22 +504,22 @@ Widget buildStyleButtonStyleDemo() {
             SizedBox(height: 12),
             SegmentedButton<String>(
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.deepPurple.shade600;
-                    }
-                    return Colors.deepPurple.shade50;
-                  },
-                ),
-                foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.white;
-                    }
-                    return Colors.deepPurple.shade800;
-                  },
-                ),
+                backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.deepPurple.shade600;
+                  }
+                  return Colors.deepPurple.shade50;
+                }),
+                foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.white;
+                  }
+                  return Colors.deepPurple.shade800;
+                }),
                 padding: WidgetStateProperty.all(
                   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 ),
@@ -584,30 +575,30 @@ Widget buildElevatedStyleDemo() {
             SizedBox(height: 12),
             SegmentedButton<String>(
               style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.amber.shade500;
-                    }
-                    return Colors.amber.shade100;
-                  },
-                ),
-                foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return Colors.black87;
-                    }
-                    return Colors.amber.shade900;
-                  },
-                ),
-                elevation: WidgetStateProperty.resolveWith<double?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return 4;
-                    }
-                    return 0;
-                  },
-                ),
+                backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.amber.shade500;
+                  }
+                  return Colors.amber.shade100;
+                }),
+                foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return Colors.black87;
+                  }
+                  return Colors.amber.shade900;
+                }),
+                elevation: WidgetStateProperty.resolveWith<double?>((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.selected)) {
+                    return 4;
+                  }
+                  return 0;
+                }),
                 shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -847,18 +838,9 @@ Widget buildShowSelectedIconDemo() {
               showSelectedIcon: true,
               selectedIcon: Icon(Icons.check_circle, size: 18),
               segments: [
-                ButtonSegment<String>(
-                  value: 'name',
-                  label: Text('Name'),
-                ),
-                ButtonSegment<String>(
-                  value: 'date',
-                  label: Text('Date'),
-                ),
-                ButtonSegment<String>(
-                  value: 'size',
-                  label: Text('Size'),
-                ),
+                ButtonSegment<String>(value: 'name', label: Text('Name')),
+                ButtonSegment<String>(value: 'date', label: Text('Date')),
+                ButtonSegment<String>(value: 'size', label: Text('Size')),
               ],
               selected: selectedSort,
               onSelectionChanged: (Set<String> newSelection) {
@@ -903,16 +885,17 @@ Widget buildCustomSelectedIconDemo() {
             SizedBox(height: 12),
             SegmentedButton<String>(
               showSelectedIcon: true,
-              selectedIcon: Icon(Icons.star, size: 16, color: Colors.red.shade600),
+              selectedIcon: Icon(
+                Icons.star,
+                size: 16,
+                color: Colors.red.shade600,
+              ),
               segments: [
                 ButtonSegment<String>(
                   value: 'standard',
                   label: Text('Standard'),
                 ),
-                ButtonSegment<String>(
-                  value: 'premium',
-                  label: Text('Premium'),
-                ),
+                ButtonSegment<String>(value: 'premium', label: Text('Premium')),
                 ButtonSegment<String>(
                   value: 'ultimate',
                   label: Text('Ultimate'),
@@ -1032,22 +1015,22 @@ Widget buildSegmentedButtonThemeDemo() {
             SegmentedButtonTheme(
               data: SegmentedButtonThemeData(
                 style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.selected)) {
-                        return Colors.brown.shade700;
-                      }
-                      return Colors.brown.shade100;
-                    },
-                  ),
-                  foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-                    (Set<WidgetState> states) {
-                      if (states.contains(WidgetState.selected)) {
-                        return Colors.white;
-                      }
-                      return Colors.brown.shade800;
-                    },
-                  ),
+                  backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.selected)) {
+                      return Colors.brown.shade700;
+                    }
+                    return Colors.brown.shade100;
+                  }),
+                  foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+                    Set<WidgetState> states,
+                  ) {
+                    if (states.contains(WidgetState.selected)) {
+                      return Colors.white;
+                    }
+                    return Colors.brown.shade800;
+                  }),
                 ),
               ),
               child: SegmentedButton<String>(
@@ -1150,7 +1133,9 @@ Widget buildEnumValueDemo() {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: colorMap[selectedColor.first] ?? Colors.grey),
+          border: Border.all(
+            color: colorMap[selectedColor.first] ?? Colors.grey,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1227,9 +1212,15 @@ dynamic build(BuildContext context) {
             'segments. The SegmentedButtonState manages the internal state of the widget, '
             'including selection state, enabled state, and visual properties.',
           ),
-          buildInfoCard('Widget Type', 'StatefulWidget with SegmentedButtonState'),
+          buildInfoCard(
+            'Widget Type',
+            'StatefulWidget with SegmentedButtonState',
+          ),
           buildInfoCard('Default Selection', 'Single selection mode'),
-          buildInfoCard('Value Type', 'Generic type T for flexible value handling'),
+          buildInfoCard(
+            'Value Type',
+            'Generic type T for flexible value handling',
+          ),
           buildBasicSegmentedButton(),
 
           buildSectionHeader('multiSelectionEnabled'),
@@ -1267,7 +1258,10 @@ dynamic build(BuildContext context) {
             'The onSelectionChanged callback is invoked whenever the selection changes. '
             'It receives the new Set<T> of selected values, allowing state updates.',
           ),
-          buildInfoCard('Callback', 'onSelectionChanged: void Function(Set<T>)?'),
+          buildInfoCard(
+            'Callback',
+            'onSelectionChanged: void Function(Set<T>)?',
+          ),
           buildInfoCard('Behavior', 'Called on each user interaction'),
           buildOnSelectionChangedDemo(),
 
@@ -1277,7 +1271,10 @@ dynamic build(BuildContext context) {
             'Use WidgetStateProperty to handle different states like selected, hovered, pressed.',
           ),
           buildInfoCard('Property', 'style: ButtonStyle?'),
-          buildInfoCard('States', 'selected, hovered, focused, pressed, disabled'),
+          buildInfoCard(
+            'States',
+            'selected, hovered, focused, pressed, disabled',
+          ),
           buildStyleButtonStyleDemo(),
           buildElevatedStyleDemo(),
 
@@ -1286,7 +1283,10 @@ dynamic build(BuildContext context) {
             'Individual segments can be styled through ButtonSegment properties and '
             'global theming via SegmentedButtonTheme. Tooltips provide accessibility hints.',
           ),
-          buildInfoCard('Theme', 'SegmentedButtonTheme / SegmentedButtonThemeData'),
+          buildInfoCard(
+            'Theme',
+            'SegmentedButtonTheme / SegmentedButtonThemeData',
+          ),
           buildInfoCard('Per Segment', 'tooltip, enabled properties'),
           buildSegmentStylingDemo(),
           buildSegmentedButtonThemeDemo(),
@@ -1298,7 +1298,10 @@ dynamic build(BuildContext context) {
             'can replace the default checkmark.',
           ),
           buildInfoCard('Icon Property', 'ButtonSegment.icon: Widget?'),
-          buildInfoCard('Selected Icon', 'showSelectedIcon: bool, selectedIcon: Widget?'),
+          buildInfoCard(
+            'Selected Icon',
+            'showSelectedIcon: bool, selectedIcon: Widget?',
+          ),
           buildIconWithLabelDemo(),
           buildIconOnlyDemo(),
           buildShowSelectedIconDemo(),

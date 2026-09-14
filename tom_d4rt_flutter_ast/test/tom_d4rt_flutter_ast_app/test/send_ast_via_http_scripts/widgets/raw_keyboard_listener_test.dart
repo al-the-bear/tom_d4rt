@@ -55,10 +55,7 @@ class _RawKeyboardListenerDemoRoot extends StatelessWidget {
         appBar: AppBar(
           title: const Text('RawKeyboardListener — Deprecated & Replaced'),
           centerTitle: false,
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: _tabs,
-          ),
+          bottom: const TabBar(isScrollable: true, tabs: _tabs),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -95,7 +92,10 @@ class _HeroBannerTab extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[cs.errorContainer, cs.error.withValues(alpha: 0.15)],
+              colors: <Color>[
+                cs.errorContainer,
+                cs.error.withValues(alpha: 0.15),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -159,7 +159,8 @@ class _HeroBannerTab extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _CodeBlock(
-              code: '''// Typical RawKeyboardListener usage (LEGACY — do not copy):
+              code:
+                  '''// Typical RawKeyboardListener usage (LEGACY — do not copy):
 RawKeyboardListener(
   focusNode: FocusNode(),
   autofocus: true,
@@ -190,7 +191,8 @@ RawKeyboardListener(
               icon: Icons.bug_report,
               color: cs.error,
               title: 'Platform fragmentation',
-              body: 'Android, iOS, macOS, Windows, Linux all returned different key codes '
+              body:
+                  'Android, iOS, macOS, Windows, Linux all returned different key codes '
                   'for the same physical key. Developers had to write platform-specific branches.',
             ),
             const SizedBox(height: 10),
@@ -198,7 +200,8 @@ RawKeyboardListener(
               icon: Icons.layers_clear,
               color: cs.tertiary,
               title: 'Two parallel systems',
-              body: 'RawKeyboard existed alongside the newer HardwareKeyboard API, '
+              body:
+                  'RawKeyboard existed alongside the newer HardwareKeyboard API, '
                   'creating confusion about which to use and causing event duplication.',
             ),
             const SizedBox(height: 10),
@@ -206,7 +209,8 @@ RawKeyboardListener(
               icon: Icons.verified,
               color: cs.primary,
               title: 'Modern replacement: KeyboardListener',
-              body: 'KeyboardListener uses KeyEvent (from HardwareKeyboard), which provides '
+              body:
+                  'KeyboardListener uses KeyEvent (from HardwareKeyboard), which provides '
                   'consistent logical keys across all platforms with no platform-specific branches needed.',
             ),
           ],
@@ -218,7 +222,10 @@ RawKeyboardListener(
           icon: Icons.rocket_launch,
           children: <Widget>[
             Table(
-              border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
+              border: TableBorder.all(
+                color: cs.outlineVariant,
+                borderRadius: BorderRadius.circular(8),
+              ),
               columnWidths: const <int, TableColumnWidth>{
                 0: FlexColumnWidth(),
                 1: FlexColumnWidth(),
@@ -231,22 +238,30 @@ RawKeyboardListener(
                     _TableCell(text: 'New (Modern)', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'RawKeyboardListener'),
-                  _TableCell(text: 'KeyboardListener'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'RawKeyEvent / RawKeyDownEvent'),
-                  _TableCell(text: 'KeyEvent / KeyDownEvent'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'RawKeyboard.instance'),
-                  _TableCell(text: 'HardwareKeyboard.instance'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'event.data (platform-specific)'),
-                  _TableCell(text: 'event.logicalKey (unified)'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'RawKeyboardListener'),
+                    _TableCell(text: 'KeyboardListener'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'RawKeyEvent / RawKeyDownEvent'),
+                    _TableCell(text: 'KeyEvent / KeyDownEvent'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'RawKeyboard.instance'),
+                    _TableCell(text: 'HardwareKeyboard.instance'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'event.data (platform-specific)'),
+                    _TableCell(text: 'event.logicalKey (unified)'),
+                  ],
+                ),
               ],
             ),
           ],
@@ -321,11 +336,30 @@ KeyboardListener(
           title: 'KeyEvent Anatomy',
           icon: Icons.account_tree,
           children: <Widget>[
-            _PropRow(label: 'logicalKey', value: 'LogicalKeyboardKey — unified key identity across platforms'),
-            _PropRow(label: 'physicalKey', value: 'PhysicalKeyboardKey — hardware scancode (layout-independent)'),
-            _PropRow(label: 'character', value: 'String? — printable character (null for non-printable keys)'),
-            _PropRow(label: 'timeStamp', value: 'Duration — time since boot when event was generated'),
-            _PropRow(label: 'synthesized', value: 'bool — true if generated programmatically (not real hardware)'),
+            _PropRow(
+              label: 'logicalKey',
+              value:
+                  'LogicalKeyboardKey — unified key identity across platforms',
+            ),
+            _PropRow(
+              label: 'physicalKey',
+              value:
+                  'PhysicalKeyboardKey — hardware scancode (layout-independent)',
+            ),
+            _PropRow(
+              label: 'character',
+              value:
+                  'String? — printable character (null for non-printable keys)',
+            ),
+            _PropRow(
+              label: 'timeStamp',
+              value: 'Duration — time since boot when event was generated',
+            ),
+            _PropRow(
+              label: 'synthesized',
+              value:
+                  'bool — true if generated programmatically (not real hardware)',
+            ),
           ],
         ),
       ],
@@ -344,7 +378,9 @@ class _KeyboardListenerWidget extends StatelessWidget {
       KeyRepeatEvent() => 'REPEAT',
       _ => 'UNKNOWN',
     };
-    final label = event.logicalKey.keyLabel.isEmpty ? '(no label)' : event.logicalKey.keyLabel;
+    final label = event.logicalKey.keyLabel.isEmpty
+        ? '(no label)'
+        : event.logicalKey.keyLabel;
     final char = event.character != null ? ' char="${event.character}"' : '';
     final entry = '[$type] $label$char';
     final current = List<String>.from(_keyLog.value);
@@ -370,9 +406,17 @@ class _KeyboardListenerWidget extends StatelessWidget {
               builder: (ctx2, last, w2) {
                 return Row(
                   children: <Widget>[
-                    _StatChip(label: 'Keys pressed', value: '$count', color: cs.primary),
+                    _StatChip(
+                      label: 'Keys pressed',
+                      value: '$count',
+                      color: cs.primary,
+                    ),
                     const SizedBox(width: 8),
-                    _StatChip(label: 'Last key', value: last, color: cs.tertiary),
+                    _StatChip(
+                      label: 'Last key',
+                      value: last,
+                      color: cs.tertiary,
+                    ),
                   ],
                 );
               },
@@ -392,7 +436,9 @@ class _KeyboardListenerWidget extends StatelessWidget {
                 duration: const Duration(milliseconds: 200),
                 height: 80,
                 decoration: BoxDecoration(
-                  color: hasFocus ? cs.primaryContainer : cs.surfaceContainerHighest,
+                  color: hasFocus
+                      ? cs.primaryContainer
+                      : cs.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: hasFocus ? cs.primary : cs.outlineVariant,
@@ -403,7 +449,9 @@ class _KeyboardListenerWidget extends StatelessWidget {
                 child: Text(
                   hasFocus ? 'Focused — press any key' : 'Click here to focus',
                   style: TextStyle(
-                    color: hasFocus ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+                    color: hasFocus
+                        ? cs.onPrimaryContainer
+                        : cs.onSurfaceVariant,
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
                   ),
@@ -444,7 +492,10 @@ class _KeyboardListenerWidget extends StatelessWidget {
                   if (entry.startsWith('[UP]')) entryColor = cs.secondary;
                   if (entry.startsWith('[REPEAT]')) entryColor = cs.tertiary;
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 4),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 3,
+                      horizontal: 4,
+                    ),
                     child: Text(
                       entry,
                       style: TextStyle(
@@ -505,7 +556,10 @@ class _LegacyApiTab extends StatelessWidget {
                 child: Text(
                   'All code on this tab is shown as educational text only. '
                   'RawKeyboardListener is NOT instantiated anywhere in this file.',
-                  style: TextStyle(color: cs.onErrorContainer, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: cs.onErrorContainer,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -516,7 +570,9 @@ class _LegacyApiTab extends StatelessWidget {
           title: 'RawKeyboardListener Constructor (Annotated)',
           icon: Icons.construction,
           children: <Widget>[
-            const _BodyText('Each parameter of the deprecated constructor, explained:'),
+            const _BodyText(
+              'Each parameter of the deprecated constructor, explained:',
+            ),
             const SizedBox(height: 12),
             _CodeBlock(
               code: '''RawKeyboardListener(
@@ -618,7 +674,8 @@ RawKeyEventDataWeb       // code, key, metaState''',
             const SizedBox(height: 12),
             const _BodyText('Pattern 3: Game loop (multiple keys held)'),
             _CodeBlock(
-              code: '''// RawKeyboard.instance.keysPressed returned Set<LogicalKeyboardKey>
+              code:
+                  '''// RawKeyboard.instance.keysPressed returned Set<LogicalKeyboardKey>
 // This was available even outside the listener callback.
 final pressed = RawKeyboard.instance.keysPressed;
 if (pressed.contains(LogicalKeyboardKey.space)) jump();
@@ -649,7 +706,10 @@ class _EventModelsTab extends StatelessWidget {
           icon: Icons.compare_arrows,
           children: <Widget>[
             Table(
-              border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
+              border: TableBorder.all(
+                color: cs.outlineVariant,
+                borderRadius: BorderRadius.circular(8),
+              ),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
                 1: FlexColumnWidth(),
@@ -664,56 +724,93 @@ class _EventModelsTab extends StatelessWidget {
                     _TableCell(text: 'KeyEvent (Modern)', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Package', isHeader: true),
-                  _TableCell(text: 'flutter/services.dart'),
-                  _TableCell(text: 'flutter/services.dart'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Platform data'),
-                  _TableCell(text: 'Platform-specific subclass (RawKeyEventDataAndroid, etc.)'),
-                  _TableCell(text: 'Unified — no platform branch needed'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Subtypes'),
-                  _TableCell(text: 'RawKeyDownEvent, RawKeyUpEvent'),
-                  _TableCell(text: 'KeyDownEvent, KeyUpEvent, KeyRepeatEvent'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Repeat events'),
-                  _TableCell(text: 'bool repeat on RawKeyDownEvent'),
-                  _TableCell(text: 'Dedicated KeyRepeatEvent subclass'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'logicalKey'),
-                  _TableCell(text: 'Present but inconsistent on some platforms'),
-                  _TableCell(text: 'Fully consistent across all platforms'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'physicalKey'),
-                  _TableCell(text: 'Present'),
-                  _TableCell(text: 'Present'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'character'),
-                  _TableCell(text: 'String? (may be null or incorrect on some platforms)'),
-                  _TableCell(text: 'String? (reliable)'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'synthesized'),
-                  _TableCell(text: 'Not always accurate'),
-                  _TableCell(text: 'bool — accurate'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Global state'),
-                  _TableCell(text: 'RawKeyboard.instance.keysPressed'),
-                  _TableCell(text: 'HardwareKeyboard.instance.logicalKeysPressed'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Modifiers'),
-                  _TableCell(text: 'isControlPressed, isShiftPressed etc. (from RawKeyEventData)'),
-                  _TableCell(text: 'HardwareKeyboard.instance.isControlPressed etc.'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Package', isHeader: true),
+                    _TableCell(text: 'flutter/services.dart'),
+                    _TableCell(text: 'flutter/services.dart'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Platform data'),
+                    _TableCell(
+                      text:
+                          'Platform-specific subclass (RawKeyEventDataAndroid, etc.)',
+                    ),
+                    _TableCell(text: 'Unified — no platform branch needed'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Subtypes'),
+                    _TableCell(text: 'RawKeyDownEvent, RawKeyUpEvent'),
+                    _TableCell(
+                      text: 'KeyDownEvent, KeyUpEvent, KeyRepeatEvent',
+                    ),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Repeat events'),
+                    _TableCell(text: 'bool repeat on RawKeyDownEvent'),
+                    _TableCell(text: 'Dedicated KeyRepeatEvent subclass'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'logicalKey'),
+                    _TableCell(
+                      text: 'Present but inconsistent on some platforms',
+                    ),
+                    _TableCell(text: 'Fully consistent across all platforms'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'physicalKey'),
+                    _TableCell(text: 'Present'),
+                    _TableCell(text: 'Present'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'character'),
+                    _TableCell(
+                      text:
+                          'String? (may be null or incorrect on some platforms)',
+                    ),
+                    _TableCell(text: 'String? (reliable)'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'synthesized'),
+                    _TableCell(text: 'Not always accurate'),
+                    _TableCell(text: 'bool — accurate'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Global state'),
+                    _TableCell(text: 'RawKeyboard.instance.keysPressed'),
+                    _TableCell(
+                      text: 'HardwareKeyboard.instance.logicalKeysPressed',
+                    ),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Modifiers'),
+                    _TableCell(
+                      text:
+                          'isControlPressed, isShiftPressed etc. (from RawKeyEventData)',
+                    ),
+                    _TableCell(
+                      text: 'HardwareKeyboard.instance.isControlPressed etc.',
+                    ),
+                  ],
+                ),
               ],
             ),
           ],
@@ -727,7 +824,8 @@ class _EventModelsTab extends StatelessWidget {
               icon: Icons.check_circle,
               color: Colors.green,
               title: '1. No platform branches',
-              body: 'RawKeyEvent required checking event.data.runtimeType to get platform-specific '
+              body:
+                  'RawKeyEvent required checking event.data.runtimeType to get platform-specific '
                   'data. KeyEvent eliminates this entirely. One code path handles all platforms.',
             ),
             const SizedBox(height: 10),
@@ -735,7 +833,8 @@ class _EventModelsTab extends StatelessWidget {
               icon: Icons.check_circle,
               color: Colors.green,
               title: '2. Repeat events are first-class',
-              body: 'RawKeyDownEvent had a bool repeat property which was easy to miss. '
+              body:
+                  'RawKeyDownEvent had a bool repeat property which was easy to miss. '
                   'KeyRepeatEvent is its own subtype — pattern matching handles it cleanly.',
             ),
             const SizedBox(height: 10),
@@ -743,7 +842,8 @@ class _EventModelsTab extends StatelessWidget {
               icon: Icons.check_circle,
               color: Colors.green,
               title: '3. Consistent logicalKey',
-              body: 'On some older platforms, RawKeyEvent.logicalKey returned incorrect values. '
+              body:
+                  'On some older platforms, RawKeyEvent.logicalKey returned incorrect values. '
                   'KeyEvent.logicalKey is normalized by the engine before delivery.',
             ),
             const SizedBox(height: 10),
@@ -751,7 +851,8 @@ class _EventModelsTab extends StatelessWidget {
               icon: Icons.check_circle,
               color: Colors.green,
               title: '4. Better global state',
-              body: 'HardwareKeyboard.instance.logicalKeysPressed is accurate and updated '
+              body:
+                  'HardwareKeyboard.instance.logicalKeysPressed is accurate and updated '
                   'in sync with KeyEvents. RawKeyboard.instance.keysPressed had edge cases '
                   'where it desynchronized from actual hardware state.',
             ),
@@ -814,26 +915,34 @@ class _MigrationGuideTab extends StatelessWidget {
             _MigrationStep(
               step: 1,
               title: 'Change 1 — Widget name',
-              before: 'RawKeyboardListener(\n  focusNode: _focusNode,\n  autofocus: true,\n  onKey: _onKey,\n  child: ...,\n)',
-              after: 'KeyboardListener(\n  focusNode: _focusNode,\n  autofocus: true,\n  onKeyEvent: _onKeyEvent,\n  child: ...,\n)',
+              before:
+                  'RawKeyboardListener(\n  focusNode: _focusNode,\n  autofocus: true,\n  onKey: _onKey,\n  child: ...,\n)',
+              after:
+                  'KeyboardListener(\n  focusNode: _focusNode,\n  autofocus: true,\n  onKeyEvent: _onKeyEvent,\n  child: ...,\n)',
               note: 'The parameter name changes from onKey to onKeyEvent.',
             ),
             const SizedBox(height: 16),
             _MigrationStep(
               step: 2,
               title: 'Change 2 — Callback signature',
-              before: 'void _onKey(RawKeyEvent event) {\n  if (event is RawKeyDownEvent) {\n    // handle\n  }\n}',
-              after: 'void _onKeyEvent(KeyEvent event) {\n  if (event is KeyDownEvent) {\n    // handle\n  }\n}',
-              note: 'RawKeyEvent → KeyEvent. RawKeyDownEvent → KeyDownEvent. '
+              before:
+                  'void _onKey(RawKeyEvent event) {\n  if (event is RawKeyDownEvent) {\n    // handle\n  }\n}',
+              after:
+                  'void _onKeyEvent(KeyEvent event) {\n  if (event is KeyDownEvent) {\n    // handle\n  }\n}',
+              note:
+                  'RawKeyEvent → KeyEvent. RawKeyDownEvent → KeyDownEvent. '
                   'Consider handling KeyRepeatEvent separately if you previously used event.repeat.',
             ),
             const SizedBox(height: 16),
             _MigrationStep(
               step: 3,
               title: 'Change 3 — Platform-specific data access',
-              before: '// OLD: platform branch\nif (event.data is RawKeyEventDataAndroid) {\n  final d = event.data as RawKeyEventDataAndroid;\n  final scanCode = d.scanCode;\n}',
-              after: '// NEW: unified — no branching needed\nfinal logicalKey = event.logicalKey;\nfinal physicalKey = event.physicalKey;\n// HardwareKeyboard.instance for global state',
-              note: 'Platform-specific data classes are all deprecated. '
+              before:
+                  '// OLD: platform branch\nif (event.data is RawKeyEventDataAndroid) {\n  final d = event.data as RawKeyEventDataAndroid;\n  final scanCode = d.scanCode;\n}',
+              after:
+                  '// NEW: unified — no branching needed\nfinal logicalKey = event.logicalKey;\nfinal physicalKey = event.physicalKey;\n// HardwareKeyboard.instance for global state',
+              note:
+                  'Platform-specific data classes are all deprecated. '
                   'Use logicalKey and physicalKey from KeyEvent directly.',
             ),
             const SizedBox(height: 20),
@@ -901,18 +1010,66 @@ class _KeyConstantsTab extends StatelessWidget {
   const _KeyConstantsTab();
 
   static const List<Map<String, String>> _keyTable = <Map<String, String>>[
-    {'logical': 'LogicalKeyboardKey.keyA', 'physical': 'PhysicalKeyboardKey.keyA', 'raw': 'RawKeyboardKey not needed'},
-    {'logical': 'LogicalKeyboardKey.space', 'physical': 'PhysicalKeyboardKey.space', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.enter', 'physical': 'PhysicalKeyboardKey.enter', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.escape', 'physical': 'PhysicalKeyboardKey.escape', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.arrowUp', 'physical': 'PhysicalKeyboardKey.arrowUp', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.shiftLeft', 'physical': 'PhysicalKeyboardKey.shiftLeft', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.controlLeft', 'physical': 'PhysicalKeyboardKey.controlLeft', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.alt', 'physical': 'PhysicalKeyboardKey.altLeft', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.backspace', 'physical': 'PhysicalKeyboardKey.backspace', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.tab', 'physical': 'PhysicalKeyboardKey.tab', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.f1', 'physical': 'PhysicalKeyboardKey.f1', 'raw': 'Platform keyCode varies'},
-    {'logical': 'LogicalKeyboardKey.home', 'physical': 'PhysicalKeyboardKey.home', 'raw': 'Platform keyCode varies'},
+    {
+      'logical': 'LogicalKeyboardKey.keyA',
+      'physical': 'PhysicalKeyboardKey.keyA',
+      'raw': 'RawKeyboardKey not needed',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.space',
+      'physical': 'PhysicalKeyboardKey.space',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.enter',
+      'physical': 'PhysicalKeyboardKey.enter',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.escape',
+      'physical': 'PhysicalKeyboardKey.escape',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.arrowUp',
+      'physical': 'PhysicalKeyboardKey.arrowUp',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.shiftLeft',
+      'physical': 'PhysicalKeyboardKey.shiftLeft',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.controlLeft',
+      'physical': 'PhysicalKeyboardKey.controlLeft',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.alt',
+      'physical': 'PhysicalKeyboardKey.altLeft',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.backspace',
+      'physical': 'PhysicalKeyboardKey.backspace',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.tab',
+      'physical': 'PhysicalKeyboardKey.tab',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.f1',
+      'physical': 'PhysicalKeyboardKey.f1',
+      'raw': 'Platform keyCode varies',
+    },
+    {
+      'logical': 'LogicalKeyboardKey.home',
+      'physical': 'PhysicalKeyboardKey.home',
+      'raw': 'Platform keyCode varies',
+    },
   ];
 
   @override
@@ -929,7 +1086,8 @@ class _KeyConstantsTab extends StatelessWidget {
               icon: Icons.language,
               color: cs.primary,
               title: 'LogicalKeyboardKey',
-              body: 'Represents what the key MEANS — independent of keyboard layout. '
+              body:
+                  'Represents what the key MEANS — independent of keyboard layout. '
                   'LogicalKeyboardKey.keyA always refers to the "A" key concept, '
                   'even on AZERTY keyboards where the physical key is in a different position. '
                   'Use this for shortcuts and application logic.',
@@ -939,7 +1097,8 @@ class _KeyConstantsTab extends StatelessWidget {
               icon: Icons.hardware,
               color: cs.secondary,
               title: 'PhysicalKeyboardKey',
-              body: 'Represents WHERE the key is on the hardware — the physical scancode. '
+              body:
+                  'Represents WHERE the key is on the hardware — the physical scancode. '
                   'PhysicalKeyboardKey.keyA is always the key in the top-left letter row position, '
                   'regardless of what character it produces. Use this for gaming '
                   'where WASD position matters more than meaning.',
@@ -961,13 +1120,15 @@ class _KeyConstantsTab extends StatelessWidget {
                     _TableCell(text: 'Legacy RawKeyboard Note', isHeader: true),
                   ],
                 ),
-                ..._keyTable.map((row) => TableRow(
-                      children: <Widget>[
-                        _TableCell(text: row['logical']!, mono: true),
-                        _TableCell(text: row['physical']!, mono: true),
-                        _TableCell(text: row['raw']!),
-                      ],
-                    )),
+                ..._keyTable.map(
+                  (row) => TableRow(
+                    children: <Widget>[
+                      _TableCell(text: row['logical']!, mono: true),
+                      _TableCell(text: row['physical']!, mono: true),
+                      _TableCell(text: row['raw']!),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
@@ -1182,7 +1343,9 @@ class _PipelineDiagramTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const _BodyText('Hardware Key Press → Native Platform → RawKeyboard → RawKeyEvent → RawKeyboardListener → onKey callback'),
+            const _BodyText(
+              'Hardware Key Press → Native Platform → RawKeyboard → RawKeyEvent → RawKeyboardListener → onKey callback',
+            ),
           ],
         ),
         const SizedBox(height: 20),
@@ -1203,7 +1366,9 @@ class _PipelineDiagramTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            const _BodyText('Hardware Key Press → Native Platform → Flutter Engine (normalization) → HardwareKeyboard → KeyEvent → KeyboardListener → onKeyEvent callback'),
+            const _BodyText(
+              'Hardware Key Press → Native Platform → Flutter Engine (normalization) → HardwareKeyboard → KeyEvent → KeyboardListener → onKeyEvent callback',
+            ),
           ],
         ),
         const SizedBox(height: 20),
@@ -1215,7 +1380,8 @@ class _PipelineDiagramTab extends StatelessWidget {
               icon: Icons.remove_circle_outline,
               color: Colors.red,
               title: 'Removed: Platform-specific data',
-              body: 'RawKeyEventData and all its subclasses (RawKeyEventDataAndroid, etc.) '
+              body:
+                  'RawKeyEventData and all its subclasses (RawKeyEventDataAndroid, etc.) '
                   'are gone. The engine handles normalization internally.',
             ),
             const SizedBox(height: 10),
@@ -1223,7 +1389,8 @@ class _PipelineDiagramTab extends StatelessWidget {
               icon: Icons.add_circle_outline,
               color: Colors.green,
               title: 'Added: Engine normalization layer',
-              body: 'The Flutter engine maps all platform key codes to LogicalKeyboardKey '
+              body:
+                  'The Flutter engine maps all platform key codes to LogicalKeyboardKey '
                   'and PhysicalKeyboardKey before dispatching KeyEvents to Dart.',
             ),
             const SizedBox(height: 10),
@@ -1231,7 +1398,8 @@ class _PipelineDiagramTab extends StatelessWidget {
               icon: Icons.swap_horiz,
               color: Colors.blue,
               title: 'Changed: Single event hierarchy',
-              body: 'KeyDownEvent, KeyUpEvent, KeyRepeatEvent replace the two legacy types '
+              body:
+                  'KeyDownEvent, KeyUpEvent, KeyRepeatEvent replace the two legacy types '
                   'and the bool repeat property. Pattern matching is cleaner.',
             ),
           ],
@@ -1253,7 +1421,13 @@ class _OldPipelinePainter extends CustomPainter {
       'RawKeyboard\nListener',
       'onKey\ncallback',
     ];
-    _drawPipeline(canvas, size, boxes, const Color(0xFFB71C1C), const Color(0xFFFFCDD2));
+    _drawPipeline(
+      canvas,
+      size,
+      boxes,
+      const Color(0xFFB71C1C),
+      const Color(0xFFFFCDD2),
+    );
   }
 
   @override
@@ -1272,14 +1446,26 @@ class _NewPipelinePainter extends CustomPainter {
       'Keyboard\nListener',
       'onKeyEvent\ncallback',
     ];
-    _drawPipeline(canvas, size, boxes, const Color(0xFF1B5E20), const Color(0xFFC8E6C9));
+    _drawPipeline(
+      canvas,
+      size,
+      boxes,
+      const Color(0xFF1B5E20),
+      const Color(0xFFC8E6C9),
+    );
   }
 
   @override
   bool shouldRepaint(_NewPipelinePainter oldDelegate) => false;
 }
 
-void _drawPipeline(Canvas canvas, Size size, List<String> boxes, Color borderColor, Color fillColor) {
+void _drawPipeline(
+  Canvas canvas,
+  Size size,
+  List<String> boxes,
+  Color borderColor,
+  Color fillColor,
+) {
   final boxWidth = (size.width - 16) / boxes.length - 8;
   const boxHeight = 60.0;
   final startY = (size.height - boxHeight) / 2;
@@ -1305,13 +1491,23 @@ void _drawPipeline(Canvas canvas, Size size, List<String> boxes, Color borderCol
     final tp = TextPainter(
       text: TextSpan(
         text: boxes[i],
-        style: TextStyle(fontSize: 9, color: borderColor, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 9,
+          color: borderColor,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     );
     tp.layout(maxWidth: boxWidth - 4);
-    tp.paint(canvas, Offset(x + (boxWidth - tp.width) / 2, startY + (boxHeight - tp.height) / 2));
+    tp.paint(
+      canvas,
+      Offset(
+        x + (boxWidth - tp.width) / 2,
+        startY + (boxHeight - tp.height) / 2,
+      ),
+    );
 
     // Arrow between boxes
     if (i < boxes.length - 1) {
@@ -1350,25 +1546,29 @@ class _DeprecationTimelineTab extends StatelessWidget {
     {
       'version': 'Flutter 2.5',
       'date': '2021',
-      'event': 'KeyboardListener widget introduced as the replacement for RawKeyboardListener',
+      'event':
+          'KeyboardListener widget introduced as the replacement for RawKeyboardListener',
       'type': 'new',
     },
     {
       'version': 'Flutter 3.3',
       'date': '2022',
-      'event': 'RawKeyboard pipeline officially deprecated; RawKeyEvent and friends marked deprecated',
+      'event':
+          'RawKeyboard pipeline officially deprecated; RawKeyEvent and friends marked deprecated',
       'type': 'deprecated',
     },
     {
       'version': 'Flutter 3.7',
       'date': '2023',
-      'event': 'RawKeyboardListener deprecated annotation added; migration guide published',
+      'event':
+          'RawKeyboardListener deprecated annotation added; migration guide published',
       'type': 'deprecated',
     },
     {
       'version': 'Flutter 3.18+',
       'date': '2024+',
-      'event': 'New projects should use only KeyboardListener and HardwareKeyboard',
+      'event':
+          'New projects should use only KeyboardListener and HardwareKeyboard',
       'type': 'migration',
     },
   ];
@@ -1415,9 +1615,17 @@ class _DeprecationTimelineTab extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: chipColor,
                           radius: 18,
-                          child: Icon(eventIcon, color: chipTextColor, size: 18),
+                          child: Icon(
+                            eventIcon,
+                            color: chipTextColor,
+                            size: 18,
+                          ),
                         ),
-                        Container(width: 2, height: 30, color: cs.outlineVariant),
+                        Container(
+                          width: 2,
+                          height: 30,
+                          color: cs.outlineVariant,
+                        ),
                       ],
                     ),
                     const SizedBox(width: 12),
@@ -1430,7 +1638,10 @@ class _DeprecationTimelineTab extends StatelessWidget {
                               Chip(
                                 label: Text(
                                   e['version'] as String,
-                                  style: TextStyle(fontSize: 11, color: chipTextColor),
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: chipTextColor,
+                                  ),
                                 ),
                                 backgroundColor: chipColor,
                                 padding: EdgeInsets.zero,
@@ -1438,12 +1649,18 @@ class _DeprecationTimelineTab extends StatelessWidget {
                               const SizedBox(width: 8),
                               Text(
                                 e['date'] as String,
-                                style: TextStyle(color: cs.onSurfaceVariant, fontSize: 12),
+                                style: TextStyle(
+                                  color: cs.onSurfaceVariant,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 4),
-                          Text(e['event'] as String, style: const TextStyle(fontSize: 13)),
+                          Text(
+                            e['event'] as String,
+                            style: const TextStyle(fontSize: 13),
+                          ),
                         ],
                       ),
                     ),
@@ -1459,7 +1676,10 @@ class _DeprecationTimelineTab extends StatelessWidget {
           icon: Icons.menu_book,
           children: <Widget>[
             Table(
-              border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
+              border: TableBorder.all(
+                color: cs.outlineVariant,
+                borderRadius: BorderRadius.circular(8),
+              ),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
                 1: FlexColumnWidth(),
@@ -1474,56 +1694,94 @@ class _DeprecationTimelineTab extends StatelessWidget {
                     _TableCell(text: 'Modern (Use This)', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Listener widget'),
-                  _TableCell(text: 'RawKeyboardListener', mono: true),
-                  _TableCell(text: 'KeyboardListener', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Callback param'),
-                  _TableCell(text: 'onKey', mono: true),
-                  _TableCell(text: 'onKeyEvent', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Event base class'),
-                  _TableCell(text: 'RawKeyEvent', mono: true),
-                  _TableCell(text: 'KeyEvent', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Key down event'),
-                  _TableCell(text: 'RawKeyDownEvent', mono: true),
-                  _TableCell(text: 'KeyDownEvent', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Key up event'),
-                  _TableCell(text: 'RawKeyUpEvent', mono: true),
-                  _TableCell(text: 'KeyUpEvent', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Key repeat'),
-                  _TableCell(text: 'RawKeyDownEvent.repeat (bool)', mono: true),
-                  _TableCell(text: 'KeyRepeatEvent', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Global keyboard'),
-                  _TableCell(text: 'RawKeyboard.instance', mono: true),
-                  _TableCell(text: 'HardwareKeyboard.instance', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Keys currently held'),
-                  _TableCell(text: 'RawKeyboard.instance.keysPressed', mono: true),
-                  _TableCell(text: 'HardwareKeyboard.instance.logicalKeysPressed', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Modifier check'),
-                  _TableCell(text: 'event.isControlPressed', mono: true),
-                  _TableCell(text: 'HardwareKeyboard.instance.isControlPressed', mono: true),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Platform data'),
-                  _TableCell(text: 'event.data (RawKeyEventData subclass)', mono: true),
-                  _TableCell(text: 'Not needed — use logicalKey/physicalKey', mono: true),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Listener widget'),
+                    _TableCell(text: 'RawKeyboardListener', mono: true),
+                    _TableCell(text: 'KeyboardListener', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Callback param'),
+                    _TableCell(text: 'onKey', mono: true),
+                    _TableCell(text: 'onKeyEvent', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Event base class'),
+                    _TableCell(text: 'RawKeyEvent', mono: true),
+                    _TableCell(text: 'KeyEvent', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Key down event'),
+                    _TableCell(text: 'RawKeyDownEvent', mono: true),
+                    _TableCell(text: 'KeyDownEvent', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Key up event'),
+                    _TableCell(text: 'RawKeyUpEvent', mono: true),
+                    _TableCell(text: 'KeyUpEvent', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Key repeat'),
+                    _TableCell(
+                      text: 'RawKeyDownEvent.repeat (bool)',
+                      mono: true,
+                    ),
+                    _TableCell(text: 'KeyRepeatEvent', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Global keyboard'),
+                    _TableCell(text: 'RawKeyboard.instance', mono: true),
+                    _TableCell(text: 'HardwareKeyboard.instance', mono: true),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Keys currently held'),
+                    _TableCell(
+                      text: 'RawKeyboard.instance.keysPressed',
+                      mono: true,
+                    ),
+                    _TableCell(
+                      text: 'HardwareKeyboard.instance.logicalKeysPressed',
+                      mono: true,
+                    ),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Modifier check'),
+                    _TableCell(text: 'event.isControlPressed', mono: true),
+                    _TableCell(
+                      text: 'HardwareKeyboard.instance.isControlPressed',
+                      mono: true,
+                    ),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Platform data'),
+                    _TableCell(
+                      text: 'event.data (RawKeyEventData subclass)',
+                      mono: true,
+                    ),
+                    _TableCell(
+                      text: 'Not needed — use logicalKey/physicalKey',
+                      mono: true,
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -1555,7 +1813,11 @@ class _DeprecationTimelineTab extends StatelessWidget {
 // ============================================================
 
 class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.title, required this.icon, required this.children});
+  const _SectionCard({
+    required this.title,
+    required this.icon,
+    required this.children,
+  });
   final String title;
   final IconData icon;
   final List<Widget> children;
@@ -1645,7 +1907,11 @@ class _BodyText extends StatelessWidget {
 }
 
 class _TableCell extends StatelessWidget {
-  const _TableCell({required this.text, this.isHeader = false, this.mono = false});
+  const _TableCell({
+    required this.text,
+    this.isHeader = false,
+    this.mono = false,
+  });
   final String text;
   final bool isHeader;
   final bool mono;
@@ -1691,9 +1957,18 @@ class _ReasonRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color)),
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
+              ),
               const SizedBox(height: 2),
-              Text(body, style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.onSurfaceVariant)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ],
           ),
         ),
@@ -1745,7 +2020,11 @@ class _PropRow extends StatelessWidget {
 }
 
 class _StatChip extends StatelessWidget {
-  const _StatChip({required this.label, required this.value, required this.color});
+  const _StatChip({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
   final String label;
   final String value;
   final Color color;
@@ -1762,13 +2041,14 @@ class _StatChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(
-            '$label: ',
-            style: TextStyle(fontSize: 12, color: color),
-          ),
+          Text('$label: ', style: TextStyle(fontSize: 12, color: color)),
           Text(
             value,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
           ),
         ],
       ),
@@ -1806,18 +2086,27 @@ class _PlatformCard extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 platform,
-                style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 14),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          ...details.map((d) => Padding(
-                padding: const EdgeInsets.only(bottom: 2),
-                child: Text(
-                  '• $d',
-                  style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ...details.map(
+            (d) => Padding(
+              padding: const EdgeInsets.only(bottom: 2),
+              child: Text(
+                '• $d',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1857,11 +2146,21 @@ class _MigrationStep extends StatelessWidget {
                 radius: 14,
                 child: Text(
                   '$step',
-                  style: TextStyle(color: cs.onPrimary, fontWeight: FontWeight.bold, fontSize: 13),
+                  style: TextStyle(
+                    color: cs.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -1873,9 +2172,19 @@ class _MigrationStep extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       color: cs.errorContainer,
-                      child: Text('BEFORE', style: TextStyle(fontSize: 10, color: cs.error, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'BEFORE',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: cs.error,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     _CodeBlock(code: before),
                   ],
@@ -1887,9 +2196,19 @@ class _MigrationStep extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
                       color: const Color(0xFFC8E6C9),
-                      child: const Text('AFTER', style: TextStyle(fontSize: 10, color: Colors.green, fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'AFTER',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     _CodeBlock(code: after),
                   ],

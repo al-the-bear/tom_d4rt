@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.expand,
       'title': 'What is StretchingOverscrollIndicator?',
-      'body': 'A widget that produces the rubber-band stretch visual '
+      'body':
+          'A widget that produces the rubber-band stretch visual '
           'when users overscroll a scrollable. Rather than painting '
           'a glow overlay, it applies a matrix transform that deforms '
           'the content, making it look like the viewport stretches.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Where It Lives',
-      'body': 'StretchingOverscrollIndicator wraps the scroll view\'s '
+      'body':
+          'StretchingOverscrollIndicator wraps the scroll view\'s '
           'viewport. It listens to OverscrollNotification and '
           'ScrollUpdateNotification to compute how much stretch to '
           'apply. The deformation animates back when released.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Default Behavior',
-      'body': 'On Android 12+ (API 31), MaterialScrollBehavior.build'
+      'body':
+          'On Android 12+ (API 31), MaterialScrollBehavior.build'
           'OverscrollIndicator() returns this widget automatically. '
           'On older Android, GlowingOverscrollIndicator is used. '
           'iOS uses BouncingScrollPhysics with no indicator.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.transform,
       'title': 'How Stretch Works',
-      'body': 'The widget applies a scale transform along the scroll axis. '
+      'body':
+          'The widget applies a scale transform along the scroll axis. '
           'The stretch amount is proportional to the overscroll distance. '
           'Content near the overscroll edge spreads apart, content far '
           'away barely moves — simulating a pulled rubber sheet.',
@@ -124,28 +128,32 @@ dynamic build(BuildContext context) {
     {
       'param': 'axisDirection',
       'type': 'AxisDirection',
-      'desc': 'The direction of the scroll axis. AxisDirection.down for '
+      'desc':
+          'The direction of the scroll axis. AxisDirection.down for '
           'vertical lists, AxisDirection.right for horizontal. The '
           'stretch is applied along this axis.',
     },
     {
       'param': 'clipBehavior',
       'type': 'Clip',
-      'desc': 'How the stretched content is clipped. Defaults to '
+      'desc':
+          'How the stretched content is clipped. Defaults to '
           'Clip.hardEdge. Set Clip.none to let stretched content '
           'overflow its bounds (useful for shadows/decorations).',
     },
     {
       'param': 'notificationPredicate',
       'type': 'ScrollNotificationPredicate',
-      'desc': 'Determines which ScrollNotifications trigger the stretch. '
+      'desc':
+          'Determines which ScrollNotifications trigger the stretch. '
           'Defaults to defaultScrollNotificationPredicate (depth == 0). '
           'Customize for nested scroll views.',
     },
     {
       'param': 'child',
       'type': 'Widget',
-      'desc': 'The scrollable content to wrap. Typically, ScrollBehavior '
+      'desc':
+          'The scrollable content to wrap. Typically, ScrollBehavior '
           'wraps the viewport with this indicator automatically — '
           'you rarely construct it directly.',
     },
@@ -241,21 +249,24 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Top Overscroll',
-      'desc': 'User pulls down past the top edge. Items near the top '
+      'desc':
+          'User pulls down past the top edge. Items near the top '
           'spread apart while items below barely move.',
       'stretch': 0.12,
       'color': Colors.indigo,
     },
     {
       'label': 'Bottom Overscroll',
-      'desc': 'User pushes up past the bottom edge. Items near the '
+      'desc':
+          'User pushes up past the bottom edge. Items near the '
           'bottom spread apart. Symmetrical to top overscroll.',
       'stretch': 0.12,
       'color': Colors.blue,
     },
     {
       'label': 'Release & Snap Back',
-      'desc': 'When released, the stretch animates back to zero. The '
+      'desc':
+          'When released, the stretch animates back to zero. The '
           'snap-back uses a spring curve for a natural feel.',
       'stretch': 0.0,
       'color': Colors.green,
@@ -370,7 +381,8 @@ dynamic build(BuildContext context) {
   final horizCases = <Map<String, dynamic>>[
     {
       'label': 'Horizontal ListView',
-      'desc': 'A horizontal list with AxisDirection.right. Stretch '
+      'desc':
+          'A horizontal list with AxisDirection.right. Stretch '
           'appears on lead/trail edges when overscrolling horizontally.',
       'direction': 'AxisDirection.right',
       'icon': Icons.view_column,
@@ -378,7 +390,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'RTL Horizontal',
-      'desc': 'In right-to-left layouts, AxisDirection.left is used. '
+      'desc':
+          'In right-to-left layouts, AxisDirection.left is used. '
           'The stretch mirrors — left edge stretches on forward scroll, '
           'right edge on reverse.',
       'direction': 'AxisDirection.left',
@@ -387,7 +400,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'PageView Stretch',
-      'desc': 'PageView wraps its children in a horizontal scrollable. '
+      'desc':
+          'PageView wraps its children in a horizontal scrollable. '
           'At the first and last pages, StretchingOverscrollIndicator '
           'provides edge feedback.',
       'direction': 'AxisDirection.right',
@@ -417,7 +431,11 @@ dynamic build(BuildContext context) {
           child: Center(
             child: Text(
               '${j + 1}',
-              style: TextStyle(fontSize: 10, color: hcColor, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 10,
+                color: hcColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -451,7 +469,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: hcColor.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(4),
@@ -501,7 +522,8 @@ dynamic build(BuildContext context) {
   final clipModes = <Map<String, dynamic>>[
     {
       'mode': 'Clip.hardEdge',
-      'desc': 'The default. Stretched content is clipped at the viewport '
+      'desc':
+          'The default. Stretched content is clipped at the viewport '
           'boundary. Fast — no anti-aliasing at the clip edge. '
           'Most common choice for performance.',
       'icon': Icons.crop_square,
@@ -510,7 +532,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Clip.antiAlias',
-      'desc': 'Like hardEdge but with smooth anti-aliased edges. '
+      'desc':
+          'Like hardEdge but with smooth anti-aliased edges. '
           'Slightly more expensive but looks better if the clip '
           'edge is visible.',
       'icon': Icons.crop,
@@ -519,7 +542,8 @@ dynamic build(BuildContext context) {
     },
     {
       'mode': 'Clip.none',
-      'desc': 'No clipping. Stretched content overflows its bounds. '
+      'desc':
+          'No clipping. Stretched content overflows its bounds. '
           'Useful when items have shadows or decorations that should '
           'extend beyond the viewport during stretch.',
       'icon': Icons.crop_free,
@@ -585,10 +609,7 @@ dynamic build(BuildContext context) {
               width: 60,
               height: 70,
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: cmColor.withOpacity(0.4),
-                  width: 2,
-                ),
+                border: Border.all(color: cmColor.withOpacity(0.4), width: 2),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Stack(
@@ -640,7 +661,9 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Colors.red.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(3),
-                          border: Border.all(color: Colors.red.withOpacity(0.3)),
+                          border: Border.all(
+                            color: Colors.red.withOpacity(0.3),
+                          ),
                         ),
                         child: const Center(
                           child: Text(
@@ -667,18 +690,21 @@ dynamic build(BuildContext context) {
   final behaviorPatterns = <Map<String, dynamic>>[
     {
       'title': 'MaterialApp Default (Android 12+)',
-      'code': 'MaterialApp(\n'
+      'code':
+          'MaterialApp(\n'
           '  // Automatically uses\n'
           '  // StretchingOverscrollIndicator\n'
           '  // when platform is Android 12+\n'
           ')',
-      'desc': 'Nothing to configure. MaterialScrollBehavior checks '
+      'desc':
+          'Nothing to configure. MaterialScrollBehavior checks '
           'the platform version and returns the stretch indicator.',
       'color': Colors.green,
     },
     {
       'title': 'Force Stretch on All Platforms',
-      'code': 'class AlwaysStretch extends MaterialScrollBehavior {\n'
+      'code':
+          'class AlwaysStretch extends MaterialScrollBehavior {\n'
           '  @override\n'
           '  Widget buildOverscrollIndicator(\n'
           '    BuildContext ctx,\n'
@@ -691,29 +717,34 @@ dynamic build(BuildContext context) {
           '    );\n'
           '  }\n'
           '}',
-      'desc': 'Override buildOverscrollIndicator to always return '
+      'desc':
+          'Override buildOverscrollIndicator to always return '
           'StretchingOverscrollIndicator, even on older Android.',
       'color': Colors.indigo,
     },
     {
       'title': 'Disable for a Specific View',
-      'code': 'ScrollConfiguration(\n'
+      'code':
+          'ScrollConfiguration(\n'
           '  behavior: ScrollConfiguration.of(context)\n'
           '    .copyWith(overscroll: false),\n'
           '  child: ListView(...),\n'
           ')',
-      'desc': 'Remove the overscroll indicator for a single scroll view '
+      'desc':
+          'Remove the overscroll indicator for a single scroll view '
           'while keeping the global behavior unchanged.',
       'color': Colors.orange,
     },
     {
       'title': 'Direct Construction',
-      'code': 'StretchingOverscrollIndicator(\n'
+      'code':
+          'StretchingOverscrollIndicator(\n'
           '  axisDirection: AxisDirection.down,\n'
           '  clipBehavior: Clip.none,\n'
           '  child: Viewport(...),\n'
           ')',
-      'desc': 'Directly wrap a viewport — rarely needed, but useful when '
+      'desc':
+          'Directly wrap a viewport — rarely needed, but useful when '
           'building custom scroll views from scratch.',
       'color': Colors.purple,
     },
@@ -812,7 +843,8 @@ dynamic build(BuildContext context) {
   final nestedTopics = <Map<String, dynamic>>[
     {
       'title': 'Default Predicate (depth == 0)',
-      'desc': 'Only the outermost scrollable triggers the stretch. '
+      'desc':
+          'Only the outermost scrollable triggers the stretch. '
           'Inner scrollables (e.g., a list inside a tab view) send '
           'notifications at depth > 0, which are ignored.',
       'icon': Icons.filter_1,
@@ -820,7 +852,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Predicate',
-      'desc': 'Override notificationPredicate to listen to a specific '
+      'desc':
+          'Override notificationPredicate to listen to a specific '
           'nested scroll depth. For example, (n) => n.depth == 1 '
           'makes the indicator respond to the first nested scrollable.',
       'icon': Icons.filter_2,
@@ -828,7 +861,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multiple Indicators',
-      'desc': 'Each scrollable can have its own indicator. A NestedScrollView '
+      'desc':
+          'Each scrollable can have its own indicator. A NestedScrollView '
           'with a header sliver uses the outer indicator for the header '
           'and inner indicators for tab content.',
       'icon': Icons.layers,
@@ -836,7 +870,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Notification Bubbling',
-      'desc': 'OverscrollNotification and ScrollUpdateNotification bubble '
+      'desc':
+          'OverscrollNotification and ScrollUpdateNotification bubble '
           'up the widget tree. The notificationPredicate filters only '
           'the relevant ones. Unmatched notifications pass through.',
       'icon': Icons.bubble_chart,
@@ -935,7 +970,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.indigo.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(4),
@@ -973,7 +1011,10 @@ dynamic build(BuildContext context) {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.blue.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(4),
@@ -991,7 +1032,10 @@ dynamic build(BuildContext context) {
                         const SizedBox(width: 8),
                         Text(
                           'Inner ListView',
-                          style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade700,
+                          ),
                         ),
                       ],
                     ),
@@ -1003,12 +1047,17 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: Colors.purple.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(4),
-                        border: Border.all(color: Colors.purple.withOpacity(0.2)),
+                        border: Border.all(
+                          color: Colors.purple.withOpacity(0.2),
+                        ),
                       ),
                       child: Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.purple.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(4),
@@ -1026,7 +1075,10 @@ dynamic build(BuildContext context) {
                           const SizedBox(width: 8),
                           Text(
                             'Deeply Nested GridView',
-                            style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey.shade700,
+                            ),
                           ),
                         ],
                       ),
@@ -1049,32 +1101,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.expand,
-      'text': 'StretchingOverscrollIndicator applies a rubber-sheet '
+      'text':
+          'StretchingOverscrollIndicator applies a rubber-sheet '
           'deformation to scroll content when overscrolling.',
     },
     {
       'icon': Icons.phone_android,
-      'text': 'Default on Android 12+ via MaterialScrollBehavior. '
+      'text':
+          'Default on Android 12+ via MaterialScrollBehavior. '
           'Replaces GlowingOverscrollIndicator automatically.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text': 'Works in both vertical and horizontal orientations. '
+      'text':
+          'Works in both vertical and horizontal orientations. '
           'The axisDirection property controls the stretch axis.',
     },
     {
       'icon': Icons.crop,
-      'text': 'clipBehavior controls whether stretched content is clipped. '
+      'text':
+          'clipBehavior controls whether stretched content is clipped. '
           'Use Clip.none for items with shadows or decorations.',
     },
     {
       'icon': Icons.layers,
-      'text': 'notificationPredicate filters which nested scrollable '
+      'text':
+          'notificationPredicate filters which nested scrollable '
           'triggers the stretch. Default: outermost only (depth 0).',
     },
     {
       'icon': Icons.settings,
-      'text': 'Override ScrollBehavior.buildOverscrollIndicator() to '
+      'text':
+          'Override ScrollBehavior.buildOverscrollIndicator() to '
           'force stretch on all platforms or disable it.',
     },
   ];

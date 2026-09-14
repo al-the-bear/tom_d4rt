@@ -45,23 +45,34 @@ Widget weInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 120.0,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF7A6340))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF7A6340),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12.0, color: Color(0xFF9E8A68))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF9E8A68)),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget weStrategyCard(String name, IconData icon, Color accent,
-    String desc, String benefits, String drawbacks) {
+Widget weStrategyCard(
+  String name,
+  IconData icon,
+  Color accent,
+  String desc,
+  String benefits,
+  String drawbacks,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 10.0),
@@ -79,17 +90,19 @@ Widget weStrategyCard(String name, IconData icon, Color accent,
             Icon(icon, color: accent, size: 22.0),
             SizedBox(width: 8.0),
             Expanded(
-              child: Text(name,
-                  style: TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF7A6340))),
+              child: Text(
+                name,
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF7A6340),
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 6.0),
-        Text(desc,
-            style: TextStyle(fontSize: 11.0, color: Color(0xFF9E8A68))),
+        Text(desc, style: TextStyle(fontSize: 11.0, color: Color(0xFF9E8A68))),
         SizedBox(height: 6.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,9 +110,10 @@ Widget weStrategyCard(String name, IconData icon, Color accent,
             Icon(Icons.add_circle, color: Color(0xFF7AAF8E), size: 14.0),
             SizedBox(width: 4.0),
             Expanded(
-              child: Text(benefits,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF5A9A6E))),
+              child: Text(
+                benefits,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E)),
+              ),
             ),
           ],
         ),
@@ -110,9 +124,10 @@ Widget weStrategyCard(String name, IconData icon, Color accent,
             Icon(Icons.remove_circle, color: Color(0xFFCC7766), size: 14.0),
             SizedBox(width: 4.0),
             Expanded(
-              child: Text(drawbacks,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFFB55A4A))),
+              child: Text(
+                drawbacks,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFFB55A4A)),
+              ),
             ),
           ],
         ),
@@ -151,20 +166,23 @@ dynamic build(BuildContext context) {
             Icon(Icons.web, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('WebHtmlElementStrategy',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                'WebHtmlElementStrategy',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
         Text(
-            'Controls whether Flutter Web uses native HTML <img> elements '
-            'or decodes images in Dart for rendering',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFE0D4C0))),
+          'Controls whether Flutter Web uses native HTML <img> elements '
+          'or decodes images in Dart for rendering',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFE0D4C0)),
+        ),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -239,21 +257,43 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Platform Applicability',
-            style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'Platform Applicability',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 8.0),
-        _wePlatformRow(Icons.web, 'Flutter Web',
-            'Fully applies — controls image rendering strategy',
-            Color(0xFFC4A874), true),
-        _wePlatformRow(Icons.phone_android, 'Android',
-            'Ignored — uses native Skia rendering', Color(0xFF9E8A68), false),
-        _wePlatformRow(Icons.phone_iphone, 'iOS',
-            'Ignored — uses native Impeller/Skia', Color(0xFF9E8A68), false),
-        _wePlatformRow(Icons.desktop_windows, 'Desktop',
-            'Ignored — uses native rendering pipeline', Color(0xFF9E8A68), false),
+        _wePlatformRow(
+          Icons.web,
+          'Flutter Web',
+          'Fully applies — controls image rendering strategy',
+          Color(0xFFC4A874),
+          true,
+        ),
+        _wePlatformRow(
+          Icons.phone_android,
+          'Android',
+          'Ignored — uses native Skia rendering',
+          Color(0xFF9E8A68),
+          false,
+        ),
+        _wePlatformRow(
+          Icons.phone_iphone,
+          'iOS',
+          'Ignored — uses native Impeller/Skia',
+          Color(0xFF9E8A68),
+          false,
+        ),
+        _wePlatformRow(
+          Icons.desktop_windows,
+          'Desktop',
+          'Ignored — uses native rendering pipeline',
+          Color(0xFF9E8A68),
+          false,
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -267,9 +307,10 @@ dynamic build(BuildContext context) {
             'The property is safe to set unconditionally — it will be silently '
             'ignored on native platforms.',
             style: TextStyle(
-                fontSize: 10.0,
-                fontStyle: FontStyle.italic,
-                color: Color(0xFF9E8A68)),
+              fontSize: 10.0,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFF9E8A68),
+            ),
           ),
         ),
       ],
@@ -291,11 +332,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('NetworkImage Configuration',
-            style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'NetworkImage Configuration',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 8.0),
         weInfoRow('Property:', 'webHtmlElementStrategy'),
         weInfoRow('Type:', 'WebHtmlElementStrategy'),
@@ -322,9 +366,10 @@ dynamic build(BuildContext context) {
             '    WebHtmlElementStrategy.never,\n'
             ')',
             style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Color(0xFF7A6340)),
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF7A6340),
+            ),
           ),
         ),
       ],
@@ -385,8 +430,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6.0),
               _wePerfBar('Speed', p['speed'] as double, Color(0xFF5A9A6E)),
               _wePerfBar('Memory', p['memory'] as double, Color(0xFFCC7766)),
-              _wePerfBar(
-                  'Control', p['control'] as double, Color(0xFF6B8FC4)),
+              _wePerfBar('Control', p['control'] as double, Color(0xFF6B8FC4)),
             ],
           ),
         );
@@ -410,27 +454,33 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Which Strategy to Choose?',
-            style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'Which Strategy to Choose?',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 10.0),
         _weDecisionNode(
-            'Do you need to access image pixels?',
-            'Yes → never',
-            'No → continue',
-            Color(0xFF8A7050)),
+          'Do you need to access image pixels?',
+          'Yes → never',
+          'No → continue',
+          Color(0xFF8A7050),
+        ),
         _weDecisionNode(
-            'Is loading speed the top priority?',
-            'Yes → prefer',
-            'No → continue',
-            Color(0xFFC4A874)),
+          'Is loading speed the top priority?',
+          'Yes → prefer',
+          'No → continue',
+          Color(0xFFC4A874),
+        ),
         _weDecisionNode(
-            'Are you using exotic image formats?',
-            'Yes → fallback',
-            'No → prefer (default)',
-            Color(0xFFB09060)),
+          'Are you using exotic image formats?',
+          'Yes → fallback',
+          'No → prefer (default)',
+          Color(0xFFB09060),
+        ),
       ],
     ),
   );
@@ -439,12 +489,37 @@ dynamic build(BuildContext context) {
   print('\n[7] Feature Comparison Matrix');
 
   final featureData = <Map<String, String>>[
-    {'feature': 'HTML <img>', 'prefer': 'Yes', 'fallback': 'Fallback', 'never': 'No'},
-    {'feature': 'Dart decode', 'prefer': 'No', 'fallback': 'Primary', 'never': 'Yes'},
-    {'feature': 'Pixel access', 'prefer': 'No', 'fallback': 'Maybe', 'never': 'Yes'},
+    {
+      'feature': 'HTML <img>',
+      'prefer': 'Yes',
+      'fallback': 'Fallback',
+      'never': 'No',
+    },
+    {
+      'feature': 'Dart decode',
+      'prefer': 'No',
+      'fallback': 'Primary',
+      'never': 'Yes',
+    },
+    {
+      'feature': 'Pixel access',
+      'prefer': 'No',
+      'fallback': 'Maybe',
+      'never': 'Yes',
+    },
     {'feature': 'Shaders', 'prefer': 'No', 'fallback': 'Maybe', 'never': 'Yes'},
-    {'feature': 'Memory', 'prefer': 'Low', 'fallback': 'Medium', 'never': 'High'},
-    {'feature': 'Speed', 'prefer': 'Fast', 'fallback': 'Medium', 'never': 'Slow'},
+    {
+      'feature': 'Memory',
+      'prefer': 'Low',
+      'fallback': 'Medium',
+      'never': 'High',
+    },
+    {
+      'feature': 'Speed',
+      'prefer': 'Fast',
+      'fallback': 'Medium',
+      'never': 'Slow',
+    },
   ];
 
   final weFeatureTable = Container(
@@ -459,68 +534,93 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             SizedBox(
-                width: 80.0,
-                child: Text('Feature',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.0,
-                        color: Color(0xFF7A6340)))),
+              width: 80.0,
+              child: Text(
+                'Feature',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF7A6340),
+                ),
+              ),
+            ),
             Expanded(
-                child: Text('prefer',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.0,
-                        color: Color(0xFFC4A874)))),
+              child: Text(
+                'prefer',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFFC4A874),
+                ),
+              ),
+            ),
             Expanded(
-                child: Text('fallback',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.0,
-                        color: Color(0xFFB09060)))),
+              child: Text(
+                'fallback',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFFB09060),
+                ),
+              ),
+            ),
             Expanded(
-                child: Text('never',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 10.0,
-                        color: Color(0xFF8A7050)))),
+              child: Text(
+                'never',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF8A7050),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFE0D4C0)),
-        ...featureData.map((f) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.0),
-              child: Row(
-                children: [
-                  SizedBox(
-                      width: 80.0,
-                      child: Text(f['feature']!,
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF7A6340)))),
-                  Expanded(
-                      child: Text(f['prefer']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              color: Color(0xFF9E8A68)))),
-                  Expanded(
-                      child: Text(f['fallback']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              color: Color(0xFF9E8A68)))),
-                  Expanded(
-                      child: Text(f['never']!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              color: Color(0xFF9E8A68)))),
-                ],
-              ),
-            )),
+        ...featureData.map(
+          (f) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 2.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 80.0,
+                  child: Text(
+                    f['feature']!,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF7A6340),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    f['prefer']!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    f['fallback']!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    f['never']!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -590,31 +690,38 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-                color: Color(0xFFE0D4C0).withValues(alpha: 0.5)),
+            border: Border.all(color: Color(0xFFE0D4C0).withValues(alpha: 0.5)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(uc['icon'] as IconData,
-                      color: uc['color'] as Color, size: 16.0),
+                  Icon(
+                    uc['icon'] as IconData,
+                    color: uc['color'] as Color,
+                    size: 16.0,
+                  ),
                   SizedBox(width: 4.0),
                   Expanded(
-                      child: Text(uc['title'] as String,
-                          style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF7A6340)))),
+                    child: Text(
+                      uc['title'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF7A6340),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4.0),
               weChip(uc['mode'] as String, uc['color'] as Color),
               SizedBox(height: 4.0),
-              Text(uc['desc'] as String,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF9E8A68))),
+              Text(
+                uc['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+              ),
             ],
           ),
         );
@@ -644,11 +751,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Dart 3 Switch Expression',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'Dart 3 Switch Expression',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -664,28 +774,28 @@ dynamic build(BuildContext context) {
             '  ...never    => "Dart decode only",\n'
             '};',
             style: TextStyle(
-                fontSize: 10.0,
-                fontFamily: 'monospace',
-                color: Color(0xFF7A6340)),
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF7A6340),
+            ),
           ),
         ),
         SizedBox(height: 8.0),
         ...WebHtmlElementStrategy.values.map((v) {
           final desc = switch (v) {
             WebHtmlElementStrategy.prefer => 'Use native HTML <img>',
-            WebHtmlElementStrategy.fallback =>
-              'Try bytes, fall back to HTML',
+            WebHtmlElementStrategy.fallback => 'Try bytes, fall back to HTML',
             WebHtmlElementStrategy.never => 'Decode in Dart always',
           };
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 2.0),
             child: Row(
               children: [
-                Icon(Icons.arrow_right,
-                    color: Color(0xFFA0845A), size: 16.0),
-                Text('${v.name} → $desc',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFF9E8A68))),
+                Icon(Icons.arrow_right, color: Color(0xFFA0845A), size: 16.0),
+                Text(
+                  '${v.name} → $desc',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF9E8A68)),
+                ),
               ],
             ),
           );
@@ -711,32 +821,48 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Flutter Web Rendering Engines',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'Flutter Web Rendering Engines',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 8.0),
-        _weRendererCard('HTML Renderer', 'DOM-based',
-            'Uses native <img> elements for images. '
-            'WebHtmlElementStrategy directly controls behavior.',
-            Color(0xFFC4A874)),
-        _weRendererCard('CanvasKit', 'Skia-WASM',
-            'Renders via Skia on canvas. HTML element strategy '
-            'can still apply for image loading optimization.',
-            Color(0xFF8A7050)),
-        _weRendererCard('Skwasm', 'WASM-based',
-            'Newer rendering backend. Similar to CanvasKit '
-            'with improved performance characteristics.',
-            Color(0xFFB09060)),
+        _weRendererCard(
+          'HTML Renderer',
+          'DOM-based',
+          'Uses native <img> elements for images. '
+              'WebHtmlElementStrategy directly controls behavior.',
+          Color(0xFFC4A874),
+        ),
+        _weRendererCard(
+          'CanvasKit',
+          'Skia-WASM',
+          'Renders via Skia on canvas. HTML element strategy '
+              'can still apply for image loading optimization.',
+          Color(0xFF8A7050),
+        ),
+        _weRendererCard(
+          'Skwasm',
+          'WASM-based',
+          'Newer rendering backend. Similar to CanvasKit '
+              'with improved performance characteristics.',
+          Color(0xFFB09060),
+        ),
       ],
     ),
   );
 
   // ── Section 11: Equality & Hashing ───────────────────────────
   print('\n[11] Equality & Hashing');
-  print('  prefer == prefer: ${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.prefer}');
-  print('  prefer == never: ${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.never}');
+  print(
+    '  prefer == prefer: ${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.prefer}',
+  );
+  print(
+    '  prefer == never: ${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.never}',
+  );
 
   final weEqualitySection = Container(
     padding: EdgeInsets.all(12.0),
@@ -748,14 +874,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        weInfoRow('prefer == prefer:',
-            '${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.prefer}'),
-        weInfoRow('prefer == never:',
-            '${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.never}'),
-        weInfoRow('hashCode prefer:',
-            '${WebHtmlElementStrategy.prefer.hashCode}'),
-        weInfoRow('hashCode never:',
-            '${WebHtmlElementStrategy.never.hashCode}'),
+        weInfoRow(
+          'prefer == prefer:',
+          '${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.prefer}',
+        ),
+        weInfoRow(
+          'prefer == never:',
+          '${WebHtmlElementStrategy.prefer == WebHtmlElementStrategy.never}',
+        ),
+        weInfoRow(
+          'hashCode prefer:',
+          '${WebHtmlElementStrategy.prefer.hashCode}',
+        ),
+        weInfoRow(
+          'hashCode never:',
+          '${WebHtmlElementStrategy.never.hashCode}',
+        ),
         SizedBox(height: 6.0),
         Divider(color: Color(0xFFE0D4C0)),
         SizedBox(height: 4.0),
@@ -776,7 +910,8 @@ dynamic build(BuildContext context) {
   final wePatterns = <Map<String, String>>[
     {
       'title': 'Fast Photo Display',
-      'code': 'Image.network(\n'
+      'code':
+          'Image.network(\n'
           '  url,\n'
           '  // Default: prefer → HTML <img>\n'
           '  // Fastest for pure display\n'
@@ -784,7 +919,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Image with Pixel Processing',
-      'code': 'Image(\n'
+      'code':
+          'Image(\n'
           '  image: NetworkImage(\n'
           '    url,\n'
           '    webHtmlElementStrategy:\n'
@@ -794,7 +930,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Safe Fallback for CMS',
-      'code': 'NetworkImage(\n'
+      'code':
+          'NetworkImage(\n'
           '  userUploadedUrl,\n'
           '  webHtmlElementStrategy:\n'
           '    WebHtmlElementStrategy.fallback,\n'
@@ -822,11 +959,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(p['title']!,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFFA0845A))),
+              Text(
+                p['title']!,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFA0845A),
+                ),
+              ),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -835,11 +975,14 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFF5EDE0),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(p['code']!,
-                    style: TextStyle(
-                        fontSize: 10.0,
-                        fontFamily: 'monospace',
-                        color: Color(0xFF7A6340))),
+                child: Text(
+                  p['code']!,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF7A6340),
+                  ),
+                ),
               ),
             ],
           ),
@@ -862,22 +1005,45 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Image Loading Pipeline',
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          'Image Loading Pipeline',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 10.0),
-        _weChainStep('1', 'NetworkImage created',
-            'webHtmlElementStrategy set', Color(0xFFC4A874)),
-        _weChainStep('2', 'resolve() called',
-            'Creates ImageStreamCompleter', Color(0xFFB09060)),
-        _weChainStep('3', 'loadImage() invoked',
-            'Strategy determines loading path', Color(0xFF8A7050)),
-        _weChainStep('4a', 'prefer → HTML <img>',
-            'Browser decodes natively', Color(0xFFC4A874)),
-        _weChainStep('4b', 'never → Dart decode',
-            'Bytes fetched and decoded in Dart', Color(0xFF8A7050)),
+        _weChainStep(
+          '1',
+          'NetworkImage created',
+          'webHtmlElementStrategy set',
+          Color(0xFFC4A874),
+        ),
+        _weChainStep(
+          '2',
+          'resolve() called',
+          'Creates ImageStreamCompleter',
+          Color(0xFFB09060),
+        ),
+        _weChainStep(
+          '3',
+          'loadImage() invoked',
+          'Strategy determines loading path',
+          Color(0xFF8A7050),
+        ),
+        _weChainStep(
+          '4a',
+          'prefer → HTML <img>',
+          'Browser decodes natively',
+          Color(0xFFC4A874),
+        ),
+        _weChainStep(
+          '4b',
+          'never → Dart decode',
+          'Bytes fetched and decoded in Dart',
+          Color(0xFF8A7050),
+        ),
       ],
     ),
   );
@@ -897,18 +1063,36 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        _weTipCard(Icons.check_circle, Color(0xFF5A9A6E),
-            'Use prefer (default) for display-only images'),
-        _weTipCard(Icons.check_circle, Color(0xFF5A9A6E),
-            'Use never only when you need pixel-level access'),
-        _weTipCard(Icons.check_circle, Color(0xFF5A9A6E),
-            'Use fallback for CMS/user-uploaded content'),
-        _weTipCard(Icons.warning, Color(0xFFCC9944),
-            'Avoid never for large galleries — memory cost'),
-        _weTipCard(Icons.warning, Color(0xFFCC9944),
-            'Test with actual web builds — not visible in hot reload'),
-        _weTipCard(Icons.info, Color(0xFF6B8FC4),
-            'Setting strategy on non-web is safe but has no effect'),
+        _weTipCard(
+          Icons.check_circle,
+          Color(0xFF5A9A6E),
+          'Use prefer (default) for display-only images',
+        ),
+        _weTipCard(
+          Icons.check_circle,
+          Color(0xFF5A9A6E),
+          'Use never only when you need pixel-level access',
+        ),
+        _weTipCard(
+          Icons.check_circle,
+          Color(0xFF5A9A6E),
+          'Use fallback for CMS/user-uploaded content',
+        ),
+        _weTipCard(
+          Icons.warning,
+          Color(0xFFCC9944),
+          'Avoid never for large galleries — memory cost',
+        ),
+        _weTipCard(
+          Icons.warning,
+          Color(0xFFCC9944),
+          'Test with actual web builds — not visible in hot reload',
+        ),
+        _weTipCard(
+          Icons.info,
+          Color(0xFF6B8FC4),
+          'Setting strategy on non-web is safe but has no effect',
+        ),
       ],
     ),
   );
@@ -971,41 +1155,50 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('WebHtmlElementStrategy Dashboard',
-            style: TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        Text(
+          'WebHtmlElementStrategy Dashboard',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text('${WebHtmlElementStrategy.values.length}',
-                    style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFE0D4C0))),
-                Text('Strategies',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFC4B090))),
+                Text(
+                  '${WebHtmlElementStrategy.values.length}',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFE0D4C0),
+                  ),
+                ),
+                Text(
+                  'Strategies',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC4B090)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.speed, color: Color(0xFFE0D4C0), size: 28.0),
-                Text('Default: prefer',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFC4B090))),
+                Text(
+                  'Default: prefer',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC4B090)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.web, color: Color(0xFFE0D4C0), size: 28.0),
-                Text('Web platform',
-                    style: TextStyle(
-                        fontSize: 11.0, color: Color(0xFFC4B090))),
+                Text(
+                  'Web platform',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC4B090)),
+                ),
               ],
             ),
           ],
@@ -1085,7 +1278,12 @@ dynamic build(BuildContext context) {
 
 // ── Top-level helpers ───────────────────────────────────────────
 Widget _wePlatformRow(
-    IconData icon, String platform, String note, Color color, bool applies) {
+  IconData icon,
+  String platform,
+  String note,
+  Color color,
+  bool applies,
+) {
   return Padding(
     padding: EdgeInsets.only(bottom: 6.0),
     child: Row(
@@ -1094,15 +1292,20 @@ Widget _wePlatformRow(
         SizedBox(width: 8.0),
         SizedBox(
           width: 80.0,
-          child: Text(platform,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF7A6340))),
+          child: Text(
+            platform,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF7A6340),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(note,
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68))),
+          child: Text(
+            note,
+            style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+          ),
         ),
         Icon(
           applies ? Icons.check_circle : Icons.cancel,
@@ -1121,8 +1324,10 @@ Widget _wePerfBar(String label, double pct, Color color) {
       children: [
         SizedBox(
           width: 50.0,
-          child: Text(label,
-              style: TextStyle(fontSize: 10.0, color: Color(0xFF7A6340))),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 10.0, color: Color(0xFF7A6340)),
+          ),
         ),
         Expanded(
           child: SizedBox(
@@ -1140,15 +1345,16 @@ Widget _wePerfBar(String label, double pct, Color color) {
           ),
         ),
         SizedBox(width: 4.0),
-        Text('${(pct * 100).toInt()}%',
-            style: TextStyle(fontSize: 9.0, color: Color(0xFF9E8A68))),
+        Text(
+          '${(pct * 100).toInt()}%',
+          style: TextStyle(fontSize: 9.0, color: Color(0xFF9E8A68)),
+        ),
       ],
     ),
   );
 }
 
-Widget _weDecisionNode(
-    String question, String yes, String no, Color accent) {
+Widget _weDecisionNode(String question, String yes, String no, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 8.0),
@@ -1161,24 +1367,29 @@ Widget _weDecisionNode(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(question,
-            style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF7A6340))),
+        Text(
+          question,
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF7A6340),
+          ),
+        ),
         SizedBox(height: 4.0),
         Row(
           children: [
             Icon(Icons.check, color: Color(0xFF5A9A6E), size: 14.0),
-            Text(' $yes',
-                style: TextStyle(
-                    fontSize: 10.0, color: Color(0xFF5A9A6E))),
+            Text(
+              ' $yes',
+              style: TextStyle(fontSize: 10.0, color: Color(0xFF5A9A6E)),
+            ),
             SizedBox(width: 12.0),
             Icon(Icons.close, color: Color(0xFFCC7766), size: 14.0),
             Expanded(
-              child: Text(' $no',
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFFCC7766))),
+              child: Text(
+                ' $no',
+                style: TextStyle(fontSize: 10.0, color: Color(0xFFCC7766)),
+              ),
             ),
           ],
         ),
@@ -1187,8 +1398,7 @@ Widget _weDecisionNode(
   );
 }
 
-Widget _weRendererCard(
-    String name, String tag, String desc, Color accent) {
+Widget _weRendererCard(String name, String tag, String desc, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 8.0),
@@ -1203,26 +1413,26 @@ Widget _weRendererCard(
       children: [
         Row(
           children: [
-            Text(name,
-                style: TextStyle(
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF7A6340))),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF7A6340),
+              ),
+            ),
             SizedBox(width: 6.0),
             weChip(tag, accent),
           ],
         ),
         SizedBox(height: 4.0),
-        Text(desc,
-            style: TextStyle(
-                fontSize: 10.0, color: Color(0xFF9E8A68))),
+        Text(desc, style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68))),
       ],
     ),
   );
 }
 
-Widget _weChainStep(
-    String step, String title, String desc, Color accent) {
+Widget _weChainStep(String step, String title, String desc, Color accent) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 6.0),
@@ -1238,29 +1448,33 @@ Widget _weChainStep(
           width: 24.0,
           height: 24.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: accent,
-            shape: BoxShape.circle,
+          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+          child: Text(
+            step,
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-          child: Text(step,
-              style: TextStyle(
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white)),
         ),
         SizedBox(width: 8.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF7A6340))),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 10.0, color: Color(0xFF9E8A68))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF7A6340),
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF9E8A68)),
+              ),
             ],
           ),
         ),
@@ -1278,9 +1492,10 @@ Widget _weTipCard(IconData icon, Color color, String text) {
         Icon(icon, color: color, size: 18.0),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 11.0, color: Color(0xFF9E8A68))),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 11.0, color: Color(0xFF9E8A68)),
+          ),
         ),
       ],
     ),

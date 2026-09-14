@@ -40,26 +40,24 @@ const double _kHistogramWidth = 360.0;
 // ---------------------------------------------------------------------------
 
 TextStyle _privateTitleStyle() => const TextStyle(
-      color: _kInk,
-      fontSize: 22,
-      fontWeight: FontWeight.w800,
-      letterSpacing: 0.2,
-    );
+  color: _kInk,
+  fontSize: 22,
+  fontWeight: FontWeight.w800,
+  letterSpacing: 0.2,
+);
 
 TextStyle _privateSubtitleStyle() => const TextStyle(
-      color: _kInkDim,
-      fontSize: 13,
-      fontWeight: FontWeight.w500,
-      height: 1.45,
-    );
+  color: _kInkDim,
+  fontSize: 13,
+  fontWeight: FontWeight.w500,
+  height: 1.45,
+);
 
-TextStyle _privateBodyStyle() => const TextStyle(
-      color: _kInk,
-      fontSize: 13,
-      height: 1.5,
-    );
+TextStyle _privateBodyStyle() =>
+    const TextStyle(color: _kInk, fontSize: 13, height: 1.5);
 
-TextStyle _privateMonoStyle({Color color = _kInk, double size = 12}) => TextStyle(
+TextStyle _privateMonoStyle({Color color = _kInk, double size = 12}) =>
+    TextStyle(
       color: color,
       fontSize: size,
       fontFamily: 'monospace',
@@ -67,13 +65,14 @@ TextStyle _privateMonoStyle({Color color = _kInk, double size = 12}) => TextStyl
     );
 
 TextStyle _privateLabelStyle() => const TextStyle(
-      color: _kInkFaint,
-      fontSize: 11,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 1.4,
-    );
+  color: _kInkFaint,
+  fontSize: 11,
+  fontWeight: FontWeight.w600,
+  letterSpacing: 1.4,
+);
 
-BoxDecoration _privateCardDecoration({Color? border, Color? fill}) => BoxDecoration(
+BoxDecoration _privateCardDecoration({Color? border, Color? fill}) =>
+    BoxDecoration(
       color: fill ?? _kBgCard,
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: border ?? _kBorder, width: 1),
@@ -92,7 +91,10 @@ Widget _privateSectionTitle(String index, String title, String? subtitle) {
           decoration: BoxDecoration(
             color: _kBgCard,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: _kAccent.withValues(alpha: 0.5), width: 1),
+            border: Border.all(
+              color: _kAccent.withValues(alpha: 0.5),
+              width: 1,
+            ),
           ),
           child: Text(
             index,
@@ -437,7 +439,12 @@ class _PrivateHeroMeterPainter extends CustomPainter {
       final v = isUi ? frames[i].uiMs : frames[i].rasterMs;
       final h = (v / 24.0).clamp(0.0, 1.0) * (rect.height - 4);
       canvas.drawRect(
-        Rect.fromLTWH(rect.left + i * barW + 1, rect.bottom - h - 2, barW - 2, h),
+        Rect.fromLTWH(
+          rect.left + i * barW + 1,
+          rect.bottom - h - 2,
+          barW - 2,
+          h,
+        ),
         barPaint,
       );
     }
@@ -461,7 +468,10 @@ class _PrivateHeroMeterPainter extends CustomPainter {
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height / 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
   }
 
   void _privatePaintLeftText(
@@ -715,7 +725,11 @@ class _PrivateCheckerboardPainter extends CustomPainter {
     );
 
     final fakeContent = Paint()..color = const Color(0xFF2D3A65);
-    canvas.drawCircle(Offset(size.width * 0.3, size.height * 0.45), 36, fakeContent);
+    canvas.drawCircle(
+      Offset(size.width * 0.3, size.height * 0.45),
+      36,
+      fakeContent,
+    );
     canvas.drawRect(
       Rect.fromLTWH(size.width * 0.45, size.height * 0.35, 80, 38),
       fakeContent,
@@ -764,7 +778,8 @@ class _PrivateCheckerboardPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _PrivateCheckerboardPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _PrivateCheckerboardPainter oldDelegate) =>
+      false;
 }
 
 // ---------------------------------------------------------------------------
@@ -1063,7 +1078,9 @@ Widget _privateBuildFlagCardsGrid() {
 
 Widget _privateBuildFlagCard(_PrivateFlagInfo info) {
   return Container(
-    decoration: _privateCardDecoration(border: info.tint.withValues(alpha: 0.45)),
+    decoration: _privateCardDecoration(
+      border: info.tint.withValues(alpha: 0.45),
+    ),
     padding: const EdgeInsets.all(14),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1088,9 +1105,10 @@ Widget _privateBuildFlagCard(_PrivateFlagInfo info) {
                 children: [
                   Text(
                     info.name,
-                    style: _privateMonoStyle(color: _kInk, size: 12.5).copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: _privateMonoStyle(
+                      color: _kInk,
+                      size: 12.5,
+                    ).copyWith(fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(height: 2),
                   Row(
@@ -1330,7 +1348,7 @@ Widget _privateBuildJankPatternsCard() {
               child: _privateJankPatternColumn(
                 'Smooth 60fps',
                 'All bars under the green 16ms line. Flat tops, similar heights. '
-                'No work to do.',
+                    'No work to do.',
                 smoothUi,
                 smoothRaster,
                 _kTargetLine,
@@ -1341,7 +1359,7 @@ Widget _privateBuildJankPatternsCard() {
               child: _privateJankPatternColumn(
                 'Occasional jank',
                 'Mostly smooth with isolated spikes. Likely an animation '
-                'kick-off, image decode, or one-off layout.',
+                    'kick-off, image decode, or one-off layout.',
                 occUi,
                 occRaster,
                 _kAccentWarm,
@@ -1352,7 +1370,7 @@ Widget _privateBuildJankPatternsCard() {
               child: _privateJankPatternColumn(
                 'Sustained jank',
                 'Consistently above 16ms — sometimes over the 33ms cap. '
-                'A whole interaction is broken, not just a frame.',
+                    'A whole interaction is broken, not just a frame.',
                 sustUi,
                 sustRaster,
                 _kAccentRed,
@@ -1486,7 +1504,8 @@ const String _privateMaterialAppRecipe = '''MaterialApp(
 // | 1 << PerformanceOverlayOption.displayEngineStatistics.index
 // | 1 << PerformanceOverlayOption.visualizeEngineStatistics.index;''';
 
-const String _privateWidgetsAppRecipe = '''// Custom placement: wrap your tree, then position the overlay
+const String _privateWidgetsAppRecipe =
+    '''// Custom placement: wrap your tree, then position the overlay
 // yourself with a Stack — useful when you only want the bars
 // in a specific corner during recording.
 
@@ -1520,14 +1539,20 @@ class DebugOverlay extends StatelessWidget {
 
 Widget _privateBuildPitfallsCard() {
   return Container(
-    decoration: _privateCardDecoration(border: _kAccentRed.withValues(alpha: 0.5)),
+    decoration: _privateCardDecoration(
+      border: _kAccentRed.withValues(alpha: 0.5),
+    ),
     padding: const EdgeInsets.all(18),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            const Icon(Icons.warning_amber_rounded, color: _kAccentRed, size: 20),
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: _kAccentRed,
+              size: 20,
+            ),
             const SizedBox(width: 8),
             Text('Pitfalls', style: _privateTitleStyle()),
           ],
@@ -1536,31 +1561,31 @@ Widget _privateBuildPitfallsCard() {
         _privateBulletLine(
           'Debug builds lie:',
           'numbers in --debug include extra checks (asserts, observatory). '
-          'Always benchmark in --profile or --release.',
+              'Always benchmark in --profile or --release.',
           accent: _kAccentRed,
         ),
         _privateBulletLine(
           'Frame budget ≠ 16ms always:',
           'on 90/120Hz devices the budget shrinks to ~11ms / ~8.3ms. The '
-          'green target line is hardcoded at 16ms, so reading bars on high-'
-          'refresh phones needs context.',
+              'green target line is hardcoded at 16ms, so reading bars on high-'
+              'refresh phones needs context.',
           accent: _kAccentWarm,
         ),
         _privateBulletLine(
           'UI vs raster confusion:',
           'a tall raster bar with a short UI bar means GPU work, not Dart '
-          'work. Don\'t go optimizing setState() if the red graph is fine.',
+              'work. Don\'t go optimizing setState() if the red graph is fine.',
         ),
         _privateBulletLine(
           'Checker thrash from dropdowns:',
           'temporary Opacity widgets often light up magenta. Replace with '
-          'AnimatedOpacity + always-mounted, or use AlwaysIncludeSemantics.',
+              'AnimatedOpacity + always-mounted, or use AlwaysIncludeSemantics.',
           accent: _kCheckerA,
         ),
         _privateBulletLine(
           'No effect in tests:',
           'PerformanceOverlay reads engine stats — under flutter_test there '
-          'are no real frames so the overlay is empty.',
+              'are no real frames so the overlay is empty.',
           accent: _kInkFaint,
         ),
       ],
@@ -1642,11 +1667,17 @@ void _privatePrintDiagnostics() {
     (acc, v) => acc | (1 << v.index),
   );
   print('  ALL flags        : 0b${allMask.toRadixString(2).padLeft(6, "0")}');
-  final visualOnly = (1 << PerformanceOverlayOption.visualizeEngineStatistics.index) |
+  final visualOnly =
+      (1 << PerformanceOverlayOption.visualizeEngineStatistics.index) |
       (1 << PerformanceOverlayOption.visualizeRasterizerStatistics.index);
-  print('  visualize only   : 0b${visualOnly.toRadixString(2).padLeft(6, "0")}');
-  final rasterOnly = 1 << PerformanceOverlayOption.visualizeRasterizerStatistics.index;
-  print('  raster visual    : 0b${rasterOnly.toRadixString(2).padLeft(6, "0")}');
+  print(
+    '  visualize only   : 0b${visualOnly.toRadixString(2).padLeft(6, "0")}',
+  );
+  final rasterOnly =
+      1 << PerformanceOverlayOption.visualizeRasterizerStatistics.index;
+  print(
+    '  raster visual    : 0b${rasterOnly.toRadixString(2).padLeft(6, "0")}',
+  );
   print('=' * 50);
 
   final smooth = _PrivateFrameSeries(
@@ -1690,9 +1721,9 @@ dynamic build(BuildContext context) {
     theme: ThemeData.dark().copyWith(
       scaffoldBackgroundColor: _kBgDeep,
       textTheme: ThemeData.dark().textTheme.apply(
-            bodyColor: _kInk,
-            displayColor: _kInk,
-          ),
+        bodyColor: _kInk,
+        displayColor: _kInk,
+      ),
     ),
     home: Scaffold(
       backgroundColor: _kBgDeep,
@@ -1726,7 +1757,7 @@ dynamic build(BuildContext context) {
               '04',
               'Replica · all flags ON',
               'What you see when MaterialApp.showPerformanceOverlay = true and '
-              'both checkerboards are enabled.',
+                  'both checkerboards are enabled.',
             ),
             _privateBuildOverlayReplica(
               title: 'optionsMask = 0b001111 (the four numeric/graph flags)',

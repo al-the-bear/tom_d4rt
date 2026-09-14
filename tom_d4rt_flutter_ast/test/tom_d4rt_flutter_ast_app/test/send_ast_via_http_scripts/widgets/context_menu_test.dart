@@ -329,9 +329,13 @@ dynamic build(BuildContext context) {
   // evaluates this build() pass.
   // ---------------------------------------------------------------------------
   print('[Rookery Olive] === ContextMenuController field guide ===');
-  print('[Rookery Olive] ContextMenuButtonType has '
-      '${ContextMenuButtonType.values.length} cases.');
-  print('[Rookery Olive] itemCut.type = ${itemCut.type}, label = ${itemCut.label}');
+  print(
+    '[Rookery Olive] ContextMenuButtonType has '
+    '${ContextMenuButtonType.values.length} cases.',
+  );
+  print(
+    '[Rookery Olive] itemCut.type = ${itemCut.type}, label = ${itemCut.label}',
+  );
   print('[Rookery Olive] itemCopy.type = ${itemCopy.type}');
   print('[Rookery Olive] itemPaste.type = ${itemPaste.type}');
   print('[Rookery Olive] itemSelectAll.type = ${itemSelectAll.type}');
@@ -340,23 +344,41 @@ dynamic build(BuildContext context) {
   print('[Rookery Olive] itemSearchWeb.type = ${itemSearchWeb.type}');
   print('[Rookery Olive] itemShare.type = ${itemShare.type}');
   print('[Rookery Olive] itemLiveTextInput.type = ${itemLiveTextInput.type}');
-  print('[Rookery Olive] itemCustomTranslate.type = '
-      '${itemCustomTranslate.type}, label = ${itemCustomTranslate.label}');
-  print('[Rookery Olive] itemCustomBookmark.label = ${itemCustomBookmark.label}');
+  print(
+    '[Rookery Olive] itemCustomTranslate.type = '
+    '${itemCustomTranslate.type}, label = ${itemCustomTranslate.label}',
+  );
+  print(
+    '[Rookery Olive] itemCustomBookmark.label = ${itemCustomBookmark.label}',
+  );
   print('[Rookery Olive] itemCustomReport.label = ${itemCustomReport.label}');
-  print('[Rookery Olive] itemCopyAsDuplicate -- type ${itemCopyAsDuplicate.type} '
-      'with override label ${itemCopyAsDuplicate.label}');
-  print('[Rookery Olive] itemCustomFromCopyWith.label = '
-      '${itemCustomFromCopyWith.label}');
-  print('[Rookery Olive] controllerSilent.isShown = ${controllerSilent.isShown}');
-  print('[Rookery Olive] controllerSilent.runtimeType = '
-      '${controllerSilent.runtimeType}');
-  print('[Rookery Olive] adaptiveToolbarA.runtimeType = '
-      '${adaptiveToolbarA.runtimeType}');
-  print('[Rookery Olive] adaptiveToolbarB.runtimeType = '
-      '${adaptiveToolbarB.runtimeType}');
-  print('[Rookery Olive] adaptiveToolbarC.runtimeType = '
-      '${adaptiveToolbarC.runtimeType}');
+  print(
+    '[Rookery Olive] itemCopyAsDuplicate -- type ${itemCopyAsDuplicate.type} '
+    'with override label ${itemCopyAsDuplicate.label}',
+  );
+  print(
+    '[Rookery Olive] itemCustomFromCopyWith.label = '
+    '${itemCustomFromCopyWith.label}',
+  );
+  print(
+    '[Rookery Olive] controllerSilent.isShown = ${controllerSilent.isShown}',
+  );
+  print(
+    '[Rookery Olive] controllerSilent.runtimeType = '
+    '${controllerSilent.runtimeType}',
+  );
+  print(
+    '[Rookery Olive] adaptiveToolbarA.runtimeType = '
+    '${adaptiveToolbarA.runtimeType}',
+  );
+  print(
+    '[Rookery Olive] adaptiveToolbarB.runtimeType = '
+    '${adaptiveToolbarB.runtimeType}',
+  );
+  print(
+    '[Rookery Olive] adaptiveToolbarC.runtimeType = '
+    '${adaptiveToolbarC.runtimeType}',
+  );
   print('[Rookery Olive] Building 14 rookery cards...');
   print('[Rookery Olive] === build() exiting normally ===');
 
@@ -571,10 +593,7 @@ Widget _swatch(String label, Color color) {
           ),
         ),
         const SizedBox(height: 2),
-        Text(
-          label,
-          style: const TextStyle(color: cTwilightIvory, fontSize: 9),
-        ),
+        Text(label, style: const TextStyle(color: cTwilightIvory, fontSize: 9)),
       ],
     ),
   );
@@ -674,26 +693,56 @@ Widget _buildSection3EnumTour() {
         style: TextStyle(fontSize: 12, color: cQuillInk),
       ),
       const SizedBox(height: 12),
-      _enumRow('cut', 'Cut',
-          'Remove the selected text and place it on the clipboard.'),
-      _enumRow('copy', 'Copy',
-          'Place the selected text on the clipboard without removing it.'),
-      _enumRow('paste', 'Paste',
-          'Insert the clipboard contents at the caret position.'),
-      _enumRow('selectAll', 'Select All',
-          'Extend the selection to cover the entire editable region.'),
-      _enumRow('delete', 'Delete',
-          'Remove the selected text without placing it on the clipboard.'),
-      _enumRow('lookUp', 'Look Up',
-          'Open the platform dictionary on the selected term (iOS, macOS).'),
-      _enumRow('searchWeb', 'Search Web',
-          'Hand the selection to the platform web search affordance.'),
-      _enumRow('share', 'Share',
-          'Open the platform share sheet with the selected text.'),
-      _enumRow('liveTextInput', 'Live Text Input',
-          'Trigger camera-based live text capture (iOS only, ignored elsewhere).'),
-      _enumRow('custom', '<your label>',
-          'Application-specific item; supply the label yourself.'),
+      _enumRow(
+        'cut',
+        'Cut',
+        'Remove the selected text and place it on the clipboard.',
+      ),
+      _enumRow(
+        'copy',
+        'Copy',
+        'Place the selected text on the clipboard without removing it.',
+      ),
+      _enumRow(
+        'paste',
+        'Paste',
+        'Insert the clipboard contents at the caret position.',
+      ),
+      _enumRow(
+        'selectAll',
+        'Select All',
+        'Extend the selection to cover the entire editable region.',
+      ),
+      _enumRow(
+        'delete',
+        'Delete',
+        'Remove the selected text without placing it on the clipboard.',
+      ),
+      _enumRow(
+        'lookUp',
+        'Look Up',
+        'Open the platform dictionary on the selected term (iOS, macOS).',
+      ),
+      _enumRow(
+        'searchWeb',
+        'Search Web',
+        'Hand the selection to the platform web search affordance.',
+      ),
+      _enumRow(
+        'share',
+        'Share',
+        'Open the platform share sheet with the selected text.',
+      ),
+      _enumRow(
+        'liveTextInput',
+        'Live Text Input',
+        'Trigger camera-based live text capture (iOS only, ignored elsewhere).',
+      ),
+      _enumRow(
+        'custom',
+        '<your label>',
+        'Application-specific item; supply the label yourself.',
+      ),
     ],
   );
 }
@@ -745,40 +794,69 @@ Widget _enumRow(String name, String label, String desc) {
 //  Live values from itemCut and itemCustomTranslate, side by side.
 // =============================================================================
 Widget _buildSection4Properties(
-    ContextMenuButtonItem typed, ContextMenuButtonItem custom) {
+  ContextMenuButtonItem typed,
+  ContextMenuButtonItem custom,
+) {
   return _sectionCard(
     title: '4 -- Property Anatomy of ContextMenuButtonItem',
     accent: cCoveMoss,
     children: [
-      _propRow('onPressed', 'VoidCallback',
-          'Required. Runs when the user taps the button. The toolbar auto-dismisses afterwards.'),
-      _propRow('type', 'ContextMenuButtonType',
-          'Defaults to custom. Determines the platform-default label and icon.'),
-      _propRow('label', 'String?',
-          'Optional override. Required for custom; rare on typed items.'),
-      _propRow('copyWith({...})', 'method',
-          'Returns a new item with selected fields replaced; original is untouched.'),
-      _propRow('==, hashCode', 'value semantics',
-          'Compared by type + label; the callback is intentionally excluded.'),
+      _propRow(
+        'onPressed',
+        'VoidCallback',
+        'Required. Runs when the user taps the button. The toolbar auto-dismisses afterwards.',
+      ),
+      _propRow(
+        'type',
+        'ContextMenuButtonType',
+        'Defaults to custom. Determines the platform-default label and icon.',
+      ),
+      _propRow(
+        'label',
+        'String?',
+        'Optional override. Required for custom; rare on typed items.',
+      ),
+      _propRow(
+        'copyWith({...})',
+        'method',
+        'Returns a new item with selected fields replaced; original is untouched.',
+      ),
+      _propRow(
+        '==, hashCode',
+        'value semantics',
+        'Compared by type + label; the callback is intentionally excluded.',
+      ),
       const SizedBox(height: 12),
       const Text(
         'Live values from itemCut (typed):',
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: cQuillInk, fontSize: 12),
+          fontWeight: FontWeight.bold,
+          color: cQuillInk,
+          fontSize: 12,
+        ),
       ),
       _propRow('typed.type', 'ContextMenuButtonType', '${typed.type}'),
-      _propRow('typed.label', 'String?',
-          typed.label == null ? '<null -- platform default>' : typed.label!),
+      _propRow(
+        'typed.label',
+        'String?',
+        typed.label == null ? '<null -- platform default>' : typed.label!,
+      ),
       _propRow('typed.runtimeType', 'Type', '${typed.runtimeType}'),
       const SizedBox(height: 8),
       const Text(
         'Live values from itemCustomTranslate (custom + label):',
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: cQuillInk, fontSize: 12),
+          fontWeight: FontWeight.bold,
+          color: cQuillInk,
+          fontSize: 12,
+        ),
       ),
       _propRow('custom.type', 'ContextMenuButtonType', '${custom.type}'),
-      _propRow('custom.label', 'String?',
-          custom.label == null ? '<null>' : custom.label!),
+      _propRow(
+        'custom.label',
+        'String?',
+        custom.label == null ? '<null>' : custom.label!,
+      ),
       _propRow('custom.runtimeType', 'Type', '${custom.runtimeType}'),
     ],
   );
@@ -847,35 +925,41 @@ Widget _buildSection5Controller(ContextMenuController c) {
       const Text(
         'Three methods you will use often:',
         style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.bold,
-            color: cOliveDeep),
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+          color: cOliveDeep,
+        ),
       ),
       const SizedBox(height: 4),
       _bulletProse(
-          'show(context, contextMenuBuilder)',
-          'Inserts an OverlayEntry at the top of the current Overlay. '
-              'The builder receives a BuildContext and returns the menu '
-              'widget. Re-rendering happens automatically when the host '
-              'tree rebuilds.'),
+        'show(context, contextMenuBuilder)',
+        'Inserts an OverlayEntry at the top of the current Overlay. '
+            'The builder receives a BuildContext and returns the menu '
+            'widget. Re-rendering happens automatically when the host '
+            'tree rebuilds.',
+      ),
       _bulletProse(
-          'remove()',
-          'Removes the overlay entry created by this controller. '
-              'Called automatically when the user taps a button, taps '
-              'outside the menu, or scrolls a containing scrollable.'),
+        'remove()',
+        'Removes the overlay entry created by this controller. '
+            'Called automatically when the user taps a button, taps '
+            'outside the menu, or scrolls a containing scrollable.',
+      ),
       _bulletProse(
-          'removeAny() (static)',
-          'Removes whichever controller is currently shown system-wide. '
-              'Useful when you want to dismiss the menu from far away in '
-              'the widget tree without holding the controller reference.'),
+        'removeAny() (static)',
+        'Removes whichever controller is currently shown system-wide. '
+            'Useful when you want to dismiss the menu from far away in '
+            'the widget tree without holding the controller reference.',
+      ),
       _bulletProse(
-          'markNeedsBuild()',
-          'Asks the overlay entry to rebuild. Use after mutating state '
-              'that the contextMenuBuilder closes over.'),
+        'markNeedsBuild()',
+        'Asks the overlay entry to rebuild. Use after mutating state '
+            'that the contextMenuBuilder closes over.',
+      ),
       _bulletProse(
-          'onRemove (constructor parameter)',
-          'Optional callback fired when the controller is removed. Use it '
-              'to clear local "menu visible" state in your widget.'),
+        'onRemove (constructor parameter)',
+        'Optional callback fired when the controller is removed. Use it '
+            'to clear local "menu visible" state in your widget.',
+      ),
       const SizedBox(height: 10),
       Container(
         padding: const EdgeInsets.all(10),
@@ -890,26 +974,36 @@ Widget _buildSection5Controller(ContextMenuController c) {
             const Text(
               'Live values from controllerSilent:',
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  color: cQuillInk),
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: cQuillInk,
+              ),
             ),
             const SizedBox(height: 6),
-            Text('isShown: ${c.isShown}',
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: cBrassyEmber)),
-            Text('runtimeType: ${c.runtimeType}',
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: cBrassyEmber)),
-            Text('onRemove: ${c.onRemove == null ? "<null>" : "<closure>"}',
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: cBrassyEmber)),
+            Text(
+              'isShown: ${c.isShown}',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: cBrassyEmber,
+              ),
+            ),
+            Text(
+              'runtimeType: ${c.runtimeType}',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: cBrassyEmber,
+              ),
+            ),
+            Text(
+              'onRemove: ${c.onRemove == null ? "<null>" : "<closure>"}',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: cBrassyEmber,
+              ),
+            ),
           ],
         ),
       ),
@@ -921,9 +1015,10 @@ Widget _buildSection5Controller(ContextMenuController c) {
         'controller in a Stateful widget where initState/dispose can '
         'manage its lifecycle.',
         style: TextStyle(
-            fontSize: 12,
-            fontStyle: FontStyle.italic,
-            color: cTwilightDusk),
+          fontSize: 12,
+          fontStyle: FontStyle.italic,
+          color: cTwilightDusk,
+        ),
       ),
     ],
   );
@@ -935,23 +1030,31 @@ Widget _bulletProse(String head, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('  -  ',
-            style: TextStyle(
-                color: cBrassyAmber,
-                fontWeight: FontWeight.bold,
-                fontSize: 13)),
+        const Text(
+          '  -  ',
+          style: TextStyle(
+            color: cBrassyAmber,
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+        ),
         Expanded(
           child: RichText(
             text: TextSpan(
               style: const TextStyle(
-                  fontSize: 12, color: cQuillInk, height: 1.45),
+                fontSize: 12,
+                color: cQuillInk,
+                height: 1.45,
+              ),
               children: [
                 TextSpan(
-                    text: '$head  ',
-                    style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.bold,
-                        color: cOliveDeep)),
+                  text: '$head  ',
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.bold,
+                    color: cOliveDeep,
+                  ),
+                ),
                 TextSpan(text: body),
               ],
             ),
@@ -1067,10 +1170,7 @@ Widget _androidToolbar(List<_AndroidPill> pills) {
         ),
       ],
     ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    ),
+    child: Row(mainAxisSize: MainAxisSize.min, children: children),
   );
 }
 
@@ -1102,11 +1202,32 @@ Widget _androidOverflowCaret() {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(width: 4, height: 4, decoration: const BoxDecoration(color: Color(0xFF1B5E20), shape: BoxShape.circle)),
+        Container(
+          width: 4,
+          height: 4,
+          decoration: const BoxDecoration(
+            color: Color(0xFF1B5E20),
+            shape: BoxShape.circle,
+          ),
+        ),
         const SizedBox(height: 2),
-        Container(width: 4, height: 4, decoration: const BoxDecoration(color: Color(0xFF1B5E20), shape: BoxShape.circle)),
+        Container(
+          width: 4,
+          height: 4,
+          decoration: const BoxDecoration(
+            color: Color(0xFF1B5E20),
+            shape: BoxShape.circle,
+          ),
+        ),
         const SizedBox(height: 2),
-        Container(width: 4, height: 4, decoration: const BoxDecoration(color: Color(0xFF1B5E20), shape: BoxShape.circle)),
+        Container(
+          width: 4,
+          height: 4,
+          decoration: const BoxDecoration(
+            color: Color(0xFF1B5E20),
+            shape: BoxShape.circle,
+          ),
+        ),
       ],
     ),
   );
@@ -1158,13 +1279,20 @@ Widget _buildSection7IOS() {
       _iosToolbar(const <String>['Copy', 'Look Up', 'Translate', 'Share']),
       const SizedBox(height: 12),
       _platformLabel('Mock 7: with Live Text input (camera)'),
-      _iosToolbar(const <String>['Paste', 'Select All', 'Scan Text', 'Look Up']),
+      _iosToolbar(const <String>[
+        'Paste',
+        'Select All',
+        'Scan Text',
+        'Look Up',
+      ]),
       const SizedBox(height: 12),
       _platformLabel('Mock 8: chevron overflow at trailing edge'),
-      _iosToolbar(
-        const <String>['Cut', 'Copy', 'Paste', 'Select All'],
-        chevron: true,
-      ),
+      _iosToolbar(const <String>[
+        'Cut',
+        'Copy',
+        'Paste',
+        'Select All',
+      ], chevron: true),
       const SizedBox(height: 12),
       const Text(
         'Notes for iOS:\n'
@@ -1208,18 +1336,12 @@ Widget _iosToolbar(List<String> labels, {bool chevron = false}) {
             ),
           ],
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: children,
-        ),
+        child: Row(mainAxisSize: MainAxisSize.min, children: children),
       ),
       Positioned(
         bottom: 6,
         left: 38,
-        child: CustomPaint(
-          size: const Size(12, 8),
-          painter: _IosTailPainter(),
-        ),
+        child: CustomPaint(size: const Size(12, 8), painter: _IosTailPainter()),
       ),
     ],
   );
@@ -1339,10 +1461,7 @@ class _MacRow {
   final String shortcut;
   final bool isDivider;
   const _MacRow(this.label, this.shortcut) : isDivider = false;
-  const _MacRow.divider()
-      : label = '',
-        shortcut = '',
-        isDivider = true;
+  const _MacRow.divider() : label = '', shortcut = '', isDivider = true;
 }
 
 Widget _macMenu(List<_MacRow> rows) {
@@ -1350,11 +1469,13 @@ Widget _macMenu(List<_MacRow> rows) {
   for (int i = 0; i < rows.length; i++) {
     final r = rows[i];
     if (r.isDivider) {
-      children.add(Container(
-        height: 1,
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-        color: cRookSlate.withValues(alpha: 0.25),
-      ));
+      children.add(
+        Container(
+          height: 1,
+          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+          color: cRookSlate.withValues(alpha: 0.25),
+        ),
+      );
     } else {
       children.add(_macMenuRow(r));
     }
@@ -1375,10 +1496,7 @@ Widget _macMenu(List<_MacRow> rows) {
         ),
       ],
     ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    ),
+    child: Column(mainAxisSize: MainAxisSize.min, children: children),
   );
 }
 
@@ -1390,8 +1508,7 @@ Widget _macMenuRow(_MacRow r) {
         Expanded(
           child: Text(
             r.label,
-            style: const TextStyle(
-                color: Color(0xFF1A1A1A), fontSize: 12),
+            style: const TextStyle(color: Color(0xFF1A1A1A), fontSize: 12),
           ),
         ),
         Text(
@@ -1480,10 +1597,7 @@ Widget _webToolbar(List<String> labels) {
         ),
       ],
     ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: children,
-    ),
+    child: Row(mainAxisSize: MainAxisSize.min, children: children),
   );
 }
 
@@ -1494,13 +1608,7 @@ Widget _webButton(String label) {
       color: cTwilightIvory,
       borderRadius: BorderRadius.circular(2),
     ),
-    child: Text(
-      label,
-      style: const TextStyle(
-        color: cQuillInk,
-        fontSize: 12,
-      ),
-    ),
+    child: Text(label, style: const TextStyle(color: cQuillInk, fontSize: 12)),
   );
 }
 
@@ -1599,15 +1707,17 @@ Widget _buildSection10FactoryPatterns() {
 Widget _patternBlock(String title, String prose, List<String> code) {
   final codeChildren = <Widget>[];
   for (int i = 0; i < code.length; i++) {
-    codeChildren.add(Text(
-      code[i],
-      style: const TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11,
-        color: cBrassyEmber,
-        height: 1.35,
+    codeChildren.add(
+      Text(
+        code[i],
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 11,
+          color: cBrassyEmber,
+          height: 1.35,
+        ),
       ),
-    ));
+    );
   }
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8),
@@ -1631,8 +1741,7 @@ Widget _patternBlock(String title, String prose, List<String> code) {
         const SizedBox(height: 4),
         Text(
           prose,
-          style: const TextStyle(
-              color: cQuillInk, fontSize: 12, height: 1.45),
+          style: const TextStyle(color: cQuillInk, fontSize: 12, height: 1.45),
         ),
         const SizedBox(height: 8),
         Container(
@@ -1686,21 +1795,29 @@ Widget _buildSection11AdaptiveLayout() {
         style: TextStyle(fontSize: 12, color: cQuillInk),
       ),
       const SizedBox(height: 6),
-      _bulletProse('Material (Android, fuchsia)',
-          'Each item becomes a TextSelectionToolbarTextButton in a '
-              'horizontal row. Overflow handled by an internal '
-              '_TextSelectionToolbarOverflowable widget.'),
-      _bulletProse('Cupertino (iOS)',
-          'Each item becomes a CupertinoTextSelectionToolbarButton. The '
-              'toolbar also draws an arrow tail pointing at the anchor.'),
-      _bulletProse('Desktop (macOS, Linux, Windows)',
-          'Each item becomes a row in a vertical menu. The desktop '
-              'variant respects the system menu styling guidelines.'),
-      _bulletProse('Web fallback',
-          'When the platform value is web, the framework picks the '
-              'closest matching desktop or mobile variant based on the '
-              'Theme\'s platform field, which the embedder usually maps '
-              'from navigator.userAgent.'),
+      _bulletProse(
+        'Material (Android, fuchsia)',
+        'Each item becomes a TextSelectionToolbarTextButton in a '
+            'horizontal row. Overflow handled by an internal '
+            '_TextSelectionToolbarOverflowable widget.',
+      ),
+      _bulletProse(
+        'Cupertino (iOS)',
+        'Each item becomes a CupertinoTextSelectionToolbarButton. The '
+            'toolbar also draws an arrow tail pointing at the anchor.',
+      ),
+      _bulletProse(
+        'Desktop (macOS, Linux, Windows)',
+        'Each item becomes a row in a vertical menu. The desktop '
+            'variant respects the system menu styling guidelines.',
+      ),
+      _bulletProse(
+        'Web fallback',
+        'When the platform value is web, the framework picks the '
+            'closest matching desktop or mobile variant based on the '
+            'Theme\'s platform field, which the embedder usually maps '
+            'from navigator.userAgent.',
+      ),
     ],
   );
 }
@@ -1732,15 +1849,17 @@ Widget _adaptiveFlow() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _flowArrow('android, fuchsia',
-                  'TextSelectionToolbar (Material)'),
+              _flowArrow('android, fuchsia', 'TextSelectionToolbar (Material)'),
               _flowArrow('iOS', 'CupertinoTextSelectionToolbar'),
+              _flowArrow('macOS', 'CupertinoDesktopTextSelectionToolbar'),
               _flowArrow(
-                  'macOS', 'CupertinoDesktopTextSelectionToolbar'),
-              _flowArrow('linux, windows',
-                  'DesktopTextSelectionToolbar (Material desktop)'),
-              _flowArrow('(web overlay)',
-                  'one of the above based on userAgent'),
+                'linux, windows',
+                'DesktopTextSelectionToolbar (Material desktop)',
+              ),
+              _flowArrow(
+                '(web overlay)',
+                'one of the above based on userAgent',
+              ),
             ],
           ),
         ),
@@ -1809,12 +1928,21 @@ Widget _buildSection12BrowserContextMenu() {
         style: TextStyle(fontSize: 12, color: cQuillInk),
       ),
       const SizedBox(height: 10),
-      _propRow('disableContextMenu()', 'Future<void>',
-          'Asks the host page to swallow oncontextmenu events. Returns a Future that resolves when the host has acknowledged.'),
-      _propRow('enableContextMenu()', 'Future<void>',
-          'Asks the host page to allow oncontextmenu events again, restoring the browser-native menu.'),
-      _propRow('enabled', 'bool',
-          'True if the browser-native menu is currently allowed (the default).'),
+      _propRow(
+        'disableContextMenu()',
+        'Future<void>',
+        'Asks the host page to swallow oncontextmenu events. Returns a Future that resolves when the host has acknowledged.',
+      ),
+      _propRow(
+        'enableContextMenu()',
+        'Future<void>',
+        'Asks the host page to allow oncontextmenu events again, restoring the browser-native menu.',
+      ),
+      _propRow(
+        'enabled',
+        'bool',
+        'True if the browser-native menu is currently allowed (the default).',
+      ),
       const SizedBox(height: 12),
       const Text(
         'The pair must be balanced. Calling disableContextMenu repeatedly '
@@ -1855,9 +1983,10 @@ Widget _buildSection12BrowserContextMenu() {
         'returned Future may complete after a noticeable delay if so. '
         'Do not block the UI thread waiting for it.',
         style: TextStyle(
-            fontSize: 11,
-            fontStyle: FontStyle.italic,
-            color: cTwilightDusk),
+          fontSize: 11,
+          fontStyle: FontStyle.italic,
+          color: cTwilightDusk,
+        ),
       ),
     ],
   );
@@ -1874,44 +2003,52 @@ Widget _buildSection13DoAvoid() {
     accent: cSealVerm,
     children: [
       _doRow(
-          'Use ContextMenuButtonType.* for cut/copy/paste/etc.',
-          'Get free localisation, free icons, free platform-default '
-              'ordering, and free overflow handling. The framework knows '
-              'better than you what these buttons should look like.'),
+        'Use ContextMenuButtonType.* for cut/copy/paste/etc.',
+        'Get free localisation, free icons, free platform-default '
+            'ordering, and free overflow handling. The framework knows '
+            'better than you what these buttons should look like.',
+      ),
       _avoidRow(
-          'Do not invent custom items for cut/copy/paste',
-          'A custom item with label="Copy" loses the localised label, '
-              'loses the icon, loses the ordering. Use '
-              'ContextMenuButtonType.copy with a null label instead.'),
+        'Do not invent custom items for cut/copy/paste',
+        'A custom item with label="Copy" loses the localised label, '
+            'loses the icon, loses the ordering. Use '
+            'ContextMenuButtonType.copy with a null label instead.',
+      ),
       _doRow(
-          'Always supply a label for ContextMenuButtonType.custom',
-          'Custom items have no platform default label. Without one the '
-              'rendered button is empty space.'),
+        'Always supply a label for ContextMenuButtonType.custom',
+        'Custom items have no platform default label. Without one the '
+            'rendered button is empty space.',
+      ),
       _avoidRow(
-          'Do not call ContextMenuController.show() in build()',
-          'show() schedules an Overlay insert. Calling it from build is '
-              'a layout violation. Wire it from a gesture or '
-              'addPostFrameCallback.'),
+        'Do not call ContextMenuController.show() in build()',
+        'show() schedules an Overlay insert. Calling it from build is '
+            'a layout violation. Wire it from a gesture or '
+            'addPostFrameCallback.',
+      ),
       _doRow(
-          'Pair BrowserContextMenu.disable with .enable',
-          'Always balance lifecycle calls. Disable in initState, '
-              'restore in dispose. Suppressing the browser menu '
-              'permanently is bad citizenship.'),
+        'Pair BrowserContextMenu.disable with .enable',
+        'Always balance lifecycle calls. Disable in initState, '
+            'restore in dispose. Suppressing the browser menu '
+            'permanently is bad citizenship.',
+      ),
       _avoidRow(
-          'Do not assume liveTextInput is supported',
-          'The type only renders on iOS devices that support Live Text. '
-              'On other platforms it is silently dropped. Do not gate '
-              'critical functionality behind it.'),
+        'Do not assume liveTextInput is supported',
+        'The type only renders on iOS devices that support Live Text. '
+            'On other platforms it is silently dropped. Do not gate '
+            'critical functionality behind it.',
+      ),
       _doRow(
-          'Use copyWith to override individual fields',
-          'Replacing handlers via copyWith preserves the localised label '
-              'and the platform default ordering. Building a fresh item '
-              'loses both.'),
+        'Use copyWith to override individual fields',
+        'Replacing handlers via copyWith preserves the localised label '
+            'and the platform default ordering. Building a fresh item '
+            'loses both.',
+      ),
       _avoidRow(
-          'Do not cache button items across editor instances',
-          'Each EditableTextState has its own controller; the items '
-              'reference its private state. Reusing items across editors '
-              'can fire callbacks against the wrong selection.'),
+        'Do not cache button items across editor instances',
+        'Each EditableTextState has its own controller; the items '
+            'reference its private state. Reusing items across editors '
+            'can fire callbacks against the wrong selection.',
+      ),
     ],
   );
 }
@@ -1923,9 +2060,7 @@ Widget _doRow(String head, String body) {
     decoration: BoxDecoration(
       color: cCoveMoss.withValues(alpha: 0.16),
       borderRadius: BorderRadius.circular(4),
-      border: Border(
-        left: BorderSide(color: cCoveMoss, width: 3),
-      ),
+      border: Border(left: BorderSide(color: cCoveMoss, width: 3)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1945,11 +2080,15 @@ Widget _doRow(String head, String body) {
           child: RichText(
             text: TextSpan(
               style: const TextStyle(
-                  fontSize: 12, color: cQuillInk, height: 1.45),
+                fontSize: 12,
+                color: cQuillInk,
+                height: 1.45,
+              ),
               children: [
                 TextSpan(
-                    text: '$head\n',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                  text: '$head\n',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 TextSpan(text: body),
               ],
             ),
@@ -1967,9 +2106,7 @@ Widget _avoidRow(String head, String body) {
     decoration: BoxDecoration(
       color: cSealVerm.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(4),
-      border: Border(
-        left: BorderSide(color: cSealVerm, width: 3),
-      ),
+      border: Border(left: BorderSide(color: cSealVerm, width: 3)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1989,11 +2126,15 @@ Widget _avoidRow(String head, String body) {
           child: RichText(
             text: TextSpan(
               style: const TextStyle(
-                  fontSize: 12, color: cQuillInk, height: 1.45),
+                fontSize: 12,
+                color: cQuillInk,
+                height: 1.45,
+              ),
               children: [
                 TextSpan(
-                    text: '$head\n',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                  text: '$head\n',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 TextSpan(text: body),
               ],
             ),
@@ -2018,38 +2159,68 @@ Widget _buildSection14Recipes() {
       const Text(
         'Glossary',
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: cOliveDeep, fontSize: 13),
+          fontWeight: FontWeight.bold,
+          color: cOliveDeep,
+          fontSize: 13,
+        ),
       ),
       const SizedBox(height: 4),
-      _glossaryRow('button item',
-          'A ContextMenuButtonItem -- callback + type + optional label.'),
-      _glossaryRow('button type',
-          'A ContextMenuButtonType enum case identifying the button\'s role.'),
-      _glossaryRow('controller',
-          'A ContextMenuController instance managing show/remove of an overlay menu.'),
-      _glossaryRow('adaptive toolbar',
-          'AdaptiveTextSelectionToolbar -- picks Material/Cupertino/desktop variant by platform.'),
-      _glossaryRow('anchor pair',
-          'TextSelectionToolbarAnchors -- primary + optional secondary anchor for placement.'),
-      _glossaryRow('overlay',
-          'The Flutter Overlay where the toolbar is inserted; lives above the editing region.'),
-      _glossaryRow('browser context menu',
-          'The browser-native right-click menu that competes with the Flutter menu on web.'),
-      _glossaryRow('platform-default label',
-          'The localised label the framework injects when ContextMenuButtonItem.label is null and the type is non-custom.'),
-      _glossaryRow('overflow caret',
-          'The vertical-dots affordance on Material toolbars when items exceed the visible row.'),
-      _glossaryRow('chevron arrow',
-          'The trailing chevron on iOS Cupertino toolbars indicating more pages of items.'),
-      _glossaryRow('section divider',
-          'A 1px hairline that separates logical groups in the macOS desktop variant.'),
-      _glossaryRow('live text input',
-          'iOS-specific camera capture flow exposed through ContextMenuButtonType.liveTextInput.'),
+      _glossaryRow(
+        'button item',
+        'A ContextMenuButtonItem -- callback + type + optional label.',
+      ),
+      _glossaryRow(
+        'button type',
+        'A ContextMenuButtonType enum case identifying the button\'s role.',
+      ),
+      _glossaryRow(
+        'controller',
+        'A ContextMenuController instance managing show/remove of an overlay menu.',
+      ),
+      _glossaryRow(
+        'adaptive toolbar',
+        'AdaptiveTextSelectionToolbar -- picks Material/Cupertino/desktop variant by platform.',
+      ),
+      _glossaryRow(
+        'anchor pair',
+        'TextSelectionToolbarAnchors -- primary + optional secondary anchor for placement.',
+      ),
+      _glossaryRow(
+        'overlay',
+        'The Flutter Overlay where the toolbar is inserted; lives above the editing region.',
+      ),
+      _glossaryRow(
+        'browser context menu',
+        'The browser-native right-click menu that competes with the Flutter menu on web.',
+      ),
+      _glossaryRow(
+        'platform-default label',
+        'The localised label the framework injects when ContextMenuButtonItem.label is null and the type is non-custom.',
+      ),
+      _glossaryRow(
+        'overflow caret',
+        'The vertical-dots affordance on Material toolbars when items exceed the visible row.',
+      ),
+      _glossaryRow(
+        'chevron arrow',
+        'The trailing chevron on iOS Cupertino toolbars indicating more pages of items.',
+      ),
+      _glossaryRow(
+        'section divider',
+        'A 1px hairline that separates logical groups in the macOS desktop variant.',
+      ),
+      _glossaryRow(
+        'live text input',
+        'iOS-specific camera capture flow exposed through ContextMenuButtonType.liveTextInput.',
+      ),
       const SizedBox(height: 12),
       const Text(
         'Recap',
         style: TextStyle(
-            fontWeight: FontWeight.bold, color: cOliveDeep, fontSize: 13),
+          fontWeight: FontWeight.bold,
+          color: cOliveDeep,
+          fontSize: 13,
+        ),
       ),
       const SizedBox(height: 4),
       const Text(
@@ -2063,8 +2234,7 @@ Widget _buildSection14Recipes() {
         'three is the difference between a menu that lands in unexpected '
         'places, mis-localises its labels, or competes with the browser, '
         'and one that simply works.',
-        style: TextStyle(
-            fontSize: 12, color: cQuillInk, height: 1.55),
+        style: TextStyle(fontSize: 12, color: cQuillInk, height: 1.55),
       ),
       const SizedBox(height: 10),
       Container(

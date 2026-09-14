@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: bronze, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: champagne),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: darkCopper.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: darkCopper.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -102,16 +111,21 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: darkCopper,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: darkCopper,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: deepCopper)),
+            child: Text(
+              detail,
+              style: TextStyle(fontSize: 12, color: deepCopper),
+            ),
           ),
         ],
       ),
@@ -147,16 +161,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: darkCopper)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: darkCopper,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -174,11 +188,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? darkCopper : deepCopper)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? darkCopper : deepCopper,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -195,18 +212,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkCopper : deepCopper,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: bronze),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: bronze),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -246,11 +268,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.swap_horiz, size: 22, color: deepCopper),
                     const SizedBox(height: 4),
-                    Text('TextInputClient',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: deepCopper)),
+                    Text(
+                      'TextInputClient',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: deepCopper,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     _dtDiffLine('Full state each time', rust),
                     _dtDiffLine('No change info', rust),
@@ -273,16 +298,28 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.difference, size: 22, color: copper),
                     const SizedBox(height: 4),
-                    Text('DeltaTextInputClient',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: copper)),
+                    Text(
+                      'DeltaTextInputClient',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: copper,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     _dtDiffLine('Only changes sent', const Color(0xFF2E7D32)),
-                    _dtDiffLine('Insert/delete/replace', const Color(0xFF2E7D32)),
-                    _dtDiffLine('Exact change location', const Color(0xFF2E7D32)),
-                    _dtDiffLine('Rich editing support', const Color(0xFF2E7D32)),
+                    _dtDiffLine(
+                      'Insert/delete/replace',
+                      const Color(0xFF2E7D32),
+                    ),
+                    _dtDiffLine(
+                      'Exact change location',
+                      const Color(0xFF2E7D32),
+                    ),
+                    _dtDiffLine(
+                      'Rich editing support',
+                      const Color(0xFF2E7D32),
+                    ),
                   ],
                 ),
               ),
@@ -310,24 +347,44 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dtTypeBox('TextEditingDelta', 'Abstract base',
-                'Base class for all deltas', copper),
+            _dtTypeBox(
+              'TextEditingDelta',
+              'Abstract base',
+              'Base class for all deltas',
+              copper,
+            ),
             const SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: Column(
                 children: [
-                  _dtTypeBox('TextEditingDeltaInsertion', 'Typing',
-                      'New text inserted at cursor position', bronze),
+                  _dtTypeBox(
+                    'TextEditingDeltaInsertion',
+                    'Typing',
+                    'New text inserted at cursor position',
+                    bronze,
+                  ),
                   const SizedBox(height: 4),
-                  _dtTypeBox('TextEditingDeltaDeletion', 'Backspace/Delete',
-                      'Text removed from a range', rust),
+                  _dtTypeBox(
+                    'TextEditingDeltaDeletion',
+                    'Backspace/Delete',
+                    'Text removed from a range',
+                    rust,
+                  ),
                   const SizedBox(height: 4),
-                  _dtTypeBox('TextEditingDeltaReplacement', 'Selection replace',
-                      'Selected text replaced with new text', burnished),
+                  _dtTypeBox(
+                    'TextEditingDeltaReplacement',
+                    'Selection replace',
+                    'Selected text replaced with new text',
+                    burnished,
+                  ),
                   const SizedBox(height: 4),
-                  _dtTypeBox('TextEditingDeltaNonTextUpdate', 'Cursor move',
-                      'Selection/composing changed, no text change', patina),
+                  _dtTypeBox(
+                    'TextEditingDeltaNonTextUpdate',
+                    'Cursor move',
+                    'Selection/composing changed, no text change',
+                    patina,
+                  ),
                 ],
               ),
             ),
@@ -361,8 +418,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Before:', style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'Before:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextDisplay('Hello| world', 5, copper),
               const SizedBox(height: 10),
@@ -370,14 +433,25 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.keyboard, size: 16, color: bronze),
                   const SizedBox(width: 6),
-                  Text('User types: ", beautiful"',
-                      style: TextStyle(
-                          fontSize: 11, color: copper, fontWeight: FontWeight.w600)),
+                  Text(
+                    'User types: ", beautiful"',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: copper,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
-              Text('After:', style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'After:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextDisplay('Hello, beautiful| world', 16, copper),
               const SizedBox(height: 10),
@@ -392,20 +466,38 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Delta received:',
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: darkCopper)),
-                    Text('  type: TextEditingDeltaInsertion',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: deepCopper)),
-                    Text('  insertionOffset: 5',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: deepCopper)),
-                    Text('  textInserted: ", beautiful"',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: copper)),
+                    Text(
+                      'Delta received:',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: darkCopper,
+                      ),
+                    ),
+                    Text(
+                      '  type: TextEditingDeltaInsertion',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: deepCopper,
+                      ),
+                    ),
+                    Text(
+                      '  insertionOffset: 5',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: deepCopper,
+                      ),
+                    ),
+                    Text(
+                      '  textInserted: ", beautiful"',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: copper,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -440,9 +532,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Before: (selected "beautiful ")',
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'Before: (selected "beautiful ")',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextWithSelection('Hello, beautiful world', 7, 17, rust),
               const SizedBox(height: 10),
@@ -450,14 +547,25 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.backspace, size: 16, color: rust),
                   const SizedBox(width: 6),
-                  Text('User presses Delete/Backspace',
-                      style: TextStyle(
-                          fontSize: 11, color: rust, fontWeight: FontWeight.w600)),
+                  Text(
+                    'User presses Delete/Backspace',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: rust,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
-              Text('After:', style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'After:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextDisplay('Hello, |world', 7, copper),
               const SizedBox(height: 10),
@@ -472,18 +580,38 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Delta received:',
-                        style: TextStyle(
-                            fontSize: 10, fontWeight: FontWeight.bold, color: darkCopper)),
-                    Text('  type: TextEditingDeltaDeletion',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: deepCopper)),
-                    Text('  deletedRange: TextRange(start: 7, end: 17)',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: rust)),
-                    Text('  textDeleted: "beautiful "',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: rust)),
+                    Text(
+                      'Delta received:',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: darkCopper,
+                      ),
+                    ),
+                    Text(
+                      '  type: TextEditingDeltaDeletion',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: deepCopper,
+                      ),
+                    ),
+                    Text(
+                      '  deletedRange: TextRange(start: 7, end: 17)',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: rust,
+                      ),
+                    ),
+                    Text(
+                      '  textDeleted: "beautiful "',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: rust,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -518,9 +646,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Before: (IME suggests "flutter")',
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'Before: (IME suggests "flutter")',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextWithSelection('flut', 0, 4, burnished),
               const SizedBox(height: 6),
@@ -530,17 +663,31 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(4),
-                  boxShadow: [BoxShadow(
+                  boxShadow: [
+                    BoxShadow(
                       color: darkCopper.withValues(alpha: 0.1),
-                      blurRadius: 4)],
+                      blurRadius: 4,
+                    ),
+                  ],
                 ),
-                child: Text('flutter',
-                    style: TextStyle(
-                        fontSize: 12, color: copper, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'flutter',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: copper,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
-              Text('After:', style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: darkCopper)),
+              Text(
+                'After:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: darkCopper,
+                ),
+              ),
               const SizedBox(height: 4),
               _dtTextDisplay('flutter|', 7, copper),
               const SizedBox(height: 10),
@@ -555,18 +702,38 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Delta received:',
-                        style: TextStyle(
-                            fontSize: 10, fontWeight: FontWeight.bold, color: darkCopper)),
-                    Text('  type: TextEditingDeltaReplacement',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: deepCopper)),
-                    Text('  replacedRange: TextRange(start: 0, end: 4)',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: burnished)),
-                    Text('  replacementText: "flutter"',
-                        style: TextStyle(
-                            fontSize: 10, fontFamily: 'monospace', color: copper)),
+                    Text(
+                      'Delta received:',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: darkCopper,
+                      ),
+                    ),
+                    Text(
+                      '  type: TextEditingDeltaReplacement',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: deepCopper,
+                      ),
+                    ),
+                    Text(
+                      '  replacedRange: TextRange(start: 0, end: 4)',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: burnished,
+                      ),
+                    ),
+                    Text(
+                      '  replacementText: "flutter"',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: copper,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -594,11 +761,36 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dtNonTextItem('Arrow right', 'Cursor 5 → 6', Icons.arrow_forward, copper),
-            _dtNonTextItem('Home key', 'Cursor 15 → 0', Icons.first_page, bronze),
-            _dtNonTextItem('Shift+Arrow', 'Selection extends', Icons.text_fields, burnished),
-            _dtNonTextItem('IME composing', 'Composing region shifts', Icons.language, patina),
-            _dtNonTextItem('Tap to position', 'Cursor jumps to tap', Icons.touch_app, deepCopper),
+            _dtNonTextItem(
+              'Arrow right',
+              'Cursor 5 → 6',
+              Icons.arrow_forward,
+              copper,
+            ),
+            _dtNonTextItem(
+              'Home key',
+              'Cursor 15 → 0',
+              Icons.first_page,
+              bronze,
+            ),
+            _dtNonTextItem(
+              'Shift+Arrow',
+              'Selection extends',
+              Icons.text_fields,
+              burnished,
+            ),
+            _dtNonTextItem(
+              'IME composing',
+              'Composing region shifts',
+              Icons.language,
+              patina,
+            ),
+            _dtNonTextItem(
+              'Tap to position',
+              'Cursor jumps to tap',
+              Icons.touch_app,
+              deepCopper,
+            ),
           ],
         ),
       ),
@@ -623,12 +815,20 @@ dynamic build(BuildContext context) {
           children: [
             dtRow(['Field', 'Type', 'Description'], isHeader: true),
             dtRow(['oldText', 'String', 'Text before this delta']),
-            dtRow(['selection', 'TextSelection', 'New cursor/selection after delta']),
+            dtRow([
+              'selection',
+              'TextSelection',
+              'New cursor/selection after delta',
+            ]),
             dtRow(['composing', 'TextRange', 'New IME composing region']),
             dtRow(['textInserted', 'String', 'Insertion: the new text']),
             dtRow(['insertionOffset', 'int', 'Insertion: where inserted']),
             dtRow(['deletedRange', 'TextRange', 'Deletion: range removed']),
-            dtRow(['replacedRange', 'TextRange', 'Replacement: range replaced']),
+            dtRow([
+              'replacedRange',
+              'TextRange',
+              'Replacement: range replaced',
+            ]),
             dtRow(['replacementText', 'String', 'Replacement: new text']),
           ],
         ),
@@ -670,12 +870,18 @@ dynamic build(BuildContext context) {
                     const TextSpan(text: 'Hello '),
                     TextSpan(
                       text: 'bold',
-                      style: TextStyle(fontWeight: FontWeight.bold, color: copper),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: copper,
+                      ),
                     ),
                     const TextSpan(text: ' and '),
                     TextSpan(
                       text: 'italic',
-                      style: TextStyle(fontStyle: FontStyle.italic, color: burnished),
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: burnished,
+                      ),
                     ),
                     const TextSpan(text: ' text with '),
                     TextSpan(
@@ -692,8 +898,12 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 8),
-            dtFlow(['Delta received', 'Find affected span',
-                'Apply inline style', 'Re-render span only']),
+            dtFlow([
+              'Delta received',
+              'Find affected span',
+              'Apply inline style',
+              'Re-render span only',
+            ]),
             const SizedBox(height: 8),
             Text(
               'Delta tells editor: "chars 6-10 were typed" → only update '
@@ -723,10 +933,22 @@ dynamic build(BuildContext context) {
         'Delta → OT Operation',
         Column(
           children: [
-            dtRow(['Delta Type', 'OT Operation', 'Wire Format'], isHeader: true),
-            dtRow(['Insertion', 'insert(pos, text)', '{op:"ins", p:5, t:"abc"}']),
+            dtRow([
+              'Delta Type',
+              'OT Operation',
+              'Wire Format',
+            ], isHeader: true),
+            dtRow([
+              'Insertion',
+              'insert(pos, text)',
+              '{op:"ins", p:5, t:"abc"}',
+            ]),
             dtRow(['Deletion', 'delete(pos, len)', '{op:"del", p:3, l:4}']),
-            dtRow(['Replacement', 'replace(pos, len, text)', '{op:"rep", p:0, l:3, t:"xyz"}']),
+            dtRow([
+              'Replacement',
+              'replace(pos, len, text)',
+              '{op:"rep", p:0, l:3, t:"xyz"}',
+            ]),
             dtRow(['NonText', '(no-op / cursor sync)', '{op:"sel", p:7}']),
           ],
         ),
@@ -747,8 +969,10 @@ dynamic build(BuildContext context) {
                   _dtUserBadge('Alice', copper),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text('types "Hello" at position 0',
-                        style: TextStyle(fontSize: 10, color: deepCopper)),
+                    child: Text(
+                      'types "Hello" at position 0',
+                      style: TextStyle(fontSize: 10, color: deepCopper),
+                    ),
                   ),
                 ],
               ),
@@ -758,17 +982,22 @@ dynamic build(BuildContext context) {
                   _dtUserBadge('Bob', burnished),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text('types "World" at position 0',
-                        style: TextStyle(fontSize: 10, color: deepCopper)),
+                    child: Text(
+                      'types "World" at position 0',
+                      style: TextStyle(fontSize: 10, color: deepCopper),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('OT transforms Bob\'s insert to position 5 → "HelloWorld"',
-                  style: TextStyle(
-                      fontSize: 10,
-                      color: darkCopper,
-                      fontWeight: FontWeight.w600)),
+              Text(
+                'OT transforms Bob\'s insert to position 5 → "HelloWorld"',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: darkCopper,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ),
@@ -803,7 +1032,10 @@ dynamic build(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: copper.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
@@ -813,13 +1045,19 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.undo, size: 14, color: copper),
                       const SizedBox(width: 4),
-                      Text('Undo', style: TextStyle(fontSize: 11, color: copper)),
+                      Text(
+                        'Undo',
+                        style: TextStyle(fontSize: 11, color: copper),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 10),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: bronze.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
@@ -829,7 +1067,10 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.redo, size: 14, color: bronze),
                       const SizedBox(width: 4),
-                      Text('Redo', style: TextStyle(fontSize: 11, color: bronze)),
+                      Text(
+                        'Redo',
+                        style: TextStyle(fontSize: 11, color: bronze),
+                      ),
                     ],
                   ),
                 ),
@@ -859,10 +1100,34 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dtImeStep(1, 'User types "ni"', 'に (composing)', 'Insertion + composing', copper),
-            _dtImeStep(2, 'User types "ho"', 'にほ (composing)', 'Replacement + composing', bronze),
-            _dtImeStep(3, 'User types "n"', 'にほん (composing)', 'Replacement + composing', burnished),
-            _dtImeStep(4, 'User selects kanji', '日本 (committed)', 'Replacement + clear composing', darkCopper),
+            _dtImeStep(
+              1,
+              'User types "ni"',
+              'に (composing)',
+              'Insertion + composing',
+              copper,
+            ),
+            _dtImeStep(
+              2,
+              'User types "ho"',
+              'にほ (composing)',
+              'Replacement + composing',
+              bronze,
+            ),
+            _dtImeStep(
+              3,
+              'User types "n"',
+              'にほん (composing)',
+              'Replacement + composing',
+              burnished,
+            ),
+            _dtImeStep(
+              4,
+              'User selects kanji',
+              '日本 (committed)',
+              'Replacement + clear composing',
+              darkCopper,
+            ),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -902,9 +1167,17 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Expanded(child: _dtMetricBox('Full state', '200 KB/keystroke', rust)),
+                Expanded(
+                  child: _dtMetricBox('Full state', '200 KB/keystroke', rust),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dtMetricBox('Delta', '~50 bytes/keystroke', const Color(0xFF2E7D32))),
+                Expanded(
+                  child: _dtMetricBox(
+                    'Delta',
+                    '~50 bytes/keystroke',
+                    const Color(0xFF2E7D32),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -937,12 +1210,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dtCode('void updateEditingValueWithDeltas(',
-                'Main callback method'),
-            dtCode('  List<TextEditingDelta> deltas',
-                'Batch of deltas per frame'),
-            dtCode(')',
-                'Apply each delta sequentially'),
+            dtCode(
+              'void updateEditingValueWithDeltas(',
+              'Main callback method',
+            ),
+            dtCode(
+              '  List<TextEditingDelta> deltas',
+              'Batch of deltas per frame',
+            ),
+            dtCode(')', 'Apply each delta sequentially'),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -984,8 +1260,16 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _dtCheckItem('Add DeltaTextInputClient mixin', true, copper),
-            _dtCheckItem('Implement updateEditingValueWithDeltas', true, bronze),
-            _dtCheckItem('Keep updateEditingValue as fallback', true, burnished),
+            _dtCheckItem(
+              'Implement updateEditingValueWithDeltas',
+              true,
+              bronze,
+            ),
+            _dtCheckItem(
+              'Keep updateEditingValue as fallback',
+              true,
+              burnished,
+            ),
             _dtCheckItem('Handle all 4 delta types', true, deepCopper),
             _dtCheckItem('Update undo/redo to use deltas', false, patina),
             _dtCheckItem('Remove full-state diffing code', false, patina),
@@ -1012,9 +1296,21 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             dtRow(['Test', 'What', 'How'], isHeader: true),
-            dtRow(['Insertion', 'Char added correctly', 'Create DeltaInsertion, verify text']),
-            dtRow(['Deletion', 'Range removed', 'Create DeltaDeletion, verify text']),
-            dtRow(['Replacement', 'Swap text', 'Create DeltaReplacement, verify']),
+            dtRow([
+              'Insertion',
+              'Char added correctly',
+              'Create DeltaInsertion, verify text',
+            ]),
+            dtRow([
+              'Deletion',
+              'Range removed',
+              'Create DeltaDeletion, verify text',
+            ]),
+            dtRow([
+              'Replacement',
+              'Swap text',
+              'Create DeltaReplacement, verify',
+            ]),
             dtRow(['Batch', 'Multiple deltas', 'List of deltas, apply all']),
             dtRow(['IME', 'Composing flow', 'Sequence of compose deltas']),
           ],
@@ -1079,11 +1375,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('DeltaTextInputClient — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'DeltaTextInputClient — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From insertion through deletion, replacement, IME composition, '
@@ -1114,10 +1413,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -1165,22 +1476,26 @@ Widget _dtTypeBox(String name, String trigger, String desc, Color color) {
       children: [
         Expanded(
           flex: 3,
-          child: Text(name,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                  color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'monospace',
+              color: color,
+            ),
+          ),
         ),
         Expanded(
           flex: 1,
-          child: Text(trigger,
-              style: TextStyle(fontSize: 9, color: color)),
+          child: Text(trigger, style: TextStyle(fontSize: 9, color: color)),
         ),
         Expanded(
           flex: 3,
-          child: Text(desc,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -1196,11 +1511,14 @@ Widget _dtTextDisplay(String text, int cursorPos, Color color) {
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 13,
-            fontFamily: 'monospace',
-            color: const Color(0xFF5C3317))),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 13,
+        fontFamily: 'monospace',
+        color: const Color(0xFF5C3317),
+      ),
+    ),
   );
 }
 
@@ -1216,9 +1534,10 @@ Widget _dtTextWithSelection(String text, int start, int end, Color color) {
     child: RichText(
       text: TextSpan(
         style: TextStyle(
-            fontSize: 13,
-            fontFamily: 'monospace',
-            color: const Color(0xFF5C3317)),
+          fontSize: 13,
+          fontFamily: 'monospace',
+          color: const Color(0xFF5C3317),
+        ),
         children: [
           TextSpan(text: text.substring(0, start)),
           TextSpan(
@@ -1236,7 +1555,12 @@ Widget _dtTextWithSelection(String text, int start, int end, Color color) {
   );
 }
 
-Widget _dtNonTextItem(String action, String result, IconData icon, Color color) {
+Widget _dtNonTextItem(
+  String action,
+  String result,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1252,12 +1576,19 @@ Widget _dtNonTextItem(String action, String result, IconData icon, Color color) 
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(action,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            action,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
-        Text(result,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+        Text(
+          result,
+          style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
+        ),
       ],
     ),
   );
@@ -1270,9 +1601,14 @@ Widget _dtUserBadge(String name, Color color) {
       color: color,
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(name,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+    child: Text(
+      name,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 9,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 }
 
@@ -1289,28 +1625,40 @@ Widget _dtUndoEntry(int num, String action, String inverse, Color color) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(action,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(action, style: TextStyle(fontSize: 10, color: color)),
         ),
         Icon(Icons.swap_horiz, size: 12, color: color.withValues(alpha: 0.5)),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(inverse,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            inverse,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _dtImeStep(int num, String input, String display, String delta, Color color) {
+Widget _dtImeStep(
+  int num,
+  String input,
+  String display,
+  String delta,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -1323,16 +1671,20 @@ Widget _dtImeStep(int num, String input, String display, String delta, Color col
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text(input,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(input, style: TextStyle(fontSize: 10, color: color)),
         ),
         Expanded(
           flex: 2,
@@ -1342,15 +1694,23 @@ Widget _dtImeStep(int num, String input, String display, String delta, Color col
               color: color.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(display,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+            child: Text(
+              display,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 4),
         Expanded(
           flex: 3,
-          child: Text(delta,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            delta,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -1367,11 +1727,15 @@ Widget _dtMetricBox(String label, String value, Color color) {
     ),
     child: Column(
       children: [
-        Text(value,
-            style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.bold, color: color)),
-        Text(label,
-            style: TextStyle(fontSize: 10, color: color)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(label, style: TextStyle(fontSize: 10, color: color)),
       ],
     ),
   );
@@ -1389,11 +1753,14 @@ Widget _dtCheckItem(String text, bool done, Color color) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 11,
-                  color: color,
-                  decoration: done ? TextDecoration.lineThrough : null)),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 11,
+              color: color,
+              decoration: done ? TextDecoration.lineThrough : null,
+            ),
+          ),
         ),
       ],
     ),

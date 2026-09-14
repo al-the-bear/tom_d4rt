@@ -29,7 +29,11 @@ Widget _svSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _svLightBlue, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Color(0x1A0D47A1), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x1A0D47A1),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -41,9 +45,14 @@ Widget _svSection(String title, List<Widget> children) {
             color: _svOcean,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _svWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _svWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -55,17 +64,24 @@ Widget _svSection(String title, List<Widget> children) {
 Widget _svLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _svDarkNavy, fontSize: 13, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _svDarkNavy,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _svBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _svGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _svGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -78,8 +94,10 @@ Widget _svChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(label,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -91,13 +109,20 @@ Widget _svInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 120,
-          child: Text(key,
-              style: const TextStyle(
-                  color: _svDarkNavy, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: _svDarkNavy,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: const TextStyle(color: _svGray, fontSize: 12)),
+          child: Text(
+            value,
+            style: const TextStyle(color: _svGray, fontSize: 12),
+          ),
         ),
       ],
     ),
@@ -175,17 +200,26 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(color: Color(0x400D47A1), blurRadius: 12, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x400D47A1),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.layers, size: 52, color: _svWhite),
         const SizedBox(height: 12),
-        const Text('SurfaceAndroidViewController',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: _svWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+        const Text(
+          'SurfaceAndroidViewController',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _svWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -246,7 +280,11 @@ Widget _buildWhatIsIt() {
         children: [
           _buildClassItem('PlatformViewController', _svGray, 0),
           _buildClassItem('├── AndroidViewController', _svMedBlue, 1),
-          _buildClassItem('│   ├── SurfaceAndroidViewController  ★', _svOcean, 2),
+          _buildClassItem(
+            '│   ├── SurfaceAndroidViewController  ★',
+            _svOcean,
+            2,
+          ),
           _buildClassItem('│   ├── TextureAndroidViewController', _svGray, 2),
           _buildClassItem('│   └── HybridAndroidViewController', _svGray, 2),
           _buildClassItem('└── UiKitViewController', _svGray, 1),
@@ -259,12 +297,15 @@ Widget _buildWhatIsIt() {
 Widget _buildClassItem(String text, Color color, int indent) {
   return Padding(
     padding: EdgeInsets.only(left: indent * 10.0, bottom: 3),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 11.5,
-            fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -284,31 +325,48 @@ Widget _buildThreeStrategiesComparison() {
       Icons.texture,
       _svGray,
       'Renders to a SurfaceTexture, copies pixels into Flutter\'s texture layer.',
-      ['+ Full compositing flexibility', '+ Can be clipped, transformed, layered',
-       '- Extra GPU copy per frame', '- Higher memory usage'],
+      [
+        '+ Full compositing flexibility',
+        '+ Can be clipped, transformed, layered',
+        '- Extra GPU copy per frame',
+        '- Higher memory usage',
+      ],
     ),
     _buildStrategyCard(
       'SurfaceAndroidViewController ★',
       Icons.layers,
       _svOcean,
       'Uses a SurfaceView with its own windowing surface, composited by Z-order.',
-      ['+ No GPU copy overhead', '+ Best for video/OpenGL/camera',
-       '+ Dedicated rendering thread', '- Z-ordering constraints',
-       '- Cannot be clipped by Flutter widgets'],
+      [
+        '+ No GPU copy overhead',
+        '+ Best for video/OpenGL/camera',
+        '+ Dedicated rendering thread',
+        '- Z-ordering constraints',
+        '- Cannot be clipped by Flutter widgets',
+      ],
     ),
     _buildStrategyCard(
       'HybridAndroidViewController',
       Icons.merge_type,
       _svAccentCyan,
       'Combines both approaches, switching based on the compositing needs.',
-      ['+ Adapts to context', '+ Managed automatically by the engine',
-       '- Slight switching overhead', '- More complex internals'],
+      [
+        '+ Adapts to context',
+        '+ Managed automatically by the engine',
+        '- Slight switching overhead',
+        '- More complex internals',
+      ],
     ),
   ]);
 }
 
 Widget _buildStrategyCard(
-    String name, IconData icon, Color color, String desc, List<String> points) {
+  String name,
+  IconData icon,
+  Color color,
+  String desc,
+  List<String> points,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(12),
@@ -328,21 +386,31 @@ Widget _buildStrategyCard(
             Icon(icon, size: 20, color: color),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 6),
         _svBody(desc),
-        ...points.map((p) => Padding(
-              padding: const EdgeInsets.only(bottom: 2, left: 4),
-              child: Text(p,
-                  style: TextStyle(
-                      color: p.startsWith('+') ? _svAccentGreen : _svAccentOrange,
-                      fontSize: 11)),
-            )),
+        ...points.map(
+          (p) => Padding(
+            padding: const EdgeInsets.only(bottom: 2, left: 4),
+            child: Text(
+              p,
+              style: TextStyle(
+                color: p.startsWith('+') ? _svAccentGreen : _svAccentOrange,
+                fontSize: 11,
+              ),
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -374,9 +442,14 @@ Widget _buildSurfaceViewFundamentals() {
               children: [
                 const Icon(Icons.layers, size: 24, color: _svOcean),
                 const SizedBox(height: 4),
-                const Text('SurfaceView',
-                    style: TextStyle(
-                        color: _svOcean, fontSize: 12, fontWeight: FontWeight.w700)),
+                const Text(
+                  'SurfaceView',
+                  style: TextStyle(
+                    color: _svOcean,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 _svBody('Separate window surface'),
                 _svBody('Composited by WindowManager'),
@@ -400,9 +473,14 @@ Widget _buildSurfaceViewFundamentals() {
               children: [
                 const Icon(Icons.texture, size: 24, color: _svGray),
                 const SizedBox(height: 4),
-                const Text('TextureView',
-                    style: TextStyle(
-                        color: _svGray, fontSize: 12, fontWeight: FontWeight.w700)),
+                const Text(
+                  'TextureView',
+                  style: TextStyle(
+                    color: _svGray,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 _svBody('Part of View hierarchy'),
                 _svBody('Rendered as a texture'),
@@ -423,8 +501,14 @@ Widget _buildSurfaceViewFundamentals() {
       'Rendering code draws to the Surface obtained from the holder.',
     ),
     _svInfoRow('surfaceCreated', 'Surface allocated, safe to start rendering'),
-    _svInfoRow('surfaceChanged', 'Size or format changed, reconfigure rendering'),
-    _svInfoRow('surfaceDestroyed', 'Surface being released, stop all rendering'),
+    _svInfoRow(
+      'surfaceChanged',
+      'Size or format changed, reconfigure rendering',
+    ),
+    _svInfoRow(
+      'surfaceDestroyed',
+      'Surface being released, stop all rendering',
+    ),
   ]);
 }
 
@@ -439,21 +523,36 @@ Widget _buildCreationAndInit() {
       'view type and factory on the Android side:',
     ),
     _svDivider(),
-    _buildInitStep(1, 'Register ViewFactory',
-        'Android side: PlatformViewRegistry.registerViewFactory("my-view", factory)',
-        _svOcean),
-    _buildInitStep(2, 'Dart creates controller',
-        'PlatformViewsService.initSurfaceAndroidView(viewType: "my-view", ...)',
-        _svMedBlue),
-    _buildInitStep(3, 'Platform creates SurfaceView',
-        'Android creates the native SurfaceView and attaches it',
-        _svAccentCyan),
-    _buildInitStep(4, 'Surface allocated',
-        'SurfaceHolder.Callback.surfaceCreated fires, rendering can begin',
-        _svAccentGreen),
-    _buildInitStep(5, 'Size configured',
-        'setSize() or resize() calls match Flutter\'s layout constraints',
-        _svAccentOrange),
+    _buildInitStep(
+      1,
+      'Register ViewFactory',
+      'Android side: PlatformViewRegistry.registerViewFactory("my-view", factory)',
+      _svOcean,
+    ),
+    _buildInitStep(
+      2,
+      'Dart creates controller',
+      'PlatformViewsService.initSurfaceAndroidView(viewType: "my-view", ...)',
+      _svMedBlue,
+    ),
+    _buildInitStep(
+      3,
+      'Platform creates SurfaceView',
+      'Android creates the native SurfaceView and attaches it',
+      _svAccentCyan,
+    ),
+    _buildInitStep(
+      4,
+      'Surface allocated',
+      'SurfaceHolder.Callback.surfaceCreated fires, rendering can begin',
+      _svAccentGreen,
+    ),
+    _buildInitStep(
+      5,
+      'Size configured',
+      'setSize() or resize() calls match Flutter\'s layout constraints',
+      _svAccentOrange,
+    ),
     _svDivider(),
     _svLabel('initSurfaceAndroidView Parameters'),
     _svInfoRow('id', 'Unique view ID for platform channel communication'),
@@ -475,9 +574,14 @@ Widget _buildInitStep(int num, String title, String desc, Color color) {
           height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: _svWhite, fontSize: 12, fontWeight: FontWeight.w800)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: _svWhite,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -485,11 +589,15 @@ Widget _buildInitStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _svGray, fontSize: 11)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _svGray, fontSize: 11)),
             ],
           ),
         ),
@@ -519,15 +627,26 @@ Widget _buildRenderingPipeline() {
       ),
       child: Column(
         children: [
-          _buildPipelineNode('Native Android Renderer', 'Draws directly to SurfaceView\'s Surface',
-              _svOcean, Icons.brush),
+          _buildPipelineNode(
+            'Native Android Renderer',
+            'Draws directly to SurfaceView\'s Surface',
+            _svOcean,
+            Icons.brush,
+          ),
           _buildPipelineArrowDown(),
-          _buildPipelineNode('SurfaceFlinger (Android)',
-              'Composites all window surfaces at system level',
-              _svMedBlue, Icons.layers),
+          _buildPipelineNode(
+            'SurfaceFlinger (Android)',
+            'Composites all window surfaces at system level',
+            _svMedBlue,
+            Icons.layers,
+          ),
           _buildPipelineArrowDown(),
-          _buildPipelineNode('Display Hardware', 'Final frame shown on screen',
-              _svAccentGreen, Icons.monitor),
+          _buildPipelineNode(
+            'Display Hardware',
+            'Final frame shown on screen',
+            _svAccentGreen,
+            Icons.monitor,
+          ),
         ],
       ),
     ),
@@ -541,17 +660,33 @@ Widget _buildRenderingPipeline() {
       ),
       child: Column(
         children: [
-          _buildPipelineNode('Native Renderer', 'Draws to SurfaceTexture',
-              _svGray, Icons.brush),
+          _buildPipelineNode(
+            'Native Renderer',
+            'Draws to SurfaceTexture',
+            _svGray,
+            Icons.brush,
+          ),
           _buildPipelineArrowDown(),
-          _buildPipelineNode('GPU Copy', 'Texture copied to Flutter\'s OpenGL context',
-              _svAccentOrange, Icons.copy),
+          _buildPipelineNode(
+            'GPU Copy',
+            'Texture copied to Flutter\'s OpenGL context',
+            _svAccentOrange,
+            Icons.copy,
+          ),
           _buildPipelineArrowDown(),
-          _buildPipelineNode('Flutter Composition', 'Composited with Flutter widgets',
-              _svGray, Icons.layers),
+          _buildPipelineNode(
+            'Flutter Composition',
+            'Composited with Flutter widgets',
+            _svGray,
+            Icons.layers,
+          ),
           _buildPipelineArrowDown(),
-          _buildPipelineNode('SurfaceFlinger', 'Final compositing',
-              _svGray, Icons.monitor),
+          _buildPipelineNode(
+            'SurfaceFlinger',
+            'Final compositing',
+            _svGray,
+            Icons.monitor,
+          ),
         ],
       ),
     ),
@@ -563,7 +698,12 @@ Widget _buildRenderingPipeline() {
   ]);
 }
 
-Widget _buildPipelineNode(String name, String desc, Color color, IconData icon) {
+Widget _buildPipelineNode(
+  String name,
+  String desc,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -579,11 +719,18 @@ Widget _buildPipelineNode(String name, String desc, Color color, IconData icon) 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _svGray, fontSize: 10.5)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(color: _svGray, fontSize: 10.5),
+              ),
             ],
           ),
         ),
@@ -633,8 +780,10 @@ Widget _buildZOrdering() {
                 color: _svGray.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text('Z-Order Stack',
-                  style: TextStyle(color: _svGray, fontSize: 9)),
+              child: const Text(
+                'Z-Order Stack',
+                style: TextStyle(color: _svGray, fontSize: 9),
+              ),
             ),
           ),
           // Layer 1: Behind (SurfaceView area)
@@ -655,11 +804,18 @@ Widget _buildZOrdering() {
                   children: [
                     Icon(Icons.video_library, size: 32, color: _svOcean),
                     SizedBox(height: 4),
-                    Text('SurfaceView (Z-behind)',
-                        style: TextStyle(color: _svOcean, fontSize: 11,
-                            fontWeight: FontWeight.w700)),
-                    Text('Native video content',
-                        style: TextStyle(color: _svGray, fontSize: 10)),
+                    Text(
+                      'SurfaceView (Z-behind)',
+                      style: TextStyle(
+                        color: _svOcean,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'Native video content',
+                      style: TextStyle(color: _svGray, fontSize: 10),
+                    ),
                   ],
                 ),
               ),
@@ -685,11 +841,18 @@ Widget _buildZOrdering() {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Flutter Overlay',
-                      style: TextStyle(color: _svMedBlue, fontSize: 10,
-                          fontWeight: FontWeight.w700)),
-                  Text('Z-above: visible',
-                      style: TextStyle(color: _svGray, fontSize: 9)),
+                  Text(
+                    'Flutter Overlay',
+                    style: TextStyle(
+                      color: _svMedBlue,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    'Z-above: visible',
+                    style: TextStyle(color: _svGray, fontSize: 9),
+                  ),
                 ],
               ),
             ),
@@ -711,11 +874,18 @@ Widget _buildZOrdering() {
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Flutter Below',
-                      style: TextStyle(color: _svAccentOrange, fontSize: 10,
-                          fontWeight: FontWeight.w700)),
-                  Text('Z-behind: obscured!',
-                      style: TextStyle(color: _svAccentOrange, fontSize: 9)),
+                  Text(
+                    'Flutter Below',
+                    style: TextStyle(
+                      color: _svAccentOrange,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    'Z-behind: obscured!',
+                    style: TextStyle(color: _svAccentOrange, fontSize: 9),
+                  ),
                 ],
               ),
             ),
@@ -725,9 +895,18 @@ Widget _buildZOrdering() {
     ),
     _svDivider(),
     _svLabel('Z-Order Options'),
-    _svInfoRow('setZOrderOnTop(true)', 'SurfaceView renders in front of View hierarchy'),
-    _svInfoRow('setZOrderOnTop(false)', 'SurfaceView renders behind View hierarchy'),
-    _svInfoRow('setZOrderMediaOverlay', 'Puts between normal and on-top surfaces'),
+    _svInfoRow(
+      'setZOrderOnTop(true)',
+      'SurfaceView renders in front of View hierarchy',
+    ),
+    _svInfoRow(
+      'setZOrderOnTop(false)',
+      'SurfaceView renders behind View hierarchy',
+    ),
+    _svInfoRow(
+      'setZOrderMediaOverlay',
+      'Puts between normal and on-top surfaces',
+    ),
     _svDivider(),
     _svBody(
       'This is the primary trade-off: SurfaceView gets better performance '
@@ -749,21 +928,46 @@ Widget _buildPerformanceCharacteristics() {
       'scenarios:',
     ),
     _svDivider(),
-    _buildPerfCard('Memory', 'No extra texture buffer needed. The native '
-        'view draws directly to its own surface without copying.',
-        Icons.memory, _svOcean, '✓ Lower'),
-    _buildPerfCard('GPU', 'No GPU copy per frame. SurfaceFlinger handles '
-        'compositing at the system level with hardware overlays.',
-        Icons.speed, _svAccentGreen, '✓ Minimal'),
-    _buildPerfCard('Latency', 'Direct path from native renderer to display. '
-        'One less compositing step than texture-based.',
-        Icons.timer, _svMedBlue, '✓ Lower'),
-    _buildPerfCard('Threading', 'SurfaceView supports rendering from any thread, '
-        'including a dedicated rendering thread.',
-        Icons.lan, _svAccentCyan, '✓ Flexible'),
-    _buildPerfCard('Compositing', 'Z-order only. Cannot clip or transform. '
-        'This is the trade-off for performance gains.',
-        Icons.warning_amber, _svAccentOrange, '✗ Limited'),
+    _buildPerfCard(
+      'Memory',
+      'No extra texture buffer needed. The native '
+          'view draws directly to its own surface without copying.',
+      Icons.memory,
+      _svOcean,
+      '✓ Lower',
+    ),
+    _buildPerfCard(
+      'GPU',
+      'No GPU copy per frame. SurfaceFlinger handles '
+          'compositing at the system level with hardware overlays.',
+      Icons.speed,
+      _svAccentGreen,
+      '✓ Minimal',
+    ),
+    _buildPerfCard(
+      'Latency',
+      'Direct path from native renderer to display. '
+          'One less compositing step than texture-based.',
+      Icons.timer,
+      _svMedBlue,
+      '✓ Lower',
+    ),
+    _buildPerfCard(
+      'Threading',
+      'SurfaceView supports rendering from any thread, '
+          'including a dedicated rendering thread.',
+      Icons.lan,
+      _svAccentCyan,
+      '✓ Flexible',
+    ),
+    _buildPerfCard(
+      'Compositing',
+      'Z-order only. Cannot clip or transform. '
+          'This is the trade-off for performance gains.',
+      Icons.warning_amber,
+      _svAccentOrange,
+      '✗ Limited',
+    ),
     _svDivider(),
     _svLabel('When to Choose SurfaceAndroidViewController'),
     _svBody(
@@ -777,7 +981,12 @@ Widget _buildPerformanceCharacteristics() {
 }
 
 Widget _buildPerfCard(
-    String metric, String desc, IconData icon, Color color, String rating) {
+  String metric,
+  String desc,
+  IconData icon,
+  Color color,
+  String rating,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -796,25 +1005,37 @@ Widget _buildPerfCard(
             children: [
               Row(
                 children: [
-                  Text(metric,
-                      style: TextStyle(
-                          color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+                  Text(
+                    metric,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(rating,
-                        style: TextStyle(color: color, fontSize: 10,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      rating,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 3),
-              Text(desc,
-                  style: const TextStyle(color: _svGray, fontSize: 11)),
+              Text(desc, style: const TextStyle(color: _svGray, fontSize: 11)),
             ],
           ),
         ),
@@ -845,9 +1066,17 @@ Widget _buildTouchEventRouting() {
         children: [
           _buildTouchStep('User touches screen', Icons.touch_app, _svOcean),
           _buildTouchArrow(),
-          _buildTouchStep('Flutter receives MotionEvent', Icons.flutter_dash, _svMedBlue),
+          _buildTouchStep(
+            'Flutter receives MotionEvent',
+            Icons.flutter_dash,
+            _svMedBlue,
+          ),
           _buildTouchArrow(),
-          _buildTouchStep('Hit test: is touch in platform view area?', Icons.gps_fixed, _svAccentCyan),
+          _buildTouchStep(
+            'Hit test: is touch in platform view area?',
+            Icons.gps_fixed,
+            _svAccentCyan,
+          ),
           _buildTouchArrow(),
           Row(
             children: [
@@ -857,18 +1086,27 @@ Widget _buildTouchEventRouting() {
                   decoration: BoxDecoration(
                     color: _svAccentGreen.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _svAccentGreen.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: _svAccentGreen.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: const Column(
                     children: [
                       Icon(Icons.check, size: 16, color: _svAccentGreen),
-                      Text('Yes → Forward',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _svAccentGreen, fontSize: 10,
-                              fontWeight: FontWeight.w700)),
-                      Text('Send to native view\nvia platform channel',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _svGray, fontSize: 9)),
+                      Text(
+                        'Yes → Forward',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _svAccentGreen,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        'Send to native view\nvia platform channel',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _svGray, fontSize: 9),
+                      ),
                     ],
                   ),
                 ),
@@ -880,18 +1118,27 @@ Widget _buildTouchEventRouting() {
                   decoration: BoxDecoration(
                     color: _svAccentOrange.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: _svAccentOrange.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: _svAccentOrange.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: const Column(
                     children: [
                       Icon(Icons.close, size: 16, color: _svAccentOrange),
-                      Text('No → Flutter',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _svAccentOrange, fontSize: 10,
-                              fontWeight: FontWeight.w700)),
-                      Text('Handle in Flutter\ngesture system',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: _svGray, fontSize: 9)),
+                      Text(
+                        'No → Flutter',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: _svAccentOrange,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        'Handle in Flutter\ngesture system',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _svGray, fontSize: 9),
+                      ),
                     ],
                   ),
                 ),
@@ -904,7 +1151,10 @@ Widget _buildTouchEventRouting() {
     _svDivider(),
     _svLabel('Gesture Policies'),
     _svInfoRow('Opaque', 'All touches go to the platform view'),
-    _svInfoRow('Translucent', 'Platform view gets touches, Flutter also receives'),
+    _svInfoRow(
+      'Translucent',
+      'Platform view gets touches, Flutter also receives',
+    ),
     _svInfoRow('Eager', 'Flutter handles first, then forwards to native'),
   ]);
 }
@@ -922,9 +1172,14 @@ Widget _buildTouchStep(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
-        Text(label,
-            style: TextStyle(
-                color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -967,11 +1222,18 @@ Widget _buildLifecycleManagement() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: TextStyle(
-                        color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-                Text(desc,
-                    style: const TextStyle(color: _svGray, fontSize: 11)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  desc,
+                  style: const TextStyle(color: _svGray, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -986,16 +1248,36 @@ Widget _buildLifecycleManagement() {
       'native SurfaceView:',
     ),
     _svDivider(),
-    state('Uninitialized', 'Controller created but view not yet attached',
-        _svGray, Icons.hourglass_empty),
-    state('Creating', 'Platform is creating the native SurfaceView',
-        _svMedBlue, Icons.build),
-    state('Created', 'SurfaceView exists, surface allocated',
-        _svOcean, Icons.check_circle),
-    state('Sized', 'Layout constraints applied, rendering active',
-        _svAccentGreen, Icons.aspect_ratio),
-    state('Disposed', 'dispose() called, SurfaceView destroyed',
-        _svAccentOrange, Icons.delete),
+    state(
+      'Uninitialized',
+      'Controller created but view not yet attached',
+      _svGray,
+      Icons.hourglass_empty,
+    ),
+    state(
+      'Creating',
+      'Platform is creating the native SurfaceView',
+      _svMedBlue,
+      Icons.build,
+    ),
+    state(
+      'Created',
+      'SurfaceView exists, surface allocated',
+      _svOcean,
+      Icons.check_circle,
+    ),
+    state(
+      'Sized',
+      'Layout constraints applied, rendering active',
+      _svAccentGreen,
+      Icons.aspect_ratio,
+    ),
+    state(
+      'Disposed',
+      'dispose() called, SurfaceView destroyed',
+      _svAccentOrange,
+      Icons.delete,
+    ),
     _svDivider(),
     _svLabel('Important Lifecycle Rules'),
     _svBody(
@@ -1018,27 +1300,48 @@ Widget _buildUseCases() {
       'content that requires high performance:',
     ),
     _svDivider(),
-    _buildUseCaseCard('Video Player', Icons.play_circle,
-        'ExoPlayer or MediaPlayer rendering directly to SurfaceView. '
-        'No frame-by-frame GPU copy means smooth 4K/60fps playback.',
-        _svOcean, _buildVideoPreview()),
-    _buildUseCaseCard('Camera Preview', Icons.camera_alt,
-        'CameraX or Camera2 renders the viewfinder to SurfaceView. '
-        'Real-time camera feed at full native frame rate.',
-        _svAccentCyan, _buildCameraPreview()),
-    _buildUseCaseCard('OpenGL / Vulkan', Icons.threed_rotation,
-        'Custom 3D rendering engine draws directly to the Surface. '
-        'Zero-copy path from GPU to display.',
-        _svMedBlue, _buildGLPreview()),
-    _buildUseCaseCard('Maps (MapView)', Icons.map,
-        'Google Maps or Mapbox renders tile layers to SurfaceView. '
-        'Smooth panning and zooming at native performance.',
-        _svAccentGreen, _buildMapPreview()),
+    _buildUseCaseCard(
+      'Video Player',
+      Icons.play_circle,
+      'ExoPlayer or MediaPlayer rendering directly to SurfaceView. '
+          'No frame-by-frame GPU copy means smooth 4K/60fps playback.',
+      _svOcean,
+      _buildVideoPreview(),
+    ),
+    _buildUseCaseCard(
+      'Camera Preview',
+      Icons.camera_alt,
+      'CameraX or Camera2 renders the viewfinder to SurfaceView. '
+          'Real-time camera feed at full native frame rate.',
+      _svAccentCyan,
+      _buildCameraPreview(),
+    ),
+    _buildUseCaseCard(
+      'OpenGL / Vulkan',
+      Icons.threed_rotation,
+      'Custom 3D rendering engine draws directly to the Surface. '
+          'Zero-copy path from GPU to display.',
+      _svMedBlue,
+      _buildGLPreview(),
+    ),
+    _buildUseCaseCard(
+      'Maps (MapView)',
+      Icons.map,
+      'Google Maps or Mapbox renders tile layers to SurfaceView. '
+          'Smooth panning and zooming at native performance.',
+      _svAccentGreen,
+      _buildMapPreview(),
+    ),
   ]);
 }
 
 Widget _buildUseCaseCard(
-    String name, IconData icon, String desc, Color color, Widget preview) {
+  String name,
+  IconData icon,
+  String desc,
+  Color color,
+  Widget preview,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     decoration: BoxDecoration(
@@ -1059,12 +1362,19 @@ Widget _buildUseCaseCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name,
-                        style: TextStyle(
-                            color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+                    Text(
+                      name,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 3),
-                    Text(desc,
-                        style: const TextStyle(color: _svGray, fontSize: 11)),
+                    Text(
+                      desc,
+                      style: const TextStyle(color: _svGray, fontSize: 11),
+                    ),
                   ],
                 ),
               ),
@@ -1087,9 +1397,7 @@ Widget _buildVideoPreview() {
     ),
     child: Stack(
       children: [
-        const Center(
-          child: Icon(Icons.play_arrow, size: 30, color: _svWhite),
-        ),
+        const Center(child: Icon(Icons.play_arrow, size: 30, color: _svWhite)),
         Positioned(
           bottom: 6,
           left: 8,
@@ -1136,8 +1444,10 @@ Widget _buildCameraPreview() {
         children: [
           Icon(Icons.camera, size: 20, color: _svAccentCyan),
           SizedBox(width: 8),
-          Text('Camera Viewfinder',
-              style: TextStyle(color: _svAccentCyan, fontSize: 11)),
+          Text(
+            'Camera Viewfinder',
+            style: TextStyle(color: _svAccentCyan, fontSize: 11),
+          ),
         ],
       ),
     ),
@@ -1268,14 +1578,16 @@ class _MapRoadPainter extends CustomPainter {
 
     // Horizontal road
     canvas.drawLine(
-        Offset(0, size.height * 0.4),
-        Offset(size.width, size.height * 0.6),
-        roadPaint);
+      Offset(0, size.height * 0.4),
+      Offset(size.width, size.height * 0.6),
+      roadPaint,
+    );
     // Vertical road
     canvas.drawLine(
-        Offset(size.width * 0.3, 0),
-        Offset(size.width * 0.5, size.height),
-        roadPaint);
+      Offset(size.width * 0.3, 0),
+      Offset(size.width * 0.5, size.height),
+      roadPaint,
+    );
   }
 
   @override

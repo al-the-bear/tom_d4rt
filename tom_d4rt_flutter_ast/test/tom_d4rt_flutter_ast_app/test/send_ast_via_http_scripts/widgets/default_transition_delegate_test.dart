@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'Navigator 2.0 Transition Resolver',
-      'body': 'DefaultTransitionDelegate is the default implementation '
+      'body':
+          'DefaultTransitionDelegate is the default implementation '
           'of TransitionDelegate in Flutter\'s Router/Navigator 2.0 API. '
           'When the declared page list changes, it resolves which routes '
           'should animate in (push), animate out (pop), or not animate '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Push vs Pop vs Add vs Remove',
-      'body': 'The delegate classifies each route change into one of four '
+      'body':
+          'The delegate classifies each route change into one of four '
           'actions: push (animate in forward), pop (animate in reverse), '
           'add (appear instantly without animation), or remove (disappear '
           'instantly). DefaultTransitionDelegate uses simple heuristics.',
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Works with Page-Based Navigation',
-      'body': 'In Navigator 2.0, you declare a list of Page objects. '
+      'body':
+          'In Navigator 2.0, you declare a list of Page objects. '
           'When this list changes (pages added, removed, reordered), the '
           'Navigator calls the TransitionDelegate to decide how each '
           'affected route should animate. This is the declarative version '
@@ -48,7 +51,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_fix_high,
       'title': 'Automatic & Customizable',
-      'body': 'DefaultTransitionDelegate is the out-of-box behavior. '
+      'body':
+          'DefaultTransitionDelegate is the out-of-box behavior. '
           'For most apps, it works correctly: new pages push, removed '
           'pages pop. But you can subclass TransitionDelegate to create '
           'custom resolution logic for complex navigation patterns.',
@@ -69,7 +73,8 @@ dynamic build(BuildContext context) {
       'signature': 'Iterable<RouteTransitionRecord> resolve({...})',
       'icon': Icons.mediation,
       'color': Colors.indigo[700]!,
-      'description': 'The main method. Receives lists of new routes, '
+      'description':
+          'The main method. Receives lists of new routes, '
           'location-changed routes, and previous-active routes. Returns '
           'an ordered iterable of RouteTransitionRecord entries with '
           'their resolved transition actions.',
@@ -79,7 +84,8 @@ dynamic build(BuildContext context) {
       'signature': 'abstract class RouteTransitionRecord',
       'icon': Icons.article,
       'color': Colors.lightBlue[700]!,
-      'description': 'Represents a single route in the resolution process. '
+      'description':
+          'Represents a single route in the resolution process. '
           'Contains the Route object and provides methods to mark the route '
           'as push, pop, add, or remove. The delegate calls these methods '
           'to assign each route its transition action.',
@@ -89,7 +95,8 @@ dynamic build(BuildContext context) {
       'signature': 'void markForPush()',
       'icon': Icons.arrow_forward,
       'color': Colors.indigo[600]!,
-      'description': 'Marks a route to animate in with its push transition. '
+      'description':
+          'Marks a route to animate in with its push transition. '
           'This is the standard forward animation — typically sliding in '
           'from the right or fading in, depending on the route\'s '
           'PageRoute implementation.',
@@ -99,7 +106,8 @@ dynamic build(BuildContext context) {
       'signature': 'void markForPop([dynamic result])',
       'icon': Icons.arrow_back,
       'color': Colors.lightBlue[600]!,
-      'description': 'Marks a route to animate out with its pop transition. '
+      'description':
+          'Marks a route to animate out with its pop transition. '
           'The reverse of the push animation — sliding out to the right '
           'or fading out. Optionally carries a result value.',
     },
@@ -108,7 +116,8 @@ dynamic build(BuildContext context) {
       'signature': 'void markForAdd()',
       'icon': Icons.add,
       'color': Colors.indigo[500]!,
-      'description': 'Marks a route to appear instantly without animation. '
+      'description':
+          'Marks a route to appear instantly without animation. '
           'Used for routes that should just be present immediately, such '
           'as the initial route or routes restored from state.',
     },
@@ -117,7 +126,8 @@ dynamic build(BuildContext context) {
       'signature': 'void markForRemove()',
       'icon': Icons.remove,
       'color': Colors.lightBlue[500]!,
-      'description': 'Marks a route to disappear instantly without animation. '
+      'description':
+          'Marks a route to disappear instantly without animation. '
           'The route is removed from the stack immediately. Used for '
           'cleanup or replacing the entire navigation stack.',
     },
@@ -135,7 +145,8 @@ dynamic build(BuildContext context) {
       'step': 1,
       'label': 'Receive Inputs',
       'icon': Icons.input,
-      'description': 'The Navigator provides three lists to resolve():\n'
+      'description':
+          'The Navigator provides three lists to resolve():\n'
           '• newPageRouteHistory: Routes for newly added pages\n'
           '• locationToExitingPageRoute: Map of old routes to their '
           'screen location\n'
@@ -146,7 +157,8 @@ dynamic build(BuildContext context) {
       'step': 2,
       'label': 'Process New Routes',
       'icon': Icons.fiber_new,
-      'description': 'For each new route that was not in the previous '
+      'description':
+          'For each new route that was not in the previous '
           'stack:\n'
           '• If it is the initial route → markForAdd() (no animation)\n'
           '• If it appears at the top → markForPush() (animate in)\n'
@@ -156,7 +168,8 @@ dynamic build(BuildContext context) {
       'step': 3,
       'label': 'Process Removed Routes',
       'icon': Icons.delete_outline,
-      'description': 'For each route in the old stack not in the new '
+      'description':
+          'For each route in the old stack not in the new '
           'stack:\n'
           '• If it was at the top of the old stack → markForPop()\n'
           '• Otherwise → markForRemove() (disappeared from middle)\n'
@@ -166,7 +179,8 @@ dynamic build(BuildContext context) {
       'step': 4,
       'label': 'Process Unchanged Routes',
       'icon': Icons.check,
-      'description': 'Routes present in both old and new stacks are '
+      'description':
+          'Routes present in both old and new stacks are '
           'kept as-is. They don\'t need any transition action. Their '
           'position in the final list preserves the new ordering.',
     },
@@ -174,7 +188,8 @@ dynamic build(BuildContext context) {
       'step': 5,
       'label': 'Return Ordered Results',
       'icon': Icons.list,
-      'description': 'Returns the complete ordered list of '
+      'description':
+          'Returns the complete ordered list of '
           'RouteTransitionRecord entries. The Navigator uses this '
           'to animate the transitions and update the route stack '
           'accordingly.',
@@ -219,7 +234,7 @@ dynamic build(BuildContext context) {
         'Products': 'REMOVE',
         'Detail': 'POP',
         'Profile': 'ADD',
-        'Orders': 'PUSH'
+        'Orders': 'PUSH',
       },
       'description': 'Complete stack replacement from deep link.',
     },
@@ -289,11 +304,13 @@ dynamic build(BuildContext context) {
       'name': 'NoAnimationTransitionDelegate',
       'icon': Icons.flash_off,
       'color': Colors.indigo[700]!,
-      'description': 'A delegate that suppresses all animations. Every '
+      'description':
+          'A delegate that suppresses all animations. Every '
           'new route gets markForAdd(), every removed route gets '
           'markForRemove(). Useful for instant navigation changes like '
           'tab switching or deep link resolution.',
-      'code': 'class NoAnimationTransitionDelegate\n'
+      'code':
+          'class NoAnimationTransitionDelegate\n'
           '    extends TransitionDelegate<dynamic> {\n'
           '  @override\n'
           '  Iterable<RouteTransitionRecord> resolve({...}) {\n'
@@ -311,11 +328,13 @@ dynamic build(BuildContext context) {
       'name': 'FadeTransitionDelegate',
       'icon': Icons.blur_on,
       'color': Colors.lightBlue[700]!,
-      'description': 'A delegate that always uses push for entering routes '
+      'description':
+          'A delegate that always uses push for entering routes '
           'and pop for exiting routes, even for mid-stack changes. Combined '
           'with a FadePage that uses fade transitions, this creates a '
           'consistent cross-fade effect for all navigation changes.',
-      'code': 'class FadeTransitionDelegate\n'
+      'code':
+          'class FadeTransitionDelegate\n'
           '    extends TransitionDelegate<dynamic> {\n'
           '  @override\n'
           '  Iterable<RouteTransitionRecord> resolve({...}) {\n'
@@ -333,10 +352,12 @@ dynamic build(BuildContext context) {
       'name': 'ConditionalTransitionDelegate',
       'icon': Icons.rule,
       'color': Colors.indigo[600]!,
-      'description': 'A delegate that chooses transition style based on '
+      'description':
+          'A delegate that chooses transition style based on '
           'route metadata. Auth routes use no animation, content routes '
           'use push/pop, modals use add. Demonstrates per-route logic.',
-      'code': 'class ConditionalTransitionDelegate\n'
+      'code':
+          'class ConditionalTransitionDelegate\n'
           '    extends TransitionDelegate<dynamic> {\n'
           '  @override\n'
           '  Iterable<RouteTransitionRecord> resolve({...}) {\n'
@@ -364,7 +385,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Setting TransitionDelegate on Navigator',
       'color': Colors.indigo[700]!,
-      'code': 'Navigator(\n'
+      'code':
+          'Navigator(\n'
           '  // Default behavior (can be omitted):\n'
           '  transitionDelegate: DefaultTransitionDelegate<dynamic>(),\n'
           '  pages: [\n'
@@ -384,7 +406,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'With Router and RouterDelegate',
       'color': Colors.lightBlue[700]!,
-      'code': 'class MyRouterDelegate extends RouterDelegate<AppRoute>\n'
+      'code':
+          'class MyRouterDelegate extends RouterDelegate<AppRoute>\n'
           '    with PopNavigatorRouterDelegateMixin {\n'
           '  @override\n'
           '  Widget build(BuildContext context) {\n'
@@ -401,7 +424,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Custom Delegate for Tab Navigation',
       'color': Colors.indigo[600]!,
-      'code': '// Tabs should not animate between each other\n'
+      'code':
+          '// Tabs should not animate between each other\n'
           'Navigator(\n'
           '  transitionDelegate:\n'
           '    NoAnimationTransitionDelegate(),\n'
@@ -427,7 +451,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.android,
       'color': Colors.indigo[700]!,
       'transition': 'Slide from right (Android), zoom (Material 3)',
-      'description': 'The standard Material Design page. Creates a '
+      'description':
+          'The standard Material Design page. Creates a '
           'MaterialPageRoute under the hood. The transition delegate '
           'decides push vs add, but the animation style comes from '
           'the page type.',
@@ -437,7 +462,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.phone_iphone,
       'color': Colors.lightBlue[700]!,
       'transition': 'Slide from right with parallax',
-      'description': 'iOS-style page transition. Creates a '
+      'description':
+          'iOS-style page transition. Creates a '
           'CupertinoPageRoute. The back-swipe gesture is also enabled. '
           'The transition delegate still controls push vs add, but the '
           'animation is iOS-native.',
@@ -447,7 +473,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.tune,
       'color': Colors.indigo[600]!,
       'transition': 'Your custom animation',
-      'description': 'A Page that takes a transitionsBuilder function. '
+      'description':
+          'A Page that takes a transitionsBuilder function. '
           'You define the exact animation. Combined with a custom '
           'TransitionDelegate, this gives full control over both '
           'when and how routes animate.',
@@ -457,7 +484,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.flash_off,
       'color': Colors.lightBlue[600]!,
       'transition': 'None (instant)',
-      'description': 'A page that produces a route with zero-duration '
+      'description':
+          'A page that produces a route with zero-duration '
           'transition. Even if the delegate calls markForPush(), the '
           'animation is instant. Useful when you want the delegate '
           'logic but not the animation.',
@@ -475,7 +503,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Don\'t Override Without Reason',
-      'body': 'DefaultTransitionDelegate works correctly for most apps. '
+      'body':
+          'DefaultTransitionDelegate works correctly for most apps. '
           'Only create a custom TransitionDelegate if you need specific '
           'behavior like no-animation tab switching, cross-fade between '
           'all pages, or conditional transitions per route.',
@@ -484,7 +513,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Page Keys Are Essential',
-      'body': 'The delegate relies on Page keys to identify which pages '
+      'body':
+          'The delegate relies on Page keys to identify which pages '
           'are new vs existing. Always provide unique keys to your Pages. '
           'Without keys, the framework may misidentify page reorders as '
           'remove+add, leading to wrong transitions.',
@@ -493,7 +523,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Pageless Routes Follow Parents',
-      'body': 'Dialogs, bottom sheets, and other pageless routes are '
+      'body':
+          'Dialogs, bottom sheets, and other pageless routes are '
           'associated with their parent page route. When the parent is '
           'popped/removed, its pageless children animate with it. The '
           'delegate doesn\'t need to handle pageless routes directly.',
@@ -502,7 +533,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'All Records Must Be Resolved',
-      'body': 'Your custom resolve() must call markForPush, markForPop, '
+      'body':
+          'Your custom resolve() must call markForPush, markForPop, '
           'markForAdd, or markForRemove on every RouteTransitionRecord. '
           'Leaving a record unresolved causes an assertion error in '
           'debug mode and undefined behavior in release.',
@@ -511,7 +543,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Push vs Add for New Routes',
-      'body': 'Use markForPush for new top routes that the user navigated '
+      'body':
+          'Use markForPush for new top routes that the user navigated '
           'to (they expect animation). Use markForAdd for routes that appear '
           'as side effects (deep link resolution, state restoration, initial '
           'route). Users don\'t expect animation for structural changes.',
@@ -520,7 +553,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Debugging: RouteAware',
-      'body': 'Use RouteAware and RouteObserver to debug which transitions '
+      'body':
+          'Use RouteAware and RouteObserver to debug which transitions '
           'are happening. Log didPush, didPop, didPushNext, didPopNext to '
           'verify your delegate is producing the expected actions.',
       'severity': 'tip',
@@ -593,102 +627,128 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _dtHead('1', 'What is DefaultTransitionDelegate?'),
           SizedBox(height: 12),
-          ...conceptCards.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: c['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: c['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(c['icon'] as IconData,
-                            color: c['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          c['icon'] as IconData,
+                          color: c['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(c['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            c['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(c['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      c['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 2: TransitionDelegate API ──
           _dtHead('2', 'TransitionDelegate API'),
           SizedBox(height: 12),
-          ...baseMethods.map((m) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: m['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...baseMethods.map(
+            (m) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: m['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(m['icon'] as IconData,
-                            color: m['color'] as Color, size: 18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          m['icon'] as IconData,
+                          color: m['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(m['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            m['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 4),
-                      _dtBadge(m['signature'] as String, m['color'] as Color),
-                      SizedBox(height: 6),
-                      Text(m['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    _dtBadge(m['signature'] as String, m['color'] as Color),
+                    SizedBox(height: 6),
+                    Text(
+                      m['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -703,63 +763,82 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
             child: Column(
-              children: algorithmSteps.map((as_) => Padding(
-                    padding: EdgeInsets.only(bottom: 12),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.indigo[700]!,
-                                Colors.lightBlue[600]!
+              children: algorithmSteps
+                  .map(
+                    (as_) => Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 32,
+                            height: 32,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.indigo[700]!,
+                                  Colors.lightBlue[600]!,
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${as_['step']}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      as_['icon'] as IconData,
+                                      color: Colors.indigo[600],
+                                      size: 16,
+                                    ),
+                                    SizedBox(width: 6),
+                                    Text(
+                                      as_['label'] as String,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  as_['description'] as String,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.4,
+                                  ),
+                                ),
                               ],
                             ),
-                            borderRadius: BorderRadius.circular(16),
                           ),
-                          child: Center(
-                            child: Text('${as_['step']}',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13)),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                Icon(as_['icon'] as IconData,
-                                    color: Colors.indigo[600], size: 16),
-                                SizedBox(width: 6),
-                                Text(as_['label'] as String,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13)),
-                              ]),
-                              SizedBox(height: 4),
-                              Text(as_['description'] as String,
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.grey[700],
-                                      height: 1.4)),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  )).toList(),
+                  )
+                  .toList(),
             ),
           ),
 
@@ -768,155 +847,195 @@ dynamic build(BuildContext context) {
           // ── Section 4: Stack Transitions ──
           _dtHead('4', 'Visual Stack Transitions'),
           SizedBox(height: 12),
-          ...stackExamples.map((se) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(se['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.indigo[700])),
-                      SizedBox(height: 6),
-                      Text(se['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[600],
-                              fontStyle: FontStyle.italic)),
-                      SizedBox(height: 8),
-                      Row(children: [
+          ...stackExamples.map(
+            (se) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      se['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.indigo[700],
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      se['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
                         // Before stack
                         Expanded(
-                          child: Column(children: [
-                            Text('Before',
+                          child: Column(
+                            children: [
+                              Text(
+                                'Before',
                                 style: TextStyle(
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey[500])),
-                            SizedBox(height: 4),
-                            ...(se['before'] as List<String>)
-                                .reversed
-                                .map((r) => Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.only(bottom: 2),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 6),
-                                      decoration: BoxDecoration(
-                                        color: Colors.indigo[100],
-                                        borderRadius:
-                                            BorderRadius.circular(4),
-                                      ),
-                                      child: Text(r,
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.indigo[800])),
-                                    )),
-                            if ((se['before'] as List).isEmpty)
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(4),
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[500],
                                 ),
-                                child: Text('(empty)',
+                              ),
+                              SizedBox(height: 4),
+                              ...(se['before'] as List<String>).reversed.map(
+                                (r) => Container(
+                                  width: double.infinity,
+                                  margin: EdgeInsets.only(bottom: 2),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.indigo[100],
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    r,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 9,
-                                        color: Colors.grey[500])),
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.indigo[800],
+                                    ),
+                                  ),
+                                ),
                               ),
-                          ]),
+                              if ((se['before'] as List).isEmpty)
+                                Container(
+                                  width: double.infinity,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    '(empty)',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 9,
+                                      color: Colors.grey[500],
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         SizedBox(width: 8),
-                        Icon(Icons.arrow_forward,
-                            color: Colors.indigo[400], size: 20),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.indigo[400],
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         // After stack
                         Expanded(
-                          child: Column(children: [
-                            Text('After',
+                          child: Column(
+                            children: [
+                              Text(
+                                'After',
                                 style: TextStyle(
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey[500])),
-                            SizedBox(height: 4),
-                            ...(se['after'] as List<String>)
-                                .reversed
-                                .map((r) {
-                              final actions =
-                                  se['actions'] as Map<String, String>;
-                              final action = actions[r];
-                              Color bgColor;
-                              if (action == 'PUSH') {
-                                bgColor = Colors.green[100]!;
-                              } else if (action == 'ADD') {
-                                bgColor = Colors.lightBlue[100]!;
-                              } else {
-                                bgColor = Colors.indigo[100]!;
-                              }
-                              return Container(
-                                width: double.infinity,
-                                margin: EdgeInsets.only(bottom: 2),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 6),
-                                decoration: BoxDecoration(
-                                  color: bgColor,
-                                  borderRadius: BorderRadius.circular(4),
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[500],
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                  children: [
-                                    Text(r,
+                              ),
+                              SizedBox(height: 4),
+                              ...(se['after'] as List<String>).reversed.map((
+                                r,
+                              ) {
+                                final actions =
+                                    se['actions'] as Map<String, String>;
+                                final action = actions[r];
+                                Color bgColor;
+                                if (action == 'PUSH') {
+                                  bgColor = Colors.green[100]!;
+                                } else if (action == 'ADD') {
+                                  bgColor = Colors.lightBlue[100]!;
+                                } else {
+                                  bgColor = Colors.indigo[100]!;
+                                }
+                                return Container(
+                                  width: double.infinity,
+                                  margin: EdgeInsets.only(bottom: 2),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: bgColor,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        r,
                                         style: TextStyle(
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.indigo[800])),
-                                    if (action != null) ...[
-                                      SizedBox(width: 4),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 3, vertical: 1),
-                                        decoration: BoxDecoration(
-                                          color: Colors.indigo[700],
-                                          borderRadius:
-                                              BorderRadius.circular(3),
+                                          fontSize: 9,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.indigo[800],
                                         ),
-                                        child: Text(action,
-                                            style: TextStyle(
-                                                fontSize: 7,
-                                                color: Colors.white,
-                                                fontWeight:
-                                                    FontWeight.bold)),
                                       ),
+                                      if (action != null) ...[
+                                        SizedBox(width: 4),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 3,
+                                            vertical: 1,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.indigo[700],
+                                            borderRadius: BorderRadius.circular(
+                                              3,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            action,
+                                            style: TextStyle(
+                                              fontSize: 7,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ],
-                                  ],
-                                ),
-                              );
-                            }),
-                          ]),
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                         ),
-                      ]),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -930,76 +1049,103 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
-            child: Column(children: [
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.indigo[700],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.indigo[700],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
                   ),
-                ),
-                child: Row(children: [
-                  SizedBox(
-                      width: 75,
-                      child: Text('Aspect',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                  Expanded(
-                      child: Text('Navigator 1.0',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                  Expanded(
-                      child: Text('Navigator 2.0',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                ]),
-              ),
-              ...comparisonRows.asMap().entries.map((entry) {
-                final r = entry.value;
-                final isEven = entry.key.isEven;
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
-                  color: isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                          width: 75,
-                          child: Text(r['aspect'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 8,
-                                  color: Colors.grey[800]))),
+                        width: 75,
+                        child: Text(
+                          'Aspect',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text(r['nav1'] as String,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.grey[700]))),
+                        child: Text(
+                          'Navigator 1.0',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text(r['nav2'] as String,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.indigo[700]))),
+                        child: Text(
+                          'Navigator 2.0',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                );
-              }),
-            ]),
+                ),
+                ...comparisonRows.asMap().entries.map((entry) {
+                  final r = entry.value;
+                  final isEven = entry.key.isEven;
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    color: isEven ? Colors.grey[50] : Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 75,
+                          child: Text(
+                            r['aspect'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            r['nav1'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            r['nav2'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.indigo[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),
@@ -1007,169 +1153,205 @@ dynamic build(BuildContext context) {
           // ── Section 6: Custom Delegates ──
           _dtHead('6', 'Custom TransitionDelegate Examples'),
           SizedBox(height: 12),
-          ...customDelegates.map((cd) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cd['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...customDelegates.map(
+            (cd) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cd['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(cd['icon'] as IconData,
-                            color: cd['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          cd['icon'] as IconData,
+                          color: cd['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(cd['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  fontFamily: 'monospace')),
-                        ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(cd['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cd['code'] as String,
+                          child: Text(
+                            cd['name'] as String,
                             style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.lightBlue[200],
-                                height: 1.4)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      cd['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.3,
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cd['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.lightBlue[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Configuration ──
           _dtHead('7', 'Navigator Configuration'),
           SizedBox(height: 12),
-          ...configPatterns.map((cp) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cp['color'] as Color, width: 4),
+          ...configPatterns.map(
+            (cp) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cp['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cp['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cp['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.indigo[200],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cp['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cp['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.indigo[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Page Types ──
           _dtHead('8', 'Page Types & Transitions'),
           SizedBox(height: 12),
-          ...pageTypes.map((pt) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: pt['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...pageTypes.map(
+            (pt) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: pt['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(pt['icon'] as IconData,
-                            color: pt['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          pt['icon'] as IconData,
+                          color: pt['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(pt['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            pt['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 4),
-                      _dtBadge(
-                          pt['transition'] as String, pt['color'] as Color),
-                      SizedBox(height: 6),
-                      Text(pt['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    _dtBadge(pt['transition'] as String, pt['color'] as Color),
+                    SizedBox(height: 6),
+                    Text(
+                      pt['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1201,29 +1383,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1262,20 +1456,26 @@ Widget _dtHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1291,11 +1491,14 @@ Widget _dtBadge(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 9,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }

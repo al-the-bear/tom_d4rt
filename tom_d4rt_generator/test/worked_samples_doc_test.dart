@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_generator) — the worked-samples catalog has not drifted from the samples it documents.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_generator's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 /// Byte-safe drift guard for the worked-samples catalog.
 ///
 /// `doc/worked_samples.md` maps the runnable multi-file sample apps under

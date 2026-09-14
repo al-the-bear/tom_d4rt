@@ -229,11 +229,7 @@ Widget _buildHeroHeader() {
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.memory,
-                size: 44.0,
-                color: Color(0xFF512DA8),
-              ),
+              child: Icon(Icons.memory, size: 44.0, color: Color(0xFF512DA8)),
             ),
             SizedBox(width: 18.0),
             Expanded(
@@ -275,11 +271,7 @@ Widget _buildHeroHeader() {
             'Abstract base for memory-allocation events. Subclasses: '
             'ObjectCreated, ObjectDisposed. Fired through '
             'FlutterMemoryAllocations.dispatchObjectEvent.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.4),
           ),
         ),
         SizedBox(height: 14.0),
@@ -308,11 +300,7 @@ Widget _buildPill(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: fg,
-        fontSize: 11.0,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: fg, fontSize: 11.0, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -327,9 +315,7 @@ Widget _buildSectionTitle(String label) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Color(0xFF512DA8), width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: Color(0xFF512DA8), width: 5.0)),
     ),
     child: Text(
       label,
@@ -396,7 +382,7 @@ Widget _buildAnatomy() {
           'library',
           'String',
           'Name of the instrumented library, e.g. package:flutter/widgets.dart. '
-          '(Only on ObjectCreated.)',
+              '(Only on ObjectCreated.)',
           Color(0xFF1565C0),
         ),
         SizedBox(height: 8.0),
@@ -405,7 +391,7 @@ Widget _buildAnatomy() {
           'className',
           'String',
           'Concrete class name of the object, e.g. Text. '
-          '(Only on ObjectCreated.)',
+              '(Only on ObjectCreated.)',
           Color(0xFF6A1B9A),
         ),
         SizedBox(height: 8.0),
@@ -414,7 +400,7 @@ Widget _buildAnatomy() {
           'object.hashCode',
           'int',
           'Used as the inner key inside toMap() so multiple objects can be '
-          'represented in the same flat map.',
+              'represented in the same flat map.',
           Color(0xFF2E7D32),
         ),
       ],
@@ -423,7 +409,12 @@ Widget _buildAnatomy() {
 }
 
 Widget _anatomyRow(
-    IconData icon, String name, String type, String desc, Color color) {
+  IconData icon,
+  String name,
+  String type,
+  String desc,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -460,8 +451,10 @@ Widget _anatomyRow(
                   ),
                   SizedBox(width: 6.0),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(4.0),
@@ -562,8 +555,7 @@ Widget _buildObjectCreatedCard(ObjectCreated event) {
               ),
             ),
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Color(0xFF1B5E20),
                 borderRadius: BorderRadius.circular(20.0),
@@ -581,14 +573,21 @@ Widget _buildObjectCreatedCard(ObjectCreated event) {
           ],
         ),
         SizedBox(height: 14.0),
-        _fieldRow('library', event.library, Icons.menu_book,
-            Color(0xFF1565C0)),
+        _fieldRow('library', event.library, Icons.menu_book, Color(0xFF1565C0)),
         SizedBox(height: 6.0),
-        _fieldRow('className', event.className, Icons.class_,
-            Color(0xFF6A1B9A)),
+        _fieldRow(
+          'className',
+          event.className,
+          Icons.class_,
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 6.0),
-        _fieldRow('object', '<Object#${event.object.hashCode}>',
-            Icons.label_important, Color(0xFFD84315)),
+        _fieldRow(
+          'object',
+          '<Object#${event.object.hashCode}>',
+          Icons.label_important,
+          Color(0xFFD84315),
+        ),
         SizedBox(height: 14.0),
         _buildCodeBlock(
           "ObjectCreated(\n"
@@ -670,8 +669,7 @@ Widget _buildObjectDisposedCard(ObjectDisposed event, String hintClass) {
               ),
             ),
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Color(0xFFB71C1C),
                 borderRadius: BorderRadius.circular(20.0),
@@ -697,29 +695,33 @@ Widget _buildObjectDisposedCard(ObjectDisposed event, String hintClass) {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.info_outline,
-                  color: Color(0xFFB71C1C), size: 16.0),
+              Icon(Icons.info_outline, color: Color(0xFFB71C1C), size: 16.0),
               SizedBox(width: 6.0),
               Expanded(
                 child: Text(
                   'ObjectDisposed only carries the object reference; '
                   'class info is recovered by listeners that already saw '
                   'the matching ObjectCreated event.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xFF7F0000),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFF7F0000)),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(height: 14.0),
-        _fieldRow('object', '<Object#${event.object.hashCode}>',
-            Icons.label_important, Color(0xFFD84315)),
+        _fieldRow(
+          'object',
+          '<Object#${event.object.hashCode}>',
+          Icons.label_important,
+          Color(0xFFD84315),
+        ),
         SizedBox(height: 6.0),
-        _fieldRow('hint(prev className)', hintClass, Icons.class_,
-            Color(0xFF6A1B9A)),
+        _fieldRow(
+          'hint(prev className)',
+          hintClass,
+          Icons.class_,
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 14.0),
         _buildCodeBlock(
           "ObjectDisposed(\n"
@@ -802,7 +804,11 @@ Widget _buildCodeBlock(String code) {
 // =============================================================================
 
 Widget _buildHierarchy(
-    ObjectEvent a, ObjectEvent b, ObjectEvent c, ObjectEvent d) {
+  ObjectEvent a,
+  ObjectEvent b,
+  ObjectEvent c,
+  ObjectEvent d,
+) {
   return Container(
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
@@ -887,8 +893,7 @@ Widget _buildHierarchy(
   );
 }
 
-Widget _hierarchyNode(
-    String label, String tag, Color color, IconData icon) {
+Widget _hierarchyNode(String label, String tag, Color color, IconData icon) {
   return Container(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
@@ -986,14 +991,14 @@ Widget _buildRecipes() {
         'In a constructor of an instrumented type, dispatch an ObjectCreated '
             'event so memory tooling can attribute the allocation.',
         "if (kFlutterMemoryAllocationsEnabled) {\n"
-        "  FlutterMemoryAllocations.instance.dispatchObjectEvent(\n"
-        "    ObjectCreated(\n"
-        "      library: 'package:flutter/widgets.dart',\n"
-        "      className: 'MyController',\n"
-        "      object: this,\n"
-        "    ),\n"
-        "  );\n"
-        "}",
+            "  FlutterMemoryAllocations.instance.dispatchObjectEvent(\n"
+            "    ObjectCreated(\n"
+            "      library: 'package:flutter/widgets.dart',\n"
+            "      className: 'MyController',\n"
+            "      object: this,\n"
+            "    ),\n"
+            "  );\n"
+            "}",
       ),
       SizedBox(height: 12.0),
       _buildRecipeCard(
@@ -1003,10 +1008,10 @@ Widget _buildRecipes() {
         'In dispose() / close(), pair every ObjectCreated with an '
             'ObjectDisposed referring to the same object instance.',
         "if (kFlutterMemoryAllocationsEnabled) {\n"
-        "  FlutterMemoryAllocations.instance.dispatchObjectEvent(\n"
-        "    ObjectDisposed(object: this),\n"
-        "  );\n"
-        "}",
+            "  FlutterMemoryAllocations.instance.dispatchObjectEvent(\n"
+            "    ObjectDisposed(object: this),\n"
+            "  );\n"
+            "}",
       ),
       SizedBox(height: 12.0),
       _buildRecipeCard(
@@ -1015,21 +1020,26 @@ Widget _buildRecipes() {
         Color(0xFF1565C0),
         'Add a listener that switches on subclass type to track deltas.',
         "FlutterMemoryAllocations.instance.addListener(\n"
-        "  (ObjectEvent event) {\n"
-        "    if (event is ObjectCreated) {\n"
-        "      counter[event.className] = (counter[event.className] ?? 0) + 1;\n"
-        "    } else if (event is ObjectDisposed) {\n"
-        "      // decrement using your own bookkeeping\n"
-        "    }\n"
-        "  },\n"
-        ");",
+            "  (ObjectEvent event) {\n"
+            "    if (event is ObjectCreated) {\n"
+            "      counter[event.className] = (counter[event.className] ?? 0) + 1;\n"
+            "    } else if (event is ObjectDisposed) {\n"
+            "      // decrement using your own bookkeeping\n"
+            "    }\n"
+            "  },\n"
+            ");",
       ),
     ],
   );
 }
 
-Widget _buildRecipeCard(String title, IconData icon, Color color,
-    String description, String code) {
+Widget _buildRecipeCard(
+  String title,
+  IconData icon,
+  Color color,
+  String description,
+  String code,
+) {
   return Container(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
@@ -1058,10 +1068,7 @@ Widget _buildRecipeCard(String title, IconData icon, Color color,
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Icon(icon, color: Colors.white, size: 18.0),
             ),
             SizedBox(width: 10.0),
@@ -1124,57 +1131,60 @@ Widget _buildPitfalls() {
 
   return Column(
     children: entries
-        .map((List<String> e) => Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              padding: EdgeInsets.all(14.0),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(10.0),
-                border: Border(
-                  left: BorderSide(color: Color(0xFFEF6C00), width: 5.0),
-                ),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Color(0x33EF6C00),
-                    blurRadius: 6.0,
-                    offset: Offset(0.0, 3.0),
-                  ),
-                ],
+        .map(
+          (List<String> e) => Container(
+            margin: EdgeInsets.only(bottom: 10.0),
+            padding: EdgeInsets.all(14.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Icon(Icons.warning_amber,
-                      color: Color(0xFFE65100), size: 22.0),
-                  SizedBox(width: 10.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          e[0],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.0,
-                            color: Color(0xFFBF360C),
-                          ),
-                        ),
-                        SizedBox(height: 4.0),
-                        Text(
-                          e[1],
-                          style: TextStyle(
-                              fontSize: 12.0, color: Color(0xFF4E342E)),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border(
+                left: BorderSide(color: Color(0xFFEF6C00), width: 5.0),
               ),
-            ))
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Color(0x33EF6C00),
+                  blurRadius: 6.0,
+                  offset: Offset(0.0, 3.0),
+                ),
+              ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Icon(Icons.warning_amber, color: Color(0xFFE65100), size: 22.0),
+                SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        e[0],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                          color: Color(0xFFBF360C),
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        e[1],
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xFF4E342E),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
         .toList(),
   );
 }
@@ -1213,8 +1223,11 @@ Widget _buildComparisonTable() {
         _tableRow('Has className', 'yes', 'no'),
         _tableRow('Lifecycle phase', 'allocation', 'reclamation'),
         _tableRow('Typical caller', 'constructor', 'dispose() / close()'),
-        _tableRow('toMap() outer key',
-            'package:lib/lib.dart/Class', 'unknown / matched'),
+        _tableRow(
+          'toMap() outer key',
+          'package:lib/lib.dart/Class',
+          'unknown / matched',
+        ),
         _tableRow('Pairs with', 'one Disposed later', 'one earlier Created'),
       ],
     ),
@@ -1245,9 +1258,7 @@ Widget _tableRow(String aspect, String created, String disposed) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFECEFF1), width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFECEFF1), width: 1.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1351,67 +1362,66 @@ Widget _buildDebuggingWorkflow() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: steps
-          .map((List<String> s) => Container(
-                margin: EdgeInsets.only(bottom: 8.0),
-                padding: EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 32.0,
-                      height: 32.0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Color(0xFF00838F),
-                            Color(0xFF26C6DA),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        shape: BoxShape.circle,
+          .map(
+            (List<String> s) => Container(
+              margin: EdgeInsets.only(bottom: 8.0),
+              padding: EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: 32.0,
+                    height: 32.0,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: <Color>[Color(0xFF00838F), Color(0xFF26C6DA)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        s[0],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                        ),
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      s[0],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0,
                       ),
                     ),
-                    SizedBox(width: 12.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            s[1],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13.0,
-                              color: Color(0xFF006064),
-                            ),
+                  ),
+                  SizedBox(width: 12.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          s[1],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13.0,
+                            color: Color(0xFF006064),
                           ),
-                          SizedBox(height: 4.0),
-                          Text(
-                            s[2],
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              color: Color(0xFF263238),
-                            ),
+                        ),
+                        SizedBox(height: 4.0),
+                        Text(
+                          s[2],
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Color(0xFF263238),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))
+                  ),
+                ],
+              ),
+            ),
+          )
           .toList(),
     ),
   );
@@ -1472,8 +1482,7 @@ Widget _buildMixedStream(List<ObjectEvent> events) {
                   ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: events[i] is ObjectCreated
                         ? Color(0xFF1B5E20)
@@ -1560,22 +1569,38 @@ Widget _buildQuickReference() {
           ],
         ),
         SizedBox(height: 14.0),
-        _refLine('•',
-            'ObjectEvent — abstract base, only field is `object` (Object).'),
-        _refLine('•',
-            'ObjectCreated — adds `library` (String) and `className` (String).'),
-        _refLine('•',
-            'ObjectDisposed — only carries the object reference back out.'),
-        _refLine('•',
-            'Both subclasses are dispatched via FlutterMemoryAllocations.instance.dispatchObjectEvent.'),
-        _refLine('•',
-            'kFlutterMemoryAllocationsEnabled gate keeps overhead at zero in release.'),
-        _refLine('•',
-            'toMap() returns Map<Object, Map<String, Object>> keyed by object.hashCode.'),
-        _refLine('•',
-            'Listeners receive ObjectEvent and must downcast with `is`.'),
-        _refLine('•',
-            'Pair every ObjectCreated with exactly one ObjectDisposed for that object.'),
+        _refLine(
+          '•',
+          'ObjectEvent — abstract base, only field is `object` (Object).',
+        ),
+        _refLine(
+          '•',
+          'ObjectCreated — adds `library` (String) and `className` (String).',
+        ),
+        _refLine(
+          '•',
+          'ObjectDisposed — only carries the object reference back out.',
+        ),
+        _refLine(
+          '•',
+          'Both subclasses are dispatched via FlutterMemoryAllocations.instance.dispatchObjectEvent.',
+        ),
+        _refLine(
+          '•',
+          'kFlutterMemoryAllocationsEnabled gate keeps overhead at zero in release.',
+        ),
+        _refLine(
+          '•',
+          'toMap() returns Map<Object, Map<String, Object>> keyed by object.hashCode.',
+        ),
+        _refLine(
+          '•',
+          'Listeners receive ObjectEvent and must downcast with `is`.',
+        ),
+        _refLine(
+          '•',
+          'Pair every ObjectCreated with exactly one ObjectDisposed for that object.',
+        ),
       ],
     ),
   );

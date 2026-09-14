@@ -9,31 +9,33 @@ dynamic build(BuildContext context) {
       child: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 24, 20, 60),
-          child: Column(children: const <Widget>[
-            _HeroHeader(),
-            SizedBox(height: 24),
-            _AnatomySection(),
-            SizedBox(height: 28),
-            _TriggerFlowSection(),
-            SizedBox(height: 28),
-            _ApiSurfaceSection(),
-            SizedBox(height: 28),
-            _MagnifierInfoSection(),
-            SizedBox(height: 28),
-            _ControllerStateSection(),
-            SizedBox(height: 28),
-            _ComparisonSection(),
-            SizedBox(height: 28),
-            _MagnificationMathSection(),
-            SizedBox(height: 28),
-            _PlatformBehaviorSection(),
-            SizedBox(height: 28),
-            _PitfallsSection(),
-            SizedBox(height: 28),
-            _CanonicalUsageSection(),
-            SizedBox(height: 28),
-            _FooterStamp(),
-          ]),
+          child: Column(
+            children: const <Widget>[
+              _HeroHeader(),
+              SizedBox(height: 24),
+              _AnatomySection(),
+              SizedBox(height: 28),
+              _TriggerFlowSection(),
+              SizedBox(height: 28),
+              _ApiSurfaceSection(),
+              SizedBox(height: 28),
+              _MagnifierInfoSection(),
+              SizedBox(height: 28),
+              _ControllerStateSection(),
+              SizedBox(height: 28),
+              _ComparisonSection(),
+              SizedBox(height: 28),
+              _MagnificationMathSection(),
+              SizedBox(height: 28),
+              _PlatformBehaviorSection(),
+              SizedBox(height: 28),
+              _PitfallsSection(),
+              SizedBox(height: 28),
+              _CanonicalUsageSection(),
+              SizedBox(height: 28),
+              _FooterStamp(),
+            ],
+          ),
         ),
       ),
     ),
@@ -92,11 +94,7 @@ class _SectionHeader extends StatelessWidget {
                 width: 1.0,
               ),
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFFFFFFFF),
-              size: 28.0,
-            ),
+            child: Icon(icon, color: const Color(0xFFFFFFFF), size: 28.0),
           ),
           const SizedBox(width: 16.0),
           Expanded(
@@ -180,7 +178,10 @@ class _HeroHeader extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFF).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20.0),
@@ -202,7 +203,10 @@ class _HeroHeader extends StatelessWidget {
               ),
               const SizedBox(width: 8.0),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF34C759).withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(20.0),
@@ -333,9 +337,7 @@ class _AnatomySection extends StatelessWidget {
                 height: 280.0,
                 child: Stack(
                   alignment: Alignment.center,
-                  children: const <Widget>[
-                    _AnatomyDiagram(),
-                  ],
+                  children: const <Widget>[_AnatomyDiagram()],
                 ),
               ),
               const SizedBox(height: 18.0),
@@ -408,10 +410,7 @@ class _AnatomyDiagram extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: <Color>[
-                  Color(0xFFFFFFFF),
-                  Color(0xFFE2E8F0),
-                ],
+                colors: <Color>[Color(0xFFFFFFFF), Color(0xFFE2E8F0)],
               ),
               borderRadius: BorderRadius.circular(60.0),
               border: Border.all(color: const Color(0xFFCBD5E1), width: 1.5),
@@ -460,10 +459,7 @@ class _AnatomyDiagram extends StatelessWidget {
         Positioned(
           right: 0,
           top: 40.0,
-          child: const _Callout(
-            label: 'Lens border',
-            color: Color(0xFF6366F1),
-          ),
+          child: const _Callout(label: 'Lens border', color: Color(0xFF6366F1)),
         ),
         Positioned(
           left: 0,
@@ -484,10 +480,7 @@ class _AnatomyDiagram extends StatelessWidget {
         Positioned(
           left: 0,
           top: 160.0,
-          child: const _Callout(
-            label: 'Drop shadow',
-            color: Color(0xFF0F172A),
-          ),
+          child: const _Callout(label: 'Drop shadow', color: Color(0xFF0F172A)),
         ),
         Positioned(
           right: 0,
@@ -545,7 +538,8 @@ class _AnatomyLegend extends StatelessWidget {
         _LegendRow(
           color: Color(0xFFEC4899),
           label: 'Magnification factor',
-          description: 'Default 1.5x; static for the lifetime of the magnifier.',
+          description:
+              'Default 1.5x; static for the lifetime of the magnifier.',
         ),
         _LegendRow(
           color: Color(0xFF3B82F6),
@@ -720,8 +714,10 @@ class _PhoneFrame extends StatelessWidget {
             decoration: BoxDecoration(
               color: stateColor.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6.0),
-              border:
-                  Border.all(color: stateColor.withValues(alpha: 0.7), width: 1.0),
+              border: Border.all(
+                color: stateColor.withValues(alpha: 0.7),
+                width: 1.0,
+              ),
             ),
             child: Text(
               state.toUpperCase(),
@@ -765,10 +761,7 @@ class _PhoneFrame extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 6.0),
-                      Container(
-                        height: 1.0,
-                        color: const Color(0xFFE5E7EB),
-                      ),
+                      Container(height: 1.0, color: const Color(0xFFE5E7EB)),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Reminder: pick up the\nmilk on the way home.',
@@ -826,8 +819,9 @@ class _PhoneFrame extends StatelessWidget {
                           ),
                           boxShadow: <BoxShadow>[
                             BoxShadow(
-                              color: const Color(0xFF000000)
-                                  .withValues(alpha: 0.25),
+                              color: const Color(
+                                0xFF000000,
+                              ).withValues(alpha: 0.25),
                               blurRadius: 8.0,
                               offset: const Offset(0, 4),
                             ),
@@ -979,8 +973,10 @@ class _ApiCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF7C3AED).withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(5.0),
@@ -1011,8 +1007,10 @@ class _ApiCard extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 7.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 7.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: required
                       ? const Color(0xFFEF4444).withValues(alpha: 0.15)
@@ -1134,10 +1132,10 @@ class _MagnifierInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color textColor =
-        isHeader ? const Color(0xFF7C2D12) : const Color(0xFF422006);
-    final FontWeight weight =
-        isHeader ? FontWeight.w800 : FontWeight.w600;
+    final Color textColor = isHeader
+        ? const Color(0xFF7C2D12)
+        : const Color(0xFF422006);
+    final FontWeight weight = isHeader ? FontWeight.w800 : FontWeight.w600;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
@@ -1468,10 +1466,10 @@ class _CompareRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color =
-        isHeader ? const Color(0xFF9D174D) : const Color(0xFF831843);
-    final FontWeight weight =
-        isHeader ? FontWeight.w800 : FontWeight.w600;
+    final Color color = isHeader
+        ? const Color(0xFF9D174D)
+        : const Color(0xFF831843);
+    final FontWeight weight = isHeader ? FontWeight.w800 : FontWeight.w600;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
@@ -1686,8 +1684,7 @@ class _MagPreview extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6.0),
@@ -1794,10 +1791,10 @@ class _PlatformRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color =
-        isHeader ? const Color(0xFF312E81) : const Color(0xFF1E1B4B);
-    final FontWeight weight =
-        isHeader ? FontWeight.w800 : FontWeight.w600;
+    final Color color = isHeader
+        ? const Color(0xFF312E81)
+        : const Color(0xFF1E1B4B);
+    final FontWeight weight = isHeader ? FontWeight.w800 : FontWeight.w600;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
@@ -2025,7 +2022,8 @@ class _CanonicalUsageSection extends StatelessWidget {
         const SizedBox(height: 14.0),
         const _CodeCard(
           title: 'Disable the loupe',
-          code: 'CupertinoTextField(\n'
+          code:
+              'CupertinoTextField(\n'
               '  magnifierConfiguration:\n'
               '      TextMagnifierConfiguration.disabled,\n'
               ')',
@@ -2033,7 +2031,8 @@ class _CanonicalUsageSection extends StatelessWidget {
         const SizedBox(height: 12.0),
         const _CodeCard(
           title: 'Adaptive (recommended)',
-          code: 'CupertinoTextField(\n'
+          code:
+              'CupertinoTextField(\n'
               '  magnifierConfiguration:\n'
               '      TextMagnifierConfiguration\n'
               '          .adaptiveMagnifierConfiguration,\n'
@@ -2042,7 +2041,8 @@ class _CanonicalUsageSection extends StatelessWidget {
         const SizedBox(height: 12.0),
         const _CodeCard(
           title: 'Custom builder',
-          code: 'TextMagnifierConfiguration(\n'
+          code:
+              'TextMagnifierConfiguration(\n'
               '  magnifierBuilder: (ctx, ctrl, info) =>\n'
               '      CupertinoTextMagnifier(\n'
               '        controller: ctrl,\n'

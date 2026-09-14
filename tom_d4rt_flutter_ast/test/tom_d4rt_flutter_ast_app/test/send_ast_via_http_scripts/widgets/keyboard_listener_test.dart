@@ -30,12 +30,10 @@ import 'package:flutter/services.dart';
 // ---------------------------------------------------------------------------
 final FocusNode _focus = FocusNode(debugLabel: 'keyboard-listener-demo');
 final FocusNode _shortcutFocus = FocusNode(debugLabel: 'shortcut-demo');
-final ValueNotifier<List<String>> _log = ValueNotifier<List<String>>(
-  <String>[
-    'Focus the card above and start typing.',
-    'Every KeyEvent appears here: Down, Repeat, Up.',
-  ],
-);
+final ValueNotifier<List<String>> _log = ValueNotifier<List<String>>(<String>[
+  'Focus the card above and start typing.',
+  'Every KeyEvent appears here: Down, Repeat, Up.',
+]);
 final ValueNotifier<LogicalKeyboardKey?> _lastMatch =
     ValueNotifier<LogicalKeyboardKey?>(null);
 final ValueNotifier<int> _matchPulse = ValueNotifier<int>(0);
@@ -251,7 +249,8 @@ class _HeroTab extends StatelessWidget {
           icon: Icons.info_outline,
           accent: s.primary,
           title: 'What it is',
-          body: 'KeyboardListener is the modern, unified key-event widget. '
+          body:
+              'KeyboardListener is the modern, unified key-event widget. '
               'It replaces RawKeyboardListener and routes KeyEvents from '
               'Flutter\'s HardwareKeyboard pipeline through a FocusNode '
               'to an onKeyEvent callback.',
@@ -261,7 +260,8 @@ class _HeroTab extends StatelessWidget {
           icon: Icons.code_outlined,
           accent: s.secondary,
           title: 'Constructor',
-          body: 'KeyboardListener({\n'
+          body:
+              'KeyboardListener({\n'
               '  Key? key,\n'
               '  required FocusNode focusNode,\n'
               '  bool autofocus = false,\n'
@@ -276,7 +276,8 @@ class _HeroTab extends StatelessWidget {
           icon: Icons.bolt_outlined,
           accent: s.tertiary,
           title: 'The KeyEvent model',
-          body: 'A single sealed hierarchy:\n'
+          body:
+              'A single sealed hierarchy:\n'
               '• KeyDownEvent — key pressed for the first time.\n'
               '• KeyRepeatEvent — OS auto-repeat while held.\n'
               '• KeyUpEvent — key released.\n'
@@ -288,7 +289,8 @@ class _HeroTab extends StatelessWidget {
           icon: Icons.rule,
           accent: s.primary,
           title: 'Why prefer it',
-          body: '• Unified events across all platforms.\n'
+          body:
+              '• Unified events across all platforms.\n'
               '• Synthesized events fix stuck-key bugs.\n'
               '• Accurate modifier state via HardwareKeyboard.\n'
               '• First-class support in modern Flutter.',
@@ -298,7 +300,8 @@ class _HeroTab extends StatelessWidget {
           icon: Icons.lightbulb_outline,
           accent: s.secondary,
           title: 'When to reach for it',
-          body: '• Custom focusable widgets that need raw keys.\n'
+          body:
+              '• Custom focusable widgets that need raw keys.\n'
               '• Games, drawing tools, terminal emulators.\n'
               '• Research/IDE UIs needing both char and code info.\n'
               '• Lightweight local shortcuts without a Shortcuts map.',
@@ -663,7 +666,9 @@ class _FocusableSurface extends StatelessWidget {
                         builder: (BuildContext ctx, int count, Widget? _) {
                           return Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: hasFocus
                                   ? s.onPrimary.withValues(alpha: 0.22)
@@ -701,9 +706,7 @@ class _LiveToolbar extends StatelessWidget {
       children: <Widget>[
         FilledButton.tonalIcon(
           onPressed: () {
-            _log.value = <String>[
-              'Log cleared. Type something to refill it.',
-            ];
+            _log.value = <String>['Log cleared. Type something to refill it.'];
             _keyCount.value = 0;
           },
           icon: const Icon(Icons.delete_sweep_outlined),
@@ -766,10 +769,7 @@ class _LogPanel extends StatelessWidget {
                 builder: (BuildContext ctx, List<String> entries, Widget? _) {
                   return Text(
                     '${entries.length} lines',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: s.onSurfaceVariant,
-                    ),
+                    style: TextStyle(fontSize: 11, color: s.onSurfaceVariant),
                   );
                 },
               ),
@@ -845,7 +845,8 @@ class _LiveExplainer extends StatelessWidget {
       icon: Icons.school_outlined,
       accent: scheme.primary,
       title: 'What is happening',
-      body: '1. Flutter registers a single KeyboardListener with the '
+      body:
+          '1. Flutter registers a single KeyboardListener with the '
           'framework.\n'
           '2. A FocusNode — _focus — is attached to it.\n'
           '3. autofocus: true requests primary focus on first build.\n'
@@ -871,7 +872,8 @@ class _KeyEventFamilyTab extends StatelessWidget {
           icon: Icons.library_books_outlined,
           accent: s.primary,
           title: 'The KeyEvent hierarchy',
-          body: 'All key events extend KeyEvent. The three concrete leaves '
+          body:
+              'All key events extend KeyEvent. The three concrete leaves '
               'give KeyboardListener everything it needs to model a '
               'keyboard without exposing platform quirks.',
         ),
@@ -881,23 +883,32 @@ class _KeyEventFamilyTab extends StatelessWidget {
           subtitle: 'Sealed base class',
           accent: Color(0xFF3F51B5),
           icon: Icons.grain,
-          description: 'The shared supertype. Every instance exposes '
+          description:
+              'The shared supertype. Every instance exposes '
               'logicalKey, physicalKey, character, and timeStamp. '
               'KeyboardListener.onKeyEvent receives exactly this type; '
               'use pattern matching or is-checks to reach the subtypes.',
           fields: <_CheatField>[
-            _CheatField(name: 'logicalKey',
-                type: 'LogicalKeyboardKey',
-                note: 'The key meaning — A, Enter, ArrowUp.'),
-            _CheatField(name: 'physicalKey',
-                type: 'PhysicalKeyboardKey',
-                note: 'Where the key sits on the keyboard.'),
-            _CheatField(name: 'character',
-                type: 'String?',
-                note: 'The composed character, e.g. "a", "A", null.'),
-            _CheatField(name: 'timeStamp',
-                type: 'Duration',
-                note: 'Epoch-like timestamp of the event.'),
+            _CheatField(
+              name: 'logicalKey',
+              type: 'LogicalKeyboardKey',
+              note: 'The key meaning — A, Enter, ArrowUp.',
+            ),
+            _CheatField(
+              name: 'physicalKey',
+              type: 'PhysicalKeyboardKey',
+              note: 'Where the key sits on the keyboard.',
+            ),
+            _CheatField(
+              name: 'character',
+              type: 'String?',
+              note: 'The composed character, e.g. "a", "A", null.',
+            ),
+            _CheatField(
+              name: 'timeStamp',
+              type: 'Duration',
+              note: 'Epoch-like timestamp of the event.',
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -906,22 +917,31 @@ class _KeyEventFamilyTab extends StatelessWidget {
           subtitle: 'First-time press',
           accent: Color(0xFF2E7D32),
           icon: Icons.keyboard_arrow_down,
-          description: 'Delivered exactly once when a key transitions from '
+          description:
+              'Delivered exactly once when a key transitions from '
               'up to down. Use for actions that should not repeat: '
               'triggering a menu, firing a weapon, starting a drag.',
           fields: <_CheatField>[
-            _CheatField(name: 'logicalKey',
-                type: 'LogicalKeyboardKey',
-                note: 'Meaning at press time.'),
-            _CheatField(name: 'character',
-                type: 'String?',
-                note: 'Best-effort text input for this press.'),
-            _CheatField(name: 'synthesized',
-                type: 'bool',
-                note: 'True when framework synthesized the event.'),
-            _CheatField(name: 'deviceType',
-                type: 'KeyEventDeviceType',
-                note: 'Platform hint for the source device.'),
+            _CheatField(
+              name: 'logicalKey',
+              type: 'LogicalKeyboardKey',
+              note: 'Meaning at press time.',
+            ),
+            _CheatField(
+              name: 'character',
+              type: 'String?',
+              note: 'Best-effort text input for this press.',
+            ),
+            _CheatField(
+              name: 'synthesized',
+              type: 'bool',
+              note: 'True when framework synthesized the event.',
+            ),
+            _CheatField(
+              name: 'deviceType',
+              type: 'KeyEventDeviceType',
+              note: 'Platform hint for the source device.',
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -930,23 +950,32 @@ class _KeyEventFamilyTab extends StatelessWidget {
           subtitle: 'Auto-repeat while held',
           accent: Color(0xFFEF6C00),
           icon: Icons.repeat,
-          description: 'Emitted by the OS while the key is held. The '
+          description:
+              'Emitted by the OS while the key is held. The '
               'cadence depends on OS repeat settings; Flutter does not '
               'synthesize repeats. Useful for scrolling by arrow keys, '
               'text cursor navigation, or game input.',
           fields: <_CheatField>[
-            _CheatField(name: 'logicalKey',
-                type: 'LogicalKeyboardKey',
-                note: 'Same as the down event.'),
-            _CheatField(name: 'character',
-                type: 'String?',
-                note: 'May differ from Down if modifiers toggled.'),
-            _CheatField(name: 'timeStamp',
-                type: 'Duration',
-                note: 'Updated per repeat tick.'),
-            _CheatField(name: 'synthesized',
-                type: 'bool',
-                note: 'Usually false — repeats come from the OS.'),
+            _CheatField(
+              name: 'logicalKey',
+              type: 'LogicalKeyboardKey',
+              note: 'Same as the down event.',
+            ),
+            _CheatField(
+              name: 'character',
+              type: 'String?',
+              note: 'May differ from Down if modifiers toggled.',
+            ),
+            _CheatField(
+              name: 'timeStamp',
+              type: 'Duration',
+              note: 'Updated per repeat tick.',
+            ),
+            _CheatField(
+              name: 'synthesized',
+              type: 'bool',
+              note: 'Usually false — repeats come from the OS.',
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -955,22 +984,31 @@ class _KeyEventFamilyTab extends StatelessWidget {
           subtitle: 'Key released',
           accent: Color(0xFFAD1457),
           icon: Icons.keyboard_arrow_up,
-          description: 'Sent when the key returns to the up state. Flutter '
+          description:
+              'Sent when the key returns to the up state. Flutter '
               'synthesizes this event if the OS missed it (e.g. focus '
               'change while held) so modifier state stays consistent.',
           fields: <_CheatField>[
-            _CheatField(name: 'logicalKey',
-                type: 'LogicalKeyboardKey',
-                note: 'Key released.'),
-            _CheatField(name: 'character',
-                type: 'String?',
-                note: 'Often null on up events.'),
-            _CheatField(name: 'synthesized',
-                type: 'bool',
-                note: 'True when the framework filled in a missed up.'),
-            _CheatField(name: 'timeStamp',
-                type: 'Duration',
-                note: 'Time the release reached the framework.'),
+            _CheatField(
+              name: 'logicalKey',
+              type: 'LogicalKeyboardKey',
+              note: 'Key released.',
+            ),
+            _CheatField(
+              name: 'character',
+              type: 'String?',
+              note: 'Often null on up events.',
+            ),
+            _CheatField(
+              name: 'synthesized',
+              type: 'bool',
+              note: 'True when the framework filled in a missed up.',
+            ),
+            _CheatField(
+              name: 'timeStamp',
+              type: 'Duration',
+              note: 'Time the release reached the framework.',
+            ),
           ],
         ),
         const SizedBox(height: 16),
@@ -1051,10 +1089,7 @@ class _KeyEventCard extends StatelessWidget {
                     ),
                     Text(
                       subtitle,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: s.onSurfaceVariant,
-                      ),
+                      style: TextStyle(fontSize: 11, color: s.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -1064,11 +1099,7 @@ class _KeyEventCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             description,
-            style: TextStyle(
-              fontSize: 13,
-              height: 1.45,
-              color: s.onSurface,
-            ),
+            style: TextStyle(fontSize: 13, height: 1.45, color: s.onSurface),
           ),
           const SizedBox(height: 14),
           Container(
@@ -1083,7 +1114,8 @@ class _KeyEventCard extends StatelessWidget {
                 for (int i = 0; i < fields.length; i++)
                   Padding(
                     padding: EdgeInsets.only(
-                        bottom: i == fields.length - 1 ? 0 : 10),
+                      bottom: i == fields.length - 1 ? 0 : 10,
+                    ),
                     child: _FieldRow(field: fields[i], accent: accent),
                   ),
               ],
@@ -1131,11 +1163,7 @@ class _FieldRow extends StatelessWidget {
         Expanded(
           child: Text(
             field.note,
-            style: TextStyle(
-              fontSize: 12,
-              height: 1.3,
-              color: s.onSurface,
-            ),
+            style: TextStyle(fontSize: 12, height: 1.3, color: s.onSurface),
           ),
         ),
       ],
@@ -1160,8 +1188,10 @@ class _LastEventPanel extends StatelessWidget {
           if (snap == null) {
             return Row(
               children: <Widget>[
-                Icon(Icons.history_toggle_off,
-                    color: scheme.onPrimaryContainer),
+                Icon(
+                  Icons.history_toggle_off,
+                  color: scheme.onPrimaryContainer,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1196,10 +1226,11 @@ class _LastEventPanel extends StatelessWidget {
               _snapRow('kind', snap.kind),
               _snapRow('logicalKey', snap.logicalLabel),
               _snapRow('physicalKey', snap.physicalLabel),
-              _snapRow('character',
-                  snap.character.isEmpty ? '(none)' : '"${snap.character}"'),
-              _snapRow('timeStamp',
-                  '${snap.timeStamp.inMilliseconds} ms'),
+              _snapRow(
+                'character',
+                snap.character.isEmpty ? '(none)' : '"${snap.character}"',
+              ),
+              _snapRow('timeStamp', '${snap.timeStamp.inMilliseconds} ms'),
             ],
           );
         },
@@ -1255,7 +1286,8 @@ class _MatcherTab extends StatelessWidget {
           icon: Icons.filter_center_focus,
           accent: s.primary,
           title: 'Recognizing specific keys',
-          body: 'Compare event.logicalKey to well-known LogicalKeyboardKey '
+          body:
+              'Compare event.logicalKey to well-known LogicalKeyboardKey '
               'constants. The chips below pulse whenever their key '
               'arrives in the live listener stream.',
         ),
@@ -1282,24 +1314,24 @@ class _MatcherTab extends StatelessWidget {
                 valueListenable: _lastMatch,
                 builder:
                     (BuildContext ctx, LogicalKeyboardKey? active, Widget? _) {
-                  return ValueListenableBuilder<int>(
-                    valueListenable: _matchPulse,
-                    builder: (BuildContext ctx, int pulse, Widget? _) {
-                      return Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: <Widget>[
-                          for (final LogicalKeyboardKey k in _matchKeys)
-                            _MatcherChip(
-                              keyRef: k,
-                              active: k == active,
-                              pulse: pulse,
-                            ),
-                        ],
+                      return ValueListenableBuilder<int>(
+                        valueListenable: _matchPulse,
+                        builder: (BuildContext ctx, int pulse, Widget? _) {
+                          return Wrap(
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: <Widget>[
+                              for (final LogicalKeyboardKey k in _matchKeys)
+                                _MatcherChip(
+                                  keyRef: k,
+                                  active: k == active,
+                                  pulse: pulse,
+                                ),
+                            ],
+                          );
+                        },
                       );
                     },
-                  );
-                },
               ),
               const SizedBox(height: 18),
               _MatchIndicator(scheme: s),
@@ -1311,7 +1343,8 @@ class _MatcherTab extends StatelessWidget {
           icon: Icons.bolt_outlined,
           accent: s.secondary,
           title: 'Pattern for matchers',
-          body: 'if (event is KeyDownEvent &&\n'
+          body:
+              'if (event is KeyDownEvent &&\n'
               '    event.logicalKey == LogicalKeyboardKey.enter) {\n'
               '  _submit();\n'
               '}',
@@ -1365,11 +1398,7 @@ class _MatcherChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(
-              icon,
-              color: active ? s.onPrimary : s.primary,
-              size: 16,
-            ),
+            Icon(icon, color: active ? s.onPrimary : s.primary, size: 16),
             const SizedBox(width: 8),
             Text(
               label,
@@ -1428,17 +1457,21 @@ class _MatchIndicator extends StatelessWidget {
                 return Container(
                   height: 70,
                   decoration: BoxDecoration(
-                    color: scheme.primary
-                        .withValues(alpha: k == null ? 0.06 : 0.1 + alpha * 0.4),
+                    color: scheme.primary.withValues(
+                      alpha: k == null ? 0.06 : 0.1 + alpha * 0.4,
+                    ),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: scheme.primary.withValues(
-                          alpha: k == null ? 0.15 : 0.4 + alpha * 0.6),
+                        alpha: k == null ? 0.15 : 0.4 + alpha * 0.6,
+                      ),
                     ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    k == null ? 'Awaiting a watched key' : 'Matched: ${_name(k)}',
+                    k == null
+                        ? 'Awaiting a watched key'
+                        : 'Matched: ${_name(k)}',
                     style: TextStyle(
                       color: scheme.onSurface,
                       fontWeight: FontWeight.w700,
@@ -1481,7 +1514,8 @@ class _ModifiersTab extends StatelessWidget {
           icon: Icons.tune,
           accent: s.primary,
           title: 'HardwareKeyboard.instance.logicalKeysPressed',
-          body: 'Each callback sees a fresh snapshot of the set of keys '
+          body:
+              'Each callback sees a fresh snapshot of the set of keys '
               'currently held. Reading it inside onKeyEvent is the '
               'idiomatic way to know which modifiers apply to a press.',
         ),
@@ -1492,7 +1526,8 @@ class _ModifiersTab extends StatelessWidget {
           icon: Icons.keyboard_command_key,
           accent: s.secondary,
           title: 'Typical recipe',
-          body: 'final pressed = HardwareKeyboard.instance.logicalKeysPressed;\n'
+          body:
+              'final pressed = HardwareKeyboard.instance.logicalKeysPressed;\n'
               'final bool shift = pressed.contains(LogicalKeyboardKey.shiftLeft)\n'
               '    || pressed.contains(LogicalKeyboardKey.shiftRight);\n'
               'final bool ctrl = pressed.contains(LogicalKeyboardKey.controlLeft)\n'
@@ -1504,7 +1539,8 @@ class _ModifiersTab extends StatelessWidget {
           icon: Icons.warning_amber_outlined,
           accent: s.tertiary,
           title: 'Why not event.isShiftPressed?',
-          body: 'KeyEvent deliberately drops the per-event modifier flags '
+          body:
+              'KeyEvent deliberately drops the per-event modifier flags '
               'that RawKeyEvent carried. The canonical source is now '
               'HardwareKeyboard, which tracks state across the whole '
               'application and stays consistent with synthesized events.',
@@ -1528,18 +1564,21 @@ class _ModifierBoard extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       child: ValueListenableBuilder<Set<LogicalKeyboardKey>>(
         valueListenable: _modifiers,
-        builder:
-            (BuildContext ctx, Set<LogicalKeyboardKey> held, Widget? _) {
-          final bool shift = held.contains(LogicalKeyboardKey.shift) ||
+        builder: (BuildContext ctx, Set<LogicalKeyboardKey> held, Widget? _) {
+          final bool shift =
+              held.contains(LogicalKeyboardKey.shift) ||
               held.contains(LogicalKeyboardKey.shiftLeft) ||
               held.contains(LogicalKeyboardKey.shiftRight);
-          final bool ctrl = held.contains(LogicalKeyboardKey.control) ||
+          final bool ctrl =
+              held.contains(LogicalKeyboardKey.control) ||
               held.contains(LogicalKeyboardKey.controlLeft) ||
               held.contains(LogicalKeyboardKey.controlRight);
-          final bool alt = held.contains(LogicalKeyboardKey.alt) ||
+          final bool alt =
+              held.contains(LogicalKeyboardKey.alt) ||
               held.contains(LogicalKeyboardKey.altLeft) ||
               held.contains(LogicalKeyboardKey.altRight);
-          final bool meta = held.contains(LogicalKeyboardKey.meta) ||
+          final bool meta =
+              held.contains(LogicalKeyboardKey.meta) ||
               held.contains(LogicalKeyboardKey.metaLeft) ||
               held.contains(LogicalKeyboardKey.metaRight);
           return Column(
@@ -1548,14 +1587,18 @@ class _ModifierBoard extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: _ModChip(
-                        label: 'Shift', active: shift, icon: Icons.arrow_upward),
+                      label: 'Shift',
+                      active: shift,
+                      icon: Icons.arrow_upward,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: _ModChip(
-                        label: 'Ctrl',
-                        active: ctrl,
-                        icon: Icons.keyboard_control_key),
+                      label: 'Ctrl',
+                      active: ctrl,
+                      icon: Icons.keyboard_control_key,
+                    ),
                   ),
                 ],
               ),
@@ -1564,14 +1607,18 @@ class _ModifierBoard extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: _ModChip(
-                        label: 'Alt', active: alt, icon: Icons.alt_route),
+                      label: 'Alt',
+                      active: alt,
+                      icon: Icons.alt_route,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: _ModChip(
-                        label: 'Meta',
-                        active: meta,
-                        icon: Icons.keyboard_command_key),
+                      label: 'Meta',
+                      active: meta,
+                      icon: Icons.keyboard_command_key,
+                    ),
                   ),
                 ],
               ),
@@ -1665,7 +1712,8 @@ class _ShortcutTab extends StatelessWidget {
             icon: Icons.save_alt,
             accent: s.primary,
             title: 'Local shortcut with KeyboardListener',
-            body: 'A second KeyboardListener hosts its own FocusNode and '
+            body:
+                'A second KeyboardListener hosts its own FocusNode and '
                 'looks for Ctrl+S on every KeyDownEvent. When matched, a '
                 'top-level counter ticks; a TweenAnimationBuilder flashes '
                 'a "Saved" badge for one second.',
@@ -1684,7 +1732,8 @@ class _ShortcutTab extends StatelessWidget {
             icon: Icons.code_outlined,
             accent: s.secondary,
             title: 'Implementation sketch',
-            body: 'KeyboardListener(\n'
+            body:
+                'KeyboardListener(\n'
                 '  focusNode: _focus,\n'
                 '  autofocus: true,\n'
                 '  onKeyEvent: (KeyEvent e) {\n'
@@ -1704,7 +1753,8 @@ class _ShortcutTab extends StatelessWidget {
             icon: Icons.compare_arrows,
             accent: s.tertiary,
             title: 'When to prefer Shortcuts/Actions',
-            body: 'For an app-wide chord that can be rebound, grouped with '
+            body:
+                'For an app-wide chord that can be rebound, grouped with '
                 'others, or routed through Actions, reach for the '
                 'Shortcuts + Actions widgets. KeyboardListener is best '
                 'for a single widget that owns its own tiny shortcut.',
@@ -1771,8 +1821,9 @@ class _ShortcutSurface extends StatelessWidget {
                         'TweenAnimationBuilder.',
                         style: TextStyle(
                           color: focused
-                              ? scheme.onSecondaryContainer
-                                  .withValues(alpha: 0.85)
+                              ? scheme.onSecondaryContainer.withValues(
+                                  alpha: 0.85,
+                                )
                               : scheme.onSurfaceVariant,
                           fontSize: 12,
                           height: 1.4,
@@ -1811,10 +1862,7 @@ class _SavedBadge extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text(
                   'No save yet — press Ctrl+S while the card is focused.',
-                  style: TextStyle(
-                    color: s.onSurfaceVariant,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: s.onSurfaceVariant, fontSize: 12),
                 ),
               ],
             ),
@@ -1829,11 +1877,12 @@ class _SavedBadge extends StatelessWidget {
             return Opacity(
               opacity: 0.25 + alpha * 0.75,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
-                  color: Color.lerp(
-                      s.surfaceContainerHigh, s.primary, alpha),
+                  color: Color.lerp(s.surfaceContainerHigh, s.primary, alpha),
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
@@ -1911,7 +1960,8 @@ class _ComparisonTab extends StatelessWidget {
           icon: Icons.compare_arrows,
           accent: s.primary,
           title: 'Four ways to read keyboard input',
-          body: 'Each mechanism trades off verbosity, routing flexibility '
+          body:
+              'Each mechanism trades off verbosity, routing flexibility '
               'and app-wide coordination. KeyboardListener is the small, '
               'local option for one widget that needs raw KeyEvents.',
         ),
@@ -1936,7 +1986,8 @@ class _ComparisonTab extends StatelessWidget {
           icon: Icons.lightbulb_outline,
           accent: s.secondary,
           title: 'Rule of thumb',
-          body: '• Single widget, simple key reading → KeyboardListener.\n'
+          body:
+              '• Single widget, simple key reading → KeyboardListener.\n'
               '• Needs to bubble or cooperate → Focus.onKeyEvent.\n'
               '• App-wide, rebindable chord → Shortcuts + Actions.\n'
               '• Legacy project stuck on RawKeyEvent → plan to migrate.',
@@ -1973,28 +2024,23 @@ class _CompareHeader extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Text('Mechanism',
-                style: _headerStyle(scheme.onPrimary)),
+            child: Text('Mechanism', style: _headerStyle(scheme.onPrimary)),
           ),
           Expanded(
             flex: 2,
-            child: Text('Status',
-                style: _headerStyle(scheme.onPrimary)),
+            child: Text('Status', style: _headerStyle(scheme.onPrimary)),
           ),
           Expanded(
             flex: 2,
-            child: Text('Event',
-                style: _headerStyle(scheme.onPrimary)),
+            child: Text('Event', style: _headerStyle(scheme.onPrimary)),
           ),
           Expanded(
             flex: 2,
-            child: Text('Focus',
-                style: _headerStyle(scheme.onPrimary)),
+            child: Text('Focus', style: _headerStyle(scheme.onPrimary)),
           ),
           Expanded(
             flex: 3,
-            child: Text('Bubbling',
-                style: _headerStyle(scheme.onPrimary)),
+            child: Text('Bubbling', style: _headerStyle(scheme.onPrimary)),
           ),
         ],
       ),
@@ -2002,11 +2048,11 @@ class _CompareHeader extends StatelessWidget {
   }
 
   TextStyle _headerStyle(Color c) => TextStyle(
-        color: c,
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.4,
-      );
+    color: c,
+    fontSize: 11,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 0.4,
+  );
 }
 
 class _CompareRowTile extends StatelessWidget {
@@ -2035,27 +2081,18 @@ class _CompareRowTile extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              row.modernStatus,
-              style: const TextStyle(fontSize: 11),
-            ),
+            child: Text(row.modernStatus, style: const TextStyle(fontSize: 11)),
           ),
           Expanded(
             flex: 2,
             child: Text(
               row.eventType,
-              style: const TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-              ),
+              style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
             ),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              row.focusModel,
-              style: const TextStyle(fontSize: 11),
-            ),
+            child: Text(row.focusModel, style: const TextStyle(fontSize: 11)),
           ),
           Expanded(
             flex: 3,
@@ -2085,7 +2122,8 @@ class _PipelineTab extends StatelessWidget {
           icon: Icons.account_tree_outlined,
           accent: s.primary,
           title: 'From hardware to onKeyEvent',
-          body: 'Flutter normalizes every physical key via a pipeline. '
+          body:
+              'Flutter normalizes every physical key via a pipeline. '
               'KeyboardListener sits near the end: it subscribes to the '
               'FocusManager so it only fires while its FocusNode has '
               'primary focus.',
@@ -2111,7 +2149,8 @@ class _PipelineTab extends StatelessWidget {
           icon: Icons.format_list_numbered,
           accent: s.secondary,
           title: 'Stage by stage',
-          body: '1. Keyboard hardware sends a scancode to the OS.\n'
+          body:
+              '1. Keyboard hardware sends a scancode to the OS.\n'
               '2. OS delivers a platform keyboard message to Flutter.\n'
               '3. HardwareKeyboard normalizes it into a KeyEvent.\n'
               '4. FocusManager routes the event to the focused path.\n'
@@ -2198,8 +2237,7 @@ class _PipelinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _PipelinePainter old) =>
-      old.scheme != scheme;
+  bool shouldRepaint(covariant _PipelinePainter old) => old.scheme != scheme;
 }
 
 // ===========================================================================
@@ -2217,7 +2255,8 @@ class _PitfallsTab extends StatelessWidget {
           icon: Icons.report_gmailerrorred,
           accent: s.error,
           title: 'Common traps',
-          body: 'Most reports of "KeyboardListener doesn\'t fire" trace '
+          body:
+              'Most reports of "KeyboardListener doesn\'t fire" trace '
               'back to one of the three issues below. The framework is '
               'working correctly; focus or ancestor widgets are not.',
         ),
@@ -2226,11 +2265,13 @@ class _PitfallsTab extends StatelessWidget {
           accent: s.error,
           icon: Icons.center_focus_strong_outlined,
           title: '1. Focus never obtained',
-          body: 'KeyboardListener only receives events while its FocusNode '
+          body:
+              'KeyboardListener only receives events while its FocusNode '
               'has primary focus. A child tap handler, a text field, or a '
               'higher-priority FocusScope can silently steal it. Debug by '
               'watching focusNode.hasFocus.',
-          fix: 'Call focusNode.requestFocus() from a GestureDetector on '
+          fix:
+              'Call focusNode.requestFocus() from a GestureDetector on '
               'tap, or use autofocus: true at the top of the relevant '
               'FocusScope.',
         ),
@@ -2239,10 +2280,12 @@ class _PitfallsTab extends StatelessWidget {
           accent: s.tertiary,
           icon: Icons.auto_fix_high,
           title: '2. Missing autofocus',
-          body: 'When the widget enters the tree but no one requests focus, '
+          body:
+              'When the widget enters the tree but no one requests focus, '
               'KeyboardListener stays silent until the user clicks. Users '
               'often assume the demo is broken.',
-          fix: 'Pass autofocus: true, or drive focus explicitly via '
+          fix:
+              'Pass autofocus: true, or drive focus explicitly via '
               'FocusScope.of(context).requestFocus(_focus) in a Builder.',
         ),
         const SizedBox(height: 14),
@@ -2250,11 +2293,13 @@ class _PitfallsTab extends StatelessWidget {
           accent: s.primary,
           icon: Icons.alt_route,
           title: '3. Expecting events to bubble',
-          body: 'Unlike Focus.onKeyEvent, KeyboardListener does not let you '
+          body:
+              'Unlike Focus.onKeyEvent, KeyboardListener does not let you '
               'return KeyEventResult.ignored to pass the event upward. '
               'onKeyEvent is fire-and-forget — it cannot stop an ancestor '
               'from handling the key afterwards.',
-          fix: 'Use Focus or FocusableActionDetector when you need to '
+          fix:
+              'Use Focus or FocusableActionDetector when you need to '
               'control bubbling; reserve KeyboardListener for '
               '"I only want to look at these keys, no routing concerns".',
         ),
@@ -2263,7 +2308,8 @@ class _PitfallsTab extends StatelessWidget {
           icon: Icons.troubleshoot,
           accent: s.secondary,
           title: 'Debug checklist',
-          body: '• Print focusNode.hasFocus in the build method.\n'
+          body:
+              '• Print focusNode.hasFocus in the build method.\n'
               '• Verify HardwareKeyboard.instance is not disabled.\n'
               '• Confirm no ancestor FocusScope steals primary focus.\n'
               '• Ensure the widget is actually in the tree (not behind '
@@ -2324,10 +2370,7 @@ class _Pitfall extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            body,
-            style: const TextStyle(fontSize: 12, height: 1.4),
-          ),
+          Text(body, style: const TextStyle(fontSize: 12, height: 1.4)),
           const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
@@ -2412,18 +2455,9 @@ class _ApiCheatSheet extends StatelessWidget {
                 label: 'KeyEvent',
                 detail: 'logicalKey • physicalKey • character • timeStamp',
               ),
-              _ApiPill(
-                label: 'KeyDownEvent',
-                detail: 'first press',
-              ),
-              _ApiPill(
-                label: 'KeyRepeatEvent',
-                detail: 'auto-repeat',
-              ),
-              _ApiPill(
-                label: 'KeyUpEvent',
-                detail: 'release',
-              ),
+              _ApiPill(label: 'KeyDownEvent', detail: 'first press'),
+              _ApiPill(label: 'KeyRepeatEvent', detail: 'auto-repeat'),
+              _ApiPill(label: 'KeyUpEvent', detail: 'release'),
               _ApiPill(
                 label: 'HardwareKeyboard.instance',
                 detail: 'logicalKeysPressed',

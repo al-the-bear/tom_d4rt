@@ -20,16 +20,10 @@ dynamic build(BuildContext context) {
   // can see the shifting animation visually move between items.
   // ==========================================================================
 
-  final canonicalState = <String, int>{
-    'fixed': 0,
-    'shifting': 1,
-  };
+  final canonicalState = <String, int>{'fixed': 0, 'shifting': 1};
 
   // Scenario 3: auto-typed bars (3 items vs 5 items).
-  final autoState = <String, int>{
-    'three': 0,
-    'five': 0,
-  };
+  final autoState = <String, int>{'three': 0, 'five': 0};
 
   // Scenario 5: customised colour palette bars all set to shifting.
   final paletteState = <String, int>{
@@ -42,11 +36,7 @@ dynamic build(BuildContext context) {
   int themeIndex = 1;
 
   // Scenario 7: recipe gallery state.
-  final recipeState = <String, int>{
-    'news': 0,
-    'music': 1,
-    'productivity': 2,
-  };
+  final recipeState = <String, int>{'news': 0, 'music': 1, 'productivity': 2};
 
   // ==========================================================================
   // Shared helpers used by the scenario builders below.  These are inlined
@@ -441,8 +431,11 @@ dynamic build(BuildContext context) {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.auto_awesome,
-                  size: 28, color: Color(0xFF00695C)),
+              const Icon(
+                Icons.auto_awesome,
+                size: 28,
+                color: Color(0xFF00695C),
+              ),
               const SizedBox(height: 6),
               Text(
                 'Auto picks fixed (≤ 3 items)',
@@ -454,10 +447,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'currentIndex = $idx',
-                style: const TextStyle(fontSize: 11),
-              ),
+              Text('currentIndex = $idx', style: const TextStyle(fontSize: 11)),
             ],
           ),
           bar: BottomNavigationBar(
@@ -489,8 +479,11 @@ dynamic build(BuildContext context) {
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.auto_awesome,
-                  size: 28, color: Color(0xFFE65100)),
+              const Icon(
+                Icons.auto_awesome,
+                size: 28,
+                color: Color(0xFFE65100),
+              ),
               const SizedBox(height: 6),
               const Text(
                 'Auto picks shifting (≥ 4 items)',
@@ -502,10 +495,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                'currentIndex = $idx',
-                style: const TextStyle(fontSize: 11),
-              ),
+              Text('currentIndex = $idx', style: const TextStyle(fontSize: 11)),
             ],
           ),
           bar: BottomNavigationBar(
@@ -667,9 +657,13 @@ dynamic build(BuildContext context) {
                     color: selected.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(items[idx].icon is Icon
-                      ? (items[idx].icon as Icon).icon ?? Icons.circle
-                      : Icons.circle, size: 32, color: selected),
+                  child: Icon(
+                    items[idx].icon is Icon
+                        ? (items[idx].icon as Icon).icon ?? Icons.circle
+                        : Icons.circle,
+                    size: 32,
+                    color: selected,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -744,8 +738,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.palette,
-                      size: 28, color: Color(0xFF311B92)),
+                  const Icon(Icons.palette, size: 28, color: Color(0xFF311B92)),
                   const SizedBox(height: 6),
                   const Text(
                     'BottomNavigationBarTheme',
@@ -785,14 +778,8 @@ dynamic build(BuildContext context) {
 
   // Recipe A — News reader (4 items, fixed, muted palette).
   final newsItems = <BottomNavigationBarItem>[
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.trending_up),
-      label: 'Top',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.public),
-      label: 'World',
-    ),
+    const BottomNavigationBarItem(icon: Icon(Icons.trending_up), label: 'Top'),
+    const BottomNavigationBarItem(icon: Icon(Icons.public), label: 'World'),
     const BottomNavigationBarItem(
       icon: Icon(Icons.location_city),
       label: 'Local',
@@ -822,8 +809,7 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: const Color(0xFF37474F),
                   borderRadius: BorderRadius.circular(4),
@@ -936,10 +922,7 @@ dynamic build(BuildContext context) {
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(
-                      Icons.album,
-                      color: Color(0xFFFFFFFF),
-                    ),
+                    child: const Icon(Icons.album, color: Color(0xFFFFFFFF)),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -989,12 +972,13 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: const [
-                  Icon(Icons.skip_previous,
-                      color: Color(0xFF6A1B9A), size: 22),
-                  Icon(Icons.play_circle_fill,
-                      color: Color(0xFF6A1B9A), size: 32),
-                  Icon(Icons.skip_next,
-                      color: Color(0xFF6A1B9A), size: 22),
+                  Icon(Icons.skip_previous, color: Color(0xFF6A1B9A), size: 22),
+                  Icon(
+                    Icons.play_circle_fill,
+                    color: Color(0xFF6A1B9A),
+                    size: 32,
+                  ),
+                  Icon(Icons.skip_next, color: Color(0xFF6A1B9A), size: 22),
                 ],
               ),
             ],
@@ -1077,10 +1061,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 6),
               Text(
                 productivityScreens[idx].split('—').last.trim(),
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF616161),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF616161)),
               ),
               const SizedBox(height: 10),
               Row(
@@ -1195,10 +1176,7 @@ dynamic build(BuildContext context) {
                     const Text(
                       'fixed vs shifting — controls layout/behaviour of '
                       'BottomNavigationBar',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFFC5CAE9),
-                      ),
+                      style: TextStyle(fontSize: 14, color: Color(0xFFC5CAE9)),
                     ),
                     const SizedBox(height: 12),
                     Wrap(
@@ -1206,8 +1184,7 @@ dynamic build(BuildContext context) {
                         chip('values: 2', const Color(0x33FFFFFF)),
                         chip('fixed', const Color(0xFF455A64)),
                         chip('shifting', const Color(0xFFAD1457)),
-                        chip('auto by item count',
-                            const Color(0xFF00897B)),
+                        chip('auto by item count', const Color(0xFF00897B)),
                       ],
                     ),
                   ],
@@ -1231,10 +1208,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               Wrap(
                 alignment: WrapAlignment.center,
-                children: [
-                  canonicalFixedFrame(),
-                  canonicalShiftingFrame(),
-                ],
+                children: [canonicalFixedFrame(), canonicalShiftingFrame()],
               ),
               const SizedBox(height: 8),
               Container(
@@ -1271,10 +1245,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               Wrap(
                 alignment: WrapAlignment.center,
-                children: [
-                  autoThreeFrame(),
-                  autoFiveFrame(),
-                ],
+                children: [autoThreeFrame(), autoFiveFrame()],
               ),
               const SizedBox(height: 8),
               Row(
@@ -1327,8 +1298,7 @@ dynamic build(BuildContext context) {
               sectionHeader(
                 number: '4',
                 title: 'Visual difference matrix',
-                subtitle:
-                    'Static side-by-side reference of fixed vs shifting.',
+                subtitle: 'Static side-by-side reference of fixed vs shifting.',
                 accent: const Color(0xFF455A64),
               ),
               const SizedBox(height: 12),
@@ -1404,11 +1374,12 @@ dynamic build(BuildContext context) {
                               child: Center(
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: (row['fixed'] as List)[1] as Color,
-                                    borderRadius:
-                                        BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     (row['fixed'] as List)[0] as String,
@@ -1427,12 +1398,13 @@ dynamic build(BuildContext context) {
                               child: Center(
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 8, vertical: 4),
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: (row['shifting'] as List)[1]
-                                        as Color,
-                                    borderRadius:
-                                        BorderRadius.circular(12),
+                                    color:
+                                        (row['shifting'] as List)[1] as Color,
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: Text(
                                     (row['shifting'] as List)[0] as String,
@@ -1607,8 +1579,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: const Color(0xFFFAFAFA),
                           borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(color: const Color(0xFFBDBDBD)),
+                          border: Border.all(color: const Color(0xFFBDBDBD)),
                         ),
                         child: const Text(
                           'Productivity: 5 destinations need shifting; the '
@@ -1720,30 +1691,26 @@ dynamic build(BuildContext context) {
                     Text(
                       '• fixed → equal-width items, all labels visible, no '
                       'motion on selection. Best for ≤ 3 destinations.',
-                      style: TextStyle(
-                          color: Color(0xFFE8EAF6), fontSize: 12),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• shifting → selected item is emphasised with '
                       'motion and uses per-item backgroundColor. Best for '
                       '≥ 4 destinations or expressive brands.',
-                      style: TextStyle(
-                          color: Color(0xFFE8EAF6), fontSize: 12),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• type: null → Flutter auto-selects fixed for ≤ 3, '
                       'shifting for ≥ 4 items.',
-                      style: TextStyle(
-                          color: Color(0xFFE8EAF6), fontSize: 12),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 12),
                     ),
                     SizedBox(height: 6),
                     Text(
                       '• BottomNavigationBarTheme can set the type globally '
                       'so widgets do not need to pass it explicitly.',
-                      style: TextStyle(
-                          color: Color(0xFFE8EAF6), fontSize: 12),
+                      style: TextStyle(color: Color(0xFFE8EAF6), fontSize: 12),
                     ),
                   ],
                 ),
@@ -1753,10 +1720,7 @@ dynamic build(BuildContext context) {
               const Center(
                 child: Text(
                   'Deep Demo • BottomNavigationBarType • Material',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF9E9E9E),
-                  ),
+                  style: TextStyle(fontSize: 12, color: Color(0xFF9E9E9E)),
                 ),
               ),
               const SizedBox(height: 16),

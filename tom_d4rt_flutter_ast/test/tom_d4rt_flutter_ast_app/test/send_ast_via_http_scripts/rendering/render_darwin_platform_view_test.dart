@@ -29,11 +29,34 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
 ];
 
 const List<_Scenario> _scenarios = <_Scenario>[
-  _Scenario(id: _ScenarioMode.lifecycle, title: 'Lifecycle', subtitle: 'Creation, attach, detach, and focus-state simulation for Darwin platform views.'),
-  _Scenario(id: _ScenarioMode.composition, title: 'Composition', subtitle: 'Texture/hybrid layering concepts with Flutter overlays.'),
-  _Scenario(id: _ScenarioMode.gestures, title: 'Gestures', subtitle: 'Gesture arbitration and event tunneling around platform view regions.'),
-  _Scenario(id: _ScenarioMode.transforms, title: 'Transforms', subtitle: 'Clip, transform, and opacity effects around embedded surfaces.'),
-  _Scenario(id: _ScenarioMode.safeArea, title: 'Safe Areas', subtitle: 'Insets, notches, and host container constraints for native surfaces.'),
+  _Scenario(
+    id: _ScenarioMode.lifecycle,
+    title: 'Lifecycle',
+    subtitle:
+        'Creation, attach, detach, and focus-state simulation for Darwin platform views.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.composition,
+    title: 'Composition',
+    subtitle: 'Texture/hybrid layering concepts with Flutter overlays.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.gestures,
+    title: 'Gestures',
+    subtitle:
+        'Gesture arbitration and event tunneling around platform view regions.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.transforms,
+    title: 'Transforms',
+    subtitle: 'Clip, transform, and opacity effects around embedded surfaces.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.safeArea,
+    title: 'Safe Areas',
+    subtitle:
+        'Insets, notches, and host container constraints for native surfaces.',
+  ),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -52,46 +75,36 @@ const List<String> _guideBullets = <String>[
 const List<_FaqItem> _faqItems = <_FaqItem>[
   _FaqItem(
     question: 'When should I use UiKitView?',
-    answer: 'Use it to embed existing native iOS views that are hard or costly to reimplement in Flutter.',
+    answer:
+        'Use it to embed existing native iOS views that are hard or costly to reimplement in Flutter.',
   ),
   _FaqItem(
     question: 'Can I run Darwin platform views on non-Darwin hosts?',
-    answer: 'No real native view will mount there; provide a visual fallback and keep flow testable.',
+    answer:
+        'No real native view will mount there; provide a visual fallback and keep flow testable.',
   ),
   _FaqItem(
     question: 'Why are gestures tricky with platform views?',
-    answer: 'Gesture recognizers may compete between Flutter and the embedded native surface.',
+    answer:
+        'Gesture recognizers may compete between Flutter and the embedded native surface.',
   ),
   _FaqItem(
     question: 'What should I log during integration?',
-    answer: 'Lifecycle events, focus changes, composition mode switches, and geometry updates.',
+    answer:
+        'Lifecycle events, focus changes, composition mode switches, and geometry updates.',
   ),
   _FaqItem(
     question: 'How do I keep layouts reliable?',
-    answer: 'Track host constraints, safe insets, and transformation boundaries in diagnostics overlays.',
+    answer:
+        'Track host constraints, safe insets, and transformation boundaries in diagnostics overlays.',
   ),
 ];
 
-enum _ScenarioMode {
-  lifecycle,
-  composition,
-  gestures,
-  transforms,
-  safeArea,
-}
+enum _ScenarioMode { lifecycle, composition, gestures, transforms, safeArea }
 
-enum _CompositionMode {
-  textureLike,
-  hybridLike,
-}
+enum _CompositionMode { textureLike, hybridLike }
 
-enum _LifecycleStage {
-  idle,
-  creating,
-  attached,
-  focused,
-  detached,
-}
+enum _LifecycleStage { idle, creating, attached, focused, detached }
 
 class _ThemePreset {
   const _ThemePreset({
@@ -110,7 +123,11 @@ class _ThemePreset {
 }
 
 class _Scenario {
-  const _Scenario({required this.id, required this.title, required this.subtitle});
+  const _Scenario({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final _ScenarioMode id;
   final String title;
@@ -125,7 +142,11 @@ class _FaqItem {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -133,7 +154,12 @@ class _TimelineEvent {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -163,10 +189,13 @@ class _RenderDarwinPlatformViewStudio extends StatefulWidget {
   const _RenderDarwinPlatformViewStudio();
 
   @override
-  State<_RenderDarwinPlatformViewStudio> createState() => _RenderDarwinPlatformViewStudioState();
+  State<_RenderDarwinPlatformViewStudio> createState() =>
+      _RenderDarwinPlatformViewStudioState();
 }
 
-class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformViewStudio> with SingleTickerProviderStateMixin {
+class _RenderDarwinPlatformViewStudioState
+    extends State<_RenderDarwinPlatformViewStudio>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scroll = ScrollController();
 
   late final AnimationController _motion = AnimationController(
@@ -353,16 +382,27 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -423,12 +463,35 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.smart_display_outlined, color: scheme.primary, size: 26),
-                Text('RenderDarwinPlatformView Host Composition Studio', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25)),
+                Icon(
+                  Icons.smart_display_outlined,
+                  color: scheme.primary,
+                  size: 26,
+                ),
+                Text(
+                  'RenderDarwinPlatformView Host Composition Studio',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -452,7 +515,14 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -474,9 +544,19 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -498,7 +578,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -516,13 +599,27 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Host Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Host Controls',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Control native host region, overlay behavior, transform, insets, and composition mode.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Control native host region, overlay behavior, transform, insets, and composition mode.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             _sliderRow(
               scheme: scheme,
@@ -534,7 +631,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _hostWidth = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Host Width', 'Set host width to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Host Width',
+                  'Set host width to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -547,7 +647,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _hostHeight = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Host Height', 'Set host height to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Host Height',
+                  'Set host height to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -560,7 +663,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _safeTop = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Safe Top', 'Set top inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Safe Top',
+                  'Set top inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -573,7 +679,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _safeRight = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Safe Right', 'Set right inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Safe Right',
+                  'Set right inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -586,7 +695,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _safeBottom = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Safe Bottom', 'Set bottom inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Safe Bottom',
+                  'Set bottom inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -599,7 +711,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _safeLeft = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Safe Left', 'Set left inset to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Safe Left',
+                  'Set left inset to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -612,7 +727,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _overlayOpacity = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Overlay', 'Set overlay opacity to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Overlay',
+                  'Set overlay opacity to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -625,7 +743,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _transformRotation = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Transform', 'Set rotation to ${v.toStringAsFixed(1)} deg.');
+                _pushTimeline(
+                  'Transform',
+                  'Set rotation to ${v.toStringAsFixed(1)} deg.',
+                );
               },
             ),
             _sliderRow(
@@ -638,7 +759,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _transformScale = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Transform', 'Set scale to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Transform',
+                  'Set scale to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -651,7 +775,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _borderRadius = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Clip', 'Set border radius to ${v.toStringAsFixed(0)}.');
+                _pushTimeline(
+                  'Clip',
+                  'Set border radius to ${v.toStringAsFixed(0)}.',
+                );
               },
             ),
             _sliderRow(
@@ -664,7 +791,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _zOverlay = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Z Overlay', 'Set overlay bias to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Z Overlay',
+                  'Set overlay bias to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             _sliderRow(
@@ -677,15 +807,24 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               onChanged: (double v) => setState(() => _textureDensity = v),
               onChangeEnd: (double v) {
                 _bumpControl();
-                _pushTimeline('Texture', 'Set texture density to ${v.toStringAsFixed(2)}.');
+                _pushTimeline(
+                  'Texture',
+                  'Set texture density to ${v.toStringAsFixed(2)}.',
+                );
               },
             ),
             const SizedBox(height: 8),
-            Text('Composition Mode', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Composition Mode',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _CompositionMode.values.map(( _CompositionMode mode) {
+              children: _CompositionMode.values.map((_CompositionMode mode) {
                 return ChoiceChip(
                   selected: _compositionMode == mode,
                   label: Text(mode.name),
@@ -695,7 +834,10 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                       _compositionSwitches += 1;
                       _phase = 'composition';
                     });
-                    _pushTimeline('Composition', 'Composition mode switched to ${mode.name}.');
+                    _pushTimeline(
+                      'Composition',
+                      'Composition mode switched to ${mode.name}.',
+                    );
                   },
                 );
               }).toList(),
@@ -704,15 +846,51 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animate, onChanged: (bool? v) => _setToggle('animate', v), child: const Text('Animate surface')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _setToggle('grid', v), child: const Text('Show grid')),
-                CheckboxMenuButton(value: _showBounds, onChanged: (bool? v) => _setToggle('bounds', v), child: const Text('Show host bounds')),
-                CheckboxMenuButton(value: _showSafeArea, onChanged: (bool? v) => _setToggle('safe', v), child: const Text('Show safe-area guides')),
-                CheckboxMenuButton(value: _showProbe, onChanged: (bool? v) => _setToggle('probe', v), child: const Text('Show probe marker')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _setToggle('diagnostics', v), child: const Text('Show diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _setToggle('guide', v), child: const Text('Show guide board')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _setToggle('timeline', v), child: const Text('Show timeline board')),
-                CheckboxMenuButton(value: _showRealMount, onChanged: (bool? v) => _setToggle('real', v), child: const Text('Show real UiKitView lane')),
+                CheckboxMenuButton(
+                  value: _animate,
+                  onChanged: (bool? v) => _setToggle('animate', v),
+                  child: const Text('Animate surface'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) => _setToggle('grid', v),
+                  child: const Text('Show grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showBounds,
+                  onChanged: (bool? v) => _setToggle('bounds', v),
+                  child: const Text('Show host bounds'),
+                ),
+                CheckboxMenuButton(
+                  value: _showSafeArea,
+                  onChanged: (bool? v) => _setToggle('safe', v),
+                  child: const Text('Show safe-area guides'),
+                ),
+                CheckboxMenuButton(
+                  value: _showProbe,
+                  onChanged: (bool? v) => _setToggle('probe', v),
+                  child: const Text('Show probe marker'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) => _setToggle('diagnostics', v),
+                  child: const Text('Show diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) => _setToggle('guide', v),
+                  child: const Text('Show guide board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) => _setToggle('timeline', v),
+                  child: const Text('Show timeline board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showRealMount,
+                  onChanged: (bool? v) => _setToggle('real', v),
+                  child: const Text('Show real UiKitView lane'),
+                ),
               ],
             ),
           ],
@@ -736,11 +914,23 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -765,20 +955,36 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Host Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Host Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Visual host surface showing layered Flutter content around a Darwin platform-view region.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Visual host surface showing layered Flutter content around a Darwin platform-view region.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             Center(
               child: GestureDetector(
                 onTapDown: (TapDownDetails details) {
                   final Offset local = details.localPosition;
                   setState(() {
-                    _probe = Offset((local.dx / _hostWidth).clamp(0.0, 1.0), (local.dy / _hostHeight).clamp(0.0, 1.0));
+                    _probe = Offset(
+                      (local.dx / _hostWidth).clamp(0.0, 1.0),
+                      (local.dy / _hostHeight).clamp(0.0, 1.0),
+                    );
                     _tapCount += 1;
                     _phase = 'stage-tap';
                   });
-                  _pushTimeline('Probe', 'Probe moved to ${_probe.dx.toStringAsFixed(2)}, ${_probe.dy.toStringAsFixed(2)}.');
+                  _pushTimeline(
+                    'Probe',
+                    'Probe moved to ${_probe.dx.toStringAsFixed(2)}, ${_probe.dy.toStringAsFixed(2)}.',
+                  );
                 },
                 child: SizedBox(
                   width: _hostWidth,
@@ -800,7 +1006,12 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.fromLTRB(_safeLeft, _safeTop, _safeRight, _safeBottom),
+                              padding: EdgeInsets.fromLTRB(
+                                _safeLeft,
+                                _safeTop,
+                                _safeRight,
+                                _safeBottom,
+                              ),
                               child: _buildNativeSurfaceLane(scheme),
                             ),
                             Positioned.fill(
@@ -812,25 +1023,46 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                                     showSafe: _showSafeArea,
                                     showProbe: _showProbe,
                                     probe: _probe,
-                                    insets: EdgeInsets.fromLTRB(_safeLeft, _safeTop, _safeRight, _safeBottom),
+                                    insets: EdgeInsets.fromLTRB(
+                                      _safeLeft,
+                                      _safeTop,
+                                      _safeRight,
+                                      _safeBottom,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             Positioned.fill(
                               child: Align(
-                                alignment: Alignment(0, (0.8 - (_zOverlay * 1.6)).clamp(-1.0, 1.0)),
+                                alignment: Alignment(
+                                  0,
+                                  (0.8 - (_zOverlay * 1.6)).clamp(-1.0, 1.0),
+                                ),
                                 child: IgnorePointer(
                                   child: Container(
                                     width: _hostWidth * 0.62,
                                     height: 56,
                                     decoration: BoxDecoration(
-                                      color: Colors.black.withValues(alpha: (0.22 + (_zOverlay * 0.34)).clamp(0.05, 0.56)),
+                                      color: Colors.black.withValues(
+                                        alpha: (0.22 + (_zOverlay * 0.34))
+                                            .clamp(0.05, 0.56),
+                                      ),
                                       borderRadius: BorderRadius.circular(999),
-                                      border: Border.all(color: Colors.white.withValues(alpha: 0.42)),
+                                      border: Border.all(
+                                        color: Colors.white.withValues(
+                                          alpha: 0.42,
+                                        ),
+                                      ),
                                     ),
                                     child: const Center(
-                                      child: Text('Flutter Overlay HUD', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                                      child: Text(
+                                        'Flutter Overlay HUD',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -851,8 +1083,12 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               children: <Widget>[
                 _pill('lifecycle ${_lifecycle.name}'),
                 _pill('composition ${_compositionMode.name}'),
-                _pill('host ${_hostWidth.toStringAsFixed(0)}x${_hostHeight.toStringAsFixed(0)}'),
-                _pill('probe ${_probe.dx.toStringAsFixed(2)},${_probe.dy.toStringAsFixed(2)}'),
+                _pill(
+                  'host ${_hostWidth.toStringAsFixed(0)}x${_hostHeight.toStringAsFixed(0)}',
+                ),
+                _pill(
+                  'probe ${_probe.dx.toStringAsFixed(2)},${_probe.dy.toStringAsFixed(2)}',
+                ),
               ],
             ),
           ],
@@ -864,8 +1100,18 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
   Widget _pill(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(999)),
-      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+      decoration: BoxDecoration(
+        color: Colors.black.withValues(alpha: 0.22),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -881,7 +1127,7 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
     // overlays) is preserved while the native UiKitView wedge is
     // avoided. Same root cause + same workaround as
     // `widgets/app_kit_view_test.dart` § Section 5.
-    if (false /* was: _showRealMount && _isDarwinHost — see TODO #19 */) {
+    if (false /* was: _showRealMount && _isDarwinHost — see TODO #19 */ ) {
       return DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
@@ -891,14 +1137,27 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            const UiKitView(viewType: 'demo.darwin.surface', creationParamsCodec: StandardMessageCodec()),
+            const UiKitView(
+              viewType: 'demo.darwin.surface',
+              creationParamsCodec: StandardMessageCodec(),
+            ),
             Align(
               alignment: Alignment.topLeft,
               child: Container(
                 margin: const EdgeInsets.all(8),
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.45), borderRadius: BorderRadius.circular(999)),
-                child: const Text('Real UiKitView lane', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.45),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: const Text(
+                  'Real UiKitView lane',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                  ),
+                ),
               ),
             ),
           ],
@@ -909,20 +1168,39 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
-        gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: 0.22), scheme.secondary.withValues(alpha: 0.20)], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        gradient: LinearGradient(
+          colors: <Color>[
+            scheme.primary.withValues(alpha: 0.22),
+            scheme.secondary.withValues(alpha: 0.20),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         border: Border.all(color: scheme.outlineVariant),
       ),
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          CustomPaint(painter: _FallbackTexturePainter(density: _textureDensity)),
+          CustomPaint(
+            painter: _FallbackTexturePainter(density: _textureDensity),
+          ),
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Icon(Icons.phone_iphone_outlined, size: 44, color: scheme.primary),
+                Icon(
+                  Icons.phone_iphone_outlined,
+                  size: 44,
+                  color: scheme.primary,
+                ),
                 const SizedBox(height: 8),
-                Text('Darwin Platform View Fallback', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800)),
+                Text(
+                  'Darwin Platform View Fallback',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   _showRealMount
@@ -948,14 +1226,24 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Lifecycle Lane', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Lifecycle Lane',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Drive lifecycle states and observe logging behavior for embed flows.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Drive lifecycle states and observe logging behavior for embed flows.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _LifecycleStage.values.map(( _LifecycleStage stage) {
+              children: _LifecycleStage.values.map((_LifecycleStage stage) {
                 return ChoiceChip(
                   selected: _lifecycle == stage,
                   label: Text(stage.name),
@@ -975,9 +1263,18 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Current Stage: ${_lifecycle.name}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800)),
+                    Text(
+                      'Current Stage: ${_lifecycle.name}',
+                      style: TextStyle(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text(_lifecycleExplanation(_lifecycle), style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text(
+                      _lifecycleExplanation(_lifecycle),
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    ),
                   ],
                 ),
               ),
@@ -1012,9 +1309,19 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Composition Comparison', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Composition Comparison',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Compare host composition strategies and their interaction with Flutter overlays.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Compare host composition strategies and their interaction with Flutter overlays.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1022,28 +1329,47 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                 final Widget texture = _comparisonCard(
                   scheme: scheme,
                   title: 'Texture-like',
-                  subtitle: 'Flutter texture path with simpler overlay blending semantics.',
+                  subtitle:
+                      'Flutter texture path with simpler overlay blending semantics.',
                   color: const Color(0xFF1D4ED8),
                   icon: Icons.texture_outlined,
                 );
                 final Widget hybrid = _comparisonCard(
                   scheme: scheme,
                   title: 'Hybrid-like',
-                  subtitle: 'Native view composited in host hierarchy with robust interop.',
+                  subtitle:
+                      'Native view composited in host hierarchy with robust interop.',
                   color: const Color(0xFF0F766E),
                   icon: Icons.layers_outlined,
                 );
                 final Widget fallback = _comparisonCard(
                   scheme: scheme,
                   title: 'Fallback Mock',
-                  subtitle: 'Cross-platform stand-in for visual validation in non-Darwin runs.',
+                  subtitle:
+                      'Cross-platform stand-in for visual validation in non-Darwin runs.',
                   color: const Color(0xFFB45309),
                   icon: Icons.integration_instructions_outlined,
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[texture, const SizedBox(height: 10), hybrid, const SizedBox(height: 10), fallback]);
+                  return Column(
+                    children: <Widget>[
+                      texture,
+                      const SizedBox(height: 10),
+                      hybrid,
+                      const SizedBox(height: 10),
+                      fallback,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: texture), const SizedBox(width: 10), Expanded(child: hybrid), const SizedBox(width: 10), Expanded(child: fallback)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: texture),
+                    const SizedBox(width: 10),
+                    Expanded(child: hybrid),
+                    const SizedBox(width: 10),
+                    Expanded(child: fallback),
+                  ],
+                );
               },
             ),
           ],
@@ -1052,7 +1378,13 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
     );
   }
 
-  Widget _comparisonCard({required ColorScheme scheme, required String title, required String subtitle, required Color color, required IconData icon}) {
+  Widget _comparisonCard({
+    required ColorScheme scheme,
+    required String title,
+    required String subtitle,
+    required Color color,
+    required IconData icon,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1064,9 +1396,18 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -1094,17 +1435,24 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1132,13 +1480,38 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1157,24 +1530,119 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Active host exploration lane.', icon: Icons.route_outlined),
-      _MetricEntry(label: 'Theme', value: _themes[_themeIndex].name, note: 'Current visual profile.', icon: Icons.palette_outlined),
-      _MetricEntry(label: 'Lifecycle', value: _lifecycle.name, note: 'Embed lifecycle stage.', icon: Icons.settings_ethernet_outlined),
-      _MetricEntry(label: 'Composition', value: _compositionMode.name, note: 'Layering strategy model.', icon: Icons.layers_outlined),
-      _MetricEntry(label: 'Host', value: '${_hostWidth.toStringAsFixed(0)} x ${_hostHeight.toStringAsFixed(0)}', note: 'Host region dimensions.', icon: Icons.crop_square_outlined),
-      _MetricEntry(label: 'Safe Insets', value: '${_safeTop.toStringAsFixed(0)}, ${_safeRight.toStringAsFixed(0)}, ${_safeBottom.toStringAsFixed(0)}, ${_safeLeft.toStringAsFixed(0)}', note: 'Top, right, bottom, left insets.', icon: Icons.safety_check_outlined),
-      _MetricEntry(label: 'Transform', value: '${_transformRotation.toStringAsFixed(1)} deg @ ${_transformScale.toStringAsFixed(2)}', note: 'Rotation and scale around host stage.', icon: Icons.transform_outlined),
-      _MetricEntry(label: 'Overlay', value: '${_overlayOpacity.toStringAsFixed(2)} / ${_zOverlay.toStringAsFixed(2)}', note: 'Opacity and z-bias for Flutter HUD.', icon: Icons.filter_none_outlined),
-      _MetricEntry(label: 'Probe', value: '${_probe.dx.toStringAsFixed(2)}, ${_probe.dy.toStringAsFixed(2)}', note: 'Last interaction point in normalized coordinates.', icon: Icons.pin_drop_outlined),
-      _MetricEntry(label: 'Switches', value: 'scenario=$_scenarioSwitches theme=$_themeSwitches', note: 'Scenario and theme changes.', icon: Icons.swap_horiz_outlined),
-      _MetricEntry(label: 'Lifecycle Changes', value: '$_lifecycleChanges', note: 'Lifecycle stage transitions.', icon: Icons.loop_outlined),
-      _MetricEntry(label: 'Composition Changes', value: '$_compositionSwitches', note: 'Composition mode transitions.', icon: Icons.view_stream_outlined),
-      _MetricEntry(label: 'Control Edits', value: '$_controlEdits', note: 'Slider and toggle updates.', icon: Icons.tune_outlined),
-      _MetricEntry(label: 'Stage Taps', value: '$_tapCount', note: 'Probe interactions on host stage.', icon: Icons.touch_app_outlined),
-      _MetricEntry(label: 'Darwin Host', value: _isDarwinHost ? 'yes' : 'no', note: 'Whether true Darwin mount is possible.', icon: Icons.phone_iphone_outlined),
-      _MetricEntry(label: 'Real Mount Lane', value: _showRealMount ? 'enabled' : 'disabled', note: 'Toggle for real UiKitView attempt.', icon: Icons.integration_instructions_outlined),
-      _MetricEntry(label: 'Phase', value: _phase, note: 'Most recent interaction class.', icon: Icons.flag_outlined),
-      _MetricEntry(label: 'Snapshot', value: '${_snapshot.lifecycle} / ${_snapshot.composition}', note: 'Latest stage snapshot.', icon: Icons.camera_outlined),
+      _MetricEntry(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Active host exploration lane.',
+        icon: Icons.route_outlined,
+      ),
+      _MetricEntry(
+        label: 'Theme',
+        value: _themes[_themeIndex].name,
+        note: 'Current visual profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricEntry(
+        label: 'Lifecycle',
+        value: _lifecycle.name,
+        note: 'Embed lifecycle stage.',
+        icon: Icons.settings_ethernet_outlined,
+      ),
+      _MetricEntry(
+        label: 'Composition',
+        value: _compositionMode.name,
+        note: 'Layering strategy model.',
+        icon: Icons.layers_outlined,
+      ),
+      _MetricEntry(
+        label: 'Host',
+        value:
+            '${_hostWidth.toStringAsFixed(0)} x ${_hostHeight.toStringAsFixed(0)}',
+        note: 'Host region dimensions.',
+        icon: Icons.crop_square_outlined,
+      ),
+      _MetricEntry(
+        label: 'Safe Insets',
+        value:
+            '${_safeTop.toStringAsFixed(0)}, ${_safeRight.toStringAsFixed(0)}, ${_safeBottom.toStringAsFixed(0)}, ${_safeLeft.toStringAsFixed(0)}',
+        note: 'Top, right, bottom, left insets.',
+        icon: Icons.safety_check_outlined,
+      ),
+      _MetricEntry(
+        label: 'Transform',
+        value:
+            '${_transformRotation.toStringAsFixed(1)} deg @ ${_transformScale.toStringAsFixed(2)}',
+        note: 'Rotation and scale around host stage.',
+        icon: Icons.transform_outlined,
+      ),
+      _MetricEntry(
+        label: 'Overlay',
+        value:
+            '${_overlayOpacity.toStringAsFixed(2)} / ${_zOverlay.toStringAsFixed(2)}',
+        note: 'Opacity and z-bias for Flutter HUD.',
+        icon: Icons.filter_none_outlined,
+      ),
+      _MetricEntry(
+        label: 'Probe',
+        value:
+            '${_probe.dx.toStringAsFixed(2)}, ${_probe.dy.toStringAsFixed(2)}',
+        note: 'Last interaction point in normalized coordinates.',
+        icon: Icons.pin_drop_outlined,
+      ),
+      _MetricEntry(
+        label: 'Switches',
+        value: 'scenario=$_scenarioSwitches theme=$_themeSwitches',
+        note: 'Scenario and theme changes.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricEntry(
+        label: 'Lifecycle Changes',
+        value: '$_lifecycleChanges',
+        note: 'Lifecycle stage transitions.',
+        icon: Icons.loop_outlined,
+      ),
+      _MetricEntry(
+        label: 'Composition Changes',
+        value: '$_compositionSwitches',
+        note: 'Composition mode transitions.',
+        icon: Icons.view_stream_outlined,
+      ),
+      _MetricEntry(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Slider and toggle updates.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricEntry(
+        label: 'Stage Taps',
+        value: '$_tapCount',
+        note: 'Probe interactions on host stage.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricEntry(
+        label: 'Darwin Host',
+        value: _isDarwinHost ? 'yes' : 'no',
+        note: 'Whether true Darwin mount is possible.',
+        icon: Icons.phone_iphone_outlined,
+      ),
+      _MetricEntry(
+        label: 'Real Mount Lane',
+        value: _showRealMount ? 'enabled' : 'disabled',
+        note: 'Toggle for real UiKitView attempt.',
+        icon: Icons.integration_instructions_outlined,
+      ),
+      _MetricEntry(
+        label: 'Phase',
+        value: _phase,
+        note: 'Most recent interaction class.',
+        icon: Icons.flag_outlined,
+      ),
+      _MetricEntry(
+        label: 'Snapshot',
+        value: '${_snapshot.lifecycle} / ${_snapshot.composition}',
+        note: 'Latest stage snapshot.',
+        icon: Icons.camera_outlined,
+      ),
     ];
   }
 
@@ -1194,16 +1662,40 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id.name} phase=$_phase', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('lifecycle=${_lifecycle.name} composition=${_compositionMode.name} hostDarwin=$_isDarwinHost', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('host=${_hostWidth.toStringAsFixed(0)}x${_hostHeight.toStringAsFixed(0)} insets=${_safeTop.toStringAsFixed(0)},${_safeRight.toStringAsFixed(0)},${_safeBottom.toStringAsFixed(0)},${_safeLeft.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('transform rot=${_transformRotation.toStringAsFixed(1)} scale=${_transformScale.toStringAsFixed(2)} radius=${_borderRadius.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('overlay opacity=${_overlayOpacity.toStringAsFixed(2)} z=${_zOverlay.toStringAsFixed(2)} texture=${_textureDensity.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('probe=${_probe.dx.toStringAsFixed(2)},${_probe.dy.toStringAsFixed(2)} switches s=$_scenarioSwitches t=$_themeSwitches c=$_compositionSwitches l=$_lifecycleChanges', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id.name} phase=$_phase',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'lifecycle=${_lifecycle.name} composition=${_compositionMode.name} hostDarwin=$_isDarwinHost',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'host=${_hostWidth.toStringAsFixed(0)}x${_hostHeight.toStringAsFixed(0)} insets=${_safeTop.toStringAsFixed(0)},${_safeRight.toStringAsFixed(0)},${_safeBottom.toStringAsFixed(0)},${_safeLeft.toStringAsFixed(0)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'transform rot=${_transformRotation.toStringAsFixed(1)} scale=${_transformScale.toStringAsFixed(2)} radius=${_borderRadius.toStringAsFixed(1)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'overlay opacity=${_overlayOpacity.toStringAsFixed(2)} z=${_zOverlay.toStringAsFixed(2)} texture=${_textureDensity.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'probe=${_probe.dx.toStringAsFixed(2)},${_probe.dy.toStringAsFixed(2)} switches s=$_scenarioSwitches t=$_themeSwitches c=$_compositionSwitches l=$_lifecycleChanges',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1219,7 +1711,14 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1227,15 +1726,23 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqItems.map(( _FaqItem item) {
+            ..._faqItems.map((_FaqItem item) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1248,9 +1755,18 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        item.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        item.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1273,32 +1789,74 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                TextButton.icon(onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]), icon: const Icon(Icons.clear_all), label: const Text('Clear')),
+                TextButton.icon(
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
+                  icon: const Icon(Icons.clear_all),
+                  label: const Text('Clear'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological stream of lifecycle, composition, and host interaction events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological stream of lifecycle, composition, and host interaction events.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
-                child: Text('Timeline is empty. Interact with controls to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
                     child: ListTile(
-                      leading: CircleAvatar(backgroundColor: scheme.primaryContainer, child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer))),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      leading: CircleAvatar(
+                        backgroundColor: scheme.primaryContainer,
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
+                      ),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1311,7 +1869,11 @@ class _RenderDarwinPlatformViewStudioState extends State<_RenderDarwinPlatformVi
 }
 
 class _BackdropPainter extends CustomPainter {
-  const _BackdropPainter({required this.progress, required this.density, required this.showGrid});
+  const _BackdropPainter({
+    required this.progress,
+    required this.density,
+    required this.showGrid,
+  });
 
   final double progress;
   final double density;
@@ -1322,9 +1884,21 @@ class _BackdropPainter extends CustomPainter {
     final Paint base = Paint()
       ..shader = LinearGradient(
         colors: <Color>[
-          Color.lerp(const Color(0xFF0EA5E9), const Color(0xFF22C55E), (math.sin(progress * math.pi * 2) + 1) / 2)!,
-          Color.lerp(const Color(0xFF8B5CF6), const Color(0xFF3B82F6), (math.cos(progress * math.pi * 2) + 1) / 2)!,
-          Color.lerp(const Color(0xFFF59E0B), const Color(0xFFEF4444), (math.sin(progress * math.pi * 4) + 1) / 2)!,
+          Color.lerp(
+            const Color(0xFF0EA5E9),
+            const Color(0xFF22C55E),
+            (math.sin(progress * math.pi * 2) + 1) / 2,
+          )!,
+          Color.lerp(
+            const Color(0xFF8B5CF6),
+            const Color(0xFF3B82F6),
+            (math.cos(progress * math.pi * 2) + 1) / 2,
+          )!,
+          Color.lerp(
+            const Color(0xFFF59E0B),
+            const Color(0xFFEF4444),
+            (math.sin(progress * math.pi * 4) + 1) / 2,
+          )!,
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -1336,7 +1910,11 @@ class _BackdropPainter extends CustomPainter {
       ..strokeWidth = 1;
     final double step = (28 - (density * 18)).clamp(7, 28);
     for (double x = -size.height; x < size.width + size.height; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x + size.height, size.height), stripe);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x + size.height, size.height),
+        stripe,
+      );
     }
 
     if (showGrid) {
@@ -1355,7 +1933,9 @@ class _BackdropPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _BackdropPainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.density != density || oldDelegate.showGrid != showGrid;
+    return oldDelegate.progress != progress ||
+        oldDelegate.density != density ||
+        oldDelegate.showGrid != showGrid;
   }
 }
 
@@ -1380,7 +1960,9 @@ class _OverlayPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (showBounds) {
       final Paint border = Paint()
-        ..color = Colors.white.withValues(alpha: (0.58 * opacity).clamp(0.08, 0.60))
+        ..color = Colors.white.withValues(
+          alpha: (0.58 * opacity).clamp(0.08, 0.60),
+        )
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5;
       canvas.drawRect(Offset.zero & size, border);
@@ -1394,10 +1976,14 @@ class _OverlayPainter extends CustomPainter {
         size.height - insets.vertical,
       );
       final Paint fill = Paint()
-        ..color = Colors.white.withValues(alpha: (0.10 * opacity).clamp(0.02, 0.14))
+        ..color = Colors.white.withValues(
+          alpha: (0.10 * opacity).clamp(0.02, 0.14),
+        )
         ..style = PaintingStyle.fill;
       final Paint stroke = Paint()
-        ..color = Colors.white.withValues(alpha: (0.66 * opacity).clamp(0.08, 0.70))
+        ..color = Colors.white.withValues(
+          alpha: (0.66 * opacity).clamp(0.08, 0.70),
+        )
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.4;
       canvas.drawRect(safeRect, fill);
@@ -1439,7 +2025,11 @@ class _FallbackTexturePainter extends CustomPainter {
       ..strokeWidth = 1;
     final double step = (22 - (density * 14)).clamp(6, 22);
     for (double x = -size.height; x < size.width + size.height; x += step) {
-      canvas.drawLine(Offset(x, 0), Offset(x + size.height, size.height), paint);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x + size.height, size.height),
+        paint,
+      );
     }
   }
 

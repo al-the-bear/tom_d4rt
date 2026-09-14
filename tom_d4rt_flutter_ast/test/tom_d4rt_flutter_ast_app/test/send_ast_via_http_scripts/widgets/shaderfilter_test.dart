@@ -97,10 +97,7 @@ class _SectionHeader extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14.0),
               gradient: LinearGradient(
-                colors: <Color>[
-                  accent,
-                  accent.withValues(alpha: 0.4),
-                ],
+                colors: <Color>[accent, accent.withValues(alpha: 0.4)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -265,25 +262,13 @@ class _HeroSection extends StatelessWidget {
           const SizedBox(height: 22.0),
           Row(
             children: const <Widget>[
-              _HeroBadge(
-                label: 'shaderCallback',
-                color: Color(0xFFFF6EC4),
-              ),
+              _HeroBadge(label: 'shaderCallback', color: Color(0xFFFF6EC4)),
               SizedBox(width: 10.0),
-              _HeroBadge(
-                label: 'BlendMode',
-                color: Color(0xFF7873F5),
-              ),
+              _HeroBadge(label: 'BlendMode', color: Color(0xFF7873F5)),
               SizedBox(width: 10.0),
-              _HeroBadge(
-                label: 'ImageFilter',
-                color: Color(0xFF4FC3F7),
-              ),
+              _HeroBadge(label: 'ImageFilter', color: Color(0xFF4FC3F7)),
               SizedBox(width: 10.0),
-              _HeroBadge(
-                label: 'ColorMatrix',
-                color: Color(0xFFFFB86C),
-              ),
+              _HeroBadge(label: 'ColorMatrix', color: Color(0xFFFFB86C)),
             ],
           ),
         ],
@@ -350,10 +335,7 @@ class _AnatomySection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -423,22 +405,31 @@ class _AnatomyDiagram extends StatelessWidget {
                 color: Color(0xFF4FC3F7),
                 icon: Icons.image,
               ),
-              const Icon(Icons.arrow_forward_rounded,
-                  color: Color(0xFF8A91A6), size: 22.0),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Color(0xFF8A91A6),
+                size: 22.0,
+              ),
               const _DiagramNode(
                 label: 'shader',
                 color: Color(0xFFFF6EC4),
                 icon: Icons.gradient,
               ),
-              const Icon(Icons.arrow_forward_rounded,
-                  color: Color(0xFF8A91A6), size: 22.0),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Color(0xFF8A91A6),
+                size: 22.0,
+              ),
               const _DiagramNode(
                 label: 'blend',
                 color: Color(0xFF7873F5),
                 icon: Icons.layers,
               ),
-              const Icon(Icons.arrow_forward_rounded,
-                  color: Color(0xFF8A91A6), size: 22.0),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                color: Color(0xFF8A91A6),
+                size: 22.0,
+              ),
               const _DiagramNode(
                 label: 'painted',
                 color: Color(0xFFFFB86C),
@@ -452,10 +443,7 @@ class _AnatomyDiagram extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color: const Color(0xFF0B0F18).withValues(alpha: 0.7),
-              border: Border.all(
-                color: const Color(0xFF2C313F),
-                width: 1.0,
-              ),
+              border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
             ),
             child: const Text(
               'pixel(x, y) = blend(shader(x, y), child(x, y))',
@@ -496,10 +484,7 @@ class _DiagramNode extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(
-              colors: <Color>[
-                color,
-                color.withValues(alpha: 0.5),
-              ],
+              colors: <Color>[color, color.withValues(alpha: 0.5)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -548,9 +533,7 @@ class _AnatomyRow extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
         color: const Color(0xFF0F1320).withValues(alpha: 0.8),
-        border: Border(
-          left: BorderSide(color: accent, width: 3.0),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 3.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -628,10 +611,7 @@ class _GradientTextGallerySection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -640,10 +620,7 @@ class _GradientTextGallerySection extends StatelessWidget {
                 label: 'linear',
                 text: 'AURORA',
                 gradient: const LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF00F5A0),
-                    Color(0xFF00D9F5),
-                  ],
+                  colors: <Color>[Color(0xFF00F5A0), Color(0xFF00D9F5)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -744,10 +721,7 @@ class _GradientTextGallerySection extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             color: const Color(0xFF1A1F2E),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Text(
             label,
@@ -812,10 +786,7 @@ class _BlendModeComparisonSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -896,17 +867,11 @@ class _BlendModeTile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               color: const Color(0xFF0B0F18),
-              border: Border.all(
-                color: const Color(0xFF2C313F),
-                width: 1.0,
-              ),
+              border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
             ),
             child: ShaderMask(
               shaderCallback: (Rect bounds) => const LinearGradient(
-                colors: <Color>[
-                  Color(0xFFFF6EC4),
-                  Color(0xFF7873F5),
-                ],
+                colors: <Color>[Color(0xFFFF6EC4), Color(0xFF7873F5)],
               ).createShader(bounds),
               blendMode: blendMode,
               child: const Icon(
@@ -978,10 +943,7 @@ class _FadeEdgeSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1100,10 +1062,7 @@ class _FadeTile extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14.0),
         gradient: LinearGradient(
-          colors: <Color>[
-            color,
-            color.withValues(alpha: 0.55),
-          ],
+          colors: <Color>[color, color.withValues(alpha: 0.55)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1156,10 +1115,7 @@ class _ColorFilterPipelineSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1181,10 +1137,26 @@ class _ColorFilterPipelineSection extends StatelessWidget {
                     child: _ColorMatrixTile(
                       label: 'grayscale',
                       matrix: const <double>[
-                        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-                        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-                        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 1.0, 0.0,
+                        0.2126,
+                        0.7152,
+                        0.0722,
+                        0.0,
+                        0.0,
+                        0.2126,
+                        0.7152,
+                        0.0722,
+                        0.0,
+                        0.0,
+                        0.2126,
+                        0.7152,
+                        0.0722,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
                       ],
                       gradient: const LinearGradient(
                         colors: <Color>[
@@ -1200,10 +1172,26 @@ class _ColorFilterPipelineSection extends StatelessWidget {
                     child: _ColorMatrixTile(
                       label: 'sepia',
                       matrix: const <double>[
-                        0.393, 0.769, 0.189, 0.0, 0.0,
-                        0.349, 0.686, 0.168, 0.0, 0.0,
-                        0.272, 0.534, 0.131, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 1.0, 0.0,
+                        0.393,
+                        0.769,
+                        0.189,
+                        0.0,
+                        0.0,
+                        0.349,
+                        0.686,
+                        0.168,
+                        0.0,
+                        0.0,
+                        0.272,
+                        0.534,
+                        0.131,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
                       ],
                       gradient: const LinearGradient(
                         colors: <Color>[
@@ -1219,10 +1207,26 @@ class _ColorFilterPipelineSection extends StatelessWidget {
                     child: _ColorMatrixTile(
                       label: 'invert',
                       matrix: const <double>[
-                        -1.0, 0.0, 0.0, 0.0, 255.0,
-                        0.0, -1.0, 0.0, 0.0, 255.0,
-                        0.0, 0.0, -1.0, 0.0, 255.0,
-                        0.0, 0.0, 0.0, 1.0, 0.0,
+                        -1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        255.0,
+                        0.0,
+                        -1.0,
+                        0.0,
+                        0.0,
+                        255.0,
+                        0.0,
+                        0.0,
+                        -1.0,
+                        0.0,
+                        255.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
                       ],
                       gradient: const LinearGradient(
                         colors: <Color>[
@@ -1238,10 +1242,26 @@ class _ColorFilterPipelineSection extends StatelessWidget {
                     child: _ColorMatrixTile(
                       label: 'sat-boost',
                       matrix: const <double>[
-                        1.5, -0.2, -0.2, 0.0, 0.0,
-                        -0.2, 1.5, -0.2, 0.0, 0.0,
-                        -0.2, -0.2, 1.5, 0.0, 0.0,
-                        0.0, 0.0, 0.0, 1.0, 0.0,
+                        1.5,
+                        -0.2,
+                        -0.2,
+                        0.0,
+                        0.0,
+                        -0.2,
+                        1.5,
+                        -0.2,
+                        0.0,
+                        0.0,
+                        -0.2,
+                        -0.2,
+                        1.5,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
                       ],
                       gradient: const LinearGradient(
                         colors: <Color>[
@@ -1369,10 +1389,7 @@ class _BackdropFilterSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1442,8 +1459,7 @@ class _FrostedCard extends StatelessWidget {
                       height: 90.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0xFFFFCC00)
-                            .withValues(alpha: 0.7),
+                        color: const Color(0xFFFFCC00).withValues(alpha: 0.7),
                       ),
                     ),
                   ),
@@ -1455,8 +1471,7 @@ class _FrostedCard extends StatelessWidget {
                       height: 70.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0xFF34C759)
-                            .withValues(alpha: 0.7),
+                        color: const Color(0xFF34C759).withValues(alpha: 0.7),
                       ),
                     ),
                   ),
@@ -1468,8 +1483,7 @@ class _FrostedCard extends StatelessWidget {
                       height: 60.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0xFFFF3B30)
-                            .withValues(alpha: 0.7),
+                        color: const Color(0xFFFF3B30).withValues(alpha: 0.7),
                       ),
                     ),
                   ),
@@ -1486,13 +1500,14 @@ class _FrostedCard extends StatelessWidget {
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: BackdropFilter(
-                    filter: ui.ImageFilter.blur(
-                      sigmaX: sigma,
-                      sigmaY: sigma,
-                    ),
+                    filter: ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
                     child: Container(
                       padding: const EdgeInsets.fromLTRB(
-                          16.0, 14.0, 16.0, 14.0),
+                        16.0,
+                        14.0,
+                        16.0,
+                        14.0,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.0),
                         color: Colors.white.withValues(alpha: 0.18),
@@ -1565,10 +1580,7 @@ class _ImageFilterComposeSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1641,10 +1653,7 @@ class _ComposeStage extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        border: Border.all(
-          color: color.withValues(alpha: 0.55),
-          width: 1.0,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
       ),
       child: Row(
         children: <Widget>[
@@ -1652,10 +1661,7 @@ class _ComposeStage extends StatelessWidget {
             width: 36.0,
             height: 36.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
             child: Text(
               index,
               style: const TextStyle(
@@ -1712,10 +1718,7 @@ class _ComposeArrow extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: const Color(0xFF1A1F2E),
-            border: Border.all(
-              color: const Color(0xFF2C313F),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
           ),
           child: const Icon(
             Icons.arrow_downward_rounded,
@@ -1931,8 +1934,7 @@ class _CodeBlockSection extends StatelessWidget {
         const _SectionHeader(
           index: '10',
           title: 'Reference Snippet',
-          subtitle:
-              'A compact gradient-text recipe — copy-paste ready.',
+          subtitle: 'A compact gradient-text recipe — copy-paste ready.',
           accent: Color(0xFF4FC3F7),
         ),
         const SizedBox(height: 16.0),
@@ -1945,10 +1947,7 @@ class _CodeBlockSection extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            border: Border.all(
-              color: const Color(0xFF1F2A3D),
-              width: 1.0,
-            ),
+            border: Border.all(color: const Color(0xFF1F2A3D), width: 1.0),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: const Color(0xFF4FC3F7).withValues(alpha: 0.18),
@@ -2080,15 +2079,9 @@ class _CodeBlockSection extends StatelessWidget {
               ),
               const _CodeLine(
                 indent: 2,
-                tokens: <_Token>[
-                  _Token('),', _TokenKind.punct),
-                ],
+                tokens: <_Token>[_Token('),', _TokenKind.punct)],
               ),
-              const _CodeLine(
-                tokens: <_Token>[
-                  _Token(')', _TokenKind.punct),
-                ],
-              ),
+              const _CodeLine(tokens: <_Token>[_Token(')', _TokenKind.punct)]),
             ],
           ),
         ),
@@ -2255,10 +2248,7 @@ class _UseCaseCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.45),
-          width: 1.0,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2270,19 +2260,12 @@ class _UseCaseCard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                colors: <Color>[
-                  accent,
-                  accent.withValues(alpha: 0.5),
-                ],
+                colors: <Color>[accent, accent.withValues(alpha: 0.5)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
             ),
-            child: Icon(
-              icon,
-              size: 22.0,
-              color: const Color(0xFF0F1117),
-            ),
+            child: Icon(icon, size: 22.0, color: const Color(0xFF0F1117)),
           ),
           const SizedBox(height: 12.0),
           Text(
@@ -2326,10 +2309,7 @@ class _FooterSection extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(
-          color: const Color(0xFF2C313F),
-          width: 1.0,
-        ),
+        border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
       ),
       child: Row(
         children: <Widget>[
@@ -2365,10 +2345,7 @@ class _FooterSection extends StatelessWidget {
                 SizedBox(height: 3.0),
                 Text(
                   'Hand-authored static snapshot — flutter widgets + dart:ui',
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    color: Color(0xFF8A91A6),
-                  ),
+                  style: TextStyle(fontSize: 11.5, color: Color(0xFF8A91A6)),
                 ),
               ],
             ),
@@ -2378,10 +2355,7 @@ class _FooterSection extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               color: const Color(0xFF1A1F2E),
-              border: Border.all(
-                color: const Color(0xFF2C313F),
-                width: 1.0,
-              ),
+              border: Border.all(color: const Color(0xFF2C313F), width: 1.0),
             ),
             child: const Text(
               'v1.0 · poster',

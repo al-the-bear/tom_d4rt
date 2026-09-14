@@ -63,14 +63,7 @@ const Color _mint100 = Color(0xFFD6F1E8);
 
 /// Identifies one sensor slot on the dashboard. Ordering matters — this is
 /// the order in which pills and gauges are laid out.
-enum SensorSlot {
-  temperature,
-  humidity,
-  wind,
-  pressure,
-  uv,
-  rain,
-}
+enum SensorSlot { temperature, humidity, wind, pressure, uv, rain }
 
 /// Display and formatting info for each sensor slot. Kept as a plain map so
 /// that the State class can stay focused on the restorable properties.
@@ -210,8 +203,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
 
   // Demonstrates using `RestorableNumN<num?>` directly — can hold int OR
   // double. Starts with a double reading.
-  final RestorableNumN<num?> _temperatureC =
-      RestorableNumN<num?>(22.4);
+  final RestorableNumN<num?> _temperatureC = RestorableNumN<num?>(22.4);
 
   // Starts offline. `null` is the explicit "no signal" state.
   final RestorableNumN<num?> _humidityPct = RestorableNumN<num?>(null);
@@ -349,13 +341,15 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
     setState(() {
       switch (mode) {
         case _TempMode.integer:
-          final num current = _temperatureC.value ??
+          final num current =
+              _temperatureC.value ??
               _sensorCatalogue[SensorSlot.temperature]!.defaultReading;
           _temperatureC.value = current.toInt();
           _demoMode.value = false;
           break;
         case _TempMode.decimal:
-          final num current = _temperatureC.value ??
+          final num current =
+              _temperatureC.value ??
               _sensorCatalogue[SensorSlot.temperature]!.defaultReading;
           _temperatureC.value = current.toDouble();
           _demoMode.value = true;
@@ -543,9 +537,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.18),
-              ),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
             ),
             child: const Icon(
               Icons.sensors_outlined,
@@ -632,11 +624,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
                 ),
               )
             else
-              _DashedCircle(
-                diameter: 10,
-                color: _slate500,
-                dashCount: 8,
-              ),
+              _DashedCircle(diameter: 10, color: _slate500, dashCount: 8),
             const SizedBox(width: 8),
             Text(
               info.shortLabel,
@@ -679,7 +667,9 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
     final _SensorInfo info = _sensorCatalogue[slot]!;
     final num? value = _readingFor(slot);
     final bool online = value != null;
-    final double ratio = online ? (value.toDouble() / info.maxExpected).clamp(0.0, 1.0) : 0.0;
+    final double ratio = online
+        ? (value.toDouble() / info.maxExpected).clamp(0.0, 1.0)
+        : 0.0;
     final bool selected = slot.index == _selectedSensor.value;
     return Material(
       color: Colors.transparent,
@@ -733,9 +723,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
                       ratio: ratio,
                       color: info.accent,
                       online: online,
-                      centerText: online
-                          ? _formatReading(slot, value)
-                          : '—',
+                      centerText: online ? _formatReading(slot, value) : '—',
                       subText: online ? info.unit : 'offline',
                     ),
                   ),
@@ -838,10 +826,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
                     const SizedBox(height: 6),
                     Text(
                       _describeRuntimeShape(slot, value),
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: _slate500,
-                      ),
+                      style: const TextStyle(fontSize: 12, color: _slate500),
                     ),
                     const SizedBox(height: 14),
                     _buildOnlineToggleButton(slot, online),
@@ -878,9 +863,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
       decoration: BoxDecoration(
         color: online ? _mint100 : _slate050,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(
-          color: online ? _mint300 : _slate200,
-        ),
+        border: Border.all(color: online ? _mint300 : _slate200),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -908,21 +891,18 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
     final _SensorInfo info = _sensorCatalogue[slot]!;
     return ElevatedButton.icon(
       onPressed: () => _toggleOnline(slot),
-      icon: Icon(
-        online ? Icons.wifi_off_outlined : Icons.wifi,
-        size: 16,
-      ),
+      icon: Icon(online ? Icons.wifi_off_outlined : Icons.wifi, size: 16),
       label: Text(
-        online ? 'Take ${info.shortLabel} offline' : 'Bring ${info.shortLabel} online',
+        online
+            ? 'Take ${info.shortLabel} offline'
+            : 'Bring ${info.shortLabel} online',
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: online ? _slate700 : info.accent,
         foregroundColor: Colors.white,
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
       ),
     );
@@ -982,10 +962,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
                   const SizedBox(height: 2),
                   Text(
                     sample.toStringAsFixed(0),
-                    style: const TextStyle(
-                      fontSize: 9,
-                      color: _slate500,
-                    ),
+                    style: const TextStyle(fontSize: 9, color: _slate500),
                   ),
                 ],
               ),
@@ -1002,8 +979,8 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
     final String valueRepr = value == null
         ? 'null'
         : value is int
-            ? 'int(${value.toString()})'
-            : 'double(${value.toStringAsFixed(3)})';
+        ? 'int(${value.toString()})'
+        : 'double(${value.toStringAsFixed(3)})';
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -1126,23 +1103,31 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
           const Text(
             'RestorableNumN<num?> can hold an int, a double, or null. Flip '
             'the mode to watch the same property change its runtime shape.',
-            style: TextStyle(
-              fontSize: 13,
-              color: _slate500,
-              height: 1.35,
-            ),
+            style: TextStyle(fontSize: 13, color: _slate500, height: 1.35),
           ),
           const SizedBox(height: 16),
           Row(
             children: <Widget>[
-              _buildModeButton('int',
-                  'toInt()', _TempMode.integer, mode == _TempMode.integer),
+              _buildModeButton(
+                'int',
+                'toInt()',
+                _TempMode.integer,
+                mode == _TempMode.integer,
+              ),
               const SizedBox(width: 10),
-              _buildModeButton('double',
-                  'toDouble()', _TempMode.decimal, mode == _TempMode.decimal),
+              _buildModeButton(
+                'double',
+                'toDouble()',
+                _TempMode.decimal,
+                mode == _TempMode.decimal,
+              ),
               const SizedBox(width: 10),
-              _buildModeButton('num?',
-                  '= null', _TempMode.offline, mode == _TempMode.offline),
+              _buildModeButton(
+                'num?',
+                '= null',
+                _TempMode.offline,
+                mode == _TempMode.offline,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -1156,11 +1141,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(
-                  Icons.info_outline,
-                  size: 16,
-                  color: _steelBlue,
-                ),
+                const Icon(Icons.info_outline, size: 16, color: _steelBlue),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1276,25 +1257,37 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
             ),
           ),
           const SizedBox(height: 14),
-          _buildHierarchyRow('RestorableProperty<T>',
-              'abstract base — lifecycle + bucket wiring'),
+          _buildHierarchyRow(
+            'RestorableProperty<T>',
+            'abstract base — lifecycle + bucket wiring',
+          ),
           _buildHierarchyArrow(),
-          _buildHierarchyRow('RestorableValue<T>',
-              'adds a mutable .value with didUpdateValue hook'),
+          _buildHierarchyRow(
+            'RestorableValue<T>',
+            'adds a mutable .value with didUpdateValue hook',
+          ),
           _buildHierarchyArrow(),
-          _buildHierarchyRow('RestorableNumN<T extends num?>',
-              'nullable numeric — stores int OR double OR null'),
+          _buildHierarchyRow(
+            'RestorableNumN<T extends num?>',
+            'nullable numeric — stores int OR double OR null',
+          ),
           _buildHierarchyArrow(),
           Row(
             children: <Widget>[
               Expanded(
-                child: _buildHierarchyRow('RestorableIntN',
-                    'T = int? — whole-number sensors', indent: true),
+                child: _buildHierarchyRow(
+                  'RestorableIntN',
+                  'T = int? — whole-number sensors',
+                  indent: true,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _buildHierarchyRow('RestorableDoubleN',
-                    'T = double? — fractional readings', indent: true),
+                child: _buildHierarchyRow(
+                  'RestorableDoubleN',
+                  'T = double? — fractional readings',
+                  indent: true,
+                ),
               ),
             ],
           ),
@@ -1325,13 +1318,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
             ),
           ),
           const SizedBox(height: 2),
-          Text(
-            sub,
-            style: const TextStyle(
-              fontSize: 11,
-              color: _slate500,
-            ),
-          ),
+          Text(sub, style: const TextStyle(fontSize: 11, color: _slate500)),
         ],
       ),
     );
@@ -1340,11 +1327,7 @@ class _SensorDashboardDemoState extends State<SensorDashboardDemo>
   Widget _buildHierarchyArrow() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      child: Icon(
-        Icons.arrow_downward_rounded,
-        size: 16,
-        color: _slate300,
-      ),
+      child: Icon(Icons.arrow_downward_rounded, size: 16, color: _slate300),
     );
   }
 
@@ -1547,9 +1530,7 @@ class _GaugeRing extends StatelessWidget {
               width: d * 0.68,
               height: d * 0.68,
               decoration: BoxDecoration(
-                color: online
-                    ? color.withValues(alpha: 0.06)
-                    : _slate050,
+                color: online ? color.withValues(alpha: 0.06) : _slate050,
                 shape: BoxShape.circle,
               ),
             ),
@@ -1630,10 +1611,7 @@ class _RingDots extends StatelessWidget {
               child: Container(
                 width: dotSize,
                 height: dotSize,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
             ),
           );

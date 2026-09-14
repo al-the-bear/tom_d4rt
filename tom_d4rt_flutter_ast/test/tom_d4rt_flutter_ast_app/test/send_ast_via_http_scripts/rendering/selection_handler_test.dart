@@ -54,9 +54,7 @@ Widget _shSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_shForest, _shDeepForest],
-      ),
+      gradient: LinearGradient(colors: [_shForest, _shDeepForest]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,7 +175,13 @@ Widget _shTag(String label, Color bg, {Color textColor = Colors.white}) {
   );
 }
 
-Widget _shMethodCard(String name, String returnType, String desc, IconData icon, Color accent) {
+Widget _shMethodCard(
+  String name,
+  String returnType,
+  String desc,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
     padding: const EdgeInsets.all(14),
@@ -216,11 +220,7 @@ Widget _shMethodCard(String name, String returnType, String desc, IconData icon,
         const SizedBox(height: 8),
         Text(
           desc,
-          style: const TextStyle(
-            color: _shCharcoal,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: _shCharcoal, fontSize: 12, height: 1.5),
         ),
       ],
     ),
@@ -342,10 +342,7 @@ Widget _shContractRow(String method, String desc, IconData icon) {
       Expanded(
         child: Text(
           desc,
-          style: const TextStyle(
-            color: _shCharcoal,
-            fontSize: 11,
-          ),
+          style: const TextStyle(color: _shCharcoal, fontSize: 11),
         ),
       ),
     ],
@@ -368,10 +365,10 @@ Widget _shBuildMethods() {
         'dispatchSelectionEvent',
         'SelectionResult',
         'Called by the SelectableRegion when a selection gesture occurs.  '
-        'The handler processes the event (e.g. SelectWordSelectionEvent, '
-        'SelectionEdgeUpdateEvent, ClearSelectionEvent) and returns a '
-        'SelectionResult indicating what happened — whether the event was '
-        'fully consumed, needs to propagate, or is still pending.',
+            'The handler processes the event (e.g. SelectWordSelectionEvent, '
+            'SelectionEdgeUpdateEvent, ClearSelectionEvent) and returns a '
+            'SelectionResult indicating what happened — whether the event was '
+            'fully consumed, needs to propagate, or is still pending.',
         Icons.call_received,
         _shForest,
       ),
@@ -401,9 +398,9 @@ Widget _shBuildMethods() {
         'pushHandleLayers',
         'void',
         'Called by SelectableRegion to install or remove LayerLinks for '
-        'the drag handle overlays.  A non-null startHandle means "this '
-        'handler owns the start handle" — it should add a LeaderLayer '
-        'during compositing at the start handle position.  Same for endHandle.',
+            'the drag handle overlays.  A non-null startHandle means "this '
+            'handler owns the start handle" — it should add a LeaderLayer '
+            'during compositing at the start handle position.  Same for endHandle.',
         Icons.layers,
         _shTeal,
       ),
@@ -449,7 +446,7 @@ Widget _shBuildSelectionResult() {
             _shResultCard(
               'SelectionResult.end',
               'The selection edge is within this handler.  Stop dispatching '
-              'to subsequent selectables — the active endpoint is here.',
+                  'to subsequent selectables — the active endpoint is here.',
               _shForest,
               Icons.stop_circle_outlined,
             ),
@@ -457,7 +454,7 @@ Widget _shBuildSelectionResult() {
             _shResultCard(
               'SelectionResult.next',
               'The selection edge has moved past this handler.  Continue '
-              'dispatching to the next selectable in paint order.',
+                  'dispatching to the next selectable in paint order.',
               _shSky,
               Icons.arrow_forward,
             ),
@@ -465,7 +462,7 @@ Widget _shBuildSelectionResult() {
             _shResultCard(
               'SelectionResult.previous',
               'The selection edge is before this handler.  Dispatch to '
-              'the previous selectable instead.',
+                  'the previous selectable instead.',
               _shAmber,
               Icons.arrow_back,
             ),
@@ -473,7 +470,7 @@ Widget _shBuildSelectionResult() {
             _shResultCard(
               'SelectionResult.none',
               'The event was processed without affecting direction logic '
-              '(e.g. clear or select-all).  No further dispatch needed.',
+                  '(e.g. clear or select-all).  No further dispatch needed.',
               _shCharcoal,
               Icons.check,
             ),
@@ -481,8 +478,8 @@ Widget _shBuildSelectionResult() {
             _shResultCard(
               'SelectionResult.pending',
               'The handler cannot determine the result yet (e.g. a lazy-loading '
-              'list that hasn\'t materialised its children).  The region should '
-              'retry after layout.',
+                  'list that hasn\'t materialised its children).  The region should '
+                  'retry after layout.',
               _shCoral,
               Icons.hourglass_bottom,
             ),
@@ -548,10 +545,7 @@ Widget _shResultCard(String name, String desc, Color color, IconData icon) {
         Container(
           width: 36,
           height: 36,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(child: Icon(icon, color: Colors.white, size: 18)),
         ),
         const SizedBox(width: 12),
@@ -672,11 +666,26 @@ Widget _shBuildParagraphUsage() {
               ),
             ),
             const SizedBox(height: 14),
-            _shParagraphRow('Text("First paragraph...")', 'Handler A', _shForest, true),
+            _shParagraphRow(
+              'Text("First paragraph...")',
+              'Handler A',
+              _shForest,
+              true,
+            ),
             const SizedBox(height: 6),
-            _shParagraphRow('Text("Second paragraph...")', 'Handler B', _shTeal, false),
+            _shParagraphRow(
+              'Text("Second paragraph...")',
+              'Handler B',
+              _shTeal,
+              false,
+            ),
             const SizedBox(height: 6),
-            _shParagraphRow('Text("Third paragraph...")', 'Handler C', _shSky, false),
+            _shParagraphRow(
+              'Text("Third paragraph...")',
+              'Handler C',
+              _shSky,
+              false,
+            ),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(10),
@@ -688,11 +697,7 @@ Widget _shBuildParagraphUsage() {
                 'When a drag selection crosses from Handler A to Handler C, '
                 'A returns .next, B returns .next (fully selected), '
                 'and C returns .end (drag stopped here).',
-                style: TextStyle(
-                  color: _shCharcoal,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: _shCharcoal, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -815,7 +820,12 @@ Widget _shBuildParagraphUsage() {
   );
 }
 
-Widget _shParagraphRow(String widget, String handler, Color color, bool isFirst) {
+Widget _shParagraphRow(
+  String widget,
+  String handler,
+  Color color,
+  bool isFirst,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
@@ -866,39 +876,39 @@ Widget _shBuildEventProcessing() {
       _shEventTypeRow(
         'SelectWordSelectionEvent',
         'Long-press detected.  Handler checks if the tap offset is within '
-        'its bounds, selects the word at that position, and returns .end '
-        'if the point is within its layout, or .next otherwise.',
+            'its bounds, selects the word at that position, and returns .end '
+            'if the point is within its layout, or .next otherwise.',
         Icons.touch_app,
         _shForest,
       ),
       _shEventTypeRow(
         'SelectionEdgeUpdateEvent',
         'End-edge drag.  Handler maps the global position to local coords, '
-        'finds the nearest text position, updates its internal selection, '
-        'and publishes new geometry.  Returns .end if the position is '
-        'within bounds, .next/.previous if past the edges.',
+            'finds the nearest text position, updates its internal selection, '
+            'and publishes new geometry.  Returns .end if the position is '
+            'within bounds, .next/.previous if past the edges.',
         Icons.pan_tool,
         _shTeal,
       ),
       _shEventTypeRow(
         'ClearSelectionEvent',
         'Clear everything.  Handler resets its selection to none, publishes '
-        'geometry with status .none, and returns .none.',
+            'geometry with status .none, and returns .none.',
         Icons.clear,
         _shCoral,
       ),
       _shEventTypeRow(
         'SelectAllSelectionEvent',
         'Select all content.  Handler marks its entire text as selected '
-        'and publishes geometry with status .uncollapsed.  Returns .none.',
+            'and publishes geometry with status .uncollapsed.  Returns .none.',
         Icons.select_all,
         _shSky,
       ),
       _shEventTypeRow(
         'GranularlyExtendSelectionEvent',
         'Keyboard shift+arrow.  Handler extends the selection by the '
-        'specified granularity (character, word, line, document) in the '
-        'specified direction.',
+            'specified granularity (character, word, line, document) in the '
+            'specified direction.',
         Icons.keyboard,
         _shAmber,
       ),
@@ -1033,13 +1043,19 @@ Widget _shBuildHandleLayers() {
                     decoration: BoxDecoration(
                       color: _shForest.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _shForest.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _shForest.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Column(
                       children: [
                         _shTag('Render Tree', _shForest),
                         const SizedBox(height: 10),
-                        _shLayerBox('Handler A', 'LeaderLayer (start)', _shForest),
+                        _shLayerBox(
+                          'Handler A',
+                          'LeaderLayer (start)',
+                          _shForest,
+                        ),
                         const SizedBox(height: 4),
                         const Text(
                           '↕ LayerLink',
@@ -1080,7 +1096,9 @@ Widget _shBuildHandleLayers() {
                     decoration: BoxDecoration(
                       color: _shAmber.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _shAmber.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _shAmber.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -1157,13 +1175,7 @@ Widget _shLayerBox(String title, String desc, Color color) {
             fontSize: 11,
           ),
         ),
-        Text(
-          desc,
-          style: const TextStyle(
-            color: _shCharcoal,
-            fontSize: 9,
-          ),
-        ),
+        Text(desc, style: const TextStyle(color: _shCharcoal, fontSize: 9)),
       ],
     ),
   );
@@ -1196,37 +1208,69 @@ Widget _shBuildCompleteFlow() {
         ),
         child: Column(
           children: [
-            _shFlowStep(1, 'User long-presses on text',
+            _shFlowStep(
+              1,
+              'User long-presses on text',
               'GestureRecognizer detects and notifies SelectableRegion',
-              Icons.touch_app, _shForest),
+              Icons.touch_app,
+              _shForest,
+            ),
             _shFlowConnector(),
-            _shFlowStep(2, 'Region creates SelectWordSelectionEvent',
+            _shFlowStep(
+              2,
+              'Region creates SelectWordSelectionEvent',
               'globalPosition = press location',
-              Icons.event, _shTeal),
+              Icons.event,
+              _shTeal,
+            ),
             _shFlowConnector(),
-            _shFlowStep(3, 'Region iterates handlers in paint order',
+            _shFlowStep(
+              3,
+              'Region iterates handlers in paint order',
               'Calls handler.dispatchSelectionEvent(wordEvent)',
-              Icons.list, _shSky),
+              Icons.list,
+              _shSky,
+            ),
             _shFlowConnector(),
-            _shFlowStep(4, 'Handler processes, returns .end',
+            _shFlowStep(
+              4,
+              'Handler processes, returns .end',
               'Selects word, publishes new geometry, returns .end',
-              Icons.check_circle, _shForest),
+              Icons.check_circle,
+              _shForest,
+            ),
             _shFlowConnector(),
-            _shFlowStep(5, 'Region reads geometry from handler',
+            _shFlowStep(
+              5,
+              'Region reads geometry from handler',
               'Gets startSelectionPoint, endSelectionPoint',
-              Icons.data_object, _shAmber),
+              Icons.data_object,
+              _shAmber,
+            ),
             _shFlowConnector(),
-            _shFlowStep(6, 'Region calls pushHandleLayers',
+            _shFlowStep(
+              6,
+              'Region calls pushHandleLayers',
               'Gives start+end LayerLinks to the handler',
-              Icons.layers, _shTeal),
+              Icons.layers,
+              _shTeal,
+            ),
             _shFlowConnector(),
-            _shFlowStep(7, 'Handle overlays appear',
+            _shFlowStep(
+              7,
+              'Handle overlays appear',
               'FollowerLayers track the LeaderLayers — handles visible!',
-              Icons.visibility, _shSky),
+              Icons.visibility,
+              _shSky,
+            ),
             _shFlowConnector(),
-            _shFlowStep(8, 'User drags to extend selection',
+            _shFlowStep(
+              8,
+              'User drags to extend selection',
               'SelectionEdgeUpdateEvents dispatched continuously',
-              Icons.pan_tool, _shCoral),
+              Icons.pan_tool,
+              _shCoral,
+            ),
           ],
         ),
       ),
@@ -1234,17 +1278,20 @@ Widget _shBuildCompleteFlow() {
   );
 }
 
-Widget _shFlowStep(int num, String title, String desc, IconData icon, Color color) {
+Widget _shFlowStep(
+  int num,
+  String title,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
         width: 32,
         height: 32,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             '$num',
@@ -1327,11 +1374,23 @@ Widget _shBuildCustomHandler() {
             _shChecklistItem(1, 'Mix in SelectionHandler on your RenderObject'),
             _shChecklistItem(2, 'Create a ValueNotifier<SelectionGeometry>'),
             _shChecklistItem(3, 'Override value → return the notifier'),
-            _shChecklistItem(4, 'Override dispatchSelectionEvent → handle events'),
+            _shChecklistItem(
+              4,
+              'Override dispatchSelectionEvent → handle events',
+            ),
             _shChecklistItem(5, 'Override pushHandleLayers → store LayerLinks'),
-            _shChecklistItem(6, 'During compositing, add LeaderLayers at handle positions'),
-            _shChecklistItem(7, 'Register with SelectionRegistrar (via getSelectable())'),
-            _shChecklistItem(8, 'Publish geometry whenever selection state changes'),
+            _shChecklistItem(
+              6,
+              'During compositing, add LeaderLayers at handle positions',
+            ),
+            _shChecklistItem(
+              7,
+              'Register with SelectionRegistrar (via getSelectable())',
+            ),
+            _shChecklistItem(
+              8,
+              'Publish geometry whenever selection state changes',
+            ),
           ],
         ),
       ),
@@ -1401,10 +1460,7 @@ Widget _shChecklistItem(int num, String text) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              color: _shCharcoal,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: _shCharcoal, fontSize: 12),
           ),
         ),
       ],
@@ -1453,12 +1509,30 @@ Widget _shBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _shSummaryItem('Mixin', 'Lives on RenderObject — render-level participation.'),
-            _shSummaryItem('Event Dispatch', 'Receives events, returns SelectionResult.'),
-            _shSummaryItem('Handle Layers', 'Hosts LeaderLayers for handle overlay positioning.'),
-            _shSummaryItem('Geometry', 'Publishes SelectionGeometry via ValueListenable.'),
-            _shSummaryItem('RenderParagraph', 'Most common implementation — every Text widget.'),
-            _shSummaryItem('Custom', 'Mix in for custom selectable render objects.'),
+            _shSummaryItem(
+              'Mixin',
+              'Lives on RenderObject — render-level participation.',
+            ),
+            _shSummaryItem(
+              'Event Dispatch',
+              'Receives events, returns SelectionResult.',
+            ),
+            _shSummaryItem(
+              'Handle Layers',
+              'Hosts LeaderLayers for handle overlay positioning.',
+            ),
+            _shSummaryItem(
+              'Geometry',
+              'Publishes SelectionGeometry via ValueListenable.',
+            ),
+            _shSummaryItem(
+              'RenderParagraph',
+              'Most common implementation — every Text widget.',
+            ),
+            _shSummaryItem(
+              'Custom',
+              'Mix in for custom selectable render objects.',
+            ),
           ],
         ),
       ),
@@ -1475,11 +1549,23 @@ Widget _shBuildSummary() {
         ),
         child: Column(
           children: [
-            _shHierarchyBox('SelectionHandler', 'mixin on RenderObject', _shForest),
+            _shHierarchyBox(
+              'SelectionHandler',
+              'mixin on RenderObject',
+              _shForest,
+            ),
             const Icon(Icons.arrow_downward, color: _shSage, size: 18),
-            _shHierarchyBox('Selectable', 'extends SelectionHandler + registration', _shTeal),
+            _shHierarchyBox(
+              'Selectable',
+              'extends SelectionHandler + registration',
+              _shTeal,
+            ),
             const Icon(Icons.arrow_downward, color: _shSage, size: 18),
-            _shHierarchyBox('RenderParagraph', 'concrete implementation for text', _shSky),
+            _shHierarchyBox(
+              'RenderParagraph',
+              'concrete implementation for text',
+              _shSky,
+            ),
           ],
         ),
       ),
@@ -1495,31 +1581,37 @@ Widget _shSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6, height: 6,
+          width: 6,
+          height: 6,
           margin: const EdgeInsets.only(top: 5),
-          decoration: const BoxDecoration(color: _shGold, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: _shGold,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: '$title — ',
-                style: const TextStyle(
-                  color: _shSage,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: '$title — ',
+                  style: const TextStyle(
+                    color: _shSage,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: desc,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.9),
-                  fontSize: 12,
-                  height: 1.4,
+                TextSpan(
+                  text: desc,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ),
       ],
@@ -1549,10 +1641,7 @@ Widget _shHierarchyBox(String name, String desc, Color color) {
           ),
         ),
         const Spacer(),
-        Text(
-          desc,
-          style: const TextStyle(color: _shCharcoal, fontSize: 10),
-        ),
+        Text(desc, style: const TextStyle(color: _shCharcoal, fontSize: 10)),
       ],
     ),
   );

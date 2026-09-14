@@ -789,15 +789,15 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.05)],
+          colors: [
+            color.withValues(alpha: 0.18),
+            color.withValues(alpha: 0.05),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: color,
-          width: isRoot ? 3.0 : 1.5,
-        ),
+        border: Border.all(color: color, width: isRoot ? 3.0 : 1.5),
         boxShadow: isRoot
             ? [
                 BoxShadow(
@@ -997,10 +997,7 @@ dynamic build(BuildContext context) {
                 'Children of the root inherit slots from the root element. Parent data\n'
                 'is set during the layout walk, not during element mounting.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.amber.shade900,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.amber.shade900),
               ),
             ],
           ),

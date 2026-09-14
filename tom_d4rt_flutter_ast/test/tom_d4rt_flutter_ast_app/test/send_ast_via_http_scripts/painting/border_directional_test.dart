@@ -272,10 +272,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             'LTR',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: paletteDeep,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: paletteDeep),
           ),
           SizedBox(height: 2.0),
           Text(
@@ -304,10 +301,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             'RTL',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: paletteDeep,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: paletteDeep),
           ),
           SizedBox(height: 2.0),
           Text(
@@ -1118,14 +1112,14 @@ dynamic build(BuildContext context) {
   for (final data in footgunData) {
     final color = data['color'] as Color;
     // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #58, P5(a)): The
-     // original footgun card combined borderRadius:10 with an asymmetric
-     // Border(left: full-color, others: alpha-0.3) -> Flutter forbids non-
-     // uniform border colors with a borderRadius. Replaced with uniform
-     // Border.all + ClipRRect + IntrinsicHeight Row(stretch) where the
-     // coloured left accent is a 4-dp Container. Note: this card section is
-     // demonstrating footguns of BorderDirectional, so the test intent is
-     // preserved at the data level (titles/bodies still describe the
-     // restrictions); only the card chrome was refactored to render.
+    // original footgun card combined borderRadius:10 with an asymmetric
+    // Border(left: full-color, others: alpha-0.3) -> Flutter forbids non-
+    // uniform border colors with a borderRadius. Replaced with uniform
+    // Border.all + ClipRRect + IntrinsicHeight Row(stretch) where the
+    // coloured left accent is a 4-dp Container. Note: this card section is
+    // demonstrating footguns of BorderDirectional, so the test intent is
+    // preserved at the data level (titles/bodies still describe the
+    // restrictions); only the card chrome was refactored to render.
     footgunCards.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6.0),
@@ -1167,7 +1161,11 @@ dynamic build(BuildContext context) {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(data['icon'] as IconData, color: color, size: 24.0),
+                          Icon(
+                            data['icon'] as IconData,
+                            color: color,
+                            size: 24.0,
+                          ),
                           SizedBox(width: 12.0),
                           Expanded(
                             child: Column(
@@ -1344,7 +1342,10 @@ Widget _drawerRow(
           color: active ? accent : Colors.transparent,
           width: 4.0,
         ),
-        bottom: BorderSide(color: edgeColor.withValues(alpha: 0.25), width: 1.0),
+        bottom: BorderSide(
+          color: edgeColor.withValues(alpha: 0.25),
+          width: 1.0,
+        ),
       ),
     ),
     child: Row(

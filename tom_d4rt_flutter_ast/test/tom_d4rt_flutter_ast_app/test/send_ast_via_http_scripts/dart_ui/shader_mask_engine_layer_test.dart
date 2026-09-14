@@ -161,11 +161,7 @@ dynamic build(BuildContext context) {
             'binds a ui.Shader (linear / radial / sweep / image gradient) to a '
             'rectangle and composites a child sub-tree using a BlendMode. The '
             'ShaderMask widget is the high-level API that drives this layer.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.5,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.5, height: 1.45),
           ),
         ),
         SizedBox(height: 14.0),
@@ -479,7 +475,8 @@ dynamic build(BuildContext context) {
 
   final sweepSection = _shaderSection(
     title: 'Sweep Gradient Shader',
-    subtitle: 'ui.Gradient.sweep(center, colors, [stops], [tileMode], start, end)',
+    subtitle:
+        'ui.Gradient.sweep(center, colors, [stops], [tileMode], start, end)',
     description:
         'A sweep gradient rotates colors around a center point, useful '
         'for radial dials, color wheels, and rainbow ring decorations.',
@@ -710,10 +707,7 @@ Widget _anatomyStage({
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.22),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.22)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -736,10 +730,7 @@ Widget _anatomyStage({
               width: 22.0,
               height: 22.0,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Text(
                 '$index',
                 style: TextStyle(
@@ -774,11 +765,7 @@ Widget _anatomyStage({
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 11.0,
-            color: Colors.black87,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 11.0, color: Colors.black87, height: 1.35),
         ),
       ],
     ),
@@ -926,11 +913,7 @@ Widget _shaderSection({
         SizedBox(height: 12.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.black87,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.black87, height: 1.45),
         ),
         SizedBox(height: 14.0),
         Container(
@@ -946,10 +929,7 @@ Widget _shaderSection({
             ),
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: tiles,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: tiles),
         ),
       ],
     ),
@@ -1339,11 +1319,7 @@ Widget _recipeCard(_Recipe r) {
         SizedBox(height: 8.0),
         Text(
           r.summary,
-          style: TextStyle(
-            fontSize: 12.5,
-            color: Colors.black87,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12.5, color: Colors.black87, height: 1.4),
         ),
         SizedBox(height: 10.0),
         Container(
@@ -1552,11 +1528,7 @@ Widget _pitfallCard(_Pitfall p) {
         SizedBox(height: 6.0),
         Text(
           p.detail,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.black87,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
         ),
       ],
     ),
@@ -1648,11 +1620,7 @@ Widget _performanceSection() {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.speed,
-              color: Colors.blueGrey.shade800,
-              size: 22.0,
-            ),
+            Icon(Icons.speed, color: Colors.blueGrey.shade800, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Performance Notes',
@@ -1752,11 +1720,7 @@ Widget _perfNoteCard(_PerfNote n) {
         SizedBox(height: 6.0),
         Text(
           n.detail,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.black87,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
         ),
       ],
     ),
@@ -1771,7 +1735,10 @@ Widget _quickReferenceSection() {
     ['Class', 'ShaderMaskEngineLayer'],
     ['Library', 'dart:ui'],
     ['Extends', 'EngineLayer'],
-    ['Created via', 'SceneBuilder.pushShaderMask(shader, rect, blend, oldLayer)'],
+    [
+      'Created via',
+      'SceneBuilder.pushShaderMask(shader, rect, blend, oldLayer)',
+    ],
     ['Closed via', 'SceneBuilder.pop()'],
     ['Widget API', 'ShaderMask(shaderCallback, blendMode, child)'],
     ['Render layer', 'RenderShaderMask'],

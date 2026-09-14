@@ -55,8 +55,7 @@ dynamic build(BuildContext context) {
   final ValueNotifier<String> sampleLabel = ValueNotifier<String>('idle');
   final FocusNode sampleFocus = FocusNode(debugLabel: 'demo-focus');
   final ScrollController sampleScroll = ScrollController();
-  final TextEditingController sampleText =
-      TextEditingController(text: 'hello');
+  final TextEditingController sampleText = TextEditingController(text: 'hello');
 
   // Stage descriptors for the lifecycle diagram (Section 2). We use plain
   // data-bag classes (see _LifecycleStage at the bottom of the file) instead
@@ -203,8 +202,7 @@ dynamic build(BuildContext context) {
       icon: Icons.campaign_outlined,
       tint: Color(0xFFEDE7F6),
       stroke: Color(0xFF512DA8),
-      assertOn:
-          'addListener, removeListener, notifyListeners, hasListeners',
+      assertOn: 'addListener, removeListener, notifyListeners, hasListeners',
     ),
     _ConsumerPattern(
       type: 'ValueNotifier<T>',
@@ -228,7 +226,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24.0),
 
         // 2. Lifecycle diagram
-        _buildSectionTitle('1. Lifecycle: created → active → dispose → disposed'),
+        _buildSectionTitle(
+          '1. Lifecycle: created → active → dispose → disposed',
+        ),
         SizedBox(height: 12.0),
         _buildLifecycleDiagram(lifecycleStages),
         SizedBox(height: 24.0),
@@ -240,7 +240,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 24.0),
 
         // 4. Why no ObjectDisposedException type
-        _buildSectionTitle('3. Why Flutter has no ObjectDisposedException type'),
+        _buildSectionTitle(
+          '3. Why Flutter has no ObjectDisposedException type',
+        ),
         SizedBox(height: 12.0),
         _buildDivergencePanel(),
         SizedBox(height: 24.0),
@@ -383,10 +385,7 @@ Widget _buildTitleBanner() {
           decoration: BoxDecoration(
             color: Color(0x33FFFFFF),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: Color(0x66FFFFFF),
-              width: 1.0,
-            ),
+            border: Border.all(color: Color(0x66FFFFFF), width: 1.0),
           ),
           child: Text(
             'Flutter does NOT export an ObjectDisposedException class. '
@@ -395,11 +394,7 @@ Widget _buildTitleBanner() {
             '("A FooController was used after being disposed."). '
             'This deep demo walks the lifecycle, the contract, the divergence, '
             'and the common bugs.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.4),
           ),
         ),
         SizedBox(height: 14.0),
@@ -428,11 +423,7 @@ Widget _buildPill(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: fg,
-        fontSize: 11.0,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: fg, fontSize: 11.0, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -447,9 +438,7 @@ Widget _buildSectionTitle(String label) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Color(0xFF6B8E23), width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: Color(0xFF6B8E23), width: 5.0)),
     ),
     child: Text(
       label,
@@ -499,11 +488,7 @@ Widget _buildLifecycleDiagram(List<_LifecycleStage> stages) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.timeline,
-              size: 22.0,
-              color: Color(0xFF33691E),
-            ),
+            Icon(Icons.timeline, size: 22.0, color: Color(0xFF33691E)),
             SizedBox(width: 8.0),
             Text(
               'Stage timeline',
@@ -528,11 +513,7 @@ Widget _buildLifecycleDiagram(List<_LifecycleStage> stages) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(
-                Icons.info_outline,
-                size: 18.0,
-                color: Color(0xFFE65100),
-              ),
+              Icon(Icons.info_outline, size: 18.0, color: Color(0xFFE65100)),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -620,15 +601,11 @@ Widget _buildLifecycleStageCard(_LifecycleStage stage, int index) {
               SizedBox(height: 2.0),
               Text(
                 stage.caption,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Color(0xFF424242),
-                ),
+                style: TextStyle(fontSize: 12.0, color: Color(0xFF424242)),
               ),
               SizedBox(height: 4.0),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                 decoration: BoxDecoration(
                   color: stage.color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6.0),
@@ -698,11 +675,7 @@ Widget _buildAnatomyOfDispose() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.architecture,
-              color: Color(0xFFE65100),
-              size: 22.0,
-            ),
+            Icon(Icons.architecture, color: Color(0xFFE65100), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'How ChangeNotifier protects itself',
@@ -728,7 +701,7 @@ Widget _buildAnatomyOfDispose() {
           '_debugAssertNotDisposed()',
           'bool',
           'Called from every public mutating method. Throws FlutterError when '
-          '_debugDisposed is true. Returns true to satisfy assert(...).',
+              '_debugDisposed is true. Returns true to satisfy assert(...).',
           Color(0xFF6A1B9A),
         ),
         SizedBox(height: 6.0),
@@ -737,7 +710,7 @@ Widget _buildAnatomyOfDispose() {
           'dispose()',
           'void',
           'Override to release resources. Calls _debugAssertNotDisposed first '
-          '(so double-dispose throws), then sets _debugDisposed = true.',
+              '(so double-dispose throws), then sets _debugDisposed = true.',
           Color(0xFF1565C0),
         ),
         SizedBox(height: 6.0),
@@ -746,7 +719,7 @@ Widget _buildAnatomyOfDispose() {
           'addListener / removeListener',
           'void',
           'Each call begins with _debugAssertNotDisposed(). Touching a '
-          'disposed notifier therefore aborts in debug.',
+              'disposed notifier therefore aborts in debug.',
           Color(0xFF2E7D32),
         ),
         SizedBox(height: 6.0),
@@ -755,7 +728,7 @@ Widget _buildAnatomyOfDispose() {
           'notifyListeners',
           'void',
           'Same protection. After dispose() this would call into a freed '
-          'listener list, which is exactly the bug the assertion catches.',
+              'listener list, which is exactly the bug the assertion catches.',
           Color(0xFFAD1457),
         ),
         SizedBox(height: 14.0),
@@ -894,11 +867,7 @@ Widget _buildDivergencePanel() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.fork_right,
-              color: Color(0xFF6A1B9A),
-              size: 22.0,
-            ),
+            Icon(Icons.fork_right, color: Color(0xFF6A1B9A), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'No typed ObjectDisposedException',
@@ -952,25 +921,25 @@ Widget _buildDivergencePanel() {
           Icons.bug_report_outlined,
           'Debug-only',
           'The check lives inside an assert(), so production builds eat the '
-          'cost of zero extra branches.',
+              'cost of zero extra branches.',
         ),
         _flutterChoiceRow(
           Icons.warning_amber_outlined,
           'FlutterError, not a typed exception',
           'You catch (FlutterError e) — the message is the protocol; the '
-          'type carries no extra data.',
+              'type carries no extra data.',
         ),
         _flutterChoiceRow(
           Icons.touch_app_outlined,
           'Per-API check',
           'Every public method that could observe the broken state opens with '
-          '_debugAssertNotDisposed().',
+              '_debugAssertNotDisposed().',
         ),
         _flutterChoiceRow(
           Icons.workspaces_outlined,
           'Co-located with the contract',
           'Each disposable type owns its own variant: TextEditingController, '
-          'FocusNode, AnimationController, etc.',
+              'FocusNode, AnimationController, etc.',
         ),
         SizedBox(height: 12.0),
         Container(
@@ -1010,12 +979,7 @@ Widget _buildDivergencePanel() {
   );
 }
 
-Widget _ecosystemRow(
-  String tech,
-  String type,
-  String detail,
-  Color color,
-) {
+Widget _ecosystemRow(String tech, String type, String detail, Color color) {
   return Container(
     margin: EdgeInsets.only(bottom: 6.0),
     padding: EdgeInsets.all(10.0),
@@ -1058,10 +1022,7 @@ Widget _ecosystemRow(
               SizedBox(height: 2.0),
               Text(
                 detail,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Color(0xFF616161),
-                ),
+                style: TextStyle(fontSize: 11.0, color: Color(0xFF616161)),
               ),
             ],
           ),
@@ -1325,11 +1286,7 @@ Widget _buildBadPanel(String code) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.cancel_outlined,
-              size: 16.0,
-              color: Color(0xFFC62828),
-            ),
+            Icon(Icons.cancel_outlined, size: 16.0, color: Color(0xFFC62828)),
             SizedBox(width: 6.0),
             Text(
               'BAD',
@@ -1549,11 +1506,7 @@ Widget _buildDiagnosticPanel() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(
-                Icons.info_outline,
-                color: Color(0xFFB3E5FC),
-                size: 18.0,
-              ),
+              Icon(Icons.info_outline, color: Color(0xFFB3E5FC), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1598,11 +1551,7 @@ Widget _buildCrossReferencePanel() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.link,
-              color: Color(0xFF006064),
-              size: 22.0,
-            ),
+            Icon(Icons.link, color: Color(0xFF006064), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Connection to FlutterMemoryAllocations',
@@ -1634,7 +1583,7 @@ Widget _buildCrossReferencePanel() {
                 Icons.add_circle_outline,
                 Color(0xFF2E7D32),
                 'Dispatched at the end of the constructor in instrumented '
-                'classes; carries library + className + object reference.',
+                    'classes; carries library + className + object reference.',
               ),
             ),
             SizedBox(width: 10.0),
@@ -1644,7 +1593,7 @@ Widget _buildCrossReferencePanel() {
                 Icons.do_not_disturb_on_outlined,
                 Color(0xFF8A8A8A),
                 'Dispatched from dispose(); carries object reference. '
-                'After this event the assertion gate is closed.',
+                    'After this event the assertion gate is closed.',
               ),
             ),
           ],
@@ -1675,12 +1624,7 @@ Widget _buildCrossReferencePanel() {
   );
 }
 
-Widget _buildEventStub(
-  String name,
-  IconData icon,
-  Color color,
-  String body,
-) {
+Widget _buildEventStub(String name, IconData icon, Color color, String body) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1750,11 +1694,7 @@ Widget _buildRecapCard() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(
-              Icons.task_alt,
-              color: Color(0xFF1B5E20),
-              size: 22.0,
-            ),
+            Icon(Icons.task_alt, color: Color(0xFF1B5E20), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Rules of thumb',
@@ -1770,12 +1710,12 @@ Widget _buildRecapCard() {
         _recapBullet(
           '1.',
           'Treat dispose() as the very last line. After it, the object is '
-          'dead — no reads, no writes, no listeners.',
+              'dead — no reads, no writes, no listeners.',
         ),
         _recapBullet(
           '2.',
           'Ownership lives in exactly one State. If two States share a '
-          'controller, lift it to the parent.',
+              'controller, lift it to the parent.',
         ),
         _recapBullet(
           '3.',
@@ -1784,17 +1724,17 @@ Widget _buildRecapCard() {
         _recapBullet(
           '4.',
           'There is no ObjectDisposedException type. Catch FlutterError and '
-          'inspect the message string if you must.',
+              'inspect the message string if you must.',
         ),
         _recapBullet(
           '5.',
           'Always test in debug. Release strips the assertion and may '
-          'silently corrupt state instead of throwing.',
+              'silently corrupt state instead of throwing.',
         ),
         _recapBullet(
           '6.',
           'Use FlutterMemoryAllocations + leak_tracker to detect missing '
-          'dispose() calls automatically.',
+              'dispose() calls automatically.',
         ),
       ],
     ),
@@ -1956,12 +1896,7 @@ Widget _buildInventoryFooter(
   );
 }
 
-Widget _inventoryRow(
-  String label,
-  String runtime,
-  String detail,
-  Color color,
-) {
+Widget _inventoryRow(String label, String runtime, String detail, Color color) {
   return Container(
     margin: EdgeInsets.only(bottom: 6.0),
     padding: EdgeInsets.all(8.0),
@@ -2005,10 +1940,7 @@ Widget _inventoryRow(
               SizedBox(height: 2.0),
               Text(
                 detail,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Color(0xFF616161),
-                ),
+                style: TextStyle(fontSize: 11.0, color: Color(0xFF616161)),
               ),
             ],
           ),

@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 // Top-level ValueNotifiers (stateless pattern — no StatefulWidget)
 // ---------------------------------------------------------------------------
 
-final ValueNotifier<TextEditingValue> _editorValue = ValueNotifier<TextEditingValue>(
-  const TextEditingValue(
-    text: 'The quick brown fox jumps over the lazy dog.',
-    selection: TextSelection(baseOffset: 4, extentOffset: 9),
-  ),
-);
+final ValueNotifier<TextEditingValue> _editorValue =
+    ValueNotifier<TextEditingValue>(
+      const TextEditingValue(
+        text: 'The quick brown fox jumps over the lazy dog.',
+        selection: TextSelection(baseOffset: 4, extentOffset: 9),
+      ),
+    );
 
 final ValueNotifier<String> _logNotifier = ValueNotifier<String>('');
 
 final ValueNotifier<SelectionChangedCause> _causeNotifier =
     ValueNotifier<SelectionChangedCause>(SelectionChangedCause.keyboard);
 
-final ValueNotifier<String> _replacementText =
-    ValueNotifier<String>('speedy');
+final ValueNotifier<String> _replacementText = ValueNotifier<String>('speedy');
 
 // ---------------------------------------------------------------------------
 // Entry point required by harness
@@ -119,10 +119,19 @@ class _SectionTitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title, style: tt.headlineSmall?.copyWith(color: cs.primary, fontWeight: FontWeight.w700)),
+        Text(
+          title,
+          style: tt.headlineSmall?.copyWith(
+            color: cs.primary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         if (subtitle != null) ...<Widget>[
           const SizedBox(height: 4),
-          Text(subtitle!, style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant)),
+          Text(
+            subtitle!,
+            style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+          ),
         ],
         const SizedBox(height: 16),
       ],
@@ -184,9 +193,18 @@ class _InfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700, color: cs.onSurface)),
+                  Text(
+                    title,
+                    style: tt.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: cs.onSurface,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(body, style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant)),
+                  Text(
+                    body,
+                    style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+                  ),
                 ],
               ),
             ),
@@ -243,19 +261,28 @@ class _HeroBanner extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: cs.primary,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         'flutter/services.dart',
-                        style: tt.labelSmall?.copyWith(color: cs.onPrimary, fontFamily: 'monospace'),
+                        style: tt.labelSmall?.copyWith(
+                          color: cs.onPrimary,
+                          fontFamily: 'monospace',
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: cs.secondary,
                         borderRadius: BorderRadius.circular(20),
@@ -290,7 +317,8 @@ class _HeroBanner extends StatelessWidget {
 
           _SectionTitle(
             'What is ReplaceTextIntent?',
-            subtitle: 'The canonical way to describe a text-replacement operation in the Actions/Intents system.',
+            subtitle:
+                'The canonical way to describe a text-replacement operation in the Actions/Intents system.',
           ),
 
           Text(
@@ -325,36 +353,56 @@ class _HeroBanner extends StatelessWidget {
           const _InfoCard(
             icon: Icons.keyboard,
             title: 'Input Layer',
-            body: 'RawKeyboard / HardwareKeyboard events or virtual keyboard input triggers text editing shortcuts.',
+            body:
+                'RawKeyboard / HardwareKeyboard events or virtual keyboard input triggers text editing shortcuts.',
           ),
           const SizedBox(height: 8),
           const _InfoCard(
             icon: Icons.send,
             title: 'Intent Dispatch',
-            body: 'Actions.invoke(context, ReplaceTextIntent(...)) sends the intent up the widget tree via the Actions/Intents mechanism.',
+            body:
+                'Actions.invoke(context, ReplaceTextIntent(...)) sends the intent up the widget tree via the Actions/Intents mechanism.',
           ),
           const SizedBox(height: 8),
           const _InfoCard(
             icon: Icons.settings,
             title: 'Action Handling',
-            body: 'ReplaceTextAction (the default handler registered by EditableText) receives the intent and applies the replacement to the controller.',
+            body:
+                'ReplaceTextAction (the default handler registered by EditableText) receives the intent and applies the replacement to the controller.',
           ),
           const SizedBox(height: 8),
           const _InfoCard(
             icon: Icons.edit_note,
             title: 'Controller Update',
-            body: 'TextEditingController.value is updated with the new TextEditingValue, triggering a rebuild of dependent widgets.',
+            body:
+                'TextEditingController.value is updated with the new TextEditingValue, triggering a rebuild of dependent widgets.',
           ),
           const SizedBox(height: 20),
 
           _SectionTitle('Key benefits over direct mutation'),
-          _buildBenefitRow(context, 'Interceptable', 'Ancestors can override behavior via custom Actions.'),
+          _buildBenefitRow(
+            context,
+            'Interceptable',
+            'Ancestors can override behavior via custom Actions.',
+          ),
           const SizedBox(height: 8),
-          _buildBenefitRow(context, 'Undoable', 'Undo/redo stacks can observe intents rather than raw value changes.'),
+          _buildBenefitRow(
+            context,
+            'Undoable',
+            'Undo/redo stacks can observe intents rather than raw value changes.',
+          ),
           const SizedBox(height: 8),
-          _buildBenefitRow(context, 'Cause-aware', 'The SelectionChangedCause field lets handlers react differently to keyboard vs tap vs drag.'),
+          _buildBenefitRow(
+            context,
+            'Cause-aware',
+            'The SelectionChangedCause field lets handlers react differently to keyboard vs tap vs drag.',
+          ),
           const SizedBox(height: 8),
-          _buildBenefitRow(context, 'Composable', 'Can be wrapped, transformed, or conditionally dispatched by custom action handlers.'),
+          _buildBenefitRow(
+            context,
+            'Composable',
+            'Can be wrapped, transformed, or conditionally dispatched by custom action handlers.',
+          ),
           const SizedBox(height: 24),
 
           _SectionTitle('Handled by'),
@@ -389,7 +437,9 @@ class _HeroBanner extends StatelessWidget {
                     'autocomplete, spell-check overlays, and template-expansion '
                     'features, because it lets you surgically replace a selection '
                     'without disturbing focus or the undo history in unexpected ways.',
-                    style: tt.bodySmall?.copyWith(color: cs.onTertiaryContainer),
+                    style: tt.bodySmall?.copyWith(
+                      color: cs.onTertiaryContainer,
+                    ),
                   ),
                 ),
               ],
@@ -413,7 +463,13 @@ class _HeroBanner extends StatelessWidget {
             color: cs.primaryContainer,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(label, style: tt.labelMedium?.copyWith(color: cs.primary, fontWeight: FontWeight.w700)),
+          child: Text(
+            label,
+            style: tt.labelMedium?.copyWith(
+              color: cs.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(child: Text(desc, style: tt.bodyMedium)),
@@ -431,42 +487,54 @@ class _LiveReplacementDemo extends StatelessWidget {
 
   void _replaceSelected(BuildContext context) {
     final TextEditingValue current = _editorValue.value;
-    final String newText = current.selection.isValid && !current.selection.isCollapsed
+    final String newText =
+        current.selection.isValid && !current.selection.isCollapsed
         ? current.text.replaceRange(
             current.selection.start,
             current.selection.end,
             _replacementText.value,
           )
         : current.text;
-    final int newCursorPos = current.selection.isValid && !current.selection.isCollapsed
+    final int newCursorPos =
+        current.selection.isValid && !current.selection.isCollapsed
         ? current.selection.start + _replacementText.value.length
         : current.text.length;
     final TextEditingValue updated = current.copyWith(
       text: newText,
       selection: TextSelection.collapsed(offset: newCursorPos),
     );
-    final TextSelection newSelection = TextSelection.collapsed(offset: newCursorPos);
-    _log('ReplaceTextIntent dispatched:\n'
-        '  replacementText: "${_replacementText.value}"\n'
-        '  replacementSelection: $newSelection\n'
-        '  cause: ${_causeNotifier.value}');
+    final TextSelection newSelection = TextSelection.collapsed(
+      offset: newCursorPos,
+    );
+    _log(
+      'ReplaceTextIntent dispatched:\n'
+      '  replacementText: "${_replacementText.value}"\n'
+      '  replacementSelection: $newSelection\n'
+      '  cause: ${_causeNotifier.value}',
+    );
     _editorValue.value = updated;
   }
 
   void _replaceAll(BuildContext context) {
     final TextEditingValue current = _editorValue.value;
-    final String word = current.selection.isValid && !current.selection.isCollapsed
+    final String word =
+        current.selection.isValid && !current.selection.isCollapsed
         ? current.text.substring(current.selection.start, current.selection.end)
         : 'fox';
-    final String newText = current.text.replaceAll(word, _replacementText.value);
+    final String newText = current.text.replaceAll(
+      word,
+      _replacementText.value,
+    );
     final TextEditingValue updated = current.copyWith(
       text: newText,
       selection: TextSelection.collapsed(offset: newText.length),
     );
-    _log('ReplaceTextIntent (replace-all) dispatched:\n'
-        '  target word: "$word"\n'
-        '  replacementText: "${_replacementText.value}"\n'
-        '  cause: ${_causeNotifier.value}');
+    _log(
+      'ReplaceTextIntent (replace-all) dispatched:\n'
+      '  target word: "$word"\n'
+      '  replacementText: "${_replacementText.value}"\n'
+      '  cause: ${_causeNotifier.value}',
+    );
     _editorValue.value = updated;
   }
 
@@ -494,7 +562,8 @@ class _LiveReplacementDemo extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Live Replacement Demo',
-            subtitle: 'Select text in the field, choose a cause, then dispatch a ReplaceTextIntent.',
+            subtitle:
+                'Select text in the field, choose a cause, then dispatch a ReplaceTextIntent.',
           ),
 
           // Text field driven by ValueNotifier
@@ -538,7 +607,9 @@ class _LiveReplacementDemo extends StatelessWidget {
               return Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: SelectionChangedCause.values.map((SelectionChangedCause c) {
+                children: SelectionChangedCause.values.map((
+                  SelectionChangedCause c,
+                ) {
                   return ChoiceChip(
                     label: Text(c.name),
                     selected: selected == c,
@@ -609,7 +680,9 @@ class _LiveReplacementDemo extends StatelessWidget {
                   return ValueListenableBuilder<SelectionChangedCause>(
                     valueListenable: _causeNotifier,
                     builder: (BuildContext ctx3, SelectionChangedCause cause, _) {
-                      final int start = val.selection.start < 0 ? 0 : val.selection.start;
+                      final int start = val.selection.start < 0
+                          ? 0
+                          : val.selection.start;
                       return _CodeBlock(
                         'Actions.invoke(\n'
                         '  context,\n'
@@ -647,7 +720,10 @@ class _LiveReplacementDemo extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Text(
                     log.isEmpty ? '(no events yet — tap a button above)' : log,
-                    style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               );
@@ -670,7 +746,9 @@ class _EditableFieldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
-    final TextEditingController controller = TextEditingController.fromValue(value);
+    final TextEditingController controller = TextEditingController.fromValue(
+      value,
+    );
     return Card(
       elevation: 1,
       color: cs.surfaceContainerLow,
@@ -680,7 +758,10 @@ class _EditableFieldCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('TextField (select a word, then hit Replace Selected)', style: tt.labelMedium),
+            Text(
+              'TextField (select a word, then hit Replace Selected)',
+              style: tt.labelMedium,
+            ),
             const SizedBox(height: 8),
             TextField(
               controller: controller,
@@ -690,10 +771,9 @@ class _EditableFieldCard extends StatelessWidget {
                 hintText: 'Type or select text here…',
               ),
               onChanged: (String text) {
-                onChanged(TextEditingValue(
-                  text: text,
-                  selection: controller.selection,
-                ));
+                onChanged(
+                  TextEditingValue(text: text, selection: controller.selection),
+                );
               },
             ),
           ],
@@ -721,7 +801,8 @@ class _ConstructionWalkthrough extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Construction Walkthrough',
-            subtitle: 'Step-by-step guide to building a ReplaceTextIntent with all 4 parameters.',
+            subtitle:
+                'Step-by-step guide to building a ReplaceTextIntent with all 4 parameters.',
           ),
 
           _buildStep(
@@ -828,7 +909,10 @@ class _ConstructionWalkthrough extends StatelessWidget {
           const SizedBox(height: 24),
 
           // Constructor signature
-          Text('Constructor signature (from Flutter source):', style: tt.labelLarge),
+          Text(
+            'Constructor signature (from Flutter source):',
+            style: tt.labelLarge,
+          ),
           const SizedBox(height: 8),
           _CodeBlock(
             'const ReplaceTextIntent(\n'
@@ -901,17 +985,38 @@ class _ConstructionWalkthrough extends StatelessWidget {
               Container(
                 width: 36,
                 height: 36,
-                decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: cs.primary,
+                  shape: BoxShape.circle,
+                ),
                 child: Center(
-                  child: Text(step, style: tt.labelSmall?.copyWith(color: cs.onPrimary, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    step,
+                    style: tt.labelSmall?.copyWith(
+                      color: cs.onPrimary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(label, style: tt.titleSmall?.copyWith(fontFamily: 'monospace', color: cs.primary)),
-                  Text(type, style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant, fontFamily: 'monospace')),
+                  Text(
+                    label,
+                    style: tt.titleSmall?.copyWith(
+                      fontFamily: 'monospace',
+                      color: cs.primary,
+                    ),
+                  ),
+                  Text(
+                    type,
+                    style: tt.bodySmall?.copyWith(
+                      color: cs.onSurfaceVariant,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -928,13 +1033,31 @@ class _ConstructionWalkthrough extends StatelessWidget {
   Widget _buildParamTable(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     const List<List<String>> rows = <List<String>>[
-      ['currentTextEditingValue', 'TextEditingValue', 'Snapshot before replacement', 'Required'],
+      [
+        'currentTextEditingValue',
+        'TextEditingValue',
+        'Snapshot before replacement',
+        'Required',
+      ],
       ['replacementText', 'String', 'The new string to insert', 'Required'],
-      ['replacementSelection', 'TextSelection', 'Cursor/selection after insert', 'Required'],
-      ['cause', 'SelectionChangedCause', 'What triggered the intent', 'Required'],
+      [
+        'replacementSelection',
+        'TextSelection',
+        'Cursor/selection after insert',
+        'Required',
+      ],
+      [
+        'cause',
+        'SelectionChangedCause',
+        'What triggered the intent',
+        'Required',
+      ],
     ];
     return Table(
-      border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
+      border: TableBorder.all(
+        color: cs.outlineVariant,
+        borderRadius: BorderRadius.circular(8),
+      ),
       columnWidths: const <int, TableColumnWidth>{
         0: FlexColumnWidth(2.5),
         1: FlexColumnWidth(2.5),
@@ -951,9 +1074,13 @@ class _ConstructionWalkthrough extends StatelessWidget {
             _tableCell(context, 'Required', header: true),
           ],
         ),
-        ...rows.map((List<String> row) => TableRow(
-          children: row.map((String cell) => _tableCell(context, cell)).toList(),
-        )),
+        ...rows.map(
+          (List<String> row) => TableRow(
+            children: row
+                .map((String cell) => _tableCell(context, cell))
+                .toList(),
+          ),
+        ),
       ],
     );
   }
@@ -966,8 +1093,19 @@ class _ConstructionWalkthrough extends StatelessWidget {
       child: Text(
         text,
         style: header
-            ? tt.labelSmall?.copyWith(fontWeight: FontWeight.w700, color: cs.onPrimaryContainer)
-            : tt.bodySmall?.copyWith(fontFamily: text.contains('Value') || text.contains('Selection') || text.contains('Cause') || text.contains('String') ? 'monospace' : null),
+            ? tt.labelSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: cs.onPrimaryContainer,
+              )
+            : tt.bodySmall?.copyWith(
+                fontFamily:
+                    text.contains('Value') ||
+                        text.contains('Selection') ||
+                        text.contains('Cause') ||
+                        text.contains('String')
+                    ? 'monospace'
+                    : null,
+              ),
       ),
     );
   }
@@ -980,7 +1118,8 @@ class _ConstructionWalkthrough extends StatelessWidget {
 class _CauseGallery extends StatelessWidget {
   const _CauseGallery();
 
-  static const Map<SelectionChangedCause, _CauseInfo> _info = <SelectionChangedCause, _CauseInfo>{
+  static const Map<SelectionChangedCause, _CauseInfo>
+  _info = <SelectionChangedCause, _CauseInfo>{
     SelectionChangedCause.keyboard: _CauseInfo(
       icon: Icons.keyboard,
       label: 'keyboard',
@@ -1058,7 +1197,8 @@ class _CauseGallery extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'SelectionChangedCause Gallery',
-            subtitle: 'All 8 enum values that can be passed as the cause parameter.',
+            subtitle:
+                'All 8 enum values that can be passed as the cause parameter.',
           ),
 
           Container(
@@ -1077,7 +1217,9 @@ class _CauseGallery extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          ..._info.entries.map((MapEntry<SelectionChangedCause, _CauseInfo> entry) {
+          ..._info.entries.map((
+            MapEntry<SelectionChangedCause, _CauseInfo> entry,
+          ) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: _CauseCard(cause: entry.key, info: entry.value),
@@ -1159,7 +1301,10 @@ class _CauseCard extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         'SelectionChangedCause.${info.label}',
-                        style: tt.labelLarge?.copyWith(fontFamily: 'monospace', color: cs.primary),
+                        style: tt.labelLarge?.copyWith(
+                          fontFamily: 'monospace',
+                          color: cs.primary,
+                        ),
                       ),
                     ],
                   ),
@@ -1187,7 +1332,10 @@ class _CauseCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       'Example: ${info.example}',
-                      style: tt.bodySmall?.copyWith(color: cs.onSurface, fontStyle: FontStyle.italic),
+                      style: tt.bodySmall?.copyWith(
+                        color: cs.onSurface,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ),
                 ],
@@ -1251,7 +1399,8 @@ class _CustomActionSection extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Custom ReplaceTextAction',
-            subtitle: 'Override the default handler to apply custom logic on every replacement.',
+            subtitle:
+                'Override the default handler to apply custom logic on every replacement.',
           ),
 
           Text(
@@ -1318,7 +1467,10 @@ class _CustomActionSection extends StatelessWidget {
           ),
           const SizedBox(height: 24),
 
-          Text('Live demo — dispatch via _AutoCorrectAction:', style: tt.labelLarge),
+          Text(
+            'Live demo — dispatch via _AutoCorrectAction:',
+            style: tt.labelLarge,
+          ),
           const SizedBox(height: 12),
           _AutoCorrectDemo(),
           const SizedBox(height: 24),
@@ -1327,29 +1479,35 @@ class _CustomActionSection extends StatelessWidget {
           _buildPattern(
             context,
             title: 'Profanity filter',
-            description: 'Check replacementText against a blocklist; if matched, replace with asterisks instead.',
+            description:
+                'Check replacementText against a blocklist; if matched, replace with asterisks instead.',
             code: 'if (_blocklist.contains(raw)) return \'*\' * raw.length;',
           ),
           const SizedBox(height: 12),
           _buildPattern(
             context,
             title: 'Emoji substitution',
-            description: 'Convert text emoticons like ":)" to emoji characters "😊" on the fly.',
+            description:
+                'Convert text emoticons like ":)" to emoji characters "😊" on the fly.',
             code: 'if (raw == \':)\') return \'😊\';',
           ),
           const SizedBox(height: 12),
           _buildPattern(
             context,
             title: 'Template expansion',
-            description: 'Expand short codes like "addr" into a full address template.',
-            code: 'if (raw == \'addr\') return \'123 Main St, City, State 00000\';',
+            description:
+                'Expand short codes like "addr" into a full address template.',
+            code:
+                'if (raw == \'addr\') return \'123 Main St, City, State 00000\';',
           ),
           const SizedBox(height: 12),
           _buildPattern(
             context,
             title: 'Async validation',
-            description: 'Invoke a server-side spell-check before committing the replacement.',
-            code: '// Note: invoke() is synchronous — schedule async work separately.',
+            description:
+                'Invoke a server-side spell-check before committing the replacement.',
+            code:
+                '// Note: invoke() is synchronous — schedule async work separately.',
           ),
           const SizedBox(height: 20),
         ],
@@ -1357,7 +1515,8 @@ class _CustomActionSection extends StatelessWidget {
     );
   }
 
-  Widget _buildPattern(BuildContext context, {
+  Widget _buildPattern(
+    BuildContext context, {
     required String title,
     required String description,
     required String code,
@@ -1374,9 +1533,15 @@ class _CustomActionSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+          Text(
+            title,
+            style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 4),
-          Text(description, style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant)),
+          Text(
+            description,
+            style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+          ),
           const SizedBox(height: 8),
           _CodeBlock(code),
         ],
@@ -1388,22 +1553,24 @@ class _CustomActionSection extends StatelessWidget {
 class _AutoCorrectDemo extends StatelessWidget {
   _AutoCorrectDemo();
 
-  final TextEditingController _controller = TextEditingController(text: 'hello world');
+  final TextEditingController _controller = TextEditingController(
+    text: 'hello world',
+  );
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
     return Actions(
-      actions: <Type, Action<Intent>>{
-        ReplaceTextIntent: _AutoCorrectAction(),
-      },
+      actions: <Type, Action<Intent>>{ReplaceTextIntent: _AutoCorrectAction()},
       child: Builder(
         builder: (BuildContext ctx) {
           return Card(
             elevation: 0,
             color: cs.surfaceContainerLow,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -1424,10 +1591,14 @@ class _AutoCorrectDemo extends StatelessWidget {
                   const SizedBox(height: 12),
                   FilledButton.icon(
                     icon: const Icon(Icons.auto_fix_high),
-                    label: const Text('Capitalise selected via _AutoCorrectAction'),
+                    label: const Text(
+                      'Capitalise selected via _AutoCorrectAction',
+                    ),
                     onPressed: () {
                       final TextEditingValue current = _controller.value;
-                      if (!current.selection.isValid || current.selection.isCollapsed) return;
+                      if (!current.selection.isValid ||
+                          current.selection.isCollapsed)
+                        return;
                       final String selectedWord = current.text.substring(
                         current.selection.start,
                         current.selection.end,
@@ -1509,7 +1680,8 @@ class _CompareTable extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Compare with Other Text Intents',
-            subtitle: 'How ReplaceTextIntent fits alongside the other text editing intents.',
+            subtitle:
+                'How ReplaceTextIntent fits alongside the other text editing intents.',
           ),
 
           Text(
@@ -1521,10 +1693,15 @@ class _CompareTable extends StatelessWidget {
           const SizedBox(height: 20),
 
           // Comparison cards
-          ...rows.map((row) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: _IntentCompareCard(row: row, isHighlighted: row.name == 'ReplaceTextIntent'),
-          )),
+          ...rows.map(
+            (row) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: _IntentCompareCard(
+                row: row,
+                isHighlighted: row.name == 'ReplaceTextIntent',
+              ),
+            ),
+          ),
 
           const SizedBox(height: 24),
           Text('Side-by-side code comparison:', style: tt.labelLarge),
@@ -1557,31 +1734,59 @@ class _CompareTable extends StatelessWidget {
 
           // Decision guide
           _SectionTitle('Decision guide: which intent to use?'),
-          _buildDecisionRow(context, 'Replace selected text with something', 'ReplaceTextIntent ✓'),
+          _buildDecisionRow(
+            context,
+            'Replace selected text with something',
+            'ReplaceTextIntent ✓',
+          ),
           const SizedBox(height: 8),
-          _buildDecisionRow(context, 'Insert text at cursor (no selection)', 'InsertTextIntent'),
+          _buildDecisionRow(
+            context,
+            'Insert text at cursor (no selection)',
+            'InsertTextIntent',
+          ),
           const SizedBox(height: 8),
-          _buildDecisionRow(context, 'Delete the character before cursor', 'DeleteCharacterIntent(forward: false)'),
+          _buildDecisionRow(
+            context,
+            'Delete the character before cursor',
+            'DeleteCharacterIntent(forward: false)',
+          ),
           const SizedBox(height: 8),
-          _buildDecisionRow(context, 'Extend selection by one char', 'ExtendSelectionByCharacterIntent'),
+          _buildDecisionRow(
+            context,
+            'Extend selection by one char',
+            'ExtendSelectionByCharacterIntent',
+          ),
           const SizedBox(height: 8),
-          _buildDecisionRow(context, 'Delete entire word', 'DeleteToNextWordBoundaryIntent'),
+          _buildDecisionRow(
+            context,
+            'Delete entire word',
+            'DeleteToNextWordBoundaryIntent',
+          ),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
 
-  Widget _buildDecisionRow(BuildContext context, String scenario, String answer) {
+  Widget _buildDecisionRow(
+    BuildContext context,
+    String scenario,
+    String answer,
+  ) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
     final bool isHighlighted = answer.contains('✓');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        color: isHighlighted ? cs.primaryContainer.withAlpha(120) : cs.surfaceContainerLow,
+        color: isHighlighted
+            ? cs.primaryContainer.withAlpha(120)
+            : cs.surfaceContainerLow,
         borderRadius: BorderRadius.circular(8),
-        border: isHighlighted ? Border.all(color: cs.primary.withAlpha(80)) : null,
+        border: isHighlighted
+            ? Border.all(color: cs.primary.withAlpha(80))
+            : null,
       ),
       child: Row(
         children: <Widget>[
@@ -1629,7 +1834,9 @@ class _IntentCompareCard extends StatelessWidget {
     final TextTheme tt = Theme.of(context).textTheme;
     return Card(
       elevation: 0,
-      color: isHighlighted ? cs.primaryContainer.withAlpha(140) : cs.surfaceContainerLow,
+      color: isHighlighted
+          ? cs.primaryContainer.withAlpha(140)
+          : cs.surfaceContainerLow,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: isHighlighted
@@ -1692,7 +1899,10 @@ class _IntentCompareCard extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: 100,
-            child: Text(label, style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant)),
+            child: Text(
+              label,
+              style: tt.labelSmall?.copyWith(color: cs.onSurfaceVariant),
+            ),
           ),
           Expanded(child: Text(value, style: tt.bodySmall)),
         ],
@@ -1719,7 +1929,8 @@ class _DiagramSection extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Intent Flow Diagram',
-            subtitle: 'From keyboard shortcut to TextEditingController.value update.',
+            subtitle:
+                'From keyboard shortcut to TextEditingController.value update.',
           ),
 
           Text(
@@ -1749,26 +1960,54 @@ class _DiagramSection extends StatelessWidget {
 
           Text('Step-by-step breakdown:', style: tt.labelLarge),
           const SizedBox(height: 12),
-          _buildStep(context, '1', 'Keyboard Shortcut / Input',
-              'A hardware key event or virtual keyboard input triggers a text editing shortcut.'),
+          _buildStep(
+            context,
+            '1',
+            'Keyboard Shortcut / Input',
+            'A hardware key event or virtual keyboard input triggers a text editing shortcut.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '2', 'DefaultTextEditingActions',
-              'The built-in set of Actions registered by EditableText receives the key event and maps it to a text editing Intent.'),
+          _buildStep(
+            context,
+            '2',
+            'DefaultTextEditingActions',
+            'The built-in set of Actions registered by EditableText receives the key event and maps it to a text editing Intent.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '3', 'ReplaceTextIntent constructed',
-              'A ReplaceTextIntent is created with the current TextEditingValue, replacement text, new selection, and cause.'),
+          _buildStep(
+            context,
+            '3',
+            'ReplaceTextIntent constructed',
+            'A ReplaceTextIntent is created with the current TextEditingValue, replacement text, new selection, and cause.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '4', 'Actions.invoke()',
-              'The intent is dispatched up the widget tree. Custom Action overrides are checked first.'),
+          _buildStep(
+            context,
+            '4',
+            'Actions.invoke()',
+            'The intent is dispatched up the widget tree. Custom Action overrides are checked first.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '5', 'ReplaceTextAction.invoke()',
-              'The action applies the replacement to the TextEditingValue snapshot from the intent.'),
+          _buildStep(
+            context,
+            '5',
+            'ReplaceTextAction.invoke()',
+            'The action applies the replacement to the TextEditingValue snapshot from the intent.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '6', 'controller.value updated',
-              'The TextEditingController.value is set to the new TextEditingValue with updated text and selection.'),
+          _buildStep(
+            context,
+            '6',
+            'controller.value updated',
+            'The TextEditingController.value is set to the new TextEditingValue with updated text and selection.',
+          ),
           const SizedBox(height: 8),
-          _buildStep(context, '7', 'Widget rebuild',
-              'All widgets listening to the controller (TextField, ValueListenableBuilder, etc.) rebuild to reflect the change.'),
+          _buildStep(
+            context,
+            '7',
+            'Widget rebuild',
+            'All widgets listening to the controller (TextField, ValueListenableBuilder, etc.) rebuild to reflect the change.',
+          ),
           const SizedBox(height: 20),
 
           _CodeBlock(
@@ -1799,7 +2038,12 @@ class _DiagramSection extends StatelessWidget {
     );
   }
 
-  Widget _buildStep(BuildContext context, String num, String title, String desc) {
+  Widget _buildStep(
+    BuildContext context,
+    String num,
+    String title,
+    String desc,
+  ) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
     return Row(
@@ -1809,15 +2053,29 @@ class _DiagramSection extends StatelessWidget {
           width: 28,
           height: 28,
           decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
-          child: Center(child: Text(num, style: tt.labelSmall?.copyWith(color: cs.onPrimary, fontWeight: FontWeight.w700))),
+          child: Center(
+            child: Text(
+              num,
+              style: tt.labelSmall?.copyWith(
+                color: cs.onPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: tt.labelMedium?.copyWith(fontWeight: FontWeight.w700)),
-              Text(desc, style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant)),
+              Text(
+                title,
+                style: tt.labelMedium?.copyWith(fontWeight: FontWeight.w700),
+              ),
+              Text(
+                desc,
+                style: tt.bodySmall?.copyWith(color: cs.onSurfaceVariant),
+              ),
             ],
           ),
         ),
@@ -1859,7 +2117,11 @@ class _FlowDiagramPainter extends CustomPainter {
       _DiagramNode('⌨  Keyboard Shortcut', primaryContainer, primary),
       _DiagramNode('DefaultTextEditingActions', secondaryContainer, secondary),
       _DiagramNode('ReplaceTextIntent created', primaryContainer, primary),
-      _DiagramNode('Actions.invoke(context, intent)', tertiaryContainer, tertiary),
+      _DiagramNode(
+        'Actions.invoke(context, intent)',
+        tertiaryContainer,
+        tertiary,
+      ),
       _DiagramNode('ReplaceTextAction.invoke()', secondaryContainer, secondary),
       _DiagramNode('controller.value = newValue', primaryContainer, primary),
       _DiagramNode('Widget Rebuild ✓', tertiaryContainer, tertiary),
@@ -1890,7 +2152,10 @@ class _FlowDiagramPainter extends CustomPainter {
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: boxW - 16);
-      tp.paint(canvas, Offset(centerX - tp.width / 2, y + (boxH - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset(centerX - tp.width / 2, y + (boxH - tp.height) / 2),
+      );
 
       // Arrow to next node
       if (i < nodes.length - 1) {
@@ -1907,7 +2172,12 @@ class _FlowDiagramPainter extends CustomPainter {
           ..lineTo(end.dx - headSize, end.dy - headSize)
           ..lineTo(end.dx + headSize, end.dy - headSize)
           ..close();
-        canvas.drawPath(arrowHead, Paint()..color = node.border..style = PaintingStyle.fill);
+        canvas.drawPath(
+          arrowHead,
+          Paint()
+            ..color = node.border
+            ..style = PaintingStyle.fill,
+        );
       }
 
       y += boxH + gap;
@@ -1943,7 +2213,8 @@ class _SelectionVisualization extends StatelessWidget {
         children: <Widget>[
           _SectionTitle(
             'Selection Visualization',
-            subtitle: 'Live view of the TextSelection range from the shared editor state.',
+            subtitle:
+                'Live view of the TextSelection range from the shared editor state.',
           ),
 
           Text(
@@ -1981,11 +2252,15 @@ class _SelectionVisualization extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Selected text preview
-                  if (val.selection.isValid && !val.selection.isCollapsed) ...<Widget>[
+                  if (val.selection.isValid &&
+                      !val.selection.isCollapsed) ...<Widget>[
                     Text('Selected text:', style: tt.labelLarge),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                         color: cs.primaryContainer,
                         borderRadius: BorderRadius.circular(10),
@@ -2003,7 +2278,10 @@ class _SelectionVisualization extends StatelessWidget {
                   ],
 
                   // Resulting replacementSelection preview
-                  Text('replacementSelection if replacing with "DEMO":', style: tt.labelLarge),
+                  Text(
+                    'replacementSelection if replacing with "DEMO":',
+                    style: tt.labelLarge,
+                  ),
                   const SizedBox(height: 8),
                   _CodeBlock(
                     '// If you invoke ReplaceTextIntent with replacementText: "DEMO"\n'
@@ -2017,9 +2295,17 @@ class _SelectionVisualization extends StatelessWidget {
 
                   // Affinity explanation
                   _SectionTitle('TextAffinity explained'),
-                  _buildAffinityCard(context, TextAffinity.upstream, val.selection.affinity),
+                  _buildAffinityCard(
+                    context,
+                    TextAffinity.upstream,
+                    val.selection.affinity,
+                  ),
                   const SizedBox(height: 8),
-                  _buildAffinityCard(context, TextAffinity.downstream, val.selection.affinity),
+                  _buildAffinityCard(
+                    context,
+                    TextAffinity.downstream,
+                    val.selection.affinity,
+                  ),
                 ],
               );
             },
@@ -2027,22 +2313,46 @@ class _SelectionVisualization extends StatelessWidget {
           const SizedBox(height: 20),
 
           _SectionTitle('Selection terms glossary'),
-          _buildGlossaryRow(context, 'baseOffset', 'Where the selection anchor is (where the user started selecting from).'),
+          _buildGlossaryRow(
+            context,
+            'baseOffset',
+            'Where the selection anchor is (where the user started selecting from).',
+          ),
           const SizedBox(height: 8),
-          _buildGlossaryRow(context, 'extentOffset', 'Where the selection active end is (where the user dragged to).'),
+          _buildGlossaryRow(
+            context,
+            'extentOffset',
+            'Where the selection active end is (where the user dragged to).',
+          ),
           const SizedBox(height: 8),
-          _buildGlossaryRow(context, 'isCollapsed', 'true when baseOffset == extentOffset (cursor, not a range).'),
+          _buildGlossaryRow(
+            context,
+            'isCollapsed',
+            'true when baseOffset == extentOffset (cursor, not a range).',
+          ),
           const SizedBox(height: 8),
-          _buildGlossaryRow(context, 'isNormalized', 'true when baseOffset <= extentOffset.'),
+          _buildGlossaryRow(
+            context,
+            'isNormalized',
+            'true when baseOffset <= extentOffset.',
+          ),
           const SizedBox(height: 8),
-          _buildGlossaryRow(context, 'start / end', 'Normalised: start = min(base, extent), end = max(base, extent).'),
+          _buildGlossaryRow(
+            context,
+            'start / end',
+            'Normalised: start = min(base, extent), end = max(base, extent).',
+          ),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
 
-  Widget _buildAffinityCard(BuildContext context, TextAffinity affinity, TextAffinity current) {
+  Widget _buildAffinityCard(
+    BuildContext context,
+    TextAffinity affinity,
+    TextAffinity current,
+  ) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final TextTheme tt = Theme.of(context).textTheme;
     final bool isActive = affinity == current;
@@ -2056,7 +2366,12 @@ class _SelectionVisualization extends StatelessWidget {
       child: Row(
         children: <Widget>[
           if (isActive) Icon(Icons.check_circle, color: cs.primary, size: 20),
-          if (!isActive) Icon(Icons.radio_button_unchecked, color: cs.outlineVariant, size: 20),
+          if (!isActive)
+            Icon(
+              Icons.radio_button_unchecked,
+              color: cs.outlineVariant,
+              size: 20,
+            ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -2064,7 +2379,10 @@ class _SelectionVisualization extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'TextAffinity.${affinity.name}',
-                  style: tt.labelMedium?.copyWith(fontFamily: 'monospace', color: isActive ? cs.primary : cs.onSurface),
+                  style: tt.labelMedium?.copyWith(
+                    fontFamily: 'monospace',
+                    color: isActive ? cs.primary : cs.onSurface,
+                  ),
                 ),
                 Text(
                   affinity == TextAffinity.upstream
@@ -2088,7 +2406,14 @@ class _SelectionVisualization extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 110,
-          child: Text(term, style: tt.labelSmall?.copyWith(fontFamily: 'monospace', color: cs.primary, fontWeight: FontWeight.w700)),
+          child: Text(
+            term,
+            style: tt.labelSmall?.copyWith(
+              fontFamily: 'monospace',
+              color: cs.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Expanded(child: Text(def, style: tt.bodySmall)),
       ],
@@ -2111,13 +2436,18 @@ class _SelectionCard extends StatelessWidget {
       return Card(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: Text('No valid selection', style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant)),
+          child: Text(
+            'No valid selection',
+            style: tt.bodyMedium?.copyWith(color: cs.onSurfaceVariant),
+          ),
         ),
       );
     }
 
     final String before = sel.start > 0 ? text.substring(0, sel.start) : '';
-    final String selected = sel.isCollapsed ? '' : text.substring(sel.start, sel.end);
+    final String selected = sel.isCollapsed
+        ? ''
+        : text.substring(sel.start, sel.end);
     final String after = sel.end < text.length ? text.substring(sel.end) : '';
 
     return Card(
@@ -2129,13 +2459,19 @@ class _SelectionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Live selection visualizer (from shared editor):', style: tt.labelMedium),
+            Text(
+              'Live selection visualizer (from shared editor):',
+              style: tt.labelMedium,
+            ),
             const SizedBox(height: 12),
             RichText(
               text: TextSpan(
                 style: tt.bodyLarge?.copyWith(fontFamily: 'monospace'),
                 children: <TextSpan>[
-                  TextSpan(text: before, style: TextStyle(color: cs.onSurface)),
+                  TextSpan(
+                    text: before,
+                    style: TextStyle(color: cs.onSurface),
+                  ),
                   if (!sel.isCollapsed)
                     TextSpan(
                       text: selected,
@@ -2148,9 +2484,15 @@ class _SelectionCard extends StatelessWidget {
                   if (sel.isCollapsed)
                     TextSpan(
                       text: '|',
-                      style: TextStyle(color: cs.primary, fontWeight: FontWeight.w900),
+                      style: TextStyle(
+                        color: cs.primary,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
-                  TextSpan(text: after, style: TextStyle(color: cs.onSurface)),
+                  TextSpan(
+                    text: after,
+                    style: TextStyle(color: cs.onSurface),
+                  ),
                 ],
               ),
             ),
@@ -2171,12 +2513,16 @@ class _SelectionCard extends StatelessWidget {
                 ),
                 Chip(
                   label: Text('length: ${sel.end - sel.start}'),
-                  backgroundColor: sel.isCollapsed ? cs.surfaceContainerHighest : cs.primaryContainer,
+                  backgroundColor: sel.isCollapsed
+                      ? cs.surfaceContainerHighest
+                      : cs.primaryContainer,
                   side: BorderSide.none,
                 ),
                 Chip(
                   label: Text(sel.isCollapsed ? 'collapsed' : 'range'),
-                  backgroundColor: sel.isCollapsed ? cs.errorContainer : cs.tertiaryContainer,
+                  backgroundColor: sel.isCollapsed
+                      ? cs.errorContainer
+                      : cs.tertiaryContainer,
                   side: BorderSide.none,
                 ),
               ],
@@ -2214,7 +2560,8 @@ class _PitfallsAndApi extends StatelessWidget {
                 'ReplaceTextIntent can only be successfully dispatched when a TextField (or EditableText) '
                 'is focused. If no text field has focus, Actions.invoke() will return null and nothing happens. '
                 'Always ensure focus is acquired before dispatching.',
-            fix: 'Call FocusScope.of(context).requestFocus(myFocusNode) before invoking the intent.',
+            fix:
+                'Call FocusScope.of(context).requestFocus(myFocusNode) before invoking the intent.',
             severity: _PitfallSeverity.high,
           ),
           const SizedBox(height: 12),
@@ -2227,7 +2574,8 @@ class _PitfallsAndApi extends StatelessWidget {
                 'ReplaceTextAction (the default handler) is registered automatically by EditableText '
                 'via DefaultTextEditingActions. If your widget tree does not include a TextField or '
                 'EditableText, there will be no handler and the intent will be silently ignored.',
-            fix: 'Ensure a TextField or EditableText is in the subtree. Or register your own Action explicitly.',
+            fix:
+                'Ensure a TextField or EditableText is in the subtree. Or register your own Action explicitly.',
             severity: _PitfallSeverity.high,
           ),
           const SizedBox(height: 12),
@@ -2240,7 +2588,8 @@ class _PitfallsAndApi extends StatelessWidget {
                 'All 4 constructor parameters are required. Forgetting to pass cause is a compile error, '
                 'but passing the wrong cause (e.g. using toolbar when the trigger is programmatic) may '
                 'cause subtle platform-specific behavior differences on iOS/Android.',
-            fix: 'For programmatic replacements always use SelectionChangedCause.keyboard.',
+            fix:
+                'For programmatic replacements always use SelectionChangedCause.keyboard.',
             severity: _PitfallSeverity.medium,
           ),
           const SizedBox(height: 12),
@@ -2253,7 +2602,8 @@ class _PitfallsAndApi extends StatelessWidget {
                 'If you capture controller.value, then the controller value changes before you dispatch '
                 'the intent, the snapshot will be stale. The action handler uses the snapshot from the '
                 'intent, not the current controller state, so you may overwrite user input.',
-            fix: 'Always capture controller.value immediately before constructing the intent.',
+            fix:
+                'Always capture controller.value immediately before constructing the intent.',
             severity: _PitfallSeverity.high,
           ),
           const SizedBox(height: 12),
@@ -2261,12 +2611,14 @@ class _PitfallsAndApi extends StatelessWidget {
           _buildPitfall(
             context,
             number: '5',
-            title: 'replacementSelection must reference offsets in the NEW text',
+            title:
+                'replacementSelection must reference offsets in the NEW text',
             description:
                 'After the replacement, the text length changes. The replacementSelection offsets must '
                 'be valid in the post-replacement text, not in the original. Off-by-one errors here '
                 'will cause an out-of-range assertion.',
-            fix: 'Calculate: newOffset = selection.start + replacementText.length',
+            fix:
+                'Calculate: newOffset = selection.start + replacementText.length',
             severity: _PitfallSeverity.medium,
           ),
           const SizedBox(height: 12),
@@ -2278,7 +2630,8 @@ class _PitfallsAndApi extends StatelessWidget {
             description:
                 'Mixing direct controller.value mutations with intent dispatching can cause race '
                 'conditions and undo history corruption. Commit to one approach.',
-            fix: 'Use intents exclusively for all text modifications in Actions-aware contexts.',
+            fix:
+                'Use intents exclusively for all text modifications in Actions-aware contexts.',
             severity: _PitfallSeverity.low,
           ),
           const SizedBox(height: 24),
@@ -2370,13 +2723,21 @@ class _PitfallsAndApi extends StatelessWidget {
           Card(
             elevation: 0,
             color: cs.primaryContainer.withAlpha(120),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Summary', style: tt.titleMedium?.copyWith(fontWeight: FontWeight.w700, color: cs.primary)),
+                  Text(
+                    'Summary',
+                    style: tt.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: cs.primary,
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   Text(
                     'ReplaceTextIntent is the correct, framework-aligned way to programmatically '
@@ -2391,11 +2752,31 @@ class _PitfallsAndApi extends StatelessWidget {
                     spacing: 8,
                     runSpacing: 8,
                     children: <Widget>[
-                      Chip(label: const Text('flutter/services.dart'), backgroundColor: cs.secondaryContainer, side: BorderSide.none),
-                      Chip(label: const Text('extends Intent'), backgroundColor: cs.secondaryContainer, side: BorderSide.none),
-                      Chip(label: const Text('4 required params'), backgroundColor: cs.secondaryContainer, side: BorderSide.none),
-                      Chip(label: const Text('ReplaceTextAction'), backgroundColor: cs.secondaryContainer, side: BorderSide.none),
-                      Chip(label: const Text('M3 compatible'), backgroundColor: cs.secondaryContainer, side: BorderSide.none),
+                      Chip(
+                        label: const Text('flutter/services.dart'),
+                        backgroundColor: cs.secondaryContainer,
+                        side: BorderSide.none,
+                      ),
+                      Chip(
+                        label: const Text('extends Intent'),
+                        backgroundColor: cs.secondaryContainer,
+                        side: BorderSide.none,
+                      ),
+                      Chip(
+                        label: const Text('4 required params'),
+                        backgroundColor: cs.secondaryContainer,
+                        side: BorderSide.none,
+                      ),
+                      Chip(
+                        label: const Text('ReplaceTextAction'),
+                        backgroundColor: cs.secondaryContainer,
+                        side: BorderSide.none,
+                      ),
+                      Chip(
+                        label: const Text('M3 compatible'),
+                        backgroundColor: cs.secondaryContainer,
+                        side: BorderSide.none,
+                      ),
                     ],
                   ),
                 ],
@@ -2411,13 +2792,32 @@ class _PitfallsAndApi extends StatelessWidget {
   Widget _buildApiTable(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     const List<List<String>> rows = <List<String>>[
-      ['currentTextEditingValue', 'TextEditingValue', 'Snapshot of editing state before replacement'],
-      ['replacementText', 'String', 'The new string to replace the selection with'],
-      ['replacementSelection', 'TextSelection', 'The cursor/selection to set after replacement'],
-      ['cause', 'SelectionChangedCause', 'What triggered the replacement intent'],
+      [
+        'currentTextEditingValue',
+        'TextEditingValue',
+        'Snapshot of editing state before replacement',
+      ],
+      [
+        'replacementText',
+        'String',
+        'The new string to replace the selection with',
+      ],
+      [
+        'replacementSelection',
+        'TextSelection',
+        'The cursor/selection to set after replacement',
+      ],
+      [
+        'cause',
+        'SelectionChangedCause',
+        'What triggered the replacement intent',
+      ],
     ];
     return Table(
-      border: TableBorder.all(color: cs.outlineVariant, borderRadius: BorderRadius.circular(8)),
+      border: TableBorder.all(
+        color: cs.outlineVariant,
+        borderRadius: BorderRadius.circular(8),
+      ),
       columnWidths: const <int, TableColumnWidth>{
         0: FlexColumnWidth(2.5),
         1: FlexColumnWidth(2.5),
@@ -2432,9 +2832,10 @@ class _PitfallsAndApi extends StatelessWidget {
             _th(context, 'Description'),
           ],
         ),
-        ...rows.map((List<String> r) => TableRow(
-          children: r.map((String c) => _td(context, c)).toList(),
-        )),
+        ...rows.map(
+          (List<String> r) =>
+              TableRow(children: r.map((String c) => _td(context, c)).toList()),
+        ),
       ],
     );
   }
@@ -2444,7 +2845,13 @@ class _PitfallsAndApi extends StatelessWidget {
     final ColorScheme cs = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-      child: Text(text, style: tt.labelSmall?.copyWith(fontWeight: FontWeight.w700, color: cs.onPrimaryContainer)),
+      child: Text(
+        text,
+        style: tt.labelSmall?.copyWith(
+          fontWeight: FontWeight.w700,
+          color: cs.onPrimaryContainer,
+        ),
+      ),
     );
   }
 
@@ -2502,15 +2909,40 @@ class _PitfallsAndApi extends StatelessWidget {
               Container(
                 width: 28,
                 height: 28,
-                decoration: BoxDecoration(color: labelColor, shape: BoxShape.circle),
-                child: Center(child: Text(number, style: tt.labelSmall?.copyWith(color: cs.surface, fontWeight: FontWeight.w700))),
+                decoration: BoxDecoration(
+                  color: labelColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    number,
+                    style: tt.labelSmall?.copyWith(
+                      color: cs.surface,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
-              Expanded(child: Text(title, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700))),
+              Expanded(
+                child: Text(
+                  title,
+                  style: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: labelColor.withAlpha(30), borderRadius: BorderRadius.circular(6)),
-                child: Text(severityLabel, style: tt.labelSmall?.copyWith(color: labelColor, fontWeight: FontWeight.w700)),
+                decoration: BoxDecoration(
+                  color: labelColor.withAlpha(30),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  severityLabel,
+                  style: tt.labelSmall?.copyWith(
+                    color: labelColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -2522,7 +2954,12 @@ class _PitfallsAndApi extends StatelessWidget {
             children: <Widget>[
               Icon(Icons.check_circle_outline, size: 16, color: labelColor),
               const SizedBox(width: 6),
-              Expanded(child: Text('Fix: $fix', style: tt.bodySmall?.copyWith(fontStyle: FontStyle.italic))),
+              Expanded(
+                child: Text(
+                  'Fix: $fix',
+                  style: tt.bodySmall?.copyWith(fontStyle: FontStyle.italic),
+                ),
+              ),
             ],
           ),
         ],

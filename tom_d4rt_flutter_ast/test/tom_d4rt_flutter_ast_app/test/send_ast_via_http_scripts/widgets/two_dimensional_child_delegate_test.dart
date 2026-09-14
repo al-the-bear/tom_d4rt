@@ -144,7 +144,9 @@ class _TwoDDelHomeState extends State<_TwoDDelHome>
   void _inspect(ChildVicinity v) {
     setState(() {
       _inspected = v;
-      debugPrint('[twoDDel] inspected vicinity xIndex=${v.xIndex} yIndex=${v.yIndex}');
+      debugPrint(
+        '[twoDDel] inspected vicinity xIndex=${v.xIndex} yIndex=${v.yIndex}',
+      );
     });
   }
 
@@ -200,10 +202,7 @@ class _TwoDDelHomeState extends State<_TwoDDelHome>
             onTap: _inspect,
           ),
           const SizedBox(height: 24),
-          _TwoDDelCoordinateInspector(
-            inspected: _inspected,
-            flavor: _flavor,
-          ),
+          _TwoDDelCoordinateInspector(inspected: _inspected, flavor: _flavor),
           const SizedBox(height: 24),
           _TwoDDelDriftDemo(tick: _driftTick),
           const SizedBox(height: 24),
@@ -525,7 +524,8 @@ class _TwoDDelSceneSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TwoDimensionalChildDelegate delegate = flavor == _TwoDDelBoardFlavor.chess
+    final TwoDimensionalChildDelegate delegate =
+        flavor == _TwoDDelBoardFlavor.chess
         ? _TwoDDelChessboardDelegate(
             position: position,
             showCoords: showCoords,
@@ -540,9 +540,9 @@ class _TwoDDelSceneSwitcher extends StatelessWidget {
 
     final String caption = flavor == _TwoDDelBoardFlavor.chess
         ? 'Chessboard rendered through _TwoDDelChessboardDelegate '
-            '(extends TwoDimensionalChildDelegate).'
+              '(extends TwoDimensionalChildDelegate).'
         : 'Go board rendered through _TwoDDelGoBoardDelegate — the same '
-            'abstract contract, a very different visual grammar.';
+              'abstract contract, a very different visual grammar.';
 
     final int xCount = flavor == _TwoDDelBoardFlavor.chess ? 8 : 9;
     final int yCount = flavor == _TwoDDelBoardFlavor.chess ? 8 : 9;
@@ -687,8 +687,10 @@ class _TwoDDelMiniViewport extends StatelessWidget {
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: List<Widget>.generate(xCount, (int x) {
-              final ChildVicinity vicinity =
-                  ChildVicinity(xIndex: x, yIndex: y);
+              final ChildVicinity vicinity = ChildVicinity(
+                xIndex: x,
+                yIndex: y,
+              );
               final Widget? cell = delegate.build(context, vicinity);
               return GestureDetector(
                 onTap: () => onTap(vicinity),
@@ -791,14 +793,22 @@ void _twoDDelStandardLayout(Map<ChildVicinity, _TwoDDelPiece> m) {
     _TwoDDelPieceKind.rook,
   ];
   for (int x = 0; x < 8; x++) {
-    m[ChildVicinity(xIndex: x, yIndex: 0)] =
-        _TwoDDelPiece(backRank[x], _TwoDDelPieceOwner.black);
-    m[ChildVicinity(xIndex: x, yIndex: 1)] =
-        const _TwoDDelPiece(_TwoDDelPieceKind.pawn, _TwoDDelPieceOwner.black);
-    m[ChildVicinity(xIndex: x, yIndex: 6)] =
-        const _TwoDDelPiece(_TwoDDelPieceKind.pawn, _TwoDDelPieceOwner.white);
-    m[ChildVicinity(xIndex: x, yIndex: 7)] =
-        _TwoDDelPiece(backRank[x], _TwoDDelPieceOwner.white);
+    m[ChildVicinity(xIndex: x, yIndex: 0)] = _TwoDDelPiece(
+      backRank[x],
+      _TwoDDelPieceOwner.black,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 1)] = const _TwoDDelPiece(
+      _TwoDDelPieceKind.pawn,
+      _TwoDDelPieceOwner.black,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 6)] = const _TwoDDelPiece(
+      _TwoDDelPieceKind.pawn,
+      _TwoDDelPieceOwner.white,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 7)] = _TwoDDelPiece(
+      backRank[x],
+      _TwoDDelPieceOwner.white,
+    );
   }
 }
 
@@ -815,28 +825,44 @@ void _twoDDelChess960Layout(Map<ChildVicinity, _TwoDDelPiece> m) {
     _TwoDDelPieceKind.knight,
   ];
   for (int x = 0; x < 8; x++) {
-    m[ChildVicinity(xIndex: x, yIndex: 0)] =
-        _TwoDDelPiece(fischer[x], _TwoDDelPieceOwner.black);
-    m[ChildVicinity(xIndex: x, yIndex: 1)] =
-        const _TwoDDelPiece(_TwoDDelPieceKind.pawn, _TwoDDelPieceOwner.black);
-    m[ChildVicinity(xIndex: x, yIndex: 6)] =
-        const _TwoDDelPiece(_TwoDDelPieceKind.pawn, _TwoDDelPieceOwner.white);
-    m[ChildVicinity(xIndex: x, yIndex: 7)] =
-        _TwoDDelPiece(fischer[x], _TwoDDelPieceOwner.white);
+    m[ChildVicinity(xIndex: x, yIndex: 0)] = _TwoDDelPiece(
+      fischer[x],
+      _TwoDDelPieceOwner.black,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 1)] = const _TwoDDelPiece(
+      _TwoDDelPieceKind.pawn,
+      _TwoDDelPieceOwner.black,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 6)] = const _TwoDDelPiece(
+      _TwoDDelPieceKind.pawn,
+      _TwoDDelPieceOwner.white,
+    );
+    m[ChildVicinity(xIndex: x, yIndex: 7)] = _TwoDDelPiece(
+      fischer[x],
+      _TwoDDelPieceOwner.white,
+    );
   }
 }
 
 void _twoDDelEndgameLayout(Map<ChildVicinity, _TwoDDelPiece> m) {
   // Minimal K+R vs K endgame — white king on e1, white rook on a7, black king on e8.
-  m[const ChildVicinity(xIndex: 4, yIndex: 7)] =
-      const _TwoDDelPiece(_TwoDDelPieceKind.king, _TwoDDelPieceOwner.white);
-  m[const ChildVicinity(xIndex: 0, yIndex: 1)] =
-      const _TwoDDelPiece(_TwoDDelPieceKind.rook, _TwoDDelPieceOwner.white);
-  m[const ChildVicinity(xIndex: 4, yIndex: 0)] =
-      const _TwoDDelPiece(_TwoDDelPieceKind.king, _TwoDDelPieceOwner.black);
+  m[const ChildVicinity(xIndex: 4, yIndex: 7)] = const _TwoDDelPiece(
+    _TwoDDelPieceKind.king,
+    _TwoDDelPieceOwner.white,
+  );
+  m[const ChildVicinity(xIndex: 0, yIndex: 1)] = const _TwoDDelPiece(
+    _TwoDDelPieceKind.rook,
+    _TwoDDelPieceOwner.white,
+  );
+  m[const ChildVicinity(xIndex: 4, yIndex: 0)] = const _TwoDDelPiece(
+    _TwoDDelPieceKind.king,
+    _TwoDDelPieceOwner.black,
+  );
   // A stray black pawn stranded on c3 to make it a study.
-  m[const ChildVicinity(xIndex: 2, yIndex: 5)] =
-      const _TwoDDelPiece(_TwoDDelPieceKind.pawn, _TwoDDelPieceOwner.black);
+  m[const ChildVicinity(xIndex: 2, yIndex: 5)] = const _TwoDDelPiece(
+    _TwoDDelPieceKind.pawn,
+    _TwoDDelPieceOwner.black,
+  );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -909,7 +935,10 @@ class _TwoDDelChessSquare extends StatelessWidget {
         color: square,
         border: highlighted
             ? Border.all(color: _twoDDelJade, width: 3)
-            : Border.all(color: _twoDDelSepia.withValues(alpha: 0.15), width: 0.5),
+            : Border.all(
+                color: _twoDDelSepia.withValues(alpha: 0.15),
+                width: 0.5,
+              ),
       ),
       child: Stack(
         fit: StackFit.expand,
@@ -974,16 +1003,16 @@ class _TwoDDelGoBoardDelegate extends TwoDimensionalChildDelegate {
   // build it once at class init and expose it as a static final.
   static final Map<ChildVicinity, _TwoDDelStone> _stones =
       <ChildVicinity, _TwoDDelStone>{
-    const ChildVicinity(xIndex: 2, yIndex: 2): _TwoDDelStone.black,
-    const ChildVicinity(xIndex: 2, yIndex: 6): _TwoDDelStone.white,
-    const ChildVicinity(xIndex: 6, yIndex: 2): _TwoDDelStone.white,
-    const ChildVicinity(xIndex: 6, yIndex: 6): _TwoDDelStone.black,
-    const ChildVicinity(xIndex: 4, yIndex: 4): _TwoDDelStone.black,
-    const ChildVicinity(xIndex: 3, yIndex: 4): _TwoDDelStone.white,
-    const ChildVicinity(xIndex: 5, yIndex: 4): _TwoDDelStone.white,
-    const ChildVicinity(xIndex: 4, yIndex: 3): _TwoDDelStone.black,
-    const ChildVicinity(xIndex: 4, yIndex: 5): _TwoDDelStone.black,
-  };
+        const ChildVicinity(xIndex: 2, yIndex: 2): _TwoDDelStone.black,
+        const ChildVicinity(xIndex: 2, yIndex: 6): _TwoDDelStone.white,
+        const ChildVicinity(xIndex: 6, yIndex: 2): _TwoDDelStone.white,
+        const ChildVicinity(xIndex: 6, yIndex: 6): _TwoDDelStone.black,
+        const ChildVicinity(xIndex: 4, yIndex: 4): _TwoDDelStone.black,
+        const ChildVicinity(xIndex: 3, yIndex: 4): _TwoDDelStone.white,
+        const ChildVicinity(xIndex: 5, yIndex: 4): _TwoDDelStone.white,
+        const ChildVicinity(xIndex: 4, yIndex: 3): _TwoDDelStone.black,
+        const ChildVicinity(xIndex: 4, yIndex: 5): _TwoDDelStone.black,
+      };
 
   @override
   Widget? build(BuildContext context, covariant ChildVicinity vicinity) {
@@ -1072,7 +1101,8 @@ class _TwoDDelGoCellPainter extends CustomPainter {
     if (hasWest) canvas.drawLine(Offset(0, cy), Offset(cx, cy), line);
     if (hasEast) canvas.drawLine(Offset(cx, cy), Offset(size.width, cy), line);
     if (hasNorth) canvas.drawLine(Offset(cx, 0), Offset(cx, cy), line);
-    if (hasSouth) canvas.drawLine(Offset(cx, cy), Offset(cx, size.height), line);
+    if (hasSouth)
+      canvas.drawLine(Offset(cx, cy), Offset(cx, size.height), line);
 
     // Star points (hoshi) on a 9x9 board. Not const because ChildVicinity
     // overrides == / hashCode and therefore can't live inside a const set.
@@ -1353,8 +1383,9 @@ class _TwoDDelDriftDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TwoDimensionalChildDelegate delegate =
-        _TwoDDelDriftDelegate(tick: tick);
+    final TwoDimensionalChildDelegate delegate = _TwoDDelDriftDelegate(
+      tick: tick,
+    );
     return _TwoDDelFramedPanel(
       ribbon: 'SCENE 04',
       title: 'Dynamic drift — shouldRebuild in motion',
@@ -1446,12 +1477,28 @@ class _TwoDDelScenarioTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<List<String>> rows = <List<String>>[
-      <String>['Same data, same colours', 'false', 'No visible change, save a build'],
-      <String>['Piece moved (drift)', 'true', 'Viewport rebuilds affected cells'],
+      <String>[
+        'Same data, same colours',
+        'false',
+        'No visible change, save a build',
+      ],
+      <String>[
+        'Piece moved (drift)',
+        'true',
+        'Viewport rebuilds affected cells',
+      ],
       <String>['Position changed', 'true', 'Full 64-cell rebuild'],
       <String>['Coord toggle', 'true', 'Labels re-render in each cell'],
-      <String>['Jade halo toggle', 'true', 'Border re-renders on inspected cell'],
-      <String>['Internal theme tweak in app', 'false', 'Delegate itself unchanged'],
+      <String>[
+        'Jade halo toggle',
+        'true',
+        'Border re-renders on inspected cell',
+      ],
+      <String>[
+        'Internal theme tweak in app',
+        'false',
+        'Delegate itself unchanged',
+      ],
     ];
     return Column(
       children: <Widget>[
@@ -1463,9 +1510,27 @@ class _TwoDDelScenarioTable extends StatelessWidget {
           ),
           child: Row(
             children: const <Widget>[
-              Expanded(flex: 4, child: Text('Change', style: TextStyle(fontWeight: FontWeight.w700))),
-              Expanded(flex: 2, child: Text('Return', style: TextStyle(fontWeight: FontWeight.w700))),
-              Expanded(flex: 5, child: Text('Consequence', style: TextStyle(fontWeight: FontWeight.w700))),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'Change',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Return',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Text(
+                  'Consequence',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
             ],
           ),
         ),
@@ -1475,7 +1540,9 @@ class _TwoDDelScenarioTable extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: _twoDDelSepia.withValues(alpha: 0.15)),
+                bottom: BorderSide(
+                  color: _twoDDelSepia.withValues(alpha: 0.15),
+                ),
               ),
             ),
             child: Row(
@@ -1519,7 +1586,8 @@ class _TwoDDelAbstractAnatomyCard extends StatelessWidget {
         children: const <Widget>[
           _TwoDDelMethodEntry(
             returnType: 'Widget?',
-            signature: 'build(BuildContext context, covariant ChildVicinity vicinity)',
+            signature:
+                'build(BuildContext context, covariant ChildVicinity vicinity)',
             purpose:
                 'Produces the widget for an (xIndex, yIndex) position. Returning '
                 'null indicates no widget at that vicinity. Subclasses typically '
@@ -1529,7 +1597,8 @@ class _TwoDDelAbstractAnatomyCard extends StatelessWidget {
           SizedBox(height: 10),
           _TwoDDelMethodEntry(
             returnType: 'bool',
-            signature: 'shouldRebuild(covariant TwoDimensionalChildDelegate oldDelegate)',
+            signature:
+                'shouldRebuild(covariant TwoDimensionalChildDelegate oldDelegate)',
             purpose:
                 'Called when a new delegate replaces an old one on the viewport. '
                 'Returns true if the widgets returned by build could differ; '
@@ -1582,8 +1651,8 @@ class _TwoDDelMethodEntry extends StatelessWidget {
     final Color tag = obligation == 'required'
         ? _twoDDelCrimson
         : obligation == 'inherited'
-            ? _twoDDelDeepGreen
-            : _twoDDelRust;
+        ? _twoDDelDeepGreen
+        : _twoDDelRust;
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -1803,7 +1872,8 @@ class _TwoDDelMiniViewportSource extends StatelessWidget {
           SizedBox(height: 12),
           _TwoDDelCodeCard(
             title: 'Sketch of a scroll-view subclass',
-            code: ''
+            code:
+                ''
                 'class _TwoDDelScrollView extends TwoDimensionalScrollView {\n'
                 '  const _TwoDDelScrollView({required super.delegate})\n'
                 '    : super(\n'
@@ -1830,7 +1900,8 @@ class _TwoDDelMiniViewportSource extends StatelessWidget {
           SizedBox(height: 12),
           _TwoDDelCodeCard(
             title: 'Sketch of the viewport subclass',
-            code: ''
+            code:
+                ''
                 'class _TwoDDelViewport extends TwoDimensionalViewport {\n'
                 '  const _TwoDDelViewport({\n'
                 '    required super.delegate,\n'
@@ -1858,7 +1929,8 @@ class _TwoDDelMiniViewportSource extends StatelessWidget {
           SizedBox(height: 12),
           _TwoDDelCodeCard(
             title: 'Consuming the delegate',
-            code: ''
+            code:
+                ''
                 'final TwoDimensionalChildDelegate chess =\n'
                 '    _TwoDDelChessboardDelegate(\n'
                 '      position: _TwoDDelStartingPosition.standard,\n'
@@ -1986,10 +2058,7 @@ class _TwoDDelTakeawayCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _twoDDelDeepGreen,
-            _twoDDelSepia,
-          ],
+          colors: <Color>[_twoDDelDeepGreen, _twoDDelSepia],
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -2046,7 +2115,10 @@ class _TwoDDelFramedPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDDelParchment,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _twoDDelSepia.withValues(alpha: 0.55), width: 1.5),
+        border: Border.all(
+          color: _twoDDelSepia.withValues(alpha: 0.55),
+          width: 1.5,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: _twoDDelInk.withValues(alpha: 0.1),
@@ -2161,8 +2233,8 @@ class _TwoDDelPieceGlossaryEntry {
   final String description;
 }
 
-const List<_TwoDDelPieceGlossaryEntry> _twoDDelPieceGlossary =
-    <_TwoDDelPieceGlossaryEntry>[
+const List<_TwoDDelPieceGlossaryEntry>
+_twoDDelPieceGlossary = <_TwoDDelPieceGlossaryEntry>[
   _TwoDDelPieceGlossaryEntry(
     kind: _TwoDDelPieceKind.king,
     whiteGlyph: '\u2654',

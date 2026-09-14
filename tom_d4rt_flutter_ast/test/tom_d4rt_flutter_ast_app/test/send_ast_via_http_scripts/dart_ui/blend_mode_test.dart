@@ -119,11 +119,7 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
     padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 32.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          scheme.primary,
-          scheme.tertiary,
-          scheme.secondary,
-        ],
+        colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
         stops: const <double>[0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -281,10 +277,7 @@ Widget _buildModeCard(_ModeSpec spec, ColorScheme scheme) {
     decoration: BoxDecoration(
       color: scheme.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: scheme.outlineVariant,
-        width: 1.0,
-      ),
+      border: Border.all(color: scheme.outlineVariant, width: 1.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: scheme.shadow.withValues(alpha: 0.05),
@@ -362,7 +355,9 @@ Widget _buildSectionTitle(
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 2.0),
+                    horizontal: 8.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: scheme.tertiaryContainer,
                     borderRadius: BorderRadius.circular(6.0),
@@ -390,10 +385,7 @@ Widget _buildSectionTitle(
             const SizedBox(height: 2.0),
             Text(
               subtitle,
-              style: TextStyle(
-                fontSize: 12.5,
-                color: scheme.onSurfaceVariant,
-              ),
+              style: TextStyle(fontSize: 12.5, color: scheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -476,7 +468,9 @@ Widget _buildSectionOne(ColorScheme scheme) {
               decoration: BoxDecoration(
                 color: scheme.primaryContainer.withValues(alpha: 0.55),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: scheme.primary.withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: scheme.primary.withValues(alpha: 0.3),
+                ),
               ),
               child: Row(
                 children: <Widget>[
@@ -596,30 +590,66 @@ Widget _buildConceptTile(
 Widget _buildSectionTwo(ColorScheme scheme) {
   print('=== Section 2: Porter-Duff compositing family ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.clear, 'clear',
-        'Both src and dst are erased; result is fully transparent.'),
-    _ModeSpec(BlendMode.src, 'src',
-        'Replace dst with src. Destination is completely discarded.'),
-    _ModeSpec(BlendMode.dst, 'dst',
-        'Keep dst as is. The source is drawn but contributes nothing.'),
-    _ModeSpec(BlendMode.srcOver, 'srcOver',
-        'Default. Source painted over destination using src alpha.'),
-    _ModeSpec(BlendMode.dstOver, 'dstOver',
-        'Destination painted over source - source fills only gaps.'),
-    _ModeSpec(BlendMode.srcIn, 'srcIn',
-        'Show src only where dst is opaque. Destination is the mask.'),
-    _ModeSpec(BlendMode.dstIn, 'dstIn',
-        'Show dst only where src is opaque. Source is the mask.'),
-    _ModeSpec(BlendMode.srcOut, 'srcOut',
-        'Show src only outside dst alpha. Inverse of srcIn.'),
-    _ModeSpec(BlendMode.dstOut, 'dstOut',
-        'Show dst only outside src alpha. Punch a hole using src.'),
-    _ModeSpec(BlendMode.srcATop, 'srcATop',
-        'Src drawn atop dst, clipped to dst alpha; dst retained outside.'),
-    _ModeSpec(BlendMode.dstATop, 'dstATop',
-        'Dst drawn atop src, clipped to src alpha; src retained outside.'),
-    _ModeSpec(BlendMode.xor, 'xor',
-        'Symmetric difference of alphas; overlap becomes transparent.'),
+    _ModeSpec(
+      BlendMode.clear,
+      'clear',
+      'Both src and dst are erased; result is fully transparent.',
+    ),
+    _ModeSpec(
+      BlendMode.src,
+      'src',
+      'Replace dst with src. Destination is completely discarded.',
+    ),
+    _ModeSpec(
+      BlendMode.dst,
+      'dst',
+      'Keep dst as is. The source is drawn but contributes nothing.',
+    ),
+    _ModeSpec(
+      BlendMode.srcOver,
+      'srcOver',
+      'Default. Source painted over destination using src alpha.',
+    ),
+    _ModeSpec(
+      BlendMode.dstOver,
+      'dstOver',
+      'Destination painted over source - source fills only gaps.',
+    ),
+    _ModeSpec(
+      BlendMode.srcIn,
+      'srcIn',
+      'Show src only where dst is opaque. Destination is the mask.',
+    ),
+    _ModeSpec(
+      BlendMode.dstIn,
+      'dstIn',
+      'Show dst only where src is opaque. Source is the mask.',
+    ),
+    _ModeSpec(
+      BlendMode.srcOut,
+      'srcOut',
+      'Show src only outside dst alpha. Inverse of srcIn.',
+    ),
+    _ModeSpec(
+      BlendMode.dstOut,
+      'dstOut',
+      'Show dst only outside src alpha. Punch a hole using src.',
+    ),
+    _ModeSpec(
+      BlendMode.srcATop,
+      'srcATop',
+      'Src drawn atop dst, clipped to dst alpha; dst retained outside.',
+    ),
+    _ModeSpec(
+      BlendMode.dstATop,
+      'dstATop',
+      'Dst drawn atop src, clipped to src alpha; src retained outside.',
+    ),
+    _ModeSpec(
+      BlendMode.xor,
+      'xor',
+      'Symmetric difference of alphas; overlap becomes transparent.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -634,7 +664,9 @@ Widget _buildSectionTwo(ColorScheme scheme) {
       const SizedBox(height: 12.0),
       Wrap(
         alignment: WrapAlignment.start,
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       _buildAdvicePlate(
@@ -656,12 +688,21 @@ Widget _buildSectionTwo(ColorScheme scheme) {
 Widget _buildSectionThree(ColorScheme scheme) {
   print('=== Section 3: Arithmetic and additive family ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.plus, 'plus',
-        'Channel-wise sum, clamped to 1.0. Brighter, often blown out.'),
-    _ModeSpec(BlendMode.modulate, 'modulate',
-        'Channel-wise product. Black stays black, white preserves dst.'),
-    _ModeSpec(BlendMode.screen, 'screen',
-        '1 - (1-src)(1-dst). Inverse multiply; always brightens.'),
+    _ModeSpec(
+      BlendMode.plus,
+      'plus',
+      'Channel-wise sum, clamped to 1.0. Brighter, often blown out.',
+    ),
+    _ModeSpec(
+      BlendMode.modulate,
+      'modulate',
+      'Channel-wise product. Black stays black, white preserves dst.',
+    ),
+    _ModeSpec(
+      BlendMode.screen,
+      'screen',
+      '1 - (1-src)(1-dst). Inverse multiply; always brightens.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -675,7 +716,9 @@ Widget _buildSectionThree(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       _buildFormulaBlock(
@@ -707,12 +750,21 @@ Widget _buildSectionThree(ColorScheme scheme) {
 Widget _buildSectionFour(ColorScheme scheme) {
   print('=== Section 4: Overlay and light family ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.overlay, 'overlay',
-        'Multiply or screen depending on dst luminance; punchy contrast.'),
-    _ModeSpec(BlendMode.hardLight, 'hardLight',
-        'Like overlay but pivot on src; harsher than soft light.'),
-    _ModeSpec(BlendMode.softLight, 'softLight',
-        'Smooth S-curve around 0.5 in src; gentle dodging and burning.'),
+    _ModeSpec(
+      BlendMode.overlay,
+      'overlay',
+      'Multiply or screen depending on dst luminance; punchy contrast.',
+    ),
+    _ModeSpec(
+      BlendMode.hardLight,
+      'hardLight',
+      'Like overlay but pivot on src; harsher than soft light.',
+    ),
+    _ModeSpec(
+      BlendMode.softLight,
+      'softLight',
+      'Smooth S-curve around 0.5 in src; gentle dodging and burning.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -726,7 +778,9 @@ Widget _buildSectionFour(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       Container(
@@ -773,12 +827,21 @@ Widget _buildSectionFour(ColorScheme scheme) {
 Widget _buildSectionFive(ColorScheme scheme) {
   print('=== Section 5: Darken family ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.darken, 'darken',
-        'Per-channel minimum of src and dst. Result is never brighter.'),
-    _ModeSpec(BlendMode.multiply, 'multiply',
-        'src * dst including alpha; classic shadow / shading operator.'),
-    _ModeSpec(BlendMode.colorBurn, 'colorBurn',
-        'Saturates and darkens dst proportionally to inverse of src.'),
+    _ModeSpec(
+      BlendMode.darken,
+      'darken',
+      'Per-channel minimum of src and dst. Result is never brighter.',
+    ),
+    _ModeSpec(
+      BlendMode.multiply,
+      'multiply',
+      'src * dst including alpha; classic shadow / shading operator.',
+    ),
+    _ModeSpec(
+      BlendMode.colorBurn,
+      'colorBurn',
+      'Saturates and darkens dst proportionally to inverse of src.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -792,7 +855,9 @@ Widget _buildSectionFive(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       _buildFormulaBlock(
@@ -823,12 +888,21 @@ Widget _buildSectionFive(ColorScheme scheme) {
 Widget _buildSectionSix(ColorScheme scheme) {
   print('=== Section 6: Lighten family ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.lighten, 'lighten',
-        'Per-channel maximum of src and dst. Result is never darker.'),
-    _ModeSpec(BlendMode.screen, 'screen',
-        'Inverse multiply. Classic "glow" / highlight pass.'),
-    _ModeSpec(BlendMode.colorDodge, 'colorDodge',
-        'Brightens dst proportionally to src; pushes towards white.'),
+    _ModeSpec(
+      BlendMode.lighten,
+      'lighten',
+      'Per-channel maximum of src and dst. Result is never darker.',
+    ),
+    _ModeSpec(
+      BlendMode.screen,
+      'screen',
+      'Inverse multiply. Classic "glow" / highlight pass.',
+    ),
+    _ModeSpec(
+      BlendMode.colorDodge,
+      'colorDodge',
+      'Brightens dst proportionally to src; pushes towards white.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -842,7 +916,9 @@ Widget _buildSectionSix(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       _buildFormulaBlock(
@@ -873,10 +949,16 @@ Widget _buildSectionSix(ColorScheme scheme) {
 Widget _buildSectionSeven(ColorScheme scheme) {
   print('=== Section 7: Difference and exclusion ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.difference, 'difference',
-        'abs(src - dst); produces inverted, high-contrast result.'),
-    _ModeSpec(BlendMode.exclusion, 'exclusion',
-        'src + dst - 2*src*dst; softer variant of difference.'),
+    _ModeSpec(
+      BlendMode.difference,
+      'difference',
+      'abs(src - dst); produces inverted, high-contrast result.',
+    ),
+    _ModeSpec(
+      BlendMode.exclusion,
+      'exclusion',
+      'src + dst - 2*src*dst; softer variant of difference.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -890,7 +972,9 @@ Widget _buildSectionSeven(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       _buildFormulaBlock(
@@ -921,14 +1005,26 @@ Widget _buildSectionSeven(ColorScheme scheme) {
 Widget _buildSectionEight(ColorScheme scheme) {
   print('=== Section 8: HSL component swap operators ===');
   const List<_ModeSpec> specs = <_ModeSpec>[
-    _ModeSpec(BlendMode.hue, 'hue',
-        'Use src hue, keep dst saturation and luminosity.'),
-    _ModeSpec(BlendMode.saturation, 'saturation',
-        'Use src saturation, keep dst hue and luminosity.'),
-    _ModeSpec(BlendMode.color, 'color',
-        'Use src hue and saturation, keep dst luminosity.'),
-    _ModeSpec(BlendMode.luminosity, 'luminosity',
-        'Use src luminosity, keep dst hue and saturation.'),
+    _ModeSpec(
+      BlendMode.hue,
+      'hue',
+      'Use src hue, keep dst saturation and luminosity.',
+    ),
+    _ModeSpec(
+      BlendMode.saturation,
+      'saturation',
+      'Use src saturation, keep dst hue and luminosity.',
+    ),
+    _ModeSpec(
+      BlendMode.color,
+      'color',
+      'Use src hue and saturation, keep dst luminosity.',
+    ),
+    _ModeSpec(
+      BlendMode.luminosity,
+      'luminosity',
+      'Use src luminosity, keep dst hue and saturation.',
+    ),
   ];
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -942,7 +1038,9 @@ Widget _buildSectionEight(ColorScheme scheme) {
       ),
       const SizedBox(height: 12.0),
       Wrap(
-        children: specs.map((_ModeSpec s) => _buildModeCard(s, scheme)).toList(),
+        children: specs
+            .map((_ModeSpec s) => _buildModeCard(s, scheme))
+            .toList(),
       ),
       const SizedBox(height: 14.0),
       Container(
@@ -1024,11 +1122,7 @@ Widget _buildHslRow(
           ),
         ),
         const SizedBox(width: 6.0),
-        Icon(
-          Icons.add,
-          size: 14.0,
-          color: scheme.onSecondaryContainer,
-        ),
+        Icon(Icons.add, size: 14.0, color: scheme.onSecondaryContainer),
         const SizedBox(width: 6.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -1218,8 +1312,10 @@ Widget _buildRecipeCard(
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: scheme.primaryContainer,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1255,9 +1351,13 @@ Widget _buildRecipeCard(
                 children: <Widget>[
                   beforeWidget,
                   const SizedBox(height: 4.0),
-                  Text('before',
-                      style: TextStyle(
-                          fontSize: 10.0, color: scheme.onSurfaceVariant)),
+                  Text(
+                    'before',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1267,9 +1367,13 @@ Widget _buildRecipeCard(
                 children: <Widget>[
                   afterWidget,
                   const SizedBox(height: 4.0),
-                  Text('after',
-                      style: TextStyle(
-                          fontSize: 10.0, color: scheme.onSurfaceVariant)),
+                  Text(
+                    'after',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1295,8 +1399,11 @@ Widget _buildRecipeCard(
         const SizedBox(height: 6.0),
         Row(
           children: <Widget>[
-            Icon(Icons.tips_and_updates_outlined,
-                size: 14.0, color: scheme.tertiary),
+            Icon(
+              Icons.tips_and_updates_outlined,
+              size: 14.0,
+              color: scheme.tertiary,
+            ),
             const SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1322,10 +1429,22 @@ Widget _buildSectionTen(ColorScheme scheme) {
   print('=== Section 10: Decision matrix ===');
   final List<List<String>> matrix = <List<String>>[
     <String>['Goal', 'Use', 'Notes'],
-    <String>['Default draw', 'srcOver', 'You almost never need to override this'],
+    <String>[
+      'Default draw',
+      'srcOver',
+      'You almost never need to override this',
+    ],
     <String>['Tint an icon', 'modulate', 'Or srcIn if alpha mask is the goal'],
-    <String>['Recolour image but keep shading', 'color', 'HSL mode; preserves L'],
-    <String>['Paint a shadow / shading', 'multiply', 'Commutes, stays in range'],
+    <String>[
+      'Recolour image but keep shading',
+      'color',
+      'HSL mode; preserves L',
+    ],
+    <String>[
+      'Paint a shadow / shading',
+      'multiply',
+      'Commutes, stays in range',
+    ],
     <String>['Highlight / glow', 'screen', 'Inverse of multiply'],
     <String>['Erase part of a layer', 'dstOut', 'Source acts as a hole punch'],
     <String>['Clip to silhouette', 'srcIn', 'Source survives only inside dst'],
@@ -1360,10 +1479,12 @@ Widget _buildSectionTen(ColorScheme scheme) {
                 color: i == 0
                     ? scheme.primaryContainer
                     : (i.isEven
-                        ? scheme.surfaceContainerHighest
-                        : scheme.surfaceContainerLow),
+                          ? scheme.surfaceContainerHighest
+                          : scheme.surfaceContainerLow),
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 14.0, vertical: 10.0),
+                  horizontal: 14.0,
+                  vertical: 10.0,
+                ),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -1371,7 +1492,9 @@ Widget _buildSectionTen(ColorScheme scheme) {
                       child: Text(
                         matrix[i][0],
                         style: TextStyle(
-                          fontWeight: i == 0 ? FontWeight.w800 : FontWeight.w500,
+                          fontWeight: i == 0
+                              ? FontWeight.w800
+                              : FontWeight.w500,
                           fontSize: 12.5,
                           color: i == 0
                               ? scheme.onPrimaryContainer
@@ -1398,8 +1521,9 @@ Widget _buildSectionTen(ColorScheme scheme) {
                       child: Text(
                         matrix[i][2],
                         style: TextStyle(
-                          fontStyle:
-                              i == 0 ? FontStyle.normal : FontStyle.italic,
+                          fontStyle: i == 0
+                              ? FontStyle.normal
+                              : FontStyle.italic,
                           fontSize: 11.5,
                           color: i == 0
                               ? scheme.onPrimaryContainer

@@ -9,7 +9,9 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  print('=== NavigationDestinationLabelBehavior Deep Demo (Material Harness) ===');
+  print(
+    '=== NavigationDestinationLabelBehavior Deep Demo (Material Harness) ===',
+  );
   for (final v in NavigationDestinationLabelBehavior.values) {
     print('  ${v.index}: ${v.name}');
   }
@@ -231,11 +233,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'Currently selected: index $selected '
-                    '(${[
-                      'Home',
-                      'Search',
-                      'Profile',
-                    ][selected]})',
+                    '(${['Home', 'Search', 'Profile'][selected]})',
                     style: const TextStyle(color: palette1Caption),
                   ),
                 ],
@@ -432,8 +430,7 @@ dynamic build(BuildContext context) {
                   NavigationBar(
                     selectedIndex: idx,
                     labelBehavior: chip,
-                    onDestinationSelected: (i) =>
-                        innerSetState(() => idx = i),
+                    onDestinationSelected: (i) => innerSetState(() => idx = i),
                     destinations: const [
                       NavigationDestination(
                         icon: Icon(Icons.local_cafe_outlined),
@@ -672,9 +669,9 @@ dynamic build(BuildContext context) {
             builder: (context, innerSetState) {
               Widget bar(NavigationDestinationLabelBehavior b, String tag) {
                 return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(
-                    textScaler: TextScaler.linear(scale),
-                  ),
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: TextScaler.linear(scale)),
                   child: Column(
                     children: [
                       Text(
@@ -746,8 +743,7 @@ dynamic build(BuildContext context) {
                           divisions: 10,
                           value: scale,
                           label: scale.toStringAsFixed(2),
-                          onChanged: (v) =>
-                              innerSetState(() => scale = v),
+                          onChanged: (v) => innerSetState(() => scale = v),
                         ),
                       ),
                       Text(
@@ -757,14 +753,20 @@ dynamic build(BuildContext context) {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  bar(NavigationDestinationLabelBehavior.alwaysShow,
-                      'alwaysShow'),
+                  bar(
+                    NavigationDestinationLabelBehavior.alwaysShow,
+                    'alwaysShow',
+                  ),
                   const SizedBox(height: 14),
-                  bar(NavigationDestinationLabelBehavior.onlyShowSelected,
-                      'onlyShowSelected'),
+                  bar(
+                    NavigationDestinationLabelBehavior.onlyShowSelected,
+                    'onlyShowSelected',
+                  ),
                   const SizedBox(height: 14),
-                  bar(NavigationDestinationLabelBehavior.alwaysHide,
-                      'alwaysHide'),
+                  bar(
+                    NavigationDestinationLabelBehavior.alwaysHide,
+                    'alwaysHide',
+                  ),
                 ],
               );
             },
@@ -932,8 +934,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFFFFF),
                             borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(color: palette7Border, width: 1),
+                            border: Border.all(color: palette7Border, width: 1),
                           ),
                           child: Column(
                             children: [
@@ -994,8 +995,7 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: const Color(0xFFFFFFFF),
                             borderRadius: BorderRadius.circular(10),
-                            border:
-                                Border.all(color: palette7Border, width: 1),
+                            border: Border.all(color: palette7Border, width: 1),
                           ),
                           child: Column(
                             children: [
@@ -1216,9 +1216,7 @@ dynamic build(BuildContext context) {
                               const SizedBox(height: 2),
                               Text(
                                 _summaryFor(v),
-                                style: const TextStyle(
-                                  color: palette8Caption,
-                                ),
+                                style: const TextStyle(color: palette8Caption),
                               ),
                             ],
                           ),

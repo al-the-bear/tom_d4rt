@@ -305,11 +305,7 @@ Widget _conceptOverview() {
           'three lifecycles: discrete (tap/double-tap), held (long-press), '
           'and continuous (drag/pan). Each lifecycle ends in either a '
           'success callback or a cancel callback. The atlas walks them in order.',
-          style: TextStyle(
-            color: _kInkMid,
-            fontSize: 16.0,
-            height: 1.55,
-          ),
+          style: TextStyle(color: _kInkMid, fontSize: 16.0, height: 1.55),
         ),
         const SizedBox(height: 28.0),
         Row(
@@ -318,7 +314,9 @@ Widget _conceptOverview() {
             const SizedBox(width: 12.0),
             Expanded(child: _overviewPill('Held', 'onLongPress', _kAccentLong)),
             const SizedBox(width: 12.0),
-            Expanded(child: _overviewPill('Continuous', 'onPanUpdate', _kAccentPan)),
+            Expanded(
+              child: _overviewPill('Continuous', 'onPanUpdate', _kAccentPan),
+            ),
           ],
         ),
       ],
@@ -406,7 +404,10 @@ Widget _sectionBanner(
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.18),
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white.withOpacity(0.4), width: 2.0),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.4),
+              width: 2.0,
+            ),
           ),
           alignment: Alignment.center,
           child: Text(
@@ -484,11 +485,7 @@ Widget _bodyText(String text) {
     padding: const EdgeInsets.only(top: 10.0),
     child: Text(
       text,
-      style: const TextStyle(
-        color: _kInkMid,
-        fontSize: 15.0,
-        height: 1.55,
-      ),
+      style: const TextStyle(color: _kInkMid, fontSize: 15.0, height: 1.55),
     ),
   );
 }
@@ -663,16 +660,14 @@ Widget _timelineArrow(Color accent) {
 
 Widget _hitZone(String label, Color accent, IconData icon) {
   // Snapshot animation value (no controller; static frame).
-  final AlwaysStoppedAnimation<double> glow = const AlwaysStoppedAnimation<double>(0.7);
+  final AlwaysStoppedAnimation<double> glow =
+      const AlwaysStoppedAnimation<double>(0.7);
   return Container(
     height: 140.0,
     decoration: BoxDecoration(
       color: accent.withOpacity(0.08),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: accent.withOpacity(glow.value),
-        width: 2.0,
-      ),
+      border: Border.all(color: accent.withOpacity(glow.value), width: 2.0),
     ),
     alignment: Alignment.center,
     child: Column(
@@ -819,9 +814,13 @@ Widget _sectionTapBasics() {
               children: <Widget>[
                 Expanded(child: _hitZone('TAP', _kAccentTap, Icons.touch_app)),
                 const SizedBox(width: 12.0),
-                Expanded(child: _hitZone('LONG-PRESS', _kAccentLong, Icons.timelapse)),
+                Expanded(
+                  child: _hitZone('LONG-PRESS', _kAccentLong, Icons.timelapse),
+                ),
                 const SizedBox(width: 12.0),
-                Expanded(child: _hitZone('DRAG', _kAccentVDrag, Icons.swap_horiz)),
+                Expanded(
+                  child: _hitZone('DRAG', _kAccentVDrag, Icons.swap_horiz),
+                ),
               ],
             ),
             const SizedBox(height: 20.0),
@@ -1106,16 +1105,13 @@ Widget _sectionLongPress() {
               'the GestureDetector surface.',
             ),
             const SizedBox(height: 18.0),
-            _timeline(
-              const <String>[
-                'onLongPressStart',
-                'onLongPress',
-                'onLongPressMoveUpdate',
-                'onLongPressUp',
-                'onLongPressEnd',
-              ],
-              _kAccentLong,
-            ),
+            _timeline(const <String>[
+              'onLongPressStart',
+              'onLongPress',
+              'onLongPressMoveUpdate',
+              'onLongPressUp',
+              'onLongPressEnd',
+            ], _kAccentLong),
             const SizedBox(height: 24.0),
             _codeBlock(
               'onLongPressStart: (LongPressStartDetails d) {\n'
@@ -1138,35 +1134,23 @@ Widget _sectionLongPress() {
             const SizedBox(height: 24.0),
             _kicker('DETAILS RECORDS', _kAccentLongAlt),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'LongPressStartDetails',
-              <List<String>>[
-                <String>['globalPosition', 'Offset', 'Press in screen coords'],
-                <String>['localPosition', 'Offset', 'Press in detector coords'],
-              ],
-              _kAccentLong,
-            ),
+            _detailsCard('LongPressStartDetails', <List<String>>[
+              <String>['globalPosition', 'Offset', 'Press in screen coords'],
+              <String>['localPosition', 'Offset', 'Press in detector coords'],
+            ], _kAccentLong),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'LongPressMoveUpdateDetails',
-              <List<String>>[
-                <String>['globalPosition', 'Offset', 'Current pointer position'],
-                <String>['localPosition', 'Offset', 'In detector coords'],
-                <String>['offsetFromOrigin', 'Offset', 'Delta from press start'],
-                <String>['localOffsetFromOrigin', 'Offset', 'Local delta'],
-              ],
-              _kAccentLong,
-            ),
+            _detailsCard('LongPressMoveUpdateDetails', <List<String>>[
+              <String>['globalPosition', 'Offset', 'Current pointer position'],
+              <String>['localPosition', 'Offset', 'In detector coords'],
+              <String>['offsetFromOrigin', 'Offset', 'Delta from press start'],
+              <String>['localOffsetFromOrigin', 'Offset', 'Local delta'],
+            ], _kAccentLong),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'LongPressEndDetails',
-              <List<String>>[
-                <String>['globalPosition', 'Offset', 'Lift position'],
-                <String>['localPosition', 'Offset', 'Lift in detector coords'],
-                <String>['velocity', 'Velocity', 'Almost always Velocity.zero'],
-              ],
-              _kAccentLong,
-            ),
+            _detailsCard('LongPressEndDetails', <List<String>>[
+              <String>['globalPosition', 'Offset', 'Lift position'],
+              <String>['localPosition', 'Offset', 'Lift in detector coords'],
+              <String>['velocity', 'Velocity', 'Almost always Velocity.zero'],
+            ], _kAccentLong),
           ],
         ),
       ),
@@ -1593,11 +1577,7 @@ Widget _fingerPathPan() {
           bottom: 14.0,
           child: _pathLabel('end', _kAccentPanAlt),
         ),
-        Positioned(
-          left: 80.0,
-          top: 50.0,
-          child: _pathDot(_kAccentPan),
-        ),
+        Positioned(left: 80.0, top: 50.0, child: _pathDot(_kAccentPan)),
         Positioned(
           left: 130.0,
           top: 80.0,
@@ -1616,11 +1596,7 @@ Widget _fingerPathPan() {
         Positioned(
           right: 70.0,
           bottom: 50.0,
-          child: Icon(
-            Icons.arrow_outward,
-            color: _kAccentPan,
-            size: 26.0,
-          ),
+          child: Icon(Icons.arrow_outward, color: _kAccentPan, size: 26.0),
         ),
       ],
     ),
@@ -1656,70 +1632,110 @@ Widget _sectionDragDetailsAnatomy() {
               'records below and most drag code becomes obvious.',
             ),
             const SizedBox(height: 20.0),
-            _detailsCard(
-              'DragDownDetails',
-              const <List<String>>[
-                <String>['globalPosition', 'Offset', 'Initial touch in screen coords'],
-                <String>['localPosition', 'Offset', 'Initial touch in detector coords'],
+            _detailsCard('DragDownDetails', const <List<String>>[
+              <String>[
+                'globalPosition',
+                'Offset',
+                'Initial touch in screen coords',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'localPosition',
+                'Offset',
+                'Initial touch in detector coords',
+              ],
+            ], _kAccentDetails),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'DragStartDetails',
-              const <List<String>>[
-                <String>['globalPosition', 'Offset', 'Screen-space position when start fired'],
-                <String>['localPosition', 'Offset', 'Local-space position when start fired'],
-                <String>['kind', 'PointerDeviceKind?', 'touch / mouse / stylus / etc.'],
-                <String>['sourceTimeStamp', 'Duration?', 'Timestamp of the raw pointer event'],
+            _detailsCard('DragStartDetails', const <List<String>>[
+              <String>[
+                'globalPosition',
+                'Offset',
+                'Screen-space position when start fired',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'localPosition',
+                'Offset',
+                'Local-space position when start fired',
+              ],
+              <String>[
+                'kind',
+                'PointerDeviceKind?',
+                'touch / mouse / stylus / etc.',
+              ],
+              <String>[
+                'sourceTimeStamp',
+                'Duration?',
+                'Timestamp of the raw pointer event',
+              ],
+            ], _kAccentDetails),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'DragUpdateDetails',
-              const <List<String>>[
-                <String>['globalPosition', 'Offset', 'Current position (screen)'],
-                <String>['localPosition', 'Offset', 'Current position (local)'],
-                <String>['delta', 'Offset', 'Movement since previous update'],
-                <String>['primaryDelta', 'double?', 'Locked-axis delta (null for pan)'],
-                <String>['sourceTimeStamp', 'Duration?', 'Timestamp of the raw pointer event'],
+            _detailsCard('DragUpdateDetails', const <List<String>>[
+              <String>['globalPosition', 'Offset', 'Current position (screen)'],
+              <String>['localPosition', 'Offset', 'Current position (local)'],
+              <String>['delta', 'Offset', 'Movement since previous update'],
+              <String>[
+                'primaryDelta',
+                'double?',
+                'Locked-axis delta (null for pan)',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'sourceTimeStamp',
+                'Duration?',
+                'Timestamp of the raw pointer event',
+              ],
+            ], _kAccentDetails),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'DragEndDetails',
-              const <List<String>>[
-                <String>['velocity', 'Velocity', 'Per-axis pixel/second on release'],
-                <String>['primaryVelocity', 'double?', 'Locked-axis velocity (null for pan)'],
-                <String>['globalPosition', 'Offset', 'Lift-off position (screen)'],
-                <String>['localPosition', 'Offset', 'Lift-off position (local)'],
+            _detailsCard('DragEndDetails', const <List<String>>[
+              <String>[
+                'velocity',
+                'Velocity',
+                'Per-axis pixel/second on release',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'primaryVelocity',
+                'double?',
+                'Locked-axis velocity (null for pan)',
+              ],
+              <String>[
+                'globalPosition',
+                'Offset',
+                'Lift-off position (screen)',
+              ],
+              <String>['localPosition', 'Offset', 'Lift-off position (local)'],
+            ], _kAccentDetails),
             const SizedBox(height: 20.0),
             _kicker('TAP DETAILS RECORDS', _kAccentDetailsAlt),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'TapDownDetails',
-              const <List<String>>[
-                <String>['globalPosition', 'Offset', 'Where the finger landed (screen)'],
-                <String>['localPosition', 'Offset', 'Where the finger landed (local)'],
-                <String>['kind', 'PointerDeviceKind?', 'Device type (see Section 9)'],
+            _detailsCard('TapDownDetails', const <List<String>>[
+              <String>[
+                'globalPosition',
+                'Offset',
+                'Where the finger landed (screen)',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'localPosition',
+                'Offset',
+                'Where the finger landed (local)',
+              ],
+              <String>[
+                'kind',
+                'PointerDeviceKind?',
+                'Device type (see Section 9)',
+              ],
+            ], _kAccentDetails),
             const SizedBox(height: 12.0),
-            _detailsCard(
-              'TapUpDetails',
-              const <List<String>>[
-                <String>['globalPosition', 'Offset', 'Where the finger lifted (screen)'],
-                <String>['localPosition', 'Offset', 'Where the finger lifted (local)'],
-                <String>['kind', 'PointerDeviceKind', 'Device type'],
+            _detailsCard('TapUpDetails', const <List<String>>[
+              <String>[
+                'globalPosition',
+                'Offset',
+                'Where the finger lifted (screen)',
               ],
-              _kAccentDetails,
-            ),
+              <String>[
+                'localPosition',
+                'Offset',
+                'Where the finger lifted (local)',
+              ],
+              <String>['kind', 'PointerDeviceKind', 'Device type'],
+            ], _kAccentDetails),
           ],
         ),
       ),
@@ -1760,7 +1776,7 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'touch',
               'Finger on a touchscreen. The default on phones and tablets. '
-              'No hover, broad contact area, expects forgiveness in hit-testing.',
+                  'No hover, broad contact area, expects forgiveness in hit-testing.',
               Icons.touch_app,
               _kAccentKind,
             ),
@@ -1768,8 +1784,8 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'mouse',
               'A pointing device with buttons. Supports right-click via '
-              'secondary tap callbacks. Hover is delivered via MouseRegion, '
-              'not GestureDetector.',
+                  'secondary tap callbacks. Hover is delivered via MouseRegion, '
+                  'not GestureDetector.',
               Icons.mouse,
               _kAccentKind,
             ),
@@ -1777,7 +1793,7 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'stylus',
               'Pen/Apple Pencil/S-Pen. Pressure, tilt, and barrel buttons are '
-              'available on lower-level PointerEvents, not surface callbacks.',
+                  'available on lower-level PointerEvents, not surface callbacks.',
               Icons.draw,
               _kAccentKind,
             ),
@@ -1785,7 +1801,7 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'invertedStylus',
               'Stylus eraser tip. Mostly used to switch to delete-style tools '
-              'in drawing apps.',
+                  'in drawing apps.',
               Icons.auto_fix_high,
               _kAccentKind,
             ),
@@ -1793,7 +1809,7 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'trackpad',
               'A trackpad gesture treated as a high-level event (pan-scroll, '
-              'zoom). On macOS this lights up onScale callbacks too.',
+                  'zoom). On macOS this lights up onScale callbacks too.',
               Icons.swap_calls,
               _kAccentKind,
             ),
@@ -1801,7 +1817,7 @@ Widget _sectionPointerDeviceKind() {
             _kindCard(
               'unknown',
               'A pointer device that Flutter cannot classify. Treat it as a '
-              'touch for safety.',
+                  'touch for safety.',
               Icons.help_outline,
               _kAccentKind,
             ),
@@ -1898,7 +1914,7 @@ Widget _sectionRecipeCards() {
               'Swipe to delete',
               'onHorizontalDragUpdate + onHorizontalDragEnd',
               'Use the delta to translate the row off-screen; use the '
-              'primaryVelocity on end to decide between snap-back and commit.',
+                  'primaryVelocity on end to decide between snap-back and commit.',
               _kAccentRecipe,
               Icons.delete_sweep,
             ),
@@ -1906,8 +1922,8 @@ Widget _sectionRecipeCards() {
               'Double-tap to zoom',
               'onDoubleTap + onDoubleTapDown',
               'Capture the focal point from TapDownDetails.localPosition, then '
-              'toggle a discrete zoom state — no animation controller needed '
-              'in a stateless renderer, just publish the new scale.',
+                  'toggle a discrete zoom state — no animation controller needed '
+                  'in a stateless renderer, just publish the new scale.',
               _kAccentRecipe,
               Icons.zoom_in,
             ),
@@ -1915,7 +1931,7 @@ Widget _sectionRecipeCards() {
               'Long-press context menu',
               'onLongPressStart + onLongPressEnd',
               'Open the menu at LongPressStartDetails.globalPosition; close it '
-              'on onLongPressEnd, or earlier if a selection happens.',
+                  'on onLongPressEnd, or earlier if a selection happens.',
               _kAccentRecipe,
               Icons.menu_open,
             ),
@@ -1923,7 +1939,7 @@ Widget _sectionRecipeCards() {
               'Drag to reorder',
               'onLongPress + onLongPressMoveUpdate + onLongPressEnd',
               'Long-press picks up the row, move-update tracks the finger, '
-              'end commits the new index. The full long-press chain shines.',
+                  'end commits the new index. The full long-press chain shines.',
               _kAccentRecipe,
               Icons.unfold_more,
             ),
@@ -1931,8 +1947,8 @@ Widget _sectionRecipeCards() {
               'Press-and-hold action button',
               'onTapDown + onTapUp + onTapCancel',
               'TapDown lights up the button, TapUp commits, TapCancel '
-              'restores the resting state if the gesture arena is lost to a '
-              'scroll.',
+                  'restores the resting state if the gesture arena is lost to a '
+                  'scroll.',
               _kAccentRecipe,
               Icons.power_settings_new,
             ),
@@ -1940,7 +1956,7 @@ Widget _sectionRecipeCards() {
               'Two-axis sketch canvas',
               'onPanStart + onPanUpdate + onPanEnd',
               'Pan delivers Offset deltas with no axis lock — ideal for '
-              'free-form drawing or whiteboard-style canvases.',
+                  'free-form drawing or whiteboard-style canvases.',
               _kAccentRecipe,
               Icons.brush,
             ),
@@ -1948,7 +1964,7 @@ Widget _sectionRecipeCards() {
               'Right-click affordance',
               'onSecondaryTap + onSecondaryTapDown',
               'On desktop, mirror your primary action with a secondary chain. '
-              'Use TapDownDetails.kind to branch on mouse vs. touch.',
+                  'Use TapDownDetails.kind to branch on mouse vs. touch.',
               _kAccentRecipe,
               Icons.mouse,
             ),
@@ -1956,9 +1972,9 @@ Widget _sectionRecipeCards() {
               'Vertical fling dismiss',
               'onVerticalDragEnd.primaryVelocity',
               'A modal sheet checks primaryVelocity against a threshold on '
-              'end; above the threshold the sheet dismisses, below it the '
-              'sheet snaps back. No live update logic required for the '
-              'decision step.',
+                  'end; above the threshold the sheet dismisses, below it the '
+                  'sheet snaps back. No live update logic required for the '
+                  'decision step.',
               _kAccentRecipe,
               Icons.expand_more,
             ),
@@ -2014,43 +2030,28 @@ Widget _comparisonTable() {
     ),
     child: Column(
       children: <Widget>[
-        _tableHeaderRow(<String>['Aspect', 'Vertical drag', 'Horizontal drag', 'Pan']),
-        _tableRow(<String>[
-          'Axis lock',
-          'dy only',
-          'dx only',
-          'none',
+        _tableHeaderRow(<String>[
+          'Aspect',
+          'Vertical drag',
+          'Horizontal drag',
+          'Pan',
         ]),
+        _tableRow(<String>['Axis lock', 'dy only', 'dx only', 'none']),
         _tableRow(<String>[
           'delta',
           'Offset(0, dy)',
           'Offset(dx, 0)',
           'Offset(dx, dy)',
         ]),
-        _tableRow(<String>[
-          'primaryDelta',
-          'dy',
-          'dx',
-          'null',
-        ]),
+        _tableRow(<String>['primaryDelta', 'dy', 'dx', 'null']),
         _tableRow(<String>[
           'velocity components',
           'dy only',
           'dx only',
           'both',
         ]),
-        _tableRow(<String>[
-          'primaryVelocity',
-          'dy/s',
-          'dx/s',
-          'null',
-        ]),
-        _tableRow(<String>[
-          'Coexists with scale?',
-          'no',
-          'no',
-          'no',
-        ]),
+        _tableRow(<String>['primaryVelocity', 'dy/s', 'dx/s', 'null']),
+        _tableRow(<String>['Coexists with scale?', 'no', 'no', 'no']),
         _tableRow(<String>[
           'Typical use',
           'pull-to-refresh',
@@ -2169,59 +2170,59 @@ Widget _sectionGlossary() {
             _glossaryTerm(
               'Gesture arena',
               'A per-pointer mediator where competing recognizers (tap, drag, '
-              'scroll, ...) compete for ownership of the pointer. A winner '
-              'fires its success callbacks; losers fire cancel callbacks.',
+                  'scroll, ...) compete for ownership of the pointer. A winner '
+                  'fires its success callbacks; losers fire cancel callbacks.',
             ),
             _glossaryTerm(
               'Recognizer',
               'A reusable object that observes pointer events and emits high-'
-              'level callbacks (e.g. TapGestureRecognizer, '
-              'VerticalDragGestureRecognizer). GestureDetector creates these '
-              'for you under the hood.',
+                  'level callbacks (e.g. TapGestureRecognizer, '
+                  'VerticalDragGestureRecognizer). GestureDetector creates these '
+                  'for you under the hood.',
             ),
             _glossaryTerm(
               'Axis lock',
               'A recognizer policy that rejects pointer motion where the '
-              'secondary axis dominates. Vertical/Horizontal drags enforce '
-              'this; pan does not.',
+                  'secondary axis dominates. Vertical/Horizontal drags enforce '
+                  'this; pan does not.',
             ),
             _glossaryTerm(
               'Details record',
               'A small Dart class bundled into a gesture callback signature. '
-              'Carries positional, kind, timestamp, and motion fields so '
-              'callbacks stay one-argument.',
+                  'Carries positional, kind, timestamp, and motion fields so '
+                  'callbacks stay one-argument.',
             ),
             _glossaryTerm(
               'Primary delta / velocity',
               'For axis-locked drags, the scalar component along the locked '
-              'axis. Null for pan (no axis is "primary").',
+                  'axis. Null for pan (no axis is "primary").',
             ),
             _glossaryTerm(
               'Hit test behavior',
               'How a GestureDetector responds to hits inside vs. outside its '
-              'bounds. Opaque (default), translucent, and deferToChild are '
-              'the three options.',
+                  'bounds. Opaque (default), translucent, and deferToChild are '
+                  'the three options.',
             ),
             _glossaryTerm(
               'kDoubleTapTimeout',
               'A framework constant — the maximum time between two taps that '
-              'still count as a double-tap.',
+                  'still count as a double-tap.',
             ),
             _glossaryTerm(
               'kLongPressTimeout',
               'A framework constant — the minimum hold duration before a tap '
-              'is reinterpreted as a long-press.',
+                  'is reinterpreted as a long-press.',
             ),
             _glossaryTerm(
               'Velocity vs. primaryVelocity',
               'Velocity is a Velocity record with pixelsPerSecond as an '
-              'Offset; primaryVelocity is the scalar along the locked axis.',
+                  'Offset; primaryVelocity is the scalar along the locked axis.',
             ),
             _glossaryTerm(
               'Cancel branch',
               'A short-circuit callback that fires when a recognizer loses '
-              'the arena. Pair every "down" with a cancel mental model: '
-              'something started — does it always finish? No, only sometimes.',
+                  'the arena. Pair every "down" with a cancel mental model: '
+                  'something started — does it always finish? No, only sometimes.',
             ),
           ],
         ),

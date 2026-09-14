@@ -128,19 +128,25 @@ class _ShallowDelegate implements DiagnosticsSerializationDelegate {
 
   @override
   List<DiagnosticsNode> filterChildren(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> filterProperties(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> truncateNodesList(
-      List<DiagnosticsNode> nodes, DiagnosticsNode? owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode? owner,
+  ) {
     return nodes;
   }
 
@@ -180,10 +186,7 @@ class _FilteredDelegate implements DiagnosticsSerializationDelegate {
     DiagnosticsNode node, {
     bool fullDetails = true,
   }) {
-    return <String, Object?>{
-      '_delegate': 'filtered',
-      '_hiding': hidePrefix,
-    };
+    return <String, Object?>{'_delegate': 'filtered', '_hiding': hidePrefix};
   }
 
   @override
@@ -203,13 +206,17 @@ class _FilteredDelegate implements DiagnosticsSerializationDelegate {
 
   @override
   List<DiagnosticsNode> filterChildren(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> filterProperties(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     final List<DiagnosticsNode> out = <DiagnosticsNode>[];
     for (final DiagnosticsNode n in nodes) {
       final String name = n.name ?? '';
@@ -222,7 +229,9 @@ class _FilteredDelegate implements DiagnosticsSerializationDelegate {
 
   @override
   List<DiagnosticsNode> truncateNodesList(
-      List<DiagnosticsNode> nodes, DiagnosticsNode? owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode? owner,
+  ) {
     return nodes;
   }
 
@@ -266,10 +275,7 @@ class _DepthTaggedDelegate implements DiagnosticsSerializationDelegate {
     DiagnosticsNode node, {
     bool fullDetails = true,
   }) {
-    return <String, Object?>{
-      '_delegate': 'depth-tagged',
-      '_depth': depth,
-    };
+    return <String, Object?>{'_delegate': 'depth-tagged', '_depth': depth};
   }
 
   @override
@@ -284,19 +290,25 @@ class _DepthTaggedDelegate implements DiagnosticsSerializationDelegate {
 
   @override
   List<DiagnosticsNode> filterChildren(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> filterProperties(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> truncateNodesList(
-      List<DiagnosticsNode> nodes, DiagnosticsNode? owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode? owner,
+  ) {
     if (nodes.length <= maxChildren) {
       return nodes;
     }
@@ -362,19 +374,25 @@ class _ComposedDelegate implements DiagnosticsSerializationDelegate {
 
   @override
   List<DiagnosticsNode> filterChildren(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> filterProperties(
-      List<DiagnosticsNode> nodes, DiagnosticsNode owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode owner,
+  ) {
     return nodes;
   }
 
   @override
   List<DiagnosticsNode> truncateNodesList(
-      List<DiagnosticsNode> nodes, DiagnosticsNode? owner) {
+    List<DiagnosticsNode> nodes,
+    DiagnosticsNode? owner,
+  ) {
     return nodes;
   }
 
@@ -627,8 +645,9 @@ Map<String, Object?> _manualSerialize(
     // `delegateForNode`. For the simple variants this is just `copyWith`
     // with one less level of depth; we use that uniformly as an
     // approximation.
-    final DiagnosticsSerializationDelegate childDelegate =
-        delegate.copyWith(subtreeDepth: subtreeDepth - 1);
+    final DiagnosticsSerializationDelegate childDelegate = delegate.copyWith(
+      subtreeDepth: subtreeDepth - 1,
+    );
     final List<Map<String, Object?>> childMaps = <Map<String, Object?>>[];
     for (final _DemoConfig kid in kids) {
       childMaps.add(_manualSerialize(kid, childDelegate, depth: depth + 1));
@@ -675,11 +694,12 @@ dynamic build(BuildContext context) {
   // A copyWith chain, demonstrated as four progressively tighter delegates.
   final DiagnosticsSerializationDelegate d0 =
       const DiagnosticsSerializationDelegate(
-    subtreeDepth: 3,
-    includeProperties: true,
+        subtreeDepth: 3,
+        includeProperties: true,
+      );
+  final DiagnosticsSerializationDelegate d1 = d0.copyWith(
+    includeProperties: false,
   );
-  final DiagnosticsSerializationDelegate d1 =
-      d0.copyWith(includeProperties: false);
   final DiagnosticsSerializationDelegate d2 = d1.copyWith(subtreeDepth: 1);
   final DiagnosticsSerializationDelegate d3 = d2.copyWith(subtreeDepth: 0);
 
@@ -967,10 +987,7 @@ class _HeroPill extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
         color: Colors.white.withValues(alpha: 0.14),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.85),
-          width: 1.2,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.85), width: 1.2),
       ),
       child: Text(
         label,
@@ -1166,11 +1183,7 @@ class _AnatomyTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>[
-        'subtreeDepth',
-        'int',
-        'How many child levels to include',
-      ],
+      <String>['subtreeDepth', 'int', 'How many child levels to include'],
       <String>[
         'includeProperties',
         'bool',
@@ -1225,8 +1238,7 @@ class _AnatomyTable extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: const BoxDecoration(
               color: _kPrimaryTint,
-              borderRadius:
-                  BorderRadius.vertical(top: Radius.circular(15.5)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15.5)),
             ),
             child: Row(
               children: const <Widget>[
@@ -1270,8 +1282,7 @@ class _AnatomyTable extends StatelessWidget {
           ),
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
               decoration: BoxDecoration(
                 color: i.isEven ? _kCard : _kPaper,
                 border: Border(
@@ -1356,11 +1367,14 @@ class _SingleJson extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.10),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(15.5)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15.5),
+              ),
               border: Border(
-                bottom:
-                    BorderSide(color: accent.withValues(alpha: 0.4), width: 1),
+                bottom: BorderSide(
+                  color: accent.withValues(alpha: 0.4),
+                  width: 1,
+                ),
               ),
             ),
             child: Row(
@@ -1386,8 +1400,9 @@ class _SingleJson extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             decoration: const BoxDecoration(
               color: _kCodeBg,
-              borderRadius:
-                  BorderRadius.vertical(bottom: Radius.circular(15.5)),
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(15.5),
+              ),
             ),
             child: Text(
               json,
@@ -1426,11 +1441,7 @@ class _SideBySideJson extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
-          child: _SingleJson(
-            title: leftTitle,
-            json: leftJson,
-            accent: accent,
-          ),
+          child: _SingleJson(title: leftTitle, json: leftJson, accent: accent),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -1469,7 +1480,9 @@ class _CopyChainGrid extends StatelessWidget {
       children: <Widget>[
         for (int i = 0; i < snapshots.length; i++)
           Padding(
-            padding: EdgeInsets.only(bottom: i == snapshots.length - 1 ? 0 : 12),
+            padding: EdgeInsets.only(
+              bottom: i == snapshots.length - 1 ? 0 : 12,
+            ),
             child: Container(
               decoration: BoxDecoration(
                 color: _kCard,
@@ -1481,11 +1494,14 @@ class _CopyChainGrid extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 10),
+                      horizontal: 14,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: _kForest.withValues(alpha: 0.10),
-                      borderRadius:
-                          const BorderRadius.vertical(top: Radius.circular(15.5)),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(15.5),
+                      ),
                       border: Border(
                         bottom: BorderSide(
                           color: _kForest.withValues(alpha: 0.4),
@@ -1497,7 +1513,9 @@ class _CopyChainGrid extends StatelessWidget {
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: _kForest,
                             borderRadius: BorderRadius.circular(6),
@@ -1533,7 +1551,8 @@ class _CopyChainGrid extends StatelessWidget {
                     decoration: const BoxDecoration(
                       color: _kCodeBg,
                       borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(15.5)),
+                        bottom: Radius.circular(15.5),
+                      ),
                     ),
                     child: Text(
                       snapshots[i].json,
@@ -1613,22 +1632,24 @@ class _RecipeGrid extends StatelessWidget {
       ),
     ];
 
-    return LayoutBuilder(builder: (BuildContext ctx, BoxConstraints cs) {
-      final bool wide = cs.maxWidth > 720;
-      final int cols = wide ? 2 : 1;
-      final double itemW = (cs.maxWidth - (cols - 1) * 12) / cols;
-      return Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: <Widget>[
-          for (final _Recipe r in recipes)
-            SizedBox(
-              width: itemW,
-              child: _RecipeCard(recipe: r),
-            ),
-        ],
-      );
-    });
+    return LayoutBuilder(
+      builder: (BuildContext ctx, BoxConstraints cs) {
+        final bool wide = cs.maxWidth > 720;
+        final int cols = wide ? 2 : 1;
+        final double itemW = (cs.maxWidth - (cols - 1) * 12) / cols;
+        return Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: <Widget>[
+            for (final _Recipe r in recipes)
+              SizedBox(
+                width: itemW,
+                child: _RecipeCard(recipe: r),
+              ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -1636,11 +1657,7 @@ class _Recipe {
   final IconData icon;
   final String title;
   final String body;
-  const _Recipe({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _Recipe({required this.icon, required this.title, required this.body});
 }
 
 class _RecipeCard extends StatelessWidget {
@@ -1762,8 +1779,7 @@ class _ComparisonTable extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: const BoxDecoration(
               color: _kPrimaryTint,
-              borderRadius:
-                  BorderRadius.vertical(top: Radius.circular(15.5)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(15.5)),
             ),
             child: Row(
               children: const <Widget>[
@@ -1778,8 +1794,7 @@ class _ComparisonTable extends StatelessWidget {
           ),
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: i.isEven ? _kCard : _kPaper,
                 border: Border(
@@ -1968,10 +1983,7 @@ class _GlossaryList extends StatelessWidget {
         children: <Widget>[
           for (int i = 0; i < entries.length; i++)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
                 color: i.isEven ? _kCard : _kPaper,
                 border: Border(
@@ -2036,8 +2048,11 @@ class _DevToolsMock extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.bug_report_outlined,
-                  color: Color(0xFFA8E0FF), size: 18),
+              const Icon(
+                Icons.bug_report_outlined,
+                color: Color(0xFFA8E0FF),
+                size: 18,
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Inspector · root',
@@ -2050,8 +2065,7 @@ class _DevToolsMock extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: const Color(0xFF394155),
                   borderRadius: BorderRadius.circular(6),
@@ -2246,11 +2260,7 @@ class _Footer extends StatelessWidget {
               'a DiagnosticsNode tree as it is turned into JSON. Master it and '
               'you control what every DevTools client downstream of your '
               'Diagnosticable types is allowed to see.',
-              style: TextStyle(
-                color: _kInkSoft,
-                fontSize: 13,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
             ),
           ),
         ],

@@ -99,9 +99,9 @@ dynamic build(BuildContext context) {
         _toInfoBox(
           'Why An Intent?',
           'By modeling the "tap outside" event as an intent, Flutter '
-          'enables customization through the Actions framework. Apps '
-          'can override the default unfocus behavior — for example, '
-          'keeping focus when tapping on a toolbar button.',
+              'enables customization through the Actions framework. Apps '
+              'can override the default unfocus behavior — for example, '
+              'keeping focus when tapping on a toolbar button.',
         ),
         const SizedBox(height: 24),
 
@@ -117,18 +117,14 @@ dynamic build(BuildContext context) {
 
         // ── 3. Default Behavior ──
         _toSection('3. Default Behavior'),
-        _toBody(
-          'Without any customization, the default action performs:',
-        ),
+        _toBody('Without any customization, the default action performs:'),
         const SizedBox(height: 12),
         _buildDefaultBehavior(),
         const SizedBox(height: 24),
 
         // ── 4. Intent Properties ──
         _toSection('4. Intent Properties'),
-        _toBody(
-          'The intent carries contextual information about the tap:',
-        ),
+        _toBody('The intent carries contextual information about the tap:'),
         const SizedBox(height: 12),
         _buildIntentProperties(),
         const SizedBox(height: 24),
@@ -177,9 +173,7 @@ dynamic build(BuildContext context) {
 
         // ── 7. Platform Differences ──
         _toSection('7. Platform-Specific Behavior'),
-        _toBody(
-          'The default tap-outside behavior varies by platform:',
-        ),
+        _toBody('The default tap-outside behavior varies by platform:'),
         const SizedBox(height: 12),
         _buildPlatformBehavior(),
         const SizedBox(height: 24),
@@ -216,9 +210,7 @@ dynamic build(BuildContext context) {
 
         // ── 11. Testing Strategies ──
         _toSection('11. Testing Tap Outside'),
-        _toBody(
-          'Testing strategies for validating tap-outside behavior:',
-        ),
+        _toBody('Testing strategies for validating tap-outside behavior:'),
         const SizedBox(height: 12),
         _toCodeBlock(
           '// Widget test for tap outside\n'
@@ -264,16 +256,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _toIndigo.withValues(alpha: 0.06),
-                _toLavender,
-              ],
+              colors: [_toIndigo.withValues(alpha: 0.06), _toLavender],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-                color: _toIndigo.withValues(alpha: 0.25)),
+            border: Border.all(color: _toIndigo.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,11 +317,7 @@ Widget _toSection(String title) {
 Widget _toBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _toBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _toBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -388,11 +372,7 @@ Widget _toInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _toBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _toBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -419,11 +399,7 @@ Widget _toSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _toBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _toBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -487,8 +463,11 @@ Widget _buildDispatchFlow() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(steps[i]['icon'] as IconData,
-                    color: _toWhite, size: 14),
+                child: Icon(
+                  steps[i]['icon'] as IconData,
+                  color: _toWhite,
+                  size: 14,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -506,7 +485,10 @@ Widget _buildDispatchFlow() {
                     Text(
                       steps[i]['detail'] as String,
                       style: TextStyle(
-                          color: _toBlack, fontSize: 11, height: 1.3),
+                        color: _toBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -516,8 +498,7 @@ Widget _buildDispatchFlow() {
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 13),
-              child: Container(
-                  width: 2, height: 8, color: _toDivider),
+              child: Container(width: 2, height: 8, color: _toDivider),
             ),
         ],
       ],
@@ -563,12 +544,16 @@ Widget _buildDefaultBehavior() {
             color: (actions[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (actions[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (actions[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             children: [
-              Icon(actions[i]['icon'] as IconData,
-                  color: actions[i]['color'] as Color, size: 20),
+              Icon(
+                actions[i]['icon'] as IconData,
+                color: actions[i]['color'] as Color,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -585,7 +570,10 @@ Widget _buildDefaultBehavior() {
                     Text(
                       actions[i]['detail'] as String,
                       style: TextStyle(
-                          color: _toBlack, fontSize: 11, height: 1.3),
+                        color: _toBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -604,14 +592,16 @@ Widget _buildIntentProperties() {
     {
       'prop': 'focusNode',
       'type': 'FocusNode',
-      'desc': 'The focus node of the EditableText that was focused when '
+      'desc':
+          'The focus node of the EditableText that was focused when '
           'the outside tap occurred. Used to control unfocus behavior.',
       'color': _toIndigo,
     },
     {
       'prop': 'pointerDownEvent',
       'type': 'PointerDownEvent',
-      'desc': 'The raw pointer event that triggered the tap outside. '
+      'desc':
+          'The raw pointer event that triggered the tap outside. '
           'Contains position, device type, and pressure data.',
       'color': _toAccent,
     },
@@ -632,8 +622,7 @@ Widget _buildIntentProperties() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: (props[i]['color'] as Color).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -650,8 +639,7 @@ Widget _buildIntentProperties() {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: BoxDecoration(
                   color: _toBlack.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(4),
@@ -694,7 +682,10 @@ Widget _buildTapRegionDiagram() {
         Text(
           'TapRegion Boundary Detection',
           style: TextStyle(
-            color: _toIndigo, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _toIndigo,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Visual diagram of tap regions
@@ -714,14 +705,21 @@ Widget _buildTapRegionDiagram() {
                 left: 8,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _toError.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('OUTSIDE (intent dispatched)',
-                      style: TextStyle(color: _toError, fontSize: 9,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'OUTSIDE (intent dispatched)',
+                    style: TextStyle(
+                      color: _toError,
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               // TextField region
@@ -732,15 +730,17 @@ Widget _buildTapRegionDiagram() {
                   decoration: BoxDecoration(
                     color: _toSuccess.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _toSuccess,
-                      width: 2,
-                    ),
+                    border: Border.all(color: _toSuccess, width: 2),
                   ),
                   child: Center(
-                    child: Text('TextField (TapRegion)',
-                        style: TextStyle(color: _toSuccess, fontSize: 12,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'TextField (TapRegion)',
+                      style: TextStyle(
+                        color: _toSuccess,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -750,14 +750,21 @@ Widget _buildTapRegionDiagram() {
                 right: 8,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _toSuccess.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('INSIDE (no intent)',
-                      style: TextStyle(color: _toSuccess, fontSize: 9,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'INSIDE (no intent)',
+                    style: TextStyle(
+                      color: _toSuccess,
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -769,7 +776,10 @@ Widget _buildTapRegionDiagram() {
           'are normal text field interactions. Taps outside trigger '
           'the EditableTextTapOutsideIntent.',
           style: TextStyle(
-            color: _toMuted, fontSize: 11, fontStyle: FontStyle.italic),
+            color: _toMuted,
+            fontSize: 11,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -780,28 +790,32 @@ Widget _buildPlatformBehavior() {
   final platforms = <Map<String, dynamic>>[
     {
       'platform': 'Android',
-      'behavior': 'Keyboard dismissed, focus removed. '
+      'behavior':
+          'Keyboard dismissed, focus removed. '
           'Standard Material behavior.',
       'icon': Icons.android,
       'color': _toSuccess,
     },
     {
       'platform': 'iOS',
-      'behavior': 'Keyboard dismissed on tap outside. '
+      'behavior':
+          'Keyboard dismissed on tap outside. '
           'Cupertino unfocus pattern.',
       'icon': Icons.phone_iphone,
       'color': _toBlack,
     },
     {
       'platform': 'Web',
-      'behavior': 'Focus removed from text field. Browser '
+      'behavior':
+          'Focus removed from text field. Browser '
           'keyboard hides automatically.',
       'icon': Icons.language,
       'color': _toInfo,
     },
     {
       'platform': 'Desktop',
-      'behavior': 'Focus moves to tapped widget. Keyboard '
+      'behavior':
+          'Focus moves to tapped widget. Keyboard '
           'not typically shown.',
       'icon': Icons.desktop_mac,
       'color': _toAccent,
@@ -820,15 +834,19 @@ Widget _buildPlatformBehavior() {
             color: (p['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (p['color'] as Color).withValues(alpha: 0.2)),
+              color: (p['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(p['icon'] as IconData,
-                      color: p['color'] as Color, size: 16),
+                  Icon(
+                    p['icon'] as IconData,
+                    color: p['color'] as Color,
+                    size: 16,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     p['platform'] as String,
@@ -856,28 +874,32 @@ Widget _buildMultiFieldScenarios() {
   final scenarios = <Map<String, dynamic>>[
     {
       'scenario': 'Tap Field A \u2192 Tap Field B',
-      'result': 'Focus moves to B. No TapOutside for A because '
+      'result':
+          'Focus moves to B. No TapOutside for A because '
           'field-to-field transitions use focus transfer.',
       'icon': Icons.swap_horiz,
       'color': _toIndigo,
     },
     {
       'scenario': 'Tap Field A \u2192 Tap empty area',
-      'result': 'TapOutsideIntent dispatched. Field A loses focus '
+      'result':
+          'TapOutsideIntent dispatched. Field A loses focus '
           'and keyboard is dismissed.',
       'icon': Icons.highlight_off,
       'color': _toError,
     },
     {
       'scenario': 'Tap Field A \u2192 Tap submit button',
-      'result': 'Button receives tap. TapOutsideIntent for A may or '
+      'result':
+          'Button receives tap. TapOutsideIntent for A may or '
           'may not fire depending on button Focus behavior.',
       'icon': Icons.check_circle,
       'color': _toSuccess,
     },
     {
       'scenario': 'Tap Field A \u2192 Scroll gesture',
-      'result': 'Scroll is not a tap; TapOutside not dispatched. '
+      'result':
+          'Scroll is not a tap; TapOutside not dispatched. '
           'Field A retains focus during scrolling.',
       'icon': Icons.swipe_vertical,
       'color': _toWarning,
@@ -905,8 +927,11 @@ Widget _buildMultiFieldScenarios() {
                   color: scenarios[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(scenarios[i]['icon'] as IconData,
-                    color: _toWhite, size: 14),
+                child: Icon(
+                  scenarios[i]['icon'] as IconData,
+                  color: _toWhite,
+                  size: 14,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -924,7 +949,10 @@ Widget _buildMultiFieldScenarios() {
                     Text(
                       scenarios[i]['result'] as String,
                       style: TextStyle(
-                          color: _toBlack, fontSize: 10, height: 1.3),
+                        color: _toBlack,
+                        fontSize: 10,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -980,7 +1008,8 @@ Widget _buildKeyboardDismissal() {
             color: (patterns[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (patterns[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (patterns[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1001,15 +1030,17 @@ Widget _buildKeyboardDismissal() {
                     Text(
                       patterns[i]['desc'] as String,
                       style: TextStyle(
-                          color: _toBlack, fontSize: 10, height: 1.3),
+                        color: _toBlack,
+                        fontSize: 10,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: _toBlack.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(4),
@@ -1047,20 +1078,35 @@ Widget _buildTapVsTapUp() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('TapOutsideIntent',
-                  style: TextStyle(color: _toIndigo, fontSize: 12,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'TapOutsideIntent',
+                style: TextStyle(
+                  color: _toIndigo,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('\u2022 Fires on pointer down',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Immediate reaction',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Cannot detect drag vs tap',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Used for keyboard dismiss',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 PointerDownEvent data',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
+              Text(
+                '\u2022 Fires on pointer down',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Immediate reaction',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Cannot detect drag vs tap',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Used for keyboard dismiss',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 PointerDownEvent data',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
             ],
           ),
         ),
@@ -1077,20 +1123,35 @@ Widget _buildTapVsTapUp() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('TapUpOutsideIntent',
-                  style: TextStyle(color: _toAccent, fontSize: 12,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'TapUpOutsideIntent',
+                style: TextStyle(
+                  color: _toAccent,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('\u2022 Fires on pointer up',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Delayed — after release',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Can distinguish tap from drag',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 Used for focus transfer',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
-              Text('\u2022 PointerUpEvent data',
-                  style: TextStyle(color: _toBlack, fontSize: 11)),
+              Text(
+                '\u2022 Fires on pointer up',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Delayed — after release',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Can distinguish tap from drag',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 Used for focus transfer',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
+              Text(
+                '\u2022 PointerUpEvent data',
+                style: TextStyle(color: _toBlack, fontSize: 11),
+              ),
             ],
           ),
         ),

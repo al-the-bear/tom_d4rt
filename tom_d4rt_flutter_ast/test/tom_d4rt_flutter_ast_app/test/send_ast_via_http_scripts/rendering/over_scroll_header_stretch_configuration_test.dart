@@ -81,10 +81,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: child,
-            ),
+            Padding(padding: const EdgeInsets.all(12), child: child),
           ],
         ),
       ),
@@ -194,16 +191,16 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return ListTile(
-                    leading: const Icon(Icons.label_outline),
-                    title: Text('Baseline row #$index'),
-                    subtitle: const Text('No stretch behavior'),
-                  );
-                },
-                childCount: 12,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                return ListTile(
+                  leading: const Icon(Icons.label_outline),
+                  title: Text('Baseline row #$index'),
+                  subtitle: const Text('No stretch behavior'),
+                );
+              }, childCount: 12),
             ),
           ],
         ),
@@ -242,16 +239,16 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return ListTile(
-                    leading: const Icon(Icons.bookmark_border),
-                    title: Text('Default-stretch row #$index'),
-                    subtitle: const Text('Pull above to see the elastic grow'),
-                  );
-                },
-                childCount: 14,
-              ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                return ListTile(
+                  leading: const Icon(Icons.bookmark_border),
+                  title: Text('Default-stretch row #$index'),
+                  subtitle: const Text('Pull above to see the elastic grow'),
+                );
+              }, childCount: 14),
             ),
           ],
         ),
@@ -295,17 +292,18 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return ListTile(
-                        leading: const Icon(Icons.trending_up),
-                        title: Text('Trigger row #$index'),
-                        subtitle:
-                            const Text('Pull hard above to fire the trigger'),
-                      );
-                    },
-                    childCount: 14,
-                  ),
+                  delegate: SliverChildBuilderDelegate((
+                    BuildContext context,
+                    int index,
+                  ) {
+                    return ListTile(
+                      leading: const Icon(Icons.trending_up),
+                      title: Text('Trigger row #$index'),
+                      subtitle: const Text(
+                        'Pull hard above to fire the trigger',
+                      ),
+                    );
+                  }, childCount: 14),
                 ),
               ],
             ),
@@ -392,15 +390,12 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext c, int i) {
-                          return ListTile(
-                            dense: true,
-                            title: Text('row $i'),
-                          );
-                        },
-                        childCount: 10,
-                      ),
+                      delegate: SliverChildBuilderDelegate((
+                        BuildContext c,
+                        int i,
+                      ) {
+                        return ListTile(dense: true, title: Text('row $i'));
+                      }, childCount: 10),
                     ),
                   ],
                 ),
@@ -423,12 +418,24 @@ dynamic build(BuildContext context) {
       height: 260,
       child: Row(
         children: <Widget>[
-          miniStretch(50, const Color(0xFFFFA726), const Color(0xFFE65100),
-              'offset 50'),
-          miniStretch(150, const Color(0xFFFB8C00), const Color(0xFFBF360C),
-              'offset 150'),
-          miniStretch(250, const Color(0xFFFF7043), const Color(0xFFD84315),
-              'offset 250'),
+          miniStretch(
+            50,
+            const Color(0xFFFFA726),
+            const Color(0xFFE65100),
+            'offset 50',
+          ),
+          miniStretch(
+            150,
+            const Color(0xFFFB8C00),
+            const Color(0xFFBF360C),
+            'offset 150',
+          ),
+          miniStretch(
+            250,
+            const Color(0xFFFF7043),
+            const Color(0xFFD84315),
+            'offset 250',
+          ),
         ],
       ),
     ),
@@ -482,15 +489,12 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext c, int i) {
-                  return ListTile(
-                    leading: const Icon(Icons.favorite_border),
-                    title: Text('Hero row #$i'),
-                  );
-                },
-                childCount: 12,
-              ),
+              delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+                return ListTile(
+                  leading: const Icon(Icons.favorite_border),
+                  title: Text('Hero row #$i'),
+                );
+              }, childCount: 12),
             ),
           ],
         ),
@@ -539,9 +543,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    CustomPaint(
-                      painter: _MountainsPainter(),
-                    ),
+                    CustomPaint(painter: _MountainsPainter()),
                     const Align(
                       alignment: Alignment.bottomLeft,
                       child: Padding(
@@ -571,15 +573,12 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext c, int i) {
-                  return ListTile(
-                    leading: const Icon(Icons.terrain),
-                    title: Text('Parallax row #$i'),
-                  );
-                },
-                childCount: 14,
-              ),
+              delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+                return ListTile(
+                  leading: const Icon(Icons.terrain),
+                  title: Text('Parallax row #$i'),
+                );
+              }, childCount: 14),
             ),
           ],
         ),
@@ -620,16 +619,13 @@ dynamic build(BuildContext context) {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext c, int i) {
-                  return ListTile(
-                    leading: const Icon(Icons.list_alt),
-                    title: Text('Combined row #$i'),
-                    subtitle: const Text('Toolbar pinned, header stretches'),
-                  );
-                },
-                childCount: 18,
-              ),
+              delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+                return ListTile(
+                  leading: const Icon(Icons.list_alt),
+                  title: Text('Combined row #$i'),
+                  subtitle: const Text('Toolbar pinned, header stretches'),
+                );
+              }, childCount: 18),
             ),
           ],
         ),
@@ -666,25 +662,19 @@ dynamic build(BuildContext context) {
                   stretchTriggerOffset: 100.0,
                   onStretchTrigger: simulateNetworkRefresh,
                   flexibleSpace: paintedFlexibleSpace(
-                    colors: const <Color>[
-                      Color(0xFFFF8A65),
-                      Color(0xFFBF360C),
-                    ],
+                    colors: const <Color>[Color(0xFFFF8A65), Color(0xFFBF360C)],
                     label: 'Pull to refresh',
                     icon: Icons.refresh,
                   ),
                 ),
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext c, int i) {
-                      return ListTile(
-                        leading: const Icon(Icons.cloud_download_outlined),
-                        title: Text('Feed item #$i'),
-                        subtitle: const Text('Pull above to refresh'),
-                      );
-                    },
-                    childCount: 14,
-                  ),
+                  delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+                    return ListTile(
+                      leading: const Icon(Icons.cloud_download_outlined),
+                      title: Text('Feed item #$i'),
+                      subtitle: const Text('Pull above to refresh'),
+                    );
+                  }, childCount: 14),
                 ),
               ],
             ),
@@ -712,8 +702,10 @@ dynamic build(BuildContext context) {
                               height: 18,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : const Icon(Icons.check_circle_outline,
-                              color: Colors.deepOrange),
+                          : const Icon(
+                              Icons.check_circle_outline,
+                              color: Colors.deepOrange,
+                            ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -767,46 +759,40 @@ dynamic build(BuildContext context) {
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: <Color>[
-                            Color(0xFF80DEEA),
-                            Color(0xFF006064),
-                          ],
+                          colors: <Color>[Color(0xFF80DEEA), Color(0xFF006064)],
                         ),
                       ),
                     ),
                     LayoutBuilder(
                       builder:
                           (BuildContext context, BoxConstraints constraints) {
-                        const double base = 160.0;
-                        final double extra =
-                            (constraints.maxHeight - base).clamp(0.0, 160.0);
-                        final double scale = 1.0 + (extra / 160.0) * 0.8;
-                        return Center(
-                          child: Transform.scale(
-                            scale: scale,
-                            child: const Icon(
-                              Icons.flutter_dash,
-                              size: 48,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
-                      },
+                            const double base = 160.0;
+                            final double extra = (constraints.maxHeight - base)
+                                .clamp(0.0, 160.0);
+                            final double scale = 1.0 + (extra / 160.0) * 0.8;
+                            return Center(
+                              child: Transform.scale(
+                                scale: scale,
+                                child: const Icon(
+                                  Icons.flutter_dash,
+                                  size: 48,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
                     ),
                   ],
                 ),
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext c, int i) {
-                  return ListTile(
-                    leading: const Icon(Icons.flutter_dash),
-                    title: Text('Scaling row #$i'),
-                  );
-                },
-                childCount: 14,
-              ),
+              delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+                return ListTile(
+                  leading: const Icon(Icons.flutter_dash),
+                  title: Text('Scaling row #$i'),
+                );
+              }, childCount: 14),
             ),
           ],
         ),
@@ -824,16 +810,20 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const <Widget>[
-        Text('Use stretch:true when:',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Use stretch:true when:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Text('  - The header carries a hero asset that benefits from elastic'),
         Text('    feedback (photos, illustrations, brand panels).'),
         Text('  - You want a tactile pull-to-refresh moment.'),
         Text('  - Users are on iOS or you have explicitly enabled bouncing.'),
         SizedBox(height: 10),
-        Text('Avoid stretch:true when:',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        Text(
+          'Avoid stretch:true when:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         SizedBox(height: 4),
         Text('  - The header is purely chrome with text and icons.'),
         Text('  - You use ClampingScrollPhysics (no overscroll to feed it).'),
@@ -920,10 +910,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'OverScrollHeaderStretchConfiguration Deep Demo',
-    theme: ThemeData(
-      colorSchemeSeed: Colors.indigo,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
     home: Scaffold(
       appBar: AppBar(
         title: const Text('OverScrollHeaderStretchConfiguration'),

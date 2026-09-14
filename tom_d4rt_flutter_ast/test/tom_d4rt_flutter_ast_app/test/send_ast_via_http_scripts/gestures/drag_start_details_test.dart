@@ -143,11 +143,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: [
-          Color(0xFF1E3A8A),
-          Color(0xFF7C3AED),
-          Color(0xFFDB2777),
-        ],
+        colors: [Color(0xFF1E3A8A), Color(0xFF7C3AED), Color(0xFFDB2777)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -306,11 +302,7 @@ dynamic build(BuildContext context) {
           'PointerDeviceKind? — touch / mouse / stylus / ...',
           Colors.pinkAccent.shade100,
         ),
-        _buildAnatomyLine(
-          '})',
-          'end of constructor',
-          Colors.cyan.shade200,
-        ),
+        _buildAnatomyLine('})', 'end of constructor', Colors.cyan.shade200),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -399,9 +391,15 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10.0),
             _buildFieldRow(
-              'global', d.globalPosition.toString(), Colors.green.shade700),
+              'global',
+              d.globalPosition.toString(),
+              Colors.green.shade700,
+            ),
             _buildFieldRow(
-              'local', d.localPosition.toString(), Colors.blue.shade700),
+              'local',
+              d.localPosition.toString(),
+              Colors.blue.shade700,
+            ),
             _buildFieldRow(
               'tsμs',
               d.sourceTimeStamp == null
@@ -416,8 +414,10 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 8.0),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 5.0,
+              ),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6.0),
@@ -449,11 +449,13 @@ dynamic build(BuildContext context) {
   final crosshairPoints = <_CrosshairPoint>[];
   for (final s in samples) {
     final d = s['details'] as DragStartDetails;
-    crosshairPoints.add(_CrosshairPoint(
-      offset: d.globalPosition,
-      color: s['color'] as Color,
-      label: s['label'] as String,
-    ));
+    crosshairPoints.add(
+      _CrosshairPoint(
+        offset: d.globalPosition,
+        color: s['color'] as Color,
+        label: s['label'] as String,
+      ),
+    );
   }
 
   final crosshairCanvas = Container(
@@ -685,10 +687,7 @@ dynamic build(BuildContext context) {
                     height: 14.0,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.grey.shade200,
-                          Colors.grey.shade300,
-                        ],
+                        colors: [Colors.grey.shade200, Colors.grey.shade300],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                       ),
@@ -701,10 +700,7 @@ dynamic build(BuildContext context) {
                       height: 14.0,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [
-                            color.withValues(alpha: 0.4),
-                            color,
-                          ],
+                          colors: [color.withValues(alpha: 0.4), color],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -850,7 +846,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'GestureDetector.onPanStart',
           accent: Colors.cyanAccent.shade100,
-          code: 'GestureDetector(\n'
+          code:
+              'GestureDetector(\n'
               '  onPanStart: (DragStartDetails d) {\n'
               '    print(\'started at \${d.localPosition}\');\n'
               '    setState(() => origin = d.localPosition);\n'
@@ -862,7 +859,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'Horizontal drag — read kind',
           accent: Colors.greenAccent.shade100,
-          code: 'GestureDetector(\n'
+          code:
+              'GestureDetector(\n'
               '  onHorizontalDragStart: (d) {\n'
               '    final isMouse = d.kind == PointerDeviceKind.mouse;\n'
               '    if (isMouse) cursor = SystemMouseCursors.grabbing;\n'
@@ -874,7 +872,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'Draggable.onDragStarted (bridge)',
           accent: Colors.orangeAccent.shade100,
-          code: 'Draggable<T>(\n'
+          code:
+              'Draggable<T>(\n'
               '  data: payload,\n'
               '  onDragStarted: () {\n'
               '    // No DragStartDetails here — wrap with\n'
@@ -888,7 +887,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'Constructing for tests',
           accent: Colors.pinkAccent.shade100,
-          code: 'final fixture = DragStartDetails(\n'
+          code:
+              'final fixture = DragStartDetails(\n'
               '  globalPosition: const Offset(40, 60),\n'
               '  sourceTimeStamp: const Duration(milliseconds: 12),\n'
               '  kind: PointerDeviceKind.touch,\n'
@@ -929,8 +929,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade700, size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -1004,7 +1007,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 9: ASCII footer ===');
 
-  const asciiArt = ''
+  const asciiArt =
+      ''
       '+--------------------------------------------------+\n'
       '|              DragStartDetails                    |\n'
       '+--------------------------------------------------+\n'
@@ -1042,7 +1046,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.terminal, color: Colors.greenAccent.shade400, size: 20.0),
+            Icon(
+              Icons.terminal,
+              color: Colors.greenAccent.shade400,
+              size: 20.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'tldr — drag_start_details.txt',
@@ -1115,10 +1123,7 @@ dynamic build(BuildContext context) {
                 title: 'Sample-instance gallery',
                 color: Colors.teal,
               ),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: galleryCards,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: galleryCards),
               const SizedBox(height: 28.0),
               _SectionTitle(
                 index: '3',
@@ -1141,18 +1146,10 @@ dynamic build(BuildContext context) {
               ),
               timeAxis,
               const SizedBox(height: 28.0),
-              _SectionTitle(
-                index: '6',
-                title: 'Recipes',
-                color: Colors.cyan,
-              ),
+              _SectionTitle(index: '6', title: 'Recipes', color: Colors.cyan),
               recipes,
               const SizedBox(height: 28.0),
-              _SectionTitle(
-                index: '7',
-                title: 'Pitfalls',
-                color: Colors.red,
-              ),
+              _SectionTitle(index: '7', title: 'Pitfalls', color: Colors.red),
               pitfalls,
               const SizedBox(height: 28.0),
               _SectionTitle(
@@ -1406,7 +1403,9 @@ Widget _buildFieldCard({
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 2.0),
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: color.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(4.0),
@@ -1472,7 +1471,9 @@ Widget _buildFieldCard({
                   for (final v in samples)
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 2.0),
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(4.0),
@@ -1565,7 +1566,10 @@ Widget _buildPitfall({
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
+            border: Border.all(
+              color: color.withValues(alpha: 0.55),
+              width: 1.0,
+            ),
           ),
           child: Icon(icon, color: color, size: 18.0),
         ),
@@ -1651,17 +1655,9 @@ class _CrosshairPainter extends CustomPainter {
         ..color = p.color
         ..strokeWidth = 1.6;
       // Horizontal arm.
-      canvas.drawLine(
-        Offset(cx - 12.0, cy),
-        Offset(cx + 12.0, cy),
-        crosshair,
-      );
+      canvas.drawLine(Offset(cx - 12.0, cy), Offset(cx + 12.0, cy), crosshair);
       // Vertical arm.
-      canvas.drawLine(
-        Offset(cx, cy - 12.0),
-        Offset(cx, cy + 12.0),
-        crosshair,
-      );
+      canvas.drawLine(Offset(cx, cy - 12.0), Offset(cx, cy + 12.0), crosshair);
       // Centre dot with halo.
       final halo = Paint()..color = p.color.withValues(alpha: 0.20);
       canvas.drawCircle(Offset(cx, cy), 10.0, halo);
@@ -1686,7 +1682,8 @@ class _CrosshairPainter extends CustomPainter {
       // Coordinate caption underneath.
       final cap = TextPainter(
         text: TextSpan(
-          text: '(${p.offset.dx.toStringAsFixed(0)}, '
+          text:
+              '(${p.offset.dx.toStringAsFixed(0)}, '
               '${p.offset.dy.toStringAsFixed(0)})',
           style: TextStyle(
             color: Colors.grey.shade700,

@@ -23,7 +23,8 @@
 //   No emojis are used anywhere in the file.
 import 'package:flutter/material.dart';
 
-dynamic build(BuildContext context) => const NavigationDestinationLabelBehaviorDemoApp();
+dynamic build(BuildContext context) =>
+    const NavigationDestinationLabelBehaviorDemoApp();
 
 // ============================================================================
 // Root widget. Stateless. Hosts MaterialApp + Scaffold + SingleChildScrollView.
@@ -140,8 +141,7 @@ class NavigationDestinationLabelBehaviorDemoApp extends StatelessWidget {
               _SectionTitle(
                 number: 8,
                 title: 'Code recipe gallery',
-                subtitle:
-                    'Drop-in snippets and a short review checklist.',
+                subtitle: 'Drop-in snippets and a short review checklist.',
                 scheme: scheme,
               ),
               _Section8RecipeGallery(scheme: scheme),
@@ -203,11 +203,7 @@ class _GradientHeaderBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            scheme.primary,
-            scheme.tertiary,
-            scheme.secondary,
-          ],
+          colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
         ),
         borderRadius: BorderRadius.circular(22.0),
         boxShadow: <BoxShadow>[
@@ -274,10 +270,7 @@ class _GradientHeaderBanner extends StatelessWidget {
             spacing: 10.0,
             runSpacing: 10.0,
             children: const <Widget>[
-              _ValueChip(
-                label: 'alwaysShow',
-                icon: Icons.visibility_outlined,
-              ),
+              _ValueChip(label: 'alwaysShow', icon: Icons.visibility_outlined),
               _ValueChip(
                 label: 'alwaysHide',
                 icon: Icons.visibility_off_outlined,
@@ -428,10 +421,7 @@ class _SurfaceCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: background ?? scheme.surface,
         borderRadius: BorderRadius.circular(18.0),
-        border: Border.all(
-          color: scheme.outlineVariant,
-          width: 1.0,
-        ),
+        border: Border.all(color: scheme.outlineVariant, width: 1.0),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: scheme.shadow.withValues(alpha: 0.06),
@@ -531,8 +521,7 @@ class _Section1ConceptPrimer extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.info_outline,
-                    color: scheme.primary, size: 22.0),
+                Icon(Icons.info_outline, color: scheme.primary, size: 22.0),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Text(
@@ -579,10 +568,7 @@ class _ConceptCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.35),
-          width: 1.0,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -700,7 +686,9 @@ class _SpecimenFrame extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 6.0),
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(40.0),
@@ -815,8 +803,7 @@ class _Section3SideBySide extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.compare_arrows,
-                    color: scheme.tertiary, size: 22.0),
+                Icon(Icons.compare_arrows, color: scheme.tertiary, size: 22.0),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Text(
@@ -867,8 +854,7 @@ class _CompareRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 4.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
             child: Row(
               children: <Widget>[
                 Icon(Icons.label_outline, color: color, size: 16.0),
@@ -951,8 +937,10 @@ class _Section4DestinationAnatomy extends StatelessWidget {
             description:
                 'The visible string. With alwaysHide it never paints; with '
                 'onlyShowSelected it paints only for the active index.',
-            iconWidget:
-                Icon(Icons.label_important_outline, color: scheme.tertiary),
+            iconWidget: Icon(
+              Icons.label_important_outline,
+              color: scheme.tertiary,
+            ),
             color: scheme.tertiary,
           ),
           _AnatomyRow(
@@ -1170,8 +1158,7 @@ class _MobileShellRecipe extends StatelessWidget {
                         height: 28.0,
                         color: scheme.primary,
                         alignment: Alignment.centerLeft,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text(
                           'Dashboard',
                           style: TextStyle(
@@ -1188,12 +1175,13 @@ class _MobileShellRecipe extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               _FakeListTile(scheme: scheme, title: 'Today'),
-                              _FakeListTile(
-                                  scheme: scheme, title: 'This week'),
+                              _FakeListTile(scheme: scheme, title: 'This week'),
                               _FakeListTile(scheme: scheme, title: 'Pinned'),
                               _FakeListTile(scheme: scheme, title: 'Recent'),
                               _FakeListTile(
-                                  scheme: scheme, title: 'Suggestions'),
+                                scheme: scheme,
+                                title: 'Suggestions',
+                              ),
                               _FakeListTile(scheme: scheme, title: 'Notes'),
                               const Spacer(),
                             ],
@@ -1252,8 +1240,7 @@ class _FakeListTile extends StatelessWidget {
               ),
             ),
           ),
-          Icon(Icons.chevron_right,
-              size: 16.0, color: scheme.onSurfaceVariant),
+          Icon(Icons.chevron_right, size: 16.0, color: scheme.onSurfaceVariant),
         ],
       ),
     );
@@ -1364,10 +1351,7 @@ class _RailPreview extends StatelessWidget {
           ),
           Text(
             'maps to $mappedTo',
-            style: TextStyle(
-              color: scheme.onSurfaceVariant,
-              fontSize: 11.0,
-            ),
+            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
           ),
           const SizedBox(height: 8.0),
           SizedBox(
@@ -1630,15 +1614,16 @@ class _Section6Accessibility extends StatelessWidget {
             decoration: BoxDecoration(
               color: scheme.errorContainer.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(
-                color: scheme.error.withValues(alpha: 0.4),
-              ),
+              border: Border.all(color: scheme.error.withValues(alpha: 0.4)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.warning_amber_rounded,
-                    color: scheme.error, size: 22.0),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: scheme.error,
+                  size: 22.0,
+                ),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Text(
@@ -1958,10 +1943,7 @@ class _MatrixRow extends StatelessWidget {
             flex: 4,
             child: Text(
               scenario,
-              style: TextStyle(
-                color: scheme.onSurface,
-                fontSize: 12.0,
-              ),
+              style: TextStyle(color: scheme.onSurface, fontSize: 12.0),
             ),
           ),
           Expanded(
@@ -1990,7 +1972,9 @@ class _MatrixRow extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 2.0),
               padding: const EdgeInsets.symmetric(
-                  horizontal: 6.0, vertical: 6.0),
+                horizontal: 6.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: scheme.primaryContainer,
                 borderRadius: BorderRadius.circular(8.0),
@@ -2176,8 +2160,7 @@ class _CodeBlock extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.terminal,
-                  size: 16.0, color: scheme.tertiary),
+              Icon(Icons.terminal, size: 16.0, color: scheme.tertiary),
               const SizedBox(width: 8.0),
               Text(
                 title,
@@ -2232,8 +2215,11 @@ class _Checklist extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.checklist_rtl,
-                  color: scheme.onSecondaryContainer, size: 22.0),
+              Icon(
+                Icons.checklist_rtl,
+                color: scheme.onSecondaryContainer,
+                size: 22.0,
+              ),
               const SizedBox(width: 8.0),
               Text(
                 'Review checklist',
@@ -2252,8 +2238,11 @@ class _Checklist extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.check_circle_outline,
-                      color: scheme.onSecondaryContainer, size: 16.0),
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: scheme.onSecondaryContainer,
+                    size: 16.0,
+                  ),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -2343,8 +2332,7 @@ class _GlossaryAndRecipesFooter extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.menu_book_outlined,
-                  color: scheme.primary, size: 22.0),
+              Icon(Icons.menu_book_outlined, color: scheme.primary, size: 22.0),
               const SizedBox(width: 8.0),
               Text(
                 'Glossary',
@@ -2366,8 +2354,11 @@ class _GlossaryAndRecipesFooter extends StatelessWidget {
           const SizedBox(height: 8.0),
           Row(
             children: <Widget>[
-              Icon(Icons.local_library_outlined,
-                  color: scheme.primary, size: 22.0),
+              Icon(
+                Icons.local_library_outlined,
+                color: scheme.primary,
+                size: 22.0,
+              ),
               const SizedBox(width: 8.0),
               Text(
                 'Final recap',
@@ -2426,8 +2417,11 @@ class _GlossaryAndRecipesFooter extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.flag_outlined,
-                    color: scheme.onPrimaryContainer, size: 22.0),
+                Icon(
+                  Icons.flag_outlined,
+                  color: scheme.onPrimaryContainer,
+                  size: 22.0,
+                ),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Text(

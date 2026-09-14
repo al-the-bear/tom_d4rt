@@ -154,7 +154,11 @@ Widget iosStatusBar() {
   );
 }
 
-Widget iosNavBar({String? title, bool showBack = false, String backTitle = 'Back'}) {
+Widget iosNavBar({
+  String? title,
+  bool showBack = false,
+  String backTitle = 'Back',
+}) {
   return Container(
     height: 36,
     padding: EdgeInsets.symmetric(horizontal: 8),
@@ -168,10 +172,7 @@ Widget iosNavBar({String? title, bool showBack = false, String backTitle = 'Back
           Row(
             children: [
               Icon(CupertinoIcons.chevron_left, size: 14, color: kIosBlue),
-              Text(
-                backTitle,
-                style: TextStyle(fontSize: 11, color: kIosBlue),
-              ),
+              Text(backTitle, style: TextStyle(fontSize: 11, color: kIosBlue)),
             ],
           )
         else
@@ -197,7 +198,11 @@ Widget iosNavBar({String? title, bool showBack = false, String backTitle = 'Back
 // ============================================================================
 // IOS PAGE CONTENT — a fake screen body with cells
 // ============================================================================
-Widget iosPageBody({required Color tint, required String name, required IconData icon}) {
+Widget iosPageBody({
+  required Color tint,
+  required String name,
+  required IconData icon,
+}) {
   return Container(
     color: kPageBg,
     child: Column(
@@ -351,9 +356,7 @@ Widget panel({required String title, required Widget child, Color? tint}) {
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
             ),
-            border: Border(
-              bottom: BorderSide(color: kHairline, width: 0.5),
-            ),
+            border: Border(bottom: BorderSide(color: kHairline, width: 0.5)),
           ),
           child: Text(
             title,
@@ -572,10 +575,17 @@ Widget verticalSlideSnapshot(double t, {String label = ''}) {
 // ============================================================================
 // BACK-SWIPE SNAPSHOT — user drags right with finger from left edge
 // ============================================================================
-Widget backSwipeSnapshot(double dragFraction, {String label = '', bool showFinger = true}) {
+Widget backSwipeSnapshot(
+  double dragFraction, {
+  String label = '',
+  bool showFinger = true,
+}) {
   // dragFraction 0 = no swipe, 1 = fully dragged off-screen
   final currentX = dragFraction; // current page slides right
-  final previousX = -0.3 * (1.0 - dragFraction); // previous page slides back in from parallax position
+  final previousX =
+      -0.3 *
+      (1.0 -
+          dragFraction); // previous page slides back in from parallax position
 
   return miniPhone(
     label: label,
@@ -695,7 +705,10 @@ dynamic build(BuildContext context) {
       'barrierDismissible': r2.barrierDismissible.toString(),
     });
   } catch (e) {
-    routeSpecimens.add({'label': 'confirm (fullscreenDialog, T=bool)', 'error': e.toString()});
+    routeSpecimens.add({
+      'label': 'confirm (fullscreenDialog, T=bool)',
+      'error': e.toString(),
+    });
   }
 
   try {
@@ -882,7 +895,10 @@ Widget _buildHeroHeader() {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.2),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.5),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.4),
+              width: 1.5,
+            ),
           ),
           child: Icon(
             CupertinoIcons.arrow_right_circle_fill,
@@ -965,11 +981,26 @@ Widget _buildConceptOverview() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            kv('Material default', 'Fade-through (Material 3) or fade-up (legacy). No edge gesture.'),
-            kv('Cupertino default', 'Horizontal slide + parallax + iOS shadow. Edge swipe to pop.'),
-            kv('Material modal', 'showModalBottomSheet, showDialog — separate APIs.'),
-            kv('Cupertino modal', 'Same CupertinoPageRoute with fullscreenDialog: true.'),
-            kv('Adaptivity', 'PageRouteBuilder + adaptive transitions can switch per platform.'),
+            kv(
+              'Material default',
+              'Fade-through (Material 3) or fade-up (legacy). No edge gesture.',
+            ),
+            kv(
+              'Cupertino default',
+              'Horizontal slide + parallax + iOS shadow. Edge swipe to pop.',
+            ),
+            kv(
+              'Material modal',
+              'showModalBottomSheet, showDialog — separate APIs.',
+            ),
+            kv(
+              'Cupertino modal',
+              'Same CupertinoPageRoute with fullscreenDialog: true.',
+            ),
+            kv(
+              'Adaptivity',
+              'PageRouteBuilder + adaptive transitions can switch per platform.',
+            ),
           ],
         ),
       ),
@@ -1007,7 +1038,11 @@ Widget _bullet(String title, String text, Color color) {
               SizedBox(height: 2),
               Text(
                 text,
-                style: TextStyle(fontSize: 12, color: kInkSecondary, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: kInkSecondary,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1022,12 +1057,34 @@ Widget _bullet(String title, String text, Color color) {
 // ============================================================================
 Widget _buildClassHierarchy() {
   final levels = <Map<String, String>>[
-    {'name': 'Route<T>', 'role': 'abstract — entry in Navigator stack, knows isCurrent/isActive/popped'},
-    {'name': 'OverlayRoute<T>', 'role': 'abstract — manages OverlayEntries inserted into Overlay'},
-    {'name': 'TransitionRoute<T>', 'role': 'abstract — owns AnimationController, transitionDuration, animation'},
-    {'name': 'ModalRoute<T>', 'role': 'abstract — barrier, focus traps, secondaryAnimation, buildPage, buildTransitions'},
-    {'name': 'PageRoute<T>', 'role': 'abstract — opaque, full-screen, fullscreenDialog flag'},
-    {'name': 'CupertinoPageRoute<T>', 'role': 'concrete — iOS slide + edge swipe gesture via CupertinoRouteTransitionMixin'},
+    {
+      'name': 'Route<T>',
+      'role':
+          'abstract — entry in Navigator stack, knows isCurrent/isActive/popped',
+    },
+    {
+      'name': 'OverlayRoute<T>',
+      'role': 'abstract — manages OverlayEntries inserted into Overlay',
+    },
+    {
+      'name': 'TransitionRoute<T>',
+      'role':
+          'abstract — owns AnimationController, transitionDuration, animation',
+    },
+    {
+      'name': 'ModalRoute<T>',
+      'role':
+          'abstract — barrier, focus traps, secondaryAnimation, buildPage, buildTransitions',
+    },
+    {
+      'name': 'PageRoute<T>',
+      'role': 'abstract — opaque, full-screen, fullscreenDialog flag',
+    },
+    {
+      'name': 'CupertinoPageRoute<T>',
+      'role':
+          'concrete — iOS slide + edge swipe gesture via CupertinoRouteTransitionMixin',
+    },
   ];
 
   return Column(
@@ -1055,15 +1112,31 @@ Widget _buildClassHierarchy() {
           children: [
             Text(
               'Most of the iOS-specific behavior actually lives in this mixin, not in CupertinoPageRoute itself. The mixin provides:',
-              style: TextStyle(fontSize: 12, color: kInkSecondary, height: 1.45),
+              style: TextStyle(
+                fontSize: 12,
+                color: kInkSecondary,
+                height: 1.45,
+              ),
             ),
             SizedBox(height: 8),
             kv('title', 'getter for the optional title used in back chevrons'),
-            kv('buildContent', 'abstract — returns the page body (builder runs here)'),
-            kv('buildPage', 'wraps content in a CupertinoPageScaffold-friendly host'),
-            kv('buildTransitions', 'returns CupertinoPageTransition wrapping the child'),
+            kv(
+              'buildContent',
+              'abstract — returns the page body (builder runs here)',
+            ),
+            kv(
+              'buildPage',
+              'wraps content in a CupertinoPageScaffold-friendly host',
+            ),
+            kv(
+              'buildTransitions',
+              'returns CupertinoPageTransition wrapping the child',
+            ),
             kv('isPopGestureEnabled', 'static — gates the back-swipe gesture'),
-            kv('startPopGesture', 'static — wires the gesture into the controller'),
+            kv(
+              'startPopGesture',
+              'static — wires the gesture into the controller',
+            ),
           ],
         ),
       ),
@@ -1117,7 +1190,11 @@ Widget _hierarchyRow({
             padding: EdgeInsets.only(top: 4),
             child: Text(
               role,
-              style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.35),
+              style: TextStyle(
+                fontSize: 11,
+                color: kInkSecondary,
+                height: 1.35,
+              ),
             ),
           ),
         ),
@@ -1135,56 +1212,64 @@ Widget _buildConstructorAnatomy() {
       'name': 'builder',
       'type': 'WidgetBuilder',
       'required': true,
-      'desc': 'Function that produces the page widget for this route. Runs each time the route is inserted into the navigator.',
+      'desc':
+          'Function that produces the page widget for this route. Runs each time the route is inserted into the navigator.',
       'color': kIosBlue,
     },
     {
       'name': 'settings',
       'type': 'RouteSettings?',
       'required': false,
-      'desc': 'Carries the route name and optional arguments. Used by named navigation, restoration, and observers.',
+      'desc':
+          'Carries the route name and optional arguments. Used by named navigation, restoration, and observers.',
       'color': kIosTeal,
     },
     {
       'name': 'title',
       'type': 'String?',
       'required': false,
-      'desc': 'iOS-only metadata. Surfaces as the previous-page label on the next page\'s back chevron.',
+      'desc':
+          'iOS-only metadata. Surfaces as the previous-page label on the next page\'s back chevron.',
       'color': kIosPurple,
     },
     {
       'name': 'maintainState',
       'type': 'bool (default true)',
       'required': false,
-      'desc': 'If false, the route\'s page widget is unmounted when it\'s not the topmost. State is lost. Use for memory savings on heavy pages.',
+      'desc':
+          'If false, the route\'s page widget is unmounted when it\'s not the topmost. State is lost. Use for memory savings on heavy pages.',
       'color': kIosOrange,
     },
     {
       'name': 'fullscreenDialog',
       'type': 'bool (default false)',
       'required': false,
-      'desc': 'Switches to the vertical (slide-up) modal transition. Disables back-swipe. Use for new-item / settings modals.',
+      'desc':
+          'Switches to the vertical (slide-up) modal transition. Disables back-swipe. Use for new-item / settings modals.',
       'color': kIosRed,
     },
     {
       'name': 'allowSnapshotting',
       'type': 'bool (default true)',
       'required': false,
-      'desc': 'If true, the previous page may be snapshotted (rasterized) during the transition for performance. Disable when the previous page is animating.',
+      'desc':
+          'If true, the previous page may be snapshotted (rasterized) during the transition for performance. Disable when the previous page is animating.',
       'color': kIosGreen,
     },
     {
       'name': 'requestFocus',
       'type': 'bool? (default null)',
       'required': false,
-      'desc': 'Whether focus should move into this route when pushed. Inherits from theme when null.',
+      'desc':
+          'Whether focus should move into this route when pushed. Inherits from theme when null.',
       'color': kIosPink,
     },
     {
       'name': 'barrierDismissible',
       'type': 'bool (default false on PageRoute)',
       'required': false,
-      'desc': 'Always false for CupertinoPageRoute. Inherited from PageRoute but not surfaced — page routes are opaque and have no barrier.',
+      'desc':
+          'Always false for CupertinoPageRoute. Inherited from PageRoute but not surfaced — page routes are opaque and have no barrier.',
       'color': kIosIndigo,
     },
   ];
@@ -1229,7 +1314,10 @@ Widget _buildConstructorAnatomy() {
                         ),
                         SizedBox(width: 8),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 1,
+                          ),
                           decoration: BoxDecoration(
                             color: (p['color'] as Color).withOpacity(0.12),
                             borderRadius: BorderRadius.circular(4),
@@ -1247,7 +1335,10 @@ Widget _buildConstructorAnatomy() {
                         SizedBox(width: 6),
                         if (p['required'] as bool)
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 1,
+                            ),
                             decoration: BoxDecoration(
                               color: kIosRed,
                               borderRadius: BorderRadius.circular(4),
@@ -1266,7 +1357,11 @@ Widget _buildConstructorAnatomy() {
                     SizedBox(height: 4),
                     Text(
                       p['desc'] as String,
-                      style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.45),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: kInkSecondary,
+                        height: 1.45,
+                      ),
                     ),
                   ],
                 ),
@@ -1318,7 +1413,8 @@ Widget _buildHorizontalSlideStrip() {
   return Column(
     children: [
       panel(
-        title: 'Push transition — 5 frames at t = 0.0 / 0.25 / 0.5 / 0.75 / 1.0',
+        title:
+            'Push transition — 5 frames at t = 0.0 / 0.25 / 0.5 / 0.75 / 1.0',
         child: Column(
           children: [
             Text(
@@ -1331,7 +1427,10 @@ Widget _buildHorizontalSlideStrip() {
               child: Row(
                 children: [
                   for (final t in ts) ...[
-                    horizontalSlideSnapshot(t, label: 't = ${t.toStringAsFixed(2)}'),
+                    horizontalSlideSnapshot(
+                      t,
+                      label: 't = ${t.toStringAsFixed(2)}',
+                    ),
                     SizedBox(width: 14),
                   ],
                 ],
@@ -1345,12 +1444,24 @@ Widget _buildHorizontalSlideStrip() {
         tint: kIosPurple,
         child: Column(
           children: [
-            kv('Incoming Offset', 'Tween(begin: Offset(1.0, 0), end: Offset.zero)'),
-            kv('Outgoing Offset', 'Tween(begin: Offset.zero, end: Offset(-0.3, 0)) — parallax'),
+            kv(
+              'Incoming Offset',
+              'Tween(begin: Offset(1.0, 0), end: Offset.zero)',
+            ),
+            kv(
+              'Outgoing Offset',
+              'Tween(begin: Offset.zero, end: Offset(-0.3, 0)) — parallax',
+            ),
             kv('Outgoing dim', 'overlay fades 0.0 → 0.4 opacity'),
-            kv('Curve', 'Curves.linearToEaseOut (push) / Curves.easeInToLinear (pop)'),
+            kv(
+              'Curve',
+              'Curves.linearToEaseOut (push) / Curves.easeInToLinear (pop)',
+            ),
             kv('Duration', '~400 ms by default'),
-            kv('Shadow', 'iOS gradient shadow on the leading edge of incoming page'),
+            kv(
+              'Shadow',
+              'iOS gradient shadow on the leading edge of incoming page',
+            ),
           ],
         ),
       ),
@@ -1380,7 +1491,10 @@ Widget _buildVerticalSlideStrip() {
               child: Row(
                 children: [
                   for (final t in ts) ...[
-                    verticalSlideSnapshot(t, label: 't = ${t.toStringAsFixed(2)}'),
+                    verticalSlideSnapshot(
+                      t,
+                      label: 't = ${t.toStringAsFixed(2)}',
+                    ),
                     SizedBox(width: 14),
                   ],
                 ],
@@ -1397,8 +1511,14 @@ Widget _buildVerticalSlideStrip() {
             kv('Tween', 'Tween(begin: Offset(0, 1.0), end: Offset.zero)'),
             kv('Curve', 'Curves.linearToEaseOut'),
             kv('Reverse curve', 'Curves.easeInToLinear'),
-            kv('Swipe-back', 'Disabled — the modal can only be dismissed via Cancel/Done or a downward gesture if you wire one'),
-            kv('Use cases', 'New item, settings, sign-in flows, anything that interrupts the user\'s task'),
+            kv(
+              'Swipe-back',
+              'Disabled — the modal can only be dismissed via Cancel/Done or a downward gesture if you wire one',
+            ),
+            kv(
+              'Use cases',
+              'New item, settings, sign-in flows, anything that interrupts the user\'s task',
+            ),
           ],
         ),
       ),
@@ -1433,8 +1553,8 @@ Widget _buildBackSwipeDemo() {
                       label: f == 0.0
                           ? 'edge touched'
                           : f == 1.0
-                              ? 'pop completes'
-                              : 'drag ${(f * 100).toInt()}%',
+                          ? 'pop completes'
+                          : 'drag ${(f * 100).toInt()}%',
                     ),
                     SizedBox(width: 14),
                   ],
@@ -1449,12 +1569,27 @@ Widget _buildBackSwipeDemo() {
         tint: kIosGreen,
         child: Column(
           children: [
-            kv('Detector', 'HorizontalDragGestureRecognizer attached to a strip on the left edge'),
-            kv('On start', 'CupertinoPageRoute installs a _CupertinoBackGestureController, pausing the AnimationController'),
-            kv('On update', 'animation.value -= dx / width (drives the transition manually)'),
-            kv('On end (commit)', 'velocity or position past threshold → animateBack to 0 → pop()'),
+            kv(
+              'Detector',
+              'HorizontalDragGestureRecognizer attached to a strip on the left edge',
+            ),
+            kv(
+              'On start',
+              'CupertinoPageRoute installs a _CupertinoBackGestureController, pausing the AnimationController',
+            ),
+            kv(
+              'On update',
+              'animation.value -= dx / width (drives the transition manually)',
+            ),
+            kv(
+              'On end (commit)',
+              'velocity or position past threshold → animateBack to 0 → pop()',
+            ),
             kv('On end (cancel)', 'animateForward back to 1 → route stays'),
-            kv('Disabled when', 'fullscreenDialog: true OR willHandlePopInternally OR isFirst route OR canPop is false'),
+            kv(
+              'Disabled when',
+              'fullscreenDialog: true OR willHandlePopInternally OR isFirst route OR canPop is false',
+            ),
           ],
         ),
       ),
@@ -1542,7 +1677,11 @@ Widget _buildTransitionClassCompare() {
             SizedBox(height: 10),
             Text(
               'Both accept a primary animation (this route\'s progress) and a secondary animation (a later push that\'s pushing this route away). linearTransition is set to true while the back-swipe gesture is active so the user feels direct manipulation.',
-              style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.45),
+              style: TextStyle(
+                fontSize: 11,
+                color: kInkSecondary,
+                height: 1.45,
+              ),
             ),
           ],
         ),
@@ -1582,11 +1721,31 @@ Widget _buildProtocolDiagram() {
         tint: kIosIndigo,
         child: Column(
           children: [
-            _protocolStep(1, 'Navigator inserts route', 'Navigator pushes the route, calls install(), createOverlayEntries(), then drives animation 0 → 1.'),
-            _protocolStep(2, 'ModalRoute.buildPage()', 'PageRoute overrides this and (via CupertinoRouteTransitionMixin) calls builder(context). The builder produces your page widget.'),
-            _protocolStep(3, 'ModalRoute.buildTransitions()', 'CupertinoRouteTransitionMixin overrides this to return CupertinoPageTransition (or CupertinoFullscreenDialogTransition if fullscreenDialog).'),
-            _protocolStep(4, 'Overlay paints the result', 'Stack of OverlayEntries: barrier (none for opaque routes), then page wrapped in transitions, ordered front-to-back by insertion.'),
-            _protocolStep(5, 'On pop', 'Animation drives 1 → 0, buildTransitions runs at every frame, didPop returns true once at end.'),
+            _protocolStep(
+              1,
+              'Navigator inserts route',
+              'Navigator pushes the route, calls install(), createOverlayEntries(), then drives animation 0 → 1.',
+            ),
+            _protocolStep(
+              2,
+              'ModalRoute.buildPage()',
+              'PageRoute overrides this and (via CupertinoRouteTransitionMixin) calls builder(context). The builder produces your page widget.',
+            ),
+            _protocolStep(
+              3,
+              'ModalRoute.buildTransitions()',
+              'CupertinoRouteTransitionMixin overrides this to return CupertinoPageTransition (or CupertinoFullscreenDialogTransition if fullscreenDialog).',
+            ),
+            _protocolStep(
+              4,
+              'Overlay paints the result',
+              'Stack of OverlayEntries: barrier (none for opaque routes), then page wrapped in transitions, ordered front-to-back by insertion.',
+            ),
+            _protocolStep(
+              5,
+              'On pop',
+              'Animation drives 1 → 0, buildTransitions runs at every frame, didPop returns true once at end.',
+            ),
           ],
         ),
       ),
@@ -1670,7 +1829,11 @@ Widget _protocolStep(int n, String title, String desc) {
               SizedBox(height: 2),
               Text(
                 desc,
-                style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: kInkSecondary,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1762,7 +1925,11 @@ Widget _titleVariant(String label, String? title) {
       SizedBox(height: 6),
       Text(
         'title: $label',
-        style: TextStyle(fontSize: 10, color: kInkSecondary, fontFamily: 'monospace'),
+        style: TextStyle(
+          fontSize: 10,
+          color: kInkSecondary,
+          fontFamily: 'monospace',
+        ),
       ),
     ],
   );
@@ -1776,7 +1943,8 @@ Widget _buildReturnTypeDemo() {
     {
       'type': 'CupertinoPageRoute<String>',
       'returns': 'A picked string from a picker page',
-      'example': 'final pick = await Navigator.push<String>(\n'
+      'example':
+          'final pick = await Navigator.push<String>(\n'
           '  context,\n'
           '  CupertinoPageRoute<String>(\n'
           '    builder: (_) => CountryPickerPage(),\n'
@@ -1788,7 +1956,8 @@ Widget _buildReturnTypeDemo() {
     {
       'type': 'CupertinoPageRoute<bool>',
       'returns': 'Confirmation result from a yes/no flow',
-      'example': 'final confirmed = await Navigator.push<bool>(\n'
+      'example':
+          'final confirmed = await Navigator.push<bool>(\n'
           '  context,\n'
           '  CupertinoPageRoute<bool>(\n'
           '    fullscreenDialog: true,\n'
@@ -1801,7 +1970,8 @@ Widget _buildReturnTypeDemo() {
     {
       'type': 'CupertinoPageRoute<MyResult>',
       'returns': 'A typed value object from an editor',
-      'example': 'class MyResult { final String title; final int count; ... }\n'
+      'example':
+          'class MyResult { final String title; final int count; ... }\n'
           'final result = await Navigator.push<MyResult>(\n'
           '  context,\n'
           '  CupertinoPageRoute<MyResult>(\n'
@@ -1813,7 +1983,8 @@ Widget _buildReturnTypeDemo() {
     {
       'type': 'CupertinoPageRoute<void>',
       'returns': 'Fire-and-forget — no pop value needed',
-      'example': 'Navigator.push<void>(\n'
+      'example':
+          'Navigator.push<void>(\n'
           '  context,\n'
           '  CupertinoPageRoute<void>(\n'
           '    builder: (_) => AboutPage(),\n'
@@ -1855,7 +2026,8 @@ Widget _buildRecipeCards() {
       'tint': kIosBlue,
       'title': 'Basic push',
       'desc': 'Standard horizontal slide to a new page.',
-      'code': 'Navigator.push(\n'
+      'code':
+          'Navigator.push(\n'
           '  context,\n'
           '  CupertinoPageRoute(\n'
           '    builder: (_) => DetailPage(),\n'
@@ -1867,7 +2039,8 @@ Widget _buildRecipeCards() {
       'tint': kIosTeal,
       'title': 'Push and await result',
       'desc': 'Await the pop value with generic type parameter.',
-      'code': 'final result = await Navigator.push<String>(\n'
+      'code':
+          'final result = await Navigator.push<String>(\n'
           '  context,\n'
           '  CupertinoPageRoute<String>(\n'
           '    builder: (_) => PickerPage(),\n'
@@ -1880,7 +2053,8 @@ Widget _buildRecipeCards() {
       'tint': kIosOrange,
       'title': 'fullscreenDialog modal',
       'desc': 'Vertical slide-up, no swipe-back, Cancel/Done navbar.',
-      'code': 'Navigator.push(\n'
+      'code':
+          'Navigator.push(\n'
           '  context,\n'
           '  CupertinoPageRoute(\n'
           '    fullscreenDialog: true,\n'
@@ -1893,7 +2067,8 @@ Widget _buildRecipeCards() {
       'tint': kIosPurple,
       'title': 'Replace current route',
       'desc': 'Swap top route — used after sign-in to remove the login page.',
-      'code': 'Navigator.pushReplacement(\n'
+      'code':
+          'Navigator.pushReplacement(\n'
           '  context,\n'
           '  CupertinoPageRoute(\n'
           '    builder: (_) => HomePage(),\n'
@@ -1905,7 +2080,8 @@ Widget _buildRecipeCards() {
       'tint': kIosRed,
       'title': 'pushAndRemoveUntil',
       'desc': 'Clear navigation history up to a predicate (e.g. back to root).',
-      'code': 'Navigator.pushAndRemoveUntil(\n'
+      'code':
+          'Navigator.pushAndRemoveUntil(\n'
           '  context,\n'
           '  CupertinoPageRoute(\n'
           '    builder: (_) => DashboardPage(),\n'
@@ -1918,7 +2094,8 @@ Widget _buildRecipeCards() {
       'tint': kIosGreen,
       'title': 'Pop with result',
       'desc': 'Return a value to whoever awaited the push.',
-      'code': '// inside the pushed page\n'
+      'code':
+          '// inside the pushed page\n'
           'CupertinoButton(\n'
           '  onPressed: () => Navigator.pop(\n'
           '    context,\n'
@@ -2068,12 +2245,36 @@ Widget _buildCupertinoVsMaterial() {
         tint: kIosPink,
         child: Column(
           children: [
-            _twoColRow('Edge swipe back', 'YES — built-in', 'NO — Android uses system back gesture instead'),
-            _twoColRow('Transition curve', 'linearToEaseOut / easeInToLinear', 'fastOutSlowIn'),
-            _twoColRow('Outgoing motion', 'Parallax (-30% slide + darken)', 'Stays put, fades'),
-            _twoColRow('Modal variant', 'fullscreenDialog: true → vertical slide', 'Use ModalBottomSheet / showDialog'),
-            _twoColRow('title parameter', 'Surfaces on next page\'s back chevron', 'No equivalent — back button is just an arrow'),
-            _twoColRow('Default platform', 'iOS / macOS', 'Android / Linux / Windows'),
+            _twoColRow(
+              'Edge swipe back',
+              'YES — built-in',
+              'NO — Android uses system back gesture instead',
+            ),
+            _twoColRow(
+              'Transition curve',
+              'linearToEaseOut / easeInToLinear',
+              'fastOutSlowIn',
+            ),
+            _twoColRow(
+              'Outgoing motion',
+              'Parallax (-30% slide + darken)',
+              'Stays put, fades',
+            ),
+            _twoColRow(
+              'Modal variant',
+              'fullscreenDialog: true → vertical slide',
+              'Use ModalBottomSheet / showDialog',
+            ),
+            _twoColRow(
+              'title parameter',
+              'Surfaces on next page\'s back chevron',
+              'No equivalent — back button is just an arrow',
+            ),
+            _twoColRow(
+              'Default platform',
+              'iOS / macOS',
+              'Android / Linux / Windows',
+            ),
           ],
         ),
       ),
@@ -2169,17 +2370,11 @@ Widget _twoColRow(String key, String left, String right) {
           ),
         ),
         Expanded(
-          child: Text(
-            left,
-            style: TextStyle(fontSize: 11, color: kIosBlue),
-          ),
+          child: Text(left, style: TextStyle(fontSize: 11, color: kIosBlue)),
         ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(
-            right,
-            style: TextStyle(fontSize: 11, color: kIosPurple),
-          ),
+          child: Text(right, style: TextStyle(fontSize: 11, color: kIosPurple)),
         ),
       ],
     ),
@@ -2248,9 +2443,7 @@ Widget _buildRouteFamilyTable() {
               color: i == 0
                   ? kIosIndigo.withOpacity(0.08)
                   : (i % 2 == 0 ? kSysGray6 : Colors.white),
-              border: Border(
-                bottom: BorderSide(color: kHairline, width: 0.5),
-              ),
+              border: Border(bottom: BorderSide(color: kHairline, width: 0.5)),
             ),
             child: Row(
               children: [
@@ -2282,35 +2475,43 @@ Widget _buildPitfalls() {
   final pitfalls = <Map<String, String>>[
     {
       'title': 'fullscreenDialog disables swipe-back',
-      'body': 'Once you set fullscreenDialog: true, the edge-swipe gesture is unavailable. The user must use the Cancel button you provide. Some apps wire a vertical drag-down to dismiss, but you have to add that yourself.',
+      'body':
+          'Once you set fullscreenDialog: true, the edge-swipe gesture is unavailable. The user must use the Cancel button you provide. Some apps wire a vertical drag-down to dismiss, but you have to add that yourself.',
     },
     {
       'title': 'title surfaces on the next page, not this one',
-      'body': 'CupertinoPageRoute.title shows up as the previous-page label in the next page\'s back chevron. If you want a title on this page, use CupertinoNavigationBar.middle in your page widget.',
+      'body':
+          'CupertinoPageRoute.title shows up as the previous-page label in the next page\'s back chevron. If you want a title on this page, use CupertinoNavigationBar.middle in your page widget.',
     },
     {
       'title': 'builder runs each time the route inserts',
-      'body': 'Side effects inside builder (network calls, DateTime.now) re-run on every push. Move stateful work into the page widget\'s State or pass values via constructor.',
+      'body':
+          'Side effects inside builder (network calls, DateTime.now) re-run on every push. Move stateful work into the page widget\'s State or pass values via constructor.',
     },
     {
       'title': 'maintainState: false drops the page when not topmost',
-      'body': 'Setting maintainState: false unmounts the page widget when it\'s not on top of the stack. Scroll positions, TextField contents, and animations are all lost. Use only for memory-heavy pages with no transient state.',
+      'body':
+          'Setting maintainState: false unmounts the page widget when it\'s not on top of the stack. Scroll positions, TextField contents, and animations are all lost. Use only for memory-heavy pages with no transient state.',
     },
     {
       'title': 'Swipe-back can interfere with horizontal scroll',
-      'body': 'A ListView with horizontal scrolling near the left edge will conflict with the back-swipe gesture. The gesture arena resolves in favor of the swipe-back, so your scroll may not start. Use a HorizontalDragGestureRecognizer or DragStartBehavior to mediate.',
+      'body':
+          'A ListView with horizontal scrolling near the left edge will conflict with the back-swipe gesture. The gesture arena resolves in favor of the swipe-back, so your scroll may not start. Use a HorizontalDragGestureRecognizer or DragStartBehavior to mediate.',
     },
     {
       'title': 'allowSnapshotting can hide animations on the previous page',
-      'body': 'When true, the previous page may be rasterized to a single snapshot during the transition. If that page has live animations (CircularProgressIndicator, marquee), they appear frozen. Set allowSnapshotting: false in that case.',
+      'body':
+          'When true, the previous page may be rasterized to a single snapshot during the transition. If that page has live animations (CircularProgressIndicator, marquee), they appear frozen. Set allowSnapshotting: false in that case.',
     },
     {
       'title': 'CupertinoPageRoute on Android looks "wrong"',
-      'body': 'iOS slide transition on Android feels off because Android users expect fade-through. Use Platform.isIOS to switch, or use Theme.of(context).pageTransitionsTheme.builders[TargetPlatform.iOS] for adaptive behavior.',
+      'body':
+          'iOS slide transition on Android feels off because Android users expect fade-through. Use Platform.isIOS to switch, or use Theme.of(context).pageTransitionsTheme.builders[TargetPlatform.iOS] for adaptive behavior.',
     },
     {
       'title': 'Popping with no result loses type info',
-      'body': 'Navigator.pop(context) returns null to the awaiting push. If you typed it as CupertinoPageRoute<String>, the awaited value is String? — always nullable. Plan for the null case explicitly.',
+      'body':
+          'Navigator.pop(context) returns null to the awaiting push. If you typed it as CupertinoPageRoute<String>, the awaited value is String? — always nullable. Plan for the null case explicitly.',
     },
   ];
 
@@ -2349,7 +2550,11 @@ Widget _buildPitfalls() {
                     SizedBox(height: 4),
                     Text(
                       p['body']!,
-                      style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.45),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: kInkSecondary,
+                        height: 1.45,
+                      ),
                     ),
                   ],
                 ),
@@ -2366,21 +2571,75 @@ Widget _buildPitfalls() {
 // ============================================================================
 Widget _buildGlossary() {
   final terms = <Map<String, String>>[
-    {'term': 'Route<T>', 'def': 'An entry in a Navigator stack. Knows how to show and hide itself. The generic T is the type of the value returned by pop.'},
-    {'term': 'ModalRoute', 'def': 'A Route that blocks input to lower routes via a barrier. Provides buildPage and buildTransitions.'},
-    {'term': 'PageRoute', 'def': 'A ModalRoute that fills the screen and is opaque (no see-through barrier).'},
-    {'term': 'CupertinoPageRoute', 'def': 'PageRoute with iOS-style transitions and back-swipe gesture.'},
-    {'term': 'CupertinoRouteTransitionMixin', 'def': 'Mixin that contributes iOS transitions to any Route<T>.'},
-    {'term': 'CupertinoPageTransition', 'def': 'Widget that animates the horizontal slide + parallax shadow.'},
-    {'term': 'CupertinoFullscreenDialogTransition', 'def': 'Widget that animates the vertical slide-up modal.'},
-    {'term': 'primaryRouteAnimation', 'def': 'Drives this route\'s own enter/exit (0 → 1 on push, 1 → 0 on pop).'},
-    {'term': 'secondaryRouteAnimation', 'def': 'Drives this route\'s reaction to a later push that\'s pushing it deeper.'},
-    {'term': 'fullscreenDialog', 'def': 'Constructor flag — true for modal vertical-slide, false for horizontal push.'},
-    {'term': 'allowSnapshotting', 'def': 'Whether the previous page may be rasterized during the transition.'},
-    {'term': 'maintainState', 'def': 'Whether the page widget stays mounted when not topmost.'},
-    {'term': 'back-swipe gesture', 'def': 'The iOS edge-drag that interactively pops a route.'},
-    {'term': 'parallax', 'def': 'The outgoing page sliding only ~30% of the way to give a sense of depth.'},
-    {'term': 'linearTransition', 'def': 'A flag that disables the easing curve while the user is driving the animation directly (during back-swipe).'},
+    {
+      'term': 'Route<T>',
+      'def':
+          'An entry in a Navigator stack. Knows how to show and hide itself. The generic T is the type of the value returned by pop.',
+    },
+    {
+      'term': 'ModalRoute',
+      'def':
+          'A Route that blocks input to lower routes via a barrier. Provides buildPage and buildTransitions.',
+    },
+    {
+      'term': 'PageRoute',
+      'def':
+          'A ModalRoute that fills the screen and is opaque (no see-through barrier).',
+    },
+    {
+      'term': 'CupertinoPageRoute',
+      'def': 'PageRoute with iOS-style transitions and back-swipe gesture.',
+    },
+    {
+      'term': 'CupertinoRouteTransitionMixin',
+      'def': 'Mixin that contributes iOS transitions to any Route<T>.',
+    },
+    {
+      'term': 'CupertinoPageTransition',
+      'def': 'Widget that animates the horizontal slide + parallax shadow.',
+    },
+    {
+      'term': 'CupertinoFullscreenDialogTransition',
+      'def': 'Widget that animates the vertical slide-up modal.',
+    },
+    {
+      'term': 'primaryRouteAnimation',
+      'def':
+          'Drives this route\'s own enter/exit (0 → 1 on push, 1 → 0 on pop).',
+    },
+    {
+      'term': 'secondaryRouteAnimation',
+      'def':
+          'Drives this route\'s reaction to a later push that\'s pushing it deeper.',
+    },
+    {
+      'term': 'fullscreenDialog',
+      'def':
+          'Constructor flag — true for modal vertical-slide, false for horizontal push.',
+    },
+    {
+      'term': 'allowSnapshotting',
+      'def':
+          'Whether the previous page may be rasterized during the transition.',
+    },
+    {
+      'term': 'maintainState',
+      'def': 'Whether the page widget stays mounted when not topmost.',
+    },
+    {
+      'term': 'back-swipe gesture',
+      'def': 'The iOS edge-drag that interactively pops a route.',
+    },
+    {
+      'term': 'parallax',
+      'def':
+          'The outgoing page sliding only ~30% of the way to give a sense of depth.',
+    },
+    {
+      'term': 'linearTransition',
+      'def':
+          'A flag that disables the easing curve while the user is driving the animation directly (during back-swipe).',
+    },
   ];
 
   return Column(
@@ -2412,7 +2671,11 @@ Widget _buildGlossary() {
               Expanded(
                 child: Text(
                   t['def']!,
-                  style: TextStyle(fontSize: 11, color: kInkSecondary, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: kInkSecondary,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -2479,7 +2742,11 @@ Widget _buildEpilogue() {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(CupertinoIcons.checkmark_seal_fill, color: Colors.white, size: 14),
+              Icon(
+                CupertinoIcons.checkmark_seal_fill,
+                color: Colors.white,
+                size: 14,
+              ),
               SizedBox(width: 6),
               Text(
                 'CupertinoPageRoute<T> — deep visual demo complete',

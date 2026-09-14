@@ -222,10 +222,7 @@ Widget _kvRow(String key, String value, {Color? accent}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: 150,
-          child: Text(key, style: _tsMonoDim),
-        ),
+        SizedBox(width: 150, child: Text(key, style: _tsMonoDim)),
         Expanded(
           child: Text(
             value,
@@ -284,12 +281,11 @@ Widget _identityRow(String label, bool isIdentity, Matrix4 m) {
             ),
           ),
         ),
-        SizedBox(
-          width: 200,
-          child: Text(label, style: _tsMono),
+        SizedBox(width: 200, child: Text(label, style: _tsMono)),
+        Text(
+          isIdentity ? 'identity' : 'NOT identity',
+          style: _tsMono.copyWith(color: tone),
         ),
-        Text(isIdentity ? 'identity' : 'NOT identity',
-            style: _tsMono.copyWith(color: tone)),
       ],
     ),
   );
@@ -301,11 +297,7 @@ Widget _divider() {
     height: 1,
     decoration: const BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Color(0x00000000),
-          _borderBright,
-          Color(0x00000000),
-        ],
+        colors: <Color>[Color(0x00000000), _borderBright, Color(0x00000000)],
       ),
     ),
   );
@@ -345,10 +337,7 @@ Widget _matrixGrid(Matrix4 m, {String? caption, Color? accent}) {
                   decoration: BoxDecoration(
                     color: _cellColor(v),
                     borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: _borderDim,
-                      width: 0.6,
-                    ),
+                    border: Border.all(color: _borderDim, width: 0.6),
                   ),
                   child: Text(_fmt(v), style: _tsTiny),
                 );
@@ -478,15 +467,10 @@ class _GridPainter extends CustomPainter {
     }
 
     if (beforeQuad != null && beforeQuad!.length == 4) {
-      final Path p = Path()..moveTo(
-        toCanvas(beforeQuad![0]).dx,
-        toCanvas(beforeQuad![0]).dy,
-      );
+      final Path p = Path()
+        ..moveTo(toCanvas(beforeQuad![0]).dx, toCanvas(beforeQuad![0]).dy);
       for (int i = 1; i < 4; i++) {
-        p.lineTo(
-          toCanvas(beforeQuad![i]).dx,
-          toCanvas(beforeQuad![i]).dy,
-        );
+        p.lineTo(toCanvas(beforeQuad![i]).dx, toCanvas(beforeQuad![i]).dy);
       }
       p.close();
       final Paint sp = Paint()
@@ -497,15 +481,10 @@ class _GridPainter extends CustomPainter {
     }
 
     if (afterQuad != null && afterQuad!.length == 4) {
-      final Path p = Path()..moveTo(
-        toCanvas(afterQuad![0]).dx,
-        toCanvas(afterQuad![0]).dy,
-      );
+      final Path p = Path()
+        ..moveTo(toCanvas(afterQuad![0]).dx, toCanvas(afterQuad![0]).dy);
       for (int i = 1; i < 4; i++) {
-        p.lineTo(
-          toCanvas(afterQuad![i]).dx,
-          toCanvas(afterQuad![i]).dy,
-        );
+        p.lineTo(toCanvas(afterQuad![i]).dx, toCanvas(afterQuad![i]).dy);
       }
       p.close();
       final Paint sp = Paint()
@@ -666,13 +645,7 @@ dynamic build(BuildContext context) {
   final Matrix4 mPerspective = Matrix4.identity()..setEntry(3, 2, 0.0015);
 
   // Cylindrical projection samples for a card row.
-  final List<double> cylAngles = <double>[
-    -0.6,
-    -0.3,
-    0.0,
-    0.3,
-    0.6,
-  ];
+  final List<double> cylAngles = <double>[-0.6, -0.3, 0.0, 0.3, 0.6];
   final List<Matrix4> cylMatrices = <Matrix4>[
     for (final double a in cylAngles)
       MatrixUtils.createCylindricalProjectionTransform(
@@ -705,8 +678,9 @@ dynamic build(BuildContext context) {
   // Pre-compute transformed points/rects for the visualisations.
   // ===================================================================
 
-  List<Offset> applyAll(Matrix4 m, List<Offset> pts) =>
-      <Offset>[for (final Offset p in pts) MatrixUtils.transformPoint(m, p)];
+  List<Offset> applyAll(Matrix4 m, List<Offset> pts) => <Offset>[
+    for (final Offset p in pts) MatrixUtils.transformPoint(m, p),
+  ];
 
   final List<Offset> pTranslate = applyAll(mTranslate, samplePoints);
   final List<Offset> pScaleUni = applyAll(mScaleUniform, samplePoints);
@@ -723,8 +697,10 @@ dynamic build(BuildContext context) {
 
   final Rect rTranslate = MatrixUtils.transformRect(mTranslate, sampleRect);
   final Rect rScaleUni = MatrixUtils.transformRect(mScaleUniform, sampleRect);
-  final Rect rScaleNon =
-      MatrixUtils.transformRect(mScaleNonUniform, sampleRect);
+  final Rect rScaleNon = MatrixUtils.transformRect(
+    mScaleNonUniform,
+    sampleRect,
+  );
   final Rect rRotate30 = MatrixUtils.transformRect(mRotate30, sampleRect);
   final Rect rRotate45 = MatrixUtils.transformRect(mRotate45, sampleRect);
   final Rect rCompTRS = MatrixUtils.transformRect(mCompositeTRS, sampleRect);
@@ -732,19 +708,20 @@ dynamic build(BuildContext context) {
 
   // Rotated rect corners (for the "axis-aligned vs rotated AABB" demo)
   List<Offset> rectCorners(Rect r) => <Offset>[
-        r.topLeft,
-        r.topRight,
-        r.bottomRight,
-        r.bottomLeft,
-      ];
+    r.topLeft,
+    r.topRight,
+    r.bottomRight,
+    r.bottomLeft,
+  ];
 
   final List<Offset> rectCornersBefore = rectCorners(sampleRect);
-  final List<Offset> rectCornersRot45 =
-      applyAll(mRotate45, rectCornersBefore);
+  final List<Offset> rectCornersRot45 = applyAll(mRotate45, rectCornersBefore);
 
   // Inverse transform demonstration.
-  final Rect inverseRect =
-      MatrixUtils.inverseTransformRect(mCompositeTRS, rCompTRS);
+  final Rect inverseRect = MatrixUtils.inverseTransformRect(
+    mCompositeTRS,
+    rCompTRS,
+  );
 
   // getAsTranslation / getAsScale extraction probes.
   final Offset? extTransPure = MatrixUtils.getAsTranslation(mTranslate);
@@ -788,8 +765,10 @@ dynamic build(BuildContext context) {
   final double _rawTransformedY = _mStore[1] * 40.0 + _mStore[13];
   final double _rawTransformedZ = _mStore[2] * 40.0 + _mStore[14];
   final Offset rawAsOffset = Offset(_rawTransformedX, _rawTransformedY);
-  final Offset utilsAsOffset =
-      MatrixUtils.transformPoint(mCompositeTRS, const Offset(40.0, 0.0));
+  final Offset utilsAsOffset = MatrixUtils.transformPoint(
+    mCompositeTRS,
+    const Offset(40.0, 0.0),
+  );
 
   // ===================================================================
   // Build the widget tree.
@@ -820,8 +799,10 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('MATRIXUTILS // INDIGO LATTICE',
-                      style: _tsLabel.copyWith(color: _accLavender)),
+                  Text(
+                    'MATRIXUTILS // INDIGO LATTICE',
+                    style: _tsLabel.copyWith(color: _accLavender),
+                  ),
                   const SizedBox(height: 6),
                   const Text(
                     'Visual Deep Demo for package:flutter/rendering.dart',
@@ -861,7 +842,6 @@ dynamic build(BuildContext context) {
               ),
             ),
 
-
             // ===========================================================
             // SECTION 1 — Dossier of MatrixUtils
             // ===========================================================
@@ -884,9 +864,11 @@ dynamic build(BuildContext context) {
                 _kvRow('class', 'MatrixUtils (final, only static members)'),
                 _kvRow('immutable', 'yes — no instance state'),
                 _kvRow('alloc-heavy', 'no — Offset / Rect are value types'),
-                _kvRow('used by',
-                    'RenderObject.applyPaintTransform, Layer, '
-                    'TransformLayer, hit-testing'),
+                _kvRow(
+                  'used by',
+                  'RenderObject.applyPaintTransform, Layer, '
+                      'TransformLayer, hit-testing',
+                ),
                 _divider(),
                 Wrap(
                   children: <Widget>[
@@ -1363,10 +1345,14 @@ dynamic build(BuildContext context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('in:  ${_fmtRect(sampleRect)}',
-                                  style: _tsMono),
-                              Text('out: ${_fmtRect(rTranslate)}',
-                                  style: _tsMono.copyWith(color: _accIndigo)),
+                              Text(
+                                'in:  ${_fmtRect(sampleRect)}',
+                                style: _tsMono,
+                              ),
+                              Text(
+                                'out: ${_fmtRect(rTranslate)}',
+                                style: _tsMono.copyWith(color: _accIndigo),
+                              ),
                             ],
                           ),
                         ),
@@ -1413,10 +1399,14 @@ dynamic build(BuildContext context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('in:  ${_fmtRect(sampleRect)}',
-                                  style: _tsMono),
-                              Text('out: ${_fmtRect(rScaleNon)}',
-                                  style: _tsMono.copyWith(color: _accTeal)),
+                              Text(
+                                'in:  ${_fmtRect(sampleRect)}',
+                                style: _tsMono,
+                              ),
+                              Text(
+                                'out: ${_fmtRect(rScaleNon)}',
+                                style: _tsMono.copyWith(color: _accTeal),
+                              ),
                             ],
                           ),
                         ),
@@ -1466,11 +1456,16 @@ dynamic build(BuildContext context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('rotated quad outlines the real '
-                                  'image of the rect.', style: _tsMonoDim),
+                              Text(
+                                'rotated quad outlines the real '
+                                'image of the rect.',
+                                style: _tsMonoDim,
+                              ),
                               const SizedBox(height: 4),
-                              Text('AABB: ${_fmtRect(rRotate45)}',
-                                  style: _tsMono.copyWith(color: _accSky)),
+                              Text(
+                                'AABB: ${_fmtRect(rRotate45)}',
+                                style: _tsMono.copyWith(color: _accSky),
+                              ),
                               Text(
                                 'corners[0]: '
                                 '${_fmtOffset(rectCornersRot45[0])}',
@@ -1587,29 +1582,53 @@ dynamic build(BuildContext context) {
                   'a full transform layer for the common cases.',
               accent: _accAmber,
               children: <Widget>[
-                _kvRow('getAsTranslation(identity)',
-                    '${MatrixUtils.getAsTranslation(mIdentity)}',
-                    accent: _accLavender),
-                _kvRow('getAsTranslation(translate(60,-30))',
-                    '$extTransPure', accent: _accIndigo),
-                _kvRow('getAsTranslation(translate w/ z=25)',
-                    '${MatrixUtils.getAsTranslation(mTranslateZ)}',
-                    accent: _inkDim),
-                _kvRow('getAsTranslation(rotateZ 30°)',
-                    '$extTransRot', accent: _accRose),
-                _kvRow('getAsTranslation(TRS composite)',
-                    '$extTransComp', accent: _accRose),
+                _kvRow(
+                  'getAsTranslation(identity)',
+                  '${MatrixUtils.getAsTranslation(mIdentity)}',
+                  accent: _accLavender,
+                ),
+                _kvRow(
+                  'getAsTranslation(translate(60,-30))',
+                  '$extTransPure',
+                  accent: _accIndigo,
+                ),
+                _kvRow(
+                  'getAsTranslation(translate w/ z=25)',
+                  '${MatrixUtils.getAsTranslation(mTranslateZ)}',
+                  accent: _inkDim,
+                ),
+                _kvRow(
+                  'getAsTranslation(rotateZ 30°)',
+                  '$extTransRot',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'getAsTranslation(TRS composite)',
+                  '$extTransComp',
+                  accent: _accRose,
+                ),
                 _divider(),
-                _kvRow('getAsScale(identity)', '$extScaleId',
-                    accent: _accMint),
-                _kvRow('getAsScale(scale 1.5)', '$extScaleUni',
-                    accent: _accMint),
-                _kvRow('getAsScale(scale 2.0, 0.6)', '$extScaleNon',
-                    accent: _accRose),
-                _kvRow('getAsScale(rotateZ 30°)', '$extScaleRot',
-                    accent: _accRose),
-                _kvRow('getAsScale(TRS composite)', '$extScaleComp',
-                    accent: _accRose),
+                _kvRow('getAsScale(identity)', '$extScaleId', accent: _accMint),
+                _kvRow(
+                  'getAsScale(scale 1.5)',
+                  '$extScaleUni',
+                  accent: _accMint,
+                ),
+                _kvRow(
+                  'getAsScale(scale 2.0, 0.6)',
+                  '$extScaleNon',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'getAsScale(rotateZ 30°)',
+                  '$extScaleRot',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'getAsScale(TRS composite)',
+                  '$extScaleComp',
+                  accent: _accRose,
+                ),
                 _divider(),
                 const Text(
                   'Rule of thumb: if your downstream code needs to know '
@@ -1674,11 +1693,9 @@ dynamic build(BuildContext context) {
                   child: Column(
                     children: <Widget>[
                       _identityRow('Matrix4.identity()', idId, mIdentity),
-                      _identityRow('translate(60,-30)', idTrans,
-                          mTranslate),
+                      _identityRow('translate(60,-30)', idTrans, mTranslate),
                       _identityRow('rotateZ(pi/6)', idRot, mRotate30),
-                      _identityRow('scale(1.5,1.5)', idScale,
-                          mScaleUniform),
+                      _identityRow('scale(1.5,1.5)', idScale, mScaleUniform),
                       _identityRow('forceToPoint(40,80)', idForce, mForce),
                     ],
                   ),
@@ -1720,19 +1737,36 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: <Widget>[
-                      _kvRow('equals(self, self)', '$eqSelf',
-                          accent: eqSelf ? _accMint : _accRose),
-                      _kvRow('equals(translate, clone(translate))',
-                          '$eqClone',
-                          accent: eqClone ? _accMint : _accRose),
-                      _kvRow('equals(translate, rotate)', '$eqDiff',
-                          accent: eqDiff ? _accMint : _accRose),
-                      _kvRow('equals(null, null)', '$eqNull',
-                          accent: eqNull ? _accMint : _accRose),
-                      _kvRow('equals(null, identity)', '$eqNullLeft',
-                          accent: eqNullLeft ? _accRose : _accMint),
-                      _kvRow('equals(identity, null)', '$eqNullRight',
-                          accent: eqNullRight ? _accRose : _accMint),
+                      _kvRow(
+                        'equals(self, self)',
+                        '$eqSelf',
+                        accent: eqSelf ? _accMint : _accRose,
+                      ),
+                      _kvRow(
+                        'equals(translate, clone(translate))',
+                        '$eqClone',
+                        accent: eqClone ? _accMint : _accRose,
+                      ),
+                      _kvRow(
+                        'equals(translate, rotate)',
+                        '$eqDiff',
+                        accent: eqDiff ? _accMint : _accRose,
+                      ),
+                      _kvRow(
+                        'equals(null, null)',
+                        '$eqNull',
+                        accent: eqNull ? _accMint : _accRose,
+                      ),
+                      _kvRow(
+                        'equals(null, identity)',
+                        '$eqNullLeft',
+                        accent: eqNullLeft ? _accRose : _accMint,
+                      ),
+                      _kvRow(
+                        'equals(identity, null)',
+                        '$eqNullRight',
+                        accent: eqNullRight ? _accRose : _accMint,
+                      ),
                     ],
                   ),
                 ),
@@ -1972,13 +2006,17 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 10),
-                _kvRow('isIdentity(force)', '$idForce',
-                    accent: _accRose),
-                _kvRow('getAsTranslation(force)',
-                    '${MatrixUtils.getAsTranslation(mForce)}',
-                    accent: _accRose),
-                _kvRow('getAsScale(force)',
-                    '${MatrixUtils.getAsScale(mForce)}', accent: _accRose),
+                _kvRow('isIdentity(force)', '$idForce', accent: _accRose),
+                _kvRow(
+                  'getAsTranslation(force)',
+                  '${MatrixUtils.getAsTranslation(mForce)}',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'getAsScale(force)',
+                  '${MatrixUtils.getAsScale(mForce)}',
+                  accent: _accRose,
+                ),
                 const SizedBox(height: 6),
                 const Text(
                   'All eight sample points collapse onto the single '
@@ -2005,75 +2043,113 @@ dynamic build(BuildContext context) {
                   '"smell" with the right fix.',
               accent: _accRose,
               children: <Widget>[
-                _kvRow('Pitfall 01', 'Forgetting that transformRect '
-                    'returns an AABB, not a rotated quad.',
-                    accent: _accRose),
-                _kvRow('Fix',
-                    'Transform the four corners with transformPoint '
-                    'and draw a quad if you need pixel-accurate edges.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 01',
+                  'Forgetting that transformRect '
+                      'returns an AABB, not a rotated quad.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Transform the four corners with transformPoint '
+                      'and draw a quad if you need pixel-accurate edges.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 02', 'Building matrices in the wrong '
-                    'order (TRS vs SRT).', accent: _accRose),
-                _kvRow('Fix',
-                    'Remember: a..translate(t)..rotate(r)..scale(s) '
-                    'applies S first, then R, then T to a point '
-                    '(left-multiplication semantics).',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 02',
+                  'Building matrices in the wrong '
+                      'order (TRS vs SRT).',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Remember: a..translate(t)..rotate(r)..scale(s) '
+                      'applies S first, then R, then T to a point '
+                      '(left-multiplication semantics).',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 03',
-                    'A small perspective entry (m32) silently '
-                    'collapses points behind the camera.',
-                    accent: _accRose),
-                _kvRow('Fix',
-                    'Clip your projected geometry to a safe z-range or '
-                    'clamp the w-divide manually if you cannot trust '
-                    'the inputs.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 03',
+                  'A small perspective entry (m32) silently '
+                      'collapses points behind the camera.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Clip your projected geometry to a safe z-range or '
+                      'clamp the w-divide manually if you cannot trust '
+                      'the inputs.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 04',
-                    'Mutating an "identity" matrix with translate, then '
-                    'reusing the same Matrix4.identity() instance.',
-                    accent: _accRose),
-                _kvRow('Fix',
-                    'Always create a fresh Matrix4.identity() inside '
-                    'each build call — Matrix4 is mutable.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 04',
+                  'Mutating an "identity" matrix with translate, then '
+                      'reusing the same Matrix4.identity() instance.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Always create a fresh Matrix4.identity() inside '
+                      'each build call — Matrix4 is mutable.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 05',
-                    'Comparing two Matrix4 instances with == and '
-                    'expecting cell equality.',
-                    accent: _accRose),
-                _kvRow('Fix',
-                    'Use MatrixUtils.matrixEquals — it is null-safe and '
-                    'does the right structural comparison.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 05',
+                  'Comparing two Matrix4 instances with == and '
+                      'expecting cell equality.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Use MatrixUtils.matrixEquals — it is null-safe and '
+                      'does the right structural comparison.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 06',
-                    'Calling transformRect on a singular matrix and '
-                    'expecting a finite rect back.',
-                    accent: _accRose),
-                _kvRow('Fix',
-                    'Probe with isIdentity / getAsScale first, and '
-                    'fall back to a special path for collapsed cases.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 06',
+                  'Calling transformRect on a singular matrix and '
+                      'expecting a finite rect back.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'Probe with isIdentity / getAsScale first, and '
+                      'fall back to a special path for collapsed cases.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 07',
-                    'Trying to inverseTransformRect a matrix that has '
-                    'no inverse (det == 0).', accent: _accRose),
-                _kvRow('Fix',
-                    'inverseTransformRect returns a rect with infinite '
-                    'extent — treat that as a "skip this hit-test" '
-                    'sentinel.',
-                    accent: _accMint),
+                _kvRow(
+                  'Pitfall 07',
+                  'Trying to inverseTransformRect a matrix that has '
+                      'no inverse (det == 0).',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'inverseTransformRect returns a rect with infinite '
+                      'extent — treat that as a "skip this hit-test" '
+                      'sentinel.',
+                  accent: _accMint,
+                ),
                 _divider(),
-                _kvRow('Pitfall 08',
-                    'Assuming getAsScale returns 1.0 for the identity '
-                    'matrix — but you forgot a setEntry mutation '
-                    'somewhere.', accent: _accRose),
-                _kvRow('Fix',
-                    'isIdentity + getAsScale together pinpoint the '
-                    'mutation source.', accent: _accMint),
+                _kvRow(
+                  'Pitfall 08',
+                  'Assuming getAsScale returns 1.0 for the identity '
+                      'matrix — but you forgot a setEntry mutation '
+                      'somewhere.',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Fix',
+                  'isIdentity + getAsScale together pinpoint the '
+                      'mutation source.',
+                  accent: _accMint,
+                ),
               ],
             ),
 
@@ -2154,45 +2230,72 @@ dynamic build(BuildContext context) {
                   'this demo.',
               accent: _accLavender,
               children: <Widget>[
-                _kvRow('Affine', 'A linear transform plus a translation; '
-                    'preserves parallelism.'),
-                _kvRow('AABB',
-                    'Axis-Aligned Bounding Box — the smallest rect '
-                    'containing a shape, with sides parallel to the '
-                    'X and Y axes.'),
-                _kvRow('Column-major',
-                    'Storage order where m[col*4 + row] gives the cell '
-                    'at (row, col); vector_math uses this.'),
-                _kvRow('Determinant',
-                    'A scalar derived from a matrix; non-zero means '
-                    'invertible.'),
-                _kvRow('Homogeneous',
-                    'Promotes 3D points to 4D by appending w=1; lets '
-                    'translation and projection ride in one matrix.'),
-                _kvRow('Identity',
-                    'The matrix that leaves all inputs unchanged: 1.0 '
-                    'on the diagonal, 0.0 elsewhere.'),
-                _kvRow('Perspective',
-                    'A non-zero entry in the bottom row of the matrix; '
-                    'forces the /w divide on output.'),
-                _kvRow('Projective',
-                    'Any matrix that is not purely affine — usually '
-                    'one with perspective.'),
-                _kvRow('Rank-deficient',
-                    'A matrix whose rows or columns are linearly '
-                    'dependent; cannot be inverted.'),
-                _kvRow('Round-trip',
-                    'Applying a transform and then its inverse; for '
-                    'AABB-only Rects this is generally lossy under '
-                    'rotation.'),
-                _kvRow('Shear',
-                    'A transform that slants the coordinate grid '
-                    'without rotating axes.'),
-                _kvRow('Singular',
-                    'Same as "rank-deficient" — no inverse exists.'),
-                _kvRow('Storage',
-                    'The Float64List backing a Matrix4; 16 entries '
-                    'laid out column-major.'),
+                _kvRow(
+                  'Affine',
+                  'A linear transform plus a translation; '
+                      'preserves parallelism.',
+                ),
+                _kvRow(
+                  'AABB',
+                  'Axis-Aligned Bounding Box — the smallest rect '
+                      'containing a shape, with sides parallel to the '
+                      'X and Y axes.',
+                ),
+                _kvRow(
+                  'Column-major',
+                  'Storage order where m[col*4 + row] gives the cell '
+                      'at (row, col); vector_math uses this.',
+                ),
+                _kvRow(
+                  'Determinant',
+                  'A scalar derived from a matrix; non-zero means '
+                      'invertible.',
+                ),
+                _kvRow(
+                  'Homogeneous',
+                  'Promotes 3D points to 4D by appending w=1; lets '
+                      'translation and projection ride in one matrix.',
+                ),
+                _kvRow(
+                  'Identity',
+                  'The matrix that leaves all inputs unchanged: 1.0 '
+                      'on the diagonal, 0.0 elsewhere.',
+                ),
+                _kvRow(
+                  'Perspective',
+                  'A non-zero entry in the bottom row of the matrix; '
+                      'forces the /w divide on output.',
+                ),
+                _kvRow(
+                  'Projective',
+                  'Any matrix that is not purely affine — usually '
+                      'one with perspective.',
+                ),
+                _kvRow(
+                  'Rank-deficient',
+                  'A matrix whose rows or columns are linearly '
+                      'dependent; cannot be inverted.',
+                ),
+                _kvRow(
+                  'Round-trip',
+                  'Applying a transform and then its inverse; for '
+                      'AABB-only Rects this is generally lossy under '
+                      'rotation.',
+                ),
+                _kvRow(
+                  'Shear',
+                  'A transform that slants the coordinate grid '
+                      'without rotating axes.',
+                ),
+                _kvRow(
+                  'Singular',
+                  'Same as "rank-deficient" — no inverse exists.',
+                ),
+                _kvRow(
+                  'Storage',
+                  'The Float64List backing a Matrix4; 16 entries '
+                      'laid out column-major.',
+                ),
               ],
             ),
 
@@ -2202,38 +2305,55 @@ dynamic build(BuildContext context) {
             _section(
               label: 'SECTION 14 // RECAP',
               title: 'Recap and Recommended Patterns',
-              blurb:
-                  'A condensed checklist of "what to reach for, when".',
+              blurb: 'A condensed checklist of "what to reach for, when".',
               accent: _accMint,
               children: <Widget>[
-                _kvRow('Need a single transformed point?',
-                    'MatrixUtils.transformPoint(matrix, offset)',
-                    accent: _accIndigo),
-                _kvRow('Need a transformed rect (AABB)?',
-                    'MatrixUtils.transformRect(matrix, rect)',
-                    accent: _accSky),
-                _kvRow('Need to go back from screen-space to local?',
-                    'MatrixUtils.inverseTransformRect(matrix, rect)',
-                    accent: _accTeal),
-                _kvRow('Need to know "is this just a zoom?"',
-                    'MatrixUtils.getAsScale(matrix) != null '
-                    '&& result is finite',
-                    accent: _accMint),
-                _kvRow('Need to know "is this just a slide?"',
-                    'MatrixUtils.getAsTranslation(matrix) != null',
-                    accent: _accAmber),
-                _kvRow('Need to skip work when nothing happens?',
-                    'MatrixUtils.isIdentity(matrix)',
-                    accent: _accLavender),
-                _kvRow('Need to compare two cached matrices?',
-                    'MatrixUtils.matrixEquals(a, b)',
-                    accent: _accRose),
-                _kvRow('Need a CoverFlow-style 3D tilt?',
-                    'MatrixUtils.createCylindricalProjectionTransform(...)',
-                    accent: _accMagenta),
-                _kvRow('Need to collapse a child to a single Offset?',
-                    'MatrixUtils.forceToPoint(offset)',
-                    accent: _accSky),
+                _kvRow(
+                  'Need a single transformed point?',
+                  'MatrixUtils.transformPoint(matrix, offset)',
+                  accent: _accIndigo,
+                ),
+                _kvRow(
+                  'Need a transformed rect (AABB)?',
+                  'MatrixUtils.transformRect(matrix, rect)',
+                  accent: _accSky,
+                ),
+                _kvRow(
+                  'Need to go back from screen-space to local?',
+                  'MatrixUtils.inverseTransformRect(matrix, rect)',
+                  accent: _accTeal,
+                ),
+                _kvRow(
+                  'Need to know "is this just a zoom?"',
+                  'MatrixUtils.getAsScale(matrix) != null '
+                      '&& result is finite',
+                  accent: _accMint,
+                ),
+                _kvRow(
+                  'Need to know "is this just a slide?"',
+                  'MatrixUtils.getAsTranslation(matrix) != null',
+                  accent: _accAmber,
+                ),
+                _kvRow(
+                  'Need to skip work when nothing happens?',
+                  'MatrixUtils.isIdentity(matrix)',
+                  accent: _accLavender,
+                ),
+                _kvRow(
+                  'Need to compare two cached matrices?',
+                  'MatrixUtils.matrixEquals(a, b)',
+                  accent: _accRose,
+                ),
+                _kvRow(
+                  'Need a CoverFlow-style 3D tilt?',
+                  'MatrixUtils.createCylindricalProjectionTransform(...)',
+                  accent: _accMagenta,
+                ),
+                _kvRow(
+                  'Need to collapse a child to a single Offset?',
+                  'MatrixUtils.forceToPoint(offset)',
+                  accent: _accSky,
+                ),
                 const SizedBox(height: 10),
                 const Text(
                   'Every MatrixUtils call is allocation-light and pure. '
@@ -2255,8 +2375,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Row(
                     children: <Widget>[
-                      const Icon(Icons.bookmark_added,
-                          color: _accLavender, size: 28),
+                      const Icon(
+                        Icons.bookmark_added,
+                        color: _accLavender,
+                        size: 28,
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(

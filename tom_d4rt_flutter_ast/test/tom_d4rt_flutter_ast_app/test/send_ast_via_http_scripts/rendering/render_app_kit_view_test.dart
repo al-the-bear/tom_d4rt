@@ -12,7 +12,8 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
     name: 'Harbor Deck',
     seed: Color(0xFF0369A1),
     brightness: Brightness.light,
-    description: 'Clear and bright profile for platform-view interaction study.',
+    description:
+        'Clear and bright profile for platform-view interaction study.',
   ),
   _ThemePreset(
     id: 'copper',
@@ -26,14 +27,16 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
     name: 'Midnight Console',
     seed: Color(0xFF1E293B),
     brightness: Brightness.dark,
-    description: 'Night profile emphasizing overlays and lifecycle diagnostics.',
+    description:
+        'Night profile emphasizing overlays and lifecycle diagnostics.',
   ),
   _ThemePreset(
     id: 'meadow',
     name: 'Meadow Lab',
     seed: Color(0xFF15803D),
     brightness: Brightness.light,
-    description: 'Balanced profile for long run sessions and educational walkthroughs.',
+    description:
+        'Balanced profile for long run sessions and educational walkthroughs.',
   ),
 ];
 
@@ -41,7 +44,8 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
   _ScenarioPreset(
     id: 'host',
     title: 'Host Stage',
-    subtitle: 'Live AppKitView lane on macOS and visual simulator lane elsewhere.',
+    subtitle:
+        'Live AppKitView lane on macOS and visual simulator lane elsewhere.',
   ),
   _ScenarioPreset(
     id: 'hit-test',
@@ -66,9 +70,21 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
 ];
 
 const List<_ClipPreset> _clipPresets = <_ClipPreset>[
-  _ClipPreset(label: 'None', value: Clip.none, note: 'No clipping of host bounds.'),
-  _ClipPreset(label: 'Hard Edge', value: Clip.hardEdge, note: 'Fast rectangular clipping.'),
-  _ClipPreset(label: 'AntiAlias', value: Clip.antiAlias, note: 'Smoothed edges for rounded masks.'),
+  _ClipPreset(
+    label: 'None',
+    value: Clip.none,
+    note: 'No clipping of host bounds.',
+  ),
+  _ClipPreset(
+    label: 'Hard Edge',
+    value: Clip.hardEdge,
+    note: 'Fast rectangular clipping.',
+  ),
+  _ClipPreset(
+    label: 'AntiAlias',
+    value: Clip.antiAlias,
+    note: 'Smoothed edges for rounded masks.',
+  ),
   _ClipPreset(
     label: 'SaveLayer',
     value: Clip.antiAliasWithSaveLayer,
@@ -143,7 +159,11 @@ class _ThemePreset {
 }
 
 class _ScenarioPreset {
-  const _ScenarioPreset({required this.id, required this.title, required this.subtitle});
+  const _ScenarioPreset({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -151,7 +171,11 @@ class _ScenarioPreset {
 }
 
 class _ClipPreset {
-  const _ClipPreset({required this.label, required this.value, required this.note});
+  const _ClipPreset({
+    required this.label,
+    required this.value,
+    required this.note,
+  });
 
   final String label;
   final Clip value;
@@ -159,7 +183,11 @@ class _ClipPreset {
 }
 
 class _HitTestPreset {
-  const _HitTestPreset({required this.label, required this.behavior, required this.note});
+  const _HitTestPreset({
+    required this.label,
+    required this.behavior,
+    required this.note,
+  });
 
   final String label;
   final PlatformViewHitTestBehavior behavior;
@@ -174,7 +202,11 @@ class _FaqEntry {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -182,7 +214,12 @@ class _TimelineEvent {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -261,7 +298,9 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
   @override
   void initState() {
     super.initState();
-    _platformState = _isMacOS ? 'macOS host available' : 'non-macOS fallback mode';
+    _platformState = _isMacOS
+        ? 'macOS host available'
+        : 'non-macOS fallback mode';
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _pushTimeline('Init', 'RenderAppKitView visual lab initialized.');
       _pushTimeline('Platform', _platformState);
@@ -296,7 +335,8 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
   }
 
   Set<Factory<OneSequenceGestureRecognizer>> _gestureRecognizers() {
-    final Set<Factory<OneSequenceGestureRecognizer>> result = <Factory<OneSequenceGestureRecognizer>>{};
+    final Set<Factory<OneSequenceGestureRecognizer>> result =
+        <Factory<OneSequenceGestureRecognizer>>{};
     if (_enableTapRecognizer) {
       result.add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()));
     }
@@ -304,29 +344,111 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
       result.add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()));
     }
     if (_enableLongPressRecognizer) {
-      result.add(Factory<LongPressGestureRecognizer>(() => LongPressGestureRecognizer()));
+      result.add(
+        Factory<LongPressGestureRecognizer>(() => LongPressGestureRecognizer()),
+      );
     }
     return result;
   }
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Platform', value: _platformState, note: 'Current host platform lane state.', icon: Icons.desktop_mac_outlined),
-      _MetricEntry(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Active exploration lane.', icon: Icons.grid_view_outlined),
-      _MetricEntry(label: 'Revision', value: '$_revision', note: 'View revision used for recreation.', icon: Icons.refresh),
-      _MetricEntry(label: 'Host Created', value: '$_hostCreatedCount', note: 'onPlatformViewCreated callback count.', icon: Icons.rocket_launch_outlined),
-      _MetricEntry(label: 'Host Taps', value: '$_hostTapCount', note: 'Tap count inside host lane wrapper.', icon: Icons.touch_app_outlined),
-      _MetricEntry(label: 'Overlay Taps', value: '$_overlayTapCount', note: 'Overlay interception count.', icon: Icons.layers_clear_outlined),
-      _MetricEntry(label: 'Behavior', value: _hitTestPresets[_hitBehaviorIndex].label, note: _hitTestPresets[_hitBehaviorIndex].note, icon: Icons.ads_click_outlined),
-      _MetricEntry(label: 'Clip', value: _clipPresets[_clipIndex].label, note: _clipPresets[_clipIndex].note, icon: Icons.crop_outlined),
-      _MetricEntry(label: 'Rotation', value: '${(_rotation * 180 / math.pi).toStringAsFixed(1)} deg', note: 'Rotation wrapper around host surface.', icon: Icons.threed_rotation),
-      _MetricEntry(label: 'Scale', value: _scale.toStringAsFixed(2), note: 'Transform scale around host.', icon: Icons.zoom_in_map_outlined),
-      _MetricEntry(label: 'Opacity', value: _opacity.toStringAsFixed(2), note: 'Opacity wrapper value.', icon: Icons.opacity_outlined),
-      _MetricEntry(label: 'Profiles', value: '$_profileSwitchCount', note: 'Host profile switches.', icon: Icons.tune_outlined),
-      _MetricEntry(label: 'Behavior Switches', value: '$_behaviorSwitchCount', note: 'Hit test behavior switch count.', icon: Icons.swap_horiz_outlined),
-      _MetricEntry(label: 'Clip Switches', value: '$_clipSwitchCount', note: 'Clip preset switch count.', icon: Icons.change_circle_outlined),
-      _MetricEntry(label: 'Recreates', value: '$_recreateCount', note: 'Manual host recreation count.', icon: Icons.restart_alt_outlined),
-      _MetricEntry(label: 'Gesture Count', value: '${_gestureRecognizers().length}', note: 'Enabled gesture recognizers passed to host.', icon: Icons.gesture_outlined),
+      _MetricEntry(
+        label: 'Platform',
+        value: _platformState,
+        note: 'Current host platform lane state.',
+        icon: Icons.desktop_mac_outlined,
+      ),
+      _MetricEntry(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Active exploration lane.',
+        icon: Icons.grid_view_outlined,
+      ),
+      _MetricEntry(
+        label: 'Revision',
+        value: '$_revision',
+        note: 'View revision used for recreation.',
+        icon: Icons.refresh,
+      ),
+      _MetricEntry(
+        label: 'Host Created',
+        value: '$_hostCreatedCount',
+        note: 'onPlatformViewCreated callback count.',
+        icon: Icons.rocket_launch_outlined,
+      ),
+      _MetricEntry(
+        label: 'Host Taps',
+        value: '$_hostTapCount',
+        note: 'Tap count inside host lane wrapper.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricEntry(
+        label: 'Overlay Taps',
+        value: '$_overlayTapCount',
+        note: 'Overlay interception count.',
+        icon: Icons.layers_clear_outlined,
+      ),
+      _MetricEntry(
+        label: 'Behavior',
+        value: _hitTestPresets[_hitBehaviorIndex].label,
+        note: _hitTestPresets[_hitBehaviorIndex].note,
+        icon: Icons.ads_click_outlined,
+      ),
+      _MetricEntry(
+        label: 'Clip',
+        value: _clipPresets[_clipIndex].label,
+        note: _clipPresets[_clipIndex].note,
+        icon: Icons.crop_outlined,
+      ),
+      _MetricEntry(
+        label: 'Rotation',
+        value: '${(_rotation * 180 / math.pi).toStringAsFixed(1)} deg',
+        note: 'Rotation wrapper around host surface.',
+        icon: Icons.threed_rotation,
+      ),
+      _MetricEntry(
+        label: 'Scale',
+        value: _scale.toStringAsFixed(2),
+        note: 'Transform scale around host.',
+        icon: Icons.zoom_in_map_outlined,
+      ),
+      _MetricEntry(
+        label: 'Opacity',
+        value: _opacity.toStringAsFixed(2),
+        note: 'Opacity wrapper value.',
+        icon: Icons.opacity_outlined,
+      ),
+      _MetricEntry(
+        label: 'Profiles',
+        value: '$_profileSwitchCount',
+        note: 'Host profile switches.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricEntry(
+        label: 'Behavior Switches',
+        value: '$_behaviorSwitchCount',
+        note: 'Hit test behavior switch count.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricEntry(
+        label: 'Clip Switches',
+        value: '$_clipSwitchCount',
+        note: 'Clip preset switch count.',
+        icon: Icons.change_circle_outlined,
+      ),
+      _MetricEntry(
+        label: 'Recreates',
+        value: '$_recreateCount',
+        note: 'Manual host recreation count.',
+        icon: Icons.restart_alt_outlined,
+      ),
+      _MetricEntry(
+        label: 'Gesture Count',
+        value: '${_gestureRecognizers().length}',
+        note: 'Enabled gesture recognizers passed to host.',
+        icon: Icons.gesture_outlined,
+      ),
     ];
   }
 
@@ -362,16 +484,27 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLowest,
+                scheme.surfaceContainerLow,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -432,15 +565,35 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.desktop_windows_outlined, color: scheme.primary, size: 26),
+                Icon(
+                  Icons.desktop_windows_outlined,
+                  color: scheme.primary,
+                  size: 26,
+                ),
                 Text(
                   'RenderAppKitView Visual Lab',
-                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26),
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 26,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -464,7 +617,14 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -482,9 +642,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -502,7 +672,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
             Wrap(
               spacing: 8,
@@ -515,17 +688,20 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 ),
                 CheckboxMenuButton(
                   value: _showDiagnostics,
-                  onChanged: (bool? v) => setState(() => _showDiagnostics = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showDiagnostics = v ?? true),
                   child: const Text('Show diagnostics'),
                 ),
                 CheckboxMenuButton(
                   value: _showGuide,
-                  onChanged: (bool? v) => setState(() => _showGuide = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showGuide = v ?? true),
                   child: const Text('Show guide board'),
                 ),
                 CheckboxMenuButton(
                   value: _showTimeline,
-                  onChanged: (bool? v) => setState(() => _showTimeline = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showTimeline = v ?? true),
                   child: const Text('Show timeline board'),
                 ),
               ],
@@ -537,7 +713,8 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
   }
 
   Widget _buildHostStageBoard(ColorScheme scheme) {
-    final PlatformViewHitTestBehavior behavior = _hitTestPresets[_hitBehaviorIndex].behavior;
+    final PlatformViewHitTestBehavior behavior =
+        _hitTestPresets[_hitBehaviorIndex].behavior;
     final Clip clip = _clipPresets[_clipIndex].value;
 
     Widget host = _isMacOS
@@ -552,7 +729,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               setState(() {
                 _hostCreatedCount += 1;
               });
-              _pushTimeline('Platform View', 'AppKitView created with id $id at revision $_revision.');
+              _pushTimeline(
+                'Platform View',
+                'AppKitView created with id $id at revision $_revision.',
+              );
             },
           )
         : _buildFallbackHostSurface(scheme, behavior);
@@ -561,7 +741,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
       host = Opacity(opacity: _opacity, child: host);
     }
     if (_showTransform) {
-      host = Transform.rotate(angle: _rotation, child: Transform.scale(scale: _scale, child: host));
+      host = Transform.rotate(
+        angle: _rotation,
+        child: Transform.scale(scale: _scale, child: host),
+      );
     }
 
     return Card(
@@ -574,9 +757,20 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Host Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Host Stage',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _resetControls, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _resetControls,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -592,7 +786,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() => _hostTapCount += 1);
-                    _pushTimeline('Host Tap', 'Host surface tapped in ${_isMacOS ? 'live' : 'simulator'} mode.');
+                    _pushTimeline(
+                      'Host Tap',
+                      'Host surface tapped in ${_isMacOS ? 'live' : 'simulator'} mode.',
+                    );
                   },
                   child: Container(
                     width: _stageWidth,
@@ -605,11 +802,44 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                     child: Stack(
                       children: <Widget>[
                         if (_showGrid)
-                          Positioned.fill(child: CustomPaint(painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.22), step: 22))),
+                          Positioned.fill(
+                            child: CustomPaint(
+                              painter: _GridPainter(
+                                color: scheme.outlineVariant.withValues(
+                                  alpha: 0.22,
+                                ),
+                                step: 22,
+                              ),
+                            ),
+                          ),
                         Positioned.fill(child: host),
-                        Positioned(top: 10, left: 10, child: _chip(scheme, _isMacOS ? 'macOS live' : 'simulator', Icons.computer_outlined)),
-                        Positioned(top: 10, right: 10, child: _chip(scheme, _hitTestPresets[_hitBehaviorIndex].label, Icons.ads_click_outlined)),
-                        Positioned(bottom: 10, right: 10, child: _chip(scheme, _clipPresets[_clipIndex].label, Icons.crop_outlined)),
+                        Positioned(
+                          top: 10,
+                          left: 10,
+                          child: _chip(
+                            scheme,
+                            _isMacOS ? 'macOS live' : 'simulator',
+                            Icons.computer_outlined,
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          right: 10,
+                          child: _chip(
+                            scheme,
+                            _hitTestPresets[_hitBehaviorIndex].label,
+                            Icons.ads_click_outlined,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: _chip(
+                            scheme,
+                            _clipPresets[_clipIndex].label,
+                            Icons.crop_outlined,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -622,11 +852,17 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
     );
   }
 
-  Widget _buildFallbackHostSurface(ColorScheme scheme, PlatformViewHitTestBehavior behavior) {
+  Widget _buildFallbackHostSurface(
+    ColorScheme scheme,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[scheme.primaryContainer.withValues(alpha: 0.46), scheme.secondaryContainer.withValues(alpha: 0.38)],
+          colors: <Color>[
+            scheme.primaryContainer.withValues(alpha: 0.46),
+            scheme.secondaryContainer.withValues(alpha: 0.38),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -640,29 +876,55 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               children: <Widget>[
                 Icon(Icons.settings_ethernet, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('AppKitView Simulator', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'AppKitView Simulator',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Platform is not macOS. This lane visualizes config passed to live host creation.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Platform is not macOS. This lane visualizes config passed to live host creation.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _creationParams().entries.map((MapEntry<String, Object> e) {
+              children: _creationParams().entries.map((
+                MapEntry<String, Object> e,
+              ) {
                 return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: scheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(999),
                     border: Border.all(color: scheme.outlineVariant),
                   ),
-                  child: Text('${e.key}: ${e.value}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                  child: Text(
+                    '${e.key}: ${e.value}',
+                    style: TextStyle(
+                      color: scheme.onSurfaceVariant,
+                      fontSize: 12,
+                    ),
+                  ),
                 );
               }).toList(),
             ),
             const Spacer(),
-            Text('hitTest=${behavior.name}  recognizers=${_gestureRecognizers().length}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'hitTest=${behavior.name}  recognizers=${_gestureRecognizers().length}',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
       ),
@@ -683,7 +945,14 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
           children: <Widget>[
             Icon(icon, size: 14, color: scheme.primary),
             const SizedBox(width: 6),
-            Text(label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w600, fontSize: 12)),
+            Text(
+              label,
+              style: TextStyle(
+                color: scheme.onSurfaceVariant,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
           ],
         ),
       ),
@@ -720,9 +989,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Hit Test Gallery', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Hit Test Gallery',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Three visual lanes compare gesture routing behavior with an optional overlay interception layer.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Three visual lanes compare gesture routing behavior with an optional overlay interception layer.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             Row(
               children: <Widget>[
@@ -730,10 +1009,17 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                   child: SwitchListTile(
                     value: _overlayBlocksGestures,
                     title: const Text('Overlay Captures Gestures'),
-                    subtitle: const Text('Tap overlay layer to test interception.'),
+                    subtitle: const Text(
+                      'Tap overlay layer to test interception.',
+                    ),
                     onChanged: (bool value) {
                       setState(() => _overlayBlocksGestures = value);
-                      _pushTimeline('Overlay', value ? 'Overlay interception enabled.' : 'Overlay interception disabled.');
+                      _pushTimeline(
+                        'Overlay',
+                        value
+                            ? 'Overlay interception enabled.'
+                            : 'Overlay interception disabled.',
+                      );
                     },
                   ),
                 ),
@@ -743,7 +1029,7 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
             Wrap(
               spacing: 12,
               runSpacing: 12,
-              children: cards.map(( _HostCardSpec card) {
+              children: cards.map((_HostCardSpec card) {
                 return SizedBox(
                   width: 405,
                   child: DecoratedBox(
@@ -751,8 +1037,16 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                       color: scheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: _hitTestPresets[_hitBehaviorIndex].behavior == card.behavior ? scheme.primary : scheme.outlineVariant,
-                        width: _hitTestPresets[_hitBehaviorIndex].behavior == card.behavior ? 2 : 1,
+                        color:
+                            _hitTestPresets[_hitBehaviorIndex].behavior ==
+                                card.behavior
+                            ? scheme.primary
+                            : scheme.outlineVariant,
+                        width:
+                            _hitTestPresets[_hitBehaviorIndex].behavior ==
+                                card.behavior
+                            ? 2
+                            : 1,
                       ),
                     ),
                     child: Padding(
@@ -762,21 +1056,40 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Text(card.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                              Text(
+                                card.title,
+                                style: TextStyle(
+                                  color: scheme.onSurface,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               const Spacer(),
                               TextButton(
                                 onPressed: () {
                                   setState(() {
-                                    _hitBehaviorIndex = _hitTestPresets.indexWhere(( _HitTestPreset p) => p.behavior == card.behavior);
+                                    _hitBehaviorIndex = _hitTestPresets
+                                        .indexWhere(
+                                          (_HitTestPreset p) =>
+                                              p.behavior == card.behavior,
+                                        );
                                     _behaviorSwitchCount += 1;
                                   });
-                                  _pushTimeline('Hit Test', 'Selected ${card.behavior.name} behavior.');
+                                  _pushTimeline(
+                                    'Hit Test',
+                                    'Selected ${card.behavior.name} behavior.',
+                                  );
                                 },
                                 child: const Text('Use'),
                               ),
                             ],
                           ),
-                          Text(card.note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                          Text(
+                            card.note,
+                            style: TextStyle(
+                              color: scheme.onSurfaceVariant,
+                              fontSize: 12,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           SizedBox(
                             height: 140,
@@ -786,14 +1099,25 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
                                       gradient: LinearGradient(
-                                        colors: <Color>[card.color.withValues(alpha: 0.86), card.color.withValues(alpha: 0.45)],
+                                        colors: <Color>[
+                                          card.color.withValues(alpha: 0.86),
+                                          card.color.withValues(alpha: 0.45),
+                                        ],
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
-                                      child: Text('Host lane', style: TextStyle(color: Colors.white.withValues(alpha: 0.92), fontWeight: FontWeight.w800)),
+                                      child: Text(
+                                        'Host lane',
+                                        style: TextStyle(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.92,
+                                          ),
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -803,13 +1127,23 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() => _hostTapCount += 1);
-                                      _pushTimeline('Gallery Host Tap', 'Tapped host lane in ${card.title}.');
+                                      _pushTimeline(
+                                        'Gallery Host Tap',
+                                        'Tapped host lane in ${card.title}.',
+                                      );
                                     },
                                     child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                        vertical: 5,
+                                      ),
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(alpha: 0.85),
-                                        borderRadius: BorderRadius.circular(999),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.85,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          999,
+                                        ),
                                       ),
                                       child: Text(card.behavior.name),
                                     ),
@@ -820,15 +1154,25 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                                     child: GestureDetector(
                                       onTap: () {
                                         setState(() => _overlayTapCount += 1);
-                                        _pushTimeline('Overlay Tap', 'Overlay tapped in ${card.title}.');
+                                        _pushTimeline(
+                                          'Overlay Tap',
+                                          'Overlay tapped in ${card.title}.',
+                                        );
                                       },
                                       child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                          color: Colors.black.withValues(alpha: _overlayStrength),
-                                          borderRadius: BorderRadius.circular(10),
+                                          color: Colors.black.withValues(
+                                            alpha: _overlayStrength,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
                                         ),
                                         child: const Center(
-                                          child: Icon(Icons.touch_app_outlined, color: Colors.white),
+                                          child: Icon(
+                                            Icons.touch_app_outlined,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -858,9 +1202,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Clip + Transform Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Clip + Transform Board',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Tune host geometry and visual wrappers to examine embed behavior under transformed composition.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune host geometry and visual wrappers to examine embed behavior under transformed composition.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -869,7 +1223,11 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 final Widget preview = _miniPreviewStage(scheme);
                 if (narrow) {
                   return Column(
-                    children: <Widget>[preview, const SizedBox(height: 12), controls],
+                    children: <Widget>[
+                      preview,
+                      const SizedBox(height: 12),
+                      controls,
+                    ],
                   );
                 }
                 return Row(
@@ -902,13 +1260,26 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Preview Geometry', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Preview Geometry',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             SizedBox(
               height: 250,
               child: Stack(
                 children: <Widget>[
-                  Positioned.fill(child: CustomPaint(painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.18), step: 24))),
+                  Positioned.fill(
+                    child: CustomPaint(
+                      painter: _GridPainter(
+                        color: scheme.outlineVariant.withValues(alpha: 0.18),
+                        step: 24,
+                      ),
+                    ),
+                  ),
                   Positioned(
                     left: 32,
                     top: 28,
@@ -925,12 +1296,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                               width: 300,
                               height: 170,
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: <Color>[colorA, colorB]),
+                                gradient: LinearGradient(
+                                  colors: <Color>[colorA, colorB],
+                                ),
                               ),
                               child: Center(
                                 child: Text(
-                                  _isMacOS ? 'AppKit host envelope' : 'Simulator envelope',
-                                  style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                                  _isMacOS
+                                      ? 'AppKit host envelope'
+                                      : 'Simulator envelope',
+                                  style: TextStyle(
+                                    color: scheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                             ),
@@ -960,7 +1338,13 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Transform Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Transform Controls',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -970,7 +1354,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 760,
               divisions: 88,
               onChanged: (double v) => setState(() => _stageWidth = v),
-              onChangeEnd: (double v) => _pushTimeline('Geometry', 'Stage width set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Geometry',
+                'Stage width set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -980,7 +1367,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 440,
               divisions: 50,
               onChanged: (double v) => setState(() => _stageHeight = v),
-              onChangeEnd: (double v) => _pushTimeline('Geometry', 'Stage height set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Geometry',
+                'Stage height set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -990,7 +1380,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 42,
               divisions: 42,
               onChanged: (double v) => setState(() => _cornerRadius = v),
-              onChangeEnd: (double v) => _pushTimeline('Clip', 'Corner radius set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Clip',
+                'Corner radius set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -1000,7 +1393,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 0.45,
               divisions: 90,
               onChanged: (double v) => setState(() => _rotation = v),
-              onChangeEnd: (double v) => _pushTimeline('Transform', 'Rotation set to ${v.toStringAsFixed(2)} rad.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Transform',
+                'Rotation set to ${v.toStringAsFixed(2)} rad.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -1010,7 +1406,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 1.35,
               divisions: 63,
               onChanged: (double v) => setState(() => _scale = v),
-              onChangeEnd: (double v) => _pushTimeline('Transform', 'Scale set to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Transform',
+                'Scale set to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -1020,7 +1419,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 1,
               divisions: 40,
               onChanged: (double v) => setState(() => _opacity = v),
-              onChangeEnd: (double v) => _pushTimeline('Opacity', 'Opacity set to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Opacity',
+                'Opacity set to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -1030,10 +1432,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               max: 0.7,
               divisions: 35,
               onChanged: (double v) => setState(() => _overlayStrength = v),
-              onChangeEnd: (double v) => _pushTimeline('Overlay', 'Overlay strength set to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Overlay',
+                'Overlay strength set to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             const Divider(height: 22),
-            Text('Clip Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Clip Presets',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -1054,23 +1465,26 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_clipPresets[_clipIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _clipPresets[_clipIndex].note,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
             Material(
               type: MaterialType.transparency,
               child: SwitchListTile(
-              value: _showTransform,
-              title: const Text('Enable Transform Wrappers'),
-              onChanged: (bool v) => setState(() => _showTransform = v),
-            ),
+                value: _showTransform,
+                title: const Text('Enable Transform Wrappers'),
+                onChanged: (bool v) => setState(() => _showTransform = v),
+              ),
             ),
             Material(
               type: MaterialType.transparency,
               child: SwitchListTile(
-              value: _showOpacityWrap,
-              title: const Text('Enable Opacity Wrapper'),
-              onChanged: (bool v) => setState(() => _showOpacityWrap = v),
-            ),
+                value: _showOpacityWrap,
+                title: const Text('Enable Opacity Wrapper'),
+                onChanged: (bool v) => setState(() => _showOpacityWrap = v),
+              ),
             ),
           ],
         ),
@@ -1093,11 +1507,23 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -1111,9 +1537,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Lifecycle Ops', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Lifecycle Ops',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Tune profile and recognizers, then recreate the host to observe lifecycle and creation-param propagation.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune profile and recognizers, then recreate the host to observe lifecycle and creation-param propagation.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1121,9 +1557,17 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 final Widget left = _lifecycleControls(scheme);
                 final Widget right = _creationParamsPanel(scheme);
                 if (narrow) {
-                  return Column(children: <Widget>[left, const SizedBox(height: 10), right]);
+                  return Column(
+                    children: <Widget>[left, const SizedBox(height: 10), right],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: left), const SizedBox(width: 10), Expanded(child: right)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: left),
+                    const SizedBox(width: 10),
+                    Expanded(child: right),
+                  ],
+                );
               },
             ),
           ],
@@ -1144,53 +1588,78 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Host Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Host Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: <String>['baseline', 'analytics', 'immersive', 'editor', 'monitor'].map((String p) {
-                return ChoiceChip(
-                  selected: p == _activeProfile,
-                  label: Text(p),
-                  onSelected: (_) {
-                    setState(() {
-                      _activeProfile = p;
-                      _profileSwitchCount += 1;
-                    });
-                    _pushTimeline('Profile', 'Active host profile changed to $p.');
-                  },
-                );
-              }).toList(),
+              children:
+                  <String>[
+                    'baseline',
+                    'analytics',
+                    'immersive',
+                    'editor',
+                    'monitor',
+                  ].map((String p) {
+                    return ChoiceChip(
+                      selected: p == _activeProfile,
+                      label: Text(p),
+                      onSelected: (_) {
+                        setState(() {
+                          _activeProfile = p;
+                          _profileSwitchCount += 1;
+                        });
+                        _pushTimeline(
+                          'Profile',
+                          'Active host profile changed to $p.',
+                        );
+                      },
+                    );
+                  }).toList(),
             ),
             const Divider(height: 22),
-            Text('Gesture Recognizers', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-            Material(
-              type: MaterialType.transparency,
-              child: CheckboxListTile(
-              contentPadding: EdgeInsets.zero,
-              value: _enableTapRecognizer,
-              title: const Text('Tap Recognizer'),
-              onChanged: (bool? v) => setState(() => _enableTapRecognizer = v ?? true),
-            ),
+            Text(
+              'Gesture Recognizers',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-              contentPadding: EdgeInsets.zero,
-              value: _enablePanRecognizer,
-              title: const Text('Pan Recognizer'),
-              onChanged: (bool? v) => setState(() => _enablePanRecognizer = v ?? false),
-            ),
+                contentPadding: EdgeInsets.zero,
+                value: _enableTapRecognizer,
+                title: const Text('Tap Recognizer'),
+                onChanged: (bool? v) =>
+                    setState(() => _enableTapRecognizer = v ?? true),
+              ),
             ),
             Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-              contentPadding: EdgeInsets.zero,
-              value: _enableLongPressRecognizer,
-              title: const Text('Long Press Recognizer'),
-              onChanged: (bool? v) => setState(() => _enableLongPressRecognizer = v ?? false),
+                contentPadding: EdgeInsets.zero,
+                value: _enablePanRecognizer,
+                title: const Text('Pan Recognizer'),
+                onChanged: (bool? v) =>
+                    setState(() => _enablePanRecognizer = v ?? false),
+              ),
             ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
+                value: _enableLongPressRecognizer,
+                title: const Text('Long Press Recognizer'),
+                onChanged: (bool? v) =>
+                    setState(() => _enableLongPressRecognizer = v ?? false),
+              ),
             ),
             const Divider(height: 22),
             Row(
@@ -1202,7 +1671,10 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                         _revision += 1;
                         _recreateCount += 1;
                       });
-                      _pushTimeline('Recreate', 'Requested host recreation at revision $_revision.');
+                      _pushTimeline(
+                        'Recreate',
+                        'Requested host recreation at revision $_revision.',
+                      );
                     },
                     icon: const Icon(Icons.restart_alt_outlined),
                     label: const Text('Recreate Host'),
@@ -1229,7 +1701,13 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Creation Params Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Creation Params Snapshot',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             ...params.entries.map((MapEntry<String, Object> e) {
               return Container(
@@ -1242,10 +1720,19 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                 child: Material(
                   type: MaterialType.transparency,
                   child: ListTile(
-                  dense: true,
-                  title: Text(e.key, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                  subtitle: Text('${e.value}', style: TextStyle(color: scheme.onSurfaceVariant)),
-                ),
+                    dense: true,
+                    title: Text(
+                      e.key,
+                      style: TextStyle(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '${e.value}',
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    ),
+                  ),
                 ),
               );
             }),
@@ -1270,17 +1757,24 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1308,13 +1802,38 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1347,16 +1866,40 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
               children: <Widget>[
                 Icon(Icons.terminal, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('platform=$_platformState scenario=${_scenarios[_scenarioIndex].id} theme=${_themes[_themeIndex].id}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('revision=$_revision profile=$_activeProfile created=$_hostCreatedCount recreates=$_recreateCount', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('hitTest=${_hitTestPresets[_hitBehaviorIndex].behavior.name} clip=${_clipPresets[_clipIndex].value.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('rotation=${_rotation.toStringAsFixed(2)} scale=${_scale.toStringAsFixed(2)} opacity=${_opacity.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('recognizers tap=$_enableTapRecognizer pan=$_enablePanRecognizer long=$_enableLongPressRecognizer', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('hostTaps=$_hostTapCount overlayTaps=$_overlayTapCount overlayBlocks=$_overlayBlocksGestures', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'platform=$_platformState scenario=${_scenarios[_scenarioIndex].id} theme=${_themes[_themeIndex].id}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'revision=$_revision profile=$_activeProfile created=$_hostCreatedCount recreates=$_recreateCount',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'hitTest=${_hitTestPresets[_hitBehaviorIndex].behavior.name} clip=${_clipPresets[_clipIndex].value.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'rotation=${_rotation.toStringAsFixed(2)} scale=${_scale.toStringAsFixed(2)} opacity=${_opacity.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'recognizers tap=$_enableTapRecognizer pan=$_enablePanRecognizer long=$_enableLongPressRecognizer',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'hostTaps=$_hostTapCount overlayTaps=$_overlayTapCount overlayBlocks=$_overlayBlocksGestures',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1372,7 +1915,14 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1385,13 +1935,18 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faq.map(( _FaqEntry f) {
+            ..._faq.map((_FaqEntry f) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1404,9 +1959,18 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(f.q, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        f.q,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(f.a, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        f.a,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1429,17 +1993,28 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]),
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological event stream for host creation, control changes, and gesture interactions.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological event stream for host creation, control changes, and gesture interactions.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
@@ -1450,12 +2025,16 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Interact with controls to populate operations.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate operations.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent e) {
-                  final String stamp = '${e.time.hour.toString().padLeft(2, '0')}:${e.time.minute.toString().padLeft(2, '0')}:${e.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent e) {
+                  final String stamp =
+                      '${e.time.hour.toString().padLeft(2, '0')}:${e.time.minute.toString().padLeft(2, '0')}:${e.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
@@ -1466,13 +2045,25 @@ class _RenderAppKitViewLabState extends State<_RenderAppKitViewLab> {
                     child: Material(
                       type: MaterialType.transparency,
                       child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: scheme.primaryContainer,
-                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        leading: CircleAvatar(
+                          backgroundColor: scheme.primaryContainer,
+                          child: Text(
+                            stamp.substring(stamp.length - 2),
+                            style: TextStyle(color: scheme.onPrimaryContainer),
+                          ),
+                        ),
+                        title: Text(
+                          e.title,
+                          style: TextStyle(
+                            color: scheme.onSurface,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '$stamp  |  ${e.message}',
+                          style: TextStyle(color: scheme.onSurfaceVariant),
+                        ),
                       ),
-                      title: Text(e.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${e.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
-                    ),
                     ),
                   );
                 }).toList(),

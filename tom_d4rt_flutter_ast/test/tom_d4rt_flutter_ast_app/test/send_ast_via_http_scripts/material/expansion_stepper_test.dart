@@ -167,7 +167,10 @@ class _HeroSection extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(99),
@@ -496,26 +499,14 @@ class _IntroNarrativeSection extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      _FactRow(
-                        label: "Application age",
-                        value: "7 days",
-                      ),
+                      _FactRow(label: "Application age", value: "7 days"),
                       const _FactRow(
                         label: "Stages remaining",
                         value: "3 of 6",
                       ),
-                      const _FactRow(
-                        label: "Reviewer",
-                        value: "M. Okafor",
-                      ),
-                      const _FactRow(
-                        label: "Next SLA",
-                        value: "16h 22m",
-                      ),
-                      const _FactRow(
-                        label: "Channel",
-                        value: "Partner portal",
-                      ),
+                      const _FactRow(label: "Reviewer", value: "M. Okafor"),
+                      const _FactRow(label: "Next SLA", value: "16h 22m"),
+                      const _FactRow(label: "Channel", value: "Partner portal"),
                     ],
                   ),
                 ),
@@ -528,15 +519,16 @@ class _IntroNarrativeSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: _kAccent.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: _kAccent.withValues(alpha: 0.35),
-              ),
+              border: Border.all(color: _kAccent.withValues(alpha: 0.35)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.tips_and_updates_outlined,
-                    color: _kAccent, size: 22),
+                const Icon(
+                  Icons.tips_and_updates_outlined,
+                  color: _kAccent,
+                  size: 22,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -585,10 +577,7 @@ class _MiniChip extends StatelessWidget {
           Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 8),
           Text(
@@ -797,7 +786,8 @@ class _StepperShowcaseSection extends StatelessWidget {
             _KeyValue(k: "Sandbox load", v: "Not yet scheduled"),
             _KeyValue(k: "Go-live target", v: "2026-05-26"),
           ],
-          footer: "Final step; releases the operator into the live dispatch pool.",
+          footer:
+              "Final step; releases the operator into the live dispatch pool.",
         ),
       ),
     ];
@@ -868,8 +858,7 @@ class _StepperShowcaseSection extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [_kAccent, Color(0xFF5C8DFF)],
@@ -888,15 +877,17 @@ class _StepperShowcaseSection extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8),
-                Icon(Icons.arrow_forward_rounded,
-                    color: Colors.white, size: 16),
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ],
             ),
           ),
           const SizedBox(width: 12),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.transparent,
               borderRadius: BorderRadius.circular(10),
@@ -946,9 +937,9 @@ class _StepperShowcaseSection extends StatelessWidget {
               data: Theme.of(context).copyWith(
                 canvasColor: Colors.transparent,
                 colorScheme: Theme.of(context).colorScheme.copyWith(
-                      primary: _kAccent,
-                      onSurface: Colors.white,
-                    ),
+                  primary: _kAccent,
+                  onSurface: Colors.white,
+                ),
               ),
               child: Stepper(
                 physics: const NeverScrollableScrollPhysics(),
@@ -967,10 +958,7 @@ class _StepperShowcaseSection extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [
-                  _kSurfaceAlt,
-                  _kSurfaceAlt.withValues(alpha: 0.4),
-                ],
+                colors: [_kSurfaceAlt, _kSurfaceAlt.withValues(alpha: 0.4)],
               ),
               borderRadius: BorderRadius.circular(18),
               border: Border.all(color: _kBorder),
@@ -980,8 +968,11 @@ class _StepperShowcaseSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.horizontal_split_rounded,
-                        color: _kAccent2, size: 18),
+                    const Icon(
+                      Icons.horizontal_split_rounded,
+                      color: _kAccent2,
+                      size: 18,
+                    ),
                     const SizedBox(width: 8),
                     const Text(
                       "Horizontal compact variant",
@@ -994,12 +985,15 @@ class _StepperShowcaseSection extends StatelessWidget {
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: _kAccent2.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(99),
                         border: Border.all(
-                            color: _kAccent2.withValues(alpha: 0.5)),
+                          color: _kAccent2.withValues(alpha: 0.5),
+                        ),
                       ),
                       child: const Text(
                         "StepperType.horizontal",
@@ -1017,9 +1011,9 @@ class _StepperShowcaseSection extends StatelessWidget {
                   data: Theme.of(context).copyWith(
                     canvasColor: Colors.transparent,
                     colorScheme: Theme.of(context).colorScheme.copyWith(
-                          primary: _kAccent2,
-                          onSurface: Colors.white,
-                        ),
+                      primary: _kAccent2,
+                      onSurface: Colors.white,
+                    ),
                   ),
                   // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #43, P12):
                   // Flutter's Stepper(type: StepperType.horizontal) internally
@@ -1041,7 +1035,8 @@ class _StepperShowcaseSection extends StatelessWidget {
                       currentStep: 2,
                       type: StepperType.horizontal,
                       steps: _buildHorizontalSteps(),
-                      controlsBuilder: (ctx, details) => const SizedBox.shrink(),
+                      controlsBuilder: (ctx, details) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                 ),
@@ -1114,17 +1109,18 @@ class _StepContentCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 12, 14, 6),
-            child: Column(
-              children: rows.map((r) => _kvRow(r)).toList(),
-            ),
+            child: Column(children: rows.map((r) => _kvRow(r)).toList()),
           ),
           Container(
             padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.subdirectory_arrow_right_rounded,
-                    color: _kTextDim, size: 16),
+                const Icon(
+                  Icons.subdirectory_arrow_right_rounded,
+                  color: _kTextDim,
+                  size: 16,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1367,10 +1363,9 @@ class _ExpansionPanelShowcaseSection extends StatelessWidget {
       gradient: const [Color(0xFF2DA8A1), Color(0xFFB55F8A)],
       icon: Icons.unfold_more_rounded,
       child: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
-          dividerColor: _kBorder,
-        ),
+        data: Theme.of(
+          context,
+        ).copyWith(canvasColor: Colors.transparent, dividerColor: _kBorder),
         child: ExpansionPanelList(
           elevation: 0,
           expandedHeaderPadding: EdgeInsets.zero,
@@ -1566,27 +1561,82 @@ class _FleetPanelBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _fleetTableHeader(),
-          _fleetRow("NWH-101", "Volvo VNL 760", "2022", "OR-78213",
-              "Geotab GO9", "Active", _kOk),
-          _fleetRow("NWH-102", "Kenworth T680", "2021", "OR-77110",
-              "Geotab GO9", "Active", _kOk),
-          _fleetRow("NWH-103", "Peterbilt 579", "2020", "OR-76332",
-              "Geotab GO9", "Maintenance", _kWarn),
-          _fleetRow("NWH-104", "Freightliner Cascadia", "2023", "OR-79921",
-              "Geotab GO9", "Active", _kOk),
-          _fleetRow("NWH-105", "Volvo VNL 860", "2024", "OR-80014",
-              "Geotab GO9", "Pending ELD", _kAccent4),
-          _fleetRow("NWH-106", "Kenworth T880", "2019", "OR-74012",
-              "Geotab GO9", "Active", _kOk),
-          _fleetRow("NWH-107", "Mack Anthem", "2022", "OR-78441",
-              "Geotab GO9", "Active", _kOk),
-          _fleetRow("NWH-108", "Peterbilt 389", "2018", "OR-71009",
-              "Geotab GO9", "Out of service", _kDanger),
+          _fleetRow(
+            "NWH-101",
+            "Volvo VNL 760",
+            "2022",
+            "OR-78213",
+            "Geotab GO9",
+            "Active",
+            _kOk,
+          ),
+          _fleetRow(
+            "NWH-102",
+            "Kenworth T680",
+            "2021",
+            "OR-77110",
+            "Geotab GO9",
+            "Active",
+            _kOk,
+          ),
+          _fleetRow(
+            "NWH-103",
+            "Peterbilt 579",
+            "2020",
+            "OR-76332",
+            "Geotab GO9",
+            "Maintenance",
+            _kWarn,
+          ),
+          _fleetRow(
+            "NWH-104",
+            "Freightliner Cascadia",
+            "2023",
+            "OR-79921",
+            "Geotab GO9",
+            "Active",
+            _kOk,
+          ),
+          _fleetRow(
+            "NWH-105",
+            "Volvo VNL 860",
+            "2024",
+            "OR-80014",
+            "Geotab GO9",
+            "Pending ELD",
+            _kAccent4,
+          ),
+          _fleetRow(
+            "NWH-106",
+            "Kenworth T880",
+            "2019",
+            "OR-74012",
+            "Geotab GO9",
+            "Active",
+            _kOk,
+          ),
+          _fleetRow(
+            "NWH-107",
+            "Mack Anthem",
+            "2022",
+            "OR-78441",
+            "Geotab GO9",
+            "Active",
+            _kOk,
+          ),
+          _fleetRow(
+            "NWH-108",
+            "Peterbilt 389",
+            "2018",
+            "OR-71009",
+            "Geotab GO9",
+            "Out of service",
+            _kDanger,
+          ),
           const SizedBox(height: 14),
           Row(
             children: [
-              const Icon(Icons.cloud_sync_outlined,
-                  color: _kAccent4, size: 18),
+              const Icon(Icons.cloud_sync_outlined, color: _kAccent4, size: 18),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1597,12 +1647,13 @@ class _FleetPanelBody extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 5),
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: _kAccent4.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(99),
-                  border:
-                      Border.all(color: _kAccent4.withValues(alpha: 0.4)),
+                  border: Border.all(color: _kAccent4.withValues(alpha: 0.4)),
                 ),
                 child: const Text(
                   "Last sync 3m ago",
@@ -1641,8 +1692,15 @@ class _FleetPanelBody extends StatelessWidget {
     );
   }
 
-  Widget _fleetRow(String unit, String model, String year, String plate,
-      String telematics, String status, Color statusColor) {
+  Widget _fleetRow(
+    String unit,
+    String model,
+    String year,
+    String plate,
+    String telematics,
+    String status,
+    Color statusColor,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       margin: const EdgeInsets.only(top: 6),
@@ -1654,44 +1712,58 @@ class _FleetPanelBody extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-              width: 80,
-              child: Text(unit,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: "monospace",
-                      fontWeight: FontWeight.w700))),
+            width: 80,
+            child: Text(
+              unit,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: "monospace",
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 3,
-              child: Text(model,
-                  style: const TextStyle(
-                      color: Colors.white, fontSize: 13))),
+            flex: 3,
+            child: Text(
+              model,
+              style: const TextStyle(color: Colors.white, fontSize: 13),
+            ),
+          ),
           SizedBox(
-              width: 60,
-              child: Text(year,
-                  style: const TextStyle(color: _kTextDim, fontSize: 13))),
+            width: 60,
+            child: Text(
+              year,
+              style: const TextStyle(color: _kTextDim, fontSize: 13),
+            ),
+          ),
           SizedBox(
-              width: 90,
-              child: Text(plate,
-                  style: const TextStyle(
-                      color: _kTextDim,
-                      fontFamily: "monospace",
-                      fontSize: 12))),
+            width: 90,
+            child: Text(
+              plate,
+              style: const TextStyle(
+                color: _kTextDim,
+                fontFamily: "monospace",
+                fontSize: 12,
+              ),
+            ),
+          ),
           Expanded(
-              flex: 2,
-              child: Text(telematics,
-                  style: const TextStyle(color: _kTextDim, fontSize: 12))),
+            flex: 2,
+            child: Text(
+              telematics,
+              style: const TextStyle(color: _kTextDim, fontSize: 12),
+            ),
+          ),
           SizedBox(
             width: 120,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(99),
-                  border:
-                      Border.all(color: statusColor.withValues(alpha: 0.5)),
+                  border: Border.all(color: statusColor.withValues(alpha: 0.5)),
                 ),
                 child: Text(
                   status,
@@ -1754,10 +1826,7 @@ class _LanesPanelBody extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            _kSurface,
-            _kAccent3.withValues(alpha: 0.06),
-          ],
+          colors: [_kSurface, _kAccent3.withValues(alpha: 0.06)],
         ),
       ),
       child: Column(
@@ -1765,8 +1834,7 @@ class _LanesPanelBody extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.alt_route_rounded,
-                  color: _kAccent3, size: 18),
+              const Icon(Icons.alt_route_rounded, color: _kAccent3, size: 18),
               const SizedBox(width: 8),
               const Text(
                 "Preferred corridors",
@@ -1784,32 +1852,85 @@ class _LanesPanelBody extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          _laneCard("Portland - Seattle", "I-5 N", "284 mi", "Daily",
-              _kOk, "Profitable"),
-          _laneCard("Portland - Boise", "I-84 E", "430 mi", "3x weekly",
-              _kAccent2, "Even"),
-          _laneCard("Seattle - Spokane", "I-90 E", "279 mi", "2x weekly",
-              _kAccent2, "Even"),
-          _laneCard("Tacoma - Reno", "I-5 / US-395", "634 mi", "Weekly",
-              _kAccent4, "Marginal"),
-          _laneCard("Portland - Sacramento", "I-5 S", "583 mi", "2x weekly",
-              _kOk, "Profitable"),
-          _laneCard("Seattle - Vancouver", "I-5 N", "143 mi", "Daily",
-              _kAccent4, "Marginal"),
-          _laneCard("Boise - Salt Lake City", "I-84 E", "344 mi", "Weekly",
-              _kAccent2, "Even"),
-          _laneCard("Eugene - Medford", "I-5 S", "166 mi", "3x weekly",
-              _kOk, "Profitable"),
-          _laneCard("Bend - Boise", "US-20 E", "320 mi", "Bi-weekly",
-              _kDanger, "Loss"),
+          _laneCard(
+            "Portland - Seattle",
+            "I-5 N",
+            "284 mi",
+            "Daily",
+            _kOk,
+            "Profitable",
+          ),
+          _laneCard(
+            "Portland - Boise",
+            "I-84 E",
+            "430 mi",
+            "3x weekly",
+            _kAccent2,
+            "Even",
+          ),
+          _laneCard(
+            "Seattle - Spokane",
+            "I-90 E",
+            "279 mi",
+            "2x weekly",
+            _kAccent2,
+            "Even",
+          ),
+          _laneCard(
+            "Tacoma - Reno",
+            "I-5 / US-395",
+            "634 mi",
+            "Weekly",
+            _kAccent4,
+            "Marginal",
+          ),
+          _laneCard(
+            "Portland - Sacramento",
+            "I-5 S",
+            "583 mi",
+            "2x weekly",
+            _kOk,
+            "Profitable",
+          ),
+          _laneCard(
+            "Seattle - Vancouver",
+            "I-5 N",
+            "143 mi",
+            "Daily",
+            _kAccent4,
+            "Marginal",
+          ),
+          _laneCard(
+            "Boise - Salt Lake City",
+            "I-84 E",
+            "344 mi",
+            "Weekly",
+            _kAccent2,
+            "Even",
+          ),
+          _laneCard(
+            "Eugene - Medford",
+            "I-5 S",
+            "166 mi",
+            "3x weekly",
+            _kOk,
+            "Profitable",
+          ),
+          _laneCard(
+            "Bend - Boise",
+            "US-20 E",
+            "320 mi",
+            "Bi-weekly",
+            _kDanger,
+            "Loss",
+          ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: _kAccent3.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border:
-                  Border.all(color: _kAccent3.withValues(alpha: 0.35)),
+              border: Border.all(color: _kAccent3.withValues(alpha: 0.35)),
             ),
             child: Row(
               children: const [
@@ -1835,8 +1956,14 @@ class _LanesPanelBody extends StatelessWidget {
     );
   }
 
-  Widget _laneCard(String name, String road, String distance, String cadence,
-      Color color, String margin) {
+  Widget _laneCard(
+    String name,
+    String road,
+    String distance,
+    String cadence,
+    Color color,
+    String margin,
+  ) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -2065,10 +2192,7 @@ class _StateMatrixCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            color.withValues(alpha: 0.18),
-            _kSurfaceAlt,
-          ],
+          colors: [color.withValues(alpha: 0.18), _kSurfaceAlt],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: color.withValues(alpha: 0.45)),
@@ -2211,8 +2335,7 @@ class _MetricsSummarySection extends StatelessWidget {
               children: [
                 Row(
                   children: const [
-                    Icon(Icons.bar_chart_rounded,
-                        color: _kAccent2, size: 18),
+                    Icon(Icons.bar_chart_rounded, color: _kAccent2, size: 18),
                     SizedBox(width: 8),
                     Text(
                       "Per-stage drop-off",
@@ -2226,35 +2349,41 @@ class _MetricsSummarySection extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 _StageBar(
-                    label: "Business profile",
-                    started: 412,
-                    completed: 405,
-                    barColor: _kAccent),
+                  label: "Business profile",
+                  started: 412,
+                  completed: 405,
+                  barColor: _kAccent,
+                ),
                 _StageBar(
-                    label: "Insurance & bonding",
-                    started: 405,
-                    completed: 366,
-                    barColor: _kAccent2),
+                  label: "Insurance & bonding",
+                  started: 405,
+                  completed: 366,
+                  barColor: _kAccent2,
+                ),
                 _StageBar(
-                    label: "Fleet & equipment",
-                    started: 366,
-                    completed: 289,
-                    barColor: _kAccent4),
+                  label: "Fleet & equipment",
+                  started: 366,
+                  completed: 289,
+                  barColor: _kAccent4,
+                ),
                 _StageBar(
-                    label: "Hazmat endorsement",
-                    started: 289,
-                    completed: 242,
-                    barColor: _kDanger),
+                  label: "Hazmat endorsement",
+                  started: 289,
+                  completed: 242,
+                  barColor: _kDanger,
+                ),
                 _StageBar(
-                    label: "Banking & payouts",
-                    started: 242,
-                    completed: 218,
-                    barColor: _kWarn),
+                  label: "Banking & payouts",
+                  started: 242,
+                  completed: 218,
+                  barColor: _kWarn,
+                ),
                 _StageBar(
-                    label: "Go live checklist",
-                    started: 218,
-                    completed: 183,
-                    barColor: _kOk),
+                  label: "Go live checklist",
+                  started: 218,
+                  completed: 183,
+                  barColor: _kOk,
+                ),
               ],
             ),
           ),
@@ -2390,20 +2519,14 @@ class _StageBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
             child: Stack(
               children: [
-                Container(
-                  height: 8,
-                  color: _kBorder,
-                ),
+                Container(height: 8, color: _kBorder),
                 FractionallySizedBox(
                   widthFactor: ratio,
                   child: Container(
                     height: 8,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          barColor,
-                          barColor.withValues(alpha: 0.5),
-                        ],
+                        colors: [barColor, barColor.withValues(alpha: 0.5)],
                       ),
                     ),
                   ),
@@ -2569,50 +2692,26 @@ class _VariantGallerySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _variantRow(
-            "Header: Tonal",
-            const [
-              _VariantTile(
-                  label: "Compact", density: "32 px", color: _kAccent),
-              _VariantTile(
-                  label: "Regular", density: "44 px", color: _kAccent),
-              _VariantTile(
-                  label: "Spacious", density: "56 px", color: _kAccent),
-            ],
-          ),
-          _variantRow(
-            "Header: Gradient",
-            const [
-              _VariantTile(
-                  label: "Compact", density: "32 px", color: _kAccent2),
-              _VariantTile(
-                  label: "Regular", density: "44 px", color: _kAccent2),
-              _VariantTile(
-                  label: "Spacious", density: "56 px", color: _kAccent2),
-            ],
-          ),
-          _variantRow(
-            "Header: Outline",
-            const [
-              _VariantTile(
-                  label: "Compact", density: "32 px", color: _kAccent3),
-              _VariantTile(
-                  label: "Regular", density: "44 px", color: _kAccent3),
-              _VariantTile(
-                  label: "Spacious", density: "56 px", color: _kAccent3),
-            ],
-          ),
-          _variantRow(
-            "Header: Hairline",
-            const [
-              _VariantTile(
-                  label: "Compact", density: "32 px", color: _kAccent5),
-              _VariantTile(
-                  label: "Regular", density: "44 px", color: _kAccent5),
-              _VariantTile(
-                  label: "Spacious", density: "56 px", color: _kAccent5),
-            ],
-          ),
+          _variantRow("Header: Tonal", const [
+            _VariantTile(label: "Compact", density: "32 px", color: _kAccent),
+            _VariantTile(label: "Regular", density: "44 px", color: _kAccent),
+            _VariantTile(label: "Spacious", density: "56 px", color: _kAccent),
+          ]),
+          _variantRow("Header: Gradient", const [
+            _VariantTile(label: "Compact", density: "32 px", color: _kAccent2),
+            _VariantTile(label: "Regular", density: "44 px", color: _kAccent2),
+            _VariantTile(label: "Spacious", density: "56 px", color: _kAccent2),
+          ]),
+          _variantRow("Header: Outline", const [
+            _VariantTile(label: "Compact", density: "32 px", color: _kAccent3),
+            _VariantTile(label: "Regular", density: "44 px", color: _kAccent3),
+            _VariantTile(label: "Spacious", density: "56 px", color: _kAccent3),
+          ]),
+          _variantRow("Header: Hairline", const [
+            _VariantTile(label: "Compact", density: "32 px", color: _kAccent5),
+            _VariantTile(label: "Regular", density: "44 px", color: _kAccent5),
+            _VariantTile(label: "Spacious", density: "56 px", color: _kAccent5),
+          ]),
         ],
       ),
     );
@@ -2635,12 +2734,14 @@ class _VariantGallerySection extends StatelessWidget {
               ),
             ),
           ),
-          ...tiles.map((t) => Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  child: t,
-                ),
-              )),
+          ...tiles.map(
+            (t) => Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: t,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -2686,8 +2787,11 @@ class _VariantTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.expand_more,
-                    color: Colors.white, size: 16),
+                child: const Icon(
+                  Icons.expand_more,
+                  color: Colors.white,
+                  size: 16,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
@@ -2718,10 +2822,7 @@ class _VariantTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Text(
-            density,
-            style: TextStyle(color: color, fontSize: 10.5),
-          ),
+          Text(density, style: TextStyle(color: color, fontSize: 10.5)),
         ],
       ),
     );
@@ -2796,10 +2897,7 @@ class _DesignRationaleSection extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  _kSurfaceAlt,
-                  _kAccent.withValues(alpha: 0.18),
-                ],
+                colors: [_kSurfaceAlt, _kAccent.withValues(alpha: 0.18)],
               ),
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: _kBorder),
@@ -2807,8 +2905,11 @@ class _DesignRationaleSection extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.architecture_outlined,
-                    color: _kAccent, size: 22),
+                const Icon(
+                  Icons.architecture_outlined,
+                  color: _kAccent,
+                  size: 22,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -2870,10 +2971,7 @@ class _RationaleCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            color.withValues(alpha: 0.22),
-            _kSurface,
-          ],
+          colors: [color.withValues(alpha: 0.22), _kSurface],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: color.withValues(alpha: 0.45)),
@@ -2900,34 +2998,36 @@ class _RationaleCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          ...bullets.map((b) => Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 6),
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
+          ...bullets.map(
+            (b) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 6),
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      b,
+                      style: const TextStyle(
+                        color: _kTextMuted,
+                        fontSize: 12.5,
+                        height: 1.5,
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        b,
-                        style: const TextStyle(
-                          color: _kTextMuted,
-                          fontSize: 12.5,
-                          height: 1.5,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -2961,11 +3061,13 @@ class _ChecklistFooterSection extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _kOk.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(14),
-                  border:
-                      Border.all(color: _kOk.withValues(alpha: 0.5)),
+                  border: Border.all(color: _kOk.withValues(alpha: 0.5)),
                 ),
-                child: const Icon(Icons.fact_check_outlined,
-                    color: _kOk, size: 22),
+                child: const Icon(
+                  Icons.fact_check_outlined,
+                  color: _kOk,
+                  size: 22,
+                ),
               ),
               const SizedBox(width: 14),
               const Expanded(
@@ -2995,12 +3097,13 @@ class _ChecklistFooterSection extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 8),
+                  horizontal: 14,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: _kAccent.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(99),
-                  border: Border.all(
-                      color: _kAccent.withValues(alpha: 0.45)),
+                  border: Border.all(color: _kAccent.withValues(alpha: 0.45)),
                 ),
                 child: const Text(
                   "Owner: M. Okafor",
@@ -3014,20 +3117,48 @@ class _ChecklistFooterSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
-          _checklistRow("Collect HM-126F training certificates",
-              "Hazmat / Class 8", true, _kDanger),
-          _checklistRow("Schedule tank inspection for trailers 207, 209",
-              "Hazmat / Class 8", true, _kDanger),
-          _checklistRow("Upload W-9 for Northwind Haulage Ltd.",
-              "Banking & payouts", true, _kWarn),
-          _checklistRow("Confirm dispatcher seat: Priya Lall",
-              "Go live checklist", false, _kOk),
-          _checklistRow("Reserve dock slots at Portland depot",
-              "Go live checklist", false, _kOk),
-          _checklistRow("Send training video link to operator",
-              "Go live checklist", true, _kAccent),
-          _checklistRow("Run sandbox load #4421",
-              "Go live checklist", true, _kAccent),
+          _checklistRow(
+            "Collect HM-126F training certificates",
+            "Hazmat / Class 8",
+            true,
+            _kDanger,
+          ),
+          _checklistRow(
+            "Schedule tank inspection for trailers 207, 209",
+            "Hazmat / Class 8",
+            true,
+            _kDanger,
+          ),
+          _checklistRow(
+            "Upload W-9 for Northwind Haulage Ltd.",
+            "Banking & payouts",
+            true,
+            _kWarn,
+          ),
+          _checklistRow(
+            "Confirm dispatcher seat: Priya Lall",
+            "Go live checklist",
+            false,
+            _kOk,
+          ),
+          _checklistRow(
+            "Reserve dock slots at Portland depot",
+            "Go live checklist",
+            false,
+            _kOk,
+          ),
+          _checklistRow(
+            "Send training video link to operator",
+            "Go live checklist",
+            true,
+            _kAccent,
+          ),
+          _checklistRow(
+            "Run sandbox load #4421",
+            "Go live checklist",
+            true,
+            _kAccent,
+          ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.all(14),
@@ -3043,8 +3174,11 @@ class _ChecklistFooterSection extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.info_outline_rounded,
-                    color: _kAccent, size: 18),
+                const Icon(
+                  Icons.info_outline_rounded,
+                  color: _kAccent,
+                  size: 18,
+                ),
                 const SizedBox(width: 10),
                 const Expanded(
                   child: Text(
@@ -3061,7 +3195,9 @@ class _ChecklistFooterSection extends StatelessWidget {
                 const SizedBox(width: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 10),
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       colors: [_kAccent, _kAccent2],
@@ -3080,8 +3216,11 @@ class _ChecklistFooterSection extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 6),
-                      Icon(Icons.open_in_new_rounded,
-                          color: Colors.white, size: 14),
+                      Icon(
+                        Icons.open_in_new_rounded,
+                        color: Colors.white,
+                        size: 14,
+                      ),
                     ],
                   ),
                 ),
@@ -3093,18 +3232,12 @@ class _ChecklistFooterSection extends StatelessWidget {
             children: [
               Text(
                 "Generated by Atlas reviewer console",
-                style: TextStyle(
-                  color: _kTextDim,
-                  fontSize: 11.5,
-                ),
+                style: TextStyle(color: _kTextDim, fontSize: 11.5),
               ),
               const Spacer(),
               Text(
                 "Snapshot taken 2026-05-11 at 10:42 PDT",
-                style: TextStyle(
-                  color: _kTextDim,
-                  fontSize: 11.5,
-                ),
+                style: TextStyle(color: _kTextDim, fontSize: 11.5),
               ),
             ],
           ),
@@ -3113,8 +3246,7 @@ class _ChecklistFooterSection extends StatelessWidget {
     );
   }
 
-  Widget _checklistRow(
-      String label, String section, bool open, Color color) {
+  Widget _checklistRow(String label, String section, bool open, Color color) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -3129,9 +3261,7 @@ class _ChecklistFooterSection extends StatelessWidget {
             width: 22,
             height: 22,
             decoration: BoxDecoration(
-              color: open
-                  ? Colors.transparent
-                  : color.withValues(alpha: 0.4),
+              color: open ? Colors.transparent : color.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: color, width: 1.4),
             ),
@@ -3156,17 +3286,13 @@ class _ChecklistFooterSection extends StatelessWidget {
                 const SizedBox(height: 3),
                 Text(
                   section,
-                  style: const TextStyle(
-                    color: _kTextDim,
-                    fontSize: 11.5,
-                  ),
+                  style: const TextStyle(color: _kTextDim, fontSize: 11.5),
                 ),
               ],
             ),
           ),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(99),

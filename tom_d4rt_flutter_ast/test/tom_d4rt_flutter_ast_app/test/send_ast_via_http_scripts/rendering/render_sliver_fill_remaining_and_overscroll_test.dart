@@ -64,11 +64,7 @@ enum _Stage {
   verification,
 }
 
-enum _ChildMode {
-  staticCard,
-  internalList,
-  mixedStack,
-}
+enum _ChildMode { staticCard, internalList, mixedStack }
 
 dynamic build(BuildContext context) {
   return const _FillRemainingOverscrollStudio();
@@ -160,8 +156,11 @@ class _FillRemainingOverscrollStudioState
         children: [
           Row(
             children: [
-              const Icon(Icons.swap_vertical_circle_rounded,
-                  color: Colors.white, size: 27),
+              const Icon(
+                Icons.swap_vertical_circle_rounded,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -174,8 +173,10 @@ class _FillRemainingOverscrollStudioState
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -336,7 +337,8 @@ class _FillRemainingOverscrollStudioState
                     Checkbox(
                       value: _baseUseFill,
                       activeColor: _t.primary,
-                      onChanged: (v) => setState(() => _baseUseFill = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _baseUseFill = v ?? true),
                     ),
                     Text(
                       'Use SliverFillRemainingAndOverscroll',
@@ -380,9 +382,7 @@ class _FillRemainingOverscrollStudioState
                     CustomScrollView(
                       physics: const BouncingScrollPhysics(),
                       slivers: [
-                        SliverToBoxAdapter(
-                          child: _stageBanner('Lead section'),
-                        ),
+                        SliverToBoxAdapter(child: _stageBanner('Lead section')),
                         SliverList.builder(
                           itemCount: leadCount,
                           itemBuilder: (context, index) => _storyCard(
@@ -420,7 +420,10 @@ class _FillRemainingOverscrollStudioState
                         right: 8,
                         top: 8,
                         child: _metricChip(
-                            'mode', _baseUseFill ? 'fill' : 'normal', _t.secondary),
+                          'mode',
+                          _baseUseFill ? 'fill' : 'normal',
+                          _t.secondary,
+                        ),
                       ),
                   ],
                 ),
@@ -483,8 +486,8 @@ class _FillRemainingOverscrollStudioState
                     Checkbox(
                       value: _overShowElasticMarker,
                       activeColor: _t.secondary,
-                      onChanged: (v) => setState(
-                          () => _overShowElasticMarker = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _overShowElasticMarker = v ?? true),
                     ),
                     Text(
                       'Show elastic marker',
@@ -502,8 +505,11 @@ class _FillRemainingOverscrollStudioState
                       style: TextStyle(color: _t.ink, fontSize: 12),
                     ),
                     const Spacer(),
-                    _metricChip('stretch', _overStretchFactor.toStringAsFixed(2),
-                        _t.secondary),
+                    _metricChip(
+                      'stretch',
+                      _overStretchFactor.toStringAsFixed(2),
+                      _t.secondary,
+                    ),
                   ],
                 ),
               ],
@@ -512,7 +518,8 @@ class _FillRemainingOverscrollStudioState
           const SizedBox(height: 12),
           _card(
             title: 'Elastic Playground',
-            subtitle: 'Pull downward at top/bottom to inspect responsive fill behavior.',
+            subtitle:
+                'Pull downward at top/bottom to inspect responsive fill behavior.',
             tint: _t.secondary.withValues(alpha: 0.04),
             child: SizedBox(
               height: 560,
@@ -527,7 +534,9 @@ class _FillRemainingOverscrollStudioState
                     CustomScrollView(
                       physics: const BouncingScrollPhysics(),
                       slivers: [
-                        SliverToBoxAdapter(child: _stageBanner('Elastic lead lane')),
+                        SliverToBoxAdapter(
+                          child: _stageBanner('Elastic lead lane'),
+                        ),
                         SliverList.builder(
                           itemCount: lead,
                           itemBuilder: (context, index) => _storyCard(
@@ -551,7 +560,10 @@ class _FillRemainingOverscrollStudioState
                         right: 8,
                         top: 8,
                         child: _metricChip(
-                            'elastic h', stretchHeight.toStringAsFixed(0), _t.secondary),
+                          'elastic h',
+                          stretchHeight.toStringAsFixed(0),
+                          _t.secondary,
+                        ),
                       ),
                   ],
                 ),
@@ -565,9 +577,15 @@ class _FillRemainingOverscrollStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet('fillOverscroll allows the tail region to stretch into pull space.'),
-                _bullet('Great for playful empty states or call-to-action footers.'),
-                _bullet('Avoid over-complex heavy children if smooth pull is a priority.'),
+                _bullet(
+                  'fillOverscroll allows the tail region to stretch into pull space.',
+                ),
+                _bullet(
+                  'Great for playful empty states or call-to-action footers.',
+                ),
+                _bullet(
+                  'Avoid over-complex heavy children if smooth pull is a priority.',
+                ),
               ],
             ),
           ),
@@ -614,14 +632,21 @@ class _FillRemainingOverscrollStudioState
                       activeColor: _t.primary,
                       onChanged: (v) => setState(() => _headPinned = v ?? true),
                     ),
-                    Text('Pinned', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Pinned',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _headFloating,
                       activeColor: _t.secondary,
-                      onChanged: (v) => setState(() => _headFloating = v ?? false),
+                      onChanged: (v) =>
+                          setState(() => _headFloating = v ?? false),
                     ),
-                    Text('Floating', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Floating',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _headShowGuide,
@@ -629,7 +654,10 @@ class _FillRemainingOverscrollStudioState
                       onChanged: (v) =>
                           setState(() => _headShowGuide = v ?? true),
                     ),
-                    Text('Show guide', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Show guide',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _metricChip('lead', '$lead', _t.primary),
                   ],
@@ -661,8 +689,10 @@ class _FillRemainingOverscrollStudioState
                           expandedHeight: 120,
                           backgroundColor: _t.primary,
                           flexibleSpace: FlexibleSpaceBar(
-                            title: const Text('Narrative Header',
-                                style: TextStyle(fontSize: 13)),
+                            title: const Text(
+                              'Narrative Header',
+                              style: TextStyle(fontSize: 13),
+                            ),
                             background: Container(
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -776,7 +806,8 @@ class _FillRemainingOverscrollStudioState
           const SizedBox(height: 12),
           _card(
             title: 'Child Matrix View',
-            subtitle: 'How internal child behavior combines with fill/overscroll mechanics.',
+            subtitle:
+                'How internal child behavior combines with fill/overscroll mechanics.',
             tint: _t.secondary.withValues(alpha: 0.04),
             child: SizedBox(
               height: 560,
@@ -818,8 +849,12 @@ class _FillRemainingOverscrollStudioState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Static child: best for empty states and CTA panels.'),
-                _bullet('Internal list child: useful for nested feeds in remaining area.'),
-                _bullet('Mixed stack: good for hybrid forms and status + actions.'),
+                _bullet(
+                  'Internal list child: useful for nested feeds in remaining area.',
+                ),
+                _bullet(
+                  'Mixed stack: good for hybrid forms and status + actions.',
+                ),
               ],
             ),
           ),
@@ -876,8 +911,14 @@ class _FillRemainingOverscrollStudioState
           child: Column(
             children: [
               const SizedBox(height: 12),
-              _miniPanel('Status: Waiting for user action', Icons.notifications_active),
-              _miniPanel('Tip: Pull further to preview stretch', Icons.touch_app),
+              _miniPanel(
+                'Status: Waiting for user action',
+                Icons.notifications_active,
+              ),
+              _miniPanel(
+                'Tip: Pull further to preview stretch',
+                Icons.touch_app,
+              ),
               _miniPanel('Next: Submit or dismiss', Icons.task_alt),
               const Spacer(),
               Container(
@@ -989,7 +1030,11 @@ class _FillRemainingOverscrollStudioState
                       style: TextStyle(color: _t.ink, fontSize: 12),
                     ),
                     const Spacer(),
-                    _metricChip('lead', _simLead.toStringAsFixed(0), _t.secondary),
+                    _metricChip(
+                      'lead',
+                      _simLead.toStringAsFixed(0),
+                      _t.secondary,
+                    ),
                   ],
                 ),
               ],
@@ -1017,7 +1062,9 @@ class _FillRemainingOverscrollStudioState
               children: [
                 _bullet('Short viewports show fill transition quickly.'),
                 _bullet('Medium viewports reveal balanced lead/fill behavior.'),
-                _bullet('Tall viewports emphasize empty-space occupancy and pull stretch.'),
+                _bullet(
+                  'Tall viewports emphasize empty-space occupancy and pull stretch.',
+                ),
               ],
             ),
           ),
@@ -1130,8 +1177,7 @@ class _FillRemainingOverscrollStudioState
                 _doDont(
                   good: true,
                   title: 'Tune hasScrollBody based on child behavior',
-                  detail:
-                      'Choose static panel vs nested scroll intentionally.',
+                  detail: 'Choose static panel vs nested scroll intentionally.',
                 ),
                 _doDont(
                   good: false,
@@ -1150,22 +1196,26 @@ class _FillRemainingOverscrollStudioState
               children: [
                 _qa(
                   q: 'How is this different from SliverFillRemaining?',
-                  a: 'It supports fill into overscroll space when configured, '
+                  a:
+                      'It supports fill into overscroll space when configured, '
                       'making pull gestures visually coherent.',
                 ),
                 _qa(
                   q: 'Should child always be non-scrollable?',
-                  a: 'No. Choose based on UX. Non-scrollable for static CTA panels; '
+                  a:
+                      'No. Choose based on UX. Non-scrollable for static CTA panels; '
                       'scrollable for rich internal content.',
                 ),
                 _qa(
                   q: 'Does it work with pinned headers above?',
-                  a: 'Yes. It is often used after app bars or section headers '
+                  a:
+                      'Yes. It is often used after app bars or section headers '
                       'to complete the page composition.',
                 ),
                 _qa(
                   q: 'Can it be used in short pages only?',
-                  a: 'It is most visible there, but also useful in tall layouts '
+                  a:
+                      'It is most visible there, but also useful in tall layouts '
                       'where adaptive footers are desired.',
                 ),
               ],
@@ -1178,11 +1228,21 @@ class _FillRemainingOverscrollStudioState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check('Baseline comparison between normal tail and fill overscroll tail.'),
-                _check('Interactive overscroll elasticity lab with stretch factor.'),
-                _check('Header + fill scenario showing realistic scroll narrative.'),
-                _check('Child mode matrix covering static, internal, and mixed strategies.'),
-                _check('Viewport simulator across short, medium, and tall shells.'),
+                _check(
+                  'Baseline comparison between normal tail and fill overscroll tail.',
+                ),
+                _check(
+                  'Interactive overscroll elasticity lab with stretch factor.',
+                ),
+                _check(
+                  'Header + fill scenario showing realistic scroll narrative.',
+                ),
+                _check(
+                  'Child mode matrix covering static, internal, and mixed strategies.',
+                ),
+                _check(
+                  'Viewport simulator across short, medium, and tall shells.',
+                ),
                 _check('Guide includes matrix, dos/donts, FAQ, and checklist.'),
               ],
             ),
@@ -1260,11 +1320,7 @@ class _FillRemainingOverscrollStudioState
             child: Text(
               detail,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: _t.muted,
-                fontSize: 12.2,
-                height: 1.35,
-              ),
+              style: TextStyle(color: _t.muted, fontSize: 12.2, height: 1.35),
             ),
           ),
         ],
@@ -1288,7 +1344,11 @@ class _FillRemainingOverscrollStudioState
       child: Column(
         children: [
           const SizedBox(height: 12),
-          _metricChip('stretch target', stretchHeight.toStringAsFixed(0), _t.secondary),
+          _metricChip(
+            'stretch target',
+            stretchHeight.toStringAsFixed(0),
+            _t.secondary,
+          ),
           const SizedBox(height: 10),
           Container(
             height: stretchHeight,
@@ -1376,11 +1436,7 @@ class _FillRemainingOverscrollStudioState
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
-              color: _t.muted,
-              fontSize: 11.2,
-              height: 1.3,
-            ),
+            style: TextStyle(color: _t.muted, fontSize: 11.2, height: 1.3),
           ),
         ],
       ),
@@ -1397,7 +1453,11 @@ class _FillRemainingOverscrollStudioState
       ),
       child: Row(
         children: [
-          Icon(Icons.vertical_align_bottom_rounded, color: _t.primary, size: 16),
+          Icon(
+            Icons.vertical_align_bottom_rounded,
+            color: _t.primary,
+            size: 16,
+          ),
           const SizedBox(width: 8),
           Text(
             text,
@@ -1516,8 +1576,11 @@ class _FillRemainingOverscrollStudioState
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel,
-              color: color, size: 18),
+          Icon(
+            good ? Icons.check_circle : Icons.cancel,
+            color: color,
+            size: 18,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1532,10 +1595,7 @@ class _FillRemainingOverscrollStudioState
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  detail,
-                  style: TextStyle(color: _t.muted, fontSize: 11.3),
-                ),
+                Text(detail, style: TextStyle(color: _t.muted, fontSize: 11.3)),
               ],
             ),
           ),
@@ -1583,10 +1643,7 @@ class _FillRemainingOverscrollStudioState
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _t.ink, fontSize: 12),
-            ),
+            child: Text(text, style: TextStyle(color: _t.ink, fontSize: 12)),
           ),
         ],
       ),
@@ -1675,10 +1732,7 @@ class _FillRemainingOverscrollStudioState
             ),
           ),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(color: _t.muted, fontSize: 11.5),
-          ),
+          Text(subtitle, style: TextStyle(color: _t.muted, fontSize: 11.5)),
           const SizedBox(height: 10),
           child,
         ],

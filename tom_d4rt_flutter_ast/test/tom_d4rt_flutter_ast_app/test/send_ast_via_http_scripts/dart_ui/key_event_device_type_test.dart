@@ -13,10 +13,12 @@ class _KeyEventDeviceTypeDeepDemoPage extends StatefulWidget {
   const _KeyEventDeviceTypeDeepDemoPage();
 
   @override
-  State<_KeyEventDeviceTypeDeepDemoPage> createState() => _KeyEventDeviceTypeDeepDemoPageState();
+  State<_KeyEventDeviceTypeDeepDemoPage> createState() =>
+      _KeyEventDeviceTypeDeepDemoPageState();
 }
 
-class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeepDemoPage> {
+class _KeyEventDeviceTypeDeepDemoPageState
+    extends State<_KeyEventDeviceTypeDeepDemoPage> {
   final List<String> _passed = <String>[];
   final List<String> _failed = <String>[];
   final List<String> _notes = <String>[];
@@ -37,9 +39,21 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
   double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
-    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
-    <Color>[const Color(0xFF312E81), const Color(0xFF4F46E5), const Color(0xFF22D3EE)],
-    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
+    <Color>[
+      const Color(0xFF0B132B),
+      const Color(0xFF1C2541),
+      const Color(0xFF5BC0BE),
+    ],
+    <Color>[
+      const Color(0xFF312E81),
+      const Color(0xFF4F46E5),
+      const Color(0xFF22D3EE),
+    ],
+    <Color>[
+      const Color(0xFF064E3B),
+      const Color(0xFF047857),
+      const Color(0xFF34D399),
+    ],
   ];
 
   @override
@@ -201,11 +215,26 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       }
     }
 
-    probe('values contains exactly five device categories', ui.KeyEventDeviceType.values.length == 5);
-    probe('keyboard index is stable at 0', ui.KeyEventDeviceType.keyboard.index == 0);
-    probe('directionalPad index is stable at 1', ui.KeyEventDeviceType.directionalPad.index == 1);
-    probe('gamepad index is stable at 2', ui.KeyEventDeviceType.gamepad.index == 2);
-    probe('joystick index is stable at 3', ui.KeyEventDeviceType.joystick.index == 3);
+    probe(
+      'values contains exactly five device categories',
+      ui.KeyEventDeviceType.values.length == 5,
+    );
+    probe(
+      'keyboard index is stable at 0',
+      ui.KeyEventDeviceType.keyboard.index == 0,
+    );
+    probe(
+      'directionalPad index is stable at 1',
+      ui.KeyEventDeviceType.directionalPad.index == 1,
+    );
+    probe(
+      'gamepad index is stable at 2',
+      ui.KeyEventDeviceType.gamepad.index == 2,
+    );
+    probe(
+      'joystick index is stable at 3',
+      ui.KeyEventDeviceType.joystick.index == 3,
+    );
     probe('hdmi index is stable at 4', ui.KeyEventDeviceType.hdmi.index == 4);
 
     final ui.KeyData defaultDevice = ui.KeyData(
@@ -216,8 +245,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       character: null,
       synthesized: false,
     );
-    probe('KeyData default deviceType resolves to keyboard',
-        defaultDevice.deviceType == ui.KeyEventDeviceType.keyboard);
+    probe(
+      'KeyData default deviceType resolves to keyboard',
+      defaultDevice.deviceType == ui.KeyEventDeviceType.keyboard,
+    );
 
     final ui.KeyData joystickData = ui.KeyData(
       timeStamp: const Duration(milliseconds: 1),
@@ -228,12 +259,19 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       synthesized: true,
       deviceType: ui.KeyEventDeviceType.joystick,
     );
-    probe('KeyData preserves explicitly selected deviceType',
-        joystickData.deviceType == ui.KeyEventDeviceType.joystick);
+    probe(
+      'KeyData preserves explicitly selected deviceType',
+      joystickData.deviceType == ui.KeyEventDeviceType.joystick,
+    );
 
-    probe('enum toString includes value name',
-        ui.KeyEventDeviceType.gamepad.toString().contains('gamepad'));
-    probe('summary string can be formed', '${_passed.length + _failed.length} checks'.endsWith('checks'));
+    probe(
+      'enum toString includes value name',
+      ui.KeyEventDeviceType.gamepad.toString().contains('gamepad'),
+    );
+    probe(
+      'summary string can be formed',
+      '${_passed.length + _failed.length} checks'.endsWith('checks'),
+    );
 
     setState(() {});
   }
@@ -247,7 +285,11 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
         gradient: LinearGradient(colors: colors),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: colors[1].withAlpha(92), blurRadius: 16, offset: const Offset(0, 8)),
+          BoxShadow(
+            color: colors[1].withAlpha(92),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
         ],
       ),
       child: const Column(
@@ -255,7 +297,11 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
         children: <Widget>[
           Text(
             'KeyEventDeviceType Studio',
-            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           SizedBox(height: 8),
           Text(
@@ -293,7 +339,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -320,7 +369,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+              Text(
+                title,
+                style: TextStyle(color: color, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 4),
               Text(body, style: const TextStyle(fontSize: 12)),
             ],
@@ -333,14 +385,30 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card('Source taxonomy', 'Distinguishes input origin families for robust handlers.',
-              Icons.category, const Color(0xFF1D4ED8)),
-          card('Routing logic', 'Device class can map signals to mode-specific commands.',
-              Icons.route, const Color(0xFF0F766E)),
-          card('Diagnostics', 'Useful for telemetry and interoperability debugging.',
-              Icons.analytics, const Color(0xFF7C3AED)),
-          card('Interpreter tests', 'Validates enum transfer across bridge boundaries.',
-              Icons.integration_instructions, const Color(0xFFB45309)),
+          card(
+            'Source taxonomy',
+            'Distinguishes input origin families for robust handlers.',
+            Icons.category,
+            const Color(0xFF1D4ED8),
+          ),
+          card(
+            'Routing logic',
+            'Device class can map signals to mode-specific commands.',
+            Icons.route,
+            const Color(0xFF0F766E),
+          ),
+          card(
+            'Diagnostics',
+            'Useful for telemetry and interoperability debugging.',
+            Icons.analytics,
+            const Color(0xFF7C3AED),
+          ),
+          card(
+            'Interpreter tests',
+            'Validates enum transfer across bridge boundaries.',
+            Icons.integration_instructions,
+            const Color(0xFFB45309),
+          ),
         ],
       ),
     );
@@ -375,9 +443,16 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
                       : <Color>[color.withAlpha(120), color.withAlpha(65)],
                 ),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: selected ? Colors.white : color.withAlpha(90), width: selected ? 2.2 : 1),
+                border: Border.all(
+                  color: selected ? Colors.white : color.withAlpha(90),
+                  width: selected ? 2.2 : 1,
+                ),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: color.withAlpha(90), blurRadius: 10, offset: const Offset(0, 4)),
+                  BoxShadow(
+                    color: color.withAlpha(90),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
                 ],
               ),
               child: Column(
@@ -387,13 +462,22 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
                   const SizedBox(height: 8),
                   Text(
                     _deviceName(d),
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14.5),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.5,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text('enum index ${d.index}', style: const TextStyle(color: Colors.white, fontSize: 12)),
+                  Text(
+                    'enum index ${d.index}',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                   const SizedBox(height: 4),
-                  Text(selected ? 'Selected profile' : 'Tap to activate',
-                      style: const TextStyle(color: Colors.white, fontSize: 11.4)),
+                  Text(
+                    selected ? 'Selected profile' : 'Tap to activate',
+                    style: const TextStyle(color: Colors.white, fontSize: 11.4),
+                  ),
                 ],
               ),
             ),
@@ -415,7 +499,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Signal controls', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Signal controls',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           DropdownButton<ui.KeyEventType>(
             value: _phase,
@@ -450,7 +537,8 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
             min: 0,
             max: 1,
             divisions: 100,
-            onChanged: (double value) => setState(() => _signalStrength = value),
+            onChanged: (double value) =>
+                setState(() => _signalStrength = value),
           ),
           Text('Latency: ${_latencyMs.round()} ms'),
           Slider(
@@ -483,7 +571,8 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
               FilterChip(
                 label: const Text('synthesized'),
                 selected: _synthesized,
-                onSelected: (bool value) => setState(() => _synthesized = value),
+                onSelected: (bool value) =>
+                    setState(() => _synthesized = value),
               ),
               FilterChip(
                 label: const Text('show grid'),
@@ -565,7 +654,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('KeyData integration preview', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'KeyData integration preview',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -605,11 +697,41 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
 
   Widget _matrixPanel() {
     final List<_MatrixRow> rows = <_MatrixRow>[
-      _MatrixRow('Keyboard', 'Text entry, shortcuts', 'High', 'Stable matrix codes', 'Desktop, laptop'),
-      _MatrixRow('Directional Pad', 'Menu navigation', 'Medium', 'Directional focus movement', 'TV remotes'),
-      _MatrixRow('Gamepad', 'Action controls', 'High', 'Button semantics vary per vendor', 'Consoles, Android TV'),
-      _MatrixRow('Joystick', 'Axis-centric controls', 'Medium', 'Often mapped to repeat events', 'Arcade setups'),
-      _MatrixRow('HDMI', 'External transport', 'Low', 'Dependent on intermediary devices', 'Set-top chains'),
+      _MatrixRow(
+        'Keyboard',
+        'Text entry, shortcuts',
+        'High',
+        'Stable matrix codes',
+        'Desktop, laptop',
+      ),
+      _MatrixRow(
+        'Directional Pad',
+        'Menu navigation',
+        'Medium',
+        'Directional focus movement',
+        'TV remotes',
+      ),
+      _MatrixRow(
+        'Gamepad',
+        'Action controls',
+        'High',
+        'Button semantics vary per vendor',
+        'Consoles, Android TV',
+      ),
+      _MatrixRow(
+        'Joystick',
+        'Axis-centric controls',
+        'Medium',
+        'Often mapped to repeat events',
+        'Arcade setups',
+      ),
+      _MatrixRow(
+        'HDMI',
+        'External transport',
+        'Low',
+        'Dependent on intermediary devices',
+        'Set-top chains',
+      ),
     ];
 
     return Container(
@@ -623,7 +745,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Device compatibility matrix', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Device compatibility matrix',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           Table(
             border: TableBorder.all(color: const Color(0xFFE2E8F0)),
@@ -638,11 +763,56 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
               const TableRow(
                 decoration: BoxDecoration(color: Color(0xFFF1F5F9)),
                 children: <Widget>[
-                  Padding(padding: EdgeInsets.all(8), child: Text('Device', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Typical use', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Noise', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Notes', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Platform fit', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Device',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Typical use',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Noise',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Notes',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      'Platform fit',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               ...rows.map((row) => row.toRow()),
@@ -665,7 +835,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Signal routing canvas', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Signal routing canvas',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -707,7 +880,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Signal event stream', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Signal event stream',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -716,7 +892,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
                 ? const Center(
                     child: Text(
                       'No signals yet. Append one from the control panel.',
-                      style: TextStyle(fontSize: 12.3, color: Color(0xFF64748B)),
+                      style: TextStyle(
+                        fontSize: 12.3,
+                        color: Color(0xFF64748B),
+                      ),
                     ),
                   )
                 : ListView.builder(
@@ -738,10 +917,16 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
                               width: 24,
                               height: 24,
                               alignment: Alignment.center,
-                              decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: color,
+                              ),
                               child: Text(
                                 '${index + 1}',
-                                style: const TextStyle(color: Colors.white, fontSize: 11),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 11,
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),
@@ -768,7 +953,9 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
 
   Widget _probePanel() {
     Widget probeLine(String text, bool ok) {
-      final Color color = ok ? const Color(0xFF15803D) : const Color(0xFFB91C1C);
+      final Color color = ok
+          ? const Color(0xFF15803D)
+          : const Color(0xFFB91C1C);
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 3),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -779,7 +966,11 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
         ),
         child: Row(
           children: <Widget>[
-            Icon(ok ? Icons.check_circle : Icons.cancel, color: color, size: 18),
+            Icon(
+              ok ? Icons.check_circle : Icons.cancel,
+              color: color,
+              size: 18,
+            ),
             const SizedBox(width: 8),
             Expanded(child: Text(text, style: const TextStyle(fontSize: 12.2))),
           ],
@@ -798,7 +989,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Runtime probe dashboard',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -821,7 +1015,10 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Interaction notes', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Interaction notes',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           Container(
             height: 180,
@@ -835,8 +1032,14 @@ class _KeyEventDeviceTypeDeepDemoPageState extends State<_KeyEventDeviceTypeDeep
               itemCount: _notes.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    _notes[index],
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 );
               },
             ),
@@ -973,7 +1176,13 @@ class _SignalEntry {
 }
 
 class _MatrixRow {
-  const _MatrixRow(this.device, this.useCase, this.noise, this.notes, this.platform);
+  const _MatrixRow(
+    this.device,
+    this.useCase,
+    this.noise,
+    this.notes,
+    this.platform,
+  );
 
   final String device;
   final String useCase;
@@ -1081,14 +1290,22 @@ class _RoutingPainter extends CustomPainter {
 
     final Offset p1 = Offset.lerp(source, normalize, pulse) ?? source;
     final Offset p2 = Offset.lerp(normalize, route, pulse) ?? normalize;
-    canvas.drawCircle(p1, 5 + strength * 3, Paint()..color = const Color(0xFF0EA5E9));
-    canvas.drawCircle(p2, 5 + strength * 3, Paint()..color = const Color(0xFF22C55E));
+    canvas.drawCircle(
+      p1,
+      5 + strength * 3,
+      Paint()..color = const Color(0xFF0EA5E9),
+    );
+    canvas.drawCircle(
+      p2,
+      5 + strength * 3,
+      Paint()..color = const Color(0xFF22C55E),
+    );
 
     final String phaseName = phase == ui.KeyEventType.down
         ? 'down'
         : phase == ui.KeyEventType.up
-            ? 'up'
-            : 'repeat';
+        ? 'up'
+        : 'repeat';
     final TextPainter legend = TextPainter(
       text: TextSpan(
         text: 'phase: $phaseName  strength: ${strength.toStringAsFixed(2)}',

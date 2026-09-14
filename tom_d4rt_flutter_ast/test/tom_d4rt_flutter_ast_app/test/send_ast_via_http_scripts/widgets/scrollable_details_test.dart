@@ -263,8 +263,7 @@ class _LaboratoryState extends State<_Laboratory> {
 
               LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
-                  final double cardWidth =
-                      (constraints.maxWidth - 16) / 2;
+                  final double cardWidth = (constraints.maxWidth - 16) / 2;
                   return Wrap(
                     spacing: 16,
                     runSpacing: 16,
@@ -317,8 +316,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails(
-                                      direction: AxisDirection.down,
-                                    );
+                                          direction: AxisDirection.down,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -390,8 +389,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails(
-                                      direction: AxisDirection.up,
-                                    );
+                                          direction: AxisDirection.up,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -463,8 +462,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails(
-                                      direction: AxisDirection.right,
-                                    );
+                                          direction: AxisDirection.right,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -536,8 +535,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails(
-                                      direction: AxisDirection.left,
-                                    );
+                                          direction: AxisDirection.left,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -592,8 +591,7 @@ class _LaboratoryState extends State<_Laboratory> {
               ),
               LayoutBuilder(
                 builder: (BuildContext ctx, BoxConstraints constraints) {
-                  final double cardWidth =
-                      (constraints.maxWidth - 16) / 2;
+                  final double cardWidth = (constraints.maxWidth - 16) / 2;
                   return Wrap(
                     spacing: 16,
                     runSpacing: 16,
@@ -636,8 +634,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails.vertical(
-                                      reverse: true,
-                                    );
+                                          reverse: true,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -708,8 +706,8 @@ class _LaboratoryState extends State<_Laboratory> {
                                   builder: (BuildContext c) {
                                     const ScrollableDetails details =
                                         ScrollableDetails.horizontal(
-                                      reverse: true,
-                                    );
+                                          reverse: true,
+                                        );
                                     return _buildNumberedScrollable(
                                       details,
                                       tileColors,
@@ -841,12 +839,11 @@ class _LaboratoryState extends State<_Laboratory> {
                                 builder: (BuildContext c) {
                                   final ScrollableDetails details =
                                       ScrollableDetails(
-                                    direction: _liveDir,
-                                    controller: _liveController,
-                                    physics:
-                                        const BouncingScrollPhysics(),
-                                    decorationClipBehavior: Clip.hardEdge,
-                                  );
+                                        direction: _liveDir,
+                                        controller: _liveController,
+                                        physics: const BouncingScrollPhysics(),
+                                        decorationClipBehavior: Clip.hardEdge,
+                                      );
                                   return _buildNumberedScrollable(
                                     details,
                                     tileColors,
@@ -873,8 +870,7 @@ class _LaboratoryState extends State<_Laboratory> {
                                 height: 1.5,
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   const Text(
                                     'ScrollableDetails',
@@ -890,9 +886,7 @@ class _LaboratoryState extends State<_Laboratory> {
                                     'reverse:   '
                                     '${_reverseFromDirection(_liveDir)}',
                                   ),
-                                  const Text(
-                                    'clip:      Clip.hardEdge',
-                                  ),
+                                  const Text('clip:      Clip.hardEdge'),
                                   const Text(
                                     'physics:   BouncingScrollPhysics',
                                   ),
@@ -903,8 +897,7 @@ class _LaboratoryState extends State<_Laboratory> {
                                   const SizedBox(height: 10),
                                   Container(
                                     height: 1,
-                                    color: Colors.white
-                                        .withValues(alpha: 0.15),
+                                    color: Colors.white.withValues(alpha: 0.15),
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
@@ -993,9 +986,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.right,
-                                  decorationClipBehavior: Clip.none,
-                                );
+                                      direction: AxisDirection.right,
+                                      decorationClipBehavior: Clip.none,
+                                    );
                                 return _buildOversizedScrollable(details);
                               },
                             ),
@@ -1004,10 +997,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'No clipping — painted content can bleed.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1053,9 +1043,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.right,
-                                  decorationClipBehavior: Clip.hardEdge,
-                                );
+                                      direction: AxisDirection.right,
+                                      decorationClipBehavior: Clip.hardEdge,
+                                    );
                                 return _buildOversizedScrollable(details);
                               },
                             ),
@@ -1064,10 +1054,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'Rectangular pixel clip — cheap and crisp.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1113,9 +1100,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.right,
-                                  decorationClipBehavior: Clip.antiAlias,
-                                );
+                                      direction: AxisDirection.right,
+                                      decorationClipBehavior: Clip.antiAlias,
+                                    );
                                 return _buildOversizedScrollable(details);
                               },
                             ),
@@ -1124,10 +1111,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'Smoothed edges — more costly, prettier corners.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1206,10 +1190,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.down,
-                                  physics:
-                                      NeverScrollableScrollPhysics(),
-                                );
+                                      direction: AxisDirection.down,
+                                      physics: NeverScrollableScrollPhysics(),
+                                    );
                                 return _buildNumberedScrollable(
                                   details,
                                   tileColors,
@@ -1221,10 +1204,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'Scroll rejected — viewport locked.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1271,9 +1251,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.down,
-                                  physics: BouncingScrollPhysics(),
-                                );
+                                      direction: AxisDirection.down,
+                                      physics: BouncingScrollPhysics(),
+                                    );
                                 return _buildNumberedScrollable(
                                   details,
                                   tileColors,
@@ -1285,10 +1265,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'iOS-style spring overscroll.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1335,9 +1312,9 @@ class _LaboratoryState extends State<_Laboratory> {
                               builder: (BuildContext c) {
                                 const ScrollableDetails details =
                                     ScrollableDetails(
-                                  direction: AxisDirection.down,
-                                  physics: ClampingScrollPhysics(),
-                                );
+                                      direction: AxisDirection.down,
+                                      physics: ClampingScrollPhysics(),
+                                    );
                                 return _buildNumberedScrollable(
                                   details,
                                   tileColors,
@@ -1349,10 +1326,7 @@ class _LaboratoryState extends State<_Laboratory> {
                             padding: EdgeInsets.all(8),
                             child: Text(
                               'Android-style glow clamp.',
-                              style: TextStyle(
-                                color: _kSoftInk,
-                                fontSize: 11,
-                              ),
+                              style: TextStyle(color: _kSoftInk, fontSize: 11),
                             ),
                           ),
                         ],
@@ -1398,11 +1372,7 @@ class _LaboratoryState extends State<_Laboratory> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Icon(
-                                Icons.schedule,
-                                color: _kPrimary,
-                                size: 18,
-                              ),
+                              Icon(Icons.schedule, color: _kPrimary, size: 18),
                               SizedBox(width: 6),
                               Text(
                                 'When',
@@ -1685,10 +1655,7 @@ class _LaboratoryState extends State<_Laboratory> {
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF0E9488),
-                      Color(0xFF14B8A6),
-                    ],
+                    colors: <Color>[Color(0xFF0E9488), Color(0xFF14B8A6)],
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -1777,47 +1744,44 @@ Widget _buildNumberedScrollable(
       SliverPadding(
         padding: const EdgeInsets.all(8),
         sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext c, int i) {
-              final Color color = palette[i % palette.length];
-              if (axis == Axis.horizontal) {
-                return Container(
-                  width: 52,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.85),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '$i',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                );
-              }
+          delegate: SliverChildBuilderDelegate((BuildContext c, int i) {
+            final Color color = palette[i % palette.length];
+            if (axis == Axis.horizontal) {
               return Container(
-                height: 36,
-                margin: const EdgeInsets.symmetric(vertical: 3),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: 52,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.85),
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Text(
-                  'tile $i',
+                  '$i',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               );
-            },
-            childCount: 18,
-          ),
+            }
+            return Container(
+              height: 36,
+              margin: const EdgeInsets.symmetric(vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'tile $i',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            );
+          }, childCount: 18),
         ),
       ),
     ],
@@ -1940,9 +1904,7 @@ Widget _fieldRow(
             )
           : null,
       border: Border(
-        bottom: BorderSide(
-          color: last ? Colors.transparent : _kPanelEdge,
-        ),
+        bottom: BorderSide(color: last ? Colors.transparent : _kPanelEdge),
       ),
     ),
     child: Row(

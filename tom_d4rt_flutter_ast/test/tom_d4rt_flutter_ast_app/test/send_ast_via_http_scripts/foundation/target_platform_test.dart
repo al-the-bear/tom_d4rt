@@ -237,11 +237,7 @@ Widget _buildHeroCard(BuildContext context) {
                 child: Text(
                   'What Flutter adapts for you: '
                   '${_platformAdaptSummary(current)}',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: tint,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 13, color: tint, height: 1.4),
                 ),
               ),
             ],
@@ -399,10 +395,7 @@ Widget _galleryCard(TargetPlatform p) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -485,12 +478,7 @@ Widget _galleryRowLabel(String text, TargetPlatform p) {
   );
 }
 
-Widget _navBarFor(
-  TargetPlatform p,
-  Color tint,
-  Color soft,
-  bool cupertino,
-) {
+Widget _navBarFor(TargetPlatform p, Color tint, Color soft, bool cupertino) {
   if (cupertino) {
     return Container(
       decoration: BoxDecoration(
@@ -501,10 +489,7 @@ Widget _navBarFor(
         borderRadius: BorderRadius.circular(8),
         child: CupertinoNavigationBar(
           backgroundColor: soft,
-          middle: Text(
-            '${p.name} title',
-            style: TextStyle(color: tint),
-          ),
+          middle: Text('${p.name} title', style: TextStyle(color: tint)),
           leading: Icon(CupertinoIcons.back, color: tint),
           trailing: Icon(CupertinoIcons.add, color: tint),
         ),
@@ -537,18 +522,12 @@ Widget _buttonsFor(bool cupertino, Color tint) {
       runSpacing: 8,
       children: [
         CupertinoButton.filled(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 6,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           onPressed: () {},
           child: const Text('Filled'),
         ),
         CupertinoButton(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 6,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           onPressed: () {},
           child: Text('Plain', style: TextStyle(color: tint)),
         ),
@@ -588,33 +567,17 @@ Widget _switchesFor(bool cupertino, Color tint) {
   if (cupertino) {
     return Row(
       children: [
-        CupertinoSwitch(
-          value: true,
-          activeColor: tint,
-          onChanged: (_) {},
-        ),
+        CupertinoSwitch(value: true, activeColor: tint, onChanged: (_) {}),
         const SizedBox(width: 8),
-        CupertinoSwitch(
-          value: false,
-          activeColor: tint,
-          onChanged: (_) {},
-        ),
+        CupertinoSwitch(value: false, activeColor: tint, onChanged: (_) {}),
       ],
     );
   }
   return Row(
     children: [
-      Switch(
-        value: true,
-        activeColor: tint,
-        onChanged: (_) {},
-      ),
+      Switch(value: true, activeColor: tint, onChanged: (_) {}),
       const SizedBox(width: 8),
-      Switch(
-        value: false,
-        activeColor: tint,
-        onChanged: (_) {},
-      ),
+      Switch(value: false, activeColor: tint, onChanged: (_) {}),
     ],
   );
 }
@@ -623,20 +586,12 @@ Widget _slidersFor(bool cupertino, Color tint) {
   if (cupertino) {
     return SizedBox(
       width: 240,
-      child: CupertinoSlider(
-        value: 0.4,
-        activeColor: tint,
-        onChanged: (_) {},
-      ),
+      child: CupertinoSlider(value: 0.4, activeColor: tint, onChanged: (_) {}),
     );
   }
   return SizedBox(
     width: 240,
-    child: Slider(
-      value: 0.4,
-      activeColor: tint,
-      onChanged: (_) {},
-    ),
+    child: Slider(value: 0.4, activeColor: tint, onChanged: (_) {}),
   );
 }
 
@@ -659,20 +614,13 @@ Widget _dialogActionsFor(bool cupertino, Color tint) {
               style: TextStyle(color: CupertinoColors.systemRed),
             ),
           ),
-          Container(
-            width: 1,
-            height: 18,
-            color: const Color(0xFFD1D1D6),
-          ),
+          Container(width: 1, height: 18, color: const Color(0xFFD1D1D6)),
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {},
             child: Text(
               'Confirm',
-              style: TextStyle(
-                color: tint,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(color: tint, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -746,10 +694,7 @@ Widget _scrollPhysicsFor(
                   ),
                   child: Text(
                     '$i',
-                    style: TextStyle(
-                      color: tint,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(color: tint, fontWeight: FontWeight.bold),
                   ),
                 ),
             ],
@@ -843,10 +788,7 @@ Widget _branchingPanel(
         ),
         Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 11,
-            color: Color(0xFF1976D2),
-          ),
+          style: const TextStyle(fontSize: 11, color: Color(0xFF1976D2)),
         ),
         const SizedBox(height: 10),
         Container(
@@ -951,10 +893,7 @@ Widget _routePreviewFor(TargetPlatform p) {
             child: Text(
               'CupertinoPageRoute — slides from the right with a parallax '
               'on the previous page. Edge-swipe pops back.',
-              style: TextStyle(
-                fontSize: 11,
-                color: _platformTint(p),
-              ),
+              style: TextStyle(fontSize: 11, color: _platformTint(p)),
             ),
           ),
         ],
@@ -970,20 +909,13 @@ Widget _routePreviewFor(TargetPlatform p) {
     ),
     child: Row(
       children: [
-        Icon(
-          Icons.swap_vert,
-          size: 16,
-          color: _platformTint(p),
-        ),
+        Icon(Icons.swap_vert, size: 16, color: _platformTint(p)),
         const SizedBox(width: 6),
         Expanded(
           child: Text(
             'MaterialPageRoute — fades and slides up. System back '
             'gesture pops it.',
-            style: TextStyle(
-              fontSize: 11,
-              color: _platformTint(p),
-            ),
+            style: TextStyle(fontSize: 11, color: _platformTint(p)),
           ),
         ),
       ],
@@ -1052,10 +984,7 @@ Widget _gesturePreviewFor(TargetPlatform p) {
           cupertino
               ? 'iOS-style chevron with label, edge-swipe enabled.'
               : 'Material arrow icon, system back button intercepts.',
-          style: TextStyle(
-            fontSize: 11,
-            color: _platformTint(p),
-          ),
+          style: TextStyle(fontSize: 11, color: _platformTint(p)),
         ),
       ),
     ],
@@ -1107,8 +1036,8 @@ Widget _buildThemeVsDefault(BuildContext context) {
                 themePlatform,
                 themeTint,
                 'Use this when widgets should react to theme overrides — '
-                'e.g. inside a Theme(data: ThemeData(platform: ...)) wrapper. '
-                'Most Material widgets read this.',
+                    'e.g. inside a Theme(data: ThemeData(platform: ...)) wrapper. '
+                    'Most Material widgets read this.',
               ),
             ),
             const SizedBox(width: 12),
@@ -1118,8 +1047,8 @@ Widget _buildThemeVsDefault(BuildContext context) {
                 defaultPlatform,
                 defaultTint,
                 'Use this for code that lives outside the widget tree '
-                '(services, state, controllers) where no BuildContext is '
-                'available. Ignores Theme overrides.',
+                    '(services, state, controllers) where no BuildContext is '
+                    'available. Ignores Theme overrides.',
               ),
             ),
           ],
@@ -1134,20 +1063,17 @@ Widget _buildThemeVsDefault(BuildContext context) {
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.compare_arrows,
-                color: Color(0xFF6A1B9A),
-              ),
+              const Icon(Icons.compare_arrows, color: Color(0xFF6A1B9A)),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   themePlatform == defaultPlatform
                       ? 'Both currently agree on ${themePlatform.name}. '
-                          'No theme override is in effect for this subtree.'
+                            'No theme override is in effect for this subtree.'
                       : 'Mismatch! Theme reports ${themePlatform.name} '
-                          'while defaultTargetPlatform is '
-                          '${defaultPlatform.name} — a Theme override is '
-                          'reshaping this subtree.',
+                            'while defaultTargetPlatform is '
+                            '${defaultPlatform.name} — a Theme override is '
+                            'reshaping this subtree.',
                   style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xFF4A148C),
@@ -1188,10 +1114,7 @@ Widget _themeComparePanel(
         ),
         const SizedBox(height: 6),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 5,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: tint,
             borderRadius: BorderRadius.circular(20),
@@ -1208,11 +1131,7 @@ Widget _themeComparePanel(
         const SizedBox(height: 8),
         Text(
           guidance,
-          style: TextStyle(
-            fontSize: 11,
-            color: tint,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 11, color: tint, height: 1.35),
         ),
       ],
     ),
@@ -1252,8 +1171,7 @@ Widget _buildEnumReference(BuildContext context) {
         const SizedBox(height: 12),
         _enumHeaderRow(),
         const SizedBox(height: 4),
-        for (final TargetPlatform p in TargetPlatform.values)
-          _enumDataRow(p),
+        for (final TargetPlatform p in TargetPlatform.values) _enumDataRow(p),
       ],
     ),
   );
@@ -1393,10 +1311,7 @@ Widget _enumDataRow(TargetPlatform p) {
         SizedBox(
           width: 80,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6,
-              vertical: 2,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
               color: tint.withOpacity(0.15),
               borderRadius: BorderRadius.circular(6),
@@ -1418,17 +1333,11 @@ Widget _enumDataRow(TargetPlatform p) {
             children: [
               Text(
                 'Back: ${_platformBackGesture(p)}',
-                style: const TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF424242),
-                ),
+                style: const TextStyle(fontSize: 11, color: Color(0xFF424242)),
               ),
               Text(
                 'Long-press: ${_platformLongPress(p)}',
-                style: const TextStyle(
-                  fontSize: 11,
-                  color: Color(0xFF424242),
-                ),
+                style: const TextStyle(fontSize: 11, color: Color(0xFF424242)),
               ),
             ],
           ),
@@ -1532,11 +1441,7 @@ Widget _overridePanel(String title, String subtitle, TargetPlatform? override) {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.palette,
-                size: 14,
-                color: Color(0xFF004D40),
-              ),
+              const Icon(Icons.palette, size: 14, color: Color(0xFF004D40)),
               const SizedBox(width: 4),
               Text(
                 'Theme.of(context).platform = ${shown.name}',
@@ -1558,11 +1463,7 @@ Widget _overridePanel(String title, String subtitle, TargetPlatform? override) {
             child: const Text('Material button'),
           ),
           const SizedBox(height: 6),
-          Switch(
-            value: true,
-            activeColor: tint,
-            onChanged: (_) {},
-          ),
+          Switch(value: true, activeColor: tint, onChanged: (_) {}),
           const SizedBox(height: 4),
           Text(
             'Page transitions adopt ${_platformFamily(shown)} feel; '
@@ -1617,8 +1518,10 @@ dynamic build(BuildContext context) {
   print('=== TargetPlatform Deep Demo ===');
   print('TargetPlatform.values.length: ${TargetPlatform.values.length}');
   for (final TargetPlatform p in TargetPlatform.values) {
-    print('  ${p.index}: ${p.name} '
-        '(${_platformFamily(p)} family, ${_platformPhysics(p)})');
+    print(
+      '  ${p.index}: ${p.name} '
+      '(${_platformFamily(p)} family, ${_platformPhysics(p)})',
+    );
   }
   print('defaultTargetPlatform: ${defaultTargetPlatform.name}');
   print('kIsWeb: $kIsWeb');

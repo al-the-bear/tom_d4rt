@@ -164,10 +164,7 @@ class _PrivateHero extends StatelessWidget {
       padding: const EdgeInsets.all(_PrivateSpacing.s6),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            _PrivatePalette.surface,
-            _PrivatePalette.surfaceAlt,
-          ],
+          colors: <Color>[_PrivatePalette.surface, _PrivatePalette.surfaceAlt],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -231,9 +228,7 @@ class _PrivateStopwatchGraphic extends StatelessWidget {
     return SizedBox(
       width: size,
       height: size,
-      child: CustomPaint(
-        painter: _PrivateStopwatchPainter(),
-      ),
+      child: CustomPaint(painter: _PrivateStopwatchPainter()),
     );
   }
 }
@@ -259,10 +254,18 @@ class _PrivateStopwatchPainter extends CustomPainter {
     canvas.drawCircle(center, radius, ring);
     for (int i = 0; i < 12; i++) {
       final double a = i * 3.1415926 * 2 / 12;
-      final Offset p1 = center +
-          Offset(radius * 0.84 * _privateCos(a), radius * 0.84 * _privateSin(a));
-      final Offset p2 = center +
-          Offset(radius * 0.95 * _privateCos(a), radius * 0.95 * _privateSin(a));
+      final Offset p1 =
+          center +
+          Offset(
+            radius * 0.84 * _privateCos(a),
+            radius * 0.84 * _privateSin(a),
+          );
+      final Offset p2 =
+          center +
+          Offset(
+            radius * 0.95 * _privateCos(a),
+            radius * 0.95 * _privateSin(a),
+          );
       canvas.drawLine(p1, p2, tick);
     }
     canvas.drawLine(
@@ -570,10 +573,10 @@ class _PrivateLifecycle extends StatelessWidget {
 }
 
 TextStyle _privateMonoLabel() => TextStyle(
-      color: _PrivatePalette.textDim,
-      fontSize: 12,
-      fontFamily: 'monospace',
-    );
+  color: _PrivatePalette.textDim,
+  fontSize: 12,
+  fontFamily: 'monospace',
+);
 
 class _PrivateLifecycleStep {
   const _PrivateLifecycleStep({
@@ -690,7 +693,8 @@ class _PrivateTraceEventGallery extends StatelessWidget {
         .reduce((double a, double b) => a > b ? a : b);
     return _PrivateSection(
       title: 'Trace events as TimedBlock instances',
-      subtitle: 'Five pretend frames-pipeline phases, each backed by a real '
+      subtitle:
+          'Five pretend frames-pipeline phases, each backed by a real '
           'TimedBlock object.',
       child: Padding(
         padding: const EdgeInsets.all(_PrivateSpacing.s5),
@@ -727,8 +731,9 @@ class _PrivateTraceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double frac =
-        maxDuration == 0 ? 0 : (event.block.duration / maxDuration);
+    final double frac = maxDuration == 0
+        ? 0
+        : (event.block.duration / maxDuration);
     return Container(
       padding: const EdgeInsets.all(_PrivateSpacing.s4),
       decoration: BoxDecoration(
@@ -816,8 +821,7 @@ class _PrivateTraceCard extends StatelessWidget {
                     const SizedBox(width: _PrivateSpacing.s2),
                     _PrivateMetaChip(
                       label: 'duration',
-                      value:
-                          '${event.block.duration.toStringAsFixed(1)} µs',
+                      value: '${event.block.duration.toStringAsFixed(1)} µs',
                     ),
                   ],
                 ),
@@ -972,9 +976,7 @@ class _PrivateGanttPainter extends CustomPainter {
       Offset(size.width, size.height - 22),
       axis,
     );
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
     for (int t = 0; t <= 4; t++) {
       final double x = size.width * t / 4;
       canvas.drawLine(
@@ -992,8 +994,7 @@ class _PrivateGanttPainter extends CustomPainter {
     for (int i = 0; i < rows.length; i++) {
       final _PrivateGanttRow row = rows[i];
       final double y = i * rowHeight + 6;
-      final double xStart =
-          size.width * (row.block.start / totalUs);
+      final double xStart = size.width * (row.block.start / totalUs);
       final double xEnd = size.width * (row.block.end / totalUs);
       final double indent = row.depth * 14.0;
       final Paint barBg = Paint()..color = _PrivatePalette.surfaceAlt;
@@ -1044,10 +1045,7 @@ class _PrivateLegendDot extends StatelessWidget {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
         Text(
@@ -1296,7 +1294,8 @@ class _PrivateRecipeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String code = '''// Recipe: instrumenting a span with a real TimedBlock.
+    const String code =
+        '''// Recipe: instrumenting a span with a real TimedBlock.
 //
 // In production code, the canonical pattern is to open a span, run the
 // measured work inside a try/finally, and close it on the way out.
@@ -1383,8 +1382,7 @@ class _PrivateTimelineRelation extends StatelessWidget {
                   'Timeline.finishSync();',
                 ],
                 color: _PrivatePalette.trace2,
-                footnote:
-                    'The engine receives raw begin/end trace events.',
+                footnote: 'The engine receives raw begin/end trace events.',
               ),
             ),
             const SizedBox(width: _PrivateSpacing.s4),
@@ -1496,14 +1494,16 @@ class _PrivatePitfalls extends StatelessWidget {
       _PrivatePitfall(
         symbol: '!',
         title: 'Forgetting to call finish()',
-        body: 'A block that is never finished leaks: it stays open in the '
+        body:
+            'A block that is never finished leaks: it stays open in the '
             'collector, the timeline never closes, and aggregation skips it.',
         color: _PrivatePalette.danger,
       ),
       _PrivatePitfall(
         symbol: '!',
         title: 'Wrong nesting order',
-        body: 'Nested blocks must finish in LIFO order. Closing the parent '
+        body:
+            'Nested blocks must finish in LIFO order. Closing the parent '
             'before the child produces overlapping or interleaved spans, '
             'which DevTools rejects.',
         color: _PrivatePalette.danger,
@@ -1511,7 +1511,8 @@ class _PrivatePitfalls extends StatelessWidget {
       _PrivatePitfall(
         symbol: '!',
         title: 'Async work between start and finish',
-        body: 'TimedBlock measures synchronous wall time. Putting an await '
+        body:
+            'TimedBlock measures synchronous wall time. Putting an await '
             'between TimedBlock(name) and finish() inflates the duration '
             'with idle time.',
         color: _PrivatePalette.danger,
@@ -1519,7 +1520,8 @@ class _PrivatePitfalls extends StatelessWidget {
       _PrivatePitfall(
         symbol: 'i',
         title: 'Names should be stable',
-        body: 'Aggregation groups by name. If the name varies per call '
+        body:
+            'Aggregation groups by name. If the name varies per call '
             '(e.g. includes an id), aggregation degenerates into one entry '
             'per call.',
         color: _PrivatePalette.accent,
@@ -1714,9 +1716,7 @@ class _PrivateSection extends StatelessWidget {
               vertical: _PrivateSpacing.s4,
             ),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: _PrivatePalette.border),
-              ),
+              border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

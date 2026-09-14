@@ -53,8 +53,7 @@ class _SCROEDemo extends StatefulWidget {
   State<_SCROEDemo> createState() => _SCROEDemoState();
 }
 
-class _SCROEDemoState extends State<_SCROEDemo>
-    with TickerProviderStateMixin {
+class _SCROEDemoState extends State<_SCROEDemo> with TickerProviderStateMixin {
   late final TabController _tabCtrl;
 
   @override
@@ -96,11 +95,7 @@ class _SCROEDemoState extends State<_SCROEDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: const [
-          _ArchitectureTab(),
-          _LifecycleTab(),
-          _ExamplesTab(),
-        ],
+        children: const [_ArchitectureTab(), _LifecycleTab(), _ExamplesTab()],
       ),
     );
   }
@@ -113,8 +108,7 @@ class _SCROEDemoState extends State<_SCROEDemo>
 class _ArchitectureTab extends StatefulWidget {
   const _ArchitectureTab();
   @override
-  State<_ArchitectureTab> createState() =>
-      _ArchitectureTabState();
+  State<_ArchitectureTab> createState() => _ArchitectureTabState();
 }
 
 class _ArchitectureTabState extends State<_ArchitectureTab>
@@ -137,43 +131,52 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
           _sectionTitle('Class Hierarchy'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandHierarchy = !_expandHierarchy),
+            onTap: () => setState(() => _expandHierarchy = !_expandHierarchy),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader('Element Type Chain',
-                      _expandHierarchy),
+                  _expandHeader('Element Type Chain', _expandHierarchy),
                   if (_expandHierarchy) ...[
                     const SizedBox(height: 10),
-                    _hierarchyNode('Element', _kDimText,
-                        'Base class for all elements', 0),
+                    _hierarchyNode(
+                      'Element',
+                      _kDimText,
+                      'Base class for all elements',
+                      0,
+                    ),
                     _hierarchyArrow(),
                     _hierarchyNode(
-                        'ComponentElement',
-                        _kDimText,
-                        'For widgets that compose other '
-                        'widgets (skipped path)',
-                        0),
+                      'ComponentElement',
+                      _kDimText,
+                      'For widgets that compose other '
+                          'widgets (skipped path)',
+                      0,
+                    ),
                     const SizedBox(height: 8),
-                    _hierarchyNode('Element', _kDimText,
-                        'Base class for all elements', 0),
+                    _hierarchyNode(
+                      'Element',
+                      _kDimText,
+                      'Base class for all elements',
+                      0,
+                    ),
                     _hierarchyArrow(),
                     _hierarchyNode(
-                        'RenderObjectElement',
-                        _kHighlight,
-                        'Creates and manages a '
-                        'RenderObject',
-                        0),
+                      'RenderObjectElement',
+                      _kHighlight,
+                      'Creates and manages a '
+                          'RenderObject',
+                      0,
+                    ),
                     _hierarchyArrow(),
                     _hierarchyNode(
-                        'SingleChildRenderObject\nElement',
-                        _kAccent,
-                        'Manages exactly ONE child element',
-                        0),
+                      'SingleChildRenderObject\nElement',
+                      _kAccent,
+                      'Manages exactly ONE child element',
+                      0,
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -183,10 +186,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                           child: Text(
                             'Cannot be subclassed by '
                             'application code',
-                            style: TextStyle(
-                              color: _kDimText,
-                              fontSize: 9,
-                            ),
+                            style: TextStyle(color: _kDimText, fontSize: 9),
                           ),
                         ),
                       ],
@@ -220,7 +220,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
               children: [
                 _siblingRow(
                   'SingleChildRender'
-                  'ObjectElement',
+                      'ObjectElement',
                   'Exactly 0 or 1 child',
                   _kAccent,
                   true,
@@ -228,7 +228,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                 const SizedBox(height: 6),
                 _siblingRow(
                   'MultiChildRender'
-                  'ObjectElement',
+                      'ObjectElement',
                   'Zero or more children (list)',
                   _kHighlight,
                   false,
@@ -236,7 +236,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                 const SizedBox(height: 6),
                 _siblingRow(
                   'LeafRenderObject'
-                  'Element',
+                      'Element',
                   'No children at all',
                   _kGreen,
                   false,
@@ -246,8 +246,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                   'All three extend RenderObjectElement. '
                   'The choice depends on how many children '
                   'the widget manages.',
-                  style: TextStyle(
-                    color: _kDimText, fontSize: 10),
+                  style: TextStyle(color: _kDimText, fontSize: 10),
                 ),
               ],
             ),
@@ -258,8 +257,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
           _sectionTitle('The Three Trees'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandTriad = !_expandTriad),
+            onTap: () => setState(() => _expandTriad = !_expandTriad),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
@@ -267,9 +265,10 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _expandHeader(
-                      'Widget → Element → '
-                      'RenderObject',
-                      _expandTriad),
+                    'Widget → Element → '
+                    'RenderObject',
+                    _expandTriad,
+                  ),
                   if (_expandTriad) ...[
                     const SizedBox(height: 10),
                     _triadRow(
@@ -284,7 +283,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                       'Element Tree',
                       'SingleChildRenderObjectElement',
                       'Mutable manager; holds state, '
-                      'child reference, render object',
+                          'child reference, render object',
                       _kAccent,
                       Icons.account_tree,
                     ),
@@ -292,7 +291,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                     _triadRow(
                       'Render Tree',
                       'RenderBox + '
-                      'RenderObjectWithChildMixin',
+                          'RenderObjectWithChildMixin',
                       'Paints pixels, computes layout',
                       _kGreen,
                       Icons.brush,
@@ -303,8 +302,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                       'widgets are rebuilt frequently, but '
                       'the element persists and reconciles '
                       'old vs new widgets.',
-                      style: TextStyle(
-                        color: _kDimText, fontSize: 10),
+                      style: TextStyle(color: _kDimText, fontSize: 10),
                     ),
                   ],
                 ],
@@ -317,38 +315,49 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
           _sectionTitle('Creation Path'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() =>
-                _expandCreateElement = !_expandCreateElement),
+            onTap: () =>
+                setState(() => _expandCreateElement = !_expandCreateElement),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader(
-                      'How it gets created', _expandCreateElement),
+                  _expandHeader('How it gets created', _expandCreateElement),
                   if (_expandCreateElement) ...[
                     const SizedBox(height: 10),
-                    _flowStep(1, 'Framework inflates widget',
-                        'Parent element calls '
-                        'inflateWidget(widget, slot)',
-                        _kHighlight),
+                    _flowStep(
+                      1,
+                      'Framework inflates widget',
+                      'Parent element calls '
+                          'inflateWidget(widget, slot)',
+                      _kHighlight,
+                    ),
                     _flowArrow(),
-                    _flowStep(2, 'widget.createElement()',
-                        'SingleChildRenderObjectWidget '
-                        'returns new '
-                        'SingleChildRenderObjectElement(this)',
-                        _kAccent),
+                    _flowStep(
+                      2,
+                      'widget.createElement()',
+                      'SingleChildRenderObjectWidget '
+                          'returns new '
+                          'SingleChildRenderObjectElement(this)',
+                      _kAccent,
+                    ),
                     _flowArrow(),
-                    _flowStep(3, 'element.mount()',
-                        'Element creates render object and '
-                        'inflates widget.child',
-                        _kGreen),
+                    _flowStep(
+                      3,
+                      'element.mount()',
+                      'Element creates render object and '
+                          'inflates widget.child',
+                      _kGreen,
+                    ),
                     _flowArrow(),
-                    _flowStep(4, 'Child inserted',
-                        'insertRenderObjectChild sets '
-                        'renderObject.child = childRO',
-                        _kAmber),
+                    _flowStep(
+                      4,
+                      'Child inserted',
+                      'insertRenderObjectChild sets '
+                          'renderObject.child = childRO',
+                      _kAmber,
+                    ),
                     const SizedBox(height: 8),
                     _codeBlock(
                       '// In SingleChildRenderObjectWidget:\n'
@@ -376,8 +385,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
               children: [
                 const Text(
                   'The render object MUST use this mixin:',
-                  style: TextStyle(
-                    color: _kDimText, fontSize: 11),
+                  style: TextStyle(color: _kDimText, fontSize: 11),
                 ),
                 const SizedBox(height: 8),
                 _codeBlock(
@@ -401,8 +409,7 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
                         'insertRenderObjectChild casts to '
                         'RenderObjectWithChildMixin and '
                         'sets .child',
-                        style: TextStyle(
-                          color: _kDimText, fontSize: 9),
+                        style: TextStyle(color: _kDimText, fontSize: 9),
                       ),
                     ),
                   ],
@@ -423,26 +430,20 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
     );
   }
 
-  Widget _siblingRow(
-      String name, String desc, Color color, bool active) {
+  Widget _siblingRow(String name, String desc, Color color, bool active) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: active
-            ? color.withValues(alpha: 0.10)
-            : Colors.transparent,
+        color: active ? color.withValues(alpha: 0.10) : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: active
-              ? color.withValues(alpha: 0.5)
-              : _kSubtle,
+          color: active ? color.withValues(alpha: 0.5) : _kSubtle,
         ),
       ),
       child: Row(
         children: [
           if (active)
-            const Icon(Icons.arrow_right,
-                size: 14, color: _kAccent)
+            const Icon(Icons.arrow_right, size: 14, color: _kAccent)
           else
             const SizedBox(width: 14),
           const SizedBox(width: 4),
@@ -450,16 +451,19 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'monospace',
-                    )),
-                Text(desc,
-                    style: const TextStyle(
-                      color: _kDimText, fontSize: 9)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                Text(
+                  desc,
+                  style: const TextStyle(color: _kDimText, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -468,15 +472,19 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
     );
   }
 
-  Widget _triadRow(String layer, String cls, String desc,
-      Color color, IconData icon) {
+  Widget _triadRow(
+    String layer,
+    String cls,
+    String desc,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-            color: color.withValues(alpha: 0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -486,21 +494,26 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(layer,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    )),
-                Text(cls,
-                    style: TextStyle(
-                      color: color.withValues(alpha: 0.8),
-                      fontSize: 9,
-                      fontFamily: 'monospace',
-                    )),
-                Text(desc,
-                    style: const TextStyle(
-                      color: _kDimText, fontSize: 9)),
+                Text(
+                  layer,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  cls,
+                  style: TextStyle(
+                    color: color.withValues(alpha: 0.8),
+                    fontSize: 9,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                Text(
+                  desc,
+                  style: const TextStyle(color: _kDimText, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -515,15 +528,16 @@ class _ArchitectureTabState extends State<_ArchitectureTab>
       child: Row(
         children: [
           const SizedBox(width: 7),
-          const Icon(Icons.arrow_downward,
-              size: 10, color: _kDimText),
+          const Icon(Icons.arrow_downward, size: 10, color: _kDimText),
           const SizedBox(width: 6),
-          Text(label,
-              style: const TextStyle(
-                color: _kDimText,
-                fontSize: 8,
-                fontFamily: 'monospace',
-              )),
+          Text(
+            label,
+            style: const TextStyle(
+              color: _kDimText,
+              fontSize: 8,
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     );
@@ -553,53 +567,53 @@ class _LifecycleTabState extends State<_LifecycleTab>
       'visitChildren',
       'void visitChildren(ElementVisitor visitor)',
       'Calls visitor on _child if present. Used by '
-      'the framework to walk the element tree.',
+          'the framework to walk the element tree.',
       'if (_child != null)\n'
-      '  visitor(_child!);',
+          '  visitor(_child!);',
     ),
     _MethodInfo(
       'forgetChild',
       'void forgetChild(Element child)',
       'Nulls out _child reference. Called when child '
-      'is being deactivated during a global key move.',
+          'is being deactivated during a global key move.',
       'assert(child == _child);\n'
-      '_child = null;\n'
-      'super.forgetChild(child);',
+          '_child = null;\n'
+          'super.forgetChild(child);',
     ),
     _MethodInfo(
       'insertRenderObjectChild',
       'void insertRenderObjectChild(\n'
-      '    RenderObject child, Object? slot)',
+          '    RenderObject child, Object? slot)',
       'Casts renderObject to '
-      'RenderObjectWithChildMixin and sets its child.',
+          'RenderObjectWithChildMixin and sets its child.',
       'final ro = renderObject\n'
-      '    as RenderObjectWith\n'
-      '    ChildMixin;\n'
-      'assert(slot == null);\n'
-      'ro.child = child;',
+          '    as RenderObjectWith\n'
+          '    ChildMixin;\n'
+          'assert(slot == null);\n'
+          'ro.child = child;',
     ),
     _MethodInfo(
       'moveRenderObjectChild',
       'void moveRenderObjectChild(\n'
-      '    RO child, Object? old, Object? new)',
+          '    RO child, Object? old, Object? new)',
       'Always asserts false — a single child cannot '
-      'move between slots because only one slot exists.',
+          'move between slots because only one slot exists.',
       'assert(false);\n'
-      '// Single child has\n'
-      '// no concept of\n'
-      '// slot ordering',
+          '// Single child has\n'
+          '// no concept of\n'
+          '// slot ordering',
     ),
     _MethodInfo(
       'removeRenderObjectChild',
       'void removeRenderObjectChild(\n'
-      '    RenderObject child, Object? slot)',
+          '    RenderObject child, Object? slot)',
       'Sets renderObject.child = null to detach child '
-      'render object from the render tree.',
+          'render object from the render tree.',
       'final ro = renderObject\n'
-      '    as RenderObjectWith\n'
-      '    ChildMixin;\n'
-      'assert(ro.child == child);\n'
-      'ro.child = null;',
+          '    as RenderObjectWith\n'
+          '    ChildMixin;\n'
+          'assert(ro.child == child);\n'
+          'ro.child = null;',
     ),
   ];
 
@@ -618,59 +632,65 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('mount()'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandMount = !_expandMount),
+            onTap: () => setState(() => _expandMount = !_expandMount),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader(
-                      'Element enters the tree', _expandMount),
+                  _expandHeader('Element enters the tree', _expandMount),
                   if (_expandMount) ...[
                     const SizedBox(height: 10),
-                    _flowStep(1, 'super.mount()',
-                        'Calls RenderObjectElement.mount — '
-                        'creates the render object via '
-                        'widget.createRenderObject()',
-                        _kHighlight),
+                    _flowStep(
+                      1,
+                      'super.mount()',
+                      'Calls RenderObjectElement.mount — '
+                          'creates the render object via '
+                          'widget.createRenderObject()',
+                      _kHighlight,
+                    ),
                     _flowArrow(),
-                    _flowStep(2, 'Inflate child',
-                        '_child = updateChild(\n'
-                        '  _child, widget.child, null)',
-                        _kAccent),
+                    _flowStep(
+                      2,
+                      'Inflate child',
+                      '_child = updateChild(\n'
+                          '  _child, widget.child, null)',
+                      _kAccent,
+                    ),
                     _flowArrow(),
-                    _flowStep(3, 'Render object linked',
-                        'insertRenderObjectChild sets '
-                        'renderObject.child to the child\'s '
-                        'render object',
-                        _kGreen),
+                    _flowStep(
+                      3,
+                      'Render object linked',
+                      'insertRenderObjectChild sets '
+                          'renderObject.child to the child\'s '
+                          'render object',
+                      _kGreen,
+                    ),
                     const SizedBox(height: 8),
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: _kAmber.withValues(alpha: 0.06),
-                        borderRadius:
-                            BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                          color:
-                              _kAmber.withValues(alpha: 0.2)),
+                          color: _kAmber.withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.info_outline,
-                              size: 12, color: _kAmber),
+                          const Icon(
+                            Icons.info_outline,
+                            size: 12,
+                            color: _kAmber,
+                          ),
                           const SizedBox(width: 6),
                           const Expanded(
                             child: Text(
                               'The slot argument is always '
                               'null for single-child elements '
                               '— there is no ordering concept.',
-                              style: TextStyle(
-                                color: _kDimText,
-                                fontSize: 9,
-                              ),
+                              style: TextStyle(color: _kDimText, fontSize: 9),
                             ),
                           ),
                         ],
@@ -687,31 +707,34 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('update()'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandUpdate = !_expandUpdate),
+            onTap: () => setState(() => _expandUpdate = !_expandUpdate),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader(
-                      'Widget configuration changes',
-                      _expandUpdate),
+                  _expandHeader('Widget configuration changes', _expandUpdate),
                   if (_expandUpdate) ...[
                     const SizedBox(height: 10),
-                    _flowStep(1, 'super.update(newWidget)',
-                        'Stores new widget, calls '
-                        'updateRenderObject to push '
-                        'config changes to render obj',
-                        _kHighlight),
+                    _flowStep(
+                      1,
+                      'super.update(newWidget)',
+                      'Stores new widget, calls '
+                          'updateRenderObject to push '
+                          'config changes to render obj',
+                      _kHighlight,
+                    ),
                     _flowArrow(),
-                    _flowStep(2, 'Reconcile child',
-                        '_child = updateChild(\n'
-                        '  _child, widget.child, null)\n'
-                        'Framework decides: reuse, replace, '
-                        'or remove',
-                        _kAccent),
+                    _flowStep(
+                      2,
+                      'Reconcile child',
+                      '_child = updateChild(\n'
+                          '  _child, widget.child, null)\n'
+                          'Framework decides: reuse, replace, '
+                          'or remove',
+                      _kAccent,
+                    ),
                     const SizedBox(height: 10),
                     const Text(
                       'updateChild outcomes:',
@@ -753,32 +776,39 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('unmount()'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandUnmount = !_expandUnmount),
+            onTap: () => setState(() => _expandUnmount = !_expandUnmount),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader('Element leaves tree',
-                      _expandUnmount),
+                  _expandHeader('Element leaves tree', _expandUnmount),
                   if (_expandUnmount) ...[
                     const SizedBox(height: 10),
-                    _flowStep(1, 'Deactivate',
-                        'Element marked inactive; child '
-                        'deactivated recursively',
-                        _kWarning),
+                    _flowStep(
+                      1,
+                      'Deactivate',
+                      'Element marked inactive; child '
+                          'deactivated recursively',
+                      _kWarning,
+                    ),
                     _flowArrow(),
-                    _flowStep(2, 'Unmount',
-                        'Render object detached from tree '
-                        'via removeRenderObjectChild',
-                        _kAccent),
+                    _flowStep(
+                      2,
+                      'Unmount',
+                      'Render object detached from tree '
+                          'via removeRenderObjectChild',
+                      _kAccent,
+                    ),
                     _flowArrow(),
-                    _flowStep(3, 'Dispose',
-                        'super.unmount() releases render '
-                        'object; _child already null',
-                        _kDimText),
+                    _flowStep(
+                      3,
+                      'Dispose',
+                      'super.unmount() releases render '
+                          'object; _child already null',
+                      _kDimText,
+                    ),
                   ],
                 ],
               ),
@@ -798,40 +828,32 @@ class _LifecycleTabState extends State<_LifecycleTab>
                 Wrap(
                   spacing: 4,
                   runSpacing: 4,
-                  children: List.generate(
-                      _methods.length, (i) {
+                  children: List.generate(_methods.length, (i) {
                     final m = _methods[i];
                     final sel = _selectedMethod == i;
                     return GestureDetector(
-                      onTap: () => setState(
-                          () => _selectedMethod = i),
+                      onTap: () => setState(() => _selectedMethod = i),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: sel
-                              ? _kPrimary
-                                  .withValues(alpha: 0.3)
+                              ? _kPrimary.withValues(alpha: 0.3)
                               : Colors.transparent,
-                          borderRadius:
-                              BorderRadius.circular(12),
-                          border: Border.all(
-                            color: sel
-                                ? _kAccent
-                                : _kSubtle,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: sel ? _kAccent : _kSubtle),
+                        ),
+                        child: Text(
+                          m.name,
+                          style: TextStyle(
+                            color: sel ? _kAccent : _kDimText,
+                            fontSize: 9,
+                            fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
+                            fontFamily: 'monospace',
                           ),
                         ),
-                        child: Text(m.name,
-                            style: TextStyle(
-                              color: sel
-                                  ? _kAccent
-                                  : _kDimText,
-                              fontSize: 9,
-                              fontWeight: sel
-                                  ? FontWeight.w700
-                                  : FontWeight.w400,
-                              fontFamily: 'monospace',
-                            )),
                       ),
                     );
                   }),
@@ -856,12 +878,10 @@ class _LifecycleTabState extends State<_LifecycleTab>
                 const SizedBox(height: 6),
                 Text(
                   _methods[_selectedMethod].description,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 10),
+                  style: const TextStyle(color: _kDimText, fontSize: 10),
                 ),
                 const SizedBox(height: 6),
-                _codeBlock(
-                    _methods[_selectedMethod].code),
+                _codeBlock(_methods[_selectedMethod].code),
               ],
             ),
           ),
@@ -871,17 +891,14 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _sectionTitle('Slot Semantics'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandSlots = !_expandSlots),
+            onTap: () => setState(() => _expandSlots = !_expandSlots),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader(
-                      'Why slot is always null',
-                      _expandSlots),
+                  _expandHeader('Why slot is always null', _expandSlots),
                   if (_expandSlots) ...[
                     const SizedBox(height: 8),
                     const Text(
@@ -891,15 +908,10 @@ class _LifecycleTabState extends State<_LifecycleTab>
                       'But a single-child element has only '
                       'one position — so the slot is always '
                       'null.',
-                      style: TextStyle(
-                        color: _kDimText, fontSize: 10),
+                      style: TextStyle(color: _kDimText, fontSize: 10),
                     ),
                     const SizedBox(height: 8),
-                    _compRow(
-                      'SingleChild',
-                      'slot = null (always)',
-                      _kAccent,
-                    ),
+                    _compRow('SingleChild', 'slot = null (always)', _kAccent),
                     const SizedBox(height: 4),
                     _compRow(
                       'MultiChild',
@@ -907,11 +919,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
                       _kHighlight,
                     ),
                     const SizedBox(height: 4),
-                    _compRow(
-                      'Leaf',
-                      'No children, no slots',
-                      _kGreen,
-                    ),
+                    _compRow('Leaf', 'No children, no slots', _kGreen),
                   ],
                 ],
               ),
@@ -930,8 +938,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
     );
   }
 
-  Widget _updateChildRow(
-      String condition, String outcome, Color color) {
+  Widget _updateChildRow(String condition, String outcome, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -939,10 +946,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
           Container(
             width: 5,
             height: 5,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -959,8 +963,7 @@ class _LifecycleTabState extends State<_LifecycleTab>
                   ),
                   TextSpan(
                     text: outcome,
-                    style: const TextStyle(
-                      color: _kDimText, fontSize: 9),
+                    style: const TextStyle(color: _kDimText, fontSize: 9),
                   ),
                 ],
               ),
@@ -973,32 +976,34 @@ class _LifecycleTabState extends State<_LifecycleTab>
 
   Widget _compRow(String label, String desc, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 8, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-            color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
           SizedBox(
             width: 75,
-            child: Text(label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w600,
-                )),
+            child: Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(desc,
-                style: const TextStyle(
-                  color: _kDimText,
-                  fontSize: 9,
-                  fontFamily: 'monospace',
-                )),
+            child: Text(
+              desc,
+              style: const TextStyle(
+                color: _kDimText,
+                fontSize: 9,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -1011,8 +1016,7 @@ class _MethodInfo {
   final String signature;
   final String description;
   final String code;
-  const _MethodInfo(
-      this.name, this.signature, this.description, this.code);
+  const _MethodInfo(this.name, this.signature, this.description, this.code);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1072,38 +1076,30 @@ class _ExamplesTabState extends State<_ExamplesTab>
             child: Wrap(
               spacing: 6,
               runSpacing: 6,
-              children: List.generate(
-                  _widgets.length, (i) {
+              children: List.generate(_widgets.length, (i) {
                 final sel = _selectedWidget == i;
                 return GestureDetector(
-                  onTap: () => setState(
-                      () => _selectedWidget = i),
+                  onTap: () => setState(() => _selectedWidget = i),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: sel
-                          ? _kPrimary
-                              .withValues(alpha: 0.3)
+                          ? _kPrimary.withValues(alpha: 0.3)
                           : Colors.transparent,
-                      borderRadius:
-                          BorderRadius.circular(14),
-                      border: Border.all(
-                        color: sel
-                            ? _kAccent
-                            : _kSubtle,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: sel ? _kAccent : _kSubtle),
+                    ),
+                    child: Text(
+                      _widgets[i],
+                      style: TextStyle(
+                        color: sel ? _kAccent : _kDimText,
+                        fontSize: 11,
+                        fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
                       ),
                     ),
-                    child: Text(_widgets[i],
-                        style: TextStyle(
-                          color: sel
-                              ? _kAccent
-                              : _kDimText,
-                          fontSize: 11,
-                          fontWeight: sel
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                        )),
                   ),
                 );
               }),
@@ -1126,15 +1122,14 @@ class _ExamplesTabState extends State<_ExamplesTab>
               children: [
                 _treeNode('Scaffold', _kDimText, 0),
                 _treeNode('Column', _kDimText, 1),
-                _treeNode(_widgets[_selectedWidget],
-                    _kAccent, 2),
+                _treeNode(_widgets[_selectedWidget], _kAccent, 2),
                 _treeNode(
-                    'SingleChildRender'
-                    'ObjectElement',
-                    _kAccent,
-                    3),
-                _treeNode('child → Container',
-                    _kHighlight, 4),
+                  'SingleChildRender'
+                  'ObjectElement',
+                  _kAccent,
+                  3,
+                ),
+                _treeNode('child → Container', _kHighlight, 4),
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -1171,37 +1166,54 @@ class _ExamplesTabState extends State<_ExamplesTab>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _subclassRow('Padding', 'RenderPadding',
-                    'Insets around child', _kAccent),
-                _subclassRow('Align / Center',
-                    'RenderPositionedBox',
-                    'Positions child within parent',
-                    _kHighlight),
-                _subclassRow('SizedBox',
-                    'RenderConstrainedBox',
-                    'Imposes size constraints',
-                    _kGreen),
-                _subclassRow('Transform',
-                    'RenderTransform',
-                    'Matrix4 transformation',
-                    _kAmber),
-                _subclassRow('Opacity',
-                    'RenderOpacity',
-                    'Alpha transparency',
-                    _kPurple),
-                _subclassRow('ClipRRect',
-                    'RenderClipRRect',
-                    'Rounded rectangle clip',
-                    _kCyan),
-                _subclassRow('DecoratedBox',
-                    'RenderDecoratedBox',
-                    'Paints decoration behind/in front',
-                    _kWarning),
                 _subclassRow(
-                    'FractionallySizedBox',
-                    'RenderFractionallySizedOverflowBox',
-                    'Sizes child as fraction of parent',
-                    _kDimText),
+                  'Padding',
+                  'RenderPadding',
+                  'Insets around child',
+                  _kAccent,
+                ),
+                _subclassRow(
+                  'Align / Center',
+                  'RenderPositionedBox',
+                  'Positions child within parent',
+                  _kHighlight,
+                ),
+                _subclassRow(
+                  'SizedBox',
+                  'RenderConstrainedBox',
+                  'Imposes size constraints',
+                  _kGreen,
+                ),
+                _subclassRow(
+                  'Transform',
+                  'RenderTransform',
+                  'Matrix4 transformation',
+                  _kAmber,
+                ),
+                _subclassRow(
+                  'Opacity',
+                  'RenderOpacity',
+                  'Alpha transparency',
+                  _kPurple,
+                ),
+                _subclassRow(
+                  'ClipRRect',
+                  'RenderClipRRect',
+                  'Rounded rectangle clip',
+                  _kCyan,
+                ),
+                _subclassRow(
+                  'DecoratedBox',
+                  'RenderDecoratedBox',
+                  'Paints decoration behind/in front',
+                  _kWarning,
+                ),
+                _subclassRow(
+                  'FractionallySizedBox',
+                  'RenderFractionallySizedOverflowBox',
+                  'Sizes child as fraction of parent',
+                  _kDimText,
+                ),
               ],
             ),
           ),
@@ -1225,8 +1237,7 @@ class _ExamplesTabState extends State<_ExamplesTab>
       decoration: BoxDecoration(
         color: _kCard,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: _kAccent.withValues(alpha: 0.3)),
+        border: Border.all(color: _kAccent.withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1247,8 +1258,7 @@ class _ExamplesTabState extends State<_ExamplesTab>
             decoration: BoxDecoration(
               color: _kSurface,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: _kSubtle),
+              border: Border.all(color: _kSubtle),
             ),
             child: _buildSelectedWidget(),
           ),
@@ -1265,18 +1275,18 @@ class _ExamplesTabState extends State<_ExamplesTab>
       width: 60,
       height: 60,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_kPrimary, _kAccent],
-        ),
+        gradient: LinearGradient(colors: [_kPrimary, _kAccent]),
         borderRadius: BorderRadius.circular(6),
       ),
       child: const Center(
-        child: Text('child',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-            )),
+        child: Text(
+          'child',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     );
 
@@ -1285,23 +1295,14 @@ class _ExamplesTabState extends State<_ExamplesTab>
         return Center(
           child: Container(
             color: _kPrimary.withValues(alpha: 0.15),
-            child: Padding(
-              padding: EdgeInsets.all(_paddingVal),
-              child: child,
-            ),
+            child: Padding(padding: EdgeInsets.all(_paddingVal), child: child),
           ),
         );
       case 1: // Align
-        return Align(
-          alignment: Alignment(_alignX, _alignY),
-          child: child,
-        );
+        return Align(alignment: Alignment(_alignX, _alignY), child: child);
       case 2: // Opacity
         return Center(
-          child: Opacity(
-            opacity: _opacityVal,
-            child: child,
-          ),
+          child: Opacity(opacity: _opacityVal, child: child),
         );
       case 3: // Transform
         return Center(
@@ -1313,23 +1314,22 @@ class _ExamplesTabState extends State<_ExamplesTab>
       case 4: // ClipRRect
         return Center(
           child: ClipRRect(
-            borderRadius:
-                BorderRadius.circular(_borderRadius),
+            borderRadius: BorderRadius.circular(_borderRadius),
             child: Container(
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [_kPrimary, _kAccent],
-                ),
+                gradient: LinearGradient(colors: [_kPrimary, _kAccent]),
               ),
               child: const Center(
-                child: Text('clipped',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  'clipped',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1341,18 +1341,18 @@ class _ExamplesTabState extends State<_ExamplesTab>
             height: 40 + _paddingVal * 2,
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [_kPrimary, _kAccent],
-                ),
+                gradient: LinearGradient(colors: [_kPrimary, _kAccent]),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: const Center(
-                child: Text('sized',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  'sized',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1365,43 +1365,84 @@ class _ExamplesTabState extends State<_ExamplesTab>
   Widget _buildControls() {
     switch (_selectedWidget) {
       case 0: // Padding
-        return _sliderRow('Padding', _paddingVal, 0, 40,
-            (v) => setState(() => _paddingVal = v));
+        return _sliderRow(
+          'Padding',
+          _paddingVal,
+          0,
+          40,
+          (v) => setState(() => _paddingVal = v),
+        );
       case 1: // Align
         return Column(
           children: [
-            _sliderRow('alignX', _alignX, -1, 1,
-                (v) => setState(() => _alignX = v)),
-            _sliderRow('alignY', _alignY, -1, 1,
-                (v) => setState(() => _alignY = v)),
+            _sliderRow(
+              'alignX',
+              _alignX,
+              -1,
+              1,
+              (v) => setState(() => _alignX = v),
+            ),
+            _sliderRow(
+              'alignY',
+              _alignY,
+              -1,
+              1,
+              (v) => setState(() => _alignY = v),
+            ),
           ],
         );
       case 2: // Opacity
-        return _sliderRow('Opacity', _opacityVal, 0, 1,
-            (v) => setState(() => _opacityVal = v));
+        return _sliderRow(
+          'Opacity',
+          _opacityVal,
+          0,
+          1,
+          (v) => setState(() => _opacityVal = v),
+        );
       case 3: // Transform
-        return _sliderRow('Rotation°', _rotation, 0, 360,
-            (v) => setState(() => _rotation = v));
+        return _sliderRow(
+          'Rotation°',
+          _rotation,
+          0,
+          360,
+          (v) => setState(() => _rotation = v),
+        );
       case 4: // ClipRRect
-        return _sliderRow('Radius', _borderRadius, 0, 40,
-            (v) => setState(() => _borderRadius = v));
+        return _sliderRow(
+          'Radius',
+          _borderRadius,
+          0,
+          40,
+          (v) => setState(() => _borderRadius = v),
+        );
       case 5: // SizedBox
-        return _sliderRow('Size', _paddingVal, 0, 40,
-            (v) => setState(() => _paddingVal = v));
+        return _sliderRow(
+          'Size',
+          _paddingVal,
+          0,
+          40,
+          (v) => setState(() => _paddingVal = v),
+        );
       default:
         return const SizedBox.shrink();
     }
   }
 
-  Widget _sliderRow(String label, double value,
-      double min, double max, ValueChanged<double> cb) {
+  Widget _sliderRow(
+    String label,
+    double value,
+    double min,
+    double max,
+    ValueChanged<double> cb,
+  ) {
     return Row(
       children: [
         SizedBox(
           width: 65,
-          child: Text('$label:',
-              style: const TextStyle(
-                color: _kDimText, fontSize: 10)),
+          child: Text(
+            '$label:',
+            style: const TextStyle(color: _kDimText, fontSize: 10),
+          ),
         ),
         Expanded(
           child: Slider(
@@ -1429,8 +1470,7 @@ class _ExamplesTabState extends State<_ExamplesTab>
 
   Widget _treeNode(String name, Color color, int depth) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: depth * 16.0, top: 2, bottom: 2),
+      padding: EdgeInsets.only(left: depth * 16.0, top: 2, bottom: 2),
       child: Row(
         children: [
           if (depth > 0)
@@ -1445,25 +1485,23 @@ class _ExamplesTabState extends State<_ExamplesTab>
           Container(
             width: 4,
             height: 4,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 6),
-          Text(name,
-              style: TextStyle(
-                color: color,
-                fontSize: 10,
-                fontFamily: 'monospace',
-              )),
+          Text(
+            name,
+            style: TextStyle(
+              color: color,
+              fontSize: 10,
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _subclassRow(
-      String widget, String render, String desc, Color color) {
+  Widget _subclassRow(String widget, String render, String desc, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -1471,34 +1509,36 @@ class _ExamplesTabState extends State<_ExamplesTab>
           Container(
             width: 5,
             height: 5,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 6),
           SizedBox(
             width: 90,
-            child: Text(widget,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w600,
-                )),
+            child: Text(
+              widget,
+              style: TextStyle(
+                color: color,
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           SizedBox(
             width: 100,
-            child: Text(render,
-                style: const TextStyle(
-                  color: _kCyan,
-                  fontSize: 8,
-                  fontFamily: 'monospace',
-                )),
+            child: Text(
+              render,
+              style: const TextStyle(
+                color: _kCyan,
+                fontSize: 8,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           Expanded(
-            child: Text(desc,
-                style: const TextStyle(
-                  color: _kDimText, fontSize: 8)),
+            child: Text(
+              desc,
+              style: const TextStyle(color: _kDimText, fontSize: 8),
+            ),
           ),
         ],
       ),
@@ -1519,12 +1559,14 @@ BoxDecoration _cardDecor() {
 }
 
 Widget _sectionTitle(String title) {
-  return Text(title,
-      style: const TextStyle(
-        color: _kAccent,
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-      ));
+  return Text(
+    title,
+    style: const TextStyle(
+      color: _kAccent,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    ),
+  );
 }
 
 Widget _codeBlock(String code) {
@@ -1535,12 +1577,14 @@ Widget _codeBlock(String code) {
       color: _kSurface,
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(code,
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 10,
-          fontFamily: 'monospace',
-        )),
+    child: Text(
+      code,
+      style: const TextStyle(
+        color: Colors.white70,
+        fontSize: 10,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -1552,13 +1596,13 @@ Widget _infoBanner(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.lightbulb_outline,
-            size: 14, color: _kAccent),
+        const Icon(Icons.lightbulb_outline, size: 14, color: _kAccent),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: const TextStyle(
-                color: _kDimText, fontSize: 11)),
+          child: Text(
+            text,
+            style: const TextStyle(color: _kDimText, fontSize: 11),
+          ),
         ),
       ],
     ),
@@ -1567,20 +1611,16 @@ Widget _infoBanner(String text) {
 
 Widget _badge(String label, Color color) {
   return Container(
-    padding: const EdgeInsets.symmetric(
-        horizontal: 8, vertical: 3),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(
-          color: color.withValues(alpha: 0.4)),
+      border: Border.all(color: color.withValues(alpha: 0.4)),
     ),
-    child: Text(label,
-        style: TextStyle(
-          color: color,
-          fontSize: 8,
-          fontWeight: FontWeight.w600,
-        )),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -1588,12 +1628,14 @@ Widget _expandHeader(String text, bool expanded) {
   return Row(
     children: [
       Expanded(
-        child: Text(text,
-            style: const TextStyle(
-              color: _kAccent,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            )),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: _kAccent,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       Icon(
         expanded ? Icons.expand_less : Icons.expand_more,
@@ -1604,16 +1646,14 @@ Widget _expandHeader(String text, bool expanded) {
   );
 }
 
-Widget _flowStep(
-    int step, String title, String desc, Color color) {
+Widget _flowStep(int step, String title, String desc, Color color) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(
-          color: color.withValues(alpha: 0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Row(
       children: [
@@ -1623,16 +1663,17 @@ Widget _flowStep(
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.15),
             shape: BoxShape.circle,
-            border: Border.all(
-                color: color.withValues(alpha: 0.5)),
+            border: Border.all(color: color.withValues(alpha: 0.5)),
           ),
           child: Center(
-            child: Text('$step',
-                style: TextStyle(
-                  color: color,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                )),
+            child: Text(
+              '$step',
+              style: TextStyle(
+                color: color,
+                fontSize: 9,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -1640,15 +1681,15 @@ Widget _flowStep(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                  )),
-              Text(desc,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 9)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _kDimText, fontSize: 9)),
             ],
           ),
         ),
@@ -1660,47 +1701,41 @@ Widget _flowStep(
 Widget _flowArrow() {
   return const Padding(
     padding: EdgeInsets.only(left: 8),
-    child: Icon(Icons.arrow_downward,
-        size: 12, color: _kDimText),
+    child: Icon(Icons.arrow_downward, size: 12, color: _kDimText),
   );
 }
 
-Widget _hierarchyNode(
-    String name, Color color, String desc, int depth) {
+Widget _hierarchyNode(String name, Color color, String desc, int depth) {
   return Container(
     margin: EdgeInsets.only(left: depth * 12.0),
     padding: const EdgeInsets.all(6),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(4),
-      border: Border.all(
-          color: color.withValues(alpha: 0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Row(
       children: [
         Container(
           width: 5,
           height: 5,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w600,
-                  )),
-              Text(desc,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 8)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _kDimText, fontSize: 8)),
             ],
           ),
         ),
@@ -1712,7 +1747,6 @@ Widget _hierarchyNode(
 Widget _hierarchyArrow() {
   return const Padding(
     padding: EdgeInsets.only(left: 2),
-    child: Icon(Icons.arrow_downward,
-        size: 10, color: _kDimText),
+    child: Icon(Icons.arrow_downward, size: 10, color: _kDimText),
   );
 }

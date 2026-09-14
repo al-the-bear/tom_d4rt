@@ -119,7 +119,12 @@ const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
 // ---------------------------------------------------------------------------
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 30.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 30.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -127,10 +132,18 @@ Widget _sectionHeader(int index, String title, String tagline) {
           width: 38.0,
           height: 38.0,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(color: _kAccent, shape: BoxShape.circle),
-          child: Text('$index',
-              style: const TextStyle(
-                  color: Color(0xFFFFFFFF), fontSize: 16.0, fontWeight: FontWeight.w700)),
+          decoration: const BoxDecoration(
+            color: _kAccent,
+            shape: BoxShape.circle,
+          ),
+          child: Text(
+            '$index',
+            style: const TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(width: 12.0),
         Expanded(
@@ -152,7 +165,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -162,24 +178,35 @@ Widget _card({
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: _kHairline),
       boxShadow: const <BoxShadow>[
-        BoxShadow(color: Color(0x0D000000), offset: Offset(0.0, 1.0), blurRadius: 3.0),
+        BoxShadow(
+          color: Color(0x0D000000),
+          offset: Offset(0.0, 1.0),
+          blurRadius: 3.0,
+        ),
       ],
     ),
     child: child,
   );
 }
 
-Widget _cardTitle(String title,
-    {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Text(title,
-          style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w600,
-              color: titleColor,
-              letterSpacing: -0.2)),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: titleColor,
+          letterSpacing: -0.2,
+        ),
+      ),
       if (subtitle != null) ...<Widget>[
         const SizedBox(height: 2.0),
         Text(subtitle, style: TextStyle(fontSize: 12.5, color: subtitleColor)),
@@ -196,8 +223,14 @@ Widget _pill(String label, {Color colour = _kAccent}) {
       borderRadius: BorderRadius.circular(999.0),
       border: Border.all(color: colour.withOpacity(0.3)),
     ),
-    child: Text(label,
-        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: colour)),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 11.0,
+        fontWeight: FontWeight.w600,
+        color: colour,
+      ),
+    ),
   );
 }
 
@@ -217,14 +250,24 @@ Widget _kvRow(String key, String value, {Color valueColour = _kInk}) {
       children: <Widget>[
         SizedBox(
           width: 210.0,
-          child: Text(key,
-              style: const TextStyle(
-                  fontSize: 12.5, fontFamily: 'monospace', color: _kInkSecondary)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontFamily: 'monospace',
+              color: _kInkSecondary,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style:
-                  TextStyle(fontSize: 12.5, fontFamily: 'monospace', color: valueColour)),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 12.5,
+              fontFamily: 'monospace',
+              color: valueColour,
+            ),
+          ),
         ),
       ],
     ),
@@ -250,30 +293,39 @@ Widget _codeBlock(String code, {String? title}) {
                 width: 10.0,
                 height: 10.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xFFFF5F56), shape: BoxShape.circle),
+                  color: Color(0xFFFF5F56),
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 6.0),
               Container(
                 width: 10.0,
                 height: 10.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xFFFFBD2E), shape: BoxShape.circle),
+                  color: Color(0xFFFFBD2E),
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 6.0),
               Container(
                 width: 10.0,
                 height: 10.0,
                 decoration: const BoxDecoration(
-                    color: Color(0xFF27C93F), shape: BoxShape.circle),
+                  color: Color(0xFF27C93F),
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 10.0),
               Expanded(
-                child: Text(title,
-                    style: const TextStyle(
-                        color: _kCodeAccent,
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: _kCodeAccent,
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -298,12 +350,14 @@ class _NeverNotifier extends Listenable {
 const _NeverNotifier _kRepaintNever = _NeverNotifier();
 
 // A label tile used in many sections.
-Widget _labelTile(String text,
-    {Color background = _kAccentSoft,
-    Color text_ = _kAccent,
-    double width = 80.0,
-    double height = 32.0,
-    EdgeInsets margin = EdgeInsets.zero}) {
+Widget _labelTile(
+  String text, {
+  Color background = _kAccentSoft,
+  Color text_ = _kAccent,
+  double width = 80.0,
+  double height = 32.0,
+  EdgeInsets margin = EdgeInsets.zero,
+}) {
   return Container(
     width: width,
     height: height,
@@ -314,9 +368,14 @@ Widget _labelTile(String text,
       borderRadius: BorderRadius.circular(6.0),
       border: Border.all(color: text_.withOpacity(0.35)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 11.5, fontWeight: FontWeight.w600, color: text_)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11.5,
+        fontWeight: FontWeight.w600,
+        color: text_,
+      ),
+    ),
   );
 }
 
@@ -331,11 +390,19 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF134E4A), Color(0xFF0F766E), Color(0xFF0891B2)],
+        colors: <Color>[
+          Color(0xFF134E4A),
+          Color(0xFF0F766E),
+          Color(0xFF0891B2),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
-        BoxShadow(color: Color(0x33134E4A), offset: Offset(0.0, 6.0), blurRadius: 18.0),
+        BoxShadow(
+          color: Color(0x33134E4A),
+          offset: Offset(0.0, 6.0),
+          blurRadius: 18.0,
+        ),
       ],
     ),
     child: Column(
@@ -344,47 +411,66 @@ Widget _heroBanner() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(999.0),
               ),
-              child: const Text('package:flutter/widgets.dart',
-                  style: TextStyle(
-                      color: Color(0xFFEDF3F7),
-                      fontSize: 11.5,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600)),
+              child: const Text(
+                'package:flutter/widgets.dart',
+                style: TextStyle(
+                  color: Color(0xFFEDF3F7),
+                  fontSize: 11.5,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             const SizedBox(width: 10.0),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(999.0),
               ),
-              child: const Text('table.dart / wrap.dart / flow.dart',
-                  style: TextStyle(
-                      color: Color(0xFFEDF3F7),
-                      fontSize: 11.5,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600)),
+              child: const Text(
+                'table.dart / wrap.dart / flow.dart',
+                style: TextStyle(
+                  color: Color(0xFFEDF3F7),
+                  fontSize: 11.5,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 14.0),
-        const Text('Table, Wrap, Flow',
-            style: TextStyle(
-                color: Color(0xFFFFFFFF),
-                fontSize: 30.0,
-                fontWeight: FontWeight.w800,
-                letterSpacing: -0.6)),
+        const Text(
+          'Table, Wrap, Flow',
+          style: TextStyle(
+            color: Color(0xFFFFFFFF),
+            fontSize: 30.0,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.6,
+          ),
+        ),
         const SizedBox(height: 8.0),
         const Text(
           'Three layout-of-many widgets that sit beside Row, Column and '
           'GridView - structured columns, run-flow chips, and free-form '
           'delegate-driven paint - in one static gallery.',
-          style: TextStyle(color: Color(0xFFD4EAEA), fontSize: 14.5, height: 1.45),
+          style: TextStyle(
+            color: Color(0xFFD4EAEA),
+            fontSize: 14.5,
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 16.0),
         Row(
@@ -408,26 +494,43 @@ Widget _heroIntroCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('The layout-of-many triad',
-            subtitle:
-                'Each widget answers a different question about a list of children. '
-                'Pick the one whose constraints match your data, not the one whose '
-                'name sounds friendliest.'),
+        _cardTitle(
+          'The layout-of-many triad',
+          subtitle:
+              'Each widget answers a different question about a list of children. '
+              'Pick the one whose constraints match your data, not the one whose '
+              'name sounds friendliest.',
+        ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _triadCard('Table',
+            Expanded(
+              child: _triadCard(
+                'Table',
                 'Children live in a rigid grid of rows and columns. Column widths are computed by TableColumnWidth strategies and shared across every row.',
-                _kAccent, _kAccentSoft)),
+                _kAccent,
+                _kAccentSoft,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _triadCard('Wrap',
+            Expanded(
+              child: _triadCard(
+                'Wrap',
                 'Children flow along one axis (horizontal or vertical) and break into a new run when the main axis fills up. Think of CSS flexbox with wrap.',
-                _kAccentGreen, const Color(0xFFDCFCE7))),
+                _kAccentGreen,
+                const Color(0xFFDCFCE7),
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _triadCard('Flow',
+            Expanded(
+              child: _triadCard(
+                'Flow',
                 'Children paint at offsets returned by a FlowDelegate. Layout is free-form; getSize gives the overall size, paintChildren picks transforms.',
-                _kAccentBlue, const Color(0xFFDBEAFE))),
+                _kAccentBlue,
+                const Color(0xFFDBEAFE),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -462,25 +565,45 @@ Widget _triadCard(String title, String body, Color accent, Color soft) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-            width: 28.0,
-            height: 28.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(color: accent, borderRadius: BorderRadius.circular(8.0)),
-            child: Text(title.substring(0, 1),
+        Row(
+          children: <Widget>[
+            Container(
+              width: 28.0,
+              height: 28.0,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: accent,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                title.substring(0, 1),
                 style: const TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w800)),
-          ),
-          const SizedBox(width: 8.0),
-          Text(title,
+                  color: Color(0xFFFFFFFF),
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              title,
               style: TextStyle(
-                  fontSize: 15.0, fontWeight: FontWeight.w700, color: accent)),
-        ]),
+                fontSize: 15.0,
+                fontWeight: FontWeight.w700,
+                color: accent,
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 8.0),
-        Text(body, style: const TextStyle(fontSize: 12.5, height: 1.4, color: _kInkSecondary)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: _kInkSecondary,
+          ),
+        ),
       ],
     ),
   );
@@ -519,43 +642,152 @@ class _HierarchyPainter extends CustomPainter {
 
   static const List<_HierarchyBox> boxes = <_HierarchyBox>[
     _HierarchyBox(
-        x: 270.0, y: 4.0, w: 200.0, h: 32.0, label: 'RenderObjectWidget', colour: _kInkSecondary),
+      x: 270.0,
+      y: 4.0,
+      w: 200.0,
+      h: 32.0,
+      label: 'RenderObjectWidget',
+      colour: _kInkSecondary,
+    ),
     _HierarchyBox(
-        x: 270.0, y: 60.0, w: 200.0, h: 32.0, label: 'MultiChildRenderObjectWidget', colour: _kInkSecondary),
+      x: 270.0,
+      y: 60.0,
+      w: 200.0,
+      h: 32.0,
+      label: 'MultiChildRenderObjectWidget',
+      colour: _kInkSecondary,
+    ),
     _HierarchyBox(
-        x: 60.0, y: 130.0, w: 160.0, h: 36.0, label: 'Table', colour: _kAccent),
+      x: 60.0,
+      y: 130.0,
+      w: 160.0,
+      h: 36.0,
+      label: 'Table',
+      colour: _kAccent,
+    ),
     _HierarchyBox(
-        x: 290.0, y: 130.0, w: 160.0, h: 36.0, label: 'Wrap', colour: _kAccentGreen),
+      x: 290.0,
+      y: 130.0,
+      w: 160.0,
+      h: 36.0,
+      label: 'Wrap',
+      colour: _kAccentGreen,
+    ),
     _HierarchyBox(
-        x: 520.0, y: 130.0, w: 160.0, h: 36.0, label: 'Flow', colour: _kAccentBlue),
+      x: 520.0,
+      y: 130.0,
+      w: 160.0,
+      h: 36.0,
+      label: 'Flow',
+      colour: _kAccentBlue,
+    ),
     _HierarchyBox(
-        x: 60.0, y: 200.0, w: 160.0, h: 30.0, label: 'RenderTable', colour: _kInkTertiary, italic: true),
+      x: 60.0,
+      y: 200.0,
+      w: 160.0,
+      h: 30.0,
+      label: 'RenderTable',
+      colour: _kInkTertiary,
+      italic: true,
+    ),
     _HierarchyBox(
-        x: 290.0, y: 200.0, w: 160.0, h: 30.0, label: 'RenderWrap', colour: _kInkTertiary, italic: true),
+      x: 290.0,
+      y: 200.0,
+      w: 160.0,
+      h: 30.0,
+      label: 'RenderWrap',
+      colour: _kInkTertiary,
+      italic: true,
+    ),
     _HierarchyBox(
-        x: 520.0, y: 200.0, w: 160.0, h: 30.0, label: 'RenderFlow', colour: _kInkTertiary, italic: true),
+      x: 520.0,
+      y: 200.0,
+      w: 160.0,
+      h: 30.0,
+      label: 'RenderFlow',
+      colour: _kInkTertiary,
+      italic: true,
+    ),
     _HierarchyBox(
-        x: 30.0, y: 260.0, w: 110.0, h: 28.0, label: 'TableRow', colour: _kAccentAmber),
+      x: 30.0,
+      y: 260.0,
+      w: 110.0,
+      h: 28.0,
+      label: 'TableRow',
+      colour: _kAccentAmber,
+    ),
     _HierarchyBox(
-        x: 150.0, y: 260.0, w: 110.0, h: 28.0, label: 'TableCell', colour: _kAccentAmber),
+      x: 150.0,
+      y: 260.0,
+      w: 110.0,
+      h: 28.0,
+      label: 'TableCell',
+      colour: _kAccentAmber,
+    ),
     _HierarchyBox(
-        x: 30.0, y: 295.0, w: 230.0, h: 28.0, label: 'TableColumnWidth (abstract)', colour: _kAccentRose),
+      x: 30.0,
+      y: 295.0,
+      w: 230.0,
+      h: 28.0,
+      label: 'TableColumnWidth (abstract)',
+      colour: _kAccentRose,
+    ),
     _HierarchyBox(
-        x: 30.0, y: 330.0, w: 230.0, h: 60.0,
-        label: 'Fixed | Flex | Intrinsic\nMax | Min | Fraction',
-        colour: _kAccentViolet),
+      x: 30.0,
+      y: 330.0,
+      w: 230.0,
+      h: 60.0,
+      label: 'Fixed | Flex | Intrinsic\nMax | Min | Fraction',
+      colour: _kAccentViolet,
+    ),
     _HierarchyBox(
-        x: 280.0, y: 260.0, w: 180.0, h: 28.0, label: 'WrapAlignment', colour: _kAccentGreen),
+      x: 280.0,
+      y: 260.0,
+      w: 180.0,
+      h: 28.0,
+      label: 'WrapAlignment',
+      colour: _kAccentGreen,
+    ),
     _HierarchyBox(
-        x: 280.0, y: 295.0, w: 180.0, h: 28.0, label: 'WrapCrossAlignment', colour: _kAccentGreen),
+      x: 280.0,
+      y: 295.0,
+      w: 180.0,
+      h: 28.0,
+      label: 'WrapCrossAlignment',
+      colour: _kAccentGreen,
+    ),
     _HierarchyBox(
-        x: 280.0, y: 330.0, w: 180.0, h: 28.0, label: 'Axis (horizontal/vertical)', colour: _kAccentGreen),
+      x: 280.0,
+      y: 330.0,
+      w: 180.0,
+      h: 28.0,
+      label: 'Axis (horizontal/vertical)',
+      colour: _kAccentGreen,
+    ),
     _HierarchyBox(
-        x: 490.0, y: 260.0, w: 210.0, h: 28.0, label: 'FlowDelegate', colour: _kAccentBlue),
+      x: 490.0,
+      y: 260.0,
+      w: 210.0,
+      h: 28.0,
+      label: 'FlowDelegate',
+      colour: _kAccentBlue,
+    ),
     _HierarchyBox(
-        x: 490.0, y: 295.0, w: 210.0, h: 28.0, label: 'FlowPaintingContext', colour: _kAccentBlue),
+      x: 490.0,
+      y: 295.0,
+      w: 210.0,
+      h: 28.0,
+      label: 'FlowPaintingContext',
+      colour: _kAccentBlue,
+    ),
     _HierarchyBox(
-        x: 490.0, y: 330.0, w: 210.0, h: 28.0, label: 'paintChildren() / getSize()', colour: _kAccentBlue),
+      x: 490.0,
+      y: 330.0,
+      w: 210.0,
+      h: 28.0,
+      label: 'paintChildren() / getSize()',
+      colour: _kAccentBlue,
+    ),
   ];
 
   static const List<_HierarchyEdge> edges = <_HierarchyEdge>[
@@ -582,7 +814,9 @@ class _HierarchyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = _kCardSoft;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10.0)), bg);
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10.0)),
+      bg,
+    );
 
     final Paint edgePaint = Paint()
       ..color = _kInkTertiary
@@ -597,8 +831,14 @@ class _HierarchyPainter extends CustomPainter {
       final Offset end = Offset(b.x + b.w / 2.0, b.y);
       final Path p = Path()
         ..moveTo(start.dx, start.dy)
-        ..cubicTo(start.dx, (start.dy + end.dy) / 2.0, end.dx,
-            (start.dy + end.dy) / 2.0, end.dx, end.dy);
+        ..cubicTo(
+          start.dx,
+          (start.dy + end.dy) / 2.0,
+          end.dx,
+          (start.dy + end.dy) / 2.0,
+          end.dx,
+          end.dy,
+        );
       canvas.drawPath(p, edgePaint);
     }
 
@@ -629,8 +869,10 @@ class _HierarchyPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
         maxLines: 3,
       )..layout(maxWidth: b.w - 6.0);
-      tp.paint(canvas,
-          Offset(b.x + (b.w - tp.width) / 2.0, b.y + (b.h - tp.height) / 2.0));
+      tp.paint(
+        canvas,
+        Offset(b.x + (b.w - tp.width) / 2.0, b.y + (b.h - tp.height) / 2.0),
+      );
     }
   }
 
@@ -646,11 +888,13 @@ Widget _hierarchySection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle('RenderObjectWidget descendants',
-                subtitle:
-                    'Each of Table, Wrap and Flow is a MultiChildRenderObjectWidget '
-                    'that owns a dedicated RenderBox subclass and a small family of '
-                    'configuration types.'),
+            _cardTitle(
+              'RenderObjectWidget descendants',
+              subtitle:
+                  'Each of Table, Wrap and Flow is a MultiChildRenderObjectWidget '
+                  'that owns a dedicated RenderBox subclass and a small family of '
+                  'configuration types.',
+            ),
             const SizedBox(height: 12.0),
             SizedBox(
               height: 410.0,
@@ -680,13 +924,25 @@ Widget _hierarchySection() {
           children: <Widget>[
             _cardTitle('Configuration surface at a glance'),
             const SizedBox(height: 8.0),
-            _kvRow('Table', 'children: List<TableRow>, columnWidths, defaultColumnWidth, border, defaultVerticalAlignment, textBaseline'),
+            _kvRow(
+              'Table',
+              'children: List<TableRow>, columnWidths, defaultColumnWidth, border, defaultVerticalAlignment, textBaseline',
+            ),
             _kvRow('TableRow', 'decoration, children: List<Widget>'),
             _kvRow('TableCell', 'verticalAlignment, child'),
-            _kvRow('TableColumnWidth', 'minIntrinsicWidth, maxIntrinsicWidth, flex'),
-            _kvRow('Wrap', 'direction, alignment, spacing, runAlignment, runSpacing, crossAxisAlignment, textDirection, verticalDirection, clipBehavior'),
+            _kvRow(
+              'TableColumnWidth',
+              'minIntrinsicWidth, maxIntrinsicWidth, flex',
+            ),
+            _kvRow(
+              'Wrap',
+              'direction, alignment, spacing, runAlignment, runSpacing, crossAxisAlignment, textDirection, verticalDirection, clipBehavior',
+            ),
             _kvRow('Flow', 'delegate: FlowDelegate, children, clipBehavior'),
-            _kvRow('FlowDelegate', 'paintChildren(ctx), getSize(constraints), getConstraintsForChild(i, c), shouldRepaint, shouldRelayout'),
+            _kvRow(
+              'FlowDelegate',
+              'paintChildren(ctx), getSize(constraints), getConstraintsForChild(i, c), shouldRepaint, shouldRelayout',
+            ),
           ],
         ),
       ),
@@ -716,36 +972,60 @@ Widget _tableColumnStrategyCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Five TableColumnWidth strategies',
-            subtitle:
-                'Each mini-table puts a different TableColumnWidth instance in '
-                'the middle slot. The outer columns are FixedColumnWidth so the '
-                'centre treatment is the only variable.'),
+        _cardTitle(
+          'Five TableColumnWidth strategies',
+          subtitle:
+              'Each mini-table puts a different TableColumnWidth instance in '
+              'the middle slot. The outer columns are FixedColumnWidth so the '
+              'centre treatment is the only variable.',
+        ),
         const SizedBox(height: 12.0),
         Wrap(
           spacing: 10.0,
           runSpacing: 10.0,
           children: <Widget>[
-            _miniTable('FixedColumnWidth(80)',
-                'Resolves to a fixed width, ignoring children.',
-                const FixedColumnWidth(80.0), _kAccent),
-            _miniTable('FlexColumnWidth(2)',
-                'Takes a flex share of leftover space, like Expanded.',
-                const FlexColumnWidth(2.0), _kAccentBlue),
-            _miniTable('IntrinsicColumnWidth()',
-                'Sizes to fit child intrinsic widths. Expensive at scale.',
-                const IntrinsicColumnWidth(), _kAccentGreen),
-            _miniTable('MaxColumnWidth(Intrinsic, Fixed(60))',
-                'Takes the larger of two strategies per row.',
-                const MaxColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(60.0)),
-                _kAccentAmber),
-            _miniTable('MinColumnWidth(Flex(1), Fixed(60))',
-                'Takes the smaller of two strategies per row.',
-                const MinColumnWidth(FlexColumnWidth(1.0), FixedColumnWidth(60.0)),
-                _kAccentRose),
-            _miniTable('FractionColumnWidth(0.25)',
-                'Takes a fraction of the table\'s maximum width.',
-                const FractionColumnWidth(0.25), _kAccentViolet),
+            _miniTable(
+              'FixedColumnWidth(80)',
+              'Resolves to a fixed width, ignoring children.',
+              const FixedColumnWidth(80.0),
+              _kAccent,
+            ),
+            _miniTable(
+              'FlexColumnWidth(2)',
+              'Takes a flex share of leftover space, like Expanded.',
+              const FlexColumnWidth(2.0),
+              _kAccentBlue,
+            ),
+            _miniTable(
+              'IntrinsicColumnWidth()',
+              'Sizes to fit child intrinsic widths. Expensive at scale.',
+              const IntrinsicColumnWidth(),
+              _kAccentGreen,
+            ),
+            _miniTable(
+              'MaxColumnWidth(Intrinsic, Fixed(60))',
+              'Takes the larger of two strategies per row.',
+              const MaxColumnWidth(
+                IntrinsicColumnWidth(),
+                FixedColumnWidth(60.0),
+              ),
+              _kAccentAmber,
+            ),
+            _miniTable(
+              'MinColumnWidth(Flex(1), Fixed(60))',
+              'Takes the smaller of two strategies per row.',
+              const MinColumnWidth(
+                FlexColumnWidth(1.0),
+                FixedColumnWidth(60.0),
+              ),
+              _kAccentRose,
+            ),
+            _miniTable(
+              'FractionColumnWidth(0.25)',
+              'Takes a fraction of the table\'s maximum width.',
+              const FractionColumnWidth(0.25),
+              _kAccentViolet,
+            ),
           ],
         ),
       ],
@@ -754,7 +1034,11 @@ Widget _tableColumnStrategyCard() {
 }
 
 Widget _miniTable(
-    String title, String body, TableColumnWidth centre, Color accent) {
+  String title,
+  String body,
+  TableColumnWidth centre,
+  Color accent,
+) {
   return Container(
     width: 285.0,
     padding: const EdgeInsets.all(12.0),
@@ -766,16 +1050,24 @@ Widget _miniTable(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: TextStyle(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w700,
-                color: accent,
-                fontFamily: 'monospace')),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            color: accent,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 4.0),
-        Text(body,
-            style: const TextStyle(
-                fontSize: 11.5, color: _kInkSecondary, height: 1.35)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: _kInkSecondary,
+            height: 1.35,
+          ),
+        ),
         const SizedBox(height: 10.0),
         Table(
           columnWidths: <int, TableColumnWidth>{
@@ -794,16 +1086,20 @@ Widget _miniTable(
                 _tableHeaderCell('C', accent),
               ],
             ),
-            TableRow(children: <Widget>[
-              _tableBodyCell('aaa'),
-              _tableBodyCell('long long center'),
-              _tableBodyCell('ccc'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableBodyCell('x'),
-              _tableBodyCell('mid'),
-              _tableBodyCell('y'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableBodyCell('aaa'),
+                _tableBodyCell('long long center'),
+                _tableBodyCell('ccc'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableBodyCell('x'),
+                _tableBodyCell('mid'),
+                _tableBodyCell('y'),
+              ],
+            ),
           ],
         ),
       ],
@@ -814,17 +1110,21 @@ Widget _miniTable(
 Widget _tableHeaderCell(String text, Color accent) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 11.5, fontWeight: FontWeight.w700, color: accent)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11.5,
+        fontWeight: FontWeight.w700,
+        color: accent,
+      ),
+    ),
   );
 }
 
 Widget _tableBodyCell(String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-    child: Text(text,
-        style: const TextStyle(fontSize: 11.5, color: _kInk)),
+    child: Text(text, style: const TextStyle(fontSize: 11.5, color: _kInk)),
   );
 }
 
@@ -833,29 +1133,47 @@ Widget _tableBorderPresetsCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('TableBorder presets',
-            subtitle:
-                'TableBorder controls top/right/bottom/left + horizontalInside + '
-                'verticalInside as independent BorderSides. Three common shapes:'),
+        _cardTitle(
+          'TableBorder presets',
+          subtitle:
+              'TableBorder controls top/right/bottom/left + horizontalInside + '
+              'verticalInside as independent BorderSides. Three common shapes:',
+        ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _borderDemo('TableBorder.all',
+            Expanded(
+              child: _borderDemo(
+                'TableBorder.all',
                 'Outer + inner grid lines, uniform colour.',
-                TableBorder.all(color: _kAccent, width: 1.2))),
+                TableBorder.all(color: _kAccent, width: 1.2),
+              ),
+            ),
             const SizedBox(width: 12.0),
-            Expanded(child: _borderDemo('TableBorder.symmetric',
+            Expanded(
+              child: _borderDemo(
+                'TableBorder.symmetric',
                 'inside vs outside as separate sides.',
                 const TableBorder.symmetric(
-                    inside: BorderSide(color: _kAccentBlue, width: 1.5),
-                    outside: BorderSide(color: _kInkSecondary, width: 2.0)))),
+                  inside: BorderSide(color: _kAccentBlue, width: 1.5),
+                  outside: BorderSide(color: _kInkSecondary, width: 2.0),
+                ),
+              ),
+            ),
             const SizedBox(width: 12.0),
-            Expanded(child: _borderDemo('TableBorder(...)',
+            Expanded(
+              child: _borderDemo(
+                'TableBorder(...)',
                 'Manual: only horizontalInside set.',
                 const TableBorder(
-                    horizontalInside:
-                        BorderSide(color: _kAccentGreen, width: 1.2)))),
+                  horizontalInside: BorderSide(
+                    color: _kAccentGreen,
+                    width: 1.2,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ],
@@ -874,16 +1192,24 @@ Widget _borderDemo(String title, String body, TableBorder border) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: const TextStyle(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-                color: _kInk)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+            color: _kInk,
+          ),
+        ),
         const SizedBox(height: 2.0),
-        Text(body,
-            style:
-                const TextStyle(fontSize: 11.0, color: _kInkSecondary, height: 1.35)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: _kInkSecondary,
+            height: 1.35,
+          ),
+        ),
         const SizedBox(height: 8.0),
         Table(
           border: border,
@@ -893,21 +1219,27 @@ Widget _borderDemo(String title, String body, TableBorder border) {
             2: FlexColumnWidth(1.0),
           },
           children: <TableRow>[
-            TableRow(children: <Widget>[
-              _tableBodyCell('A1'),
-              _tableBodyCell('A2'),
-              _tableBodyCell('A3'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableBodyCell('B1'),
-              _tableBodyCell('B2'),
-              _tableBodyCell('B3'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableBodyCell('C1'),
-              _tableBodyCell('C2'),
-              _tableBodyCell('C3'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableBodyCell('A1'),
+                _tableBodyCell('A2'),
+                _tableBodyCell('A3'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableBodyCell('B1'),
+                _tableBodyCell('B2'),
+                _tableBodyCell('B3'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableBodyCell('C1'),
+                _tableBodyCell('C2'),
+                _tableBodyCell('C3'),
+              ],
+            ),
           ],
         ),
       ],
@@ -920,10 +1252,12 @@ Widget _tableVerticalAlignmentCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('TableCellVerticalAlignment',
-            subtitle:
-                'Each column shows the same tall row painted with a different '
-                'vertical alignment for the short cell.'),
+        _cardTitle(
+          'TableCellVerticalAlignment',
+          subtitle:
+              'Each column shows the same tall row painted with a different '
+              'vertical alignment for the short cell.',
+        ),
         const SizedBox(height: 10.0),
         // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #135, P9):
         // The "baseline" column uses `TableCellVerticalAlignment.baseline`
@@ -957,36 +1291,40 @@ Widget _tableVerticalAlignmentCard() {
                 _tableHeaderCell('fill', _kAccent),
               ],
             ),
-            TableRow(children: <Widget>[
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.top,
-                child: _alignCellShort(),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child: _alignCellShort(),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.bottom,
-                child: _alignCellShort(),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.baseline,
-                child: _alignCellShort(),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.fill,
-                child: Container(
-                  color: _kAccentSoft,
-                  alignment: Alignment.center,
-                  child: const Text('fills',
-                      style: TextStyle(fontSize: 11.5, color: _kAccent)),
+            TableRow(
+              children: <Widget>[
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.top,
+                  child: _alignCellShort(),
                 ),
-              ),
-            ]),
-            TableRow(children: <Widget>[
-              for (int i = 0; i < 5; i++) _alignCellTall(i),
-            ]),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: _alignCellShort(),
+                ),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.bottom,
+                  child: _alignCellShort(),
+                ),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.baseline,
+                  child: _alignCellShort(),
+                ),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.fill,
+                  child: Container(
+                    color: _kAccentSoft,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'fills',
+                      style: TextStyle(fontSize: 11.5, color: _kAccent),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[for (int i = 0; i < 5; i++) _alignCellTall(i)],
+            ),
           ],
         ),
       ],
@@ -997,8 +1335,7 @@ Widget _tableVerticalAlignmentCard() {
 Widget _alignCellShort() {
   return const Padding(
     padding: EdgeInsets.all(6.0),
-    child: Text('short',
-        style: TextStyle(fontSize: 11.5, color: _kInk)),
+    child: Text('short', style: TextStyle(fontSize: 11.5, color: _kInk)),
   );
 }
 
@@ -1008,8 +1345,14 @@ Widget _alignCellTall(int idx) {
     height: 80.0,
     alignment: Alignment.topLeft,
     color: idx.isEven ? _kCardSoft : _kCellTintAlt.withOpacity(0.4),
-    child: Text('tall row\n#$idx\nline three',
-        style: const TextStyle(fontSize: 11.0, color: _kInkSecondary, height: 1.3)),
+    child: Text(
+      'tall row\n#$idx\nline three',
+      style: const TextStyle(
+        fontSize: 11.0,
+        color: _kInkSecondary,
+        height: 1.3,
+      ),
+    ),
   );
 }
 
@@ -1017,34 +1360,50 @@ Widget _tableDiagnosticsCard() {
   final FixedColumnWidth fixedW = const FixedColumnWidth(80.0);
   final FlexColumnWidth flexW = const FlexColumnWidth(2.0);
   final IntrinsicColumnWidth intrinsicW = const IntrinsicColumnWidth();
-  final MaxColumnWidth maxW =
-      const MaxColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(60.0));
-  final MinColumnWidth minW =
-      const MinColumnWidth(FlexColumnWidth(1.0), FixedColumnWidth(60.0));
+  final MaxColumnWidth maxW = const MaxColumnWidth(
+    IntrinsicColumnWidth(),
+    FixedColumnWidth(60.0),
+  );
+  final MinColumnWidth minW = const MinColumnWidth(
+    FlexColumnWidth(1.0),
+    FixedColumnWidth(60.0),
+  );
   final FractionColumnWidth fracW = const FractionColumnWidth(0.25);
   return _card(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('TableColumnWidth diagnostics',
-            subtitle:
-                'Inspecting runtime types & values of the six instances above.'),
+        _cardTitle(
+          'TableColumnWidth diagnostics',
+          subtitle:
+              'Inspecting runtime types & values of the six instances above.',
+        ),
         const SizedBox(height: 8.0),
         _kvRow('FixedColumnWidth.value', '80.0'),
         _kvRow('FlexColumnWidth.value', '2.0'),
         _kvRow('IntrinsicColumnWidth.flex', 'null (no flex by default)'),
-        _kvRow('MaxColumnWidth.a/b', 'IntrinsicColumnWidth, FixedColumnWidth(60.0)'),
-        _kvRow('MinColumnWidth.a/b', 'FlexColumnWidth(1.0), FixedColumnWidth(60.0)'),
+        _kvRow(
+          'MaxColumnWidth.a/b',
+          'IntrinsicColumnWidth, FixedColumnWidth(60.0)',
+        ),
+        _kvRow(
+          'MinColumnWidth.a/b',
+          'FlexColumnWidth(1.0), FixedColumnWidth(60.0)',
+        ),
         _kvRow('FractionColumnWidth.value', '0.25'),
         const SizedBox(height: 8.0),
-        Wrap(spacing: 6.0, runSpacing: 6.0, children: <Widget>[
-          _pill('${fixedW.runtimeType}', colour: _kAccent),
-          _pill('${flexW.runtimeType}', colour: _kAccentBlue),
-          _pill('${intrinsicW.runtimeType}', colour: _kAccentGreen),
-          _pill('${maxW.runtimeType}', colour: _kAccentAmber),
-          _pill('${minW.runtimeType}', colour: _kAccentRose),
-          _pill('${fracW.runtimeType}', colour: _kAccentViolet),
-        ]),
+        Wrap(
+          spacing: 6.0,
+          runSpacing: 6.0,
+          children: <Widget>[
+            _pill('${fixedW.runtimeType}', colour: _kAccent),
+            _pill('${flexW.runtimeType}', colour: _kAccentBlue),
+            _pill('${intrinsicW.runtimeType}', colour: _kAccentGreen),
+            _pill('${maxW.runtimeType}', colour: _kAccentAmber),
+            _pill('${minW.runtimeType}', colour: _kAccentRose),
+            _pill('${fracW.runtimeType}', colour: _kAccentViolet),
+          ],
+        ),
       ],
     ),
   );
@@ -1054,9 +1413,19 @@ Widget _tableDiagnosticsCard() {
 // SECTION 4 - WRAP DEEP-DIVE
 // ---------------------------------------------------------------------------
 const List<String> _kWrapChipLabels = <String>[
-  'flutter', 'dart', 'widgets', 'painting', 'rendering',
-  'foundation', 'gestures', 'services', 'animation',
-  'semantics', 'cupertino', 'material', 'scheduler',
+  'flutter',
+  'dart',
+  'widgets',
+  'painting',
+  'rendering',
+  'foundation',
+  'gestures',
+  'services',
+  'animation',
+  'semantics',
+  'cupertino',
+  'material',
+  'scheduler',
 ];
 
 Widget _wrapChip(String label, {Color colour = _kAccent, double pad = 10.0}) {
@@ -1067,9 +1436,14 @@ Widget _wrapChip(String label, {Color colour = _kAccent, double pad = 10.0}) {
       borderRadius: BorderRadius.circular(999.0),
       border: Border.all(color: colour.withOpacity(0.4)),
     ),
-    child: Text(label,
-        style: TextStyle(
-            fontSize: 11.5, fontWeight: FontWeight.w600, color: colour)),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 11.5,
+        fontWeight: FontWeight.w600,
+        color: colour,
+      ),
+    ),
   );
 }
 
@@ -1091,8 +1465,12 @@ List<Widget> _wrapChips({double sizeMul = 1.0}) {
   return out;
 }
 
-Widget _wrapDemoFrame(String title, String body, Widget child,
-    {double height = 140.0}) {
+Widget _wrapDemoFrame(
+  String title,
+  String body,
+  Widget child, {
+  double height = 140.0,
+}) {
   return Container(
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1103,16 +1481,24 @@ Widget _wrapDemoFrame(String title, String body, Widget child,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: const TextStyle(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-                color: _kInk)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+            color: _kInk,
+          ),
+        ),
         const SizedBox(height: 2.0),
-        Text(body,
-            style:
-                const TextStyle(fontSize: 11.0, color: _kInkSecondary, height: 1.35)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: _kInkSecondary,
+            height: 1.35,
+          ),
+        ),
         const SizedBox(height: 10.0),
         SizedBox(
           height: height,
@@ -1141,63 +1527,113 @@ Widget _wrapAlignmentMatrixCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('WrapAlignment - five chip clusters',
-            subtitle:
-                'Same chip set, identical runSpacing/spacing, varying only the '
-                'main-axis alignment within each run.'),
+        _cardTitle(
+          'WrapAlignment - five chip clusters',
+          subtitle:
+              'Same chip set, identical runSpacing/spacing, varying only the '
+              'main-axis alignment within each run.',
+        ),
         const SizedBox(height: 12.0),
         Wrap(
           spacing: 12.0,
           runSpacing: 12.0,
           children: <Widget>[
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.start',
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.start',
                 'Children packed at the start of each run.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.start,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.center',
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.center',
                 'Symmetric padding on the leading/trailing edges.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.center,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.end',
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.end',
                 'Children packed at the end of each run.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.end,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.spaceBetween',
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.spaceBetween',
                 'Equal gaps between children, none at the edges.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.spaceBetween,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.spaceAround',
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.spaceAround',
                 'Half-gap leading/trailing, full gap between children.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.spaceAround,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
-            SizedBox(width: 330.0, child: _wrapDemoFrame('WrapAlignment.spaceEvenly',
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 330.0,
+              child: _wrapDemoFrame(
+                'WrapAlignment.spaceEvenly',
                 'Equal gaps including leading/trailing.',
                 Container(
                   color: _kCardBg,
                   child: Wrap(
                     alignment: WrapAlignment.spaceEvenly,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ],
@@ -1209,10 +1645,24 @@ Widget _wrapCrossAlignmentCard() {
   // Same chips, but varying sizes so cross-axis alignment is visible.
   List<Widget> sizedChips() {
     final List<Widget> out = <Widget>[];
-    final List<double> sizes = <double>[10.0, 14.0, 8.0, 18.0, 12.0, 22.0, 9.0, 16.0];
+    final List<double> sizes = <double>[
+      10.0,
+      14.0,
+      8.0,
+      18.0,
+      12.0,
+      22.0,
+      9.0,
+      16.0,
+    ];
     for (int i = 0; i < sizes.length; i++) {
-      out.add(_wrapChip('chip $i',
-          colour: i.isEven ? _kAccent : _kAccentBlue, pad: sizes[i]));
+      out.add(
+        _wrapChip(
+          'chip $i',
+          colour: i.isEven ? _kAccent : _kAccentBlue,
+          pad: sizes[i],
+        ),
+      );
     }
     return out;
   }
@@ -1221,46 +1671,69 @@ Widget _wrapCrossAlignmentCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('WrapCrossAlignment - three options',
-            subtitle:
-                'crossAxisAlignment positions children of varying sizes within a '
-                'single run on the cross axis.'),
+        _cardTitle(
+          'WrapCrossAlignment - three options',
+          subtitle:
+              'crossAxisAlignment positions children of varying sizes within a '
+              'single run on the cross axis.',
+        ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _wrapDemoFrame('start',
+            Expanded(
+              child: _wrapDemoFrame(
+                'start',
                 'Top edges line up.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.start,
-                    spacing: 6.0, runSpacing: 6.0, children: sizedChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: sizedChips(),
+                  ),
                 ),
-                height: 120.0)),
+                height: 120.0,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('center',
+            Expanded(
+              child: _wrapDemoFrame(
+                'center',
                 'Children centered on the run\'s mid-line.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 6.0, runSpacing: 6.0, children: sizedChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: sizedChips(),
+                  ),
                 ),
-                height: 120.0)),
+                height: 120.0,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('end',
+            Expanded(
+              child: _wrapDemoFrame(
+                'end',
                 'Bottom edges line up.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     crossAxisAlignment: WrapCrossAlignment.end,
-                    spacing: 6.0, runSpacing: 6.0, children: sizedChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: sizedChips(),
+                  ),
                 ),
-                height: 120.0)),
+                height: 120.0,
+              ),
+            ),
           ],
         ),
       ],
@@ -1273,72 +1746,109 @@ Widget _wrapDirectionCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('direction & runAlignment',
-            subtitle:
-                'Wrap flows along its main axis. Set direction: Axis.vertical to '
-                'flow downward and break columns instead of rows.'),
+        _cardTitle(
+          'direction & runAlignment',
+          subtitle:
+              'Wrap flows along its main axis. Set direction: Axis.vertical to '
+              'flow downward and break columns instead of rows.',
+        ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _wrapDemoFrame('direction: Axis.horizontal',
+            Expanded(
+              child: _wrapDemoFrame(
+                'direction: Axis.horizontal',
                 'Children flow left -> right, runs stack down.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     direction: Axis.horizontal,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
-                ))),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('direction: Axis.vertical',
+            Expanded(
+              child: _wrapDemoFrame(
+                'direction: Axis.vertical',
                 'Children flow top -> bottom, runs stack right.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     direction: Axis.vertical,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
                 ),
-                height: 200.0)),
+                height: 200.0,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 10.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _wrapDemoFrame('runAlignment.start',
+            Expanded(
+              child: _wrapDemoFrame(
+                'runAlignment.start',
                 'Runs hug the cross-axis start.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     runAlignment: WrapAlignment.start,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
                 ),
-                height: 180.0)),
+                height: 180.0,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('runAlignment.spaceBetween',
+            Expanded(
+              child: _wrapDemoFrame(
+                'runAlignment.spaceBetween',
                 'Runs pushed apart with equal gaps.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     runAlignment: WrapAlignment.spaceBetween,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
                 ),
-                height: 180.0)),
+                height: 180.0,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('runAlignment.end',
+            Expanded(
+              child: _wrapDemoFrame(
+                'runAlignment.end',
                 'Runs hug the cross-axis end.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
                   child: Wrap(
                     runAlignment: WrapAlignment.end,
-                    spacing: 6.0, runSpacing: 6.0, children: _wrapChips()),
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    children: _wrapChips(),
+                  ),
                 ),
-                height: 180.0)),
+                height: 180.0,
+              ),
+            ),
           ],
         ),
       ],
@@ -1351,38 +1861,64 @@ Widget _wrapSpacingMatrixCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('spacing vs runSpacing',
-            subtitle:
-                '`spacing` is the gap between children inside a run. `runSpacing` '
-                'is the gap between runs on the cross axis.'),
+        _cardTitle(
+          'spacing vs runSpacing',
+          subtitle:
+              '`spacing` is the gap between children inside a run. `runSpacing` '
+              'is the gap between runs on the cross axis.',
+        ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _wrapDemoFrame('spacing: 4 / runSpacing: 4',
+            Expanded(
+              child: _wrapDemoFrame(
+                'spacing: 4 / runSpacing: 4',
                 'Tight grid.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
-                  child: Wrap(spacing: 4.0, runSpacing: 4.0, children: _wrapChips()),
-                ))),
+                  child: Wrap(
+                    spacing: 4.0,
+                    runSpacing: 4.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('spacing: 16 / runSpacing: 4',
+            Expanded(
+              child: _wrapDemoFrame(
+                'spacing: 16 / runSpacing: 4',
                 'Wide horizontal gaps.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
-                  child: Wrap(spacing: 16.0, runSpacing: 4.0, children: _wrapChips()),
-                ))),
+                  child: Wrap(
+                    spacing: 16.0,
+                    runSpacing: 4.0,
+                    children: _wrapChips(),
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapDemoFrame('spacing: 4 / runSpacing: 18',
+            Expanded(
+              child: _wrapDemoFrame(
+                'spacing: 4 / runSpacing: 18',
                 'Wide vertical gaps.',
                 Container(
                   color: _kCardBg,
                   alignment: Alignment.topLeft,
-                  child: Wrap(spacing: 4.0, runSpacing: 18.0, children: _wrapChips()),
+                  child: Wrap(
+                    spacing: 4.0,
+                    runSpacing: 18.0,
+                    children: _wrapChips(),
+                  ),
                 ),
-                height: 200.0)),
+                height: 200.0,
+              ),
+            ),
           ],
         ),
       ],
@@ -1400,26 +1936,37 @@ class _FlowConceptPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = _kCardSoft;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10.0)), bg);
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10.0)),
+      bg,
+    );
 
     // Frame
     final Paint frame = Paint()
       ..color = _kAccentBlue.withOpacity(0.6)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.4;
-    final Rect frameRect = Rect.fromLTWH(20.0, 20.0, size.width - 40.0, size.height - 40.0);
+    final Rect frameRect = Rect.fromLTWH(
+      20.0,
+      20.0,
+      size.width - 40.0,
+      size.height - 40.0,
+    );
     canvas.drawRRect(
-        RRect.fromRectAndRadius(frameRect, const Radius.circular(8.0)), frame);
+      RRect.fromRectAndRadius(frameRect, const Radius.circular(8.0)),
+      frame,
+    );
 
     // Label
     final TextPainter labelTp = TextPainter(
       text: const TextSpan(
-          text: 'FlowDelegate canvas (getSize -> ${'\$constraints'})',
-          style: TextStyle(
-              fontSize: 11.5,
-              color: _kAccentBlue,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w700)),
+        text: 'FlowDelegate canvas (getSize -> ${'\$constraints'})',
+        style: TextStyle(
+          fontSize: 11.5,
+          color: _kAccentBlue,
+          fontFamily: 'monospace',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     labelTp.paint(canvas, Offset(28.0, 6.0));
@@ -1447,37 +1994,50 @@ class _FlowConceptPainter extends CustomPainter {
       final double cx = frameRect.left + c.dx * frameRect.width;
       final double cy = frameRect.top + c.dy * frameRect.height;
       final double sz = 44.0 + (i % 3) * 6.0;
-      final Rect r = Rect.fromCenter(center: Offset(cx, cy), width: sz, height: sz);
+      final Rect r = Rect.fromCenter(
+        center: Offset(cx, cy),
+        width: sz,
+        height: sz,
+      );
       final Color col = palette[i];
       canvas.drawRRect(
-          RRect.fromRectAndRadius(r, const Radius.circular(6.0)),
-          Paint()..color = col.withOpacity(0.16));
+        RRect.fromRectAndRadius(r, const Radius.circular(6.0)),
+        Paint()..color = col.withOpacity(0.16),
+      );
       canvas.drawRRect(
-          RRect.fromRectAndRadius(r, const Radius.circular(6.0)),
-          Paint()
-            ..color = col.withOpacity(0.7)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 1.4);
+        RRect.fromRectAndRadius(r, const Radius.circular(6.0)),
+        Paint()
+          ..color = col.withOpacity(0.7)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4,
+      );
       final TextPainter tp = TextPainter(
         text: TextSpan(
-            text: 'child[$i]',
-            style: TextStyle(
-                fontSize: 10.5,
-                color: col,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+          text: 'child[$i]',
+          style: TextStyle(
+            fontSize: 10.5,
+            color: col,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(canvas,
-          Offset(r.center.dx - tp.width / 2.0, r.center.dy - tp.height / 2.0));
+      tp.paint(
+        canvas,
+        Offset(r.center.dx - tp.width / 2.0, r.center.dy - tp.height / 2.0),
+      );
 
       // Arrow from frame origin to centre to suggest a transform.
       final Paint arrow = Paint()
         ..color = col.withOpacity(0.5)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.0;
-      canvas.drawLine(Offset(frameRect.left + 8.0, frameRect.top + 8.0),
-          Offset(r.left, r.top), arrow);
+      canvas.drawLine(
+        Offset(frameRect.left + 8.0, frameRect.top + 8.0),
+        Offset(r.left, r.top),
+        arrow,
+      );
     }
 
     // Right-side legend bullets.
@@ -1494,11 +2054,13 @@ class _FlowConceptPainter extends CustomPainter {
       // place at bottom of card if there's room; otherwise leave alone
       final TextPainter tp = TextPainter(
         text: TextSpan(
-            text: legend[i],
-            style: const TextStyle(
-                fontSize: 11.0,
-                color: _kInkSecondary,
-                fontFamily: 'monospace')),
+          text: legend[i],
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: _kInkSecondary,
+            fontFamily: 'monospace',
+          ),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
       if (y + tp.height > size.height - 4.0) break;
@@ -1513,7 +2075,7 @@ class _FlowConceptPainter extends CustomPainter {
 
 class _StaticFlowDelegate extends FlowDelegate {
   const _StaticFlowDelegate({Listenable? repaint = _kRepaintNever})
-      : super(repaint: repaint);
+    : super(repaint: repaint);
 
   @override
   Size getSize(BoxConstraints constraints) {
@@ -1550,13 +2112,12 @@ class _StaticFlowDelegate extends FlowDelegate {
 
 class _GridFlowDelegate extends FlowDelegate {
   const _GridFlowDelegate({Listenable? repaint = _kRepaintNever, this.cols = 5})
-      : super(repaint: repaint);
+    : super(repaint: repaint);
 
   final int cols;
 
   @override
-  Size getSize(BoxConstraints constraints) =>
-      Size(constraints.maxWidth, 160.0);
+  Size getSize(BoxConstraints constraints) => Size(constraints.maxWidth, 160.0);
   @override
   BoxConstraints getConstraintsForChild(int i, BoxConstraints c) =>
       BoxConstraints.tight(const Size(54.0, 54.0));
@@ -1587,16 +2148,22 @@ Widget _flowChild(int i, Color col) {
       border: Border.all(color: col.withOpacity(0.55), width: 1.2),
     ),
     alignment: Alignment.center,
-    child: Text('$i',
-        style: TextStyle(
-            fontSize: 14.0, fontWeight: FontWeight.w700, color: col)),
+    child: Text(
+      '$i',
+      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: col),
+    ),
   );
 }
 
 List<Widget> _flowChildren(int n) {
   final List<Color> palette = <Color>[
-    _kAccent, _kAccentBlue, _kAccentGreen,
-    _kAccentAmber, _kAccentRose, _kAccentViolet, _kAccentCyan
+    _kAccent,
+    _kAccentBlue,
+    _kAccentGreen,
+    _kAccentAmber,
+    _kAccentRose,
+    _kAccentViolet,
+    _kAccentCyan,
   ];
   final List<Widget> out = <Widget>[];
   for (int i = 0; i < n; i++) {
@@ -1613,11 +2180,13 @@ Widget _flowSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle('FlowDelegate concept diagram',
-                subtitle:
-                    'Each child is painted by paintChild(i, transform: ...). '
-                    'The delegate owns layout and paint; the framework just '
-                    'feeds it a FlowPaintingContext.'),
+            _cardTitle(
+              'FlowDelegate concept diagram',
+              subtitle:
+                  'Each child is painted by paintChild(i, transform: ...). '
+                  'The delegate owns layout and paint; the framework just '
+                  'feeds it a FlowPaintingContext.',
+            ),
             const SizedBox(height: 12.0),
             SizedBox(
               height: 240.0,
@@ -1633,11 +2202,13 @@ Widget _flowSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle('Real Flow: circular layout',
-                subtitle:
-                    'Static FlowDelegate places eight children on a circle. '
-                    'No animation, no AnimationController - paintChildren is '
-                    'driven by constant geometry.'),
+            _cardTitle(
+              'Real Flow: circular layout',
+              subtitle:
+                  'Static FlowDelegate places eight children on a circle. '
+                  'No animation, no AnimationController - paintChildren is '
+                  'driven by constant geometry.',
+            ),
             const SizedBox(height: 10.0),
             SizedBox(
               height: 170.0,
@@ -1653,10 +2224,12 @@ Widget _flowSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle('Real Flow: grid via delegate',
-                subtitle:
-                    'Same Flow widget, different FlowDelegate - shows that the '
-                    'layout policy lives entirely in the delegate.'),
+            _cardTitle(
+              'Real Flow: grid via delegate',
+              subtitle:
+                  'Same Flow widget, different FlowDelegate - shows that the '
+                  'layout policy lives entirely in the delegate.',
+            ),
             const SizedBox(height: 10.0),
             SizedBox(
               height: 170.0,
@@ -1675,11 +2248,17 @@ Widget _flowSection() {
             _cardTitle('FlowDelegate API summary'),
             const SizedBox(height: 8.0),
             _kvRow('getSize', '(constraints) -> Size'),
-            _kvRow('getConstraintsForChild', '(i, parentConstraints) -> BoxConstraints'),
+            _kvRow(
+              'getConstraintsForChild',
+              '(i, parentConstraints) -> BoxConstraints',
+            ),
             _kvRow('paintChildren', '(FlowPaintingContext) -> void'),
             _kvRow('shouldRepaint', '(covariant FlowDelegate old) -> bool'),
             _kvRow('shouldRelayout', '(covariant FlowDelegate old) -> bool'),
-            _kvRow('repaint Listenable', 'optional - drives shouldRepaint without rebuilding'),
+            _kvRow(
+              'repaint Listenable',
+              'optional - drives shouldRepaint without rebuilding',
+            ),
           ],
         ),
       ),
@@ -1708,12 +2287,14 @@ Widget _comparisonHeaderRow() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('When to reach for which',
-            titleColor: _kInkOnDark,
-            subtitleColor: _kInkOnDarkSecondary,
-            subtitle:
-                'Five layout-of-many widgets compared across the axes that '
-                'matter at design time.'),
+        _cardTitle(
+          'When to reach for which',
+          titleColor: _kInkOnDark,
+          subtitleColor: _kInkOnDarkSecondary,
+          subtitle:
+              'Five layout-of-many widgets compared across the axes that '
+              'matter at design time.',
+        ),
         const SizedBox(height: 10.0),
         Wrap(
           spacing: 8.0,
@@ -1739,11 +2320,14 @@ Widget _comparisonMatrixCard() {
         for (int i = 0; i < labels.length; i++)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-            child: Text(labels[i],
-                style: TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                    color: i == 0 ? _kInkSecondary : _kAccent)),
+            child: Text(
+              labels[i],
+              style: TextStyle(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w700,
+                color: i == 0 ? _kInkSecondary : _kAccent,
+              ),
+            ),
           ),
       ],
     );
@@ -1755,13 +2339,16 @@ Widget _comparisonMatrixCard() {
         for (int i = 0; i < cells.length; i++)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-            child: Text(cells[i],
-                style: TextStyle(
-                    fontSize: 11.5,
-                    color: i == 0 ? _kInkSecondary : _kInk,
-                    fontWeight: i == 0 ? FontWeight.w600 : FontWeight.w400,
-                    fontFamily: i == 0 ? 'monospace' : null,
-                    height: 1.35)),
+            child: Text(
+              cells[i],
+              style: TextStyle(
+                fontSize: 11.5,
+                color: i == 0 ? _kInkSecondary : _kInk,
+                fontWeight: i == 0 ? FontWeight.w600 : FontWeight.w400,
+                fontFamily: i == 0 ? 'monospace' : null,
+                height: 1.35,
+              ),
+            ),
           ),
       ],
     );
@@ -1784,18 +2371,95 @@ Widget _comparisonMatrixCard() {
             5: FlexColumnWidth(1.0),
           },
           children: <TableRow>[
-            header(<String>['axis', 'Table', 'Wrap', 'Flow', 'Row/Col', 'GridView']),
-            row(<String>['shape', 'rigid grid', 'wrapped row/col', 'free-form', 'single line', 'scrolling grid']),
-            row(<String>['column sizing', 'TableColumnWidth', 'driven by chip size', 'delegate', 'flex / intrinsic', 'SliverGridDelegate']),
-            row(<String>['shared column model', 'yes', 'no', 'no', 'n/a', 'yes (delegate)']),
+            header(<String>[
+              'axis',
+              'Table',
+              'Wrap',
+              'Flow',
+              'Row/Col',
+              'GridView',
+            ]),
+            row(<String>[
+              'shape',
+              'rigid grid',
+              'wrapped row/col',
+              'free-form',
+              'single line',
+              'scrolling grid',
+            ]),
+            row(<String>[
+              'column sizing',
+              'TableColumnWidth',
+              'driven by chip size',
+              'delegate',
+              'flex / intrinsic',
+              'SliverGridDelegate',
+            ]),
+            row(<String>[
+              'shared column model',
+              'yes',
+              'no',
+              'no',
+              'n/a',
+              'yes (delegate)',
+            ]),
             row(<String>['scrolls', 'no', 'no', 'no', 'no', 'yes (slivers)']),
-            row(<String>['lazy children', 'no', 'no', 'no', 'no', 'yes (builder)']),
-            row(<String>['custom paint', 'no', 'no', 'YES via delegate', 'no', 'no']),
-            row(<String>['supports transforms', 'no', 'no', 'YES (Matrix4)', 'no', 'no']),
-            row(<String>['handles overflow', 'shrink-wraps', 'wraps to new run', 'delegate decides', 'asserts', 'scrolls']),
-            row(<String>['vertical alignment per cell', 'TableCell', 'crossAxisAlignment', 'delegate', 'crossAxisAlignment', 'cell-level']),
-            row(<String>['repaint trigger', 'rebuild', 'rebuild', 'Listenable!', 'rebuild', 'scroll/rebuild']),
-            row(<String>['typical use', 'invoice grids', 'tag/chip clouds', 'menus, arcs', 'toolbars, rows', 'galleries, lists']),
+            row(<String>[
+              'lazy children',
+              'no',
+              'no',
+              'no',
+              'no',
+              'yes (builder)',
+            ]),
+            row(<String>[
+              'custom paint',
+              'no',
+              'no',
+              'YES via delegate',
+              'no',
+              'no',
+            ]),
+            row(<String>[
+              'supports transforms',
+              'no',
+              'no',
+              'YES (Matrix4)',
+              'no',
+              'no',
+            ]),
+            row(<String>[
+              'handles overflow',
+              'shrink-wraps',
+              'wraps to new run',
+              'delegate decides',
+              'asserts',
+              'scrolls',
+            ]),
+            row(<String>[
+              'vertical alignment per cell',
+              'TableCell',
+              'crossAxisAlignment',
+              'delegate',
+              'crossAxisAlignment',
+              'cell-level',
+            ]),
+            row(<String>[
+              'repaint trigger',
+              'rebuild',
+              'rebuild',
+              'Listenable!',
+              'rebuild',
+              'scroll/rebuild',
+            ]),
+            row(<String>[
+              'typical use',
+              'invoice grids',
+              'tag/chip clouds',
+              'menus, arcs',
+              'toolbars, rows',
+              'galleries, lists',
+            ]),
           ],
         ),
       ],
@@ -1808,10 +2472,12 @@ Widget _tableVsDataTableCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Table vs DataTable',
-            subtitle:
-                'Both render rows-of-cells but live on different layers of the '
-                'framework and answer different questions.'),
+        _cardTitle(
+          'Table vs DataTable',
+          subtitle:
+              'Both render rows-of-cells but live on different layers of the '
+              'framework and answer different questions.',
+        ),
         const SizedBox(height: 10.0),
         Table(
           border: TableBorder.all(color: _kGridLine, width: 1.0),
@@ -1829,16 +2495,52 @@ Widget _tableVsDataTableCard() {
                 _tableHeaderCell('DataTable (material)', _kAccent),
               ],
             ),
-            _comparisonRow('package', 'flutter/widgets.dart', 'flutter/material.dart'),
-            _comparisonRow('layer', 'rendering, no styling', 'Material visuals, theming'),
-            _comparisonRow('column type', 'List<TableRow>', 'List<DataColumn> + List<DataRow>'),
+            _comparisonRow(
+              'package',
+              'flutter/widgets.dart',
+              'flutter/material.dart',
+            ),
+            _comparisonRow(
+              'layer',
+              'rendering, no styling',
+              'Material visuals, theming',
+            ),
+            _comparisonRow(
+              'column type',
+              'List<TableRow>',
+              'List<DataColumn> + List<DataRow>',
+            ),
             _comparisonRow('sortable', 'manual', 'built-in via onSort'),
-            _comparisonRow('selectable rows', 'manual', 'built-in via selected'),
-            _comparisonRow('cell sizing', 'TableColumnWidth', 'computed automatically'),
-            _comparisonRow('headings', 'just another TableRow', 'separate DataColumn list'),
-            _comparisonRow('row decoration', 'TableRow.decoration', 'theme + selected'),
-            _comparisonRow('scrolling', 'wrap in SingleChildScrollView', 'wrap in SingleChildScrollView'),
-            _comparisonRow('best for', 'forms, label/value grids', 'tabular data with sort + select'),
+            _comparisonRow(
+              'selectable rows',
+              'manual',
+              'built-in via selected',
+            ),
+            _comparisonRow(
+              'cell sizing',
+              'TableColumnWidth',
+              'computed automatically',
+            ),
+            _comparisonRow(
+              'headings',
+              'just another TableRow',
+              'separate DataColumn list',
+            ),
+            _comparisonRow(
+              'row decoration',
+              'TableRow.decoration',
+              'theme + selected',
+            ),
+            _comparisonRow(
+              'scrolling',
+              'wrap in SingleChildScrollView',
+              'wrap in SingleChildScrollView',
+            ),
+            _comparisonRow(
+              'best for',
+              'forms, label/value grids',
+              'tabular data with sort + select',
+            ),
           ],
         ),
       ],
@@ -1847,27 +2549,36 @@ Widget _tableVsDataTableCard() {
 }
 
 TableRow _comparisonRow(String a, String b, String c) {
-  return TableRow(children: <Widget>[
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-      child: Text(a,
+  return TableRow(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+        child: Text(
+          a,
           style: const TextStyle(
-              fontSize: 11.5,
-              fontFamily: 'monospace',
-              color: _kInkSecondary,
-              fontWeight: FontWeight.w600)),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-      child: Text(b,
-          style: const TextStyle(fontSize: 11.5, color: _kInk, height: 1.35)),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
-      child: Text(c,
-          style: const TextStyle(fontSize: 11.5, color: _kInk, height: 1.35)),
-    ),
-  ]);
+            fontSize: 11.5,
+            fontFamily: 'monospace',
+            color: _kInkSecondary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+        child: Text(
+          b,
+          style: const TextStyle(fontSize: 11.5, color: _kInk, height: 1.35),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
+        child: Text(
+          c,
+          style: const TextStyle(fontSize: 11.5, color: _kInk, height: 1.35),
+        ),
+      ),
+    ],
+  );
 }
 
 Widget _wrapVsRowFlowCard() {
@@ -1875,32 +2586,43 @@ Widget _wrapVsRowFlowCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Wrap vs Row+Flow',
-            subtitle:
-                'A common question - "isn\'t Row with a Flow wrapper the same?" '
-                'Short answer: no. They have different overflow semantics and '
-                'different layout passes.'),
+        _cardTitle(
+          'Wrap vs Row+Flow',
+          subtitle:
+              'A common question - "isn\'t Row with a Flow wrapper the same?" '
+              'Short answer: no. They have different overflow semantics and '
+              'different layout passes.',
+        ),
         const SizedBox(height: 10.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _wrapVsRowFlowCell(
+            Expanded(
+              child: _wrapVsRowFlowCell(
                 'Wrap',
                 'Single layout pass per run. Chooses run break inline using '
-                '`spacing` and child sizes. Cannot transform children.',
-                _kAccentGreen)),
+                    '`spacing` and child sizes. Cannot transform children.',
+                _kAccentGreen,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapVsRowFlowCell(
+            Expanded(
+              child: _wrapVsRowFlowCell(
                 'Row',
                 'Single line. Throws on overflow unless wrapped in Flexible / '
-                'Expanded. No run break logic at all.',
-                _kAccentRose)),
+                    'Expanded. No run break logic at all.',
+                _kAccentRose,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _wrapVsRowFlowCell(
+            Expanded(
+              child: _wrapVsRowFlowCell(
                 'Flow',
                 'Delegate paints children at arbitrary transforms. You decide '
-                'when to break to a new row - paintChildren is your loop.',
-                _kAccentBlue)),
+                    'when to break to a new row - paintChildren is your loop.',
+                _kAccentBlue,
+              ),
+            ),
           ],
         ),
       ],
@@ -1919,13 +2641,23 @@ Widget _wrapVsRowFlowCell(String title, String body, Color accent) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: TextStyle(
-                fontSize: 14.0, fontWeight: FontWeight.w800, color: accent)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w800,
+            color: accent,
+          ),
+        ),
         const SizedBox(height: 4.0),
-        Text(body,
-            style:
-                const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.35)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 12.0,
+            color: _kInkSecondary,
+            height: 1.35,
+          ),
+        ),
       ],
     ),
   );
@@ -2047,24 +2779,36 @@ Widget _pitfallsSection() {
           children: <Widget>[
             _cardTitle('Six callouts that bite'),
             const SizedBox(height: 8.0),
-            _pitfallRow('Table rows must agree on column count',
-                'Every TableRow must contain exactly the same number of children. '
-                'Otherwise the framework throws at build time.'),
-            _pitfallRow('IntrinsicColumnWidth is O(rows * cols)',
-                'It asks every child for its intrinsic width on every layout. '
-                'For large tables prefer FixedColumnWidth or FlexColumnWidth.'),
-            _pitfallRow('Wrap is not a scroll view',
-                'When the cross-axis exceeds the available size, Wrap just overflows. '
-                'Wrap it in SingleChildScrollView if you expect overflow.'),
-            _pitfallRow('Flow does not clip by default',
-                'Set clipBehavior: Clip.hardEdge if your delegate paints outside '
-                'the parent\'s box, otherwise children may appear over neighbours.'),
-            _pitfallRow('FlowDelegate.shouldRepaint vs repaint Listenable',
-                'If you need animation, pass an Animation as `repaint`. Returning '
-                'true from shouldRepaint without one will still need a rebuild.'),
-            _pitfallRow('Table.defaultColumnWidth still applies',
-                'Columns not listed in columnWidths fall back to defaultColumnWidth '
-                '(default FlexColumnWidth(1)), not zero.'),
+            _pitfallRow(
+              'Table rows must agree on column count',
+              'Every TableRow must contain exactly the same number of children. '
+                  'Otherwise the framework throws at build time.',
+            ),
+            _pitfallRow(
+              'IntrinsicColumnWidth is O(rows * cols)',
+              'It asks every child for its intrinsic width on every layout. '
+                  'For large tables prefer FixedColumnWidth or FlexColumnWidth.',
+            ),
+            _pitfallRow(
+              'Wrap is not a scroll view',
+              'When the cross-axis exceeds the available size, Wrap just overflows. '
+                  'Wrap it in SingleChildScrollView if you expect overflow.',
+            ),
+            _pitfallRow(
+              'Flow does not clip by default',
+              'Set clipBehavior: Clip.hardEdge if your delegate paints outside '
+                  'the parent\'s box, otherwise children may appear over neighbours.',
+            ),
+            _pitfallRow(
+              'FlowDelegate.shouldRepaint vs repaint Listenable',
+              'If you need animation, pass an Animation as `repaint`. Returning '
+                  'true from shouldRepaint without one will still need a rebuild.',
+            ),
+            _pitfallRow(
+              'Table.defaultColumnWidth still applies',
+              'Columns not listed in columnWidths fall back to defaultColumnWidth '
+                  '(default FlexColumnWidth(1)), not zero.',
+            ),
           ],
         ),
       ),
@@ -2084,28 +2828,39 @@ Widget _pitfallRow(String title, String body) {
           margin: const EdgeInsets.only(right: 10.0, top: 2.0),
           alignment: Alignment.center,
           decoration: const BoxDecoration(
-              color: _kAccentAmber, shape: BoxShape.circle),
-          child: const Text('!',
-              style: TextStyle(
-                  color: Color(0xFFFFFFFF),
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w800)),
+            color: _kAccentAmber,
+            shape: BoxShape.circle,
+          ),
+          child: const Text(
+            '!',
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 13.0,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w700,
-                      color: _kInk)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
               const SizedBox(height: 2.0),
-              Text(body,
-                  style: const TextStyle(
-                      fontSize: 12.0,
-                      color: _kInkSecondary,
-                      height: 1.4)),
+              Text(
+                body,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: _kInkSecondary,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -2123,67 +2878,58 @@ Widget _cheatSheetFooter() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Cheat-sheet',
-            titleColor: _kInkOnDark,
-            subtitleColor: _kInkOnDarkSecondary,
-            subtitle:
-                'A compact map of the Table / Wrap / Flow surface area.'),
+        _cardTitle(
+          'Cheat-sheet',
+          titleColor: _kInkOnDark,
+          subtitleColor: _kInkOnDarkSecondary,
+          subtitle: 'A compact map of the Table / Wrap / Flow surface area.',
+        ),
         const SizedBox(height: 12.0),
-        _cheatGroup('Table',
-            const <String>[
-              'children: List<TableRow>',
-              'columnWidths: Map<int, TableColumnWidth>',
-              'defaultColumnWidth',
-              'defaultVerticalAlignment',
-              'border: TableBorder',
-              'textBaseline',
-            ],
-            const Color(0xFFFDE68A)),
-        _cheatGroup('TableColumnWidth',
-            const <String>[
-              'FixedColumnWidth(value)',
-              'FlexColumnWidth(value)',
-              'IntrinsicColumnWidth({flex})',
-              'MaxColumnWidth(a, b)',
-              'MinColumnWidth(a, b)',
-              'FractionColumnWidth(value)',
-            ],
-            const Color(0xFFFCA5A5)),
-        _cheatGroup('Wrap',
-            const <String>[
-              'direction: Axis',
-              'alignment: WrapAlignment',
-              'spacing',
-              'runSpacing',
-              'runAlignment',
-              'crossAxisAlignment',
-              'textDirection',
-              'verticalDirection',
-              'clipBehavior',
-            ],
-            const Color(0xFFBBF7D0)),
-        _cheatGroup('Flow / FlowDelegate',
-            const <String>[
-              'delegate: FlowDelegate',
-              'repaint: Listenable?',
-              'paintChildren',
-              'getSize',
-              'getConstraintsForChild',
-              'shouldRepaint',
-              'shouldRelayout',
-              'FlowPaintingContext.paintChild',
-            ],
-            const Color(0xFFBAE6FD)),
-        _cheatGroup('TableCellVerticalAlignment',
-            const <String>[
-              'top',
-              'middle',
-              'bottom',
-              'baseline',
-              'fill',
-              'intrinsicHeight',
-            ],
-            const Color(0xFFE9D5FF)),
+        _cheatGroup('Table', const <String>[
+          'children: List<TableRow>',
+          'columnWidths: Map<int, TableColumnWidth>',
+          'defaultColumnWidth',
+          'defaultVerticalAlignment',
+          'border: TableBorder',
+          'textBaseline',
+        ], const Color(0xFFFDE68A)),
+        _cheatGroup('TableColumnWidth', const <String>[
+          'FixedColumnWidth(value)',
+          'FlexColumnWidth(value)',
+          'IntrinsicColumnWidth({flex})',
+          'MaxColumnWidth(a, b)',
+          'MinColumnWidth(a, b)',
+          'FractionColumnWidth(value)',
+        ], const Color(0xFFFCA5A5)),
+        _cheatGroup('Wrap', const <String>[
+          'direction: Axis',
+          'alignment: WrapAlignment',
+          'spacing',
+          'runSpacing',
+          'runAlignment',
+          'crossAxisAlignment',
+          'textDirection',
+          'verticalDirection',
+          'clipBehavior',
+        ], const Color(0xFFBBF7D0)),
+        _cheatGroup('Flow / FlowDelegate', const <String>[
+          'delegate: FlowDelegate',
+          'repaint: Listenable?',
+          'paintChildren',
+          'getSize',
+          'getConstraintsForChild',
+          'shouldRepaint',
+          'shouldRelayout',
+          'FlowPaintingContext.paintChild',
+        ], const Color(0xFFBAE6FD)),
+        _cheatGroup('TableCellVerticalAlignment', const <String>[
+          'top',
+          'middle',
+          'bottom',
+          'baseline',
+          'fill',
+          'intrinsicHeight',
+        ], const Color(0xFFE9D5FF)),
       ],
     ),
   );
@@ -2195,12 +2941,15 @@ Widget _cheatGroup(String title, List<String> items, Color accent) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: TextStyle(
-                fontSize: 13.0,
-                fontWeight: FontWeight.w800,
-                color: accent,
-                letterSpacing: 0.3)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w800,
+            color: accent,
+            letterSpacing: 0.3,
+          ),
+        ),
         const SizedBox(height: 6.0),
         Wrap(
           spacing: 6.0,
@@ -2208,19 +2957,24 @@ Widget _cheatGroup(String title, List<String> items, Color accent) {
           children: <Widget>[
             for (int i = 0; i < items.length; i++)
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0x22FFFFFF),
                   borderRadius: BorderRadius.circular(6.0),
                   border: Border.all(color: accent.withOpacity(0.6)),
                 ),
-                child: Text(items[i],
-                    style: const TextStyle(
-                        fontSize: 11.0,
-                        color: _kInkOnDark,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  items[i],
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    color: _kInkOnDark,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
           ],
         ),
@@ -2240,10 +2994,14 @@ dynamic build(BuildContext context) {
   const FixedColumnWidth fixedW = FixedColumnWidth(80.0);
   const FlexColumnWidth flexW = FlexColumnWidth(2.0);
   const IntrinsicColumnWidth intrinsicW = IntrinsicColumnWidth();
-  const MaxColumnWidth maxW =
-      MaxColumnWidth(IntrinsicColumnWidth(), FixedColumnWidth(60.0));
-  const MinColumnWidth minW =
-      MinColumnWidth(FlexColumnWidth(1.0), FixedColumnWidth(60.0));
+  const MaxColumnWidth maxW = MaxColumnWidth(
+    IntrinsicColumnWidth(),
+    FixedColumnWidth(60.0),
+  );
+  const MinColumnWidth minW = MinColumnWidth(
+    FlexColumnWidth(1.0),
+    FixedColumnWidth(60.0),
+  );
   const FractionColumnWidth fracW = FractionColumnWidth(0.25);
   print('FixedColumnWidth=${fixedW.runtimeType}');
   print('FlexColumnWidth=${flexW.runtimeType}');
@@ -2266,56 +3024,83 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(1, 'The layout-of-many triad',
-              'Three RenderObjectWidgets that go beyond Row/Column/Stack.'),
+          _sectionHeader(
+            1,
+            'The layout-of-many triad',
+            'Three RenderObjectWidgets that go beyond Row/Column/Stack.',
+          ),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(2, 'Class hierarchy',
-              'Widget, RenderBox and configuration types side-by-side.'),
+          _sectionHeader(
+            2,
+            'Class hierarchy',
+            'Widget, RenderBox and configuration types side-by-side.',
+          ),
           _hierarchySection(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(3, 'Table deep-dive',
-              'Rows, cells, column-width strategies, borders, alignments.'),
+          _sectionHeader(
+            3,
+            'Table deep-dive',
+            'Rows, cells, column-width strategies, borders, alignments.',
+          ),
           _tableSection(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(4, 'Wrap deep-dive',
-              'alignment, runAlignment, crossAxisAlignment, direction, spacing.'),
+          _sectionHeader(
+            4,
+            'Wrap deep-dive',
+            'alignment, runAlignment, crossAxisAlignment, direction, spacing.',
+          ),
           _wrapSection(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(5, 'Flow deep-dive',
-              'FlowDelegate, paintChildren, getSize, FlowPaintingContext.'),
+          _sectionHeader(
+            5,
+            'Flow deep-dive',
+            'FlowDelegate, paintChildren, getSize, FlowPaintingContext.',
+          ),
           _flowSection(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(6, 'Comparison matrix',
-              'Table vs DataTable, Wrap vs Row/Flow, vs Row/Column/GridView.'),
+          _sectionHeader(
+            6,
+            'Comparison matrix',
+            'Table vs DataTable, Wrap vs Row/Flow, vs Row/Column/GridView.',
+          ),
           _comparisonSection(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(7, 'Recipe code cards',
-              'Six idiomatic snippets to keep handy.'),
+          _sectionHeader(
+            7,
+            'Recipe code cards',
+            'Six idiomatic snippets to keep handy.',
+          ),
           _recipesSection(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(8, 'Pitfalls',
-              'Six callouts that commonly bite layout engineers.'),
+          _sectionHeader(
+            8,
+            'Pitfalls',
+            'Six callouts that commonly bite layout engineers.',
+          ),
           _pitfallsSection(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(9, 'Cheat-sheet',
-              'Compact map of the Table/Wrap/Flow surface area.'),
+          _sectionHeader(
+            9,
+            'Cheat-sheet',
+            'Compact map of the Table/Wrap/Flow surface area.',
+          ),
           _cheatSheetFooter(),
         ],
       ),

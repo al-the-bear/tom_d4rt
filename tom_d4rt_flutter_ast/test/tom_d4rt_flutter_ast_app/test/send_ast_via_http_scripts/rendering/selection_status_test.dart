@@ -48,11 +48,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF512DA8),
-          Color(0xFF7B1FA2),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFF7B1FA2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -85,11 +81,7 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(
-                Icons.text_fields,
-                size: 44.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.text_fields, size: 44.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -135,11 +127,7 @@ dynamic build(BuildContext context) {
             'It does not steer the parent SelectionContainer -- that is '
             'SelectionResult\'s job. Three values, one purpose: tell the UI '
             'whether to draw nothing, a caret, or a real range.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.45),
           ),
         ),
         SizedBox(height: 14.0),
@@ -151,8 +139,11 @@ dynamic build(BuildContext context) {
             _heroChip('rendering', Icons.layers, Color(0xFFFFE082)),
             _heroChip('SelectionGeometry', Icons.straighten, Color(0xFFCE93D8)),
             _heroChip('Selectable', Icons.touch_app, Color(0xFFA5D6A7)),
-            _heroChip('${SelectionStatus.values.length} values',
-                Icons.tag, Color(0xFFFFAB91)),
+            _heroChip(
+              '${SelectionStatus.values.length} values',
+              Icons.tag,
+              Color(0xFFFFAB91),
+            ),
           ],
         ),
       ],
@@ -188,8 +179,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree,
-                color: Color(0xFF1A237E), size: 22.0),
+            Icon(Icons.account_tree, color: Color(0xFF1A237E), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'From SelectionGeometry to SelectionStatus',
@@ -264,8 +254,7 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb,
-                  color: Color(0xFFE65100), size: 18.0),
+              Icon(Icons.lightbulb, color: Color(0xFFE65100), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -300,8 +289,7 @@ dynamic build(BuildContext context) {
       icon: Icons.format_color_text,
       color: Color(0xFF2E7D32),
       accent: Color(0xFFA5D6A7),
-      mockText:
-          'The quick brown fox JUMPS OVER the lazy dog beside the river.',
+      mockText: 'The quick brown fox JUMPS OVER the lazy dog beside the river.',
       caretStart: 20,
       caretEnd: 30,
       whenItAppears: const [
@@ -432,26 +420,32 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _transitionRow(
-                'none', 'collapsed',
-                'User taps once to place a caret', Color(0xFFEF6C00),
+                'none',
+                'collapsed',
+                'User taps once to place a caret',
+                Color(0xFFEF6C00),
               ),
               _transitionRow(
-                'collapsed', 'uncollapsed',
+                'collapsed',
+                'uncollapsed',
                 'User drags or shift+arrows to grow the range',
                 Color(0xFF2E7D32),
               ),
               _transitionRow(
-                'uncollapsed', 'collapsed',
+                'uncollapsed',
+                'collapsed',
                 'User clicks once inside the range, dropping the selection',
                 Color(0xFFEF6C00),
               ),
               _transitionRow(
-                'collapsed', 'none',
+                'collapsed',
+                'none',
                 'Field loses focus or content is cleared',
                 Color(0xFF6A1B9A),
               ),
               _transitionRow(
-                'uncollapsed', 'none',
+                'uncollapsed',
+                'none',
                 'Tap outside the SelectionContainer entirely',
                 Color(0xFF6A1B9A),
               ),
@@ -491,8 +485,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows,
-                color: Color(0xFFBF360C), size: 22.0),
+            Icon(Icons.compare_arrows, color: Color(0xFFBF360C), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'SelectionStatus vs SelectionResult',
@@ -567,8 +560,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.warning_amber_rounded,
-                  color: Color(0xFFB71C1C), size: 18.0),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Color(0xFFB71C1C),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -721,8 +717,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.report_problem,
-                color: Color(0xFFB71C1C), size: 22.0),
+            Icon(Icons.report_problem, color: Color(0xFFB71C1C), size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -738,40 +733,40 @@ dynamic build(BuildContext context) {
         _pitfallTile(
           'none vs empty selection',
           'A SelectionContainer that has zero selectable children reports '
-          '`status == SelectionStatus.none` AND `hasContent == false`. A '
-          'container with content but nothing currently picked also reports '
-          'none, but with `hasContent == true`. Read both fields when you '
-          'need to distinguish "nothing here" from "nothing chosen".',
+              '`status == SelectionStatus.none` AND `hasContent == false`. A '
+              'container with content but nothing currently picked also reports '
+              'none, but with `hasContent == true`. Read both fields when you '
+              'need to distinguish "nothing here" from "nothing chosen".',
           Color(0xFFB71C1C),
         ),
         _pitfallTile(
           'programmatic vs user selection',
           'Calling `SelectableRegion.selectAll()` flips the status straight '
-          'to uncollapsed without ever passing through collapsed. Do not '
-          'rely on intermediate states inside golden tests -- assert on '
-          'the final status instead.',
+              'to uncollapsed without ever passing through collapsed. Do not '
+              'rely on intermediate states inside golden tests -- assert on '
+              'the final status instead.',
           Color(0xFFAD1457),
         ),
         _pitfallTile(
           'collapsed != caret blinking',
           'Status is purely descriptive; it does not animate by itself. If '
-          'your caret is not blinking when collapsed, double-check that you '
-          'wired an Animation listener -- the enum cannot do that for you.',
+              'your caret is not blinking when collapsed, double-check that you '
+              'wired an Animation listener -- the enum cannot do that for you.',
           Color(0xFF6A1B9A),
         ),
         _pitfallTile(
           'using status for navigation',
           'Status answers WHAT, not WHERE. Routing dispatched events through '
-          '`status == SelectionStatus.uncollapsed` instead of inspecting '
-          '`SelectionResult` will subtly break multi-child containers where '
-          'one Selectable owns the range and the others contribute nothing.',
+              '`status == SelectionStatus.uncollapsed` instead of inspecting '
+              '`SelectionResult` will subtly break multi-child containers where '
+              'one Selectable owns the range and the others contribute nothing.',
           Color(0xFF4A148C),
         ),
         _pitfallTile(
           'forgetting the third branch',
           'Three values, three switch arms. Adding an if/else for collapsed '
-          'and uncollapsed and ignoring none is the most common bug; use a '
-          'switch so the analyzer enforces exhaustiveness.',
+              'and uncollapsed and ignoring none is the most common bug; use a '
+              'switch so the analyzer enforces exhaustiveness.',
           Color(0xFF311B92),
         ),
       ],
@@ -802,8 +797,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.terminal,
-                color: Color(0xFF80DEEA), size: 20.0),
+            Icon(Icons.terminal, color: Color(0xFF80DEEA), size: 20.0),
             SizedBox(width: 8.0),
             Text(
               'enum SelectionStatus -- at a glance',
@@ -830,10 +824,7 @@ dynamic build(BuildContext context) {
           SelectionStatus.values.last.toString(),
         ),
         for (final s in SelectionStatus.values)
-          _codeLine(
-            'SelectionStatus.${s.name}.index',
-            '${s.index}',
-          ),
+          _codeLine('SelectionStatus.${s.name}.index', '${s.index}'),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -891,8 +882,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.insert_drive_file,
-                color: Colors.white, size: 18.0),
+            Icon(Icons.insert_drive_file, color: Colors.white, size: 18.0),
             SizedBox(width: 8.0),
             Text(
               'File',
@@ -1065,10 +1055,7 @@ Widget _heroChip(String label, IconData icon, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.55),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.55), width: 1.0),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1117,10 +1104,7 @@ Widget _primerLine(IconData icon, String title, String body, Color color) {
               ),
             ),
             SizedBox(height: 2.0),
-            Text(
-              body,
-              style: TextStyle(fontSize: 12.0, height: 1.4),
-            ),
+            Text(body, style: TextStyle(fontSize: 12.0, height: 1.4)),
           ],
         ),
       ),
@@ -1137,10 +1121,7 @@ Widget _statusValueCard(_StatusDescriptor d) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          d.accent.withValues(alpha: 0.25),
-          Colors.white,
-        ],
+        colors: [d.accent.withValues(alpha: 0.25), Colors.white],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1284,10 +1265,7 @@ Widget _statusValueCard(_StatusDescriptor d) {
                       Expanded(
                         child: Text(
                           w,
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            height: 1.35,
-                          ),
+                          style: TextStyle(fontSize: 12.0, height: 1.35),
                         ),
                       ),
                     ],
@@ -1354,11 +1332,7 @@ Widget _buildMockParagraph(_StatusDescriptor d) {
           if (start == end)
             WidgetSpan(
               alignment: PlaceholderAlignment.middle,
-              child: Container(
-                width: 2.0,
-                height: 16.0,
-                color: d.color,
-              ),
+              child: Container(width: 2.0, height: 16.0, color: d.color),
             )
           else
             TextSpan(
@@ -1390,10 +1364,7 @@ Widget _stateNode(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.32),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1450,12 +1421,7 @@ Widget _stateArrow(String label, Color color) {
   );
 }
 
-Widget _transitionRow(
-  String from,
-  String to,
-  String trigger,
-  Color color,
-) {
+Widget _transitionRow(String from, String to, String trigger, Color color) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -1501,10 +1467,7 @@ Widget _transitionRow(
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            trigger,
-            style: TextStyle(fontSize: 12.0, height: 1.35),
-          ),
+          child: Text(trigger, style: TextStyle(fontSize: 12.0, height: 1.35)),
         ),
       ],
     ),
@@ -1526,9 +1489,7 @@ Widget _compareRow(
     decoration: BoxDecoration(
       border: isLast
           ? null
-          : Border(
-              bottom: BorderSide(color: Color(0xFFFFE0B2), width: 1.0),
-            ),
+          : Border(bottom: BorderSide(color: Color(0xFFFFE0B2), width: 1.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1558,11 +1519,7 @@ Widget _compareRow(
             ),
           ),
         ),
-        Container(
-          width: 1.0,
-          height: 24.0,
-          color: Color(0xFFFFB74D),
-        ),
+        Container(width: 1.0, height: 24.0, color: Color(0xFFFFB74D)),
         Expanded(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 6.0),
@@ -1665,14 +1622,10 @@ Widget _recipeCard({
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.check_circle,
-                    size: 14.0, color: color),
+                Icon(Icons.check_circle, size: 14.0, color: color),
                 SizedBox(width: 6.0),
                 Expanded(
-                  child: Text(
-                    b,
-                    style: TextStyle(fontSize: 12.0, height: 1.4),
-                  ),
+                  child: Text(b, style: TextStyle(fontSize: 12.0, height: 1.4)),
                 ),
               ],
             ),

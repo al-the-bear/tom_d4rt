@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tv,
       'title': 'What is View?',
-      'body': 'View is the widget that wraps a FlutterView — the '
+      'body':
+          'View is the widget that wraps a FlutterView — the '
           'platform-provided rendering surface. Every pixel Flutter '
           'draws goes through a FlutterView. The View widget binds '
           'a widget subtree to a specific rendering target.',
@@ -26,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Rendering Pipeline',
-      'body': 'Each View establishes its own complete rendering pipeline: '
+      'body':
+          'Each View establishes its own complete rendering pipeline: '
           'build phase (widget to element), layout phase (element to '
           'render object sizing), paint phase (render object to layer '
           'tree), and compositing (layer tree to display).',
@@ -35,7 +37,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'MediaQuery Boundary',
-      'body': 'View reads physical size, device pixel ratio, padding, '
+      'body':
+          'View reads physical size, device pixel ratio, padding, '
           'and view insets from its FlutterView and provides them '
           'to descendants via MediaQuery. Each View is a media '
           'query boundary for its subtree.',
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.foundation,
       'title': 'Single-View vs Multi-View',
-      'body': 'Traditional Flutter apps have one implicit View wrapping '
+      'body':
+          'Traditional Flutter apps have one implicit View wrapping '
           'the entire app. Multi-view apps (via ViewCollection) have '
           'multiple View widgets, each rendering to a different '
           'FlutterView.',
@@ -123,35 +127,40 @@ dynamic build(BuildContext context) {
     {
       'name': 'view',
       'type': 'FlutterView',
-      'desc': 'The rendering surface this View targets. Obtained from '
+      'desc':
+          'The rendering surface this View targets. Obtained from '
           'PlatformDispatcher.views or via View.of(context). Provides '
           'physical size, pixel ratio, and platform-specific metrics.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc': 'The widget subtree rendered into this View. The child '
+      'desc':
+          'The widget subtree rendered into this View. The child '
           'receives constraints based on the FlutterView\u0027s physical '
           'size divided by the device pixel ratio.',
     },
     {
       'name': 'View.of(context)',
       'type': 'FlutterView',
-      'desc': 'Static method to obtain the FlutterView from the nearest '
+      'desc':
+          'Static method to obtain the FlutterView from the nearest '
           'ancestor View widget. Returns the rendering surface for '
           'the given BuildContext.',
     },
     {
       'name': 'View.maybeOf(context)',
       'type': 'FlutterView?',
-      'desc': 'Nullable version of View.of(). Returns null if no View '
+      'desc':
+          'Nullable version of View.of(). Returns null if no View '
           'ancestor exists. Useful for code that may run in contexts '
           'without a View (like pre-rendering).',
     },
     {
       'name': 'deprecation',
       'type': 'Note',
-      'desc': 'WidgetsBinding.instance.window was the old way to access '
+      'desc':
+          'WidgetsBinding.instance.window was the old way to access '
           'the single FlutterView. It\u0027s deprecated in favor of '
           'View.of(context) which correctly handles multi-view apps.',
     },
@@ -240,7 +249,8 @@ dynamic build(BuildContext context) {
   final viewProps = <Map<String, dynamic>>[
     {
       'prop': 'physicalSize',
-      'desc': 'The physical dimensions of the rendering surface '
+      'desc':
+          'The physical dimensions of the rendering surface '
           'in device pixels. A 1920x1080 display reports '
           'Size(1920, 1080) regardless of pixel ratio.',
       'icon': Icons.photo_size_select_large,
@@ -248,7 +258,8 @@ dynamic build(BuildContext context) {
     },
     {
       'prop': 'devicePixelRatio',
-      'desc': 'The number of device pixels per logical pixel. '
+      'desc':
+          'The number of device pixels per logical pixel. '
           'A ratio of 2.0 means the display renders at twice '
           'the resolution of the logical coordinate system.',
       'icon': Icons.hd,
@@ -256,7 +267,8 @@ dynamic build(BuildContext context) {
     },
     {
       'prop': 'viewInsets',
-      'desc': 'Areas of the view obscured by system UI like the '
+      'desc':
+          'Areas of the view obscured by system UI like the '
           'on-screen keyboard. Expressed as physical pixels from '
           'each edge. Drives MediaQuery.viewInsets.',
       'icon': Icons.keyboard,
@@ -264,7 +276,8 @@ dynamic build(BuildContext context) {
     },
     {
       'prop': 'viewPadding',
-      'desc': 'Physical pixel padding from system UI that may '
+      'desc':
+          'Physical pixel padding from system UI that may '
           'overlap content (status bar, navigation bar). '
           'Persists even when a keyboard is shown.',
       'icon': Icons.padding,
@@ -272,7 +285,8 @@ dynamic build(BuildContext context) {
     },
     {
       'prop': 'padding',
-      'desc': 'The padding that remains after accounting for '
+      'desc':
+          'The padding that remains after accounting for '
           'viewInsets. When the keyboard is showing, the '
           'bottom padding is reduced since viewInsets covers it.',
       'icon': Icons.crop_free,
@@ -280,7 +294,8 @@ dynamic build(BuildContext context) {
     },
     {
       'prop': 'systemGestureInsets',
-      'desc': 'Areas where the system handles gestures (swipe '
+      'desc':
+          'Areas where the system handles gestures (swipe '
           'from edge). Flutter should avoid placing interactive '
           'content in these inset areas.',
       'icon': Icons.swipe,
@@ -307,11 +322,7 @@ dynamic build(BuildContext context) {
                     color: vpColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    vp['icon'] as IconData,
-                    color: vpColor,
-                    size: 18,
-                  ),
+                  child: Icon(vp['icon'] as IconData, color: vpColor, size: 18),
                 ),
                 if (i < viewProps.length - 1)
                   Container(
@@ -369,14 +380,16 @@ dynamic build(BuildContext context) {
   final pipelineSteps = <Map<String, dynamic>>[
     {
       'step': '1. Widget Build',
-      'desc': 'The framework calls build() on widgets in this View\u0027s '
+      'desc':
+          'The framework calls build() on widgets in this View\u0027s '
           'subtree. Elements are created or updated. Build phase '
           'only runs for dirty widgets marked during setState.',
       'color': Colors.indigo,
     },
     {
       'step': '2. Layout',
-      'desc': 'Constraints flow down from the View\u0027s root render '
+      'desc':
+          'Constraints flow down from the View\u0027s root render '
           'object. Each render object sizes itself and positions '
           'its children. The View\u0027s root gets tight constraints '
           'from the FlutterView\u0027s logical size.',
@@ -384,14 +397,16 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Compositing Bits',
-      'desc': 'The framework updates compositing needs. Render objects '
+      'desc':
+          'The framework updates compositing needs. Render objects '
           'that require their own compositing layer (transforms, '
           'opacity) are marked. This prepares the paint phase.',
       'color': Colors.green,
     },
     {
       'step': '4. Paint',
-      'desc': 'Render objects paint into a layer tree. Each paints '
+      'desc':
+          'Render objects paint into a layer tree. Each paints '
           'relative to its parent\u0027s coordinate space. The '
           'result is a tree of Layer objects representing the '
           'visual output.',
@@ -399,14 +414,16 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Compositing',
-      'desc': 'The layer tree is flattened and sent to the engine\u0027s '
+      'desc':
+          'The layer tree is flattened and sent to the engine\u0027s '
           'compositor. The compositor combines layers and sends '
           'the final frame to the platform\u0027s rendering system.',
       'color': Colors.purple,
     },
     {
       'step': '6. Rasterization',
-      'desc': 'The engine rasterizes the composited frame onto the '
+      'desc':
+          'The engine rasterizes the composited frame onto the '
           'FlutterView\u0027s rendering surface via Skia or Impeller. '
           'The pixels appear on screen. Frame timing is tracked.',
       'color': Colors.red,
@@ -499,7 +516,8 @@ dynamic build(BuildContext context) {
   final mqTopics = <Map<String, dynamic>>[
     {
       'title': 'View-Scoped MediaQuery',
-      'desc': 'Each View creates a MediaQuery for its subtree based on '
+      'desc':
+          'Each View creates a MediaQuery for its subtree based on '
           'the FlutterView\u0027s properties. In multi-view apps, '
           'different views may have different MediaQuery values '
           '(e.g., different sizes or pixel ratios).',
@@ -507,14 +525,16 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Size Adaptation',
-      'desc': 'MediaQuery.of(context).size returns the logical size '
+      'desc':
+          'MediaQuery.of(context).size returns the logical size '
           'of the current View. Responsive layouts use this to adapt. '
           'In multi-view, each view adapts independently to its size.',
       'color': Colors.blue,
     },
     {
       'title': 'Safe Area',
-      'desc': 'MediaQuery.of(context).padding represents safe area '
+      'desc':
+          'MediaQuery.of(context).padding represents safe area '
           'insets from the View\u0027s FlutterView. Views on different '
           'displays may have different safe areas (notch, rounded '
           'corners, navigation bars).',
@@ -522,7 +542,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Keyboard Insets',
-      'desc': 'MediaQuery.of(context).viewInsets reports keyboard '
+      'desc':
+          'MediaQuery.of(context).viewInsets reports keyboard '
           'overlap for this View. When the on-screen keyboard appears '
           'on one view, only that view\u0027s viewInsets change — '
           'other views in the collection are unaffected.',
@@ -530,7 +551,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Display Features',
-      'desc': 'MediaQuery.of(context).displayFeatures lists physical '
+      'desc':
+          'MediaQuery.of(context).displayFeatures lists physical '
           'display features like hinges and cutouts for this View\u0027s '
           'display. A foldable device may report a hinge feature.',
       'color': Colors.purple,
@@ -612,37 +634,43 @@ dynamic build(BuildContext context) {
     {
       'old': 'WidgetsBinding.instance.window',
       'new_': 'View.of(context)',
-      'notes': 'Primary migration path. Replaces global singleton '
+      'notes':
+          'Primary migration path. Replaces global singleton '
           'access with context-aware view lookup.',
     },
     {
       'old': 'window.physicalSize',
       'new_': 'View.of(context).physicalSize',
-      'notes': 'Access the rendering surface\u0027s physical size '
+      'notes':
+          'Access the rendering surface\u0027s physical size '
           'through the nearest View ancestor.',
     },
     {
       'old': 'window.devicePixelRatio',
       'new_': 'View.of(context).devicePixelRatio',
-      'notes': 'Per-view pixel ratio. Critical for multi-display '
+      'notes':
+          'Per-view pixel ratio. Critical for multi-display '
           'setups where displays differ.',
     },
     {
       'old': 'window.padding',
       'new_': 'View.of(context).padding',
-      'notes': 'Per-view system padding. Each window may have '
+      'notes':
+          'Per-view system padding. Each window may have '
           'different safe area insets.',
     },
     {
       'old': 'window.viewInsets',
       'new_': 'View.of(context).viewInsets',
-      'notes': 'Per-view keyboard and system UI insets. Only the '
+      'notes':
+          'Per-view keyboard and system UI insets. Only the '
           'focused view receives keyboard insets.',
     },
     {
       'old': 'MediaQueryData.fromWindow(window)',
       'new_': 'MediaQuery.of(context)',
-      'notes': 'No manual construction needed. View widget creates '
+      'notes':
+          'No manual construction needed. View widget creates '
           'MediaQuery automatically for its subtree.',
     },
   ];
@@ -723,7 +751,8 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Single App View',
-      'desc': 'MaterialApp wraps content in a single View by default. '
+      'desc':
+          'MaterialApp wraps content in a single View by default. '
           'This is the standard pattern for mobile apps. The '
           'implicit View targets the default FlutterView.',
       'icon': Icons.phone_android,
@@ -731,7 +760,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-View via ViewCollection',
-      'desc': 'Disable wrapWithDefaultView and return a ViewCollection '
+      'desc':
+          'Disable wrapWithDefaultView and return a ViewCollection '
           'from the app builder. Each FlutterView from the platform '
           'dispatcher gets a View widget in the collection.',
       'icon': Icons.desktop_windows,
@@ -739,7 +769,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'View + Inherited State',
-      'desc': 'Place shared state providers above the View (or '
+      'desc':
+          'Place shared state providers above the View (or '
           'ViewCollection). State changes rebuild only the affected '
           'subtrees within specific views, not all views.',
       'icon': Icons.account_tree,
@@ -747,7 +778,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'View.of for Conditional Logic',
-      'desc': 'Use View.of(context) to access FlutterView properties '
+      'desc':
+          'Use View.of(context) to access FlutterView properties '
           'for conditional rendering. Different content for different '
           'pixel ratios, sizes, or display features.',
       'icon': Icons.rule,
@@ -755,7 +787,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'View + ViewAnchor Overlay',
-      'desc': 'Within a View, use ViewAnchor to attach secondary views '
+      'desc':
+          'Within a View, use ViewAnchor to attach secondary views '
           'for floating UI. The secondary views anchor to positions '
           'in the primary View\u0027s widget tree.',
       'icon': Icons.picture_in_picture,
@@ -787,11 +820,7 @@ dynamic build(BuildContext context) {
                   color: pColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  p['icon'] as IconData,
-                  color: pColor,
-                  size: 22,
-                ),
+                child: Icon(p['icon'] as IconData, color: pColor, size: 22),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -833,32 +862,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.tv,
-      'text': 'View wraps a FlutterView, establishing a complete '
+      'text':
+          'View wraps a FlutterView, establishing a complete '
           'rendering pipeline: build, layout, paint, compositing.',
     },
     {
       'icon': Icons.crop_square,
-      'text': 'Provides MediaQuery to descendants based on the '
+      'text':
+          'Provides MediaQuery to descendants based on the '
           'FlutterView\u0027s physical properties.',
     },
     {
       'icon': Icons.devices,
-      'text': 'Enables multi-view apps via ViewCollection. Each View '
+      'text':
+          'Enables multi-view apps via ViewCollection. Each View '
           'renders to a different display or window.',
     },
     {
       'icon': Icons.update,
-      'text': 'View.of(context) replaces the deprecated '
+      'text':
+          'View.of(context) replaces the deprecated '
           'WidgetsBinding.instance.window for accessing view properties.',
     },
     {
       'icon': Icons.foundation,
-      'text': 'Every Flutter app has at least one View, typically '
+      'text':
+          'Every Flutter app has at least one View, typically '
           'created implicitly by MaterialApp or CupertinoApp.',
     },
     {
       'icon': Icons.layers,
-      'text': 'Part of the multi-view architecture alongside '
+      'text':
+          'Part of the multi-view architecture alongside '
           'ViewCollection and ViewAnchor.',
     },
   ];

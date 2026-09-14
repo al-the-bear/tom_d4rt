@@ -231,10 +231,7 @@ Widget _sectionCard({
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Numbered stripe at the top.
-          Container(
-            color: stripe,
-            height: 6,
-          ),
+          Container(color: stripe, height: 6),
           Padding(
             padding: const EdgeInsets.fromLTRB(22, 18, 22, 6),
             child: Row(
@@ -323,10 +320,7 @@ Widget _codeChip(String text, {Color color = _kAccentDeep}) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.35), width: 1),
     ),
-    child: Text(
-      text,
-      style: _styleMono(color: color, size: 11),
-    ),
+    child: Text(text, style: _styleMono(color: color, size: 11)),
   );
 }
 
@@ -341,14 +335,9 @@ Widget _bullet(String text, {Color dot = _kAccent}) {
           width: 7,
           height: 7,
           margin: const EdgeInsets.only(top: 6, right: 9),
-          decoration: BoxDecoration(
-            color: dot,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
         ),
-        Expanded(
-          child: Text(text, style: _styleBody(size: 13)),
-        ),
+        Expanded(child: Text(text, style: _styleBody(size: 13))),
       ],
     ),
   );
@@ -388,10 +377,7 @@ Widget _barrierFrame({
           // Centred dialog snapshot.
           Padding(
             padding: padding,
-            child: Align(
-              alignment: alignment,
-              child: dialog,
-            ),
+            child: Align(alignment: alignment, child: dialog),
           ),
         ],
       ),
@@ -416,7 +402,11 @@ Widget _fakePageContent() {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             children: [
-              Icon(Icons.menu, color: Colors.white.withValues(alpha: 0.95), size: 16),
+              Icon(
+                Icons.menu,
+                color: Colors.white.withValues(alpha: 0.95),
+                size: 16,
+              ),
               const SizedBox(width: 8),
               Container(
                 width: 90,
@@ -427,9 +417,17 @@ Widget _fakePageContent() {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.search, color: Colors.white.withValues(alpha: 0.95), size: 16),
+              Icon(
+                Icons.search,
+                color: Colors.white.withValues(alpha: 0.95),
+                size: 16,
+              ),
               const SizedBox(width: 6),
-              Icon(Icons.more_vert, color: Colors.white.withValues(alpha: 0.95), size: 16),
+              Icon(
+                Icons.more_vert,
+                color: Colors.white.withValues(alpha: 0.95),
+                size: 16,
+              ),
             ],
           ),
         ),
@@ -513,11 +511,7 @@ Widget _section01HeroBanner() {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            _kAccentDeep,
-            _kAccent,
-            _kViolet.withValues(alpha: 0.8),
-          ],
+          colors: [_kAccentDeep, _kAccent, _kViolet.withValues(alpha: 0.8)],
         ),
       ),
       padding: const EdgeInsets.fromLTRB(32, 30, 32, 30),
@@ -739,10 +733,7 @@ Widget _section02DialogAnatomy() {
         // Left: annotated mock.
         Expanded(
           flex: 5,
-          child: _barrierFrame(
-            minHeight: 360,
-            dialog: _annotatedBareDialog(),
-          ),
+          child: _barrierFrame(minHeight: 360, dialog: _annotatedBareDialog()),
         ),
         const SizedBox(width: 18),
         // Right: prop bullets.
@@ -753,22 +744,36 @@ Widget _section02DialogAnatomy() {
             children: [
               Text('Key parameters', style: _styleSubtitle()),
               const SizedBox(height: 8),
-              _bullet('child - the only visual content. Dialog itself draws '
-                  'no title, no actions, nothing.'),
-              _bullet('backgroundColor - surface fill. Defaults to '
-                  'ColorScheme.surface in M3.'),
+              _bullet(
+                'child - the only visual content. Dialog itself draws '
+                'no title, no actions, nothing.',
+              ),
+              _bullet(
+                'backgroundColor - surface fill. Defaults to '
+                'ColorScheme.surface in M3.',
+              ),
               _bullet('elevation - shadow depth. M3 default is 6.'),
-              _bullet('shadowColor / surfaceTintColor - control the cast '
-                  'shadow tint and the M3 elevation tint overlay.'),
-              _bullet('shape - any ShapeBorder; defaults to a 28dp '
-                  'RoundedRectangleBorder in M3.'),
-              _bullet('insetPadding - distance from the screen edges. '
-                  'Default is EdgeInsets.symmetric(horizontal:40, '
-                  'vertical:24).'),
-              _bullet('alignment - where the dialog sits inside the inset. '
-                  'Default is Alignment.center.'),
-              _bullet('clipBehavior - whether the child gets clipped to the '
-                  'shape; defaults to Clip.none.'),
+              _bullet(
+                'shadowColor / surfaceTintColor - control the cast '
+                'shadow tint and the M3 elevation tint overlay.',
+              ),
+              _bullet(
+                'shape - any ShapeBorder; defaults to a 28dp '
+                'RoundedRectangleBorder in M3.',
+              ),
+              _bullet(
+                'insetPadding - distance from the screen edges. '
+                'Default is EdgeInsets.symmetric(horizontal:40, '
+                'vertical:24).',
+              ),
+              _bullet(
+                'alignment - where the dialog sits inside the inset. '
+                'Default is Alignment.center.',
+              ),
+              _bullet(
+                'clipBehavior - whether the child gets clipped to the '
+                'shape; defaults to Clip.none.',
+              ),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 6,
@@ -823,10 +828,7 @@ Widget _annotatedBareDialog() {
                 children: [
                   Text('Bare Dialog', style: _styleTitle(size: 18)),
                   const SizedBox(height: 4),
-                  Text(
-                    'Just a surface. The shell.',
-                    style: _styleBody(),
-                  ),
+                  Text('Just a surface. The shell.', style: _styleBody()),
                   const Spacer(),
                   Container(
                     height: 48,
@@ -851,11 +853,7 @@ Widget _annotatedBareDialog() {
         ),
       ),
       // Annotation labels.
-      Positioned(
-        top: 12,
-        left: 8,
-        child: _annoTag('insetPadding', _kViolet),
-      ),
+      Positioned(top: 12, left: 8, child: _annoTag('insetPadding', _kViolet)),
       Positioned(
         bottom: 12,
         right: 8,
@@ -866,11 +864,7 @@ Widget _annotatedBareDialog() {
         right: 6,
         child: _annoTag('surfaceTintColor', _kWarn),
       ),
-      Positioned(
-        bottom: 60,
-        left: 6,
-        child: _annoTag('child: SizedBox', _kOk),
-      ),
+      Positioned(bottom: 60, left: 6, child: _annoTag('child: SizedBox', _kOk)),
     ],
   );
 }
@@ -883,10 +877,7 @@ Widget _annoTag(String label, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color, width: 1.4),
     ),
-    child: Text(
-      label,
-      style: _styleMono(color: color, size: 10.5),
-    ),
+    child: Text(label, style: _styleMono(color: color, size: 10.5)),
   );
 }
 
@@ -958,11 +949,17 @@ Widget _section03AlertDialogSnapshot() {
               const SizedBox(height: 14),
               Text('Spacing knobs', style: _styleSubtitle()),
               const SizedBox(height: 8),
-              _bullet('iconPadding / titlePadding / contentPadding / '
-                  'actionsPadding'),
-              _bullet('actionsAlignment - MainAxisAlignment for the action row.'),
-              _bullet('actionsOverflowDirection / actionsOverflowButtonSpacing - '
-                  'when the action row wraps to OverflowBar.'),
+              _bullet(
+                'iconPadding / titlePadding / contentPadding / '
+                'actionsPadding',
+              ),
+              _bullet(
+                'actionsAlignment - MainAxisAlignment for the action row.',
+              ),
+              _bullet(
+                'actionsOverflowDirection / actionsOverflowButtonSpacing - '
+                'when the action row wraps to OverflowBar.',
+              ),
             ],
           ),
         ),
@@ -997,9 +994,7 @@ Widget _slotRow(String n, String name, String desc) {
         const SizedBox(width: 10),
         _codeChip(name, color: _kErr),
         const SizedBox(width: 8),
-        Expanded(
-          child: Text(desc, style: _styleBody(size: 12.5)),
-        ),
+        Expanded(child: Text(desc, style: _styleBody(size: 12.5))),
       ],
     ),
   );
@@ -1031,8 +1026,7 @@ Widget _section04SimpleDialogSnapshot() {
                 'Select your time zone',
                 style: _styleTitle(size: 18),
               ),
-              titlePadding:
-                  const EdgeInsets.fromLTRB(20, 20, 20, 8),
+              titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
@@ -1040,8 +1034,12 @@ Widget _section04SimpleDialogSnapshot() {
               children: [
                 _zoneRow('Pacific Standard Time', 'UTC -08:00', _kAccent),
                 _zoneRow('Mountain Standard Time', 'UTC -07:00', _kViolet),
-                _zoneRow('Central European Time', 'UTC +01:00', _kOk,
-                    selected: true),
+                _zoneRow(
+                  'Central European Time',
+                  'UTC +01:00',
+                  _kOk,
+                  selected: true,
+                ),
                 _zoneRow('Indian Standard Time', 'UTC +05:30', _kWarn),
                 _zoneRow('Japan Standard Time', 'UTC +09:00', _kErr),
               ],
@@ -1062,10 +1060,16 @@ Widget _section04SimpleDialogSnapshot() {
               const SizedBox(height: 14),
               Text('Anti-patterns', style: _styleSubtitle()),
               const SizedBox(height: 8),
-              _bullet('Long, scrollable lists - prefer a dedicated picker '
-                  'route or BottomSheet.', dot: _kErr),
-              _bullet('Two-step flows - SimpleDialog has no built-in '
-                  'OK/Cancel; selection is the commit.', dot: _kErr),
+              _bullet(
+                'Long, scrollable lists - prefer a dedicated picker '
+                'route or BottomSheet.',
+                dot: _kErr,
+              ),
+              _bullet(
+                'Two-step flows - SimpleDialog has no built-in '
+                'OK/Cancel; selection is the commit.',
+                dot: _kErr,
+              ),
               const SizedBox(height: 14),
               Wrap(
                 spacing: 6,
@@ -1084,7 +1088,12 @@ Widget _section04SimpleDialogSnapshot() {
   );
 }
 
-Widget _zoneRow(String name, String offset, Color tone, {bool selected = false}) {
+Widget _zoneRow(
+  String name,
+  String offset,
+  Color tone, {
+  bool selected = false,
+}) {
   return SimpleDialogOption(
     onPressed: null,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -1115,8 +1124,11 @@ Widget _zoneRow(String name, String offset, Color tone, {bool selected = false})
         if (selected)
           Icon(Icons.check_circle, size: 18, color: _kOk)
         else
-          Icon(Icons.radio_button_unchecked,
-              size: 18, color: _kInkMuted.withValues(alpha: 0.6)),
+          Icon(
+            Icons.radio_button_unchecked,
+            size: 18,
+            color: _kInkMuted.withValues(alpha: 0.6),
+          ),
       ],
     ),
   );
@@ -1162,20 +1174,30 @@ Widget _section05FullscreenDialog() {
             children: [
               Text('Why fullscreen?', style: _styleSubtitle()),
               const SizedBox(height: 8),
-              _bullet('You need to host an entire form, not just a confirm '
-                  'prompt.'),
-              _bullet('You want a CLOSE button (X) in an AppBar instead of '
-                  'OK/Cancel buttons.'),
-              _bullet('The screen is small (phones in portrait) and a '
-                  'centred dialog would feel cramped.'),
+              _bullet(
+                'You need to host an entire form, not just a confirm '
+                'prompt.',
+              ),
+              _bullet(
+                'You want a CLOSE button (X) in an AppBar instead of '
+                'OK/Cancel buttons.',
+              ),
+              _bullet(
+                'The screen is small (phones in portrait) and a '
+                'centred dialog would feel cramped.',
+              ),
               const SizedBox(height: 14),
               Text('Differences from Dialog', style: _styleSubtitle()),
               const SizedBox(height: 8),
-              _bullet('No barrier - the route covers the previous screen '
-                  'fully.'),
+              _bullet(
+                'No barrier - the route covers the previous screen '
+                'fully.',
+              ),
               _bullet('No insetPadding / shape - it is the route.'),
-              _bullet('Typical pattern: Scaffold + AppBar(leading: close, '
-                  'actions: [Save])'),
+              _bullet(
+                'Typical pattern: Scaffold + AppBar(leading: close, '
+                'actions: [Save])',
+              ),
               const SizedBox(height: 12),
               _calloutPill(
                 label: 'NAV PATTERN: Navigator.pop()',
@@ -1212,8 +1234,7 @@ Widget _fakeFullscreenDialog() {
             ),
             const Spacer(),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(6),
@@ -1394,9 +1415,7 @@ Widget _insetCell(String label, String desc, EdgeInsets inset, Color tone) {
             children: [
               Positioned.fill(child: _fakePageContent()),
               Positioned.fill(
-                child: ColoredBox(
-                  color: _kBarrier.withValues(alpha: 0.4),
-                ),
+                child: ColoredBox(color: _kBarrier.withValues(alpha: 0.4)),
               ),
               Positioned.fill(child: _insetGhost(inset, tone)),
             ],
@@ -1410,9 +1429,7 @@ Widget _insetCell(String label, String desc, EdgeInsets inset, Color tone) {
 Widget _insetGhost(EdgeInsets inset, Color tone) {
   return Container(
     padding: inset,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(14),
-    ),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(14)),
     child: Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1582,16 +1599,26 @@ Widget _section08ShapeVariants() {
       spacing: 14,
       runSpacing: 14,
       children: [
-        _shapeCell('rounded :: r=4',
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
-        _shapeCell('rounded :: r=20',
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-        _shapeCell('rounded :: r=28 (M3 default)',
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(28))),
-        _shapeCell('beveled :: r=12',
-            BeveledRectangleBorder(borderRadius: BorderRadius.circular(12))),
-        _shapeCell('continuous :: r=18',
-            ContinuousRectangleBorder(borderRadius: BorderRadius.circular(18))),
+        _shapeCell(
+          'rounded :: r=4',
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        ),
+        _shapeCell(
+          'rounded :: r=20',
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+        _shapeCell(
+          'rounded :: r=28 (M3 default)',
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+        ),
+        _shapeCell(
+          'beveled :: r=12',
+          BeveledRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        _shapeCell(
+          'continuous :: r=18',
+          ContinuousRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        ),
         _shapeCell('stadium', const StadiumBorder()),
         _shapeCell(
           'asymmetric corners',
@@ -1694,10 +1721,7 @@ Widget _section09BarrierExplainer() {
     body: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 5,
-          child: _barrierStackDiagram(),
-        ),
+        Expanded(flex: 5, child: _barrierStackDiagram()),
         const SizedBox(width: 18),
         Expanded(
           flex: 4,
@@ -1707,12 +1731,18 @@ Widget _section09BarrierExplainer() {
               Text('Barrier parameters', style: _styleSubtitle()),
               const SizedBox(height: 8),
               _bullet('barrierColor - default Colors.black54.'),
-              _bullet('barrierDismissible - tap-on-barrier closes the route. '
-                  'Default true.'),
-              _bullet('barrierLabel - announced by screen readers. Required '
-                  'when barrierDismissible is true.'),
-              _bullet('useSafeArea - whether the dialog avoids the system '
-                  'cut-outs. Default true.'),
+              _bullet(
+                'barrierDismissible - tap-on-barrier closes the route. '
+                'Default true.',
+              ),
+              _bullet(
+                'barrierLabel - announced by screen readers. Required '
+                'when barrierDismissible is true.',
+              ),
+              _bullet(
+                'useSafeArea - whether the dialog avoids the system '
+                'cut-outs. Default true.',
+              ),
               _bullet('useRootNavigator - which Navigator hosts the route.'),
               const SizedBox(height: 12),
               _calloutPill(
@@ -1765,8 +1795,12 @@ Widget _barrierStackDiagram() {
           top: 60,
           right: 30,
           bottom: 30,
-          child: _stackLayer('Dialog', Colors.white,
-              labelColor: _kInk, accent: _kAccent),
+          child: _stackLayer(
+            'Dialog',
+            Colors.white,
+            labelColor: _kInk,
+            accent: _kAccent,
+          ),
         ),
         // Floating arrows.
         Positioned(
@@ -1941,8 +1975,12 @@ Widget _section11RtlLtrFlip() {
                 textDirection: TextDirection.ltr,
                 child: _barrierFrame(
                   minHeight: 280,
-                  dialog: _flipDialog('Move file?', 'Cancel', 'Move',
-                      'The file will be moved to the Archive folder.'),
+                  dialog: _flipDialog(
+                    'Move file?',
+                    'Cancel',
+                    'Move',
+                    'The file will be moved to the Archive folder.',
+                  ),
                 ),
               ),
             ],
@@ -1963,8 +2001,12 @@ Widget _section11RtlLtrFlip() {
                 textDirection: TextDirection.rtl,
                 child: _barrierFrame(
                   minHeight: 280,
-                  dialog: _flipDialog('نقل الملف؟', 'إلغاء', 'نقل',
-                      'سيتم نقل الملف إلى مجلد الأرشيف.'),
+                  dialog: _flipDialog(
+                    'نقل الملف؟',
+                    'إلغاء',
+                    'نقل',
+                    'سيتم نقل الملف إلى مجلد الأرشيف.',
+                  ),
                 ),
               ),
             ],
@@ -2049,9 +2091,7 @@ Widget _section12ScrollableContent() {
           ),
         ],
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     ),
   );
@@ -2073,16 +2113,31 @@ Widget _section13Accessibility() {
     tint: _kAccentSoft,
     body: Column(
       children: [
-        _a11yRow('1', 'barrierLabel set when dismissible',
-            'Screen readers announce a name for the dismissable region.'),
-        _a11yRow('2', 'Use semantic title widget',
-            'Wrap title in Text - AlertDialog applies title-role semantics.'),
-        _a11yRow('3', 'Action buttons are real Buttons',
-            'Use TextButton/FilledButton, not InkWell on Text.'),
-        _a11yRow('4', 'Avoid colour-only meaning',
-            'Pair red/green action buttons with explicit verbs.'),
-        _a11yRow('5', 'Respect MediaQuery.textScalerOf(context)',
-            'AlertDialog already scrolls long content; do not lock heights.'),
+        _a11yRow(
+          '1',
+          'barrierLabel set when dismissible',
+          'Screen readers announce a name for the dismissable region.',
+        ),
+        _a11yRow(
+          '2',
+          'Use semantic title widget',
+          'Wrap title in Text - AlertDialog applies title-role semantics.',
+        ),
+        _a11yRow(
+          '3',
+          'Action buttons are real Buttons',
+          'Use TextButton/FilledButton, not InkWell on Text.',
+        ),
+        _a11yRow(
+          '4',
+          'Avoid colour-only meaning',
+          'Pair red/green action buttons with explicit verbs.',
+        ),
+        _a11yRow(
+          '5',
+          'Respect MediaQuery.textScalerOf(context)',
+          'AlertDialog already scrolls long content; do not lock heights.',
+        ),
       ],
     ),
   );
@@ -2204,7 +2259,10 @@ Widget _pitfallCard(String title, String body, IconData icon) {
               Icon(icon, color: _kErr, size: 18),
               const SizedBox(width: 6),
               Expanded(
-                child: Text(title, style: _styleSubtitle(size: 13.5, color: _kErr)),
+                child: Text(
+                  title,
+                  style: _styleSubtitle(size: 13.5, color: _kErr),
+                ),
               ),
             ],
           ),
@@ -2237,20 +2295,48 @@ Widget _section15DecisionMatrix() {
       child: Column(
         children: [
           _matrixHeader(),
-          _matrixRow('Confirm a destructive action',
-              'AlertDialog', 'icon + title + content + 2 actions', _kErr),
-          _matrixRow('Pick one of 2-6 options',
-              'SimpleDialog', 'option list', _kViolet),
-          _matrixRow('Show a long form',
-              'Dialog.fullscreen', 'AppBar with close+save', _kOk),
-          _matrixRow('Show transient progress',
-              'Dialog (custom)', 'centered card with spinner mock', _kAccent),
-          _matrixRow('Custom popover with image + content',
-              'Dialog (custom)', 'compose any child', _kAccent),
-          _matrixRow('About-this-app screen',
-              'AboutDialog', 'pre-built; uses Dialog under the hood', _kWarn),
-          _matrixRow('Date or time selection',
-              'showDatePicker / showTimePicker', 'specialized dialogs', _kViolet),
+          _matrixRow(
+            'Confirm a destructive action',
+            'AlertDialog',
+            'icon + title + content + 2 actions',
+            _kErr,
+          ),
+          _matrixRow(
+            'Pick one of 2-6 options',
+            'SimpleDialog',
+            'option list',
+            _kViolet,
+          ),
+          _matrixRow(
+            'Show a long form',
+            'Dialog.fullscreen',
+            'AppBar with close+save',
+            _kOk,
+          ),
+          _matrixRow(
+            'Show transient progress',
+            'Dialog (custom)',
+            'centered card with spinner mock',
+            _kAccent,
+          ),
+          _matrixRow(
+            'Custom popover with image + content',
+            'Dialog (custom)',
+            'compose any child',
+            _kAccent,
+          ),
+          _matrixRow(
+            'About-this-app screen',
+            'AboutDialog',
+            'pre-built; uses Dialog under the hood',
+            _kWarn,
+          ),
+          _matrixRow(
+            'Date or time selection',
+            'showDatePicker / showTimePicker',
+            'specialized dialogs',
+            _kViolet,
+          ),
         ],
       ),
     ),
@@ -2289,9 +2375,7 @@ TextStyle _matrixHeaderText() {
 Widget _matrixRow(String useCase, String widget, String note, Color tone) {
   return Container(
     decoration: BoxDecoration(
-      border: Border(
-        top: BorderSide(color: _kBorder),
-      ),
+      border: Border(top: BorderSide(color: _kBorder)),
     ),
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     child: Row(
@@ -2301,14 +2385,8 @@ Widget _matrixRow(String useCase, String widget, String note, Color tone) {
           flex: 4,
           child: Text(useCase, style: _styleBody(size: 13, color: _kInk)),
         ),
-        Expanded(
-          flex: 3,
-          child: _codeChip(widget, color: tone),
-        ),
-        Expanded(
-          flex: 4,
-          child: Text(note, style: _styleBody(size: 12)),
-        ),
+        Expanded(flex: 3, child: _codeChip(widget, color: tone)),
+        Expanded(flex: 4, child: Text(note, style: _styleBody(size: 12))),
       ],
     ),
   );
@@ -2336,8 +2414,7 @@ Widget _section16Footer() {
             color: _kAccent,
             borderRadius: BorderRadius.circular(14),
           ),
-          child: Icon(Icons.menu_book_outlined,
-              color: Colors.white, size: 30),
+          child: Icon(Icons.menu_book_outlined, color: Colors.white, size: 30),
         ),
         const SizedBox(width: 18),
         Expanded(

@@ -64,10 +64,7 @@ enum _StudioStage {
   verificationDeck,
 }
 
-enum _AxisMode {
-  vertical,
-  horizontal,
-}
+enum _AxisMode { vertical, horizontal }
 
 class _ShellSpec {
   final String label;
@@ -151,7 +148,8 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
     }
   }
 
-  Axis get _axis => _axisMode == _AxisMode.vertical ? Axis.vertical : Axis.horizontal;
+  Axis get _axis =>
+      _axisMode == _AxisMode.vertical ? Axis.vertical : Axis.horizontal;
 
   @override
   Widget build(BuildContext context) {
@@ -186,8 +184,11 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
         children: [
           Row(
             children: [
-              const Icon(Icons.view_carousel_rounded,
-                  color: Colors.white, size: 28),
+              const Icon(
+                Icons.view_carousel_rounded,
+                color: Colors.white,
+                size: 28,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -200,8 +201,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -287,7 +290,9 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                   shape: BoxShape.circle,
                   color: _palettes[i].primary,
                   border: Border.all(
-                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
+                    color: _paletteIndex == i
+                        ? Colors.white
+                        : Colors.transparent,
                     width: 2,
                   ),
                 ),
@@ -393,7 +398,11 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       style: TextStyle(color: _p.ink, fontSize: 12),
                     ),
                     const Spacer(),
-                    _chip('fraction', _galleryFraction.toStringAsFixed(2), _p.primary),
+                    _chip(
+                      'fraction',
+                      _galleryFraction.toStringAsFixed(2),
+                      _p.primary,
+                    ),
                     const SizedBox(width: 6),
                     _chip('cards', '$items', _p.secondary),
                   ],
@@ -422,7 +431,8 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                         SliverToBoxAdapter(
                           child: _banner(
                             icon: Icons.fit_screen_rounded,
-                            text: 'Each child extent is derived from viewportFraction.',
+                            text:
+                                'Each child extent is derived from viewportFraction.',
                           ),
                         ),
                         SliverFillViewport(
@@ -517,10 +527,13 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     Checkbox(
                       value: _edgeLeftPad,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _edgeLeftPad = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _edgeLeftPad = v ?? true),
                     ),
-                    Text('Left padEnds',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'Left padEnds',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 14),
                     Checkbox(
                       value: _edgeRightPad,
@@ -528,8 +541,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       onChanged: (v) =>
                           setState(() => _edgeRightPad = v ?? false),
                     ),
-                    Text('Right padEnds',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'Right padEnds',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                   ],
                 ),
               ],
@@ -566,10 +581,18 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet('padEnds true typically provides balanced edge breathing room.'),
-                _bullet('padEnds false can start content flush with the viewport edge.'),
-                _bullet('Combined with fraction < 1.0 this drives “peek” carousel styles.'),
-                _bullet('Use consistent edge policy across app sections for visual rhythm.'),
+                _bullet(
+                  'padEnds true typically provides balanced edge breathing room.',
+                ),
+                _bullet(
+                  'padEnds false can start content flush with the viewport edge.',
+                ),
+                _bullet(
+                  'Combined with fraction < 1.0 this drives “peek” carousel styles.',
+                ),
+                _bullet(
+                  'Use consistent edge policy across app sections for visual rhythm.',
+                ),
               ],
             ),
           ),
@@ -668,9 +691,13 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     Checkbox(
                       value: _storyPadEnds,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _storyPadEnds = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _storyPadEnds = v ?? true),
                     ),
-                    Text('padEnds', style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'padEnds',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 14),
                     Checkbox(
                       value: _storyShowFooter,
@@ -678,8 +705,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       onChanged: (v) =>
                           setState(() => _storyShowFooter = v ?? true),
                     ),
-                    Text('show trailing footer',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'show trailing footer',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _chip('lead', '$lead', _p.primary),
                   ],
@@ -706,7 +735,8 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     SliverToBoxAdapter(
                       child: _banner(
                         icon: Icons.auto_stories_rounded,
-                        text: 'Lead section sets context before viewport pages.',
+                        text:
+                            'Lead section sets context before viewport pages.',
                       ),
                     ),
                     SliverList.builder(
@@ -722,9 +752,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       ),
                     ),
                     if (_storyShowFooter)
-                      SliverToBoxAdapter(
-                        child: _storyFooter(),
-                      ),
+                      SliverToBoxAdapter(child: _storyFooter()),
                   ],
                 ),
               ),
@@ -765,9 +793,13 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     _choice('Vertical', _axisMode == _AxisMode.vertical, () {
                       setState(() => _axisMode = _AxisMode.vertical);
                     }),
-                    _choice('Horizontal', _axisMode == _AxisMode.horizontal, () {
-                      setState(() => _axisMode = _AxisMode.horizontal);
-                    }),
+                    _choice(
+                      'Horizontal',
+                      _axisMode == _AxisMode.horizontal,
+                      () {
+                        setState(() => _axisMode = _AxisMode.horizontal);
+                      },
+                    ),
                   ],
                 ),
                 _sliderRow(
@@ -795,9 +827,13 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     Checkbox(
                       value: _axisPadEnds,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _axisPadEnds = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _axisPadEnds = v ?? true),
                     ),
-                    Text('padEnds', style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'padEnds',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _axisShowLegend,
@@ -805,7 +841,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       onChanged: (v) =>
                           setState(() => _axisShowLegend = v ?? true),
                     ),
-                    Text('show legend', style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'show legend',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                   ],
                 ),
               ],
@@ -813,7 +852,9 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
           ),
           const SizedBox(height: 12),
           _panel(
-            title: horizontal ? 'Horizontal FillViewport' : 'Vertical FillViewport',
+            title: horizontal
+                ? 'Horizontal FillViewport'
+                : 'Vertical FillViewport',
             subtitle: horizontal
                 ? 'Scroll left/right through viewport-sized cards.'
                 : 'Scroll up/down through chapter-sized cards.',
@@ -872,8 +913,12 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Use horizontal for media rails and gallery strips.'),
-                _bullet('Use vertical for chaptered storytelling and guide flows.'),
-                _bullet('Fraction under 1.0 is a useful cue that more content exists.'),
+                _bullet(
+                  'Use vertical for chaptered storytelling and guide flows.',
+                ),
+                _bullet(
+                  'Fraction under 1.0 is a useful cue that more content exists.',
+                ),
               ],
             ),
           ),
@@ -909,10 +954,13 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                     Checkbox(
                       value: _kioskTriView,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _kioskTriView = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _kioskTriView = v ?? true),
                     ),
-                    Text('show preset trio',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'show preset trio',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _chip('lead', '$lead', _p.primary),
                   ],
@@ -955,8 +1003,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                       onChanged: (v) =>
                           setState(() => _kioskCustomPad = v ?? true),
                     ),
-                    Text('custom padEnds',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'custom padEnds',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                   ],
                 ),
               ],
@@ -990,8 +1040,12 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Compact shells emphasize paging transitions quickly.'),
-                _bullet('Taller shells reveal more interior card composition detail.'),
-                _bullet('Fractions close to 1.0 feel editorial; low fractions feel exploratory.'),
+                _bullet(
+                  'Taller shells reveal more interior card composition detail.',
+                ),
+                _bullet(
+                  'Fractions close to 1.0 feel editorial; low fractions feel exploratory.',
+                ),
               ],
             ),
           ),
@@ -1131,22 +1185,26 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
               children: [
                 _qa(
                   q: 'How is this different from PageView?',
-                  a: 'SliverFillViewport participates in CustomScrollView sliver '
+                  a:
+                      'SliverFillViewport participates in CustomScrollView sliver '
                       'composition, making it easy to combine with other slivers.',
                 ),
                 _qa(
                   q: 'When should I set viewportFraction below 1.0?',
-                  a: 'When you want users to perceive neighboring content and '
+                  a:
+                      'When you want users to perceive neighboring content and '
                       'understand additional pages exist.',
                 ),
                 _qa(
                   q: 'Should padEnds always be true?',
-                  a: 'No. padEnds depends on the desired edge rhythm and '
+                  a:
+                      'No. padEnds depends on the desired edge rhythm and '
                       'alignment with surrounding sections.',
                 ),
                 _qa(
                   q: 'Can this be horizontal?',
-                  a: 'Yes. In horizontal scrollDirection it becomes a strong '
+                  a:
+                      'Yes. In horizontal scrollDirection it becomes a strong '
                       'foundation for media rails and kiosks.',
                 ),
               ],
@@ -1159,10 +1217,16 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check('Fraction gallery demonstrates viewportFraction tuning.'),
+                _check(
+                  'Fraction gallery demonstrates viewportFraction tuning.',
+                ),
                 _check('Edge lab compares padEnds behavior side-by-side.'),
-                _check('Storyboard integration shows composition with other slivers.'),
-                _check('Axis arena demonstrates vertical and horizontal usage.'),
+                _check(
+                  'Storyboard integration shows composition with other slivers.',
+                ),
+                _check(
+                  'Axis arena demonstrates vertical and horizontal usage.',
+                ),
                 _check('Kiosk showcase validates responsive shell profiles.'),
                 _check('Guide includes matrix, do/dont, FAQ, and checklist.'),
               ],
@@ -1204,8 +1268,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.23),
                     borderRadius: BorderRadius.circular(999),
@@ -1220,8 +1286,11 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                   ),
                 ),
                 const Spacer(),
-                const Icon(Icons.open_in_full_rounded,
-                    color: Colors.white, size: 18),
+                const Icon(
+                  Icons.open_in_full_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ],
             ),
             const Spacer(),
@@ -1306,8 +1375,11 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
           children: [
             Row(
               children: [
-                const Icon(Icons.collections_bookmark_rounded,
-                    color: Colors.white, size: 18),
+                const Icon(
+                  Icons.collections_bookmark_rounded,
+                  color: Colors.white,
+                  size: 18,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'Chapter ${index + 1}',
@@ -1460,8 +1532,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -1506,10 +1577,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: TextStyle(color: _p.muted, fontSize: 11.2),
-          ),
+          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.2)),
         ],
       ),
     );
@@ -1662,8 +1730,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel,
-              color: tone, size: 18),
+          Icon(good ? Icons.check_circle : Icons.cancel, color: tone, size: 18),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1678,10 +1745,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  detail,
-                  style: TextStyle(color: _p.muted, fontSize: 11.3),
-                ),
+                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.3)),
               ],
             ),
           ),
@@ -1726,14 +1790,10 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle,
-              color: Color(0xFF2E7D32), size: 18),
+          const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12),
-            ),
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
           ),
         ],
       ),
@@ -1849,10 +1909,7 @@ class _FillViewportObservatoryState extends State<_FillViewportObservatory> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(color: _p.muted, fontSize: 11.4),
-          ),
+          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
           const SizedBox(height: 10),
           child,
         ],

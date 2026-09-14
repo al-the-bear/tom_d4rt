@@ -153,12 +153,7 @@ class _SelectAllCommandCenterHomeState
     setState(() {
       _log.insert(
         0,
-        _DispatchLogEntry(
-          tier: tier,
-          cause: cause,
-          origin: origin,
-          at: now,
-        ),
+        _DispatchLogEntry(tier: tier, cause: cause, origin: origin, at: now),
       );
       if (_log.length > 8) {
         _log.removeLast();
@@ -176,7 +171,8 @@ class _SelectAllCommandCenterHomeState
 
   // Returns the appropriate Ctrl/Cmd activator for the host platform.
   SingleActivator _selectAllActivator() {
-    final bool useMeta = defaultTargetPlatform == TargetPlatform.macOS ||
+    final bool useMeta =
+        defaultTargetPlatform == TargetPlatform.macOS ||
         defaultTargetPlatform == TargetPlatform.iOS;
     return SingleActivator(
       LogicalKeyboardKey.keyA,
@@ -187,7 +183,8 @@ class _SelectAllCommandCenterHomeState
 
   // Human-readable keycap label for the platform.
   String _platformKeycapLabel() {
-    final bool useMeta = defaultTargetPlatform == TargetPlatform.macOS ||
+    final bool useMeta =
+        defaultTargetPlatform == TargetPlatform.macOS ||
         defaultTargetPlatform == TargetPlatform.iOS;
     return useMeta ? 'Cmd+A' : 'Ctrl+A';
   }
@@ -206,27 +203,28 @@ class _SelectAllCommandCenterHomeState
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 14, 20, 32),
           children: <Widget>[
-              _SelectionSweepHero(progress: _heroSweep),
-              const SizedBox(height: 22),
-              _SelectAllKeycapHero(
-                pulse: _keycapPulse,
-                keycapLabel:
-                    _lastKeycapLabel.isEmpty ? keycapLabel : _lastKeycapLabel,
-              ),
-              const SizedBox(height: 24),
-              _buildTierA(selectAllActivator, keycapLabel),
-              const SizedBox(height: 18),
-              _buildTierB(selectAllActivator, keycapLabel),
-              const SizedBox(height: 18),
-              _buildTierC(),
-              const SizedBox(height: 22),
-              _DispatchLog(entries: _log),
-              const SizedBox(height: 22),
-              const _PlatformMappingTable(),
-              const SizedBox(height: 22),
-              const _InstructionalTrio(),
-              const SizedBox(height: 22),
-              const _FooterBadge(),
+            _SelectionSweepHero(progress: _heroSweep),
+            const SizedBox(height: 22),
+            _SelectAllKeycapHero(
+              pulse: _keycapPulse,
+              keycapLabel: _lastKeycapLabel.isEmpty
+                  ? keycapLabel
+                  : _lastKeycapLabel,
+            ),
+            const SizedBox(height: 24),
+            _buildTierA(selectAllActivator, keycapLabel),
+            const SizedBox(height: 18),
+            _buildTierB(selectAllActivator, keycapLabel),
+            const SizedBox(height: 18),
+            _buildTierC(),
+            const SizedBox(height: 22),
+            _DispatchLog(entries: _log),
+            const SizedBox(height: 22),
+            const _PlatformMappingTable(),
+            const SizedBox(height: 22),
+            const _InstructionalTrio(),
+            const SizedBox(height: 22),
+            const _FooterBadge(),
           ],
         ),
       ),
@@ -244,10 +242,7 @@ class _SelectAllCommandCenterHomeState
           SizedBox(width: 10),
           Text(
             'Select-All Command Center',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.4,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.4),
           ),
           SizedBox(width: 12),
           _HeaderChip(label: 'SelectAllTextIntent'),
@@ -280,7 +275,9 @@ class _SelectAllCommandCenterHomeState
         focusNode: _tierAFocus,
         child: Shortcuts(
           shortcuts: <ShortcutActivator, Intent>{
-            activator: const SelectAllTextIntent(SelectionChangedCause.keyboard),
+            activator: const SelectAllTextIntent(
+              SelectionChangedCause.keyboard,
+            ),
           },
           child: Actions(
             actions: <Type, Action<Intent>>{
@@ -306,8 +303,9 @@ class _SelectAllCommandCenterHomeState
                         color: const Color(0xFFFEF3C7),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: const Color(0xFFFBBF24)
-                              .withValues(alpha: 0.55),
+                          color: const Color(
+                            0xFFFBBF24,
+                          ).withValues(alpha: 0.55),
                         ),
                       ),
                       padding: const EdgeInsets.all(10),
@@ -400,16 +398,14 @@ class _SelectAllCommandCenterHomeState
           'The dispatched intent carries SelectionChangedCause.keyboard, '
           'signalling to the framework that the selection change '
           'originated from a physical keypress.',
-      chips: const <String>[
-        'SelectableText',
-        'Shortcuts',
-        'cause = keyboard',
-      ],
+      chips: const <String>['SelectableText', 'Shortcuts', 'cause = keyboard'],
       body: Focus(
         focusNode: _tierBFocus,
         child: Shortcuts(
           shortcuts: <ShortcutActivator, Intent>{
-            activator: const SelectAllTextIntent(SelectionChangedCause.keyboard),
+            activator: const SelectAllTextIntent(
+              SelectionChangedCause.keyboard,
+            ),
           },
           child: Actions(
             actions: <Type, Action<Intent>>{
@@ -437,8 +433,9 @@ class _SelectAllCommandCenterHomeState
                           color: const Color(0xFFFEF3C7),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: const Color(0xFFF59E0B)
-                                .withValues(alpha: 0.55),
+                            color: const Color(
+                              0xFFF59E0B,
+                            ).withValues(alpha: 0.55),
                           ),
                         ),
                         padding: const EdgeInsets.all(14),
@@ -540,8 +537,9 @@ class _SelectAllCommandCenterHomeState
                         color: const Color(0xFFFEF3C7),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: const Color(0xFFEAB308)
-                              .withValues(alpha: 0.55),
+                          color: const Color(
+                            0xFFEAB308,
+                          ).withValues(alpha: 0.55),
                         ),
                       ),
                       padding: const EdgeInsets.all(14),
@@ -748,10 +746,7 @@ class _SelectionSweepPainter extends CustomPainter {
 // =====================================================================
 
 class _SelectAllKeycapHero extends StatelessWidget {
-  const _SelectAllKeycapHero({
-    required this.pulse,
-    required this.keycapLabel,
-  });
+  const _SelectAllKeycapHero({required this.pulse, required this.keycapLabel});
 
   final Animation<double> pulse;
   final String keycapLabel;
@@ -773,8 +768,11 @@ class _SelectAllKeycapHero extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              Icon(Icons.keyboard_alt_outlined,
-                  color: Color(0xFFFBBF24), size: 20),
+              Icon(
+                Icons.keyboard_alt_outlined,
+                color: Color(0xFFFBBF24),
+                size: 20,
+              ),
               SizedBox(width: 8),
               Text(
                 'Keycap HUD',
@@ -822,10 +820,13 @@ class _KeycapHeroPainter extends CustomPainter {
     // Divide into two keycaps: left = modifier, right = A.
     const double gap = 22;
     final double keyW = (size.width - gap) / 2;
-    final Rect leftRect =
-        Rect.fromLTWH(0, 0, keyW, size.height).deflate(6);
-    final Rect rightRect =
-        Rect.fromLTWH(keyW + gap, 0, keyW, size.height).deflate(6);
+    final Rect leftRect = Rect.fromLTWH(0, 0, keyW, size.height).deflate(6);
+    final Rect rightRect = Rect.fromLTWH(
+      keyW + gap,
+      0,
+      keyW,
+      size.height,
+    ).deflate(6);
 
     _drawKeycap(
       canvas,
@@ -849,16 +850,8 @@ class _KeycapHeroPainter extends CustomPainter {
       ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round;
     final Offset center = Offset(keyW + gap / 2, size.height / 2);
-    canvas.drawLine(
-      center.translate(-7, 0),
-      center.translate(7, 0),
-      plus,
-    );
-    canvas.drawLine(
-      center.translate(0, -7),
-      center.translate(0, 7),
-      plus,
-    );
+    canvas.drawLine(center.translate(-7, 0), center.translate(7, 0), plus);
+    canvas.drawLine(center.translate(0, -7), center.translate(0, 7), plus);
   }
 
   void _drawKeycap(
@@ -890,10 +883,7 @@ class _KeycapHeroPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[
-          const Color(0xFF334155),
-          const Color(0xFF1E293B),
-        ],
+        colors: <Color>[const Color(0xFF334155), const Color(0xFF1E293B)],
       ).createShader(rect);
     canvas.drawRRect(
       RRect.fromRectAndRadius(rect, const Radius.circular(14)),
@@ -935,10 +925,7 @@ class _KeycapHeroPainter extends CustomPainter {
     )..layout();
     tp.paint(
       canvas,
-      Offset(
-        rect.center.dx - tp.width / 2,
-        rect.center.dy - tp.height / 2,
-      ),
+      Offset(rect.center.dx - tp.width / 2, rect.center.dy - tp.height / 2),
     );
   }
 
@@ -976,10 +963,7 @@ class _TierCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.45),
-          width: 1.1,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.1),
       ),
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -1016,7 +1000,9 @@ class _TierCard extends StatelessWidget {
             spacing: 6,
             runSpacing: 6,
             children: chips
-                .map<Widget>((String c) => _InlineChip(label: c, accent: accent))
+                .map<Widget>(
+                  (String c) => _InlineChip(label: c, accent: accent),
+                )
                 .toList(growable: false),
           ),
           const SizedBox(height: 14),
@@ -1278,11 +1264,7 @@ class _RichPassage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text.rich(
       TextSpan(
-        style: TextStyle(
-          color: Color(0xFF111827),
-          height: 1.5,
-          fontSize: 13.5,
-        ),
+        style: TextStyle(color: Color(0xFF111827), height: 1.5, fontSize: 13.5),
         children: <InlineSpan>[
           TextSpan(text: 'Tier C wraps this passage in a '),
           TextSpan(
@@ -1451,20 +1433,14 @@ class _DispatchLog extends StatelessWidget {
               child: Text(
                 'No dispatches yet. Press Ctrl/Cmd+A in Tier A or B, or '
                 'use the Tier C toolbar button.',
-                style: TextStyle(
-                  color: Color(0xFFCBD5F5),
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Color(0xFFCBD5F5), fontSize: 12),
               ),
             )
           else
             Column(
               children: <Widget>[
                 for (int i = 0; i < entries.length; i++)
-                  _DispatchLogRow(
-                    entry: entries[i],
-                    isNewest: i == 0,
-                  ),
+                  _DispatchLogRow(entry: entries[i], isNewest: i == 0),
               ],
             ),
         ],
@@ -1529,10 +1505,7 @@ class _DispatchLogRow extends StatelessWidget {
           Expanded(
             child: Text(
               'cause=${entry.cause.name}  ·  ${entry.origin}',
-              style: const TextStyle(
-                color: Color(0xFFCBD5F5),
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Color(0xFFCBD5F5), fontSize: 12),
             ),
           ),
           if (isNewest)

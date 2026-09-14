@@ -259,49 +259,47 @@ class _WscHomeState extends State<_WscHome> with TickerProviderStateMixin {
   // green. Reading `baseSkin.resolve(states)` gives the correct color.
   // This is the "Color subclass trick" in its clearest form.
   // -------------------------------------------------------------------
-  WidgetStateColor get liveSkin => WidgetStateColor.resolveWith((
-    Set<WidgetState> states,
-  ) {
-    if (states.contains(WidgetState.disabled)) {
-      return _kSkinDim;
-    }
-    if (states.contains(WidgetState.error)) {
-      return _kSkinError;
-    }
-    if (states.contains(WidgetState.pressed)) {
-      return _kSkinGlow;
-    }
-    if (states.contains(WidgetState.hovered)) {
-      return _kSkinHot;
-    }
-    if (states.contains(WidgetState.dragged)) {
-      return _kBranchLight;
-    }
-    if (states.contains(WidgetState.focused)) {
-      return _kSkinFocus;
-    }
-    if (states.contains(WidgetState.selected)) {
-      return _kMossLight;
-    }
-    return _kSkin;
-  });
+  WidgetStateColor get liveSkin =>
+      WidgetStateColor.resolveWith((Set<WidgetState> states) {
+        if (states.contains(WidgetState.disabled)) {
+          return _kSkinDim;
+        }
+        if (states.contains(WidgetState.error)) {
+          return _kSkinError;
+        }
+        if (states.contains(WidgetState.pressed)) {
+          return _kSkinGlow;
+        }
+        if (states.contains(WidgetState.hovered)) {
+          return _kSkinHot;
+        }
+        if (states.contains(WidgetState.dragged)) {
+          return _kBranchLight;
+        }
+        if (states.contains(WidgetState.focused)) {
+          return _kSkinFocus;
+        }
+        if (states.contains(WidgetState.selected)) {
+          return _kMossLight;
+        }
+        return _kSkin;
+      });
 
   // -------------------------------------------------------------------
   // The MAP-BASED chameleon skin — same intent, different constructor.
   // `WidgetState.any` is the catch-all fallback; because map order
   // matters, disabled/error shadow everything else.
   // -------------------------------------------------------------------
-  WidgetStateColor get mapSkin => WidgetStateColor.fromMap(
-    <WidgetStatesConstraint, Color>{
-      WidgetState.disabled: _kSkinDim,
-      WidgetState.error: _kSkinError,
-      WidgetState.pressed: _kSkinGlow,
-      WidgetState.hovered: _kSkinHot,
-      WidgetState.focused: _kSkinFocus,
-      WidgetState.selected: _kMossLight,
-      WidgetState.any: _kSkin,
-    },
-  );
+  WidgetStateColor get mapSkin =>
+      WidgetStateColor.fromMap(<WidgetStatesConstraint, Color>{
+        WidgetState.disabled: _kSkinDim,
+        WidgetState.error: _kSkinError,
+        WidgetState.pressed: _kSkinGlow,
+        WidgetState.hovered: _kSkinHot,
+        WidgetState.focused: _kSkinFocus,
+        WidgetState.selected: _kMossLight,
+        WidgetState.any: _kSkin,
+      });
 
   // -------------------------------------------------------------------
   // Compose the live state set from the boolean toggles / pointer.
@@ -578,8 +576,7 @@ class _WscHomeState extends State<_WscHome> with TickerProviderStateMixin {
           const _WscSectionHeader(
             eyebrow: 'GLOSSARY',
             title: 'Terms you will meet in the source',
-            blurb:
-                'Plain-English definitions for every symbol touched above.',
+            blurb: 'Plain-English definitions for every symbol touched above.',
           ),
           const SizedBox(height: 10),
           const _WscGlossary(),
@@ -666,11 +663,7 @@ class _WscSectionHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           blurb,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.4),
         ),
       ],
     );
@@ -792,10 +785,7 @@ class _WscDossierCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: 230,
-        maxWidth: 320,
-      ),
+      constraints: const BoxConstraints(minWidth: 230, maxWidth: 320),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -891,9 +881,17 @@ class _WscAnatomyHierarchy extends StatelessWidget {
           _hRow('Object', 0, false),
           _hRow('└─ Color', 1, false),
           _hRow('   └─ WidgetStateColor  (abstract)', 2, true),
-          _hRow('      ├─ _WidgetStateColor        (from resolveWith)', 3, false),
+          _hRow(
+            '      ├─ _WidgetStateColor        (from resolveWith)',
+            3,
+            false,
+          ),
           _hRow('      ├─ _WidgetStateColorMapper  (from fromMap)', 3, false),
-          _hRow('      └─ _WidgetStateColorTransparent (static .transparent)', 3, false),
+          _hRow(
+            '      └─ _WidgetStateColorTransparent (static .transparent)',
+            3,
+            false,
+          ),
           const SizedBox(height: 10),
           const Text(
             'Implements: WidgetStateProperty<Color>',
@@ -1119,11 +1117,7 @@ class _WscChameleonTile extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(
-                Icons.pets_outlined,
-                color: _kMossDark,
-                size: 18,
-              ),
+              const Icon(Icons.pets_outlined, color: _kMossDark, size: 18),
               const SizedBox(width: 8),
               const Text(
                 'Live chameleon — hover / press / tap',
@@ -1146,10 +1140,12 @@ class _WscChameleonTile extends StatelessWidget {
             onExit: disabled ? null : (_) => onHover(false),
             child: Listener(
               onPointerDown: disabled ? null : (_) => onPressedChanged(true),
-              onPointerUp: disabled ? null : (_) {
-                onPressedChanged(false);
-                onTap();
-              },
+              onPointerUp: disabled
+                  ? null
+                  : (_) {
+                      onPressedChanged(false);
+                      onTap();
+                    },
               onPointerCancel: disabled ? null : (_) => onPressedChanged(false),
               child: SizedBox(
                 height: 260,
@@ -1277,7 +1273,8 @@ class _WscTerrariumPainter extends CustomPainter {
     for (int i = 0; i < 26; i++) {
       final double px = pebRng.nextDouble() * size.width;
       final double jitter = (pebRng.nextDouble() - 0.5) * 12;
-      final double py = floorY + 6 + pebRng.nextDouble() * (size.height - floorY - 10);
+      final double py =
+          floorY + 6 + pebRng.nextDouble() * (size.height - floorY - 10);
       final double pr = 1.5 + pebRng.nextDouble() * 3.0;
       canvas.drawCircle(
         Offset(px, py + jitter),
@@ -1301,9 +1298,12 @@ class _WscTerrariumPainter extends CustomPainter {
     final Path branch = Path()
       ..moveTo(size.width * 0.10, size.height * 0.62)
       ..cubicTo(
-        size.width * 0.32, size.height * 0.40,
-        size.width * 0.58, size.height * 0.50,
-        size.width * 0.82, size.height * 0.30,
+        size.width * 0.32,
+        size.height * 0.40,
+        size.width * 0.58,
+        size.height * 0.50,
+        size.width * 0.82,
+        size.height * 0.30,
       );
     final Paint branchFill = Paint()
       ..style = PaintingStyle.stroke
@@ -1377,10 +1377,7 @@ class _WscTerrariumPainter extends CustomPainter {
   }
 
   void _drawLeaf(Canvas canvas, Offset base, Offset tip, Color fill) {
-    final Offset mid = Offset(
-      (base.dx + tip.dx) / 2,
-      (base.dy + tip.dy) / 2,
-    );
+    final Offset mid = Offset((base.dx + tip.dx) / 2, (base.dy + tip.dy) / 2);
     final double dx = tip.dx - base.dx;
     final double dy = tip.dy - base.dy;
     final double len = math.sqrt(dx * dx + dy * dy);
@@ -1427,9 +1424,12 @@ class _WscTerrariumPainter extends CustomPainter {
     final Path tail = Path()
       ..moveTo(body.dx - 30, body.dy + 4)
       ..cubicTo(
-        body.dx - 60, body.dy - 8,
-        body.dx - 72, body.dy + 22,
-        body.dx - 52, body.dy + 28,
+        body.dx - 60,
+        body.dy - 8,
+        body.dx - 72,
+        body.dy + 22,
+        body.dx - 52,
+        body.dy + 28,
       );
     canvas.drawPath(
       tail,
@@ -1450,11 +1450,7 @@ class _WscTerrariumPainter extends CustomPainter {
     );
 
     // Body — an elongated oval.
-    final Rect bodyRect = Rect.fromCenter(
-      center: body,
-      width: 96,
-      height: 42,
-    );
+    final Rect bodyRect = Rect.fromCenter(center: body, width: 96, height: 42);
     canvas.drawOval(bodyRect, Paint()..color = skinColor);
 
     // Belly highlight.
@@ -1832,7 +1828,8 @@ class _WscFromMapVsResolveWith extends StatelessWidget {
         Expanded(
           child: _constructorCard(
             title: 'resolveWith (procedural)',
-            code: "WidgetStateColor.resolveWith(\n"
+            code:
+                "WidgetStateColor.resolveWith(\n"
                 "  (states) {\n"
                 "    if (states.contains(WidgetState.disabled))\n"
                 "      return dim;\n"
@@ -1851,7 +1848,8 @@ class _WscFromMapVsResolveWith extends StatelessWidget {
         Expanded(
           child: _constructorCard(
             title: 'fromMap (declarative)',
-            code: "WidgetStateColor.fromMap({\n"
+            code:
+                "WidgetStateColor.fromMap({\n"
                 "  WidgetState.disabled: dim,\n"
                 "  WidgetState.error: err,\n"
                 "  WidgetState.pressed: glow,\n"
@@ -2094,14 +2092,14 @@ class _WscButtonShowcase extends StatelessWidget {
                   if (states.contains(WidgetState.hovered)) return _kSkinHot;
                   return _kMossLight;
                 }),
-                foregroundColor: WidgetStateColor.resolveWith(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.disabled)) {
-                      return _kInkSoft;
-                    }
-                    return _kInk;
-                  },
-                ),
+                foregroundColor: WidgetStateColor.resolveWith((
+                  Set<WidgetState> states,
+                ) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return _kInkSoft;
+                  }
+                  return _kInk;
+                }),
               ),
               onPressed: onFilled,
               child: const Text('Eat a fly'),
@@ -2259,9 +2257,7 @@ class _WscAnimatedGradient extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  gradient: LinearGradient(
-                    colors: <Color>[a, mid, b],
-                  ),
+                  gradient: LinearGradient(colors: <Color>[a, mid, b]),
                 ),
               ),
             ],
@@ -2601,9 +2597,7 @@ class _CompareRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(color: _kStroke, width: 0.6),
-        ),
+        border: Border(top: BorderSide(color: _kStroke, width: 0.6)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -2670,8 +2664,7 @@ class _WscEventLog extends StatelessWidget {
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                for (int i = 0; i < events.length; i++)
-                  _logRow(events[i], i),
+                for (int i = 0; i < events.length; i++) _logRow(events[i], i),
               ],
             ),
     );

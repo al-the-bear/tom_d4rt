@@ -54,8 +54,10 @@ class _RootWidgetDemoState extends State<_RootWidgetDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: const Text('RootWidget',
-            style: TextStyle(color: _kAccent, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'RootWidget',
+          style: TextStyle(color: _kAccent, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: _kCard,
         bottom: TabBar(
           controller: _tabs,
@@ -71,11 +73,7 @@ class _RootWidgetDemoState extends State<_RootWidgetDemo>
       ),
       body: TabBarView(
         controller: _tabs,
-        children: const [
-          _BootstrapTab(),
-          _PropertiesTab(),
-          _AttachFlowTab(),
-        ],
+        children: const [_BootstrapTab(), _PropertiesTab(), _AttachFlowTab()],
       ),
     );
   }
@@ -111,25 +109,31 @@ class _BootstrapTab extends StatelessWidget {
               const Text(
                 'RootWidget',
                 style: TextStyle(
-                    color: _kBrightText,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
+                  color: _kBrightText,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: _kAccent.withAlpha(30),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: _kAccent.withAlpha(80)),
                 ),
-                child: const Text('The Tree Apex',
-                    style: TextStyle(
-                        color: _kAccent,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.5)),
+                child: const Text(
+                  'The Tree Apex',
+                  style: TextStyle(
+                    color: _kAccent,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.5,
+                  ),
+                ),
               ),
               const SizedBox(height: 14),
               const Text(
@@ -151,7 +155,8 @@ class _BootstrapTab extends StatelessWidget {
           icon: Icons.widgets_outlined,
           iconColor: _kPrimary,
           title: 'Root of the Widget Tree',
-          body: 'RootWidget is a special Widget subclass created by '
+          body:
+              'RootWidget is a special Widget subclass created by '
               'WidgetsBinding.attachRootWidget(). It wraps the app\'s '
               'top-level widget (usually a MaterialApp or CupertinoApp) '
               'and serves as the absolute root of the entire widget tree.',
@@ -161,7 +166,8 @@ class _BootstrapTab extends StatelessWidget {
           icon: Icons.visibility_off,
           iconColor: _kHighlight,
           title: 'Invisible to Developers',
-          body: 'You never create a RootWidget directly. The binding '
+          body:
+              'You never create a RootWidget directly. The binding '
               'creates it behind the scenes when you call runApp(). '
               'It appears in the element tree inspector as the topmost node.',
         ),
@@ -170,7 +176,8 @@ class _BootstrapTab extends StatelessWidget {
           icon: Icons.account_tree,
           iconColor: _kAccent,
           title: 'Creates RootElement',
-          body: 'RootWidget.createElement() returns a RootElement that '
+          body:
+              'RootWidget.createElement() returns a RootElement that '
               'uses RootElementMixin. This element has no parent and '
               'receives the BuildOwner via assignOwner().',
         ),
@@ -198,11 +205,14 @@ class _BootstrapTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Key Insight',
-                        style: TextStyle(
-                            color: _kAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14)),
+                    const Text(
+                      'Key Insight',
+                      style: TextStyle(
+                        color: _kAccent,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     Text(
                       'RootWidget extends Widget directly — not '
@@ -210,9 +220,10 @@ class _BootstrapTab extends StatelessWidget {
                       'intentional: it needs custom createElement() '
                       'logic that those subclasses don\'t provide.',
                       style: TextStyle(
-                          color: _kDimText.withAlpha(200),
-                          fontSize: 12,
-                          height: 1.4),
+                        color: _kDimText.withAlpha(200),
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -227,18 +238,28 @@ class _BootstrapTab extends StatelessWidget {
   Widget _buildRunAppFlow() {
     const steps = [
       ('runApp(MyApp())', 'App entry point', Icons.play_arrow),
-      ('WidgetsFlutterBinding.ensureInitialized()',
-          'Creates the binding', Icons.extension),
-      ('scheduleAttachRootWidget(app)',
-          'Schedules root attachment', Icons.schedule),
-      ('attachRootWidget(app)',
-          'Creates RootWidget wrapping app', Icons.wrap_text),
-      ('RootWidget(child: app)',
-          'Wraps your widget', Icons.widgets),
-      ('rootWidget.attach(buildOwner)',
-          'Bootstraps the element tree', Icons.link),
-      ('scheduleWarmUpFrame()',
-          'First frame is built', Icons.image),
+      (
+        'WidgetsFlutterBinding.ensureInitialized()',
+        'Creates the binding',
+        Icons.extension,
+      ),
+      (
+        'scheduleAttachRootWidget(app)',
+        'Schedules root attachment',
+        Icons.schedule,
+      ),
+      (
+        'attachRootWidget(app)',
+        'Creates RootWidget wrapping app',
+        Icons.wrap_text,
+      ),
+      ('RootWidget(child: app)', 'Wraps your widget', Icons.widgets),
+      (
+        'rootWidget.attach(buildOwner)',
+        'Bootstraps the element tree',
+        Icons.link,
+      ),
+      ('scheduleWarmUpFrame()', 'First frame is built', Icons.image),
     ];
 
     return Container(
@@ -264,27 +285,29 @@ class _BootstrapTab extends StatelessWidget {
                       ],
                     ),
                     shape: BoxShape.circle,
-                    border: Border.all(
-                        color: _kAccent.withAlpha(40 + i * 15)),
+                    border: Border.all(color: _kAccent.withAlpha(40 + i * 15)),
                   ),
-                  child: Icon(steps[i].$3,
-                      size: 16, color: _kAccent),
+                  child: Icon(steps[i].$3, size: 16, color: _kAccent),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(steps[i].$1,
-                          style: const TextStyle(
-                              color: _kBrightText,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        steps[i].$1,
+                        style: const TextStyle(
+                          color: _kBrightText,
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(steps[i].$2,
-                          style: const TextStyle(
-                              color: _kDimText, fontSize: 11)),
+                      Text(
+                        steps[i].$2,
+                        style: const TextStyle(color: _kDimText, fontSize: 11),
+                      ),
                     ],
                   ),
                 ),
@@ -341,18 +364,18 @@ class _PropertiesTab extends StatelessWidget {
                 '  String? debugShortDescription,\n'
                 '})',
                 style: TextStyle(
-                    color: _kAccent,
-                    fontFamily: 'monospace',
-                    fontSize: 13,
-                    height: 1.6),
+                  color: _kAccent,
+                  fontFamily: 'monospace',
+                  fontSize: 13,
+                  height: 1.6,
+                ),
               ),
               const SizedBox(height: 10),
               const Text(
                 'Both parameters are optional. The child is the app '
                 'widget you pass to runApp(). The debugShortDescription '
                 'customises the debug output.',
-                style: TextStyle(
-                    color: _kDimText, fontSize: 12, height: 1.4),
+                style: TextStyle(color: _kDimText, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -440,47 +463,57 @@ class _PropertiesTab extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kPrimary.withAlpha(30),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(type,
-                    style: const TextStyle(
-                        color: _kHighlight,
-                        fontSize: 11,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  type,
+                  style: const TextStyle(
+                    color: _kHighlight,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
-              Text(name,
-                  style: const TextStyle(
-                      color: _kAccent,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'monospace')),
+              Text(
+                name,
+                style: const TextStyle(
+                  color: _kAccent,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
-          ...values.map((v) => Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Row(
-                  children: [
-                    const Icon(Icons.arrow_right,
-                        color: _kDimText, size: 16),
-                    Text('${v.$1}: ',
-                        style: const TextStyle(
-                            color: _kDimText, fontSize: 12)),
-                    Expanded(
-                      child: Text(v.$2,
-                          style: const TextStyle(
-                              color: _kBrightText,
-                              fontSize: 12,
-                              fontFamily: 'monospace')),
+          ...values.map(
+            (v) => Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Row(
+                children: [
+                  const Icon(Icons.arrow_right, color: _kDimText, size: 16),
+                  Text(
+                    '${v.$1}: ',
+                    style: const TextStyle(color: _kDimText, fontSize: 12),
+                  ),
+                  Expanded(
+                    child: Text(
+                      v.$2,
+                      style: const TextStyle(
+                        color: _kBrightText,
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                      ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -507,32 +540,38 @@ class _PropertiesTab extends StatelessWidget {
               const Icon(Icons.functions, color: _kAccent, size: 18),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(name,
-                    style: const TextStyle(
-                        color: _kAccent,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    color: _kAccent,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _kPrimary.withAlpha(25),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text('→ $returnType',
-                    style: const TextStyle(
-                        color: _kHighlight,
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  '→ $returnType',
+                  style: const TextStyle(
+                    color: _kHighlight,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(description,
-              style: const TextStyle(
-                  color: _kDimText, fontSize: 12, height: 1.4)),
+          Text(
+            description,
+            style: const TextStyle(color: _kDimText, fontSize: 12, height: 1.4),
+          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -542,11 +581,14 @@ class _PropertiesTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: _kPrimary.withAlpha(30)),
             ),
-            child: Text('Result: $liveResult',
-                style: const TextStyle(
-                    color: _kHighlight,
-                    fontSize: 11,
-                    fontFamily: 'monospace')),
+            child: Text(
+              'Result: $liveResult',
+              style: const TextStyle(
+                color: _kHighlight,
+                fontSize: 11,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -579,35 +621,41 @@ class _PropertiesTab extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: chain[i].$3.withAlpha(20),
                     shape: BoxShape.circle,
-                    border:
-                        Border.all(color: chain[i].$3.withAlpha(80)),
+                    border: Border.all(color: chain[i].$3.withAlpha(80)),
                   ),
-                  child: Icon(chain[i].$2,
-                      size: 16, color: chain[i].$3),
+                  child: Icon(chain[i].$2, size: 16, color: chain[i].$3),
                 ),
                 const SizedBox(width: 12),
-                Text(chain[i].$1,
-                    style: TextStyle(
-                        color: chain[i].$3,
-                        fontSize: 14,
-                        fontWeight: i == chain.length - 1
-                            ? FontWeight.bold
-                            : FontWeight.normal)),
+                Text(
+                  chain[i].$1,
+                  style: TextStyle(
+                    color: chain[i].$3,
+                    fontSize: 14,
+                    fontWeight: i == chain.length - 1
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                  ),
+                ),
                 if (i == chain.length - 1) ...[
                   const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: _kAccent.withAlpha(25),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('THIS CLASS',
-                        style: TextStyle(
-                            color: _kAccent,
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1)),
+                    child: const Text(
+                      'THIS CLASS',
+                      style: TextStyle(
+                        color: _kAccent,
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1,
+                      ),
+                    ),
                   ),
                 ],
               ],
@@ -643,36 +691,42 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
     _AttachStep(
       title: 'RootWidget.attach() called',
       code: 'rootWidget.attach(buildOwner)',
-      detail: 'The binding calls attach() with its BuildOwner. '
+      detail:
+          'The binding calls attach() with its BuildOwner. '
           'An optional existing RootElement can be passed for hot restart.',
       icon: Icons.play_circle_outline,
     ),
     _AttachStep(
       title: 'Check for existing element',
-      code: 'if (element != null) {\n'
+      code:
+          'if (element != null) {\n'
           '  element._newWidget = this;\n'
           '  element.markNeedsBuild();\n'
           '} else {\n'
           '  element = createElement();\n'
           '}',
-      detail: 'If a previous element exists (hot restart), it is reused. '
+      detail:
+          'If a previous element exists (hot restart), it is reused. '
           'Otherwise createElement() creates a fresh RootElement.',
       icon: Icons.alt_route,
     ),
     _AttachStep(
       title: 'Assign BuildOwner',
       code: 'element.assignOwner(owner)',
-      detail: 'The BuildOwner is assigned to the root element. '
+      detail:
+          'The BuildOwner is assigned to the root element. '
           'This owner will manage the dirty elements list for '
           'the entire subtree.',
       icon: Icons.admin_panel_settings,
     ),
     _AttachStep(
       title: 'Mount the root',
-      code: 'owner.buildScope(element, () {\n'
+      code:
+          'owner.buildScope(element, () {\n'
           '  element.mount(null, null);\n'
           '})',
-      detail: 'mount() is called with null parent and null slot, '
+      detail:
+          'mount() is called with null parent and null slot, '
           'since this is the root. The build scope ensures '
           'that dirty descendants are rebuilt atomically.',
       icon: Icons.download,
@@ -680,7 +734,8 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
     _AttachStep(
       title: 'Tree is live',
       code: '// Widget tree is now active',
-      detail: 'The element tree is now mounted. The child widget '
+      detail:
+          'The element tree is now mounted. The child widget '
           '(your app) inflates recursively from here.',
       icon: Icons.check_circle,
     ),
@@ -721,26 +776,29 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
                             color: active
                                 ? _kAccent
                                 : done
-                                    ? _kPrimary
-                                    : _kDimText.withAlpha(40),
+                                ? _kPrimary
+                                : _kDimText.withAlpha(40),
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: active
                                   ? _kAccent
                                   : done
-                                      ? _kPrimary.withAlpha(120)
-                                      : _kDimText.withAlpha(60),
+                                  ? _kPrimary.withAlpha(120)
+                                  : _kDimText.withAlpha(60),
                               width: 2,
                             ),
                           ),
                           child: Center(
-                            child: Text('${i + 1}',
-                                style: TextStyle(
-                                    color: active || done
-                                        ? Colors.black
-                                        : _kDimText,
-                                    fontSize: active ? 12 : 10,
-                                    fontWeight: FontWeight.bold)),
+                            child: Text(
+                              '${i + 1}',
+                              style: TextStyle(
+                                color: active || done
+                                    ? Colors.black
+                                    : _kDimText,
+                                fontSize: active ? 12 : 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -819,12 +877,15 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
       children: [
         Icon(step.icon, color: _kAccent, size: 36),
         const SizedBox(height: 10),
-        Text(step.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                color: _kBrightText,
-                fontSize: 16,
-                fontWeight: FontWeight.bold)),
+        Text(
+          step.title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: _kBrightText,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 12),
         Container(
           width: double.infinity,
@@ -834,18 +895,22 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: _kPrimary.withAlpha(40)),
           ),
-          child: Text(step.code,
-              style: const TextStyle(
-                  color: _kAccent,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  height: 1.5)),
+          child: Text(
+            step.code,
+            style: const TextStyle(
+              color: _kAccent,
+              fontFamily: 'monospace',
+              fontSize: 12,
+              height: 1.5,
+            ),
+          ),
         ),
         const SizedBox(height: 10),
-        Text(step.detail,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                color: _kDimText, fontSize: 12, height: 1.5)),
+        Text(
+          step.detail,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: _kDimText, fontSize: 12, height: 1.5),
+        ),
       ],
     );
   }
@@ -864,14 +929,16 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
             ),
             child: Column(
               children: [
-                const Icon(Icons.power_settings_new,
-                    color: _kAccent, size: 24),
+                const Icon(Icons.power_settings_new, color: _kAccent, size: 24),
                 const SizedBox(height: 8),
-                const Text('Cold Start',
-                    style: TextStyle(
-                        color: _kAccent,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold)),
+                const Text(
+                  'Cold Start',
+                  style: TextStyle(
+                    color: _kAccent,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   'createElement() is called.\n'
@@ -879,9 +946,10 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
                   'Full tree build.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: _kDimText.withAlpha(200),
-                      fontSize: 11,
-                      height: 1.5),
+                    color: _kDimText.withAlpha(200),
+                    fontSize: 11,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -898,14 +966,16 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
             ),
             child: Column(
               children: [
-                const Icon(Icons.restart_alt,
-                    color: _kHighlight, size: 24),
+                const Icon(Icons.restart_alt, color: _kHighlight, size: 24),
                 const SizedBox(height: 8),
-                const Text('Hot Restart',
-                    style: TextStyle(
-                        color: _kHighlight,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold)),
+                const Text(
+                  'Hot Restart',
+                  style: TextStyle(
+                    color: _kHighlight,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   'Existing element reused.\n'
@@ -913,9 +983,10 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
                   'Subtree reconciled.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: _kDimText.withAlpha(200),
-                      fontSize: 11,
-                      height: 1.5),
+                    color: _kDimText.withAlpha(200),
+                    fontSize: 11,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -945,8 +1016,7 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
         children: nodes.map((n) {
           final indent = n.$1.length - n.$1.trimLeft().length;
           return Padding(
-            padding: EdgeInsets.only(
-                left: indent * 10.0, top: 4, bottom: 4),
+            padding: EdgeInsets.only(left: indent * 10.0, top: 4, bottom: 4),
             child: Row(
               children: [
                 Container(
@@ -962,14 +1032,18 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(n.$1.trim(),
-                          style: TextStyle(
-                              color: n.$3,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600)),
-                      Text(n.$2,
-                          style: const TextStyle(
-                              color: _kDimText, fontSize: 11)),
+                      Text(
+                        n.$1.trim(),
+                        style: TextStyle(
+                          color: n.$3,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        n.$2,
+                        style: const TextStyle(color: _kDimText, fontSize: 11),
+                      ),
                     ],
                   ),
                 ),
@@ -987,18 +1061,18 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
         'Can I create RootWidget myself?',
         'Technically yes, but it serves no practical purpose. The '
             'binding creates it for you via runApp(). Creating one '
-            'manually means you\'d also need to manage the BuildOwner.'
+            'manually means you\'d also need to manage the BuildOwner.',
       ),
       (
         'Why does RootWidget extend Widget directly?',
         'It needs a custom createElement() that returns RootElement '
             'with RootElementMixin. StatelessWidget and StatefulWidget '
-            'have their own fixed Element types.'
+            'have their own fixed Element types.',
       ),
       (
         'What happens if child is null?',
         'The tree simply has no content below the root. In practice '
-            'runApp() always provides a child widget.'
+            'runApp() always provides a child widget.',
       ),
     ];
 
@@ -1018,24 +1092,29 @@ class _AttachFlowTabState extends State<_AttachFlowTab> {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.help_outline,
-                        color: _kAccent, size: 18),
+                    const Icon(Icons.help_outline, color: _kAccent, size: 18),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(item.$1,
-                          style: const TextStyle(
-                              color: _kAccent,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600)),
+                      child: Text(
+                        item.$1,
+                        style: const TextStyle(
+                          color: _kAccent,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text(item.$2,
-                    style: const TextStyle(
-                        color: _kDimText,
-                        fontSize: 12,
-                        height: 1.4)),
+                Text(
+                  item.$2,
+                  style: const TextStyle(
+                    color: _kDimText,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1067,11 +1146,14 @@ Widget _sectionHeader(String title) {
     children: [
       Container(width: 4, height: 20, color: _kAccent),
       const SizedBox(width: 10),
-      Text(title,
-          style: const TextStyle(
-              color: _kBrightText,
-              fontSize: 17,
-              fontWeight: FontWeight.bold)),
+      Text(
+        title,
+        style: const TextStyle(
+          color: _kBrightText,
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     ],
   );
 }
@@ -1105,15 +1187,23 @@ Widget _infoTile({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      color: _kBrightText,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600)),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: _kBrightText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(body,
-                  style: const TextStyle(
-                      color: _kDimText, fontSize: 12, height: 1.5)),
+              Text(
+                body,
+                style: const TextStyle(
+                  color: _kDimText,
+                  fontSize: 12,
+                  height: 1.5,
+                ),
+              ),
             ],
           ),
         ),

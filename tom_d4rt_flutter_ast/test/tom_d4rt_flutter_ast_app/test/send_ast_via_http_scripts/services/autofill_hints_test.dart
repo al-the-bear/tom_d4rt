@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: coral, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: rosePink),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: wine.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: wine.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -103,16 +112,18 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: burgundy,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: burgundy,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: wine)),
+            child: Text(detail, style: TextStyle(fontSize: 12, color: wine)),
           ),
         ],
       ),
@@ -148,16 +159,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: burgundy)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: burgundy,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -175,11 +186,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? burgundy : wine)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? burgundy : wine,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -204,14 +218,16 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(hint,
-                      style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'monospace',
-                          color: color)),
-                  Text(desc,
-                      style: TextStyle(fontSize: 10, color: wine)),
+                  Text(
+                    hint,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                      color: color,
+                    ),
+                  ),
+                  Text(desc, style: TextStyle(fontSize: 10, color: wine)),
                 ],
               ),
             ),
@@ -253,17 +269,23 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.edit, color: crimson, size: 28),
                         const SizedBox(height: 6),
-                        Text('TextField',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: burgundy)),
-                        Text('autofillHints:\n[AutofillHints.email]',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 9,
-                                fontFamily: 'monospace',
-                                color: wine)),
+                        Text(
+                          'TextField',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: burgundy,
+                          ),
+                        ),
+                        Text(
+                          'autofillHints:\n[AutofillHints.email]',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontFamily: 'monospace',
+                            color: wine,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -288,14 +310,19 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.auto_awesome, color: garnet, size: 28),
                         const SizedBox(height: 6),
-                        Text('Platform Service',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: garnet)),
-                        Text('Suggests matching\nsaved emails',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 9, color: wine)),
+                        Text(
+                          'Platform Service',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: garnet,
+                          ),
+                        ),
+                        Text(
+                          'Suggests matching\nsaved emails',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 9, color: wine),
+                        ),
                       ],
                     ),
                   ),
@@ -330,16 +357,36 @@ dynamic build(BuildContext context) {
         'Authentication Hints',
         Column(
           children: [
-            ahHintEntry('username', 'User\'s account identifier',
-                Icons.person, crimson),
-            ahHintEntry('password', 'Current password (sign in)',
-                Icons.lock, burgundy),
-            ahHintEntry('newPassword', 'Password during registration',
-                Icons.lock_open, garnet),
-            ahHintEntry('email', 'Email address (often used as username)',
-                Icons.email, ruby),
-            ahHintEntry('oneTimeCode', 'OTP / verification code',
-                Icons.pin, scarlet),
+            ahHintEntry(
+              'username',
+              'User\'s account identifier',
+              Icons.person,
+              crimson,
+            ),
+            ahHintEntry(
+              'password',
+              'Current password (sign in)',
+              Icons.lock,
+              burgundy,
+            ),
+            ahHintEntry(
+              'newPassword',
+              'Password during registration',
+              Icons.lock_open,
+              garnet,
+            ),
+            ahHintEntry(
+              'email',
+              'Email address (often used as username)',
+              Icons.email,
+              ruby,
+            ),
+            ahHintEntry(
+              'oneTimeCode',
+              'OTP / verification code',
+              Icons.pin,
+              scarlet,
+            ),
           ],
         ),
       ),
@@ -373,12 +420,32 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             ahHintEntry('name', 'Full name', Icons.badge, crimson),
-            ahHintEntry('givenName', 'First name', Icons.person_outline, burgundy),
-            ahHintEntry('familyName', 'Last name / surname', Icons.people, garnet),
+            ahHintEntry(
+              'givenName',
+              'First name',
+              Icons.person_outline,
+              burgundy,
+            ),
+            ahHintEntry(
+              'familyName',
+              'Last name / surname',
+              Icons.people,
+              garnet,
+            ),
             ahHintEntry('middleName', 'Middle name', Icons.person, wine),
             ahHintEntry('namePrefix', 'Mr., Mrs., Dr.', Icons.title, ruby),
-            ahHintEntry('nameSuffix', 'Jr., III, PhD', Icons.short_text, scarlet),
-            ahHintEntry('nickname', 'Preferred / display name', Icons.face, coral),
+            ahHintEntry(
+              'nameSuffix',
+              'Jr., III, PhD',
+              Icons.short_text,
+              scarlet,
+            ),
+            ahHintEntry(
+              'nickname',
+              'Preferred / display name',
+              Icons.face,
+              coral,
+            ),
           ],
         ),
       ),
@@ -387,9 +454,24 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             ahHintEntry('birthday', 'Date of birth', Icons.cake, crimson),
-            ahHintEntry('birthdayDay', 'Birth day (1-31)', Icons.event, burgundy),
-            ahHintEntry('birthdayMonth', 'Birth month (1-12)', Icons.date_range, garnet),
-            ahHintEntry('birthdayYear', 'Birth year (YYYY)', Icons.calendar_today, wine),
+            ahHintEntry(
+              'birthdayDay',
+              'Birth day (1-31)',
+              Icons.event,
+              burgundy,
+            ),
+            ahHintEntry(
+              'birthdayMonth',
+              'Birth month (1-12)',
+              Icons.date_range,
+              garnet,
+            ),
+            ahHintEntry(
+              'birthdayYear',
+              'Birth year (YYYY)',
+              Icons.calendar_today,
+              wine,
+            ),
             ahHintEntry('gender', 'Gender identity', Icons.wc, ruby),
           ],
         ),
@@ -413,28 +495,67 @@ dynamic build(BuildContext context) {
         'Address Hint Catalog',
         Column(
           children: [
-            ahHintEntry('fullStreetAddress', 'Complete street address',
-                Icons.home, crimson),
-            ahHintEntry('streetAddressLine1', 'Primary street address',
-                Icons.location_on, burgundy),
-            ahHintEntry('streetAddressLine2', 'Apt, suite, unit',
-                Icons.apartment, garnet),
-            ahHintEntry('streetAddressLine3', 'Additional address info',
-                Icons.add_location, wine),
-            ahHintEntry('addressCity', 'City name',
-                Icons.location_city, crimson),
-            ahHintEntry('addressCityAndLocality', 'City + district',
-                Icons.map, ruby),
-            ahHintEntry('addressState', 'State or province',
-                Icons.flag, scarlet),
-            ahHintEntry('postalCode', 'ZIP / postal code',
-                Icons.pin_drop, burgundy),
-            ahHintEntry('postalCodeExtended', 'Extended ZIP (ZIP+4)',
-                Icons.more, garnet),
-            ahHintEntry('countryCode', 'ISO country code',
-                Icons.public, wine),
-            ahHintEntry('countryName', 'Full country name',
-                Icons.language, coral),
+            ahHintEntry(
+              'fullStreetAddress',
+              'Complete street address',
+              Icons.home,
+              crimson,
+            ),
+            ahHintEntry(
+              'streetAddressLine1',
+              'Primary street address',
+              Icons.location_on,
+              burgundy,
+            ),
+            ahHintEntry(
+              'streetAddressLine2',
+              'Apt, suite, unit',
+              Icons.apartment,
+              garnet,
+            ),
+            ahHintEntry(
+              'streetAddressLine3',
+              'Additional address info',
+              Icons.add_location,
+              wine,
+            ),
+            ahHintEntry(
+              'addressCity',
+              'City name',
+              Icons.location_city,
+              crimson,
+            ),
+            ahHintEntry(
+              'addressCityAndLocality',
+              'City + district',
+              Icons.map,
+              ruby,
+            ),
+            ahHintEntry(
+              'addressState',
+              'State or province',
+              Icons.flag,
+              scarlet,
+            ),
+            ahHintEntry(
+              'postalCode',
+              'ZIP / postal code',
+              Icons.pin_drop,
+              burgundy,
+            ),
+            ahHintEntry(
+              'postalCodeExtended',
+              'Extended ZIP (ZIP+4)',
+              Icons.more,
+              garnet,
+            ),
+            ahHintEntry('countryCode', 'ISO country code', Icons.public, wine),
+            ahHintEntry(
+              'countryName',
+              'Full country name',
+              Icons.language,
+              coral,
+            ),
           ],
         ),
       ),
@@ -457,20 +578,48 @@ dynamic build(BuildContext context) {
         'Phone Number Hints',
         Column(
           children: [
-            ahHintEntry('telephoneNumber', 'Full phone number',
-                Icons.phone, crimson),
-            ahHintEntry('telephoneNumberCountryCode', 'Country calling code (+1, +44)',
-                Icons.flag, burgundy),
-            ahHintEntry('telephoneNumberNational', 'National number without country',
-                Icons.phone_android, garnet),
-            ahHintEntry('telephoneNumberLocal', 'Local number without area code',
-                Icons.phone_in_talk, wine),
-            ahHintEntry('telephoneNumberLocalPrefix', 'First part of local number',
-                Icons.call, ruby),
-            ahHintEntry('telephoneNumberLocalSuffix', 'Second part of local number',
-                Icons.call_end, scarlet),
-            ahHintEntry('telephoneNumberDevice', 'This device\'s phone number',
-                Icons.smartphone, coral),
+            ahHintEntry(
+              'telephoneNumber',
+              'Full phone number',
+              Icons.phone,
+              crimson,
+            ),
+            ahHintEntry(
+              'telephoneNumberCountryCode',
+              'Country calling code (+1, +44)',
+              Icons.flag,
+              burgundy,
+            ),
+            ahHintEntry(
+              'telephoneNumberNational',
+              'National number without country',
+              Icons.phone_android,
+              garnet,
+            ),
+            ahHintEntry(
+              'telephoneNumberLocal',
+              'Local number without area code',
+              Icons.phone_in_talk,
+              wine,
+            ),
+            ahHintEntry(
+              'telephoneNumberLocalPrefix',
+              'First part of local number',
+              Icons.call,
+              ruby,
+            ),
+            ahHintEntry(
+              'telephoneNumberLocalSuffix',
+              'Second part of local number',
+              Icons.call_end,
+              scarlet,
+            ),
+            ahHintEntry(
+              'telephoneNumberDevice',
+              'This device\'s phone number',
+              Icons.smartphone,
+              coral,
+            ),
           ],
         ),
       ),
@@ -493,28 +642,72 @@ dynamic build(BuildContext context) {
         'Credit Card Hints',
         Column(
           children: [
-            ahHintEntry('creditCardNumber', 'Full card number (16 digits)',
-                Icons.credit_card, crimson),
-            ahHintEntry('creditCardName', 'Name on card',
-                Icons.badge, burgundy),
-            ahHintEntry('creditCardFamilyName', 'Cardholder last name',
-                Icons.person, garnet),
-            ahHintEntry('creditCardGivenName', 'Cardholder first name',
-                Icons.person_outline, wine),
-            ahHintEntry('creditCardMiddleName', 'Cardholder middle name',
-                Icons.account_circle, ruby),
-            ahHintEntry('creditCardExpirationDate', 'Full expiry (MM/YY)',
-                Icons.event, scarlet),
-            ahHintEntry('creditCardExpirationMonth', 'Expiry month (01-12)',
-                Icons.date_range, coral),
-            ahHintEntry('creditCardExpirationYear', 'Expiry year (YYYY)',
-                Icons.calendar_today, crimson),
-            ahHintEntry('creditCardExpirationDay', 'Expiry day (rare)',
-                Icons.today, burgundy),
-            ahHintEntry('creditCardSecurityCode', 'CVV / CVC code',
-                Icons.security, garnet),
-            ahHintEntry('creditCardType', 'Card network (Visa, MC, etc.)',
-                Icons.payment, wine),
+            ahHintEntry(
+              'creditCardNumber',
+              'Full card number (16 digits)',
+              Icons.credit_card,
+              crimson,
+            ),
+            ahHintEntry(
+              'creditCardName',
+              'Name on card',
+              Icons.badge,
+              burgundy,
+            ),
+            ahHintEntry(
+              'creditCardFamilyName',
+              'Cardholder last name',
+              Icons.person,
+              garnet,
+            ),
+            ahHintEntry(
+              'creditCardGivenName',
+              'Cardholder first name',
+              Icons.person_outline,
+              wine,
+            ),
+            ahHintEntry(
+              'creditCardMiddleName',
+              'Cardholder middle name',
+              Icons.account_circle,
+              ruby,
+            ),
+            ahHintEntry(
+              'creditCardExpirationDate',
+              'Full expiry (MM/YY)',
+              Icons.event,
+              scarlet,
+            ),
+            ahHintEntry(
+              'creditCardExpirationMonth',
+              'Expiry month (01-12)',
+              Icons.date_range,
+              coral,
+            ),
+            ahHintEntry(
+              'creditCardExpirationYear',
+              'Expiry year (YYYY)',
+              Icons.calendar_today,
+              crimson,
+            ),
+            ahHintEntry(
+              'creditCardExpirationDay',
+              'Expiry day (rare)',
+              Icons.today,
+              burgundy,
+            ),
+            ahHintEntry(
+              'creditCardSecurityCode',
+              'CVV / CVC code',
+              Icons.security,
+              garnet,
+            ),
+            ahHintEntry(
+              'creditCardType',
+              'Card network (Visa, MC, etc.)',
+              Icons.payment,
+              wine,
+            ),
           ],
         ),
       ),
@@ -537,12 +730,9 @@ dynamic build(BuildContext context) {
         'Web & URL Hints',
         Column(
           children: [
-            ahHintEntry('url', 'Website URL',
-                Icons.link, crimson),
-            ahHintEntry('photo', 'Profile photo URL',
-                Icons.photo, burgundy),
-            ahHintEntry('impp', 'Instant messaging handle',
-                Icons.chat, garnet),
+            ahHintEntry('url', 'Website URL', Icons.link, crimson),
+            ahHintEntry('photo', 'Profile photo URL', Icons.photo, burgundy),
+            ahHintEntry('impp', 'Instant messaging handle', Icons.chat, garnet),
           ],
         ),
       ),
@@ -564,10 +754,18 @@ dynamic build(BuildContext context) {
         'Professional Hints',
         Column(
           children: [
-            ahHintEntry('jobTitle', 'Job title / position',
-                Icons.work, crimson),
-            ahHintEntry('organizationName', 'Company or org name',
-                Icons.business, burgundy),
+            ahHintEntry(
+              'jobTitle',
+              'Job title / position',
+              Icons.work,
+              crimson,
+            ),
+            ahHintEntry(
+              'organizationName',
+              'Company or org name',
+              Icons.business,
+              burgundy,
+            ),
           ],
         ),
       ),
@@ -594,12 +792,22 @@ dynamic build(BuildContext context) {
             ahRow(['Flutter', 'Android', 'iOS', 'Web'], isHeader: true),
             ahRow(['email', 'emailAddress', 'emailAddress', 'email']),
             ahRow(['password', 'password', 'password', 'current-password']),
-            ahRow(['newPassword', 'newPassword', 'newPassword', 'new-password']),
+            ahRow([
+              'newPassword',
+              'newPassword',
+              'newPassword',
+              'new-password',
+            ]),
             ahRow(['username', 'username', 'username', 'username']),
             ahRow(['name', 'personName', 'name', 'name']),
             ahRow(['phone', 'phoneNumber', 'telephoneNumber', 'tel']),
             ahRow(['postalCode', 'postalCode', 'postalCode', 'postal-code']),
-            ahRow(['creditCardNumber', 'creditCardNumber', 'creditCardNumber', 'cc-number']),
+            ahRow([
+              'creditCardNumber',
+              'creditCardNumber',
+              'creditCardNumber',
+              'cc-number',
+            ]),
           ],
         ),
       ),
@@ -625,8 +833,11 @@ dynamic build(BuildContext context) {
           children: [
             ahRow(['Field', 'Hints', 'Rationale'], isHeader: true),
             ahRow(['Login', 'username, email', 'Could be either']),
-            ahRow(['Contact', 'telephoneNumber, telephoneNumberNational',
-                'Flexibility']),
+            ahRow([
+              'Contact',
+              'telephoneNumber, telephoneNumberNational',
+              'Flexibility',
+            ]),
             ahRow(['Name', 'name, givenName', 'Full or first']),
           ],
         ),
@@ -678,12 +889,15 @@ dynamic build(BuildContext context) {
                 color: rosePink.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text('Total: 51+ distinct AutofillHints constants',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: burgundy)),
+              child: Text(
+                'Total: 51+ distinct AutofillHints constants',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  color: burgundy,
+                ),
+              ),
             ),
           ],
         ),
@@ -785,11 +999,31 @@ dynamic build(BuildContext context) {
           children: [
             ahRow(['Feature', 'Android', 'iOS', 'Web'], isHeader: true),
             ahRow(['Service', 'Pluggable', 'Built-in', 'Browser']),
-            ahRow(['3rd party', 'Yes (1Password, etc.)', 'Yes (iOS 12+)', 'Extensions']),
+            ahRow([
+              '3rd party',
+              'Yes (1Password, etc.)',
+              'Yes (iOS 12+)',
+              'Extensions',
+            ]),
             ahRow(['OTP from SMS', 'API based', 'Automatic', 'No']),
-            ahRow(['Password gen', 'Service dep.', 'Strong passwords', 'Browser']),
-            ahRow(['Save prompt', 'After commit', 'After commit', 'Browser UI']),
-            ahRow(['Inline suggest', 'Android 11+', 'Keyboard bar', 'Dropdown']),
+            ahRow([
+              'Password gen',
+              'Service dep.',
+              'Strong passwords',
+              'Browser',
+            ]),
+            ahRow([
+              'Save prompt',
+              'After commit',
+              'After commit',
+              'Browser UI',
+            ]),
+            ahRow([
+              'Inline suggest',
+              'Android 11+',
+              'Keyboard bar',
+              'Dropdown',
+            ]),
           ],
         ),
       ),
@@ -811,21 +1045,36 @@ dynamic build(BuildContext context) {
         'Common Issues',
         Column(
           children: [
-            _ahTroubleshoot('No suggestions appear',
-                'Check AutofillGroup wrapping; verify hints are correct',
-                Icons.not_interested, crimson),
-            _ahTroubleshoot('Wrong data suggested',
-                'Use more specific hints; check hint order (first = primary)',
-                Icons.swap_horiz, burgundy),
-            _ahTroubleshoot('Suggestions appear but don\'t fill',
-                'Verify TextEditingController is not overriding values',
-                Icons.block, garnet),
-            _ahTroubleshoot('Works on Android but not iOS',
-                'Some hints are Android-specific; check iOS mapping',
-                Icons.phone_android, wine),
-            _ahTroubleshoot('Web form not saving',
-                'Ensure autocomplete mapping is correct; check HTTPS',
-                Icons.web, ruby),
+            _ahTroubleshoot(
+              'No suggestions appear',
+              'Check AutofillGroup wrapping; verify hints are correct',
+              Icons.not_interested,
+              crimson,
+            ),
+            _ahTroubleshoot(
+              'Wrong data suggested',
+              'Use more specific hints; check hint order (first = primary)',
+              Icons.swap_horiz,
+              burgundy,
+            ),
+            _ahTroubleshoot(
+              'Suggestions appear but don\'t fill',
+              'Verify TextEditingController is not overriding values',
+              Icons.block,
+              garnet,
+            ),
+            _ahTroubleshoot(
+              'Works on Android but not iOS',
+              'Some hints are Android-specific; check iOS mapping',
+              Icons.phone_android,
+              wine,
+            ),
+            _ahTroubleshoot(
+              'Web form not saving',
+              'Ensure autocomplete mapping is correct; check HTTPS',
+              Icons.web,
+              ruby,
+            ),
           ],
         ),
       ),
@@ -888,11 +1137,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('AutofillHints — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'AutofillHints — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From credentials to credit cards, identity to addresses — '
@@ -923,10 +1175,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -943,11 +1207,14 @@ Widget _ahCategoryBar(String category, int count, Color color) {
     children: [
       SizedBox(
         width: 90,
-        child: Text(category,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: color)),
+        child: Text(
+          category,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
       ),
       Expanded(
         child: Stack(
@@ -968,11 +1235,14 @@ Widget _ahCategoryBar(String category, int count, Color color) {
                   borderRadius: BorderRadius.circular(9),
                 ),
                 child: Center(
-                  child: Text('$count',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '$count',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 9,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -996,15 +1266,23 @@ Widget _ahRecipeField(String label, String hints, Color color) {
       child: Row(
         children: [
           Expanded(
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w600, color: color)),
-          ),
-          Text(hints,
+            child: Text(
+              label,
               style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                  color: const Color(0xFF722F37))),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
+          ),
+          Text(
+            hints,
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: const Color(0xFF722F37),
+            ),
+          ),
         ],
       ),
     ),
@@ -1023,14 +1301,18 @@ Widget _ahTroubleshoot(String issue, String fix, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(issue,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: color)),
-              Text(fix,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF722F37))),
+              Text(
+                issue,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                fix,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF722F37)),
+              ),
             ],
           ),
         ),

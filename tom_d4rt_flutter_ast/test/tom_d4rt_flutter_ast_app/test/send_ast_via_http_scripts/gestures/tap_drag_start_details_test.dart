@@ -179,10 +179,7 @@ Widget _frame({
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: body,
-        ),
+        Padding(padding: const EdgeInsets.all(12), child: body),
       ],
     ),
   );
@@ -542,19 +539,16 @@ Widget _detailsCard(
                 ],
               ),
               const SizedBox(height: 8),
-              _propsTable(
-                <List<String>>[
-                  <String>['sourceTimeStamp', _fmtTime(d.sourceTimeStamp)],
-                  <String>['globalPosition', _fmtOffset(d.globalPosition)],
-                  <String>['localPosition', _fmtOffset(d.localPosition)],
-                  <String>['kind', _kindLabel(d.kind)],
-                  <String>[
-                    'consecutiveTapCount',
-                    d.consecutiveTapCount.toString(),
-                  ],
+              _propsTable(<List<String>>[
+                <String>['sourceTimeStamp', _fmtTime(d.sourceTimeStamp)],
+                <String>['globalPosition', _fmtOffset(d.globalPosition)],
+                <String>['localPosition', _fmtOffset(d.localPosition)],
+                <String>['kind', _kindLabel(d.kind)],
+                <String>[
+                  'consecutiveTapCount',
+                  d.consecutiveTapCount.toString(),
                 ],
-                accent: accent,
-              ),
+              ], accent: accent),
               if (modifiers.isNotEmpty) ...<Widget>[
                 const SizedBox(height: 8),
                 Row(
@@ -577,12 +571,7 @@ Widget _detailsCard(
                   runSpacing: 4,
                   children: <Widget>[
                     for (final String k in modifiers)
-                      _chip(
-                        'KEY',
-                        k,
-                        color: kViolet,
-                        icon: Icons.keyboard_alt,
-                      ),
+                      _chip('KEY', k, color: kViolet, icon: Icons.keyboard_alt),
                   ],
                 ),
               ],
@@ -695,10 +684,7 @@ Widget _step(int n, String title, String body, {Color color = kGlacier}) {
           width: 26,
           height: 26,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Text(
             n.toString(),
             style: const TextStyle(
@@ -874,27 +860,22 @@ Widget _buildAnatomy() {
             _thumbnail(canonical, kGlacier, size: 140),
             const SizedBox(width: 12),
             Expanded(
-              child: _propsTable(
-                <List<String>>[
-                  <String>[
-                    'sourceTimeStamp',
-                    _fmtTime(canonical.sourceTimeStamp),
-                  ],
-                  <String>[
-                    'globalPosition',
-                    _fmtOffset(canonical.globalPosition),
-                  ],
-                  <String>[
-                    'localPosition',
-                    _fmtOffset(canonical.localPosition),
-                  ],
-                  <String>['kind', _kindLabel(canonical.kind)],
-                  <String>[
-                    'consecutiveTapCount',
-                    canonical.consecutiveTapCount.toString(),
-                  ],
+              child: _propsTable(<List<String>>[
+                <String>[
+                  'sourceTimeStamp',
+                  _fmtTime(canonical.sourceTimeStamp),
                 ],
-              ),
+                <String>[
+                  'globalPosition',
+                  _fmtOffset(canonical.globalPosition),
+                ],
+                <String>['localPosition', _fmtOffset(canonical.localPosition)],
+                <String>['kind', _kindLabel(canonical.kind)],
+                <String>[
+                  'consecutiveTapCount',
+                  canonical.consecutiveTapCount.toString(),
+                ],
+              ]),
             ),
           ],
         ),
@@ -1196,16 +1177,20 @@ Widget _buildKeyModifierMatrix() {
   );
 
   Widget keyRow(String label, Set<String> mods, String hint) {
-    final bool shift = mods.contains('shift') ||
+    final bool shift =
+        mods.contains('shift') ||
         mods.contains('shiftLeft') ||
         mods.contains('shiftRight');
-    final bool ctrl = mods.contains('control') ||
+    final bool ctrl =
+        mods.contains('control') ||
         mods.contains('controlLeft') ||
         mods.contains('controlRight');
-    final bool alt = mods.contains('alt') ||
+    final bool alt =
+        mods.contains('alt') ||
         mods.contains('altLeft') ||
         mods.contains('altRight');
-    final bool meta = mods.contains('meta') ||
+    final bool meta =
+        mods.contains('meta') ||
         mods.contains('metaLeft') ||
         mods.contains('metaRight');
 
@@ -1288,41 +1273,32 @@ Widget _buildKeyModifierMatrix() {
           const <String>{},
           'plain drag — replace existing selection',
         ),
-        keyRow(
-          'shift only',
-          const <String>{'shiftLeft'},
-          'extend selection from previous anchor',
-        ),
-        keyRow(
-          'ctrl only',
-          const <String>{'controlLeft'},
-          'multi-region select / unit jump',
-        ),
-        keyRow(
-          'alt only',
-          const <String>{'altLeft'},
-          'column / block selection in editors',
-        ),
-        keyRow(
-          'meta only',
-          const <String>{'metaLeft'},
-          'cmd-drag (macOS) — duplicate / link',
-        ),
-        keyRow(
-          'shift + alt',
-          const <String>{'shiftLeft', 'altLeft'},
-          'extend column selection',
-        ),
-        keyRow(
-          'ctrl + shift',
-          const <String>{'controlLeft', 'shiftLeft'},
-          'extend by word/line',
-        ),
-        keyRow(
-          'all four',
-          const <String>{'shiftLeft', 'controlLeft', 'altLeft', 'metaLeft'},
-          'rare combo — usually reserved for power-user shortcuts',
-        ),
+        keyRow('shift only', const <String>{
+          'shiftLeft',
+        }, 'extend selection from previous anchor'),
+        keyRow('ctrl only', const <String>{
+          'controlLeft',
+        }, 'multi-region select / unit jump'),
+        keyRow('alt only', const <String>{
+          'altLeft',
+        }, 'column / block selection in editors'),
+        keyRow('meta only', const <String>{
+          'metaLeft',
+        }, 'cmd-drag (macOS) — duplicate / link'),
+        keyRow('shift + alt', const <String>{
+          'shiftLeft',
+          'altLeft',
+        }, 'extend column selection'),
+        keyRow('ctrl + shift', const <String>{
+          'controlLeft',
+          'shiftLeft',
+        }, 'extend by word/line'),
+        keyRow('all four', const <String>{
+          'shiftLeft',
+          'controlLeft',
+          'altLeft',
+          'metaLeft',
+        }, 'rare combo — usually reserved for power-user shortcuts'),
         const SizedBox(height: 10),
         _detailsCard(
           'Sample: drag-start with Shift held',
@@ -1372,10 +1348,14 @@ Widget _buildComparison() {
 
   print('--- Comparison anchors ---');
   _dumpDetails('TapDragStart', tds);
-  print('  DragStartDetails        : gp=${dsd.globalPosition} '
-      'lp=${dsd.localPosition} ts=${dsd.sourceTimeStamp}');
-  print('  TapDownDetails          : gp=${tdd.globalPosition} '
-      'lp=${tdd.localPosition} kind=${tdd.kind}');
+  print(
+    '  DragStartDetails        : gp=${dsd.globalPosition} '
+    'lp=${dsd.localPosition} ts=${dsd.sourceTimeStamp}',
+  );
+  print(
+    '  TapDownDetails          : gp=${tdd.globalPosition} '
+    'lp=${tdd.localPosition} kind=${tdd.kind}',
+  );
 
   Widget col(String title, Color color, List<List<String>> rows) {
     return Expanded(
@@ -1568,11 +1548,7 @@ Widget _buildGlossary() {
             ),
             TextSpan(
               text: body,
-              style: const TextStyle(
-                color: kNavy,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
+              style: const TextStyle(color: kNavy, fontSize: 12.5, height: 1.4),
             ),
           ],
         ),
@@ -2026,13 +2002,10 @@ Widget _buildDiagnosticsDump() {
           style: TextStyle(fontSize: 12.5, color: kNavy, height: 1.4),
         ),
         const SizedBox(height: 8),
-        _propsTable(
-          <List<String>>[
-            for (final DiagnosticsNode n in nodes)
-              <String>[n.name ?? '?', n.value?.toString() ?? 'null'],
-          ],
-          accent: kViolet,
-        ),
+        _propsTable(<List<String>>[
+          for (final DiagnosticsNode n in nodes)
+            <String>[n.name ?? '?', n.value?.toString() ?? 'null'],
+        ], accent: kViolet),
         const SizedBox(height: 8),
         _code(
           'final builder = DiagnosticPropertiesBuilder();\n'

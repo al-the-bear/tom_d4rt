@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.menu,
       'title': 'What is SystemContextMenu?',
-      'body': 'A Flutter widget that shows the operating system\'s native '
+      'body':
+          'A Flutter widget that shows the operating system\'s native '
           'context menu at a given position. Unlike custom context menus '
           'built from Flutter widgets, this uses the platform\'s own '
           'rendering, matching the OS look and feel exactly.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Trigger Mechanisms',
-      'body': 'The system context menu is triggered by right-click on '
+      'body':
+          'The system context menu is triggered by right-click on '
           'desktop, long-press on mobile, or programmatically via '
           'ContextMenuController. The menu appears at the anchor '
           'position and contains platform-standard actions.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.content_cut,
       'title': 'Standard Actions',
-      'body': 'The OS provides default actions: Cut, Copy, Paste, Select '
+      'body':
+          'The OS provides default actions: Cut, Copy, Paste, Select '
           'All, and sometimes Look Up or Share. These actions are '
           'localized automatically and vary by platform.',
       'accent': Colors.teal,
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'System vs Custom Menus',
-      'body': 'System context menus look native but have limited '
+      'body':
+          'System context menus look native but have limited '
           'customization. Custom menus (built with Flutter widgets) '
           'are fully customizable but don\'t match OS appearance. '
           'Many apps use both depending on context.',
@@ -123,14 +127,16 @@ dynamic build(BuildContext context) {
     {
       'param': 'anchor',
       'type': 'Rect',
-      'desc': 'The rectangle that the context menu is anchored to, in '
+      'desc':
+          'The rectangle that the context menu is anchored to, in '
           'global coordinates. The OS uses this to position the menu '
           'near the selection or tap point without covering it.',
     },
     {
       'param': 'onSystemHide',
       'type': 'VoidCallback',
-      'desc': 'Called when the system hides the context menu without '
+      'desc':
+          'Called when the system hides the context menu without '
           'Flutter requesting it (e.g., the user taps elsewhere). '
           'Use this to clean up state or deselect text.',
     },
@@ -139,7 +145,8 @@ dynamic build(BuildContext context) {
   final staticMethods = <Map<String, String>>[
     {
       'name': 'SystemContextMenu.editableText',
-      'desc': 'Named constructor that creates a SystemContextMenu '
+      'desc':
+          'Named constructor that creates a SystemContextMenu '
           'configured for an EditableTextState. Automatically sets '
           'up Cut, Copy, Paste, and Select All based on the '
           'text field\'s current selection state.',
@@ -274,7 +281,8 @@ dynamic build(BuildContext context) {
   final textScenarios = <Map<String, dynamic>>[
     {
       'label': 'No Selection',
-      'desc': 'When no text is selected, the context menu typically shows '
+      'desc':
+          'When no text is selected, the context menu typically shows '
           'Select All and Paste (if clipboard has content). Cut and '
           'Copy are unavailable.',
       'selection': '',
@@ -284,7 +292,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Partial Selection',
-      'desc': 'When text is selected, all actions are available: Cut, '
+      'desc':
+          'When text is selected, all actions are available: Cut, '
           'Copy, Paste, and Select All. The menu appears near the '
           'selection handles.',
       'selection': 'selected text',
@@ -294,7 +303,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Read-Only Field',
-      'desc': 'In a read-only text field, Cut and Paste are hidden. '
+      'desc':
+          'In a read-only text field, Cut and Paste are hidden. '
           'Only Copy and Select All appear. The system automatically '
           'adapts the menu items.',
       'selection': 'copyable',
@@ -304,7 +314,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Empty Clipboard',
-      'desc': 'When the system clipboard is empty, Paste may be disabled '
+      'desc':
+          'When the system clipboard is empty, Paste may be disabled '
           'or hidden depending on the platform. Other actions remain '
           'functional.',
       'selection': 'text',
@@ -566,10 +577,12 @@ dynamic build(BuildContext context) {
   final customTopics = <Map<String, dynamic>>[
     {
       'title': 'contextMenuBuilder',
-      'desc': 'TextField and SelectableText accept a contextMenuBuilder '
+      'desc':
+          'TextField and SelectableText accept a contextMenuBuilder '
           'callback. Return SystemContextMenu.editableText() for the '
           'native menu, or return a custom widget to override it.',
-      'code': 'TextField(\n'
+      'code':
+          'TextField(\n'
           '  contextMenuBuilder: (context, state) {\n'
           '    return SystemContextMenu.editableText(\n'
           '      editableTextState: state,\n'
@@ -580,10 +593,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Filtering Actions',
-      'desc': 'Wrap SystemContextMenu in an AdaptiveTextSelectionToolbar'
+      'desc':
+          'Wrap SystemContextMenu in an AdaptiveTextSelectionToolbar'
           '.editableText and filter the buttonItems list to remove '
           'unwanted actions. For example, remove Paste for read-only display.',
-      'code': 'AdaptiveTextSelectionToolbar.editableText(\n'
+      'code':
+          'AdaptiveTextSelectionToolbar.editableText(\n'
           '  editableTextState: state,\n'
           '  buttonItems: state.contextMenuButtonItems\n'
           '    .where((item) =>\n'
@@ -594,10 +609,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Adding Custom Actions',
-      'desc': 'Extend the default actions by appending to the buttonItems '
+      'desc':
+          'Extend the default actions by appending to the buttonItems '
           'list. Add custom items like "Translate", "Share", or app-specific '
           'operations alongside the system defaults.',
-      'code': 'final items = state.contextMenuButtonItems;\n'
+      'code':
+          'final items = state.contextMenuButtonItems;\n'
           'items.add(\n'
           '  ContextMenuButtonItem(\n'
           '    label: "Translate",\n'
@@ -608,10 +625,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hybrid Menu',
-      'desc': 'Combine the system context menu with Flutter-rendered '
+      'desc':
+          'Combine the system context menu with Flutter-rendered '
           'additional items. Show the native Cut/Copy/Paste via '
           'SystemContextMenu and add custom Flutter actions below.',
-      'code': 'Column(\n'
+      'code':
+          'Column(\n'
           '  mainAxisSize: MainAxisSize.min,\n'
           '  children: [\n'
           '    SystemContextMenu.editableText(\n'
@@ -721,7 +740,8 @@ dynamic build(BuildContext context) {
   final controllerTopics = <Map<String, dynamic>>[
     {
       'title': 'ContextMenuController Overview',
-      'desc': 'ContextMenuController manages the lifecycle of context '
+      'desc':
+          'ContextMenuController manages the lifecycle of context '
           'menus — both system and custom. It handles showing, hiding, '
           'and repositioning menus. SystemContextMenu works with this '
           'controller under the hood.',
@@ -730,7 +750,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'show() & hide()',
-      'desc': 'Call controller.show() to display the menu at a position '
+      'desc':
+          'Call controller.show() to display the menu at a position '
           'and controller.hide() to dismiss it. The controller ensures '
           'only one context menu is visible at a time globally.',
       'icon': Icons.visibility,
@@ -738,7 +759,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Anchor Management',
-      'desc': 'The anchor Rect tells the system where the selection is. '
+      'desc':
+          'The anchor Rect tells the system where the selection is. '
           'For text, this is the bounding box of the selected characters. '
           'The OS positions the menu above, below, or beside the anchor.',
       'icon': Icons.anchor,
@@ -746,7 +768,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Automatic Dismissal',
-      'desc': 'System context menus dismiss on: tap outside, scroll, '
+      'desc':
+          'System context menus dismiss on: tap outside, scroll, '
           'window resize, or focus change. onSystemHide fires so '
           'Flutter can sync its state with the dismissal.',
       'icon': Icons.close,
@@ -754,7 +777,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Single Instance Rule',
-      'desc': 'Only one context menu can be shown at a time. Calling '
+      'desc':
+          'Only one context menu can be shown at a time. Calling '
           'show() while a menu is visible first hides the current one. '
           'This prevents overlapping menus and state inconsistencies.',
       'icon': Icons.looks_one,
@@ -826,7 +850,8 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'pattern': 'Text Editing',
-      'desc': 'The most common use. TextField and EditableText provide '
+      'desc':
+          'The most common use. TextField and EditableText provide '
           'context menus by default. SystemContextMenu.editableText() '
           'gives the native menu with appropriate actions.',
       'scenario': 'contextMenuBuilder in TextField',
@@ -835,7 +860,8 @@ dynamic build(BuildContext context) {
     },
     {
       'pattern': 'Selectable Display',
-      'desc': 'SelectableText and SelectionArea show context menus for '
+      'desc':
+          'SelectableText and SelectionArea show context menus for '
           'read-only text. Only Copy and Select All appear since '
           'the content cannot be modified.',
       'scenario': 'SelectableText.rich()',
@@ -844,7 +870,8 @@ dynamic build(BuildContext context) {
     },
     {
       'pattern': 'Image / Widget Context',
-      'desc': 'Non-text widgets can show context menus for actions like '
+      'desc':
+          'Non-text widgets can show context menus for actions like '
           'Save Image, Share, or Open in Browser. Use '
           'ContextMenuController directly with custom builder.',
       'scenario': 'GestureDetector + ContextMenuController',
@@ -853,7 +880,8 @@ dynamic build(BuildContext context) {
     },
     {
       'pattern': 'List Item Actions',
-      'desc': 'Long-press on list items to show contextual actions: '
+      'desc':
+          'Long-press on list items to show contextual actions: '
           'Delete, Archive, Edit, Share. Typically uses custom Flutter '
           'menus since system menus are text-focused.',
       'scenario': 'onLongPress + showMenu()',
@@ -862,7 +890,8 @@ dynamic build(BuildContext context) {
     },
     {
       'pattern': 'Desktop App Menus',
-      'desc': 'Desktop apps commonly need right-click menus in many '
+      'desc':
+          'Desktop apps commonly need right-click menus in many '
           'areas: file trees, tabs, table rows. Combine system menus '
           'for text and custom menus for non-text elements.',
       'scenario': 'Listener + onPointerDown for right-click',
@@ -903,7 +932,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: ptColor.withOpacity(0.08),
                     borderRadius: BorderRadius.circular(4),
@@ -942,32 +974,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.menu,
-      'text': 'SystemContextMenu shows the OS native context menu, '
+      'text':
+          'SystemContextMenu shows the OS native context menu, '
           'matching platform look and feel exactly.',
     },
     {
       'icon': Icons.rectangle_outlined,
-      'text': 'The anchor Rect positions the menu near the selection. '
+      'text':
+          'The anchor Rect positions the menu near the selection. '
           'The OS handles overflow and repositioning.',
     },
     {
       'icon': Icons.phone_android,
-      'text': 'Behavior differs by platform — iOS shows a pill menu, '
+      'text':
+          'Behavior differs by platform — iOS shows a pill menu, '
           'Android a popup, desktop a right-click menu.',
     },
     {
       'icon': Icons.tune,
-      'text': 'Use contextMenuBuilder to swap between system and custom '
+      'text':
+          'Use contextMenuBuilder to swap between system and custom '
           'menus. Filter or extend default actions.',
     },
     {
       'icon': Icons.settings_remote,
-      'text': 'ContextMenuController manages lifecycle. Only one context '
+      'text':
+          'ContextMenuController manages lifecycle. Only one context '
           'menu is visible at a time globally.',
     },
     {
       'icon': Icons.notifications_off,
-      'text': 'onSystemHide fires when the OS dismisses the menu so '
+      'text':
+          'onSystemHide fires when the OS dismisses the menu so '
           'Flutter can sync its selection state.',
     },
   ];

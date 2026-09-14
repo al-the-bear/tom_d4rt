@@ -438,10 +438,7 @@ class _GaugePainter extends CustomPainter {
     canvas.drawCircle(centre, radius, faceRing);
 
     // Arc — progress segment (amber) plus remainder (cobalt tint).
-    final Rect arcRect = Rect.fromCircle(
-      center: centre,
-      radius: radius - 18,
-    );
+    final Rect arcRect = Rect.fromCircle(center: centre, radius: radius - 18);
     final Paint track = Paint()
       ..color = _cobalt.withValues(alpha: 0.12)
       ..style = PaintingStyle.stroke
@@ -464,18 +461,18 @@ class _GaugePainter extends CustomPainter {
     for (int i = 0; i <= 10; i++) {
       final double t = i / 10.0;
       final double angle = start + sweep * t;
-      final Offset inner = centre +
-          Offset(math.cos(angle), math.sin(angle)) * (radius - 28);
-      final Offset outer = centre +
-          Offset(math.cos(angle), math.sin(angle)) * (radius - 10);
+      final Offset inner =
+          centre + Offset(math.cos(angle), math.sin(angle)) * (radius - 28);
+      final Offset outer =
+          centre + Offset(math.cos(angle), math.sin(angle)) * (radius - 10);
       canvas.drawLine(inner, outer, tick);
     }
 
     // Needle.
     final double needleAngle = start + sweep * progress;
-    final Offset needleEnd = centre +
-        Offset(math.cos(needleAngle), math.sin(needleAngle)) *
-            (radius - 24);
+    final Offset needleEnd =
+        centre +
+        Offset(math.cos(needleAngle), math.sin(needleAngle)) * (radius - 24);
     final Paint needle = Paint()
       ..color = _cobalt
       ..strokeWidth = 3.2
@@ -514,8 +511,7 @@ class _GaugePainter extends CustomPainter {
 
     final TextPainter range = TextPainter(
       text: TextSpan(
-        text:
-            '${min.toStringAsFixed(0)} – ${max.toStringAsFixed(0)}',
+        text: '${min.toStringAsFixed(0)} – ${max.toStringAsFixed(0)}',
         style: const TextStyle(
           color: _slate,
           fontSize: 11,
@@ -524,10 +520,7 @@ class _GaugePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    range.paint(
-      canvas,
-      Offset(centre.dx - range.width / 2, centre.dy + 18),
-    );
+    range.paint(canvas, Offset(centre.dx - range.width / 2, centre.dy + 18));
   }
 
   @override
@@ -1320,11 +1313,7 @@ class _ActivityNode extends StatelessWidget {
           Text(
             caption,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: _slate,
-              fontSize: 10,
-              height: 1.3,
-            ),
+            style: const TextStyle(color: _slate, fontSize: 10, height: 1.3),
           ),
         ],
       ),
@@ -1403,11 +1392,7 @@ class _ActivityObserverCard extends StatelessWidget {
                     'the ground truth, read `controller.position.activity` — '
                     'but remember it can be null briefly while the position '
                     'swaps activities.',
-                    style: TextStyle(
-                      color: _slate,
-                      fontSize: 12,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(color: _slate, fontSize: 12, height: 1.4),
                   ),
                   const SizedBox(height: 12),
                   Container(
@@ -1418,9 +1403,7 @@ class _ActivityObserverCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: colour.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: colour.withValues(alpha: 0.35),
-                      ),
+                      border: Border.all(color: colour.withValues(alpha: 0.35)),
                     ),
                     child: Row(
                       children: [
@@ -1551,9 +1534,15 @@ class _MethodReferenceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = const [
-      ['setPixels(value)', 'Physics-aware offset change; clamps with overscroll.'],
+      [
+        'setPixels(value)',
+        'Physics-aware offset change; clamps with overscroll.',
+      ],
       ['forcePixels(value)', 'Hard sets pixels, bypassing physics checks.'],
-      ['correctPixels(value)', 'Silent adjust during layout correction passes.'],
+      [
+        'correctPixels(value)',
+        'Silent adjust during layout correction passes.',
+      ],
       ['animateTo(off, d, c)', 'Drive to offset with DrivenScrollActivity.'],
       ['jumpTo(value)', 'Teleport offset; snaps without animation.'],
       ['moveTo(off, d?, c?)', 'Smart choice of jump vs animate by duration.'],
@@ -1561,7 +1550,10 @@ class _MethodReferenceCard extends StatelessWidget {
       ['drag(details, end)', 'Start a DragScrollActivity tied to the gesture.'],
       ['beginActivity(act)', 'Swap in a new ScrollActivity manually.'],
       ['goIdle()', 'Request transition back to IdleScrollActivity.'],
-      ['goBallistic(velocity)', 'Install BallisticScrollActivity with velocity.'],
+      [
+        'goBallistic(velocity)',
+        'Install BallisticScrollActivity with velocity.',
+      ],
     ];
     return Card(
       child: Padding(
@@ -1632,11 +1624,7 @@ class _ReferenceRow extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             desc,
-            style: const TextStyle(
-              color: _charcoal,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: _charcoal, fontSize: 12, height: 1.4),
           ),
         ],
       ),
@@ -1675,25 +1663,29 @@ class _TeachingPanel extends StatelessWidget {
               children: const [
                 _TeachTile(
                   title: 'setPixels enforces physics.',
-                  body: 'Overscroll is clamped and reported — forcePixels skips '
+                  body:
+                      'Overscroll is clamped and reported — forcePixels skips '
                       'physics and should be used sparingly.',
                   colour: _cobalt,
                 ),
                 _TeachTile(
                   title: 'animateTo is interruptible.',
-                  body: 'A DrivenScrollActivity is installed; any new drag, '
+                  body:
+                      'A DrivenScrollActivity is installed; any new drag, '
                       'animate, or ballistic call replaces it immediately.',
                   colour: _leaf,
                 ),
                 _TeachTile(
                   title: 'Dispose the ScrollController.',
-                  body: 'The position is attached to its lifecycle. Forgetting '
+                  body:
+                      'The position is attached to its lifecycle. Forgetting '
                       'to dispose leaks listeners and Position objects.',
                   colour: _rose,
                 ),
                 _TeachTile(
                   title: 'isScrollingNotifier → efficient rebuilds.',
-                  body: 'Wrap in ValueListenableBuilder to rebuild only when '
+                  body:
+                      'Wrap in ValueListenableBuilder to rebuild only when '
                       'scrolling starts/stops, not on every frame.',
                   colour: _amber,
                 ),
@@ -1807,28 +1799,32 @@ class _WhenToReachIn extends StatelessWidget {
                   icon: Icons.push_pin_rounded,
                   colour: _cobalt,
                   title: 'Sticky headers',
-                  body: 'Read `pixels` and `viewportDimension` to translate '
+                  body:
+                      'Read `pixels` and `viewportDimension` to translate '
                       'a header and snap it into place at thresholds.',
                 ),
                 _UseCaseTile(
                   icon: Icons.downloading_rounded,
                   colour: _amber,
                   title: 'Pull-to-refresh',
-                  body: 'Detect overscroll by watching `pixels` drop below '
+                  body:
+                      'Detect overscroll by watching `pixels` drop below '
                       '`minScrollExtent`, then trigger a refresh.',
                 ),
                 _UseCaseTile(
                   icon: Icons.save_rounded,
                   colour: _leaf,
                   title: 'Restoration',
-                  body: 'Persist `pixels` across launches and call '
+                  body:
+                      'Persist `pixels` across launches and call '
                       '`jumpTo(saved)` once dimensions are available.',
                 ),
                 _UseCaseTile(
                   icon: Icons.pause_circle_rounded,
                   colour: _rose,
                   title: 'Pause autoplay',
-                  body: 'Use `isScrollingNotifier` to pause a video or '
+                  body:
+                      'Use `isScrollingNotifier` to pause a video or '
                       'carousel while the user is scrolling.',
                 ),
               ],

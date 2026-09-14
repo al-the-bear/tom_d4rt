@@ -18,7 +18,9 @@ dynamic build(BuildContext context) {
   final emptyTimings = AggregatedTimings(<TimedBlock>[]);
   print('Empty AggregatedTimings created');
   print('Empty timedBlocks count: ${emptyTimings.timedBlocks.length}');
-  print('Empty aggregatedBlocks count: ${emptyTimings.aggregatedBlocks.length}');
+  print(
+    'Empty aggregatedBlocks count: ${emptyTimings.aggregatedBlocks.length}',
+  );
 
   // Standalone AggregatedTimedBlock objects illustrating typical
   // build/layout/paint/raster performance categories.
@@ -83,7 +85,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.indigo.shade800, Colors.purple.shade600, Colors.pink.shade400],
+        colors: [
+          Colors.indigo.shade800,
+          Colors.purple.shade600,
+          Colors.pink.shade400,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -158,11 +164,7 @@ dynamic build(BuildContext context) {
           'duration totals and counts. Use FlutterTimeline.debugCollect '
           'to gather frame timings, then construct AggregatedTimings to '
           'reason about hotspots.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.white,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.45),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -311,7 +313,11 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 10.0),
-            _buildKvRow('duration', '${b.duration.toStringAsFixed(0)} us', color),
+            _buildKvRow(
+              'duration',
+              '${b.duration.toStringAsFixed(0)} us',
+              color,
+            ),
             SizedBox(height: 4.0),
             _buildKvRow('count', '${b.count}', color),
             SizedBox(height: 4.0),
@@ -512,7 +518,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.red.shade50, Colors.orange.shade50, Colors.yellow.shade50],
+        colors: [
+          Colors.red.shade50,
+          Colors.orange.shade50,
+          Colors.yellow.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -667,8 +677,16 @@ dynamic build(BuildContext context) {
             ),
             _buildDataCell('${s.count}', 60.0, Colors.grey.shade800),
             _buildDataCell('${s.total.toStringAsFixed(0)}', 80.0, color),
-            _buildDataCell('${s.min.toStringAsFixed(0)}', 70.0, Colors.green.shade700),
-            _buildDataCell('${s.max.toStringAsFixed(0)}', 70.0, Colors.red.shade700),
+            _buildDataCell(
+              '${s.min.toStringAsFixed(0)}',
+              70.0,
+              Colors.green.shade700,
+            ),
+            _buildDataCell(
+              '${s.max.toStringAsFixed(0)}',
+              70.0,
+              Colors.red.shade700,
+            ),
             _buildDataCell(
               s.average.toStringAsFixed(1),
               70.0,
@@ -745,10 +763,7 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 8.0),
                 Text(
                   '(${s.count} samples)',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -758,9 +773,21 @@ dynamic build(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildStatChip('min', '${s.min.toStringAsFixed(0)} us', Colors.green),
-                _buildStatChip('avg', '${s.average.toStringAsFixed(1)} us', Colors.deepPurple),
-                _buildStatChip('max', '${s.max.toStringAsFixed(0)} us', Colors.red),
+                _buildStatChip(
+                  'min',
+                  '${s.min.toStringAsFixed(0)} us',
+                  Colors.green,
+                ),
+                _buildStatChip(
+                  'avg',
+                  '${s.average.toStringAsFixed(1)} us',
+                  Colors.deepPurple,
+                ),
+                _buildStatChip(
+                  'max',
+                  '${s.max.toStringAsFixed(0)} us',
+                  Colors.red,
+                ),
               ],
             ),
           ],
@@ -928,8 +955,12 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        color.withValues(alpha: 0.15 + 0.5 * phaseIntensities[j]),
-                        color.withValues(alpha: 0.35 + 0.5 * phaseIntensities[j]),
+                        color.withValues(
+                          alpha: 0.15 + 0.5 * phaseIntensities[j],
+                        ),
+                        color.withValues(
+                          alpha: 0.35 + 0.5 * phaseIntensities[j],
+                        ),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -1005,7 +1036,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepPurple.shade50, Colors.indigo.shade50, Colors.blue.shade50],
+        colors: [
+          Colors.deepPurple.shade50,
+          Colors.indigo.shade50,
+          Colors.blue.shade50,
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1163,7 +1198,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.indigo.shade400, Colors.deepPurple.shade400, Colors.pink.shade300],
+        colors: [
+          Colors.indigo.shade400,
+          Colors.deepPurple.shade400,
+          Colors.pink.shade300,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1232,7 +1271,10 @@ dynamic build(BuildContext context) {
             children: [
               hero,
               SizedBox(height: 24.0),
-              _sectionLabel('1. AggregatedTimedBlock Anatomy', Icons.architecture),
+              _sectionLabel(
+                '1. AggregatedTimedBlock Anatomy',
+                Icons.architecture,
+              ),
               anatomy,
               SizedBox(height: 24.0),
               _sectionLabel('2. Sample blocks', Icons.dashboard_customize),
@@ -1247,7 +1289,10 @@ dynamic build(BuildContext context) {
               _sectionLabel('5. Per-block summary table', Icons.table_chart),
               statsTable,
               SizedBox(height: 24.0),
-              _sectionLabel('6. Min / Max / Average per block', Icons.stacked_bar_chart),
+              _sectionLabel(
+                '6. Min / Max / Average per block',
+                Icons.stacked_bar_chart,
+              ),
               ...mmaCards,
               SizedBox(height: 24.0),
               _sectionLabel('7. getAggregated() fallback', Icons.shield_moon),
@@ -1538,10 +1583,7 @@ Widget _buildBudgetBar(
           SizedBox(width: 6.0),
           Text(
             '(${budgetMs.toStringAsFixed(2)} ms)',
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
           ),
           Spacer(),
           Text(
@@ -1571,10 +1613,7 @@ Widget _buildBudgetBar(
               height: 18.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    fillColor.withValues(alpha: 0.7),
-                    fillColor,
-                  ],
+                  colors: [fillColor.withValues(alpha: 0.7), fillColor],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
@@ -1843,10 +1882,7 @@ Widget _buildPipelineNode(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.35),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.35)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1951,13 +1987,7 @@ Widget _buildSummaryStat(String value, String label, IconData icon) {
           color: Colors.white,
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Colors.white70,
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 10.0, color: Colors.white70)),
     ],
   );
 }

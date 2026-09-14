@@ -99,10 +99,12 @@ Widget buildThemeDataCard({
   required ButtonBarThemeData themeData,
   List<Widget>? buttons,
 }) {
-  List<Widget> defaultButtons = buttons ?? [
-    TextButton(onPressed: () {}, child: Text('Cancel')),
-    ElevatedButton(onPressed: () {}, child: Text('OK')),
-  ];
+  List<Widget> defaultButtons =
+      buttons ??
+      [
+        TextButton(onPressed: () {}, child: Text('Cancel')),
+        ElevatedButton(onPressed: () {}, child: Text('OK')),
+      ];
 
   List<Widget> propertyChips = [];
   if (themeData.alignment != null) {
@@ -114,10 +116,14 @@ Widget buildThemeDataCard({
     propertyChips.add(_buildChip('mainAxisSize', sizeName));
   }
   if (themeData.buttonMinWidth != null) {
-    propertyChips.add(_buildChip('buttonMinWidth', themeData.buttonMinWidth.toString()));
+    propertyChips.add(
+      _buildChip('buttonMinWidth', themeData.buttonMinWidth.toString()),
+    );
   }
   if (themeData.buttonHeight != null) {
-    propertyChips.add(_buildChip('buttonHeight', themeData.buttonHeight.toString()));
+    propertyChips.add(
+      _buildChip('buttonHeight', themeData.buttonHeight.toString()),
+    );
   }
   if (themeData.buttonPadding != null) {
     propertyChips.add(_buildChip('buttonPadding', 'custom'));
@@ -165,9 +171,7 @@ Widget buildThemeDataCard({
         Divider(height: 1),
         ButtonBarTheme(
           data: themeData,
-          child: ButtonBar(
-            children: defaultButtons,
-          ),
+          child: ButtonBar(children: defaultButtons),
         ),
         SizedBox(height: 8),
       ],
@@ -188,23 +192,40 @@ Widget _buildChip(String label, String value) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label, style: TextStyle(fontSize: 10, color: Colors.teal.shade400)),
+        Text(
+          label,
+          style: TextStyle(fontSize: 10, color: Colors.teal.shade400),
+        ),
         SizedBox(width: 4),
-        Text(value, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.teal.shade700)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: Colors.teal.shade700,
+          ),
+        ),
       ],
     ),
   );
 }
 
 // Helper: comparison row
-Widget buildComparisonRow(String property, String defaultVal, String customVal) {
+Widget buildComparisonRow(
+  String property,
+  String defaultVal,
+  String customVal,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 3),
     child: Row(
       children: [
         Expanded(
           flex: 2,
-          child: Text(property, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+          child: Text(
+            property,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
         ),
         Expanded(
           child: Container(
@@ -213,7 +234,10 @@ Widget buildComparisonRow(String property, String defaultVal, String customVal) 
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(defaultVal, style: TextStyle(fontSize: 11, color: Colors.grey.shade700)),
+            child: Text(
+              defaultVal,
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
+            ),
           ),
         ),
         SizedBox(width: 8),
@@ -224,7 +248,10 @@ Widget buildComparisonRow(String property, String defaultVal, String customVal) 
               color: Colors.teal.shade50,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(customVal, style: TextStyle(fontSize: 11, color: Colors.teal.shade700)),
+            child: Text(
+              customVal,
+              style: TextStyle(fontSize: 11, color: Colors.teal.shade700),
+            ),
           ),
         ),
       ],
@@ -284,7 +311,9 @@ dynamic build(BuildContext context) {
 
         // Section 1: Alignment Property
         buildSectionTitle('1. Alignment Property'),
-        buildDescription('ButtonBarThemeData.alignment sets the horizontal alignment of buttons'),
+        buildDescription(
+          'ButtonBarThemeData.alignment sets the horizontal alignment of buttons',
+        ),
 
         buildThemeDataCard(
           title: 'alignment: start',
@@ -304,7 +333,9 @@ dynamic build(BuildContext context) {
         buildThemeDataCard(
           title: 'alignment: spaceBetween',
           description: 'Even spacing between buttons',
-          themeData: ButtonBarThemeData(alignment: MainAxisAlignment.spaceBetween),
+          themeData: ButtonBarThemeData(
+            alignment: MainAxisAlignment.spaceBetween,
+          ),
           buttons: [
             TextButton(onPressed: () {}, child: Text('Cancel')),
             OutlinedButton(onPressed: () {}, child: Text('Draft')),
@@ -314,7 +345,9 @@ dynamic build(BuildContext context) {
         buildThemeDataCard(
           title: 'alignment: spaceEvenly',
           description: 'Equal spacing around all buttons',
-          themeData: ButtonBarThemeData(alignment: MainAxisAlignment.spaceEvenly),
+          themeData: ButtonBarThemeData(
+            alignment: MainAxisAlignment.spaceEvenly,
+          ),
           buttons: [
             TextButton(onPressed: () {}, child: Text('A')),
             TextButton(onPressed: () {}, child: Text('B')),
@@ -325,14 +358,14 @@ dynamic build(BuildContext context) {
 
         // Section 2: Button Padding
         buildSectionTitle('2. Button Padding'),
-        buildDescription('buttonPadding controls spacing between individual buttons'),
+        buildDescription(
+          'buttonPadding controls spacing between individual buttons',
+        ),
 
         buildThemeDataCard(
           title: 'No padding (EdgeInsets.zero)',
           description: 'Buttons packed tightly together',
-          themeData: ButtonBarThemeData(
-            buttonPadding: EdgeInsets.zero,
-          ),
+          themeData: ButtonBarThemeData(buttonPadding: EdgeInsets.zero),
           buttons: [
             ElevatedButton(onPressed: () {}, child: Text('A')),
             ElevatedButton(onPressed: () {}, child: Text('B')),
@@ -366,9 +399,7 @@ dynamic build(BuildContext context) {
         buildThemeDataCard(
           title: 'Both axes padding: 12',
           description: 'Padding on all sides around each button',
-          themeData: ButtonBarThemeData(
-            buttonPadding: EdgeInsets.all(12),
-          ),
+          themeData: ButtonBarThemeData(buttonPadding: EdgeInsets.all(12)),
           buttons: [
             ElevatedButton(onPressed: () {}, child: Text('Wide')),
             ElevatedButton(onPressed: () {}, child: Text('Spacing')),
@@ -435,7 +466,9 @@ dynamic build(BuildContext context) {
 
         // Section 5: Main Axis Size
         buildSectionTitle('5. Main Axis Size'),
-        buildDescription('mainAxisSize controls if ButtonBar expands or shrinks'),
+        buildDescription(
+          'mainAxisSize controls if ButtonBar expands or shrinks',
+        ),
 
         buildThemeDataCard(
           title: 'mainAxisSize: max (expand)',
@@ -450,12 +483,16 @@ dynamic build(BuildContext context) {
 
         // Section 6: Overflow Direction
         buildSectionTitle('6. Overflow Direction'),
-        buildDescription('overflowDirection controls layout when buttons overflow'),
+        buildDescription(
+          'overflowDirection controls layout when buttons overflow',
+        ),
 
         buildThemeDataCard(
           title: 'overflowDirection: horizontal',
           description: 'Buttons overflow horizontally',
-          themeData: ButtonBarThemeData(overflowDirection: VerticalDirection.down),
+          themeData: ButtonBarThemeData(
+            overflowDirection: VerticalDirection.down,
+          ),
           buttons: [
             ElevatedButton(onPressed: () {}, child: Text('Action 1')),
             ElevatedButton(onPressed: () {}, child: Text('Action 2')),
@@ -465,7 +502,9 @@ dynamic build(BuildContext context) {
         buildThemeDataCard(
           title: 'overflowDirection: up',
           description: 'Overflow stacks upward',
-          themeData: ButtonBarThemeData(overflowDirection: VerticalDirection.up),
+          themeData: ButtonBarThemeData(
+            overflowDirection: VerticalDirection.up,
+          ),
           buttons: [
             ElevatedButton(onPressed: () {}, child: Text('Action 1')),
             ElevatedButton(onPressed: () {}, child: Text('Action 2')),
@@ -544,11 +583,25 @@ dynamic build(BuildContext context) {
                 children: [
                   Expanded(flex: 2, child: SizedBox()),
                   Expanded(
-                    child: Text('Default', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+                    child: Text(
+                      'Default',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8),
                   Expanded(
-                    child: Text('Custom', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.teal.shade700)),
+                    child: Text(
+                      'Custom',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal.shade700,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -565,7 +618,9 @@ dynamic build(BuildContext context) {
 
         // Section 9: Theme Data in Practice
         buildSectionTitle('9. Practical Theme Configurations'),
-        buildDescription('Real-world theme configurations for common UI patterns'),
+        buildDescription(
+          'Real-world theme configurations for common UI patterns',
+        ),
 
         buildThemeDataCard(
           title: 'Dialog Pattern',

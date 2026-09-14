@@ -121,10 +121,9 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab> {
 
   void _addListener() {
     setState(() {
-      _listeners.add(_SimulatedListener(
-        id: _nextId,
-        name: 'Listener #$_nextId',
-      ));
+      _listeners.add(
+        _SimulatedListener(id: _nextId, name: 'Listener #$_nextId'),
+      );
       _dispatchLog.insert(0, '+ Added Listener #$_nextId to linked list');
       _nextId++;
     });
@@ -158,9 +157,7 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab> {
       l.active = !l.active;
       _dispatchLog.insert(
         0,
-        l.active
-            ? '✓ Listener #$id re-enabled'
-            : '✗ Listener #$id disabled',
+        l.active ? '✓ Listener #$id re-enabled' : '✗ Listener #$id disabled',
       );
     });
   }
@@ -175,10 +172,7 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab> {
           color: _kCard,
           child: Row(
             children: [
-              _buildPill(
-                '${_listeners.length} registered',
-                _kPrimary,
-              ),
+              _buildPill('${_listeners.length} registered', _kPrimary),
               const SizedBox(width: 8),
               _buildPill(
                 '${_listeners.where((l) => l.active).length} active',
@@ -218,7 +212,11 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab> {
                   itemCount: _listeners.length,
                   separatorBuilder: (_, _) => const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: Icon(Icons.arrow_forward, color: _kDimText, size: 14),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: _kDimText,
+                      size: 14,
+                    ),
                   ),
                   itemBuilder: (_, i) {
                     final l = _listeners[i];
@@ -270,10 +268,10 @@ class _ListenerManagementTabState extends State<_ListenerManagementTab> {
                           color: msg.startsWith('+')
                               ? _kSuccess
                               : msg.startsWith('-')
-                                  ? _kError
-                                  : msg.startsWith('▸')
-                                      ? _kAccent
-                                      : _kDimText,
+                              ? _kError
+                              : msg.startsWith('▸')
+                              ? _kAccent
+                              : _kDimText,
                           fontSize: 12,
                           fontFamily: 'monospace',
                         ),
@@ -320,7 +318,9 @@ class _LinkedListNode extends StatelessWidget {
               : _kSubtle.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: listener.active ? _kPrimary : _kDimText.withValues(alpha: 0.3),
+            color: listener.active
+                ? _kPrimary
+                : _kDimText.withValues(alpha: 0.3),
           ),
         ),
         child: Column(
@@ -542,7 +542,9 @@ class _ErrorDispatchTabState extends State<_ErrorDispatchTab> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.play_arrow, size: 18),
-              label: Text(_dispatching ? 'Dispatching…' : 'Run _notifyListeners()'),
+              label: Text(
+                _dispatching ? 'Dispatching…' : 'Run _notifyListeners()',
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: _kPrimary,
                 foregroundColor: Colors.white,
@@ -966,7 +968,9 @@ class _StaticAccessTabState extends State<_StaticAccessTab> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
         decoration: BoxDecoration(
-          color: selected ? _kPrimary.withValues(alpha: 0.25) : Colors.transparent,
+          color: selected
+              ? _kPrimary.withValues(alpha: 0.25)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: selected ? _kPrimary : _kDimText.withValues(alpha: 0.4),
@@ -1089,10 +1093,10 @@ class _StaticAccessTabState extends State<_StaticAccessTab> {
           final color = msg.contains('dispose')
               ? _kError
               : msg.contains('init')
-                  ? _kPrimary
-                  : msg.contains('null')
-                      ? _kDimText
-                      : _kAccent;
+              ? _kPrimary
+              : msg.contains('null')
+              ? _kDimText
+              : _kAccent;
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
@@ -1153,11 +1157,7 @@ Widget _buildPill(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        color: color,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }

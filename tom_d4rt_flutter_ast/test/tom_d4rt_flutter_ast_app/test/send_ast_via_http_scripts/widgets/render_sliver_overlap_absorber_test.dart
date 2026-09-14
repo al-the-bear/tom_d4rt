@@ -249,8 +249,11 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.subdirectory_arrow_right,
-                  color: indigoDark, size: 20.0),
+              Icon(
+                Icons.subdirectory_arrow_right,
+                color: indigoDark,
+                size: 20.0,
+              ),
               diagramBlock(
                 'SliverOverlapInjector',
                 'handle: handle  (re-inserts overlap)',
@@ -327,10 +330,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          indigo.withValues(alpha: 0.06),
-          cyan.withValues(alpha: 0.10),
-        ],
+        colors: [indigo.withValues(alpha: 0.06), cyan.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -373,29 +373,29 @@ dynamic build(BuildContext context) {
             children: [
               pipelineCard(
                 '1. ABSORB',
-              'SliverOverlapAbsorber wraps the header, computes its overlap, '
-                  'writes layoutExtent + scrollExtent into the handle.',
-              rose,
-              Icons.compress,
-            ),
-            Icon(Icons.east, color: slate, size: 20.0),
-            pipelineCard(
-              '2. HANDLE',
-              'SliverOverlapAbsorberHandle is a Listenable shared between '
-                  'the outer absorber and the inner injector.',
-              indigo,
-              Icons.swap_horiz,
-            ),
-            Icon(Icons.east, color: slate, size: 20.0),
-            pipelineCard(
-              '3. INJECT',
-              'SliverOverlapInjector reads the handle and inserts that same '
-                  'extent at the top of the inner scroll view.',
-              mint,
-              Icons.expand,
-            ),
-          ],
-        ),
+                'SliverOverlapAbsorber wraps the header, computes its overlap, '
+                    'writes layoutExtent + scrollExtent into the handle.',
+                rose,
+                Icons.compress,
+              ),
+              Icon(Icons.east, color: slate, size: 20.0),
+              pipelineCard(
+                '2. HANDLE',
+                'SliverOverlapAbsorberHandle is a Listenable shared between '
+                    'the outer absorber and the inner injector.',
+                indigo,
+                Icons.swap_horiz,
+              ),
+              Icon(Icons.east, color: slate, size: 20.0),
+              pipelineCard(
+                '3. INJECT',
+                'SliverOverlapInjector reads the handle and inserts that same '
+                    'extent at the top of the inner scroll view.',
+                mint,
+                Icons.expand,
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -448,10 +448,7 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            base.withValues(alpha: 0.06),
-            base.withValues(alpha: 0.16),
-          ],
+          colors: [base.withValues(alpha: 0.06), base.withValues(alpha: 0.16)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -567,48 +564,53 @@ dynamic build(BuildContext context) {
           child: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverOverlapAbsorber(
-                  handle:
-                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                  sliver: SliverAppBar(
-                    pinned: true,
-                    expandedHeight: 140.0,
-                    backgroundColor: indigoDark,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: Text(
-                        'Scroll Mechanics',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+                  return <Widget>[
+                    SliverOverlapAbsorber(
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        context,
                       ),
-                      background: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [indigoDark, indigo, cyan],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                      sliver: SliverAppBar(
+                        pinned: true,
+                        expandedHeight: 140.0,
+                        backgroundColor: indigoDark,
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: Text(
+                            'Scroll Mechanics',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          background: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [indigoDark, indigo, cyan],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                            ),
                           ),
                         ),
+                        bottom: TabBar(
+                          indicatorColor: amber,
+                          labelColor: Colors.white,
+                          unselectedLabelColor: Colors.white.withValues(
+                            alpha: 0.65,
+                          ),
+                          tabs: <Widget>[
+                            Tab(text: tabLabels[0], icon: Icon(Icons.notes)),
+                            Tab(
+                              text: tabLabels[1],
+                              icon: Icon(Icons.bar_chart),
+                            ),
+                            Tab(text: tabLabels[2], icon: Icon(Icons.timeline)),
+                          ],
+                        ),
                       ),
                     ),
-                    bottom: TabBar(
-                      indicatorColor: amber,
-                      labelColor: Colors.white,
-                      unselectedLabelColor:
-                          Colors.white.withValues(alpha: 0.65),
-                      tabs: <Widget>[
-                        Tab(text: tabLabels[0], icon: Icon(Icons.notes)),
-                        Tab(text: tabLabels[1], icon: Icon(Icons.bar_chart)),
-                        Tab(text: tabLabels[2], icon: Icon(Icons.timeline)),
-                      ],
-                    ),
-                  ),
-                ),
-              ];
-            },
+                  ];
+                },
             body: TabBarView(
               children: <Widget>[
                 _buildInnerScrollView(context, indigo, 'log'),
@@ -652,10 +654,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          rose.withValues(alpha: 0.07),
-          rose.withValues(alpha: 0.18),
-        ],
+        colors: [rose.withValues(alpha: 0.07), rose.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -729,10 +728,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          mint.withValues(alpha: 0.08),
-          cyan.withValues(alpha: 0.18),
-        ],
+        colors: [mint.withValues(alpha: 0.08), cyan.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -886,11 +882,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   uc[1],
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    color: slate,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 11.5, color: slate, height: 1.4),
                 ),
               ],
             ),
@@ -984,10 +976,7 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            amber.withValues(alpha: 0.12),
-            rose.withValues(alpha: 0.18),
-          ],
+          colors: [amber.withValues(alpha: 0.12), rose.withValues(alpha: 0.18)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1014,11 +1003,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   data[1],
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: slate,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: slate, height: 1.4),
                 ),
               ],
             ),
@@ -1209,69 +1194,69 @@ Widget _buildInnerScrollView(BuildContext context, Color color, String label) {
           SliverPadding(
             padding: EdgeInsets.all(8.0),
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 4.0),
-                    padding: EdgeInsets.all(12.0),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          color.withValues(alpha: 0.10),
-                          color.withValues(alpha: 0.25),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: color.withValues(alpha: 0.55),
-                        width: 1.0,
-                      ),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: color.withValues(alpha: 0.18),
-                          blurRadius: 6.0,
-                          offset: Offset(0.0, 2.0),
-                        ),
+              delegate: SliverChildBuilderDelegate((
+                BuildContext context,
+                int index,
+              ) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 4.0),
+                  padding: EdgeInsets.all(12.0),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        color.withValues(alpha: 0.10),
+                        color.withValues(alpha: 0.25),
                       ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
                     ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: 32.0,
-                          height: 32.0,
-                          decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '$index',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            ),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: color.withValues(alpha: 0.55),
+                      width: 1.0,
+                    ),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: color.withValues(alpha: 0.18),
+                        blurRadius: 6.0,
+                        offset: Offset(0.0, 2.0),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 32.0,
+                        height: 32.0,
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '$index',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.0,
                           ),
                         ),
-                        SizedBox(width: 10.0),
-                        Expanded(
-                          child: Text(
-                            '$label entry #$index '
-                            '- absorber keeps offset accurate',
-                            style: TextStyle(
-                              color: Color(0xFF263238),
-                              fontSize: 12.0,
-                            ),
+                      ),
+                      SizedBox(width: 10.0),
+                      Expanded(
+                        child: Text(
+                          '$label entry #$index '
+                          '- absorber keeps offset accurate',
+                          style: TextStyle(
+                            color: Color(0xFF263238),
+                            fontSize: 12.0,
                           ),
                         ),
-                      ],
-                    ),
-                  );
-                },
-                childCount: 18,
-              ),
+                      ),
+                    ],
+                  ),
+                );
+              }, childCount: 18),
             ),
           ),
         ],

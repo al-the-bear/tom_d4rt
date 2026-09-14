@@ -513,8 +513,9 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
                                     children: <Widget>[
                                       CircleAvatar(
                                         radius: 14,
-                                        backgroundColor: _inkBlack
-                                            .withValues(alpha: 0.45),
+                                        backgroundColor: _inkBlack.withValues(
+                                          alpha: 0.45,
+                                        ),
                                         child: Text(
                                           '${i + 1}',
                                           style: const TextStyle(
@@ -839,10 +840,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
           decoration: BoxDecoration(color: c, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
-        Text(
-          label,
-          style: const TextStyle(color: _starfield, fontSize: 11),
-        ),
+        Text(label, style: const TextStyle(color: _starfield, fontSize: 11)),
       ],
     );
   }
@@ -875,7 +873,8 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
                         'include globalPosition, localPosition, sourceTimeStamp '
                         'and PointerDeviceKind.',
                     action: const _HintText(
-                        '↙ scroll the list on the right to fire'),
+                      '↙ scroll the list on the right to fire',
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -921,14 +920,15 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
                         n,
                         source: n.dragDetails == null ? 'cause/prog' : 'cause',
                         sparkLocal: Offset(220, 90),
-                        sparkColor:
-                            n.dragDetails == null ? _goldSpark : _rocketRed,
+                        sparkColor: n.dragDetails == null
+                            ? _goldSpark
+                            : _rocketRed,
                       );
                     } else if (n is ScrollEndNotification) {
-                      _recordEnd(n,
-                          source: n.dragDetails == null
-                              ? 'cause/prog'
-                              : 'cause');
+                      _recordEnd(
+                        n,
+                        source: n.dragDetails == null ? 'cause/prog' : 'cause',
+                      );
                     }
                     return false;
                   },
@@ -944,8 +944,12 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: <Color>[
-                              HSVColor.fromAHSV(1, (i * 11) % 360, 0.5, 0.8)
-                                  .toColor(),
+                              HSVColor.fromAHSV(
+                                1,
+                                (i * 11) % 360,
+                                0.5,
+                                0.8,
+                              ).toColor(),
                               _inkBlack,
                             ],
                             begin: Alignment.topCenter,
@@ -996,7 +1000,10 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: accent,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
@@ -1158,7 +1165,8 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
     return _sectionCard(
       badge: '05',
       title: 'Ignition timeline',
-      subtitle: 'The last 20 starts as coloured chips (red = drag, '
+      subtitle:
+          'The last 20 starts as coloured chips (red = drag, '
           'grey/gold = programmatic).',
       child: SizedBox(
         height: 92,
@@ -1336,11 +1344,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
               child: NotificationListener<ScrollNotification>(
                 onNotification: (ScrollNotification n) {
                   if (n is ScrollStartNotification) {
-                    _recordStart(
-                      n,
-                      source: source,
-                      sparkColor: accent,
-                    );
+                    _recordStart(n, source: source, sparkColor: accent);
                   } else if (n is ScrollEndNotification) {
                     _recordEnd(n, source: source);
                   }
@@ -1378,21 +1382,23 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
 
   // ============================================================ PAIRING VIEW
   Widget _buildPairingSection() {
-    final List<_StartEndPair> closed =
-        _pairs.take(10).toList().reversed.toList();
+    final List<_StartEndPair> closed = _pairs
+        .take(10)
+        .toList()
+        .reversed
+        .toList();
     return _sectionCard(
       badge: '07',
       title: 'Start / End pairing',
-      subtitle: 'Every ScrollStartNotification eventually matches a '
+      subtitle:
+          'Every ScrollStartNotification eventually matches a '
           'ScrollEndNotification. Here are the last 10 spans.',
       child: Column(
         children: <Widget>[
           if (closed.isEmpty)
             _emptyStrip('no completed spans yet')
           else
-            Column(
-              children: closed.map(_pairRow).toList(),
-            ),
+            Column(children: closed.map(_pairRow).toList()),
           if (_openPair != null) ...<Widget>[
             const SizedBox(height: 8),
             Container(
@@ -1404,8 +1410,11 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
               ),
               child: Row(
                 children: <Widget>[
-                  const Icon(Icons.radio_button_checked,
-                      color: _ember, size: 16),
+                  const Icon(
+                    Icons.radio_button_checked,
+                    color: _ember,
+                    size: 16,
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     'open pair — start #${_openPair!.id} '
@@ -1428,8 +1437,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
   Widget _pairRow(_StartEndPair p) {
     final Duration dur = p.endedAt!.difference(p.startedAt);
     final Color accent = p.hasDrag ? _rocketRed : _goldSpark;
-    final double widthFactor =
-        (dur.inMilliseconds.clamp(50, 1500)) / 1500.0;
+    final double widthFactor = (dur.inMilliseconds.clamp(50, 1500)) / 1500.0;
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
       child: Row(
@@ -1473,10 +1481,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
                     height: 14,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: <Color>[
-                          accent,
-                          accent.withValues(alpha: 0.25),
-                        ],
+                        colors: <Color>[accent, accent.withValues(alpha: 0.25)],
                       ),
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -1516,7 +1521,8 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
             icon: Icons.save_alt,
             accent: _rocketRed,
             title: 'Snapshot the pre-scroll state',
-            body: 'Use ScrollStartNotification to capture the initial pixels '
+            body:
+                'Use ScrollStartNotification to capture the initial pixels '
                 'and selection state — perfect for undo or restore flows that '
                 'need to remember where the user began.',
           ),
@@ -1525,7 +1531,8 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
             icon: Icons.call_split,
             accent: _ember,
             title: 'User vs programmatic = dragDetails != null',
-            body: 'Programmatic animateTo still dispatches '
+            body:
+                'Programmatic animateTo still dispatches '
                 'ScrollStartNotification. Differentiate by inspecting the '
                 'dragDetails field: null means it was code-driven.',
           ),
@@ -1534,7 +1541,8 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
             icon: Icons.schedule,
             accent: _goldSpark,
             title: "Don't setState synchronously for layout",
-            body: 'If your listener triggers layout-changing rebuilds, '
+            body:
+                'If your listener triggers layout-changing rebuilds, '
                 'defer to WidgetsBinding.instance.addPostFrameCallback — '
                 'the notification fires mid-gesture dispatch.',
           ),
@@ -1613,8 +1621,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.local_fire_department,
-              color: _goldSpark, size: 40),
+          const Icon(Icons.local_fire_department, color: _goldSpark, size: 40),
           const SizedBox(width: 14),
           const Expanded(
             child: Column(
@@ -1664,8 +1671,10 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
             Row(
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: _rocketRed.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(6),
@@ -1719,9 +1728,7 @@ class _IgnitionObserverHomeState extends State<_IgnitionObserverHome>
         backgroundColor: _ember,
         foregroundColor: _inkBlack,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
@@ -1750,10 +1757,7 @@ class _HintText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(color: _steelGrey, fontSize: 12),
-    );
+    return Text(text, style: const TextStyle(color: _steelGrey, fontSize: 12));
   }
 }
 
@@ -1788,8 +1792,7 @@ class _AnatomyRow extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                 decoration: BoxDecoration(
                   color: _goldSpark.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(4),
@@ -1991,11 +1994,8 @@ class _StartEndPair {
 }
 
 class _Spark {
-  _Spark({
-    required this.origin,
-    required this.tint,
-    required this.radius,
-  }) : life = 1.0;
+  _Spark({required this.origin, required this.tint, required this.radius})
+    : life = 1.0;
 
   final Offset origin;
   final Color tint;
@@ -2040,8 +2040,8 @@ class _HeroFlamePainter extends CustomPainter {
       final double a = (i / rays) * math.pi * 2 + t * math.pi * 2;
       final double len =
           baseR * (0.55 + 0.25 * math.sin(t * math.pi * 2 + i * 0.7));
-      final Offset p1 = c + Offset(math.cos(a) * baseR * 0.25,
-          math.sin(a) * baseR * 0.25);
+      final Offset p1 =
+          c + Offset(math.cos(a) * baseR * 0.25, math.sin(a) * baseR * 0.25);
       final Offset p2 = c + Offset(math.cos(a) * len, math.sin(a) * len);
       canvas.drawLine(p1, p2, rayPaint);
     }
@@ -2061,8 +2061,7 @@ class _HeroFlamePainter extends CustomPainter {
 
     // flickering inner dot
     final double flicker = 0.7 + 0.3 * math.sin(t * math.pi * 4);
-    final Paint dot = Paint()
-      ..color = _starfield.withValues(alpha: flicker);
+    final Paint dot = Paint()..color = _starfield.withValues(alpha: flicker);
     canvas.drawCircle(c, baseR * 0.12, dot);
   }
 
@@ -2114,8 +2113,7 @@ class _SparkCanvasPainter extends CustomPainter {
         final double a = (i / rays) * math.pi * 2;
         final Offset p1 =
             s.origin + Offset(math.cos(a) * r * 0.1, math.sin(a) * r * 0.1);
-        final Offset p2 =
-            s.origin + Offset(math.cos(a) * r, math.sin(a) * r);
+        final Offset p2 = s.origin + Offset(math.cos(a) * r, math.sin(a) * r);
         canvas.drawLine(p1, p2, rayPaint);
       }
 

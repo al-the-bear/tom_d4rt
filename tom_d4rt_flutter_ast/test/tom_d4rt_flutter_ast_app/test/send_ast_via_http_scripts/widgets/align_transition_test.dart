@@ -429,11 +429,7 @@ class _AlignmentGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<Alignment>> grid = <List<Alignment>>[
-      <Alignment>[
-        Alignment.topLeft,
-        Alignment.topCenter,
-        Alignment.topRight,
-      ],
+      <Alignment>[Alignment.topLeft, Alignment.topCenter, Alignment.topRight],
       <Alignment>[
         Alignment.centerLeft,
         Alignment.center,
@@ -524,38 +520,36 @@ class _OrbitDemoState extends State<_OrbitDemo>
     // Four corners welded into one continuous loop. Each segment gets
     // an equal weight so the planet spends the same amount of time
     // travelling each side of the square.
-    _alignment = TweenSequence<Alignment>(
-      <TweenSequenceItem<Alignment>>[
-        TweenSequenceItem<Alignment>(
-          tween: AlignmentTween(
-            begin: Alignment.topLeft,
-            end: Alignment.topRight,
-          ).chain(CurveTween(curve: Curves.easeInOut)),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: AlignmentTween(
-            begin: Alignment.topRight,
-            end: Alignment.bottomRight,
-          ).chain(CurveTween(curve: Curves.easeInOut)),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: AlignmentTween(
-            begin: Alignment.bottomRight,
-            end: Alignment.bottomLeft,
-          ).chain(CurveTween(curve: Curves.easeInOut)),
-          weight: 1,
-        ),
-        TweenSequenceItem<Alignment>(
-          tween: AlignmentTween(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topLeft,
-          ).chain(CurveTween(curve: Curves.easeInOut)),
-          weight: 1,
-        ),
-      ],
-    ).animate(_controller);
+    _alignment = TweenSequence<Alignment>(<TweenSequenceItem<Alignment>>[
+      TweenSequenceItem<Alignment>(
+        tween: AlignmentTween(
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: AlignmentTween(
+          begin: Alignment.topRight,
+          end: Alignment.bottomRight,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: AlignmentTween(
+          begin: Alignment.bottomRight,
+          end: Alignment.bottomLeft,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 1,
+      ),
+      TweenSequenceItem<Alignment>(
+        tween: AlignmentTween(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topLeft,
+        ).chain(CurveTween(curve: Curves.easeInOut)),
+        weight: 1,
+      ),
+    ]).animate(_controller);
   }
 
   @override
@@ -626,9 +620,7 @@ class _OrbitDemoState extends State<_OrbitDemo>
               // `value` getter through the bridge. Use a static caption
               // instead of an AnimatedBuilder that reads `.value`.
               const Expanded(
-                child: _Caption(
-                  'live alignment.value = (animated)',
-                ),
+                child: _Caption('live alignment.value = (animated)'),
               ),
               TextButton.icon(
                 onPressed: () {
@@ -643,18 +635,14 @@ class _OrbitDemoState extends State<_OrbitDemo>
                   animation: _controller,
                   builder: (BuildContext context, Widget? _) {
                     return Icon(
-                      _controller.isAnimating
-                          ? Icons.pause
-                          : Icons.play_arrow,
+                      _controller.isAnimating ? Icons.pause : Icons.play_arrow,
                     );
                   },
                 ),
                 label: AnimatedBuilder(
                   animation: _controller,
                   builder: (BuildContext context, Widget? _) {
-                    return Text(
-                      _controller.isAnimating ? 'Pause' : 'Resume',
-                    );
+                    return Text(_controller.isAnimating ? 'Pause' : 'Resume');
                   },
                 ),
               ),
@@ -739,9 +727,7 @@ class _DropSettleDemoState extends State<_DropSettleDemo>
     _alignment = AlignmentTween(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.bounceOut),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
     _controller.forward();
   }
 
@@ -807,10 +793,7 @@ class _DropSettleDemoState extends State<_DropSettleDemo>
               const SizedBox(width: 12),
               Text(
                 'Replays: $_replays',
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF49454F),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF49454F)),
               ),
             ],
           ),
@@ -850,12 +833,13 @@ class _DirectionalDemoState extends State<_DirectionalDemo>
       vsync: this,
       duration: const Duration(milliseconds: 2200),
     )..repeat(reverse: true);
-    _alignment = _AlignmentGeometryTween(
-      begin: AlignmentDirectional.topStart,
-      end: AlignmentDirectional.bottomEnd,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
-    );
+    _alignment =
+        _AlignmentGeometryTween(
+          begin: AlignmentDirectional.topStart,
+          end: AlignmentDirectional.bottomEnd,
+        ).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
+        );
   }
 
   @override
@@ -930,10 +914,7 @@ class _DirectionalDemoState extends State<_DirectionalDemo>
                         color: Color(0xFFFB8C00),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.translate,
-                        color: Colors.white,
-                      ),
+                      child: const Icon(Icons.translate, color: Colors.white),
                     ),
                   ),
                 ],
@@ -1054,34 +1035,34 @@ class _ChainDemoState extends State<_ChainDemo>
             child: Stack(
               children: <Widget>[
                 ..._keyframes.asMap().entries.map(
-                      (MapEntry<int, AlignmentGeometry> e) => Align(
-                        alignment: e.value,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Container(
-                            width: 18,
-                            height: 18,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF00838F).withOpacity(0.4),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF00838F),
-                                width: 1.4,
-                              ),
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${e.key}',
-                              style: const TextStyle(
-                                fontSize: 10,
-                                color: Color(0xFF00838F),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                  (MapEntry<int, AlignmentGeometry> e) => Align(
+                    alignment: e.value,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00838F).withOpacity(0.4),
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xFF00838F),
+                            width: 1.4,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          '${e.key}',
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Color(0xFF00838F),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
+                  ),
+                ),
                 AlignTransition(
                   alignment: _alignment,
                   child: Container(
@@ -1115,10 +1096,7 @@ class _ChainDemoState extends State<_ChainDemo>
             runSpacing: 6,
             children: <Widget>[
               for (int i = 0; i < _keyframes.length; i++)
-                _Pill(
-                  '#$i ${_keyframes[i]}',
-                  color: const Color(0xFF00838F),
-                ),
+                _Pill('#$i ${_keyframes[i]}', color: const Color(0xFF00838F)),
             ],
           ),
           const _Caption(
@@ -1172,9 +1150,7 @@ class _VsAnimatedAlignDemoState extends State<_VsAnimatedAlignDemo>
     _alignment = AlignmentTween(
       begin: _explicitTarget,
       end: _explicitTarget,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
   }
 
   @override
@@ -1190,12 +1166,10 @@ class _VsAnimatedAlignDemoState extends State<_VsAnimatedAlignDemo>
 
       // Explicit side: rebuild the tween from current value to new
       // target, then forward(from: 0).
-      _alignment = AlignmentTween(
-        begin: _explicitTarget,
-        end: newTarget,
-      ).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
+      _alignment = AlignmentTween(begin: _explicitTarget, end: newTarget)
+          .animate(
+            CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+          );
       _explicitTarget = newTarget;
       _controller.forward(from: 0);
 
@@ -1302,19 +1276,13 @@ class _LabeledStage extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
             ),
           ],
         ),
         Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 11,
-            color: Color(0xFF49454F),
-          ),
+          style: const TextStyle(fontSize: 11, color: Color(0xFF49454F)),
         ),
         const SizedBox(height: 6),
         Container(
@@ -1347,10 +1315,7 @@ class _MarkerBox extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(8),
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: color.withOpacity(0.45),
-            blurRadius: 8,
-          ),
+          BoxShadow(color: color.withOpacity(0.45), blurRadius: 8),
         ],
       ),
       alignment: Alignment.center,
@@ -1404,9 +1369,7 @@ class _CurveGalleryDemoState extends State<_CurveGalleryDemo>
           (_CurveSpec s) => AlignmentTween(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-          ).animate(
-            CurvedAnimation(parent: _controller, curve: s.curve),
-          ),
+          ).animate(CurvedAnimation(parent: _controller, curve: s.curve)),
         )
         .toList();
     _controller.forward();
@@ -1431,10 +1394,7 @@ class _CurveGalleryDemoState extends State<_CurveGalleryDemo>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           for (int i = 0; i < _specs.length; i++) ...<Widget>[
-            _CurveRow(
-              spec: _specs[i],
-              animation: _animations[i],
-            ),
+            _CurveRow(spec: _specs[i], animation: _animations[i]),
             if (i != _specs.length - 1) const SizedBox(height: 8),
           ],
           const SizedBox(height: 12),
@@ -1451,10 +1411,7 @@ class _CurveGalleryDemoState extends State<_CurveGalleryDemo>
               // `value`. Fall back to a static label.
               const Text(
                 't = (animated)',
-                style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
             ],
           ),
@@ -1555,9 +1512,7 @@ class _RevealDemoState extends State<_RevealDemo>
     _alignment = AlignmentTween(
       begin: const Alignment(-2.5, 0.0),
       end: Alignment.center,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
   }
 
   @override
@@ -1601,10 +1556,7 @@ class _RevealDemoState extends State<_RevealDemo>
                   height: 130,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: <Color>[
-                        Color(0xFF8E24AA),
-                        Color(0xFF5E35B1),
-                      ],
+                      colors: <Color>[Color(0xFF8E24AA), Color(0xFF5E35B1)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -1623,11 +1575,7 @@ class _RevealDemoState extends State<_RevealDemo>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(
-                          Icons.auto_awesome,
-                          color: Colors.white,
-                          size: 36,
-                        ),
+                        Icon(Icons.auto_awesome, color: Colors.white, size: 36),
                         SizedBox(height: 6),
                         Text(
                           'Reveal Card',
@@ -1639,10 +1587,7 @@ class _RevealDemoState extends State<_RevealDemo>
                         ),
                         Text(
                           'Slid in from x=-2.5',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                          ),
+                          style: TextStyle(color: Colors.white70, fontSize: 11),
                         ),
                       ],
                     ),
@@ -1707,12 +1652,13 @@ class _CoordinatedDemoState extends State<_CoordinatedDemo>
     );
     _alignments = _corners
         .map(
-          (_CornerSpec c) => AlignmentTween(
-            begin: c.start,
-            end: Alignment.center,
-          ).animate(
-            CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
-          ),
+          (_CornerSpec c) =>
+              AlignmentTween(begin: c.start, end: Alignment.center).animate(
+                CurvedAnimation(
+                  parent: _controller,
+                  curve: Curves.easeInOutCubic,
+                ),
+              ),
         )
         .toList();
   }
@@ -1779,16 +1725,15 @@ class _CoordinatedDemoState extends State<_CoordinatedDemo>
             children: <Widget>[
               ElevatedButton.icon(
                 onPressed: _toggle,
-                icon: Icon(_gathered ? Icons.call_split : Icons.center_focus_strong),
+                icon: Icon(
+                  _gathered ? Icons.call_split : Icons.center_focus_strong,
+                ),
                 label: Text(_gathered ? 'Scatter' : 'Gather'),
               ),
               const SizedBox(width: 10),
               // Static label — see comment in section 7 about
               // `_controller.value` and the d4rt bridge.
-              const _Pill(
-                'controller t=(animated)',
-                color: Color(0xFF49454F),
-              ),
+              const _Pill('controller t=(animated)', color: Color(0xFF49454F)),
             ],
           ),
           const _Caption(
@@ -1847,8 +1792,7 @@ class _MathDemoState extends State<_MathDemo>
   }
 
   Animation<AlignmentGeometry> _animFor(double t) {
-    final AlignmentGeometry value =
-        AlignmentGeometry.lerp(_a, _b, t) ?? _a;
+    final AlignmentGeometry value = AlignmentGeometry.lerp(_a, _b, t) ?? _a;
     return AlwaysStoppedAnimation<AlignmentGeometry>(value);
   }
 
@@ -1923,10 +1867,7 @@ class _MathDemoState extends State<_MathDemo>
                       color: Color(0xFF2E7D32),
                       shape: BoxShape.circle,
                       boxShadow: <BoxShadow>[
-                        BoxShadow(
-                          color: Color(0x402E7D32),
-                          blurRadius: 8,
-                        ),
+                        BoxShadow(color: Color(0x402E7D32), blurRadius: 8),
                       ],
                     ),
                     alignment: Alignment.center,
@@ -2103,9 +2044,7 @@ class _MenuRevealRecipeState extends State<_MenuRevealRecipe>
     _alignment = AlignmentTween(
       begin: const Alignment(-1.4, -1.0),
       end: Alignment.topLeft,
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
   }
 
   @override
@@ -2156,9 +2095,7 @@ class _MenuRevealRecipeState extends State<_MenuRevealRecipe>
                 child: Container(
                   width: 130,
                   height: 180,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF1976D2),
-                  ),
+                  decoration: const BoxDecoration(color: Color(0xFF1976D2)),
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2235,9 +2172,7 @@ class _SnackbarDropRecipeState extends State<_SnackbarDropRecipe>
     _alignment = AlignmentTween(
       begin: const Alignment(0.0, -1.6),
       end: const Alignment(0.0, -0.85),
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
   }
 
   @override
@@ -2296,11 +2231,7 @@ class _SnackbarDropRecipeState extends State<_SnackbarDropRecipe>
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(
-                        Icons.check_circle,
-                        color: Colors.white,
-                        size: 18,
-                      ),
+                      Icon(Icons.check_circle, color: Colors.white, size: 18),
                       SizedBox(width: 8),
                       Text(
                         'Saved successfully',
@@ -2345,9 +2276,7 @@ class _ToastSlideRecipeState extends State<_ToastSlideRecipe>
     _alignment = AlignmentTween(
       begin: const Alignment(1.6, 0.7),
       end: const Alignment(0.85, 0.7),
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutQuart));
   }
 
   @override
@@ -2395,10 +2324,7 @@ class _ToastSlideRecipeState extends State<_ToastSlideRecipe>
                     color: const Color(0xFF00838F),
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: const <BoxShadow>[
-                      BoxShadow(
-                        color: Color(0x6600838F),
-                        blurRadius: 10,
-                      ),
+                      BoxShadow(color: Color(0x6600838F), blurRadius: 10),
                     ],
                   ),
                   alignment: Alignment.centerLeft,
@@ -2452,9 +2378,7 @@ class _LoaderPulseRecipeState extends State<_LoaderPulseRecipe>
     _alignment = AlignmentTween(
       begin: const Alignment(-0.6, 0.0),
       end: const Alignment(0.6, 0.0),
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -2520,10 +2444,7 @@ class _ReferenceTable extends StatelessWidget {
         children: <Widget>[
           const Text(
             'AlignTransition properties',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           _RefTable(
@@ -2563,10 +2484,7 @@ class _ReferenceTable extends StatelessWidget {
           const SizedBox(height: 18),
           const Text(
             'AlignTransition vs AnimatedAlign vs PositionedTransition',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           _RefTable(
@@ -2606,10 +2524,7 @@ class _ReferenceTable extends StatelessWidget {
           const SizedBox(height: 18),
           const Text(
             'Gotchas',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           const _BulletList(<String>[
@@ -2663,9 +2578,7 @@ class _RefTable extends StatelessWidget {
           for (int i = 0; i < rows.length; i++)
             Container(
               decoration: BoxDecoration(
-                color: i.isEven
-                    ? const Color(0xFFFAF7FE)
-                    : Colors.white,
+                color: i.isEven ? const Color(0xFFFAF7FE) : Colors.white,
                 border: i == rows.length - 1
                     ? null
                     : const Border(
@@ -2739,8 +2652,7 @@ class _AlignmentGeometryTween extends Tween<AlignmentGeometry> {
 
   @override
   AlignmentGeometry lerp(double t) {
-    final AlignmentGeometry? lerped =
-        AlignmentGeometry.lerp(begin, end, t);
+    final AlignmentGeometry? lerped = AlignmentGeometry.lerp(begin, end, t);
     return lerped ?? begin ?? Alignment.center;
   }
 }

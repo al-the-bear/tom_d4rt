@@ -135,18 +135,15 @@ String _shortLabelForBehavior(DropdownMenuCloseBehavior b) {
 String _longBlurbForBehavior(DropdownMenuCloseBehavior b) {
   switch (b) {
     case DropdownMenuCloseBehavior.all:
-      return
-          'Default. After a selection (or outside tap) the framework dismisses '
+      return 'Default. After a selection (or outside tap) the framework dismisses '
           'every open menu route in the widget tree. This is what most users '
           'expect from a classic combobox: pick a value, dialog goes away.';
     case DropdownMenuCloseBehavior.self:
-      return
-          'Closes the local DropdownMenu but leaves any ancestor menus or '
+      return 'Closes the local DropdownMenu but leaves any ancestor menus or '
           'popovers open. Useful when this dropdown lives inside a larger '
           'menu/popover/sheet that has its own dismissal contract.';
     case DropdownMenuCloseBehavior.none:
-      return
-          'No automatic dismissal at all. The caller decides when (or whether) '
+      return 'No automatic dismissal at all. The caller decides when (or whether) '
           'to close the menu. Useful for persistent multi-action panels or '
           'live-filter UIs where the menu must remain visible.';
   }
@@ -162,11 +159,7 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
     padding: const EdgeInsets.symmetric(horizontal: 28.0, vertical: 32.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          scheme.primary,
-          scheme.tertiary,
-          scheme.secondary,
-        ],
+        colors: <Color>[scheme.primary, scheme.tertiary, scheme.secondary],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -480,11 +473,7 @@ Widget _buildSection2BehaviorTable(ColorScheme scheme) {
                       color: _softFillForBehavior(v),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      _iconForBehavior(v),
-                      color: accent,
-                      size: 26.0,
-                    ),
+                    child: Icon(_iconForBehavior(v), color: accent, size: 26.0),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
@@ -520,13 +509,29 @@ Widget _buildSection2BehaviorTable(ColorScheme scheme) {
               ),
               const SizedBox(height: 14.0),
               _behaviorAttributeRow(
-                  'On item tap', _onItemTapText(v), accent, scheme),
+                'On item tap',
+                _onItemTapText(v),
+                accent,
+                scheme,
+              ),
               _behaviorAttributeRow(
-                  'Outside tap', _onOutsideTapText(v), accent, scheme),
+                'Outside tap',
+                _onOutsideTapText(v),
+                accent,
+                scheme,
+              ),
               _behaviorAttributeRow(
-                  'Esc key', _onEscapeText(v), accent, scheme),
+                'Esc key',
+                _onEscapeText(v),
+                accent,
+                scheme,
+              ),
               _behaviorAttributeRow(
-                  'Nested menus', _nestedMenusText(v), accent, scheme),
+                'Nested menus',
+                _nestedMenusText(v),
+                accent,
+                scheme,
+              ),
             ],
           ),
         ),
@@ -541,10 +546,7 @@ Widget _buildSection2BehaviorTable(ColorScheme scheme) {
     subtitle:
         'Compare the three values across the four dismissal triggers people '
         'most often think about.',
-    body: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: cards,
-    ),
+    body: Row(crossAxisAlignment: CrossAxisAlignment.start, children: cards),
   );
 }
 
@@ -593,7 +595,11 @@ String _nestedMenusText(DropdownMenuCloseBehavior b) {
 }
 
 Widget _behaviorAttributeRow(
-    String label, String value, Color accent, ColorScheme scheme) {
+  String label,
+  String value,
+  Color accent,
+  ColorScheme scheme,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -882,8 +888,12 @@ Widget _diagramBefore(ColorScheme scheme) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _fakeMenuChrome('Settings popover', Icons.tune, scheme,
-            innerOpen: true),
+        _fakeMenuChrome(
+          'Settings popover',
+          Icons.tune,
+          scheme,
+          innerOpen: true,
+        ),
       ],
     ),
   );
@@ -921,8 +931,11 @@ Widget _emptyAfter(ColorScheme scheme) {
     padding: const EdgeInsets.symmetric(vertical: 24.0),
     child: Column(
       children: <Widget>[
-        Icon(Icons.visibility_off,
-            color: scheme.onSurfaceVariant.withValues(alpha: 0.7), size: 28.0),
+        Icon(
+          Icons.visibility_off,
+          color: scheme.onSurfaceVariant.withValues(alpha: 0.7),
+          size: 28.0,
+        ),
         const SizedBox(height: 6.0),
         Text(
           'Everything dismissed',
@@ -973,8 +986,11 @@ Widget _fakeMenuChrome(
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.color_lens,
-                  size: 14.0, color: scheme.onSurfaceVariant),
+              Icon(
+                Icons.color_lens,
+                size: 14.0,
+                color: scheme.onSurfaceVariant,
+              ),
               const SizedBox(width: 6.0),
               Text(
                 'Accent color',
@@ -1004,8 +1020,11 @@ Widget _fakeMenuChrome(
   );
 }
 
-Widget _miniMenuEntry(String label, ColorScheme scheme,
-    {required bool highlighted}) {
+Widget _miniMenuEntry(
+  String label,
+  ColorScheme scheme, {
+  required bool highlighted,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 1.0),
     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -1159,10 +1178,7 @@ Widget _buildSection5DecisionMatrix(ColorScheme scheme) {
               flex: 4,
               child: Text(
                 s.title,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: scheme.onSurface,
-                ),
+                style: TextStyle(fontSize: 12.5, color: scheme.onSurface),
               ),
             ),
             for (final v in DropdownMenuCloseBehavior.values)
@@ -1817,9 +1833,7 @@ Widget _buildSection8GlossarySummary(ColorScheme scheme) {
                   decoration: BoxDecoration(
                     color: scheme.surface.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: t.color.withValues(alpha: 0.4),
-                    ),
+                    border: Border.all(color: t.color.withValues(alpha: 0.4)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1911,8 +1925,7 @@ Widget _buildFooter(ColorScheme scheme) {
     ),
     child: Row(
       children: <Widget>[
-        Icon(Icons.info_outline,
-            color: scheme.onSurfaceVariant, size: 18.0),
+        Icon(Icons.info_outline, color: scheme.onSurfaceVariant, size: 18.0),
         const SizedBox(width: 10.0),
         Expanded(
           child: Text(

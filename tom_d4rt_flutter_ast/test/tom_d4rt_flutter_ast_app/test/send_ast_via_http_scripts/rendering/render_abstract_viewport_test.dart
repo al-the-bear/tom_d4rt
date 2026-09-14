@@ -354,7 +354,7 @@ class _ViewportDiagramPainter extends CustomPainter {
 
 class _RevealRectOverlayPainter extends CustomPainter {
   _RevealRectOverlayPainter({required this.alignment, required this.pulse})
-      : super(repaint: pulse);
+    : super(repaint: pulse);
   final double alignment;
   final Animation<double> pulse;
 
@@ -391,11 +391,7 @@ class _RevealRectOverlayPainter extends CustomPainter {
     final guide = Paint()
       ..color = Colors.deepPurple.shade300
       ..strokeWidth = 1;
-    canvas.drawLine(
-      Offset(0, scrollY),
-      Offset(size.width, scrollY),
-      guide,
-    );
+    canvas.drawLine(Offset(0, scrollY), Offset(size.width, scrollY), guide);
     canvas.drawLine(
       Offset(0, scrollY + targetH),
       Offset(size.width, scrollY + targetH),
@@ -562,7 +558,8 @@ class _Section1HeroIntroState extends State<_Section1HeroIntro>
             ),
             const _CodeCard(
               title: 'flutter/rendering — abstract surface',
-              code: 'abstract class RenderAbstractViewport extends RenderObject {\n'
+              code:
+                  'abstract class RenderAbstractViewport extends RenderObject {\n'
                   '  static RenderAbstractViewport? maybeOf(RenderObject? o);\n'
                   '  static RenderAbstractViewport of(RenderObject o);\n'
                   '\n'
@@ -677,9 +674,7 @@ class _Section2GetOffsetToRevealState
                     margin: const EdgeInsets.symmetric(vertical: 4),
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: hi
-                          ? Colors.teal.shade300
-                          : Colors.white,
+                      color: hi ? Colors.teal.shade300 : Colors.white,
                       border: Border.all(
                         color: hi ? Colors.teal.shade800 : Colors.teal.shade100,
                         width: hi ? 2 : 1,
@@ -708,7 +703,8 @@ class _Section2GetOffsetToRevealState
             ),
             const _CodeCard(
               title: 'How a single button works',
-              code: 'final BuildContext c = key.currentContext!;\n'
+              code:
+                  'final BuildContext c = key.currentContext!;\n'
                   'await Scrollable.ensureVisible(\n'
                   '  c,\n'
                   '  alignment: 0.5, // 0=top, 0.5=center, 1=bottom\n'
@@ -799,8 +795,7 @@ class _Section3AlignmentSliderState extends State<_Section3AlignmentSlider>
                     max: 1.0,
                     divisions: 20,
                     label: _alignment.toStringAsFixed(2),
-                    onChanged: (double v) =>
-                        setSt(() => _alignment = v),
+                    onChanged: (double v) => setSt(() => _alignment = v),
                   ),
                 ),
                 SizedBox(
@@ -894,16 +889,41 @@ class _Section4HorizontalViewport extends StatefulWidget {
 class _Section4HorizontalViewportState
     extends State<_Section4HorizontalViewport> {
   static const List<IconData> _icons = <IconData>[
-    Icons.home, Icons.star, Icons.favorite, Icons.flag, Icons.bolt,
-    Icons.cloud, Icons.cake, Icons.coffee, Icons.diamond, Icons.eco,
-    Icons.face, Icons.fingerprint, Icons.fireplace, Icons.flight,
-    Icons.gavel, Icons.gif, Icons.grass, Icons.hiking, Icons.icecream,
-    Icons.inbox, Icons.key, Icons.label, Icons.language, Icons.lightbulb,
-    Icons.local_florist, Icons.map, Icons.menu_book, Icons.movie,
-    Icons.mood, Icons.music_note,
+    Icons.home,
+    Icons.star,
+    Icons.favorite,
+    Icons.flag,
+    Icons.bolt,
+    Icons.cloud,
+    Icons.cake,
+    Icons.coffee,
+    Icons.diamond,
+    Icons.eco,
+    Icons.face,
+    Icons.fingerprint,
+    Icons.fireplace,
+    Icons.flight,
+    Icons.gavel,
+    Icons.gif,
+    Icons.grass,
+    Icons.hiking,
+    Icons.icecream,
+    Icons.inbox,
+    Icons.key,
+    Icons.label,
+    Icons.language,
+    Icons.lightbulb,
+    Icons.local_florist,
+    Icons.map,
+    Icons.menu_book,
+    Icons.movie,
+    Icons.mood,
+    Icons.music_note,
   ];
-  late final List<GlobalKey> _keys =
-      List<GlobalKey>.generate(_icons.length, (int i) => GlobalKey());
+  late final List<GlobalKey> _keys = List<GlobalKey>.generate(
+    _icons.length,
+    (int i) => GlobalKey(),
+  );
 
   Future<void> _reveal(int i, double alignment) async {
     final BuildContext? c = _keys[i].currentContext;
@@ -1017,10 +1037,12 @@ class _Section5MaybeOfDemoState extends State<_Section5MaybeOfDemo> {
       curve: Curves.easeOutCubic,
     );
     if (!mounted) return;
-    setState(() => _log =
-        'Reached leaf via nested viewports.\n'
-        'Framework called RenderAbstractViewport.maybeOf() repeatedly to find '
-        'each enclosing viewport and chained ensureVisible calls.');
+    setState(
+      () => _log =
+          'Reached leaf via nested viewports.\n'
+          'Framework called RenderAbstractViewport.maybeOf() repeatedly to find '
+          'each enclosing viewport and chained ensureVisible calls.',
+    );
   }
 
   @override
@@ -1079,46 +1101,59 @@ class _Section5MaybeOfDemoState extends State<_Section5MaybeOfDemo> {
                             itemBuilder: (BuildContext c, int mid) {
                               return Container(
                                 width: 130,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 4),
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
                                 padding: const EdgeInsets.all(6),
                                 decoration: BoxDecoration(
                                   color: Colors.cyan.shade100,
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text('inner #$mid',
-                                        style: const TextStyle(fontSize: 11)),
+                                    Text(
+                                      'inner #$mid',
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
                                     Expanded(
                                       child: ListView.builder(
                                         itemCount: 5,
-                                        itemBuilder: (BuildContext c, int leaf) {
-                                          final bool isTarget =
-                                              outer == 6 && mid == 4 && leaf == 3;
-                                          return Container(
-                                            key: isTarget ? _leafKey : null,
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 2),
-                                            padding: const EdgeInsets.all(4),
-                                            decoration: BoxDecoration(
-                                              color: isTarget
-                                                  ? Colors.deepOrange.shade300
-                                                  : Colors.white,
-                                              border: Border.all(
-                                                  color: Colors.cyan.shade300),
-                                            ),
-                                            child: Text(
-                                              isTarget
-                                                  ? '★ target leaf'
-                                                  : 'leaf $leaf',
-                                              style: const TextStyle(
-                                                  fontSize: 10),
-                                            ),
-                                          );
-                                        },
+                                        itemBuilder:
+                                            (BuildContext c, int leaf) {
+                                              final bool isTarget =
+                                                  outer == 6 &&
+                                                  mid == 4 &&
+                                                  leaf == 3;
+                                              return Container(
+                                                key: isTarget ? _leafKey : null,
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 2,
+                                                    ),
+                                                padding: const EdgeInsets.all(
+                                                  4,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: isTarget
+                                                      ? Colors
+                                                            .deepOrange
+                                                            .shade300
+                                                      : Colors.white,
+                                                  border: Border.all(
+                                                    color: Colors.cyan.shade300,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  isTarget
+                                                      ? '★ target leaf'
+                                                      : 'leaf $leaf',
+                                                  style: const TextStyle(
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                       ),
                                     ),
                                   ],
@@ -1142,7 +1177,8 @@ class _Section5MaybeOfDemoState extends State<_Section5MaybeOfDemo> {
             _Note(_log, color: Colors.cyan),
             const _CodeCard(
               title: 'Pseudocode of the framework walk',
-              code: 'BuildContext? c = target;\n'
+              code:
+                  'BuildContext? c = target;\n'
                   'while (c != null) {\n'
                   '  final ro = c.findRenderObject();\n'
                   '  final v  = RenderAbstractViewport.maybeOf(ro);\n'
@@ -1210,7 +1246,8 @@ class _Section6RevealWithRectState extends State<_Section6RevealWithRect>
             ),
             const _CodeCard(
               title: 'API surface',
-              code: 'RevealedOffset rev = viewport.getOffsetToReveal(\n'
+              code:
+                  'RevealedOffset rev = viewport.getOffsetToReveal(\n'
                   '  bigChild,                  // RenderObject\n'
                   '  0.0,                       // alignment\n'
                   '  rect: const Rect.fromLTWH(0, 200, 100, 30),\n'
@@ -1228,8 +1265,7 @@ class _Section6RevealWithRectState extends State<_Section6RevealWithRect>
                     min: 0.0,
                     max: 1.0,
                     divisions: 20,
-                    onChanged: (double v) =>
-                        setSt(() => _alignment = v),
+                    onChanged: (double v) => setSt(() => _alignment = v),
                     label: _alignment.toStringAsFixed(2),
                   ),
                 ),
@@ -1408,8 +1444,10 @@ class _Section8NestedScrollView extends StatefulWidget {
 }
 
 class _Section8NestedScrollViewState extends State<_Section8NestedScrollView> {
-  final List<GlobalKey> _keys =
-      List<GlobalKey>.generate(40, (int i) => GlobalKey());
+  final List<GlobalKey> _keys = List<GlobalKey>.generate(
+    40,
+    (int i) => GlobalKey(),
+  );
 
   Future<void> _reveal(int i) async {
     final BuildContext? c = _keys[i].currentContext;
@@ -1475,9 +1513,7 @@ class _Section8NestedScrollViewState extends State<_Section8NestedScrollView> {
                             child: const Center(
                               child: Text(
                                 'Outer SliverAppBar',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
@@ -1520,8 +1556,10 @@ class _Section9PageViewReveal extends StatefulWidget {
 
 class _Section9PageViewRevealState extends State<_Section9PageViewReveal> {
   final PageController _pc = PageController(viewportFraction: 0.85);
-  final List<GlobalKey> _keys =
-      List<GlobalKey>.generate(8, (int i) => GlobalKey());
+  final List<GlobalKey> _keys = List<GlobalKey>.generate(
+    8,
+    (int i) => GlobalKey(),
+  );
 
   @override
   void dispose() {
@@ -1645,10 +1683,14 @@ class _Section10CustomScrollViewSlivers extends StatefulWidget {
 
 class _Section10CustomScrollViewSliversState
     extends State<_Section10CustomScrollViewSlivers> {
-  final List<GlobalKey> _listKeys =
-      List<GlobalKey>.generate(15, (int i) => GlobalKey());
-  final List<GlobalKey> _gridKeys =
-      List<GlobalKey>.generate(20, (int i) => GlobalKey());
+  final List<GlobalKey> _listKeys = List<GlobalKey>.generate(
+    15,
+    (int i) => GlobalKey(),
+  );
+  final List<GlobalKey> _gridKeys = List<GlobalKey>.generate(
+    20,
+    (int i) => GlobalKey(),
+  );
 
   Future<void> _reveal(GlobalKey k) async {
     final BuildContext? c = k.currentContext;
@@ -1728,7 +1770,9 @@ class _Section10CustomScrollViewSliversState
                           (BuildContext c, int i) => Container(
                             key: _listKeys[i],
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: Colors.lime.shade200,
@@ -1764,10 +1808,10 @@ class _Section10CustomScrollViewSliversState
                           ),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            mainAxisSpacing: 6,
-                            crossAxisSpacing: 6,
-                          ),
+                                crossAxisCount: 4,
+                                mainAxisSpacing: 6,
+                                crossAxisSpacing: 6,
+                              ),
                         ),
                       ),
                     ],
@@ -1811,28 +1855,32 @@ class _Section11DecisionCard extends StatelessWidget {
                   children: const <Widget>[
                     _DecisionRow(
                       api: 'Scrollable.ensureVisible(context, alignment:)',
-                      use: 'You have a BuildContext or RenderObject and want '
+                      use:
+                          'You have a BuildContext or RenderObject and want '
                           'to bring it on-screen at a given alignment. Walks '
                           'parent chain via RenderAbstractViewport.maybeOf.',
                     ),
                     Divider(),
                     _DecisionRow(
                       api: 'Scrollable.of(context).animateTo(offset)',
-                      use: 'You already know the absolute scroll offset and '
+                      use:
+                          'You already know the absolute scroll offset and '
                           'just want to drive ScrollPosition directly. Skips '
                           'the getOffsetToReveal computation.',
                     ),
                     Divider(),
                     _DecisionRow(
                       api: 'RenderObject.showOnScreen(descendant, rect)',
-                      use: 'Lower-level: targets a sub-rect inside a render '
+                      use:
+                          'Lower-level: targets a sub-rect inside a render '
                           'object. The render object asks every enclosing '
                           'viewport (via maybeOf) to reveal that rect.',
                     ),
                     Divider(),
                     _DecisionRow(
                       api: 'PageController.animateToPage(i)',
-                      use: 'PageView-only convenience that snaps to a page '
+                      use:
+                          'PageView-only convenience that snaps to a page '
                           'index. Internally still drives the underlying '
                           'RenderViewport scroll position.',
                     ),
@@ -1905,7 +1953,8 @@ class _Section12ImplementationSketch extends StatelessWidget {
             ),
             const _CodeCard(
               title: 'getOffsetToReveal — illustrative pseudocode',
-              code: 'RevealedOffset getOffsetToReveal(\n'
+              code:
+                  'RevealedOffset getOffsetToReveal(\n'
                   '  RenderObject target,\n'
                   '  double alignment, {\n'
                   '  Rect? rect,\n'
@@ -1992,54 +2041,87 @@ class _Section13ReferenceTable extends StatelessWidget {
                     DataColumn(label: Text('Purpose')),
                   ],
                   rows: const <DataRow>[
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('maybeOf(RenderObject?)')),
-                      DataCell(Text('static')),
-                      DataCell(Text(
-                          'Find the nearest RenderAbstractViewport ancestor; '
-                          'returns null if none.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('of(RenderObject)')),
-                      DataCell(Text('static')),
-                      DataCell(Text(
-                          'Same as maybeOf; asserts non-null. Used when the '
-                          'caller knows a viewport must exist.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('getOffsetToReveal(...)')),
-                      DataCell(Text('abstract')),
-                      DataCell(Text(
-                          'Compute the scroll offset that places `target` (or '
-                          'a sub-rect) at `alignment` along `axis`.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('defaultPaintOffset')),
-                      DataCell(Text('getter')),
-                      DataCell(Text(
-                          'Implicit paint bias inside the viewport.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('RevealedOffset')),
-                      DataCell(Text('value type')),
-                      DataCell(Text(
-                          '{ offset: double, rect: Rect } — return type of '
-                          'getOffsetToReveal.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('RenderViewport')),
-                      DataCell(Text('subclass')),
-                      DataCell(Text(
-                          'The standard scrolling viewport used by '
-                          'CustomScrollView, ListView, GridView.')),
-                    ]),
-                    DataRow(cells: <DataCell>[
-                      DataCell(Text('RenderShrinkWrappingViewport')),
-                      DataCell(Text('subclass')),
-                      DataCell(Text(
-                          'Variant whose main-axis extent shrink-wraps its '
-                          'children.')),
-                    ]),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('maybeOf(RenderObject?)')),
+                        DataCell(Text('static')),
+                        DataCell(
+                          Text(
+                            'Find the nearest RenderAbstractViewport ancestor; '
+                            'returns null if none.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('of(RenderObject)')),
+                        DataCell(Text('static')),
+                        DataCell(
+                          Text(
+                            'Same as maybeOf; asserts non-null. Used when the '
+                            'caller knows a viewport must exist.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('getOffsetToReveal(...)')),
+                        DataCell(Text('abstract')),
+                        DataCell(
+                          Text(
+                            'Compute the scroll offset that places `target` (or '
+                            'a sub-rect) at `alignment` along `axis`.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('defaultPaintOffset')),
+                        DataCell(Text('getter')),
+                        DataCell(
+                          Text('Implicit paint bias inside the viewport.'),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('RevealedOffset')),
+                        DataCell(Text('value type')),
+                        DataCell(
+                          Text(
+                            '{ offset: double, rect: Rect } — return type of '
+                            'getOffsetToReveal.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('RenderViewport')),
+                        DataCell(Text('subclass')),
+                        DataCell(
+                          Text(
+                            'The standard scrolling viewport used by '
+                            'CustomScrollView, ListView, GridView.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    DataRow(
+                      cells: <DataCell>[
+                        DataCell(Text('RenderShrinkWrappingViewport')),
+                        DataCell(Text('subclass')),
+                        DataCell(
+                          Text(
+                            'Variant whose main-axis extent shrink-wraps its '
+                            'children.',
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -2075,11 +2157,19 @@ class _SectionFooter extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text('• RenderViewport — flutter/rendering/viewport.dart'),
-          Text('• RenderShrinkWrappingViewport — flutter/rendering/viewport.dart'),
-          Text('• Scrollable, ScrollPosition — flutter/widgets/scrollable.dart'),
-          Text('• Scrollable.ensureVisible — convenience that drives the above'),
+          Text(
+            '• RenderShrinkWrappingViewport — flutter/rendering/viewport.dart',
+          ),
+          Text(
+            '• Scrollable, ScrollPosition — flutter/widgets/scrollable.dart',
+          ),
+          Text(
+            '• Scrollable.ensureVisible — convenience that drives the above',
+          ),
           Text('• RenderObject.showOnScreen — flutter/rendering/object.dart'),
-          Text('• NestedScrollView, PageView, CustomScrollView, ListView, GridView'),
+          Text(
+            '• NestedScrollView, PageView, CustomScrollView, ListView, GridView',
+          ),
           SizedBox(height: 8),
           Text(
             'RenderAbstractViewport is the abstract contract every scrolling '

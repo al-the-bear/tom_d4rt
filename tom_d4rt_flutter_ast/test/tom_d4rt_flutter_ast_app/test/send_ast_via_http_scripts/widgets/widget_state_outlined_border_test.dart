@@ -159,14 +159,7 @@ extension _WsobPseudoStateX on _WsobPseudoState {
 
 // ─────────────────────── shape catalogue ─────────────────────────────
 
-enum _WsobShapeKind {
-  rounded,
-  stadium,
-  circle,
-  continuousRect,
-  beveled,
-  star,
-}
+enum _WsobShapeKind { rounded, stadium, circle, continuousRect, beveled, star }
 
 extension _WsobShapeKindX on _WsobShapeKind {
   String get label {
@@ -299,10 +292,7 @@ class _WsobRecipe {
 class _WsobGlossaryEntry {
   final String term;
   final String definition;
-  const _WsobGlossaryEntry({
-    required this.term,
-    required this.definition,
-  });
+  const _WsobGlossaryEntry({required this.term, required this.definition});
 }
 
 class _WsobComparisonRow {
@@ -366,8 +356,8 @@ class _WsobPressBedPainter extends CustomPainter {
       final double y = (i + 0.5) * size.height / 14.0;
       final Path p = Path()..moveTo(6, y);
       for (double x = 6; x <= size.width - 6; x += 6) {
-        final double wy = y +
-            math.sin((x / size.width) * math.pi * 3 + i * 0.7) * 1.4;
+        final double wy =
+            y + math.sin((x / size.width) * math.pi * 3 + i * 0.7) * 1.4;
         p.lineTo(x, wy);
       }
       canvas.drawPath(p, grain);
@@ -390,14 +380,15 @@ class _WsobPressBedPainter extends CustomPainter {
     final double cradleRadius = math.min(size.width, size.height) * 0.36;
 
     final Paint cradleGlow = Paint()
-      ..shader = RadialGradient(
-        colors: <Color>[
-          brass.withValues(alpha: 0.28 + 0.18 * pulse),
-          mahoganyDeep.withValues(alpha: 0.0),
-        ],
-      ).createShader(
-        Rect.fromCircle(center: center, radius: cradleRadius * 1.3),
-      );
+      ..shader =
+          RadialGradient(
+            colors: <Color>[
+              brass.withValues(alpha: 0.28 + 0.18 * pulse),
+              mahoganyDeep.withValues(alpha: 0.0),
+            ],
+          ).createShader(
+            Rect.fromCircle(center: center, radius: cradleRadius * 1.3),
+          );
     canvas.drawCircle(center, cradleRadius * 1.3, cradleGlow);
 
     final Paint cradle = Paint()
@@ -417,9 +408,14 @@ class _WsobPressBedPainter extends CustomPainter {
       ..strokeWidth = 1.3;
     for (int i = 0; i < 24; i++) {
       final double a = (i / 24.0) * math.pi * 2;
-      final Offset o1 = center +
-          Offset(math.cos(a) * (cradleRadius + 6), math.sin(a) * (cradleRadius + 6));
-      final Offset o2 = center +
+      final Offset o1 =
+          center +
+          Offset(
+            math.cos(a) * (cradleRadius + 6),
+            math.sin(a) * (cradleRadius + 6),
+          );
+      final Offset o2 =
+          center +
           Offset(
             math.cos(a) * (cradleRadius + (i % 3 == 0 ? 14 : 10)),
             math.sin(a) * (cradleRadius + (i % 3 == 0 ? 14 : 10)),
@@ -459,8 +455,7 @@ class _WsobPressBedPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _WsobPressBedPainter old) =>
-      old.pulse != pulse;
+  bool shouldRepaint(covariant _WsobPressBedPainter old) => old.pulse != pulse;
 }
 
 /// Paints the hierarchy diagram showing
@@ -484,8 +479,7 @@ class _WsobHierarchyPainter extends CustomPainter {
       ..strokeWidth = 1.6
       ..style = PaintingStyle.stroke;
 
-    final Paint nodePaint = Paint()
-      ..color = lineColor.withValues(alpha: 0.18);
+    final Paint nodePaint = Paint()..color = lineColor.withValues(alpha: 0.18);
     final Paint nodeStroke = Paint()
       ..color = lineColor
       ..style = PaintingStyle.stroke
@@ -504,8 +498,14 @@ class _WsobHierarchyPainter extends CustomPainter {
       width: 150,
       height: 34,
     );
-    _drawLabelBox(canvas, top, 'ShapeBorder',
-        fill: nodePaint, stroke: nodeStroke, labelColor: labelColor);
+    _drawLabelBox(
+      canvas,
+      top,
+      'ShapeBorder',
+      fill: nodePaint,
+      stroke: nodeStroke,
+      labelColor: labelColor,
+    );
 
     // Middle node: OutlinedBorder
     final Rect mid = Rect.fromCenter(
@@ -513,8 +513,14 @@ class _WsobHierarchyPainter extends CustomPainter {
       width: 170,
       height: 34,
     );
-    _drawLabelBox(canvas, mid, 'OutlinedBorder',
-        fill: nodePaint, stroke: nodeStroke, labelColor: labelColor);
+    _drawLabelBox(
+      canvas,
+      mid,
+      'OutlinedBorder',
+      fill: nodePaint,
+      stroke: nodeStroke,
+      labelColor: labelColor,
+    );
 
     // Accent node: WidgetStateOutlinedBorder
     final Rect wsob = Rect.fromCenter(
@@ -522,8 +528,14 @@ class _WsobHierarchyPainter extends CustomPainter {
       width: 240,
       height: 38,
     );
-    _drawLabelBox(canvas, wsob, 'WidgetStateOutlinedBorder',
-        fill: accentPaint, stroke: accentStroke, labelColor: labelColor);
+    _drawLabelBox(
+      canvas,
+      wsob,
+      'WidgetStateOutlinedBorder',
+      fill: accentPaint,
+      stroke: accentStroke,
+      labelColor: labelColor,
+    );
 
     // Edges: top → mid, mid → wsob
     canvas.drawLine(
@@ -553,8 +565,14 @@ class _WsobHierarchyPainter extends CustomPainter {
     for (int i = 0; i < leaves.length; i++) {
       final double cx = step * (i + 1);
       final Rect leafRect = Rect.fromLTRB(cx - 34, leafTop, cx + 34, leafBot);
-      _drawLabelBox(canvas, leafRect, leaves[i],
-          fill: nodePaint, stroke: nodeStroke, labelColor: labelColor);
+      _drawLabelBox(
+        canvas,
+        leafRect,
+        leaves[i],
+        fill: nodePaint,
+        stroke: nodeStroke,
+        labelColor: labelColor,
+      );
       canvas.drawLine(
         Offset(size.width / 2, wsob.bottom),
         Offset(cx, leafY - 16),
@@ -626,8 +644,7 @@ class _WsobBurstPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _WsobBurstPainter old) =>
-      old.pulse != pulse;
+  bool shouldRepaint(covariant _WsobBurstPainter old) => old.pulse != pulse;
 }
 
 // ═════════════════════════════════════════════════════════════════════
@@ -692,8 +709,7 @@ class _WsobHome extends StatefulWidget {
   State<_WsobHome> createState() => _WsobHomeState();
 }
 
-class _WsobHomeState extends State<_WsobHome>
-    with TickerProviderStateMixin {
+class _WsobHomeState extends State<_WsobHome> with TickerProviderStateMixin {
   late final AnimationController _pressController;
   late final AnimationController _morphController;
 
@@ -968,8 +984,10 @@ class _WsobDossier extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _wsobBrass.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(10),
@@ -999,8 +1017,8 @@ class _WsobDossier extends StatelessWidget {
               final int columns = cons.maxWidth >= 900
                   ? 3
                   : cons.maxWidth >= 560
-                      ? 2
-                      : 1;
+                  ? 2
+                  : 1;
               return Wrap(
                 spacing: 12,
                 runSpacing: 12,
@@ -1186,11 +1204,7 @@ class _WsobAnatomyDeclaration extends StatelessWidget {
             'type while also keeping it usable as a plain abstract base. '
             'The private _WidgetStateOutlinedBorderMapper implementation is '
             'what .fromMap returns.',
-            style: TextStyle(
-              color: _wsobMute,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _wsobMute, fontSize: 12, height: 1.4),
           ),
         ],
       ),
@@ -1402,11 +1416,7 @@ class _WsobPill extends StatelessWidget {
   final String label;
   final Color color;
   final IconData? icon;
-  const _WsobPill({
-    required this.label,
-    required this.color,
-    this.icon,
-  });
+  const _WsobPill({required this.label, required this.color, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -1453,7 +1463,8 @@ class _WsobMedallion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OutlinedBorder border = _buildStateBorder().resolve(state.asSet) ??
+    final OutlinedBorder border =
+        _buildStateBorder().resolve(state.asSet) ??
         const RoundedRectangleBorder();
     final Color fill = state.tint.withValues(alpha: 0.18);
     return Stack(
@@ -1463,10 +1474,7 @@ class _WsobMedallion extends StatelessWidget {
           width: size * 1.4,
           height: size * 1.4,
           child: CustomPaint(
-            painter: _WsobBurstPainter(
-              pulse: pressPulse,
-              accent: state.tint,
-            ),
+            painter: _WsobBurstPainter(pulse: pressPulse, accent: state.tint),
           ),
         ),
         Material(
@@ -1593,11 +1601,7 @@ class _WsobLivePress extends StatelessWidget {
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  press,
-                  const SizedBox(height: 14),
-                  toggles,
-                ],
+                children: <Widget>[press, const SizedBox(height: 14), toggles],
               );
             },
           ),
@@ -1644,11 +1648,7 @@ class _WsobPressBed extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, -4 + 6 * (1 - t)),
-                child: _WsobMedallion(
-                  state: state,
-                  size: 118,
-                  pressPulse: t,
-                ),
+                child: _WsobMedallion(state: state, size: 118, pressPulse: t),
               ),
               Positioned(
                 left: 14,
@@ -1742,9 +1742,7 @@ class _WsobStateToggle extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 7),
         decoration: BoxDecoration(
-          color: selected
-              ? tint.withValues(alpha: 0.18)
-              : _wsobPaper,
+          color: selected ? tint.withValues(alpha: 0.18) : _wsobPaper,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: selected ? tint : _wsobPaperEdge,
@@ -1803,8 +1801,8 @@ class _WsobShapeLibrary extends StatelessWidget {
               final int columns = cons.maxWidth >= 900
                   ? 3
                   : cons.maxWidth >= 560
-                      ? 2
-                      : 1;
+                  ? 2
+                  : 1;
               final List<_WsobShapeKind> kinds = _WsobShapeKind.values;
               return Wrap(
                 spacing: 12,
@@ -1916,27 +1914,27 @@ class _WsobButtonShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final WidgetStateOutlinedBorder buttonShape =
         WidgetStateOutlinedBorder.fromMap(
-      <WidgetStatesConstraint, OutlinedBorder?>{
-        WidgetState.disabled: const StadiumBorder(
-          side: BorderSide(color: _wsobMute, width: 1.0),
-        ),
-        WidgetState.pressed: const CircleBorder(
-          side: BorderSide(color: _wsobAccent, width: 3.0),
-        ),
-        WidgetState.hovered: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28),
-          side: const BorderSide(color: _wsobBrassBright, width: 1.6),
-        ),
-        WidgetState.focused: StarBorder(
-          points: 5,
-          side: const BorderSide(color: _wsobBrass, width: 2.0),
-        ),
-        WidgetState.any: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: const BorderSide(color: _wsobPewterEdge, width: 1.0),
-        ),
-      },
-    );
+          <WidgetStatesConstraint, OutlinedBorder?>{
+            WidgetState.disabled: const StadiumBorder(
+              side: BorderSide(color: _wsobMute, width: 1.0),
+            ),
+            WidgetState.pressed: const CircleBorder(
+              side: BorderSide(color: _wsobAccent, width: 3.0),
+            ),
+            WidgetState.hovered: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
+              side: const BorderSide(color: _wsobBrassBright, width: 1.6),
+            ),
+            WidgetState.focused: StarBorder(
+              points: 5,
+              side: const BorderSide(color: _wsobBrass, width: 2.0),
+            ),
+            WidgetState.any: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+              side: const BorderSide(color: _wsobPewterEdge, width: 1.0),
+            ),
+          },
+        );
 
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 6, 16, 10),
@@ -1976,63 +1974,71 @@ class _WsobButtonShowcase extends StatelessWidget {
             children: <Widget>[
               OutlinedButton(
                 onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: _wsobInk,
-                  side: const BorderSide(color: _wsobBrassDeep, width: 1.2),
-                ).copyWith(
-                  shape: WidgetStateProperty.all<OutlinedBorder?>(
-                    buttonShape.resolve(<WidgetState>{}),
-                  ),
-                ),
+                style:
+                    OutlinedButton.styleFrom(
+                      foregroundColor: _wsobInk,
+                      side: const BorderSide(color: _wsobBrassDeep, width: 1.2),
+                    ).copyWith(
+                      shape: WidgetStateProperty.all<OutlinedBorder?>(
+                        buttonShape.resolve(<WidgetState>{}),
+                      ),
+                    ),
                 child: const Text('Outlined (idle)'),
               ),
               FilledButton(
                 onPressed: () {},
-                style: FilledButton.styleFrom(
-                  backgroundColor: _wsobBrass,
-                  foregroundColor: _wsobInk,
-                ).copyWith(
-                  shape: WidgetStateProperty.all<OutlinedBorder?>(
-                    buttonShape.resolve(<WidgetState>{WidgetState.hovered}),
-                  ),
-                ),
+                style:
+                    FilledButton.styleFrom(
+                      backgroundColor: _wsobBrass,
+                      foregroundColor: _wsobInk,
+                    ).copyWith(
+                      shape: WidgetStateProperty.all<OutlinedBorder?>(
+                        buttonShape.resolve(<WidgetState>{WidgetState.hovered}),
+                      ),
+                    ),
                 child: const Text('Filled (hovered resolve)'),
               ),
               ElevatedButton(
                 onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _wsobAccent,
-                  foregroundColor: _wsobCream,
-                ).copyWith(
-                  shape: WidgetStateProperty.all<OutlinedBorder?>(
-                    buttonShape.resolve(<WidgetState>{WidgetState.focused}),
-                  ),
-                ),
+                style:
+                    ElevatedButton.styleFrom(
+                      backgroundColor: _wsobAccent,
+                      foregroundColor: _wsobCream,
+                    ).copyWith(
+                      shape: WidgetStateProperty.all<OutlinedBorder?>(
+                        buttonShape.resolve(<WidgetState>{WidgetState.focused}),
+                      ),
+                    ),
                 child: const Text('Elevated (focused resolve)'),
               ),
               FilledButton(
                 onPressed: null,
-                style: FilledButton.styleFrom(
-                  disabledBackgroundColor:
-                      _wsobMute.withValues(alpha: 0.25),
-                  disabledForegroundColor: _wsobMute,
-                ).copyWith(
-                  shape: WidgetStateProperty.all<OutlinedBorder?>(
-                    buttonShape.resolve(<WidgetState>{WidgetState.disabled}),
-                  ),
-                ),
+                style:
+                    FilledButton.styleFrom(
+                      disabledBackgroundColor: _wsobMute.withValues(
+                        alpha: 0.25,
+                      ),
+                      disabledForegroundColor: _wsobMute,
+                    ).copyWith(
+                      shape: WidgetStateProperty.all<OutlinedBorder?>(
+                        buttonShape.resolve(<WidgetState>{
+                          WidgetState.disabled,
+                        }),
+                      ),
+                    ),
                 child: const Text('Disabled'),
               ),
               OutlinedButton(
                 onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: _wsobAccent,
-                  side: const BorderSide(color: _wsobAccent, width: 2),
-                ).copyWith(
-                  shape: WidgetStateProperty.all<OutlinedBorder?>(
-                    buttonShape.resolve(<WidgetState>{WidgetState.pressed}),
-                  ),
-                ),
+                style:
+                    OutlinedButton.styleFrom(
+                      foregroundColor: _wsobAccent,
+                      side: const BorderSide(color: _wsobAccent, width: 2),
+                    ).copyWith(
+                      shape: WidgetStateProperty.all<OutlinedBorder?>(
+                        buttonShape.resolve(<WidgetState>{WidgetState.pressed}),
+                      ),
+                    ),
                 child: const Text('Pressed resolve'),
               ),
             ],
@@ -2072,20 +2078,20 @@ class _WsobChipShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     final WidgetStateOutlinedBorder chipShape =
         WidgetStateOutlinedBorder.fromMap(
-      <WidgetStatesConstraint, OutlinedBorder?>{
-        WidgetState.selected: StarBorder(
-          points: 5,
-          side: const BorderSide(color: _wsobSuccess, width: 2),
-        ),
-        WidgetState.disabled: const StadiumBorder(
-          side: BorderSide(color: _wsobMute, width: 1),
-        ),
-        WidgetState.any: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: _wsobBrassDeep, width: 1.2),
-        ),
-      },
-    );
+          <WidgetStatesConstraint, OutlinedBorder?>{
+            WidgetState.selected: StarBorder(
+              points: 5,
+              side: const BorderSide(color: _wsobSuccess, width: 2),
+            ),
+            WidgetState.disabled: const StadiumBorder(
+              side: BorderSide(color: _wsobMute, width: 1),
+            ),
+            WidgetState.any: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: const BorderSide(color: _wsobBrassDeep, width: 1.2),
+            ),
+          },
+        );
 
     final OutlinedBorder? choiceShape = chipShape.resolve(
       selected ? <WidgetState>{WidgetState.selected} : <WidgetState>{},
@@ -2109,8 +2115,7 @@ class _WsobChipShowcase extends StatelessWidget {
             icon: Icons.token_outlined,
             accent: _wsobAccent,
             title: 'Section 6 — Chip showcase',
-            subtitle:
-                'ChoiceChip / FilterChip toggled → star when selected',
+            subtitle: 'ChoiceChip / FilterChip toggled → star when selected',
           ),
           const SizedBox(height: 14),
           Wrap(
@@ -2245,11 +2250,7 @@ class _WsobMorphSection extends StatelessWidget {
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  stage,
-                  const SizedBox(height: 14),
-                  pickers,
-                ],
+                children: <Widget>[stage, const SizedBox(height: 14), pickers],
               );
             },
           ),
@@ -2292,9 +2293,7 @@ class _WsobMorphStage extends StatelessWidget {
             const BorderSide(color: _wsobAccent, width: 2),
           );
           final ShapeBorder? blended = ShapeBorder.lerp(a, b, t);
-          final OutlinedBorder final0 = blended is OutlinedBorder
-              ? blended
-              : a;
+          final OutlinedBorder final0 = blended is OutlinedBorder ? blended : a;
           return Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
@@ -2560,10 +2559,7 @@ class _WsobComparisonTable extends StatelessWidget {
               children: <Widget>[
                 const _WsobComparisonHeader(),
                 ...List<Widget>.generate(rows.length, (int i) {
-                  return _WsobComparisonRowView(
-                    row: rows[i],
-                    alt: i.isEven,
-                  );
+                  return _WsobComparisonRowView(row: rows[i], alt: i.isEven);
                 }),
               ],
             ),
@@ -2651,8 +2647,7 @@ class _WsobRecipeCards extends StatelessWidget {
         accent: _wsobSuccess,
         title: 'Selected → star',
         stateExpr: 'WidgetState.selected',
-        shapeExpr:
-            'StarBorder(points: 5, side: BorderSide(gold, 2))',
+        shapeExpr: 'StarBorder(points: 5, side: BorderSide(gold, 2))',
         explanation:
             'The classic celebratory shape for an active choice.  Keep the '
             'side width around 2 so the star silhouette reads cleanly at '
@@ -2685,8 +2680,7 @@ class _WsobRecipeCards extends StatelessWidget {
         accent: _wsobError,
         title: 'Error → tiny-radius rectangle',
         stateExpr: 'WidgetState.error',
-        shapeExpr:
-            'RoundedRectangleBorder(borderRadius: 6, side: err2)',
+        shapeExpr: 'RoundedRectangleBorder(borderRadius: 6, side: err2)',
         explanation:
             'Sharp corners read as "something is wrong" in the M3 shape '
             'language.  Combine with a red 2-px side for a strong signal '
@@ -2750,8 +2744,8 @@ class _WsobRecipeCards extends StatelessWidget {
               final int columns = cons.maxWidth >= 920
                   ? 3
                   : cons.maxWidth >= 620
-                      ? 2
-                      : 1;
+                  ? 2
+                  : 1;
               return Wrap(
                 spacing: 12,
                 runSpacing: 12,

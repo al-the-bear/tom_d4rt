@@ -21,17 +21,22 @@ dynamic build(BuildContext context) {
   // ============================================================
   // Sentinel instances we will visualize across the page.
   // ============================================================
-  final DeviceGestureSettings androidPhone =
-      DeviceGestureSettings(touchSlop: 18.0);
+  final DeviceGestureSettings androidPhone = DeviceGestureSettings(
+    touchSlop: 18.0,
+  );
   final DeviceGestureSettings iosPhone = DeviceGestureSettings(touchSlop: 12.0);
-  final DeviceGestureSettings desktopMouse =
-      DeviceGestureSettings(touchSlop: 4.0);
-  final DeviceGestureSettings tabletLarge =
-      DeviceGestureSettings(touchSlop: 24.0);
-  final DeviceGestureSettings unsetSlop =
-      DeviceGestureSettings(touchSlop: null);
-  final DeviceGestureSettings androidPhoneCopy =
-      DeviceGestureSettings(touchSlop: 18.0);
+  final DeviceGestureSettings desktopMouse = DeviceGestureSettings(
+    touchSlop: 4.0,
+  );
+  final DeviceGestureSettings tabletLarge = DeviceGestureSettings(
+    touchSlop: 24.0,
+  );
+  final DeviceGestureSettings unsetSlop = DeviceGestureSettings(
+    touchSlop: null,
+  );
+  final DeviceGestureSettings androidPhoneCopy = DeviceGestureSettings(
+    touchSlop: 18.0,
+  );
 
   final bool equality1 = androidPhone == androidPhoneCopy;
   final bool equality2 = androidPhone == iosPhone;
@@ -227,10 +232,7 @@ dynamic build(BuildContext context) {
                     radiusValue: androidPhone.panSlop ?? 0.0,
                     color: Color(0xFF8D6E63),
                     gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0x228D6E63),
-                        Color(0x668D6E63),
-                      ],
+                      colors: <Color>[Color(0x228D6E63), Color(0x668D6E63)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -242,10 +244,7 @@ dynamic build(BuildContext context) {
                     radiusValue: androidPhone.touchSlop ?? 0.0,
                     color: Color(0xFFD84315),
                     gradient: LinearGradient(
-                      colors: <Color>[
-                        Color(0x33D84315),
-                        Color(0x77D84315),
-                      ],
+                      colors: <Color>[Color(0x33D84315), Color(0x77D84315)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -285,16 +284,16 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.lightbulb_outline,
-                  color: Color(0xFFFFA000), size: 18.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Color(0xFFFFA000),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Inside touchSlop ring → tap. Outside → drag escalation.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xFF6D4C41),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFF6D4C41)),
                 ),
               ),
             ],
@@ -628,8 +627,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded,
-                color: Color(0xFFC62828), size: 24.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFC62828),
+              size: 24.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls & sharp edges',
@@ -691,8 +693,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.compare_arrows,
-                color: Color(0xFF6A1B9A), size: 24.0),
+            Icon(Icons.compare_arrows, color: Color(0xFF6A1B9A), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Equality & live values',
@@ -709,14 +710,26 @@ dynamic build(BuildContext context) {
           spacing: 10.0,
           runSpacing: 10.0,
           children: <Widget>[
-            _miniMetric('androidPhone == androidPhoneCopy', '$equality1',
-                Color(0xFF2E7D32)),
             _miniMetric(
-                'androidPhone == iosPhone', '$equality2', Color(0xFFC62828)),
-            _miniMetric('hashA == hashB', '${hashA == hashB}',
-                Color(0xFF1565C0)),
-            _miniMetric('hashA == hashC', '${hashA == hashC}',
-                Color(0xFFAD1457)),
+              'androidPhone == androidPhoneCopy',
+              '$equality1',
+              Color(0xFF2E7D32),
+            ),
+            _miniMetric(
+              'androidPhone == iosPhone',
+              '$equality2',
+              Color(0xFFC62828),
+            ),
+            _miniMetric(
+              'hashA == hashB',
+              '${hashA == hashB}',
+              Color(0xFF1565C0),
+            ),
+            _miniMetric(
+              'hashA == hashC',
+              '${hashA == hashC}',
+              Color(0xFFAD1457),
+            ),
             _miniMetric('toString()', description, Color(0xFF4E342E)),
           ],
         ),
@@ -739,15 +752,18 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 6.0),
-              Text('hashA = $hashA',
-                  style: TextStyle(
-                      fontFamily: 'monospace', fontSize: 12.0)),
-              Text('hashB = $hashB',
-                  style: TextStyle(
-                      fontFamily: 'monospace', fontSize: 12.0)),
-              Text('hashC = $hashC',
-                  style: TextStyle(
-                      fontFamily: 'monospace', fontSize: 12.0)),
+              Text(
+                'hashA = $hashA',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+              ),
+              Text(
+                'hashB = $hashB',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+              ),
+              Text(
+                'hashC = $hashC',
+                style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+              ),
             ],
           ),
         ),
@@ -781,8 +797,7 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.bookmark_border,
-                color: Color(0xFFE65100), size: 24.0),
+            Icon(Icons.bookmark_border, color: Color(0xFFE65100), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Quick reference',
@@ -807,14 +822,15 @@ dynamic build(BuildContext context) {
           },
           children: <TableRow>[
             _refRow('Member', 'Notes', header: true),
-            _refRow('touchSlop',
-                'final double? — null-safe, in logical pixels'),
+            _refRow(
+              'touchSlop',
+              'final double? — null-safe, in logical pixels',
+            ),
             _refRow('panSlop', 'getter — touchSlop * 2 or null'),
             _refRow('hashCode', 'Object.hash(touchSlop, 23)'),
             _refRow('operator ==', 'value equality on touchSlop only'),
             _refRow('fromView(view)', 'factory from FlutterView'),
-            _refRow('toString()',
-                "'DeviceGestureSettings(touchSlop: ...)'"),
+            _refRow('toString()', "'DeviceGestureSettings(touchSlop: ...)'"),
           ],
         ),
         SizedBox(height: 12.0),
@@ -830,16 +846,16 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.tips_and_updates,
-                  color: Color(0xFFFFA000), size: 18.0),
+              Icon(
+                Icons.tips_and_updates,
+                color: Color(0xFFFFA000),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Tip: prefer reading from MediaQuery so OS-level a11y settings reach your recognizer.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xFF6D4C41),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFF6D4C41)),
                 ),
               ),
             ],
@@ -1073,10 +1089,7 @@ Widget _fieldCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          accent.withValues(alpha: 0.08),
-        ],
+        colors: <Color>[Colors.white, accent.withValues(alpha: 0.08)],
       ),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: accent.withValues(alpha: 0.4), width: 1.5),
@@ -1146,8 +1159,7 @@ Widget _fieldCard({
           ),
           child: Row(
             children: <Widget>[
-              Icon(Icons.chevron_right,
-                  size: 14.0, color: Color(0xFF455A64)),
+              Icon(Icons.chevron_right, size: 14.0, color: Color(0xFF455A64)),
               SizedBox(width: 4.0),
               Expanded(
                 child: Text(
@@ -1178,8 +1190,9 @@ Widget _platformCard({
   final String slop = settings.touchSlop != null
       ? settings.touchSlop!.toStringAsFixed(1)
       : 'null';
-  final String pan =
-      settings.panSlop != null ? settings.panSlop!.toStringAsFixed(1) : 'null';
+  final String pan = settings.panSlop != null
+      ? settings.panSlop!.toStringAsFixed(1)
+      : 'null';
   return Container(
     width: 160.0,
     padding: EdgeInsets.all(12.0),
@@ -1187,10 +1200,7 @@ Widget _platformCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          accent.withValues(alpha: 0.12),
-        ],
+        colors: <Color>[Colors.white, accent.withValues(alpha: 0.12)],
       ),
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: accent, width: 1.5),
@@ -1395,10 +1405,7 @@ Widget _recipeCard({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             SizedBox(width: 6.0),
             Text(
@@ -1454,8 +1461,7 @@ Widget _pitfallCard({required String title, required String body}) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(Icons.error_outline,
-              color: Color(0xFFC62828), size: 18.0),
+          Icon(Icons.error_outline, color: Color(0xFFC62828), size: 18.0),
           SizedBox(width: 8.0),
           Expanded(
             child: Column(
@@ -1471,10 +1477,7 @@ Widget _pitfallCard({required String title, required String body}) {
                 SizedBox(height: 4.0),
                 Text(
                   body,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xFF424242),
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Color(0xFF424242)),
                 ),
               ],
             ),
@@ -1492,10 +1495,7 @@ Widget _miniMetric(String label, String value, Color accent) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          accent.withValues(alpha: 0.12),
-        ],
+        colors: <Color>[Colors.white, accent.withValues(alpha: 0.12)],
       ),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: accent.withValues(alpha: 0.5), width: 1.0),
@@ -1528,9 +1528,7 @@ Widget _miniMetric(String label, String value, Color accent) {
 
 TableRow _refRow(String left, String right, {bool header = false}) {
   return TableRow(
-    decoration: BoxDecoration(
-      color: header ? Color(0xFFFFE0B2) : Colors.white,
-    ),
+    decoration: BoxDecoration(color: header ? Color(0xFFFFE0B2) : Colors.white),
     children: <Widget>[
       Padding(
         padding: EdgeInsets.all(8.0),

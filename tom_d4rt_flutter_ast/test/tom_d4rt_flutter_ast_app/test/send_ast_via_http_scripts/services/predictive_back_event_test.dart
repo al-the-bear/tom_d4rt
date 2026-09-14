@@ -28,7 +28,11 @@ Widget _pbSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _pbLightTeal, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x1A000000),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -40,9 +44,14 @@ Widget _pbSection(String title, List<Widget> children) {
             color: _pbJade,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _pbWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _pbWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -54,17 +63,24 @@ Widget _pbSection(String title, List<Widget> children) {
 Widget _pbLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _pbDeepTeal, fontSize: 13, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _pbDeepTeal,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _pbBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _pbGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _pbGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -77,8 +93,10 @@ Widget _pbChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(label,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -90,13 +108,20 @@ Widget _pbInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 120,
-          child: Text(key,
-              style: const TextStyle(
-                  color: _pbDeepTeal, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: _pbDeepTeal,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: const TextStyle(color: _pbGray, fontSize: 12)),
+          child: Text(
+            value,
+            style: const TextStyle(color: _pbGray, fontSize: 12),
+          ),
         ),
       ],
     ),
@@ -174,17 +199,26 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(color: Color(0x4000695C), blurRadius: 12, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x4000695C),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.swipe_left, size: 52, color: _pbWhite),
         const SizedBox(height: 12),
-        const Text('PredictiveBackEvent',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: _pbWhite, fontSize: 22, fontWeight: FontWeight.w800)),
+        const Text(
+          'PredictiveBackEvent',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _pbWhite,
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -243,16 +277,31 @@ Widget _buildWhatIsIt() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildTimelineItem('Android 10', 'Gesture navigation introduced (swipe from edge)',
-              _pbGray),
-          _buildTimelineItem('Android 12', 'Back gesture animation hints added',
-              _pbGray),
-          _buildTimelineItem('Android 13', 'Predictive back API preview (opt-in)',
-              _pbMedTeal),
-          _buildTimelineItem('Android 14', 'PredictiveBackEvent API finalized',
-              _pbJade),
-          _buildTimelineItem('Android 15+', 'Required for all apps targeting SDK 35+',
-              _pbDeepTeal),
+          _buildTimelineItem(
+            'Android 10',
+            'Gesture navigation introduced (swipe from edge)',
+            _pbGray,
+          ),
+          _buildTimelineItem(
+            'Android 12',
+            'Back gesture animation hints added',
+            _pbGray,
+          ),
+          _buildTimelineItem(
+            'Android 13',
+            'Predictive back API preview (opt-in)',
+            _pbMedTeal,
+          ),
+          _buildTimelineItem(
+            'Android 14',
+            'PredictiveBackEvent API finalized',
+            _pbJade,
+          ),
+          _buildTimelineItem(
+            'Android 15+',
+            'Required for all apps targeting SDK 35+',
+            _pbDeepTeal,
+          ),
         ],
       ),
     ),
@@ -272,15 +321,22 @@ Widget _buildTimelineItem(String version, String description, Color color) {
             color: color.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(version,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+          child: Text(
+            version,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(description,
-              style: const TextStyle(color: _pbGray, fontSize: 11.5)),
+          child: Text(
+            description,
+            style: const TextStyle(color: _pbGray, fontSize: 11.5),
+          ),
         ),
       ],
     ),
@@ -313,9 +369,14 @@ Widget _buildAndroidPredictiveBackConcept() {
               children: [
                 const Icon(Icons.arrow_back, size: 28, color: _pbGray),
                 const SizedBox(height: 6),
-                const Text('Traditional Back',
-                    style: TextStyle(
-                        color: _pbGray, fontSize: 13, fontWeight: FontWeight.w700)),
+                const Text(
+                  'Traditional Back',
+                  style: TextStyle(
+                    color: _pbGray,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 _pbBody('Tap/swipe → instant action'),
                 _pbBody('No preview of destination'),
@@ -338,9 +399,14 @@ Widget _buildAndroidPredictiveBackConcept() {
               children: [
                 const Icon(Icons.swipe_left, size: 28, color: _pbJade),
                 const SizedBox(height: 6),
-                const Text('Predictive Back ★',
-                    style: TextStyle(
-                        color: _pbJade, fontSize: 13, fontWeight: FontWeight.w700)),
+                const Text(
+                  'Predictive Back ★',
+                  style: TextStyle(
+                    color: _pbJade,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 _pbBody('Swipe → live preview animates'),
                 _pbBody('Shows where you\'re going'),
@@ -375,18 +441,30 @@ Widget _buildEventProperties() {
     ),
     _pbDivider(),
     // Property cards
-    _buildPropertyCard('touchOffset', 'Offset',
-        'The (x, y) position of the finger on screen in logical pixels. '
-        'Updates continuously as the user moves their finger.',
-        Icons.touch_app, _pbJade),
-    _buildPropertyCard('progress', 'double (0.0 → 1.0)',
-        'How far the gesture has progressed. 0.0 = just started, '
-        '1.0 = fully committed. Typically 0.3+ triggers the back action.',
-        Icons.linear_scale, _pbMedTeal),
-    _buildPropertyCard('swipeEdge', 'SwipeEdge (left | right)',
-        'Which screen edge the swipe started from. Users can swipe '
-        'from either edge to trigger back navigation.',
-        Icons.swap_horiz, _pbAccentAmber),
+    _buildPropertyCard(
+      'touchOffset',
+      'Offset',
+      'The (x, y) position of the finger on screen in logical pixels. '
+          'Updates continuously as the user moves their finger.',
+      Icons.touch_app,
+      _pbJade,
+    ),
+    _buildPropertyCard(
+      'progress',
+      'double (0.0 → 1.0)',
+      'How far the gesture has progressed. 0.0 = just started, '
+          '1.0 = fully committed. Typically 0.3+ triggers the back action.',
+      Icons.linear_scale,
+      _pbMedTeal,
+    ),
+    _buildPropertyCard(
+      'swipeEdge',
+      'SwipeEdge (left | right)',
+      'Which screen edge the swipe started from. Users can swipe '
+          'from either edge to trigger back navigation.',
+      Icons.swap_horiz,
+      _pbAccentAmber,
+    ),
     _pbDivider(),
     _pbLabel('SwipeEdge Enum'),
     Row(
@@ -403,9 +481,14 @@ Widget _buildEventProperties() {
               children: [
                 const Icon(Icons.arrow_forward, size: 24, color: _pbJade),
                 const SizedBox(height: 4),
-                const Text('SwipeEdge.left',
-                    style: TextStyle(
-                        color: _pbJade, fontSize: 12, fontWeight: FontWeight.w700)),
+                const Text(
+                  'SwipeEdge.left',
+                  style: TextStyle(
+                    color: _pbJade,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _pbBody('Swipe from left edge\nRight-handed typical'),
               ],
@@ -425,11 +508,14 @@ Widget _buildEventProperties() {
               children: [
                 const Icon(Icons.arrow_back, size: 24, color: _pbAccentAmber),
                 const SizedBox(height: 4),
-                const Text('SwipeEdge.right',
-                    style: TextStyle(
-                        color: _pbAccentAmber,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'SwipeEdge.right',
+                  style: TextStyle(
+                    color: _pbAccentAmber,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _pbBody('Swipe from right edge\nLeft-handed typical'),
               ],
@@ -442,7 +528,12 @@ Widget _buildEventProperties() {
 }
 
 Widget _buildPropertyCard(
-    String name, String type, String desc, IconData icon, Color color) {
+  String name,
+  String type,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(12),
@@ -470,18 +561,29 @@ Widget _buildPropertyCard(
             children: [
               Row(
                 children: [
-                  Text(name,
-                      style: TextStyle(
-                          color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(width: 8),
-                  Text(type,
-                      style: TextStyle(
-                          color: color.withValues(alpha: 0.6), fontSize: 11)),
+                  Text(
+                    type,
+                    style: TextStyle(
+                      color: color.withValues(alpha: 0.6),
+                      fontSize: 11,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(desc,
-                  style: const TextStyle(color: _pbGray, fontSize: 11.5)),
+              Text(
+                desc,
+                style: const TextStyle(color: _pbGray, fontSize: 11.5),
+              ),
             ],
           ),
         ),
@@ -502,19 +604,36 @@ Widget _buildProgressVisualization() {
     ),
     _pbDivider(),
     // Progress bar stages
-    _buildProgressStage(0.0, 'Gesture Start',
-        'Finger just touched the edge. No visual change yet.', _pbLightTeal),
-    _buildProgressStage(0.1, 'Initial Drag',
-        'Slight shrink begins. App starts scaling down.', _pbMedTeal),
-    _buildProgressStage(0.3, 'Threshold',
-        'Enough drag to trigger back if released. Previous screen peeks through.',
-        _pbJade),
-    _buildProgressStage(0.6, 'Mid Gesture',
-        'App is noticeably smaller. Destination clearly visible behind.',
-        _pbDeepTeal),
-    _buildProgressStage(1.0, 'Fully Committed',
-        'Maximum drag reached. Back action will definitely execute.',
-        _pbDarkGray),
+    _buildProgressStage(
+      0.0,
+      'Gesture Start',
+      'Finger just touched the edge. No visual change yet.',
+      _pbLightTeal,
+    ),
+    _buildProgressStage(
+      0.1,
+      'Initial Drag',
+      'Slight shrink begins. App starts scaling down.',
+      _pbMedTeal,
+    ),
+    _buildProgressStage(
+      0.3,
+      'Threshold',
+      'Enough drag to trigger back if released. Previous screen peeks through.',
+      _pbJade,
+    ),
+    _buildProgressStage(
+      0.6,
+      'Mid Gesture',
+      'App is noticeably smaller. Destination clearly visible behind.',
+      _pbDeepTeal,
+    ),
+    _buildProgressStage(
+      1.0,
+      'Fully Committed',
+      'Maximum drag reached. Back action will definitely execute.',
+      _pbDarkGray,
+    ),
     _pbDivider(),
     // Visual progress demo
     _pbLabel('Visual Effect at Different Progress Values'),
@@ -544,7 +663,11 @@ Widget _buildProgressVisualization() {
 }
 
 Widget _buildProgressStage(
-    double progress, String stage, String desc, Color color) {
+  double progress,
+  String stage,
+  String desc,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -557,9 +680,14 @@ Widget _buildProgressStage(
             borderRadius: BorderRadius.circular(6),
           ),
           child: Center(
-            child: Text(progress.toStringAsFixed(1),
-                style: TextStyle(
-                    color: color, fontSize: 12, fontWeight: FontWeight.w800)),
+            child: Text(
+              progress.toStringAsFixed(1),
+              style: TextStyle(
+                color: color,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -567,11 +695,15 @@ Widget _buildProgressStage(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(stage,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _pbGray, fontSize: 11)),
+              Text(
+                stage,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _pbGray, fontSize: 11)),
             ],
           ),
         ),
@@ -603,13 +735,17 @@ Widget _buildMiniPhone(double progress, String label) {
                   height: 64,
                   decoration: BoxDecoration(
                     color: _pbJade.withValues(alpha: opacity),
-                    borderRadius: BorderRadius.circular(cornerRadius.clamp(2.0, 16.0)),
+                    borderRadius: BorderRadius.circular(
+                      cornerRadius.clamp(2.0, 16.0),
+                    ),
                     border: Border.all(color: _pbDeepTeal),
                   ),
                   child: Center(
-                    child: Icon(Icons.article,
-                        size: 16,
-                        color: _pbWhite.withValues(alpha: opacity)),
+                    child: Icon(
+                      Icons.article,
+                      size: 16,
+                      color: _pbWhite.withValues(alpha: opacity),
+                    ),
                   ),
                 ),
               ),
@@ -617,8 +753,7 @@ Widget _buildMiniPhone(double progress, String label) {
           ),
         ),
         const SizedBox(height: 4),
-        Text(label,
-            style: const TextStyle(color: _pbGray, fontSize: 9)),
+        Text(label, style: const TextStyle(color: _pbGray, fontSize: 9)),
       ],
     ),
   );
@@ -663,9 +798,14 @@ Widget _buildSwipeEdgeDetection() {
             child: const Center(
               child: RotatedBox(
                 quarterTurns: 3,
-                child: Text('LEFT EDGE',
-                    style: TextStyle(
-                        color: _pbWhite, fontSize: 9, fontWeight: FontWeight.w700)),
+                child: Text(
+                  'LEFT EDGE',
+                  style: TextStyle(
+                    color: _pbWhite,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
@@ -682,23 +822,34 @@ Widget _buildSwipeEdgeDetection() {
                 children: [
                   const Icon(Icons.article, size: 36, color: _pbJade),
                   const SizedBox(height: 8),
-                  const Text('App Content',
-                      style: TextStyle(
-                          color: _pbDarkGray,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600)),
+                  const Text(
+                    'App Content',
+                    style: TextStyle(
+                      color: _pbDarkGray,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.arrow_forward, size: 16,
-                          color: _pbJade.withValues(alpha: 0.5)),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 16,
+                        color: _pbJade.withValues(alpha: 0.5),
+                      ),
                       const SizedBox(width: 4),
-                      const Text('Swipe inward from either edge',
-                          style: TextStyle(color: _pbGray, fontSize: 11)),
+                      const Text(
+                        'Swipe inward from either edge',
+                        style: TextStyle(color: _pbGray, fontSize: 11),
+                      ),
                       const SizedBox(width: 4),
-                      Icon(Icons.arrow_back, size: 16,
-                          color: _pbAccentAmber.withValues(alpha: 0.5)),
+                      Icon(
+                        Icons.arrow_back,
+                        size: 16,
+                        color: _pbAccentAmber.withValues(alpha: 0.5),
+                      ),
                     ],
                   ),
                 ],
@@ -723,9 +874,14 @@ Widget _buildSwipeEdgeDetection() {
             child: const Center(
               child: RotatedBox(
                 quarterTurns: 1,
-                child: Text('RIGHT EDGE',
-                    style: TextStyle(
-                        color: _pbWhite, fontSize: 9, fontWeight: FontWeight.w700)),
+                child: Text(
+                  'RIGHT EDGE',
+                  style: TextStyle(
+                    color: _pbWhite,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
@@ -771,8 +927,10 @@ Widget _buildTouchCoordinateMapping() {
           const Positioned(
             left: 4,
             top: 4,
-            child: Text('(0, 0)',
-                style: TextStyle(color: _pbGray, fontSize: 9)),
+            child: Text(
+              '(0, 0)',
+              style: TextStyle(color: _pbGray, fontSize: 9),
+            ),
           ),
           // Touch path
           Positioned(
@@ -792,8 +950,14 @@ Widget _buildTouchCoordinateMapping() {
           const Positioned(
             left: 24,
             top: 76,
-            child: Text('touchOffset\n= Offset(10, 80)',
-                style: TextStyle(color: _pbJade, fontSize: 10, fontWeight: FontWeight.w600)),
+            child: Text(
+              'touchOffset\n= Offset(10, 80)',
+              style: TextStyle(
+                color: _pbJade,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           // Arrow showing drag direction
           Positioned(
@@ -814,8 +978,14 @@ Widget _buildTouchCoordinateMapping() {
                 color: _pbMedTeal.withValues(alpha: 0.9),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Text('progress: 0.35',
-                  style: TextStyle(color: _pbWhite, fontSize: 10, fontWeight: FontWeight.w600)),
+              child: const Text(
+                'progress: 0.35',
+                style: TextStyle(
+                  color: _pbWhite,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ],
@@ -859,12 +1029,19 @@ Widget _buildGesturePhases() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Phase $num: $name',
-                    style: TextStyle(
-                        color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+                Text(
+                  'Phase $num: $name',
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(desc,
-                    style: const TextStyle(color: _pbGray, fontSize: 11.5)),
+                Text(
+                  desc,
+                  style: const TextStyle(color: _pbGray, fontSize: 11.5),
+                ),
               ],
             ),
           ),
@@ -879,27 +1056,42 @@ Widget _buildGesturePhases() {
       'PredictiveBackEvent callbacks during the active phase:',
     ),
     _pbDivider(),
-    phase(1, 'Start', 'Finger touches screen edge. System recognizes back gesture intent. '
-        'onBackStarted callback fires.',
-        _pbLightTeal, Icons.play_arrow),
+    phase(
+      1,
+      'Start',
+      'Finger touches screen edge. System recognizes back gesture intent. '
+          'onBackStarted callback fires.',
+      _pbLightTeal,
+      Icons.play_arrow,
+    ),
     Container(
       margin: const EdgeInsets.only(left: 18),
       height: 16,
       width: 2,
       color: _pbLightTeal,
     ),
-    phase(2, 'Progress', 'Finger moves inward. PredictiveBackEvent stream fires continuously '
-        'with updated progress, touchOffset, and swipeEdge.',
-        _pbMedTeal, Icons.trending_flat),
+    phase(
+      2,
+      'Progress',
+      'Finger moves inward. PredictiveBackEvent stream fires continuously '
+          'with updated progress, touchOffset, and swipeEdge.',
+      _pbMedTeal,
+      Icons.trending_flat,
+    ),
     Container(
       margin: const EdgeInsets.only(left: 18),
       height: 16,
       width: 2,
       color: _pbLightTeal,
     ),
-    phase(3, 'Decision Point', 'User either lifts finger (commit) or moves back to edge (cancel). '
-        'This is the critical moment.',
-        _pbJade, Icons.fork_right),
+    phase(
+      3,
+      'Decision Point',
+      'User either lifts finger (commit) or moves back to edge (cancel). '
+          'This is the critical moment.',
+      _pbJade,
+      Icons.fork_right,
+    ),
     Container(
       margin: const EdgeInsets.only(left: 18),
       height: 16,
@@ -916,20 +1108,31 @@ Widget _buildGesturePhases() {
             decoration: BoxDecoration(
               color: const Color(0xFF43A047).withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: const Color(0xFF43A047).withValues(alpha: 0.3)),
+              border: Border.all(
+                color: const Color(0xFF43A047).withValues(alpha: 0.3),
+              ),
             ),
             child: Column(
               children: [
-                const Icon(Icons.check_circle, size: 20, color: Color(0xFF43A047)),
+                const Icon(
+                  Icons.check_circle,
+                  size: 20,
+                  color: Color(0xFF43A047),
+                ),
                 const SizedBox(height: 4),
-                const Text('Commit',
-                    style: TextStyle(
-                        color: Color(0xFF43A047),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700)),
-                const Text('onBackInvoked fires\nBack action executes',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: _pbGray, fontSize: 10)),
+                const Text(
+                  'Commit',
+                  style: TextStyle(
+                    color: Color(0xFF43A047),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const Text(
+                  'onBackInvoked fires\nBack action executes',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: _pbGray, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -947,14 +1150,19 @@ Widget _buildGesturePhases() {
               children: [
                 const Icon(Icons.cancel, size: 20, color: _pbAccentRed),
                 const SizedBox(height: 4),
-                const Text('Cancel',
-                    style: TextStyle(
-                        color: _pbAccentRed,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700)),
-                const Text('onBackCancelled fires\nApp returns to normal',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: _pbGray, fontSize: 10)),
+                const Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: _pbAccentRed,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const Text(
+                  'onBackCancelled fires\nApp returns to normal',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: _pbGray, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -1021,8 +1229,14 @@ Widget _buildPopScopeIntegration() {
     _pbDivider(),
     _pbLabel('How PopScope Affects Predictive Back'),
     _pbInfoRow('canPop: true', 'System shows predictive back preview normally'),
-    _pbInfoRow('canPop: false', 'System animation is suppressed; app handles back'),
-    _pbInfoRow('Dynamic canPop', 'Can change based on form state, unsaved changes, etc.'),
+    _pbInfoRow(
+      'canPop: false',
+      'System animation is suppressed; app handles back',
+    ),
+    _pbInfoRow(
+      'Dynamic canPop',
+      'Can change based on form state, unsaved changes, etc.',
+    ),
     _pbDivider(),
     _pbBody(
       'When canPop is false, the PredictiveBackEvent stream still fires, '
@@ -1064,14 +1278,20 @@ Widget _buildRouteStackItem(String label, Color color, bool isCurrent) {
     ),
     child: Row(
       children: [
-        Icon(isCurrent ? Icons.visibility : Icons.visibility_off,
-            size: 14, color: color),
+        Icon(
+          isCurrent ? Icons.visibility : Icons.visibility_off,
+          size: 14,
+          color: color,
+        ),
         const SizedBox(width: 8),
-        Text(label,
-            style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500)),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 12,
+            fontWeight: isCurrent ? FontWeight.w700 : FontWeight.w500,
+          ),
+        ),
         if (isCurrent) ...[
           const Spacer(),
           Container(
@@ -1080,9 +1300,14 @@ Widget _buildRouteStackItem(String label, Color color, bool isCurrent) {
               color: color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text('TOP',
-                style: TextStyle(
-                    color: _pbWhite, fontSize: 9, fontWeight: FontWeight.w700)),
+            child: const Text(
+              'TOP',
+              style: TextStyle(
+                color: _pbWhite,
+                fontSize: 9,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ],
       ],
@@ -1139,9 +1364,14 @@ Widget _buildAnimStage(String label, double progress) {
   return Expanded(
     child: Column(
       children: [
-        Text(label,
-            style: const TextStyle(
-                color: _pbDeepTeal, fontSize: 10, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: const TextStyle(
+            color: _pbDeepTeal,
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         const SizedBox(height: 4),
         Expanded(
           child: Container(
@@ -1163,8 +1393,11 @@ Widget _buildAnimStage(String label, double progress) {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Center(
-                        child: Icon(Icons.home, size: 16,
-                            color: _pbMedTeal.withValues(alpha: progress)),
+                        child: Icon(
+                          Icons.home,
+                          size: 16,
+                          color: _pbMedTeal.withValues(alpha: progress),
+                        ),
                       ),
                     ),
                   ),
@@ -1178,7 +1411,9 @@ Widget _buildAnimStage(String label, double progress) {
                       height: 70,
                       decoration: BoxDecoration(
                         color: _pbJade.withValues(alpha: 0.9),
-                        borderRadius: BorderRadius.circular(cornerRadius.clamp(2.0, 12.0)),
+                        borderRadius: BorderRadius.circular(
+                          cornerRadius.clamp(2.0, 12.0),
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: _pbDarkGray.withValues(alpha: 0.2),
@@ -1198,8 +1433,10 @@ Widget _buildAnimStage(String label, double progress) {
           ),
         ),
         const SizedBox(height: 2),
-        Text('p=${progress.toStringAsFixed(1)}',
-            style: const TextStyle(color: _pbGray, fontSize: 9)),
+        Text(
+          'p=${progress.toStringAsFixed(1)}',
+          style: const TextStyle(color: _pbGray, fontSize: 9),
+        ),
       ],
     ),
   );
@@ -1211,7 +1448,12 @@ Widget _buildAnimStage(String label, double progress) {
 Widget _buildPlatformComparison() {
   print('[Section 11] Platform comparison');
 
-  Widget platCard(String name, IconData icon, Color color, List<String> points) {
+  Widget platCard(
+    String name,
+    IconData icon,
+    Color color,
+    List<String> points,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
@@ -1223,27 +1465,38 @@ Widget _buildPlatformComparison() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(icon, size: 20, color: color),
-            const SizedBox(width: 8),
-            Text(name,
+          Row(
+            children: [
+              Icon(icon, size: 20, color: color),
+              const SizedBox(width: 8),
+              Text(
+                name,
                 style: TextStyle(
-                    color: color, fontSize: 14, fontWeight: FontWeight.w700)),
-          ]),
-          const SizedBox(height: 8),
-          ...points.map((p) => Padding(
-                padding: const EdgeInsets.only(bottom: 3),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('• ', style: TextStyle(color: color, fontSize: 12)),
-                    Expanded(
-                      child: Text(p,
-                          style: const TextStyle(color: _pbGray, fontSize: 11.5)),
-                    ),
-                  ],
+                  color: color,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
                 ),
-              )),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          ...points.map(
+            (p) => Padding(
+              padding: const EdgeInsets.only(bottom: 3),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('• ', style: TextStyle(color: color, fontSize: 12)),
+                  Expanded(
+                    child: Text(
+                      p,
+                      style: const TextStyle(color: _pbGray, fontSize: 11.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1309,10 +1562,14 @@ Widget _buildSummary() {
           _pbBody('✦ Fields: progress (0→1), touchOffset, swipeEdge'),
           _pbBody('✦ Integrates with PopScope (replaces WillPopScope)'),
           _pbBody('✦ Enables custom back-navigation animations'),
-          _pbBody('✦ Four gesture phases: start → progress → decision → commit/cancel'),
+          _pbBody(
+            '✦ Four gesture phases: start → progress → decision → commit/cancel',
+          ),
           _pbBody('✦ Works with Navigator route stack for automated previews'),
           _pbBody('✦ Required for apps targeting Android SDK 35+'),
-          _pbBody('✦ No equivalent on iOS (uses UIKit interactive transitions instead)'),
+          _pbBody(
+            '✦ No equivalent on iOS (uses UIKit interactive transitions instead)',
+          ),
         ],
       ),
     ),

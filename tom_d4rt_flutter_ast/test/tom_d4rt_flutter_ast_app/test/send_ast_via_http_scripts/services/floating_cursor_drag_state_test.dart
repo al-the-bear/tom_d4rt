@@ -9,12 +9,9 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SHARED PALETTES & STATIC ANIMATIONS
   // ============================================================
-  final Animation<double> stillStart =
-      AlwaysStoppedAnimation<double>(0.05);
-  final Animation<double> stillUpdate =
-      AlwaysStoppedAnimation<double>(0.55);
-  final Animation<double> stillEnd =
-      AlwaysStoppedAnimation<double>(0.95);
+  final Animation<double> stillStart = AlwaysStoppedAnimation<double>(0.05);
+  final Animation<double> stillUpdate = AlwaysStoppedAnimation<double>(0.55);
+  final Animation<double> stillEnd = AlwaysStoppedAnimation<double>(0.95);
   final Duration zero = Duration.zero;
 
   final List<FloatingCursorDragState> allStates =
@@ -106,10 +103,7 @@ dynamic build(BuildContext context) {
           children: [
             for (final FloatingCursorDragState st in allStates)
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 8.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20.0),
@@ -121,11 +115,7 @@ dynamic build(BuildContext context) {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.circle,
-                      size: 8.0,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.circle, size: 8.0, color: Colors.white),
                     SizedBox(width: 8.0),
                     Text(
                       'FloatingCursorDragState.${st.name}',
@@ -268,10 +258,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: Color(0xFFE2E8F0),
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: Color(0xFFE2E8F0), width: 1.0),
                     ),
                     child: Stack(
                       children: [
@@ -304,10 +291,7 @@ dynamic build(BuildContext context) {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               gradient: LinearGradient(
-                                colors: [
-                                  startTone,
-                                  endTone,
-                                ],
+                                colors: [startTone, endTone],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -350,8 +334,9 @@ dynamic build(BuildContext context) {
                                       margin: EdgeInsets.all(1.5),
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -367,8 +352,9 @@ dynamic build(BuildContext context) {
                                       margin: EdgeInsets.all(1.5),
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -384,8 +370,7 @@ dynamic build(BuildContext context) {
                                     margin: EdgeInsets.all(1.5),
                                     decoration: BoxDecoration(
                                       color: Color(0xFFCBD5E1),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      borderRadius: BorderRadius.circular(4.0),
                                     ),
                                   ),
                                 ),
@@ -402,8 +387,7 @@ dynamic build(BuildContext context) {
                                         begin: Alignment.centerLeft,
                                         end: Alignment.centerRight,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      borderRadius: BorderRadius.circular(4.0),
                                       border: Border.all(
                                         color: startTone,
                                         width: 1.5,
@@ -436,8 +420,7 @@ dynamic build(BuildContext context) {
                                     margin: EdgeInsets.all(1.5),
                                     decoration: BoxDecoration(
                                       color: Color(0xFFCBD5E1),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      borderRadius: BorderRadius.circular(4.0),
                                     ),
                                   ),
                                 ),
@@ -477,7 +460,8 @@ dynamic build(BuildContext context) {
       'tone': startTone,
       'icon': Icons.fiber_manual_record,
       'subtitle': 'Activated by long-press on spacebar',
-      'description': 'A user has just activated a floating cursor by long '
+      'description':
+          'A user has just activated a floating cursor by long '
           'pressing on the spacebar. EditableText receives a Start event and '
           'begins replacing the regular caret with the floating one.',
       'progress': 0.05,
@@ -489,7 +473,8 @@ dynamic build(BuildContext context) {
       'tone': updateTone,
       'icon': Icons.swipe,
       'subtitle': 'Continuously dragging across the field',
-      'description': 'A user is dragging a floating cursor. Each Update event '
+      'description':
+          'A user is dragging a floating cursor. Each Update event '
           'carries an Offset in local coordinates; the framework rounds it to '
           'the nearest character boundary and snaps the placeholder caret.',
       'progress': 0.55,
@@ -501,7 +486,8 @@ dynamic build(BuildContext context) {
       'tone': endTone,
       'icon': Icons.flag_circle,
       'subtitle': 'Finger lifted - selection is committed',
-      'description': 'A user has lifted their finger off the screen after '
+      'description':
+          'A user has lifted their finger off the screen after '
           'using a floating cursor. The floating caret animates back into the '
           'real caret at the final character boundary.',
       'progress': 0.95,
@@ -513,8 +499,7 @@ dynamic build(BuildContext context) {
   final List<Widget> stateCards = <Widget>[];
   for (int i = 0; i < stateMeta.length; i++) {
     final Map<String, Object> meta = stateMeta[i];
-    final FloatingCursorDragState st =
-        meta['state'] as FloatingCursorDragState;
+    final FloatingCursorDragState st = meta['state'] as FloatingCursorDragState;
     final Color tone = meta['tone'] as Color;
     final IconData icon = meta['icon'] as IconData;
     final String subtitle = meta['subtitle'] as String;
@@ -522,8 +507,9 @@ dynamic build(BuildContext context) {
     final double progress = meta['progress'] as double;
     final List<Color> grad = meta['gradient'] as List<Color>;
     final Color shadowTone = meta['shadow'] as Color;
-    final Animation<double> staticProg =
-        AlwaysStoppedAnimation<double>(progress);
+    final Animation<double> staticProg = AlwaysStoppedAnimation<double>(
+      progress,
+    );
 
     stateCards.add(
       Container(
@@ -713,9 +699,7 @@ dynamic build(BuildContext context) {
                             fontFamily: 'monospace',
                             fontSize: 11.0,
                             fontWeight: FontWeight.bold,
-                            color: j == i
-                                ? Colors.white
-                                : Color(0xFF334155),
+                            color: j == i ? Colors.white : Color(0xFF334155),
                           ),
                         ),
                       ),
@@ -786,8 +770,7 @@ dynamic build(BuildContext context) {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.replay_circle_filled,
-                    size: 18.0, color: updateTone),
+                Icon(Icons.replay_circle_filled, size: 18.0, color: updateTone),
                 SizedBox(width: 6.0),
                 Text(
                   'Update -> Update (many times per drag)',
@@ -865,7 +848,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'Start: prepare placeholder caret',
           color: startTone,
-          code: 'void onFloatingCursor(RawFloatingCursorPoint p) {\n'
+          code:
+              'void onFloatingCursor(RawFloatingCursorPoint p) {\n'
               '  if (p.state == FloatingCursorDragState.Start) {\n'
               '    // Hide the real caret, remember its location.\n'
               '    _placeholderCursorOffset = renderEditable.caretOffset;\n'
@@ -877,7 +861,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'Update: snap to nearest character',
           color: updateTone,
-          code: 'if (p.state == FloatingCursorDragState.Update) {\n'
+          code:
+              'if (p.state == FloatingCursorDragState.Update) {\n'
               '  final Offset target = p.offset!;\n'
               '  final TextPosition tp =\n'
               '      renderEditable.getPositionForPoint(target);\n'
@@ -889,7 +874,8 @@ dynamic build(BuildContext context) {
         _buildRecipeBlock(
           title: 'End: commit selection',
           color: endTone,
-          code: 'if (p.state == FloatingCursorDragState.End) {\n'
+          code:
+              'if (p.state == FloatingCursorDragState.End) {\n'
               '  // Apply the placeholder position as the new selection.\n'
               '  controller.selection = TextSelection.collapsed(\n'
               '    offset: renderEditable.placeholderTextPosition.offset,\n'
@@ -955,8 +941,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Color(0xFFB91C1C), size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFB91C1C),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Common pitfalls',
@@ -972,25 +961,29 @@ dynamic build(BuildContext context) {
         _buildPitfall(
           icon: Icons.swap_horiz,
           title: 'Capitalised enum names',
-          body: 'The enum values are Start, Update, End - capitalised, '
+          body:
+              'The enum values are Start, Update, End - capitalised, '
               'unlike most Dart enums. They predate the modern style guide.',
         ),
         _buildPitfall(
           icon: Icons.location_disabled,
           title: 'No offset on Start',
-          body: 'RawFloatingCursorPoint.offset is null on Start. Read '
+          body:
+              'RawFloatingCursorPoint.offset is null on Start. Read '
               'startLocation instead, or recompute the caret rect yourself.',
         ),
         _buildPitfall(
           icon: Icons.timer_off,
           title: 'No animation between Start/End',
-          body: 'The platform does not animate between states; you have to '
+          body:
+              'The platform does not animate between states; you have to '
               'animate the placeholder caret returning to the real caret.',
         ),
         _buildPitfall(
           icon: Icons.android,
           title: 'iOS only',
-          body: 'Floating cursor events are produced only on iOS. Other '
+          body:
+              'Floating cursor events are produced only on iOS. Other '
               'platforms never emit FloatingCursorDragState events.',
         ),
       ],
@@ -1123,15 +1116,20 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 12.0),
         _buildRefRow('Library', 'package:flutter/services.dart'),
-        _buildRefRow('Type',
-            'enum FloatingCursorDragState { Start, Update, End }'),
         _buildRefRow(
-            'Used by', 'TextInputClient.updateFloatingCursor(...)'),
-        _buildRefRow('Carries',
-            'RawFloatingCursorPoint(state, offset, startLocation)'),
+          'Type',
+          'enum FloatingCursorDragState { Start, Update, End }',
+        ),
+        _buildRefRow('Used by', 'TextInputClient.updateFloatingCursor(...)'),
+        _buildRefRow(
+          'Carries',
+          'RawFloatingCursorPoint(state, offset, startLocation)',
+        ),
         _buildRefRow('Replacement', 'EditableText handles it for you'),
-        _buildRefRow('See also',
-            'EditableText.backgroundCursorColor (placeholder color)'),
+        _buildRefRow(
+          'See also',
+          'EditableText.backgroundCursorColor (placeholder color)',
+        ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -1515,9 +1513,7 @@ Widget _buildComparisonRow({
   );
   return Container(
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFD1FAE5), width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFD1FAE5), width: 1.0)),
     ),
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     child: Row(

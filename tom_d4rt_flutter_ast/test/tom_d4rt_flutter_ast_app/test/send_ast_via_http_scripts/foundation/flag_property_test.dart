@@ -368,7 +368,8 @@ dynamic build(BuildContext context) {
       ifFalse: 'no',
       showName: true,
     ),
-    code: "FlagProperty('check', value: f, ifTrue: 'yes', ifFalse: 'no', showName: true)",
+    code:
+        "FlagProperty('check', value: f, ifTrue: 'yes', ifFalse: 'no', showName: true)",
   );
 
   final paramCardDefault = _buildParamCard(
@@ -392,7 +393,8 @@ dynamic build(BuildContext context) {
       ifTrue: 'autofocus',
       defaultValue: false,
     ),
-    code: "FlagProperty('autofocus', value: f, ifTrue: 'autofocus', defaultValue: false)",
+    code:
+        "FlagProperty('autofocus', value: f, ifTrue: 'autofocus', defaultValue: false)",
   );
 
   final paramCardLevel = _buildParamCard(
@@ -416,7 +418,8 @@ dynamic build(BuildContext context) {
       ifTrue: 'mounted',
       level: DiagnosticLevel.info,
     ),
-    code: "FlagProperty('mounted', value: f, ifTrue: 'mounted', level: DiagnosticLevel.info)",
+    code:
+        "FlagProperty('mounted', value: f, ifTrue: 'mounted', level: DiagnosticLevel.info)",
   );
 
   // ============================================================
@@ -1034,10 +1037,7 @@ dynamic build(BuildContext context) {
         _buildRefLine('ifFalse', 'String? -- text when false'),
         _buildRefLine('showName', 'bool = false -- prefix with name:'),
         _buildRefLine('defaultValue', 'Object? -- demote to fine when equal'),
-        _buildRefLine(
-          'level',
-          'DiagnosticLevel = info -- verbosity bucket',
-        ),
+        _buildRefLine('level', 'DiagnosticLevel = info -- verbosity bucket'),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -1359,11 +1359,7 @@ Widget _buildMatrixCell(String label, double width, Color color) {
     child: Text(
       label,
       textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 11.0,
-        color: color,
-        fontFamily: 'monospace',
-      ),
+      style: TextStyle(fontSize: 11.0, color: color, fontFamily: 'monospace'),
     ),
   );
 }

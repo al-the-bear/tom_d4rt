@@ -109,7 +109,11 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.settings_remote, color: Color(0xFF283593), size: 20),
+                  const Icon(
+                    Icons.settings_remote,
+                    color: Color(0xFF283593),
+                    size: 20,
+                  ),
                   const SizedBox(width: 6),
                   const Text(
                     'controller',
@@ -277,17 +281,47 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12),
-        _buildLifecycleStep(1, 'initState', 'controller._attach(this)', const Color(0xFF00897B)),
+        _buildLifecycleStep(
+          1,
+          'initState',
+          'controller._attach(this)',
+          const Color(0xFF00897B),
+        ),
         _buildLifecycleArrow(),
-        _buildLifecycleStep(2, 'build', 'TapRegion(groupId: controller, ...)', const Color(0xFF00897B)),
+        _buildLifecycleStep(
+          2,
+          'build',
+          'TapRegion(groupId: controller, ...)',
+          const Color(0xFF00897B),
+        ),
         _buildLifecycleArrow(),
-        _buildLifecycleStep(3, 'child opens', 'isOpen → true (any child open)', const Color(0xFFE65100)),
+        _buildLifecycleStep(
+          3,
+          'child opens',
+          'isOpen → true (any child open)',
+          const Color(0xFFE65100),
+        ),
         _buildLifecycleArrow(),
-        _buildLifecycleStep(4, 'tap outside', 'handleOutsideTap → close()', const Color(0xFFC62828)),
+        _buildLifecycleStep(
+          4,
+          'tap outside',
+          'handleOutsideTap → close()',
+          const Color(0xFFC62828),
+        ),
         _buildLifecycleArrow(),
-        _buildLifecycleStep(5, 'close()', 'closeChildren() → setState()', const Color(0xFFC62828)),
+        _buildLifecycleStep(
+          5,
+          'close()',
+          'closeChildren() → setState()',
+          const Color(0xFFC62828),
+        ),
         _buildLifecycleArrow(),
-        _buildLifecycleStep(6, 'dispose', 'controller._detach(this)', const Color(0xFF37474F)),
+        _buildLifecycleStep(
+          6,
+          'dispose',
+          'controller._detach(this)',
+          const Color(0xFF37474F),
+        ),
       ],
     ),
   );
@@ -359,8 +393,8 @@ dynamic build(BuildContext context) {
       _buildBehaviorCard(
         'Same Group → Not Outside',
         'Tapping on another menu trigger within the same '
-        'RawMenuAnchorGroup does NOT count as an outside tap. '
-        'The open menu closes and the tapped menu opens seamlessly.',
+            'RawMenuAnchorGroup does NOT count as an outside tap. '
+            'The open menu closes and the tapped menu opens seamlessly.',
         Icons.check_circle,
         const Color(0xFF4CAF50),
         const Color(0xFFE8F5E9),
@@ -369,8 +403,8 @@ dynamic build(BuildContext context) {
       _buildBehaviorCard(
         'Different Widget → Outside',
         'Tapping anywhere outside the group\'s TapRegion '
-        'triggers handleOutsideTap, which closes ALL open '
-        'menus in the group via closeChildren().',
+            'triggers handleOutsideTap, which closes ALL open '
+            'menus in the group via closeChildren().',
         Icons.cancel,
         const Color(0xFFF44336),
         const Color(0xFFFFEBEE),
@@ -379,8 +413,8 @@ dynamic build(BuildContext context) {
       _buildBehaviorCard(
         'Nested Groups',
         'RawMenuAnchorGroup can be nested. A child group\'s '
-        'TapRegion is within the parent group\'s region, so '
-        'tapping on a nested menu doesn\'t dismiss the parent.',
+            'TapRegion is within the parent group\'s region, so '
+            'tapping on a nested menu doesn\'t dismiss the parent.',
         Icons.account_tree,
         const Color(0xFF2196F3),
         const Color(0xFFE3F2FD),
@@ -422,13 +456,29 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12),
-        _buildControllerRow('isOpen', 'true if ANY child anchor is open', Icons.visibility),
+        _buildControllerRow(
+          'isOpen',
+          'true if ANY child anchor is open',
+          Icons.visibility,
+        ),
         const SizedBox(height: 8),
-        _buildControllerRow('close()', 'cascades close to ALL children', Icons.close),
+        _buildControllerRow(
+          'close()',
+          'cascades close to ALL children',
+          Icons.close,
+        ),
         const SizedBox(height: 8),
-        _buildControllerRow('open()', 'no-op — groups have no overlay', Icons.block),
+        _buildControllerRow(
+          'open()',
+          'no-op — groups have no overlay',
+          Icons.block,
+        ),
         const SizedBox(height: 8),
-        _buildControllerRow('maybeOf(ctx)', 'retrieves nearest ancestor controller', Icons.search),
+        _buildControllerRow(
+          'maybeOf(ctx)',
+          'retrieves nearest ancestor controller',
+          Icons.search,
+        ),
         const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.all(10),
@@ -503,11 +553,7 @@ dynamic build(BuildContext context) {
           'None — bring own',
           'Material MenuBarTheme',
         ),
-        _buildComparisonRow(
-          'Focus Mgmt',
-          'Manual',
-          'Built-in with shortcuts',
-        ),
+        _buildComparisonRow('Focus Mgmt', 'Manual', 'Built-in with shortcuts'),
         _buildComparisonRow(
           'Keyboard Nav',
           'Not provided',
@@ -556,7 +602,7 @@ dynamic build(BuildContext context) {
           'MenuController',
           'Required',
           'The shared controller for the group. Tracks open state '
-          'of all children. close() cascades to all child anchors.',
+              'of all children. close() cascades to all child anchors.',
         ),
         const SizedBox(height: 10),
         _buildApiCard(
@@ -564,7 +610,7 @@ dynamic build(BuildContext context) {
           'Widget',
           'Required',
           'The widget subtree containing RawMenuAnchor widgets. '
-          'Wrapped in a TapRegion for unified outside-tap handling.',
+              'Wrapped in a TapRegion for unified outside-tap handling.',
         ),
         const SizedBox(height: 16),
         const Text(
@@ -779,10 +825,7 @@ Widget _buildLifecycleStep(int step, String phase, String detail, Color color) {
         Container(
           width: 24,
           height: 24,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$step',
@@ -903,10 +946,7 @@ Widget _buildControllerRow(String method, String description, IconData icon) {
       Expanded(
         child: Text(
           description,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Color(0xFFAD1457),
-          ),
+          style: const TextStyle(fontSize: 12, color: Color(0xFFAD1457)),
         ),
       ),
     ],
@@ -1143,7 +1183,10 @@ class _LiveMenuBarDemoState extends State<_LiveMenuBarDemo> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              _buildMenuItem('New File', Icons.insert_drive_file),
+                              _buildMenuItem(
+                                'New File',
+                                Icons.insert_drive_file,
+                              ),
                               _buildMenuItem('Open...', Icons.folder_open),
                               _buildMenuItem('Save', Icons.save),
                               const Divider(height: 1),
@@ -1154,40 +1197,41 @@ class _LiveMenuBarDemoState extends State<_LiveMenuBarDemo> {
                       ),
                     );
                   },
-                  builder: (BuildContext ctx, MenuController ctrl, Widget? child) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (ctrl.isOpen) {
-                          ctrl.close();
-                          setState(() => _statusText = 'File menu closed');
-                        } else {
-                          _editMenuController.close();
-                          ctrl.open();
-                          setState(() => _statusText = 'File menu opened');
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: ctrl.isOpen
-                              ? const Color(0xFFD1C4E9)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'File',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF4527A0),
+                  builder:
+                      (BuildContext ctx, MenuController ctrl, Widget? child) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (ctrl.isOpen) {
+                              ctrl.close();
+                              setState(() => _statusText = 'File menu closed');
+                            } else {
+                              _editMenuController.close();
+                              ctrl.open();
+                              setState(() => _statusText = 'File menu opened');
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: ctrl.isOpen
+                                  ? const Color(0xFFD1C4E9)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Text(
+                              'File',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF4527A0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
                 ),
                 const SizedBox(width: 4),
                 // Edit menu anchor
@@ -1228,40 +1272,41 @@ class _LiveMenuBarDemoState extends State<_LiveMenuBarDemo> {
                       ),
                     );
                   },
-                  builder: (BuildContext ctx, MenuController ctrl, Widget? child) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (ctrl.isOpen) {
-                          ctrl.close();
-                          setState(() => _statusText = 'Edit menu closed');
-                        } else {
-                          _fileMenuController.close();
-                          ctrl.open();
-                          setState(() => _statusText = 'Edit menu opened');
-                        }
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: ctrl.isOpen
-                              ? const Color(0xFFD1C4E9)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'Edit',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF4527A0),
+                  builder:
+                      (BuildContext ctx, MenuController ctrl, Widget? child) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (ctrl.isOpen) {
+                              ctrl.close();
+                              setState(() => _statusText = 'Edit menu closed');
+                            } else {
+                              _fileMenuController.close();
+                              ctrl.open();
+                              setState(() => _statusText = 'Edit menu opened');
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              color: ctrl.isOpen
+                                  ? const Color(0xFFD1C4E9)
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: const Text(
+                              'Edit',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF4527A0),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
                 ),
               ],
             ),
@@ -1278,14 +1323,15 @@ class _LiveMenuBarDemoState extends State<_LiveMenuBarDemo> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.info_outline, size: 14, color: Color(0xFF7B1FA2)),
+              const Icon(
+                Icons.info_outline,
+                size: 14,
+                color: Color(0xFF7B1FA2),
+              ),
               const SizedBox(width: 6),
               Text(
                 _statusText,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF7B1FA2),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF7B1FA2)),
               ),
             ],
           ),

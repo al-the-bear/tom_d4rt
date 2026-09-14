@@ -404,41 +404,41 @@ class _WboHomeState extends State<_WboHome> with WidgetsBindingObserver {
   // mutate state. All mutation funnels through the observer methods.
   // -------------------------------------------------------------------
   _WboSnapshot _snapshot() => _WboSnapshot(
-        cntLifecycle: _cntLifecycle,
-        cntMetrics: _cntMetrics,
-        cntTextScale: _cntTextScale,
-        cntBrightness: _cntBrightness,
-        cntLocales: _cntLocales,
-        cntMemory: _cntMemory,
-        cntAccess: _cntAccess,
-        cntExit: _cntExit,
-        cntPushRoute: _cntPushRoute,
-        cntPushRouteInfo: _cntPushRouteInfo,
-        cntPopRoute: _cntPopRoute,
-        tsLifecycle: _tsLifecycle,
-        tsMetrics: _tsMetrics,
-        tsTextScale: _tsTextScale,
-        tsBrightness: _tsBrightness,
-        tsLocales: _tsLocales,
-        tsMemory: _tsMemory,
-        tsAccess: _tsAccess,
-        tsExit: _tsExit,
-        tsPushRoute: _tsPushRoute,
-        tsPushRouteInfo: _tsPushRouteInfo,
-        tsPopRoute: _tsPopRoute,
-        pulseTarget: _pulseTarget,
-        mockState: _mockState,
-        mockTextScale: _mockTextScale,
-        mockBrightness: _mockBrightness,
-        mockLocales: _mockLocales,
-        mockHighContrast: _mockHighContrast,
-        mockBoldText: _mockBoldText,
-        mockReduceMotion: _mockReduceMotion,
-        memoryReclaim: _memoryReclaim,
-        routeInterceptVisible: _routeInterceptVisible,
-        mockRoute: _mockRoute,
-        log: List<_WboEvent>.unmodifiable(_log),
-      );
+    cntLifecycle: _cntLifecycle,
+    cntMetrics: _cntMetrics,
+    cntTextScale: _cntTextScale,
+    cntBrightness: _cntBrightness,
+    cntLocales: _cntLocales,
+    cntMemory: _cntMemory,
+    cntAccess: _cntAccess,
+    cntExit: _cntExit,
+    cntPushRoute: _cntPushRoute,
+    cntPushRouteInfo: _cntPushRouteInfo,
+    cntPopRoute: _cntPopRoute,
+    tsLifecycle: _tsLifecycle,
+    tsMetrics: _tsMetrics,
+    tsTextScale: _tsTextScale,
+    tsBrightness: _tsBrightness,
+    tsLocales: _tsLocales,
+    tsMemory: _tsMemory,
+    tsAccess: _tsAccess,
+    tsExit: _tsExit,
+    tsPushRoute: _tsPushRoute,
+    tsPushRouteInfo: _tsPushRouteInfo,
+    tsPopRoute: _tsPopRoute,
+    pulseTarget: _pulseTarget,
+    mockState: _mockState,
+    mockTextScale: _mockTextScale,
+    mockBrightness: _mockBrightness,
+    mockLocales: _mockLocales,
+    mockHighContrast: _mockHighContrast,
+    mockBoldText: _mockBoldText,
+    mockReduceMotion: _mockReduceMotion,
+    memoryReclaim: _memoryReclaim,
+    routeInterceptVisible: _routeInterceptVisible,
+    mockRoute: _mockRoute,
+    log: List<_WboEvent>.unmodifiable(_log),
+  );
 
   void _toggleHighContrast() {
     _mockHighContrast = !_mockHighContrast;
@@ -549,10 +549,7 @@ class _WboHomeState extends State<_WboHome> with WidgetsBindingObserver {
                 },
               ),
               const SizedBox(height: 18),
-              _WboLocaleSwapSection(
-                snapshot: snap,
-                onSwap: _swapLocales,
-              ),
+              _WboLocaleSwapSection(snapshot: snap, onSwap: _swapLocales),
               const SizedBox(height: 18),
               const _WboRecipeSection(),
               const SizedBox(height: 18),
@@ -718,9 +715,7 @@ class _WboAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       decoration: const BoxDecoration(
         color: _kPanel,
-        border: Border(
-          bottom: BorderSide(color: _kRail, width: 1.5),
-        ),
+        border: Border(bottom: BorderSide(color: _kRail, width: 1.5)),
       ),
       padding: const EdgeInsets.fromLTRB(18, 14, 18, 14),
       child: SafeArea(
@@ -845,9 +840,7 @@ class _WboGridBackdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned.fill(
-      child: IgnorePointer(
-        child: CustomPaint(painter: _WboGridPainter()),
-      ),
+      child: IgnorePointer(child: CustomPaint(painter: _WboGridPainter())),
     );
   }
 }
@@ -1090,7 +1083,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'Mixin, not a class',
       tag: '01 · MIXIN',
       tint: _kCyan,
-      body: 'WidgetsBindingObserver is a mixin. You apply it to a State '
+      body:
+          'WidgetsBindingObserver is a mixin. You apply it to a State '
           'subclass with `with WidgetsBindingObserver`. Every callback it '
           'defines has a concrete no-op default, so subclasses only override '
           'the callbacks they actually care about — no abstract methods.',
@@ -1100,7 +1094,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'Attached to WidgetsBinding',
       tag: '02 · BINDING',
       tint: _kCyanSoft,
-      body: 'Observers are registered against the singleton '
+      body:
+          'Observers are registered against the singleton '
           '`WidgetsBinding.instance`. The binding owns the native-event '
           'channel and fans every system callback out to each registered '
           'observer. Add in initState, remove in dispose.',
@@ -1110,7 +1105,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'LinkedHashSet of observers',
       tag: '03 · LIST',
       tint: _kAmber,
-      body: 'The binding stores observers in an insertion-ordered '
+      body:
+          'The binding stores observers in an insertion-ordered '
           '`LinkedHashSet<WidgetsBindingObserver>`. When a system event '
           'arrives, each observer\'s callback is invoked in registration '
           'order. Adding the same instance twice is a no-op.',
@@ -1120,7 +1116,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'Fan-out order',
       tag: '04 · ORDER',
       tint: _kLime,
-      body: 'Callbacks run synchronously unless they return Future. For '
+      body:
+          'Callbacks run synchronously unless they return Future. For '
           'Future-returning callbacks (didPopRoute, didRequestAppExit, '
           'didPushRouteInformation) the binding awaits each observer in '
           'order and stops at the first one that "handles" the event.',
@@ -1130,7 +1127,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'Default no-op surface',
       tag: '05 · NO-OPS',
       tint: _kViolet,
-      body: 'Every callback has a concrete implementation that does nothing. '
+      body:
+          'Every callback has a concrete implementation that does nothing. '
           'This means you can mix in the observer and only override the '
           'methods you need. Overriding a callback without calling super is '
           'fine because the base does nothing.',
@@ -1140,7 +1138,8 @@ List<_WboDossierEntry> _dossierEntries() {
       title: 'Cleanup is mandatory',
       tag: '06 · CLEANUP',
       tint: _kRed,
-      body: 'Forgetting to call `removeObserver` in dispose leaks your State '
+      body:
+          'Forgetting to call `removeObserver` in dispose leaks your State '
           'into the observer list. Next time the framework fans out a '
           'callback, your disposed State will be called — a classic source '
           'of "setState called on disposed widget" errors.',
@@ -1382,10 +1381,10 @@ class _WboLedGrid extends StatelessWidget {
         final int cols = c.maxWidth > 720
             ? 4
             : c.maxWidth > 520
-                ? 3
-                : c.maxWidth > 360
-                    ? 2
-                    : 1;
+            ? 3
+            : c.maxWidth > 360
+            ? 2
+            : 1;
         final double gap = 10;
         final double tileW = (c.maxWidth - gap * (cols - 1)) / cols;
         final List<Widget> rows = <Widget>[];
@@ -1396,17 +1395,21 @@ class _WboLedGrid extends StatelessWidget {
             if (idx >= specs.length) {
               row.add(SizedBox(width: tileW));
             } else {
-              row.add(SizedBox(
-                width: tileW,
-                child: _WboLedLamp(
-                  spec: specs[idx],
-                  active: snapshot.pulseTarget == specs[idx].key,
+              row.add(
+                SizedBox(
+                  width: tileW,
+                  child: _WboLedLamp(
+                    spec: specs[idx],
+                    active: snapshot.pulseTarget == specs[idx].key,
+                  ),
                 ),
-              ));
+              );
             }
             if (j < cols - 1) row.add(SizedBox(width: gap));
           }
-          rows.add(Row(crossAxisAlignment: CrossAxisAlignment.start, children: row));
+          rows.add(
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: row),
+          );
           if (i + cols < specs.length) rows.add(SizedBox(height: gap));
         }
         return Column(children: rows);
@@ -1661,10 +1664,7 @@ class _WboSimulateSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _WboSubHeader(
-            text: 'didChangeAppLifecycleState',
-            tint: _kLime,
-          ),
+          _WboSubHeader(text: 'didChangeAppLifecycleState', tint: _kLime),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -1760,9 +1760,7 @@ class _WboSimulateSection extends StatelessWidget {
                 icon: Icons.language,
                 tint: _kCyanSoft,
                 active: false,
-                onPressed: () => onLocales(const <Locale>[
-                  Locale('en', 'GB'),
-                ]),
+                onPressed: () => onLocales(const <Locale>[Locale('en', 'GB')]),
               ),
             ],
           ),
@@ -2061,8 +2059,13 @@ class _WboStateDiagramPainter extends CustomPainter {
     final Offset detachedC = Offset(size.width / 2, size.height - 30);
     final bool detachedActive = current == AppLifecycleState.detached;
     _drawDashedLine(canvas, centers[3], detachedC, _kRail);
-    _drawNode(canvas, detachedC, radius - 6, AppLifecycleState.detached,
-        detachedActive);
+    _drawNode(
+      canvas,
+      detachedC,
+      radius - 6,
+      AppLifecycleState.detached,
+      detachedActive,
+    );
 
     // Title strip.
     final TextPainter tp = TextPainter(
@@ -2080,8 +2083,13 @@ class _WboStateDiagramPainter extends CustomPainter {
     tp.paint(canvas, const Offset(12, 12));
   }
 
-  void _drawNode(Canvas canvas, Offset c, double r, AppLifecycleState s,
-      bool active) {
+  void _drawNode(
+    Canvas canvas,
+    Offset c,
+    double r,
+    AppLifecycleState s,
+    bool active,
+  ) {
     final Color tint = _colorFor(s);
     final Paint ring = Paint()
       ..color = active ? tint : tint.withOpacity(0.35)
@@ -2734,10 +2742,7 @@ class _WboConfirmDialogPanel extends StatelessWidget {
 // ===========================================================================
 
 class _WboLocaleSwapSection extends StatelessWidget {
-  const _WboLocaleSwapSection({
-    required this.snapshot,
-    required this.onSwap,
-  });
+  const _WboLocaleSwapSection({required this.snapshot, required this.onSwap});
 
   final _WboSnapshot snapshot;
   final ValueChanged<List<Locale>> onSwap;
@@ -2826,9 +2831,7 @@ class _WboLocaleSwapSection extends StatelessWidget {
                 icon: Icons.swap_horiz,
                 tint: _kCyanSoft,
                 active: false,
-                onPressed: () => onSwap(const <Locale>[
-                  Locale('zh', 'CN'),
-                ]),
+                onPressed: () => onSwap(const <Locale>[Locale('zh', 'CN')]),
               ),
             ],
           ),
@@ -2921,75 +2924,86 @@ class _WboRecipe {
 }
 
 List<_WboRecipe> _recipes() => const <_WboRecipe>[
-      _WboRecipe(
-        icon: Icons.refresh,
-        title: 'Refresh data on resume',
-        rationale: 'When the user returns from the background, your cached '
-            'view may be stale. Trigger a refetch on resumed to catch up '
-            'without making the user pull-to-refresh.',
-        code: 'void didChangeAppLifecycleState(AppLifecycleState s) {\n'
-            '  if (s == AppLifecycleState.resumed) refetch();\n'
-            '}',
-        tint: _kLime,
-      ),
-      _WboRecipe(
-        icon: Icons.pause,
-        title: 'Pause background work when hidden',
-        rationale: 'The app is still running when hidden, so any animation '
-            'controllers, timers, or polling loops you have will continue '
-            'burning battery. Pause on hidden, resume on resumed.',
-        code: 'if (s == AppLifecycleState.hidden) controller.stop();\n'
-            'if (s == AppLifecycleState.resumed) controller.repeat();',
-        tint: _kAmberSoft,
-      ),
-      _WboRecipe(
-        icon: Icons.save_alt,
-        title: 'Persist state on paused',
-        rationale: 'paused is your last reliable hook before the OS may '
-            'kill the process. Flush any in-memory buffers to disk here — '
-            'especially on Android where paused is the killable state.',
-        code: 'if (s == AppLifecycleState.paused) draftRepo.flushSync();',
-        tint: _kRed,
-      ),
-      _WboRecipe(
-        icon: Icons.cleaning_services,
-        title: 'Reclaim on memory pressure',
-        rationale: 'Drop discretionary caches when you get the memory '
-            'pressure ping. ImageCache.clear() and tile caches are usually '
-            'safe targets; never drop anything still visible on screen.',
-        code: '@override\n'
-            'void didHaveMemoryPressure() {\n'
-            '  PaintingBinding.instance.imageCache.clear();\n'
-            '}',
-        tint: _kRed,
-      ),
-      _WboRecipe(
-        icon: Icons.lock,
-        title: 'Guard async with mounted',
-        rationale: 'Observer callbacks can fire right up until your State '
-            'is disposed. Any async work you start must check `mounted` '
-            'before touching setState or the BuildContext.',
-        code: 'Future<void> _onResume() async {\n'
-            '  final r = await repo.load();\n'
-            '  if (!mounted) return;\n'
-            '  setState(() => _data = r);\n'
-            '}',
-        tint: _kCyan,
-      ),
-      _WboRecipe(
-        icon: Icons.logout,
-        title: 'Desktop exit guard',
-        rationale: 'didRequestAppExit fires when the user closes a desktop '
-            'window. Return AppExitResponse.cancel to block, e.g. to show '
-            'a save-dialog, then call exit yourself once the user confirms.',
-        code: '@override\n'
-            'Future<AppExitResponse> didRequestAppExit() async {\n'
-            '  if (hasUnsaved) return AppExitResponse.cancel;\n'
-            '  return AppExitResponse.exit;\n'
-            '}',
-        tint: _kViolet,
-      ),
-    ];
+  _WboRecipe(
+    icon: Icons.refresh,
+    title: 'Refresh data on resume',
+    rationale:
+        'When the user returns from the background, your cached '
+        'view may be stale. Trigger a refetch on resumed to catch up '
+        'without making the user pull-to-refresh.',
+    code:
+        'void didChangeAppLifecycleState(AppLifecycleState s) {\n'
+        '  if (s == AppLifecycleState.resumed) refetch();\n'
+        '}',
+    tint: _kLime,
+  ),
+  _WboRecipe(
+    icon: Icons.pause,
+    title: 'Pause background work when hidden',
+    rationale:
+        'The app is still running when hidden, so any animation '
+        'controllers, timers, or polling loops you have will continue '
+        'burning battery. Pause on hidden, resume on resumed.',
+    code:
+        'if (s == AppLifecycleState.hidden) controller.stop();\n'
+        'if (s == AppLifecycleState.resumed) controller.repeat();',
+    tint: _kAmberSoft,
+  ),
+  _WboRecipe(
+    icon: Icons.save_alt,
+    title: 'Persist state on paused',
+    rationale:
+        'paused is your last reliable hook before the OS may '
+        'kill the process. Flush any in-memory buffers to disk here — '
+        'especially on Android where paused is the killable state.',
+    code: 'if (s == AppLifecycleState.paused) draftRepo.flushSync();',
+    tint: _kRed,
+  ),
+  _WboRecipe(
+    icon: Icons.cleaning_services,
+    title: 'Reclaim on memory pressure',
+    rationale:
+        'Drop discretionary caches when you get the memory '
+        'pressure ping. ImageCache.clear() and tile caches are usually '
+        'safe targets; never drop anything still visible on screen.',
+    code:
+        '@override\n'
+        'void didHaveMemoryPressure() {\n'
+        '  PaintingBinding.instance.imageCache.clear();\n'
+        '}',
+    tint: _kRed,
+  ),
+  _WboRecipe(
+    icon: Icons.lock,
+    title: 'Guard async with mounted',
+    rationale:
+        'Observer callbacks can fire right up until your State '
+        'is disposed. Any async work you start must check `mounted` '
+        'before touching setState or the BuildContext.',
+    code:
+        'Future<void> _onResume() async {\n'
+        '  final r = await repo.load();\n'
+        '  if (!mounted) return;\n'
+        '  setState(() => _data = r);\n'
+        '}',
+    tint: _kCyan,
+  ),
+  _WboRecipe(
+    icon: Icons.logout,
+    title: 'Desktop exit guard',
+    rationale:
+        'didRequestAppExit fires when the user closes a desktop '
+        'window. Return AppExitResponse.cancel to block, e.g. to show '
+        'a save-dialog, then call exit yourself once the user confirms.',
+    code:
+        '@override\n'
+        'Future<AppExitResponse> didRequestAppExit() async {\n'
+        '  if (hasUnsaved) return AppExitResponse.cancel;\n'
+        '  return AppExitResponse.exit;\n'
+        '}',
+    tint: _kViolet,
+  ),
+];
 
 class _WboRecipeCard extends StatelessWidget {
   const _WboRecipeCard({required this.recipe, required this.index});
@@ -3050,11 +3064,7 @@ class _WboRecipeCard extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             recipe.rationale,
-            style: const TextStyle(
-              color: _kDim,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: _kDim, fontSize: 12.5, height: 1.5),
           ),
           const SizedBox(height: 10),
           Container(
@@ -3094,31 +3104,62 @@ class _WboComparisonSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>['Feature', 'WidgetsBindingObserver', 'AppLifecycleListener',
-          'RouteObserver'],
+      <String>[
+        'Feature',
+        'WidgetsBindingObserver',
+        'AppLifecycleListener',
+        'RouteObserver',
+      ],
       <String>['Flavour', 'Mixin on State', 'Plain object', 'Navigator plugin'],
-      <String>['Scope', 'All app-level events', 'Lifecycle only',
-          'Navigation only'],
-      <String>['Setup', 'add/removeObserver manually',
-          'Construct → dispose', 'Attach to Navigator.observers'],
-      <String>['Lifecycle', 'didChangeAppLifecycleState(state)',
-          'Named callbacks per state', 'n/a'],
-      <String>['Metrics / scale',
-          'didChangeMetrics / TextScale / Brightness', 'no', 'no'],
-      <String>['Exit guard',
-          'didRequestAppExit override', 'onExitRequested callback', 'no'],
-      <String>['Route intercept',
-          'didPopRoute / didPushRouteInformation', 'no',
-          'didPush / didPop / didRemove / didReplace'],
-      <String>['Memory / a11y',
-          'didHaveMemoryPressure + A11y', 'no', 'no'],
-      <String>['Best for',
-          'Low-level hooks, one-stop shop',
-          'Clean per-state handlers in non-State code',
-          'Analytics / active-route tracking'],
-      <String>['Pitfalls',
-          'Forgetting removeObserver leaks', 'Remember to dispose',
-          'Only fires for navigator events'],
+      <String>[
+        'Scope',
+        'All app-level events',
+        'Lifecycle only',
+        'Navigation only',
+      ],
+      <String>[
+        'Setup',
+        'add/removeObserver manually',
+        'Construct → dispose',
+        'Attach to Navigator.observers',
+      ],
+      <String>[
+        'Lifecycle',
+        'didChangeAppLifecycleState(state)',
+        'Named callbacks per state',
+        'n/a',
+      ],
+      <String>[
+        'Metrics / scale',
+        'didChangeMetrics / TextScale / Brightness',
+        'no',
+        'no',
+      ],
+      <String>[
+        'Exit guard',
+        'didRequestAppExit override',
+        'onExitRequested callback',
+        'no',
+      ],
+      <String>[
+        'Route intercept',
+        'didPopRoute / didPushRouteInformation',
+        'no',
+        'didPush / didPop / didRemove / didReplace',
+      ],
+      <String>['Memory / a11y', 'didHaveMemoryPressure + A11y', 'no', 'no'],
+      <String>[
+        'Best for',
+        'Low-level hooks, one-stop shop',
+        'Clean per-state handlers in non-State code',
+        'Analytics / active-route tracking',
+      ],
+      <String>[
+        'Pitfalls',
+        'Forgetting removeObserver leaks',
+        'Remember to dispose',
+        'Only fires for navigator events',
+      ],
     ];
 
     return _WboSectionFrame(
@@ -3192,8 +3233,7 @@ class _WboCompareRow extends StatelessWidget {
                     color: isHeader ? _kViolet : _kDim,
                     fontSize: 11.5,
                     height: 1.35,
-                    fontWeight:
-                        isHeader ? FontWeight.w800 : FontWeight.w500,
+                    fontWeight: isHeader ? FontWeight.w800 : FontWeight.w500,
                     letterSpacing: isHeader ? 1.0 : 0.2,
                   ),
                 ),
@@ -3216,48 +3256,56 @@ class _WboGlossarySection extends StatelessWidget {
     final List<_WboGlossaryEntry> entries = <_WboGlossaryEntry>[
       const _WboGlossaryEntry(
         term: 'WidgetsBinding',
-        body: 'The singleton that plugs Flutter into the engine and native '
+        body:
+            'The singleton that plugs Flutter into the engine and native '
             'platform. Owns the observer list, the scheduler, and the '
             'hit-test manager. Access via `WidgetsBinding.instance`.',
       ),
       const _WboGlossaryEntry(
         term: 'WidgetsBindingObserver',
-        body: 'The mixin this demo is about. Attach it to any class (not '
+        body:
+            'The mixin this demo is about. Attach it to any class (not '
             'just State) and register the instance with the binding to be '
             'called back for system events.',
       ),
       const _WboGlossaryEntry(
         term: 'AppLifecycleState',
-        body: 'Enum describing where the app is in its run lifecycle. '
+        body:
+            'Enum describing where the app is in its run lifecycle. '
             'Values: resumed, inactive, hidden, paused, detached. Not to '
             'be confused with navigation state.',
       ),
       const _WboGlossaryEntry(
         term: 'AppExitResponse',
-        body: 'Enum returned from didRequestAppExit on desktop. exit = '
+        body:
+            'Enum returned from didRequestAppExit on desktop. exit = '
             'allow the window to close; cancel = prevent it. Only the '
             'first non-default response wins.',
       ),
       const _WboGlossaryEntry(
         term: 'RouteInformation',
-        body: 'Value-type passed to didPushRouteInformation. Carries a Uri '
+        body:
+            'Value-type passed to didPushRouteInformation. Carries a Uri '
             'and an optional state object — the replacement for the '
             'deprecated String-based didPushRoute.',
       ),
       const _WboGlossaryEntry(
         term: 'Observer fan-out',
-        body: 'The binding\'s policy of calling every registered observer '
+        body:
+            'The binding\'s policy of calling every registered observer '
             'in registration order for each system event. Insertion order '
             'is preserved by a LinkedHashSet.',
       ),
       const _WboGlossaryEntry(
         term: 'Memory pressure',
-        body: 'A cooperative signal from the OS asking you to drop '
+        body:
+            'A cooperative signal from the OS asking you to drop '
             'caches. Not a hard cap; the system still guarantees nothing.',
       ),
       const _WboGlossaryEntry(
         term: 'Mounted guard',
-        body: 'The State.mounted boolean, used to bail out of async '
+        body:
+            'The State.mounted boolean, used to bail out of async '
             'continuations that reach back into a disposed widget. A '
             'must when combining observers with async/await.',
       ),
@@ -3483,13 +3531,8 @@ class _WboSectionFrame extends StatelessWidget {
           right: 0,
           top: 0,
           child: ClipRRect(
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(16),
-            ),
-            child: Container(
-              height: 2,
-              color: accent.withOpacity(0.7),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Container(height: 2, color: accent.withOpacity(0.7)),
           ),
         ),
       ],
@@ -3512,14 +3555,11 @@ class _WboConsoleReadout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _WboEvent? last =
-        snapshot.log.isNotEmpty ? snapshot.log.first : null;
+    final _WboEvent? last = snapshot.log.isNotEmpty ? snapshot.log.first : null;
     return Container(
       decoration: const BoxDecoration(
         color: _kPanel,
-        border: Border(
-          top: BorderSide(color: _kRail, width: 1),
-        ),
+        border: Border(top: BorderSide(color: _kRail, width: 1)),
       ),
       padding: const EdgeInsets.fromLTRB(14, 8, 14, 10),
       child: SafeArea(
@@ -3556,7 +3596,10 @@ class _WboConsoleReadout extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _kNavy,
                   borderRadius: BorderRadius.circular(6),

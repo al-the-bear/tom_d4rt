@@ -110,11 +110,7 @@ const TextStyle _tSectionSub = TextStyle(
   fontSize: 12,
   height: 1.4,
 );
-const TextStyle _tBody = TextStyle(
-  color: _inkSoft,
-  fontSize: 13,
-  height: 1.45,
-);
+const TextStyle _tBody = TextStyle(color: _inkSoft, fontSize: 13, height: 1.45);
 const TextStyle _tBodyHi = TextStyle(
   color: _ink,
   fontSize: 13,
@@ -140,11 +136,7 @@ const TextStyle _tCodeKey = TextStyle(
   fontFamily: 'monospace',
   fontWeight: FontWeight.w600,
 );
-const TextStyle _tDoc = TextStyle(
-  color: _ink,
-  fontSize: 14,
-  height: 1.6,
-);
+const TextStyle _tDoc = TextStyle(color: _ink, fontSize: 14, height: 1.6);
 const TextStyle _tDocSel = TextStyle(
   color: _ink,
   fontSize: 14,
@@ -186,7 +178,10 @@ dynamic build(BuildContext context) {
     <String>['startEdgeUpdate', 'Move the start edge of the selection.'],
     <String>['endEdgeUpdate', 'Move the end edge of the selection.'],
     <String>['granularlyExtendSelection', 'Extend by char/word/line/document.'],
-    <String>['directionallyExtendSelection', 'Extend by direction (next line, …).'],
+    <String>[
+      'directionallyExtendSelection',
+      'Extend by direction (next line, …).',
+    ],
   ];
 
   // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #69, P2): the
@@ -211,28 +206,28 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               _hero(eventTypeLabel, eventRuntimeLabel, eventConstructionNote),
-        const SizedBox(height: 36),
-        _sectionAnatomy(),
-        const SizedBox(height: 44),
-        _sectionEventTypeMosaic(eventTypeRows),
-        const SizedBox(height: 44),
-        _sectionLifecycle(),
-        const SizedBox(height: 44),
-        _sectionMockDocument(),
-        const SizedBox(height: 44),
-        _sectionDispatchCode(),
-        const SizedBox(height: 44),
-        _sectionRegionMock(),
-        const SizedBox(height: 44),
-        _sectionComparison(),
-        const SizedBox(height: 44),
-        _sectionConstructor(),
-        const SizedBox(height: 44),
-        _sectionPitfalls(),
-        const SizedBox(height: 44),
-        _footer(),
-      ],
-    ),
+              const SizedBox(height: 36),
+              _sectionAnatomy(),
+              const SizedBox(height: 44),
+              _sectionEventTypeMosaic(eventTypeRows),
+              const SizedBox(height: 44),
+              _sectionLifecycle(),
+              const SizedBox(height: 44),
+              _sectionMockDocument(),
+              const SizedBox(height: 44),
+              _sectionDispatchCode(),
+              const SizedBox(height: 44),
+              _sectionRegionMock(),
+              const SizedBox(height: 44),
+              _sectionComparison(),
+              const SizedBox(height: 44),
+              _sectionConstructor(),
+              const SizedBox(height: 44),
+              _sectionPitfalls(),
+              const SizedBox(height: 44),
+              _footer(),
+            ],
+          ),
         ),
       ),
     ),
@@ -313,14 +308,19 @@ Widget _hero(String typeLabel, String runtimeLabel, String note) {
               ),
               const SizedBox(height: 14),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: _bgPanel2,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: _borderSoft, width: 1),
                 ),
-                child: Text(note,
-                    style: _tBody.copyWith(color: _inkMuted, fontSize: 12)),
+                child: Text(
+                  note,
+                  style: _tBody.copyWith(color: _inkMuted, fontSize: 12),
+                ),
               ),
             ],
           ),
@@ -347,21 +347,25 @@ Widget _heroBadge(String label, String value, Color color) {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
-        Text(label,
-            style: TextStyle(
-              color: color,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.4,
-            )),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.4,
+          ),
+        ),
         const SizedBox(width: 8),
-        Text(value,
-            style: TextStyle(
-              color: _ink,
-              fontSize: 12,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-            )),
+        Text(
+          value,
+          style: TextStyle(
+            color: _ink,
+            fontSize: 12,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -414,59 +418,63 @@ Widget _sectionHeader(
                   ),
                   child: Row(
                     children: <Widget>[
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[tint, tint.withValues(alpha: 0.55)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(13),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: tint.withValues(alpha: 0.45),
-                blurRadius: 14,
-                offset: const Offset(0, 6),
-              ),
-            ],
-          ),
-          child: Icon(icon, color: Colors.white, size: 26),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(
-                      color: tint.withValues(alpha: 0.25),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Text(number,
-                        style: TextStyle(
-                          color: tint,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 1.3,
-                        )),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: <Color>[tint, tint.withValues(alpha: 0.55)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(13),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              color: tint.withValues(alpha: 0.45),
+                              blurRadius: 14,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
+                        child: Icon(icon, color: Colors.white, size: 26),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: tint.withValues(alpha: 0.25),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Text(
+                                    number,
+                                    style: TextStyle(
+                                      color: tint,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w800,
+                                      letterSpacing: 1.3,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text(title, style: _tSection),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text(subtitle, style: _tSectionSub),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 10),
-                  Text(title, style: _tSection),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Text(subtitle, style: _tSectionSub),
-            ],
-          ),
-        ),
-      ],
-    ),
                 ),
               ),
             ],
@@ -538,13 +546,15 @@ Widget _hierarchyRoot(String name, String tag) {
         children: <Widget>[
           const Icon(Icons.workspaces_outlined, color: Colors.white, size: 18),
           const SizedBox(width: 8),
-          Text(name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.4,
-              )),
+          Text(
+            name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.4,
+            ),
+          ),
           const SizedBox(width: 10),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -552,13 +562,15 @@ Widget _hierarchyRoot(String name, String tag) {
               color: Colors.white.withValues(alpha: 0.22),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(tag,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 9.5,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                )),
+            child: Text(
+              tag,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9.5,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+              ),
+            ),
           ),
         ],
       ),
@@ -586,22 +598,72 @@ Widget _hierarchyChildren() {
     <dynamic>['SelectAllSelectionEvent', 'selectAll', _green, false],
     <dynamic>['SelectWordSelectionEvent', 'selectWord', _amber, false],
     <dynamic>['SelectParagraphSelectionEvent', 'selectParagraph', _teal, false],
-    <dynamic>['SelectionEdgeUpdateEvent', 'startEdge / endEdge', _violet, false],
-    <dynamic>['GranularlyExtendSelectionEvent', 'granularlyExtend', _rose, false],
-    <dynamic>['DirectionallyExtendSelectionEvent', 'directionallyExtend', _amberSoft, false],
+    <dynamic>[
+      'SelectionEdgeUpdateEvent',
+      'startEdge / endEdge',
+      _violet,
+      false,
+    ],
+    <dynamic>[
+      'GranularlyExtendSelectionEvent',
+      'granularlyExtend',
+      _rose,
+      false,
+    ],
+    <dynamic>[
+      'DirectionallyExtendSelectionEvent',
+      'directionallyExtend',
+      _amberSoft,
+      false,
+    ],
   ];
   return Wrap(
     spacing: 12,
     runSpacing: 12,
     alignment: WrapAlignment.center,
     children: <Widget>[
-      _hierLeaf(rows[0][0] as String, rows[0][1] as String, rows[0][2] as Color, rows[0][3] as bool),
-      _hierLeaf(rows[1][0] as String, rows[1][1] as String, rows[1][2] as Color, rows[1][3] as bool),
-      _hierLeaf(rows[2][0] as String, rows[2][1] as String, rows[2][2] as Color, rows[2][3] as bool),
-      _hierLeaf(rows[3][0] as String, rows[3][1] as String, rows[3][2] as Color, rows[3][3] as bool),
-      _hierLeaf(rows[4][0] as String, rows[4][1] as String, rows[4][2] as Color, rows[4][3] as bool),
-      _hierLeaf(rows[5][0] as String, rows[5][1] as String, rows[5][2] as Color, rows[5][3] as bool),
-      _hierLeaf(rows[6][0] as String, rows[6][1] as String, rows[6][2] as Color, rows[6][3] as bool),
+      _hierLeaf(
+        rows[0][0] as String,
+        rows[0][1] as String,
+        rows[0][2] as Color,
+        rows[0][3] as bool,
+      ),
+      _hierLeaf(
+        rows[1][0] as String,
+        rows[1][1] as String,
+        rows[1][2] as Color,
+        rows[1][3] as bool,
+      ),
+      _hierLeaf(
+        rows[2][0] as String,
+        rows[2][1] as String,
+        rows[2][2] as Color,
+        rows[2][3] as bool,
+      ),
+      _hierLeaf(
+        rows[3][0] as String,
+        rows[3][1] as String,
+        rows[3][2] as Color,
+        rows[3][3] as bool,
+      ),
+      _hierLeaf(
+        rows[4][0] as String,
+        rows[4][1] as String,
+        rows[4][2] as Color,
+        rows[4][3] as bool,
+      ),
+      _hierLeaf(
+        rows[5][0] as String,
+        rows[5][1] as String,
+        rows[5][2] as Color,
+        rows[5][3] as bool,
+      ),
+      _hierLeaf(
+        rows[6][0] as String,
+        rows[6][1] as String,
+        rows[6][2] as Color,
+        rows[6][3] as bool,
+      ),
     ],
   );
 }
@@ -639,27 +701,31 @@ Widget _hierLeaf(String name, String type, Color color, bool highlight) {
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(name,
-                  style: TextStyle(
-                    color: highlight ? _ink : _inkSoft,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                  ),
-                  overflow: TextOverflow.ellipsis),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: highlight ? _ink : _inkSoft,
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             if (highlight)
               Icon(Icons.center_focus_strong, color: color, size: 14),
           ],
         ),
         const SizedBox(height: 6),
-        Text('SelectionEventType.$type',
-            style: TextStyle(
-              color: color,
-              fontSize: 10.5,
-              fontFamily: 'monospace',
-              letterSpacing: 0.2,
-            )),
+        Text(
+          'SelectionEventType.$type',
+          style: TextStyle(
+            color: color,
+            fontSize: 10.5,
+            fontFamily: 'monospace',
+            letterSpacing: 0.2,
+          ),
+        ),
       ],
     ),
   );
@@ -682,7 +748,10 @@ Widget _anatomyLegend() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              Text('Why a class hierarchy and not just an enum?', style: _tBodyHi),
+              Text(
+                'Why a class hierarchy and not just an enum?',
+                style: _tBodyHi,
+              ),
               SizedBox(height: 4),
               Text(
                 'Each subclass carries its own payload. ClearSelectionEvent is '
@@ -740,11 +809,7 @@ Widget _sectionEventTypeMosaic(List<List<String>> rows) {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: _border, width: 1),
         ),
-        child: Wrap(
-          spacing: 14,
-          runSpacing: 14,
-          children: chips,
-        ),
+        child: Wrap(spacing: 14, runSpacing: 14, children: chips),
       ),
     ],
   );
@@ -780,13 +845,15 @@ Widget _eventTypeChip(String name, String desc, Color color, bool highlight) {
                 color: color.withValues(alpha: 0.32),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text('.$name',
-                  style: TextStyle(
-                    color: _ink,
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                  )),
+              child: Text(
+                '.$name',
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             if (highlight) ...<Widget>[
               const SizedBox(width: 8),
@@ -807,12 +874,42 @@ Widget _eventTypeChip(String name, String desc, Color color, bool highlight) {
 
 Widget _sectionLifecycle() {
   final List<_Stage> stages = <_Stage>[
-    const _Stage('idle', 'No selection. Cursor blinks, nothing highlighted.', Icons.circle_outlined, _inkMuted),
-    const _Stage('start', 'SelectWordSelectionEvent / startEdgeUpdate.', Icons.touch_app, _green),
-    const _Stage('extend', 'Repeated endEdgeUpdate as user drags.', Icons.swap_horiz, _amber),
-    const _Stage('extend+', 'GranularlyExtend / DirectionallyExtend (Shift+→).', Icons.east, _rose),
-    const _Stage('clear', 'ClearSelectionEvent dispatched (THIS event).', Icons.clear_all, _accent),
-    const _Stage('idle', 'Back to no selection.', Icons.circle_outlined, _inkMuted),
+    const _Stage(
+      'idle',
+      'No selection. Cursor blinks, nothing highlighted.',
+      Icons.circle_outlined,
+      _inkMuted,
+    ),
+    const _Stage(
+      'start',
+      'SelectWordSelectionEvent / startEdgeUpdate.',
+      Icons.touch_app,
+      _green,
+    ),
+    const _Stage(
+      'extend',
+      'Repeated endEdgeUpdate as user drags.',
+      Icons.swap_horiz,
+      _amber,
+    ),
+    const _Stage(
+      'extend+',
+      'GranularlyExtend / DirectionallyExtend (Shift+→).',
+      Icons.east,
+      _rose,
+    ),
+    const _Stage(
+      'clear',
+      'ClearSelectionEvent dispatched (THIS event).',
+      Icons.clear_all,
+      _accent,
+    ),
+    const _Stage(
+      'idle',
+      'Back to no selection.',
+      Icons.circle_outlined,
+      _inkMuted,
+    ),
   ];
 
   return Column(
@@ -860,19 +957,23 @@ Widget _lifecycleArrow(bool emphasised) {
     padding: const EdgeInsets.symmetric(horizontal: 6),
     child: Column(
       children: <Widget>[
-        Icon(Icons.east,
-            color: emphasised ? _accent : _borderHi,
-            size: emphasised ? 26 : 22),
+        Icon(
+          Icons.east,
+          color: emphasised ? _accent : _borderHi,
+          size: emphasised ? 26 : 22,
+        ),
         if (emphasised)
           Padding(
             padding: const EdgeInsets.only(top: 2),
-            child: Text('clear',
-                style: TextStyle(
-                  color: _accent,
-                  fontSize: 9,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.3,
-                )),
+            child: Text(
+              'clear',
+              style: TextStyle(
+                color: _accent,
+                fontSize: 9,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.3,
+              ),
+            ),
           ),
       ],
     ),
@@ -908,24 +1009,28 @@ Widget _lifecycleCard(_Stage stage, int index) {
                 color: _bgDeep,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text('#$index',
-                  style: TextStyle(
-                    color: _inkMuted,
-                    fontSize: 9.5,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                  )),
+              child: Text(
+                '#$index',
+                style: TextStyle(
+                  color: _inkMuted,
+                  fontSize: 9.5,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ],
         ),
         const SizedBox(height: 10),
-        Text(stage.name,
-            style: TextStyle(
-              color: stage.color,
-              fontSize: 13.5,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'monospace',
-            )),
+        Text(
+          stage.name,
+          style: TextStyle(
+            color: stage.color,
+            fontSize: 13.5,
+            fontWeight: FontWeight.w800,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 5),
         Text(stage.description, style: _tBody.copyWith(fontSize: 11.5)),
         const SizedBox(height: 10),
@@ -959,35 +1064,37 @@ Widget _miniDoc(List<double> selFactors) {
   final List<Widget> lines = <Widget>[];
   for (int i = 0; i < 3; i++) {
     final double f = i < selFactors.length ? selFactors[i] : 0.0;
-    lines.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: 6,
-            decoration: BoxDecoration(
-              color: _borderSoft,
-              borderRadius: BorderRadius.circular(3),
-            ),
-          ),
-          if (f > 0.0)
-            FractionallySizedBox(
-              widthFactor: f.clamp(0.0, 1.0),
-              child: Container(
-                height: 6,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[_selectionFill, _selectionFillSoft],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(3),
-                ),
+    lines.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: 6,
+              decoration: BoxDecoration(
+                color: _borderSoft,
+                borderRadius: BorderRadius.circular(3),
               ),
             ),
-        ],
+            if (f > 0.0)
+              FractionallySizedBox(
+                widthFactor: f.clamp(0.0, 1.0),
+                child: Container(
+                  height: 6,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[_selectionFill, _selectionFillSoft],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     padding: const EdgeInsets.all(8),
@@ -996,7 +1103,10 @@ Widget _miniDoc(List<double> selFactors) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _borderSoft, width: 1),
     ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: lines),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: lines,
+    ),
   );
 }
 
@@ -1024,8 +1134,10 @@ Widget _lifecycleNarrative() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              Text('Where ClearSelectionEvent fits in the timeline',
-                  style: _tBodyHi),
+              Text(
+                'Where ClearSelectionEvent fits in the timeline',
+                style: _tBodyHi,
+              ),
               SizedBox(height: 6),
               Text(
                 'The clear stage is *terminal* for the active selection. After a '
@@ -1075,11 +1187,32 @@ Widget _sectionMockDocument() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _docState('1. Fully selected', 'SelectAll dispatched.', _green, _DocSelMode.full)),
+            Expanded(
+              child: _docState(
+                '1. Fully selected',
+                'SelectAll dispatched.',
+                _green,
+                _DocSelMode.full,
+              ),
+            ),
             const SizedBox(width: 14),
-            Expanded(child: _docState('2. Partly selected', 'Drag in progress, mid-extend.', _amber, _DocSelMode.partial)),
+            Expanded(
+              child: _docState(
+                '2. Partly selected',
+                'Drag in progress, mid-extend.',
+                _amber,
+                _DocSelMode.partial,
+              ),
+            ),
             const SizedBox(width: 14),
-            Expanded(child: _docState('3. Cleared', 'After ClearSelectionEvent.', _accent, _DocSelMode.none)),
+            Expanded(
+              child: _docState(
+                '3. Cleared',
+                'After ClearSelectionEvent.',
+                _accent,
+                _DocSelMode.none,
+              ),
+            ),
           ],
         ),
       ),
@@ -1131,10 +1264,8 @@ Widget _docPaint(_DocSelMode mode) {
   const String s2 = 'communicates with selectable widgets ';
   const String s3 = 'about user intent.';
 
-  TextSpan span(String t, bool selected) => TextSpan(
-        text: t,
-        style: selected ? _tDocSel : _tDoc,
-      );
+  TextSpan span(String t, bool selected) =>
+      TextSpan(text: t, style: selected ? _tDocSel : _tDoc);
 
   // Decide which spans appear "selected".
   bool a, b, c;
@@ -1198,21 +1329,25 @@ Widget _docCaption(_DocSelMode mode) {
         Icon(Icons.crop_free, color: _inkMuted, size: 14),
         const SizedBox(width: 7),
         Expanded(
-          child: Text(label,
-              style: TextStyle(
-                color: _inkSoft,
-                fontSize: 11.5,
-                fontFamily: 'monospace',
-              ),
-              overflow: TextOverflow.ellipsis),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: _inkSoft,
+              fontSize: 11.5,
+              fontFamily: 'monospace',
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         const SizedBox(width: 8),
-        Text(hint,
-            style: TextStyle(
-              color: _inkMuted,
-              fontSize: 10,
-              fontStyle: FontStyle.italic,
-            )),
+        Text(
+          hint,
+          style: TextStyle(
+            color: _inkMuted,
+            fontSize: 10,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       ],
     ),
   );
@@ -1277,26 +1412,30 @@ Widget _codeCard({required String title, required List<String> lines}) {
     final TextStyle style = isComment
         ? _tCode.copyWith(color: _inkMuted, fontStyle: FontStyle.italic)
         : _tCodeKey;
-    lineWidgets.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 1.5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 28,
-            child: Text('${i + 1}',
+    lineWidgets.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 1.5),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 28,
+              child: Text(
+                '${i + 1}',
                 style: TextStyle(
                   color: _inkDim,
                   fontSize: 11,
                   fontFamily: 'monospace',
                 ),
-                textAlign: TextAlign.right),
-          ),
-          const SizedBox(width: 12),
-          Expanded(child: Text(text, style: style)),
-        ],
+                textAlign: TextAlign.right,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(child: Text(text, style: style)),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     decoration: BoxDecoration(
@@ -1325,38 +1464,47 @@ Widget _codeCard({required String title, required List<String> lines}) {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: _bgPanel2,
-              border: Border(
-                bottom: BorderSide(color: _borderSoft, width: 1),
-              ),
+              border: Border(bottom: BorderSide(color: _borderSoft, width: 1)),
             ),
             child: Row(
-            children: <Widget>[
-              Container(
+              children: <Widget>[
+                Container(
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      color: _rose, shape: BoxShape.circle)),
-              const SizedBox(width: 6),
-              Container(
+                    color: _rose,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Container(
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      color: _amber, shape: BoxShape.circle)),
-              const SizedBox(width: 6),
-              Container(
+                    color: _amber,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Container(
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      color: _green, shape: BoxShape.circle)),
-              const SizedBox(width: 14),
-              Text(title,
+                    color: _green,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Text(
+                  title,
                   style: TextStyle(
                     color: _inkSoft,
                     fontSize: 11.5,
                     fontFamily: 'monospace',
-                  )),
-            ],
-          ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Padding(
@@ -1373,18 +1521,28 @@ Widget _codeCard({required String title, required List<String> lines}) {
 
 Widget _codeAnnotations() {
   final List<List<dynamic>> ann = <List<dynamic>>[
-    <dynamic>['no payload', 'ClearSelectionEvent() takes no parameters.', _green],
-    <dynamic>['const-friendly', 'You can const-construct it; equality is identity.', _accent],
-    <dynamic>['dispatch result', 'Usually SelectionResult.none after a clear.', _amber],
+    <dynamic>[
+      'no payload',
+      'ClearSelectionEvent() takes no parameters.',
+      _green,
+    ],
+    <dynamic>[
+      'const-friendly',
+      'You can const-construct it; equality is identity.',
+      _accent,
+    ],
+    <dynamic>[
+      'dispatch result',
+      'Usually SelectionResult.none after a clear.',
+      _amber,
+    ],
     <dynamic>['idempotent', 'Clearing an empty selection is a no-op.', _violet],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < ann.length; i++) {
-    kids.add(_codeAnnRow(
-      ann[i][0] as String,
-      ann[i][1] as String,
-      ann[i][2] as Color,
-    ));
+    kids.add(
+      _codeAnnRow(ann[i][0] as String, ann[i][1] as String, ann[i][2] as Color),
+    );
   }
   return Container(
     padding: const EdgeInsets.all(14),
@@ -1414,17 +1572,21 @@ Widget _codeAnnRow(String tag, String description, Color color) {
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: color.withValues(alpha: 0.5), width: 1),
           ),
-          child: Text(tag,
-              style: TextStyle(
-                color: color,
-                fontSize: 10.5,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.6,
-                fontFamily: 'monospace',
-              )),
+          child: Text(
+            tag,
+            style: TextStyle(
+              color: color,
+              fontSize: 10.5,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.6,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         const SizedBox(width: 14),
-        Expanded(child: Text(description, style: _tBody.copyWith(fontSize: 12))),
+        Expanded(
+          child: Text(description, style: _tBody.copyWith(fontSize: 12)),
+        ),
       ],
     ),
   );
@@ -1502,14 +1664,16 @@ Widget _regionFrame() {
           children: <Widget>[
             Icon(Icons.tab_unselected, color: _accent, size: 16),
             const SizedBox(width: 8),
-            Text('SelectableRegion (mock)',
-                style: TextStyle(
-                  color: _accentSoft,
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1,
-                )),
+            Text(
+              'SelectableRegion (mock)',
+              style: TextStyle(
+                color: _accentSoft,
+                fontSize: 11,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1,
+              ),
+            ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -1517,13 +1681,15 @@ Widget _regionFrame() {
                 color: _green.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text('3 selectables',
-                  style: TextStyle(
-                    color: _green,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.1,
-                  )),
+              child: Text(
+                '3 selectables',
+                style: TextStyle(
+                  color: _green,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.1,
+                ),
+              ),
             ),
           ],
         ),
@@ -1558,12 +1724,14 @@ Widget _regionSentence(int i, String text) {
               color: _violet.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text('${i + 1}',
-                style: TextStyle(
-                  color: _violet,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                )),
+            child: Text(
+              '${i + 1}',
+              style: TextStyle(
+                color: _violet,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -1572,10 +1740,12 @@ Widget _regionSentence(int i, String text) {
                 Container(
                   height: 18,
                   alignment: Alignment.centerLeft,
-                  child: Text(text,
-                      style: _tBody.copyWith(fontSize: 12),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
+                  child: Text(
+                    text,
+                    style: _tBody.copyWith(fontSize: 12),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 if (f > 0.0)
                   IgnorePointer(
@@ -1602,16 +1772,42 @@ Widget _regionSentence(int i, String text) {
 Widget _regionButtons() {
   return Row(
     children: <Widget>[
-      Expanded(child: _regionButton('Select All', 'SelectAllSelectionEvent', _green, Icons.select_all)),
+      Expanded(
+        child: _regionButton(
+          'Select All',
+          'SelectAllSelectionEvent',
+          _green,
+          Icons.select_all,
+        ),
+      ),
       const SizedBox(width: 12),
-      Expanded(child: _regionButton('Select Word', 'SelectWordSelectionEvent', _amber, Icons.spellcheck)),
+      Expanded(
+        child: _regionButton(
+          'Select Word',
+          'SelectWordSelectionEvent',
+          _amber,
+          Icons.spellcheck,
+        ),
+      ),
       const SizedBox(width: 12),
-      Expanded(child: _regionButton('Clear', 'ClearSelectionEvent', _accent, Icons.format_clear)),
+      Expanded(
+        child: _regionButton(
+          'Clear',
+          'ClearSelectionEvent',
+          _accent,
+          Icons.format_clear,
+        ),
+      ),
     ],
   );
 }
 
-Widget _regionButton(String label, String dispatched, Color color, IconData icon) {
+Widget _regionButton(
+  String label,
+  String dispatched,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
     decoration: BoxDecoration(
@@ -1633,30 +1829,36 @@ Widget _regionButton(String label, String dispatched, Color color, IconData icon
           children: <Widget>[
             Icon(icon, color: color, size: 18),
             const SizedBox(width: 8),
-            Text(label,
-                style: TextStyle(
-                  color: _ink,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                )),
+            Text(
+              label,
+              style: TextStyle(
+                color: _ink,
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
-        Text('would dispatch:',
-            style: TextStyle(
-              color: _inkMuted,
-              fontSize: 9.5,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.1,
-            )),
+        Text(
+          'would dispatch:',
+          style: TextStyle(
+            color: _inkMuted,
+            fontSize: 9.5,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.1,
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(dispatched,
-            style: TextStyle(
-              color: color,
-              fontSize: 11,
-              fontFamily: 'monospace',
-              fontWeight: FontWeight.w600,
-            )),
+        Text(
+          dispatched,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -1714,44 +1916,52 @@ Widget _sectionComparison() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _compareColumn(
-              name: 'ClearSelectionEvent',
-              type: 'SelectionEventType.clear',
-              icon: Icons.format_clear,
-              color: _accent,
-              payload: 'none',
-              effect: 'Drops every range and edge. Selection becomes empty.',
-              when: 'ESC pressed, tap outside region, programmatic clear.',
-              ctor: 'const ClearSelectionEvent()',
-              note: 'Pure signal — no positional / named arguments.',
-              isHighlight: true,
-            )),
+            Expanded(
+              child: _compareColumn(
+                name: 'ClearSelectionEvent',
+                type: 'SelectionEventType.clear',
+                icon: Icons.format_clear,
+                color: _accent,
+                payload: 'none',
+                effect: 'Drops every range and edge. Selection becomes empty.',
+                when: 'ESC pressed, tap outside region, programmatic clear.',
+                ctor: 'const ClearSelectionEvent()',
+                note: 'Pure signal — no positional / named arguments.',
+                isHighlight: true,
+              ),
+            ),
             const SizedBox(width: 14),
-            Expanded(child: _compareColumn(
-              name: 'SelectAllSelectionEvent',
-              type: 'SelectionEventType.selectAll',
-              icon: Icons.select_all,
-              color: _green,
-              payload: 'none',
-              effect: 'Marks the entire content of every handler as selected.',
-              when: 'Cmd/Ctrl+A, "Select All" menu item.',
-              ctor: 'const SelectAllSelectionEvent()',
-              note: 'Also payload-less — but the *result* is maximal selection.',
-              isHighlight: false,
-            )),
+            Expanded(
+              child: _compareColumn(
+                name: 'SelectAllSelectionEvent',
+                type: 'SelectionEventType.selectAll',
+                icon: Icons.select_all,
+                color: _green,
+                payload: 'none',
+                effect:
+                    'Marks the entire content of every handler as selected.',
+                when: 'Cmd/Ctrl+A, "Select All" menu item.',
+                ctor: 'const SelectAllSelectionEvent()',
+                note:
+                    'Also payload-less — but the *result* is maximal selection.',
+                isHighlight: false,
+              ),
+            ),
             const SizedBox(width: 14),
-            Expanded(child: _compareColumn(
-              name: 'SelectWordSelectionEvent',
-              type: 'SelectionEventType.selectWord',
-              icon: Icons.spellcheck,
-              color: _amber,
-              payload: 'globalPosition: Offset',
-              effect: 'Snaps selection to the word at globalPosition.',
-              when: 'Double-tap, long-press, "Select Word" menu.',
-              ctor: 'SelectWordSelectionEvent(globalPosition: Offset(...))',
-              note: 'Has a real payload — the screen-space pointer location.',
-              isHighlight: false,
-            )),
+            Expanded(
+              child: _compareColumn(
+                name: 'SelectWordSelectionEvent',
+                type: 'SelectionEventType.selectWord',
+                icon: Icons.spellcheck,
+                color: _amber,
+                payload: 'globalPosition: Offset',
+                effect: 'Snaps selection to the word at globalPosition.',
+                when: 'Double-tap, long-press, "Select Word" menu.',
+                ctor: 'SelectWordSelectionEvent(globalPosition: Offset(...))',
+                note: 'Has a real payload — the screen-space pointer location.',
+                isHighlight: false,
+              ),
+            ),
           ],
         ),
       ),
@@ -1810,13 +2020,15 @@ Widget _compareColumn({
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text(name,
-                  style: TextStyle(
-                    color: _ink,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'monospace',
-                  )),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ),
           ],
         ),
@@ -1841,25 +2053,29 @@ Widget _compareRow(String label, String value, Color color) {
       children: <Widget>[
         SizedBox(
           width: 60,
-          child: Text(label,
-              style: TextStyle(
-                color: _inkMuted,
-                fontSize: 9.5,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.2,
-              )),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: _inkMuted,
+              fontSize: 9.5,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+            ),
+          ),
         ),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(value,
-              style: TextStyle(
-                color: color,
-                fontSize: 11,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2),
+          child: Text(
+            value,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
         ),
       ],
     ),
@@ -1890,13 +2106,15 @@ Widget _compareBlock(String label, String text, Color color) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(label.toUpperCase(),
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1.4,
-                          )),
+                      Text(
+                        label.toUpperCase(),
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.4,
+                        ),
+                      ),
                       const SizedBox(height: 3),
                       Text(text, style: _tBody.copyWith(fontSize: 11.5)),
                     ],
@@ -1969,20 +2187,28 @@ Widget _ctorSignature() {
 
 Widget _ctorRationale() {
   final List<List<String>> rationale = <List<String>>[
-    <String>['Why no payload?',
+    <String>[
+      'Why no payload?',
       'Clearing is total. There is no "where" or "how much" to clear — '
-      'the handler simply drops everything it currently tracks.'],
-    <String>['Why const?',
+          'the handler simply drops everything it currently tracks.',
+    ],
+    <String>[
+      'Why const?',
       'A const ClearSelectionEvent can be canonicalised by the compiler — '
-      'no allocation per dispatch, no GC pressure for a high-frequency '
-      'signal.'],
-    <String>['Why not an enum value alone?',
+          'no allocation per dispatch, no GC pressure for a high-frequency '
+          'signal.',
+    ],
+    <String>[
+      'Why not an enum value alone?',
       'Because every SelectionEvent is dispatched via the same '
-      'dispatchSelectionEvent(SelectionEvent) method. A class lets '
-      'the type system stay uniform with payload-bearing events.'],
-    <String>['Why no callback?',
+          'dispatchSelectionEvent(SelectionEvent) method. A class lets '
+          'the type system stay uniform with payload-bearing events.',
+    ],
+    <String>[
+      'Why no callback?',
       'The handler returns a SelectionResult synchronously. Callbacks '
-      'would invert the control flow and break the dispatch loop.'],
+          'would invert the control flow and break the dispatch loop.',
+    ],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < rationale.length; i++) {
@@ -2016,12 +2242,14 @@ Widget _rationaleRow(String q, String a, int i) {
             color: _violet.withValues(alpha: 0.22),
             borderRadius: BorderRadius.circular(7),
           ),
-          child: Text('${i + 1}',
-              style: TextStyle(
-                color: _violet,
-                fontSize: 12,
-                fontWeight: FontWeight.w800,
-              )),
+          child: Text(
+            '${i + 1}',
+            style: TextStyle(
+              color: _violet,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -2215,8 +2443,11 @@ Widget _footer() {
                 ),
                 borderRadius: BorderRadius.circular(11),
               ),
-              child: const Icon(Icons.bookmark_added,
-                  color: Colors.white, size: 24),
+              child: const Icon(
+                Icons.bookmark_added,
+                color: Colors.white,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -2245,38 +2476,66 @@ Widget _footer() {
 
 Widget _footerBullets() {
   final List<List<dynamic>> bullets = <List<dynamic>>[
-    <dynamic>[Icons.check_circle, _green,
-      'ClearSelectionEvent extends SelectionEvent — a leaf in the rendering hierarchy.'],
-    <dynamic>[Icons.check_circle, _green,
-      'Reports SelectionEventType.clear; carries no payload.'],
-    <dynamic>[Icons.check_circle, _green,
-      'const-constructible — cheap to dispatch repeatedly.'],
-    <dynamic>[Icons.check_circle, _green,
-      'Handled by every SelectionHandler beneath the SelectionRegistrar.'],
-    <dynamic>[Icons.check_circle, _green,
-      'Idempotent: clearing an empty selection is a safe no-op.'],
-    <dynamic>[Icons.check_circle, _green,
-      'Blocked by SelectionContainer.disabled — verify ancestors when debugging.'],
-    <dynamic>[Icons.check_circle, _green,
-      'Use clear for "deselect", dispose for "tear down the region".'],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'ClearSelectionEvent extends SelectionEvent — a leaf in the rendering hierarchy.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'Reports SelectionEventType.clear; carries no payload.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'const-constructible — cheap to dispatch repeatedly.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'Handled by every SelectionHandler beneath the SelectionRegistrar.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'Idempotent: clearing an empty selection is a safe no-op.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'Blocked by SelectionContainer.disabled — verify ancestors when debugging.',
+    ],
+    <dynamic>[
+      Icons.check_circle,
+      _green,
+      'Use clear for "deselect", dispose for "tear down the region".',
+    ],
   ];
   final List<Widget> kids = <Widget>[];
   for (int i = 0; i < bullets.length; i++) {
-    kids.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Icon(bullets[i][0] as IconData,
-              color: bullets[i][1] as Color, size: 16),
-          const SizedBox(width: 9),
-          Expanded(
-            child: Text(bullets[i][2] as String,
-                style: _tBody.copyWith(fontSize: 12.5)),
-          ),
-        ],
+    kids.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Icon(
+              bullets[i][0] as IconData,
+              color: bullets[i][1] as Color,
+              size: 16,
+            ),
+            const SizedBox(width: 9),
+            Expanded(
+              child: Text(
+                bullets[i][2] as String,
+                style: _tBody.copyWith(fontSize: 12.5),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     padding: const EdgeInsets.all(14),

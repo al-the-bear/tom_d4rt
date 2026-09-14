@@ -23,7 +23,9 @@ const Color _foxing = Color(0xFFD9B891);
 dynamic build(BuildContext context) {
   print('showDatePicker Deep Demo executing');
   print('Theme: antique wall calendar — sepia, parchment, ink, stamped red');
-  print('NOTE: showDatePicker is NEVER actually invoked. All dialogs are mocks.');
+  print(
+    'NOTE: showDatePicker is NEVER actually invoked. All dialogs are mocks.',
+  );
 
   // ============================================================
   // SECTION 1: Hero — the antique calendar nameplate
@@ -114,33 +116,108 @@ dynamic build(BuildContext context) {
 
   final paramRows = <Widget>[];
   final paramData = <List<String>>[
-    <String>['context', 'BuildContext', 'required', 'host for the dialog overlay'],
-    <String>['initialDate', 'DateTime?', 'optional', 'date selected when opened'],
+    <String>[
+      'context',
+      'BuildContext',
+      'required',
+      'host for the dialog overlay',
+    ],
+    <String>[
+      'initialDate',
+      'DateTime?',
+      'optional',
+      'date selected when opened',
+    ],
     <String>['firstDate', 'DateTime', 'required', 'earliest selectable date'],
     <String>['lastDate', 'DateTime', 'required', 'latest selectable date'],
     <String>['currentDate', 'DateTime?', 'optional', 'date drawn as "today"'],
-    <String>['initialEntryMode', 'DatePickerEntryMode', 'optional', 'calendar/input on open'],
-    <String>['selectableDayPredicate', 'SelectableDayPredicate?', 'optional', 'filter pickable days'],
+    <String>[
+      'initialEntryMode',
+      'DatePickerEntryMode',
+      'optional',
+      'calendar/input on open',
+    ],
+    <String>[
+      'selectableDayPredicate',
+      'SelectableDayPredicate?',
+      'optional',
+      'filter pickable days',
+    ],
     <String>['helpText', 'String?', 'optional', 'header instruction text'],
     <String>['cancelText', 'String?', 'optional', 'label for cancel action'],
     <String>['confirmText', 'String?', 'optional', 'label for confirm action'],
-    <String>['errorFormatText', 'String?', 'optional', 'shown on parse failure'],
-    <String>['errorInvalidText', 'String?', 'optional', 'shown when out of range'],
+    <String>[
+      'errorFormatText',
+      'String?',
+      'optional',
+      'shown on parse failure',
+    ],
+    <String>[
+      'errorInvalidText',
+      'String?',
+      'optional',
+      'shown when out of range',
+    ],
     <String>['fieldHintText', 'String?', 'optional', 'hint inside text field'],
     <String>['fieldLabelText', 'String?', 'optional', 'label above text field'],
-    <String>['keyboardType', 'TextInputType?', 'optional', 'soft-keyboard variant'],
-    <String>['initialDatePickerMode', 'DatePickerMode', 'optional', 'day or year on open'],
-    <String>['useRootNavigator', 'bool', 'default true', 'route through root or nested'],
-    <String>['routeSettings', 'RouteSettings?', 'optional', 'name + args for the route'],
+    <String>[
+      'keyboardType',
+      'TextInputType?',
+      'optional',
+      'soft-keyboard variant',
+    ],
+    <String>[
+      'initialDatePickerMode',
+      'DatePickerMode',
+      'optional',
+      'day or year on open',
+    ],
+    <String>[
+      'useRootNavigator',
+      'bool',
+      'default true',
+      'route through root or nested',
+    ],
+    <String>[
+      'routeSettings',
+      'RouteSettings?',
+      'optional',
+      'name + args for the route',
+    ],
     <String>['textDirection', 'TextDirection?', 'optional', 'override LTR/RTL'],
-    <String>['builder', 'TransitionBuilder?', 'optional', 'wrap dialog (themes/locale)'],
+    <String>[
+      'builder',
+      'TransitionBuilder?',
+      'optional',
+      'wrap dialog (themes/locale)',
+    ],
     <String>['locale', 'Locale?', 'optional', 'override formatting locale'],
-    <String>['barrierDismissible', 'bool', 'default true', 'tap-outside dismiss'],
+    <String>[
+      'barrierDismissible',
+      'bool',
+      'default true',
+      'tap-outside dismiss',
+    ],
     <String>['barrierColor', 'Color?', 'optional', 'tint behind the dialog'],
     <String>['barrierLabel', 'String?', 'optional', 'a11y label for barrier'],
-    <String>['anchorPoint', 'Offset?', 'optional', 'pick display in nested screens'],
-    <String>['switchToInputEntryModeIcon', 'Icon?', 'optional', 'toggle icon to input'],
-    <String>['switchToCalendarEntryModeIcon', 'Icon?', 'optional', 'toggle icon to calendar'],
+    <String>[
+      'anchorPoint',
+      'Offset?',
+      'optional',
+      'pick display in nested screens',
+    ],
+    <String>[
+      'switchToInputEntryModeIcon',
+      'Icon?',
+      'optional',
+      'toggle icon to input',
+    ],
+    <String>[
+      'switchToCalendarEntryModeIcon',
+      'Icon?',
+      'optional',
+      'toggle icon to calendar',
+    ],
   ];
 
   // Header row.
@@ -172,7 +249,10 @@ dynamic build(BuildContext context) {
               ? _parchment.withValues(alpha: 0.7)
               : _foxing.withValues(alpha: 0.5),
           border: Border(
-            bottom: BorderSide(color: _sepia.withValues(alpha: 0.25), width: 0.5),
+            bottom: BorderSide(
+              color: _sepia.withValues(alpha: 0.25),
+              width: 0.5,
+            ),
           ),
         ),
         child: Row(
@@ -241,18 +321,34 @@ dynamic build(BuildContext context) {
   print('=== Section 3: DatePickerEntryMode state machine ===');
 
   final entryNodes = <Widget>[
-    _entryNode(DatePickerEntryMode.calendar, 'CALENDAR',
-        Icons.calendar_view_month, _agedTeal,
-        'opens grid; user may switch to input'),
-    _entryNode(DatePickerEntryMode.calendarOnly, 'CALENDAR ONLY',
-        Icons.lock_clock, _sepia,
-        'grid only — toggle suppressed'),
-    _entryNode(DatePickerEntryMode.input, 'INPUT',
-        Icons.keyboard, _duskLavender,
-        'opens text field; user may switch to calendar'),
-    _entryNode(DatePickerEntryMode.inputOnly, 'INPUT ONLY',
-        Icons.edit_note, _stampRed,
-        'text field only — toggle suppressed'),
+    _entryNode(
+      DatePickerEntryMode.calendar,
+      'CALENDAR',
+      Icons.calendar_view_month,
+      _agedTeal,
+      'opens grid; user may switch to input',
+    ),
+    _entryNode(
+      DatePickerEntryMode.calendarOnly,
+      'CALENDAR ONLY',
+      Icons.lock_clock,
+      _sepia,
+      'grid only — toggle suppressed',
+    ),
+    _entryNode(
+      DatePickerEntryMode.input,
+      'INPUT',
+      Icons.keyboard,
+      _duskLavender,
+      'opens text field; user may switch to calendar',
+    ),
+    _entryNode(
+      DatePickerEntryMode.inputOnly,
+      'INPUT ONLY',
+      Icons.edit_note,
+      _stampRed,
+      'text field only — toggle suppressed',
+    ),
   ];
   for (final DatePickerEntryMode m in DatePickerEntryMode.values) {
     print('  DatePickerEntryMode.${m.name} (index ${m.index})');
@@ -309,14 +405,16 @@ dynamic build(BuildContext context) {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              _entryArrow('calendar', '<->', 'input', _agedTeal,
-                  'switchable'),
-              _entryArrow('calendarOnly', '-X-', 'input', _stampRed,
-                  'locked'),
-              _entryArrow('input', '<->', 'calendar', _duskLavender,
-                  'switchable'),
-              _entryArrow('inputOnly', '-X-', 'calendar', _stampRed,
-                  'locked'),
+              _entryArrow('calendar', '<->', 'input', _agedTeal, 'switchable'),
+              _entryArrow('calendarOnly', '-X-', 'input', _stampRed, 'locked'),
+              _entryArrow(
+                'input',
+                '<->',
+                'calendar',
+                _duskLavender,
+                'switchable',
+              ),
+              _entryArrow('inputOnly', '-X-', 'calendar', _stampRed, 'locked'),
             ],
           ),
         ),
@@ -370,11 +468,21 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _modeFace('DAY', Icons.calendar_today, _agedTeal,
-                'shows month grid', 'June 2026'),
+            _modeFace(
+              'DAY',
+              Icons.calendar_today,
+              _agedTeal,
+              'shows month grid',
+              'June 2026',
+            ),
             Icon(Icons.swap_horiz, size: 28.0, color: _sepia),
-            _modeFace('YEAR', Icons.grid_view, _stampRed,
-                'shows decade grid', '2020 - 2031'),
+            _modeFace(
+              'YEAR',
+              Icons.grid_view,
+              _stampRed,
+              'shows decade grid',
+              '2020 - 2031',
+            ),
           ],
         ),
       ],
@@ -452,12 +560,7 @@ dynamic build(BuildContext context) {
     chip: 'year',
     chipColor: _stampRed,
     initialDate: DateTime(2026, 1, 1),
-    body: _yearGridMock(
-      first: 2018,
-      last: 2031,
-      selected: 2026,
-      current: 2026,
-    ),
+    body: _yearGridMock(first: 2018, last: 2031, selected: 2026, current: 2026),
     footerNote:
         'initialDatePickerMode=DatePickerMode.year  first=2018  last=2031',
     switchIcon: Icons.calendar_view_day,
@@ -504,12 +607,21 @@ dynamic build(BuildContext context) {
   final predicateRows = <Widget>[];
   final predicateExamples = <List<String>>[
     <String>['weekdays only', '(d) => d.weekday <= 5', 'sat & sun grayed out'],
-    <String>['mondays only', '(d) => d.weekday == DateTime.monday',
-        '~4 selectable cells per month'],
-    <String>['no holidays', '(d) => !holidaySet.contains(d)',
-        'arbitrary blocked dates'],
-    <String>['business days', '(d) => d.weekday <= 5 && !holidays.contains(d)',
-        'composite filter'],
+    <String>[
+      'mondays only',
+      '(d) => d.weekday == DateTime.monday',
+      '~4 selectable cells per month',
+    ],
+    <String>[
+      'no holidays',
+      '(d) => !holidaySet.contains(d)',
+      'arbitrary blocked dates',
+    ],
+    <String>[
+      'business days',
+      '(d) => d.weekday <= 5 && !holidays.contains(d)',
+      'composite filter',
+    ],
     <String>['even days only', '(d) => d.day.isEven', 'parity filter'],
     <String>['accept all', 'null  (or  (_) => true)', 'every day pickable'],
   ];
@@ -607,21 +719,38 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('Barrier & navigation knobs', Icons.layers,
-            light: true),
+        _sectionTitle('Barrier & navigation knobs', Icons.layers, light: true),
         SizedBox(height: 8.0),
-        _barrierRow('barrierDismissible', 'true / false',
-            'tap-outside dismiss; false locks user inside dialog'),
-        _barrierRow('barrierColor', 'Color?',
-            'tint behind dialog (defaults to Colors.black54)'),
-        _barrierRow('barrierLabel', 'String?',
-            'a11y label; required when barrierDismissible is false'),
-        _barrierRow('useRootNavigator', 'bool (default true)',
-            'route via Navigator.of(context, rootNavigator: true)'),
-        _barrierRow('routeSettings', 'RouteSettings?',
-            'name and arguments stored on the modal route'),
-        _barrierRow('anchorPoint', 'Offset?',
-            'pick which display in multi-display setups'),
+        _barrierRow(
+          'barrierDismissible',
+          'true / false',
+          'tap-outside dismiss; false locks user inside dialog',
+        ),
+        _barrierRow(
+          'barrierColor',
+          'Color?',
+          'tint behind dialog (defaults to Colors.black54)',
+        ),
+        _barrierRow(
+          'barrierLabel',
+          'String?',
+          'a11y label; required when barrierDismissible is false',
+        ),
+        _barrierRow(
+          'useRootNavigator',
+          'bool (default true)',
+          'route via Navigator.of(context, rootNavigator: true)',
+        ),
+        _barrierRow(
+          'routeSettings',
+          'RouteSettings?',
+          'name and arguments stored on the modal route',
+        ),
+        _barrierRow(
+          'anchorPoint',
+          'Offset?',
+          'pick which display in multi-display setups',
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -1288,10 +1417,7 @@ Widget _entryArrow(
         ),
       ),
       SizedBox(height: 4.0),
-      Text(
-        label,
-        style: TextStyle(fontSize: 9.5, color: _sepiaDeep),
-      ),
+      Text(label, style: TextStyle(fontSize: 9.5, color: _sepiaDeep)),
     ],
   );
 }
@@ -1420,8 +1546,10 @@ Widget _mockDialogScaffold({
               Row(
                 children: <Widget>[
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _parchment.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1569,7 +1697,7 @@ String _monthName(int month) {
     'Sep',
     'Oct',
     'Nov',
-    'Dec'
+    'Dec',
   ];
   if (month >= 1 && month <= 12) {
     return names[month - 1];
@@ -1625,7 +1753,8 @@ Widget _calendarGridMock({
       final int currentDayLocal = day;
       final bool isSelected = currentDayLocal == selectedDay;
       final bool isCurrent = currentDayLocal == currentDay;
-      final bool isInRange = currentDayLocal >= firstSelectableDay &&
+      final bool isInRange =
+          currentDayLocal >= firstSelectableDay &&
           currentDayLocal <= lastSelectableDay;
       cells.add(
         _calendarCell(
@@ -1637,12 +1766,7 @@ Widget _calendarGridMock({
       );
       day++;
     }
-    rows.add(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: cells,
-      ),
-    );
+    rows.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: cells));
   }
 
   return Container(
@@ -1670,10 +1794,7 @@ Widget _calendarGridMock({
           ],
         ),
         SizedBox(height: 6.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: headerRow,
-        ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: headerRow),
         SizedBox(height: 4.0),
         ...rows,
       ],
@@ -1715,7 +1836,9 @@ Widget _calendarCell({
       day.toString(),
       style: TextStyle(
         fontSize: 12.0,
-        fontWeight: isSelected || isCurrent ? FontWeight.bold : FontWeight.normal,
+        fontWeight: isSelected || isCurrent
+            ? FontWeight.bold
+            : FontWeight.normal,
         color: textColor,
       ),
     ),
@@ -1868,8 +1991,9 @@ Widget _yearGridMock({
           year.toString(),
           style: TextStyle(
             fontSize: 12.0,
-            fontWeight:
-                isSelected || isCurrent ? FontWeight.bold : FontWeight.normal,
+            fontWeight: isSelected || isCurrent
+                ? FontWeight.bold
+                : FontWeight.normal,
             color: isSelected ? _parchment : _ink,
           ),
         ),
@@ -1964,9 +2088,7 @@ Widget _predicateGrid() {
                 : _foxing.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(6.0),
             border: Border.all(
-              color: selectable
-                  ? _agedTeal
-                  : _sepia.withValues(alpha: 0.4),
+              color: selectable ? _agedTeal : _sepia.withValues(alpha: 0.4),
               width: 1.0,
             ),
           ),
@@ -1975,11 +2097,8 @@ Widget _predicateGrid() {
             day.toString(),
             style: TextStyle(
               fontSize: 10.5,
-              fontWeight:
-                  selectable ? FontWeight.bold : FontWeight.normal,
-              color: selectable
-                  ? _agedTeal
-                  : _sepia.withValues(alpha: 0.6),
+              fontWeight: selectable ? FontWeight.bold : FontWeight.normal,
+              color: selectable ? _agedTeal : _sepia.withValues(alpha: 0.6),
               decoration: selectable
                   ? TextDecoration.none
                   : TextDecoration.lineThrough,
@@ -1989,12 +2108,7 @@ Widget _predicateGrid() {
       );
       day++;
     }
-    rows.add(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: cells,
-      ),
-    );
+    rows.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: cells));
   }
   return Container(
     padding: EdgeInsets.all(8.0),
@@ -2211,10 +2325,7 @@ Widget _spotlightCard({
           ),
         ),
         SizedBox(height: 8.0),
-        Text(
-          body,
-          style: TextStyle(fontSize: 11.5, color: _ink, height: 1.4),
-        ),
+        Text(body, style: TextStyle(fontSize: 11.5, color: _ink, height: 1.4)),
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(8.0),

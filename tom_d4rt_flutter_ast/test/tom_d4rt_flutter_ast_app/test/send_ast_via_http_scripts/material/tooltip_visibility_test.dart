@@ -88,7 +88,10 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    _buildPropertyRow('visible', 'Controls tooltip visibility (true/false)'),
+                    _buildPropertyRow(
+                      'visible',
+                      'Controls tooltip visibility (true/false)',
+                    ),
                     _buildPropertyRow('child', 'The widget subtree to control'),
                   ],
                 ),
@@ -112,7 +115,10 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    _buildPropertyRow('TooltipVisibility.of(context)', 'Returns current visibility state'),
+                    _buildPropertyRow(
+                      'TooltipVisibility.of(context)',
+                      'Returns current visibility state',
+                    ),
                   ],
                 ),
               ),
@@ -217,7 +223,11 @@ dynamic build(BuildContext context) {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.touch_app, size: 16.0, color: Colors.green.shade700),
+                                Icon(
+                                  Icons.touch_app,
+                                  size: 16.0,
+                                  color: Colors.green.shade700,
+                                ),
                                 SizedBox(width: 4.0),
                                 Text(
                                   'Hover / Long press',
@@ -280,7 +290,11 @@ dynamic build(BuildContext context) {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.block, size: 16.0, color: Colors.red.shade700),
+                                Icon(
+                                  Icons.block,
+                                  size: 16.0,
+                                  color: Colors.red.shade700,
+                                ),
                                 SizedBox(width: 4.0),
                                 Text(
                                   'No tooltip here',
@@ -360,10 +374,7 @@ dynamic build(BuildContext context) {
               Text(
                 'TooltipVisibility can be nested. Inner visibility settings override '
                 'outer settings for their respective subtrees:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
 
@@ -433,7 +444,11 @@ dynamic build(BuildContext context) {
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Icon(Icons.visibility_off, color: Colors.red, size: 14.0),
+                                      Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.red,
+                                        size: 14.0,
+                                      ),
                                       SizedBox(width: 4.0),
                                       Text(
                                         'Inner: false',
@@ -451,7 +466,9 @@ dynamic build(BuildContext context) {
                                       padding: EdgeInsets.all(6.0),
                                       decoration: BoxDecoration(
                                         color: Colors.red.shade100,
-                                        borderRadius: BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                       child: Text(
                                         'No tooltip',
@@ -543,10 +560,7 @@ dynamic build(BuildContext context) {
               Text(
                 'In a text editor, tooltips help users understand button functions. '
                 'You might disable them during active editing:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
 
@@ -616,7 +630,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.visibility_off, color: Colors.red, size: 16.0),
+                        Icon(
+                          Icons.visibility_off,
+                          color: Colors.red,
+                          size: 16.0,
+                        ),
                         SizedBox(width: 6.0),
                         Text(
                           'Tooltips Disabled (during editing)',
@@ -726,20 +744,14 @@ dynamic build(BuildContext context) {
               Text(
                 'In a file browser, tooltips show full folder names. '
                 'Disable them when labels are already visible:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
 
               // With tooltips
               Text(
                 'Icon view (tooltips enabled):',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8.0),
               TooltipVisibility(
@@ -754,7 +766,9 @@ dynamic build(BuildContext context) {
                         width: 60.0,
                         height: 60.0,
                         decoration: BoxDecoration(
-                          color: (item['color'] as Color).withValues(alpha: 0.1),
+                          color: (item['color'] as Color).withValues(
+                            alpha: 0.1,
+                          ),
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Icon(
@@ -773,10 +787,7 @@ dynamic build(BuildContext context) {
               // With labels (no tooltips needed)
               Text(
                 'List view (tooltips disabled):',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8.0),
               TooltipVisibility(
@@ -873,7 +884,8 @@ dynamic build(BuildContext context) {
               _buildAccessibilityItem(
                 icon: Icons.record_voice_over,
                 title: 'Screen Reader Mode',
-                description: 'Keep tooltips visible=true when screen readers are active. '
+                description:
+                    'Keep tooltips visible=true when screen readers are active. '
                     'Tooltips provide important context for assistive technologies.',
                 isRecommended: true,
               ),
@@ -881,7 +893,8 @@ dynamic build(BuildContext context) {
               _buildAccessibilityItem(
                 icon: Icons.touch_app,
                 title: 'Touch Devices',
-                description: 'Consider disabling tooltips on touch-only devices where '
+                description:
+                    'Consider disabling tooltips on touch-only devices where '
                     'hover is not available and long-press conflicts with other gestures.',
                 isRecommended: false,
               ),
@@ -889,7 +902,8 @@ dynamic build(BuildContext context) {
               _buildAccessibilityItem(
                 icon: Icons.mouse,
                 title: 'Mouse Interaction',
-                description: 'Enable tooltips for mouse users to provide context on hover. '
+                description:
+                    'Enable tooltips for mouse users to provide context on hover. '
                     'This is the default and expected behavior on desktop.',
                 isRecommended: true,
               ),
@@ -972,7 +986,8 @@ dynamic build(BuildContext context) {
 
   final apiItems = [
     {
-      'signature': 'TooltipVisibility({Key? key, required bool visible, required Widget child})',
+      'signature':
+          'TooltipVisibility({Key? key, required bool visible, required Widget child})',
       'description': 'Constructor with required visibility flag',
       'icon': Icons.code,
     },
@@ -1167,10 +1182,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Control tooltip visibility in widget subtrees',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1211,9 +1223,7 @@ dynamic build(BuildContext context) {
         _buildSectionHeader('Section 7: Use Cases', Icons.lightbulb),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Wrap(
-            children: useCaseWidgets,
-          ),
+          child: Wrap(children: useCaseWidgets),
         ),
 
         // Section 8: API Reference
@@ -1271,10 +1281,7 @@ Widget _buildPropertyRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -1330,7 +1337,10 @@ Widget _buildAccessibilityItem({
                   if (isRecommended) ...[
                     SizedBox(width: 8.0),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.green,
                         borderRadius: BorderRadius.circular(4.0),
@@ -1350,10 +1360,7 @@ Widget _buildAccessibilityItem({
               SizedBox(height: 4.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -1406,7 +1413,9 @@ Widget _buildUseCaseCard({
                   Icon(
                     visible ? Icons.visibility : Icons.visibility_off,
                     size: 10.0,
-                    color: visible ? Colors.green.shade700 : Colors.red.shade700,
+                    color: visible
+                        ? Colors.green.shade700
+                        : Colors.red.shade700,
                   ),
                   SizedBox(width: 2.0),
                   Text(
@@ -1414,7 +1423,9 @@ Widget _buildUseCaseCard({
                     style: TextStyle(
                       fontSize: 9.0,
                       fontWeight: FontWeight.bold,
-                      color: visible ? Colors.green.shade700 : Colors.red.shade700,
+                      color: visible
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
                     ),
                   ),
                 ],
@@ -1434,10 +1445,7 @@ Widget _buildUseCaseCard({
         SizedBox(height: 4.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 10.0,
-            color: Colors.grey.shade600,
-          ),
+          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
         ),
       ],
     ),

@@ -207,8 +207,11 @@ class _TciLabPaperPanel extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.push_pin_outlined,
-              size: 16, color: _tciLabAmberDeep),
+          const Icon(
+            Icons.push_pin_outlined,
+            size: 16,
+            color: _tciLabAmberDeep,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
@@ -263,10 +266,7 @@ class _TciLabStampBadge extends StatelessWidget {
 // ============================================================================
 
 class _TciLabKeyPill extends StatelessWidget {
-  const _TciLabKeyPill({
-    required this.label,
-    this.dim = false,
-  });
+  const _TciLabKeyPill({required this.label, this.dim = false});
 
   final String label;
   final bool dim;
@@ -279,10 +279,7 @@ class _TciLabKeyPill extends StatelessWidget {
     final Color fg = dim ? _tciLabInkSoft : _tciLabPaper;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 9,
-        vertical: 5,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(6),
@@ -385,28 +382,32 @@ class _TciLabPreambleCard extends StatelessWidget {
       const _TciLabPreambleFact(
         emoji: '\u{270D}',
         caption: 'Intent vs Action',
-        body: 'TransposeCharactersIntent is a zero-field marker. It declares '
+        body:
+            'TransposeCharactersIntent is a zero-field marker. It declares '
             '"swap characters around the caret" without specifying how. The '
             'matching Action — resolved by Actions.maybeFind — does the work.',
       ),
       const _TciLabPreambleFact(
         emoji: '\u{2328}',
         caption: 'Default binding',
-        body: 'DefaultTextEditingShortcuts binds SingleActivator(keyT, '
+        body:
+            'DefaultTextEditingShortcuts binds SingleActivator(keyT, '
             'control: true) to const TransposeCharactersIntent(). Every '
             'EditableText therefore gets Ctrl+T for free.',
       ),
       const _TciLabPreambleFact(
         emoji: '\u{1F4DC}',
         caption: 'Semantic, not literal',
-        body: 'The intent names the user goal. Screen readers, tests, and '
+        body:
+            'The intent names the user goal. Screen readers, tests, and '
             'platform integrations can dispatch the same intent without '
             'caring that Ctrl+T happens to be the desktop shortcut.',
       ),
       const _TciLabPreambleFact(
         emoji: '\u{1F39E}',
         caption: 'Live editability',
-        body: 'When invoked, the built-in Action rewrites the selection range '
+        body:
+            'When invoked, the built-in Action rewrites the selection range '
             'so the two characters flanking the caret trade places. Undo is '
             'tracked by the underlying text input history.',
       ),
@@ -414,7 +415,8 @@ class _TciLabPreambleCard extends StatelessWidget {
 
     return _TciLabPaperPanel(
       title: 'Preamble — what TransposeCharactersIntent means',
-      subtitle: 'const Intent marker bound to Ctrl+T by DefaultTextEditingShortcuts',
+      subtitle:
+          'const Intent marker bound to Ctrl+T by DefaultTextEditingShortcuts',
       stampLabel: 'concept',
       stampColor: _tciLabStamp,
       body: Column(
@@ -430,11 +432,7 @@ class _TciLabPreambleCard extends StatelessWidget {
               'class TransposeCharactersIntent extends Intent {\n'
               '  const TransposeCharactersIntent();\n'
               '}',
-              style: _tciLabMono(
-                size: 13,
-                color: _tciLabPaper,
-                height: 1.55,
-              ),
+              style: _tciLabMono(size: 13, color: _tciLabPaper, height: 1.55),
             ),
           ),
           const SizedBox(height: 16),
@@ -443,7 +441,8 @@ class _TciLabPreambleCard extends StatelessWidget {
           ),
         ],
       ),
-      footnote: 'Source: package:flutter/src/widgets/text_editing_intents.dart, '
+      footnote:
+          'Source: package:flutter/src/widgets/text_editing_intents.dart, '
           'line 383. Wired at package:flutter/src/widgets/default_text_editing_shortcuts.dart line 681.',
     );
   }
@@ -528,8 +527,9 @@ class _TciLabTypewriterCard extends StatefulWidget {
 }
 
 class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
-  final TextEditingController _controller =
-      TextEditingController(text: 'type hear and press Ctrl+T');
+  final TextEditingController _controller = TextEditingController(
+    text: 'type hear and press Ctrl+T',
+  );
   final FocusNode _focusNode = FocusNode(debugLabel: 'TciLabLiveField');
   final List<_TciLabSnapshot> _snapshots = <_TciLabSnapshot>[];
 
@@ -706,7 +706,10 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
           'still flows via the Custom-Action / Manual-Dispatch '
           'cards below.',
           style: _tciLabMono(
-              size: 14, color: _tciLabInk, weight: FontWeight.w600),
+            size: 14,
+            color: _tciLabInk,
+            weight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -745,7 +748,7 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
             _fireCount == 0
                 ? 'No transposes yet. Place your caret between two letters and press Ctrl+T.'
                 : 'Intent fired $_fireCount time${_fireCount == 1 ? '' : 's'}. '
-                    'Each hit reordered exactly two adjacent code units.',
+                      'Each hit reordered exactly two adjacent code units.',
             style: _tciLabMono(size: 12, color: _tciLabInkSoft, height: 1.5),
           ),
         ),
@@ -760,10 +763,7 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
         decoration: BoxDecoration(
           color: _tciLabPaperDark.withValues(alpha: 0.35),
           borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: _tciLabPaperDark,
-            width: 1,
-          ),
+          border: Border.all(color: _tciLabPaperDark, width: 1),
         ),
         child: Text(
           '(history is empty — snapshots appear here once the intent fires)',
@@ -778,12 +778,15 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Text('recent transposes', style: _tciLabMono(
-          size: 11,
-          color: _tciLabAmberDeep,
-          weight: FontWeight.w900,
-          letters: 1.6,
-        )),
+        Text(
+          'recent transposes',
+          style: _tciLabMono(
+            size: 11,
+            color: _tciLabAmberDeep,
+            weight: FontWeight.w900,
+            letters: 1.6,
+          ),
+        ),
         const SizedBox(height: 6),
         ..._snapshots.map<Widget>((_TciLabSnapshot s) => _buildSnapshotRow(s)),
       ],
@@ -791,7 +794,8 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
   }
 
   Widget _buildSnapshotRow(_TciLabSnapshot s) {
-    final String time = '${s.when.hour.toString().padLeft(2, '0')}:'
+    final String time =
+        '${s.when.hour.toString().padLeft(2, '0')}:'
         '${s.when.minute.toString().padLeft(2, '0')}:'
         '${s.when.second.toString().padLeft(2, '0')}';
     return Container(
@@ -807,9 +811,14 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             color: _tciLabInk,
-            child: Text(time,
-                style: _tciLabMono(
-                    size: 10, color: _tciLabPaper, weight: FontWeight.w700)),
+            child: Text(
+              time,
+              style: _tciLabMono(
+                size: 10,
+                color: _tciLabPaper,
+                weight: FontWeight.w700,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -821,17 +830,19 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
                   TextSpan(
                     text: '"${s.before}"',
                     style: _tciLabMono(
-                        size: 12,
-                        color: _tciLabRibbon,
-                        weight: FontWeight.w700),
+                      size: 12,
+                      color: _tciLabRibbon,
+                      weight: FontWeight.w700,
+                    ),
                   ),
                   const TextSpan(text: '  \u2192  after: '),
                   TextSpan(
                     text: '"${s.after}"',
                     style: _tciLabMono(
-                        size: 12,
-                        color: _tciLabStamp,
-                        weight: FontWeight.w700),
+                      size: 12,
+                      color: _tciLabStamp,
+                      weight: FontWeight.w700,
+                    ),
                   ),
                 ],
               ),
@@ -845,11 +856,14 @@ class _TciLabTypewriterCardState extends State<_TciLabTypewriterCard> {
               border: Border.all(color: _tciLabAmberDeep),
               borderRadius: BorderRadius.circular(3),
             ),
-            child: Text('@${s.swapAt}',
-                style: _tciLabMono(
-                    size: 10,
-                    color: _tciLabAmberDeep,
-                    weight: FontWeight.w900)),
+            child: Text(
+              '@${s.swapAt}',
+              style: _tciLabMono(
+                size: 10,
+                color: _tciLabAmberDeep,
+                weight: FontWeight.w900,
+              ),
+            ),
           ),
         ],
       ),
@@ -884,10 +898,13 @@ class _TciLabCustomActionCard extends StatefulWidget {
 }
 
 class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
-  final TextEditingController _controller =
-      TextEditingController(text: 'custom transpose listens here');
+  final TextEditingController _controller = TextEditingController(
+    text: 'custom transpose listens here',
+  );
   final FocusNode _focusNode = FocusNode(debugLabel: 'TciLabCustomField');
-  final ValueNotifier<List<String>> _log = ValueNotifier<List<String>>(<String>[]);
+  final ValueNotifier<List<String>> _log = ValueNotifier<List<String>>(
+    <String>[],
+  );
 
   @override
   void dispose() {
@@ -940,8 +957,7 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
           const SizedBox(height: 14),
           Actions(
             actions: <Type, Action<Intent>>{
-              TransposeCharactersIntent:
-                  CallbackAction<TransposeCharactersIntent>(
+              TransposeCharactersIntent: CallbackAction<TransposeCharactersIntent>(
                 onInvoke: (TransposeCharactersIntent intent) {
                   final String snapshot = _controller.text;
                   _record('intercepted: "$snapshot"');
@@ -966,8 +982,10 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
               // `Actions.maybeInvoke`, which fires the registered
               // CallbackAction regardless of editable focus.
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: _tciLabPaper,
                   borderRadius: BorderRadius.circular(2),
@@ -1005,19 +1023,23 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text('callback log',
-                      style: _tciLabMono(
-                        size: 11,
-                        color: _tciLabAmberDeep,
-                        weight: FontWeight.w900,
-                        letters: 1.6,
-                      )),
+                  Text(
+                    'callback log',
+                    style: _tciLabMono(
+                      size: 11,
+                      color: _tciLabAmberDeep,
+                      weight: FontWeight.w900,
+                      letters: 1.6,
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   ...entries.map<Widget>((String line) {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 4),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 6),
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: _tciLabAmber.withValues(alpha: 0.16),
                         borderRadius: BorderRadius.circular(3),
@@ -1025,8 +1047,10 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
                           color: _tciLabAmberDeep.withValues(alpha: 0.4),
                         ),
                       ),
-                      child: Text(line,
-                          style: _tciLabMono(size: 12, color: _tciLabInkSoft)),
+                      child: Text(
+                        line,
+                        style: _tciLabMono(size: 12, color: _tciLabInkSoft),
+                      ),
                     );
                   }),
                 ],
@@ -1035,7 +1059,8 @@ class _TciLabCustomActionCardState extends State<_TciLabCustomActionCard> {
           ),
         ],
       ),
-      footnote: 'Returning null from a CallbackAction tells the dispatcher '
+      footnote:
+          'Returning null from a CallbackAction tells the dispatcher '
           'the action did not consume the intent — so the built-in Action '
           'below still runs and you see the visible transpose.',
     );
@@ -1123,12 +1148,15 @@ class _TciLabShortcutGalleryCard extends StatelessWidget {
             children: const <Widget>[
               _TciLabKeyCap(label: 'Ctrl', wide: true),
               SizedBox(width: 8),
-              Text('+',
-                  style: TextStyle(
-                      fontFamily: _tciLabFontMono,
-                      fontSize: 22,
-                      color: _tciLabInkSoft,
-                      fontWeight: FontWeight.w900)),
+              Text(
+                '+',
+                style: TextStyle(
+                  fontFamily: _tciLabFontMono,
+                  fontSize: 22,
+                  color: _tciLabInkSoft,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
               SizedBox(width: 8),
               _TciLabKeyCap(label: 'T'),
             ],
@@ -1178,12 +1206,14 @@ class _TciLabShortcutGalleryCard extends StatelessWidget {
                       .toList(),
                 ),
                 const SizedBox(height: 6),
-                Text(b.rationale,
-                    style: _tciLabMono(
-                      size: 11,
-                      color: _tciLabInkSoft,
-                      height: 1.5,
-                    )),
+                Text(
+                  b.rationale,
+                  style: _tciLabMono(
+                    size: 11,
+                    color: _tciLabInkSoft,
+                    height: 1.5,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1254,8 +1284,9 @@ class _TciLabManualInvokeCard extends StatefulWidget {
 }
 
 class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
-  final TextEditingController _controller =
-      TextEditingController(text: 'tap the amber button to the right');
+  final TextEditingController _controller = TextEditingController(
+    text: 'tap the amber button to the right',
+  );
   final FocusNode _focusNode = FocusNode(debugLabel: 'TciLabManualField');
 
   String _lastStatus = 'idle';
@@ -1338,7 +1369,9 @@ class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
                 ? _tciLabStamp.withValues(alpha: 0.18)
                 : _tciLabPaperDark.withValues(alpha: 0.4),
             border: Border.all(
-                color: focused ? _tciLabStamp : _tciLabPaperDark, width: 1),
+              color: focused ? _tciLabStamp : _tciLabPaperDark,
+              width: 1,
+            ),
             borderRadius: BorderRadius.circular(3),
           ),
           child: Row(
@@ -1399,14 +1432,16 @@ class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
       child: Row(
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             color: _tciLabAmberDeep,
-            child: Text('$_manualFires',
-                style: _tciLabMono(
-                    size: 11,
-                    color: _tciLabPaper,
-                    weight: FontWeight.w900)),
+            child: Text(
+              '$_manualFires',
+              style: _tciLabMono(
+                size: 11,
+                color: _tciLabPaper,
+                weight: FontWeight.w900,
+              ),
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1438,8 +1473,7 @@ class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
             'Because the default Action lives inside EditableText, focusing '
             'the field first is required — without focus, maybeInvoke has '
             'no meaningful subtree to dispatch into.',
-            style: _tciLabMono(
-                size: 11, color: _tciLabInkSoft, height: 1.5),
+            style: _tciLabMono(size: 11, color: _tciLabInkSoft, height: 1.5),
           ),
         ),
       ],
@@ -1453,8 +1487,7 @@ class _TciLabManualInvokeCardState extends State<_TciLabManualInvokeCard> {
         onTap: _invoke,
         borderRadius: BorderRadius.circular(6),
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
           decoration: BoxDecoration(
             color: _tciLabRibbon,
             borderRadius: BorderRadius.circular(6),
@@ -1502,7 +1535,8 @@ class _TciLabEdgeCasesCard extends StatelessWidget {
         label: 'Caret at position 0',
         before: '|type',
         after: '|type',
-        note: 'No characters to the left of the caret — the framework does '
+        note:
+            'No characters to the left of the caret — the framework does '
             'nothing. The intent fires, the action exits early.',
         outcome: 'noop',
       ),
@@ -1586,28 +1620,31 @@ class _TciLabEdgeCasesCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Expanded(
-                child: Text(e.label,
-                    style: _tciLabMono(
-                      size: 13,
-                      weight: FontWeight.w900,
-                      color: _tciLabInk,
-                    )),
+                child: Text(
+                  e.label,
+                  style: _tciLabMono(
+                    size: 13,
+                    weight: FontWeight.w900,
+                    color: _tciLabInk,
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _tciLabStamp.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(3),
                   border: Border.all(color: _tciLabStamp),
                 ),
-                child: Text(e.outcome,
-                    style: _tciLabMono(
-                      size: 10,
-                      color: _tciLabStamp,
-                      weight: FontWeight.w900,
-                      letters: 1.1,
-                    )),
+                child: Text(
+                  e.outcome,
+                  style: _tciLabMono(
+                    size: 10,
+                    color: _tciLabStamp,
+                    weight: FontWeight.w900,
+                    letters: 1.1,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1622,7 +1659,11 @@ class _TciLabEdgeCasesCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward, color: _tciLabAmberDeep, size: 20),
+              const Icon(
+                Icons.arrow_forward,
+                color: _tciLabAmberDeep,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: _buildEdgeSample(
@@ -1634,13 +1675,15 @@ class _TciLabEdgeCasesCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(e.note,
-              style: _tciLabMono(
-                size: 11,
-                color: _tciLabInkSoft,
-                height: 1.5,
-                style: FontStyle.italic,
-              )),
+          Text(
+            e.note,
+            style: _tciLabMono(
+              size: 11,
+              color: _tciLabInkSoft,
+              height: 1.5,
+              style: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
@@ -1661,20 +1704,24 @@ class _TciLabEdgeCasesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(label,
-              style: _tciLabMono(
-                size: 9,
-                color: color,
-                weight: FontWeight.w900,
-                letters: 1.2,
-              )),
+          Text(
+            label,
+            style: _tciLabMono(
+              size: 9,
+              color: color,
+              weight: FontWeight.w900,
+              letters: 1.2,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(text,
-              style: _tciLabMono(
-                size: 14,
-                color: _tciLabInk,
-                weight: FontWeight.w700,
-              )),
+          Text(
+            text,
+            style: _tciLabMono(
+              size: 14,
+              color: _tciLabInk,
+              weight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -1805,29 +1852,31 @@ class _TciLabEpilogueCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
             decoration: BoxDecoration(
               color: _tciLabAmber.withValues(alpha: 0.18),
-              border: Border(
-                bottom: BorderSide(color: _tciLabPaperDark),
+              border: Border(bottom: BorderSide(color: _tciLabPaperDark)),
+            ),
+            child: Text(
+              r.title,
+              style: _tciLabMono(
+                size: 13,
+                weight: FontWeight.w900,
+                color: _tciLabAmberDeep,
               ),
             ),
-            child: Text(r.title,
-                style: _tciLabMono(
-                  size: 13,
-                  weight: FontWeight.w900,
-                  color: _tciLabAmberDeep,
-                )),
           ),
           Container(
             padding: const EdgeInsets.all(12),
             color: _tciLabInk,
-            child: Text(r.snippet,
-                style: _tciLabMono(
-                    size: 11.5, color: _tciLabPaper, height: 1.55)),
+            child: Text(
+              r.snippet,
+              style: _tciLabMono(size: 11.5, color: _tciLabPaper, height: 1.55),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
-            child: Text(r.explanation,
-                style: _tciLabMono(
-                    size: 12, color: _tciLabInkSoft, height: 1.5)),
+            child: Text(
+              r.explanation,
+              style: _tciLabMono(size: 12, color: _tciLabInkSoft, height: 1.5),
+            ),
           ),
         ],
       ),
@@ -1860,9 +1909,7 @@ class _TciLabBanner extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
       decoration: BoxDecoration(
         color: _tciLabInk,
-        border: Border(
-          bottom: BorderSide(color: _tciLabAmberDeep, width: 3),
-        ),
+        border: Border(bottom: BorderSide(color: _tciLabAmberDeep, width: 3)),
       ),
       child: Row(
         children: <Widget>[
@@ -1985,19 +2032,25 @@ class _TciLabFooter extends StatelessWidget {
             children: <Widget>[
               const _TciLabKeyPill(label: 'Intent'),
               const SizedBox(width: 6),
-              Text('\u2192',
-                  style: _tciLabMono(
-                      size: 12,
-                      color: _tciLabAmber,
-                      weight: FontWeight.w900)),
+              Text(
+                '\u2192',
+                style: _tciLabMono(
+                  size: 12,
+                  color: _tciLabAmber,
+                  weight: FontWeight.w900,
+                ),
+              ),
               const SizedBox(width: 6),
               const _TciLabKeyPill(label: 'Action'),
               const SizedBox(width: 6),
-              Text('\u2192',
-                  style: _tciLabMono(
-                      size: 12,
-                      color: _tciLabAmber,
-                      weight: FontWeight.w900)),
+              Text(
+                '\u2192',
+                style: _tciLabMono(
+                  size: 12,
+                  color: _tciLabAmber,
+                  weight: FontWeight.w900,
+                ),
+              ),
               const SizedBox(width: 6),
               const _TciLabKeyPill(label: 'EditableText'),
             ],
@@ -2016,7 +2069,9 @@ dynamic build(BuildContext context) {
   debugPrint('TransposeCharactersIntent deep demo executing');
   debugPrint('  palette: amber/paper/ink-black typewriter');
   debugPrint('  scenarios: preamble, live typewriter, custom actions,');
-  debugPrint('             shortcut gallery, manual invocation, edges, epilogue');
+  debugPrint(
+    '             shortcut gallery, manual invocation, edges, epilogue',
+  );
 
   // Seven scenarios, ordered narratively: concept, practice, override,
   // gallery, manual dispatch, edges, and epilogue.
@@ -2050,10 +2105,7 @@ dynamic build(BuildContext context) {
     home: Scaffold(
       backgroundColor: const Color(0xFFECE1C4),
       body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: scaffoldChildren,
-        ),
+        child: ListView(padding: EdgeInsets.zero, children: scaffoldChildren),
       ),
     ),
   );

@@ -232,11 +232,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            scheme.primary,
-            scheme.secondary,
-            scheme.tertiary,
-          ],
+          colors: <Color>[scheme.primary, scheme.secondary, scheme.tertiary],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -362,30 +358,19 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
           scheme,
         ),
         const SizedBox(height: 16.0),
-        Wrap(
-          spacing: 16.0,
-          runSpacing: 16.0,
-          children: cards,
-        ),
+        Wrap(spacing: 16.0, runSpacing: 16.0, children: cards),
       ],
     );
   }
 
-  Widget _buildFlagOverviewCard(
-    ColorScheme scheme,
-    _FlagSpec f,
-    int index,
-  ) {
+  Widget _buildFlagOverviewCard(ColorScheme scheme, _FlagSpec f, int index) {
     return Container(
       width: 320.0,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: f.accent.withValues(alpha: 0.4),
-          width: 1.4,
-        ),
+        border: Border.all(color: f.accent.withValues(alpha: 0.4), width: 1.4),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: scheme.shadow.withValues(alpha: 0.08),
@@ -490,24 +475,17 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewAccessibleNavigation(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Default focus order',
-      <Widget>[
-        _fakeListTile(scheme, Icons.home, 'Home'),
-        _fakeListTile(scheme, Icons.search, 'Search'),
-        _fakeListTile(scheme, Icons.person, 'Profile'),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Reader-friendly focus rings',
-      <Widget>[
-        _fakeListTile(scheme, Icons.home, 'Home', focus: true),
-        _fakeListTile(scheme, Icons.search, 'Search'),
-        _fakeListTile(scheme, Icons.person, 'Profile'),
-      ],
-    );
+    final Widget before = _phoneFrame(scheme, 'Default focus order', <Widget>[
+      _fakeListTile(scheme, Icons.home, 'Home'),
+      _fakeListTile(scheme, Icons.search, 'Search'),
+      _fakeListTile(scheme, Icons.person, 'Profile'),
+    ]);
+    final Widget after =
+        _phoneFrame(scheme, 'Reader-friendly focus rings', <Widget>[
+          _fakeListTile(scheme, Icons.home, 'Home', focus: true),
+          _fakeListTile(scheme, Icons.search, 'Search'),
+          _fakeListTile(scheme, Icons.person, 'Profile'),
+        ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[0],
@@ -520,30 +498,23 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewInvertColors(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Photo (default)',
-      <Widget>[
-        _fakePhoto(scheme, inverted: false),
-        const SizedBox(height: 8.0),
-        Text(
-          'Sunset over the bay',
-          style: TextStyle(color: scheme.onSurface, fontSize: 12.0),
-        ),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Wrapped: re-inverted photo',
-      <Widget>[
-        _fakePhoto(scheme, inverted: true),
-        const SizedBox(height: 8.0),
-        Text(
-          'Sunset over the bay',
-          style: TextStyle(color: scheme.onSurface, fontSize: 12.0),
-        ),
-      ],
-    );
+    final Widget before = _phoneFrame(scheme, 'Photo (default)', <Widget>[
+      _fakePhoto(scheme, inverted: false),
+      const SizedBox(height: 8.0),
+      Text(
+        'Sunset over the bay',
+        style: TextStyle(color: scheme.onSurface, fontSize: 12.0),
+      ),
+    ]);
+    final Widget after =
+        _phoneFrame(scheme, 'Wrapped: re-inverted photo', <Widget>[
+          _fakePhoto(scheme, inverted: true),
+          const SizedBox(height: 8.0),
+          Text(
+            'Sunset over the bay',
+            style: TextStyle(color: scheme.onSurface, fontSize: 12.0),
+          ),
+        ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[1],
@@ -557,30 +528,22 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewDisableAnimations(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Cross-fade transition',
-      <Widget>[
-        _fakeMotionTrace(scheme, count: 6, fading: true),
-        const SizedBox(height: 8.0),
-        Text(
-          'Duration: 350ms ease-in-out',
-          style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
-        ),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Hard cut, no movement',
-      <Widget>[
-        _fakeMotionTrace(scheme, count: 1, fading: false),
-        const SizedBox(height: 8.0),
-        Text(
-          'Duration: 0ms',
-          style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
-        ),
-      ],
-    );
+    final Widget before = _phoneFrame(scheme, 'Cross-fade transition', <Widget>[
+      _fakeMotionTrace(scheme, count: 6, fading: true),
+      const SizedBox(height: 8.0),
+      Text(
+        'Duration: 350ms ease-in-out',
+        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
+      ),
+    ]);
+    final Widget after = _phoneFrame(scheme, 'Hard cut, no movement', <Widget>[
+      _fakeMotionTrace(scheme, count: 1, fading: false),
+      const SizedBox(height: 8.0),
+      Text(
+        'Duration: 0ms',
+        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
+      ),
+    ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[2],
@@ -594,54 +557,46 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewBoldText(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Default weight',
-      <Widget>[
-        Text(
-          'Tap any item to open',
-          style: TextStyle(
-            color: scheme.onSurface,
-            fontSize: 14.0,
-            fontWeight: FontWeight.w400,
-          ),
+    final Widget before = _phoneFrame(scheme, 'Default weight', <Widget>[
+      Text(
+        'Tap any item to open',
+        style: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 14.0,
+          fontWeight: FontWeight.w400,
         ),
-        const SizedBox(height: 8.0),
-        Text(
-          'Long description body copy '
-          'that wraps across multiple lines for layout testing.',
-          style: TextStyle(
-            color: scheme.onSurfaceVariant,
-            fontSize: 12.0,
-            fontWeight: FontWeight.w400,
-          ),
+      ),
+      const SizedBox(height: 8.0),
+      Text(
+        'Long description body copy '
+        'that wraps across multiple lines for layout testing.',
+        style: TextStyle(
+          color: scheme.onSurfaceVariant,
+          fontSize: 12.0,
+          fontWeight: FontWeight.w400,
         ),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Bold weight (w700)',
-      <Widget>[
-        Text(
-          'Tap any item to open',
-          style: TextStyle(
-            color: scheme.onSurface,
-            fontSize: 14.0,
-            fontWeight: FontWeight.w700,
-          ),
+      ),
+    ]);
+    final Widget after = _phoneFrame(scheme, 'Bold weight (w700)', <Widget>[
+      Text(
+        'Tap any item to open',
+        style: TextStyle(
+          color: scheme.onSurface,
+          fontSize: 14.0,
+          fontWeight: FontWeight.w700,
         ),
-        const SizedBox(height: 8.0),
-        Text(
-          'Long description body copy '
-          'that wraps across multiple lines for layout testing.',
-          style: TextStyle(
-            color: scheme.onSurfaceVariant,
-            fontSize: 12.0,
-            fontWeight: FontWeight.w700,
-          ),
+      ),
+      const SizedBox(height: 8.0),
+      Text(
+        'Long description body copy '
+        'that wraps across multiple lines for layout testing.',
+        style: TextStyle(
+          color: scheme.onSurfaceVariant,
+          fontSize: 12.0,
+          fontWeight: FontWeight.w700,
         ),
-      ],
-    );
+      ),
+    ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[3],
@@ -655,30 +610,22 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewReduceMotion(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Spring + parallax',
-      <Widget>[
-        _fakeSpringCurve(scheme, springy: true),
-        const SizedBox(height: 8.0),
-        Text(
-          'Curves.elasticOut, 600ms',
-          style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
-        ),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Linear, short',
-      <Widget>[
-        _fakeSpringCurve(scheme, springy: false),
-        const SizedBox(height: 8.0),
-        Text(
-          'Curves.linear, 200ms',
-          style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
-        ),
-      ],
-    );
+    final Widget before = _phoneFrame(scheme, 'Spring + parallax', <Widget>[
+      _fakeSpringCurve(scheme, springy: true),
+      const SizedBox(height: 8.0),
+      Text(
+        'Curves.elasticOut, 600ms',
+        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
+      ),
+    ]);
+    final Widget after = _phoneFrame(scheme, 'Linear, short', <Widget>[
+      _fakeSpringCurve(scheme, springy: false),
+      const SizedBox(height: 8.0),
+      Text(
+        'Curves.linear, 200ms',
+        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11.0),
+      ),
+    ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[4],
@@ -737,24 +684,17 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   }
 
   Widget _previewOnOffSwitchLabels(ColorScheme scheme) {
-    final Widget before = _phoneFrame(
-      scheme,
-      'Default Switch',
-      <Widget>[
-        _fakeSwitch(scheme, on: true, showLabel: false),
-        const SizedBox(height: 6.0),
-        _fakeSwitch(scheme, on: false, showLabel: false),
-      ],
-    );
-    final Widget after = _phoneFrame(
-      scheme,
-      'Switch with I / O labels',
-      <Widget>[
-        _fakeSwitch(scheme, on: true, showLabel: true),
-        const SizedBox(height: 6.0),
-        _fakeSwitch(scheme, on: false, showLabel: true),
-      ],
-    );
+    final Widget before = _phoneFrame(scheme, 'Default Switch', <Widget>[
+      _fakeSwitch(scheme, on: true, showLabel: false),
+      const SizedBox(height: 6.0),
+      _fakeSwitch(scheme, on: false, showLabel: false),
+    ]);
+    final Widget after =
+        _phoneFrame(scheme, 'Switch with I / O labels', <Widget>[
+          _fakeSwitch(scheme, on: true, showLabel: true),
+          const SizedBox(height: 6.0),
+          _fakeSwitch(scheme, on: false, showLabel: true),
+        ]);
     return _beforeAfter(
       scheme,
       flag: _kFlagSpecs[6],
@@ -808,8 +748,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       _DecisionRow(
         combo: 'boldText',
         scenario: 'Low-vision text emphasis',
-        response:
-            'FontWeight.w700 on body text; rerun layout overflow checks.',
+        response: 'FontWeight.w700 on body text; rerun layout overflow checks.',
         priority: 2,
       ),
       _DecisionRow(
@@ -862,10 +801,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
           decoration: BoxDecoration(
             color: scheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(14.0),
-            border: Border.all(
-              color: scheme.outlineVariant,
-              width: 1.0,
-            ),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
           ),
           child: Column(
             children: <Widget>[
@@ -989,10 +925,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
             flex: 5,
             child: Text(
               row.response,
-              style: TextStyle(
-                color: scheme.onSurfaceVariant,
-                fontSize: 12.0,
-              ),
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12.0),
             ),
           ),
           SizedBox(
@@ -1110,8 +1043,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       ),
       _RecipeSpec(
         flag: 'highContrast',
-        policy:
-            'Swap to a high-contrast ColorScheme. Bump outline thickness.',
+        policy: 'Swap to a high-contrast ColorScheme. Bump outline thickness.',
         snippet:
             'final hc = MediaQuery.highContrastOf(context);\n'
             'final scheme = hc\n'
@@ -1124,8 +1056,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       ),
       _RecipeSpec(
         flag: 'onOffSwitchLabels',
-        policy:
-            'Show explicit ON/OFF labels next to or inside each switch.',
+        policy: 'Show explicit ON/OFF labels next to or inside each switch.',
         snippet:
             'final labelled = MediaQuery.onOffSwitchLabelsOf(context);\n'
             'return Row(\n'
@@ -1174,10 +1105,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.45),
-          width: 1.4,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.45), width: 1.4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1216,9 +1144,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: scheme.surface,
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: accent.withValues(alpha: 0.55),
-                    ),
+                    border: Border.all(color: accent.withValues(alpha: 0.55)),
                   ),
                   child: Text(
                     'Recipe',
@@ -1377,10 +1303,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
           decoration: BoxDecoration(
             color: scheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(14.0),
-            border: Border.all(
-              color: scheme.outlineVariant,
-              width: 1.0,
-            ),
+            border: Border.all(color: scheme.outlineVariant, width: 1.0),
           ),
           child: Column(
             children: <Widget>[
@@ -1842,11 +1765,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
           const SizedBox(height: 4.0),
           Text(
             body,
-            style: TextStyle(
-              color: foreground,
-              fontSize: 12.5,
-              height: 1.4,
-            ),
+            style: TextStyle(color: foreground, fontSize: 12.5, height: 1.4),
           ),
         ],
       ),
@@ -1995,11 +1914,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
   // Mock visual primitives used across the before/after panels.
   // -----------------------------------------------------------------
 
-  Widget _phoneFrame(
-    ColorScheme scheme,
-    String caption,
-    List<Widget> body,
-  ) {
+  Widget _phoneFrame(ColorScheme scheme, String caption, List<Widget> body) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -2045,9 +1960,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 6.0),
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
       decoration: BoxDecoration(
-        color: focus
-            ? scheme.primary.withValues(alpha: 0.12)
-            : scheme.surface,
+        color: focus ? scheme.primary.withValues(alpha: 0.12) : scheme.surface,
         borderRadius: BorderRadius.circular(6.0),
         border: Border.all(
           color: focus ? scheme.primary : scheme.outlineVariant,
@@ -2144,10 +2057,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
         ),
       );
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: dots,
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: dots);
   }
 
   Widget _fakeSpringCurve(ColorScheme scheme, {required bool springy}) {
@@ -2156,10 +2066,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
     return SizedBox(
       height: 50.0,
       child: CustomPaint(
-        painter: _CurvePainter(
-          color: scheme.primary,
-          springy: springy,
-        ),
+        painter: _CurvePainter(color: scheme.primary, springy: springy),
         size: const Size(double.infinity, 50.0),
       ),
     );
@@ -2185,10 +2092,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
             decoration: BoxDecoration(
               color: c,
               borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(
-                color: base.outlineVariant,
-                width: 0.8,
-              ),
+              border: Border.all(color: base.outlineVariant, width: 0.8),
             ),
           ),
       ],
@@ -2207,9 +2111,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
           width: 44.0,
           height: 24.0,
           decoration: BoxDecoration(
-            color: on
-                ? scheme.primary
-                : scheme.surfaceContainerHigh,
+            color: on ? scheme.primary : scheme.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(
               color: on ? scheme.primary : scheme.outline,
@@ -2250,8 +2152,7 @@ class AccessibilityFeaturesDemoApp extends StatelessWidget {
                   ),
                 ),
               Align(
-                alignment:
-                    on ? Alignment.centerRight : Alignment.centerLeft,
+                alignment: on ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   margin: const EdgeInsets.all(2.0),
                   width: 18.0,
@@ -2309,14 +2210,20 @@ class _CurvePainter extends CustomPainter {
       // Overshoot then settle.
       path.moveTo(0.0, size.height);
       path.cubicTo(
-        size.width * 0.25, size.height * 0.1,
-        size.width * 0.55, -size.height * 0.1,
-        size.width * 0.65, size.height * 0.3,
+        size.width * 0.25,
+        size.height * 0.1,
+        size.width * 0.55,
+        -size.height * 0.1,
+        size.width * 0.65,
+        size.height * 0.3,
       );
       path.cubicTo(
-        size.width * 0.75, size.height * 0.6,
-        size.width * 0.85, size.height * 0.2,
-        size.width, size.height * 0.4,
+        size.width * 0.75,
+        size.height * 0.6,
+        size.width * 0.85,
+        size.height * 0.2,
+        size.width,
+        size.height * 0.4,
       );
     } else {
       // Straight linear interpolation.

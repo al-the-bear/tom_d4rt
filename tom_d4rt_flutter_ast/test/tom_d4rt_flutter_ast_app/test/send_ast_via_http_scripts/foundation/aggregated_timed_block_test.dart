@@ -385,12 +385,7 @@ class HeroAggregationPainter extends CustomPainter {
 
     // Left half: many thin bars representing raw TimedBlock entries.
     final leftWidth = size.width * 0.42;
-    final leftRect = Rect.fromLTWH(
-      14,
-      14,
-      leftWidth - 14,
-      size.height - 28,
-    );
+    final leftRect = Rect.fromLTWH(14, 14, leftWidth - 14, size.height - 28);
     final leftBg = Paint()..color = paletteSurfaceAlt;
     canvas.drawRRect(
       RRect.fromRectAndRadius(leftRect, const Radius.circular(10)),
@@ -408,10 +403,7 @@ class HeroAggregationPainter extends CustomPainter {
       final t = ((i * 37) % 100) / 100.0;
       final h = 14.0 + t * (leftRect.height - 30);
       final x = leftRect.left + 8 + i * barW;
-      canvas.drawRect(
-        Rect.fromLTWH(x, baseY - h, barW * 0.7, h),
-        p,
-      );
+      canvas.drawRect(Rect.fromLTWH(x, baseY - h, barW * 0.7, h), p);
     }
 
     // Arrow in the middle.
@@ -422,7 +414,11 @@ class HeroAggregationPainter extends CustomPainter {
       ..color = paletteText
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(arrowStart, arrowY), Offset(arrowEnd, arrowY), arrowPaint);
+    canvas.drawLine(
+      Offset(arrowStart, arrowY),
+      Offset(arrowEnd, arrowY),
+      arrowPaint,
+    );
     final headPath = Path()
       ..moveTo(arrowEnd, arrowY)
       ..lineTo(arrowEnd - 10, arrowY - 6)
@@ -486,8 +482,7 @@ class StackedProportionPainter extends CustomPainter {
     const radius = Radius.circular(8);
 
     // Outer rounded clip.
-    final clipPath = Path()
-      ..addRRect(RRect.fromRectAndRadius(barRect, radius));
+    final clipPath = Path()..addRRect(RRect.fromRectAndRadius(barRect, radius));
     canvas.save();
     canvas.clipPath(clipPath);
 
@@ -589,7 +584,11 @@ dynamic build(BuildContext context) {
                       'It folds an arbitrary number of raw start/end events\n'
                       'into three immutable fields: name, summed duration\n'
                       '(in microseconds), and count.',
-                      style: TextStyle(color: paletteText, fontSize: 15, height: 1.5),
+                      style: TextStyle(
+                        color: paletteText,
+                        fontSize: 15,
+                        height: 1.5,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
@@ -602,7 +601,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 12),
                     Row(
                       children: const <Widget>[
-                        _PillTag(label: 'package:flutter/foundation.dart', color: paletteAccent),
+                        _PillTag(
+                          label: 'package:flutter/foundation.dart',
+                          color: paletteAccent,
+                        ),
                         SizedBox(width: 8),
                         _PillTag(label: 'final class', color: paletteAccent2),
                         SizedBox(width: 8),
@@ -672,9 +674,17 @@ dynamic build(BuildContext context) {
                         for (final r in anatomyRows)
                           TableRow(
                             children: <Widget>[
-                              _TableCell(text: r.field, mono: true, color: paletteAccent),
+                              _TableCell(
+                                text: r.field,
+                                mono: true,
+                                color: paletteAccent,
+                              ),
                               _TableCell(text: r.type, mono: true),
-                              _TableCell(text: r.example, mono: true, color: paletteOk),
+                              _TableCell(
+                                text: r.example,
+                                mono: true,
+                                color: paletteOk,
+                              ),
                               _TableCell(text: r.meaning),
                             ],
                           ),
@@ -728,11 +738,36 @@ dynamic build(BuildContext context) {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: const <Widget>[
-                                _RawTimedBlockRow(label: 'a', name: 'build_phase', start: 0, end: 1900),
-                                _RawTimedBlockRow(label: 'b', name: 'build_phase', start: 1900, end: 4100),
-                                _RawTimedBlockRow(label: 'c', name: 'build_phase', start: 4100, end: 5700),
-                                _RawTimedBlockRow(label: 'd', name: 'build_phase', start: 5700, end: 7800),
-                                _RawTimedBlockRow(label: 'e', name: 'build_phase', start: 7800, end: 9300),
+                                _RawTimedBlockRow(
+                                  label: 'a',
+                                  name: 'build_phase',
+                                  start: 0,
+                                  end: 1900,
+                                ),
+                                _RawTimedBlockRow(
+                                  label: 'b',
+                                  name: 'build_phase',
+                                  start: 1900,
+                                  end: 4100,
+                                ),
+                                _RawTimedBlockRow(
+                                  label: 'c',
+                                  name: 'build_phase',
+                                  start: 4100,
+                                  end: 5700,
+                                ),
+                                _RawTimedBlockRow(
+                                  label: 'd',
+                                  name: 'build_phase',
+                                  start: 5700,
+                                  end: 7800,
+                                ),
+                                _RawTimedBlockRow(
+                                  label: 'e',
+                                  name: 'build_phase',
+                                  start: 7800,
+                                  end: 9300,
+                                ),
                               ],
                             ),
                           ),
@@ -972,12 +1007,31 @@ dynamic build(BuildContext context) {
                               for (final p in samplePhases)
                                 TableRow(
                                   children: <Widget>[
-                                    _TableCell(text: p.name, mono: true, color: p.color),
+                                    _TableCell(
+                                      text: p.name,
+                                      mono: true,
+                                      color: p.color,
+                                    ),
                                     _TableCell(text: '${p.count}'),
-                                    _TableCell(text: formatMicros(p.sumMicros), mono: true),
-                                    _TableCell(text: formatMicros(p.avgMicros), mono: true, color: paletteOk),
-                                    _TableCell(text: formatMicros(p.minMicros), mono: true, color: paletteAccent),
-                                    _TableCell(text: formatMicros(p.maxMicros), mono: true, color: paletteBad),
+                                    _TableCell(
+                                      text: formatMicros(p.sumMicros),
+                                      mono: true,
+                                    ),
+                                    _TableCell(
+                                      text: formatMicros(p.avgMicros),
+                                      mono: true,
+                                      color: paletteOk,
+                                    ),
+                                    _TableCell(
+                                      text: formatMicros(p.minMicros),
+                                      mono: true,
+                                      color: paletteAccent,
+                                    ),
+                                    _TableCell(
+                                      text: formatMicros(p.maxMicros),
+                                      mono: true,
+                                      color: paletteBad,
+                                    ),
                                   ],
                                 ),
                             ],
@@ -1063,7 +1117,11 @@ dynamic build(BuildContext context) {
                       ),
                       child: Row(
                         children: const <Widget>[
-                          Icon(Icons.lightbulb_outline, color: paletteWarn, size: 18),
+                          Icon(
+                            Icons.lightbulb_outline,
+                            color: paletteWarn,
+                            size: 18,
+                          ),
                           SizedBox(width: 10),
                           Expanded(
                             child: Text(
@@ -1071,7 +1129,10 @@ dynamic build(BuildContext context) {
                               'switches the rendering between '
                               'AggregatedTimings.timedBlocks (raw) and '
                               'AggregatedTimings.aggregatedBlocks (this type).',
-                              style: TextStyle(color: paletteTextDim, height: 1.5),
+                              style: TextStyle(
+                                color: paletteTextDim,
+                                height: 1.5,
+                              ),
                             ),
                           ),
                         ],
@@ -1142,7 +1203,11 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 12),
                     const Text(
                       'Live invocation in this demo (constructed at build):',
-                      style: TextStyle(color: paletteTextDim, fontSize: 12, fontStyle: FontStyle.italic),
+                      style: TextStyle(
+                        color: paletteTextDim,
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Container(
@@ -1183,8 +1248,7 @@ dynamic build(BuildContext context) {
               const _SectionTitle(
                 index: '09',
                 title: 'AggregatedTimedBlock vs raw TimedBlock list',
-                subtitle:
-                    'Trade-offs between summary and full event detail',
+                subtitle: 'Trade-offs between summary and full event detail',
               ),
               const SizedBox(height: 12),
               Container(
@@ -1230,7 +1294,8 @@ dynamic build(BuildContext context) {
               const _SectionTitle(
                 index: '10',
                 title: 'Pitfalls',
-                subtitle: 'Common mistakes when reading AggregatedTimedBlock data',
+                subtitle:
+                    'Common mistakes when reading AggregatedTimedBlock data',
               ),
               const SizedBox(height: 12),
               GridView.count(
@@ -1241,8 +1306,7 @@ dynamic build(BuildContext context) {
                 mainAxisSpacing: 12,
                 childAspectRatio: 2.6,
                 children: <Widget>[
-                  for (final p in pitfallEntries)
-                    _PitfallTile(entry: p),
+                  for (final p in pitfallEntries) _PitfallTile(entry: p),
                 ],
               ),
 
@@ -1282,7 +1346,11 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 14),
                     Row(
                       children: const <Widget>[
-                        Icon(Icons.timer_outlined, color: paletteAccent, size: 16),
+                        Icon(
+                          Icons.timer_outlined,
+                          color: paletteAccent,
+                          size: 16,
+                        ),
                         SizedBox(width: 8),
                         Text(
                           'AggregatedTimedBlock — small, immutable, the unit '
@@ -1357,10 +1425,7 @@ class _SectionTitle extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  color: paletteTextDim,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: paletteTextDim, fontSize: 13),
               ),
             ],
           ),
@@ -1449,11 +1514,7 @@ class _TableCell extends StatelessWidget {
   final String text;
   final bool mono;
   final Color? color;
-  const _TableCell({
-    required this.text,
-    this.mono = false,
-    this.color,
-  });
+  const _TableCell({required this.text, this.mono = false, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -1613,24 +1674,44 @@ class _RawTimedBlockRow extends StatelessWidget {
           const SizedBox(width: 8),
           const Text(
             'TimedBlock(',
-            style: TextStyle(color: paletteTextDim, fontFamily: 'monospace', fontSize: 11),
+            style: TextStyle(
+              color: paletteTextDim,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
           Text(
             'name: "$name", ',
-            style: const TextStyle(color: paletteAccent, fontFamily: 'monospace', fontSize: 11),
+            style: const TextStyle(
+              color: paletteAccent,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
           Text(
             'start: $start, end: $end',
-            style: const TextStyle(color: paletteText, fontFamily: 'monospace', fontSize: 11),
+            style: const TextStyle(
+              color: paletteText,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
           const Text(
             ')',
-            style: TextStyle(color: paletteTextDim, fontFamily: 'monospace', fontSize: 11),
+            style: TextStyle(
+              color: paletteTextDim,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
           const Spacer(),
           Text(
             '$dur µs',
-            style: const TextStyle(color: paletteOk, fontFamily: 'monospace', fontSize: 11),
+            style: const TextStyle(
+              color: paletteOk,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
         ],
       ),

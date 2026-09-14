@@ -71,11 +71,7 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          Color(0xFF5E5CE6),
-          Color(0xFF007AFF),
-          Color(0xFF32ADE6),
-        ],
+        colors: [Color(0xFF5E5CE6), Color(0xFF007AFF), Color(0xFF32ADE6)],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const [
@@ -757,19 +753,37 @@ Widget _buildSwitchSection() {
           title: 'Color spectrum: trackColor + activeColor',
           child: Column(
             children: [
-              _coloredSwitchRow('System default', true,
-                  activeColor: const Color(0xFF34C759)),
-              _coloredSwitchRow('Indigo accent', true,
-                  activeColor: const Color(0xFF5E5CE6)),
-              _coloredSwitchRow('Pink accent', true,
-                  activeColor: const Color(0xFFFF2D55)),
-              _coloredSwitchRow('Orange accent', true,
-                  activeColor: const Color(0xFFFF9500)),
-              _coloredSwitchRow('Off (default)', false,
-                  activeColor: const Color(0xFF34C759)),
-              _coloredSwitchRow('Off, custom track', false,
-                  activeColor: const Color(0xFF34C759),
-                  trackColor: const Color(0xFFD1D1D6)),
+              _coloredSwitchRow(
+                'System default',
+                true,
+                activeColor: const Color(0xFF34C759),
+              ),
+              _coloredSwitchRow(
+                'Indigo accent',
+                true,
+                activeColor: const Color(0xFF5E5CE6),
+              ),
+              _coloredSwitchRow(
+                'Pink accent',
+                true,
+                activeColor: const Color(0xFFFF2D55),
+              ),
+              _coloredSwitchRow(
+                'Orange accent',
+                true,
+                activeColor: const Color(0xFFFF9500),
+              ),
+              _coloredSwitchRow(
+                'Off (default)',
+                false,
+                activeColor: const Color(0xFF34C759),
+              ),
+              _coloredSwitchRow(
+                'Off, custom track',
+                false,
+                activeColor: const Color(0xFF34C759),
+                trackColor: const Color(0xFFD1D1D6),
+              ),
             ],
           ),
         ),
@@ -833,19 +847,12 @@ Widget _switchRow({
               const SizedBox(height: 1),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF777777),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF777777)),
               ),
             ],
           ),
         ),
-        CupertinoSwitch(
-          value: value,
-          activeColor: color,
-          onChanged: (v) {},
-        ),
+        CupertinoSwitch(value: value, activeColor: color, onChanged: (v) {}),
       ],
     ),
   );
@@ -864,10 +871,7 @@ Widget _coloredSwitchRow(
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Color(0xFF333333),
-            ),
+            style: const TextStyle(fontSize: 13, color: Color(0xFF333333)),
           ),
         ),
         CupertinoSwitch(
@@ -946,28 +950,18 @@ Widget _buildPickerSection() {
               backgroundColor: const Color(0xFFFAFAFA),
               onSelectedItemChanged: (i) {},
               children: const [
+                Center(child: Text('Espresso', style: TextStyle(fontSize: 18))),
                 Center(
-                  child: Text('Espresso',
-                      style: TextStyle(fontSize: 18)),
+                  child: Text('Cappuccino', style: TextStyle(fontSize: 18)),
+                ),
+                Center(child: Text('Latte', style: TextStyle(fontSize: 18))),
+                Center(
+                  child: Text('Macchiato', style: TextStyle(fontSize: 18)),
                 ),
                 Center(
-                  child: Text('Cappuccino',
-                      style: TextStyle(fontSize: 18)),
+                  child: Text('Americano', style: TextStyle(fontSize: 18)),
                 ),
-                Center(
-                  child: Text('Latte', style: TextStyle(fontSize: 18)),
-                ),
-                Center(
-                  child:
-                      Text('Macchiato', style: TextStyle(fontSize: 18)),
-                ),
-                Center(
-                  child:
-                      Text('Americano', style: TextStyle(fontSize: 18)),
-                ),
-                Center(
-                  child: Text('Mocha', style: TextStyle(fontSize: 18)),
-                ),
+                Center(child: Text('Mocha', style: TextStyle(fontSize: 18))),
               ],
             ),
           ),
@@ -1245,8 +1239,11 @@ Widget _buildTimerPickerSection() {
             height: 200,
             child: CupertinoTimerPicker(
               mode: CupertinoTimerPickerMode.hms,
-              initialTimerDuration:
-                  const Duration(hours: 1, minutes: 15, seconds: 45),
+              initialTimerDuration: const Duration(
+                hours: 1,
+                minutes: 15,
+                seconds: 45,
+              ),
               minuteInterval: 5,
               secondInterval: 5,
               onTimerDurationChanged: (d) {},
@@ -1543,11 +1540,7 @@ Widget _buildUsageGuide() {
       children: [
         Row(
           children: const [
-            Icon(
-              Icons.menu_book,
-              color: Color(0xFFFF6F00),
-              size: 22,
-            ),
+            Icon(Icons.menu_book, color: Color(0xFFFF6F00), size: 22),
             SizedBox(width: 8),
             Text(
               'Usage guide',
@@ -1685,9 +1678,7 @@ Widget _sectionHeader({
           decoration: BoxDecoration(
             color: CupertinoColors.white.withOpacity(0.22),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: CupertinoColors.white.withOpacity(0.4),
-            ),
+            border: Border.all(color: CupertinoColors.white.withOpacity(0.4)),
           ),
           child: Icon(icon, color: CupertinoColors.white, size: 24),
         ),
@@ -1700,7 +1691,9 @@ Widget _sectionHeader({
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 2),
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: CupertinoColors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(6),

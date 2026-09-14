@@ -625,63 +625,63 @@ const double _kRowGap = 8.0;
 const double _kBetweenSections = 26.0;
 
 TextStyle _displayStyle() => const TextStyle(
-      fontSize: 30,
-      fontWeight: FontWeight.w800,
-      color: _kInk,
-      height: 1.1,
-      letterSpacing: -0.5,
-    );
+  fontSize: 30,
+  fontWeight: FontWeight.w800,
+  color: _kInk,
+  height: 1.1,
+  letterSpacing: -0.5,
+);
 
 TextStyle _subtitleStyle() => const TextStyle(
-      fontSize: 15,
-      fontWeight: FontWeight.w500,
-      color: _kMuted,
-      height: 1.35,
-    );
+  fontSize: 15,
+  fontWeight: FontWeight.w500,
+  color: _kMuted,
+  height: 1.35,
+);
 
 TextStyle _sectionTitleStyle() => const TextStyle(
-      fontSize: 22,
-      fontWeight: FontWeight.w700,
-      color: _kInk,
-      letterSpacing: -0.2,
-      height: 1.2,
-    );
+  fontSize: 22,
+  fontWeight: FontWeight.w700,
+  color: _kInk,
+  letterSpacing: -0.2,
+  height: 1.2,
+);
 
 TextStyle _sectionLeadStyle() => const TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
-      color: _kMuted,
-      height: 1.4,
-    );
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+  color: _kMuted,
+  height: 1.4,
+);
 
 TextStyle _cardTitleStyle() => const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-      color: _kInk,
-      height: 1.25,
-    );
+  fontSize: 16,
+  fontWeight: FontWeight.w700,
+  color: _kInk,
+  height: 1.25,
+);
 
 TextStyle _bodyStyle() => const TextStyle(
-      fontSize: 13.5,
-      fontWeight: FontWeight.w400,
-      color: _kInkSoft,
-      height: 1.45,
-    );
+  fontSize: 13.5,
+  fontWeight: FontWeight.w400,
+  color: _kInkSoft,
+  height: 1.45,
+);
 
 TextStyle _smallStyle() => const TextStyle(
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      color: _kMuted,
-      height: 1.4,
-    );
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  color: _kMuted,
+  height: 1.4,
+);
 
 TextStyle _monoStyle({Color color = _kInk}) => TextStyle(
-      fontSize: 12.5,
-      fontFamily: 'monospace',
-      fontFamilyFallback: const <String>['Courier', 'Menlo', 'monospace'],
-      color: color,
-      height: 1.4,
-    );
+  fontSize: 12.5,
+  fontFamily: 'monospace',
+  fontFamilyFallback: const <String>['Courier', 'Menlo', 'monospace'],
+  color: color,
+  height: 1.4,
+);
 
 const Color _kInk = Color(0xFF0F172A);
 const Color _kInkSoft = Color(0xFF1E293B);
@@ -1130,10 +1130,7 @@ Widget _buildAnatomySection() {
         const SizedBox(height: 18),
         _buildDivider(),
         const SizedBox(height: 14),
-        Text(
-          'Pipeline notes',
-          style: _cardTitleStyle(),
-        ),
+        Text('Pipeline notes', style: _cardTitleStyle()),
         const SizedBox(height: 8),
         _buildBulletLine(
           'The dispatcher boundary is where most subclassing happens — log, '
@@ -1162,10 +1159,7 @@ Widget _buildBulletLine(String text) {
           width: 6,
           height: 6,
           margin: const EdgeInsets.only(top: 7, right: 10),
-          decoration: const BoxDecoration(
-            color: _kInk,
-            shape: BoxShape.circle,
-          ),
+          decoration: const BoxDecoration(color: _kInk, shape: BoxShape.circle),
         ),
         Expanded(child: Text(text, style: _bodyStyle())),
       ],
@@ -1242,9 +1236,7 @@ Widget _buildKeyMapRow(_ShortcutRecord r, int index) {
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
     decoration: BoxDecoration(
       color: stripe,
-      border: Border(
-        bottom: BorderSide(color: _kOutlineSoft),
-      ),
+      border: Border(bottom: BorderSide(color: _kOutlineSoft)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1286,9 +1278,9 @@ Widget _buildKeyMapRow(_ShortcutRecord r, int index) {
                 Flexible(
                   child: Text(
                     r.intentName,
-                    style: _monoStyle(color: r.tintInk).copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: _monoStyle(
+                      color: r.tintInk,
+                    ).copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
               ],
@@ -1303,21 +1295,15 @@ Widget _buildKeyMapRow(_ShortcutRecord r, int index) {
               Flexible(
                 child: Text(
                   r.actionName,
-                  style: _monoStyle(color: r.tintInk).copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: _monoStyle(
+                    color: r.tintInk,
+                  ).copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
             ],
           ),
         ),
-        Expanded(
-          flex: 4,
-          child: Text(
-            r.purpose,
-            style: _bodyStyle(),
-          ),
-        ),
+        Expanded(flex: 4, child: Text(r.purpose, style: _bodyStyle())),
       ],
     ),
   );
@@ -1350,12 +1336,7 @@ Widget _buildKeyMapSection() {
             border: Border.all(color: _kOutlineSoft),
           ),
           clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: <Widget>[
-              _buildKeyMapHeaderRow(),
-              ...rows,
-            ],
-          ),
+          child: Column(children: <Widget>[_buildKeyMapHeaderRow(), ...rows]),
         ),
       ],
     ),
@@ -1590,9 +1571,7 @@ Widget _buildRecipeCard(_Recipe r) {
               child: Icon(r.icon, color: r.tintInk, size: 18),
             ),
             const SizedBox(width: 10),
-            Expanded(
-              child: Text(r.title, style: _cardTitleStyle()),
-            ),
+            Expanded(child: Text(r.title, style: _cardTitleStyle())),
           ],
         ),
         const SizedBox(height: 10),
@@ -1609,10 +1588,9 @@ Widget _buildRecipeCard(_Recipe r) {
           ),
           child: Text(
             r.snippet,
-            style: _monoStyle(color: const Color(0xFFE2E8F0)).copyWith(
-              fontSize: 11.5,
-              height: 1.5,
-            ),
+            style: _monoStyle(
+              color: const Color(0xFFE2E8F0),
+            ).copyWith(fontSize: 11.5, height: 1.5),
           ),
         ),
       ],
@@ -1978,7 +1956,9 @@ Widget _buildConceptsSection() {
   final List<Widget> rows = <Widget>[];
   for (int i = 0; i < _kConcepts.length; i += 2) {
     final _ConceptCard a = _kConcepts[i];
-    final _ConceptCard? b = i + 1 < _kConcepts.length ? _kConcepts[i + 1] : null;
+    final _ConceptCard? b = i + 1 < _kConcepts.length
+        ? _kConcepts[i + 1]
+        : null;
     rows.add(
       Padding(
         padding: const EdgeInsets.only(bottom: 12),
@@ -2052,8 +2032,7 @@ const List<_ComparisonRow> _kRawCompare = <_ComparisonRow>[
   _ComparisonRow(
     concern: 'Override',
     raw: 'Need to manually skip processing based on state.',
-    actionsIntents:
-        'Inner Actions widget naturally shadows the outer mapping.',
+    actionsIntents: 'Inner Actions widget naturally shadows the outer mapping.',
     icon: Icons.layers_outlined,
   ),
   _ComparisonRow(
@@ -2325,10 +2304,9 @@ Widget _buildGlossaryRow(_GlossaryTerm term, int idx) {
           width: 220,
           child: Text(
             term.name,
-            style: _monoStyle(color: _kInk).copyWith(
-              fontWeight: FontWeight.w700,
-              fontSize: 12.5,
-            ),
+            style: _monoStyle(
+              color: _kInk,
+            ).copyWith(fontWeight: FontWeight.w700, fontSize: 12.5),
           ),
         ),
         Expanded(child: Text(term.definition, style: _bodyStyle())),
@@ -2406,8 +2384,7 @@ Widget _buildLiveDemoTree() {
 
   // Build an actual Actions/Shortcuts widget tree — the demo doesn't need
   // user interaction, but the structure is real and analyzer-checked.
-  final Map<ShortcutActivator, Intent> shortcuts =
-      <ShortcutActivator, Intent>{
+  final Map<ShortcutActivator, Intent> shortcuts = <ShortcutActivator, Intent>{
     const SingleActivator(LogicalKeyboardKey.keyS, control: true):
         const _SaveDocumentIntent('untitled-1.md'),
     const SingleActivator(LogicalKeyboardKey.keyC, control: true):
@@ -2452,9 +2429,7 @@ Widget _buildLiveDemoTree() {
     _NavigatePreviousIntent: CallbackAction<_NavigatePreviousIntent>(
       onInvoke: (_NavigatePreviousIntent _) => null,
     ),
-    _BoldIntent: CallbackAction<_BoldIntent>(
-      onInvoke: (_BoldIntent _) => null,
-    ),
+    _BoldIntent: CallbackAction<_BoldIntent>(onInvoke: (_BoldIntent _) => null),
     _ItalicIntent: CallbackAction<_ItalicIntent>(
       onInvoke: (_ItalicIntent _) => null,
     ),
@@ -2588,10 +2563,9 @@ Widget _buildTreeStratum({
           const SizedBox(width: 10),
           Text(
             widgetName,
-            style: _monoStyle(color: tintInk).copyWith(
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
+            style: _monoStyle(
+              color: tintInk,
+            ).copyWith(fontWeight: FontWeight.w800, fontSize: 13),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2757,9 +2731,7 @@ Widget _buildFlowConnector() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 14),
     child: Row(
-      children: <Widget>[
-        Container(width: 2, height: 14, color: _kOutline),
-      ],
+      children: <Widget>[Container(width: 2, height: 14, color: _kOutline)],
     ),
   );
 }
@@ -2856,9 +2828,9 @@ Widget _buildInspectorRow(_InspectorRow r, int idx) {
           flex: 4,
           child: Text(
             r.intentType,
-            style: _monoStyle(color: const Color(0xFF1E40AF)).copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: _monoStyle(
+              color: const Color(0xFF1E40AF),
+            ).copyWith(fontWeight: FontWeight.w700),
           ),
         ),
         Expanded(
@@ -2869,18 +2841,15 @@ Widget _buildInspectorRow(_InspectorRow r, int idx) {
               Flexible(
                 child: Text(
                   r.actionType,
-                  style: _monoStyle(color: const Color(0xFF0F766E)).copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: _monoStyle(
+                    color: const Color(0xFF0F766E),
+                  ).copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
             ],
           ),
         ),
-        Expanded(
-          flex: 5,
-          child: Text(r.enabledHint, style: _smallStyle()),
-        ),
+        Expanded(flex: 5, child: Text(r.enabledHint, style: _smallStyle())),
       ],
     ),
   );
@@ -3097,10 +3066,7 @@ Widget _buildHero() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0F172A),
-          Color(0xFF1E40AF),
-        ],
+        colors: <Color>[Color(0xFF0F172A), Color(0xFF1E40AF)],
       ),
       boxShadow: const <BoxShadow>[
         BoxShadow(
@@ -3116,10 +3082,7 @@ Widget _buildHero() {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.14),
                 borderRadius: BorderRadius.circular(999),
@@ -3137,10 +3100,7 @@ Widget _buildHero() {
             ),
             const SizedBox(width: 8),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 5,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: BoxDecoration(
                 color: const Color(0xFFFBBF24),
                 borderRadius: BorderRadius.circular(999),

@@ -188,14 +188,24 @@ Widget _swPill(String text, Color color) {
   );
 }
 
-Widget _swCoordinateGrid(Offset position, {double width = 240.0, double height = 140.0}) {
+Widget _swCoordinateGrid(
+  Offset position, {
+  double width = 240.0,
+  double height = 140.0,
+}) {
   // Map the position into a 0..1 normalized space for visualization.
   // We use a wide visual range so far-off-screen and negative values still
   // produce a sensible rendering.
   const double rangeMin = -200.0;
   const double rangeMax = 1500.0;
-  final double nx = ((position.dx - rangeMin) / (rangeMax - rangeMin)).clamp(0.02, 0.98);
-  final double ny = ((position.dy - rangeMin) / (rangeMax - rangeMin)).clamp(0.02, 0.98);
+  final double nx = ((position.dx - rangeMin) / (rangeMax - rangeMin)).clamp(
+    0.02,
+    0.98,
+  );
+  final double ny = ((position.dy - rangeMin) / (rangeMax - rangeMin)).clamp(
+    0.02,
+    0.98,
+  );
 
   return Container(
     width: width,
@@ -210,7 +220,10 @@ Widget _swCoordinateGrid(Offset position, {double width = 240.0, double height =
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(color: _swLightIndigo.withValues(alpha: 0.45), width: 1.0),
+      border: Border.all(
+        color: _swLightIndigo.withValues(alpha: 0.45),
+        width: 1.0,
+      ),
     ),
     child: Stack(
       children: [
@@ -238,8 +251,14 @@ Widget _swCoordinateGrid(Offset position, {double width = 240.0, double height =
           ),
         // Origin marker
         Positioned(
-          left: ((0.0 - rangeMin) / (rangeMax - rangeMin)).clamp(0.0, 1.0) * width - 4.0,
-          top: ((0.0 - rangeMin) / (rangeMax - rangeMin)).clamp(0.0, 1.0) * height - 4.0,
+          left:
+              ((0.0 - rangeMin) / (rangeMax - rangeMin)).clamp(0.0, 1.0) *
+                  width -
+              4.0,
+          top:
+              ((0.0 - rangeMin) / (rangeMax - rangeMin)).clamp(0.0, 1.0) *
+                  height -
+              4.0,
           child: Container(
             width: 8.0,
             height: 8.0,
@@ -321,10 +340,7 @@ Widget _swInstanceCard({
     margin: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          accent.withValues(alpha: 0.08),
-        ],
+        colors: [Colors.white, accent.withValues(alpha: 0.08)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -392,11 +408,7 @@ Widget _swInstanceCard({
             children: [
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: _swSlate,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12.5, color: _swSlate, height: 1.4),
               ),
               const SizedBox(height: 10.0),
               _swCoordinateGrid(p, width: 296.0, height: 120.0),
@@ -485,11 +497,7 @@ Widget _swEnumRow({
         Expanded(
           child: Text(
             summary,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: _swSlate,
-              height: 1.35,
-            ),
+            style: TextStyle(fontSize: 12.0, color: _swSlate, height: 1.35),
           ),
         ),
         if (highlight) _swPill('THIS DEMO', _swDeepAmber),
@@ -510,10 +518,7 @@ Widget _swLifecycleStep({
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.02),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.02)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -737,7 +742,10 @@ Widget _swFootgun({
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: _swDeepAmber.withValues(alpha: 0.55), width: 1.4),
+      border: Border.all(
+        color: _swDeepAmber.withValues(alpha: 0.55),
+        width: 1.4,
+      ),
       boxShadow: [
         BoxShadow(
           color: _swDeepAmber.withValues(alpha: 0.18),
@@ -768,7 +776,10 @@ Widget _swFootgun({
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _swDeepAmber,
                       borderRadius: BorderRadius.circular(4.0),
@@ -873,15 +884,9 @@ dynamic build(BuildContext context) {
     globalPosition: const Offset(184.0, 96.0),
   );
 
-  print('=== Built ${[
-    eventTopLeft,
-    eventCenter,
-    eventEdge,
-    eventSubpixel,
-    eventOffscreen,
-    eventNegative,
-    eventMock,
-  ].length} event instances ===');
+  print(
+    '=== Built ${[eventTopLeft, eventCenter, eventEdge, eventSubpixel, eventOffscreen, eventNegative, eventMock].length} event instances ===',
+  );
   print('eventCenter.type = ${eventCenter.type}');
   print('eventCenter.globalPosition = ${eventCenter.globalPosition}');
 
@@ -893,12 +898,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _swDeepIndigo,
-          _swIndigo,
-          _swTeal,
-          _swDeepTeal,
-        ],
+        colors: [_swDeepIndigo, _swIndigo, _swTeal, _swDeepTeal],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -918,7 +918,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white.withValues(alpha: 0.18),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.55), width: 2.0),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.55),
+              width: 2.0,
+            ),
           ),
           child: const Icon(Icons.text_format, size: 56.0, color: Colors.white),
         ),
@@ -947,7 +950,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(999.0),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.0),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.45),
+              width: 1.0,
+            ),
           ),
           child: const Text(
             'Long-press / double-tap -> select containing WORD',
@@ -1008,7 +1014,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: _swCharcoal,
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: _swLightAmber.withValues(alpha: 0.55), width: 1.0),
+            border: Border.all(
+              color: _swLightAmber.withValues(alpha: 0.55),
+              width: 1.0,
+            ),
           ),
           child: Text(
             'class SelectWordSelectionEvent extends SelectionEvent {\n'
@@ -1032,7 +1041,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.85),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: _swIndigo.withValues(alpha: 0.35), width: 1.0),
+            border: Border.all(
+              color: _swIndigo.withValues(alpha: 0.35),
+              width: 1.0,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1078,7 +1090,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 1,
         title: 'Origin (top-left)',
-        description: 'The screen origin Offset(0, 0). Selecting at this point '
+        description:
+            'The screen origin Offset(0, 0). Selecting at this point '
             'targets whatever Selectable is rendered at the very corner.',
         event: eventTopLeft,
         accent: _swIndigo,
@@ -1086,7 +1099,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 2,
         title: 'Viewport center',
-        description: 'A typical mid-screen tap on a paragraph. Word boundary '
+        description:
+            'A typical mid-screen tap on a paragraph. Word boundary '
             'detection happens locally inside the targeted Selectable.',
         event: eventCenter,
         accent: _swTeal,
@@ -1094,7 +1108,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 3,
         title: 'Near viewport edge',
-        description: 'Approx. bottom-right of a 1024x768 viewport. Useful for '
+        description:
+            'Approx. bottom-right of a 1024x768 viewport. Useful for '
             'edge-case validation around clipped Selectables.',
         event: eventEdge,
         accent: _swDeepIndigo,
@@ -1102,7 +1117,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 4,
         title: 'Sub-pixel',
-        description: 'Offset uses doubles, so fractional coordinates are first-'
+        description:
+            'Offset uses doubles, so fractional coordinates are first-'
             'class. Hit-testing rounds internally as needed.',
         event: eventSubpixel,
         accent: _swDeepTeal,
@@ -1110,7 +1126,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 5,
         title: 'Far off-screen',
-        description: 'A position outside any rendered Selectable. The event is '
+        description:
+            'A position outside any rendered Selectable. The event is '
             'still constructible -- handlers simply find no match.',
         event: eventOffscreen,
         accent: _swAmber,
@@ -1118,7 +1135,8 @@ dynamic build(BuildContext context) {
       _swInstanceCard(
         index: 6,
         title: 'Negative coordinates',
-        description: 'Negative Offsets are legal: Flutter does not clamp them. '
+        description:
+            'Negative Offsets are legal: Flutter does not clamp them. '
             'They model points above / left of the screen origin.',
         event: eventNegative,
         accent: _swDeepAmber,
@@ -1133,10 +1151,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _swCream,
-          _swLightIndigo.withValues(alpha: 0.18),
-        ],
+        colors: [_swCream, _swLightIndigo.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1260,7 +1275,8 @@ dynamic build(BuildContext context) {
         _swLifecycleStep(
           n: 1,
           title: 'Long-press / double-tap detected',
-          body: 'A gesture recognizer inside SelectionArea (or a custom '
+          body:
+              'A gesture recognizer inside SelectionArea (or a custom '
               'GestureDetector) emits a callback carrying the global tap '
               'Offset of the gesture.',
           icon: Icons.touch_app,
@@ -1269,7 +1285,8 @@ dynamic build(BuildContext context) {
         _swLifecycleStep(
           n: 2,
           title: 'SelectionContainer builds the event',
-          body: 'The container constructs '
+          body:
+              'The container constructs '
               '"SelectWordSelectionEvent(globalPosition: details.globalPosition)" '
               'as an immutable command object.',
           icon: Icons.build,
@@ -1278,7 +1295,8 @@ dynamic build(BuildContext context) {
         _swLifecycleStep(
           n: 3,
           title: 'Dispatch via SelectionRegistrar',
-          body: 'The registrar walks every registered Selectable and forwards '
+          body:
+              'The registrar walks every registered Selectable and forwards '
               'the event to each one through SelectionHandler.dispatchSelectionEvent.',
           icon: Icons.share,
           color: _swTeal,
@@ -1286,7 +1304,8 @@ dynamic build(BuildContext context) {
         _swLifecycleStep(
           n: 4,
           title: 'Handler resolves containing word',
-          body: 'A SelectionHandler (e.g. RenderParagraph) maps globalPosition '
+          body:
+              'A SelectionHandler (e.g. RenderParagraph) maps globalPosition '
               'to a local TextPosition, finds the locale-aware word boundary, '
               'and updates its internal selection range.',
           icon: Icons.search,
@@ -1295,7 +1314,8 @@ dynamic build(BuildContext context) {
         _swLifecycleStep(
           n: 5,
           title: 'Highlight rendered',
-          body: 'The Selectable repaints with the new TextSelection, drawing '
+          body:
+              'The Selectable repaints with the new TextSelection, drawing '
               'the selection rect and the platform handles via SelectionOverlay.',
           icon: Icons.brush,
           color: _swDeepAmber,
@@ -1322,7 +1342,10 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: _swDeepIndigo.withValues(alpha: 0.35), width: 1.2),
+      border: Border.all(
+        color: _swDeepIndigo.withValues(alpha: 0.35),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: _swDeepIndigo.withValues(alpha: 0.18),
@@ -1342,7 +1365,10 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: _swSlate.withValues(alpha: 0.25), width: 1.0),
+              border: Border.all(
+                color: _swSlate.withValues(alpha: 0.25),
+                width: 1.0,
+              ),
             ),
             child: Stack(
               clipBehavior: Clip.none,
@@ -1403,7 +1429,10 @@ dynamic build(BuildContext context) {
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: _swLightIndigo.withValues(alpha: 0.55), width: 1.0),
+              border: Border.all(
+                color: _swLightIndigo.withValues(alpha: 0.55),
+                width: 1.0,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1438,7 +1467,10 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10.0),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: _swLightAmber.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(4.0),
@@ -1492,7 +1524,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.integration_instructions, color: _swDeepIndigo, size: 22.0),
+            Icon(
+              Icons.integration_instructions,
+              color: _swDeepIndigo,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Wiring into SelectionRegistrar',
@@ -1610,7 +1646,10 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: _swDeepIndigo.withValues(alpha: 0.45), width: 1.2),
+      border: Border.all(
+        color: _swDeepIndigo.withValues(alpha: 0.45),
+        width: 1.2,
+      ),
       boxShadow: [
         BoxShadow(
           color: _swDeepIndigo.withValues(alpha: 0.20),
@@ -1647,7 +1686,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.85),
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: _swIndigo.withValues(alpha: 0.45), width: 1.0),
+                  border: Border.all(
+                    color: _swIndigo.withValues(alpha: 0.45),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1659,7 +1701,11 @@ dynamic build(BuildContext context) {
                       'at the top-left of the application window. This is the '
                       'same space as PointerEvent.position and '
                       'GestureDetail.globalPosition.',
-                      style: TextStyle(fontSize: 12.5, color: _swCharcoal, height: 1.4),
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: _swCharcoal,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -1672,7 +1718,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.85),
                   borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(color: _swTeal.withValues(alpha: 0.45), width: 1.0),
+                  border: Border.all(
+                    color: _swTeal.withValues(alpha: 0.45),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1684,7 +1733,11 @@ dynamic build(BuildContext context) {
                       'its own coordinate space using '
                       'RenderObject.globalToLocal before performing word-'
                       'boundary lookups.',
-                      style: TextStyle(fontSize: 12.5, color: _swCharcoal, height: 1.4),
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: _swCharcoal,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -1716,7 +1769,8 @@ dynamic build(BuildContext context) {
       _swFootgun(
         n: 1,
         title: 'globalPosition is GLOBAL, not local',
-        detail: 'Passing a Selectable-local Offset will hit the wrong content '
+        detail:
+            'Passing a Selectable-local Offset will hit the wrong content '
             '(or none). Always use details.globalPosition from the gesture, '
             'and let the handler do globalToLocal internally.',
         icon: Icons.public,
@@ -1724,7 +1778,8 @@ dynamic build(BuildContext context) {
       _swFootgun(
         n: 2,
         title: 'Word boundaries are locale-aware',
-        detail: 'CJK, Thai, and other scripts may segment words differently. '
+        detail:
+            'CJK, Thai, and other scripts may segment words differently. '
             'Word boundary detection delegates to the platform via '
             'TextPainter.getWordBoundary, which depends on the Locale.',
         icon: Icons.language,
@@ -1732,21 +1787,24 @@ dynamic build(BuildContext context) {
       _swFootgun(
         n: 3,
         title: 'Selection may span multiple Selectables',
-        detail: 'A "word" can straddle InlineSpan boundaries. The SelectionContainer '
+        detail:
+            'A "word" can straddle InlineSpan boundaries. The SelectionContainer '
             'aggregates per-Selectable results into a coherent global selection.',
         icon: Icons.layers,
       ),
       _swFootgun(
         n: 4,
         title: 'Events are immutable',
-        detail: 'Once constructed, a SelectWordSelectionEvent cannot be mutated. '
+        detail:
+            'Once constructed, a SelectWordSelectionEvent cannot be mutated. '
             'Construct a NEW event for every gesture instead of caching one.',
         icon: Icons.lock,
       ),
       _swFootgun(
         n: 5,
         title: 'Long paragraphs cost O(N)',
-        detail: 'Word-boundary search runs over the targeted paragraph. For very '
+        detail:
+            'Word-boundary search runs over the targeted paragraph. For very '
             'long Selectables, prefer splitting into multiple SelectionContainers '
             'so dispatch can short-circuit on misses.',
         icon: Icons.speed,
@@ -1761,11 +1819,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _swDeepIndigo,
-          _swIndigo,
-          _swTeal,
-        ],
+        colors: [_swDeepIndigo, _swIndigo, _swTeal],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1806,11 +1860,7 @@ dynamic build(BuildContext context) {
           '* Always pass GLOBAL coordinates -- the handler converts to local.\n'
           '* Word boundaries are locale-aware and may span Selectables.\n'
           '* SelectionArea wires this up automatically for long-press / double-tap.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13.0,
-            height: 1.55,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.55),
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -1851,7 +1901,8 @@ dynamic build(BuildContext context) {
           // Section 3
           _swSectionHeader(
             '2. Six instances at varied coordinates',
-            subtitle: 'Real SelectWordSelectionEvent objects, each rendered '
+            subtitle:
+                'Real SelectWordSelectionEvent objects, each rendered '
                 'with a coordinate-grid visual.',
           ),
           instanceGrid,
@@ -1873,7 +1924,8 @@ dynamic build(BuildContext context) {
           // Section 6
           _swSectionHeader(
             '5. Real-world mock',
-            subtitle: 'A paragraph with a long-press indicator and a '
+            subtitle:
+                'A paragraph with a long-press indicator and a '
                 'highlighted selected word.',
           ),
           realWorldMock,

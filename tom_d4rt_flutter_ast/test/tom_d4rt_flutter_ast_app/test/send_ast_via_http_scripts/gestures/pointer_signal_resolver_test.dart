@@ -247,10 +247,7 @@ Widget buildHeroHeader(String resolverType, String resolverHash) {
         ),
         const SizedBox(height: 22.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           decoration: BoxDecoration(
             color: kMintCore.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12.0),
@@ -265,11 +262,7 @@ Widget buildHeroHeader(String resolverType, String resolverHash) {
             'wheel, scale signals). Multiple listeners up the tree may want\n'
             'the same event — the resolver gives it to the one that calls\n'
             'register() first during dispatch.',
-            style: TextStyle(
-              fontSize: 13.0,
-              color: kMintGlow,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 13.0, color: kMintGlow, height: 1.4),
           ),
         ),
         const SizedBox(height: 18.0),
@@ -394,10 +387,7 @@ Widget buildProblemPanel() {
                   decoration: BoxDecoration(
                     color: kInkDeep,
                     borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(
-                      color: kInkLine,
-                      width: 1.0,
-                    ),
+                    border: Border.all(color: kInkLine, width: 1.0),
                   ),
                 ),
               ),
@@ -440,11 +430,7 @@ Widget buildProblemPanel() {
                         ),
                       ],
                     ),
-                    child: const Icon(
-                      Icons.mouse,
-                      color: kInkDeep,
-                      size: 20.0,
-                    ),
+                    child: const Icon(Icons.mouse, color: kInkDeep, size: 20.0),
                   ),
                 ),
               ),
@@ -457,9 +443,7 @@ Widget buildProblemPanel() {
           decoration: BoxDecoration(
             color: kCrimsonAccent.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: kCrimsonAccent.withValues(alpha: 0.45),
-            ),
+            border: Border.all(color: kCrimsonAccent.withValues(alpha: 0.45)),
           ),
           child: Row(
             children: <Widget>[
@@ -489,20 +473,14 @@ Widget buildAmbiguityRing(String label, Color tint, int depth) {
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.08 + depth * 0.03),
       borderRadius: BorderRadius.circular(14.0 - depth * 2.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.7),
-        width: 1.5,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.7), width: 1.5),
     ),
     child: Padding(
       padding: const EdgeInsets.only(left: 10.0, top: 6.0),
       child: Align(
         alignment: Alignment.topLeft,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: tint.withValues(alpha: 0.85),
             borderRadius: BorderRadius.circular(6.0),
@@ -625,16 +603,10 @@ Widget buildAlgorithmPanel() {
         const Text(
           'The framework follows a deterministic six-step routine. The '
           'numbered rows below trace one event from creation to handling.',
-          style: TextStyle(
-            color: kMistPale,
-            fontSize: 13.0,
-            height: 1.5,
-          ),
+          style: TextStyle(color: kMistPale, fontSize: 13.0, height: 1.5),
         ),
         const SizedBox(height: 16.0),
-        Column(
-          children: steps.map(buildAlgorithmRow).toList(),
-        ),
+        Column(children: steps.map(buildAlgorithmRow).toList()),
       ],
     ),
   );
@@ -659,10 +631,7 @@ Widget buildAlgorithmRow(StepRow step) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(
-              colors: <Color>[
-                step.color,
-                step.color.withValues(alpha: 0.7),
-              ],
+              colors: <Color>[step.color, step.color.withValues(alpha: 0.7)],
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -738,11 +707,7 @@ Widget buildNestingVisual() {
                 color: kMagentaCore.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const Icon(
-                Icons.layers,
-                color: kMagentaGlow,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.layers, color: kMagentaGlow, size: 22.0),
             ),
             const SizedBox(width: 12.0),
             const Text(
@@ -792,8 +757,12 @@ Widget buildNestingVisual() {
                       priority: 'priority: 2',
                       tint: kMagentaCore,
                       child: Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 36.0, 20.0, 20.0),
+                        padding: const EdgeInsets.fromLTRB(
+                          20.0,
+                          36.0,
+                          20.0,
+                          20.0,
+                        ),
                         child: buildTreeBox(
                           label: 'inner Listener',
                           priority: 'priority: 1 (first to register)',
@@ -809,8 +778,7 @@ Widget buildNestingVisual() {
                                 borderRadius: BorderRadius.circular(20.0),
                                 boxShadow: <BoxShadow>[
                                   BoxShadow(
-                                    color:
-                                        kAmberAccent.withValues(alpha: 0.55),
+                                    color: kAmberAccent.withValues(alpha: 0.55),
                                     blurRadius: 14.0,
                                   ),
                                 ],
@@ -871,10 +839,7 @@ Widget buildTreeBox({
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: tint.withValues(alpha: 0.7), width: 1.6),
       boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: tint.withValues(alpha: 0.18),
-          blurRadius: 12.0,
-        ),
+        BoxShadow(color: tint.withValues(alpha: 0.18), blurRadius: 12.0),
       ],
     ),
     child: Stack(
@@ -982,11 +947,7 @@ Widget buildApiAnatomy() {
                 color: kCobaltSoft.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const Icon(
-                Icons.api,
-                color: kCobaltGlow,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.api, color: kCobaltGlow, size: 22.0),
             ),
             const SizedBox(width: 12.0),
             const Text(
@@ -1130,11 +1091,7 @@ Listener(
                 color: kMintCore.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const Icon(
-                Icons.code,
-                color: kMintGlow,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.code, color: kMintGlow, size: 22.0),
             ),
             const SizedBox(width: 12.0),
             const Text(
@@ -1229,8 +1186,7 @@ Widget buildConflictScenarios() {
       innerLabel: 'inner ScrollView',
       outerRegisters: true,
       innerRegisters: true,
-      outcome:
-          'reverse dispatch hits inner first; outer.register is a no-op.',
+      outcome: 'reverse dispatch hits inner first; outer.register is a no-op.',
       verdictIcon: Icons.check_circle,
       verdictColor: kEmeraldAccent,
     ),
@@ -1240,8 +1196,7 @@ Widget buildConflictScenarios() {
       innerLabel: 'inner ScrollView',
       outerRegisters: false,
       innerRegisters: true,
-      outcome:
-          'inner registers first, outer never bothers — clean handoff.',
+      outcome: 'inner registers first, outer never bothers — clean handoff.',
       verdictIcon: Icons.check_circle,
       verdictColor: kEmeraldAccent,
     ),
@@ -1251,8 +1206,7 @@ Widget buildConflictScenarios() {
       innerLabel: 'plain Container',
       outerRegisters: false,
       innerRegisters: false,
-      outcome:
-          'no callback stored; resolve() is a no-op; the event drops.',
+      outcome: 'no callback stored; resolve() is a no-op; the event drops.',
       verdictIcon: Icons.cancel,
       verdictColor: kCrimsonAccent,
     ),
@@ -1410,10 +1364,7 @@ Widget buildScenarioBox(String label, Color tint, bool registers) {
           left: 8.0,
           top: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: tint,
               borderRadius: BorderRadius.circular(6.0),
@@ -1432,10 +1383,7 @@ Widget buildScenarioBox(String label, Color tint, bool registers) {
           right: 8.0,
           top: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: registers
                   ? kEmeraldAccent.withValues(alpha: 0.85)
@@ -1494,11 +1442,7 @@ Widget buildArenaComparison() {
                 color: kMagentaSoft.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const Icon(
-                Icons.balance,
-                color: kMagentaGlow,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.balance, color: kMagentaGlow, size: 22.0),
             ),
             const SizedBox(width: 12.0),
             const Text(
@@ -1552,9 +1496,7 @@ Widget buildArenaComparison() {
           decoration: BoxDecoration(
             color: kMagentaCore.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: kMagentaCore.withValues(alpha: 0.45),
-            ),
+            border: Border.all(color: kMagentaCore.withValues(alpha: 0.45)),
           ),
           child: const Text(
             'Why two systems? Because pointer signals are NOT gestures. A '
@@ -1562,11 +1504,7 @@ Widget buildArenaComparison() {
             'to be "won" over time. Running it through the arena would '
             'make every wheel notch wait for arena resolution, which is '
             'the wrong shape of latency.',
-            style: TextStyle(
-              color: kMistPale,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: TextStyle(color: kMistPale, fontSize: 12.5, height: 1.5),
           ),
         ),
       ],
@@ -1628,10 +1566,7 @@ Widget buildBullet(String text, Color tint) {
           child: Container(
             width: 6.0,
             height: 6.0,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: tint,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: tint),
           ),
         ),
         Expanded(
@@ -1695,11 +1630,7 @@ Widget buildRealWorldExample() {
           'vertical list claims the wheel; the outer carousel does not, so '
           'the page below scrolls vertically — not horizontally — even '
           'though the carousel could have moved.',
-          style: TextStyle(
-            color: kMistPale,
-            fontSize: 12.8,
-            height: 1.5,
-          ),
+          style: TextStyle(color: kMistPale, fontSize: 12.8, height: 1.5),
         ),
         const SizedBox(height: 16.0),
         SizedBox(
@@ -1716,9 +1647,7 @@ Widget buildRealWorldExample() {
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(
-                color: kCobaltCore.withValues(alpha: 0.55),
-              ),
+              border: Border.all(color: kCobaltCore.withValues(alpha: 0.55)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1847,9 +1776,7 @@ Widget buildCarouselCard(
                 ),
                 child: Center(
                   child: Icon(
-                    vertical
-                        ? Icons.swap_vert
-                        : Icons.swap_horizontal_circle,
+                    vertical ? Icons.swap_vert : Icons.swap_horizontal_circle,
                     color: tint,
                     size: 22.0,
                   ),
@@ -2101,24 +2028,15 @@ Widget buildFooter() {
         ),
         const SizedBox(height: 16.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: kCobaltCore.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: kCobaltCore.withValues(alpha: 0.45),
-            ),
+            border: Border.all(color: kCobaltCore.withValues(alpha: 0.45)),
           ),
           child: Row(
             children: <Widget>[
-              const Icon(
-                Icons.menu_book,
-                color: kCobaltGlow,
-                size: 16.0,
-              ),
+              const Icon(Icons.menu_book, color: kCobaltGlow, size: 16.0),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(

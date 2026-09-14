@@ -98,7 +98,13 @@ const LinearGradient _gradDecision = LinearGradient(
 const LinearGradient _gradLifecycle = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
-  colors: <Color>[_kAccentEmeraldDeep, _kAccentEmerald, _kAccentAmber, _kAccentCoral, _kAccentCoralDeep],
+  colors: <Color>[
+    _kAccentEmeraldDeep,
+    _kAccentEmerald,
+    _kAccentAmber,
+    _kAccentCoral,
+    _kAccentCoralDeep,
+  ],
   stops: <double>[0.0, 0.3, 0.55, 0.8, 1.0],
 );
 
@@ -153,7 +159,12 @@ const LinearGradient _gradReference = LinearGradient(
 
 // Shadow #1 — Crisp drop with secondary diffuse halo (used on the title banner).
 const List<BoxShadow> _shadowTitle = <BoxShadow>[
-  BoxShadow(color: Color(0x66000000), offset: Offset(0, 14), blurRadius: 32, spreadRadius: 2),
+  BoxShadow(
+    color: Color(0x66000000),
+    offset: Offset(0, 14),
+    blurRadius: 32,
+    spreadRadius: 2,
+  ),
   BoxShadow(color: Color(0x331ABC9C), offset: Offset(0, 2), blurRadius: 6),
 ];
 
@@ -165,7 +176,12 @@ const List<BoxShadow> _shadowPaper = <BoxShadow>[
 
 // Shadow #3 — Heavy diagram shadow, doubled for depth.
 const List<BoxShadow> _shadowAnatomy = <BoxShadow>[
-  BoxShadow(color: Color(0x80000000), offset: Offset(0, 18), blurRadius: 40, spreadRadius: 4),
+  BoxShadow(
+    color: Color(0x80000000),
+    offset: Offset(0, 18),
+    blurRadius: 40,
+    spreadRadius: 4,
+  ),
   BoxShadow(color: Color(0x40000000), offset: Offset(0, 4), blurRadius: 8),
 ];
 
@@ -178,7 +194,12 @@ const List<BoxShadow> _shadowLifecycle = <BoxShadow>[
 // Shadow #5 — Code card: inner-feeling drop, slight tint.
 const List<BoxShadow> _shadowCode = <BoxShadow>[
   BoxShadow(color: Color(0x66000000), offset: Offset(0, 10), blurRadius: 24),
-  BoxShadow(color: Color(0x331ABC9C), offset: Offset(0, 0), blurRadius: 2, spreadRadius: 1),
+  BoxShadow(
+    color: Color(0x331ABC9C),
+    offset: Offset(0, 0),
+    blurRadius: 2,
+    spreadRadius: 1,
+  ),
 ];
 
 // Shadow #6 — Spotlight magenta glow.
@@ -212,10 +233,34 @@ class _NestedBucketsPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Define the four nested boxes with shrinking insets and custom colours.
     final List<_BucketLayer> layers = <_BucketLayer>[
-      _BucketLayer(inset: 4, label: 'root', id: '<root>', fill: const Color(0xFF22304A), stroke: _kAccentTeal),
-      _BucketLayer(inset: 28, label: 'page', id: 'home-page', fill: const Color(0xFF2E3F5C), stroke: _kAccentAmber),
-      _BucketLayer(inset: 54, label: 'form', id: 'profile-form', fill: const Color(0xFF3A4E70), stroke: _kAccentEmerald),
-      _BucketLayer(inset: 82, label: 'field', id: 'first-name', fill: const Color(0xFF4A6088), stroke: _kAccentCoral),
+      _BucketLayer(
+        inset: 4,
+        label: 'root',
+        id: '<root>',
+        fill: const Color(0xFF22304A),
+        stroke: _kAccentTeal,
+      ),
+      _BucketLayer(
+        inset: 28,
+        label: 'page',
+        id: 'home-page',
+        fill: const Color(0xFF2E3F5C),
+        stroke: _kAccentAmber,
+      ),
+      _BucketLayer(
+        inset: 54,
+        label: 'form',
+        id: 'profile-form',
+        fill: const Color(0xFF3A4E70),
+        stroke: _kAccentEmerald,
+      ),
+      _BucketLayer(
+        inset: 82,
+        label: 'field',
+        id: 'first-name',
+        fill: const Color(0xFF4A6088),
+        stroke: _kAccentCoral,
+      ),
     ];
 
     for (final _BucketLayer layer in layers) {
@@ -225,7 +270,10 @@ class _NestedBucketsPainter extends CustomPainter {
         size.width - layer.inset * 2,
         size.height - layer.inset * 2,
       );
-      final RRect rrect = RRect.fromRectAndRadius(rect, const Radius.circular(14));
+      final RRect rrect = RRect.fromRectAndRadius(
+        rect,
+        const Radius.circular(14),
+      );
 
       // Fill.
       canvas.drawRRect(rrect, Paint()..color = layer.fill);
@@ -250,13 +298,18 @@ class _NestedBucketsPainter extends CustomPainter {
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.4,
-                background: Paint()..color = layer.stroke.withValues(alpha: 0.85),
+                background: Paint()
+                  ..color = layer.stroke.withValues(alpha: 0.85),
               ),
             ),
             const TextSpan(text: '  '),
             TextSpan(
               text: 'id="${layer.id}"',
-              style: const TextStyle(color: Colors.white70, fontSize: 11, fontFamily: 'monospace'),
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 11,
+                fontFamily: 'monospace',
+              ),
             ),
           ],
         ),
@@ -268,15 +321,24 @@ class _NestedBucketsPainter extends CustomPainter {
     // Draw an inner caption at the very centre.
     final TextPainter caption = TextPainter(
       text: const TextSpan(
-        text: 'RestorableValue\n  ↑  registerForRestoration\n  ↑  RestorationMixin',
-        style: TextStyle(color: Colors.white, fontSize: 12, fontFamily: 'monospace', height: 1.4),
+        text:
+            'RestorableValue\n  ↑  registerForRestoration\n  ↑  RestorationMixin',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontFamily: 'monospace',
+          height: 1.4,
+        ),
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
     )..layout(maxWidth: size.width - 200);
     caption.paint(
       canvas,
-      Offset((size.width - caption.width) / 2, (size.height - caption.height) / 2),
+      Offset(
+        (size.width - caption.width) / 2,
+        (size.height - caption.height) / 2,
+      ),
     );
   }
 
@@ -307,23 +369,46 @@ class _LifecycleFlowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final List<_FlowStep> steps = <_FlowStep>[
-      _FlowStep(label: 'restoreState', sub: 'first call', colour: _kAccentEmerald),
-      _FlowStep(label: 'registerForRestoration', sub: 'each property', colour: _kAccentTeal),
-      _FlowStep(label: 'didUpdateRestorationId', sub: 'id change', colour: _kAccentAmber),
-      _FlowStep(label: 'restoreState', sub: 'old=bucket', colour: _kAccentMagenta),
+      _FlowStep(
+        label: 'restoreState',
+        sub: 'first call',
+        colour: _kAccentEmerald,
+      ),
+      _FlowStep(
+        label: 'registerForRestoration',
+        sub: 'each property',
+        colour: _kAccentTeal,
+      ),
+      _FlowStep(
+        label: 'didUpdateRestorationId',
+        sub: 'id change',
+        colour: _kAccentAmber,
+      ),
+      _FlowStep(
+        label: 'restoreState',
+        sub: 'old=bucket',
+        colour: _kAccentMagenta,
+      ),
       _FlowStep(label: 'dispose', sub: 'unregister', colour: _kAccentCoral),
     ];
 
-    final double bubbleWidth = (size.width - (steps.length + 1) * 12) / steps.length;
+    final double bubbleWidth =
+        (size.width - (steps.length + 1) * 12) / steps.length;
     final double bubbleHeight = size.height - 16;
 
     for (int i = 0; i < steps.length; i++) {
       final _FlowStep step = steps[i];
       final double left = 12 + i * (bubbleWidth + 12);
       final Rect rect = Rect.fromLTWH(left, 8, bubbleWidth, bubbleHeight);
-      final RRect rrect = RRect.fromRectAndRadius(rect, const Radius.circular(16));
+      final RRect rrect = RRect.fromRectAndRadius(
+        rect,
+        const Radius.circular(16),
+      );
 
-      canvas.drawRRect(rrect, Paint()..color = step.colour.withValues(alpha: 0.85));
+      canvas.drawRRect(
+        rrect,
+        Paint()..color = step.colour.withValues(alpha: 0.85),
+      );
       canvas.drawRRect(
         rrect,
         Paint()
@@ -335,7 +420,12 @@ class _LifecycleFlowPainter extends CustomPainter {
       final TextPainter titlePainter = TextPainter(
         text: TextSpan(
           text: step.label,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13, height: 1.1),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+            fontSize: 13,
+            height: 1.1,
+          ),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
@@ -345,13 +435,26 @@ class _LifecycleFlowPainter extends CustomPainter {
       final TextPainter subPainter = TextPainter(
         text: TextSpan(
           text: step.sub,
-          style: const TextStyle(color: Colors.white70, fontSize: 11, fontFamily: 'monospace'),
+          style: const TextStyle(
+            color: Colors.white70,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: bubbleWidth - 12);
 
-      titlePainter.paint(canvas, Offset(left + (bubbleWidth - titlePainter.width) / 2, rect.top + 14));
-      subPainter.paint(canvas, Offset(left + (bubbleWidth - subPainter.width) / 2, rect.bottom - subPainter.height - 12));
+      titlePainter.paint(
+        canvas,
+        Offset(left + (bubbleWidth - titlePainter.width) / 2, rect.top + 14),
+      );
+      subPainter.paint(
+        canvas,
+        Offset(
+          left + (bubbleWidth - subPainter.width) / 2,
+          rect.bottom - subPainter.height - 12,
+        ),
+      );
 
       // Arrow between bubbles.
       if (i < steps.length - 1) {
@@ -374,7 +477,11 @@ class _LifecycleFlowPainter extends CustomPainter {
 }
 
 class _FlowStep {
-  const _FlowStep({required this.label, required this.sub, required this.colour});
+  const _FlowStep({
+    required this.label,
+    required this.sub,
+    required this.colour,
+  });
   final String label;
   final String sub;
   final Color colour;
@@ -393,7 +500,10 @@ Widget _buildTitleBanner() {
       gradient: _gradTitle,
       borderRadius: BorderRadius.circular(24),
       boxShadow: _shadowTitle,
-      border: Border.all(color: _kAccentTeal.withValues(alpha: 0.4), width: 1.2),
+      border: Border.all(
+        color: _kAccentTeal.withValues(alpha: 0.4),
+        width: 1.2,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,12 +516,21 @@ Widget _buildTitleBanner() {
                 color: _kAccentTeal,
                 borderRadius: BorderRadius.circular(999),
                 boxShadow: const <BoxShadow>[
-                  BoxShadow(color: Color(0x33000000), offset: Offset(0, 2), blurRadius: 4),
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    offset: Offset(0, 2),
+                    blurRadius: 4,
+                  ),
                 ],
               ),
               child: const Text(
                 'flutter / restoration',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11, letterSpacing: 1.4),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                  letterSpacing: 1.4,
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -423,7 +542,12 @@ Widget _buildTitleBanner() {
               ),
               child: const Text(
                 'visual demo',
-                style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 11, letterSpacing: 1.4),
+                style: TextStyle(
+                  color: _kInk,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                  letterSpacing: 1.4,
+                ),
               ),
             ),
           ],
@@ -431,12 +555,23 @@ Widget _buildTitleBanner() {
         const SizedBox(height: 18),
         const Text(
           'Advanced State Restoration',
-          style: TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.w900, height: 1.1, letterSpacing: -0.5),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 36,
+            fontWeight: FontWeight.w900,
+            height: 1.1,
+            letterSpacing: -0.5,
+          ),
         ),
         const SizedBox(height: 8),
         const Text(
           'RestorableProperty • RestorationMixin • RestorationScope • RestorationBucket',
-          style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.4),
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            letterSpacing: 0.4,
+          ),
         ),
         const SizedBox(height: 16),
         Container(
@@ -584,69 +719,112 @@ Widget _buildDecisionMatrix() {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
-            headingRowColor: WidgetStateProperty.all(_kAccentAmberDeep.withValues(alpha: 0.18)),
-            border: TableBorder.all(color: _kAccentAmberDeep.withValues(alpha: 0.3), width: 1),
+            headingRowColor: WidgetStateProperty.all(
+              _kAccentAmberDeep.withValues(alpha: 0.18),
+            ),
+            border: TableBorder.all(
+              color: _kAccentAmberDeep.withValues(alpha: 0.3),
+              width: 1,
+            ),
             columns: const <DataColumn>[
-              DataColumn(label: Text('You have', style: TextStyle(fontWeight: FontWeight.w800))),
-              DataColumn(label: Text('Use class', style: TextStyle(fontWeight: FontWeight.w800))),
-              DataColumn(label: Text('Nullable variant', style: TextStyle(fontWeight: FontWeight.w800))),
-              DataColumn(label: Text('Notes', style: TextStyle(fontWeight: FontWeight.w800))),
+              DataColumn(
+                label: Text(
+                  'You have',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Use class',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Nullable variant',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Notes',
+                  style: TextStyle(fontWeight: FontWeight.w800),
+                ),
+              ),
             ],
             rows: const <DataRow>[
-              DataRow(cells: <DataCell>[
-                DataCell(Text('int')),
-                DataCell(Text('RestorableInt')),
-                DataCell(Text('RestorableIntN')),
-                DataCell(Text('Counters, indices, page numbers')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('double')),
-                DataCell(Text('RestorableDouble')),
-                DataCell(Text('RestorableDoubleN')),
-                DataCell(Text('Scroll offsets, slider values')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('num')),
-                DataCell(Text('RestorableNum<T>')),
-                DataCell(Text('RestorableNumN<T>')),
-                DataCell(Text('Generic numeric container')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('String')),
-                DataCell(Text('RestorableString')),
-                DataCell(Text('RestorableStringN')),
-                DataCell(Text('Form fields, identifiers')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('bool')),
-                DataCell(Text('RestorableBool')),
-                DataCell(Text('RestorableBoolN')),
-                DataCell(Text('Toggles, expanded/collapsed')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('DateTime')),
-                DataCell(Text('RestorableDateTime')),
-                DataCell(Text('RestorableDateTimeN')),
-                DataCell(Text('Date pickers, reminders')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Enum')),
-                DataCell(Text('RestorableEnum<T>')),
-                DataCell(Text('RestorableEnumN<T>')),
-                DataCell(Text('Dropdowns, mode selectors')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('TextEditingValue')),
-                DataCell(Text('RestorableTextEditingController')),
-                DataCell(Text('—')),
-                DataCell(Text('Wraps a controller; auto-disposes')),
-              ]),
-              DataRow(cells: <DataCell>[
-                DataCell(Text('Custom object')),
-                DataCell(Text('extends RestorableValue<T>')),
-                DataCell(Text('—')),
-                DataCell(Text('Implement toPrimitives / fromPrimitives')),
-              ]),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('int')),
+                  DataCell(Text('RestorableInt')),
+                  DataCell(Text('RestorableIntN')),
+                  DataCell(Text('Counters, indices, page numbers')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('double')),
+                  DataCell(Text('RestorableDouble')),
+                  DataCell(Text('RestorableDoubleN')),
+                  DataCell(Text('Scroll offsets, slider values')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('num')),
+                  DataCell(Text('RestorableNum<T>')),
+                  DataCell(Text('RestorableNumN<T>')),
+                  DataCell(Text('Generic numeric container')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('String')),
+                  DataCell(Text('RestorableString')),
+                  DataCell(Text('RestorableStringN')),
+                  DataCell(Text('Form fields, identifiers')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('bool')),
+                  DataCell(Text('RestorableBool')),
+                  DataCell(Text('RestorableBoolN')),
+                  DataCell(Text('Toggles, expanded/collapsed')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('DateTime')),
+                  DataCell(Text('RestorableDateTime')),
+                  DataCell(Text('RestorableDateTimeN')),
+                  DataCell(Text('Date pickers, reminders')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Enum')),
+                  DataCell(Text('RestorableEnum<T>')),
+                  DataCell(Text('RestorableEnumN<T>')),
+                  DataCell(Text('Dropdowns, mode selectors')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('TextEditingValue')),
+                  DataCell(Text('RestorableTextEditingController')),
+                  DataCell(Text('—')),
+                  DataCell(Text('Wraps a controller; auto-disposes')),
+                ],
+              ),
+              DataRow(
+                cells: <DataCell>[
+                  DataCell(Text('Custom object')),
+                  DataCell(Text('extends RestorableValue<T>')),
+                  DataCell(Text('—')),
+                  DataCell(Text('Implement toPrimitives / fromPrimitives')),
+                ],
+              ),
             ],
           ),
         ),
@@ -836,7 +1014,11 @@ Widget _buildSpotlightCard(BuildContext context) {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: const <BoxShadow>[
-                  BoxShadow(color: Color(0x33000000), offset: Offset(0, 4), blurRadius: 12),
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    offset: Offset(0, 4),
+                    blurRadius: 12,
+                  ),
                 ],
               ),
               child: Column(
@@ -844,7 +1026,11 @@ Widget _buildSpotlightCard(BuildContext context) {
                 children: <Widget>[
                   const Text(
                     'Demo input — type freely (not actually persisted in this static demo)',
-                    style: TextStyle(color: _kInk, fontWeight: FontWeight.w700, fontSize: 12),
+                    style: TextStyle(
+                      color: _kInk,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   const TextField(
@@ -857,14 +1043,22 @@ Widget _buildSpotlightCard(BuildContext context) {
                   const SizedBox(height: 10),
                   Row(
                     children: <Widget>[
-                      Icon(Icons.bookmark, size: 16, color: _kAccentMagentaDeep.withValues(alpha: 0.9)),
+                      Icon(
+                        Icons.bookmark,
+                        size: 16,
+                        color: _kAccentMagentaDeep.withValues(alpha: 0.9),
+                      ),
                       const SizedBox(width: 6),
                       const Expanded(
                         child: Text(
                           'In a real RestorationMixin, the controller above would '
                           'be supplied by _bio.value, and the bucket would already '
                           'contain the previous text by the time the first frame paints.',
-                          style: TextStyle(color: _kInkSoft, fontSize: 12, height: 1.4),
+                          style: TextStyle(
+                            color: _kInkSoft,
+                            fontSize: 12,
+                            height: 1.4,
+                          ),
                         ),
                       ),
                     ],
@@ -923,7 +1117,14 @@ Widget _buildScopeComparisonCard() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const <Widget>[
-                    Text('RestorationScope', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14, color: _kInk)),
+                    Text(
+                      'RestorationScope',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: _kInk,
+                      ),
+                    ),
                     SizedBox(height: 6),
                     Text(
                       '• Reads ancestor bucket via context.\n'
@@ -931,7 +1132,11 @@ Widget _buildScopeComparisonCard() {
                       '• Auto-disposes the child when removed.\n'
                       '• Cheapest, most common variant.\n'
                       '• Great for routes, sheets, sub-trees.',
-                      style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
+                      style: TextStyle(
+                        color: _kInkSoft,
+                        fontSize: 12.5,
+                        height: 1.5,
+                      ),
                     ),
                   ],
                 ),
@@ -949,7 +1154,14 @@ Widget _buildScopeComparisonCard() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const <Widget>[
-                    Text('UnmanagedRestorationScope', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14, color: _kInk)),
+                    Text(
+                      'UnmanagedRestorationScope',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 14,
+                        color: _kInk,
+                      ),
+                    ),
                     SizedBox(height: 6),
                     Text(
                       '• Caller owns the RestorationBucket.\n'
@@ -957,7 +1169,11 @@ Widget _buildScopeComparisonCard() {
                       '• You are responsible for disposal.\n'
                       '• Useful for ad-hoc, isolated trees.\n'
                       '• Often paired with RootRestorationScope.',
-                      style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.5),
+                      style: TextStyle(
+                        color: _kInkSoft,
+                        fontSize: 12.5,
+                        height: 1.5,
+                      ),
                     ),
                   ],
                 ),
@@ -973,21 +1189,21 @@ Widget _buildScopeComparisonCard() {
 Widget _buildPaletteSection() {
   // Wrap of small "swatch" cards, one per RestorableValue subclass.
   final List<_Swatch> swatches = <_Swatch>[
-    const _Swatch('RestorableInt',                  '0',                  _kAccentTeal),
-    const _Swatch('RestorableIntN',                 'null | int',         _kAccentTealDeep),
-    const _Swatch('RestorableDouble',               '0.0',                _kAccentEmerald),
-    const _Swatch('RestorableDoubleN',              'null | double',      _kAccentEmeraldDeep),
-    const _Swatch('RestorableNum<T>',               'generic',            _kAccentIndigo),
-    const _Swatch('RestorableNumN<T>',              'generic | null',     _kAccentIndigoDeep),
-    const _Swatch('RestorableString',               '""',                 _kAccentAmber),
-    const _Swatch('RestorableStringN',              'null | String',      _kAccentAmberDeep),
-    const _Swatch('RestorableBool',                 'false',              _kAccentMagenta),
-    const _Swatch('RestorableBoolN',                'null | bool',        _kAccentMagentaDeep),
-    const _Swatch('RestorableDateTime',             'epoch',              _kAccentCoral),
-    const _Swatch('RestorableDateTimeN',            'null | DateTime',    _kAccentCoralDeep),
-    const _Swatch('RestorableEnum<T>',              'T.values[0]',        _kAccentSlate),
-    const _Swatch('RestorableEnumN<T>',             'null | T',           _kAccentSlateDeep),
-    const _Swatch('RestorableTextEditingController','""',                 _kAccentTealDeep),
+    const _Swatch('RestorableInt', '0', _kAccentTeal),
+    const _Swatch('RestorableIntN', 'null | int', _kAccentTealDeep),
+    const _Swatch('RestorableDouble', '0.0', _kAccentEmerald),
+    const _Swatch('RestorableDoubleN', 'null | double', _kAccentEmeraldDeep),
+    const _Swatch('RestorableNum<T>', 'generic', _kAccentIndigo),
+    const _Swatch('RestorableNumN<T>', 'generic | null', _kAccentIndigoDeep),
+    const _Swatch('RestorableString', '""', _kAccentAmber),
+    const _Swatch('RestorableStringN', 'null | String', _kAccentAmberDeep),
+    const _Swatch('RestorableBool', 'false', _kAccentMagenta),
+    const _Swatch('RestorableBoolN', 'null | bool', _kAccentMagentaDeep),
+    const _Swatch('RestorableDateTime', 'epoch', _kAccentCoral),
+    const _Swatch('RestorableDateTimeN', 'null | DateTime', _kAccentCoralDeep),
+    const _Swatch('RestorableEnum<T>', 'T.values[0]', _kAccentSlate),
+    const _Swatch('RestorableEnumN<T>', 'null | T', _kAccentSlateDeep),
+    const _Swatch('RestorableTextEditingController', '""', _kAccentTealDeep),
   ];
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -1031,7 +1247,11 @@ Widget _buildPaletteSection() {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: s.colour.withValues(alpha: 0.45)),
                   boxShadow: const <BoxShadow>[
-                    BoxShadow(color: Color(0x14000000), offset: Offset(0, 3), blurRadius: 6),
+                    BoxShadow(
+                      color: Color(0x14000000),
+                      offset: Offset(0, 3),
+                      blurRadius: 6,
+                    ),
                   ],
                 ),
                 child: Column(
@@ -1040,16 +1260,22 @@ Widget _buildPaletteSection() {
                     Row(
                       children: <Widget>[
                         Container(
-                          width: 10, height: 10,
+                          width: 10,
+                          height: 10,
                           decoration: BoxDecoration(
-                            color: s.colour, borderRadius: BorderRadius.circular(2),
+                            color: s.colour,
+                            borderRadius: BorderRadius.circular(2),
                           ),
                         ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             s.name,
-                            style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12.5, color: _kInk),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 12.5,
+                              color: _kInk,
+                            ),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -1057,14 +1283,21 @@ Widget _buildPaletteSection() {
                     ),
                     const SizedBox(height: 6),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: s.colour.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         'default: ${s.defaultValue}',
-                        style: TextStyle(color: s.colour, fontSize: 11, fontFamily: 'monospace'),
+                        style: TextStyle(
+                          color: s.colour,
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                        ),
                       ),
                     ),
                   ],
@@ -1082,32 +1315,36 @@ Widget _buildPitfallsCard() {
     _Pitfall(
       icon: Icons.fingerprint,
       title: 'Stable restorationIds',
-      body: 'Never derive a restorationId from something that changes per '
-            'launch — index in a randomly-shuffled list, an auto-generated '
-            'UUID, a hash of the user object. The id must be the same on '
-            'launch N+1 as it was on launch N, or the bucket is orphaned.',
+      body:
+          'Never derive a restorationId from something that changes per '
+          'launch — index in a randomly-shuffled list, an auto-generated '
+          'UUID, a hash of the user object. The id must be the same on '
+          'launch N+1 as it was on launch N, or the bucket is orphaned.',
     ),
     _Pitfall(
       icon: Icons.cleaning_services_outlined,
       title: 'Dispose every Restorable',
-      body: 'Properties hold listeners and a reference to the bucket. Always '
-            'call .dispose() in your State.dispose, even though the mixin '
-            'unregisters them — the listeners are yours.',
+      body:
+          'Properties hold listeners and a reference to the bucket. Always '
+          'call .dispose() in your State.dispose, even though the mixin '
+          'unregisters them — the listeners are yours.',
     ),
     _Pitfall(
       icon: Icons.travel_explore,
       title: 'Use the right scope',
-      body: 'A Navigator already wraps each route in a RestorationScope. You '
-            'rarely need to add another one. Only reach for '
-            'UnmanagedRestorationScope when bridging foreign buckets.',
+      body:
+          'A Navigator already wraps each route in a RestorationScope. You '
+          'rarely need to add another one. Only reach for '
+          'UnmanagedRestorationScope when bridging foreign buckets.',
     ),
     _Pitfall(
       icon: Icons.bug_report_outlined,
       title: 'Test cold-start paths',
-      body: 'Use the flutter_test restoration helpers (restartAndRestore) to '
-            'simulate the OS dropping your process. A widget that "works" '
-            'inside a hot-reload session can still be broken on real cold '
-            'starts.',
+      body:
+          'Use the flutter_test restoration helpers (restartAndRestore) to '
+          'simulate the OS dropping your process. A widget that "works" '
+          'inside a hot-reload session can still be broken on real cold '
+          'starts.',
     ),
   ];
 
@@ -1146,7 +1383,9 @@ Widget _buildPitfallsCard() {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _kAccentCoralDeep.withValues(alpha: 0.25)),
+              border: Border.all(
+                color: _kAccentCoralDeep.withValues(alpha: 0.25),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1159,10 +1398,21 @@ Widget _buildPitfallsCard() {
                     children: <Widget>[
                       Text(
                         p.title,
-                        style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13, color: _kInk),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 13,
+                          color: _kInk,
+                        ),
                       ),
                       const SizedBox(height: 4),
-                      Text(p.body, style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.45)),
+                      Text(
+                        p.body,
+                        style: const TextStyle(
+                          color: _kInkSoft,
+                          fontSize: 12.5,
+                          height: 1.45,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1212,10 +1462,14 @@ Widget _buildReferenceTableCard() {
               2: FixedColumnWidth(160),
               3: FlexColumnWidth(),
             },
-            border: TableBorder.all(color: _kAccentSlate.withValues(alpha: 0.35)),
+            border: TableBorder.all(
+              color: _kAccentSlate.withValues(alpha: 0.35),
+            ),
             children: <TableRow>[
               TableRow(
-                decoration: BoxDecoration(color: _kAccentSlate.withValues(alpha: 0.18)),
+                decoration: BoxDecoration(
+                  color: _kAccentSlate.withValues(alpha: 0.18),
+                ),
                 children: const <Widget>[
                   _TableHead('Class'),
                   _TableHead('Wraps'),
@@ -1223,25 +1477,115 @@ Widget _buildReferenceTableCard() {
                   _TableHead('Typical use'),
                 ],
               ),
-              _refRow('RestorableInt',                          'int',              'int',       'counters, indices, totals'),
-              _refRow('RestorableIntN',                         'int?',             'int|null',  'optional counters'),
-              _refRow('RestorableDouble',                       'double',           'double',    'slider values, dimensions'),
-              _refRow('RestorableDoubleN',                      'double?',          'double|null','optional sliders'),
-              _refRow('RestorableNum<T extends num>',           'T',                'num',       'generic numeric stores'),
-              _refRow('RestorableNumN<T extends num>',          'T?',               'num|null',  'optional generic numeric'),
-              _refRow('RestorableString',                       'String',           'String',    'form fields, names'),
-              _refRow('RestorableStringN',                      'String?',          'String|null','optional fields'),
-              _refRow('RestorableBool',                         'bool',             'bool',      'toggles, switches'),
-              _refRow('RestorableBoolN',                        'bool?',            'bool|null', 'tri-state toggles'),
-              _refRow('RestorableDateTime',                     'DateTime',         'int(micros)','timestamps, picker values'),
-              _refRow('RestorableDateTimeN',                    'DateTime?',        'int|null',  'optional timestamps'),
-              _refRow('RestorableEnum<T extends Enum>',         'T',                'String',    'enum-backed dropdowns'),
-              _refRow('RestorableEnumN<T extends Enum>',        'T?',               'String|null','optional enum dropdowns'),
-              _refRow('RestorableTextEditingController',        'TextEditingController','String','text inputs'),
-              _refRow('RestorableValue<T>',                     'T',                'depends',   'roll your own primitive'),
-              _refRow('RestorableListenable<T>',                'T (Listenable)',   'derived',   'wrap Listenable-shaped state'),
-              _refRow('RestorableChangeNotifier<T>',            'T (ChangeNotifier)','derived',  'wrap ChangeNotifier subclasses'),
-              _refRow('RestorableRouteFuture<T>',               'route result',     'arguments', 'navigator route results'),
+              _refRow(
+                'RestorableInt',
+                'int',
+                'int',
+                'counters, indices, totals',
+              ),
+              _refRow(
+                'RestorableIntN',
+                'int?',
+                'int|null',
+                'optional counters',
+              ),
+              _refRow(
+                'RestorableDouble',
+                'double',
+                'double',
+                'slider values, dimensions',
+              ),
+              _refRow(
+                'RestorableDoubleN',
+                'double?',
+                'double|null',
+                'optional sliders',
+              ),
+              _refRow(
+                'RestorableNum<T extends num>',
+                'T',
+                'num',
+                'generic numeric stores',
+              ),
+              _refRow(
+                'RestorableNumN<T extends num>',
+                'T?',
+                'num|null',
+                'optional generic numeric',
+              ),
+              _refRow(
+                'RestorableString',
+                'String',
+                'String',
+                'form fields, names',
+              ),
+              _refRow(
+                'RestorableStringN',
+                'String?',
+                'String|null',
+                'optional fields',
+              ),
+              _refRow('RestorableBool', 'bool', 'bool', 'toggles, switches'),
+              _refRow(
+                'RestorableBoolN',
+                'bool?',
+                'bool|null',
+                'tri-state toggles',
+              ),
+              _refRow(
+                'RestorableDateTime',
+                'DateTime',
+                'int(micros)',
+                'timestamps, picker values',
+              ),
+              _refRow(
+                'RestorableDateTimeN',
+                'DateTime?',
+                'int|null',
+                'optional timestamps',
+              ),
+              _refRow(
+                'RestorableEnum<T extends Enum>',
+                'T',
+                'String',
+                'enum-backed dropdowns',
+              ),
+              _refRow(
+                'RestorableEnumN<T extends Enum>',
+                'T?',
+                'String|null',
+                'optional enum dropdowns',
+              ),
+              _refRow(
+                'RestorableTextEditingController',
+                'TextEditingController',
+                'String',
+                'text inputs',
+              ),
+              _refRow(
+                'RestorableValue<T>',
+                'T',
+                'depends',
+                'roll your own primitive',
+              ),
+              _refRow(
+                'RestorableListenable<T>',
+                'T (Listenable)',
+                'derived',
+                'wrap Listenable-shaped state',
+              ),
+              _refRow(
+                'RestorableChangeNotifier<T>',
+                'T (ChangeNotifier)',
+                'derived',
+                'wrap ChangeNotifier subclasses',
+              ),
+              _refRow(
+                'RestorableRouteFuture<T>',
+                'route result',
+                'arguments',
+                'navigator route results',
+              ),
             ],
           ),
         ),
@@ -1330,7 +1674,12 @@ Widget _miniBadge({required String label, required Color colour}) {
     ),
     child: Text(
       label,
-      style: TextStyle(color: colour, fontWeight: FontWeight.w700, fontSize: 11, letterSpacing: 0.6),
+      style: TextStyle(
+        color: colour,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+        letterSpacing: 0.6,
+      ),
     ),
   );
 }
@@ -1375,19 +1724,43 @@ TableRow _refRow(String name, String wraps, String primitive, String use) {
     children: <Widget>[
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(name, style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: _kInk)),
+        child: Text(
+          name,
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kInk,
+          ),
+        ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(wraps, style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: _kInkSoft)),
+        child: Text(
+          wraps,
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kInkSoft,
+          ),
+        ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(primitive, style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: _kInkSoft)),
+        child: Text(
+          primitive,
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 12,
+            color: _kInkSoft,
+          ),
+        ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(use, style: const TextStyle(fontSize: 12, color: _kInkSoft)),
+        child: Text(
+          use,
+          style: const TextStyle(fontSize: 12, color: _kInkSoft),
+        ),
       ),
     ],
   );
@@ -1420,15 +1793,15 @@ dynamic build(BuildContext context) {
   // exact because the script never reassigns `.value` anywhere — the
   // restorables remain at their constructor defaults for the entire build.
   // See `doc/interpreter_unfixable.md` U8(2) for the underlying limitation.
-  final RestorableInt    ri  = RestorableInt(42);
-  final RestorableDouble rd  = RestorableDouble(3.14159);
-  final RestorableString rs  = RestorableString('Tom');
-  final RestorableBool   rb  = RestorableBool(true);
+  final RestorableInt ri = RestorableInt(42);
+  final RestorableDouble rd = RestorableDouble(3.14159);
+  final RestorableString rs = RestorableString('Tom');
+  final RestorableBool rb = RestorableBool(true);
   final RestorableDateTime rdt = RestorableDateTime(DateTime(2026, 5, 11));
-  const int      riValue = 42;
-  const double   rdValue = 3.14159;
-  const String   rsValue = 'Tom';
-  const bool     rbValue = true;
+  const int riValue = 42;
+  const double rdValue = 3.14159;
+  const String rsValue = 'Tom';
+  const bool rbValue = true;
   final DateTime rdtValue = DateTime(2026, 5, 11);
   print('RestorableInt(42)             : $ri (value=$riValue)');
   print('RestorableDouble(3.14)        : $rd (value=$rdValue)');

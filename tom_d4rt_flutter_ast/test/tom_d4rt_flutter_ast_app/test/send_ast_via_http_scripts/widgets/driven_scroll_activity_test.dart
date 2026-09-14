@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Programmatic Scroll Animation',
-      'body': 'DrivenScrollActivity is a ScrollActivity that animates '
+      'body':
+          'DrivenScrollActivity is a ScrollActivity that animates '
           'the scroll position from its current offset to a target '
           'offset. It\'s created when you call scrollController.'
           'animateTo(offset, duration, curve). The animation is '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Activity-Based Scroll System',
-      'body': 'Flutter\'s scroll system uses an activity model — '
+      'body':
+          'Flutter\'s scroll system uses an activity model — '
           'each ScrollPosition has exactly one active ScrollActivity '
           'at a time. Activities include: IdleScrollActivity (at rest), '
           'DragScrollActivity (user dragging), BallisticScrollActivity '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.linear_scale,
       'title': 'Tween + Curve Animation',
-      'body': 'DrivenScrollActivity uses an AnimationController that '
+      'body':
+          'DrivenScrollActivity uses an AnimationController that '
           'tweens from the starting offset to the target offset, '
           'applying the specified Curve for easing. Each tick of '
           'the animation sets the scroll position via the delegate '
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.stop_circle_outlined,
       'title': 'Interruptible by User Input',
-      'body': 'If the user touches the scrollable while a '
+      'body':
+          'If the user touches the scrollable while a '
           'DrivenScrollActivity is running, the activity is '
           'cancelled and replaced with a DragScrollActivity. '
           'This ensures user input always takes priority over '
@@ -117,7 +121,8 @@ dynamic build(BuildContext context) {
       'step': 1,
       'title': 'You call scrollController.animateTo()',
       'color': Colors.cyan[700]!,
-      'detail': 'Your code calls scrollController.animateTo(offset, '
+      'detail':
+          'Your code calls scrollController.animateTo(offset, '
           'duration: Duration(...), curve: Curves.easeOut). This '
           'method is defined on ScrollController and delegates to '
           'ScrollPosition.animateTo().',
@@ -126,7 +131,8 @@ dynamic build(BuildContext context) {
       'step': 2,
       'title': 'ScrollPosition creates DrivenScrollActivity',
       'color': Colors.teal[600]!,
-      'detail': 'ScrollPosition.animateTo() creates a new '
+      'detail':
+          'ScrollPosition.animateTo() creates a new '
           'DrivenScrollActivity with: delegate = this (the '
           'ScrollPosition), from = current pixels, to = target '
           'offset, duration, curve, and vsync (the TickerProvider).',
@@ -135,7 +141,8 @@ dynamic build(BuildContext context) {
       'step': 3,
       'title': 'AnimationController initialized',
       'color': Colors.cyan[600]!,
-      'detail': 'Inside DrivenScrollActivity\'s constructor, an '
+      'detail':
+          'Inside DrivenScrollActivity\'s constructor, an '
           'AnimationController is created and configured with the '
           'duration. A Tween(begin: from, end: to) is applied '
           'with the curve. The animation starts immediately.',
@@ -144,7 +151,8 @@ dynamic build(BuildContext context) {
       'step': 4,
       'title': 'Each tick updates scroll position',
       'color': Colors.teal[500]!,
-      'detail': 'The AnimationController ticks via the vsync ticker. '
+      'detail':
+          'The AnimationController ticks via the vsync ticker. '
           'On each tick, the animated value (current offset) is '
           'computed and passed to delegate.setPixels(). This is '
           'the ScrollPosition, which updates the viewport.',
@@ -153,7 +161,8 @@ dynamic build(BuildContext context) {
       'step': 5,
       'title': 'Animation completes or is cancelled',
       'color': Colors.cyan[500]!,
-      'detail': 'When the animation reaches the target, the '
+      'detail':
+          'When the animation reaches the target, the '
           'DrivenScrollActivity calls delegate.goBallistic(0.0) '
           'which replaces it with an IdleScrollActivity (velocity='
           '0). If interrupted by user drag, it\'s cancelled and '
@@ -173,12 +182,14 @@ dynamic build(BuildContext context) {
       'method': 'animateTo()',
       'color': Colors.cyan[700]!,
       'icon': Icons.slow_motion_video,
-      'sig': 'Future<void> animateTo(\n'
+      'sig':
+          'Future<void> animateTo(\n'
           '  double to, {\n'
           '  required Duration duration,\n'
           '  required Curve curve,\n'
           '})',
-      'desc': 'Creates a DrivenScrollActivity with the specified '
+      'desc':
+          'Creates a DrivenScrollActivity with the specified '
           'duration and curve. The returned Future completes when '
           'the animation finishes (or when it\'s cancelled by '
           'user interaction). You specify exactly how long the '
@@ -188,13 +199,15 @@ dynamic build(BuildContext context) {
       'method': 'moveTo()',
       'color': Colors.teal[600]!,
       'icon': Icons.fast_forward,
-      'sig': 'void moveTo(\n'
+      'sig':
+          'void moveTo(\n'
           '  double to, {\n'
           '  Duration? duration,\n'
           '  Curve? curve,\n'
           '  bool? clamp,\n'
           '})',
-      'desc': 'If duration is null, jumps instantly (setPixels). '
+      'desc':
+          'If duration is null, jumps instantly (setPixels). '
           'If duration is provided, creates a DrivenScrollActivity '
           'like animateTo() but does NOT return a Future. The '
           'clamp parameter controls whether the target is clamped '
@@ -205,7 +218,8 @@ dynamic build(BuildContext context) {
       'color': Colors.grey[500]!,
       'icon': Icons.skip_next,
       'sig': 'void jumpTo(double value)',
-      'desc': 'Instantly sets the scroll offset — no animation, '
+      'desc':
+          'Instantly sets the scroll offset — no animation, '
           'no DrivenScrollActivity. Sets IdleScrollActivity after '
           'the jump. Use when you want instant repositioning.',
     },
@@ -222,7 +236,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Constructor & Animation Setup',
       'color': Colors.cyan[700]!,
-      'code': '// DrivenScrollActivity({\n'
+      'code':
+          '// DrivenScrollActivity({\n'
           '//   required ScrollActivityDelegate delegate,\n'
           '//   required double from,\n'
           '//   required double to,\n'
@@ -241,7 +256,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'velocity Property',
       'color': Colors.teal[600]!,
-      'code': '// @override\n'
+      'code':
+          '// @override\n'
           '// double get velocity {\n'
           '//   return _controller.velocity;\n'
           '// }\n'
@@ -254,7 +270,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'dispose() Cleanup',
       'color': Colors.cyan[600]!,
-      'code': '// @override\n'
+      'code':
+          '// @override\n'
           '// void dispose() {\n'
           '//   _completer.complete();\n'
           '//   _controller.dispose();\n'
@@ -268,7 +285,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'The Completer Pattern',
       'color': Colors.teal[500]!,
-      'code': '// DrivenScrollActivity holds a Completer<void>.\n'
+      'code':
+          '// DrivenScrollActivity holds a Completer<void>.\n'
           '// animateTo() returns completer.future.\n'
           '//\n'
           '// The Completer resolves when:\n'
@@ -295,7 +313,8 @@ dynamic build(BuildContext context) {
       'to': 'DragScrollActivity',
       'trigger': 'User touches the scrollable',
       'color': Colors.blue[500]!,
-      'detail': 'Pointer-down on the scrollable cancels the driven '
+      'detail':
+          'Pointer-down on the scrollable cancels the driven '
           'animation immediately. The DrivenScrollActivity is '
           'disposed and replaced with a HoldScrollActivity, which '
           'transitions to DragScrollActivity if the user moves.',
@@ -305,7 +324,8 @@ dynamic build(BuildContext context) {
       'to': 'IdleScrollActivity',
       'trigger': 'Animation completes',
       'color': Colors.green[500]!,
-      'detail': 'When the AnimationController status = completed, '
+      'detail':
+          'When the AnimationController status = completed, '
           'goBallistic(0.0) is called. With zero velocity, the '
           'physics simulation immediately settles to idle. The '
           'DrivenScrollActivity is replaced with IdleScrollActivity.',
@@ -315,7 +335,8 @@ dynamic build(BuildContext context) {
       'to': 'BallisticScrollActivity',
       'trigger': 'Target out of bounds',
       'color': Colors.orange[500]!,
-      'detail': 'If the driven target exceeds maxScrollExtent, the '
+      'detail':
+          'If the driven target exceeds maxScrollExtent, the '
           'animation hits the edge. On completion, goBallistic '
           'may create a BallisticScrollActivity to bounce back '
           'under overscroll physics (e.g., BouncingScrollPhysics).',
@@ -325,7 +346,8 @@ dynamic build(BuildContext context) {
       'to': 'DrivenScrollActivity',
       'trigger': 'Another animateTo() call',
       'color': Colors.cyan[600]!,
-      'detail': 'If animateTo() is called while a DrivenScrollActivity '
+      'detail':
+          'If animateTo() is called while a DrivenScrollActivity '
           'is running, the current one is disposed and a new '
           'DrivenScrollActivity takes over. The first animation\'s '
           'Future completes immediately (cancelled).',
@@ -343,7 +365,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Basic animateTo',
       'color': Colors.cyan[700]!,
-      'code': '// final controller = ScrollController();\n'
+      'code':
+          '// final controller = ScrollController();\n'
           '//\n'
           '// // Smooth scroll to offset 500:\n'
           '// await controller.animateTo(\n'
@@ -357,7 +380,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Scroll to Top',
       'color': Colors.teal[600]!,
-      'code': '// // Scroll to the very top:\n'
+      'code':
+          '// // Scroll to the very top:\n'
           '// await controller.animateTo(\n'
           '//   0.0,\n'
           '//   duration: Duration(milliseconds: 500),\n'
@@ -367,7 +391,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Scroll to Bottom',
       'color': Colors.cyan[600]!,
-      'code': '// // Scroll to the very bottom:\n'
+      'code':
+          '// // Scroll to the very bottom:\n'
           '// await controller.animateTo(\n'
           '//   controller.position.maxScrollExtent,\n'
           '//   duration: Duration(milliseconds: 500),\n'
@@ -377,7 +402,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Chained Scroll Animations',
       'color': Colors.teal[500]!,
-      'code': '// // Sequential scroll stops:\n'
+      'code':
+          '// // Sequential scroll stops:\n'
           '// await controller.animateTo(200,\n'
           '//   duration: Duration(ms: 200),\n'
           '//   curve: Curves.easeOut);\n'
@@ -389,7 +415,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Page-by-Page Scroll',
       'color': Colors.cyan[500]!,
-      'code': '// // Scroll exactly one viewport height:\n'
+      'code':
+          '// // Scroll exactly one viewport height:\n'
           '// final viewportH =\n'
           '//   controller.position.viewportDimension;\n'
           '// final current = controller.offset;\n'
@@ -415,7 +442,8 @@ dynamic build(BuildContext context) {
       'severity': 'error',
       'color': Colors.red[600]!,
       'icon': Icons.error,
-      'body': 'Calling scrollController.animateTo() before the '
+      'body':
+          'Calling scrollController.animateTo() before the '
           'ScrollController is attached to a Scrollable (e.g., in '
           'initState before build) throws "ScrollController not '
           'attached to any scroll views". Use addPostFrameCallback '
@@ -426,7 +454,8 @@ dynamic build(BuildContext context) {
       'severity': 'tip',
       'color': Colors.blue[500]!,
       'icon': Icons.info,
-      'body': 'animateTo() returns a Future<void> that completes '
+      'body':
+          'animateTo() returns a Future<void> that completes '
           'when the animation finishes. If you need to run code '
           'after scrolling completes, await the future. Don\'t '
           'assume it\'s instant.',
@@ -436,7 +465,8 @@ dynamic build(BuildContext context) {
       'severity': 'warning',
       'color': Colors.amber[600]!,
       'icon': Icons.warning,
-      'body': 'Calling animateTo() while a previous animateTo() is '
+      'body':
+          'Calling animateTo() while a previous animateTo() is '
           'still running cancels the first. If you fire multiple '
           'animateTo calls rapidly (e.g., in a listener), you get '
           'jerky motion. Debounce or cancel explicitly.',
@@ -446,7 +476,8 @@ dynamic build(BuildContext context) {
       'severity': 'warning',
       'color': Colors.orange[500]!,
       'icon': Icons.warning,
-      'body': 'If the target offset exceeds maxScrollExtent, the '
+      'body':
+          'If the target offset exceeds maxScrollExtent, the '
           'animation will overshoot. With ClampingScrollPhysics, '
           'it clamps at the edge. With BouncingScrollPhysics, it '
           'bounces back. This can look unintended if your content '
@@ -457,7 +488,8 @@ dynamic build(BuildContext context) {
       'severity': 'error',
       'color': Colors.red[500]!,
       'icon': Icons.error,
-      'body': 'If the widget that owns the ScrollController is '
+      'body':
+          'If the widget that owns the ScrollController is '
           'disposed while a DrivenScrollActivity is running, the '
           'animation may call methods on a disposed object. Always '
           'dispose the ScrollController in the State.dispose() '
@@ -476,7 +508,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'User Input Always Wins',
-      'body': 'A DrivenScrollActivity is always interruptible by user '
+      'body':
+          'A DrivenScrollActivity is always interruptible by user '
           'touch. This is by design: user gestures should never be '
           'blocked by programmatic animations. The Future from '
           'animateTo() completes immediately on interruption.',
@@ -485,7 +518,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Choose the Right Curve',
-      'body': 'Curves.easeOut feels natural for "scroll to item" UX. '
+      'body':
+          'Curves.easeOut feels natural for "scroll to item" UX. '
           'Curves.linear is good for following a progress indicator. '
           'Curves.easeInOut works well for page transitions. The '
           'Curve directly controls how the DrivenScrollActivity '
@@ -495,7 +529,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Avoid Very Long Durations',
-      'body': 'A long DrivenScrollActivity (e.g., 5 seconds) keeps '
+      'body':
+          'A long DrivenScrollActivity (e.g., 5 seconds) keeps '
           'the scroll "busy" and can feel unresponsive. Keep '
           'programmatic scroll durations under 1 second for most '
           'use cases. For very long scrolls, consider jumpTo() '
@@ -505,7 +540,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Await for Sequential Logic',
-      'body': 'Use "await controller.animateTo()" when you need to '
+      'body':
+          'Use "await controller.animateTo()" when you need to '
           'perform an action after scrolling completes (e.g., '
           'focusing a text field, showing a snackbar). The Future '
           'resolves whether the animation completes normally or '
@@ -515,7 +551,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Use With ensureVisible',
-      'body': 'Scrollable.ensureVisible(context) internally uses '
+      'body':
+          'Scrollable.ensureVisible(context) internally uses '
           'animateTo() if the target widget is offscreen. Under '
           'the hood, it creates a DrivenScrollActivity. You don\'t '
           'need to calculate offsets manually.',
@@ -524,7 +561,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'TickerProvider Requirement',
-      'body': 'DrivenScrollActivity needs a TickerProvider (vsync). '
+      'body':
+          'DrivenScrollActivity needs a TickerProvider (vsync). '
           'If the widget tree doesn\'t have one, animateTo() will '
           'throw. Ensure the nearest Scrollable has a valid '
           'TickerProvider (usually provided by the framework).',
@@ -598,50 +636,63 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _dsHead('1', 'What is DrivenScrollActivity?'),
           SizedBox(height: 12),
-          ...conceptCards.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: c['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: c['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(c['icon'] as IconData,
-                            color: c['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          c['icon'] as IconData,
+                          color: c['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(c['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            c['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(c['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      c['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -656,9 +707,10 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
             child: Column(
@@ -666,41 +718,53 @@ dynamic build(BuildContext context) {
               children: hierarchy.map((h) {
                 final depth = h['depth'] as int;
                 return Padding(
-                  padding: EdgeInsets.only(
-                      bottom: 8, left: depth * 20.0),
-                  child: Row(children: [
-                    if (depth > 0)
-                      Padding(
-                        padding: EdgeInsets.only(right: 6),
-                        child: Text('└─',
+                  padding: EdgeInsets.only(bottom: 8, left: depth * 20.0),
+                  child: Row(
+                    children: [
+                      if (depth > 0)
+                        Padding(
+                          padding: EdgeInsets.only(right: 6),
+                          child: Text(
+                            '└─',
                             style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                                color: Colors.grey[400])),
-                      ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: (h['color'] as Color).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: h['color'] as Color),
-                      ),
-                      child: Text(h['name'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
                               fontFamily: 'monospace',
-                              color: h['color'] as Color)),
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(h['note'] as String,
+                              fontSize: 10,
+                              color: Colors.grey[400],
+                            ),
+                          ),
+                        ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: (h['color'] as Color).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(color: h['color'] as Color),
+                        ),
+                        child: Text(
+                          h['name'] as String,
                           style: TextStyle(
-                              fontSize: 9,
-                              color: Colors.grey[600])),
-                    ),
-                  ]),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: h['color'] as Color,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          h['note'] as String,
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }).toList(),
             ),
@@ -711,282 +775,332 @@ dynamic build(BuildContext context) {
           // ── Section 3: Creation ──
           _dsHead('3', 'How It Is Created'),
           SizedBox(height: 12),
-          ...creationSteps.map((cs) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cs['color'] as Color, width: 4),
+          ...creationSteps.map(
+            (cs) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cs['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: cs['color'] as Color,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text('${cs['step']}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(cs['title'] as String,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12)),
-                            SizedBox(height: 4),
-                            Text(cs['detail'] as String,
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey[700],
-                                    height: 1.3)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: cs['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${cs['step']}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            cs['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            cs['detail'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 4: Comparison ──
           _dsHead('4', 'animateTo() vs moveTo() vs jumpTo()'),
           SizedBox(height: 12),
-          ...comparison.map((cm) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cm['color'] as Color, width: 4),
+          ...comparison.map(
+            (cm) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cm['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(cm['icon'] as IconData,
-                            color: cm['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        _dsTag(cm['method'] as String,
-                            cm['color'] as Color),
-                      ]),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(cm['sig'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.cyan[200],
-                                height: 1.4)),
-                      ),
-                      SizedBox(height: 8),
-                      Text(cm['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          cm['icon'] as IconData,
+                          color: cm['color'] as Color,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        _dsTag(cm['method'] as String, cm['color'] as Color),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        cm['sig'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.cyan[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      cm['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 5: Internals ──
           _dsHead('5', 'Internal Architecture'),
           SizedBox(height: 12),
-          ...internals.map((ic) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: ic['color'] as Color, width: 4),
+          ...internals.map(
+            (ic) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: ic['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(ic['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(ic['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.cyan[200],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      ic['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        ic['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.cyan[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 6: Interactions ──
           _dsHead('6', 'Activity Transitions'),
           SizedBox(height: 12),
-          ...interactions.map((ia) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: ia['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...interactions.map(
+            (ia) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: ia['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        _dsTag(ia['from'] as String,
-                            Colors.cyan[700]!),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        _dsTag(ia['from'] as String, Colors.cyan[700]!),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 6),
-                          child: Icon(Icons.arrow_forward,
-                              size: 14, color: Colors.grey[400]),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            size: 14,
+                            color: Colors.grey[400],
+                          ),
                         ),
-                        _dsTag(ia['to'] as String,
-                            ia['color'] as Color),
-                      ]),
-                      SizedBox(height: 6),
-                      Text('Trigger: ${ia['trigger']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: ia['color'] as Color)),
-                      SizedBox(height: 4),
-                      Text(ia['detail'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                        _dsTag(ia['to'] as String, ia['color'] as Color),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Trigger: ${ia['trigger']}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: ia['color'] as Color,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      ia['detail'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Code Patterns ──
           _dsHead('7', 'Code Patterns'),
           SizedBox(height: 12),
-          ...codePatterns.map((cp) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cp['color'] as Color, width: 4),
+          ...codePatterns.map(
+            (cp) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cp['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cp['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cp['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.cyan[200],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cp['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cp['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.cyan[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1014,31 +1128,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(12),
                   border: Border(
-                    left: BorderSide(
-                        color: m['color'] as Color, width: 4),
+                    left: BorderSide(color: m['color'] as Color, width: 4),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(m['icon'] as IconData,
-                          color: m['color'] as Color, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(m['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          m['icon'] as IconData,
+                          color: m['color'] as Color,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            m['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: m['color'] as Color)),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: m['color'] as Color,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(m['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      m['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1075,29 +1199,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1136,20 +1272,26 @@ Widget _dsHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1165,11 +1307,14 @@ Widget _dsTag(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 9,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }

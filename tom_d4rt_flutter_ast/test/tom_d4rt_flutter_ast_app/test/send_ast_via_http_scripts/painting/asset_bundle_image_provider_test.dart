@@ -112,18 +112,27 @@ Widget buildHeroBanner() {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white.withValues(alpha: 0.14),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 2),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.45),
+              width: 2,
+            ),
           ),
           alignment: Alignment.center,
-          child: const Icon(Icons.collections_bookmark_outlined, color: Colors.white, size: 46),
+          child: const Icon(
+            Icons.collections_bookmark_outlined,
+            color: Colors.white,
+            size: 46,
+          ),
         ),
         _hGap(20),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('AssetBundleImageProvider',
-                  style: _sans(26, Colors.white, weight: FontWeight.w800)),
+              Text(
+                'AssetBundleImageProvider',
+                style: _sans(26, Colors.white, weight: FontWeight.w800),
+              ),
               _vGap(4),
               Text(
                 'abstract ImageProvider<AssetBundleImageKey>',
@@ -159,17 +168,13 @@ Widget _heroChip(String text, Color color) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     decoration: BoxDecoration(
-      color: light ? Colors.white.withValues(alpha: 0.18) : color.withValues(alpha: 0.22),
+      color: light
+          ? Colors.white.withValues(alpha: 0.18)
+          : color.withValues(alpha: 0.22),
       borderRadius: BorderRadius.circular(999),
-      border: Border.all(
-        color: light ? Colors.white : color,
-        width: 1.2,
-      ),
+      border: Border.all(color: light ? Colors.white : color, width: 1.2),
     ),
-    child: Text(
-      text,
-      style: _mono(12, Colors.white, weight: FontWeight.w600),
-    ),
+    child: Text(text, style: _mono(12, Colors.white, weight: FontWeight.w600)),
   );
 }
 
@@ -207,25 +212,59 @@ class _HierarchyPainter extends CustomPainter {
     final Rect leftLeaf = Rect.fromLTWH(40, 248, 210, 92);
     final Rect rightLeaf = Rect.fromLTWH(size.width - 250, 248, 210, 92);
 
-    _drawNode(canvas, root, 'ImageProvider<T>', 'abstract',
-        <String>['resolve()', 'obtainKey()'], _kAccentShade, highlight == 0);
-    _drawNode(canvas, mid, 'AssetBundleImageProvider',
-        'abstract, T = AssetBundleImageKey',
-        <String>['loadBuffer()', 'load()'], _kSeed, highlight == 1);
-    _drawNode(canvas, leftLeaf, 'AssetImage',
-        'manifest-aware, DPR-variant', <String>['bundle?', 'package?', 'assetName'],
-        _kAccentCool, highlight == 2);
-    _drawNode(canvas, rightLeaf, 'ExactAssetImage',
-        'exact key, no manifest', <String>['bundle?', 'package?', 'scale', 'assetName'],
-        _kAccentHot, highlight == 3);
+    _drawNode(
+      canvas,
+      root,
+      'ImageProvider<T>',
+      'abstract',
+      <String>['resolve()', 'obtainKey()'],
+      _kAccentShade,
+      highlight == 0,
+    );
+    _drawNode(
+      canvas,
+      mid,
+      'AssetBundleImageProvider',
+      'abstract, T = AssetBundleImageKey',
+      <String>['loadBuffer()', 'load()'],
+      _kSeed,
+      highlight == 1,
+    );
+    _drawNode(
+      canvas,
+      leftLeaf,
+      'AssetImage',
+      'manifest-aware, DPR-variant',
+      <String>['bundle?', 'package?', 'assetName'],
+      _kAccentCool,
+      highlight == 2,
+    );
+    _drawNode(
+      canvas,
+      rightLeaf,
+      'ExactAssetImage',
+      'exact key, no manifest',
+      <String>['bundle?', 'package?', 'scale', 'assetName'],
+      _kAccentHot,
+      highlight == 3,
+    );
 
     // Arrows
-    _drawArrow(canvas,
-        Offset(root.center.dx, root.bottom), Offset(mid.center.dx, mid.top));
-    _drawArrow(canvas,
-        Offset(mid.center.dx, mid.bottom), Offset(leftLeaf.center.dx, leftLeaf.top));
-    _drawArrow(canvas,
-        Offset(mid.center.dx, mid.bottom), Offset(rightLeaf.center.dx, rightLeaf.top));
+    _drawArrow(
+      canvas,
+      Offset(root.center.dx, root.bottom),
+      Offset(mid.center.dx, mid.top),
+    );
+    _drawArrow(
+      canvas,
+      Offset(mid.center.dx, mid.bottom),
+      Offset(leftLeaf.center.dx, leftLeaf.top),
+    );
+    _drawArrow(
+      canvas,
+      Offset(mid.center.dx, mid.bottom),
+      Offset(rightLeaf.center.dx, rightLeaf.top),
+    );
   }
 
   void _drawNode(
@@ -237,7 +276,8 @@ class _HierarchyPainter extends CustomPainter {
     Color accent,
     bool active,
   ) {
-    final Paint fill = Paint()..color = active ? accent.withValues(alpha: 0.18) : Colors.white;
+    final Paint fill = Paint()
+      ..color = active ? accent.withValues(alpha: 0.18) : Colors.white;
     final Paint stroke = Paint()
       ..color = accent
       ..style = PaintingStyle.stroke
@@ -270,10 +310,7 @@ class _HierarchyPainter extends CustomPainter {
     for (final String f in fields) {
       if (y + 14 > rect.bottom - 6) break;
       final TextPainter fp = TextPainter(
-        text: TextSpan(
-          style: _mono(11, _kMuted),
-          text: '  $f',
-        ),
+        text: TextSpan(style: _mono(11, _kMuted), text: '  $f'),
         textDirection: TextDirection.ltr,
         maxLines: 1,
       )..layout(maxWidth: rect.width - 16);
@@ -292,8 +329,19 @@ class _HierarchyPainter extends CustomPainter {
     final double angle = (b - a).direction;
     const double headLen = 9;
     final Offset h1 = Offset(
-      b.dx - headLen * 1.0 * (1.0) * 1.0 * (1) * (1) * (1) *
-          1 * 1 * 1 * (angle == 0 ? 1 : 1) + 0,
+      b.dx -
+          headLen *
+              1.0 *
+              (1.0) *
+              1.0 *
+              (1) *
+              (1) *
+              (1) *
+              1 *
+              1 *
+              1 *
+              (angle == 0 ? 1 : 1) +
+          0,
       b.dy,
     );
     // Build arrowhead via path with rotated points
@@ -302,10 +350,21 @@ class _HierarchyPainter extends CustomPainter {
     final double hy = b.dy;
     head.moveTo(hx, hy);
     head.lineTo(
-      hx - headLen * 1.0 * (1.0) * 1.0 * 1 * 1 * 1 * 1 *
-          (1) * (1) * 1 * 1 *
-          // cos/sin via manual rotation approximation using direction
-          _cosA(angle - 0.45),
+      hx -
+          headLen *
+              1.0 *
+              (1.0) *
+              1.0 *
+              1 *
+              1 *
+              1 *
+              1 *
+              (1) *
+              (1) *
+              1 *
+              1 *
+              // cos/sin via manual rotation approximation using direction
+              _cosA(angle - 0.45),
       hy - headLen * _sinA(angle - 0.45),
     );
     head.moveTo(hx, hy);
@@ -347,7 +406,10 @@ Widget buildHierarchyDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Class hierarchy', style: _sans(18, _kInk, weight: FontWeight.w800)),
+        Text(
+          'Class hierarchy',
+          style: _sans(18, _kInk, weight: FontWeight.w800),
+        ),
         _vGap(4),
         Text(
           'ImageProvider<T> → AssetBundleImageProvider → {AssetImage, ExactAssetImage}',
@@ -398,7 +460,11 @@ Widget _hierarchyLegend(String label, Color color, int index) {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(width: 10, height: 10, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+          Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
           _hGap(6),
           Text(label, style: _mono(12, _kInk, weight: FontWeight.w700)),
         ],
@@ -423,11 +489,19 @@ class _PipelinePainter extends CustomPainter {
     );
 
     final List<_Stage> stages = <_Stage>[
-      _Stage('obtainKey(bundle)', 'returns Future<AssetBundleImageKey>', _kAccentCool),
+      _Stage(
+        'obtainKey(bundle)',
+        'returns Future<AssetBundleImageKey>',
+        _kAccentCool,
+      ),
       _Stage('bundle.load(key.name)', 'returns Future<ByteData>', _kAccentWarm),
       _Stage('instantiateImageCodec', 'decodes bytes → ui.Codec', _kAccentHot),
       _Stage('codec.getNextFrame', 'yields ui.FrameInfo', _kSeed),
-      _Stage('ImageStream.setCompleter', 'delivers ImageInfo to listeners', _kAccentShade),
+      _Stage(
+        'ImageStream.setCompleter',
+        'delivers ImageInfo to listeners',
+        _kAccentShade,
+      ),
     ];
 
     final double stageW = (size.width - 40) / stages.length;
@@ -473,7 +547,10 @@ class _PipelinePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    bp.paint(canvas, Offset(badge.center.dx - bp.width / 2, badge.center.dy - bp.height / 2));
+    bp.paint(
+      canvas,
+      Offset(badge.center.dx - bp.width / 2, badge.center.dy - bp.height / 2),
+    );
 
     final TextPainter title = TextPainter(
       text: TextSpan(
@@ -486,10 +563,7 @@ class _PipelinePainter extends CustomPainter {
     title.paint(canvas, Offset(rect.left + 36, rect.top + 10));
 
     final TextPainter subtitle = TextPainter(
-      text: TextSpan(
-        style: _sans(10, _kMuted),
-        text: stage.subtitle,
-      ),
+      text: TextSpan(style: _sans(10, _kMuted), text: stage.subtitle),
       textDirection: TextDirection.ltr,
       maxLines: 3,
     )..layout(maxWidth: rect.width - 16);
@@ -519,17 +593,19 @@ Widget buildPipelineDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Resolve pipeline', style: _sans(18, _kInk, weight: FontWeight.w800)),
+        Text(
+          'Resolve pipeline',
+          style: _sans(18, _kInk, weight: FontWeight.w800),
+        ),
         _vGap(4),
-        Text('Five-stage flow inside AssetBundleImageProvider.load',
-            style: _mono(12, _kMuted)),
+        Text(
+          'Five-stage flow inside AssetBundleImageProvider.load',
+          style: _mono(12, _kMuted),
+        ),
         _vGap(10),
         const SizedBox(
           height: 160,
-          child: CustomPaint(
-            painter: _PipelinePainter(),
-            size: Size.infinite,
-          ),
+          child: CustomPaint(painter: _PipelinePainter(), size: Size.infinite),
         ),
         _vGap(10),
         Container(
@@ -560,33 +636,37 @@ Widget buildVariantComparison() {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: _variantPanel(
-          title: 'AssetImage',
-          subtitle: 'manifest-aware, DPR-variant',
-          accent: _kAccentCool,
-          bullets: <String>[
-            'Reads AssetManifest.bin when it is available.',
-            'Picks the scale closest to MediaQuery.devicePixelRatio.',
-            'Falls back to the @1x asset if no variant matches.',
-            'Key.scale is whatever variant was chosen.',
-          ],
-          sampleLabel: 'typical',
-          code: "AssetImage('images/logo.png')",
-        )),
+        Expanded(
+          child: _variantPanel(
+            title: 'AssetImage',
+            subtitle: 'manifest-aware, DPR-variant',
+            accent: _kAccentCool,
+            bullets: <String>[
+              'Reads AssetManifest.bin when it is available.',
+              'Picks the scale closest to MediaQuery.devicePixelRatio.',
+              'Falls back to the @1x asset if no variant matches.',
+              'Key.scale is whatever variant was chosen.',
+            ],
+            sampleLabel: 'typical',
+            code: "AssetImage('images/logo.png')",
+          ),
+        ),
         _hGap(12),
-        Expanded(child: _variantPanel(
-          title: 'ExactAssetImage',
-          subtitle: 'literal, no manifest walk',
-          accent: _kAccentHot,
-          bullets: <String>[
-            'Loads the key name verbatim — no DPR lookup.',
-            'Caller supplies scale explicitly (defaults to 1.0).',
-            'Useful for manifest-less setups or custom bundles.',
-            'Key.scale is exactly what was passed in.',
-          ],
-          sampleLabel: 'manual-scale',
-          code: "ExactAssetImage('images/logo_2x.png', scale: 2.0)",
-        )),
+        Expanded(
+          child: _variantPanel(
+            title: 'ExactAssetImage',
+            subtitle: 'literal, no manifest walk',
+            accent: _kAccentHot,
+            bullets: <String>[
+              'Loads the key name verbatim — no DPR lookup.',
+              'Caller supplies scale explicitly (defaults to 1.0).',
+              'Useful for manifest-less setups or custom bundles.',
+              'Key.scale is exactly what was passed in.',
+            ],
+            sampleLabel: 'manual-scale',
+            code: "ExactAssetImage('images/logo_2x.png', scale: 2.0)",
+          ),
+        ),
       ],
     ),
   );
@@ -617,50 +697,57 @@ Widget _variantPanel({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: accent.withValues(alpha: 0.14),
-              borderRadius: BorderRadius.circular(10),
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: accent.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                title == 'AssetImage'
+                    ? Icons.auto_awesome_mosaic_outlined
+                    : Icons.grid_on_outlined,
+                color: accent,
+              ),
             ),
-            child: Icon(
-              title == 'AssetImage'
-                  ? Icons.auto_awesome_mosaic_outlined
-                  : Icons.grid_on_outlined,
-              color: accent,
+            _hGap(10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(title, style: _sans(17, _kInk, weight: FontWeight.w800)),
+                  Text(
+                    subtitle,
+                    style: _mono(11, accent, weight: FontWeight.w700),
+                  ),
+                ],
+              ),
             ),
-          ),
-          _hGap(10),
-          Expanded(
-            child: Column(
+          ],
+        ),
+        _vGap(10),
+        ...bullets.map(
+          (String b) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: _sans(17, _kInk, weight: FontWeight.w800)),
-                Text(subtitle, style: _mono(11, accent, weight: FontWeight.w700)),
+                Container(
+                  width: 6,
+                  height: 6,
+                  margin: const EdgeInsets.only(top: 6, right: 8),
+                  decoration: BoxDecoration(
+                    color: accent,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                Expanded(child: Text(b, style: _sans(13, _kInk))),
               ],
             ),
           ),
-        ]),
-        _vGap(10),
-        ...bullets.map((String b) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 6,
-                    height: 6,
-                    margin: const EdgeInsets.only(top: 6, right: 8),
-                    decoration: BoxDecoration(
-                      color: accent,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  Expanded(child: Text(b, style: _sans(13, _kInk))),
-                ],
-              ),
-            )),
+        ),
         _vGap(10),
         _codeBlock(sampleLabel, code),
       ],
@@ -684,15 +771,41 @@ Widget _codeBlock(String label, String code) {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             color: _kInk,
-            child: Row(children: <Widget>[
-              Container(width: 10, height: 10, decoration: const BoxDecoration(shape: BoxShape.circle, color: _kAccentHot)),
-              _hGap(6),
-              Container(width: 10, height: 10, decoration: const BoxDecoration(shape: BoxShape.circle, color: _kAccentWarm)),
-              _hGap(6),
-              Container(width: 10, height: 10, decoration: const BoxDecoration(shape: BoxShape.circle, color: _kAccentCool)),
-              _hGap(10),
-              Text(label, style: _mono(11, Colors.white.withValues(alpha: 0.72))),
-            ]),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _kAccentHot,
+                  ),
+                ),
+                _hGap(6),
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _kAccentWarm,
+                  ),
+                ),
+                _hGap(6),
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _kAccentCool,
+                  ),
+                ),
+                _hGap(10),
+                Text(
+                  label,
+                  style: _mono(11, Colors.white.withValues(alpha: 0.72)),
+                ),
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
@@ -711,11 +824,33 @@ List<TextSpan> _colorize(String src) {
   // set to colour-hint the code blocks. Not a full parser; good enough for
   // a demo and deliberately hand-rolled (no package dependency).
   const Set<String> kw = <String>{
-    'const', 'final', 'new', 'return', 'class', 'var', 'static', 'void',
-    'Widget', 'DecorationImage', 'AssetImage', 'ExactAssetImage',
-    'FadeInImage', 'Image', 'DefaultAssetBundle', 'MemoryImage',
-    'NetworkImage', 'ResizeImage', 'FileImage', 'BoxDecoration',
-    'BuildContext', 'context', 'package', 'bundle', 'true', 'false', 'null',
+    'const',
+    'final',
+    'new',
+    'return',
+    'class',
+    'var',
+    'static',
+    'void',
+    'Widget',
+    'DecorationImage',
+    'AssetImage',
+    'ExactAssetImage',
+    'FadeInImage',
+    'Image',
+    'DefaultAssetBundle',
+    'MemoryImage',
+    'NetworkImage',
+    'ResizeImage',
+    'FileImage',
+    'BoxDecoration',
+    'BuildContext',
+    'context',
+    'package',
+    'bundle',
+    'true',
+    'false',
+    'null',
     'scale',
   };
   final List<TextSpan> out = <TextSpan>[];
@@ -733,7 +868,9 @@ List<TextSpan> _colorize(String src) {
         i++;
       }
       if (i < src.length) i++;
-      out.add(TextSpan(text: src.substring(start, i), style: _mono(12.5, _kCodeStr)));
+      out.add(
+        TextSpan(text: src.substring(start, i), style: _mono(12.5, _kCodeStr)),
+      );
       continue;
     }
     if (c == '/' && i + 1 < src.length && src[i + 1] == '/') {
@@ -741,7 +878,12 @@ List<TextSpan> _colorize(String src) {
       while (i < src.length && src[i] != '\n') {
         i++;
       }
-      out.add(TextSpan(text: src.substring(start, i), style: _mono(12.5, _kCodeCmt, weight: FontWeight.w500)));
+      out.add(
+        TextSpan(
+          text: src.substring(start, i),
+          style: _mono(12.5, _kCodeCmt, weight: FontWeight.w500),
+        ),
+      );
       continue;
     }
     if (RegExp(r'[A-Za-z_]').hasMatch(c)) {
@@ -751,7 +893,12 @@ List<TextSpan> _colorize(String src) {
       }
       final String word = src.substring(start, i);
       if (kw.contains(word)) {
-        out.add(TextSpan(text: word, style: _mono(12.5, _kCodeKw, weight: FontWeight.w800)));
+        out.add(
+          TextSpan(
+            text: word,
+            style: _mono(12.5, _kCodeKw, weight: FontWeight.w800),
+          ),
+        );
       } else {
         out.add(TextSpan(text: word));
       }
@@ -779,7 +926,10 @@ Widget buildUsagePatterns() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Usage patterns', style: _sans(18, _kInk, weight: FontWeight.w800)),
+              Text(
+                'Usage patterns',
+                style: _sans(18, _kInk, weight: FontWeight.w800),
+              ),
               _vGap(4),
               Text(
                 'Every provider flows through the Image widget or a '
@@ -790,38 +940,48 @@ Widget buildUsagePatterns() {
           ),
         ),
         _vGap(10),
-        _codeBlock('simple-asset',
-            "// Implicit bundle = rootBundle\n"
-            "Image(image: AssetImage('images/cover.png'))"),
+        _codeBlock(
+          'simple-asset',
+          "// Implicit bundle = rootBundle\n"
+              "Image(image: AssetImage('images/cover.png'))",
+        ),
         _vGap(8),
-        _codeBlock('asset-with-bundle-and-package',
-            "Image(\n"
-            "  image: AssetImage(\n"
-            "    'images/cover.png',\n"
-            "    bundle: customBundle,\n"
-            "    package: 'my_pkg',\n"
-            "  ),\n"
-            ")"),
+        _codeBlock(
+          'asset-with-bundle-and-package',
+          "Image(\n"
+              "  image: AssetImage(\n"
+              "    'images/cover.png',\n"
+              "    bundle: customBundle,\n"
+              "    package: 'my_pkg',\n"
+              "  ),\n"
+              ")",
+        ),
         _vGap(8),
-        _codeBlock('decoration-image',
-            "Container(\n"
-            "  decoration: BoxDecoration(\n"
-            "    image: DecorationImage(\n"
-            "      image: AssetImage('images/bg.png'),\n"
-            "      fit: BoxFit.cover,\n"
-            "    ),\n"
-            "  ),\n"
-            ")"),
+        _codeBlock(
+          'decoration-image',
+          "Container(\n"
+              "  decoration: BoxDecoration(\n"
+              "    image: DecorationImage(\n"
+              "      image: AssetImage('images/bg.png'),\n"
+              "      fit: BoxFit.cover,\n"
+              "    ),\n"
+              "  ),\n"
+              ")",
+        ),
         _vGap(8),
-        _codeBlock('fade-in-image',
-            "FadeInImage(\n"
-            "  placeholder: AssetImage('images/blur.png'),\n"
-            "  image: AssetImage('images/photo.png'),\n"
-            ")"),
+        _codeBlock(
+          'fade-in-image',
+          "FadeInImage(\n"
+              "  placeholder: AssetImage('images/blur.png'),\n"
+              "  image: AssetImage('images/photo.png'),\n"
+              ")",
+        ),
         _vGap(8),
-        _codeBlock('exact-asset',
-            "// Skip the manifest lookup\n"
-            "Image(image: ExactAssetImage('images/3x/photo.png', scale: 3.0))"),
+        _codeBlock(
+          'exact-asset',
+          "// Skip the manifest lookup\n"
+              "Image(image: ExactAssetImage('images/3x/photo.png', scale: 3.0))",
+        ),
       ],
     ),
   );
@@ -844,7 +1004,10 @@ Widget buildBundleOverride() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Bundle resolution', style: _sans(18, _kInk, weight: FontWeight.w800)),
+          Text(
+            'Bundle resolution',
+            style: _sans(18, _kInk, weight: FontWeight.w800),
+          ),
           _vGap(6),
           Text(
             'When the provider does not carry an explicit `bundle`, the '
@@ -854,13 +1017,18 @@ Widget buildBundleOverride() {
             style: _sans(13, _kInk),
           ),
           _vGap(12),
-          const SizedBox(height: 150, child: CustomPaint(painter: _BundleResolvePainter())),
+          const SizedBox(
+            height: 150,
+            child: CustomPaint(painter: _BundleResolvePainter()),
+          ),
           _vGap(8),
-          _codeBlock('inject-a-custom-bundle',
-              "DefaultAssetBundle(\n"
-              "  bundle: myAlternativeBundle,\n"
-              "  child: Image(image: AssetImage('icons/star.png')),\n"
-              ")"),
+          _codeBlock(
+            'inject-a-custom-bundle',
+            "DefaultAssetBundle(\n"
+                "  bundle: myAlternativeBundle,\n"
+                "  child: Image(image: AssetImage('icons/star.png')),\n"
+                ")",
+          ),
         ],
       ),
     ),
@@ -888,9 +1056,21 @@ class _BundleResolvePainter extends CustomPainter {
     _box(canvas, bundle, 'resolved AssetBundle', _kSeed);
     _box(canvas, load, 'bundle.load(key)', _kAccentHot);
 
-    _arrow(canvas, Offset(provider.right, provider.top + 20), Offset(context.left, context.top + 25));
-    _arrow(canvas, Offset(provider.right, provider.bottom - 18), Offset(bundle.left, bundle.top + 18));
-    _arrow(canvas, Offset(bundle.right, bundle.top + 18), Offset(load.left, load.top + 28));
+    _arrow(
+      canvas,
+      Offset(provider.right, provider.top + 20),
+      Offset(context.left, context.top + 25),
+    );
+    _arrow(
+      canvas,
+      Offset(provider.right, provider.bottom - 18),
+      Offset(bundle.left, bundle.top + 18),
+    );
+    _arrow(
+      canvas,
+      Offset(bundle.right, bundle.top + 18),
+      Offset(load.left, load.top + 28),
+    );
   }
 
   void _box(Canvas canvas, Rect rect, String label, Color c) {
@@ -903,7 +1083,10 @@ class _BundleResolvePainter extends CustomPainter {
     canvas.drawRRect(rr, fill);
     canvas.drawRRect(rr, stroke);
     final TextPainter tp = TextPainter(
-      text: TextSpan(style: _mono(11, _kInk, weight: FontWeight.w700), text: label),
+      text: TextSpan(
+        style: _mono(11, _kInk, weight: FontWeight.w700),
+        text: label,
+      ),
       textDirection: TextDirection.ltr,
       maxLines: 2,
     )..layout(maxWidth: rect.width - 16);
@@ -941,7 +1124,10 @@ Widget buildDprResolution() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Device-pixel-ratio variants', style: _sans(18, _kInk, weight: FontWeight.w800)),
+          Text(
+            'Device-pixel-ratio variants',
+            style: _sans(18, _kInk, weight: FontWeight.w800),
+          ),
           _vGap(4),
           Text(
             'AssetImage asks the AssetManifest for every variant of the key, '
@@ -1010,18 +1196,23 @@ Widget _dprRow(String label, String dpr, List<_DprVariant> variants) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: _kSeed,
-              borderRadius: BorderRadius.circular(999),
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: _kSeed,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                'DPR = $dpr',
+                style: _mono(11, Colors.white, weight: FontWeight.w800),
+              ),
             ),
-            child: Text('DPR = $dpr', style: _mono(11, Colors.white, weight: FontWeight.w800)),
-          ),
-          _hGap(10),
-          Text(label, style: _sans(13, _kInk, weight: FontWeight.w700)),
-        ]),
+            _hGap(10),
+            Text(label, style: _sans(13, _kInk, weight: FontWeight.w700)),
+          ],
+        ),
         _vGap(8),
         Wrap(
           spacing: 8,
@@ -1037,7 +1228,9 @@ Widget _dprRow(String label, String dpr, List<_DprVariant> variants) {
 
 Widget _dprChip(_DprVariant v) {
   final Color border = v.chosen ? _kAccentCool : _kSurfaceStrong;
-  final Color bg = v.chosen ? _kAccentCool.withValues(alpha: 0.14) : Colors.white;
+  final Color bg = v.chosen
+      ? _kAccentCool.withValues(alpha: 0.14)
+      : Colors.white;
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     decoration: BoxDecoration(
@@ -1062,8 +1255,14 @@ Widget _dprChip(_DprVariant v) {
             color: v.chosen ? _kAccentCool : _kSurfaceStrong,
             borderRadius: BorderRadius.circular(999),
           ),
-          child: Text('${v.scale}x',
-              style: _mono(10, v.chosen ? Colors.white : _kInk, weight: FontWeight.w800)),
+          child: Text(
+            '${v.scale}x',
+            style: _mono(
+              10,
+              v.chosen ? Colors.white : _kInk,
+              weight: FontWeight.w800,
+            ),
+          ),
         ),
       ],
     ),
@@ -1087,7 +1286,10 @@ Widget buildErrorHandling() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Error handling', style: _sans(18, _kInk, weight: FontWeight.w800)),
+          Text(
+            'Error handling',
+            style: _sans(18, _kInk, weight: FontWeight.w800),
+          ),
           _vGap(6),
           _errorTile(
             Icons.search_off,
@@ -1113,16 +1315,18 @@ Widget buildErrorHandling() {
                 'mutations do not retroactively upgrade already-decoded images.',
           ),
           _vGap(12),
-          _codeBlock('error-builder',
-              "Image(\n"
-              "  image: AssetImage('images/missing.png'),\n"
-              "  errorBuilder: (context, error, stack) {\n"
-              "    return Container(\n"
-              "      color: Colors.red.shade100,\n"
-              "      child: Icon(Icons.image_not_supported),\n"
-              "    );\n"
-              "  },\n"
-              ")"),
+          _codeBlock(
+            'error-builder',
+            "Image(\n"
+                "  image: AssetImage('images/missing.png'),\n"
+                "  errorBuilder: (context, error, stack) {\n"
+                "    return Container(\n"
+                "      color: Colors.red.shade100,\n"
+                "      child: Icon(Icons.image_not_supported),\n"
+                "    );\n"
+                "  },\n"
+                ")",
+          ),
         ],
       ),
     ),
@@ -1185,7 +1389,10 @@ Widget buildRenderSamples() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Provider flavors', style: _sans(18, _kInk, weight: FontWeight.w800)),
+              Text(
+                'Provider flavors',
+                style: _sans(18, _kInk, weight: FontWeight.w800),
+              ),
               _vGap(4),
               Text(
                 'AssetBundleImageProvider subclasses (AssetImage, ExactAssetImage) '
@@ -1234,7 +1441,10 @@ Widget buildRenderSamples() {
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[_kAccentWarm.withValues(alpha: 0.2), _kSeed.withValues(alpha: 0.2)],
+                    colors: <Color>[
+                      _kAccentWarm.withValues(alpha: 0.2),
+                      _kSeed.withValues(alpha: 0.2),
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1288,11 +1498,18 @@ Widget _providerTile(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(10), child: art)),
+        Expanded(
+          child: ClipRRect(borderRadius: BorderRadius.circular(10), child: art),
+        ),
         _vGap(8),
         Text(title, style: _sans(13, _kInk, weight: FontWeight.w800)),
         _vGap(2),
-        Text(code, style: _mono(10, accent, weight: FontWeight.w700), maxLines: 1, overflow: TextOverflow.ellipsis),
+        Text(
+          code,
+          style: _mono(10, accent, weight: FontWeight.w700),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
         _vGap(6),
         Text(caption, style: _sans(10.5, _kMuted)),
       ],
@@ -1304,7 +1521,9 @@ Widget _surrogateArt(List<Color> colors) {
   return Container(
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: colors.map((Color c) => c.withValues(alpha: 0.85)).toList(growable: false),
+        colors: colors
+            .map((Color c) => c.withValues(alpha: 0.85))
+            .toList(growable: false),
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1315,8 +1534,14 @@ Widget _surrogateArt(List<Color> colors) {
       children: <Widget>[
         const Icon(Icons.image_outlined, color: Colors.white, size: 26),
         const SizedBox(height: 4),
-        Text('surrogate',
-            style: _mono(10, Colors.white.withValues(alpha: 0.92), weight: FontWeight.w700)),
+        Text(
+          'surrogate',
+          style: _mono(
+            10,
+            Colors.white.withValues(alpha: 0.92),
+            weight: FontWeight.w700,
+          ),
+        ),
       ],
     ),
   );
@@ -1329,7 +1554,12 @@ Widget _surrogateArt(List<Color> colors) {
 Widget buildComparisonTable() {
   final List<List<String>> rows = <List<String>>[
     <String>['Source', 'Loads from', 'Needs manifest?', 'Async?'],
-    <String>['AssetBundleImageProvider', 'AssetBundle', 'AssetImage: yes / Exact: no', 'yes'],
+    <String>[
+      'AssetBundleImageProvider',
+      'AssetBundle',
+      'AssetImage: yes / Exact: no',
+      'yes',
+    ],
     <String>['NetworkImage', 'http(s) url', 'no', 'yes (network)'],
     <String>['MemoryImage', 'Uint8List in memory', 'no', 'no (already bytes)'],
     <String>['FileImage', 'File on disk', 'no', 'yes (disk I/O)'],
@@ -1347,10 +1577,15 @@ Widget buildComparisonTable() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('ImageProvider comparison', style: _sans(18, _kInk, weight: FontWeight.w800)),
+          Text(
+            'ImageProvider comparison',
+            style: _sans(18, _kInk, weight: FontWeight.w800),
+          ),
           _vGap(4),
-          Text('Where each ImageProvider pulls its bytes from.',
-              style: _sans(13, _kMuted)),
+          Text(
+            'Where each ImageProvider pulls its bytes from.',
+            style: _sans(13, _kMuted),
+          ),
           _vGap(10),
           Table(
             border: TableBorder.all(color: _kSurfaceStrong, width: 1),
@@ -1364,12 +1599,19 @@ Widget buildComparisonTable() {
               for (int i = 0; i < rows.length; i++)
                 TableRow(
                   decoration: BoxDecoration(
-                    color: i == 0 ? _kSeed.withValues(alpha: 0.16) : (i == 1 ? _kAccentCool.withValues(alpha: 0.08) : Colors.white),
+                    color: i == 0
+                        ? _kSeed.withValues(alpha: 0.16)
+                        : (i == 1
+                              ? _kAccentCool.withValues(alpha: 0.08)
+                              : Colors.white),
                   ),
                   children: <Widget>[
                     for (final String cell in rows[i])
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 8,
+                        ),
                         child: Text(
                           cell,
                           style: i == 0
@@ -1454,9 +1696,7 @@ Widget buildUseCases() {
       childAspectRatio: 1.45,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
-      children: <Widget>[
-        for (final _UseCase c in cases) _useCaseCard(c),
-      ],
+      children: <Widget>[for (final _UseCase c in cases) _useCaseCard(c)],
     ),
   );
 }
@@ -1490,9 +1730,7 @@ Widget _useCaseCard(_UseCase c) {
         _vGap(10),
         Text(c.title, style: _sans(15, _kInk, weight: FontWeight.w800)),
         _vGap(6),
-        Expanded(
-          child: Text(c.body, style: _sans(12.5, _kInk)),
-        ),
+        Expanded(child: Text(c.body, style: _sans(12.5, _kInk))),
       ],
     ),
   );
@@ -1556,7 +1794,10 @@ Widget buildPitfalls() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(p.title, style: _sans(15, _kInk, weight: FontWeight.w800)),
+                      Text(
+                        p.title,
+                        style: _sans(15, _kInk, weight: FontWeight.w800),
+                      ),
                       _vGap(4),
                       Text(p.body, style: _sans(13, _kInk)),
                     ],
@@ -1585,28 +1826,54 @@ class _ApiRow {
 
 Widget buildApiCheatSheet() {
   const List<_ApiRow> base = <_ApiRow>[
-    _ApiRow('resolve(config)', 'ImageStream Function(ImageConfiguration)',
-        'Inherited from ImageProvider; attaches listeners and triggers obtainKey.'),
-    _ApiRow('obtainKey(config)', 'Future<AssetBundleImageKey>',
-        'Resolve the ImageConfiguration into a concrete cache key.'),
-    _ApiRow('load(key, decode)', 'ImageStreamCompleter',
-        'Bundle-aware fetch; produces a MultiFrameImageStreamCompleter.'),
-    _ApiRow('loadBuffer(key, decode)', 'ImageStreamCompleter',
-        'Equivalent of load using ui.ImmutableBuffer.'),
-    _ApiRow('==(Object other)', 'bool',
-        'Two providers are equal iff they produce the same key.'),
-    _ApiRow('hashCode', 'int',
-        'Stable hash derived from the key properties.'),
+    _ApiRow(
+      'resolve(config)',
+      'ImageStream Function(ImageConfiguration)',
+      'Inherited from ImageProvider; attaches listeners and triggers obtainKey.',
+    ),
+    _ApiRow(
+      'obtainKey(config)',
+      'Future<AssetBundleImageKey>',
+      'Resolve the ImageConfiguration into a concrete cache key.',
+    ),
+    _ApiRow(
+      'load(key, decode)',
+      'ImageStreamCompleter',
+      'Bundle-aware fetch; produces a MultiFrameImageStreamCompleter.',
+    ),
+    _ApiRow(
+      'loadBuffer(key, decode)',
+      'ImageStreamCompleter',
+      'Equivalent of load using ui.ImmutableBuffer.',
+    ),
+    _ApiRow(
+      '==(Object other)',
+      'bool',
+      'Two providers are equal iff they produce the same key.',
+    ),
+    _ApiRow('hashCode', 'int', 'Stable hash derived from the key properties.'),
   ];
   const List<_ApiRow> assetImage = <_ApiRow>[
-    _ApiRow('assetName', 'String',
-        'Manifest-lookup key (e.g. "images/hero.png").'),
-    _ApiRow('bundle', 'AssetBundle?',
-        'Optional override; null → DefaultAssetBundle.of(context).'),
-    _ApiRow('package', 'String?',
-        'Routes through "packages/<package>/<assetName>".'),
-    _ApiRow('keyName', 'String',
-        'Effective name, including the "packages/<package>" prefix.'),
+    _ApiRow(
+      'assetName',
+      'String',
+      'Manifest-lookup key (e.g. "images/hero.png").',
+    ),
+    _ApiRow(
+      'bundle',
+      'AssetBundle?',
+      'Optional override; null → DefaultAssetBundle.of(context).',
+    ),
+    _ApiRow(
+      'package',
+      'String?',
+      'Routes through "packages/<package>/<assetName>".',
+    ),
+    _ApiRow(
+      'keyName',
+      'String',
+      'Effective name, including the "packages/<package>" prefix.',
+    ),
   ];
   const List<_ApiRow> exactAssetImage = <_ApiRow>[
     _ApiRow('assetName', 'String', 'Literal bundle key, never reinterpreted.'),
@@ -1649,17 +1916,21 @@ Widget _apiSection(String title, Color color, List<_ApiRow> rows) {
               topLeft: Radius.circular(14),
               topRight: Radius.circular(14),
             ),
-            border: Border(bottom: BorderSide(color: color.withValues(alpha: 0.4))),
-          ),
-          child: Row(children: <Widget>[
-            Container(
-              width: 10,
-              height: 10,
-              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            border: Border(
+              bottom: BorderSide(color: color.withValues(alpha: 0.4)),
             ),
-            _hGap(8),
-            Text(title, style: _sans(15, _kInk, weight: FontWeight.w800)),
-          ]),
+          ),
+          child: Row(
+            children: <Widget>[
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
+              _hGap(8),
+              Text(title, style: _sans(15, _kInk, weight: FontWeight.w800)),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(12),
@@ -1693,7 +1964,10 @@ Widget _apiRowWidget(_ApiRow r, Color color) {
         ),
         SizedBox(
           width: 170,
-          child: Text(r.type, style: _mono(11.5, _kAccentShade, weight: FontWeight.w600)),
+          child: Text(
+            r.type,
+            style: _mono(11.5, _kAccentShade, weight: FontWeight.w600),
+          ),
         ),
         Expanded(child: Text(r.purpose, style: _sans(12.5, _kInk))),
       ],
@@ -1714,22 +1988,29 @@ class _TabSpec {
 
 Widget _buildTabHost() {
   final List<_TabSpec> tabs = <_TabSpec>[
-    _TabSpec('Overview', Icons.auto_awesome_outlined,
-        _overviewTab()),
+    _TabSpec('Overview', Icons.auto_awesome_outlined, _overviewTab()),
     _TabSpec('Hierarchy', Icons.account_tree_outlined, buildHierarchyDiagram()),
     _TabSpec('Pipeline', Icons.route_outlined, buildPipelineDiagram()),
-    _TabSpec('Variants', Icons.call_split_outlined,
-        Column(children: <Widget>[
+    _TabSpec(
+      'Variants',
+      Icons.call_split_outlined,
+      Column(
+        children: <Widget>[
           buildVariantComparison(),
           _vGap(8),
           buildDprResolution(),
-        ])),
+        ],
+      ),
+    ),
     _TabSpec('Usage', Icons.code_outlined, buildUsagePatterns()),
     _TabSpec('Bundle', Icons.folder_special_outlined, buildBundleOverride()),
     _TabSpec('Errors', Icons.error_outline, buildErrorHandling()),
     _TabSpec('Samples', Icons.photo_library_outlined, buildRenderSamples()),
-    _TabSpec('Reference', Icons.menu_book_outlined,
-        Column(children: <Widget>[
+    _TabSpec(
+      'Reference',
+      Icons.menu_book_outlined,
+      Column(
+        children: <Widget>[
           buildComparisonTable(),
           _vGap(8),
           buildUseCases(),
@@ -1737,7 +2018,9 @@ Widget _buildTabHost() {
           buildPitfalls(),
           _vGap(8),
           buildApiCheatSheet(),
-        ])),
+        ],
+      ),
+    ),
   ];
 
   return DefaultTabController(
@@ -1790,11 +2073,32 @@ Widget _overviewTab() {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: <Widget>[
-            Expanded(child: _overviewStat('Library', 'painting.dart', _kSeed, Icons.brush_outlined)),
+            Expanded(
+              child: _overviewStat(
+                'Library',
+                'painting.dart',
+                _kSeed,
+                Icons.brush_outlined,
+              ),
+            ),
             _hGap(8),
-            Expanded(child: _overviewStat('Kind', 'abstract class', _kAccentCool, Icons.category_outlined)),
+            Expanded(
+              child: _overviewStat(
+                'Kind',
+                'abstract class',
+                _kAccentCool,
+                Icons.category_outlined,
+              ),
+            ),
             _hGap(8),
-            Expanded(child: _overviewStat('Generic', 'ImageProvider<AssetBundleImageKey>', _kAccentHot, Icons.data_object)),
+            Expanded(
+              child: _overviewStat(
+                'Generic',
+                'ImageProvider<AssetBundleImageKey>',
+                _kAccentHot,
+                Icons.data_object,
+              ),
+            ),
           ],
         ),
       ),
@@ -1811,7 +2115,10 @@ Widget _overviewTab() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('In one paragraph', style: _sans(17, _kInk, weight: FontWeight.w800)),
+              Text(
+                'In one paragraph',
+                style: _sans(17, _kInk, weight: FontWeight.w800),
+              ),
               _vGap(6),
               Text(
                 'AssetBundleImageProvider is the abstract middle layer between the '
@@ -1824,10 +2131,19 @@ Widget _overviewTab() {
               ),
               _vGap(10),
               _definitionRow('Declared in', 'package:flutter/painting.dart'),
-              _definitionRow('Direct subclasses', 'AssetImage, ExactAssetImage'),
-              _definitionRow('Cache key', 'AssetBundleImageKey {bundle, name, scale}'),
+              _definitionRow(
+                'Direct subclasses',
+                'AssetImage, ExactAssetImage',
+              ),
+              _definitionRow(
+                'Cache key',
+                'AssetBundleImageKey {bundle, name, scale}',
+              ),
               _definitionRow('Bytes source', 'bundle.load(String key)'),
-              _definitionRow('Decoder', 'PaintingBinding.instance.instantiateImageCodec'),
+              _definitionRow(
+                'Decoder',
+                'PaintingBinding.instance.instantiateImageCodec',
+              ),
               _definitionRow('Delivery', 'ImageStreamCompleter → ImageInfo'),
             ],
           ),
@@ -1873,9 +2189,17 @@ Widget _definitionRow(String label, String value) {
       children: <Widget>[
         SizedBox(
           width: 140,
-          child: Text(label, style: _sans(12.5, _kMuted, weight: FontWeight.w700)),
+          child: Text(
+            label,
+            style: _sans(12.5, _kMuted, weight: FontWeight.w700),
+          ),
         ),
-        Expanded(child: Text(value, style: _mono(12.5, _kInk, weight: FontWeight.w700))),
+        Expanded(
+          child: Text(
+            value,
+            style: _mono(12.5, _kInk, weight: FontWeight.w700),
+          ),
+        ),
       ],
     ),
   );
@@ -1914,8 +2238,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             const Icon(Icons.layers_outlined),
             _hGap(8),
-            Text('AssetBundleImageProvider',
-                style: _sans(18, Colors.white, weight: FontWeight.w800)),
+            Text(
+              'AssetBundleImageProvider',
+              style: _sans(18, Colors.white, weight: FontWeight.w800),
+            ),
           ],
         ),
         actions: <Widget>[
@@ -1923,10 +2249,15 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.only(right: 16),
             child: Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: _chip(_kAccentHot, _kAccentWarm, r: 999),
-                child: Text('deep demo',
-                    style: _mono(11, Colors.white, weight: FontWeight.w800)),
+                child: Text(
+                  'deep demo',
+                  style: _mono(11, Colors.white, weight: FontWeight.w800),
+                ),
               ),
             ),
           ),
@@ -1972,8 +2303,10 @@ Widget _footerCard() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Takeaway',
-                  style: _sans(15, Colors.white, weight: FontWeight.w800)),
+              Text(
+                'Takeaway',
+                style: _sans(15, Colors.white, weight: FontWeight.w800),
+              ),
               _vGap(6),
               Text(
                 'Reach for AssetImage by default. Switch to ExactAssetImage '

@@ -80,10 +80,7 @@ class _SchedulerDemoScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _Tokens.bg,
-      body: const _PageBody(),
-    );
+    return Scaffold(backgroundColor: _Tokens.bg, body: const _PageBody());
   }
 }
 
@@ -202,11 +199,7 @@ class _Hero extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF1B2547),
-            Color(0xFF0F1733),
-            Color(0xFF1A1240),
-          ],
+          colors: [Color(0xFF1B2547), Color(0xFF0F1733), Color(0xFF1A1240)],
         ),
         boxShadow: [
           BoxShadow(
@@ -362,10 +355,7 @@ class _Clockwork extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: const RadialGradient(
-                colors: [
-                  Color(0xFF252F58),
-                  Color(0xFF101630),
-                ],
+                colors: [Color(0xFF252F58), Color(0xFF101630)],
               ),
               border: Border.all(
                 color: _Tokens.phasePost.withValues(alpha: 0.7),
@@ -547,22 +537,34 @@ class _FrameAnatomySection extends StatelessWidget {
             children: const [
               Text(
                 '|',
-                style: TextStyle(color: _Tokens.inkMuted, fontFamily: 'monospace'),
+                style: TextStyle(
+                  color: _Tokens.inkMuted,
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(width: 6),
               Text(
                 '0 ms',
-                style: TextStyle(color: _Tokens.inkMuted, fontFamily: 'monospace'),
+                style: TextStyle(
+                  color: _Tokens.inkMuted,
+                  fontFamily: 'monospace',
+                ),
               ),
               Spacer(),
               Text(
                 '16.6 ms (60 Hz budget)',
-                style: TextStyle(color: _Tokens.inkMuted, fontFamily: 'monospace'),
+                style: TextStyle(
+                  color: _Tokens.inkMuted,
+                  fontFamily: 'monospace',
+                ),
               ),
               SizedBox(width: 6),
               Text(
                 '|',
-                style: TextStyle(color: _Tokens.inkMuted, fontFamily: 'monospace'),
+                style: TextStyle(
+                  color: _Tokens.inkMuted,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -624,11 +626,7 @@ class _FrameAnatomySection extends StatelessWidget {
             runSpacing: 10,
             children: [
               for (final p in phases)
-                _LegendChip(
-                  color: p.color,
-                  label: p.name,
-                  desc: p.desc,
-                ),
+                _LegendChip(color: p.color, label: p.name, desc: p.desc),
             ],
           ),
           const SizedBox(height: 16),
@@ -687,10 +685,7 @@ class _LegendChip extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             desc,
-            style: const TextStyle(
-              color: _Tokens.inkSoft,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: _Tokens.inkSoft, fontSize: 12),
           ),
         ],
       ),
@@ -938,9 +933,7 @@ class _PrioritySection extends StatelessWidget {
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
             childAspectRatio: 2.4,
-            children: [
-              for (final p in cards) _PriorityChipCard(card: p),
-            ],
+            children: [for (final p in cards) _PriorityChipCard(card: p)],
           ),
         ),
         const SizedBox(height: 12),
@@ -1064,7 +1057,11 @@ class _LifecycleSection extends StatelessWidget {
       _LifecycleStep('inactive', 'visible, losing focus', _Tokens.lifeInactive),
       _LifecycleStep('hidden', 'fully obscured', _Tokens.lifeHidden),
       _LifecycleStep('paused', 'background, no UI', _Tokens.lifePaused),
-      _LifecycleStep('detached', 'engine running, no view', _Tokens.lifeDetached),
+      _LifecycleStep(
+        'detached',
+        'engine running, no view',
+        _Tokens.lifeDetached,
+      ),
     ];
 
     return _Card(
@@ -1079,10 +1076,7 @@ class _LifecycleSection extends StatelessWidget {
                 if (i < steps.length - 1)
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: Icon(
-                      Icons.arrow_right_alt,
-                      color: _Tokens.inkMuted,
-                    ),
+                    child: Icon(Icons.arrow_right_alt, color: _Tokens.inkMuted),
                   ),
               ],
             ],
@@ -1172,10 +1166,7 @@ class _TickerSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 5,
-                child: _TickerDiagram(),
-              ),
+              Expanded(flex: 5, child: _TickerDiagram()),
               const SizedBox(width: 16),
               Expanded(
                 flex: 6,
@@ -1250,15 +1241,14 @@ class _TickerDiagram extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF161E3D),
-            Color(0xFF0E142A),
-          ],
+          colors: [Color(0xFF161E3D), Color(0xFF0E142A)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _Tokens.phaseTransient.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: _Tokens.phaseTransient.withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         children: [
@@ -1349,11 +1339,7 @@ class _DiagramArrow extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
-            child: Icon(
-              Icons.south,
-              color: _Tokens.inkMuted,
-              size: 18,
-            ),
+            child: Icon(Icons.south, color: _Tokens.inkMuted, size: 18),
           ),
           Expanded(
             child: Text(
@@ -1548,11 +1534,7 @@ class _FrameTimingTimeline extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 2),
-                      Container(
-                        width: 2,
-                        height: 64,
-                        color: s.color,
-                      ),
+                      Container(width: 2, height: 64, color: s.color),
                     ],
                   ),
                 ),
@@ -1705,10 +1687,7 @@ class _DilationLane extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             '$ticks Ticker pulses per perceived second',
-            style: const TextStyle(
-              color: _Tokens.inkSoft,
-              fontSize: 11,
-            ),
+            style: const TextStyle(color: _Tokens.inkSoft, fontSize: 11),
           ),
         ],
       ),
@@ -1836,9 +1815,7 @@ class _CompareRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(
-            color: _Tokens.inkMuted.withValues(alpha: 0.2),
-          ),
+          bottom: BorderSide(color: _Tokens.inkMuted.withValues(alpha: 0.2)),
         ),
       ),
       child: Row(
@@ -1953,9 +1930,7 @@ class _UseCasesSection extends StatelessWidget {
       crossAxisSpacing: 12,
       mainAxisSpacing: 12,
       childAspectRatio: 1.5,
-      children: [
-        for (final c in cases) _UseCaseCard(useCase: c),
-      ],
+      children: [for (final c in cases) _UseCaseCard(useCase: c)],
     );
   }
 }
@@ -2079,8 +2054,9 @@ class _OverlayMock extends StatelessWidget {
           decoration: BoxDecoration(
             color: _Tokens.bg,
             borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(color: _Tokens.phaseTransient.withValues(alpha: 0.4)),
+            border: Border.all(
+              color: _Tokens.phaseTransient.withValues(alpha: 0.4),
+            ),
           ),
         ),
         Positioned(
@@ -2123,8 +2099,9 @@ class _MiniFpsMock extends StatelessWidget {
       decoration: BoxDecoration(
         color: _Tokens.bg,
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(color: _Tokens.phasePersistent.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: _Tokens.phasePersistent.withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -2292,7 +2269,9 @@ class _PitfallsSection extends StatelessWidget {
         children: [
           for (var i = 0; i < pitfalls.length; i++)
             Padding(
-              padding: EdgeInsets.only(bottom: i == pitfalls.length - 1 ? 0 : 12),
+              padding: EdgeInsets.only(
+                bottom: i == pitfalls.length - 1 ? 0 : 12,
+              ),
               child: _PitfallRow(pitfall: pitfalls[i]),
             ),
         ],
@@ -2312,9 +2291,7 @@ class _PitfallRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: pitfall.color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: pitfall.color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: pitfall.color, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2370,10 +2347,7 @@ class _FpsOverlaySection extends StatelessWidget {
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF101737),
-                    Color(0xFF050913),
-                  ],
+                  colors: [Color(0xFF101737), Color(0xFF050913)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -2546,11 +2520,7 @@ class _PriorityLaneSection extends StatelessWidget {
             label: 'Priority.idle',
             value: Priority.idle.value,
             color: _Tokens.prioIdle,
-            chips: const [
-              'index docs',
-              'thumbnail decode',
-              'analytics flush',
-            ],
+            chips: const ['index docs', 'thumbnail decode', 'analytics flush'],
           ),
         ],
       ),
@@ -2582,9 +2552,7 @@ class _PriorityLane extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
       ),
       child: Row(
         children: [
@@ -2620,8 +2588,10 @@ class _PriorityLane extends StatelessWidget {
               children: [
                 for (final c in chips)
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(999),
@@ -2659,10 +2629,7 @@ class _Card extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF161E3D),
-            Color(0xFF0E142A),
-          ],
+          colors: [Color(0xFF161E3D), Color(0xFF0E142A)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2689,11 +2656,7 @@ class _Note extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        color: _Tokens.inkSoft,
-        fontSize: 13,
-        height: 1.4,
-      ),
+      style: const TextStyle(color: _Tokens.inkSoft, fontSize: 13, height: 1.4),
     );
   }
 }

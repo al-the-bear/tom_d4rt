@@ -212,8 +212,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               Text(
                 subtitle,
@@ -253,10 +255,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -321,8 +320,10 @@ dynamic build(BuildContext context) {
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.15),
-                        avatar:
-                            Icon(iconForPeriod(selectedPeriod), color: Colors.white),
+                        avatar: Icon(
+                          iconForPeriod(selectedPeriod),
+                          color: Colors.white,
+                        ),
                         label: Text(
                           'Active ${selectedPeriod.name.toUpperCase()}',
                           style: const TextStyle(color: Colors.white),
@@ -340,7 +341,10 @@ dynamic build(BuildContext context) {
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.15),
-                        avatar: const Icon(Icons.timelapse, color: Colors.white),
+                        avatar: const Icon(
+                          Icons.timelapse,
+                          color: Colors.white,
+                        ),
                         label: Text(
                           '24h ${hour24.toString().padLeft(2, '0')}:${pad2(minute)}',
                           style: const TextStyle(color: Colors.white),
@@ -572,7 +576,8 @@ dynamic build(BuildContext context) {
                   width: 220,
                   child: metricTile(
                     label: 'Formatted 24h',
-                    value: '${hour24.toString().padLeft(2, '0')}:${pad2(minute)}',
+                    value:
+                        '${hour24.toString().padLeft(2, '0')}:${pad2(minute)}',
                     color: accent,
                   ),
                 ),
@@ -648,7 +653,9 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             Column(
-              children: scenarios.asMap().entries.map((MapEntry<int, _PeriodScenario> entry) {
+              children: scenarios.asMap().entries.map((
+                MapEntry<int, _PeriodScenario> entry,
+              ) {
                 final _PeriodScenario item = entry.value;
                 final bool selected = selectedScenario == entry.key;
                 return Container(
@@ -818,7 +825,9 @@ dynamic build(BuildContext context) {
                               ),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 6),
+                                  horizontal: 8,
+                                  vertical: 6,
+                                ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(99),
                                   color: startPeriod == endPeriod
@@ -881,7 +890,9 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: timeline.asMap().entries.map((MapEntry<int, _TraceRow> entry) {
+                      children: timeline.asMap().entries.map((
+                        MapEntry<int, _TraceRow> entry,
+                      ) {
                         final _TraceRow row = entry.value;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 8),
@@ -1090,7 +1101,9 @@ dynamic build(BuildContext context) {
                       timeline.removeLast();
                     }
                   });
-                  addConsole('Applied active scenario ${sc.title} to controls.');
+                  addConsole(
+                    'Applied active scenario ${sc.title} to controls.',
+                  );
                 },
                 icon: const Icon(Icons.sync),
                 label: const Text('Apply Active Scenario To Controls'),
@@ -1192,9 +1205,12 @@ class _DualClockPainter extends CustomPainter {
 
       for (int i = 0; i < 12; i++) {
         final double angle = (math.pi * 2 / 12) * i - math.pi / 2;
-        final Offset outer = center + Offset(math.cos(angle), math.sin(angle)) * radius;
+        final Offset outer =
+            center + Offset(math.cos(angle), math.sin(angle)) * radius;
         final Offset inner =
-            center + Offset(math.cos(angle), math.sin(angle)) * (radius - (i % 3 == 0 ? 12 : 8));
+            center +
+            Offset(math.cos(angle), math.sin(angle)) *
+                (radius - (i % 3 == 0 ? 12 : 8));
         canvas.drawLine(
           inner,
           outer,
@@ -1215,7 +1231,10 @@ class _DualClockPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      label.paint(canvas, Offset(center.dx - label.width / 2, center.dy + radius + 8));
+      label.paint(
+        canvas,
+        Offset(center.dx - label.width / 2, center.dy + radius + 8),
+      );
 
       if (active) {
         canvas.drawCircle(
@@ -1232,7 +1251,9 @@ class _DualClockPainter extends CustomPainter {
     drawClockFace(leftCenter, DayPeriod.am);
     drawClockFace(rightCenter, DayPeriod.pm);
 
-    final Offset activeCenter = period == DayPeriod.am ? leftCenter : rightCenter;
+    final Offset activeCenter = period == DayPeriod.am
+        ? leftCenter
+        : rightCenter;
     final double minuteAngle = (math.pi * 2) * (minute / 60) - math.pi / 2;
     final double hourProgress = (hourInPeriod % 12) + minute / 60;
     final double hourAngle = (math.pi * 2) * (hourProgress / 12) - math.pi / 2;
@@ -1248,18 +1269,26 @@ class _DualClockPainter extends CustomPainter {
 
     canvas.drawLine(
       activeCenter,
-      activeCenter + Offset(math.cos(hourAngle), math.sin(hourAngle)) * (radius * 0.5),
+      activeCenter +
+          Offset(math.cos(hourAngle), math.sin(hourAngle)) * (radius * 0.5),
       hourPaint,
     );
     canvas.drawLine(
       activeCenter,
-      activeCenter + Offset(math.cos(minuteAngle), math.sin(minuteAngle)) * (radius * 0.74),
+      activeCenter +
+          Offset(math.cos(minuteAngle), math.sin(minuteAngle)) *
+              (radius * 0.74),
       minutePaint,
     );
     canvas.drawCircle(activeCenter, 5, Paint()..color = accent);
 
     if (showSunPath) {
-      final Rect pathRect = Rect.fromLTWH(size.width * 0.1, size.height * 0.08, size.width * 0.8, 54);
+      final Rect pathRect = Rect.fromLTWH(
+        size.width * 0.1,
+        size.height * 0.08,
+        size.width * 0.8,
+        54,
+      );
       canvas.drawArc(
         pathRect,
         math.pi,
@@ -1274,13 +1303,19 @@ class _DualClockPainter extends CustomPainter {
           ? (hourInPeriod + minute / 60) / 12
           : 1 - ((hourInPeriod + minute / 60) / 12);
       final double x = pathRect.left + pathRect.width * t;
-      final double y = pathRect.center.dy - math.sin(math.pi * t) * (pathRect.height / 2);
-      canvas.drawCircle(Offset(x, y), 7, Paint()..color = const Color(0xFFFFC107));
+      final double y =
+          pathRect.center.dy - math.sin(math.pi * t) * (pathRect.height / 2);
+      canvas.drawCircle(
+        Offset(x, y),
+        7,
+        Paint()..color = const Color(0xFFFFC107),
+      );
     }
 
     final TextPainter title = TextPainter(
       text: TextSpan(
-        text: 'Active: ${period.name.toUpperCase()} ${hourInPeriod.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}',
+        text:
+            'Active: ${period.name.toUpperCase()} ${hourInPeriod.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}',
         style: const TextStyle(
           color: Color(0xFF102027),
           fontSize: 12,
@@ -1339,10 +1374,7 @@ class _DayPeriodBandPainter extends CustomPainter {
     final TextPainter am = TextPainter(
       text: const TextSpan(
         text: 'AM',
-        style: TextStyle(
-          color: Color(0xFF01579B),
-          fontWeight: FontWeight.w800,
-        ),
+        style: TextStyle(color: Color(0xFF01579B), fontWeight: FontWeight.w800),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1351,10 +1383,7 @@ class _DayPeriodBandPainter extends CustomPainter {
     final TextPainter pm = TextPainter(
       text: const TextSpan(
         text: 'PM',
-        style: TextStyle(
-          color: Color(0xFFE65100),
-          fontWeight: FontWeight.w800,
-        ),
+        style: TextStyle(color: Color(0xFFE65100), fontWeight: FontWeight.w800),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -1385,9 +1414,14 @@ class _DayPeriodBandPainter extends CustomPainter {
 
     final double now = current24Hour + currentMinute / 60;
     final double x = band.left + band.width * (now / 24);
-    final Color indicator =
-        period == DayPeriod.am ? const Color(0xFF0277BD) : const Color(0xFFEF6C00);
-    canvas.drawCircle(Offset(x, band.center.dy), 11, Paint()..color = indicator);
+    final Color indicator = period == DayPeriod.am
+        ? const Color(0xFF0277BD)
+        : const Color(0xFFEF6C00);
+    canvas.drawCircle(
+      Offset(x, band.center.dy),
+      11,
+      Paint()..color = indicator,
+    );
     canvas.drawCircle(
       Offset(x, band.center.dy),
       15,

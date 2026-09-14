@@ -138,13 +138,15 @@ class _TwoDMgrTelemetry extends ChangeNotifier {
 
   void sample() {
     layoutPasses++;
-    samples.add(_TwoDMgrSample(
-      pass: layoutPasses,
-      builds: builds,
-      reuses: reuses,
-      removes: removes,
-      alive: liveVicinities.length,
-    ));
+    samples.add(
+      _TwoDMgrSample(
+        pass: layoutPasses,
+        builds: builds,
+        reuses: reuses,
+        removes: removes,
+        alive: liveVicinities.length,
+      ),
+    );
     if (samples.length > 240) {
       samples.removeAt(0);
     }
@@ -186,10 +188,46 @@ class _TwoDMgrSample {
 String _twoDMgrSkuFor(int x, int y) {
   // Three-letter aisle prefix from x, zero-padded slot from y.
   const List<String> aisles = <String>[
-    'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AJ', 'AK',
-    'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BJ', 'BK',
-    'CA', 'CB', 'CC', 'CD', 'CE', 'CF', 'CG', 'CH', 'CJ', 'CK',
-    'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DJ', 'DK',
+    'AA',
+    'AB',
+    'AC',
+    'AD',
+    'AE',
+    'AF',
+    'AG',
+    'AH',
+    'AJ',
+    'AK',
+    'BA',
+    'BB',
+    'BC',
+    'BD',
+    'BE',
+    'BF',
+    'BG',
+    'BH',
+    'BJ',
+    'BK',
+    'CA',
+    'CB',
+    'CC',
+    'CD',
+    'CE',
+    'CF',
+    'CG',
+    'CH',
+    'CJ',
+    'CK',
+    'DA',
+    'DB',
+    'DC',
+    'DD',
+    'DE',
+    'DF',
+    'DG',
+    'DH',
+    'DJ',
+    'DK',
   ];
   final String aisle = aisles[x % aisles.length];
   final String slot = y.toString().padLeft(4, '0');
@@ -198,8 +236,22 @@ String _twoDMgrSkuFor(int x, int y) {
 
 String _twoDMgrCategoryFor(int x, int y) {
   const List<String> cats = <String>[
-    'BOLT', 'NUT ', 'WASH', 'GASK', 'HOSE', 'VALV', 'CAP ', 'FILT',
-    'BELT', 'BRNG', 'SEAL', 'CLMP', 'LUBE', 'COIL', 'FUSE', 'WIRE',
+    'BOLT',
+    'NUT ',
+    'WASH',
+    'GASK',
+    'HOSE',
+    'VALV',
+    'CAP ',
+    'FILT',
+    'BELT',
+    'BRNG',
+    'SEAL',
+    'CLMP',
+    'LUBE',
+    'COIL',
+    'FUSE',
+    'WIRE',
   ];
   return cats[(x * 7 + y * 3) % cats.length];
 }
@@ -230,17 +282,17 @@ class _TwoDMgrCountingDelegate extends TwoDimensionalChildBuilderDelegate {
     required bool keepAlives,
     required bool repaintBoundaries,
   }) : super(
-          maxXIndex: maxX,
-          maxYIndex: maxY,
-          addAutomaticKeepAlives: keepAlives,
-          addRepaintBoundaries: repaintBoundaries,
-          builder: (BuildContext ctx, ChildVicinity v) {
-            // Intentionally simple - the real widget is built below via
-            // the instance builder; we have to pass a top-level closure
-            // here so we override build() to route through our logger.
-            return const SizedBox.shrink();
-          },
-        );
+         maxXIndex: maxX,
+         maxYIndex: maxY,
+         addAutomaticKeepAlives: keepAlives,
+         addRepaintBoundaries: repaintBoundaries,
+         builder: (BuildContext ctx, ChildVicinity v) {
+           // Intentionally simple - the real widget is built below via
+           // the instance builder; we have to pass a top-level closure
+           // here so we override build() to route through our logger.
+           return const SizedBox.shrink();
+         },
+       );
 
   final _TwoDMgrTelemetry telemetry;
 
@@ -253,10 +305,7 @@ class _TwoDMgrCountingDelegate extends TwoDimensionalChildBuilderDelegate {
       return null;
     }
     telemetry.noteBuild(vicinity.xIndex, vicinity.yIndex);
-    Widget child = _TwoDMgrRackCell(
-      vicinity: vicinity,
-      telemetry: telemetry,
-    );
+    Widget child = _TwoDMgrRackCell(vicinity: vicinity, telemetry: telemetry);
     if (addRepaintBoundaries) {
       child = RepaintBoundary(child: child);
     }
@@ -280,10 +329,7 @@ class _TwoDMgrCountingDelegate extends TwoDimensionalChildBuilderDelegate {
 // ---------------------------------------------------------------------------
 
 class _TwoDMgrRackCell extends StatelessWidget {
-  const _TwoDMgrRackCell({
-    required this.vicinity,
-    required this.telemetry,
-  });
+  const _TwoDMgrRackCell({required this.vicinity, required this.telemetry});
 
   final ChildVicinity vicinity;
   final _TwoDMgrTelemetry telemetry;
@@ -337,16 +383,26 @@ class _TwoDMgrRackCell extends StatelessWidget {
           Row(
             children: <Widget>[
               Text('qty ', style: _twoDMgrMonoSmall),
-              Text('$stock'.padLeft(3, '0'),
-                  style: _twoDMgrMono.copyWith(color: accent)),
+              Text(
+                '$stock'.padLeft(3, '0'),
+                style: _twoDMgrMono.copyWith(color: accent),
+              ),
             ],
           ),
           const SizedBox(height: 2),
           Row(
             children: <Widget>[
-              _TwoDMgrCounterChip(label: 'b', value: builds, color: _twoDMgrCaution),
+              _TwoDMgrCounterChip(
+                label: 'b',
+                value: builds,
+                color: _twoDMgrCaution,
+              ),
               const SizedBox(width: 4),
-              _TwoDMgrCounterChip(label: 'r', value: reuses, color: _twoDMgrReuseBlue),
+              _TwoDMgrCounterChip(
+                label: 'r',
+                value: reuses,
+                color: _twoDMgrReuseBlue,
+              ),
             ],
           ),
         ],
@@ -435,7 +491,9 @@ class _TwoDMgrRenderWarehouseViewport extends RenderTwoDimensionalViewport {
     final double viewH = viewportDimension.height;
 
     // Snapshot the live set from last pass so we can compute removes.
-    final Set<ChildVicinity> previous = Set<ChildVicinity>.from(_prevVicinities);
+    final Set<ChildVicinity> previous = Set<ChildVicinity>.from(
+      _prevVicinities,
+    );
     _prevVicinities.clear();
 
     final _TwoDMgrCountingDelegate d = delegate as _TwoDMgrCountingDelegate;
@@ -444,10 +502,8 @@ class _TwoDMgrRenderWarehouseViewport extends RenderTwoDimensionalViewport {
 
     final int leadCol = math.max((hPix / cellWidth).floor(), 0);
     final int leadRow = math.max((vPix / cellHeight).floor(), 0);
-    final int trailCol =
-        math.min(((hPix + viewW) / cellWidth).ceil(), maxX);
-    final int trailRow =
-        math.min(((vPix + viewH) / cellHeight).ceil(), maxY);
+    final int trailCol = math.min(((hPix + viewW) / cellWidth).ceil(), maxX);
+    final int trailRow = math.min(((vPix + viewH) / cellHeight).ceil(), maxY);
 
     double xOff = (leadCol * cellWidth) - hPix;
     for (int col = leadCol; col <= trailCol; col++) {
@@ -465,10 +521,9 @@ class _TwoDMgrRenderWarehouseViewport extends RenderTwoDimensionalViewport {
           if (wasLive) {
             telemetry.noteReuse(col, row);
           }
-          child.layout(constraints.tighten(
-            width: cellWidth,
-            height: cellHeight,
-          ));
+          child.layout(
+            constraints.tighten(width: cellWidth, height: cellHeight),
+          );
           parentDataOf(child).layoutOffset = Offset(xOff, yOff);
         }
         yOff += cellHeight;
@@ -484,14 +539,8 @@ class _TwoDMgrRenderWarehouseViewport extends RenderTwoDimensionalViewport {
 
     final double totalW = cellWidth * (maxX + 1);
     final double totalH = cellHeight * (maxY + 1);
-    horizontalOffset.applyContentDimensions(
-      0.0,
-      math.max(totalW - viewW, 0.0),
-    );
-    verticalOffset.applyContentDimensions(
-      0.0,
-      math.max(totalH - viewH, 0.0),
-    );
+    horizontalOffset.applyContentDimensions(0.0, math.max(totalW - viewW, 0.0));
+    verticalOffset.applyContentDimensions(0.0, math.max(totalH - viewH, 0.0));
 
     // Schedule a sample after the layout commits, so the graph shows
     // activity.
@@ -632,8 +681,7 @@ class _TwoDMgrDashboard extends StatelessWidget {
         final int removes = telemetry.removes;
         final int alive = telemetry.liveVicinities.length;
         final int total = builds + reuses;
-        final double reuseRatio =
-            total == 0 ? 0.0 : reuses / total;
+        final double reuseRatio = total == 0 ? 0.0 : reuses / total;
         return Container(
           decoration: BoxDecoration(
             color: _twoDMgrPanel,
@@ -657,8 +705,10 @@ class _TwoDMgrDashboard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(title, style: _twoDMgrSubtitle),
                   const Spacer(),
-                  Text('pass ${telemetry.layoutPasses.toString().padLeft(4, '0')}',
-                      style: _twoDMgrMonoSmall),
+                  Text(
+                    'pass ${telemetry.layoutPasses.toString().padLeft(4, '0')}',
+                    style: _twoDMgrMonoSmall,
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -722,13 +772,15 @@ class _TwoDMgrBigCounter extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4,
-                )),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.4,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(
               value.toString().padLeft(5, '0'),
@@ -769,8 +821,10 @@ class _TwoDMgrReuseBar extends StatelessWidget {
               '${(ratio * 100).toStringAsFixed(1)}% ',
               style: _twoDMgrMono.copyWith(color: _twoDMgrReuseBlue),
             ),
-            Text('alive=${alive.toString().padLeft(3, '0')}',
-                style: _twoDMgrMonoSmall),
+            Text(
+              'alive=${alive.toString().padLeft(3, '0')}',
+              style: _twoDMgrMonoSmall,
+            ),
           ],
         ),
         const SizedBox(height: 4),
@@ -820,8 +874,10 @@ class _TwoDMgrTraceGraph extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text('scroll trace',
-                      style: _twoDMgrSubtitle.copyWith(color: _twoDMgrCaution)),
+                  Text(
+                    'scroll trace',
+                    style: _twoDMgrSubtitle.copyWith(color: _twoDMgrCaution),
+                  ),
                   const SizedBox(width: 12),
                   _TwoDMgrLegendDot(color: _twoDMgrCaution, text: 'build'),
                   const SizedBox(width: 10),
@@ -881,20 +937,12 @@ class _TwoDMgrTracePainter extends CustomPainter {
     // Horizontal grid lines.
     for (int i = 0; i <= 4; i++) {
       final double y = size.height * (i / 4);
-      canvas.drawLine(
-        Offset(0, y),
-        Offset(size.width, y),
-        gridPaint,
-      );
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), gridPaint);
     }
     // Vertical grid lines.
     for (int i = 0; i <= 6; i++) {
       final double x = size.width * (i / 6);
-      canvas.drawLine(
-        Offset(x, 0),
-        Offset(x, size.height),
-        gridPaint,
-      );
+      canvas.drawLine(Offset(x, 0), Offset(x, size.height), gridPaint);
     }
 
     if (samples.isEmpty) {
@@ -908,10 +956,7 @@ class _TwoDMgrTracePainter extends CustomPainter {
       tp.layout(maxWidth: size.width);
       tp.paint(
         canvas,
-        Offset(
-          (size.width - tp.width) / 2,
-          (size.height - tp.height) / 2,
-        ),
+        Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
       );
       return;
     }
@@ -948,7 +993,8 @@ class _TwoDMgrTracePainter extends CustomPainter {
       for (int i = 0; i < n; i++) {
         final double x = n <= 1 ? 0.0 : size.width * (i / (n - 1));
         final double norm = deltas[i] / maxDelta;
-        final double y = size.height - norm * size.height * 0.92 - 4 + verticalBias;
+        final double y =
+            size.height - norm * size.height * 0.92 - 4 + verticalBias;
         if (i == 0) {
           p.moveTo(x, y);
         } else {
@@ -1015,17 +1061,12 @@ class _TwoDMgrPreambleCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Container(
-                width: 4,
-                height: 22,
-                color: _twoDMgrWarehouseRed,
-              ),
+              Container(width: 4, height: 22, color: _twoDMgrWarehouseRed),
               const SizedBox(width: 10),
               const Text('TwoDimensionalChildManager', style: _twoDMgrTitle),
               const SizedBox(width: 10),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _twoDMgrCaution.withValues(alpha: 0.15),
                   border: Border.all(
@@ -1147,13 +1188,15 @@ class _TwoDMgrFactBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(heading,
-              style: TextStyle(
-                color: accent,
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.3,
-              )),
+          Text(
+            heading,
+            style: TextStyle(
+              color: accent,
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.3,
+            ),
+          ),
           const SizedBox(height: 6),
           Text(body, style: _twoDMgrBody),
         ],
@@ -1181,7 +1224,8 @@ class _TwoDMgrAnatomyCard extends StatelessWidget {
       ),
       const _TwoDMgrAnatomyRow(
         method: '_buildChild(vicinity)',
-        fires: 'from buildOrObtainChildFor, when no live element is at that vicinity',
+        fires:
+            'from buildOrObtainChildFor, when no live element is at that vicinity',
         body:
             'Runs owner.buildScope, asks delegate.build(context, vicinity), inflates the widget, '
             'and stores the new Element under vicinity and (optionally) key.',
@@ -1189,7 +1233,8 @@ class _TwoDMgrAnatomyCard extends StatelessWidget {
       ),
       const _TwoDMgrAnatomyRow(
         method: '_reuseChild(vicinity)',
-        fires: 'from buildOrObtainChildFor, when an element already exists at that vicinity or key',
+        fires:
+            'from buildOrObtainChildFor, when an element already exists at that vicinity or key',
         body:
             'Pops the existing Element out of the previous-pass map and inserts it into the new-pass map. '
             'No widget rebuild, no new RenderObject attach - cheap.',
@@ -1312,8 +1357,11 @@ class _TwoDMgrAnatomyTile extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(row.fires,
-                    style: _twoDMgrMonoSmall, overflow: TextOverflow.ellipsis),
+                child: Text(
+                  row.fires,
+                  style: _twoDMgrMonoSmall,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -1386,8 +1434,10 @@ class _TwoDMgrControlBar extends StatelessWidget {
           Container(
             width: 44,
             alignment: Alignment.centerRight,
-            child: Text('${scrollSpeed.toStringAsFixed(1)}x',
-                style: _twoDMgrMono.copyWith(color: _twoDMgrCaution)),
+            child: Text(
+              '${scrollSpeed.toStringAsFixed(1)}x',
+              style: _twoDMgrMono.copyWith(color: _twoDMgrCaution),
+            ),
           ),
           const SizedBox(width: 16),
           _TwoDMgrToggle(
@@ -1480,9 +1530,7 @@ class _TwoDMgrPillButton extends StatelessWidget {
         side: BorderSide(color: color.withValues(alpha: 0.55), width: 0.8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         minimumSize: const Size(0, 30),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(3),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
         textStyle: const TextStyle(
           fontFamily: 'monospace',
           fontSize: 11,
@@ -1666,9 +1714,7 @@ class _TwoDMgrRackLabState extends State<_TwoDMgrRackLab>
                 cellWidth: widget.cellWidth,
                 cellHeight: widget.cellHeight,
                 telemetry: widget.telemetry,
-                verticalDetails: ScrollableDetails.vertical(
-                  controller: _vCtrl,
-                ),
+                verticalDetails: ScrollableDetails.vertical(controller: _vCtrl),
                 horizontalDetails: ScrollableDetails.horizontal(
                   controller: _hCtrl,
                 ),
@@ -1720,8 +1766,10 @@ class _TwoDMgrComparisonCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('comparison: recycling vs no recycling',
-                  style: _twoDMgrTitle),
+              const Text(
+                'comparison: recycling vs no recycling',
+                style: _twoDMgrTitle,
+              ),
               const SizedBox(height: 4),
               const Text(
                 'Both racks receive the same scroll simulation; only the '
@@ -1791,10 +1839,7 @@ class _TwoDMgrComparisonCol extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 6),
               Text(
@@ -1811,7 +1856,11 @@ class _TwoDMgrComparisonCol extends StatelessWidget {
           const SizedBox(height: 6),
           _TwoDMgrKvRow(k: 'builds', v: b.toString(), color: _twoDMgrCaution),
           _TwoDMgrKvRow(k: 'reuses', v: r.toString(), color: _twoDMgrReuseBlue),
-          _TwoDMgrKvRow(k: 'removes', v: rm.toString(), color: _twoDMgrRemoveGrey),
+          _TwoDMgrKvRow(
+            k: 'removes',
+            v: rm.toString(),
+            color: _twoDMgrRemoveGrey,
+          ),
           _TwoDMgrKvRow(
             k: 'reuse%',
             v: '${(reuseRatio * 100).toStringAsFixed(1)}%',
@@ -1824,11 +1873,7 @@ class _TwoDMgrComparisonCol extends StatelessWidget {
 }
 
 class _TwoDMgrKvRow extends StatelessWidget {
-  const _TwoDMgrKvRow({
-    required this.k,
-    required this.v,
-    required this.color,
-  });
+  const _TwoDMgrKvRow({required this.k, required this.v, required this.color});
 
   final String k;
   final String v;
@@ -1840,10 +1885,7 @@ class _TwoDMgrKvRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: <Widget>[
-          SizedBox(
-            width: 70,
-            child: Text(k, style: _twoDMgrMonoSmall),
-          ),
+          SizedBox(width: 70, child: Text(k, style: _twoDMgrMonoSmall)),
           Expanded(
             child: Text(
               v,
@@ -1929,8 +1971,10 @@ class _TwoDMgrEpilogueCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('epilogue - when to reach for the manager',
-              style: _twoDMgrTitle),
+          const Text(
+            'epilogue - when to reach for the manager',
+            style: _twoDMgrTitle,
+          ),
           const SizedBox(height: 10),
           for (final _TwoDMgrTip t in tips) ...<Widget>[
             _TwoDMgrTipTile(tip: t),
@@ -2033,10 +2077,7 @@ class _TwoDMgrSectionHeader extends StatelessWidget {
               height: 1,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    _twoDMgrCaution,
-                    Color(0x00F3C948),
-                  ],
+                  colors: <Color>[_twoDMgrCaution, Color(0x00F3C948)],
                 ),
               ),
             ),
@@ -2103,10 +2144,7 @@ class _TwoDMgrRootState extends State<_TwoDMgrRoot> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const _TwoDMgrSectionHeader(
-                index: '01',
-                title: 'preamble',
-              ),
+              const _TwoDMgrSectionHeader(index: '01', title: 'preamble'),
               const _TwoDMgrPreambleCard(),
               const SizedBox(height: 18),
               const _TwoDMgrSectionHeader(
@@ -2178,10 +2216,7 @@ class _TwoDMgrRootState extends State<_TwoDMgrRoot> {
                 noRecyclingTelemetry: _noRecycling,
               ),
               const SizedBox(height: 18),
-              const _TwoDMgrSectionHeader(
-                index: '07',
-                title: 'epilogue',
-              ),
+              const _TwoDMgrSectionHeader(index: '07', title: 'epilogue'),
               const _TwoDMgrEpilogueCard(),
               const SizedBox(height: 18),
               Container(
@@ -2218,14 +2253,15 @@ dynamic build(BuildContext context) {
     theme: ThemeData.dark().copyWith(
       scaffoldBackgroundColor: _twoDMgrBg,
       canvasColor: _twoDMgrBg,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: _twoDMgrWarehouseRed,
-        brightness: Brightness.dark,
-      ).copyWith(
-        surface: _twoDMgrPanel,
-        primary: _twoDMgrCaution,
-        secondary: _twoDMgrReuseBlue,
-      ),
+      colorScheme:
+          ColorScheme.fromSeed(
+            seedColor: _twoDMgrWarehouseRed,
+            brightness: Brightness.dark,
+          ).copyWith(
+            surface: _twoDMgrPanel,
+            primary: _twoDMgrCaution,
+            secondary: _twoDMgrReuseBlue,
+          ),
       textTheme: const TextTheme(
         bodyMedium: _twoDMgrBody,
         bodySmall: _twoDMgrBodyMuted,

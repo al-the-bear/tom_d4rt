@@ -15,20 +15,69 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final navKeys = <Map<String, dynamic>>[
-    {'name': 'escape', 'key': LogicalKeyboardKey.escape, 'role': 'Cancel / dismiss', 'glyph': 'Esc'},
-    {'name': 'tab', 'key': LogicalKeyboardKey.tab, 'role': 'Focus traversal', 'glyph': 'Tab'},
-    {'name': 'enter', 'key': LogicalKeyboardKey.enter, 'role': 'Submit / activate', 'glyph': 'Ent'},
-    {'name': 'backspace', 'key': LogicalKeyboardKey.backspace, 'role': 'Delete previous', 'glyph': '<-'},
-    {'name': 'delete', 'key': LogicalKeyboardKey.delete, 'role': 'Delete next', 'glyph': 'Del'},
-    {'name': 'home', 'key': LogicalKeyboardKey.home, 'role': 'Line start', 'glyph': 'Hom'},
-    {'name': 'end', 'key': LogicalKeyboardKey.end, 'role': 'Line end', 'glyph': 'End'},
-    {'name': 'pageUp', 'key': LogicalKeyboardKey.pageUp, 'role': 'Scroll page up', 'glyph': 'PgU'},
-    {'name': 'pageDown', 'key': LogicalKeyboardKey.pageDown, 'role': 'Scroll page down', 'glyph': 'PgD'},
+    {
+      'name': 'escape',
+      'key': LogicalKeyboardKey.escape,
+      'role': 'Cancel / dismiss',
+      'glyph': 'Esc',
+    },
+    {
+      'name': 'tab',
+      'key': LogicalKeyboardKey.tab,
+      'role': 'Focus traversal',
+      'glyph': 'Tab',
+    },
+    {
+      'name': 'enter',
+      'key': LogicalKeyboardKey.enter,
+      'role': 'Submit / activate',
+      'glyph': 'Ent',
+    },
+    {
+      'name': 'backspace',
+      'key': LogicalKeyboardKey.backspace,
+      'role': 'Delete previous',
+      'glyph': '<-',
+    },
+    {
+      'name': 'delete',
+      'key': LogicalKeyboardKey.delete,
+      'role': 'Delete next',
+      'glyph': 'Del',
+    },
+    {
+      'name': 'home',
+      'key': LogicalKeyboardKey.home,
+      'role': 'Line start',
+      'glyph': 'Hom',
+    },
+    {
+      'name': 'end',
+      'key': LogicalKeyboardKey.end,
+      'role': 'Line end',
+      'glyph': 'End',
+    },
+    {
+      'name': 'pageUp',
+      'key': LogicalKeyboardKey.pageUp,
+      'role': 'Scroll page up',
+      'glyph': 'PgU',
+    },
+    {
+      'name': 'pageDown',
+      'key': LogicalKeyboardKey.pageDown,
+      'role': 'Scroll page down',
+      'glyph': 'PgD',
+    },
   ];
 
   final functionKeys = <Map<String, dynamic>>[
     {'name': 'f1', 'key': LogicalKeyboardKey.f1, 'role': 'Help / context'},
-    {'name': 'f2', 'key': LogicalKeyboardKey.f2, 'role': 'Rename / inline edit'},
+    {
+      'name': 'f2',
+      'key': LogicalKeyboardKey.f2,
+      'role': 'Rename / inline edit',
+    },
     {'name': 'f5', 'key': LogicalKeyboardKey.f5, 'role': 'Refresh / run'},
     {'name': 'f10', 'key': LogicalKeyboardKey.f10, 'role': 'Step over (debug)'},
     {'name': 'f11', 'key': LogicalKeyboardKey.f11, 'role': 'Full screen'},
@@ -39,9 +88,21 @@ dynamic build(BuildContext context) {
     {'name': 'numpad0', 'key': LogicalKeyboardKey.numpad0, 'role': 'Numeric 0'},
     {'name': 'numpad5', 'key': LogicalKeyboardKey.numpad5, 'role': 'Numeric 5'},
     {'name': 'numpad9', 'key': LogicalKeyboardKey.numpad9, 'role': 'Numeric 9'},
-    {'name': 'numpadEnter', 'key': LogicalKeyboardKey.numpadEnter, 'role': 'Confirm entry'},
-    {'name': 'capsLock', 'key': LogicalKeyboardKey.capsLock, 'role': 'Toggle case'},
-    {'name': 'numLock', 'key': LogicalKeyboardKey.numLock, 'role': 'Toggle numpad'},
+    {
+      'name': 'numpadEnter',
+      'key': LogicalKeyboardKey.numpadEnter,
+      'role': 'Confirm entry',
+    },
+    {
+      'name': 'capsLock',
+      'key': LogicalKeyboardKey.capsLock,
+      'role': 'Toggle case',
+    },
+    {
+      'name': 'numLock',
+      'key': LogicalKeyboardKey.numLock,
+      'role': 'Toggle numpad',
+    },
   ];
 
   // ============================================================================
@@ -56,9 +117,21 @@ dynamic build(BuildContext context) {
     {'name': 'digit1', 'key': PhysicalKeyboardKey.digit1, 'group': 'Digit'},
     {'name': 'digit5', 'key': PhysicalKeyboardKey.digit5, 'group': 'Digit'},
     {'name': 'arrowUp', 'key': PhysicalKeyboardKey.arrowUp, 'group': 'Arrow'},
-    {'name': 'arrowDown', 'key': PhysicalKeyboardKey.arrowDown, 'group': 'Arrow'},
-    {'name': 'arrowLeft', 'key': PhysicalKeyboardKey.arrowLeft, 'group': 'Arrow'},
-    {'name': 'arrowRight', 'key': PhysicalKeyboardKey.arrowRight, 'group': 'Arrow'},
+    {
+      'name': 'arrowDown',
+      'key': PhysicalKeyboardKey.arrowDown,
+      'group': 'Arrow',
+    },
+    {
+      'name': 'arrowLeft',
+      'key': PhysicalKeyboardKey.arrowLeft,
+      'group': 'Arrow',
+    },
+    {
+      'name': 'arrowRight',
+      'key': PhysicalKeyboardKey.arrowRight,
+      'group': 'Arrow',
+    },
     {'name': 'space', 'key': PhysicalKeyboardKey.space, 'group': 'Whitespace'},
   ];
 
@@ -111,7 +184,8 @@ dynamic build(BuildContext context) {
   final systemChromeMethods = <Map<String, dynamic>>[
     {
       'name': 'setPreferredOrientations',
-      'signature': 'Future<void> setPreferredOrientations(List<DeviceOrientation>)',
+      'signature':
+          'Future<void> setPreferredOrientations(List<DeviceOrientation>)',
       'desc': 'Lock the screen to one or more allowed orientations.',
       'category': 'Layout',
     },
@@ -123,13 +197,15 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'setEnabledSystemUIMode',
-      'signature': 'Future<void> setEnabledSystemUIMode(SystemUiMode, {List<SystemUiOverlay>? overlays})',
+      'signature':
+          'Future<void> setEnabledSystemUIMode(SystemUiMode, {List<SystemUiOverlay>? overlays})',
       'desc': 'Choose between immersive, edge-to-edge, manual modes.',
       'category': 'Visibility',
     },
     {
       'name': 'setApplicationSwitcherDescription',
-      'signature': 'Future<void> setApplicationSwitcherDescription(ApplicationSwitcherDescription)',
+      'signature':
+          'Future<void> setApplicationSwitcherDescription(ApplicationSwitcherDescription)',
       'desc': 'Set label & tint shown in the OS task switcher.',
       'category': 'Identity',
     },
@@ -188,7 +264,9 @@ dynamic build(BuildContext context) {
     {
       'name': 'SystemUiOverlayStyle.light',
       'statusBg': 'default',
-      'statusIcons': defaultLight.statusBarBrightness == Brightness.light ? 'light' : 'dark',
+      'statusIcons': defaultLight.statusBarBrightness == Brightness.light
+          ? 'light'
+          : 'dark',
       'navBg': 'default',
       'navIcons': 'auto',
       'preview': Color(0xFFEEEEEE),
@@ -197,7 +275,9 @@ dynamic build(BuildContext context) {
     {
       'name': 'SystemUiOverlayStyle.dark',
       'statusBg': 'default',
-      'statusIcons': defaultDark.statusBarBrightness == Brightness.dark ? 'dark' : 'light',
+      'statusIcons': defaultDark.statusBarBrightness == Brightness.dark
+          ? 'dark'
+          : 'light',
       'navBg': 'default',
       'navIcons': 'auto',
       'preview': Color(0xFF212121),
@@ -292,13 +372,15 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'routeUpdated',
-      'signature': 'Future<void> SystemNavigator.routeUpdated({String? routeName, String? previousRouteName})',
+      'signature':
+          'Future<void> SystemNavigator.routeUpdated({String? routeName, String? previousRouteName})',
       'desc': 'Notifies the host about a route change (web URL sync).',
       'risk': 'low',
     },
     {
       'name': 'routeInformationUpdated',
-      'signature': 'void SystemNavigator.routeInformationUpdated({Uri? uri, Object? state, bool replace = false})',
+      'signature':
+          'void SystemNavigator.routeInformationUpdated({Uri? uri, Object? state, bool replace = false})',
       'desc': 'Pushes router-2 state to the embedder (browser history).',
       'risk': 'low',
     },
@@ -432,7 +514,11 @@ dynamic build(BuildContext context) {
                   padding: EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Color(0xFF0D1B2A), Color(0xFF1B263B), Color(0xFF415A77)],
+                      colors: [
+                        Color(0xFF0D1B2A),
+                        Color(0xFF1B263B),
+                        Color(0xFF415A77),
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -449,7 +535,10 @@ dynamic build(BuildContext context) {
                             decoration: BoxDecoration(
                               color: Color(0x33FFFFFF),
                               borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(color: Color(0x66FFFFFF), width: 1.0),
+                              border: Border.all(
+                                color: Color(0x66FFFFFF),
+                                width: 1.0,
+                              ),
                             ),
                             child: Center(
                               child: Text(
@@ -564,19 +653,40 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 12.0),
                       Text(
                         'Panels in this cockpit:',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
                       ),
                       SizedBox(height: 6.0),
-                      _bulletLine('1. LogicalKeyboardKey  — semantic key identifiers'),
-                      _bulletLine('2. PhysicalKeyboardKey — USB HID layout keys'),
-                      _bulletLine('3. HapticFeedback      — tactile cue channels'),
-                      _bulletLine('4. SystemChrome        — system bar control methods'),
-                      _bulletLine('5. SystemUiOverlayStyle — status/nav tint presets'),
-                      _bulletLine('6. SystemUiMode        — visibility profiles'),
+                      _bulletLine(
+                        '1. LogicalKeyboardKey  — semantic key identifiers',
+                      ),
+                      _bulletLine(
+                        '2. PhysicalKeyboardKey — USB HID layout keys',
+                      ),
+                      _bulletLine(
+                        '3. HapticFeedback      — tactile cue channels',
+                      ),
+                      _bulletLine(
+                        '4. SystemChrome        — system bar control methods',
+                      ),
+                      _bulletLine(
+                        '5. SystemUiOverlayStyle — status/nav tint presets',
+                      ),
+                      _bulletLine(
+                        '6. SystemUiMode        — visibility profiles',
+                      ),
                       _bulletLine('7. DeviceOrientation   — rotation profiles'),
-                      _bulletLine('8. SystemNavigator     — app lifecycle exit / route sync'),
-                      _bulletLine('9. TextInputFormatter  — input pipeline filters'),
-                      _bulletLine('10. MaxLengthEnforcement — overflow strategy enum'),
+                      _bulletLine(
+                        '8. SystemNavigator     — app lifecycle exit / route sync',
+                      ),
+                      _bulletLine(
+                        '9. TextInputFormatter  — input pipeline filters',
+                      ),
+                      _bulletLine(
+                        '10. MaxLengthEnforcement — overflow strategy enum',
+                      ),
                     ],
                   ),
                 ),
@@ -589,7 +699,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFF81C784),
                   title: '1. LogicalKeyboardKey',
                   titleColor: Color(0xFF2E7D32),
-                  subtitle: 'Semantic key identifiers (independent of physical layout).',
+                  subtitle:
+                      'Semantic key identifiers (independent of physical layout).',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -679,11 +790,17 @@ dynamic build(BuildContext context) {
                         children: [
                           for (final fn in functionKeys)
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 8.0,
+                              ),
                               decoration: BoxDecoration(
                                 color: Color(0xFFA5D6A7),
                                 borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(color: Color(0xFF66BB6A), width: 1.0),
+                                border: Border.all(
+                                  color: Color(0xFF66BB6A),
+                                  width: 1.0,
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -730,7 +847,10 @@ dynamic build(BuildContext context) {
                             children: [
                               Container(
                                 width: 90.0,
-                                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 6.0,
+                                  vertical: 4.0,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Color(0xFF388E3C),
                                   borderRadius: BorderRadius.circular(4.0),
@@ -766,7 +886,8 @@ dynamic build(BuildContext context) {
                       _recipeCard(
                         bg: Color(0xFFB9F6CA),
                         title: 'Recipe',
-                        code: 'if (event.logicalKey == LogicalKeyboardKey.escape) {\n  closeDialog();\n}',
+                        code:
+                            'if (event.logicalKey == LogicalKeyboardKey.escape) {\n  closeDialog();\n}',
                         codeColor: Color(0xFF1B5E20),
                       ),
                     ],
@@ -781,7 +902,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFF4DB6AC),
                   title: '2. PhysicalKeyboardKey',
                   titleColor: Color(0xFF00695C),
-                  subtitle: 'USB HID usage codes — tied to the physical key location.',
+                  subtitle:
+                      'USB HID usage codes — tied to the physical key location.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -844,7 +966,10 @@ dynamic build(BuildContext context) {
                                 Expanded(
                                   flex: 2,
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 6.0,
+                                      vertical: 2.0,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: Color(0xFF00897B),
                                       borderRadius: BorderRadius.circular(4.0),
@@ -893,7 +1018,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFFF06292),
                   title: '3. HapticFeedback',
                   titleColor: Color(0xFFC2185B),
-                  subtitle: 'Five tactile cue channels ordered from strong to subtle.',
+                  subtitle:
+                      'Five tactile cue channels ordered from strong to subtle.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -923,10 +1049,15 @@ dynamic build(BuildContext context) {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 6.0,
+                                        vertical: 2.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: Color(0xFFEC407A),
-                                        borderRadius: BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                       child: Text(
                                         cue['duration'] as String,
@@ -953,17 +1084,25 @@ dynamic build(BuildContext context) {
                                   children: [
                                     Text(
                                       'Intensity',
-                                      style: TextStyle(fontSize: 10.0, color: Color(0xFF424242)),
+                                      style: TextStyle(
+                                        fontSize: 10.0,
+                                        color: Color(0xFF424242),
+                                      ),
                                     ),
                                     SizedBox(width: 8.0),
                                     Expanded(
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                         child: LinearProgressIndicator(
                                           value: cue['intensity'] as double,
                                           minHeight: 8.0,
                                           backgroundColor: Color(0xFFFFFFFF),
-                                          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFD81B60)),
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                Color(0xFFD81B60),
+                                              ),
                                         ),
                                       ),
                                     ),
@@ -980,7 +1119,10 @@ dynamic build(BuildContext context) {
                                 SizedBox(height: 4.0),
                                 Text(
                                   'Use case: ${cue['cue']}',
-                                  style: TextStyle(fontSize: 11.0, color: Color(0xFF424242)),
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    color: Color(0xFF424242),
+                                  ),
                                 ),
                               ],
                             ),
@@ -989,7 +1131,8 @@ dynamic build(BuildContext context) {
                       _recipeCard(
                         bg: Color(0xFFF48FB1),
                         title: 'Pattern',
-                        code: 'onTap: () { HapticFeedback.selectionClick(); _select(item); }',
+                        code:
+                            'onTap: () { HapticFeedback.selectionClick(); _select(item); }',
                         codeColor: Color(0xFF880E4F),
                       ),
                     ],
@@ -1004,7 +1147,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFFFFB74D),
                   title: '4. SystemChrome',
                   titleColor: Color(0xFFE65100),
-                  subtitle: 'Static methods controlling system bars, orientation, and app metadata.',
+                  subtitle:
+                      'Static methods controlling system bars, orientation, and app metadata.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1014,14 +1158,20 @@ dynamic build(BuildContext context) {
                             flex: 3,
                             child: Text(
                               'Method',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11.0,
+                              ),
                             ),
                           ),
                           Expanded(
                             flex: 2,
                             child: Text(
                               'Category',
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11.0,
+                              ),
                             ),
                           ),
                         ],
@@ -1054,10 +1204,15 @@ dynamic build(BuildContext context) {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 6.0,
+                                        vertical: 2.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: Color(0xFFFB8C00),
-                                        borderRadius: BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                       child: Text(
                                         m['category'] as String,
@@ -1093,7 +1248,10 @@ dynamic build(BuildContext context) {
                                 SizedBox(height: 6.0),
                                 Text(
                                   m['desc'] as String,
-                                  style: TextStyle(fontSize: 11.0, color: Color(0xFF4E342E)),
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    color: Color(0xFF4E342E),
+                                  ),
                                 ),
                               ],
                             ),
@@ -1142,9 +1300,15 @@ dynamic build(BuildContext context) {
                                   decoration: BoxDecoration(
                                     color: preset['preview'] as Color,
                                     borderRadius: BorderRadius.circular(6.0),
-                                    border: Border.all(color: Color(0xFF7E57C2), width: 1.0),
+                                    border: Border.all(
+                                      color: Color(0xFF7E57C2),
+                                      width: 1.0,
+                                    ),
                                   ),
-                                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                    vertical: 6.0,
+                                  ),
                                   child: Row(
                                     children: [
                                       Container(
@@ -1170,7 +1334,9 @@ dynamic build(BuildContext context) {
                                         height: 14.0,
                                         decoration: BoxDecoration(
                                           color: preset['iconColor'] as Color,
-                                          borderRadius: BorderRadius.circular(3.0),
+                                          borderRadius: BorderRadius.circular(
+                                            3.0,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(width: 6.0),
@@ -1189,10 +1355,16 @@ dynamic build(BuildContext context) {
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: _kv('statusBg', preset['statusBg'] as String),
+                                      child: _kv(
+                                        'statusBg',
+                                        preset['statusBg'] as String,
+                                      ),
                                     ),
                                     Expanded(
-                                      child: _kv('statusIcons', preset['statusIcons'] as String),
+                                      child: _kv(
+                                        'statusIcons',
+                                        preset['statusIcons'] as String,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1200,10 +1372,16 @@ dynamic build(BuildContext context) {
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: _kv('navBg', preset['navBg'] as String),
+                                      child: _kv(
+                                        'navBg',
+                                        preset['navBg'] as String,
+                                      ),
                                     ),
                                     Expanded(
-                                      child: _kv('navIcons', preset['navIcons'] as String),
+                                      child: _kv(
+                                        'navIcons',
+                                        preset['navIcons'] as String,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1214,7 +1392,8 @@ dynamic build(BuildContext context) {
                       _recipeCard(
                         bg: Color(0xFFB39DDB),
                         title: 'Apply on a route',
-                        code: 'AnnotatedRegion<SystemUiOverlayStyle>(\n  value: SystemUiOverlayStyle.dark,\n  child: Scaffold(...),\n)',
+                        code:
+                            'AnnotatedRegion<SystemUiOverlayStyle>(\n  value: SystemUiOverlayStyle.dark,\n  child: Scaffold(...),\n)',
                         codeColor: Color(0xFF311B92),
                       ),
                     ],
@@ -1229,7 +1408,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFF4FC3F7),
                   title: '6. SystemUiMode',
                   titleColor: Color(0xFF01579B),
-                  subtitle: 'Pick how the OS treats status & navigation chrome.',
+                  subtitle:
+                      'Pick how the OS treats status & navigation chrome.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1265,7 +1445,8 @@ dynamic build(BuildContext context) {
                                 SizedBox(width: 12.0),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
@@ -1280,10 +1461,14 @@ dynamic build(BuildContext context) {
                                           ),
                                           SizedBox(width: 8.0),
                                           Container(
-                                            padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 4.0,
+                                              vertical: 1.0,
+                                            ),
                                             decoration: BoxDecoration(
                                               color: Color(0xFF0277BD),
-                                              borderRadius: BorderRadius.circular(3.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(3.0),
                                             ),
                                             child: Text(
                                               '#${mode['index']}',
@@ -1299,7 +1484,10 @@ dynamic build(BuildContext context) {
                                       SizedBox(height: 2.0),
                                       Text(
                                         mode['desc'] as String,
-                                        style: TextStyle(fontSize: 11.0, color: Color(0xFF263238)),
+                                        style: TextStyle(
+                                          fontSize: 11.0,
+                                          color: Color(0xFF263238),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -1311,10 +1499,18 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 8.0),
                       Text(
                         'Comparison',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                        ),
                       ),
                       SizedBox(height: 6.0),
-                      _compRow(['Mode', 'Status bar', 'Nav bar', 'On swipe'], header: true),
+                      _compRow([
+                        'Mode',
+                        'Status bar',
+                        'Nav bar',
+                        'On swipe',
+                      ], header: true),
                       _compRow(['edgeToEdge', 'visible', 'visible', '-']),
                       _compRow(['immersive', 'hidden', 'hidden', 'reveal']),
                       _compRow(['immersiveSticky', 'hidden', 'hidden', 'peek']),
@@ -1332,7 +1528,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFFFFD54F),
                   title: '7. DeviceOrientation',
                   titleColor: Color(0xFFF57F17),
-                  subtitle: 'The four rotation profiles a Flutter app may opt into.',
+                  subtitle:
+                      'The four rotation profiles a Flutter app may opt into.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1347,21 +1544,32 @@ dynamic build(BuildContext context) {
                               decoration: BoxDecoration(
                                 color: Color(0xFFFFECB3),
                                 borderRadius: BorderRadius.circular(8.0),
-                                border: Border.all(color: Color(0xFFFFB300), width: 1.0),
+                                border: Border.all(
+                                  color: Color(0xFFFFB300),
+                                  width: 1.0,
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Center(
                                     child: Transform.rotate(
-                                      angle: ((ori['degrees'] as int) * 3.14159265 / 180.0),
+                                      angle:
+                                          ((ori['degrees'] as int) *
+                                          3.14159265 /
+                                          180.0),
                                       child: Container(
                                         width: 30.0,
                                         height: 52.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFFFA000),
-                                          borderRadius: BorderRadius.circular(6.0),
-                                          border: Border.all(color: Color(0xFFFF6F00), width: 2.0),
+                                          borderRadius: BorderRadius.circular(
+                                            6.0,
+                                          ),
+                                          border: Border.all(
+                                            color: Color(0xFFFF6F00),
+                                            width: 2.0,
+                                          ),
                                         ),
                                         child: Center(
                                           child: Container(
@@ -1369,7 +1577,8 @@ dynamic build(BuildContext context) {
                                             height: 30.0,
                                             decoration: BoxDecoration(
                                               color: Color(0xFFFFF8E1),
-                                              borderRadius: BorderRadius.circular(3.0),
+                                              borderRadius:
+                                                  BorderRadius.circular(3.0),
                                             ),
                                           ),
                                         ),
@@ -1387,7 +1596,10 @@ dynamic build(BuildContext context) {
                                   ),
                                   Text(
                                     '${ori['degrees']}° • ${ori['axis']}',
-                                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C41)),
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Color(0xFF6D4C41),
+                                    ),
                                   ),
                                   SizedBox(height: 4.0),
                                   Text(
@@ -1474,7 +1686,10 @@ dynamic build(BuildContext context) {
                                 SizedBox(height: 6.0),
                                 Text(
                                   cmd['desc'] as String,
-                                  style: TextStyle(fontSize: 11.0, color: Color(0xFF4E342E)),
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    color: Color(0xFF4E342E),
+                                  ),
                                 ),
                               ],
                             ),
@@ -1499,7 +1714,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFF7986CB),
                   title: '9. TextInputFormatter',
                   titleColor: Color(0xFF283593),
-                  subtitle: 'Filters applied to TextField/TextFormField input on every edit.',
+                  subtitle:
+                      'Filters applied to TextField/TextFormField input on every edit.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1518,10 +1734,15 @@ dynamic build(BuildContext context) {
                                 Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 6.0,
+                                        vertical: 2.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: f['color'] as Color,
-                                        borderRadius: BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                       child: Text(
                                         (f['kind'] as String).toUpperCase(),
@@ -1549,10 +1770,15 @@ dynamic build(BuildContext context) {
                                 Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 6.0,
+                                        vertical: 2.0,
+                                      ),
                                       decoration: BoxDecoration(
                                         color: Color(0xFF1A237E),
-                                        borderRadius: BorderRadius.circular(3.0),
+                                        borderRadius: BorderRadius.circular(
+                                          3.0,
+                                        ),
                                       ),
                                       child: Text(
                                         f['rule'] as String,
@@ -1567,7 +1793,10 @@ dynamic build(BuildContext context) {
                                     Expanded(
                                       child: Text(
                                         f['sample'] as String,
-                                        style: TextStyle(fontSize: 10.0, color: Color(0xFF283593)),
+                                        style: TextStyle(
+                                          fontSize: 10.0,
+                                          color: Color(0xFF283593),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -1591,7 +1820,10 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Color(0xFFFFFFFF),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(color: Color(0xFF7986CB), width: 1.0),
+                          border: Border.all(
+                            color: Color(0xFF7986CB),
+                            width: 1.0,
+                          ),
                         ),
                         child: TextField(
                           inputFormatters: <TextInputFormatter>[
@@ -1612,7 +1844,10 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Color(0xFFFFFFFF),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(color: Color(0xFF7986CB), width: 1.0),
+                          border: Border.all(
+                            color: Color(0xFF7986CB),
+                            width: 1.0,
+                          ),
                         ),
                         child: TextField(
                           inputFormatters: <TextInputFormatter>[
@@ -1647,7 +1882,8 @@ dynamic build(BuildContext context) {
                   border: Color(0xFFAED581),
                   title: '10. MaxLengthEnforcement',
                   titleColor: Color(0xFF33691E),
-                  subtitle: 'Enum that decides how an over-length edit is handled.',
+                  subtitle:
+                      'Enum that decides how an over-length edit is handled.',
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -1656,7 +1892,9 @@ dynamic build(BuildContext context) {
                         _compRow([
                           en['name'] as String,
                           '${en['index']}',
-                          en['name'] == 'enforced' ? 'yes' : (en['name'] == 'none' ? 'no' : 'IME-aware'),
+                          en['name'] == 'enforced'
+                              ? 'yes'
+                              : (en['name'] == 'none' ? 'no' : 'IME-aware'),
                         ]),
                       SizedBox(height: 12.0),
                       for (final en in enforcementData)

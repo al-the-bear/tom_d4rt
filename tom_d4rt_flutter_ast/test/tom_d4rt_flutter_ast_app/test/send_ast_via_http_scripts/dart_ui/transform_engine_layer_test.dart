@@ -85,10 +85,7 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'dart:ui · compositing transforms',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                    ),
+                    style: TextStyle(fontSize: 14.0, color: Colors.white70),
                   ),
                 ],
               ),
@@ -897,11 +894,7 @@ Widget _buildPipelineRow() {
         _buildPipelineArrow(),
         _buildPipelineBox('pushTransform', Colors.deepPurple, Icons.transform),
         _buildPipelineArrow(),
-        _buildPipelineBox(
-          'TransformEngineLayer',
-          Colors.purple,
-          Icons.layers,
-        ),
+        _buildPipelineBox('TransformEngineLayer', Colors.purple, Icons.layers),
         _buildPipelineArrow(),
         _buildPipelineBox('Engine Compositor', Colors.pink, Icons.memory),
         _buildPipelineArrow(),
@@ -1034,10 +1027,7 @@ Widget _buildRecipeRow(
               SizedBox(height: 4.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
               ),
             ],
           ),
@@ -1191,10 +1181,7 @@ Widget _buildApiRow(String name, String description) {
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.brown.shade800,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.brown.shade800),
               ),
             ],
           ),

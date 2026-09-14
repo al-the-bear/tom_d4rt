@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.sync,
       'title': 'What is StatusTransitionWidget?',
-      'body': 'StatusTransitionWidget is an abstract StatefulWidget that '
+      'body':
+          'StatusTransitionWidget is an abstract StatefulWidget that '
           'listens to an Animation\'s status changes and triggers a rebuild '
           'whenever the status transitions (forward, reverse, completed, '
           'dismissed). Subclasses only need to implement build().',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Why It Exists',
-      'body': 'Flutter\'s built-in transition widgets (FadeTransition, '
+      'body':
+          'Flutter\'s built-in transition widgets (FadeTransition, '
           'ScaleTransition, etc.) extend this class. It extracts the '
           'boilerplate of subscribing to animation status changes so '
           'each transition only defines its visual logic.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Status vs Value Listening',
-      'body': 'AnimatedWidget rebuilds on every value change (each frame). '
+      'body':
+          'AnimatedWidget rebuilds on every value change (each frame). '
           'StatusTransitionWidget rebuilds only on status changes — '
           'typically 4 events per animation cycle. Use it when you '
           'only care about animation phases, not per-frame values.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.extension,
       'title': 'How to Subclass',
-      'body': 'Extend StatusTransitionWidget, pass an animation to super, '
+      'body':
+          'Extend StatusTransitionWidget, pass an animation to super, '
           'and implement build(). Your build method can inspect '
           'animation.status to show different UI for each phase.',
       'accent': Colors.deepOrange,
@@ -122,7 +126,8 @@ dynamic build(BuildContext context) {
   final statuses = <Map<String, dynamic>>[
     {
       'status': 'dismissed',
-      'desc': 'Animation is at value 0.0. The initial resting state '
+      'desc':
+          'Animation is at value 0.0. The initial resting state '
           'before forward() is called or after reverse() completes.',
       'value': '0.0',
       'icon': Icons.stop_circle_outlined,
@@ -130,7 +135,8 @@ dynamic build(BuildContext context) {
     },
     {
       'status': 'forward',
-      'desc': 'Animation is running from dismissed toward completed. '
+      'desc':
+          'Animation is running from dismissed toward completed. '
           'Value is increasing from 0.0 toward 1.0.',
       'value': '0.0 → 1.0',
       'icon': Icons.play_arrow,
@@ -138,7 +144,8 @@ dynamic build(BuildContext context) {
     },
     {
       'status': 'completed',
-      'desc': 'Animation has reached value 1.0. The animation is at rest '
+      'desc':
+          'Animation has reached value 1.0. The animation is at rest '
           'until reverse() is called or the controller is reset.',
       'value': '1.0',
       'icon': Icons.check_circle_outline,
@@ -146,7 +153,8 @@ dynamic build(BuildContext context) {
     },
     {
       'status': 'reverse',
-      'desc': 'Animation is running from completed back toward dismissed. '
+      'desc':
+          'Animation is running from completed back toward dismissed. '
           'Value is decreasing from 1.0 toward 0.0.',
       'value': '1.0 → 0.0',
       'icon': Icons.replay,
@@ -257,7 +265,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'FadeTransition',
       'property': 'opacity',
-      'desc': 'Animates child widget opacity from 0.0 to 1.0 based '
+      'desc':
+          'Animates child widget opacity from 0.0 to 1.0 based '
           'on the animation value.',
       'icon': Icons.opacity,
       'color': Colors.amber,
@@ -265,7 +274,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'ScaleTransition',
       'property': 'scale',
-      'desc': 'Scales the child up or down based on the animation value. '
+      'desc':
+          'Scales the child up or down based on the animation value. '
           'Optionally around a custom alignment.',
       'icon': Icons.zoom_in,
       'color': Colors.blue,
@@ -273,7 +283,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'RotationTransition',
       'property': 'turns',
-      'desc': 'Rotates the child by the animation value expressed in turns '
+      'desc':
+          'Rotates the child by the animation value expressed in turns '
           '(1.0 = 360 degrees).',
       'icon': Icons.rotate_right,
       'color': Colors.purple,
@@ -281,7 +292,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'SlideTransition',
       'property': 'position',
-      'desc': 'Slides the child by an Offset animation. The offset is '
+      'desc':
+          'Slides the child by an Offset animation. The offset is '
           'relative to the child\'s normal position.',
       'icon': Icons.open_with,
       'color': Colors.green,
@@ -289,7 +301,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'SizeTransition',
       'property': 'sizeFactor',
-      'desc': 'Animates the clip size of the child along one axis. '
+      'desc':
+          'Animates the clip size of the child along one axis. '
           'Creates a reveal or collapse effect.',
       'icon': Icons.height,
       'color': Colors.red,
@@ -297,7 +310,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'DecoratedBoxTransition',
       'property': 'decoration',
-      'desc': 'Animates the decoration of a DecoratedBox, interpolating '
+      'desc':
+          'Animates the decoration of a DecoratedBox, interpolating '
           'between two DecorationTween values.',
       'icon': Icons.format_paint,
       'color': Colors.teal,
@@ -391,7 +405,8 @@ dynamic build(BuildContext context) {
     {
       'status': 'dismissed',
       'title': 'Show Entry Button',
-      'desc': 'Before animation starts, display the trigger UI (e.g., '
+      'desc':
+          'Before animation starts, display the trigger UI (e.g., '
           'a "Show Details" button). The content is fully hidden.',
       'color': Colors.grey,
       'uiPreview': 'button',
@@ -399,7 +414,8 @@ dynamic build(BuildContext context) {
     {
       'status': 'forward',
       'title': 'Show Loading / Transition',
-      'desc': 'While animating forward, optionally show a progress '
+      'desc':
+          'While animating forward, optionally show a progress '
           'indicator or transition element.',
       'color': Colors.green,
       'uiPreview': 'loading',
@@ -407,7 +423,8 @@ dynamic build(BuildContext context) {
     {
       'status': 'completed',
       'title': 'Show Full Content',
-      'desc': 'Animation complete — display the target content. '
+      'desc':
+          'Animation complete — display the target content. '
           'Add a "Dismiss" action if the user can reverse.',
       'color': Colors.blue,
       'uiPreview': 'content',
@@ -415,7 +432,8 @@ dynamic build(BuildContext context) {
     {
       'status': 'reverse',
       'title': 'Show Exit Transition',
-      'desc': 'While animating in reverse, the content is leaving. '
+      'desc':
+          'While animating in reverse, the content is leaving. '
           'Optionally show a fade-out effect.',
       'color': Colors.orange,
       'uiPreview': 'fading',
@@ -440,7 +458,11 @@ dynamic build(BuildContext context) {
           ),
           child: const Text(
             'Show Details',
-            style: TextStyle(fontSize: 11, color: Colors.amber, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         );
         break;
@@ -640,7 +662,12 @@ dynamic build(BuildContext context) {
     print('Hierarchy ${i + 1}: ${h['name']}');
     hierarchyWidgets.add(
       Container(
-        margin: EdgeInsets.only(left: 16 + indent, right: 16, top: 3, bottom: 3),
+        margin: EdgeInsets.only(
+          left: 16 + indent,
+          right: 16,
+          top: 3,
+          bottom: 3,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: hColor.withOpacity(h['level'] == 2 ? 0.1 : 0.04),
@@ -667,10 +694,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 h['desc'] as String,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
               ),
             ),
           ],
@@ -687,18 +711,21 @@ dynamic build(BuildContext context) {
   final implSteps = <Map<String, dynamic>>[
     {
       'step': 'Extend StatusTransitionWidget',
-      'code': 'class MyTransition extends StatusTransitionWidget {\n'
+      'code':
+          'class MyTransition extends StatusTransitionWidget {\n'
           '  const MyTransition({\n'
           '    required Animation<double> animation,\n'
           '  }) : super(animation: animation);\n'
           '}',
-      'note': 'Pass the animation to the super constructor. The base '
+      'note':
+          'Pass the animation to the super constructor. The base '
           'class handles listener registration.',
       'color': Colors.amber,
     },
     {
       'step': 'Implement build',
-      'code': 'Widget build(BuildContext context) {\n'
+      'code':
+          'Widget build(BuildContext context) {\n'
           '  final status = animation.status;\n'
           '  if (status == AnimationStatus.dismissed) {\n'
           '    return const SizedBox.shrink();\n'
@@ -708,17 +735,20 @@ dynamic build(BuildContext context) {
           '    child: child,\n'
           '  );\n'
           '}',
-      'note': 'Inspect animation.status and animation.value. Return '
+      'note':
+          'Inspect animation.status and animation.value. Return '
           'different widgets per status if needed.',
       'color': Colors.blue,
     },
     {
       'step': 'Use the widget',
-      'code': 'MyTransition(\n'
+      'code':
+          'MyTransition(\n'
           '  animation: _controller,\n'
           '  child: const Text(\'Hello\'),\n'
           ')',
-      'note': 'Pass an AnimationController (or any Animation). The widget '
+      'note':
+          'Pass an AnimationController (or any Animation). The widget '
           'rebuilds on status changes automatically.',
       'color': Colors.green,
     },
@@ -908,34 +938,40 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.sync,
-      'text': 'StatusTransitionWidget is an abstract StatefulWidget that '
+      'text':
+          'StatusTransitionWidget is an abstract StatefulWidget that '
           'rebuilds its subtree when an Animation\'s status changes.',
     },
     {
       'icon': Icons.compare_arrows,
-      'text': 'Unlike AnimatedWidget (rebuilds per frame), it only '
+      'text':
+          'Unlike AnimatedWidget (rebuilds per frame), it only '
           'rebuilds on status transitions: dismissed, forward, '
           'completed, and reverse.',
     },
     {
       'icon': Icons.architecture,
-      'text': 'FadeTransition, ScaleTransition, RotationTransition, '
+      'text':
+          'FadeTransition, ScaleTransition, RotationTransition, '
           'SlideTransition, and more all extend this base class.',
     },
     {
       'icon': Icons.extension,
-      'text': 'To create a custom status-aware transition: extend '
+      'text':
+          'To create a custom status-aware transition: extend '
           'StatusTransitionWidget, pass animation to super, and '
           'implement build().',
     },
     {
       'icon': Icons.speed,
-      'text': 'More efficient than AnimatedWidget when visual updates '
+      'text':
+          'More efficient than AnimatedWidget when visual updates '
           'only need to happen at phase boundaries, not every frame.',
     },
     {
       'icon': Icons.layers,
-      'text': 'Subclasses can inspect animation.status to show different '
+      'text':
+          'Subclasses can inspect animation.status to show different '
           'UI for each phase — e.g., skeleton loading while forward, '
           'full content when completed.',
     },
@@ -1214,10 +1250,7 @@ Widget _compRow(String label, String value, Color color) {
       Expanded(
         child: Text(
           value,
-          style: TextStyle(
-            fontSize: 11,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
         ),
       ),
     ],

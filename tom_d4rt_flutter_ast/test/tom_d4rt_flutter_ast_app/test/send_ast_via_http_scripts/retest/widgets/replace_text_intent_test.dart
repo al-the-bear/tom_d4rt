@@ -27,8 +27,7 @@ const _kDeleteBg = Color(0xFFFFCDD2); // Red 100
 
 class _ReplaceTextIntentDemo extends StatefulWidget {
   @override
-  State<_ReplaceTextIntentDemo> createState() =>
-      _ReplaceTextIntentDemoState();
+  State<_ReplaceTextIntentDemo> createState() => _ReplaceTextIntentDemoState();
 }
 
 class _ReplaceTextIntentDemoState extends State<_ReplaceTextIntentDemo>
@@ -52,8 +51,10 @@ class _ReplaceTextIntentDemoState extends State<_ReplaceTextIntentDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('ReplaceTextIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+        title: Text(
+          'ReplaceTextIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -71,11 +72,7 @@ class _ReplaceTextIntentDemoState extends State<_ReplaceTextIntentDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _WorkshopTab(),
-          _ScenariosTab(),
-        ],
+        children: [_TheoryTab(), _WorkshopTab(), _ScenariosTab()],
       ),
     );
   }
@@ -104,8 +101,7 @@ class _TheoryTab extends StatelessWidget {
                 'range, and the cause of the change. The corresponding '
                 'Action processes this intent to produce the new '
                 'TextEditingValue.',
-                style: TextStyle(
-                    color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -138,7 +134,7 @@ class _TheoryTab extends StatelessWidget {
                 'currentTextEditingValue',
                 'TextEditingValue',
                 'The complete text editing state before the replacement. '
-                'Includes text, selection, and composing range.',
+                    'Includes text, selection, and composing range.',
                 _kPrimary,
               ),
               SizedBox(height: 8),
@@ -146,7 +142,7 @@ class _TheoryTab extends StatelessWidget {
                 'replacementText',
                 'String',
                 'The new text to insert at the replacement range. Can be '
-                'empty (deletion), shorter, or longer than the range.',
+                    'empty (deletion), shorter, or longer than the range.',
                 _kAccent,
               ),
               SizedBox(height: 8),
@@ -154,8 +150,8 @@ class _TheoryTab extends StatelessWidget {
                 'replacementRange',
                 'TextRange',
                 'The range within the current text that will be replaced. '
-                'Defined by start and end offsets (inclusive start, '
-                'exclusive end).',
+                    'Defined by start and end offsets (inclusive start, '
+                    'exclusive end).',
                 Color(0xFFFF7043),
               ),
               SizedBox(height: 8),
@@ -163,7 +159,7 @@ class _TheoryTab extends StatelessWidget {
                 'cause',
                 'SelectionChangedCause',
                 'Why the replacement happened. Used by text field callbacks '
-                'to distinguish user actions from programmatic changes.',
+                    'to distinguish user actions from programmatic changes.',
                 Color(0xFF5C6BC0),
               ),
             ],
@@ -176,22 +172,54 @@ class _TheoryTab extends StatelessWidget {
           'SelectionChangedCause Values',
           Column(
             children: [
-              _causeRow('tap', 'User tapped the text field',
-                  Icons.touch_app, Color(0xFF2E7D32)),
-              _causeRow('doubleTap', 'Double-tap to select a word',
-                  Icons.done_all, Color(0xFF1565C0)),
-              _causeRow('longPress', 'Long press for selection handles',
-                  Icons.pan_tool, Color(0xFF6A1B9A)),
-              _causeRow('forcePress', 'Force touch (3D Touch)',
-                  Icons.compress, Color(0xFFE65100)),
-              _causeRow('keyboard', 'Keyboard shortcut (Shift+arrows)',
-                  Icons.keyboard, _kPrimary),
-              _causeRow('toolbar', 'Toolbar button (cut/copy/paste)',
-                  Icons.content_paste, _kAccent),
-              _causeRow('drag', 'Dragging selection handles',
-                  Icons.drag_indicator, Color(0xFF795548)),
-              _causeRow('scribble', 'Apple Pencil scribble input',
-                  Icons.edit, Color(0xFFFF6F00)),
+              _causeRow(
+                'tap',
+                'User tapped the text field',
+                Icons.touch_app,
+                Color(0xFF2E7D32),
+              ),
+              _causeRow(
+                'doubleTap',
+                'Double-tap to select a word',
+                Icons.done_all,
+                Color(0xFF1565C0),
+              ),
+              _causeRow(
+                'longPress',
+                'Long press for selection handles',
+                Icons.pan_tool,
+                Color(0xFF6A1B9A),
+              ),
+              _causeRow(
+                'forcePress',
+                'Force touch (3D Touch)',
+                Icons.compress,
+                Color(0xFFE65100),
+              ),
+              _causeRow(
+                'keyboard',
+                'Keyboard shortcut (Shift+arrows)',
+                Icons.keyboard,
+                _kPrimary,
+              ),
+              _causeRow(
+                'toolbar',
+                'Toolbar button (cut/copy/paste)',
+                Icons.content_paste,
+                _kAccent,
+              ),
+              _causeRow(
+                'drag',
+                'Dragging selection handles',
+                Icons.drag_indicator,
+                Color(0xFF795548),
+              ),
+              _causeRow(
+                'scribble',
+                'Apple Pencil scribble input',
+                Icons.edit,
+                Color(0xFFFF6F00),
+              ),
             ],
           ),
         ),
@@ -208,10 +236,7 @@ class _TheoryTab extends StatelessWidget {
               2: FlexColumnWidth(4),
             },
             children: [
-              _tableRow(
-                ['Intent', 'Operation', 'Parameters'],
-                isHeader: true,
-              ),
+              _tableRow(['Intent', 'Operation', 'Parameters'], isHeader: true),
               _tableRow([
                 'ReplaceTextIntent',
                 'Replace range',
@@ -251,8 +276,7 @@ class _TheoryTab extends StatelessWidget {
               Text(
                 'TextRange defines a half-open interval [start, end) in the '
                 'text. Characters at indices start through end-1 are included.',
-                style: TextStyle(
-                    color: _kDarkText, fontSize: 12, height: 1.4),
+                style: TextStyle(color: _kDarkText, fontSize: 12, height: 1.4),
               ),
               SizedBox(height: 10),
               Container(
@@ -264,21 +288,31 @@ class _TheoryTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Example: "Hello World"',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                            fontFamily: 'monospace',
-                            color: _kDarkText)),
+                    Text(
+                      'Example: "Hello World"',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        fontFamily: 'monospace',
+                        color: _kDarkText,
+                      ),
+                    ),
                     SizedBox(height: 8),
                     _rangeVisual(
-                        'Hello World', 0, 5, 'TextRange(0, 5) = "Hello"'),
+                      'Hello World',
+                      0,
+                      5,
+                      'TextRange(0, 5) = "Hello"',
+                    ),
                     SizedBox(height: 6),
                     _rangeVisual(
-                        'Hello World', 6, 11, 'TextRange(6, 11) = "World"'),
+                      'Hello World',
+                      6,
+                      11,
+                      'TextRange(6, 11) = "World"',
+                    ),
                     SizedBox(height: 6),
-                    _rangeVisual(
-                        'Hello World', 5, 6, 'TextRange(5, 6) = " "'),
+                    _rangeVisual('Hello World', 5, 6, 'TextRange(5, 6) = " "'),
                   ],
                 ),
               ),
@@ -293,21 +327,31 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(true,
-                  'Always validate that replacementRange is within bounds '
-                  'of currentTextEditingValue.text.length.'),
-              _bp(true,
-                  'Update the selection after replacement to position the '
-                  'cursor at the end of the inserted text.'),
-              _bp(true,
-                  'Use SelectionChangedCause.keyboard for programmatic '
-                  'replacements triggered by key bindings.'),
-              _bp(false,
-                  'Do NOT modify the text directly — always go through '
-                  'the Intent/Action system for undo/redo support.'),
-              _bp(false,
-                  'Do NOT assume the replacement range covers the entire '
-                  'selection — it may be a sub-range.'),
+              _bp(
+                true,
+                'Always validate that replacementRange is within bounds '
+                'of currentTextEditingValue.text.length.',
+              ),
+              _bp(
+                true,
+                'Update the selection after replacement to position the '
+                'cursor at the end of the inserted text.',
+              ),
+              _bp(
+                true,
+                'Use SelectionChangedCause.keyboard for programmatic '
+                'replacements triggered by key bindings.',
+              ),
+              _bp(
+                false,
+                'Do NOT modify the text directly — always go through '
+                'the Intent/Action system for undo/redo support.',
+              ),
+              _bp(
+                false,
+                'Do NOT assume the replacement range covers the entire '
+                'selection — it may be a sub-range.',
+              ),
             ],
           ),
         ),
@@ -326,8 +370,9 @@ class _WorkshopTab extends StatefulWidget {
 }
 
 class _WorkshopTabState extends State<_WorkshopTab> {
-  final TextEditingController _textCtrl =
-      TextEditingController(text: 'The quick brown fox jumps over the lazy dog.');
+  final TextEditingController _textCtrl = TextEditingController(
+    text: 'The quick brown fox jumps over the lazy dog.',
+  );
   int _replaceCount = 0;
   final List<_ReplaceEvent> _history = [];
 
@@ -337,27 +382,30 @@ class _WorkshopTabState extends State<_WorkshopTab> {
     super.dispose();
   }
 
-  void _performReplace(String label, TextRange range, String replacement,
-      SelectionChangedCause cause) {
+  void _performReplace(
+    String label,
+    TextRange range,
+    String replacement,
+    SelectionChangedCause cause,
+  ) {
     final oldValue = _textCtrl.value;
     final oldText = oldValue.text;
 
     // Validate range
-    if (range.start < 0 || range.end > oldText.length || range.start > range.end) {
+    if (range.start < 0 ||
+        range.end > oldText.length ||
+        range.start > range.end) {
       print('Invalid range: $range for text of length ${oldText.length}');
       return;
     }
 
     // Build the intent (simulate what Flutter does internally)
-    final intent = ReplaceTextIntent(
-      oldValue,
-      replacement,
-      range,
-      cause,
-    );
+    final intent = ReplaceTextIntent(oldValue, replacement, range, cause);
 
-    print('ReplaceTextIntent: replace "${range.textInside(oldText)}" '
-        '(${range.start}..${range.end}) with "$replacement" cause=$cause');
+    print(
+      'ReplaceTextIntent: replace "${range.textInside(oldText)}" '
+      '(${range.start}..${range.end}) with "$replacement" cause=$cause',
+    );
 
     // Apply the replacement
     final before = oldText.substring(0, range.start);
@@ -391,7 +439,8 @@ class _WorkshopTabState extends State<_WorkshopTab> {
   Widget build(BuildContext context) {
     final text = _textCtrl.text;
     final sel = _textCtrl.selection;
-    final hasSelection = sel.isValid && !sel.isCollapsed && sel.end <= text.length;
+    final hasSelection =
+        sel.isValid && !sel.isCollapsed && sel.end <= text.length;
 
     return Row(
       children: [
@@ -412,13 +461,17 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                       maxLines: 4,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         hintText: 'Type or edit text here...',
                         isDense: true,
                         contentPadding: EdgeInsets.all(12),
                       ),
                       style: TextStyle(
-                          fontSize: 14, fontFamily: 'monospace', height: 1.5),
+                        fontSize: 14,
+                        fontFamily: 'monospace',
+                        height: 1.5,
+                      ),
                       onChanged: (_) => setState(() {}),
                     ),
                     SizedBox(height: 8),
@@ -433,17 +486,21 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                           hasSelection
                               ? '${sel.start}..${sel.end}'
                               : sel.isValid
-                                  ? 'cursor@${sel.baseOffset}'
-                                  : 'none',
+                              ? 'cursor@${sel.baseOffset}'
+                              : 'none',
                           _kAccent,
                         ),
                         if (hasSelection)
                           _infoPill(
-                              'Selected',
-                              '"${sel.textInside(text)}"',
-                              Color(0xFFFF7043)),
-                        _infoPill('Replaces', '$_replaceCount',
-                            Color(0xFF5C6BC0)),
+                            'Selected',
+                            '"${sel.textInside(text)}"',
+                            Color(0xFFFF7043),
+                          ),
+                        _infoPill(
+                          'Replaces',
+                          '$_replaceCount',
+                          Color(0xFF5C6BC0),
+                        ),
                       ],
                     ),
                   ],
@@ -613,19 +670,21 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                   children: [
                     Icon(Icons.history, size: 16, color: _kPrimary),
                     SizedBox(width: 6),
-                    Text('Replace History',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                            color: _kDarkText)),
+                    Text(
+                      'Replace History',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: _kDarkText,
+                      ),
+                    ),
                     Spacer(),
                     GestureDetector(
                       onTap: () => setState(() {
                         _history.clear();
                         _replaceCount = 0;
                       }),
-                      child: Icon(Icons.delete_sweep,
-                          size: 16, color: _kMuted),
+                      child: Icon(Icons.delete_sweep, size: 16, color: _kMuted),
                     ),
                   ],
                 ),
@@ -652,35 +711,44 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                 color: _kPrimary.withOpacity(0.03),
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                    color: _kPrimary.withOpacity(0.12)),
+                                  color: _kPrimary.withOpacity(0.12),
+                                ),
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 1),
+                                          horizontal: 5,
+                                          vertical: 1,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: _kPrimary,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
                                         ),
-                                        child: Text('#${e.id}',
-                                            style: TextStyle(
-                                                fontSize: 9,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white)),
+                                        child: Text(
+                                          '#${e.id}',
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                       SizedBox(width: 6),
                                       Expanded(
-                                        child: Text(e.label,
-                                            style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.w600,
-                                                color: _kDarkText)),
+                                        child: Text(
+                                          e.label,
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                            color: _kDarkText,
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -689,45 +757,57 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 4, vertical: 1),
+                                          horizontal: 4,
+                                          vertical: 1,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: _kDeleteBg,
-                                          borderRadius:
-                                              BorderRadius.circular(3),
+                                          borderRadius: BorderRadius.circular(
+                                            3,
+                                          ),
                                         ),
                                         child: Text(
                                           e.oldFragment.isEmpty
                                               ? '(empty)'
                                               : '"${_truncate(e.oldFragment, 12)}"',
                                           style: TextStyle(
-                                              fontSize: 9,
-                                              fontFamily: 'monospace',
-                                              color: _kPrimary),
+                                            fontSize: 9,
+                                            fontFamily: 'monospace',
+                                            color: _kPrimary,
+                                          ),
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 4),
-                                        child: Icon(Icons.arrow_forward,
-                                            size: 10, color: _kMuted),
+                                          horizontal: 4,
+                                        ),
+                                        child: Icon(
+                                          Icons.arrow_forward,
+                                          size: 10,
+                                          color: _kMuted,
+                                        ),
                                       ),
                                       Expanded(
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 4, vertical: 1),
+                                            horizontal: 4,
+                                            vertical: 1,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: _kReplaceBg,
-                                            borderRadius:
-                                                BorderRadius.circular(3),
+                                            borderRadius: BorderRadius.circular(
+                                              3,
+                                            ),
                                           ),
                                           child: Text(
                                             e.newFragment.isEmpty
                                                 ? '(deleted)'
                                                 : '"${_truncate(e.newFragment, 12)}"',
                                             style: TextStyle(
-                                                fontSize: 9,
-                                                fontFamily: 'monospace',
-                                                color: Color(0xFF2E7D32)),
+                                              fontSize: 9,
+                                              fontFamily: 'monospace',
+                                              color: Color(0xFF2E7D32),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -737,9 +817,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                   Text(
                                     'range: ${e.range.start}..${e.range.end}  cause: ${e.cause.name}',
                                     style: TextStyle(
-                                        fontFamily: 'monospace',
-                                        fontSize: 8,
-                                        color: _kMuted),
+                                      fontFamily: 'monospace',
+                                      fontSize: 8,
+                                      color: _kMuted,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -755,16 +836,19 @@ class _WorkshopTabState extends State<_WorkshopTab> {
     );
   }
 
-  Widget _actionButton(String title, String subtitle, IconData icon,
-      Color color, VoidCallback? onTap) {
+  Widget _actionButton(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+    VoidCallback? onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: onTap == null
-              ? Colors.grey.shade100
-              : color.withOpacity(0.05),
+          color: onTap == null ? Colors.grey.shade100 : color.withOpacity(0.05),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: onTap == null
@@ -774,33 +858,39 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         ),
         child: Row(
           children: [
-            Icon(icon,
-                size: 18,
-                color: onTap == null ? Colors.grey.shade400 : color),
+            Icon(
+              icon,
+              size: 18,
+              color: onTap == null ? Colors.grey.shade400 : color,
+            ),
             SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: onTap == null
-                              ? Colors.grey.shade500
-                              : _kDarkText)),
-                  Text(subtitle,
-                      style: TextStyle(
-                          fontSize: 10,
-                          color: onTap == null
-                              ? Colors.grey.shade400
-                              : _kMuted)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: onTap == null ? Colors.grey.shade500 : _kDarkText,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: onTap == null ? Colors.grey.shade400 : _kMuted,
+                    ),
+                  ),
                 ],
               ),
             ),
-            Icon(Icons.play_arrow,
-                size: 16,
-                color: onTap == null ? Colors.grey.shade400 : color),
+            Icon(
+              Icons.play_arrow,
+              size: 16,
+              color: onTap == null ? Colors.grey.shade400 : color,
+            ),
           ],
         ),
       ),
@@ -816,19 +906,22 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         border: Border.all(color: color.withOpacity(0.2)),
       ),
       child: RichText(
-        text: TextSpan(children: [
-          TextSpan(
-            text: '$label: ',
-            style: TextStyle(fontSize: 10, color: _kMuted),
-          ),
-          TextSpan(
-            text: value,
-            style: TextStyle(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: '$label: ',
+              style: TextStyle(fontSize: 10, color: _kMuted),
+            ),
+            TextSpan(
+              text: value,
+              style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w700,
-                color: color),
-          ),
-        ]),
+                color: color,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -895,13 +988,15 @@ class _CustomRangeReplaceState extends State<_CustomRangeReplace> {
                     labelText: 'Start',
                     labelStyle: TextStyle(fontSize: 11),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6)),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     isDense: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
                   ),
-                  style: TextStyle(
-                      fontSize: 12, fontFamily: 'monospace'),
+                  style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
                 ),
               ),
               SizedBox(width: 8),
@@ -913,13 +1008,15 @@ class _CustomRangeReplaceState extends State<_CustomRangeReplace> {
                     labelText: 'End',
                     labelStyle: TextStyle(fontSize: 11),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6)),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     isDense: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
                   ),
-                  style: TextStyle(
-                      fontSize: 12, fontFamily: 'monospace'),
+                  style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
                 ),
               ),
               SizedBox(width: 8),
@@ -931,13 +1028,15 @@ class _CustomRangeReplaceState extends State<_CustomRangeReplace> {
                     labelText: 'Replacement',
                     labelStyle: TextStyle(fontSize: 11),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6)),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
                     isDense: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 8,
+                    ),
                   ),
-                  style: TextStyle(
-                      fontSize: 12, fontFamily: 'monospace'),
+                  style: TextStyle(fontSize: 12, fontFamily: 'monospace'),
                 ),
               ),
             ],
@@ -948,7 +1047,10 @@ class _CustomRangeReplaceState extends State<_CustomRangeReplace> {
               Text(
                 'Text length: ${widget.textLength}',
                 style: TextStyle(
-                    fontSize: 10, fontFamily: 'monospace', color: _kMuted),
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: _kMuted,
+                ),
               ),
               Spacer(),
               SizedBox(
@@ -997,8 +1099,7 @@ class _ScenariosTab extends StatelessWidget {
                 'When a user selects an autocomplete suggestion, the partial '
                 'text they typed is replaced with the full completion. The '
                 'replacementRange covers the partial keyword.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               _beforeAfterVisual(
@@ -1034,8 +1135,7 @@ class _ScenariosTab extends StatelessWidget {
                 'Spell-check finds a misspelled word and offers a correction. '
                 'A ReplaceTextIntent targets just the misspelled range, '
                 'preserving the rest of the sentence.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               _beforeAfterVisual(
@@ -1070,8 +1170,7 @@ class _ScenariosTab extends StatelessWidget {
                 'A template system finds placeholders like \${name} and '
                 'replaces them with actual values. Each placeholder becomes '
                 'a separate ReplaceTextIntent.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               _beforeAfterVisual(
@@ -1093,11 +1192,14 @@ class _ScenariosTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Multi-step replacement:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 11,
-                            color: _kAccent)),
+                    Text(
+                      'Multi-step replacement:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11,
+                        color: _kAccent,
+                      ),
+                    ),
                     SizedBox(height: 6),
                     _stepRow(1, 'Find \${name} at range (7, 14)'),
                     _stepRow(2, 'Replace with "Alice" → cursor at 12'),
@@ -1121,8 +1223,7 @@ class _ScenariosTab extends StatelessWidget {
                 'A rich text editor wraps selected text in markdown bold '
                 'syntax (**...**). The replacement range covers the '
                 'selection, and the replacement text includes the markers.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               _beforeAfterVisual(
@@ -1159,8 +1260,7 @@ class _ScenariosTab extends StatelessWidget {
                 'A find-and-replace-all operation issues multiple '
                 'ReplaceTextIntents in reverse order (from end to start) '
                 'to avoid invalidating earlier ranges.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               Container(
@@ -1172,30 +1272,41 @@ class _ScenariosTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _matchHighlight('The cat sat on the cat mat', 'cat',
-                        [4, 20]),
+                    _matchHighlight('The cat sat on the cat mat', 'cat', [
+                      4,
+                      20,
+                    ]),
                     SizedBox(height: 8),
-                    Text('Matches found at indices: 4, 20',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 10,
-                            color: _kMuted)),
+                    Text(
+                      'Matches found at indices: 4, 20',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _kMuted,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('Process in REVERSE order to preserve indices:',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 11,
-                            color: _kDarkText)),
+                    Text(
+                      'Process in REVERSE order to preserve indices:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11,
+                        color: _kDarkText,
+                      ),
+                    ),
                     SizedBox(height: 4),
                     _stepRow(1, 'Replace range (20, 23) → "dog"'),
                     _stepRow(2, 'Replace range (4, 7) → "dog"'),
                     SizedBox(height: 6),
-                    Text('Result: "The dog sat on the dog mat"',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF2E7D32))),
+                    Text(
+                      'Result: "The dog sat on the dog mat"',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF2E7D32),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1246,11 +1357,14 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 15,
-                      color: _kDarkText)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15,
+                  color: _kDarkText,
+                ),
+              ),
             ),
           ],
         ),
@@ -1270,17 +1384,19 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kPrimary.withOpacity(0.1)),
     ),
-    child: Text(code,
-        style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: _kDarkText,
-            height: 1.5)),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: _kDarkText,
+        height: 1.5,
+      ),
+    ),
   );
 }
 
-Widget _paramCard(
-    String name, String type, String desc, Color color) {
+Widget _paramCard(String name, String type, String desc, Color color) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1297,26 +1413,33 @@ Widget _paramCard(
             color: color.withOpacity(0.1),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(name,
-              style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(type,
-                  style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _kMuted)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 11, color: _kDarkText, height: 1.3)),
+              Text(
+                type,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _kMuted,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.3),
+              ),
             ],
           ),
         ),
@@ -1325,8 +1448,7 @@ Widget _paramCard(
   );
 }
 
-Widget _causeRow(
-    String name, String desc, IconData icon, Color color) {
+Widget _causeRow(String name, String desc, IconData icon, Color color) {
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1346,17 +1468,19 @@ Widget _causeRow(
             color: color.withOpacity(0.08),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(name,
-              style: TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 11, color: _kMuted)),
+          child: Text(desc, style: TextStyle(fontSize: 11, color: _kMuted)),
         ),
       ],
     ),
@@ -1371,20 +1495,20 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(c,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight:
-                  isHeader ? FontWeight.w700 : FontWeight.w400,
-              color: isHeader ? _kPrimary : _kDarkText,
-            )),
+        child: Text(
+          c,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+            color: isHeader ? _kPrimary : _kDarkText,
+          ),
+        ),
       );
     }).toList(),
   );
 }
 
-Widget _rangeVisual(
-    String text, int start, int end, String label) {
+Widget _rangeVisual(String text, int start, int end, String label) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -1405,25 +1529,25 @@ Widget _rangeVisual(
                       : Colors.grey.shade300,
                 ),
               ),
-              child: Text(text[i],
-                  style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      fontWeight: (i >= start && i < end)
-                          ? FontWeight.w700
-                          : FontWeight.w400,
-                      color: (i >= start && i < end)
-                          ? _kPrimary
-                          : _kDarkText)),
+              child: Text(
+                text[i],
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  fontWeight: (i >= start && i < end)
+                      ? FontWeight.w700
+                      : FontWeight.w400,
+                  color: (i >= start && i < end) ? _kPrimary : _kDarkText,
+                ),
+              ),
             ),
         ],
       ),
       SizedBox(height: 2),
-      Text(label,
-          style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 9,
-              color: _kAccent)),
+      Text(
+        label,
+        style: TextStyle(fontFamily: 'monospace', fontSize: 9, color: _kAccent),
+      ),
     ],
   );
 }
@@ -1453,19 +1577,23 @@ Widget _beforeAfterVisual({
             Container(
               width: 50,
               padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text('Before:',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: _kPrimary)),
+              child: Text(
+                'Before:',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: _kPrimary,
+                ),
+              ),
             ),
             Expanded(
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                      color: _kDarkText),
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _kDarkText,
+                  ),
                   children: [
                     TextSpan(text: before.substring(0, rangeStart)),
                     TextSpan(
@@ -1492,19 +1620,23 @@ Widget _beforeAfterVisual({
             Container(
               width: 50,
               padding: EdgeInsets.symmetric(vertical: 2),
-              child: Text('After:',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF2E7D32))),
+              child: Text(
+                'After:',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF2E7D32),
+                ),
+              ),
             ),
             Expanded(
               child: RichText(
                 text: TextSpan(
                   style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 11,
-                      color: _kDarkText),
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _kDarkText,
+                  ),
                   children: [
                     TextSpan(text: after.substring(0, rangeStart)),
                     TextSpan(
@@ -1516,7 +1648,8 @@ Widget _beforeAfterVisual({
                       ),
                     ),
                     TextSpan(
-                        text: after.substring(rangeStart + replacement.length)),
+                      text: after.substring(rangeStart + replacement.length),
+                    ),
                   ],
                 ),
               ),
@@ -1527,17 +1660,23 @@ Widget _beforeAfterVisual({
         // Meta
         Row(
           children: [
-            Text('range: ($rangeStart, $rangeEnd)',
-                style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 9,
-                    color: _kMuted)),
+            Text(
+              'range: ($rangeStart, $rangeEnd)',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 9,
+                color: _kMuted,
+              ),
+            ),
             SizedBox(width: 10),
-            Text('cause: $cause',
-                style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 9,
-                    color: _kMuted)),
+            Text(
+              'cause: $cause',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 9,
+                color: _kMuted,
+              ),
+            ),
           ],
         ),
       ],
@@ -1552,14 +1691,16 @@ Widget _matchHighlight(String text, String match, List<int> indices) {
     if (pos < idx) {
       spans.add(TextSpan(text: text.substring(pos, idx)));
     }
-    spans.add(TextSpan(
-      text: text.substring(idx, idx + match.length),
-      style: TextStyle(
-        backgroundColor: _kDeleteBg,
-        fontWeight: FontWeight.w700,
-        color: _kPrimary,
+    spans.add(
+      TextSpan(
+        text: text.substring(idx, idx + match.length),
+        style: TextStyle(
+          backgroundColor: _kDeleteBg,
+          fontWeight: FontWeight.w700,
+          color: _kPrimary,
+        ),
       ),
-    ));
+    );
     pos = idx + match.length;
   }
   if (pos < text.length) {
@@ -1568,7 +1709,10 @@ Widget _matchHighlight(String text, String match, List<int> indices) {
   return RichText(
     text: TextSpan(
       style: TextStyle(
-          fontFamily: 'monospace', fontSize: 12, color: _kDarkText),
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: _kDarkText,
+      ),
       children: spans,
     ),
   );
@@ -1587,16 +1731,18 @@ Widget _stepRow(int num, String text) {
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text('$num',
-              style: TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.w700,
-                  color: _kAccent)),
+          child: Text(
+            '$num',
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.w700,
+              color: _kAccent,
+            ),
+          ),
         ),
         SizedBox(width: 6),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 11, color: _kDarkText)),
+          child: Text(text, style: TextStyle(fontSize: 11, color: _kDarkText)),
         ),
       ],
     ),
@@ -1605,8 +1751,7 @@ Widget _stepRow(int num, String text) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? Color(0xFF2E7D32) : Color(0xFFC62828);
-  final icon =
-      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1615,9 +1760,10 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 12, color: _kDarkText, height: 1.4)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
+          ),
         ),
       ],
     ),

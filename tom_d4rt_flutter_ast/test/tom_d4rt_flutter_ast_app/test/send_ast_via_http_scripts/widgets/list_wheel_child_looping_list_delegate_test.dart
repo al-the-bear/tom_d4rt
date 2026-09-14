@@ -16,8 +16,7 @@ dynamic build(BuildContext context) {
   const goldenrod = Color(0xFFFBC02D);
 
   // ── Helpers ────────────────────────────────────────────────────────
-  Widget sectionBanner(
-      String title, String subtitle, Color bg, Color fg) {
+  Widget sectionBanner(String title, String subtitle, Color bg, Color fg) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 20, bottom: 8),
@@ -33,17 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -72,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepSienna)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: deepSienna),
+            ),
           ),
         ],
       ),
@@ -111,8 +122,18 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('$index', style: TextStyle(fontSize: 10, color: fg.withValues(alpha: 0.6))),
-          Text(display, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: fg)),
+          Text(
+            '$index',
+            style: TextStyle(fontSize: 10, color: fg.withValues(alpha: 0.6)),
+          ),
+          Text(
+            display,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: fg,
+            ),
+          ),
         ],
       ),
     );
@@ -123,10 +144,12 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   final seasons = <Widget>[
-    Text('Spring'), Text('Summer'), Text('Autumn'), Text('Winter'),
+    Text('Spring'),
+    Text('Summer'),
+    Text('Autumn'),
+    Text('Winter'),
   ];
-  final loopingDelegate =
-      ListWheelChildLoopingListDelegate(children: seasons);
+  final loopingDelegate = ListWheelChildLoopingListDelegate(children: seasons);
 
   // Section 1 — what is it
   print('\n--- What is ListWheelChildLoopingListDelegate ---');
@@ -158,8 +181,7 @@ dynamic build(BuildContext context) {
   }
 
   // Section 6 — shouldRebuild
-  final sameLooping =
-      ListWheelChildLoopingListDelegate(children: seasons);
+  final sameLooping = ListWheelChildLoopingListDelegate(children: seasons);
   final diffLooping = ListWheelChildLoopingListDelegate(
     children: [Text('A'), Text('B')],
   );
@@ -213,30 +235,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('ListWheelChildLoopingListDelegate',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                'ListWheelChildLoopingListDelegate',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('Infinite looping children for cylindrical wheel scroll views',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9), fontSize: 14)),
+              Text(
+                'Infinite looping children for cylindrical wheel scroll views',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Looping', camelTan, Colors.white),
-                tag('Infinite', sandstone, deepSienna),
-                tag('Modulo', oatmeal, deepSienna),
-                tag('Circular', parchment, deepSienna),
-              ]),
+              Wrap(
+                children: [
+                  tag('Looping', camelTan, Colors.white),
+                  tag('Infinite', sandstone, deepSienna),
+                  tag('Modulo', oatmeal, deepSienna),
+                  tag('Circular', parchment, deepSienna),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is ListWheelChildLoopingListDelegate',
-            'Wraps a finite list into an infinite scrolling wheel',
-            deepSienna, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is ListWheelChildLoopingListDelegate',
+          'Wraps a finite list into an infinite scrolling wheel',
+          deepSienna,
+          Colors.white,
+        ),
         noteBox(
           'ListWheelChildLoopingListDelegate takes a fixed list of child '
           'widgets and makes them repeat infinitely. As the user scrolls '
@@ -252,10 +286,18 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Basic creation ────────────────────────────────────────
-        sectionBanner('2 \u00b7 Basic Creation — Seasons',
-            'Four items that loop forever', warmBrown, Colors.white),
+        sectionBanner(
+          '2 \u00b7 Basic Creation — Seasons',
+          'Four items that loop forever',
+          warmBrown,
+          Colors.white,
+        ),
         dataRow('children.length', '${seasons.length}', deepSienna),
-        dataRow('estimatedChildCount', '${loopingDelegate.estimatedChildCount}', warmBrown),
+        dataRow(
+          'estimatedChildCount',
+          '${loopingDelegate.estimatedChildCount}',
+          warmBrown,
+        ),
         const SizedBox(height: 8),
         Container(
           height: 180,
@@ -281,24 +323,32 @@ dynamic build(BuildContext context) {
                       Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 2),
+                          horizontal: 12,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: season.$3,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: deepSienna.withValues(alpha: 0.15)),
+                            color: deepSienna.withValues(alpha: 0.15),
+                          ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(season.$1,
-                                style: const TextStyle(fontSize: 18)),
+                            Text(
+                              season.$1,
+                              style: const TextStyle(fontSize: 18),
+                            ),
                             const SizedBox(width: 10),
-                            Text(season.$2,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: deepSienna)),
+                            Text(
+                              season.$2,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: deepSienna,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -327,9 +377,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Build method with wrapping ────────────────────────────
-        sectionBanner('3 \u00b7 Build Method — Never Returns Null',
-            'Modulo arithmetic maps any index to a valid child',
-            camelTan, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Build Method — Never Returns Null',
+          'Modulo arithmetic maps any index to a valid child',
+          camelTan,
+          Colors.white,
+        ),
         noteBox(
           'Unlike the list delegate, the looping delegate\'s build() never '
           'returns null. For any integer index (positive, negative, huge), '
@@ -349,21 +402,38 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  SizedBox(width: 60, child: Text('Index',
+                  SizedBox(
+                    width: 60,
+                    child: Text(
+                      'Index',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: deepSienna))),
-                  SizedBox(width: 80, child: Text('index %% 4',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: deepSienna,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 80,
+                    child: Text(
+                      'index %% 4',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: deepSienna))),
-                  Expanded(child: Text('Result',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: deepSienna,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Result',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 11,
-                          color: deepSienna))),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: deepSienna,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const Divider(),
@@ -372,20 +442,34 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 1),
                   child: Row(
                     children: [
-                      SizedBox(width: 60, child: Text('$idx',
+                      SizedBox(
+                        width: 60,
+                        child: Text(
+                          '$idx',
                           style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: idx < 0 ? burntAmber : deepSienna))),
-                      SizedBox(width: 80, child: Text('${idx % 4}',
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: idx < 0 ? burntAmber : deepSienna,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          '${idx % 4}',
                           style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: camelTan))),
-                      Expanded(child: Text(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: camelTan,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
                           '${loopingDelegate.build(context, idx)}',
-                          style: TextStyle(
-                              fontSize: 12, color: deepSienna))),
+                          style: TextStyle(fontSize: 12, color: deepSienna),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -395,9 +479,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. trueIndexOf deep dive ─────────────────────────────────
-        sectionBanner('4 \u00b7 trueIndexOf — Unwrapping the True Position',
-            'Maps any scroll index back to the actual child index',
-            deepSienna, Colors.white),
+        sectionBanner(
+          '4 \u00b7 trueIndexOf — Unwrapping the True Position',
+          'Maps any scroll index back to the actual child index',
+          deepSienna,
+          Colors.white,
+        ),
         noteBox(
           'trueIndexOf uses modulo to map any index back to the range '
           '[0, children.length). This tells you which real child is being '
@@ -428,11 +515,22 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. shouldRebuild ─────────────────────────────────────────
-        sectionBanner('5 \u00b7 shouldRebuild — Same as List Delegate',
-            'Compares children list references',
-            warmBrown, Colors.white),
-        dataRow('Same list object', '${loopingDelegate.shouldRebuild(sameLooping)}', deepSienna),
-        dataRow('Different list', '${loopingDelegate.shouldRebuild(diffLooping)}', burntAmber),
+        sectionBanner(
+          '5 \u00b7 shouldRebuild — Same as List Delegate',
+          'Compares children list references',
+          warmBrown,
+          Colors.white,
+        ),
+        dataRow(
+          'Same list object',
+          '${loopingDelegate.shouldRebuild(sameLooping)}',
+          deepSienna,
+        ),
+        dataRow(
+          'Different list',
+          '${loopingDelegate.shouldRebuild(diffLooping)}',
+          burntAmber,
+        ),
         noteBox(
           'shouldRebuild works identically to ListWheelChildListDelegate — '
           'it compares children list references. Same list object → false '
@@ -443,9 +541,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Modulo math table ─────────────────────────────────────
-        sectionBanner('6 \u00b7 Modulo Arithmetic Visualized',
-            'How indices wrap for 4 children',
-            camelTan, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Modulo Arithmetic Visualized',
+          'How indices wrap for 4 children',
+          camelTan,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(10),
@@ -465,56 +566,69 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Scroll Index',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Scroll Index',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Real Index',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Real Index',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Season',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Season',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                 ],
               ),
               for (final i in [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7])
                 TableRow(
                   decoration: BoxDecoration(
-                    color: i >= 0 && i < 4
-                        ? parchment
-                        : ivory,
+                    color: i >= 0 && i < 4 ? parchment : ivory,
                   ),
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text('$i',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              fontWeight: i >= 0 && i < 4
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: i < 0 ? burntAmber : deepSienna)),
+                      child: Text(
+                        '$i',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          fontWeight: i >= 0 && i < 4
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: i < 0 ? burntAmber : deepSienna,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text('${i % 4}',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: camelTan)),
+                      child: Text(
+                        '${i % 4}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: camelTan,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
@@ -537,9 +651,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Clock selector ────────────────────────────────────────
-        sectionBanner('7 \u00b7 Clock Hour Selector',
-            'Classic circular selection — 12 hours looping forever',
-            deepSienna, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Clock Hour Selector',
+          'Classic circular selection — 12 hours looping forever',
+          deepSienna,
+          Colors.white,
+        ),
         Container(
           height: 200,
           decoration: BoxDecoration(
@@ -560,14 +677,17 @@ dynamic build(BuildContext context) {
                       Container(
                         alignment: Alignment.center,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 2),
+                          horizontal: 16,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: h <= 6
                               ? const Color(0xFFFFF8E1)
                               : const Color(0xFFE8EAF6),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              color: deepSienna.withValues(alpha: 0.15)),
+                            color: deepSienna.withValues(alpha: 0.15),
+                          ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -578,15 +698,19 @@ dynamic build(BuildContext context) {
                               color: h <= 6 ? goldenrod : deepSienna,
                             ),
                             const SizedBox(width: 12),
-                            Text('$h',
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: deepSienna)),
+                            Text(
+                              '$h',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: deepSienna,
+                              ),
+                            ),
                             const SizedBox(width: 6),
-                            Text("o'clock",
-                                style: TextStyle(
-                                    fontSize: 13, color: camelTan)),
+                            Text(
+                              "o'clock",
+                              style: TextStyle(fontSize: 13, color: camelTan),
+                            ),
                           ],
                         ),
                       ),
@@ -610,9 +734,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Compass wheel ─────────────────────────────────────────
-        sectionBanner('8 \u00b7 Compass Directions',
-            'Four cardinal + four ordinal directions looping',
-            warmBrown, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Compass Directions',
+          'Four cardinal + four ordinal directions looping',
+          warmBrown,
+          Colors.white,
+        ),
         Container(
           height: 180,
           decoration: BoxDecoration(
@@ -639,7 +766,9 @@ dynamic build(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 2),
+                      horizontal: 12,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: dir.$4 % 90 == 0 ? parchment : cream,
                       borderRadius: BorderRadius.circular(8),
@@ -651,31 +780,41 @@ dynamic build(BuildContext context) {
                           width: 36,
                           alignment: Alignment.center,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 2),
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: deepSienna,
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Text(dir.$1,
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
+                          child: Text(
+                            dir.$1,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                         const SizedBox(width: 8),
-                        Text(dir.$2,
-                            style: TextStyle(
-                                fontSize: 18, color: deepSienna)),
+                        Text(
+                          dir.$2,
+                          style: TextStyle(fontSize: 18, color: deepSienna),
+                        ),
                         const SizedBox(width: 8),
-                        Text(dir.$3,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: deepSienna,
-                                fontWeight: FontWeight.w500)),
+                        Text(
+                          dir.$3,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: deepSienna,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         const SizedBox(width: 8),
-                        Text('${dir.$4}\u00b0',
-                            style: TextStyle(
-                                fontSize: 11, color: sandstone)),
+                        Text(
+                          '${dir.$4}\u00b0',
+                          style: TextStyle(fontSize: 11, color: sandstone),
+                        ),
                       ],
                     ),
                   ),
@@ -686,9 +825,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Comparison with list ─────────────────────────────────
-        sectionBanner('9 \u00b7 Looping vs List Delegate',
-            'Side-by-side comparison of behaviors',
-            camelTan, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Looping vs List Delegate',
+          'Side-by-side comparison of behaviors',
+          camelTan,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -708,27 +850,36 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Aspect',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Aspect',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('ListDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'ListDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('LoopingDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'LoopingDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -744,21 +895,28 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              color: deepSienna)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: deepSienna,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(fontSize: 11, color: deepSienna)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 11, color: deepSienna),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(fontSize: 11, color: deepSienna)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 11, color: deepSienna),
+                      ),
                     ),
                   ],
                 ),
@@ -768,9 +926,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Planet scale ─────────────────────────────────────────
-        sectionBanner('10 \u00b7 Solar System Wheel',
-            'Looping through planets endlessly',
-            deepSienna, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Solar System Wheel',
+          'Looping through planets endlessly',
+          deepSienna,
+          Colors.white,
+        ),
         Container(
           height: 180,
           decoration: BoxDecoration(
@@ -801,25 +962,32 @@ dynamic build(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 2),
+                      horizontal: 20,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: planet.$3.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                          color: planet.$3.withValues(alpha: 0.4)),
+                        color: planet.$3.withValues(alpha: 0.4),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(planet.$1,
-                            style: TextStyle(
-                                fontSize: 20, color: planet.$3)),
+                        Text(
+                          planet.$1,
+                          style: TextStyle(fontSize: 20, color: planet.$3),
+                        ),
                         const SizedBox(width: 12),
-                        Text(planet.$2,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white)),
+                        Text(
+                          planet.$2,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -830,9 +998,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Real-world pattern ───────────────────────────────────
-        sectionBanner('11 \u00b7 Real-world: Month-Year Picker',
-            'Classic pattern: looping months with static year',
-            warmBrown, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Real-world: Month-Year Picker',
+          'Classic pattern: looping months with static year',
+          warmBrown,
+          Colors.white,
+        ),
         noteBox(
           'Date/time pickers are the quintessential use case for the '
           'looping delegate. Months (12 items) and hours (12/24 items) '
@@ -855,23 +1026,37 @@ dynamic build(BuildContext context) {
             childDelegate: ListWheelChildLoopingListDelegate(
               children: [
                 for (final month in [
-                  'January', 'February', 'March', 'April',
-                  'May', 'June', 'July', 'August',
-                  'September', 'October', 'November', 'December',
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
                 ])
                   Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 2),
+                      horizontal: 20,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: parchment,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(month,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: deepSienna)),
+                    child: Text(
+                      month,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: deepSienna,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -880,8 +1065,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. When to use ──────────────────────────────────────────
-        sectionBanner('12 \u00b7 When to Choose Looping',
-            'Decision framework', deepSienna, Colors.white),
+        sectionBanner(
+          '12 \u00b7 When to Choose Looping',
+          'Decision framework',
+          deepSienna,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -910,31 +1099,35 @@ dynamic build(BuildContext context) {
                         height: 24,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: scenario.$3
-                              ? deepSienna
-                              : sandstone,
+                          color: scenario.$3 ? deepSienna : sandstone,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
                           scenario.$3 ? '\u2713' : '\u2717',
                           style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
                       SizedBox(
                         width: 130,
-                        child: Text(scenario.$1,
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                                color: deepSienna)),
+                        child: Text(
+                          scenario.$1,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: deepSienna,
+                          ),
+                        ),
                       ),
-                      tag(scenario.$2,
-                          scenario.$3 ? parchment : cream,
-                          deepSienna),
+                      tag(
+                        scenario.$2,
+                        scenario.$3 ? parchment : cream,
+                        deepSienna,
+                      ),
                     ],
                   ),
                 ),
@@ -944,8 +1137,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Inheritance hierarchy ────────────────────────────────
-        sectionBanner('13 \u00b7 Inheritance Hierarchy',
-            'Class relationships', sandstone, deepSienna),
+        sectionBanner(
+          '13 \u00b7 Inheritance Hierarchy',
+          'Class relationships',
+          sandstone,
+          deepSienna,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -965,16 +1162,17 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(line,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: line.contains('\u2605')
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: line.contains('\u2605')
-                              ? deepSienna
-                              : warmBrown)),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: line.contains('\u2605')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: line.contains('\u2605') ? deepSienna : warmBrown,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -982,8 +1180,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Performance notes ────────────────────────────────────
-        sectionBanner('14 \u00b7 Performance Considerations',
-            'Memory and rebuild behavior', warmBrown, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Performance Considerations',
+          'Memory and rebuild behavior',
+          warmBrown,
+          Colors.white,
+        ),
         noteBox(
           'Despite infinite scrolling, memory usage matches the list '
           'delegate — only the actual children list is stored. The modulo '
@@ -999,8 +1201,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepSienna, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepSienna,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1030,15 +1236,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: goldenrod,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: goldenrod,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

@@ -172,8 +172,10 @@ const TextStyle _kTableBodyStyle = TextStyle(
   height: 1.4,
 );
 const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
-const EdgeInsets _kCardMargin =
-    EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0);
+const EdgeInsets _kCardMargin = EdgeInsets.symmetric(
+  horizontal: 18.0,
+  vertical: 6.0,
+);
 const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 
 // ---------------------------------------------------------------------------
@@ -185,8 +187,12 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // ---------------------------------------------------------------------------
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding:
-        const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -382,8 +388,10 @@ Widget _variantTile({
   Color background = _kCardBg,
   Color labelColour = _kInkSecondary,
   double height = 64.0,
-  EdgeInsets innerPadding =
-      const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
+  EdgeInsets innerPadding = const EdgeInsets.symmetric(
+    horizontal: 12.0,
+    vertical: 14.0,
+  ),
 }) {
   return Container(
     margin: const EdgeInsets.all(6.0),
@@ -426,10 +434,7 @@ Widget _bullet(String text, {Color dotColour = _kPrimary}) {
           child: Container(
             width: 6.0,
             height: 6.0,
-            decoration: BoxDecoration(
-              color: dotColour,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColour, shape: BoxShape.circle),
           ),
         ),
         Expanded(child: Text(text, style: _kBodyStyle)),
@@ -551,29 +556,25 @@ Widget _apiTableHeader() {
     ),
     child: Row(
       children: const <Widget>[
-        SizedBox(
-          width: 170.0,
-          child: Text('Field', style: _kTableHeaderStyle),
-        ),
-        SizedBox(
-          width: 150.0,
-          child: Text('Type', style: _kTableHeaderStyle),
-        ),
+        SizedBox(width: 170.0, child: Text('Field', style: _kTableHeaderStyle)),
+        SizedBox(width: 150.0, child: Text('Type', style: _kTableHeaderStyle)),
         Expanded(child: Text('Description', style: _kTableHeaderStyle)),
       ],
     ),
   );
 }
 
-Widget _apiTableRow(String field, String type, String description,
-    {bool alt = false}) {
+Widget _apiTableRow(
+  String field,
+  String type,
+  String description, {
+  bool alt = false,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9.0),
     decoration: BoxDecoration(
       color: alt ? _kCardSoft : _kCardBg,
-      border: const Border(
-        bottom: BorderSide(color: _kHairline),
-      ),
+      border: const Border(bottom: BorderSide(color: _kHairline)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -634,9 +635,7 @@ Widget _compareRow(List<String> cells, {bool alt = false}) {
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9.0),
     decoration: BoxDecoration(
       color: alt ? _kCardSoft : _kCardBg,
-      border: const Border(
-        bottom: BorderSide(color: _kHairline),
-      ),
+      border: const Border(bottom: BorderSide(color: _kHairline)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -727,10 +726,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF6750A4),
-          Color(0xFF7D5260),
-        ],
+        colors: <Color>[Color(0xFF6750A4), Color(0xFF7D5260)],
       ),
       borderRadius: BorderRadius.circular(22.0),
       boxShadow: const <BoxShadow>[
@@ -746,8 +742,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.view_module_outlined,
-                color: Color(0xFFFFFFFF), size: 32.0),
+            Icon(
+              Icons.view_module_outlined,
+              color: Color(0xFFFFFFFF),
+              size: 32.0,
+            ),
             SizedBox(width: 12.0),
             Text('SegmentedButton', style: _kHeroTitle),
           ],
@@ -821,8 +820,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         Row(
           children: const <Widget>[
-            Icon(Icons.lightbulb_outline,
-                color: Color(0xFFFFFFFF), size: 18.0),
+            Icon(Icons.lightbulb_outline, color: Color(0xFFFFFFFF), size: 18.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1062,7 +1060,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Single-selection gallery',
-          subtitle: 'Five variants - two through five segments, with and '
+          subtitle:
+              'Five variants - two through five segments, with and '
               'without icons.',
           icon: Icons.radio_button_checked,
         ),
@@ -1077,15 +1076,14 @@ dynamic build(BuildContext context) {
               label: '4 + icons',
               height: 72.0,
             ),
-            _variantTile(
-              child: singleIconsOnly,
-              label: 'icon only',
-            ),
+            _variantTile(child: singleIconsOnly, label: 'icon only'),
             _variantTile(
               child: singleFiveLong,
               label: '5 long labels',
-              innerPadding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
+              innerPadding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 18.0,
+              ),
             ),
           ],
         ),
@@ -1169,7 +1167,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Multi-selection gallery',
-          subtitle: 'multiSelectionEnabled flips each tap from "replace" to '
+          subtitle:
+              'multiSelectionEnabled flips each tap from "replace" to '
               '"toggle". emptySelectionAllowed lets the user clear out.',
           icon: Icons.check_box_outlined,
         ),
@@ -1181,8 +1180,10 @@ dynamic build(BuildContext context) {
             _variantTile(
               child: multiAll,
               label: 'all selected',
-              innerPadding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
+              innerPadding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 18.0,
+              ),
             ),
             _variantTile(child: multiEmpty, label: 'none selected'),
             _variantTile(
@@ -1350,11 +1351,7 @@ dynamic build(BuildContext context) {
   final Widget disabledMiddle = SegmentedButton<String>(
     segments: const <ButtonSegment<String>>[
       ButtonSegment<String>(value: 'a', label: Text('Auto')),
-      ButtonSegment<String>(
-        value: 'b',
-        label: Text('Manual'),
-        enabled: false,
-      ),
+      ButtonSegment<String>(value: 'b', label: Text('Manual'), enabled: false),
       ButtonSegment<String>(value: 'c', label: Text('Off')),
     ],
     selected: const <String>{'a'},
@@ -1365,16 +1362,8 @@ dynamic build(BuildContext context) {
     segments: const <ButtonSegment<String>>[
       ButtonSegment<String>(value: 'tiny', label: Text('XS')),
       ButtonSegment<String>(value: 'small', label: Text('S')),
-      ButtonSegment<String>(
-        value: 'medium',
-        label: Text('M'),
-        enabled: false,
-      ),
-      ButtonSegment<String>(
-        value: 'large',
-        label: Text('L'),
-        enabled: false,
-      ),
+      ButtonSegment<String>(value: 'medium', label: Text('M'), enabled: false),
+      ButtonSegment<String>(value: 'large', label: Text('L'), enabled: false),
     ],
     selected: const <String>{'small'},
     onSelectionChanged: (_) {},
@@ -1396,23 +1385,30 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Disabled segments & disabled buttons',
-          subtitle: 'ButtonSegment.enabled false greys a single segment. '
+          subtitle:
+              'ButtonSegment.enabled false greys a single segment. '
               'onSelectionChanged: null disables the whole bar.',
           icon: Icons.block_outlined,
         ),
         const SizedBox(height: 14.0),
-        Text('Single disabled segment (middle)',
-            style: _kCaptionStyle.copyWith(color: _kInkSecondary)),
+        Text(
+          'Single disabled segment (middle)',
+          style: _kCaptionStyle.copyWith(color: _kInkSecondary),
+        ),
         const SizedBox(height: 8.0),
         Align(alignment: Alignment.centerLeft, child: disabledMiddle),
         const SizedBox(height: 16.0),
-        Text('Mixed - two of four disabled',
-            style: _kCaptionStyle.copyWith(color: _kInkSecondary)),
+        Text(
+          'Mixed - two of four disabled',
+          style: _kCaptionStyle.copyWith(color: _kInkSecondary),
+        ),
         const SizedBox(height: 8.0),
         Align(alignment: Alignment.centerLeft, child: disabledMixed),
         const SizedBox(height: 16.0),
-        Text('Whole button disabled (onSelectionChanged: null)',
-            style: _kCaptionStyle.copyWith(color: _kInkSecondary)),
+        Text(
+          'Whole button disabled (onSelectionChanged: null)',
+          style: _kCaptionStyle.copyWith(color: _kInkSecondary),
+        ),
         const SizedBox(height: 8.0),
         Align(alignment: Alignment.centerLeft, child: disabledWhole),
         const SizedBox(height: 14.0),
@@ -1483,7 +1479,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'direction: Axis.vertical',
-          subtitle: 'Reflows the segments into a column. Handy in narrow '
+          subtitle:
+              'Reflows the segments into a column. Handy in narrow '
               'sidebars or as a sub-nav.',
           icon: Icons.swap_vert,
         ),
@@ -1683,7 +1680,8 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 12.0),
           child: _cardTitle(
             'Cousins of SegmentedButton',
-            subtitle: 'Choosing between five widgets that all "look kind of '
+            subtitle:
+                'Choosing between five widgets that all "look kind of '
                 'like a segmented bar".',
             icon: Icons.compare_arrows_outlined,
           ),
@@ -1695,30 +1693,24 @@ dynamic build(BuildContext context) {
           'Default choice in Material 3 apps. Single or multi, 2-5 options, '
               'optional icons, themeable.',
         ]),
-        _compareRow(
-          const <String>[
-            'ToggleButtons',
-            'flutter/material (M2)',
-            'Legacy. Manual rendering of selected indices; lacks built-in '
-                'multi/single mode toggle. Prefer SegmentedButton in new code.',
-          ],
-          alt: true,
-        ),
+        _compareRow(const <String>[
+          'ToggleButtons',
+          'flutter/material (M2)',
+          'Legacy. Manual rendering of selected indices; lacks built-in '
+              'multi/single mode toggle. Prefer SegmentedButton in new code.',
+        ], alt: true),
         _compareRow(const <String>[
           'CupertinoSegmentedControl',
           'flutter/cupertino',
           'iOS pre-13 look (pill background). Best for iOS apps that want '
               'the classic UISegmentedControl appearance.',
         ]),
-        _compareRow(
-          const <String>[
-            'CupertinoSlidingSegmentedControl',
-            'flutter/cupertino',
-            'iOS 13+ look (sliding thumb). The default segmented control '
-                'on modern iOS surfaces.',
-          ],
-          alt: true,
-        ),
+        _compareRow(const <String>[
+          'CupertinoSlidingSegmentedControl',
+          'flutter/cupertino',
+          'iOS 13+ look (sliding thumb). The default segmented control '
+              'on modern iOS surfaces.',
+        ], alt: true),
         _compareRow(const <String>[
           'ChoiceChip / FilterChip',
           'flutter/material',
@@ -1745,7 +1737,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'Pitfalls and common mistakes',
-          subtitle: 'Six rough edges to watch out for when adopting '
+          subtitle:
+              'Six rough edges to watch out for when adopting '
               'SegmentedButton.',
           icon: Icons.warning_amber_outlined,
         ),
@@ -1829,51 +1822,35 @@ dynamic build(BuildContext context) {
           icon: Icons.bookmark_outline,
         ),
         const SizedBox(height: 8.0),
-        _chipGroup(
-          'WIDGETS',
-          const <String>[
-            'SegmentedButton<T>',
-            'ButtonSegment<T>',
-            'SegmentedButtonTheme',
-            'SegmentedButtonThemeData',
-          ],
-          _kPrimary,
-        ),
-        _chipGroup(
-          'SEGMENT FIELDS',
-          const <String>[
-            'value',
-            'label',
-            'icon',
-            'tooltip',
-            'enabled',
-          ],
-          _kSecondary,
-        ),
-        _chipGroup(
-          'THEME / STYLE',
-          const <String>[
-            'foregroundColor',
-            'backgroundColor',
-            'side',
-            'textStyle',
-            'padding',
-            'shape',
-          ],
-          _kTertiary,
-        ),
-        _chipGroup(
-          'RELATED',
-          const <String>[
-            'ToggleButtons',
-            'CupertinoSegmentedControl',
-            'CupertinoSlidingSegmentedControl',
-            'ChoiceChip',
-            'FilterChip',
-            'DropdownButton',
-          ],
-          _kInfo,
-        ),
+        _chipGroup('WIDGETS', const <String>[
+          'SegmentedButton<T>',
+          'ButtonSegment<T>',
+          'SegmentedButtonTheme',
+          'SegmentedButtonThemeData',
+        ], _kPrimary),
+        _chipGroup('SEGMENT FIELDS', const <String>[
+          'value',
+          'label',
+          'icon',
+          'tooltip',
+          'enabled',
+        ], _kSecondary),
+        _chipGroup('THEME / STYLE', const <String>[
+          'foregroundColor',
+          'backgroundColor',
+          'side',
+          'textStyle',
+          'padding',
+          'shape',
+        ], _kTertiary),
+        _chipGroup('RELATED', const <String>[
+          'ToggleButtons',
+          'CupertinoSegmentedControl',
+          'CupertinoSlidingSegmentedControl',
+          'ChoiceChip',
+          'FilterChip',
+          'DropdownButton',
+        ], _kInfo),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(14.0),
@@ -1885,8 +1862,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: const <Widget>[
-              Icon(Icons.auto_awesome,
-                  color: Color(0xFFFFFFFF), size: 18.0),
+              Icon(Icons.auto_awesome, color: Color(0xFFFFFFFF), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1971,10 +1947,7 @@ dynamic build(BuildContext context) {
         elevation: 0.0,
         title: const Text(
           'SegmentedButton',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.2,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: -0.2),
         ),
         actions: const <Widget>[
           Padding(

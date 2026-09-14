@@ -77,11 +77,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(24.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0B1E3F),
-          Color(0xFF1E3A8A),
-          Color(0xFF312E81),
-        ],
+        colors: [Color(0xFF0B1E3F), Color(0xFF1E3A8A), Color(0xFF312E81)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -120,11 +116,7 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.public,
-                color: Colors.white,
-                size: 40.0,
-              ),
+              child: Icon(Icons.public, color: Colors.white, size: 40.0),
             ),
             SizedBox(width: 18.0),
             Expanded(
@@ -282,7 +274,9 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8.0),
-              _equationLine('x(t)  =  d + v\u00B7t + \u00BD\u00B7a\u00B7t\u00B2'),
+              _equationLine(
+                'x(t)  =  d + v\u00B7t + \u00BD\u00B7a\u00B7t\u00B2',
+              ),
               SizedBox(height: 4.0),
               _equationLine('dx(t) =  v + a\u00B7t'),
               SizedBox(height: 4.0),
@@ -369,7 +363,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'Parabola opens "downward" in screen space because acceleration '
-              'pushes x from 0 toward endDistance.',
+          'pushes x from 0 toward endDistance.',
           style: TextStyle(
             fontSize: 11.0,
             color: Colors.indigo.shade700,
@@ -408,10 +402,7 @@ dynamic build(BuildContext context) {
                 top: 4.0,
                 child: Text(
                   'x = 0',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
                 ),
               ),
               Positioned(
@@ -419,10 +410,7 @@ dynamic build(BuildContext context) {
                 bottom: 4.0,
                 child: Text(
                   't = 5 s',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
                 ),
               ),
             ],
@@ -449,8 +437,8 @@ dynamic build(BuildContext context) {
     final t = (i / (samples - 1)) * totalTime;
     final v = towerSim.dx(t);
     final px = (i / (samples - 1)) * (graphWidth - dotSize);
-    final py = (graphHeight - dotSize) -
-        (v.abs() / maxV) * (graphHeight - dotSize);
+    final py =
+        (graphHeight - dotSize) - (v.abs() / maxV) * (graphHeight - dotSize);
     velocityDots.add(
       Positioned(
         left: px,
@@ -505,7 +493,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'A straight line whose slope is the constant acceleration. '
-              'The integral underneath equals the total displacement.',
+          'The integral underneath equals the total displacement.',
           style: TextStyle(
             fontSize: 11.0,
             color: Colors.teal.shade700,
@@ -543,10 +531,7 @@ dynamic build(BuildContext context) {
                 bottom: 4.0,
                 child: Text(
                   'v = 0',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
                 ),
               ),
               Positioned(
@@ -554,10 +539,7 @@ dynamic build(BuildContext context) {
                 top: 4.0,
                 child: Text(
                   'v = ${towerSim.dx(totalTime).toStringAsFixed(1)} m/s',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
                 ),
               ),
             ],
@@ -596,10 +578,7 @@ dynamic build(BuildContext context) {
         child: Container(
           width: dotSize,
           height: dotSize,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
-          ),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
         ),
       ),
     );
@@ -613,10 +592,7 @@ dynamic build(BuildContext context) {
       left: 0.0,
       right: 0.0,
       top: (100.0 / 150.0) * (graphHeight - dotSize),
-      child: Container(
-        height: 2.0,
-        color: Colors.red.shade300,
-      ),
+      child: Container(height: 2.0, color: Colors.red.shade300),
     ),
   );
 
@@ -655,7 +631,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'Blue dots: still in flight. Red dots: simulation has completed. '
-              'The horizontal stripe is x = endDistance.',
+          'The horizontal stripe is x = endDistance.',
           style: TextStyle(
             fontSize: 11.0,
             color: Colors.red.shade700,
@@ -809,11 +785,7 @@ dynamic build(BuildContext context) {
               'damped harmonic motion',
               Colors.green,
             ),
-            _classNode(
-              'FrictionSimulation',
-              'exponential decay',
-              Colors.brown,
-            ),
+            _classNode('FrictionSimulation', 'exponential decay', Colors.brown),
             _classNode(
               'BouncingScrollSimulation',
               'overscroll + spring',
@@ -886,8 +858,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.precision_manufacturing,
-                color: Colors.green.shade800, size: 22.0),
+            Icon(
+              Icons.precision_manufacturing,
+              color: Colors.green.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Tolerance --- when "good enough" is good enough',
@@ -1090,7 +1065,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         Text(
           'Bronze ball positions sampled every 0.5 s; spacing widens '
-              'quadratically --- the signature fingerprint of constant a.',
+          'quadratically --- the signature fingerprint of constant a.',
           style: TextStyle(
             fontSize: 11.0,
             fontStyle: FontStyle.italic,
@@ -1124,10 +1099,7 @@ dynamic build(BuildContext context) {
                 bottom: 6.0,
                 child: Text(
                   'Numbers are tick indices (t = i \u00B7 0.5 s)',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.brown.shade600,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.brown.shade600),
                 ),
               ),
             ],
@@ -1253,27 +1225,27 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _bullet(
           'GravitySimulation is the simplest concrete Simulation: pure '
-              'constant acceleration with closed-form x(t) and dx(t).',
+          'constant acceleration with closed-form x(t) and dx(t).',
         ),
         _bullet(
           'Constructor order is (acceleration, distance, endDistance, '
-              'velocity) --- easy to swap accidentally; keep parameters named '
-              'in your own helpers when possible.',
+          'velocity) --- easy to swap accidentally; keep parameters named '
+          'in your own helpers when possible.',
         ),
         _bullet(
           'isDone(t) compares x(t) to endDistance; once true the controller '
-              'stops calling x(t) further --- no manual stopping needed.',
+          'stops calling x(t) further --- no manual stopping needed.',
         ),
         _bullet(
           'Reach for SpringSimulation when you need overshoot, '
-              'FrictionSimulation when you need exponential decay, and '
-              'gravity when you literally mean "drop something".',
+          'FrictionSimulation when you need exponential decay, and '
+          'gravity when you literally mean "drop something".',
         ),
         _bullet(
           'Scroll physics (BouncingScrollSimulation, '
-              'ClampingScrollSimulation) compose Simulations internally; '
-              'GravitySimulation is rarely used directly inside ScrollPhysics, '
-              'but it is the easiest stand-in for ballistic learning code.',
+          'ClampingScrollSimulation) compose Simulations internally; '
+          'GravitySimulation is rarely used directly inside ScrollPhysics, '
+          'but it is the easiest stand-in for ballistic learning code.',
         ),
       ],
     ),
@@ -1423,10 +1395,7 @@ Widget _paramCard(
           ],
         ),
         SizedBox(height: 6.0),
-        Text(
-          description,
-          style: TextStyle(fontSize: 11.0, height: 1.35),
-        ),
+        Text(description, style: TextStyle(fontSize: 11.0, height: 1.35)),
       ],
     ),
   );
@@ -1568,10 +1537,7 @@ Widget _miniTrajectoryCard({
         child: Container(
           width: dot,
           height: dot,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
-          ),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
         ),
       ),
     );
@@ -1591,10 +1557,7 @@ Widget _miniTrajectoryCard({
           color: color,
           border: Border.all(color: Colors.white, width: 2.0),
           boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.5),
-              blurRadius: 4.0,
-            ),
+            BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 4.0),
           ],
         ),
       ),
@@ -1683,8 +1646,12 @@ Widget _miniStat(String label, double value, Color color) {
   );
 }
 
-Widget _classNode(String name, String description, Color color,
-    {bool isAbstract = false}) {
+Widget _classNode(
+  String name,
+  String description,
+  Color color, {
+  bool isAbstract = false,
+}) {
   return Container(
     width: 170.0,
     padding: EdgeInsets.all(10.0),
@@ -1741,10 +1708,7 @@ Widget _classNode(String name, String description, Color color,
         SizedBox(height: 4.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 10.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
           textAlign: TextAlign.center,
         ),
       ],
@@ -1758,14 +1722,9 @@ Widget _treeBranch() {
     child: Column(
       children: [
         Container(width: 2.0, height: 16.0, color: Colors.deepPurple.shade300),
-        Container(
-          width: 220.0,
-          height: 2.0,
-          color: Colors.deepPurple.shade300,
-        ),
+        Container(width: 220.0, height: 2.0, color: Colors.deepPurple.shade300),
         SizedBox(height: 6.0),
-        Icon(Icons.expand_more,
-            color: Colors.deepPurple.shade400, size: 18.0),
+        Icon(Icons.expand_more, color: Colors.deepPurple.shade400, size: 18.0),
       ],
     ),
   );
@@ -1793,10 +1752,7 @@ Widget _tolerancePill(String label, double value, String unit) {
         SizedBox(width: 6.0),
         Text(
           '$label = ',
-          style: TextStyle(
-            fontSize: 11.0,
-            color: Colors.green.shade900,
-          ),
+          style: TextStyle(fontSize: 11.0, color: Colors.green.shade900),
         ),
         Text(
           value.toString(),
@@ -1831,9 +1787,7 @@ Widget _comparisonRow(
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Colors.grey.shade200),
-      ),
+      border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
     ),
     child: Row(
       children: [
@@ -1857,12 +1811,7 @@ Widget _comparisonRow(
             ),
           ),
         ),
-        Expanded(
-          child: Text(
-            description,
-            style: TextStyle(fontSize: 11.0),
-          ),
-        ),
+        Expanded(child: Text(description, style: TextStyle(fontSize: 11.0))),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
           decoration: BoxDecoration(
@@ -1911,21 +1860,13 @@ Widget _bullet(String text) {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 4.0),
-          child: Icon(
-            Icons.circle,
-            size: 8.0,
-            color: Colors.amber.shade200,
-          ),
+          child: Icon(Icons.circle, size: 8.0, color: Colors.amber.shade200),
         ),
         SizedBox(width: 8.0),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.0,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.45),
           ),
         ),
       ],

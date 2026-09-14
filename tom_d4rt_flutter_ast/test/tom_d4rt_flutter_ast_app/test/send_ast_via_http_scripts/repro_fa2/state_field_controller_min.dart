@@ -10,10 +10,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: const _Page(),
-  );
+  return MaterialApp(debugShowCheckedModeBanner: false, home: const _Page());
 }
 
 class _Page extends StatefulWidget {
@@ -29,10 +26,7 @@ class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: 420,
-        child: _Pass(controller: _ctl),
-      ),
+      body: SizedBox(height: 420, child: _Pass(controller: _ctl)),
     );
   }
 }
@@ -46,10 +40,8 @@ class _Pass extends StatelessWidget {
     return ListView.builder(
       controller: controller,
       itemCount: 50,
-      itemBuilder: (BuildContext c, int i) => SizedBox(
-        height: 40,
-        child: Center(child: Text('$i')),
-      ),
+      itemBuilder: (BuildContext c, int i) =>
+          SizedBox(height: 40, child: Center(child: Text('$i'))),
     );
   }
 }

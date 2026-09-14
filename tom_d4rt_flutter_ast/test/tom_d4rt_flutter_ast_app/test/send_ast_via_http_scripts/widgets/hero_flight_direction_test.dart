@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flight_takeoff,
       'title': 'Directional Hero Animations',
-      'body': 'HeroFlightDirection is an enum with two values: '
+      'body':
+          'HeroFlightDirection is an enum with two values: '
           'push and pop. It tells the Hero animation system which '
           'direction the flight is going — forward (push) to a new '
           'route, or backward (pop) returning to the previous route. '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Push vs Pop',
-      'body': 'When Navigator.push() is called, the hero flies from '
+      'body':
+          'When Navigator.push() is called, the hero flies from '
           'the "from" route to the "to" route with direction=push. '
           'When Navigator.pop() triggers, the same hero flies back '
           'with direction=pop. The framework passes this direction '
@@ -40,7 +42,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Hero Overlay',
-      'body': 'During a hero flight, the framework removes the hero '
+      'body':
+          'During a hero flight, the framework removes the hero '
           'widget from both routes and places a "shuttle" widget on '
           'a special OverlayEntry above the route transitions. This '
           'shuttle animates from the source hero\'s position/size to '
@@ -51,7 +54,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Part of HeroFlightManifest',
-      'body': 'Internally, the framework creates a _HeroFlight that '
+      'body':
+          'Internally, the framework creates a _HeroFlight that '
           'carries a manifest with: hero tag, fromHero, toHero, '
           'createRectTween, shuttleBuilder, and the direction. '
           'All these work together to produce the flight animation '
@@ -74,11 +78,13 @@ dynamic build(BuildContext context) {
       'color': Colors.indigo[700]!,
       'bgColor': Colors.indigo[50]!,
       'meaning': 'Navigation is going FORWARD',
-      'trigger': 'Navigator.push(), Navigator.pushNamed(), '
+      'trigger':
+          'Navigator.push(), Navigator.pushNamed(), '
           'Navigator.pushReplacement()',
       'fromRoute': 'Current route (visible)',
       'toRoute': 'New route (being pushed)',
-      'heroFlight': 'Hero flies from its position on the current '
+      'heroFlight':
+          'Hero flies from its position on the current '
           'route to its position on the new route',
       'animation': 'Typically: grow, expand, rise',
     },
@@ -91,7 +97,8 @@ dynamic build(BuildContext context) {
       'trigger': 'Navigator.pop(), back button, system back gesture',
       'fromRoute': 'Current route (being popped)',
       'toRoute': 'Previous route (being revealed)',
-      'heroFlight': 'Hero flies from its position on the current '
+      'heroFlight':
+          'Hero flies from its position on the current '
           'route back to its position on the previous route',
       'animation': 'Typically: shrink, contract, settle',
     },
@@ -110,7 +117,8 @@ dynamic build(BuildContext context) {
       'title': 'Route Transition Starts',
       'icon': Icons.play_arrow,
       'color': Colors.indigo[800]!,
-      'description': 'Navigator.push() or Navigator.pop() is called. '
+      'description':
+          'Navigator.push() or Navigator.pop() is called. '
           'The framework begins the route transition animation '
           'controller (typically 300ms).',
     },
@@ -119,7 +127,8 @@ dynamic build(BuildContext context) {
       'title': 'Hero Matching',
       'icon': Icons.link,
       'color': Colors.indigo[700]!,
-      'description': 'The framework scans both routes for Hero widgets '
+      'description':
+          'The framework scans both routes for Hero widgets '
           'with matching tags. For each match, it prepares a hero '
           'flight. Non-matching heroes are ignored.',
     },
@@ -128,7 +137,8 @@ dynamic build(BuildContext context) {
       'title': 'Flight Direction Set',
       'icon': Icons.compare_arrows,
       'color': Colors.blue[700]!,
-      'description': 'The direction is set: push for forward nav, '
+      'description':
+          'The direction is set: push for forward nav, '
           'pop for backward. This is the moment HeroFlightDirection '
           'becomes relevant — it\'s stored in the flight manifest.',
     },
@@ -137,7 +147,8 @@ dynamic build(BuildContext context) {
       'title': 'Shuttle Creation',
       'icon': Icons.flight,
       'color': Colors.blue[600]!,
-      'description': 'For each matched pair, the framework creates a '
+      'description':
+          'For each matched pair, the framework creates a '
           'shuttle widget via flightShuttleBuilder (or uses the '
           'default). The shuttle receives the direction, animation, '
           'and hero sizes. Heroes are hidden on both routes.',
@@ -147,7 +158,8 @@ dynamic build(BuildContext context) {
       'title': 'Overlay Flight',
       'icon': Icons.layers,
       'color': Colors.indigo[600]!,
-      'description': 'The shuttle widget is placed on the Navigator\'s '
+      'description':
+          'The shuttle widget is placed on the Navigator\'s '
           'overlay. It animates from fromHeroLocation to '
           'toHeroLocation using a RectTween. The direction '
           'determines which hero is "from" and which is "to".',
@@ -157,7 +169,8 @@ dynamic build(BuildContext context) {
       'title': 'Flight Completes',
       'icon': Icons.check_circle,
       'color': Colors.indigo[500]!,
-      'description': 'When the route transition animation completes, '
+      'description':
+          'When the route transition animation completes, '
           'the shuttle is removed from the overlay. The destination '
           'hero becomes visible again in its route. State is '
           'preserved on the hero widget.',
@@ -177,7 +190,8 @@ dynamic build(BuildContext context) {
       'type': 'BuildContext',
       'icon': Icons.web,
       'color': Colors.indigo[700]!,
-      'description': 'The BuildContext of the shuttle widget in '
+      'description':
+          'The BuildContext of the shuttle widget in '
           'the overlay. Not the context of either route — it\'s '
           'a new context on the overlay layer.',
     },
@@ -186,7 +200,8 @@ dynamic build(BuildContext context) {
       'type': 'Animation<double>',
       'icon': Icons.animation,
       'color': Colors.blue[700]!,
-      'description': 'The route transition animation (0.0 → 1.0). '
+      'description':
+          'The route transition animation (0.0 → 1.0). '
           'Use this to animate properties like opacity, scale, '
           'or rotation during the flight. At 0.0 the hero is at '
           'its starting position, at 1.0 it\'s at the destination.',
@@ -196,7 +211,8 @@ dynamic build(BuildContext context) {
       'type': 'HeroFlightDirection',
       'icon': Icons.compare_arrows,
       'color': Colors.indigo[600]!,
-      'description': 'The direction of the flight — push or pop. '
+      'description':
+          'The direction of the flight — push or pop. '
           'Use this to vary the shuttle widget based on direction. '
           'For example: fade in during push, scale down during pop.',
     },
@@ -205,7 +221,8 @@ dynamic build(BuildContext context) {
       'type': 'BuildContext',
       'icon': Icons.arrow_back,
       'color': Colors.blue[600]!,
-      'description': 'The BuildContext of the source hero widget '
+      'description':
+          'The BuildContext of the source hero widget '
           '(where the flight starts). Useful for reading inherited '
           'widgets or getting the fromHero\'s child widget.',
     },
@@ -214,7 +231,8 @@ dynamic build(BuildContext context) {
       'type': 'BuildContext',
       'icon': Icons.arrow_forward,
       'color': Colors.indigo[500]!,
-      'description': 'The BuildContext of the destination hero '
+      'description':
+          'The BuildContext of the destination hero '
           'widget (where the flight ends). Same uses as '
           'fromHeroContext but for the target.',
     },
@@ -232,9 +250,11 @@ dynamic build(BuildContext context) {
       'name': 'Opacity Fade',
       'icon': Icons.opacity,
       'color': Colors.indigo[700]!,
-      'description': 'Fade in the toHero\'s child during push, '
+      'description':
+          'Fade in the toHero\'s child during push, '
           'fade out during pop. Gives a smooth visual transition.',
-      'code': 'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
+      'code':
+          'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
           '  final child = dir == HeroFlightDirection.push\n'
           '    ? to.widget  // Show destination on push\n'
           '    : from.widget;  // Show source on pop\n'
@@ -248,9 +268,11 @@ dynamic build(BuildContext context) {
       'name': 'Scale Transform',
       'icon': Icons.zoom_in,
       'color': Colors.blue[700]!,
-      'description': 'Scale up during push (growing into detail), '
+      'description':
+          'Scale up during push (growing into detail), '
           'scale down during pop (shrinking back to thumbnail).',
-      'code': 'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
+      'code':
+          'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
           '  final scale = dir == HeroFlightDirection.push\n'
           '    ? Tween(begin: 0.8, end: 1.0).animate(anim)\n'
           '    : Tween(begin: 1.0, end: 0.8).animate(anim);\n'
@@ -264,9 +286,11 @@ dynamic build(BuildContext context) {
       'name': 'Rotation + Fade',
       'icon': Icons.rotate_right,
       'color': Colors.indigo[600]!,
-      'description': 'Spin slightly during push and counter-spin '
+      'description':
+          'Spin slightly during push and counter-spin '
           'during pop. Adds a playful touch to the transition.',
-      'code': 'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
+      'code':
+          'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
           '  final angle = dir == HeroFlightDirection.push\n'
           '    ? Tween(begin: -0.05, end: 0.0).animate(anim)\n'
           '    : Tween(begin: 0.0, end: 0.05).animate(anim);\n'
@@ -280,9 +304,11 @@ dynamic build(BuildContext context) {
       'name': 'Material Card Elevation',
       'icon': Icons.layers,
       'color': Colors.blue[600]!,
-      'description': 'During push, elevate the shuttle to appear as '
+      'description':
+          'During push, elevate the shuttle to appear as '
           'if it lifts off. During pop, drop back down.',
-      'code': 'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
+      'code':
+          'flightShuttleBuilder: (ctx, anim, dir, from, to) {\n'
           '  final elev = dir == HeroFlightDirection.push\n'
           '    ? Tween(begin: 1.0, end: 8.0).animate(anim)\n'
           '    : Tween(begin: 8.0, end: 1.0).animate(anim);\n'
@@ -310,7 +336,8 @@ dynamic build(BuildContext context) {
       'required': true,
       'icon': Icons.label,
       'color': Colors.indigo[700]!,
-      'description': 'Identifier used to match heroes across routes. '
+      'description':
+          'Identifier used to match heroes across routes. '
           'Must be unique within each route. Typically a String or '
           'an enum value.',
     },
@@ -320,7 +347,8 @@ dynamic build(BuildContext context) {
       'required': true,
       'icon': Icons.widgets,
       'color': Colors.blue[700]!,
-      'description': 'The widget that participates in the hero flight. '
+      'description':
+          'The widget that participates in the hero flight. '
           'This is the visible content — an Image, Container, Text, '
           'or any widget tree.',
     },
@@ -330,7 +358,8 @@ dynamic build(BuildContext context) {
       'required': false,
       'icon': Icons.flight,
       'color': Colors.indigo[600]!,
-      'description': 'Custom builder for the in-flight widget. '
+      'description':
+          'Custom builder for the in-flight widget. '
           'Receives HeroFlightDirection as one of its parameters. '
           'If null, the destination hero\'s child is used as the '
           'shuttle widget.',
@@ -341,7 +370,8 @@ dynamic build(BuildContext context) {
       'required': false,
       'icon': Icons.crop_free,
       'color': Colors.blue[600]!,
-      'description': 'Builder for the placeholder shown where the hero '
+      'description':
+          'Builder for the placeholder shown where the hero '
           'was after it starts flying. By default, an empty SizedBox '
           'with the hero\'s size is used to maintain layout.',
     },
@@ -351,7 +381,8 @@ dynamic build(BuildContext context) {
       'required': false,
       'icon': Icons.gesture,
       'color': Colors.indigo[500]!,
-      'description': 'Factory for the RectTween used to animate from '
+      'description':
+          'Factory for the RectTween used to animate from '
           'source rect to destination rect. Default uses a '
           'MaterialRectArcTween (curved arc). Override for a '
           'straight-line or custom path.',
@@ -362,7 +393,8 @@ dynamic build(BuildContext context) {
       'required': false,
       'icon': Icons.touch_app,
       'color': Colors.blue[500]!,
-      'description': 'Whether the hero should fly during user-driven '
+      'description':
+          'Whether the hero should fly during user-driven '
           'route transitions (e.g., iOS back swipe). Defaults to '
           'false. Set to true for seamless hero flights during '
           'interactive pop gestures.',
@@ -382,7 +414,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_vert,
       'color': Colors.indigo[700]!,
       'bgColor': Colors.indigo[50]!,
-      'body': 'During a push, fromHero is on the source route and '
+      'body':
+          'During a push, fromHero is on the source route and '
           'toHero is on the destination route. During a pop, these '
           'swap — fromHero is on the popping route and toHero is '
           'on the route being revealed. The framework handles this '
@@ -394,7 +427,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.difference,
       'color': Colors.blue[700]!,
       'bgColor': Colors.blue[50]!,
-      'body': 'Heroes on different routes typically show different '
+      'body':
+          'Heroes on different routes typically show different '
           'sizes or content (e.g., thumbnail → full image). The '
           'shuttle builder receives both contexts, so you can pick '
           'which child to show mid-flight based on direction. '
@@ -406,7 +440,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.swipe,
       'color': Colors.indigo[600]!,
       'bgColor': Colors.indigo[50]!,
-      'body': 'When using iOS-style back swipe, the pop animation '
+      'body':
+          'When using iOS-style back swipe, the pop animation '
           'is driven by the user\'s finger. The direction is pop, '
           'but the animation value goes from 0 to 1 as the user '
           'swipes further. If the user cancels, the animation '
@@ -417,7 +452,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.find_replace,
       'color': Colors.blue[600]!,
       'bgColor': Colors.blue[50]!,
-      'body': 'Even though pushReplacement replaces the current '
+      'body':
+          'Even though pushReplacement replaces the current '
           'route, the hero flight direction is still push — '
           'navigation is going "forward" to a new route. The '
           'replacement aspect only affects the route stack, not '
@@ -437,7 +473,8 @@ dynamic build(BuildContext context) {
       'name': 'Photo Gallery → Detail',
       'icon': Icons.photo_library,
       'color': Colors.indigo[700]!,
-      'description': 'Grid of thumbnails → full-screen photo viewer. '
+      'description':
+          'Grid of thumbnails → full-screen photo viewer. '
           'Push: thumbnail grows to fill screen with fade crossover. '
           'Pop: full photo shrinks back to grid position. Use '
           'direction to swap between thumbnail and full-res image '
@@ -451,7 +488,8 @@ dynamic build(BuildContext context) {
       'name': 'Product Card → Product Page',
       'icon': Icons.shopping_bag,
       'color': Colors.blue[700]!,
-      'description': 'Shopping app: product card hero flies to a '
+      'description':
+          'Shopping app: product card hero flies to a '
           'detail page with larger image and description. Push '
           'flight can add a slight upward arc (MaterialRectArcTween). '
           'Pop flight can scale down with reduced elevation.',
@@ -464,7 +502,8 @@ dynamic build(BuildContext context) {
       'name': 'FAB → New Item Page',
       'icon': Icons.add_circle,
       'color': Colors.indigo[600]!,
-      'description': 'FloatingActionButton hero flies to become the '
+      'description':
+          'FloatingActionButton hero flies to become the '
           'header of a creation form. On push, the FAB circle '
           'expands and morphs into a rectangular form header. On '
           'pop, the rectangle contracts back to a circle.',
@@ -477,7 +516,8 @@ dynamic build(BuildContext context) {
       'name': 'Avatar → Profile Page',
       'icon': Icons.person,
       'color': Colors.blue[600]!,
-      'description': 'Small circular avatar in an app bar or list '
+      'description':
+          'Small circular avatar in an app bar or list '
           'tile flies to a large profile image. Direction controls '
           'when to switch from low-res to high-res avatar: swap on '
           'push at animation value 0.5, swap on pop at 0.5.',
@@ -499,7 +539,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Default Shuttle Uses toHero Child',
-      'body': 'If you don\'t provide a flightShuttleBuilder, the '
+      'body':
+          'If you don\'t provide a flightShuttleBuilder, the '
           'framework uses the toHero\'s child as the shuttle. This '
           'means on push you see the destination widget flying in, '
           'and on pop you see the source route\'s widget shrinking. '
@@ -510,7 +551,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Avoid Heavy Widgets in Shuttle',
-      'body': 'The shuttle renders on every frame (60fps) during '
+      'body':
+          'The shuttle renders on every frame (60fps) during '
           'the transition. Avoid putting complex widget trees, '
           'network images without caching, or expensive paints '
           'in the shuttle. Pre-cache images and keep it light.',
@@ -519,7 +561,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Use createRectTween for Custom Paths',
-      'body': 'The default MaterialRectArcTween creates a curved '
+      'body':
+          'The default MaterialRectArcTween creates a curved '
           'flight path. For a straight line, return a RectTween. '
           'The rect tween is independent of direction — it always '
           'goes from source to destination. Direction only affects '
@@ -529,7 +572,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Tags Must Match Exactly',
-      'body': 'Hero tags are compared by operator==. If the tag on '
+      'body':
+          'Hero tags are compared by operator==. If the tag on '
           'the push route doesn\'t match the tag on the pop route, '
           'no flight occurs. Common mistake: using different string '
           'literals instead of a shared constant.',
@@ -538,7 +582,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'transitionOnUserGestures',
-      'body': 'By default, heroes don\'t fly during interactive '
+      'body':
+          'By default, heroes don\'t fly during interactive '
           'pop gestures (iOS swipe back). Set '
           'transitionOnUserGestures: true on BOTH heroes to enable '
           'this. The direction will be pop during the gesture.',
@@ -547,7 +592,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'placeholderBuilder for Layout',
-      'body': 'When the hero leaves its route during flight, a gap '
+      'body':
+          'When the hero leaves its route during flight, a gap '
           'appears. Use placeholderBuilder to show a sized box or '
           'shimmer placeholder that prevents layout jumps. The '
           'placeholder receives the hero child\'s size.',
@@ -590,19 +636,17 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(children: [
-                  Icon(Icons.flight_takeoff,
-                      color: Colors.white, size: 36),
-                  SizedBox(width: 12),
-                  Icon(Icons.arrow_forward,
-                      color: Colors.white70, size: 20),
-                  SizedBox(width: 4),
-                  Icon(Icons.arrow_back,
-                      color: Colors.white70, size: 20),
-                  SizedBox(width: 12),
-                  Icon(Icons.flight_land,
-                      color: Colors.white, size: 36),
-                ]),
+                Row(
+                  children: [
+                    Icon(Icons.flight_takeoff, color: Colors.white, size: 36),
+                    SizedBox(width: 12),
+                    Icon(Icons.arrow_forward, color: Colors.white70, size: 20),
+                    SizedBox(width: 4),
+                    Icon(Icons.arrow_back, color: Colors.white70, size: 20),
+                    SizedBox(width: 12),
+                    Icon(Icons.flight_land, color: Colors.white, size: 36),
+                  ],
+                ),
                 SizedBox(height: 14),
                 Text(
                   'HeroFlightDirection',
@@ -633,72 +677,87 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _heroHead('1', 'What is HeroFlightDirection?'),
           SizedBox(height: 12),
-          ...conceptItems.map((item) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: item['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptItems.map(
+            (item) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: item['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(item['icon'] as IconData,
-                            color: item['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          item['icon'] as IconData,
+                          color: item['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(item['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            item['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(item['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      item['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 2: Enum Values ──
           _heroHead('2', 'The Two Enum Values'),
           SizedBox(height: 12),
-          ...enumValues.map((ev) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: ev['bgColor'] as Color,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                        color:
-                            (ev['color'] as Color).withOpacity(0.4)),
+          ...enumValues.map(
+            (ev) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: ev['bgColor'] as Color,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: (ev['color'] as Color).withOpacity(0.4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
                         Container(
                           width: 36,
                           height: 36,
@@ -706,76 +765,95 @@ dynamic build(BuildContext context) {
                             color: ev['color'] as Color,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Icon(ev['icon'] as IconData,
-                              color: Colors.white, size: 20),
+                          child: Icon(
+                            ev['icon'] as IconData,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                         SizedBox(width: 12),
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(ev['value'] as String,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'monospace',
-                                      color: ev['color'] as Color)),
-                              Text(ev['meaning'] as String,
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      color: Colors.grey[600])),
+                              Text(
+                                ev['value'] as String,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'monospace',
+                                  color: ev['color'] as Color,
+                                ),
+                              ),
+                              Text(
+                                ev['meaning'] as String,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ]),
-                      SizedBox(height: 12),
-                      ...[
-                        ['Triggered by', ev['trigger'] as String],
-                        ['From Route', ev['fromRoute'] as String],
-                        ['To Route', ev['toRoute'] as String],
-                        ['Hero Flight', ev['heroFlight'] as String],
-                        ['Style', ev['animation'] as String],
-                      ].map((pair) => Padding(
-                            padding: EdgeInsets.only(bottom: 4),
-                            child: Row(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 80,
-                                  child: Text(pair[0],
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey[700])),
+                      ],
+                    ),
+                    SizedBox(height: 12),
+                    ...[
+                      ['Triggered by', ev['trigger'] as String],
+                      ['From Route', ev['fromRoute'] as String],
+                      ['To Route', ev['toRoute'] as String],
+                      ['Hero Flight', ev['heroFlight'] as String],
+                      ['Style', ev['animation'] as String],
+                    ].map(
+                      (pair) => Padding(
+                        padding: EdgeInsets.only(bottom: 4),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 80,
+                              child: Text(
+                                pair[0],
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[700],
                                 ),
-                                Expanded(
-                                  child: Text(pair[1],
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey[700],
-                                          height: 1.3)),
-                                ),
-                              ],
+                              ),
                             ),
-                          )),
-                    ],
-                  ),
+                            Expanded(
+                              child: Text(
+                                pair[1],
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[700],
+                                  height: 1.3,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 3: Lifecycle ──
           _heroHead('3', 'Hero Animation Lifecycle'),
           SizedBox(height: 12),
-          ...lifecycleSteps.map((step) => Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(children: [
+          ...lifecycleSteps.map(
+            (step) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
                       Container(
                         width: 32,
                         height: 32,
@@ -784,60 +862,76 @@ dynamic build(BuildContext context) {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text('${step['step']}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
+                          child: Text(
+                            '${step['step']}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
                       ),
                       if ((step['step'] as int) < 6)
                         Container(
-                            width: 2,
-                            height: 24,
-                            color: Colors.grey[300]),
-                    ]),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 2,
-                                offset: Offset(0, 1))
-                          ],
+                          width: 2,
+                          height: 24,
+                          color: Colors.grey[300],
                         ),
-                        child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              Icon(step['icon'] as IconData,
-                                  color: step['color'] as Color,
-                                  size: 16),
+                    ],
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 2,
+                            offset: Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                step['icon'] as IconData,
+                                color: step['color'] as Color,
+                                size: 16,
+                              ),
                               SizedBox(width: 6),
-                              Text(step['title'] as String,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12)),
-                            ]),
-                            SizedBox(height: 4),
-                            Text(step['description'] as String,
+                              Text(
+                                step['title'] as String,
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey[700],
-                                    height: 1.3)),
-                          ],
-                        ),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            step['description'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -856,303 +950,378 @@ dynamic build(BuildContext context) {
               'Widget Function(BuildContext, Animation<double>, '
               'HeroFlightDirection, BuildContext, BuildContext)',
               style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: Colors.indigo[700]),
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: Colors.indigo[700],
+              ),
             ),
           ),
-          ...builderParams.map((bp) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(
-                          color: bp['color'] as Color, width: 4),
+          ...builderParams.map(
+            (bp) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(
+                    left: BorderSide(color: bp['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(bp['icon'] as IconData,
-                            color: bp['color'] as Color, size: 16),
-                        SizedBox(width: 6),
-                        Text(bp['name'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                fontSize: 12,
-                                color: bp['color'] as Color)),
-                        SizedBox(width: 8),
-                        _heroChip(
-                            bp['type'] as String, Colors.grey[600]!),
-                      ]),
-                      SizedBox(height: 4),
-                      Text(bp['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          bp['icon'] as IconData,
+                          color: bp['color'] as Color,
+                          size: 16,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          bp['name'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            fontSize: 12,
+                            color: bp['color'] as Color,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        _heroChip(bp['type'] as String, Colors.grey[600]!),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      bp['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 5: Shuttle Examples ──
           _heroHead('5', 'Direction-Dependent Shuttles'),
           SizedBox(height: 12),
-          ...shuttleExamples.map((se) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: se['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...shuttleExamples.map(
+            (se) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: se['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(se['icon'] as IconData,
-                            color: se['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          se['icon'] as IconData,
+                          color: se['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(se['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
-                        ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(se['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(se['code'] as String,
+                          child: Text(
+                            se['name'] as String,
                             style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[800],
-                                height: 1.4)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      se['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.3,
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        se['code'] as String,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: Colors.grey[800],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 6: Hero Properties ──
           _heroHead('6', 'Hero Widget Properties'),
           SizedBox(height: 12),
-          ...heroProps.map((hp) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(
-                          color: hp['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...heroProps.map(
+            (hp) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(
+                    left: BorderSide(color: hp['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(hp['icon'] as IconData,
-                            color: hp['color'] as Color, size: 16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          hp['icon'] as IconData,
+                          color: hp['color'] as Color,
+                          size: 16,
+                        ),
                         SizedBox(width: 6),
-                        Text(hp['name'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                fontSize: 12,
-                                color: hp['color'] as Color)),
+                        Text(
+                          hp['name'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            fontSize: 12,
+                            color: hp['color'] as Color,
+                          ),
+                        ),
                         SizedBox(width: 8),
-                        _heroChip(
-                            hp['type'] as String, Colors.grey[600]!),
+                        _heroChip(hp['type'] as String, Colors.grey[600]!),
                         if (hp['required'] == true) ...[
                           SizedBox(width: 6),
                           _heroChip('required', Colors.red[400]!),
                         ],
-                      ]),
-                      SizedBox(height: 4),
-                      Text(hp['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      hp['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Reverse Heroes ──
           _heroHead('7', 'Reverse Heroes & Direction Swapping'),
           SizedBox(height: 12),
-          ...reverseCards.map((rc) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: rc['bgColor'] as Color,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        color:
-                            (rc['color'] as Color).withOpacity(0.3)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(rc['icon'] as IconData,
-                            color: rc['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Expanded(
-                          child: Text(rc['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  color: rc['color'] as Color)),
-                        ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(rc['body'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
+          ...reverseCards.map(
+            (rc) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: rc['bgColor'] as Color,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: (rc['color'] as Color).withOpacity(0.3),
                   ),
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          rc['icon'] as IconData,
+                          color: rc['color'] as Color,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            rc['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: rc['color'] as Color,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      rc['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Real-World Patterns ──
           _heroHead('8', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...patterns.map(
+            (p) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          p['icon'] as IconData,
+                          color: p['color'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(p['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
+                          child: Text(
+                            p['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                      SizedBox(height: 8),
-                      ...((p['directions'] as Map<String, String>)
-                          .entries
-                          .map((e) => Padding(
-                                padding: EdgeInsets.only(bottom: 4),
-                                child: Row(children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 6, vertical: 2),
-                                    decoration: BoxDecoration(
-                                      color: e.key == 'push'
-                                          ? Colors.indigo[100]
-                                          : Colors.blue[100],
-                                      borderRadius:
-                                          BorderRadius.circular(4),
-                                    ),
-                                    child: Text(e.key.toUpperCase(),
-                                        style: TextStyle(
-                                            fontSize: 9,
-                                            fontWeight:
-                                                FontWeight.bold,
-                                            color: e.key == 'push'
-                                                ? Colors.indigo[700]
-                                                : Colors.blue[700])),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(e.value,
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.grey[700])),
-                                  ),
-                                ]),
-                              ))),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      p['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    ...((p['directions'] as Map<String, String>).entries.map(
+                      (e) => Padding(
+                        padding: EdgeInsets.only(bottom: 4),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: e.key == 'push'
+                                    ? Colors.indigo[100]
+                                    : Colors.blue[100],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                e.key.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: e.key == 'push'
+                                      ? Colors.indigo[700]
+                                      : Colors.blue[700],
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                e.value,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1184,29 +1353,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1247,20 +1428,26 @@ Widget _heroHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1276,10 +1463,9 @@ Widget _heroChip(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(4),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.bold)),
+    child: Text(
+      text,
+      style: TextStyle(color: color, fontSize: 9, fontWeight: FontWeight.bold),
+    ),
   );
 }

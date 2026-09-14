@@ -13,11 +13,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF283593),
-          Color(0xFF3949AB),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF283593), Color(0xFF3949AB)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -88,10 +84,10 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             'AbsorbPointer prevents its child from receiving any pointer '
-                'events. Unlike IgnorePointer, it ALSO blocks events from '
-                'reaching widgets beneath it — it is a hit-test sponge. Use '
-                'it to mask interactivity while preserving layout, opacity, '
-                'and visual presence of the child subtree.',
+            'events. Unlike IgnorePointer, it ALSO blocks events from '
+            'reaching widgets beneath it — it is a hit-test sponge. Use '
+            'it to mask interactivity while preserving layout, opacity, '
+            'and visual presence of the child subtree.',
             style: TextStyle(
               fontSize: 13.0,
               color: Colors.white.withValues(alpha: 0.95),
@@ -145,7 +141,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10.0),
           Text(
             'The AbsorbPointer is transparent to events. The child button '
-                'is live and would respond normally.',
+            'is live and would respond normally.',
             style: TextStyle(fontSize: 12.0, color: Colors.green.shade900),
           ),
           SizedBox(height: 14.0),
@@ -158,10 +154,7 @@ dynamic build(BuildContext context) {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green.shade600,
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 18.0,
-                  vertical: 12.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
               ),
             ),
           ),
@@ -203,7 +196,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10.0),
           Text(
             'Taps land on the AbsorbPointer and stop there. The button is '
-                'visually present but functionally inert.',
+            'visually present but functionally inert.',
             style: TextStyle(fontSize: 12.0, color: Colors.red.shade900),
           ),
           SizedBox(height: 14.0),
@@ -216,10 +209,7 @@ dynamic build(BuildContext context) {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red.shade600,
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 18.0,
-                  vertical: 12.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
               ),
             ),
           ),
@@ -265,8 +255,8 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10.0),
           Text(
             'Bind absorbing to a state flag like isLoading or '
-                'isReadOnly. Toggling rebuilds the subtree without '
-                'replacing widgets.',
+            'isReadOnly. Toggling rebuilds the subtree without '
+            'replacing widgets.',
             style: TextStyle(fontSize: 12.0, color: Colors.indigo.shade900),
           ),
           SizedBox(height: 14.0),
@@ -329,11 +319,8 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10.0),
           Text(
             'An inner AbsorbPointer(absorbing:false) does NOT unblock an '
-                'outer absorbing:true ancestor. The outer wins.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.deepPurple.shade900,
-            ),
+            'outer absorbing:true ancestor. The outer wins.',
+            style: TextStyle(fontSize: 12.0, color: Colors.deepPurple.shade900),
           ),
           SizedBox(height: 14.0),
           AbsorbPointer(
@@ -378,8 +365,8 @@ dynamic build(BuildContext context) {
       title: 'ignoringSemantics: null (default)',
       description:
           'When null, the semantic tree mirrors the absorbing flag. A '
-              'screen reader treats the subtree as disabled if absorbing '
-              'is true.',
+          'screen reader treats the subtree as disabled if absorbing '
+          'is true.',
       accent: Colors.teal,
       icon: Icons.accessibility_new,
       sample: AbsorbPointer(
@@ -401,8 +388,8 @@ dynamic build(BuildContext context) {
       title: 'ignoringSemantics: false',
       description:
           'Force the semantic tree to keep exposing the subtree even '
-              'while pointer events are absorbed. Useful for read-only '
-              'forms that still announce their content.',
+          'while pointer events are absorbed. Useful for read-only '
+          'forms that still announce their content.',
       accent: Colors.amber.shade800,
       icon: Icons.record_voice_over,
       sample: AbsorbPointer(
@@ -424,7 +411,7 @@ dynamic build(BuildContext context) {
       title: 'ignoringSemantics: true',
       description:
           'Both pointer and semantic trees are silenced. The subtree is '
-              'effectively invisible to assistive technology.',
+          'effectively invisible to assistive technology.',
       accent: Colors.brown,
       icon: Icons.volume_off,
       sample: ExcludeSemantics(
@@ -555,20 +542,14 @@ dynamic build(BuildContext context) {
               flex: 3,
               child: Text(
                 r['absorb'] ?? '',
-                style: TextStyle(
-                  color: Colors.blue.shade900,
-                  fontSize: 12.5,
-                ),
+                style: TextStyle(color: Colors.blue.shade900, fontSize: 12.5),
               ),
             ),
             Expanded(
               flex: 3,
               child: Text(
                 r['ignore'] ?? '',
-                style: TextStyle(
-                  color: Colors.orange.shade900,
-                  fontSize: 12.5,
-                ),
+                style: TextStyle(color: Colors.orange.shade900, fontSize: 12.5),
               ),
             ),
           ],
@@ -590,9 +571,7 @@ dynamic build(BuildContext context) {
       ],
     ),
     clipBehavior: Clip.antiAlias,
-    child: Column(
-      children: [comparisonHeader, ...comparisonRows],
-    ),
+    child: Column(children: [comparisonHeader, ...comparisonRows]),
   );
 
   // Side-by-side live demo of AbsorbPointer vs IgnorePointer.
@@ -706,11 +685,7 @@ dynamic build(BuildContext context) {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.lock_clock,
-                          color: Colors.white,
-                          size: 18.0,
-                        ),
+                        Icon(Icons.lock_clock, color: Colors.white, size: 18.0),
                         SizedBox(width: 8.0),
                         Text(
                           'Form locked while syncing',
@@ -765,9 +740,9 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'Wrap the editor in AbsorbPointer(absorbing: true, '
-              'ignoringSemantics: false) — users still see the structure '
-              'and assistive tech still reads it; only mutation is '
-              'forbidden.',
+          'ignoringSemantics: false) — users still see the structure '
+          'and assistive tech still reads it; only mutation is '
+          'forbidden.',
           style: TextStyle(
             fontSize: 12.5,
             color: Colors.amber.shade900,
@@ -846,12 +821,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: List.generate(4, (i) {
-                  final names = [
-                    'Inbox',
-                    'Pipelines',
-                    'Releases',
-                    'Settings',
-                  ];
+                  final names = ['Inbox', 'Pipelines', 'Releases', 'Settings'];
                   return Padding(
                     padding: EdgeInsets.only(right: 10.0),
                     child: Container(
@@ -890,9 +860,7 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: Colors.deepPurple.shade100,
-                        ),
+                        border: Border.all(color: Colors.deepPurple.shade100),
                       ),
                       child: Row(
                         children: [
@@ -981,10 +949,7 @@ dynamic build(BuildContext context) {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        OutlinedButton(
-                          onPressed: () {},
-                          child: Text('Cancel'),
-                        ),
+                        OutlinedButton(onPressed: () {}, child: Text('Cancel')),
                         SizedBox(width: 10.0),
                         ElevatedButton(
                           onPressed: () {},
@@ -1040,8 +1005,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         Text(
           'Each card individually toggles a Stack-layered '
-              'AbsorbPointer(absorbing: card.isBusy) so only one card is '
-              'frozen at a time. The rest of the screen stays usable.',
+          'AbsorbPointer(absorbing: card.isBusy) so only one card is '
+          'frozen at a time. The rest of the screen stays usable.',
           style: TextStyle(fontSize: 12.5, color: Colors.teal.shade900),
         ),
         SizedBox(height: 16.0),
@@ -1089,10 +1054,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.layers_outlined,
-              color: Colors.deepOrange.shade700,
-            ),
+            Icon(Icons.layers_outlined, color: Colors.deepOrange.shade700),
             SizedBox(width: 8.0),
             Text(
               'Layered Stack with translucent absorber',
@@ -1107,11 +1069,8 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Text(
           'AbsorbPointer wraps a Stack of cards. A translucent overlay '
-              'on top swallows every tap before it can reach the cards.',
-          style: TextStyle(
-            fontSize: 12.5,
-            color: Colors.deepOrange.shade900,
-          ),
+          'on top swallows every tap before it can reach the cards.',
+          style: TextStyle(fontSize: 12.5, color: Colors.deepOrange.shade900),
         ),
         SizedBox(height: 16.0),
         SizedBox(
@@ -1291,7 +1250,7 @@ dynamic build(BuildContext context) {
       'title': 'User taps the screen',
       'description':
           'The framework dispatches a PointerDownEvent and walks the '
-              'render tree, performing hit testing.',
+          'render tree, performing hit testing.',
       'color': Colors.blue.shade600,
     },
     {
@@ -1299,7 +1258,7 @@ dynamic build(BuildContext context) {
       'title': 'Hit test reaches AbsorbPointer',
       'description':
           'AbsorbPointer.hitTestSelf returns true when absorbing is true. '
-              'The pointer is considered handled by the AbsorbPointer.',
+          'The pointer is considered handled by the AbsorbPointer.',
       'color': Colors.deepPurple.shade600,
     },
     {
@@ -1307,7 +1266,7 @@ dynamic build(BuildContext context) {
       'title': 'Children are skipped',
       'description':
           'The hit-test walk stops at the AbsorbPointer. No descendant '
-              'RenderObject is asked about the event.',
+          'RenderObject is asked about the event.',
       'color': Colors.red.shade600,
     },
     {
@@ -1315,8 +1274,8 @@ dynamic build(BuildContext context) {
       'title': 'Siblings beneath are skipped too',
       'description':
           'Unlike an InkWell sitting beside a transparent overlay, the '
-              'AbsorbPointer also blocks downward propagation, so any '
-              'underlying widgets stay dormant.',
+          'AbsorbPointer also blocks downward propagation, so any '
+          'underlying widgets stay dormant.',
       'color': Colors.deepOrange.shade600,
     },
     {
@@ -1324,7 +1283,7 @@ dynamic build(BuildContext context) {
       'title': 'No callback fires',
       'description':
           'Buttons, GestureDetectors, and ink wells inside the subtree '
-              'never see the event. The UI looks present but inert.',
+          'never see the event. The UI looks present but inert.',
       'color': Colors.brown.shade700,
     },
     {
@@ -1332,7 +1291,7 @@ dynamic build(BuildContext context) {
       'title': 'Semantics observe the gate',
       'description':
           'Unless ignoringSemantics is explicitly false, screen readers '
-              'are also told the subtree is unavailable.',
+          'are also told the subtree is unavailable.',
       'color': Colors.teal.shade700,
     },
   ];
@@ -1357,9 +1316,7 @@ dynamic build(BuildContext context) {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: (step['color'] as Color).withValues(
-                          alpha: 0.40,
-                        ),
+                        color: (step['color'] as Color).withValues(alpha: 0.40),
                         blurRadius: 8.0,
                         offset: Offset(0, 3),
                       ),
@@ -1373,10 +1330,7 @@ dynamic build(BuildContext context) {
                 ),
                 if (!isLast)
                   Expanded(
-                    child: Container(
-                      width: 2.0,
-                      color: Colors.grey.shade400,
-                    ),
+                    child: Container(width: 2.0, color: Colors.grey.shade400),
                   ),
               ],
             ),
@@ -1440,56 +1394,56 @@ dynamic build(BuildContext context) {
       'title': 'Loading shroud',
       'code':
           'Stack(\n'
-              '  children: [\n'
-              '    MyForm(),\n'
-              '    if (isBusy)\n'
-              '      Positioned.fill(\n'
-              '        child: AbsorbPointer(\n'
-              '          absorbing: true,\n'
-              '          child: ColoredBox(\n'
-              '            color: Colors.white.withValues(alpha: 0.7),\n'
-              '            child: Center(child: CircularProgressIndicator()),\n'
-              '          ),\n'
-              '        ),\n'
-              '      ),\n'
-              '  ],\n'
-              ')',
+          '  children: [\n'
+          '    MyForm(),\n'
+          '    if (isBusy)\n'
+          '      Positioned.fill(\n'
+          '        child: AbsorbPointer(\n'
+          '          absorbing: true,\n'
+          '          child: ColoredBox(\n'
+          '            color: Colors.white.withValues(alpha: 0.7),\n'
+          '            child: Center(child: CircularProgressIndicator()),\n'
+          '          ),\n'
+          '        ),\n'
+          '      ),\n'
+          '  ],\n'
+          ')',
     },
     {
       'title': 'Read-only mode',
       'code':
           'AbsorbPointer(\n'
-              '  absorbing: isReadOnly,\n'
-              '  ignoringSemantics: false,\n'
-              '  child: InvoiceEditor(...),\n'
-              ');',
+          '  absorbing: isReadOnly,\n'
+          '  ignoringSemantics: false,\n'
+          '  child: InvoiceEditor(...),\n'
+          ');',
     },
     {
       'title': 'Modal blocker',
       'code':
           'AbsorbPointer(\n'
-              '  absorbing: true,\n'
-              '  child: ColoredBox(\n'
-              '    color: Colors.black.withValues(alpha: 0.45),\n'
-              '    child: Center(child: ConfirmDialog(...)),\n'
-              '  ),\n'
-              ');',
+          '  absorbing: true,\n'
+          '  child: ColoredBox(\n'
+          '    color: Colors.black.withValues(alpha: 0.45),\n'
+          '    child: Center(child: ConfirmDialog(...)),\n'
+          '  ),\n'
+          ');',
     },
     {
       'title': 'Per-card busy',
       'code':
           'Stack(\n'
-              '  children: [\n'
-              '    ServiceCard(...),\n'
-              '    if (card.isBusy)\n'
-              '      Positioned.fill(\n'
-              '        child: AbsorbPointer(\n'
-              '          absorbing: true,\n'
-              '          child: BusyShroud(),\n'
-              '        ),\n'
-              '      ),\n'
-              '  ],\n'
-              ');',
+          '  children: [\n'
+          '    ServiceCard(...),\n'
+          '    if (card.isBusy)\n'
+          '      Positioned.fill(\n'
+          '        child: AbsorbPointer(\n'
+          '          absorbing: true,\n'
+          '          child: BusyShroud(),\n'
+          '        ),\n'
+          '      ),\n'
+          '  ],\n'
+          ');',
     },
   ];
   for (final c in codeSamples) {
@@ -1513,10 +1467,7 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 10.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
               color: Color(0xFF2A2A40),
               child: Row(
                 children: [
@@ -1566,8 +1517,8 @@ dynamic build(BuildContext context) {
       title: 'Stuck absorber',
       detail:
           'Forgetting to flip absorbing back to false leaves the UI '
-              'forever inert. Always tie absorbing to a state machine '
-              'with explicit transitions.',
+          'forever inert. Always tie absorbing to a state machine '
+          'with explicit transitions.',
       color: Colors.deepOrange,
     ),
     _pitfallTile(
@@ -1575,7 +1526,7 @@ dynamic build(BuildContext context) {
       title: 'Wrong tool for click-through',
       detail:
           'If you wanted decorative overlay clicks to PASS THROUGH, '
-              'AbsorbPointer is wrong — IgnorePointer is what you want.',
+          'AbsorbPointer is wrong — IgnorePointer is what you want.',
       color: Colors.purple,
     ),
     _pitfallTile(
@@ -1583,8 +1534,8 @@ dynamic build(BuildContext context) {
       title: 'Silenced semantics',
       detail:
           'Default ignoringSemantics hides the subtree from screen '
-              'readers. For read-only data displays, set '
-              'ignoringSemantics: false.',
+          'readers. For read-only data displays, set '
+          'ignoringSemantics: false.',
       color: Colors.indigo,
     ),
     _pitfallTile(
@@ -1592,7 +1543,7 @@ dynamic build(BuildContext context) {
       title: 'Layer order',
       detail:
           'The overlay must be ABOVE the protected widgets in the Stack '
-              '— otherwise the hit test reaches them first.',
+          '— otherwise the hit test reaches them first.',
       color: Colors.teal,
     ),
   ];
@@ -1634,11 +1585,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF004D40),
-          Color(0xFF00695C),
-          Color(0xFF00897B),
-        ],
+        colors: [Color(0xFF004D40), Color(0xFF00695C), Color(0xFF00897B)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1673,15 +1620,13 @@ dynamic build(BuildContext context) {
           icon: Icons.lock_clock,
           tint: Colors.lightBlueAccent,
           title: 'Lock during long operations',
-          detail:
-              'Form syncs, network calls, transactional pipelines.',
+          detail: 'Form syncs, network calls, transactional pipelines.',
         ),
         _summaryRow(
           icon: Icons.visibility,
           tint: Colors.amberAccent,
           title: 'Read-only displays',
-          detail:
-              'Show structure and values without accidental edits.',
+          detail: 'Show structure and values without accidental edits.',
         ),
         _summaryRow(
           icon: Icons.shield_moon,
@@ -1732,8 +1677,7 @@ dynamic build(BuildContext context) {
           _sectionHeader(
             number: '1',
             title: 'Basic toggle gallery',
-            subtitle:
-                'absorbing: false, true, expression-bound, and nested.',
+            subtitle: 'absorbing: false, true, expression-bound, and nested.',
             tint: Colors.indigo,
           ),
           SizedBox(height: 14.0),
@@ -1744,7 +1688,7 @@ dynamic build(BuildContext context) {
             title: 'ignoringSemantics',
             subtitle:
                 'How the semantic tree is preserved or stripped along '
-                    'with pointer events.',
+                'with pointer events.',
             tint: Colors.teal,
           ),
           SizedBox(height: 14.0),
@@ -1765,8 +1709,7 @@ dynamic build(BuildContext context) {
           _sectionHeader(
             number: '4',
             title: 'Loading shroud',
-            subtitle:
-                'A full-form lockout during a network call.',
+            subtitle: 'A full-form lockout during a network call.',
             tint: Colors.blueGrey,
           ),
           SizedBox(height: 14.0),
@@ -1777,7 +1720,7 @@ dynamic build(BuildContext context) {
             title: 'Read-only form',
             subtitle:
                 'AbsorbPointer + ignoringSemantics: false for accessible '
-                    'read-only views.',
+                'read-only views.',
             tint: Colors.amber.shade800,
           ),
           SizedBox(height: 14.0),
@@ -1798,7 +1741,7 @@ dynamic build(BuildContext context) {
             title: 'Per-card busy state',
             subtitle:
                 'A Stack-layered shroud freezes ONE card without affecting '
-                    'the rest.',
+                'the rest.',
             tint: Colors.teal,
           ),
           SizedBox(height: 14.0),
@@ -1809,7 +1752,7 @@ dynamic build(BuildContext context) {
             title: 'Layered Stack absorber',
             subtitle:
                 'A translucent overlay swallows taps before any layer can '
-                    'react.',
+                'react.',
             tint: Colors.deepOrange,
           ),
           SizedBox(height: 14.0),
@@ -1828,8 +1771,7 @@ dynamic build(BuildContext context) {
           _sectionHeader(
             number: '10',
             title: 'Phase dial',
-            subtitle:
-                'A wrap of phase tiles toggling absorbing on and off.',
+            subtitle: 'A wrap of phase tiles toggling absorbing on and off.',
             tint: Colors.red,
           ),
           SizedBox(height: 14.0),
@@ -1848,8 +1790,7 @@ dynamic build(BuildContext context) {
           _sectionHeader(
             number: '12',
             title: 'Code patterns',
-            subtitle:
-                'Cheat-sheet recipes you can copy into production code.',
+            subtitle: 'Cheat-sheet recipes you can copy into production code.',
             tint: Colors.deepPurple,
           ),
           SizedBox(height: 14.0),
@@ -1895,9 +1836,7 @@ Widget _sectionHeader({
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border(
-        left: BorderSide(color: tint, width: 6.0),
-      ),
+      border: Border(left: BorderSide(color: tint, width: 6.0)),
     ),
     child: Row(
       children: [
@@ -2152,10 +2091,7 @@ Widget _readOnlyRow(String label, String value, {bool emphasize = false}) {
           flex: 2,
           child: Text(
             label,
-            style: TextStyle(
-              color: Colors.grey.shade700,
-              fontSize: 12.5,
-            ),
+            style: TextStyle(color: Colors.grey.shade700, fontSize: 12.5),
           ),
         ),
         Expanded(
@@ -2208,11 +2144,7 @@ Widget _busyCard({
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.cloud_outlined,
-                    color: Colors.white,
-                    size: 20.0,
-                  ),
+                  Icon(Icons.cloud_outlined, color: Colors.white, size: 20.0),
                   SizedBox(width: 6.0),
                   Text(
                     title,
@@ -2233,10 +2165,7 @@ Widget _busyCard({
               ),
               Spacer(),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(20.0),
@@ -2268,9 +2197,7 @@ Widget _busyCard({
                       height: 28.0,
                       child: CircularProgressIndicator(
                         strokeWidth: 3.0,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Colors.white,
-                        ),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ),
                     SizedBox(height: 8.0),
@@ -2302,10 +2229,7 @@ Widget _shadowCard({
   return Container(
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          base.withValues(alpha: 0.88),
-          base.withValues(alpha: 0.65),
-        ],
+        colors: [base.withValues(alpha: 0.88), base.withValues(alpha: 0.65)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

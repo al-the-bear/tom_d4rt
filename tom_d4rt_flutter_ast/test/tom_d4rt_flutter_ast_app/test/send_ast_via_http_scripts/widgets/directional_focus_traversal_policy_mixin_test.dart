@@ -53,21 +53,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: orchid, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -84,11 +90,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: thistle),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: deepMagenta.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: deepMagenta.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -116,14 +125,18 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleLavender,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: plum)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: plum,
+              ),
+            ),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -139,9 +152,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label,
-          style:
-              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -153,15 +167,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 155,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: plum)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: plum,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 12, color: deepMagenta)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 12, color: deepMagenta),
+            ),
           ),
         ],
       ),
@@ -179,14 +198,15 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: plum.withValues(alpha: 0.15), width: 1),
+              border: Border.all(color: plum.withValues(alpha: 0.15), width: 1),
             ),
           ),
           const SizedBox(height: 4),
-          Text(name,
-              style: TextStyle(fontSize: 9, color: plum),
-              textAlign: TextAlign.center),
+          Text(
+            name,
+            style: TextStyle(fontSize: 9, color: plum),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -201,13 +221,15 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label,
-                  style: TextStyle(fontSize: 11, color: plum)),
-              Text('${(fraction * 100).toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: color)),
+              Text(label, style: TextStyle(fontSize: 11, color: plum)),
+              Text(
+                '${(fraction * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -243,18 +265,27 @@ dynamic build(BuildContext context) {
         color: focused ? borderColor.withValues(alpha: 0.2) : Colors.white,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-            color: focused ? borderColor : heather.withValues(alpha: 0.5),
-            width: focused ? 2.5 : 1),
+          color: focused ? borderColor : heather.withValues(alpha: 0.5),
+          width: focused ? 2.5 : 1,
+        ),
         boxShadow: focused
-            ? [BoxShadow(color: borderColor.withValues(alpha: 0.25), blurRadius: 6)]
+            ? [
+                BoxShadow(
+                  color: borderColor.withValues(alpha: 0.25),
+                  blurRadius: 6,
+                ),
+              ]
             : [],
       ),
       child: Center(
-        child: Text(label,
-            style: TextStyle(
-                fontSize: 10,
-                fontWeight: focused ? FontWeight.w700 : FontWeight.normal,
-                color: focused ? borderColor : deepMagenta)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: focused ? FontWeight.w700 : FontWeight.normal,
+            color: focused ? borderColor : deepMagenta,
+          ),
+        ),
       ),
     );
   }
@@ -299,17 +330,35 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          Text(from,
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: magenta)),
+          Text(
+            from,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: magenta,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Icon(Icons.arrow_right_alt, size: 14, color: deepMagenta),
           ),
-          Text(to,
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: magenta)),
+          Text(
+            to,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: magenta,
+            ),
+          ),
           const Spacer(),
-          Text(distance,
-              style: TextStyle(fontSize: 11, color: plum, fontWeight: FontWeight.w700)),
+          Text(
+            distance,
+            style: TextStyle(
+              fontSize: 11,
+              color: plum,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -323,34 +372,37 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-          'DirectionalFocusTraversalPolicyMixin adds directional '
-          '(arrow key) focus navigation to any FocusTraversalPolicy. While '
-          'the base policy handles Tab/Shift+Tab ordering, this mixin adds '
-          'spatial awareness — focusing the nearest widget in the direction '
-          'the user presses.'),
+        'DirectionalFocusTraversalPolicyMixin adds directional '
+        '(arrow key) focus navigation to any FocusTraversalPolicy. While '
+        'the base policy handles Tab/Shift+Tab ordering, this mixin adds '
+        'spatial awareness — focusing the nearest widget in the direction '
+        'the user presses.',
+      ),
       infoCard(
-          'Core Identity',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Type', 'Mixin on FocusTraversalPolicy'),
-              dataRow('Package', 'flutter/widgets'),
-              dataRow('Adds', 'Arrow key directional navigation'),
-              dataRow('Algorithm', 'Geometry-based nearest neighbor'),
-              dataRow('Directions', 'Up, Down, Left, Right'),
-            ],
-          )),
+        'Core Identity',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Type', 'Mixin on FocusTraversalPolicy'),
+            dataRow('Package', 'flutter/widgets'),
+            dataRow('Adds', 'Arrow key directional navigation'),
+            dataRow('Algorithm', 'Geometry-based nearest neighbor'),
+            dataRow('Directions', 'Up, Down, Left, Right'),
+          ],
+        ),
+      ),
       infoCard(
-          'Why It Matters',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Accessibility', 'Keyboard-only navigation'),
-              dataRow('TV / kiosk', 'D-pad / remote control input'),
-              dataRow('Desktop', 'Power user keyboard workflows'),
-              dataRow('Grid layouts', 'Tab order is insufficient'),
-            ],
-          )),
+        'Why It Matters',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Accessibility', 'Keyboard-only navigation'),
+            dataRow('TV / kiosk', 'D-pad / remote control input'),
+            dataRow('Desktop', 'Power user keyboard workflows'),
+            dataRow('Grid layouts', 'Tab order is insufficient'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -362,60 +414,76 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Linear vs Directional Focus'),
       noteBox(
-          'Tab traversal is linear — it visits widgets in a flat order. '
-          'Directional traversal is spatial — it picks the nearest widget '
-          'in the arrow direction. Both complement each other.'),
+        'Tab traversal is linear — it visits widgets in a flat order. '
+        'Directional traversal is spatial — it picks the nearest widget '
+        'in the arrow direction. Both complement each other.',
+      ),
       infoCard(
-          'Tab Traversal (Linear)',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Input', 'Tab / Shift+Tab'),
-              dataRow('Order', 'Defined by policy (reading order)'),
-              dataRow('Predictable', 'Same order every time'),
-              dataRow('Grid behavior', 'Row by row, left to right'),
-            ],
-          )),
+        'Tab Traversal (Linear)',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Input', 'Tab / Shift+Tab'),
+            dataRow('Order', 'Defined by policy (reading order)'),
+            dataRow('Predictable', 'Same order every time'),
+            dataRow('Grid behavior', 'Row by row, left to right'),
+          ],
+        ),
+      ),
       infoCard(
-          'Arrow Traversal (Directional)',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Input', 'Arrow keys (↑ ↓ ← →)'),
-              dataRow('Order', 'Spatial — depends on layout'),
-              dataRow('Context-aware', 'Varies based on current position'),
-              dataRow('Grid behavior', 'Natural column/row movement'),
-            ],
-          )),
+        'Arrow Traversal (Directional)',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Input', 'Arrow keys (↑ ↓ ← →)'),
+            dataRow('Order', 'Spatial — depends on layout'),
+            dataRow('Context-aware', 'Varies based on current position'),
+            dataRow('Grid behavior', 'Natural column/row movement'),
+          ],
+        ),
+      ),
       infoCard(
-          'Visual Comparison',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Tab order: A → B → C → D → E → F',
-                  style: TextStyle(fontSize: 12, color: deepMagenta, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('A', false, magenta),
-                  focusCell('B', false, magenta),
-                  focusCell('C', false, magenta),
-                ],
+        'Visual Comparison',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Tab order: A → B → C → D → E → F',
+              style: TextStyle(
+                fontSize: 12,
+                color: deepMagenta,
+                fontWeight: FontWeight.w600,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('D', true, magenta),
-                  focusCell('E', false, magenta),
-                  focusCell('F', false, magenta),
-                ],
+            ),
+            const SizedBox(height: 6),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('A', false, magenta),
+                focusCell('B', false, magenta),
+                focusCell('C', false, magenta),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('D', true, magenta),
+                focusCell('E', false, magenta),
+                focusCell('F', false, magenta),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Arrow-up from D → goes to A (spatial neighbor)',
+              style: TextStyle(
+                fontSize: 12,
+                color: plum,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(height: 6),
-              Text('Arrow-up from D → goes to A (spatial neighbor)',
-                  style: TextStyle(fontSize: 12, color: plum, fontWeight: FontWeight.w600)),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -427,43 +495,47 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Spatial Algorithm'),
       noteBox(
-          'The mixin uses a geometry-based nearest-neighbor algorithm. It '
-          'examines the bounding rectangles of all focusable nodes and '
-          'selects the one closest in the requested direction.'),
+        'The mixin uses a geometry-based nearest-neighbor algorithm. It '
+        'examines the bounding rectangles of all focusable nodes and '
+        'selects the one closest in the requested direction.',
+      ),
       infoCard(
-          'Algorithm Steps',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Get current rect', 'Bounding box of focused node'),
-              dataRow('2. Filter candidates', 'Only nodes in the direction'),
-              dataRow('3. Calculate distance', 'From current to each candidate'),
-              dataRow('4. Select nearest', 'Minimum distance wins'),
-              dataRow('5. Request focus', 'Move focus to winner'),
-            ],
-          )),
+        'Algorithm Steps',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Get current rect', 'Bounding box of focused node'),
+            dataRow('2. Filter candidates', 'Only nodes in the direction'),
+            dataRow('3. Calculate distance', 'From current to each candidate'),
+            dataRow('4. Select nearest', 'Minimum distance wins'),
+            dataRow('5. Request focus', 'Move focus to winner'),
+          ],
+        ),
+      ),
       infoCard(
-          'Direction Filtering',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Up', 'Candidates whose bottom ≤ current top'),
-              dataRow('Down', 'Candidates whose top ≥ current bottom'),
-              dataRow('Left', 'Candidates whose right ≤ current left'),
-              dataRow('Right', 'Candidates whose left ≥ current right'),
-            ],
-          )),
+        'Direction Filtering',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Up', 'Candidates whose bottom ≤ current top'),
+            dataRow('Down', 'Candidates whose top ≥ current bottom'),
+            dataRow('Left', 'Candidates whose right ≤ current left'),
+            dataRow('Right', 'Candidates whose left ≥ current right'),
+          ],
+        ),
+      ),
       infoCard(
-          'Distance Metric',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Primary axis', 'Distance along arrow direction'),
-              dataRow('Cross axis', 'Perpendicular offset (weighted less)'),
-              dataRow('Combined', 'Weighted Euclidean-like metric'),
-              dataRow('Tie-breaking', 'Cross-axis alignment preference'),
-            ],
-          )),
+        'Distance Metric',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Primary axis', 'Distance along arrow direction'),
+            dataRow('Cross axis', 'Perpendicular offset (weighted less)'),
+            dataRow('Combined', 'Weighted Euclidean-like metric'),
+            dataRow('Tie-breaking', 'Cross-axis alignment preference'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -475,58 +547,60 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Grid Navigation'),
       noteBox(
-          'Grid layouts are the primary use case for directional focus. '
-          'Arrow keys move between cells naturally — up/down between rows, '
-          'left/right between columns.'),
+        'Grid layouts are the primary use case for directional focus. '
+        'Arrow keys move between cells naturally — up/down between rows, '
+        'left/right between columns.',
+      ),
       infoCard(
-          'Grid Focus Map',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('1,1', false, magenta),
-                  focusCell('1,2', false, magenta),
-                  focusCell('1,3', false, magenta),
-                  focusCell('1,4', false, magenta),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('2,1', false, magenta),
-                  focusCell('2,2', true, fuchsia),
-                  focusCell('2,3', false, magenta),
-                  focusCell('2,4', false, magenta),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('3,1', false, magenta),
-                  focusCell('3,2', false, magenta),
-                  focusCell('3,3', false, magenta),
-                  focusCell('3,4', false, magenta),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  arrowIndicator('up', magenta),
-                  arrowIndicator('down', fuchsia),
-                  arrowIndicator('left', orchid),
-                  arrowIndicator('right', violet),
-                ],
-              ),
-              const SizedBox(height: 4),
-              dataRow('Current focus', 'cell 2,2'),
-              dataRow('Arrow up →', 'cell 1,2 (same column)'),
-              dataRow('Arrow right →', 'cell 2,3 (same row)'),
-              dataRow('Arrow down →', 'cell 3,2 (same column)'),
-            ],
-          )),
+        'Grid Focus Map',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('1,1', false, magenta),
+                focusCell('1,2', false, magenta),
+                focusCell('1,3', false, magenta),
+                focusCell('1,4', false, magenta),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('2,1', false, magenta),
+                focusCell('2,2', true, fuchsia),
+                focusCell('2,3', false, magenta),
+                focusCell('2,4', false, magenta),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('3,1', false, magenta),
+                focusCell('3,2', false, magenta),
+                focusCell('3,3', false, magenta),
+                focusCell('3,4', false, magenta),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                arrowIndicator('up', magenta),
+                arrowIndicator('down', fuchsia),
+                arrowIndicator('left', orchid),
+                arrowIndicator('right', violet),
+              ],
+            ),
+            const SizedBox(height: 4),
+            dataRow('Current focus', 'cell 2,2'),
+            dataRow('Arrow up →', 'cell 1,2 (same column)'),
+            dataRow('Arrow right →', 'cell 2,3 (same row)'),
+            dataRow('Arrow down →', 'cell 3,2 (same column)'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -538,41 +612,45 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'Distance Calculation'),
       noteBox(
-          'The distance calculation determines which candidate node wins. '
-          'It considers both the primary axis (direction of movement) and '
-          'the cross axis (perpendicular offset).'),
+        'The distance calculation determines which candidate node wins. '
+        'It considers both the primary axis (direction of movement) and '
+        'the cross axis (perpendicular offset).',
+      ),
       infoCard(
-          'Distance Components',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              distanceLabel('Cell 2,2', 'Cell 1,2', '50px (direct above)'),
-              distanceLabel('Cell 2,2', 'Cell 1,1', '71px (diagonal)'),
-              distanceLabel('Cell 2,2', 'Cell 1,3', '71px (diagonal)'),
-            ],
-          )),
+        'Distance Components',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            distanceLabel('Cell 2,2', 'Cell 1,2', '50px (direct above)'),
+            distanceLabel('Cell 2,2', 'Cell 1,1', '71px (diagonal)'),
+            distanceLabel('Cell 2,2', 'Cell 1,3', '71px (diagonal)'),
+          ],
+        ),
+      ),
       infoCard(
-          'Weighting',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Primary weight', '1.0 (full distance in direction)'),
-              dataRow('Cross weight', 'Lower (varies by implementation)'),
-              dataRow('Overlap bonus', 'Candidates aligned get priority'),
-              dataRow('Zero cross', 'Perfectly aligned — minimum distance'),
-            ],
-          )),
+        'Weighting',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Primary weight', '1.0 (full distance in direction)'),
+            dataRow('Cross weight', 'Lower (varies by implementation)'),
+            dataRow('Overlap bonus', 'Candidates aligned get priority'),
+            dataRow('Zero cross', 'Perfectly aligned — minimum distance'),
+          ],
+        ),
+      ),
       infoCard(
-          'Edge Cases',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('No candidates', 'Focus stays (no movement)'),
-              dataRow('Tied distances', 'First in traversal order wins'),
-              dataRow('Overlapping rects', 'Center-to-center distance'),
-              dataRow('Very far apart', 'Still navigable if only option'),
-            ],
-          )),
+        'Edge Cases',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('No candidates', 'Focus stays (no movement)'),
+            dataRow('Tied distances', 'First in traversal order wins'),
+            dataRow('Overlapping rects', 'Center-to-center distance'),
+            dataRow('Very far apart', 'Still navigable if only option'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -584,31 +662,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'Mixin Methods'),
       noteBox(
-          'The mixin provides methods that override or supplement the base '
-          'policy\'s navigation. These are called by the focus system when '
-          'directional input is detected.'),
+        'The mixin provides methods that override or supplement the base '
+        'policy\'s navigation. These are called by the focus system when '
+        'directional input is detected.',
+      ),
       infoCard(
-          'Key Methods',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('findFirstFocusInDirection', 'Entry point for arrow nav'),
-              dataRow('inDirection', 'Resolve focus in given direction'),
-              dataRow('_sortAndFilterByDirection', 'Internal candidate filter'),
-              dataRow('_popPolicyDataIfNeeded', 'Stack management'),
-            ],
-          )),
+        'Key Methods',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('findFirstFocusInDirection', 'Entry point for arrow nav'),
+            dataRow('inDirection', 'Resolve focus in given direction'),
+            dataRow('_sortAndFilterByDirection', 'Internal candidate filter'),
+            dataRow('_popPolicyDataIfNeeded', 'Stack management'),
+          ],
+        ),
+      ),
       infoCard(
-          'TraversalDirection Enum',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('TraversalDirection.up', 'Arrow up / D-pad up'),
-              dataRow('TraversalDirection.down', 'Arrow down / D-pad down'),
-              dataRow('TraversalDirection.left', 'Arrow left / D-pad left'),
-              dataRow('TraversalDirection.right', 'Arrow right / D-pad right'),
-            ],
-          )),
+        'TraversalDirection Enum',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('TraversalDirection.up', 'Arrow up / D-pad up'),
+            dataRow('TraversalDirection.down', 'Arrow down / D-pad down'),
+            dataRow('TraversalDirection.left', 'Arrow left / D-pad left'),
+            dataRow('TraversalDirection.right', 'Arrow right / D-pad right'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -620,33 +701,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Framework Integration'),
       noteBox(
-          'Directional focus is triggered by the framework when FocusNode '
-          'receives an arrow key event. The event propagates through the '
-          'focus tree to the enclosing FocusTraversalGroup.'),
+        'Directional focus is triggered by the framework when FocusNode '
+        'receives an arrow key event. The event propagates through the '
+        'focus tree to the enclosing FocusTraversalGroup.',
+      ),
       infoCard(
-          'Event Chain',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Key event', 'Arrow key pressed'),
-              dataRow('2. FocusNode', 'Receives keyDown'),
-              dataRow('3. Focus system', 'Detects directional intent'),
-              dataRow('4. Traversal group', 'Delegates to policy'),
-              dataRow('5. Policy mixin', 'Runs directional algorithm'),
-              dataRow('6. New focus', 'Target node focused'),
-            ],
-          )),
+        'Event Chain',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Key event', 'Arrow key pressed'),
+            dataRow('2. FocusNode', 'Receives keyDown'),
+            dataRow('3. Focus system', 'Detects directional intent'),
+            dataRow('4. Traversal group', 'Delegates to policy'),
+            dataRow('5. Policy mixin', 'Runs directional algorithm'),
+            dataRow('6. New focus', 'Target node focused'),
+          ],
+        ),
+      ),
       infoCard(
-          'FocusTraversalGroup',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Widget', 'FocusTraversalGroup'),
-              dataRow('Policy property', 'Accepts any FocusTraversalPolicy'),
-              dataRow('Scope', 'Limits navigation to its subtree'),
-              dataRow('Nesting', 'Groups can nest for sub-regions'),
-            ],
-          )),
+        'FocusTraversalGroup',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Widget', 'FocusTraversalGroup'),
+            dataRow('Policy property', 'Accepts any FocusTraversalPolicy'),
+            dataRow('Scope', 'Limits navigation to its subtree'),
+            dataRow('Nesting', 'Groups can nest for sub-regions'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -658,41 +742,45 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Built-in Policies Using Mixin'),
       noteBox(
-          'Several built-in policies use this mixin. Understanding which '
-          'policies include directional support helps choose the right one.'),
+        'Several built-in policies use this mixin. Understanding which '
+        'policies include directional support helps choose the right one.',
+      ),
       infoCard(
-          'ReadingOrderTraversalPolicy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Uses mixin', 'Yes'),
-              dataRow('Tab order', 'Reading order (top-left to bottom-right)'),
-              dataRow('Arrow keys', 'Spatial nearest neighbor'),
-              dataRow('Default', 'Yes — used when no policy specified'),
-            ],
-          )),
+        'ReadingOrderTraversalPolicy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Uses mixin', 'Yes'),
+            dataRow('Tab order', 'Reading order (top-left to bottom-right)'),
+            dataRow('Arrow keys', 'Spatial nearest neighbor'),
+            dataRow('Default', 'Yes — used when no policy specified'),
+          ],
+        ),
+      ),
       infoCard(
-          'OrderedTraversalPolicy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Uses mixin', 'Yes'),
-              dataRow('Tab order', 'Explicit FocusOrder widgets'),
-              dataRow('Arrow keys', 'Spatial nearest neighbor'),
-              dataRow('Use case', 'Custom tab order with arrow support'),
-            ],
-          )),
+        'OrderedTraversalPolicy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Uses mixin', 'Yes'),
+            dataRow('Tab order', 'Explicit FocusOrder widgets'),
+            dataRow('Arrow keys', 'Spatial nearest neighbor'),
+            dataRow('Use case', 'Custom tab order with arrow support'),
+          ],
+        ),
+      ),
       infoCard(
-          'WidgetOrderTraversalPolicy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Uses mixin', 'Yes'),
-              dataRow('Tab order', 'Widget tree order'),
-              dataRow('Arrow keys', 'Spatial nearest neighbor'),
-              dataRow('Use case', 'Simple widget-tree-based order'),
-            ],
-          )),
+        'WidgetOrderTraversalPolicy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Uses mixin', 'Yes'),
+            dataRow('Tab order', 'Widget tree order'),
+            dataRow('Arrow keys', 'Spatial nearest neighbor'),
+            dataRow('Use case', 'Simple widget-tree-based order'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -704,59 +792,62 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'TV & Game Controller Input'),
       noteBox(
-          'Directional focus is essential for TV apps and game UIs where '
-          'the only input is a D-pad or joystick. Every focusable element '
-          'must be reachable via directional navigation.'),
+        'Directional focus is essential for TV apps and game UIs where '
+        'the only input is a D-pad or joystick. Every focusable element '
+        'must be reachable via directional navigation.',
+      ),
       infoCard(
-          'TV Remote Layout',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('Home', true, fuchsia),
-                  focusCell('Movies', false, magenta),
-                  focusCell('Shows', false, magenta),
-                  focusCell('Search', false, magenta),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('Poster 1', false, magenta),
-                  focusCell('Poster 2', false, magenta),
-                  focusCell('Poster 3', false, magenta),
-                  focusCell('Poster 4', false, magenta),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  focusCell('Poster 5', false, magenta),
-                  focusCell('Poster 6', false, magenta),
-                  focusCell('Poster 7', false, magenta),
-                  focusCell('Poster 8', false, magenta),
-                ],
-              ),
-              const SizedBox(height: 6),
-              dataRow('D-pad down', 'Home tab row → Poster row'),
-              dataRow('D-pad right', 'Home → Movies (same row)'),
-              dataRow('Select button', 'Activate focused item'),
-            ],
-          )),
+        'TV Remote Layout',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('Home', true, fuchsia),
+                focusCell('Movies', false, magenta),
+                focusCell('Shows', false, magenta),
+                focusCell('Search', false, magenta),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('Poster 1', false, magenta),
+                focusCell('Poster 2', false, magenta),
+                focusCell('Poster 3', false, magenta),
+                focusCell('Poster 4', false, magenta),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                focusCell('Poster 5', false, magenta),
+                focusCell('Poster 6', false, magenta),
+                focusCell('Poster 7', false, magenta),
+                focusCell('Poster 8', false, magenta),
+              ],
+            ),
+            const SizedBox(height: 6),
+            dataRow('D-pad down', 'Home tab row → Poster row'),
+            dataRow('D-pad right', 'Home → Movies (same row)'),
+            dataRow('Select button', 'Activate focused item'),
+          ],
+        ),
+      ),
       infoCard(
-          'Game UI',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Inventory grid', 'Arrow keys move between slots'),
-              dataRow('Menu list', 'Up/down to browse items'),
-              dataRow('Dialog choices', 'Left/right to select option'),
-              dataRow('HUD elements', 'Directional navigation to icons'),
-            ],
-          )),
+        'Game UI',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Inventory grid', 'Arrow keys move between slots'),
+            dataRow('Menu list', 'Up/down to browse items'),
+            dataRow('Dialog choices', 'Left/right to select option'),
+            dataRow('HUD elements', 'Directional navigation to icons'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -768,39 +859,41 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'Form Navigation'),
       noteBox(
-          'Complex forms benefit from directional navigation. Users can '
-          'move between columns with left/right and between rows with '
-          'up/down, in addition to Tab for sequential order.'),
+        'Complex forms benefit from directional navigation. Users can '
+        'move between columns with left/right and between rows with '
+        'up/down, in addition to Tab for sequential order.',
+      ),
       infoCard(
-          'Two-Column Form',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(child: focusCell('First Name', false, magenta)),
-                  Expanded(child: focusCell('Last Name', false, magenta)),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(child: focusCell('Email', true, fuchsia)),
-                  Expanded(child: focusCell('Phone', false, magenta)),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(child: focusCell('Address', false, magenta)),
-                  Expanded(child: focusCell('City', false, magenta)),
-                ],
-              ),
-              const SizedBox(height: 6),
-              dataRow('Tab from Email', '→ Phone (linear)'),
-              dataRow('Arrow-right from Email', '→ Phone (directional)'),
-              dataRow('Arrow-up from Email', '→ First Name (spatial)'),
-              dataRow('Arrow-down from Email', '→ Address (spatial)'),
-            ],
-          )),
+        'Two-Column Form',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(child: focusCell('First Name', false, magenta)),
+                Expanded(child: focusCell('Last Name', false, magenta)),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: focusCell('Email', true, fuchsia)),
+                Expanded(child: focusCell('Phone', false, magenta)),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: focusCell('Address', false, magenta)),
+                Expanded(child: focusCell('City', false, magenta)),
+              ],
+            ),
+            const SizedBox(height: 6),
+            dataRow('Tab from Email', '→ Phone (linear)'),
+            dataRow('Arrow-right from Email', '→ Phone (directional)'),
+            dataRow('Arrow-up from Email', '→ First Name (spatial)'),
+            dataRow('Arrow-down from Email', '→ Address (spatial)'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -812,31 +905,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Custom Policies'),
       noteBox(
-          'You can create a custom FocusTraversalPolicy that uses this '
-          'mixin. Override the directional methods if the default spatial '
-          'algorithm doesn\'t fit your layout.'),
+        'You can create a custom FocusTraversalPolicy that uses this '
+        'mixin. Override the directional methods if the default spatial '
+        'algorithm doesn\'t fit your layout.',
+      ),
       infoCard(
-          'Creating a Custom Policy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Step 1', 'Extend FocusTraversalPolicy'),
-              dataRow('Step 2', 'Mix in DirectionalFocusTraversalPolicyMixin'),
-              dataRow('Step 3', 'Override sortDescendants (Tab order)'),
-              dataRow('Step 4', 'Optionally override directional methods'),
-            ],
-          )),
+        'Creating a Custom Policy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Step 1', 'Extend FocusTraversalPolicy'),
+            dataRow('Step 2', 'Mix in DirectionalFocusTraversalPolicyMixin'),
+            dataRow('Step 3', 'Override sortDescendants (Tab order)'),
+            dataRow('Step 4', 'Optionally override directional methods'),
+          ],
+        ),
+      ),
       infoCard(
-          'Override Scenarios',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Circular grids', 'Polar coordinate distance'),
-              dataRow('Hex layouts', 'Hexagonal neighbor detection'),
-              dataRow('Wrap-around', 'Right from last → first in row'),
-              dataRow('Skip disabled', 'Skip non-interactive widgets'),
-            ],
-          )),
+        'Override Scenarios',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Circular grids', 'Polar coordinate distance'),
+            dataRow('Hex layouts', 'Hexagonal neighbor detection'),
+            dataRow('Wrap-around', 'Right from last → first in row'),
+            dataRow('Skip disabled', 'Skip non-interactive widgets'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -848,82 +944,97 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Scope Boundaries'),
       noteBox(
-          'FocusTraversalGroup creates scope boundaries. Directional '
-          'navigation only considers nodes within the same group by '
-          'default. This prevents arrow keys from jumping to unrelated '
-          'UI regions.'),
+        'FocusTraversalGroup creates scope boundaries. Directional '
+        'navigation only considers nodes within the same group by '
+        'default. This prevents arrow keys from jumping to unrelated '
+        'UI regions.',
+      ),
       infoCard(
-          'Scope Behavior',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Within group', 'Free directional movement'),
-              dataRow('Cross group', 'Blocked by default'),
-              dataRow('Nested groups', 'Inner group is self-contained'),
-              dataRow('Focus escape', 'Tab can exit group, arrows cannot'),
-            ],
-          )),
+        'Scope Behavior',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Within group', 'Free directional movement'),
+            dataRow('Cross group', 'Blocked by default'),
+            dataRow('Nested groups', 'Inner group is self-contained'),
+            dataRow('Focus escape', 'Tab can exit group, arrows cannot'),
+          ],
+        ),
+      ),
       infoCard(
-          'Example Layout',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.only(bottom: 6),
-                decoration: BoxDecoration(
-                  border: Border.all(color: magenta, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Group A: Navigation Bar',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: magenta)),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        focusCell('Nav 1', false, magenta),
-                        focusCell('Nav 2', false, magenta),
-                        focusCell('Nav 3', false, magenta),
-                      ],
-                    ),
-                  ],
-                ),
+        'Example Layout',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 6),
+              decoration: BoxDecoration(
+                border: Border.all(color: magenta, width: 2),
+                borderRadius: BorderRadius.circular(8),
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  border: Border.all(color: orchid, width: 2),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Group B: Content Grid',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: orchid)),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        focusCell('Item 1', true, fuchsia),
-                        focusCell('Item 2', false, orchid),
-                      ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Group A: Navigation Bar',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: magenta,
                     ),
-                    Row(
-                      children: [
-                        focusCell('Item 3', false, orchid),
-                        focusCell('Item 4', false, orchid),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      focusCell('Nav 1', false, magenta),
+                      focusCell('Nav 2', false, magenta),
+                      focusCell('Nav 3', false, magenta),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(height: 6),
-              dataRow('Arrow-up from Item 1', 'Stays in Group B (no exit)'),
-            ],
-          )),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: orchid, width: 2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Group B: Content Grid',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: orchid,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      focusCell('Item 1', true, fuchsia),
+                      focusCell('Item 2', false, orchid),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      focusCell('Item 3', false, orchid),
+                      focusCell('Item 4', false, orchid),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 6),
+            dataRow('Arrow-up from Item 1', 'Stays in Group B (no exit)'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -935,31 +1046,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Accessibility'),
       noteBox(
-          'Directional focus is a key accessibility feature. Screen reader '
-          'users and keyboard-only users depend on predictable arrow key '
-          'behavior to navigate spatial layouts.'),
+        'Directional focus is a key accessibility feature. Screen reader '
+        'users and keyboard-only users depend on predictable arrow key '
+        'behavior to navigate spatial layouts.',
+      ),
       infoCard(
-          'Accessibility Requirements',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('WCAG 2.1.1', 'All functionality via keyboard'),
-              dataRow('WCAG 2.4.3', 'Meaningful focus order'),
-              dataRow('Direction intuitive', 'Matches visual layout'),
-              dataRow('No focus traps', 'Always escapable'),
-            ],
-          )),
+        'Accessibility Requirements',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('WCAG 2.1.1', 'All functionality via keyboard'),
+            dataRow('WCAG 2.4.3', 'Meaningful focus order'),
+            dataRow('Direction intuitive', 'Matches visual layout'),
+            dataRow('No focus traps', 'Always escapable'),
+          ],
+        ),
+      ),
       infoCard(
-          'Screen Reader Behavior',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('VoiceOver', 'Arrow keys move between elements'),
-              dataRow('TalkBack', 'Swipe gestures map to directions'),
-              dataRow('NVDA/JAWS', 'Arrow keys in forms mode'),
-              dataRow('Focus announcement', 'New element name spoken'),
-            ],
-          )),
+        'Screen Reader Behavior',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('VoiceOver', 'Arrow keys move between elements'),
+            dataRow('TalkBack', 'Swipe gestures map to directions'),
+            dataRow('NVDA/JAWS', 'Arrow keys in forms mode'),
+            dataRow('Focus announcement', 'New element name spoken'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -971,32 +1085,35 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Performance'),
       noteBox(
-          'The spatial search examines all focusable nodes in the group. '
-          'For small groups this is instant, but very large groups (1000+ '
-          'nodes) may need optimization.'),
+        'The spatial search examines all focusable nodes in the group. '
+        'For small groups this is instant, but very large groups (1000+ '
+        'nodes) may need optimization.',
+      ),
       infoCard(
-          'Complexity Analysis',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Time complexity', 'O(n) per directional request'),
-              dataRow('n = ', 'Focusable nodes in group'),
-              dataRow('10 nodes', 'Negligible (< 0.1ms)'),
-              dataRow('100 nodes', 'Fast (< 1ms)'),
-              dataRow('1000 nodes', 'Potentially noticeable (few ms)'),
-            ],
-          )),
+        'Complexity Analysis',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Time complexity', 'O(n) per directional request'),
+            dataRow('n = ', 'Focusable nodes in group'),
+            dataRow('10 nodes', 'Negligible (< 0.1ms)'),
+            dataRow('100 nodes', 'Fast (< 1ms)'),
+            dataRow('1000 nodes', 'Potentially noticeable (few ms)'),
+          ],
+        ),
+      ),
       infoCard(
-          'Optimization Strategies',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Smaller groups', 0.90, magenta),
-              progressBar('Lazy focus nodes', 0.70, fuchsia),
-              progressBar('Viewport culling', 0.60, orchid),
-              progressBar('Spatial indexing', 0.40, violet),
-            ],
-          )),
+        'Optimization Strategies',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Smaller groups', 0.90, magenta),
+            progressBar('Lazy focus nodes', 0.70, fuchsia),
+            progressBar('Viewport culling', 0.60, orchid),
+            progressBar('Spatial indexing', 0.40, violet),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -1008,32 +1125,38 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Testing'),
       noteBox(
-          'Testing directional focus requires simulating arrow key events '
-          'and verifying that focus lands on the expected node based on '
-          'spatial layout.'),
+        'Testing directional focus requires simulating arrow key events '
+        'and verifying that focus lands on the expected node based on '
+        'spatial layout.',
+      ),
       infoCard(
-          'Test Approach',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Build grid', 'Create grid of Focus + focusable'),
-              dataRow('Set initial focus', 'Focus specific node'),
-              dataRow('Send arrow key', 'simulateKeyDownEvent(LogicalKeyboardKey.arrowRight)'),
-              dataRow('Verify focus', 'Check which FocusNode has focus'),
-            ],
-          )),
+        'Test Approach',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Build grid', 'Create grid of Focus + focusable'),
+            dataRow('Set initial focus', 'Focus specific node'),
+            dataRow(
+              'Send arrow key',
+              'simulateKeyDownEvent(LogicalKeyboardKey.arrowRight)',
+            ),
+            dataRow('Verify focus', 'Check which FocusNode has focus'),
+          ],
+        ),
+      ),
       infoCard(
-          'Test Scenarios',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Same row right', 'Focus moves to adjacent cell'),
-              dataRow('Same column down', 'Focus moves to cell below'),
-              dataRow('Edge of grid', 'Focus stays (no movement)'),
-              dataRow('Irregular layout', 'Nearest neighbor in direction'),
-              dataRow('Empty direction', 'No candidate — focus unchanged'),
-            ],
-          )),
+        'Test Scenarios',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Same row right', 'Focus moves to adjacent cell'),
+            dataRow('Same column down', 'Focus moves to cell below'),
+            dataRow('Edge of grid', 'Focus stays (no movement)'),
+            dataRow('Irregular layout', 'Nearest neighbor in direction'),
+            dataRow('Empty direction', 'No candidate — focus unchanged'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -1044,56 +1167,61 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionBanner('16', 'Visual Dashboard'),
-      noteBox('Complete overview of the DirectionalFocusTraversalPolicyMixin deep demo.'),
+      noteBox(
+        'Complete overview of the DirectionalFocusTraversalPolicyMixin deep demo.',
+      ),
       infoCard(
-          'Demo Color Palette',
-          Wrap(
-            children: [
-              colorSwatch('Magenta', magenta),
-              colorSwatch('Fuchsia', fuchsia),
-              colorSwatch('Deep Mag.', deepMagenta),
-              colorSwatch('Pale Lav.', paleLavender),
-              colorSwatch('Orchid', orchid),
-              colorSwatch('Thistle', thistle),
-              colorSwatch('Plum', plum),
-              colorSwatch('Heather', heather),
-              colorSwatch('Violet', violet),
-              colorSwatch('Mulberry', mulberry),
-            ],
-          )),
+        'Demo Color Palette',
+        Wrap(
+          children: [
+            colorSwatch('Magenta', magenta),
+            colorSwatch('Fuchsia', fuchsia),
+            colorSwatch('Deep Mag.', deepMagenta),
+            colorSwatch('Pale Lav.', paleLavender),
+            colorSwatch('Orchid', orchid),
+            colorSwatch('Thistle', thistle),
+            colorSwatch('Plum', plum),
+            colorSwatch('Heather', heather),
+            colorSwatch('Violet', violet),
+            colorSwatch('Mulberry', mulberry),
+          ],
+        ),
+      ),
       infoCard(
-          'Section Coverage',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Overview', 1.0, magenta),
-              progressBar('Linear vs Directional', 1.0, fuchsia),
-              progressBar('Spatial Algorithm', 1.0, orchid),
-              progressBar('Grid Navigation', 1.0, violet),
-              progressBar('Distance Calculation', 1.0, magenta),
-              progressBar('Mixin Methods', 1.0, fuchsia),
-              progressBar('Framework Integration', 1.0, orchid),
-              progressBar('Built-in Policies', 1.0, violet),
-              progressBar('TV & Game Controller', 1.0, magenta),
-              progressBar('Form Navigation', 1.0, fuchsia),
-              progressBar('Custom Policies', 1.0, orchid),
-              progressBar('Scope Boundaries', 1.0, violet),
-              progressBar('Accessibility', 1.0, magenta),
-              progressBar('Performance', 1.0, fuchsia),
-              progressBar('Testing', 1.0, orchid),
-              progressBar('Dashboard', 1.0, violet),
-            ],
-          )),
+        'Section Coverage',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Overview', 1.0, magenta),
+            progressBar('Linear vs Directional', 1.0, fuchsia),
+            progressBar('Spatial Algorithm', 1.0, orchid),
+            progressBar('Grid Navigation', 1.0, violet),
+            progressBar('Distance Calculation', 1.0, magenta),
+            progressBar('Mixin Methods', 1.0, fuchsia),
+            progressBar('Framework Integration', 1.0, orchid),
+            progressBar('Built-in Policies', 1.0, violet),
+            progressBar('TV & Game Controller', 1.0, magenta),
+            progressBar('Form Navigation', 1.0, fuchsia),
+            progressBar('Custom Policies', 1.0, orchid),
+            progressBar('Scope Boundaries', 1.0, violet),
+            progressBar('Accessibility', 1.0, magenta),
+            progressBar('Performance', 1.0, fuchsia),
+            progressBar('Testing', 1.0, orchid),
+            progressBar('Dashboard', 1.0, violet),
+          ],
+        ),
+      ),
       infoCard(
-          'Statistics',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Total sections', '16'),
-              dataRow('Theme', 'Magenta / Fuchsia'),
-              dataRow('Palette colors', '10'),
-            ],
-          )),
+        'Statistics',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Total sections', '16'),
+            dataRow('Theme', 'Magenta / Fuchsia'),
+            dataRow('Palette colors', '10'),
+          ],
+        ),
+      ),
       Wrap(
         spacing: 6,
         runSpacing: 4,

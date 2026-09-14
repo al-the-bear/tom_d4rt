@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 20.0),
-              
+
               // Basic examples
               Text(
                 'Basic Variants:',
@@ -81,7 +81,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              
+
               Wrap(
                 spacing: 16.0,
                 runSpacing: 16.0,
@@ -93,7 +93,7 @@ dynamic build(BuildContext context) {
                     },
                     child: Text('Basic'),
                   ),
-                  
+
                   // Filled button
                   RawMaterialButton(
                     onPressed: () {
@@ -101,11 +101,17 @@ dynamic build(BuildContext context) {
                     },
                     fillColor: Colors.blue,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Text('Filled', style: TextStyle(color: Colors.white)),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text(
+                        'Filled',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                  
+
                   // Outlined button
                   RawMaterialButton(
                     onPressed: () {
@@ -116,25 +122,34 @@ dynamic build(BuildContext context) {
                       side: BorderSide(color: Colors.blue, width: 1.5),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Text('Outlined', style: TextStyle(color: Colors.blue)),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text(
+                        'Outlined',
+                        style: TextStyle(color: Colors.blue),
+                      ),
                     ),
                   ),
-                  
+
                   // Icon button
                   RawMaterialButton(
                     onPressed: () {
                       print('Icon button pressed');
                     },
                     shape: CircleBorder(),
-                    constraints: BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+                    constraints: BoxConstraints(
+                      minWidth: 48.0,
+                      minHeight: 48.0,
+                    ),
                     child: Icon(Icons.favorite, color: Colors.pink),
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 20.0),
-              
+
               // Info box
               Container(
                 padding: EdgeInsets.all(12.0),
@@ -221,13 +236,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'The shape property accepts ShapeBorder for custom button shapes:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               Wrap(
                 spacing: 16.0,
                 runSpacing: 16.0,
@@ -248,7 +260,7 @@ dynamic build(BuildContext context) {
                       Text('Rectangle', style: TextStyle(fontSize: 10.0)),
                     ],
                   ),
-                  
+
                   // Rounded
                   Column(
                     children: [
@@ -260,14 +272,17 @@ dynamic build(BuildContext context) {
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(12.0),
-                          child: Icon(Icons.rounded_corner, color: Colors.indigo),
+                          child: Icon(
+                            Icons.rounded_corner,
+                            color: Colors.indigo,
+                          ),
                         ),
                       ),
                       SizedBox(height: 4.0),
                       Text('Rounded', style: TextStyle(fontSize: 10.0)),
                     ],
                   ),
-                  
+
                   // Circle
                   Column(
                     children: [
@@ -275,14 +290,17 @@ dynamic build(BuildContext context) {
                         onPressed: () {},
                         fillColor: Colors.blue.shade100,
                         shape: CircleBorder(),
-                        constraints: BoxConstraints(minWidth: 50.0, minHeight: 50.0),
+                        constraints: BoxConstraints(
+                          minWidth: 50.0,
+                          minHeight: 50.0,
+                        ),
                         child: Icon(Icons.circle, color: Colors.blue),
                       ),
                       SizedBox(height: 4.0),
                       Text('Circle', style: TextStyle(fontSize: 10.0)),
                     ],
                   ),
-                  
+
                   // Stadium
                   Column(
                     children: [
@@ -291,15 +309,21 @@ dynamic build(BuildContext context) {
                         fillColor: Colors.green.shade100,
                         shape: StadiumBorder(),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-                          child: Icon(Icons.horizontal_rule, color: Colors.green),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 12.0,
+                          ),
+                          child: Icon(
+                            Icons.horizontal_rule,
+                            color: Colors.green,
+                          ),
                         ),
                       ),
                       SizedBox(height: 4.0),
                       Text('Stadium', style: TextStyle(fontSize: 10.0)),
                     ],
                   ),
-                  
+
                   // Beveled
                   Column(
                     children: [
@@ -318,7 +342,7 @@ dynamic build(BuildContext context) {
                       Text('Beveled', style: TextStyle(fontSize: 10.0)),
                     ],
                   ),
-                  
+
                   // Continuous
                   Column(
                     children: [
@@ -399,13 +423,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Control button depth with elevation and highlightElevation:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 20.0),
-              
+
               // Elevation scale
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -417,9 +438,9 @@ dynamic build(BuildContext context) {
                   _buildElevationButton('16', 16.0),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Highlight elevation
               Container(
                 padding: EdgeInsets.all(12.0),
@@ -451,8 +472,14 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                            child: Text('Press Me', style: TextStyle(color: Colors.white)),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              'Press Me',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                         RawMaterialButton(
@@ -464,8 +491,14 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                            child: Text('Flat Rise', style: TextStyle(color: Colors.white)),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              'Flat Rise',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ],
@@ -538,7 +571,9 @@ dynamic build(BuildContext context) {
                 RawMaterialButton(
                   onPressed: () {},
                   fillColor: Colors.red,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text('Red', style: TextStyle(color: Colors.white)),
@@ -547,7 +582,9 @@ dynamic build(BuildContext context) {
                 RawMaterialButton(
                   onPressed: () {},
                   fillColor: Colors.green,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text('Green', style: TextStyle(color: Colors.white)),
@@ -556,23 +593,27 @@ dynamic build(BuildContext context) {
                 RawMaterialButton(
                   onPressed: () {},
                   fillColor: Colors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text('Blue', style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ]),
-              
+
               SizedBox(height: 16.0),
-              
+
               // Splash and highlight colors
               _buildColorSection('splashColor', [
                 RawMaterialButton(
                   onPressed: () {},
                   splashColor: Colors.pink.withValues(alpha: 0.3),
                   fillColor: Colors.pink.shade50,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text('Pink Splash'),
@@ -582,35 +623,47 @@ dynamic build(BuildContext context) {
                   onPressed: () {},
                   splashColor: Colors.amber.withValues(alpha: 0.3),
                   fillColor: Colors.amber.shade50,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
                     child: Text('Amber Splash'),
                   ),
                 ),
               ]),
-              
+
               SizedBox(height: 16.0),
-              
+
               // Disabled state
               _buildColorSection('Disabled State', [
                 RawMaterialButton(
                   onPressed: () {},
                   fillColor: Colors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text('Enabled', style: TextStyle(color: Colors.white)),
+                    child: Text(
+                      'Enabled',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
                 RawMaterialButton(
                   onPressed: null,
                   disabledElevation: 0.0,
                   fillColor: Colors.grey.shade300,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Text('Disabled', style: TextStyle(color: Colors.grey.shade500)),
+                    child: Text(
+                      'Disabled',
+                      style: TextStyle(color: Colors.grey.shade500),
+                    ),
                   ),
                 ),
               ]),
@@ -674,13 +727,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Control button size with constraints and padding:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Different sizes
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -691,7 +741,10 @@ dynamic build(BuildContext context) {
                     children: [
                       RawMaterialButton(
                         onPressed: () {},
-                        constraints: BoxConstraints(minWidth: 32.0, minHeight: 32.0),
+                        constraints: BoxConstraints(
+                          minWidth: 32.0,
+                          minHeight: 32.0,
+                        ),
                         fillColor: Colors.cyan,
                         shape: CircleBorder(),
                         child: Icon(Icons.add, size: 16.0, color: Colors.white),
@@ -705,7 +758,10 @@ dynamic build(BuildContext context) {
                     children: [
                       RawMaterialButton(
                         onPressed: () {},
-                        constraints: BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+                        constraints: BoxConstraints(
+                          minWidth: 48.0,
+                          minHeight: 48.0,
+                        ),
                         fillColor: Colors.cyan,
                         shape: CircleBorder(),
                         child: Icon(Icons.add, size: 24.0, color: Colors.white),
@@ -719,7 +775,10 @@ dynamic build(BuildContext context) {
                     children: [
                       RawMaterialButton(
                         onPressed: () {},
-                        constraints: BoxConstraints(minWidth: 64.0, minHeight: 64.0),
+                        constraints: BoxConstraints(
+                          minWidth: 64.0,
+                          minHeight: 64.0,
+                        ),
                         fillColor: Colors.cyan,
                         shape: CircleBorder(),
                         child: Icon(Icons.add, size: 32.0, color: Colors.white),
@@ -730,16 +789,13 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Padding variations
               Text(
                 'Padding variations:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
               ),
               SizedBox(height: 12.0),
               Wrap(
@@ -750,20 +806,30 @@ dynamic build(BuildContext context) {
                     onPressed: () {},
                     fillColor: Colors.cyan.shade100,
                     padding: EdgeInsets.all(4.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                     child: Text('Compact'),
                   ),
                   RawMaterialButton(
                     onPressed: () {},
                     fillColor: Colors.cyan.shade100,
-                    padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 12.0,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                     child: Text('Spacious'),
                   ),
                   RawMaterialButton(
                     onPressed: () {},
                     fillColor: Colors.cyan.shade100,
-                    padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40.0,
+                      vertical: 8.0,
+                    ),
                     shape: StadiumBorder(),
                     child: Text('Wide'),
                   ),
@@ -829,33 +895,35 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'RawMaterialButton works great as a custom icon button:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Social media buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildSocialButton(Icons.camera_alt, Colors.pink, 'Instagram'),
+                  _buildSocialButton(
+                    Icons.camera_alt,
+                    Colors.pink,
+                    'Instagram',
+                  ),
                   _buildSocialButton(Icons.play_arrow, Colors.red, 'YouTube'),
-                  _buildSocialButton(Icons.code, Colors.grey.shade800, 'GitHub'),
+                  _buildSocialButton(
+                    Icons.code,
+                    Colors.grey.shade800,
+                    'GitHub',
+                  ),
                   _buildSocialButton(Icons.language, Colors.blue, 'Web'),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Action buttons row
               Text(
                 'Floating Action Buttons:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
               ),
               SizedBox(height: 12.0),
               Row(
@@ -869,7 +937,10 @@ dynamic build(BuildContext context) {
                         fillColor: Colors.pink,
                         shape: CircleBorder(),
                         elevation: 4.0,
-                        constraints: BoxConstraints(minWidth: 40.0, minHeight: 40.0),
+                        constraints: BoxConstraints(
+                          minWidth: 40.0,
+                          minHeight: 40.0,
+                        ),
                         child: Icon(Icons.add, color: Colors.white, size: 20.0),
                       ),
                       SizedBox(height: 4.0),
@@ -884,7 +955,10 @@ dynamic build(BuildContext context) {
                         fillColor: Colors.pink,
                         shape: CircleBorder(),
                         elevation: 6.0,
-                        constraints: BoxConstraints(minWidth: 56.0, minHeight: 56.0),
+                        constraints: BoxConstraints(
+                          minWidth: 56.0,
+                          minHeight: 56.0,
+                        ),
                         child: Icon(Icons.add, color: Colors.white, size: 24.0),
                       ),
                       SizedBox(height: 4.0),
@@ -900,13 +974,19 @@ dynamic build(BuildContext context) {
                         shape: StadiumBorder(),
                         elevation: 6.0,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 12.0,
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(Icons.add, color: Colors.white, size: 20.0),
                               SizedBox(width: 8.0),
-                              Text('Create', style: TextStyle(color: Colors.white)),
+                              Text(
+                                'Create',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ],
                           ),
                         ),
@@ -949,9 +1029,7 @@ dynamic build(BuildContext context) {
           width: double.infinity,
           padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.indigo, Colors.purple],
-            ),
+            gradient: LinearGradient(colors: [Colors.indigo, Colors.purple]),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16.0),
               topRight: Radius.circular(16.0),
@@ -996,7 +1074,10 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 14.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 32.0,
+                        vertical: 14.0,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -1016,7 +1097,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              
+
               // Neon glow button
               Container(
                 margin: EdgeInsets.only(bottom: 16.0),
@@ -1039,7 +1120,10 @@ dynamic build(BuildContext context) {
                     side: BorderSide(color: Colors.cyan, width: 2.0),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 14.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 32.0,
+                      vertical: 14.0,
+                    ),
                     child: Text(
                       'NEON STYLE',
                       style: TextStyle(
@@ -1051,7 +1135,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              
+
               // Pill buttons row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1061,7 +1145,10 @@ dynamic build(BuildContext context) {
                     fillColor: Colors.red.shade400,
                     shape: StadiumBorder(),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -1077,7 +1164,10 @@ dynamic build(BuildContext context) {
                     fillColor: Colors.blue.shade400,
                     shape: StadiumBorder(),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -1093,7 +1183,10 @@ dynamic build(BuildContext context) {
                     fillColor: Colors.green.shade400,
                     shape: StadiumBorder(),
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -1160,13 +1253,11 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         // Toolbar
         Container(
           padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-          ),
+          decoration: BoxDecoration(color: Colors.grey.shade100),
           child: Row(
             children: [
               // Format buttons
@@ -1199,7 +1290,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         // Content area
         Container(
           padding: EdgeInsets.all(16.0),
@@ -1226,16 +1317,44 @@ dynamic build(BuildContext context) {
   print('=== Section 9: API Reference Summary ===');
 
   final apiItems = [
-    {'prop': 'onPressed', 'type': 'VoidCallback?', 'desc': 'Tap callback (null = disabled)'},
-    {'prop': 'onLongPress', 'type': 'VoidCallback?', 'desc': 'Long press callback'},
+    {
+      'prop': 'onPressed',
+      'type': 'VoidCallback?',
+      'desc': 'Tap callback (null = disabled)',
+    },
+    {
+      'prop': 'onLongPress',
+      'type': 'VoidCallback?',
+      'desc': 'Long press callback',
+    },
     {'prop': 'fillColor', 'type': 'Color?', 'desc': 'Background fill color'},
-    {'prop': 'splashColor', 'type': 'Color?', 'desc': 'Ink splash color on press'},
-    {'prop': 'highlightColor', 'type': 'Color?', 'desc': 'Highlight overlay color'},
+    {
+      'prop': 'splashColor',
+      'type': 'Color?',
+      'desc': 'Ink splash color on press',
+    },
+    {
+      'prop': 'highlightColor',
+      'type': 'Color?',
+      'desc': 'Highlight overlay color',
+    },
     {'prop': 'elevation', 'type': 'double', 'desc': 'Default elevation (dp)'},
-    {'prop': 'highlightElevation', 'type': 'double', 'desc': 'Elevation when pressed'},
-    {'prop': 'disabledElevation', 'type': 'double', 'desc': 'Elevation when disabled'},
+    {
+      'prop': 'highlightElevation',
+      'type': 'double',
+      'desc': 'Elevation when pressed',
+    },
+    {
+      'prop': 'disabledElevation',
+      'type': 'double',
+      'desc': 'Elevation when disabled',
+    },
     {'prop': 'shape', 'type': 'ShapeBorder', 'desc': 'Button border shape'},
-    {'prop': 'constraints', 'type': 'BoxConstraints', 'desc': 'Min/max size constraints'},
+    {
+      'prop': 'constraints',
+      'type': 'BoxConstraints',
+      'desc': 'Min/max size constraints',
+    },
     {'prop': 'padding', 'type': 'EdgeInsets', 'desc': 'Internal padding'},
     {'prop': 'child', 'type': 'Widget', 'desc': 'Button content'},
   ];
@@ -1266,52 +1385,54 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        ...apiItems.map((item) => Container(
-          margin: EdgeInsets.symmetric(vertical: 3.0),
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Colors.blueGrey.shade100),
+        ...apiItems.map(
+          (item) => Container(
+            margin: EdgeInsets.symmetric(vertical: 3.0),
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: Colors.blueGrey.shade100),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 110.0,
+                  child: Text(
+                    item['prop'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade700,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 90.0,
+                  child: Text(
+                    item['type'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    item['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 110.0,
-                child: Text(
-                  item['prop'] as String,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade700,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 90.0,
-                child: Text(
-                  item['type'] as String,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  item['desc'] as String,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )),
+        ),
       ],
     ),
   );
@@ -1349,7 +1470,11 @@ dynamic build(BuildContext context) {
                     ),
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.touch_app, color: Colors.white, size: 32.0),
+                      child: Icon(
+                        Icons.touch_app,
+                        color: Colors.white,
+                        size: 32.0,
+                      ),
                     ),
                   ),
                 ],
@@ -1367,10 +1492,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Low-level Material button for custom designs',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1394,7 +1516,10 @@ dynamic build(BuildContext context) {
         colorsCard,
 
         SizedBox(height: 24.0),
-        _buildSectionHeader('Section 5: Sizing & Constraints', Icons.aspect_ratio),
+        _buildSectionHeader(
+          'Section 5: Sizing & Constraints',
+          Icons.aspect_ratio,
+        ),
         sizingCard,
 
         SizedBox(height: 24.0),
@@ -1449,9 +1574,7 @@ Widget _buildElevationButton(String label, double elevation) {
         onPressed: () {},
         elevation: elevation,
         fillColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         constraints: BoxConstraints(minWidth: 50.0, minHeight: 50.0),
         child: Text(
           label,
@@ -1462,10 +1585,7 @@ Widget _buildElevationButton(String label, double elevation) {
         ),
       ),
       SizedBox(height: 4.0),
-      Text(
-        'dp',
-        style: TextStyle(fontSize: 10.0, color: Colors.grey),
-      ),
+      Text('dp', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
     ],
   );
 }
@@ -1491,11 +1611,7 @@ Widget _buildColorSection(String title, List<Widget> buttons) {
         ),
       ),
       SizedBox(height: 8.0),
-      Wrap(
-        spacing: 12.0,
-        runSpacing: 8.0,
-        children: buttons,
-      ),
+      Wrap(spacing: 12.0, runSpacing: 8.0, children: buttons),
     ],
   );
 }
@@ -1527,9 +1643,7 @@ Widget _buildToolbarButton(IconData icon, bool isActive) {
       print('Toolbar button pressed');
     },
     fillColor: isActive ? Colors.blue.shade100 : Colors.transparent,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
     constraints: BoxConstraints(minWidth: 32.0, minHeight: 32.0),
     child: Icon(
       icon,

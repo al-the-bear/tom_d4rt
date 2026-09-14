@@ -66,64 +66,63 @@ import 'package:flutter/rendering.dart';
 // tells you what it wants to be next to.
 //
 
-const Color kTideLimestone       = Color(0xFFEDE6D6); // background, soft ivory stone
-const Color kBleachedDriftwood   = Color(0xFFC8B79A); // section card surface
-const Color kHarbourFog          = Color(0xFFB8C2C0); // muted grey-green dividers
-const Color kSeaglassPale        = Color(0xFFA8C4B0); // accent for "default" values
-const Color kSeaglassDeep        = Color(0xFF5F8A77); // accent for "constrained" values
-const Color kTidepoolNight       = Color(0xFF1F2D2B); // primary text
-const Color kSaltSpray           = Color(0xFFF6F1E4); // raised tile
-const Color kRustyAnchor         = Color(0xFFB35F3D); // warning / AVOID
-const Color kKelpShadow          = Color(0xFF3B4F3F); // strong text
-const Color kCoralBleach         = Color(0xFFE8B4A2); // soft warning highlight
-const Color kSandbarHighlight    = Color(0xFFD9C9A8); // matrix highlight
-const Color kFoamWhite           = Color(0xFFFAF6EC); // inner card surface
-const Color kStormGlass          = Color(0xFF26393A); // diagram fills
-const Color kBeachPlumPurple     = Color(0xFF7A5C7A); // glossary accent
+const Color kTideLimestone = Color(0xFFEDE6D6); // background, soft ivory stone
+const Color kBleachedDriftwood = Color(0xFFC8B79A); // section card surface
+const Color kHarbourFog = Color(0xFFB8C2C0); // muted grey-green dividers
+const Color kSeaglassPale = Color(0xFFA8C4B0); // accent for "default" values
+const Color kSeaglassDeep = Color(
+  0xFF5F8A77,
+); // accent for "constrained" values
+const Color kTidepoolNight = Color(0xFF1F2D2B); // primary text
+const Color kSaltSpray = Color(0xFFF6F1E4); // raised tile
+const Color kRustyAnchor = Color(0xFFB35F3D); // warning / AVOID
+const Color kKelpShadow = Color(0xFF3B4F3F); // strong text
+const Color kCoralBleach = Color(0xFFE8B4A2); // soft warning highlight
+const Color kSandbarHighlight = Color(0xFFD9C9A8); // matrix highlight
+const Color kFoamWhite = Color(0xFFFAF6EC); // inner card surface
+const Color kStormGlass = Color(0xFF26393A); // diagram fills
+const Color kBeachPlumPurple = Color(0xFF7A5C7A); // glossary accent
 
 // ---------------------------------------------------------------------------
 // TYPOGRAPHY HELPERS
 // ---------------------------------------------------------------------------
 
 TextStyle _h1() => const TextStyle(
-      fontSize: 26,
-      fontWeight: FontWeight.w700,
-      color: kTidepoolNight,
-      letterSpacing: 0.4,
-    );
+  fontSize: 26,
+  fontWeight: FontWeight.w700,
+  color: kTidepoolNight,
+  letterSpacing: 0.4,
+);
 
 TextStyle _h2() => const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w700,
-      color: kKelpShadow,
-      letterSpacing: 0.2,
-    );
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: kKelpShadow,
+  letterSpacing: 0.2,
+);
 
 TextStyle _h3() => const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: kKelpShadow,
-    );
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+  color: kKelpShadow,
+);
 
-TextStyle _body() => const TextStyle(
-      fontSize: 13,
-      height: 1.45,
-      color: kTidepoolNight,
-    );
+TextStyle _body() =>
+    const TextStyle(fontSize: 13, height: 1.45, color: kTidepoolNight);
 
 TextStyle _mono() => const TextStyle(
-      fontSize: 12.5,
-      fontFamily: 'monospace',
-      color: kTidepoolNight,
-      height: 1.4,
-    );
+  fontSize: 12.5,
+  fontFamily: 'monospace',
+  color: kTidepoolNight,
+  height: 1.4,
+);
 
 TextStyle _label() => const TextStyle(
-      fontSize: 11,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 1.2,
-      color: kSeaglassDeep,
-    );
+  fontSize: 11,
+  fontWeight: FontWeight.w700,
+  letterSpacing: 1.2,
+  color: kSeaglassDeep,
+);
 
 // ---------------------------------------------------------------------------
 // LITTLE BUILDING BLOCKS
@@ -133,10 +132,10 @@ Widget _gap(double h) => SizedBox(height: h);
 Widget _gapW(double w) => SizedBox(width: w);
 
 Widget _divider() => Container(
-      height: 1,
-      margin: const EdgeInsets.symmetric(vertical: 12),
-      color: kHarbourFog.withValues(alpha: 0.6),
-    );
+  height: 1,
+  margin: const EdgeInsets.symmetric(vertical: 12),
+  color: kHarbourFog.withValues(alpha: 0.6),
+);
 
 Widget _swatch(Color c, String name, String purpose) {
   return Container(
@@ -165,17 +164,23 @@ Widget _swatch(Color c, String name, String purpose) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: const TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w700,
-                      color: kTidepoolNight)),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  color: kTidepoolNight,
+                ),
+              ),
               _gap(2),
-              Text(purpose,
-                  style: const TextStyle(
-                      fontSize: 10.5,
-                      color: kKelpShadow,
-                      height: 1.2)),
+              Text(
+                purpose,
+                style: const TextStyle(
+                  fontSize: 10.5,
+                  color: kKelpShadow,
+                  height: 1.2,
+                ),
+              ),
             ],
           ),
         ),
@@ -184,7 +189,11 @@ Widget _swatch(Color c, String name, String purpose) {
   );
 }
 
-Widget _sectionCard({required String tag, required String title, required Widget child}) {
+Widget _sectionCard({
+  required String tag,
+  required String title,
+  required Widget child,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     padding: const EdgeInsets.all(16),
@@ -204,12 +213,15 @@ Widget _sectionCard({required String tag, required String title, required Widget
                 color: kSeaglassDeep,
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(tag,
-                  style: const TextStyle(
-                      color: kFoamWhite,
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.0)),
+              child: Text(
+                tag,
+                style: const TextStyle(
+                  color: kFoamWhite,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.0,
+                ),
+              ),
             ),
             _gapW(10),
             Expanded(child: Text(title, style: _h2())),
@@ -230,11 +242,14 @@ Widget _kvLine(String k, String v, {Color? accent}) {
       children: [
         SizedBox(
           width: 200,
-          child: Text(k,
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                  color: accent ?? kKelpShadow)),
+          child: Text(
+            k,
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: accent ?? kKelpShadow,
+            ),
+          ),
         ),
         Expanded(child: Text(v, style: _mono())),
       ],
@@ -248,11 +263,14 @@ Widget _bullet(String s) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('-  ',
-            style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                color: kSeaglassDeep)),
+        const Text(
+          '-  ',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w800,
+            color: kSeaglassDeep,
+          ),
+        ),
         Expanded(child: Text(s, style: _body())),
       ],
     ),
@@ -267,12 +285,15 @@ Widget _codeBlock(String code) {
       color: kStormGlass,
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: kFoamWhite,
-            height: 1.4)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: kFoamWhite,
+        height: 1.4,
+      ),
+    ),
   );
 }
 
@@ -308,12 +329,15 @@ Widget _calloutAvoid(String head, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('AVOID  $head',
-            style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-                color: kRustyAnchor)),
+        Text(
+          'AVOID  $head',
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2,
+            color: kRustyAnchor,
+          ),
+        ),
         _gap(4),
         Text(body, style: _body()),
       ],
@@ -372,18 +396,30 @@ dynamic build(BuildContext context) {
     maxShowOnScreenExtent: 240.0,
   );
 
-  print('cfgDefault       min=${cfgDefault.minShowOnScreenExtent}'
-      ' max=${cfgDefault.maxShowOnScreenExtent}');
-  print('cfgZeroToHundred min=${cfgZeroToHundred.minShowOnScreenExtent}'
-      ' max=${cfgZeroToHundred.maxShowOnScreenExtent}');
-  print('cfgPinned        min=${cfgPinned.minShowOnScreenExtent}'
-      ' max=${cfgPinned.maxShowOnScreenExtent}');
-  print('cfgFloating      min=${cfgFloating.minShowOnScreenExtent}'
-      ' max=${cfgFloating.maxShowOnScreenExtent}');
-  print('cfgScreenReader  min=${cfgScreenReader.minShowOnScreenExtent}'
-      ' max=${cfgScreenReader.maxShowOnScreenExtent}');
-  print('cfgLargeBanner   min=${cfgLargeBanner.minShowOnScreenExtent}'
-      ' max=${cfgLargeBanner.maxShowOnScreenExtent}');
+  print(
+    'cfgDefault       min=${cfgDefault.minShowOnScreenExtent}'
+    ' max=${cfgDefault.maxShowOnScreenExtent}',
+  );
+  print(
+    'cfgZeroToHundred min=${cfgZeroToHundred.minShowOnScreenExtent}'
+    ' max=${cfgZeroToHundred.maxShowOnScreenExtent}',
+  );
+  print(
+    'cfgPinned        min=${cfgPinned.minShowOnScreenExtent}'
+    ' max=${cfgPinned.maxShowOnScreenExtent}',
+  );
+  print(
+    'cfgFloating      min=${cfgFloating.minShowOnScreenExtent}'
+    ' max=${cfgFloating.maxShowOnScreenExtent}',
+  );
+  print(
+    'cfgScreenReader  min=${cfgScreenReader.minShowOnScreenExtent}'
+    ' max=${cfgScreenReader.maxShowOnScreenExtent}',
+  );
+  print(
+    'cfgLargeBanner   min=${cfgLargeBanner.minShowOnScreenExtent}'
+    ' max=${cfgLargeBanner.maxShowOnScreenExtent}',
+  );
   print('Sections built: 12. Returning snapshot tree.');
 
   // -------------------------------------------------------------------------
@@ -406,15 +442,20 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('TIDE LIMESTONE',
-            style: TextStyle(
-                color: kSaltSpray,
-                fontSize: 12,
-                letterSpacing: 4.0,
-                fontWeight: FontWeight.w700)),
+        const Text(
+          'TIDE LIMESTONE',
+          style: TextStyle(
+            color: kSaltSpray,
+            fontSize: 12,
+            letterSpacing: 4.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         _gap(6),
-        Text('PersistentHeaderShowOnScreenConfiguration',
-            style: _h1().copyWith(color: kFoamWhite, fontSize: 24)),
+        Text(
+          'PersistentHeaderShowOnScreenConfiguration',
+          style: _h1().copyWith(color: kFoamWhite, fontSize: 24),
+        ),
         _gap(6),
         Text(
           'A small immutable value object that tells a sliver persistent '
@@ -422,22 +463,34 @@ dynamic build(BuildContext context) {
           'request -- like screen-reader focus or a textfield asking to '
           'be visible -- arrives via showOnScreen.',
           style: TextStyle(
-              fontSize: 13,
-              height: 1.45,
-              color: kSaltSpray.withValues(alpha: 0.95)),
+            fontSize: 13,
+            height: 1.45,
+            color: kSaltSpray.withValues(alpha: 0.95),
+          ),
         ),
         _gap(14),
-        Text('PALETTE -- TIDE LIMESTONE',
-            style: TextStyle(
-                color: kSandbarHighlight.withValues(alpha: 0.9),
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.6)),
+        Text(
+          'PALETTE -- TIDE LIMESTONE',
+          style: TextStyle(
+            color: kSandbarHighlight.withValues(alpha: 0.9),
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.6,
+          ),
+        ),
         _gap(8),
         Wrap(
           children: [
-            _swatch(kTideLimestone, 'TideLimestone', 'page background, ivory stone'),
-            _swatch(kBleachedDriftwood, 'BleachedDriftwood', 'section card surface'),
+            _swatch(
+              kTideLimestone,
+              'TideLimestone',
+              'page background, ivory stone',
+            ),
+            _swatch(
+              kBleachedDriftwood,
+              'BleachedDriftwood',
+              'section card surface',
+            ),
             _swatch(kHarbourFog, 'HarbourFog', 'dividers and rules'),
             _swatch(kSeaglassPale, 'SeaglassPale', 'soft accent (default)'),
             _swatch(kSeaglassDeep, 'SeaglassDeep', 'strong accent (set value)'),
@@ -492,11 +545,19 @@ dynamic build(BuildContext context) {
           style: _body(),
         ),
         _gap(10),
-        _bullet('minShowOnScreenExtent: the LEAST the header is willing to expose.'),
-        _bullet('maxShowOnScreenExtent: the MOST the header is willing to expose.'),
+        _bullet(
+          'minShowOnScreenExtent: the LEAST the header is willing to expose.',
+        ),
+        _bullet(
+          'maxShowOnScreenExtent: the MOST the header is willing to expose.',
+        ),
         _bullet('Both are clamped against the header\'s natural extent range.'),
-        _bullet('Defaults are sentinels (-inf, +inf) meaning "do not constrain me".'),
-        _bullet('The configuration is immutable. Build a new one to change behaviour.'),
+        _bullet(
+          'Defaults are sentinels (-inf, +inf) meaning "do not constrain me".',
+        ),
+        _bullet(
+          'The configuration is immutable. Build a new one to change behaviour.',
+        ),
       ],
     ),
   );
@@ -512,10 +573,14 @@ dynamic build(BuildContext context) {
       children: [
         _kvLine('Property', 'Type / Default / Sentinel'),
         _divider(),
-        _kvLine('minShowOnScreenExtent',
-            'double  =  double.negativeInfinity  (sentinel: "no minimum")'),
-        _kvLine('maxShowOnScreenExtent',
-            'double  =  double.infinity          (sentinel: "no maximum")'),
+        _kvLine(
+          'minShowOnScreenExtent',
+          'double  =  double.negativeInfinity  (sentinel: "no minimum")',
+        ),
+        _kvLine(
+          'maxShowOnScreenExtent',
+          'double  =  double.infinity          (sentinel: "no maximum")',
+        ),
         _gap(8),
         Text(
           'A sentinel value of double.negativeInfinity for the minimum means '
@@ -525,10 +590,14 @@ dynamic build(BuildContext context) {
           style: _body(),
         ),
         _gap(8),
-        _kvLine('cfgDefault.minShowOnScreenExtent',
-            cfgDefault.minShowOnScreenExtent.toString()),
-        _kvLine('cfgDefault.maxShowOnScreenExtent',
-            cfgDefault.maxShowOnScreenExtent.toString()),
+        _kvLine(
+          'cfgDefault.minShowOnScreenExtent',
+          cfgDefault.minShowOnScreenExtent.toString(),
+        ),
+        _kvLine(
+          'cfgDefault.maxShowOnScreenExtent',
+          cfgDefault.maxShowOnScreenExtent.toString(),
+        ),
       ],
     ),
   );
@@ -536,8 +605,11 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 4 -- CONSTRUCTION GALLERY (8+ live instances)
   // -------------------------------------------------------------------------
-  Widget instanceTile(String label, String descr,
-      PersistentHeaderShowOnScreenConfiguration cfg) {
+  Widget instanceTile(
+    String label,
+    String descr,
+    PersistentHeaderShowOnScreenConfiguration cfg,
+  ) {
     return Container(
       margin: const EdgeInsets.only(right: 10, bottom: 10),
       padding: const EdgeInsets.all(10),
@@ -552,11 +624,14 @@ dynamic build(BuildContext context) {
         children: [
           Text(label, style: _h3()),
           _gap(2),
-          Text(descr,
-              style: const TextStyle(
-                  fontSize: 11.5,
-                  color: kKelpShadow,
-                  height: 1.3)),
+          Text(
+            descr,
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: kKelpShadow,
+              height: 1.3,
+            ),
+          ),
           _gap(6),
           Text('min  =  ${cfg.minShowOnScreenExtent}', style: _mono()),
           Text('max  =  ${cfg.maxShowOnScreenExtent}', style: _mono()),
@@ -570,27 +645,56 @@ dynamic build(BuildContext context) {
     title: 'Construction gallery: 10 instances with varied extents',
     child: Wrap(
       children: [
-        instanceTile('cfgDefault',
-            'no min, no max -- header decides on its own.', cfgDefault),
-        instanceTile('cfgZeroToHundred',
-            'expose between 0 and 100 logical pixels.', cfgZeroToHundred),
-        instanceTile('cfgFiftyTwoHundred',
-            'expose at least 50, at most 200.', cfgFiftyTwoHundred),
-        instanceTile('cfgPinned',
-            'force exactly the pinned extent (56=56).', cfgPinned),
-        instanceTile('cfgZeroZero',
-            'never reveal more than the pinned remainder.', cfgZeroZero),
-        instanceTile('cfgFloating',
-            'expose any amount up to infinity.', cfgFloating),
-        instanceTile('cfgWide',
-            'allow large reveals -- e.g. SliverAppBar.large.', cfgWide),
-        instanceTile('cfgScreenReader',
-            'guarantee 88px so a screen reader can read the title.',
-            cfgScreenReader),
-        instanceTile('cfgClampSmall',
-            'narrow band (16..32) for compact headers.', cfgClampSmall),
-        instanceTile('cfgLargeBanner',
-            'between 120 and 240 -- a tall hero banner.', cfgLargeBanner),
+        instanceTile(
+          'cfgDefault',
+          'no min, no max -- header decides on its own.',
+          cfgDefault,
+        ),
+        instanceTile(
+          'cfgZeroToHundred',
+          'expose between 0 and 100 logical pixels.',
+          cfgZeroToHundred,
+        ),
+        instanceTile(
+          'cfgFiftyTwoHundred',
+          'expose at least 50, at most 200.',
+          cfgFiftyTwoHundred,
+        ),
+        instanceTile(
+          'cfgPinned',
+          'force exactly the pinned extent (56=56).',
+          cfgPinned,
+        ),
+        instanceTile(
+          'cfgZeroZero',
+          'never reveal more than the pinned remainder.',
+          cfgZeroZero,
+        ),
+        instanceTile(
+          'cfgFloating',
+          'expose any amount up to infinity.',
+          cfgFloating,
+        ),
+        instanceTile(
+          'cfgWide',
+          'allow large reveals -- e.g. SliverAppBar.large.',
+          cfgWide,
+        ),
+        instanceTile(
+          'cfgScreenReader',
+          'guarantee 88px so a screen reader can read the title.',
+          cfgScreenReader,
+        ),
+        instanceTile(
+          'cfgClampSmall',
+          'narrow band (16..32) for compact headers.',
+          cfgClampSmall,
+        ),
+        instanceTile(
+          'cfgLargeBanner',
+          'between 120 and 240 -- a tall hero banner.',
+          cfgLargeBanner,
+        ),
       ],
     ),
   );
@@ -636,33 +740,60 @@ dynamic build(BuildContext context) {
         _gap(8),
         Wrap(
           children: [
-            lifecycleStep('1', 'Accessibility focus',
-                'Platform delivers focus to a Semantics node nested in a sliver list.',
-                kSeaglassDeep),
-            lifecycleStep('2', 'showOnScreen call',
-                'The framework calls showOnScreen on the focused RenderObject.',
-                kSeaglassDeep),
-            lifecycleStep('3', 'Walk to ancestors',
-                'The call walks up the tree, asking each scrollable ancestor.',
-                kKelpShadow),
-            lifecycleStep('4', 'Header asked',
-                'RenderSliverPersistentHeader.showOnScreen is invoked.',
-                kKelpShadow),
-            lifecycleStep('5', 'Configuration consulted',
-                'The header reads minShowOnScreenExtent / maxShowOnScreenExtent.',
-                kSeaglassDeep),
-            lifecycleStep('6', 'Geometry computed',
-                'A target extent is chosen, clamped to the header\'s natural extent.',
-                kSeaglassDeep),
-            lifecycleStep('7', 'Scroll dispatched',
-                'The Scrollable receives a request to scroll by the difference.',
-                kRustyAnchor),
-            lifecycleStep('8', 'Animation runs',
-                'Default Curves.ease over 100ms unless caller overrides.',
-                kRustyAnchor),
-            lifecycleStep('9', 'Frame painted',
-                'Header now visible enough to satisfy the focused descendant.',
-                kBeachPlumPurple),
+            lifecycleStep(
+              '1',
+              'Accessibility focus',
+              'Platform delivers focus to a Semantics node nested in a sliver list.',
+              kSeaglassDeep,
+            ),
+            lifecycleStep(
+              '2',
+              'showOnScreen call',
+              'The framework calls showOnScreen on the focused RenderObject.',
+              kSeaglassDeep,
+            ),
+            lifecycleStep(
+              '3',
+              'Walk to ancestors',
+              'The call walks up the tree, asking each scrollable ancestor.',
+              kKelpShadow,
+            ),
+            lifecycleStep(
+              '4',
+              'Header asked',
+              'RenderSliverPersistentHeader.showOnScreen is invoked.',
+              kKelpShadow,
+            ),
+            lifecycleStep(
+              '5',
+              'Configuration consulted',
+              'The header reads minShowOnScreenExtent / maxShowOnScreenExtent.',
+              kSeaglassDeep,
+            ),
+            lifecycleStep(
+              '6',
+              'Geometry computed',
+              'A target extent is chosen, clamped to the header\'s natural extent.',
+              kSeaglassDeep,
+            ),
+            lifecycleStep(
+              '7',
+              'Scroll dispatched',
+              'The Scrollable receives a request to scroll by the difference.',
+              kRustyAnchor,
+            ),
+            lifecycleStep(
+              '8',
+              'Animation runs',
+              'Default Curves.ease over 100ms unless caller overrides.',
+              kRustyAnchor,
+            ),
+            lifecycleStep(
+              '9',
+              'Frame painted',
+              'Header now visible enough to satisfy the focused descendant.',
+              kBeachPlumPurple,
+            ),
           ],
         ),
       ],
@@ -680,12 +811,15 @@ dynamic build(BuildContext context) {
         color: bg ?? (head ? kSeaglassDeep : kFoamWhite),
         border: Border.all(color: kHarbourFog),
       ),
-      child: Text(s,
-          style: TextStyle(
-              fontSize: 11.5,
-              color: head ? kFoamWhite : kTidepoolNight,
-              fontWeight: head ? FontWeight.w700 : FontWeight.w400,
-              height: 1.3)),
+      child: Text(
+        s,
+        style: TextStyle(
+          fontSize: 11.5,
+          color: head ? kFoamWhite : kTidepoolNight,
+          fontWeight: head ? FontWeight.w700 : FontWeight.w400,
+          height: 1.3,
+        ),
+      ),
     );
   }
 
@@ -708,7 +842,10 @@ dynamic build(BuildContext context) {
         matrixRow([
           cell('min = -inf (default)', head: true),
           cell('Reveal nothing extra. Header keeps pinned remainder only.'),
-          cell('Reveal up to 100; less is fine.', bg: kSandbarHighlight.withValues(alpha: 0.45)),
+          cell(
+            'Reveal up to 100; less is fine.',
+            bg: kSandbarHighlight.withValues(alpha: 0.45),
+          ),
           cell('Reveal as much as the natural extent allows. CLASSIC default.'),
         ]),
         matrixRow([
@@ -719,14 +856,20 @@ dynamic build(BuildContext context) {
         ]),
         matrixRow([
           cell('min = 56', head: true),
-          cell('INCONSISTENT: min > max. Behaviour clamped to max=0.', bg: kCoralBleach.withValues(alpha: 0.55)),
+          cell(
+            'INCONSISTENT: min > max. Behaviour clamped to max=0.',
+            bg: kCoralBleach.withValues(alpha: 0.55),
+          ),
           cell('Force at least 56, allow up to 100.'),
           cell('Force at least 56, no upper limit.'),
         ]),
         matrixRow([
           cell('min = 120', head: true),
           cell('INCONSISTENT.', bg: kCoralBleach.withValues(alpha: 0.55)),
-          cell('INCONSISTENT (min > max).', bg: kCoralBleach.withValues(alpha: 0.55)),
+          cell(
+            'INCONSISTENT (min > max).',
+            bg: kCoralBleach.withValues(alpha: 0.55),
+          ),
           cell('Force a tall reveal (>=120) for hero banners.'),
         ]),
       ],
@@ -748,12 +891,16 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-              width: 160,
-              child: Text(topic,
-                  style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: kKelpShadow))),
+            width: 160,
+            child: Text(
+              topic,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: kKelpShadow,
+              ),
+            ),
+          ),
           Expanded(child: Text(pinned, style: _body())),
           _gapW(8),
           Expanded(child: Text(floating, style: _body())),
@@ -770,48 +917,68 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             const SizedBox(
-                width: 160,
-                child: Text('Topic',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        color: kSeaglassDeep,
-                        letterSpacing: 1.0))),
-            Expanded(
-                child: Text('PINNED', style: _label())),
+              width: 160,
+              child: Text(
+                'Topic',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w800,
+                  color: kSeaglassDeep,
+                  letterSpacing: 1.0,
+                ),
+              ),
+            ),
+            Expanded(child: Text('PINNED', style: _label())),
             _gapW(8),
-            Expanded(
-                child: Text('FLOATING', style: _label())),
+            Expanded(child: Text('FLOATING', style: _label())),
           ],
         ),
         _gap(6),
-        compareRow('Render type',
-            'RenderSliverPinnedPersistentHeader',
-            'RenderSliverFloatingPersistentHeader'),
-        compareRow('Resting size',
-            'Stays visible at minExtent while scrolling.',
-            'Goes off-screen when fully scrolled out.'),
-        compareRow('On a11y focus',
-            'Often only needs to confirm minExtent.',
-            'Must scroll itself back in before revealing more.'),
-        compareRow('Default config',
-            'min=-inf max=+inf is fine -- the pinned remainder dominates.',
-            'min=-inf max=+inf is fine but tends to expose the full header.'),
-        compareRow('Custom config use',
-            'Force min=56 to keep the title row in view for screen readers.',
-            'Force max=100 to avoid covering content with the full hero.'),
-        compareRow('Animation',
-            'Smooth slide of the variable extent.',
-            'Often a snap when a floating header re-enters.'),
-        compareRow('Risk',
-            'Hiding the focused widget behind the pinned bar.',
-            'Re-entry hiding the focused widget if min not set.'),
-        compareRow('Mitigation',
-            'Use min >= height of focusable controls in the header.',
-            'Use min equal to the header content height for clarity.'),
-        compareRow('Test hook',
-            'showOnScreenInternal called with a Rect overlap.',
-            'Same, plus an extra scroll request on the parent.'),
+        compareRow(
+          'Render type',
+          'RenderSliverPinnedPersistentHeader',
+          'RenderSliverFloatingPersistentHeader',
+        ),
+        compareRow(
+          'Resting size',
+          'Stays visible at minExtent while scrolling.',
+          'Goes off-screen when fully scrolled out.',
+        ),
+        compareRow(
+          'On a11y focus',
+          'Often only needs to confirm minExtent.',
+          'Must scroll itself back in before revealing more.',
+        ),
+        compareRow(
+          'Default config',
+          'min=-inf max=+inf is fine -- the pinned remainder dominates.',
+          'min=-inf max=+inf is fine but tends to expose the full header.',
+        ),
+        compareRow(
+          'Custom config use',
+          'Force min=56 to keep the title row in view for screen readers.',
+          'Force max=100 to avoid covering content with the full hero.',
+        ),
+        compareRow(
+          'Animation',
+          'Smooth slide of the variable extent.',
+          'Often a snap when a floating header re-enters.',
+        ),
+        compareRow(
+          'Risk',
+          'Hiding the focused widget behind the pinned bar.',
+          'Re-entry hiding the focused widget if min not set.',
+        ),
+        compareRow(
+          'Mitigation',
+          'Use min >= height of focusable controls in the header.',
+          'Use min equal to the header content height for clarity.',
+        ),
+        compareRow(
+          'Test hook',
+          'showOnScreenInternal called with a Rect overlap.',
+          'Same, plus an extra scroll request on the parent.',
+        ),
       ],
     ),
   );
@@ -870,31 +1037,47 @@ dynamic build(BuildContext context) {
     title: 'Do / Avoid: choosing min and max',
     child: Column(
       children: [
-        _calloutDo('Use defaults first',
-            'For most apps, the default (-inf, +inf) is correct. Override only '
-            'when you have evidence of an a11y or layout problem.'),
-        _calloutDo('Pin the focusable area',
-            'If your header contains a TextField or buttons, set min to at '
-            'least the height of those controls so they cannot hide behind '
-            'a partially-revealed header.'),
-        _calloutDo('Cap large hero banners',
-            'For SliverAppBar.large, set max to the visible content height '
-            '(say, 160) so the banner does not eclipse the focused item.'),
-        _calloutDo('Express intent in code',
-            'Name your configuration: cfgScreenReader, cfgPinnedTitle, etc. '
-            'Document why the constants exist.'),
-        _calloutAvoid('min > max',
-            'Never set min greater than max. The framework clamps it but the '
-            'behaviour is hard to read.'),
-        _calloutAvoid('Magic numbers',
-            'Do not hard-code "56" with no explanation. Use a named constant '
-            'or comment with the reason (kPinnedTitleHeight).'),
-        _calloutAvoid('Mutating mid-scroll',
-            'Do not allocate a fresh configuration on every layout call. '
-            'Cache one instance per delegate.'),
-        _calloutAvoid('Ignoring tests',
-            'showOnScreen behaviour changes with curves and durations. Cover '
-            'it with widget tests using WidgetTester.ensureVisible.'),
+        _calloutDo(
+          'Use defaults first',
+          'For most apps, the default (-inf, +inf) is correct. Override only '
+              'when you have evidence of an a11y or layout problem.',
+        ),
+        _calloutDo(
+          'Pin the focusable area',
+          'If your header contains a TextField or buttons, set min to at '
+              'least the height of those controls so they cannot hide behind '
+              'a partially-revealed header.',
+        ),
+        _calloutDo(
+          'Cap large hero banners',
+          'For SliverAppBar.large, set max to the visible content height '
+              '(say, 160) so the banner does not eclipse the focused item.',
+        ),
+        _calloutDo(
+          'Express intent in code',
+          'Name your configuration: cfgScreenReader, cfgPinnedTitle, etc. '
+              'Document why the constants exist.',
+        ),
+        _calloutAvoid(
+          'min > max',
+          'Never set min greater than max. The framework clamps it but the '
+              'behaviour is hard to read.',
+        ),
+        _calloutAvoid(
+          'Magic numbers',
+          'Do not hard-code "56" with no explanation. Use a named constant '
+              'or comment with the reason (kPinnedTitleHeight).',
+        ),
+        _calloutAvoid(
+          'Mutating mid-scroll',
+          'Do not allocate a fresh configuration on every layout call. '
+              'Cache one instance per delegate.',
+        ),
+        _calloutAvoid(
+          'Ignoring tests',
+          'showOnScreen behaviour changes with curves and durations. Cover '
+              'it with widget tests using WidgetTester.ensureVisible.',
+        ),
       ],
     ),
   );
@@ -932,47 +1115,47 @@ dynamic build(BuildContext context) {
         snippetCard(
           'Recipe 1 - Default (no constraints)',
           'Use the empty constructor when the header should follow the natural '
-          'showOnScreen behaviour with no clamping.',
+              'showOnScreen behaviour with no clamping.',
           'final cfg = PersistentHeaderShowOnScreenConfiguration();',
         ),
         snippetCard(
           'Recipe 2 - Force a minimum reveal for screen readers',
           'Guarantee that 88 logical pixels of the header are exposed so the '
-          'title row stays readable when focus arrives below it.',
+              'title row stays readable when focus arrives below it.',
           'final cfg = PersistentHeaderShowOnScreenConfiguration(\n'
-          '  minShowOnScreenExtent: 88.0,\n'
-          ');',
+              '  minShowOnScreenExtent: 88.0,\n'
+              ');',
         ),
         snippetCard(
           'Recipe 3 - Cap a hero SliverAppBar.large',
           'Keep the hero banner from covering the focused widget by capping '
-          'the maximum reveal at 160 pixels.',
+              'the maximum reveal at 160 pixels.',
           'final cfg = PersistentHeaderShowOnScreenConfiguration(\n'
-          '  maxShowOnScreenExtent: 160.0,\n'
-          ');',
+              '  maxShowOnScreenExtent: 160.0,\n'
+              ');',
         ),
         snippetCard(
           'Recipe 4 - Pinned-only behaviour',
           'When you really do not want the header to grow on showOnScreen, '
-          'set both min and max to zero. The pinned remainder still applies.',
+              'set both min and max to zero. The pinned remainder still applies.',
           'final cfg = PersistentHeaderShowOnScreenConfiguration(\n'
-          '  minShowOnScreenExtent: 0.0,\n'
-          '  maxShowOnScreenExtent: 0.0,\n'
-          ');',
+              '  minShowOnScreenExtent: 0.0,\n'
+              '  maxShowOnScreenExtent: 0.0,\n'
+              ');',
         ),
         snippetCard(
           'Recipe 5 - Custom RenderSliverPinnedPersistentHeader',
           'In a custom render object, expose the configuration via a '
-          'getter so subclasses and tests can replace it without rebuilding '
-          'the whole render tree.',
+              'getter so subclasses and tests can replace it without rebuilding '
+              'the whole render tree.',
           'class MyPinnedHeader extends RenderSliverPinnedPersistentHeader {\n'
-          '  @override\n'
-          '  PersistentHeaderShowOnScreenConfiguration\n'
-          '      get showOnScreenConfiguration =>\n'
-          '          const PersistentHeaderShowOnScreenConfiguration(\n'
-          '            minShowOnScreenExtent: 56.0,\n'
-          '          );\n'
-          '}',
+              '  @override\n'
+              '  PersistentHeaderShowOnScreenConfiguration\n'
+              '      get showOnScreenConfiguration =>\n'
+              '          const PersistentHeaderShowOnScreenConfiguration(\n'
+              '            minShowOnScreenExtent: 56.0,\n'
+              '          );\n'
+              '}',
         ),
       ],
     ),
@@ -989,11 +1172,14 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 230,
-            child: Text(term,
-                style: const TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w800,
-                    color: kBeachPlumPurple)),
+            child: Text(
+              term,
+              style: const TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w800,
+                color: kBeachPlumPurple,
+              ),
+            ),
           ),
           Expanded(child: Text(body, style: _body())),
         ],
@@ -1006,34 +1192,62 @@ dynamic build(BuildContext context) {
     title: 'Glossary',
     child: Column(
       children: [
-        glossEntry('Sliver',
-            'A scrollable widget primitive that lays out lazily within a viewport.'),
-        glossEntry('Persistent header',
-            'A sliver that retains a presence at the leading edge while content scrolls.'),
-        glossEntry('Pinned header',
-            'A persistent header that never scrolls completely out of view.'),
-        glossEntry('Floating header',
-            'A persistent header that can leave the viewport but jumps back when scrolling reverses.'),
-        glossEntry('showOnScreen',
-            'A RenderObject method that asks the render tree to scroll a region into view.'),
-        glossEntry('minShowOnScreenExtent',
-            'Lower clamp on how much of the header is exposed during showOnScreen.'),
-        glossEntry('maxShowOnScreenExtent',
-            'Upper clamp on how much of the header is exposed during showOnScreen.'),
-        glossEntry('Sentinel value',
-            'A value (here -inf or +inf) that signals "no opinion" rather than a real number.'),
-        glossEntry('Natural extent',
-            'The header\'s preferred extent computed from its delegate, before clamping.'),
-        glossEntry('Pinned remainder',
-            'The portion of a pinned header that always remains visible at minExtent.'),
-        glossEntry('Accessibility focus',
-            'The platform-tracked region a screen reader is currently announcing.'),
-        glossEntry('Scrollable.ensureVisible',
-            'High-level helper that drives showOnScreen with a duration and curve.'),
-        glossEntry('SliverConstraints',
-            'The geometric input the sliver receives during layout.'),
-        glossEntry('SliverGeometry',
-            'The geometric output the sliver produces during layout.'),
+        glossEntry(
+          'Sliver',
+          'A scrollable widget primitive that lays out lazily within a viewport.',
+        ),
+        glossEntry(
+          'Persistent header',
+          'A sliver that retains a presence at the leading edge while content scrolls.',
+        ),
+        glossEntry(
+          'Pinned header',
+          'A persistent header that never scrolls completely out of view.',
+        ),
+        glossEntry(
+          'Floating header',
+          'A persistent header that can leave the viewport but jumps back when scrolling reverses.',
+        ),
+        glossEntry(
+          'showOnScreen',
+          'A RenderObject method that asks the render tree to scroll a region into view.',
+        ),
+        glossEntry(
+          'minShowOnScreenExtent',
+          'Lower clamp on how much of the header is exposed during showOnScreen.',
+        ),
+        glossEntry(
+          'maxShowOnScreenExtent',
+          'Upper clamp on how much of the header is exposed during showOnScreen.',
+        ),
+        glossEntry(
+          'Sentinel value',
+          'A value (here -inf or +inf) that signals "no opinion" rather than a real number.',
+        ),
+        glossEntry(
+          'Natural extent',
+          'The header\'s preferred extent computed from its delegate, before clamping.',
+        ),
+        glossEntry(
+          'Pinned remainder',
+          'The portion of a pinned header that always remains visible at minExtent.',
+        ),
+        glossEntry(
+          'Accessibility focus',
+          'The platform-tracked region a screen reader is currently announcing.',
+        ),
+        glossEntry(
+          'Scrollable.ensureVisible',
+          'High-level helper that drives showOnScreen with a duration and curve.',
+        ),
+        glossEntry(
+          'SliverConstraints',
+          'The geometric input the sliver receives during layout.',
+        ),
+        glossEntry(
+          'SliverGeometry',
+          'The geometric output the sliver produces during layout.',
+        ),
       ],
     ),
   );
@@ -1051,18 +1265,24 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('RECAP',
-            style: TextStyle(
-                color: kSandbarHighlight.withValues(alpha: 0.95),
-                fontSize: 11,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.w800)),
+        Text(
+          'RECAP',
+          style: TextStyle(
+            color: kSandbarHighlight.withValues(alpha: 0.95),
+            fontSize: 11,
+            letterSpacing: 2.0,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         _gap(6),
         const Text(
           'PersistentHeaderShowOnScreenConfiguration is a tiny, immutable, '
           'two-double clamp.',
           style: TextStyle(
-              color: kFoamWhite, fontSize: 16, fontWeight: FontWeight.w700),
+            color: kFoamWhite,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         _gap(8),
         Text(
@@ -1072,23 +1292,39 @@ dynamic build(BuildContext context) {
           'custom values when accessibility focus, hero banners, or pinned '
           'controls require predictable behaviour.',
           style: TextStyle(
-              color: kSaltSpray.withValues(alpha: 0.9),
-              fontSize: 13,
-              height: 1.5),
+            color: kSaltSpray.withValues(alpha: 0.9),
+            fontSize: 13,
+            height: 1.5,
+          ),
         ),
         _gap(10),
-        Text('cfgPinned         -> ${cfgPinned.minShowOnScreenExtent}'
-            ' .. ${cfgPinned.maxShowOnScreenExtent}',
-            style: const TextStyle(
-                color: kFoamWhite, fontFamily: 'monospace', fontSize: 12)),
-        Text('cfgScreenReader   -> ${cfgScreenReader.minShowOnScreenExtent}'
-            ' .. ${cfgScreenReader.maxShowOnScreenExtent}',
-            style: const TextStyle(
-                color: kFoamWhite, fontFamily: 'monospace', fontSize: 12)),
-        Text('cfgLargeBanner    -> ${cfgLargeBanner.minShowOnScreenExtent}'
-            ' .. ${cfgLargeBanner.maxShowOnScreenExtent}',
-            style: const TextStyle(
-                color: kFoamWhite, fontFamily: 'monospace', fontSize: 12)),
+        Text(
+          'cfgPinned         -> ${cfgPinned.minShowOnScreenExtent}'
+          ' .. ${cfgPinned.maxShowOnScreenExtent}',
+          style: const TextStyle(
+            color: kFoamWhite,
+            fontFamily: 'monospace',
+            fontSize: 12,
+          ),
+        ),
+        Text(
+          'cfgScreenReader   -> ${cfgScreenReader.minShowOnScreenExtent}'
+          ' .. ${cfgScreenReader.maxShowOnScreenExtent}',
+          style: const TextStyle(
+            color: kFoamWhite,
+            fontFamily: 'monospace',
+            fontSize: 12,
+          ),
+        ),
+        Text(
+          'cfgLargeBanner    -> ${cfgLargeBanner.minShowOnScreenExtent}'
+          ' .. ${cfgLargeBanner.maxShowOnScreenExtent}',
+          style: const TextStyle(
+            color: kFoamWhite,
+            fontFamily: 'monospace',
+            fontSize: 12,
+          ),
+        ),
       ],
     ),
   );
@@ -1101,20 +1337,7 @@ dynamic build(BuildContext context) {
     body: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          s1,
-          s2,
-          s3,
-          s4,
-          s5,
-          s6,
-          s7,
-          s8,
-          s9,
-          s10,
-          s11,
-          s12,
-        ],
+        children: [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12],
       ),
     ),
   );

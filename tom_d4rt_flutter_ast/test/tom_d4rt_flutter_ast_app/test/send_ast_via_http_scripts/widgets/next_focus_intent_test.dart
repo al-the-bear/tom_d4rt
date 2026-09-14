@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 final ValueNotifier<String> _focusedCardId = ValueNotifier<String>('none');
 
 /// Log of programmatic traversal invocations (tab 3).
-final ValueNotifier<List<String>> _invokeLog =
-    ValueNotifier<List<String>>(<String>[]);
+final ValueNotifier<List<String>> _invokeLog = ValueNotifier<List<String>>(
+  <String>[],
+);
 
 /// Whether the skip-focus demo (tab 6) should skip item 3.
 final ValueNotifier<bool> _skipEnabled = ValueNotifier<bool>(true);
@@ -58,12 +59,7 @@ class _NextFocusIntentDemo extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabs: _tabs
-                .map(
-                  (t) => Tab(
-                    icon: Icon(t.icon),
-                    text: t.label,
-                  ),
-                )
+                .map((t) => Tab(icon: Icon(t.icon), text: t.label))
                 .toList(),
           ),
         ),
@@ -97,61 +93,58 @@ class _TabSpec {
 
 /// Standard scrollable page padding.
 Widget _page({required List<Widget> children}) {
-  return ListView(
-    padding: const EdgeInsets.all(20),
-    children: children,
-  );
+  return ListView(padding: const EdgeInsets.all(20), children: children);
 }
 
 /// Large section heading.
 Widget _heading(String text, ColorScheme cs) => Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: cs.primary,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.only(bottom: 8),
+  child: Text(
+    text,
+    style: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: cs.primary,
+    ),
+  ),
+);
 
 /// Sub-heading.
 Widget _subheading(String text, ColorScheme cs) => Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 6),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-          color: cs.secondary,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.only(top: 16, bottom: 6),
+  child: Text(
+    text,
+    style: TextStyle(
+      fontSize: 15,
+      fontWeight: FontWeight.w600,
+      color: cs.secondary,
+    ),
+  ),
+);
 
 /// Body paragraph.
 Widget _body(String text) => Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text, style: const TextStyle(fontSize: 14, height: 1.55)),
-    );
+  padding: const EdgeInsets.only(bottom: 10),
+  child: Text(text, style: const TextStyle(fontSize: 14, height: 1.55)),
+);
 
 /// Inline monospace chip.
 Widget _chip(String code, ColorScheme cs) => Container(
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: cs.secondaryContainer,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(
-        code,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 13,
-          color: cs.onSecondaryContainer,
-        ),
-      ),
-    );
+  margin: const EdgeInsets.symmetric(vertical: 2),
+  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+  decoration: BoxDecoration(
+    color: cs.secondaryContainer,
+    borderRadius: BorderRadius.circular(6),
+  ),
+  child: Text(
+    code,
+    style: TextStyle(
+      fontFamily: 'monospace',
+      fontSize: 13,
+      color: cs.onSecondaryContainer,
+    ),
+  ),
+);
 
 /// A coloured info card.
 Widget _infoCard({
@@ -159,61 +152,57 @@ Widget _infoCard({
   required String body,
   required ColorScheme cs,
   IconData icon = Icons.info_outline,
-}) =>
-    Card(
-      color: cs.primaryContainer,
-      margin: const EdgeInsets.only(bottom: 12),
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Icon(icon, color: cs.primary),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: cs.onPrimaryContainer,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    body,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: cs.onPrimaryContainer,
-                    ),
-                  ),
-                ],
+}) => Card(
+  color: cs.primaryContainer,
+  margin: const EdgeInsets.only(bottom: 12),
+  child: Padding(
+    padding: const EdgeInsets.all(14),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Icon(icon, color: cs.primary),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: cs.onPrimaryContainer,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                body,
+                style: TextStyle(fontSize: 13, color: cs.onPrimaryContainer),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      ],
+    ),
+  ),
+);
 
 /// Divider with a label.
 Widget _sectionDivider(String label) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        children: <Widget>[
-          const Expanded(child: Divider()),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              label,
-              style: const TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ),
-          const Expanded(child: Divider()),
-        ],
+  padding: const EdgeInsets.symmetric(vertical: 12),
+  child: Row(
+    children: <Widget>[
+      const Expanded(child: Divider()),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
+        ),
       ),
-    );
+      const Expanded(child: Divider()),
+    ],
+  ),
+);
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Tab 1 — Overview / Hero Banner
@@ -308,14 +297,16 @@ class _Tab1Overview extends StatelessWidget {
         ),
         _infoCard(
           title: 'Step 1 — Key event captured',
-          body: 'The hardware Tab key press is delivered as a KeyDownEvent to '
+          body:
+              'The hardware Tab key press is delivered as a KeyDownEvent to '
               'the Shortcuts widget (or a lower-level RawKeyboardListener).',
           cs: cs,
           icon: Icons.keyboard,
         ),
         _infoCard(
           title: 'Step 2 — Shortcut maps key to intent',
-          body: 'The built-in WidgetsApp Shortcuts map '
+          body:
+              'The built-in WidgetsApp Shortcuts map '
               'LogicalKeyboardKey.tab → NextFocusIntent() and '
               'Shift+Tab → PreviousFocusIntent().',
           cs: cs,
@@ -323,14 +314,16 @@ class _Tab1Overview extends StatelessWidget {
         ),
         _infoCard(
           title: 'Step 3 — Actions handler fires',
-          body: 'The nearest Actions widget in the tree that registers a handler '
+          body:
+              'The nearest Actions widget in the tree that registers a handler '
               'for NextFocusIntent (default: NextFocusAction) receives the intent.',
           cs: cs,
           icon: Icons.flash_on,
         ),
         _infoCard(
           title: 'Step 4 — FocusTraversalPolicy advances',
-          body: 'NextFocusAction calls policy.next(node), which uses the active '
+          body:
+              'NextFocusAction calls policy.next(node), which uses the active '
               'FocusTraversalPolicy (ReadingOrderTraversalPolicy by default) to '
               'determine the next node.',
           cs: cs,
@@ -338,7 +331,8 @@ class _Tab1Overview extends StatelessWidget {
         ),
         _infoCard(
           title: 'Step 5 — Focus is transferred',
-          body: 'The selected node calls requestFocus(), making it the new primary '
+          body:
+              'The selected node calls requestFocus(), making it the new primary '
               'focus and triggering any hasFocus listeners.',
           cs: cs,
           icon: Icons.center_focus_strong,
@@ -446,7 +440,8 @@ class _Tab2LiveGrid extends StatelessWidget {
         ),
         _infoCard(
           title: 'Interaction tip',
-          body: 'Click any card first to seed focus, then use Tab/Shift+Tab. '
+          body:
+              'Click any card first to seed focus, then use Tab/Shift+Tab. '
               'The status bar below the grid shows which card is focused.',
           cs: cs,
           icon: Icons.touch_app,
@@ -489,9 +484,7 @@ class _Tab2LiveGrid extends StatelessWidget {
           mainAxisSpacing: 12,
           crossAxisSpacing: 12,
           childAspectRatio: 1.4,
-          children: _cards
-              .map((spec) => _FocusCard(spec: spec))
-              .toList(),
+          children: _cards.map((spec) => _FocusCard(spec: spec)).toList(),
         ),
         const SizedBox(height: 20),
         _subheading('How it works', cs),
@@ -524,11 +517,7 @@ class _Tab2LiveGrid extends StatelessWidget {
 }
 
 class _CardSpec {
-  const _CardSpec({
-    required this.id,
-    required this.label,
-    required this.color,
-  });
+  const _CardSpec({required this.id, required this.label, required this.color});
   final String id;
   final String label;
   final Color color;
@@ -589,10 +578,7 @@ class _FocusCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     spec.label,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.white70,
-                    ),
+                    style: const TextStyle(fontSize: 13, color: Colors.white70),
                   ),
                   if (hasFocus)
                     const Padding(
@@ -657,28 +643,32 @@ Actions.invoke(context, const PreviousFocusIntent());''',
         _subheading('When to use programmatic invocation', cs),
         _infoCard(
           title: 'Custom keyboard overlays',
-          body: 'Virtual keyboards on embedded or kiosk devices that have no '
+          body:
+              'Virtual keyboards on embedded or kiosk devices that have no '
               'physical Tab key.',
           cs: cs,
           icon: Icons.keyboard,
         ),
         _infoCard(
           title: 'Gamepad navigation',
-          body: 'Map d-pad right → NextFocusIntent and d-pad left → '
+          body:
+              'Map d-pad right → NextFocusIntent and d-pad left → '
               'PreviousFocusIntent for gamepad-driven UI.',
           cs: cs,
           icon: Icons.sports_esports,
         ),
         _infoCard(
           title: 'Accessibility helpers',
-          body: 'Screen-reader companion overlays that expose previous/next '
+          body:
+              'Screen-reader companion overlays that expose previous/next '
               'buttons for motor-impaired users.',
           cs: cs,
           icon: Icons.accessibility_new,
         ),
         _infoCard(
           title: 'Automated UI tests',
-          body: 'Drive focus in widget tests without synthesizing raw key events.',
+          body:
+              'Drive focus in widget tests without synthesizing raw key events.',
           cs: cs,
           icon: Icons.science,
         ),
@@ -695,7 +685,8 @@ class _InvokeDemo extends StatelessWidget {
 
   void _addLog(String msg) {
     final now = TimeOfDay.now();
-    final entry = '${now.hour.toString().padLeft(2, "0")}:'
+    final entry =
+        '${now.hour.toString().padLeft(2, "0")}:'
         '${now.minute.toString().padLeft(2, "0")} — $msg';
     _invokeLog.value = <String>[entry, ..._invokeLog.value].take(8).toList();
   }
@@ -733,8 +724,7 @@ class _InvokeDemo extends StatelessWidget {
                                 : cs.surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color:
-                                  hasFocus ? cs.primary : cs.outlineVariant,
+                              color: hasFocus ? cs.primary : cs.outlineVariant,
                               width: hasFocus ? 2.5 : 1,
                             ),
                           ),
@@ -876,7 +866,8 @@ class _Tab4FocusGroups extends StatelessWidget {
         ),
         _infoCard(
           title: 'Why groups?',
-          body: 'They prevent Tab from accidentally jumping into unrelated '
+          body:
+              'They prevent Tab from accidentally jumping into unrelated '
               'form sections, sidebars, or modal overlays. They also allow '
               'independent traversal policies per region.',
           cs: cs,
@@ -980,10 +971,7 @@ class _GroupBox extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: borderColor,
-            ),
+            style: TextStyle(fontWeight: FontWeight.w700, color: borderColor),
           ),
           const SizedBox(height: 8),
           ...items.map(
@@ -1013,10 +1001,7 @@ class _GroupItem extends StatelessWidget {
             onTap: () => Focus.of(context).requestFocus(),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 150),
-              padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 14,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
               decoration: BoxDecoration(
                 color: hasFocus
                     ? borderColor.withValues(alpha: 0.2)
@@ -1054,12 +1039,36 @@ class _Tab5CustomOrder extends StatelessWidget {
   //          4 5 6
   // Traversal order assigned: A(1)=1, B(2)=4, C(3)=2, D(4)=5, E(5)=3, F(6)=6
   static const List<_OrderedCard> _cards = <_OrderedCard>[
-    _OrderedCard(displayLabel: 'A', traversalOrder: 1, color: Color(0xFF5C6BC0)),
-    _OrderedCard(displayLabel: 'B', traversalOrder: 4, color: Color(0xFF26A69A)),
-    _OrderedCard(displayLabel: 'C', traversalOrder: 2, color: Color(0xFFEF5350)),
-    _OrderedCard(displayLabel: 'D', traversalOrder: 5, color: Color(0xFFAB47BC)),
-    _OrderedCard(displayLabel: 'E', traversalOrder: 3, color: Color(0xFFFF7043)),
-    _OrderedCard(displayLabel: 'F', traversalOrder: 6, color: Color(0xFF42A5F5)),
+    _OrderedCard(
+      displayLabel: 'A',
+      traversalOrder: 1,
+      color: Color(0xFF5C6BC0),
+    ),
+    _OrderedCard(
+      displayLabel: 'B',
+      traversalOrder: 4,
+      color: Color(0xFF26A69A),
+    ),
+    _OrderedCard(
+      displayLabel: 'C',
+      traversalOrder: 2,
+      color: Color(0xFFEF5350),
+    ),
+    _OrderedCard(
+      displayLabel: 'D',
+      traversalOrder: 5,
+      color: Color(0xFFAB47BC),
+    ),
+    _OrderedCard(
+      displayLabel: 'E',
+      traversalOrder: 3,
+      color: Color(0xFFFF7043),
+    ),
+    _OrderedCard(
+      displayLabel: 'F',
+      traversalOrder: 6,
+      color: Color(0xFF42A5F5),
+    ),
   ];
 
   @override
@@ -1077,7 +1086,8 @@ class _Tab5CustomOrder extends StatelessWidget {
         ),
         _infoCard(
           title: 'Use case',
-          body: 'Form fields that span multiple visual columns but should be '
+          body:
+              'Form fields that span multiple visual columns but should be '
               'traversed in a logical sequence (e.g., left column first, then '
               'right column) regardless of layout order.',
           cs: cs,
@@ -1109,10 +1119,17 @@ class _Tab5CustomOrder extends StatelessWidget {
         _subheading('Traversal sequence', cs),
         Wrap(
           spacing: 6,
-          children: ([..._cards]
-                ..sort((a, b) => a.traversalOrder.compareTo(b.traversalOrder)))
-              .map((c) => _chip('Step ${c.traversalOrder}: card ${c.displayLabel}', cs))
-              .toList(),
+          children:
+              ([..._cards]..sort(
+                    (a, b) => a.traversalOrder.compareTo(b.traversalOrder),
+                  ))
+                  .map(
+                    (c) => _chip(
+                      'Step ${c.traversalOrder}: card ${c.displayLabel}',
+                      cs,
+                    ),
+                  )
+                  .toList(),
         ),
         const SizedBox(height: 20),
         _subheading('Code pattern', cs),
@@ -1270,7 +1287,8 @@ class _Tab6SkipFocus extends StatelessWidget {
         ),
         _infoCard(
           title: 'skipTraversal = true',
-          body: 'The FocusNode.skipTraversal property excludes a node from '
+          body:
+              'The FocusNode.skipTraversal property excludes a node from '
               'Tab-key traversal while leaving it fully focusable by direct '
               'request (e.g. mouse click or requestFocus()).',
           cs: cs,
@@ -1278,7 +1296,8 @@ class _Tab6SkipFocus extends StatelessWidget {
         ),
         _infoCard(
           title: 'canRequestFocus = false',
-          body: 'Prevents the node from receiving focus at all — neither by '
+          body:
+              'Prevents the node from receiving focus at all — neither by '
               'traversal nor by direct request. Use for decorative or disabled '
               'widgets that must never have focus.',
           cs: cs,
@@ -1311,11 +1330,7 @@ class _Tab6SkipFocus extends StatelessWidget {
                 final skip = skipOn && index == 3;
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: _SkipItem(
-                    index: index,
-                    skip: skip,
-                    cs: cs,
-                  ),
+                  child: _SkipItem(index: index, skip: skip, cs: cs),
                 );
               }),
             ],
@@ -1359,21 +1374,27 @@ class _Tab6SkipFocus extends StatelessWidget {
                 _tableCell('Click focusable?', bold: true),
               ],
             ),
-            TableRow(children: <Widget>[
-              _tableCell('(default)'),
-              _tableCell('No'),
-              _tableCell('Yes'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('skipTraversal = true'),
-              _tableCell('Yes'),
-              _tableCell('Yes'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('canRequestFocus = false'),
-              _tableCell('Yes'),
-              _tableCell('No'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableCell('(default)'),
+                _tableCell('No'),
+                _tableCell('Yes'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('skipTraversal = true'),
+                _tableCell('Yes'),
+                _tableCell('Yes'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('canRequestFocus = false'),
+                _tableCell('Yes'),
+                _tableCell('No'),
+              ],
+            ),
           ],
         ),
       ],
@@ -1382,23 +1403,19 @@ class _Tab6SkipFocus extends StatelessWidget {
 }
 
 Widget _tableCell(String text, {bool bold = false}) => Padding(
-      padding: const EdgeInsets.all(8),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: bold ? FontWeight.w700 : FontWeight.normal,
-          fontFamily: bold ? null : 'monospace',
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(8),
+  child: Text(
+    text,
+    style: TextStyle(
+      fontSize: 12,
+      fontWeight: bold ? FontWeight.w700 : FontWeight.normal,
+      fontFamily: bold ? null : 'monospace',
+    ),
+  ),
+);
 
 class _SkipItem extends StatelessWidget {
-  const _SkipItem({
-    required this.index,
-    required this.skip,
-    required this.cs,
-  });
+  const _SkipItem({required this.index, required this.skip, required this.cs});
   final int index;
   final bool skip;
   final ColorScheme cs;
@@ -1419,8 +1436,8 @@ class _SkipItem extends StatelessWidget {
                 color: skip
                     ? cs.errorContainer.withValues(alpha: 0.3)
                     : (hasFocus
-                        ? cs.primaryContainer
-                        : cs.surfaceContainerHighest),
+                          ? cs.primaryContainer
+                          : cs.surfaceContainerHighest),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: hasFocus
@@ -1448,15 +1465,20 @@ class _SkipItem extends StatelessWidget {
                     child: Text(
                       'Item $index${skip ? " — SKIPPED in Tab order" : ""}',
                       style: TextStyle(
-                        fontWeight: hasFocus ? FontWeight.w700 : FontWeight.normal,
+                        fontWeight: hasFocus
+                            ? FontWeight.w700
+                            : FontWeight.normal,
                         color: skip ? cs.error : cs.onSurface,
                       ),
                     ),
                   ),
                   if (hasFocus)
-                    Icon(Icons.center_focus_strong, color: cs.primary, size: 18),
-                  if (skip)
-                    Icon(Icons.block, color: cs.error, size: 18),
+                    Icon(
+                      Icons.center_focus_strong,
+                      color: cs.primary,
+                      size: 18,
+                    ),
+                  if (skip) Icon(Icons.block, color: cs.error, size: 18),
                 ],
               ),
             ),
@@ -1499,38 +1521,44 @@ class _Tab7Diagram extends StatelessWidget {
           _DiagramStep(
             number: '1',
             title: 'Tab KeyDownEvent',
-            detail: 'Hardware event enters Flutter engine → HardwareKeyboard → '
+            detail:
+                'Hardware event enters Flutter engine → HardwareKeyboard → '
                 'KeyEventManager → routed to focused widget subtree.',
           ),
           _DiagramStep(
             number: '2',
             title: 'Shortcuts widget',
-            detail: 'Matches LogicalKeyboardKey.tab (and shift+tab) against its '
+            detail:
+                'Matches LogicalKeyboardKey.tab (and shift+tab) against its '
                 'bindings map. Produces a NextFocusIntent (or PreviousFocusIntent).',
           ),
           _DiagramStep(
             number: '3',
             title: 'NextFocusIntent',
-            detail: 'A plain const Intent subclass with no fields. Acts as a '
+            detail:
+                'A plain const Intent subclass with no fields. Acts as a '
                 'typed message identifying the desired action.',
           ),
           _DiagramStep(
             number: '4',
             title: 'Actions widget',
-            detail: 'Walks up the element tree to find the nearest Actions '
+            detail:
+                'Walks up the element tree to find the nearest Actions '
                 'registration for NextFocusIntent. WidgetsApp registers '
                 'NextFocusAction globally.',
           ),
           _DiagramStep(
             number: '5',
             title: 'NextFocusAction.invoke()',
-            detail: 'Retrieves primaryFocus and calls '
+            detail:
+                'Retrieves primaryFocus and calls '
                 'primaryFocus!.nextFocus() which delegates to the traversal policy.',
           ),
           _DiagramStep(
             number: '6',
             title: 'FocusTraversalPolicy.next()',
-            detail: 'Computes the sorted list of eligible focusable descendants '
+            detail:
+                'Computes the sorted list of eligible focusable descendants '
                 'of the nearest FocusTraversalGroup and selects the next one. '
                 'Then calls node.requestFocus().',
           ),
@@ -1571,10 +1599,7 @@ class _DiagramStepCard extends StatelessWidget {
           backgroundColor: cs.primary,
           child: Text(
             step.number,
-            style: TextStyle(
-              color: cs.onPrimary,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: cs.onPrimary, fontWeight: FontWeight.w700),
           ),
         ),
         title: Text(
@@ -1631,10 +1656,7 @@ class _FlowDiagramPainter extends CustomPainter {
 
       // Alternate fill shade for first box
       if (i == 0) {
-        canvas.drawRRect(
-          rRect,
-          Paint()..color = cs.tertiaryContainer,
-        );
+        canvas.drawRRect(rRect, Paint()..color = cs.tertiaryContainer);
         canvas.drawRRect(
           rRect,
           Paint()
@@ -1643,10 +1665,7 @@ class _FlowDiagramPainter extends CustomPainter {
             ..strokeWidth = 1.8,
         );
       } else if (i == totalItems - 1) {
-        canvas.drawRRect(
-          rRect,
-          Paint()..color = cs.secondaryContainer,
-        );
+        canvas.drawRRect(rRect, Paint()..color = cs.secondaryContainer);
         canvas.drawRRect(
           rRect,
           Paint()
@@ -1883,20 +1902,20 @@ class _IntentCatalogCard extends StatelessWidget {
   }
 
   Widget _metaBadge(String label, ColorScheme cs) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        decoration: BoxDecoration(
-          color: cs.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            fontFamily: 'monospace',
-            color: cs.onSurfaceVariant,
-          ),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+    decoration: BoxDecoration(
+      color: cs.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: cs.onSurfaceVariant,
+      ),
+    ),
+  );
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -2024,26 +2043,36 @@ Focus(
                 _tableCell('Default trigger', bold: true),
               ],
             ),
-            TableRow(children: <Widget>[
-              _tableCell('NextFocusIntent'),
-              _tableCell('Tab'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('PreviousFocusIntent'),
-              _tableCell('Shift+Tab'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('RequestFocusIntent(node)'),
-              _tableCell('programmatic'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('NextPageFocusIntent'),
-              _tableCell('platform-defined'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('PreviousPageFocusIntent'),
-              _tableCell('platform-defined'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableCell('NextFocusIntent'),
+                _tableCell('Tab'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('PreviousFocusIntent'),
+                _tableCell('Shift+Tab'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('RequestFocusIntent(node)'),
+                _tableCell('programmatic'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('NextPageFocusIntent'),
+                _tableCell('platform-defined'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('PreviousPageFocusIntent'),
+                _tableCell('platform-defined'),
+              ],
+            ),
           ],
         ),
         const SizedBox(height: 16),
@@ -2062,18 +2091,24 @@ Focus(
                 _tableCell('What it calls', bold: true),
               ],
             ),
-            TableRow(children: <Widget>[
-              _tableCell('NextFocusAction'),
-              _tableCell('primaryFocus!.nextFocus()'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('PreviousFocusAction'),
-              _tableCell('primaryFocus!.previousFocus()'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('RequestFocusAction'),
-              _tableCell('intent.focusNode.requestFocus()'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableCell('NextFocusAction'),
+                _tableCell('primaryFocus!.nextFocus()'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('PreviousFocusAction'),
+                _tableCell('primaryFocus!.previousFocus()'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('RequestFocusAction'),
+                _tableCell('intent.focusNode.requestFocus()'),
+              ],
+            ),
           ],
         ),
         const SizedBox(height: 16),
@@ -2092,30 +2127,42 @@ Focus(
                 _tableCell('Purpose', bold: true),
               ],
             ),
-            TableRow(children: <Widget>[
-              _tableCell('FocusNode.skipTraversal'),
-              _tableCell('Exclude from Tab, allow direct focus'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('FocusNode.canRequestFocus'),
-              _tableCell('Disallow focus entirely'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('FocusTraversalGroup'),
-              _tableCell('Scope + policy per region'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('FocusTraversalOrder'),
-              _tableCell('Explicit order annotation'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('OrderedTraversalPolicy'),
-              _tableCell('Sort by FocusTraversalOrder'),
-            ]),
-            TableRow(children: <Widget>[
-              _tableCell('ExcludeFocus'),
-              _tableCell('Exclude subtree from all focus'),
-            ]),
+            TableRow(
+              children: <Widget>[
+                _tableCell('FocusNode.skipTraversal'),
+                _tableCell('Exclude from Tab, allow direct focus'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('FocusNode.canRequestFocus'),
+                _tableCell('Disallow focus entirely'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('FocusTraversalGroup'),
+                _tableCell('Scope + policy per region'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('FocusTraversalOrder'),
+                _tableCell('Explicit order annotation'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('OrderedTraversalPolicy'),
+                _tableCell('Sort by FocusTraversalOrder'),
+              ],
+            ),
+            TableRow(
+              children: <Widget>[
+                _tableCell('ExcludeFocus'),
+                _tableCell('Exclude subtree from all focus'),
+              ],
+            ),
           ],
         ),
         const SizedBox(height: 24),
@@ -2201,12 +2248,7 @@ class _PitfallCard extends StatelessWidget {
     );
   }
 
-  Widget _pitfallRow(
-    String label,
-    String text,
-    IconData icon,
-    ColorScheme cs,
-  ) {
+  Widget _pitfallRow(String label, String text, IconData icon, ColorScheme cs) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

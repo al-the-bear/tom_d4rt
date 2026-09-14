@@ -8,7 +8,8 @@ const List<_ThemePack> _themes = <_ThemePack>[
     name: 'Studio Blue',
     seed: Color(0xFF0369A1),
     brightness: Brightness.light,
-    subtitle: 'Clean contrast for quarter-turn comparisons and layout tracking.',
+    subtitle:
+        'Clean contrast for quarter-turn comparisons and layout tracking.',
   ),
   _ThemePack(
     id: 'warm-paper',
@@ -22,7 +23,8 @@ const List<_ThemePack> _themes = <_ThemePack>[
     name: 'Night Console',
     seed: Color(0xFF334155),
     brightness: Brightness.dark,
-    subtitle: 'Dark diagnostics profile for dense interaction and timeline boards.',
+    subtitle:
+        'Dark diagnostics profile for dense interaction and timeline boards.',
   ),
 ];
 
@@ -30,32 +32,38 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     mode: _ScenarioMode.fundamentals,
     title: 'Fundamentals',
-    description: 'Core quarter-turn behavior with visual geometry overlays and side-by-side baselines.',
+    description:
+        'Core quarter-turn behavior with visual geometry overlays and side-by-side baselines.',
   ),
   _Scenario(
     mode: _ScenarioMode.typography,
     title: 'Typography',
-    description: 'Rotated labels and editorial strips showing text orientation usage patterns.',
+    description:
+        'Rotated labels and editorial strips showing text orientation usage patterns.',
   ),
   _Scenario(
     mode: _ScenarioMode.dashboard,
     title: 'Dashboard',
-    description: 'Data-style tiles where rotated markers and labels support compact layouts.',
+    description:
+        'Data-style tiles where rotated markers and labels support compact layouts.',
   ),
   _Scenario(
     mode: _ScenarioMode.interaction,
     title: 'Interaction',
-    description: 'Tap and drag board to test rotated hit surfaces and event signaling.',
+    description:
+        'Tap and drag board to test rotated hit surfaces and event signaling.',
   ),
   _Scenario(
     mode: _ScenarioMode.gridLab,
     title: 'Grid Lab',
-    description: 'Matrix lab for comparing many quarterTurns combinations at once.',
+    description:
+        'Matrix lab for comparing many quarterTurns combinations at once.',
   ),
   _Scenario(
     mode: _ScenarioMode.verification,
     title: 'Verification',
-    description: 'Interpreter checklist and practical usage notes for RenderRotatedBox behavior.',
+    description:
+        'Interpreter checklist and practical usage notes for RenderRotatedBox behavior.',
   ),
 ];
 
@@ -81,23 +89,28 @@ class _Faq {
 const List<_Faq> _faqs = <_Faq>[
   _Faq(
     question: 'When should I prefer RotatedBox over Transform.rotate?',
-    answer: 'Use RotatedBox for exact quarter-turn rotations that should participate in layout sizing decisions.',
+    answer:
+        'Use RotatedBox for exact quarter-turn rotations that should participate in layout sizing decisions.',
   ),
   _Faq(
     question: 'Does RotatedBox support arbitrary angles?',
-    answer: 'No. It is designed for quarter turns only; arbitrary angles belong to transform-based approaches.',
+    answer:
+        'No. It is designed for quarter turns only; arbitrary angles belong to transform-based approaches.',
   ),
   _Faq(
     question: 'Why demonstrate quarter turns in a grid?',
-    answer: 'A grid quickly verifies all orientation states and reveals layout changes for each value.',
+    answer:
+        'A grid quickly verifies all orientation states and reveals layout changes for each value.',
   ),
   _Faq(
     question: 'Can rotated text hurt readability?',
-    answer: 'Yes. Keep content short and purpose-driven, especially for vertical labels and compact dashboards.',
+    answer:
+        'Yes. Keep content short and purpose-driven, especially for vertical labels and compact dashboards.',
   ),
   _Faq(
     question: 'How do I validate behavior in an interpreter environment?',
-    answer: 'Use controlled visuals, interaction counters, and timeline logs while toggling quarter-turn settings.',
+    answer:
+        'Use controlled visuals, interaction counters, and timeline logs while toggling quarter-turn settings.',
   ),
 ];
 
@@ -127,14 +140,23 @@ class _ThemePack {
 }
 
 class _Scenario {
-  const _Scenario({required this.mode, required this.title, required this.description});
+  const _Scenario({
+    required this.mode,
+    required this.title,
+    required this.description,
+  });
   final _ScenarioMode mode;
   final String title;
   final String description;
 }
 
 class _Event {
-  const _Event({required this.time, required this.channel, required this.message, required this.turn});
+  const _Event({
+    required this.time,
+    required this.channel,
+    required this.message,
+    required this.turn,
+  });
 
   final DateTime time;
   final String channel;
@@ -143,7 +165,12 @@ class _Event {
 }
 
 class _Metric {
-  const _Metric({required this.label, required this.value, required this.note, required this.icon});
+  const _Metric({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -159,10 +186,12 @@ class _RenderRotatedBoxStudio extends StatefulWidget {
   const _RenderRotatedBoxStudio();
 
   @override
-  State<_RenderRotatedBoxStudio> createState() => _RenderRotatedBoxStudioState();
+  State<_RenderRotatedBoxStudio> createState() =>
+      _RenderRotatedBoxStudioState();
 }
 
-class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with SingleTickerProviderStateMixin {
+class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _clock = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 9000),
@@ -241,7 +270,15 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
     setState(() {
       _lastChannel = channel;
       _lastMessage = message;
-      _events.insert(0, _Event(time: DateTime.now(), channel: channel, message: message, turn: turn));
+      _events.insert(
+        0,
+        _Event(
+          time: DateTime.now(),
+          channel: channel,
+          message: message,
+          turn: turn,
+        ),
+      );
       if (_events.length > 220) {
         _events.removeRange(220, _events.length);
       }
@@ -257,7 +294,11 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         _heatPoints.removeRange(180, _heatPoints.length);
       }
     });
-    _push('hit', '$lane @ ${localPosition.dx.toStringAsFixed(1)},${localPosition.dy.toStringAsFixed(1)}', _mainQuarterTurn);
+    _push(
+      'hit',
+      '$lane @ ${localPosition.dx.toStringAsFixed(1)},${localPosition.dy.toStringAsFixed(1)}',
+      _mainQuarterTurn,
+    );
   }
 
   void _setScenario(int index) {
@@ -344,16 +385,27 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
   @override
   Widget build(BuildContext context) {
     final _ThemePack theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -407,12 +459,35 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.rotate_90_degrees_ccw_outlined, size: 26, color: scheme.primary),
-                Text('RenderRotatedBox Quarter-Turn Studio', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25)),
+                Icon(
+                  Icons.rotate_90_degrees_ccw_outlined,
+                  size: 26,
+                  color: scheme.primary,
+                ),
+                Text(
+                  'RenderRotatedBox Quarter-Turn Studio',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -436,7 +511,14 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 17)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -450,9 +532,19 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Modes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 17)),
+            Text(
+              'Scenario Modes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -466,7 +558,10 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -484,13 +579,27 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Control Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Control Board',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Tune quarter-turn values, stage visuals, and diagnostics.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune quarter-turn values, stage visuals, and diagnostics.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -500,7 +609,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 980,
               divisions: 275,
               onChanged: (double v) => setState(() => _stageHeight = v),
-              onChangeEnd: (double v) => _controlEdit('stageHeight', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('stageHeight', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -510,7 +620,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 48,
               divisions: 96,
               onChanged: (double v) => setState(() => _tileRoundness = v),
-              onChangeEnd: (double v) => _controlEdit('tileRoundness', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('tileRoundness', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -520,7 +631,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 1,
               divisions: 80,
               onChanged: (double v) => setState(() => _tileOpacity = v),
-              onChangeEnd: (double v) => _controlEdit('tileOpacity', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('tileOpacity', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -530,7 +642,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 2,
               divisions: 70,
               onChanged: (double v) => setState(() => _motionSpeed = v),
-              onChangeEnd: (double v) => _controlEdit('motionSpeed', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('motionSpeed', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -540,7 +653,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 52,
               divisions: 38,
               onChanged: (double v) => setState(() => _gridDensity = v),
-              onChangeEnd: (double v) => _controlEdit('gridDensity', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('gridDensity', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -550,7 +664,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 0.8,
               divisions: 80,
               onChanged: (double v) => setState(() => _overlayAlpha = v),
-              onChangeEnd: (double v) => _controlEdit('overlayAlpha', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('overlayAlpha', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -560,7 +675,8 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 1.6,
               divisions: 100,
               onChanged: (double v) => setState(() => _labelScale = v),
-              onChangeEnd: (double v) => _controlEdit('labelScale', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('labelScale', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -570,10 +686,17 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _heatIntensity = v),
-              onChangeEnd: (double v) => _controlEdit('heatIntensity', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('heatIntensity', v.toStringAsFixed(2)),
             ),
             const SizedBox(height: 4),
-            Text('Main Quarter Turns', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Main Quarter Turns',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -586,7 +709,13 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               }),
             ),
             const SizedBox(height: 6),
-            Text('Secondary Quarter Turns', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Secondary Quarter Turns',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -603,51 +732,91 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animate, onChanged: (bool? v) {
-                  setState(() => _animate = v ?? true);
-                  if (_animate) {
-                    _clock.repeat();
-                  } else {
-                    _clock.stop();
-                  }
-                  _controlEdit('animate', '${v ?? true}');
-                }, child: const Text('Animate')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) {
-                  setState(() => _showGrid = v ?? true);
-                  _controlEdit('showGrid', '${v ?? true}');
-                }, child: const Text('Grid')),
-                CheckboxMenuButton(value: _showHeat, onChanged: (bool? v) {
-                  setState(() => _showHeat = v ?? true);
-                  _controlEdit('showHeat', '${v ?? true}');
-                }, child: const Text('Heat')),
-                CheckboxMenuButton(value: _showLabels, onChanged: (bool? v) {
-                  setState(() => _showLabels = v ?? true);
-                  _controlEdit('showLabels', '${v ?? true}');
-                }, child: const Text('Labels')),
-                CheckboxMenuButton(value: _showBounds, onChanged: (bool? v) {
-                  setState(() => _showBounds = v ?? true);
-                  _controlEdit('showBounds', '${v ?? true}');
-                }, child: const Text('Bounds')),
-                CheckboxMenuButton(value: _stressTypography, onChanged: (bool? v) {
-                  setState(() => _stressTypography = v ?? true);
-                  _controlEdit('stressTypography', '${v ?? true}');
-                }, child: const Text('Typography stress')),
-                CheckboxMenuButton(value: _compactTiles, onChanged: (bool? v) {
-                  setState(() => _compactTiles = v ?? false);
-                  _controlEdit('compactTiles', '${v ?? false}');
-                }, child: const Text('Compact tiles')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) {
-                  setState(() => _showDiagnostics = v ?? true);
-                  _controlEdit('diagnostics', '${v ?? true}');
-                }, child: const Text('Diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) {
-                  setState(() => _showGuide = v ?? true);
-                  _controlEdit('guide', '${v ?? true}');
-                }, child: const Text('Guide')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) {
-                  setState(() => _showTimeline = v ?? true);
-                  _controlEdit('timeline', '${v ?? true}');
-                }, child: const Text('Timeline')),
+                CheckboxMenuButton(
+                  value: _animate,
+                  onChanged: (bool? v) {
+                    setState(() => _animate = v ?? true);
+                    if (_animate) {
+                      _clock.repeat();
+                    } else {
+                      _clock.stop();
+                    }
+                    _controlEdit('animate', '${v ?? true}');
+                  },
+                  child: const Text('Animate'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) {
+                    setState(() => _showGrid = v ?? true);
+                    _controlEdit('showGrid', '${v ?? true}');
+                  },
+                  child: const Text('Grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showHeat,
+                  onChanged: (bool? v) {
+                    setState(() => _showHeat = v ?? true);
+                    _controlEdit('showHeat', '${v ?? true}');
+                  },
+                  child: const Text('Heat'),
+                ),
+                CheckboxMenuButton(
+                  value: _showLabels,
+                  onChanged: (bool? v) {
+                    setState(() => _showLabels = v ?? true);
+                    _controlEdit('showLabels', '${v ?? true}');
+                  },
+                  child: const Text('Labels'),
+                ),
+                CheckboxMenuButton(
+                  value: _showBounds,
+                  onChanged: (bool? v) {
+                    setState(() => _showBounds = v ?? true);
+                    _controlEdit('showBounds', '${v ?? true}');
+                  },
+                  child: const Text('Bounds'),
+                ),
+                CheckboxMenuButton(
+                  value: _stressTypography,
+                  onChanged: (bool? v) {
+                    setState(() => _stressTypography = v ?? true);
+                    _controlEdit('stressTypography', '${v ?? true}');
+                  },
+                  child: const Text('Typography stress'),
+                ),
+                CheckboxMenuButton(
+                  value: _compactTiles,
+                  onChanged: (bool? v) {
+                    setState(() => _compactTiles = v ?? false);
+                    _controlEdit('compactTiles', '${v ?? false}');
+                  },
+                  child: const Text('Compact tiles'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) {
+                    setState(() => _showDiagnostics = v ?? true);
+                    _controlEdit('diagnostics', '${v ?? true}');
+                  },
+                  child: const Text('Diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) {
+                    setState(() => _showGuide = v ?? true);
+                    _controlEdit('guide', '${v ?? true}');
+                  },
+                  child: const Text('Guide'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) {
+                    setState(() => _showTimeline = v ?? true);
+                    _controlEdit('timeline', '${v ?? true}');
+                  },
+                  child: const Text('Timeline'),
+                ),
               ],
             ),
           ],
@@ -671,11 +840,23 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -689,9 +870,19 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Scenario Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Scenario Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Interact with rotated samples to observe quarter-turn behavior across multiple use cases.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Interact with rotated samples to observe quarter-turn behavior across multiple use cases.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             SizedBox(
               height: _stageHeight,
@@ -713,7 +904,10 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                     if (_showHeat)
                       IgnorePointer(
                         child: CustomPaint(
-                          painter: _HeatPainter(points: _heatPoints, intensity: _heatIntensity),
+                          painter: _HeatPainter(
+                            points: _heatPoints,
+                            intensity: _heatIntensity,
+                          ),
                         ),
                       ),
                   ],
@@ -772,9 +966,7 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(
-            child: _baselineCard(scheme),
-          ),
+          Expanded(child: _baselineCard(scheme)),
         ],
       ),
     );
@@ -796,14 +988,26 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_tileRoundness),
           border: Border.all(color: Colors.white.withValues(alpha: 0.46)),
-          gradient: LinearGradient(colors: <Color>[colorA.withValues(alpha: _tileOpacity), colorB.withValues(alpha: _tileOpacity)]),
+          gradient: LinearGradient(
+            colors: <Color>[
+              colorA.withValues(alpha: _tileOpacity),
+              colorB.withValues(alpha: _tileOpacity),
+            ],
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(subtitle, style: const TextStyle(color: Colors.white70)),
               const SizedBox(height: 10),
@@ -817,12 +1021,18 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         color: Colors.black.withValues(alpha: 0.24),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.56)),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.56),
+                        ),
                       ),
                       child: Center(
                         child: Text(
                           'turn=$turn',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17 * _labelScale),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 17 * _labelScale,
+                          ),
                         ),
                       ),
                     ),
@@ -832,9 +1042,22 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               if (_showLabels)
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: _overlayAlpha), borderRadius: BorderRadius.circular(999)),
-                  child: Text('hits=${_laneHits[lane] ?? 0}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: _overlayAlpha),
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    'hits=${_laneHits[lane] ?? 0}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -849,16 +1072,31 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(_tileRoundness),
         border: Border.all(color: Colors.white.withValues(alpha: 0.46)),
-        gradient: LinearGradient(colors: <Color>[scheme.secondary.withValues(alpha: _tileOpacity), scheme.tertiary.withValues(alpha: _tileOpacity)]),
+        gradient: LinearGradient(
+          colors: <Color>[
+            scheme.secondary.withValues(alpha: _tileOpacity),
+            scheme.tertiary.withValues(alpha: _tileOpacity),
+          ],
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text('Baseline (No Rotation)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+            const Text(
+              'Baseline (No Rotation)',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 15,
+              ),
+            ),
             const SizedBox(height: 4),
-            const Text('Reference panel for direct visual comparison', style: TextStyle(color: Colors.white70)),
+            const Text(
+              'Reference panel for direct visual comparison',
+              style: TextStyle(color: Colors.white70),
+            ),
             const SizedBox(height: 10),
             Expanded(
               child: Center(
@@ -868,16 +1106,28 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     color: Colors.black.withValues(alpha: 0.22),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.56)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.56),
+                    ),
                   ),
                   child: Center(
-                    child: Text('turn=0', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17 * _labelScale)),
+                    child: Text(
+                      'turn=0',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 17 * _labelScale,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
             if (_showBounds)
-              const Text('Observe dimension changes between parity turns.', style: TextStyle(color: Colors.white70, fontSize: 12)),
+              const Text(
+                'Observe dimension changes between parity turns.',
+                style: TextStyle(color: Colors.white70, fontSize: 12),
+              ),
           ],
         ),
       ),
@@ -885,7 +1135,15 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
   }
 
   Widget _typography(ColorScheme scheme) {
-    final List<String> words = <String>['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'OMEGA', 'SIGMA', 'LAMBDA'];
+    final List<String> words = <String>[
+      'ALPHA',
+      'BETA',
+      'GAMMA',
+      'DELTA',
+      'OMEGA',
+      'SIGMA',
+      'LAMBDA',
+    ];
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -895,24 +1153,39 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(_tileRoundness),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
-                gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _tileOpacity), scheme.secondary.withValues(alpha: _tileOpacity)]),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    scheme.primary.withValues(alpha: _tileOpacity),
+                    scheme.secondary.withValues(alpha: _tileOpacity),
+                  ],
+                ),
               ),
               child: Column(
                 children: List<Widget>.generate(words.length, (int index) {
                   final int turn = (_mainQuarterTurn + index) % 4;
                   return Expanded(
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.black.withValues(alpha: 0.18 + (_stressTypography ? index * 0.02 : 0)),
+                        color: Colors.black.withValues(
+                          alpha: 0.18 + (_stressTypography ? index * 0.02 : 0),
+                        ),
                       ),
                       child: Center(
                         child: RotatedBox(
                           quarterTurns: turn,
                           child: Text(
                             words[index],
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, letterSpacing: 1.1, fontSize: (15 + (index % 2) * 2) * _labelScale),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.1,
+                              fontSize: (15 + (index % 2) * 2) * _labelScale,
+                            ),
                           ),
                         ),
                       ),
@@ -928,15 +1201,30 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(_tileRoundness),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
-                gradient: LinearGradient(colors: <Color>[scheme.tertiary.withValues(alpha: _tileOpacity), scheme.primary.withValues(alpha: _tileOpacity)]),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    scheme.tertiary.withValues(alpha: _tileOpacity),
+                    scheme.primary.withValues(alpha: _tileOpacity),
+                  ],
+                ),
               ),
               padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('Editorial Use Case', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'Editorial Use Case',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  const Text('Vertical side labels are common with quarter-turn layout rotation.', style: TextStyle(color: Colors.white70)),
+                  const Text(
+                    'Vertical side labels are common with quarter-turn layout rotation.',
+                    style: TextStyle(color: Colors.white70),
+                  ),
                   const SizedBox(height: 10),
                   Expanded(
                     child: Row(
@@ -944,9 +1232,22 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                         RotatedBox(
                           quarterTurns: _secondaryQuarterTurn,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                            decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.26), borderRadius: BorderRadius.circular(10)),
-                            child: Text('SECTION', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 13 * _labelScale)),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.26),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              'SECTION',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 13 * _labelScale,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -967,7 +1268,13 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                     ),
                   ),
                   if (_showLabels)
-                    Text('main=$_mainQuarterTurn secondary=$_secondaryQuarterTurn stress=$_stressTypography', style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                    Text(
+                      'main=$_mainQuarterTurn secondary=$_secondaryQuarterTurn stress=$_stressTypography',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -984,7 +1291,12 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_tileRoundness),
-            gradient: LinearGradient(colors: <Color>[a.withValues(alpha: _tileOpacity), b.withValues(alpha: _tileOpacity)]),
+            gradient: LinearGradient(
+              colors: <Color>[
+                a.withValues(alpha: _tileOpacity),
+                b.withValues(alpha: _tileOpacity),
+              ],
+            ),
             border: Border.all(color: Colors.white.withValues(alpha: 0.46)),
           ),
           child: Padding(
@@ -994,13 +1306,34 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Expanded(child: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800))),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
                     RotatedBox(
                       quarterTurns: turn,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.25), borderRadius: BorderRadius.circular(999)),
-                        child: Text('Q$turn', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withValues(alpha: 0.25),
+                          borderRadius: BorderRadius.circular(999),
+                        ),
+                        child: Text(
+                          'Q$turn',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -1012,14 +1345,21 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                     builder: (BuildContext context, Widget? child) {
                       final double t = _clock.value * _motionSpeed;
                       return CustomPaint(
-                        painter: _SparkPainter(progress: t, turn: turn, alpha: _overlayAlpha),
+                        painter: _SparkPainter(
+                          progress: t,
+                          turn: turn,
+                          alpha: _overlayAlpha,
+                        ),
                         child: const SizedBox.expand(),
                       );
                     },
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text('hits=${_laneHits[lane] ?? 0}', style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                Text(
+                  'hits=${_laneHits[lane] ?? 0}',
+                  style: const TextStyle(color: Colors.white70, fontSize: 12),
+                ),
               ],
             ),
           ),
@@ -1035,12 +1375,50 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         mainAxisSpacing: 10,
         childAspectRatio: _compactTiles ? 1.2 : 1.55,
         children: <Widget>[
-          tile('dash-1', 'Flow Rate', _mainQuarterTurn, scheme.primary, scheme.secondary),
-          tile('dash-2', 'Latency', _secondaryQuarterTurn, scheme.secondary, scheme.tertiary),
-          tile('dash-3', 'Capacity', (_mainQuarterTurn + 1) % 4, scheme.tertiary, scheme.primary),
-          tile('dash-4', 'Utilization', (_secondaryQuarterTurn + 2) % 4, scheme.primary, scheme.tertiary),
-          if (_compactTiles) tile('dash-5', 'Queue', (_mainQuarterTurn + 3) % 4, scheme.secondary, scheme.primary),
-          if (_compactTiles) tile('dash-6', 'Signals', (_secondaryQuarterTurn + 1) % 4, scheme.tertiary, scheme.secondary),
+          tile(
+            'dash-1',
+            'Flow Rate',
+            _mainQuarterTurn,
+            scheme.primary,
+            scheme.secondary,
+          ),
+          tile(
+            'dash-2',
+            'Latency',
+            _secondaryQuarterTurn,
+            scheme.secondary,
+            scheme.tertiary,
+          ),
+          tile(
+            'dash-3',
+            'Capacity',
+            (_mainQuarterTurn + 1) % 4,
+            scheme.tertiary,
+            scheme.primary,
+          ),
+          tile(
+            'dash-4',
+            'Utilization',
+            (_secondaryQuarterTurn + 2) % 4,
+            scheme.primary,
+            scheme.tertiary,
+          ),
+          if (_compactTiles)
+            tile(
+              'dash-5',
+              'Queue',
+              (_mainQuarterTurn + 3) % 4,
+              scheme.secondary,
+              scheme.primary,
+            ),
+          if (_compactTiles)
+            tile(
+              'dash-6',
+              'Signals',
+              (_secondaryQuarterTurn + 1) % 4,
+              scheme.tertiary,
+              scheme.secondary,
+            ),
         ],
       ),
     );
@@ -1065,8 +1443,15 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(_tileRoundness),
-                  gradient: LinearGradient(colors: <Color>[scheme.primary.withValues(alpha: _tileOpacity), scheme.secondary.withValues(alpha: _tileOpacity)]),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      scheme.primary.withValues(alpha: _tileOpacity),
+                      scheme.secondary.withValues(alpha: _tileOpacity),
+                    ],
+                  ),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.5),
+                  ),
                 ),
                 child: Stack(
                   children: <Widget>[
@@ -1077,7 +1462,9 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.35)),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.35),
+                              ),
                             ),
                           ),
                         ),
@@ -1091,10 +1478,19 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                           decoration: BoxDecoration(
                             color: Colors.black.withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(14),
-                            border: Border.all(color: Colors.white.withValues(alpha: 0.55)),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.55),
+                            ),
                           ),
                           child: Center(
-                            child: Text('DRAG / TAP', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20 * _labelScale)),
+                            child: Text(
+                              'DRAG / TAP',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 20 * _labelScale,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -1104,9 +1500,24 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                         left: 12,
                         top: 12,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(color: Colors.black.withValues(alpha: _overlayAlpha), borderRadius: BorderRadius.circular(999)),
-                          child: Text('tap=$_tapCount drag=$_dragCount', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withValues(
+                              alpha: _overlayAlpha,
+                            ),
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          child: Text(
+                            'tap=$_tapCount drag=$_dragCount',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
                       ),
                   ],
@@ -1120,23 +1531,44 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(_tileRoundness),
-                gradient: LinearGradient(colors: <Color>[scheme.tertiary.withValues(alpha: _tileOpacity), scheme.primary.withValues(alpha: _tileOpacity)]),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    scheme.tertiary.withValues(alpha: _tileOpacity),
+                    scheme.primary.withValues(alpha: _tileOpacity),
+                  ],
+                ),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
               ),
               padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('Interaction Notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'Interaction Notes',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  const Text('RotatedBox affects orientation but still allows straightforward gesture handling on wrapped content.', style: TextStyle(color: Colors.white70)),
+                  const Text(
+                    'RotatedBox affects orientation but still allows straightforward gesture handling on wrapped content.',
+                    style: TextStyle(color: Colors.white70),
+                  ),
                   const SizedBox(height: 10),
                   _miniStat('interactions', _interactionCount.toString()),
-                  _miniStat('hits main', (_laneHits['interaction-main'] ?? 0).toString()),
+                  _miniStat(
+                    'hits main',
+                    (_laneHits['interaction-main'] ?? 0).toString(),
+                  ),
                   _miniStat('current turn', _mainQuarterTurn.toString()),
                   _miniStat('last channel', _lastChannel),
                   const Spacer(),
-                  const Text('Tip: short rotated labels remain clearer than long paragraphs.', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                  const Text(
+                    'Tip: short rotated labels remain clearer than long paragraphs.',
+                    style: TextStyle(color: Colors.white70, fontSize: 12),
+                  ),
                 ],
               ),
             ),
@@ -1151,8 +1583,16 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
       padding: const EdgeInsets.only(bottom: 6),
       child: Row(
         children: <Widget>[
-          Expanded(child: Text(label, style: const TextStyle(color: Colors.white70))),
-          Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Expanded(
+            child: Text(label, style: const TextStyle(color: Colors.white70)),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -1165,7 +1605,13 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text('Matrix Base Turn', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+              const Text(
+                'Matrix Base Turn',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               const SizedBox(width: 10),
               Wrap(
                 spacing: 8,
@@ -1195,33 +1641,65 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               itemBuilder: (BuildContext context, int index) {
                 final int turn = (_matrixBaseTurn + index) % 4;
                 return Listener(
-                  onPointerDown: (PointerDownEvent e) => _hit('grid-$index', e.localPosition),
+                  onPointerDown: (PointerDownEvent e) =>
+                      _hit('grid-$index', e.localPosition),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(_tileRoundness * 0.6),
                       gradient: LinearGradient(
                         colors: <Color>[
-                          scheme.primary.withValues(alpha: 0.18 + (turn * 0.12)),
-                          scheme.secondary.withValues(alpha: 0.18 + ((3 - turn) * 0.12)),
+                          scheme.primary.withValues(
+                            alpha: 0.18 + (turn * 0.12),
+                          ),
+                          scheme.secondary.withValues(
+                            alpha: 0.18 + ((3 - turn) * 0.12),
+                          ),
                         ],
                       ),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.44)),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.44),
+                      ),
                     ),
                     child: Column(
                       children: <Widget>[
                         const SizedBox(height: 8),
-                        Text('cell $index', style: const TextStyle(color: Colors.white70, fontSize: 11)),
+                        Text(
+                          'cell $index',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                          ),
+                        ),
                         const Spacer(),
                         RotatedBox(
                           quarterTurns: turn,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(8)),
-                            child: Text('turn=$turn', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12)),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.22),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'turn=$turn',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
                         ),
                         const Spacer(),
-                        Text('hits=${_laneHits['grid-$index'] ?? 0}', style: const TextStyle(color: Colors.white70, fontSize: 10)),
+                        Text(
+                          'hits=${_laneHits['grid-$index'] ?? 0}',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 10,
+                          ),
+                        ),
                         const SizedBox(height: 8),
                       ],
                     ),
@@ -1241,21 +1719,51 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_tileRoundness),
-          gradient: LinearGradient(colors: <Color>[scheme.secondary.withValues(alpha: _tileOpacity), scheme.tertiary.withValues(alpha: _tileOpacity)]),
+          gradient: LinearGradient(
+            colors: <Color>[
+              scheme.secondary.withValues(alpha: _tileOpacity),
+              scheme.tertiary.withValues(alpha: _tileOpacity),
+            ],
+          ),
           border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
         ),
         padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text('Interpreter Verification Checklist', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17)),
+            const Text(
+              'Interpreter Verification Checklist',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 10),
-            const Text('1. Switch main and secondary quarterTurns and verify visual orientation updates.', style: TextStyle(color: Colors.white70)),
-            const Text('2. Compare Fundamentals cards against baseline no-rotation panel.', style: TextStyle(color: Colors.white70)),
-            const Text('3. Inspect Typography and Dashboard modes for practical compact-label usage.', style: TextStyle(color: Colors.white70)),
-            const Text('4. Interact with boards and confirm hit counters/timeline events update.', style: TextStyle(color: Colors.white70)),
-            const Text('5. Validate matrix coverage for all quarter-turn values in Grid Lab.', style: TextStyle(color: Colors.white70)),
-            const Text('6. Confirm analyzer is clean for this file.', style: TextStyle(color: Colors.white70)),
+            const Text(
+              '1. Switch main and secondary quarterTurns and verify visual orientation updates.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              '2. Compare Fundamentals cards against baseline no-rotation panel.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              '3. Inspect Typography and Dashboard modes for practical compact-label usage.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              '4. Interact with boards and confirm hit counters/timeline events update.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              '5. Validate matrix coverage for all quarter-turn values in Grid Lab.',
+              style: TextStyle(color: Colors.white70),
+            ),
+            const Text(
+              '6. Confirm analyzer is clean for this file.',
+              style: TextStyle(color: Colors.white70),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 8,
@@ -1283,7 +1791,14 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         color: Colors.black.withValues(alpha: _overlayAlpha),
         border: Border.all(color: Colors.white.withValues(alpha: 0.42)),
       ),
-      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -1300,9 +1815,18 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: scheme.onSurface,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+              Text(
+                note,
+                style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+              ),
               const SizedBox(height: 10),
               Expanded(
                 child: Container(
@@ -1315,7 +1839,13 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                   child: Center(
                     child: RotatedBox(
                       quarterTurns: turn,
-                      child: Text('turn=$turn', style: TextStyle(color: accent, fontWeight: FontWeight.w800)),
+                      child: Text(
+                        'turn=$turn',
+                        style: TextStyle(
+                          color: accent,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -1334,20 +1864,64 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Usage Comparison', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Usage Comparison',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Common quarter-turn use patterns and reference examples.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Common quarter-turn use patterns and reference examples.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final bool narrow = constraints.maxWidth < 1020;
-                final Widget a = card('Vertical Label', 'Ideal for short side markers and compact section tags.', const Color(0xFF0284C7), 1);
-                final Widget b = card('Upside Marker', 'Useful when opposite orientation is clearer in a mirrored context.', const Color(0xFFB45309), 2);
-                final Widget c = card('Trailing Side', 'Quarter turn 3 often matches right-edge annotations.', const Color(0xFF7C3AED), 3);
+                final Widget a = card(
+                  'Vertical Label',
+                  'Ideal for short side markers and compact section tags.',
+                  const Color(0xFF0284C7),
+                  1,
+                );
+                final Widget b = card(
+                  'Upside Marker',
+                  'Useful when opposite orientation is clearer in a mirrored context.',
+                  const Color(0xFFB45309),
+                  2,
+                );
+                final Widget c = card(
+                  'Trailing Side',
+                  'Quarter turn 3 often matches right-edge annotations.',
+                  const Color(0xFF7C3AED),
+                  3,
+                );
                 if (narrow) {
-                  return Column(children: <Widget>[SizedBox(height: 220, child: a), const SizedBox(height: 10), SizedBox(height: 220, child: b), const SizedBox(height: 10), SizedBox(height: 220, child: c)]);
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(height: 220, child: a),
+                      const SizedBox(height: 10),
+                      SizedBox(height: 220, child: b),
+                      const SizedBox(height: 10),
+                      SizedBox(height: 220, child: c),
+                    ],
+                  );
                 }
-                return SizedBox(height: 230, child: Row(children: <Widget>[Expanded(child: a), const SizedBox(width: 10), Expanded(child: b), const SizedBox(width: 10), Expanded(child: c)]));
+                return SizedBox(
+                  height: 230,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(child: a),
+                      const SizedBox(width: 10),
+                      Expanded(child: b),
+                      const SizedBox(width: 10),
+                      Expanded(child: c),
+                    ],
+                  ),
+                );
               },
             ),
           ],
@@ -1358,26 +1932,127 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
 
   Widget _buildMetricsBoard(ColorScheme scheme) {
     final List<_Metric> metrics = <_Metric>[
-      _Metric(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Active stage mode.', icon: Icons.route_outlined),
-      _Metric(label: 'Theme', value: _themes[_themeIndex].name, note: 'Current visual profile.', icon: Icons.palette_outlined),
-      _Metric(label: 'Main Turn', value: '$_mainQuarterTurn', note: 'Primary RotatedBox turn.', icon: Icons.rotate_90_degrees_ccw_outlined),
-      _Metric(label: 'Secondary Turn', value: '$_secondaryQuarterTurn', note: 'Secondary RotatedBox turn.', icon: Icons.rotate_90_degrees_cw_outlined),
-      _Metric(label: 'Matrix Base', value: '$_matrixBaseTurn', note: 'Grid lab base turn offset.', icon: Icons.grid_on_outlined),
-      _Metric(label: 'Tick', value: '$_tick', note: 'Animation tick count.', icon: Icons.timelapse_outlined),
-      _Metric(label: 'Interactions', value: '$_interactionCount', note: 'Total stage interaction events.', icon: Icons.touch_app_outlined),
-      _Metric(label: 'Tap Count', value: '$_tapCount', note: 'Tap gestures captured.', icon: Icons.ads_click_outlined),
-      _Metric(label: 'Drag Count', value: '$_dragCount', note: 'Drag updates captured.', icon: Icons.swipe_outlined),
-      _Metric(label: 'Scenario Switches', value: '$_scenarioSwitches', note: 'Scenario changes made.', icon: Icons.swap_horiz_outlined),
-      _Metric(label: 'Theme Switches', value: '$_themeSwitches', note: 'Theme changes made.', icon: Icons.style_outlined),
-      _Metric(label: 'Control Edits', value: '$_controlEdits', note: 'Controls adjusted.', icon: Icons.tune_outlined),
-      _Metric(label: 'Stage Height', value: _stageHeight.toStringAsFixed(1), note: 'Current stage size.', icon: Icons.height_outlined),
-      _Metric(label: 'Tile Style', value: 'r=${_tileRoundness.toStringAsFixed(1)} o=${_tileOpacity.toStringAsFixed(2)}', note: 'Tile appearance.', icon: Icons.widgets_outlined),
-      _Metric(label: 'Motion', value: _motionSpeed.toStringAsFixed(2), note: 'Animation speed multiplier.', icon: Icons.speed_outlined),
-      _Metric(label: 'Label Scale', value: _labelScale.toStringAsFixed(2), note: 'Text scaling for labels.', icon: Icons.text_fields_outlined),
-      _Metric(label: 'Heat Samples', value: '${_heatPoints.length}', note: 'Heat overlay points stored.', icon: Icons.blur_on_outlined),
-      _Metric(label: 'Lane Hits', value: '${_laneHits.length}', note: 'Distinct lanes receiving interactions.', icon: Icons.assessment_outlined),
-      _Metric(label: 'Last Channel', value: _lastChannel, note: _lastMessage, icon: Icons.info_outline),
-      _Metric(label: 'Timeline Entries', value: '${_events.length}', note: 'Captured timeline events.', icon: Icons.timeline_outlined),
+      _Metric(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Active stage mode.',
+        icon: Icons.route_outlined,
+      ),
+      _Metric(
+        label: 'Theme',
+        value: _themes[_themeIndex].name,
+        note: 'Current visual profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _Metric(
+        label: 'Main Turn',
+        value: '$_mainQuarterTurn',
+        note: 'Primary RotatedBox turn.',
+        icon: Icons.rotate_90_degrees_ccw_outlined,
+      ),
+      _Metric(
+        label: 'Secondary Turn',
+        value: '$_secondaryQuarterTurn',
+        note: 'Secondary RotatedBox turn.',
+        icon: Icons.rotate_90_degrees_cw_outlined,
+      ),
+      _Metric(
+        label: 'Matrix Base',
+        value: '$_matrixBaseTurn',
+        note: 'Grid lab base turn offset.',
+        icon: Icons.grid_on_outlined,
+      ),
+      _Metric(
+        label: 'Tick',
+        value: '$_tick',
+        note: 'Animation tick count.',
+        icon: Icons.timelapse_outlined,
+      ),
+      _Metric(
+        label: 'Interactions',
+        value: '$_interactionCount',
+        note: 'Total stage interaction events.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _Metric(
+        label: 'Tap Count',
+        value: '$_tapCount',
+        note: 'Tap gestures captured.',
+        icon: Icons.ads_click_outlined,
+      ),
+      _Metric(
+        label: 'Drag Count',
+        value: '$_dragCount',
+        note: 'Drag updates captured.',
+        icon: Icons.swipe_outlined,
+      ),
+      _Metric(
+        label: 'Scenario Switches',
+        value: '$_scenarioSwitches',
+        note: 'Scenario changes made.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _Metric(
+        label: 'Theme Switches',
+        value: '$_themeSwitches',
+        note: 'Theme changes made.',
+        icon: Icons.style_outlined,
+      ),
+      _Metric(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Controls adjusted.',
+        icon: Icons.tune_outlined,
+      ),
+      _Metric(
+        label: 'Stage Height',
+        value: _stageHeight.toStringAsFixed(1),
+        note: 'Current stage size.',
+        icon: Icons.height_outlined,
+      ),
+      _Metric(
+        label: 'Tile Style',
+        value:
+            'r=${_tileRoundness.toStringAsFixed(1)} o=${_tileOpacity.toStringAsFixed(2)}',
+        note: 'Tile appearance.',
+        icon: Icons.widgets_outlined,
+      ),
+      _Metric(
+        label: 'Motion',
+        value: _motionSpeed.toStringAsFixed(2),
+        note: 'Animation speed multiplier.',
+        icon: Icons.speed_outlined,
+      ),
+      _Metric(
+        label: 'Label Scale',
+        value: _labelScale.toStringAsFixed(2),
+        note: 'Text scaling for labels.',
+        icon: Icons.text_fields_outlined,
+      ),
+      _Metric(
+        label: 'Heat Samples',
+        value: '${_heatPoints.length}',
+        note: 'Heat overlay points stored.',
+        icon: Icons.blur_on_outlined,
+      ),
+      _Metric(
+        label: 'Lane Hits',
+        value: '${_laneHits.length}',
+        note: 'Distinct lanes receiving interactions.',
+        icon: Icons.assessment_outlined,
+      ),
+      _Metric(
+        label: 'Last Channel',
+        value: _lastChannel,
+        note: _lastMessage,
+        icon: Icons.info_outline,
+      ),
+      _Metric(
+        label: 'Timeline Entries',
+        value: '${_events.length}',
+        note: 'Captured timeline events.',
+        icon: Icons.timeline_outlined,
+      ),
     ];
 
     return Card(
@@ -1388,17 +2063,24 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1426,13 +2108,38 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1446,7 +2153,11 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
                 child: Text(
                   'snapshot scenario=${_scenarios[_scenarioIndex].mode.name} theme=${_themes[_themeIndex].id} '
                   'main=$_mainQuarterTurn secondary=$_secondaryQuarterTurn matrix=$_matrixBaseTurn tick=$_tick '
@@ -1470,7 +2181,14 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guide.map((String line) {
               return Padding(
@@ -1478,25 +2196,46 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqs.map(( _Faq faq) {
+            ..._faqs.map((_Faq faq) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(faq.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                    Text(
+                      faq.question,
+                      style: TextStyle(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text(faq.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text(
+                      faq.answer,
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    ),
                   ],
                 ),
               );
@@ -1518,7 +2257,14 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1535,24 +2281,54 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
-                child: Text('Timeline is empty. Interact with the stage to generate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Text(
+                  'Timeline is empty. Interact with the stage to generate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _events.take(46).map(( _Event event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _events.take(46).map((_Event event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 9),
-                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
                     child: ListTile(
                       dense: true,
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(event.channel.isEmpty ? '?' : event.channel.substring(0, 1).toUpperCase(), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        child: Text(
+                          event.channel.isEmpty
+                              ? '?'
+                              : event.channel.substring(0, 1).toUpperCase(),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
                       ),
-                      title: Text('${event.channel} | turn ${event.turn}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13)),
-                      subtitle: Text('$stamp  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                      title: Text(
+                        '${event.channel} | turn ${event.turn}',
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  ${event.message}',
+                        style: TextStyle(
+                          color: scheme.onSurfaceVariant,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1565,7 +2341,12 @@ class _RenderRotatedBoxStudioState extends State<_RenderRotatedBoxStudio> with S
 }
 
 class _GridPainter extends CustomPainter {
-  const _GridPainter({required this.color, required this.spacing, required this.tick, required this.speed});
+  const _GridPainter({
+    required this.color,
+    required this.spacing,
+    required this.tick,
+    required this.speed,
+  });
 
   final Color color;
   final double spacing;
@@ -1586,7 +2367,10 @@ class _GridPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bg);
-    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.black.withValues(alpha: 0.22));
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = Colors.black.withValues(alpha: 0.22),
+    );
 
     final Paint grid = Paint()
       ..color = Colors.white.withValues(alpha: 0.12)
@@ -1601,7 +2385,10 @@ class _GridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _GridPainter oldDelegate) {
-    return oldDelegate.color != color || oldDelegate.spacing != spacing || oldDelegate.tick != tick || oldDelegate.speed != speed;
+    return oldDelegate.color != color ||
+        oldDelegate.spacing != spacing ||
+        oldDelegate.tick != tick ||
+        oldDelegate.speed != speed;
   }
 }
 
@@ -1636,7 +2423,11 @@ class _HeatPainter extends CustomPainter {
 }
 
 class _SparkPainter extends CustomPainter {
-  const _SparkPainter({required this.progress, required this.turn, required this.alpha});
+  const _SparkPainter({
+    required this.progress,
+    required this.turn,
+    required this.alpha,
+  });
 
   final double progress;
   final int turn;
@@ -1644,14 +2435,17 @@ class _SparkPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint bg = Paint()..color = Colors.black.withValues(alpha: 0.18 + alpha * 0.3);
+    final Paint bg = Paint()
+      ..color = Colors.black.withValues(alpha: 0.18 + alpha * 0.3);
     canvas.drawRect(Offset.zero & size, bg);
 
     final Path p = Path();
     p.moveTo(0, size.height * 0.62);
     for (double x = 0; x <= size.width; x += 8) {
       final double t = x / size.width;
-      final double y = size.height * (0.58 + 0.22 * math.sin((t + progress + turn * 0.1) * math.pi * 2));
+      final double y =
+          size.height *
+          (0.58 + 0.22 * math.sin((t + progress + turn * 0.1) * math.pi * 2));
       p.lineTo(x, y);
     }
     final Paint line = Paint()
@@ -1663,6 +2457,8 @@ class _SparkPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _SparkPainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.turn != turn || oldDelegate.alpha != alpha;
+    return oldDelegate.progress != progress ||
+        oldDelegate.turn != turn ||
+        oldDelegate.alpha != alpha;
   }
 }

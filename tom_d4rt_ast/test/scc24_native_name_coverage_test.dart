@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_ast) — no SDK private implementation type is left unclaimed by a nativeNames list.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_ast's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 // SCC24 — mechanical detection of unclaimed SDK implementation types.
 //
 // THE DEFECT SHAPE

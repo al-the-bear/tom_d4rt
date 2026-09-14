@@ -148,10 +148,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.5),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
         ),
         child: Row(
           children: [
@@ -314,8 +311,7 @@ dynamic build(BuildContext context) {
     final imgSize = e['imageSize'] as Size;
     final dispSize = e['displaySize'] as Size;
     final ratio =
-        (imgSize.width * imgSize.height) /
-        (dispSize.width * dispSize.height);
+        (imgSize.width * imgSize.height) / (dispSize.width * dispSize.height);
     final wasteful = ratio > 4.0;
     final color = wasteful ? Colors.red : Colors.green;
 
@@ -326,10 +322,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.4), width: 1.5),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.15),
@@ -356,10 +349,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 3.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(6.0),
@@ -590,12 +580,7 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(
-      children: [
-        wasteHeader,
-        ...wasteRows,
-      ],
-    ),
+    child: Column(children: [wasteHeader, ...wasteRows]),
   );
 
   // ============================================================
@@ -848,10 +833,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   step['desc'] as String,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -1130,7 +1112,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(fg['icon'] as IconData, color: Colors.red.shade700, size: 22.0),
+            Icon(
+              fg['icon'] as IconData,
+              color: Colors.red.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 10.0),
             Expanded(
               child: Column(
@@ -1198,10 +1184,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.deepOrange.shade400,
-          Colors.amber.shade600,
-        ],
+        colors: [Colors.deepOrange.shade400, Colors.amber.shade600],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1232,7 +1215,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _buildRecapLine('5 fields: source, imageSize, displaySize, decoded/display bytes'),
+        _buildRecapLine(
+          '5 fields: source, imageSize, displaySize, decoded/display bytes',
+        ),
         _buildRecapLine('byte calc = w * h * 4 (RGBA8 assumption)'),
         _buildRecapLine('toJson() feeds the imageSizes ServiceExtension'),
         _buildRecapLine('== compares all of source, imageSize, displaySize'),
@@ -1372,10 +1357,7 @@ Widget _buildEqCard(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.18),
-        ],
+        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1461,11 +1443,7 @@ Widget _buildRecapLine(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.white,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
           ),
         ),
       ],

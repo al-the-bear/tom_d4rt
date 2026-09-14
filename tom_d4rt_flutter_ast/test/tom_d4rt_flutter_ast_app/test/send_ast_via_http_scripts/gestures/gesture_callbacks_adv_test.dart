@@ -11,8 +11,14 @@ import 'package:flutter/material.dart';
 // SMALL HELPERS
 // ============================================================================
 
-Widget _sectionBanner(int number, String title, String subtitle, Color base,
-    Color accent, String emoji) {
+Widget _sectionBanner(
+  int number,
+  String title,
+  String subtitle,
+  Color base,
+  Color accent,
+  String emoji,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(top: 24.0, bottom: 12.0),
@@ -63,7 +69,10 @@ Widget _sectionBanner(int number, String title, String subtitle, Color base,
               Text(
                 subtitle,
                 style: TextStyle(
-                    fontSize: 12.0, color: Color(0xCCFFFFFF), height: 1.3),
+                  fontSize: 12.0,
+                  color: Color(0xCCFFFFFF),
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -74,7 +83,13 @@ Widget _sectionBanner(int number, String title, String subtitle, Color base,
   );
 }
 
-Widget _recipeCard(String title, String body, Color bg, Color fg, Color border) {
+Widget _recipeCard(
+  String title,
+  String body,
+  Color bg,
+  Color fg,
+  Color border,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 10.0),
@@ -98,7 +113,11 @@ Widget _recipeCard(String title, String body, Color bg, Color fg, Color border) 
         SizedBox(height: 6.0),
         Text(
           body,
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF424242), height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF424242),
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -116,7 +135,10 @@ Widget _chip(String label, Color color) {
     child: Text(
       label,
       style: TextStyle(
-          color: Color(0xFFFFFFFF), fontSize: 10.0, fontWeight: FontWeight.bold),
+        color: Color(0xFFFFFFFF),
+        fontSize: 10.0,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
 }
@@ -160,9 +182,10 @@ Widget _tableRow(List<String> cells, Color bg) {
             child: Text(
               c,
               style: TextStyle(
-                  fontSize: 11.0,
-                  fontFamily: 'monospace',
-                  color: Color(0xFF263238)),
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: Color(0xFF263238),
+              ),
             ),
           ),
       ],
@@ -198,8 +221,10 @@ Widget _radialOverlay(double t, Color core, Color halo) {
           height: 28.0,
           decoration: BoxDecoration(color: core, shape: BoxShape.circle),
           child: Center(
-            child: Text('●',
-                style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 14.0)),
+            child: Text(
+              '●',
+              style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 14.0),
+            ),
           ),
         ),
       ],
@@ -211,15 +236,25 @@ Widget _arrowPair(Color color) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Text('◀',
-          style: TextStyle(
-              color: color, fontSize: 22.0, fontWeight: FontWeight.bold)),
+      Text(
+        '◀',
+        style: TextStyle(
+          color: color,
+          fontSize: 22.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       SizedBox(width: 10.0),
       Container(width: 60.0, height: 4.0, color: color),
       SizedBox(width: 10.0),
-      Text('▶',
-          style: TextStyle(
-              color: color, fontSize: 22.0, fontWeight: FontWeight.bold)),
+      Text(
+        '▶',
+        style: TextStyle(
+          color: color,
+          fontSize: 22.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     ],
   );
 }
@@ -256,16 +291,20 @@ Widget _glossaryRow(String term, String defn, Color tag) {
           child: Text(
             term,
             style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF263238)),
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF263238),
+            ),
           ),
         ),
         Expanded(
           child: Text(
             defn,
             style: TextStyle(
-                fontSize: 12.0, color: Color(0xFF424242), height: 1.4),
+              fontSize: 12.0,
+              color: Color(0xFF424242),
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -300,8 +339,10 @@ Widget _heroHeader() {
                 color: Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Text('🖐',
-                  style: TextStyle(fontSize: 28.0, color: Color(0xFFFFFFFF))),
+              child: Text(
+                '🖐',
+                style: TextStyle(fontSize: 28.0, color: Color(0xFFFFFFFF)),
+              ),
             ),
             SizedBox(width: 14.0),
             Expanded(
@@ -320,8 +361,7 @@ Widget _heroHeader() {
                   SizedBox(height: 4.0),
                   Text(
                     'Pointer Choreography Gallery',
-                    style: TextStyle(
-                        fontSize: 15.0, color: Color(0xFFD1C4E9)),
+                    style: TextStyle(fontSize: 15.0, color: Color(0xFFD1C4E9)),
                   ),
                 ],
               ),
@@ -353,7 +393,10 @@ Widget _heroHeader() {
             'All callbacks are inert no-ops; the gallery focuses on the '
             'shapes, types, and intent of each gesture surface.',
             style: TextStyle(
-                fontSize: 13.0, color: Color(0xFFEDE7F6), height: 1.5),
+              fontSize: 13.0,
+              color: Color(0xFFEDE7F6),
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -382,8 +425,7 @@ Widget _overviewPanel() {
                 color: Color(0xFF512DA8),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child:
-                  Text('🗺', style: TextStyle(fontSize: 18.0)),
+              child: Text('🗺', style: TextStyle(fontSize: 18.0)),
             ),
             SizedBox(width: 10.0),
             Text(
@@ -412,20 +454,34 @@ Widget _overviewPanel() {
           style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 6.0),
-        Text('• Scale lifecycle: onScaleStart / onScaleUpdate / onScaleEnd',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• Long-press continuum: onLongPressStart / Move / End',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• Force press (3D Touch): onForcePressStart / Peak / Update / End',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• Pointer hover, secondary & tertiary taps',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• Trackpad pan-zoom recognizers',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• HitTestBehavior, supportedDevices, mouseCursor',
-            style: TextStyle(fontSize: 12.0)),
-        Text('• RawGestureDetector + GestureRecognizerFactory',
-            style: TextStyle(fontSize: 12.0)),
+        Text(
+          '• Scale lifecycle: onScaleStart / onScaleUpdate / onScaleEnd',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• Long-press continuum: onLongPressStart / Move / End',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• Force press (3D Touch): onForcePressStart / Peak / Update / End',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• Pointer hover, secondary & tertiary taps',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• Trackpad pan-zoom recognizers',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• HitTestBehavior, supportedDevices, mouseCursor',
+          style: TextStyle(fontSize: 12.0),
+        ),
+        Text(
+          '• RawGestureDetector + GestureRecognizerFactory',
+          style: TextStyle(fontSize: 12.0),
+        ),
       ],
     ),
   );
@@ -479,52 +535,63 @@ Widget _section1Scale() {
               children: [
                 _radialOverlay(0.4, Color(0xFF1976D2), Color(0xFF42A5F5)),
                 SizedBox(height: 6.0),
-                Text('onScaleStart',
-                    style: TextStyle(
-                        fontSize: 11.0, fontWeight: FontWeight.bold)),
-                Text('scale: 1.00',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: 'monospace')),
+                Text(
+                  'onScaleStart',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'scale: 1.00',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
+                ),
               ],
             ),
             Column(
               children: [
                 _radialOverlay(0.75, Color(0xFF1976D2), Color(0xFF42A5F5)),
                 SizedBox(height: 6.0),
-                Text('onScaleUpdate',
-                    style: TextStyle(
-                        fontSize: 11.0, fontWeight: FontWeight.bold)),
-                Text('scale: 1.85',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: 'monospace')),
+                Text(
+                  'onScaleUpdate',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'scale: 1.85',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
+                ),
               ],
             ),
             Column(
               children: [
                 _radialOverlay(1.0, Color(0xFF1976D2), Color(0xFF42A5F5)),
                 SizedBox(height: 6.0),
-                Text('onScaleEnd',
-                    style: TextStyle(
-                        fontSize: 11.0, fontWeight: FontWeight.bold)),
-                Text('velocity: 1.4',
-                    style: TextStyle(
-                        fontSize: 10.0, fontFamily: 'monospace')),
+                Text(
+                  'onScaleEnd',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'velocity: 1.4',
+                  style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
+                ),
               ],
             ),
           ],
         ),
         SizedBox(height: 14.0),
-        _tableHeader(
-            ['Callback', 'Details Type', 'Bound'], Color(0xFF1976D2)),
-        _tableRow(
-            ['onScaleStart', 'ScaleStartDetails', hasScaleStart ? '✓' : '✗'],
-            Color(0xFFBBDEFB)),
-        _tableRow(
-            ['onScaleUpdate', 'ScaleUpdateDetails', hasScaleUpdate ? '✓' : '✗'],
-            Color(0xFFD0E5FA)),
-        _tableRow(
-            ['onScaleEnd', 'ScaleEndDetails', hasScaleEnd ? '✓' : '✗'],
-            Color(0xFFBBDEFB)),
+        _tableHeader(['Callback', 'Details Type', 'Bound'], Color(0xFF1976D2)),
+        _tableRow([
+          'onScaleStart',
+          'ScaleStartDetails',
+          hasScaleStart ? '✓' : '✗',
+        ], Color(0xFFBBDEFB)),
+        _tableRow([
+          'onScaleUpdate',
+          'ScaleUpdateDetails',
+          hasScaleUpdate ? '✓' : '✗',
+        ], Color(0xFFD0E5FA)),
+        _tableRow([
+          'onScaleEnd',
+          'ScaleEndDetails',
+          hasScaleEnd ? '✓' : '✗',
+        ], Color(0xFFBBDEFB)),
         SizedBox(height: 12.0),
         _recipeCard(
           'Recipe: Pinch-to-Zoom',
@@ -596,19 +663,28 @@ Widget _section2LongPressMove() {
                 left: 80.0,
                 top: 22.0,
                 child: Container(
-                    width: 6.0, height: 6.0, color: Color(0xFF7B1FA2)),
+                  width: 6.0,
+                  height: 6.0,
+                  color: Color(0xFF7B1FA2),
+                ),
               ),
               Positioned(
                 left: 130.0,
                 top: 38.0,
                 child: Container(
-                    width: 6.0, height: 6.0, color: Color(0xFF7B1FA2)),
+                  width: 6.0,
+                  height: 6.0,
+                  color: Color(0xFF7B1FA2),
+                ),
               ),
               Positioned(
                 left: 180.0,
                 top: 30.0,
                 child: Container(
-                    width: 6.0, height: 6.0, color: Color(0xFF7B1FA2)),
+                  width: 6.0,
+                  height: 6.0,
+                  color: Color(0xFF7B1FA2),
+                ),
               ),
               Positioned(
                 right: 16.0,
@@ -623,22 +699,22 @@ Widget _section2LongPressMove() {
         _tableRow([
           '1. press',
           'onLongPressStart',
-          'LongPressStartDetails'
+          'LongPressStartDetails',
         ], Color(0xFFE1BEE7)),
         _tableRow([
           '2. drag',
           'onLongPressMoveUpdate',
-          'LongPressMoveUpdateDetails'
+          'LongPressMoveUpdateDetails',
         ], Color(0xFFEDD5F1)),
         _tableRow([
           '3. lift',
           'onLongPressEnd',
-          'LongPressEndDetails'
+          'LongPressEndDetails',
         ], Color(0xFFE1BEE7)),
         _tableRow([
           '4. completed',
           'onLongPressUp',
-          'void Function()'
+          'void Function()',
         ], Color(0xFFEDD5F1)),
         SizedBox(height: 8.0),
         Text(
@@ -703,32 +779,36 @@ Widget _section3ForcePress() {
                       margin: EdgeInsets.symmetric(horizontal: 3.0),
                       height: 60.0 * (p + 0.2),
                       decoration: BoxDecoration(
-                        color: Color.lerp(Color(0xFFFFCDD2),
-                            Color(0xFFB71C1C), p) ??
+                        color:
+                            Color.lerp(
+                              Color(0xFFFFCDD2),
+                              Color(0xFFB71C1C),
+                              p,
+                            ) ??
                             Color(0xFFE57373),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                     ),
                     SizedBox(height: 4.0),
-                    Text(p.toStringAsFixed(2),
-                        style: TextStyle(
-                            fontSize: 10.0, fontFamily: 'monospace')),
+                    Text(
+                      p.toStringAsFixed(2),
+                      style: TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
+                    ),
                   ],
                 ),
               ),
           ],
         ),
         SizedBox(height: 12.0),
-        _tableHeader(
-            ['Phase', 'Callback', 'Pressure'], Color(0xFFC62828)),
-        _tableRow(
-            ['Engage', 'onForcePressStart', '~0.05'], Color(0xFFFFCDD2)),
-        _tableRow(
-            ['Peak', 'onForcePressPeak', '1.00'], Color(0xFFFFE0E2)),
-        _tableRow(
-            ['Stream', 'onForcePressUpdate', 'continuous'], Color(0xFFFFCDD2)),
-        _tableRow(
-            ['Release', 'onForcePressEnd', '→ 0'], Color(0xFFFFE0E2)),
+        _tableHeader(['Phase', 'Callback', 'Pressure'], Color(0xFFC62828)),
+        _tableRow(['Engage', 'onForcePressStart', '~0.05'], Color(0xFFFFCDD2)),
+        _tableRow(['Peak', 'onForcePressPeak', '1.00'], Color(0xFFFFE0E2)),
+        _tableRow([
+          'Stream',
+          'onForcePressUpdate',
+          'continuous',
+        ], Color(0xFFFFCDD2)),
+        _tableRow(['Release', 'onForcePressEnd', '→ 0'], Color(0xFFFFE0E2)),
         SizedBox(height: 10.0),
         _recipeCard(
           'Recipe: Pressure Preview',
@@ -803,9 +883,10 @@ Widget _section4Hover() {
               Positioned(
                 left: 30.0,
                 top: 22.0,
-                child: Text('↖',
-                    style: TextStyle(
-                        fontSize: 26.0, color: Color(0xFF006064))),
+                child: Text(
+                  '↖',
+                  style: TextStyle(fontSize: 26.0, color: Color(0xFF006064)),
+                ),
               ),
               Positioned(
                 left: 80.0,
@@ -814,8 +895,7 @@ Widget _section4Hover() {
                   width: 30.0,
                   height: 30.0,
                   decoration: BoxDecoration(
-                    border:
-                        Border.all(color: Color(0xFF00838F), width: 2.0),
+                    border: Border.all(color: Color(0xFF00838F), width: 2.0),
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                 ),
@@ -823,41 +903,46 @@ Widget _section4Hover() {
               Positioned(
                 left: 150.0,
                 top: 26.0,
-                child: Text('onEnter →',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF006064))),
+                child: Text(
+                  'onEnter →',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF006064),
+                  ),
+                ),
               ),
               Positioned(
                 left: 250.0,
                 top: 22.0,
-                child: Text('onHover ↻',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF006064))),
+                child: Text(
+                  'onHover ↻',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF006064),
+                  ),
+                ),
               ),
             ],
           ),
         ),
         SizedBox(height: 12.0),
-        _tableHeader(
-            ['Event', 'Class', 'Use'], Color(0xFF00838F)),
+        _tableHeader(['Event', 'Class', 'Use'], Color(0xFF00838F)),
         _tableRow([
           'onEnter',
           'PointerEnterEvent',
-          'cursor enters region'
+          'cursor enters region',
         ], Color(0xFFB2EBF2)),
         _tableRow([
           'onExit',
           'PointerExitEvent',
-          'cursor leaves region'
+          'cursor leaves region',
         ], Color(0xFFC1ECF1)),
         _tableRow([
           'onHover',
           'PointerHoverEvent',
-          'cursor moves inside'
+          'cursor moves inside',
         ], Color(0xFFB2EBF2)),
         SizedBox(height: 10.0),
         Text(
@@ -927,11 +1012,12 @@ Widget _section5SecondaryTaps() {
                     color: Color(0xFFFFCC80),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Center(child: Text('1°', style: TextStyle(fontSize: 22.0))),
+                  child: Center(
+                    child: Text('1°', style: TextStyle(fontSize: 22.0)),
+                  ),
                 ),
                 SizedBox(height: 4.0),
-                Text('primary',
-                    style: TextStyle(fontSize: 10.0)),
+                Text('primary', style: TextStyle(fontSize: 10.0)),
               ],
             ),
             Column(
@@ -943,11 +1029,12 @@ Widget _section5SecondaryTaps() {
                     color: Color(0xFFFFB74D),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Center(child: Text('2°', style: TextStyle(fontSize: 22.0))),
+                  child: Center(
+                    child: Text('2°', style: TextStyle(fontSize: 22.0)),
+                  ),
                 ),
                 SizedBox(height: 4.0),
-                Text('secondary',
-                    style: TextStyle(fontSize: 10.0)),
+                Text('secondary', style: TextStyle(fontSize: 10.0)),
               ],
             ),
             Column(
@@ -959,27 +1046,27 @@ Widget _section5SecondaryTaps() {
                     color: Color(0xFFFF9800),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  child: Center(child: Text('3°', style: TextStyle(fontSize: 22.0))),
+                  child: Center(
+                    child: Text('3°', style: TextStyle(fontSize: 22.0)),
+                  ),
                 ),
                 SizedBox(height: 4.0),
-                Text('tertiary',
-                    style: TextStyle(fontSize: 10.0)),
+                Text('tertiary', style: TextStyle(fontSize: 10.0)),
               ],
             ),
           ],
         ),
         SizedBox(height: 12.0),
-        _tableHeader(
-            ['Button', 'Callback Group', 'Bound?'], Color(0xFFEF6C00)),
+        _tableHeader(['Button', 'Callback Group', 'Bound?'], Color(0xFFEF6C00)),
         _tableRow([
           'secondary',
           'onSecondaryTap*',
-          det.onSecondaryTap != null ? '✓' : '✗'
+          det.onSecondaryTap != null ? '✓' : '✗',
         ], Color(0xFFFFE0B2)),
         _tableRow([
           'tertiary',
           'onTertiaryTap*',
-          det.onTertiaryTapDown != null ? '✓' : '✗'
+          det.onTertiaryTapDown != null ? '✓' : '✗',
         ], Color(0xFFFFECC5)),
         SizedBox(height: 8.0),
         _recipeCard(
@@ -1047,10 +1134,12 @@ Widget _section6PanZoom() {
               PointerDeviceKind.trackpad,
               PointerDeviceKind.unknown,
             })
-              _chip(kind.name,
-                  det.supportedDevices?.contains(kind) ?? false
-                      ? Color(0xFF2E7D32)
-                      : Color(0xFFBDBDBD)),
+              _chip(
+                kind.name,
+                det.supportedDevices?.contains(kind) ?? false
+                    ? Color(0xFF2E7D32)
+                    : Color(0xFFBDBDBD),
+              ),
           ],
         ),
         SizedBox(height: 12.0),
@@ -1063,19 +1152,24 @@ Widget _section6PanZoom() {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('↕',
-                  style: TextStyle(
-                      fontSize: 40.0,
-                      color: Color(0xFF1B5E20),
-                      fontWeight: FontWeight.bold)),
+              Text(
+                '↕',
+                style: TextStyle(
+                  fontSize: 40.0,
+                  color: Color(0xFF1B5E20),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               SizedBox(width: 14.0),
-              Text('⇒',
-                  style: TextStyle(
-                      fontSize: 36.0, color: Color(0xFF2E7D32))),
+              Text(
+                '⇒',
+                style: TextStyle(fontSize: 36.0, color: Color(0xFF2E7D32)),
+              ),
               SizedBox(width: 14.0),
-              Text('⤡',
-                  style: TextStyle(
-                      fontSize: 36.0, color: Color(0xFF388E3C))),
+              Text(
+                '⤡',
+                style: TextStyle(fontSize: 36.0, color: Color(0xFF388E3C)),
+              ),
             ],
           ),
         ),
@@ -1084,12 +1178,12 @@ Widget _section6PanZoom() {
         _tableRow([
           'trackpadScrollCausesScale',
           det.trackpadScrollCausesScale ? 'true' : 'false',
-          'pan→scale routing'
+          'pan→scale routing',
         ], Color(0xFFC8E6C9)),
         _tableRow([
           'supportedDevices.length',
           '${det.supportedDevices?.length ?? 0}',
-          'whitelist size'
+          'whitelist size',
         ], Color(0xFFD4EDDA)),
       ],
     ),
@@ -1178,37 +1272,45 @@ Widget _section7HitTest() {
                       child: Text(
                         '⌘',
                         style: TextStyle(
-                            fontSize: 28.0,
-                            color: Color(0xFFFFFFFF),
-                            fontWeight: FontWeight.bold),
+                          fontSize: 28.0,
+                          color: Color(0xFFFFFFFF),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(height: 6.0),
-                  Text(entry['name'] as String,
-                      style: TextStyle(
-                          fontSize: 11.0, fontWeight: FontWeight.bold)),
-                  Text(entry['desc'] as String,
-                      style: TextStyle(
-                          fontSize: 10.0, color: Color(0xFF6D4C41))),
+                  Text(
+                    entry['name'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    entry['desc'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C41)),
+                  ),
                 ],
               ),
           ],
         ),
         SizedBox(height: 14.0),
         _tableHeader(['Behavior', 'Selected', 'Notes'], Color(0xFFF9A825)),
-        _tableRow(
-            ['opaque', detOpaque.behavior?.name ?? 'null', 'absorbs all events'],
-            Color(0xFFFFF8E1)),
+        _tableRow([
+          'opaque',
+          detOpaque.behavior?.name ?? 'null',
+          'absorbs all events',
+        ], Color(0xFFFFF8E1)),
         _tableRow([
           'translucent',
           detTranslucent.behavior?.name ?? 'null',
-          'co-exists with siblings'
+          'co-exists with siblings',
         ], Color(0xFFFFF1C5)),
         _tableRow([
           'deferToChild',
           detDeferToChild.behavior?.name ?? 'null',
-          'pass through unless child hits'
+          'pass through unless child hits',
         ], Color(0xFFFFF8E1)),
       ],
     ),
@@ -1272,8 +1374,7 @@ Widget _section8MouseCursor() {
             for (final c in cursors)
               Container(
                 margin: EdgeInsets.only(right: 8.0, bottom: 8.0),
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Color(0xFFC5CAE9),
                   borderRadius: BorderRadius.circular(8.0),
@@ -1290,18 +1391,22 @@ Widget _section8MouseCursor() {
                       ),
                     ),
                     SizedBox(width: 6.0),
-                    Text(c.key,
-                        style: TextStyle(
-                            fontSize: 11.0,
-                            color: Color(0xFF1A237E),
-                            fontWeight: FontWeight.bold)),
+                    Text(
+                      c.key,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF1A237E),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     SizedBox(width: 6.0),
                     Text(
                       c.value.runtimeType.toString(),
                       style: TextStyle(
-                          fontSize: 10.0,
-                          fontFamily: 'monospace',
-                          color: Color(0xFF3F51B5)),
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF3F51B5),
+                      ),
                     ),
                   ],
                 ),
@@ -1327,57 +1432,47 @@ Widget _section9PointerDetails() {
   final records = <Map<String, String>>[
     {
       'type': 'ScaleStartDetails',
-      'fields': 'focalPoint, localFocalPoint, pointerCount, sourceTimeStamp'
+      'fields': 'focalPoint, localFocalPoint, pointerCount, sourceTimeStamp',
     },
     {
       'type': 'ScaleUpdateDetails',
       'fields':
-          'focalPoint, focalPointDelta, scale, horizontalScale, verticalScale, rotation, pointerCount'
+          'focalPoint, focalPointDelta, scale, horizontalScale, verticalScale, rotation, pointerCount',
     },
     {
       'type': 'ScaleEndDetails',
-      'fields': 'velocity, scaleVelocity, pointerCount'
+      'fields': 'velocity, scaleVelocity, pointerCount',
     },
     {
       'type': 'ForcePressDetails',
-      'fields': 'globalPosition, localPosition, pressure'
+      'fields': 'globalPosition, localPosition, pressure',
     },
     {
       'type': 'LongPressStartDetails',
-      'fields': 'globalPosition, localPosition'
+      'fields': 'globalPosition, localPosition',
     },
     {
       'type': 'LongPressMoveUpdateDetails',
-      'fields': 'globalPosition, localPosition, offsetFromOrigin, localOffsetFromOrigin'
+      'fields':
+          'globalPosition, localPosition, offsetFromOrigin, localOffsetFromOrigin',
     },
     {
       'type': 'LongPressEndDetails',
-      'fields': 'globalPosition, localPosition, velocity'
+      'fields': 'globalPosition, localPosition, velocity',
     },
-    {
-      'type': 'TapDownDetails',
-      'fields': 'globalPosition, localPosition, kind'
-    },
-    {
-      'type': 'TapUpDetails',
-      'fields': 'globalPosition, localPosition, kind'
-    },
-    {
-      'type': 'DragDownDetails',
-      'fields': 'globalPosition, localPosition'
-    },
+    {'type': 'TapDownDetails', 'fields': 'globalPosition, localPosition, kind'},
+    {'type': 'TapUpDetails', 'fields': 'globalPosition, localPosition, kind'},
+    {'type': 'DragDownDetails', 'fields': 'globalPosition, localPosition'},
     {
       'type': 'DragStartDetails',
-      'fields': 'globalPosition, localPosition, sourceTimeStamp, kind'
+      'fields': 'globalPosition, localPosition, sourceTimeStamp, kind',
     },
     {
       'type': 'DragUpdateDetails',
-      'fields': 'globalPosition, localPosition, delta, primaryDelta, sourceTimeStamp'
+      'fields':
+          'globalPosition, localPosition, delta, primaryDelta, sourceTimeStamp',
     },
-    {
-      'type': 'DragEndDetails',
-      'fields': 'velocity, primaryVelocity'
-    },
+    {'type': 'DragEndDetails', 'fields': 'velocity, primaryVelocity'},
   ];
 
   return Container(
@@ -1421,19 +1516,21 @@ Widget _section9PointerDetails() {
                 Text(
                   r['type']!,
                   style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                      color: Color(0xFF880E4F)),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF880E4F),
+                  ),
                 ),
                 SizedBox(height: 3.0),
                 Text(
                   r['fields']!,
                   style: TextStyle(
-                      fontSize: 11.0,
-                      fontFamily: 'monospace',
-                      color: Color(0xFF4E342E),
-                      height: 1.4),
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF4E342E),
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1494,42 +1591,48 @@ Widget _section10MultiFinger() {
                       children: [
                         for (var i = 0; i < (entry['n'] as int); i++)
                           Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: 1.0),
+                            padding: EdgeInsets.symmetric(horizontal: 1.0),
                             child: _fingerDot(entry['color'] as Color, 12.0),
                           ),
                       ],
                     ),
                     SizedBox(height: 6.0),
-                    Text('${entry['n']}-finger',
-                        style: TextStyle(
-                            fontSize: 10.0, fontWeight: FontWeight.bold)),
-                    Text(entry['label'] as String,
-                        style: TextStyle(
-                            fontSize: 10.0,
-                            color: Color(0xFF5D4037))),
+                    Text(
+                      '${entry['n']}-finger',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      entry['label'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF5D4037),
+                      ),
+                    ),
                   ],
                 ),
             ],
           ),
         ),
         SizedBox(height: 12.0),
-        _tableHeader(
-            ['pointerCount', 'Convention', 'Example'], Color(0xFF6D4C41)),
-        _tableRow(
-            ['1', 'single drag', 'list scroll'], Color(0xFFD7CCC8)),
-        _tableRow(
-            ['2', 'pinch / rotate', 'photo zoom'], Color(0xFFE3DCD7)),
-        _tableRow(
-            ['3', 'three-finger', 'workspace switch'], Color(0xFFD7CCC8)),
-        _tableRow(
-            ['4+', 'system / global', 'app switch'], Color(0xFFE3DCD7)),
+        _tableHeader([
+          'pointerCount',
+          'Convention',
+          'Example',
+        ], Color(0xFF6D4C41)),
+        _tableRow(['1', 'single drag', 'list scroll'], Color(0xFFD7CCC8)),
+        _tableRow(['2', 'pinch / rotate', 'photo zoom'], Color(0xFFE3DCD7)),
+        _tableRow(['3', 'three-finger', 'workspace switch'], Color(0xFFD7CCC8)),
+        _tableRow(['4+', 'system / global', 'app switch'], Color(0xFFE3DCD7)),
         SizedBox(height: 10.0),
         Row(
           children: [
-            Text('MultitouchDragStrategy:',
-                style: TextStyle(
-                    fontSize: 11.0, fontWeight: FontWeight.bold)),
+            Text(
+              'MultitouchDragStrategy:',
+              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+            ),
             SizedBox(width: 8.0),
             for (final s in MultitouchDragStrategy.values)
               Padding(
@@ -1548,25 +1651,25 @@ Widget _section11RawDetector() {
   final factories = <Type, GestureRecognizerFactory>{
     TapGestureRecognizer:
         GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-      () => TapGestureRecognizer(),
-      (TapGestureRecognizer r) {
-        r.onTap = () {};
-      },
-    ),
+          () => TapGestureRecognizer(),
+          (TapGestureRecognizer r) {
+            r.onTap = () {};
+          },
+        ),
     LongPressGestureRecognizer:
         GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-      () => LongPressGestureRecognizer(),
-      (LongPressGestureRecognizer r) {
-        r.onLongPress = () {};
-      },
-    ),
+          () => LongPressGestureRecognizer(),
+          (LongPressGestureRecognizer r) {
+            r.onLongPress = () {};
+          },
+        ),
     ScaleGestureRecognizer:
         GestureRecognizerFactoryWithHandlers<ScaleGestureRecognizer>(
-      () => ScaleGestureRecognizer(),
-      (ScaleGestureRecognizer r) {
-        r.onStart = (ScaleStartDetails d) {};
-      },
-    ),
+          () => ScaleGestureRecognizer(),
+          (ScaleGestureRecognizer r) {
+            r.onStart = (ScaleStartDetails d) {};
+          },
+        ),
   };
   final raw = RawGestureDetector(
     gestures: factories,
@@ -1603,8 +1706,11 @@ Widget _section11RawDetector() {
           style: TextStyle(fontSize: 12.0, height: 1.5),
         ),
         SizedBox(height: 14.0),
-        _tableHeader(['Recognizer', 'Bound Handler', 'Class'],
-            Color(0xFF00796B)),
+        _tableHeader([
+          'Recognizer',
+          'Bound Handler',
+          'Class',
+        ], Color(0xFF00796B)),
         for (final entry in raw.gestures.entries)
           _tableRow([
             entry.key.toString(),
@@ -1615,9 +1721,10 @@ Widget _section11RawDetector() {
         Text(
           'behavior: ${raw.behavior?.name ?? "default"}',
           style: TextStyle(
-              fontSize: 11.0,
-              fontStyle: FontStyle.italic,
-              color: Color(0xFF00695C)),
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF00695C),
+          ),
         ),
         SizedBox(height: 8.0),
         _recipeCard(
@@ -1657,36 +1764,56 @@ Widget _section12Glossary() {
           ),
         ),
         SizedBox(height: 10.0),
-        _glossaryRow('focalPoint',
-            'Average of all active pointer positions during a scale gesture.',
-            Color(0xFFFFA000)),
-        _glossaryRow('focalPointDelta',
-            'Per-frame translation of the focalPoint since last update.',
-            Color(0xFFFFB300)),
-        _glossaryRow('pointerCount',
-            'Number of pointers currently engaged in the gesture.',
-            Color(0xFFFFC107)),
-        _glossaryRow('pressure',
-            'Normalized pressure 0..1 reported by 3D-Touch hardware.',
-            Color(0xFFFFD54F)),
-        _glossaryRow('HitTestBehavior',
-            'opaque / translucent / deferToChild — controls hit absorption.',
-            Color(0xFFFFE082)),
-        _glossaryRow('arena',
-            'Gesture arbitration system that resolves competing recognizers.',
-            Color(0xFFFFECB3)),
-        _glossaryRow('MouseCursor',
-            'Abstract cursor; SystemMouseCursors offers a stock catalogue.',
-            Color(0xFFFFF59D)),
-        _glossaryRow('trackpadScrollCausesScale',
-            'Routes two-finger trackpad scroll into the scale callback channel.',
-            Color(0xFFFFE082)),
-        _glossaryRow('PointerDeviceKind',
-            'touch / mouse / stylus / invertedStylus / trackpad / unknown.',
-            Color(0xFFFFD54F)),
-        _glossaryRow('MultitouchDragStrategy',
-            'latestPointer / averageBoundaryPointers / sumAllPointers.',
-            Color(0xFFFFC107)),
+        _glossaryRow(
+          'focalPoint',
+          'Average of all active pointer positions during a scale gesture.',
+          Color(0xFFFFA000),
+        ),
+        _glossaryRow(
+          'focalPointDelta',
+          'Per-frame translation of the focalPoint since last update.',
+          Color(0xFFFFB300),
+        ),
+        _glossaryRow(
+          'pointerCount',
+          'Number of pointers currently engaged in the gesture.',
+          Color(0xFFFFC107),
+        ),
+        _glossaryRow(
+          'pressure',
+          'Normalized pressure 0..1 reported by 3D-Touch hardware.',
+          Color(0xFFFFD54F),
+        ),
+        _glossaryRow(
+          'HitTestBehavior',
+          'opaque / translucent / deferToChild — controls hit absorption.',
+          Color(0xFFFFE082),
+        ),
+        _glossaryRow(
+          'arena',
+          'Gesture arbitration system that resolves competing recognizers.',
+          Color(0xFFFFECB3),
+        ),
+        _glossaryRow(
+          'MouseCursor',
+          'Abstract cursor; SystemMouseCursors offers a stock catalogue.',
+          Color(0xFFFFF59D),
+        ),
+        _glossaryRow(
+          'trackpadScrollCausesScale',
+          'Routes two-finger trackpad scroll into the scale callback channel.',
+          Color(0xFFFFE082),
+        ),
+        _glossaryRow(
+          'PointerDeviceKind',
+          'touch / mouse / stylus / invertedStylus / trackpad / unknown.',
+          Color(0xFFFFD54F),
+        ),
+        _glossaryRow(
+          'MultitouchDragStrategy',
+          'latestPointer / averageBoundaryPointers / sumAllPointers.',
+          Color(0xFFFFC107),
+        ),
       ],
     ),
   );
@@ -1724,7 +1851,10 @@ Widget _epilogue() {
           'callback, and tuning hit-test/device behavior so the right '
           'pointers reach the right widgets.',
           style: TextStyle(
-              fontSize: 13.0, color: Color(0xFFEDE7F6), height: 1.6),
+            fontSize: 13.0,
+            color: Color(0xFFEDE7F6),
+            height: 1.6,
+          ),
         ),
         SizedBox(height: 12.0),
         Container(
@@ -1740,22 +1870,27 @@ Widget _epilogue() {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF4CAF50),
                       borderRadius: BorderRadius.circular(6.0),
                     ),
-                    child: Text('PASS',
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'PASS',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8.0),
-                  Text('All 12 sections rendered',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0)),
+                  Text(
+                    'All 12 sections rendered',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
+                  ),
                 ],
               ),
               SizedBox(height: 8.0),
@@ -1763,22 +1898,27 @@ Widget _epilogue() {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF2196F3),
                       borderRadius: BorderRadius.circular(6.0),
                     ),
-                    child: Text('INERT',
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'INERT',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8.0),
-                  Text('All callbacks are no-ops',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0)),
+                  Text(
+                    'All callbacks are no-ops',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
+                  ),
                 ],
               ),
               SizedBox(height: 8.0),
@@ -1786,22 +1926,27 @@ Widget _epilogue() {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 4.0),
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFFFF9800),
                       borderRadius: BorderRadius.circular(6.0),
                     ),
-                    child: Text('STATIC',
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 11.0,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'STATIC',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 8.0),
-                  Text('AlwaysStoppedAnimation / Duration.zero',
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 12.0)),
+                  Text(
+                    'AlwaysStoppedAnimation / Duration.zero',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0),
+                  ),
                 ],
               ),
             ],
@@ -1850,64 +1995,125 @@ dynamic build(BuildContext context) {
           children: [
             _heroHeader(),
             _overviewPanel(),
-            _sectionBanner(1, 'SCALE LIFECYCLE',
-                'onScaleStart / onScaleUpdate / onScaleEnd',
-                Color(0xFF1565C0), Color(0xFF42A5F5), '🔍'),
+            _sectionBanner(
+              1,
+              'SCALE LIFECYCLE',
+              'onScaleStart / onScaleUpdate / onScaleEnd',
+              Color(0xFF1565C0),
+              Color(0xFF42A5F5),
+              '🔍',
+            ),
             _section1Scale(),
-            _sectionBanner(2, 'LONG PRESS CONTINUUM',
-                'onLongPressStart → MoveUpdate → End → Up',
-                Color(0xFF6A1B9A), Color(0xFFBA68C8), '⏳'),
+            _sectionBanner(
+              2,
+              'LONG PRESS CONTINUUM',
+              'onLongPressStart → MoveUpdate → End → Up',
+              Color(0xFF6A1B9A),
+              Color(0xFFBA68C8),
+              '⏳',
+            ),
             _section2LongPressMove(),
-            _sectionBanner(3, 'FORCE PRESS',
-                'onForcePressStart / Peak / Update / End',
-                Color(0xFFB71C1C), Color(0xFFEF5350), '🔥'),
+            _sectionBanner(
+              3,
+              'FORCE PRESS',
+              'onForcePressStart / Peak / Update / End',
+              Color(0xFFB71C1C),
+              Color(0xFFEF5350),
+              '🔥',
+            ),
             _section3ForcePress(),
-            _sectionBanner(4, 'POINTER HOVER',
-                'MouseRegion onEnter / onExit / onHover',
-                Color(0xFF006064), Color(0xFF26C6DA), '🖱'),
+            _sectionBanner(
+              4,
+              'POINTER HOVER',
+              'MouseRegion onEnter / onExit / onHover',
+              Color(0xFF006064),
+              Color(0xFF26C6DA),
+              '🖱',
+            ),
             _section4Hover(),
-            _sectionBanner(5, 'SECONDARY & TERTIARY',
-                'onSecondaryTap*, onTertiaryTap*',
-                Color(0xFFEF6C00), Color(0xFFFFA726), '⊕'),
+            _sectionBanner(
+              5,
+              'SECONDARY & TERTIARY',
+              'onSecondaryTap*, onTertiaryTap*',
+              Color(0xFFEF6C00),
+              Color(0xFFFFA726),
+              '⊕',
+            ),
             _section5SecondaryTaps(),
-            _sectionBanner(6, 'TRACKPAD PAN-ZOOM',
-                'supportedDevices + trackpadScrollCausesScale',
-                Color(0xFF2E7D32), Color(0xFF66BB6A), '↔'),
+            _sectionBanner(
+              6,
+              'TRACKPAD PAN-ZOOM',
+              'supportedDevices + trackpadScrollCausesScale',
+              Color(0xFF2E7D32),
+              Color(0xFF66BB6A),
+              '↔',
+            ),
             _section6PanZoom(),
-            _sectionBanner(7, 'HIT-TEST BEHAVIOR',
-                'opaque / translucent / deferToChild',
-                Color(0xFFF57F17), Color(0xFFFFCA28), '⌘'),
+            _sectionBanner(
+              7,
+              'HIT-TEST BEHAVIOR',
+              'opaque / translucent / deferToChild',
+              Color(0xFFF57F17),
+              Color(0xFFFFCA28),
+              '⌘',
+            ),
             _section7HitTest(),
-            _sectionBanner(8, 'MOUSE CURSOR GALLERY',
-                'SystemMouseCursors catalogue',
-                Color(0xFF1A237E), Color(0xFF5C6BC0), '✥'),
+            _sectionBanner(
+              8,
+              'MOUSE CURSOR GALLERY',
+              'SystemMouseCursors catalogue',
+              Color(0xFF1A237E),
+              Color(0xFF5C6BC0),
+              '✥',
+            ),
             _section8MouseCursor(),
-            _sectionBanner(9, 'POINTER DETAIL RECORDS',
-                'ScaleStart/Update/End, ForcePress, LongPress*, Tap*, Drag*',
-                Color(0xFF880E4F), Color(0xFFEC407A), '✎'),
+            _sectionBanner(
+              9,
+              'POINTER DETAIL RECORDS',
+              'ScaleStart/Update/End, ForcePress, LongPress*, Tap*, Drag*',
+              Color(0xFF880E4F),
+              Color(0xFFEC407A),
+              '✎',
+            ),
             _section9PointerDetails(),
-            _sectionBanner(10, 'MULTI-FINGER GESTURES',
-                'pointerCount branching, MultitouchDragStrategy',
-                Color(0xFF3E2723), Color(0xFF8D6E63), '✋'),
+            _sectionBanner(
+              10,
+              'MULTI-FINGER GESTURES',
+              'pointerCount branching, MultitouchDragStrategy',
+              Color(0xFF3E2723),
+              Color(0xFF8D6E63),
+              '✋',
+            ),
             _section10MultiFinger(),
-            _sectionBanner(11, 'RAW GESTURE DETECTOR',
-                'GestureRecognizerFactory map',
-                Color(0xFF004D40), Color(0xFF26A69A), '⚙'),
+            _sectionBanner(
+              11,
+              'RAW GESTURE DETECTOR',
+              'GestureRecognizerFactory map',
+              Color(0xFF004D40),
+              Color(0xFF26A69A),
+              '⚙',
+            ),
             _section11RawDetector(),
-            _sectionBanner(12, 'GLOSSARY',
-                'Definitions for the advanced gesture vocabulary',
-                Color(0xFFF9A825), Color(0xFFFFD54F), '📖'),
+            _sectionBanner(
+              12,
+              'GLOSSARY',
+              'Definitions for the advanced gesture vocabulary',
+              Color(0xFFF9A825),
+              Color(0xFFFFD54F),
+              '📖',
+            ),
             _section12Glossary(),
             _epilogue(),
             SizedBox(height: 24.0),
             Center(
               child: Text(
                 'animation snapshot: ${tEnter.value} → ${tFade.value} → ${tPeak.value}'
-                    '   |   duration: ${zeroDuration.inMicroseconds}µs',
+                '   |   duration: ${zeroDuration.inMicroseconds}µs',
                 style: TextStyle(
-                    fontSize: 10.0,
-                    color: Color(0xFF9E9E9E),
-                    fontFamily: 'monospace'),
+                  fontSize: 10.0,
+                  color: Color(0xFF9E9E9E),
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
             SizedBox(height: 24.0),
@@ -1917,7 +2123,3 @@ dynamic build(BuildContext context) {
     ),
   );
 }
-
-
-
-

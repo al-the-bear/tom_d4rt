@@ -349,9 +349,7 @@ class _SctHeroHeader extends StatelessWidget {
               animation: ribbonController,
               builder: (BuildContext context, Widget? child) {
                 return CustomPaint(
-                  painter: _SctRibbonPainter(
-                    progress: ribbonController.value,
-                  ),
+                  painter: _SctRibbonPainter(progress: ribbonController.value),
                 );
               },
             ),
@@ -443,10 +441,7 @@ class _SctHeroHeader extends StatelessWidget {
                       value: selected.category.toUpperCase(),
                     ),
                     const SizedBox(width: 22),
-                    _SctHeaderMeta(
-                      label: 'REVISION',
-                      value: '2026.04',
-                    ),
+                    _SctHeaderMeta(label: 'REVISION', value: '2026.04'),
                   ],
                 ),
               ],
@@ -644,11 +639,7 @@ class _SctRibbonPainter extends CustomPainter {
       ..color = _kNavyDeep.withValues(alpha: 0.35)
       ..strokeWidth = 1;
     for (double tx = x; tx < x + width; tx += 10) {
-      canvas.drawLine(
-        Offset(tx, y),
-        Offset(tx + 4, y),
-        edgePaint,
-      );
+      canvas.drawLine(Offset(tx, y), Offset(tx + 4, y), edgePaint);
       canvas.drawLine(
         Offset(tx, y + height),
         Offset(tx + 4, y + height),
@@ -890,8 +881,11 @@ class _SctDialPanel extends StatelessWidget {
                   color: _kMustard,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.tune_rounded,
-                    color: _kNavyDeep, size: 18),
+                child: const Icon(
+                  Icons.tune_rounded,
+                  color: _kNavyDeep,
+                  size: 18,
+                ),
               ),
               const SizedBox(width: 12),
               const Text(
@@ -1009,10 +1003,7 @@ class _SctDropdownDial extends StatelessWidget {
 }
 
 class _SctSliderDial extends StatelessWidget {
-  const _SctSliderDial({
-    required this.selectedIndex,
-    required this.onChanged,
-  });
+  const _SctSliderDial({required this.selectedIndex, required this.onChanged});
 
   final int selectedIndex;
   final ValueChanged<int> onChanged;
@@ -1340,9 +1331,7 @@ class _SctSpecimenHeader extends StatelessWidget {
           topLeft: Radius.circular(5),
           topRight: Radius.circular(5),
         ),
-        border: Border(
-          bottom: BorderSide(color: specimen.accent, width: 2),
-        ),
+        border: Border(bottom: BorderSide(color: specimen.accent, width: 2)),
       ),
       child: Row(
         children: <Widget>[
@@ -1459,8 +1448,10 @@ class _SctSpecimenStage extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: specimen.accent.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(2),
@@ -1615,11 +1606,15 @@ class _SctStageMoreButton extends StatelessWidget {
           child: PopupMenuButton<String>(
             key: StandardComponentType.moreButton.key,
             icon: const Icon(Icons.more_vert_rounded, color: _kNavy),
-            itemBuilder: (BuildContext context) => const <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(value: 'rename', child: Text('Rename')),
-              PopupMenuItem<String>(value: 'duplicate', child: Text('Duplicate')),
-              PopupMenuItem<String>(value: 'delete', child: Text('Delete')),
-            ],
+            itemBuilder: (BuildContext context) =>
+                const <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(value: 'rename', child: Text('Rename')),
+                  PopupMenuItem<String>(
+                    value: 'duplicate',
+                    child: Text('Duplicate'),
+                  ),
+                  PopupMenuItem<String>(value: 'delete', child: Text('Delete')),
+                ],
             onSelected: (String v) => debugPrint('[Sct] MoreButton -> $v'),
           ),
         ),
@@ -1812,55 +1807,97 @@ class _SctLookupTable extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
                   child: _SctCodeBlock(
                     lines: <_SctCodeLine>[
-                      _SctCodeLine(' 1', 'typedef WidgetBuilder0 = '
-                          'Widget Function();', _SctTone.keyword),
+                      _SctCodeLine(
+                        ' 1',
+                        'typedef WidgetBuilder0 = '
+                            'Widget Function();',
+                        _SctTone.keyword,
+                      ),
                       _SctCodeLine(' 2', '', _SctTone.plain),
-                      _SctCodeLine(' 3',
-                          'class ComponentTypeLookup {', _SctTone.keyword),
-                      _SctCodeLine(' 4',
-                          '  static final Map<StandardComponentType, '
-                              'WidgetBuilder0> _factories =', _SctTone.plain),
-                      _SctCodeLine(' 5',
-                          '      <StandardComponentType, WidgetBuilder0>{',
-                          _SctTone.plain),
-                      _SctCodeLine(' 6',
-                          '        StandardComponentType.backButton: '
-                              '() => const BackButton(),', _SctTone.entry),
-                      _SctCodeLine(' 7',
-                          '        StandardComponentType.closeButton: '
-                              '() => const CloseButton(),', _SctTone.entry),
-                      _SctCodeLine(' 8',
-                          '        StandardComponentType.moreButton: '
-                              '() => _defaultMoreButton(),', _SctTone.entry),
-                      _SctCodeLine(' 9',
-                          '        StandardComponentType.drawerButton: '
-                              '() => const DrawerButton(),', _SctTone.entry),
-                      _SctCodeLine('10',
-                          '      };', _SctTone.plain),
+                      _SctCodeLine(
+                        ' 3',
+                        'class ComponentTypeLookup {',
+                        _SctTone.keyword,
+                      ),
+                      _SctCodeLine(
+                        ' 4',
+                        '  static final Map<StandardComponentType, '
+                            'WidgetBuilder0> _factories =',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        ' 5',
+                        '      <StandardComponentType, WidgetBuilder0>{',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        ' 6',
+                        '        StandardComponentType.backButton: '
+                            '() => const BackButton(),',
+                        _SctTone.entry,
+                      ),
+                      _SctCodeLine(
+                        ' 7',
+                        '        StandardComponentType.closeButton: '
+                            '() => const CloseButton(),',
+                        _SctTone.entry,
+                      ),
+                      _SctCodeLine(
+                        ' 8',
+                        '        StandardComponentType.moreButton: '
+                            '() => _defaultMoreButton(),',
+                        _SctTone.entry,
+                      ),
+                      _SctCodeLine(
+                        ' 9',
+                        '        StandardComponentType.drawerButton: '
+                            '() => const DrawerButton(),',
+                        _SctTone.entry,
+                      ),
+                      _SctCodeLine('10', '      };', _SctTone.plain),
                       _SctCodeLine('11', '', _SctTone.plain),
-                      _SctCodeLine('12',
-                          '  static Widget getStandardComponent(',
-                          _SctTone.keyword),
-                      _SctCodeLine('13',
-                          '      StandardComponentType type, {', _SctTone.plain),
-                      _SctCodeLine('14',
-                          '      WidgetBuilder0? override,', _SctTone.plain),
-                      _SctCodeLine('15',
-                          '    }) {', _SctTone.plain),
-                      _SctCodeLine('16',
-                          '    final WidgetBuilder0 builder =', _SctTone.plain),
-                      _SctCodeLine('17',
-                          '        override ?? _factories[type]!;',
-                          _SctTone.plain),
-                      _SctCodeLine('18',
-                          '    return KeyedSubtree(', _SctTone.plain),
-                      _SctCodeLine('19',
-                          '      key: type.key, // ValueKey<StandardComponentType>',
-                          _SctTone.entry),
-                      _SctCodeLine('20',
-                          '      child: builder(),', _SctTone.plain),
-                      _SctCodeLine('21',
-                          '    );', _SctTone.plain),
+                      _SctCodeLine(
+                        '12',
+                        '  static Widget getStandardComponent(',
+                        _SctTone.keyword,
+                      ),
+                      _SctCodeLine(
+                        '13',
+                        '      StandardComponentType type, {',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        '14',
+                        '      WidgetBuilder0? override,',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine('15', '    }) {', _SctTone.plain),
+                      _SctCodeLine(
+                        '16',
+                        '    final WidgetBuilder0 builder =',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        '17',
+                        '        override ?? _factories[type]!;',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        '18',
+                        '    return KeyedSubtree(',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine(
+                        '19',
+                        '      key: type.key, // ValueKey<StandardComponentType>',
+                        _SctTone.entry,
+                      ),
+                      _SctCodeLine(
+                        '20',
+                        '      child: builder(),',
+                        _SctTone.plain,
+                      ),
+                      _SctCodeLine('21', '    );', _SctTone.plain),
                       _SctCodeLine('22', '  }', _SctTone.plain),
                       _SctCodeLine('23', '}', _SctTone.keyword),
                     ],
@@ -1880,8 +1917,11 @@ class _SctLookupTable extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(Icons.lightbulb_outline_rounded,
-                    color: _kMustardDeep, size: 16),
+                const Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: _kMustardDeep,
+                  size: 16,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -2169,8 +2209,7 @@ class _SctDetailTile extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Icon(Icons.anchor_rounded,
-                      size: 12, color: _kMustard),
+                  const Icon(Icons.anchor_rounded, size: 12, color: _kMustard),
                   const SizedBox(width: 6),
                   Text(
                     '#${specimen.partNumber.toLowerCase()}-example',
@@ -2222,7 +2261,8 @@ class _SctDetailField extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: valueWidget ??
+            child:
+                valueWidget ??
                 Text(
                   value ?? '',
                   style: const TextStyle(
@@ -2651,9 +2691,7 @@ class _SctCatalogueIndex extends StatelessWidget {
       width: 80,
       decoration: const BoxDecoration(
         color: _kNavyDeep,
-        border: Border(
-          left: BorderSide(color: _kMustard, width: 2),
-        ),
+        border: Border(left: BorderSide(color: _kMustard, width: 2)),
       ),
       child: Column(
         children: <Widget>[
@@ -2711,8 +2749,7 @@ class _SctCatalogueIndex extends StatelessWidget {
                                 ),
                                 alignment: Alignment.center,
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
                                       _kSpecimens[i].partNumber,
@@ -2732,8 +2769,9 @@ class _SctCatalogueIndex extends StatelessWidget {
                                       style: TextStyle(
                                         color: i == selectedIndex
                                             ? _kNavyDeep
-                                            : _kMustardPale
-                                                .withValues(alpha: 0.8),
+                                            : _kMustardPale.withValues(
+                                                alpha: 0.8,
+                                              ),
                                         fontSize: 9,
                                         fontFamily: 'monospace',
                                         fontWeight: FontWeight.w700,
@@ -2756,7 +2794,8 @@ class _SctCatalogueIndex extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            math.min(selectedIndex + 1, _kSpecimens.length)
+            math
+                .min(selectedIndex + 1, _kSpecimens.length)
                 .toString()
                 .padLeft(2, '0'),
             style: const TextStyle(
@@ -2804,19 +2843,14 @@ class _SctIndexPainter extends CustomPainter {
         const Radius.circular(3),
       );
       final Paint fill = Paint()
-        ..color = selected
-            ? _kMustard
-            : _kNavy.withValues(alpha: 0.55);
+        ..color = selected ? _kMustard : _kNavy.withValues(alpha: 0.55);
       canvas.drawRRect(rrect, fill);
       if (selected) {
         final Paint glow = Paint()
           ..color = _kMustardPale.withValues(alpha: 0.35 + 0.25 * pulse)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2;
-        canvas.drawRRect(
-          rrect.inflate(2 + 2 * pulse),
-          glow,
-        );
+        canvas.drawRRect(rrect.inflate(2 + 2 * pulse), glow);
       }
       // Left accent bar.
       final Paint accent = Paint()..color = _kSpecimens[i].accent;
@@ -2850,6 +2884,5 @@ class _SctIndexPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _SctIndexPainter oldDelegate) =>
-      oldDelegate.selectedIndex != selectedIndex ||
-      oldDelegate.pulse != pulse;
+      oldDelegate.selectedIndex != selectedIndex || oldDelegate.pulse != pulse;
 }

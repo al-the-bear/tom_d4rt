@@ -53,21 +53,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: willow, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -84,11 +90,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: mint),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: deepOlive.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: deepOlive.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -116,14 +125,18 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleMoss,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: forest)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: forest,
+              ),
+            ),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -139,9 +152,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label,
-          style:
-              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -153,15 +167,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: forest)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: forest,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 12, color: deepOlive)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 12, color: deepOlive),
+            ),
           ),
         ],
       ),
@@ -180,13 +199,17 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: forest.withValues(alpha: 0.15), width: 1),
+                color: forest.withValues(alpha: 0.15),
+                width: 1,
+              ),
             ),
           ),
           const SizedBox(height: 4),
-          Text(name,
-              style: TextStyle(fontSize: 9, color: forest),
-              textAlign: TextAlign.center),
+          Text(
+            name,
+            style: TextStyle(fontSize: 9, color: forest),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -201,13 +224,15 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label,
-                  style: TextStyle(fontSize: 11, color: forest)),
-              Text('${(fraction * 100).toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: color)),
+              Text(label, style: TextStyle(fontSize: 11, color: forest)),
+              Text(
+                '${(fraction * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -234,7 +259,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget windowFrame(String title, Color borderColor, bool focused, Widget child) {
+  Widget windowFrame(
+    String title,
+    Color borderColor,
+    bool focused,
+    Widget child,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10),
@@ -243,7 +273,13 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: borderColor, width: focused ? 2 : 1),
         boxShadow: focused
-            ? [BoxShadow(color: borderColor.withValues(alpha: 0.2), blurRadius: 8, offset: const Offset(0, 4))]
+            ? [
+                BoxShadow(
+                  color: borderColor.withValues(alpha: 0.2),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ]
             : [],
       ),
       child: Column(
@@ -254,23 +290,29 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
             decoration: BoxDecoration(
               color: focused ? borderColor.withValues(alpha: 0.15) : paleMoss,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
             child: Row(
               children: [
                 Container(
-                  width: 10, height: 10,
+                  width: 10,
+                  height: 10,
                   decoration: BoxDecoration(
                     color: focused ? borderColor : lichen,
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(title,
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: focused ? FontWeight.w700 : FontWeight.normal,
-                        color: focused ? borderColor : deepOlive)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: focused ? FontWeight.w700 : FontWeight.normal,
+                    color: focused ? borderColor : deepOlive,
+                  ),
+                ),
               ],
             ),
           ),
@@ -292,21 +334,33 @@ dynamic build(BuildContext context) {
       child: Row(
         children: [
           Container(
-            width: 22, height: 22,
+            width: 22,
+            height: 22,
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(11),
             ),
             child: Center(
-              child: Text(step,
-                  style: const TextStyle(
-                      color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+              child: Text(
+                step,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(description,
-                style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+            child: Text(
+              description,
+              style: TextStyle(
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),
@@ -321,33 +375,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-          'DialogWindowControllerDelegate defines the interface for objects '
-          'that manage dialog window behavior in multi-window desktop Flutter '
-          'applications. It enables custom control over dialog presentation, '
-          'dismissal, and interaction with the parent window.'),
+        'DialogWindowControllerDelegate defines the interface for objects '
+        'that manage dialog window behavior in multi-window desktop Flutter '
+        'applications. It enables custom control over dialog presentation, '
+        'dismissal, and interaction with the parent window.',
+      ),
       infoCard(
-          'Core Identity',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Type', 'Abstract interface / delegate protocol'),
-              dataRow('Package', 'flutter/widgets'),
-              dataRow('Platform scope', 'Desktop (macOS, Windows, Linux)'),
-              dataRow('Purpose', 'Dialog window lifecycle control'),
-              dataRow('Pattern', 'Delegate (delegation pattern)'),
-            ],
-          )),
+        'Core Identity',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Type', 'Abstract interface / delegate protocol'),
+            dataRow('Package', 'flutter/widgets'),
+            dataRow('Platform scope', 'Desktop (macOS, Windows, Linux)'),
+            dataRow('Purpose', 'Dialog window lifecycle control'),
+            dataRow('Pattern', 'Delegate (delegation pattern)'),
+          ],
+        ),
+      ),
       infoCard(
-          'Why It Exists',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Multi-window', 'Desktop apps can have many windows'),
-              dataRow('Dialogs ≠ overlays', 'Real OS dialog windows'),
-              dataRow('Custom behavior', 'Dismiss, resize, style per-dialog'),
-              dataRow('Parent control', 'Parent window manages its dialogs'),
-            ],
-          )),
+        'Why It Exists',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Multi-window', 'Desktop apps can have many windows'),
+            dataRow('Dialogs ≠ overlays', 'Real OS dialog windows'),
+            dataRow('Custom behavior', 'Dismiss, resize, style per-dialog'),
+            dataRow('Parent control', 'Parent window manages its dialogs'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -359,41 +416,56 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Desktop Window Model'),
       noteBox(
-          'Unlike mobile, desktop Flutter apps can create multiple OS-level '
-          'windows. Dialogs on desktop may be separate OS windows rather than '
-          'overlay routes, requiring dedicated lifecycle management.'),
+        'Unlike mobile, desktop Flutter apps can create multiple OS-level '
+        'windows. Dialogs on desktop may be separate OS windows rather than '
+        'overlay routes, requiring dedicated lifecycle management.',
+      ),
       infoCard(
-          'Mobile vs Desktop Dialogs',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Mobile dialog', 'Overlay route within single window'),
-              dataRow('Desktop dialog', 'Can be a separate OS window'),
-              dataRow('Mobile dismiss', 'Navigator.pop or barrier tap'),
-              dataRow('Desktop dismiss', 'Window close button, Escape, API'),
-              dataRow('Mobile parent', 'Same window (overlay stack)'),
-              dataRow('Desktop parent', 'Separate window with ownership'),
-            ],
-          )),
+        'Mobile vs Desktop Dialogs',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Mobile dialog', 'Overlay route within single window'),
+            dataRow('Desktop dialog', 'Can be a separate OS window'),
+            dataRow('Mobile dismiss', 'Navigator.pop or barrier tap'),
+            dataRow('Desktop dismiss', 'Window close button, Escape, API'),
+            dataRow('Mobile parent', 'Same window (overlay stack)'),
+            dataRow('Desktop parent', 'Separate window with ownership'),
+          ],
+        ),
+      ),
       infoCard(
-          'Window Hierarchy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              windowFrame('Main Window (Parent)', olive, true,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Application content',
-                          style: TextStyle(fontSize: 11, color: deepOlive)),
-                      const SizedBox(height: 6),
-                      windowFrame('Dialog Window (Child)', fern, false,
-                          Text('Dialog content — separate OS window',
-                              style: TextStyle(fontSize: 11, color: deepOlive))),
-                    ],
-                  )),
-            ],
-          )),
+        'Window Hierarchy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            windowFrame(
+              'Main Window (Parent)',
+              olive,
+              true,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Application content',
+                    style: TextStyle(fontSize: 11, color: deepOlive),
+                  ),
+                  const SizedBox(height: 6),
+                  windowFrame(
+                    'Dialog Window (Child)',
+                    fern,
+                    false,
+                    Text(
+                      'Dialog content — separate OS window',
+                      style: TextStyle(fontSize: 11, color: deepOlive),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -405,33 +477,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Delegate Protocol'),
       noteBox(
-          'The delegate protocol defines callbacks that the dialog window '
-          'controller invokes at key points in the dialog\'s lifecycle. '
-          'Implementing these gives the parent full control.'),
+        'The delegate protocol defines callbacks that the dialog window '
+        'controller invokes at key points in the dialog\'s lifecycle. '
+        'Implementing these gives the parent full control.',
+      ),
       infoCard(
-          'Delegate Methods',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('windowShouldClose', 'Can the dialog close now?'),
-              dataRow('windowWillClose', 'Dialog is about to close'),
-              dataRow('windowDidClose', 'Dialog has fully closed'),
-              dataRow('windowDidResize', 'Dialog was resized'),
-              dataRow('windowDidBecomeKey', 'Dialog became focused window'),
-              dataRow('windowDidResignKey', 'Dialog lost focus'),
-            ],
-          )),
+        'Delegate Methods',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('windowShouldClose', 'Can the dialog close now?'),
+            dataRow('windowWillClose', 'Dialog is about to close'),
+            dataRow('windowDidClose', 'Dialog has fully closed'),
+            dataRow('windowDidResize', 'Dialog was resized'),
+            dataRow('windowDidBecomeKey', 'Dialog became focused window'),
+            dataRow('windowDidResignKey', 'Dialog lost focus'),
+          ],
+        ),
+      ),
       infoCard(
-          'Delegation Pattern',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Controller owns', 'Dialog window lifecycle'),
-              dataRow('Delegate advises', 'How to handle events'),
-              dataRow('Controller calls', 'Delegate at decision points'),
-              dataRow('Delegate returns', 'Approval or guidance'),
-            ],
-          )),
+        'Delegation Pattern',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Controller owns', 'Dialog window lifecycle'),
+            dataRow('Delegate advises', 'How to handle events'),
+            dataRow('Controller calls', 'Delegate at decision points'),
+            dataRow('Delegate returns', 'Approval or guidance'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -443,34 +518,37 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Window Lifecycle'),
       noteBox(
-          'A dialog window goes through distinct lifecycle phases. The '
-          'delegate can influence each phase, from creation through '
-          'presentation to eventual dismissal.'),
+        'A dialog window goes through distinct lifecycle phases. The '
+        'delegate can influence each phase, from creation through '
+        'presentation to eventual dismissal.',
+      ),
       infoCard(
-          'Lifecycle Phases',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              lifecycleStep('1', 'Requested — Parent asks for a dialog', olive),
-              lifecycleStep('2', 'Created — OS window allocated', fern),
-              lifecycleStep('3', 'Configured — Size, position, style set', moss),
-              lifecycleStep('4', 'Presented — Dialog visible on screen', willow),
-              lifecycleStep('5', 'Active — User interacting with dialog', sage),
-              lifecycleStep('6', 'Closing — windowShouldClose queried', olive),
-              lifecycleStep('7', 'Closed — windowDidClose invoked', forest),
-            ],
-          )),
+        'Lifecycle Phases',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            lifecycleStep('1', 'Requested — Parent asks for a dialog', olive),
+            lifecycleStep('2', 'Created — OS window allocated', fern),
+            lifecycleStep('3', 'Configured — Size, position, style set', moss),
+            lifecycleStep('4', 'Presented — Dialog visible on screen', willow),
+            lifecycleStep('5', 'Active — User interacting with dialog', sage),
+            lifecycleStep('6', 'Closing — windowShouldClose queried', olive),
+            lifecycleStep('7', 'Closed — windowDidClose invoked', forest),
+          ],
+        ),
+      ),
       infoCard(
-          'Phase Timing',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Created → Presented', 'Near-instant, single frame'),
-              dataRow('Active duration', 'User-driven, indeterminate'),
-              dataRow('Closing → Closed', 'Synchronous if no veto'),
-              dataRow('With veto', 'Close deferred or cancelled'),
-            ],
-          )),
+        'Phase Timing',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Created → Presented', 'Near-instant, single frame'),
+            dataRow('Active duration', 'User-driven, indeterminate'),
+            dataRow('Closing → Closed', 'Synchronous if no veto'),
+            dataRow('With veto', 'Close deferred or cancelled'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -482,43 +560,47 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'Window Configuration'),
       noteBox(
-          'Dialog windows support rich configuration — size, position, '
-          'modality, title bar style, and resize behavior — all influenced '
-          'by the delegate or initial parameters.'),
+        'Dialog windows support rich configuration — size, position, '
+        'modality, title bar style, and resize behavior — all influenced '
+        'by the delegate or initial parameters.',
+      ),
       infoCard(
-          'Size & Position',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Initial size', 'Set at creation time'),
-              dataRow('Min / max size', 'Constrain resize range'),
-              dataRow('Position', 'Center on parent, or explicit offset'),
-              dataRow('Relative', 'Can anchor to parent window edges'),
-            ],
-          )),
+        'Size & Position',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Initial size', 'Set at creation time'),
+            dataRow('Min / max size', 'Constrain resize range'),
+            dataRow('Position', 'Center on parent, or explicit offset'),
+            dataRow('Relative', 'Can anchor to parent window edges'),
+          ],
+        ),
+      ),
       infoCard(
-          'Window Style',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Title bar', 'Visible, hidden, or custom'),
-              dataRow('Resizable', 'bool — whether user can resize'),
-              dataRow('Closable', 'Whether close button appears'),
-              dataRow('Minimizable', 'Whether minimize button appears'),
-              dataRow('Shadow', 'OS window shadow enabled'),
-            ],
-          )),
+        'Window Style',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Title bar', 'Visible, hidden, or custom'),
+            dataRow('Resizable', 'bool — whether user can resize'),
+            dataRow('Closable', 'Whether close button appears'),
+            dataRow('Minimizable', 'Whether minimize button appears'),
+            dataRow('Shadow', 'OS window shadow enabled'),
+          ],
+        ),
+      ),
       infoCard(
-          'Modality',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Modal', 'Blocks parent until dismissed'),
-              dataRow('Non-modal', 'Exists alongside parent'),
-              dataRow('Sheet', 'Attached to parent (macOS)'),
-              dataRow('Application modal', 'Blocks entire app'),
-            ],
-          )),
+        'Modality',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Modal', 'Blocks parent until dismissed'),
+            dataRow('Non-modal', 'Exists alongside parent'),
+            dataRow('Sheet', 'Attached to parent (macOS)'),
+            dataRow('Application modal', 'Blocks entire app'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -530,43 +612,47 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'Dismissal Strategies'),
       noteBox(
-          'The delegate controls how and when a dialog can be dismissed. '
-          'This is critical for confirmation dialogs, unsaved-changes '
-          'guards, and multi-step wizards.'),
+        'The delegate controls how and when a dialog can be dismissed. '
+        'This is critical for confirmation dialogs, unsaved-changes '
+        'guards, and multi-step wizards.',
+      ),
       infoCard(
-          'Dismiss Sources',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Close button', 'Window title bar X button'),
-              dataRow('Escape key', 'Keyboard shortcut'),
-              dataRow('Programmatic', 'Controller.close() call'),
-              dataRow('Parent close', 'Cascade from parent window'),
-              dataRow('OS force quit', 'Cannot be vetoed'),
-            ],
-          )),
+        'Dismiss Sources',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Close button', 'Window title bar X button'),
+            dataRow('Escape key', 'Keyboard shortcut'),
+            dataRow('Programmatic', 'Controller.close() call'),
+            dataRow('Parent close', 'Cascade from parent window'),
+            dataRow('OS force quit', 'Cannot be vetoed'),
+          ],
+        ),
+      ),
       infoCard(
-          'Veto Pattern',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('windowShouldClose', 'Return false to prevent close'),
-              dataRow('Use case', 'Unsaved changes confirmation'),
-              dataRow('Show sub-dialog', 'Ask "Save?" before allowing close'),
-              dataRow('Conditional veto', 'Close only if form is valid'),
-            ],
-          )),
+        'Veto Pattern',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('windowShouldClose', 'Return false to prevent close'),
+            dataRow('Use case', 'Unsaved changes confirmation'),
+            dataRow('Show sub-dialog', 'Ask "Save?" before allowing close'),
+            dataRow('Conditional veto', 'Close only if form is valid'),
+          ],
+        ),
+      ),
       infoCard(
-          'Cascade Dismissal',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Parent closes', 'All child dialogs notified'),
-              dataRow('Order', 'Children close first, then parent'),
-              dataRow('Veto in cascade', 'Child can delay parent close'),
-              dataRow('Force close', 'Overrides all vetos'),
-            ],
-          )),
+        'Cascade Dismissal',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Parent closes', 'All child dialogs notified'),
+            dataRow('Order', 'Children close first, then parent'),
+            dataRow('Veto in cascade', 'Child can delay parent close'),
+            dataRow('Force close', 'Overrides all vetos'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -578,47 +664,71 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Parent / Child Relationship'),
       noteBox(
-          'Dialog windows maintain a parent-child relationship with the '
-          'window that spawned them. This affects focus, z-order, and '
-          'lifecycle cascading.'),
+        'Dialog windows maintain a parent-child relationship with the '
+        'window that spawned them. This affects focus, z-order, and '
+        'lifecycle cascading.',
+      ),
       infoCard(
-          'Ownership Rules',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Parent owns', 'Dialog window reference'),
-              dataRow('Child references', 'Parent for relative positioning'),
-              dataRow('Focus return', 'When dialog closes → parent refocused'),
-              dataRow('Z-order', 'Dialog stays above parent'),
-            ],
-          )),
+        'Ownership Rules',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Parent owns', 'Dialog window reference'),
+            dataRow('Child references', 'Parent for relative positioning'),
+            dataRow('Focus return', 'When dialog closes → parent refocused'),
+            dataRow('Z-order', 'Dialog stays above parent'),
+          ],
+        ),
+      ),
       infoCard(
-          'Visual Relationship',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              windowFrame('Main Application Window', olive, false,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Content dimmed while dialog is modal',
-                          style: TextStyle(fontSize: 11, color: deepOlive.withValues(alpha: 0.6))),
-                    ],
-                  )),
-              windowFrame('Settings Dialog', fern, true,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Active — receives all input',
-                          style: TextStyle(fontSize: 11, color: deepOlive)),
-                      const SizedBox(height: 4),
-                      windowFrame('Confirm Sub-Dialog', moss, true,
-                          Text('Nested dialog — blocks Settings',
-                              style: TextStyle(fontSize: 11, color: deepOlive))),
-                    ],
-                  )),
-            ],
-          )),
+        'Visual Relationship',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            windowFrame(
+              'Main Application Window',
+              olive,
+              false,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Content dimmed while dialog is modal',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: deepOlive.withValues(alpha: 0.6),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            windowFrame(
+              'Settings Dialog',
+              fern,
+              true,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Active — receives all input',
+                    style: TextStyle(fontSize: 11, color: deepOlive),
+                  ),
+                  const SizedBox(height: 4),
+                  windowFrame(
+                    'Confirm Sub-Dialog',
+                    moss,
+                    true,
+                    Text(
+                      'Nested dialog — blocks Settings',
+                      style: TextStyle(fontSize: 11, color: deepOlive),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -630,31 +740,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Focus Management'),
       noteBox(
-          'The delegate receives notifications about focus changes. Knowing '
-          'when a dialog gains or loses focus is essential for implementing '
-          'keyboard shortcuts, visual feedback, and state transitions.'),
+        'The delegate receives notifications about focus changes. Knowing '
+        'when a dialog gains or loses focus is essential for implementing '
+        'keyboard shortcuts, visual feedback, and state transitions.',
+      ),
       infoCard(
-          'Focus Events',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('windowDidBecomeKey', 'Dialog gains keyboard focus'),
-              dataRow('windowDidResignKey', 'Dialog loses keyboard focus'),
-              dataRow('Key window', 'OS term — receives keyboard input'),
-              dataRow('Main window', 'OS term — menu bar target'),
-            ],
-          )),
+        'Focus Events',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('windowDidBecomeKey', 'Dialog gains keyboard focus'),
+            dataRow('windowDidResignKey', 'Dialog loses keyboard focus'),
+            dataRow('Key window', 'OS term — receives keyboard input'),
+            dataRow('Main window', 'OS term — menu bar target'),
+          ],
+        ),
+      ),
       infoCard(
-          'Focus Flow',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              lifecycleStep('1', 'Dialog presented → becomes key window', olive),
-              lifecycleStep('2', 'Parent resigns key status', fern),
-              lifecycleStep('3', 'User clicks parent → dialog resignsKey', moss),
-              lifecycleStep('4', 'Modal dialog: focus trapped in dialog', willow),
-            ],
-          )),
+        'Focus Flow',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            lifecycleStep('1', 'Dialog presented → becomes key window', olive),
+            lifecycleStep('2', 'Parent resigns key status', fern),
+            lifecycleStep('3', 'User clicks parent → dialog resignsKey', moss),
+            lifecycleStep('4', 'Modal dialog: focus trapped in dialog', willow),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -666,42 +779,46 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'Platform Integration'),
       noteBox(
-          'Each desktop OS handles dialog windows differently. The delegate '
-          'pattern abstracts these differences while still exposing '
-          'platform-specific capabilities.'),
+        'Each desktop OS handles dialog windows differently. The delegate '
+        'pattern abstracts these differences while still exposing '
+        'platform-specific capabilities.',
+      ),
       infoCard(
-          'macOS',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('NSWindow', 'Underlying native window'),
-              dataRow('Sheets', 'Slide down from parent title bar'),
-              dataRow('NSWindowDelegate', 'Native analog'),
-              dataRow('Close behavior', 'Red traffic light button'),
-            ],
-          )),
+        'macOS',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('NSWindow', 'Underlying native window'),
+            dataRow('Sheets', 'Slide down from parent title bar'),
+            dataRow('NSWindowDelegate', 'Native analog'),
+            dataRow('Close behavior', 'Red traffic light button'),
+          ],
+        ),
+      ),
       infoCard(
-          'Windows',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('HWND', 'Win32 window handle'),
-              dataRow('Modal dialogs', 'DialogBox / DialogBoxIndirect'),
-              dataRow('WM_CLOSE', 'Window close message'),
-              dataRow('Owner window', 'Parent-child via owner'),
-            ],
-          )),
+        'Windows',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('HWND', 'Win32 window handle'),
+            dataRow('Modal dialogs', 'DialogBox / DialogBoxIndirect'),
+            dataRow('WM_CLOSE', 'Window close message'),
+            dataRow('Owner window', 'Parent-child via owner'),
+          ],
+        ),
+      ),
       infoCard(
-          'Linux',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('GtkWindow', 'GTK dialog window'),
-              dataRow('Transient for', 'Parent relationship hint'),
-              dataRow('destroy signal', 'Close notification'),
-              dataRow('Window manager', 'Varies by desktop environment'),
-            ],
-          )),
+        'Linux',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('GtkWindow', 'GTK dialog window'),
+            dataRow('Transient for', 'Parent relationship hint'),
+            dataRow('destroy signal', 'Close notification'),
+            dataRow('Window manager', 'Varies by desktop environment'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -713,53 +830,58 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'Common Dialog Types'),
       noteBox(
-          'Different dialog types require different delegate behavior. '
-          'A save confirmation needs veto support, while an about dialog '
-          'just needs simple close handling.'),
+        'Different dialog types require different delegate behavior. '
+        'A save confirmation needs veto support, while an about dialog '
+        'just needs simple close handling.',
+      ),
       infoCard(
-          'Confirmation Dialog',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Purpose', 'Verify destructive action'),
-              dataRow('Modal', 'Yes — blocks parent'),
-              dataRow('Dismiss', 'OK / Cancel buttons'),
-              dataRow('Veto close?', 'No — simple accept/reject'),
-            ],
-          )),
+        'Confirmation Dialog',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Purpose', 'Verify destructive action'),
+            dataRow('Modal', 'Yes — blocks parent'),
+            dataRow('Dismiss', 'OK / Cancel buttons'),
+            dataRow('Veto close?', 'No — simple accept/reject'),
+          ],
+        ),
+      ),
       infoCard(
-          'Form / Settings Dialog',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Purpose', 'Edit configuration'),
-              dataRow('Modal', 'Often non-modal'),
-              dataRow('Dismiss', 'Save + close, Cancel'),
-              dataRow('Veto close?', 'Yes — unsaved changes guard'),
-            ],
-          )),
+        'Form / Settings Dialog',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Purpose', 'Edit configuration'),
+            dataRow('Modal', 'Often non-modal'),
+            dataRow('Dismiss', 'Save + close, Cancel'),
+            dataRow('Veto close?', 'Yes — unsaved changes guard'),
+          ],
+        ),
+      ),
       infoCard(
-          'Wizard Dialog',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Purpose', 'Multi-step process'),
-              dataRow('Modal', 'Yes — guided flow'),
-              dataRow('Dismiss', 'Cancel warns about lost progress'),
-              dataRow('Veto close?', 'Yes — incomplete steps warning'),
-            ],
-          )),
+        'Wizard Dialog',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Purpose', 'Multi-step process'),
+            dataRow('Modal', 'Yes — guided flow'),
+            dataRow('Dismiss', 'Cancel warns about lost progress'),
+            dataRow('Veto close?', 'Yes — incomplete steps warning'),
+          ],
+        ),
+      ),
       infoCard(
-          'Inspector / Panel',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Purpose', 'Floating tool window'),
-              dataRow('Modal', 'No — non-blocking'),
-              dataRow('Dismiss', 'Close freely'),
-              dataRow('Veto close?', 'No'),
-            ],
-          )),
+        'Inspector / Panel',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Purpose', 'Floating tool window'),
+            dataRow('Modal', 'No — non-blocking'),
+            dataRow('Dismiss', 'Close freely'),
+            dataRow('Veto close?', 'No'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -771,31 +893,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Resize Handling'),
       noteBox(
-          'The windowDidResize callback informs the delegate when a dialog '
-          'window is resized. This enables responsive layout adjustments '
-          'and enforcing size constraints.'),
+        'The windowDidResize callback informs the delegate when a dialog '
+        'window is resized. This enables responsive layout adjustments '
+        'and enforcing size constraints.',
+      ),
       infoCard(
-          'Resize Events',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Source', 'User drags window edge'),
-              dataRow('Callback', 'windowDidResize(newSize)'),
-              dataRow('Constraints', 'Min/max enforced by OS'),
-              dataRow('Aspect ratio', 'Optional lock via delegate'),
-            ],
-          )),
+        'Resize Events',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Source', 'User drags window edge'),
+            dataRow('Callback', 'windowDidResize(newSize)'),
+            dataRow('Constraints', 'Min/max enforced by OS'),
+            dataRow('Aspect ratio', 'Optional lock via delegate'),
+          ],
+        ),
+      ),
       infoCard(
-          'Responsive Dialog',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Small (<400px)', 'Single-column layout'),
-              dataRow('Medium (400-700px)', 'Two-column layout'),
-              dataRow('Large (>700px)', 'Full layout with sidebar'),
-              dataRow('Delegate role', 'Notify content to reflow'),
-            ],
-          )),
+        'Responsive Dialog',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Small (<400px)', 'Single-column layout'),
+            dataRow('Medium (400-700px)', 'Two-column layout'),
+            dataRow('Large (>700px)', 'Full layout with sidebar'),
+            dataRow('Delegate role', 'Notify content to reflow'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -807,31 +932,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Dialog Communication'),
       noteBox(
-          'Dialogs need to communicate results back to the parent. The '
-          'delegate pattern facilitates this through close callbacks, '
-          'return values, and shared state.'),
+        'Dialogs need to communicate results back to the parent. The '
+        'delegate pattern facilitates this through close callbacks, '
+        'return values, and shared state.',
+      ),
       infoCard(
-          'Communication Patterns',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Callback closure', 'Pass Function to dialog'),
-              dataRow('Return value', 'Dialog resolves Future<T>'),
-              dataRow('Shared state', 'Both windows access same model'),
-              dataRow('Event bus', 'Cross-window event distribution'),
-            ],
-          )),
+        'Communication Patterns',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Callback closure', 'Pass Function to dialog'),
+            dataRow('Return value', 'Dialog resolves Future<T>'),
+            dataRow('Shared state', 'Both windows access same model'),
+            dataRow('Event bus', 'Cross-window event distribution'),
+          ],
+        ),
+      ),
       infoCard(
-          'Result Types',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Confirmed', 'User accepted (OK/Save/Yes)'),
-              dataRow('Cancelled', 'User dismissed (Cancel/X/Escape)'),
-              dataRow('Data', 'User entered/selected values'),
-              dataRow('No result', 'Info dialog — just acknowledged'),
-            ],
-          )),
+        'Result Types',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Confirmed', 'User accepted (OK/Save/Yes)'),
+            dataRow('Cancelled', 'User dismissed (Cancel/X/Escape)'),
+            dataRow('Data', 'User entered/selected values'),
+            dataRow('No result', 'Info dialog — just acknowledged'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -843,31 +971,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Error Handling'),
       noteBox(
-          'Dialog operations can fail — window creation may be rejected by '
-          'the OS, close may be vetoed unexpectedly, or the parent may '
-          'dispose before the dialog closes.'),
+        'Dialog operations can fail — window creation may be rejected by '
+        'the OS, close may be vetoed unexpectedly, or the parent may '
+        'dispose before the dialog closes.',
+      ),
       infoCard(
-          'Failure Modes',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Creation failed', 'OS refused window allocation'),
-              dataRow('Parent disposed', 'Orphaned dialog window'),
-              dataRow('Focus deadlock', 'Modal dialog behind parent'),
-              dataRow('Infinite veto', 'windowShouldClose always false'),
-            ],
-          )),
+        'Failure Modes',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Creation failed', 'OS refused window allocation'),
+            dataRow('Parent disposed', 'Orphaned dialog window'),
+            dataRow('Focus deadlock', 'Modal dialog behind parent'),
+            dataRow('Infinite veto', 'windowShouldClose always false'),
+          ],
+        ),
+      ),
       infoCard(
-          'Defensive Patterns',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Null-check parent', 'Before referencing parent window'),
-              dataRow('Timeout veto', 'Force close after N seconds'),
-              dataRow('Orphan cleanup', 'Close dialogs on parent dispose'),
-              dataRow('Focus recovery', 'Bring dialog to front if stuck'),
-            ],
-          )),
+        'Defensive Patterns',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Null-check parent', 'Before referencing parent window'),
+            dataRow('Timeout veto', 'Force close after N seconds'),
+            dataRow('Orphan cleanup', 'Close dialogs on parent dispose'),
+            dataRow('Focus recovery', 'Bring dialog to front if stuck'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -879,31 +1010,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Testing'),
       noteBox(
-          'Testing dialog delegates requires simulating window events — '
-          'close requests, focus changes, and resize. Flutter\'s test '
-          'infrastructure provides hooks to simulate these.'),
+        'Testing dialog delegates requires simulating window events — '
+        'close requests, focus changes, and resize. Flutter\'s test '
+        'infrastructure provides hooks to simulate these.',
+      ),
       infoCard(
-          'What to Test',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Veto logic', 'windowShouldClose returns correctly'),
-              dataRow('Cleanup', 'windowDidClose releases resources'),
-              dataRow('Focus handling', 'State updates on focus change'),
-              dataRow('Resize', 'Layout adapts to new size'),
-            ],
-          )),
+        'What to Test',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Veto logic', 'windowShouldClose returns correctly'),
+            dataRow('Cleanup', 'windowDidClose releases resources'),
+            dataRow('Focus handling', 'State updates on focus change'),
+            dataRow('Resize', 'Layout adapts to new size'),
+          ],
+        ),
+      ),
       infoCard(
-          'Mock Approaches',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Mock controller', 'Simulate window events'),
-              dataRow('Fake delegate', 'Record method calls'),
-              dataRow('Integration', 'Real window on CI (desktop)'),
-              dataRow('Golden tests', 'Snapshot dialog layout'),
-            ],
-          )),
+        'Mock Approaches',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Mock controller', 'Simulate window events'),
+            dataRow('Fake delegate', 'Record method calls'),
+            dataRow('Integration', 'Real window on CI (desktop)'),
+            dataRow('Golden tests', 'Snapshot dialog layout'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -915,36 +1049,39 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Comparison with showDialog'),
       noteBox(
-          'showDialog() creates an overlay route, not a real OS window. '
-          'DialogWindowControllerDelegate manages actual OS windows — a '
-          'fundamentally different approach.'),
+        'showDialog() creates an overlay route, not a real OS window. '
+        'DialogWindowControllerDelegate manages actual OS windows — a '
+        'fundamentally different approach.',
+      ),
       infoCard(
-          'showDialog vs Controller Delegate',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('showDialog', 'Overlay route in same window'),
-              dataRow('Controller delegate', 'Separate OS window'),
-              dataRow('showDialog scope', 'All platforms'),
-              dataRow('Delegate scope', 'Desktop only'),
-              dataRow('showDialog modality', 'Route-based barrier'),
-              dataRow('Delegate modality', 'OS-level window modal'),
-              dataRow('showDialog dismiss', 'Navigator.pop()'),
-              dataRow('Delegate dismiss', 'controller.close()'),
-            ],
-          )),
+        'showDialog vs Controller Delegate',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('showDialog', 'Overlay route in same window'),
+            dataRow('Controller delegate', 'Separate OS window'),
+            dataRow('showDialog scope', 'All platforms'),
+            dataRow('Delegate scope', 'Desktop only'),
+            dataRow('showDialog modality', 'Route-based barrier'),
+            dataRow('Delegate modality', 'OS-level window modal'),
+            dataRow('showDialog dismiss', 'Navigator.pop()'),
+            dataRow('Delegate dismiss', 'controller.close()'),
+          ],
+        ),
+      ),
       infoCard(
-          'When to Use Which',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Mobile + web app', 'Always showDialog'),
-              dataRow('Desktop — simple alert', 'showDialog is fine'),
-              dataRow('Desktop — settings panel', 'Controller delegate'),
-              dataRow('Desktop — inspector tool', 'Controller delegate'),
-              dataRow('Multi-window needed', 'Controller delegate'),
-            ],
-          )),
+        'When to Use Which',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Mobile + web app', 'Always showDialog'),
+            dataRow('Desktop — simple alert', 'showDialog is fine'),
+            dataRow('Desktop — settings panel', 'Controller delegate'),
+            dataRow('Desktop — inspector tool', 'Controller delegate'),
+            dataRow('Multi-window needed', 'Controller delegate'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -955,56 +1092,61 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionBanner('16', 'Visual Dashboard'),
-      noteBox('Complete overview of the DialogWindowControllerDelegate deep demo.'),
+      noteBox(
+        'Complete overview of the DialogWindowControllerDelegate deep demo.',
+      ),
       infoCard(
-          'Demo Color Palette',
-          Wrap(
-            children: [
-              colorSwatch('Olive', olive),
-              colorSwatch('Sage', sage),
-              colorSwatch('Deep Olive', deepOlive),
-              colorSwatch('Pale Moss', paleMoss),
-              colorSwatch('Fern', fern),
-              colorSwatch('Mint', mint),
-              colorSwatch('Forest', forest),
-              colorSwatch('Lichen', lichen),
-              colorSwatch('Willow', willow),
-              colorSwatch('Moss', moss),
-            ],
-          )),
+        'Demo Color Palette',
+        Wrap(
+          children: [
+            colorSwatch('Olive', olive),
+            colorSwatch('Sage', sage),
+            colorSwatch('Deep Olive', deepOlive),
+            colorSwatch('Pale Moss', paleMoss),
+            colorSwatch('Fern', fern),
+            colorSwatch('Mint', mint),
+            colorSwatch('Forest', forest),
+            colorSwatch('Lichen', lichen),
+            colorSwatch('Willow', willow),
+            colorSwatch('Moss', moss),
+          ],
+        ),
+      ),
       infoCard(
-          'Section Coverage',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Overview', 1.0, olive),
-              progressBar('Desktop Window Model', 1.0, fern),
-              progressBar('Delegate Protocol', 1.0, moss),
-              progressBar('Window Lifecycle', 1.0, willow),
-              progressBar('Configuration', 1.0, olive),
-              progressBar('Dismissal Strategies', 1.0, fern),
-              progressBar('Parent/Child', 1.0, moss),
-              progressBar('Focus Management', 1.0, willow),
-              progressBar('Platform Integration', 1.0, olive),
-              progressBar('Common Dialogs', 1.0, fern),
-              progressBar('Resize Handling', 1.0, moss),
-              progressBar('Communication', 1.0, willow),
-              progressBar('Error Handling', 1.0, olive),
-              progressBar('Testing', 1.0, fern),
-              progressBar('vs showDialog', 1.0, moss),
-              progressBar('Dashboard', 1.0, willow),
-            ],
-          )),
+        'Section Coverage',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Overview', 1.0, olive),
+            progressBar('Desktop Window Model', 1.0, fern),
+            progressBar('Delegate Protocol', 1.0, moss),
+            progressBar('Window Lifecycle', 1.0, willow),
+            progressBar('Configuration', 1.0, olive),
+            progressBar('Dismissal Strategies', 1.0, fern),
+            progressBar('Parent/Child', 1.0, moss),
+            progressBar('Focus Management', 1.0, willow),
+            progressBar('Platform Integration', 1.0, olive),
+            progressBar('Common Dialogs', 1.0, fern),
+            progressBar('Resize Handling', 1.0, moss),
+            progressBar('Communication', 1.0, willow),
+            progressBar('Error Handling', 1.0, olive),
+            progressBar('Testing', 1.0, fern),
+            progressBar('vs showDialog', 1.0, moss),
+            progressBar('Dashboard', 1.0, willow),
+          ],
+        ),
+      ),
       infoCard(
-          'Statistics',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Total sections', '16'),
-              dataRow('Theme', 'Olive / Sage'),
-              dataRow('Palette colors', '10'),
-            ],
-          )),
+        'Statistics',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Total sections', '16'),
+            dataRow('Theme', 'Olive / Sage'),
+            dataRow('Palette colors', '10'),
+          ],
+        ),
+      ),
       Wrap(
         spacing: 6,
         runSpacing: 4,

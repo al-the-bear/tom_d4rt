@@ -569,7 +569,11 @@ class _HierarchyPainter extends CustomPainter {
       Color textColour,
       double width,
     ) {
-      final Rect r = Rect.fromCenter(center: center, width: width, height: 36.0);
+      final Rect r = Rect.fromCenter(
+        center: center,
+        width: width,
+        height: 36.0,
+      );
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(10.0));
       canvas.drawRRect(rr, Paint()..color = fill);
       canvas.drawRRect(rr, hairlineLight);
@@ -836,7 +840,10 @@ class _DecayPainter extends CustomPainter {
     }
 
     label('v0', Offset(plot.left - 30.0, plot.top - 2.0));
-    label('0.5v0', Offset(plot.left - 36.0, plot.top + plot.height * 0.5 - 6.0));
+    label(
+      '0.5v0',
+      Offset(plot.left - 36.0, plot.top + plot.height * 0.5 - 6.0),
+    );
     label('tol', Offset(plot.left - 30.0, tolY - 6.0));
     label('0s', Offset(plot.left - 4.0, plot.bottom + 4.0));
     label('1s', Offset(plot.left + plot.width / 4.0, plot.bottom + 4.0));
@@ -869,10 +876,18 @@ class _DecayPainter extends CustomPainter {
       tp.paint(canvas, Offset(dx + 28.0, dy - 7.0));
     }
 
-    legend(plot.right - 240.0, plot.top + 14.0, _kCurveNormal,
-        'decel.normal (~0.78)');
-    legend(plot.right - 110.0, plot.top + 14.0, _kCurveFast,
-        'decel.fast (~0.96)');
+    legend(
+      plot.right - 240.0,
+      plot.top + 14.0,
+      _kCurveNormal,
+      'decel.normal (~0.78)',
+    );
+    legend(
+      plot.right - 110.0,
+      plot.top + 14.0,
+      _kCurveFast,
+      'decel.fast (~0.96)',
+    );
   }
 
   @override
@@ -912,12 +927,14 @@ Widget _decaySection() {
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('ScrollDecelerationRate.normal',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: _kCurveNormal,
-                        )),
+                    Text(
+                      'ScrollDecelerationRate.normal',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: _kCurveNormal,
+                      ),
+                    ),
                     SizedBox(height: 4.0),
                     Text(
                       'd = 0.135^(t). At t=1s velocity is ~13.5% of v0. The '
@@ -940,12 +957,14 @@ Widget _decaySection() {
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('ScrollDecelerationRate.fast',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w700,
-                          color: _kCurveFast,
-                        )),
+                    Text(
+                      'ScrollDecelerationRate.fast',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: _kCurveFast,
+                      ),
+                    ),
                     SizedBox(height: 4.0),
                     Text(
                       'd = 0.0006^(t). Velocity collapses quickly - the '
@@ -1000,16 +1019,26 @@ Widget _anatomySection() {
               _kvRow('minFlingDistance', '18.0 logical px'),
               _kvRow('dragStartDistanceMotionThreshold', '3.5 logical px'),
               _kvRow('carriedMomentum(v)', 'sqrt(v.abs()/5000)*v.sign*v'),
-              _kvRow('toleranceFor(metrics)',
-                  'Tolerance(velocity:1/devicePixelRatio*0.1)'),
-              _kvRow('applyPhysicsToUserOffset(p,o)',
-                  'returns offset (overscroll resists)'),
-              _kvRow('applyBoundaryConditions(p,v)',
-                  'returns clipped distance over boundary'),
-              _kvRow('shouldAcceptUserOffset(p)',
-                  'true unless never/scroll-locked'),
-              _kvRow('createBallisticSimulation(p,v)',
-                  'FrictionSimulation or null'),
+              _kvRow(
+                'toleranceFor(metrics)',
+                'Tolerance(velocity:1/devicePixelRatio*0.1)',
+              ),
+              _kvRow(
+                'applyPhysicsToUserOffset(p,o)',
+                'returns offset (overscroll resists)',
+              ),
+              _kvRow(
+                'applyBoundaryConditions(p,v)',
+                'returns clipped distance over boundary',
+              ),
+              _kvRow(
+                'shouldAcceptUserOffset(p)',
+                'true unless never/scroll-locked',
+              ),
+              _kvRow(
+                'createBallisticSimulation(p,v)',
+                'FrictionSimulation or null',
+              ),
               _kvRow('decelerationRate', 'ScrollDecelerationRate.normal'),
             ],
           ),
@@ -1027,16 +1056,24 @@ Widget _anatomySection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _kvRow('bouncing.minFlingVelocity',
-                  bouncing.minFlingVelocity.toStringAsFixed(1)),
-              _kvRow('bouncing.maxFlingVelocity',
-                  bouncing.maxFlingVelocity.toStringAsFixed(1)),
-              _kvRow('clamping.minFlingDistance',
-                  clamping.minFlingDistance.toStringAsFixed(2)),
+              _kvRow(
+                'bouncing.minFlingVelocity',
+                bouncing.minFlingVelocity.toStringAsFixed(1),
+              ),
+              _kvRow(
+                'bouncing.maxFlingVelocity',
+                bouncing.maxFlingVelocity.toStringAsFixed(1),
+              ),
+              _kvRow(
+                'clamping.minFlingDistance',
+                clamping.minFlingDistance.toStringAsFixed(2),
+              ),
               _kvRow('paging.runtimeType', paging.runtimeType.toString()),
               _kvRow('never.runtimeType', never.runtimeType.toString()),
-              _kvRow('never.allowImplicitScrolling',
-                  never.allowImplicitScrolling.toString()),
+              _kvRow(
+                'never.allowImplicitScrolling',
+                never.allowImplicitScrolling.toString(),
+              ),
             ],
           ),
         ),
@@ -1077,9 +1114,7 @@ Widget _miniListPreview({
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
               color: i.isEven ? Colors.white : const Color(0xFFF1F4F8),
-              border: Border(
-                left: BorderSide(color: colour, width: 3.0),
-              ),
+              border: Border(left: BorderSide(color: colour, width: 3.0)),
             ),
             child: Text(
               rows[i],
@@ -1467,88 +1502,88 @@ Widget _recipesSection() {
       _codeBlock(
         title: 'choose physics by platform',
         '// Pick deceleration rate based on platform target.\n'
-            'ScrollPhysics pickPhysics(BuildContext context) {\n'
-            '  switch (Theme.of(context).platform) {\n'
-            '    case TargetPlatform.iOS:\n'
-            '    case TargetPlatform.macOS:\n'
-            '      return const BouncingScrollPhysics(\n'
-            '        decelerationRate: ScrollDecelerationRate.fast,\n'
-            '      );\n'
-            '    default:\n'
-            '      return const ClampingScrollPhysics();\n'
-            '  }\n'
-            '}',
+        'ScrollPhysics pickPhysics(BuildContext context) {\n'
+        '  switch (Theme.of(context).platform) {\n'
+        '    case TargetPlatform.iOS:\n'
+        '    case TargetPlatform.macOS:\n'
+        '      return const BouncingScrollPhysics(\n'
+        '        decelerationRate: ScrollDecelerationRate.fast,\n'
+        '      );\n'
+        '    default:\n'
+        '      return const ClampingScrollPhysics();\n'
+        '  }\n'
+        '}',
       ),
       _codeBlock(
         title: 'compose with .applyTo(parent)',
         '// The Decorator pattern lets you stack physics. AlwaysScrollable\n'
-            '// forces overscroll; the parent provides the deceleration shape.\n'
-            'final ScrollPhysics composed = const AlwaysScrollableScrollPhysics()\n'
-            '    .applyTo(const BouncingScrollPhysics());\n'
-            '\n'
-            '// Equivalent constructor form:\n'
-            'final ScrollPhysics composedB = const AlwaysScrollableScrollPhysics(\n'
-            '  parent: BouncingScrollPhysics(),\n'
-            ');',
+        '// forces overscroll; the parent provides the deceleration shape.\n'
+        'final ScrollPhysics composed = const AlwaysScrollableScrollPhysics()\n'
+        '    .applyTo(const BouncingScrollPhysics());\n'
+        '\n'
+        '// Equivalent constructor form:\n'
+        'final ScrollPhysics composedB = const AlwaysScrollableScrollPhysics(\n'
+        '  parent: BouncingScrollPhysics(),\n'
+        ');',
       ),
       _codeBlock(
         title: 'custom physics subclass',
         '// Cap fling velocity to slow the glide to a crawl.\n'
-            'class SlowFlingPhysics extends BouncingScrollPhysics {\n'
-            '  const SlowFlingPhysics({super.parent});\n'
-            '\n'
-            '  @override\n'
-            '  SlowFlingPhysics applyTo(ScrollPhysics? ancestor) =>\n'
-            '      SlowFlingPhysics(parent: buildParent(ancestor));\n'
-            '\n'
-            '  @override\n'
-            '  double get maxFlingVelocity => 1500.0; // default 8000.0\n'
-            '\n'
-            '  @override\n'
-            '  double get minFlingDistance => 24.0;   // deliberate flings\n'
-            '}',
+        'class SlowFlingPhysics extends BouncingScrollPhysics {\n'
+        '  const SlowFlingPhysics({super.parent});\n'
+        '\n'
+        '  @override\n'
+        '  SlowFlingPhysics applyTo(ScrollPhysics? ancestor) =>\n'
+        '      SlowFlingPhysics(parent: buildParent(ancestor));\n'
+        '\n'
+        '  @override\n'
+        '  double get maxFlingVelocity => 1500.0; // default 8000.0\n'
+        '\n'
+        '  @override\n'
+        '  double get minFlingDistance => 24.0;   // deliberate flings\n'
+        '}',
       ),
       _codeBlock(
         title: 'snap to page index',
         '// PageScrollPhysics replaces the ballistic glide with a spring\n'
-            '// aimed at the nearest page boundary. The viewport drives the\n'
-            '// "page" definition (PageController.viewportFraction).\n'
-            'final PageController controller = PageController(viewportFraction: 0.86);\n'
-            'final Widget pager = PageView.builder(\n'
-            '  controller: controller,\n'
-            '  physics: const PageScrollPhysics(\n'
-            '    parent: BouncingScrollPhysics(),\n'
-            '  ),\n'
-            '  itemCount: pages.length,\n'
-            '  itemBuilder: (BuildContext c, int i) => pages[i],\n'
-            ');',
+        '// aimed at the nearest page boundary. The viewport drives the\n'
+        '// "page" definition (PageController.viewportFraction).\n'
+        'final PageController controller = PageController(viewportFraction: 0.86);\n'
+        'final Widget pager = PageView.builder(\n'
+        '  controller: controller,\n'
+        '  physics: const PageScrollPhysics(\n'
+        '    parent: BouncingScrollPhysics(),\n'
+        '  ),\n'
+        '  itemCount: pages.length,\n'
+        '  itemBuilder: (BuildContext c, int i) => pages[i],\n'
+        ');',
       ),
       _codeBlock(
         title: 'disable inner scrollable',
         '// In a NestedScrollView the inner Scrollable should not scroll\n'
-            '// independently; only the outer body handles the gesture.\n'
-            'return NestedScrollView(\n'
-            '  headerSliverBuilder: (BuildContext c, bool inner) => <Widget>[],\n'
-            '  body: ListView(\n'
-            '    physics: const NeverScrollableScrollPhysics(),\n'
-            '    children: rows,\n'
-            '  ),\n'
-            ');',
+        '// independently; only the outer body handles the gesture.\n'
+        'return NestedScrollView(\n'
+        '  headerSliverBuilder: (BuildContext c, bool inner) => <Widget>[],\n'
+        '  body: ListView(\n'
+        '    physics: const NeverScrollableScrollPhysics(),\n'
+        '    children: rows,\n'
+        '  ),\n'
+        ');',
       ),
       _codeBlock(
         title: 'pull-to-refresh on short lists',
         '// Without AlwaysScrollable, short lists wont accept the overscroll\n'
-            '// gesture that RefreshIndicator needs.\n'
-            'return RefreshIndicator(\n'
-            '  onRefresh: refresh,\n'
-            '  child: ListView.builder(\n'
-            '    physics: const AlwaysScrollableScrollPhysics(\n'
-            '      parent: BouncingScrollPhysics(),\n'
-            '    ),\n'
-            '    itemCount: items.length,\n'
-            '    itemBuilder: (BuildContext c, int i) => buildRow(items[i]),\n'
-            '  ),\n'
-            ');',
+        '// gesture that RefreshIndicator needs.\n'
+        'return RefreshIndicator(\n'
+        '  onRefresh: refresh,\n'
+        '  child: ListView.builder(\n'
+        '    physics: const AlwaysScrollableScrollPhysics(\n'
+        '      parent: BouncingScrollPhysics(),\n'
+        '    ),\n'
+        '    itemCount: items.length,\n'
+        '    itemBuilder: (BuildContext c, int i) => buildRow(items[i]),\n'
+        '  ),\n'
+        ');',
       ),
     ],
   );
@@ -1805,8 +1840,10 @@ Widget _pitfallsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Common pitfalls',
-            subtitle: 'Six callouts to keep in mind.'),
+        _cardTitle(
+          'Common pitfalls',
+          subtitle: 'Six callouts to keep in mind.',
+        ),
         const SizedBox(height: 10.0),
         _pitfallTile(
           tag: '01',
@@ -1952,55 +1989,39 @@ Widget _cheatSheetFooter() {
           ),
         ),
         const SizedBox(height: 14.0),
-        _chipGroup(
-          'CONFIG GETTERS',
-          const <String>[
-            'minFlingVelocity',
-            'maxFlingVelocity',
-            'minFlingDistance',
-            'dragStartDistanceMotionThreshold',
-            'decelerationRate',
-            'allowImplicitScrolling',
-          ],
-          const Color(0xFFA7F3D0),
-        ),
-        _chipGroup(
-          'PHYSICS HOOKS',
-          const <String>[
-            'applyPhysicsToUserOffset',
-            'applyBoundaryConditions',
-            'shouldAcceptUserOffset',
-            'createBallisticSimulation',
-            'toleranceFor',
-            'carriedMomentum',
-          ],
-          const Color(0xFF93C5FD),
-        ),
-        _chipGroup(
-          'COMPOSITION',
-          const <String>['applyTo', 'parent', 'buildParent'],
-          const Color(0xFFFBCFE8),
-        ),
-        _chipGroup(
-          'SIMULATIONS (physics.dart)',
-          const <String>[
-            'FrictionSimulation',
-            'BouncingScrollSimulation',
-            'ClampingScrollSimulation',
-            'ScrollSpringSimulation',
-            'Tolerance',
-          ],
-          const Color(0xFFFDE68A),
-        ),
-        _chipGroup(
-          'ENUMS',
-          const <String>[
-            'ScrollDecelerationRate.normal',
-            'ScrollDecelerationRate.fast',
-            'ScrollPositionAlignmentPolicy.explicit',
-          ],
-          const Color(0xFFC4B5FD),
-        ),
+        _chipGroup('CONFIG GETTERS', const <String>[
+          'minFlingVelocity',
+          'maxFlingVelocity',
+          'minFlingDistance',
+          'dragStartDistanceMotionThreshold',
+          'decelerationRate',
+          'allowImplicitScrolling',
+        ], const Color(0xFFA7F3D0)),
+        _chipGroup('PHYSICS HOOKS', const <String>[
+          'applyPhysicsToUserOffset',
+          'applyBoundaryConditions',
+          'shouldAcceptUserOffset',
+          'createBallisticSimulation',
+          'toleranceFor',
+          'carriedMomentum',
+        ], const Color(0xFF93C5FD)),
+        _chipGroup('COMPOSITION', const <String>[
+          'applyTo',
+          'parent',
+          'buildParent',
+        ], const Color(0xFFFBCFE8)),
+        _chipGroup('SIMULATIONS (physics.dart)', const <String>[
+          'FrictionSimulation',
+          'BouncingScrollSimulation',
+          'ClampingScrollSimulation',
+          'ScrollSpringSimulation',
+          'Tolerance',
+        ], const Color(0xFFFDE68A)),
+        _chipGroup('ENUMS', const <String>[
+          'ScrollDecelerationRate.normal',
+          'ScrollDecelerationRate.fast',
+          'ScrollPositionAlignmentPolicy.explicit',
+        ], const Color(0xFFC4B5FD)),
         const SizedBox(height: 6.0),
         const Text(
           '"Velocity decays. Geometry constrains. Composition wins."',

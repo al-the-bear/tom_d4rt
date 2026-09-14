@@ -64,54 +64,49 @@ void main() {
     await SendTestRunner.tearDown();
   });
 
-  group('SCC48: framework errors are attributed to the script that raised them',
-      () {
-    test(
-      'F-SCC48-1: the offender probe raises a framework error, and it is a '
-      'ListTile advisory',
-      () async {
-        final result = await SendTestRunner.send(_offender);
+  group('SCC48: framework errors are attributed to the script that raised them', () {
+    test('F-SCC48-1: the offender probe raises a framework error, and it is a '
+        'ListTile advisory', () async {
+      final result = await SendTestRunner.send(_offender);
 
-        expect(
-          result.hasFrameworkErrors,
-          isTrue,
-          reason:
-              'The offender probe exists to produce a framework error. If it '
-              'stopped producing one, this whole test file is vacuous — the '
-              'later assertions would pass no matter how the harness behaved. '
-              'First suspect is the GUARD, not the check: the walk at '
-              'list_tile.dart:1147 only runs when onTap/onLongPress is set or '
-              'the tile has an opaque background (list_tile.dart:832). The '
-              'probe opens that gate with an explicit tileColor; drop it and '
-              'this assertion fails with frameworkErrors=0, which is exactly '
-              'how the first draft failed on 2026-09-06. Only after ruling '
-              'that out, check whether Flutter still ships '
-              'ListTile._debugCheckBackgroundIsHidden at all.',
-        );
-        expect(
-          result.frameworkErrors.every((e) => e.contains('ListTile')),
-          isTrue,
-          reason: 'Every captured error should be the advisory this probe '
-              'raises, not something inherited: ${result.frameworkErrors}',
-        );
-      },
-    );
+      expect(
+        result.hasFrameworkErrors,
+        isTrue,
+        reason:
+            'The offender probe exists to produce a framework error. If it '
+            'stopped producing one, this whole test file is vacuous — the '
+            'later assertions would pass no matter how the harness behaved. '
+            'First suspect is the GUARD, not the check: the walk at '
+            'list_tile.dart:1147 only runs when onTap/onLongPress is set or '
+            'the tile has an opaque background (list_tile.dart:832). The '
+            'probe opens that gate with an explicit tileColor; drop it and '
+            'this assertion fails with frameworkErrors=0, which is exactly '
+            'how the first draft failed on 2026-09-06. Only after ruling '
+            'that out, check whether Flutter still ships '
+            'ListTile._debugCheckBackgroundIsHidden at all.',
+      );
+      expect(
+        result.frameworkErrors.every((e) => e.contains('ListTile')),
+        isTrue,
+        reason:
+            'Every captured error should be the advisory this probe '
+            'raises, not something inherited: ${result.frameworkErrors}',
+      );
+    });
 
-    test(
-      'F-SCC48-2: the victim probe is clean when run on its own',
-      () async {
-        final result = await SendTestRunner.send(_victim);
+    test('F-SCC48-2: the victim probe is clean when run on its own', () async {
+      final result = await SendTestRunner.send(_victim);
 
-        expect(result.success, isTrue, reason: result.error);
-        expect(
-          result.hasFrameworkErrors,
-          isFalse,
-          reason: 'Baseline for F-SCC48-3. The victim differs from the '
-              'offender only by a layout-neutral Material, so it must be '
-              'clean in isolation: ${result.frameworkErrors}',
-        );
-      },
-    );
+      expect(result.success, isTrue, reason: result.error);
+      expect(
+        result.hasFrameworkErrors,
+        isFalse,
+        reason:
+            'Baseline for F-SCC48-3. The victim differs from the '
+            'offender only by a layout-neutral Material, so it must be '
+            'clean in isolation: ${result.frameworkErrors}',
+      );
+    });
 
     test(
       'F-SCC48-3: the victim is still clean immediately after the offender — '

@@ -12,7 +12,6 @@ class _StaticCallbackHost {
   void instanceEntryCallback() {}
 }
 
-
 dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -24,7 +23,8 @@ class _PluginUtilitiesDemoPage extends StatefulWidget {
   const _PluginUtilitiesDemoPage();
 
   @override
-  State<_PluginUtilitiesDemoPage> createState() => _PluginUtilitiesDemoPageState();
+  State<_PluginUtilitiesDemoPage> createState() =>
+      _PluginUtilitiesDemoPageState();
 }
 
 class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
@@ -46,9 +46,21 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
   double _animValue = 0.0;
 
   final List<List<Color>> _themes = <List<Color>>[
-    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
-    <Color>[const Color(0xFF172554), const Color(0xFF1D4ED8), const Color(0xFF60A5FA)],
-    <Color>[const Color(0xFF052E16), const Color(0xFF166534), const Color(0xFF4ADE80)],
+    <Color>[
+      const Color(0xFF0F172A),
+      const Color(0xFF1E293B),
+      const Color(0xFF38BDF8),
+    ],
+    <Color>[
+      const Color(0xFF172554),
+      const Color(0xFF1D4ED8),
+      const Color(0xFF60A5FA),
+    ],
+    <Color>[
+      const Color(0xFF052E16),
+      const Color(0xFF166534),
+      const Color(0xFF4ADE80),
+    ],
   ];
 
   static const List<String> _sourceLabels = <String>[
@@ -111,8 +123,12 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
         note = 'Callback type is not supported for background lookup.';
       } else {
         final int raw = handle.toRawHandle();
-        final ui.CallbackHandle reconstructed = ui.CallbackHandle.fromRawHandle(raw);
-        final Function? restored = ui.PluginUtilities.getCallbackFromHandle(reconstructed);
+        final ui.CallbackHandle reconstructed = ui.CallbackHandle.fromRawHandle(
+          raw,
+        );
+        final Function? restored = ui.PluginUtilities.getCallbackFromHandle(
+          reconstructed,
+        );
         callbackResolved = restored != null;
         if (restored is void Function()) {
           restored();
@@ -143,9 +159,13 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
     }
 
     if (_autoRoundTrip && handle != null) {
-      _log('Generated handle for $sourceLabel with raw=${handle.toRawHandle()} and auto round-trip enabled.');
+      _log(
+        'Generated handle for $sourceLabel with raw=${handle.toRawHandle()} and auto round-trip enabled.',
+      );
     } else if (handle == null) {
-      _log('No handle generated for $sourceLabel (expected for unsupported callback forms).');
+      _log(
+        'No handle generated for $sourceLabel (expected for unsupported callback forms).',
+      );
     }
     setState(() {});
   }
@@ -162,30 +182,52 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       }
     }
 
-    probe('PluginUtilities class name is present', 'PluginUtilities'.contains('Plugin'));
+    probe(
+      'PluginUtilities class name is present',
+      'PluginUtilities'.contains('Plugin'),
+    );
 
-    final ui.CallbackHandle? topHandle = ui.PluginUtilities.getCallbackHandle(_topLevelSyncCallback);
+    final ui.CallbackHandle? topHandle = ui.PluginUtilities.getCallbackHandle(
+      _topLevelSyncCallback,
+    );
     probe('Top-level callback can produce handle', topHandle != null);
 
-    final ui.CallbackHandle? staticHandle = ui.PluginUtilities.getCallbackHandle(_StaticCallbackHost.staticEntryCallback);
+    final ui.CallbackHandle? staticHandle =
+        ui.PluginUtilities.getCallbackHandle(
+          _StaticCallbackHost.staticEntryCallback,
+        );
     probe('Static callback can produce handle', staticHandle != null);
 
-    final ui.CallbackHandle? closureHandle = ui.PluginUtilities.getCallbackHandle(() {});
+    final ui.CallbackHandle? closureHandle =
+        ui.PluginUtilities.getCallbackHandle(() {});
     probe('Inline closure returns null handle', closureHandle == null);
 
     if (topHandle != null) {
       final int raw = topHandle.toRawHandle();
       final ui.CallbackHandle rebuilt = ui.CallbackHandle.fromRawHandle(raw);
-      final Function? callback = ui.PluginUtilities.getCallbackFromHandle(rebuilt);
-      probe('Round-trip callback lookup succeeds for top-level callback', callback != null);
+      final Function? callback = ui.PluginUtilities.getCallbackFromHandle(
+        rebuilt,
+      );
+      probe(
+        'Round-trip callback lookup succeeds for top-level callback',
+        callback != null,
+      );
       probe('Raw handle is non-zero', raw != 0);
     } else {
-      probe('Round-trip callback lookup succeeds for top-level callback', false);
+      probe(
+        'Round-trip callback lookup succeeds for top-level callback',
+        false,
+      );
       probe('Raw handle is non-zero', false);
     }
 
-    probe('summary text can be generated', '${_passed.length + _failed.length} checks'.endsWith('checks'));
-    _log('Runtime probes completed with ${_passed.length} pass and ${_failed.length} fail.');
+    probe(
+      'summary text can be generated',
+      '${_passed.length + _failed.length} checks'.endsWith('checks'),
+    );
+    _log(
+      'Runtime probes completed with ${_passed.length} pass and ${_failed.length} fail.',
+    );
     setState(() {});
   }
 
@@ -197,14 +239,24 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: theme),
         borderRadius: BorderRadius.circular(16),
-        boxShadow: <BoxShadow>[BoxShadow(color: theme[1].withAlpha(90), blurRadius: 16, offset: const Offset(0, 8))],
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: theme[1].withAlpha(90),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             'PluginUtilities Callback-Handle Studio',
-            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           SizedBox(height: 8),
           Text(
@@ -231,7 +283,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: accent.withAlpha(38), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(
+              color: accent.withAlpha(38),
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Icon(icon, color: accent),
           ),
           const SizedBox(width: 10),
@@ -239,7 +294,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -266,7 +324,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
             children: <Widget>[
               Icon(icon, color: color),
               const SizedBox(height: 8),
-              Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+              Text(
+                title,
+                style: TextStyle(color: color, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 4),
               Text(body, style: const TextStyle(fontSize: 12)),
             ],
@@ -279,14 +340,30 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          card('Source constraints', 'Only top-level and static callbacks are valid handle sources.', Icons.rule,
-              const Color(0xFF1D4ED8)),
-          card('Handle serialization', 'CallbackHandle converts to raw integers for transport.', Icons.numbers,
-              const Color(0xFF047857)),
-          card('Runtime lookup', 'getCallbackFromHandle resolves callable entries at runtime.', Icons.search,
-              const Color(0xFF7C3AED)),
-          card('Operational diagnostics', 'This panel tracks generation, failures, and invocation outcomes.', Icons.analytics,
-              const Color(0xFFB45309)),
+          card(
+            'Source constraints',
+            'Only top-level and static callbacks are valid handle sources.',
+            Icons.rule,
+            const Color(0xFF1D4ED8),
+          ),
+          card(
+            'Handle serialization',
+            'CallbackHandle converts to raw integers for transport.',
+            Icons.numbers,
+            const Color(0xFF047857),
+          ),
+          card(
+            'Runtime lookup',
+            'getCallbackFromHandle resolves callable entries at runtime.',
+            Icons.search,
+            const Color(0xFF7C3AED),
+          ),
+          card(
+            'Operational diagnostics',
+            'This panel tracks generation, failures, and invocation outcomes.',
+            Icons.analytics,
+            const Color(0xFFB45309),
+          ),
         ],
       ),
     );
@@ -304,7 +381,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Callback source and pipeline controls', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Callback source and pipeline controls',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           DropdownButton<int>(
             isExpanded: true,
@@ -317,19 +397,42 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
             },
             items: List<DropdownMenuItem<int>>.generate(
               _sourceLabels.length,
-              (int index) => DropdownMenuItem<int>(value: index, child: Text(_sourceLabels[index])),
+              (int index) => DropdownMenuItem<int>(
+                value: index,
+                child: Text(_sourceLabels[index]),
+              ),
             ),
           ),
           Text('Pipeline node spacing: ${_nodeSpacing.toStringAsFixed(0)}'),
-          Slider(value: _nodeSpacing, min: 8, max: 42, divisions: 34, onChanged: (double v) => setState(() => _nodeSpacing = v)),
+          Slider(
+            value: _nodeSpacing,
+            min: 8,
+            max: 42,
+            divisions: 34,
+            onChanged: (double v) => setState(() => _nodeSpacing = v),
+          ),
           Text('Pulse strength: ${_pulseStrength.toStringAsFixed(2)}'),
-          Slider(value: _pulseStrength, min: 0, max: 1, divisions: 100, onChanged: (double v) => setState(() => _pulseStrength = v)),
+          Slider(
+            value: _pulseStrength,
+            min: 0,
+            max: 1,
+            divisions: 100,
+            onChanged: (double v) => setState(() => _pulseStrength = v),
+          ),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              FilterChip(label: const Text('show raw grid'), selected: _showRawGrid, onSelected: (bool v) => setState(() => _showRawGrid = v)),
-              FilterChip(label: const Text('auto round-trip'), selected: _autoRoundTrip, onSelected: (bool v) => setState(() => _autoRoundTrip = v)),
+              FilterChip(
+                label: const Text('show raw grid'),
+                selected: _showRawGrid,
+                onSelected: (bool v) => setState(() => _showRawGrid = v),
+              ),
+              FilterChip(
+                label: const Text('auto round-trip'),
+                selected: _autoRoundTrip,
+                onSelected: (bool v) => setState(() => _autoRoundTrip = v),
+              ),
               FilterChip(
                 label: const Text('animate pipeline'),
                 selected: _animatePipeline,
@@ -369,7 +472,9 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
                 label: const Text('Run Probes'),
               ),
               OutlinedButton.icon(
-                onPressed: () => setState(() => _themeIndex = (_themeIndex + 1) % _themes.length),
+                onPressed: () => setState(
+                  () => _themeIndex = (_themeIndex + 1) % _themes.length,
+                ),
                 icon: const Icon(Icons.palette_outlined),
                 label: const Text('Theme'),
               ),
@@ -392,7 +497,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('CallbackHandle flow visualization', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'CallbackHandle flow visualization',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -430,7 +538,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Handle records timeline', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Handle records timeline',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             height: 240,
@@ -438,15 +549,22 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
                 ? const Center(
                     child: Text(
                       'No records yet. Generate handles from the control panel.',
-                      style: TextStyle(fontSize: 12.2, color: Color(0xFF64748B)),
+                      style: TextStyle(
+                        fontSize: 12.2,
+                        color: Color(0xFF64748B),
+                      ),
                     ),
                   )
                 : ListView.builder(
                     itemCount: _records.length,
                     itemBuilder: (BuildContext context, int index) {
                       final _HandleRecord record = _records[index];
-                      final bool ok = record.status == 'created' && record.rawHandle != null;
-                      final Color tone = ok ? const Color(0xFF15803D) : const Color(0xFFB91C1C);
+                      final bool ok =
+                          record.status == 'created' &&
+                          record.rawHandle != null;
+                      final Color tone = ok
+                          ? const Color(0xFF15803D)
+                          : const Color(0xFFB91C1C);
                       final String time =
                           '${record.timestamp.hour.toString().padLeft(2, '0')}:${record.timestamp.minute.toString().padLeft(2, '0')}:${record.timestamp.second.toString().padLeft(2, '0')}';
                       return Container(
@@ -462,7 +580,11 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(ok ? Icons.check_circle : Icons.error, color: tone, size: 18),
+                                Icon(
+                                  ok ? Icons.check_circle : Icons.error,
+                                  color: tone,
+                                  size: 18,
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
@@ -503,7 +625,9 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
           children: <Widget>[
             Icon(ok ? Icons.check_circle : Icons.cancel, color: tone, size: 18),
             const SizedBox(width: 8),
-            Expanded(child: Text(title, style: const TextStyle(fontSize: 12.2))),
+            Expanded(
+              child: Text(title, style: const TextStyle(fontSize: 12.2)),
+            ),
           ],
         ),
       );
@@ -520,7 +644,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Runtime probe dashboard',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),
@@ -533,10 +660,22 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
 
   Widget _guidancePanel() {
     final List<_GuideLine> lines = <_GuideLine>[
-      const _GuideLine('Use top-level/static entrypoints', 'PluginUtilities only recognizes stable entry references.'),
-      const _GuideLine('Avoid closures for handles', 'Anonymous closures typically resolve to null handles.'),
-      const _GuideLine('Persist raw handles safely', 'Round-trip through toRawHandle/fromRawHandle for transport.'),
-      const _GuideLine('Validate callback retrieval', 'Always verify getCallbackFromHandle before invoking.'),
+      const _GuideLine(
+        'Use top-level/static entrypoints',
+        'PluginUtilities only recognizes stable entry references.',
+      ),
+      const _GuideLine(
+        'Avoid closures for handles',
+        'Anonymous closures typically resolve to null handles.',
+      ),
+      const _GuideLine(
+        'Persist raw handles safely',
+        'Round-trip through toRawHandle/fromRawHandle for transport.',
+      ),
+      const _GuideLine(
+        'Validate callback retrieval',
+        'Always verify getCallbackFromHandle before invoking.',
+      ),
     ];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -549,7 +688,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Operational guidance', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Operational guidance',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           ...lines.map((e) {
             return Padding(
@@ -559,10 +701,19 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
                 children: <Widget>[
                   const Padding(
                     padding: EdgeInsets.only(top: 3),
-                    child: Icon(Icons.circle, size: 8, color: Color(0xFF334155)),
+                    child: Icon(
+                      Icons.circle,
+                      size: 8,
+                      color: Color(0xFF334155),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  Expanded(child: Text('${e.title}: ${e.body}', style: const TextStyle(fontSize: 12.2))),
+                  Expanded(
+                    child: Text(
+                      '${e.title}: ${e.body}',
+                      style: const TextStyle(fontSize: 12.2),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -584,7 +735,10 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Event log timeline', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Event log timeline',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           Container(
             height: 180,
@@ -598,8 +752,14 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
               itemCount: _eventLog.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  child: Text(_eventLog[index], style: const TextStyle(fontSize: 12)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    _eventLog[index],
+                    style: const TextStyle(fontSize: 12),
+                  ),
                 );
               },
             ),
@@ -640,23 +800,47 @@ class _PluginUtilitiesDemoPageState extends State<_PluginUtilitiesDemoPage> {
       body: ListView(
         children: <Widget>[
           _header(),
-          _section('1) Concept mapping', 'Understand callback-handle primitives and constraints.', Icons.menu_book,
-              const Color(0xFF1D4ED8)),
+          _section(
+            '1) Concept mapping',
+            'Understand callback-handle primitives and constraints.',
+            Icons.menu_book,
+            const Color(0xFF1D4ED8),
+          ),
           _conceptCards(),
-          _section('2) Source lab', 'Generate and inspect callback handles from different callback forms.', Icons.tune,
-              const Color(0xFF7C3AED)),
+          _section(
+            '2) Source lab',
+            'Generate and inspect callback handles from different callback forms.',
+            Icons.tune,
+            const Color(0xFF7C3AED),
+          ),
           _controlPanel(),
-          _section('3) Pipeline preview', 'Visual flow from callback source to callback restoration.', Icons.account_tree,
-              const Color(0xFF047857)),
+          _section(
+            '3) Pipeline preview',
+            'Visual flow from callback source to callback restoration.',
+            Icons.account_tree,
+            const Color(0xFF047857),
+          ),
           _pipelinePanel(),
-          _section('4) Handle timeline', 'Track per-attempt status, raw values, and callback outcomes.', Icons.timeline,
-              const Color(0xFFB45309)),
+          _section(
+            '4) Handle timeline',
+            'Track per-attempt status, raw values, and callback outcomes.',
+            Icons.timeline,
+            const Color(0xFFB45309),
+          ),
           _recordsPanel(),
-          _section('5) Probe checks', 'Runtime checks for valid and invalid callback forms.', Icons.fact_check,
-              const Color(0xFF166534)),
+          _section(
+            '5) Probe checks',
+            'Runtime checks for valid and invalid callback forms.',
+            Icons.fact_check,
+            const Color(0xFF166534),
+          ),
           _probePanel(),
-          _section('6) Guidance and logs', 'Best practices and chronological diagnostics.', Icons.notes,
-              const Color(0xFF475569)),
+          _section(
+            '6) Guidance and logs',
+            'Best practices and chronological diagnostics.',
+            Icons.notes,
+            const Color(0xFF475569),
+          ),
           _guidancePanel(),
           _logPanel(),
           _summaryPanel(),
@@ -711,7 +895,10 @@ class _PipelinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(22);
-    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
+      bg,
+    );
 
     if (showGrid) {
       final Paint gp = Paint()
@@ -726,25 +913,53 @@ class _PipelinePainter extends CustomPainter {
       }
     }
 
-    final List<String> nodes = <String>['Callback Source', 'PluginUtilities.getCallbackHandle', 'Raw Handle', 'fromRawHandle', 'getCallbackFromHandle'];
+    final List<String> nodes = <String>[
+      'Callback Source',
+      'PluginUtilities.getCallbackHandle',
+      'Raw Handle',
+      'fromRawHandle',
+      'getCallbackFromHandle',
+    ];
     final double y = size.height * 0.55;
     final double start = 24;
-    final double width = (size.width - 48 - (nodes.length - 1) * spacing) / nodes.length;
+    final double width =
+        (size.width - 48 - (nodes.length - 1) * spacing) / nodes.length;
 
     for (int i = 0; i < nodes.length; i++) {
-      final Rect rect = Rect.fromLTWH(start + i * (width + spacing), y, width, 44);
+      final Rect rect = Rect.fromLTWH(
+        start + i * (width + spacing),
+        y,
+        width,
+        44,
+      );
       final double t = (i / (nodes.length - 1));
-      final Color c = Color.lerp(const Color(0xFF2563EB), const Color(0xFF22C55E), t) ?? const Color(0xFF2563EB);
+      final Color c =
+          Color.lerp(const Color(0xFF2563EB), const Color(0xFF22C55E), t) ??
+          const Color(0xFF2563EB);
       canvas.drawRRect(
         RRect.fromRectAndRadius(rect, const Radius.circular(8)),
-        Paint()..color = c.withAlpha((120 + 90 * pulse * pulseStrength).toInt()),
+        Paint()
+          ..color = c.withAlpha((120 + 90 * pulse * pulseStrength).toInt()),
       );
       final TextPainter tp = TextPainter(
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
-        text: TextSpan(text: nodes[i], style: const TextStyle(color: Colors.white, fontSize: 10.5, fontWeight: FontWeight.w600)),
+        text: TextSpan(
+          text: nodes[i],
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 10.5,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       )..layout(maxWidth: rect.width - 8);
-      tp.paint(canvas, Offset(rect.left + (rect.width - tp.width) / 2, rect.top + (rect.height - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset(
+          rect.left + (rect.width - tp.width) / 2,
+          rect.top + (rect.height - tp.height) / 2,
+        ),
+      );
 
       if (i < nodes.length - 1) {
         final Offset a = Offset(rect.right + 2, rect.center.dy);
@@ -765,7 +980,11 @@ class _PipelinePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
       text: TextSpan(
         text: 'Selected source: $sourceLabel',
-        style: const TextStyle(fontSize: 12, color: Color(0xFF0F172A), fontWeight: FontWeight.w700),
+        style: const TextStyle(
+          fontSize: 12,
+          color: Color(0xFF0F172A),
+          fontWeight: FontWeight.w700,
+        ),
       ),
     )..layout(maxWidth: size.width - 20);
     source.paint(canvas, const Offset(10, 12));

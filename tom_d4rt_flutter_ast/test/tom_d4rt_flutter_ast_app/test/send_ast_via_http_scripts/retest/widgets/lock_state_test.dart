@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child:
-          Text(text, style: TextStyle(fontSize: 13, color: deepGraphite)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: deepGraphite)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepGraphite)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: deepGraphite),
+            ),
           ),
         ],
       ),
@@ -186,32 +199,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('LockState',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                'LockState',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 6),
               Text(
-                  'Enum for keyboard lock key requirements in shortcut activators',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 14)),
+                'Enum for keyboard lock key requirements in shortcut activators',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Enum', gunmetal, Colors.white),
-                tag('3 Values', titanium, Colors.white),
-                tag('Shortcuts', pewter, Colors.white),
-                tag('SingleActivator', silver, deepGraphite),
-              ]),
+              Wrap(
+                children: [
+                  tag('Enum', gunmetal, Colors.white),
+                  tag('3 Values', titanium, Colors.white),
+                  tag('Shortcuts', pewter, Colors.white),
+                  tag('SingleActivator', silver, deepGraphite),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is LockState',
-            'Lock key requirements for keyboard shortcut matching',
-            deepGraphite, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is LockState',
+          'Lock key requirements for keyboard shortcut matching',
+          deepGraphite,
+          Colors.white,
+        ),
         noteBox(
           'LockState is an enum with three values that specify whether a '
           'keyboard lock key (CapsLock, NumLock) must be in a particular '
@@ -225,13 +248,20 @@ dynamic build(BuildContext context) {
         dataRow('Type', 'enum', charcoal),
         dataRow('Values count', '${LockState.values.length}', gunmetal),
         dataRow('Used by', 'SingleActivator (shortcuts)', titanium),
-        dataRow('Purpose', 'Lock key requirement for shortcut matching', pewter),
+        dataRow(
+          'Purpose',
+          'Lock key requirement for shortcut matching',
+          pewter,
+        ),
         const SizedBox(height: 14),
 
         // ── 3. All three values ──────────────────────────────────────
-        sectionBanner('2 \u00b7 The Three States',
-            'Each value represents a different lock key requirement',
-            charcoal, Colors.white),
+        sectionBanner(
+          '2 \u00b7 The Three States',
+          'Each value represents a different lock key requirement',
+          charcoal,
+          Colors.white,
+        ),
         for (final state in LockState.values)
           Container(
             width: double.infinity,
@@ -241,7 +271,8 @@ dynamic build(BuildContext context) {
               color: titaniumWhite,
               borderRadius: BorderRadius.circular(10),
               border: Border(
-                  left: BorderSide(color: stateColor(state), width: 4)),
+                left: BorderSide(color: stateColor(state), width: 4),
+              ),
             ),
             child: Row(
               children: [
@@ -253,8 +284,11 @@ dynamic build(BuildContext context) {
                     color: stateColor(state).withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(22),
                   ),
-                  child: Icon(stateIcon(state),
-                      size: 26, color: stateColor(state)),
+                  child: Icon(
+                    stateIcon(state),
+                    size: 26,
+                    color: stateColor(state),
+                  ),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
@@ -263,15 +297,20 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Text(state.name,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: deepGraphite)),
+                          Text(
+                            state.name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: deepGraphite,
+                            ),
+                          ),
                           const SizedBox(width: 8),
-                          tag('index ${state.index}',
-                              stateColor(state).withValues(alpha: 0.12),
-                              stateColor(state)),
+                          tag(
+                            'index ${state.index}',
+                            stateColor(state).withValues(alpha: 0.12),
+                            stateColor(state),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -279,8 +318,8 @@ dynamic build(BuildContext context) {
                         state == LockState.ignored
                             ? 'Lock key state is not considered — shortcut fires regardless'
                             : state == LockState.locked
-                                ? 'Lock key must be ON for the shortcut to trigger'
-                                : 'Lock key must be OFF for the shortcut to trigger',
+                            ? 'Lock key must be ON for the shortcut to trigger'
+                            : 'Lock key must be OFF for the shortcut to trigger',
                         style: TextStyle(fontSize: 12, color: gunmetal),
                       ),
                     ],
@@ -292,9 +331,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Properties table ──────────────────────────────────────
-        sectionBanner('3 \u00b7 Enum Properties',
-            'Standard Dart enum properties for each value',
-            gunmetal, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Enum Properties',
+          'Standard Dart enum properties for each value',
+          gunmetal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -316,11 +358,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['Value', 'Index', 'Name', 'toString()'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -331,40 +376,55 @@ dynamic build(BuildContext context) {
                       padding: const EdgeInsets.all(8),
                       child: Row(
                         children: [
-                          Icon(stateIcon(state),
-                              size: 14, color: stateColor(state)),
+                          Icon(
+                            stateIcon(state),
+                            size: 14,
+                            color: stateColor(state),
+                          ),
                           const SizedBox(width: 4),
-                          Text(state.name,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: deepGraphite)),
+                          Text(
+                            state.name,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: deepGraphite,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text('${state.index}',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: gunmetal)),
+                      child: Text(
+                        '${state.index}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: gunmetal,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(state.name,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: titanium)),
+                      child: Text(
+                        state.name,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: titanium,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text('$state',
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: deepGraphite)),
+                      child: Text(
+                        '$state',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: deepGraphite,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -374,9 +434,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. SingleActivator integration ───────────────────────────
-        sectionBanner('4 \u00b7 SingleActivator Integration',
-            'How LockState is used in keyboard shortcuts',
-            deepGraphite, Colors.white),
+        sectionBanner(
+          '4 \u00b7 SingleActivator Integration',
+          'How LockState is used in keyboard shortcuts',
+          deepGraphite,
+          Colors.white,
+        ),
         noteBox(
           'SingleActivator has numLock and capsLock parameters that accept '
           'LockState values. By default both are LockState.ignored, meaning '
@@ -396,9 +459,24 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final param in [
-                ('capsLock:', 'LockState', 'CapsLock requirement (default: ignored)', deepGraphite),
-                ('numLock:', 'LockState', 'NumLock requirement (default: ignored)', charcoal),
-                ('trigger:', 'LogicalKeyboardKey', 'The key that triggers the shortcut', gunmetal),
+                (
+                  'capsLock:',
+                  'LockState',
+                  'CapsLock requirement (default: ignored)',
+                  deepGraphite,
+                ),
+                (
+                  'numLock:',
+                  'LockState',
+                  'NumLock requirement (default: ignored)',
+                  charcoal,
+                ),
+                (
+                  'trigger:',
+                  'LogicalKeyboardKey',
+                  'The key that triggers the shortcut',
+                  gunmetal,
+                ),
                 ('control:', 'bool', 'Whether Ctrl must be held', titanium),
                 ('shift:', 'bool', 'Whether Shift must be held', pewter),
                 ('alt:', 'bool', 'Whether Alt must be held', silver),
@@ -410,32 +488,38 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: param.$4, width: 3)),
+                    border: Border(left: BorderSide(color: param.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 80,
-                        child: Text(param.$1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: param.$4)),
+                        child: Text(
+                          param.$1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: param.$4,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: 80,
-                        child: Text(param.$2,
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: electricBlue)),
+                        child: Text(
+                          param.$2,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            color: electricBlue,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(param.$3,
-                            style: TextStyle(
-                                fontSize: 11, color: gunmetal)),
+                        child: Text(
+                          param.$3,
+                          style: TextStyle(fontSize: 11, color: gunmetal),
+                        ),
                       ),
                     ],
                   ),
@@ -446,9 +530,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Shortcut scenarios ────────────────────────────────────
-        sectionBanner('5 \u00b7 Shortcut Matching Scenarios',
-            'Examples of CapsLock-sensitive shortcuts',
-            charcoal, Colors.white),
+        sectionBanner(
+          '5 \u00b7 Shortcut Matching Scenarios',
+          'Examples of CapsLock-sensitive shortcuts',
+          charcoal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -469,11 +556,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['Shortcut', 'CapsLock', 'Behavior'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -489,43 +579,52 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'monospace',
-                              color: deepGraphite)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'monospace',
+                          color: deepGraphite,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 4, vertical: 2),
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: row.$2 == 'locked'
                               ? signalGreen.withValues(alpha: 0.1)
                               : row.$2 == 'unlocked'
-                                  ? titanium.withValues(alpha: 0.1)
-                                  : electricBlue.withValues(alpha: 0.1),
+                              ? titanium.withValues(alpha: 0.1)
+                              : electricBlue.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(row.$2,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: row.$2 == 'locked'
-                                    ? signalGreen
-                                    : row.$2 == 'unlocked'
-                                        ? titanium
-                                        : electricBlue)),
+                        child: Text(
+                          row.$2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: row.$2 == 'locked'
+                                ? signalGreen
+                                : row.$2 == 'unlocked'
+                                ? titanium
+                                : electricBlue,
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 11, color: gunmetal)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 11, color: gunmetal),
+                      ),
                     ),
                   ],
                 ),
@@ -535,9 +634,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Keyboard dashboard ────────────────────────────────────
-        sectionBanner('6 \u00b7 Lock Key Dashboard',
-            'Visual status panel for lock key states',
-            gunmetal, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Lock Key Dashboard',
+          'Visual status panel for lock key states',
+          gunmetal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -556,11 +658,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.keyboard, size: 20, color: deepGraphite),
                   const SizedBox(width: 8),
-                  Text('Lock Key Requirement Monitor',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: deepGraphite)),
+                  Text(
+                    'Lock Key Requirement Monitor',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: deepGraphite,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -572,28 +677,37 @@ dynamic build(BuildContext context) {
                         margin: const EdgeInsets.symmetric(horizontal: 3),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color:
-                              stateColor(state).withValues(alpha: 0.08),
+                          color: stateColor(state).withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: stateColor(state)
-                                  .withValues(alpha: 0.3)),
+                            color: stateColor(state).withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Column(
                           children: [
-                            Icon(stateIcon(state),
-                                size: 28, color: stateColor(state)),
+                            Icon(
+                              stateIcon(state),
+                              size: 28,
+                              color: stateColor(state),
+                            ),
                             const SizedBox(height: 6),
-                            Text(state.name,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: stateColor(state))),
+                            Text(
+                              state.name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: stateColor(state),
+                              ),
+                            ),
                             const SizedBox(height: 2),
-                            Text('index: ${state.index}',
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.grey)),
+                            Text(
+                              'index: ${state.index}',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -606,9 +720,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Equality and comparison ───────────────────────────────
-        sectionBanner('7 \u00b7 Equality and Comparison',
-            'How enum values compare to each other',
-            titanium, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Equality and Comparison',
+          'How enum values compare to each other',
+          titanium,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -632,41 +749,51 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text(pair.$1.name,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: stateColor(pair.$1))),
-                      ),
-                      Text(pair.$3 ? ' == ' : ' != ',
+                        child: Text(
+                          pair.$1.name,
                           style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: deepGraphite)),
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: stateColor(pair.$1),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        pair.$3 ? ' == ' : ' != ',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: deepGraphite,
+                        ),
+                      ),
                       SizedBox(
                         width: 70,
-                        child: Text(pair.$2.name,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: stateColor(pair.$2))),
+                        child: Text(
+                          pair.$2.name,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: stateColor(pair.$2),
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 12),
                       Icon(
                         pair.$3 ? Icons.check : Icons.close,
                         size: 16,
-                        color: pair.$3
-                            ? signalGreen
-                            : const Color(0xFFE53935),
+                        color: pair.$3 ? signalGreen : const Color(0xFFE53935),
                       ),
                       const SizedBox(width: 4),
-                      Text('${pair.$3}',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: pair.$3
-                                  ? signalGreen
-                                  : const Color(0xFFE53935))),
+                      Text(
+                        '${pair.$3}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: pair.$3
+                              ? signalGreen
+                              : const Color(0xFFE53935),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -676,9 +803,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Pattern matching ──────────────────────────────────────
-        sectionBanner('8 \u00b7 Pattern Matching',
-            'Using switch expressions with LockState',
-            deepGraphite, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Pattern Matching',
+          'Using switch expressions with LockState',
+          deepGraphite,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -689,11 +819,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Switch expression results:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: deepGraphite)),
+              Text(
+                'Switch expression results:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: deepGraphite,
+                ),
+              ),
               const SizedBox(height: 8),
               for (final state in LockState.values)
                 Padding(
@@ -703,37 +836,40 @@ dynamic build(BuildContext context) {
                       Container(
                         width: 80,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: stateColor(state).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(state.name,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: stateColor(state))),
+                        child: Text(
+                          state.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: stateColor(state),
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
-                      Text('\u2192',
-                          style: TextStyle(
-                              color: gunmetal, fontSize: 16)),
+                      Text(
+                        '\u2192',
+                        style: TextStyle(color: gunmetal, fontSize: 16),
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(
-                          switch (state) {
-                            LockState.ignored =>
-                              'Don\'t care — shortcut fires regardless of lock state',
-                            LockState.locked =>
-                              'Require lock key ON to trigger shortcut',
-                            LockState.unlocked =>
-                              'Require lock key OFF to trigger shortcut',
-                            _ => 'Unknown', // D4RT-LIMITATION: enum exhaustiveness
-                          },
-                          style: TextStyle(
-                              fontSize: 12, color: deepGraphite),
-                        ),
+                        child: Text(switch (state) {
+                          LockState.ignored =>
+                            'Don\'t care — shortcut fires regardless of lock state',
+                          LockState.locked =>
+                            'Require lock key ON to trigger shortcut',
+                          LockState.unlocked =>
+                            'Require lock key OFF to trigger shortcut',
+                          _ =>
+                            'Unknown', // D4RT-LIMITATION: enum exhaustiveness
+                        }, style: TextStyle(fontSize: 12, color: deepGraphite)),
                       ),
                     ],
                   ),
@@ -744,9 +880,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Simulated keyboard keys ──────────────────────────────
-        sectionBanner('9 \u00b7 Simulated Keyboard Section',
-            'Lock key area of a keyboard layout',
-            charcoal, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Simulated Keyboard Section',
+          'Lock key area of a keyboard layout',
+          charcoal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -773,17 +912,20 @@ dynamic build(BuildContext context) {
                         color: deepGraphite.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                            color: stateColor(keyInfo.$2)
-                                .withValues(alpha: 0.5),
-                            width: 2),
+                          color: stateColor(keyInfo.$2).withValues(alpha: 0.5),
+                          width: 2,
+                        ),
                       ),
                       child: Column(
                         children: [
-                          Text(keyInfo.$1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: deepGraphite)),
+                          Text(
+                            keyInfo.$1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: deepGraphite,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           Container(
                             width: 10,
@@ -792,24 +934,29 @@ dynamic build(BuildContext context) {
                               color: keyInfo.$2 == LockState.locked
                                   ? signalGreen
                                   : keyInfo.$2 == LockState.unlocked
-                                      ? Colors.grey.shade400
-                                      : electricBlue.withValues(alpha: 0.5),
+                                  ? Colors.grey.shade400
+                                  : electricBlue.withValues(alpha: 0.5),
                               borderRadius: BorderRadius.circular(5),
                               boxShadow: keyInfo.$2 == LockState.locked
                                   ? [
                                       BoxShadow(
-                                          color: signalGreen
-                                              .withValues(alpha: 0.5),
-                                          blurRadius: 6),
+                                        color: signalGreen.withValues(
+                                          alpha: 0.5,
+                                        ),
+                                        blurRadius: 6,
+                                      ),
                                     ]
                                   : null,
                             ),
                           ),
                           const SizedBox(height: 4),
-                          Text(keyInfo.$2.name,
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  color: stateColor(keyInfo.$2))),
+                          Text(
+                            keyInfo.$2.name,
+                            style: TextStyle(
+                              fontSize: 9,
+                              color: stateColor(keyInfo.$2),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -829,9 +976,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Comparison with other enums ──────────────────────────
-        sectionBanner('10 \u00b7 Comparison With Related Types',
-            'LockState vs other keyboard-related types',
-            gunmetal, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Comparison With Related Types',
+          'LockState vs other keyboard-related types',
+          gunmetal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -852,45 +1002,67 @@ dynamic build(BuildContext context) {
                   for (final h in ['Type', 'Values', 'Purpose'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                 ],
               ),
               for (final row in [
-                ('LockState', 'ignored, locked, unlocked', 'Lock key requirement for shortcuts'),
+                (
+                  'LockState',
+                  'ignored, locked, unlocked',
+                  'Lock key requirement for shortcuts',
+                ),
                 ('KeyEventType', 'down, up, repeat', 'Type of keyboard event'),
-                ('KeyboardSide', 'any, left, right, all', 'Side of keyboard for modifiers'),
-                ('ModifierKey', 'control, shift, alt...', 'Modifier key identification'),
+                (
+                  'KeyboardSide',
+                  'any, left, right, all',
+                  'Side of keyboard for modifiers',
+                ),
+                (
+                  'ModifierKey',
+                  'control, shift, alt...',
+                  'Modifier key identification',
+                ),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w600,
-                              color: row.$1 == 'LockState'
-                                  ? deepGraphite
-                                  : Colors.grey.shade700)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: row.$1 == 'LockState'
+                              ? deepGraphite
+                              : Colors.grey.shade700,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: titanium)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: titanium,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 10, color: gunmetal)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 10, color: gunmetal),
+                      ),
                     ),
                   ],
                 ),
@@ -900,9 +1072,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Shortcut pipeline ────────────────────────────────────
-        sectionBanner('11 \u00b7 Shortcut Matching Pipeline',
-            'How LockState fits in the keyboard event flow',
-            deepGraphite, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Shortcut Matching Pipeline',
+          'How LockState fits in the keyboard event flow',
+          deepGraphite,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -913,12 +1088,42 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (1, 'Key event received', 'HardwareKeyboard dispatches event', deepGraphite),
-                (2, 'Shortcuts widget checks', 'Iterates registered ShortcutActivators', charcoal),
-                (3, 'Trigger key matches?', 'Compares logical key from event', gunmetal),
-                (4, 'Modifiers match?', 'Checks ctrl/shift/alt/meta state', titanium),
-                (5, 'Lock state matches?', 'LockState.ignored always passes', electricBlue),
-                (6, 'Shortcut triggered', 'Associated Intent is invoked', signalGreen),
+                (
+                  1,
+                  'Key event received',
+                  'HardwareKeyboard dispatches event',
+                  deepGraphite,
+                ),
+                (
+                  2,
+                  'Shortcuts widget checks',
+                  'Iterates registered ShortcutActivators',
+                  charcoal,
+                ),
+                (
+                  3,
+                  'Trigger key matches?',
+                  'Compares logical key from event',
+                  gunmetal,
+                ),
+                (
+                  4,
+                  'Modifiers match?',
+                  'Checks ctrl/shift/alt/meta state',
+                  titanium,
+                ),
+                (
+                  5,
+                  'Lock state matches?',
+                  'LockState.ignored always passes',
+                  electricBlue,
+                ),
+                (
+                  6,
+                  'Shortcut triggered',
+                  'Associated Intent is invoked',
+                  signalGreen,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -926,8 +1131,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -939,25 +1143,32 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text('${step.$1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${step.$1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(step.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: deepGraphite)),
-                            Text(step.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: pewter)),
+                            Text(
+                              step.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: deepGraphite,
+                              ),
+                            ),
+                            Text(
+                              step.$3,
+                              style: TextStyle(fontSize: 11, color: pewter),
+                            ),
                           ],
                         ),
                       ),
@@ -970,9 +1181,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Use cases ────────────────────────────────────────────
-        sectionBanner('12 \u00b7 Common Use Cases',
-            'When to specify lock state requirements',
-            charcoal, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Common Use Cases',
+          'When to specify lock state requirements',
+          charcoal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -983,12 +1197,42 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final useCase in [
-                ('Default shortcuts', Icons.keyboard, 'Use ignored — most shortcuts don\'t care', deepGraphite),
-                ('CapsLock-aware', Icons.text_fields, 'Require locked/unlocked for case-sensitive ops', charcoal),
-                ('NumLock-dependent', Icons.dialpad, 'Numpad shortcuts that differ by NumLock state', gunmetal),
-                ('Accessibility', Icons.accessibility_new, 'Lock key indicators for screen readers', titanium),
-                ('Games', Icons.videogame_asset, 'NumLock affects numpad as arrows vs numbers', pewter),
-                ('Editor modes', Icons.edit, 'CapsLock as visual mode indicator', silver),
+                (
+                  'Default shortcuts',
+                  Icons.keyboard,
+                  'Use ignored — most shortcuts don\'t care',
+                  deepGraphite,
+                ),
+                (
+                  'CapsLock-aware',
+                  Icons.text_fields,
+                  'Require locked/unlocked for case-sensitive ops',
+                  charcoal,
+                ),
+                (
+                  'NumLock-dependent',
+                  Icons.dialpad,
+                  'Numpad shortcuts that differ by NumLock state',
+                  gunmetal,
+                ),
+                (
+                  'Accessibility',
+                  Icons.accessibility_new,
+                  'Lock key indicators for screen readers',
+                  titanium,
+                ),
+                (
+                  'Games',
+                  Icons.videogame_asset,
+                  'NumLock affects numpad as arrows vs numbers',
+                  pewter,
+                ),
+                (
+                  'Editor modes',
+                  Icons.edit,
+                  'CapsLock as visual mode indicator',
+                  silver,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -996,7 +1240,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: useCase.$4, width: 3)),
+                      left: BorderSide(color: useCase.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -1006,14 +1251,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(useCase.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: deepGraphite)),
-                            Text(useCase.$3,
-                                style: TextStyle(
-                                    fontSize: 12, color: gunmetal)),
+                            Text(
+                              useCase.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: deepGraphite,
+                              ),
+                            ),
+                            Text(
+                              useCase.$3,
+                              style: TextStyle(fontSize: 12, color: gunmetal),
+                            ),
                           ],
                         ),
                       ),
@@ -1026,9 +1275,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. HashCode and identity ────────────────────────────────
-        sectionBanner('13 \u00b7 Identity and HashCode',
-            'Enum singleton guarantees',
-            titanium, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Identity and HashCode',
+          'Enum singleton guarantees',
+          titanium,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1043,30 +1295,41 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     children: [
-                      Icon(stateIcon(state),
-                          size: 16, color: stateColor(state)),
+                      Icon(
+                        stateIcon(state),
+                        size: 16,
+                        color: stateColor(state),
+                      ),
                       const SizedBox(width: 8),
                       SizedBox(
                         width: 80,
-                        child: Text(state.name,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: deepGraphite)),
+                        child: Text(
+                          state.name,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: deepGraphite,
+                          ),
+                        ),
                       ),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: platinum.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Text('hashCode: ${state.hashCode}',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  fontFamily: 'monospace',
-                                  color: gunmetal)),
+                          child: Text(
+                            'hashCode: ${state.hashCode}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: gunmetal,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -1085,9 +1348,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Inheritance hierarchy ────────────────────────────────
-        sectionBanner('14 \u00b7 Inheritance Hierarchy',
-            'Where LockState sits in the framework',
-            deepGraphite, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Inheritance Hierarchy',
+          'Where LockState sits in the framework',
+          deepGraphite,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1105,15 +1371,21 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                      left: level.$2 * 12.0, top: 4, bottom: 4),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'monospace',
-                          fontWeight: level.$2 == 2
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: level.$3)),
+                    left: level.$2 * 12.0,
+                    top: 4,
+                    bottom: 4,
+                  ),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'monospace',
+                      fontWeight: level.$2 == 2
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$3,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -1129,8 +1401,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepGraphite, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepGraphite,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1160,15 +1436,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: silver,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: silver,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

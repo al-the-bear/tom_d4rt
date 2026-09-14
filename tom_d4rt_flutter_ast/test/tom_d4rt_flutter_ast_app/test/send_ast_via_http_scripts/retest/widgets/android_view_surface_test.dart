@@ -105,11 +105,7 @@ enum _Stage {
   compendium,
 }
 
-enum _Density {
-  relaxed,
-  balanced,
-  dense,
-}
+enum _Density { relaxed, balanced, dense }
 
 class _TraceEntry {
   final DateTime time;
@@ -137,7 +133,8 @@ class _AndroidViewSurfaceDeepDemo extends StatefulWidget {
       _AndroidViewSurfaceDeepDemoState();
 }
 
-class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo> {
+class _AndroidViewSurfaceDeepDemoState
+    extends State<_AndroidViewSurfaceDeepDemo> {
   _Stage _stage = _Stage.lifecycle;
   _Density _density = _Density.balanced;
   int _paletteIndex = 0;
@@ -149,7 +146,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
   bool _showMetrics = true;
   bool _verbose = false;
 
-  PlatformViewHitTestBehavior _hitTestBehavior = PlatformViewHitTestBehavior.opaque;
+  PlatformViewHitTestBehavior _hitTestBehavior =
+      PlatformViewHitTestBehavior.opaque;
 
   int _laneItemCount = 18;
   double _studioWidth = 860;
@@ -183,11 +181,15 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
   Set<Factory<OneSequenceGestureRecognizer>> _gestureRecognizers() {
     final set = <Factory<OneSequenceGestureRecognizer>>{};
     if (_useEagerRecognizer) {
-      set.add(Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new));
+      set.add(
+        Factory<OneSequenceGestureRecognizer>(EagerGestureRecognizer.new),
+      );
     }
     if (_useVerticalDragRecognizer) {
       set.add(
-        Factory<OneSequenceGestureRecognizer>(VerticalDragGestureRecognizer.new),
+        Factory<OneSequenceGestureRecognizer>(
+          VerticalDragGestureRecognizer.new,
+        ),
       );
     }
     return set;
@@ -276,7 +278,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         children: [
           Row(
             children: [
-              const Icon(Icons.view_quilt_rounded, color: Colors.white, size: 28),
+              const Icon(
+                Icons.view_quilt_rounded,
+                color: Colors.white,
+                size: 28,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -289,7 +295,10 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -333,7 +342,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         children: [
           Text(
             'Stage',
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
           ),
           for (var i = 0; i < _stageTitles.length; i++)
             ChoiceChip(
@@ -351,7 +364,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
           const SizedBox(width: 10),
           Text(
             'Density',
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
           ),
           _densityChip('Relaxed', _Density.relaxed),
           _densityChip('Balanced', _Density.balanced),
@@ -359,7 +376,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
           const SizedBox(width: 10),
           Text(
             'Palette',
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12),
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
           ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
@@ -483,24 +504,34 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                     Checkbox(
                       value: _attemptRealSurface,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _attemptRealSurface = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _attemptRealSurface = v ?? true),
                     ),
-                    Text('attempt real AndroidViewSurface',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'attempt real AndroidViewSurface',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showGrid,
                       activeColor: _p.secondary,
                       onChanged: (v) => setState(() => _showGrid = v ?? true),
                     ),
-                    Text('overlay grid', style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'overlay grid',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _showMetrics,
                       activeColor: _p.accent,
-                      onChanged: (v) => setState(() => _showMetrics = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _showMetrics = v ?? true),
                     ),
-                    Text('show metrics', style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'show metrics',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                   ],
                 ),
               ],
@@ -524,7 +555,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                             flex: 2,
                             child: _AndroidViewSurfaceLane(
                               key: ValueKey(
-                                  'lifecycle-$_attemptRealSurface-$_hitTestBehavior.name-$_gestureRecognizers().length'),
+                                'lifecycle-$_attemptRealSurface-$_hitTestBehavior.name-$_gestureRecognizers().length',
+                              ),
                               label: 'Lifecycle Lane',
                               viewId: 4101,
                               viewType: 'demo.android.surface.lifecycle',
@@ -543,9 +575,7 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Expanded(
-                            child: _lifecycleChecklist(),
-                          ),
+                          Expanded(child: _lifecycleChecklist()),
                         ],
                       ),
                     ),
@@ -582,12 +612,18 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         children: [
           Text(
             'Lifecycle Checklist',
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13),
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13,
+            ),
           ),
           const SizedBox(height: 8),
           _bullet('Create AndroidViewController via PlatformViewsService.'),
           _bullet('Call create() and await platform view creation.'),
-          _bullet('Render with AndroidViewSurface using controller + hit test behavior.'),
+          _bullet(
+            'Render with AndroidViewSurface using controller + hit test behavior.',
+          ),
           _bullet('Provide gestureRecognizers policy for gesture routing.'),
           _bullet('Dispose controller when lane is removed.'),
           const SizedBox(height: 8),
@@ -629,14 +665,21 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
           const SizedBox(height: 12),
           _card(
             title: 'Behavior Controls',
-            subtitle: 'Select default behavior and compare all three side-by-side.',
+            subtitle:
+                'Select default behavior and compare all three side-by-side.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
               children: [
                 _behaviorChip('Opaque', PlatformViewHitTestBehavior.opaque),
-                _behaviorChip('Translucent', PlatformViewHitTestBehavior.translucent),
-                _behaviorChip('Transparent', PlatformViewHitTestBehavior.transparent),
+                _behaviorChip(
+                  'Translucent',
+                  PlatformViewHitTestBehavior.translucent,
+                ),
+                _behaviorChip(
+                  'Transparent',
+                  PlatformViewHitTestBehavior.transparent,
+                ),
               ],
             ),
           ),
@@ -645,9 +688,21 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
             spacing: 12,
             runSpacing: 12,
             children: [
-              _behaviorCard('Opaque Lane', PlatformViewHitTestBehavior.opaque, 4201),
-              _behaviorCard('Translucent Lane', PlatformViewHitTestBehavior.translucent, 4202),
-              _behaviorCard('Transparent Lane', PlatformViewHitTestBehavior.transparent, 4203),
+              _behaviorCard(
+                'Opaque Lane',
+                PlatformViewHitTestBehavior.opaque,
+                4201,
+              ),
+              _behaviorCard(
+                'Translucent Lane',
+                PlatformViewHitTestBehavior.translucent,
+                4202,
+              ),
+              _behaviorCard(
+                'Transparent Lane',
+                PlatformViewHitTestBehavior.transparent,
+                4203,
+              ),
             ],
           ),
         ],
@@ -673,7 +728,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
     );
   }
 
-  Widget _behaviorCard(String title, PlatformViewHitTestBehavior behavior, int viewId) {
+  Widget _behaviorCard(
+    String title,
+    PlatformViewHitTestBehavior behavior,
+    int viewId,
+  ) {
     return SizedBox(
       width: 520,
       child: _card(
@@ -683,7 +742,9 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         child: SizedBox(
           height: 360,
           child: _AndroidViewSurfaceLane(
-            key: ValueKey('hit-$viewId-$_attemptRealSurface-$_gestureRecognizers().length'),
+            key: ValueKey(
+              'hit-$viewId-$_attemptRealSurface-$_gestureRecognizers().length',
+            ),
             label: title,
             viewId: viewId,
             viewType: 'demo.android.surface.hittest.$viewId',
@@ -721,7 +782,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
           const SizedBox(height: 12),
           _card(
             title: 'Recognizer Controls',
-            subtitle: 'Toggle recognizer factories and watch policy chips update.',
+            subtitle:
+                'Toggle recognizer factories and watch policy chips update.',
             child: Column(
               children: [
                 Row(
@@ -731,11 +793,17 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                       activeColor: _p.primary,
                       onChanged: (v) {
                         setState(() => _useEagerRecognizer = v ?? false);
-                        _pushTrace('gesture', 'eager recognizer: $_useEagerRecognizer', _p.primary);
+                        _pushTrace(
+                          'gesture',
+                          'eager recognizer: $_useEagerRecognizer',
+                          _p.primary,
+                        );
                       },
                     ),
-                    Text('EagerGestureRecognizer',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'EagerGestureRecognizer',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 10),
                     Checkbox(
                       value: _useVerticalDragRecognizer,
@@ -749,8 +817,10 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                         );
                       },
                     ),
-                    Text('VerticalDragGestureRecognizer',
-                        style: TextStyle(color: _p.ink, fontSize: 12)),
+                    Text(
+                      'VerticalDragGestureRecognizer',
+                      style: TextStyle(color: _p.ink, fontSize: 12),
+                    ),
                   ],
                 ),
                 if (_showMetrics)
@@ -758,8 +828,16 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                     spacing: 6,
                     runSpacing: 6,
                     children: [
-                      _chip('recognizers', '$_gestureRecognizers().length', _p.accent),
-                      _chip('attempt real', _attemptRealSurface ? 'yes' : 'no', _p.primary),
+                      _chip(
+                        'recognizers',
+                        '$_gestureRecognizers().length',
+                        _p.accent,
+                      ),
+                      _chip(
+                        'attempt real',
+                        _attemptRealSurface ? 'yes' : 'no',
+                        _p.primary,
+                      ),
                     ],
                   ),
               ],
@@ -780,7 +858,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                     height: 360,
                     child: _AndroidViewSurfaceLane(
                       key: ValueKey(
-                          'gesture-current-$_attemptRealSurface-$_useEagerRecognizer-$_useVerticalDragRecognizer'),
+                        'gesture-current-$_attemptRealSurface-$_useEagerRecognizer-$_useVerticalDragRecognizer',
+                      ),
                       label: 'Current recognizers',
                       viewId: 4301,
                       viewType: 'demo.android.surface.gesture.current',
@@ -819,7 +898,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                       canCreateReal: _supportsAndroidSurface,
                       attemptReal: _attemptRealSurface,
                       hitTestBehavior: _hitTestBehavior,
-                      gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
+                      gestureRecognizers:
+                          const <Factory<OneSequenceGestureRecognizer>>{},
                       height: 360,
                       itemCount: _effectiveItemCount,
                       onTrace: _pushTrace,
@@ -867,7 +947,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                     const SizedBox(width: 8),
                     TextButton.icon(
                       onPressed: () {
-                        _pushTrace('note', 'Manual checkpoint marker', _p.accent);
+                        _pushTrace(
+                          'note',
+                          'Manual checkpoint marker',
+                          _p.accent,
+                        );
                       },
                       icon: const Icon(Icons.bookmark_add_outlined),
                       label: const Text('Add marker'),
@@ -878,10 +962,18 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                         setState(() {
                           _attemptRealSurface = !_attemptRealSurface;
                         });
-                        _pushTrace('policy', 'attempt real -> $_attemptRealSurface', _p.primary);
+                        _pushTrace(
+                          'policy',
+                          'attempt real -> $_attemptRealSurface',
+                          _p.primary,
+                        );
                       },
                       icon: const Icon(Icons.toggle_on_outlined),
-                      label: Text(_attemptRealSurface ? 'Disable Real Attempt' : 'Enable Real Attempt'),
+                      label: Text(
+                        _attemptRealSurface
+                            ? 'Disable Real Attempt'
+                            : 'Enable Real Attempt',
+                      ),
                     ),
                     const Spacer(),
                     if (_showMetrics)
@@ -917,7 +1009,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                     )
                   : ListView.separated(
                       itemCount: _trace.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 6),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 6),
                       itemBuilder: (context, index) {
                         final row = _trace[index];
                         return Container(
@@ -925,7 +1018,9 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                           decoration: BoxDecoration(
                             color: row.color.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: row.color.withValues(alpha: 0.31)),
+                            border: Border.all(
+                              color: row.color.withValues(alpha: 0.31),
+                            ),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -935,7 +1030,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                               Expanded(
                                 child: Text(
                                   row.message,
-                                  style: TextStyle(color: _p.ink, fontSize: 11.4, height: 1.33),
+                                  style: TextStyle(
+                                    color: _p.ink,
+                                    fontSize: 11.4,
+                                    height: 1.33,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -1036,13 +1135,16 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
       width: shell.width > 640 ? 540 : 390,
       child: _card(
         title: '$shell.label Shell',
-        subtitle: 'w $shell.width.toStringAsFixed(0) | h $shell.height.toStringAsFixed(0) | $shell.note',
+        subtitle:
+            'w $shell.width.toStringAsFixed(0) | h $shell.height.toStringAsFixed(0) | $shell.note',
         tint: _p.primary.withValues(alpha: 0.04),
         child: SizedBox(
           width: shell.width,
           height: shell.height,
           child: _AndroidViewSurfaceLane(
-            key: ValueKey('shell-$viewId-$_attemptRealSurface-$_gestureRecognizers().length'),
+            key: ValueKey(
+              'shell-$viewId-$_attemptRealSurface-$_gestureRecognizers().length',
+            ),
             label: '$shell.label lane',
             viewId: viewId,
             viewType: 'demo.android.surface.shell.$viewId',
@@ -1079,23 +1181,28 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
               children: [
                 _matrixRow(
                   keyText: 'Widget role',
-                  value: 'Render Android platform views in a Flutter surface-composited layer.',
+                  value:
+                      'Render Android platform views in a Flutter surface-composited layer.',
                 ),
                 _matrixRow(
                   keyText: 'Core dependency',
-                  value: 'Requires AndroidViewController from PlatformViewsService.',
+                  value:
+                      'Requires AndroidViewController from PlatformViewsService.',
                 ),
                 _matrixRow(
                   keyText: 'Hit test input',
-                  value: 'PlatformViewHitTestBehavior controls pointer routing behavior.',
+                  value:
+                      'PlatformViewHitTestBehavior controls pointer routing behavior.',
                 ),
                 _matrixRow(
                   keyText: 'Gesture policy',
-                  value: 'gestureRecognizers defines forwarded gesture recognizer set.',
+                  value:
+                      'gestureRecognizers defines forwarded gesture recognizer set.',
                 ),
                 _matrixRow(
                   keyText: 'Lifecycle',
-                  value: 'init controller -> create view -> render surface -> dispose controller.',
+                  value:
+                      'init controller -> create view -> render surface -> dispose controller.',
                 ),
               ],
             ),
@@ -1109,7 +1216,8 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
                 _doDont(
                   good: true,
                   title: 'Dispose controllers predictably',
-                  detail: 'Treat platform view lifecycle explicitly to prevent leaks.',
+                  detail:
+                      'Treat platform view lifecycle explicitly to prevent leaks.',
                 ),
                 _doDont(
                   good: false,
@@ -1164,12 +1272,18 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check('Lifecycle stage demonstrates controller create/render/dispose flow.'),
+                _check(
+                  'Lifecycle stage demonstrates controller create/render/dispose flow.',
+                ),
                 _check('All hit test behavior modes are compared visually.'),
                 _check('Gesture recognizer policy toggles are demonstrated.'),
-                _check('Runtime switchboard includes actionable trace timeline.'),
+                _check(
+                  'Runtime switchboard includes actionable trace timeline.',
+                ),
                 _check('Device theater validates responsive shell behavior.'),
-                _check('Compendium includes matrix, do/dont, FAQ, and checklist guidance.'),
+                _check(
+                  'Compendium includes matrix, do/dont, FAQ, and checklist guidance.',
+                ),
               ],
             ),
           ),
@@ -1369,7 +1483,10 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
             margin: const EdgeInsets.only(top: 6),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: _p.primary),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _p.primary,
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1398,7 +1515,10 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
           Icon(Icons.info_outline, color: _p.secondary, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34)),
+            child: Text(
+              text,
+              style: TextStyle(color: _p.ink, fontSize: 12, height: 1.34),
+            ),
           ),
         ],
       ),
@@ -1419,7 +1539,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         const SizedBox(width: 8),
         Text(
           text,
-          style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 18),
+          style: TextStyle(
+            color: _p.ink,
+            fontWeight: FontWeight.w800,
+            fontSize: 18,
+          ),
         ),
       ],
     );
@@ -1451,7 +1575,11 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
         children: [
           Text(
             title,
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14),
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 14,
+            ),
           ),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.4)),
@@ -1478,7 +1606,10 @@ class _AndroidViewSurfaceDeepDemoState extends State<_AndroidViewSurfaceDeepDemo
             ),
           ),
           const Spacer(),
-          Text('Palette: $_p.name', style: TextStyle(color: _p.muted, fontSize: 11)),
+          Text(
+            'Palette: $_p.name',
+            style: TextStyle(color: _p.muted, fontSize: 11),
+          ),
         ],
       ),
     );
@@ -1522,7 +1653,8 @@ class _AndroidViewSurfaceLane extends StatefulWidget {
   final bool showMetrics;
 
   @override
-  State<_AndroidViewSurfaceLane> createState() => _AndroidViewSurfaceLaneState();
+  State<_AndroidViewSurfaceLane> createState() =>
+      _AndroidViewSurfaceLaneState();
 }
 
 class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
@@ -1563,7 +1695,11 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
         },
         creationParamsCodec: const StandardMessageCodec(),
         onFocus: () {
-          widget.onTrace('surface', '$widget.label onFocus callback', widget.palette.accent);
+          widget.onTrace(
+            'surface',
+            '$widget.label onFocus callback',
+            widget.palette.accent,
+          );
         },
       );
 
@@ -1616,7 +1752,9 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
       return _simulationCard('Real surface disabled by policy toggle.');
     }
     if (_status == 'unsupported') {
-      return _simulationCard('Host platform does not support Android surface creation.');
+      return _simulationCard(
+        'Host platform does not support Android surface creation.',
+      );
     }
     if (_status == 'error') {
       return _simulationCard('Surface creation error: $_error');
@@ -1638,7 +1776,9 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
             decoration: BoxDecoration(
               color: widget.palette.secondary.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
             ),
             child: Wrap(
               spacing: 6,
@@ -1653,8 +1793,16 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
                   ),
                 ),
                 if (widget.showMetrics) ...[
-                  _laneChip('viewId', widget.viewId.toString(), widget.palette.primary),
-                  _laneChip('hitTest', widget.hitTestBehavior.name, widget.palette.secondary),
+                  _laneChip(
+                    'viewId',
+                    widget.viewId.toString(),
+                    widget.palette.primary,
+                  ),
+                  _laneChip(
+                    'hitTest',
+                    widget.hitTestBehavior.name,
+                    widget.palette.secondary,
+                  ),
                   _laneChip(
                     'recognizers',
                     widget.gestureRecognizers.length.toString(),
@@ -1708,7 +1856,11 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
           TextButton(
             onPressed: () {
               _controller?.clearFocus();
-              widget.onTrace('surface', '$widget.label clearFocus()', widget.palette.accent);
+              widget.onTrace(
+                'surface',
+                '$widget.label clearFocus()',
+                widget.palette.accent,
+              );
             },
             child: const Text('Clear focus'),
           ),
@@ -1722,7 +1874,9 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
       decoration: BoxDecoration(
         color: widget.palette.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: widget.palette.primary.withValues(alpha: 0.28)),
+        border: Border.all(
+          color: widget.palette.primary.withValues(alpha: 0.28),
+        ),
       ),
       child: const Center(
         child: Column(
@@ -1746,7 +1900,9 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
       decoration: BoxDecoration(
         color: widget.palette.primary.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: widget.palette.primary.withValues(alpha: 0.28)),
+        border: Border.all(
+          color: widget.palette.primary.withValues(alpha: 0.28),
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -1755,7 +1911,11 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
           children: [
             Row(
               children: [
-                Icon(Icons.info_outline, color: widget.palette.primary, size: 18),
+                Icon(
+                  Icons.info_outline,
+                  color: widget.palette.primary,
+                  size: 18,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -1770,13 +1930,18 @@ class _AndroidViewSurfaceLaneState extends State<_AndroidViewSurfaceLane> {
               ],
             ),
             const SizedBox(height: 8),
-            Text(reason, style: TextStyle(color: widget.palette.muted, fontSize: 11.3)),
+            Text(
+              reason,
+              style: TextStyle(color: widget.palette.muted, fontSize: 11.3),
+            ),
             const SizedBox(height: 8),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.itemCount,
                 itemBuilder: (context, index) {
-                  final color = index.isEven ? widget.palette.primary : widget.palette.secondary;
+                  final color = index.isEven
+                      ? widget.palette.primary
+                      : widget.palette.secondary;
                   return Container(
                     margin: const EdgeInsets.only(bottom: 7),
                     padding: const EdgeInsets.all(8),

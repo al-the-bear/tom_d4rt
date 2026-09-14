@@ -51,10 +51,7 @@ dynamic build(BuildContext context) {
           Text(
             'Calls onTick(elapsed)\non every animation frame',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.deepPurple.shade700,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.deepPurple.shade700),
           ),
         ],
       ),
@@ -329,8 +326,7 @@ dynamic build(BuildContext context) {
     },
     {
       'step': 'ticker.stop()',
-      'desc':
-          'Completes the TickerFuture. isActive=false, isTicking=false.',
+      'desc': 'Completes the TickerFuture. isActive=false, isTicking=false.',
       'icon': Icons.stop_circle,
       'color': Colors.red,
     },
@@ -497,10 +493,7 @@ dynamic build(BuildContext context) {
         color: header
             ? color.withValues(alpha: 0.85)
             : color.withValues(alpha: 0.10),
-        border: Border.all(
-          color: color.withValues(alpha: 0.35),
-          width: 0.6,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.35), width: 0.6),
       ),
       child: Text(
         text,
@@ -529,11 +522,7 @@ dynamic build(BuildContext context) {
       ),
       Expanded(
         flex: 3,
-        child: buildCompCell(
-          'AnimationController',
-          Colors.teal,
-          header: true,
-        ),
+        child: buildCompCell('AnimationController', Colors.teal, header: true),
       ),
     ],
   );
@@ -580,12 +569,7 @@ dynamic build(BuildContext context) {
     ),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(8.0),
-      child: Column(
-        children: [
-          compHeader,
-          ...compRows,
-        ],
-      ),
+      child: Column(children: [compHeader, ...compRows]),
     ),
   );
 
@@ -635,10 +619,7 @@ dynamic build(BuildContext context) {
           Text(
             sublabel,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 10.0,
-            ),
+            style: TextStyle(color: Colors.white70, fontSize: 10.0),
           ),
         ],
       ),
@@ -950,9 +931,7 @@ dynamic build(BuildContext context) {
       width: 28.0,
       height: 28.0,
       decoration: BoxDecoration(
-        color: value
-            ? Colors.green.shade400
-            : Colors.grey.shade300,
+        color: value ? Colors.green.shade400 : Colors.grey.shade300,
         shape: BoxShape.circle,
         border: Border.all(
           color: value ? Colors.green.shade700 : Colors.grey.shade500,
@@ -1138,10 +1117,7 @@ dynamic build(BuildContext context) {
           Text(
             detail,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade800,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
           ),
         ],
       ),
@@ -1171,11 +1147,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        buildVsyncBox(
-          'SchedulerBinding',
-          'Engine vsync signal',
-          Colors.indigo,
-        ),
+        buildVsyncBox('SchedulerBinding', 'Engine vsync signal', Colors.indigo),
         Icon(Icons.arrow_downward, color: Colors.indigo.shade400),
         buildVsyncBox(
           'TickerProvider',
@@ -1183,17 +1155,9 @@ dynamic build(BuildContext context) {
           Colors.deepPurple,
         ),
         Icon(Icons.arrow_downward, color: Colors.deepPurple.shade400),
-        buildVsyncBox(
-          'Ticker',
-          'createTicker(onTick)',
-          Colors.teal,
-        ),
+        buildVsyncBox('Ticker', 'createTicker(onTick)', Colors.teal),
         Icon(Icons.arrow_downward, color: Colors.teal.shade400),
-        buildVsyncBox(
-          'TickerFuture',
-          'returned from start()',
-          Colors.orange,
-        ),
+        buildVsyncBox('TickerFuture', 'returned from start()', Colors.orange),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -1205,10 +1169,7 @@ dynamic build(BuildContext context) {
             'A Ticker without its provider would be leaked. The mixins '
             'automatically dispose tickers tied to the host State.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.indigo.shade900,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.indigo.shade900),
           ),
         ),
       ],
@@ -1346,10 +1307,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2
@@ -1397,10 +1355,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: patternCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: patternCards),
             SizedBox(height: 32.0),
 
             // Section 7

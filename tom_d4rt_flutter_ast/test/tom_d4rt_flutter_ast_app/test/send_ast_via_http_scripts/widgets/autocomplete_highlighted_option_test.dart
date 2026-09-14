@@ -33,8 +33,10 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== AutocompleteHighlightedOption Deep Demo (Harness-Safe) ===');
-  print('Sections: intro, raw, card, animated, arrow, grouped, rich, '
-      'side-by-side, keyboard, pitfalls, recipes, reference table.');
+  print(
+    'Sections: intro, raw, card, animated, arrow, grouped, rich, '
+    'side-by-side, keyboard, pitfalls, recipes, reference table.',
+  );
 
   return MaterialApp(
     title: 'AutocompleteHighlightedOption Deep Demo',
@@ -172,10 +174,7 @@ class _Paragraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 15, height: 1.45),
-      ),
+      child: Text(text, style: const TextStyle(fontSize: 15, height: 1.45)),
     );
   }
 }
@@ -272,10 +271,7 @@ class _InfoCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    body,
-                    style: const TextStyle(fontSize: 14, height: 1.4),
-                  ),
+                  Text(body, style: const TextStyle(fontSize: 14, height: 1.4)),
                 ],
               ),
             ),
@@ -304,26 +300,29 @@ class _IntroSection extends StatelessWidget {
               'option index inside a RawAutocomplete options view.',
         ),
         const _Paragraph(
-            'Flutter\'s `RawAutocomplete<T>` is the foundation of `Autocomplete<T>`. '
-            'It manages a text field, a popup of options and the keyboard '
-            'navigation between them. While the user types, presses Up/Down, '
-            'or moves through suggestions, RawAutocomplete keeps a single '
-            'integer — the index of the highlighted option — in a private '
-            '`ValueNotifier<int>`.'),
+          'Flutter\'s `RawAutocomplete<T>` is the foundation of `Autocomplete<T>`. '
+          'It manages a text field, a popup of options and the keyboard '
+          'navigation between them. While the user types, presses Up/Down, '
+          'or moves through suggestions, RawAutocomplete keeps a single '
+          'integer — the index of the highlighted option — in a private '
+          '`ValueNotifier<int>`.',
+        ),
         const _Paragraph(
-            'That value is exposed to your custom `optionsViewBuilder` via the '
-            'inherited widget `AutocompleteHighlightedOption`. The class is '
-            'a thin extension of `InheritedNotifier<ValueNotifier<int>>` and '
-            'has a single static helper `AutocompleteHighlightedOption.of(context)` '
-            'that returns the current highlighted index (defaulting to 0).'),
+          'That value is exposed to your custom `optionsViewBuilder` via the '
+          'inherited widget `AutocompleteHighlightedOption`. The class is '
+          'a thin extension of `InheritedNotifier<ValueNotifier<int>>` and '
+          'has a single static helper `AutocompleteHighlightedOption.of(context)` '
+          'that returns the current highlighted index (defaulting to 0).',
+        ),
         const _Paragraph(
-            'You only touch it when you author a fully-custom options view. '
-            'Material\'s `Autocomplete<T>` already builds a Material list with '
-            'the correct highlight styling. When you want different visuals '
-            '— rich rows, animated borders, group headers, command-palette '
-            'styling — you call `AutocompleteHighlightedOption.of(context)` '
-            'inside your option widgets to know which one is "active" and '
-            'render accordingly.'),
+          'You only touch it when you author a fully-custom options view. '
+          'Material\'s `Autocomplete<T>` already builds a Material list with '
+          'the correct highlight styling. When you want different visuals '
+          '— rich rows, animated borders, group headers, command-palette '
+          'styling — you call `AutocompleteHighlightedOption.of(context)` '
+          'inside your option widgets to know which one is "active" and '
+          'render accordingly.',
+        ),
         const _DiagramCard(),
         const SizedBox(height: 12),
         const _CodeBlock('''
@@ -345,7 +344,8 @@ RawAutocomplete<String>(
         const _InfoCard(
           icon: Icons.lightbulb_outline,
           title: 'Mental model',
-          body: 'RawAutocomplete owns a ValueNotifier<int>; the inherited '
+          body:
+              'RawAutocomplete owns a ValueNotifier<int>; the inherited '
               'widget is a wire from that notifier into your option subtree. '
               'Each rebuild of an option widget that calls .of(context) '
               'subscribes to changes — no manual setState required.',
@@ -377,14 +377,20 @@ class _DiagramCard extends StatelessWidget {
           const SizedBox(height: 14),
           _diagramBox('RawAutocomplete<T>', 'owns ValueNotifier<int>'),
           const _DiagramArrow(),
-          _diagramBox('AutocompleteHighlightedOption',
-              'InheritedNotifier<ValueNotifier<int>>'),
+          _diagramBox(
+            'AutocompleteHighlightedOption',
+            'InheritedNotifier<ValueNotifier<int>>',
+          ),
           const _DiagramArrow(),
-          _diagramBox('optionsViewBuilder',
-              'AutocompleteHighlightedOption.of(context) -> int'),
+          _diagramBox(
+            'optionsViewBuilder',
+            'AutocompleteHighlightedOption.of(context) -> int',
+          ),
           const _DiagramArrow(),
-          _diagramBox('Each option widget',
-              'rebuilds when index changes; styles itself accordingly'),
+          _diagramBox(
+            'Each option widget',
+            'rebuilds when index changes; styles itself accordingly',
+          ),
         ],
       ),
     );
@@ -402,11 +408,15 @@ class _DiagramCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+          ),
           const SizedBox(height: 2),
-          Text(subtitle,
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+          Text(
+            subtitle,
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+          ),
         ],
       ),
     );
@@ -487,15 +497,17 @@ class _LiveRawAutocompleteSectionState
         const _SectionHeader(
           number: 2,
           title: 'Live RawAutocomplete<String> with a custom options view',
-          subtitle: 'A 30+ entry programming-language picker that uses '
+          subtitle:
+              'A 30+ entry programming-language picker that uses '
               'AutocompleteHighlightedOption.of(context) to highlight the '
               'currently focused option.',
         ),
         const _Paragraph(
-            'This is the canonical use-case. Type a fragment ("ja", "scal", '
-            '"r"); Up/Down move the highlight; the custom option widget '
-            'reads the highlighted index from context and renders a different '
-            'background, a scaled card and a leading arrow on the active row.'),
+          'This is the canonical use-case. Type a fragment ("ja", "scal", '
+          '"r"); Up/Down move the highlight; the custom option widget '
+          'reads the highlighted index from context and renders a different '
+          'background, a scaled card and a leading arrow on the active row.',
+        ),
         SizedBox(
           height: 260,
           child: RawAutocomplete<String>(
@@ -507,62 +519,70 @@ class _LiveRawAutocompleteSectionState
               );
             },
             onSelected: (String s) => setState(() => _picked = s),
-            fieldViewBuilder: (BuildContext context,
-                TextEditingController controller,
-                FocusNode focus,
-                VoidCallback onSubmit) {
-              return TextField(
-                controller: controller,
-                focusNode: focus,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.code),
-                  hintText: 'Pick a programming language',
-                  border: const OutlineInputBorder(),
-                  filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: controller.text.isEmpty
-                      ? null
-                      : IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            controller.clear();
+            fieldViewBuilder:
+                (
+                  BuildContext context,
+                  TextEditingController controller,
+                  FocusNode focus,
+                  VoidCallback onSubmit,
+                ) {
+                  return TextField(
+                    controller: controller,
+                    focusNode: focus,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.code),
+                      hintText: 'Pick a programming language',
+                      border: const OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
+                      suffixIcon: controller.text.isEmpty
+                          ? null
+                          : IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                controller.clear();
+                              },
+                            ),
+                    ),
+                    onSubmitted: (_) => onSubmit(),
+                  );
+                },
+            optionsViewBuilder:
+                (
+                  BuildContext context,
+                  AutocompleteOnSelected<String> onSelected,
+                  Iterable<String> options,
+                ) {
+                  final List<String> list = options.toList();
+                  return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      elevation: 4,
+                      borderRadius: BorderRadius.circular(12),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 220,
+                          maxWidth: 360,
+                        ),
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: list.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            // The KEY line: read the highlighted index.
+                            final int highlighted =
+                                AutocompleteHighlightedOption.of(context);
+                            final bool active = highlighted == index;
+                            return _LanguageOptionRow(
+                              label: list[index],
+                              highlighted: active,
+                              onTap: () => onSelected(list[index]),
+                            );
                           },
                         ),
-                ),
-                onSubmitted: (_) => onSubmit(),
-              );
-            },
-            optionsViewBuilder: (BuildContext context,
-                AutocompleteOnSelected<String> onSelected,
-                Iterable<String> options) {
-              final List<String> list = options.toList();
-              return Align(
-                alignment: Alignment.topLeft,
-                child: Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(12),
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(
-                        maxHeight: 220, maxWidth: 360),
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        // The KEY line: read the highlighted index.
-                        final int highlighted =
-                            AutocompleteHighlightedOption.of(context);
-                        final bool active = highlighted == index;
-                        return _LanguageOptionRow(
-                          label: list[index],
-                          highlighted: active,
-                          onTap: () => onSelected(list[index]),
-                        );
-                      },
+                      ),
                     ),
-                  ),
-                ),
-              );
-            },
+                  );
+                },
           ),
         ),
         const SizedBox(height: 12),
@@ -654,15 +674,17 @@ class _CardStyleSection extends StatelessWidget {
         const _SectionHeader(
           number: 3,
           title: 'Card-style highlight (`_CardStyleAutocomplete`)',
-          subtitle: 'Highlighted option becomes an elevated Card with a '
+          subtitle:
+              'Highlighted option becomes an elevated Card with a '
               'colored border. Non-highlighted ones are flat.',
         ),
         const _Paragraph(
-            'The `_CardStyleAutocomplete` widget below shows how to morph the '
-            'option chrome based on the highlight. The non-highlighted ones '
-            'have elevation 0 and no border; the active one has elevation 4 '
-            'and a thick primary-color border. This is how command palettes '
-            'and IDE pickers visually pop the focused row.'),
+          'The `_CardStyleAutocomplete` widget below shows how to morph the '
+          'option chrome based on the highlight. The non-highlighted ones '
+          'have elevation 0 and no border; the active one has elevation 4 '
+          'and a thick primary-color border. This is how command palettes '
+          'and IDE pickers visually pop the focused row.',
+        ),
         const SizedBox(height: 8),
         const _CardStyleAutocomplete(),
       ],
@@ -697,87 +719,95 @@ class _CardStyleAutocomplete extends StatelessWidget {
       height: 260,
       child: RawAutocomplete<String>(
         optionsBuilder: (TextEditingValue v) => _options.where(
-            (String o) => o.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Search command…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final List<String> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              color: Colors.transparent,
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 220, maxWidth: 360),
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(6),
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Card(
-                        elevation: active ? 4 : 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
+          (String o) => o.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.search),
+                  hintText: 'Search command…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final List<String> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  color: Colors.transparent,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 220,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(6),
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: Card(
+                            elevation: active ? 4 : 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                color: active
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.grey.shade300,
+                                width: active ? 2 : 1,
+                              ),
+                            ),
                             color: active
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey.shade300,
-                            width: active ? 2 : 1,
-                          ),
-                        ),
-                        color: active
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primaryContainer
-                                .withOpacity(0.6)
-                            : Colors.white,
-                        child: ListTile(
-                          dense: true,
-                          leading: Icon(
-                            active ? Icons.bolt : Icons.bolt_outlined,
-                            color: active
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey,
-                          ),
-                          title: Text(
-                            list[index],
-                            style: TextStyle(
-                              fontWeight: active
-                                  ? FontWeight.w700
-                                  : FontWeight.w400,
+                                ? Theme.of(context).colorScheme.primaryContainer
+                                      .withOpacity(0.6)
+                                : Colors.white,
+                            child: ListTile(
+                              dense: true,
+                              leading: Icon(
+                                active ? Icons.bolt : Icons.bolt_outlined,
+                                color: active
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.grey,
+                              ),
+                              title: Text(
+                                list[index],
+                                style: TextStyle(
+                                  fontWeight: active
+                                      ? FontWeight.w700
+                                      : FontWeight.w400,
+                                ),
+                              ),
+                              onTap: () => onSelected(list[index]),
                             ),
                           ),
-                          onTap: () => onSelected(list[index]),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
@@ -796,16 +826,18 @@ class _AnimatedHighlightSection extends StatelessWidget {
         const _SectionHeader(
           number: 4,
           title: 'Animated highlight (`_AnimatedHighlight`)',
-          subtitle: 'Each option uses AnimatedContainer to morph background, '
+          subtitle:
+              'Each option uses AnimatedContainer to morph background, '
               'padding and elevation as the highlighted index changes.',
         ),
         const _Paragraph(
-            'Using AnimatedContainer instead of plain Container means that '
-            'when the user presses Down, the previously-active row collapses '
-            'to its dim state and the new one inflates — a much smoother UX '
-            'than a hard swap. The animation is wholly driven by the '
-            'inherited highlight value; no explicit AnimationController is '
-            'needed.'),
+          'Using AnimatedContainer instead of plain Container means that '
+          'when the user presses Down, the previously-active row collapses '
+          'to its dim state and the new one inflates — a much smoother UX '
+          'than a hard swap. The animation is wholly driven by the '
+          'inherited highlight value; no explicit AnimationController is '
+          'needed.',
+        ),
         const SizedBox(height: 8),
         const _AnimatedHighlight(),
       ],
@@ -857,109 +889,121 @@ class _AnimatedHighlight extends StatelessWidget {
       height: 260,
       child: RawAutocomplete<String>(
         optionsBuilder: (TextEditingValue v) => _fruits.where(
-            (String f) => f.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.eco),
-              hintText: 'Search fruit…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final List<String> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 220, maxWidth: 360),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    return InkWell(
-                      onTap: () => onSelected(list[index]),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 220),
-                        curve: Curves.easeOutCubic,
-                        margin: EdgeInsets.symmetric(
-                          horizontal: active ? 6 : 12,
-                          vertical: active ? 4 : 2,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: active ? 14 : 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: active
-                              ? Theme.of(context)
-                                  .colorScheme
-                                  .secondaryContainer
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(active ? 14 : 4),
-                          boxShadow: active
-                              ? <BoxShadow>[
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.12),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ]
-                              : <BoxShadow>[],
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            AnimatedRotation(
-                              turns: active ? 0.0 : -0.05,
-                              duration: const Duration(milliseconds: 200),
-                              child: Icon(
-                                Icons.restaurant,
-                                color: active
-                                    ? Theme.of(context).colorScheme.primary
-                                    : Colors.grey.shade500,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                list[index],
-                                style: TextStyle(
-                                  fontSize: active ? 17 : 15,
-                                  fontWeight: active
-                                      ? FontWeight.w700
-                                      : FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            if (active)
-                              const Icon(Icons.keyboard_return, size: 16),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+          (String f) => f.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.eco),
+                  hintText: 'Search fruit…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-              ),
-            ),
-          );
-        },
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final List<String> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 220,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        return InkWell(
+                          onTap: () => onSelected(list[index]),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 220),
+                            curve: Curves.easeOutCubic,
+                            margin: EdgeInsets.symmetric(
+                              horizontal: active ? 6 : 12,
+                              vertical: active ? 4 : 2,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: active ? 14 : 10,
+                            ),
+                            decoration: BoxDecoration(
+                              color: active
+                                  ? Theme.of(
+                                      context,
+                                    ).colorScheme.secondaryContainer
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                active ? 14 : 4,
+                              ),
+                              boxShadow: active
+                                  ? <BoxShadow>[
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.12),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ]
+                                  : <BoxShadow>[],
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                AnimatedRotation(
+                                  turns: active ? 0.0 : -0.05,
+                                  duration: const Duration(milliseconds: 200),
+                                  child: Icon(
+                                    Icons.restaurant,
+                                    color: active
+                                        ? Theme.of(context).colorScheme.primary
+                                        : Colors.grey.shade500,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    list[index],
+                                    style: TextStyle(
+                                      fontSize: active ? 17 : 15,
+                                      fontWeight: active
+                                          ? FontWeight.w700
+                                          : FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                if (active)
+                                  const Icon(Icons.keyboard_return, size: 16),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
       ),
     );
   }
@@ -978,15 +1022,17 @@ class _ArrowIndicatorSection extends StatelessWidget {
         const _SectionHeader(
           number: 5,
           title: 'Arrow indicator (`_ArrowIndicator`)',
-          subtitle: 'A leading chevron only appears on the highlighted row, '
+          subtitle:
+              'A leading chevron only appears on the highlighted row, '
               'fading and sliding in.',
         ),
         const _Paragraph(
-            'A subtle but informative pattern: only the active row shows a '
-            '`Icons.chevron_right` glyph. Wrap the icon in `AnimatedOpacity` '
-            'and `AnimatedSlide` so the cursor visibly moves with the user\'s '
-            'arrow keys. This is great for low-density lists where you want '
-            'a clear "you are here" affordance without colored backgrounds.'),
+          'A subtle but informative pattern: only the active row shows a '
+          '`Icons.chevron_right` glyph. Wrap the icon in `AnimatedOpacity` '
+          'and `AnimatedSlide` so the cursor visibly moves with the user\'s '
+          'arrow keys. This is great for low-density lists where you want '
+          'a clear "you are here" affordance without colored backgrounds.',
+        ),
         const SizedBox(height: 8),
         const _ArrowIndicator(),
       ],
@@ -1021,101 +1067,113 @@ class _ArrowIndicator extends StatelessWidget {
       height: 260,
       child: RawAutocomplete<String>(
         optionsBuilder: (TextEditingValue v) => _files.where(
-            (String f) => f.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.folder_open),
-              hintText: 'Open file…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final List<String> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 220, maxWidth: 380),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    return InkWell(
-                      onTap: () => onSelected(list[index]),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 8),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(
-                              width: 24,
-                              child: AnimatedOpacity(
-                                duration:
-                                    const Duration(milliseconds: 200),
-                                opacity: active ? 1 : 0,
-                                child: AnimatedSlide(
-                                  duration:
-                                      const Duration(milliseconds: 200),
-                                  offset: Offset(active ? 0 : -0.5, 0),
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primary,
+          (String f) => f.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.folder_open),
+                  hintText: 'Open file…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final List<String> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 220,
+                      maxWidth: 380,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        return InkWell(
+                          onTap: () => onSelected(list[index]),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 8,
+                            ),
+                            child: Row(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 24,
+                                  child: AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 200),
+                                    opacity: active ? 1 : 0,
+                                    child: AnimatedSlide(
+                                      duration: const Duration(
+                                        milliseconds: 200,
+                                      ),
+                                      offset: Offset(active ? 0 : -0.5, 0),
+                                      child: Icon(
+                                        Icons.chevron_right,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            const SizedBox(width: 4),
-                            Icon(
-                              list[index].endsWith('.dart')
-                                  ? Icons.code
-                                  : list[index].endsWith('.yaml')
+                                const SizedBox(width: 4),
+                                Icon(
+                                  list[index].endsWith('.dart')
+                                      ? Icons.code
+                                      : list[index].endsWith('.yaml')
                                       ? Icons.settings
                                       : Icons.description,
-                              color: Colors.grey.shade600,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                list[index],
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontWeight: active
-                                      ? FontWeight.w700
-                                      : FontWeight.w400,
+                                  color: Colors.grey.shade600,
+                                  size: 18,
                                 ),
-                              ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    list[index],
+                                    style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontWeight: active
+                                          ? FontWeight.w700
+                                          : FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
@@ -1134,18 +1192,20 @@ class _GroupedAutocompleteSection extends StatelessWidget {
         const _SectionHeader(
           number: 6,
           title: 'Group headers (`_GroupedAutocomplete`)',
-          subtitle: 'Languages grouped by paradigm. Headers are rendered '
+          subtitle:
+              'Languages grouped by paradigm. Headers are rendered '
               'between options but do not consume an index — the highlight '
               '"skips" them.',
         ),
         const _Paragraph(
-            'When grouping, the visual list contains a mix of headers and '
-            'options. The trick: only options correspond to entries in '
-            'the `Iterable<T>` that RawAutocomplete passes you, so the '
-            'highlighted index is an option-index, not a row-index. Inside '
-            'the builder we map option-index <-> visual-row using a tiny '
-            'lookup table. The header rows ignore the highlight; only '
-            'option rows read it.'),
+          'When grouping, the visual list contains a mix of headers and '
+          'options. The trick: only options correspond to entries in '
+          'the `Iterable<T>` that RawAutocomplete passes you, so the '
+          'highlighted index is an option-index, not a row-index. Inside '
+          'the builder we map option-index <-> visual-row using a tiny '
+          'lookup table. The header rows ignore the highlight; only '
+          'option rows read it.',
+        ),
         const SizedBox(height: 8),
         const _GroupedAutocomplete(),
       ],
@@ -1168,9 +1228,11 @@ class _GroupedAutocomplete extends StatelessWidget {
     int optionIndex = 0;
     _groups.forEach((String group, List<String> langs) {
       final List<String> matching = langs
-          .where((String l) =>
-              filter.isEmpty ||
-              l.toLowerCase().contains(filter.toLowerCase()))
+          .where(
+            (String l) =>
+                filter.isEmpty ||
+                l.toLowerCase().contains(filter.toLowerCase()),
+          )
           .toList();
       if (matching.isEmpty) return;
       rows.add(_Row.header(group));
@@ -1183,9 +1245,9 @@ class _GroupedAutocomplete extends StatelessWidget {
   }
 
   Iterable<String> _options(String filter) {
-    return _flatten(filter)
-        .where((_Row r) => !r.isHeader)
-        .map((_Row r) => r.label);
+    return _flatten(
+      filter,
+    ).where((_Row r) => !r.isHeader).map((_Row r) => r.label);
   }
 
   @override
@@ -1194,110 +1256,119 @@ class _GroupedAutocomplete extends StatelessWidget {
       height: 320,
       child: RawAutocomplete<String>(
         optionsBuilder: (TextEditingValue v) => _options(v.text),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.category),
-              hintText: 'Pick a language (grouped)…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final String filter =
-              (options.isEmpty) ? '' : '';
-          // Build the same flat list as `_options(filter)`. We can rely on
-          // ordering because both helpers walk the same map.
-          final List<_Row> rows = _flatten(filter);
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 280, maxWidth: 360),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: rows.length,
-                  itemBuilder: (BuildContext context, int rowIndex) {
-                    final _Row row = rows[rowIndex];
-                    if (row.isHeader) {
-                      return Container(
-                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          row.label.toUpperCase(),
-                          style: TextStyle(
-                            fontSize: 11,
-                            letterSpacing: 1.5,
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      );
-                    }
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == row.optionIndex;
-                    return InkWell(
-                      onTap: () => onSelected(row.label),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
-                        color: active
-                            ? Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withOpacity(0.10)
-                            : Colors.transparent,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              active ? Icons.radio_button_checked : Icons.code,
-                              color: active
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey,
-                              size: 18,
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              row.label,
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.category),
+                  hintText: 'Pick a language (grouped)…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final String filter = (options.isEmpty) ? '' : '';
+              // Build the same flat list as `_options(filter)`. We can rely on
+              // ordering because both helpers walk the same map.
+              final List<_Row> rows = _flatten(filter);
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 280,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: rows.length,
+                      itemBuilder: (BuildContext context, int rowIndex) {
+                        final _Row row = rows[rowIndex];
+                        if (row.isHeader) {
+                          return Container(
+                            padding: const EdgeInsets.fromLTRB(16, 14, 16, 6),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              row.label.toUpperCase(),
                               style: TextStyle(
-                                fontWeight: active
-                                    ? FontWeight.w700
-                                    : FontWeight.w400,
+                                fontSize: 11,
+                                letterSpacing: 1.5,
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          );
+                        }
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == row.optionIndex;
+                        return InkWell(
+                          onTap: () => onSelected(row.label),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 10,
+                            ),
+                            color: active
+                                ? Theme.of(
+                                    context,
+                                  ).colorScheme.primary.withOpacity(0.10)
+                                : Colors.transparent,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  active
+                                      ? Icons.radio_button_checked
+                                      : Icons.code,
+                                  color: active
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Colors.grey,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 10),
+                                Text(
+                                  row.label,
+                                  style: TextStyle(
+                                    fontWeight: active
+                                        ? FontWeight.w700
+                                        : FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
 }
 
 class _Row {
-  _Row.header(this.label)
-      : isHeader = true,
-        optionIndex = -1;
+  _Row.header(this.label) : isHeader = true, optionIndex = -1;
   _Row.option(this.label, this.optionIndex) : isHeader = false;
   final String label;
   final bool isHeader;
@@ -1317,15 +1388,17 @@ class _RichOptionSection extends StatelessWidget {
         const _SectionHeader(
           number: 7,
           title: 'Rich expanding rows (`_RichOption`)',
-          subtitle: 'Avatar + title + subtitle. The subtitle expands to show '
+          subtitle:
+              'Avatar + title + subtitle. The subtitle expands to show '
               'extra detail when highlighted.',
         ),
         const _Paragraph(
-            'A super common pattern in modern app shells: each option is '
-            'a multi-line row (avatar, title, short description). When '
-            'highlighted, an extra line of detail (version, tags, recent '
-            'usage) is revealed using AnimatedSize. The expansion is driven '
-            'entirely by reading the highlighted index.'),
+          'A super common pattern in modern app shells: each option is '
+          'a multi-line row (avatar, title, short description). When '
+          'highlighted, an extra line of detail (version, tags, recent '
+          'usage) is revealed using AnimatedSize. The expansion is driven '
+          'entirely by reading the highlighted index.',
+        ),
         const SizedBox(height: 8),
         const _RichOption(),
       ],
@@ -1345,44 +1418,54 @@ class _RichOption extends StatelessWidget {
   const _RichOption();
 
   static const List<_RichLanguage> _list = <_RichLanguage>[
-    _RichLanguage('Dart', 'Modern, multi-paradigm',
-        'Strong typing, JIT + AOT, Flutter\'s default. Sound null safety.',
-        Colors.blue),
     _RichLanguage(
-        'Python',
-        'Batteries included',
-        'Dynamic, expressive, huge ecosystem (numpy, pandas). Easy to learn.',
-        Colors.green),
+      'Dart',
+      'Modern, multi-paradigm',
+      'Strong typing, JIT + AOT, Flutter\'s default. Sound null safety.',
+      Colors.blue,
+    ),
     _RichLanguage(
-        'Rust',
-        'Safe systems language',
-        'Memory safety without GC, ownership and borrowing, fearless concurrency.',
-        Colors.deepOrange),
+      'Python',
+      'Batteries included',
+      'Dynamic, expressive, huge ecosystem (numpy, pandas). Easy to learn.',
+      Colors.green,
+    ),
     _RichLanguage(
-        'Go',
-        'Simple concurrency',
-        'Goroutines, channels, fast compilation, opinionated formatting.',
-        Colors.cyan),
+      'Rust',
+      'Safe systems language',
+      'Memory safety without GC, ownership and borrowing, fearless concurrency.',
+      Colors.deepOrange,
+    ),
     _RichLanguage(
-        'Kotlin',
-        'JVM, modern',
-        'Null-safe, concise, full Java interop, coroutines for async work.',
-        Colors.purple),
+      'Go',
+      'Simple concurrency',
+      'Goroutines, channels, fast compilation, opinionated formatting.',
+      Colors.cyan,
+    ),
     _RichLanguage(
-        'Swift',
-        'Apple\'s modern language',
-        'Type-safe, protocol-oriented, value semantics, ARC.',
-        Colors.orange),
+      'Kotlin',
+      'JVM, modern',
+      'Null-safe, concise, full Java interop, coroutines for async work.',
+      Colors.purple,
+    ),
     _RichLanguage(
-        'TypeScript',
-        'JS with types',
-        'Structural typing on top of JavaScript, great editor tooling.',
-        Colors.indigo),
+      'Swift',
+      'Apple\'s modern language',
+      'Type-safe, protocol-oriented, value semantics, ARC.',
+      Colors.orange,
+    ),
     _RichLanguage(
-        'Haskell',
-        'Pure functional',
-        'Lazy evaluation, strong static types, type classes, monads.',
-        Colors.deepPurple),
+      'TypeScript',
+      'JS with types',
+      'Structural typing on top of JavaScript, great editor tooling.',
+      Colors.indigo,
+    ),
+    _RichLanguage(
+      'Haskell',
+      'Pure functional',
+      'Lazy evaluation, strong static types, type classes, monads.',
+      Colors.deepPurple,
+    ),
   ];
 
   @override
@@ -1391,121 +1474,137 @@ class _RichOption extends StatelessWidget {
       height: 320,
       child: RawAutocomplete<_RichLanguage>(
         displayStringForOption: (_RichLanguage l) => l.name,
-        optionsBuilder: (TextEditingValue v) => _list.where((_RichLanguage l) =>
-            l.name.toLowerCase().contains(v.text.toLowerCase()) ||
-            l.tagline.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.book),
-              hintText: 'Pick a language (rich rows)…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<_RichLanguage> onSelected,
-            Iterable<_RichLanguage> options) {
-          final List<_RichLanguage> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 320, maxWidth: 380),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    final _RichLanguage l = list[index];
-                    return InkWell(
-                      onTap: () => onSelected(l),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        color: active
-                            ? l.color.withOpacity(0.08)
-                            : Colors.transparent,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundColor: l.color,
-                              radius: 16,
-                              child: Text(
-                                l.name.substring(0, 1),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    l.name,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: active
-                                          ? FontWeight.w700
-                                          : FontWeight.w500,
-                                    ),
-                                  ),
-                                  Text(
-                                    l.tagline,
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.grey.shade700,
-                                    ),
-                                  ),
-                                  AnimatedSize(
-                                    duration:
-                                        const Duration(milliseconds: 200),
-                                    curve: Curves.easeOut,
-                                    child: active
-                                        ? Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 6),
-                                            child: Text(
-                                              l.detail,
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontStyle: FontStyle.italic,
-                                                color: l.color,
-                                              ),
-                                            ),
-                                          )
-                                        : const SizedBox.shrink(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+        optionsBuilder: (TextEditingValue v) => _list.where(
+          (_RichLanguage l) =>
+              l.name.toLowerCase().contains(v.text.toLowerCase()) ||
+              l.tagline.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.book),
+                  hintText: 'Pick a language (rich rows)…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-              ),
-            ),
-          );
-        },
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<_RichLanguage> onSelected,
+              Iterable<_RichLanguage> options,
+            ) {
+              final List<_RichLanguage> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 320,
+                      maxWidth: 380,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        final _RichLanguage l = list[index];
+                        return InkWell(
+                          onTap: () => onSelected(l),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            color: active
+                                ? l.color.withOpacity(0.08)
+                                : Colors.transparent,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundColor: l.color,
+                                  radius: 16,
+                                  child: Text(
+                                    l.name.substring(0, 1),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        l.name,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: active
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        l.tagline,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.grey.shade700,
+                                        ),
+                                      ),
+                                      AnimatedSize(
+                                        duration: const Duration(
+                                          milliseconds: 200,
+                                        ),
+                                        curve: Curves.easeOut,
+                                        child: active
+                                            ? Padding(
+                                                padding: const EdgeInsets.only(
+                                                  top: 6,
+                                                ),
+                                                child: Text(
+                                                  l.detail,
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontStyle: FontStyle.italic,
+                                                    color: l.color,
+                                                  ),
+                                                ),
+                                              )
+                                            : const SizedBox.shrink(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
       ),
     );
   }
@@ -1524,16 +1623,18 @@ class _SideBySideSection extends StatelessWidget {
         const _SectionHeader(
           number: 8,
           title: 'Side-by-side: with vs without AutocompleteHighlightedOption',
-          subtitle: 'Two RawAutocompletes — one ignores the highlight, '
+          subtitle:
+              'Two RawAutocompletes — one ignores the highlight, '
               'one consumes it.',
         ),
         const _Paragraph(
-            'Both pickers offer the exact same option list. The left one '
-            'never calls `AutocompleteHighlightedOption.of(context)` — it '
-            'renders flat options, so arrow keys silently move the focus '
-            'while the visual list looks unchanged. The right one consumes '
-            'the index and animates a focus chip + colored background, '
-            'making keyboard navigation discoverable.'),
+          'Both pickers offer the exact same option list. The left one '
+          'never calls `AutocompleteHighlightedOption.of(context)` — it '
+          'renders flat options, so arrow keys silently move the focus '
+          'while the visual list looks unchanged. The right one consumes '
+          'the index and animates a focus chip + colored background, '
+          'making keyboard navigation discoverable.',
+        ),
         const SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1544,8 +1645,9 @@ class _SideBySideSection extends StatelessWidget {
           ],
         ),
         const _Caption(
-            'Left: "without" — flat list, invisible keyboard focus. '
-            'Right: "with" — focus chip + background, fully keyboard-navigable.'),
+          'Left: "without" — flat list, invisible keyboard focus. '
+          'Right: "with" — focus chip + background, fully keyboard-navigable.',
+        ),
       ],
     );
   }
@@ -1574,50 +1676,59 @@ class _PlainAutocomplete extends StatelessWidget {
       height: 260,
       child: RawAutocomplete<String>(
         optionsBuilder: (TextEditingValue v) => _options.where(
-            (String s) => s.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              labelText: 'Without highlight',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final List<String> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 2,
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 220, maxWidth: 220),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    // Intentionally NOT calling AutocompleteHighlightedOption.of.
-                    return ListTile(
-                      dense: true,
-                      title: Text(list[index]),
-                      onTap: () => onSelected(list[index]),
-                    );
-                  },
+          (String s) => s.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  labelText: 'Without highlight',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-              ),
-            ),
-          );
-        },
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final List<String> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 2,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 220,
+                      maxWidth: 220,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        // Intentionally NOT calling AutocompleteHighlightedOption.of.
+                        return ListTile(
+                          dense: true,
+                          title: Text(list[index]),
+                          onTap: () => onSelected(list[index]),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
       ),
     );
   }
@@ -1631,84 +1742,99 @@ class _RichSideAutocomplete extends StatelessWidget {
     return SizedBox(
       height: 260,
       child: RawAutocomplete<String>(
-        optionsBuilder: (TextEditingValue v) => _PlainAutocomplete._options
-            .where((String s) =>
-                s.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              labelText: 'With highlight',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
+        optionsBuilder: (TextEditingValue v) =>
+            _PlainAutocomplete._options.where(
+              (String s) => s.toLowerCase().contains(v.text.toLowerCase()),
             ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options) {
-          final List<String> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 2,
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 220, maxWidth: 220),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    return Container(
-                      color: active
-                          ? Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.10)
-                          : Colors.transparent,
-                      child: ListTile(
-                        dense: true,
-                        leading: Icon(
-                          active ? Icons.arrow_right : Icons.circle_outlined,
-                          color: active
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.grey,
-                          size: 18,
-                        ),
-                        title: Text(
-                          list[index],
-                          style: TextStyle(
-                            fontWeight: active
-                                ? FontWeight.w700
-                                : FontWeight.w400,
-                          ),
-                        ),
-                        trailing: active
-                            ? const Chip(
-                                visualDensity:
-                                    VisualDensity(horizontal: -4, vertical: -4),
-                                label: Text('focus',
-                                    style: TextStyle(fontSize: 10)),
-                              )
-                            : null,
-                        onTap: () => onSelected(list[index]),
-                      ),
-                    );
-                  },
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  labelText: 'With highlight',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-              ),
-            ),
-          );
-        },
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options,
+            ) {
+              final List<String> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 2,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 220,
+                      maxWidth: 220,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        return Container(
+                          color: active
+                              ? Theme.of(
+                                  context,
+                                ).colorScheme.primary.withOpacity(0.10)
+                              : Colors.transparent,
+                          child: ListTile(
+                            dense: true,
+                            leading: Icon(
+                              active
+                                  ? Icons.arrow_right
+                                  : Icons.circle_outlined,
+                              color: active
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.grey,
+                              size: 18,
+                            ),
+                            title: Text(
+                              list[index],
+                              style: TextStyle(
+                                fontWeight: active
+                                    ? FontWeight.w700
+                                    : FontWeight.w400,
+                              ),
+                            ),
+                            trailing: active
+                                ? const Chip(
+                                    visualDensity: VisualDensity(
+                                      horizontal: -4,
+                                      vertical: -4,
+                                    ),
+                                    label: Text(
+                                      'focus',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  )
+                                : null,
+                            onTap: () => onSelected(list[index]),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
       ),
     );
   }
@@ -1727,17 +1853,19 @@ class _KeyboardNavigationSection extends StatelessWidget {
         const _SectionHeader(
           number: 9,
           title: 'Keyboard navigation',
-          subtitle: 'Up/Down advance the highlighted index, Tab/Enter '
+          subtitle:
+              'Up/Down advance the highlighted index, Tab/Enter '
               'commit the selection.',
         ),
         const _Paragraph(
-            'RawAutocomplete listens for arrow keys whenever its TextField '
-            'has focus. Up/Down increment or decrement the highlighted '
-            'index, wrapping around at the ends. Tab and Enter call the '
-            'on-selected callback with the option at the current highlighted '
-            'index. Escape closes the popup. Your custom optionsViewBuilder '
-            'never has to handle keys explicitly — you just observe the '
-            'index via the inherited widget.'),
+          'RawAutocomplete listens for arrow keys whenever its TextField '
+          'has focus. Up/Down increment or decrement the highlighted '
+          'index, wrapping around at the ends. Tab and Enter call the '
+          'on-selected callback with the option at the current highlighted '
+          'index. Escape closes the popup. Your custom optionsViewBuilder '
+          'never has to handle keys explicitly — you just observe the '
+          'index via the inherited widget.',
+        ),
         const SizedBox(height: 8),
         const _KeyLegend(),
       ],
@@ -1761,8 +1889,10 @@ class _KeyLegend extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text('Keyboard reference',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+            const Text(
+              'Keyboard reference',
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 12,
@@ -1795,8 +1925,7 @@ class _KeyChip extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
             border: Border.all(color: Colors.grey.shade400),
@@ -1836,7 +1965,8 @@ class _PitfallsSection extends StatelessWidget {
           icon: Icons.warning_amber,
           color: Colors.orange,
           title: '.of(context) outside an optionsViewBuilder returns 0',
-          body: 'AutocompleteHighlightedOption is only injected by '
+          body:
+              'AutocompleteHighlightedOption is only injected by '
               'RawAutocomplete inside the optionsViewBuilder subtree. '
               'Calling it from your fieldViewBuilder or anywhere else '
               'just returns the default value of 0 — silently. Always '
@@ -1848,7 +1978,8 @@ class _PitfallsSection extends StatelessWidget {
           icon: Icons.bookmark,
           color: Colors.blue,
           title: 'Highlighted ≠ selected',
-          body: 'The index points at the option the user is *focused* on '
+          body:
+              'The index points at the option the user is *focused* on '
               'with the keyboard. Selection happens when the user presses '
               'Enter/Tab, taps an option, or your code calls the '
               'AutocompleteOnSelected callback. Treat the index as a '
@@ -1859,7 +1990,8 @@ class _PitfallsSection extends StatelessWidget {
           icon: Icons.speed,
           color: Colors.purple,
           title: 'Don\'t rebuild the whole list on every key press',
-          body: 'When the highlight changes, the InheritedNotifier marks '
+          body:
+              'When the highlight changes, the InheritedNotifier marks '
               'all dependents dirty. If your option widget *itself* calls '
               '.of(context), only that row rebuilds. If you read the index '
               'one level up and pass it down as a parameter, the entire '
@@ -1870,7 +2002,8 @@ class _PitfallsSection extends StatelessWidget {
           icon: Icons.inventory_2,
           color: Colors.green,
           title: 'Material\'s Autocomplete already wires this up',
-          body: 'If you use `Autocomplete<T>` with no custom '
+          body:
+              'If you use `Autocomplete<T>` with no custom '
               'optionsViewBuilder, the highlight is rendered for you in '
               'the default Material list. You only reach for '
               'AutocompleteHighlightedOption when you author a fully '
@@ -1898,14 +2031,16 @@ class _RecipeGallerySection extends StatelessWidget {
           subtitle: 'Four self-contained pickers built on the same idea.',
         ),
         const _Paragraph(
-            'Each card below is a real working RawAutocomplete with its own '
-            'shape and styling, all reading the same `AutocompleteHighlightedOption.of(context)`. '
-            'Skim the code to see how the same primitive supports very '
-            'different visual languages.'),
+          'Each card below is a real working RawAutocomplete with its own '
+          'shape and styling, all reading the same `AutocompleteHighlightedOption.of(context)`. '
+          'Skim the code to see how the same primitive supports very '
+          'different visual languages.',
+        ),
         const SizedBox(height: 12),
         _RecipeCard(
           title: 'City picker with flags',
-          description: 'Pick a city; flags glow and city names embolden when '
+          description:
+              'Pick a city; flags glow and city names embolden when '
               'highlighted.',
           child: const _CityPicker(),
         ),
@@ -1920,14 +2055,16 @@ class _RecipeGallerySection extends StatelessWidget {
         const SizedBox(height: 12),
         _RecipeCard(
           title: '@mention search',
-          description: 'Avatar + display name + handle. Highlighted user '
+          description:
+              'Avatar + display name + handle. Highlighted user '
               'shows a "press enter to mention" hint.',
           child: const _MentionPicker(),
         ),
         const SizedBox(height: 12),
         _RecipeCard(
           title: 'Tag selector',
-          description: 'Hashtag-style options with usage counts. Highlight '
+          description:
+              'Hashtag-style options with usage counts. Highlight '
               'animates a glow ring around the chip.',
           child: const _TagSelector(),
         ),
@@ -1960,12 +2097,15 @@ class _RecipeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(title,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            ),
             const SizedBox(height: 4),
-            Text(description,
-                style: TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+            Text(
+              description,
+              style: TextStyle(color: Colors.grey.shade700, fontSize: 13),
+            ),
             const SizedBox(height: 12),
             child,
           ],
@@ -2007,95 +2147,110 @@ class _CityPicker extends StatelessWidget {
       child: RawAutocomplete<_City>(
         displayStringForOption: (_City c) => c.name,
         optionsBuilder: (TextEditingValue v) => _cities.where(
-            (_City c) =>
-                c.name.toLowerCase().contains(v.text.toLowerCase()) ||
-                c.country.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.location_city),
-              hintText: 'Search city or country',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<_City> onSelected,
-            Iterable<_City> options) {
-          final List<_City> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 200, maxWidth: 360),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    final _City c = list[index];
-                    return InkWell(
-                      onTap: () => onSelected(c),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        color: active
-                            ? Colors.amber.withOpacity(0.18)
-                            : Colors.transparent,
-                        child: Row(
-                          children: <Widget>[
-                            AnimatedScale(
-                              scale: active ? 1.4 : 1.0,
-                              duration:
-                                  const Duration(milliseconds: 150),
-                              child: Text(c.flag,
-                                  style: const TextStyle(fontSize: 22)),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    c.name,
-                                    style: TextStyle(
-                                      fontWeight: active
-                                          ? FontWeight.w800
-                                          : FontWeight.w500,
-                                    ),
-                                  ),
-                                  Text(c.country,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey.shade700,
-                                      )),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+          (_City c) =>
+              c.name.toLowerCase().contains(v.text.toLowerCase()) ||
+              c.country.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.location_city),
+                  hintText: 'Search city or country',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
-              ),
-            ),
-          );
-        },
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<_City> onSelected,
+              Iterable<_City> options,
+            ) {
+              final List<_City> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        final _City c = list[index];
+                        return InkWell(
+                          onTap: () => onSelected(c),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            color: active
+                                ? Colors.amber.withOpacity(0.18)
+                                : Colors.transparent,
+                            child: Row(
+                              children: <Widget>[
+                                AnimatedScale(
+                                  scale: active ? 1.4 : 1.0,
+                                  duration: const Duration(milliseconds: 150),
+                                  child: Text(
+                                    c.flag,
+                                    style: const TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        c.name,
+                                        style: TextStyle(
+                                          fontWeight: active
+                                              ? FontWeight.w800
+                                              : FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        c.country,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
       ),
     );
   }
@@ -2130,96 +2285,109 @@ class _CommandPalette extends StatelessWidget {
       child: RawAutocomplete<_Command>(
         displayStringForOption: (_Command c) => c.name,
         optionsBuilder: (TextEditingValue v) => _commands.where(
-            (_Command c) =>
-                c.name.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.terminal),
-              hintText: 'Type a command…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<_Command> onSelected,
-            Iterable<_Command> options) {
-          final List<_Command> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(8),
-              color: const Color(0xFF1F2329),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 200, maxWidth: 360),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    final _Command c = list[index];
-                    return InkWell(
-                      onTap: () => onSelected(c),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 8),
-                        color: active
-                            ? Colors.indigo.withOpacity(0.4)
-                            : Colors.transparent,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(c.icon,
-                                color: active
-                                    ? Colors.white
-                                    : Colors.grey.shade400,
-                                size: 18),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                c.name,
-                                style: TextStyle(
+          (_Command c) => c.name.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.terminal),
+                  hintText: 'Type a command…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<_Command> onSelected,
+              Iterable<_Command> options,
+            ) {
+              final List<_Command> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color(0xFF1F2329),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        final _Command c = list[index];
+                        return InkWell(
+                          onTap: () => onSelected(c),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            color: active
+                                ? Colors.indigo.withOpacity(0.4)
+                                : Colors.transparent,
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  c.icon,
                                   color: active
                                       ? Colors.white
-                                      : Colors.grey.shade300,
-                                  fontFamily: 'monospace',
-                                  fontWeight: active
-                                      ? FontWeight.w700
-                                      : FontWeight.w400,
+                                      : Colors.grey.shade400,
+                                  size: 18,
                                 ),
-                              ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    c.name,
+                                    style: TextStyle(
+                                      color: active
+                                          ? Colors.white
+                                          : Colors.grey.shade300,
+                                      fontFamily: 'monospace',
+                                      fontWeight: active
+                                          ? FontWeight.w700
+                                          : FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  c.shortcut,
+                                  style: TextStyle(
+                                    color: active
+                                        ? Colors.amber.shade200
+                                        : Colors.grey.shade500,
+                                    fontFamily: 'monospace',
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              c.shortcut,
-                              style: TextStyle(
-                                color: active
-                                    ? Colors.amber.shade200
-                                    : Colors.grey.shade500,
-                                fontFamily: 'monospace',
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
@@ -2253,109 +2421,125 @@ class _MentionPicker extends StatelessWidget {
       child: RawAutocomplete<_Mentionable>(
         displayStringForOption: (_Mentionable m) => '@${m.handle}',
         optionsBuilder: (TextEditingValue v) => _users.where(
-            (_Mentionable u) =>
-                u.name.toLowerCase().contains(v.text.toLowerCase()) ||
-                u.handle.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.alternate_email),
-              hintText: 'Mention someone…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<_Mentionable> onSelected,
-            Iterable<_Mentionable> options) {
-          final List<_Mentionable> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 200, maxWidth: 380),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    final _Mentionable m = list[index];
-                    return InkWell(
-                      onTap: () => onSelected(m),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 150),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        color: active
-                            ? m.color.withOpacity(0.10)
-                            : Colors.transparent,
-                        child: Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              radius: 16,
-                              backgroundColor: m.color,
-                              child: Text(
-                                m.name.substring(0, 1),
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+          (_Mentionable u) =>
+              u.name.toLowerCase().contains(v.text.toLowerCase()) ||
+              u.handle.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.alternate_email),
+                  hintText: 'Mention someone…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<_Mentionable> onSelected,
+              Iterable<_Mentionable> options,
+            ) {
+              final List<_Mentionable> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200,
+                      maxWidth: 380,
+                    ),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        final _Mentionable m = list[index];
+                        return InkWell(
+                          onTap: () => onSelected(m),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 150),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    m.name,
-                                    style: TextStyle(
-                                      fontWeight: active
-                                          ? FontWeight.w700
-                                          : FontWeight.w500,
+                            color: active
+                                ? m.color.withOpacity(0.10)
+                                : Colors.transparent,
+                            child: Row(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  radius: 16,
+                                  backgroundColor: m.color,
+                                  child: Text(
+                                    m.name.substring(0, 1),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text('@${m.handle}',
+                                ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        m.name,
+                                        style: TextStyle(
+                                          fontWeight: active
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        '@${m.handle}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if (active)
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 8),
+                                    child: Text(
+                                      'press enter ↵',
                                       style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey.shade700,
-                                      )),
-                                ],
-                              ),
+                                        fontSize: 11,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
-                            if (active)
-                              const Padding(
-                                padding: EdgeInsets.only(left: 8),
-                                child: Text('press enter ↵',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontStyle: FontStyle.italic,
-                                    )),
-                              ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
@@ -2389,112 +2573,126 @@ class _TagSelector extends StatelessWidget {
       height: 240,
       child: RawAutocomplete<_Tag>(
         displayStringForOption: (_Tag t) => '#${t.name}',
-        optionsBuilder: (TextEditingValue v) => _tags.where((_Tag t) =>
-            t.name.toLowerCase().contains(v.text.toLowerCase())),
-        fieldViewBuilder: (BuildContext context,
-            TextEditingController controller,
-            FocusNode focus,
-            VoidCallback onSubmit) {
-          return TextField(
-            controller: controller,
-            focusNode: focus,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.tag),
-              hintText: 'Add tag…',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            onSubmitted: (_) => onSubmit(),
-          );
-        },
-        optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<_Tag> onSelected,
-            Iterable<_Tag> options) {
-          final List<_Tag> list = options.toList();
-          return Align(
-            alignment: Alignment.topLeft,
-            child: Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(12),
-              child: ConstrainedBox(
-                constraints:
-                    const BoxConstraints(maxHeight: 200, maxWidth: 360),
-                child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final int hi =
-                        AutocompleteHighlightedOption.of(context);
-                    final bool active = hi == index;
-                    final _Tag t = list[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: InkWell(
-                        onTap: () => onSelected(t),
-                        borderRadius: BorderRadius.circular(20),
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 14, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: active
-                                ? Colors.teal.shade50
-                                : Colors.grey.shade100,
+        optionsBuilder: (TextEditingValue v) => _tags.where(
+          (_Tag t) => t.name.toLowerCase().contains(v.text.toLowerCase()),
+        ),
+        fieldViewBuilder:
+            (
+              BuildContext context,
+              TextEditingController controller,
+              FocusNode focus,
+              VoidCallback onSubmit,
+            ) {
+              return TextField(
+                controller: controller,
+                focusNode: focus,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.tag),
+                  hintText: 'Add tag…',
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                onSubmitted: (_) => onSubmit(),
+              );
+            },
+        optionsViewBuilder:
+            (
+              BuildContext context,
+              AutocompleteOnSelected<_Tag> onSelected,
+              Iterable<_Tag> options,
+            ) {
+              final List<_Tag> list = options.toList();
+              return Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  elevation: 4,
+                  borderRadius: BorderRadius.circular(12),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200,
+                      maxWidth: 360,
+                    ),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final int hi = AutocompleteHighlightedOption.of(
+                          context,
+                        );
+                        final bool active = hi == index;
+                        final _Tag t = list[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: InkWell(
+                            onTap: () => onSelected(t),
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: active
-                                ? <BoxShadow>[
-                                    BoxShadow(
-                                      color: Colors.teal.withOpacity(0.5),
-                                      blurRadius: 14,
-                                      spreadRadius: 1,
-                                    ),
-                                  ]
-                                : <BoxShadow>[],
-                            border: Border.all(
-                              color: active
-                                  ? Colors.teal
-                                  : Colors.grey.shade300,
-                            ),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.tag,
-                                  size: 16,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 150),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: active
+                                    ? Colors.teal.shade50
+                                    : Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: active
+                                    ? <BoxShadow>[
+                                        BoxShadow(
+                                          color: Colors.teal.withOpacity(0.5),
+                                          blurRadius: 14,
+                                          spreadRadius: 1,
+                                        ),
+                                      ]
+                                    : <BoxShadow>[],
+                                border: Border.all(
                                   color: active
                                       ? Colors.teal
-                                      : Colors.grey.shade600),
-                              const SizedBox(width: 6),
-                              Text(
-                                t.name,
-                                style: TextStyle(
-                                  fontWeight: active
-                                      ? FontWeight.w700
-                                      : FontWeight.w500,
-                                  color: active
-                                      ? Colors.teal.shade900
-                                      : Colors.grey.shade800,
+                                      : Colors.grey.shade300,
                                 ),
                               ),
-                              const Spacer(),
-                              Text(
-                                '${t.uses} uses',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600,
-                                ),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.tag,
+                                    size: 16,
+                                    color: active
+                                        ? Colors.teal
+                                        : Colors.grey.shade600,
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    t.name,
+                                    style: TextStyle(
+                                      fontWeight: active
+                                          ? FontWeight.w700
+                                          : FontWeight.w500,
+                                      color: active
+                                          ? Colors.teal.shade900
+                                          : Colors.grey.shade800,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${t.uses} uses',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
-        },
+              );
+            },
       ),
     );
   }
@@ -2533,38 +2731,53 @@ class _ReferenceTableSection extends StatelessWidget {
               ),
               children: <TableRow>[
                 _RefRow.header('Type', 'Description'),
-                _RefRow.body('AutocompleteHighlightedOption',
-                    'InheritedNotifier<ValueNotifier<int>>; '
-                        '`.of(context)` returns the highlighted index.'),
-                _RefRow.body('RawAutocomplete<T>',
-                    'Low-level autocomplete primitive owning the field, '
-                        'the popup and the highlighted index.'),
-                _RefRow.body('Autocomplete<T>',
-                    'Material-styled wrapper around RawAutocomplete; '
-                        'renders highlight automatically.'),
-                _RefRow.body('TextEditingController',
-                    'Provides the current text value to optionsBuilder; '
-                        'shared between fieldViewBuilder and the controller '
-                        'returned by RawAutocomplete.'),
-                _RefRow.body('FocusNode',
-                    'Tracks focus on the underlying TextField. RawAutocomplete '
-                        'shows/hides the popup based on its focus state.'),
-                _RefRow.body('AutocompleteOptionsBuilder<T>',
-                    'Function returning the candidate options for a given '
-                        'TextEditingValue.'),
-                _RefRow.body('AutocompleteOnSelected<T>',
-                    'Callback fired when the user picks an option (Enter, '
-                        'Tab, tap).'),
+                _RefRow.body(
+                  'AutocompleteHighlightedOption',
+                  'InheritedNotifier<ValueNotifier<int>>; '
+                      '`.of(context)` returns the highlighted index.',
+                ),
+                _RefRow.body(
+                  'RawAutocomplete<T>',
+                  'Low-level autocomplete primitive owning the field, '
+                      'the popup and the highlighted index.',
+                ),
+                _RefRow.body(
+                  'Autocomplete<T>',
+                  'Material-styled wrapper around RawAutocomplete; '
+                      'renders highlight automatically.',
+                ),
+                _RefRow.body(
+                  'TextEditingController',
+                  'Provides the current text value to optionsBuilder; '
+                      'shared between fieldViewBuilder and the controller '
+                      'returned by RawAutocomplete.',
+                ),
+                _RefRow.body(
+                  'FocusNode',
+                  'Tracks focus on the underlying TextField. RawAutocomplete '
+                      'shows/hides the popup based on its focus state.',
+                ),
+                _RefRow.body(
+                  'AutocompleteOptionsBuilder<T>',
+                  'Function returning the candidate options for a given '
+                      'TextEditingValue.',
+                ),
+                _RefRow.body(
+                  'AutocompleteOnSelected<T>',
+                  'Callback fired when the user picks an option (Enter, '
+                      'Tab, tap).',
+                ),
               ],
             ),
           ),
         ),
         const SizedBox(height: 16),
         const _Paragraph(
-            'For a one-line summary: `AutocompleteHighlightedOption` is how '
-            'a custom optionsViewBuilder learns which option the user is '
-            'about to select. Read it deep, render the highlight however '
-            'you like, and let RawAutocomplete handle the keyboard.'),
+          'For a one-line summary: `AutocompleteHighlightedOption` is how '
+          'a custom optionsViewBuilder learns which option the user is '
+          'about to select. Read it deep, render the highlight however '
+          'you like, and let RawAutocomplete handle the keyboard.',
+        ),
       ],
     );
   }
@@ -2577,13 +2790,17 @@ class _RefRow {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(left,
-              style: const TextStyle(fontWeight: FontWeight.w800)),
+          child: Text(
+            left,
+            style: const TextStyle(fontWeight: FontWeight.w800),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(right,
-              style: const TextStyle(fontWeight: FontWeight.w800)),
+          child: Text(
+            right,
+            style: const TextStyle(fontWeight: FontWeight.w800),
+          ),
         ),
       ],
     );
@@ -2594,9 +2811,13 @@ class _RefRow {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10),
-          child: Text(left,
-              style: const TextStyle(
-                  fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+          child: Text(
+            left,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(10),

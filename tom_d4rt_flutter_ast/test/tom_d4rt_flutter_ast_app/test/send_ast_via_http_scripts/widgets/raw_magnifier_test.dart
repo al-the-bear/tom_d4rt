@@ -100,7 +100,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildConceptChip('Magnification', Icons.zoom_in, Color(0xFF42A5F5)),
+            _buildConceptChip(
+              'Magnification',
+              Icons.zoom_in,
+              Color(0xFF42A5F5),
+            ),
             _buildConceptChip('Clipping', Icons.crop, Color(0xFF66BB6A)),
             _buildConceptChip('Compositing', Icons.layers, Color(0xFFFFA726)),
           ],
@@ -259,7 +263,11 @@ dynamic build(BuildContext context) {
             'content behind it. The size parameter controls the '
             'lens dimensions, and magnificationScale controls the '
             'zoom factor. The lens shape comes from MagnifierDecoration.',
-            style: TextStyle(fontSize: 12.5, color: Color(0xFF424242), height: 1.5),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Color(0xFF424242),
+              height: 1.5,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -289,11 +297,36 @@ dynamic build(BuildContext context) {
   // Values > 1.0 zoom in, making content appear larger.
 
   final scales = <Map<String, dynamic>>[
-    {'scale': 1.0, 'label': '1.0x', 'desc': 'No zoom', 'color': Color(0xFF9E9E9E)},
-    {'scale': 1.25, 'label': '1.25x', 'desc': 'Slight zoom', 'color': Color(0xFF42A5F5)},
-    {'scale': 1.5, 'label': '1.5x', 'desc': 'Moderate zoom', 'color': Color(0xFF66BB6A)},
-    {'scale': 2.0, 'label': '2.0x', 'desc': 'Double zoom', 'color': Color(0xFFFFA726)},
-    {'scale': 3.0, 'label': '3.0x', 'desc': 'Triple zoom', 'color': Color(0xFFEF5350)},
+    {
+      'scale': 1.0,
+      'label': '1.0x',
+      'desc': 'No zoom',
+      'color': Color(0xFF9E9E9E),
+    },
+    {
+      'scale': 1.25,
+      'label': '1.25x',
+      'desc': 'Slight zoom',
+      'color': Color(0xFF42A5F5),
+    },
+    {
+      'scale': 1.5,
+      'label': '1.5x',
+      'desc': 'Moderate zoom',
+      'color': Color(0xFF66BB6A),
+    },
+    {
+      'scale': 2.0,
+      'label': '2.0x',
+      'desc': 'Double zoom',
+      'color': Color(0xFFFFA726),
+    },
+    {
+      'scale': 3.0,
+      'label': '3.0x',
+      'desc': 'Triple zoom',
+      'color': Color(0xFFEF5350),
+    },
   ];
 
   final scaleCards = Column(
@@ -327,7 +360,10 @@ dynamic build(BuildContext context) {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 3.0,
+                        ),
                         decoration: BoxDecoration(
                           color: color.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(6.0),
@@ -345,7 +381,10 @@ dynamic build(BuildContext context) {
                       SizedBox(width: 8.0),
                       Text(
                         entry['desc'] as String,
-                        style: TextStyle(fontSize: 12.0, color: Color(0xFF616161)),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xFF616161),
+                        ),
                       ),
                     ],
                   ),
@@ -396,7 +435,11 @@ dynamic build(BuildContext context) {
             'zoom into the content, making it appear larger. The '
             'scale is applied as a transform on the underlying '
             'compositing layer.',
-            style: TextStyle(fontSize: 12.5, color: Color(0xFF424242), height: 1.5),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Color(0xFF424242),
+              height: 1.5,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -422,11 +465,31 @@ dynamic build(BuildContext context) {
 
   final offsets = <Map<String, dynamic>>[
     {'offset': Offset.zero, 'label': 'Offset.zero', 'desc': 'Center (default)'},
-    {'offset': Offset(20.0, 0.0), 'label': 'Offset(20, 0)', 'desc': 'Right shift'},
-    {'offset': Offset(-20.0, 0.0), 'label': 'Offset(-20, 0)', 'desc': 'Left shift'},
-    {'offset': Offset(0.0, 20.0), 'label': 'Offset(0, 20)', 'desc': 'Down shift'},
-    {'offset': Offset(0.0, -20.0), 'label': 'Offset(0, -20)', 'desc': 'Up shift'},
-    {'offset': Offset(15.0, 15.0), 'label': 'Offset(15, 15)', 'desc': 'Diagonal'},
+    {
+      'offset': Offset(20.0, 0.0),
+      'label': 'Offset(20, 0)',
+      'desc': 'Right shift',
+    },
+    {
+      'offset': Offset(-20.0, 0.0),
+      'label': 'Offset(-20, 0)',
+      'desc': 'Left shift',
+    },
+    {
+      'offset': Offset(0.0, 20.0),
+      'label': 'Offset(0, 20)',
+      'desc': 'Down shift',
+    },
+    {
+      'offset': Offset(0.0, -20.0),
+      'label': 'Offset(0, -20)',
+      'desc': 'Up shift',
+    },
+    {
+      'offset': Offset(15.0, 15.0),
+      'label': 'Offset(15, 15)',
+      'desc': 'Diagonal',
+    },
   ];
 
   final offsetCards = Wrap(
@@ -532,7 +595,10 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: Color(0xFF4A148C), width: 2.0),
                     ),
                     child: Center(
-                      child: Icon(Icons.center_focus_strong, color: Color(0xFF4A148C)),
+                      child: Icon(
+                        Icons.center_focus_strong,
+                        color: Color(0xFF4A148C),
+                      ),
                     ),
                   ),
                   SizedBox(height: 6.0),
@@ -553,7 +619,11 @@ dynamic build(BuildContext context) {
           'content comes from 20 pixels to the right of the '
           'magnifier center.',
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 11.0, color: Color(0xFF4A148C), height: 1.4),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Color(0xFF4A148C),
+            height: 1.4,
+          ),
         ),
       ],
     ),
@@ -777,7 +847,11 @@ dynamic build(BuildContext context) {
             'the magnifier lens. It defines the shape (via ShapeBorder), '
             'drop shadows (via BoxShadow list), and opacity. The shape '
             'clips the magnified content to the specified boundary.',
-            style: TextStyle(fontSize: 12.5, color: Color(0xFF424242), height: 1.5),
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Color(0xFF424242),
+              height: 1.5,
+            ),
           ),
         ),
         SizedBox(height: 12.0),
@@ -980,11 +1054,7 @@ dynamic build(BuildContext context) {
                     'Selection ca',
                     style: TextStyle(fontSize: 14.0, color: Color(0xFF212121)),
                   ),
-                  Container(
-                    width: 2.0,
-                    height: 18.0,
-                    color: Color(0xFF1565C0),
-                  ),
+                  Container(width: 2.0, height: 18.0, color: Color(0xFF1565C0)),
                   Text(
                     'ret here.',
                     style: TextStyle(fontSize: 14.0, color: Color(0xFF212121)),
@@ -1131,7 +1201,8 @@ dynamic build(BuildContext context) {
       'name': 'focalPointOffset',
       'type': 'Offset',
       'required': 'No (Offset.zero)',
-      'desc': 'Shifts the center of magnification relative to the magnifier position.',
+      'desc':
+          'Shifts the center of magnification relative to the magnifier position.',
     },
     {
       'name': 'decoration',
@@ -1169,9 +1240,17 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                _buildApiTag(prop['name']!, Color(0xFF1565C0), Color(0xFFE3F2FD)),
+                _buildApiTag(
+                  prop['name']!,
+                  Color(0xFF1565C0),
+                  Color(0xFFE3F2FD),
+                ),
                 SizedBox(width: 8.0),
-                _buildApiTag(prop['type']!, Color(0xFFC62828), Color(0xFFFCE4EC)),
+                _buildApiTag(
+                  prop['type']!,
+                  Color(0xFFC62828),
+                  Color(0xFFFCE4EC),
+                ),
                 Spacer(),
                 _buildApiTag(
                   prop['required']!,
@@ -1187,7 +1266,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               prop['desc']!,
-              style: TextStyle(fontSize: 11.0, color: Color(0xFF616161), height: 1.4),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Color(0xFF616161),
+                height: 1.4,
+              ),
             ),
           ],
         ),
@@ -1215,11 +1298,23 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 10.0),
-        _buildDecorationProp('shape', 'ShapeBorder', 'Defines the clip shape of the magnifier'),
+        _buildDecorationProp(
+          'shape',
+          'ShapeBorder',
+          'Defines the clip shape of the magnifier',
+        ),
         SizedBox(height: 6.0),
-        _buildDecorationProp('shadows', 'List<BoxShadow>', 'Drop shadow effects around the lens'),
+        _buildDecorationProp(
+          'shadows',
+          'List<BoxShadow>',
+          'Drop shadow effects around the lens',
+        ),
         SizedBox(height: 6.0),
-        _buildDecorationProp('opacity', 'double', 'Overall opacity of the magnifier (0.0 to 1.0)'),
+        _buildDecorationProp(
+          'opacity',
+          'double',
+          'Overall opacity of the magnifier (0.0 to 1.0)',
+        ),
       ],
     ),
   );
@@ -1329,46 +1424,48 @@ dynamic build(BuildContext context) {
           ],
         ),
       ),
-      ...comparisonRows.map((row) => Container(
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            bottom: BorderSide(color: Color(0xFFEEEEEE), width: 0.5),
+      ...comparisonRows.map(
+        (row) => Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(color: Color(0xFFEEEEEE), width: 0.5),
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Text(
-                row['aspect']!,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF424242),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  row['aspect']!,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF424242),
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                row['raw']!,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF1565C0)),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  row['raw']!,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF1565C0)),
+                ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                row['magnifier']!,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 10.0, color: Color(0xFF2E7D32)),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  row['magnifier']!,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF2E7D32)),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
     ],
   );
 

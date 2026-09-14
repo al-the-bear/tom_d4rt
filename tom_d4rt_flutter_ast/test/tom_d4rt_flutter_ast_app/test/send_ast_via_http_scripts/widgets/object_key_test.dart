@@ -82,12 +82,16 @@ Widget _infoCard(String title, String body, ColorScheme cs) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, color: cs.primary, fontSize: 13)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: cs.primary,
+              fontSize: 13,
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(body,
-              style: const TextStyle(fontSize: 12, height: 1.5)),
+          Text(body, style: const TextStyle(fontSize: 12, height: 1.5)),
         ],
       ),
     ),
@@ -252,18 +256,27 @@ Widget _buildHeroBanner(BuildContext context) {
           children: [
             _monoBox('Object', cs),
             const SizedBox(width: 6),
-            Icon(Icons.arrow_forward, size: 16,
-                color: cs.onSurface.withAlpha(120)),
+            Icon(
+              Icons.arrow_forward,
+              size: 16,
+              color: cs.onSurface.withAlpha(120),
+            ),
             const SizedBox(width: 6),
             _monoBox('Key', cs),
             const SizedBox(width: 6),
-            Icon(Icons.arrow_forward, size: 16,
-                color: cs.onSurface.withAlpha(120)),
+            Icon(
+              Icons.arrow_forward,
+              size: 16,
+              color: cs.onSurface.withAlpha(120),
+            ),
             const SizedBox(width: 6),
             _monoBox('LocalKey', cs),
             const SizedBox(width: 6),
-            Icon(Icons.arrow_forward, size: 16,
-                color: cs.onSurface.withAlpha(120)),
+            Icon(
+              Icons.arrow_forward,
+              size: 16,
+              color: cs.onSurface.withAlpha(120),
+            ),
             const SizedBox(width: 6),
             _monoBox('ObjectKey', cs),
           ],
@@ -275,7 +288,9 @@ Widget _buildHeroBanner(BuildContext context) {
 
         Table(
           border: TableBorder.all(
-              color: cs.outline.withAlpha(60), borderRadius: BorderRadius.circular(8)),
+            color: cs.outline.withAlpha(60),
+            borderRadius: BorderRadius.circular(8),
+          ),
           columnWidths: const {
             0: FlexColumnWidth(1.6),
             1: FlexColumnWidth(2.4),
@@ -286,25 +301,35 @@ Widget _buildHeroBanner(BuildContext context) {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text('Member',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: cs.onPrimaryContainer,
-                          fontSize: 12)),
+                  child: Text(
+                    'Member',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: cs.onPrimaryContainer,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text('Description',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: cs.onPrimaryContainer,
-                          fontSize: 12)),
+                  child: Text(
+                    'Description',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: cs.onPrimaryContainer,
+                      fontSize: 12,
+                    ),
+                  ),
                 ),
               ],
             ),
             _tableRow('ObjectKey(value)', 'Constructor; wraps the value.', cs),
             _tableRow('value', 'The wrapped Object? instance.', cs),
-            _tableRow('==', 'Delegates to value.==; two ObjectKeys equal iff their values are equal.', cs),
+            _tableRow(
+              '==',
+              'Delegates to value.==; two ObjectKeys equal iff their values are equal.',
+              cs,
+            ),
             _tableRow('hashCode', 'Delegates to value.hashCode.', cs),
             _tableRow('toString()', 'Returns [ObjectKey value].', cs),
           ],
@@ -316,18 +341,25 @@ Widget _buildHeroBanner(BuildContext context) {
 }
 
 TableRow _tableRow(String col1, String col2, ColorScheme cs) {
-  return TableRow(children: [
-    Padding(
-      padding: const EdgeInsets.all(8),
-      child: Text(col1,
+  return TableRow(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          col1,
           style: TextStyle(
-              fontFamily: 'monospace', fontSize: 11, color: cs.primary)),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(8),
-      child: Text(col2, style: const TextStyle(fontSize: 11, height: 1.4)),
-    ),
-  ]);
+            fontFamily: 'monospace',
+            fontSize: 11,
+            color: cs.primary,
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(col2, style: const TextStyle(fontSize: 11, height: 1.4)),
+      ),
+    ],
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -430,8 +462,10 @@ Widget _buildLiveListDemo(BuildContext context) {
           builder: (context, items, _) {
             if (items.isEmpty) {
               return Center(
-                child: Text('List is empty — tap Add',
-                    style: TextStyle(color: cs.onSurfaceVariant)),
+                child: Text(
+                  'List is empty — tap Add',
+                  style: TextStyle(color: cs.onSurfaceVariant),
+                ),
               );
             }
             return ListView.builder(
@@ -449,18 +483,27 @@ Widget _buildLiveListDemo(BuildContext context) {
                       child: Text(
                         '${item.id}',
                         style: TextStyle(
-                            color: cs.onPrimary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold),
+                          color: cs.onPrimary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    title: Text(item.label,
-                        style: const TextStyle(fontWeight: FontWeight.w600)),
-                    subtitle: Text('ObjectKey(item${item.id})',
-                        style: const TextStyle(
-                            fontFamily: 'monospace', fontSize: 11)),
-                    trailing: Icon(Icons.drag_indicator,
-                        color: cs.onSurface.withAlpha(100)),
+                    title: Text(
+                      item.label,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    subtitle: Text(
+                      'ObjectKey(item${item.id})',
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.drag_indicator,
+                      color: cs.onSurface.withAlpha(100),
+                    ),
                   ),
                 );
               },
@@ -559,16 +602,22 @@ Widget _buildIdentityVsEquality(BuildContext context) {
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.warning_amber_rounded,
-                                    color: cs.error, size: 16),
+                                Icon(
+                                  Icons.warning_amber_rounded,
+                                  color: cs.error,
+                                  size: 16,
+                                ),
                                 const SizedBox(width: 6),
                                 Expanded(
-                                  child: Text('ValueKey(item.label)',
-                                      style: TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 11,
-                                          color: cs.onErrorContainer,
-                                          fontWeight: FontWeight.w600)),
+                                  child: Text(
+                                    'ValueKey(item.label)',
+                                    style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: cs.onErrorContainer,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -581,44 +630,51 @@ Widget _buildIdentityVsEquality(BuildContext context) {
                               margin: const EdgeInsets.only(bottom: 4),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 8),
+                                  horizontal: 10,
+                                  vertical: 8,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(item.label,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13)),
-                                    Text('id=${item.id}',
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color: cs.onSurface.withAlpha(140))),
-                                    _monoBox(
-                                        'ValueKey("${item.label}")', cs),
+                                    Text(
+                                      item.label,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    Text(
+                                      'id=${item.id}',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: cs.onSurface.withAlpha(140),
+                                      ),
+                                    ),
+                                    _monoBox('ValueKey("${item.label}")', cs),
                                   ],
                                 ),
                               ),
                             );
                           }),
-                          if (items
-                              .where((x) => x.label == 'Apple')
-                              .length > 1)
+                          if (items.where((x) => x.label == 'Apple').length > 1)
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: cs.error.withAlpha(30),
                                 borderRadius: BorderRadius.circular(6),
-                                border:
-                                    Border.all(color: cs.error.withAlpha(80)),
+                                border: Border.all(
+                                  color: cs.error.withAlpha(80),
+                                ),
                               ),
                               child: Text(
                                 'Duplicate ValueKey("Apple") detected! '
                                 'Flutter cannot distinguish these tiles '
                                 'and may exhibit undefined behavior.',
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: cs.error,
-                                    fontWeight: FontWeight.w600),
+                                  fontSize: 11,
+                                  color: cs.error,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                         ],
@@ -639,16 +695,22 @@ Widget _buildIdentityVsEquality(BuildContext context) {
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.check_circle_rounded,
-                                    color: cs.primary, size: 16),
+                                Icon(
+                                  Icons.check_circle_rounded,
+                                  color: cs.primary,
+                                  size: 16,
+                                ),
                                 const SizedBox(width: 6),
                                 Expanded(
-                                  child: Text('ObjectKey(item)',
-                                      style: TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 11,
-                                          color: cs.onPrimaryContainer,
-                                          fontWeight: FontWeight.w600)),
+                                  child: Text(
+                                    'ObjectKey(item)',
+                                    style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 11,
+                                      color: cs.onPrimaryContainer,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -661,44 +723,51 @@ Widget _buildIdentityVsEquality(BuildContext context) {
                               margin: const EdgeInsets.only(bottom: 4),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 8),
+                                  horizontal: 10,
+                                  vertical: 8,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(item.label,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13)),
-                                    Text('id=${item.id}',
-                                        style: TextStyle(
-                                            fontSize: 11,
-                                            color:
-                                                cs.onSurface.withAlpha(140))),
+                                    Text(
+                                      item.label,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    Text(
+                                      'id=${item.id}',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: cs.onSurface.withAlpha(140),
+                                      ),
+                                    ),
                                     _monoBox('ObjectKey(item${item.id})', cs),
                                   ],
                                 ),
                               ),
                             );
                           }),
-                          if (items
-                              .where((x) => x.label == 'Apple')
-                              .length > 1)
+                          if (items.where((x) => x.label == 'Apple').length > 1)
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: cs.primary.withAlpha(20),
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                    color: cs.primary.withAlpha(80)),
+                                  color: cs.primary.withAlpha(80),
+                                ),
                               ),
                               child: Text(
                                 'Two "Apple" items — ObjectKey keeps them '
                                 'distinct because they are different '
                                 '_Item instances.',
                                 style: TextStyle(
-                                    fontSize: 11,
-                                    color: cs.primary,
-                                    fontWeight: FontWeight.w600),
+                                  fontSize: 11,
+                                  color: cs.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                         ],
@@ -724,8 +793,7 @@ class _EqObject {
   final int value;
 
   @override
-  bool operator ==(Object other) =>
-      other is _EqObject && other.value == value;
+  bool operator ==(Object other) => other is _EqObject && other.value == value;
 
   @override
   int get hashCode => value.hashCode;
@@ -757,10 +825,7 @@ Widget _buildKeyEqualityDemo(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 3,
-            child: _monoBox(expr, cs),
-          ),
+          Expanded(flex: 3, child: _monoBox(expr, cs)),
           const SizedBox(width: 8),
           _chip(
             result ? 'true' : 'false',
@@ -770,8 +835,10 @@ Widget _buildKeyEqualityDemo(BuildContext context) {
           const SizedBox(width: 8),
           Expanded(
             flex: 2,
-            child: Text(note,
-                style: const TextStyle(fontSize: 11, height: 1.4)),
+            child: Text(
+              note,
+              style: const TextStyle(fontSize: 11, height: 1.4),
+            ),
           ),
         ],
       ),
@@ -869,10 +936,13 @@ Widget _buildKeyEqualityDemo(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Key insight',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: cs.onTertiaryContainer)),
+                Text(
+                  'Key insight',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: cs.onTertiaryContainer,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'ObjectKey is NOT the same as "identity key". It forwards '
@@ -882,9 +952,10 @@ Widget _buildKeyEqualityDemo(BuildContext context) {
                   'For true identity semantics, ensure the class does NOT '
                   'override ==.',
                   style: TextStyle(
-                      fontSize: 12,
-                      height: 1.5,
-                      color: cs.onTertiaryContainer),
+                    fontSize: 12,
+                    height: 1.5,
+                    color: cs.onTertiaryContainer,
+                  ),
                 ),
               ],
             ),
@@ -903,7 +974,13 @@ Widget _buildKeyEqualityDemo(BuildContext context) {
 Widget _buildComparisonTable(BuildContext context) {
   final cs = Theme.of(context).colorScheme;
 
-  const headers = ['Feature', 'ObjectKey', 'ValueKey', 'UniqueKey', 'GlobalKey'];
+  const headers = [
+    'Feature',
+    'ObjectKey',
+    'ValueKey',
+    'UniqueKey',
+    'GlobalKey',
+  ];
   const rows = [
     [
       'Equality rule',
@@ -963,8 +1040,9 @@ Widget _buildComparisonTable(BuildContext context) {
           child: Table(
             defaultColumnWidth: const FixedColumnWidth(130),
             border: TableBorder.all(
-                color: cs.outline.withAlpha(60),
-                borderRadius: BorderRadius.circular(8)),
+              color: cs.outline.withAlpha(60),
+              borderRadius: BorderRadius.circular(8),
+            ),
             children: [
               // Header row
               TableRow(
@@ -975,9 +1053,10 @@ Widget _buildComparisonTable(BuildContext context) {
                     child: Text(
                       headers[ci],
                       style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          color: cs.onSurface),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: cs.onSurface,
+                      ),
                     ),
                   );
                 }),
@@ -987,9 +1066,7 @@ Widget _buildComparisonTable(BuildContext context) {
                 return TableRow(
                   children: List.generate(row.length, (ci) {
                     return Container(
-                      color: ci == 1
-                          ? cs.primaryContainer.withAlpha(50)
-                          : null,
+                      color: ci == 1 ? cs.primaryContainer.withAlpha(50) : null,
                       padding: const EdgeInsets.all(9),
                       child: Text(
                         row[ci],
@@ -1048,9 +1125,10 @@ Widget _buildComparisonTable(BuildContext context) {
           child: Text(
             'You have a Dart object instance → ObjectKey',
             style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: cs.onPrimaryContainer,
-                fontSize: 13),
+              fontWeight: FontWeight.w700,
+              color: cs.onPrimaryContainer,
+              fontSize: 13,
+            ),
           ),
         ),
         const SizedBox(height: 20),
@@ -1060,7 +1138,12 @@ Widget _buildComparisonTable(BuildContext context) {
 }
 
 Widget _decisionCard(
-    String q, String yes, String no, ColorScheme cs, Color bg) {
+  String q,
+  String yes,
+  String no,
+  ColorScheme cs,
+  Color bg,
+) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1070,8 +1153,10 @@ Widget _decisionCard(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(q,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+        Text(
+          q,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        ),
         const SizedBox(height: 6),
         Row(
           children: [
@@ -1120,13 +1205,19 @@ Widget _buildAnimatedListTab(BuildContext context) {
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: cs.primary,
-            child: Text('${item.id}',
-                style: TextStyle(color: cs.onPrimary, fontSize: 12)),
+            child: Text(
+              '${item.id}',
+              style: TextStyle(color: cs.onPrimary, fontSize: 12),
+            ),
           ),
-          title: Text(item.label,
-              style: const TextStyle(fontWeight: FontWeight.w600)),
-          subtitle: Text('key: ObjectKey(item${item.id})',
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+          title: Text(
+            item.label,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Text(
+            'key: ObjectKey(item${item.id})',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
           trailing: IconButton(
             icon: const Icon(Icons.delete_outline, size: 20),
             onPressed: () {
@@ -1169,7 +1260,10 @@ Widget _buildAnimatedListTab(BuildContext context) {
                 Expanded(
                   child: FilledButton.icon(
                     onPressed: () {
-                      final newItem = _Item(_nextAnimId++, 'Planet-$_nextAnimId');
+                      final newItem = _Item(
+                        _nextAnimId++,
+                        'Planet-$_nextAnimId',
+                      );
                       final idx = _animItems.value.length;
                       _animItems.value = [..._animItems.value, newItem];
                       _animListKey.currentState?.insertItem(idx);
@@ -1184,7 +1278,10 @@ Widget _buildAnimatedListTab(BuildContext context) {
                     onPressed: () {
                       if (_animItems.value.isEmpty) return;
                       final copy = List<_Item>.from(_animItems.value);
-                      copy.insert(0, _Item(_nextAnimId++, 'First-$_nextAnimId'));
+                      copy.insert(
+                        0,
+                        _Item(_nextAnimId++, 'First-$_nextAnimId'),
+                      );
                       _animItems.value = copy;
                       _animListKey.currentState?.insertItem(0);
                     },
@@ -1221,10 +1318,7 @@ Widget _buildAnimatedListTab(BuildContext context) {
 // ---------------------------------------------------------------------------
 
 class _MatchingDiagramPainter extends CustomPainter {
-  const _MatchingDiagramPainter({
-    required this.withKeys,
-    required this.cs,
-  });
+  const _MatchingDiagramPainter({required this.withKeys, required this.cs});
 
   final bool withKeys;
   final ColorScheme cs;
@@ -1267,24 +1361,24 @@ class _MatchingDiagramPainter extends CustomPainter {
         text: TextSpan(
           text: label,
           style: TextStyle(
-              color: cs.onSurface,
-              fontWeight: FontWeight.w700,
-              fontSize: 14),
+            color: cs.onSurface,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
       tp.paint(
-          canvas,
-          Offset(x + boxW / 2 - tp.width / 2,
-              y + boxH / 2 - tp.height / 2));
+        canvas,
+        Offset(x + boxW / 2 - tp.width / 2, y + boxH / 2 - tp.height / 2),
+      );
     }
 
     void drawLabel(String text, double y) {
       final tp = TextPainter(
         text: TextSpan(
           text: text,
-          style: TextStyle(
-              color: cs.onSurface.withAlpha(160), fontSize: 11),
+          style: TextStyle(color: cs.onSurface.withAlpha(160), fontSize: 11),
         ),
         textDirection: TextDirection.ltr,
       )..layout();
@@ -1318,11 +1412,7 @@ class _MatchingDiagramPainter extends CustomPainter {
           ..color = colors[origIdx].withAlpha(220);
         final path = Path();
         path.moveTo(topX, topY + boxH);
-        path.cubicTo(
-          topX, topY + boxH + 40,
-          botX, botY - 40,
-          botX, botY,
-        );
+        path.cubicTo(topX, topY + boxH + 40, botX, botY - 40, botX, botY);
         canvas.drawPath(path, linePaint);
 
         // Tick mark
@@ -1331,13 +1421,15 @@ class _MatchingDiagramPainter extends CustomPainter {
           ..strokeWidth = 2
           ..color = Colors.green.shade600;
         canvas.drawLine(
-            Offset(x + 4, botY - 8),
-            Offset(x + 10, botY - 2),
-            tickPaint);
+          Offset(x + 4, botY - 8),
+          Offset(x + 10, botY - 2),
+          tickPaint,
+        );
         canvas.drawLine(
-            Offset(x + 10, botY - 2),
-            Offset(x + boxW - 4, botY - 14),
-            tickPaint);
+          Offset(x + 10, botY - 2),
+          Offset(x + boxW - 4, botY - 14),
+          tickPaint,
+        );
       } else {
         // Straight dashed lines — no matching, rebuilds all
         final dashPaint = Paint()
@@ -1345,8 +1437,12 @@ class _MatchingDiagramPainter extends CustomPainter {
           ..strokeWidth = 1.5
           ..color = cs.error.withAlpha(160);
         final midX = gap + i * (boxW + gap) + boxW / 2;
-        _drawDashedLine(canvas, Offset(topX, topY + boxH),
-            Offset(midX, botY), dashPaint);
+        _drawDashedLine(
+          canvas,
+          Offset(topX, topY + boxH),
+          Offset(midX, botY),
+          dashPaint,
+        );
 
         // X mark
         final xPaint = Paint()
@@ -1354,9 +1450,15 @@ class _MatchingDiagramPainter extends CustomPainter {
           ..strokeWidth = 2
           ..color = cs.error;
         canvas.drawLine(
-            Offset(x + 4, botY - 14), Offset(x + 12, botY - 6), xPaint);
+          Offset(x + 4, botY - 14),
+          Offset(x + 12, botY - 6),
+          xPaint,
+        );
         canvas.drawLine(
-            Offset(x + 4, botY - 6), Offset(x + 12, botY - 14), xPaint);
+          Offset(x + 4, botY - 6),
+          Offset(x + 12, botY - 14),
+          xPaint,
+        );
       }
     }
 
@@ -1369,17 +1471,17 @@ class _MatchingDiagramPainter extends CustomPainter {
       text: TextSpan(
         text: legLabel,
         style: TextStyle(
-            color: withKeys ? cs.primary : cs.error,
-            fontSize: 10,
-            fontWeight: FontWeight.w600),
+          color: withKeys ? cs.primary : cs.error,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(canvas, Offset(size.width / 2 - tp.width / 2, legY));
   }
 
-  void _drawDashedLine(
-      Canvas canvas, Offset start, Offset end, Paint paint) {
+  void _drawDashedLine(Canvas canvas, Offset start, Offset end, Paint paint) {
     const dashLen = 6.0;
     const gapLen = 4.0;
     final d = (end - start);
@@ -1395,8 +1497,7 @@ class _MatchingDiagramPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MatchingDiagramPainter old) =>
-      old.withKeys != withKeys;
+  bool shouldRepaint(_MatchingDiagramPainter old) => old.withKeys != withKeys;
 }
 
 Widget _buildMatchingDiagram(BuildContext context) {
@@ -1424,7 +1525,9 @@ Widget _buildMatchingDiagram(BuildContext context) {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: cs.primaryContainer,
                       borderRadius: BorderRadius.circular(8),
@@ -1432,14 +1535,16 @@ Widget _buildMatchingDiagram(BuildContext context) {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.check_circle,
-                            color: cs.primary, size: 14),
+                        Icon(Icons.check_circle, color: cs.primary, size: 14),
                         const SizedBox(width: 4),
-                        Text('With ObjectKey',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: cs.onPrimaryContainer,
-                                fontSize: 12)),
+                        Text(
+                          'With ObjectKey',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: cs.onPrimaryContainer,
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1447,8 +1552,7 @@ Widget _buildMatchingDiagram(BuildContext context) {
                   SizedBox(
                     height: 200,
                     child: CustomPaint(
-                      painter:
-                          _MatchingDiagramPainter(withKeys: true, cs: cs),
+                      painter: _MatchingDiagramPainter(withKeys: true, cs: cs),
                       size: const Size(double.infinity, 200),
                     ),
                   ),
@@ -1461,7 +1565,9 @@ Widget _buildMatchingDiagram(BuildContext context) {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: cs.errorContainer,
                       borderRadius: BorderRadius.circular(8),
@@ -1471,11 +1577,14 @@ Widget _buildMatchingDiagram(BuildContext context) {
                       children: [
                         Icon(Icons.cancel, color: cs.error, size: 14),
                         const SizedBox(width: 4),
-                        Text('Without Key',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: cs.onErrorContainer,
-                                fontSize: 12)),
+                        Text(
+                          'Without Key',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: cs.onErrorContainer,
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1483,8 +1592,7 @@ Widget _buildMatchingDiagram(BuildContext context) {
                   SizedBox(
                     height: 200,
                     child: CustomPaint(
-                      painter:
-                          _MatchingDiagramPainter(withKeys: false, cs: cs),
+                      painter: _MatchingDiagramPainter(withKeys: false, cs: cs),
                       size: const Size(double.infinity, 200),
                     ),
                   ),
@@ -1565,18 +1673,29 @@ Widget _buildNullValueTab(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _equalityRow('k1 = ObjectKey(null)', 'k2 = ObjectKey(null)',
-                    'k1 == k2', k1 == k2, cs),
-                const SizedBox(height: 8),
-                _equalityRow('k1 = ObjectKey(null)',
-                    'k3 = ObjectKey("hello")', 'k1 == k3', k1 == k3, cs),
+                _equalityRow(
+                  'k1 = ObjectKey(null)',
+                  'k2 = ObjectKey(null)',
+                  'k1 == k2',
+                  k1 == k2,
+                  cs,
+                ),
                 const SizedBox(height: 8),
                 _equalityRow(
-                    'k1.hashCode',
-                    'k2.hashCode',
-                    '${k1.hashCode} == ${k2.hashCode}',
-                    k1.hashCode == k2.hashCode,
-                    cs),
+                  'k1 = ObjectKey(null)',
+                  'k3 = ObjectKey("hello")',
+                  'k1 == k3',
+                  k1 == k3,
+                  cs,
+                ),
+                const SizedBox(height: 8),
+                _equalityRow(
+                  'k1.hashCode',
+                  'k2.hashCode',
+                  '${k1.hashCode} == ${k2.hashCode}',
+                  k1.hashCode == k2.hashCode,
+                  cs,
+                ),
               ],
             ),
           ),
@@ -1595,16 +1714,22 @@ Widget _buildNullValueTab(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Widget with key: ObjectKey(null)',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: cs.onTertiaryContainer)),
+              Text(
+                'Widget with key: ObjectKey(null)',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: cs.onTertiaryContainer,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text('This widget carries key $k1',
-                  style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: cs.onTertiaryContainer.withAlpha(200))),
+              Text(
+                'This widget carries key $k1',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: cs.onTertiaryContainer.withAlpha(200),
+                ),
+              ),
             ],
           ),
         ),
@@ -1619,16 +1744,22 @@ Widget _buildNullValueTab(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Another widget with key: ObjectKey(null)',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: cs.onPrimaryContainer)),
+              Text(
+                'Another widget with key: ObjectKey(null)',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: cs.onPrimaryContainer,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text('Also key $k2 — equals k1 (same null)',
-                  style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 12,
-                      color: cs.onPrimaryContainer.withAlpha(200))),
+              Text(
+                'Also key $k2 — equals k1 (same null)',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  color: cs.onPrimaryContainer.withAlpha(200),
+                ),
+              ),
             ],
           ),
         ),
@@ -1643,14 +1774,20 @@ Widget _buildNullValueTab(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.warning_amber_rounded,
-                        color: cs.error, size: 18),
+                    Icon(
+                      Icons.warning_amber_rounded,
+                      color: cs.error,
+                      size: 18,
+                    ),
                     const SizedBox(width: 8),
-                    Text('Caution',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: cs.onErrorContainer,
-                            fontSize: 13)),
+                    Text(
+                      'Caution',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: cs.onErrorContainer,
+                        fontSize: 13,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -1661,9 +1798,10 @@ Widget _buildNullValueTab(BuildContext context) {
                   'widget. Only use ObjectKey(null) when you are certain at '
                   'most one sibling will have a null value.',
                   style: TextStyle(
-                      fontSize: 12,
-                      height: 1.5,
-                      color: cs.onErrorContainer),
+                    fontSize: 12,
+                    height: 1.5,
+                    color: cs.onErrorContainer,
+                  ),
                 ),
               ],
             ),
@@ -1676,7 +1814,12 @@ Widget _buildNullValueTab(BuildContext context) {
 }
 
 Widget _equalityRow(
-    String lhs, String rhs, String expr, bool result, ColorScheme cs) {
+  String lhs,
+  String rhs,
+  String expr,
+  bool result,
+  ColorScheme cs,
+) {
   return Row(
     children: [
       Expanded(
@@ -1691,8 +1834,7 @@ Widget _equalityRow(
         ),
       ),
       const SizedBox(width: 8),
-      Icon(Icons.arrow_forward, size: 14,
-          color: cs.onSurface.withAlpha(120)),
+      Icon(Icons.arrow_forward, size: 14, color: cs.onSurface.withAlpha(120)),
       const SizedBox(width: 8),
       Expanded(
         flex: 2,
@@ -1736,7 +1878,8 @@ Widget _buildPitfalls(BuildContext context) {
               'each instance to have a distinct key, ObjectKey will behave '
               'like ValueKey — two objects with the same data produce the '
               'same key.',
-          badCode: 'class Product {\n'
+          badCode:
+              'class Product {\n'
               '  final String sku;\n'
               '  // overrides == by sku\n'
               '}\n'
@@ -1759,7 +1902,8 @@ Widget _buildPitfalls(BuildContext context) {
               'a widget\'s BuildContext or State from outside that subtree. '
               'Trying to read currentContext on an ObjectKey will fail at '
               'compile time (ObjectKey has no such member).',
-          badCode: 'final k = ObjectKey(myObj);\n'
+          badCode:
+              'final k = ObjectKey(myObj);\n'
               '// WRONG — ObjectKey has no currentContext\n'
               'k.currentContext; // compile error',
           fix:
@@ -1781,7 +1925,8 @@ Widget _buildPitfalls(BuildContext context) {
               'an ObjectKey happens to equal a ValueKey\'s value (they are '
               'different types so this cannot actually happen — but mixing '
               'key types in one list makes debugging hard).',
-          badCode: '// Avoid mixing key types in one list:\n'
+          badCode:
+              '// Avoid mixing key types in one list:\n'
               'Column(children: [\n'
               '  Widget(key: ValueKey(1)),\n'
               '  Widget(key: ObjectKey(someObj)),\n'
@@ -1820,37 +1965,48 @@ Widget _pitfallCard({
               CircleAvatar(
                 radius: 14,
                 backgroundColor: cs.error,
-                child: Text('$index',
-                    style: TextStyle(
-                        color: cs.onError,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold)),
+                child: Text(
+                  '$index',
+                  style: TextStyle(
+                    color: cs.onError,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: cs.error,
-                        fontSize: 13)),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: cs.error,
+                    fontSize: 13,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 10),
-          Text('Problem',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: cs.onSurface,
-                  fontSize: 12)),
+          Text(
+            'Problem',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: cs.onSurface,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(problem,
-              style: const TextStyle(fontSize: 12, height: 1.5)),
+          Text(problem, style: const TextStyle(fontSize: 12, height: 1.5)),
           const SizedBox(height: 10),
-          Text('Illustrative code',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: cs.onSurface,
-                  fontSize: 12)),
+          Text(
+            'Illustrative code',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: cs.onSurface,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 4),
           _monoBox(badCode, cs),
           const SizedBox(height: 10),
@@ -1867,11 +2023,14 @@ Widget _pitfallCard({
                 Icon(Icons.lightbulb_outline, color: cs.primary, size: 16),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(fix,
-                      style: TextStyle(
-                          fontSize: 12,
-                          height: 1.5,
-                          color: cs.onSurface)),
+                  child: Text(
+                    fix,
+                    style: TextStyle(
+                      fontSize: 12,
+                      height: 1.5,
+                      color: cs.onSurface,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1997,8 +2156,9 @@ Widget _buildApiCheatSheet(BuildContext context) {
 
         Table(
           border: TableBorder.all(
-              color: cs.outline.withAlpha(60),
-              borderRadius: BorderRadius.circular(8)),
+            color: cs.outline.withAlpha(60),
+            borderRadius: BorderRadius.circular(8),
+          ),
           columnWidths: const {
             0: FlexColumnWidth(2),
             1: FlexColumnWidth(1),
@@ -2013,18 +2173,37 @@ Widget _buildApiCheatSheet(BuildContext context) {
                 _th('Reason', cs),
               ],
             ),
-            _tr3('Same instance, no == override',
-                'true', 'identity == identity', cs),
-            _tr3('Different instances, no == override',
-                'false', 'identity != identity', cs),
-            _tr3('Different instances, == override, same data',
-                'true', 'value.== returns true', cs),
-            _tr3('Different instances, == override, diff data',
-                'false', 'value.== returns false', cs),
-            _tr3('ObjectKey(null) vs ObjectKey(null)',
-                'true', 'null == null', cs),
-            _tr3('ObjectKey(x) vs ObjectKey(null)',
-                'false', 'x != null', cs),
+            _tr3(
+              'Same instance, no == override',
+              'true',
+              'identity == identity',
+              cs,
+            ),
+            _tr3(
+              'Different instances, no == override',
+              'false',
+              'identity != identity',
+              cs,
+            ),
+            _tr3(
+              'Different instances, == override, same data',
+              'true',
+              'value.== returns true',
+              cs,
+            ),
+            _tr3(
+              'Different instances, == override, diff data',
+              'false',
+              'value.== returns false',
+              cs,
+            ),
+            _tr3(
+              'ObjectKey(null) vs ObjectKey(null)',
+              'true',
+              'null == null',
+              cs,
+            ),
+            _tr3('ObjectKey(x) vs ObjectKey(null)', 'false', 'x != null', cs),
           ],
         ),
         const SizedBox(height: 24),
@@ -2036,32 +2215,38 @@ Widget _buildApiCheatSheet(BuildContext context) {
 Widget _th(String text, ColorScheme cs) {
   return Padding(
     padding: const EdgeInsets.all(8),
-    child: Text(text,
-        style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 11,
-            color: cs.onPrimaryContainer)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+        color: cs.onPrimaryContainer,
+      ),
+    ),
   );
 }
 
 TableRow _tr3(String c1, String c2, String c3, ColorScheme cs) {
-  return TableRow(children: [
-    Padding(
+  return TableRow(
+    children: [
+      Padding(
         padding: const EdgeInsets.all(8),
-        child: Text(c1, style: const TextStyle(fontSize: 11, height: 1.3))),
-    Padding(
-      padding: const EdgeInsets.all(8),
-      child: _chip(
-        c2,
-        c2 == 'true' ? cs.primaryContainer : cs.errorContainer,
-        c2 == 'true' ? cs.onPrimaryContainer : cs.onErrorContainer,
+        child: Text(c1, style: const TextStyle(fontSize: 11, height: 1.3)),
       ),
-    ),
-    Padding(
+      Padding(
         padding: const EdgeInsets.all(8),
-        child:
-            Text(c3, style: const TextStyle(fontSize: 11, height: 1.3))),
-  ]);
+        child: _chip(
+          c2,
+          c2 == 'true' ? cs.primaryContainer : cs.errorContainer,
+          c2 == 'true' ? cs.onPrimaryContainer : cs.onErrorContainer,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(c3, style: const TextStyle(fontSize: 11, height: 1.3)),
+      ),
+    ],
+  );
 }
 
 class _ApiEntry {
@@ -2074,37 +2259,46 @@ Widget _apiSection(String title, ColorScheme cs, List<_ApiEntry> entries) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(title,
-          style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-              color: cs.primary)),
+      Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 13,
+          color: cs.primary,
+        ),
+      ),
       const SizedBox(height: 8),
-      ...entries.map((e) => Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Card(
-              elevation: 0,
-              color: cs.surfaceContainerHighest,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(e.signature,
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 12,
-                            color: cs.primary,
-                            fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 6),
-                    Text(e.description,
-                        style: const TextStyle(
-                            fontSize: 12, height: 1.4)),
-                  ],
-                ),
+      ...entries.map(
+        (e) => Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Card(
+            elevation: 0,
+            color: cs.surfaceContainerHighest,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    e.signature,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      color: cs.primary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    e.description,
+                    style: const TextStyle(fontSize: 12, height: 1.4),
+                  ),
+                ],
               ),
             ),
-          )),
+          ),
+        ),
+      ),
     ],
   );
 }

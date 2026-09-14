@@ -11,8 +11,9 @@ import 'package:flutter/material.dart';
 // Top-level state. Read by stateless widgets via ValueListenableBuilder.
 // ═══════════════════════════════════════════════════════════════════════════
 
-final ValueNotifier<ListTileStyle> _activeStyle =
-    ValueNotifier<ListTileStyle>(ListTileStyle.list);
+final ValueNotifier<ListTileStyle> _activeStyle = ValueNotifier<ListTileStyle>(
+  ListTileStyle.list,
+);
 final ValueNotifier<bool> _denseToggle = ValueNotifier<bool>(false);
 final ValueNotifier<double> _horizontalGap = ValueNotifier<double>(16.0);
 final ValueNotifier<double> _minVerticalPadding = ValueNotifier<double>(4.0);
@@ -79,23 +80,28 @@ class _Home extends StatelessWidget {
               Tab(icon: Icon(Icons.apps_outlined), text: 'Use cases'),
               Tab(icon: Icon(Icons.tune_outlined), text: 'Theme'),
               Tab(icon: Icon(Icons.menu_outlined), text: 'Drawer'),
-              Tab(icon: Icon(Icons.account_tree_outlined), text: 'Architecture'),
+              Tab(
+                icon: Icon(Icons.account_tree_outlined),
+                text: 'Architecture',
+              ),
               Tab(icon: Icon(Icons.warning_amber_outlined), text: 'Pitfalls'),
               Tab(icon: Icon(Icons.menu_book_outlined), text: 'API'),
             ],
           ),
         ),
-        body: const TabBarView(children: <Widget>[
-          _HeroTab(),
-          _CompareTab(),
-          _EnumTab(),
-          _UseCasesTab(),
-          _ThemeInteractionsTab(),
-          _DrawerTab(),
-          _ArchitectureTab(),
-          _PitfallsTab(),
-          _ApiTab(),
-        ]),
+        body: const TabBarView(
+          children: <Widget>[
+            _HeroTab(),
+            _CompareTab(),
+            _EnumTab(),
+            _UseCasesTab(),
+            _ThemeInteractionsTab(),
+            _DrawerTab(),
+            _ArchitectureTab(),
+            _PitfallsTab(),
+            _ApiTab(),
+          ],
+        ),
       ),
     );
   }
@@ -126,17 +132,17 @@ class _Section extends StatelessWidget {
           Text(
             title,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  color: scheme.onSurface,
-                ),
+              fontWeight: FontWeight.w800,
+              color: scheme.onSurface,
+            ),
           ),
           const SizedBox(height: 6),
           Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: scheme.onSurfaceVariant,
-                  height: 1.45,
-                ),
+              color: scheme.onSurfaceVariant,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 20),
           child,
@@ -198,8 +204,8 @@ class _Explainer extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: scheme.onSecondaryContainer,
-                      ),
+                    color: scheme.onSecondaryContainer,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -231,8 +237,8 @@ class _Pill extends StatelessWidget {
     final Color fg = color == null
         ? scheme.onPrimaryContainer
         : (ThemeData.estimateBrightnessForColor(color!) == Brightness.dark
-            ? Colors.white
-            : Colors.black);
+              ? Colors.white
+              : Colors.black);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
@@ -304,10 +310,7 @@ class _KeyValueRow extends StatelessWidget {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
             ),
           ),
         ],
@@ -390,9 +393,7 @@ class _HeroTab extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'ListTileStyle',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineMedium
+                            style: Theme.of(context).textTheme.headlineMedium
                                 ?.copyWith(
                                   color: scheme.onPrimary,
                                   fontWeight: FontWeight.w800,
@@ -401,12 +402,11 @@ class _HeroTab extends StatelessWidget {
                           const SizedBox(height: 4),
                           Text(
                             'A tiny enum. A big typographic difference.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
+                            style: Theme.of(context).textTheme.titleMedium
                                 ?.copyWith(
-                                  color: scheme.onPrimary
-                                      .withValues(alpha: 0.85),
+                                  color: scheme.onPrimary.withValues(
+                                    alpha: 0.85,
+                                  ),
                                 ),
                           ),
                         ],
@@ -424,9 +424,9 @@ class _HeroTab extends StatelessWidget {
                   'a ListTile feel at home in a scrolling content list versus '
                   'inside a side-Drawer navigation pane.',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: scheme.onPrimary.withValues(alpha: 0.95),
-                        height: 1.5,
-                      ),
+                    color: scheme.onPrimary.withValues(alpha: 0.95),
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Wrap(
@@ -521,34 +521,43 @@ class _HeroTab extends StatelessWidget {
                   ),
                   children: <TableRow>[
                     TableRow(
-                      decoration:
-                          BoxDecoration(color: scheme.surfaceContainerHigh),
+                      decoration: BoxDecoration(
+                        color: scheme.surfaceContainerHigh,
+                      ),
                       children: const <Widget>[
                         _TableCell(text: 'Metric', header: true),
                         _TableCell(text: 'list', header: true),
                         _TableCell(text: 'drawer', header: true),
                       ],
                     ),
-                    const TableRow(children: <Widget>[
-                      _TableCell(text: 'title fontSize (sp)'),
-                      _TableCell(text: '16'),
-                      _TableCell(text: '14'),
-                    ]),
-                    const TableRow(children: <Widget>[
-                      _TableCell(text: 'subtitle fontSize (sp)'),
-                      _TableCell(text: '14'),
-                      _TableCell(text: '12'),
-                    ]),
-                    const TableRow(children: <Widget>[
-                      _TableCell(text: 'Typical use'),
-                      _TableCell(text: 'Content lists'),
-                      _TableCell(text: 'Side drawers'),
-                    ]),
-                    const TableRow(children: <Widget>[
-                      _TableCell(text: 'Default'),
-                      _TableCell(text: 'Yes'),
-                      _TableCell(text: 'Only via Drawer theming'),
-                    ]),
+                    const TableRow(
+                      children: <Widget>[
+                        _TableCell(text: 'title fontSize (sp)'),
+                        _TableCell(text: '16'),
+                        _TableCell(text: '14'),
+                      ],
+                    ),
+                    const TableRow(
+                      children: <Widget>[
+                        _TableCell(text: 'subtitle fontSize (sp)'),
+                        _TableCell(text: '14'),
+                        _TableCell(text: '12'),
+                      ],
+                    ),
+                    const TableRow(
+                      children: <Widget>[
+                        _TableCell(text: 'Typical use'),
+                        _TableCell(text: 'Content lists'),
+                        _TableCell(text: 'Side drawers'),
+                      ],
+                    ),
+                    const TableRow(
+                      children: <Widget>[
+                        _TableCell(text: 'Default'),
+                        _TableCell(text: 'Yes'),
+                        _TableCell(text: 'Only via Drawer theming'),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -590,9 +599,9 @@ class _HeroBullet extends StatelessWidget {
           Text(
             body,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: scheme.onSurfaceVariant,
-                  height: 1.4,
-                ),
+              color: scheme.onSurfaceVariant,
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -691,11 +700,7 @@ class _CompareTab extends StatelessWidget {
                 );
               }
               return Column(
-                children: const <Widget>[
-                  left,
-                  SizedBox(height: 16),
-                  right,
-                ],
+                children: const <Widget>[left, SizedBox(height: 16), right],
               );
             },
           ),
@@ -785,10 +790,12 @@ class _StyledColumn extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final bool isDrawer = style == ListTileStyle.drawer;
     final Color accent = isDrawer ? scheme.tertiary : scheme.primary;
-    final Color container =
-        isDrawer ? scheme.tertiaryContainer : scheme.primaryContainer;
-    final Color onContainer =
-        isDrawer ? scheme.onTertiaryContainer : scheme.onPrimaryContainer;
+    final Color container = isDrawer
+        ? scheme.tertiaryContainer
+        : scheme.primaryContainer;
+    final Color onContainer = isDrawer
+        ? scheme.onTertiaryContainer
+        : scheme.onPrimaryContainer;
     return Container(
       decoration: BoxDecoration(
         color: scheme.surfaceContainer,
@@ -805,9 +812,7 @@ class _StyledColumn extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Icon(
-                  isDrawer
-                      ? Icons.menu_open_outlined
-                      : Icons.list_alt_outlined,
+                  isDrawer ? Icons.menu_open_outlined : Icons.list_alt_outlined,
                   color: onContainer,
                 ),
                 const SizedBox(width: 10),
@@ -837,10 +842,7 @@ class _StyledColumn extends StatelessWidget {
             ),
           ),
           ListTileTheme(
-            data: ListTileThemeData(
-              style: style,
-              iconColor: accent,
-            ),
+            data: ListTileThemeData(style: style, iconColor: accent),
             child: Column(
               children: <Widget>[
                 for (int i = 0; i < samples.length; i++) ...<Widget>[
@@ -851,10 +853,7 @@ class _StyledColumn extends StatelessWidget {
                     trailing: const Icon(Icons.chevron_right),
                   ),
                   if (i < samples.length - 1)
-                    Divider(
-                      height: 1,
-                      color: scheme.outlineVariant,
-                    ),
+                    Divider(height: 1, color: scheme.outlineVariant),
                 ],
               ],
             ),
@@ -998,8 +997,7 @@ class _EnumTab extends StatelessWidget {
                 for (final ListTileStyle v in ListTileStyle.values)
                   _KeyValueRow(
                     label: 'ListTileStyle.${v.name}',
-                    value:
-                        'index: ${v.index},  toString(): ${v.toString()}',
+                    value: 'index: ${v.index},  toString(): ${v.toString()}',
                   ),
                 const SizedBox(height: 4),
                 const _KeyValueRow(
@@ -1107,10 +1105,7 @@ class _EnumCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 ListTileTheme(
-                  data: ListTileThemeData(
-                    style: value,
-                    iconColor: accent,
-                  ),
+                  data: ListTileThemeData(style: value, iconColor: accent),
                   child: Container(
                     decoration: BoxDecoration(
                       color: scheme.surface,
@@ -1330,15 +1325,12 @@ class _UseCasesTab extends StatelessWidget {
           'ListTileTheme so the choice is explicit.',
       child: LayoutBuilder(
         builder: (BuildContext ctx, BoxConstraints c) {
-          final int cols = c.maxWidth >= 1080
-              ? 3
-              : (c.maxWidth >= 720 ? 2 : 1);
+          final int cols = c.maxWidth >= 1080 ? 3 : (c.maxWidth >= 720 ? 2 : 1);
           return _Grid(
             columns: cols,
             spacing: 16,
             children: <Widget>[
-              for (final _UseCaseSpec spec in _cases)
-                _UseCaseCard(spec: spec),
+              for (final _UseCaseSpec spec in _cases) _UseCaseCard(spec: spec),
             ],
           );
         },
@@ -1397,10 +1389,7 @@ class _UseCaseCard extends StatelessWidget {
             ),
           ),
           ListTileTheme(
-            data: ListTileThemeData(
-              style: spec.style,
-              iconColor: accent,
-            ),
+            data: ListTileThemeData(style: spec.style, iconColor: accent),
             child: Column(
               children: <Widget>[
                 for (int i = 0; i < spec.tiles.length; i++) ...<Widget>[
@@ -1448,10 +1437,9 @@ class _Grid extends StatelessWidget {
         );
         if (j < columns - 1) cells.add(SizedBox(width: spacing));
       }
-      rows.add(Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: cells,
-      ));
+      rows.add(
+        Row(crossAxisAlignment: CrossAxisAlignment.start, children: cells),
+      );
       if (i + columns < children.length) {
         rows.add(SizedBox(height: spacing));
       }
@@ -1605,13 +1593,11 @@ class _ThemeInteractionsTab extends StatelessWidget {
                 ),
                 const _KeyValueRow(
                   label: '.dense',
-                  value:
-                      'Tightens vertical padding & shrinks text one notch',
+                  value: 'Tightens vertical padding & shrinks text one notch',
                 ),
                 const _KeyValueRow(
                   label: '.contentPadding',
-                  value:
-                      'Outer left/right inset around leading/title/trailing',
+                  value: 'Outer left/right inset around leading/title/trailing',
                 ),
                 const _KeyValueRow(
                   label: '.horizontalTitleGap',
@@ -1805,26 +1791,14 @@ class _DrawerTab extends StatelessWidget {
       label: 'Dashboard',
       hint: 'Today\'s overview',
     ),
-    _DrawerEntry(
-      icon: Icons.inbox_outlined,
-      label: 'Inbox',
-      hint: '8 unread',
-    ),
+    _DrawerEntry(icon: Icons.inbox_outlined, label: 'Inbox', hint: '8 unread'),
     _DrawerEntry(
       icon: Icons.event_note_outlined,
       label: 'Calendar',
       hint: 'Next: 14:00 stand-up',
     ),
-    _DrawerEntry(
-      icon: Icons.work_outline,
-      label: 'Projects',
-      hint: '3 active',
-    ),
-    _DrawerEntry(
-      icon: Icons.people_outline,
-      label: 'Team',
-      hint: '12 members',
-    ),
+    _DrawerEntry(icon: Icons.work_outline, label: 'Projects', hint: '3 active'),
+    _DrawerEntry(icon: Icons.people_outline, label: 'Team', hint: '12 members'),
     _DrawerEntry(
       icon: Icons.settings_outlined,
       label: 'Settings',
@@ -1864,26 +1838,26 @@ class _DrawerTab extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          padding:
-                              const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                          padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
                           child: Row(
                             children: <Widget>[
                               CircleAvatar(
                                 backgroundColor: scheme.tertiary,
-                                child: Icon(Icons.person,
-                                    color: scheme.onTertiary),
+                                child: Icon(
+                                  Icons.person,
+                                  color: scheme.onTertiary,
+                                ),
                               ),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       'Alex Hartley',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
                                     ),
                                     Text(
                                       'alex@studio.app',
@@ -1905,24 +1879,22 @@ class _DrawerTab extends StatelessWidget {
                               style: ListTileStyle.drawer,
                               iconColor: scheme.onSurfaceVariant,
                               selectedColor: scheme.primary,
-                              selectedTileColor:
-                                  scheme.primary.withValues(alpha: 0.10),
+                              selectedTileColor: scheme.primary.withValues(
+                                alpha: 0.10,
+                              ),
                             ),
                             child: ValueListenableBuilder<int>(
                               valueListenable: _drawerSelection,
                               builder: (_, int selected, _) => ListView(
                                 padding: const EdgeInsets.symmetric(
-                                    vertical: 8),
+                                  vertical: 8,
+                                ),
                                 children: <Widget>[
-                                  for (int i = 0;
-                                      i < _entries.length;
-                                      i++)
+                                  for (int i = 0; i < _entries.length; i++)
                                     ListTile(
                                       selected: selected == i,
-                                      onTap: () =>
-                                          _drawerSelection.value = i,
-                                      leading:
-                                          Icon(_entries[i].icon),
+                                      onTap: () => _drawerSelection.value = i,
+                                      leading: Icon(_entries[i].icon),
                                       title: Text(_entries[i].label),
                                       subtitle: Text(_entries[i].hint),
                                     ),
@@ -1971,15 +1943,12 @@ class _DrawerTab extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             _entries[selected].label,
-                            style:
-                                Theme.of(context).textTheme.headlineSmall,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(height: 6),
                           Text(
                             _entries[selected].hint,
-                            style: TextStyle(
-                              color: scheme.onSurfaceVariant,
-                            ),
+                            style: TextStyle(color: scheme.onSurfaceVariant),
                           ),
                           const SizedBox(height: 16),
                           Expanded(
@@ -1988,7 +1957,8 @@ class _DrawerTab extends StatelessWidget {
                                 color: scheme.surfaceContainer,
                                 borderRadius: BorderRadius.circular(14),
                                 border: Border.all(
-                                    color: scheme.outlineVariant),
+                                  color: scheme.outlineVariant,
+                                ),
                               ),
                               alignment: Alignment.center,
                               child: Text(
@@ -2028,11 +1998,14 @@ class _DrawerTab extends StatelessWidget {
                 const _Arrow('Theme.of(context).drawerTheme'),
                 const _Arrow('DrawerThemeData provides a surface + shape'),
                 const _Arrow(
-                    'Drawer wraps children in ListTileTheme(style: drawer)'),
+                  'Drawer wraps children in ListTileTheme(style: drawer)',
+                ),
                 const _Arrow(
-                    'ListTile resolves .titleTextStyle from that ambient'),
+                  'ListTile resolves .titleTextStyle from that ambient',
+                ),
                 const _Arrow(
-                    'Typography: 14sp title / 12sp subtitle by default'),
+                  'Typography: 14sp title / 12sp subtitle by default',
+                ),
                 const SizedBox(height: 10),
                 const _Explainer(
                   icon: Icons.bolt_outlined,
@@ -2225,11 +2198,7 @@ class _ArchitectureTab extends StatelessWidget {
 }
 
 class _Step extends StatelessWidget {
-  const _Step({
-    required this.index,
-    required this.title,
-    required this.body,
-  });
+  const _Step({required this.index, required this.title, required this.body});
   final String index;
   final String title;
   final String body;
@@ -2322,18 +2291,18 @@ class _ArchitecturePainter extends CustomPainter {
       ..strokeWidth = 2
       ..color = secondary;
 
-    final Rect theme =
-        Rect.fromLTWH(w * 0.08, h * 0.06, w * 0.84, h * 0.18);
-    final Rect tileTheme =
-        Rect.fromLTWH(w * 0.12, h * 0.30, w * 0.76, h * 0.18);
-    final Rect tile =
-        Rect.fromLTWH(w * 0.18, h * 0.54, w * 0.64, h * 0.18);
-    final Rect metrics =
-        Rect.fromLTWH(w * 0.24, h * 0.80, w * 0.52, h * 0.14);
+    final Rect theme = Rect.fromLTWH(w * 0.08, h * 0.06, w * 0.84, h * 0.18);
+    final Rect tileTheme = Rect.fromLTWH(
+      w * 0.12,
+      h * 0.30,
+      w * 0.76,
+      h * 0.18,
+    );
+    final Rect tile = Rect.fromLTWH(w * 0.18, h * 0.54, w * 0.64, h * 0.18);
+    final Rect metrics = Rect.fromLTWH(w * 0.24, h * 0.80, w * 0.52, h * 0.14);
 
     void drawBox(Rect r, String title, String sub, Color stripe) {
-      final RRect rr =
-          RRect.fromRectAndRadius(r, const Radius.circular(14));
+      final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(14));
       canvas.drawRRect(rr, fill);
       canvas.drawRRect(rr, stroke);
       canvas.drawRRect(
@@ -2344,27 +2313,69 @@ class _ArchitecturePainter extends CustomPainter {
         ),
         Paint()..color = stripe,
       );
-      _text(canvas, title, Offset(r.left + 14, r.top + 10),
-          color: onSurface, weight: FontWeight.w700, size: 14);
-      _text(canvas, sub, Offset(r.left + 14, r.top + 32),
-          color: onSurface.withValues(alpha: 0.75), size: 12);
+      _text(
+        canvas,
+        title,
+        Offset(r.left + 14, r.top + 10),
+        color: onSurface,
+        weight: FontWeight.w700,
+        size: 14,
+      );
+      _text(
+        canvas,
+        sub,
+        Offset(r.left + 14, r.top + 32),
+        color: onSurface.withValues(alpha: 0.75),
+        size: 12,
+      );
     }
 
-    drawBox(theme, 'Theme (ThemeData.useMaterial3)',
-        'Provides ColorScheme, text theme, drawerTheme.', primary);
-    drawBox(tileTheme, 'ListTileTheme',
-        'Carries ListTileThemeData(style: list | drawer, ...).', tertiary);
-    drawBox(tile, 'ListTile',
-        'Reads ListTileTheme.of(context) at build time.', primary);
-    drawBox(metrics, 'ListTileStyle -> font metrics',
-        'list: 16/14 · drawer: 14/12.', secondary);
+    drawBox(
+      theme,
+      'Theme (ThemeData.useMaterial3)',
+      'Provides ColorScheme, text theme, drawerTheme.',
+      primary,
+    );
+    drawBox(
+      tileTheme,
+      'ListTileTheme',
+      'Carries ListTileThemeData(style: list | drawer, ...).',
+      tertiary,
+    );
+    drawBox(
+      tile,
+      'ListTile',
+      'Reads ListTileTheme.of(context) at build time.',
+      primary,
+    );
+    drawBox(
+      metrics,
+      'ListTileStyle -> font metrics',
+      'list: 16/14 · drawer: 14/12.',
+      secondary,
+    );
 
-    _arrow(canvas, arrow, Offset(w / 2, theme.bottom),
-        Offset(w / 2, tileTheme.top), 'inheritance');
-    _arrow(canvas, arrow, Offset(w / 2, tileTheme.bottom),
-        Offset(w / 2, tile.top), 'ambient');
-    _arrow(canvas, arrow, Offset(w / 2, tile.bottom),
-        Offset(w / 2, metrics.top), 'resolves');
+    _arrow(
+      canvas,
+      arrow,
+      Offset(w / 2, theme.bottom),
+      Offset(w / 2, tileTheme.top),
+      'inheritance',
+    );
+    _arrow(
+      canvas,
+      arrow,
+      Offset(w / 2, tileTheme.bottom),
+      Offset(w / 2, tile.top),
+      'ambient',
+    );
+    _arrow(
+      canvas,
+      arrow,
+      Offset(w / 2, tile.bottom),
+      Offset(w / 2, metrics.top),
+      'resolves',
+    );
 
     _text(
       canvas,
@@ -2387,11 +2398,7 @@ class _ArchitecturePainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: s,
-        style: TextStyle(
-          color: color,
-          fontSize: size,
-          fontWeight: weight,
-        ),
+        style: TextStyle(color: color, fontSize: size, fontWeight: weight),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -2406,8 +2413,7 @@ class _ArchitecturePainter extends CustomPainter {
     String label,
   ) {
     canvas.drawLine(start, end, paint);
-    final double angle =
-        math.atan2(end.dy - start.dy, end.dx - start.dx);
+    final double angle = math.atan2(end.dy - start.dy, end.dx - start.dx);
     const double headLen = 10;
     final Offset p1 = Offset(
       end.dx - headLen * math.cos(angle - math.pi / 7),
@@ -2643,7 +2649,9 @@ class _DemoPitfallLocalOverride extends StatelessWidget {
               title: Text('Ignores drawer style'),
               subtitle: Text('(20 / 16)'),
               titleTextStyle: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.w700),
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
               subtitleTextStyle: TextStyle(fontSize: 16),
             ),
           ],
@@ -2703,8 +2711,7 @@ class _DemoPitfallTextColor extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.palette_outlined),
               title: const Text('Coloured but still drawer-sized'),
-              subtitle:
-                  const Text('textColor tints; enum still wins metrics.'),
+              subtitle: const Text('textColor tints; enum still wins metrics.'),
               textColor: scheme.primary,
             ),
           ],
@@ -2743,10 +2750,9 @@ class _ApiTab extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       'enum ListTileStyle',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontFamily: 'monospace'),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ],
                 ),
@@ -2756,11 +2762,11 @@ class _ApiTab extends StatelessWidget {
                     name: 'ListTileStyle.${v.name}',
                     meaning: v == ListTileStyle.drawer
                         ? 'Typography preset for side-drawer tiles. '
-                            '14sp title / 12sp subtitle. Applied by the '
-                            'Drawer widget via its ambient theme cascade.'
+                              '14sp title / 12sp subtitle. Applied by the '
+                              'Drawer widget via its ambient theme cascade.'
                         : 'Typography preset for content-list tiles. '
-                            '16sp title / 14sp subtitle. The framework '
-                            'default when no ListTileTheme.style is set.',
+                              '16sp title / 14sp subtitle. The framework '
+                              'default when no ListTileTheme.style is set.',
                   ),
               ],
             ),
@@ -2776,10 +2782,9 @@ class _ApiTab extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       'ListTileThemeData.style',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontFamily: 'monospace'),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ],
                 ),

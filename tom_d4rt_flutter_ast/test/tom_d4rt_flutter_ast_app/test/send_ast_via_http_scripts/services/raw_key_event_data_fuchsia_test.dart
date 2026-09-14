@@ -245,11 +245,7 @@ class _Hero extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
-                    colors: [
-                      _Palette.magenta,
-                      _Palette.violet,
-                      _Palette.teal,
-                    ],
+                    colors: [_Palette.magenta, _Palette.violet, _Palette.teal],
                   ),
                   boxShadow: [
                     BoxShadow(
@@ -275,14 +271,15 @@ class _Hero extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('FLUTTER · SERVICES · LEGACY KEYBOARD',
-                        style: _Type.caption.copyWith(
-                          color: _Palette.magentaSoft,
-                          letterSpacing: 1.8,
-                        )),
+                    Text(
+                      'FLUTTER · SERVICES · LEGACY KEYBOARD',
+                      style: _Type.caption.copyWith(
+                        color: _Palette.magentaSoft,
+                        letterSpacing: 1.8,
+                      ),
+                    ),
                     SizedBox(height: 6),
-                    Text('RawKeyEventDataFuchsia',
-                        style: _Type.heroTitle),
+                    Text('RawKeyEventDataFuchsia', style: _Type.heroTitle),
                   ],
                 ),
               ),
@@ -481,8 +478,13 @@ class _HidRow {
   final int codePoint;
   final String glyph;
   final Color glyphColor;
-  const _HidRow(this.usage, this.name, this.codePoint, this.glyph,
-      this.glyphColor);
+  const _HidRow(
+    this.usage,
+    this.name,
+    this.codePoint,
+    this.glyph,
+    this.glyphColor,
+  );
 }
 
 class _HidUsageSection extends StatelessWidget {
@@ -528,8 +530,7 @@ class _HidUsageSection extends StatelessWidget {
         child: Column(
           children: [
             _hidHeader(),
-            for (int i = 0; i < _rows.length; i++)
-              _hidRow(_rows[i], i.isEven),
+            for (int i = 0; i < _rows.length; i++) _hidRow(_rows[i], i.isEven),
           ],
         ),
       ),
@@ -546,18 +547,25 @@ class _HidUsageSection extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-              width: 90,
-              child: Text('hidUsage',
-                  style: _Type.caption
-                      .copyWith(color: _Palette.magentaSoft))),
+            width: 90,
+            child: Text(
+              'hidUsage',
+              style: _Type.caption.copyWith(color: _Palette.magentaSoft),
+            ),
+          ),
           Expanded(
-              child: Text('Key name',
-                  style: _Type.caption
-                      .copyWith(color: _Palette.violetSoft))),
+            child: Text(
+              'Key name',
+              style: _Type.caption.copyWith(color: _Palette.violetSoft),
+            ),
+          ),
           SizedBox(
-              width: 90,
-              child: Text('codePoint',
-                  style: _Type.caption.copyWith(color: _Palette.tealSoft))),
+            width: 90,
+            child: Text(
+              'codePoint',
+              style: _Type.caption.copyWith(color: _Palette.tealSoft),
+            ),
+          ),
           SizedBox(width: 60, child: Text('glyph', style: _Type.caption)),
         ],
       ),
@@ -692,8 +700,7 @@ class _ModifierSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int worked =
-        _ModBits.shift | _ModBits.control; // 0x009 = 0b1001
+    final int worked = _ModBits.shift | _ModBits.control; // 0x009 = 0b1001
     return _SectionFrame(
       index: 'SECTION 04',
       title: 'Modifier bitmask — six bits, one integer',
@@ -706,10 +713,7 @@ class _ModifierSection extends StatelessWidget {
         children: [
           _BinaryRegister(bits: _bits),
           SizedBox(height: 16),
-          for (final b in _bits) ...[
-            _BitRow(b),
-            SizedBox(height: 6),
-          ],
+          for (final b in _bits) ...[_BitRow(b), SizedBox(height: 6)],
           SizedBox(height: 12),
           _WorkedExample(value: worked, bits: _bits),
         ],
@@ -733,9 +737,7 @@ class _BinaryRegister extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (int i = 11; i >= 0; i--) _bitCell(i),
-        ],
+        children: [for (int i = 11; i >= 0; i--) _bitCell(i)],
       ),
     );
   }
@@ -761,9 +763,7 @@ class _BinaryRegister extends StatelessWidget {
             : _Palette.panel.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: active
-              ? activeColor.withValues(alpha: 0.6)
-              : _Palette.border,
+          color: active ? activeColor.withValues(alpha: 0.6) : _Palette.border,
         ),
       ),
       child: Column(
@@ -810,8 +810,10 @@ class _BitRow extends StatelessWidget {
           Container(
             width: 36,
             alignment: Alignment.center,
-            child: Text('bit ${b.bit}',
-                style: _Type.code.copyWith(color: b.color)),
+            child: Text(
+              'bit ${b.bit}',
+              style: _Type.code.copyWith(color: b.color),
+            ),
           ),
           SizedBox(width: 8),
           Container(
@@ -860,15 +862,16 @@ class _WorkedExample extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.calculate_outlined,
-                  color: _Palette.amber, size: 18),
+              Icon(Icons.calculate_outlined, color: _Palette.amber, size: 18),
               SizedBox(width: 8),
-              Text('Worked example: shift + control',
-                  style: TextStyle(
-                    color: _Palette.amber,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                  )),
+              Text(
+                'Worked example: shift + control',
+                style: TextStyle(
+                  color: _Palette.amber,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
@@ -884,8 +887,10 @@ class _WorkedExample extends StatelessWidget {
               _CodeTok(';'),
             ]),
             _CodeLine.tokens([
-              _CodeTok('// = 0x001 | 0x008 = 0x009 = 0b000000001001',
-                  _Palette.codeComment),
+              _CodeTok(
+                '// = 0x001 | 0x008 = 0x009 = 0b000000001001',
+                _Palette.codeComment,
+              ),
             ]),
             _CodeLine.tokens([
               _CodeTok('data', _Palette.textPrimary),
@@ -913,8 +918,10 @@ class _WorkedExample extends StatelessWidget {
               color: _Palette.codeBg,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text('binary: $binary',
-                style: _Type.code.copyWith(color: _Palette.amber)),
+            child: Text(
+              'binary: $binary',
+              style: _Type.code.copyWith(color: _Palette.amber),
+            ),
           ),
         ],
       ),
@@ -952,7 +959,10 @@ class _SampleEventsSection extends StatelessWidget {
       title: "shift + 'a' → 'A'",
       scenario: 'Left shift held, then A pressed. Code point becomes 0x41.',
       data: _FuchsiaKey(
-          hidUsage: 0x04, codePoint: 0x41, modifiers: _ModBits.shift),
+        hidUsage: 0x04,
+        codePoint: 0x41,
+        modifiers: _ModBits.shift,
+      ),
       accent: _Palette.violet,
     ),
     _SampleEvent(
@@ -985,7 +995,10 @@ class _SampleEventsSection extends StatelessWidget {
           'Meta (⌘) held while pressing S. Modifier bit 9 set; codePoint '
           'reflects cooked output.',
       data: _FuchsiaKey(
-          hidUsage: 0x16, codePoint: 0x73, modifiers: _ModBits.meta),
+        hidUsage: 0x16,
+        codePoint: 0x73,
+        modifiers: _ModBits.meta,
+      ),
       accent: _Palette.sky,
     ),
   ];
@@ -1018,7 +1031,8 @@ class _SampleEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = sample.data;
-    final hidHex = '0x${data.hidUsage.toRadixString(16).toUpperCase().padLeft(2, '0')}';
+    final hidHex =
+        '0x${data.hidUsage.toRadixString(16).toUpperCase().padLeft(2, '0')}';
     final cpHex = data.codePoint == 0
         ? '0x00'
         : '0x${data.codePoint.toRadixString(16).toUpperCase().padLeft(2, '0')}';
@@ -1042,14 +1056,16 @@ class _SampleEventCard extends StatelessWidget {
                   color: sample.accent.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Text('SAMPLE',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: sample.accent,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.2,
-                    )),
+                child: Text(
+                  'SAMPLE',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10,
+                    color: sample.accent,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
+                  ),
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
@@ -1148,20 +1164,42 @@ class _InheritanceSection extends StatelessWidget {
             runSpacing: 10,
             alignment: WrapAlignment.center,
             children: [
-              _SiblingChip('RawKeyEventDataFuchsia',
-                  'Fuchsia', _Palette.magenta, highlight: true),
-              _SiblingChip('RawKeyEventDataLinux',
-                  'Linux / GTK', _Palette.teal),
-              _SiblingChip('RawKeyEventDataMacOs',
-                  'macOS / Carbon', _Palette.amber),
-              _SiblingChip('RawKeyEventDataWindows',
-                  'Windows / Win32', _Palette.rose),
-              _SiblingChip('RawKeyEventDataAndroid',
-                  'Android / NDK', _Palette.sky),
-              _SiblingChip('RawKeyEventDataIos',
-                  'iOS / UIKey', _Palette.violet),
-              _SiblingChip('RawKeyEventDataWeb',
-                  'Web / KeyboardEvent', _Palette.tealSoft),
+              _SiblingChip(
+                'RawKeyEventDataFuchsia',
+                'Fuchsia',
+                _Palette.magenta,
+                highlight: true,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataLinux',
+                'Linux / GTK',
+                _Palette.teal,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataMacOs',
+                'macOS / Carbon',
+                _Palette.amber,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataWindows',
+                'Windows / Win32',
+                _Palette.rose,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataAndroid',
+                'Android / NDK',
+                _Palette.sky,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataIos',
+                'iOS / UIKey',
+                _Palette.violet,
+              ),
+              _SiblingChip(
+                'RawKeyEventDataWeb',
+                'Web / KeyboardEvent',
+                _Palette.tealSoft,
+              ),
             ],
           ),
         ],
@@ -1193,13 +1231,15 @@ class _InheritanceNode extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(label,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: color,
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
           Text(sub, style: _Type.caption),
         ],
       ),
@@ -1251,24 +1291,20 @@ class _SiblingChip extends StatelessWidget {
           width: highlight ? 1.5 : 1,
         ),
         boxShadow: highlight
-            ? [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.4),
-                  blurRadius: 12,
-                ),
-              ]
+            ? [BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 12)]
             : null,
       ),
       child: Column(
         children: [
-          Text(label,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                color: color,
-                fontWeight:
-                    highlight ? FontWeight.w800 : FontWeight.w600,
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              color: color,
+              fontWeight: highlight ? FontWeight.w800 : FontWeight.w600,
+            ),
+          ),
           Text(platform, style: _Type.caption),
         ],
       ),
@@ -1300,13 +1336,11 @@ class _MigrationSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: _Palette.amber.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                  color: _Palette.amber.withValues(alpha: 0.5)),
+              border: Border.all(color: _Palette.amber.withValues(alpha: 0.5)),
             ),
             child: Row(
               children: [
-                Icon(Icons.warning_amber_rounded,
-                    color: _Palette.amber),
+                Icon(Icons.warning_amber_rounded, color: _Palette.amber),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1366,15 +1400,13 @@ class _MigrationSection extends StatelessWidget {
                       _CodeTok(') {'),
                     ]),
                     _CodeLine.tokens([
-                      _CodeTok('      // data.hidUsage / data.codePoint',
-                          _Palette.codeComment),
+                      _CodeTok(
+                        '      // data.hidUsage / data.codePoint',
+                        _Palette.codeComment,
+                      ),
                     ]),
-                    _CodeLine.tokens([
-                      _CodeTok('    }'),
-                    ]),
-                    _CodeLine.tokens([
-                      _CodeTok('  });'),
-                    ]),
+                    _CodeLine.tokens([_CodeTok('    }')]),
+                    _CodeLine.tokens([_CodeTok('  });')]),
                   ],
                 ),
               ),
@@ -1424,8 +1456,10 @@ class _MigrationSection extends StatelessWidget {
                       _CodeTok(';'),
                     ]),
                     _CodeLine.tokens([
-                      _CodeTok('    // unified across platforms',
-                          _Palette.codeComment),
+                      _CodeTok(
+                        '    // unified across platforms',
+                        _Palette.codeComment,
+                      ),
                     ]),
                     _CodeLine.tokens([
                       _CodeTok('    return', _Palette.codeKeyword),
@@ -1433,9 +1467,7 @@ class _MigrationSection extends StatelessWidget {
                       _CodeTok('false', _Palette.codeType),
                       _CodeTok(';'),
                     ]),
-                    _CodeLine.tokens([
-                      _CodeTok('  });'),
-                    ]),
+                    _CodeLine.tokens([_CodeTok('  });')]),
                   ],
                 ),
               ),
@@ -1474,27 +1506,30 @@ class _MigrationColumn extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                      color: _Palette.textPrimary,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                    )),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: _Palette.textPrimary,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: badgeColor.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(badge,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 9,
-                      color: badgeColor,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  badge,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 9,
+                    color: badgeColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1628,13 +1663,15 @@ class _DerivationCard extends StatelessWidget {
                   color: _Palette.violet.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(11),
                 ),
-                child: Text('$idx',
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      color: _Palette.violet,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  '$idx',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    color: _Palette.violet,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               SizedBox(width: 8),
               Text(
@@ -1707,19 +1744,20 @@ class _DerivationBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-                letterSpacing: 1.2,
-                color: color,
-                fontWeight: FontWeight.w700,
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              letterSpacing: 1.2,
+              color: color,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           SizedBox(height: 6),
           Text(body, style: _Type.code),
           SizedBox(height: 4),
-          Text(rawId,
-              style: _Type.code.copyWith(color: color)),
+          Text(rawId, style: _Type.code.copyWith(color: color)),
           SizedBox(height: 4),
           Text(caption, style: _Type.caption),
         ],
@@ -1829,12 +1867,14 @@ class _Pitfall extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                    )),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
                 SizedBox(height: 4),
                 Text(body, style: _Type.bodyText),
               ],
@@ -1876,13 +1916,15 @@ class _Footer extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 8),
-              Text('END · RawKeyEventDataFuchsia · visual deep demo',
-                  style: TextStyle(
-                    color: _Palette.textSecondary,
-                    letterSpacing: 1.4,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  )),
+              Text(
+                'END · RawKeyEventDataFuchsia · visual deep demo',
+                style: TextStyle(
+                  color: _Palette.textSecondary,
+                  letterSpacing: 1.4,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
@@ -1922,12 +1964,12 @@ class _FooterTag extends StatelessWidget {
       decoration: BoxDecoration(
         color: _Palette.violet.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-          color: _Palette.violet.withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: _Palette.violet.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: _Type.code.copyWith(color: _Palette.violetSoft)),
+      child: Text(
+        label,
+        style: _Type.code.copyWith(color: _Palette.violetSoft),
+      ),
     );
   }
 }
@@ -1970,9 +2012,7 @@ class _CodeBlock extends StatelessWidget {
                   for (final t in line.tokens)
                     TextSpan(
                       text: t.text,
-                      style: t.color == null
-                          ? null
-                          : TextStyle(color: t.color),
+                      style: t.color == null ? null : TextStyle(color: t.color),
                     ),
                 ],
               ),

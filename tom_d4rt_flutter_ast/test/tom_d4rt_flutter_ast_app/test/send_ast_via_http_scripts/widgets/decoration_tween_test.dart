@@ -20,7 +20,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Tween for Decorations',
-      'body': 'DecorationTween is a Tween<Decoration> that knows '
+      'body':
+          'DecorationTween is a Tween<Decoration> that knows '
           'how to interpolate between two Decoration instances. '
           'When you specify a begin and end Decoration, it computes '
           'smooth intermediate values at every animation frame by '
@@ -30,7 +31,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.color_lens,
       'title': 'Property-Level Interpolation',
-      'body': 'Each sub-property of the Decoration is interpolated '
+      'body':
+          'Each sub-property of the Decoration is interpolated '
           'independently: color blends, border radius morphs, '
           'box shadows fade and shift, gradients cross-fade. '
           'The result is a visually smooth transition even between '
@@ -40,7 +42,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.category,
       'title': 'Works with BoxDecoration & ShapeDecoration',
-      'body': 'The primary Decoration subclasses are BoxDecoration '
+      'body':
+          'The primary Decoration subclasses are BoxDecoration '
           'and ShapeDecoration. DecorationTween handles both. '
           'BoxDecoration.lerp() blends colors, borders, shadows, '
           'and gradients. ShapeDecoration.lerp() interpolates '
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build_circle,
       'title': 'Usage in Animation',
-      'body': 'Typically used with AnimatedBuilder + AnimationController:\n'
+      'body':
+          'Typically used with AnimatedBuilder + AnimationController:\n'
           '  final tween = DecorationTween(\n'
           '    begin: BoxDecoration(...),\n'
           '    end: BoxDecoration(...),\n'
@@ -72,7 +76,8 @@ dynamic build(BuildContext context) {
     {
       'member': 'DecorationTween({begin, end})',
       'type': 'Constructor',
-      'desc': 'Creates a tween between two Decoration values. Both '
+      'desc':
+          'Creates a tween between two Decoration values. Both '
           'begin and end should be the same Decoration subclass for '
           'best results (e.g., both BoxDecoration).',
       'icon': Icons.construction,
@@ -80,7 +85,8 @@ dynamic build(BuildContext context) {
     {
       'member': '.lerp(double t)',
       'type': 'Decoration',
-      'desc': 'Returns the Decoration at progress t (0.0 = begin, '
+      'desc':
+          'Returns the Decoration at progress t (0.0 = begin, '
           '1.0 = end). Calls Decoration.lerp(begin, end, t) which '
           'dispatches to the appropriate subclass lerp.',
       'icon': Icons.linear_scale,
@@ -88,21 +94,24 @@ dynamic build(BuildContext context) {
     {
       'member': '.begin',
       'type': 'Decoration?',
-      'desc': 'The decoration at the start of the animation. '
+      'desc':
+          'The decoration at the start of the animation. '
           'When t = 0, the result equals begin.',
       'icon': Icons.first_page,
     },
     {
       'member': '.end',
       'type': 'Decoration?',
-      'desc': 'The decoration at the end of the animation. '
+      'desc':
+          'The decoration at the end of the animation. '
           'When t = 1, the result equals end.',
       'icon': Icons.last_page,
     },
     {
       'member': '.animate(Animation<double>)',
       'type': 'Animation<Decoration>',
-      'desc': 'Chains the tween with an Animation (usually from '
+      'desc':
+          'Chains the tween with an Animation (usually from '
           'AnimationController) producing an Animation<Decoration> '
           'that can drive DecoratedBox or AnimatedBuilder.',
       'icon': Icons.play_arrow,
@@ -110,7 +119,8 @@ dynamic build(BuildContext context) {
     {
       'member': '.chain(Animatable<double>)',
       'type': 'Animatable<Decoration>',
-      'desc': 'Composes with a CurveTween or other Animatable to '
+      'desc':
+          'Composes with a CurveTween or other Animatable to '
           'apply easing. Example: tween.chain(CurveTween('
           'curve: Curves.easeInOut)).',
       'icon': Icons.link,
@@ -130,7 +140,8 @@ dynamic build(BuildContext context) {
       'method': 'Color.lerp(a, b, t)',
       'icon': Icons.palette,
       'color': Colors.cyan[600]!,
-      'detail': 'Blends between two colors in the RGB color space. '
+      'detail':
+          'Blends between two colors in the RGB color space. '
           'At t=0.5 you get the midpoint. Opacity is also '
           'interpolated, so you can fade from opaque to transparent.',
     },
@@ -139,7 +150,8 @@ dynamic build(BuildContext context) {
       'method': 'Gradient.lerp(a, b, t)',
       'icon': Icons.gradient,
       'color': Colors.purple[500]!,
-      'detail': 'Interpolates gradient stops, colors, and geometry. '
+      'detail':
+          'Interpolates gradient stops, colors, and geometry. '
           'Works between LinearGradient, RadialGradient, and '
           'SweepGradient. If types differ, it cross-fades.',
     },
@@ -148,7 +160,8 @@ dynamic build(BuildContext context) {
       'method': 'BoxBorder.lerp(a, b, t)',
       'icon': Icons.border_all,
       'color': Colors.blue[600]!,
-      'detail': 'Interpolates border width, color, and style for '
+      'detail':
+          'Interpolates border width, color, and style for '
           'each side independently. Can transition from thin grey '
           'to thick colored borders smoothly.',
     },
@@ -157,7 +170,8 @@ dynamic build(BuildContext context) {
       'method': 'BorderRadius.lerp(a, b, t)',
       'icon': Icons.rounded_corner,
       'color': Colors.teal[600]!,
-      'detail': 'Each corner radius is interpolated independently. '
+      'detail':
+          'Each corner radius is interpolated independently. '
           'Can morph from square (radius 0) to circle '
           '(radius = half-side) smoothly.',
     },
@@ -166,7 +180,8 @@ dynamic build(BuildContext context) {
       'method': 'BoxShadow.lerpList(a, b, t)',
       'icon': Icons.blur_on,
       'color': Colors.blueGrey[600]!,
-      'detail': 'Interpolates shadow color, offset, blur radius, '
+      'detail':
+          'Interpolates shadow color, offset, blur radius, '
           'and spread radius. If the lists have different lengths, '
           'extra shadows fade in or out.',
     },
@@ -175,7 +190,8 @@ dynamic build(BuildContext context) {
       'method': 'Direct switch',
       'icon': Icons.crop_square,
       'color': Colors.deepOrange[500]!,
-      'detail': 'BoxShape is either rectangle or circle. If begin '
+      'detail':
+          'BoxShape is either rectangle or circle. If begin '
           'and end have different shapes, the switch happens at '
           't=0.5 — there\'s no smooth morph between shapes. Use '
           'borderRadius instead for round corners.',
@@ -194,9 +210,7 @@ dynamic build(BuildContext context) {
     color: Colors.cyan[100]!,
     borderRadius: BorderRadius.circular(4),
     border: Border.all(color: Colors.cyan[300]!, width: 1),
-    boxShadow: [
-      BoxShadow(color: Colors.cyan.withOpacity(0.2), blurRadius: 2),
-    ],
+    boxShadow: [BoxShadow(color: Colors.cyan.withOpacity(0.2), blurRadius: 2)],
   );
   final endDeco = BoxDecoration(
     color: Colors.deepPurple[400]!,
@@ -204,9 +218,10 @@ dynamic build(BuildContext context) {
     border: Border.all(color: Colors.deepPurple[700]!, width: 3),
     boxShadow: [
       BoxShadow(
-          color: Colors.deepPurple.withOpacity(0.4),
-          blurRadius: 12,
-          offset: Offset(0, 6)),
+        color: Colors.deepPurple.withOpacity(0.4),
+        blurRadius: 12,
+        offset: Offset(0, 6),
+      ),
     ],
   );
 
@@ -290,7 +305,8 @@ dynamic build(BuildContext context) {
       'title': 'ShapeDecoration.lerp()',
       'icon': Icons.pentagon,
       'color': Colors.blueGrey[600]!,
-      'body': 'Interpolates ShapeBorder, color, gradient, and shadows. '
+      'body':
+          'Interpolates ShapeBorder, color, gradient, and shadows. '
           'If both shapes are OutlinedBorder (like RoundedRectangle'
           'Border, StadiumBorder, CircleBorder), the geometry '
           'morphs smoothly. Cross-type morphing uses ShapeBorder'
@@ -300,7 +316,8 @@ dynamic build(BuildContext context) {
       'title': 'Border + Shape Interpolation',
       'icon': Icons.border_style,
       'color': Colors.cyan[600]!,
-      'body': 'OutlinedBorder\'s side (BorderSide) is interpolated: '
+      'body':
+          'OutlinedBorder\'s side (BorderSide) is interpolated: '
           'width, color, strokeAlign — all smoothly. This means a '
           'thin light border can grow into a thick dark one.',
     },
@@ -308,7 +325,8 @@ dynamic build(BuildContext context) {
       'title': 'Stadium ↔ RoundedRectangle',
       'icon': Icons.crop_16_9,
       'color': Colors.teal[500]!,
-      'body': 'StadiumBorder and RoundedRectangleBorder can lerp '
+      'body':
+          'StadiumBorder and RoundedRectangleBorder can lerp '
           'smoothly because both are OutlinedBorder subclasses that '
           'share an interpolation path via borderRadius morphing.',
     },
@@ -330,15 +348,18 @@ dynamic build(BuildContext context) {
     },
     {
       'aspect': 'Interpolates',
-      'decoTween': 'Entire Decoration (color, '
+      'decoTween':
+          'Entire Decoration (color, '
           'border, shadow, gradient, etc.)',
       'colorTween': 'Color only (r, g, b, a)',
-      'borderTween': 'BorderRadius only '
+      'borderTween':
+          'BorderRadius only '
           '(four corner radii)',
     },
     {
       'aspect': 'Use With',
-      'decoTween': 'DecoratedBox, Container '
+      'decoTween':
+          'DecoratedBox, Container '
           'AnimatedBuilder',
       'colorTween': 'Any color property',
       'borderTween': 'ClipRRect, CardTheme, etc.',
@@ -369,7 +390,8 @@ dynamic build(BuildContext context) {
       'title': 'Card Hover / Press Effect',
       'icon': Icons.touch_app,
       'color': Colors.cyan[600]!,
-      'body': 'On hover or press, animate from a flat BoxDecoration '
+      'body':
+          'On hover or press, animate from a flat BoxDecoration '
           'to one with elevated shadow and colored border. Use '
           'DecorationTween with AnimationController to drive the '
           'transition on mouse enter/leave events.',
@@ -378,7 +400,8 @@ dynamic build(BuildContext context) {
       'title': 'Theme-Aware Transitions',
       'icon': Icons.brightness_6,
       'color': Colors.blueGrey[600]!,
-      'body': 'When switching themes (light → dark), use '
+      'body':
+          'When switching themes (light → dark), use '
           'AnimatedContainer with decoration to morphe background, '
           'borders, and shadows together. The implicit animation '
           'uses DecorationTween internally.',
@@ -387,7 +410,8 @@ dynamic build(BuildContext context) {
       'title': 'Selection Indicator',
       'icon': Icons.check_box,
       'color': Colors.green[600]!,
-      'body': 'A selectable list item transitions from plain to '
+      'body':
+          'A selectable list item transitions from plain to '
           'highlighted decoration: background fill + accent border '
           '+ subtle shadow. Single DecorationTween handles all '
           'properties atomically.',
@@ -396,7 +420,8 @@ dynamic build(BuildContext context) {
       'title': 'Step Progress',
       'icon': Icons.linear_scale,
       'color': Colors.deepPurple[500]!,
-      'body': 'Animate stages: inactive (grey, flat) → active '
+      'body':
+          'Animate stages: inactive (grey, flat) → active '
           '(colored, elevated) → complete (green, bordered). Chain '
           'DecorationTweens with TweenSequence for multi-step '
           'decoration changes.',
@@ -405,7 +430,8 @@ dynamic build(BuildContext context) {
       'title': 'Image Reveal',
       'icon': Icons.image,
       'color': Colors.orange[600]!,
-      'body': 'Transition from a solid color to a DecorationImage '
+      'body':
+          'Transition from a solid color to a DecorationImage '
           'background. While begin/end are both BoxDecoration, the '
           'image property cross-fades. Combine with gradient overlay '
           'for a polished loading-to-content reveal.',
@@ -424,7 +450,8 @@ dynamic build(BuildContext context) {
       'title': 'Implicit: AnimatedContainer',
       'icon': Icons.auto_awesome,
       'color': Colors.cyan[600]!,
-      'code': 'AnimatedContainer(\n'
+      'code':
+          'AnimatedContainer(\n'
           '  duration: Duration(milliseconds: 300),\n'
           '  decoration: isActive\n'
           '    ? activeDecoration\n'
@@ -432,14 +459,16 @@ dynamic build(BuildContext context) {
           '  child: content,\n'
           ')',
       'pros': 'Simple, no controller needed, auto-disposes.',
-      'cons': 'Less control over timing, can\'t scrub or reverse '
+      'cons':
+          'Less control over timing, can\'t scrub or reverse '
           'programmatically.',
     },
     {
       'title': 'Explicit: Controller + DecorationTween',
       'icon': Icons.tune,
       'color': Colors.blueGrey[600]!,
-      'code': 'final controller = AnimationController(...);\n'
+      'code':
+          'final controller = AnimationController(...);\n'
           'final decoAnim = DecorationTween(\n'
           '  begin: inactiveDeco,\n'
           '  end: activeDeco,\n'
@@ -471,7 +500,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Same Decoration Type Required',
-      'body': 'DecorationTween works best when begin and end are the '
+      'body':
+          'DecorationTween works best when begin and end are the '
           'same type (both BoxDecoration or both ShapeDecoration). '
           'Mixing types falls back to cross-fade which looks like '
           'an abrupt opacity swap rather than smooth morphing.',
@@ -480,7 +510,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Gradient + Color Conflict',
-      'body': 'BoxDecoration.color and .gradient shouldn\'t both be '
+      'body':
+          'BoxDecoration.color and .gradient shouldn\'t both be '
           'set. If begin uses color and end uses gradient (or vice '
           'versa), the lerp may produce unexpected results. Convert '
           'solid colors to single-color gradients first.',
@@ -489,7 +520,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'BoxShadow List Length',
-      'body': 'When begin has 1 shadow and end has 3, BoxShadow.'
+      'body':
+          'When begin has 1 shadow and end has 3, BoxShadow.'
           'lerpList adds transparent "phantom" shadows to pad the '
           'shorter list. This usually looks fine — extra shadows '
           'fade in from nothing.',
@@ -498,7 +530,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Shape Jump at t=0.5',
-      'body': 'If begin has BoxShape.rectangle and end has '
+      'body':
+          'If begin has BoxShape.rectangle and end has '
           'BoxShape.circle, the shape snaps at t=0.5. For smooth '
           'rectangle-to-circle morphs, keep BoxShape.rectangle '
           'and animate borderRadius instead.',
@@ -507,7 +540,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Performance with Shadows',
-      'body': 'Animating large box shadows (high blur, large spread) '
+      'body':
+          'Animating large box shadows (high blur, large spread) '
           'is relatively expensive. Each frame re-rasterizes the '
           'shadow. For 60fps animations, keep shadow counts low '
           'and blur radii reasonable.',
@@ -516,7 +550,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Chain with CurveTween',
-      'body': 'Apply easing for natural motion:\n'
+      'body':
+          'Apply easing for natural motion:\n'
           '  tween.chain(CurveTween(curve: Curves.easeInOutCubic))\n'
           'Without a curve, the interpolation is linear, which looks '
           'mechanical for UI animations.',
@@ -590,50 +625,63 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _heading('1', 'What is DecorationTween?'),
           SizedBox(height: 12),
-          ...conceptCards.map((card) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: card['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (card) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: card['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(card['icon'] as IconData,
-                            color: card['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          card['icon'] as IconData,
+                          color: card['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(card['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            card['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(card['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      card['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -647,74 +695,91 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2))
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
               ],
             ),
-            child: Column(children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.cyan[700],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.cyan[700],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
                   ),
-                ),
-                child: Row(children: [
-                  _cell('Member', bold: true, white: true, flex: 3),
-                  _cell('Returns', bold: true, white: true, flex: 2),
-                  _cell('Description', bold: true, white: true, flex: 5),
-                ]),
-              ),
-              ...apiMembers.asMap().entries.map((entry) {
-                final idx = entry.key;
-                final m = entry.value;
-                return Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(m['icon'] as IconData,
-                                size: 13, color: Colors.cyan[500]),
-                            SizedBox(width: 4),
-                            Expanded(
-                              child: Text(m['member'] as String,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'monospace')),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Text(m['type'] as String,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: Colors.cyan[700])),
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: Text(m['desc'] as String,
-                            style: TextStyle(
-                                fontSize: 11, color: Colors.grey[700])),
-                      ),
+                      _cell('Member', bold: true, white: true, flex: 3),
+                      _cell('Returns', bold: true, white: true, flex: 2),
+                      _cell('Description', bold: true, white: true, flex: 5),
                     ],
                   ),
-                );
-              }),
-            ]),
+                ),
+                ...apiMembers.asMap().entries.map((entry) {
+                  final idx = entry.key;
+                  final m = entry.value;
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    color: idx.isEven ? Colors.grey[50] : Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                m['icon'] as IconData,
+                                size: 13,
+                                color: Colors.cyan[500],
+                              ),
+                              SizedBox(width: 4),
+                              Expanded(
+                                child: Text(
+                                  m['member'] as String,
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'monospace',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            m['type'] as String,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: Colors.cyan[700],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: Text(
+                            m['desc'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),
@@ -722,64 +787,81 @@ dynamic build(BuildContext context) {
           // ── Section 3: BoxDecoration Lerp Properties ──
           _heading('3', 'BoxDecoration Lerp — Property by Property'),
           SizedBox(height: 12),
-          ...lerpProperties.map((lp) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        decoration: BoxDecoration(
-                          color: (lp['color'] as Color).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(lp['icon'] as IconData,
-                            color: lp['color'] as Color, size: 22),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              Text('.${lp['property']}',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14)),
-                              Spacer(),
-                              Text(lp['method'] as String,
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontFamily: 'monospace',
-                                      color: Colors.grey[500])),
-                            ]),
-                            SizedBox(height: 6),
-                            Text(lp['detail'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[700],
-                                    height: 1.4)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+          ...lerpProperties.map(
+            (lp) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
                 ),
-              )),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 42,
+                      height: 42,
+                      decoration: BoxDecoration(
+                        color: (lp['color'] as Color).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        lp['icon'] as IconData,
+                        color: lp['color'] as Color,
+                        size: 22,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                '.${lp['property']}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                lp['method'] as String,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontFamily: 'monospace',
+                                  color: Colors.grey[500],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            lp['detail'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -789,7 +871,10 @@ dynamic build(BuildContext context) {
           Text(
             'Color + BorderRadius + Border + Shadow lerped together:',
             style: TextStyle(
-                fontSize: 13, color: Colors.grey[600], height: 1.5),
+              fontSize: 13,
+              color: Colors.grey[600],
+              height: 1.5,
+            ),
           ),
           SizedBox(height: 12),
           Row(
@@ -797,19 +882,24 @@ dynamic build(BuildContext context) {
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3),
-                  child: Column(children: [
-                    Container(
-                      height: 56,
-                      decoration: step['decoration'] as Decoration,
-                    ),
-                    SizedBox(height: 4),
-                    Text(step['label'] as String,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 56,
+                        decoration: step['decoration'] as Decoration,
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        step['label'] as String,
                         style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey[600],
-                            fontFamily: 'monospace'),
-                        textAlign: TextAlign.center),
-                  ]),
+                          fontSize: 10,
+                          color: Colors.grey[600],
+                          fontFamily: 'monospace',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
@@ -819,7 +909,10 @@ dynamic build(BuildContext context) {
           Text(
             'Gradient lerp (LinearGradient direction + colors):',
             style: TextStyle(
-                fontSize: 13, color: Colors.grey[600], height: 1.5),
+              fontSize: 13,
+              color: Colors.grey[600],
+              height: 1.5,
+            ),
           ),
           SizedBox(height: 12),
           Row(
@@ -827,19 +920,24 @@ dynamic build(BuildContext context) {
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3),
-                  child: Column(children: [
-                    Container(
-                      height: 56,
-                      decoration: step['decoration'] as Decoration,
-                    ),
-                    SizedBox(height: 4),
-                    Text(step['label'] as String,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 56,
+                        decoration: step['decoration'] as Decoration,
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        step['label'] as String,
                         style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey[600],
-                            fontFamily: 'monospace'),
-                        textAlign: TextAlign.center),
-                  ]),
+                          fontSize: 10,
+                          color: Colors.grey[600],
+                          fontFamily: 'monospace',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
@@ -855,64 +953,83 @@ dynamic build(BuildContext context) {
               return Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3),
-                  child: Column(children: [
-                    Container(
-                      height: 56,
-                      decoration: step['decoration'] as Decoration,
-                    ),
-                    SizedBox(height: 4),
-                    Text(step['label'] as String,
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 56,
+                        decoration: step['decoration'] as Decoration,
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        step['label'] as String,
                         style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey[600],
-                            fontFamily: 'monospace'),
-                        textAlign: TextAlign.center),
-                  ]),
+                          fontSize: 10,
+                          color: Colors.grey[600],
+                          fontFamily: 'monospace',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               );
             }).toList(),
           ),
           SizedBox(height: 14),
-          ...shapeDetails.map((sd) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(
-                          color: sd['color'] as Color, width: 4),
+          ...shapeDetails.map(
+            (sd) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(
+                    left: BorderSide(color: sd['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(sd['icon'] as IconData,
-                            color: sd['color'] as Color, size: 18),
-                        SizedBox(width: 8),
-                        Text(sd['title'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 13)),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(sd['body'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          sd['icon'] as IconData,
+                          color: sd['color'] as Color,
+                          size: 18,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          sd['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      sd['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -926,47 +1043,61 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4,
-                    offset: Offset(0, 2))
+                  color: Colors.black12,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
               ],
             ),
-            child: Column(children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                decoration: BoxDecoration(
-                  color: Colors.cyan[700],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.cyan[700],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
                   ),
-                ),
-                child: Row(children: [
-                  _cell('Aspect', bold: true, white: true, flex: 2),
-                  _cell('DecorationTween', bold: true, white: true, flex: 3),
-                  _cell('ColorTween', bold: true, white: true, flex: 3),
-                  _cell('BorderRadiusTween', bold: true, white: true, flex: 3),
-                ]),
-              ),
-              ...comparison.asMap().entries.map((entry) {
-                final idx = entry.key;
-                final row = entry.value;
-                return Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-                  color: idx.isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _cell(row['aspect']!, bold: true, flex: 2),
-                      _cell(row['decoTween']!, flex: 3),
-                      _cell(row['colorTween']!, flex: 3),
-                      _cell(row['borderTween']!, flex: 3),
+                      _cell('Aspect', bold: true, white: true, flex: 2),
+                      _cell(
+                        'DecorationTween',
+                        bold: true,
+                        white: true,
+                        flex: 3,
+                      ),
+                      _cell('ColorTween', bold: true, white: true, flex: 3),
+                      _cell(
+                        'BorderRadiusTween',
+                        bold: true,
+                        white: true,
+                        flex: 3,
+                      ),
                     ],
                   ),
-                );
-              }),
-            ]),
+                ),
+                ...comparison.asMap().entries.map((entry) {
+                  final idx = entry.key;
+                  final row = entry.value;
+                  return Container(
+                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                    color: idx.isEven ? Colors.grey[50] : Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _cell(row['aspect']!, bold: true, flex: 2),
+                        _cell(row['decoTween']!, flex: 3),
+                        _cell(row['colorTween']!, flex: 3),
+                        _cell(row['borderTween']!, flex: 3),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),
@@ -974,125 +1105,171 @@ dynamic build(BuildContext context) {
           // ── Section 7: Real-World Patterns ──
           _heading('7', 'Real-World Patterns'),
           SizedBox(height: 12),
-          ...patterns.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...patterns.map(
+            (p) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          p['icon'] as IconData,
+                          color: p['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(p['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)),
+                          child: Text(
+                            p['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['body'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      p['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Implicit vs Explicit ──
           _heading('8', 'Implicit vs Explicit Animation'),
           SizedBox(height: 12),
-          ...implicitVsExplicit.map((ie) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: ie['color'] as Color, width: 4),
+          ...implicitVsExplicit.map(
+            (ie) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: ie['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(ie['icon'] as IconData,
-                            color: ie['color'] as Color, size: 22),
-                        SizedBox(width: 8),
-                        Text(ie['title'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14)),
-                      ]),
-                      SizedBox(height: 10),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(ie['code'] as String,
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[800],
-                                height: 1.4)),
-                      ),
-                      SizedBox(height: 8),
-                      Row(children: [
-                        Icon(Icons.add_circle_outline,
-                            size: 14, color: Colors.green[600]),
-                        SizedBox(width: 4),
-                        Expanded(
-                          child: Text(ie['pros'] as String,
-                              style: TextStyle(
-                                  fontSize: 12, color: Colors.green[700])),
-                        ),
-                      ]),
-                      SizedBox(height: 4),
-                      Row(children: [
-                        Icon(Icons.remove_circle_outline,
-                            size: 14, color: Colors.red[400]),
-                        SizedBox(width: 4),
-                        Expanded(
-                          child: Text(ie['cons'] as String,
-                              style: TextStyle(
-                                  fontSize: 12, color: Colors.red[600])),
-                        ),
-                      ]),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          ie['icon'] as IconData,
+                          color: ie['color'] as Color,
+                          size: 22,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          ie['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        ie['code'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: Colors.grey[800],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.add_circle_outline,
+                          size: 14,
+                          color: Colors.green[600],
+                        ),
+                        SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            ie['pros'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.green[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.remove_circle_outline,
+                          size: 14,
+                          color: Colors.red[400],
+                        ),
+                        SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            ie['cons'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.red[600],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1124,29 +1301,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1187,20 +1376,26 @@ Widget _heading(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1209,8 +1404,12 @@ Widget _heading(String number, String title) {
 // ──────────────────────────────────────────────────────────
 // Helper: Table cell
 // ──────────────────────────────────────────────────────────
-Widget _cell(String text,
-    {bool bold = false, bool white = false, int flex = 1}) {
+Widget _cell(
+  String text, {
+  bool bold = false,
+  bool white = false,
+  int flex = 1,
+}) {
   return Expanded(
     flex: flex,
     child: Text(

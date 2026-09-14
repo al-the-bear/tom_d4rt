@@ -794,26 +794,17 @@ class _AnatomySection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _codeLine(
-                  '@override',
-                  Color(0xFF94A3B8),
-                ),
+                _codeLine('@override', Color(0xFF94A3B8)),
                 _codeLine(
                   'void debugFillProperties(DiagnosticPropertiesBuilder p) {',
                   Color(0xFFE2E8F0),
                 ),
-                _codeLine(
-                  '  super.debugFillProperties(p);',
-                  Color(0xFFE2E8F0),
-                ),
+                _codeLine('  super.debugFillProperties(p);', Color(0xFFE2E8F0)),
                 _codeLine(
                   '  p.add(DiagnosticsProperty<int>(',
                   Color(0xFFE2E8F0),
                 ),
-                _codeLine(
-                  "      'count', count,",
-                  Color(0xFFFCD34D),
-                ),
+                _codeLine("      'count', count,", Color(0xFFFCD34D)),
                 _codeLine(
                   '      style: DiagnosticsTreeStyle.singleLine));',
                   Color(0xFF7DD3FC),
@@ -1469,9 +1460,7 @@ class _PitfallsSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: tint,
         borderRadius: BorderRadius.circular(14.0),
-        border: Border(
-          left: BorderSide(color: tone, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: tone, width: 4.0)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: tone.withValues(alpha: 0.15),
@@ -1540,7 +1529,13 @@ class _ComparisonTable extends StatelessWidget {
       _TableRow('sparse', '╞ ╘', 'standard', 'all listed', 'render trees'),
       _TableRow('offstage', '╎┄', 'standard', 'all listed', 'kept-alive'),
       _TableRow('dense', '├ │', 'tight', 'all listed', 'element trees'),
-      _TableRow('transition', '╘═>', 'standard', 'children switch', 'paragraph'),
+      _TableRow(
+        'transition',
+        '╘═>',
+        'standard',
+        'children switch',
+        'paragraph',
+      ),
       _TableRow('error', '═══', 'banner', 'all listed', 'FlutterError'),
       _TableRow('whitespace', '"  "', 'standard', 'all listed', 'value bags'),
       _TableRow('flat', 'none', 'zero', 'flat list', 'stack traces'),
@@ -1588,10 +1583,7 @@ class _ComparisonTable extends StatelessWidget {
             for (int i = 0; i < rows.length; i++)
               Container(
                 color: i.isEven ? Color(0xFFFFF7ED) : Colors.white,
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 8.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 child: Row(
                   children: <Widget>[
                     _dCell(rows[i].name, 130.0, bold: true, mono: true),
@@ -1670,86 +1662,62 @@ class _WorkflowsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        _flow(
-          'Tracking down a layout overflow',
-          <_FlowStep>[
-            _FlowStep(
-              'debugDumpRenderTree()',
-              'sparse on RenderObjects',
-              Color(0xFF2563EB),
-            ),
-            _FlowStep(
-              'Find OverflowingFlex',
-              'shallow under DebugOverflowIndicator',
-              Color(0xFFA855F7),
-            ),
-            _FlowStep(
-              'Inspect properties',
-              'singleLine per leaf',
-              Color(0xFF10B981),
-            ),
-            _FlowStep(
-              'Fix Column → Flexible',
-              'no more banner',
-              Color(0xFFF59E0B),
-            ),
-          ],
-          drift.value,
-        ),
+        _flow('Tracking down a layout overflow', <_FlowStep>[
+          _FlowStep(
+            'debugDumpRenderTree()',
+            'sparse on RenderObjects',
+            Color(0xFF2563EB),
+          ),
+          _FlowStep(
+            'Find OverflowingFlex',
+            'shallow under DebugOverflowIndicator',
+            Color(0xFFA855F7),
+          ),
+          _FlowStep(
+            'Inspect properties',
+            'singleLine per leaf',
+            Color(0xFF10B981),
+          ),
+          _FlowStep(
+            'Fix Column → Flexible',
+            'no more banner',
+            Color(0xFFF59E0B),
+          ),
+        ], drift.value),
         SizedBox(height: 12.0),
-        _flow(
-          'Diagnosing a build-phase exception',
-          <_FlowStep>[
-            _FlowStep(
-              'FlutterError caught',
-              'error style root',
-              Color(0xFFEF4444),
-            ),
-            _FlowStep(
-              'Library / context',
-              'errorProperty multi-line',
-              Color(0xFFF97316),
-            ),
-            _FlowStep(
-              'Stack trace',
-              'flat (no indent)',
-              Color(0xFF6B7280),
-            ),
-            _FlowStep(
-              'Fault widget',
-              'sparse subtree',
-              Color(0xFF2563EB),
-            ),
-          ],
-          warp.value,
-        ),
+        _flow('Diagnosing a build-phase exception', <_FlowStep>[
+          _FlowStep(
+            'FlutterError caught',
+            'error style root',
+            Color(0xFFEF4444),
+          ),
+          _FlowStep(
+            'Library / context',
+            'errorProperty multi-line',
+            Color(0xFFF97316),
+          ),
+          _FlowStep('Stack trace', 'flat (no indent)', Color(0xFF6B7280)),
+          _FlowStep('Fault widget', 'sparse subtree', Color(0xFF2563EB)),
+        ], warp.value),
         SizedBox(height: 12.0),
-        _flow(
-          'Trimming noisy DevTools logs',
-          <_FlowStep>[
-            _FlowStep(
-              'List has 200 tiles',
-              'sparse → wall of text',
-              Color(0xFF94A3B8),
-            ),
-            _FlowStep(
-              'Switch to truncateChildren',
-              'first 5 + “… 195 more”',
-              Color(0xFFF59E0B),
-            ),
-            _FlowStep(
-              'Inspect culprit tile',
-              'shallow snapshot',
-              Color(0xFFA855F7),
-            ),
-            _FlowStep(
-              'Re-run with sparse',
-              'now selectively',
-              Color(0xFF14B8A6),
-            ),
-          ],
-          (drift.value + warp.value) / 2.0,
-        ),
+        _flow('Trimming noisy DevTools logs', <_FlowStep>[
+          _FlowStep(
+            'List has 200 tiles',
+            'sparse → wall of text',
+            Color(0xFF94A3B8),
+          ),
+          _FlowStep(
+            'Switch to truncateChildren',
+            'first 5 + “… 195 more”',
+            Color(0xFFF59E0B),
+          ),
+          _FlowStep(
+            'Inspect culprit tile',
+            'shallow snapshot',
+            Color(0xFFA855F7),
+          ),
+          _FlowStep('Re-run with sparse', 'now selectively', Color(0xFF14B8A6)),
+        ], (drift.value + warp.value) / 2.0),
       ],
     );
   }
@@ -1797,10 +1765,7 @@ class _WorkflowsSection extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF06B6D4),
-                      Color(0xFF0EA5E9),
-                    ],
+                    colors: <Color>[Color(0xFF06B6D4), Color(0xFF0EA5E9)],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),

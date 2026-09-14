@@ -96,7 +96,11 @@ BoxShadow softShadow({Color color = kCobalt, double blur = 18, double dy = 6}) {
   );
 }
 
-BoxShadow hardShadow({Color color = kCharcoal, double blur = 4, double dy = 2}) {
+BoxShadow hardShadow({
+  Color color = kCharcoal,
+  double blur = 4,
+  double dy = 2,
+}) {
   return BoxShadow(
     color: color.withOpacity(0.35),
     blurRadius: blur,
@@ -161,10 +165,7 @@ RadialGradient halo({Color color = kCyan}) {
 }
 
 RadialGradient gridSpot() {
-  return RadialGradient(
-    radius: 0.7,
-    colors: [kPaper, Color(0xFFE5E7EB)],
-  );
+  return RadialGradient(radius: 0.7, colors: [kPaper, Color(0xFFE5E7EB)]);
 }
 
 // Format a Matrix4 storage row in fixed-width text.
@@ -207,8 +208,10 @@ void dumpMatrix(String label, Matrix4 m) {
   print('    row1: ${fmtRow(s[1], s[5], s[9], s[13])}');
   print('    row2: ${fmtRow(s[2], s[6], s[10], s[14])}');
   print('    row3: ${fmtRow(s[3], s[7], s[11], s[15])}');
-  print('    det=${m.determinant().toStringAsFixed(3)} '
-      'identity=${MatrixUtils.isIdentity(m)}');
+  print(
+    '    det=${m.determinant().toStringAsFixed(3)} '
+    'identity=${MatrixUtils.isIdentity(m)}',
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -323,11 +326,7 @@ Widget buildSection0() {
     _matrixCard('Perspective', perspective, kRose),
   ];
 
-  return Wrap(
-    spacing: 12,
-    runSpacing: 12,
-    children: rows,
-  );
+  return Wrap(spacing: 12, runSpacing: 12, children: rows);
 }
 
 Widget _matrixCard(String label, Matrix4 m, Color accent) {
@@ -351,18 +350,17 @@ Widget _matrixCard(String label, Matrix4 m, Color accent) {
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
-            Text(label,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  color: kCharcoal,
-                  fontSize: 14,
-                )),
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                color: kCharcoal,
+                fontSize: 14,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
@@ -371,8 +369,10 @@ Widget _matrixCard(String label, Matrix4 m, Color accent) {
         Text(fmtRow(s[2], s[6], s[10], s[14]), style: monoStyle()),
         Text(fmtRow(s[3], s[7], s[11], s[15]), style: monoStyle()),
         SizedBox(height: 6),
-        Text('det = ${m.determinant().toStringAsFixed(3)}',
-            style: subStyle(size: 11)),
+        Text(
+          'det = ${m.determinant().toStringAsFixed(3)}',
+          style: subStyle(size: 11),
+        ),
         Text(
           'isIdentity = ${MatrixUtils.isIdentity(m)}',
           style: subStyle(size: 11),
@@ -443,8 +443,10 @@ Widget buildSection1() {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(color: kPaper.withOpacity(0.55)),
                   ),
-                  child: Text('package:flutter/painting.dart',
-                      style: monoStyle(size: 11, color: kPaper)),
+                  child: Text(
+                    'package:flutter/painting.dart',
+                    style: monoStyle(size: 11, color: kPaper),
+                  ),
                 ),
                 SizedBox(width: 10),
                 Container(
@@ -453,19 +455,23 @@ Widget buildSection1() {
                     color: kLemon,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text('static utilities',
-                      style: monoStyle(size: 11, color: kCharcoal)),
+                  child: Text(
+                    'static utilities',
+                    style: monoStyle(size: 11, color: kCharcoal),
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 12),
-            Text('MatrixUtils',
-                style: TextStyle(
-                  fontSize: 38,
-                  fontWeight: FontWeight.w900,
-                  color: kPaper,
-                  letterSpacing: 1.2,
-                )),
+            Text(
+              'MatrixUtils',
+              style: TextStyle(
+                fontSize: 38,
+                fontWeight: FontWeight.w900,
+                color: kPaper,
+                letterSpacing: 1.2,
+              ),
+            ),
             SizedBox(height: 6),
             Text(
               'Transform points, rects and projections through Matrix4.',
@@ -496,22 +502,58 @@ Widget buildSection2() {
 
   // Build a 16-cell grid showing what each cell represents.
   final labels = <String>[
-    'Sx',   'Shy',  'R02',  'Tx',
-    'Shx',  'Sy',   'R12',  'Ty',
-    'R20',  'R21',  'Sz',   'Tz',
-    'P0',   'P1',   'P2',   'W',
+    'Sx',
+    'Shy',
+    'R02',
+    'Tx',
+    'Shx',
+    'Sy',
+    'R12',
+    'Ty',
+    'R20',
+    'R21',
+    'Sz',
+    'Tz',
+    'P0',
+    'P1',
+    'P2',
+    'W',
   ];
   final descriptions = <String>[
-    'X scale',  'X-shear',  'rot',     'X translate',
-    'Y-shear',  'Y scale',  'rot',     'Y translate',
-    'rot',      'rot',      'Z scale', 'Z translate',
-    'persp',    'persp',    'persp',   'w divide',
+    'X scale',
+    'X-shear',
+    'rot',
+    'X translate',
+    'Y-shear',
+    'Y scale',
+    'rot',
+    'Y translate',
+    'rot',
+    'rot',
+    'Z scale',
+    'Z translate',
+    'persp',
+    'persp',
+    'persp',
+    'w divide',
   ];
   final palette = <Color>[
-    kEmerald, kAmber,   kIndigo,  kCobalt,
-    kAmber,   kEmerald, kIndigo,  kCobalt,
-    kIndigo,  kIndigo,  kEmerald, kCobalt,
-    kRose,    kRose,    kRose,    kMagenta,
+    kEmerald,
+    kAmber,
+    kIndigo,
+    kCobalt,
+    kAmber,
+    kEmerald,
+    kIndigo,
+    kCobalt,
+    kIndigo,
+    kIndigo,
+    kEmerald,
+    kCobalt,
+    kRose,
+    kRose,
+    kRose,
+    kMagenta,
   ];
 
   final rows = <Widget>[];
@@ -521,13 +563,12 @@ Widget buildSection2() {
       final idx = r * 4 + c;
       cells.add(_anatomyCell(labels[idx], descriptions[idx], palette[idx]));
     }
-    rows.add(Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: cells,
+    rows.add(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 4),
+        child: Row(mainAxisSize: MainAxisSize.min, children: cells),
       ),
-    ));
+    );
   }
 
   return Row(
@@ -579,24 +620,26 @@ Widget _anatomyLegend() {
   for (int i = 0; i < items.length; i = i + 1) {
     final label = items[i][0] as String;
     final color = items[i][1] as Color;
-    children.add(Padding(
-      padding: EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 14,
-            height: 14,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(3),
+    children.add(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 14,
+              height: 14,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(3),
+              ),
             ),
-          ),
-          SizedBox(width: 8),
-          Text(label, style: subStyle(size: 12)),
-        ],
+            SizedBox(width: 8),
+            Text(label, style: subStyle(size: 12)),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     padding: EdgeInsets.all(12),
@@ -613,9 +656,10 @@ Widget _anatomyLegend() {
         Text('Legend', style: headingStyle(size: 14)),
         SizedBox(height: 8),
         Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: children),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: children,
+        ),
       ],
     ),
   );
@@ -642,11 +686,7 @@ Widget buildSection3() {
     ['Translate(+50,+10)', Matrix4.translationValues(50, 10, 0), kCobalt],
     ['Scale(1.4)', Matrix4.diagonal3Values(1.4, 1.4, 1), kEmerald],
     ['RotateZ(30deg)', Matrix4.rotationZ(math.pi / 6), kMagenta],
-    [
-      'Shear(xy=0.5)',
-      _shearMatrix(0.5, 0.0),
-      kAmber,
-    ],
+    ['Shear(xy=0.5)', _shearMatrix(0.5, 0.0), kAmber],
   ];
 
   print('Source points:');
@@ -672,11 +712,7 @@ Widget buildSection3() {
     tiles.add(_pointTile(name, m, points, color));
   }
 
-  return Wrap(
-    spacing: 14,
-    runSpacing: 14,
-    children: tiles,
-  );
+  return Wrap(spacing: 14, runSpacing: 14, children: tiles);
 }
 
 Matrix4 _shearMatrix(double xy, double yx) {
@@ -694,54 +730,57 @@ Widget _pointTile(String label, Matrix4 m, List<Offset> points, Color accent) {
   for (int i = 0; i < points.length; i = i + 1) {
     final p = points[i];
     final t = MatrixUtils.transformPoint(m, p);
-    beforeDots.add(Positioned(
-      left: 16 + p.dx * 1.4,
-      top: 16 + p.dy * 1.4,
-      child: Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(
-          color: kSlate,
-          shape: BoxShape.circle,
+    beforeDots.add(
+      Positioned(
+        left: 16 + p.dx * 1.4,
+        top: 16 + p.dy * 1.4,
+        child: Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: kSlate, shape: BoxShape.circle),
         ),
       ),
-    ));
-    afterDots.add(Positioned(
-      left: 16 + t.dx * 1.4,
-      top: 16 + t.dy * 1.4,
-      child: Container(
-        width: 9,
-        height: 9,
-        decoration: BoxDecoration(
-          color: accent,
-          shape: BoxShape.circle,
-          boxShadow: [hardShadow(color: accent, blur: 4, dy: 1)],
+    );
+    afterDots.add(
+      Positioned(
+        left: 16 + t.dx * 1.4,
+        top: 16 + t.dy * 1.4,
+        child: Container(
+          width: 9,
+          height: 9,
+          decoration: BoxDecoration(
+            color: accent,
+            shape: BoxShape.circle,
+            boxShadow: [hardShadow(color: accent, blur: 4, dy: 1)],
+          ),
         ),
       ),
-    ));
+    );
     // Draw an arrow with a thin gradient container as the "line".
     final dx = (t.dx - p.dx) * 1.4;
     final dy = (t.dy - p.dy) * 1.4;
     final length = math.sqrt(dx * dx + dy * dy);
     final angle = math.atan2(dy, dx);
     if (length > 0.5) {
-      lines.add(Positioned(
-        left: 16 + p.dx * 1.4 + 4,
-        top: 16 + p.dy * 1.4 + 4,
-        child: Transform.rotate(
-          alignment: Alignment.centerLeft,
-          angle: angle,
-          child: Container(
-            width: length,
-            height: 2,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [kSlate.withOpacity(0.7), accent],
+      lines.add(
+        Positioned(
+          left: 16 + p.dx * 1.4 + 4,
+          top: 16 + p.dy * 1.4 + 4,
+          child: Transform.rotate(
+            alignment: Alignment.centerLeft,
+            angle: angle,
+            child: Container(
+              width: length,
+              height: 2,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [kSlate.withOpacity(0.7), accent],
+                ),
               ),
             ),
           ),
         ),
-      ));
+      );
     }
   }
 
@@ -791,21 +830,31 @@ Widget _grid(double width, double height) {
   final lines = <Widget>[];
   for (int i = 0; i <= 8; i = i + 1) {
     final x = (width / 8) * i;
-    lines.add(Positioned(
-      left: x,
-      top: 0,
-      child: Container(
-          width: 1, height: height, color: kGridLineSoft.withOpacity(0.7)),
-    ));
+    lines.add(
+      Positioned(
+        left: x,
+        top: 0,
+        child: Container(
+          width: 1,
+          height: height,
+          color: kGridLineSoft.withOpacity(0.7),
+        ),
+      ),
+    );
   }
   for (int i = 0; i <= 6; i = i + 1) {
     final y = (height / 6) * i;
-    lines.add(Positioned(
-      left: 0,
-      top: y,
-      child: Container(
-          width: width, height: 1, color: kGridLineSoft.withOpacity(0.7)),
-    ));
+    lines.add(
+      Positioned(
+        left: 0,
+        top: y,
+        child: Container(
+          width: width,
+          height: 1,
+          color: kGridLineSoft.withOpacity(0.7),
+        ),
+      ),
+    );
   }
   return Stack(children: lines);
 }
@@ -942,12 +991,14 @@ Widget _inverseRectExplainer(Rect base, Rect rotated, Rect back) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('inverseTransformRect(matrix, rect)',
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: kPaper,
-              fontSize: 16,
-            )),
+        Text(
+          'inverseTransformRect(matrix, rect)',
+          style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: kPaper,
+            fontSize: 16,
+          ),
+        ),
         SizedBox(height: 4),
         Text(
           'Equivalent to transformRect(matrix.inverted(), rect). Useful when '
@@ -956,12 +1007,18 @@ Widget _inverseRectExplainer(Rect base, Rect rotated, Rect back) {
           style: TextStyle(color: kPaper.withOpacity(0.95), fontSize: 12),
         ),
         SizedBox(height: 6),
-        Text('base    : ${fmtRect(base)}',
-            style: monoStyle(size: 11, color: kPaper)),
-        Text('rotated : ${fmtRect(rotated)}',
-            style: monoStyle(size: 11, color: kPaper)),
-        Text('inverse : ${fmtRect(back)}',
-            style: monoStyle(size: 11, color: kPaper)),
+        Text(
+          'base    : ${fmtRect(base)}',
+          style: monoStyle(size: 11, color: kPaper),
+        ),
+        Text(
+          'rotated : ${fmtRect(rotated)}',
+          style: monoStyle(size: 11, color: kPaper),
+        ),
+        Text(
+          'inverse : ${fmtRect(back)}',
+          style: monoStyle(size: 11, color: kPaper),
+        ),
       ],
     ),
   );
@@ -1049,14 +1106,22 @@ Widget _diagnosticCard(String label, Matrix4 m, Offset? t, double? s) {
           ],
         ),
         SizedBox(height: 8),
-        Text(fmtRow(m.storage[0], m.storage[4], m.storage[8], m.storage[12]),
-            style: monoStyle(size: 11)),
-        Text(fmtRow(m.storage[1], m.storage[5], m.storage[9], m.storage[13]),
-            style: monoStyle(size: 11)),
-        Text(fmtRow(m.storage[2], m.storage[6], m.storage[10], m.storage[14]),
-            style: monoStyle(size: 11)),
-        Text(fmtRow(m.storage[3], m.storage[7], m.storage[11], m.storage[15]),
-            style: monoStyle(size: 11)),
+        Text(
+          fmtRow(m.storage[0], m.storage[4], m.storage[8], m.storage[12]),
+          style: monoStyle(size: 11),
+        ),
+        Text(
+          fmtRow(m.storage[1], m.storage[5], m.storage[9], m.storage[13]),
+          style: monoStyle(size: 11),
+        ),
+        Text(
+          fmtRow(m.storage[2], m.storage[6], m.storage[10], m.storage[14]),
+          style: monoStyle(size: 11),
+        ),
+        Text(
+          fmtRow(m.storage[3], m.storage[7], m.storage[11], m.storage[15]),
+          style: monoStyle(size: 11),
+        ),
       ],
     ),
   );
@@ -1074,9 +1139,14 @@ Widget _pill(String label, String value, Color color) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label,
-            style: TextStyle(
-                fontSize: 10, color: color, fontWeight: FontWeight.w800)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            color: color,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         SizedBox(height: 3),
         Text(value, style: monoStyle(size: 12)),
       ],
@@ -1137,9 +1207,7 @@ Widget _eqRow(String label, Matrix4? a, Matrix4? b, bool eq) {
       color: kPaper,
       border: Border.all(color: eq ? kEmerald : kRose, width: 1.2),
       borderRadius: BorderRadius.circular(10),
-      boxShadow: [
-        hardShadow(color: eq ? kEmerald : kRose, blur: 4, dy: 2),
-      ],
+      boxShadow: [hardShadow(color: eq ? kEmerald : kRose, blur: 4, dy: 2)],
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1158,9 +1226,10 @@ Widget _eqRow(String label, Matrix4? a, Matrix4? b, bool eq) {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800, color: kCharcoal)),
+              Text(
+                label,
+                style: TextStyle(fontWeight: FontWeight.w800, color: kCharcoal),
+              ),
               SizedBox(height: 4),
               Text('a = ${_summary(a)}', style: monoStyle(size: 11)),
               Text('b = ${_summary(b)}', style: monoStyle(size: 11)),
@@ -1174,9 +1243,14 @@ Widget _eqRow(String label, Matrix4? a, Matrix4? b, bool eq) {
             gradient: eq ? cyanGradient() : roseGradient(),
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Text(eq ? 'equal' : 'differ',
-              style: TextStyle(
-                  color: kPaper, fontWeight: FontWeight.w800, fontSize: 12)),
+          child: Text(
+            eq ? 'equal' : 'differ',
+            style: TextStyle(
+              color: kPaper,
+              fontWeight: FontWeight.w800,
+              fontSize: 12,
+            ),
+          ),
         ),
       ],
     ),
@@ -1202,19 +1276,21 @@ Widget buildSection7() {
 
   final radius = 220.0;
   final perspective = 0.003;
-  final positions = <double>[
-    -1.0, -0.6, -0.3, 0.0, 0.3, 0.6, 1.0,
-  ];
+  final positions = <double>[-1.0, -0.6, -0.3, 0.0, 0.3, 0.6, 1.0];
 
-  print('radius=${radius.toStringAsFixed(1)} '
-      'perspective=${perspective.toStringAsFixed(4)}');
+  print(
+    'radius=${radius.toStringAsFixed(1)} '
+    'perspective=${perspective.toStringAsFixed(4)}',
+  );
   for (int i = 0; i < positions.length; i = i + 1) {
     final m = MatrixUtils.createCylindricalProjectionTransform(
       radius: radius,
       angle: positions[i],
       perspective: perspective,
     );
-    print('  angle=${positions[i].toStringAsFixed(2)} det=${m.determinant().toStringAsFixed(3)}');
+    print(
+      '  angle=${positions[i].toStringAsFixed(2)} det=${m.determinant().toStringAsFixed(3)}',
+    );
   }
 
   final cards = <Widget>[];
@@ -1227,31 +1303,38 @@ Widget buildSection7() {
     );
     final hue = i / positions.length;
     final tint = Color.lerp(kCobalt, kMagenta, hue)!;
-    cards.add(Padding(
-      padding: EdgeInsets.symmetric(horizontal: 6),
-      child: Transform(
-        alignment: Alignment.center,
-        transform: m,
-        child: Container(
-          width: 70,
-          height: 110,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [tint, tint.withOpacity(0.6)],
-            ),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: kPaper, width: 2),
-            boxShadow: [softShadow(color: tint, blur: 12, dy: 4)],
-          ),
+    cards.add(
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 6),
+        child: Transform(
           alignment: Alignment.center,
-          child: Text(angle.toStringAsFixed(1),
+          transform: m,
+          child: Container(
+            width: 70,
+            height: 110,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [tint, tint.withOpacity(0.6)],
+              ),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: kPaper, width: 2),
+              boxShadow: [softShadow(color: tint, blur: 12, dy: 4)],
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              angle.toStringAsFixed(1),
               style: TextStyle(
-                  color: kPaper, fontWeight: FontWeight.w800, fontSize: 13)),
+                color: kPaper,
+                fontWeight: FontWeight.w800,
+                fontSize: 13,
+              ),
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -1264,9 +1347,14 @@ Widget buildSection7() {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Row of cards through cylindricalProjectionTransform',
-            style: TextStyle(
-                color: kPaper, fontWeight: FontWeight.w800, fontSize: 14)),
+        Text(
+          'Row of cards through cylindricalProjectionTransform',
+          style: TextStyle(
+            color: kPaper,
+            fontWeight: FontWeight.w800,
+            fontSize: 14,
+          ),
+        ),
         SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1324,19 +1412,21 @@ Widget buildSection8() {
   final dots = <Widget>[];
   for (int i = 0; i < probes.length; i = i + 1) {
     final p = probes[i];
-    dots.add(Positioned(
-      left: 20 + p.dx,
-      top: 20 + p.dy,
-      child: Container(
-        width: 12,
-        height: 12,
-        decoration: BoxDecoration(
-          color: kSlate,
-          shape: BoxShape.circle,
-          border: Border.all(color: kPaper, width: 1.5),
+    dots.add(
+      Positioned(
+        left: 20 + p.dx,
+        top: 20 + p.dy,
+        child: Container(
+          width: 12,
+          height: 12,
+          decoration: BoxDecoration(
+            color: kSlate,
+            shape: BoxShape.circle,
+            border: Border.all(color: kPaper, width: 1.5),
+          ),
         ),
       ),
-    ));
+    );
   }
   // Lines from each probe to target.
   final lines = <Widget>[];
@@ -1346,23 +1436,25 @@ Widget buildSection8() {
     final dy = target.dy - p.dy;
     final length = math.sqrt(dx * dx + dy * dy);
     final angle = math.atan2(dy, dx);
-    lines.add(Positioned(
-      left: 26 + p.dx,
-      top: 26 + p.dy,
-      child: Transform.rotate(
-        alignment: Alignment.centerLeft,
-        angle: angle,
-        child: Container(
-          width: length,
-          height: 2,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [kRose.withOpacity(0.85), kMagenta],
+    lines.add(
+      Positioned(
+        left: 26 + p.dx,
+        top: 26 + p.dy,
+        child: Transform.rotate(
+          alignment: Alignment.centerLeft,
+          angle: angle,
+          child: Container(
+            width: length,
+            height: 2,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [kRose.withOpacity(0.85), kMagenta],
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
   }
 
   return Container(
@@ -1414,7 +1506,10 @@ Widget buildSection8() {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('forceToPoint(matrix, offset)', style: headingStyle(size: 16)),
+              Text(
+                'forceToPoint(matrix, offset)',
+                style: headingStyle(size: 16),
+              ),
               SizedBox(height: 6),
               Text(
                 'Mutates the supplied matrix in-place so that any point '
@@ -1428,12 +1523,15 @@ Widget buildSection8() {
               Text('Probes:', style: headingStyle(size: 12)),
               for (int i = 0; i < probes.length; i = i + 1)
                 Text(
-                    '  ${fmtOffset(probes[i])} -> '
-                    '${fmtOffset(MatrixUtils.transformPoint(m, probes[i]))}',
-                    style: monoStyle(size: 11)),
+                  '  ${fmtOffset(probes[i])} -> '
+                  '${fmtOffset(MatrixUtils.transformPoint(m, probes[i]))}',
+                  style: monoStyle(size: 11),
+                ),
               SizedBox(height: 8),
-              Text('Target: ${fmtOffset(target)}',
-                  style: monoStyle(size: 12, color: kRose)),
+              Text(
+                'Target: ${fmtOffset(target)}',
+                style: monoStyle(size: 12, color: kRose),
+              ),
             ],
           ),
         ),
@@ -1500,25 +1598,27 @@ Widget buildSection9() {
   for (int i = 0; i < entries.length; i = i + 1) {
     final api = entries[i][0];
     final blurb = entries[i][1];
-    rows.add(Container(
-      margin: EdgeInsets.only(bottom: 6),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: kPaper,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: kIndigo.withOpacity(0.4), width: 1),
-        boxShadow: [hardShadow(color: kIndigo, blur: 3, dy: 1)],
+    rows.add(
+      Container(
+        margin: EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: kPaper,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: kIndigo.withOpacity(0.4), width: 1),
+          boxShadow: [hardShadow(color: kIndigo, blur: 3, dy: 1)],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(api, style: monoStyle(size: 12, color: kCobalt)),
+            SizedBox(height: 2),
+            Text(blurb, style: subStyle(size: 11)),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(api, style: monoStyle(size: 12, color: kCobalt)),
-          SizedBox(height: 2),
-          Text(blurb, style: subStyle(size: 11)),
-        ],
-      ),
-    ));
+    );
   }
 
   return Container(
@@ -1547,25 +1647,32 @@ Widget buildSection9() {
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [hardShadow()],
               ),
-              child: Text('M',
-                  style: TextStyle(
-                      color: kCobalt,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 22)),
+              child: Text(
+                'M',
+                style: TextStyle(
+                  color: kCobalt,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 22,
+                ),
+              ),
             ),
             SizedBox(width: 12),
-            Text('MatrixUtils Cheat Sheet',
-                style: TextStyle(
-                    color: kPaper,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900)),
+            Text(
+              'MatrixUtils Cheat Sheet',
+              style: TextStyle(
+                color: kPaper,
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 14),
         Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: rows),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: rows,
+        ),
       ],
     ),
   );
@@ -1607,99 +1714,101 @@ dynamic build(BuildContext context) {
               sectionFrame(
                 index: '1',
                 title: 'MatrixUtils',
-          tagline: 'Static helpers for Matrix4 transformations.',
-          body: buildSection1(),
-          accent: kCobalt,
-        ),
-        sectionFrame(
-          index: '0',
-          title: 'Anchor matrices',
-          tagline: 'Identity, translate, rotate, scale, shear, perspective.',
-          body: buildSection0(),
-          accent: kCyan,
-        ),
-        sectionFrame(
-          index: '2',
-          title: '4x4 anatomy',
-          tagline: 'Where translation, scale, rotation and perspective live.',
-          body: buildSection2(),
-          accent: kIndigo,
-        ),
-        sectionFrame(
-          index: '3',
-          title: 'transformPoint(matrix, point)',
-          tagline: 'Map points and visualise before/after vectors.',
-          body: buildSection3(),
-          accent: kMagenta,
-        ),
-        sectionFrame(
-          index: '4',
-          title: 'transformRect / inverseTransformRect',
-          tagline: 'Bounding-box of mapped corners — and going back.',
-          body: buildSection4(),
-          accent: kEmerald,
-        ),
-        sectionFrame(
-          index: '5',
-          title: 'getAsTranslation / getAsScale',
-          tagline: 'Diagnostics — return null for non-pure transforms.',
-          body: buildSection5(),
-          accent: kAmber,
-        ),
-        sectionFrame(
-          index: '6',
-          title: 'matrixEquals',
-          tagline: 'Structural equality across nullable matrices.',
-          body: buildSection6(),
-          accent: kSlate,
-        ),
-        sectionFrame(
-          index: '7',
-          title: 'cylindricalProjectionTransform',
-          tagline: 'The math behind ListWheelScrollView.',
-          body: buildSection7(),
-          accent: kCharcoal,
-        ),
-        sectionFrame(
-          index: '8',
-          title: 'forceToPoint',
-          tagline: 'Collapse a matrix to translate-only-to-target.',
-          body: buildSection8(),
-          accent: kRose,
-        ),
-        sectionFrame(
-          index: '9',
-          title: 'Cheat sheet',
-          tagline: 'Pocket reference for daily Flutter debugging.',
-          body: buildSection9(),
-          accent: kIndigo,
-        ),
-        SizedBox(height: 24),
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            decoration: BoxDecoration(
-              gradient: slateGradient(),
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [softShadow(color: kCharcoal, blur: 12, dy: 4)],
-            ),
-            child: Text(
-              'end of MatrixUtils deep demo',
-              style: TextStyle(
-                color: kPaper,
-                fontWeight: FontWeight.w800,
-                fontSize: 12,
-                letterSpacing: 1.2,
+                tagline: 'Static helpers for Matrix4 transformations.',
+                body: buildSection1(),
+                accent: kCobalt,
               ),
-            ),
+              sectionFrame(
+                index: '0',
+                title: 'Anchor matrices',
+                tagline:
+                    'Identity, translate, rotate, scale, shear, perspective.',
+                body: buildSection0(),
+                accent: kCyan,
+              ),
+              sectionFrame(
+                index: '2',
+                title: '4x4 anatomy',
+                tagline:
+                    'Where translation, scale, rotation and perspective live.',
+                body: buildSection2(),
+                accent: kIndigo,
+              ),
+              sectionFrame(
+                index: '3',
+                title: 'transformPoint(matrix, point)',
+                tagline: 'Map points and visualise before/after vectors.',
+                body: buildSection3(),
+                accent: kMagenta,
+              ),
+              sectionFrame(
+                index: '4',
+                title: 'transformRect / inverseTransformRect',
+                tagline: 'Bounding-box of mapped corners — and going back.',
+                body: buildSection4(),
+                accent: kEmerald,
+              ),
+              sectionFrame(
+                index: '5',
+                title: 'getAsTranslation / getAsScale',
+                tagline: 'Diagnostics — return null for non-pure transforms.',
+                body: buildSection5(),
+                accent: kAmber,
+              ),
+              sectionFrame(
+                index: '6',
+                title: 'matrixEquals',
+                tagline: 'Structural equality across nullable matrices.',
+                body: buildSection6(),
+                accent: kSlate,
+              ),
+              sectionFrame(
+                index: '7',
+                title: 'cylindricalProjectionTransform',
+                tagline: 'The math behind ListWheelScrollView.',
+                body: buildSection7(),
+                accent: kCharcoal,
+              ),
+              sectionFrame(
+                index: '8',
+                title: 'forceToPoint',
+                tagline: 'Collapse a matrix to translate-only-to-target.',
+                body: buildSection8(),
+                accent: kRose,
+              ),
+              sectionFrame(
+                index: '9',
+                title: 'Cheat sheet',
+                tagline: 'Pocket reference for daily Flutter debugging.',
+                body: buildSection9(),
+                accent: kIndigo,
+              ),
+              SizedBox(height: 24),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: slateGradient(),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [softShadow(color: kCharcoal, blur: 12, dy: 4)],
+                  ),
+                  child: Text(
+                    'end of MatrixUtils deep demo',
+                    style: TextStyle(
+                      color: kPaper,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 12,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+            ],
           ),
         ),
-        SizedBox(height: 20),
-      ],
-    ),
-  ),
-        ),
       ),
-    );
+    ),
+  );
 }

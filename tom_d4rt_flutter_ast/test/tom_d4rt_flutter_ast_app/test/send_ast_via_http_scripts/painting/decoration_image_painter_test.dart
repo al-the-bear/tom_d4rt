@@ -45,11 +45,7 @@ LinearGradient _gradMeadow() {
   return LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF6BCB77),
-      Color(0xFF1B998B),
-      Color(0xFF0F5132),
-    ],
+    colors: <Color>[Color(0xFF6BCB77), Color(0xFF1B998B), Color(0xFF0F5132)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -58,11 +54,7 @@ LinearGradient _gradSunset() {
   return LinearGradient(
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
-    colors: <Color>[
-      Color(0xFFFFB199),
-      Color(0xFFFF6B9A),
-      Color(0xFFB388FF),
-    ],
+    colors: <Color>[Color(0xFFFFB199), Color(0xFFFF6B9A), Color(0xFFB388FF)],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -71,11 +63,7 @@ LinearGradient _gradOcean() {
   return LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFF59C2FF),
-      Color(0xFF1F6FEB),
-      Color(0xFF0B2B6B),
-    ],
+    colors: <Color>[Color(0xFF59C2FF), Color(0xFF1F6FEB), Color(0xFF0B2B6B)],
     stops: <double>[0.0, 0.45, 1.0],
   );
 }
@@ -84,11 +72,7 @@ LinearGradient _gradEmber() {
   return LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFD166),
-      Color(0xFFEF476F),
-      Color(0xFF8E1F4B),
-    ],
+    colors: <Color>[Color(0xFFFFD166), Color(0xFFEF476F), Color(0xFF8E1F4B)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -97,11 +81,7 @@ LinearGradient _gradStorm() {
   return LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
-    colors: <Color>[
-      Color(0xFF607D8B),
-      Color(0xFF37474F),
-      Color(0xFF102027),
-    ],
+    colors: <Color>[Color(0xFF607D8B), Color(0xFF37474F), Color(0xFF102027)],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -110,11 +90,7 @@ LinearGradient _gradSpring() {
   return LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-    colors: <Color>[
-      Color(0xFF7CFFC4),
-      Color(0xFF59C2FF),
-      Color(0xFFB388FF),
-    ],
+    colors: <Color>[Color(0xFF7CFFC4), Color(0xFF59C2FF), Color(0xFFB388FF)],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -123,11 +99,7 @@ LinearGradient _gradHeader() {
   return LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-    colors: <Color>[
-      Color(0xFF1F6FEB),
-      Color(0xFF59C2FF),
-      Color(0xFF7CFFC4),
-    ],
+    colors: <Color>[Color(0xFF1F6FEB), Color(0xFF59C2FF), Color(0xFF7CFFC4)],
   );
 }
 
@@ -135,11 +107,7 @@ LinearGradient _gradHeader2() {
   return LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-    colors: <Color>[
-      Color(0xFFB388FF),
-      Color(0xFFFF6B9A),
-      Color(0xFFFFC857),
-    ],
+    colors: <Color>[Color(0xFFB388FF), Color(0xFFFF6B9A), Color(0xFFFFC857)],
   );
 }
 
@@ -147,16 +115,8 @@ LinearGradient _gradHeader2() {
 
 List<BoxShadow> _shadowSoft() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x55000000),
-      blurRadius: 16,
-      offset: Offset(0, 6),
-    ),
-    BoxShadow(
-      color: Color(0x22000000),
-      blurRadius: 2,
-      offset: Offset(0, 1),
-    ),
+    BoxShadow(color: Color(0x55000000), blurRadius: 16, offset: Offset(0, 6)),
+    BoxShadow(color: Color(0x22000000), blurRadius: 2, offset: Offset(0, 1)),
   ];
 }
 
@@ -173,26 +133,14 @@ List<BoxShadow> _shadowGlow(Color c) {
 
 List<BoxShadow> _shadowDeep() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x88000000),
-      blurRadius: 24,
-      offset: Offset(0, 12),
-    ),
+    BoxShadow(color: Color(0x88000000), blurRadius: 24, offset: Offset(0, 12)),
   ];
 }
 
 List<BoxShadow> _shadowInner() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x33FFFFFF),
-      blurRadius: 1,
-      offset: Offset(0, 1),
-    ),
-    BoxShadow(
-      color: Color(0x66000000),
-      blurRadius: 8,
-      offset: Offset(0, 4),
-    ),
+    BoxShadow(color: Color(0x33FFFFFF), blurRadius: 1, offset: Offset(0, 1)),
+    BoxShadow(color: Color(0x66000000), blurRadius: 8, offset: Offset(0, 4)),
   ];
 }
 
@@ -208,11 +156,7 @@ List<BoxShadow> _shadowCrisp(Color c) {
 
 List<BoxShadow> _shadowFlat() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x22000000),
-      blurRadius: 4,
-      offset: Offset(0, 2),
-    ),
+    BoxShadow(color: Color(0x22000000), blurRadius: 4, offset: Offset(0, 2)),
   ];
 }
 
@@ -240,10 +184,7 @@ Widget _chip(String label, Color c) {
 Widget _badge(String label, Color c) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-    decoration: BoxDecoration(
-      color: c,
-      borderRadius: BorderRadius.circular(4),
-    ),
+    decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(4)),
     child: Text(
       label,
       style: TextStyle(
@@ -267,11 +208,7 @@ Widget _kbd(String key) {
     ),
     child: Text(
       key,
-      style: TextStyle(
-        color: _kAccent,
-        fontFamily: 'monospace',
-        fontSize: 11,
-      ),
+      style: TextStyle(color: _kAccent, fontFamily: 'monospace', fontSize: 11),
     ),
   );
 }
@@ -281,11 +218,7 @@ Widget _para(String text) {
     padding: EdgeInsets.only(bottom: 10),
     child: Text(
       text,
-      style: TextStyle(
-        color: _kInkSoft,
-        fontSize: 13,
-        height: 1.45,
-      ),
+      style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.45),
     ),
   );
 }
@@ -323,8 +256,12 @@ Widget _hr() {
   );
 }
 
-Widget _sectionHeader(String title, String subtitle, LinearGradient grad,
-    IconData icon) {
+Widget _sectionHeader(
+  String title,
+  String subtitle,
+  LinearGradient grad,
+  IconData icon,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 14),
     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -442,10 +379,7 @@ Widget _bitmap({
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    Color(0x66102027),
-                    Color(0xCC102027),
-                  ],
+                  colors: <Color>[Color(0x66102027), Color(0xCC102027)],
                 ),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(cornerRadius),
@@ -622,10 +556,16 @@ Uint8List _oneBytePng() {
   // 1×1 transparent PNG header bytes. We do not require a valid image since
   // construction does not decode; if construction throws we fall back.
   return Uint8List.fromList(<int>[
-    0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
+    0x89,
+    0x50,
+    0x4E,
+    0x47,
+    0x0D,
+    0x0A,
+    0x1A,
+    0x0A,
   ]);
 }
-
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SECTION 1 — Anatomy diagram
@@ -649,11 +589,7 @@ Widget _arrow(Color c) {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            width: 22,
-            height: 2,
-            color: c,
-          ),
+          Container(width: 22, height: 2, color: c),
           Container(
             width: 0,
             height: 0,
@@ -995,11 +931,7 @@ Widget _fitCard(_FitSample s) {
         SizedBox(height: 8),
         Text(
           s.summary,
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1014,9 +946,12 @@ Widget _section2BoxFit() {
       summary:
           'Stretch the bitmap on both axes to fill the destination rect — '
           'aspect ratio is destroyed.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.0, drawHFraction: 1.0,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.0,
+      drawHFraction: 1.0,
       clip: false,
       gradient: _gradOcean(),
     ),
@@ -1026,9 +961,12 @@ Widget _section2BoxFit() {
       summary:
           'Scale uniformly until the larger axis fits; leaves letterboxing on '
           'the other axis.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.0, drawHFraction: 0.61,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.0,
+      drawHFraction: 0.61,
       clip: false,
       gradient: _gradMeadow(),
     ),
@@ -1038,9 +976,12 @@ Widget _section2BoxFit() {
       summary:
           'Scale uniformly until the smaller axis fills; the longer axis is '
           'cropped — most common for hero banners.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.55, drawHFraction: 1.0,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.55,
+      drawHFraction: 1.0,
       clip: true,
       gradient: _gradSunset(),
     ),
@@ -1050,9 +991,12 @@ Widget _section2BoxFit() {
       summary:
           'Match the destination width exactly; height is whatever the '
           'aspect ratio implies, possibly overflowing or leaving gaps.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.0, drawHFraction: 0.61,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.0,
+      drawHFraction: 0.61,
       clip: false,
       gradient: _gradEmber(),
     ),
@@ -1062,9 +1006,12 @@ Widget _section2BoxFit() {
       summary:
           'Match the destination height exactly; width follows the aspect '
           'ratio. Useful for portrait imagery in landscape rails.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.95, drawHFraction: 1.0,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.95,
+      drawHFraction: 1.0,
       clip: true,
       gradient: _gradStorm(),
     ),
@@ -1074,9 +1021,12 @@ Widget _section2BoxFit() {
       summary:
           'Do not scale at all. The intrinsic size is used; alignment then '
           'positions the bitmap inside the destination rect.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 0.66, drawHFraction: 0.55,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 0.66,
+      drawHFraction: 0.55,
       clip: false,
       gradient: _gradSpring(),
     ),
@@ -1086,9 +1036,12 @@ Widget _section2BoxFit() {
       summary:
           'Behaves like contain *only when the source is larger* than the '
           'destination; otherwise behaves like none. Great for icons.',
-      imgW: 160, imgH: 90,
-      dstW: 180, dstH: 110,
-      drawWFraction: 0.50, drawHFraction: 0.42,
+      imgW: 160,
+      imgH: 90,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 0.50,
+      drawHFraction: 0.42,
       clip: false,
       gradient: _gradOcean(),
     ),
@@ -1099,9 +1052,12 @@ Widget _section2BoxFit() {
           'Same fit but with a tall source — the aspect ratio drives the '
           'height much taller than the destination, so vertical clipping is '
           'inevitable.',
-      imgW: 60, imgH: 200,
-      dstW: 180, dstH: 110,
-      drawWFraction: 1.0, drawHFraction: 1.6,
+      imgW: 60,
+      imgH: 200,
+      dstW: 180,
+      dstH: 110,
+      drawWFraction: 1.0,
+      drawHFraction: 1.6,
       clip: true,
       gradient: _gradEmber(),
     ),
@@ -1146,8 +1102,10 @@ Widget _section2BoxFit() {
             _hr(),
             _h2('Eight side-by-side samples'),
             Wrap(
-              children:
-                  List<Widget>.generate(samples.length, (int i) => _fitCard(samples[i])),
+              children: List<Widget>.generate(
+                samples.length,
+                (int i) => _fitCard(samples[i]),
+              ),
             ),
           ],
         ),
@@ -1399,11 +1357,7 @@ Widget _repeatCard(_RepeatSample s) {
         SizedBox(height: 8),
         Text(
           s.summary,
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1418,8 +1372,10 @@ Widget _section4Repeat() {
       summary:
           'The painter draws the bitmap exactly once into the destination '
           'rect. Slack is left as transparent space.',
-      cols: 1, rows: 1,
-      a: Color(0xFF59C2FF), b: Color(0xFF1F6FEB),
+      cols: 1,
+      rows: 1,
+      a: Color(0xFF59C2FF),
+      b: Color(0xFF1F6FEB),
     ),
     _RepeatSample(
       repeat: ImageRepeat.repeat,
@@ -1428,8 +1384,10 @@ Widget _section4Repeat() {
           'Tile in both axes. Useful for textures/backgrounds. The painter '
           'computes a tile rect and paints copies until the destination is '
           'filled.',
-      cols: 8, rows: 5,
-      a: Color(0xFFFFD166), b: Color(0xFFEF476F),
+      cols: 8,
+      rows: 5,
+      a: Color(0xFFFFD166),
+      b: Color(0xFFEF476F),
     ),
     _RepeatSample(
       repeat: ImageRepeat.repeatX,
@@ -1437,8 +1395,10 @@ Widget _section4Repeat() {
       summary:
           'Tile horizontally only — vertical alignment determines where the '
           'strip sits. Classic header pattern.',
-      cols: 8, rows: 1,
-      a: Color(0xFF6BCB77), b: Color(0xFF1B998B),
+      cols: 8,
+      rows: 1,
+      a: Color(0xFF6BCB77),
+      b: Color(0xFF1B998B),
     ),
     _RepeatSample(
       repeat: ImageRepeat.repeatY,
@@ -1446,8 +1406,10 @@ Widget _section4Repeat() {
       summary:
           'Tile vertically only — horizontal alignment positions the column. '
           'Handy for vertical decorative gutters.',
-      cols: 1, rows: 5,
-      a: Color(0xFFB388FF), b: Color(0xFF7CFFC4),
+      cols: 1,
+      rows: 5,
+      a: Color(0xFFB388FF),
+      b: Color(0xFF7CFFC4),
     ),
   ];
   return _section(
@@ -1550,23 +1512,15 @@ Widget _filterCard(_FilterSample s) {
           children: <Widget>[
             _badge(s.name, _kAccent3),
             SizedBox(width: 6),
-            if (s.blend != null)
-              _chip(s.blend!.name, _kAccent5),
+            if (s.blend != null) _chip(s.blend!.name, _kAccent5),
           ],
         ),
         SizedBox(height: 8),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: child,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(8), child: child),
         SizedBox(height: 8),
         Text(
           s.summary,
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1608,10 +1562,26 @@ Widget _section5ColorFilter() {
           'Channel matrix that scales R/G/B equally — produces a tinted, '
           'lifted look. Works at the painter step before alignment/repeat.',
       filter: ColorFilter.matrix(<double>[
-        1.2, 0, 0, 0, 0,
-        0, 1.2, 0, 0, 0,
-        0, 0, 1.2, 0, 0,
-        0, 0, 0, 1, 0,
+        1.2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1.2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1.2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
       ]),
       tint: Color(0xFFFFFFFF),
       blend: null,
@@ -1623,10 +1593,26 @@ Widget _section5ColorFilter() {
           'paint, so cost is constant in the image area — no per-pixel '
           'overhead in user code.',
       filter: ColorFilter.matrix(<double>[
-        0.2126, 0.7152, 0.0722, 0, 0,
-        0.2126, 0.7152, 0.0722, 0, 0,
-        0.2126, 0.7152, 0.0722, 0, 0,
-        0, 0, 0, 1, 0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0,
+        0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0,
+        0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
       ]),
       tint: Color(0xFF888888),
       blend: null,
@@ -1740,10 +1726,7 @@ Widget _recipeCard(_Recipe r) {
           ],
         ),
         SizedBox(height: 10),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: r.visual,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(10), child: r.visual),
         SizedBox(height: 10),
         Text(
           r.useCase,
@@ -1783,10 +1766,7 @@ Widget _recipeHeroBanner() {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[
-                Color(0x00000000),
-                Color(0x99000000),
-              ],
+              colors: <Color>[Color(0x00000000), Color(0x99000000)],
             ),
           ),
         ),
@@ -1910,8 +1890,7 @@ Widget _section6Recipes() {
     alignment: Alignment.topLeft,
     repeat: ImageRepeat.repeat,
     filterQuality: FilterQuality.none,
-    narrative:
-        'Tiled background with no fit and pixel-snapped alignment.',
+    narrative: 'Tiled background with no fit and pixel-snapped alignment.',
   );
   final _DimSpec avatar = _attemptBuildDim(
     name: 'avatar',
@@ -1928,8 +1907,7 @@ Widget _section6Recipes() {
     alignment: Alignment.center,
     opacity: 0.85,
     colorFilter: ColorFilter.mode(Color(0x33FFFFFF), BlendMode.softLight),
-    narrative:
-        'Soft-light overlay at 85% opacity for branded watermarks.',
+    narrative: 'Soft-light overlay at 85% opacity for branded watermarks.',
   );
   final _DimSpec onboarding = _attemptBuildDim(
     name: 'onboarding contain',
@@ -1944,8 +1922,7 @@ Widget _section6Recipes() {
     fit: BoxFit.cover,
     alignment: Alignment(0, 0.2),
     filterQuality: FilterQuality.medium,
-    narrative:
-        'Parallax sublayer with cover and a small vertical bias.',
+    narrative: 'Parallax sublayer with cover and a small vertical bias.',
   );
 
   final List<_Recipe> recipes = <_Recipe>[
@@ -2259,10 +2236,7 @@ Widget _footgunCard(_Footgun f) {
           ],
         ),
         SizedBox(height: 10),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: f.visual,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(10), child: f.visual),
         SizedBox(height: 10),
         Text(
           'Mistake — ${f.mistake}',
@@ -2436,11 +2410,7 @@ Widget _lifecycleStep({
         SizedBox(height: 6),
         Text(
           body,
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 11,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 11, height: 1.45),
         ),
       ],
     ),
@@ -2594,9 +2564,7 @@ Widget _apiTable(String title, List<_ApiRow> rows, Color tone) {
             final bool even = i.isEven;
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              color: even
-                  ? Color(0x14FFFFFF)
-                  : Color(0x00FFFFFF),
+              color: even ? Color(0x14FFFFFF) : Color(0x00FFFFFF),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -2645,38 +2613,83 @@ Widget _apiTable(String title, List<_ApiRow> rows, Color tone) {
 
 Widget _section9Api() {
   final List<_ApiRow> dimRows = <_ApiRow>[
-    _ApiRow('image', 'ImageProvider',
-        'The bitmap source. AssetImage / NetworkImage / MemoryImage / FileImage.'),
-    _ApiRow('fit', 'BoxFit?',
-        'Projection mode from intrinsic to destination rect.'),
-    _ApiRow('alignment', 'AlignmentGeometry',
-        'Where the source rect sits when fit leaves slack or overflow.'),
-    _ApiRow('repeat', 'ImageRepeat',
-        'Tile the source across X, Y, both, or paint once.'),
-    _ApiRow('scale', 'double',
-        'Logical→physical pixel ratio used when measuring the bitmap.'),
-    _ApiRow('opacity', 'double',
-        'Per-image opacity multiplier applied during paint.'),
-    _ApiRow('colorFilter', 'ColorFilter?',
-        'Composed with the engine paint before blitting.'),
-    _ApiRow('invertColors', 'bool',
-        'Built-in inversion matrix; useful for accessibility.'),
-    _ApiRow('isAntiAlias', 'bool',
-        'Smooths edges; pair with circular ClipOval avatars.'),
-    _ApiRow('matchTextDirection', 'bool',
-        'Mirror horizontally when ambient TextDirection is RTL.'),
-    _ApiRow('filterQuality', 'FilterQuality',
-        'Low / medium / high resampling for non-pixel-aligned scales.'),
-    _ApiRow('createPainter()', '→ DecorationImagePainter',
-        'Factory: returns a painter that owns the stream subscription.'),
+    _ApiRow(
+      'image',
+      'ImageProvider',
+      'The bitmap source. AssetImage / NetworkImage / MemoryImage / FileImage.',
+    ),
+    _ApiRow(
+      'fit',
+      'BoxFit?',
+      'Projection mode from intrinsic to destination rect.',
+    ),
+    _ApiRow(
+      'alignment',
+      'AlignmentGeometry',
+      'Where the source rect sits when fit leaves slack or overflow.',
+    ),
+    _ApiRow(
+      'repeat',
+      'ImageRepeat',
+      'Tile the source across X, Y, both, or paint once.',
+    ),
+    _ApiRow(
+      'scale',
+      'double',
+      'Logical→physical pixel ratio used when measuring the bitmap.',
+    ),
+    _ApiRow(
+      'opacity',
+      'double',
+      'Per-image opacity multiplier applied during paint.',
+    ),
+    _ApiRow(
+      'colorFilter',
+      'ColorFilter?',
+      'Composed with the engine paint before blitting.',
+    ),
+    _ApiRow(
+      'invertColors',
+      'bool',
+      'Built-in inversion matrix; useful for accessibility.',
+    ),
+    _ApiRow(
+      'isAntiAlias',
+      'bool',
+      'Smooths edges; pair with circular ClipOval avatars.',
+    ),
+    _ApiRow(
+      'matchTextDirection',
+      'bool',
+      'Mirror horizontally when ambient TextDirection is RTL.',
+    ),
+    _ApiRow(
+      'filterQuality',
+      'FilterQuality',
+      'Low / medium / high resampling for non-pixel-aligned scales.',
+    ),
+    _ApiRow(
+      'createPainter()',
+      '→ DecorationImagePainter',
+      'Factory: returns a painter that owns the stream subscription.',
+    ),
   ];
   final List<_ApiRow> dipRows = <_ApiRow>[
-    _ApiRow('paint(canvas, rect, td, cfg)', 'void',
-        'Blit the bitmap into rect using the configured fit/alignment/repeat.'),
-    _ApiRow('dispose()', 'void',
-        'Cancel ImageStream subscription, release cached ui.Image refs.'),
-    _ApiRow('onChanged', 'VoidCallback',
-        'Invoked when the ImageStream resolves; owner repaints next frame.'),
+    _ApiRow(
+      'paint(canvas, rect, td, cfg)',
+      'void',
+      'Blit the bitmap into rect using the configured fit/alignment/repeat.',
+    ),
+    _ApiRow(
+      'dispose()',
+      'void',
+      'Cancel ImageStream subscription, release cached ui.Image refs.',
+    ),
+    _ApiRow(
+      'onChanged',
+      'VoidCallback',
+      'Invoked when the ImageStream resolves; owner repaints next frame.',
+    ),
   ];
   return _section(
     header: _sectionHeader(
@@ -2718,10 +2731,7 @@ Widget _intro() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF13243C),
-          Color(0xFF0E1A2C),
-        ],
+        colors: <Color>[Color(0xFF13243C), Color(0xFF0E1A2C)],
       ),
       borderRadius: BorderRadius.circular(18),
       border: Border.all(color: _kAccent.withValues(alpha: 0.45)),
@@ -2757,11 +2767,7 @@ Widget _intro() {
           'from the immutable configuration object you instantiate, through '
           'the painter factory, to the listener-driven paint pipeline that '
           'projects pixels into a destination rect.',
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 13, height: 1.5),
         ),
         SizedBox(height: 14),
         Row(
@@ -2798,7 +2804,9 @@ dynamic build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     home: Scaffold(
       backgroundColor: const Color(0xFF0E1A2C),
-      appBar: AppBar(title: const Text('DecorationImage / DecorationImagePainter')),
+      appBar: AppBar(
+        title: const Text('DecorationImage / DecorationImagePainter'),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(

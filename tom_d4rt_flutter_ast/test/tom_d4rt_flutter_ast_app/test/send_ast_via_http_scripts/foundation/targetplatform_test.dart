@@ -73,26 +73,30 @@ dynamic build(BuildContext context) {
   // SECTION 0 :: NARRATIVE PRELUDE
   // ===========================================================================
   print('[Compass Obsidian] charting the TargetPlatform atlas...');
-  print('[Compass Obsidian] enum cardinality = ${TargetPlatform.values.length}');
-  print('[Compass Obsidian] defaultTargetPlatform = ${defaultTargetPlatform.name}');
+  print(
+    '[Compass Obsidian] enum cardinality = ${TargetPlatform.values.length}',
+  );
+  print(
+    '[Compass Obsidian] defaultTargetPlatform = ${defaultTargetPlatform.name}',
+  );
 
   // ---------------------------------------------------------------------------
   // PALETTE :: Compass Obsidian — 14 named colors
   // ---------------------------------------------------------------------------
-  final Color obsidianBase = Color(0xFF0E1116);          // slab black
-  final Color obsidianHaze = Color(0xFF1A1F27);          // smoky panel
-  final Color brassGleam = Color(0xFFC8A24B);            // compass brass
-  final Color brassDeep = Color(0xFF7A5E22);             // tarnished brass
-  final Color compassRose = Color(0xFFE9D8A6);           // ivory rose
-  final Color cardinalNorth = Color(0xFF3A6EA5);         // cobalt north
-  final Color cardinalEast = Color(0xFF4F8C3A);          // industrial green
-  final Color cardinalSouth = Color(0xFF5B5B5B);         // graphite south
-  final Color cardinalWest = Color(0xFFB7C2CC);          // glass silver
-  final Color meridianRose = Color(0xFFCE3B7E);          // fuchsia meridian
-  final Color granitePeak = Color(0xFF8A8E96);           // mac granite
-  final Color parchmentGlow = Color(0xFFF3E9C9);         // text parchment
-  final Color emberAccent = Color(0xFFE07A3C);           // ember warning
-  final Color tealCipher = Color(0xFF2A8C8C);            // cipher teal
+  final Color obsidianBase = Color(0xFF0E1116); // slab black
+  final Color obsidianHaze = Color(0xFF1A1F27); // smoky panel
+  final Color brassGleam = Color(0xFFC8A24B); // compass brass
+  final Color brassDeep = Color(0xFF7A5E22); // tarnished brass
+  final Color compassRose = Color(0xFFE9D8A6); // ivory rose
+  final Color cardinalNorth = Color(0xFF3A6EA5); // cobalt north
+  final Color cardinalEast = Color(0xFF4F8C3A); // industrial green
+  final Color cardinalSouth = Color(0xFF5B5B5B); // graphite south
+  final Color cardinalWest = Color(0xFFB7C2CC); // glass silver
+  final Color meridianRose = Color(0xFFCE3B7E); // fuchsia meridian
+  final Color granitePeak = Color(0xFF8A8E96); // mac granite
+  final Color parchmentGlow = Color(0xFFF3E9C9); // text parchment
+  final Color emberAccent = Color(0xFFE07A3C); // ember warning
+  final Color tealCipher = Color(0xFF2A8C8C); // cipher teal
 
   print('[Compass Obsidian] palette assembled — 14 swatches ready.');
 
@@ -107,7 +111,9 @@ dynamic build(BuildContext context) {
   final TargetPlatform pWindows = TargetPlatform.windows;
 
   final List<TargetPlatform> allPlatforms = TargetPlatform.values;
-  print('[Compass Obsidian] catalog: ${allPlatforms.length} cardinals registered.');
+  print(
+    '[Compass Obsidian] catalog: ${allPlatforms.length} cardinals registered.',
+  );
 
   // Live readout values
   final TargetPlatform liveDefault = defaultTargetPlatform;
@@ -228,10 +234,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 6),
-          Text(
-            name,
-            style: TextStyle(color: parchmentGlow, fontSize: 11),
-          ),
+          Text(name, style: TextStyle(color: parchmentGlow, fontSize: 11)),
         ],
       ),
     );
@@ -490,7 +493,11 @@ dynamic build(BuildContext context) {
         Text(
           'Each TargetPlatform value below shows its enum index, design language, '
           'and the visual cardinal we have assigned to it within Compass Obsidian.',
-          style: TextStyle(color: compassRose, fontSize: 12, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: compassRose,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         propertyRow(pAndroid),
         propertyRow(pFuchsia),
@@ -598,47 +605,59 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget galleryAndroid = galleryCard(pAndroid, 'Industrial East — bold ripple, FAB orbits.', [
-    'Switch.adaptive renders MD3 Switch with thumb travel.',
-    'Icon.adaptive_arrow_back uses Icons.arrow_back.',
-    'ScrollPhysics defaults to ClampingScrollPhysics overscroll glow.',
-    'CircularProgressIndicator.adaptive renders Material spinner.',
-  ]);
+  Widget galleryAndroid =
+      galleryCard(pAndroid, 'Industrial East — bold ripple, FAB orbits.', [
+        'Switch.adaptive renders MD3 Switch with thumb travel.',
+        'Icon.adaptive_arrow_back uses Icons.arrow_back.',
+        'ScrollPhysics defaults to ClampingScrollPhysics overscroll glow.',
+        'CircularProgressIndicator.adaptive renders Material spinner.',
+      ]);
 
-  Widget galleryFuchsia = galleryCard(pFuchsia, 'Meridian Rose — Material parity, experimental ground.', [
-    'Behaves like Android in adaptive widgets.',
-    'Icons stay Material; rose accents reserved for theming.',
-    'ScrollPhysics matches Android (clamping + glow).',
-    'Reserved for future Fuchsia conventions.',
-  ]);
+  Widget galleryFuchsia = galleryCard(
+    pFuchsia,
+    'Meridian Rose — Material parity, experimental ground.',
+    [
+      'Behaves like Android in adaptive widgets.',
+      'Icons stay Material; rose accents reserved for theming.',
+      'ScrollPhysics matches Android (clamping + glow).',
+      'Reserved for future Fuchsia conventions.',
+    ],
+  );
 
-  Widget galleryIOS = galleryCard(pIOS, 'Cupertino West — glassy panes, rubber bounce.', [
-    'Switch.adaptive renders CupertinoSwitch (track green).',
-    'Icon.adaptive_arrow_back uses Icons.arrow_back_ios_new.',
-    'ScrollPhysics is BouncingScrollPhysics — rubber band.',
-    'CircularProgressIndicator.adaptive renders CupertinoActivityIndicator.',
-  ]);
+  Widget galleryIOS = galleryCard(
+    pIOS,
+    'Cupertino West — glassy panes, rubber bounce.',
+    [
+      'Switch.adaptive renders CupertinoSwitch (track green).',
+      'Icon.adaptive_arrow_back uses Icons.arrow_back_ios_new.',
+      'ScrollPhysics is BouncingScrollPhysics — rubber band.',
+      'CircularProgressIndicator.adaptive renders CupertinoActivityIndicator.',
+    ],
+  );
 
-  Widget galleryLinux = galleryCard(pLinux, 'Graphite South — keyboard-first, dense layouts.', [
-    'Adaptive widgets remain Material flavoured.',
-    'Mouse hover states encouraged on all interactive widgets.',
-    'ScrollPhysics defaults to clamping desktop physics.',
-    'Right-click menus expected for productivity tools.',
-  ]);
+  Widget galleryLinux =
+      galleryCard(pLinux, 'Graphite South — keyboard-first, dense layouts.', [
+        'Adaptive widgets remain Material flavoured.',
+        'Mouse hover states encouraged on all interactive widgets.',
+        'ScrollPhysics defaults to clamping desktop physics.',
+        'Right-click menus expected for productivity tools.',
+      ]);
 
-  Widget galleryMacOS = galleryCard(pMacOS, 'Granite Peak — vibrancy + sheet dialogs.', [
-    'Switch.adaptive renders CupertinoSwitch desktop variant.',
-    'Icon.adaptive_arrow_back uses Cupertino chevron.',
-    'ScrollPhysics is BouncingScrollPhysics on inertial trackpads.',
-    'Dialogs lean toward sheet presentations (Cupertino).',
-  ]);
+  Widget galleryMacOS =
+      galleryCard(pMacOS, 'Granite Peak — vibrancy + sheet dialogs.', [
+        'Switch.adaptive renders CupertinoSwitch desktop variant.',
+        'Icon.adaptive_arrow_back uses Cupertino chevron.',
+        'ScrollPhysics is BouncingScrollPhysics on inertial trackpads.',
+        'Dialogs lean toward sheet presentations (Cupertino).',
+      ]);
 
-  Widget galleryWindows = galleryCard(pWindows, 'Cobalt North — Fluent accents on Material.', [
-    'Adaptive widgets render Material flavour.',
-    'Mouse + keyboard parity with rich tooltips.',
-    'ScrollPhysics: clamping; mouse-wheel inertia tuned.',
-    'FluentUI styling possible via separate package.',
-  ]);
+  Widget galleryWindows =
+      galleryCard(pWindows, 'Cobalt North — Fluent accents on Material.', [
+        'Adaptive widgets render Material flavour.',
+        'Mouse + keyboard parity with rich tooltips.',
+        'ScrollPhysics: clamping; mouse-wheel inertia tuned.',
+        'FluentUI styling possible via separate package.',
+      ]);
 
   Widget galleryRow = SingleChildScrollView(
     scrollDirection: Axis.horizontal,
@@ -685,7 +704,11 @@ dynamic build(BuildContext context) {
         Text(
           'Six cards, one per cardinal. Each lists adaptive widget choices and the '
           'back-navigation gesture model the platform expects.',
-          style: TextStyle(color: compassRose, fontSize: 12, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: compassRose,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         SizedBox(height: 12),
         galleryRow,
@@ -852,7 +875,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10),
         Text(
           'Rows: TargetPlatform values. Columns: Switch / Slider / Icon / ScrollPhysics.',
-          style: TextStyle(color: compassRose, fontSize: 12, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: compassRose,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         SizedBox(height: 10),
         SingleChildScrollView(
@@ -888,7 +915,9 @@ dynamic build(BuildContext context) {
   Widget comparisonRow(String aspect, String iosLike, String materialLike) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: brassDeep.withValues(alpha: 0.4))),
+        border: Border(
+          bottom: BorderSide(color: brassDeep.withValues(alpha: 0.4)),
+        ),
       ),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 6),
       child: Row(
@@ -913,7 +942,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 iosLike,
-                style: TextStyle(color: parchmentGlow, fontSize: 11, height: 1.4),
+                style: TextStyle(
+                  color: parchmentGlow,
+                  fontSize: 11,
+                  height: 1.4,
+                ),
               ),
             ),
           ),
@@ -926,7 +959,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 materialLike,
-                style: TextStyle(color: parchmentGlow, fontSize: 11, height: 1.4),
+                style: TextStyle(
+                  color: parchmentGlow,
+                  fontSize: 11,
+                  height: 1.4,
+                ),
               ),
             ),
           ),
@@ -1174,7 +1211,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6),
         Text(
           'How a TargetPlatform value is resolved at any point in the widget tree.',
-          style: TextStyle(color: compassRose, fontSize: 12, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: compassRose,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         timelineStep(
           1,
@@ -1293,13 +1334,25 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8),
         Text(
           'These values are read at build time from the actual runtime.',
-          style: TextStyle(color: compassRose, fontSize: 12, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: compassRose,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         SizedBox(height: 12),
         Wrap(
           children: [
-            readoutTile('defaultTargetPlatform', liveDefault.name, cardinalEast),
-            readoutTile('Theme.of(context).platform', liveTheme.name, cardinalNorth),
+            readoutTile(
+              'defaultTargetPlatform',
+              liveDefault.name,
+              cardinalEast,
+            ),
+            readoutTile(
+              'Theme.of(context).platform',
+              liveTheme.name,
+              cardinalNorth,
+            ),
             readoutTile('default index', '${liveDefault.index}', tealCipher),
             readoutTile('theme index', '${liveTheme.index}', meridianRose),
             readoutTile('total values', '${allPlatforms.length}', brassGleam),
@@ -1855,11 +1908,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8),
         Text(
           '— end of atlas —',
-          style: TextStyle(
-            color: brassGleam,
-            fontSize: 11,
-            letterSpacing: 4,
-          ),
+          style: TextStyle(color: brassGleam, fontSize: 11, letterSpacing: 4),
         ),
       ],
     ),

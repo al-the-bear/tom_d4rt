@@ -84,7 +84,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.toggle_on, color: Colors.greenAccent, size: 28.0),
+                    Icon(
+                      Icons.toggle_on,
+                      color: Colors.greenAccent,
+                      size: 28.0,
+                    ),
                     SizedBox(height: 6.0),
                     Text(
                       'canPop',
@@ -115,7 +119,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.notifications_active, color: Colors.amberAccent, size: 28.0),
+                    Icon(
+                      Icons.notifications_active,
+                      color: Colors.amberAccent,
+                      size: 28.0,
+                    ),
                     SizedBox(height: 6.0),
                     Text(
                       'onPopInvokedWithResult',
@@ -175,7 +183,11 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Icon(Icons.arrow_back, color: Colors.green.shade700, size: 22.0),
+                Icon(
+                  Icons.arrow_back,
+                  color: Colors.green.shade700,
+                  size: 22.0,
+                ),
                 SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -188,7 +200,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.green.shade600,
                     borderRadius: BorderRadius.circular(12.0),
@@ -210,7 +225,11 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Icon(Icons.check_circle_outline, color: Colors.green, size: 48.0),
+                Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 48.0,
+                ),
                 SizedBox(height: 10.0),
                 Text(
                   'Navigation Allowed',
@@ -233,7 +252,11 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildStatusIndicator('Back Button', Icons.arrow_back, true),
+                    _buildStatusIndicator(
+                      'Back Button',
+                      Icons.arrow_back,
+                      true,
+                    ),
                     SizedBox(width: 12.0),
                     _buildStatusIndicator('Swipe', Icons.swipe_left, true),
                     SizedBox(width: 12.0),
@@ -295,7 +318,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.red.shade600,
                     borderRadius: BorderRadius.circular(12.0),
@@ -317,7 +343,11 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Icon(Icons.warning_amber, color: Colors.red.shade400, size: 48.0),
+                Icon(
+                  Icons.warning_amber,
+                  color: Colors.red.shade400,
+                  size: 48.0,
+                ),
                 SizedBox(height: 10.0),
                 Text(
                   'Navigation Blocked',
@@ -347,7 +377,11 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildStatusIndicator('Back Button', Icons.arrow_back, false),
+                    _buildStatusIndicator(
+                      'Back Button',
+                      Icons.arrow_back,
+                      false,
+                    ),
                     SizedBox(width: 12.0),
                     _buildStatusIndicator('Swipe', Icons.swipe_left, false),
                     SizedBox(width: 12.0),
@@ -457,7 +491,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 2.0),
                   Text(
                     state['detail'] as String,
-                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -482,7 +519,9 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       fontSize: 9.0,
                       fontWeight: FontWeight.bold,
-                      color: canPop ? Colors.green.shade700 : Colors.red.shade700,
+                      color: canPop
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
                     ),
                   ),
                 ],
@@ -645,7 +684,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(Icons.warning_amber_rounded, color: Colors.amber.shade700, size: 40.0),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.amber.shade700,
+                size: 40.0,
+              ),
               SizedBox(height: 10.0),
               Text(
                 'Discard Changes?',
@@ -768,7 +811,11 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.layers_outlined, color: Colors.blue.shade600, size: 18.0),
+                    Icon(
+                      Icons.layers_outlined,
+                      color: Colors.blue.shade600,
+                      size: 18.0,
+                    ),
                     SizedBox(width: 6.0),
                     Text(
                       'Outer PopScope (canPop: true)',
@@ -799,7 +846,11 @@ dynamic build(BuildContext context) {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.layers, color: Colors.red.shade600, size: 18.0),
+                            Icon(
+                              Icons.layers,
+                              color: Colors.red.shade600,
+                              size: 18.0,
+                            ),
                             SizedBox(width: 6.0),
                             Text(
                               'Inner PopScope (canPop: false)',
@@ -850,14 +901,21 @@ dynamic build(BuildContext context) {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.info_outline, color: Colors.amber.shade700, size: 18.0),
+                      Icon(
+                        Icons.info_outline,
+                        color: Colors.amber.shade700,
+                        size: 18.0,
+                      ),
                       SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
                           'Result: Route is blocked. Both callbacks fire — '
                           'inner first (didPop=false), then outer (didPop=false). '
                           'The innermost canPop: false wins.',
-                          style: TextStyle(fontSize: 10.0, color: Colors.amber.shade800),
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: Colors.amber.shade800,
+                          ),
                         ),
                       ),
                     ],
@@ -883,7 +941,8 @@ dynamic build(BuildContext context) {
       'title': 'Form Editor',
       'icon': Icons.edit_document,
       'color': Colors.blue,
-      'description': 'Block back navigation when form has unsaved edits. '
+      'description':
+          'Block back navigation when form has unsaved edits. '
           'Show discard dialog on pop attempt.',
       'code': 'PopScope(\n  canPop: !_hasChanges,\n  onPopInvoked...',
     },
@@ -891,7 +950,8 @@ dynamic build(BuildContext context) {
       'title': 'Payment Flow',
       'icon': Icons.payment,
       'color': Colors.green,
-      'description': 'Prevent leaving during transaction processing. '
+      'description':
+          'Prevent leaving during transaction processing. '
           'Only allow exit after success or explicit cancel.',
       'code': 'PopScope(\n  canPop: _paymentComplete,\n  ...',
     },
@@ -899,7 +959,8 @@ dynamic build(BuildContext context) {
       'title': 'Onboarding Wizard',
       'icon': Icons.school,
       'color': Colors.purple,
-      'description': 'Override back to go to previous wizard step '
+      'description':
+          'Override back to go to previous wizard step '
           'instead of leaving the onboarding flow entirely.',
       'code': 'PopScope(\n  canPop: _step == 0,\n  onPopInvoked...',
     },
@@ -907,7 +968,8 @@ dynamic build(BuildContext context) {
       'title': 'Media Upload',
       'icon': Icons.cloud_upload,
       'color': Colors.orange,
-      'description': 'Block exit while file uploads are in progress. '
+      'description':
+          'Block exit while file uploads are in progress. '
           'Allow after upload completes or is cancelled.',
       'code': 'PopScope(\n  canPop: !_isUploading,\n  ...',
     },
@@ -915,7 +977,8 @@ dynamic build(BuildContext context) {
       'title': 'Quiz / Exam',
       'icon': Icons.quiz,
       'color': Colors.red,
-      'description': 'Prevent accidental exit from a timed exam. '
+      'description':
+          'Prevent accidental exit from a timed exam. '
           'Require confirmation with penalty warning.',
       'code': 'PopScope(\n  canPop: false,\n  onPopInvoked: _confirm...',
     },
@@ -923,7 +986,8 @@ dynamic build(BuildContext context) {
       'title': 'Chat Compose',
       'icon': Icons.chat_bubble,
       'color': Colors.teal,
-      'description': 'Block leaving when the user has typed a message '
+      'description':
+          'Block leaving when the user has typed a message '
           'but not sent it. Save draft or discard on pop.',
       'code': 'PopScope(\n  canPop: _messageText.isEmpty,\n  ...',
     },
@@ -938,12 +1002,7 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(bottom: 10.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.shade50,
-              Colors.white,
-            ],
-          ),
+          gradient: LinearGradient(colors: [color.shade50, Colors.white]),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: color.shade200),
         ),
@@ -958,7 +1017,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               alignment: Alignment.center,
-              child: Icon(uc['icon'] as IconData, color: color.shade700, size: 22.0),
+              child: Icon(
+                uc['icon'] as IconData,
+                color: color.shade700,
+                size: 22.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -976,7 +1039,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     uc['description'] as String,
-                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                   SizedBox(height: 6.0),
                   Container(
@@ -1079,7 +1145,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade600,
                       borderRadius: BorderRadius.circular(6.0),
@@ -1130,7 +1199,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.shade600,
                       borderRadius: BorderRadius.circular(6.0),
@@ -1178,7 +1250,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1353,10 +1429,7 @@ dynamic build(BuildContext context) {
             SizedBox(width: 8.0),
             Text(
               'vs',
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey.shade500,
-              ),
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
             ),
             SizedBox(width: 8.0),
             Container(
@@ -1393,10 +1466,38 @@ dynamic build(BuildContext context) {
   // previous wizard step instead of leaving the entire flow.
 
   final wizardSteps = [
-    {'step': 1, 'title': 'Personal Info', 'icon': Icons.person, 'color': Colors.blue, 'active': false, 'completed': true},
-    {'step': 2, 'title': 'Address', 'icon': Icons.location_on, 'color': Colors.teal, 'active': false, 'completed': true},
-    {'step': 3, 'title': 'Payment', 'icon': Icons.payment, 'color': Colors.orange, 'active': true, 'completed': false},
-    {'step': 4, 'title': 'Review', 'icon': Icons.fact_check, 'color': Colors.purple, 'active': false, 'completed': false},
+    {
+      'step': 1,
+      'title': 'Personal Info',
+      'icon': Icons.person,
+      'color': Colors.blue,
+      'active': false,
+      'completed': true,
+    },
+    {
+      'step': 2,
+      'title': 'Address',
+      'icon': Icons.location_on,
+      'color': Colors.teal,
+      'active': false,
+      'completed': true,
+    },
+    {
+      'step': 3,
+      'title': 'Payment',
+      'icon': Icons.payment,
+      'color': Colors.orange,
+      'active': true,
+      'completed': false,
+    },
+    {
+      'step': 4,
+      'title': 'Review',
+      'icon': Icons.fact_check,
+      'color': Colors.purple,
+      'active': false,
+      'completed': false,
+    },
   ];
 
   final stepWidgets = <Widget>[];
@@ -1417,8 +1518,8 @@ dynamic build(BuildContext context) {
                 color: isCompleted
                     ? color.shade600
                     : isActive
-                        ? color.shade100
-                        : Colors.grey.shade200,
+                    ? color.shade100
+                    : Colors.grey.shade200,
                 shape: BoxShape.circle,
                 border: isActive
                     ? Border.all(color: color.shade600, width: 2.5)
@@ -1465,7 +1566,9 @@ dynamic build(BuildContext context) {
   final wizardSection = PopScope(
     canPop: false,
     onPopInvokedWithResult: (bool didPop, dynamic result) {
-      print('Wizard: back pressed at step 3, would go to step 2 instead of leaving');
+      print(
+        'Wizard: back pressed at step 3, would go to step 2 instead of leaving',
+      );
     },
     child: Container(
       margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -1521,7 +1624,11 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.arrow_back, size: 14.0, color: Colors.orange.shade600),
+                    Icon(
+                      Icons.arrow_back,
+                      size: 14.0,
+                      color: Colors.orange.shade600,
+                    ),
                     SizedBox(width: 4.0),
                     Text(
                       'Back button → goes to Step 2 (not exit)',

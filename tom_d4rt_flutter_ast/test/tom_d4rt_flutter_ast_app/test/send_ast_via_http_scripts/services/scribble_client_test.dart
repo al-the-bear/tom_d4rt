@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: cyan, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: pool),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: abyss.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: abyss.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: abyss)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: abyss,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -140,18 +149,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? teal.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: pool.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: pool.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? abyss : deepTeal)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? abyss : deepTeal,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +178,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? abyss : deepTeal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: teal),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: teal),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -206,13 +221,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            wrFlow(['Pencil stroke', 'iPadOS recognizes', 'ScribbleClient',
-                'Text inserted', 'Field updated']),
+            wrFlow([
+              'Pencil stroke',
+              'iPadOS recognizes',
+              'ScribbleClient',
+              'Text inserted',
+              'Field updated',
+            ]),
             const SizedBox(height: 10),
-            _wrFeatureBadge('Recognition', 'Handwriting to text conversion', abyss),
-            _wrFeatureBadge('Insertion', 'Text placed at cursor position', deepTeal),
+            _wrFeatureBadge(
+              'Recognition',
+              'Handwriting to text conversion',
+              abyss,
+            ),
+            _wrFeatureBadge(
+              'Insertion',
+              'Text placed at cursor position',
+              deepTeal,
+            ),
             _wrFeatureBadge('Selection', 'Pencil gestures select text', teal),
-            _wrFeatureBadge('Deletion', 'Scratch-out gesture removes text', aquamarine),
+            _wrFeatureBadge(
+              'Deletion',
+              'Scratch-out gesture removes text',
+              aquamarine,
+            ),
           ],
         ),
       ),
@@ -239,9 +271,17 @@ dynamic build(BuildContext context) {
             wrRow(['Requirement', 'Value', 'Notes'], isHeader: true),
             wrRow(['iPadOS', '14+', 'First Scribble release']),
             wrRow(['Apple Pencil', '1st or 2nd gen', 'Any Pencil model']),
-            wrRow(['Language', 'En, Zh, Pt, Fr, De, It, Es', 'Supported langs']),
+            wrRow([
+              'Language',
+              'En, Zh, Pt, Fr, De, It, Es',
+              'Supported langs',
+            ]),
             wrRow(['Flutter', 'Automatic', 'Built into EditableText']),
-            wrRow(['Android', 'N/A', 'Stylus uses Handwriting — different API']),
+            wrRow([
+              'Android',
+              'N/A',
+              'Stylus uses Handwriting — different API',
+            ]),
           ],
         ),
       ),
@@ -267,10 +307,26 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             wrRow(['Method', 'Return', 'Purpose'], isHeader: true),
-            wrRow(['isInScribbleRect', 'bool', 'Hit test for Pencil proximity']),
-            wrRow(['insertTextPlaceholder', 'void', 'Reserve space for incoming text']),
-            wrRow(['removeTextPlaceholder', 'void', 'Clear placeholder after insert']),
-            wrRow(['onScribbleFocus', 'void', 'Focus field when Pencil starts']),
+            wrRow([
+              'isInScribbleRect',
+              'bool',
+              'Hit test for Pencil proximity',
+            ]),
+            wrRow([
+              'insertTextPlaceholder',
+              'void',
+              'Reserve space for incoming text',
+            ]),
+            wrRow([
+              'removeTextPlaceholder',
+              'void',
+              'Clear placeholder after insert',
+            ]),
+            wrRow([
+              'onScribbleFocus',
+              'void',
+              'Focus field when Pencil starts',
+            ]),
             wrRow(['performAction', 'void', 'Execute action from recognition']),
           ],
         ),
@@ -296,11 +352,20 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            wrFlow(['Pencil down', 'System queries', 'isInScribbleRect?',
-                'Focus winner', 'Scribble begins']),
+            wrFlow([
+              'Pencil down',
+              'System queries',
+              'isInScribbleRect?',
+              'Focus winner',
+              'Scribble begins',
+            ]),
             const SizedBox(height: 10),
             _wrStepDetail(1, 'Pencil touches surface near a field', abyss),
-            _wrStepDetail(2, 'iPadOS broadcasts scribble query to all clients', deepTeal),
+            _wrStepDetail(
+              2,
+              'iPadOS broadcasts scribble query to all clients',
+              deepTeal,
+            ),
             _wrStepDetail(3, 'Each client checks bounds + padding', teal),
             _wrStepDetail(4, 'Closest field with true wins focus', aquamarine),
             _wrStepDetail(5, 'Handwriting recognition begins', cerulean),
@@ -329,11 +394,23 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _wrLifecycleRow(Icons.edit, 'Pencil begins stroke', abyss),
-            _wrLifecycleRow(Icons.text_fields, 'Placeholder inserted', deepTeal),
+            _wrLifecycleRow(
+              Icons.text_fields,
+              'Placeholder inserted',
+              deepTeal,
+            ),
             _wrLifecycleRow(Icons.space_bar, 'Text pushed aside', teal),
             _wrLifecycleRow(Icons.check, 'Recognition complete', aquamarine),
-            _wrLifecycleRow(Icons.delete_outline, 'Placeholder removed', cerulean),
-            _wrLifecycleRow(Icons.text_snippet, 'Recognized text inserted', lagoon),
+            _wrLifecycleRow(
+              Icons.delete_outline,
+              'Placeholder removed',
+              cerulean,
+            ),
+            _wrLifecycleRow(
+              Icons.text_snippet,
+              'Recognized text inserted',
+              lagoon,
+            ),
           ],
         ),
       ),
@@ -387,7 +464,12 @@ dynamic build(BuildContext context) {
         'Focus vs Keyboard',
         Column(
           children: [
-            wrRow(['Input Mode', 'Focus', 'Keyboard', 'Cursor'], isHeader: true),
+            wrRow([
+              'Input Mode',
+              'Focus',
+              'Keyboard',
+              'Cursor',
+            ], isHeader: true),
             wrRow(['Tap field', 'Yes', 'Opens', 'Visible']),
             wrRow(['Scribble', 'Yes', 'Hidden', 'Visible']),
             wrRow(['External keyboard', 'Yes', 'External', 'Visible']),
@@ -446,8 +528,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            wrFlow(['Stroke capture', 'ML model', 'Candidates',
-                'Context filter', 'Final text']),
+            wrFlow([
+              'Stroke capture',
+              'ML model',
+              'Candidates',
+              'Context filter',
+              'Final text',
+            ]),
             const SizedBox(height: 10),
             wrRow(['Stage', 'Location', 'Output'], isHeader: true),
             wrRow(['Capture', 'iPadOS', 'Ink points']),
@@ -479,10 +566,22 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _wrScenarioCard('Side-by-side', 'Pencil position picks closest field', abyss),
-            _wrScenarioCard('Stacked', 'Vertical position determines field', deepTeal),
+            _wrScenarioCard(
+              'Side-by-side',
+              'Pencil position picks closest field',
+              abyss,
+            ),
+            _wrScenarioCard(
+              'Stacked',
+              'Vertical position determines field',
+              deepTeal,
+            ),
             _wrScenarioCard('Overlapping rects', 'Closest center wins', teal),
-            _wrScenarioCard('Continuation', 'Writing past edge moves focus', aquamarine),
+            _wrScenarioCard(
+              'Continuation',
+              'Writing past edge moves focus',
+              aquamarine,
+            ),
           ],
         ),
       ),
@@ -537,9 +636,15 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _wrCheckbox('Mixin ScribbleClient on State or RenderObject', abyss),
-            _wrCheckbox('Override isInScribbleRect with bounds + padding', deepTeal),
+            _wrCheckbox(
+              'Override isInScribbleRect with bounds + padding',
+              deepTeal,
+            ),
             _wrCheckbox('Implement insertTextPlaceholder for animations', teal),
-            _wrCheckbox('Implement removeTextPlaceholder for cleanup', aquamarine),
+            _wrCheckbox(
+              'Implement removeTextPlaceholder for cleanup',
+              aquamarine,
+            ),
             _wrCheckbox('Handle onScribbleFocus to acquire focus', cerulean),
             _wrCheckbox('Register with Scribble system on attach', lagoon),
           ],
@@ -599,7 +704,11 @@ dynamic build(BuildContext context) {
             _wrAccessRow(Icons.hearing, 'VoiceOver compatible', deepTeal),
             _wrAccessRow(Icons.language, 'Multi-language support', teal),
             _wrAccessRow(Icons.speed, 'Low latency recognition', aquamarine),
-            _wrAccessRow(Icons.gesture, 'Gesture shortcuts for editing', cerulean),
+            _wrAccessRow(
+              Icons.gesture,
+              'Gesture shortcuts for editing',
+              cerulean,
+            ),
           ],
         ),
       ),
@@ -691,11 +800,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('ScribbleClient — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'ScribbleClient — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'Apple Pencil Scribble integration in Flutter: from hit testing '
@@ -727,10 +839,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -758,13 +882,20 @@ Widget _wrFeatureBadge(String feature, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 80,
-          child: Text(feature,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            feature,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -784,15 +915,19 @@ Widget _wrStepDetail(int num, String desc, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(desc, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),
@@ -807,8 +942,7 @@ Widget _wrLifecycleRow(IconData icon, String text, Color color) {
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(text, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),
@@ -828,13 +962,20 @@ Widget _wrScenarioCard(String title, String desc, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(title,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -849,8 +990,7 @@ Widget _wrCheckbox(String text, Color color) {
         Icon(Icons.check_box_outline_blank, size: 14, color: color),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(text, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),
@@ -865,8 +1005,7 @@ Widget _wrAccessRow(IconData icon, String text, Color color) {
         Icon(icon, size: 16, color: color),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 11, color: color)),
+          child: Text(text, style: TextStyle(fontSize: 11, color: color)),
         ),
       ],
     ),

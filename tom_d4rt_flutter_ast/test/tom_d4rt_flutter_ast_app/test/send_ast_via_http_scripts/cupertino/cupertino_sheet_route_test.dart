@@ -106,13 +106,7 @@ const double _kReelBezelHeight = 224.0;
 
 // The route reel uses a coarse 5-step progress — enough to read the
 // rise-and-settle story without crowding the row.
-const List<double> _kRouteReel = <double>[
-  0.0,
-  0.25,
-  0.5,
-  0.75,
-  1.0,
-];
+const List<double> _kRouteReel = <double>[0.0, 0.25, 0.5, 0.75, 1.0];
 
 // iOS sheet design tokens — the values that the framework's
 // `CupertinoSheetTransition` implements internally.
@@ -225,11 +219,7 @@ LinearGradient _heroGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF0A84FF),
-      Color(0xFF30D158),
-      Color(0xFF5E5CE6),
-    ],
+    colors: <Color>[Color(0xFF0A84FF), Color(0xFF30D158), Color(0xFF5E5CE6)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -238,10 +228,7 @@ LinearGradient _surfaceGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFFF7F8FB),
-      Color(0xFFE8ECF3),
-    ],
+    colors: <Color>[Color(0xFFF7F8FB), Color(0xFFE8ECF3)],
   );
 }
 
@@ -249,10 +236,7 @@ LinearGradient _anatomyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFF6E0),
-      Color(0xFFFFE2A8),
-    ],
+    colors: <Color>[Color(0xFFFFF6E0), Color(0xFFFFE2A8)],
   );
 }
 
@@ -260,11 +244,7 @@ LinearGradient _reelGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE7F0FF),
-      Color(0xFFD0DDFF),
-      Color(0xFFBBC9F4),
-    ],
+    colors: <Color>[Color(0xFFE7F0FF), Color(0xFFD0DDFF), Color(0xFFBBC9F4)],
     stops: <double>[0.0, 0.6, 1.0],
   );
 }
@@ -273,11 +253,7 @@ LinearGradient _hierarchyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE0F2FE),
-      Color(0xFFBAE6FD),
-      Color(0xFF7DD3FC),
-    ],
+    colors: <Color>[Color(0xFFE0F2FE), Color(0xFFBAE6FD), Color(0xFF7DD3FC)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -286,10 +262,7 @@ LinearGradient _apiTableGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFECFDF5),
-      Color(0xFFA7F3D0),
-    ],
+    colors: <Color>[Color(0xFFECFDF5), Color(0xFFA7F3D0)],
   );
 }
 
@@ -297,10 +270,7 @@ LinearGradient _snippetGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF111827),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF111827)],
   );
 }
 
@@ -308,11 +278,7 @@ LinearGradient _compareGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFF3E8FF),
-      Color(0xFFE9D5FF),
-      Color(0xFFDDD6FE),
-    ],
+    colors: <Color>[Color(0xFFF3E8FF), Color(0xFFE9D5FF), Color(0xFFDDD6FE)],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -321,11 +287,7 @@ LinearGradient _designGuideGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFFBEB),
-      Color(0xFFFEF3C7),
-      Color(0xFFFDE68A),
-    ],
+    colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFEF3C7), Color(0xFFFDE68A)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -334,11 +296,7 @@ LinearGradient _stateGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE0F7FA),
-      Color(0xFFB2EBF2),
-      Color(0xFF80DEEA),
-    ],
+    colors: <Color>[Color(0xFFE0F7FA), Color(0xFFB2EBF2), Color(0xFF80DEEA)],
     stops: <double>[0.0, 0.6, 1.0],
   );
 }
@@ -347,10 +305,7 @@ LinearGradient _pitfallsGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFE4E6),
-      Color(0xFFFCA5A5),
-    ],
+    colors: <Color>[Color(0xFFFFE4E6), Color(0xFFFCA5A5)],
   );
 }
 
@@ -358,10 +313,7 @@ LinearGradient _footerGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF0F172A),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF0F172A)],
   );
 }
 
@@ -399,11 +351,15 @@ dynamic build(BuildContext context) {
   print('[csheet-route-demo] CupertinoSheetRoute<T> extends PageRoute<T>');
   print('[csheet-route-demo] reel snapshots: ${_kRouteReel.length}');
   print('[csheet-route-demo] lifecycle nodes: ${_kLifecycleNodes.length}');
-  print('[csheet-route-demo] default transitionDuration: '
-      '${_kDefaultTransition.inMilliseconds}ms');
-  print('[csheet-route-demo] math probe: '
-      'offsetFraction(0.5)=${_sheetOffsetFraction(0.5).toStringAsFixed(3)} '
-      'dimOpacity(0.5)=${_dimOpacity(0.5).toStringAsFixed(3)}');
+  print(
+    '[csheet-route-demo] default transitionDuration: '
+    '${_kDefaultTransition.inMilliseconds}ms',
+  );
+  print(
+    '[csheet-route-demo] math probe: '
+    'offsetFraction(0.5)=${_sheetOffsetFraction(0.5).toStringAsFixed(3)} '
+    'dimOpacity(0.5)=${_dimOpacity(0.5).toStringAsFixed(3)}',
+  );
   print('[csheet-route-demo] palette accents: ${_kPaletteAccents.length}');
   print('[csheet-route-demo] sanity refs: ${_sanityRefs.length}');
 
@@ -565,10 +521,7 @@ class _ApiChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.18),
         borderRadius: BorderRadius.circular(999.0),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.35),
-          width: 1.0,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.35), width: 1.0),
       ),
       child: Text(
         label,
@@ -726,12 +679,7 @@ class _AnatomyPainter extends CustomPainter {
     final Paint pill = Paint()..color = const Color(0xFFB8B8C2);
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(
-          (size.width - 36.0) / 2.0,
-          topGap + 8.0,
-          36.0,
-          5.0,
-        ),
+        Rect.fromLTWH((size.width - 36.0) / 2.0, topGap + 8.0, 36.0, 5.0),
         const Radius.circular(3.0),
       ),
       pill,
@@ -777,11 +725,7 @@ class _AnatomyPainter extends CustomPainter {
 
     // topGap arrow.
     canvas.drawLine(const Offset(8.0, 0.0), const Offset(8.0, topGap), guide);
-    canvas.drawLine(
-      const Offset(4.0, 4.0),
-      const Offset(12.0, 4.0),
-      guide,
-    );
+    canvas.drawLine(const Offset(4.0, 4.0), const Offset(12.0, 4.0), guide);
     canvas.drawLine(
       const Offset(4.0, topGap - 4.0),
       const Offset(12.0, topGap - 4.0),
@@ -807,11 +751,7 @@ class _AnatomyPainter extends CustomPainter {
       Offset(size.width - 70.0, topGap + 32.0),
       const Color(0xFF6B7280),
     );
-    label(
-      'PRESENTING',
-      const Offset(8.0, 92.0),
-      const Color(0xFFE5E7EB),
-    );
+    label('PRESENTING', const Offset(8.0, 92.0), const Color(0xFFE5E7EB));
     label(
       'recessed 0.92x',
       Offset(inset + 4.0, _kHigStackedTopInset + 4.0),
@@ -962,8 +902,7 @@ class _BezelReelCard extends StatelessWidget {
                     width: _kReelBezelWidth,
                     height: _kReelBezelHeight,
                     child: CupertinoSheetTransition(
-                      primaryRouteAnimation:
-                          AlwaysStoppedAnimation<double>(t),
+                      primaryRouteAnimation: AlwaysStoppedAnimation<double>(t),
                       secondaryRouteAnimation:
                           const AlwaysStoppedAnimation<double>(0.0),
                       linearTransition: false,
@@ -1058,8 +997,9 @@ class _BezelFrame extends StatelessWidget {
                   height: 14.0,
                   decoration: const BoxDecoration(
                     color: Color(0xFF111827),
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(8.0)),
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(8.0),
+                    ),
                   ),
                 ),
               ),
@@ -1285,10 +1225,7 @@ class _HierarchyNode extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(leaf ? 0.95 : 0.80),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: tint,
-            width: leaf ? 2.0 : 1.0,
-          ),
+          border: Border.all(color: tint, width: leaf ? 2.0 : 1.0),
         ),
         child: Row(
           children: <Widget>[
@@ -1575,10 +1512,7 @@ class _ApiTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: _kGapSm,
-        vertical: 6.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: _kGapSm, vertical: 6.0),
       decoration: BoxDecoration(
         color: const Color(0xFF047857),
         borderRadius: BorderRadius.circular(6.0),
@@ -1651,9 +1585,7 @@ class _ApiTableRow extends StatelessWidget {
         color: Colors.white.withOpacity(0.78),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: req
-              ? const Color(0xFF047857)
-              : const Color(0xFFBBF7D0),
+          color: req ? const Color(0xFF047857) : const Color(0xFFBBF7D0),
           width: req ? 1.5 : 1.0,
         ),
       ),
@@ -1915,10 +1847,7 @@ class _CodeBlock extends StatelessWidget {
     return Container(
       width: 9.0,
       height: 9.0,
-      decoration: BoxDecoration(
-        color: colour,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
     );
   }
 }
@@ -2006,10 +1935,7 @@ class _CompareTableHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: _kGapSm,
-        vertical: 6.0,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: _kGapSm, vertical: 6.0),
       decoration: BoxDecoration(
         color: const Color(0xFF6D28D9),
         borderRadius: BorderRadius.circular(6.0),
@@ -2445,8 +2371,7 @@ class _LifecyclePainter extends CustomPainter {
         width: colWidth - 14.0,
         height: pillHeight,
       );
-      final RRect rr =
-          RRect.fromRectAndRadius(r, const Radius.circular(16.0));
+      final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(16.0));
       canvas.drawRRect(rr, Paint()..color = tint);
       tp.text = TextSpan(
         text: _kLifecycleNodes[i],
@@ -2500,7 +2425,10 @@ class _LifecyclePainter extends CustomPainter {
     for (int i = 0; i < 2; i++) {
       drawArrow(
         Offset(positions[i].dx + colWidth * 0.4, positions[i].dy + 16.0),
-        Offset(positions[i + 1].dx - colWidth * 0.4, positions[i + 1].dy + 16.0),
+        Offset(
+          positions[i + 1].dx - colWidth * 0.4,
+          positions[i + 1].dy + 16.0,
+        ),
       );
     }
     // Top-right → bottom-right (wrap).
@@ -2512,7 +2440,10 @@ class _LifecyclePainter extends CustomPainter {
     for (int i = 3; i < 5; i++) {
       drawArrow(
         Offset(positions[i].dx - colWidth * 0.4, positions[i].dy + 16.0),
-        Offset(positions[i + 1].dx + colWidth * 0.4, positions[i + 1].dy + 16.0),
+        Offset(
+          positions[i + 1].dx + colWidth * 0.4,
+          positions[i + 1].dy + 16.0,
+        ),
       );
     }
   }
@@ -2790,7 +2721,8 @@ class _FooterCard extends StatelessWidget {
           ),
           _CheatRow(
             label: 'Helper',
-            value: 'await showCupertinoSheet<T>(context: ..., pageBuilder: ...)',
+            value:
+                'await showCupertinoSheet<T>(context: ..., pageBuilder: ...)',
           ),
           _CheatRow(
             label: 'Pop with value',
@@ -2893,10 +2825,7 @@ class _SectionHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: tint.withOpacity(0.15),
             borderRadius: BorderRadius.circular(6.0),

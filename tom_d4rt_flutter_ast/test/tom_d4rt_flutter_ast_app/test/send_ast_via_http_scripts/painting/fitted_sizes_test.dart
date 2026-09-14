@@ -81,8 +81,13 @@ String boxFitName(BoxFit fit) {
 // ============================================================
 // Reusable widget builders
 // ============================================================
-Widget buildSectionHeader(String number, String title, String subtitle,
-    Color primary, Color secondary) {
+Widget buildSectionHeader(
+  String number,
+  String title,
+  String subtitle,
+  Color primary,
+  Color secondary,
+) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(top: 24.0, bottom: 16.0),
@@ -161,7 +166,12 @@ Widget buildSectionHeader(String number, String title, String subtitle,
 }
 
 Widget buildRectVisual(
-    String label, Size size, Color color, double maxW, double maxH) {
+  String label,
+  Size size,
+  Color color,
+  double maxW,
+  double maxH,
+) {
   final double w = clampDim(size.width, maxW);
   final double h = clampDim(size.height, maxH);
   return Column(
@@ -284,17 +294,15 @@ Widget buildBoxFitCard(BoxFit fit, Size input, Size output, Color accent) {
   final double srcAspect = aspectOf(fs.source);
   final double dstAspect = aspectOf(fs.destination);
   print(
-      '  applyBoxFit(${boxFitName(fit)}, $input, $output) -> source=${fs.source} destination=${fs.destination}');
+    '  applyBoxFit(${boxFitName(fit)}, $input, $output) -> source=${fs.source} destination=${fs.destination}',
+  );
   return Container(
     width: 290.0,
     margin: const EdgeInsets.all(8.0),
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          accent.withValues(alpha: 0.08),
-        ],
+        colors: [Colors.white, accent.withValues(alpha: 0.08)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -314,8 +322,10 @@ Widget buildBoxFitCard(BoxFit fit, Size input, Size output, Color accent) {
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: accent,
                 borderRadius: BorderRadius.circular(6.0),
@@ -399,11 +409,14 @@ Widget buildAnatomyDiagram(Size input, Size output) {
           children: [
             Column(
               children: [
-                Text('inputSize',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: kIndigoDeep,
-                        fontWeight: FontWeight.w600)),
+                Text(
+                  'inputSize',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: kIndigoDeep,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
                 Container(
                   width: input.width.clamp(40.0, 220.0),
@@ -436,20 +449,24 @@ Widget buildAnatomyDiagram(Size input, Size output) {
                 Text(
                   fmtSize(input),
                   style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10.0,
-                      color: kIndigoDeep),
+                    fontFamily: 'monospace',
+                    fontSize: 10.0,
+                    color: kIndigoDeep,
+                  ),
                 ),
               ],
             ),
             const Icon(Icons.arrow_forward, size: 32.0, color: kSlateMid),
             Column(
               children: [
-                Text('outputSize',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: kTealDeep,
-                        fontWeight: FontWeight.w600)),
+                Text(
+                  'outputSize',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: kTealDeep,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
                 Container(
                   width: output.width.clamp(40.0, 220.0),
@@ -482,9 +499,10 @@ Widget buildAnatomyDiagram(Size input, Size output) {
                 Text(
                   fmtSize(output),
                   style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10.0,
-                      color: kTealDeep),
+                    fontFamily: 'monospace',
+                    fontSize: 10.0,
+                    color: kTealDeep,
+                  ),
                 ),
               ],
             ),
@@ -503,15 +521,19 @@ Widget buildAnatomyDiagram(Size input, Size output) {
             children: [
               buildKeyValueRow('source', fmtSize(fs.source), kAmberDeep),
               buildKeyValueRow(
-                  'destination', fmtSize(fs.destination), kTealDeep),
+                'destination',
+                fmtSize(fs.destination),
+                kTealDeep,
+              ),
               const SizedBox(height: 6.0),
               const Text(
                 'source = sub-rect of input that will be sampled.\n'
                 'destination = rect inside output where pixels will land.',
                 style: TextStyle(
-                    fontSize: 11.0,
-                    color: kSlateMid,
-                    fontStyle: FontStyle.italic),
+                  fontSize: 11.0,
+                  color: kSlateMid,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -565,7 +587,12 @@ Widget buildSourceVsDestinationGrid(BoxFit fit, Size input, Size output) {
           children: [
             buildRectVisual('source', fs.source, kAmberDeep, 130.0, 90.0),
             buildRectVisual(
-                'destination', fs.destination, kTealDeep, 130.0, 90.0),
+              'destination',
+              fs.destination,
+              kTealDeep,
+              130.0,
+              90.0,
+            ),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -581,7 +608,10 @@ Widget buildSourceVsDestinationGrid(BoxFit fit, Size input, Size output) {
               buildKeyValueRow('output', fmtSize(output), kIndigoMid),
               buildKeyValueRow('source', fmtSize(fs.source), kAmberDeep),
               buildKeyValueRow(
-                  'destination', fmtSize(fs.destination), kTealDeep),
+                'destination',
+                fmtSize(fs.destination),
+                kTealDeep,
+              ),
             ],
           ),
         ),
@@ -590,17 +620,19 @@ Widget buildSourceVsDestinationGrid(BoxFit fit, Size input, Size output) {
   );
 }
 
-Widget buildFootgunCard(String title, String body, IconData icon, Color color,
-    String snippet) {
+Widget buildFootgunCard(
+  String title,
+  String body,
+  IconData icon,
+  Color color,
+  String snippet,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.04),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -650,7 +682,9 @@ Widget buildFootgunCard(String title, String body, IconData icon, Color color,
               const SizedBox(height: 6.0),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: 4.0),
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: kSlate.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(4.0),
@@ -678,7 +712,8 @@ Widget buildPhotoFrame(BoxFit fit, double frameW, double frameH) {
   final Size frameSize = Size(frameW, frameH);
   final FittedSizes fs = applyBoxFit(fit, photoSize, frameSize);
   print(
-      '  Carousel BoxFit.${boxFitName(fit)} -> source=${fs.source} destination=${fs.destination}');
+    '  Carousel BoxFit.${boxFitName(fit)} -> source=${fs.source} destination=${fs.destination}',
+  );
   return Container(
     width: frameW + 30.0,
     margin: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
@@ -705,7 +740,10 @@ Widget buildPhotoFrame(BoxFit fit, double frameW, double frameH) {
         Text(
           'BoxFit.${boxFitName(fit)}',
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 12.0, color: kRoseDeep),
+            fontWeight: FontWeight.bold,
+            fontSize: 12.0,
+            color: kRoseDeep,
+          ),
         ),
         const SizedBox(height: 6.0),
         Container(
@@ -742,9 +780,10 @@ Widget buildPhotoFrame(BoxFit fit, double frameW, double frameH) {
                   child: const Text(
                     '16:9',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
               ),
@@ -755,12 +794,18 @@ Widget buildPhotoFrame(BoxFit fit, double frameW, double frameH) {
         Text(
           'src ${fmtSize(fs.source)}',
           style: const TextStyle(
-              fontFamily: 'monospace', fontSize: 9.0, color: kAmberDeep),
+            fontFamily: 'monospace',
+            fontSize: 9.0,
+            color: kAmberDeep,
+          ),
         ),
         Text(
           'dst ${fmtSize(fs.destination)}',
           style: const TextStyle(
-              fontFamily: 'monospace', fontSize: 9.0, color: kTealDeep),
+            fontFamily: 'monospace',
+            fontSize: 9.0,
+            color: kTealDeep,
+          ),
         ),
       ],
     ),
@@ -812,10 +857,15 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.55), width: 2.0),
+                  color: Colors.white.withValues(alpha: 0.55),
+                  width: 2.0,
+                ),
               ),
-              child: const Icon(Icons.crop_free,
-                  size: 28.0, color: Colors.white),
+              child: const Icon(
+                Icons.crop_free,
+                size: 28.0,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(width: 14.0),
             const Text(
@@ -859,8 +909,10 @@ dynamic build(BuildContext context) {
     kIndigoMid,
     kIndigoSoft,
   );
-  final Widget anatomy =
-      buildAnatomyDiagram(const Size(200.0, 100.0), const Size(100.0, 100.0));
+  final Widget anatomy = buildAnatomyDiagram(
+    const Size(200.0, 100.0),
+    const Size(100.0, 100.0),
+  );
 
   // ============================================================
   // SECTION 3 - Live applyBoxFit cards (9 entries: all 7 fits + repeats)
@@ -933,8 +985,11 @@ dynamic build(BuildContext context) {
   final List<Widget> integCards = [];
   for (int i = 0; i < integFits.length; i = i + 1) {
     final BoxFit f = integFits[i];
-    final FittedSizes fs =
-        applyBoxFit(f, const Size(200.0, 50.0), const Size(120.0, 120.0));
+    final FittedSizes fs = applyBoxFit(
+      f,
+      const Size(200.0, 50.0),
+      const Size(120.0, 120.0),
+    );
     integCards.add(
       Container(
         width: 200.0,
@@ -957,10 +1012,11 @@ dynamic build(BuildContext context) {
             Text(
               'FittedBox(fit: BoxFit.${boxFitName(f)})',
               style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.0,
-                  color: kIndigoDeep,
-                  fontWeight: FontWeight.w600),
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+                color: kIndigoDeep,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(height: 8.0),
             Container(
@@ -979,39 +1035,49 @@ dynamic build(BuildContext context) {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                        colors: [kAmberDeep, kRoseDeep],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight),
+                      colors: [kAmberDeep, kRoseDeep],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: const Text(
                     'long banner',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 8.0),
-            Text('src ${fmtSize(fs.source)}',
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 9.5,
-                    color: kAmberDeep)),
-            Text('dst ${fmtSize(fs.destination)}',
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 9.5,
-                    color: kTealDeep)),
+            Text(
+              'src ${fmtSize(fs.source)}',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 9.5,
+                color: kAmberDeep,
+              ),
+            ),
+            Text(
+              'dst ${fmtSize(fs.destination)}',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 9.5,
+                color: kTealDeep,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
-  final Widget integGrid =
-      Wrap(alignment: WrapAlignment.center, children: integCards);
+  final Widget integGrid = Wrap(
+    alignment: WrapAlignment.center,
+    children: integCards,
+  );
 
   // ============================================================
   // SECTION 6 - BoxFit.cover deep dive (3 input ARs)
@@ -1036,7 +1102,8 @@ dynamic build(BuildContext context) {
     final Size inS = coverInputs[i]['size'] as Size;
     final FittedSizes fs = applyBoxFit(BoxFit.cover, inS, coverOutput);
     print(
-        '  cover deep dive label=$label input=$inS -> source=${fs.source} destination=${fs.destination}');
+      '  cover deep dive label=$label input=$inS -> source=${fs.source} destination=${fs.destination}',
+    );
     coverCards.add(
       Container(
         width: 280.0,
@@ -1044,10 +1111,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              kRoseSoft.withValues(alpha: 0.4),
-            ],
+            colors: [Colors.white, kRoseSoft.withValues(alpha: 0.4)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1071,9 +1135,10 @@ dynamic build(BuildContext context) {
                 Text(
                   label,
                   style: const TextStyle(
-                      color: kRoseDeep,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0),
+                    color: kRoseDeep,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                  ),
                 ),
               ],
             ),
@@ -1082,23 +1147,25 @@ dynamic build(BuildContext context) {
             buildKeyValueRow('output', fmtSize(coverOutput), kIndigoMid),
             const Divider(height: 14.0),
             buildKeyValueRow('source', fmtSize(fs.source), kAmberDeep),
-            buildKeyValueRow(
-                'destination', fmtSize(fs.destination), kTealDeep),
+            buildKeyValueRow('destination', fmtSize(fs.destination), kTealDeep),
             const SizedBox(height: 8.0),
             Text(
               'cover crops the input so source AR matches output AR.',
               style: TextStyle(
-                  fontSize: 10.5,
-                  fontStyle: FontStyle.italic,
-                  color: kSlateMid),
+                fontSize: 10.5,
+                fontStyle: FontStyle.italic,
+                color: kSlateMid,
+              ),
             ),
           ],
         ),
       ),
     );
   }
-  final Widget coverGrid =
-      Wrap(alignment: WrapAlignment.center, children: coverCards);
+  final Widget coverGrid = Wrap(
+    alignment: WrapAlignment.center,
+    children: coverCards,
+  );
 
   // ============================================================
   // SECTION 7 - scaleDown vs contain
@@ -1136,19 +1203,22 @@ dynamic build(BuildContext context) {
     final Size outS = scaleScenarios[i]['output'] as Size;
     final FittedSizes fsContain = applyBoxFit(BoxFit.contain, inS, outS);
     final FittedSizes fsScaleDown = applyBoxFit(BoxFit.scaleDown, inS, outS);
-    final bool same = fsContain.source == fsScaleDown.source &&
+    final bool same =
+        fsContain.source == fsScaleDown.source &&
         fsContain.destination == fsScaleDown.destination;
     print(
-        '  scaleDown vs contain ($label): same=$same  contain=$fsContain  scaleDown=$fsScaleDown');
+      '  scaleDown vs contain ($label): same=$same  contain=$fsContain  scaleDown=$fsScaleDown',
+    );
     scaleCards.add(
       Container(
         margin: const EdgeInsets.symmetric(vertical: 6.0),
         padding: const EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-              colors: [Colors.white, Color(0xFFE0F2F1)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight),
+            colors: [Colors.white, Color(0xFFE0F2F1)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: kTealMid, width: 1.5),
           boxShadow: [
@@ -1174,13 +1244,16 @@ dynamic build(BuildContext context) {
                   child: Text(
                     label,
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0,
-                        color: kTealDeep),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13.0,
+                      color: kTealDeep,
+                    ),
                   ),
                 ),
-                buildMonoChip(same ? 'identical' : 'different',
-                    same ? kTealDeep : kAmberDeep),
+                buildMonoChip(
+                  same ? 'identical' : 'different',
+                  same ? kTealDeep : kAmberDeep,
+                ),
               ],
             ),
             const SizedBox(height: 10.0),
@@ -1188,14 +1261,26 @@ dynamic build(BuildContext context) {
             buildKeyValueRow('output', fmtSize(outS), kIndigoMid),
             const Divider(height: 14.0),
             buildKeyValueRow(
-                'contain.src', fmtSize(fsContain.source), kAmberDeep),
+              'contain.src',
+              fmtSize(fsContain.source),
+              kAmberDeep,
+            ),
             buildKeyValueRow(
-                'contain.dst', fmtSize(fsContain.destination), kTealDeep),
+              'contain.dst',
+              fmtSize(fsContain.destination),
+              kTealDeep,
+            ),
             const SizedBox(height: 4.0),
             buildKeyValueRow(
-                'scaleDown.src', fmtSize(fsScaleDown.source), kAmberDeep),
+              'scaleDown.src',
+              fmtSize(fsScaleDown.source),
+              kAmberDeep,
+            ),
             buildKeyValueRow(
-                'scaleDown.dst', fmtSize(fsScaleDown.destination), kTealDeep),
+              'scaleDown.dst',
+              fmtSize(fsScaleDown.destination),
+              kTealDeep,
+            ),
           ],
         ),
       ),
@@ -1243,19 +1328,32 @@ dynamic build(BuildContext context) {
     kRoseSoft,
   );
   final FittedSizes negFs = applyBoxFit(
-      BoxFit.contain, const Size(-100.0, -50.0), const Size(120.0, 120.0));
+    BoxFit.contain,
+    const Size(-100.0, -50.0),
+    const Size(120.0, 120.0),
+  );
   final FittedSizes zeroFs = applyBoxFit(
-      BoxFit.contain, Size.zero, const Size(120.0, 120.0));
+    BoxFit.contain,
+    Size.zero,
+    const Size(120.0, 120.0),
+  );
   final FittedSizes nanFs = applyBoxFit(
-      BoxFit.contain, Size(double.nan, 100.0), const Size(120.0, 120.0));
+    BoxFit.contain,
+    Size(double.nan, 100.0),
+    const Size(120.0, 120.0),
+  );
   print('  negative input -> $negFs');
   print('  zero input -> $zeroFs');
   print('  nan input -> $nanFs');
 
-  final FittedSizes manualA =
-      const FittedSizes(Size(50.0, 50.0), Size(100.0, 100.0));
-  final FittedSizes manualB =
-      const FittedSizes(Size(50.0, 50.0), Size(100.0, 100.0));
+  final FittedSizes manualA = const FittedSizes(
+    Size(50.0, 50.0),
+    Size(100.0, 100.0),
+  );
+  final FittedSizes manualB = const FittedSizes(
+    Size(50.0, 50.0),
+    Size(100.0, 100.0),
+  );
   final bool identical = manualA == manualB;
   print('  identity check (== on equal Sizes): $identical');
 
@@ -1363,7 +1461,10 @@ dynamic build(BuildContext context) {
               child: Text(
                 recapBullets[i].substring(3),
                 style: const TextStyle(
-                    fontSize: 12.5, color: kSlate, height: 1.4),
+                  fontSize: 12.5,
+                  color: kSlate,
+                  height: 1.4,
+                ),
               ),
             ),
           ],

@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Auto-Scroll on Drag Near Edges',
-      'body': 'EdgeDraggingAutoScroller watches for drag pointer '
+      'body':
+          'EdgeDraggingAutoScroller watches for drag pointer '
           'positions near the edges of a scrollable widget. When the '
           'pointer enters an edge zone, the scrollable automatically '
           'scrolls in that direction. The closer to the edge, the '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Essential for Drag-and-Drop',
-      'body': 'When dragging an item in a long list, users need the '
+      'body':
+          'When dragging an item in a long list, users need the '
           'list to scroll so they can reach items beyond the visible '
           'area. EdgeDraggingAutoScroller provides this behavior. '
           'Flutter uses it internally in ReorderableListView and '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'Variable Velocity',
-      'body': 'The scroll speed is not constant — it scales with how '
+      'body':
+          'The scroll speed is not constant — it scales with how '
           'close the pointer is to the edge. Barely entering the edge '
           'zone scrolls slowly; dragging right to the boundary scrolls '
           'fastest. This gives users fine-grained control.',
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.widgets,
       'title': 'Works with Any Scrollable',
-      'body': 'Can be attached to ListView, GridView, CustomScrollView, '
+      'body':
+          'Can be attached to ListView, GridView, CustomScrollView, '
           'SingleChildScrollView, or any other Scrollable widget. The '
           'auto-scroller only needs a reference to the ScrollableState '
           'to drive scrolling.',
@@ -68,7 +72,8 @@ dynamic build(BuildContext context) {
       'type': 'ScrollableState',
       'icon': Icons.view_list,
       'color': Colors.teal[700]!,
-      'description': 'The ScrollableState to auto-scroll. Obtained via '
+      'description':
+          'The ScrollableState to auto-scroll. Obtained via '
           'Scrollable.of(context) or a GlobalKey<ScrollableState>. The '
           'auto-scroller calls scrollable.position.moveTo() to animate '
           'scrolling as the pointer approaches edges.',
@@ -78,7 +83,8 @@ dynamic build(BuildContext context) {
       'type': 'double',
       'icon': Icons.speed,
       'color': Colors.cyan[700]!,
-      'description': 'A multiplier for scroll speed. Default is 10.0. '
+      'description':
+          'A multiplier for scroll speed. Default is 10.0. '
           'Higher values make edge scrolling faster. The actual pixels '
           'per second = velocityScalar * overscrollFraction. Typical '
           'range: 5.0 (gentle) to 20.0 (fast).',
@@ -88,7 +94,8 @@ dynamic build(BuildContext context) {
       'type': 'VoidCallback?',
       'icon': Icons.notifications_active,
       'color': Colors.teal[600]!,
-      'description': 'A callback invoked every time the auto-scroller '
+      'description':
+          'A callback invoked every time the auto-scroller '
           'moves the scroll position. Useful for updating drag '
           'feedback positions during auto-scroll, since the items '
           'under the pointer change as the view scrolls.',
@@ -107,7 +114,8 @@ dynamic build(BuildContext context) {
       'zone': 'Top Edge Zone',
       'icon': Icons.vertical_align_top,
       'color': Colors.teal[700]!,
-      'description': 'A region at the top of the scrollable viewport. '
+      'description':
+          'A region at the top of the scrollable viewport. '
           'When the drag pointer enters this zone, the auto-scroller '
           'scrolls upward. The zone width is typically determined by '
           'the mediaQueryPadding or a fraction of the viewport.',
@@ -117,7 +125,8 @@ dynamic build(BuildContext context) {
       'zone': 'Bottom Edge Zone',
       'icon': Icons.vertical_align_bottom,
       'color': Colors.cyan[700]!,
-      'description': 'A region at the bottom of the scrollable viewport. '
+      'description':
+          'A region at the bottom of the scrollable viewport. '
           'Pointer in this zone triggers downward auto-scrolling. '
           'Combined with the top zone, provides full vertical '
           'auto-scroll capability.',
@@ -127,7 +136,8 @@ dynamic build(BuildContext context) {
       'zone': 'Left Edge Zone',
       'icon': Icons.chevron_left,
       'color': Colors.teal[600]!,
-      'description': 'For horizontal scrollables, a region at the left '
+      'description':
+          'For horizontal scrollables, a region at the left '
           'edge. Entering triggers leftward auto-scrolling. Only active '
           'when the scrollable has a horizontal scroll axis.',
       'scrollDir': 'Scrolls content RIGHT (reveals items to the left)',
@@ -136,7 +146,8 @@ dynamic build(BuildContext context) {
       'zone': 'Right Edge Zone',
       'icon': Icons.chevron_right,
       'color': Colors.cyan[600]!,
-      'description': 'For horizontal scrollables, a region at the right '
+      'description':
+          'For horizontal scrollables, a region at the right '
           'edge. Entering triggers rightward auto-scrolling. The edge '
           'detection zone size is the same as the other edges.',
       'scrollDir': 'Scrolls content LEFT (reveals items to the right)',
@@ -171,12 +182,14 @@ dynamic build(BuildContext context) {
       'name': 'ReorderableListView',
       'icon': Icons.reorder,
       'color': Colors.teal[700]!,
-      'description': 'Flutter\'s ReorderableListView uses '
+      'description':
+          'Flutter\'s ReorderableListView uses '
           'EdgeDraggingAutoScroller internally. When you long-press '
           'an item and drag it toward the top or bottom edge, the '
           'list auto-scrolls so you can reorder items beyond the '
           'visible viewport.',
-      'detail': 'Internal usage — no setup needed. The auto-scroller '
+      'detail':
+          'Internal usage — no setup needed. The auto-scroller '
           'is created in ReorderableListView\'s State and connected '
           'to the list\'s ScrollController.',
     },
@@ -184,33 +197,39 @@ dynamic build(BuildContext context) {
       'name': 'Text Selection',
       'icon': Icons.select_all,
       'color': Colors.cyan[700]!,
-      'description': 'When selecting text in a scrollable text field '
+      'description':
+          'When selecting text in a scrollable text field '
           '(like a large TextFormField), dragging the selection handle '
           'to the edge triggers auto-scrolling. The text field scrolls '
           'to reveal more text as you extend the selection.',
-      'detail': 'Used by EditableText and RenderEditable during '
+      'detail':
+          'Used by EditableText and RenderEditable during '
           'selection drag gestures. Connected to the text scrollable.',
     },
     {
       'name': 'Custom Drag-and-Drop',
       'icon': Icons.drag_indicator,
       'color': Colors.teal[600]!,
-      'description': 'Building a custom drag-and-drop interface? '
+      'description':
+          'Building a custom drag-and-drop interface? '
           'Create an EdgeDraggingAutoScroller and call startAutoScrollIfNecessary() '
           'with the drag pointer position. The scroller handles the rest — '
           'scrolling when near edges, stopping when not.',
-      'detail': 'Instantiate in initState(), dispose in dispose(). '
+      'detail':
+          'Instantiate in initState(), dispose in dispose(). '
           'Call startAutoScrollIfNecessary(event) on pointer move events.',
     },
     {
       'name': 'Canvas / Drawing Apps',
       'icon': Icons.draw,
       'color': Colors.cyan[600]!,
-      'description': 'Drawing or painting on a large scrollable canvas. '
+      'description':
+          'Drawing or painting on a large scrollable canvas. '
           'When the user draws near the viewport edge while in draw '
           'mode, auto-scroll to reveal more canvas area without '
           'lifting the pen.',
-      'detail': 'Attach to the canvas ScrollView. Trigger auto-scroll '
+      'detail':
+          'Attach to the canvas ScrollView. Trigger auto-scroll '
           'on pointer move during active drawing gestures only.',
     },
   ];
@@ -226,7 +245,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Basic Setup',
       'color': Colors.teal[700]!,
-      'code': 'class _MyState extends State<MyWidget> {\n'
+      'code':
+          'class _MyState extends State<MyWidget> {\n'
           '  late EdgeDraggingAutoScroller _autoScroller;\n'
           '  final _scrollKey =\n'
           '      GlobalKey<ScrollableState>();\n'
@@ -249,7 +269,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Triggering on Drag',
       'color': Colors.cyan[700]!,
-      'code': '// In your drag handler:\n'
+      'code':
+          '// In your drag handler:\n'
           'void onDragUpdate(DragUpdateDetails details) {\n'
           '  // Update drag position\n'
           '  setState(() {\n'
@@ -274,7 +295,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'With Scroll Callback',
       'color': Colors.teal[600]!,
-      'code': '// Track when auto-scroll updates position\n'
+      'code':
+          '// Track when auto-scroll updates position\n'
           '_autoScroller = EdgeDraggingAutoScroller(\n'
           '  scrollableState,\n'
           '  velocityScalar: 15.0,\n'
@@ -298,7 +320,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Custom Edge Threshold',
       'color': Colors.cyan[600]!,
-      'code': '// Control the edge detection zone size\n'
+      'code':
+          '// Control the edge detection zone size\n'
           '// by providing a custom Rect that represents\n'
           '// the "hot zone" around the pointer.\n'
           '\n'
@@ -334,28 +357,32 @@ dynamic build(BuildContext context) {
       'velocityScalar': 5.0,
       'label': 'Gentle',
       'color': Colors.teal[300]!,
-      'description': 'Slow auto-scroll. Good for precision work like '
+      'description':
+          'Slow auto-scroll. Good for precision work like '
           'text selection where overshooting is undesirable.',
     },
     {
       'velocityScalar': 10.0,
       'label': 'Default',
       'color': Colors.teal[500]!,
-      'description': 'The default speed. Balanced for general use — '
+      'description':
+          'The default speed. Balanced for general use — '
           'list reordering, moderate-length lists.',
     },
     {
       'velocityScalar': 15.0,
       'label': 'Faster',
       'color': Colors.teal[700]!,
-      'description': 'Quicker scrolling for long lists. Users can '
+      'description':
+          'Quicker scrolling for long lists. Users can '
           'traverse more content per second.',
     },
     {
       'velocityScalar': 20.0,
       'label': 'Maximum',
       'color': Colors.teal[900]!,
-      'description': 'Very fast scrolling. Suitable for very long '
+      'description':
+          'Very fast scrolling. Suitable for very long '
           'lists (hundreds of items) where speed matters more than '
           'precision.',
     },
@@ -412,7 +439,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Call stopAutoScroll on Drag End',
-      'body': 'Always call stopAutoScroll() when the drag gesture ends. '
+      'body':
+          'Always call stopAutoScroll() when the drag gesture ends. '
           'Otherwise, auto-scrolling may continue after the user lifts '
           'their finger. This is the most common mistake when using '
           'EdgeDraggingAutoScroller manually.',
@@ -421,7 +449,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'ScrollableState Must Be Available',
-      'body': 'The EdgeDraggingAutoScroller requires a mounted '
+      'body':
+          'The EdgeDraggingAutoScroller requires a mounted '
           'ScrollableState. Create it in initState\'s post-frame '
           'callback or in didChangeDependencies, not in the '
           'constructor. The scrollable must be in the widget tree.',
@@ -430,7 +459,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Rect Size Matters',
-      'body': 'The Rect you pass to startAutoScrollIfNecessary defines '
+      'body':
+          'The Rect you pass to startAutoScrollIfNecessary defines '
           'the drag "hot zone." A larger rect means auto-scrolling '
           'triggers earlier (when the pointer is farther from the edge). '
           'A 1x1 rect requires the pointer to be exactly at the edge.',
@@ -439,7 +469,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Performance: Frame Budget',
-      'body': 'Auto-scrolling runs on every animation frame (60/120 fps). '
+      'body':
+          'Auto-scrolling runs on every animation frame (60/120 fps). '
           'Keep onScrollViewScrolled lightweight — avoid expensive '
           'rebuilds in the callback. Use it to update positions, not '
           'to trigger complex setState calls.',
@@ -448,7 +479,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Combine with Listener for Global Position',
-      'body': 'Use a Listener widget to get the global pointer position '
+      'body':
+          'Use a Listener widget to get the global pointer position '
           'during drag events. Pass that position to '
           'startAutoScrollIfNecessary(). The Listener captures pointer '
           'events even when the pointer is over different children.',
@@ -457,7 +489,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Works with NestedScrollView',
-      'body': 'EdgeDraggingAutoScroller works with NestedScrollView, '
+      'body':
+          'EdgeDraggingAutoScroller works with NestedScrollView, '
           'but attach it to the correct inner or outer scrollable. '
           'For the outer scroll view, use the outer ScrollableState. '
           'For a specific sliver, use that sliver\'s scrollable.',
@@ -531,101 +564,127 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _edHead('1', 'What is EdgeDraggingAutoScroller?'),
           SizedBox(height: 12),
-          ...conceptCards.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: c['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: c['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(c['icon'] as IconData,
-                            color: c['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          c['icon'] as IconData,
+                          color: c['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(c['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            c['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(c['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      c['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 2: Properties ──
           _edHead('2', 'Properties'),
           SizedBox(height: 12),
-          ...properties.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...properties.map(
+            (p) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          p['icon'] as IconData,
+                          color: p['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(p['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            p['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
                         _edBadge(p['type'] as String, p['color'] as Color),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      p['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -641,180 +700,225 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
-            child: Column(children: [
-              Text('Viewport Edge Zones',
+            child: Column(
+              children: [
+                Text(
+                  'Viewport Edge Zones',
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: Colors.grey[800])),
-              SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey[400]!, width: 2),
-                  borderRadius: BorderRadius.circular(8),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                    color: Colors.grey[800],
+                  ),
                 ),
-                child: Column(children: [
-                  // Top edge
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.teal[100],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(6),
-                        topRight: Radius.circular(6),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text('TOP EDGE ZONE ↑ scroll up',
-                          style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.teal[800])),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.grey[50],
-                      child: Row(children: [
-                        Container(
-                          width: 36,
-                          color: Colors.cyan[50],
-                          child: RotatedBox(
-                            quarterTurns: 3,
-                            child: Center(
-                              child: Text('LEFT',
-                                  style: TextStyle(
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.cyan[700])),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.drag_indicator,
-                                    color: Colors.grey[400], size: 30),
-                                SizedBox(height: 4),
-                                Text('Content Area',
-                                    style: TextStyle(
-                                        color: Colors.grey[500],
-                                        fontSize: 11)),
-                                Text('(no auto-scroll)',
-                                    style: TextStyle(
-                                        color: Colors.grey[400],
-                                        fontSize: 9)),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 36,
-                          color: Colors.cyan[50],
-                          child: RotatedBox(
-                            quarterTurns: 1,
-                            child: Center(
-                              child: Text('RIGHT',
-                                  style: TextStyle(
-                                      fontSize: 8,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.cyan[700])),
-                            ),
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: Colors.teal[100],
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(6),
-                        bottomRight: Radius.circular(6),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text('BOTTOM EDGE ZONE ↓ scroll down',
-                          style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.teal[800])),
-                    ),
-                  ),
-                ]),
-              ),
-            ]),
-          ),
-          SizedBox(height: 12),
-          ...edgeZones.map((ez) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
+                SizedBox(height: 10),
+                Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(12),
+                  height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(
-                          color: ez['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+                    border: Border.all(color: Colors.grey[400]!, width: 2),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Icon(ez['icon'] as IconData,
-                            color: ez['color'] as Color, size: 16),
-                        SizedBox(width: 6),
-                        Text(ez['zone'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12)),
-                      ]),
-                      SizedBox(height: 4),
-                      Text(ez['description'] as String,
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                      SizedBox(height: 4),
+                      // Top edge
                       Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 3),
+                        width: double.infinity,
+                        height: 30,
                         decoration: BoxDecoration(
-                          color:
-                              (ez['color'] as Color).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.teal[100],
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(6),
+                            topRight: Radius.circular(6),
+                          ),
                         ),
-                        child: Text(ez['scrollDir'] as String,
+                        child: Center(
+                          child: Text(
+                            'TOP EDGE ZONE ↑ scroll up',
                             style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: ez['color'] as Color)),
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal[800],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          color: Colors.grey[50],
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 36,
+                                color: Colors.cyan[50],
+                                child: RotatedBox(
+                                  quarterTurns: 3,
+                                  child: Center(
+                                    child: Text(
+                                      'LEFT',
+                                      style: TextStyle(
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.cyan[700],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.drag_indicator,
+                                        color: Colors.grey[400],
+                                        size: 30,
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        'Content Area',
+                                        style: TextStyle(
+                                          color: Colors.grey[500],
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                      Text(
+                                        '(no auto-scroll)',
+                                        style: TextStyle(
+                                          color: Colors.grey[400],
+                                          fontSize: 9,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 36,
+                                color: Colors.cyan[50],
+                                child: RotatedBox(
+                                  quarterTurns: 1,
+                                  child: Center(
+                                    child: Text(
+                                      'RIGHT',
+                                      style: TextStyle(
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.cyan[700],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.teal[100],
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(6),
+                            bottomRight: Radius.circular(6),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'BOTTOM EDGE ZONE ↓ scroll down',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal[800],
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              )),
+              ],
+            ),
+          ),
+          SizedBox(height: 12),
+          ...edgeZones.map(
+            (ez) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(
+                    left: BorderSide(color: ez['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          ez['icon'] as IconData,
+                          color: ez['color'] as Color,
+                          size: 16,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          ez['zone'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      ez['description'] as String,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: (ez['color'] as Color).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        ez['scrollDir'] as String,
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                          color: ez['color'] as Color,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -836,9 +940,10 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
             child: Column(
@@ -846,49 +951,61 @@ dynamic build(BuildContext context) {
                 final fraction = vs['fraction'] as double;
                 return Padding(
                   padding: EdgeInsets.only(bottom: 6),
-                  child: Row(children: [
-                    SizedBox(
+                  child: Row(
+                    children: [
+                      SizedBox(
                         width: 80,
-                        child: Text(vs['distance'] as String,
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.grey[700]))),
-                    SizedBox(width: 6),
-                    Expanded(
-                      child: Stack(children: [
-                        Container(
-                          height: 22,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(4),
+                        child: Text(
+                          vs['distance'] as String,
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: Colors.grey[700],
                           ),
                         ),
-                        FractionallySizedBox(
-                          widthFactor: fraction > 0 ? fraction : 0.02,
-                          child: Container(
-                            height: 22,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.teal[300]!,
-                                  Colors.teal[700]!,
-                                ],
+                      ),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 22,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(4),
                               ),
-                              borderRadius: BorderRadius.circular(4),
                             ),
+                            FractionallySizedBox(
+                              widthFactor: fraction > 0 ? fraction : 0.02,
+                              child: Container(
+                                height: 22,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.teal[300]!,
+                                      Colors.teal[700]!,
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      SizedBox(
+                        width: 60,
+                        child: Text(
+                          vs['speed'] as String,
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.teal[700],
                           ),
                         ),
-                      ]),
-                    ),
-                    SizedBox(width: 8),
-                    SizedBox(
-                        width: 60,
-                        child: Text(vs['speed'] as String,
-                            style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.teal[700]))),
-                  ]),
+                      ),
+                    ],
+                  ),
                 );
               }).toList(),
             ),
@@ -899,140 +1016,166 @@ dynamic build(BuildContext context) {
           // ── Section 5: Use Cases ──
           _edHead('5', 'Common Use Cases'),
           SizedBox(height: 12),
-          ...useCases.map((uc) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: uc['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...useCases.map(
+            (uc) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: uc['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(uc['icon'] as IconData,
-                            color: uc['color'] as Color, size: 18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          uc['icon'] as IconData,
+                          color: uc['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(uc['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
-                        ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(uc['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                      SizedBox(height: 6),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Colors.teal[50],
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(uc['detail'] as String,
+                          child: Text(
+                            uc['name'] as String,
                             style: TextStyle(
-                                fontSize: 10,
-                                fontStyle: FontStyle.italic,
-                                color: Colors.teal[800])),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      uc['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 6),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: Colors.teal[50],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        uc['detail'] as String,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.teal[800],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 6: Code Patterns ──
           _edHead('6', 'Code Patterns'),
           SizedBox(height: 12),
-          ...codePatterns.map((cp) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cp['color'] as Color, width: 4),
+          ...codePatterns.map(
+            (cp) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cp['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cp['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cp['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.cyan[200],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cp['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cp['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.cyan[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Speed Scaling ──
           _edHead('7', 'Scroll Speed Scaling'),
           SizedBox(height: 12),
-          ...scalingExamples.map((se) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border(
-                      left: BorderSide(
-                          color: se['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...scalingExamples.map(
+            (se) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border(
+                    left: BorderSide(color: se['color'] as Color, width: 4),
                   ),
-                  child: Row(children: [
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
                     Container(
                       width: 50,
                       height: 44,
@@ -1041,12 +1184,15 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Center(
-                        child: Text('${se['velocityScalar']}',
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: se['color'] as Color)),
+                        child: Text(
+                          '${se['velocityScalar']}',
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: se['color'] as Color,
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(width: 12),
@@ -1054,22 +1200,30 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(se['label'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12)),
+                          Text(
+                            se['label'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
                           SizedBox(height: 2),
-                          Text(se['description'] as String,
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey[700],
-                                  height: 1.3)),
+                          Text(
+                            se['description'] as String,
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ]),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1083,87 +1237,122 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
-            child: Column(children: [
-              Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Colors.teal[700],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.teal[700],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
                   ),
-                ),
-                child: Row(children: [
-                  SizedBox(
-                      width: 55,
-                      child: Text('Aspect',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                  Expanded(
-                      child: Text('EdgeDragging...',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                  Expanded(
-                      child: Text('ScrollPhysics',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                  Expanded(
-                      child: Text('ScrollController',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9))),
-                ]),
-              ),
-              ...comparisonRows.asMap().entries.map((entry) {
-                final r = entry.value;
-                final isEven = entry.key.isEven;
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 5),
-                  color: isEven ? Colors.grey[50] : Colors.white,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                          width: 55,
-                          child: Text(r['aspect'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 8,
-                                  color: Colors.grey[800]))),
+                        width: 55,
+                        child: Text(
+                          'Aspect',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text(r['edge'] as String,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.teal[700]))),
+                        child: Text(
+                          'EdgeDragging...',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text(r['scrollPhysics'] as String,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.grey[700]))),
+                        child: Text(
+                          'ScrollPhysics',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text(r['controller'] as String,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  color: Colors.grey[700]))),
+                        child: Text(
+                          'ScrollController',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                );
-              }),
-            ]),
+                ),
+                ...comparisonRows.asMap().entries.map((entry) {
+                  final r = entry.value;
+                  final isEven = entry.key.isEven;
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    color: isEven ? Colors.grey[50] : Colors.white,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 55,
+                          child: Text(
+                            r['aspect'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            r['edge'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.teal[700],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            r['scrollPhysics'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            r['controller'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
 
           SizedBox(height: 24),
@@ -1196,29 +1385,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1257,20 +1458,26 @@ Widget _edHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1287,12 +1494,15 @@ Widget _edBadge(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(text,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-            color: color,
-            fontSize: 8,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: color,
+        fontSize: 8,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }

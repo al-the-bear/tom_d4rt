@@ -395,156 +395,175 @@ _SlotGeometry _geometryFor(_FabSlot slot) {
   switch (slot) {
     case _FabSlot.startTop:
       return const _SlotGeometry(
-          label: 'startTop',
-          dx: 0.05,
-          dy: 0.0,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'startTop',
+        dx: 0.05,
+        dy: 0.0,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.centerTop:
       return const _SlotGeometry(
-          label: 'centerTop',
-          dx: 0.5,
-          dy: 0.0,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'centerTop',
+        dx: 0.5,
+        dy: 0.0,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.endTop:
       return const _SlotGeometry(
-          label: 'endTop',
-          dx: 0.95,
-          dy: 0.0,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'endTop',
+        dx: 0.95,
+        dy: 0.0,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniStartTop:
       return const _SlotGeometry(
-          label: 'miniStartTop',
-          dx: 0.05,
-          dy: 0.0,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniStartTop',
+        dx: 0.05,
+        dy: 0.0,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniCenterTop:
       return const _SlotGeometry(
-          label: 'miniCenterTop',
-          dx: 0.5,
-          dy: 0.0,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniCenterTop',
+        dx: 0.5,
+        dy: 0.0,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniEndTop:
       return const _SlotGeometry(
-          label: 'miniEndTop',
-          dx: 0.95,
-          dy: 0.0,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniEndTop',
+        dx: 0.95,
+        dy: 0.0,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.startFloat:
       return const _SlotGeometry(
-          label: 'startFloat',
-          dx: 0.05,
-          dy: 0.8,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'startFloat',
+        dx: 0.05,
+        dy: 0.8,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.centerFloat:
       return const _SlotGeometry(
-          label: 'centerFloat',
-          dx: 0.5,
-          dy: 0.8,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'centerFloat',
+        dx: 0.5,
+        dy: 0.8,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.endFloat:
       return const _SlotGeometry(
-          label: 'endFloat',
-          dx: 0.95,
-          dy: 0.8,
-          mini: false,
-          docked: false,
-          contained: false);
+        label: 'endFloat',
+        dx: 0.95,
+        dy: 0.8,
+        mini: false,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniStartFloat:
       return const _SlotGeometry(
-          label: 'miniStartFloat',
-          dx: 0.05,
-          dy: 0.8,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniStartFloat',
+        dx: 0.05,
+        dy: 0.8,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniCenterFloat:
       return const _SlotGeometry(
-          label: 'miniCenterFloat',
-          dx: 0.5,
-          dy: 0.8,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniCenterFloat',
+        dx: 0.5,
+        dy: 0.8,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.miniEndFloat:
       return const _SlotGeometry(
-          label: 'miniEndFloat',
-          dx: 0.95,
-          dy: 0.8,
-          mini: true,
-          docked: false,
-          contained: false);
+        label: 'miniEndFloat',
+        dx: 0.95,
+        dy: 0.8,
+        mini: true,
+        docked: false,
+        contained: false,
+      );
     case _FabSlot.startDocked:
       return const _SlotGeometry(
-          label: 'startDocked',
-          dx: 0.05,
-          dy: 0.5,
-          mini: false,
-          docked: true,
-          contained: false);
+        label: 'startDocked',
+        dx: 0.05,
+        dy: 0.5,
+        mini: false,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.centerDocked:
       return const _SlotGeometry(
-          label: 'centerDocked',
-          dx: 0.5,
-          dy: 0.5,
-          mini: false,
-          docked: true,
-          contained: false);
+        label: 'centerDocked',
+        dx: 0.5,
+        dy: 0.5,
+        mini: false,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.endDocked:
       return const _SlotGeometry(
-          label: 'endDocked',
-          dx: 0.95,
-          dy: 0.5,
-          mini: false,
-          docked: true,
-          contained: false);
+        label: 'endDocked',
+        dx: 0.95,
+        dy: 0.5,
+        mini: false,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.miniStartDocked:
       return const _SlotGeometry(
-          label: 'miniStartDocked',
-          dx: 0.05,
-          dy: 0.5,
-          mini: true,
-          docked: true,
-          contained: false);
+        label: 'miniStartDocked',
+        dx: 0.05,
+        dy: 0.5,
+        mini: true,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.miniCenterDocked:
       return const _SlotGeometry(
-          label: 'miniCenterDocked',
-          dx: 0.5,
-          dy: 0.5,
-          mini: true,
-          docked: true,
-          contained: false);
+        label: 'miniCenterDocked',
+        dx: 0.5,
+        dy: 0.5,
+        mini: true,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.miniEndDocked:
       return const _SlotGeometry(
-          label: 'miniEndDocked',
-          dx: 0.95,
-          dy: 0.5,
-          mini: true,
-          docked: true,
-          contained: false);
+        label: 'miniEndDocked',
+        dx: 0.95,
+        dy: 0.5,
+        mini: true,
+        docked: true,
+        contained: false,
+      );
     case _FabSlot.endContained:
       return const _SlotGeometry(
-          label: 'endContained',
-          dx: 0.95,
-          dy: 0.6,
-          mini: false,
-          docked: false,
-          contained: true);
+        label: 'endContained',
+        dx: 0.95,
+        dy: 0.6,
+        mini: false,
+        docked: false,
+        contained: true,
+      );
   }
 }
 
@@ -672,11 +691,7 @@ Widget _mockViewport(_FabSlot slot) {
               color: const Color(0x22000000),
             ),
             const SizedBox(height: 6.0),
-            Container(
-              width: 60.0,
-              height: 6.0,
-              color: const Color(0x22000000),
-            ),
+            Container(width: 60.0, height: 6.0, color: const Color(0x22000000)),
           ],
         ),
       ),
@@ -693,9 +708,7 @@ Widget _mockViewport(_FabSlot slot) {
           borderRadius: const BorderRadius.vertical(
             bottom: Radius.circular(16.0),
           ),
-          border: const Border(
-            top: BorderSide(color: _kHairline),
-          ),
+          border: const Border(top: BorderSide(color: _kHairline)),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         alignment: Alignment.centerLeft,
@@ -789,10 +802,7 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1D4ED8),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF1D4ED8), Color(0xFF7C3AED)],
       ),
       borderRadius: BorderRadius.circular(16.0),
     ),
@@ -876,13 +886,15 @@ Widget _heroIntroCard() {
           style: _kBodyStyle,
         ),
         const SizedBox(height: 8.0),
-        const _BulletList(items: <String>[
-          'Sizes the FAB child via a child constraint.',
-          'Computes the anchor point in screen coordinates via the location.',
-          'Cross-fades or scales between locations via the animator.',
-          'Publishes the result on ScaffoldGeometry so SnackBars stack above.',
-          'Notches a BottomAppBar around the FAB if the location is docked.',
-        ]),
+        const _BulletList(
+          items: <String>[
+            'Sizes the FAB child via a child constraint.',
+            'Computes the anchor point in screen coordinates via the location.',
+            'Cross-fades or scales between locations via the animator.',
+            'Publishes the result on ScaffoldGeometry so SnackBars stack above.',
+            'Notches a BottomAppBar around the FAB if the location is docked.',
+          ],
+        ),
         const SizedBox(height: 10.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -895,11 +907,7 @@ Widget _heroIntroCard() {
             'Rule of thumb: when you change FAB location across a route, change '
             'the location property, not the FAB widget identity. Scaffold will '
             'tween the position; rebuilding a different FAB widget hops.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.45,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.45, color: _kInk),
           ),
         ),
       ],
@@ -952,54 +960,119 @@ class _AnatomyRow {
 
 const List<_AnatomyRow> _kAnatomyConfig = <_AnatomyRow>[
   _AnatomyRow('child', 'Widget?', 'Icon or label shown inside the FAB.'),
-  _AnatomyRow('onPressed', 'VoidCallback?',
-      'Tap handler; null disables the button and lowers elevation.'),
-  _AnatomyRow('tooltip', 'String?',
-      'Long-press / hover tooltip text, also used for semantics.'),
-  _AnatomyRow('foregroundColor', 'Color?',
-      'Text/icon colour, falls back to colorScheme.onPrimaryContainer.'),
-  _AnatomyRow('backgroundColor', 'Color?',
-      'Surface colour, falls back to colorScheme.primaryContainer.'),
-  _AnatomyRow('focusColor', 'Color?',
-      'Overlay when focused via keyboard / FocusNode.'),
-  _AnatomyRow('hoverColor', 'Color?',
-      'Overlay when pointer hovers (mouse / stylus).'),
-  _AnatomyRow('splashColor', 'Color?',
-      'Ink-splash colour painted at the tap origin.'),
   _AnatomyRow(
-      'elevation', 'double?', 'Default resting elevation; commonly 6 dp.'),
-  _AnatomyRow('focusElevation', 'double?',
-      'Elevation when focused; commonly 8 dp.'),
-  _AnatomyRow('hoverElevation', 'double?',
-      'Elevation when hovered; commonly 8 dp.'),
-  _AnatomyRow('highlightElevation', 'double?',
-      'Elevation while pressed; commonly 12 dp.'),
-  _AnatomyRow('disabledElevation', 'double?',
-      'Elevation when onPressed is null; defaults to 0 in M3.'),
+    'onPressed',
+    'VoidCallback?',
+    'Tap handler; null disables the button and lowers elevation.',
+  ),
+  _AnatomyRow(
+    'tooltip',
+    'String?',
+    'Long-press / hover tooltip text, also used for semantics.',
+  ),
+  _AnatomyRow(
+    'foregroundColor',
+    'Color?',
+    'Text/icon colour, falls back to colorScheme.onPrimaryContainer.',
+  ),
+  _AnatomyRow(
+    'backgroundColor',
+    'Color?',
+    'Surface colour, falls back to colorScheme.primaryContainer.',
+  ),
+  _AnatomyRow(
+    'focusColor',
+    'Color?',
+    'Overlay when focused via keyboard / FocusNode.',
+  ),
+  _AnatomyRow(
+    'hoverColor',
+    'Color?',
+    'Overlay when pointer hovers (mouse / stylus).',
+  ),
+  _AnatomyRow(
+    'splashColor',
+    'Color?',
+    'Ink-splash colour painted at the tap origin.',
+  ),
+  _AnatomyRow(
+    'elevation',
+    'double?',
+    'Default resting elevation; commonly 6 dp.',
+  ),
+  _AnatomyRow(
+    'focusElevation',
+    'double?',
+    'Elevation when focused; commonly 8 dp.',
+  ),
+  _AnatomyRow(
+    'hoverElevation',
+    'double?',
+    'Elevation when hovered; commonly 8 dp.',
+  ),
+  _AnatomyRow(
+    'highlightElevation',
+    'double?',
+    'Elevation while pressed; commonly 12 dp.',
+  ),
+  _AnatomyRow(
+    'disabledElevation',
+    'double?',
+    'Elevation when onPressed is null; defaults to 0 in M3.',
+  ),
   _AnatomyRow('mini', 'bool', 'True => 40x40 FAB; false => 56x56 FAB.'),
-  _AnatomyRow('isExtended', 'bool',
-      'True for the extended (pill) variant with label + icon.'),
-  _AnatomyRow('extendedIconLabelSpacing', 'double?',
-      'Gap between icon and label when isExtended is true.'),
-  _AnatomyRow('extendedPadding', 'EdgeInsetsGeometry?',
-      'Padding inside an extended FAB.'),
   _AnatomyRow(
-      'extendedTextStyle', 'TextStyle?', 'TextStyle for the extended label.'),
-  _AnatomyRow('shape', 'ShapeBorder?',
-      'Border shape; defaults to a circle (RoundedRectangleBorder in M3).'),
-  _AnatomyRow('clipBehavior', 'Clip',
-      'How the child is clipped; defaults to Clip.none.'),
+    'isExtended',
+    'bool',
+    'True for the extended (pill) variant with label + icon.',
+  ),
+  _AnatomyRow(
+    'extendedIconLabelSpacing',
+    'double?',
+    'Gap between icon and label when isExtended is true.',
+  ),
+  _AnatomyRow(
+    'extendedPadding',
+    'EdgeInsetsGeometry?',
+    'Padding inside an extended FAB.',
+  ),
+  _AnatomyRow(
+    'extendedTextStyle',
+    'TextStyle?',
+    'TextStyle for the extended label.',
+  ),
+  _AnatomyRow(
+    'shape',
+    'ShapeBorder?',
+    'Border shape; defaults to a circle (RoundedRectangleBorder in M3).',
+  ),
+  _AnatomyRow(
+    'clipBehavior',
+    'Clip',
+    'How the child is clipped; defaults to Clip.none.',
+  ),
   _AnatomyRow('autofocus', 'bool', 'Whether to take focus on mount.'),
-  _AnatomyRow('focusNode', 'FocusNode?',
-      'External FocusNode for traversal/keyboard control.'),
-  _AnatomyRow('heroTag', 'Object?',
-      'Hero animation tag; default is const _DefaultHeroTag().'),
-  _AnatomyRow('materialTapTargetSize', 'MaterialTapTargetSize?',
-      'Padded vs shrink-wrapped hit target.'),
-  _AnatomyRow('enableFeedback', 'bool?',
-      'Audio/haptic feedback on press; usually true.'),
   _AnatomyRow(
-      'mouseCursor', 'MouseCursor?', 'Cursor while hovering the FAB.'),
+    'focusNode',
+    'FocusNode?',
+    'External FocusNode for traversal/keyboard control.',
+  ),
+  _AnatomyRow(
+    'heroTag',
+    'Object?',
+    'Hero animation tag; default is const _DefaultHeroTag().',
+  ),
+  _AnatomyRow(
+    'materialTapTargetSize',
+    'MaterialTapTargetSize?',
+    'Padded vs shrink-wrapped hit target.',
+  ),
+  _AnatomyRow(
+    'enableFeedback',
+    'bool?',
+    'Audio/haptic feedback on press; usually true.',
+  ),
+  _AnatomyRow('mouseCursor', 'MouseCursor?', 'Cursor while hovering the FAB.'),
 ];
 
 Widget _anatomySection() {
@@ -1007,9 +1080,11 @@ Widget _anatomySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Public surface of FloatingActionButton',
-            subtitle:
-                'Configuration, style, semantics. Pulled from the Flutter SDK.'),
+        _cardTitle(
+          'Public surface of FloatingActionButton',
+          subtitle:
+              'Configuration, style, semantics. Pulled from the Flutter SDK.',
+        ),
         const SizedBox(height: 12.0),
         Container(
           decoration: BoxDecoration(
@@ -1020,11 +1095,14 @@ Widget _anatomySection() {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 8.0),
+                  horizontal: 12.0,
+                  vertical: 8.0,
+                ),
                 decoration: const BoxDecoration(
                   color: _kCardSoft,
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(8.0)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(8.0),
+                  ),
                   border: Border(bottom: BorderSide(color: _kHairline)),
                 ),
                 child: Row(
@@ -1044,12 +1122,12 @@ Widget _anatomySection() {
               for (int i = 0; i < _kAnatomyConfig.length; i++)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: i.isEven ? _kCardBg : _kCardSoft,
-                    border: const Border(
-                      bottom: BorderSide(color: _kHairline),
-                    ),
+                    border: const Border(bottom: BorderSide(color: _kHairline)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1165,9 +1243,10 @@ Widget _sizeVariantsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Size variants side-by-side',
-            subtitle:
-                'Default vs .small vs .large vs .extended at native sizes.'),
+        _cardTitle(
+          'Size variants side-by-side',
+          subtitle: 'Default vs .small vs .large vs .extended at native sizes.',
+        ),
         const SizedBox(height: 16.0),
         Wrap(
           spacing: 18.0,
@@ -1214,11 +1293,7 @@ Widget _sizeVariantsSection() {
             '* .small  - dense screens where a 56dp circle is too loud.\n'
             '* .large  - hero CTA on a feature screen; pair with M3 navigation.\n'
             '* .extended - when the action needs a label and the screen is wide.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.55,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.55, color: _kInk),
           ),
         ),
       ],
@@ -1379,8 +1454,10 @@ Widget _locationGallery() {
               _pill('top: above body, below appbar', colour: _kAccentTeal),
               _pill('float: above bottom bar', colour: _kAccent),
               _pill('docked: straddles BottomAppBar', colour: _kAccentViolet),
-              _pill('contained: inside BottomAppBar band',
-                  colour: _kAccentAmber),
+              _pill(
+                'contained: inside BottomAppBar band',
+                colour: _kAccentAmber,
+              ),
               _pill('mini: 40x40 footprint', colour: _kAccentPink),
             ],
           ),
@@ -1399,9 +1476,11 @@ Widget _animatorSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('FloatingActionButtonAnimator',
-            subtitle:
-                'Bridges location/animation when FAB or its location changes.'),
+        _cardTitle(
+          'FloatingActionButtonAnimator',
+          subtitle:
+              'Bridges location/animation when FAB or its location changes.',
+        ),
         const SizedBox(height: 10.0),
         const Text(
           'Scaffold delegates the FAB transition to a '
@@ -1534,9 +1613,12 @@ Widget _notchSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('BottomAppBar with a docked FAB notch',
-            subtitle: 'A wide mock viewport showing how Scaffold sews the FAB '
-                'into the BottomAppBar.'),
+        _cardTitle(
+          'BottomAppBar with a docked FAB notch',
+          subtitle:
+              'A wide mock viewport showing how Scaffold sews the FAB '
+              'into the BottomAppBar.',
+        ),
         const SizedBox(height: 14.0),
         // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #51, P2):
         // The mock-viewport Stack was 220 dp tall, of which the body band
@@ -1569,8 +1651,9 @@ Widget _notchSection() {
                     height: 44.0,
                     decoration: const BoxDecoration(
                       color: _kAppBarMock,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(18.0)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(18.0),
+                      ),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     alignment: Alignment.centerLeft,
@@ -1601,8 +1684,7 @@ Widget _notchSection() {
                       children: <Widget>[
                         for (int i = 0; i < 4; i++)
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 5.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Row(
                               children: <Widget>[
                                 Container(
@@ -1650,8 +1732,7 @@ Widget _notchSection() {
                     child: CustomPaint(
                       painter: _NotchedBabPainter(),
                       child: Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Row(
                           children: const <Widget>[
                             Icon(Icons.menu, color: _kInk, size: 22.0),
@@ -1660,8 +1741,11 @@ Widget _notchSection() {
                             Spacer(),
                             SizedBox(width: 80.0), // notch reserve
                             Spacer(),
-                            Icon(Icons.bookmark_border,
-                                color: _kInk, size: 22.0),
+                            Icon(
+                              Icons.bookmark_border,
+                              color: _kInk,
+                              size: 22.0,
+                            ),
                             SizedBox(width: 12.0),
                             Icon(Icons.more_vert, color: _kInk, size: 22.0),
                           ],
@@ -1701,7 +1785,8 @@ Widget _notchSection() {
                   right: 10.0,
                   top: 50.0,
                   child: _AnnotationArrow(
-                    label: 'notchMargin: 4 dp gap\n'
+                    label:
+                        'notchMargin: 4 dp gap\n'
                         'between BAB and FAB',
                     colour: _kAccentRose,
                   ),
@@ -1810,14 +1895,13 @@ Widget _featureControllerSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('ScaffoldFeatureController<T, U>',
-            subtitle:
-                'The return value of showSnackBar / showBottomSheet / showMaterialBanner.'),
-        const SizedBox(height: 10.0),
-        const Text(
-          'Whenever you call one of these:',
-          style: _kBodyStyle,
+        _cardTitle(
+          'ScaffoldFeatureController<T, U>',
+          subtitle:
+              'The return value of showSnackBar / showBottomSheet / showMaterialBanner.',
         ),
+        const SizedBox(height: 10.0),
+        const Text('Whenever you call one of these:', style: _kBodyStyle),
         const SizedBox(height: 6.0),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),
@@ -1864,8 +1948,7 @@ Widget _featureControllerSection() {
               _CtrlReturnRow(
                 from: 'showMaterialBanner',
                 generic: 'MaterialBanner, MaterialBannerClosedReason',
-                tip:
-                    'banners stack; close them via the controller or queue.',
+                tip: 'banners stack; close them via the controller or queue.',
               ),
               _CtrlReturnRow(
                 from: 'showBottomSheet',
@@ -1897,11 +1980,7 @@ Widget _featureControllerSection() {
             '* close() is idempotent; calling twice is a no-op.\n'
             '* The controller does not survive route pop; use ScaffoldMessenger '
             'for app-wide SnackBars.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.55,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.55, color: _kInk),
           ),
         ),
       ],
@@ -1928,10 +2007,7 @@ class _CtrlReturnRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 220.0,
-            child: Text(from, style: _kMonoInlineStyle),
-          ),
+          SizedBox(width: 220.0, child: Text(from, style: _kMonoInlineStyle)),
           SizedBox(
             width: 200.0,
             child: Text(
@@ -2126,18 +2202,17 @@ Widget _pitfallsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Six things that bite Flutter engineers',
-            subtitle: 'Each callout maps to a real-world bug report.'),
+        _cardTitle(
+          'Six things that bite Flutter engineers',
+          subtitle: 'Each callout maps to a real-world bug report.',
+        ),
         const SizedBox(height: 12.0),
         Wrap(
           spacing: 12.0,
           runSpacing: 12.0,
           children: <Widget>[
             for (int i = 0; i < _kPitfalls.length; i++)
-              SizedBox(
-                width: 280.0,
-                child: _PitfallTile(_kPitfalls[i]),
-              ),
+              SizedBox(width: 280.0, child: _PitfallTile(_kPitfalls[i])),
           ],
         ),
       ],
@@ -2270,10 +2345,7 @@ Widget _cheatSheetFooter() {
         const SizedBox(height: 4.0),
         const Text(
           'Pick a row, grep the SDK, apply.',
-          style: TextStyle(
-            color: _kInkOnDarkSecondary,
-            fontSize: 13.0,
-          ),
+          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 13.0),
         ),
         const SizedBox(height: 14.0),
         Wrap(
@@ -2398,56 +2470,83 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(1, 'Why FAB lives inside Scaffold',
-              'A layout slot, not just a circular button.'),
+          _sectionHeader(
+            1,
+            'Why FAB lives inside Scaffold',
+            'A layout slot, not just a circular button.',
+          ),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(2, 'FAB anatomy',
-              'Public surface: properties, named constructors.'),
+          _sectionHeader(
+            2,
+            'FAB anatomy',
+            'Public surface: properties, named constructors.',
+          ),
           _anatomySection(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(3, 'Size variants',
-              'default vs .small vs .large vs .extended.'),
+          _sectionHeader(
+            3,
+            'Size variants',
+            'default vs .small vs .large vs .extended.',
+          ),
           _sizeVariantsSection(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(4, 'Location gallery',
-              '19 mock Scaffold viewports, one per location constant.'),
+          _sectionHeader(
+            4,
+            'Location gallery',
+            '19 mock Scaffold viewports, one per location constant.',
+          ),
           _locationGallery(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(5, 'FloatingActionButtonAnimator',
-              'Swap animations driven by Scaffold internals.'),
+          _sectionHeader(
+            5,
+            'FloatingActionButtonAnimator',
+            'Swap animations driven by Scaffold internals.',
+          ),
           _animatorSection(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(6, 'BottomAppBar + FAB notch',
-              'How docked FABs cut a notch in the BottomAppBar.'),
+          _sectionHeader(
+            6,
+            'BottomAppBar + FAB notch',
+            'How docked FABs cut a notch in the BottomAppBar.',
+          ),
           _notchSection(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(7, 'ScaffoldFeatureController',
-              'Typed handle returned by show* APIs.'),
+          _sectionHeader(
+            7,
+            'ScaffoldFeatureController',
+            'Typed handle returned by show* APIs.',
+          ),
           _featureControllerSection(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(8, 'Recipes',
-              'Eight idiomatic FAB / Scaffold patterns.'),
+          _sectionHeader(
+            8,
+            'Recipes',
+            'Eight idiomatic FAB / Scaffold patterns.',
+          ),
           _recipesSection(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(9, 'Pitfalls',
-              'Six callouts that commonly bite Flutter engineers.'),
+          _sectionHeader(
+            9,
+            'Pitfalls',
+            'Six callouts that commonly bite Flutter engineers.',
+          ),
           _pitfallsSection(),
           _sectionDivider(),
 

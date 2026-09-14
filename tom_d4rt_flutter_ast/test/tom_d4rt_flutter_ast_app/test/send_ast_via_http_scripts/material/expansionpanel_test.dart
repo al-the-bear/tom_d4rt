@@ -189,9 +189,7 @@ dynamic build(BuildContext context) {
                 title: Text(
                   faq[i]['q'] ?? '',
                   style: TextStyle(
-                    fontWeight: isExpanded
-                        ? FontWeight.bold
-                        : FontWeight.w500,
+                    fontWeight: isExpanded ? FontWeight.bold : FontWeight.w500,
                   ),
                 ),
                 subtitle: Text(
@@ -314,10 +312,7 @@ dynamic build(BuildContext context) {
               _toggleRow('Weekly digest', true),
               _toggleRow('Promotional updates', false),
               SizedBox(height: 8),
-              Text(
-                'Frequency',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              Text('Frequency', style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(height: 4),
               Wrap(
                 spacing: 8,
@@ -574,8 +569,7 @@ dynamic build(BuildContext context) {
     {
       'title': 'Recipe 4: Auto-collapse on selection',
       'use': 'Close panel after a body action by calling setState',
-      'snippet':
-          'onTap: () => setState(() => _open[index] = false)',
+      'snippet': 'onTap: () => setState(() => _open[index] = false)',
     },
     {
       'title': 'Recipe 5: Custom divider color',
@@ -711,13 +705,11 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'materialGapSize',
-      'def':
-          'Vertical gap (logical pixels) between panels. Defaults to 16.',
+      'def': 'Vertical gap (logical pixels) between panels. Defaults to 16.',
     },
     {
       'term': 'animationDuration',
-      'def':
-          'Length of the expand/collapse motion. Defaults to ~200ms.',
+      'def': 'Length of the expand/collapse motion. Defaults to ~200ms.',
     },
     {
       'term': 'initialOpenPanelValue',
@@ -1491,11 +1483,7 @@ Widget _outlinedButton(String label, {bool danger = false}) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: color,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.bold),
     ),
   );
 }

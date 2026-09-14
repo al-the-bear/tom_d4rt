@@ -147,7 +147,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                   child: Center(
                     child: Text(
                       '${i + j}',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -158,7 +161,11 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             right: 10,
             child: Text(
               'Background Content',
-              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -201,14 +208,19 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: BackdropFilter(
-                          filter: ui.ImageFilter.blur(sigmaX: _basicBlurX, sigmaY: _basicBlurY),
+                          filter: ui.ImageFilter.blur(
+                            sigmaX: _basicBlurX,
+                            sigmaY: _basicBlurY,
+                          ),
                           child: Container(
                             width: 180,
                             height: 100,
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.3),
+                              ),
                             ),
                             child: Center(
                               child: Text(
@@ -216,7 +228,14 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  shadows: [Shadow(blurRadius: 2, color: Colors.black.withValues(alpha: 0.5))],
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 2,
+                                      color: Colors.black.withValues(
+                                        alpha: 0.5,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -246,7 +265,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_basicBlurX.toStringAsFixed(1))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_basicBlurX.toStringAsFixed(1)),
+                ),
               ],
             ),
 
@@ -265,14 +287,21 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_basicBlurY.toStringAsFixed(1))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_basicBlurY.toStringAsFixed(1)),
+                ),
               ],
             ),
 
             const SizedBox(height: 8),
             const Text(
               'Note: BackdropFilter only affects content visually behind it in the stack.',
-              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 12,
+                color: Colors.grey,
+              ),
             ),
 
             print('Basic blur section rendered'),
@@ -362,7 +391,13 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.red, Colors.orange, Colors.yellow, Colors.green, Colors.blue],
+                          colors: [
+                            Colors.red,
+                            Colors.orange,
+                            Colors.yellow,
+                            Colors.green,
+                            Colors.blue,
+                          ],
                         ),
                       ),
                       child: Center(
@@ -396,7 +431,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                             child: Center(
                               child: Text(
                                 'TileMode: ${tileModes.entries.firstWhere((e) => e.value == _tileMode).key}',
-                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -434,38 +472,108 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
 
     // Grayscale matrix
     const grayscale = <double>[
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0.2126, 0.7152, 0.0722, 0, 0,
-      0, 0, 0, 1, 0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     // Sepia matrix
     const sepia = <double>[
-      0.393, 0.769, 0.189, 0, 0,
-      0.349, 0.686, 0.168, 0, 0,
-      0.272, 0.534, 0.131, 0, 0,
-      0, 0, 0, 1, 0,
+      0.393,
+      0.769,
+      0.189,
+      0,
+      0,
+      0.349,
+      0.686,
+      0.168,
+      0,
+      0,
+      0.272,
+      0.534,
+      0.131,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     // Invert matrix
     const invert = <double>[
-      -1, 0, 0, 0, 255,
-      0, -1, 0, 0, 255,
-      0, 0, -1, 0, 255,
-      0, 0, 0, 1, 0,
+      -1,
+      0,
+      0,
+      0,
+      255,
+      0,
+      -1,
+      0,
+      0,
+      255,
+      0,
+      0,
+      -1,
+      0,
+      255,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     // High contrast
     const highContrast = <double>[
-      2, 0, 0, 0, -128,
-      0, 2, 0, 0, -128,
-      0, 0, 2, 0, -128,
-      0, 0, 0, 1, 0,
+      2,
+      0,
+      0,
+      0,
+      -128,
+      0,
+      2,
+      0,
+      0,
+      -128,
+      0,
+      0,
+      2,
+      0,
+      -128,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
 
     final matrices = [identity, grayscale, sepia, invert, highContrast];
-    final matrixNames = ['Identity', 'Grayscale', 'Sepia', 'Invert', 'High Contrast'];
+    final matrixNames = [
+      'Identity',
+      'Grayscale',
+      'Sepia',
+      'Invert',
+      'High Contrast',
+    ];
 
     return Card(
       child: Padding(
@@ -511,13 +619,23 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: const NetworkImage('https://picsum.photos/400/200'),
+                        image: const NetworkImage(
+                          'https://picsum.photos/400/200',
+                        ),
                         fit: BoxFit.cover,
-                        colorFilter: ColorFilter.mode(Colors.transparent.withValues(alpha: 0), BlendMode.dst),
+                        colorFilter: ColorFilter.mode(
+                          Colors.transparent.withValues(alpha: 0),
+                          BlendMode.dst,
+                        ),
                         onError: (_, __) {},
                       ),
                       gradient: const LinearGradient(
-                        colors: [Colors.pink, Colors.purple, Colors.indigo, Colors.cyan],
+                        colors: [
+                          Colors.pink,
+                          Colors.purple,
+                          Colors.indigo,
+                          Colors.cyan,
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -526,9 +644,19 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.image, size: 60, color: Colors.white.withValues(alpha: 0.8)),
+                          Icon(
+                            Icons.image,
+                            size: 60,
+                            color: Colors.white.withValues(alpha: 0.8),
+                          ),
                           const SizedBox(height: 8),
-                          Text('Sample Content', style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 18)),
+                          Text(
+                            'Sample Content',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              fontSize: 18,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           Text(
                             matrixNames[_colorMatrixType],
@@ -549,7 +677,11 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             const SizedBox(height: 8),
             const Text(
               'Note: Color matrices transform RGBA values using a 5x4 matrix multiplication.',
-              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12, color: Colors.grey),
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontSize: 12,
+                color: Colors.grey,
+              ),
             ),
 
             print('Color matrix section rendered'),
@@ -594,7 +726,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_combinedBlur.toStringAsFixed(1))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_combinedBlur.toStringAsFixed(1)),
+                ),
               ],
             ),
 
@@ -612,7 +747,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                     },
                   ),
                 ),
-                SizedBox(width: 40, child: Text(_combinedOpacity.toStringAsFixed(2))),
+                SizedBox(
+                  width: 40,
+                  child: Text(_combinedOpacity.toStringAsFixed(2)),
+                ),
               ],
             ),
 
@@ -631,9 +769,14 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: BackdropFilter(
-                          filter: ui.ImageFilter.blur(sigmaX: _combinedBlur, sigmaY: _combinedBlur),
+                          filter: ui.ImageFilter.blur(
+                            sigmaX: _combinedBlur,
+                            sigmaY: _combinedBlur,
+                          ),
                           child: Container(
-                            color: Colors.teal.withValues(alpha: _combinedOpacity * 0.5),
+                            color: Colors.teal.withValues(
+                              alpha: _combinedOpacity * 0.5,
+                            ),
                             child: const Center(
                               child: Text(
                                 'Blur + Color Overlay',
@@ -691,10 +834,7 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
         case 1:
           return ClipOval(child: child);
         case 2:
-          return ClipPath(
-            clipper: _DiamondClipper(),
-            child: child,
-          );
+          return ClipPath(clipper: _DiamondClipper(), child: child);
         case 3:
           return ClipRRect(
             borderRadius: BorderRadius.circular(16),
@@ -705,7 +845,13 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
       }
     }
 
-    final shapeNames = ['Circle (RRect)', 'Oval', 'Diamond', 'Rounded', 'Rectangle'];
+    final shapeNames = [
+      'Circle (RRect)',
+      'Oval',
+      'Diamond',
+      'Rounded',
+      'Rectangle',
+    ];
 
     return Card(
       child: Padding(
@@ -799,14 +945,21 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                         duration: const Duration(milliseconds: 300),
                         builder: (context, value, child) {
                           return BackdropFilter(
-                            filter: ui.ImageFilter.blur(sigmaX: value, sigmaY: value),
+                            filter: ui.ImageFilter.blur(
+                              sigmaX: value,
+                              sigmaY: value,
+                            ),
                             child: Container(
                               color: Colors.transparent,
                               child: Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.blur_on, size: 48, color: Colors.white),
+                                    const Icon(
+                                      Icons.blur_on,
+                                      size: 48,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(height: 8),
                                     Text(
                                       'Blur: ${value.toStringAsFixed(1)}',
@@ -843,7 +996,9 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                       print('Animated blur target: $blur');
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _animatedBlur == blur ? Colors.teal : null,
+                      backgroundColor: _animatedBlur == blur
+                          ? Colors.teal
+                          : null,
                     ),
                     child: Text(blur.toInt().toString()),
                   ),
@@ -882,7 +1037,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             const SizedBox(height: 16),
 
             // Use Case 1: Frosted Glass Dialog
-            const Text('1. Frosted Glass Dialog:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '1. Frosted Glass Dialog:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -908,7 +1066,9 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withValues(alpha: 0.2),
+                                        color: Colors.black.withValues(
+                                          alpha: 0.2,
+                                        ),
                                         blurRadius: 20,
                                       ),
                                     ],
@@ -916,12 +1076,21 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Text('Frosted Dialog', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                      const Text(
+                                        'Frosted Dialog',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                       const SizedBox(height: 8),
-                                      const Text('This dialog has a frosted glass effect behind it.'),
+                                      const Text(
+                                        'This dialog has a frosted glass effect behind it.',
+                                      ),
                                       const SizedBox(height: 12),
                                       ElevatedButton(
-                                        onPressed: () => setState(() => _showDialog = false),
+                                        onPressed: () =>
+                                            setState(() => _showDialog = false),
                                         child: const Text('Close'),
                                       ),
                                     ],
@@ -955,7 +1124,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             const SizedBox(height: 24),
 
             // Use Case 2: Navigation Overlay
-            const Text('2. Blurred Navigation:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '2. Blurred Navigation:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -971,17 +1143,34 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                       bottom: 0,
                       child: ClipRect(
                         child: BackdropFilter(
-                          filter: ui.ImageFilter.blur(sigmaX: _showNavOverlay ? 15 : 0, sigmaY: _showNavOverlay ? 15 : 0),
+                          filter: ui.ImageFilter.blur(
+                            sigmaX: _showNavOverlay ? 15 : 0,
+                            sigmaY: _showNavOverlay ? 15 : 0,
+                          ),
                           child: Container(
                             height: 60,
-                            color: Colors.white.withValues(alpha: _showNavOverlay ? 0.7 : 0.95),
+                            color: Colors.white.withValues(
+                              alpha: _showNavOverlay ? 0.7 : 0.95,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                IconButton(icon: const Icon(Icons.home), onPressed: () {}),
-                                IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-                                IconButton(icon: const Icon(Icons.favorite), onPressed: () {}),
-                                IconButton(icon: const Icon(Icons.person), onPressed: () {}),
+                                IconButton(
+                                  icon: const Icon(Icons.home),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.search),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.favorite),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.person),
+                                  onPressed: () {},
+                                ),
                               ],
                             ),
                           ),
@@ -1009,7 +1198,10 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             const SizedBox(height: 16),
 
             // Use Case 3: iOS-style card
-            const Text('3. iOS-style Blur Card:', style: TextStyle(fontWeight: FontWeight.w500)),
+            const Text(
+              '3. iOS-style Blur Card:',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
             const SizedBox(height: 8),
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -1030,23 +1222,46 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               color: Colors.white.withValues(alpha: 0.3),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.4),
+                              ),
                             ),
                             child: const Row(
                               children: [
-                                Icon(Icons.music_note, color: Colors.white, size: 32),
+                                Icon(
+                                  Icons.music_note,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
                                 SizedBox(width: 12),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Text('Now Playing', style: TextStyle(color: Colors.white70, fontSize: 12)),
-                                      Text('Beautiful Song', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                      Text(
+                                        'Now Playing',
+                                        style: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Beautiful Song',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-                                Icon(Icons.play_arrow, color: Colors.white, size: 32),
+                                Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
                               ],
                             ),
                           ),
@@ -1096,9 +1311,21 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             ),
             const Divider(),
 
-            _buildApiRow('filter', 'ImageFilter', 'Filter to apply to backdrop'),
-            _buildApiRow('blendMode', 'BlendMode', 'Blend mode for composition (default: srcOver)'),
-            _buildApiRow('child', 'Widget?', 'Widget to display above the filter'),
+            _buildApiRow(
+              'filter',
+              'ImageFilter',
+              'Filter to apply to backdrop',
+            ),
+            _buildApiRow(
+              'blendMode',
+              'BlendMode',
+              'Blend mode for composition (default: srcOver)',
+            ),
+            _buildApiRow(
+              'child',
+              'Widget?',
+              'Widget to display above the filter',
+            ),
 
             const SizedBox(height: 12),
             const Text(
@@ -1107,7 +1334,9 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
             ),
             const SizedBox(height: 4),
             const Text('• blur(sigmaX, sigmaY, [tileMode]) - Gaussian blur'),
-            const Text('• matrix(Float64List 4x4) - Geometric transform (use ColorFilter.matrix for color)'),
+            const Text(
+              '• matrix(Float64List 4x4) - Geometric transform (use ColorFilter.matrix for color)',
+            ),
             const Text('• compose(outer, inner) - Chain two filters'),
             const Text('• dilate(radiusX, radiusY) - Morphological dilation'),
             const Text('• erode(radiusX, radiusY) - Morphological erosion'),
@@ -1118,10 +1347,14 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
-            const Text('• Requires a Clip widget (ClipRect, ClipRRect, ClipOval) to bound effect'),
+            const Text(
+              '• Requires a Clip widget (ClipRect, ClipRRect, ClipOval) to bound effect',
+            ),
             const Text('• Only affects content behind in the render tree'),
             const Text('• Can be expensive - use judiciously'),
-            const Text('• Common for frosted glass, blur overlays, iOS-style effects'),
+            const Text(
+              '• Common for frosted glass, blur overlays, iOS-style effects',
+            ),
           ],
         ),
       ),
@@ -1136,13 +1369,31 @@ class _BackdropFilterDemoState extends State<BackdropFilterDemo> {
         children: [
           SizedBox(
             width: 100,
-            child: Text(name, style: const TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           SizedBox(
             width: 100,
-            child: Text(type, style: const TextStyle(fontFamily: 'monospace', color: Colors.blue, fontSize: 12)),
+            child: Text(
+              type,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: Colors.blue,
+                fontSize: 12,
+              ),
+            ),
           ),
-          Expanded(child: Text(description, style: const TextStyle(fontSize: 12, color: Colors.grey))),
+          Expanded(
+            child: Text(
+              description,
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ),
         ],
       ),
     );

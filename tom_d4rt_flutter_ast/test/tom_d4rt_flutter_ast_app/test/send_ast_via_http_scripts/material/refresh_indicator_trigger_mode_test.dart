@@ -23,10 +23,16 @@ dynamic build(BuildContext context) {
   // 2. Identity & equality checks
   // ──────────────────────────────────────────────
   print('\n[2] Identity & equality checks');
-  print('  anywhere == anywhere: ${rtAnywhere == RefreshIndicatorTriggerMode.anywhere}');
+  print(
+    '  anywhere == anywhere: ${rtAnywhere == RefreshIndicatorTriggerMode.anywhere}',
+  );
   print('  anywhere == onEdge: ${rtAnywhere == rtOnEdge}');
-  print('  identical(anywhere, values[0]): ${identical(rtAnywhere, rtAllValues[0])}');
-  print('  identical(onEdge, values[1]): ${identical(rtOnEdge, rtAllValues[1])}');
+  print(
+    '  identical(anywhere, values[0]): ${identical(rtAnywhere, rtAllValues[0])}',
+  );
+  print(
+    '  identical(onEdge, values[1]): ${identical(rtOnEdge, rtAllValues[1])}',
+  );
 
   // ──────────────────────────────────────────────
   // 3. Index arithmetic & round-trip
@@ -34,7 +40,9 @@ dynamic build(BuildContext context) {
   print('\n[3] Index arithmetic & round-trip');
   for (final v in rtAllValues) {
     final roundTrip = RefreshIndicatorTriggerMode.values[v.index];
-    print('  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})');
+    print(
+      '  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})',
+    );
   }
 
   // ──────────────────────────────────────────────
@@ -52,9 +60,11 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[5] Sorting & ordering');
   print('  Natural: ${rtAllValues.map((v) => v.name).join(", ")}');
-  final rtAlpha = List<RefreshIndicatorTriggerMode>.from(rtAllValues)..sort((a, b) => a.name.compareTo(b.name));
+  final rtAlpha = List<RefreshIndicatorTriggerMode>.from(rtAllValues)
+    ..sort((a, b) => a.name.compareTo(b.name));
   print('  Alpha  : ${rtAlpha.map((v) => v.name).join(", ")}');
-  final rtRev = List<RefreshIndicatorTriggerMode>.from(rtAllValues)..sort((a, b) => b.index.compareTo(a.index));
+  final rtRev = List<RefreshIndicatorTriggerMode>.from(rtAllValues)
+    ..sort((a, b) => b.index.compareTo(a.index));
   print('  Reverse: ${rtRev.map((v) => v.name).join(", ")}');
 
   // ──────────────────────────────────────────────
@@ -62,7 +72,8 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[6] Map-based behaviour description');
   final rtDescMap = <RefreshIndicatorTriggerMode, String>{
-    rtAnywhere: 'Pull-to-refresh activates from any scroll position in the list',
+    rtAnywhere:
+        'Pull-to-refresh activates from any scroll position in the list',
     rtOnEdge: 'Pull-to-refresh only activates when scrolled to the top edge',
   };
   for (final entry in rtDescMap.entries) {
@@ -75,7 +86,8 @@ dynamic build(BuildContext context) {
   print('\n[7] Pattern matching / switch expression');
   for (final v in rtAllValues) {
     final desc = switch (v) {
-      RefreshIndicatorTriggerMode.anywhere => 'flexible — may trigger mid-scroll',
+      RefreshIndicatorTriggerMode.anywhere =>
+        'flexible — may trigger mid-scroll',
       RefreshIndicatorTriggerMode.onEdge => 'precise — only at scroll boundary',
     };
     print('  ${v.name} -> $desc');
@@ -113,7 +125,14 @@ dynamic build(BuildContext context) {
             color: const Color(0xFF0D47A1),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(height: 6),
         SizedBox(
@@ -131,10 +150,21 @@ dynamic build(BuildContext context) {
                 dense: true,
                 leading: CircleAvatar(
                   radius: 14,
-                  backgroundColor: const Color(0xFF1565C0).withValues(alpha: 0.12),
-                  child: Text('${i + 1}', style: const TextStyle(fontSize: 10, color: Color(0xFF0D47A1))),
+                  backgroundColor: const Color(
+                    0xFF1565C0,
+                  ).withValues(alpha: 0.12),
+                  child: Text(
+                    '${i + 1}',
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: Color(0xFF0D47A1),
+                    ),
+                  ),
                 ),
-                title: Text(rtListItems[i], style: const TextStyle(fontSize: 12)),
+                title: Text(
+                  rtListItems[i],
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
             ),
           ),
@@ -143,8 +173,14 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final rtAnywhereWidget = rtBuildIndicator(rtAnywhere, 'anywhere — pull from any position');
-  final rtOnEdgeWidget = rtBuildIndicator(rtOnEdge, 'onEdge — pull only at top');
+  final rtAnywhereWidget = rtBuildIndicator(
+    rtAnywhere,
+    'anywhere — pull from any position',
+  );
+  final rtOnEdgeWidget = rtBuildIndicator(
+    rtOnEdge,
+    'onEdge — pull only at top',
+  );
   print('  Built RefreshIndicator(anywhere): items=${rtListItems.length}');
   print('  Built RefreshIndicator(onEdge): items=${rtListItems.length}');
 
@@ -211,7 +247,8 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[13] Performance notes');
   final rtPerfNotes = <RefreshIndicatorTriggerMode, String>{
-    rtAnywhere: 'Higher gesture detection overhead — monitors all scroll events',
+    rtAnywhere:
+        'Higher gesture detection overhead — monitors all scroll events',
     rtOnEdge: 'Lower overhead — only checks boundary conditions',
   };
   for (final entry in rtPerfNotes.entries) {
@@ -225,11 +262,17 @@ dynamic build(BuildContext context) {
   const rtMarine = Color(0xFF1565C0);
   const rtNavy = Color(0xFF0D47A1);
   const rtMarineLight = Color(0xFFE3F2FD);
-  final rtColors = <String, Color>{'marine': rtMarine, 'navy': rtNavy, 'marineLight': rtMarineLight};
+  final rtColors = <String, Color>{
+    'marine': rtMarine,
+    'navy': rtNavy,
+    'marineLight': rtMarineLight,
+  };
   for (final entry in rtColors.entries) {
     final c = entry.value;
-    print('  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
-        'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}');
+    print(
+      '  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
+      'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}',
+    );
   }
 
   // ──────────────────────────────────────────────
@@ -239,7 +282,8 @@ dynamic build(BuildContext context) {
   const rtTotalHeight = 800.0;
   for (final mode in rtAllValues) {
     final zone = switch (mode) {
-      RefreshIndicatorTriggerMode.anywhere => 'entire scrollable (0-${rtTotalHeight.toStringAsFixed(0)}px)',
+      RefreshIndicatorTriggerMode.anywhere =>
+        'entire scrollable (0-${rtTotalHeight.toStringAsFixed(0)}px)',
       RefreshIndicatorTriggerMode.onEdge => 'top edge only (0px)',
     };
     print('  ${mode.name}: $zone');
@@ -267,7 +311,14 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Text(mode.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: rtNavy)),
+          Text(
+            mode.name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+              color: rtNavy,
+            ),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: Container(
@@ -277,8 +328,14 @@ dynamic build(BuildContext context) {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: isAnywhere
-                      ? [rtMarine.withValues(alpha: 0.3), rtMarine.withValues(alpha: 0.3)]
-                      : [rtMarine.withValues(alpha: 0.4), rtMarineLight.withValues(alpha: 0.1)],
+                      ? [
+                          rtMarine.withValues(alpha: 0.3),
+                          rtMarine.withValues(alpha: 0.3),
+                        ]
+                      : [
+                          rtMarine.withValues(alpha: 0.4),
+                          rtMarineLight.withValues(alpha: 0.1),
+                        ],
                 ),
               ),
               child: Column(
@@ -320,7 +377,12 @@ dynamic build(BuildContext context) {
           child: const Text(
             'RefreshIndicatorTriggerMode\nDeep Demo',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, height: 1.3),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              height: 1.3,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -336,12 +398,31 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Enum Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: rtNavy)),
+              const Text(
+                'Enum Overview',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: rtNavy,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('Total values: ${rtAllValues.length}', style: const TextStyle(fontSize: 13)),
-              Text('Type: ${rtAnywhere.runtimeType}', style: const TextStyle(fontSize: 13)),
-              const Text('Default: onEdge (standard pull-to-refresh)', style: TextStyle(fontSize: 13)),
-              const Text('Purpose: Controls where pull gesture activates refresh', style: TextStyle(fontSize: 13)),
+              Text(
+                'Total values: ${rtAllValues.length}',
+                style: const TextStyle(fontSize: 13),
+              ),
+              Text(
+                'Type: ${rtAnywhere.runtimeType}',
+                style: const TextStyle(fontSize: 13),
+              ),
+              const Text(
+                'Default: onEdge (standard pull-to-refresh)',
+                style: TextStyle(fontSize: 13),
+              ),
+              const Text(
+                'Purpose: Controls where pull gesture activates refresh',
+                style: TextStyle(fontSize: 13),
+              ),
             ],
           ),
         ),
@@ -352,7 +433,9 @@ dynamic build(BuildContext context) {
           spacing: 10,
           runSpacing: 10,
           children: rtAllValues.map((v) {
-            final icon = v == rtAnywhere ? Icons.swap_vert : Icons.vertical_align_top;
+            final icon = v == rtAnywhere
+                ? Icons.swap_vert
+                : Icons.vertical_align_top;
             return Container(
               width: 165,
               padding: const EdgeInsets.all(12),
@@ -365,11 +448,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(icon, color: Colors.white, size: 28),
                   const SizedBox(height: 6),
-                  Text(v.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    v.name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(rtDescMap[v] ?? '',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70, fontSize: 10)),
+                  Text(
+                    rtDescMap[v] ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white70, fontSize: 10),
+                  ),
                 ],
               ),
             );
@@ -378,7 +470,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // Trigger zone diagrams
-        const Text('Trigger Zone Diagram', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const Text(
+          'Trigger Zone Diagram',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 12,
@@ -388,11 +483,20 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // Live widgets
-        const Text('Live RefreshIndicators', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const Text(
+          'Live RefreshIndicators',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         const SizedBox(height: 8),
-        ClipRRect(borderRadius: BorderRadius.circular(10), child: rtAnywhereWidget),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: rtAnywhereWidget,
+        ),
         const SizedBox(height: 12),
-        ClipRRect(borderRadius: BorderRadius.circular(10), child: rtOnEdgeWidget),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: rtOnEdgeWidget,
+        ),
         const SizedBox(height: 14),
 
         // Scroll position table
@@ -405,34 +509,52 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Scroll Position Check', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Scroll Position Check',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
-              ...rtAllValues.map((mode) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(mode.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: rtNavy)),
-                        ...rtScrollPositions.take(4).map((pos) {
-                          final can = switch (mode) {
-                            RefreshIndicatorTriggerMode.anywhere => true,
-                            RefreshIndicatorTriggerMode.onEdge => pos <= 0.0,
-                          };
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 12, top: 2),
-                            child: Row(
-                              children: [
-                                Icon(can ? Icons.check : Icons.close, size: 12, color: can ? Colors.green : Colors.red),
-                                const SizedBox(width: 4),
-                                Text('offset=${pos.toStringAsFixed(0)}: ${can ? "trigger" : "no trigger"}',
-                                    style: const TextStyle(fontSize: 11)),
-                              ],
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                  )),
+              ...rtAllValues.map(
+                (mode) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        mode.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: rtNavy,
+                        ),
+                      ),
+                      ...rtScrollPositions.take(4).map((pos) {
+                        final can = switch (mode) {
+                          RefreshIndicatorTriggerMode.anywhere => true,
+                          RefreshIndicatorTriggerMode.onEdge => pos <= 0.0,
+                        };
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 2),
+                          child: Row(
+                            children: [
+                              Icon(
+                                can ? Icons.check : Icons.close,
+                                size: 12,
+                                color: can ? Colors.green : Colors.red,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                'offset=${pos.toStringAsFixed(0)}: ${can ? "trigger" : "no trigger"}',
+                                style: const TextStyle(fontSize: 11),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -448,21 +570,38 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Use-Case Scenarios', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Use-Case Scenarios',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
-              ...rtUseCases.entries.map((entry) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(entry.key.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: rtNavy)),
-                        ...entry.value.map((use) => Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 2),
-                              child: Text('• $use', style: const TextStyle(fontSize: 11)),
-                            )),
-                      ],
-                    ),
-                  )),
+              ...rtUseCases.entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        entry.key.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: rtNavy,
+                        ),
+                      ),
+                      ...entry.value.map(
+                        (use) => Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 2),
+                          child: Text(
+                            '• $use',
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -478,21 +617,37 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Conflict Analysis', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Conflict Analysis',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
-              ...rtConflicts.entries.map((entry) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(entry.key.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                        ...entry.value.map((note) => Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 2),
-                              child: Text('- $note', style: const TextStyle(fontSize: 11)),
-                            )),
-                      ],
-                    ),
-                  )),
+              ...rtConflicts.entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        entry.key.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                      ...entry.value.map(
+                        (note) => Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 2),
+                          child: Text(
+                            '- $note',
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -508,28 +663,46 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Performance Notes', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Performance Notes',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
-              ...rtPerfNotes.entries.map((entry) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.speed, size: 14, color: rtMarine),
-                        const SizedBox(width: 6),
-                        Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(text: '${entry.key.name}: ', style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: Colors.black)),
-                                TextSpan(text: entry.value, style: const TextStyle(fontSize: 12, color: Colors.black87)),
-                              ],
-                            ),
+              ...rtPerfNotes.entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.speed, size: 14, color: rtMarine),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${entry.key.name}: ',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: entry.value,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

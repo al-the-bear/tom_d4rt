@@ -47,10 +47,7 @@ import 'package:flutter/services.dart';
 // bridge generator filters out (see D4RT-LIMITATION note above). Same
 // value names and ordering as the SDK enum so all demo copy referencing
 // `.name` / `.index` stays accurate.
-enum _KeyDataTransitMode {
-  rawKeyData,
-  keyDataThenRawKeyData,
-}
+enum _KeyDataTransitMode { rawKeyData, keyDataThenRawKeyData }
 
 // ---------------------------------------------------------------------------
 // Public entry point.
@@ -162,11 +159,19 @@ Widget _buildHero() {
           child: Stack(
             alignment: Alignment.center,
             children: const <Widget>[
-              Icon(Icons.keyboard_alt_outlined, size: 56.0, color: Colors.white),
+              Icon(
+                Icons.keyboard_alt_outlined,
+                size: 56.0,
+                color: Colors.white,
+              ),
               Positioned(
                 right: 8.0,
                 bottom: 6.0,
-                child: Icon(Icons.alt_route, size: 22.0, color: Color(0xFFFDE68A)),
+                child: Icon(
+                  Icons.alt_route,
+                  size: 22.0,
+                  color: Color(0xFFFDE68A),
+                ),
               ),
             ],
           ),
@@ -199,10 +204,20 @@ Widget _buildHero() {
                 spacing: 8.0,
                 runSpacing: 8.0,
                 children: <Widget>[
-                  _heroChip('package:flutter/services.dart', Icons.inventory_2_outlined),
+                  _heroChip(
+                    'package:flutter/services.dart',
+                    Icons.inventory_2_outlined,
+                  ),
                   _heroChip('enum • 2 values', Icons.format_list_numbered),
-                  _heroChip('deprecated', Icons.history_toggle_off, danger: true),
-                  _heroChip('pulse=${pulse.value.toStringAsFixed(2)}', Icons.bolt),
+                  _heroChip(
+                    'deprecated',
+                    Icons.history_toggle_off,
+                    danger: true,
+                  ),
+                  _heroChip(
+                    'pulse=${pulse.value.toStringAsFixed(2)}',
+                    Icons.bolt,
+                  ),
                 ],
               ),
             ],
@@ -251,10 +266,7 @@ Widget _buildAnatomyRouting() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          const Color(0xFFF8FAFC),
-          const Color(0xFFE0E7FF),
-        ],
+        colors: <Color>[const Color(0xFFF8FAFC), const Color(0xFFE0E7FF)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: const Color(0xFFC7D2FE), width: 1.2),
@@ -271,7 +283,11 @@ Widget _buildAnatomyRouting() {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.account_tree_outlined, size: 22.0, color: Color(0xFF4338CA)),
+            Icon(
+              Icons.account_tree_outlined,
+              size: 22.0,
+              color: Color(0xFF4338CA),
+            ),
             SizedBox(width: 8.0),
             Text(
               'Anatomy of key event routing',
@@ -294,19 +310,43 @@ Widget _buildAnatomyRouting() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _anatomyNode('Hardware', Icons.keyboard, const Color(0xFF1E40AF))),
+            Expanded(
+              child: _anatomyNode(
+                'Hardware',
+                Icons.keyboard,
+                const Color(0xFF1E40AF),
+              ),
+            ),
             const SizedBox(width: 6.0),
             const _AnatomyArrow(label: 'OS event'),
             const SizedBox(width: 6.0),
-            Expanded(child: _anatomyNode('Engine', Icons.memory, const Color(0xFF6D28D9))),
+            Expanded(
+              child: _anatomyNode(
+                'Engine',
+                Icons.memory,
+                const Color(0xFF6D28D9),
+              ),
+            ),
             const SizedBox(width: 6.0),
             const _AnatomyArrow(label: 'transit mode'),
             const SizedBox(width: 6.0),
-            Expanded(child: _anatomyNode('KeyEventManager', Icons.settings_input_component, const Color(0xFFB45309))),
+            Expanded(
+              child: _anatomyNode(
+                'KeyEventManager',
+                Icons.settings_input_component,
+                const Color(0xFFB45309),
+              ),
+            ),
             const SizedBox(width: 6.0),
             const _AnatomyArrow(label: 'KeyMessage'),
             const SizedBox(width: 6.0),
-            Expanded(child: _anatomyNode('Widgets', Icons.widgets_outlined, const Color(0xFF047857))),
+            Expanded(
+              child: _anatomyNode(
+                'Widgets',
+                Icons.widgets_outlined,
+                const Color(0xFF047857),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 18.0),
@@ -509,7 +549,10 @@ Widget _enumValueTile({
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(999.0),
@@ -786,10 +829,7 @@ class _CodeBlock extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            const Color(0xFF111827),
-            const Color(0xFF1F2937),
-          ],
+          colors: <Color>[const Color(0xFF111827), const Color(0xFF1F2937)],
         ),
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: accent.withValues(alpha: 0.6), width: 1.0),
@@ -826,7 +866,11 @@ class _FlowDiagramRaw extends StatelessWidget {
         _FlowStep('OS keypress', Icons.keyboard, Color(0xFF1F2937)),
         _FlowStep('Method channel\nraw JSON', Icons.cable, Color(0xFFB91C1C)),
         _FlowStep('RawKeyboard\nconverts', Icons.transform, Color(0xFFB45309)),
-        _FlowStep('KeyEventManager\nsynthesises', Icons.auto_fix_high, Color(0xFF6D28D9)),
+        _FlowStep(
+          'KeyEventManager\nsynthesises',
+          Icons.auto_fix_high,
+          Color(0xFF6D28D9),
+        ),
         _FlowStep('KeyMessage', Icons.markunread, Color(0xFF047857)),
       ],
     );
@@ -845,7 +889,11 @@ class _FlowDiagramModern extends StatelessWidget {
         _FlowStep('OS keypress', Icons.keyboard, Color(0xFF1F2937)),
         _FlowStep('ui.KeyData\nfirst', Icons.flash_on, Color(0xFF1D4ED8)),
         _FlowStep('Raw JSON\nsecond', Icons.cable, Color(0xFFB91C1C)),
-        _FlowStep('KeyEventManager\nzips them', Icons.merge_type, Color(0xFF6D28D9)),
+        _FlowStep(
+          'KeyEventManager\nzips them',
+          Icons.merge_type,
+          Color(0xFF6D28D9),
+        ),
         _FlowStep('KeyMessage', Icons.markunread, Color(0xFF047857)),
       ],
     );
@@ -860,7 +908,11 @@ class _FlowStep {
 }
 
 class _FlowFrame extends StatelessWidget {
-  const _FlowFrame({required this.title, required this.accent, required this.steps});
+  const _FlowFrame({
+    required this.title,
+    required this.accent,
+    required this.steps,
+  });
 
   final String title;
   final Color accent;
@@ -902,7 +954,10 @@ class _FlowFrame extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.0),
-          Row(crossAxisAlignment: CrossAxisAlignment.center, children: rowChildren),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: rowChildren,
+          ),
         ],
       ),
     );
@@ -914,7 +969,10 @@ class _FlowFrame extends StatelessWidget {
       decoration: BoxDecoration(
         color: step.color.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: step.color.withValues(alpha: 0.45), width: 1.0),
+        border: Border.all(
+          color: step.color.withValues(alpha: 0.45),
+          width: 1.0,
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -939,7 +997,11 @@ class _FlowFrame extends StatelessWidget {
   Widget _arrow() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 4.0),
-      child: Icon(Icons.arrow_forward_ios, size: 12.0, color: Color(0xFF9CA3AF)),
+      child: Icon(
+        Icons.arrow_forward_ios,
+        size: 12.0,
+        color: Color(0xFF9CA3AF),
+      ),
     );
   }
 }
@@ -964,7 +1026,8 @@ Widget _buildRecipeSection() {
         accent: const Color(0xFF1D4ED8),
         soft: const Color(0xFFEFF6FF),
         icon: Icons.keyboard_double_arrow_right,
-        body: 'HardwareKeyboard offers a transit-mode-agnostic API. It exposes '
+        body:
+            'HardwareKeyboard offers a transit-mode-agnostic API. It exposes '
             'logicalKeysPressed, physicalKeysPressed, and a typed onKey stream.',
         snippet:
             'final HardwareKeyboard kb = HardwareKeyboard.instance;\n'
@@ -980,7 +1043,8 @@ Widget _buildRecipeSection() {
         accent: const Color(0xFF047857),
         soft: const Color(0xFFECFDF5),
         icon: Icons.center_focus_strong,
-        body: 'Inside widgets, prefer Focus or KeyboardListener over RawKeyboard. '
+        body:
+            'Inside widgets, prefer Focus or KeyboardListener over RawKeyboard. '
             'They forward the same KeyEvent objects no matter which transit '
             'mode the engine chose.',
         snippet:
@@ -1002,7 +1066,8 @@ Widget _buildRecipeSection() {
         accent: const Color(0xFFB45309),
         soft: const Color(0xFFFFF7ED),
         icon: Icons.delete_sweep_outlined,
-        body: 'RawKeyboard.instance still works for back-compat, but its API is '
+        body:
+            'RawKeyboard.instance still works for back-compat, but its API is '
             'tied to the legacy raw transit path.  Switch to HardwareKeyboard.',
         snippet:
             '// ❌ Old: tied to raw transit details.\n'
@@ -1082,7 +1147,11 @@ Widget _recipeCard({
         const SizedBox(height: 10.0),
         Text(
           body,
-          style: const TextStyle(fontSize: 12.5, color: Color(0xFF1F2937), height: 1.45),
+          style: const TextStyle(
+            fontSize: 12.5,
+            color: Color(0xFF1F2937),
+            height: 1.45,
+          ),
         ),
         const SizedBox(height: 12.0),
         _CodeBlock(snippet: snippet, accent: accent),
@@ -1101,10 +1170,7 @@ Widget _buildPitfallsSection() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          const Color(0xFFFFF1F2),
-          const Color(0xFFFFE4E6),
-        ],
+        colors: <Color>[const Color(0xFFFFF1F2), const Color(0xFFFFE4E6)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: const Color(0xFFFCA5A5), width: 1.3),
@@ -1121,7 +1187,11 @@ Widget _buildPitfallsSection() {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.warning_amber_rounded, color: Color(0xFFB91C1C), size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFB91C1C),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls & gotchas',
@@ -1137,27 +1207,27 @@ Widget _buildPitfallsSection() {
         _pitfallRow(
           'Do not branch on KeyDataTransitMode in production code.',
           'KeyEventManager picks the mode automatically — your handlers must '
-          'work the same in both worlds.',
+              'work the same in both worlds.',
         ),
         _pitfallRow(
           'rawKeyData implies that ui.KeyData will never arrive.',
           'If you write a custom KeyEventManager subclass, do not call '
-          'handleKeyData when the inferred mode is rawKeyData.',
+              'handleKeyData when the inferred mode is rawKeyData.',
         ),
         _pitfallRow(
           'keyDataThenRawKeyData expects a 0/0 sentinel KeyData.',
           'The empty sentinel marks transit-mode inference; treat it as a '
-          'no-op rather than a real key.',
+              'no-op rather than a real key.',
         ),
         _pitfallRow(
           'Both modes still produce KeyMessage.rawEvent.',
           'Migrating off RawKeyboard listeners is recommended, but rawEvent '
-          'remains populated for backwards compatibility.',
+              'remains populated for backwards compatibility.',
         ),
         _pitfallRow(
           'KeyDataTransitMode itself is deprecated.',
           'New engines always use key-data transit; treat the enum as historical '
-          'documentation, not a runtime knob.',
+              'documentation, not a runtime knob.',
         ),
       ],
     ),
@@ -1172,7 +1242,9 @@ Widget _pitfallRow(String headline, String body) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(color: const Color(0xFFFCA5A5).withValues(alpha: 0.6)),
+        border: Border.all(
+          color: const Color(0xFFFCA5A5).withValues(alpha: 0.6),
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -1186,7 +1258,11 @@ Widget _pitfallRow(String headline, String body) {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 1.0, right: 8.0),
-            child: Icon(Icons.error_outline, size: 18.0, color: Color(0xFFB91C1C)),
+            child: Icon(
+              Icons.error_outline,
+              size: 18.0,
+              color: Color(0xFFB91C1C),
+            ),
           ),
           Expanded(
             child: Column(
@@ -1203,7 +1279,11 @@ Widget _pitfallRow(String headline, String body) {
                 const SizedBox(height: 3.0),
                 Text(
                   body,
-                  style: const TextStyle(fontSize: 11.5, color: Color(0xFF374151), height: 1.4),
+                  style: const TextStyle(
+                    fontSize: 11.5,
+                    color: Color(0xFF374151),
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1221,14 +1301,34 @@ Widget _buildComparisonTable() {
   final List<_KeyDataTransitMode> values = _KeyDataTransitMode.values;
 
   final List<List<String>> rows = <List<String>>[
-    <String>['Channel(s) used', 'Method channel only', 'ui.KeyData + method channel'],
-    <String>['KeyMessage.events', 'Synthesised from RawKeyEvent', 'Built from ui.KeyData'],
+    <String>[
+      'Channel(s) used',
+      'Method channel only',
+      'ui.KeyData + method channel',
+    ],
+    <String>[
+      'KeyMessage.events',
+      'Synthesised from RawKeyEvent',
+      'Built from ui.KeyData',
+    ],
     <String>['KeyMessage.rawEvent', 'Built from JSON', 'Built from JSON'],
-    <String>['Order of arrival', '— single signal —', 'KeyData first, raw second'],
+    <String>[
+      'Order of arrival',
+      '— single signal —',
+      'KeyData first, raw second',
+    ],
     <String>['Engine support', 'Legacy engines', 'Modern engines'],
-    <String>['Inferred when', 'handleRawKeyMessage runs first', 'handleKeyData runs first'],
+    <String>[
+      'Inferred when',
+      'handleRawKeyMessage runs first',
+      'handleKeyData runs first',
+    ],
     <String>['Sentinel needed?', 'No', 'Yes (0/0 KeyData)'],
-    <String>['Recommended for new code?', 'No (use HardwareKeyboard)', 'No (use HardwareKeyboard)'],
+    <String>[
+      'Recommended for new code?',
+      'No (use HardwareKeyboard)',
+      'No (use HardwareKeyboard)',
+    ],
   ];
 
   return Column(
@@ -1259,7 +1359,10 @@ Widget _buildComparisonTable() {
           children: <Widget>[
             // Header row.
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 12.0,
+              ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -1312,7 +1415,10 @@ Widget _buildComparisonTable() {
             ),
             for (int i = 0; i < rows.length; i++)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 10.0,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? const Color(0xFFF8FAFC) : Colors.white,
                   border: const Border(
@@ -1373,10 +1479,7 @@ Widget _buildQuickReference() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          const Color(0xFFECFEFF),
-          const Color(0xFFCFFAFE),
-        ],
+        colors: <Color>[const Color(0xFFECFEFF), const Color(0xFFCFFAFE)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: const Color(0xFF22D3EE), width: 1.2),
@@ -1393,7 +1496,11 @@ Widget _buildQuickReference() {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.bookmarks_outlined, color: Color(0xFF0E7490), size: 22.0),
+            Icon(
+              Icons.bookmarks_outlined,
+              color: Color(0xFF0E7490),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Quick reference',
@@ -1409,7 +1516,12 @@ Widget _buildQuickReference() {
         _quickRow('Library', 'package:flutter/services.dart'),
         _quickRow('Source path', 'src/services/hardware_keyboard.dart'),
         _quickRow('Kind', 'enum (deprecated)'),
-        _quickRow('Values', _KeyDataTransitMode.values.map((_KeyDataTransitMode m) => m.name).join(', ')),
+        _quickRow(
+          'Values',
+          _KeyDataTransitMode.values
+              .map((_KeyDataTransitMode m) => m.name)
+              .join(', '),
+        ),
         _quickRow('Used by', 'KeyEventManager._transitMode'),
         _quickRow('Dispatched on', 'HardwareKeyboard, RawKeyboard, KeyMessage'),
         _quickRow('Replacement', 'HardwareKeyboard / Focus.onKeyEvent'),
@@ -1499,10 +1611,7 @@ Widget _buildAsciiFooter() {
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[
-          const Color(0xFF0F172A),
-          const Color(0xFF111827),
-        ],
+        colors: <Color>[const Color(0xFF0F172A), const Color(0xFF111827)],
       ),
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: const Color(0xFF475569), width: 1.0),

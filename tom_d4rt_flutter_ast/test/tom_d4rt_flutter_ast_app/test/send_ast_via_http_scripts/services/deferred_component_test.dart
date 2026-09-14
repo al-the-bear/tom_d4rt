@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: sage, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: sage.withValues(alpha: 0.4)),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: darkOlive.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: darkOlive.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -102,16 +111,21 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: darkOlive,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: darkOlive,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: deepOlive)),
+            child: Text(
+              detail,
+              style: TextStyle(fontSize: 12, color: deepOlive),
+            ),
           ),
         ],
       ),
@@ -147,16 +161,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: darkOlive)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: darkOlive,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -167,18 +181,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? olive.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: sage.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: sage.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? darkOlive : deepOlive)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? darkOlive : deepOlive,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -195,18 +210,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkOlive : deepOlive,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: moss),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: moss),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -244,18 +264,25 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.all_inclusive, size: 24, color: deepOlive),
                     const SizedBox(height: 6),
-                    Text('Bundled (Default)',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: deepOlive)),
+                    Text(
+                      'Bundled (Default)',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: deepOlive,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('All code + assets in APK',
-                        style: TextStyle(fontSize: 10, color: olive),
-                        textAlign: TextAlign.center),
-                    Text('Large initial download',
-                        style: TextStyle(fontSize: 10, color: olive),
-                        textAlign: TextAlign.center),
+                    Text(
+                      'All code + assets in APK',
+                      style: TextStyle(fontSize: 10, color: olive),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Large initial download',
+                      style: TextStyle(fontSize: 10, color: olive),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),
@@ -276,18 +303,25 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.dynamic_feed, size: 24, color: fern),
                     const SizedBox(height: 6),
-                    Text('Deferred',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: fern)),
+                    Text(
+                      'Deferred',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: fern,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Load on demand',
-                        style: TextStyle(fontSize: 10, color: deepOlive),
-                        textAlign: TextAlign.center),
-                    Text('Smaller initial APK',
-                        style: TextStyle(fontSize: 10, color: deepOlive),
-                        textAlign: TextAlign.center),
+                    Text(
+                      'Load on demand',
+                      style: TextStyle(fontSize: 10, color: deepOlive),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'Smaller initial APK',
+                      style: TextStyle(fontSize: 10, color: deepOlive),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),
@@ -360,14 +394,19 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dcCode('installDeferredComponent()',
-                'Downloads and installs the named component'),
-            dcCode('uninstallDeferredComponent()',
-                'Removes the component to free space'),
-            dcCode('loadLibrary()',
-                'Dart deferred import — triggers install'),
-            dcCode('DeferredWidget()',
-                'Convenience widget that handles loading UI'),
+            dcCode(
+              'installDeferredComponent()',
+              'Downloads and installs the named component',
+            ),
+            dcCode(
+              'uninstallDeferredComponent()',
+              'Removes the component to free space',
+            ),
+            dcCode('loadLibrary()', 'Dart deferred import — triggers install'),
+            dcCode(
+              'DeferredWidget()',
+              'Convenience widget that handles loading UI',
+            ),
           ],
         ),
       ),
@@ -398,35 +437,66 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('// Standard import — bundled in base APK:',
-                  style: TextStyle(
-                      fontSize: 11, fontFamily: 'monospace', color: artichoke)),
-              Text("import 'package:app/feature.dart';",
-                  style: TextStyle(
-                      fontSize: 11, fontFamily: 'monospace', color: darkOlive)),
+              Text(
+                '// Standard import — bundled in base APK:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: artichoke,
+                ),
+              ),
+              Text(
+                "import 'package:app/feature.dart';",
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: darkOlive,
+                ),
+              ),
               const SizedBox(height: 10),
-              Text('// Deferred import — loaded on demand:',
-                  style: TextStyle(
-                      fontSize: 11, fontFamily: 'monospace', color: artichoke)),
-              Text("import 'package:app/feature.dart' deferred as feature;",
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      color: fern,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                '// Deferred import — loaded on demand:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: artichoke,
+                ),
+              ),
+              Text(
+                "import 'package:app/feature.dart' deferred as feature;",
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: fern,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 10),
-              Text('// Usage — must await loading:',
-                  style: TextStyle(
-                      fontSize: 11, fontFamily: 'monospace', color: artichoke)),
-              Text('await feature.loadLibrary();',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      color: fern,
-                      fontWeight: FontWeight.bold)),
-              Text('feature.FeatureWidget();',
-                  style: TextStyle(
-                      fontSize: 11, fontFamily: 'monospace', color: darkOlive)),
+              Text(
+                '// Usage — must await loading:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: artichoke,
+                ),
+              ),
+              Text(
+                'await feature.loadLibrary();',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: fern,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'feature.FeatureWidget();',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: darkOlive,
+                ),
+              ),
             ],
           ),
         ),
@@ -451,10 +521,18 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             dcRow(['File', 'Purpose', 'Key Field'], isHeader: true),
-            dcRow(['pubspec.yaml', 'Define components', 'deferred-components:']),
+            dcRow([
+              'pubspec.yaml',
+              'Define components',
+              'deferred-components:',
+            ]),
             dcRow(['build.gradle', 'Feature module', 'dynamicFeatures']),
             dcRow(['AndroidManifest', 'Module metadata', 'dist:module']),
-            dcRow(['loading_units.yaml', 'Generated mapping', 'loading-units:']),
+            dcRow([
+              'loading_units.yaml',
+              'Generated mapping',
+              'loading-units:',
+            ]),
           ],
         ),
       ),
@@ -479,20 +557,40 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dcStateBox('Not loaded', 'Component not yet requested',
-                Icons.cloud_off, artichoke),
+            _dcStateBox(
+              'Not loaded',
+              'Component not yet requested',
+              Icons.cloud_off,
+              artichoke,
+            ),
             const SizedBox(height: 6),
-            _dcStateBox('Downloading', 'Play Store delivering module',
-                Icons.cloud_download, olive),
+            _dcStateBox(
+              'Downloading',
+              'Play Store delivering module',
+              Icons.cloud_download,
+              olive,
+            ),
             const SizedBox(height: 6),
-            _dcStateBox('Installing', 'Module being installed locally',
-                Icons.install_mobile, moss),
+            _dcStateBox(
+              'Installing',
+              'Module being installed locally',
+              Icons.install_mobile,
+              moss,
+            ),
             const SizedBox(height: 6),
-            _dcStateBox('Ready', 'Widget available for rendering',
-                Icons.check_circle, fern),
+            _dcStateBox(
+              'Ready',
+              'Widget available for rendering',
+              Icons.check_circle,
+              fern,
+            ),
             const SizedBox(height: 6),
-            _dcStateBox('Error', 'Download or install failed',
-                Icons.error, const Color(0xFFE53935)),
+            _dcStateBox(
+              'Error',
+              'Download or install failed',
+              Icons.error,
+              const Color(0xFFE53935),
+            ),
           ],
         ),
       ),
@@ -537,8 +635,10 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        Text('Spinner',
-                            style: TextStyle(fontSize: 10, color: deepOlive)),
+                        Text(
+                          'Spinner',
+                          style: TextStyle(fontSize: 10, color: deepOlive),
+                        ),
                       ],
                     ),
                   ),
@@ -563,8 +663,10 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text('Progress',
-                            style: TextStyle(fontSize: 10, color: deepOlive)),
+                        Text(
+                          'Progress',
+                          style: TextStyle(fontSize: 10, color: deepOlive),
+                        ),
                       ],
                     ),
                   ),
@@ -589,8 +691,10 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text('Skeleton',
-                            style: TextStyle(fontSize: 10, color: deepOlive)),
+                        Text(
+                          'Skeleton',
+                          style: TextStyle(fontSize: 10, color: deepOlive),
+                        ),
                       ],
                     ),
                   ),
@@ -622,11 +726,17 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Expanded(child: _dcSizeBox('Base APK', '15 MB', 'Core app', olive)),
+                Expanded(
+                  child: _dcSizeBox('Base APK', '15 MB', 'Core app', olive),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dcSizeBox('AR Module', '8 MB', '5% of users', moss)),
+                Expanded(
+                  child: _dcSizeBox('AR Module', '8 MB', '5% of users', moss),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dcSizeBox('ML Model', '12 MB', '10% of users', fern)),
+                Expanded(
+                  child: _dcSizeBox('ML Model', '12 MB', '10% of users', fern),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -639,13 +749,21 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Text('Without deferred: 35 MB for all users',
-                      style: TextStyle(fontSize: 11, color: const Color(0xFFE53935))),
-                  Text('With deferred: 15 MB base, modules on demand',
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: fern,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Without deferred: 35 MB for all users',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: const Color(0xFFE53935),
+                    ),
+                  ),
+                  Text(
+                    'With deferred: 15 MB base, modules on demand',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: fern,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -672,14 +790,10 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dcCode('deferred-components:',
-                'Top-level pubspec.yaml key'),
-            dcCode('  - name: premium_themes',
-                'Component name'),
-            dcCode('    assets:',
-                'Assets included in this component'),
-            dcCode('      - assets/themes/',
-                'Asset directory path'),
+            dcCode('deferred-components:', 'Top-level pubspec.yaml key'),
+            dcCode('  - name: premium_themes', 'Component name'),
+            dcCode('    assets:', 'Assets included in this component'),
+            dcCode('      - assets/themes/', 'Asset directory path'),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -717,8 +831,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dcFlow(['Feature visible', 'User triggers uninstall',
-                'Module removed', 'Space freed', 'Feature hidden']),
+            dcFlow([
+              'Feature visible',
+              'User triggers uninstall',
+              'Module removed',
+              'Space freed',
+              'Feature hidden',
+            ]),
             const SizedBox(height: 10),
             dcRow(['Action', 'State Change'], isHeader: true),
             dcRow(['installDeferredComponent()', 'Not Loaded → Ready']),
@@ -747,16 +866,27 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dcErrorItem('Network failure',
-                'No connectivity during download', olive),
-            _dcErrorItem('Storage full',
-                'Insufficient space for module', deepOlive),
-            _dcErrorItem('Play Store error',
-                'Backend delivery failure', moss),
-            _dcErrorItem('Module corrupted',
-                'Verification failed after download', fern),
-            _dcErrorItem('Version mismatch',
-                'Base app updated, module outdated', artichoke),
+            _dcErrorItem(
+              'Network failure',
+              'No connectivity during download',
+              olive,
+            ),
+            _dcErrorItem(
+              'Storage full',
+              'Insufficient space for module',
+              deepOlive,
+            ),
+            _dcErrorItem('Play Store error', 'Backend delivery failure', moss),
+            _dcErrorItem(
+              'Module corrupted',
+              'Verification failed after download',
+              fern,
+            ),
+            _dcErrorItem(
+              'Version mismatch',
+              'Base app updated, module outdated',
+              artichoke,
+            ),
           ],
         ),
       ),
@@ -783,9 +913,13 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Expanded(child: _dcPlatformStatus('Android (Play)', true, fern)),
+                Expanded(
+                  child: _dcPlatformStatus('Android (Play)', true, fern),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dcPlatformStatus('Android (APK)', false, artichoke)),
+                Expanded(
+                  child: _dcPlatformStatus('Android (APK)', false, artichoke),
+                ),
                 const SizedBox(width: 6),
                 Expanded(child: _dcPlatformStatus('iOS', false, artichoke)),
               ],
@@ -824,16 +958,31 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dcBuildStep(1, 'flutter build appbundle --deferred-components',
-                'Compile with splitting', olive),
-            _dcBuildStep(2, 'Gen loading_units.yaml',
-                'Map Dart libs to modules', deepOlive),
-            _dcBuildStep(3, 'Create feature modules',
-                'Android dynamic features', moss),
-            _dcBuildStep(4, 'Package AAB',
-                'Base + feature modules', fern),
-            _dcBuildStep(5, 'Upload to Play Console',
-                'Enable Dynamic Delivery', darkOlive),
+            _dcBuildStep(
+              1,
+              'flutter build appbundle --deferred-components',
+              'Compile with splitting',
+              olive,
+            ),
+            _dcBuildStep(
+              2,
+              'Gen loading_units.yaml',
+              'Map Dart libs to modules',
+              deepOlive,
+            ),
+            _dcBuildStep(
+              3,
+              'Create feature modules',
+              'Android dynamic features',
+              moss,
+            ),
+            _dcBuildStep(4, 'Package AAB', 'Base + feature modules', fern),
+            _dcBuildStep(
+              5,
+              'Upload to Play Console',
+              'Enable Dynamic Delivery',
+              darkOlive,
+            ),
           ],
         ),
       ),
@@ -952,11 +1101,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('DeferredComponent — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'DeferredComponent — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From Play Feature Delivery through deferred Dart imports, '
@@ -987,10 +1139,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -1019,14 +1183,18 @@ Widget _dcStateBox(String title, String desc, IconData icon, Color color) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: color)),
-            Text(desc,
-                style: const TextStyle(
-                    fontSize: 10, color: Color(0xFF2E3A1F))),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+            ),
+            Text(
+              desc,
+              style: const TextStyle(fontSize: 10, color: Color(0xFF2E3A1F)),
+            ),
           ],
         ),
       ),
@@ -1044,18 +1212,26 @@ Widget _dcSizeBox(String label, String size, String note, Color color) {
     ),
     child: Column(
       children: [
-        Text(size,
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: color)),
-        Text(label,
-            style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: color)),
-        Text(note,
-            style: TextStyle(fontSize: 8, color: color.withValues(alpha: 0.7))),
+        Text(
+          size,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
+        Text(
+          note,
+          style: TextStyle(fontSize: 8, color: color.withValues(alpha: 0.7)),
+        ),
       ],
     ),
   );
@@ -1073,14 +1249,18 @@ Widget _dcErrorItem(String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: color)),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF556B2F))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF556B2F)),
+              ),
             ],
           ),
         ),
@@ -1093,26 +1273,28 @@ Widget _dcPlatformStatus(String name, bool supported, Color color) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 8),
     decoration: BoxDecoration(
-      color: supported
-          ? color.withValues(alpha: 0.1)
-          : const Color(0xFFF5F5F5),
+      color: supported ? color.withValues(alpha: 0.1) : const Color(0xFFF5F5F5),
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(
-        color: supported ? color : const Color(0xFFE0E0E0),
-      ),
+      border: Border.all(color: supported ? color : const Color(0xFFE0E0E0)),
     ),
     child: Column(
       children: [
-        Text(name,
-            style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.bold,
-                color: supported ? color : const Color(0xFF9E9E9E)),
-            textAlign: TextAlign.center),
-        Text(supported ? 'Deferred' : 'Bundled',
-            style: TextStyle(
-                fontSize: 8,
-                color: supported ? color : const Color(0xFFBDBDBD))),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: supported ? color : const Color(0xFF9E9E9E),
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          supported ? 'Deferred' : 'Bundled',
+          style: TextStyle(
+            fontSize: 8,
+            color: supported ? color : const Color(0xFFBDBDBD),
+          ),
+        ),
       ],
     ),
   );
@@ -1132,11 +1314,14 @@ Widget _dcBuildStep(int num, String cmd, String desc, Color color) {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -1144,15 +1329,19 @@ Widget _dcBuildStep(int num, String cmd, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(cmd,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                      color: color)),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF2E3A1F))),
+              Text(
+                cmd,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF2E3A1F)),
+              ),
             ],
           ),
         ),

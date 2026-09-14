@@ -72,10 +72,7 @@ dynamic build(BuildContext context) {
   final Paint bannerFill = Paint()
     ..color = _benchRectEnd
     ..style = PaintingStyle.fill;
-  workshopCanvas.drawRect(
-    Rect.fromLTWH(4.0, 4.0, 60.0, 40.0),
-    bannerFill,
-  );
+  workshopCanvas.drawRect(Rect.fromLTWH(4.0, 4.0, 60.0, 40.0), bannerFill);
 
   final Paint bannerStroke = Paint()
     ..color = _benchCircleStart
@@ -438,18 +435,12 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final List<Map<String, String>> transformScript = <Map<String, String>>[
-    <String, String>{
-      'op': 'save()',
-      'note': 'Snapshot transform stack',
-    },
+    <String, String>{'op': 'save()', 'note': 'Snapshot transform stack'},
     <String, String>{
       'op': 'translate(40, 30)',
       'note': 'Origin moves down-right',
     },
-    <String, String>{
-      'op': 'rotate(0.4)',
-      'note': '~23 degrees clockwise',
-    },
+    <String, String>{'op': 'rotate(0.4)', 'note': '~23 degrees clockwise'},
     <String, String>{
       'op': 'scale(1.4, 0.9)',
       'note': 'Wider, slightly squashed',
@@ -458,10 +449,7 @@ dynamic build(BuildContext context) {
       'op': 'drawRect(...)',
       'note': 'Geometry painted under stack',
     },
-    <String, String>{
-      'op': 'restore()',
-      'note': 'Reverts to pre-save state',
-    },
+    <String, String>{'op': 'restore()', 'note': 'Reverts to pre-save state'},
   ];
 
   // ===========================================================================
@@ -474,11 +462,7 @@ dynamic build(BuildContext context) {
     ..lineTo(40.0, 20.0)
     ..quadraticBezierTo(70.0, 80.0, 100.0, 20.0)
     ..cubicTo(130.0, 80.0, 150.0, 20.0, 180.0, 60.0)
-    ..addArc(
-      const Rect.fromLTWH(180.0, 40.0, 30.0, 30.0),
-      0.0,
-      3.14159,
-    )
+    ..addArc(const Rect.fromLTWH(180.0, 40.0, 30.0, 30.0), 0.0, 3.14159)
     ..close();
 
   final List<Map<String, String>> pathGlossary = <Map<String, String>>[
@@ -502,10 +486,7 @@ dynamic build(BuildContext context) {
       'op': 'addArc(rect, start, sweep)',
       'effect': 'Appends an elliptical arc',
     },
-    <String, String>{
-      'op': 'close()',
-      'effect': 'Connects last point to start',
-    },
+    <String, String>{'op': 'close()', 'effect': 'Connects last point to start'},
   ];
 
   // ===========================================================================
@@ -564,29 +545,29 @@ dynamic build(BuildContext context) {
       'title': 'Recipe: record once, paint many',
       'body':
           'Build a PictureRecorder, render expensive vector content into its '
-              'Canvas, call endRecording() and then drawPicture() on every '
-              'frame instead of re-tracing the same geometry.',
+          'Canvas, call endRecording() and then drawPicture() on every '
+          'frame instead of re-tracing the same geometry.',
     },
     <String, String>{
       'title': 'Recipe: rasterize for caching',
       'body':
           'After endRecording(), call picture.toImage(w, h) (async) to get a '
-              'ui.Image you can blit with canvas.drawImage. Ideal for static '
-              'thumbnails and tile caches.',
+          'ui.Image you can blit with canvas.drawImage. Ideal for static '
+          'thumbnails and tile caches.',
     },
     <String, String>{
       'title': 'Recipe: layered transforms',
       'body':
           'Wrap every translate/rotate/scale block in save()/restore() so the '
-              'transform stack stays balanced. Use canvas.getSaveCount() in '
-              'debug builds to verify symmetry.',
+          'transform stack stays balanced. Use canvas.getSaveCount() in '
+          'debug builds to verify symmetry.',
     },
     <String, String>{
       'title': 'Recipe: avoid leaks',
       'body':
           'Always call picture.dispose() once you no longer need it. Pictures '
-              'hold native resources that the Dart GC alone will not free '
-              'promptly.',
+          'hold native resources that the Dart GC alone will not free '
+          'promptly.',
     },
   ];
 
@@ -607,8 +588,7 @@ dynamic build(BuildContext context) {
     },
     <String, String>{
       'term': 'Picture',
-      'definition':
-          'A replayable, immutable record of drawing operations.',
+      'definition': 'A replayable, immutable record of drawing operations.',
     },
     <String, String>{
       'term': 'Paint',
@@ -617,16 +597,17 @@ dynamic build(BuildContext context) {
     },
     <String, String>{
       'term': 'Path',
-      'definition':
-          'Vector contour built from move/line/curve/arc primitives.',
+      'definition': 'Vector contour built from move/line/curve/arc primitives.',
     },
   ];
 
   print('[picture_test] workflow recorder type: $recorderType');
   print('[picture_test] workflow canvas type: $canvasType');
   print('[picture_test] workflow picture type: $pictureType');
-  print('[picture_test] recordingBefore=$recordingBefore '
-      'recordingAfter=$recordingAfter');
+  print(
+    '[picture_test] recordingBefore=$recordingBefore '
+    'recordingAfter=$recordingAfter',
+  );
 
   // ===========================================================================
   // RETURN A MaterialApp WITH THE FULL VISUAL ATLAS
@@ -932,7 +913,7 @@ Widget _workflowSection({
     recipeTitle: 'Recipe: hand-rolled offscreen picture',
     recipeBody:
         'final r = PictureRecorder(); final c = Canvas(r); c.drawRect(...); '
-            'final p = r.endRecording(); display.drawPicture(p);',
+        'final p = r.endRecording(); display.drawPicture(p);',
   );
 }
 
@@ -952,10 +933,7 @@ Widget _section1Rect(List<Map<String, dynamic>> roster) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 120.0,
-          painter: _RectBenchPainter(roster),
-        ),
+        _paintCanvas(height: 120.0, painter: _RectBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['label', 'style', 'stroke'],
@@ -975,7 +953,7 @@ Widget _section1Rect(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: snappy panels',
     recipeBody:
         'canvas.drawRRect(RRect.fromRectAndRadius(rect, Radius.circular(8)), '
-            'Paint()..color = brand);',
+        'Paint()..color = brand);',
   );
 }
 
@@ -991,14 +969,12 @@ Widget _section2Circle(List<Map<String, dynamic>> roster) {
     accentColor: _benchCircleEnd,
     sectionNumber: '2',
     title: 'drawCircle bench',
-    subtitle: 'Filled, thin stroke, thick stroke - all four flavors side by side',
+    subtitle:
+        'Filled, thin stroke, thick stroke - all four flavors side by side',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 110.0,
-          painter: _CircleBenchPainter(roster),
-        ),
+        _paintCanvas(height: 110.0, painter: _CircleBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['center', 'r', 'style', 'stroke'],
@@ -1020,7 +996,7 @@ Widget _section2Circle(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: glowing knob',
     recipeBody:
         'canvas.drawCircle(c, r + 4, Paint()..color = soft); '
-            'canvas.drawCircle(c, r, Paint()..color = hard);',
+        'canvas.drawCircle(c, r, Paint()..color = hard);',
   );
 }
 
@@ -1040,10 +1016,7 @@ Widget _section3Oval(List<Map<String, dynamic>> roster) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 120.0,
-          painter: _OvalBenchPainter(roster),
-        ),
+        _paintCanvas(height: 120.0, painter: _OvalBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['bounds', 'style', 'stroke'],
@@ -1063,7 +1036,7 @@ Widget _section3Oval(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: pill shapes',
     recipeBody:
         'Use drawOval with a wide rect, or drawRRect with stadium radius - '
-            'pick the cheaper one for very wide shapes.',
+        'pick the cheaper one for very wide shapes.',
   );
 }
 
@@ -1083,10 +1056,7 @@ Widget _section4Line(List<Map<String, dynamic>> roster) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 140.0,
-          painter: _LineBenchPainter(roster),
-        ),
+        _paintCanvas(height: 140.0, painter: _LineBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['from', 'to', 'cap', 'stroke'],
@@ -1107,7 +1077,7 @@ Widget _section4Line(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: tickmarks',
     recipeBody:
         'Use StrokeCap.round on thick lines to get a friendly look; switch to '
-            'StrokeCap.butt for crisp 1-pixel grids.',
+        'StrokeCap.butt for crisp 1-pixel grids.',
   );
 }
 
@@ -1127,10 +1097,7 @@ Widget _section5Arc(List<Map<String, dynamic>> roster) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 110.0,
-          painter: _ArcBenchPainter(roster),
-        ),
+        _paintCanvas(height: 110.0, painter: _ArcBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['label', 'sweep', 'useCenter', 'style'],
@@ -1151,7 +1118,7 @@ Widget _section5Arc(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: progress ring',
     recipeBody:
         'canvas.drawArc(rect, -pi/2, 2*pi*progress, false, ringPaint); - '
-            'sweep grows with progress, useCenter stays false.',
+        'sweep grows with progress, useCenter stays false.',
   );
 }
 
@@ -1171,10 +1138,7 @@ Widget _section6Path(List<Map<String, dynamic>> roster) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 150.0,
-          painter: _PathBenchPainter(roster),
-        ),
+        _paintCanvas(height: 150.0, painter: _PathBenchPainter(roster)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['kind', 'style', 'stroke'],
@@ -1194,7 +1158,7 @@ Widget _section6Path(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: closed contour',
     recipeBody:
         'final p = Path()..moveTo(...)..lineTo(...)..lineTo(...)..close(); '
-            'canvas.drawPath(p, paint);',
+        'canvas.drawPath(p, paint);',
   );
 }
 
@@ -1214,10 +1178,7 @@ Widget _section7Paint(List<Map<String, dynamic>> matrix) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 130.0,
-          painter: _PaintMatrixPainter(),
-        ),
+        _paintCanvas(height: 130.0, painter: _PaintMatrixPainter()),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['name', 'style', 'cap', 'join', 'blend'],
@@ -1239,7 +1200,7 @@ Widget _section7Paint(List<Map<String, dynamic>> matrix) {
     recipeTitle: 'Recipe: paint reuse',
     recipeBody:
         'Allocate Paint once outside paint() and mutate fields between draws '
-            'to avoid per-frame allocations.',
+        'to avoid per-frame allocations.',
   );
 }
 
@@ -1259,10 +1220,7 @@ Widget _section8Transform(List<Map<String, String>> script) {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 160.0,
-          painter: _TransformBenchPainter(),
-        ),
+        _paintCanvas(height: 160.0, painter: _TransformBenchPainter()),
         const SizedBox(height: 10.0),
         for (final Map<String, String> step in script)
           Padding(
@@ -1302,7 +1260,7 @@ Widget _section8Transform(List<Map<String, String>> script) {
     recipeTitle: 'Recipe: balanced transforms',
     recipeBody:
         'Every save() must be paired with exactly one restore(). When unsure, '
-            'log canvas.getSaveCount() at frame boundaries.',
+        'log canvas.getSaveCount() at frame boundaries.',
   );
 }
 
@@ -1325,10 +1283,7 @@ Widget _section9PathGlossary(
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _paintCanvas(
-          height: 120.0,
-          painter: _GlossaryPathPainter(demoPath),
-        ),
+        _paintCanvas(height: 120.0, painter: _GlossaryPathPainter(demoPath)),
         const SizedBox(height: 10.0),
         _comparisonTable(
           columns: const <String>['op', 'effect'],
@@ -1344,7 +1299,7 @@ Widget _section9PathGlossary(
     recipeTitle: 'Recipe: smooth signature curve',
     recipeBody:
         'Combine cubicTo segments through the user touch samples and use '
-            'StrokeCap.round to get an inky feel.',
+        'StrokeCap.round to get an inky feel.',
   );
 }
 
@@ -1425,7 +1380,7 @@ Widget _section10Enums(
     recipeTitle: 'Recipe: enum probing',
     recipeBody:
         'Enumerate <Enum>.values once at startup and cache index/name pairs '
-            'for diagnostic panels.',
+        'for diagnostic panels.',
   );
 }
 
@@ -1519,7 +1474,7 @@ Widget _section11Recipes(List<Map<String, String>> recipes) {
     recipeTitle: 'Recipe: keep a library',
     recipeBody:
         'Drop snippets into a personal "vector cookbook" file - the muscle '
-            'memory pays off when prototyping bespoke chrome.',
+        'memory pays off when prototyping bespoke chrome.',
   );
 }
 
@@ -1570,7 +1525,7 @@ Widget _section12Glossary(List<Map<String, String>> glossary) {
     recipeTitle: 'Recipe: name your things',
     recipeBody:
         'Give Paint instances semantic names (ringPaint, glowPaint) - your '
-            'future self reads the paint() body like a sentence.',
+        'future self reads the paint() body like a sentence.',
   );
 }
 
@@ -1844,10 +1799,7 @@ Widget _comparisonTable({
         ),
         for (int i = 0; i < rows.length; i++)
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: i.isEven ? rowColor : Colors.white,
             ),
@@ -1988,11 +1940,7 @@ class _LineBenchPainter extends CustomPainter {
         ..color = item['color'] as Color
         ..strokeWidth = item['stroke'] as double
         ..strokeCap = item['cap'] as StrokeCap;
-      canvas.drawLine(
-        item['from'] as Offset,
-        item['to'] as Offset,
-        paint,
-      );
+      canvas.drawLine(item['from'] as Offset, item['to'] as Offset, paint);
     }
   }
 
@@ -2090,18 +2038,8 @@ class _PathBenchPainter extends CustomPainter {
         break;
       case 'wave':
         path.moveTo(8.0, h - 30.0);
-        path.quadraticBezierTo(
-          w * 0.25,
-          h - 70.0,
-          w * 0.5,
-          h - 30.0,
-        );
-        path.quadraticBezierTo(
-          w * 0.75,
-          h - 5.0,
-          w - 8.0,
-          h - 30.0,
-        );
+        path.quadraticBezierTo(w * 0.25, h - 70.0, w * 0.5, h - 30.0);
+        path.quadraticBezierTo(w * 0.75, h - 5.0, w - 8.0, h - 30.0);
         break;
       case 'arrow':
         path.moveTo(10.0, h * 0.5);

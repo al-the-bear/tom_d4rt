@@ -54,17 +54,11 @@ TextStyle _sectionTitle() => const TextStyle(
   letterSpacing: 0.1,
 );
 
-TextStyle _bodyInk() => const TextStyle(
-  fontSize: 13.5,
-  color: kInk,
-  height: 1.35,
-);
+TextStyle _bodyInk() =>
+    const TextStyle(fontSize: 13.5, color: kInk, height: 1.35);
 
-TextStyle _bodyMuted() => const TextStyle(
-  fontSize: 12.5,
-  color: kInkMuted,
-  height: 1.35,
-);
+TextStyle _bodyMuted() =>
+    const TextStyle(fontSize: 12.5, color: kInkMuted, height: 1.35);
 
 TextStyle _mono() => const TextStyle(
   fontFamily: 'monospace',
@@ -99,9 +93,7 @@ dynamic build(BuildContext context) {
         surface: kParchment,
       ),
       scaffoldBackgroundColor: kParchment,
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: kInk),
-      ),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: kInk)),
       dividerColor: kBrickFade,
       appBarTheme: const AppBarTheme(
         backgroundColor: kBrick,
@@ -127,10 +119,7 @@ class _SliverListStory extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'SliverList Anatomy — deep visual demo',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.2,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.2),
         ),
         bottom: const PreferredSize(
           preferredSize: Size.fromHeight(6),
@@ -151,13 +140,7 @@ class _BrickAccentBar extends StatelessWidget {
       height: 6,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            kBrickDark,
-            kBrick,
-            kAccentGold,
-            kBrick,
-            kBrickDark,
-          ],
+          colors: <Color>[kBrickDark, kBrick, kAccentGold, kBrick, kBrickDark],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -346,11 +329,7 @@ class _Tag extends StatelessWidget {
   final String label;
   final Color bg;
   final Color fg;
-  const _Tag({
-    required this.label,
-    this.bg = kBrick,
-    this.fg = kParchment,
-  });
+  const _Tag({required this.label, this.bg = kBrick, this.fg = kParchment});
 
   @override
   Widget build(BuildContext context) {
@@ -360,10 +339,7 @@ class _Tag extends StatelessWidget {
         color: bg,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(
-        label,
-        style: _brickTag().copyWith(color: fg),
-      ),
+      child: Text(label, style: _brickTag().copyWith(color: fg)),
     );
   }
 }
@@ -371,10 +347,7 @@ class _Tag extends StatelessWidget {
 class _KeyValueRow extends StatelessWidget {
   final String keyLabel;
   final String value;
-  const _KeyValueRow({
-    required this.keyLabel,
-    required this.value,
-  });
+  const _KeyValueRow({required this.keyLabel, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -396,9 +369,7 @@ class _KeyValueRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: kGapS),
-          Expanded(
-            child: Text(value, style: _bodyInk()),
-          ),
+          Expanded(child: Text(value, style: _bodyInk())),
         ],
       ),
     );
@@ -422,10 +393,7 @@ class _Bullet extends StatelessWidget {
             child: Container(
               width: 7,
               height: 7,
-              decoration: BoxDecoration(
-                color: dot,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
             ),
           ),
           Expanded(child: Text(text, style: _bodyInk())),
@@ -445,12 +413,7 @@ class _SectionDivider extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: kGapM),
       child: Row(
         children: <Widget>[
-          const Expanded(
-            child: Divider(
-              color: kBrickFade,
-              thickness: 1.2,
-            ),
-          ),
+          const Expanded(child: Divider(color: kBrickFade, thickness: 1.2)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kGapM),
             child: Text(
@@ -463,12 +426,7 @@ class _SectionDivider extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(
-            child: Divider(
-              color: kBrickFade,
-              thickness: 1.2,
-            ),
-          ),
+          const Expanded(child: Divider(color: kBrickFade, thickness: 1.2)),
         ],
       ),
     );
@@ -524,17 +482,9 @@ class _AnatomyHero extends StatelessWidget {
             children: const <Widget>[
               _Tag(label: 'ANATOMY'),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'CUSTOM PAINTER',
-                bg: kInk,
-                fg: kParchment,
-              ),
+              _Tag(label: 'CUSTOM PAINTER', bg: kInk, fg: kParchment),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'DIAGRAM',
-                bg: kAccentGold,
-                fg: kInk,
-              ),
+              _Tag(label: 'DIAGRAM', bg: kAccentGold, fg: kInk),
             ],
           ),
           const SizedBox(height: kGapM),
@@ -673,8 +623,7 @@ class _AnatomyPainter extends CustomPainter {
     final double vpRight = size.width * 0.72;
     final double vpTop = size.height * 0.14;
     final double vpBottom = size.height * 0.86;
-    final Paint viewportFill = Paint()
-      ..color = kBrick.withValues(alpha: 0.12);
+    final Paint viewportFill = Paint()..color = kBrick.withValues(alpha: 0.12);
     final Paint viewportStroke = Paint()
       ..color = kBrick
       ..style = PaintingStyle.stroke
@@ -684,11 +633,14 @@ class _AnatomyPainter extends CustomPainter {
     canvas.drawRect(viewportRect, viewportStroke);
 
     // Lead/trail edge zones (above / below viewport).
-    final Paint edgeFill = Paint()
-      ..color = kAccentSage.withValues(alpha: 0.18);
+    final Paint edgeFill = Paint()..color = kAccentSage.withValues(alpha: 0.18);
     final Rect leadRect = Rect.fromLTRB(vpLeft, vpTop - 36, vpRight, vpTop);
-    final Rect trailRect =
-        Rect.fromLTRB(vpLeft, vpBottom, vpRight, vpBottom + 36);
+    final Rect trailRect = Rect.fromLTRB(
+      vpLeft,
+      vpBottom,
+      vpRight,
+      vpBottom + 36,
+    );
     canvas.drawRect(leadRect, edgeFill);
     canvas.drawRect(trailRect, edgeFill);
 
@@ -703,8 +655,7 @@ class _AnatomyPainter extends CustomPainter {
     final double rowRight = vpRight - 14;
     final double firstRowTop = vpTop - 70;
     final Paint rowFill = Paint()..color = kInk;
-    final Paint phantomFill = Paint()
-      ..color = kInkSoft.withValues(alpha: 0.35);
+    final Paint phantomFill = Paint()..color = kInkSoft.withValues(alpha: 0.35);
     final Paint stroke = Paint()
       ..color = kInk
       ..style = PaintingStyle.stroke
@@ -716,11 +667,11 @@ class _AnatomyPainter extends CustomPainter {
       final bool insideViewport = row.top >= vpTop && row.bottom <= vpBottom;
       final bool inEdge =
           (row.bottom >= leadRect.top && row.top <= leadRect.bottom) ||
-              (row.bottom >= trailRect.top && row.top <= trailRect.bottom);
+          (row.bottom >= trailRect.top && row.top <= trailRect.bottom);
       final Paint fill = insideViewport
           ? rowFill
           : (inEdge ? phantomFill : Paint()
-            ..color = kInkMuted.withValues(alpha: 0.15));
+              ..color = kInkMuted.withValues(alpha: 0.15));
       canvas.drawRRect(
         RRect.fromRectAndRadius(row, const Radius.circular(3)),
         fill,
@@ -740,16 +691,8 @@ class _AnatomyPainter extends CustomPainter {
     final Offset axisBottom = Offset(vpLeft - 28, vpBottom + 20);
     canvas.drawLine(axisTop, axisBottom, axisPaint);
     // Arrow head bottom.
-    canvas.drawLine(
-      axisBottom,
-      axisBottom + const Offset(-6, -8),
-      axisPaint,
-    );
-    canvas.drawLine(
-      axisBottom,
-      axisBottom + const Offset(6, -8),
-      axisPaint,
-    );
+    canvas.drawLine(axisBottom, axisBottom + const Offset(-6, -8), axisPaint);
+    canvas.drawLine(axisBottom, axisBottom + const Offset(6, -8), axisPaint);
 
     _drawLabel(
       canvas,
@@ -978,12 +921,14 @@ class _AvatarSliverCard extends StatelessWidget {
               children: const <Widget>[
                 _KeyValueRow(
                   keyLabel: 'itemCount',
-                  value: '200 — fixed, so SliverChildBuilderDelegate knows '
+                  value:
+                      '200 — fixed, so SliverChildBuilderDelegate knows '
                       'the end of the list without asking builder for null.',
                 ),
                 _KeyValueRow(
                   keyLabel: 'itemBuilder',
-                  value: '(context, i) → _AvatarRow(index: i). Called '
+                  value:
+                      '(context, i) → _AvatarRow(index: i). Called '
                       'only when i is within or near the viewport.',
                 ),
                 _KeyValueRow(
@@ -992,7 +937,8 @@ class _AvatarSliverCard extends StatelessWidget {
                 ),
                 _KeyValueRow(
                   keyLabel: 'addAutomaticKeepAlives',
-                  value: 'True by default — children with KeepAliveNotification '
+                  value:
+                      'True by default — children with KeepAliveNotification '
                       'stay alive outside the viewport.',
                 ),
               ],
@@ -1053,11 +999,7 @@ class _AvatarBannerPainter extends CustomPainter {
       ..strokeWidth = 1;
     for (int i = 0; i < 14; i++) {
       final double r = 18.0 + i * 14;
-      canvas.drawCircle(
-        Offset(-40, size.height * 0.7),
-        r,
-        p,
-      );
+      canvas.drawCircle(Offset(-40, size.height * 0.7), r, p);
     }
   }
 
@@ -1107,10 +1049,7 @@ class _AvatarRow extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text(
-                  '#${index.toString().padLeft(3, '0')}',
-                  style: _mono(),
-                ),
+                Text('#${index.toString().padLeft(3, '0')}', style: _mono()),
                 const SizedBox(height: 2),
                 _Dot(active: index % 3 == 0),
               ],
@@ -1255,10 +1194,7 @@ class _Dot extends StatelessWidget {
       decoration: BoxDecoration(
         color: active ? kAccentSage : kInkMuted.withValues(alpha: 0.4),
         shape: BoxShape.circle,
-        border: Border.all(
-          color: active ? kAccentSage : kInkMuted,
-          width: 1,
-        ),
+        border: Border.all(color: active ? kAccentSage : kInkMuted, width: 1),
       ),
     );
   }
@@ -1304,9 +1240,7 @@ class _SeparatedChatCard extends StatelessWidget {
                 child: CustomScrollView(
                   physics: const ClampingScrollPhysics(),
                   slivers: <Widget>[
-                    SliverToBoxAdapter(
-                      child: _ChatChannelHeader(),
-                    ),
+                    SliverToBoxAdapter(child: _ChatChannelHeader()),
                     SliverPadding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -1356,10 +1290,7 @@ class _SeparatedChatCard extends StatelessWidget {
                 title: 'Breathing gap',
                 description:
                     'Nothing but a 12 px SizedBox — avoids visual fatigue.',
-                sample: const SizedBox(
-                  height: 12,
-                  width: double.infinity,
-                ),
+                sample: const SizedBox(height: 12, width: double.infinity),
               ),
               _SeparatorRecipe(
                 title: 'Branded break',
@@ -1416,19 +1347,13 @@ class _ChatChannelHeader extends StatelessWidget {
                 SizedBox(height: 2),
                 Text(
                   '30 messages · last seen 09:14',
-                  style: TextStyle(
-                    color: kBrickFade,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: kBrickFade, fontSize: 12),
                 ),
               ],
             ),
           ),
           IconButton(
-            icon: const Icon(
-              Icons.more_horiz,
-              color: kParchment,
-            ),
+            icon: const Icon(Icons.more_horiz, color: kParchment),
             onPressed: () {
               debugPrint('Chat header: more tapped');
             },
@@ -1451,22 +1376,18 @@ class _ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String who = incoming
-        ? _avatarName(index).split(' ').first
-        : 'You';
+    final String who = incoming ? _avatarName(index).split(' ').first : 'You';
     return Row(
-      mainAxisAlignment:
-          incoming ? MainAxisAlignment.start : MainAxisAlignment.end,
+      mainAxisAlignment: incoming
+          ? MainAxisAlignment.start
+          : MainAxisAlignment.end,
       children: <Widget>[
         if (incoming) _AvatarDisc(index: index),
         if (incoming) const SizedBox(width: kGapS),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 320),
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 9,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
             decoration: BoxDecoration(
               color: incoming ? kParchment : kBrick,
               borderRadius: BorderRadius.only(
@@ -1519,10 +1440,7 @@ class _ThinLineSeparator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      child: Container(
-        height: 1,
-        color: kBrickFade,
-      ),
+      child: Container(height: 1, color: kBrickFade),
     );
   }
 }
@@ -1537,9 +1455,7 @@ class _BrandedBreakSeparator extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: <Widget>[
-          const Expanded(
-            child: Divider(color: kBrickFade, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: kBrickFade, thickness: 1)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
@@ -1552,9 +1468,7 @@ class _BrandedBreakSeparator extends StatelessWidget {
               ),
             ),
           ),
-          const Expanded(
-            child: Divider(color: kBrickFade, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: kBrickFade, thickness: 1)),
         ],
       ),
     );
@@ -1681,24 +1595,20 @@ class _ComposedScrollCard extends StatelessWidget {
                   SliverPadding(
                     padding: const EdgeInsets.fromLTRB(14, 6, 14, 10),
                     sliver: SliverToBoxAdapter(
-                      child: Text(
-                        'Highlights',
-                        style: _sectionTitle(),
-                      ),
+                      child: Text('Highlights', style: _sectionTitle()),
                     ),
                   ),
                   SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
                     sliver: SliverList.list(
                       children: _composedReleaseItems
-                          .map((_ComposedItem it) =>
-                              _ComposedItemTile(item: it))
+                          .map(
+                            (_ComposedItem it) => _ComposedItemTile(item: it),
+                          )
                           .toList(),
                     ),
                   ),
-                  const SliverToBoxAdapter(
-                    child: _ComposedFooterNotice(),
-                  ),
+                  const SliverToBoxAdapter(child: _ComposedFooterNotice()),
                   SliverFillRemaining(
                     hasScrollBody: false,
                     child: Container(
@@ -1706,10 +1616,7 @@ class _ComposedScrollCard extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
-                          colors: <Color>[
-                            kParchmentDeep,
-                            kParchment,
-                          ],
+                          colors: <Color>[kParchmentDeep, kParchment],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                         ),
@@ -1803,11 +1710,7 @@ class _HeroBanner extends StatelessWidget {
               border: Border.all(color: kParchment, width: 2),
             ),
             alignment: Alignment.center,
-            child: const Icon(
-              Icons.rocket_launch,
-              color: kParchment,
-              size: 28,
-            ),
+            child: const Icon(Icons.rocket_launch, color: kParchment, size: 28),
           ),
           const SizedBox(width: kGapM),
           Expanded(
@@ -1825,10 +1728,7 @@ class _HeroBanner extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   'Eight hand-tuned sliver recipes, one composed scroll.',
-                  style: TextStyle(
-                    color: kBrickFade,
-                    fontSize: 12.5,
-                  ),
+                  style: TextStyle(color: kBrickFade, fontSize: 12.5),
                 ),
               ],
             ),
@@ -1956,10 +1856,7 @@ class _ComposedItemTile extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(
-            Icons.chevron_right,
-            color: kBrick,
-          ),
+          const Icon(Icons.chevron_right, color: kBrick),
         ],
       ),
     );
@@ -2015,17 +1912,9 @@ class _FixedVsVariableCompare extends StatelessWidget {
             children: const <Widget>[
               _Tag(label: 'SliverList'),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'SliverFixedExtentList',
-                bg: kInk,
-                fg: kParchment,
-              ),
+              _Tag(label: 'SliverFixedExtentList', bg: kInk, fg: kParchment),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'Performance note',
-                bg: kAccentGold,
-                fg: kInk,
-              ),
+              _Tag(label: 'Performance note', bg: kAccentGold, fg: kInk),
             ],
           ),
           const SizedBox(height: kGapM),
@@ -2088,10 +1977,7 @@ class _VariableColumn extends StatelessWidget {
               Expanded(
                 child: Text(
                   'SliverList — rows vary in height',
-                  style: TextStyle(
-                    color: kInk,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(color: kInk, fontWeight: FontWeight.w800),
                 ),
               ),
             ],
@@ -2147,10 +2033,7 @@ class _VariableRow extends StatelessWidget {
           ),
           const SizedBox(width: kGapS),
           Expanded(
-            child: Text(
-              'Row $index · height ${h}px',
-              style: _bodyInk(),
-            ),
+            child: Text('Row $index · height ${h}px', style: _bodyInk()),
           ),
         ],
       ),
@@ -2178,10 +2061,7 @@ class _FixedColumn extends StatelessWidget {
               Expanded(
                 child: Text(
                   'SliverFixedExtentList — 64 px rows',
-                  style: TextStyle(
-                    color: kInk,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(color: kInk, fontWeight: FontWeight.w800),
                 ),
               ),
             ],
@@ -2195,12 +2075,12 @@ class _FixedColumn extends StatelessWidget {
                 slivers: <Widget>[
                   SliverFixedExtentList(
                     itemExtent: 64,
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return _FixedRow(index: index);
-                      },
-                      childCount: 30,
-                    ),
+                    delegate: SliverChildBuilderDelegate((
+                      BuildContext context,
+                      int index,
+                    ) {
+                      return _FixedRow(index: index);
+                    }, childCount: 30),
                   ),
                 ],
               ),
@@ -2238,10 +2118,7 @@ class _FixedRow extends StatelessWidget {
           ),
           const SizedBox(width: kGapS),
           Expanded(
-            child: Text(
-              'Row $index · exactly 64 px',
-              style: _bodyInk(),
-            ),
+            child: Text('Row $index · exactly 64 px', style: _bodyInk()),
           ),
           const Icon(Icons.lock_outline, size: 16, color: kInkSoft),
         ],
@@ -2273,11 +2150,7 @@ class _StopwatchNote extends StatelessWidget {
               border: Border.all(color: kAccentGold, width: 3),
             ),
             alignment: Alignment.center,
-            child: const Icon(
-              Icons.timer_outlined,
-              color: kBrick,
-              size: 22,
-            ),
+            child: const Icon(Icons.timer_outlined, color: kBrick, size: 22),
           ),
           const SizedBox(width: kGapM),
           Expanded(
@@ -2333,17 +2206,9 @@ class _FieldReferenceTable extends StatelessWidget {
             children: const <Widget>[
               _Tag(label: 'REFERENCE'),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'CONSTRUCTORS',
-                bg: kInk,
-                fg: kParchment,
-              ),
+              _Tag(label: 'CONSTRUCTORS', bg: kInk, fg: kParchment),
               SizedBox(width: kGapS),
-              _Tag(
-                label: 'DELEGATES',
-                bg: kAccentGold,
-                fg: kInk,
-              ),
+              _Tag(label: 'DELEGATES', bg: kAccentGold, fg: kInk),
             ],
           ),
           const SizedBox(height: kGapM),
@@ -2355,7 +2220,8 @@ class _FieldReferenceTable extends StatelessWidget {
           const SizedBox(height: kGapM),
           const _ConstructorCard(
             name: 'SliverList(delegate: …)',
-            signature: 'SliverList({Key? key, required SliverChildDelegate delegate})',
+            signature:
+                'SliverList({Key? key, required SliverChildDelegate delegate})',
             when:
                 'When you want full control over the delegate '
                 '(custom delegate, recycler, keep-alive semantics).',
@@ -2387,8 +2253,7 @@ class _FieldReferenceTable extends StatelessWidget {
           ),
           _ConstructorCard(
             name: 'SliverList.list',
-            signature:
-                'SliverList.list({required List<Widget> children, …})',
+            signature: 'SliverList.list({required List<Widget> children, …})',
             when:
                 'Small, static sections inside a bigger scroll — for '
                 'example a pinned "highlights" block of 6–12 tiles.',

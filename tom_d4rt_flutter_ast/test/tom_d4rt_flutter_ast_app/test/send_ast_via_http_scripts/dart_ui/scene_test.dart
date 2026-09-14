@@ -188,7 +188,11 @@ Widget gradientHeader({
 
 // A standard panel container with a soft inner gradient and a coloured
 // accent border. Used as the body of every section beneath its header.
-Widget panel({required Widget child, Color accent = kAccentCyan, EdgeInsets? padding}) {
+Widget panel({
+  required Widget child,
+  Color accent = kAccentCyan,
+  EdgeInsets? padding,
+}) {
   return Container(
     margin: const EdgeInsets.only(top: 14),
     padding: padding ?? const EdgeInsets.all(20),
@@ -313,11 +317,7 @@ Widget arrow({Color color = kInkFaint, double size = 18}) {
 
 // A vertical tick used inside the timeline diagram.
 Widget tick({Color color = kInkFaint, double height = 18}) {
-  return Container(
-    width: 2,
-    height: height,
-    color: color.withOpacity(0.7),
-  );
+  return Container(width: 2, height: height, color: color.withOpacity(0.7));
 }
 
 // A row of subtle dotted connectors used inside layer trees.
@@ -327,7 +327,11 @@ Widget dottedConnector({Color color = kInkFaint, double width = 22}) {
     height: 2,
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [color.withOpacity(0.0), color.withOpacity(0.7), color.withOpacity(0.0)],
+        colors: [
+          color.withOpacity(0.0),
+          color.withOpacity(0.7),
+          color.withOpacity(0.0),
+        ],
       ),
     ),
   );
@@ -584,7 +588,11 @@ Widget fadeDivider({Color color = kInkFaint, double padding = 8}) {
 }
 
 // A two-column stat pair used inside cards.
-Widget statPair({required String big, required String small, Color color = kAccentCyan}) {
+Widget statPair({
+  required String big,
+  required String small,
+  Color color = kAccentCyan,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -682,7 +690,8 @@ Widget sectionAnatomy() {
       gradientHeader(
         number: '01',
         title: 'Anatomy of a Frame',
-        subtitle: 'Widget → Element → RenderObject → Layer → SceneBuilder → Scene → FlutterView',
+        subtitle:
+            'Widget → Element → RenderObject → Layer → SceneBuilder → Scene → FlutterView',
         gradient: [Color(0xFF2A4878), Color(0xFF1A2C4D)],
         accent: kAccentCyan,
       ),
@@ -864,44 +873,90 @@ Widget sectionApiMap() {
             const SizedBox(height: 14),
             _apiGroupCard(
               groupName: 'TRANSFORMS',
-              groupNote: 'Affine matrix concatenation — pushed transforms multiply onto the current matrix.',
+              groupNote:
+                  'Affine matrix concatenation — pushed transforms multiply onto the current matrix.',
               accent: kAccentSky,
               rows: [
-                ['pushTransform(matrix4)', 'Push a 4x4 affine matrix; affects all enclosed children.'],
-                ['pushOffset(dx, dy)', 'Cheap translate-only transform; the most common push in practice.'],
+                [
+                  'pushTransform(matrix4)',
+                  'Push a 4x4 affine matrix; affects all enclosed children.',
+                ],
+                [
+                  'pushOffset(dx, dy)',
+                  'Cheap translate-only transform; the most common push in practice.',
+                ],
               ],
             ),
             _apiGroupCard(
               groupName: 'OPACITY & BLEND',
-              groupNote: 'Compositing effects that require an offscreen buffer — use sparingly.',
+              groupNote:
+                  'Compositing effects that require an offscreen buffer — use sparingly.',
               accent: kAccentViolet,
               rows: [
-                ['pushOpacity(alpha)', 'Alpha-blend an entire subtree; allocates an offscreen layer.'],
-                ['pushBackdropFilter(filter)', 'Apply ImageFilter to whatever is BEHIND this layer (e.g. blur).'],
-                ['pushColorFilter(filter)', 'Apply ColorFilter to the subtree on its way to composition.'],
-                ['pushImageFilter(filter)', 'Apply ImageFilter to the subtree itself (blur, dilate, matrix).'],
-                ['pushShaderMask(shader, rect, blendMode)', 'Mask the subtree with a Shader + BlendMode.'],
+                [
+                  'pushOpacity(alpha)',
+                  'Alpha-blend an entire subtree; allocates an offscreen layer.',
+                ],
+                [
+                  'pushBackdropFilter(filter)',
+                  'Apply ImageFilter to whatever is BEHIND this layer (e.g. blur).',
+                ],
+                [
+                  'pushColorFilter(filter)',
+                  'Apply ColorFilter to the subtree on its way to composition.',
+                ],
+                [
+                  'pushImageFilter(filter)',
+                  'Apply ImageFilter to the subtree itself (blur, dilate, matrix).',
+                ],
+                [
+                  'pushShaderMask(shader, rect, blendMode)',
+                  'Mask the subtree with a Shader + BlendMode.',
+                ],
               ],
             ),
             _apiGroupCard(
               groupName: 'CLIPPING',
-              groupNote: 'Restrict the painting region — supports rect / rrect / path geometry.',
+              groupNote:
+                  'Restrict the painting region — supports rect / rrect / path geometry.',
               accent: kAccentLime,
               rows: [
-                ['pushClipRect(rect, clipBehavior)', 'Hard-edged rectangular clip in scene coordinates.'],
-                ['pushClipRRect(rrect)', 'Rounded-rect clip; antialiased on most devices.'],
-                ['pushClipPath(path)', 'Arbitrary path clip; the most expensive of the three.'],
+                [
+                  'pushClipRect(rect, clipBehavior)',
+                  'Hard-edged rectangular clip in scene coordinates.',
+                ],
+                [
+                  'pushClipRRect(rrect)',
+                  'Rounded-rect clip; antialiased on most devices.',
+                ],
+                [
+                  'pushClipPath(path)',
+                  'Arbitrary path clip; the most expensive of the three.',
+                ],
               ],
             ),
             _apiGroupCard(
               groupName: 'CONTENT (LEAF)',
-              groupNote: 'Drop concrete pixel sources into the currently open layer.',
+              groupNote:
+                  'Drop concrete pixel sources into the currently open layer.',
               accent: kAccentAmber,
               rows: [
-                ['addPicture(offset, picture)', 'Insert a recorded Picture at offset; the bread-and-butter call.'],
-                ['addPlatformView(viewId, ...)', 'Insert a native platform view (UIView / android.view.View).'],
-                ['addTexture(textureId, ...)', 'Insert an external texture — video frames, camera, etc.'],
-                ['addRetained(engineLayer)', 'Re-attach a previously built EngineLayer subtree intact.'],
+                [
+                  'addPicture(offset, picture)',
+                  'Insert a recorded Picture at offset; the bread-and-butter call.',
+                ],
+                [
+                  'addPlatformView(viewId, ...)',
+                  'Insert a native platform view (UIView / android.view.View).',
+                ],
+                [
+                  'addTexture(textureId, ...)',
+                  'Insert an external texture — video frames, camera, etc.',
+                ],
+                [
+                  'addRetained(engineLayer)',
+                  'Re-attach a previously built EngineLayer subtree intact.',
+                ],
               ],
             ),
             _apiGroupCard(
@@ -909,8 +964,14 @@ Widget sectionApiMap() {
               groupNote: 'Closing pushes and finalising the build.',
               accent: kAccentRose,
               rows: [
-                ['pop()', 'Close the most recently pushed layer; balance of pushes and pops is mandatory.'],
-                ['build()', 'Freeze the current tree into a Scene. After build() the builder is exhausted.'],
+                [
+                  'pop()',
+                  'Close the most recently pushed layer; balance of pushes and pops is mandatory.',
+                ],
+                [
+                  'build()',
+                  'Freeze the current tree into a Scene. After build() the builder is exhausted.',
+                ],
               ],
             ),
           ],
@@ -953,10 +1014,7 @@ Widget _layerWrap({
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6),
             Text(
@@ -1011,7 +1069,11 @@ Widget _pictureLeaf({required String hint, required Color tint}) {
     ),
     child: Row(
       children: [
-        Icon(Icons.photo_size_select_actual_outlined, color: Colors.black87, size: 16),
+        Icon(
+          Icons.photo_size_select_actual_outlined,
+          color: Colors.black87,
+          size: 16,
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
@@ -1072,14 +1134,20 @@ Widget sectionLayerTree() {
                     label: 'TransformLayer',
                     color: kAccentAmber,
                     tag: 'matrix4',
-                    child: _pictureLeaf(hint: 'rotated red square', tint: kAccentCoral),
+                    child: _pictureLeaf(
+                      hint: 'rotated red square',
+                      tint: kAccentCoral,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   _layerWrap(
                     label: 'OpacityLayer',
                     color: kAccentViolet,
                     tag: 'alpha=0.5',
-                    child: _pictureLeaf(hint: 'faded blue dot', tint: kAccentSky),
+                    child: _pictureLeaf(
+                      hint: 'faded blue dot',
+                      tint: kAccentSky,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   _layerWrap(
@@ -1096,11 +1164,31 @@ Widget sectionLayerTree() {
               spacing: 10,
               runSpacing: 10,
               children: [
-                pillBadge('3 children', color: kAccentCyan, icon: Icons.account_tree_outlined),
-                pillBadge('1 transform', color: kAccentAmber, icon: Icons.sync_alt),
-                pillBadge('1 opacity', color: kAccentViolet, icon: Icons.opacity),
-                pillBadge('1 clip', color: kAccentLime, icon: Icons.crop_square),
-                pillBadge('3 leaf pictures', color: kAccentRose, icon: Icons.photo_library_outlined),
+                pillBadge(
+                  '3 children',
+                  color: kAccentCyan,
+                  icon: Icons.account_tree_outlined,
+                ),
+                pillBadge(
+                  '1 transform',
+                  color: kAccentAmber,
+                  icon: Icons.sync_alt,
+                ),
+                pillBadge(
+                  '1 opacity',
+                  color: kAccentViolet,
+                  icon: Icons.opacity,
+                ),
+                pillBadge(
+                  '1 clip',
+                  color: kAccentLime,
+                  icon: Icons.crop_square,
+                ),
+                pillBadge(
+                  '3 leaf pictures',
+                  color: kAccentRose,
+                  icon: Icons.photo_library_outlined,
+                ),
               ],
             ),
           ],
@@ -1133,14 +1221,54 @@ Widget sectionLayerTree() {
 
 Widget sectionPushPopTimeline() {
   final steps = <Widget>[
-    timelineStep(op: 'pushTransform', detail: 'open Transform', color: kAccentAmber, index: 1),
-    timelineStep(op: 'addPicture', detail: 'red square', color: kAccentCoral, index: 2),
-    timelineStep(op: 'pop', detail: 'close Transform', color: kInkFaint, index: 3),
-    timelineStep(op: 'pushOpacity', detail: 'open Opacity', color: kAccentViolet, index: 4),
-    timelineStep(op: 'addPicture', detail: 'blue dot', color: kAccentSky, index: 5),
-    timelineStep(op: 'pop', detail: 'close Opacity', color: kInkFaint, index: 6),
-    timelineStep(op: 'pushClipRect', detail: 'open Clip', color: kAccentLime, index: 7),
-    timelineStep(op: 'addPicture', detail: 'green strip', color: kAccentTeal, index: 8),
+    timelineStep(
+      op: 'pushTransform',
+      detail: 'open Transform',
+      color: kAccentAmber,
+      index: 1,
+    ),
+    timelineStep(
+      op: 'addPicture',
+      detail: 'red square',
+      color: kAccentCoral,
+      index: 2,
+    ),
+    timelineStep(
+      op: 'pop',
+      detail: 'close Transform',
+      color: kInkFaint,
+      index: 3,
+    ),
+    timelineStep(
+      op: 'pushOpacity',
+      detail: 'open Opacity',
+      color: kAccentViolet,
+      index: 4,
+    ),
+    timelineStep(
+      op: 'addPicture',
+      detail: 'blue dot',
+      color: kAccentSky,
+      index: 5,
+    ),
+    timelineStep(
+      op: 'pop',
+      detail: 'close Opacity',
+      color: kInkFaint,
+      index: 6,
+    ),
+    timelineStep(
+      op: 'pushClipRect',
+      detail: 'open Clip',
+      color: kAccentLime,
+      index: 7,
+    ),
+    timelineStep(
+      op: 'addPicture',
+      detail: 'green strip',
+      color: kAccentTeal,
+      index: 8,
+    ),
     timelineStep(op: 'pop', detail: 'close Clip', color: kInkFaint, index: 9),
     timelineStep(op: 'build', detail: '→ Scene', color: kAccentRose, index: 10),
   ];
@@ -1359,55 +1487,63 @@ Widget sectionRecipe() {
             _recipeStep(
               index: 1,
               title: 'Engine signals vsync',
-              body: 'The platform fires vsync. The engine schedules a frame and notifies the framework via PlatformDispatcher.onBeginFrame.',
+              body:
+                  'The platform fires vsync. The engine schedules a frame and notifies the framework via PlatformDispatcher.onBeginFrame.',
               color: kAccentCyan,
             ),
             _recipeStep(
               index: 2,
               title: 'Framework runs build / layout / paint',
-              body: 'WidgetsBinding processes scheduled rebuilds, performs layout on dirty RenderObjects, and triggers paint passes '
+              body:
+                  'WidgetsBinding processes scheduled rebuilds, performs layout on dirty RenderObjects, and triggers paint passes '
                   'that record into PictureRecorders.',
               color: kAccentSky,
             ),
             _recipeStep(
               index: 3,
               title: 'PaintingContext produces Pictures',
-              body: 'Each PictureLayer wraps a Picture obtained from PictureRecorder.endRecording(). Pictures are immutable, '
+              body:
+                  'Each PictureLayer wraps a Picture obtained from PictureRecorder.endRecording(). Pictures are immutable, '
                   'replayable lists of canvas operations.',
               color: kAccentLime,
             ),
             _recipeStep(
               index: 4,
               title: 'Compositor allocates a fresh SceneBuilder',
-              body: 'RenderView.compositeFrame creates `ui.SceneBuilder()`. From here the SceneBuilder is the only thing that '
+              body:
+                  'RenderView.compositeFrame creates `ui.SceneBuilder()`. From here the SceneBuilder is the only thing that '
                   'matters until build() is called.',
               color: kAccentTeal,
             ),
             _recipeStep(
               index: 5,
               title: 'Walk the layer tree, push & addPicture',
-              body: 'The layer tree is walked depth-first; container layers issue push* calls; picture layers issue addPicture; '
+              body:
+                  'The layer tree is walked depth-first; container layers issue push* calls; picture layers issue addPicture; '
                   'after each subtree we pop.',
               color: kAccentAmber,
             ),
             _recipeStep(
               index: 6,
               title: 'Call build() to freeze the Scene',
-              body: 'sceneBuilder.build() returns a `ui.Scene`. The builder is now exhausted — calling pop or addPicture on it '
+              body:
+                  'sceneBuilder.build() returns a `ui.Scene`. The builder is now exhausted — calling pop or addPicture on it '
                   'is a misuse.',
               color: kAccentViolet,
             ),
             _recipeStep(
               index: 7,
               title: 'FlutterView.render(scene)',
-              body: 'The Scene is handed to FlutterView. This is the boundary call that crosses into the C++ engine, where '
+              body:
+                  'The Scene is handed to FlutterView. This is the boundary call that crosses into the C++ engine, where '
                   'Skia or Impeller will rasterize it onto the GPU surface.',
               color: kAccentRose,
             ),
             _recipeStep(
               index: 8,
               title: 'Dispose & next frame',
-              body: 'After render, the Scene\'s native handle is owned by the engine. The framework drops its reference and '
+              body:
+                  'After render, the Scene\'s native handle is owned by the engine. The framework drops its reference and '
                   'awaits the next vsync to begin again.',
               color: kAccentCoral,
             ),
@@ -1655,7 +1791,11 @@ Widget _footgunCard({
                 ),
               ),
             ),
-            pillBadge('FOOTGUN', color: color, icon: Icons.warning_amber_outlined),
+            pillBadge(
+              'FOOTGUN',
+              color: color,
+              icon: Icons.warning_amber_outlined,
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -1864,7 +2004,10 @@ Widget _zoneCard({
                       child: Container(
                         width: 6,
                         height: 6,
-                        decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+                        decoration: BoxDecoration(
+                          color: accent,
+                          shape: BoxShape.circle,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -1940,7 +2083,10 @@ Widget sectionBoundary() {
                 Column(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: kAccentRose.withOpacity(0.18),
                         borderRadius: BorderRadius.circular(20),
@@ -2127,9 +2273,7 @@ Widget _glossEntry({
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(kInnerRadius),
       color: kBgPanelSoft,
-      border: Border(
-        left: BorderSide(color: accent, width: 4),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 4)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2203,37 +2347,47 @@ Widget sectionGlossary() {
               term: 'Picture',
               accent: kAccentSky,
               def: 'An immutable, replayable list of canvas operations.',
-              note: 'Produced by PictureRecorder.endRecording(). Cheap to addPicture into a Scene multiple times.',
+              note:
+                  'Produced by PictureRecorder.endRecording(). Cheap to addPicture into a Scene multiple times.',
             ),
             _glossEntry(
               term: 'Layer',
               accent: kAccentLime,
-              def: 'A node in the framework\'s composition tree, wrapping either a Picture or a stack of children.',
-              note: 'Layers are framework-side. They map 1:1 to push* / addPicture calls during scene assembly.',
+              def:
+                  'A node in the framework\'s composition tree, wrapping either a Picture or a stack of children.',
+              note:
+                  'Layers are framework-side. They map 1:1 to push* / addPicture calls during scene assembly.',
             ),
             _glossEntry(
               term: 'SceneBuilder',
               accent: kAccentTeal,
-              def: 'A stack-based assembler for the engine\'s view of one frame.',
-              note: 'Single-use. Allocated by the compositor every frame; consumed by build().',
+              def:
+                  'A stack-based assembler for the engine\'s view of one frame.',
+              note:
+                  'Single-use. Allocated by the compositor every frame; consumed by build().',
             ),
             _glossEntry(
               term: 'Scene',
               accent: kAccentRose,
-              def: 'The frozen output of SceneBuilder.build() — an opaque handle handed to the engine.',
+              def:
+                  'The frozen output of SceneBuilder.build() — an opaque handle handed to the engine.',
               note: 'Owns native resources. Once render()ed, treat it as gone.',
             ),
             _glossEntry(
               term: 'FlutterView',
               accent: kAccentCyan,
-              def: 'The Dart-side handle to a single rendering surface (typically one window).',
-              note: 'Its render(Scene) method is the framework/engine boundary call.',
+              def:
+                  'The Dart-side handle to a single rendering surface (typically one window).',
+              note:
+                  'Its render(Scene) method is the framework/engine boundary call.',
             ),
             _glossEntry(
               term: 'EngineLayer',
               accent: kAccentAmber,
-              def: 'A retained handle returned by push* methods, usable on the next frame via addRetained.',
-              note: 'The dart:ui-level mechanism behind RepaintBoundary and other reuse optimisations.',
+              def:
+                  'A retained handle returned by push* methods, usable on the next frame via addRetained.',
+              note:
+                  'The dart:ui-level mechanism behind RepaintBoundary and other reuse optimisations.',
             ),
           ],
         ),

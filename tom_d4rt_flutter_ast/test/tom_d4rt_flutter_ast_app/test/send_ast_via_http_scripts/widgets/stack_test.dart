@@ -38,7 +38,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.theater_comedy, color: Colors.amber.shade300, size: 32.0),
+            Icon(
+              Icons.theater_comedy,
+              color: Colors.amber.shade300,
+              size: 32.0,
+            ),
             SizedBox(width: 12.0),
             Text(
               'A Stack is a Stage',
@@ -109,10 +113,7 @@ dynamic build(BuildContext context) {
           height: 100.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                zOrderColors[i],
-                zOrderColors[i].withValues(alpha: 0.6),
-              ],
+              colors: [zOrderColors[i], zOrderColors[i].withValues(alpha: 0.6)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -281,7 +282,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'StackFit.loose',
       'fit': StackFit.loose,
-      'desc': 'Children get loose constraints — they can be smaller than parent.',
+      'desc':
+          'Children get loose constraints — they can be smaller than parent.',
       'color': Colors.lightBlue,
     },
     {
@@ -346,10 +348,7 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 6.0),
-            Text(
-              desc,
-              style: TextStyle(fontSize: 11.0, color: color.shade900),
-            ),
+            Text(desc, style: TextStyle(fontSize: 11.0, color: color.shade900)),
             SizedBox(height: 10.0),
             Center(
               child: SizedBox(
@@ -825,10 +824,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Only Positioned',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
                 SizedBox(height: 4.0),
                 Container(
@@ -875,10 +871,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   '→ collapses',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.red.shade900,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.red.shade900),
                 ),
               ],
             ),
@@ -887,10 +880,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Un-positioned',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
                 SizedBox(height: 4.0),
                 Container(
@@ -935,10 +925,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Tight (SizedBox)',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
                 SizedBox(height: 4.0),
                 SizedBox(
@@ -966,10 +953,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   '→ 100×60',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.blue.shade900,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.blue.shade900),
                 ),
               ],
             ),
@@ -993,7 +977,13 @@ dynamic build(BuildContext context) {
     Colors.purple,
     Colors.orange,
   ];
-  final actorLabels = <String>['Hamlet', 'Ophelia', 'Horatio', 'Laertes', 'Polonius'];
+  final actorLabels = <String>[
+    'Hamlet',
+    'Ophelia',
+    'Horatio',
+    'Laertes',
+    'Polonius',
+  ];
   for (int i = 0; i < actorLabels.length; i++) {
     final color = actorColors[i];
     indexedActors.add(
@@ -1288,11 +1278,7 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.theater_comedy,
-                      size: 56.0,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.theater_comedy, size: 56.0, color: Colors.white),
                     SizedBox(height: 8.0),
                     Text(
                       'Stack',
@@ -1398,11 +1384,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.nights_stay,
-                color: Colors.amber.shade200,
-                size: 28.0,
-              ),
+              Icon(Icons.nights_stay, color: Colors.amber.shade200, size: 28.0),
               SizedBox(width: 12.0),
               Expanded(
                 child: Text(

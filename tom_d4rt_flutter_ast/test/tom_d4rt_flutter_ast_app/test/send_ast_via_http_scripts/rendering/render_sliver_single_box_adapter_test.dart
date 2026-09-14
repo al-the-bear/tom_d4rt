@@ -83,8 +83,14 @@ Widget _sbSectionTitle(String title, IconData icon) {
 Widget _sbBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -110,9 +116,23 @@ Widget _sbInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _sbTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _sbTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _sbTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _sbTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -127,8 +147,19 @@ Widget _sbInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _sbCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _sbSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _sbAccent, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _sbSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _sbAccent,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -165,7 +196,14 @@ Widget _sbSection1Overview() {
         ),
         child: Column(
           children: [
-            Text('Widget ↔ Render mapping', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _sbTextDark)),
+            Text(
+              'Widget ↔ Render mapping',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: _sbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -174,8 +212,14 @@ Widget _sbSection1Overview() {
                     children: [
                       _sbBadge('SliverToBoxAdapter', _sbPrimary, _sbOnPrimary),
                       SizedBox(height: 4),
-                      Text('Widget layer', style: TextStyle(fontSize: 9, color: _sbTextMedium)),
-                      Text('accepts any child widget', style: TextStyle(fontSize: 9, color: _sbGrey)),
+                      Text(
+                        'Widget layer',
+                        style: TextStyle(fontSize: 9, color: _sbTextMedium),
+                      ),
+                      Text(
+                        'accepts any child widget',
+                        style: TextStyle(fontSize: 9, color: _sbGrey),
+                      ),
                     ],
                   ),
                 ),
@@ -183,10 +227,20 @@ Widget _sbSection1Overview() {
                 Expanded(
                   child: Column(
                     children: [
-                      _sbBadge('RenderSliverSingleBoxAdapter', _sbAccent, _sbOnPrimary),
+                      _sbBadge(
+                        'RenderSliverSingleBoxAdapter',
+                        _sbAccent,
+                        _sbOnPrimary,
+                      ),
                       SizedBox(height: 4),
-                      Text('Render layer', style: TextStyle(fontSize: 9, color: _sbTextMedium)),
-                      Text('lays out one RenderBox', style: TextStyle(fontSize: 9, color: _sbGrey)),
+                      Text(
+                        'Render layer',
+                        style: TextStyle(fontSize: 9, color: _sbTextMedium),
+                      ),
+                      Text(
+                        'lays out one RenderBox',
+                        style: TextStyle(fontSize: 9, color: _sbGrey),
+                      ),
                     ],
                   ),
                 ),
@@ -226,7 +280,14 @@ Widget _sbSection2Bridge() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Constraint translation', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _sbTextDark)),
+            Text(
+              'Constraint translation',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _sbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             // Sliver constraints (input)
             Container(
@@ -251,7 +312,9 @@ Widget _sbSection2Bridge() {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 6),
-              child: Center(child: Icon(Icons.arrow_downward, size: 20, color: _sbPrimary)),
+              child: Center(
+                child: Icon(Icons.arrow_downward, size: 20, color: _sbPrimary),
+              ),
             ),
             // Translated box constraints
             Container(
@@ -264,13 +327,24 @@ Widget _sbSection2Bridge() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sbBadge('BoxConstraints (to child)', _sbPrimary, _sbOnPrimary),
+                  _sbBadge(
+                    'BoxConstraints (to child)',
+                    _sbPrimary,
+                    _sbOnPrimary,
+                  ),
                   SizedBox(height: 4),
                   _sbCode('minWidth: 400.0, maxWidth: 400.0'),
                   SizedBox(height: 2),
                   _sbCode('minHeight: 0.0, maxHeight: ∞'),
                   SizedBox(height: 2),
-                  Text('Cross-axis is tight, main-axis is unconstrained', style: TextStyle(fontSize: 10, color: _sbTextMedium, fontStyle: FontStyle.italic)),
+                  Text(
+                    'Cross-axis is tight, main-axis is unconstrained',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: _sbTextMedium,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -286,11 +360,36 @@ Widget _sbSection2Bridge() {
 // ---------------------------------------------------------------------------
 Widget _sbSection3Layout() {
   final steps = <Map<String, dynamic>>[
-    {'step': '1', 'desc': 'Viewport passes SliverConstraints', 'detail': 'crossAxisExtent, scrollOffset, remaining paint extent', 'color': _sbBlue},
-    {'step': '2', 'desc': 'Adapter creates BoxConstraints', 'detail': 'Tight cross-axis, unbounded main-axis', 'color': _sbPrimary},
-    {'step': '3', 'desc': 'Child is laid out with box constraints', 'detail': 'Child picks its natural main-axis size', 'color': _sbTeal},
-    {'step': '4', 'desc': 'Child size → SliverGeometry', 'detail': 'scrollExtent = child main-axis size', 'color': _sbOrange},
-    {'step': '5', 'desc': 'Adapter paints child at correct offset', 'detail': 'Adjusted for current scroll position', 'color': _sbGreen},
+    {
+      'step': '1',
+      'desc': 'Viewport passes SliverConstraints',
+      'detail': 'crossAxisExtent, scrollOffset, remaining paint extent',
+      'color': _sbBlue,
+    },
+    {
+      'step': '2',
+      'desc': 'Adapter creates BoxConstraints',
+      'detail': 'Tight cross-axis, unbounded main-axis',
+      'color': _sbPrimary,
+    },
+    {
+      'step': '3',
+      'desc': 'Child is laid out with box constraints',
+      'detail': 'Child picks its natural main-axis size',
+      'color': _sbTeal,
+    },
+    {
+      'step': '4',
+      'desc': 'Child size → SliverGeometry',
+      'detail': 'scrollExtent = child main-axis size',
+      'color': _sbOrange,
+    },
+    {
+      'step': '5',
+      'desc': 'Adapter paints child at correct offset',
+      'detail': 'Adjusted for current scroll position',
+      'color': _sbGreen,
+    },
   ];
 
   return Column(
@@ -313,35 +412,65 @@ Widget _sbSection3Layout() {
           border: Border.all(color: _sbDivider),
         ),
         child: Column(
-          children: steps.map((s) => Container(
-            margin: EdgeInsets.only(bottom: 6),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            decoration: BoxDecoration(
-              color: (s['color'] as Color).withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(6),
-              border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 22, height: 22,
-                  decoration: BoxDecoration(color: s['color'] as Color, shape: BoxShape.circle),
-                  alignment: Alignment.center,
-                  child: Text(s['step'] as String, style: TextStyle(fontSize: 10, color: _sbOnPrimary, fontWeight: FontWeight.w700)),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          children: steps
+              .map(
+                (s) => Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: (s['color'] as Color).withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border(
+                      left: BorderSide(color: s['color'] as Color, width: 3),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      Text(s['desc'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: s['color'] as Color)),
-                      Text(s['detail'] as String, style: TextStyle(fontSize: 10, color: _sbTextMedium)),
+                      Container(
+                        width: 22,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          color: s['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          s['step'] as String,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _sbOnPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              s['desc'] as String,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: s['color'] as Color,
+                              ),
+                            ),
+                            Text(
+                              s['detail'] as String,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _sbTextMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          )).toList(),
+              )
+              .toList(),
         ),
       ),
     ],
@@ -353,11 +482,31 @@ Widget _sbSection3Layout() {
 // ---------------------------------------------------------------------------
 Widget _sbSection4Geometry() {
   final fields = <Map<String, String>>[
-    {'field': 'scrollExtent', 'value': 'child.size.height', 'note': 'Total scrollable size of this sliver'},
-    {'field': 'paintExtent', 'value': 'visible portion', 'note': 'How much is currently visible in viewport'},
-    {'field': 'maxPaintExtent', 'value': 'child.size.height', 'note': 'Maximum possible paint extent'},
-    {'field': 'layoutExtent', 'value': 'same as paintExtent', 'note': 'Space consumed in the viewport'},
-    {'field': 'paintOrigin', 'value': '0 or negative', 'note': 'Where painting starts relative to layout position'},
+    {
+      'field': 'scrollExtent',
+      'value': 'child.size.height',
+      'note': 'Total scrollable size of this sliver',
+    },
+    {
+      'field': 'paintExtent',
+      'value': 'visible portion',
+      'note': 'How much is currently visible in viewport',
+    },
+    {
+      'field': 'maxPaintExtent',
+      'value': 'child.size.height',
+      'note': 'Maximum possible paint extent',
+    },
+    {
+      'field': 'layoutExtent',
+      'value': 'same as paintExtent',
+      'note': 'Space consumed in the viewport',
+    },
+    {
+      'field': 'paintOrigin',
+      'value': '0 or negative',
+      'note': 'Where painting starts relative to layout position',
+    },
   ];
 
   return Column(
@@ -381,31 +530,51 @@ Widget _sbSection4Geometry() {
           border: Border.all(color: _sbDivider),
         ),
         child: Column(
-          children: fields.map((f) => Container(
-            margin: EdgeInsets.only(bottom: 6),
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: _sbSurface,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    _sbCode(f['field']!),
-                    SizedBox(width: 8),
-                    Expanded(child: Text(f['value']!, style: TextStyle(fontSize: 10, color: _sbAccent, fontWeight: FontWeight.w600))),
-                  ],
+          children: fields
+              .map(
+                (f) => Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _sbSurface,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          _sbCode(f['field']!),
+                          SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              f['value']!,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _sbAccent,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Padding(
+                        padding: EdgeInsets.only(left: 4),
+                        child: Text(
+                          f['note']!,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _sbTextMedium,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 2),
-                Padding(
-                  padding: EdgeInsets.only(left: 4),
-                  child: Text(f['note']!, style: TextStyle(fontSize: 10, color: _sbTextMedium, fontStyle: FontStyle.italic)),
-                ),
-              ],
-            ),
-          )).toList(),
+              )
+              .toList(),
         ),
       ),
     ],
@@ -440,25 +609,41 @@ Widget _sbSection5Clipping() {
           children: [
             // Viewport frame
             Positioned(
-              left: 20, top: 10, right: 20, bottom: 10,
+              left: 20,
+              top: 10,
+              right: 20,
+              bottom: 10,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: _sbPrimary.withValues(alpha: 0.4), width: 2),
+                  border: Border.all(
+                    color: _sbPrimary.withValues(alpha: 0.4),
+                    width: 2,
+                  ),
                 ),
               ),
             ),
             Positioned(
-              left: 24, top: 4,
+              left: 24,
+              top: 4,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                 color: Colors.white,
-                child: Text('Viewport', style: TextStyle(fontSize: 9, color: _sbPrimary, fontWeight: FontWeight.w700)),
+                child: Text(
+                  'Viewport',
+                  style: TextStyle(
+                    fontSize: 9,
+                    color: _sbPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
             // Fully visible child
             Positioned(
-              left: 40, top: 28, right: 40,
+              left: 40,
+              top: 28,
+              right: 40,
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
@@ -470,15 +655,28 @@ Widget _sbSection5Clipping() {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Fully visible', style: TextStyle(fontSize: 10, color: _sbGreen, fontWeight: FontWeight.w700)),
-                    Text('paintExtent = scrollExtent', style: TextStyle(fontSize: 8, color: _sbTextMedium)),
+                    Text(
+                      'Fully visible',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: _sbGreen,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'paintExtent = scrollExtent',
+                      style: TextStyle(fontSize: 8, color: _sbTextMedium),
+                    ),
                   ],
                 ),
               ),
             ),
             // Partially visible child (bottom)
             Positioned(
-              left: 40, top: 86, right: 40, bottom: 0,
+              left: 40,
+              top: 86,
+              right: 40,
+              bottom: 0,
               child: Container(
                 decoration: BoxDecoration(
                   color: _sbAmber.withValues(alpha: 0.12),
@@ -489,10 +687,23 @@ Widget _sbSection5Clipping() {
                 padding: EdgeInsets.only(top: 8),
                 child: Column(
                   children: [
-                    Text('Partially visible', style: TextStyle(fontSize: 10, color: _sbAmber, fontWeight: FontWeight.w700)),
-                    Text('paintExtent < scrollExtent', style: TextStyle(fontSize: 8, color: _sbTextMedium)),
+                    Text(
+                      'Partially visible',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: _sbAmber,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'paintExtent < scrollExtent',
+                      style: TextStyle(fontSize: 8, color: _sbTextMedium),
+                    ),
                     SizedBox(height: 4),
-                    Text('Clipped by viewport ↓', style: TextStyle(fontSize: 8, color: _sbRed)),
+                    Text(
+                      'Clipped by viewport ↓',
+                      style: TextStyle(fontSize: 8, color: _sbRed),
+                    ),
                   ],
                 ),
               ),
@@ -531,30 +742,59 @@ Widget _sbSection6HitTest() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Hit test flow', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _sbTextDark)),
+            Text(
+              'Hit test flow',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _sbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
               {'step': 'Viewport receives pointer event', 'color': _sbBlue},
               {'step': 'Delegates to sliver hit test', 'color': _sbPrimary},
-              {'step': 'Adapter checks if within paint bounds', 'color': _sbTeal},
-              {'step': 'Converts sliver position → box position', 'color': _sbOrange},
-              {'step': 'Child hitTest() is called with box coordinates', 'color': _sbGreen},
-            ].map((s) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: (s['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(4),
-                border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
+              {
+                'step': 'Adapter checks if within paint bounds',
+                'color': _sbTeal,
+              },
+              {
+                'step': 'Converts sliver position → box position',
+                'color': _sbOrange,
+              },
+              {
+                'step': 'Child hitTest() is called with box coordinates',
+                'color': _sbGreen,
+              },
+            ].map(
+              (s) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (s['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border(
+                    left: BorderSide(color: s['color'] as Color, width: 3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_right,
+                      size: 14,
+                      color: s['color'] as Color,
+                    ),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        s['step'] as String,
+                        style: TextStyle(fontSize: 11, color: _sbTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.arrow_right, size: 14, color: s['color'] as Color),
-                  SizedBox(width: 6),
-                  Expanded(child: Text(s['step'] as String, style: TextStyle(fontSize: 11, color: _sbTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -568,11 +808,31 @@ Widget _sbSection6HitTest() {
 Widget _sbSection7Comparison() {
   final diffs = <Map<String, String>>[
     {'aspect': 'Children', 'single': 'Exactly one', 'multi': 'Dynamic list'},
-    {'aspect': 'Widget', 'single': 'SliverToBoxAdapter', 'multi': 'SliverList, SliverGrid'},
-    {'aspect': 'Recycling', 'single': 'None (one child)', 'multi': 'Lazily built children'},
-    {'aspect': 'Use case', 'single': 'Headers, banners, single items', 'multi': 'Long lists, grids'},
-    {'aspect': 'Performance', 'single': 'O(1) fixed cost', 'multi': 'O(visible) amortised'},
-    {'aspect': 'Complexity', 'single': 'Simple', 'multi': 'Complex (keep-alive, indices)'},
+    {
+      'aspect': 'Widget',
+      'single': 'SliverToBoxAdapter',
+      'multi': 'SliverList, SliverGrid',
+    },
+    {
+      'aspect': 'Recycling',
+      'single': 'None (one child)',
+      'multi': 'Lazily built children',
+    },
+    {
+      'aspect': 'Use case',
+      'single': 'Headers, banners, single items',
+      'multi': 'Long lists, grids',
+    },
+    {
+      'aspect': 'Performance',
+      'single': 'O(1) fixed cost',
+      'multi': 'O(visible) amortised',
+    },
+    {
+      'aspect': 'Complexity',
+      'single': 'Simple',
+      'multi': 'Complex (keep-alive, indices)',
+    },
   ];
 
   return Column(
@@ -599,26 +859,85 @@ Widget _sbSection7Comparison() {
           children: [
             Container(
               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              decoration: BoxDecoration(color: _sbSurface, borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(
+                color: _sbSurface,
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: Row(
                 children: [
-                  SizedBox(width: 70, child: Text('Aspect', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _sbTextDark))),
-                  Expanded(child: Text('SingleBox', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _sbPrimary))),
-                  Expanded(child: Text('MultiBox', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _sbBlue))),
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      'Aspect',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _sbTextDark,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'SingleBox',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _sbPrimary,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'MultiBox',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _sbBlue,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            ...diffs.map((d) => Container(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: _sbDivider.withValues(alpha: 0.3)))),
-              child: Row(
-                children: [
-                  SizedBox(width: 70, child: Text(d['aspect']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _sbTextDark))),
-                  Expanded(child: Text(d['single']!, style: TextStyle(fontSize: 10, color: _sbPrimary))),
-                  Expanded(child: Text(d['multi']!, style: TextStyle(fontSize: 10, color: _sbBlue))),
-                ],
+            ...diffs.map(
+              (d) => Container(
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: _sbDivider.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 70,
+                      child: Text(
+                        d['aspect']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: _sbTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        d['single']!,
+                        style: TextStyle(fontSize: 10, color: _sbPrimary),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        d['multi']!,
+                        style: TextStyle(fontSize: 10, color: _sbBlue),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -654,7 +973,14 @@ Widget _sbSection8Demo() {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 4, bottom: 4),
-              child: Text('Mixed slivers: SliverToBoxAdapter + SliverList', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _sbTextDark)),
+              child: Text(
+                'Mixed slivers: SliverToBoxAdapter + SliverList',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _sbTextDark,
+                ),
+              ),
             ),
             SizedBox(
               height: 360,
@@ -677,10 +1003,25 @@ Widget _sbSection8Demo() {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.crop_square, color: _sbOnPrimary, size: 24),
+                            Icon(
+                              Icons.crop_square,
+                              color: _sbOnPrimary,
+                              size: 24,
+                            ),
                             SizedBox(height: 4),
-                            Text('SliverToBoxAdapter #1', style: TextStyle(color: _sbOnPrimary, fontWeight: FontWeight.bold, fontSize: 14)),
-                            _sbBadge('Single box child: Banner', _sbOnPrimary.withValues(alpha: 0.2), _sbOnPrimary),
+                            Text(
+                              'SliverToBoxAdapter #1',
+                              style: TextStyle(
+                                color: _sbOnPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                            _sbBadge(
+                              'Single box child: Banner',
+                              _sbOnPrimary.withValues(alpha: 0.2),
+                              _sbOnPrimary,
+                            ),
                           ],
                         ),
                       ),
@@ -690,11 +1031,16 @@ Widget _sbSection8Demo() {
                       itemCount: 5,
                       itemBuilder: (ctx, i) => Container(
                         height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: _sbBlue.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _sbDivider.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _sbDivider.withValues(alpha: 0.3),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -702,7 +1048,13 @@ Widget _sbSection8Demo() {
                           children: [
                             Icon(Icons.list, size: 14, color: _sbBlue),
                             SizedBox(width: 8),
-                            Text('SliverList item ${i + 1}', style: TextStyle(fontSize: 11, color: _sbTextDark)),
+                            Text(
+                              'SliverList item ${i + 1}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _sbTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -715,7 +1067,9 @@ Widget _sbSection8Demo() {
                         decoration: BoxDecoration(
                           color: _sbTeal.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: _sbTeal.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _sbTeal.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Row(
                           children: [
@@ -725,8 +1079,21 @@ Widget _sbSection8Demo() {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('SliverToBoxAdapter #2', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _sbTeal)),
-                                  Text('An info panel — just a regular box widget', style: TextStyle(fontSize: 10, color: _sbTextMedium)),
+                                  Text(
+                                    'SliverToBoxAdapter #2',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                      color: _sbTeal,
+                                    ),
+                                  ),
+                                  Text(
+                                    'An info panel — just a regular box widget',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: _sbTextMedium,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -739,11 +1106,16 @@ Widget _sbSection8Demo() {
                       itemCount: 5,
                       itemBuilder: (ctx, i) => Container(
                         height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: _sbOrange.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _sbDivider.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _sbDivider.withValues(alpha: 0.3),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -751,7 +1123,13 @@ Widget _sbSection8Demo() {
                           children: [
                             Icon(Icons.list, size: 14, color: _sbOrange),
                             SizedBox(width: 8),
-                            Text('SliverList item ${i + 6}', style: TextStyle(fontSize: 11, color: _sbTextDark)),
+                            Text(
+                              'SliverList item ${i + 6}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _sbTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -764,26 +1142,46 @@ Widget _sbSection8Demo() {
                         decoration: BoxDecoration(
                           color: _sbPurple.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: _sbPurple.withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: _sbPurple.withValues(alpha: 0.2),
+                          ),
                         ),
                         child: Row(
                           children: [
                             Container(
-                              width: 48, height: 48,
+                              width: 48,
+                              height: 48,
                               decoration: BoxDecoration(
                                 color: _sbPurple.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               alignment: Alignment.center,
-                              child: Icon(Icons.widgets, color: _sbPurple, size: 24),
+                              child: Icon(
+                                Icons.widgets,
+                                color: _sbPurple,
+                                size: 24,
+                              ),
                             ),
                             SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('SliverToBoxAdapter #3', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _sbPurple)),
-                                  Text('A card-like element mixing into the sliver list', style: TextStyle(fontSize: 10, color: _sbTextMedium)),
+                                  Text(
+                                    'SliverToBoxAdapter #3',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                      color: _sbPurple,
+                                    ),
+                                  ),
+                                  Text(
+                                    'A card-like element mixing into the sliver list',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: _sbTextMedium,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -796,11 +1194,16 @@ Widget _sbSection8Demo() {
                       itemCount: 10,
                       itemBuilder: (ctx, i) => Container(
                         height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: _sbGreen.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _sbDivider.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _sbDivider.withValues(alpha: 0.3),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -808,7 +1211,13 @@ Widget _sbSection8Demo() {
                           children: [
                             Icon(Icons.list, size: 14, color: _sbGreen),
                             SizedBox(width: 8),
-                            Text('SliverList item ${i + 11}', style: TextStyle(fontSize: 11, color: _sbTextDark)),
+                            Text(
+                              'SliverList item ${i + 11}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _sbTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -829,12 +1238,47 @@ Widget _sbSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _sbSection9Patterns() {
   final practices = <Map<String, dynamic>>[
-    {'title': 'Headers and footers', 'desc': 'Use SliverToBoxAdapter for page headers, footers, or section dividers between SliverLists', 'icon': Icons.vertical_split, 'color': _sbPrimary},
-    {'title': 'Promotional banners', 'desc': 'Insert advertising or announcement blocks between list items', 'icon': Icons.campaign, 'color': _sbOrange},
-    {'title': 'Empty states', 'desc': 'Show a "no results" widget when the list is empty via SliverToBoxAdapter', 'icon': Icons.inbox, 'color': _sbGrey},
-    {'title': 'Loading indicators', 'desc': 'Place a spinner at the bottom of a CustomScrollView for pagination', 'icon': Icons.autorenew, 'color': _sbBlue},
-    {'title': 'Avoid for long lists', 'desc': 'Don\'t create dozens of SliverToBoxAdapters — use SliverList instead', 'icon': Icons.warning, 'color': _sbRed},
-    {'title': 'Child sizing matters', 'desc': 'The child determines the sliver\'s scroll extent — oversized children cause excessive scrolling', 'icon': Icons.straighten, 'color': _sbAmber},
+    {
+      'title': 'Headers and footers',
+      'desc':
+          'Use SliverToBoxAdapter for page headers, footers, or section dividers between SliverLists',
+      'icon': Icons.vertical_split,
+      'color': _sbPrimary,
+    },
+    {
+      'title': 'Promotional banners',
+      'desc': 'Insert advertising or announcement blocks between list items',
+      'icon': Icons.campaign,
+      'color': _sbOrange,
+    },
+    {
+      'title': 'Empty states',
+      'desc':
+          'Show a "no results" widget when the list is empty via SliverToBoxAdapter',
+      'icon': Icons.inbox,
+      'color': _sbGrey,
+    },
+    {
+      'title': 'Loading indicators',
+      'desc':
+          'Place a spinner at the bottom of a CustomScrollView for pagination',
+      'icon': Icons.autorenew,
+      'color': _sbBlue,
+    },
+    {
+      'title': 'Avoid for long lists',
+      'desc':
+          'Don\'t create dozens of SliverToBoxAdapters — use SliverList instead',
+      'icon': Icons.warning,
+      'color': _sbRed,
+    },
+    {
+      'title': 'Child sizing matters',
+      'desc':
+          'The child determines the sliver\'s scroll extent — oversized children cause excessive scrolling',
+      'icon': Icons.straighten,
+      'color': _sbAmber,
+    },
   ];
 
   return Column(
@@ -849,39 +1293,56 @@ Widget _sbSection9Patterns() {
             'element, not as a replacement for SliverList.',
         Icons.tips_and_updates,
       ),
-      ...practices.map((p) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _sbTextDark)),
-                  SizedBox(height: 2),
-                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _sbTextMedium)),
-                ],
-              ),
+      ...practices.map(
+        (p) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: p['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      p['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _sbTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _sbTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_sbPrimary.withValues(alpha: 0.08), _sbAccent.withValues(alpha: 0.08)],
+            colors: [
+              _sbPrimary.withValues(alpha: 0.08),
+              _sbAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _sbPrimary.withValues(alpha: 0.2)),
@@ -892,7 +1353,11 @@ Widget _sbSection9Patterns() {
             SizedBox(height: 8),
             Text(
               'RenderSliverSingleBoxAdapter',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _sbTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _sbTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -952,7 +1417,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Hosting a single box child inside a sliver container',
-                style: TextStyle(fontSize: 12, color: _sbOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _sbOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

@@ -49,7 +49,12 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildConceptCard(String title, String description, IconData icon, Color color) {
+Widget buildConceptCard(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   print('Building concept card: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -152,9 +157,7 @@ Widget buildShaderJankExplainer() {
         decoration: BoxDecoration(
           color: (step['color'] as Color).withAlpha(15),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: (step['color'] as Color).withAlpha(60),
-          ),
+          border: Border.all(color: (step['color'] as Color).withAlpha(60)),
         ),
         child: Row(
           children: [
@@ -192,10 +195,7 @@ Widget buildShaderJankExplainer() {
                   SizedBox(height: 2),
                   Text(
                     step['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                   ),
                 ],
               ),
@@ -293,9 +293,7 @@ Widget buildWarmUpSolutionExplainer() {
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: (item['color'] as Color).withAlpha(80),
-          ),
+          border: Border.all(color: (item['color'] as Color).withAlpha(80)),
         ),
         child: Row(
           children: [
@@ -327,7 +325,10 @@ Widget buildWarmUpSolutionExplainer() {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: item['color'] as Color,
                           borderRadius: BorderRadius.circular(4),
@@ -354,10 +355,7 @@ Widget buildWarmUpSolutionExplainer() {
                   SizedBox(height: 4),
                   Text(
                     item['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -421,7 +419,8 @@ Widget buildAbstractClassExplainer() {
     {
       'member': 'Future<void> warmUp()',
       'type': 'Concrete Method',
-      'desc': 'Called at startup - creates PictureRecorder and invokes warmUpOnCanvas',
+      'desc':
+          'Called at startup - creates PictureRecorder and invokes warmUpOnCanvas',
     },
   ];
 
@@ -488,10 +487,7 @@ Widget buildAbstractClassExplainer() {
             SizedBox(height: 8),
             Text(
               member['desc']!,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
           ],
         ),
@@ -553,10 +549,30 @@ Widget buildAbstractClassExplainer() {
 Widget buildSizePropertyDemo() {
   print('Building size property demo');
   List<Map<String, dynamic>> sizeExamples = [
-    {'width': 100.0, 'height': 100.0, 'label': 'Small Canvas', 'color': Colors.green},
-    {'width': 256.0, 'height': 256.0, 'label': 'Default Size', 'color': Colors.blue},
-    {'width': 512.0, 'height': 512.0, 'label': 'Large Canvas', 'color': Colors.orange},
-    {'width': 1024.0, 'height': 768.0, 'label': 'Full Screen', 'color': Colors.purple},
+    {
+      'width': 100.0,
+      'height': 100.0,
+      'label': 'Small Canvas',
+      'color': Colors.green,
+    },
+    {
+      'width': 256.0,
+      'height': 256.0,
+      'label': 'Default Size',
+      'color': Colors.blue,
+    },
+    {
+      'width': 512.0,
+      'height': 512.0,
+      'label': 'Large Canvas',
+      'color': Colors.orange,
+    },
+    {
+      'width': 1024.0,
+      'height': 768.0,
+      'label': 'Full Screen',
+      'color': Colors.purple,
+    },
   ];
 
   List<Widget> sizeCards = [];
@@ -620,10 +636,7 @@ Widget buildSizePropertyDemo() {
                   SizedBox(height: 2),
                   Text(
                     '${(w * h / 1000).toStringAsFixed(1)}K pixels',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade500,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -694,10 +707,7 @@ Widget buildSizePropertyDemo() {
               Expanded(
                 child: Text(
                   'Default value is Size(100.0, 100.0). Override to use a larger canvas for more complex warm-up patterns.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.amber.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
                 ),
               ),
             ],
@@ -908,10 +918,7 @@ Widget buildDefaultShaderWarmUpDemo() {
             ),
             Text(
               'x${op['count']}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade500,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
             ),
           ],
         ),
@@ -1097,7 +1104,11 @@ Widget buildCustomWarmUpPatternsDemo() {
                     color: patternColor.withAlpha(30),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(pattern['icon'] as IconData, color: patternColor, size: 22),
+                  child: Icon(
+                    pattern['icon'] as IconData,
+                    color: patternColor,
+                    size: 22,
+                  ),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -1334,7 +1345,11 @@ Widget buildBestPracticesSection() {
                 color: pColor.withAlpha(40),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(practice['icon'] as IconData, color: pColor, size: 20),
+              child: Icon(
+                practice['icon'] as IconData,
+                color: pColor,
+                size: 20,
+              ),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -1352,10 +1367,7 @@ Widget buildBestPracticesSection() {
                   SizedBox(height: 3),
                   Text(
                     practice['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                   ),
                 ],
               ),
@@ -1379,7 +1391,11 @@ Widget buildBestPracticesSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 24),
+            Icon(
+              Icons.lightbulb_outline,
+              color: Colors.amber.shade700,
+              size: 24,
+            ),
             SizedBox(width: 10),
             Text(
               'Best Practices',
@@ -1410,10 +1426,7 @@ Widget buildImpellerNote() {
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.cyan.shade50,
-          Colors.blue.shade50,
-        ],
+        colors: [Colors.cyan.shade50, Colors.blue.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1454,10 +1467,7 @@ Widget buildImpellerNote() {
                   SizedBox(height: 2),
                   Text(
                     'The future of Flutter rendering',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.cyan.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.cyan.shade700),
                   ),
                 ],
               ),
@@ -1489,14 +1499,20 @@ Widget buildImpellerNote() {
                   SizedBox(width: 6),
                   Text(
                     'Default on iOS',
-                    style: TextStyle(fontSize: 12, color: Colors.green.shade700),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.green.shade700,
+                    ),
                   ),
                   SizedBox(width: 16),
                   Icon(Icons.check, color: Colors.green, size: 18),
                   SizedBox(width: 6),
                   Text(
                     'Default on Android',
-                    style: TextStyle(fontSize: 12, color: Colors.green.shade700),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.green.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -1556,10 +1572,7 @@ Widget buildWarmUpTimingSection() {
               Container(
                 width: 28,
                 height: 28,
-                decoration: BoxDecoration(
-                  color: c,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: c, shape: BoxShape.circle),
                 child: Center(
                   child: Text(
                     '${t + 1}',
@@ -1572,11 +1585,7 @@ Widget buildWarmUpTimingSection() {
                 ),
               ),
               if (!isLast)
-                Container(
-                  width: 2,
-                  height: 50,
-                  color: Colors.grey.shade300,
-                ),
+                Container(width: 2, height: 50, color: Colors.grey.shade300),
             ],
           ),
           SizedBox(width: 14),
@@ -1604,7 +1613,10 @@ Widget buildWarmUpTimingSection() {
                       ),
                       Expanded(child: SizedBox()),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: c.withAlpha(30),
                           borderRadius: BorderRadius.circular(4),
@@ -1685,10 +1697,30 @@ Widget buildWarmUpTimingSection() {
 Widget buildSummaryStats() {
   print('Building summary stats');
   List<Map<String, dynamic>> stats = [
-    {'label': 'Abstract Class', 'value': 'ShaderWarmUp', 'icon': Icons.category, 'color': Colors.deepPurple},
-    {'label': 'Default Impl', 'value': 'DefaultShaderWarmUp', 'icon': Icons.check_box, 'color': Colors.blue},
-    {'label': 'Key Method', 'value': 'warmUpOnCanvas()', 'icon': Icons.brush, 'color': Colors.teal},
-    {'label': 'Default Size', 'value': '100x100', 'icon': Icons.aspect_ratio, 'color': Colors.orange},
+    {
+      'label': 'Abstract Class',
+      'value': 'ShaderWarmUp',
+      'icon': Icons.category,
+      'color': Colors.deepPurple,
+    },
+    {
+      'label': 'Default Impl',
+      'value': 'DefaultShaderWarmUp',
+      'icon': Icons.check_box,
+      'color': Colors.blue,
+    },
+    {
+      'label': 'Key Method',
+      'value': 'warmUpOnCanvas()',
+      'icon': Icons.brush,
+      'color': Colors.teal,
+    },
+    {
+      'label': 'Default Size',
+      'value': '100x100',
+      'icon': Icons.aspect_ratio,
+      'color': Colors.orange,
+    },
   ];
 
   List<Widget> statCards = [];
@@ -1722,10 +1754,7 @@ Widget buildSummaryStats() {
               SizedBox(height: 4),
               Text(
                 stat['label'] as String,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                 textAlign: TextAlign.center,
               ),
             ],

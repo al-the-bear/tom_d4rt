@@ -59,9 +59,7 @@ Widget _slSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_slCobalt, _slDarkCobalt],
-      ),
+      gradient: LinearGradient(colors: [_slCobalt, _slDarkCobalt]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,11 +107,7 @@ Widget _slInfoCard(String text, {IconData icon = Icons.info_outline}) {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(
-              color: _slNavy,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: _slNavy, fontSize: 13, height: 1.5),
           ),
         ),
       ],
@@ -161,10 +155,7 @@ Widget _slKeyValueRow(String key, String value, {Color? valueColor}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: valueColor ?? _slNavy,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: valueColor ?? _slNavy, fontSize: 13),
           ),
         ),
       ],
@@ -302,10 +293,7 @@ Widget _slBuildOverview() {
                         ),
                         const Text(
                           'Owns gestures + overlay',
-                          style: TextStyle(
-                            color: _slLightSky,
-                            fontSize: 10,
-                          ),
+                          style: TextStyle(color: _slLightSky, fontSize: 10),
                         ),
                         const SizedBox(height: 8),
                         // Layer 3: Registrar
@@ -329,7 +317,8 @@ Widget _slBuildOverview() {
                               const SizedBox(height: 8),
                               // Layer 4: Selectable items
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   _slSelectableBlock('Text A', _slAmber),
                                   _slSelectableBlock('Text B', _slCoral),
@@ -528,18 +517,30 @@ Widget _slBuildContract() {
         ),
         child: Column(
           children: [
-            Row(
-              children: [
-                _slBadge('SelectionGeometry', _slCobalt),
-              ],
-            ),
+            Row(children: [_slBadge('SelectionGeometry', _slCobalt)]),
             const SizedBox(height: 10),
-            _slKeyValueRow('status', 'SelectionStatus (none | collapsed | uncollapsed)'),
-            _slKeyValueRow('hasContent', 'bool — does this contain selectable content?'),
-            _slKeyValueRow('startSelectionPoint', 'SelectionPoint? (offset + direction)'),
-            _slKeyValueRow('endSelectionPoint', 'SelectionPoint? (offset + direction)'),
+            _slKeyValueRow(
+              'status',
+              'SelectionStatus (none | collapsed | uncollapsed)',
+            ),
+            _slKeyValueRow(
+              'hasContent',
+              'bool — does this contain selectable content?',
+            ),
+            _slKeyValueRow(
+              'startSelectionPoint',
+              'SelectionPoint? (offset + direction)',
+            ),
+            _slKeyValueRow(
+              'endSelectionPoint',
+              'SelectionPoint? (offset + direction)',
+            ),
             _slDivider(),
-            _slKeyValueRow('.hasSelection', 'true if status ≠ .none', valueColor: _slSteel),
+            _slKeyValueRow(
+              '.hasSelection',
+              'true if status ≠ .none',
+              valueColor: _slSteel,
+            ),
           ],
         ),
       ),
@@ -614,11 +615,36 @@ Widget _slBuildEventHierarchy() {
               ),
             ),
             const SizedBox(height: 8),
-            _slEventTreeItem('SelectAllSelectionEvent', 'Ctrl+A / Cmd+A — select everything', _slAmber, 0),
-            _slEventTreeItem('ClearSelectionEvent', 'Tap away — deselect everything', _slCoral, 0),
-            _slEventTreeItem('SelectionEdgeUpdateEvent', 'Drag handle or initial tap — move an edge', _slMint, 0),
-            _slEventTreeItem('GranularlyExtendSelectionEvent', 'Shift+Arrow — extend by word/line', _slSteel, 0),
-            _slEventTreeItem('DirectionallyExtendSelectionEvent', 'Shift+Up/Down — extend across lines', _slCobalt, 0),
+            _slEventTreeItem(
+              'SelectAllSelectionEvent',
+              'Ctrl+A / Cmd+A — select everything',
+              _slAmber,
+              0,
+            ),
+            _slEventTreeItem(
+              'ClearSelectionEvent',
+              'Tap away — deselect everything',
+              _slCoral,
+              0,
+            ),
+            _slEventTreeItem(
+              'SelectionEdgeUpdateEvent',
+              'Drag handle or initial tap — move an edge',
+              _slMint,
+              0,
+            ),
+            _slEventTreeItem(
+              'GranularlyExtendSelectionEvent',
+              'Shift+Arrow — extend by word/line',
+              _slSteel,
+              0,
+            ),
+            _slEventTreeItem(
+              'DirectionallyExtendSelectionEvent',
+              'Shift+Up/Down — extend across lines',
+              _slCobalt,
+              0,
+            ),
           ],
         ),
       ),
@@ -726,10 +752,7 @@ Widget _slEventTreeItem(String name, String desc, Color color, int indent) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -747,10 +770,7 @@ Widget _slEventTreeItem(String name, String desc, Color color, int indent) {
                 ),
                 TextSpan(
                   text: '  — $desc',
-                  style: const TextStyle(
-                    color: _slNavy,
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(color: _slNavy, fontSize: 11),
                 ),
               ],
             ),
@@ -844,15 +864,40 @@ Widget _slBuildRegistration() {
               ),
             ),
             const SizedBox(height: 12),
-            _slLifecycleStep(1, 'Created', 'RenderObject instantiated', _slSteel),
+            _slLifecycleStep(
+              1,
+              'Created',
+              'RenderObject instantiated',
+              _slSteel,
+            ),
             _slLifecycleConnector(),
-            _slLifecycleStep(2, 'Attached', 'Finds registrar, calls add()', _slCobalt),
+            _slLifecycleStep(
+              2,
+              'Attached',
+              'Finds registrar, calls add()',
+              _slCobalt,
+            ),
             _slLifecycleConnector(),
-            _slLifecycleStep(3, 'Active', 'Receives events, reports geometry', _slMint),
+            _slLifecycleStep(
+              3,
+              'Active',
+              'Receives events, reports geometry',
+              _slMint,
+            ),
             _slLifecycleConnector(),
-            _slLifecycleStep(4, 'Detaching', 'Calls remove(), nulls registrar', _slAmber),
+            _slLifecycleStep(
+              4,
+              'Detaching',
+              'Calls remove(), nulls registrar',
+              _slAmber,
+            ),
             _slLifecycleConnector(),
-            _slLifecycleStep(5, 'Detached', 'Fully removed from tree', _slCoral),
+            _slLifecycleStep(
+              5,
+              'Detached',
+              'Fully removed from tree',
+              _slCoral,
+            ),
           ],
         ),
       ),
@@ -873,10 +918,7 @@ Widget _slLifecycleStep(int step, String title, String desc, Color color) {
       Container(
         width: 32,
         height: 32,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             '$step',
@@ -901,13 +943,7 @@ Widget _slLifecycleStep(int step, String title, String desc, Color color) {
                 fontSize: 13,
               ),
             ),
-            Text(
-              desc,
-              style: const TextStyle(
-                color: _slNavy,
-                fontSize: 11,
-              ),
-            ),
+            Text(desc, style: const TextStyle(color: _slNavy, fontSize: 11)),
           ],
         ),
       ),
@@ -1300,11 +1336,20 @@ Widget _slBuildCustomization() {
               child: Column(
                 children: [
                   _slMenuEntry(Icons.copy, 'Copy', _slCobalt),
-                  Container(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
+                  Container(
+                    height: 1,
+                    color: Colors.grey.withValues(alpha: 0.2),
+                  ),
                   _slMenuEntry(Icons.select_all, 'Select All', _slSteel),
-                  Container(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
+                  Container(
+                    height: 1,
+                    color: Colors.grey.withValues(alpha: 0.2),
+                  ),
                   _slMenuEntry(Icons.share, 'Share', _slMint),
-                  Container(height: 1, color: Colors.grey.withValues(alpha: 0.2)),
+                  Container(
+                    height: 1,
+                    color: Colors.grey.withValues(alpha: 0.2),
+                  ),
                   _slMenuEntry(Icons.translate, 'Translate', _slAmber),
                 ],
               ),
@@ -1350,13 +1395,29 @@ Widget _slBuildCustomization() {
               ),
             ),
             const SizedBox(height: 12),
-            _slHighlightSample('Default blue', const Color(0x663399FF), 'The standard highlight'),
+            _slHighlightSample(
+              'Default blue',
+              const Color(0x663399FF),
+              'The standard highlight',
+            ),
             const SizedBox(height: 8),
-            _slHighlightSample('Custom cobalt', _slCobalt.withValues(alpha: 0.3), 'Matches our theme'),
+            _slHighlightSample(
+              'Custom cobalt',
+              _slCobalt.withValues(alpha: 0.3),
+              'Matches our theme',
+            ),
             const SizedBox(height: 8),
-            _slHighlightSample('Amber accent', _slAmber.withValues(alpha: 0.35), 'Warm highlight style'),
+            _slHighlightSample(
+              'Amber accent',
+              _slAmber.withValues(alpha: 0.35),
+              'Warm highlight style',
+            ),
             const SizedBox(height: 8),
-            _slHighlightSample('Mint fresh', _slMint.withValues(alpha: 0.3), 'A unique green tint'),
+            _slHighlightSample(
+              'Mint fresh',
+              _slMint.withValues(alpha: 0.3),
+              'A unique green tint',
+            ),
           ],
         ),
       ),
@@ -1414,10 +1475,7 @@ Widget _slHighlightSample(String label, Color bgColor, String desc) {
         ),
         child: const Text(
           'Selected text',
-          style: TextStyle(
-            color: _slNavy,
-            fontSize: 12,
-          ),
+          style: TextStyle(color: _slNavy, fontSize: 12),
         ),
       ),
       const SizedBox(width: 12),
@@ -1433,13 +1491,7 @@ Widget _slHighlightSample(String label, Color bgColor, String desc) {
                 fontSize: 12,
               ),
             ),
-            Text(
-              desc,
-              style: const TextStyle(
-                color: _slSteel,
-                fontSize: 11,
-              ),
-            ),
+            Text(desc, style: const TextStyle(color: _slSteel, fontSize: 11)),
           ],
         ),
       ),
@@ -1552,10 +1604,7 @@ Widget _slBuildMixedContent() {
                         color: _slAmber.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(8),
                         border: Border(
-                          left: BorderSide(
-                            color: _slAmber,
-                            width: 4,
-                          ),
+                          left: BorderSide(color: _slAmber, width: 4),
                         ),
                       ),
                       child: const Text(
@@ -1589,9 +1638,7 @@ Widget _slBuildMixedContent() {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const TextSpan(
-                            text: ' reports its own ',
-                          ),
+                          const TextSpan(text: ' reports its own '),
                           TextSpan(
                             text: 'SelectionGeometry',
                             style: TextStyle(
@@ -1599,9 +1646,7 @@ Widget _slBuildMixedContent() {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const TextSpan(
-                            text: ', and the ',
-                          ),
+                          const TextSpan(text: ', and the '),
                           TextSpan(
                             text: 'SelectableRegion',
                             style: TextStyle(
@@ -1610,7 +1655,8 @@ Widget _slBuildMixedContent() {
                             ),
                           ),
                           const TextSpan(
-                            text: ' merges them into a unified selection overlay.',
+                            text:
+                                ' merges them into a unified selection overlay.',
                           ),
                         ],
                       ),
@@ -1740,9 +1786,7 @@ Widget _slBuildScrollableSelection() {
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: isEven
-                            ? _slLightSky
-                            : Colors.white,
+                        color: isEven ? _slLightSky : Colors.white,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
                           color: _slSky.withValues(alpha: 0.5),
@@ -1877,15 +1921,51 @@ Widget _slBuildComparison() {
                 ],
               ),
             ),
-            _slComparisonRow('Selectable', 'Base mixin — dispatchEvent, value, pushHandleLayers', false),
-            _slComparisonRow('SelectionHandler', 'Extended Selectable that also manages child selectables', true),
-            _slComparisonRow('SelectionRegistrar', 'InheritedWidget that selectables register with', false),
-            _slComparisonRow('SelectableRegion', 'Widget/state that owns the full selection state', true),
-            _slComparisonRow('SelectionArea', 'Convenience widget wrapping SelectableRegion', false),
-            _slComparisonRow('SelectionContainer', 'Layout widget that groups child selectables', true),
-            _slComparisonRow('SelectionGeometry', 'Data class: start/end handles, status, hasContent', false),
-            _slComparisonRow('SelectionEvent', 'Abstract base for all selection commands', true),
-            _slComparisonRow('SelectionResult', 'Enum: next / end / pending return from dispatch', false),
+            _slComparisonRow(
+              'Selectable',
+              'Base mixin — dispatchEvent, value, pushHandleLayers',
+              false,
+            ),
+            _slComparisonRow(
+              'SelectionHandler',
+              'Extended Selectable that also manages child selectables',
+              true,
+            ),
+            _slComparisonRow(
+              'SelectionRegistrar',
+              'InheritedWidget that selectables register with',
+              false,
+            ),
+            _slComparisonRow(
+              'SelectableRegion',
+              'Widget/state that owns the full selection state',
+              true,
+            ),
+            _slComparisonRow(
+              'SelectionArea',
+              'Convenience widget wrapping SelectableRegion',
+              false,
+            ),
+            _slComparisonRow(
+              'SelectionContainer',
+              'Layout widget that groups child selectables',
+              true,
+            ),
+            _slComparisonRow(
+              'SelectionGeometry',
+              'Data class: start/end handles, status, hasContent',
+              false,
+            ),
+            _slComparisonRow(
+              'SelectionEvent',
+              'Abstract base for all selection commands',
+              true,
+            ),
+            _slComparisonRow(
+              'SelectionResult',
+              'Enum: next / end / pending return from dispatch',
+              false,
+            ),
           ],
         ),
       ),
@@ -1940,10 +2020,7 @@ Widget _slBuildComparison() {
                   ),
                   Text(
                     'routes events to children',
-                    style: TextStyle(
-                      color: _slLightSky,
-                      fontSize: 10,
-                    ),
+                    style: TextStyle(color: _slLightSky, fontSize: 10),
                   ),
                 ],
               ),
@@ -1997,10 +2074,7 @@ Widget _slComparisonRow(String type, String role, bool isAlt) {
           flex: 5,
           child: Text(
             role,
-            style: const TextStyle(
-              color: _slNavy,
-              fontSize: 11,
-            ),
+            style: const TextStyle(color: _slNavy, fontSize: 11),
           ),
         ),
       ],
@@ -2170,14 +2244,14 @@ Widget _slBuildPatternGallery() {
               _slChatBubble(
                 'Alice',
                 'That\'s the beauty of it — RenderParagraph already implements '
-                'Selectable, so all Text widgets are selection-ready.',
+                    'Selectable, so all Text widgets are selection-ready.',
                 _slCobalt,
                 true,
               ),
               _slChatBubble(
                 'Bob',
                 'I heard you can also make custom render objects selectable '
-                'by implementing the three methods.',
+                    'by implementing the three methods.',
                 _slMint,
                 false,
               ),
@@ -2213,11 +2287,7 @@ Widget _slContentCard(String title, String desc, Color color, IconData icon) {
         Text(
           desc,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: _slNavy,
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: _slNavy, fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -2232,8 +2302,9 @@ Widget _slChatBubble(String sender, String message, Color color, bool isLeft) {
       bottom: 8,
     ),
     child: Column(
-      crossAxisAlignment:
-          isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+      crossAxisAlignment: isLeft
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.end,
       children: [
         Text(
           sender,
@@ -2253,11 +2324,7 @@ Widget _slChatBubble(String sender, String message, Color color, bool isLeft) {
           ),
           child: Text(
             message,
-            style: const TextStyle(
-              color: _slNavy,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: _slNavy, fontSize: 12, height: 1.4),
           ),
         ),
       ],
@@ -2327,11 +2394,7 @@ Widget _slBuildBestPractices() {
               'tree — keep the selectable count reasonable.\n\n'
               '• For very long scrollable lists, the natural recycling of '
               'slivers keeps the active selectable count bounded.',
-              style: TextStyle(
-                color: _slNavy,
-                fontSize: 12,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _slNavy, fontSize: 12, height: 1.5),
             ),
           ],
         ),
@@ -2384,28 +2447,28 @@ Widget _slBuildBestPractices() {
             _slSummaryPoint(
               'Interface',
               'Selectable is a mixin with three core requirements: '
-              'dispatchSelectionEvent(), value (SelectionGeometry), '
-              'and pushHandleLayers().',
+                  'dispatchSelectionEvent(), value (SelectionGeometry), '
+                  'and pushHandleLayers().',
             ),
             _slSummaryPoint(
               'Registration',
               'Selectables register with a SelectionRegistrar provided '
-              'by SelectableRegion (via SelectionArea).',
+                  'by SelectableRegion (via SelectionArea).',
             ),
             _slSummaryPoint(
               'Events',
               'Five event types flow through: SelectAll, Clear, '
-              'EdgeUpdate, GranularlyExtend, DirectionallyExtend.',
+                  'EdgeUpdate, GranularlyExtend, DirectionallyExtend.',
             ),
             _slSummaryPoint(
               'Built-in',
               'RenderParagraph already implements Selectable — just '
-              'wrap your Text widgets in SelectionArea.',
+                  'wrap your Text widgets in SelectionArea.',
             ),
             _slSummaryPoint(
               'Customizable',
               'Context menus, highlight colors, selection callbacks, '
-              'and even custom Selectable implementations are supported.',
+                  'and even custom Selectable implementations are supported.',
             ),
           ],
         ),
@@ -2511,10 +2574,7 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.touch_app, size: 14),
                 SizedBox(width: 4),
-                Text(
-                  'Rendering',
-                  style: TextStyle(fontSize: 12),
-                ),
+                Text('Rendering', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),

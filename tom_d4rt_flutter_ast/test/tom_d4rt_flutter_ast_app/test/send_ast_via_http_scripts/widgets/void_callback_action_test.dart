@@ -65,7 +65,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flash_on,
       'title': 'What VoidCallbackAction is',
-      'body': 'VoidCallbackAction extends Action<VoidCallbackIntent>. Its '
+      'body':
+          'VoidCallbackAction extends Action<VoidCallbackIntent>. Its '
           'sole override is invoke(VoidCallbackIntent intent) { '
           'intent.callback(); return null; }. That is the entire '
           'implementation. The action is a universal adapter that '
@@ -76,7 +77,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.inventory_2,
       'title': 'The intent carries the payload',
-      'body': 'Unlike CallbackAction (where the callback is configured on '
+      'body':
+          'Unlike CallbackAction (where the callback is configured on '
           'the Action), VoidCallbackIntent carries the callback itself. '
           'Each intent instance holds its own VoidCallback, so the '
           'action stays stateless and reusable while every firing '
@@ -86,7 +88,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Where it fits in Actions/Intents',
-      'body': 'Shortcuts map a KeyActivator to an Intent. Actions map an '
+      'body':
+          'Shortcuts map a KeyActivator to an Intent. Actions map an '
           'Intent type to an Action instance. When the intent is '
           'dispatched, the framework walks up the tree, finds the '
           'nearest enabled Action<VoidCallbackIntent>, and calls '
@@ -96,7 +99,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.checklist,
       'title': 'When to reach for it',
-      'body': 'Use VoidCallbackAction whenever you want to wire a named '
+      'body':
+          'Use VoidCallbackAction whenever you want to wire a named '
           'intent (from menus, shortcuts, programmatic Actions.invoke '
           'calls) to a local closure that captures state. It is the '
           'go-to for dialog dismissals, form submissions, command '
@@ -168,7 +172,9 @@ dynamic build(BuildContext context) {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: redLeather,
                       borderRadius: BorderRadius.circular(4),
@@ -191,11 +197,7 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(14),
               child: Text(
                 fact['body'] as String,
-                style: TextStyle(
-                  color: inkBrown,
-                  fontSize: 13,
-                  height: 1.45,
-                ),
+                style: TextStyle(color: inkBrown, fontSize: 13, height: 1.45),
               ),
             ),
           ],
@@ -240,11 +242,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4),
           Text(
             (stat['label'] as String).toUpperCase(),
-            style: TextStyle(
-              color: goldFoil,
-              fontSize: 9,
-              letterSpacing: 1.4,
-            ),
+            style: TextStyle(color: goldFoil, fontSize: 9, letterSpacing: 1.4),
           ),
         ],
       ),
@@ -377,8 +375,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: feltGreen,
                 border: Border.all(color: brassMid, width: 1),
@@ -430,11 +427,7 @@ dynamic build(BuildContext context) {
             'nearest VoidCallbackAction in the ancestor Actions scope receives '
             'the intent and invokes the callback. Because the action is '
             'stateless, every button in the app can share it.',
-            style: TextStyle(
-              color: creamPaper,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: TextStyle(color: creamPaper, fontSize: 12, height: 1.4),
           ),
         ),
       ],
@@ -451,61 +444,61 @@ dynamic build(BuildContext context) {
       'ts': '09:14:02.118',
       'label': 'openAnnualReport',
       'origin': 'fire-button',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:05.443',
       'label': 'toggleSidebar',
       'origin': 'shortcut-⌘B',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:07.972',
       'label': 'dismissDialog',
       'origin': 'shortcut-Esc',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:11.205',
       'label': 'submitQuarterly',
       'origin': 'menu-item',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:14.610',
       'label': 'restartInference',
       'origin': 'programmatic',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:17.081',
       'label': 'lockConsole',
       'origin': 'shortcut-⌘L',
-      'result': 'muted'
+      'result': 'muted',
     },
     {
       'ts': '09:14:19.992',
       'label': 'openAnnualReport',
       'origin': 'fire-button',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:24.301',
       'label': 'exportBoardDeck',
       'origin': 'dropdown-pick',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:27.810',
       'label': 'rotateCeremony',
       'origin': 'Enter-key',
-      'result': 'ok'
+      'result': 'ok',
     },
     {
       'ts': '09:14:31.544',
       'label': 'closeMeeting',
       'origin': 'fire-button',
-      'result': 'ok'
+      'result': 'ok',
     },
   ];
 
@@ -570,8 +563,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 color: muted ? redLeather : feltGreen,
                 borderRadius: BorderRadius.circular(10),
@@ -645,9 +637,7 @@ dynamic build(BuildContext context) {
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-          decoration: BoxDecoration(
-            color: mahoganyGrain,
-          ),
+          decoration: BoxDecoration(color: mahoganyGrain),
           child: Row(
             children: [
               SizedBox(
@@ -793,8 +783,7 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: 90,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
               decoration: BoxDecoration(
                 color: active ? mahoganyDeep : mahoganyGrain.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(6),
@@ -849,8 +838,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: active ? feltGreen : redLeather,
                 borderRadius: BorderRadius.circular(12),
@@ -882,9 +870,7 @@ dynamic build(BuildContext context) {
       }),
     },
     child: Actions(
-      actions: <Type, Action<Intent>>{
-        VoidCallbackIntent: VoidCallbackAction(),
-      },
+      actions: <Type, Action<Intent>>{VoidCallbackIntent: VoidCallbackAction()},
       child: Focus(
         autofocus: false,
         child: Container(
@@ -913,10 +899,7 @@ dynamic build(BuildContext context) {
                     Text(
                       'Pressing Enter dispatches VoidCallbackIntent → '
                       'VoidCallbackAction.invoke() → print.',
-                      style: TextStyle(
-                        color: creamPaperShade,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: creamPaperShade, fontSize: 12),
                     ),
                   ],
                 ),
@@ -961,8 +944,7 @@ dynamic build(BuildContext context) {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: mahoganyDeep,
                 borderRadius: BorderRadius.circular(12),
@@ -985,11 +967,7 @@ dynamic build(BuildContext context) {
           'VoidCallbackIntent. The surrounding Actions scope binds '
           'VoidCallbackIntent to a single VoidCallbackAction instance, so '
           'every shortcut can share it.',
-          style: TextStyle(
-            color: creamPaper,
-            fontSize: 12,
-            height: 1.45,
-          ),
+          style: TextStyle(color: creamPaper, fontSize: 12, height: 1.45),
         ),
         const SizedBox(height: 14),
         ...shortcutCards,
@@ -1021,7 +999,8 @@ dynamic build(BuildContext context) {
       'accent': brassBright,
       'actionName': 'AuditorVoidCallbackAction',
       'handled': 'signLedger · stampReceipt',
-      'note': 'Actions scope wraps only the auditor panel; intents fired '
+      'note':
+          'Actions scope wraps only the auditor panel; intents fired '
           'elsewhere never reach this action.',
     },
     {
@@ -1031,7 +1010,8 @@ dynamic build(BuildContext context) {
       'accent': creamPaper,
       'actionName': 'GalleryVoidCallbackAction',
       'handled': 'requestMinutes · waveToSpeaker',
-      'note': 'Gallery subtree has its own VoidCallbackAction — visitors '
+      'note':
+          'Gallery subtree has its own VoidCallbackAction — visitors '
           'cannot reach boardroom callbacks.',
     },
     {
@@ -1041,7 +1021,8 @@ dynamic build(BuildContext context) {
       'accent': brassBright,
       'actionName': 'VoidCallbackAction (shared default)',
       'handled': 'fallback for any unhandled VoidCallbackIntent',
-      'note': 'Only reached when no nearer Actions scope claims the '
+      'note':
+          'Only reached when no nearer Actions scope claims the '
           'intent type.',
     },
   ];
@@ -1101,12 +1082,13 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: mahoganyDeep,
                           borderRadius: BorderRadius.circular(4),
-                          border:
-                              Border.all(color: brassDim, width: 0.8),
+                          border: Border.all(color: brassDim, width: 0.8),
                         ),
                         child: Text(
                           'Actions scope',
@@ -1131,10 +1113,7 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'Handles: ${scope['handled']}',
-                    style: TextStyle(
-                      color: creamPaper,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: creamPaper, fontSize: 12),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -1168,8 +1147,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree_outlined,
-                color: goldFoil, size: 28),
+            Icon(Icons.account_tree_outlined, color: goldFoil, size: 28),
             const SizedBox(width: 10),
             Text(
               'Composition — Scoped Subtrees',
@@ -1189,11 +1167,7 @@ dynamic build(BuildContext context) {
           'dispatched, Flutter walks up the tree and invokes the first '
           'VoidCallbackAction it finds. This lets different boardroom '
           'zones respond to the same intent type in their own way.',
-          style: TextStyle(
-            color: creamPaper,
-            fontSize: 13,
-            height: 1.5,
-          ),
+          style: TextStyle(color: creamPaper, fontSize: 13, height: 1.5),
         ),
         const SizedBox(height: 14),
         ...scopeCards,
@@ -1284,17 +1258,13 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: enabled ? creamPaper : creamPaperShade,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: enabled ? brassMid : redLeather,
-            width: 2,
-          ),
+          border: Border.all(color: enabled ? brassMid : redLeather, width: 2),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: enabled ? feltGreen : redLeather,
                 borderRadius: const BorderRadius.only(
@@ -1371,10 +1341,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: enabled ? redLeather : redLeather.withOpacity(0.35),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: enabled ? brassBright : brassDim,
-            width: 2,
-          ),
+          border: Border.all(color: enabled ? brassBright : brassDim, width: 2),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -1661,8 +1628,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: on ? feltGreen : redLeather,
               borderRadius: BorderRadius.circular(12),
@@ -1714,11 +1680,7 @@ dynamic build(BuildContext context) {
           'wiring: the switch flips isEnabled; the dropdown selects which '
           'label is carried by the next VoidCallbackIntent; the keyboard '
           'area shows the active SingleActivator binding.',
-          style: TextStyle(
-            color: creamPaper,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: TextStyle(color: creamPaper, fontSize: 12, height: 1.5),
         ),
         const SizedBox(height: 14),
         switchTile(
@@ -1750,7 +1712,9 @@ dynamic build(BuildContext context) {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 14, vertical: 10),
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: mahoganyDeep,
                   borderRadius: const BorderRadius.only(
@@ -1760,8 +1724,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.arrow_drop_down_circle,
-                        color: goldFoil, size: 20),
+                    Icon(
+                      Icons.arrow_drop_down_circle,
+                      color: goldFoil,
+                      size: 20,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Next intent label',
@@ -1801,7 +1768,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.menu,
       'title': 'Menus',
-      'body': 'Bind a menu item to VoidCallbackIntent(() => runCmd()). One '
+      'body':
+          'Bind a menu item to VoidCallbackIntent(() => runCmd()). One '
           'shared VoidCallbackAction powers the entire menu; every item '
           'supplies its own closure. No action registry plumbing needed.',
       'code':
@@ -1810,7 +1778,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.close_fullscreen,
       'title': 'Dismissable dialogs',
-      'body': 'Wrap a dialog in Actions with VoidCallbackAction mapped, and '
+      'body':
+          'Wrap a dialog in Actions with VoidCallbackAction mapped, and '
           'bind Esc in a Shortcuts widget to VoidCallbackIntent(Navigator.of(ctx).pop). '
           'Esc always dismisses regardless of which child is focused.',
       'code':
@@ -1819,7 +1788,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.assignment_turned_in,
       'title': 'Form submissions',
-      'body': 'Attach VoidCallbackIntent(submitForm) to Ctrl+Enter. The '
+      'body':
+          'Attach VoidCallbackIntent(submitForm) to Ctrl+Enter. The '
           'submit closure lives next to the form state; the action is a '
           'reusable singleton at the top of the route.',
       'code':
@@ -1828,15 +1798,18 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.history_edu,
       'title': 'Undo / redo stacks',
-      'body': 'Push VoidCallbackIntent(() => stack.push(cmd)) from every '
+      'body':
+          'Push VoidCallbackIntent(() => stack.push(cmd)) from every '
           'action site. Centralised handling at the root keeps the undo '
           'stack in one place while every caller stays decoupled.',
-      'code': 'Actions.invoke(rootCtx, VoidCallbackIntent(() => undo.push(...)))',
+      'code':
+          'Actions.invoke(rootCtx, VoidCallbackIntent(() => undo.push(...)))',
     },
     {
       'icon': Icons.dry_cleaning,
       'title': 'Analytics taps',
-      'body': 'Override the nearest VoidCallbackAction with a subclass that '
+      'body':
+          'Override the nearest VoidCallbackAction with a subclass that '
           'logs before delegating to super.invoke. Transparent analytics '
           'without touching any callsite.',
       'code':
@@ -1845,11 +1818,11 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.gps_fixed,
       'title': 'Focused keyboard-only flows',
-      'body': 'In keyboard-heavy UIs, prefer Shortcuts + VoidCallbackIntent '
+      'body':
+          'In keyboard-heavy UIs, prefer Shortcuts + VoidCallbackIntent '
           'over onKey handlers: you keep focus semantics, propagation, and '
           'override control that bare key listeners lose.',
-      'code':
-          'Shortcuts(shortcuts: { ... : VoidCallbackIntent(openPalette) })',
+      'code': 'Shortcuts(shortcuts: { ... : VoidCallbackIntent(openPalette) })',
     },
   ];
 
@@ -1868,8 +1841,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: mahoganyDeep,
                 borderRadius: const BorderRadius.only(
@@ -1977,11 +1949,7 @@ dynamic build(BuildContext context) {
           'Patterns that show up again and again when you reach for '
           'VoidCallbackAction — the tiny action that quietly glues the '
           'keyboard, menus, dialogs, and shortcuts to plain Dart closures.',
-          style: TextStyle(
-            color: creamPaper,
-            fontSize: 13,
-            height: 1.5,
-          ),
+          style: TextStyle(color: creamPaper, fontSize: 13, height: 1.5),
         ),
         const SizedBox(height: 14),
         ...recipeCards,
@@ -2288,29 +2256,53 @@ dynamic build(BuildContext context) {
     woodGrain: mahoganyDeep,
     sections: <Widget>[
       topRibbon,
-      sectionRibbon(1, 'Preamble anatomy',
-          'What VoidCallbackAction is and why it matters.'),
+      sectionRibbon(
+        1,
+        'Preamble anatomy',
+        'What VoidCallbackAction is and why it matters.',
+      ),
       ...preambleCards,
-      sectionRibbon(2, 'Executive dashboard',
-          'The big red leather button that fires a VoidCallbackIntent.'),
+      sectionRibbon(
+        2,
+        'Executive dashboard',
+        'The big red leather button that fires a VoidCallbackIntent.',
+      ),
       dashboardPanel,
-      sectionRibbon(3, 'Log tape',
-          'Cream paper ribbon of every fire: timestamp · label · origin.'),
+      sectionRibbon(
+        3,
+        'Log tape',
+        'Cream paper ribbon of every fire: timestamp · label · origin.',
+      ),
       logTapePanel,
-      sectionRibbon(4, 'Keyboard shortcut binding',
-          'Shortcuts → VoidCallbackIntent → VoidCallbackAction → callback.'),
+      sectionRibbon(
+        4,
+        'Keyboard shortcut binding',
+        'Shortcuts → VoidCallbackIntent → VoidCallbackAction → callback.',
+      ),
       shortcutPanel,
-      sectionRibbon(5, 'Composition',
-          'Multiple subtrees route intents to the nearest scoped handler.'),
+      sectionRibbon(
+        5,
+        'Composition',
+        'Multiple subtrees route intents to the nearest scoped handler.',
+      ),
       compositionPanel,
-      sectionRibbon(6, 'Disabled / enabled',
-          'A custom subclass overrides isEnabled to gate fires.'),
+      sectionRibbon(
+        6,
+        'Disabled / enabled',
+        'A custom subclass overrides isEnabled to gate fires.',
+      ),
       gatePanel,
-      sectionRibbon(7, 'Interactive controls',
-          'Switch, dropdown, keyboard region — how the user steers fires.'),
+      sectionRibbon(
+        7,
+        'Interactive controls',
+        'Switch, dropdown, keyboard region — how the user steers fires.',
+      ),
       interactivePanel,
-      sectionRibbon(8, 'Epilogue recipes',
-          'Menus, dialogs, form submissions, analytics taps.'),
+      sectionRibbon(
+        8,
+        'Epilogue recipes',
+        'Menus, dialogs, form submissions, analytics taps.',
+      ),
       epiloguePanel,
       closingPlaque,
     ],

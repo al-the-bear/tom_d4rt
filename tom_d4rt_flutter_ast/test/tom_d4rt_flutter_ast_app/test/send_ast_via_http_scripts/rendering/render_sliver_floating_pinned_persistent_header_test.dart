@@ -94,13 +94,21 @@ class _PageMasthead extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[Color(0xFF004D40), Color(0xFF00796B), Color(0xFF26A69A)],
+          colors: <Color>[
+            Color(0xFF004D40),
+            Color(0xFF00796B),
+            Color(0xFF26A69A),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const <BoxShadow>[
-          BoxShadow(color: Color(0x33004D40), blurRadius: 12, offset: Offset(0, 4)),
+          BoxShadow(
+            color: Color(0x33004D40),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
@@ -114,7 +122,11 @@ class _PageMasthead extends StatelessWidget {
                   color: const Color(0x22FFFFFF),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.layers_rounded, color: Colors.white, size: 28),
+                child: const Icon(
+                  Icons.layers_rounded,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
               const SizedBox(width: 12),
               const Expanded(
@@ -188,7 +200,11 @@ class _PageFooter extends StatelessWidget {
             'RenderSliverFloatingPinnedPersistentHeader, was instantiated by the '
             'framework whenever you saw a SliverPersistentHeader with both '
             'floating and pinned set to true.',
-            style: TextStyle(fontSize: 12, color: Color(0xFF455A64), height: 1.4),
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF455A64),
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -247,14 +263,22 @@ class _Section1Intro extends StatelessWidget {
             child: const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline, color: Color(0xFF004D40), size: 20),
+                Icon(
+                  Icons.lightbulb_outline,
+                  color: Color(0xFF004D40),
+                  size: 20,
+                ),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
                     'Use case: a search field that stays visible at all times '
                     '(pinned), but expands to a full app bar with hero imagery '
                     'as soon as you scroll back up (floating).',
-                    style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF004D40)),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      height: 1.45,
+                      color: Color(0xFF004D40),
+                    ),
                   ),
                 ),
               ],
@@ -375,23 +399,20 @@ class _MatrixRow extends StatelessWidget {
 }
 
 class _MatrixCell extends StatelessWidget {
-  const _MatrixCell(
-    this.text, {
-    this.isHeader = false,
-    this.dark = false,
-  })  : title = null,
-        body = null,
-        background = null,
-        emphasis = false;
+  const _MatrixCell(this.text, {this.isHeader = false, this.dark = false})
+    : title = null,
+      body = null,
+      background = null,
+      emphasis = false;
 
   const _MatrixCell.body(
     this.title,
     this.body,
     this.background, {
     this.emphasis = false,
-  })  : text = '',
-        isHeader = false,
-        dark = false;
+  }) : text = '',
+       isHeader = false,
+       dark = false;
 
   final String text;
   final bool isHeader;
@@ -429,7 +450,11 @@ class _MatrixCell extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               body ?? '',
-              style: const TextStyle(fontSize: 11, height: 1.35, color: Color(0xFF263238)),
+              style: const TextStyle(
+                fontSize: 11,
+                height: 1.35,
+                color: Color(0xFF263238),
+              ),
             ),
           ],
         ),
@@ -476,7 +501,11 @@ class _Section2LiveSliverAppBar extends StatelessWidget {
             'upward again the FlexibleSpaceBar will expand back fully '
             'without you having to scroll all the way up — that is the '
             'floating behaviour at work.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF6D4C00)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF6D4C00),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -581,7 +610,10 @@ class _Section2LiveSliverAppBar extends StatelessWidget {
                 ),
                 Text(
                   'elev. ${1200 + (i * 47) % 900} m · trail ${i + 3}km',
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF8D6E00)),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF8D6E00),
+                  ),
                 ),
               ],
             ),
@@ -608,7 +640,8 @@ class _Section3CustomDelegate extends StatelessWidget {
       accent: const Color(0xFF3949AB),
       surface: const Color(0xFFE8EAF6),
       title: 'Custom SliverPersistentHeaderDelegate (interpolating)',
-      subtitle: 'Authored as _ExpandToPillDelegate — paints differently at '
+      subtitle:
+          'Authored as _ExpandToPillDelegate — paints differently at '
           'each shrinkOffset.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -619,7 +652,11 @@ class _Section3CustomDelegate extends StatelessWidget {
             'expanded, maxExtent tall) to (maxExtent − minExtent) (fully '
             'collapsed). The delegate below morphs from an expanded info '
             'card into a compact title pill across that range.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF1A237E)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF1A237E),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -650,7 +687,9 @@ class _Section3CustomDelegate extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFE8EAF6) : const Color(0xFFC5CAE9),
-        border: const Border(bottom: BorderSide(color: Color(0xFF9FA8DA), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFF9FA8DA), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       child: Row(
@@ -680,7 +719,10 @@ class _Section3CustomDelegate extends StatelessWidget {
                 ),
                 Text(
                   '45 min · prof. ${_prof(i)}',
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF3949AB)),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF3949AB),
+                  ),
                 ),
               ],
             ),
@@ -726,7 +768,11 @@ class _ExpandToPillDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 180;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double range = maxExtent - minExtent;
     final double t = (shrinkOffset / range).clamp(0.0, 1.0);
     final double radius = 6 + 18 * t;
@@ -735,13 +781,26 @@ class _ExpandToPillDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       color: const Color(0xFFE8EAF6),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: horizontalInset, vertical: verticalInset),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalInset,
+          vertical: verticalInset,
+        ),
         child: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: <Color>[
-                Color.lerp(const Color(0xFF3949AB), const Color(0xFF1A237E), t) ?? const Color(0xFF3949AB),
-                Color.lerp(const Color(0xFF7986CB), const Color(0xFF3949AB), t) ?? const Color(0xFF7986CB),
+                Color.lerp(
+                      const Color(0xFF3949AB),
+                      const Color(0xFF1A237E),
+                      t,
+                    ) ??
+                    const Color(0xFF3949AB),
+                Color.lerp(
+                      const Color(0xFF7986CB),
+                      const Color(0xFF3949AB),
+                      t,
+                    ) ??
+                    const Color(0xFF7986CB),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -749,7 +808,9 @@ class _ExpandToPillDelegate extends SliverPersistentHeaderDelegate {
             borderRadius: BorderRadius.circular(radius),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: const Color(0xFF1A237E).withValues(alpha: 0.18 + 0.18 * (1 - t)),
+                color: const Color(
+                  0xFF1A237E,
+                ).withValues(alpha: 0.18 + 0.18 * (1 - t)),
                 blurRadius: 8 + 8 * (1 - t),
                 offset: const Offset(0, 3),
               ),
@@ -796,7 +857,10 @@ class _ExpandToPillDelegate extends SliverPersistentHeaderDelegate {
                 if (t < 0.4)
                   Opacity(
                     opacity: 1 - (t / 0.4),
-                    child: const Icon(Icons.calendar_today_outlined, color: Colors.white),
+                    child: const Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.white,
+                    ),
                   ),
               ],
             ),
@@ -807,7 +871,8 @@ class _ExpandToPillDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -834,7 +899,11 @@ class _Section4StackedHeaders extends StatelessWidget {
             'is fully supported. Each one pins independently at minExtent. '
             'On reverse scroll, both expand together — the framework treats '
             'each header as a separate sliver, so the order is preserved.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF880E4F)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF880E4F),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -879,7 +948,9 @@ class _Section4StackedHeaders extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFFCE4EC) : const Color(0xFFF8BBD0),
-        border: const Border(bottom: BorderSide(color: Color(0xFFF48FB1), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFF48FB1), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
@@ -891,7 +962,11 @@ class _Section4StackedHeaders extends StatelessWidget {
               color: const Color(0xFFC2185B),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Icons.local_florist, color: Colors.white, size: 20),
+            child: const Icon(
+              Icons.local_florist,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -908,7 +983,10 @@ class _Section4StackedHeaders extends StatelessWidget {
                 ),
                 Text(
                   '€${(12 + (i * 7) % 30).toStringAsFixed(2)} · in stock',
-                  style: const TextStyle(fontSize: 11, color: Color(0xFFAD1457)),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFFAD1457),
+                  ),
                 ),
               ],
             ),
@@ -930,7 +1008,11 @@ class _CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 90;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     return Container(
       color: const Color(0xFFC2185B),
@@ -955,7 +1037,10 @@ class _CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
                   ])
                     Container(
                       margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0x33FFFFFF),
                         borderRadius: BorderRadius.circular(20),
@@ -979,7 +1064,8 @@ class _CategoryHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _SortBarDelegate extends SliverPersistentHeaderDelegate {
@@ -992,7 +1078,11 @@ class _SortBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 36;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: const Color(0xFFAD1457),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
@@ -1016,7 +1106,8 @@ class _SortBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -1065,7 +1156,11 @@ class _Section5AnimatedHostState extends State<_Section5AnimatedHost>
             'The header child can run its own animation completely '
             'orthogonally to scroll. Here a pulsing sun is driven by an '
             'AnimationController that lives in this section\'s State.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF33691E)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF33691E),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -1106,7 +1201,9 @@ class _Section5AnimatedHostState extends State<_Section5AnimatedHost>
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFF1F8E9) : const Color(0xFFDCEDC8),
-        border: const Border(bottom: BorderSide(color: Color(0xFFAED581), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFAED581), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
@@ -1145,7 +1242,11 @@ class _PulseSunDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 140;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext _, Widget? child) {
@@ -1165,13 +1266,19 @@ class _PulseSunDelegate extends SliverPersistentHeaderDelegate {
                     shape: BoxShape.circle,
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                        color: const Color(0xFFFFF59D).withValues(alpha: 0.6 * animation.value),
+                        color: const Color(
+                          0xFFFFF59D,
+                        ).withValues(alpha: 0.6 * animation.value),
                         blurRadius: 16,
                         spreadRadius: 4,
                       ),
                     ],
                   ),
-                  child: const Icon(Icons.wb_sunny, color: Color(0xFFF57F17), size: 22),
+                  child: const Icon(
+                    Icons.wb_sunny,
+                    color: Color(0xFFF57F17),
+                    size: 22,
+                  ),
                 ),
               ),
               const SizedBox(width: 14),
@@ -1235,7 +1342,11 @@ class _Section6FadeOutTitle extends StatelessWidget {
             'SliverPersistentHeaderDelegate.build is the canonical input '
             'for any visual change tied to scroll. Here the title is '
             'wrapped in an Opacity with value 1 − (shrinkOffset / range).',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF4A148C)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF4A148C),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -1273,7 +1384,9 @@ class _Section6FadeOutTitle extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFF3E5F5) : const Color(0xFFE1BEE7),
-        border: const Border(bottom: BorderSide(color: Color(0xFFCE93D8), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFCE93D8), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
       child: Row(
@@ -1315,7 +1428,11 @@ class _FadingTitleDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 160;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double range = maxExtent - minExtent;
     final double t = (shrinkOffset / range).clamp(0.0, 1.0);
     final double titleOpacity = 1.0 - t;
@@ -1365,7 +1482,11 @@ class _FadingTitleDelegate extends SliverPersistentHeaderDelegate {
               alignment: Alignment.topLeft,
               child: Row(
                 children: <Widget>[
-                  const Icon(Icons.menu_book_rounded, color: Colors.white, size: 22),
+                  const Icon(
+                    Icons.menu_book_rounded,
+                    color: Colors.white,
+                    size: 22,
+                  ),
                   const SizedBox(width: 10),
                   Opacity(
                     opacity: t,
@@ -1388,7 +1509,8 @@ class _FadingTitleDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -1414,7 +1536,11 @@ class _Section7ScalingIcon extends StatelessWidget {
             'A small but visually striking effect: scale a leading icon '
             'between 1.4 and 0.9 across the shrink range. Implemented with '
             'Transform.scale inside the delegate build.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF33691E)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF33691E),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -1455,7 +1581,9 @@ class _Section7ScalingIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFF9FBE7) : const Color(0xFFF0F4C3),
-        border: const Border(bottom: BorderSide(color: Color(0xFFE6EE9C), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFE6EE9C), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
@@ -1499,7 +1627,11 @@ class _ScalingIconDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 140;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double range = maxExtent - minExtent;
     final double t = (shrinkOffset / range).clamp(0.0, 1.0);
     final double scale = 1.4 - 0.5 * t;
@@ -1538,10 +1670,7 @@ class _ScalingIconDelegate extends SliverPersistentHeaderDelegate {
                 ),
                 Text(
                   'rare cultivars · daily harvest',
-                  style: TextStyle(
-                    color: Color(0xFFF9FBE7),
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Color(0xFFF9FBE7), fontSize: 12),
                 ),
               ],
             ),
@@ -1552,7 +1681,8 @@ class _ScalingIconDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -1590,7 +1720,11 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
           const Text(
             'Below is the same kind of CustomScrollView reused with three '
             'different floating+pinned configurations. Tap a chip to switch.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFFBF360C)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFFBF360C),
+            ),
           ),
           const SizedBox(height: 10),
           Wrap(
@@ -1605,7 +1739,9 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
                   selected: _scenario == i,
                   selectedColor: const Color(0xFFE64A19),
                   labelStyle: TextStyle(
-                    color: _scenario == i ? Colors.white : const Color(0xFFBF360C),
+                    color: _scenario == i
+                        ? Colors.white
+                        : const Color(0xFFBF360C),
                     fontWeight: FontWeight.w700,
                   ),
                   onSelected: (bool _) => setState(() => _scenario = i),
@@ -1649,7 +1785,8 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
             ),
             SliverList.builder(
               itemCount: 22,
-              itemBuilder: (BuildContext c, int i) => _coralTile(i, 'Equal extents'),
+              itemBuilder: (BuildContext c, int i) =>
+                  _coralTile(i, 'Equal extents'),
             ),
           ],
         );
@@ -1663,7 +1800,8 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
             ),
             SliverList.builder(
               itemCount: 22,
-              itemBuilder: (BuildContext c, int i) => _coralTile(i, 'Tall maxExtent'),
+              itemBuilder: (BuildContext c, int i) =>
+                  _coralTile(i, 'Tall maxExtent'),
             ),
           ],
         );
@@ -1694,7 +1832,9 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
     return Container(
       decoration: BoxDecoration(
         color: i.isEven ? const Color(0xFFFBE9E7) : const Color(0xFFFFCCBC),
-        border: const Border(bottom: BorderSide(color: Color(0xFFFFAB91), width: 0.4)),
+        border: const Border(
+          bottom: BorderSide(color: Color(0xFFFFAB91), width: 0.4),
+        ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       child: Row(
@@ -1715,7 +1855,10 @@ class _Section8EdgeCasesState extends State<_Section8EdgeCases> {
                 ),
                 Text(
                   'note: scenario specific behaviour',
-                  style: const TextStyle(fontSize: 11, color: Color(0xFFD84315)),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFFD84315),
+                  ),
                 ),
               ],
             ),
@@ -1736,7 +1879,11 @@ class _CompactNoFloatRoomDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 56; // No floating room — same as plain pinned.
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: const Color(0xFFE64A19),
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -1747,7 +1894,11 @@ class _CompactNoFloatRoomDelegate extends SliverPersistentHeaderDelegate {
           SizedBox(width: 10),
           Text(
             'No float headroom — behaves like pure pinned',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 13,
+            ),
           ),
         ],
       ),
@@ -1755,7 +1906,8 @@ class _CompactNoFloatRoomDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _TallMaxExtentDelegate extends SliverPersistentHeaderDelegate {
@@ -1768,12 +1920,20 @@ class _TallMaxExtentDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 220;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[Color(0xFFBF360C), Color(0xFFE64A19), Color(0xFFFF8A65)],
+          colors: <Color>[
+            Color(0xFFBF360C),
+            Color(0xFFE64A19),
+            Color(0xFFFF8A65),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1829,7 +1989,8 @@ class _TallMaxExtentDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _ContrastFloatingPinnedDelegate extends SliverPersistentHeaderDelegate {
@@ -1842,7 +2003,11 @@ class _ContrastFloatingPinnedDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 110;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: const Color(0xFFE64A19),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -1876,7 +2041,8 @@ class _ContrastFloatingPinnedDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _ContrastFloatingOnlyDelegate extends SliverPersistentHeaderDelegate {
@@ -1889,7 +2055,11 @@ class _ContrastFloatingOnlyDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 64;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: const Color(0xFFFF8A65),
       padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -1912,7 +2082,8 @@ class _ContrastFloatingOnlyDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -1938,12 +2109,17 @@ class _Section9RecipeGallery extends StatelessWidget {
             'Concrete patterns where floating+pinned is the right choice. '
             'Each card below is its own bounded CustomScrollView with a '
             'narrative explaining why this configuration matters.',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFF263238)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFF263238),
+            ),
           ),
           SizedBox(height: 10),
           _RecipeCard(
             title: 'A: Reappearing search bar',
-            blurb: 'Search is critical so we keep at least the input visible '
+            blurb:
+                'Search is critical so we keep at least the input visible '
                 '(pinned). When scrolling up, the full search bar with hints '
                 'and filters re-expands eagerly (floating).',
             accent: Color(0xFF1565C0),
@@ -1953,7 +2129,8 @@ class _Section9RecipeGallery extends StatelessWidget {
           SizedBox(height: 12),
           _RecipeCard(
             title: 'B: Sticky tab bar with hero',
-            blurb: 'A SliverAppBar(floating: true, pinned: true) holds tabs '
+            blurb:
+                'A SliverAppBar(floating: true, pinned: true) holds tabs '
                 'always-visible at the bottom of its toolbar height; the '
                 'hero gradient + title appear on reverse scroll.',
             accent: Color(0xFF00838F),
@@ -1963,7 +2140,8 @@ class _Section9RecipeGallery extends StatelessWidget {
           SizedBox(height: 12),
           _RecipeCard(
             title: 'C: Sticky filter chip',
-            blurb: 'A small chip-row that never disappears keeps the user '
+            blurb:
+                'A small chip-row that never disappears keeps the user '
                 'oriented; a richer header with breadcrumbs re-expands when '
                 'they scroll back, helping rebuild context.',
             accent: Color(0xFF6D4C41),
@@ -2014,7 +2192,11 @@ class _RecipeCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             blurb,
-            style: const TextStyle(fontSize: 12, height: 1.45, color: Color(0xFF263238)),
+            style: const TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: Color(0xFF263238),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -2048,7 +2230,9 @@ class _RecipeSearchBar extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: const BoxDecoration(
               color: Color(0xFFE3F2FD),
-              border: Border(bottom: BorderSide(color: Color(0xFFBBDEFB), width: 0.4)),
+              border: Border(
+                bottom: BorderSide(color: Color(0xFFBBDEFB), width: 0.4),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -2083,7 +2267,11 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 130;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     return Container(
       color: const Color(0xFF1565C0),
@@ -2149,7 +2337,8 @@ class _SearchBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _RecipeTabBar extends StatelessWidget {
@@ -2165,68 +2354,70 @@ class _RecipeTabBar extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: CustomScrollView(
-      slivers: <Widget>[
-        const SliverAppBar(
-          pinned: true,
-          floating: true,
-          expandedHeight: 140,
-          backgroundColor: Color(0xFF00838F),
-          foregroundColor: Colors.white,
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-              'Marine Atlas',
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
-            ),
-            background: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[Color(0xFF006064), Color(0xFF00ACC1)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+        slivers: <Widget>[
+          const SliverAppBar(
+            pinned: true,
+            floating: true,
+            expandedHeight: 140,
+            backgroundColor: Color(0xFF00838F),
+            foregroundColor: Colors.white,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                'Marine Atlas',
+                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+              ),
+              background: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[Color(0xFF006064), Color(0xFF00ACC1)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                 ),
               ),
             ),
-          ),
-          bottom: TabBar(
-            isScrollable: true,
-            labelColor: Colors.white,
-            unselectedLabelColor: Color(0xFFB2EBF2),
-            indicatorColor: Colors.white,
-            tabs: <Widget>[
-              Tab(text: 'Coral'),
-              Tab(text: 'Pelagic'),
-              Tab(text: 'Benthic'),
-              Tab(text: 'Estuarine'),
-            ],
-          ),
-        ),
-        SliverList.builder(
-          itemCount: 16,
-          itemBuilder: (BuildContext c, int i) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: const BoxDecoration(
-              color: Color(0xFFE0F7FA),
-              border: Border(bottom: BorderSide(color: Color(0xFFB2EBF2), width: 0.4)),
-            ),
-            child: Row(
-              children: <Widget>[
-                const Icon(Icons.water, color: Color(0xFF00838F)),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    'Species record ${i + 1}',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF006064),
-                    ),
-                  ),
-                ),
+            bottom: TabBar(
+              isScrollable: true,
+              labelColor: Colors.white,
+              unselectedLabelColor: Color(0xFFB2EBF2),
+              indicatorColor: Colors.white,
+              tabs: <Widget>[
+                Tab(text: 'Coral'),
+                Tab(text: 'Pelagic'),
+                Tab(text: 'Benthic'),
+                Tab(text: 'Estuarine'),
               ],
             ),
           ),
-        ),
-      ],
+          SliverList.builder(
+            itemCount: 16,
+            itemBuilder: (BuildContext c, int i) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              decoration: const BoxDecoration(
+                color: Color(0xFFE0F7FA),
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFFB2EBF2), width: 0.4),
+                ),
+              ),
+              child: Row(
+                children: <Widget>[
+                  const Icon(Icons.water, color: Color(0xFF00838F)),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      'Species record ${i + 1}',
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF006064),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -2257,7 +2448,9 @@ class _RecipeFilterChips extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: const BoxDecoration(
                 color: Color(0xFFEFEBE9),
-                border: Border(bottom: BorderSide(color: Color(0xFFD7CCC8), width: 0.4)),
+                border: Border(
+                  bottom: BorderSide(color: Color(0xFFD7CCC8), width: 0.4),
+                ),
               ),
               child: Row(
                 children: <Widget>[
@@ -2293,7 +2486,11 @@ class _BreadcrumbHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 90;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final double t = (shrinkOffset / (maxExtent - minExtent)).clamp(0.0, 1.0);
     return Container(
       color: const Color(0xFF6D4C41),
@@ -2303,17 +2500,27 @@ class _BreadcrumbHeaderDelegate extends SliverPersistentHeaderDelegate {
         children: <Widget>[
           const Icon(Icons.home_outlined, color: Colors.white, size: 16),
           const SizedBox(width: 6),
-          const Text('Catalog', style: TextStyle(color: Colors.white, fontSize: 12)),
+          const Text(
+            'Catalog',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
           const SizedBox(width: 6),
           const Icon(Icons.chevron_right, color: Color(0xFFD7CCC8), size: 16),
           const SizedBox(width: 6),
-          const Text('Coffee', style: TextStyle(color: Colors.white, fontSize: 12)),
+          const Text(
+            'Coffee',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
           const SizedBox(width: 6),
           const Icon(Icons.chevron_right, color: Color(0xFFD7CCC8), size: 16),
           const SizedBox(width: 6),
           const Text(
             'Single Origin',
-            style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const Spacer(),
           if (t < 0.6)
@@ -2330,7 +2537,8 @@ class _BreadcrumbHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 class _FilterChipRowDelegate extends SliverPersistentHeaderDelegate {
@@ -2343,7 +2551,11 @@ class _FilterChipRowDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 44;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: const Color(0xFFEFEBE9),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -2381,7 +2593,8 @@ class _FilterChipRowDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
 
 // ===========================================================================
@@ -2406,7 +2619,11 @@ class _Section10ReferenceTable extends StatelessWidget {
           const Text(
             'When you write SliverPersistentHeader(floating: f, pinned: p), '
             'Flutter selects exactly one of these four render-object subclasses:',
-            style: TextStyle(fontSize: 12.5, height: 1.45, color: Color(0xFFE65100)),
+            style: TextStyle(
+              fontSize: 12.5,
+              height: 1.45,
+              color: Color(0xFFE65100),
+            ),
           ),
           const SizedBox(height: 10),
           // NOTE: Original demo used `Table(columnWidths: …, children: …)`
@@ -2438,7 +2655,8 @@ class _Section10ReferenceTable extends StatelessWidget {
                     _RefCellSpec(text: 'false'),
                     _RefCellSpec(text: 'RenderSliverScrollingPersistentHeader'),
                     _RefCellSpec(
-                      text: 'Scrolls off normally; reappears only when scrolled back into view.',
+                      text:
+                          'Scrolls off normally; reappears only when scrolled back into view.',
                     ),
                   ],
                 ),
@@ -2449,7 +2667,8 @@ class _Section10ReferenceTable extends StatelessWidget {
                     _RefCellSpec(text: 'false'),
                     _RefCellSpec(text: 'RenderSliverFloatingPersistentHeader'),
                     _RefCellSpec(
-                      text: 'Reappears the moment you reverse scroll, even if scrolled far past.',
+                      text:
+                          'Reappears the moment you reverse scroll, even if scrolled far past.',
                     ),
                   ],
                 ),
@@ -2459,7 +2678,8 @@ class _Section10ReferenceTable extends StatelessWidget {
                     _RefCellSpec(text: 'true'),
                     _RefCellSpec(text: 'RenderSliverPinnedPersistentHeader'),
                     _RefCellSpec(
-                      text: 'Always glued to the leading edge at minExtent, never expands floating.',
+                      text:
+                          'Always glued to the leading edge at minExtent, never expands floating.',
                     ),
                   ],
                 ),
@@ -2468,9 +2688,12 @@ class _Section10ReferenceTable extends StatelessWidget {
                   cells: <_RefCellSpec>[
                     _RefCellSpec(text: 'true'),
                     _RefCellSpec(text: 'true'),
-                    _RefCellSpec(text: 'RenderSliverFloatingPinnedPersistentHeader'),
                     _RefCellSpec(
-                      text: 'Both behaviours combined — visible at minExtent always, expands eagerly on reverse scroll.',
+                      text: 'RenderSliverFloatingPinnedPersistentHeader',
+                    ),
+                    _RefCellSpec(
+                      text:
+                          'Both behaviours combined — visible at minExtent always, expands eagerly on reverse scroll.',
                     ),
                   ],
                 ),
@@ -2495,7 +2718,11 @@ class _Section10ReferenceTable extends StatelessWidget {
                     'You almost never instantiate these render objects directly. '
                     'You use SliverPersistentHeader or SliverAppBar, and the '
                     'right render object gets created based on the flags.',
-                    style: TextStyle(fontSize: 12, color: Color(0xFFE65100), height: 1.45),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFFE65100),
+                      height: 1.45,
+                    ),
                   ),
                 ),
               ],
@@ -2526,11 +2753,7 @@ class _RefCellSpec {
 // height is sized generously so the longest behaviour string wraps inside
 // the cell.
 class _RefRow extends StatelessWidget {
-  const _RefRow({
-    required this.cells,
-    this.background,
-    this.height = 70,
-  });
+  const _RefRow({required this.cells, this.background, this.height = 70});
   final List<_RefCellSpec> cells;
   final Color? background;
   final double height;
@@ -2542,9 +2765,7 @@ class _RefRow extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: background,
-          border: const Border(
-            bottom: BorderSide(color: Color(0xFFEF6C00)),
-          ),
+          border: const Border(bottom: BorderSide(color: Color(0xFFEF6C00))),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,

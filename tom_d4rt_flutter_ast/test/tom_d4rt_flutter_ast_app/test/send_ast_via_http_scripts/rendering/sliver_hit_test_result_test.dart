@@ -40,11 +40,7 @@ Widget _buildHeroHeader() {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: Icon(
-                Icons.touch_app,
-                size: 40.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.touch_app, size: 40.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -88,11 +84,7 @@ Widget _buildHeroHeader() {
             'a CustomScrollView searching for the deepest target under a '
             'pointer event. The result is the path that gesture events '
             'will traverse.',
-            style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 14.0, color: Colors.white, height: 1.5),
           ),
         ),
         SizedBox(height: 16.0),
@@ -264,8 +256,7 @@ Widget _buildCoordinateComparison() {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Colors.teal.shade700, size: 20.0),
+              Icon(Icons.info_outline, color: Colors.teal.shade700, size: 20.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -334,20 +325,26 @@ Widget _buildBoxSpaceCard() {
               Positioned(
                 left: 8.0,
                 top: 4.0,
-                child: Text('(0,0)',
-                    style: TextStyle(
-                        fontSize: 9.0,
-                        fontFamily: 'monospace',
-                        color: Colors.blue.shade800)),
+                child: Text(
+                  '(0,0)',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontFamily: 'monospace',
+                    color: Colors.blue.shade800,
+                  ),
+                ),
               ),
               Positioned(
                 right: 8.0,
                 bottom: 4.0,
-                child: Text('(w,h)',
-                    style: TextStyle(
-                        fontSize: 9.0,
-                        fontFamily: 'monospace',
-                        color: Colors.blue.shade800)),
+                child: Text(
+                  '(w,h)',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontFamily: 'monospace',
+                    color: Colors.blue.shade800,
+                  ),
+                ),
               ),
               Positioned(
                 left: 60.0,
@@ -360,8 +357,9 @@ Widget _buildBoxSpaceCard() {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.red.withValues(alpha: 0.5),
-                          blurRadius: 4.0)
+                        color: Colors.red.withValues(alpha: 0.5),
+                        blurRadius: 4.0,
+                      ),
                     ],
                   ),
                 ),
@@ -369,11 +367,14 @@ Widget _buildBoxSpaceCard() {
               Positioned(
                 left: 76.0,
                 top: 28.0,
-                child: Text('pointer',
-                    style: TextStyle(
-                        fontSize: 9.0,
-                        color: Colors.red.shade800,
-                        fontWeight: FontWeight.bold)),
+                child: Text(
+                  'pointer',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    color: Colors.red.shade800,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -433,20 +434,26 @@ Widget _buildSliverSpaceCard() {
               Positioned(
                 left: 8.0,
                 top: 4.0,
-                child: Text('main=0',
-                    style: TextStyle(
-                        fontSize: 9.0,
-                        fontFamily: 'monospace',
-                        color: Colors.purple.shade800)),
+                child: Text(
+                  'main=0',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontFamily: 'monospace',
+                    color: Colors.purple.shade800,
+                  ),
+                ),
               ),
               Positioned(
                 left: 8.0,
                 bottom: 4.0,
-                child: Text('main=inf',
-                    style: TextStyle(
-                        fontSize: 9.0,
-                        fontFamily: 'monospace',
-                        color: Colors.purple.shade800)),
+                child: Text(
+                  'main=inf',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontFamily: 'monospace',
+                    color: Colors.purple.shade800,
+                  ),
+                ),
               ),
               Positioned(
                 left: 0.0,
@@ -471,8 +478,9 @@ Widget _buildSliverSpaceCard() {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.deepOrange.withValues(alpha: 0.5),
-                          blurRadius: 4.0)
+                        color: Colors.deepOrange.withValues(alpha: 0.5),
+                        blurRadius: 4.0,
+                      ),
                     ],
                   ),
                 ),
@@ -722,8 +730,11 @@ Widget _buildLiveCustomScrollView() {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.lightbulb_outline,
-                            color: Colors.amber.shade800, size: 16.0),
+                        Icon(
+                          Icons.lightbulb_outline,
+                          color: Colors.amber.shade800,
+                          size: 16.0,
+                        ),
                         SizedBox(width: 6.0),
                         Expanded(
                           child: Text(
@@ -739,14 +750,11 @@ Widget _buildLiveCustomScrollView() {
                   ),
                 ),
               ),
-              SliverList(
-                delegate: SliverChildListDelegate(listItems),
-              ),
+              SliverList(delegate: SliverChildListDelegate(listItems)),
               SliverPadding(
                 padding: EdgeInsets.all(8.0),
                 sliver: SliverGrid(
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     mainAxisSpacing: 6.0,
                     crossAxisSpacing: 6.0,
@@ -769,8 +777,11 @@ Widget _buildLiveCustomScrollView() {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.flag_outlined,
-                          color: Colors.grey.shade600, size: 24.0),
+                      Icon(
+                        Icons.flag_outlined,
+                        color: Colors.grey.shade600,
+                        size: 24.0,
+                      ),
                       SizedBox(height: 6.0),
                       Text(
                         'SliverFillRemaining - terminal sliver',
@@ -925,11 +936,7 @@ Widget _buildHitTrailVisualization() {
                     ),
                   ),
                   if (i < entries.length - 1)
-                    Container(
-                      width: 2.0,
-                      height: 32.0,
-                      color: color.shade200,
-                    ),
+                    Container(width: 2.0, height: 32.0, color: color.shade200),
                 ],
               ),
             ),
@@ -951,8 +958,11 @@ Widget _buildHitTrailVisualization() {
                   children: [
                     Row(
                       children: [
-                        Icon(e['icon'] as IconData,
-                            color: color.shade800, size: 16.0),
+                        Icon(
+                          e['icon'] as IconData,
+                          color: color.shade800,
+                          size: 16.0,
+                        ),
                         SizedBox(width: 6.0),
                         Text(
                           e['label'] as String,
@@ -975,8 +985,10 @@ Widget _buildHitTrailVisualization() {
                     ),
                     SizedBox(height: 6.0),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.7),
                         borderRadius: BorderRadius.circular(4.0),
@@ -1063,8 +1075,11 @@ Widget _buildTransitionPanel() {
       children: [
         Row(
           children: [
-            Icon(Icons.swap_horiz,
-                color: Colors.deepOrange.shade800, size: 22.0),
+            Icon(
+              Icons.swap_horiz,
+              color: Colors.deepOrange.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 6.0),
             Text(
               'Where coordinates change hands',
@@ -1092,8 +1107,11 @@ Widget _buildTransitionPanel() {
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Column(
                 children: [
-                  Icon(Icons.arrow_forward,
-                      color: Colors.deepOrange, size: 26.0),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.deepOrange,
+                    size: 26.0,
+                  ),
                   Text(
                     'Viewport',
                     style: TextStyle(
@@ -1117,8 +1135,11 @@ Widget _buildTransitionPanel() {
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Column(
                 children: [
-                  Icon(Icons.arrow_forward,
-                      color: Colors.deepOrange, size: 26.0),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.deepOrange,
+                    size: 26.0,
+                  ),
                   Text(
                     'BoxAdapter',
                     style: TextStyle(
@@ -1221,8 +1242,11 @@ Widget _buildBulletLine(String text) {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 4.0, right: 6.0),
-          child: Icon(Icons.fiber_manual_record,
-              color: Colors.deepOrange.shade400, size: 8.0),
+          child: Icon(
+            Icons.fiber_manual_record,
+            color: Colors.deepOrange.shade400,
+            size: 8.0,
+          ),
         ),
         Expanded(
           child: Text(
@@ -1248,7 +1272,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'addWithAxisOffset',
       'sig': 'void addWithAxisOffset({...})',
-      'desc': 'Records an entry while shifting the main-axis position. '
+      'desc':
+          'Records an entry while shifting the main-axis position. '
           'Used by parent slivers when descending into a child whose '
           'leading edge is offset within the sliver.',
       'icon': Icons.swap_vert,
@@ -1257,7 +1282,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'add',
       'sig': 'void add(HitTestEntry entry)',
-      'desc': 'Inherited from HitTestResult. Appends a hit entry into '
+      'desc':
+          'Inherited from HitTestResult. Appends a hit entry into '
           'the path list in the order of recording.',
       'icon': Icons.add_circle_outline,
       'color': Colors.green,
@@ -1265,7 +1291,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'path',
       'sig': 'Iterable<HitTestEntry> get path',
-      'desc': 'Inherited iterable representing the recorded path of '
+      'desc':
+          'Inherited iterable representing the recorded path of '
           'hits, walked later by gesture dispatch and routing.',
       'icon': Icons.alt_route,
       'color': Colors.teal,
@@ -1273,7 +1300,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'pushTransform',
       'sig': 'void pushTransform(Matrix4 transform)',
-      'desc': 'Inherited helper to push a coordinate transform on the '
+      'desc':
+          'Inherited helper to push a coordinate transform on the '
           'internal stack while a sub-walk happens.',
       'icon': Icons.transform,
       'color': Colors.purple,
@@ -1281,7 +1309,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'pushOffset',
       'sig': 'void pushOffset(Offset offset)',
-      'desc': 'Inherited convenience for translation-only transforms; '
+      'desc':
+          'Inherited convenience for translation-only transforms; '
           'less work than a full matrix push.',
       'icon': Icons.open_with,
       'color': Colors.deepOrange,
@@ -1289,7 +1318,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'popTransform',
       'sig': 'void popTransform()',
-      'desc': 'Pairs with push* to restore the previous coordinate '
+      'desc':
+          'Pairs with push* to restore the previous coordinate '
           'frame after the child sub-walk finishes.',
       'icon': Icons.replay,
       'color': Colors.brown,
@@ -1297,7 +1327,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'wrap ctor',
       'sig': 'SliverHitTestResult.wrap(HitTestResult)',
-      'desc': 'Creates a SliverHitTestResult that shares its path with '
+      'desc':
+          'Creates a SliverHitTestResult that shares its path with '
           'an existing HitTestResult; commonly used at the box->sliver '
           'boundary inside a Viewport.',
       'icon': Icons.compare,
@@ -1306,7 +1337,8 @@ Widget _buildApiMatrix() {
     <String, Object>{
       'name': 'lastTransform',
       'sig': 'Matrix4? get lastTransform',
-      'desc': 'Inherited. Most recent transform on the stack. Used by '
+      'desc':
+          'Inherited. Most recent transform on the stack. Used by '
           'sliver walkers to map a position into local frame.',
       'icon': Icons.layers,
       'color': Colors.cyan,
@@ -1318,11 +1350,7 @@ Widget _buildApiMatrix() {
     cards.add(_buildApiCard(apis[i]));
   }
 
-  return Wrap(
-    spacing: 10.0,
-    runSpacing: 10.0,
-    children: cards,
-  );
+  return Wrap(spacing: 10.0, runSpacing: 10.0, children: cards);
 }
 
 Widget _buildApiCard(Map<String, Object> api) {
@@ -1353,8 +1381,11 @@ Widget _buildApiCard(Map<String, Object> api) {
                 color: color.shade100,
                 borderRadius: BorderRadius.circular(6.0),
               ),
-              child: Icon(api['icon'] as IconData,
-                  color: color.shade800, size: 18.0),
+              child: Icon(
+                api['icon'] as IconData,
+                color: color.shade800,
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -1410,14 +1441,16 @@ Widget _buildPitfallsPanel() {
     <String, Object>{
       'icon': Icons.warning_amber,
       'title': 'Custom slivers forgetting axis offset',
-      'desc': 'A custom RenderSliver with a moving child must call '
+      'desc':
+          'A custom RenderSliver with a moving child must call '
           'addWithAxisOffset, not add directly, or the recorded path '
           'will be off by the child leading offset.',
     },
     <String, Object>{
       'icon': Icons.layers_clear,
       'title': 'Pinned headers overlapping list items',
-      'desc': 'Pinned SliverPersistentHeaders can sit visually over '
+      'desc':
+          'Pinned SliverPersistentHeaders can sit visually over '
           'list items. Only one wins the hit walk - the one whose '
           'paint order is on top, which is determined by the sliver '
           'order in CustomScrollView.slivers.',
@@ -1425,21 +1458,24 @@ Widget _buildPitfallsPanel() {
     <String, Object>{
       'icon': Icons.pageview,
       'title': 'Paged scroll viewports',
-      'desc': 'PageView and similar paged surfaces have their own '
+      'desc':
+          'PageView and similar paged surfaces have their own '
           'sliver coordinate quirks per page. Each page maintains '
           'its own SliverHitTestResult walk.',
     },
     <String, Object>{
       'icon': Icons.lock_clock,
       'title': 'Floating SliverAppBar timing',
-      'desc': 'A floating SliverAppBar that animates back into view '
+      'desc':
+          'A floating SliverAppBar that animates back into view '
           'must accept hits during the animation; if its scrollOffset '
           'is not accounted for, taps fall through.',
     },
     <String, Object>{
       'icon': Icons.swap_horizontal_circle,
       'title': 'Reversed scroll directions',
-      'desc': 'AxisDirection.up reverses the main-axis offset semantics. '
+      'desc':
+          'AxisDirection.up reverses the main-axis offset semantics. '
           'Manually adding entries without honouring the axis direction '
           'will hit the wrong child.',
     },
@@ -1466,8 +1502,11 @@ Widget _buildPitfallsPanel() {
       children: [
         Row(
           children: [
-            Icon(Icons.report_problem,
-                color: Colors.amber.shade800, size: 22.0),
+            Icon(
+              Icons.report_problem,
+              color: Colors.amber.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 6.0),
             Text(
               'When this matters',
@@ -1504,8 +1543,11 @@ Widget _buildPitfallRow(Map<String, Object> p) {
             color: Colors.amber.shade200,
             shape: BoxShape.circle,
           ),
-          child: Icon(p['icon'] as IconData,
-              color: Colors.orange.shade900, size: 18.0),
+          child: Icon(
+            p['icon'] as IconData,
+            color: Colors.orange.shade900,
+            size: 18.0,
+          ),
         ),
         SizedBox(width: 10.0),
         Expanded(
@@ -1727,14 +1769,23 @@ Widget _buildAxisOffsetExamples() {
         ),
         child: Row(
           children: [
-            _buildAxisCell('parent.main',
-                main.toStringAsFixed(1), Colors.indigo),
+            _buildAxisCell(
+              'parent.main',
+              main.toStringAsFixed(1),
+              Colors.indigo,
+            ),
             _buildOpCell('-'),
-            _buildAxisCell('child.offset',
-                offset.toStringAsFixed(1), Colors.deepOrange),
+            _buildAxisCell(
+              'child.offset',
+              offset.toStringAsFixed(1),
+              Colors.deepOrange,
+            ),
             _buildOpCell('='),
-            _buildAxisCell('child.main',
-                local.toStringAsFixed(1), Colors.green),
+            _buildAxisCell(
+              'child.main',
+              local.toStringAsFixed(1),
+              Colors.green,
+            ),
             _buildOpCell('|'),
             _buildAxisCell('cross', cross.toStringAsFixed(1), Colors.purple),
           ],
@@ -1902,8 +1953,11 @@ Widget _buildSeeAlsoFooter() {
                 color: color.shade200,
                 shape: BoxShape.circle,
               ),
-              child: Icon(r['icon'] as IconData,
-                  color: color.shade900, size: 18.0),
+              child: Icon(
+                r['icon'] as IconData,
+                color: color.shade900,
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -1975,11 +2029,7 @@ Widget _buildSeeAlsoFooter() {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: cards,
-        ),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: cards),
       ],
     ),
   );
@@ -2103,10 +2153,7 @@ Widget _buildFactStrip() {
               Text(
                 f['caption'] as String,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 9.5,
-                  color: color.shade800,
-                ),
+                style: TextStyle(fontSize: 9.5, color: color.shade800),
               ),
             ],
           ),
@@ -2138,8 +2185,11 @@ Widget _buildRichNarrative() {
       children: [
         Row(
           children: [
-            Icon(Icons.auto_stories,
-                color: Colors.deepPurple.shade700, size: 22.0),
+            Icon(
+              Icons.auto_stories,
+              color: Colors.deepPurple.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 6.0),
             Text(
               'A short story of one tap',
@@ -2171,9 +2221,7 @@ Widget _buildRichNarrative() {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const TextSpan(
-                text: ' to walk the tree, building a ',
-              ),
+              const TextSpan(text: ' to walk the tree, building a '),
               TextSpan(
                 text: 'BoxHitTestResult',
                 style: TextStyle(
@@ -2182,9 +2230,7 @@ Widget _buildRichNarrative() {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const TextSpan(
-                text: ' as it goes. When the walk reaches a ',
-              ),
+              const TextSpan(text: ' as it goes. When the walk reaches a '),
               TextSpan(
                 text: 'RenderViewport',
                 style: TextStyle(
@@ -2193,9 +2239,7 @@ Widget _buildRichNarrative() {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const TextSpan(
-                text: ', it spawns a ',
-              ),
+              const TextSpan(text: ', it spawns a '),
               TextSpan(
                 text: 'SliverHitTestResult.wrap',
                 style: TextStyle(
@@ -2205,7 +2249,8 @@ Widget _buildRichNarrative() {
                 ),
               ),
               const TextSpan(
-                text: ' so child slivers can record entries in their own '
+                text:
+                    ' so child slivers can record entries in their own '
                     'main/cross frame. Eventually, a ',
               ),
               TextSpan(
@@ -2217,7 +2262,8 @@ Widget _buildRichNarrative() {
                 ),
               ),
               const TextSpan(
-                text: ' inverts the bridge to walk one of its box-space '
+                text:
+                    ' inverts the bridge to walk one of its box-space '
                     'children, and a leaf RenderObject completes the trail. '
                     'Gesture recognizers later replay this exact path.',
               ),
@@ -2237,35 +2283,40 @@ Widget _buildLifecyclePhases() {
   final phases = <Map<String, Object>>[
     <String, Object>{
       'phase': 'Construct',
-      'detail': 'A fresh SliverHitTestResult is created (or wrapped from a '
+      'detail':
+          'A fresh SliverHitTestResult is created (or wrapped from a '
           'BoxHitTestResult) at the box->sliver boundary.',
       'color': Colors.lightBlue,
       'icon': Icons.create_new_folder,
     },
     <String, Object>{
       'phase': 'Walk down',
-      'detail': 'Each sliver receives the result and may push transforms / '
+      'detail':
+          'Each sliver receives the result and may push transforms / '
           'axis offsets, then descend into children.',
       'color': Colors.lightGreen,
       'icon': Icons.south,
     },
     <String, Object>{
       'phase': 'Append',
-      'detail': 'A leaf records a SliverHitTestEntry (or BoxHitTestEntry '
+      'detail':
+          'A leaf records a SliverHitTestEntry (or BoxHitTestEntry '
           'when re-entering box space). The path grows.',
       'color': Colors.amber,
       'icon': Icons.note_add,
     },
     <String, Object>{
       'phase': 'Walk up',
-      'detail': 'Each level pops its transform / offset before returning to '
+      'detail':
+          'Each level pops its transform / offset before returning to '
           'its caller, restoring the prior coordinate frame.',
       'color': Colors.deepOrange,
       'icon': Icons.north,
     },
     <String, Object>{
       'phase': 'Dispatch',
-      'detail': 'Once back at the top, the gesture system replays path in '
+      'detail':
+          'Once back at the top, the gesture system replays path in '
           'order to deliver the pointer event.',
       'color': Colors.deepPurple,
       'icon': Icons.send,
@@ -2299,8 +2350,11 @@ Widget _buildLifecyclePhases() {
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
-              child: Icon(p['icon'] as IconData,
-                  color: Colors.white, size: 18.0),
+              child: Icon(
+                p['icon'] as IconData,
+                color: Colors.white,
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -2445,12 +2499,7 @@ dynamic build(BuildContext context) {
           Colors.cyan,
         ),
         axisExamples,
-        _buildSectionTitle(
-          '6',
-          'API surface',
-          Icons.api,
-          Colors.purple,
-        ),
+        _buildSectionTitle('6', 'API surface', Icons.api, Colors.purple),
         apiMatrix,
         _buildSectionTitle(
           '7',
@@ -2480,12 +2529,7 @@ dynamic build(BuildContext context) {
           Colors.deepPurple,
         ),
         narrative,
-        _buildSectionTitle(
-          '11',
-          'See also',
-          Icons.menu_book,
-          Colors.blueGrey,
-        ),
+        _buildSectionTitle('11', 'See also', Icons.menu_book, Colors.blueGrey),
         footer,
         SizedBox(height: 24.0),
         Container(

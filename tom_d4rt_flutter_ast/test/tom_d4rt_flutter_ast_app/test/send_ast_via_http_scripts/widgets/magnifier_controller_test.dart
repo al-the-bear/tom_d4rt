@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: deepAmethyst)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: deepAmethyst)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepAmethyst)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: deepAmethyst),
+            ),
           ),
         ],
       ),
@@ -97,8 +110,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget stateCard(String title, IconData icon, String description,
-      Color accent, bool isActive) {
+  Widget stateCard(
+    String title,
+    IconData icon,
+    String description,
+    Color accent,
+    bool isActive,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -127,34 +145,42 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Text(title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: deepAmethyst)),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: deepAmethyst,
+                      ),
+                    ),
                     const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: isActive
                             ? emeraldAccent.withValues(alpha: 0.15)
                             : Colors.grey.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(isActive ? 'ACTIVE' : 'INACTIVE',
-                          style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                              color: isActive
-                                  ? emeraldAccent
-                                  : Colors.grey)),
+                      child: Text(
+                        isActive ? 'ACTIVE' : 'INACTIVE',
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.bold,
+                          color: isActive ? emeraldAccent : Colors.grey,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(description,
-                    style: TextStyle(fontSize: 12, color: royalViolet)),
+                Text(
+                  description,
+                  style: TextStyle(fontSize: 12, color: royalViolet),
+                ),
               ],
             ),
           ),
@@ -214,34 +240,44 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.zoom_in, size: 28, color: lavenderMist),
                   const SizedBox(width: 10),
-                  const Text('MagnifierController',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold)),
+                  const Text(
+                    'MagnifierController',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
               Text(
-                  'Manages the display and animation of the text magnifier overlay',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 14)),
+                'Manages the display and animation of the text magnifier overlay',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Controller', wisteria, Colors.white),
-                tag('Overlay', orchid, Colors.white),
-                tag('Animation', lavenderMist, deepAmethyst),
-                tag('Text Selection', softLilac, deepAmethyst),
-              ]),
+              Wrap(
+                children: [
+                  tag('Controller', wisteria, Colors.white),
+                  tag('Overlay', orchid, Colors.white),
+                  tag('Animation', lavenderMist, deepAmethyst),
+                  tag('Text Selection', softLilac, deepAmethyst),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is MagnifierController',
-            'Overlay lifecycle manager for the text magnifier',
-            deepAmethyst, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is MagnifierController',
+          'Overlay lifecycle manager for the text magnifier',
+          deepAmethyst,
+          Colors.white,
+        ),
         noteBox(
           'MagnifierController manages the lifecycle of a magnifier overlay — '
           'the zoomed loupe that appears when you drag a text selection '
@@ -255,13 +291,20 @@ dynamic build(BuildContext context) {
         dataRow('Type', 'class (non-abstract)', wisteria),
         dataRow('Package', 'package:flutter/widgets.dart', orchid),
         dataRow('Source', 'magnifier.dart', royalViolet),
-        dataRow('Purpose', 'Show/hide/animate the magnifier overlay', deepAmethyst),
+        dataRow(
+          'Purpose',
+          'Show/hide/animate the magnifier overlay',
+          deepAmethyst,
+        ),
         const SizedBox(height: 14),
 
         // ── 3. Constructor ───────────────────────────────────────────
-        sectionBanner('2 \u00b7 Construction',
-            'Creating with or without an AnimationController',
-            royalViolet, Colors.white),
+        sectionBanner(
+          '2 \u00b7 Construction',
+          'Creating with or without an AnimationController',
+          royalViolet,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -277,26 +320,33 @@ dynamic build(BuildContext context) {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border(
-                      left: BorderSide(color: wisteria, width: 3)),
+                  border: Border(left: BorderSide(color: wisteria, width: 3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Without animation',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: wisteria)),
+                    Text(
+                      'Without animation',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: wisteria,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('MagnifierController()',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                            color: royalViolet)),
+                    Text(
+                      'MagnifierController()',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: royalViolet,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Magnifier appears/disappears instantly — no fade',
-                        style: TextStyle(fontSize: 12, color: deepAmethyst)),
+                    Text(
+                      'Magnifier appears/disappears instantly — no fade',
+                      style: TextStyle(fontSize: 12, color: deepAmethyst),
+                    ),
                   ],
                 ),
               ),
@@ -306,26 +356,33 @@ dynamic build(BuildContext context) {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border(
-                      left: BorderSide(color: orchid, width: 3)),
+                  border: Border(left: BorderSide(color: orchid, width: 3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('With animation',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: orchid)),
+                    Text(
+                      'With animation',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: orchid,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('MagnifierController(animationController: ...)',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'monospace',
-                            color: royalViolet)),
+                    Text(
+                      'MagnifierController(animationController: ...)',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'monospace',
+                        color: royalViolet,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('AnimationController drives entrance/exit — value set to 0 on creation',
-                        style: TextStyle(fontSize: 12, color: deepAmethyst)),
+                    Text(
+                      'AnimationController drives entrance/exit — value set to 0 on creation',
+                      style: TextStyle(fontSize: 12, color: deepAmethyst),
+                    ),
                   ],
                 ),
               ),
@@ -335,19 +392,37 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Properties ────────────────────────────────────────────
-        sectionBanner('3 \u00b7 Properties',
-            'The three key properties of MagnifierController',
-            wisteria, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Properties',
+          'The three key properties of MagnifierController',
+          wisteria,
+          Colors.white,
+        ),
         for (final prop in [
-          ('shown', 'bool', 'Whether magnifier is currently visible',
-              'True when overlayEntry != null AND animation is forward/completed',
-              Icons.visibility, emeraldAccent),
-          ('overlayEntry', 'OverlayEntry?', 'The magnifier\'s overlay entry',
-              'Used to position other entries above/below the magnifier',
-              Icons.layers, orchid),
-          ('animationController', 'AnimationController?', 'Optional animation driver',
-              'Drives fade-in on show() and fade-out on hide()',
-              Icons.animation, wisteria),
+          (
+            'shown',
+            'bool',
+            'Whether magnifier is currently visible',
+            'True when overlayEntry != null AND animation is forward/completed',
+            Icons.visibility,
+            emeraldAccent,
+          ),
+          (
+            'overlayEntry',
+            'OverlayEntry?',
+            'The magnifier\'s overlay entry',
+            'Used to position other entries above/below the magnifier',
+            Icons.layers,
+            orchid,
+          ),
+          (
+            'animationController',
+            'AnimationController?',
+            'Optional animation driver',
+            'Drives fade-in on show() and fade-out on hide()',
+            Icons.animation,
+            wisteria,
+          ),
         ])
           Container(
             width: double.infinity,
@@ -356,8 +431,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: crystalWhite,
               borderRadius: BorderRadius.circular(10),
-              border: Border(
-                  left: BorderSide(color: prop.$6, width: 4)),
+              border: Border(left: BorderSide(color: prop.$6, width: 4)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -379,27 +453,35 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Text(prop.$1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                  fontFamily: 'monospace',
-                                  color: deepAmethyst)),
+                          Text(
+                            prop.$1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                              color: deepAmethyst,
+                            ),
+                          ),
                           const SizedBox(width: 8),
-                          tag(prop.$2, prop.$6.withValues(alpha: 0.1),
-                              prop.$6),
+                          tag(prop.$2, prop.$6.withValues(alpha: 0.1), prop.$6),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(prop.$3,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: royalViolet)),
-                      Text(prop.$4,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: deepAmethyst.withValues(alpha: 0.7))),
+                      Text(
+                        prop.$3,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: royalViolet,
+                        ),
+                      ),
+                      Text(
+                        prop.$4,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: deepAmethyst.withValues(alpha: 0.7),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -409,9 +491,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. shown property states ─────────────────────────────────
-        sectionBanner('4 \u00b7 The shown Property In Detail',
-            'When shown is true vs false',
-            deepAmethyst, Colors.white),
+        sectionBanner(
+          '4 \u00b7 The shown Property In Detail',
+          'When shown is true vs false',
+          deepAmethyst,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -432,11 +517,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['overlayEntry', 'AnimationStatus', 'shown'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -452,41 +540,48 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: row.$1 == 'null'
-                                  ? Colors.grey
-                                  : orchid)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: row.$1 == 'null' ? Colors.grey : orchid,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: wisteria)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: wisteria,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: row.$3
                               ? emeraldAccent.withValues(alpha: 0.12)
                               : pinkAccent.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(row.$3 ? 'true' : 'false',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: row.$3
-                                    ? emeraldAccent
-                                    : pinkAccent)),
+                        child: Text(
+                          row.$3 ? 'true' : 'false',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: row.$3 ? emeraldAccent : pinkAccent,
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -497,9 +592,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. show() method ─────────────────────────────────────────
-        sectionBanner('5 \u00b7 show() Method',
-            'Displaying the magnifier in the overlay',
-            royalViolet, Colors.white),
+        sectionBanner(
+          '5 \u00b7 show() Method',
+          'Displaying the magnifier in the overlay',
+          royalViolet,
+          Colors.white,
+        ),
         noteBox(
           'show() inserts a magnifier widget into the Overlay via a new '
           'OverlayEntry. It first removes any existing entry, captures the '
@@ -519,10 +617,30 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final param in [
-                ('context', 'BuildContext', 'Required — provides Overlay access', wisteria),
-                ('builder', 'WidgetBuilder', 'Required — builds the magnifier widget', orchid),
-                ('below', 'OverlayEntry?', 'Optional — insert below this entry', royalViolet),
-                ('debugRequiredFor', 'Widget?', 'Optional — debug assertion helper', deepAmethyst),
+                (
+                  'context',
+                  'BuildContext',
+                  'Required — provides Overlay access',
+                  wisteria,
+                ),
+                (
+                  'builder',
+                  'WidgetBuilder',
+                  'Required — builds the magnifier widget',
+                  orchid,
+                ),
+                (
+                  'below',
+                  'OverlayEntry?',
+                  'Optional — insert below this entry',
+                  royalViolet,
+                ),
+                (
+                  'debugRequiredFor',
+                  'Widget?',
+                  'Optional — debug assertion helper',
+                  deepAmethyst,
+                ),
               ])
                 Container(
                   width: double.infinity,
@@ -530,32 +648,38 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: param.$4, width: 3)),
+                    border: Border(left: BorderSide(color: param.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 100,
-                        child: Text(param.$1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: param.$4)),
+                        child: Text(
+                          param.$1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            color: param.$4,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: 90,
-                        child: Text(param.$2,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: lavenderMist)),
+                        child: Text(
+                          param.$2,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: lavenderMist,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(param.$3,
-                            style: TextStyle(
-                                fontSize: 11, color: deepAmethyst)),
+                        child: Text(
+                          param.$3,
+                          style: TextStyle(fontSize: 11, color: deepAmethyst),
+                        ),
                       ),
                     ],
                   ),
@@ -566,9 +690,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. hide() method ─────────────────────────────────────────
-        sectionBanner('6 \u00b7 hide() Method',
-            'Removing the magnifier from the overlay',
-            wisteria, Colors.white),
+        sectionBanner(
+          '6 \u00b7 hide() Method',
+          'Removing the magnifier from the overlay',
+          wisteria,
+          Colors.white,
+        ),
         noteBox(
           'hide() reverses the animation (if present), then optionally '
           'removes the OverlayEntry. The removeFromOverlay parameter (default '
@@ -587,9 +714,24 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final scenario in [
-                ('hide()', 'Animate out + remove from overlay', emeraldAccent, true),
-                ('hide(removeFromOverlay: false)', 'Animate out but keep entry', goldAccent, false),
-                ('removeFromOverlay()', 'Instant removal, no animation', pinkAccent, true),
+                (
+                  'hide()',
+                  'Animate out + remove from overlay',
+                  emeraldAccent,
+                  true,
+                ),
+                (
+                  'hide(removeFromOverlay: false)',
+                  'Animate out but keep entry',
+                  goldAccent,
+                  false,
+                ),
+                (
+                  'removeFromOverlay()',
+                  'Instant removal, no animation',
+                  pinkAccent,
+                  true,
+                ),
               ])
                 Container(
                   width: double.infinity,
@@ -598,20 +740,26 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: scenario.$3, width: 3)),
+                      left: BorderSide(color: scenario.$3, width: 3),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(scenario.$1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              fontFamily: 'monospace',
-                              color: deepAmethyst)),
+                      Text(
+                        scenario.$1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          fontFamily: 'monospace',
+                          color: deepAmethyst,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(scenario.$2,
-                          style: TextStyle(fontSize: 12, color: royalViolet)),
+                      Text(
+                        scenario.$2,
+                        style: TextStyle(fontSize: 12, color: royalViolet),
+                      ),
                     ],
                   ),
                 ),
@@ -621,9 +769,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Lifecycle flow ────────────────────────────────────────
-        sectionBanner('7 \u00b7 Lifecycle Flow',
-            'Show → animate → position → hide sequence',
-            deepAmethyst, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Lifecycle Flow',
+          'Show → animate → position → hide sequence',
+          deepAmethyst,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -634,20 +785,48 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (1, 'Create controller', 'MagnifierController(animationController: ...)',
-                    deepAmethyst),
-                (2, 'Call show()', 'Inserts OverlayEntry with magnifier widget',
-                    royalViolet),
-                (3, 'Capture themes', 'InheritedTheme.capture preserves inherited widgets',
-                    wisteria),
-                (4, 'Insert overlay', 'OverlayState.insert with optional below entry',
-                    orchid),
-                (5, 'Animate forward', 'AnimationController.forward() (if present)',
-                    lavenderMist),
-                (6, 'User interaction', 'Magnifier follows gesture via MagnifierInfo updates',
-                    emeraldAccent),
-                (7, 'Call hide()', 'AnimationController.reverse() + entry removal',
-                    pinkAccent),
+                (
+                  1,
+                  'Create controller',
+                  'MagnifierController(animationController: ...)',
+                  deepAmethyst,
+                ),
+                (
+                  2,
+                  'Call show()',
+                  'Inserts OverlayEntry with magnifier widget',
+                  royalViolet,
+                ),
+                (
+                  3,
+                  'Capture themes',
+                  'InheritedTheme.capture preserves inherited widgets',
+                  wisteria,
+                ),
+                (
+                  4,
+                  'Insert overlay',
+                  'OverlayState.insert with optional below entry',
+                  orchid,
+                ),
+                (
+                  5,
+                  'Animate forward',
+                  'AnimationController.forward() (if present)',
+                  lavenderMist,
+                ),
+                (
+                  6,
+                  'User interaction',
+                  'Magnifier follows gesture via MagnifierInfo updates',
+                  emeraldAccent,
+                ),
+                (
+                  7,
+                  'Call hide()',
+                  'AnimationController.reverse() + entry removal',
+                  pinkAccent,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -655,8 +834,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -668,25 +846,35 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text('${step.$1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${step.$1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(step.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: deepAmethyst)),
-                            Text(step.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: royalViolet)),
+                            Text(
+                              step.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: deepAmethyst,
+                              ),
+                            ),
+                            Text(
+                              step.$3,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: royalViolet,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -699,18 +887,18 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Simulated magnifier display ───────────────────────────
-        sectionBanner('8 \u00b7 Magnifier Visualization',
-            'How a magnifier appears over text selection',
-            orchid, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Magnifier Visualization',
+          'How a magnifier appears over text selection',
+          orchid,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                deepAmethyst.withValues(alpha: 0.04),
-                crystalWhite,
-              ],
+              colors: [deepAmethyst.withValues(alpha: 0.04), crystalWhite],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -723,11 +911,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.zoom_in, size: 18, color: wisteria),
                   const SizedBox(width: 8),
-                  Text('Text Selection with Magnifier',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: deepAmethyst)),
+                  Text(
+                    'Text Selection with Magnifier',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: deepAmethyst,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -743,26 +934,30 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('The quick brown fox jumps over the lazy dog',
-                        style: TextStyle(fontSize: 14, color: deepAmethyst)),
+                    Text(
+                      'The quick brown fox jumps over the lazy dog',
+                      style: TextStyle(fontSize: 14, color: deepAmethyst),
+                    ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Text('The quick ',
-                            style: TextStyle(fontSize: 14, color: deepAmethyst)),
-                        Container(
-                          width: 2,
-                          height: 18,
-                          color: wisteria,
+                        Text(
+                          'The quick ',
+                          style: TextStyle(fontSize: 14, color: deepAmethyst),
                         ),
+                        Container(width: 2, height: 18, color: wisteria),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 2),
                           color: wisteria.withValues(alpha: 0.2),
-                          child: Text('brown',
-                              style: TextStyle(fontSize: 14, color: deepAmethyst)),
+                          child: Text(
+                            'brown',
+                            style: TextStyle(fontSize: 14, color: deepAmethyst),
+                          ),
                         ),
-                        Text(' fox jumps',
-                            style: TextStyle(fontSize: 14, color: deepAmethyst)),
+                        Text(
+                          ' fox jumps',
+                          style: TextStyle(fontSize: 14, color: deepAmethyst),
+                        ),
                       ],
                     ),
                   ],
@@ -786,27 +981,36 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: Text('brown',
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: deepAmethyst)),
+                child: Text(
+                  'brown',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: deepAmethyst,
+                  ),
+                ),
               ),
               const SizedBox(height: 6),
-              Text('\u2191 Magnified text shown in overlay',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      color: royalViolet)),
+              Text(
+                '\u2191 Magnified text shown in overlay',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  color: royalViolet,
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 10. Overlay paint order ──────────────────────────────────
-        sectionBanner('9 \u00b7 Overlay Paint Order',
-            'How the \'below\' parameter affects display',
-            royalViolet, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Overlay Paint Order',
+          'How the \'below\' parameter affects display',
+          royalViolet,
+          Colors.white,
+        ),
         noteBox(
           'Content painted AFTER the magnifier in the Overlay will NOT '
           'appear inside the magnifier. Content painted BEFORE it (below '
@@ -826,21 +1030,32 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final layer in [
-                ('Above magnifier', 'NOT visible inside magnifier', pinkAccent, 4),
+                (
+                  'Above magnifier',
+                  'NOT visible inside magnifier',
+                  pinkAccent,
+                  4,
+                ),
                 ('Magnifier (OverlayEntry)', 'The lens itself', wisteria, 3),
-                ('Below magnifier', 'VISIBLE inside magnifier', emeraldAccent, 2),
+                (
+                  'Below magnifier',
+                  'VISIBLE inside magnifier',
+                  emeraldAccent,
+                  2,
+                ),
                 ('App content', 'Root widget tree', deepAmethyst, 1),
               ])
                 Container(
                   width: double.infinity,
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
                     color: layer.$3.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: layer.$3, width: 3)),
+                    border: Border(left: BorderSide(color: layer.$3, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -852,24 +1067,31 @@ dynamic build(BuildContext context) {
                           color: layer.$3.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('${layer.$4}',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: layer.$3)),
+                        child: Text(
+                          '${layer.$4}',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: layer.$3,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(layer.$1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: deepAmethyst)),
-                          Text(layer.$2,
-                              style: TextStyle(
-                                  fontSize: 11, color: royalViolet)),
+                          Text(
+                            layer.$1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: deepAmethyst,
+                            ),
+                          ),
+                          Text(
+                            layer.$2,
+                            style: TextStyle(fontSize: 11, color: royalViolet),
+                          ),
                         ],
                       ),
                     ],
@@ -881,9 +1103,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Platform behavior ────────────────────────────────────
-        sectionBanner('10 \u00b7 Platform Magnifier Styles',
-            'iOS loupe vs Android magnifier',
-            orchid, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Platform Magnifier Styles',
+          'iOS loupe vs Android magnifier',
+          orchid,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -904,23 +1129,30 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.phone_iphone, size: 30, color: orchid),
                       const SizedBox(height: 6),
-                      Text('iOS',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: deepAmethyst)),
+                      Text(
+                        'iOS',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: deepAmethyst,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('CupertinoMagnifier',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: wisteria)),
+                      Text(
+                        'CupertinoMagnifier',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: wisteria,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Rounded loupe with shadow, follows finger above caret',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: royalViolet)),
+                      Text(
+                        'Rounded loupe with shadow, follows finger above caret',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: royalViolet),
+                      ),
                     ],
                   ),
                 ),
@@ -935,26 +1167,32 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.phone_android,
-                          size: 30, color: emeraldAccent),
+                      Icon(Icons.phone_android, size: 30, color: emeraldAccent),
                       const SizedBox(height: 6),
-                      Text('Android',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: deepAmethyst)),
+                      Text(
+                        'Android',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: deepAmethyst,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('TextMagnifier',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: emeraldAccent)),
+                      Text(
+                        'TextMagnifier',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: emeraldAccent,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Rectangular lens above selection, auto-hiding on boundary',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: royalViolet)),
+                      Text(
+                        'Rectangular lens above selection, auto-hiding on boundary',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: royalViolet),
+                      ),
                     ],
                   ),
                 ),
@@ -965,24 +1203,42 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Current controller state ─────────────────────────────
-        sectionBanner('11 \u00b7 Current Controller State',
-            'Live inspection of the demo controller',
-            deepAmethyst, Colors.white),
-        stateCard('shown', Icons.visibility_off,
-            'shown = ${controller.shown} — no overlay entry yet',
-            pinkAccent, false),
-        stateCard('overlayEntry', Icons.layers_clear,
-            'overlayEntry = ${controller.overlayEntry}',
-            Colors.grey, false),
-        stateCard('animationController', Icons.animation,
-            'animationController = ${controller.animationController}',
-            Colors.grey, false),
+        sectionBanner(
+          '11 \u00b7 Current Controller State',
+          'Live inspection of the demo controller',
+          deepAmethyst,
+          Colors.white,
+        ),
+        stateCard(
+          'shown',
+          Icons.visibility_off,
+          'shown = ${controller.shown} — no overlay entry yet',
+          pinkAccent,
+          false,
+        ),
+        stateCard(
+          'overlayEntry',
+          Icons.layers_clear,
+          'overlayEntry = ${controller.overlayEntry}',
+          Colors.grey,
+          false,
+        ),
+        stateCard(
+          'animationController',
+          Icons.animation,
+          'animationController = ${controller.animationController}',
+          Colors.grey,
+          false,
+        ),
         const SizedBox(height: 14),
 
         // ── 13. Usage scenarios ──────────────────────────────────────
-        sectionBanner('12 \u00b7 Usage Scenarios',
-            'When MagnifierController is used in Flutter',
-            wisteria, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Usage Scenarios',
+          'When MagnifierController is used in Flutter',
+          wisteria,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -993,16 +1249,36 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final scenario in [
-                ('Text field selection', Icons.text_fields,
-                    'Long-press and drag to select text shows magnifier', wisteria),
-                ('Cursor positioning', Icons.edit,
-                    'Dragging the cursor handle activates magnification', orchid),
-                ('Custom selection', Icons.select_all,
-                    'Custom SelectableRegion with magnifier support', royalViolet),
-                ('Rich text editing', Icons.format_paint,
-                    'Rich text editors use magnifier for precise selection', deepAmethyst),
-                ('Accessibility', Icons.accessibility_new,
-                    'Helps users see exact cursor position on small screens', emeraldAccent),
+                (
+                  'Text field selection',
+                  Icons.text_fields,
+                  'Long-press and drag to select text shows magnifier',
+                  wisteria,
+                ),
+                (
+                  'Cursor positioning',
+                  Icons.edit,
+                  'Dragging the cursor handle activates magnification',
+                  orchid,
+                ),
+                (
+                  'Custom selection',
+                  Icons.select_all,
+                  'Custom SelectableRegion with magnifier support',
+                  royalViolet,
+                ),
+                (
+                  'Rich text editing',
+                  Icons.format_paint,
+                  'Rich text editors use magnifier for precise selection',
+                  deepAmethyst,
+                ),
+                (
+                  'Accessibility',
+                  Icons.accessibility_new,
+                  'Helps users see exact cursor position on small screens',
+                  emeraldAccent,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1010,7 +1286,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: scenario.$4, width: 3)),
+                      left: BorderSide(color: scenario.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -1020,14 +1297,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(scenario.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: deepAmethyst)),
-                            Text(scenario.$3,
-                                style: TextStyle(
-                                    fontSize: 12, color: royalViolet)),
+                            Text(
+                              scenario.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: deepAmethyst,
+                              ),
+                            ),
+                            Text(
+                              scenario.$3,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: royalViolet,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1040,9 +1324,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Related classes ──────────────────────────────────────
-        sectionBanner('13 \u00b7 Related Classes',
-            'MagnifierController\'s ecosystem',
-            orchid, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Related Classes',
+          'MagnifierController\'s ecosystem',
+          orchid,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1051,10 +1338,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Table(
-            columnWidths: const {
-              0: FlexColumnWidth(2),
-              1: FlexColumnWidth(3),
-            },
+            columnWidths: const {0: FlexColumnWidth(2), 1: FlexColumnWidth(3)},
             children: [
               TableRow(
                 decoration: BoxDecoration(color: deepAmethyst),
@@ -1062,17 +1346,26 @@ dynamic build(BuildContext context) {
                   for (final h in ['Class', 'Role'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ),
                 ],
               ),
               for (final row in [
-                ('MagnifierController', 'Manages overlay lifecycle + animation'),
-                ('MagnifierInfo', 'Carries position data (gesture, caret, field)'),
+                (
+                  'MagnifierController',
+                  'Manages overlay lifecycle + animation',
+                ),
+                (
+                  'MagnifierInfo',
+                  'Carries position data (gesture, caret, field)',
+                ),
                 ('RawMagnifier', 'The actual magnifying lens widget'),
                 ('MagnifierDecoration', 'Visual decoration for the magnifier'),
                 ('TextMagnifier', 'Android-style magnifier implementation'),
@@ -1082,22 +1375,26 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: row.$1 == 'MagnifierController'
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontFamily: 'monospace',
-                              color: row.$1 == 'MagnifierController'
-                                  ? wisteria
-                                  : deepAmethyst)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: row.$1 == 'MagnifierController'
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          fontFamily: 'monospace',
+                          color: row.$1 == 'MagnifierController'
+                              ? wisteria
+                              : deepAmethyst,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 11, color: royalViolet)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 11, color: royalViolet),
+                      ),
                     ),
                   ],
                 ),
@@ -1107,9 +1404,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Inheritance ──────────────────────────────────────────
-        sectionBanner('14 \u00b7 Class Structure',
-            'MagnifierController is a standalone class',
-            deepAmethyst, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Class Structure',
+          'MagnifierController is a standalone class',
+          deepAmethyst,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1126,15 +1426,21 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                      left: level.$2 * 12.0, top: 4, bottom: 4),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'monospace',
-                          fontWeight: level.$2 == 1
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: level.$3)),
+                    left: level.$2 * 12.0,
+                    top: 4,
+                    bottom: 4,
+                  ),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'monospace',
+                      fontWeight: level.$2 == 1
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$3,
+                    ),
+                  ),
                 ),
               const SizedBox(height: 8),
               noteBox(
@@ -1150,8 +1456,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepAmethyst, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepAmethyst,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1182,15 +1492,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lavenderMist,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lavenderMist,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

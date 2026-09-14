@@ -176,10 +176,7 @@ class _TwObsRootState extends State<_TwObsRoot> {
       elevation: 0,
       title: const Text(
         'TooltipWindow Observatory',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.4,
-        ),
+        style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.4),
       ),
       actions: <Widget>[
         Padding(
@@ -189,10 +186,7 @@ class _TwObsRootState extends State<_TwObsRoot> {
             children: <Widget>[
               const Text(
                 'Mute all tooltips',
-                style: TextStyle(
-                  color: _TwObsPalette.creamSoft,
-                  fontSize: 13,
-                ),
+                style: TextStyle(color: _TwObsPalette.creamSoft, fontSize: 13),
               ),
               const SizedBox(width: 6),
               Switch(
@@ -269,8 +263,8 @@ class _TwObsGlobalState extends InheritedWidget {
   final VoidCallback onTrigger;
 
   static _TwObsGlobalState of(BuildContext context) {
-    final _TwObsGlobalState? result =
-        context.dependOnInheritedWidgetOfExactType<_TwObsGlobalState>();
+    final _TwObsGlobalState? result = context
+        .dependOnInheritedWidgetOfExactType<_TwObsGlobalState>();
     assert(result != null, '_TwObsGlobalState not found in context');
     return result!;
   }
@@ -497,10 +491,7 @@ class _TwObsMiniCard extends StatelessWidget {
 }
 
 class _TwObsKeyValueRow extends StatelessWidget {
-  const _TwObsKeyValueRow({
-    required this.label,
-    required this.value,
-  });
+  const _TwObsKeyValueRow({required this.label, required this.value});
 
   final String label;
   final String value;
@@ -627,7 +618,9 @@ class _TwObsPreambleBody extends StatelessWidget {
           children: const <Widget>[
             _TwObsBadge(label: '@internal'),
             _TwObsBadge(
-                label: 'StatelessWidget', color: _TwObsPalette.forestBright),
+              label: 'StatelessWidget',
+              color: _TwObsPalette.forestBright,
+            ),
             _TwObsBadge(label: 'window-layer', color: _TwObsPalette.amber),
             _TwObsBadge(label: 'experimental', color: _TwObsPalette.rust),
           ],
@@ -665,10 +658,7 @@ class _TwObsPreambleBody extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _TwObsKeyValueRow(
-                      label: 'widget',
-                      value: 'WindowScope',
-                    ),
+                    _TwObsKeyValueRow(label: 'widget', value: 'WindowScope'),
                     _TwObsKeyValueRow(
                       label: 'inherited',
                       value: 'BaseWindowController',
@@ -682,20 +672,13 @@ class _TwObsPreambleBody extends StatelessWidget {
               ),
               const _TwObsMiniCard(
                 title: 'Public surrogate',
-                footer:
-                    'What you actually wire up in app code.',
+                footer: 'What you actually wire up in app code.',
                 accent: _TwObsPalette.sage,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    _TwObsKeyValueRow(
-                      label: 'widget',
-                      value: 'Tooltip',
-                    ),
-                    _TwObsKeyValueRow(
-                      label: 'theme',
-                      value: 'TooltipTheme',
-                    ),
+                    _TwObsKeyValueRow(label: 'widget', value: 'Tooltip'),
+                    _TwObsKeyValueRow(label: 'theme', value: 'TooltipTheme'),
                     _TwObsKeyValueRow(
                       label: 'trigger',
                       value: 'TooltipTriggerMode',
@@ -779,10 +762,10 @@ class _TwObsPreambleDiagram extends StatelessWidget {
           Text(
             muted
                 ? 'Global mute is on — tooltips throughout this demo are '
-                    'disabled, so the anchor row is shown dimmed to reflect '
-                    'the runtime state.'
+                      'disabled, so the anchor row is shown dimmed to reflect '
+                      'the runtime state.'
                 : 'Hover, long-press or focus the anchor row in later '
-                    'chapters to see this stack in action.',
+                      'chapters to see this stack in action.',
             style: const TextStyle(
               color: _TwObsPalette.creamMuted,
               fontSize: 12,
@@ -816,9 +799,7 @@ class _TwObsStackRow extends StatelessWidget {
           color: color.withValues(alpha: highlight ? 0.9 : 0.55),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: highlight
-                ? _TwObsPalette.amber
-                : _TwObsPalette.charcoalSoft,
+            color: highlight ? _TwObsPalette.amber : _TwObsPalette.charcoalSoft,
             width: highlight ? 1.4 : 1,
           ),
         ),
@@ -1014,8 +995,11 @@ class _TwObsTriggerModeChapterState extends State<_TwObsTriggerModeChapter> {
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.settings_remote_rounded,
-              color: _TwObsPalette.amber, size: 20),
+          const Icon(
+            Icons.settings_remote_rounded,
+            color: _TwObsPalette.amber,
+            size: 20,
+          ),
           const SizedBox(width: 10),
           const Expanded(
             child: Text(
@@ -1033,8 +1017,8 @@ class _TwObsTriggerModeChapterState extends State<_TwObsTriggerModeChapter> {
             onPressed: muted
                 ? null
                 : () {
-                    final bool? ok =
-                        _manualKey.currentState?.ensureTooltipVisible();
+                    final bool? ok = _manualKey.currentState
+                        ?.ensureTooltipVisible();
                     if (ok ?? false) {
                       setState(() => _manualShownCount += 1);
                     }
@@ -1061,8 +1045,11 @@ class _TwObsTriggerModeChapterState extends State<_TwObsTriggerModeChapter> {
       ),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.analytics_rounded,
-              color: _TwObsPalette.mossLight, size: 20),
+          const Icon(
+            Icons.analytics_rounded,
+            color: _TwObsPalette.mossLight,
+            size: 20,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: RichText(
@@ -1164,8 +1151,11 @@ class _TwObsPositioningStudioState extends State<_TwObsPositioningStudio> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.swap_vert_rounded,
-                  color: _TwObsPalette.sage, size: 18),
+              const Icon(
+                Icons.swap_vert_rounded,
+                color: _TwObsPalette.sage,
+                size: 18,
+              ),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1225,39 +1215,42 @@ class _TwObsPositioningStudioState extends State<_TwObsPositioningStudio> {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: <Alignment>[
-              Alignment.topLeft,
-              Alignment.topCenter,
-              Alignment.topRight,
-              Alignment.centerLeft,
-              Alignment.center,
-              Alignment.centerRight,
-              Alignment.bottomLeft,
-              Alignment.bottomCenter,
-              Alignment.bottomRight,
-            ].map((Alignment a) {
-              final bool selected = a == _anchorAlignment;
-              return OutlinedButton(
-                onPressed: () => setState(() => _anchorAlignment = a),
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: selected
-                      ? _TwObsPalette.forestMid
-                      : _TwObsPalette.canvasRaised,
-                  foregroundColor: _TwObsPalette.cream,
-                  side: BorderSide(
-                    color: selected
-                        ? _TwObsPalette.sage
-                        : _TwObsPalette.charcoalSoft,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
-                ),
-                child: Text(
-                  _alignmentName(a),
-                  style: const TextStyle(fontSize: 11),
-                ),
-              );
-            }).toList(),
+            children:
+                <Alignment>[
+                  Alignment.topLeft,
+                  Alignment.topCenter,
+                  Alignment.topRight,
+                  Alignment.centerLeft,
+                  Alignment.center,
+                  Alignment.centerRight,
+                  Alignment.bottomLeft,
+                  Alignment.bottomCenter,
+                  Alignment.bottomRight,
+                ].map((Alignment a) {
+                  final bool selected = a == _anchorAlignment;
+                  return OutlinedButton(
+                    onPressed: () => setState(() => _anchorAlignment = a),
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: selected
+                          ? _TwObsPalette.forestMid
+                          : _TwObsPalette.canvasRaised,
+                      foregroundColor: _TwObsPalette.cream,
+                      side: BorderSide(
+                        color: selected
+                            ? _TwObsPalette.sage
+                            : _TwObsPalette.charcoalSoft,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 6,
+                      ),
+                    ),
+                    child: Text(
+                      _alignmentName(a),
+                      style: const TextStyle(fontSize: 11),
+                    ),
+                  );
+                }).toList(),
           ),
         ],
       ),
@@ -1293,11 +1286,11 @@ class _TwObsPositioningStudioState extends State<_TwObsPositioningStudio> {
                 activeTrackColor: _TwObsPalette.sage,
                 inactiveTrackColor: _TwObsPalette.charcoalSoft,
                 thumbColor: _TwObsPalette.amber,
-                overlayColor:
-                    _TwObsPalette.amber.withValues(alpha: 0.15),
+                overlayColor: _TwObsPalette.amber.withValues(alpha: 0.15),
                 valueIndicatorColor: _TwObsPalette.forestDeep,
-                valueIndicatorTextStyle:
-                    const TextStyle(color: _TwObsPalette.cream),
+                valueIndicatorTextStyle: const TextStyle(
+                  color: _TwObsPalette.cream,
+                ),
               ),
               child: Slider(
                 value: value,
@@ -1346,10 +1339,7 @@ class _TwObsPositioningStudioState extends State<_TwObsPositioningStudio> {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[
-            _TwObsPalette.forestMid,
-            _TwObsPalette.forestBright,
-          ],
+          colors: <Color>[_TwObsPalette.forestMid, _TwObsPalette.forestBright],
         ),
         borderRadius: BorderRadius.circular(10),
         boxShadow: <BoxShadow>[
@@ -1394,22 +1384,12 @@ class _TwObsPositioningStudioState extends State<_TwObsPositioningStudio> {
       ),
       child: Stack(
         children: <Widget>[
-          Positioned.fill(
-            child: CustomPaint(
-              painter: _TwObsGridPainter(),
-            ),
-          ),
-          Align(
-            alignment: _anchorAlignment,
-            child: tooltipWrapped,
-          ),
+          Positioned.fill(child: CustomPaint(painter: _TwObsGridPainter())),
+          Align(alignment: _anchorAlignment, child: tooltipWrapped),
           Positioned(
             left: 10,
             top: 10,
-            child: _TwObsBadge(
-              label: 'stage',
-              color: _TwObsPalette.sage,
-            ),
+            child: _TwObsBadge(label: 'stage', color: _TwObsPalette.sage),
           ),
         ],
       ),
@@ -1515,8 +1495,7 @@ class _TwObsRichMessageChapter extends StatelessWidget {
           final List<Widget> items = <Widget>[
             _buildRichEntry(
               title: 'Inline icon + label',
-              description:
-                  'WidgetSpan hosts an icon next to styled text.',
+              description: 'WidgetSpan hosts an icon next to styled text.',
               anchorLabel: 'Hover me',
               richMessage: const TextSpan(
                 children: <InlineSpan>[
@@ -1565,8 +1544,10 @@ class _TwObsRichMessageChapter extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                      text: 'Keeps a local copy so it remains '
-                          'searchable while offline. Paired with '),
+                    text:
+                        'Keeps a local copy so it remains '
+                        'searchable while offline. Paired with ',
+                  ),
                   TextSpan(
                     text: 'autoSync',
                     style: TextStyle(
@@ -1692,8 +1673,11 @@ class _TwObsRichMessageChapter extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Icon(Icons.info_outline_rounded,
-              color: _TwObsPalette.amber, size: 16),
+          const Icon(
+            Icons.info_outline_rounded,
+            color: _TwObsPalette.amber,
+            size: 16,
+          ),
           const SizedBox(width: 6),
           Text(
             anchorLabel,
@@ -1723,10 +1707,7 @@ class _TwObsRichMessageChapter extends StatelessWidget {
       title: title,
       accent: _TwObsPalette.amber,
       footer: description,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: wrapped,
-      ),
+      child: Align(alignment: Alignment.centerLeft, child: wrapped),
     );
   }
 }
@@ -1802,12 +1783,30 @@ class _TwObsDurationLabState extends State<_TwObsDurationLab>
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _buildSlider('waitDuration (ms)', _waitMs, 0, 1500, 15,
-              (double v) => setState(() => _waitMs = v)),
-          _buildSlider('showDuration (ms)', _showMs, 500, 8000, 30,
-              (double v) => setState(() => _showMs = v)),
-          _buildSlider('exitDuration (ms)', _exitMs, 0, 1000, 10,
-              (double v) => setState(() => _exitMs = v)),
+          _buildSlider(
+            'waitDuration (ms)',
+            _waitMs,
+            0,
+            1500,
+            15,
+            (double v) => setState(() => _waitMs = v),
+          ),
+          _buildSlider(
+            'showDuration (ms)',
+            _showMs,
+            500,
+            8000,
+            30,
+            (double v) => setState(() => _showMs = v),
+          ),
+          _buildSlider(
+            'exitDuration (ms)',
+            _exitMs,
+            0,
+            1000,
+            10,
+            (double v) => setState(() => _exitMs = v),
+          ),
           const SizedBox(height: 14),
           _buildAnchorRow(muted: muted),
           const SizedBox(height: 14),
@@ -1848,8 +1847,7 @@ class _TwObsDurationLabState extends State<_TwObsDurationLab>
                 activeTrackColor: _TwObsPalette.rust,
                 inactiveTrackColor: _TwObsPalette.charcoalSoft,
                 thumbColor: _TwObsPalette.amber,
-                overlayColor:
-                    _TwObsPalette.rust.withValues(alpha: 0.18),
+                overlayColor: _TwObsPalette.rust.withValues(alpha: 0.18),
               ),
               child: Slider(
                 value: value,
@@ -1883,10 +1881,7 @@ class _TwObsDurationLabState extends State<_TwObsDurationLab>
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[
-            _TwObsPalette.rust,
-            _TwObsPalette.forestMid,
-          ],
+          colors: <Color>[_TwObsPalette.rust, _TwObsPalette.forestMid],
         ),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -1951,8 +1946,9 @@ class _TwObsDurationLabState extends State<_TwObsDurationLab>
                       ? (_remaining.inMilliseconds / _showMs).clamp(0, 1)
                       : 0,
                   backgroundColor: _TwObsPalette.charcoalSoft,
-                  valueColor:
-                      const AlwaysStoppedAnimation<Color>(_TwObsPalette.amber),
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    _TwObsPalette.amber,
+                  ),
                 ),
               ],
             ),
@@ -1971,7 +1967,9 @@ class _TwObsDurationLabState extends State<_TwObsDurationLab>
       runSpacing: 8,
       children: <Widget>[
         _TwObsBadge(
-            label: 'wait=$humanWait', color: _TwObsPalette.forestBright),
+          label: 'wait=$humanWait',
+          color: _TwObsPalette.forestBright,
+        ),
         _TwObsBadge(label: 'show=$humanShow', color: _TwObsPalette.amber),
         _TwObsBadge(label: 'exit=$humanExit', color: _TwObsPalette.rust),
       ],
@@ -2031,9 +2029,7 @@ class _TwObsTimelinePainter extends CustomPainter {
     final Paint exitPaint = Paint()..color = _TwObsPalette.rust;
     canvas.drawRect(Rect.fromLTWH(w1 + w2, y - 10, w3, 20), exitPaint);
 
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
     void drawLabel(String text, double centerX, Color color) {
       tp.text = TextSpan(
         text: text,
@@ -2112,16 +2108,14 @@ class _TwObsSemanticsChapterState extends State<_TwObsSemanticsChapter> {
                 'When true, the tooltip message is omitted from the '
                 'a11y tree.',
             value: _excludeFromSemantics,
-            onChanged: (bool v) =>
-                setState(() => _excludeFromSemantics = v),
+            onChanged: (bool v) => setState(() => _excludeFromSemantics = v),
           ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: _buildToggleTile(
             title: 'enableFeedback',
-            description:
-                'Long-press haptic / audio feedback via the platform.',
+            description: 'Long-press haptic / audio feedback via the platform.',
             value: _enableFeedback,
             onChanged: (bool v) => setState(() => _enableFeedback = v),
           ),
@@ -2223,9 +2217,9 @@ class _TwObsSemanticsChapterState extends State<_TwObsSemanticsChapter> {
             child: Text(
               _excludeFromSemantics
                   ? 'Semantics label: (tooltip excluded) — only the anchor '
-                      'advertises itself to screen readers.'
+                        'advertises itself to screen readers.'
                   : 'Semantics label: "Accessible label for this control" — '
-                      'both the anchor and the tooltip message participate.',
+                        'both the anchor and the tooltip message participate.',
               style: const TextStyle(
                 color: _TwObsPalette.cream,
                 fontSize: 12.5,
@@ -2252,8 +2246,9 @@ class _TwObsSemanticsChapterState extends State<_TwObsSemanticsChapter> {
             _lastFeedbackFired
                 ? Icons.vibration_rounded
                 : Icons.do_disturb_alt_rounded,
-            color:
-                _lastFeedbackFired ? _TwObsPalette.amber : _TwObsPalette.rust,
+            color: _lastFeedbackFired
+                ? _TwObsPalette.amber
+                : _TwObsPalette.rust,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2261,7 +2256,7 @@ class _TwObsSemanticsChapterState extends State<_TwObsSemanticsChapter> {
               _lastFeedbackFired
                   ? 'Feedback fired on the last tap — enableFeedback=true.'
                   : 'No feedback on the last tap — either enableFeedback is '
-                      'false or the anchor has not been tapped yet.',
+                        'false or the anchor has not been tapped yet.',
               style: const TextStyle(
                 color: _TwObsPalette.cream,
                 fontSize: 12.5,
@@ -2328,18 +2323,14 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
           onSelected: (_) => setState(() => _variant = v),
           label: Text(v.display),
           labelStyle: TextStyle(
-            color: selected
-                ? _TwObsPalette.charcoalInk
-                : _TwObsPalette.cream,
+            color: selected ? _TwObsPalette.charcoalInk : _TwObsPalette.cream,
             fontWeight: FontWeight.w700,
             fontSize: 12.5,
           ),
           selectedColor: _TwObsPalette.amber,
           backgroundColor: _TwObsPalette.canvasSunken,
           side: BorderSide(
-            color: selected
-                ? _TwObsPalette.amber
-                : _TwObsPalette.charcoalSoft,
+            color: selected ? _TwObsPalette.amber : _TwObsPalette.charcoalSoft,
           ),
         );
       }).toList(),
@@ -2348,12 +2339,7 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
 
   Widget _buildAnchorRow({required bool muted}) {
     final _TwObsThemeDescriptor desc = _descriptorFor(_variant);
-    final List<String> labels = <String>[
-      'Alpha',
-      'Bravo',
-      'Charlie',
-      'Delta',
-    ];
+    final List<String> labels = <String>['Alpha', 'Bravo', 'Charlie', 'Delta'];
     return TooltipTheme(
       data: desc.themeData,
       child: Container(
@@ -2368,10 +2354,7 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
           runSpacing: 10,
           children: labels.map((String label) {
             final Widget chip = Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               decoration: BoxDecoration(
                 color: _TwObsPalette.forestDeep,
                 borderRadius: BorderRadius.circular(999),
@@ -2439,7 +2422,8 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
             showDuration: Duration(milliseconds: 1800),
             preferBelow: true,
           ),
-          jsonPreview: '{\n'
+          jsonPreview:
+              '{\n'
               '  "variant": "forest",\n'
               '  "decoration.color": "#1F3A2B (alpha 0xEE)",\n'
               '  "decoration.border": "#4C8C63",\n'
@@ -2471,7 +2455,8 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
             preferBelow: false,
             verticalOffset: 18,
           ),
-          jsonPreview: '{\n'
+          jsonPreview:
+              '{\n'
               '  "variant": "amber_ribbon",\n'
               '  "decoration": "gradient(#E6B566 -> #BC5A3A)",\n'
               '  "padding": "14 x 10",\n'
@@ -2503,7 +2488,8 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
             showDuration: Duration(milliseconds: 4000),
             preferBelow: true,
           ),
-          jsonPreview: '{\n'
+          jsonPreview:
+              '{\n'
               '  "variant": "terminal",\n'
               '  "decoration.color": "#0A120D",\n'
               '  "decoration.border": "#8DB892",\n'
@@ -2541,7 +2527,8 @@ class _TwObsThemePlaygroundState extends State<_TwObsThemePlayground> {
             showDuration: Duration(milliseconds: 2200),
             preferBelow: true,
           ),
-          jsonPreview: '{\n'
+          jsonPreview:
+              '{\n'
               '  "variant": "parchment",\n'
               '  "decoration.color": "#F2EAD3",\n'
               '  "decoration.border": "#BC5A3A (w=1.2)",\n'
@@ -2618,21 +2605,40 @@ class _TwObsMultiAnchorChapter extends StatelessWidget {
   Widget _buildToolbar({required bool muted}) {
     final List<_TwObsToolbarItem> items = <_TwObsToolbarItem>[
       _TwObsToolbarItem(
-          icon: Icons.folder_open_rounded, label: 'Open', hint: 'Ctrl+O'),
+        icon: Icons.folder_open_rounded,
+        label: 'Open',
+        hint: 'Ctrl+O',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.save_rounded, label: 'Save', hint: 'Ctrl+S'),
+        icon: Icons.save_rounded,
+        label: 'Save',
+        hint: 'Ctrl+S',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.undo_rounded, label: 'Undo', hint: 'Ctrl+Z'),
+        icon: Icons.undo_rounded,
+        label: 'Undo',
+        hint: 'Ctrl+Z',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.redo_rounded, label: 'Redo', hint: 'Ctrl+Shift+Z'),
+        icon: Icons.redo_rounded,
+        label: 'Redo',
+        hint: 'Ctrl+Shift+Z',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.search_rounded, label: 'Find', hint: 'Ctrl+F'),
+        icon: Icons.search_rounded,
+        label: 'Find',
+        hint: 'Ctrl+F',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.settings_rounded,
-          label: 'Settings',
-          hint: 'Ctrl+,'),
+        icon: Icons.settings_rounded,
+        label: 'Settings',
+        hint: 'Ctrl+,',
+      ),
       _TwObsToolbarItem(
-          icon: Icons.help_outline_rounded, label: 'Help', hint: 'F1'),
+        icon: Icons.help_outline_rounded,
+        label: 'Help',
+        hint: 'F1',
+      ),
     ];
 
     return Container(
@@ -2663,9 +2669,7 @@ class _TwObsMultiAnchorChapter extends StatelessWidget {
       icon: Icon(item.icon, color: _TwObsPalette.cream, size: 20),
       style: IconButton.styleFrom(
         backgroundColor: _TwObsPalette.forestDeep,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
     if (muted) {
@@ -3026,8 +3030,7 @@ class _TwObsDiagnosticsChapterState extends State<_TwObsDiagnosticsChapter> {
     final Widget wrapped = muted
         ? probe
         : Tooltip(
-            message:
-                'onTriggered will push an entry into the rolling log',
+            message: 'onTriggered will push an entry into the rolling log',
             waitDuration: const Duration(milliseconds: 250),
             showDuration: const Duration(milliseconds: 1800),
             onTriggered: () {
@@ -3160,11 +3163,7 @@ class _TwObsDiagnosticsChapterState extends State<_TwObsDiagnosticsChapter> {
 enum _TwObsLogKind { info, event, error }
 
 class _TwObsLogEntry {
-  _TwObsLogEntry({
-    required this.kind,
-    required this.message,
-    required this.at,
-  });
+  _TwObsLogEntry({required this.kind, required this.message, required this.at});
 
   final _TwObsLogKind kind;
   final String message;
@@ -3239,10 +3238,7 @@ class _TwObsEpilogueChapter extends StatelessWidget {
           for (int i = 0; i < rows.length; i++) ...<Widget>[
             _buildDecisionRow(rows[i], index: i),
             if (i != rows.length - 1)
-              Divider(
-                color: _TwObsPalette.charcoalLine,
-                height: 12,
-              ),
+              Divider(color: _TwObsPalette.charcoalLine, height: 12),
           ],
         ],
       ),
@@ -3345,20 +3341,13 @@ class _TwObsEpilogueChapter extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[
-            _TwObsPalette.forestDeep,
-            _TwObsPalette.forestMid,
-          ],
+          colors: <Color>[_TwObsPalette.forestDeep, _TwObsPalette.forestMid],
         ),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: <Widget>[
-          const Icon(
-            Icons.park_rounded,
-            color: _TwObsPalette.amber,
-            size: 28,
-          ),
+          const Icon(Icons.park_rounded, color: _TwObsPalette.amber, size: 28),
           const SizedBox(width: 12),
           const Expanded(
             child: Text(

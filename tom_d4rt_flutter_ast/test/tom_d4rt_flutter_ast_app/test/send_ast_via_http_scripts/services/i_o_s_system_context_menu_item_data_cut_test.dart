@@ -286,18 +286,18 @@ dynamic build(BuildContext context) {
         _bulletItem(
           'Flutter-painted overlay',
           'A widget tree drawn entirely in Dart.  You hand it a list of '
-          '`ContextMenuButtonItem` objects, your `EditableTextContextMenuBuilder` '
-          'turns them into actual buttons, and you choose the visuals: it can '
-          'be Material, Cupertino, or completely custom. Themed by you.',
+              '`ContextMenuButtonItem` objects, your `EditableTextContextMenuBuilder` '
+              'turns them into actual buttons, and you choose the visuals: it can '
+              'be Material, Cupertino, or completely custom. Themed by you.',
           irisRoyal,
           irisInkOnLight,
         ),
         _bulletItem(
           'Native SystemContextMenu',
           'A real UIKit menu, drawn by iOS itself - same blur, same ease '
-          'curves, same haptics, same predictive sizing as the system menus '
-          'in Notes or Mail. Rendered above the Flutter view layer through '
-          'the native channel.',
+              'curves, same haptics, same predictive sizing as the system menus '
+              'in Notes or Mail. Rendered above the Flutter view layer through '
+              'the native channel.',
           irisOrchid,
           irisInkOnLight,
         ),
@@ -350,9 +350,9 @@ dynamic build(BuildContext context) {
           '(no public ctor parameters)',
           'const ()',
           'In the current Flutter framework version on this machine, '
-          'IOSSystemContextMenuItemDataCut has a const, parameter-less '
-          'constructor. The displayed title is owned entirely by iOS and is '
-          'localized at the UIKit layer using the active iOS locale.',
+              'IOSSystemContextMenuItemDataCut has a const, parameter-less '
+              'constructor. The displayed title is owned entirely by iOS and is '
+              'localized at the UIKit layer using the active iOS locale.',
           irisRoyal,
           irisOrchid,
           irisInkOnLight,
@@ -361,9 +361,9 @@ dynamic build(BuildContext context) {
         _calloutBox(
           'Default title behaviour',
           'The default is NOT \"Cut\" the literal English word. The default '
-          'is \"whatever the system chooses for the active iOS locale\". '
-          'Override only when you have a strong product reason, e.g. a '
-          'creative app where \"Cut\" should read \"Snip\".',
+              'is \"whatever the system chooses for the active iOS locale\". '
+              'Override only when you have a strong product reason, e.g. a '
+              'creative app where \"Cut\" should read \"Snip\".',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -371,8 +371,8 @@ dynamic build(BuildContext context) {
         _calloutBox(
           'Identity equality',
           'These records do NOT implement `==`. Two instances with identical '
-          'titles are distinct objects. Do not rely on them as map keys, '
-          'set members, or `identical()` checks across rebuilds.',
+              'titles are distinct objects. Do not rely on them as map keys, '
+              'set members, or `identical()` checks across rebuilds.',
           irisAccentRose,
           irisInkOnLight,
         ),
@@ -556,13 +556,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 12),
         // Connector spine.
-        Center(
-          child: Container(
-            width: 2,
-            height: 18,
-            color: irisLavender,
-          ),
-        ),
+        Center(child: Container(width: 2, height: 18, color: irisLavender)),
         const SizedBox(height: 6),
         // Sibling rows - two rows of nodes.
         Row(
@@ -635,30 +629,77 @@ dynamic build(BuildContext context) {
           irisInkOnLight,
         ),
         const SizedBox(height: 12),
-        _localeRow('Locale', 'Default (title:null)', 'Override example',
-            irisRoyal, irisFog, true),
-        _localeRow('en-US', 'Cut', 'Snip', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('en-GB', 'Cut', 'Trim', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('de-DE', 'Schneiden', 'Ausschneiden', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('fr-FR', 'Couper', 'Découper', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('es-ES', 'Cortar', 'Recortar', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('it-IT', 'Taglia', 'Ritaglia', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('ja-JP', 'カット', '切り取り', irisInkOnLight,
-            irisInkOnDark, false),
-        _localeRow('zh-CN', '剪切', '裁剪', irisInkOnLight,
-            irisInkOnDark, false),
+        _localeRow(
+          'Locale',
+          'Default (title:null)',
+          'Override example',
+          irisRoyal,
+          irisFog,
+          true,
+        ),
+        _localeRow(
+          'en-US',
+          'Cut',
+          'Snip',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'en-GB',
+          'Cut',
+          'Trim',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'de-DE',
+          'Schneiden',
+          'Ausschneiden',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'fr-FR',
+          'Couper',
+          'Découper',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'es-ES',
+          'Cortar',
+          'Recortar',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'it-IT',
+          'Taglia',
+          'Ritaglia',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow(
+          'ja-JP',
+          'カット',
+          '切り取り',
+          irisInkOnLight,
+          irisInkOnDark,
+          false,
+        ),
+        _localeRow('zh-CN', '剪切', '裁剪', irisInkOnLight, irisInkOnDark, false),
         const SizedBox(height: 10),
         _calloutBox(
           'Recommendation',
           'Leave `title` null in 99% of cases. iOS already nails localization, '
-          'and shipping a hard-coded English override breaks accessibility for '
-          'every non-English user.',
+              'and shipping a hard-coded English override breaks accessibility for '
+              'every non-English user.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -701,8 +742,8 @@ dynamic build(BuildContext context) {
           1,
           'Your Widget',
           'You build a widget that owns an editable selection (TextField, '
-          'CupertinoTextField, SelectableText, EditableText) and decides to '
-          'opt into the system menu.',
+              'CupertinoTextField, SelectableText, EditableText) and decides to '
+              'opt into the system menu.',
           irisLavender,
           irisFog,
         ),
@@ -711,8 +752,8 @@ dynamic build(BuildContext context) {
           2,
           'SystemContextMenu widget',
           'The widget hands a `List<IOSSystemContextMenuItemData>` to '
-          '`SystemContextMenu`, which knows how to translate that list into '
-          'a platform message describing the menu.',
+              '`SystemContextMenu`, which knows how to translate that list into '
+              'a platform message describing the menu.',
           irisLavender,
           irisFog,
         ),
@@ -721,7 +762,7 @@ dynamic build(BuildContext context) {
           3,
           'Platform method channel',
           'The framework serializes the records into a Map and dispatches '
-          'them across the iOS method channel under the SystemChannels family.',
+              'them across the iOS method channel under the SystemChannels family.',
           irisLavender,
           irisFog,
         ),
@@ -730,7 +771,7 @@ dynamic build(BuildContext context) {
           4,
           'UIKit',
           'iOS receives the descriptor and constructs a real UIKit menu - '
-          'native blur, native typography, native haptics, predictive layout.',
+              'native blur, native typography, native haptics, predictive layout.',
           irisLavender,
           irisFog,
         ),
@@ -739,8 +780,8 @@ dynamic build(BuildContext context) {
           5,
           'User',
           'The user sees the system menu hovering above the Flutter view, '
-          'taps "Cut" (or "Schneiden", or "Couper"...), and the framework '
-          'routes the action back to your selection delegate.',
+              'taps "Cut" (or "Schneiden", or "Couper"...), and the framework '
+              'routes the action back to your selection delegate.',
           irisLavender,
           irisFog,
         ),
@@ -764,17 +805,13 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _sectionHeader(
-          '7. Do / Avoid',
-          irisOrchid,
-          Icons.rule_folder_outlined,
-        ),
+        _sectionHeader('7. Do / Avoid', irisOrchid, Icons.rule_folder_outlined),
         const SizedBox(height: 12),
         _doRow(
           true,
           'Leave `title` null by default',
           'iOS will pick the localized string for you. Saves work, ships '
-          'right out of the box.',
+              'right out of the box.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -782,7 +819,7 @@ dynamic build(BuildContext context) {
           false,
           'Hard-code "Cut" as a literal',
           'Cuts off (no pun intended) every non-English user. Override only '
-          'with explicit translations or product-specific verbs.',
+              'with explicit translations or product-specific verbs.',
           irisAccentRose,
           irisInkOnLight,
         ),
@@ -790,7 +827,7 @@ dynamic build(BuildContext context) {
           true,
           'Pair with sibling records',
           'Cut, Copy, and Paste are the canonical trio. Provide all three or '
-          'none for editable text.',
+              'none for editable text.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -798,7 +835,7 @@ dynamic build(BuildContext context) {
           false,
           'Reference Cut on Android',
           '`IOSSystemContextMenuItemData*` is iOS-only. On Android, use the '
-          'Material context menu primitives or `ContextMenuButtonItem`.',
+              'Material context menu primitives or `ContextMenuButtonItem`.',
           irisAccentRose,
           irisInkOnLight,
         ),
@@ -806,7 +843,7 @@ dynamic build(BuildContext context) {
           true,
           'Treat instances as throwaway',
           'No equality semantics, no caching benefit. Build them inline at '
-          'render time and let the GC reclaim them.',
+              'render time and let the GC reclaim them.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -814,7 +851,7 @@ dynamic build(BuildContext context) {
           false,
           'Subclass it',
           'It is part of a sealed hierarchy. Subclassing breaks exhaustive '
-          'switches in the framework and may not link at all.',
+              'switches in the framework and may not link at all.',
           irisAccentRose,
           irisInkOnLight,
         ),
@@ -822,7 +859,7 @@ dynamic build(BuildContext context) {
           true,
           'Test with VoiceOver',
           'A custom `title` ships verbatim into the accessibility label. '
-          'Verify it reads naturally in the user\'s voice.',
+              'Verify it reads naturally in the user\'s voice.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -846,11 +883,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _sectionHeader(
-          '8. Code Snippets',
-          irisFog,
-          Icons.code_rounded,
-        ),
+        _sectionHeader('8. Code Snippets', irisFog, Icons.code_rounded),
         const SizedBox(height: 12),
         _snippetCard(
           'Bare default - lets iOS localize',
@@ -923,23 +956,19 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _sectionHeader(
-          '9. Glossary',
-          irisRoyal,
-          Icons.menu_book_outlined,
-        ),
+        _sectionHeader('9. Glossary', irisRoyal, Icons.menu_book_outlined),
         const SizedBox(height: 12),
         _glossaryItem(
           'SystemContextMenu',
           'A Flutter widget that hands its descriptor to the platform so the '
-          'host OS draws the menu instead of Flutter painting it.',
+              'host OS draws the menu instead of Flutter painting it.',
           irisRoyal,
           irisInkOnLight,
         ),
         _glossaryItem(
           'IOSSystemContextMenuItemData',
           'The sealed parent record representing one entry in the iOS system '
-          'context menu.',
+              'context menu.',
           irisRoyal,
           irisInkOnLight,
         ),
@@ -970,7 +999,7 @@ dynamic build(BuildContext context) {
         _glossaryItem(
           'IOSSystemContextMenuItemDataLookUp',
           'Sibling record for the Look Up entry, which calls into the system '
-          'dictionary.',
+              'dictionary.',
           irisRoyal,
           irisInkOnLight,
         ),
@@ -983,42 +1012,42 @@ dynamic build(BuildContext context) {
         _glossaryItem(
           'IOSSystemContextMenuItemDataShareLink',
           'Sibling record for the Share Link entry, which opens the share '
-          'sheet for the selected URL.',
+              'sheet for the selected URL.',
           irisRoyal,
           irisInkOnLight,
         ),
         _glossaryItem(
           'ContextMenuButtonItem',
           'The Flutter-painted equivalent for the in-Dart context menu '
-          'pipeline. Not used by SystemContextMenu.',
+              'pipeline. Not used by SystemContextMenu.',
           irisSlate,
           irisInkOnLight,
         ),
         _glossaryItem(
           'EditableTextContextMenuBuilder',
           'A typedef for callbacks that turn editable-text actions into the '
-          'Flutter-painted overlay menu.',
+              'Flutter-painted overlay menu.',
           irisSlate,
           irisInkOnLight,
         ),
         _glossaryItem(
           'Localized default title',
           'The string iOS chooses when `title` is null - selected from the '
-          'active iOS locale, not the Flutter app locale.',
+              'active iOS locale, not the Flutter app locale.',
           irisOrchid,
           irisInkOnLight,
         ),
         _glossaryItem(
           'Sealed hierarchy',
           'A class family with a closed set of subtypes, allowing exhaustive '
-          'switches without a default case.',
+              'switches without a default case.',
           irisAccentTeal,
           irisInkOnLight,
         ),
         _glossaryItem(
           'Method channel',
           'The bidirectional pipe between Dart and platform code that '
-          'transports the menu descriptor and its events.',
+              'transports the menu descriptor and its events.',
           irisAccentTeal,
           irisInkOnLight,
         ),
@@ -1230,14 +1259,10 @@ Widget _sectionHeader(String title, Color accent, IconData icon) {
 }
 
 Widget _proseLine(String text, Color color) {
-  return Text(
-    text,
-    style: TextStyle(color: color, fontSize: 13, height: 1.45),
-  );
+  return Text(text, style: TextStyle(color: color, fontSize: 13, height: 1.45));
 }
 
-Widget _bulletItem(
-    String title, String body, Color accent, Color bodyColor) {
+Widget _bulletItem(String title, String body, Color accent, Color bodyColor) {
   return Padding(
     padding: const EdgeInsets.only(top: 10),
     child: Row(
@@ -1247,10 +1272,7 @@ Widget _bulletItem(
           margin: const EdgeInsets.only(top: 6, right: 10),
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
         ),
         Expanded(
           child: Column(
@@ -1268,8 +1290,7 @@ Widget _bulletItem(
               const SizedBox(height: 2),
               Text(
                 body,
-                style: TextStyle(
-                    color: bodyColor, fontSize: 12.5, height: 1.4),
+                style: TextStyle(color: bodyColor, fontSize: 12.5, height: 1.4),
               ),
             ],
           ),
@@ -1279,8 +1300,14 @@ Widget _bulletItem(
   );
 }
 
-Widget _propertyRow(String name, String type, String body, Color accent,
-    Color typeColor, Color bodyColor) {
+Widget _propertyRow(
+  String name,
+  String type,
+  String body,
+  Color accent,
+  Color typeColor,
+  Color bodyColor,
+) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1305,8 +1332,7 @@ Widget _propertyRow(String name, String type, String body, Color accent,
             ),
             const SizedBox(width: 8),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: typeColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(4),
@@ -1333,8 +1359,7 @@ Widget _propertyRow(String name, String type, String body, Color accent,
   );
 }
 
-Widget _calloutBox(
-    String title, String body, Color accent, Color bodyColor) {
+Widget _calloutBox(String title, String body, Color accent, Color bodyColor) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1370,8 +1395,15 @@ Widget _calloutBox(
   );
 }
 
-Widget _instanceCard(int index, String varName, String constructor,
-    String displayedTitle, Color accent, Color bg, Color ink) {
+Widget _instanceCard(
+  int index,
+  String varName,
+  String constructor,
+  String displayedTitle,
+  Color accent,
+  Color bg,
+  Color ink,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(12),
@@ -1418,11 +1450,7 @@ Widget _instanceCard(int index, String varName, String constructor,
         const SizedBox(height: 6),
         Text(
           constructor,
-          style: TextStyle(
-            color: ink,
-            fontFamily: 'monospace',
-            fontSize: 11,
-          ),
+          style: TextStyle(color: ink, fontFamily: 'monospace', fontSize: 11),
         ),
         const SizedBox(height: 6),
         Row(
@@ -1461,16 +1489,11 @@ Widget _instanceCard(int index, String varName, String constructor,
   );
 }
 
-Widget _familyNode(
-    String label, Color color, Color textColor, bool highlight) {
+Widget _familyNode(String label, Color color, Color textColor, bool highlight) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Container(
-        width: 12,
-        height: 12,
-        color: color.withValues(alpha: 0.45),
-      ),
+      Container(width: 12, height: 12, color: color.withValues(alpha: 0.45)),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
@@ -1505,8 +1528,14 @@ Widget _familyNode(
   );
 }
 
-Widget _localeRow(String locale, String defaultText, String overrideText,
-    Color textColor, Color bg, bool isHeader) {
+Widget _localeRow(
+  String locale,
+  String defaultText,
+  String overrideText,
+  Color textColor,
+  Color bg,
+  bool isHeader,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     margin: const EdgeInsets.only(bottom: 4),
@@ -1556,8 +1585,13 @@ Widget _localeRow(String locale, String defaultText, String overrideText,
   );
 }
 
-Widget _pipelineHop(int n, String title, String body, Color accent,
-    Color textColor) {
+Widget _pipelineHop(
+  int n,
+  String title,
+  String body,
+  Color accent,
+  Color textColor,
+) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -1602,11 +1636,7 @@ Widget _pipelineHop(int n, String title, String body, Color accent,
               const SizedBox(height: 4),
               Text(
                 body,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: 12,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: textColor, fontSize: 12, height: 1.35),
               ),
             ],
           ),
@@ -1629,8 +1659,13 @@ Widget _pipelineConnector(Color color) {
   );
 }
 
-Widget _doRow(bool isDo, String title, String body, Color accent,
-    Color bodyColor) {
+Widget _doRow(
+  bool isDo,
+  String title,
+  String body,
+  Color accent,
+  Color bodyColor,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 8),
     padding: const EdgeInsets.all(12),
@@ -1657,7 +1692,9 @@ Widget _doRow(bool isDo, String title, String body, Color accent,
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: accent,
                       borderRadius: BorderRadius.circular(4),
@@ -1688,8 +1725,7 @@ Widget _doRow(bool isDo, String title, String body, Color accent,
               const SizedBox(height: 4),
               Text(
                 body,
-                style: TextStyle(
-                    color: bodyColor, fontSize: 12, height: 1.4),
+                style: TextStyle(color: bodyColor, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -1699,8 +1735,13 @@ Widget _doRow(bool isDo, String title, String body, Color accent,
   );
 }
 
-Widget _snippetCard(String label, String code, Color accent,
-    Color labelColor, Color codeColor) {
+Widget _snippetCard(
+  String label,
+  String code,
+  Color accent,
+  Color labelColor,
+  Color codeColor,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.all(12),
@@ -1752,8 +1793,12 @@ Widget _snippetCard(String label, String code, Color accent,
   );
 }
 
-Widget _glossaryItem(String term, String definition, Color accent,
-    Color bodyColor) {
+Widget _glossaryItem(
+  String term,
+  String definition,
+  Color accent,
+  Color bodyColor,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
     child: Row(
@@ -1763,10 +1808,7 @@ Widget _glossaryItem(String term, String definition, Color accent,
           margin: const EdgeInsets.only(top: 6, right: 8),
           width: 6,
           height: 6,
-          decoration: BoxDecoration(
-            color: accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
         ),
         Expanded(
           child: RichText(

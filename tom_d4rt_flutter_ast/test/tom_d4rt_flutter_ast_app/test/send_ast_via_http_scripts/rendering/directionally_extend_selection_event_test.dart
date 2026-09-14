@@ -112,7 +112,12 @@ Widget _buildMainHeader(String title, String subtitle) {
   );
 }
 
-Widget _buildSectionHeader(String title, IconData icon, Color primary, Color secondary) {
+Widget _buildSectionHeader(
+  String title,
+  IconData icon,
+  Color primary,
+  Color secondary,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 16),
@@ -194,10 +199,7 @@ Widget _buildInfoCard(String title, Widget content, {Color? accentColor}) {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               SizedBox(width: 10),
               Text(
@@ -211,16 +213,18 @@ Widget _buildInfoCard(String title, Widget content, {Color? accentColor}) {
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: content,
-        ),
+        Padding(padding: EdgeInsets.all(16), child: content),
       ],
     ),
   );
 }
 
-Widget _buildPropertyItem(String name, String value, IconData icon, Color color) {
+Widget _buildPropertyItem(
+  String name,
+  String value,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(12),
@@ -269,7 +273,12 @@ Widget _buildPropertyItem(String name, String value, IconData icon, Color color)
   );
 }
 
-Widget _buildDirectionChip(String label, String description, IconData icon, Color color) {
+Widget _buildDirectionChip(
+  String label,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(right: 8, bottom: 8),
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -297,10 +306,7 @@ Widget _buildDirectionChip(String label, String description, IconData icon, Colo
             ),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 10,
-                color: color.withAlpha(180),
-              ),
+              style: TextStyle(fontSize: 10, color: color.withAlpha(180)),
             ),
           ],
         ),
@@ -453,7 +459,12 @@ Widget _buildBoundaryMarker(String label, Color color, bool isStart) {
   );
 }
 
-Widget _buildGranularityItem(String granularity, String description, IconData icon, Color color) {
+Widget _buildGranularityItem(
+  String granularity,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(12),
@@ -489,10 +500,7 @@ Widget _buildGranularityItem(String granularity, String description, IconData ic
               SizedBox(height: 2),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _kGrey700,
-                ),
+                style: TextStyle(fontSize: 11, color: _kGrey700),
               ),
             ],
           ),
@@ -525,11 +533,7 @@ Widget _buildOverviewSection() {
               'A specialized selection event that extends the current text selection '
               'in a specified direction. This event is central to keyboard-based '
               'text selection operations.',
-              style: TextStyle(
-                fontSize: 13,
-                color: _kGrey700,
-                height: 1.5,
-              ),
+              style: TextStyle(fontSize: 13, color: _kGrey700, height: 1.5),
             ),
             SizedBox(height: 16),
             _buildPropertyItem(
@@ -686,10 +690,7 @@ Widget _buildDirectionValuesSection() {
                   Expanded(
                     child: Text(
                       'Line-based directions use dx to maintain horizontal cursor position',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _kGrey700,
-                      ),
+                      style: TextStyle(fontSize: 12, color: _kGrey700),
                     ),
                   ),
                 ],
@@ -973,7 +974,9 @@ Widget _buildTextLine(String text, int start, int end, Color highlight) {
             height: 20,
             margin: EdgeInsets.only(right: 1),
             decoration: BoxDecoration(
-              color: (i >= start && i < end) ? highlight.withAlpha(180) : Colors.white,
+              color: (i >= start && i < end)
+                  ? highlight.withAlpha(180)
+                  : Colors.white,
               borderRadius: BorderRadius.circular(2),
             ),
             child: Center(
@@ -1115,7 +1118,12 @@ Widget _buildBoundariesSection() {
   );
 }
 
-Widget _buildBoundaryCase(String title, String description, IconData icon, Color color) {
+Widget _buildBoundaryCase(
+  String title,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(12),
@@ -1142,10 +1150,7 @@ Widget _buildBoundaryCase(String title, String description, IconData icon, Color
               ),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _kGrey700,
-                ),
+                style: TextStyle(fontSize: 11, color: _kGrey700),
               ),
             ],
           ),
@@ -1161,10 +1166,7 @@ Widget _buildFlowStep(String number, String label, Color color) {
       Container(
         width: 28,
         height: 28,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             number,
@@ -1192,11 +1194,7 @@ Widget _buildFlowStep(String number, String label, Color color) {
 Widget _buildFlowArrow() {
   return Padding(
     padding: EdgeInsets.only(left: 13),
-    child: Container(
-      width: 2,
-      height: 14,
-      color: _kGrey500,
-    ),
+    child: Container(width: 2, height: 14, color: _kGrey500),
   );
 }
 
@@ -1280,10 +1278,7 @@ Widget _buildGranularitySection() {
                     child: Text(
                       'DirectionallyExtendSelectionEvent works with text granularity '
                       'settings to determine actual movement distance',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _kGrey700,
-                      ),
+                      style: TextStyle(fontSize: 12, color: _kGrey700),
                     ),
                   ),
                 ],
@@ -1298,11 +1293,23 @@ Widget _buildGranularitySection() {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildShortcutRow('Shift + Right Arrow', 'forward + character', _kSuccess),
-            _buildShortcutRow('Shift + Left Arrow', 'backward + character', _kWarning),
+            _buildShortcutRow(
+              'Shift + Right Arrow',
+              'forward + character',
+              _kSuccess,
+            ),
+            _buildShortcutRow(
+              'Shift + Left Arrow',
+              'backward + character',
+              _kWarning,
+            ),
             _buildShortcutRow('Shift + Down Arrow', 'nextLine', _kAccent),
             _buildShortcutRow('Shift + Up Arrow', 'previousLine', _kPurple),
-            _buildShortcutRow('Ctrl+Shift + Right', 'forward + word', _kSuccess),
+            _buildShortcutRow(
+              'Ctrl+Shift + Right',
+              'forward + word',
+              _kSuccess,
+            ),
             _buildShortcutRow('Ctrl+Shift + End', 'document end', _kError),
           ],
         ),
@@ -1343,13 +1350,7 @@ Widget _buildShortcutRow(String shortcut, String effect, Color color) {
         Icon(Icons.arrow_forward, color: _kGrey500, size: 16),
         SizedBox(width: 12),
         Expanded(
-          child: Text(
-            effect,
-            style: TextStyle(
-              fontSize: 12,
-              color: _kGrey700,
-            ),
-          ),
+          child: Text(effect, style: TextStyle(fontSize: 12, color: _kGrey700)),
         ),
       ],
     ),
@@ -1409,10 +1410,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'DirectionallyExtendSelectionEvent demonstration finished',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: _kGrey700,
-                ),
+                style: TextStyle(fontSize: 13, color: _kGrey700),
                 textAlign: TextAlign.center,
               ),
             ],

@@ -27,8 +27,7 @@ dynamic build(BuildContext context) {
   // persistentCallbacks (it is the build sub-step of layout-build-paint),
   // this will most often be SchedulerPhase.persistentCallbacks. We never
   // mutate state based on this; we display it for instruction.
-  final SchedulerPhase currentPhase =
-      SchedulerBinding.instance.schedulerPhase;
+  final SchedulerPhase currentPhase = SchedulerBinding.instance.schedulerPhase;
   print('Current SchedulerBinding.instance.schedulerPhase: $currentPhase');
 
   // Enumerate every value for the demo. The order in `values` corresponds to
@@ -144,8 +143,7 @@ dynamic build(BuildContext context) {
           'WidgetsBinding.instance.addPostFrameCallback during the frame.',
       schedulesHere:
           'addPostFrameCallback. The list is drained and cleared every frame.',
-      sample:
-          'WidgetsBinding.instance.addPostFrameCallback((_) => measure());',
+      sample: 'WidgetsBinding.instance.addPostFrameCallback((_) => measure());',
     ),
   ];
 
@@ -224,10 +222,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'A guided tour of the Flutter frame pipeline',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Color(0xFFE0E1DD),
-                    ),
+                    style: TextStyle(fontSize: 15.0, color: Color(0xFFE0E1DD)),
                   ),
                 ],
               ),
@@ -236,10 +231,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 20.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12.0),
@@ -399,20 +391,11 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const <Widget>[
                   _SubStep(label: 'build', color: Color(0xFFEA580C)),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Color(0xFF7C2D12),
-                  ),
+                  Icon(Icons.chevron_right, color: Color(0xFF7C2D12)),
                   _SubStep(label: 'layout', color: Color(0xFFD97706)),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Color(0xFF7C2D12),
-                  ),
+                  Icon(Icons.chevron_right, color: Color(0xFF7C2D12)),
                   _SubStep(label: 'paint', color: Color(0xFFCA8A04)),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Color(0xFF7C2D12),
-                  ),
+                  Icon(Icons.chevron_right, color: Color(0xFF7C2D12)),
                   _SubStep(label: 'composite', color: Color(0xFF65A30D)),
                 ],
               ),
@@ -558,8 +541,11 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 8.0),
               _kvBlock('What runs here', info.runs, info.color),
               const SizedBox(height: 8.0),
-              _kvBlock('Callbacks scheduled here', info.schedulesHere,
-                  info.color),
+              _kvBlock(
+                'Callbacks scheduled here',
+                info.schedulesHere,
+                info.color,
+              ),
               const SizedBox(height: 10.0),
               Container(
                 width: double.infinity,
@@ -596,15 +582,15 @@ dynamic build(BuildContext context) {
   // are illustrative numbers; the real cost depends on the app. They sum to
   // 1.0. The slack at the end is the comfort margin before the next vsync.
   final List<_BudgetSlice> slices = <_BudgetSlice>[
-    _BudgetSlice('vsync wait',  0.04, const Color(0xFF94A3B8)),
-    _BudgetSlice('transient',   0.10, const Color(0xFF1E88E5)),
-    _BudgetSlice('microtasks',  0.04, const Color(0xFF8E24AA)),
-    _BudgetSlice('build',       0.18, const Color(0xFFEA580C)),
-    _BudgetSlice('layout',      0.16, const Color(0xFFD97706)),
-    _BudgetSlice('paint',       0.14, const Color(0xFFCA8A04)),
-    _BudgetSlice('composite',   0.10, const Color(0xFF65A30D)),
-    _BudgetSlice('postFrame',   0.08, const Color(0xFF2E7D32)),
-    _BudgetSlice('slack',       0.16, const Color(0xFFE2E8F0)),
+    _BudgetSlice('vsync wait', 0.04, const Color(0xFF94A3B8)),
+    _BudgetSlice('transient', 0.10, const Color(0xFF1E88E5)),
+    _BudgetSlice('microtasks', 0.04, const Color(0xFF8E24AA)),
+    _BudgetSlice('build', 0.18, const Color(0xFFEA580C)),
+    _BudgetSlice('layout', 0.16, const Color(0xFFD97706)),
+    _BudgetSlice('paint', 0.14, const Color(0xFFCA8A04)),
+    _BudgetSlice('composite', 0.10, const Color(0xFF65A30D)),
+    _BudgetSlice('postFrame', 0.08, const Color(0xFF2E7D32)),
+    _BudgetSlice('slack', 0.16, const Color(0xFFE2E8F0)),
   ];
 
   final Widget budgetTimeline = Container(
@@ -1035,8 +1021,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         const Row(
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded,
-                color: Color(0xFF991B1B), size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFF991B1B),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls and anti-patterns',
@@ -1130,19 +1119,25 @@ dynamic build(BuildContext context) {
           Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
             decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Color(0xFFE2E8F0)),
-              ),
+              border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
             ),
             child: Row(
               children: <Widget>[
-                _DataCell('${info.phase.index}', 36.0,
-                    fontFamily: 'monospace'),
-                _DataCell(info.label, 170.0,
-                    color: info.color, bold: true, fontFamily: 'monospace'),
+                _DataCell('${info.phase.index}', 36.0, fontFamily: 'monospace'),
+                _DataCell(
+                  info.label,
+                  170.0,
+                  color: info.color,
+                  bold: true,
+                  fontFamily: 'monospace',
+                ),
                 _DataCell(_alsoCalled(info.phase), 140.0),
-                _DataCell(_setStateSafety(info.phase), 130.0,
-                    color: _setStateSafetyColor(info.phase), bold: true),
+                _DataCell(
+                  _setStateSafety(info.phase),
+                  130.0,
+                  color: _setStateSafetyColor(info.phase),
+                  bold: true,
+                ),
               ],
             ),
           ),
@@ -1599,11 +1594,7 @@ Widget _pitfall(String headline, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Icon(
-          Icons.error_outline,
-          color: Color(0xFF991B1B),
-          size: 18.0,
-        ),
+        const Icon(Icons.error_outline, color: Color(0xFF991B1B), size: 18.0),
         const SizedBox(width: 8.0),
         Expanded(
           child: Column(

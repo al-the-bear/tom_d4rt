@@ -64,7 +64,8 @@ dynamic build(BuildContext context) {
     conceptCard(
       icon: Icons.dashboard_customize,
       title: 'NavigationDestination',
-      body: 'A single destination tile\n'
+      body:
+          'A single destination tile\n'
           'used inside NavigationBar.\n'
           'Holds icon, selectedIcon, label,\n'
           'tooltip, enabled.',
@@ -73,7 +74,8 @@ dynamic build(BuildContext context) {
     conceptCard(
       icon: Icons.view_carousel,
       title: 'NavigationBar',
-      body: 'Bottom rail container.\n'
+      body:
+          'Bottom rail container.\n'
           'Hosts a row of\n'
           'NavigationDestinations.\n'
           'Tracks selectedIndex.',
@@ -82,7 +84,8 @@ dynamic build(BuildContext context) {
     conceptCard(
       icon: Icons.vertical_split,
       title: 'NavigationRail',
-      body: 'Side rail variant for\n'
+      body:
+          'Side rail variant for\n'
           'tablets and desktops.\n'
           'Uses NavigationRailDestination\n'
           'with icon + Text label.',
@@ -123,10 +126,7 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 8.0),
                 Text(
                   title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: tint,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: tint),
                 ),
               ],
             ),
@@ -297,10 +297,7 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 8.0),
                 Text(
                   title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: tint,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: tint),
                 ),
               ],
             ),
@@ -782,7 +779,8 @@ dynamic build(BuildContext context) {
         title: 'Home',
         heroIcon: Icons.home,
         tint: Colors.blue,
-        body: 'Selected tab drives the page name shown\n'
+        body:
+            'Selected tab drives the page name shown\n'
             'in the content area above the NavigationBar.',
       ),
       buildAppShellSnapshot(
@@ -790,7 +788,8 @@ dynamic build(BuildContext context) {
         title: 'Explore',
         heroIcon: Icons.explore,
         tint: Colors.teal,
-        body: 'Each NavigationDestination has its own\n'
+        body:
+            'Each NavigationDestination has its own\n'
             'tooltip for screen readers and long-press.',
       ),
       buildAppShellSnapshot(
@@ -798,7 +797,8 @@ dynamic build(BuildContext context) {
         title: 'Cart',
         heroIcon: Icons.shopping_cart,
         tint: Colors.orange,
-        body: 'selectedIcon swaps automatically when\n'
+        body:
+            'selectedIcon swaps automatically when\n'
             'selectedIndex points at this destination.',
       ),
     ],
@@ -855,8 +855,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(10.0),
             child: NavigationBar(
               selectedIndex: 1,
-              labelBehavior:
-                  NavigationDestinationLabelBehavior.alwaysHide,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
               backgroundColor: Colors.lightBlue.shade100,
               indicatorColor: Colors.lightBlue.shade300,
               destinations: [
@@ -985,11 +984,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         body,
-        style: TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11.0,
-          color: color,
-        ),
+        style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: color),
       ),
     );
   }
@@ -1171,11 +1166,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.dashboard_customize,
-                size: 56.0,
-                color: Colors.white,
-              ),
+              Icon(Icons.dashboard_customize, size: 56.0, color: Colors.white),
               SizedBox(height: 8.0),
               Text(
                 'NavigationDestination',
@@ -1200,10 +1191,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: conceptCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: conceptCards),
         SizedBox(height: 32.0),
 
         // Section 2: NavigationBar Gallery

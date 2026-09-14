@@ -155,7 +155,8 @@ class HeadlineOnlyFilter extends StackFilter {
     bool seenUserFrame = false;
     for (int i = 0; i < stackFrames.length; i++) {
       final StackFrame f = stackFrames[i];
-      final bool isUserFrame = f.packageScheme == 'package' &&
+      final bool isUserFrame =
+          f.packageScheme == 'package' &&
           f.package != 'flutter' &&
           f.package != 'async';
       if (isUserFrame && !seenUserFrame) {
@@ -189,15 +190,18 @@ Widget _frameChip(StackFrame frame) {
     label = '<asynchronous suspension>';
   } else if (frame.packageScheme == 'dart') {
     background = Colors.blueGrey.shade600;
-    label = '${frame.package}: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
+    label =
+        '${frame.package}: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
         '${frame.method} (${frame.line}:${frame.column})';
   } else if (frame.package == 'flutter') {
     background = Colors.indigo.shade400;
-    label = 'flutter: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
+    label =
+        'flutter: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
         '${frame.method} @${frame.line}';
   } else {
     background = Colors.green.shade600;
-    label = '${frame.package}: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
+    label =
+        '${frame.package}: ${frame.className.isEmpty ? '' : '${frame.className}.'}'
         '${frame.method} @${frame.line}';
   }
   return Container(
@@ -251,7 +255,7 @@ Widget _filterRow(StackFrame frame, String? reason) {
           flex: 3,
           child: Text(
             '${frame.package}/${frame.className.isEmpty ? '' : '${frame.className}.'}'
-                '${frame.method}',
+            '${frame.method}',
             style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
           ),
         ),
@@ -279,7 +283,10 @@ Widget _section(String title, String subtitle, Color color) {
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
+        colors: <Color>[
+          color.withValues(alpha: 0.85),
+          color.withValues(alpha: 0.55),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -315,10 +322,7 @@ Widget _section(String title, String subtitle, Color color) {
 Widget _prose(String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
-    child: Text(
-      text,
-      style: const TextStyle(fontSize: 14.0, height: 1.45),
-    ),
+    child: Text(text, style: const TextStyle(fontSize: 14.0, height: 1.45)),
   );
 }
 
@@ -340,10 +344,7 @@ Widget _anatomyRow(String key, String value, {Color? badge}) {
         ),
         SizedBox(
           width: 160.0,
-          child: Text(
-            key,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
+          child: Text(key, style: const TextStyle(fontWeight: FontWeight.w600)),
         ),
         Expanded(
           child: Text(
@@ -362,7 +363,11 @@ Widget _glossaryEntry(String term, String definition) {
     padding: const EdgeInsets.symmetric(vertical: 5.0),
     child: RichText(
       text: TextSpan(
-        style: const TextStyle(color: Colors.black87, fontSize: 13.5, height: 1.4),
+        style: const TextStyle(
+          color: Colors.black87,
+          fontSize: 13.5,
+          height: 1.4,
+        ),
         children: <InlineSpan>[
           TextSpan(
             text: '$term — ',
@@ -395,9 +400,11 @@ class _FilteredTrace {
     for (int i = 0; i < frames.length; i++) {
       final String? r = reasons[i];
       if (r == null) {
-        out.add('#${frames[i].number}  ${frames[i].package}/'
-            '${frames[i].className.isEmpty ? '' : '${frames[i].className}.'}'
-            '${frames[i].method} (${frames[i].line}:${frames[i].column})');
+        out.add(
+          '#${frames[i].number}  ${frames[i].package}/'
+          '${frames[i].className.isEmpty ? '' : '${frames[i].className}.'}'
+          '${frames[i].method} (${frames[i].line}:${frames[i].column})',
+        );
         previousReason = null;
       } else {
         if (r != previousReason) {
@@ -430,12 +437,15 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // Parse all three fixtures up front. We re-use them across exhibits.
   // -------------------------------------------------------------------------
-  final List<StackFrame> renderFrames =
-      StackFrame.fromStackString(_kRenderPipelineTrace);
-  final List<StackFrame> repetitiveFrames =
-      StackFrame.fromStackString(_kRepetitiveTrace);
-  final List<StackFrame> asyncFrames =
-      StackFrame.fromStackString(_kAsyncGapTrace);
+  final List<StackFrame> renderFrames = StackFrame.fromStackString(
+    _kRenderPipelineTrace,
+  );
+  final List<StackFrame> repetitiveFrames = StackFrame.fromStackString(
+    _kRepetitiveTrace,
+  );
+  final List<StackFrame> asyncFrames = StackFrame.fromStackString(
+    _kAsyncGapTrace,
+  );
   print('Render trace parsed: ${renderFrames.length} frames');
   print('Repetitive trace parsed: ${repetitiveFrames.length} frames');
   print('Async-gap trace parsed: ${asyncFrames.length} frames');
@@ -445,21 +455,22 @@ dynamic build(BuildContext context) {
   // of them is `const`-constructible, mirroring the actual contract of
   // StackFilter in the framework.
   // -------------------------------------------------------------------------
-  const RepetitiveStackFrameFilter rebuildLoopFilter = RepetitiveStackFrameFilter(
-    frames: <PartialStackFrame>[
-      PartialStackFrame(
-        package: 'package:flutter/src/widgets/framework.dart',
-        className: 'Element',
-        method: 'rebuild',
-      ),
-      PartialStackFrame(
-        package: 'package:flutter/src/widgets/framework.dart',
-        className: 'ComponentElement',
-        method: 'performRebuild',
-      ),
-    ],
-    replacement: '...repeated rebuild/perform pair collapsed...',
-  );
+  const RepetitiveStackFrameFilter rebuildLoopFilter =
+      RepetitiveStackFrameFilter(
+        frames: <PartialStackFrame>[
+          PartialStackFrame(
+            package: 'package:flutter/src/widgets/framework.dart',
+            className: 'Element',
+            method: 'rebuild',
+          ),
+          PartialStackFrame(
+            package: 'package:flutter/src/widgets/framework.dart',
+            className: 'ComponentElement',
+            method: 'performRebuild',
+          ),
+        ],
+        replacement: '...repeated rebuild/perform pair collapsed...',
+      );
 
   const DropFrameworkAndAsyncStackFilter dropFlutterAndAsync =
       DropFrameworkAndAsyncStackFilter();
@@ -470,17 +481,22 @@ dynamic build(BuildContext context) {
   // Pre-compute filter outputs. We mostly want to render them, but
   // printing them is also useful when debugging the d4rt harness.
   // -------------------------------------------------------------------------
-  final _FilteredTrace repetitiveFiltered =
-      _applyFilters(_kRepetitiveTrace, <StackFilter>[rebuildLoopFilter]);
-  final _FilteredTrace renderFiltered =
-      _applyFilters(_kRenderPipelineTrace, <StackFilter>[
-    rebuildLoopFilter,
-    dropFlutterAndAsync,
-  ]);
-  final _FilteredTrace asyncFiltered =
-      _applyFilters(_kAsyncGapTrace, <StackFilter>[dropFlutterAndAsync]);
-  final _FilteredTrace headlineFiltered =
-      _applyFilters(_kRenderPipelineTrace, <StackFilter>[headlineFilter]);
+  final _FilteredTrace repetitiveFiltered = _applyFilters(
+    _kRepetitiveTrace,
+    <StackFilter>[rebuildLoopFilter],
+  );
+  final _FilteredTrace renderFiltered = _applyFilters(
+    _kRenderPipelineTrace,
+    <StackFilter>[rebuildLoopFilter, dropFlutterAndAsync],
+  );
+  final _FilteredTrace asyncFiltered = _applyFilters(
+    _kAsyncGapTrace,
+    <StackFilter>[dropFlutterAndAsync],
+  );
+  final _FilteredTrace headlineFiltered = _applyFilters(
+    _kRenderPipelineTrace,
+    <StackFilter>[headlineFilter],
+  );
 
   for (final String line in repetitiveFiltered.renderCollapsed()) {
     print('REPETITIVE> $line');
@@ -852,13 +868,17 @@ dynamic build(BuildContext context) {
             'to a small handful of lines.',
           ),
           const SizedBox(height: 6.0),
-          Text('Raw (left rail) vs filter verdict (right column):',
-              style: _h3Style()),
+          Text(
+            'Raw (left rail) vs filter verdict (right column):',
+            style: _h3Style(),
+          ),
           const SizedBox(height: 4.0),
           ..._renderSideBySide(renderFiltered),
           const SizedBox(height: 12.0),
-          Text('Final collapsed output as the developer would see it:',
-              style: _h3Style()),
+          Text(
+            'Final collapsed output as the developer would see it:',
+            style: _h3Style(),
+          ),
           ..._renderCollapsed(renderFiltered),
         ],
       ),
@@ -881,9 +901,7 @@ dynamic build(BuildContext context) {
             'Wiring custom filters into the global error reporting pipeline.',
             Colors.blue.shade700,
           ),
-          _prose(
-            'Filters only matter once they\'re installed. The hook is:',
-          ),
+          _prose('Filters only matter once they\'re installed. The hook is:'),
           Container(
             padding: const EdgeInsets.all(12.0),
             margin: const EdgeInsets.symmetric(vertical: 6.0),
@@ -958,16 +976,31 @@ dynamic build(BuildContext context) {
             'into FlutterError, but you don\'t need to.',
           ),
           const SizedBox(height: 6.0),
-          _compareRow('Scope', 'StackFilter: Flutter error reports',
-              'Trace: any Dart program'),
-          _compareRow('Trace formats', 'StackFilter: Dart VM only',
-              'Trace: VM + V8 + Firefox + IE'),
-          _compareRow('Output', 'StackFilter: mutates reasons[]',
-              'Trace: returns new Trace/Frame'),
-          _compareRow('Async chaining', 'StackFilter: no',
-              'Trace: Chain.capture(...)'),
-          _compareRow('Folding', 'StackFilter: via RepetitiveStackFrameFilter',
-              'Trace: terse() / foldFrames(...)'),
+          _compareRow(
+            'Scope',
+            'StackFilter: Flutter error reports',
+            'Trace: any Dart program',
+          ),
+          _compareRow(
+            'Trace formats',
+            'StackFilter: Dart VM only',
+            'Trace: VM + V8 + Firefox + IE',
+          ),
+          _compareRow(
+            'Output',
+            'StackFilter: mutates reasons[]',
+            'Trace: returns new Trace/Frame',
+          ),
+          _compareRow(
+            'Async chaining',
+            'StackFilter: no',
+            'Trace: Chain.capture(...)',
+          ),
+          _compareRow(
+            'Folding',
+            'StackFilter: via RepetitiveStackFrameFilter',
+            'Trace: terse() / foldFrames(...)',
+          ),
         ],
       ),
     ),
@@ -992,35 +1025,35 @@ dynamic build(BuildContext context) {
           _pitfall(
             'Treating `reasons` as an output buffer to append to.',
             'It is a fixed-size parallel list. Use `reasons[i] = ...`, '
-            'never `reasons.add(...)`.',
+                'never `reasons.add(...)`.',
           ),
           _pitfall(
             'Forgetting that consecutive identical reasons collapse.',
             'If you stamp the same string into every flutter frame, '
-            'they all collapse into one line — usually what you want, '
-            'but sometimes surprising.',
+                'they all collapse into one line — usually what you want, '
+                'but sometimes surprising.',
           ),
           _pitfall(
             'Trying to remove a default filter at runtime.',
             'There is no public API to remove a filter once added with '
-            'FlutterError.addDefaultStackFilter. Install only once.',
+                'FlutterError.addDefaultStackFilter. Install only once.',
           ),
           _pitfall(
             'Using regex on stack-trace strings instead of StackFrame.',
             'StackFrame.fromStackString already parses everything you '
-            'need; checking f.packageScheme, f.package, f.method is '
-            'cheaper and far more robust.',
+                'need; checking f.packageScheme, f.package, f.method is '
+                'cheaper and far more robust.',
           ),
           _pitfall(
             'Mutating stackFrames itself.',
             'The framework re-uses the same list across filters. Only '
-            'mutate `reasons`, never the frames list.',
+                'mutate `reasons`, never the frames list.',
           ),
           _pitfall(
             'Pattern length mismatch in RepetitiveStackFrameFilter.',
             'If you ask it to match a 3-frame pattern but the trace has '
-            'only 2 matching frames, nothing collapses. The match must '
-            'be back-to-back across exactly `frames.length` entries.',
+                'only 2 matching frames, nothing collapses. The match must '
+                'be back-to-back across exactly `frames.length` entries.',
           ),
         ],
       ),
@@ -1199,7 +1232,10 @@ Widget _heroBadge(String label) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.0),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.5),
+        width: 1.0,
+      ),
     ),
     child: Text(
       label,
@@ -1279,18 +1315,8 @@ Widget _compareRow(String label, String left, String right) {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        Expanded(
-          child: Text(
-            left,
-            style: const TextStyle(fontSize: 12.5),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            right,
-            style: const TextStyle(fontSize: 12.5),
-          ),
-        ),
+        Expanded(child: Text(left, style: const TextStyle(fontSize: 12.5))),
+        Expanded(child: Text(right, style: const TextStyle(fontSize: 12.5))),
       ],
     ),
   );
@@ -1302,8 +1328,11 @@ Widget _pitfall(String headline, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Icon(Icons.warning_amber_rounded,
-            color: Colors.red.shade700, size: 22.0),
+        Icon(
+          Icons.warning_amber_rounded,
+          color: Colors.red.shade700,
+          size: 22.0,
+        ),
         const SizedBox(width: 8.0),
         Expanded(
           child: Column(
@@ -1312,13 +1341,12 @@ Widget _pitfall(String headline, String body) {
               Text(
                 headline,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold, fontSize: 14.0),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0,
+                ),
               ),
               const SizedBox(height: 2.0),
-              Text(
-                body,
-                style: const TextStyle(fontSize: 13.0, height: 1.4),
-              ),
+              Text(body, style: const TextStyle(fontSize: 13.0, height: 1.4)),
             ],
           ),
         ),
@@ -1333,8 +1361,7 @@ Widget _recapBullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Icon(Icons.check_circle,
-            color: Colors.deepPurple.shade400, size: 18.0),
+        Icon(Icons.check_circle, color: Colors.deepPurple.shade400, size: 18.0),
         const SizedBox(width: 8.0),
         Expanded(
           child: Text(
@@ -1520,16 +1547,15 @@ Widget _appendixKnownPatterns() {
                     flex: 3,
                     child: Text(
                       row[1],
-                      style:
-                          const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12.0,
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text(
-                      row[2],
-                      style: const TextStyle(fontSize: 12.5),
-                    ),
+                    child: Text(row[2], style: const TextStyle(fontSize: 12.5)),
                   ),
                 ],
               ),

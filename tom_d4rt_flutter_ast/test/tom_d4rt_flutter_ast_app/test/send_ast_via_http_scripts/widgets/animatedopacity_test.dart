@@ -201,11 +201,7 @@ Widget _sectionBanner({
               const SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: soft,
-                  fontSize: 12.5,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: soft, fontSize: 12.5, height: 1.4),
               ),
             ],
           ),
@@ -225,10 +221,7 @@ Widget _bullet(String text, Color dotColor) {
           width: 8.0,
           height: 8.0,
           margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         Expanded(
           child: Text(
@@ -277,10 +270,7 @@ Widget _sectionBody({
   );
 }
 
-Widget _codeBlock({
-  required String code,
-  required Color accent,
-}) {
+Widget _codeBlock({required String code, required Color accent}) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(12.0),
@@ -546,10 +536,7 @@ Widget _glossaryEntry({
           ],
         ),
         const SizedBox(height: 6.0),
-        Text(
-          meaning,
-          style: const TextStyle(fontSize: 12.5, height: 1.45),
-        ),
+        Text(meaning, style: const TextStyle(fontSize: 12.5, height: 1.45)),
       ],
     ),
   );
@@ -853,8 +840,11 @@ dynamic build(BuildContext context) {
                 color: _heroMid,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: const Icon(Icons.menu_book,
-                  color: Colors.white, size: 18.0),
+              child: const Icon(
+                Icons.menu_book,
+                color: Colors.white,
+                size: 18.0,
+              ),
             ),
             const SizedBox(width: 10.0),
             const Text(
@@ -936,8 +926,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.layers,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.layers,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -957,8 +950,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.animation,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.animation,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -977,8 +973,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.tune,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.tune,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -990,26 +989,32 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s1Mid,
-          code: 'AnimatedOpacity(\n'
+          code:
+              'AnimatedOpacity(\n'
               '  opacity: 0.5,\n'
               '  duration: Duration.zero,\n'
               '  child: Container(...),\n'
               ')',
         ),
         const SizedBox(height: 10.0),
-        _bullet('Opacity is the cheapest — no animation, no rebuild.',
-            _s1Mid),
-        _bullet('AnimatedOpacity is implicit — change `opacity` and the '
-            'widget lerps automatically.', _s1Mid),
-        _bullet('FadeTransition is explicit — bring your own Animation.',
-            _s1Mid),
+        _bullet('Opacity is the cheapest — no animation, no rebuild.', _s1Mid),
+        _bullet(
+          'AnimatedOpacity is implicit — change `opacity` and the '
+          'widget lerps automatically.',
+          _s1Mid,
+        ),
+        _bullet(
+          'FadeTransition is explicit — bring your own Animation.',
+          _s1Mid,
+        ),
         _bullet('All three respect `alwaysIncludeSemantics`.', _s1Mid),
         _quoteCard(
           title: 'Designer\'s note',
           icon: Icons.lightbulb,
           accent: _s1Deep,
           background: Colors.white,
-          body: 'When in doubt, reach for Opacity. Promote to AnimatedOpacity '
+          body:
+              'When in doubt, reach for Opacity. Promote to AnimatedOpacity '
               'the moment a value changes, and promote again to '
               'FadeTransition when you need shared timing with sibling '
               'widgets.',
@@ -1048,8 +1053,8 @@ dynamic build(BuildContext context) {
                   label: t == 0.0
                       ? 'hidden'
                       : t == 1.0
-                          ? 'solid'
-                          : 'phase',
+                      ? 'solid'
+                      : 'phase',
                   icon: Icons.brightness_5,
                 ),
             ],
@@ -1123,7 +1128,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s2Mid,
-          code: 'for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])\n'
+          code:
+              'for (final t in [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])\n'
               '  AnimatedOpacity(\n'
               '    opacity: t,\n'
               '    duration: Duration.zero,\n'
@@ -1135,7 +1141,8 @@ dynamic build(BuildContext context) {
           icon: Icons.format_list_numbered,
           accent: _s2Deep,
           background: Colors.white,
-          body: 'Five stops (0.00, 0.25, 0.50, 0.75, 1.00) feel too coarse '
+          body:
+              'Five stops (0.00, 0.25, 0.50, 0.75, 1.00) feel too coarse '
               'for fade studies. Six (0.0, 0.2, 0.4, 0.6, 0.8, 1.0) keep '
               'the math friendly while showing the early-fade shoulder '
               'between 0.2 and 0.4 — the perceptually critical zone.',
@@ -1214,7 +1221,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s3Mid,
-          code: 'FadeTransition(\n'
+          code:
+              'FadeTransition(\n'
               '  opacity: AlwaysStoppedAnimation<double>(t),\n'
               '  child: ChildWidget(),\n'
               ')',
@@ -1224,7 +1232,8 @@ dynamic build(BuildContext context) {
           icon: Icons.movie,
           accent: _s3Deep,
           background: Colors.white,
-          body: 'A "phase strip" pins values to specific points in a fade. '
+          body:
+              'A "phase strip" pins values to specific points in a fade. '
               'A "reel" treats those same values as frames of a film. The '
               'visual difference is zero; the mental model is everything.',
         ),
@@ -1294,24 +1303,31 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s4Mid,
-          code: 'AnimatedCrossFade(\n'
+          code:
+              'AnimatedCrossFade(\n'
               '  duration: Duration.zero,\n'
               '  crossFadeState: CrossFadeState.showFirst,\n'
               '  firstChild: WidgetA(),\n'
               '  secondChild: WidgetB(),\n'
               ')',
         ),
-        _bullet('Two children must be supplied; both stay in the tree.',
-            _s4Mid),
-        _bullet('Use it for boolean state: signed-in vs signed-out, '
-            'loading vs loaded, edit vs view.', _s4Mid),
+        _bullet(
+          'Two children must be supplied; both stay in the tree.',
+          _s4Mid,
+        ),
+        _bullet(
+          'Use it for boolean state: signed-in vs signed-out, '
+          'loading vs loaded, edit vs view.',
+          _s4Mid,
+        ),
         _bullet('The size transition can be tuned via sizeCurve.', _s4Mid),
         _quoteCard(
           title: 'CrossFade vs Opacity stack',
           icon: Icons.compare_arrows,
           accent: _s4Deep,
           background: Colors.white,
-          body: 'A Stack of two Opacity widgets sums alpha; AnimatedCrossFade '
+          body:
+              'A Stack of two Opacity widgets sums alpha; AnimatedCrossFade '
               'splits 1.0 between them. The visual feel is similar, but '
               'CrossFade also animates the bounding size — useful when the '
               'two children differ in dimensions.',
@@ -1343,10 +1359,7 @@ dynamic build(BuildContext context) {
             return const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: <Color>[
-                Color(0x00FFFFFF),
-                Color(0xFFFFFFFF),
-              ],
+              colors: <Color>[Color(0x00FFFFFF), Color(0xFFFFFFFF)],
             ).createShader(bounds);
           },
           blendMode: BlendMode.dstIn,
@@ -1375,10 +1388,7 @@ dynamic build(BuildContext context) {
             return const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[
-                Color(0xFFFFFFFF),
-                Color(0x00FFFFFF),
-              ],
+              colors: <Color>[Color(0xFFFFFFFF), Color(0x00FFFFFF)],
             ).createShader(bounds);
           },
           blendMode: BlendMode.dstIn,
@@ -1407,10 +1417,7 @@ dynamic build(BuildContext context) {
             return const RadialGradient(
               center: Alignment.center,
               radius: 0.7,
-              colors: <Color>[
-                Color(0xFFFFFFFF),
-                Color(0x00FFFFFF),
-              ],
+              colors: <Color>[Color(0xFFFFFFFF), Color(0x00FFFFFF)],
             ).createShader(bounds);
           },
           blendMode: BlendMode.dstIn,
@@ -1436,7 +1443,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s5Mid,
-          code: 'ShaderMask(\n'
+          code:
+              'ShaderMask(\n'
               '  shaderCallback: (rect) => LinearGradient(\n'
               '    colors: [transparent, white],\n'
               '  ).createShader(rect),\n'
@@ -1449,7 +1457,8 @@ dynamic build(BuildContext context) {
           icon: Icons.gradient,
           accent: _s5Deep,
           background: Colors.white,
-          body: 'AnimatedOpacity fades the whole child in time. ShaderMask '
+          body:
+              'AnimatedOpacity fades the whole child in time. ShaderMask '
               'fades parts of the child in space. They compose: wrap a '
               'ShaderMask in an AnimatedOpacity to dissolve a gradient '
               'mask over time.',
@@ -1494,11 +1503,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(12.0),
             child: Stack(
               children: <Widget>[
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                ),
+                Positioned.fill(child: Container(color: Colors.transparent)),
                 Center(
                   child: Container(
                     width: 220.0,
@@ -1506,9 +1511,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: Colors.white.withOpacity(0.25),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.45),
-                      ),
+                      border: Border.all(color: Colors.white.withOpacity(0.45)),
                     ),
                     alignment: Alignment.center,
                     child: const Text(
@@ -1568,7 +1571,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _codeBlock(
           accent: _s6Mid,
-          code: 'ImageFiltered(\n'
+          code:
+              'ImageFiltered(\n'
               '  imageFilter: ui.ImageFilter.blur(\n'
               '    sigmaX: 5.0, sigmaY: 5.0),\n'
               '  child: ChildWidget(),\n'
@@ -1579,7 +1583,8 @@ dynamic build(BuildContext context) {
           icon: Icons.filter_drama,
           accent: _s6Deep,
           background: Colors.white,
-          body: 'A frosted panel is just an ImageFiltered blur underneath a '
+          body:
+              'A frosted panel is just an ImageFiltered blur underneath a '
               'translucent white container. AnimatedOpacity sits on the '
               'top layer to fade the highlight while the blur stays put — '
               'the secret to a believable glass animation.',
@@ -1712,8 +1717,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.layers,
-                        color: Colors.white, size: 28.0),
+                    child: const Icon(
+                      Icons.layers,
+                      color: Colors.white,
+                      size: 28.0,
+                    ),
                   ),
                 ),
               ),
@@ -1728,24 +1736,33 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   alignment: Alignment.center,
-                  child: const Icon(Icons.equalizer,
-                      color: Colors.white, size: 28.0),
+                  child: const Icon(
+                    Icons.equalizer,
+                    color: Colors.white,
+                    size: 28.0,
+                  ),
                 ),
               ),
             ],
           ),
         ),
         _bullet('Stack order matters: later children draw on top.', _s7Mid),
-        _bullet('Each AnimatedOpacity composites with the layers beneath.',
-            _s7Mid),
-        _bullet('To compose 0.5 × 0.5, prefer a single Opacity(0.25) — '
-            'fewer compositing layers.', _s7Mid),
+        _bullet(
+          'Each AnimatedOpacity composites with the layers beneath.',
+          _s7Mid,
+        ),
+        _bullet(
+          'To compose 0.5 × 0.5, prefer a single Opacity(0.25) — '
+          'fewer compositing layers.',
+          _s7Mid,
+        ),
         _quoteCard(
           title: 'Performance footnote',
           icon: Icons.speed,
           accent: _s7Deep,
           background: Colors.white,
-          body: 'Every translucent layer adds a saveLayer call. On older '
+          body:
+              'Every translucent layer adds a saveLayer call. On older '
               'devices, three stacked AnimatedOpacity widgets can drop the '
               'frame rate noticeably. When stacking matters more than '
               'animating, prefer the static Opacity widget.',
@@ -1858,20 +1875,31 @@ dynamic build(BuildContext context) {
               curveRow('Curves.linear', Curves.linear, _s8Deep),
               curveRow('Curves.ease', Curves.ease, _s8Mid),
               curveRow('Curves.easeIn', Curves.easeIn, const Color(0xFF6D4C41)),
-              curveRow('Curves.easeOut', Curves.easeOut, const Color(0xFF5D4037)),
+              curveRow(
+                'Curves.easeOut',
+                Curves.easeOut,
+                const Color(0xFF5D4037),
+              ),
               curveRow('Curves.easeInOut', Curves.easeInOut, _s8Deep),
               curveRow('Curves.decelerate', Curves.decelerate, _s8Mid),
-              curveRow('Curves.bounceIn', Curves.bounceIn,
-                  const Color(0xFFA1887F)),
-              curveRow('Curves.elasticOut', Curves.elasticOut,
-                  const Color(0xFF795548)),
+              curveRow(
+                'Curves.bounceIn',
+                Curves.bounceIn,
+                const Color(0xFFA1887F),
+              ),
+              curveRow(
+                'Curves.elasticOut',
+                Curves.elasticOut,
+                const Color(0xFF795548),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 12.0),
         _codeBlock(
           accent: _s8Mid,
-          code: 'AnimatedOpacity(\n'
+          code:
+              'AnimatedOpacity(\n'
               '  opacity: t,\n'
               '  duration: Duration(milliseconds: 400),\n'
               '  curve: Curves.easeInOut,\n'
@@ -1883,7 +1911,8 @@ dynamic build(BuildContext context) {
           icon: Icons.timeline,
           accent: _s8Deep,
           background: Colors.white,
-          body: 'Curves.linear is honest but boring. Curves.ease and '
+          body:
+              'Curves.linear is honest but boring. Curves.ease and '
               'Curves.easeInOut are the default-choice workhorses. '
               'Curves.bounceIn or Curves.elasticOut feel playful but '
               'almost never belong on opacity — bouncing alpha looks '
@@ -1957,11 +1986,7 @@ dynamic build(BuildContext context) {
                       width: 80.0,
                       height: 24.0,
                       decoration: BoxDecoration(
-                        color: Color.lerp(
-                          _s9Mid,
-                          _s9Tint,
-                          i / 5.0,
-                        ),
+                        color: Color.lerp(_s9Mid, _s9Tint, i / 5.0),
                         borderRadius: BorderRadius.circular(6.0),
                       ),
                     ),
@@ -1973,7 +1998,8 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         _codeBlock(
           accent: _s9Mid,
-          code: 'for (int i = 0; i < 6; i++)\n'
+          code:
+              'for (int i = 0; i < 6; i++)\n'
               '  Positioned(\n'
               '    left: i * 38.0,\n'
               '    child: AnimatedOpacity(\n'
@@ -1988,7 +2014,8 @@ dynamic build(BuildContext context) {
           icon: Icons.auto_awesome_motion,
           accent: _s9Deep,
           background: Colors.white,
-          body: 'A trail is not motion — it is the memory of motion. The '
+          body:
+              'A trail is not motion — it is the memory of motion. The '
               'eye reads the brightest frame as "now" and the dimmest as '
               '"a moment ago". Reverse the alpha ramp and your trail '
               'starts predicting the future instead of recording the past.',
@@ -2028,10 +2055,7 @@ dynamic build(BuildContext context) {
                 return const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: <Color>[
-                    Color(0x00FFFFFF),
-                    Color(0xFFFFFFFF),
-                  ],
+                  colors: <Color>[Color(0x00FFFFFF), Color(0xFFFFFFFF)],
                 ).createShader(bounds);
               },
               blendMode: BlendMode.dstIn,
@@ -2099,10 +2123,7 @@ dynamic build(BuildContext context) {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: <Color>[
-                          Color(0xFFFFB300),
-                          Color(0xFFFB8C00),
-                        ],
+                        colors: <Color>[Color(0xFFFFB300), Color(0xFFFB8C00)],
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -2112,9 +2133,7 @@ dynamic build(BuildContext context) {
                   child: AnimatedOpacity(
                     opacity: 0.4,
                     duration: Duration.zero,
-                    child: Container(
-                      color: _s10Deep,
-                    ),
+                    child: Container(color: _s10Deep),
                   ),
                 ),
                 Positioned.fill(
@@ -2143,7 +2162,8 @@ dynamic build(BuildContext context) {
           icon: Icons.brush,
           accent: _s10Deep,
           background: Colors.white,
-          body: 'Each translucency widget is a glaze. Layer them sparingly '
+          body:
+              'Each translucency widget is a glaze. Layer them sparingly '
               'and your composition gains depth; layer them carelessly and '
               'the whole frame turns to mud. The eye prefers two glazes '
               'over five.',
@@ -2243,7 +2263,8 @@ dynamic build(BuildContext context) {
           icon: Icons.account_tree,
           accent: _s11Deep,
           background: Colors.white,
-          body: 'The question is rarely "what do I want to look like?" — it '
+          body:
+              'The question is rarely "what do I want to look like?" — it '
               'is "who owns the timing?" If the caller already has a '
               'controller, choose FadeTransition. If not, choose '
               'AnimatedOpacity. If there is no animation at all, choose '
@@ -2272,99 +2293,114 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         _glossaryEntry(
           term: 'AnimatedOpacity',
-          meaning: 'Implicit animation widget. Takes a raw double `opacity` '
+          meaning:
+              'Implicit animation widget. Takes a raw double `opacity` '
               'and a Duration; lerps between previous and current values '
               'using an internally managed controller.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Opacity (widget)',
-          meaning: 'Static alpha layer. No animation, no controller — just '
+          meaning:
+              'Static alpha layer. No animation, no controller — just '
               'renders the child at a fixed opacity.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'FadeTransition',
-          meaning: 'Explicit fade primitive. Wraps a child in an alpha layer '
+          meaning:
+              'Explicit fade primitive. Wraps a child in an alpha layer '
               'driven by a caller-supplied Animation<double>.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'SliverFadeTransition',
-          meaning: 'Sliver-protocol counterpart of FadeTransition. Wraps a '
+          meaning:
+              'Sliver-protocol counterpart of FadeTransition. Wraps a '
               'sliver and fades it within the scrolling viewport.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'AnimatedCrossFade',
-          meaning: 'Animates between two children using opacity and size. '
+          meaning:
+              'Animates between two children using opacity and size. '
               'Selected by a CrossFadeState enum.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'ShaderMask',
-          meaning: 'Applies a shader (commonly a LinearGradient) to its '
+          meaning:
+              'Applies a shader (commonly a LinearGradient) to its '
               'child, modulating each pixel by the shader\'s output — '
               'typically alpha. The basis of spatial fades.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'ImageFiltered',
-          meaning: 'Post-processes the child with a ui.ImageFilter (blur, '
+          meaning:
+              'Post-processes the child with a ui.ImageFilter (blur, '
               'colour-shift, matrix). Composes with AnimatedOpacity to '
               'fade frosted-glass overlays.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'AlwaysStoppedAnimation<double>',
-          meaning: 'An Animation<double> that holds a single static value. '
+          meaning:
+              'An Animation<double> that holds a single static value. '
               'Useful for snapshot tests and for any FadeTransition whose '
               'opacity must not change.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Duration.zero',
-          meaning: 'A Duration of zero ticks. Passed to AnimatedOpacity, the '
+          meaning:
+              'A Duration of zero ticks. Passed to AnimatedOpacity, the '
               'widget renders the target opacity immediately with no '
               'transition — the workhorse of static demos.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'alwaysIncludeSemantics',
-          meaning: 'Boolean flag. When true, the child remains in the '
+          meaning:
+              'Boolean flag. When true, the child remains in the '
               'semantics tree even at opacity 0.0 — critical for status '
               'messages that fade out but must still be announced.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Composed alpha',
-          meaning: 'When two translucent widgets are nested, the effective '
+          meaning:
+              'When two translucent widgets are nested, the effective '
               'alpha is the product of their opacity values. Two 0.5 '
               'layers compose to 0.25.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'saveLayer',
-          meaning: 'The compositing primitive each translucent widget '
+          meaning:
+              'The compositing primitive each translucent widget '
               'allocates. Stacking many of them is the main performance '
               'cost of translucency-heavy UI.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Phase strip',
-          meaning: 'A row of frozen frames at evenly spaced opacity stops. '
+          meaning:
+              'A row of frozen frames at evenly spaced opacity stops. '
               'The canonical introduction to a fade animation.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Ghost trail',
-          meaning: 'A motion-residue effect built by stacking several '
+          meaning:
+              'A motion-residue effect built by stacking several '
               'translucent copies of a shape at decreasing alpha.',
           accent: _s12Deep,
         ),
         _glossaryEntry(
           term: 'Frosted glass',
-          meaning: 'The combination of ImageFiltered (Gaussian blur) and a '
+          meaning:
+              'The combination of ImageFiltered (Gaussian blur) and a '
               'translucent white container — iOS-style backdrop blur.',
           accent: _s12Deep,
         ),
@@ -2420,11 +2456,7 @@ dynamic build(BuildContext context) {
           'timing must be shared, demote to Opacity when the value is '
           'fixed, and reach for ShaderMask or ImageFiltered when the '
           'effect must be spatial rather than temporal.',
-          style: TextStyle(
-            color: _epilogueSoft,
-            fontSize: 13.5,
-            height: 1.55,
-          ),
+          style: TextStyle(color: _epilogueSoft, fontSize: 13.5, height: 1.55),
         ),
         const SizedBox(height: 14.0),
         Container(
@@ -2500,10 +2532,7 @@ dynamic build(BuildContext context) {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16.0,
-            vertical: 14.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[

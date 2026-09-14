@@ -65,10 +65,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   'Low-level modal overlay route',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.0),
                 ),
               ],
             ),
@@ -623,8 +620,8 @@ dynamic build(BuildContext context) {
           'pageBuilder',
           'RoutePageBuilder',
           'Required. Creates the dialog content widget. Receives '
-          'BuildContext, Animation<double>, Animation<double> (secondary). '
-          'The widget returned is placed on top of the barrier.',
+              'BuildContext, Animation<double>, Animation<double> (secondary). '
+              'The widget returned is placed on top of the barrier.',
           Colors.teal,
           Icons.dashboard,
         ),
@@ -633,7 +630,7 @@ dynamic build(BuildContext context) {
           'barrierDismissible',
           'bool',
           'Whether tapping the barrier closes the dialog. Default: true. '
-          'Set to false for mandatory dialogs.',
+              'Set to false for mandatory dialogs.',
           Colors.green,
           Icons.touch_app,
         ),
@@ -642,7 +639,7 @@ dynamic build(BuildContext context) {
           'barrierColor',
           'Color?',
           'The color of the modal barrier overlay. Use Colors.black54 for '
-          'a standard dark overlay or a custom color for branding.',
+              'a standard dark overlay or a custom color for branding.',
           Colors.purple,
           Icons.format_color_fill,
         ),
@@ -651,7 +648,7 @@ dynamic build(BuildContext context) {
           'barrierLabel',
           'String?',
           'Accessibility label for the barrier, read by screen readers. '
-          'Typically "Dismiss" or "Close dialog".',
+              'Typically "Dismiss" or "Close dialog".',
           Colors.orange,
           Icons.accessibility,
         ),
@@ -660,7 +657,7 @@ dynamic build(BuildContext context) {
           'transitionDuration',
           'Duration',
           'How long the entrance/exit animation takes. Default: '
-          'Duration(milliseconds: 200). Use Duration.zero for instant.',
+              'Duration(milliseconds: 200). Use Duration.zero for instant.',
           Colors.blue,
           Icons.timer,
         ),
@@ -669,7 +666,7 @@ dynamic build(BuildContext context) {
           'transitionBuilder',
           'RouteTransitionsBuilder?',
           'Builds the animated wrapper around the content. Receives the '
-          'child plus Animation<double>. Default: FadeTransition.',
+              'child plus Animation<double>. Default: FadeTransition.',
           Colors.red,
           Icons.animation,
         ),
@@ -678,7 +675,7 @@ dynamic build(BuildContext context) {
           'settings',
           'RouteSettings?',
           'Route name and arguments for debugging and route tracking. '
-          'Inherited from ModalRoute.',
+              'Inherited from ModalRoute.',
           Colors.grey,
           Icons.settings,
         ),
@@ -687,7 +684,7 @@ dynamic build(BuildContext context) {
           'anchorPoint',
           'Offset?',
           'The anchor point for the dialog positioning when using '
-          'multiple display setups. Rarely needed in single-display apps.',
+              'multiple display setups. Rarely needed in single-display apps.',
           Colors.brown,
           Icons.anchor,
         ),
@@ -728,8 +725,8 @@ dynamic build(BuildContext context) {
           'Confirmation Dialog',
           'barrierDismissible: false, dark barrier',
           'Critical actions like deleting data or submitting payments. '
-          'The user must explicitly confirm or cancel — accidental taps '
-          'on the barrier do not close the dialog.',
+              'The user must explicitly confirm or cancel — accidental taps '
+              'on the barrier do not close the dialog.',
           Icons.warning,
           Colors.red,
           Container(
@@ -750,18 +747,12 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Delete this item?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
                 SizedBox(height: 4.0),
                 Text(
                   'This action cannot be undone.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 12.0),
                 Row(
@@ -776,10 +767,7 @@ dynamic build(BuildContext context) {
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(fontSize: 12.0),
-                      ),
+                      child: Text('Cancel', style: TextStyle(fontSize: 12.0)),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -792,10 +780,7 @@ dynamic build(BuildContext context) {
                       ),
                       child: Text(
                         'Delete',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(fontSize: 12.0, color: Colors.white),
                       ),
                     ),
                   ],
@@ -811,7 +796,7 @@ dynamic build(BuildContext context) {
           'Loading Overlay',
           'barrierDismissible: false, transparent barrier',
           'Block interaction while an async operation completes. '
-          'The barrier prevents taps while the spinner shows progress.',
+              'The barrier prevents taps while the spinner shows progress.',
           Icons.hourglass_empty,
           Colors.blue,
           Container(
@@ -846,7 +831,7 @@ dynamic build(BuildContext context) {
           'Custom Modal Sheet',
           'Custom transition (slide from bottom)',
           'A bottom sheet styled as a full-page modal with SwipeTransition. '
-          'Using RawDialogRoute gives control over the transition animation.',
+              'Using RawDialogRoute gives control over the transition animation.',
           Icons.view_agenda,
           Colors.teal,
           Container(
@@ -871,18 +856,12 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12.0),
                 Text(
                   'Sheet Content',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
                 SizedBox(height: 4.0),
                 Text(
                   'Custom-designed modal sheet',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -895,7 +874,7 @@ dynamic build(BuildContext context) {
           'Image Lightbox',
           'Dark barrier (90% black), tap to dismiss',
           'Full-screen image previews with a very dark barrier. '
-          'barrierDismissible: true so tapping anywhere closes the viewer.',
+              'barrierDismissible: true so tapping anywhere closes the viewer.',
           Icons.image,
           Colors.amber,
           Container(
@@ -911,8 +890,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               child: Center(
-                child: Icon(Icons.photo, color: Colors.amber.shade800,
-                    size: 30.0),
+                child: Icon(
+                  Icons.photo,
+                  color: Colors.amber.shade800,
+                  size: 30.0,
+                ),
               ),
             ),
           ),
@@ -1013,12 +995,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        _buildTripleComparisonRow(
-          'Library',
-          'widgets',
-          'material',
-          'material',
-        ),
+        _buildTripleComparisonRow('Library', 'widgets', 'material', 'material'),
         _buildTripleComparisonRow(
           'Styling',
           'None',
@@ -1067,8 +1044,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.tips_and_updates,
-                  color: Colors.pink.shade600, size: 20.0),
+              Icon(
+                Icons.tips_and_updates,
+                color: Colors.pink.shade600,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1127,7 +1107,7 @@ dynamic build(BuildContext context) {
           1,
           'Navigator.push()',
           'The route is pushed onto the Navigator stack. The previous '
-          'route receives a didPush or didPushNext notification.',
+              'route receives a didPush or didPushNext notification.',
           Colors.blue,
           Icons.add_circle,
         ),
@@ -1136,8 +1116,8 @@ dynamic build(BuildContext context) {
           2,
           'Build Modal Barrier',
           'RawDialogRoute creates the barrier with your specified color '
-          'and dismissibility. The barrier absorbs all pointer events '
-          'to the underlying page.',
+              'and dismissibility. The barrier absorbs all pointer events '
+              'to the underlying page.',
           Colors.purple,
           Icons.block,
         ),
@@ -1146,7 +1126,7 @@ dynamic build(BuildContext context) {
           3,
           'Build Page Content',
           'pageBuilder is called with the context and animation. Your '
-          'dialog widget tree is created and placed above the barrier.',
+              'dialog widget tree is created and placed above the barrier.',
           Colors.teal,
           Icons.dashboard,
         ),
@@ -1155,8 +1135,8 @@ dynamic build(BuildContext context) {
           4,
           'Animate Entrance',
           'transitionBuilder wraps the page in an animation. The '
-          'animation runs from 0.0 to 1.0 over transitionDuration. '
-          'Default: FadeTransition over 200ms.',
+              'animation runs from 0.0 to 1.0 over transitionDuration. '
+              'Default: FadeTransition over 200ms.',
           Colors.orange,
           Icons.play_arrow,
         ),
@@ -1165,7 +1145,7 @@ dynamic build(BuildContext context) {
           5,
           'Interactive State',
           'Animation complete. The dialog receives user interaction. '
-          'The route is now the current route on the Navigator.',
+              'The route is now the current route on the Navigator.',
           Colors.green,
           Icons.check_circle,
         ),
@@ -1174,7 +1154,7 @@ dynamic build(BuildContext context) {
           6,
           'Pop / Dismiss',
           'Either Navigator.pop(), barrier tap (if dismissible), or '
-          'back button closes the route. Exit animation reverses.',
+              'back button closes the route. Exit animation reverses.',
           Colors.red,
           Icons.close,
         ),
@@ -1189,8 +1169,7 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline, color: Colors.lime.shade700,
-                  size: 18.0),
+              Icon(Icons.info_outline, color: Colors.lime.shade700, size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1252,23 +1231,24 @@ dynamic build(BuildContext context) {
         Builder(
           builder: (BuildContext ctx) {
             final route = RawDialogRoute<String>(
-              pageBuilder: (
-                BuildContext dialogContext,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-              ) {
-                return Center(
-                  child: Container(
-                    width: 280.0,
-                    padding: EdgeInsets.all(24.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16.0),
-                    ),
-                    child: Text('Dialog Content'),
-                  ),
-                );
-              },
+              pageBuilder:
+                  (
+                    BuildContext dialogContext,
+                    Animation<double> animation,
+                    Animation<double> secondaryAnimation,
+                  ) {
+                    return Center(
+                      child: Container(
+                        width: 280.0,
+                        padding: EdgeInsets.all(24.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Text('Dialog Content'),
+                      ),
+                    );
+                  },
               barrierDismissible: true,
               barrierColor: Colors.black54,
               barrierLabel: 'Dismiss dialog',
@@ -1431,7 +1411,10 @@ Widget _buildLayerBlock(
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 11.0, color: textColor.withValues(alpha: 0.8)),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: textColor.withValues(alpha: 0.8),
+                ),
               ),
             ],
           ),
@@ -1483,10 +1466,7 @@ Widget _buildBarrierSample(
                 Icon(Icons.web, color: Colors.grey.shade400, size: 16.0),
                 Text(
                   'Page',
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade400,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade400),
                 ),
               ],
             ),
@@ -1577,11 +1557,7 @@ Widget _buildTimelineStep(
 Widget _buildTimelineConnector() {
   return Padding(
     padding: EdgeInsets.only(left: 19.0, top: 2.0, bottom: 2.0),
-    child: Container(
-      width: 2.0,
-      height: 16.0,
-      color: Colors.orange.shade200,
-    ),
+    child: Container(width: 2.0, height: 16.0, color: Colors.orange.shade200),
   );
 }
 
@@ -1753,11 +1729,7 @@ Widget _buildUseCaseCard(
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: color.shade800,
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 12.0, color: color.shade800, height: 1.3),
         ),
         SizedBox(height: 12.0),
         Center(child: mockDialog),
@@ -1838,10 +1810,7 @@ Widget _buildLifecycleStep(
         Container(
           width: 28.0,
           height: 28.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$number',
@@ -1871,8 +1840,11 @@ Widget _buildLifecycleStep(
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 10.0, color: color.shade700,
-                    height: 1.3),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: color.shade700,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -1886,16 +1858,16 @@ Widget _buildLifecycleArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 3.0),
     child: Center(
-      child: Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 18.0),
+      child: Icon(
+        Icons.arrow_downward,
+        color: Colors.grey.shade400,
+        size: 18.0,
+      ),
     ),
   );
 }
 
-Widget _buildPropertyDisplay(
-  String name,
-  String value,
-  MaterialColor color,
-) {
+Widget _buildPropertyDisplay(String name, String value, MaterialColor color) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -1908,10 +1880,7 @@ Widget _buildPropertyDisplay(
         Container(
           width: 6.0,
           height: 6.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8.0),
         Text(

@@ -74,8 +74,14 @@ Widget _fhSectionTitle(String title, IconData icon) {
 Widget _fhBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -101,9 +107,23 @@ Widget _fhInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _fhTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _fhTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _fhTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _fhTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -118,8 +138,19 @@ Widget _fhInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _fhCode(String text) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _fhSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _fhPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _fhSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: _fhPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -189,7 +220,10 @@ Widget _fhSection2Comparison() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       SizedBox(height: 16),
-      _fhSectionTitle('2 · Floating vs Pinned vs Scrolling', Icons.compare_arrows),
+      _fhSectionTitle(
+        '2 · Floating vs Pinned vs Scrolling',
+        Icons.compare_arrows,
+      ),
       _fhInfoCard(
         'Three header strategies',
         'Flutter provides three persistent header modes: scrolling (scrolls off '
@@ -209,16 +243,74 @@ Widget _fhSection2Comparison() {
             // Header row
             Row(
               children: [
-                Expanded(flex: 2, child: Text('Mode', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _fhTextDark))),
-                Expanded(flex: 2, child: Text('Scroll down', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _fhTextDark))),
-                Expanded(flex: 2, child: Text('Scroll up', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _fhTextDark))),
-                Expanded(flex: 2, child: Text('Render class', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: _fhTextDark))),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Mode',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _fhTextDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Scroll down',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _fhTextDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Scroll up',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _fhTextDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Render class',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                      color: _fhTextDark,
+                    ),
+                  ),
+                ),
               ],
             ),
             Divider(color: _fhDivider, height: 8),
-            _fhCompRow('Scrolling', 'Hides', 'Stays hidden', 'Scrolling…', _fhGrey),
-            _fhCompRow('Pinned', 'Stays visible', 'Stays visible', 'Pinned…', _fhBlue),
-            _fhCompRow('Floating', 'Hides', 'Reappears', 'Floating…', _fhPrimary),
+            _fhCompRow(
+              'Scrolling',
+              'Hides',
+              'Stays hidden',
+              'Scrolling…',
+              _fhGrey,
+            ),
+            _fhCompRow(
+              'Pinned',
+              'Stays visible',
+              'Stays visible',
+              'Pinned…',
+              _fhBlue,
+            ),
+            _fhCompRow(
+              'Floating',
+              'Hides',
+              'Reappears',
+              'Floating…',
+              _fhPrimary,
+            ),
           ],
         ),
       ),
@@ -236,7 +328,13 @@ Widget _fhSection2Comparison() {
   );
 }
 
-Widget _fhCompRow(String mode, String down, String up, String cls, Color color) {
+Widget _fhCompRow(
+  String mode,
+  String down,
+  String up,
+  String cls,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -245,13 +343,42 @@ Widget _fhCompRow(String mode, String down, String up, String cls, Color color) 
           flex: 2,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(3)),
-            child: Text(mode, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color)),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(3),
+            ),
+            child: Text(
+              mode,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ),
         ),
-        Expanded(flex: 2, child: Text(down, style: TextStyle(fontSize: 11, color: _fhTextMedium))),
-        Expanded(flex: 2, child: Text(up, style: TextStyle(fontSize: 11, color: _fhTextMedium))),
-        Expanded(flex: 2, child: Text(cls, style: TextStyle(fontSize: 10, color: _fhGrey, fontFamily: 'monospace'))),
+        Expanded(
+          flex: 2,
+          child: Text(
+            down,
+            style: TextStyle(fontSize: 11, color: _fhTextMedium),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(up, style: TextStyle(fontSize: 11, color: _fhTextMedium)),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(
+            cls,
+            style: TextStyle(
+              fontSize: 10,
+              color: _fhGrey,
+              fontFamily: 'monospace',
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -283,13 +410,40 @@ Widget _fhSection3Layout() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Layout steps', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Layout steps',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            _fhStepItem(1, 'Receive scrollOffset and overlap from viewport', _fhPrimary),
-            _fhStepItem(2, 'Compute effective scroll offset (tracking user delta)', _fhAccent),
-            _fhStepItem(3, 'Lay out child with remaining visible extent', _fhGreen),
-            _fhStepItem(4, 'Set geometry: paintExtent, layoutExtent, maxScrollObstructionExtent', _fhBlue),
-            _fhStepItem(5, 'Viewport positions the sliver and paints accordingly', _fhPurple),
+            _fhStepItem(
+              1,
+              'Receive scrollOffset and overlap from viewport',
+              _fhPrimary,
+            ),
+            _fhStepItem(
+              2,
+              'Compute effective scroll offset (tracking user delta)',
+              _fhAccent,
+            ),
+            _fhStepItem(
+              3,
+              'Lay out child with remaining visible extent',
+              _fhGreen,
+            ),
+            _fhStepItem(
+              4,
+              'Set geometry: paintExtent, layoutExtent, maxScrollObstructionExtent',
+              _fhBlue,
+            ),
+            _fhStepItem(
+              5,
+              'Viewport positions the sliver and paints accordingly',
+              _fhPurple,
+            ),
           ],
         ),
       ),
@@ -303,13 +457,26 @@ Widget _fhStepItem(int n, String text, Color color) {
     child: Row(
       children: [
         Container(
-          width: 22, height: 22,
+          width: 22,
+          height: 22,
           alignment: Alignment.center,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Text('$n', style: TextStyle(fontSize: 10, color: _fhOnPrimary, fontWeight: FontWeight.w700)),
+          child: Text(
+            '$n',
+            style: TextStyle(
+              fontSize: 10,
+              color: _fhOnPrimary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         SizedBox(width: 8),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 11, color: _fhTextMedium))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 11, color: _fhTextMedium),
+          ),
+        ),
       ],
     ),
   );
@@ -322,10 +489,22 @@ Widget _fhSection4Geometry() {
   final fields = <Map<String, String>>[
     {'field': 'scrollExtent', 'desc': 'Total scrollable height (maxExtent)'},
     {'field': 'paintExtent', 'desc': 'Currently visible portion of the header'},
-    {'field': 'layoutExtent', 'desc': 'Space the header occupies in the layout (pushes content)'},
-    {'field': 'maxPaintExtent', 'desc': 'Maximum height the header can paint to (stretch limit)'},
-    {'field': 'maxScrollObstructionExtent', 'desc': 'Height that obstructs scrollable area when pinned'},
-    {'field': 'hasVisualOverflow', 'desc': 'Whether child is clipped during partial visibility'},
+    {
+      'field': 'layoutExtent',
+      'desc': 'Space the header occupies in the layout (pushes content)',
+    },
+    {
+      'field': 'maxPaintExtent',
+      'desc': 'Maximum height the header can paint to (stretch limit)',
+    },
+    {
+      'field': 'maxScrollObstructionExtent',
+      'desc': 'Height that obstructs scrollable area when pinned',
+    },
+    {
+      'field': 'hasVisualOverflow',
+      'desc': 'Whether child is clipped during partial visibility',
+    },
   ];
 
   return Column(
@@ -350,22 +529,40 @@ Widget _fhSection4Geometry() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...fields.map((f) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 140,
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(color: _fhSurfaceDark, borderRadius: BorderRadius.circular(4)),
-                    child: Text(f['field']!, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: _fhPrimary, fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(f['desc']!, style: TextStyle(fontSize: 11, color: _fhTextMedium))),
-                ],
+            ...fields.map(
+              (f) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 140,
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: _fhSurfaceDark,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        f['field']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: _fhPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        f['desc']!,
+                        style: TextStyle(fontSize: 11, color: _fhTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -381,12 +578,17 @@ Widget _fhSection4Geometry() {
           children: [
             // Viewport region
             Positioned(
-              left: 16, top: 8,
-              child: Text('Viewport', style: TextStyle(fontSize: 10, color: _fhGrey)),
+              left: 16,
+              top: 8,
+              child: Text(
+                'Viewport',
+                style: TextStyle(fontSize: 10, color: _fhGrey),
+              ),
             ),
             // Header partially visible
             Positioned(
-              left: 40, top: 30,
+              left: 40,
+              top: 30,
               right: 40,
               child: Container(
                 height: 40,
@@ -396,12 +598,20 @@ Widget _fhSection4Geometry() {
                   border: Border.all(color: _fhPrimary),
                 ),
                 alignment: Alignment.center,
-                child: Text('paintExtent (visible part)', style: TextStyle(fontSize: 10, color: _fhTextDark, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'paintExtent (visible part)',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: _fhTextDark,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             // Scrolled-off portion
             Positioned(
-              left: 40, top: 10,
+              left: 40,
+              top: 10,
               right: 40,
               child: Container(
                 height: 20,
@@ -411,12 +621,16 @@ Widget _fhSection4Geometry() {
                   border: Border.all(color: _fhGrey.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text('scrolled off', style: TextStyle(fontSize: 9, color: _fhGrey)),
+                child: Text(
+                  'scrolled off',
+                  style: TextStyle(fontSize: 9, color: _fhGrey),
+                ),
               ),
             ),
             // Content below
             Positioned(
-              left: 40, top: 80,
+              left: 40,
+              top: 80,
               right: 40,
               child: Container(
                 height: 70,
@@ -426,12 +640,17 @@ Widget _fhSection4Geometry() {
                   border: Border.all(color: _fhDivider),
                 ),
                 alignment: Alignment.center,
-                child: Text('Scroll content\n(pushed by layoutExtent)', textAlign: TextAlign.center, style: TextStyle(fontSize: 10, color: _fhGrey)),
+                child: Text(
+                  'Scroll content\n(pushed by layoutExtent)',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10, color: _fhGrey),
+                ),
               ),
             ),
             // Arrow labels
             Positioned(
-              right: 12, top: 35,
+              right: 12,
+              top: 35,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -474,7 +693,14 @@ Widget _fhSection5Snap() {
         ),
         child: Column(
           children: [
-            Text('Snap decision', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Snap decision',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 10),
             Row(
               children: [
@@ -489,9 +715,23 @@ Widget _fhSection5Snap() {
                       children: [
                         Icon(Icons.expand_less, size: 24, color: _fhPrimary),
                         SizedBox(height: 4),
-                        Text('> 50% visible', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _fhTextDark)),
+                        Text(
+                          '> 50% visible',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: _fhTextDark,
+                          ),
+                        ),
                         SizedBox(height: 2),
-                        Text('Snap OPEN', style: TextStyle(fontSize: 10, color: _fhPrimary, fontWeight: FontWeight.w600)),
+                        Text(
+                          'Snap OPEN',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _fhPrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -508,9 +748,23 @@ Widget _fhSection5Snap() {
                       children: [
                         Icon(Icons.expand_more, size: 24, color: _fhAccentDark),
                         SizedBox(height: 4),
-                        Text('< 50% visible', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _fhTextDark)),
+                        Text(
+                          '< 50% visible',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: _fhTextDark,
+                          ),
+                        ),
                         SizedBox(height: 2),
-                        Text('Snap CLOSED', style: TextStyle(fontSize: 10, color: _fhAccentDark, fontWeight: FontWeight.w600)),
+                        Text(
+                          'Snap CLOSED',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _fhAccentDark,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -520,7 +774,11 @@ Widget _fhSection5Snap() {
             SizedBox(height: 8),
             Text(
               'midpoint = maxExtent / 2',
-              style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _fhTextMedium),
+              style: TextStyle(
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: _fhTextMedium,
+              ),
             ),
           ],
         ),
@@ -543,12 +801,27 @@ Widget _fhSection5Snap() {
 // ---------------------------------------------------------------------------
 Widget _fhSection6Constraints() {
   final constraints = <Map<String, String>>[
-    {'name': 'scrollOffset', 'desc': 'How far the sliver base has scrolled from zero'},
-    {'name': 'overlap', 'desc': 'Space already painted by preceding pinned slivers'},
-    {'name': 'remainingPaintExtent', 'desc': 'Remaining visual space in the viewport'},
-    {'name': 'crossAxisExtent', 'desc': 'Width of the viewport (for full-width headers)'},
+    {
+      'name': 'scrollOffset',
+      'desc': 'How far the sliver base has scrolled from zero',
+    },
+    {
+      'name': 'overlap',
+      'desc': 'Space already painted by preceding pinned slivers',
+    },
+    {
+      'name': 'remainingPaintExtent',
+      'desc': 'Remaining visual space in the viewport',
+    },
+    {
+      'name': 'crossAxisExtent',
+      'desc': 'Width of the viewport (for full-width headers)',
+    },
     {'name': 'cacheOrigin', 'desc': 'Start of the cache area (leading edge)'},
-    {'name': 'remainingCacheExtent', 'desc': 'Cache space available beyond visible area'},
+    {
+      'name': 'remainingCacheExtent',
+      'desc': 'Cache space available beyond visible area',
+    },
   ];
 
   return Column(
@@ -573,22 +846,40 @@ Widget _fhSection6Constraints() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ...constraints.map((c) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 130,
-                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(color: _fhSurfaceDark, borderRadius: BorderRadius.circular(4)),
-                    child: Text(c['name']!, style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: _fhPrimary, fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(c['desc']!, style: TextStyle(fontSize: 11, color: _fhTextMedium))),
-                ],
+            ...constraints.map(
+              (c) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 130,
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: _fhSurfaceDark,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        c['name']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: _fhPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        c['desc']!,
+                        style: TextStyle(fontSize: 11, color: _fhTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -603,7 +894,14 @@ Widget _fhSection6Constraints() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Effective scroll offset tracking', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Effective scroll offset tracking',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 6),
             Text(
               'The floating header maintains an internal _effectiveScrollOffset. '
@@ -653,7 +951,14 @@ Widget _fhSection7Stretch() {
         ),
         child: Column(
           children: [
-            Text('Stretch modes', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Stretch modes',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 10),
             Row(
               children: [
@@ -663,14 +968,30 @@ Widget _fhSection7Stretch() {
                     decoration: BoxDecoration(
                       color: _fhSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _fhPrimary.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: _fhPrimary.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       children: [
-                        Icon(Icons.photo_size_select_large, size: 24, color: _fhPrimary),
+                        Icon(
+                          Icons.photo_size_select_large,
+                          size: 24,
+                          color: _fhPrimary,
+                        ),
                         SizedBox(height: 4),
-                        Text('zoomBackground', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _fhTextDark)),
-                        Text('Scale background image', style: TextStyle(fontSize: 9, color: _fhTextMedium)),
+                        Text(
+                          'zoomBackground',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _fhTextDark,
+                          ),
+                        ),
+                        Text(
+                          'Scale background image',
+                          style: TextStyle(fontSize: 9, color: _fhTextMedium),
+                        ),
                       ],
                     ),
                   ),
@@ -682,14 +1003,26 @@ Widget _fhSection7Stretch() {
                     decoration: BoxDecoration(
                       color: _fhSurface,
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _fhAccent.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: _fhAccent.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.opacity, size: 24, color: _fhAccent),
                         SizedBox(height: 4),
-                        Text('fadeTitle', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _fhTextDark)),
-                        Text('Dim title on stretch', style: TextStyle(fontSize: 9, color: _fhTextMedium)),
+                        Text(
+                          'fadeTitle',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _fhTextDark,
+                          ),
+                        ),
+                        Text(
+                          'Dim title on stretch',
+                          style: TextStyle(fontSize: 9, color: _fhTextMedium),
+                        ),
                       ],
                     ),
                   ),
@@ -707,8 +1040,18 @@ Widget _fhSection7Stretch() {
                       children: [
                         Icon(Icons.blur_on, size: 24, color: _fhBlue),
                         SizedBox(height: 4),
-                        Text('blurBackground', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _fhTextDark)),
-                        Text('Blur on overscroll', style: TextStyle(fontSize: 9, color: _fhTextMedium)),
+                        Text(
+                          'blurBackground',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _fhTextDark,
+                          ),
+                        ),
+                        Text(
+                          'Blur on overscroll',
+                          style: TextStyle(fontSize: 9, color: _fhTextMedium),
+                        ),
                       ],
                     ),
                   ),
@@ -750,7 +1093,8 @@ Widget _fhSection8Extents() {
           children: [
             // Max extent bar
             Positioned(
-              left: 30, top: 20,
+              left: 30,
+              top: 20,
               right: 100,
               child: Container(
                 height: 60,
@@ -760,12 +1104,20 @@ Widget _fhSection8Extents() {
                   border: Border.all(color: _fhPrimary.withValues(alpha: 0.4)),
                 ),
                 alignment: Alignment.center,
-                child: Text('maxExtent (200px)', style: TextStyle(fontSize: 11, color: _fhTextDark, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'maxExtent (200px)',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _fhTextDark,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             // Min extent bar
             Positioned(
-              left: 30, top: 100,
+              left: 30,
+              top: 100,
               right: 180,
               child: Container(
                 height: 40,
@@ -775,24 +1127,38 @@ Widget _fhSection8Extents() {
                   border: Border.all(color: _fhAccent.withValues(alpha: 0.4)),
                 ),
                 alignment: Alignment.center,
-                child: Text('minExtent (56px)', style: TextStyle(fontSize: 11, color: _fhTextDark, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'minExtent (56px)',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _fhTextDark,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             // Labels
             Positioned(
-              right: 12, top: 35,
+              right: 12,
+              top: 35,
               child: _fhBadge('expanded', _fhPrimary, _fhOnPrimary),
             ),
             Positioned(
-              right: 12, top: 108,
+              right: 12,
+              top: 108,
               child: _fhBadge('collapsed', _fhAccent, _fhOnPrimary),
             ),
             // Info
             Positioned(
-              left: 30, bottom: 12,
+              left: 30,
+              bottom: 12,
               child: Text(
                 'Header interpolates between min and max based on scroll position',
-                style: TextStyle(fontSize: 10, color: _fhGrey, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10,
+                  color: _fhGrey,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ],
@@ -809,11 +1175,22 @@ Widget _fhSection8Extents() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Extent formula', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Extent formula',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 6),
-            _fhCode('childExtent = max(minExtent, maxExtent - effectiveScrollOffset)'),
+            _fhCode(
+              'childExtent = max(minExtent, maxExtent - effectiveScrollOffset)',
+            ),
             SizedBox(height: 4),
-            _fhCode('paintExtent = clamp(childExtent, 0, remainingPaintExtent)'),
+            _fhCode(
+              'paintExtent = clamp(childExtent, 0, remainingPaintExtent)',
+            ),
             SizedBox(height: 6),
             Text(
               'The child is sized to childExtent. The sliver\'s visible portion '
@@ -854,21 +1231,48 @@ Widget _fhSection9Integration() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Widget → Render chain', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _fhTextDark)),
+            Text(
+              'Widget → Render chain',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _fhTextDark,
+              ),
+            ),
             SizedBox(height: 10),
             Row(
               children: [
-                Expanded(child: _fhBadge('SliverAppBar', _fhPrimary, _fhOnPrimary)),
+                Expanded(
+                  child: _fhBadge('SliverAppBar', _fhPrimary, _fhOnPrimary),
+                ),
                 Icon(Icons.arrow_forward, size: 14, color: _fhGrey),
-                Expanded(child: _fhBadge('SliverPersistentHeader', _fhAccent, _fhOnPrimary)),
+                Expanded(
+                  child: _fhBadge(
+                    'SliverPersistentHeader',
+                    _fhAccent,
+                    _fhOnPrimary,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 6),
             Row(
               children: [
-                Expanded(child: _fhBadge('_SliverFloatingHeader', _fhBlue, _fhOnPrimary)),
+                Expanded(
+                  child: _fhBadge(
+                    '_SliverFloatingHeader',
+                    _fhBlue,
+                    _fhOnPrimary,
+                  ),
+                ),
                 Icon(Icons.arrow_forward, size: 14, color: _fhGrey),
-                Expanded(child: _fhBadge('RenderSliverFloating…', _fhGreen, _fhOnPrimary)),
+                Expanded(
+                  child: _fhBadge(
+                    'RenderSliverFloating…',
+                    _fhGreen,
+                    _fhOnPrimary,
+                  ),
+                ),
               ],
             ),
           ],
@@ -889,7 +1293,10 @@ Widget _fhSection9Integration() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_fhPrimary.withValues(alpha: 0.08), _fhAccent.withValues(alpha: 0.08)],
+            colors: [
+              _fhPrimary.withValues(alpha: 0.08),
+              _fhAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _fhPrimary.withValues(alpha: 0.2)),
@@ -900,7 +1307,11 @@ Widget _fhSection9Integration() {
             SizedBox(height: 8),
             Text(
               'RenderSliverFloatingPersistentHeader',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: _fhTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: _fhTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -962,7 +1373,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Floating header sliver — reappears on reverse scroll',
-                style: TextStyle(fontSize: 12, color: _fhOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _fhOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

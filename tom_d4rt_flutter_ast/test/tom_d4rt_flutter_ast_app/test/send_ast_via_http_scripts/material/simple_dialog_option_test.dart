@@ -62,10 +62,7 @@ Widget buildBasicOption(String labelText, Color backgroundColor) {
       onPressed: () {
         print('Option pressed: $labelText');
       },
-      child: Text(
-        labelText,
-        style: TextStyle(fontSize: 16),
-      ),
+      child: Text(labelText, style: TextStyle(fontSize: 16)),
     ),
   );
 }
@@ -91,10 +88,7 @@ Widget buildOptionWithIcon(
         children: [
           Icon(iconData, color: iconColor, size: 24),
           SizedBox(width: 12),
-          Text(
-            labelText,
-            style: TextStyle(fontSize: 16),
-          ),
+          Text(labelText, style: TextStyle(fontSize: 16)),
         ],
       ),
     ),
@@ -164,10 +158,7 @@ Widget buildSimpleDialogPreview() {
           children: [
             Icon(optionIcons[i], color: Colors.indigo, size: 22),
             SizedBox(width: 12),
-            Text(
-              optionLabels[i],
-              style: TextStyle(fontSize: 15),
-            ),
+            Text(optionLabels[i], style: TextStyle(fontSize: 15)),
           ],
         ),
       ),
@@ -194,10 +185,7 @@ Widget buildSimpleDialogPreview() {
       children: [
         Text(
           'Select an option',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 8),
         Divider(color: Colors.grey.shade300),
@@ -404,9 +392,7 @@ Widget buildTrailingBadgePattern() {
         },
         child: Row(
           children: [
-            Expanded(
-              child: Text('Messages', style: TextStyle(fontSize: 15)),
-            ),
+            Expanded(child: Text('Messages', style: TextStyle(fontSize: 15))),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
@@ -575,7 +561,7 @@ Widget _buildAccessibilityItem(
 Widget buildCallbackDemonstration() {
   print('Building callback demonstration');
   int tapCount = 0;
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -714,10 +700,7 @@ Widget buildPaddingComparisonGrid() {
                 print('Padding option pressed: ${paddingLabels[i]}');
               },
               padding: paddingValues[i],
-              child: Text(
-                'Option Text',
-                style: TextStyle(fontSize: 13),
-              ),
+              child: Text('Option Text', style: TextStyle(fontSize: 13)),
             ),
           ],
         ),
@@ -749,14 +732,7 @@ Widget buildOptionsListDemo() {
     'Japan',
     'Australia',
   ];
-  List<String> countryFlags = [
-    '🇺🇸',
-    '🇬🇧',
-    '🇩🇪',
-    '🇫🇷',
-    '🇯🇵',
-    '🇦🇺',
-  ];
+  List<String> countryFlags = ['🇺🇸', '🇬🇧', '🇩🇪', '🇫🇷', '🇯🇵', '🇦🇺'];
 
   List<Widget> countryOptions = [];
   int i = 0;
@@ -768,15 +744,9 @@ Widget buildOptionsListDemo() {
         },
         child: Row(
           children: [
-            Text(
-              countryFlags[i],
-              style: TextStyle(fontSize: 22),
-            ),
+            Text(countryFlags[i], style: TextStyle(fontSize: 22)),
             SizedBox(width: 16),
-            Text(
-              countryNames[i],
-              style: TextStyle(fontSize: 15),
-            ),
+            Text(countryNames[i], style: TextStyle(fontSize: 15)),
           ],
         ),
       ),
@@ -1195,10 +1165,7 @@ dynamic build(BuildContext context) {
 
   Widget result = MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      primarySwatch: Colors.indigo,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(primarySwatch: Colors.indigo, useMaterial3: true),
     home: Scaffold(
       backgroundColor: Colors.grey.shade200,
       appBar: AppBar(

@@ -199,17 +199,33 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 16.0),
-        _categorySection('Timing & Identity', Icons.schedule, Colors.cyan,
-            timingFields),
+        _categorySection(
+          'Timing & Identity',
+          Icons.schedule,
+          Colors.cyan,
+          timingFields,
+        ),
         SizedBox(height: 12.0),
         _categorySection(
-            'Position & Motion', Icons.place, Colors.green, positionFields),
+          'Position & Motion',
+          Icons.place,
+          Colors.green,
+          positionFields,
+        ),
         SizedBox(height: 12.0),
-        _categorySection('Device & Buttons', Icons.mouse, Colors.orange,
-            deviceFields),
+        _categorySection(
+          'Device & Buttons',
+          Icons.mouse,
+          Colors.orange,
+          deviceFields,
+        ),
         SizedBox(height: 12.0),
-        _categorySection('Pressure & Geometry', Icons.touch_app, Colors.pink,
-            pressureFields),
+        _categorySection(
+          'Pressure & Geometry',
+          Icons.touch_app,
+          Colors.pink,
+          pressureFields,
+        ),
       ],
     ),
   );
@@ -271,11 +287,12 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _legendRow(
-                  Colors.teal, 'Up: user-initiated, gesture succeeds.'),
+              _legendRow(Colors.teal, 'Up: user-initiated, gesture succeeds.'),
               SizedBox(height: 6.0),
-              _legendRow(Colors.red.shade400,
-                  'Cancel: framework reclaims, gesture aborts.'),
+              _legendRow(
+                Colors.red.shade400,
+                'Cancel: framework reclaims, gesture aborts.',
+              ),
             ],
           ),
         ),
@@ -390,11 +407,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: Colors.orange.shade900),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: deviceKindCards,
-        ),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: deviceKindCards),
       ],
     ),
   );
@@ -508,7 +521,7 @@ dynamic build(BuildContext context) {
       'title': 'Gesture Arena Loss',
       'body':
           'A pan recognizer is competing with a drag in the arena. The drag '
-              'wins; the pan recognizer receives PointerCancelEvent and bails.',
+          'wins; the pan recognizer receives PointerCancelEvent and bails.',
     },
     <String, dynamic>{
       'icon': Icons.refresh,
@@ -516,7 +529,7 @@ dynamic build(BuildContext context) {
       'title': 'Pull-to-Refresh Interruption',
       'body':
           'User starts a pull-down, then a system overlay steals focus. '
-              'RefreshIndicator gets cancel and resets without firing onRefresh.',
+          'RefreshIndicator gets cancel and resets without firing onRefresh.',
     },
     <String, dynamic>{
       'icon': Icons.delete_sweep,
@@ -524,7 +537,7 @@ dynamic build(BuildContext context) {
       'title': 'Swipe-to-Dismiss Cancellation',
       'body':
           'Dismissible drag is interrupted by an incoming Route push. The '
-              'tile snaps back rather than dismissing.',
+          'tile snaps back rather than dismissing.',
     },
     <String, dynamic>{
       'icon': Icons.group,
@@ -532,18 +545,20 @@ dynamic build(BuildContext context) {
       'title': 'Multi-Touch Handoff',
       'body':
           'A second finger triggers a scale gesture; the original tap '
-              'recognizer receives cancel because tap lost arena ownership.',
+          'recognizer receives cancel because tap lost arena ownership.',
     },
   ];
 
   final List<Widget> useCaseTiles = <Widget>[];
   for (final Map<String, dynamic> uc in useCases) {
-    useCaseTiles.add(_useCaseTile(
-      uc['icon'] as IconData,
-      uc['color'] as Color,
-      uc['title'] as String,
-      uc['body'] as String,
-    ));
+    useCaseTiles.add(
+      _useCaseTile(
+        uc['icon'] as IconData,
+        uc['color'] as Color,
+        uc['title'] as String,
+        uc['body'] as String,
+      ),
+    );
   }
 
   final Widget useCasesPanel = Container(
@@ -681,25 +696,25 @@ dynamic build(BuildContext context) {
       'title': 'Recognizer never claimed arena',
       'body':
           'GestureDetector callbacks may not fire onCancel if the recognizer '
-              'never won. Cancel still arrives at Listener — handle there.',
+          'never won. Cancel still arrives at Listener — handle there.',
     },
     <String, String>{
       'title': 'position vs localPosition',
       'body':
           'They differ when ancestors apply transforms. Never assume equality; '
-              'use localPosition for hit-test-relative coordinates.',
+          'use localPosition for hit-test-relative coordinates.',
     },
     <String, String>{
       'title': 'delta is zero on cancel',
       'body':
           'A cancel does not move the pointer; delta and localDelta are always '
-              'Offset.zero. Read the last move event for trajectory.',
+          'Offset.zero. Read the last move event for trajectory.',
     },
     <String, String>{
       'title': 'Cancel may be silently swallowed',
       'body':
           'A child Listener with HitTestBehavior.opaque can absorb cancels '
-              'without forwarding. Use translucent or deferToChild deliberately.',
+          'without forwarding. Use translucent or deferToChild deliberately.',
     },
   ];
 
@@ -731,8 +746,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade700, size: 24.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 24.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Footguns',
@@ -788,8 +806,13 @@ dynamic build(BuildContext context) {
         _comparisonRow('PointerDownEvent', 'User', 'No', 'Yes', Colors.green),
         _comparisonRow('PointerMoveEvent', 'User', 'No', 'Yes', Colors.blue),
         _comparisonRow('PointerUpEvent', 'User', 'Yes', 'Last', Colors.teal),
-        _comparisonRow('PointerCancelEvent', 'Framework', 'Yes', 'Zero',
-            Colors.red),
+        _comparisonRow(
+          'PointerCancelEvent',
+          'Framework',
+          'Yes',
+          'Zero',
+          Colors.red,
+        ),
       ],
     ),
   );
@@ -952,7 +975,11 @@ Widget _fieldChip(String name, String type, String value, Color color) {
 }
 
 Widget _categorySection(
-    String title, IconData icon, Color color, List<Widget> chips) {
+  String title,
+  IconData icon,
+  Color color,
+  List<Widget> chips,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -990,10 +1017,7 @@ Widget _lifecycleNode(String label, IconData icon, Color color) {
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          color.withValues(alpha: 0.7),
-          color,
-        ],
+        colors: <Color>[color.withValues(alpha: 0.7), color],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1079,7 +1103,12 @@ Widget _legendRow(Color color, String text) {
 }
 
 Widget _deviceKindCard(
-    String label, IconData icon, Color color, String note, String posText) {
+  String label,
+  IconData icon,
+  Color color,
+  String note,
+  String posText,
+) {
   return Container(
     width: 150.0,
     padding: EdgeInsets.all(12.0),
@@ -1166,10 +1195,7 @@ Widget _eventCard(String title, PointerCancelEvent ev, Color color) {
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -1210,11 +1236,7 @@ Widget _evField(String name, String value, Color color) {
     ),
     child: Text(
       '$name: $value',
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 10.0,
-        color: color,
-      ),
+      style: TextStyle(fontFamily: 'monospace', fontSize: 10.0, color: color),
     ),
   );
 }
@@ -1290,8 +1312,7 @@ Widget _footgunTile(String title, String body) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.bug_report,
-                color: Colors.red.shade700, size: 16.0),
+            Icon(Icons.bug_report, color: Colors.red.shade700, size: 16.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1339,7 +1360,12 @@ Widget _headerCell(String text, double width) {
 }
 
 Widget _comparisonRow(
-    String name, String origin, String ends, String delta, Color color) {
+  String name,
+  String origin,
+  String ends,
+  String delta,
+  Color color,
+) {
   return Row(
     children: <Widget>[
       _dataCell(name, 130.0, color, monospace: true, bold: true),
@@ -1350,8 +1376,13 @@ Widget _comparisonRow(
   );
 }
 
-Widget _dataCell(String text, double width, Color color,
-    {bool monospace = false, bool bold = false}) {
+Widget _dataCell(
+  String text,
+  double width,
+  Color color, {
+  bool monospace = false,
+  bool bold = false,
+}) {
   return Container(
     width: width,
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),

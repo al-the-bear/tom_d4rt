@@ -59,14 +59,16 @@ final ValueNotifier<bool> _twoDVpPdShowOffsets = ValueNotifier<bool>(true);
 final ValueNotifier<bool> _twoDVpPdShowVectors = ValueNotifier<bool>(true);
 final ValueNotifier<_TwoDVpPdVicinity?> _twoDVpPdSelectedCell =
     ValueNotifier<_TwoDVpPdVicinity?>(null);
-final ValueNotifier<double> _twoDVpPdHorizontalScroll = ValueNotifier<double>(0);
+final ValueNotifier<double> _twoDVpPdHorizontalScroll = ValueNotifier<double>(
+  0,
+);
 final ValueNotifier<double> _twoDVpPdVerticalScroll = ValueNotifier<double>(0);
 final ValueNotifier<List<String>> _twoDVpPdConsole =
     ValueNotifier<List<String>>(<String>[
-  '[boot] _TwoDVpPdRenderGrid attached',
-  '[boot] setupParentData called for 30 children',
-  '[boot] layoutChildSequence complete — 30 parentData records updated',
-]);
+      '[boot] _TwoDVpPdRenderGrid attached',
+      '[boot] setupParentData called for 30 children',
+      '[boot] layoutChildSequence complete — 30 parentData records updated',
+    ]);
 
 // ───────────────────────────────────────────────────────────────────────────
 // Support types — vicinity echo + parent-data record.
@@ -332,8 +334,9 @@ class _TwoDVpPdBlueprintBackgroundPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _TwoDVpPdBlueprintBackgroundPainter oldDelegate) =>
-      false;
+  bool shouldRepaint(
+    covariant _TwoDVpPdBlueprintBackgroundPainter oldDelegate,
+  ) => false;
 }
 
 // ───────────────────────────────────────────────────────────────────────────
@@ -371,11 +374,7 @@ class _TwoDVpPdCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _TwoDVpPdCardHeader(
-            title: title,
-            subtitle: subtitle,
-            stamp: stamp,
-          ),
+          _TwoDVpPdCardHeader(title: title, subtitle: subtitle, stamp: stamp),
           Container(height: 1, color: _twoDVpPdBrass.withValues(alpha: 0.45)),
           Padding(padding: const EdgeInsets.all(16), child: body),
         ],
@@ -463,7 +462,8 @@ class _TwoDVpPdPreambleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return const _TwoDVpPdCard(
       title: 'PREAMBLE · what is a ParentData?',
-      subtitle: 'Per-child state that only the parent render object cares about',
+      subtitle:
+          'Per-child state that only the parent render object cares about',
       stamp: 'PLATE 01',
       body: _TwoDVpPdPreambleBody(),
     );
@@ -872,10 +872,7 @@ class _TwoDVpPdLabeledSlider extends StatelessWidget {
               width: 100,
               child: Text(
                 label,
-                style: const TextStyle(
-                  color: _twoDVpPdBrass,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: _twoDVpPdBrass, fontSize: 12),
               ),
             ),
             Expanded(
@@ -908,10 +905,7 @@ class _TwoDVpPdLabeledSlider extends StatelessWidget {
               child: Text(
                 '$value',
                 textAlign: TextAlign.right,
-                style: const TextStyle(
-                  color: _twoDVpPdIvory,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: _twoDVpPdIvory, fontSize: 12),
               ),
             ),
           ],
@@ -969,10 +963,7 @@ class _TwoDVpPdDoubleSlider extends StatelessWidget {
               width: 100,
               child: Text(
                 label,
-                style: const TextStyle(
-                  color: _twoDVpPdBrass,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: _twoDVpPdBrass, fontSize: 12),
               ),
             ),
             Expanded(
@@ -998,10 +989,7 @@ class _TwoDVpPdDoubleSlider extends StatelessWidget {
               child: Text(
                 value.toStringAsFixed(0),
                 textAlign: TextAlign.right,
-                style: const TextStyle(
-                  color: _twoDVpPdIvory,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: _twoDVpPdIvory, fontSize: 12),
               ),
             ),
           ],
@@ -1068,9 +1056,7 @@ class _TwoDVpPdSwitchTile extends StatelessWidget {
                 inactiveTrackColor: _twoDVpPdFaded,
                 onChanged: (bool next) {
                   listenable.value = next;
-                  _twoDVpPdAppendConsole(
-                    '[toggle] $label := $next',
-                  );
+                  _twoDVpPdAppendConsole('[toggle] $label := $next');
                 },
               ),
               const SizedBox(width: 6),
@@ -1155,10 +1141,7 @@ class _TwoDVpPdLiveGridBody extends StatelessWidget {
           children: <Widget>[
             const Text(
               '// simulated layoutChildSequence',
-              style: TextStyle(
-                color: _twoDVpPdChalk,
-                fontSize: 11,
-              ),
+              style: TextStyle(color: _twoDVpPdChalk, fontSize: 11),
             ),
             const SizedBox(height: 6),
             _TwoDVpPdSimulatedViewport(spec: spec),
@@ -1335,10 +1318,7 @@ class _TwoDVpPdSimulatedViewport extends StatelessWidget {
               top: 4,
               child: Text(
                 'viewport origin (0,0) ↖',
-                style: TextStyle(
-                  color: _twoDVpPdIvorySoft,
-                  fontSize: 10,
-                ),
+                style: TextStyle(color: _twoDVpPdIvorySoft, fontSize: 10),
               ),
             ),
             const Positioned(
@@ -1346,10 +1326,7 @@ class _TwoDVpPdSimulatedViewport extends StatelessWidget {
               bottom: 4,
               child: Text(
                 'RenderTwoDimensionalViewport analogue · clipBehavior=hardEdge',
-                style: TextStyle(
-                  color: _twoDVpPdChalk,
-                  fontSize: 9.5,
-                ),
+                style: TextStyle(color: _twoDVpPdChalk, fontSize: 9.5),
               ),
             ),
           ],
@@ -1458,10 +1435,7 @@ class _TwoDVpPdCellWidget extends StatelessWidget {
             margin: const EdgeInsets.all(1.5),
             decoration: BoxDecoration(
               color: fill,
-              border: Border.all(
-                color: border,
-                width: isSelected ? 2 : 1,
-              ),
+              border: Border.all(color: border, width: isSelected ? 2 : 1),
             ),
             child: Stack(
               clipBehavior: Clip.none,
@@ -1658,10 +1632,7 @@ String _twoDVpPdSiblingLabel(
 }
 
 class _TwoDVpPdInspectorRow extends StatelessWidget {
-  const _TwoDVpPdInspectorRow({
-    required this.name,
-    required this.value,
-  });
+  const _TwoDVpPdInspectorRow({required this.name, required this.value});
 
   final String name;
   final String value;
@@ -1687,10 +1658,7 @@ class _TwoDVpPdInspectorRow extends StatelessWidget {
           ),
           const Text(
             '=',
-            style: TextStyle(
-              color: _twoDVpPdChalk,
-              fontSize: 12.5,
-            ),
+            style: TextStyle(color: _twoDVpPdChalk, fontSize: 12.5),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1845,10 +1813,7 @@ class _TwoDVpPdCullSide extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           'painted: $painted / ${spec.cols * spec.rows}',
-          style: const TextStyle(
-            color: _twoDVpPdIvory,
-            fontSize: 11,
-          ),
+          style: const TextStyle(color: _twoDVpPdIvory, fontSize: 11),
         ),
       ],
     );
@@ -1861,33 +1826,35 @@ class _TwoDVpPdCullSide extends StatelessWidget {
         final _TwoDVpPdVicinity v = _TwoDVpPdVicinity(xIndex: x, yIndex: y);
         final Offset o = spec.layoutOffsetFor(v);
         final bool visible = spec.isVisibleFor(v);
-        out.add(Positioned(
-          left: o.dx,
-          top: o.dy,
-          width: spec.cellSize,
-          height: spec.cellSize,
-          child: Container(
-            margin: const EdgeInsets.all(1),
-            decoration: BoxDecoration(
-              color: visible
-                  ? _twoDVpPdBrass.withValues(alpha: 0.18)
-                  : _twoDVpPdFaded.withValues(alpha: 0.15),
-              border: Border.all(
-                color: visible ? _twoDVpPdBrass : _twoDVpPdFaded,
-                width: 0.8,
+        out.add(
+          Positioned(
+            left: o.dx,
+            top: o.dy,
+            width: spec.cellSize,
+            height: spec.cellSize,
+            child: Container(
+              margin: const EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                color: visible
+                    ? _twoDVpPdBrass.withValues(alpha: 0.18)
+                    : _twoDVpPdFaded.withValues(alpha: 0.15),
+                border: Border.all(
+                  color: visible ? _twoDVpPdBrass : _twoDVpPdFaded,
+                  width: 0.8,
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                '${v.xIndex},${v.yIndex}',
-                style: TextStyle(
-                  color: visible ? _twoDVpPdIvory : _twoDVpPdChalk,
-                  fontSize: 9,
+              child: Center(
+                child: Text(
+                  '${v.xIndex},${v.yIndex}',
+                  style: TextStyle(
+                    color: visible ? _twoDVpPdIvory : _twoDVpPdChalk,
+                    fontSize: 9,
+                  ),
                 ),
               ),
             ),
           ),
-        ));
+        );
       }
     }
     return out;
@@ -1971,10 +1938,7 @@ class _TwoDVpPdVectorFieldBody extends StatelessWidget {
 }
 
 class _TwoDVpPdVectorFieldPainter extends CustomPainter {
-  _TwoDVpPdVectorFieldPainter({
-    required this.spec,
-    required this.drawVectors,
-  });
+  _TwoDVpPdVectorFieldPainter({required this.spec, required this.drawVectors});
 
   final _TwoDVpPdViewportSpec spec;
   final bool drawVectors;
@@ -2007,10 +1971,16 @@ class _TwoDVpPdVectorFieldPainter extends CustomPainter {
     final Paint originPaint = Paint()
       ..color = _twoDVpPdRedInk
       ..strokeWidth = 2;
-    canvas.drawLine(origin - const Offset(6, 0), origin + const Offset(6, 0),
-        originPaint);
-    canvas.drawLine(origin - const Offset(0, 6), origin + const Offset(0, 6),
-        originPaint);
+    canvas.drawLine(
+      origin - const Offset(6, 0),
+      origin + const Offset(6, 0),
+      originPaint,
+    );
+    canvas.drawLine(
+      origin - const Offset(0, 6),
+      origin + const Offset(0, 6),
+      originPaint,
+    );
 
     // vectors
     final Paint visiblePaint = Paint()
@@ -2036,8 +2006,9 @@ class _TwoDVpPdVectorFieldPainter extends CustomPainter {
         }
         // a dot at the child position
         final Paint dotPaint = Paint()
-          ..color =
-              visible ? _twoDVpPdBrass : _twoDVpPdFaded.withValues(alpha: 0.7);
+          ..color = visible
+              ? _twoDVpPdBrass
+              : _twoDVpPdFaded.withValues(alpha: 0.7);
         canvas.drawCircle(endPoint, 2.5, dotPaint);
       }
     }
@@ -2115,7 +2086,8 @@ class _TwoDVpPdLifecycleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return const _TwoDVpPdCard(
       title: 'LIFECYCLE · how the framework touches parentData',
-      subtitle: 'setupParentData → buildOrObtainChildFor → layoutChildSequence → paint',
+      subtitle:
+          'setupParentData → buildOrObtainChildFor → layoutChildSequence → paint',
       stamp: 'PLATE 08',
       body: _TwoDVpPdLifecycleBody(),
     );
@@ -2289,9 +2261,7 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
                 _twoDVpPdConsole.value = <String>[];
                 _twoDVpPdAppendConsole('[console] cleared');
               },
-              style: TextButton.styleFrom(
-                foregroundColor: _twoDVpPdRedInk,
-              ),
+              style: TextButton.styleFrom(foregroundColor: _twoDVpPdRedInk),
               child: const Text('clear'),
             ),
             const SizedBox(width: 8),
@@ -2302,9 +2272,7 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
                   '${(1 + (_twoDVpPdCols.value * _twoDVpPdRows.value) ~/ 4)}ms',
                 );
               },
-              style: TextButton.styleFrom(
-                foregroundColor: _twoDVpPdBrass,
-              ),
+              style: TextButton.styleFrom(foregroundColor: _twoDVpPdBrass),
               child: const Text('simulate layout'),
             ),
             const SizedBox(width: 8),
@@ -2315,9 +2283,7 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
                   '${_twoDVpPdCols.value * _twoDVpPdRows.value} children',
                 );
               },
-              style: TextButton.styleFrom(
-                foregroundColor: _twoDVpPdChalk,
-              ),
+              style: TextButton.styleFrom(foregroundColor: _twoDVpPdChalk),
               child: const Text('simulate paint-data'),
             ),
           ],
@@ -2331,8 +2297,7 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
           ),
           child: ValueListenableBuilder<List<String>>(
             valueListenable: _twoDVpPdConsole,
-            builder:
-                (BuildContext context, List<String> lines, Widget? _) {
+            builder: (BuildContext context, List<String> lines, Widget? _) {
               return ListView.builder(
                 padding: const EdgeInsets.all(6),
                 reverse: true,
@@ -2342,10 +2307,10 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
                   final Color c = line.startsWith('[tap]')
                       ? _twoDVpPdRedInk
                       : line.startsWith('[sim]')
-                          ? _twoDVpPdChalk
-                          : line.startsWith('[toggle]')
-                              ? _twoDVpPdBrass
-                              : _twoDVpPdIvorySoft;
+                      ? _twoDVpPdChalk
+                      : line.startsWith('[toggle]')
+                      ? _twoDVpPdBrass
+                      : _twoDVpPdIvorySoft;
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 1.5),
                     child: Text(
@@ -2369,7 +2334,8 @@ class _TwoDVpPdConsoleBody extends StatelessWidget {
 }
 
 void _twoDVpPdAppendConsole(String line) {
-  final List<String> next = List<String>.from(_twoDVpPdConsole.value)..add(line);
+  final List<String> next = List<String>.from(_twoDVpPdConsole.value)
+    ..add(line);
   while (next.length > 80) {
     next.removeAt(0);
   }
@@ -2405,15 +2371,23 @@ class _TwoDVpPdFooterRibbon extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          const _TwoDVpPdBullet('RenderTwoDimensionalViewport — the base class '
-              'that installs TwoDimensionalViewportParentData on every child.'),
-          const _TwoDVpPdBullet('ChildVicinity — the two-integer identifier '
-              'stored in parentData.vicinity.'),
-          const _TwoDVpPdBullet('TwoDimensionalChildDelegate / '
-              'TwoDimensionalChildManager — drive when children are built, '
-              'and thus when new parentData payloads are installed.'),
-          const _TwoDVpPdBullet('KeepAliveParentDataMixin — the mixin that '
-              'adds the keepAlive flag and keptAlive getter.'),
+          const _TwoDVpPdBullet(
+            'RenderTwoDimensionalViewport — the base class '
+            'that installs TwoDimensionalViewportParentData on every child.',
+          ),
+          const _TwoDVpPdBullet(
+            'ChildVicinity — the two-integer identifier '
+            'stored in parentData.vicinity.',
+          ),
+          const _TwoDVpPdBullet(
+            'TwoDimensionalChildDelegate / '
+            'TwoDimensionalChildManager — drive when children are built, '
+            'and thus when new parentData payloads are installed.',
+          ),
+          const _TwoDVpPdBullet(
+            'KeepAliveParentDataMixin — the mixin that '
+            'adds the keepAlive flag and keptAlive getter.',
+          ),
           const SizedBox(height: 8),
           Text(
             'All offsets on this plate are computed purely in Dart from the '

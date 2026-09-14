@@ -80,8 +80,14 @@ Widget _vbSectionTitle(String title, IconData icon) {
 Widget _vbBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -107,9 +113,23 @@ Widget _vbInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _vbTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _vbTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _vbTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _vbTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -124,8 +144,19 @@ Widget _vbInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _vbCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _vbSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _vbAccent, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _vbSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _vbAccent,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -163,24 +194,68 @@ Widget _vbSection1Overview() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Viewport position in the tree', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _vbTextDark)),
+            Text(
+              'Viewport position in the tree',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _vbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
               {'depth': 0, 'name': 'ScrollView (widget)', 'color': _vbGrey},
-              {'depth': 1, 'name': 'Scrollable + ScrollController', 'color': _vbBlue},
-              {'depth': 2, 'name': 'Viewport (creates RenderViewport)', 'color': _vbPrimary},
-              {'depth': 3, 'name': 'RenderViewport extends RenderViewportBase', 'color': _vbAccent},
-              {'depth': 4, 'name': 'SliverList, SliverGrid, SliverAppBar...', 'color': _vbGreen},
-            ].map((e) => Padding(
-              padding: EdgeInsets.only(left: (e['depth'] as int) * 16.0, bottom: 4),
-              child: Row(
-                children: [
-                  Container(width: 8, height: 8, decoration: BoxDecoration(color: e['color'] as Color, shape: BoxShape.circle)),
-                  SizedBox(width: 6),
-                  Flexible(child: Text(e['name'] as String, style: TextStyle(fontSize: 11, color: e['color'] as Color, fontWeight: FontWeight.w600))),
-                ],
+              {
+                'depth': 1,
+                'name': 'Scrollable + ScrollController',
+                'color': _vbBlue,
+              },
+              {
+                'depth': 2,
+                'name': 'Viewport (creates RenderViewport)',
+                'color': _vbPrimary,
+              },
+              {
+                'depth': 3,
+                'name': 'RenderViewport extends RenderViewportBase',
+                'color': _vbAccent,
+              },
+              {
+                'depth': 4,
+                'name': 'SliverList, SliverGrid, SliverAppBar...',
+                'color': _vbGreen,
+              },
+            ].map(
+              (e) => Padding(
+                padding: EdgeInsets.only(
+                  left: (e['depth'] as int) * 16.0,
+                  bottom: 4,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: e['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        e['name'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: e['color'] as Color,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -215,40 +290,76 @@ Widget _vbSection2SliverManagement() {
           children: [
             // Scroll axis arrow
             Positioned(
-              left: 10, top: 16, bottom: 16,
-              child: Container(
-                width: 2,
-                color: _vbGrey.withValues(alpha: 0.3),
-              ),
+              left: 10,
+              top: 16,
+              bottom: 16,
+              child: Container(width: 2, color: _vbGrey.withValues(alpha: 0.3)),
             ),
             Positioned(
-              left: 5, bottom: 6,
+              left: 5,
+              bottom: 6,
               child: Icon(Icons.arrow_downward, size: 14, color: _vbGrey),
             ),
             Positioned(
-              left: 2, top: 4,
-              child: Text('scroll', style: TextStyle(fontSize: 8, color: _vbGrey)),
+              left: 2,
+              top: 4,
+              child: Text(
+                'scroll',
+                style: TextStyle(fontSize: 8, color: _vbGrey),
+              ),
             ),
             // Slivers
             ...[
-              {'top': 14.0, 'height': 36.0, 'label': 'SliverAppBar', 'color': _vbBlue},
-              {'top': 56.0, 'height': 28.0, 'label': 'SliverToBoxAdapter', 'color': _vbTeal},
-              {'top': 90.0, 'height': 44.0, 'label': 'SliverList', 'color': _vbOrange},
-              {'top': 140.0, 'height': 28.0, 'label': 'SliverGrid', 'color': _vbPurple},
-            ].map((s) => Positioned(
-              left: 24, right: 12,
-              top: s['top'] as double,
-              child: Container(
-                height: s['height'] as double,
-                decoration: BoxDecoration(
-                  color: (s['color'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+              {
+                'top': 14.0,
+                'height': 36.0,
+                'label': 'SliverAppBar',
+                'color': _vbBlue,
+              },
+              {
+                'top': 56.0,
+                'height': 28.0,
+                'label': 'SliverToBoxAdapter',
+                'color': _vbTeal,
+              },
+              {
+                'top': 90.0,
+                'height': 44.0,
+                'label': 'SliverList',
+                'color': _vbOrange,
+              },
+              {
+                'top': 140.0,
+                'height': 28.0,
+                'label': 'SliverGrid',
+                'color': _vbPurple,
+              },
+            ].map(
+              (s) => Positioned(
+                left: 24,
+                right: 12,
+                top: s['top'] as double,
+                child: Container(
+                  height: s['height'] as double,
+                  decoration: BoxDecoration(
+                    color: (s['color'] as Color).withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: (s['color'] as Color).withValues(alpha: 0.3),
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    s['label'] as String,
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: s['color'] as Color,
+                    ),
+                  ),
                 ),
-                alignment: Alignment.center,
-                child: Text(s['label'] as String, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: s['color'] as Color)),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -283,30 +394,72 @@ Widget _vbSection3Offset() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('ViewportOffset provides', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _vbTextDark)),
+            Text(
+              'ViewportOffset provides',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _vbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
-              {'name': 'pixels', 'desc': 'Current scroll offset in logical pixels', 'color': _vbBlue},
-              {'name': 'applyViewportDimension()', 'desc': 'Informs the offset of the viewport size', 'color': _vbGreen},
-              {'name': 'applyContentDimensions()', 'desc': 'Informs the min/max scroll extent', 'color': _vbOrange},
-              {'name': 'correctBy()', 'desc': 'Adjusts the scroll offset during layout', 'color': _vbPurple},
-              {'name': 'userScrollDirection', 'desc': 'Forward, reverse, or idle', 'color': _vbTeal},
-            ].map((p) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: (p['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(4),
-                border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
+              {
+                'name': 'pixels',
+                'desc': 'Current scroll offset in logical pixels',
+                'color': _vbBlue,
+              },
+              {
+                'name': 'applyViewportDimension()',
+                'desc': 'Informs the offset of the viewport size',
+                'color': _vbGreen,
+              },
+              {
+                'name': 'applyContentDimensions()',
+                'desc': 'Informs the min/max scroll extent',
+                'color': _vbOrange,
+              },
+              {
+                'name': 'correctBy()',
+                'desc': 'Adjusts the scroll offset during layout',
+                'color': _vbPurple,
+              },
+              {
+                'name': 'userScrollDirection',
+                'desc': 'Forward, reverse, or idle',
+                'color': _vbTeal,
+              },
+            ].map(
+              (p) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (p['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      child: _vbCode(
+                        p['name'] as String,
+                        color: p['color'] as Color,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        p['desc'] as String,
+                        style: TextStyle(fontSize: 10, color: _vbTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(width: 120, child: _vbCode(p['name'] as String, color: p['color'] as Color)),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(p['desc'] as String, style: TextStyle(fontSize: 10, color: _vbTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -319,12 +472,44 @@ Widget _vbSection3Offset() {
 // ---------------------------------------------------------------------------
 Widget _vbSection4Layout() {
   final steps = <Map<String, dynamic>>[
-    {'step': '1', 'label': 'Determine viewport dimensions', 'detail': 'Size from parent constraints → main & cross axis sizes', 'color': _vbBlue},
-    {'step': '2', 'label': 'Read scroll offset from ViewportOffset', 'detail': 'offset.pixels tells us where we are scrolled to', 'color': _vbPrimary},
-    {'step': '3', 'label': 'Iterate through slivers', 'detail': 'Each sliver receives SliverConstraints and returns SliverGeometry', 'color': _vbGreen},
-    {'step': '4', 'label': 'Accumulate scroll extents', 'detail': 'Sum up scrollExtent from each sliver to find total content size', 'color': _vbOrange},
-    {'step': '5', 'label': 'Track remaining paint extent', 'detail': 'Decrease remaining space as slivers consume it', 'color': _vbPurple},
-    {'step': '6', 'label': 'Report content dimensions', 'detail': 'Tell ViewportOffset the min/max scroll extents', 'color': _vbTeal},
+    {
+      'step': '1',
+      'label': 'Determine viewport dimensions',
+      'detail': 'Size from parent constraints → main & cross axis sizes',
+      'color': _vbBlue,
+    },
+    {
+      'step': '2',
+      'label': 'Read scroll offset from ViewportOffset',
+      'detail': 'offset.pixels tells us where we are scrolled to',
+      'color': _vbPrimary,
+    },
+    {
+      'step': '3',
+      'label': 'Iterate through slivers',
+      'detail':
+          'Each sliver receives SliverConstraints and returns SliverGeometry',
+      'color': _vbGreen,
+    },
+    {
+      'step': '4',
+      'label': 'Accumulate scroll extents',
+      'detail':
+          'Sum up scrollExtent from each sliver to find total content size',
+      'color': _vbOrange,
+    },
+    {
+      'step': '5',
+      'label': 'Track remaining paint extent',
+      'detail': 'Decrease remaining space as slivers consume it',
+      'color': _vbPurple,
+    },
+    {
+      'step': '6',
+      'label': 'Report content dimensions',
+      'detail': 'Tell ViewportOffset the min/max scroll extents',
+      'color': _vbTeal,
+    },
   ];
 
   return Column(
@@ -347,35 +532,65 @@ Widget _vbSection4Layout() {
           border: Border.all(color: _vbDivider),
         ),
         child: Column(
-          children: steps.map((s) => Container(
-            margin: EdgeInsets.only(bottom: 6),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            decoration: BoxDecoration(
-              color: (s['color'] as Color).withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(6),
-              border: Border(left: BorderSide(color: s['color'] as Color, width: 3)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 22, height: 22,
-                  decoration: BoxDecoration(color: s['color'] as Color, shape: BoxShape.circle),
-                  alignment: Alignment.center,
-                  child: Text(s['step'] as String, style: TextStyle(fontSize: 10, color: _vbOnPrimary, fontWeight: FontWeight.w700)),
-                ),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          children: steps
+              .map(
+                (s) => Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: (s['color'] as Color).withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border(
+                      left: BorderSide(color: s['color'] as Color, width: 3),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      Text(s['label'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: s['color'] as Color)),
-                      Text(s['detail'] as String, style: TextStyle(fontSize: 10, color: _vbTextMedium)),
+                      Container(
+                        width: 22,
+                        height: 22,
+                        decoration: BoxDecoration(
+                          color: s['color'] as Color,
+                          shape: BoxShape.circle,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          s['step'] as String,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _vbOnPrimary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              s['label'] as String,
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: s['color'] as Color,
+                              ),
+                            ),
+                            Text(
+                              s['detail'] as String,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _vbTextMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          )).toList(),
+              )
+              .toList(),
         ),
       ),
     ],
@@ -409,7 +624,9 @@ Widget _vbSection5CacheExtent() {
           children: [
             // Cache region above
             Positioned(
-              left: 20, top: 10, right: 20,
+              left: 20,
+              top: 10,
+              right: 20,
               child: Container(
                 height: 36,
                 decoration: BoxDecoration(
@@ -421,15 +638,27 @@ Widget _vbSection5CacheExtent() {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Cache region (above)', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: _vbAmber)),
-                    Text('Built but not painted', style: TextStyle(fontSize: 8, color: _vbGrey)),
+                    Text(
+                      'Cache region (above)',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                        color: _vbAmber,
+                      ),
+                    ),
+                    Text(
+                      'Built but not painted',
+                      style: TextStyle(fontSize: 8, color: _vbGrey),
+                    ),
                   ],
                 ),
               ),
             ),
             // Visible region
             Positioned(
-              left: 20, top: 50, right: 20,
+              left: 20,
+              top: 50,
+              right: 20,
               child: Container(
                 height: 100,
                 decoration: BoxDecoration(
@@ -441,40 +670,80 @@ Widget _vbSection5CacheExtent() {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.visibility, color: _vbGreen, size: 20),
-                    Text('Visible viewport region', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _vbGreen)),
-                    Text('Slivers are laid out AND painted', style: TextStyle(fontSize: 8, color: _vbTextMedium)),
+                    Text(
+                      'Visible viewport region',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _vbGreen,
+                      ),
+                    ),
+                    Text(
+                      'Slivers are laid out AND painted',
+                      style: TextStyle(fontSize: 8, color: _vbTextMedium),
+                    ),
                   ],
                 ),
               ),
             ),
             // Cache region below
             Positioned(
-              left: 20, top: 154, right: 20,
+              left: 20,
+              top: 154,
+              right: 20,
               child: Container(
                 height: 36,
                 decoration: BoxDecoration(
                   color: _vbAmber.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(6)),
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(6),
+                  ),
                   border: Border.all(color: _vbAmber.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Cache region (below)', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: _vbAmber)),
-                    Text('Built but not painted', style: TextStyle(fontSize: 8, color: _vbGrey)),
+                    Text(
+                      'Cache region (below)',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                        color: _vbAmber,
+                      ),
+                    ),
+                    Text(
+                      'Built but not painted',
+                      style: TextStyle(fontSize: 8, color: _vbGrey),
+                    ),
                   ],
                 ),
               ),
             ),
             // Annotations
             Positioned(
-              right: 8, top: 16,
-              child: Text('cacheExtent', style: TextStyle(fontSize: 8, color: _vbAmber, fontWeight: FontWeight.w600)),
+              right: 8,
+              top: 16,
+              child: Text(
+                'cacheExtent',
+                style: TextStyle(
+                  fontSize: 8,
+                  color: _vbAmber,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             Positioned(
-              right: 8, top: 92,
-              child: Text('viewport', style: TextStyle(fontSize: 8, color: _vbGreen, fontWeight: FontWeight.w600)),
+              right: 8,
+              top: 92,
+              child: Text(
+                'viewport',
+                style: TextStyle(
+                  fontSize: 8,
+                  color: _vbGreen,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
@@ -518,7 +787,14 @@ Widget _vbSection6Axes() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Growth directions', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _vbTextDark)),
+            Text(
+              'Growth directions',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _vbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -535,8 +811,14 @@ Widget _vbSection6Axes() {
                         _vbBadge('AxisDirection.down', _vbBlue, _vbOnPrimary),
                         SizedBox(height: 6),
                         Icon(Icons.arrow_downward, size: 24, color: _vbBlue),
-                        Text('Most common', style: TextStyle(fontSize: 9, color: _vbBlue)),
-                        Text('GrowthDirection.forward', style: TextStyle(fontSize: 8, color: _vbGrey)),
+                        Text(
+                          'Most common',
+                          style: TextStyle(fontSize: 9, color: _vbBlue),
+                        ),
+                        Text(
+                          'GrowthDirection.forward',
+                          style: TextStyle(fontSize: 8, color: _vbGrey),
+                        ),
                       ],
                     ),
                   ),
@@ -548,15 +830,27 @@ Widget _vbSection6Axes() {
                     decoration: BoxDecoration(
                       color: _vbOrange.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _vbOrange.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _vbOrange.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Column(
                       children: [
-                        _vbBadge('AxisDirection.right', _vbOrange, _vbOnPrimary),
+                        _vbBadge(
+                          'AxisDirection.right',
+                          _vbOrange,
+                          _vbOnPrimary,
+                        ),
                         SizedBox(height: 6),
                         Icon(Icons.arrow_forward, size: 24, color: _vbOrange),
-                        Text('Horizontal', style: TextStyle(fontSize: 9, color: _vbOrange)),
-                        Text('GrowthDirection.forward', style: TextStyle(fontSize: 8, color: _vbGrey)),
+                        Text(
+                          'Horizontal',
+                          style: TextStyle(fontSize: 9, color: _vbOrange),
+                        ),
+                        Text(
+                          'GrowthDirection.forward',
+                          style: TextStyle(fontSize: 8, color: _vbGrey),
+                        ),
                       ],
                     ),
                   ),
@@ -573,7 +867,7 @@ Widget _vbSection6Axes() {
               ),
               child: Text(
                 'RenderViewport supports center and anchor for bidirectional scrolling — '
-                    'slivers before the center grow in the reverse direction.',
+                'slivers before the center grow in the reverse direction.',
                 style: TextStyle(fontSize: 10, color: _vbTextMedium),
               ),
             ),
@@ -618,29 +912,67 @@ Widget _vbSection7Clipping() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Clip behaviour options', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _vbTextDark)),
+            Text(
+              'Clip behaviour options',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _vbTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
-              {'value': 'Clip.hardEdge', 'desc': 'Sharp rectangular clip (cheapest)', 'color': _vbGreen},
-              {'value': 'Clip.antiAlias', 'desc': 'Smooth clip edges (moderate cost)', 'color': _vbBlue},
-              {'value': 'Clip.antiAliasWithSaveLayer', 'desc': 'Full save layer (expensive, rare)', 'color': _vbOrange},
-              {'value': 'Clip.none', 'desc': 'No clipping — for debugging only', 'color': _vbRed},
-            ].map((c) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: (c['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(4),
-                border: Border(left: BorderSide(color: c['color'] as Color, width: 3)),
+              {
+                'value': 'Clip.hardEdge',
+                'desc': 'Sharp rectangular clip (cheapest)',
+                'color': _vbGreen,
+              },
+              {
+                'value': 'Clip.antiAlias',
+                'desc': 'Smooth clip edges (moderate cost)',
+                'color': _vbBlue,
+              },
+              {
+                'value': 'Clip.antiAliasWithSaveLayer',
+                'desc': 'Full save layer (expensive, rare)',
+                'color': _vbOrange,
+              },
+              {
+                'value': 'Clip.none',
+                'desc': 'No clipping — for debugging only',
+                'color': _vbRed,
+              },
+            ].map(
+              (c) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (c['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border(
+                    left: BorderSide(color: c['color'] as Color, width: 3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 130,
+                      child: _vbCode(
+                        c['value'] as String,
+                        color: c['color'] as Color,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        c['desc'] as String,
+                        style: TextStyle(fontSize: 10, color: _vbTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(width: 130, child: _vbCode(c['value'] as String, color: c['color'] as Color)),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(c['desc'] as String, style: TextStyle(fontSize: 10, color: _vbTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -678,7 +1010,14 @@ Widget _vbSection8Demo() {
               padding: EdgeInsets.only(left: 4, bottom: 4),
               child: Row(
                 children: [
-                  Text('CustomScrollView → RenderViewport', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _vbTextDark)),
+                  Text(
+                    'CustomScrollView → RenderViewport',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: _vbTextDark,
+                    ),
+                  ),
                   SizedBox(width: 6),
                   _vbBadge('4 slivers', _vbPrimary, _vbOnPrimary),
                 ],
@@ -697,10 +1036,15 @@ Widget _vbSection8Demo() {
                       floating: false,
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: Text('Viewport Demo', style: TextStyle(fontSize: 13)),
+                        title: Text(
+                          'Viewport Demo',
+                          style: TextStyle(fontSize: 13),
+                        ),
                         background: Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [_vbPrimary, _vbAccent]),
+                            gradient: LinearGradient(
+                              colors: [_vbPrimary, _vbAccent],
+                            ),
                           ),
                         ),
                       ),
@@ -713,7 +1057,9 @@ Widget _vbSection8Demo() {
                         decoration: BoxDecoration(
                           color: _vbTeal.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: _vbTeal.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _vbTeal.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Row(
                           children: [
@@ -734,27 +1080,46 @@ Widget _vbSection8Demo() {
                       itemCount: 8,
                       itemBuilder: (ctx, i) => Container(
                         height: 42,
-                        margin: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: i % 2 == 0 ? Colors.white : _vbSurface,
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _vbDivider.withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: _vbDivider.withValues(alpha: 0.2),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
                           children: [
                             Container(
-                              width: 24, height: 24,
+                              width: 24,
+                              height: 24,
                               decoration: BoxDecoration(
                                 color: _vbBlue.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               alignment: Alignment.center,
-                              child: Text('${i + 1}', style: TextStyle(fontSize: 10, color: _vbBlue, fontWeight: FontWeight.w700)),
+                              child: Text(
+                                '${i + 1}',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: _vbBlue,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                             SizedBox(width: 8),
-                            Text('SliverList item ${i + 1}', style: TextStyle(fontSize: 11, color: _vbTextDark)),
+                            Text(
+                              'SliverList item ${i + 1}',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _vbTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -762,13 +1127,26 @@ Widget _vbSection8Demo() {
                     // SliverGrid
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 4,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: _vbPrimary.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('Grid section', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _vbPrimary)),
+                        child: Text(
+                          'Grid section',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: _vbPrimary,
+                          ),
+                        ),
                       ),
                     ),
                     SliverGrid.count(
@@ -776,21 +1154,32 @@ Widget _vbSection8Demo() {
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 4,
                       childAspectRatio: 1.4,
-                      children: List.generate(9, (i) => Container(
-                        decoration: BoxDecoration(
-                          color: _vbPurple.withValues(alpha: 0.06),
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _vbPurple.withValues(alpha: 0.2)),
+                      children: List.generate(
+                        9,
+                        (i) => Container(
+                          decoration: BoxDecoration(
+                            color: _vbPurple.withValues(alpha: 0.06),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: _vbPurple.withValues(alpha: 0.2),
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.grid_view, size: 14, color: _vbPurple),
+                              Text(
+                                'Grid ${i + 1}',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: _vbTextMedium,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.grid_view, size: 14, color: _vbPurple),
-                            Text('Grid ${i + 1}', style: TextStyle(fontSize: 9, color: _vbTextMedium)),
-                          ],
-                        ),
-                      )),
+                      ),
                     ),
                     // Footer
                     SliverToBoxAdapter(
@@ -802,7 +1191,10 @@ Widget _vbSection8Demo() {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         alignment: Alignment.center,
-                        child: Text('End of scrollable content', style: TextStyle(fontSize: 10, color: _vbGrey)),
+                        child: Text(
+                          'End of scrollable content',
+                          style: TextStyle(fontSize: 10, color: _vbGrey),
+                        ),
                       ),
                     ),
                   ],
@@ -847,32 +1239,98 @@ Widget _vbSection9Summary() {
               color: _vbSurface,
               child: Row(
                 children: [
-                  SizedBox(width: 100, child: Text('Property', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _vbTextDark))),
-                  Expanded(child: Text('RenderViewport', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _vbPrimary))),
-                  Expanded(child: Text('ShrinkWrapping', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _vbOrange))),
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      'Property',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _vbTextDark,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'RenderViewport',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _vbPrimary,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'ShrinkWrapping',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _vbOrange,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             ...[
-              {'prop': 'Sizing', 'vp': 'Fills parent', 'sw': 'Sizes to children'},
-              {'prop': 'ScrollExtent', 'vp': 'Reported to offset', 'sw': 'Computed internally'},
-              {'prop': 'UsedBy', 'vp': 'CustomScrollView', 'sw': 'ShrinkWrapping views'},
+              {
+                'prop': 'Sizing',
+                'vp': 'Fills parent',
+                'sw': 'Sizes to children',
+              },
+              {
+                'prop': 'ScrollExtent',
+                'vp': 'Reported to offset',
+                'sw': 'Computed internally',
+              },
+              {
+                'prop': 'UsedBy',
+                'vp': 'CustomScrollView',
+                'sw': 'ShrinkWrapping views',
+              },
               {'prop': 'Cache extent', 'vp': 'Yes', 'sw': 'Yes'},
               {'prop': 'Center/anchor', 'vp': 'Yes', 'sw': 'No'},
               {'prop': 'Performance', 'vp': 'Optimal', 'sw': 'May be slower'},
-            ].map((r) => Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: _vbDivider.withValues(alpha: 0.3))),
+            ].map(
+              (r) => Container(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 4),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: _vbDivider.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        r['prop']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: _vbTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r['vp']!,
+                        style: TextStyle(fontSize: 10, color: _vbPrimary),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r['sw']!,
+                        style: TextStyle(fontSize: 10, color: _vbOrange),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(width: 100, child: Text(r['prop']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _vbTextDark))),
-                  Expanded(child: Text(r['vp']!, style: TextStyle(fontSize: 10, color: _vbPrimary))),
-                  Expanded(child: Text(r['sw']!, style: TextStyle(fontSize: 10, color: _vbOrange))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -886,28 +1344,66 @@ Widget _vbSection9Summary() {
         ),
         child: Column(
           children: [
-            Text('Quick reference', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _vbTextDark)),
+            Text(
+              'Quick reference',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _vbTextDark,
+              ),
+            ),
             SizedBox(height: 6),
             ...<Map<String, String>>[
               {'label': 'Base class', 'value': 'RenderViewportBase'},
               {'label': 'Concrete class', 'value': 'RenderViewport'},
               {'label': 'Widget', 'value': 'Viewport / CustomScrollView'},
               {'label': 'Input', 'value': 'ViewportOffset (scroll position)'},
-              {'label': 'Children', 'value': 'Linked list of sliver render objects'},
-              {'label': 'Cache extent', 'value': '250.0px default (each direction)'},
+              {
+                'label': 'Children',
+                'value': 'Linked list of sliver render objects',
+              },
+              {
+                'label': 'Cache extent',
+                'value': '250.0px default (each direction)',
+              },
               {'label': 'Clip', 'value': 'Clip.hardEdge default'},
-            ].map((r) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: _vbDivider.withValues(alpha: 0.3))),
+            ].map(
+              (r) => Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: _vbDivider.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 100,
+                      child: Text(
+                        r['label']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: _vbTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r['value']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _vbPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  SizedBox(width: 100, child: Text(r['label']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _vbTextDark))),
-                  Expanded(child: Text(r['value']!, style: TextStyle(fontSize: 10, color: _vbPrimary, fontWeight: FontWeight.w600))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -917,7 +1413,10 @@ Widget _vbSection9Summary() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_vbPrimary.withValues(alpha: 0.08), _vbAccent.withValues(alpha: 0.08)],
+            colors: [
+              _vbPrimary.withValues(alpha: 0.08),
+              _vbAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _vbPrimary.withValues(alpha: 0.2)),
@@ -928,7 +1427,11 @@ Widget _vbSection9Summary() {
             SizedBox(height: 8),
             Text(
               'RenderViewportBase',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _vbTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _vbTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -989,7 +1492,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'The abstract foundation of all viewport render objects',
-                style: TextStyle(fontSize: 12, color: _vbOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _vbOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

@@ -195,8 +195,9 @@ class _HeroTab extends StatelessWidget {
                       'measurements, custom painters, and side-by-side '
                       'correct-vs-incorrect examples.',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -273,10 +274,9 @@ class _LiveNestedScrollViewTab extends StatelessWidget {
                 child: Text(
                   'Scroll the list. The badge shows handle.extent tracked via '
                   'ScrollNotification.',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: cs.onSurfaceVariant),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                 ),
               ),
             ],
@@ -398,22 +398,23 @@ class _LiveNSV extends StatelessWidget {
                   handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
                 ),
                 SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer,
-                          child: Text('${index + 1}'),
-                        ),
-                        title: Text('Inner list item ${index + 1}'),
-                        subtitle: Text(
-                          'Scroll position drives handle.extent via absorber',
-                        ),
-                      );
-                    },
-                    childCount: 40,
-                  ),
+                  delegate: SliverChildBuilderDelegate((
+                    BuildContext context,
+                    int index,
+                  ) {
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.primaryContainer,
+                        child: Text('${index + 1}'),
+                      ),
+                      title: Text('Inner list item ${index + 1}'),
+                      subtitle: Text(
+                        'Scroll position drives handle.extent via absorber',
+                      ),
+                    );
+                  }, childCount: 40),
                 ),
               ],
             );
@@ -465,34 +466,39 @@ class _BudgetDiagramTab extends StatelessWidget {
           _StepCard(
             step: 1,
             title: 'SliverAppBar lays out',
-            body: 'The pinned/floating SliverAppBar occupies N pixels at the '
+            body:
+                'The pinned/floating SliverAppBar occupies N pixels at the '
                 'top of the outer CustomScrollView.',
           ),
           _StepCard(
             step: 2,
             title: 'SliverOverlapAbsorber records overlap',
-            body: 'During performLayout, it writes the overlap amount into '
+            body:
+                'During performLayout, it writes the overlap amount into '
                 'handle.extent. This is the pixel count that the header '
                 '"steals" from the inner scroll area.',
           ),
           _StepCard(
             step: 3,
             title: 'RenderNestedScrollViewViewport receives the handle',
-            body: 'The handle is set on the RenderObject. It does not paint '
+            body:
+                'The handle is set on the RenderObject. It does not paint '
                 'or clip based on the handle directly — it simply makes the '
                 'value available to child slivers.',
           ),
           _StepCard(
             step: 4,
             title: 'SliverOverlapInjector restores the gap',
-            body: 'Inside the inner CustomScrollView (body), the injector '
+            body:
+                'Inside the inner CustomScrollView (body), the injector '
                 'reads handle.extent and produces a phantom sliver of that '
                 'height, pushing real content below the header.',
           ),
           _StepCard(
             step: 5,
             title: 'Inner content is fully visible',
-            body: 'Because the injector gap equals the absorber overlap, '
+            body:
+                'Because the injector gap equals the absorber overlap, '
                 'nothing is hidden behind the floating header.',
           ),
         ],
@@ -571,23 +577,13 @@ class _BudgetFlowPainter extends CustomPainter {
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: boxW - 16);
-      tp.paint(
-        canvas,
-        Offset(
-          cx - tp.width / 2,
-          y + boxH / 2 - tp.height / 2,
-        ),
-      );
+      tp.paint(canvas, Offset(cx - tp.width / 2, y + boxH / 2 - tp.height / 2));
 
       // arrow to next box
       if (i < labels.length - 1) {
         final double arrowTop = y + boxH + 4;
         final double arrowBot = arrowTop + gapY - 8;
-        canvas.drawLine(
-          Offset(cx, arrowTop),
-          Offset(cx, arrowBot),
-          arrowPaint,
-        );
+        canvas.drawLine(Offset(cx, arrowTop), Offset(cx, arrowBot), arrowPaint);
         // arrowhead
         final Path head = Path()
           ..moveTo(cx - 6, arrowBot - 8)
@@ -691,12 +687,11 @@ class _ExtentGaugeTab extends StatelessWidget {
                             width: 72,
                             child: Text(
                               '${val.toStringAsFixed(1)} px',
-                              style: Theme.of(
-                                ctx,
-                              ).textTheme.titleMedium?.copyWith(
-                                fontFamily: 'monospace',
-                                color: Theme.of(ctx).colorScheme.primary,
-                              ),
+                              style: Theme.of(ctx).textTheme.titleMedium
+                                  ?.copyWith(
+                                    fontFamily: 'monospace',
+                                    color: Theme.of(ctx).colorScheme.primary,
+                                  ),
                             ),
                           ),
                         ],
@@ -729,8 +724,10 @@ class _ExtentGaugeTab extends StatelessWidget {
             onNotification: (ScrollNotification note) {
               if (note is ScrollUpdateNotification &&
                   note.metrics.axis == Axis.vertical) {
-                _overlapExtent2.value =
-                    note.metrics.extentBefore.clamp(0.0, 200.0);
+                _overlapExtent2.value = note.metrics.extentBefore.clamp(
+                  0.0,
+                  200.0,
+                );
               }
               return false;
             },
@@ -738,8 +735,9 @@ class _ExtentGaugeTab extends StatelessWidget {
               headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverOverlapAbsorber(
-                    handle:
-                        NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                      ctx,
+                    ),
                     sliver: SliverAppBar(
                       title: const Text('Gauge Demo'),
                       expandedHeight: 200,
@@ -766,21 +764,20 @@ class _ExtentGaugeTab extends StatelessWidget {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverOverlapInjector(
-                        handle:
-                            NestedScrollView.sliverOverlapAbsorberHandleFor(
-                              ctx,
-                            ),
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          ctx,
+                        ),
                       ),
                       SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return ListTile(
-                              leading: const Icon(Icons.drag_handle),
-                              title: Text('Item $index'),
-                            );
-                          },
-                          childCount: 30,
-                        ),
+                        delegate: SliverChildBuilderDelegate((
+                          BuildContext context,
+                          int index,
+                        ) {
+                          return ListTile(
+                            leading: const Icon(Icons.drag_handle),
+                            title: Text('Item $index'),
+                          );
+                        }, childCount: 30),
                       ),
                     ],
                   );
@@ -919,10 +916,7 @@ class _InheritanceTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _SectionTitle(
-            icon: Icons.code,
-            label: 'Conceptual pseudo-code',
-          ),
+          _SectionTitle(icon: Icons.code, label: 'Conceptual pseudo-code'),
           _CodeBlock(
             '''class RenderNestedScrollViewViewport extends RenderViewport {
   SliverOverlapAbsorberHandle get handle => _handle;
@@ -977,9 +971,7 @@ class _InheritanceTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: level * 12.0),
       child: Card(
-        color: node.isTarget
-            ? node.color
-            : node.color,
+        color: node.isTarget ? node.color : node.color,
         child: ListTile(
           leading: Icon(
             isLast ? Icons.star_rounded : Icons.check_box_outline_blank,
@@ -1001,7 +993,9 @@ class _InheritanceTile extends StatelessWidget {
             node.subtitle,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: node.isTarget
-                  ? Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.8)
+                  ? Theme.of(
+                      context,
+                    ).colorScheme.onPrimary.withValues(alpha: 0.8)
                   : null,
             ),
           ),
@@ -1125,8 +1119,9 @@ class _CorrectNSV extends StatelessWidget {
               headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverOverlapAbsorber(
-                    handle:
-                        NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                      ctx,
+                    ),
                     sliver: SliverAppBar(
                       title: const Text(
                         'With Injector',
@@ -1144,10 +1139,9 @@ class _CorrectNSV extends StatelessWidget {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverOverlapInjector(
-                        handle:
-                            NestedScrollView.sliverOverlapAbsorberHandleFor(
-                              ctx,
-                            ),
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                          ctx,
+                        ),
                       ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -1217,8 +1211,9 @@ class _BuggyNSV extends StatelessWidget {
               headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) {
                 return <Widget>[
                   SliverOverlapAbsorber(
-                    handle:
-                        NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                      ctx,
+                    ),
                     sliver: SliverAppBar(
                       title: const Text(
                         'No Injector',
@@ -1290,33 +1285,39 @@ class _ApiSurfaceTab extends StatelessWidget {
             label: 'SliverOverlapAbsorberHandle API',
           ),
           _ApiMethodTile(
-            signature: 'handle = NestedScrollView\n  .sliverOverlapAbsorberHandleFor(context)',
-            description: 'Retrieves the SliverOverlapAbsorberHandle from the '
+            signature:
+                'handle = NestedScrollView\n  .sliverOverlapAbsorberHandleFor(context)',
+            description:
+                'Retrieves the SliverOverlapAbsorberHandle from the '
                 'nearest SliverOverlapAbsorber ancestor. Must be called from '
                 'a BuildContext that is a descendant of the NestedScrollView\'s '
                 'header builder context.',
           ),
           _ApiMethodTile(
             signature: 'double get handle.extent',
-            description: 'The number of pixels that the SliverOverlapAbsorber '
+            description:
+                'The number of pixels that the SliverOverlapAbsorber '
                 'has absorbed on behalf of the SliverAppBar. This is the '
                 'overlap budget that the injector must restore.',
           ),
           _ApiMethodTile(
             signature: 'double get handle.layoutExtent',
-            description: 'The layout extent of the sliver overlap absorber. '
+            description:
+                'The layout extent of the sliver overlap absorber. '
                 'Reflects how much space the absorber itself consumes in '
                 'the sliver layout protocol.',
           ),
           _ApiMethodTile(
             signature: 'void handle.addListener(VoidCallback)',
-            description: 'Registers a listener that fires whenever extent '
+            description:
+                'Registers a listener that fires whenever extent '
                 'changes. RenderNestedScrollViewViewport uses this internally '
                 'to call markNeedsLayout when the handle updates.',
           ),
           _ApiMethodTile(
             signature: 'void handle.removeListener(VoidCallback)',
-            description: 'Deregisters a previously added listener. Always '
+            description:
+                'Deregisters a previously added listener. Always '
                 'call in dispose() to avoid memory leaks.',
           ),
           const SizedBox(height: 24),
@@ -1326,13 +1327,15 @@ class _ApiSurfaceTab extends StatelessWidget {
           ),
           _ApiMethodTile(
             signature: 'SliverOverlapAbsorberHandle get handle',
-            description: 'The handle this viewport uses. Settable — when '
+            description:
+                'The handle this viewport uses. Settable — when '
                 'changed, the viewport re-registers listeners and schedules '
                 'a layout.',
           ),
           _ApiMethodTile(
             signature: 'set handle(SliverOverlapAbsorberHandle value)',
-            description: 'Replaces the current handle. Old listeners removed, '
+            description:
+                'Replaces the current handle. Old listeners removed, '
                 'new listeners added, markNeedsLayout called.',
           ),
           const SizedBox(height: 24),
@@ -1340,8 +1343,7 @@ class _ApiSurfaceTab extends StatelessWidget {
             icon: Icons.code,
             label: 'Minimal correct usage pattern',
           ),
-          _CodeBlock(
-            '''NestedScrollView(
+          _CodeBlock('''NestedScrollView(
   headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
     return [
       SliverOverlapAbsorber(
@@ -1374,20 +1376,14 @@ class _ApiSurfaceTab extends StatelessWidget {
       );
     },
   ),
-)''',
-          ),
+)'''),
           const SizedBox(height: 24),
           _SectionTitle(
             icon: Icons.table_chart_outlined,
             label: 'Property comparison table',
           ),
           _PropertyTable(
-            headers: const <String>[
-              'Property',
-              'Set by',
-              'Read by',
-              'Purpose',
-            ],
+            headers: const <String>['Property', 'Set by', 'Read by', 'Purpose'],
             rows: const <List<String>>[
               <String>[
                 'handle.extent',
@@ -1453,14 +1449,16 @@ class _ScrollTimelineTab extends StatelessWidget {
           _PhaseCard(
             phase: 'Phase 1',
             title: 'Header expanding (user at top)',
-            body: 'Both outer and inner scroll positions are at zero. '
+            body:
+                'Both outer and inner scroll positions are at zero. '
                 'handle.extent = expandedHeight (full overlap budget).',
             color: cs.primaryContainer,
           ),
           _PhaseCard(
             phase: 'Phase 2',
             title: 'User scrolls — outer absorbs',
-            body: 'The outer scroll position increases. The flexible space '
+            body:
+                'The outer scroll position increases. The flexible space '
                 'collapses. handle.extent decreases from expandedHeight → '
                 'collapsedHeight.',
             color: cs.secondaryContainer,
@@ -1468,7 +1466,8 @@ class _ScrollTimelineTab extends StatelessWidget {
           _PhaseCard(
             phase: 'Phase 3',
             title: 'Header fully pinned',
-            body: 'SliverAppBar is collapsed and pinned. handle.extent = '
+            body:
+                'SliverAppBar is collapsed and pinned. handle.extent = '
                 'collapsedHeight (toolbar height only). Outer scroll does not '
                 'consume more scroll budget.',
             color: cs.tertiaryContainer,
@@ -1476,7 +1475,8 @@ class _ScrollTimelineTab extends StatelessWidget {
           _PhaseCard(
             phase: 'Phase 4',
             title: 'Inner list scrolls',
-            body: 'Subsequent scroll events are forwarded to the inner '
+            body:
+                'Subsequent scroll events are forwarded to the inner '
                 'CustomScrollView. handle.extent stays constant. '
                 'SliverOverlapInjector gap remains fixed.',
             color: cs.primaryContainer,
@@ -1609,10 +1609,7 @@ class _TimelinePainter extends CustomPainter {
     )..layout();
     scrollLabel.paint(
       canvas,
-      Offset(
-        leftPad + trackW / 2 - scrollLabel.width / 2,
-        timelineY + 65,
-      ),
+      Offset(leftPad + trackW / 2 - scrollLabel.width / 2, timelineY + 65),
     );
 
     // Draw two tracks: outer scroll (above) and inner scroll (below)
@@ -1657,10 +1654,7 @@ class _TimelinePainter extends CustomPainter {
       Rect.fromLTWH(leftPad, y, trackW, 14),
       const Radius.circular(7),
     );
-    canvas.drawRRect(
-      bgRRect,
-      Paint()..color = cs.surfaceContainerHighest,
-    );
+    canvas.drawRRect(bgRRect, Paint()..color = cs.surfaceContainerHighest);
 
     // active segment
     final double activeStart = leftPad + activeFrom * trackW;
@@ -1706,7 +1700,10 @@ class _PitfallsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _SectionTitle(icon: Icons.warning_amber_rounded, label: 'Common Pitfalls'),
+          _SectionTitle(
+            icon: Icons.warning_amber_rounded,
+            label: 'Common Pitfalls',
+          ),
           const SizedBox(height: 8),
 
           // Pitfall 1
@@ -1714,10 +1711,12 @@ class _PitfallsTab extends StatelessWidget {
             number: 1,
             title: 'Missing SliverOverlapInjector',
             danger: 'Content is hidden behind the pinned header.',
-            fix: 'Add SliverOverlapInjector as the first sliver in the '
+            fix:
+                'Add SliverOverlapInjector as the first sliver in the '
                 'body\'s CustomScrollView, using the same handle from '
                 'the Builder context.',
-            code: '// In body Builder:\nSliverOverlapInjector(\n'
+            code:
+                '// In body Builder:\nSliverOverlapInjector(\n'
                 '  handle: NestedScrollView\n'
                 '    .sliverOverlapAbsorberHandleFor(context),\n)',
           ),
@@ -1726,13 +1725,16 @@ class _PitfallsTab extends StatelessWidget {
           _PitfallCard(
             number: 2,
             title: 'Wrong context for handleFor()',
-            danger: 'FlutterError: "Multiple widgets used the same '
+            danger:
+                'FlutterError: "Multiple widgets used the same '
                 'GlobalKey" or assertion failure.',
-            fix: 'Always call sliverOverlapAbsorberHandleFor() from '
+            fix:
+                'Always call sliverOverlapAbsorberHandleFor() from '
                 'the BuildContext provided by the headerSliverBuilder '
                 'callback (or the Builder in the body). Never from '
                 'the parent widget\'s context.',
-            code: '// WRONG — parent context:\nfinal h = NestedScrollView\n'
+            code:
+                '// WRONG — parent context:\nfinal h = NestedScrollView\n'
                 '  .sliverOverlapAbsorberHandleFor(context); // ❌\n\n'
                 '// CORRECT — builder context:\nheaderSliverBuilder:\n'
                 '  (BuildContext ctx, bool _) {\n'
@@ -1744,12 +1746,15 @@ class _PitfallsTab extends StatelessWidget {
           _PitfallCard(
             number: 3,
             title: 'Multiple SliverOverlapAbsorbers',
-            danger: 'Only one absorber is supported per NestedScrollView. '
+            danger:
+                'Only one absorber is supported per NestedScrollView. '
                 'Having multiple causes undefined overlap budget behavior.',
-            fix: 'Use exactly one SliverOverlapAbsorber wrapping the '
+            fix:
+                'Use exactly one SliverOverlapAbsorber wrapping the '
                 'SliverAppBar. Any additional pinned slivers should be '
                 'placed outside the absorber.',
-            code: '// WRONG:\nSliverOverlapAbsorber(handle: h, sliver: SA1),\n'
+            code:
+                '// WRONG:\nSliverOverlapAbsorber(handle: h, sliver: SA1),\n'
                 'SliverOverlapAbsorber(handle: h, sliver: SA2), // ❌\n\n'
                 '// CORRECT:\nSliverOverlapAbsorber(handle: h, sliver: SA1),\n'
                 'SA2, // not wrapped',
@@ -1759,12 +1764,15 @@ class _PitfallsTab extends StatelessWidget {
           _PitfallCard(
             number: 4,
             title: 'Forgetting SliverOverlapAbsorber entirely',
-            danger: 'handle.extent is never set. SliverOverlapInjector '
+            danger:
+                'handle.extent is never set. SliverOverlapInjector '
                 'produces a zero-height gap. Content appears correct at '
                 'first but breaks when the app bar is pinned.',
-            fix: 'Always wrap the SliverAppBar inside SliverOverlapAbsorber '
+            fix:
+                'Always wrap the SliverAppBar inside SliverOverlapAbsorber '
                 'when using NestedScrollView with a pinned or floating header.',
-            code: '// WRONG:\nSliverAppBar(title: ...), // ❌ — no absorber\n\n'
+            code:
+                '// WRONG:\nSliverAppBar(title: ...), // ❌ — no absorber\n\n'
                 '// CORRECT:\nSliverOverlapAbsorber(\n'
                 '  handle: NestedScrollView\n'
                 '    .sliverOverlapAbsorberHandleFor(ctx),\n'
@@ -1775,12 +1783,15 @@ class _PitfallsTab extends StatelessWidget {
           _PitfallCard(
             number: 5,
             title: 'Not using Builder in the body',
-            danger: 'The body\'s BuildContext is not a descendant of '
+            danger:
+                'The body\'s BuildContext is not a descendant of '
                 'NestedScrollView, so handleFor() returns the outer handle.',
-            fix: 'Wrap the body\'s CustomScrollView in a Builder widget '
+            fix:
+                'Wrap the body\'s CustomScrollView in a Builder widget '
                 'to obtain a BuildContext that is a descendant of the '
                 'NestedScrollView.',
-            code: 'body: Builder(\n'
+            code:
+                'body: Builder(\n'
                 '  builder: (BuildContext context) {\n'
                 '    return CustomScrollView(\n'
                 '      slivers: [\n'
@@ -1813,7 +1824,9 @@ class _PitfallsTab extends StatelessWidget {
                 const SizedBox(height: 8),
                 _MonoLine('  → extends RenderViewport'),
                 _MonoLine('  → handle: SliverOverlapAbsorberHandle'),
-                _MonoLine('  → set handle: re-registers listeners, schedules layout'),
+                _MonoLine(
+                  '  → set handle: re-registers listeners, schedules layout',
+                ),
                 const SizedBox(height: 12),
                 Text(
                   'SliverOverlapAbsorberHandle',
@@ -1830,16 +1843,18 @@ class _PitfallsTab extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   'NestedScrollView (widget-level entry points)',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 _MonoLine(
                   '  NestedScrollView.sliverOverlapAbsorberHandleFor(context)',
                 ),
                 _MonoLine('  → returns: SliverOverlapAbsorberHandle'),
-                _MonoLine('  → context must be inside header builder or body Builder'),
+                _MonoLine(
+                  '  → context must be inside header builder or body Builder',
+                ),
               ],
             ),
           ),
@@ -1960,10 +1975,9 @@ class _CodeBlock extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Text(
           code,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontFamily: 'monospace',
-            height: 1.5,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall?.copyWith(fontFamily: 'monospace', height: 1.5),
         ),
       ),
     );
@@ -2052,9 +2066,9 @@ class _StepCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 2),
                 Text(body, style: Theme.of(context).textTheme.bodySmall),
@@ -2167,9 +2181,7 @@ class _PitfallCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.titleSmall?.copyWith(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -2310,10 +2322,7 @@ class _ApiMethodTile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Text(
-                description,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
+              Text(description, style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ),

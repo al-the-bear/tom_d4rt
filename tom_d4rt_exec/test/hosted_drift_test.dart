@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_exec) — the hosted-vs-worktree drift reporter still answers about the whole repo.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_exec's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 /// Tests for `tool/hosted_drift.dart` — the hosted-vs-worktree drift reporter.
 ///
 /// The tool answers one question that nothing else in this repo can: for a given

@@ -107,7 +107,12 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // file approachable to anyone reading top-to-bottom.
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -148,7 +153,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -214,7 +222,11 @@ Widget _pill(String label, {Color colour = _kAccent}) {
   );
 }
 
-Widget _solidPill(String label, {Color colour = _kAccent, Color textColour = const Color(0xFFFFFFFF)}) {
+Widget _solidPill(
+  String label, {
+  Color colour = _kAccent,
+  Color textColour = const Color(0xFFFFFFFF),
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
     decoration: BoxDecoration(
@@ -303,7 +315,12 @@ Widget _sectionDivider() {
   );
 }
 
-Widget _kvRow(String key, String value, {Color valueColour = _kInk, bool mono = true}) {
+Widget _kvRow(
+  String key,
+  String value, {
+  Color valueColour = _kInk,
+  bool mono = true,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3.0),
     child: Row(
@@ -355,7 +372,12 @@ Widget _tableHeaderCell(String text, {int flex = 1}) {
   );
 }
 
-Widget _tableBodyCell(String text, {int flex = 1, bool mono = false, Color colour = _kInk}) {
+Widget _tableBodyCell(
+  String text, {
+  int flex = 1,
+  bool mono = false,
+  Color colour = _kInk,
+}) {
   return Expanded(
     flex: flex,
     child: Padding(
@@ -383,14 +405,9 @@ Widget _bullet(String label, {Color colour = _kAccent}) {
           width: 6.0,
           height: 6.0,
           margin: const EdgeInsets.only(top: 7.0, right: 8.0),
-          decoration: BoxDecoration(
-            color: colour,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
         ),
-        Expanded(
-          child: Text(label, style: _kBodyStyle),
-        ),
+        Expanded(child: Text(label, style: _kBodyStyle)),
       ],
     ),
   );
@@ -415,7 +432,8 @@ dynamic build(BuildContext context) {
   // English-only strings. It is the value that ships with `flutter/cupertino`
   // when an app does NOT include `GlobalCupertinoLocalizations.delegate`.
   // -------------------------------------------------------------------------
-  const DefaultCupertinoLocalizations defaultL10n = DefaultCupertinoLocalizations();
+  const DefaultCupertinoLocalizations defaultL10n =
+      DefaultCupertinoLocalizations();
   print('  DefaultCupertinoLocalizations instantiated');
 
   // Property-style getters (constants per locale).
@@ -430,7 +448,8 @@ dynamic build(BuildContext context) {
   final String barrierLabel = defaultL10n.modalBarrierDismissLabel;
   final String todayLabel = defaultL10n.todayLabel;
   final DatePickerDateOrder dateOrder = defaultL10n.datePickerDateOrder;
-  final DatePickerDateTimeOrder dateTimeOrder = defaultL10n.datePickerDateTimeOrder;
+  final DatePickerDateTimeOrder dateTimeOrder =
+      defaultL10n.datePickerDateTimeOrder;
 
   // Function-style accessors (take an int / DateTime).
   final String year2025 = defaultL10n.datePickerYear(2025);
@@ -439,7 +458,9 @@ dynamic build(BuildContext context) {
   final String hour9 = defaultL10n.datePickerHour(9);
   final String hour23 = defaultL10n.datePickerHour(23);
   final String minute45 = defaultL10n.datePickerMinute(45);
-  final String mediumDate = defaultL10n.datePickerMediumDate(DateTime(2026, 5, 11));
+  final String mediumDate = defaultL10n.datePickerMediumDate(
+    DateTime(2026, 5, 11),
+  );
   final String hoursLabel0 = defaultL10n.timerPickerHourLabel(0);
   final String hoursLabel1 = defaultL10n.timerPickerHourLabel(1);
   final String hoursLabel5 = defaultL10n.timerPickerHourLabel(5);
@@ -449,10 +470,16 @@ dynamic build(BuildContext context) {
   final String secondsLabel0 = defaultL10n.timerPickerSecondLabel(0);
   final String secondsLabel1 = defaultL10n.timerPickerSecondLabel(1);
   final String secondsLabel45 = defaultL10n.timerPickerSecondLabel(45);
-  final String tabLabel = defaultL10n.tabSemanticsLabel(tabIndex: 2, tabCount: 5);
+  final String tabLabel = defaultL10n.tabSemanticsLabel(
+    tabIndex: 2,
+    tabCount: 5,
+  );
   final String datePickerHourSem9 = defaultL10n.datePickerHourSemanticsLabel(9);
-  final String datePickerMinuteSem30 = defaultL10n.datePickerMinuteSemanticsLabel(30);
-  print('  pulled ${alertLabel.length + amAbbrev.length} sample characters from the default L10n');
+  final String datePickerMinuteSem30 = defaultL10n
+      .datePickerMinuteSemanticsLabel(30);
+  print(
+    '  pulled ${alertLabel.length + amAbbrev.length} sample characters from the default L10n',
+  );
 
   // -------------------------------------------------------------------------
   // SECTION 1 - HERO INTRO
@@ -467,10 +494,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF007AFF),
-          Color(0xFF5856D6),
-        ],
+        colors: <Color>[Color(0xFF007AFF), Color(0xFF5856D6)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -529,8 +553,14 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: <Widget>[
             _pill('CupertinoLocalizations', colour: const Color(0xFFFFFFFF)),
-            _pill('DefaultCupertinoLocalizations', colour: const Color(0xFFFFFFFF)),
-            _pill('GlobalCupertinoLocalizations.delegate', colour: const Color(0xFFFFFFFF)),
+            _pill(
+              'DefaultCupertinoLocalizations',
+              colour: const Color(0xFFFFFFFF),
+            ),
+            _pill(
+              'GlobalCupertinoLocalizations.delegate',
+              colour: const Color(0xFFFFFFFF),
+            ),
             _pill('WidgetsLocalizations', colour: const Color(0xFFFFFFFF)),
             _pill('LocalizationsDelegate<T>', colour: const Color(0xFFFFFFFF)),
             _pill('Locale.fromSubtags', colour: const Color(0xFFFFFFFF)),
@@ -548,7 +578,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              Icon(CupertinoIcons.lightbulb_fill, color: Color(0xFFFFD60A), size: 18.0),
+              Icon(
+                CupertinoIcons.lightbulb_fill,
+                color: Color(0xFFFFD60A),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -582,11 +616,16 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(CupertinoIcons.doc_text_search, color: _kAccent, size: 20.0),
+            const Icon(
+              CupertinoIcons.doc_text_search,
+              color: _kAccent,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'DefaultCupertinoLocalizations - API Surface',
-              subtitle: 'Every getter and method, with the English-locale value rendered live',
+              subtitle:
+                  'Every getter and method, with the English-locale value rendered live',
             ),
           ],
         ),
@@ -635,7 +674,10 @@ dynamic build(BuildContext context) {
               _kvRow('datePickerMinute(45)', minute45),
               _kvRow('datePickerMediumDate(2026-05-11)', mediumDate),
               _kvRow('datePickerHourSemanticsLabel(9)', datePickerHourSem9),
-              _kvRow('datePickerMinuteSemanticsLabel(30)', datePickerMinuteSem30),
+              _kvRow(
+                'datePickerMinuteSemanticsLabel(30)',
+                datePickerMinuteSem30,
+              ),
             ],
           ),
         ),
@@ -674,7 +716,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(CupertinoIcons.info_circle, color: _kAccent, size: 18.0),
+              const Icon(
+                CupertinoIcons.info_circle,
+                color: _kAccent,
+                size: 18.0,
+              ),
               const SizedBox(width: 8.0),
               const Expanded(
                 child: Text(
@@ -728,7 +774,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Live Picker - L10n in action',
-              subtitle: 'Every visible word here comes from a CupertinoLocalizations getter',
+              subtitle:
+                  'Every visible word here comes from a CupertinoLocalizations getter',
             ),
           ],
         ),
@@ -756,9 +803,18 @@ dynamic build(BuildContext context) {
               ),
               timerPickerSample,
               const SizedBox(height: 8.0),
-              _bullet('"hours" / "hour" column header -> timerPickerHourLabel(n)', colour: _kAccent),
-              _bullet('"min." column header -> timerPickerMinuteLabel(n)', colour: _kAccentIndigo),
-              _bullet('"sec." column header -> timerPickerSecondLabel(n)', colour: _kAccentTeal),
+              _bullet(
+                '"hours" / "hour" column header -> timerPickerHourLabel(n)',
+                colour: _kAccent,
+              ),
+              _bullet(
+                '"min." column header -> timerPickerMinuteLabel(n)',
+                colour: _kAccentIndigo,
+              ),
+              _bullet(
+                '"sec." column header -> timerPickerSecondLabel(n)',
+                colour: _kAccentTeal,
+              ),
             ],
           ),
         ),
@@ -786,12 +842,27 @@ dynamic build(BuildContext context) {
               ),
               datePickerSample,
               const SizedBox(height: 8.0),
-              _bullet('Date column ordering -> datePickerDateTimeOrder', colour: _kAccent),
+              _bullet(
+                'Date column ordering -> datePickerDateTimeOrder',
+                colour: _kAccent,
+              ),
               _bullet('"Today" label -> todayLabel', colour: _kAccentIndigo),
-              _bullet('AM / PM tokens -> anteMeridiemAbbreviation / postMeridiemAbbreviation', colour: _kAccentOrange),
-              _bullet('Hour values -> datePickerHour(n)', colour: _kAccentGreen),
-              _bullet('Minute values -> datePickerMinute(n)', colour: _kAccentTeal),
-              _bullet('Semantics labels -> datePickerHourSemanticsLabel(n) / datePickerMinuteSemanticsLabel(n)', colour: _kAccentPink),
+              _bullet(
+                'AM / PM tokens -> anteMeridiemAbbreviation / postMeridiemAbbreviation',
+                colour: _kAccentOrange,
+              ),
+              _bullet(
+                'Hour values -> datePickerHour(n)',
+                colour: _kAccentGreen,
+              ),
+              _bullet(
+                'Minute values -> datePickerMinute(n)',
+                colour: _kAccentTeal,
+              ),
+              _bullet(
+                'Semantics labels -> datePickerHourSemanticsLabel(n) / datePickerMinuteSemanticsLabel(n)',
+                colour: _kAccentPink,
+              ),
             ],
           ),
         ),
@@ -909,16 +980,13 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Locale Gallery',
-              subtitle: 'Eight Locales with the strings GlobalCupertinoLocalizations.delegate would provide',
+              subtitle:
+                  'Eight Locales with the strings GlobalCupertinoLocalizations.delegate would provide',
             ),
           ],
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: localeCards,
-        ),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: localeCards),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -946,7 +1014,12 @@ dynamic build(BuildContext context) {
   // This section renders the same row of icons + label twice: once LTR and
   // once RTL, so the visual difference is obvious.
   // -------------------------------------------------------------------------
-  Widget _directionDemo(TextDirection direction, String label, String text, Color tint) {
+  Widget _directionDemo(
+    TextDirection direction,
+    String label,
+    String text,
+    Color tint,
+  ) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -974,7 +1047,11 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Icon(CupertinoIcons.back, size: 22.0, color: _kInk),
                 const SizedBox(width: 8.0),
-                const Icon(CupertinoIcons.chevron_left, size: 18.0, color: _kInkSecondary),
+                const Icon(
+                  CupertinoIcons.chevron_left,
+                  size: 18.0,
+                  color: _kInkSecondary,
+                ),
                 const SizedBox(width: 12.0),
                 Expanded(
                   child: Text(
@@ -983,7 +1060,11 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(width: 12.0),
-                const Icon(CupertinoIcons.chevron_right, size: 18.0, color: _kInkSecondary),
+                const Icon(
+                  CupertinoIcons.chevron_right,
+                  size: 18.0,
+                  color: _kInkSecondary,
+                ),
                 const SizedBox(width: 8.0),
                 const Icon(CupertinoIcons.forward, size: 22.0, color: _kInk),
               ],
@@ -1000,18 +1081,33 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(CupertinoIcons.arrow_2_circlepath, color: _kAccent, size: 20.0),
+            const Icon(
+              CupertinoIcons.arrow_2_circlepath,
+              color: _kAccent,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'RTL Handling',
-              subtitle: 'Directionality flips chevrons, paddings and `back` icons automatically',
+              subtitle:
+                  'Directionality flips chevrons, paddings and `back` icons automatically',
             ),
           ],
         ),
         const SizedBox(height: 12.0),
-        _directionDemo(TextDirection.ltr, 'LTR', 'Settings > Display & Brightness', _kAccent),
+        _directionDemo(
+          TextDirection.ltr,
+          'LTR',
+          'Settings > Display & Brightness',
+          _kAccent,
+        ),
         const SizedBox(height: 10.0),
-        _directionDemo(TextDirection.rtl, 'RTL', 'الإعدادات > الشاشة والإضاءة', _kAccentGreen),
+        _directionDemo(
+          TextDirection.rtl,
+          'RTL',
+          'الإعدادات > الشاشة والإضاءة',
+          _kAccentGreen,
+        ),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -1023,10 +1119,22 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('`CupertinoIcons.back` rotates by 180° when the ambient direction is RTL', colour: _kAccent),
-              _bullet('`EdgeInsetsDirectional` and `AlignmentDirectional` resolve start/end based on Directionality', colour: _kAccentIndigo),
-              _bullet('`WidgetsLocalizations.textDirection` is the source of truth - GlobalCupertinoLocalizations defers to it', colour: _kAccentOrange),
-              _bullet('Without a Directionality ancestor, raw `Row`s and `Padding`s assume LTR', colour: _kAccentRed),
+              _bullet(
+                '`CupertinoIcons.back` rotates by 180° when the ambient direction is RTL',
+                colour: _kAccent,
+              ),
+              _bullet(
+                '`EdgeInsetsDirectional` and `AlignmentDirectional` resolve start/end based on Directionality',
+                colour: _kAccentIndigo,
+              ),
+              _bullet(
+                '`WidgetsLocalizations.textDirection` is the source of truth - GlobalCupertinoLocalizations defers to it',
+                colour: _kAccentOrange,
+              ),
+              _bullet(
+                'Without a Directionality ancestor, raw `Row`s and `Padding`s assume LTR',
+                colour: _kAccentRed,
+              ),
             ],
           ),
         ),
@@ -1118,10 +1226,22 @@ extension AppLocalizationsLookup on BuildContext {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('`isSupported(Locale)` is the gating predicate - Flutter walks delegates in order until one returns true', colour: _kAccent),
-              _bullet('`load(Locale)` may be async, but returning a `SynchronousFuture<T>` is the common in-memory pattern', colour: _kAccentIndigo),
-              _bullet('`shouldReload(old)` answers "do I need to rebuild dependents when the delegate list changes?"', colour: _kAccentOrange),
-              _bullet('A delegate without `isSupported` for the active locale silently falls through to the next entry', colour: _kAccentRed),
+              _bullet(
+                '`isSupported(Locale)` is the gating predicate - Flutter walks delegates in order until one returns true',
+                colour: _kAccent,
+              ),
+              _bullet(
+                '`load(Locale)` may be async, but returning a `SynchronousFuture<T>` is the common in-memory pattern',
+                colour: _kAccentIndigo,
+              ),
+              _bullet(
+                '`shouldReload(old)` answers "do I need to rebuild dependents when the delegate list changes?"',
+                colour: _kAccentOrange,
+              ),
+              _bullet(
+                'A delegate without `isSupported` for the active locale silently falls through to the next entry',
+                colour: _kAccentRed,
+              ),
             ],
           ),
         ),
@@ -1135,7 +1255,13 @@ extension AppLocalizationsLookup on BuildContext {
   // Four cards showcasing what DefaultCupertinoLocalizations emits when fed
   // representative inputs. Intended to be contrasted with intl.DateFormat.
   // -------------------------------------------------------------------------
-  Widget _formatCard({required IconData icon, required String title, required String code, required String output, required Color tint}) {
+  Widget _formatCard({
+    required IconData icon,
+    required String title,
+    required String code,
+    required String output,
+    required Color tint,
+  }) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -1194,7 +1320,8 @@ extension AppLocalizationsLookup on BuildContext {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Date & Number Formatting',
-              subtitle: 'What DefaultCupertinoLocalizations produces for representative inputs',
+              subtitle:
+                  'What DefaultCupertinoLocalizations produces for representative inputs',
             ),
           ],
         ),
@@ -1210,7 +1337,8 @@ extension AppLocalizationsLookup on BuildContext {
         _formatCard(
           icon: CupertinoIcons.calendar,
           title: 'datePickerYear / Month / Day',
-          code: "defaultL10n.datePickerYear(2025) + '/' + datePickerMonth(6) + '/' + datePickerDayOfMonth(15)",
+          code:
+              "defaultL10n.datePickerYear(2025) + '/' + datePickerMonth(6) + '/' + datePickerDayOfMonth(15)",
           output: '$year2025 / $month6 / $dayOfMonth15',
           tint: _kAccentIndigo,
         ),
@@ -1218,7 +1346,8 @@ extension AppLocalizationsLookup on BuildContext {
         _formatCard(
           icon: CupertinoIcons.clock,
           title: 'datePickerHour / Minute',
-          code: "defaultL10n.datePickerHour(9) + ':' + datePickerMinute(45) + ' ' + anteMeridiemAbbreviation",
+          code:
+              "defaultL10n.datePickerHour(9) + ':' + datePickerMinute(45) + ' ' + anteMeridiemAbbreviation",
           output: '$hour9:$minute45 $amAbbrev',
           tint: _kAccentOrange,
         ),
@@ -1226,7 +1355,8 @@ extension AppLocalizationsLookup on BuildContext {
         _formatCard(
           icon: CupertinoIcons.timer_fill,
           title: 'timerPickerHour / Minute / Second labels',
-          code: "[h, m, s].map((n) => '\${defaultL10n.timerPickerXLabel(n)}').join(' ')",
+          code:
+              "[h, m, s].map((n) => '\${defaultL10n.timerPickerXLabel(n)}').join(' ')",
           output: '$hoursLabel5 $minutesLabel45 $secondsLabel45',
           tint: _kAccentGreen,
         ),
@@ -1249,10 +1379,22 @@ extension AppLocalizationsLookup on BuildContext {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('CupertinoLocalizations is locale-aware but lightweight; for arbitrary patterns reach for `package:intl`', colour: _kAccent),
-              _bullet('`intl.DateFormat.yMMMd(localeName).format(d)` covers most real-world date strings', colour: _kAccentIndigo),
-              _bullet('`intl.NumberFormat.currency(...)` covers currency, decimal-comma vs decimal-point, and Eastern digits', colour: _kAccentOrange),
-              _bullet('Pass the canonical locale name (`en_US`) to intl - not the `Locale` object directly', colour: _kAccentRed),
+              _bullet(
+                'CupertinoLocalizations is locale-aware but lightweight; for arbitrary patterns reach for `package:intl`',
+                colour: _kAccent,
+              ),
+              _bullet(
+                '`intl.DateFormat.yMMMd(localeName).format(d)` covers most real-world date strings',
+                colour: _kAccentIndigo,
+              ),
+              _bullet(
+                '`intl.NumberFormat.currency(...)` covers currency, decimal-comma vs decimal-point, and Eastern digits',
+                colour: _kAccentOrange,
+              ),
+              _bullet(
+                'Pass the canonical locale name (`en_US`) to intl - not the `Locale` object directly',
+                colour: _kAccentRed,
+              ),
             ],
           ),
         ),
@@ -1266,7 +1408,13 @@ extension AppLocalizationsLookup on BuildContext {
   // Side-by-side mapping of CupertinoLocalizations vs MaterialLocalizations
   // vs WidgetsLocalizations. The header row is bold; body rows alternate.
   // -------------------------------------------------------------------------
-  Widget _comparisonRow(String widgetsRow, String cupertinoRow, String materialRow, {bool header = false, bool alt = false}) {
+  Widget _comparisonRow(
+    String widgetsRow,
+    String cupertinoRow,
+    String materialRow, {
+    bool header = false,
+    bool alt = false,
+  }) {
     final TextStyle style = header
         ? const TextStyle(
             fontSize: 12.5,
@@ -1303,11 +1451,16 @@ extension AppLocalizationsLookup on BuildContext {
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Row(
             children: <Widget>[
-              const Icon(CupertinoIcons.rectangle_grid_2x2, color: _kAccent, size: 20.0),
+              const Icon(
+                CupertinoIcons.rectangle_grid_2x2,
+                color: _kAccent,
+                size: 20.0,
+              ),
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Cupertino vs Material vs Widgets - L10n stack',
-                subtitle: 'Where each Localizations type lives, and what it gives you',
+                subtitle:
+                    'Where each Localizations type lives, and what it gives you',
               ),
             ],
           ),
@@ -1319,18 +1472,72 @@ extension AppLocalizationsLookup on BuildContext {
           ),
           child: Column(
             children: <Widget>[
-              _comparisonRow('Aspect', 'CupertinoLocalizations', 'MaterialLocalizations / WidgetsLocalizations', header: true),
-              _comparisonRow('Package', 'flutter/cupertino', 'flutter/material  +  flutter/widgets'),
-              _comparisonRow('Default impl', 'DefaultCupertinoLocalizations', 'DefaultMaterialLocalizations + DefaultWidgetsLocalizations', alt: true),
-              _comparisonRow('Real i18n', 'GlobalCupertinoLocalizations.delegate', 'GlobalMaterialLocalizations.delegate + GlobalWidgetsLocalizations.delegate'),
-              _comparisonRow('Used by', 'CupertinoTimerPicker, CupertinoDatePicker, CupertinoTextField context menu, CupertinoActionSheet', 'MaterialBanner, TextField, DatePicker, NavigationBar, etc.', alt: true),
-              _comparisonRow('Date order', 'datePickerDateOrder', 'firstDayOfWeekIndex / formatFullDate'),
-              _comparisonRow('Copy/Paste labels', 'copyButtonLabel / pasteButtonLabel', 'copyButtonLabel / pasteButtonLabel (Material) - same name, distinct type', alt: true),
-              _comparisonRow('Timer-picker labels', 'timerPickerHourLabel(n) -> String?', '-  (no Material equivalent)'),
-              _comparisonRow('Search placeholder', 'searchTextFieldPlaceholderLabel', 'searchFieldLabel (Material)', alt: true),
-              _comparisonRow('Text direction', '(inherits from WidgetsLocalizations.textDirection)', 'textDirection: TextDirection.ltr / rtl'),
-              _comparisonRow('Required by app?', 'Yes, for any Cupertino widget with user-visible text', 'Yes, for any Material widget (`MaterialApp` adds the default automatically)', alt: true),
-              _comparisonRow('Custom subclass?', 'Implement CupertinoLocalizations directly', 'Implement MaterialLocalizations directly (large surface!)'),
+              _comparisonRow(
+                'Aspect',
+                'CupertinoLocalizations',
+                'MaterialLocalizations / WidgetsLocalizations',
+                header: true,
+              ),
+              _comparisonRow(
+                'Package',
+                'flutter/cupertino',
+                'flutter/material  +  flutter/widgets',
+              ),
+              _comparisonRow(
+                'Default impl',
+                'DefaultCupertinoLocalizations',
+                'DefaultMaterialLocalizations + DefaultWidgetsLocalizations',
+                alt: true,
+              ),
+              _comparisonRow(
+                'Real i18n',
+                'GlobalCupertinoLocalizations.delegate',
+                'GlobalMaterialLocalizations.delegate + GlobalWidgetsLocalizations.delegate',
+              ),
+              _comparisonRow(
+                'Used by',
+                'CupertinoTimerPicker, CupertinoDatePicker, CupertinoTextField context menu, CupertinoActionSheet',
+                'MaterialBanner, TextField, DatePicker, NavigationBar, etc.',
+                alt: true,
+              ),
+              _comparisonRow(
+                'Date order',
+                'datePickerDateOrder',
+                'firstDayOfWeekIndex / formatFullDate',
+              ),
+              _comparisonRow(
+                'Copy/Paste labels',
+                'copyButtonLabel / pasteButtonLabel',
+                'copyButtonLabel / pasteButtonLabel (Material) - same name, distinct type',
+                alt: true,
+              ),
+              _comparisonRow(
+                'Timer-picker labels',
+                'timerPickerHourLabel(n) -> String?',
+                '-  (no Material equivalent)',
+              ),
+              _comparisonRow(
+                'Search placeholder',
+                'searchTextFieldPlaceholderLabel',
+                'searchFieldLabel (Material)',
+                alt: true,
+              ),
+              _comparisonRow(
+                'Text direction',
+                '(inherits from WidgetsLocalizations.textDirection)',
+                'textDirection: TextDirection.ltr / rtl',
+              ),
+              _comparisonRow(
+                'Required by app?',
+                'Yes, for any Cupertino widget with user-visible text',
+                'Yes, for any Material widget (`MaterialApp` adds the default automatically)',
+                alt: true,
+              ),
+              _comparisonRow(
+                'Custom subclass?',
+                'Implement CupertinoLocalizations directly',
+                'Implement MaterialLocalizations directly (large surface!)',
+              ),
             ],
           ),
         ),
@@ -1490,7 +1697,8 @@ class _Banner extends StatelessWidget {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Idiomatic Usage - Code Snippets',
-              subtitle: 'Six copy-pasteable patterns covering every part of the L10n stack',
+              subtitle:
+                  'Six copy-pasteable patterns covering every part of the L10n stack',
             ),
           ],
         ),
@@ -1558,11 +1766,16 @@ class _Banner extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(CupertinoIcons.exclamationmark_triangle_fill, color: _kAccentOrange, size: 20.0),
+            const Icon(
+              CupertinoIcons.exclamationmark_triangle_fill,
+              color: _kAccentOrange,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pitfalls',
-              subtitle: 'Six L10n mistakes that ship to production far too often',
+              subtitle:
+                  'Six L10n mistakes that ship to production far too often',
             ),
           ],
         ),
@@ -1571,54 +1784,54 @@ class _Banner extends StatelessWidget {
           CupertinoIcons.xmark_octagon,
           'Forgetting GlobalCupertinoLocalizations.delegate',
           'Without it, every Cupertino widget renders English regardless of the user\'s system '
-          'locale. The clue is that copy/paste menus, AM/PM labels and date-picker headings '
-          'never translate. Add it alongside GlobalWidgetsLocalizations.delegate (and '
-          'GlobalMaterialLocalizations.delegate if you also use Material widgets).',
+              'locale. The clue is that copy/paste menus, AM/PM labels and date-picker headings '
+              'never translate. Add it alongside GlobalWidgetsLocalizations.delegate (and '
+              'GlobalMaterialLocalizations.delegate if you also use Material widgets).',
           _kAccentRed,
         ),
         _pitfall(
           CupertinoIcons.text_quote,
           'Raw English strings bypassing the L10n surface',
           'Hard-coded `Text(\'Cancel\')` calls dodge the entire localization stack. The fix is '
-          'to surface them through your AppLocalizations type or - if they map onto a built-in '
-          'concept - through `Localizations.of<CupertinoLocalizations>(context, ...).cancelButtonLabel` '
-          'when available.',
+              'to surface them through your AppLocalizations type or - if they map onto a built-in '
+              'concept - through `Localizations.of<CupertinoLocalizations>(context, ...).cancelButtonLabel` '
+              'when available.',
           _kAccentOrange,
         ),
         _pitfall(
           CupertinoIcons.clock,
           'AM/PM token mismatch',
           'Some locales (de_DE, ja_JP, fr_FR) prefer the 24-hour clock and use empty strings for '
-          'anteMeridiemAbbreviation / postMeridiemAbbreviation. Pass `use24hFormat: true` to '
-          'CupertinoDatePicker when the active locale doesn\'t use AM/PM, otherwise the picker '
-          'will hide a meaningless column.',
+              'anteMeridiemAbbreviation / postMeridiemAbbreviation. Pass `use24hFormat: true` to '
+              'CupertinoDatePicker when the active locale doesn\'t use AM/PM, otherwise the picker '
+              'will hide a meaningless column.',
           _kAccentIndigo,
         ),
         _pitfall(
           CupertinoIcons.calendar_badge_minus,
           'Hard-coded date formats',
           'Calling `\'\${d.day}/\${d.month}/\${d.year}\'` is wrong in 70% of the world. Use '
-          '`defaultL10n.datePickerMediumDate(d)` for the picker, and `intl.DateFormat.yMMMd(tag).format(d)` '
-          'everywhere else. The latter honours decimal-comma vs decimal-point, Eastern numerals '
-          'and locale-specific month abbreviations.',
+              '`defaultL10n.datePickerMediumDate(d)` for the picker, and `intl.DateFormat.yMMMd(tag).format(d)` '
+              'everywhere else. The latter honours decimal-comma vs decimal-point, Eastern numerals '
+              'and locale-specific month abbreviations.',
           _kAccentTeal,
         ),
         _pitfall(
           CupertinoIcons.arrow_2_circlepath,
           'Partial RTL coverage',
           'Wrapping a single sub-tree in `Directionality(textDirection: rtl)` while leaving the '
-          'root LTR causes layout glitches: chevrons point the wrong way, paddings drift, and '
-          'Hero animations flip mid-flight. Set the direction once at the app root via '
-          'GlobalWidgetsLocalizations and let it cascade.',
+              'root LTR causes layout glitches: chevrons point the wrong way, paddings drift, and '
+              'Hero animations flip mid-flight. Set the direction once at the app root via '
+              'GlobalWidgetsLocalizations and let it cascade.',
           _kAccentPink,
         ),
         _pitfall(
           CupertinoIcons.tag_circle,
           'intl vs Dart-pkg locale parsing differences',
           '`Locale.fromSubtags(languageCode: \'zh\', scriptCode: \'Hans\', countryCode: \'CN\')` '
-          'maps to the IETF tag `zh-Hans-CN`, but `intl.Intl.canonicalizedLocale(...)` may '
-          'produce `zh_CN` (underscore, no script). Always pass `locale.toLanguageTag()` to '
-          'intl APIs, never `locale.toString()`.',
+              'maps to the IETF tag `zh-Hans-CN`, but `intl.Intl.canonicalizedLocale(...)` may '
+              'produce `zh_CN` (underscore, no script). Always pass `locale.toLanguageTag()` to '
+              'intl APIs, never `locale.toString()`.',
           _kAccentGreen,
         ),
       ],
@@ -1653,7 +1866,10 @@ class _Banner extends StatelessWidget {
             children: <Widget>[
               for (final String c in chips)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 9.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: tint.withOpacity(0.18),
                     borderRadius: BorderRadius.circular(999.0),
@@ -1688,7 +1904,11 @@ class _Banner extends StatelessWidget {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(CupertinoIcons.bookmark_fill, color: Color(0xFFFFD60A), size: 22.0),
+            Icon(
+              CupertinoIcons.bookmark_fill,
+              color: Color(0xFFFFD60A),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Cheat Sheet',
@@ -1754,7 +1974,11 @@ class _Banner extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
-              Icon(CupertinoIcons.info_circle, color: Color(0xFFFFD60A), size: 18.0),
+              Icon(
+                CupertinoIcons.info_circle,
+                color: Color(0xFFFFD60A),
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1782,24 +2006,60 @@ class _Banner extends StatelessWidget {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'API Surface', 'DefaultCupertinoLocalizations - every getter + method, rendered live'),
+    _sectionHeader(
+      2,
+      'API Surface',
+      'DefaultCupertinoLocalizations - every getter + method, rendered live',
+    ),
     apiSurfaceCard,
-    _sectionHeader(3, 'Live Pickers', 'CupertinoTimerPicker and CupertinoDatePicker pulling from L10n'),
+    _sectionHeader(
+      3,
+      'Live Pickers',
+      'CupertinoTimerPicker and CupertinoDatePicker pulling from L10n',
+    ),
     livePickerCard,
-    _sectionHeader(4, 'Locale Gallery', 'Eight Locales with the strings GlobalCupertinoLocalizations would resolve'),
+    _sectionHeader(
+      4,
+      'Locale Gallery',
+      'Eight Locales with the strings GlobalCupertinoLocalizations would resolve',
+    ),
     localeGalleryCard,
-    _sectionHeader(5, 'RTL Handling', 'Directionality flipping CupertinoIcons and layout'),
+    _sectionHeader(
+      5,
+      'RTL Handling',
+      'Directionality flipping CupertinoIcons and layout',
+    ),
     rtlCard,
-    _sectionHeader(6, 'Custom Delegate', 'LocalizationsDelegate<T> skeleton with isSupported / load / shouldReload'),
+    _sectionHeader(
+      6,
+      'Custom Delegate',
+      'LocalizationsDelegate<T> skeleton with isSupported / load / shouldReload',
+    ),
     customDelegateCard,
-    _sectionHeader(7, 'Formatting', 'DefaultCupertinoLocalizations samples for dates, times and timer labels'),
+    _sectionHeader(
+      7,
+      'Formatting',
+      'DefaultCupertinoLocalizations samples for dates, times and timer labels',
+    ),
     formattingCard,
     _sectionDivider(),
-    _sectionHeader(8, 'Comparison', 'Cupertino vs Material vs Widgets localization stack'),
+    _sectionHeader(
+      8,
+      'Comparison',
+      'Cupertino vs Material vs Widgets localization stack',
+    ),
     comparisonTable,
-    _sectionHeader(9, 'Code Snippets', 'Six idiomatic patterns covering the whole stack'),
+    _sectionHeader(
+      9,
+      'Code Snippets',
+      'Six idiomatic patterns covering the whole stack',
+    ),
     codeBlocksSection,
-    _sectionHeader(10, 'Pitfalls', 'Six L10n mistakes that ship to production far too often'),
+    _sectionHeader(
+      10,
+      'Pitfalls',
+      'Six L10n mistakes that ship to production far too often',
+    ),
     pitfalls,
     _sectionHeader(11, 'Cheat Sheet', 'Chip groups and a one-line tagline'),
     cheatSheet,
@@ -1887,7 +2147,10 @@ Widget _localeCard(_LocaleSample sample, Locale locale) {
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: sample.colour,
                 borderRadius: BorderRadius.circular(4.0),
@@ -1922,10 +2185,7 @@ Widget _localeCard(_LocaleSample sample, Locale locale) {
           style: _kMonoSmall,
         ),
         const SizedBox(height: 2.0),
-        Text(
-          'IETF tag: ${locale.toLanguageTag()}',
-          style: _kMonoSmall,
-        ),
+        Text('IETF tag: ${locale.toLanguageTag()}', style: _kMonoSmall),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),

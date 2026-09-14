@@ -77,8 +77,12 @@ const Color _kBorder = Color(0xFF3D4A6E);
 // _PrivateChip — small rounded label used all over the demo.
 // ---------------------------------------------------------------------
 
-Widget _privateChip(String text,
-    {Color color = _kAccent, IconData? icon, double fontSize = 12}) {
+Widget _privateChip(
+  String text, {
+  Color color = _kAccent,
+  IconData? icon,
+  double fontSize = 12,
+}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
@@ -145,8 +149,10 @@ Widget _privateSection({
               topRight: Radius.circular(13),
             ),
             border: Border(
-              bottom:
-                  BorderSide(color: accent.withValues(alpha: 0.4), width: 1),
+              bottom: BorderSide(
+                color: accent.withValues(alpha: 0.4),
+                width: 1,
+              ),
             ),
           ),
           child: Row(
@@ -208,8 +214,11 @@ Widget _privateSection({
 // _PrivateLabelValue — two-column label/value strip used in many cards.
 // ---------------------------------------------------------------------
 
-Widget _privateLabelValue(String label, String value,
-    {Color valueColor = _kAccent}) {
+Widget _privateLabelValue(
+  String label,
+  String value, {
+  Color valueColor = _kAccent,
+}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(
@@ -270,13 +279,19 @@ Widget _privateScissorsHero() {
       children: [
         Row(
           children: [
-            _privateChip('package:flutter/services.dart',
-                color: _kAccent, icon: Icons.layers),
+            _privateChip(
+              'package:flutter/services.dart',
+              color: _kAccent,
+              icon: Icons.layers,
+            ),
             SizedBox(width: 8),
             _privateChip('IME deltas', color: _kPurple, icon: Icons.bolt),
             SizedBox(width: 8),
-            _privateChip('apply() is pure',
-                color: _kGreen, icon: Icons.functions),
+            _privateChip(
+              'apply() is pure',
+              color: _kGreen,
+              icon: Icons.functions,
+            ),
           ],
         ),
         SizedBox(height: 14),
@@ -303,18 +318,23 @@ Widget _privateScissorsHero() {
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
           decoration: BoxDecoration(
             color: _kBgTop.withValues(alpha: 0.6),
-            border:
-                Border.all(color: _kBorder.withValues(alpha: 0.7), width: 1),
+            border: Border.all(
+              color: _kBorder.withValues(alpha: 0.7),
+              width: 1,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('oldText:',
-                  style: TextStyle(
-                      color: _kInkDim,
-                      fontSize: 11,
-                      fontFamily: 'monospace')),
+              Text(
+                'oldText:',
+                style: TextStyle(
+                  color: _kInkDim,
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                ),
+              ),
               SizedBox(height: 4),
               Row(
                 children: [
@@ -333,11 +353,14 @@ Widget _privateScissorsHero() {
                 ],
               ),
               SizedBox(height: 10),
-              Text('newText (after apply):',
-                  style: TextStyle(
-                      color: _kInkDim,
-                      fontSize: 11,
-                      fontFamily: 'monospace')),
+              Text(
+                'newText (after apply):',
+                style: TextStyle(
+                  color: _kInkDim,
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                ),
+              ),
               SizedBox(height: 4),
               Row(
                 children: [
@@ -407,8 +430,10 @@ Widget _privateAnatomy() {
             ],
           ),
           SizedBox(height: 6),
-          Text(desc,
-              style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4)),
+          Text(
+            desc,
+            style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4),
+          ),
         ],
       ),
     );
@@ -534,15 +559,19 @@ Widget _privateSiblingCard({
           ],
         ),
         SizedBox(height: 8),
-        Text(summary,
-            style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4)),
+        Text(
+          summary,
+          style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4),
+        ),
         SizedBox(height: 8),
         Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: _kBgTop.withValues(alpha: 0.7),
-            border:
-                Border.all(color: _kBorder.withValues(alpha: 0.7), width: 1),
+            border: Border.all(
+              color: _kBorder.withValues(alpha: 0.7),
+              width: 1,
+            ),
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(
@@ -755,9 +784,14 @@ Widget _privateExampleCard({
           ],
         ),
         SizedBox(height: 10),
-        Text('oldText:',
-            style: TextStyle(
-                color: _kInkDim, fontSize: 11, fontFamily: 'monospace')),
+        Text(
+          'oldText:',
+          style: TextStyle(
+            color: _kInkDim,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
+        ),
         SizedBox(height: 4),
         _privateIndexRuler(delta.oldText.length),
         _privateHighlightedRow(
@@ -769,9 +803,14 @@ Widget _privateExampleCard({
           strike: true,
         ),
         SizedBox(height: 10),
-        Text('newText (after apply):',
-            style: TextStyle(
-                color: _kInkDim, fontSize: 11, fontFamily: 'monospace')),
+        Text(
+          'newText (after apply):',
+          style: TextStyle(
+            color: _kInkDim,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
+        ),
         SizedBox(height: 4),
         _privateIndexRuler(newText.length == 0 ? 1 : newText.length),
         _privateHighlightedRow(
@@ -786,8 +825,10 @@ Widget _privateExampleCard({
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: _kBgBot.withValues(alpha: 0.7),
-            border:
-                Border.all(color: _kBorder.withValues(alpha: 0.7), width: 1),
+            border: Border.all(
+              color: _kBorder.withValues(alpha: 0.7),
+              width: 1,
+            ),
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(
@@ -929,11 +970,7 @@ Widget _privateRangeNumberLine() {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              width: 2,
-              height: 14,
-              color: inRange ? _kRed : _kBorder,
-            ),
+            Container(width: 2, height: 14, color: inRange ? _kRed : _kBorder),
             SizedBox(height: 2),
             Text(
               '$i',
@@ -993,10 +1030,7 @@ Widget _privateRangeNumberLine() {
                 ],
               ),
               SizedBox(height: 4),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: ticks,
-              ),
+              Row(mainAxisSize: MainAxisSize.min, children: ticks),
               SizedBox(height: 10),
               Row(
                 children: [
@@ -1004,8 +1038,11 @@ Widget _privateRangeNumberLine() {
                   SizedBox(width: 6),
                   _privateChip('end = 11', color: _kRed, fontSize: 11),
                   SizedBox(width: 6),
-                  _privateChip('chars deleted: 6',
-                      color: _kInkDim, fontSize: 11),
+                  _privateChip(
+                    'chars deleted: 6',
+                    color: _kInkDim,
+                    fontSize: 11,
+                  ),
                 ],
               ),
             ],
@@ -1017,9 +1054,11 @@ Widget _privateRangeNumberLine() {
           (start == end).toString(),
           valueColor: _kGreen,
         ),
-        _privateLabelValue('isValid:',
-            (start >= 0 && end >= start && end <= len).toString(),
-            valueColor: _kGreen),
+        _privateLabelValue(
+          'isValid:',
+          (start >= 0 && end >= start && end <= len).toString(),
+          valueColor: _kGreen,
+        ),
         _privateLabelValue('length:', '${end - start}', valueColor: _kAccent),
       ],
     ),
@@ -1064,11 +1103,14 @@ Widget _privateSelectionClamp() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: _kPurple,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700)),
+          Text(
+            title,
+            style: TextStyle(
+              color: _kPurple,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           SizedBox(height: 4),
           Row(
             children: [
@@ -1080,8 +1122,10 @@ Widget _privateSelectionClamp() {
             ],
           ),
           SizedBox(height: 6),
-          Text(hint,
-              style: TextStyle(color: _kInk, fontSize: 12, height: 1.35)),
+          Text(
+            hint,
+            style: TextStyle(color: _kInk, fontSize: 12, height: 1.35),
+          ),
         ],
       ),
     );
@@ -1303,15 +1347,19 @@ Widget _privatePitfalls() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text(body,
-                    style:
-                        TextStyle(color: _kInk, fontSize: 12.5, height: 1.4)),
+                Text(
+                  body,
+                  style: TextStyle(color: _kInk, fontSize: 12.5, height: 1.4),
+                ),
               ],
             ),
           ),

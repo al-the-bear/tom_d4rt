@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkForest)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkForest)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkForest)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: darkForest),
+            ),
           ),
         ],
       ),
@@ -150,38 +163,49 @@ dynamic build(BuildContext context) {
                   Icon(Icons.route, size: 28, color: lightJade),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('OverlayRoute<T>',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'OverlayRoute<T>',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('The abstract base class for routes that display their '
-                  'content through the Navigator\u0027s Overlay. Every '
-                  'visible route in Flutter — MaterialPageRoute, dialogs, '
-                  'bottom sheets — ultimately extends OverlayRoute.',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'The abstract base class for routes that display their '
+                'content through the Navigator\u0027s Overlay. Every '
+                'visible route in Flutter — MaterialPageRoute, dialogs, '
+                'bottom sheets — ultimately extends OverlayRoute.',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                pill('abstract class', teal, Colors.white),
-                pill('extends Route<T>', jade, Colors.white),
-                pill('createOverlayEntries()', softTeal, darkForest),
-                pill('install()', lightJade, darkForest),
-                pill('dispose()', paleJade, darkForest),
-              ]),
+              Wrap(
+                children: [
+                  pill('abstract class', teal, Colors.white),
+                  pill('extends Route<T>', jade, Colors.white),
+                  pill('createOverlayEntries()', softTeal, darkForest),
+                  pill('install()', lightJade, darkForest),
+                  pill('dispose()', paleJade, darkForest),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionHeader('1 \u00b7 What Is OverlayRoute',
-            'The foundation of all visible routes',
-            deepTeal, Colors.white),
+        sectionHeader(
+          '1 \u00b7 What Is OverlayRoute',
+          'The foundation of all visible routes',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -198,28 +222,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepTeal.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepTeal.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepTeal.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'abstract class OverlayRoute<T> extends Route<T> {\n'
-                    '  OverlayRoute({\n'
-                    '    RouteSettings? settings,\n'
-                    '    bool requestFocus,\n'
-                    '  });\n'
-                    '\n'
-                    '  @factory\n'
-                    '  Iterable<OverlayEntry> createOverlayEntries();\n'
-                    '\n'
-                    '  List<OverlayEntry> get overlayEntries;\n'
-                    '  bool get finishedWhenPopped;\n'
-                    '  void install();\n'
-                    '  void dispose();\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepTeal)),
+                  'abstract class OverlayRoute<T> extends Route<T> {\n'
+                  '  OverlayRoute({\n'
+                  '    RouteSettings? settings,\n'
+                  '    bool requestFocus,\n'
+                  '  });\n'
+                  '\n'
+                  '  @factory\n'
+                  '  Iterable<OverlayEntry> createOverlayEntries();\n'
+                  '\n'
+                  '  List<OverlayEntry> get overlayEntries;\n'
+                  '  bool get finishedWhenPopped;\n'
+                  '  void install();\n'
+                  '  void dispose();\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepTeal,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               infoBox(
@@ -237,9 +262,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Route hierarchy ───────────────────────────────────────
-        sectionHeader('2 \u00b7 Route Class Hierarchy',
-            'From abstract Route to concrete page routes',
-            teal, Colors.white),
+        sectionHeader(
+          '2 \u00b7 Route Class Hierarchy',
+          'From abstract Route to concrete page routes',
+          teal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -253,56 +281,109 @@ dynamic build(BuildContext context) {
               for (final node in [
                 (0, 'Route<T>', 'Abstract base — no visual', deepTeal, true),
                 (1, 'OverlayRoute<T>', 'Adds Overlay integration', teal, true),
-                (2, 'TransitionRoute<T>', 'Adds enter/exit animations', jade, true),
-                (3, 'ModalRoute<T>', 'Adds modal barrier + scope', softTeal, true),
-                (4, 'PageRoute<T>', 'Adds fullscreenDialog option', accentIndigo, true),
-                (5, 'MaterialPageRoute', 'Material slide transition', accentIndigo, false),
-                (5, 'CupertinoPageRoute', 'iOS slide-from-right', accentIndigo, false),
-                (5, 'PageRouteBuilder', 'Custom callback transition', accentIndigo, false),
+                (
+                  2,
+                  'TransitionRoute<T>',
+                  'Adds enter/exit animations',
+                  jade,
+                  true,
+                ),
+                (
+                  3,
+                  'ModalRoute<T>',
+                  'Adds modal barrier + scope',
+                  softTeal,
+                  true,
+                ),
+                (
+                  4,
+                  'PageRoute<T>',
+                  'Adds fullscreenDialog option',
+                  accentIndigo,
+                  true,
+                ),
+                (
+                  5,
+                  'MaterialPageRoute',
+                  'Material slide transition',
+                  accentIndigo,
+                  false,
+                ),
+                (
+                  5,
+                  'CupertinoPageRoute',
+                  'iOS slide-from-right',
+                  accentIndigo,
+                  false,
+                ),
+                (
+                  5,
+                  'PageRouteBuilder',
+                  'Custom callback transition',
+                  accentIndigo,
+                  false,
+                ),
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                      left: node.$1 * 14.0, top: 3, bottom: 3),
+                    left: node.$1 * 14.0,
+                    top: 3,
+                    bottom: 3,
+                  ),
                   child: Row(
                     children: [
                       if (node.$1 > 0)
                         Padding(
                           padding: const EdgeInsets.only(right: 4),
-                          child: Text('\u2514\u2500',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontFamily: 'monospace',
-                                  color: softTeal)),
+                          child: Text(
+                            '\u2514\u2500',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: softTeal,
+                            ),
+                          ),
                         ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
-                          color: node.$4.withValues(alpha: node.$5 ? 0.1 : 0.05),
+                          color: node.$4.withValues(
+                            alpha: node.$5 ? 0.1 : 0.05,
+                          ),
                           borderRadius: BorderRadius.circular(4),
                           border: node.$5
                               ? Border.all(color: node.$4, width: 2)
                               : Border.all(
-                                  color: node.$4.withValues(alpha: 0.3)),
+                                  color: node.$4.withValues(alpha: 0.3),
+                                ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(node.$2,
-                                style: TextStyle(
-                                    fontWeight: node.$5
-                                        ? FontWeight.bold
-                                        : FontWeight.normal,
-                                    fontSize: 10,
-                                    color: node.$4)),
+                            Text(
+                              node.$2,
+                              style: TextStyle(
+                                fontWeight: node.$5
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 10,
+                                color: node.$4,
+                              ),
+                            ),
                             if (node.$3.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.only(left: 6),
-                                child: Text(node.$3,
-                                    style: TextStyle(
-                                        fontSize: 8,
-                                        fontStyle: FontStyle.italic,
-                                        color: node.$4)),
+                                child: Text(
+                                  node.$3,
+                                  style: TextStyle(
+                                    fontSize: 8,
+                                    fontStyle: FontStyle.italic,
+                                    color: node.$4,
+                                  ),
+                                ),
                               ),
                           ],
                         ),
@@ -326,9 +407,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Lifecycle visual ──────────────────────────────────────
-        sectionHeader('3 \u00b7 Route Lifecycle',
-            'From push to pop to dispose',
-            deepTeal, Colors.white),
+        sectionHeader(
+          '3 \u00b7 Route Lifecycle',
+          'From push to pop to dispose',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -342,13 +426,29 @@ dynamic build(BuildContext context) {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: [deepTeal, teal, jade, softTeal, accentOrange, accentIndigo][i]
-                        .withValues(alpha: 0.1),
+                    color: [
+                      deepTeal,
+                      teal,
+                      jade,
+                      softTeal,
+                      accentOrange,
+                      accentIndigo,
+                    ][i].withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: [deepTeal, teal, jade, softTeal, accentOrange, accentIndigo][i]),
+                      color: [
+                        deepTeal,
+                        teal,
+                        jade,
+                        softTeal,
+                        accentOrange,
+                        accentIndigo,
+                      ][i],
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -356,15 +456,25 @@ dynamic build(BuildContext context) {
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: [deepTeal, teal, jade, softTeal, accentOrange, accentIndigo][i],
+                          color: [
+                            deepTeal,
+                            teal,
+                            jade,
+                            softTeal,
+                            accentOrange,
+                            accentIndigo,
+                          ][i],
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text('${i + 1}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11)),
+                          child: Text(
+                            '${i + 1}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -372,29 +482,39 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text([
-                              'Navigator.push(route)',
-                              'route.install()',
-                              'createOverlayEntries()',
-                              'Route is visible',
-                              'Navigator.pop(result)',
-                              'route.dispose()',
-                            ][i],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: [deepTeal, teal, jade, softTeal, accentOrange, accentIndigo][i])),
-                            Text([
-                              'Navigator receives the route and begins installation',
-                              'Calls createOverlayEntries() and inserts into Overlay',
-                              'Subclass returns OverlayEntry list (the visual content)',
-                              'Users see the route, can interact with it',
-                              'didPop() is called, triggers finalization if finishedWhenPopped',
-                              'OverlayEntries are disposed and removed from Overlay',
-                            ][i],
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: darkForest)),
+                            Text(
+                              [
+                                'Navigator.push(route)',
+                                'route.install()',
+                                'createOverlayEntries()',
+                                'Route is visible',
+                                'Navigator.pop(result)',
+                                'route.dispose()',
+                              ][i],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: [
+                                  deepTeal,
+                                  teal,
+                                  jade,
+                                  softTeal,
+                                  accentOrange,
+                                  accentIndigo,
+                                ][i],
+                              ),
+                            ),
+                            Text(
+                              [
+                                'Navigator receives the route and begins installation',
+                                'Calls createOverlayEntries() and inserts into Overlay',
+                                'Subclass returns OverlayEntry list (the visual content)',
+                                'Users see the route, can interact with it',
+                                'didPop() is called, triggers finalization if finishedWhenPopped',
+                                'OverlayEntries are disposed and removed from Overlay',
+                              ][i],
+                              style: TextStyle(fontSize: 10, color: darkForest),
+                            ),
                           ],
                         ),
                       ),
@@ -404,9 +524,11 @@ dynamic build(BuildContext context) {
                 if (i < 5)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Icon(Icons.arrow_downward,
-                        size: 14,
-                        color: softTeal),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      size: 14,
+                      color: softTeal,
+                    ),
                   ),
               ],
             ],
@@ -415,9 +537,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. createOverlayEntries ──────────────────────────────────
-        sectionHeader('4 \u00b7 createOverlayEntries()',
-            'The abstract factory method',
-            jade, Colors.white),
+        sectionHeader(
+          '4 \u00b7 createOverlayEntries()',
+          'The abstract factory method',
+          jade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -434,16 +559,17 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: jade.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: jade.withValues(alpha: 0.3)),
+                  border: Border.all(color: jade.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '@factory\n'
-                    'Iterable<OverlayEntry> createOverlayEntries();',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: jade)),
+                  '@factory\n'
+                  'Iterable<OverlayEntry> createOverlayEntries();',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: jade,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               fieldRow('Returns', 'Iterable<OverlayEntry>', jade),
@@ -452,12 +578,13 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 8),
               // What each route type creates
               for (final entry in [
-                ('TransitionRoute', '2 entries — barrier + page content',
-                    teal),
-                ('ModalRoute', '2 entries — modal barrier + builder',
-                    jade),
-                ('PageRoute', '2 entries — scrim barrier + page scaffold',
-                    softTeal),
+                ('TransitionRoute', '2 entries — barrier + page content', teal),
+                ('ModalRoute', '2 entries — modal barrier + builder', jade),
+                (
+                  'PageRoute',
+                  '2 entries — scrim barrier + page scaffold',
+                  softTeal,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -465,23 +592,26 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: entry.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: entry.$3, width: 3)),
+                    border: Border(left: BorderSide(color: entry.$3, width: 3)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 120,
-                        child: Text(entry.$1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: entry.$3)),
+                        child: Text(
+                          entry.$1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: entry.$3,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(entry.$2,
-                            style: TextStyle(
-                                fontSize: 11, color: darkForest)),
+                        child: Text(
+                          entry.$2,
+                          style: TextStyle(fontSize: 11, color: darkForest),
+                        ),
                       ),
                     ],
                   ),
@@ -492,9 +622,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Overlay entries visual ────────────────────────────────
-        sectionHeader('5 \u00b7 Overlay Entry Stack',
-            'How multiple routes create overlapping overlay entries',
-            deepTeal, Colors.white),
+        sectionHeader(
+          '5 \u00b7 Overlay Entry Stack',
+          'How multiple routes create overlapping overlay entries',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -513,19 +646,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepTeal.withValues(alpha: 0.03),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepTeal.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepTeal.withValues(alpha: 0.3)),
                 ),
                 child: Stack(
                   children: [
                     Positioned(
                       top: 0,
                       right: 0,
-                      child: Text('Navigator Overlay',
-                          style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                              color: deepTeal)),
+                      child: Text(
+                        'Navigator Overlay',
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: deepTeal,
+                        ),
+                      ),
                     ),
                     // Route 1 entries (bottom)
                     Positioned(
@@ -540,11 +675,14 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: teal),
                         ),
                         child: Center(
-                          child: Text('Route A — Page Content',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: teal)),
+                          child: Text(
+                            'Route A — Page Content',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: teal,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -559,13 +697,14 @@ dynamic build(BuildContext context) {
                           color: accentIndigo.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: accentIndigo.withValues(alpha: 0.5)),
+                            color: accentIndigo.withValues(alpha: 0.5),
+                          ),
                         ),
                         child: Center(
-                          child: Text('Route B — Modal Barrier',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  color: accentIndigo)),
+                          child: Text(
+                            'Route B — Modal Barrier',
+                            style: TextStyle(fontSize: 9, color: accentIndigo),
+                          ),
                         ),
                       ),
                     ),
@@ -582,11 +721,14 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: jade),
                         ),
                         child: Center(
-                          child: Text('Route B — Page Content',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: jade)),
+                          child: Text(
+                            'Route B — Page Content',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: jade,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -601,13 +743,14 @@ dynamic build(BuildContext context) {
                           color: accentOrange.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: accentOrange.withValues(alpha: 0.5)),
+                            color: accentOrange.withValues(alpha: 0.5),
+                          ),
                         ),
                         child: Center(
-                          child: Text('Route C — Modal Barrier',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  color: accentOrange)),
+                          child: Text(
+                            'Route C — Modal Barrier',
+                            style: TextStyle(fontSize: 9, color: accentOrange),
+                          ),
                         ),
                       ),
                     ),
@@ -624,11 +767,14 @@ dynamic build(BuildContext context) {
                           border: Border.all(color: softTeal),
                         ),
                         child: Center(
-                          child: Text('Route C — Page Content (TOP)',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: softTeal)),
+                          child: Text(
+                            'Route C — Page Content (TOP)',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: softTeal,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -639,16 +785,19 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Paint order:',
-                              style: TextStyle(
-                                  fontSize: 7,
-                                  fontWeight: FontWeight.bold,
-                                  color: deepTeal)),
-                          Text('Bottom \u2192 Top',
-                              style: TextStyle(
-                                  fontSize: 7, color: deepTeal)),
-                          Icon(Icons.arrow_downward,
-                              size: 12, color: deepTeal),
+                          Text(
+                            'Paint order:',
+                            style: TextStyle(
+                              fontSize: 7,
+                              fontWeight: FontWeight.bold,
+                              color: deepTeal,
+                            ),
+                          ),
+                          Text(
+                            'Bottom \u2192 Top',
+                            style: TextStyle(fontSize: 7, color: deepTeal),
+                          ),
+                          Icon(Icons.arrow_downward, size: 12, color: deepTeal),
                         ],
                       ),
                     ),
@@ -671,9 +820,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. finishedWhenPopped ────────────────────────────────────
-        sectionHeader('6 \u00b7 finishedWhenPopped',
-            'Controls auto-finalization behavior',
-            teal, Colors.white),
+        sectionHeader(
+          '6 \u00b7 finishedWhenPopped',
+          'Controls auto-finalization behavior',
+          teal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -696,20 +848,23 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.check_circle,
-                              size: 24, color: teal),
+                          Icon(Icons.check_circle, size: 24, color: teal),
                           const SizedBox(height: 4),
-                          Text('true (default)',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: teal)),
+                          Text(
+                            'true (default)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: teal,
+                            ),
+                          ),
                           const Divider(),
-                          Text('didPop() immediately calls '
-                              'navigator.finalizeRoute()',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkForest)),
+                          Text(
+                            'didPop() immediately calls '
+                            'navigator.finalizeRoute()',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkForest),
+                          ),
                           const SizedBox(height: 4),
                           pill('OverlayRoute', teal, Colors.white),
                         ],
@@ -727,20 +882,23 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Icon(Icons.timer,
-                              size: 24, color: accentOrange),
+                          Icon(Icons.timer, size: 24, color: accentOrange),
                           const SizedBox(height: 4),
-                          Text('false (override)',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: accentOrange)),
+                          Text(
+                            'false (override)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: accentOrange,
+                            ),
+                          ),
                           const Divider(),
-                          Text('didPop() does NOT finalize — '
-                              'waits for transition to complete',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkForest)),
+                          Text(
+                            'didPop() does NOT finalize — '
+                            'waits for transition to complete',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkForest),
+                          ),
                           const SizedBox(height: 4),
                           pill('TransitionRoute', accentOrange, Colors.white),
                         ],
@@ -764,9 +922,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. install() and dispose() ───────────────────────────────
-        sectionHeader('7 \u00b7 install() and dispose()',
-            'Entry creation and cleanup',
-            jade, Colors.white),
+        sectionHeader(
+          '7 \u00b7 install() and dispose()',
+          'Entry creation and cleanup',
+          jade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -788,20 +949,26 @@ dynamic build(BuildContext context) {
                   child: Column(
                     children: [
                       Icon(Icons.play_arrow, size: 24, color: jade),
-                      Text('install()',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: jade)),
+                      Text(
+                        'install()',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: jade,
+                        ),
+                      ),
                       const Divider(),
-                      Text('1. Calls super.install()\n'
-                          '2. Calls createOverlayEntries()\n'
-                          '3. Adds entries to _overlayEntries\n'
-                          '4. Entries inserted into Overlay',
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: darkForest)),
+                      Text(
+                        '1. Calls super.install()\n'
+                        '2. Calls createOverlayEntries()\n'
+                        '3. Adds entries to _overlayEntries\n'
+                        '4. Entries inserted into Overlay',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: darkForest,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -818,20 +985,26 @@ dynamic build(BuildContext context) {
                   child: Column(
                     children: [
                       Icon(Icons.stop, size: 24, color: accentOrange),
-                      Text('dispose()',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: accentOrange)),
+                      Text(
+                        'dispose()',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: accentOrange,
+                        ),
+                      ),
                       const Divider(),
-                      Text('1. For each entry: dispose()\n'
-                          '2. _overlayEntries.clear()\n'
-                          '3. Calls super.dispose()\n'
-                          '4. Entries removed from Overlay',
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: darkForest)),
+                      Text(
+                        '1. For each entry: dispose()\n'
+                        '2. _overlayEntries.clear()\n'
+                        '3. Calls super.dispose()\n'
+                        '4. Entries removed from Overlay',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: darkForest,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -842,9 +1015,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Navigator + Overlay interaction ───────────────────────
-        sectionHeader('8 \u00b7 Navigator \u2194 Overlay Interaction',
-            'How Navigator manages OverlayRoute entries',
-            deepTeal, Colors.white),
+        sectionHeader(
+          '8 \u00b7 Navigator \u2194 Overlay Interaction',
+          'How Navigator manages OverlayRoute entries',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -869,11 +1045,14 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Navigator',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: deepTeal)),
+                          Text(
+                            'Navigator',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: deepTeal,
+                            ),
+                          ),
                           const Divider(),
                           for (final task in [
                             'Manages route history stack',
@@ -884,9 +1063,13 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1),
-                              child: Text('\u2022 $task',
-                                  style: TextStyle(
-                                      fontSize: 9, color: darkForest)),
+                              child: Text(
+                                '\u2022 $task',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: darkForest,
+                                ),
+                              ),
                             ),
                         ],
                       ),
@@ -894,9 +1077,10 @@ dynamic build(BuildContext context) {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 4, vertical: 30),
-                    child: Icon(Icons.sync_alt,
-                        size: 20, color: softTeal),
+                      horizontal: 4,
+                      vertical: 30,
+                    ),
+                    child: Icon(Icons.sync_alt, size: 20, color: softTeal),
                   ),
                   Expanded(
                     child: Container(
@@ -908,11 +1092,14 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Overlay',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11,
-                                  color: jade)),
+                          Text(
+                            'Overlay',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              color: jade,
+                            ),
+                          ),
                           const Divider(),
                           for (final task in [
                             'Renders OverlayEntry stack',
@@ -923,9 +1110,13 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 1),
-                              child: Text('\u2022 $task',
-                                  style: TextStyle(
-                                      fontSize: 9, color: darkForest)),
+                              child: Text(
+                                '\u2022 $task',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  color: darkForest,
+                                ),
+                              ),
                             ),
                         ],
                       ),
@@ -948,9 +1139,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Concrete subclasses ──────────────────────────────────
-        sectionHeader('9 \u00b7 Concrete Subclasses',
-            'Routes you actually use in code',
-            teal, Colors.white),
+        sectionHeader(
+          '9 \u00b7 Concrete Subclasses',
+          'Routes you actually use in code',
+          teal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -961,21 +1155,41 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final sub in [
-                ('MaterialPageRoute', 'Platform-adaptive page transition. '
-                    'Slide-up on Android, slide-right on iOS.',
-                    Icons.phone_android, teal),
-                ('CupertinoPageRoute', 'iOS-style slide-from-right transition '
-                    'with parallax on the previous route.',
-                    Icons.phone_iphone, jade),
-                ('PageRouteBuilder', 'Build custom transitions with callbacks. '
-                    'Fully configurable enter/exit animations.',
-                    Icons.build, softTeal),
-                ('DialogRoute', 'Shows a dialog as a modal route with a '
-                    'dismissible barrier overlay.',
-                    Icons.chat_bubble_outline, accentIndigo),
-                ('ModalBottomSheetRoute', 'Shows a bottom sheet as a modal '
-                    'route with drag-to-dismiss support.',
-                    Icons.vertical_align_bottom, accentOrange),
+                (
+                  'MaterialPageRoute',
+                  'Platform-adaptive page transition. '
+                      'Slide-up on Android, slide-right on iOS.',
+                  Icons.phone_android,
+                  teal,
+                ),
+                (
+                  'CupertinoPageRoute',
+                  'iOS-style slide-from-right transition '
+                      'with parallax on the previous route.',
+                  Icons.phone_iphone,
+                  jade,
+                ),
+                (
+                  'PageRouteBuilder',
+                  'Build custom transitions with callbacks. '
+                      'Fully configurable enter/exit animations.',
+                  Icons.build,
+                  softTeal,
+                ),
+                (
+                  'DialogRoute',
+                  'Shows a dialog as a modal route with a '
+                      'dismissible barrier overlay.',
+                  Icons.chat_bubble_outline,
+                  accentIndigo,
+                ),
+                (
+                  'ModalBottomSheetRoute',
+                  'Shows a bottom sheet as a modal '
+                      'route with drag-to-dismiss support.',
+                  Icons.vertical_align_bottom,
+                  accentOrange,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -983,8 +1197,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: sub.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: sub.$4, width: 3)),
+                    border: Border(left: BorderSide(color: sub.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -995,14 +1208,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(sub.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: sub.$4)),
-                            Text(sub.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkForest)),
+                            Text(
+                              sub.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: sub.$4,
+                              ),
+                            ),
+                            Text(
+                              sub.$2,
+                              style: TextStyle(fontSize: 11, color: darkForest),
+                            ),
                           ],
                         ),
                       ),
@@ -1015,9 +1232,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. OverlayEntry details ─────────────────────────────────
-        sectionHeader('10 \u00b7 OverlayEntry Anatomy',
-            'What each overlay entry contains',
-            jade, Colors.white),
+        sectionHeader(
+          '10 \u00b7 OverlayEntry Anatomy',
+          'What each overlay entry contains',
+          jade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1034,26 +1254,35 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: jade.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: jade.withValues(alpha: 0.3)),
+                  border: Border.all(color: jade.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'OverlayEntry({\n'
-                    '  required WidgetBuilder builder,\n'
-                    '  bool opaque = false,\n'
-                    '  bool maintainState = false,\n'
-                    '  bool canSizeOverlay = false,\n'
-                    '})',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: jade)),
+                  'OverlayEntry({\n'
+                  '  required WidgetBuilder builder,\n'
+                  '  bool opaque = false,\n'
+                  '  bool maintainState = false,\n'
+                  '  bool canSizeOverlay = false,\n'
+                  '})',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: jade,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               fieldRow('builder', 'Builds the widget for this entry', jade),
               fieldRow('opaque', 'If true, entries below are not built', teal),
-              fieldRow('maintainState', 'Keep state even when covered', deepTeal),
-              fieldRow('canSizeOverlay', 'Entry can size the Overlay itself', softTeal),
+              fieldRow(
+                'maintainState',
+                'Keep state even when covered',
+                deepTeal,
+              ),
+              fieldRow(
+                'canSizeOverlay',
+                'Entry can size the Overlay itself',
+                softTeal,
+              ),
               const SizedBox(height: 8),
               infoBox(
                 'When OverlayRoute.createOverlayEntries() is called, each '
@@ -1069,9 +1298,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Modal barrier ────────────────────────────────────────
-        sectionHeader('11 \u00b7 The Modal Barrier',
-            'First overlay entry of ModalRoute',
-            deepTeal, Colors.white),
+        sectionHeader(
+          '11 \u00b7 The Modal Barrier',
+          'First overlay entry of ModalRoute',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1099,9 +1331,10 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(7),
                       ),
                       child: Center(
-                        child: Text('Previous Route Content',
-                            style: TextStyle(
-                                fontSize: 10, color: teal)),
+                        child: Text(
+                          'Previous Route Content',
+                          style: TextStyle(fontSize: 10, color: teal),
+                        ),
                       ),
                     ),
                     // Barrier overlay
@@ -1116,15 +1349,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Modal Barrier',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white.withValues(alpha: 0.9))),
-                            Text('Overlay Entry #1',
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.white.withValues(alpha: 0.7))),
+                            Text(
+                              'Modal Barrier',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
+                            ),
+                            Text(
+                              'Overlay Entry #1',
+                              style: TextStyle(
+                                fontSize: 8,
+                                color: Colors.white.withValues(alpha: 0.7),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1150,14 +1389,18 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Route Content',
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: deepTeal)),
-                              Text('Overlay Entry #2',
-                                  style: TextStyle(
-                                      fontSize: 8, color: softTeal)),
+                              Text(
+                                'Route Content',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: deepTeal,
+                                ),
+                              ),
+                              Text(
+                                'Overlay Entry #2',
+                                style: TextStyle(fontSize: 8, color: softTeal),
+                              ),
                             ],
                           ),
                         ),
@@ -1181,9 +1424,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Route settings ───────────────────────────────────────
-        sectionHeader('12 \u00b7 RouteSettings',
-            'Configuration passed to OverlayRoute',
-            teal, Colors.white),
+        sectionHeader(
+          '12 \u00b7 RouteSettings',
+          'Configuration passed to OverlayRoute',
+          teal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1194,8 +1440,16 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              fieldRow('name', 'Route name for identification (e.g., "/home")', teal),
-              fieldRow('arguments', 'Optional arguments Object passed to the route', jade),
+              fieldRow(
+                'name',
+                'Route name for identification (e.g., "/home")',
+                teal,
+              ),
+              fieldRow(
+                'arguments',
+                'Optional arguments Object passed to the route',
+                jade,
+              ),
               const Divider(),
               Container(
                 width: double.infinity,
@@ -1203,23 +1457,24 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: teal.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: teal.withValues(alpha: 0.3)),
+                  border: Border.all(color: teal.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'Navigator.push(context,\n'
-                    '  MaterialPageRoute(\n'
-                    '    settings: RouteSettings(\n'
-                    '      name: "/details",\n'
-                    '      arguments: {"id": 42},\n'
-                    '    ),\n'
-                    '    builder: (ctx) => DetailsPage(),\n'
-                    '  ),\n'
-                    ');',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: teal)),
+                  'Navigator.push(context,\n'
+                  '  MaterialPageRoute(\n'
+                  '    settings: RouteSettings(\n'
+                  '      name: "/details",\n'
+                  '      arguments: {"id": 42},\n'
+                  '    ),\n'
+                  '    builder: (ctx) => DetailsPage(),\n'
+                  '  ),\n'
+                  ');',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: teal,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1227,9 +1482,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Comparison table ─────────────────────────────────────
-        sectionHeader('13 \u00b7 Route Type Comparison',
-            'What each level of the hierarchy adds',
-            jade, Colors.white),
+        sectionHeader(
+          '13 \u00b7 Route Type Comparison',
+          'What each level of the hierarchy adds',
+          jade,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1249,14 +1507,23 @@ dynamic build(BuildContext context) {
               TableRow(
                 decoration: BoxDecoration(color: jade),
                 children: [
-                  for (final h in ['Feature', 'Overlay\nRoute', 'Transition\nRoute', 'Modal\nRoute', 'Page\nRoute'])
+                  for (final h in [
+                    'Feature',
+                    'Overlay\nRoute',
+                    'Transition\nRoute',
+                    'Modal\nRoute',
+                    'Page\nRoute',
+                  ])
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Text(h,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 8)),
+                      child: Text(
+                        h,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 8,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -1271,22 +1538,26 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 8,
-                              color: deepTeal)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 8,
+                          color: deepTeal,
+                        ),
+                      ),
                     ),
                     for (final cell in [row.$2, row.$3, row.$4, row.$5])
                       Padding(
                         padding: const EdgeInsets.all(5),
-                        child: Text(cell,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 9,
-                                color: cell == '\u2713'
-                                    ? jade
-                                    : accentOrange)),
+                        child: Text(
+                          cell,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: cell == '\u2713' ? jade : accentOrange,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -1296,8 +1567,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Performance ──────────────────────────────────────────
-        sectionHeader('14 \u00b7 Performance Notes',
-            'Lightweight by design', deepTeal, Colors.white),
+        sectionHeader(
+          '14 \u00b7 Performance Notes',
+          'Lightweight by design',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1308,22 +1583,38 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final perf in [
-                ('Lazy entry building', 'Overlay entries only build their '
-                    'widgets when visible', Icons.visibility, teal),
-                ('Opaque optimization', 'Entries below an opaque entry skip '
-                    'building entirely', Icons.layers_clear, jade),
-                ('Immediate cleanup', 'dispose() releases all overlay entry '
-                    'resources promptly', Icons.delete_sweep, deepTeal),
+                (
+                  'Lazy entry building',
+                  'Overlay entries only build their '
+                      'widgets when visible',
+                  Icons.visibility,
+                  teal,
+                ),
+                (
+                  'Opaque optimization',
+                  'Entries below an opaque entry skip '
+                      'building entirely',
+                  Icons.layers_clear,
+                  jade,
+                ),
+                (
+                  'Immediate cleanup',
+                  'dispose() releases all overlay entry '
+                      'resources promptly',
+                  Icons.delete_sweep,
+                  deepTeal,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: perf.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: perf.$4, width: 2)),
+                    border: Border(left: BorderSide(color: perf.$4, width: 2)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1332,18 +1623,25 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Expanded(
                         child: RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
                                 text: '${perf.$1}: ',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    color: perf.$4)),
-                            TextSpan(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: perf.$4,
+                                ),
+                              ),
+                              TextSpan(
                                 text: perf.$2,
                                 style: TextStyle(
-                                    fontSize: 11, color: darkForest)),
-                          ]),
+                                  fontSize: 11,
+                                  color: darkForest,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -1355,8 +1653,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionHeader('15 \u00b7 Summary',
-            'Key takeaways', deepTeal, Colors.white),
+        sectionHeader(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1388,15 +1690,22 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightJade,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightJade,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                     ],
                   ),

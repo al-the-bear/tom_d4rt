@@ -175,10 +175,7 @@ class _HeroBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            scheme.primaryContainer,
-            scheme.secondaryContainer,
-          ],
+          colors: <Color>[scheme.primaryContainer, scheme.secondaryContainer],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -190,11 +187,7 @@ class _HeroBanner extends StatelessWidget {
               color: scheme.surface.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Icon(
-              Icons.horizontal_rule,
-              size: 72,
-              color: scheme.primary,
-            ),
+            child: Icon(Icons.horizontal_rule, size: 72, color: scheme.primary),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -204,9 +197,9 @@ class _HeroBanner extends StatelessWidget {
                 Text(
                   'IgnoreBaseline',
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: scheme.onPrimaryContainer,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -216,8 +209,8 @@ class _HeroBanner extends StatelessWidget {
                   'want Row.CrossAxisAlignment.baseline to align the rest of '
                   'your text cleanly.',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                      ),
+                    color: scheme.onPrimaryContainer,
+                  ),
                 ),
               ],
             ),
@@ -249,10 +242,9 @@ class _HeroWhy extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'Why does the baseline leak at all?',
-                  style:
-                      Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -359,10 +351,9 @@ class _HeroFactCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     fact.title,
-                    style:
-                        Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -396,9 +387,9 @@ class _HeroMiniPreview extends StatelessWidget {
           children: <Widget>[
             Text(
               'Preview — what you will see',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Row(
@@ -467,9 +458,9 @@ class _HeroApiBox extends StatelessWidget {
               Text(
                 'Public surface',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: scheme.onSecondaryContainer,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: scheme.onSecondaryContainer,
+                ),
               ),
             ],
           ),
@@ -505,9 +496,9 @@ class _ConceptsTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Baseline concepts',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         Text(
@@ -603,9 +594,9 @@ class _ConceptsTab extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'Where IgnoreBaseline stops the signal',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 SizedBox(
@@ -730,10 +721,7 @@ class _ConceptsPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
         text: TextSpan(
           text: 'icon (no baseline)',
-          style: TextStyle(
-            color: scheme.onSurfaceVariant,
-            fontSize: 11,
-          ),
+          style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11),
         ),
       )..layout();
       note.paint(canvas, Offset(iconRect.left, iconRect.bottom + 4));
@@ -784,17 +772,33 @@ class _BaselineStopPainter extends CustomPainter {
       ..color = scheme.primary
       ..strokeWidth = 1.6
       ..style = PaintingStyle.stroke;
-    canvas.drawLine(Offset(8, baselineY), Offset(size.width - 8, baselineY),
-        line);
+    canvas.drawLine(
+      Offset(8, baselineY),
+      Offset(size.width - 8, baselineY),
+      line,
+    );
 
     // Three child boxes representing children.
     final List<_ChildBox> boxes = <_ChildBox>[
       _ChildBox(16, topY, 100, baselineY, 'Text "Big"', scheme.primary, false),
       _ChildBox(
-          140, topY + 18, 90, baselineY - 6, 'Icon (ignored)', scheme.tertiary,
-          true),
+        140,
+        topY + 18,
+        90,
+        baselineY - 6,
+        'Icon (ignored)',
+        scheme.tertiary,
+        true,
+      ),
       _ChildBox(
-          260, topY + 30, 90, baselineY, 'Text "small"', scheme.primary, false),
+        260,
+        topY + 30,
+        90,
+        baselineY,
+        'Text "small"',
+        scheme.primary,
+        false,
+      ),
     ];
 
     for (final _ChildBox b in boxes) {
@@ -827,8 +831,12 @@ class _BaselineStopPainter extends CustomPainter {
         final Paint dashed = Paint()
           ..color = scheme.error
           ..strokeWidth = 1.4;
-        _dash(canvas, Offset(b.left + 50, b.top + 20),
-            Offset(b.left + 50, baselineY - 2), dashed);
+        _dash(
+          canvas,
+          Offset(b.left + 50, b.top + 20),
+          Offset(b.left + 50, baselineY - 2),
+          dashed,
+        );
         final TextPainter tp2 = TextPainter(
           textDirection: TextDirection.ltr,
           text: TextSpan(
@@ -842,8 +850,11 @@ class _BaselineStopPainter extends CustomPainter {
           ..color = scheme.primary
           ..strokeWidth = 1.4
           ..style = PaintingStyle.stroke;
-        canvas.drawLine(Offset(b.left + 50, b.top + 20),
-            Offset(b.left + 50, baselineY - 2), arrow);
+        canvas.drawLine(
+          Offset(b.left + 50, b.top + 20),
+          Offset(b.left + 50, baselineY - 2),
+          arrow,
+        );
       }
     }
   }
@@ -901,9 +912,9 @@ class _CompareTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Without / With comparison',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -934,8 +945,7 @@ class _CompareTab extends StatelessWidget {
                 Expanded(
                   child: _ComparePanel(
                     title: 'With IgnoreBaseline',
-                    subtitle:
-                        '"Big" and "small" baselines align cleanly.',
+                    subtitle: '"Big" and "small" baselines align cleanly.',
                     scheme: scheme,
                     child: _buildRow(withIgnore: true),
                   ),
@@ -963,10 +973,7 @@ class _CompareTab extends StatelessWidget {
         ValueListenableBuilder<bool>(
           valueListenable: kComparisonOverlay,
           builder: (context, overlay, _) {
-            return _OverlayPanel(
-              scheme: scheme,
-              overlay: overlay,
-            );
+            return _OverlayPanel(scheme: scheme, overlay: overlay);
           },
         ),
         const SizedBox(height: 24),
@@ -1018,9 +1025,9 @@ class _ComparePanel extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
           Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
@@ -1057,9 +1064,9 @@ class _OverlayPanel extends StatelessWidget {
           children: <Widget>[
             Text(
               'With baseline overlay',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             _BaselineOverlayDemo(scheme: scheme, overlay: overlay),
@@ -1185,9 +1192,9 @@ class _CompareNarration extends StatelessWidget {
           children: <Widget>[
             Text(
               'What shifts, exactly?',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -1228,9 +1235,9 @@ class _MixedTextTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Mixed-size text',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -1255,8 +1262,8 @@ class _MixedTextTab extends StatelessWidget {
                     Text(
                       'Pick which index is "largest":',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
@@ -1327,8 +1334,9 @@ class _MixedTextTab extends StatelessWidget {
           fontWeight: i == bigIdx ? FontWeight.bold : FontWeight.normal,
         ),
       );
-      final Widget child =
-          (i == bigIdx && ignored) ? IgnoreBaseline(child: text) : text;
+      final Widget child = (i == bigIdx && ignored)
+          ? IgnoreBaseline(child: text)
+          : text;
       if (children.isNotEmpty) {
         children.add(const SizedBox(width: 12));
       }
@@ -1359,9 +1367,9 @@ class _MixedExplanation extends StatelessWidget {
           children: <Widget>[
             Text(
               'How the row computes its baseline',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -1402,17 +1410,17 @@ class _MixedGrid extends StatelessWidget {
           children: <Widget>[
             Text(
               'Static grid — every row ignores one child',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            for (int ignore = -1; ignore < _mixedSizes.length; ignore++) ...<
-                Widget>[
-              _MixedStaticRow(
-                ignoreIndex: ignore,
-                scheme: scheme,
-              ),
+            for (
+              int ignore = -1;
+              ignore < _mixedSizes.length;
+              ignore++
+            ) ...<Widget>[
+              _MixedStaticRow(ignoreIndex: ignore, scheme: scheme),
               const SizedBox(height: 8),
             ],
           ],
@@ -1436,8 +1444,9 @@ class _MixedStaticRow extends StatelessWidget {
         _mixedLabels[i],
         style: TextStyle(fontSize: _mixedSizes[i]),
       );
-      final Widget child =
-          (i == ignoreIndex) ? IgnoreBaseline(child: text) : text;
+      final Widget child = (i == ignoreIndex)
+          ? IgnoreBaseline(child: text)
+          : text;
       if (children.isNotEmpty) {
         children.add(const SizedBox(width: 10));
       }
@@ -1491,9 +1500,9 @@ class _CombosTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Icon + text combos',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -1598,10 +1607,7 @@ class _LabeledIconRow extends StatelessWidget {
       children: <Widget>[
         withIgnore ? IgnoreBaseline(child: icon) : icon,
         const SizedBox(width: 8),
-        const Text(
-          'Favourites',
-          style: TextStyle(fontSize: 20),
-        ),
+        const Text('Favourites', style: TextStyle(fontSize: 20)),
       ],
     );
   }
@@ -1727,9 +1733,9 @@ class _ComboBlock extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           Row(
@@ -1791,23 +1797,31 @@ class _ComboNotes extends StatelessWidget {
           children: <Widget>[
             Text(
               'Observations',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            _bullet(scheme,
-                'The labeled icon barely shifts — at 32 px the icon baseline '
-                'is close enough to 20 px text.'),
-            _bullet(scheme,
-                'The badge drops slightly in the ignored variant because '
-                'the row no longer anchors to the bottom of its background.'),
-            _bullet(scheme,
-                'The price tag is where the effect is the most obvious: '
-                '34 px text next to 12 px decorative currency.'),
-            _bullet(scheme,
-                'The inline sentence feels subtler because all children '
-                'are near the same height.'),
+            _bullet(
+              scheme,
+              'The labeled icon barely shifts — at 32 px the icon baseline '
+              'is close enough to 20 px text.',
+            ),
+            _bullet(
+              scheme,
+              'The badge drops slightly in the ignored variant because '
+              'the row no longer anchors to the bottom of its background.',
+            ),
+            _bullet(
+              scheme,
+              'The price tag is where the effect is the most obvious: '
+              '34 px text next to 12 px decorative currency.',
+            ),
+            _bullet(
+              scheme,
+              'The inline sentence feels subtler because all children '
+              'are near the same height.',
+            ),
           ],
         ),
       ),
@@ -1844,9 +1858,9 @@ class _ColumnTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Column baseline behaviour',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -1868,8 +1882,8 @@ class _ColumnTab extends StatelessWidget {
                 Text(
                   'Column inside a baseline-aligned Row',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 ValueListenableBuilder<bool>(
@@ -1885,10 +1899,7 @@ class _ColumnTab extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: <Widget>[
-                          const Text(
-                            'Label',
-                            style: TextStyle(fontSize: 28),
-                          ),
+                          const Text('Label', style: TextStyle(fontSize: 28)),
                           const SizedBox(width: 16),
                           _columnContent(ignored),
                         ],
@@ -1902,9 +1913,7 @@ class _ColumnTab extends StatelessWidget {
                   builder: (context, v, _) => SwitchListTile(
                     value: v,
                     onChanged: (nv) => kColumnIgnoreMiddle.value = nv,
-                    title: const Text(
-                      'Wrap the Column in IgnoreBaseline',
-                    ),
+                    title: const Text('Wrap the Column in IgnoreBaseline'),
                     subtitle: const Text(
                       'The Row will no longer ask the Column for a baseline; '
                       'only "Label" drives the alignment.',
@@ -1927,8 +1936,8 @@ class _ColumnTab extends StatelessWidget {
                 Text(
                   'Overall Column baseline computation',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -1942,10 +1951,8 @@ class _ColumnTab extends StatelessWidget {
                 const SizedBox(height: 12),
                 ValueListenableBuilder<bool>(
                   valueListenable: kColumnShowBaselineLine,
-                  builder: (context, show, _) => _ColumnBaselineDiagram(
-                    scheme: scheme,
-                    showLine: show,
-                  ),
+                  builder: (context, show, _) =>
+                      _ColumnBaselineDiagram(scheme: scheme, showLine: show),
                 ),
                 const SizedBox(height: 8),
                 ValueListenableBuilder<bool>(
@@ -2109,9 +2116,9 @@ class _TransformTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Container + transform child',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -2199,10 +2206,7 @@ class _TransformTab extends StatelessWidget {
             width: 180,
             child: Text(
               withIgnore ? 'With IgnoreBaseline' : 'Without IgnoreBaseline',
-              style: TextStyle(
-                fontSize: 12,
-                color: scheme.onSurfaceVariant,
-              ),
+              style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant),
             ),
           ),
           const Text('Tom', style: TextStyle(fontSize: 28)),
@@ -2233,9 +2237,9 @@ class _TransformNotes extends StatelessWidget {
           children: <Widget>[
             Text(
               'Why transforms are especially noisy',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -2268,9 +2272,9 @@ class _DiagramTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Schematic comparison',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
@@ -2292,8 +2296,8 @@ class _DiagramTab extends StatelessWidget {
                 Text(
                   '(a) All children contribute',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -2321,8 +2325,8 @@ class _DiagramTab extends StatelessWidget {
                 Text(
                   '(b) Middle child wrapped in IgnoreBaseline',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
@@ -2350,8 +2354,8 @@ class _DiagramTab extends StatelessWidget {
                 Text(
                   'Reading the diagrams',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -2380,8 +2384,9 @@ class _DiagramPainter extends CustomPainter {
     final Paint bg = Paint()..color = scheme.surface;
     canvas.drawRect(Offset.zero & size, bg);
 
-    final double baselineY =
-        ignoreMiddle ? size.height * 0.68 : size.height * 0.82;
+    final double baselineY = ignoreMiddle
+        ? size.height * 0.68
+        : size.height * 0.82;
 
     // Draw baseline.
     final Paint baseline = Paint()
@@ -2397,13 +2402,14 @@ class _DiagramPainter extends CustomPainter {
     final List<_DiagChild> kids = <_DiagChild>[
       _DiagChild(20, 30, 80, baselineY - 4, 'Text 40', scheme.primary, false),
       _DiagChild(
-          120,
-          45,
-          80,
-          baselineY + 20,
-          ignoreMiddle ? 'Icon (ignored)' : 'Icon',
-          scheme.tertiary,
-          ignoreMiddle),
+        120,
+        45,
+        80,
+        baselineY + 20,
+        ignoreMiddle ? 'Icon (ignored)' : 'Icon',
+        scheme.tertiary,
+        ignoreMiddle,
+      ),
       _DiagChild(220, 60, 80, baselineY - 6, 'Text 14', scheme.primary, false),
     ];
 
@@ -2436,14 +2442,21 @@ class _DiagramPainter extends CustomPainter {
         final Paint dashed = Paint()
           ..color = scheme.error
           ..strokeWidth = 1.4;
-        _dashed(canvas, Offset(k.left + 40, k.top + 20),
-            Offset(k.left + 40, baselineY - 2), dashed);
+        _dashed(
+          canvas,
+          Offset(k.left + 40, k.top + 20),
+          Offset(k.left + 40, baselineY - 2),
+          dashed,
+        );
       } else {
         final Paint arrow = Paint()
           ..color = k.color
           ..strokeWidth = 1.4;
-        canvas.drawLine(Offset(k.left + 40, k.top + 20),
-            Offset(k.left + 40, baselineY - 2), arrow);
+        canvas.drawLine(
+          Offset(k.left + 40, k.top + 20),
+          Offset(k.left + 40, baselineY - 2),
+          arrow,
+        );
       }
     }
 
@@ -2516,9 +2529,9 @@ class _PitfallsTab extends StatelessWidget {
       children: <Widget>[
         Text(
           'Pitfalls',
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         _PitfallTile(
@@ -2557,9 +2570,7 @@ class _PitfallsTab extends StatelessWidget {
                 child: Text('Over', style: TextStyle(fontSize: 40)),
               ),
               SizedBox(width: 6),
-              IgnoreBaseline(
-                child: Icon(Icons.star, size: 28),
-              ),
+              IgnoreBaseline(child: Icon(Icons.star, size: 28)),
               SizedBox(width: 6),
               IgnoreBaseline(
                 child: Text('wrapped', style: TextStyle(fontSize: 14)),
@@ -2652,8 +2663,8 @@ class _PitfallTile extends StatelessWidget {
                   child: Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -2698,9 +2709,9 @@ class _CheatSheet extends StatelessWidget {
                 Text(
                   'API cheat sheet',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: scheme.onSecondaryContainer,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: scheme.onSecondaryContainer,
+                  ),
                 ),
               ],
             ),
@@ -2713,9 +2724,9 @@ class _CheatSheet extends StatelessWidget {
             Text(
               'Properties:',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: scheme.onSecondaryContainer,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: scheme.onSecondaryContainer,
+              ),
             ),
             const SizedBox(height: 6),
             _row('child', 'The single child whose baseline is suppressed.'),
@@ -2724,13 +2735,15 @@ class _CheatSheet extends StatelessWidget {
             Text(
               'Render object:',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: scheme.onSecondaryContainer,
-                  ),
+                fontWeight: FontWeight.bold,
+                color: scheme.onSecondaryContainer,
+              ),
             ),
             const SizedBox(height: 6),
-            _row('RenderIgnoreBaseline',
-                'Returns null from computeDistanceToActualBaseline.'),
+            _row(
+              'RenderIgnoreBaseline',
+              'Returns null from computeDistanceToActualBaseline.',
+            ),
           ],
         ),
       ),
@@ -2800,9 +2813,9 @@ class _ApiComparison extends StatelessWidget {
           children: <Widget>[
             Text(
               'Alternatives and how they differ',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             for (final _Alt a in alts) ...<Widget>[
@@ -2852,9 +2865,9 @@ class _AltRow extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             alt.what,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 2),
           Text(alt.when, style: Theme.of(context).textTheme.bodySmall),

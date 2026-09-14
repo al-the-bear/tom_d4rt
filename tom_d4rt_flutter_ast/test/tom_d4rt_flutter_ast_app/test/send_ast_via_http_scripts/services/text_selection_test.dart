@@ -244,7 +244,10 @@ Widget highlightedSelectionText(String source, TextSelection sel) {
   }
   final TextSelection norm = sel.isNormalized
       ? sel
-      : TextSelection(baseOffset: sel.extentOffset, extentOffset: sel.baseOffset);
+      : TextSelection(
+          baseOffset: sel.extentOffset,
+          extentOffset: sel.baseOffset,
+        );
   final String before = norm.textBefore(source);
   final String inside = norm.textInside(source);
   final String after = norm.textAfter(source);
@@ -296,8 +299,7 @@ class _CaretIndicator extends StatelessWidget {
 
 Widget buildHeroSection() {
   const String demoText = 'Flutter selection model';
-  const TextSelection demoSel =
-      TextSelection(baseOffset: 8, extentOffset: 17);
+  const TextSelection demoSel = TextSelection(baseOffset: 8, extentOffset: 17);
   return panelContainer(
     padding: const EdgeInsets.all(24),
     color: const Color(0xFF18243A),
@@ -315,8 +317,10 @@ Widget buildHeroSection() {
           ],
         ),
         const SizedBox(height: 18),
-        const Text('TextSelection — A Visual Field Guide',
-            style: kHeroTitleStyle),
+        const Text(
+          'TextSelection — A Visual Field Guide',
+          style: kHeroTitleStyle,
+        ),
         const SizedBox(height: 10),
         const Text(
           'TextSelection is the canonical model for cursors and selections '
@@ -345,8 +349,11 @@ Widget buildHeroSection() {
                 style: kMonoStyle,
               ),
               const SizedBox(height: 10),
-              keyValueRow('start', '${demoSel.start}',
-                  valueColor: kAccentGreen),
+              keyValueRow(
+                'start',
+                '${demoSel.start}',
+                valueColor: kAccentGreen,
+              ),
               keyValueRow('end', '${demoSel.end}', valueColor: kAccentGreen),
               keyValueRow('isCollapsed', '${demoSel.isCollapsed}'),
               keyValueRow('isDirectional', '${demoSel.isDirectional}'),
@@ -382,13 +389,15 @@ Widget anatomyLabel(String name, String description, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                    color: color,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13,
-                  )),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 2),
               Text(description, style: kCardBodyStyle),
             ],
@@ -430,20 +439,30 @@ Widget buildAnatomySection() {
           ),
         ),
         const SizedBox(height: 14),
-        anatomyLabel('baseOffset',
-            'The anchor — where the selection began. Stays put while the '
-                'user drags or shift-extends the selection.', kAccentTeal),
-        anatomyLabel('extentOffset',
-            'The moving end — where the cursor currently is. The visible '
-                'caret is rendered at extentOffset.', kAccentAmber),
-        anatomyLabel('affinity',
-            'Resolves the ambiguity at line wraps. upstream = end of the '
-                'previous visual line, downstream = start of the next.',
-            kAccentPink),
-        anatomyLabel('isDirectional',
-            'When true, shift+arrow extension always grows from the same '
-                'end of the range, regardless of base/extent ordering.',
-            kAccentPurple),
+        anatomyLabel(
+          'baseOffset',
+          'The anchor — where the selection began. Stays put while the '
+              'user drags or shift-extends the selection.',
+          kAccentTeal,
+        ),
+        anatomyLabel(
+          'extentOffset',
+          'The moving end — where the cursor currently is. The visible '
+              'caret is rendered at extentOffset.',
+          kAccentAmber,
+        ),
+        anatomyLabel(
+          'affinity',
+          'Resolves the ambiguity at line wraps. upstream = end of the '
+              'previous visual line, downstream = start of the next.',
+          kAccentPink,
+        ),
+        anatomyLabel(
+          'isDirectional',
+          'When true, shift+arrow extension always grows from the same '
+              'end of the range, regardless of base/extent ordering.',
+          kAccentPurple,
+        ),
       ],
     ),
   );
@@ -536,10 +555,9 @@ Widget buildSampleSelectionCard(SampleSelection s) {
           children: [
             Expanded(child: Text(s.title, style: kCardTitleStyle)),
             pillBadge(
-                valid ? (sel.isCollapsed ? 'CARET' : 'RANGE') : 'INVALID',
-                valid
-                    ? (sel.isCollapsed ? kAccentPink : kAccentAmber)
-                    : kTextDim),
+              valid ? (sel.isCollapsed ? 'CARET' : 'RANGE') : 'INVALID',
+              valid ? (sel.isCollapsed ? kAccentPink : kAccentAmber) : kTextDim,
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -562,10 +580,16 @@ Widget buildSampleSelectionCard(SampleSelection s) {
         const SizedBox(height: 4),
         keyValueRow('baseOffset', '${sel.baseOffset}'),
         keyValueRow('extentOffset', '${sel.extentOffset}'),
-        keyValueRow('start', '${sel.start}',
-            valueColor: valid ? kAccentGreen : kTextDim),
-        keyValueRow('end', '${sel.end}',
-            valueColor: valid ? kAccentGreen : kTextDim),
+        keyValueRow(
+          'start',
+          '${sel.start}',
+          valueColor: valid ? kAccentGreen : kTextDim,
+        ),
+        keyValueRow(
+          'end',
+          '${sel.end}',
+          valueColor: valid ? kAccentGreen : kTextDim,
+        ),
         keyValueRow('isCollapsed', '${sel.isCollapsed}'),
         keyValueRow('isNormalized', '${sel.isNormalized}'),
         keyValueRow('isValid', '${sel.isValid}'),
@@ -575,12 +599,24 @@ Widget buildSampleSelectionCard(SampleSelection s) {
           const SizedBox(height: 10),
           const Text('TEXTRANGE SLICES', style: kLabelStyle),
           const SizedBox(height: 4),
-          _slicePreview('textBefore',
-              _safeBefore(s.source, sel), kHighlightBefore, kTextSecondary),
-          _slicePreview('textInside',
-              _safeInside(s.source, sel), kHighlightInside, Colors.black),
-          _slicePreview('textAfter',
-              _safeAfter(s.source, sel), kHighlightAfter, kTextSecondary),
+          _slicePreview(
+            'textBefore',
+            _safeBefore(s.source, sel),
+            kHighlightBefore,
+            kTextSecondary,
+          ),
+          _slicePreview(
+            'textInside',
+            _safeInside(s.source, sel),
+            kHighlightInside,
+            Colors.black,
+          ),
+          _slicePreview(
+            'textAfter',
+            _safeAfter(s.source, sel),
+            kHighlightAfter,
+            kTextSecondary,
+          ),
         ],
       ],
     ),
@@ -590,26 +626,39 @@ Widget buildSampleSelectionCard(SampleSelection s) {
 String _safeBefore(String src, TextSelection sel) {
   final TextSelection norm = sel.isNormalized
       ? sel
-      : TextSelection(baseOffset: sel.extentOffset, extentOffset: sel.baseOffset);
+      : TextSelection(
+          baseOffset: sel.extentOffset,
+          extentOffset: sel.baseOffset,
+        );
   return norm.textBefore(src);
 }
 
 String _safeInside(String src, TextSelection sel) {
   final TextSelection norm = sel.isNormalized
       ? sel
-      : TextSelection(baseOffset: sel.extentOffset, extentOffset: sel.baseOffset);
+      : TextSelection(
+          baseOffset: sel.extentOffset,
+          extentOffset: sel.baseOffset,
+        );
   return norm.textInside(src);
 }
 
 String _safeAfter(String src, TextSelection sel) {
   final TextSelection norm = sel.isNormalized
       ? sel
-      : TextSelection(baseOffset: sel.extentOffset, extentOffset: sel.baseOffset);
+      : TextSelection(
+          baseOffset: sel.extentOffset,
+          extentOffset: sel.baseOffset,
+        );
   return norm.textAfter(src);
 }
 
 Widget _slicePreview(
-    String name, String value, Color background, Color textColor) {
+  String name,
+  String value,
+  Color background,
+  Color textColor,
+) {
   final String shown = value.isEmpty ? '∅' : value;
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
@@ -618,12 +667,14 @@ Widget _slicePreview(
       children: [
         SizedBox(
           width: 110,
-          child: Text(name,
-              style: const TextStyle(
-                color: kTextDim,
-                fontFamily: 'monospace',
-                fontSize: 12.5,
-              )),
+          child: Text(
+            name,
+            style: const TextStyle(
+              color: kTextDim,
+              fontFamily: 'monospace',
+              fontSize: 12.5,
+            ),
+          ),
         ),
         Expanded(
           child: Container(
@@ -665,8 +716,13 @@ Widget buildSampleSelectionsSection() {
 // SECTION 4 — TEXTAFFINITY PANEL
 // -----------------------------------------------------------------------------
 
-Widget affinitySideCard(String title, String description, String example,
-    Color color, TextAffinity affinity) {
+Widget affinitySideCard(
+  String title,
+  String description,
+  String example,
+  Color color,
+  TextAffinity affinity,
+) {
   return Expanded(
     child: panelContainer(
       color: const Color(0xFF0E1726),
@@ -701,8 +757,10 @@ Widget buildAffinitySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('TextAffinity — Where the cursor lives',
-            style: kCardTitleStyle),
+        const Text(
+          'TextAffinity — Where the cursor lives',
+          style: kCardTitleStyle,
+        ),
         const SizedBox(height: 6),
         const Text(
           'When text wraps to a new line, an offset that sits exactly at '
@@ -739,9 +797,10 @@ Widget buildAffinitySection() {
                     "  affinity: TextAffinity.upstream,\n"
                     ")",
                 kAccentTeal,
-                TextAffinity.upstream),
-            const SizedBox(width: 12),
-            affinitySideCard(
+                TextAffinity.upstream,
+              ),
+              const SizedBox(width: 12),
+              affinitySideCard(
                 'downstream',
                 'The caret moves to the START of the next visual line. This '
                     'is the default and matches the user expectation when '
@@ -751,7 +810,8 @@ Widget buildAffinitySection() {
                     "  affinity: TextAffinity.downstream,\n"
                     ")",
                 kAccentAmber,
-                TextAffinity.downstream),
+                TextAffinity.downstream,
+              ),
             ],
           ),
         ),
@@ -793,8 +853,8 @@ final List<ConstructorEntry> kConstructorEntries = <ConstructorEntry>[
         "TextSelection(\n  baseOffset: 4,\n  extentOffset: 11,\n  affinity: TextAffinity.downstream,\n  isDirectional: false,\n)",
     description:
         'The general constructor. Accepts a base/extent pair and lets you '
-            'override affinity and isDirectional. Most selections produced '
-            'by gestures or shift-arrow flow through this constructor.',
+        'override affinity and isDirectional. Most selections produced '
+        'by gestures or shift-arrow flow through this constructor.',
     result: const TextSelection(baseOffset: 4, extentOffset: 11),
     color: kAccentBlue,
   ),
@@ -804,8 +864,8 @@ final List<ConstructorEntry> kConstructorEntries = <ConstructorEntry>[
         "TextSelection.collapsed(\n  offset: 9,\n  affinity: TextAffinity.downstream,\n)",
     description:
         'A pure caret. Equivalent to passing the same offset for base and '
-            'extent — the framework uses it everywhere a "cursor without '
-            'selection" is needed.',
+        'extent — the framework uses it everywhere a "cursor without '
+        'selection" is needed.',
     result: const TextSelection.collapsed(offset: 9),
     color: kAccentTeal,
   ),
@@ -815,8 +875,8 @@ final List<ConstructorEntry> kConstructorEntries = <ConstructorEntry>[
         "TextSelection.fromPosition(\n  TextPosition(\n    offset: 6,\n    affinity: TextAffinity.upstream,\n  ),\n)",
     description:
         'Builds a collapsed selection from a TextPosition, preserving the '
-            'position\'s affinity. Handy when promoting a hit-tested caret '
-            'position into a selection.',
+        'position\'s affinity. Handy when promoting a hit-tested caret '
+        'position into a selection.',
     result: TextSelection.fromPosition(
       const TextPosition(offset: 6, affinity: TextAffinity.upstream),
     ),
@@ -836,8 +896,12 @@ Widget buildConstructorCard(ConstructorEntry e) {
             pillBadge('CONSTRUCTOR', e.color),
             const SizedBox(width: 8),
             Expanded(
-                child: Text(e.name,
-                    style: kCardTitleStyle, overflow: TextOverflow.ellipsis)),
+              child: Text(
+                e.name,
+                style: kCardTitleStyle,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 8),
@@ -924,8 +988,7 @@ Widget buildEmptySection() {
         const SizedBox(height: 12),
         keyValueRow('baseOffset', '${empty.baseOffset}'),
         keyValueRow('extentOffset', '${empty.extentOffset}'),
-        keyValueRow('isValid', '${empty.isValid}',
-            valueColor: kAccentPink),
+        keyValueRow('isValid', '${empty.isValid}', valueColor: kAccentPink),
         keyValueRow('isCollapsed', '${empty.isCollapsed}'),
       ],
     ),
@@ -944,22 +1007,26 @@ Widget textRangeRow(String name, String type, String description) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(name,
-              style: const TextStyle(
-                color: kAccentTeal,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w700,
-                fontSize: 12.5,
-              )),
+          child: Text(
+            name,
+            style: const TextStyle(
+              color: kAccentTeal,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
+              fontSize: 12.5,
+            ),
+          ),
         ),
         SizedBox(
           width: 90,
-          child: Text(type,
-              style: const TextStyle(
-                color: kAccentPurple,
-                fontFamily: 'monospace',
-                fontSize: 11.5,
-              )),
+          child: Text(
+            type,
+            style: const TextStyle(
+              color: kAccentPurple,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+            ),
+          ),
         ),
         Expanded(child: Text(description, style: kCardBodyStyle)),
       ],
@@ -982,8 +1049,10 @@ Widget buildTextRangeSection() {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('TextRange — what TextSelection inherits',
-            style: kCardTitleStyle),
+        const Text(
+          'TextRange — what TextSelection inherits',
+          style: kCardTitleStyle,
+        ),
         const SizedBox(height: 6),
         const Text(
           'TextRange is the immutable [start, end) interval primitive. It '
@@ -993,22 +1062,42 @@ Widget buildTextRangeSection() {
           style: kCardBodyStyle,
         ),
         const SizedBox(height: 14),
-        textRangeRow('start', 'int',
-            'Inclusive start offset. Always <= end for a valid range.'),
-        textRangeRow('end', 'int',
-            'Exclusive end offset. -1 (with start = -1) means "empty".'),
-        textRangeRow('isValid', 'bool',
-            'True when start >= 0 and end >= 0.'),
-        textRangeRow('isCollapsed', 'bool',
-            'True when start == end. The interval has zero length.'),
-        textRangeRow('isNormalized', 'bool',
-            'True when start <= end. Slicing requires a normalized range.'),
-        textRangeRow('textBefore(s)', 'String',
-            'The substring of s strictly before start.'),
-        textRangeRow('textInside(s)', 'String',
-            'The substring of s between start and end.'),
-        textRangeRow('textAfter(s)', 'String',
-            'The substring of s strictly after end.'),
+        textRangeRow(
+          'start',
+          'int',
+          'Inclusive start offset. Always <= end for a valid range.',
+        ),
+        textRangeRow(
+          'end',
+          'int',
+          'Exclusive end offset. -1 (with start = -1) means "empty".',
+        ),
+        textRangeRow('isValid', 'bool', 'True when start >= 0 and end >= 0.'),
+        textRangeRow(
+          'isCollapsed',
+          'bool',
+          'True when start == end. The interval has zero length.',
+        ),
+        textRangeRow(
+          'isNormalized',
+          'bool',
+          'True when start <= end. Slicing requires a normalized range.',
+        ),
+        textRangeRow(
+          'textBefore(s)',
+          'String',
+          'The substring of s strictly before start.',
+        ),
+        textRangeRow(
+          'textInside(s)',
+          'String',
+          'The substring of s between start and end.',
+        ),
+        textRangeRow(
+          'textAfter(s)',
+          'String',
+          'The substring of s strictly after end.',
+        ),
         const SizedBox(height: 14),
         const Text('LIVE EXAMPLE', style: kLabelStyle),
         const SizedBox(height: 6),
@@ -1019,17 +1108,25 @@ Widget buildTextRangeSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('const TextRange(start: 4, end: 9)',
-                  style: kMonoStyle),
+              const Text(
+                'const TextRange(start: 4, end: 9)',
+                style: kMonoStyle,
+              ),
               const SizedBox(height: 6),
               Text('source = "$demoSrc"', style: kMonoDimStyle),
               const SizedBox(height: 6),
-              Text('textBefore -> "${demo.textBefore(demoSrc)}"',
-                  style: kMonoStyle),
-              Text('textInside -> "${demo.textInside(demoSrc)}"',
-                  style: kMonoStyle),
-              Text('textAfter  -> "${demo.textAfter(demoSrc)}"',
-                  style: kMonoStyle),
+              Text(
+                'textBefore -> "${demo.textBefore(demoSrc)}"',
+                style: kMonoStyle,
+              ),
+              Text(
+                'textInside -> "${demo.textInside(demoSrc)}"',
+                style: kMonoStyle,
+              ),
+              Text(
+                'textAfter  -> "${demo.textAfter(demoSrc)}"',
+                style: kMonoStyle,
+              ),
             ],
           ),
         ),
@@ -1043,8 +1140,7 @@ Widget buildTextRangeSection() {
 // -----------------------------------------------------------------------------
 
 Widget buildNumberLineSection() {
-  const TextSelection backward =
-      TextSelection(baseOffset: 17, extentOffset: 7);
+  const TextSelection backward = TextSelection(baseOffset: 17, extentOffset: 7);
   const String src = 'Hello, beautiful world!';
   return panelContainer(
     color: const Color(0xFF0E1726),
@@ -1060,8 +1156,7 @@ Widget buildNumberLineSection() {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Reading start/end vs base/extent',
-            style: kCardTitleStyle),
+        const Text('Reading start/end vs base/extent', style: kCardTitleStyle),
         const SizedBox(height: 6),
         const Text(
           'When a user drags right-to-left the selection is "backward": '
@@ -1097,8 +1192,7 @@ Widget buildNumberLineSection() {
         const SizedBox(height: 14),
         keyValueRow('baseOffset', '${backward.baseOffset}'),
         keyValueRow('extentOffset', '${backward.extentOffset}'),
-        keyValueRow('start', '${backward.start}',
-            valueColor: kAccentGreen),
+        keyValueRow('start', '${backward.start}', valueColor: kAccentGreen),
         keyValueRow('end', '${backward.end}', valueColor: kAccentGreen),
         keyValueRow('isNormalized', '${backward.isNormalized}'),
       ],
@@ -1173,8 +1267,10 @@ Widget buildRecipeSection() {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Driving an EditableText with TextSelection',
-            style: kCardTitleStyle),
+        const Text(
+          'Driving an EditableText with TextSelection',
+          style: kCardTitleStyle,
+        ),
         const SizedBox(height: 6),
         const Text(
           'TextEditingController.selection is just a TextSelection. By '
@@ -1299,13 +1395,15 @@ Widget widgetUsageRow(IconData icon, String widget, String purpose) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(widget,
-                  style: const TextStyle(
-                    color: kTextPrimary,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14,
-                  )),
+              Text(
+                widget,
+                style: const TextStyle(
+                  color: kTextPrimary,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 4),
               Text(purpose, style: kCardBodyStyle),
             ],
@@ -1330,21 +1428,36 @@ Widget buildUsageSection() {
           style: kCardBodyStyle,
         ),
         const SizedBox(height: 12),
-        widgetUsageRow(Icons.edit, 'EditableText',
-            'Low-level text editor. Owns rendering, caret painting, and '
-                'selection handles. controller.selection IS a TextSelection.'),
-        widgetUsageRow(Icons.text_fields, 'TextField',
-            'Material wrapper around EditableText. Decoration aside, all '
-                'selection mutations route through TextEditingController.'),
-        widgetUsageRow(Icons.copy_rounded, 'SelectableText',
-            'Read-only text that supports selection (copy, share). '
-                'Reports current TextSelection via onSelectionChanged.'),
-        widgetUsageRow(Icons.format_align_left, 'CupertinoTextField',
-            'iOS-styled equivalent of TextField. Shares the same '
-                'TextSelection-driven controller model.'),
-        widgetUsageRow(Icons.text_format, 'RenderEditable',
-            'Render object backing EditableText. Uses TextSelection to '
-                'paint highlight rects and the caret.'),
+        widgetUsageRow(
+          Icons.edit,
+          'EditableText',
+          'Low-level text editor. Owns rendering, caret painting, and '
+              'selection handles. controller.selection IS a TextSelection.',
+        ),
+        widgetUsageRow(
+          Icons.text_fields,
+          'TextField',
+          'Material wrapper around EditableText. Decoration aside, all '
+              'selection mutations route through TextEditingController.',
+        ),
+        widgetUsageRow(
+          Icons.copy_rounded,
+          'SelectableText',
+          'Read-only text that supports selection (copy, share). '
+              'Reports current TextSelection via onSelectionChanged.',
+        ),
+        widgetUsageRow(
+          Icons.format_align_left,
+          'CupertinoTextField',
+          'iOS-styled equivalent of TextField. Shares the same '
+              'TextSelection-driven controller model.',
+        ),
+        widgetUsageRow(
+          Icons.text_format,
+          'RenderEditable',
+          'Render object backing EditableText. Uses TextSelection to '
+              'paint highlight rects and the caret.',
+        ),
       ],
     ),
   );

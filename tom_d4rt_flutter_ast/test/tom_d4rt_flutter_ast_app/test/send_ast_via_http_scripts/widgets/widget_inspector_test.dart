@@ -66,10 +66,7 @@ const Color _wiMagWarn = Color(0xFFEF6C00);
 
 // ─────────────────────── mock tap-behaviour enum ──────────────────────
 
-enum _WiTapBehavior {
-  select,
-  passThrough,
-}
+enum _WiTapBehavior { select, passThrough }
 
 // ─────────────────────── widget-tree node model ──────────────────────
 
@@ -389,10 +386,7 @@ class _WiMiniTreePainter extends CustomPainter {
         maxLines: 1,
         ellipsis: '…',
       )..layout(maxWidth: node.size.width - 10);
-      tp.paint(
-        canvas,
-        Offset(r.left + 6, r.top + (r.height - tp.height) / 2),
-      );
+      tp.paint(canvas, Offset(r.left + 6, r.top + (r.height - tp.height) / 2));
 
       for (final _WiTreeNode c in node.children) {
         drawNode(c);
@@ -454,8 +448,7 @@ class _WiMagHome extends StatefulWidget {
   State<_WiMagHome> createState() => _WiMagHomeState();
 }
 
-class _WiMagHomeState extends State<_WiMagHome>
-    with TickerProviderStateMixin {
+class _WiMagHomeState extends State<_WiMagHome> with TickerProviderStateMixin {
   late final AnimationController _haloController;
   late final AnimationController _magController;
 
@@ -689,11 +682,7 @@ class _WiMagDossier extends StatelessWidget {
             'published to WidgetInspectorService.instance.selection, a '
             'crimson halo is painted over its rendered bounds, and DevTools '
             'opens the element in the widget tree panel.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              height: 1.55,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 14, height: 1.55),
           ),
           const SizedBox(height: 14),
           Container(
@@ -701,9 +690,7 @@ class _WiMagDossier extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _wiMagBrass.withValues(alpha: 0.45),
-              ),
+              border: Border.all(color: _wiMagBrass.withValues(alpha: 0.45)),
             ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -934,9 +921,7 @@ class _WiMagControls extends StatelessWidget {
                 icon: Icons.ads_click,
               ),
               _WiMagButtonChip(
-                label: leftAligned
-                    ? 'exit: left corner'
-                    : 'exit: right corner',
+                label: leftAligned ? 'exit: left corner' : 'exit: right corner',
                 icon: leftAligned
                     ? Icons.format_align_left
                     : Icons.format_align_right,
@@ -965,8 +950,11 @@ class _WiMagControls extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    const Icon(Icons.event_note,
-                        color: _wiMagMidnight, size: 16),
+                    const Icon(
+                      Icons.event_note,
+                      color: _wiMagMidnight,
+                      size: 16,
+                    ),
                     const SizedBox(width: 6),
                     const Text(
                       'Event log',
@@ -1042,19 +1030,13 @@ class _WiMagControlChip extends StatelessWidget {
             : _wiMagMute.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(999),
         border: Border.all(
-          color: value
-              ? _wiMagBrass
-              : _wiMagMute.withValues(alpha: 0.4),
+          color: value ? _wiMagBrass : _wiMagMute.withValues(alpha: 0.4),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(
-            icon,
-            size: 16,
-            color: value ? _wiMagBrassDeep : _wiMagMute,
-          ),
+          Icon(icon, size: 16, color: value ? _wiMagBrassDeep : _wiMagMute),
           const SizedBox(width: 6),
           Text(
             label,
@@ -1221,17 +1203,24 @@ class _WiMagLiveWrap extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              for (final String tag in const <String>['chip-1', 'chip-2', 'chip-3'])
+              for (final String tag in const <String>[
+                'chip-1',
+                'chip-2',
+                'chip-3',
+              ])
                 Padding(
                   padding: const EdgeInsets.only(right: 6),
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(999),
-                      border:
-                          Border.all(color: _wiMagMidnight.withValues(alpha: 0.25)),
+                      border: Border.all(
+                        color: _wiMagMidnight.withValues(alpha: 0.25),
+                      ),
                     ),
                     child: Text(
                       tag,
@@ -1292,9 +1281,7 @@ class _WiMagLiveWrap extends StatelessWidget {
   }) {
     onBuilderCall('tapBehavior');
     return _WiMagInspectorButton(
-      icon: selectionOnTapEnabled
-          ? Icons.center_focus_strong
-          : Icons.touch_app,
+      icon: selectionOnTapEnabled ? Icons.center_focus_strong : Icons.touch_app,
       tooltip: semanticsLabel,
       background: selectionOnTapEnabled ? _wiMagBrass : _wiMagGlassEdge,
       foreground: _wiMagMidnight,
@@ -1392,11 +1379,7 @@ class _WiMagLiveWrap extends StatelessWidget {
             'wired to the inspector internals. In the AST harness these '
             'builders may be called during debug-only overlays or not at '
             'all — we log invocations in the event log above.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 12),
           _WiMagSubSectionBanner(
@@ -1569,9 +1552,7 @@ class _WiMagSyntheticOverlay extends StatelessWidget {
                       ? Icons.center_focus_strong
                       : Icons.touch_app,
                   tooltip: 'Tap behavior',
-                  background: selectionOnTap
-                      ? _wiMagBrass
-                      : _wiMagGlassEdge,
+                  background: selectionOnTap ? _wiMagBrass : _wiMagGlassEdge,
                   foreground: _wiMagMidnight,
                   onPressed: () {},
                 ),
@@ -1621,8 +1602,7 @@ class _WiMagBuilderGallery extends StatelessWidget {
     final List<_WiMagBuilderSpec> cards = <_WiMagBuilderSpec>[
       _WiMagBuilderSpec(
         title: 'selectButtonBuilder  (legacy)',
-        typedefText:
-            'Widget Function(BuildContext, VoidCallback, GlobalKey)',
+        typedefText: 'Widget Function(BuildContext, VoidCallback, GlobalKey)',
         description:
             'Older SDKs exposed this to build the "enter select mode" '
             'button. Recent Flutter SDKs removed the dedicated builder — '
@@ -1649,9 +1629,7 @@ class _WiMagBuilderGallery extends StatelessWidget {
             'the current mode.',
         icon: Icons.ads_click,
         demo: _WiMagInspectorButton(
-          icon: selectionOnTap
-              ? Icons.center_focus_strong
-              : Icons.touch_app,
+          icon: selectionOnTap ? Icons.center_focus_strong : Icons.touch_app,
           tooltip: 'Tap behaviour',
           background: selectionOnTap ? _wiMagBrass : _wiMagGlassEdge,
           foreground: _wiMagMidnight,
@@ -1733,11 +1711,7 @@ class _WiMagBuilderGallery extends StatelessWidget {
             'selectButtonBuilder is included for documentation parity — '
             'calling it on a modern SDK would not compile, so it is rendered '
             'here from a local stand-in.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 12),
           LayoutBuilder(
@@ -1939,6 +1913,7 @@ class _WiMagTreeOverlay extends StatelessWidget {
         recurse(c);
       }
     }
+
     for (final _WiTreeNode r in roots) {
       recurse(r);
     }
@@ -1979,11 +1954,7 @@ class _WiMagTreeOverlay extends StatelessWidget {
             'via a CustomPainter and pulses through an AnimationController. '
             'A brass magnifier hovers over the scene to evoke the '
             'inspector lens.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 12),
           AnimatedBuilder(
@@ -2150,11 +2121,7 @@ class _WiMagTapBehaviorCard extends StatelessWidget {
             'the user can interact with buttons, scroll, etc. — useful when '
             'a widget has to be in a particular UI state before you inspect '
             'it.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 12),
           LayoutBuilder(
@@ -2228,9 +2195,7 @@ class _WiMagTapBehaviorPanel extends StatelessWidget {
             : _wiMagMidnight.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: active
-              ? _wiMagBrass
-              : _wiMagMidnight.withValues(alpha: 0.2),
+          color: active ? _wiMagBrass : _wiMagMidnight.withValues(alpha: 0.2),
           width: active ? 2 : 1,
         ),
       ),
@@ -2508,11 +2473,7 @@ class _WiMagKeyboardCard extends StatelessWidget {
             'WidgetInspector itself is a passive widget — the orchestration '
             'is all on the DevTools side. Each row below shows one of the '
             'controls DevTools exposes and the underlying flag it flips.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 10),
           for (final _WiMagKey k in keys) _WiMagKeyRow(entry: k),
@@ -2642,11 +2603,7 @@ class _WiMagServiceBridge extends StatelessWidget {
           const Text(
             'WidgetInspector is just the UI surface. The state lives in '
             'WidgetInspectorService.instance, a singleton that:',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 10),
           for (final String line in const <String>[
@@ -2863,11 +2820,7 @@ class _WiMagRecipes extends StatelessWidget {
           const Text(
             'Six patterns that keep the inspector useful without polluting '
             'production code. Each one can be lifted verbatim.',
-            style: TextStyle(
-              color: _wiMagInk,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _wiMagInk, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 12),
           LayoutBuilder(

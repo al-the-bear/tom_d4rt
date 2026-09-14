@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.handshake,
       'title': 'What Is SliverOverlapAbsorberHandle?',
-      'body': 'SliverOverlapAbsorberHandle is a ChangeNotifier that acts '
+      'body':
+          'SliverOverlapAbsorberHandle is a ChangeNotifier that acts '
           'as a coordination bridge between a SliverOverlapAbsorber and one '
           'or more SliverOverlapInjectors. The absorber writes the overlap '
           'extent into the handle, and every injector listening to the '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'The Overlap Problem',
-      'body': 'In a NestedScrollView, a SliverAppBar in the outer scroll '
+      'body':
+          'In a NestedScrollView, a SliverAppBar in the outer scroll '
           'view overlaps the inner scroll view during scrolling. Without '
           'compensation, content in the inner list hides behind the app '
           'bar. The handle communicates exactly how many pixels of overlap '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.settings_input_composite,
       'title': 'How It Works',
-      'body': 'The absorber wraps the overlapping header sliver and '
+      'body':
+          'The absorber wraps the overlapping header sliver and '
           'measures how much of it extends into the inner scroll region. '
           'It writes that value (layoutExtent) to the handle. The injector, '
           'placed at the top of each inner scroll list, reads the handle '
@@ -49,7 +52,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tab,
       'title': 'Multi-Tab Coordination',
-      'body': 'In a tabbed NestedScrollView, each tab body has its own '
+      'body':
+          'In a tabbed NestedScrollView, each tab body has its own '
           'inner ScrollController. But they all share the same '
           'SliverOverlapAbsorberHandle so every tab body compensates '
           'equally for the outer header overlap. This keeps scrolling '
@@ -128,32 +132,38 @@ dynamic build(BuildContext context) {
   final constructorRows = <Map<String, String>>[
     {
       'field': 'SliverOverlapAbsorberHandle()',
-      'desc': 'Creates a new handle. No parameters — it is basically a '
+      'desc':
+          'Creates a new handle. No parameters — it is basically a '
           'ChangeNotifier with a layoutExtent property.',
     },
     {
       'field': 'handle.layoutExtent',
-      'desc': 'The number of pixels of overlap currently being absorbed. '
+      'desc':
+          'The number of pixels of overlap currently being absorbed. '
           'Written by SliverOverlapAbsorber, read by SliverOverlapInjector.',
     },
     {
       'field': 'handle.scrollExtent',
-      'desc': 'The total scroll extent of the absorber\'s child sliver. '
+      'desc':
+          'The total scroll extent of the absorber\'s child sliver. '
           'Useful for computing how far the header can collapse.',
     },
     {
       'field': 'handle.addListener / removeListener',
-      'desc': 'Standard ChangeNotifier API — injectors listen to the handle '
+      'desc':
+          'Standard ChangeNotifier API — injectors listen to the handle '
           'to know when the overlap changes and rebuild accordingly.',
     },
     {
       'field': 'handle.dispose()',
-      'desc': 'Must be called when the handle is no longer needed. '
+      'desc':
+          'Must be called when the handle is no longer needed. '
           'NestedScrollView manages this automatically for its internal handle.',
     },
     {
       'field': 'NestedScrollView.sliverOverlapAbsorberHandleFor(context)',
-      'desc': 'Static method to obtain the handle from the NestedScrollView. '
+      'desc':
+          'Static method to obtain the handle from the NestedScrollView. '
           'Returns the handle the absorber/injector pair should use.',
     },
   ];
@@ -349,7 +359,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12),
         _soahRefRow('Type', 'ChangeNotifier subclass'),
         _soahRefRow('layoutExtent', 'Pixels of overlap being absorbed'),
-        _soahRefRow('scrollExtent', 'Total scroll extent of the wrapped sliver'),
+        _soahRefRow(
+          'scrollExtent',
+          'Total scroll extent of the wrapped sliver',
+        ),
         _soahRefRow('Listeners', 'Injectors add themselves as listeners'),
         _soahRefRow('Disposal', 'NestedScrollView disposes automatically'),
       ],
@@ -390,7 +403,11 @@ dynamic build(BuildContext context) {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.handshake, color: Colors.white70, size: 40),
+                          Icon(
+                            Icons.handshake,
+                            color: Colors.white70,
+                            size: 40,
+                          ),
                           SizedBox(height: 8),
                           Text(
                             'Handle coordinates this header\'s overlap',
@@ -417,66 +434,64 @@ dynamic build(BuildContext context) {
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
               ),
               SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext childCtx, int index) {
-                    final colors = [
-                      Colors.teal.shade50,
-                      Colors.cyan.shade50,
-                      Colors.green.shade50,
-                      Colors.amber.shade50,
-                    ];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: colors[index % colors.length],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: Colors.teal.withOpacity(0.15),
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext childCtx,
+                  int index,
+                ) {
+                  final colors = [
+                    Colors.teal.shade50,
+                    Colors.cyan.shade50,
+                    Colors.green.shade50,
+                    Colors.amber.shade50,
+                  ];
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: colors[index % colors.length],
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.teal.withOpacity(0.15)),
+                    ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.teal.shade200,
+                          child: Text(
+                            '${index + 1}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.teal.shade200,
-                            child: Text(
-                              '${index + 1}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'List Item ${index + 1}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'List Item ${index + 1}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Injector ensures this content starts '
-                                  'below the pinned app bar.',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade600,
-                                  ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Injector ensures this content starts '
+                                'below the pinned app bar.',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade600,
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                  childCount: 25,
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                }, childCount: 25),
               ),
             ],
           );
@@ -497,30 +512,52 @@ dynamic build(BuildContext context) {
       'label': 'News',
       'icon': Icons.newspaper,
       'color': Colors.blue,
-      'items': ['Breaking: Flutter 4 Released', 'Dart 3.8 Announced',
-        'Material You Updates', 'DevTools Revamp', 'Wasm Support GA',
-        'NestedScrollView Improvements', 'SliverOverlap Docs Updated',
-        'Community Packages Surge', 'WebAssembly Perf Gains',
-        'Hot Reload Gets Faster'],
+      'items': [
+        'Breaking: Flutter 4 Released',
+        'Dart 3.8 Announced',
+        'Material You Updates',
+        'DevTools Revamp',
+        'Wasm Support GA',
+        'NestedScrollView Improvements',
+        'SliverOverlap Docs Updated',
+        'Community Packages Surge',
+        'WebAssembly Perf Gains',
+        'Hot Reload Gets Faster',
+      ],
     },
     {
       'label': 'Sports',
       'icon': Icons.sports_soccer,
       'color': Colors.green,
-      'items': ['Champions League Semi-Finals', 'Olympic Qualifiers',
-        'Tennis Grand Slam Preview', 'F1 Season Opening', 'Rugby World Cup',
-        'NBA Playoff Race', 'Cricket World Series', 'Golf Masters Preview',
-        'Swimming Records Broken', 'Marathon Season Begins'],
+      'items': [
+        'Champions League Semi-Finals',
+        'Olympic Qualifiers',
+        'Tennis Grand Slam Preview',
+        'F1 Season Opening',
+        'Rugby World Cup',
+        'NBA Playoff Race',
+        'Cricket World Series',
+        'Golf Masters Preview',
+        'Swimming Records Broken',
+        'Marathon Season Begins',
+      ],
     },
     {
       'label': 'Tech',
       'icon': Icons.computer,
       'color': Colors.deepPurple,
-      'items': ['AI Code Assistants Evolve', 'Quantum Computing Milestone',
-        'Foldable Phone Market Grows', 'Edge Computing Trends',
-        'VR Workspace Adoption', 'Neural Interface Demos',
-        'Open-Source LLM Advances', 'Chip Fabrication at 1nm',
-        'Battery Tech Breakthrough', 'Privacy Regulations Update'],
+      'items': [
+        'AI Code Assistants Evolve',
+        'Quantum Computing Milestone',
+        'Foldable Phone Market Grows',
+        'Edge Computing Trends',
+        'VR Workspace Adoption',
+        'Neural Interface Demos',
+        'Open-Source LLM Advances',
+        'Chip Fabrication at 1nm',
+        'Battery Tech Breakthrough',
+        'Privacy Regulations Update',
+      ],
     },
   ];
 
@@ -561,53 +598,54 @@ dynamic build(BuildContext context) {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverOverlapInjector(
-                      handle:
-                          NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                        ctx,
+                      ),
                     ),
                     SliverPadding(
                       padding: const EdgeInsets.all(12),
                       sliver: SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext childCtx, int index) {
-                            return Card(
-                              margin: const EdgeInsets.only(bottom: 8),
-                              elevation: 1,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: BorderSide(
-                                  color: catColor.withOpacity(0.2),
+                        delegate: SliverChildBuilderDelegate((
+                          BuildContext childCtx,
+                          int index,
+                        ) {
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            elevation: 1,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: BorderSide(
+                                color: catColor.withOpacity(0.2),
+                              ),
+                            ),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: catColor.withOpacity(0.15),
+                                child: Icon(
+                                  cat['icon'] as IconData,
+                                  color: catColor,
+                                  size: 20,
                                 ),
                               ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundColor: catColor.withOpacity(0.15),
-                                  child: Icon(
-                                    cat['icon'] as IconData,
-                                    color: catColor,
-                                    size: 20,
-                                  ),
-                                ),
-                                title: Text(
-                                  items[index],
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                subtitle: Text(
-                                  'Category: ${cat['label']} — '
-                                  'same handle ensures consistent padding',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                                trailing: Icon(
-                                  Icons.chevron_right,
-                                  color: catColor.withOpacity(0.4),
+                              title: Text(
+                                items[index],
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                              subtitle: Text(
+                                'Category: ${cat['label']} — '
+                                'same handle ensures consistent padding',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey.shade500,
                                 ),
                               ),
-                            );
-                          },
-                          childCount: items.length,
-                        ),
+                              trailing: Icon(
+                                Icons.chevron_right,
+                                color: catColor.withOpacity(0.4),
+                              ),
+                            ),
+                          );
+                        }, childCount: items.length),
                       ),
                     ),
                   ],
@@ -620,7 +658,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  print('Multi-tab NestedScrollView demo: ${tabCategories.length} tabs sharing handle');
+  print(
+    'Multi-tab NestedScrollView demo: ${tabCategories.length} tabs sharing handle',
+  );
 
   // ============================================================
   // SECTION 6: Lifecycle — when handle values change
@@ -631,7 +671,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'Handle Created',
-      'detail': 'NestedScrollView creates a SliverOverlapAbsorberHandle '
+      'detail':
+          'NestedScrollView creates a SliverOverlapAbsorberHandle '
           'in initState and stores it as a member variable. '
           'layoutExtent and scrollExtent start at 0.0.',
       'icon': Icons.add_circle_outline,
@@ -640,7 +681,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Absorber Attaches',
-      'detail': 'SliverOverlapAbsorber receives the handle as a constructor '
+      'detail':
+          'SliverOverlapAbsorber receives the handle as a constructor '
           'parameter. During performLayout, it measures the overlap of its '
           'child sliver and writes layoutExtent and scrollExtent to the handle.',
       'icon': Icons.link,
@@ -649,7 +691,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'Injector Listens',
-      'detail': 'SliverOverlapInjector adds itself as a listener to the '
+      'detail':
+          'SliverOverlapInjector adds itself as a listener to the '
           'handle. When layoutExtent changes, the injector marks itself for '
           'relayout and reads the current value to size its paint extent.',
       'icon': Icons.hearing,
@@ -658,7 +701,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'title': 'User Scrolls',
-      'detail': 'As the user scrolls, the app bar collapses. On each frame, '
+      'detail':
+          'As the user scrolls, the app bar collapses. On each frame, '
           'the absorber recalculates the overlap and updates the handle. '
           'Listeners (injectors) are notified and rebuild, adjusting the '
           'compensating space in the inner scroll view.',
@@ -668,7 +712,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'title': 'Tab Changes',
-      'detail': 'When the user switches tabs, each tab body has its own '
+      'detail':
+          'When the user switches tabs, each tab body has its own '
           'SliverOverlapInjector but all of them listen to the SAME handle. '
           'The newly visible tab reads the current layoutExtent and '
           'compensates correctly from frame one.',
@@ -678,7 +723,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'title': 'Handle Disposed',
-      'detail': 'When the NestedScrollView is removed from the tree, it '
+      'detail':
+          'When the NestedScrollView is removed from the tree, it '
           'calls handle.dispose(). All listeners are released, preventing '
           'memory leaks. Custom handles need manual disposal.',
       'icon': Icons.delete_outline,
@@ -791,7 +837,8 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Basic NestedScrollView',
-      'code': 'NestedScrollView(\n'
+      'code':
+          'NestedScrollView(\n'
           '  headerSliverBuilder: (ctx, inner) => [\n'
           '    SliverOverlapAbsorber(\n'
           '      handle: NestedScrollView\n'
@@ -809,14 +856,16 @@ dynamic build(BuildContext context) {
           '    ]);\n'
           '  }),\n'
           ')',
-      'note': 'The most common pattern. The Builder is required to get the '
+      'note':
+          'The most common pattern. The Builder is required to get the '
           'correct context that has access to the handle.',
       'icon': Icons.looks_one,
       'color': Colors.teal,
     },
     {
       'title': 'Custom Handle (Manual)',
-      'code': 'final handle = SliverOverlapAbsorberHandle();\n'
+      'code':
+          'final handle = SliverOverlapAbsorberHandle();\n'
           '// ...\n'
           'SliverOverlapAbsorber(\n'
           '  handle: handle,\n'
@@ -826,27 +875,31 @@ dynamic build(BuildContext context) {
           'SliverOverlapInjector(handle: handle)\n'
           '// ...\n'
           'handle.dispose(); // in State.dispose()',
-      'note': 'Creating a handle manually outside NestedScrollView. You must '
+      'note':
+          'Creating a handle manually outside NestedScrollView. You must '
           'remember to dispose it yourself in the State.dispose() method.',
       'icon': Icons.looks_two,
       'color': Colors.deepOrange,
     },
     {
       'title': 'Listening for Changes',
-      'code': 'handle.addListener(() {\n'
+      'code':
+          'handle.addListener(() {\n'
           '  print(\'Overlap: \${handle.layoutExtent}\');\n'
           '  print(\'Scroll: \${handle.scrollExtent}\');\n'
           '});\n'
           '// Remove in dispose:\n'
           '// handle.removeListener(callback);',
-      'note': 'Since SliverOverlapAbsorberHandle extends ChangeNotifier, '
+      'note':
+          'Since SliverOverlapAbsorberHandle extends ChangeNotifier, '
           'you can listen for overlap value changes to trigger custom behavior.',
       'icon': Icons.looks_3,
       'color': Colors.indigo,
     },
     {
       'title': 'Multiple Inner Lists',
-      'code': 'TabBarView(\n'
+      'code':
+          'TabBarView(\n'
           '  children: tabs.map((tab) {\n'
           '    return Builder(builder: (ctx) {\n'
           '      return CustomScrollView(slivers: [\n'
@@ -859,7 +912,8 @@ dynamic build(BuildContext context) {
           '    });\n'
           '  }).toList(),\n'
           ')',
-      'note': 'Each tab body gets its own injector but they all share the '
+      'note':
+          'Each tab body gets its own injector but they all share the '
           'same handle. The Builder context is essential.',
       'icon': Icons.looks_4,
       'color': Colors.purple,
@@ -965,37 +1019,44 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.handshake,
-      'text': 'SliverOverlapAbsorberHandle is a ChangeNotifier bridge '
+      'text':
+          'SliverOverlapAbsorberHandle is a ChangeNotifier bridge '
           'carrying overlap extent data between absorber and injector.',
     },
     {
       'icon': Icons.straighten,
-      'text': 'layoutExtent: how many pixels of overlap are being absorbed. '
+      'text':
+          'layoutExtent: how many pixels of overlap are being absorbed. '
           'scrollExtent: total scroll extent of the absorber child.',
     },
     {
       'icon': Icons.auto_awesome,
-      'text': 'NestedScrollView creates and manages the handle automatically '
+      'text':
+          'NestedScrollView creates and manages the handle automatically '
           '— retrieve it with sliverOverlapAbsorberHandleFor(context).',
     },
     {
       'icon': Icons.tab,
-      'text': 'In multi-tab layouts, all TabBarView children share the '
+      'text':
+          'In multi-tab layouts, all TabBarView children share the '
           'same handle so overlap compensation is consistent.',
     },
     {
       'icon': Icons.build,
-      'text': 'Use Builder to obtain the correct context inside '
+      'text':
+          'Use Builder to obtain the correct context inside '
           'headerSliverBuilder and inside each tab body.',
     },
     {
       'icon': Icons.warning_amber,
-      'text': 'Custom (manually-created) handles must be disposed. '
+      'text':
+          'Custom (manually-created) handles must be disposed. '
           'NestedScrollView disposes its handle automatically.',
     },
     {
       'icon': Icons.architecture,
-      'text': 'The absorber-handle-injector trio solves the clipping '
+      'text':
+          'The absorber-handle-injector trio solves the clipping '
           'problem when headers overlap inner scroll regions.',
     },
   ];

@@ -195,7 +195,9 @@ dynamic build(BuildContext context) {
       Colors.brown,
     ),
   );
-  print('Created ${operatorRows.length} operator demonstrations (negated=$negated)');
+  print(
+    'Created ${operatorRows.length} operator demonstrations (negated=$negated)',
+  );
 
   // ============================================================
   // SECTION 4: Methods & Properties Showcase
@@ -421,10 +423,7 @@ dynamic build(BuildContext context) {
                 color: color.withValues(alpha: 0.15),
                 child: Padding(
                   padding: dirInsets,
-                  child: Container(
-                    height: 24.0,
-                    color: color,
-                  ),
+                  child: Container(height: 24.0, color: color),
                 ),
               ),
               SizedBox(height: 6.0),
@@ -606,7 +605,8 @@ dynamic build(BuildContext context) {
   final timelineSteps = <Map<String, dynamic>>[
     {
       'title': 'Page-level padding',
-      'desc': 'Wrap SingleChildScrollView in EdgeInsets.all(16) for breathing room',
+      'desc':
+          'Wrap SingleChildScrollView in EdgeInsets.all(16) for breathing room',
       'icon': Icons.crop_din,
       'color': Colors.blue,
     },
@@ -694,10 +694,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     step['title'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   SizedBox(height: 4.0),
                   Text(

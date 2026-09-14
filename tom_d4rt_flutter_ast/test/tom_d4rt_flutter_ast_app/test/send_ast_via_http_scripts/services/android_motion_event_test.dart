@@ -283,7 +283,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Colors.grey.shade50,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: androidGreen.withValues(alpha: 0.5), width: 2.0),
+      border: Border.all(
+        color: androidGreen.withValues(alpha: 0.5),
+        width: 2.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: androidGreen.withValues(alpha: 0.15),
@@ -446,10 +449,7 @@ dynamic build(BuildContext context) {
             Text(
               a['desc'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10.0,
-                color: Colors.grey.shade800,
-              ),
+              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade800),
             ),
           ],
         ),
@@ -584,10 +584,7 @@ dynamic build(BuildContext context) {
             Text(
               t['desc'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 10.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -772,8 +769,8 @@ dynamic build(BuildContext context) {
     final action = i == 0
         ? 0 // ACTION_DOWN
         : i == 11
-            ? 1 // ACTION_UP
-            : 2; // ACTION_MOVE
+        ? 1 // ACTION_UP
+        : 2; // ACTION_MOVE
     trailEvents.add(
       AndroidMotionEvent(
         downTime: 1000,
@@ -819,8 +816,8 @@ dynamic build(BuildContext context) {
     final dotColor = isDown
         ? Colors.green
         : isUp
-            ? Colors.blue
-            : amber;
+        ? Colors.blue
+        : amber;
 
     trailDots.add(
       Positioned(
@@ -913,10 +910,7 @@ dynamic build(BuildContext context) {
           width: 280.0,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                androidGreen.withValues(alpha: 0.18),
-                Colors.white,
-              ],
+              colors: [androidGreen.withValues(alpha: 0.18), Colors.white],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -930,10 +924,7 @@ dynamic build(BuildContext context) {
                 top: 6.0,
                 left: 6.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: androidGreenDark,
                     borderRadius: BorderRadius.circular(4.0),
@@ -953,10 +944,7 @@ dynamic build(BuildContext context) {
                 bottom: 6.0,
                 right: 8.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.7),
                     borderRadius: BorderRadius.circular(4.0),
@@ -1066,8 +1054,9 @@ dynamic build(BuildContext context) {
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
-                color: (p == 0 ? Colors.green : Colors.purple)
-                    .withValues(alpha: 0.5),
+                color: (p == 0 ? Colors.green : Colors.purple).withValues(
+                  alpha: 0.5,
+                ),
                 blurRadius: 4.0,
               ),
             ],
@@ -1086,9 +1075,7 @@ dynamic build(BuildContext context) {
       );
     }
     if (pointerDots.isEmpty) {
-      pointerDots.add(
-        Icon(Icons.do_not_touch, color: Colors.grey, size: 16.0),
-      );
+      pointerDots.add(Icon(Icons.do_not_touch, color: Colors.grey, size: 16.0));
     }
 
     pinchSteps.add(
@@ -1097,10 +1084,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.08),
-              Colors.white,
-            ],
+            colors: [color.withValues(alpha: 0.08), Colors.white],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -1205,7 +1189,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: Color(0xFF1E1E1E),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(color: androidGreen.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: androidGreen.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: Colors.black.withValues(alpha: 0.4),
@@ -1259,45 +1246,52 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _buildCodeLine('// Forward a synthesized touch to AndroidView',
-            Colors.grey.shade500),
-        _buildCodeLine('controller.dispatchPointerEvent(',
-            Colors.cyan.shade300),
+        _buildCodeLine(
+          '// Forward a synthesized touch to AndroidView',
+          Colors.grey.shade500,
+        ),
+        _buildCodeLine(
+          'controller.dispatchPointerEvent(',
+          Colors.cyan.shade300,
+        ),
         _buildCodeLine('  AndroidMotionEvent(', amber),
         _buildCodeLine('    downTime: 1000,', Colors.white),
         _buildCodeLine('    eventTime: 1016,', Colors.white),
         _buildCodeLine(
-            '    action: AndroidMotionEvent.actionDown, // == 0',
-            Colors.white),
+          '    action: AndroidMotionEvent.actionDown, // == 0',
+          Colors.white,
+        ),
         _buildCodeLine('    pointerCount: 1,', Colors.white),
         _buildCodeLine('    pointerProperties: [', Colors.white),
         _buildCodeLine(
-            '      AndroidPointerProperties(id: 0, toolType: 1),',
-            Colors.lightGreenAccent),
+          '      AndroidPointerProperties(id: 0, toolType: 1),',
+          Colors.lightGreenAccent,
+        ),
         _buildCodeLine('    ],', Colors.white),
         _buildCodeLine('    pointerCoords: [', Colors.white),
-        _buildCodeLine('      AndroidPointerCoords(',
-            Colors.lightGreenAccent),
+        _buildCodeLine('      AndroidPointerCoords(', Colors.lightGreenAccent),
         _buildCodeLine(
-            '        orientation: 0.0, pressure: 1.0, size: 0.5,',
-            Colors.lightGreenAccent),
+          '        orientation: 0.0, pressure: 1.0, size: 0.5,',
+          Colors.lightGreenAccent,
+        ),
         _buildCodeLine(
-            '        toolMajor: 10, toolMinor: 10,',
-            Colors.lightGreenAccent),
+          '        toolMajor: 10, toolMinor: 10,',
+          Colors.lightGreenAccent,
+        ),
         _buildCodeLine(
-            '        touchMajor: 10, touchMinor: 10,',
-            Colors.lightGreenAccent),
-        _buildCodeLine('        x: 120.0, y: 240.0,',
-            Colors.lightGreenAccent),
+          '        touchMajor: 10, touchMinor: 10,',
+          Colors.lightGreenAccent,
+        ),
+        _buildCodeLine('        x: 120.0, y: 240.0,', Colors.lightGreenAccent),
         _buildCodeLine('      ),', Colors.lightGreenAccent),
         _buildCodeLine('    ],', Colors.white),
         _buildCodeLine('    metaState: 0, buttonState: 0,', Colors.white),
-        _buildCodeLine(
-            '    xPrecision: 1.0, yPrecision: 1.0,', Colors.white),
+        _buildCodeLine('    xPrecision: 1.0, yPrecision: 1.0,', Colors.white),
         _buildCodeLine('    deviceId: 0, edgeFlags: 0,', Colors.white),
         _buildCodeLine(
-            '    source: 4098, // SOURCE_TOUCHSCREEN',
-            Colors.cyan.shade200),
+          '    source: 4098, // SOURCE_TOUCHSCREEN',
+          Colors.cyan.shade200,
+        ),
         _buildCodeLine('    flags: 0, motionEventId: 1,', Colors.white),
         _buildCodeLine('  ),', amber),
         _buildCodeLine(');', Colors.cyan.shade300),
@@ -1433,35 +1427,35 @@ dynamic build(BuildContext context) {
       'icon': Icons.timer,
       'desc':
           'downTime is set ONCE when ACTION_DOWN fires; eventTime updates per event. '
-              'Reusing eventTime as downTime breaks gesture grouping on Android.',
+          'Reusing eventTime as downTime breaks gesture grouping on Android.',
     },
     {
       'title': 'action is encoded',
       'icon': Icons.flash_on,
       'desc':
           'For ACTION_POINTER_DOWN/UP, the high byte holds the pointer index: '
-              '(pointerIndex << 8) | actionMasked. Just passing 5 always means index 0.',
+          '(pointerIndex << 8) | actionMasked. Just passing 5 always means index 0.',
     },
     {
       'title': 'array length must == pointerCount',
       'icon': Icons.format_list_numbered,
       'desc':
           'pointerProperties.length and pointerCoords.length MUST equal pointerCount, '
-              'or AndroidView dispatch silently drops events / crashes the platform view.',
+          'or AndroidView dispatch silently drops events / crashes the platform view.',
     },
     {
       'title': 'source matters',
       'icon': Icons.input,
       'desc':
           'source must be a valid InputDevice source (e.g. 0x1002 = SOURCE_TOUCHSCREEN). '
-              'Using 0 makes Android treat the event as SOURCE_UNKNOWN and ignore it.',
+          'Using 0 makes Android treat the event as SOURCE_UNKNOWN and ignore it.',
     },
     {
       'title': 'precision is not noise',
       'icon': Icons.straighten,
       'desc':
           'xPrecision / yPrecision describe device coordinate precision, NOT a fudge factor. '
-              'Setting them to 0 makes Android divide by zero in some gesture pipelines.',
+          'Setting them to 0 makes Android divide by zero in some gesture pipelines.',
     },
   ];
 
@@ -1473,10 +1467,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.red.shade50,
-              Colors.orange.shade50,
-            ],
+            colors: [Colors.red.shade50, Colors.orange.shade50],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1522,8 +1513,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.warning_amber,
-                          color: Colors.red.shade700, size: 16.0),
+                      Icon(
+                        Icons.warning_amber,
+                        color: Colors.red.shade700,
+                        size: 16.0,
+                      ),
                       SizedBox(width: 4.0),
                       Expanded(
                         child: Text(
@@ -1599,7 +1593,7 @@ dynamic build(BuildContext context) {
         _buildRecapLine(
           Icons.android,
           'AndroidMotionEvent wraps Android MotionEvent for the Flutter -> '
-              'AndroidView channel.',
+          'AndroidView channel.',
         ),
         _buildRecapLine(
           Icons.timer_outlined,
@@ -1608,7 +1602,7 @@ dynamic build(BuildContext context) {
         _buildRecapLine(
           Icons.flash_on,
           'action is an int with ACTION_* constants; pointer index is encoded '
-              'in the high byte.',
+          'in the high byte.',
         ),
         _buildRecapLine(
           Icons.list_alt,
@@ -1617,7 +1611,7 @@ dynamic build(BuildContext context) {
         _buildRecapLine(
           Icons.input,
           'Always set source (e.g. 4098 SOURCE_TOUCHSCREEN) or the platform '
-              'will drop the event.',
+          'will drop the event.',
         ),
         _buildRecapLine(
           Icons.touch_app,
@@ -1662,15 +1656,23 @@ dynamic build(BuildContext context) {
     motionEventId: 1,
   );
   print('Reference event runtimeType: ${referenceEvent.runtimeType}');
-  print('  downTime=${referenceEvent.downTime} '
-      'eventTime=${referenceEvent.eventTime}');
-  print('  action=${referenceEvent.action} '
-      'pointerCount=${referenceEvent.pointerCount}');
-  print('  source=${referenceEvent.source} '
-      'motionEventId=${referenceEvent.motionEventId}');
+  print(
+    '  downTime=${referenceEvent.downTime} '
+    'eventTime=${referenceEvent.eventTime}',
+  );
+  print(
+    '  action=${referenceEvent.action} '
+    'pointerCount=${referenceEvent.pointerCount}',
+  );
+  print(
+    '  source=${referenceEvent.source} '
+    'motionEventId=${referenceEvent.motionEventId}',
+  );
   final refCoords = referenceEvent.pointerCoords[0];
-  print('  coords: x=${refCoords.x} y=${refCoords.y} '
-      'pressure=${refCoords.pressure}');
+  print(
+    '  coords: x=${refCoords.x} y=${refCoords.y} '
+    'pressure=${refCoords.pressure}',
+  );
 
   print('AndroidMotionEvent Deep Demo completed successfully');
 
@@ -1696,10 +1698,7 @@ dynamic build(BuildContext context) {
           // 3. Action constants
           _sectionHeader('2. Action Constants', Icons.flash_on, charcoal),
           SizedBox(height: 8.0),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: actionCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: actionCards),
           SizedBox(height: 24.0),
 
           // 4. Pointer properties
@@ -1709,10 +1708,7 @@ dynamic build(BuildContext context) {
             charcoal,
           ),
           SizedBox(height: 8.0),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: toolTypeCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: toolTypeCards),
           SizedBox(height: 24.0),
 
           // 5. Pointer coords
@@ -1722,18 +1718,11 @@ dynamic build(BuildContext context) {
             charcoal,
           ),
           SizedBox(height: 8.0),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: coordsCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: coordsCards),
           SizedBox(height: 24.0),
 
           // 6. Real-world device mock
-          _sectionHeader(
-            '5. AndroidView Touch Trail',
-            Icons.android,
-            charcoal,
-          ),
+          _sectionHeader('5. AndroidView Touch Trail', Icons.android, charcoal),
           SizedBox(height: 8.0),
           Center(child: deviceFrame),
           SizedBox(height: 24.0),
@@ -1748,11 +1737,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 24.0),
 
           // 8. Code block
-          _sectionHeader(
-            '7. dispatchPointerEvent Code',
-            Icons.code,
-            charcoal,
-          ),
+          _sectionHeader('7. dispatchPointerEvent Code', Icons.code, charcoal),
           codeBlock,
           SizedBox(height: 24.0),
 
@@ -1872,10 +1857,7 @@ Widget _buildMetricBar(String label, double value, double max, Color color) {
             child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    color.withValues(alpha: 0.7),
-                    color,
-                  ],
+                  colors: [color.withValues(alpha: 0.7), color],
                 ),
                 borderRadius: BorderRadius.circular(5.0),
               ),
@@ -1912,10 +1894,7 @@ Widget _buildLegendDot(String label, Color color) {
           color: color,
           shape: BoxShape.circle,
           boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.6),
-              blurRadius: 4.0,
-            ),
+            BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 4.0),
           ],
         ),
       ),
@@ -2014,11 +1993,7 @@ Widget _buildTableCell(String text, double width, Color color) {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 10.0,
-          color: color,
-          fontFamily: 'monospace',
-        ),
+        style: TextStyle(fontSize: 10.0, color: color, fontFamily: 'monospace'),
       ),
     ),
   );
@@ -2035,11 +2010,7 @@ Widget _buildRecapLine(IconData icon, String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.4),
           ),
         ),
       ],

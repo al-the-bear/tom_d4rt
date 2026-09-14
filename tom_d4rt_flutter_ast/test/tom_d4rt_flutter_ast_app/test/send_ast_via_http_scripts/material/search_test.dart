@@ -226,9 +226,7 @@ dynamic build(BuildContext context) {
     shape: MaterialStateProperty.all(
       RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
     ),
-    side: MaterialStateProperty.all(
-      BorderSide(color: Colors.teal, width: 2.0),
-    ),
+    side: MaterialStateProperty.all(BorderSide(color: Colors.teal, width: 2.0)),
     backgroundColor: MaterialStateProperty.all(Colors.teal.shade50),
     leading: Padding(
       padding: EdgeInsets.only(left: 12.0),
@@ -244,10 +242,7 @@ dynamic build(BuildContext context) {
       TextStyle(color: Colors.purple, fontSize: 16.0),
     ),
     hintStyle: MaterialStateProperty.all(
-      TextStyle(
-        color: Colors.purple.shade300,
-        fontStyle: FontStyle.italic,
-      ),
+      TextStyle(color: Colors.purple.shade300, fontStyle: FontStyle.italic),
     ),
     leading: Padding(
       padding: EdgeInsets.only(left: 12.0),
@@ -283,10 +278,7 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 4.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: tint.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6.0),
@@ -304,10 +296,7 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   desc,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
               ),
             ],
@@ -450,9 +439,7 @@ dynamic build(BuildContext context) {
   final scopedAnchorBar = SearchAnchor.bar(
     barHintText: 'Filter contacts',
     barLeading: Icon(Icons.contacts, color: Colors.indigo),
-    barTrailing: [
-      Icon(Icons.tune, color: Colors.indigo),
-    ],
+    barTrailing: [Icon(Icons.tune, color: Colors.indigo)],
     suggestionsBuilder: (BuildContext context, SearchController controller) {
       final query = controller.text;
       return [
@@ -475,14 +462,17 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
     ),
     suggestionsBuilder: (BuildContext context, SearchController controller) {
-      return [
-        ListTile(title: Text('Themed suggestion')),
-      ];
+      return [ListTile(title: Text('Themed suggestion'))];
     },
   );
   print('Themed SearchAnchor.bar created');
 
-  Widget anchorPreviewCard(String title, String description, Widget anchor, Color tint) {
+  Widget anchorPreviewCard(
+    String title,
+    String description,
+    Widget anchor,
+    Color tint,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
       padding: EdgeInsets.all(14.0),
@@ -673,10 +663,7 @@ dynamic build(BuildContext context) {
               Text(
                 'A SearchBar embedded in an app-bar style header, '
                 'with a menu icon and an avatar trailing widget.',
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
               ),
             ],
           ),
@@ -1061,10 +1048,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     step['step'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   SizedBox(height: 4.0),
                   Text(
@@ -1341,10 +1325,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2
@@ -1401,10 +1382,7 @@ dynamic build(BuildContext context) {
               child: Column(children: lifecycleWidgets),
             ),
             SizedBox(height: 16.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: propertyCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: propertyCards),
             SizedBox(height: 32.0),
 
             // Section 7
@@ -1454,10 +1432,7 @@ Widget _settingsRow(IconData icon, String title, String subtitle) {
               ),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -1483,10 +1458,7 @@ Widget _contactTile(String initials, String name, Color color) {
           backgroundColor: color.withValues(alpha: 0.2),
           child: Text(
             initials,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: color, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(width: 12.0),

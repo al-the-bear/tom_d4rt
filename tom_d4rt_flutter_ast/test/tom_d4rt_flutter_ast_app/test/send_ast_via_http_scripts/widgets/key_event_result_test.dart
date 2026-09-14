@@ -53,21 +53,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: blush, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -84,11 +90,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: petal),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: deepRuby.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: deepRuby.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -116,14 +125,18 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: cotton,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: deepRuby)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: deepRuby,
+              ),
+            ),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -139,9 +152,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label,
-          style:
-              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -153,15 +167,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: deepRuby)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: deepRuby,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 12, color: wine)),
+            child: Text(value, style: TextStyle(fontSize: 12, color: wine)),
           ),
         ],
       ),
@@ -180,13 +196,17 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: deepRuby.withValues(alpha: 0.15), width: 1),
+                color: deepRuby.withValues(alpha: 0.15),
+                width: 1,
+              ),
             ),
           ),
           const SizedBox(height: 4),
-          Text(name,
-              style: TextStyle(fontSize: 9, color: deepRuby),
-              textAlign: TextAlign.center),
+          Text(
+            name,
+            style: TextStyle(fontSize: 9, color: deepRuby),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -202,9 +222,14 @@ dynamic build(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(label, style: TextStyle(fontSize: 11, color: deepRuby)),
-              Text('${(fraction * 100).toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.w700, color: color)),
+              Text(
+                '${(fraction * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -231,8 +256,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget enumValue(String name, String description, IconData icon,
-      Color color, bool highlighted) {
+  Widget enumValue(
+    String name,
+    String description,
+    IconData icon,
+    Color color,
+    bool highlighted,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
@@ -246,9 +276,10 @@ dynamic build(BuildContext context) {
         boxShadow: highlighted
             ? [
                 BoxShadow(
-                    color: color.withValues(alpha: 0.15),
-                    blurRadius: 6,
-                    offset: const Offset(0, 2))
+                  color: color.withValues(alpha: 0.15),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
               ]
             : [],
       ),
@@ -270,19 +301,25 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name,
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: highlighted ? color : deepRuby)),
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: highlighted ? color : deepRuby,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(description,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: highlighted
-                            ? color.withValues(alpha: 0.75)
-                            : wine.withValues(alpha: 0.6),
-                        height: 1.3)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: highlighted
+                        ? color.withValues(alpha: 0.75)
+                        : wine.withValues(alpha: 0.6),
+                    height: 1.3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -312,11 +349,14 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(name,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: active ? FontWeight.w600 : FontWeight.normal,
-                    color: active ? color : deepRuby)),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: active ? FontWeight.w600 : FontWeight.normal,
+                color: active ? color : deepRuby,
+              ),
+            ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -324,11 +364,14 @@ dynamic build(BuildContext context) {
               color: active ? color : rouge,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(result,
-                style: TextStyle(
-                    fontSize: 9,
-                    fontWeight: FontWeight.w700,
-                    color: active ? Colors.white : deepRuby)),
+            child: Text(
+              result,
+              style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.w700,
+                color: active ? Colors.white : deepRuby,
+              ),
+            ),
           ),
         ],
       ),
@@ -343,21 +386,23 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-          'KeyEventResult is an enum with three values that tell the Flutter '
-          'focus system what happened when a focus node processed a key event. '
-          'It controls whether the event continues propagating or stops.'),
+        'KeyEventResult is an enum with three values that tell the Flutter '
+        'focus system what happened when a focus node processed a key event. '
+        'It controls whether the event continues propagating or stops.',
+      ),
       infoCard(
-          'Core Identity',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Type', 'enum KeyEventResult'),
-              dataRow('Package', 'flutter/widgets (focus_manager)'),
-              dataRow('Values', 'handled, ignored, skipRemainingHandlers'),
-              dataRow('Used by', 'FocusNode.onKeyEvent callback'),
-              dataRow('Purpose', 'Control key event propagation'),
-            ],
-          )),
+        'Core Identity',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Type', 'enum KeyEventResult'),
+            dataRow('Package', 'flutter/widgets (focus_manager)'),
+            dataRow('Values', 'handled, ignored, skipRemainingHandlers'),
+            dataRow('Used by', 'FocusNode.onKeyEvent callback'),
+            dataRow('Purpose', 'Control key event propagation'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -369,32 +414,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Enum Values'),
       noteBox(
-          'Each value communicates a different intent to the focus system '
-          'about how the key event should be processed downstream.'),
+        'Each value communicates a different intent to the focus system '
+        'about how the key event should be processed downstream.',
+      ),
       enumValue(
-          'KeyEventResult.handled',
-          'The event was consumed by this handler. Stop propagating — no '
-              'other handlers will receive it. The platform is told the key '
-              'was handled.',
-          Icons.check_circle,
-          rose,
-          true),
+        'KeyEventResult.handled',
+        'The event was consumed by this handler. Stop propagating — no '
+            'other handlers will receive it. The platform is told the key '
+            'was handled.',
+        Icons.check_circle,
+        rose,
+        true,
+      ),
       enumValue(
-          'KeyEventResult.ignored',
-          'This handler chose not to process the event. Continue propagating '
-              'to the next handler in the focus chain. If no handler claims '
-              'it, the platform receives it as unhandled.',
-          Icons.remove_circle_outline,
-          garnet,
-          false),
+        'KeyEventResult.ignored',
+        'This handler chose not to process the event. Continue propagating '
+            'to the next handler in the focus chain. If no handler claims '
+            'it, the platform receives it as unhandled.',
+        Icons.remove_circle_outline,
+        garnet,
+        false,
+      ),
       enumValue(
-          'KeyEventResult.skipRemainingHandlers',
-          'Stop propagating to remaining handlers but tell the platform the '
-              'event was NOT handled. Useful for preventing framework '
-              'default behavior while letting the OS handle it.',
-          Icons.skip_next,
-          raspberry,
-          false),
+        'KeyEventResult.skipRemainingHandlers',
+        'Stop propagating to remaining handlers but tell the platform the '
+            'event was NOT handled. Useful for preventing framework '
+            'default behavior while letting the OS handle it.',
+        Icons.skip_next,
+        raspberry,
+        false,
+      ),
     ],
   );
 
@@ -406,32 +455,35 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Focus Tree Propagation'),
       noteBox(
-          'Key events propagate from the primary focus node up through '
-          'ancestor focus scopes. Each node\'s handler returns a '
-          'KeyEventResult that controls the journey.'),
+        'Key events propagate from the primary focus node up through '
+        'ancestor focus scopes. Each node\'s handler returns a '
+        'KeyEventResult that controls the journey.',
+      ),
       infoCard(
-          'Propagation Example',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              focusNode('FocusScope (root)', 'Not reached', false, garnet),
-              focusNode('FocusScope (page)', 'Not reached', false, garnet),
-              focusNode('FocusNode (parent)', 'handled', true, rose),
-              focusNode('FocusNode (primary)', 'ignored', false, raspberry),
-            ],
-          )),
+        'Propagation Example',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            focusNode('FocusScope (root)', 'Not reached', false, garnet),
+            focusNode('FocusScope (page)', 'Not reached', false, garnet),
+            focusNode('FocusNode (parent)', 'handled', true, rose),
+            focusNode('FocusNode (primary)', 'ignored', false, raspberry),
+          ],
+        ),
+      ),
       infoCard(
-          'Propagation Rules',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Start', 'Primary focus node'),
-              dataRow('Direction', 'Upward through ancestors'),
-              dataRow('Stop on handled', 'No more handlers called'),
-              dataRow('Stop on skip', 'No more handlers called'),
-              dataRow('Continue on ignored', 'Next ancestor processes'),
-            ],
-          )),
+        'Propagation Rules',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Start', 'Primary focus node'),
+            dataRow('Direction', 'Upward through ancestors'),
+            dataRow('Stop on handled', 'No more handlers called'),
+            dataRow('Stop on skip', 'No more handlers called'),
+            dataRow('Continue on ignored', 'Next ancestor processes'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -443,31 +495,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'handled in Detail'),
       noteBox(
-          'Returning handled means "I consumed this event, nobody else '
-          'needs to see it, and the platform should consider it processed."'),
+        'Returning handled means "I consumed this event, nobody else '
+        'needs to see it, and the platform should consider it processed."',
+      ),
       infoCard(
-          'When to Return handled',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Keyboard shortcut', 'Ctrl+S save triggered'),
-              dataRow('Arrow navigation', 'Moved selection in list'),
-              dataRow('Enter key', 'Submitted form'),
-              dataRow('Escape key', 'Closed dialog or menu'),
-              dataRow('Custom binding', 'App-specific action taken'),
-            ],
-          )),
+        'When to Return handled',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Keyboard shortcut', 'Ctrl+S save triggered'),
+            dataRow('Arrow navigation', 'Moved selection in list'),
+            dataRow('Enter key', 'Submitted form'),
+            dataRow('Escape key', 'Closed dialog or menu'),
+            dataRow('Custom binding', 'App-specific action taken'),
+          ],
+        ),
+      ),
       infoCard(
-          'Effects of handled',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Propagation', 'Stops immediately'),
-              dataRow('Platform response', 'Marked as handled'),
-              dataRow('Text input', 'Character NOT inserted'),
-              dataRow('Default behavior', 'Suppressed'),
-            ],
-          )),
+        'Effects of handled',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Propagation', 'Stops immediately'),
+            dataRow('Platform response', 'Marked as handled'),
+            dataRow('Text input', 'Character NOT inserted'),
+            dataRow('Default behavior', 'Suppressed'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -479,30 +534,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'ignored in Detail'),
       noteBox(
-          'Returning ignored means "I don\'t care about this event, pass it '
-          'along to the next handler."'),
+        'Returning ignored means "I don\'t care about this event, pass it '
+        'along to the next handler."',
+      ),
       infoCard(
-          'When to Return ignored',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Wrong key', 'Handler only cares about Escape'),
-              dataRow('Wrong modifier', 'Needs Ctrl but none pressed'),
-              dataRow('Inactive state', 'Feature currently disabled'),
-              dataRow('Default', 'Most handlers ignore most keys'),
-            ],
-          )),
+        'When to Return ignored',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Wrong key', 'Handler only cares about Escape'),
+            dataRow('Wrong modifier', 'Needs Ctrl but none pressed'),
+            dataRow('Inactive state', 'Feature currently disabled'),
+            dataRow('Default', 'Most handlers ignore most keys'),
+          ],
+        ),
+      ),
       infoCard(
-          'Effects of ignored',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Propagation', 'Continues up the tree'),
-              dataRow('Next handler', 'Parent FocusNode gets event'),
-              dataRow('Platform fallback', 'Unhandled if all ignore'),
-              dataRow('Text input', 'Character may be inserted'),
-            ],
-          )),
+        'Effects of ignored',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Propagation', 'Continues up the tree'),
+            dataRow('Next handler', 'Parent FocusNode gets event'),
+            dataRow('Platform fallback', 'Unhandled if all ignore'),
+            dataRow('Text input', 'Character may be inserted'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -514,31 +572,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'skipRemainingHandlers in Detail'),
       noteBox(
-          'The most nuanced value — stops handler propagation but reports '
-          'to the platform that the event was NOT handled. This lets the '
-          'OS perform its default action.'),
+        'The most nuanced value — stops handler propagation but reports '
+        'to the platform that the event was NOT handled. This lets the '
+        'OS perform its default action.',
+      ),
       infoCard(
-          'When to Return skipRemainingHandlers',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Tab key', 'Let OS handle tab focus natively'),
-              dataRow('System shortcuts', 'Cmd+Q, Alt+F4 pass through'),
-              dataRow('Accessibility', 'Screen reader keys pass through'),
-              dataRow('IME control', 'Input method keys handled by OS'),
-            ],
-          )),
+        'When to Return skipRemainingHandlers',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Tab key', 'Let OS handle tab focus natively'),
+            dataRow('System shortcuts', 'Cmd+Q, Alt+F4 pass through'),
+            dataRow('Accessibility', 'Screen reader keys pass through'),
+            dataRow('IME control', 'Input method keys handled by OS'),
+          ],
+        ),
+      ),
       infoCard(
-          'Effects of skipRemainingHandlers',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Propagation', 'Stops — no more handlers'),
-              dataRow('Platform response', 'Marked as NOT handled'),
-              dataRow('OS action', 'Platform may process the key'),
-              dataRow('Difference', 'vs handled: platform gets key'),
-            ],
-          )),
+        'Effects of skipRemainingHandlers',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Propagation', 'Stops — no more handlers'),
+            dataRow('Platform response', 'Marked as NOT handled'),
+            dataRow('OS action', 'Platform may process the key'),
+            dataRow('Difference', 'vs handled: platform gets key'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -549,31 +610,35 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       sectionBanner('07', 'Decision Matrix'),
-      noteBox(
-          'A quick reference for choosing which KeyEventResult to return.'),
+      noteBox('A quick reference for choosing which KeyEventResult to return.'),
       infoCard(
-          'Decision Table',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Consumed by app?', 'handled'),
-              dataRow('Not my concern?', 'ignored'),
-              dataRow('Stop propagation,\nlet OS handle?', 'skipRemainingHandlers'),
-              dataRow('Default / unsure?', 'ignored (safest)'),
-            ],
-          )),
+        'Decision Table',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Consumed by app?', 'handled'),
+            dataRow('Not my concern?', 'ignored'),
+            dataRow(
+              'Stop propagation,\nlet OS handle?',
+              'skipRemainingHandlers',
+            ),
+            dataRow('Default / unsure?', 'ignored (safest)'),
+          ],
+        ),
+      ),
       infoCard(
-          'Comparison Grid',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('', 'handled | ignored | skip'),
-              dataRow('Stops propagation', 'Yes | No | Yes'),
-              dataRow('Platform handled', 'Yes | Per chain | No'),
-              dataRow('OS default action', 'No | Maybe | Yes'),
-              dataRow('Text insertion', 'No | Maybe | Yes'),
-            ],
-          )),
+        'Comparison Grid',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('', 'handled | ignored | skip'),
+            dataRow('Stops propagation', 'Yes | No | Yes'),
+            dataRow('Platform handled', 'Yes | Per chain | No'),
+            dataRow('OS default action', 'No | Maybe | Yes'),
+            dataRow('Text insertion', 'No | Maybe | Yes'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -585,45 +650,50 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'FocusNode onKeyEvent'),
       noteBox(
-          'The primary consumer of KeyEventResult is the onKeyEvent '
-          'callback set on FocusNode.'),
+        'The primary consumer of KeyEventResult is the onKeyEvent '
+        'callback set on FocusNode.',
+      ),
       infoCard(
-          'Callback Signature',
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: deepRuby.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: petal),
+        'Callback Signature',
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: deepRuby.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: petal),
+          ),
+          child: Text(
+            'FocusNode(\n'
+            '  onKeyEvent: (FocusNode node, KeyEvent event) {\n'
+            '    if (event is KeyDownEvent &&\n'
+            '        event.logicalKey == LogicalKeyboardKey.escape) {\n'
+            '      closeMenu();\n'
+            '      return KeyEventResult.handled;\n'
+            '    }\n'
+            '    return KeyEventResult.ignored;\n'
+            '  },\n'
+            ')',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: deepRuby,
+              height: 1.4,
             ),
-            child: Text(
-                'FocusNode(\n'
-                '  onKeyEvent: (FocusNode node, KeyEvent event) {\n'
-                '    if (event is KeyDownEvent &&\n'
-                '        event.logicalKey == LogicalKeyboardKey.escape) {\n'
-                '      closeMenu();\n'
-                '      return KeyEventResult.handled;\n'
-                '    }\n'
-                '    return KeyEventResult.ignored;\n'
-                '  },\n'
-                ')',
-                style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: deepRuby,
-                    height: 1.4)),
-          )),
+          ),
+        ),
+      ),
       infoCard(
-          'Callback Parameters',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('FocusNode node', 'The node that fired'),
-              dataRow('KeyEvent event', 'The key event object'),
-              dataRow('Return', 'KeyEventResult enum value'),
-            ],
-          )),
+        'Callback Parameters',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('FocusNode node', 'The node that fired'),
+            dataRow('KeyEvent event', 'The key event object'),
+            dataRow('Return', 'KeyEventResult enum value'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -635,21 +705,23 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'Shortcuts & Actions Integration'),
       noteBox(
-          'The Shortcuts and Actions system also produces KeyEventResult '
-          'internally — handled when an action fires, ignored otherwise.'),
+        'The Shortcuts and Actions system also produces KeyEventResult '
+        'internally — handled when an action fires, ignored otherwise.',
+      ),
       infoCard(
-          'Shortcuts Pipeline',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Key event arrives', 'From platform'),
-              dataRow('2. Shortcuts widget', 'Matches key combination'),
-              dataRow('3. Intent created', 'From ShortcutActivator'),
-              dataRow('4. Action invoked', 'Action.invoke(intent)'),
-              dataRow('5. Result: handled', 'Event consumed'),
-              dataRow('No match', 'Result: ignored'),
-            ],
-          )),
+        'Shortcuts Pipeline',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Key event arrives', 'From platform'),
+            dataRow('2. Shortcuts widget', 'Matches key combination'),
+            dataRow('3. Intent created', 'From ShortcutActivator'),
+            dataRow('4. Action invoked', 'Action.invoke(intent)'),
+            dataRow('5. Result: handled', 'Event consumed'),
+            dataRow('No match', 'Result: ignored'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -661,32 +733,50 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'KeyEvent Types'),
       noteBox(
-          'KeyEventResult is returned for all KeyEvent subtypes — down, '
-          'up, and repeat events.'),
+        'KeyEventResult is returned for all KeyEvent subtypes — down, '
+        'up, and repeat events.',
+      ),
       infoCard(
-          'Event Subtypes',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              enumValue('KeyDownEvent', 'Key pressed down — most common to handle',
-                  Icons.arrow_downward, rose, true),
-              enumValue('KeyUpEvent', 'Key released — rarely handled directly',
-                  Icons.arrow_upward, garnet, false),
-              enumValue('KeyRepeatEvent', 'Key held down — auto-repeat',
-                  Icons.repeat, raspberry, false),
-            ],
-          )),
+        'Event Subtypes',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            enumValue(
+              'KeyDownEvent',
+              'Key pressed down — most common to handle',
+              Icons.arrow_downward,
+              rose,
+              true,
+            ),
+            enumValue(
+              'KeyUpEvent',
+              'Key released — rarely handled directly',
+              Icons.arrow_upward,
+              garnet,
+              false,
+            ),
+            enumValue(
+              'KeyRepeatEvent',
+              'Key held down — auto-repeat',
+              Icons.repeat,
+              raspberry,
+              false,
+            ),
+          ],
+        ),
+      ),
       infoCard(
-          'Handler Pattern',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('KeyDown only', 'Most handlers check KeyDownEvent'),
-              dataRow('KeyDown + Repeat', 'Continuous actions (scroll)'),
-              dataRow('KeyUp', 'Release-triggered actions'),
-              dataRow('Same result type', 'All return KeyEventResult'),
-            ],
-          )),
+        'Handler Pattern',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('KeyDown only', 'Most handlers check KeyDownEvent'),
+            dataRow('KeyDown + Repeat', 'Continuous actions (scroll)'),
+            dataRow('KeyUp', 'Release-triggered actions'),
+            dataRow('Same result type', 'All return KeyEventResult'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -698,31 +788,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Platform Interaction'),
       noteBox(
-          'The combined result from all focus handlers is reported back '
-          'to the platform, affecting whether the OS processes the key.'),
+        'The combined result from all focus handlers is reported back '
+        'to the platform, affecting whether the OS processes the key.',
+      ),
       infoCard(
-          'Platform Communication',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('All ignored', 'Platform: key NOT handled'),
-              dataRow('Any handled', 'Platform: key WAS handled'),
-              dataRow('skipRemaining', 'Platform: key NOT handled'),
-              dataRow('Platform effect', 'OS may insert character, beep, etc.'),
-            ],
-          )),
+        'Platform Communication',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('All ignored', 'Platform: key NOT handled'),
+            dataRow('Any handled', 'Platform: key WAS handled'),
+            dataRow('skipRemaining', 'Platform: key NOT handled'),
+            dataRow('Platform effect', 'OS may insert character, beep, etc.'),
+          ],
+        ),
+      ),
       infoCard(
-          'Platform-Specific Impact',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('macOS', 'Unhandled → system beep'),
-              dataRow('Windows', 'Unhandled → default OS action'),
-              dataRow('Linux', 'Unhandled → window manager action'),
-              dataRow('Web', 'Unhandled → browser default'),
-              dataRow('Mobile', 'IME handles unhandled keys'),
-            ],
-          )),
+        'Platform-Specific Impact',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('macOS', 'Unhandled → system beep'),
+            dataRow('Windows', 'Unhandled → default OS action'),
+            dataRow('Linux', 'Unhandled → window manager action'),
+            dataRow('Web', 'Unhandled → browser default'),
+            dataRow('Mobile', 'IME handles unhandled keys'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -734,39 +827,43 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Common Patterns'),
       noteBox(
-          'Typical patterns for returning KeyEventResult in real applications.'),
+        'Typical patterns for returning KeyEventResult in real applications.',
+      ),
       infoCard(
-          'Pattern: Claim or Pass',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Check key', 'Is this my key?'),
-              dataRow('Yes → handled', 'Perform action, claim event'),
-              dataRow('No → ignored', 'Let someone else handle it'),
-            ],
-          )),
+        'Pattern: Claim or Pass',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Check key', 'Is this my key?'),
+            dataRow('Yes → handled', 'Perform action, claim event'),
+            dataRow('No → ignored', 'Let someone else handle it'),
+          ],
+        ),
+      ),
       infoCard(
-          'Pattern: Conditional Handling',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Check state', 'Is the menu open?'),
-              dataRow('Open + Escape', 'Close menu → handled'),
-              dataRow('Closed + Escape', 'Not my concern → ignored'),
-              dataRow('Open + other key', 'Navigate menu → handled'),
-            ],
-          )),
+        'Pattern: Conditional Handling',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Check state', 'Is the menu open?'),
+            dataRow('Open + Escape', 'Close menu → handled'),
+            dataRow('Closed + Escape', 'Not my concern → ignored'),
+            dataRow('Open + other key', 'Navigate menu → handled'),
+          ],
+        ),
+      ),
       infoCard(
-          'Pattern: Modifier Key Guard',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Check modifier', 'Is Ctrl pressed?'),
-              dataRow('Ctrl+S', 'Save → handled'),
-              dataRow('Ctrl+Z', 'Undo → handled'),
-              dataRow('No modifier', 'All → ignored'),
-            ],
-          )),
+        'Pattern: Modifier Key Guard',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Check modifier', 'Is Ctrl pressed?'),
+            dataRow('Ctrl+S', 'Save → handled'),
+            dataRow('Ctrl+Z', 'Undo → handled'),
+            dataRow('No modifier', 'All → ignored'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -778,20 +875,22 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Testing KeyEventResult'),
       noteBox(
-          'Testing key handlers involves simulating key events and '
-          'verifying the correct KeyEventResult is returned.'),
+        'Testing key handlers involves simulating key events and '
+        'verifying the correct KeyEventResult is returned.',
+      ),
       infoCard(
-          'Test Approaches',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('sendKeyEvent', 'Simulate key press in tests'),
-              dataRow('tester.sendKeyDownEvent', 'WidgetTester helper'),
-              dataRow('Check return', 'Verify handled/ignored'),
-              dataRow('Verify action', 'Check side effect occurred'),
-              dataRow('Verify propagation', 'Check parent received/not'),
-            ],
-          )),
+        'Test Approaches',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('sendKeyEvent', 'Simulate key press in tests'),
+            dataRow('tester.sendKeyDownEvent', 'WidgetTester helper'),
+            dataRow('Check return', 'Verify handled/ignored'),
+            dataRow('Verify action', 'Check side effect occurred'),
+            dataRow('Verify propagation', 'Check parent received/not'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -803,30 +902,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Debugging Key Handling'),
       noteBox(
-          'When key handling doesn\'t work as expected, these techniques '
-          'help identify problems.'),
+        'When key handling doesn\'t work as expected, these techniques '
+        'help identify problems.',
+      ),
       infoCard(
-          'Debug Techniques',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Print result', 'Log what handler returns'),
-              dataRow('Focus debugging', 'FocusManager.instance.primaryFocus'),
-              dataRow('Event logging', 'Print event.logicalKey'),
-              dataRow('Propagation trace', 'Print at each handler level'),
-            ],
-          )),
+        'Debug Techniques',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Print result', 'Log what handler returns'),
+            dataRow('Focus debugging', 'FocusManager.instance.primaryFocus'),
+            dataRow('Event logging', 'Print event.logicalKey'),
+            dataRow('Propagation trace', 'Print at each handler level'),
+          ],
+        ),
+      ),
       infoCard(
-          'Common Issues',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Key not caught', 'Focus not on expected node'),
-              dataRow('Double action', 'Handled by child AND parent'),
-              dataRow('Platform beep', 'Returning ignored incorrectly'),
-              dataRow('Text insertion', 'Forgot to return handled'),
-            ],
-          )),
+        'Common Issues',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Key not caught', 'Focus not on expected node'),
+            dataRow('Double action', 'Handled by child AND parent'),
+            dataRow('Platform beep', 'Returning ignored incorrectly'),
+            dataRow('Text insertion', 'Forgot to return handled'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -838,32 +940,35 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Relationship to RawKeyEvent (Legacy)'),
       noteBox(
-          'The older RawKeyEvent system used a similar but different result '
-          'mechanism. KeyEventResult is the modern replacement used with '
-          'KeyEvent.'),
+        'The older RawKeyEvent system used a similar but different result '
+        'mechanism. KeyEventResult is the modern replacement used with '
+        'KeyEvent.',
+      ),
       infoCard(
-          'Migration Summary',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Legacy', 'RawKeyEvent + onKey callback'),
-              dataRow('Modern', 'KeyEvent + onKeyEvent callback'),
-              dataRow('Legacy result', 'bool (handled = true)'),
-              dataRow('Modern result', 'KeyEventResult enum (3 values)'),
-              dataRow('Advantage', 'skipRemainingHandlers is new'),
-            ],
-          )),
+        'Migration Summary',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Legacy', 'RawKeyEvent + onKey callback'),
+            dataRow('Modern', 'KeyEvent + onKeyEvent callback'),
+            dataRow('Legacy result', 'bool (handled = true)'),
+            dataRow('Modern result', 'KeyEventResult enum (3 values)'),
+            dataRow('Advantage', 'skipRemainingHandlers is new'),
+          ],
+        ),
+      ),
       infoCard(
-          'Why the Change',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Bool limitation', 'Only handled/not — no skip'),
-              dataRow('Platform control', 'Needed finer platform signaling'),
-              dataRow('Consistency', 'Matches other result enums'),
-              dataRow('Future-proof', 'Room for new values if needed'),
-            ],
-          )),
+        'Why the Change',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Bool limitation', 'Only handled/not — no skip'),
+            dataRow('Platform control', 'Needed finer platform signaling'),
+            dataRow('Consistency', 'Matches other result enums'),
+            dataRow('Future-proof', 'Room for new values if needed'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -876,54 +981,57 @@ dynamic build(BuildContext context) {
       sectionBanner('16', 'Visual Dashboard'),
       noteBox('Complete overview of the KeyEventResult deep demo.'),
       infoCard(
-          'Demo Color Palette',
-          Wrap(
-            children: [
-              colorSwatch('Rose', rose),
-              colorSwatch('Blush', blush),
-              colorSwatch('Deep Ruby', deepRuby),
-              colorSwatch('Pale Petal', palePetal),
-              colorSwatch('Raspberry', raspberry),
-              colorSwatch('Cotton', cotton),
-              colorSwatch('Garnet', garnet),
-              colorSwatch('Rouge', rouge),
-              colorSwatch('Petal', petal),
-              colorSwatch('Wine', wine),
-            ],
-          )),
+        'Demo Color Palette',
+        Wrap(
+          children: [
+            colorSwatch('Rose', rose),
+            colorSwatch('Blush', blush),
+            colorSwatch('Deep Ruby', deepRuby),
+            colorSwatch('Pale Petal', palePetal),
+            colorSwatch('Raspberry', raspberry),
+            colorSwatch('Cotton', cotton),
+            colorSwatch('Garnet', garnet),
+            colorSwatch('Rouge', rouge),
+            colorSwatch('Petal', petal),
+            colorSwatch('Wine', wine),
+          ],
+        ),
+      ),
       infoCard(
-          'Section Coverage',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Overview', 1.0, rose),
-              progressBar('Enum Values', 1.0, garnet),
-              progressBar('Focus Propagation', 1.0, raspberry),
-              progressBar('handled Detail', 1.0, wine),
-              progressBar('ignored Detail', 1.0, rose),
-              progressBar('skipRemaining Detail', 1.0, garnet),
-              progressBar('Decision Matrix', 1.0, raspberry),
-              progressBar('FocusNode onKeyEvent', 1.0, wine),
-              progressBar('Shortcuts & Actions', 1.0, rose),
-              progressBar('KeyEvent Types', 1.0, garnet),
-              progressBar('Platform Interaction', 1.0, raspberry),
-              progressBar('Common Patterns', 1.0, wine),
-              progressBar('Testing', 1.0, rose),
-              progressBar('Debugging', 1.0, garnet),
-              progressBar('RawKeyEvent Legacy', 1.0, raspberry),
-              progressBar('Dashboard', 1.0, wine),
-            ],
-          )),
+        'Section Coverage',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Overview', 1.0, rose),
+            progressBar('Enum Values', 1.0, garnet),
+            progressBar('Focus Propagation', 1.0, raspberry),
+            progressBar('handled Detail', 1.0, wine),
+            progressBar('ignored Detail', 1.0, rose),
+            progressBar('skipRemaining Detail', 1.0, garnet),
+            progressBar('Decision Matrix', 1.0, raspberry),
+            progressBar('FocusNode onKeyEvent', 1.0, wine),
+            progressBar('Shortcuts & Actions', 1.0, rose),
+            progressBar('KeyEvent Types', 1.0, garnet),
+            progressBar('Platform Interaction', 1.0, raspberry),
+            progressBar('Common Patterns', 1.0, wine),
+            progressBar('Testing', 1.0, rose),
+            progressBar('Debugging', 1.0, garnet),
+            progressBar('RawKeyEvent Legacy', 1.0, raspberry),
+            progressBar('Dashboard', 1.0, wine),
+          ],
+        ),
+      ),
       infoCard(
-          'Statistics',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Total sections', '16'),
-              dataRow('Theme', 'Rose / Blush'),
-              dataRow('Palette colors', '10'),
-            ],
-          )),
+        'Statistics',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Total sections', '16'),
+            dataRow('Theme', 'Rose / Blush'),
+            dataRow('Palette colors', '10'),
+          ],
+        ),
+      ),
       Wrap(
         spacing: 6,
         runSpacing: 4,

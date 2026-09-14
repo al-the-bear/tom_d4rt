@@ -56,10 +56,7 @@ class _UtiLabTheme {
         surface: _vellum,
         onSurface: _ink,
       ),
-      textTheme: base.textTheme.apply(
-        bodyColor: _ink,
-        displayColor: _ink,
-      ),
+      textTheme: base.textTheme.apply(bodyColor: _ink, displayColor: _ink),
       cardTheme: const CardThemeData(
         color: _vellumDeep,
         elevation: 0,
@@ -69,9 +66,7 @@ class _UtiLabTheme {
       inputDecorationTheme: const InputDecorationTheme(
         filled: true,
         fillColor: Color(0xFFFBF6E8),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: _inkSoft),
-        ),
+        border: OutlineInputBorder(borderSide: BorderSide(color: _inkSoft)),
       ),
     );
   }
@@ -210,18 +205,22 @@ class _UtiLabAppBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: const [
-                Text('UndoTextIntent',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.4,
-                    )),
-                Text('a Vellum Lab — hand-authored for d4rt harness',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: _vellumEdge,
-                    )),
+                Text(
+                  'UndoTextIntent',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+                Text(
+                  'a Vellum Lab — hand-authored for d4rt harness',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: _vellumEdge,
+                  ),
+                ),
               ],
             ),
           ),
@@ -270,9 +269,7 @@ class _UtiLabBackdrop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _UtiLabParchmentPainter(),
-    );
+    return CustomPaint(painter: _UtiLabParchmentPainter());
   }
 }
 
@@ -334,13 +331,17 @@ class _UtiLabQuillPainter extends CustomPainter {
     final path = Path();
     path.moveTo(size.width * 0.15, size.height * 0.85);
     path.quadraticBezierTo(
-      size.width * 0.45, size.height * 0.55,
-      size.width * 0.85, size.height * 0.12,
+      size.width * 0.45,
+      size.height * 0.55,
+      size.width * 0.85,
+      size.height * 0.12,
     );
     path.lineTo(size.width * 0.95, size.height * 0.25);
     path.quadraticBezierTo(
-      size.width * 0.55, size.height * 0.7,
-      size.width * 0.25, size.height * 0.95,
+      size.width * 0.55,
+      size.height * 0.7,
+      size.width * 0.25,
+      size.height * 0.95,
     );
     path.close();
     canvas.drawPath(path, feather);
@@ -467,9 +468,7 @@ class _UtiLabPreamble extends StatelessWidget {
     return _UtiLabScrollCard(
       title: 'Folio II — Anatomy of the Intent',
       subtitle: 'Six fields the scribe must know before overriding.',
-      children: [
-        for (final e in entries) _UtiLabAnatomyRow(entry: e),
-      ],
+      children: [for (final e in entries) _UtiLabAnatomyRow(entry: e)],
     );
   }
 }
@@ -518,15 +517,19 @@ class _UtiLabAnatomyRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(entry.type,
-                    style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w700,
-                      color: _oxblood,
-                    )),
+                Text(
+                  entry.type,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w700,
+                    color: _oxblood,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(entry.note,
-                    style: const TextStyle(color: _inkSoft, height: 1.35)),
+                Text(
+                  entry.note,
+                  style: const TextStyle(color: _inkSoft, height: 1.35),
+                ),
               ],
             ),
           ),
@@ -556,8 +559,9 @@ class _UtiLabVellumField extends StatefulWidget {
 
 class _UtiLabVellumFieldState extends State<_UtiLabVellumField>
     with TickerProviderStateMixin {
-  final TextEditingController _controller =
-      TextEditingController(text: 'Hand me a quill and I shall rewrite history.');
+  final TextEditingController _controller = TextEditingController(
+    text: 'Hand me a quill and I shall rewrite history.',
+  );
   final UndoHistoryController _undoController = UndoHistoryController();
   final FocusNode _focusNode = FocusNode();
   int _stampCounter = 0;
@@ -607,10 +611,7 @@ class _UtiLabVellumFieldState extends State<_UtiLabVellumField>
     );
 
     if (widget.overrideEnabled) {
-      fieldTree = Actions(
-        actions: overrideActions,
-        child: fieldTree,
-      );
+      fieldTree = Actions(actions: overrideActions, child: fieldTree);
     }
 
     return _UtiLabScrollCard(
@@ -666,8 +667,10 @@ class _UtiLabVellumFieldState extends State<_UtiLabVellumField>
             const Spacer(),
             TextButton.icon(
               icon: const Icon(Icons.restore_page_outlined, color: _ink),
-              label: const Text('Reset text',
-                  style: TextStyle(color: _ink, fontWeight: FontWeight.w600)),
+              label: const Text(
+                'Reset text',
+                style: TextStyle(color: _ink, fontWeight: FontWeight.w600),
+              ),
               onPressed: () {
                 setState(() {
                   _controller.text =
@@ -782,8 +785,8 @@ class _UtiLabShortcutGallery extends StatelessWidget {
               children: [
                 for (final s in shortcuts)
                   SizedBox(
-                    width: (constraints.maxWidth - (columns - 1) * 10) /
-                        columns,
+                    width:
+                        (constraints.maxWidth - (columns - 1) * 10) / columns,
                     child: s,
                   ),
               ],
@@ -827,18 +830,17 @@ class _UtiLabShortcutCard extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: tone,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
               ),
               const SizedBox(width: 6),
-              Text(platform,
-                  style: TextStyle(
-                    color: tone,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 0.5,
-                  )),
+              Text(
+                platform,
+                style: TextStyle(
+                  color: tone,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -847,21 +849,20 @@ class _UtiLabShortcutCard extends StatelessWidget {
               for (final m in modifiers) ...[
                 _UtiLabKeycap(label: m, tone: tone),
                 const SizedBox(width: 6),
-                Text('+',
-                    style:
-                        TextStyle(color: tone, fontWeight: FontWeight.w700)),
+                Text(
+                  '+',
+                  style: TextStyle(color: tone, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(width: 6),
               ],
               _UtiLabKeycap(label: keyLabel, tone: tone),
             ],
           ),
           const SizedBox(height: 10),
-          Text(note,
-              style: const TextStyle(
-                color: _inkSoft,
-                fontSize: 12,
-                height: 1.35,
-              )),
+          Text(
+            note,
+            style: const TextStyle(color: _inkSoft, fontSize: 12, height: 1.35),
+          ),
         ],
       ),
     );
@@ -923,7 +924,8 @@ class _UtiLabManualInvocation extends StatefulWidget {
 
 class _UtiLabManualInvocationState extends State<_UtiLabManualInvocation> {
   final TextEditingController _controller = TextEditingController(
-      text: 'Type me, edit me, then click the oxblood button below.');
+    text: 'Type me, edit me, then click the oxblood button below.',
+  );
   final UndoHistoryController _undoController = UndoHistoryController();
   final FocusNode _focus = FocusNode();
   int _invocationCount = 0;
@@ -960,9 +962,7 @@ class _UtiLabManualInvocationState extends State<_UtiLabManualInvocation> {
           focusNode: _focus,
           undoController: _undoController,
           maxLines: 2,
-          decoration: const InputDecoration(
-            hintText: 'Playground field…',
-          ),
+          decoration: const InputDecoration(hintText: 'Playground field…'),
         ),
         const SizedBox(height: 12),
         Row(
@@ -977,17 +977,21 @@ class _UtiLabManualInvocationState extends State<_UtiLabManualInvocation> {
               child: ElevatedButton.icon(
                 onPressed: _fire,
                 icon: const Icon(Icons.undo, color: _vellum),
-                label: const Text('Undo via Intent',
-                    style: TextStyle(
-                      color: _vellum,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.4,
-                    )),
+                label: const Text(
+                  'Undo via Intent',
+                  style: TextStyle(
+                    color: _vellum,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.4,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _oxblood,
                   foregroundColor: _vellum,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 18, vertical: 14),
+                    horizontal: 18,
+                    vertical: 14,
+                  ),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
@@ -1008,10 +1012,7 @@ class _UtiLabManualInvocationState extends State<_UtiLabManualInvocation> {
 }
 
 class _UtiLabCausePicker extends StatelessWidget {
-  const _UtiLabCausePicker({
-    required this.selected,
-    required this.onChanged,
-  });
+  const _UtiLabCausePicker({required this.selected, required this.onChanged});
 
   final SelectionChangedCause selected;
   final ValueChanged<SelectionChangedCause> onChanged;
@@ -1030,16 +1031,10 @@ class _UtiLabCausePicker extends StatelessWidget {
           value: selected,
           dropdownColor: _vellum,
           iconEnabledColor: _ink,
-          style: const TextStyle(
-            color: _ink,
-            fontWeight: FontWeight.w600,
-          ),
+          style: const TextStyle(color: _ink, fontWeight: FontWeight.w600),
           items: [
             for (final c in SelectionChangedCause.values)
-              DropdownMenuItem(
-                value: c,
-                child: Text('cause: ${c.name}'),
-              ),
+              DropdownMenuItem(value: c, child: Text('cause: ${c.name}')),
           ],
           onChanged: (c) {
             if (c != null) onChanged(c);
@@ -1064,9 +1059,11 @@ class _UtiLabComparisonPanel extends StatefulWidget {
 
 class _UtiLabComparisonPanelState extends State<_UtiLabComparisonPanel> {
   final TextEditingController _ctrlA = TextEditingController(
-      text: 'Field A — stock Flutter shortcuts.');
+    text: 'Field A — stock Flutter shortcuts.',
+  );
   final TextEditingController _ctrlB = TextEditingController(
-      text: 'Field B — intercepted UndoTextIntent.');
+    text: 'Field B — intercepted UndoTextIntent.',
+  );
   final UndoHistoryController _undoA = UndoHistoryController();
   final UndoHistoryController _undoB = UndoHistoryController();
   bool _bTinted = false;
@@ -1091,7 +1088,8 @@ class _UtiLabComparisonPanelState extends State<_UtiLabComparisonPanel> {
             _bHits++;
           });
           widget.log.stamp(
-              '[compare-B] Intercepted UndoTextIntent (cause=${cause.name})');
+            '[compare-B] Intercepted UndoTextIntent (cause=${cause.name})',
+          );
           Future.delayed(const Duration(milliseconds: 700), () {
             if (mounted) setState(() => _bTinted = false);
           });
@@ -1103,30 +1101,26 @@ class _UtiLabComparisonPanelState extends State<_UtiLabComparisonPanel> {
       title: 'Folio VI — Side-by-Side',
       subtitle: 'Two scribes. One obeys; the other whispers first.',
       children: [
-        LayoutBuilder(builder: (context, constraints) {
-          final horizontal = constraints.maxWidth > 560;
-          final children = <Widget>[
-            _buildFieldA(),
-            SizedBox(width: horizontal ? 14 : 0, height: horizontal ? 0 : 14),
-            _buildFieldB(overrideActions),
-          ];
-          return horizontal
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: children[0]),
-                    children[1],
-                    Expanded(child: children[2]),
-                  ],
-                )
-              : Column(
-                  children: [
-                    children[0],
-                    children[1],
-                    children[2],
-                  ],
-                );
-        }),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final horizontal = constraints.maxWidth > 560;
+            final children = <Widget>[
+              _buildFieldA(),
+              SizedBox(width: horizontal ? 14 : 0, height: horizontal ? 0 : 14),
+              _buildFieldB(overrideActions),
+            ];
+            return horizontal
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: children[0]),
+                      children[1],
+                      Expanded(child: children[2]),
+                    ],
+                  )
+                : Column(children: [children[0], children[1], children[2]]);
+          },
+        ),
         const SizedBox(height: 10),
         const _UtiLabParagraph(
           'Field B stamps an oxblood tint for 700ms whenever UndoTextIntent '
@@ -1144,11 +1138,7 @@ class _UtiLabComparisonPanelState extends State<_UtiLabComparisonPanel> {
       children: [
         const _UtiLabFieldHeader(label: 'Field A — vanilla', tone: _sage),
         const SizedBox(height: 6),
-        TextField(
-          controller: _ctrlA,
-          undoController: _undoA,
-          maxLines: 3,
-        ),
+        TextField(controller: _ctrlA, undoController: _undoA, maxLines: 3),
       ],
     );
   }
@@ -1194,18 +1184,16 @@ class _UtiLabFieldHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: 6,
-          height: 16,
-          color: tone,
-        ),
+        Container(width: 6, height: 16, color: tone),
         const SizedBox(width: 6),
-        Text(label,
-            style: TextStyle(
-              color: tone,
-              fontWeight: FontWeight.w800,
-              letterSpacing: 0.4,
-            )),
+        Text(
+          label,
+          style: TextStyle(
+            color: tone,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.4,
+          ),
+        ),
       ],
     );
   }
@@ -1229,7 +1217,8 @@ class _UtiLabEdgeCases extends StatelessWidget {
           icon: Icons.hourglass_empty,
           tone: _inkSoft,
           title: 'Empty history',
-          body: 'UndoTextIntent still dispatches, but the bound Action is a '
+          body:
+              'UndoTextIntent still dispatches, but the bound Action is a '
               'no-op when the UndoHistoryController has no prior states. '
               'Nothing throws — the field simply does not change.',
         ),
@@ -1237,7 +1226,8 @@ class _UtiLabEdgeCases extends StatelessWidget {
           icon: Icons.redo,
           tone: _oxbloodGlow,
           title: 'Redo after undo',
-          body: 'Once you undo, the reverse direction uses RedoTextIntent, '
+          body:
+              'Once you undo, the reverse direction uses RedoTextIntent, '
               'bound to Ctrl+Y (Linux/Windows/Web) and Shift+Meta+Z (macOS). '
               'Same Intent shape — carries a SelectionChangedCause.',
         ),
@@ -1245,14 +1235,16 @@ class _UtiLabEdgeCases extends StatelessWidget {
           icon: Icons.block,
           tone: _rubric,
           title: 'Disabling default binding',
-          body: 'Wrap a subtree in Shortcuts(shortcuts: {}) or bind '
+          body:
+              'Wrap a subtree in Shortcuts(shortcuts: {}) or bind '
               'Activator(Z, control:true) to DoNothingIntent to fully opt out.',
         ),
         _UtiLabCalloutRow(
           icon: Icons.layers,
           tone: _sage,
           title: 'Multiple Actions scopes',
-          body: 'Inner Actions wins; explicitly call Actions.invoke on the '
+          body:
+              'Inner Actions wins; explicitly call Actions.invoke on the '
               'parent scope\'s BuildContext to chain to the default handler.',
         ),
       ],
@@ -1295,15 +1287,19 @@ class _UtiLabCalloutRow extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                      color: tone,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.3,
-                    )),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: tone,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.3,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text(body,
-                    style: const TextStyle(color: _inkSoft, height: 1.4)),
+                Text(
+                  body,
+                  style: const TextStyle(color: _inkSoft, height: 1.4),
+                ),
               ],
             ),
           ),
@@ -1339,34 +1335,28 @@ class _UtiLabEpilogue extends StatelessWidget {
       _UtiLabRecipe(
         name: 'Route to custom history',
         intent: 'Back a collaborative editor with CRDT-shaped snapshots.',
-        snippet:
-            'UndoTextIntent -> MyCrdtUndoAction.invoke(intent.cause);',
+        snippet: 'UndoTextIntent -> MyCrdtUndoAction.invoke(intent.cause);',
       ),
       _UtiLabRecipe(
         name: 'Disable for view-mode',
         intent: 'Freeze undo when a read-only flag is on.',
-        snippet:
-            'UndoTextIntent -> DoNothingAction(consumesKey: false);',
+        snippet: 'UndoTextIntent -> DoNothingAction(consumesKey: false);',
       ),
       _UtiLabRecipe(
         name: 'Bridge to OS menu',
         intent: 'Mirror macOS Edit > Undo menu item state.',
-        snippet:
-            'if (PlatformMenuBar...) dispatch(UndoTextIntent(...));',
+        snippet: 'if (PlatformMenuBar...) dispatch(UndoTextIntent(...));',
       ),
       _UtiLabRecipe(
         name: 'Telemetry',
         intent: 'Emit analytics event per undo stamp.',
-        snippet:
-            'onObserve: (cause) => telemetry.log(\'undo\', cause);',
+        snippet: 'onObserve: (cause) => telemetry.log(\'undo\', cause);',
       ),
     ];
     return _UtiLabScrollCard(
       title: 'Folio VIII — Override Recipes',
       subtitle: 'Six postures a scribe might strike.',
-      children: [
-        for (final r in recipes) _UtiLabRecipeCard(recipe: r),
-      ],
+      children: [for (final r in recipes) _UtiLabRecipeCard(recipe: r)],
     );
   }
 }
@@ -1409,21 +1399,25 @@ class _UtiLabRecipeCard extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.book_outlined,
-                    color: _vellum, size: 13),
+                child: const Icon(
+                  Icons.book_outlined,
+                  color: _vellum,
+                  size: 13,
+                ),
               ),
               const SizedBox(width: 8),
-              Text(recipe.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    color: _ink,
-                    letterSpacing: 0.3,
-                  )),
+              Text(
+                recipe.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: _ink,
+                  letterSpacing: 0.3,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(recipe.intent,
-              style: const TextStyle(color: _inkSoft)),
+          Text(recipe.intent, style: const TextStyle(color: _inkSoft)),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(10),
@@ -1464,8 +1458,10 @@ class _UtiLabLogViewer extends StatelessWidget {
       trailing: OutlinedButton.icon(
         onPressed: log.clear,
         icon: const Icon(Icons.cleaning_services, size: 16, color: _ink),
-        label: const Text('Clear',
-            style: TextStyle(color: _ink, fontWeight: FontWeight.w600)),
+        label: const Text(
+          'Clear',
+          style: TextStyle(color: _ink, fontWeight: FontWeight.w600),
+        ),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: _ink),
           shape: const RoundedRectangleBorder(
@@ -1484,7 +1480,10 @@ class _UtiLabLogViewer extends StatelessWidget {
                 child: Text(
                   'No events yet. Type into a field and press Ctrl+Z, or '
                   'click "Undo via Intent".',
-                  style: TextStyle(color: _inkSoft, fontStyle: FontStyle.italic),
+                  style: TextStyle(
+                    color: _inkSoft,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               );
             }
@@ -1497,10 +1496,8 @@ class _UtiLabLogViewer extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: ListView.separated(
                 itemCount: entries.length,
-                separatorBuilder: (_, _) => const Divider(
-                  height: 8,
-                  color: Color(0xFF213252),
-                ),
+                separatorBuilder: (_, _) =>
+                    const Divider(height: 8, color: Color(0xFF213252)),
                 itemBuilder: (context, i) {
                   final e = entries[i];
                   return Row(
@@ -1580,11 +1577,7 @@ class _UtiLabColophon extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            width: 140,
-            height: 1.2,
-            color: _vellumEdge,
-          ),
+          Container(width: 140, height: 1.2, color: _vellumEdge),
           const SizedBox(height: 8),
           Text(
             'LogicalKeyboardKey.keyZ = 0x${LogicalKeyboardKey.keyZ.keyId.toRadixString(16)}',
@@ -1651,20 +1644,24 @@ class _UtiLabScrollCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: const TextStyle(
-                            color: _vellum,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
-                            letterSpacing: 0.4,
-                          )),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: _vellum,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                          letterSpacing: 0.4,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(subtitle,
-                          style: const TextStyle(
-                            color: _vellumEdge,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 12,
-                          )),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: _vellumEdge,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1701,13 +1698,15 @@ class _UtiLabSwitchTile extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label,
-            style: const TextStyle(
-              color: _vellum,
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              letterSpacing: 0.4,
-            )),
+        Text(
+          label,
+          style: const TextStyle(
+            color: _vellum,
+            fontWeight: FontWeight.w600,
+            fontSize: 12,
+            letterSpacing: 0.4,
+          ),
+        ),
         const SizedBox(width: 6),
         Switch(
           value: value,
@@ -1770,13 +1769,15 @@ class _UtiLabPill extends StatelessWidget {
         children: [
           Icon(icon, size: 14, color: tone),
           const SizedBox(width: 6),
-          Text(label,
-              style: TextStyle(
-                color: tone,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.3,
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              color: tone,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.3,
+            ),
+          ),
         ],
       ),
     );

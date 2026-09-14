@@ -74,11 +74,7 @@ Widget _buildHeroSection() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          Color(0xFF5E5CE6),
-          Color(0xFFAF52DE),
-          Color(0xFFFF2D55),
-        ],
+        colors: [Color(0xFF5E5CE6), Color(0xFFAF52DE), Color(0xFFFF2D55)],
       ),
       borderRadius: BorderRadius.circular(24),
       boxShadow: const [
@@ -105,11 +101,7 @@ Widget _buildHeroSection() {
               label: 'PICKER GALLERY',
             ),
             Spacer(),
-            Icon(
-              CupertinoIcons.sparkles,
-              color: Color(0xFFFFFFFF),
-              size: 28,
-            ),
+            Icon(CupertinoIcons.sparkles, color: Color(0xFFFFFFFF), size: 28),
           ],
         ),
         const SizedBox(height: 18),
@@ -184,11 +176,7 @@ Widget _buildIntroCard() {
           'CupertinoPicker.builder) configured to highlight a single '
           'parameter. Every picker uses its own FixedExtentScrollController '
           'so the wheel rests on a meaningful row without callbacks.',
-          style: TextStyle(
-            fontSize: 14,
-            height: 1.5,
-            color: Color(0xFF3C3C43),
-          ),
+          style: TextStyle(fontSize: 14, height: 1.5, color: Color(0xFF3C3C43)),
         ),
       ],
     ),
@@ -236,10 +224,7 @@ Widget _buildDefaultConfigSection() {
             Center(
               child: Text(
                 month,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF1C1C1E),
-                ),
+                style: const TextStyle(fontSize: 18, color: Color(0xFF1C1C1E)),
               ),
             ),
         ],
@@ -336,10 +321,7 @@ Widget _buildSqueezeTighterSection() {
             Center(
               child: Text(
                 f,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF1C1C1E),
-                ),
+                style: const TextStyle(fontSize: 18, color: Color(0xFF1C1C1E)),
               ),
             ),
         ],
@@ -393,10 +375,7 @@ Widget _buildSqueezeLooserSection() {
             Center(
               child: Text(
                 c,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF1C1C1E),
-                ),
+                style: const TextStyle(fontSize: 18, color: Color(0xFF1C1C1E)),
               ),
             ),
         ],
@@ -821,8 +800,7 @@ Widget _buildSelectionOverlaySection() {
                 squeeze: 1.2,
                 diameterRatio: 1.07,
                 backgroundColor: const Color(0xFFFFFFFF),
-                selectionOverlay:
-                    const CupertinoPickerDefaultSelectionOverlay(
+                selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(
                   background: Color(0x335E5CE6),
                   capStartEdge: true,
                   capEndEdge: true,
@@ -848,8 +826,7 @@ Widget _buildSelectionOverlaySection() {
                 squeeze: 1.2,
                 diameterRatio: 1.07,
                 backgroundColor: const Color(0xFFFFFFFF),
-                selectionOverlay:
-                    const CupertinoPickerDefaultSelectionOverlay(
+                selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(
                   background: Color(0x33FF2D55),
                   capStartEdge: true,
                   capEndEdge: true,
@@ -875,8 +852,7 @@ Widget _buildSelectionOverlaySection() {
                 squeeze: 1.2,
                 diameterRatio: 1.07,
                 backgroundColor: const Color(0xFFFFFFFF),
-                selectionOverlay:
-                    const CupertinoPickerDefaultSelectionOverlay(
+                selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(
                   background: Color(0x3334C759),
                   capStartEdge: false,
                   capEndEdge: false,
@@ -917,10 +893,7 @@ Widget _buildAnatomyCountdownTimerSection() {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFFFFE5B4),
-            Color(0xFFFFD60A),
-          ],
+          colors: [Color(0xFFFFE5B4), Color(0xFFFFD60A)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
@@ -1033,7 +1006,11 @@ Widget _buildAnatomyCountdownTimerSection() {
 
 Widget _buildAnatomyTemperatureUnitSection() {
   final controller = FixedExtentScrollController(initialItem: 1);
-  const units = <String>['Celsius (\u00B0C)', 'Fahrenheit (\u00B0F)', 'Kelvin (K)'];
+  const units = <String>[
+    'Celsius (\u00B0C)',
+    'Fahrenheit (\u00B0F)',
+    'Kelvin (K)',
+  ];
   return _PrivateSection(
     accent: const Color(0xFF32ADE6),
     icon: CupertinoIcons.thermometer,
@@ -1044,10 +1021,7 @@ Widget _buildAnatomyTemperatureUnitSection() {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFFE5F4FF),
-            Color(0xFFFFFFFF),
-          ],
+          colors: [Color(0xFFE5F4FF), Color(0xFFFFFFFF)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
@@ -1113,10 +1087,7 @@ Widget _buildAnatomyFontWeightChooserSection() {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFFF6E9FF),
-            Color(0xFFFFFFFF),
-          ],
+          colors: [Color(0xFFF6E9FF), Color(0xFFFFFFFF)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
@@ -1198,7 +1169,8 @@ Widget _buildComparisonGuideSection() {
         SizedBox(height: 14),
         _PrivateGuideRow(
           title: 'CupertinoPicker',
-          body: 'Use when the platform is iOS / iPadOS, the value space is '
+          body:
+              'Use when the platform is iOS / iPadOS, the value space is '
               'medium-sized (10..200 items) and the user expects native '
               'wheel feel. Always wrap in a fixed-height container.',
           color: Color(0xFF007AFF),
@@ -1207,7 +1179,8 @@ Widget _buildComparisonGuideSection() {
         SizedBox(height: 10),
         _PrivateGuideRow(
           title: 'DropdownButton',
-          body: 'Reach for a Material DropdownButton when the value space '
+          body:
+              'Reach for a Material DropdownButton when the value space '
               'is small (< 8 items) and you want a compact form-style '
               'control that does not occupy permanent vertical space.',
           color: Color(0xFF34C759),
@@ -1216,7 +1189,8 @@ Widget _buildComparisonGuideSection() {
         SizedBox(height: 10),
         _PrivateGuideRow(
           title: 'showCupertinoModalPopup<int>',
-          body: 'Use a modal popup hosting a CupertinoPicker when the '
+          body:
+              'Use a modal popup hosting a CupertinoPicker when the '
               'value space is large (> 200 items) or selection is rare — '
               'keeps the main canvas clean and surfaces a focused choice.',
           color: Color(0xFFFF2D55),
@@ -1225,7 +1199,8 @@ Widget _buildComparisonGuideSection() {
         SizedBox(height: 10),
         _PrivateGuideRow(
           title: 'CupertinoPicker.builder',
-          body: 'Pick this constructor over the children-based one when '
+          body:
+              'Pick this constructor over the children-based one when '
               'the list is dynamic, very long, or each row is expensive '
               'to materialise eagerly.',
           color: Color(0xFFAF52DE),
@@ -1447,10 +1422,7 @@ class _PrivateSection extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: body,
-          ),
+          Padding(padding: const EdgeInsets.all(16), child: body),
           if (notes.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

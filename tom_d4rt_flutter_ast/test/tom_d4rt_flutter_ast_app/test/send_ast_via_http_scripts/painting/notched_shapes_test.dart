@@ -247,11 +247,7 @@ class _HeroSection extends StatelessWidget {
                 hint: 'Circular + Automatic',
               ),
               const SizedBox(width: 14),
-              _MetricTile(
-                label: 'Method',
-                value: '1',
-                hint: 'getOuterPath',
-              ),
+              _MetricTile(label: 'Method', value: '1', hint: 'getOuterPath'),
               const SizedBox(width: 14),
               _MetricTile(
                 label: 'Inputs',
@@ -412,8 +408,7 @@ class _LiveBottomAppBarSection extends StatelessWidget {
                       child: Text(
                         'page content',
                         style: TextStyle(
-                          color: _Palette.textSecondary
-                              .withValues(alpha: 0.7),
+                          color: _Palette.textSecondary.withValues(alpha: 0.7),
                           fontSize: 14,
                           fontStyle: FontStyle.italic,
                         ),
@@ -443,8 +438,7 @@ class _LiveBottomAppBarSection extends StatelessWidget {
                         ),
                         Row(
                           children: const [
-                            Icon(Icons.bookmark_outline,
-                                color: Colors.white),
+                            Icon(Icons.bookmark_outline, color: Colors.white),
                             SizedBox(width: 16),
                             Icon(Icons.more_vert, color: Colors.white),
                           ],
@@ -481,9 +475,13 @@ class _LiveBottomAppBarSection extends StatelessWidget {
               _CodeLine.cmt('// FAB docked via Scaffold'),
               _CodeLine.code('Scaffold('),
               _CodeLine.code('  bottomNavigationBar: BottomAppBar(...),'),
-              _CodeLine.code('  floatingActionButton: FloatingActionButton(...)'),
+              _CodeLine.code(
+                '  floatingActionButton: FloatingActionButton(...)',
+              ),
               _CodeLine.code('  floatingActionButtonLocation:'),
-              _CodeLine.code('      FloatingActionButtonLocation.centerDocked,'),
+              _CodeLine.code(
+                '      FloatingActionButtonLocation.centerDocked,',
+              ),
               _CodeLine.code(');'),
             ],
           ),
@@ -534,7 +532,10 @@ class _PainterVisualizationSection extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: const [
-              _LegendDot(color: _Palette.barEdge, label: 'outer path (notched)'),
+              _LegendDot(
+                color: _Palette.barEdge,
+                label: 'outer path (notched)',
+              ),
               SizedBox(width: 18),
               _LegendDot(color: _Palette.accent, label: 'host rect'),
               SizedBox(width: 18),
@@ -575,8 +576,10 @@ class _NotchOutlinePainter extends CustomPainter {
       guestSize,
     );
 
-    final Path outer =
-        const CircularNotchedRectangle().getOuterPath(host, guest);
+    final Path outer = const CircularNotchedRectangle().getOuterPath(
+      host,
+      guest,
+    );
 
     final Paint fill = Paint()
       ..color = _Palette.barFill.withValues(alpha: 0.85)
@@ -727,9 +730,7 @@ class _PiecePainter extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 96,
-      child: CustomPaint(
-        painter: _PieceCustomPainter(kind: kind),
-      ),
+      child: CustomPaint(painter: _PieceCustomPainter(kind: kind)),
     );
   }
 }
@@ -740,12 +741,7 @@ class _PieceCustomPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect host = Rect.fromLTWH(
-      8,
-      size.height - 40,
-      size.width - 16,
-      32,
-    );
+    final Rect host = Rect.fromLTWH(8, size.height - 40, size.width - 16, 32);
     final double guestR = 18;
     final Rect guest = Rect.fromCircle(
       center: Offset(size.width / 2, host.top - 2),
@@ -766,8 +762,10 @@ class _PieceCustomPainter extends CustomPainter {
         canvas.drawCircle(guest.center, guestR, p);
         break;
       case _PieceKind.combined:
-        final Path notched = const CircularNotchedRectangle()
-            .getOuterPath(host, guest);
+        final Path notched = const CircularNotchedRectangle().getOuterPath(
+          host,
+          guest,
+        );
         final Paint p = Paint()..color = _Palette.violet;
         canvas.drawPath(notched, p);
         final Paint outline = Paint()
@@ -815,10 +813,7 @@ class _AutomaticPiece extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Text(
@@ -894,7 +889,8 @@ class _SignatureCardSection extends StatelessWidget {
               _CodeLine.code('  @override'),
               _CodeLine.code('  Path getOuterPath(Rect host, Rect? guest) {'),
               _CodeLine.code(
-                  '    if (guest == null || !host.overlaps(guest)) {'),
+                '    if (guest == null || !host.overlaps(guest)) {',
+              ),
               _CodeLine.code('      return Path()..addRect(host);'),
               _CodeLine.code('    }'),
               _CodeLine.code('    // ... carve a circular notch ...'),
@@ -1021,8 +1017,10 @@ class _GeometryDiagramPainter extends CustomPainter {
       guestSize,
     );
 
-    final Path outer =
-        const CircularNotchedRectangle().getOuterPath(host, guest);
+    final Path outer = const CircularNotchedRectangle().getOuterPath(
+      host,
+      guest,
+    );
     final Paint outerFill = Paint()
       ..color = _Palette.barFill
       ..style = PaintingStyle.fill;
@@ -1041,20 +1039,26 @@ class _GeometryDiagramPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
     canvas.drawLine(gc, Offset(gc.dx + r, gc.dy), radius);
 
-    _label(canvas,
-        text: 'notch radius (r)',
-        offset: Offset(gc.dx + r + 6, gc.dy - 6),
-        color: _Palette.amber);
+    _label(
+      canvas,
+      text: 'notch radius (r)',
+      offset: Offset(gc.dx + r + 6, gc.dy - 6),
+      color: _Palette.amber,
+    );
 
-    _label(canvas,
-        text: 'host',
-        offset: Offset(host.left + 8, host.bottom - 18),
-        color: Colors.white);
+    _label(
+      canvas,
+      text: 'host',
+      offset: Offset(host.left + 8, host.bottom - 18),
+      color: Colors.white,
+    );
 
-    _label(canvas,
-        text: 'guest',
-        offset: Offset(gc.dx - 18, gc.dy - 4),
-        color: Colors.white);
+    _label(
+      canvas,
+      text: 'guest',
+      offset: Offset(gc.dx - 18, gc.dy - 4),
+      color: Colors.white,
+    );
 
     final Paint markerPaint = Paint()
       ..color = _Palette.accent
@@ -1070,20 +1074,26 @@ class _GeometryDiagramPainter extends CustomPainter {
       3,
       markerPaint,
     );
-    _label(canvas,
-        text: 'transition entry',
-        offset: Offset(gc.dx - approxCurveSpan - 12, host.top + 12),
-        color: _Palette.accent);
-    _label(canvas,
-        text: 'transition exit',
-        offset: Offset(gc.dx + approxCurveSpan + 6, host.top + 12),
-        color: _Palette.accent);
+    _label(
+      canvas,
+      text: 'transition entry',
+      offset: Offset(gc.dx - approxCurveSpan - 12, host.top + 12),
+      color: _Palette.accent,
+    );
+    _label(
+      canvas,
+      text: 'transition exit',
+      offset: Offset(gc.dx + approxCurveSpan + 6, host.top + 12),
+      color: _Palette.accent,
+    );
   }
 
-  void _label(Canvas canvas,
-      {required String text,
-      required Offset offset,
-      required Color color}) {
+  void _label(
+    Canvas canvas, {
+    required String text,
+    required Offset offset,
+    required Color color,
+  }) {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -1130,7 +1140,8 @@ class _NotchVariantsSection extends StatelessWidget {
                 child: _NotchVariantPanel(
                   title: 'small',
                   guestSize: 36,
-                  description: 'Mini-FAB sized guest. Notch is narrow and '
+                  description:
+                      'Mini-FAB sized guest. Notch is narrow and '
                       'shallow, blending almost continuously into the bar.',
                 ),
               ),
@@ -1149,7 +1160,8 @@ class _NotchVariantsSection extends StatelessWidget {
                 child: _NotchVariantPanel(
                   title: 'large',
                   guestSize: 80,
-                  description: 'Extended FAB. The notch dominates the bar - '
+                  description:
+                      'Extended FAB. The notch dominates the bar - '
                       'use only when the bar can spare the visual real estate.',
                 ),
               ),
@@ -1221,20 +1233,17 @@ class _VariantPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Rect host = Rect.fromLTWH(
-      6,
-      size.height - 50,
-      size.width - 12,
-      42,
-    );
+    final Rect host = Rect.fromLTWH(6, size.height - 50, size.width - 12, 42);
     final Rect guest = Rect.fromLTWH(
       host.center.dx - guestSize / 2,
       host.top - guestSize / 2 - 2,
       guestSize,
       guestSize,
     );
-    final Path outer =
-        const CircularNotchedRectangle().getOuterPath(host, guest);
+    final Path outer = const CircularNotchedRectangle().getOuterPath(
+      host,
+      guest,
+    );
     final Paint fill = Paint()..color = _Palette.barFill;
     canvas.drawPath(outer, fill);
     final Paint guestFill = Paint()..color = _Palette.coral;
@@ -1268,11 +1277,7 @@ class _ComparisonTableSection extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           _Table(
-            columns: const [
-              'Aspect',
-              'NotchedShape',
-              'ShapeBorder',
-            ],
+            columns: const ['Aspect', 'NotchedShape', 'ShapeBorder'],
             rows: const [
               [
                 'Inputs to outline',
@@ -1337,8 +1342,7 @@ class _PitfallsSection extends StatelessWidget {
             children: const [
               _Pitfall(
                 color: _Palette.coral,
-                title:
-                    'Forgetting floatingActionButtonLocation: centerDocked',
+                title: 'Forgetting floatingActionButtonLocation: centerDocked',
                 body:
                     'Without a *Docked location, the FAB is not on top of '
                     'the bar - the bar still has shape: '
@@ -1369,7 +1373,8 @@ class _PitfallsSection extends StatelessWidget {
               SizedBox(height: 12),
               _Pitfall(
                 color: _Palette.accent,
-                title: 'Building your own NotchedShape without closing the path',
+                title:
+                    'Building your own NotchedShape without closing the path',
                 body:
                     'getOuterPath must return a closed path. If you forget '
                     'Path.close(), the bar will have a visual seam and '
@@ -1410,10 +1415,7 @@ class _Pitfall extends StatelessWidget {
             width: 8,
             height: 8,
             margin: const EdgeInsets.only(top: 6),
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1479,7 +1481,9 @@ class _RecipesSection extends StatelessWidget {
               _CodeLine.code('    child: const Icon(Icons.add),'),
               _CodeLine.code('  ),'),
               _CodeLine.code('  floatingActionButtonLocation:'),
-              _CodeLine.code('      FloatingActionButtonLocation.centerDocked,'),
+              _CodeLine.code(
+                '      FloatingActionButtonLocation.centerDocked,',
+              ),
               _CodeLine.code('  bottomNavigationBar: BottomAppBar('),
               _CodeLine.code('    shape: const CircularNotchedRectangle(),'),
               _CodeLine.code('    notchMargin: 6,'),
@@ -1521,13 +1525,16 @@ class _RecipesSection extends StatelessWidget {
               _CodeLine.code('  @override'),
               _CodeLine.code('  Path getOuterPath(Rect host, Rect? guest) {'),
               _CodeLine.code(
-                  '    if (guest == null || !host.overlaps(guest)) {'),
+                '    if (guest == null || !host.overlaps(guest)) {',
+              ),
               _CodeLine.code('      return Path()..addRect(host);'),
               _CodeLine.code('    }'),
               _CodeLine.code('    final path = Path()'),
               _CodeLine.code('      ..moveTo(host.left, host.top)'),
               _CodeLine.code('      ..lineTo(guest.left, host.top)'),
-              _CodeLine.code('      ..lineTo(guest.center.dx, guest.center.dy)'),
+              _CodeLine.code(
+                '      ..lineTo(guest.center.dx, guest.center.dy)',
+              ),
               _CodeLine.code('      ..lineTo(guest.right, host.top)'),
               _CodeLine.code('      ..lineTo(host.right, host.top)'),
               _CodeLine.code('      ..lineTo(host.right, host.bottom)'),
@@ -1574,8 +1581,7 @@ class _RecipeCard extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration:
-                    BoxDecoration(color: color, shape: BoxShape.circle),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -1770,12 +1776,7 @@ class _CookbookPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (topNotch) {
-      final Rect host = Rect.fromLTWH(
-        6,
-        size.height - 50,
-        size.width - 12,
-        42,
-      );
+      final Rect host = Rect.fromLTWH(6, size.height - 50, size.width - 12, 42);
       final double gs = 56;
       final Rect guest = Rect.fromLTWH(
         host.center.dx - gs / 2,
@@ -1783,8 +1784,10 @@ class _CookbookPainter extends CustomPainter {
         gs,
         gs,
       );
-      final Path outer =
-          const CircularNotchedRectangle().getOuterPath(host, guest);
+      final Path outer = const CircularNotchedRectangle().getOuterPath(
+        host,
+        guest,
+      );
       canvas.drawPath(outer, Paint()..color = _Palette.barFill);
       canvas.drawOval(guest, Paint()..color = _Palette.coral);
     } else {
@@ -1796,8 +1799,10 @@ class _CookbookPainter extends CustomPainter {
         gs,
         gs,
       );
-      final Path outer =
-          const CircularNotchedRectangle().getOuterPath(host, guest);
+      final Path outer = const CircularNotchedRectangle().getOuterPath(
+        host,
+        guest,
+      );
       canvas.drawPath(outer, Paint()..color = _Palette.barFill);
       canvas.drawOval(guest, Paint()..color = _Palette.coral);
     }
@@ -1831,8 +1836,7 @@ class _ReferencesSection extends StatelessWidget {
             children: const [
               _RefRow(
                 title: 'NotchedShape (Material)',
-                detail:
-                    'package:flutter/material.dart - abstract NotchedShape',
+                detail: 'package:flutter/material.dart - abstract NotchedShape',
                 category: 'API',
               ),
               _RefRow(
@@ -1891,8 +1895,7 @@ class _RefRow extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: _Palette.violetSoft,
               borderRadius: BorderRadius.circular(6),
@@ -2007,9 +2010,7 @@ class _Card extends StatelessWidget {
         color: gradient == null ? _Palette.surface : null,
         gradient: gradient,
         borderRadius: BorderRadius.circular(18),
-        border: gradient == null
-            ? Border.all(color: _Palette.outline)
-            : null,
+        border: gradient == null ? Border.all(color: _Palette.outline) : null,
         boxShadow: gradient == null
             ? [
                 BoxShadow(
@@ -2098,11 +2099,7 @@ class _Divider extends StatelessWidget {
 }
 
 class _ChipText extends StatelessWidget {
-  const _ChipText({
-    required this.text,
-    required this.bg,
-    required this.fg,
-  });
+  const _ChipText({required this.text, required this.bg, required this.fg});
 
   final String text;
   final Color bg;
@@ -2212,8 +2209,7 @@ class _AnatomyEntry extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: badgeColor.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(6),
@@ -2414,16 +2410,13 @@ class _ParamCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: tint.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  isReturn
-                      ? 'returns'
-                      : (required ? 'required' : 'optional'),
+                  isReturn ? 'returns' : (required ? 'required' : 'optional'),
                   style: TextStyle(
                     color: tint,
                     fontSize: 10,
@@ -2487,8 +2480,7 @@ class _Table extends StatelessWidget {
         children: [
           Container(
             color: _Palette.slateSoft,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             child: Row(
               children: columns
                   .map(
@@ -2515,8 +2507,7 @@ class _Table extends StatelessWidget {
                     ? _Palette.surface
                     : _Palette.slateSoft.withValues(alpha: 0.4),
               ),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -2529,8 +2520,9 @@ class _Table extends StatelessWidget {
                           color: j == 0
                               ? _Palette.textPrimary
                               : _Palette.textSecondary,
-                          fontWeight:
-                              j == 0 ? FontWeight.w700 : FontWeight.w500,
+                          fontWeight: j == 0
+                              ? FontWeight.w700
+                              : FontWeight.w500,
                           fontSize: 12.5,
                           height: 1.45,
                         ),

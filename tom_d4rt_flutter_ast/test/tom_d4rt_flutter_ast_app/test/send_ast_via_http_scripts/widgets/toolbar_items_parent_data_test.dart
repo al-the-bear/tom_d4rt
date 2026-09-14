@@ -19,7 +19,8 @@ class _ToolbarItemsParentDataDemo extends StatefulWidget {
       _ToolbarItemsParentDataDemoState();
 }
 
-class _ToolbarItemsParentDataDemoState extends State<_ToolbarItemsParentDataDemo>
+class _ToolbarItemsParentDataDemoState
+    extends State<_ToolbarItemsParentDataDemo>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -160,12 +161,42 @@ class _OverflowLabTabState extends State<_OverflowLabTab> {
   bool _reserveGap = true;
 
   final List<_ToolbarEntry> _entries = const [
-    _ToolbarEntry(label: 'Cut', width: 82, priority: 0, color: Color(0xFF2E7D32)),
-    _ToolbarEntry(label: 'Copy', width: 96, priority: 1, color: Color(0xFF00796B)),
-    _ToolbarEntry(label: 'Paste', width: 98, priority: 2, color: Color(0xFF1565C0)),
-    _ToolbarEntry(label: 'Select all', width: 130, priority: 3, color: Color(0xFF6A1B9A)),
-    _ToolbarEntry(label: 'Share', width: 94, priority: 4, color: Color(0xFFAD1457)),
-    _ToolbarEntry(label: 'Translate', width: 124, priority: 5, color: Color(0xFFE65100)),
+    _ToolbarEntry(
+      label: 'Cut',
+      width: 82,
+      priority: 0,
+      color: Color(0xFF2E7D32),
+    ),
+    _ToolbarEntry(
+      label: 'Copy',
+      width: 96,
+      priority: 1,
+      color: Color(0xFF00796B),
+    ),
+    _ToolbarEntry(
+      label: 'Paste',
+      width: 98,
+      priority: 2,
+      color: Color(0xFF1565C0),
+    ),
+    _ToolbarEntry(
+      label: 'Select all',
+      width: 130,
+      priority: 3,
+      color: Color(0xFF6A1B9A),
+    ),
+    _ToolbarEntry(
+      label: 'Share',
+      width: 94,
+      priority: 4,
+      color: Color(0xFFAD1457),
+    ),
+    _ToolbarEntry(
+      label: 'Translate',
+      width: 124,
+      priority: 5,
+      color: Color(0xFFE65100),
+    ),
   ];
 
   @override
@@ -204,7 +235,9 @@ class _OverflowLabTabState extends State<_OverflowLabTab> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 10),
-                Text('Available width: ${_availableWidth.toStringAsFixed(0)} px'),
+                Text(
+                  'Available width: ${_availableWidth.toStringAsFixed(0)} px',
+                ),
                 Slider(
                   value: _availableWidth,
                   min: 220,
@@ -218,12 +251,14 @@ class _OverflowLabTabState extends State<_OverflowLabTab> {
                     FilterChip(
                       label: const Text('Reserve overflow trigger'),
                       selected: _showOverflowTrigger,
-                      onSelected: (value) => setState(() => _showOverflowTrigger = value),
+                      onSelected: (value) =>
+                          setState(() => _showOverflowTrigger = value),
                     ),
                     FilterChip(
                       label: const Text('Reserve inter-item gap'),
                       selected: _reserveGap,
-                      onSelected: (value) => setState(() => _reserveGap = value),
+                      onSelected: (value) =>
+                          setState(() => _reserveGap = value),
                     ),
                   ],
                 ),
@@ -457,10 +492,18 @@ class _PaintTimelineTabState extends State<_PaintTimelineTab> {
                 ),
                 const SizedBox(height: 8),
                 const _ChecklistLine('Keep layout and paint order aligned.'),
-                const _ChecklistLine('Store reasons for hidden actions for debugging.'),
-                const _ChecklistLine('Guarantee at least one visible primary action.'),
-                const _ChecklistLine('Use overflow affordance when any hidden item exists.'),
-                const _ChecklistLine('Recompute shouldPaint when constraints change.'),
+                const _ChecklistLine(
+                  'Store reasons for hidden actions for debugging.',
+                ),
+                const _ChecklistLine(
+                  'Guarantee at least one visible primary action.',
+                ),
+                const _ChecklistLine(
+                  'Use overflow affordance when any hidden item exists.',
+                ),
+                const _ChecklistLine(
+                  'Recompute shouldPaint when constraints change.',
+                ),
               ],
             ),
           ),
@@ -522,7 +565,11 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: _kText),
+      style: const TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w700,
+        color: _kText,
+      ),
     );
   }
 }
@@ -567,11 +614,20 @@ class _PipelineStoryboard extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: const [
-            _StoryboardRow(step: 'Layout pass', outcome: 'Computes offsets and shouldPaint'),
+            _StoryboardRow(
+              step: 'Layout pass',
+              outcome: 'Computes offsets and shouldPaint',
+            ),
             _StoryboardArrow(),
-            _StoryboardRow(step: 'Paint pass', outcome: 'Skips hidden children quickly'),
+            _StoryboardRow(
+              step: 'Paint pass',
+              outcome: 'Skips hidden children quickly',
+            ),
             _StoryboardArrow(),
-            _StoryboardRow(step: 'Overflow UI', outcome: 'Hidden items surfaced in menu'),
+            _StoryboardRow(
+              step: 'Overflow UI',
+              outcome: 'Hidden items surfaced in menu',
+            ),
           ],
         ),
       ),
@@ -596,10 +652,15 @@ class _StoryboardRow extends StatelessWidget {
             color: const Color(0xFFC8E6C9),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Text(step, style: const TextStyle(fontWeight: FontWeight.w700)),
+          child: Text(
+            step,
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
         ),
         const SizedBox(width: 8),
-        Expanded(child: Text(outcome, style: const TextStyle(color: _kText))),
+        Expanded(
+          child: Text(outcome, style: const TextStyle(color: _kText)),
+        ),
       ],
     );
   }
@@ -632,7 +693,13 @@ class _AdviceCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w700, color: _kText)),
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: _kText,
+              ),
+            ),
             const SizedBox(height: 8),
             for (final line in advice)
               Padding(
@@ -668,7 +735,13 @@ class _ToolbarChip extends StatelessWidget {
             Icon(icon, size: 16, color: Colors.white),
             const SizedBox(width: 4),
           ],
-          Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     );
@@ -698,9 +771,7 @@ class _ParentDataRow extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: color.withValues(alpha: 0.45)),
-        color: shouldPaint
-            ? const Color(0xFFE8F5E9)
-            : const Color(0xFFFFEBEE),
+        color: shouldPaint ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
       ),
       child: Row(
         children: [
@@ -713,14 +784,19 @@ class _ParentDataRow extends StatelessWidget {
           Text(
             shouldPaint ? 'shouldPaint=true' : 'shouldPaint=false',
             style: TextStyle(
-              color: shouldPaint ? const Color(0xFF2E7D32) : const Color(0xFFC62828),
+              color: shouldPaint
+                  ? const Color(0xFF2E7D32)
+                  : const Color(0xFFC62828),
               fontWeight: FontWeight.w700,
             ),
           ),
           const SizedBox(width: 10),
           SizedBox(
             width: 160,
-            child: Text(reason, style: const TextStyle(fontSize: 12, color: _kText)),
+            child: Text(
+              reason,
+              style: const TextStyle(fontSize: 12, color: _kText),
+            ),
           ),
         ],
       ),
@@ -741,7 +817,9 @@ class _ChecklistLine extends StatelessWidget {
         children: [
           const Icon(Icons.check_circle, size: 18, color: Color(0xFF2E7D32)),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: const TextStyle(color: _kText))),
+          Expanded(
+            child: Text(text, style: const TextStyle(color: _kText)),
+          ),
         ],
       ),
     );
@@ -815,7 +893,12 @@ _LayoutSimulation _simulateLayout({
       visible.add(item);
       states.add(
         const _EntryPaintState(
-          entry: _ToolbarEntry(label: '', width: 0, priority: 0, color: Colors.transparent),
+          entry: _ToolbarEntry(
+            label: '',
+            width: 0,
+            priority: 0,
+            color: Colors.transparent,
+          ),
           shouldPaint: true,
           reason: '',
         ),

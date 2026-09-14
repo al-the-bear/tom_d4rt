@@ -33,10 +33,12 @@ class _ListWheelViewportDeepDemoPage extends StatefulWidget {
   const _ListWheelViewportDeepDemoPage();
 
   @override
-  State<_ListWheelViewportDeepDemoPage> createState() => _ListWheelViewportDeepDemoPageState();
+  State<_ListWheelViewportDeepDemoPage> createState() =>
+      _ListWheelViewportDeepDemoPageState();
 }
 
-class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDemoPage> {
+class _ListWheelViewportDeepDemoPageState
+    extends State<_ListWheelViewportDeepDemoPage> {
   bool _compact = false;
   bool _showGuide = true;
   bool _showNotes = true;
@@ -58,7 +60,11 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
               const Text('ListWheelViewport Deep Demo'),
               Text(
                 'raw wheel viewport composition | scroll pipeline | delegate control | practical wheel consoles',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.84), fontWeight: FontWeight.w500, fontSize: 12),
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.84),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -87,7 +93,12 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
                 title: 'Raw Viewport Foundations',
                 subtitle:
                     'Build a wheel directly from Scrollable + viewportBuilder + ListWheelViewport, without ListWheelScrollView wrapper.',
-                child: _RawFoundationsScene(compact: _compact, showGuide: _showGuide, showNotes: _showNotes, globalScale: _globalScale),
+                child: _RawFoundationsScene(
+                  compact: _compact,
+                  showGuide: _showGuide,
+                  showNotes: _showNotes,
+                  globalScale: _globalScale,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneContainer(
@@ -96,7 +107,11 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
                 title: 'Geometry Forge',
                 subtitle:
                     'Tune wheel projection parameters to understand how ListWheelViewport shapes depth, focus, and spatial feel.',
-                child: _GeometryForgeScene(compact: _compact, showGuide: _showGuide, showNotes: _showNotes),
+                child: _GeometryForgeScene(
+                  compact: _compact,
+                  showGuide: _showGuide,
+                  showNotes: _showNotes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneContainer(
@@ -105,7 +120,11 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
                 title: 'Delegate Workshop',
                 subtitle:
                     'Compare list, builder, and looping delegates rendered through the same raw viewport pipeline.',
-                child: _DelegateWorkshopScene(compact: _compact, showGuide: _showGuide, showNotes: _showNotes),
+                child: _DelegateWorkshopScene(
+                  compact: _compact,
+                  showGuide: _showGuide,
+                  showNotes: _showNotes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneContainer(
@@ -114,7 +133,11 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
                 title: 'Scroll Pipeline Lab',
                 subtitle:
                     'Use controller commands and physics changes to inspect wheel behavior at the viewport level.',
-                child: _ScrollPipelineScene(compact: _compact, showGuide: _showGuide, showNotes: _showNotes),
+                child: _ScrollPipelineScene(
+                  compact: _compact,
+                  showGuide: _showGuide,
+                  showNotes: _showNotes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneContainer(
@@ -123,7 +146,11 @@ class _ListWheelViewportDeepDemoPageState extends State<_ListWheelViewportDeepDe
                 title: 'Practical Wheel Console',
                 subtitle:
                     'Compose synchronized wheels (time, lane, priority) into a production-style command planning panel.',
-                child: _PracticalConsoleScene(compact: _compact, showGuide: _showGuide, showNotes: _showNotes),
+                child: _PracticalConsoleScene(
+                  compact: _compact,
+                  showGuide: _showGuide,
+                  showNotes: _showNotes,
+                ),
               ),
               const SizedBox(height: 12),
               const _RecapCard(),
@@ -168,7 +195,12 @@ class _TopDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF152E45), Color(0xFF205274), Color(0xFF317163), Color(0xFF5A5DA9)],
+          colors: [
+            Color(0xFF152E45),
+            Color(0xFF205274),
+            Color(0xFF317163),
+            Color(0xFF5A5DA9),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -178,7 +210,11 @@ class _TopDeck extends StatelessWidget {
         children: [
           const Text(
             'ListWheelViewport Control Deck',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 30,
+            ),
           ),
           const SizedBox(height: 6),
           const Text(
@@ -198,7 +234,13 @@ class _TopDeck extends StatelessWidget {
                     onChanged: onCompactChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Compact mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Compact mode',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -210,7 +252,13 @@ class _TopDeck extends StatelessWidget {
                     onChanged: onGuideChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Guide grids', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Guide grids',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -222,7 +270,13 @@ class _TopDeck extends StatelessWidget {
                     onChanged: onNotesChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Instruction notes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -234,7 +288,13 @@ class _TopDeck extends StatelessWidget {
                     onChanged: onRtlChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('RTL direction', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'RTL direction',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -243,7 +303,10 @@ class _TopDeck extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             'Global scene scale: ${globalScale.toStringAsFixed(2)}',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Slider(
             value: globalScale,
@@ -282,7 +345,11 @@ class _SceneContainer extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 7)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 7),
+          ),
         ],
       ),
       child: Padding(
@@ -297,16 +364,32 @@ class _SceneContainer extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: tone, fontSize: 19, fontWeight: FontWeight.w800)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: tone,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF3B5266), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF3B5266),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -321,11 +404,7 @@ class _SceneContainer extends StatelessWidget {
   }
 }
 
-enum _ChildDelegateKind {
-  list,
-  builder,
-  looping,
-}
+enum _ChildDelegateKind { list, builder, looping }
 
 class _ViewportWheel extends StatefulWidget {
   const _ViewportWheel({
@@ -384,7 +463,9 @@ class _ViewportWheelState extends State<_ViewportWheel> {
   void initState() {
     super.initState();
     _selected = widget.initialIndex.clamp(0, widget.items.length - 1);
-    _controller = ScrollController(initialScrollOffset: _selected * widget.itemExtent);
+    _controller = ScrollController(
+      initialScrollOffset: _selected * widget.itemExtent,
+    );
     _controller.addListener(_syncSelectionFromPixels);
   }
 
@@ -395,7 +476,9 @@ class _ViewportWheelState extends State<_ViewportWheel> {
       _controller
         ..removeListener(_syncSelectionFromPixels)
         ..dispose();
-      _controller = ScrollController(initialScrollOffset: _selected * widget.itemExtent);
+      _controller = ScrollController(
+        initialScrollOffset: _selected * widget.itemExtent,
+      );
       _controller.addListener(_syncSelectionFromPixels);
     }
   }
@@ -439,7 +522,10 @@ class _ViewportWheelState extends State<_ViewportWheel> {
                 height: widget.itemExtent + 6,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: widget.tone.withValues(alpha: 0.44), width: 2),
+                  border: Border.all(
+                    color: widget.tone.withValues(alpha: 0.44),
+                    width: 2,
+                  ),
                   color: widget.tone.withValues(alpha: 0.08),
                 ),
               ),
@@ -449,7 +535,11 @@ class _ViewportWheelState extends State<_ViewportWheel> {
     );
   }
 
-  Future<void> animateToIndex(int index, {Duration? duration, Curve? curve}) async {
+  Future<void> animateToIndex(
+    int index, {
+    Duration? duration,
+    Curve? curve,
+  }) async {
     final clamped = index.clamp(0, widget.items.length - 1);
     await _controller.animateTo(
       clamped * widget.itemExtent,
@@ -509,7 +599,10 @@ class _ViewportWheelState extends State<_ViewportWheel> {
 
   void _syncSelectionFromPixels() {
     widget.onPixelsChanged(_controller.offset);
-    final next = (_controller.offset / widget.itemExtent).round().clamp(0, widget.items.length - 1);
+    final next = (_controller.offset / widget.itemExtent).round().clamp(
+      0,
+      widget.items.length - 1,
+    );
     if (next != _selected) {
       setState(() => _selected = next);
       widget.onSelectedChanged(next);
@@ -518,7 +611,12 @@ class _ViewportWheelState extends State<_ViewportWheel> {
 }
 
 class _RawFoundationsScene extends StatefulWidget {
-  const _RawFoundationsScene({required this.compact, required this.showGuide, required this.showNotes, required this.globalScale});
+  const _RawFoundationsScene({
+    required this.compact,
+    required this.showGuide,
+    required this.showNotes,
+    required this.globalScale,
+  });
 
   final bool compact;
   final bool showGuide;
@@ -530,7 +628,8 @@ class _RawFoundationsScene extends StatefulWidget {
 }
 
 class _RawFoundationsSceneState extends State<_RawFoundationsScene> {
-  final GlobalKey<_ViewportWheelState> _wheelKey = GlobalKey<_ViewportWheelState>();
+  final GlobalKey<_ViewportWheelState> _wheelKey =
+      GlobalKey<_ViewportWheelState>();
   int _selected = 6;
   double _pixels = 0;
   bool _overlay = true;
@@ -554,26 +653,37 @@ class _RawFoundationsSceneState extends State<_RawFoundationsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Foundation controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Foundation controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: [
                           FilledButton.tonal(
-                            onPressed: () => _wheelKey.currentState?.animateToIndex((_selected - 1).clamp(0, _stops.length - 1)),
+                            onPressed: () =>
+                                _wheelKey.currentState?.animateToIndex(
+                                  (_selected - 1).clamp(0, _stops.length - 1),
+                                ),
                             child: const Text('Animate -1'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _wheelKey.currentState?.animateToIndex((_selected + 1).clamp(0, _stops.length - 1)),
+                            onPressed: () =>
+                                _wheelKey.currentState?.animateToIndex(
+                                  (_selected + 1).clamp(0, _stops.length - 1),
+                                ),
                             child: const Text('Animate +1'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _wheelKey.currentState?.jumpToIndex(0),
+                            onPressed: () =>
+                                _wheelKey.currentState?.jumpToIndex(0),
                             child: const Text('Jump first'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _wheelKey.currentState?.jumpToIndex(_stops.length - 1),
+                            onPressed: () => _wheelKey.currentState
+                                ?.jumpToIndex(_stops.length - 1),
                             child: const Text('Jump last'),
                           ),
                         ],
@@ -595,7 +705,10 @@ class _RawFoundationsSceneState extends State<_RawFoundationsScene> {
                           _KeyValue('selected index', '$_selected'),
                           _KeyValue('selected label', _stops[_selected]),
                           _KeyValue('pixel offset', _pixels.toStringAsFixed(1)),
-                          _KeyValue('computed item', (_pixels / 60).toStringAsFixed(2)),
+                          _KeyValue(
+                            'computed item',
+                            (_pixels / 60).toStringAsFixed(2),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -646,7 +759,11 @@ class _RawFoundationsSceneState extends State<_RawFoundationsScene> {
 }
 
 class _GeometryForgeScene extends StatefulWidget {
-  const _GeometryForgeScene({required this.compact, required this.showGuide, required this.showNotes});
+  const _GeometryForgeScene({
+    required this.compact,
+    required this.showGuide,
+    required this.showNotes,
+  });
 
   final bool compact;
   final bool showGuide;
@@ -699,7 +816,10 @@ class _GeometryForgeSceneState extends State<_GeometryForgeScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Geometry controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Geometry controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       _LabeledSlider(
                         label: 'diameterRatio',
@@ -752,8 +872,14 @@ class _GeometryForgeSceneState extends State<_GeometryForgeScene> {
                           _KeyValue('selected', _labels[_selected]),
                           _KeyValue('index', '$_selected'),
                           _KeyValue('offset px', _pixels.toStringAsFixed(1)),
-                          _KeyValue('diameter', _diameterRatio.toStringAsFixed(2)),
-                          _KeyValue('perspective', _perspective.toStringAsFixed(4)),
+                          _KeyValue(
+                            'diameter',
+                            _diameterRatio.toStringAsFixed(2),
+                          ),
+                          _KeyValue(
+                            'perspective',
+                            _perspective.toStringAsFixed(4),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -805,7 +931,11 @@ class _GeometryForgeSceneState extends State<_GeometryForgeScene> {
 }
 
 class _DelegateWorkshopScene extends StatefulWidget {
-  const _DelegateWorkshopScene({required this.compact, required this.showGuide, required this.showNotes});
+  const _DelegateWorkshopScene({
+    required this.compact,
+    required this.showGuide,
+    required this.showNotes,
+  });
 
   final bool compact;
   final bool showGuide;
@@ -855,16 +985,31 @@ class _DelegateWorkshopSceneState extends State<_DelegateWorkshopScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Delegate comparison', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Delegate comparison',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       _KeyValueTable(
                         rows: [
                           _KeyValue('list delegate', _series[_listSelected]),
-                          _KeyValue('builder delegate', 'row ${_builderSelected + 1}'),
-                          _KeyValue('looping delegate', _series[_loopingSelected % _series.length]),
+                          _KeyValue(
+                            'builder delegate',
+                            'row ${_builderSelected + 1}',
+                          ),
+                          _KeyValue(
+                            'looping delegate',
+                            _series[_loopingSelected % _series.length],
+                          ),
                           _KeyValue('list px', _listPixels.toStringAsFixed(1)),
-                          _KeyValue('builder px', _builderPixels.toStringAsFixed(1)),
-                          _KeyValue('looping px', _loopingPixels.toStringAsFixed(1)),
+                          _KeyValue(
+                            'builder px',
+                            _builderPixels.toStringAsFixed(1),
+                          ),
+                          _KeyValue(
+                            'looping px',
+                            _loopingPixels.toStringAsFixed(1),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -902,8 +1047,10 @@ class _DelegateWorkshopSceneState extends State<_DelegateWorkshopScene> {
                           items: _series,
                           tone: _ocean,
                           childDelegateKind: _ChildDelegateKind.list,
-                          onPixelsChanged: (p) => setState(() => _listPixels = p),
-                          onSelectedChanged: (i) => setState(() => _listSelected = i),
+                          onPixelsChanged: (p) =>
+                              setState(() => _listPixels = p),
+                          onSelectedChanged: (i) =>
+                              setState(() => _listSelected = i),
                         ),
                       ),
                     ),
@@ -915,11 +1062,16 @@ class _DelegateWorkshopSceneState extends State<_DelegateWorkshopScene> {
                         child: _ViewportWheel(
                           itemExtent: 54,
                           initialIndex: _builderSelected,
-                          items: List<String>.generate(40, (i) => 'Metric ${i + 1}'),
+                          items: List<String>.generate(
+                            40,
+                            (i) => 'Metric ${i + 1}',
+                          ),
                           tone: _forest,
                           childDelegateKind: _ChildDelegateKind.builder,
-                          onPixelsChanged: (p) => setState(() => _builderPixels = p),
-                          onSelectedChanged: (i) => setState(() => _builderSelected = i),
+                          onPixelsChanged: (p) =>
+                              setState(() => _builderPixels = p),
+                          onSelectedChanged: (i) =>
+                              setState(() => _builderSelected = i),
                         ),
                       ),
                     ),
@@ -934,8 +1086,10 @@ class _DelegateWorkshopSceneState extends State<_DelegateWorkshopScene> {
                           items: _series,
                           tone: _amber,
                           childDelegateKind: _ChildDelegateKind.looping,
-                          onPixelsChanged: (p) => setState(() => _loopingPixels = p),
-                          onSelectedChanged: (i) => setState(() => _loopingSelected = i),
+                          onPixelsChanged: (p) =>
+                              setState(() => _loopingPixels = p),
+                          onSelectedChanged: (i) =>
+                              setState(() => _loopingSelected = i),
                         ),
                       ),
                     ),
@@ -951,7 +1105,11 @@ class _DelegateWorkshopSceneState extends State<_DelegateWorkshopScene> {
 }
 
 class _DelegateColumn extends StatelessWidget {
-  const _DelegateColumn({required this.title, required this.tone, required this.child});
+  const _DelegateColumn({
+    required this.title,
+    required this.tone,
+    required this.child,
+  });
 
   final String title;
   final Color tone;
@@ -973,9 +1131,18 @@ class _DelegateColumn extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.12),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 12)),
+            child: Text(
+              title,
+              style: TextStyle(
+                color: tone,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+              ),
+            ),
           ),
           Expanded(child: child),
         ],
@@ -984,14 +1151,14 @@ class _DelegateColumn extends StatelessWidget {
   }
 }
 
-enum _PipelinePhysics {
-  fixed,
-  bouncing,
-  clamping,
-}
+enum _PipelinePhysics { fixed, bouncing, clamping }
 
 class _ScrollPipelineScene extends StatefulWidget {
-  const _ScrollPipelineScene({required this.compact, required this.showGuide, required this.showNotes});
+  const _ScrollPipelineScene({
+    required this.compact,
+    required this.showGuide,
+    required this.showNotes,
+  });
 
   final bool compact;
   final bool showGuide;
@@ -1002,14 +1169,18 @@ class _ScrollPipelineScene extends StatefulWidget {
 }
 
 class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
-  final GlobalKey<_ViewportWheelState> _wheelKey = GlobalKey<_ViewportWheelState>();
+  final GlobalKey<_ViewportWheelState> _wheelKey =
+      GlobalKey<_ViewportWheelState>();
 
   int _selected = 8;
   double _pixels = 0;
   _PipelinePhysics _physics = _PipelinePhysics.fixed;
   final List<String> _log = <String>[];
 
-  final List<String> _frames = List<String>.generate(64, (i) => 'Frame ${i + 1}');
+  final List<String> _frames = List<String>.generate(
+    64,
+    (i) => 'Frame ${i + 1}',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -1039,7 +1210,10 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Pipeline controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Pipeline controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
@@ -1047,7 +1221,10 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                         children: [
                           FilledButton.tonal(
                             onPressed: () {
-                              final next = (_selected - 6).clamp(0, _frames.length - 1);
+                              final next = (_selected - 6).clamp(
+                                0,
+                                _frames.length - 1,
+                              );
                               _wheelKey.currentState?.jumpToIndex(next);
                               _pushLog('jumpToIndex($next)');
                             },
@@ -1055,7 +1232,10 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                           ),
                           FilledButton.tonal(
                             onPressed: () {
-                              final next = (_selected + 6).clamp(0, _frames.length - 1);
+                              final next = (_selected + 6).clamp(
+                                0,
+                                _frames.length - 1,
+                              );
                               _wheelKey.currentState?.jumpToIndex(next);
                               _pushLog('jumpToIndex($next)');
                             },
@@ -1063,16 +1243,26 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                           ),
                           FilledButton.tonal(
                             onPressed: () async {
-                              final next = (_selected - 1).clamp(0, _frames.length - 1);
-                              await _wheelKey.currentState?.animateToIndex(next);
+                              final next = (_selected - 1).clamp(
+                                0,
+                                _frames.length - 1,
+                              );
+                              await _wheelKey.currentState?.animateToIndex(
+                                next,
+                              );
                               _pushLog('animateToIndex($next)');
                             },
                             child: const Text('Animate -1'),
                           ),
                           FilledButton.tonal(
                             onPressed: () async {
-                              final next = (_selected + 1).clamp(0, _frames.length - 1);
-                              await _wheelKey.currentState?.animateToIndex(next);
+                              final next = (_selected + 1).clamp(
+                                0,
+                                _frames.length - 1,
+                              );
+                              await _wheelKey.currentState?.animateToIndex(
+                                next,
+                              );
                               _pushLog('animateToIndex($next)');
                             },
                             child: const Text('Animate +1'),
@@ -1082,12 +1272,22 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                       const SizedBox(height: 8),
                       SegmentedButton<_PipelinePhysics>(
                         segments: const [
-                          ButtonSegment(value: _PipelinePhysics.fixed, label: Text('Fixed')),
-                          ButtonSegment(value: _PipelinePhysics.bouncing, label: Text('Bouncing')),
-                          ButtonSegment(value: _PipelinePhysics.clamping, label: Text('Clamping')),
+                          ButtonSegment(
+                            value: _PipelinePhysics.fixed,
+                            label: Text('Fixed'),
+                          ),
+                          ButtonSegment(
+                            value: _PipelinePhysics.bouncing,
+                            label: Text('Bouncing'),
+                          ),
+                          ButtonSegment(
+                            value: _PipelinePhysics.clamping,
+                            label: Text('Clamping'),
+                          ),
                         ],
                         selected: {_physics},
-                        onSelectionChanged: (v) => setState(() => _physics = v.first),
+                        onSelectionChanged: (v) =>
+                            setState(() => _physics = v.first),
                       ),
                       const SizedBox(height: 8),
                       _KeyValueTable(
@@ -1141,10 +1341,7 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Expanded(
-                      flex: 4,
-                      child: _LogCard(logs: _log),
-                    ),
+                    Expanded(flex: 4, child: _LogCard(logs: _log)),
                   ],
                 ),
               ),
@@ -1166,7 +1363,11 @@ class _ScrollPipelineSceneState extends State<_ScrollPipelineScene> {
 }
 
 class _PracticalConsoleScene extends StatefulWidget {
-  const _PracticalConsoleScene({required this.compact, required this.showGuide, required this.showNotes});
+  const _PracticalConsoleScene({
+    required this.compact,
+    required this.showGuide,
+    required this.showNotes,
+  });
 
   final bool compact;
   final bool showGuide;
@@ -1177,9 +1378,12 @@ class _PracticalConsoleScene extends StatefulWidget {
 }
 
 class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
-  final GlobalKey<_ViewportWheelState> _hourKey = GlobalKey<_ViewportWheelState>();
-  final GlobalKey<_ViewportWheelState> _slotKey = GlobalKey<_ViewportWheelState>();
-  final GlobalKey<_ViewportWheelState> _priorityKey = GlobalKey<_ViewportWheelState>();
+  final GlobalKey<_ViewportWheelState> _hourKey =
+      GlobalKey<_ViewportWheelState>();
+  final GlobalKey<_ViewportWheelState> _slotKey =
+      GlobalKey<_ViewportWheelState>();
+  final GlobalKey<_ViewportWheelState> _priorityKey =
+      GlobalKey<_ViewportWheelState>();
 
   int _hour = 8;
   int _slot = 2;
@@ -1188,8 +1392,20 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
   bool _eventPanel = true;
 
   final List<String> _events = <String>[];
-  final List<String> _hours = List<String>.generate(24, (i) => i.toString().padLeft(2, '0'));
-  final List<String> _slots = const ['Plan', 'Build', 'Review', 'Deploy', 'Observe', 'Refactor', 'Sync', 'Publish'];
+  final List<String> _hours = List<String>.generate(
+    24,
+    (i) => i.toString().padLeft(2, '0'),
+  );
+  final List<String> _slots = const [
+    'Plan',
+    'Build',
+    'Review',
+    'Deploy',
+    'Observe',
+    'Refactor',
+    'Sync',
+    'Publish',
+  ];
   final List<String> _priorities = const ['Low', 'Normal', 'High', 'Critical'];
 
   @override
@@ -1217,19 +1433,34 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
                       children: [
                         FilledButton.tonal(
                           onPressed: () async {
-                            await _preset(hour: 9, slot: 1, priority: 2, name: 'Morning Build Window');
+                            await _preset(
+                              hour: 9,
+                              slot: 1,
+                              priority: 2,
+                              name: 'Morning Build Window',
+                            );
                           },
                           child: const Text('Preset: Morning Build'),
                         ),
                         FilledButton.tonal(
                           onPressed: () async {
-                            await _preset(hour: 14, slot: 3, priority: 1, name: 'Afternoon Deploy Window');
+                            await _preset(
+                              hour: 14,
+                              slot: 3,
+                              priority: 1,
+                              name: 'Afternoon Deploy Window',
+                            );
                           },
                           child: const Text('Preset: Afternoon Deploy'),
                         ),
                         FilledButton.tonal(
                           onPressed: () async {
-                            await _preset(hour: 20, slot: 5, priority: 3, name: 'Evening Critical Review');
+                            await _preset(
+                              hour: 20,
+                              slot: 5,
+                              priority: 3,
+                              name: 'Evening Critical Review',
+                            );
                           },
                           child: const Text('Preset: Critical Review'),
                         ),
@@ -1291,7 +1522,10 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Console notes', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Console notes',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     _KeyValueTable(
                       rows: [
@@ -1312,22 +1546,39 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    const Text('Recent events', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Recent events',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 6),
                     Expanded(
                       child: _eventPanel
                           ? _events.isEmpty
-                              ? const Text('No events yet.', style: TextStyle(color: Color(0xFF61788D)))
-                              : ListView.builder(
-                                  itemCount: _events.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 3),
-                                      child: Text(_events[index], style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
-                                    );
-                                  },
-                                )
-                          : const Text('Event panel hidden.', style: TextStyle(color: Color(0xFF61788D))),
+                                ? const Text(
+                                    'No events yet.',
+                                    style: TextStyle(color: Color(0xFF61788D)),
+                                  )
+                                : ListView.builder(
+                                    itemCount: _events.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 3,
+                                        ),
+                                        child: Text(
+                                          _events[index],
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  )
+                          : const Text(
+                              'Event panel hidden.',
+                              style: TextStyle(color: Color(0xFF61788D)),
+                            ),
                     ),
                   ],
                 ),
@@ -1339,7 +1590,11 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
     );
   }
 
-  Widget _workspaceCard({required String timeline, required String slot, required String priority}) {
+  Widget _workspaceCard({
+    required String timeline,
+    required String slot,
+    required String priority,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1353,9 +1608,14 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: _violet.withValues(alpha: 0.12),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text('Ops Planner | $timeline | $slot | $priority', style: const TextStyle(color: _ink, fontWeight: FontWeight.w800)),
+            child: Text(
+              'Ops Planner | $timeline | $slot | $priority',
+              style: const TextStyle(color: _ink, fontWeight: FontWeight.w800),
+            ),
           ),
           Expanded(
             child: Row(
@@ -1425,7 +1685,11 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
     );
   }
 
-  Widget _insightCard({required String timeline, required String slot, required String priority}) {
+  Widget _insightCard({
+    required String timeline,
+    required String slot,
+    required String priority,
+  }) {
     final urgency = (_priority + 1) / _priorities.length;
     final load = ((_hour / 23) * 0.55) + ((_slot + 1) / _slots.length * 0.45);
     final readiness = (urgency * 0.45) + (load * 0.55);
@@ -1440,18 +1704,27 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Live Insight', style: TextStyle(fontWeight: FontWeight.w800)),
+          const Text(
+            'Live Insight',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 8),
           _KeyValueTable(
             rows: [
               _KeyValue('timeline', timeline),
               _KeyValue('slot', slot),
               _KeyValue('priority', priority),
-              _KeyValue('queue estimate', '${(_hour * 2) + (_slot * 3) + _priority * 5} items'),
+              _KeyValue(
+                'queue estimate',
+                '${(_hour * 2) + (_slot * 3) + _priority * 5} items',
+              ),
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Execution readiness', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Execution readiness',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Container(
             height: 12,
@@ -1463,7 +1736,10 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
             child: FractionallySizedBox(
               widthFactor: readiness.clamp(0.0, 1.0),
               child: Container(
-                decoration: BoxDecoration(color: _violet, borderRadius: BorderRadius.circular(999)),
+                decoration: BoxDecoration(
+                  color: _violet,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
             ),
           ),
@@ -1484,8 +1760,16 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
               children: [
                 _metricTile('Latency', '${60 + (_slot * 5)}ms', _ocean),
                 _metricTile('Threads', '${2 + (_priority * 2)}', _forest),
-                _metricTile('Load', '${(load * 100).toStringAsFixed(0)}%', _amber),
-                _metricTile('Urgency', '${(urgency * 100).toStringAsFixed(0)}%', _coral),
+                _metricTile(
+                  'Load',
+                  '${(load * 100).toStringAsFixed(0)}%',
+                  _amber,
+                ),
+                _metricTile(
+                  'Urgency',
+                  '${(urgency * 100).toStringAsFixed(0)}%',
+                  _coral,
+                ),
               ],
             ),
           ),
@@ -1504,15 +1788,34 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(name, style: TextStyle(color: tone, fontSize: 12, fontWeight: FontWeight.w700)),
+          Text(
+            name,
+            style: TextStyle(
+              color: tone,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(value, style: const TextStyle(color: _ink, fontSize: 17, fontWeight: FontWeight.w800)),
+          Text(
+            value,
+            style: const TextStyle(
+              color: _ink,
+              fontSize: 17,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Future<void> _preset({required int hour, required int slot, required int priority, required String name}) async {
+  Future<void> _preset({
+    required int hour,
+    required int slot,
+    required int priority,
+    required String name,
+  }) async {
     await _hourKey.currentState?.animateToIndex(hour);
     await _slotKey.currentState?.animateToIndex(slot);
     await _priorityKey.currentState?.animateToIndex(priority);
@@ -1538,7 +1841,12 @@ class _PracticalConsoleSceneState extends State<_PracticalConsoleScene> {
 }
 
 class _WheelCell extends StatelessWidget {
-  const _WheelCell({required this.label, required this.index, required this.selected, required this.tone});
+  const _WheelCell({
+    required this.label,
+    required this.index,
+    required this.selected,
+    required this.tone,
+  });
 
   final String label;
   final int index;
@@ -1572,7 +1880,11 @@ class _WheelCell extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               '#${index + 1}',
-              style: TextStyle(color: selected ? Colors.black : tone, fontWeight: FontWeight.w700, fontSize: 12),
+              style: TextStyle(
+                color: selected ? Colors.black : tone,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -1669,8 +1981,22 @@ class _KeyValueTable extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
-                    SizedBox(width: 130, child: Text(row.key, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                    Expanded(child: Text(row.value, style: const TextStyle(fontSize: 12))),
+                    SizedBox(
+                      width: 130,
+                      child: Text(
+                        row.key,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        row.value,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1682,7 +2008,13 @@ class _KeyValueTable extends StatelessWidget {
 }
 
 class _LabeledSlider extends StatelessWidget {
-  const _LabeledSlider({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
+  const _LabeledSlider({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
 
   final String label;
   final double value;
@@ -1695,7 +2027,10 @@ class _LabeledSlider extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$label: ${value.toStringAsFixed(3)}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+        Text(
+          '$label: ${value.toStringAsFixed(3)}',
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+        ),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     );
@@ -1728,10 +2063,22 @@ class _InstructionCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.circle, size: 7, color: Color(0xFFBDE5FF)),
+                      child: Icon(
+                        Icons.circle,
+                        size: 7,
+                        color: Color(0xFFBDE5FF),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFE8F5FF), height: 1.35))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: const TextStyle(
+                          color: Color(0xFFE8F5FF),
+                          height: 1.35,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1759,17 +2106,29 @@ class _LogCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Scroll Event Log', style: TextStyle(fontWeight: FontWeight.w800)),
+          const Text(
+            'Scroll Event Log',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: logs.isEmpty
-                ? const Text('No events yet.', style: TextStyle(color: Color(0xFF62798D)))
+                ? const Text(
+                    'No events yet.',
+                    style: TextStyle(color: Color(0xFF62798D)),
+                  )
                 : ListView.builder(
                     itemCount: logs.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 3),
-                        child: Text(logs[index], style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
+                        child: Text(
+                          logs[index],
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -1794,7 +2153,14 @@ class _RecapCard extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: ListWheelViewport', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: ListWheelViewport',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'ListWheelViewport is the low-level building block behind wheel-style scrolling UIs. '

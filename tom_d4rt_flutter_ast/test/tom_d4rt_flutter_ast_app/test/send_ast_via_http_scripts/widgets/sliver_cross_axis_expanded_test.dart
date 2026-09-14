@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.expand,
       'title': 'What Is SliverCrossAxisExpanded?',
-      'body': 'SliverCrossAxisExpanded is a sliver that fills the '
+      'body':
+          'SliverCrossAxisExpanded is a sliver that fills the '
           'remaining cross-axis space within a SliverCrossAxisGroup. '
           'Think of it as the Expanded widget, but for slivers arranged '
           'side-by-side across the cross axis of a CustomScrollView.',
@@ -25,7 +26,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_column,
       'title': 'SliverCrossAxisGroup Context',
-      'body': 'SliverCrossAxisExpanded must be used as a direct child of '
+      'body':
+          'SliverCrossAxisExpanded must be used as a direct child of '
           'SliverCrossAxisGroup. The group arranges its children side by '
           'side on the cross axis. SliverCrossAxisExpanded children share '
           'the remaining space after fixed-width children are laid out.',
@@ -33,7 +35,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.aspect_ratio,
       'title': 'The flex Parameter',
-      'body': 'Like Expanded, SliverCrossAxisExpanded accepts a flex value '
+      'body':
+          'Like Expanded, SliverCrossAxisExpanded accepts a flex value '
           '(default 1). When multiple expanded slivers share a group, '
           'they distribute remaining space proportionally to their flex. '
           'A flex of 2 gets twice the space of flex 1.',
@@ -41,7 +44,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.newspaper,
       'title': 'Multi-Column Layouts',
-      'body': 'The primary use case is creating newspaper-style or '
+      'body':
+          'The primary use case is creating newspaper-style or '
           'dashboard layouts where different sliver columns scroll '
           'together but have different widths. Sidebars, main content '
           'areas, and tool panels become natural.',
@@ -59,9 +63,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.orange.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.orange.withValues(alpha: 0.12),
-          ),
+          border: Border.all(color: Colors.orange.withValues(alpha: 0.12)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,10 +135,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: isRequired
                   ? Colors.red.withValues(alpha: 0.1)
@@ -269,7 +268,10 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 4.0,
+            ),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(4.0),
@@ -344,48 +346,28 @@ dynamic build(BuildContext context) {
   }
 
   final flexDemos = [
-    buildSCAEFlexDemo(
-      'A) Equal Distribution — flex 1 : 1',
-      [
-        {'flex': 1, 'color': Colors.blue, 'label': '50%'},
-        {'flex': 1, 'color': Colors.green, 'label': '50%'},
-      ],
-      Colors.blue,
-    ),
-    buildSCAEFlexDemo(
-      'B) 1 : 2 Ratio — One-third / Two-thirds',
-      [
-        {'flex': 1, 'color': Colors.purple, 'label': '33%'},
-        {'flex': 2, 'color': Colors.teal, 'label': '67%'},
-      ],
-      Colors.purple,
-    ),
-    buildSCAEFlexDemo(
-      'C) 1 : 1 : 1 — Three Equal Columns',
-      [
-        {'flex': 1, 'color': Colors.red, 'label': '33%'},
-        {'flex': 1, 'color': Colors.amber, 'label': '33%'},
-        {'flex': 1, 'color': Colors.indigo, 'label': '33%'},
-      ],
-      Colors.red,
-    ),
-    buildSCAEFlexDemo(
-      'D) 1 : 2 : 1 — Sidebar / Content / Sidebar',
-      [
-        {'flex': 1, 'color': Colors.grey, 'label': '25%'},
-        {'flex': 2, 'color': Colors.blue, 'label': '50%'},
-        {'flex': 1, 'color': Colors.grey, 'label': '25%'},
-      ],
-      Colors.grey,
-    ),
-    buildSCAEFlexDemo(
-      'E) 1 : 3 — Narrow Nav / Wide Content',
-      [
-        {'flex': 1, 'color': Colors.deepOrange, 'label': '25%'},
-        {'flex': 3, 'color': Colors.cyan, 'label': '75%'},
-      ],
-      Colors.deepOrange,
-    ),
+    buildSCAEFlexDemo('A) Equal Distribution — flex 1 : 1', [
+      {'flex': 1, 'color': Colors.blue, 'label': '50%'},
+      {'flex': 1, 'color': Colors.green, 'label': '50%'},
+    ], Colors.blue),
+    buildSCAEFlexDemo('B) 1 : 2 Ratio — One-third / Two-thirds', [
+      {'flex': 1, 'color': Colors.purple, 'label': '33%'},
+      {'flex': 2, 'color': Colors.teal, 'label': '67%'},
+    ], Colors.purple),
+    buildSCAEFlexDemo('C) 1 : 1 : 1 — Three Equal Columns', [
+      {'flex': 1, 'color': Colors.red, 'label': '33%'},
+      {'flex': 1, 'color': Colors.amber, 'label': '33%'},
+      {'flex': 1, 'color': Colors.indigo, 'label': '33%'},
+    ], Colors.red),
+    buildSCAEFlexDemo('D) 1 : 2 : 1 — Sidebar / Content / Sidebar', [
+      {'flex': 1, 'color': Colors.grey, 'label': '25%'},
+      {'flex': 2, 'color': Colors.blue, 'label': '50%'},
+      {'flex': 1, 'color': Colors.grey, 'label': '25%'},
+    ], Colors.grey),
+    buildSCAEFlexDemo('E) 1 : 3 — Narrow Nav / Wide Content', [
+      {'flex': 1, 'color': Colors.deepOrange, 'label': '25%'},
+      {'flex': 3, 'color': Colors.cyan, 'label': '75%'},
+    ], Colors.deepOrange),
   ];
 
   print('Flex distribution demos built (5 variations)');
@@ -406,115 +388,109 @@ dynamic build(BuildContext context) {
             SliverCrossAxisExpanded(
               flex: 1,
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final items = [
-                      {'icon': Icons.home, 'label': 'Home'},
-                      {'icon': Icons.search, 'label': 'Search'},
-                      {'icon': Icons.favorite, 'label': 'Favorites'},
-                      {'icon': Icons.settings, 'label': 'Settings'},
-                      {'icon': Icons.person, 'label': 'Profile'},
-                      {'icon': Icons.help, 'label': 'Help'},
-                    ];
-                    if (index >= items.length) return null;
-                    final item = items[index];
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 10.0,
-                      ),
-                      margin: const EdgeInsets.only(bottom: 2.0, right: 2.0),
-                      decoration: BoxDecoration(
-                        color: index == 0
-                            ? Colors.blue.withValues(alpha: 0.15)
-                            : Colors.grey.withValues(alpha: 0.04),
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            item['icon'] as IconData,
-                            size: 16.0,
-                            color: index == 0 ? Colors.blue : Colors.grey,
-                          ),
-                          const SizedBox(width: 6.0),
-                          Expanded(
-                            child: Text(
-                              item['label'] as String,
-                              style: TextStyle(
-                                fontSize: 11.0,
-                                fontWeight: index == 0
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: index == 0
-                                    ? Colors.blue
-                                    : Colors.grey.shade700,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final items = [
+                    {'icon': Icons.home, 'label': 'Home'},
+                    {'icon': Icons.search, 'label': 'Search'},
+                    {'icon': Icons.favorite, 'label': 'Favorites'},
+                    {'icon': Icons.settings, 'label': 'Settings'},
+                    {'icon': Icons.person, 'label': 'Profile'},
+                    {'icon': Icons.help, 'label': 'Help'},
+                  ];
+                  if (index >= items.length) return null;
+                  final item = items[index];
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 10.0,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 2.0, right: 2.0),
+                    decoration: BoxDecoration(
+                      color: index == 0
+                          ? Colors.blue.withValues(alpha: 0.15)
+                          : Colors.grey.withValues(alpha: 0.04),
+                      borderRadius: BorderRadius.circular(6.0),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          item['icon'] as IconData,
+                          size: 16.0,
+                          color: index == 0 ? Colors.blue : Colors.grey,
+                        ),
+                        const SizedBox(width: 6.0),
+                        Expanded(
+                          child: Text(
+                            item['label'] as String,
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              fontWeight: index == 0
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: index == 0
+                                  ? Colors.blue
+                                  : Colors.grey.shade700,
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                  childCount: 6,
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                }, childCount: 6),
               ),
             ),
             // Column 2: Main content (flex 3)
             SliverCrossAxisExpanded(
               flex: 3,
               sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final titles = [
-                      'Welcome to the Dashboard',
-                      'Recent Activity Feed',
-                      'Performance Metrics',
-                      'Upcoming Deadlines',
-                      'Team Collaboration',
-                      'Weekly Summary Report',
-                    ];
-                    if (index >= titles.length) return null;
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 4.0, left: 2.0),
-                      padding: const EdgeInsets.all(12.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.withValues(
-                          alpha: 0.03 + (index * 0.01),
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: Colors.blue.withValues(alpha: 0.08),
-                        ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final titles = [
+                    'Welcome to the Dashboard',
+                    'Recent Activity Feed',
+                    'Performance Metrics',
+                    'Upcoming Deadlines',
+                    'Team Collaboration',
+                    'Weekly Summary Report',
+                  ];
+                  if (index >= titles.length) return null;
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 4.0, left: 2.0),
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withValues(
+                        alpha: 0.03 + (index * 0.01),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            titles[index],
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.5,
-                              color: Colors.grey.shade800,
-                            ),
-                          ),
-                          const SizedBox(height: 4.0),
-                          Text(
-                            'Content area with flex: 3 — takes 75% of '
-                            'the available cross-axis space.',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.grey.shade600,
-                              height: 1.3,
-                            ),
-                          ),
-                        ],
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Colors.blue.withValues(alpha: 0.08),
                       ),
-                    );
-                  },
-                  childCount: 6,
-                ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          titles[index],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.5,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                        const SizedBox(height: 4.0),
+                        Text(
+                          'Content area with flex: 3 — takes 75% of '
+                          'the available cross-axis space.',
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey.shade600,
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }, childCount: 6),
               ),
             ),
           ],
@@ -653,7 +629,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Holy Grail Layout',
       'icon': Icons.temple_buddhist,
-      'desc': 'Left sidebar (flex 1) + Main content (flex 3) + Right sidebar '
+      'desc':
+          'Left sidebar (flex 1) + Main content (flex 3) + Right sidebar '
           '(flex 1). The classic three-column layout where the center gets '
           'the most space.',
       'flexes': '1 : 3 : 1',
@@ -662,7 +639,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Master-Detail',
       'icon': Icons.view_sidebar,
-      'desc': 'Left master list (flex 1) + Right detail pane (flex 2). '
+      'desc':
+          'Left master list (flex 1) + Right detail pane (flex 2). '
           'Common in email clients, file managers, and settings apps.',
       'flexes': '1 : 2',
       'color': Colors.blue,
@@ -670,7 +648,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Content + Aside',
       'icon': Icons.article,
-      'desc': 'Wide main article (flex 3) + Narrow aside with table of '
+      'desc':
+          'Wide main article (flex 3) + Narrow aside with table of '
           'contents or ads (flex 1). Standard blog/documentation layout.',
       'flexes': '3 : 1',
       'color': Colors.green,
@@ -678,7 +657,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Equal Columns',
       'icon': Icons.view_column,
-      'desc': 'Two, three, or four equal columns (all flex 1). Used for '
+      'desc':
+          'Two, three, or four equal columns (all flex 1). Used for '
           'comparison views, product grids, or dashboard cards.',
       'flexes': '1 : 1 : 1',
       'color': Colors.orange,
@@ -686,7 +666,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Golden Ratio',
       'icon': Icons.auto_awesome,
-      'desc': 'Content (flex 8) + Sidebar (flex 5) — approximately 1.618:1. '
+      'desc':
+          'Content (flex 8) + Sidebar (flex 5) — approximately 1.618:1. '
           'Creates a naturally pleasing proportion between sections.',
       'flexes': '8 : 5',
       'color': Colors.amber,
@@ -807,43 +788,43 @@ dynamic build(BuildContext context) {
     buildSCAEBullet(
       Icons.check_circle_outline,
       'SliverCrossAxisExpanded fills remaining cross-axis space '
-          'within a SliverCrossAxisGroup, like Expanded for Row.',
+      'within a SliverCrossAxisGroup, like Expanded for Row.',
       Colors.green,
     ),
     buildSCAEBullet(
       Icons.check_circle_outline,
       'The flex parameter controls proportional space distribution. '
-          'Higher flex values take more of the remaining space.',
+      'Higher flex values take more of the remaining space.',
       Colors.green,
     ),
     buildSCAEBullet(
       Icons.check_circle_outline,
       'Multiple SliverCrossAxisExpanded children share space '
-          'proportionally, enabling multi-column scrollable layouts.',
+      'proportionally, enabling multi-column scrollable layouts.',
       Colors.green,
     ),
     buildSCAEBullet(
       Icons.check_circle_outline,
       'Can be mixed with SliverConstrainedCrossAxis for fixed-width '
-          'columns alongside flexible ones.',
+      'columns alongside flexible ones.',
       Colors.green,
     ),
     buildSCAEBullet(
       Icons.warning_amber,
       'Only works inside SliverCrossAxisGroup — using it '
-          'elsewhere will cause assertion errors.',
+      'elsewhere will cause assertion errors.',
       Colors.orange,
     ),
     buildSCAEBullet(
       Icons.warning_amber,
       'All children in a SliverCrossAxisGroup scroll together as '
-          'one unit. For independent scrolling, use separate scrollviews.',
+      'one unit. For independent scrolling, use separate scrollviews.',
       Colors.orange,
     ),
     buildSCAEBullet(
       Icons.info_outline,
       'The child sliver can be any sliver type: SliverList, '
-          'SliverGrid, SliverToBoxAdapter, etc.',
+      'SliverGrid, SliverToBoxAdapter, etc.',
       Colors.blue,
     ),
   ];
@@ -958,7 +939,11 @@ dynamic build(BuildContext context) {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.compare_arrows, color: Colors.blue, size: 18.0),
+                          Icon(
+                            Icons.compare_arrows,
+                            color: Colors.blue,
+                            size: 18.0,
+                          ),
                           SizedBox(width: 8.0),
                           Text(
                             'Analogy: Row vs SliverCrossAxisGroup',
@@ -973,7 +958,10 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 8.0),
                       _buildAnalogyRow('Row', 'SliverCrossAxisGroup'),
                       _buildAnalogyRow('Expanded', 'SliverCrossAxisExpanded'),
-                      _buildAnalogyRow('SizedBox(width:)', 'SliverConstrainedCrossAxis'),
+                      _buildAnalogyRow(
+                        'SizedBox(width:)',
+                        'SliverConstrainedCrossAxis',
+                      ),
                       _buildAnalogyRow('Container child', 'Sliver child'),
                     ],
                   ),
@@ -1095,12 +1083,16 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 8.0),
-                      ..._buildHierarchyLines([
-                        'Widget',
-                        '  └─ RenderObjectWidget',
-                        '      └─ SingleChildRenderObjectWidget',
-                        '          └─ SliverCrossAxisExpanded',
-                      ], 'SliverCrossAxisExpanded', Colors.orange),
+                      ..._buildHierarchyLines(
+                        [
+                          'Widget',
+                          '  └─ RenderObjectWidget',
+                          '      └─ SingleChildRenderObjectWidget',
+                          '          └─ SliverCrossAxisExpanded',
+                        ],
+                        'SliverCrossAxisExpanded',
+                        Colors.orange,
+                      ),
                     ],
                   ),
                 ),
@@ -1123,11 +1115,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.tune,
-                        color: Colors.orange,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.tune, color: Colors.orange, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Flex Distribution',
@@ -1276,36 +1264,40 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12.0),
                 // Legend
-                ...multiAnnotations.map((ann) => Padding(
-                      padding: const EdgeInsets.only(bottom: 6.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 14.0,
-                            height: 14.0,
-                            decoration: BoxDecoration(
-                              color: (ann['color'] as Color)
-                                  .withValues(alpha: 0.3),
-                              borderRadius: BorderRadius.circular(3.0),
-                              border: Border.all(
-                                color: (ann['color'] as Color)
-                                    .withValues(alpha: 0.5),
+                ...multiAnnotations.map(
+                  (ann) => Padding(
+                    padding: const EdgeInsets.only(bottom: 6.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 14.0,
+                          height: 14.0,
+                          decoration: BoxDecoration(
+                            color: (ann['color'] as Color).withValues(
+                              alpha: 0.3,
+                            ),
+                            borderRadius: BorderRadius.circular(3.0),
+                            border: Border.all(
+                              color: (ann['color'] as Color).withValues(
+                                alpha: 0.5,
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8.0),
-                          Expanded(
-                            child: Text(
-                              '${ann['label']}: ${ann['desc']}',
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                color: Colors.grey.shade700,
-                              ),
+                        ),
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: Text(
+                            '${ann['label']}: ${ann['desc']}',
+                            style: TextStyle(
+                              fontSize: 11.5,
+                              color: Colors.grey.shade700,
                             ),
                           ),
-                        ],
-                      ),
-                    )),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 16.0),
                 // Widget tree
                 Container(
@@ -1631,11 +1623,17 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 10.0),
-                      _buildRefRow('Type', 'SingleChildRenderObjectWidget (sliver)'),
+                      _buildRefRow(
+                        'Type',
+                        'SingleChildRenderObjectWidget (sliver)',
+                      ),
                       _buildRefRow('Key param', 'flex (int, default 1)'),
                       _buildRefRow('Parent', 'Must be in SliverCrossAxisGroup'),
                       _buildRefRow('Child', 'Any sliver widget'),
-                      _buildRefRow('Distribution', 'Proportional to flex / totalFlex'),
+                      _buildRefRow(
+                        'Distribution',
+                        'Proportional to flex / totalFlex',
+                      ),
                       _buildRefRow('Analogy', 'Expanded in Row/Column'),
                       _buildRefRow('Since', 'Flutter 3.7'),
                     ],
@@ -1690,8 +1688,10 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
 
   @override
   Widget build(BuildContext context) {
-    print('Live demo build: left=$_leftFlex, right=$_rightFlex, '
-        'cols=$_columns, content=$_showContent');
+    print(
+      'Live demo build: left=$_leftFlex, right=$_rightFlex, '
+      'cols=$_columns, content=$_showContent',
+    );
 
     // Build the slivers based on column count
     List<Widget> columnSlivers;
@@ -1710,50 +1710,45 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
       return SliverCrossAxisExpanded(
         flex: colFlex,
         sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return Container(
-                margin: const EdgeInsets.all(2.0),
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: colColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(
-                    color: colColor.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: _showContent
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${columnLabels[colIndex]}${index + 1}',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: colColor,
-                            ),
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return Container(
+              margin: const EdgeInsets.all(2.0),
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: colColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(6.0),
+                border: Border.all(color: colColor.withValues(alpha: 0.3)),
+              ),
+              child: _showContent
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${columnLabels[colIndex]}${index + 1}',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: colColor,
                           ),
-                          Text(
-                            'flex: $colFlex',
-                            style: TextStyle(
-                              fontSize: 10.0,
-                              color: colColor.withValues(alpha: 0.7),
-                            ),
-                          ),
-                        ],
-                      )
-                    : Container(
-                        height: 20.0,
-                        decoration: BoxDecoration(
-                          color: colColor.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(4.0),
                         ),
+                        Text(
+                          'flex: $colFlex',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: colColor.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Container(
+                      height: 20.0,
+                      decoration: BoxDecoration(
+                        color: colColor.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4.0),
                       ),
-              );
-            },
-            childCount: 8,
-          ),
+                    ),
+            );
+          }, childCount: 8),
         ),
       );
     });
@@ -1768,9 +1763,7 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
             decoration: BoxDecoration(
               color: Colors.orange.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Colors.orange.withValues(alpha: 0.12),
-              ),
+              border: Border.all(color: Colors.orange.withValues(alpha: 0.12)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1812,15 +1805,11 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
                               vertical: 6.0,
                             ),
                             decoration: BoxDecoration(
-                              color: (isActive
-                                      ? Colors.orange
-                                      : Colors.grey)
+                              color: (isActive ? Colors.orange : Colors.grey)
                                   .withValues(alpha: isActive ? 0.15 : 0.08),
                               borderRadius: BorderRadius.circular(6.0),
                               border: Border.all(
-                                color: (isActive
-                                        ? Colors.orange
-                                        : Colors.grey)
+                                color: (isActive ? Colors.orange : Colors.grey)
                                     .withValues(alpha: 0.3),
                               ),
                             ),
@@ -1863,8 +1852,7 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
                         divisions: 4,
                         activeColor: Colors.blue,
                         label: '$_leftFlex',
-                        onChanged: (v) =>
-                            setState(() => _leftFlex = v.toInt()),
+                        onChanged: (v) => setState(() => _leftFlex = v.toInt()),
                       ),
                     ),
                     Container(
@@ -1938,8 +1926,7 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
                 const SizedBox(height: 4.0),
                 // Show content toggle
                 InkWell(
-                  onTap: () =>
-                      setState(() => _showContent = !_showContent),
+                  onTap: () => setState(() => _showContent = !_showContent),
                   borderRadius: BorderRadius.circular(6.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -1947,15 +1934,11 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
                       vertical: 6.0,
                     ),
                     decoration: BoxDecoration(
-                      color: (_showContent
-                              ? Colors.orange
-                              : Colors.grey)
+                      color: (_showContent ? Colors.orange : Colors.grey)
                           .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(
-                        color: (_showContent
-                                ? Colors.orange
-                                : Colors.grey)
+                        color: (_showContent ? Colors.orange : Colors.grey)
                             .withValues(alpha: 0.3),
                       ),
                     ),
@@ -1963,9 +1946,7 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          _showContent
-                              ? Icons.text_fields
-                              : Icons.rectangle,
+                          _showContent ? Icons.text_fields : Icons.rectangle,
                           size: 16.0,
                           color: _showContent
                               ? Colors.orange
@@ -1995,17 +1976,11 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(
-                  color: Colors.orange.withValues(alpha: 0.2),
-                ),
+                border: Border.all(color: Colors.orange.withValues(alpha: 0.2)),
               ),
               clipBehavior: Clip.antiAlias,
               child: CustomScrollView(
-                slivers: [
-                  SliverCrossAxisGroup(
-                    slivers: columnSlivers,
-                  ),
-                ],
+                slivers: [SliverCrossAxisGroup(slivers: columnSlivers)],
               ),
             ),
           ),
@@ -2015,17 +1990,11 @@ class _SCAELiveDemoState extends State<_SCAELiveDemo> {
             decoration: BoxDecoration(
               color: Colors.amber.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                color: Colors.amber.withValues(alpha: 0.15),
-              ),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.15)),
             ),
             child: Row(
               children: [
-                const Icon(
-                  Icons.info_outline,
-                  size: 16.0,
-                  color: Colors.amber,
-                ),
+                const Icon(Icons.info_outline, size: 16.0, color: Colors.amber),
                 const SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -2105,29 +2074,26 @@ List<Widget> _buildHierarchyLines(
   Color color,
 ) {
   return items
-      .map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 2.0),
-            child: Text(
-              item,
-              style: TextStyle(
-                fontSize: 11.5,
-                fontFamily: 'monospace',
-                color: item.contains(highlight) ? color : Colors.grey.shade700,
-                fontWeight: item.contains(highlight)
-                    ? FontWeight.bold
-                    : FontWeight.normal,
-              ),
+      .map(
+        (item) => Padding(
+          padding: const EdgeInsets.only(bottom: 2.0),
+          child: Text(
+            item,
+            style: TextStyle(
+              fontSize: 11.5,
+              fontFamily: 'monospace',
+              color: item.contains(highlight) ? color : Colors.grey.shade700,
+              fontWeight: item.contains(highlight)
+                  ? FontWeight.bold
+                  : FontWeight.normal,
             ),
-          ))
+          ),
+        ),
+      )
       .toList();
 }
 
-Widget _buildChoiceRow(
-  String title,
-  String desc,
-  IconData icon,
-  Color color,
-) {
+Widget _buildChoiceRow(String title, String desc, IconData icon, Color color) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -2180,10 +2146,7 @@ Widget _buildRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600),
           ),
         ),
       ],

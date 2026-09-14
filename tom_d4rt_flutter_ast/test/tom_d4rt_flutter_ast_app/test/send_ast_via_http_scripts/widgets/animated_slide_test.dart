@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    theme: ThemeData.light(),
-    home: const AnimatedSlideDemo(),
-  );
+  return MaterialApp(theme: ThemeData.light(), home: const AnimatedSlideDemo());
 }
 
 class AnimatedSlideDemo extends StatefulWidget {
@@ -21,12 +18,12 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
   // SECTION 1: Basic Slide Animation Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
   Offset _basicOffset = Offset.zero;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: Offset Values and Directions
   // ═══════════════════════════════════════════════════════════════════════════
   Offset _directionOffset = Offset.zero;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: Duration Control
   // ═══════════════════════════════════════════════════════════════════════════
@@ -39,7 +36,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     const Duration(milliseconds: 1000),
     const Duration(milliseconds: 2000),
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: Curve Variations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -57,13 +54,13 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     const MapEntry('fastOutSlowIn', Curves.fastOutSlowIn),
   ];
   int _curveIndex = 3;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: Fractional Offset System
   // ═══════════════════════════════════════════════════════════════════════════
   double _xOffset = 0.0;
   double _yOffset = 0.0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: Practical Use Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -73,7 +70,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
   Offset _menuItemOffset2 = const Offset(-1, 0);
   Offset _menuItemOffset3 = const Offset(-1, 0);
   bool _menuExpanded = false;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: Sequential and Staggered Animations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -84,7 +81,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     const Offset(1, 0),
   ];
   bool _stackAnimating = false;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: Combined Animations and Edge Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -109,37 +106,37 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
             _buildSectionHeader('1. Basic Slide Animation Fundamentals'),
             _buildBasicSlideSection(),
             const SizedBox(height: 32),
-            
+
             // Section 2: Offset Values and Directions
             _buildSectionHeader('2. Offset Values and Directions'),
             _buildDirectionsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 3: Duration Control
             _buildSectionHeader('3. Duration Control'),
             _buildDurationSection(),
             const SizedBox(height: 32),
-            
+
             // Section 4: Curve Variations
             _buildSectionHeader('4. Curve Variations'),
             _buildCurvesSection(),
             const SizedBox(height: 32),
-            
+
             // Section 5: Fractional Offset System
             _buildSectionHeader('5. Fractional Offset System'),
             _buildFractionalOffsetSection(),
             const SizedBox(height: 32),
-            
+
             // Section 6: Practical Use Cases
             _buildSectionHeader('6. Practical Use Cases'),
             _buildPracticalUseCasesSection(),
             const SizedBox(height: 32),
-            
+
             // Section 7: Sequential and Staggered Animations
             _buildSectionHeader('7. Sequential and Staggered Animations'),
             _buildSequentialAnimationsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 8: Combined Animations and Edge Cases
             _buildSectionHeader('8. Combined Animations and Edge Cases'),
             _buildCombinedAnimationsSection(),
@@ -157,7 +154,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('=== Section 1: Basic Slide Animation Fundamentals ===');
     print('Current offset: $_basicOffset');
     print('Offset represents fractional child dimensions');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -171,7 +168,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container with reference grid
             Container(
               height: 200,
@@ -209,7 +206,11 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                             ),
                           ],
                         ),
-                        child: const Icon(Icons.open_with, color: Colors.white, size: 32),
+                        child: const Icon(
+                          Icons.open_with,
+                          color: Colors.white,
+                          size: 32,
+                        ),
                       ),
                     ),
                   ),
@@ -217,14 +218,14 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Offset value display
             Text(
               'Offset: (${_basicOffset.dx.toStringAsFixed(1)}, ${_basicOffset.dy.toStringAsFixed(1)})',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 12),
-            
+
             // Control buttons
             Wrap(
               spacing: 8,
@@ -232,39 +233,52 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    setState(() { _basicOffset = const Offset(-1, 0); });
+                    setState(() {
+                      _basicOffset = const Offset(-1, 0);
+                    });
                     print('Slide: left (-1, 0)');
                   },
                   child: const Text('← Left'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() { _basicOffset = const Offset(1, 0); });
+                    setState(() {
+                      _basicOffset = const Offset(1, 0);
+                    });
                     print('Slide: right (1, 0)');
                   },
                   child: const Text('Right →'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() { _basicOffset = const Offset(0, -1); });
+                    setState(() {
+                      _basicOffset = const Offset(0, -1);
+                    });
                     print('Slide: up (0, -1)');
                   },
                   child: const Text('↑ Up'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() { _basicOffset = const Offset(0, 1); });
+                    setState(() {
+                      _basicOffset = const Offset(0, 1);
+                    });
                     print('Slide: down (0, 1)');
                   },
                   child: const Text('Down ↓'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() { _basicOffset = Offset.zero; });
+                    setState(() {
+                      _basicOffset = Offset.zero;
+                    });
                     print('Slide: center (0, 0)');
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.teal),
-                  child: const Text('Center', style: TextStyle(color: Colors.white)),
+                  child: const Text(
+                    'Center',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -282,7 +296,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('Direction offset: $_directionOffset');
     print('X: negative=left, positive=right');
     print('Y: negative=up, positive=down');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -296,7 +310,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 180,
@@ -339,7 +353,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Direction pad
             Center(
               child: Column(
@@ -375,7 +389,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 8),
-            
+
             // Preset offsets
             Wrap(
               spacing: 8,
@@ -383,21 +397,27 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               children: [
                 TextButton(
                   onPressed: () {
-                    setState(() { _directionOffset = const Offset(0.5, 0); });
+                    setState(() {
+                      _directionOffset = const Offset(0.5, 0);
+                    });
                     print('Half right offset');
                   },
                   child: const Text('(0.5, 0)'),
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() { _directionOffset = const Offset(2, 0); });
+                    setState(() {
+                      _directionOffset = const Offset(2, 0);
+                    });
                     print('Double right offset');
                   },
                   child: const Text('(2, 0)'),
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() { _directionOffset = const Offset(-0.5, 0.5); });
+                    setState(() {
+                      _directionOffset = const Offset(-0.5, 0.5);
+                    });
                     print('Diagonal offset');
                   },
                   child: const Text('(-0.5, 0.5)'),
@@ -423,7 +443,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: () {
-          setState(() { _directionOffset = offset; });
+          setState(() {
+            _directionOffset = offset;
+          });
           print('Direction: (${offset.dx}, ${offset.dy})');
         },
         child: Text(label, style: const TextStyle(fontSize: 18)),
@@ -438,7 +460,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('=== Section 3: Duration Control ===');
     print('Selected duration: ${_selectedDuration.inMilliseconds}ms');
     print('Duration offset: $_durationOffset');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -452,7 +474,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -487,9 +509,12 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Duration selector
-            const Text('Duration:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Duration:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -500,7 +525,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                   selected: isSelected,
                   onSelected: (selected) {
                     if (selected) {
-                      setState(() { _selectedDuration = duration; });
+                      setState(() {
+                        _selectedDuration = duration;
+                      });
                       print('Duration: ${duration.inMilliseconds}ms');
                     }
                   },
@@ -508,12 +535,14 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               }).toList(),
             ),
             const SizedBox(height: 16),
-            
+
             Row(
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _durationOffset = const Offset(-1, 0); });
+                    setState(() {
+                      _durationOffset = const Offset(-1, 0);
+                    });
                     print('Duration demo: slide left');
                   },
                   icon: const Icon(Icons.arrow_back),
@@ -522,7 +551,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _durationOffset = Offset.zero; });
+                    setState(() {
+                      _durationOffset = Offset.zero;
+                    });
                     print('Duration demo: center');
                   },
                   icon: const Icon(Icons.center_focus_strong),
@@ -535,7 +566,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _durationOffset = const Offset(1, 0); });
+                    setState(() {
+                      _durationOffset = const Offset(1, 0);
+                    });
                     print('Duration demo: slide right');
                   },
                   icon: const Icon(Icons.arrow_forward),
@@ -556,7 +589,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('=== Section 4: Curve Variations ===');
     print('Selected curve: ${_curves[_curveIndex].key}');
     print('Curve offset: $_curveOffset');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -570,7 +603,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -591,13 +624,17 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                       color: Colors.purple,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.animation, color: Colors.white, size: 28),
+                    child: const Icon(
+                      Icons.animation,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Curve selector
             const Text('Curve:', style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(
@@ -627,37 +664,51 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             Row(
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _curveOffset = const Offset(-1, 0); });
+                    setState(() {
+                      _curveOffset = const Offset(-1, 0);
+                    });
                     print('Curve demo: left with ${_curves[_curveIndex].key}');
                   },
                   icon: const Icon(Icons.west),
                   label: const Text('Left'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple.shade300),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple.shade300,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _curveOffset = Offset.zero; });
-                    print('Curve demo: center with ${_curves[_curveIndex].key}');
+                    setState(() {
+                      _curveOffset = Offset.zero;
+                    });
+                    print(
+                      'Curve demo: center with ${_curves[_curveIndex].key}',
+                    );
                   },
                   icon: const Icon(Icons.crop_free),
                   label: const Text('Center'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
                   onPressed: () {
-                    setState(() { _curveOffset = const Offset(1, 0); });
+                    setState(() {
+                      _curveOffset = const Offset(1, 0);
+                    });
                     print('Curve demo: right with ${_curves[_curveIndex].key}');
                   },
                   icon: const Icon(Icons.east),
                   label: const Text('Right'),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.purple.shade700),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple.shade700,
+                  ),
                 ),
               ],
             ),
@@ -673,7 +724,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
   Widget _buildFractionalOffsetSection() {
     print('=== Section 5: Fractional Offset System ===');
     print('X offset: $_xOffset, Y offset: $_yOffset');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -687,7 +738,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 200,
@@ -715,7 +766,11 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                           color: Colors.amber.shade700,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Icon(Icons.crop_square, color: Colors.white, size: 24),
+                        child: const Icon(
+                          Icons.crop_square,
+                          color: Colors.white,
+                          size: 24,
+                        ),
                       ),
                     ),
                   ),
@@ -723,7 +778,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // X offset slider
             Row(
               children: [
@@ -736,18 +791,17 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     divisions: 40,
                     label: _xOffset.toStringAsFixed(2),
                     onChanged: (value) {
-                      setState(() { _xOffset = value; });
+                      setState(() {
+                        _xOffset = value;
+                      });
                       print('X offset: $value');
                     },
                   ),
                 ),
-                SizedBox(
-                  width: 50,
-                  child: Text(_xOffset.toStringAsFixed(2)),
-                ),
+                SizedBox(width: 50, child: Text(_xOffset.toStringAsFixed(2))),
               ],
             ),
-            
+
             // Y offset slider
             Row(
               children: [
@@ -760,18 +814,17 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     divisions: 40,
                     label: _yOffset.toStringAsFixed(2),
                     onChanged: (value) {
-                      setState(() { _yOffset = value; });
+                      setState(() {
+                        _yOffset = value;
+                      });
                       print('Y offset: $value');
                     },
                   ),
                 ),
-                SizedBox(
-                  width: 50,
-                  child: Text(_yOffset.toStringAsFixed(2)),
-                ),
+                SizedBox(width: 50, child: Text(_yOffset.toStringAsFixed(2))),
               ],
             ),
-            
+
             // Quick presets
             Wrap(
               spacing: 8,
@@ -779,21 +832,30 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               children: [
                 TextButton(
                   onPressed: () {
-                    setState(() { _xOffset = 0; _yOffset = 0; });
+                    setState(() {
+                      _xOffset = 0;
+                      _yOffset = 0;
+                    });
                     print('Reset offsets');
                   },
                   child: const Text('Reset (0, 0)'),
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() { _xOffset = 0.5; _yOffset = 0.5; });
+                    setState(() {
+                      _xOffset = 0.5;
+                      _yOffset = 0.5;
+                    });
                     print('Half right-down');
                   },
                   child: const Text('(0.5, 0.5)'),
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() { _xOffset = -1.5; _yOffset = 0; });
+                    setState(() {
+                      _xOffset = -1.5;
+                      _yOffset = 0;
+                    });
                     print('Off-screen left');
                   },
                   child: const Text('(-1.5, 0)'),
@@ -814,7 +876,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('Drawer open: $_drawerOpen');
     print('Notification visible: $_notificationVisible');
     print('Menu expanded: $_menuExpanded');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -827,9 +889,12 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 1: Side Drawer
-            const Text('1. Side Drawer / Panel', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '1. Side Drawer / Panel',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 120,
@@ -844,9 +909,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                   Positioned.fill(
                     child: Container(
                       color: Colors.grey.shade300,
-                      child: const Center(
-                        child: Text('Main Content'),
-                      ),
+                      child: const Center(child: Text('Main Content')),
                     ),
                   ),
                   // Drawer
@@ -882,15 +945,20 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                setState(() { _drawerOpen = !_drawerOpen; });
+                setState(() {
+                  _drawerOpen = !_drawerOpen;
+                });
                 print('Drawer: ${_drawerOpen ? 'opened' : 'closed'}');
               },
               child: Text(_drawerOpen ? 'Close Drawer' : 'Open Drawer'),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 2: Toast Notification
-            const Text('2. Toast Notification', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '2. Toast Notification',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 80,
@@ -907,11 +975,16 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     right: 0,
                     child: Center(
                       child: AnimatedSlide(
-                        offset: _notificationVisible ? Offset.zero : const Offset(0, -2),
+                        offset: _notificationVisible
+                            ? Offset.zero
+                            : const Offset(0, -2),
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.green.shade600,
                             borderRadius: BorderRadius.circular(20),
@@ -922,9 +995,16 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: const [
-                              Icon(Icons.check_circle, color: Colors.white, size: 18),
+                              Icon(
+                                Icons.check_circle,
+                                color: Colors.white,
+                                size: 18,
+                              ),
                               SizedBox(width: 8),
-                              Text('Success!', style: TextStyle(color: Colors.white)),
+                              Text(
+                                'Success!',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ],
                           ),
                         ),
@@ -937,15 +1017,22 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                setState(() { _notificationVisible = !_notificationVisible; });
-                print('Notification: ${_notificationVisible ? 'shown' : 'hidden'}');
+                setState(() {
+                  _notificationVisible = !_notificationVisible;
+                });
+                print(
+                  'Notification: ${_notificationVisible ? 'shown' : 'hidden'}',
+                );
               },
               child: Text(_notificationVisible ? 'Hide' : 'Show Notification'),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 3: Staggered Menu Items
-            const Text('3. Staggered Menu', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '3. Staggered Menu',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 130,
@@ -1010,22 +1097,36 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
   }
 
   void _toggleMenu() async {
-    setState(() { _menuExpanded = !_menuExpanded; });
+    setState(() {
+      _menuExpanded = !_menuExpanded;
+    });
     print('Menu: ${_menuExpanded ? 'expanding' : 'collapsing'}');
-    
+
     if (_menuExpanded) {
       await Future.delayed(const Duration(milliseconds: 50));
-      setState(() { _menuItemOffset1 = Offset.zero; });
+      setState(() {
+        _menuItemOffset1 = Offset.zero;
+      });
       await Future.delayed(const Duration(milliseconds: 100));
-      setState(() { _menuItemOffset2 = Offset.zero; });
+      setState(() {
+        _menuItemOffset2 = Offset.zero;
+      });
       await Future.delayed(const Duration(milliseconds: 100));
-      setState(() { _menuItemOffset3 = Offset.zero; });
+      setState(() {
+        _menuItemOffset3 = Offset.zero;
+      });
     } else {
-      setState(() { _menuItemOffset3 = const Offset(-1, 0); });
+      setState(() {
+        _menuItemOffset3 = const Offset(-1, 0);
+      });
       await Future.delayed(const Duration(milliseconds: 100));
-      setState(() { _menuItemOffset2 = const Offset(-1, 0); });
+      setState(() {
+        _menuItemOffset2 = const Offset(-1, 0);
+      });
       await Future.delayed(const Duration(milliseconds: 100));
-      setState(() { _menuItemOffset1 = const Offset(-1, 0); });
+      setState(() {
+        _menuItemOffset1 = const Offset(-1, 0);
+      });
     }
   }
 
@@ -1036,7 +1137,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('=== Section 7: Sequential and Staggered Animations ===');
     print('Stack animating: $_stackAnimating');
     print('Stack offsets: $_stackOffsets');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1050,7 +1151,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Staggered cards
             Container(
               height: 200,
@@ -1063,7 +1164,12 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: List.generate(4, (index) {
-                  final colors = [Colors.red, Colors.orange, Colors.green, Colors.blue];
+                  final colors = [
+                    Colors.red,
+                    Colors.orange,
+                    Colors.green,
+                    Colors.blue,
+                  ];
                   return AnimatedSlide(
                     offset: _stackOffsets[index],
                     duration: const Duration(milliseconds: 300),
@@ -1097,21 +1203,25 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             Row(
               children: [
                 ElevatedButton.icon(
-                  onPressed: _stackAnimating ? null : () {
-                    _animateStackIn();
-                  },
+                  onPressed: _stackAnimating
+                      ? null
+                      : () {
+                          _animateStackIn();
+                        },
                   icon: const Icon(Icons.play_arrow),
                   label: const Text('Slide In'),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
-                  onPressed: _stackAnimating ? null : () {
-                    _animateStackOut();
-                  },
+                  onPressed: _stackAnimating
+                      ? null
+                      : () {
+                          _animateStackOut();
+                        },
                   icon: const Icon(Icons.replay),
                   label: const Text('Slide Out'),
                 ),
@@ -1129,9 +1239,11 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
   }
 
   void _animateStackIn() async {
-    setState(() { _stackAnimating = true; });
+    setState(() {
+      _stackAnimating = true;
+    });
     print('Stack: animating in');
-    
+
     for (int i = 0; i < 4; i++) {
       await Future.delayed(const Duration(milliseconds: 100));
       setState(() {
@@ -1139,15 +1251,19 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
       });
       print('Card ${i + 1}: slid in');
     }
-    
+
     await Future.delayed(const Duration(milliseconds: 300));
-    setState(() { _stackAnimating = false; });
+    setState(() {
+      _stackAnimating = false;
+    });
   }
 
   void _animateStackOut() async {
-    setState(() { _stackAnimating = true; });
+    setState(() {
+      _stackAnimating = true;
+    });
     print('Stack: animating out');
-    
+
     for (int i = 3; i >= 0; i--) {
       await Future.delayed(const Duration(milliseconds: 100));
       setState(() {
@@ -1155,9 +1271,11 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
       });
       print('Card ${i + 1}: slid out');
     }
-    
+
     await Future.delayed(const Duration(milliseconds: 300));
-    setState(() { _stackAnimating = false; });
+    setState(() {
+      _stackAnimating = false;
+    });
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -1168,7 +1286,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('Combined offset: $_combinedOffset');
     print('Combined scale: $_combinedScale');
     print('Combined opacity: $_combinedOpacity');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1181,9 +1299,12 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Combined animations demo
-            const Text('Slide + Scale + Opacity', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Slide + Scale + Opacity',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 150,
@@ -1223,7 +1344,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               ),
             ),
             const SizedBox(height: 8),
-            
+
             // Control sliders
             Row(
               children: [
@@ -1234,7 +1355,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     min: -1,
                     max: 1,
                     onChanged: (value) {
-                      setState(() { _combinedOffset = Offset(value, _combinedOffset.dy); });
+                      setState(() {
+                        _combinedOffset = Offset(value, _combinedOffset.dy);
+                      });
                     },
                   ),
                 ),
@@ -1249,7 +1372,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     min: -1,
                     max: 1,
                     onChanged: (value) {
-                      setState(() { _combinedOffset = Offset(_combinedOffset.dx, value); });
+                      setState(() {
+                        _combinedOffset = Offset(_combinedOffset.dx, value);
+                      });
                     },
                   ),
                 ),
@@ -1264,7 +1389,9 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     min: 0.5,
                     max: 2,
                     onChanged: (value) {
-                      setState(() { _combinedScale = value; });
+                      setState(() {
+                        _combinedScale = value;
+                      });
                     },
                   ),
                 ),
@@ -1279,22 +1406,33 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
                     min: 0,
                     max: 1,
                     onChanged: (value) {
-                      setState(() { _combinedOpacity = value; });
+                      setState(() {
+                        _combinedOpacity = value;
+                      });
                     },
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Edge cases
-            const Text('Edge Cases:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Edge Cases:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
-            _buildEdgeCaseItem('Large offsets', 'Widget moves off-screen (use ClipRect)'),
+            _buildEdgeCaseItem(
+              'Large offsets',
+              'Widget moves off-screen (use ClipRect)',
+            ),
             _buildEdgeCaseItem('Zero offset', 'Widget at original position'),
             _buildEdgeCaseItem('Same offset', 'No animation triggered'),
             _buildEdgeCaseItem('Duration 0', 'Instant position change'),
-            _buildEdgeCaseItem('Nested AnimatedSlide', 'Offsets stack additively'),
+            _buildEdgeCaseItem(
+              'Nested AnimatedSlide',
+              'Offsets stack additively',
+            ),
           ],
         ),
       ),
@@ -1313,7 +1451,10 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
               text: TextSpan(
                 style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
                 children: [
-                  TextSpan(text: '$title: ', style: const TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: '$title: ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   TextSpan(text: description),
                 ],
               ),
@@ -1332,7 +1473,7 @@ class _AnimatedSlideDemoState extends State<AnimatedSlideDemo> {
     print('════════════════════════════════════════════════════════════');
     print(title);
     print('════════════════════════════════════════════════════════════');
-    
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -1360,7 +1501,7 @@ class _CrosshairPainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.grey.shade300
       ..strokeWidth = 1;
-    
+
     canvas.drawLine(
       Offset(size.width / 2, 0),
       Offset(size.width / 2, size.height),
@@ -1371,7 +1512,7 @@ class _CrosshairPainter extends CustomPainter {
       Offset(size.width, size.height / 2),
       paint,
     );
-    
+
     // Center dot
     canvas.drawCircle(
       Offset(size.width / 2, size.height / 2),
@@ -1379,7 +1520,7 @@ class _CrosshairPainter extends CustomPainter {
       paint..color = Colors.grey,
     );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
@@ -1391,15 +1532,19 @@ class _FractionalGridPainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.amber.shade200
       ..strokeWidth = 1;
-    
+
     // Draw grid lines
     for (int i = 1; i <= 4; i++) {
       double x = size.width * i / 5;
       double y = size.height * i / 5;
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint..color = Colors.amber.shade200);
+      canvas.drawLine(
+        Offset(x, 0),
+        Offset(x, size.height),
+        paint..color = Colors.amber.shade200,
+      );
       canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
     }
-    
+
     // Center lines emphasized
     paint.strokeWidth = 2;
     paint.color = Colors.amber.shade400;
@@ -1414,7 +1559,7 @@ class _FractionalGridPainter extends CustomPainter {
       paint,
     );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

@@ -381,10 +381,7 @@ Widget _bulletList(List<String> items, {Color bullet = _kAccent}) {
       ),
     );
   }
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: rows,
-  );
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
 }
 
 // ---------------------------------------------------------------------------
@@ -403,7 +400,10 @@ Widget _mockDragHandle({Color colour = _kSheetHandle}) {
   );
 }
 
-Widget _mockListTile({String label = 'Action label', IconData icon = Icons.bookmark_border}) {
+Widget _mockListTile({
+  String label = 'Action label',
+  IconData icon = Icons.bookmark_border,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 10.0),
     child: Row(
@@ -490,17 +490,19 @@ Widget _mockSheet({
         );
   final List<Widget> tiles = <Widget>[];
   for (int i = 0; i < tileCount; i += 1) {
-    tiles.add(_mockListTile(
-      label: 'Tile $i',
-      icon: <IconData>[
-        Icons.share_outlined,
-        Icons.copy_outlined,
-        Icons.edit_outlined,
-        Icons.delete_outline,
-        Icons.archive_outlined,
-        Icons.report_outlined,
-      ][i % 6],
-    ));
+    tiles.add(
+      _mockListTile(
+        label: 'Tile $i',
+        icon: <IconData>[
+          Icons.share_outlined,
+          Icons.copy_outlined,
+          Icons.edit_outlined,
+          Icons.delete_outline,
+          Icons.archive_outlined,
+          Icons.report_outlined,
+        ][i % 6],
+      ),
+    );
   }
   return Container(
     height: height,
@@ -644,7 +646,11 @@ Widget _mockViewport({
                               ),
                             ),
                             const Spacer(),
-                            const Icon(Icons.more_vert, size: 18.0, color: _kInk),
+                            const Icon(
+                              Icons.more_vert,
+                              size: 18.0,
+                              color: _kInk,
+                            ),
                           ],
                         ),
                       ),
@@ -694,27 +700,15 @@ Widget _mockViewport({
                     ],
                   ),
                 ),
-                if (showScrim)
-                  Positioned.fill(
-                    child: Container(color: scrim),
-                  ),
-                Positioned(
-                  left: 0.0,
-                  right: 0.0,
-                  bottom: 0.0,
-                  child: sheet,
-                ),
+                if (showScrim) Positioned.fill(child: Container(color: scrim)),
+                Positioned(left: 0.0, right: 0.0, bottom: 0.0, child: sheet),
               ],
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 12.0),
-          child: Wrap(
-            spacing: 6.0,
-            runSpacing: 6.0,
-            children: badges,
-          ),
+          child: Wrap(spacing: 6.0, runSpacing: 6.0, children: badges),
         ),
       ],
     ),
@@ -732,7 +726,11 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF1E1B4B), Color(0xFF6750A4), Color(0xFFB497E8)],
+        colors: <Color>[
+          Color(0xFF1E1B4B),
+          Color(0xFF6750A4),
+          Color(0xFFB497E8),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -867,11 +865,7 @@ Widget _heroIntroCard() {
             'destructive actions and quick pickers; choose persistent for '
             'companion content that should remain readable while users '
             'interact with the main view.',
-            style: TextStyle(
-              fontSize: 13.5,
-              height: 1.5,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -889,16 +883,13 @@ Widget _heroIntroCard() {
             ),
             const SizedBox(width: 14.0),
             Expanded(
-              child: _bulletList(
-                const <String>[
-                  'Tapping the scrim dismisses iff isDismissible=true.',
-                  'Drag-handle: 32x4dp pill, surfaceVariant fill.',
-                  'Keyboard insets push the sheet up via MediaQuery.',
-                  'isScrollControlled lifts the height cap (default 0.5).',
-                  'transitionAnimationController lets you reuse a ticker.',
-                ],
-                bullet: _kAccentBlue,
-              ),
+              child: _bulletList(const <String>[
+                'Tapping the scrim dismisses iff isDismissible=true.',
+                'Drag-handle: 32x4dp pill, surfaceVariant fill.',
+                'Keyboard insets push the sheet up via MediaQuery.',
+                'isScrollControlled lifts the height cap (default 0.5).',
+                'transitionAnimationController lets you reuse a ticker.',
+              ], bullet: _kAccentBlue),
             ),
           ],
         ),
@@ -928,9 +919,7 @@ Widget _heroOverview() {
             children: <Widget>[
               Positioned.fill(
                 child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFE7E0EC),
-                  ),
+                  decoration: const BoxDecoration(color: Color(0xFFE7E0EC)),
                 ),
               ),
               const Positioned(
@@ -1032,8 +1021,13 @@ Widget _heroOverview() {
 // table. The schema is: name, dart type, default, single-sentence purpose.
 
 class _ParamRow {
-  const _ParamRow(this.name, this.type, this.defaultValue, this.purpose,
-      {this.category = 'layout'});
+  const _ParamRow(
+    this.name,
+    this.type,
+    this.defaultValue,
+    this.purpose, {
+    this.category = 'layout',
+  });
   final String name;
   final String type;
   final String defaultValue;
@@ -1042,63 +1036,139 @@ class _ParamRow {
 }
 
 const List<_ParamRow> _kParamRows = <_ParamRow>[
-  _ParamRow('context', 'BuildContext', 'required',
-      'The element whose Navigator pushes the route.',
-      category: 'context'),
-  _ParamRow('builder', 'WidgetBuilder', 'required',
-      'Build callback for the sheet contents; receives a fresh context.',
-      category: 'content'),
-  _ParamRow('backgroundColor', 'Color?', 'theme.surface',
-      'Body fill. Overrides BottomSheetThemeData.backgroundColor.',
-      category: 'visual'),
-  _ParamRow('barrierColor', 'Color?', 'Color(0x80000000)',
-      'Scrim tint behind the sheet. null forwards to BarrierTheme.',
-      category: 'visual'),
-  _ParamRow('barrierLabel', 'String?', 'modalBarrierDismissLabel',
-      'Accessibility label announced for the scrim region.',
-      category: 'visual'),
-  _ParamRow('elevation', 'double?', 'theme.modal=1.0',
-      'Z-elevation used to compute the surfaceTint overlay in M3.',
-      category: 'visual'),
-  _ParamRow('shape', 'ShapeBorder?', 'top28dpRoundedRect',
-      'Sheet outline. Default rounds top corners only at 28dp.',
-      category: 'visual'),
-  _ParamRow('clipBehavior', 'Clip?', 'Clip.antiAlias',
-      'Clips content to shape; antialias produces the smoothest corners.',
-      category: 'visual'),
-  _ParamRow('constraints', 'BoxConstraints?', 'null',
-      'Optional layout constraints; bypasses the default 0.5 maxHeight cap.',
-      category: 'layout'),
-  _ParamRow('isScrollControlled', 'bool', 'false',
-      'When true, body owns its own ScrollController; height cap is removed.',
-      category: 'layout'),
-  _ParamRow('useRootNavigator', 'bool', 'false',
-      'When true, walks up to the root Navigator before pushing.',
-      category: 'route'),
-  _ParamRow('useSafeArea', 'bool', 'false',
-      'Wraps the sheet in a SafeArea so it respects display cutouts.',
-      category: 'layout'),
-  _ParamRow('isDismissible', 'bool', 'true',
-      'When true, taps on the scrim pop the route.',
-      category: 'gesture'),
-  _ParamRow('enableDrag', 'bool', 'true',
-      'When true, vertical drags can dismiss the sheet.',
-      category: 'gesture'),
-  _ParamRow('showDragHandle', 'bool?', 'theme.showDragHandle',
-      'When true, the 32x4dp drag-handle pill is drawn at the top.',
-      category: 'visual'),
-  _ParamRow('transitionAnimationController', 'AnimationController?', 'internal',
-      'Reuse an existing ticker; defaults to a route-owned controller.',
-      category: 'animation'),
-  _ParamRow('anchorPoint', 'Offset?', 'null',
-      'Hint for which display the sheet should appear on (multi-display).',
-      category: 'route'),
-  _ParamRow('routeSettings', 'RouteSettings?', 'null',
-      'Settings forwarded to the pushed ModalRoute.',
-      category: 'route'),
-  _ParamRow('sheetAnimationStyle', 'AnimationStyle?', 'null',
-      'Override the sheet enter/exit AnimationStyle (Flutter 3.22+).',
-      category: 'animation'),
+  _ParamRow(
+    'context',
+    'BuildContext',
+    'required',
+    'The element whose Navigator pushes the route.',
+    category: 'context',
+  ),
+  _ParamRow(
+    'builder',
+    'WidgetBuilder',
+    'required',
+    'Build callback for the sheet contents; receives a fresh context.',
+    category: 'content',
+  ),
+  _ParamRow(
+    'backgroundColor',
+    'Color?',
+    'theme.surface',
+    'Body fill. Overrides BottomSheetThemeData.backgroundColor.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'barrierColor',
+    'Color?',
+    'Color(0x80000000)',
+    'Scrim tint behind the sheet. null forwards to BarrierTheme.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'barrierLabel',
+    'String?',
+    'modalBarrierDismissLabel',
+    'Accessibility label announced for the scrim region.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'elevation',
+    'double?',
+    'theme.modal=1.0',
+    'Z-elevation used to compute the surfaceTint overlay in M3.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'shape',
+    'ShapeBorder?',
+    'top28dpRoundedRect',
+    'Sheet outline. Default rounds top corners only at 28dp.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'clipBehavior',
+    'Clip?',
+    'Clip.antiAlias',
+    'Clips content to shape; antialias produces the smoothest corners.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'constraints',
+    'BoxConstraints?',
+    'null',
+    'Optional layout constraints; bypasses the default 0.5 maxHeight cap.',
+    category: 'layout',
+  ),
+  _ParamRow(
+    'isScrollControlled',
+    'bool',
+    'false',
+    'When true, body owns its own ScrollController; height cap is removed.',
+    category: 'layout',
+  ),
+  _ParamRow(
+    'useRootNavigator',
+    'bool',
+    'false',
+    'When true, walks up to the root Navigator before pushing.',
+    category: 'route',
+  ),
+  _ParamRow(
+    'useSafeArea',
+    'bool',
+    'false',
+    'Wraps the sheet in a SafeArea so it respects display cutouts.',
+    category: 'layout',
+  ),
+  _ParamRow(
+    'isDismissible',
+    'bool',
+    'true',
+    'When true, taps on the scrim pop the route.',
+    category: 'gesture',
+  ),
+  _ParamRow(
+    'enableDrag',
+    'bool',
+    'true',
+    'When true, vertical drags can dismiss the sheet.',
+    category: 'gesture',
+  ),
+  _ParamRow(
+    'showDragHandle',
+    'bool?',
+    'theme.showDragHandle',
+    'When true, the 32x4dp drag-handle pill is drawn at the top.',
+    category: 'visual',
+  ),
+  _ParamRow(
+    'transitionAnimationController',
+    'AnimationController?',
+    'internal',
+    'Reuse an existing ticker; defaults to a route-owned controller.',
+    category: 'animation',
+  ),
+  _ParamRow(
+    'anchorPoint',
+    'Offset?',
+    'null',
+    'Hint for which display the sheet should appear on (multi-display).',
+    category: 'route',
+  ),
+  _ParamRow(
+    'routeSettings',
+    'RouteSettings?',
+    'null',
+    'Settings forwarded to the pushed ModalRoute.',
+    category: 'route',
+  ),
+  _ParamRow(
+    'sheetAnimationStyle',
+    'AnimationStyle?',
+    'null',
+    'Override the sheet enter/exit AnimationStyle (Flutter 3.22+).',
+    category: 'animation',
+  ),
 ];
 
 Color _categoryColour(String category) {
@@ -1119,10 +1189,7 @@ Widget _parameterRow(_ParamRow row, {required bool zebra}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: 180.0,
-          child: Text(row.name, style: _kMonoInlineStyle),
-        ),
+        SizedBox(width: 180.0, child: Text(row.name, style: _kMonoInlineStyle)),
         SizedBox(
           width: 170.0,
           child: Text(
@@ -1152,11 +1219,7 @@ Widget _parameterRow(_ParamRow row, {required bool zebra}) {
         Expanded(
           child: Text(
             row.purpose,
-            style: const TextStyle(
-              fontSize: 12.5,
-              color: _kInk,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12.5, color: _kInk, height: 1.4),
           ),
         ),
       ],
@@ -1187,47 +1250,62 @@ Widget _parameterTable() {
             children: <Widget>[
               SizedBox(
                 width: 180.0,
-                child: Text('name',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'monospace',
-                        color: _kInkOnDark,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  'name',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: _kInkOnDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 170.0,
-                child: Text('type',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'monospace',
-                        color: _kInkOnDark,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  'type',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: _kInkOnDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 140.0,
-                child: Text('default',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'monospace',
-                        color: _kInkOnDark,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  'default',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: _kInkOnDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 84.0,
-                child: Text('cat',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'monospace',
-                        color: _kInkOnDark,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  'cat',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: _kInkOnDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('purpose',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'monospace',
-                        color: _kInkOnDark,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  'purpose',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: _kInkOnDark,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1243,9 +1321,11 @@ Widget _paramCategoryLegend() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Category legend',
-            subtitle:
-                'Each parameter is bucketed by what it controls. Mix-and-match across categories defines the personality of every concrete sheet.'),
+        _cardTitle(
+          'Category legend',
+          subtitle:
+              'Each parameter is bucketed by what it controls. Mix-and-match across categories defines the personality of every concrete sheet.',
+        ),
         const SizedBox(height: 14.0),
         Wrap(
           spacing: 8.0,
@@ -1476,8 +1556,12 @@ Widget _gallerySection() {
 // SECTION 4 - BARRIER DIAGRAM
 // ---------------------------------------------------------------------------
 
-Widget _barrierStackLayer(String label, Color colour, double opacity,
-    {bool dashed = false}) {
+Widget _barrierStackLayer(
+  String label,
+  Color colour,
+  double opacity, {
+  bool dashed = false,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 3.0),
     padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
@@ -1522,30 +1606,39 @@ Widget _barrierDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('The barrier scrim, layer by layer',
-            subtitle:
-                'A modal route inserts three siblings into the Overlay: the '
-                'scrim, the sheet body, and the gesture detector that funnels '
-                'pop intents.'),
+        _cardTitle(
+          'The barrier scrim, layer by layer',
+          subtitle:
+              'A modal route inserts three siblings into the Overlay: the '
+              'scrim, the sheet body, and the gesture detector that funnels '
+              'pop intents.',
+        ),
         const SizedBox(height: 14.0),
         _barrierStackLayer(
-            'Overlay parent — owned by Navigator', _kAccentSlate, 0.10),
+          'Overlay parent — owned by Navigator',
+          _kAccentSlate,
+          0.10,
+        ),
         _barrierStackLayer(
-            'ModalBarrier — uses barrierColor + barrierLabel + semanticsDismissible',
-            _kAccentRose,
-            0.18),
+          'ModalBarrier — uses barrierColor + barrierLabel + semanticsDismissible',
+          _kAccentRose,
+          0.18,
+        ),
         _barrierStackLayer(
-            'AnimatedBuilder<double> — interpolates scrim alpha',
-            _kAccentAmber,
-            0.18),
+          'AnimatedBuilder<double> — interpolates scrim alpha',
+          _kAccentAmber,
+          0.18,
+        ),
         _barrierStackLayer(
-            'BottomSheet — the visible widget, gesture-detecting',
-            _kAccentViolet,
-            0.18),
+          'BottomSheet — the visible widget, gesture-detecting',
+          _kAccentViolet,
+          0.18,
+        ),
         _barrierStackLayer(
-            'PrimaryFocusScope — keyboard reaches the sheet, not the page',
-            _kAccentBlue,
-            0.18),
+          'PrimaryFocusScope — keyboard reaches the sheet, not the page',
+          _kAccentBlue,
+          0.18,
+        ),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -1572,23 +1665,29 @@ Widget _barrierColorVariants() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('barrierColor — three common values',
-            subtitle:
-                'Pure black at 50% is the default; a tinted scrim can match '
-                'the page mood; a near-opaque scrim signals destructive '
-                'intent.'),
+        _cardTitle(
+          'barrierColor — three common values',
+          subtitle:
+              'Pure black at 50% is the default; a tinted scrim can match '
+              'the page mood; a near-opaque scrim signals destructive '
+              'intent.',
+        ),
         const SizedBox(height: 14.0),
         Row(
           children: <Widget>[
             Expanded(child: _barrierSwatch('default', _kScrim, '0x80000000')),
             const SizedBox(width: 12.0),
             Expanded(
-                child: _barrierSwatch(
-                    'tinted', const Color(0x804F46E5), '0x804F46E5')),
+              child: _barrierSwatch(
+                'tinted',
+                const Color(0x804F46E5),
+                '0x804F46E5',
+              ),
+            ),
             const SizedBox(width: 12.0),
             Expanded(
-                child:
-                    _barrierSwatch('opaque', _kScrimHard, '0xB3000000')),
+              child: _barrierSwatch('opaque', _kScrimHard, '0xB3000000'),
+            ),
           ],
         ),
       ],
@@ -1641,20 +1740,26 @@ Widget _barrierSwatch(String label, Color scrim, String hex) {
           Positioned(
             left: 8.0,
             top: 6.0,
-            child: Text(label,
-                style: const TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFFFFFFFF))),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFFFFFFFF),
+              ),
+            ),
           ),
           Positioned(
             right: 8.0,
             top: 6.0,
-            child: Text(hex,
-                style: const TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Color(0xFFFFFFFF))),
+            child: Text(
+              hex,
+              style: const TextStyle(
+                fontSize: 10.5,
+                fontFamily: 'monospace',
+                color: Color(0xFFFFFFFF),
+              ),
+            ),
           ),
         ],
       ),
@@ -1675,54 +1780,68 @@ class _MatrixRow {
 }
 
 const List<_MatrixRow> _kMatrix = <_MatrixRow>[
-  _MatrixRow('API entry',
-      'showModalBottomSheet<T>()',
-      'showBottomSheet<T>()',
-      'Scaffold(bottomSheet: ...)'),
-  _MatrixRow('Return type',
-      'Future<T?>',
-      'PersistentBottomSheetController<T>',
-      '— (widget property)'),
-  _MatrixRow('Scrim?',
-      'yes (ModalBarrier)',
-      'no',
-      'no'),
-  _MatrixRow('Steals focus?',
-      'yes (FocusScope barrier)',
-      'no',
-      'no'),
-  _MatrixRow('Pushes a route?',
-      'yes (ModalBottomSheetRoute)',
-      'yes (LocalHistoryEntry)',
-      'no'),
-  _MatrixRow('Coexists with body?',
-      'no — page is covered',
-      'yes — body remains tappable',
-      'yes — Scaffold lays them out'),
-  _MatrixRow('Default height cap',
-      '9/16 unless isScrollControlled',
-      'no cap',
-      'no cap'),
-  _MatrixRow('Drag dismiss?',
-      'yes if enableDrag',
-      'yes if enableDrag',
-      'driven by user code'),
-  _MatrixRow('Tap-scrim dismiss?',
-      'yes if isDismissible',
-      'n/a (no scrim)',
-      'n/a'),
-  _MatrixRow('Animation owner',
-      'route owns AnimationController',
-      'Scaffold owns AnimationController',
-      'Scaffold owns AnimationController'),
-  _MatrixRow('Multi-display anchorPoint',
-      'supported',
-      'inherits Scaffold display',
-      'inherits Scaffold display'),
-  _MatrixRow('Best for',
-      'destructive picks, action sheets',
-      'companion controls (player, editor)',
-      'always-present companion'),
+  _MatrixRow(
+    'API entry',
+    'showModalBottomSheet<T>()',
+    'showBottomSheet<T>()',
+    'Scaffold(bottomSheet: ...)',
+  ),
+  _MatrixRow(
+    'Return type',
+    'Future<T?>',
+    'PersistentBottomSheetController<T>',
+    '— (widget property)',
+  ),
+  _MatrixRow('Scrim?', 'yes (ModalBarrier)', 'no', 'no'),
+  _MatrixRow('Steals focus?', 'yes (FocusScope barrier)', 'no', 'no'),
+  _MatrixRow(
+    'Pushes a route?',
+    'yes (ModalBottomSheetRoute)',
+    'yes (LocalHistoryEntry)',
+    'no',
+  ),
+  _MatrixRow(
+    'Coexists with body?',
+    'no — page is covered',
+    'yes — body remains tappable',
+    'yes — Scaffold lays them out',
+  ),
+  _MatrixRow(
+    'Default height cap',
+    '9/16 unless isScrollControlled',
+    'no cap',
+    'no cap',
+  ),
+  _MatrixRow(
+    'Drag dismiss?',
+    'yes if enableDrag',
+    'yes if enableDrag',
+    'driven by user code',
+  ),
+  _MatrixRow(
+    'Tap-scrim dismiss?',
+    'yes if isDismissible',
+    'n/a (no scrim)',
+    'n/a',
+  ),
+  _MatrixRow(
+    'Animation owner',
+    'route owns AnimationController',
+    'Scaffold owns AnimationController',
+    'Scaffold owns AnimationController',
+  ),
+  _MatrixRow(
+    'Multi-display anchorPoint',
+    'supported',
+    'inherits Scaffold display',
+    'inherits Scaffold display',
+  ),
+  _MatrixRow(
+    'Best for',
+    'destructive picks, action sheets',
+    'companion controls (player, editor)',
+    'always-present companion',
+  ),
 ];
 
 Widget _matrixHeader() {
@@ -1739,36 +1858,48 @@ Widget _matrixHeader() {
       children: <Widget>[
         SizedBox(
           width: 160.0,
-          child: Text('axis',
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  color: _kInkOnDark,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            'axis',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'monospace',
+              color: _kInkOnDark,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('showModalBottomSheet',
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  color: _kInkOnDark,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            'showModalBottomSheet',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'monospace',
+              color: _kInkOnDark,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('showBottomSheet',
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  color: _kInkOnDark,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            'showBottomSheet',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'monospace',
+              color: _kInkOnDark,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('Scaffold.bottomSheet',
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'monospace',
-                  color: _kInkOnDark,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            'Scaffold.bottomSheet',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'monospace',
+              color: _kInkOnDark,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ],
     ),
@@ -1784,12 +1915,15 @@ Widget _matrixRow(_MatrixRow row, {required bool zebra}) {
       children: <Widget>[
         SizedBox(
           width: 160.0,
-          child: Text(row.axis,
-              style: const TextStyle(
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                  color: _kInkSecondary,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            row.axis,
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontFamily: 'monospace',
+              color: _kInkSecondary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(child: Text(row.modal, style: _kBodyStyle)),
         Expanded(child: Text(row.persistent, style: _kBodyStyle)),
@@ -1808,10 +1942,7 @@ Widget _modalVsPersistentMatrix() {
     padding: const EdgeInsets.all(6.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _matrixHeader(),
-        ...rows,
-      ],
+      children: <Widget>[_matrixHeader(), ...rows],
     ),
   );
 }
@@ -1876,32 +2007,39 @@ Widget _m3SpecPanel() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Material 3 spec conformance',
-            subtitle:
-                'Default visual values come straight from BottomSheetThemeData '
-                'when the host MaterialApp uses ThemeData(useMaterial3: true).'),
+        _cardTitle(
+          'Material 3 spec conformance',
+          subtitle:
+              'Default visual values come straight from BottomSheetThemeData '
+              'when the host MaterialApp uses ThemeData(useMaterial3: true).',
+        ),
         const SizedBox(height: 14.0),
-        _kvRow('shape (default)',
-            'RoundedRectangleBorder(top: 28dp, bottom: 0)'),
+        _kvRow(
+          'shape (default)',
+          'RoundedRectangleBorder(top: 28dp, bottom: 0)',
+        ),
         _kvRow('backgroundColor', 'theme.colorScheme.surfaceContainerLow'),
         _kvRow('surfaceTintColor', 'theme.colorScheme.surfaceTint'),
-        _kvRow('modalBackgroundColor',
-            'theme.colorScheme.surfaceContainerLow'),
+        _kvRow('modalBackgroundColor', 'theme.colorScheme.surfaceContainerLow'),
         _kvRow('modalElevation', '1.0 dp'),
         _kvRow('elevation (persistent)', '4.0 dp'),
         _kvRow('dragHandleSize', 'Size(32, 4)'),
-        _kvRow('dragHandleColor',
-            'theme.colorScheme.onSurfaceVariant @ 40% opacity'),
+        _kvRow(
+          'dragHandleColor',
+          'theme.colorScheme.onSurfaceVariant @ 40% opacity',
+        ),
         _kvRow('clipBehavior', 'Clip.antiAlias'),
         _kvRow('constraints.maxWidth (compact)', '640 dp'),
         _kvRow('barrierColor', 'theme.colorScheme.scrim @ 50% opacity'),
         const SizedBox(height: 14.0),
-        const Text('Tonal elevation curve',
-            style: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              color: _kInk,
-            )),
+        const Text(
+          'Tonal elevation curve',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w600,
+            color: _kInk,
+          ),
+        ),
         const SizedBox(height: 8.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -1942,10 +2080,12 @@ Widget _m3DragHandleSpec() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Drag handle dimensions',
-            subtitle:
-                'A 32x4dp pill, vertically padded by 22dp on top and 22dp on '
-                'the bottom, centred horizontally.'),
+        _cardTitle(
+          'Drag handle dimensions',
+          subtitle:
+              'A 32x4dp pill, vertically padded by 22dp on top and 22dp on '
+              'the bottom, centred horizontally.',
+        ),
         const SizedBox(height: 14.0),
         Container(
           padding: const EdgeInsets.all(24.0),
@@ -1987,7 +2127,8 @@ Widget _m3DragHandleSpec() {
 // SECTION 7 - CODE RECIPES
 // ---------------------------------------------------------------------------
 
-const String _kCodeBasic = '''final String? choice = await showModalBottomSheet<String>(
+const String _kCodeBasic =
+    '''final String? choice = await showModalBottomSheet<String>(
   context: context,
   builder: (BuildContext ctx) {
     return SafeArea(
@@ -2036,7 +2177,8 @@ const String _kCodeThemed = '''showModalBottomSheet<void>(
   builder: (BuildContext ctx) => const _MyEditorSheet(),
 );''';
 
-const String _kCodePersistent = '''final PersistentBottomSheetController<void> controller =
+const String _kCodePersistent =
+    '''final PersistentBottomSheetController<void> controller =
     Scaffold.of(context).showBottomSheet<void>(
   (BuildContext ctx) => const _PlayerControls(),
   backgroundColor: theme.colorScheme.surfaceContainerLow,
@@ -2069,17 +2211,30 @@ Widget _codeRecipes() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      _codeBlock(_kCodeBasic, title: 'basic.dart — picker that returns a String'),
-      _codeBlock(_kCodeScrollControlled,
-          title: 'scroll_controlled.dart — DraggableScrollableSheet inside'),
-      _codeBlock(_kCodeThemed,
-          title: 'themed.dart — custom shape, elevation, surface tint'),
-      _codeBlock(_kCodePersistent,
-          title: 'persistent.dart — Scaffold.of(context).showBottomSheet'),
-      _codeBlock(_kCodeKeyboard,
-          title: 'keyboard.dart — viewInsets padding for TextField content'),
-      _codeBlock(_kCodeRootNav,
-          title: 'root_navigator.dart — skip nested navigators'),
+      _codeBlock(
+        _kCodeBasic,
+        title: 'basic.dart — picker that returns a String',
+      ),
+      _codeBlock(
+        _kCodeScrollControlled,
+        title: 'scroll_controlled.dart — DraggableScrollableSheet inside',
+      ),
+      _codeBlock(
+        _kCodeThemed,
+        title: 'themed.dart — custom shape, elevation, surface tint',
+      ),
+      _codeBlock(
+        _kCodePersistent,
+        title: 'persistent.dart — Scaffold.of(context).showBottomSheet',
+      ),
+      _codeBlock(
+        _kCodeKeyboard,
+        title: 'keyboard.dart — viewInsets padding for TextField content',
+      ),
+      _codeBlock(
+        _kCodeRootNav,
+        title: 'root_navigator.dart — skip nested navigators',
+      ),
     ],
   );
 }
@@ -2097,33 +2252,40 @@ class _LifecycleStep {
 
 const List<_LifecycleStep> _kLifecycle = <_LifecycleStep>[
   _LifecycleStep(
-      '1 · push',
-      'showModalBottomSheet calls Navigator.of(context).push(ModalBottomSheetRoute).',
-      _kAccent),
+    '1 · push',
+    'showModalBottomSheet calls Navigator.of(context).push(ModalBottomSheetRoute).',
+    _kAccent,
+  ),
   _LifecycleStep(
-      '2 · install',
-      'ModalRoute creates AnimationController; OverlayEntries for barrier + body added.',
-      _kAccentBlue),
+    '2 · install',
+    'ModalRoute creates AnimationController; OverlayEntries for barrier + body added.',
+    _kAccentBlue,
+  ),
   _LifecycleStep(
-      '3 · animate-in',
-      'AnimationController.forward(); barrier alpha 0→1, sheet slides bottom→0.',
-      _kAccentTeal),
+    '3 · animate-in',
+    'AnimationController.forward(); barrier alpha 0→1, sheet slides bottom→0.',
+    _kAccentTeal,
+  ),
   _LifecycleStep(
-      '4 · settled',
-      'AnimationStatus.completed; sheet receives focus; primary FocusScope swaps.',
-      _kAccentGreen),
+    '4 · settled',
+    'AnimationStatus.completed; sheet receives focus; primary FocusScope swaps.',
+    _kAccentGreen,
+  ),
   _LifecycleStep(
-      '5 · interactive',
-      'User scrolls, drags, taps tiles; Navigator.pop(result) is the exit signal.',
-      _kAccentAmber),
+    '5 · interactive',
+    'User scrolls, drags, taps tiles; Navigator.pop(result) is the exit signal.',
+    _kAccentAmber,
+  ),
   _LifecycleStep(
-      '6 · animate-out',
-      'AnimationController.reverse(); barrier alpha 1→0; sheet slides back down.',
-      _kAccentOrange),
+    '6 · animate-out',
+    'AnimationController.reverse(); barrier alpha 1→0; sheet slides back down.',
+    _kAccentOrange,
+  ),
   _LifecycleStep(
-      '7 · dispose',
-      'Route popped; OverlayEntries removed; AnimationController disposed; Future completes.',
-      _kAccentRose),
+    '7 · dispose',
+    'Route popped; OverlayEntries removed; AnimationController disposed; Future completes.',
+    _kAccentRose,
+  ),
 ];
 
 Widget _lifecycleNode(_LifecycleStep step) {
@@ -2153,12 +2315,14 @@ Widget _lifecycleNode(_LifecycleStep step) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(step.title,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: _kInk,
-                  )),
+              Text(
+                step.title,
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
               const SizedBox(height: 3.0),
               Text(step.detail, style: _kBodySoftStyle),
             ],
@@ -2175,11 +2339,7 @@ Widget _lifecycleArrow() {
     child: Row(
       children: <Widget>[
         const SizedBox(width: 28.0),
-        Container(
-          width: 2.0,
-          height: 14.0,
-          color: _kAccent.withOpacity(0.4),
-        ),
+        Container(width: 2.0, height: 14.0, color: _kAccent.withOpacity(0.4)),
       ],
     ),
   );
@@ -2197,11 +2357,13 @@ Widget _lifecycleDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _cardTitle('ModalBottomSheetRoute lifecycle',
-            subtitle:
-                'The seven states a modal sheet walks through, from push '
-                'to dispose. AnimationController is owned by the route, not '
-                'by your builder.'),
+        _cardTitle(
+          'ModalBottomSheetRoute lifecycle',
+          subtitle:
+              'The seven states a modal sheet walks through, from push '
+              'to dispose. AnimationController is owned by the route, not '
+              'by your builder.',
+        ),
         const SizedBox(height: 12.0),
         ...rows,
       ],
@@ -2223,45 +2385,53 @@ class _Pitfall {
 
 const List<_Pitfall> _kPitfalls = <_Pitfall>[
   _Pitfall(
-      'ListView with isScrollControlled: false',
-      'Sheet locks at 50% screen height; inner ListView never scrolls past the cap.',
-      'Set isScrollControlled: true and wrap content in DraggableScrollableSheet (or SizedBox.expand).',
-      _kAccentRose),
+    'ListView with isScrollControlled: false',
+    'Sheet locks at 50% screen height; inner ListView never scrolls past the cap.',
+    'Set isScrollControlled: true and wrap content in DraggableScrollableSheet (or SizedBox.expand).',
+    _kAccentRose,
+  ),
   _Pitfall(
-      'TextField inside a default sheet',
-      'Keyboard opens, sheet content is hidden beneath the IME.',
-      'Set isScrollControlled: true AND pad the body with MediaQuery.viewInsets.bottom.',
-      _kAccentRose),
+    'TextField inside a default sheet',
+    'Keyboard opens, sheet content is hidden beneath the IME.',
+    'Set isScrollControlled: true AND pad the body with MediaQuery.viewInsets.bottom.',
+    _kAccentRose,
+  ),
   _Pitfall(
-      'useRootNavigator: false inside a tab',
-      'Nested Navigator pops the sheet but the tab bar still covers half of it.',
-      'Use useRootNavigator: true when you want full-screen modal feel.',
-      _kAccentOrange),
+    'useRootNavigator: false inside a tab',
+    'Nested Navigator pops the sheet but the tab bar still covers half of it.',
+    'Use useRootNavigator: true when you want full-screen modal feel.',
+    _kAccentOrange,
+  ),
   _Pitfall(
-      'Hero leak on dismiss',
-      'AnimationController disposed before Hero ticker finishes; assertion fires.',
-      'Pass your own transitionAnimationController and dispose it after the future settles.',
-      _kAccentAmber),
+    'Hero leak on dismiss',
+    'AnimationController disposed before Hero ticker finishes; assertion fires.',
+    'Pass your own transitionAnimationController and dispose it after the future settles.',
+    _kAccentAmber,
+  ),
   _Pitfall(
-      'isDismissible: false confuses users',
-      'Scrim looks tappable but absorbs taps silently.',
-      'Add an explicit close button inside the sheet body, or remove the scrim with a different UX.',
-      _kAccentOrange),
+    'isDismissible: false confuses users',
+    'Scrim looks tappable but absorbs taps silently.',
+    'Add an explicit close button inside the sheet body, or remove the scrim with a different UX.',
+    _kAccentOrange,
+  ),
   _Pitfall(
-      'Calling showBottomSheet outside a Scaffold',
-      'Throws "No Scaffold widget found"; persistent sheets need a Scaffold ancestor.',
-      'Use Scaffold.of(context).showBottomSheet, and ensure the context is below the Scaffold.',
-      _kAccentRose),
+    'Calling showBottomSheet outside a Scaffold',
+    'Throws "No Scaffold widget found"; persistent sheets need a Scaffold ancestor.',
+    'Use Scaffold.of(context).showBottomSheet, and ensure the context is below the Scaffold.',
+    _kAccentRose,
+  ),
   _Pitfall(
-      'BackdropFilter inside a sheet on Android < 8',
-      'Performance drops; sheet drag becomes janky during the slide-in.',
-      'Avoid live blurs; use a static frosted-glass image, or guard with Platform.isAndroid.',
-      _kAccentAmber),
+    'BackdropFilter inside a sheet on Android < 8',
+    'Performance drops; sheet drag becomes janky during the slide-in.',
+    'Avoid live blurs; use a static frosted-glass image, or guard with Platform.isAndroid.',
+    _kAccentAmber,
+  ),
   _Pitfall(
-      'showModalBottomSheet inside a Builder + Theme.of',
-      'Sheet does not inherit your overlay theme overrides.',
-      'Wrap the builder return in a fresh Theme(data: Theme.of(parent), child: ...).',
-      _kAccentOrange),
+    'showModalBottomSheet inside a Builder + Theme.of',
+    'Sheet does not inherit your overlay theme overrides.',
+    'Wrap the builder return in a fresh Theme(data: Theme.of(parent), child: ...).',
+    _kAccentOrange,
+  ),
 ];
 
 Widget _pitfallCard(_Pitfall p) {
@@ -2281,12 +2451,14 @@ Widget _pitfallCard(_Pitfall p) {
             Icon(Icons.warning_amber_rounded, size: 18.0, color: p.colour),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(p.title,
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
-                    color: _kInk,
-                  )),
+              child: Text(
+                p.title,
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
             ),
           ],
         ),
@@ -2307,10 +2479,12 @@ Widget _pitfallsSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _cardTitle('Eight pitfalls',
-            subtitle:
-                'Field-tested traps with the symptom you will see and the '
-                'one-line fix.'),
+        _cardTitle(
+          'Eight pitfalls',
+          subtitle:
+              'Field-tested traps with the symptom you will see and the '
+              'one-line fix.',
+        ),
         const SizedBox(height: 10.0),
         ...cards,
       ],
@@ -2332,13 +2506,15 @@ Widget _chipGroup(String title, List<String> chips, Color colour) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(title,
-            style: const TextStyle(
-              fontSize: 12.5,
-              fontWeight: FontWeight.w700,
-              color: _kInkOnDark,
-              fontFamily: 'monospace',
-            )),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            color: _kInkOnDark,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 6.0),
         Wrap(spacing: 6.0, runSpacing: 6.0, children: pills),
       ],
@@ -2358,13 +2534,15 @@ Widget _cheatSheetFooter() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Cheat-sheet',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
-              color: _kInkOnDark,
-              letterSpacing: -0.3,
-            )),
+        const Text(
+          'Cheat-sheet',
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w700,
+            color: _kInkOnDark,
+            letterSpacing: -0.3,
+          ),
+        ),
         const SizedBox(height: 4.0),
         const Text(
           'Pin this strip; everything you reach for day-to-day on the '
@@ -2461,20 +2639,29 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _heroBanner(),
-          _sectionHeader(1, 'Modal vs persistent',
-              'Two sister functions, one shared visual spec.'),
+          _sectionHeader(
+            1,
+            'Modal vs persistent',
+            'Two sister functions, one shared visual spec.',
+          ),
           _heroIntroCard(),
           _heroOverview(),
           _sectionDivider(),
 
-          _sectionHeader(2, 'Parameter anatomy',
-              'Seventeen knobs, bucketed by what they control.'),
+          _sectionHeader(
+            2,
+            'Parameter anatomy',
+            'Seventeen knobs, bucketed by what they control.',
+          ),
           _parameterTable(),
           _paramCategoryLegend(),
           _sectionDivider(),
 
-          _sectionHeader(3, 'Mock sheet gallery',
-              'Eight viewports that show how each knob looks on screen.'),
+          _sectionHeader(
+            3,
+            'Mock sheet gallery',
+            'Eight viewports that show how each knob looks on screen.',
+          ),
           _gallerySection(),
           _sectionDivider(),
 

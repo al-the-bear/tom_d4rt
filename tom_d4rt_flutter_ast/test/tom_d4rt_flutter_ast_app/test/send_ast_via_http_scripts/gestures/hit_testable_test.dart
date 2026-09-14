@@ -83,7 +83,9 @@ dynamic build(BuildContext context) {
     _DemoHitEntry('RenderView#root', 'HitTestEntry'),
   ];
   print('Sample HitTestResult constructed: ${sampleResult.runtimeType}');
-  print('Sample HitTestResult initial path length: ${sampleResult.path.length}');
+  print(
+    'Sample HitTestResult initial path length: ${sampleResult.path.length}',
+  );
   print('Sample BoxHitTestResult: ${sampleBoxResult.runtimeType}');
   print('Demo anatomy entries (script-side): ${sampleEntries.length}');
 
@@ -185,11 +187,7 @@ Widget _buildHero() {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0F2027),
-          Color(0xFF203A43),
-          Color(0xFF2C5364),
-        ],
+        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -221,11 +219,7 @@ Widget _buildHero() {
               ],
             ),
           ),
-          child: Icon(
-            Icons.ads_click,
-            size: 64.0,
-            color: Colors.white,
-          ),
+          child: Icon(Icons.ads_click, size: 64.0, color: Colors.white),
         ),
         SizedBox(height: 12.0),
         Text(
@@ -359,7 +353,10 @@ Widget _buildContractPanel() {
                   'mutation of the result argument. This lets the same result '
                   'thread through arbitrarily deep call chains without '
                   'allocations or repeated wrapping.',
-                  style: TextStyle(fontSize: 12.5, color: Colors.amber.shade900),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: Colors.amber.shade900,
+                  ),
                 ),
               ),
             ],
@@ -595,10 +592,7 @@ Widget _legendLine(Color color, String text) {
           width: 10.0,
           height: 10.0,
           margin: EdgeInsets.only(top: 4.0, right: 8.0),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         Expanded(
           child: Text(
@@ -627,20 +621,20 @@ Widget _buildAnatomyPanel(List<_DemoHitEntry> sampleEntries) {
   final cards = <Widget>[];
   for (var i = 0; i < entries.length; i++) {
     final entry = entries[i];
-    cards.add(_anatomyCard(
-      index: i,
-      total: entries.length,
-      title: entry.label,
-      runtimeType: entry.runtimeTypeStr,
-    ));
+    cards.add(
+      _anatomyCard(
+        index: i,
+        total: entries.length,
+        title: entry.label,
+        runtimeType: entry.runtimeTypeStr,
+      ),
+    );
     if (i < entries.length - 1) {
-      cards.add(Center(
-        child: Icon(
-          Icons.south,
-          color: Colors.grey.shade500,
-          size: 22.0,
+      cards.add(
+        Center(
+          child: Icon(Icons.south, color: Colors.grey.shade500, size: 22.0),
         ),
-      ));
+      );
     }
   }
 
@@ -702,7 +696,10 @@ Widget _buildAnatomyPanel(List<_DemoHitEntry> sampleEntries) {
         _kvRow('Box variant', 'BoxHitTestResult (extends HitTestResult)'),
         _kvRow('Sliver variant', 'SliverHitTestResult'),
         _kvRow('Mutation', 'add(HitTestEntry) — append-only, no remove'),
-        _kvRow('Transform stack', 'pushTransform / pushOffset for matrix-aware children'),
+        _kvRow(
+          'Transform stack',
+          'pushTransform / pushOffset for matrix-aware children',
+        ),
       ],
     ),
   );
@@ -749,10 +746,7 @@ Widget _anatomyCard({
           width: 28.0,
           height: 28.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Text(
             '${index + 1}',
             style: TextStyle(
@@ -929,10 +923,7 @@ Widget _implementerCard(_Impl impl) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: impl.color.withValues(alpha: 0.55),
-        width: 1.2,
-      ),
+      border: Border.all(color: impl.color.withValues(alpha: 0.55), width: 1.2),
       boxShadow: [
         BoxShadow(
           color: impl.color.withValues(alpha: 0.20),
@@ -1053,13 +1044,26 @@ Widget _buildPseudocodePanel() {
           dark: true,
         ),
         SizedBox(height: 14.0),
-        _stepLine('1', Colors.cyan, 'Reject early when position is outside bounds.'),
-        _stepLine('2', Colors.lightGreen,
-            'Recurse children before adding self — preserves dispatch order.'),
-        _stepLine('3', Colors.amber,
-            'Use HitTestEntry(this) so handleEvent is invoked during dispatch.'),
-        _stepLine('4', Colors.pinkAccent,
-            'For transformed children, prefer BoxHitTestResult.addWithPaintTransform.'),
+        _stepLine(
+          '1',
+          Colors.cyan,
+          'Reject early when position is outside bounds.',
+        ),
+        _stepLine(
+          '2',
+          Colors.lightGreen,
+          'Recurse children before adding self — preserves dispatch order.',
+        ),
+        _stepLine(
+          '3',
+          Colors.amber,
+          'Use HitTestEntry(this) so handleEvent is invoked during dispatch.',
+        ),
+        _stepLine(
+          '4',
+          Colors.pinkAccent,
+          'For transformed children, prefer BoxHitTestResult.addWithPaintTransform.',
+        ),
       ],
     ),
   );
@@ -1168,7 +1172,10 @@ Widget _buildZStackExample() {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.purple.shade300, Colors.purple.shade100],
+                        colors: [
+                          Colors.purple.shade300,
+                          Colors.purple.shade100,
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -1236,7 +1243,10 @@ Widget _buildZStackExample() {
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Colors.orange.shade400, Colors.orange.shade200],
+                        colors: [
+                          Colors.orange.shade400,
+                          Colors.orange.shade200,
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -1294,14 +1304,30 @@ Widget _buildZStackExample() {
           ),
         ),
         SizedBox(height: 8.0),
-        _zStackEntry(1, Colors.orange, 'C — RenderText',
-            'Smallest box that still contains the pointer; added first.'),
-        _zStackEntry(2, Colors.teal, 'B — RenderPadding',
-            'Parent of C; contains the pointer; added after recursion returns.'),
-        _zStackEntry(3, Colors.purple, 'A — RenderStack',
-            'Root of the stack; outermost; added last.'),
-        _zStackEntry(4, Colors.indigo, 'RenderView',
-            'Always at the tail — the root render object.'),
+        _zStackEntry(
+          1,
+          Colors.orange,
+          'C — RenderText',
+          'Smallest box that still contains the pointer; added first.',
+        ),
+        _zStackEntry(
+          2,
+          Colors.teal,
+          'B — RenderPadding',
+          'Parent of C; contains the pointer; added after recursion returns.',
+        ),
+        _zStackEntry(
+          3,
+          Colors.purple,
+          'A — RenderStack',
+          'Root of the stack; outermost; added last.',
+        ),
+        _zStackEntry(
+          4,
+          Colors.indigo,
+          'RenderView',
+          'Always at the tail — the root render object.',
+        ),
         SizedBox(height: 14.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -1342,8 +1368,7 @@ Widget _zStackEntry(int order, Color color, String name, String note) {
             Container(width: 4.0, color: color),
             Expanded(
               child: Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: Colors.grey.shade200, width: 1.0),
@@ -1355,8 +1380,10 @@ Widget _zStackEntry(int order, Color color, String name, String note) {
                       width: 24.0,
                       height: 24.0,
                       alignment: Alignment.center,
-                      decoration:
-                          BoxDecoration(color: color, shape: BoxShape.circle),
+                      decoration: BoxDecoration(
+                        color: color,
+                        shape: BoxShape.circle,
+                      ),
                       child: Text(
                         '$order',
                         style: TextStyle(
@@ -1383,8 +1410,9 @@ Widget _zStackEntry(int order, Color color, String name, String note) {
                           Text(
                             note,
                             style: TextStyle(
-                                fontSize: 11.5,
-                                color: Colors.grey.shade700),
+                              fontSize: 11.5,
+                              color: Colors.grey.shade700,
+                            ),
                           ),
                         ],
                       ),
@@ -1461,9 +1489,7 @@ Widget _buildPitfallsPanel() {
     ),
   ];
 
-  return Column(
-    children: pits.map(_pitCard).toList(),
-  );
+  return Column(children: pits.map(_pitCard).toList());
 }
 
 class _Pit {
@@ -1485,10 +1511,7 @@ Widget _pitCard(_Pit pit) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          pit.color.withValues(alpha: 0.12),
-          Colors.white,
-        ],
+        colors: [pit.color.withValues(alpha: 0.12), Colors.white],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),

@@ -98,72 +98,66 @@ import 'package:flutter/material.dart';
 // colour is for before you have to read the code that consumes it.
 //
 
-const Color kSextantIndigo       = Color(0xFF1B2A4E); // deepest indigo backdrop
-const Color kMidnightBlue        = Color(0xFF223865); // panel surface
-const Color kHorizonNavy         = Color(0xFF2E4A7F); // section card surface
-const Color kArcGradientStart    = Color(0xFF3B5FA6); // arc gradient left
-const Color kArcGradientEnd      = Color(0xFF6F8DC9); // arc gradient right
-const Color kBrassScaleMark      = Color(0xFFCBA64B); // scale ticks, eyepiece
-const Color kBrassDeep           = Color(0xFF8C6E1E); // tarnished brass
-const Color kIvoryParchment      = Color(0xFFF1E6C6); // body text on indigo
-const Color kStarShine           = Color(0xFFFAF6E6); // raised tile background
-const Color kChartroomLamp       = Color(0xFFD96A4A); // dim red AVOID highlight
-const Color kHorizonGlow         = Color(0xFF7FB1D8); // accent for "fits above"
-const Color kAnchorRust          = Color(0xFFB7572F); // accent for "anchor below"
-const Color kCompassInk          = Color(0xFF0E1426); // primary text on light
-const Color kSextantShadow       = Color(0xFF11192E); // diagram fill
-const Color kCloudIvory          = Color(0xFFE6DEC2); // soft callout
-const Color kPlumLogbook         = Color(0xFF5B3A6B); // glossary accent
+const Color kSextantIndigo = Color(0xFF1B2A4E); // deepest indigo backdrop
+const Color kMidnightBlue = Color(0xFF223865); // panel surface
+const Color kHorizonNavy = Color(0xFF2E4A7F); // section card surface
+const Color kArcGradientStart = Color(0xFF3B5FA6); // arc gradient left
+const Color kArcGradientEnd = Color(0xFF6F8DC9); // arc gradient right
+const Color kBrassScaleMark = Color(0xFFCBA64B); // scale ticks, eyepiece
+const Color kBrassDeep = Color(0xFF8C6E1E); // tarnished brass
+const Color kIvoryParchment = Color(0xFFF1E6C6); // body text on indigo
+const Color kStarShine = Color(0xFFFAF6E6); // raised tile background
+const Color kChartroomLamp = Color(0xFFD96A4A); // dim red AVOID highlight
+const Color kHorizonGlow = Color(0xFF7FB1D8); // accent for "fits above"
+const Color kAnchorRust = Color(0xFFB7572F); // accent for "anchor below"
+const Color kCompassInk = Color(0xFF0E1426); // primary text on light
+const Color kSextantShadow = Color(0xFF11192E); // diagram fill
+const Color kCloudIvory = Color(0xFFE6DEC2); // soft callout
+const Color kPlumLogbook = Color(0xFF5B3A6B); // glossary accent
 
 // ---------------------------------------------------------------------------
 // TYPOGRAPHY HELPERS
 // ---------------------------------------------------------------------------
 
 TextStyle _h1() => const TextStyle(
-      fontSize: 26,
-      fontWeight: FontWeight.w700,
-      color: kStarShine,
-      letterSpacing: 0.4,
-    );
+  fontSize: 26,
+  fontWeight: FontWeight.w700,
+  color: kStarShine,
+  letterSpacing: 0.4,
+);
 
 TextStyle _h2() => const TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w700,
-      color: kIvoryParchment,
-      letterSpacing: 0.2,
-    );
+  fontSize: 20,
+  fontWeight: FontWeight.w700,
+  color: kIvoryParchment,
+  letterSpacing: 0.2,
+);
 
 TextStyle _h3() => const TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w600,
-      color: kIvoryParchment,
-    );
+  fontSize: 16,
+  fontWeight: FontWeight.w600,
+  color: kIvoryParchment,
+);
 
-TextStyle _body() => const TextStyle(
-      fontSize: 13,
-      height: 1.45,
-      color: kIvoryParchment,
-    );
+TextStyle _body() =>
+    const TextStyle(fontSize: 13, height: 1.45, color: kIvoryParchment);
 
-TextStyle _bodyDark() => const TextStyle(
-      fontSize: 13,
-      height: 1.45,
-      color: kCompassInk,
-    );
+TextStyle _bodyDark() =>
+    const TextStyle(fontSize: 13, height: 1.45, color: kCompassInk);
 
 TextStyle _mono() => const TextStyle(
-      fontSize: 12.5,
-      fontFamily: 'monospace',
-      color: kIvoryParchment,
-      height: 1.4,
-    );
+  fontSize: 12.5,
+  fontFamily: 'monospace',
+  color: kIvoryParchment,
+  height: 1.4,
+);
 
 TextStyle _label() => const TextStyle(
-      fontSize: 11,
-      fontWeight: FontWeight.w700,
-      letterSpacing: 1.2,
-      color: kBrassScaleMark,
-    );
+  fontSize: 11,
+  fontWeight: FontWeight.w700,
+  letterSpacing: 1.2,
+  color: kBrassScaleMark,
+);
 
 // ---------------------------------------------------------------------------
 // LITTLE BUILDING BLOCKS
@@ -199,17 +193,23 @@ Widget _swatch(Color c, String name, String purpose) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: const TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w700,
-                      color: kCompassInk)),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  color: kCompassInk,
+                ),
+              ),
               _gap(2),
-              Text(purpose,
-                  style: const TextStyle(
-                      fontSize: 10.5,
-                      color: kCompassInk,
-                      height: 1.2)),
+              Text(
+                purpose,
+                style: const TextStyle(
+                  fontSize: 10.5,
+                  color: kCompassInk,
+                  height: 1.2,
+                ),
+              ),
             ],
           ),
         ),
@@ -218,8 +218,11 @@ Widget _swatch(Color c, String name, String purpose) {
   );
 }
 
-Widget _sectionCard(
-    {required String tag, required String title, required Widget child}) {
+Widget _sectionCard({
+  required String tag,
+  required String title,
+  required Widget child,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
     padding: const EdgeInsets.all(16),
@@ -234,18 +237,20 @@ Widget _sectionCard(
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: kBrassScaleMark,
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(tag,
-                  style: const TextStyle(
-                      color: kSextantIndigo,
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.0)),
+              child: Text(
+                tag,
+                style: const TextStyle(
+                  color: kSextantIndigo,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.0,
+                ),
+              ),
             ),
             _gapW(10),
             Expanded(child: Text(title, style: _h2())),
@@ -266,11 +271,14 @@ Widget _kvLine(String k, String v, {Color? accent}) {
       children: [
         SizedBox(
           width: 220,
-          child: Text(k,
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                  color: accent ?? kBrassScaleMark)),
+          child: Text(
+            k,
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: accent ?? kBrassScaleMark,
+            ),
+          ),
         ),
         Expanded(child: Text(v, style: _mono())),
       ],
@@ -284,11 +292,14 @@ Widget _bullet(String s) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('-  ',
-            style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                color: kBrassScaleMark)),
+        const Text(
+          '-  ',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w800,
+            color: kBrassScaleMark,
+          ),
+        ),
         Expanded(child: Text(s, style: _body())),
       ],
     ),
@@ -304,12 +315,15 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: kBrassScaleMark.withValues(alpha: 0.35)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: kIvoryParchment,
-            height: 1.4)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: kIvoryParchment,
+        height: 1.4,
+      ),
+    ),
   );
 }
 
@@ -320,8 +334,7 @@ Widget _calloutDo(String head, String body) {
     decoration: BoxDecoration(
       color: kHorizonGlow.withValues(alpha: 0.30),
       borderRadius: BorderRadius.circular(6),
-      border: const Border(
-          left: BorderSide(width: 4, color: kHorizonGlow)),
+      border: const Border(left: BorderSide(width: 4, color: kHorizonGlow)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -341,18 +354,20 @@ Widget _calloutAvoid(String head, String body) {
     decoration: BoxDecoration(
       color: kChartroomLamp.withValues(alpha: 0.30),
       borderRadius: BorderRadius.circular(6),
-      border: const Border(
-          left: BorderSide(width: 4, color: kChartroomLamp)),
+      border: const Border(left: BorderSide(width: 4, color: kChartroomLamp)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('AVOID  $head',
-            style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-                color: kChartroomLamp)),
+        Text(
+          'AVOID  $head',
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2,
+            color: kChartroomLamp,
+          ),
+        ),
         _gap(4),
         Text(body, style: _body()),
       ],
@@ -407,17 +422,19 @@ Widget _viewportCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: kCompassInk)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: kCompassInk,
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(subtitle,
-            style: const TextStyle(
-                fontSize: 11,
-                color: kCompassInk,
-                height: 1.3)),
+        Text(
+          subtitle,
+          style: const TextStyle(fontSize: 11, color: kCompassInk, height: 1.3),
+        ),
         const SizedBox(height: 8),
         // --- The painted viewport ---
         Container(
@@ -479,43 +496,55 @@ Widget _viewportCard({
         ),
         const SizedBox(height: 6),
         Text(
-            'parent = ${parentW.toStringAsFixed(0)} x ${parentH.toStringAsFixed(0)}',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                color: kCompassInk)),
+          'parent = ${parentW.toStringAsFixed(0)} x ${parentH.toStringAsFixed(0)}',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            color: kCompassInk,
+          ),
+        ),
         Text(
-            'child  = ${childW.toStringAsFixed(0)} x ${childH.toStringAsFixed(0)}',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                color: kCompassInk)),
+          'child  = ${childW.toStringAsFixed(0)} x ${childH.toStringAsFixed(0)}',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            color: kCompassInk,
+          ),
+        ),
         Text(
-            'aboveA = (${anchorAbove.dx.toStringAsFixed(0)}, ${anchorAbove.dy.toStringAsFixed(0)})',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                color: kCompassInk)),
+          'aboveA = (${anchorAbove.dx.toStringAsFixed(0)}, ${anchorAbove.dy.toStringAsFixed(0)})',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            color: kCompassInk,
+          ),
+        ),
         Text(
-            'belowA = (${anchorBelow.dx.toStringAsFixed(0)}, ${anchorBelow.dy.toStringAsFixed(0)})',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                color: kCompassInk)),
+          'belowA = (${anchorBelow.dx.toStringAsFixed(0)}, ${anchorBelow.dy.toStringAsFixed(0)})',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            color: kCompassInk,
+          ),
+        ),
         Text(
-            'fitsAb = $fitsAbove',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                color: kCompassInk)),
+          'fitsAb = $fitsAbove',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            fontWeight: FontWeight.w700,
+            color: kCompassInk,
+          ),
+        ),
         Text(
-            'pos    = (${resolvedPos.dx.toStringAsFixed(1)}, ${resolvedPos.dy.toStringAsFixed(1)})',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                color: kAnchorRust)),
+          'pos    = (${resolvedPos.dx.toStringAsFixed(1)}, ${resolvedPos.dy.toStringAsFixed(1)})',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            fontWeight: FontWeight.w700,
+            color: kAnchorRust,
+          ),
+        ),
       ],
     ),
   );
@@ -551,20 +580,21 @@ Widget _scaleTile({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-            'centerOn(${position.toStringAsFixed(0)}, '
-            '${width.toStringAsFixed(0)}, '
-            '${max.toStringAsFixed(0)})',
-            style: const TextStyle(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w700,
-                color: kCompassInk,
-                fontFamily: 'monospace')),
+          'centerOn(${position.toStringAsFixed(0)}, '
+          '${width.toStringAsFixed(0)}, '
+          '${max.toStringAsFixed(0)})',
+          style: const TextStyle(
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            color: kCompassInk,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(note,
-            style: const TextStyle(
-                fontSize: 11,
-                color: kCompassInk,
-                height: 1.3)),
+        Text(
+          note,
+          style: const TextStyle(fontSize: 11, color: kCompassInk, height: 1.3),
+        ),
         const SizedBox(height: 8),
         // --- The brass scale ---
         Container(
@@ -573,8 +603,7 @@ Widget _scaleTile({
           decoration: BoxDecoration(
             color: kSextantIndigo,
             borderRadius: BorderRadius.circular(3),
-            border:
-                Border.all(color: kBrassScaleMark.withValues(alpha: 0.6)),
+            border: Border.all(color: kBrassScaleMark.withValues(alpha: 0.6)),
           ),
           child: Stack(
             children: [
@@ -634,12 +663,15 @@ Widget _scaleTile({
           ),
         ),
         const SizedBox(height: 6),
-        Text('resolved left = ${resolved.toStringAsFixed(2)}',
-            style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: kAnchorRust)),
+        Text(
+          'resolved left = ${resolved.toStringAsFixed(2)}',
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: kAnchorRust,
+          ),
+        ),
       ],
     ),
   );
@@ -661,12 +693,15 @@ Widget _logbookEntry(String date, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('LOGBOOK -- $date',
-            style: const TextStyle(
-                fontSize: 10.5,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-                color: kPlumLogbook)),
+        Text(
+          'LOGBOOK -- $date',
+          style: const TextStyle(
+            fontSize: 10.5,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2,
+            color: kPlumLogbook,
+          ),
+        ),
         const SizedBox(height: 6),
         Text(body, style: _bodyDark()),
       ],
@@ -738,8 +773,10 @@ dynamic build(BuildContext context) {
     anchorBelow: const Offset(160, 230),
   );
 
-  print('[Sextant Indigo] dCenteredFit  above=${dCenteredFit.anchorAbove}'
-      ' below=${dCenteredFit.anchorBelow}');
+  print(
+    '[Sextant Indigo] dCenteredFit  above=${dCenteredFit.anchorAbove}'
+    ' below=${dCenteredFit.anchorBelow}',
+  );
   print('[Sextant Indigo] dForcedAbove  fitsAbove=${dForcedAbove.fitsAbove}');
   print('[Sextant Indigo] dForcedBelow  fitsAbove=${dForcedBelow.fitsAbove}');
   print('[Sextant Indigo] dLeftEdge     above=${dLeftEdge.anchorAbove}');
@@ -825,15 +862,20 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('SEXTANT INDIGO',
-            style: TextStyle(
-                color: kBrassScaleMark,
-                fontSize: 12,
-                letterSpacing: 4.0,
-                fontWeight: FontWeight.w700)),
+        const Text(
+          'SEXTANT INDIGO',
+          style: TextStyle(
+            color: kBrassScaleMark,
+            fontSize: 12,
+            letterSpacing: 4.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         _gap(6),
-        Text('TextSelectionToolbarLayoutDelegate',
-            style: _h1().copyWith(color: kStarShine, fontSize: 24)),
+        Text(
+          'TextSelectionToolbarLayoutDelegate',
+          style: _h1().copyWith(color: kStarShine, fontSize: 24),
+        ),
         _gap(6),
         Text(
           'A SingleChildLayoutDelegate that positions the floating selection '
@@ -843,21 +885,29 @@ dynamic build(BuildContext context) {
           'This is the brass instrument behind every Cut/Copy/Paste bubble '
           'you have ever seen in a Material or Cupertino text field.',
           style: TextStyle(
-              fontSize: 13,
-              height: 1.45,
-              color: kIvoryParchment.withValues(alpha: 0.95)),
+            fontSize: 13,
+            height: 1.45,
+            color: kIvoryParchment.withValues(alpha: 0.95),
+          ),
         ),
         _gap(14),
-        Text('PALETTE -- SEXTANT INDIGO',
-            style: TextStyle(
-                color: kBrassScaleMark.withValues(alpha: 0.95),
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.6)),
+        Text(
+          'PALETTE -- SEXTANT INDIGO',
+          style: TextStyle(
+            color: kBrassScaleMark.withValues(alpha: 0.95),
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.6,
+          ),
+        ),
         _gap(8),
         Wrap(
           children: [
-            _swatch(kSextantIndigo, 'SextantIndigo', 'page background, deep night sky'),
+            _swatch(
+              kSextantIndigo,
+              'SextantIndigo',
+              'page background, deep night sky',
+            ),
             _swatch(kMidnightBlue, 'MidnightBlue', 'panel surface'),
             _swatch(kHorizonNavy, 'HorizonNavy', 'section card surface'),
             _swatch(kArcGradientStart, 'ArcGradientStart', 'arc left'),
@@ -896,12 +946,18 @@ dynamic build(BuildContext context) {
         ),
         _gap(8),
         _bullet('getSize(BoxConstraints) -> Size: how big is the host box?'),
-        _bullet('getConstraintsForChild(BoxConstraints) -> BoxConstraints: '
-            'what may the child be?'),
-        _bullet('getPositionForChild(Size hostSize, Size childSize) -> Offset: '
-            'where does the child go?'),
-        _bullet('shouldRelayout(SingleChildLayoutDelegate old) -> bool: '
-            'is the new delegate different enough to redo the work?'),
+        _bullet(
+          'getConstraintsForChild(BoxConstraints) -> BoxConstraints: '
+          'what may the child be?',
+        ),
+        _bullet(
+          'getPositionForChild(Size hostSize, Size childSize) -> Offset: '
+          'where does the child go?',
+        ),
+        _bullet(
+          'shouldRelayout(SingleChildLayoutDelegate old) -> bool: '
+          'is the new delegate different enough to redo the work?',
+        ),
         _gap(10),
         Text(
           'TextSelectionToolbarLayoutDelegate overrides the last three. It '
@@ -929,9 +985,13 @@ dynamic build(BuildContext context) {
         _kvLine('              extends', 'Object  /  Listenable (none)'),
         _gap(6),
         _bullet('Immutable. To change behaviour, build a new delegate.'),
-        _bullet('Cheap. The delegate stores three fields and computes Offsets.'),
-        _bullet('Pure. No side effects. shouldRelayout never relayouts unless '
-            'the actual offsets or fitsAbove changed.'),
+        _bullet(
+          'Cheap. The delegate stores three fields and computes Offsets.',
+        ),
+        _bullet(
+          'Pure. No side effects. shouldRelayout never relayouts unless '
+          'the actual offsets or fitsAbove changed.',
+        ),
       ],
     ),
   );
@@ -952,10 +1012,14 @@ dynamic build(BuildContext context) {
           style: _body(),
         ),
         _gap(8),
-        _bullet('Above the selection -- the toolbar\'s BOTTOM edge sits at '
-            'anchorAbove.dy. Its horizontal centre is at anchorAbove.dx.'),
-        _bullet('Below the selection -- the toolbar\'s TOP edge sits at '
-            'anchorBelow.dy. Its horizontal centre is at anchorBelow.dx.'),
+        _bullet(
+          'Above the selection -- the toolbar\'s BOTTOM edge sits at '
+          'anchorAbove.dy. Its horizontal centre is at anchorAbove.dx.',
+        ),
+        _bullet(
+          'Below the selection -- the toolbar\'s TOP edge sits at '
+          'anchorBelow.dy. Its horizontal centre is at anchorBelow.dx.',
+        ),
         _gap(10),
         Text(
           'When the toolbar host is laid out, the delegate first asks: does '
@@ -975,18 +1039,19 @@ dynamic build(BuildContext context) {
         ),
         _gap(10),
         _codeBlock(
-            '// Conceptual decision tree.\n'
-            'final bool fits = fitsAbove ?? (size.height >= childSize.height);\n'
-            'final Offset baseAnchor = fits ? anchorAbove : anchorBelow;\n'
-            'final double dx = centerOn(\n'
-            '  baseAnchor.dx,\n'
-            '  childSize.width,\n'
-            '  size.width,\n'
-            ');\n'
-            'final double dy = fits\n'
-            '    ? baseAnchor.dy - childSize.height\n'
-            '    : baseAnchor.dy;\n'
-            'return Offset(dx, dy);'),
+          '// Conceptual decision tree.\n'
+          'final bool fits = fitsAbove ?? (size.height >= childSize.height);\n'
+          'final Offset baseAnchor = fits ? anchorAbove : anchorBelow;\n'
+          'final double dx = centerOn(\n'
+          '  baseAnchor.dx,\n'
+          '  childSize.width,\n'
+          '  size.width,\n'
+          ');\n'
+          'final double dy = fits\n'
+          '    ? baseAnchor.dy - childSize.height\n'
+          '    : baseAnchor.dy;\n'
+          'return Offset(dx, dy);',
+        ),
         _gap(10),
         _bullet('"Above" subtracts childSize.height from anchorAbove.dy.'),
         _bullet('"Below" uses anchorBelow.dy as-is for the top edge.'),
@@ -1003,46 +1068,134 @@ dynamic build(BuildContext context) {
   // alongside the actual centerOn(...) call. Each tuple becomes a card.
   //
   Offset resolve(
-      double parentW,
-      double parentH,
-      double childW,
-      double childH,
-      Offset anchorAbove,
-      Offset anchorBelow,
-      bool? fitsAboveOverride) {
+    double parentW,
+    double parentH,
+    double childW,
+    double childH,
+    Offset anchorAbove,
+    Offset anchorBelow,
+    bool? fitsAboveOverride,
+  ) {
     final bool fits = fitsAboveOverride ?? (anchorAbove.dy >= childH);
     final Offset base = fits ? anchorAbove : anchorBelow;
-    final double dx =
-        TextSelectionToolbarLayoutDelegate.centerOn(base.dx, childW, parentW);
+    final double dx = TextSelectionToolbarLayoutDelegate.centerOn(
+      base.dx,
+      childW,
+      parentW,
+    );
     final double dy = fits ? base.dy - childH : base.dy;
     return Offset(dx, dy);
   }
 
   // 12 hand-fed scenarios.
-  final r1 = resolve(400, 600, 180, 44, const Offset(200, 100),
-      const Offset(200, 200), null);
-  final r2 = resolve(400, 600, 180, 44, const Offset(200, 8),
-      const Offset(200, 60), null);
-  final r3 = resolve(400, 600, 180, 44, const Offset(20, 120),
-      const Offset(20, 220), null);
-  final r4 = resolve(400, 600, 180, 44, const Offset(380, 120),
-      const Offset(380, 220), null);
-  final r5 = resolve(400, 600, 240, 44, const Offset(50, 160),
-      const Offset(50, 220), null);
-  final r6 = resolve(400, 600, 240, 44, const Offset(350, 160),
-      const Offset(350, 220), null);
-  final r7 = resolve(400, 600, 180, 44, const Offset(150, 80),
-      const Offset(150, 180), true);
-  final r8 = resolve(400, 600, 180, 44, const Offset(150, 80),
-      const Offset(150, 180), false);
-  final r9 = resolve(400, 600, 180, 88, const Offset(200, 60),
-      const Offset(200, 160), null);
-  final r10 = resolve(400, 600, 320, 44, const Offset(200, 200),
-      const Offset(200, 280), null);
-  final r11 = resolve(400, 600, 180, 44, const Offset(0, 0),
-      const Offset(0, 0), null);
-  final r12 = resolve(400, 600, 60, 44, const Offset(380, 540),
-      const Offset(380, 580), null);
+  final r1 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(200, 100),
+    const Offset(200, 200),
+    null,
+  );
+  final r2 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(200, 8),
+    const Offset(200, 60),
+    null,
+  );
+  final r3 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(20, 120),
+    const Offset(20, 220),
+    null,
+  );
+  final r4 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(380, 120),
+    const Offset(380, 220),
+    null,
+  );
+  final r5 = resolve(
+    400,
+    600,
+    240,
+    44,
+    const Offset(50, 160),
+    const Offset(50, 220),
+    null,
+  );
+  final r6 = resolve(
+    400,
+    600,
+    240,
+    44,
+    const Offset(350, 160),
+    const Offset(350, 220),
+    null,
+  );
+  final r7 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(150, 80),
+    const Offset(150, 180),
+    true,
+  );
+  final r8 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(150, 80),
+    const Offset(150, 180),
+    false,
+  );
+  final r9 = resolve(
+    400,
+    600,
+    180,
+    88,
+    const Offset(200, 60),
+    const Offset(200, 160),
+    null,
+  );
+  final r10 = resolve(
+    400,
+    600,
+    320,
+    44,
+    const Offset(200, 200),
+    const Offset(200, 280),
+    null,
+  );
+  final r11 = resolve(
+    400,
+    600,
+    180,
+    44,
+    const Offset(0, 0),
+    const Offset(0, 0),
+    null,
+  );
+  final r12 = resolve(
+    400,
+    600,
+    60,
+    44,
+    const Offset(380, 540),
+    const Offset(380, 580),
+    null,
+  );
 
   print('[Sextant Indigo] getPositionForChild r1  = $r1');
   print('[Sextant Indigo] getPositionForChild r2  = $r2');
@@ -1089,8 +1242,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r2  centred, does NOT fit above',
-              subtitle:
-                  'Selection near top -- 8 < 44. Toolbar flips below.',
+              subtitle: 'Selection near top -- 8 < 44. Toolbar flips below.',
               parentW: 400,
               parentH: 600,
               childW: 180,
@@ -1102,8 +1254,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r3  left edge clamp',
-              subtitle:
-                  'Anchor at x=20 with width 180. Clamp keeps left=0.',
+              subtitle: 'Anchor at x=20 with width 180. Clamp keeps left=0.',
               parentW: 400,
               parentH: 600,
               childW: 180,
@@ -1141,8 +1292,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r6  wide toolbar, anchor near right',
-              subtitle:
-                  'Width 240 at x=350. Clamp keeps right=400.',
+              subtitle: 'Width 240 at x=350. Clamp keeps right=400.',
               parentW: 400,
               parentH: 600,
               childW: 240,
@@ -1154,8 +1304,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r7  fitsAbove=true override',
-              subtitle:
-                  'We force "above" even when math would also agree.',
+              subtitle: 'We force "above" even when math would also agree.',
               parentW: 400,
               parentH: 600,
               childW: 180,
@@ -1167,8 +1316,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r8  fitsAbove=false override',
-              subtitle:
-                  'We force "below" even though there is room above.',
+              subtitle: 'We force "below" even though there is room above.',
               parentW: 400,
               parentH: 600,
               childW: 180,
@@ -1193,8 +1341,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r10 toolbar wider than parent? not here',
-              subtitle:
-                  'Width 320, parent 400. Centre at 200 -> left=40.',
+              subtitle: 'Width 320, parent 400. Centre at 200 -> left=40.',
               parentW: 400,
               parentH: 600,
               childW: 320,
@@ -1206,8 +1353,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r11 corner-pinned anchor',
-              subtitle:
-                  'Both anchors at (0,0). fitsAbove=false, child below.',
+              subtitle: 'Both anchors at (0,0). fitsAbove=false, child below.',
               parentW: 400,
               parentH: 600,
               childW: 180,
@@ -1219,8 +1365,7 @@ dynamic build(BuildContext context) {
             ),
             _viewportCard(
               title: 'r12 narrow toolbar near bottom-right',
-              subtitle:
-                  'Width 60 at x=380. Comfortably centred without clamp.',
+              subtitle: 'Width 60 at x=380. Comfortably centred without clamp.',
               parentW: 400,
               parentH: 600,
               childW: 60,
@@ -1264,15 +1409,16 @@ dynamic build(BuildContext context) {
         ),
         _gap(8),
         _codeBlock(
-            'static double centerOn(double position, double width, double max) {\n'
-            '  if (position - width / 2 < 0) {\n'
-            '    return 0;\n'
-            '  }\n'
-            '  if (position + width / 2 > max) {\n'
-            '    return max - width;\n'
-            '  }\n'
-            '  return position - width / 2;\n'
-            '}'),
+          'static double centerOn(double position, double width, double max) {\n'
+          '  if (position - width / 2 < 0) {\n'
+          '    return 0;\n'
+          '  }\n'
+          '  if (position + width / 2 > max) {\n'
+          '    return max - width;\n'
+          '  }\n'
+          '  return position - width / 2;\n'
+          '}',
+        ),
         _gap(12),
         Text(
           'Twelve scale-mark cards follow. The horizon-glow vertical line is '
@@ -1407,11 +1553,12 @@ dynamic build(BuildContext context) {
         ),
         _gap(10),
         _codeBlock(
-            'bool shouldRelayout(TextSelectionToolbarLayoutDelegate old) {\n'
-            '  return anchorAbove != old.anchorAbove\n'
-            '      || anchorBelow != old.anchorBelow\n'
-            '      || fitsAbove   != old.fitsAbove;\n'
-            '}'),
+          'bool shouldRelayout(TextSelectionToolbarLayoutDelegate old) {\n'
+          '  return anchorAbove != old.anchorAbove\n'
+          '      || anchorBelow != old.anchorBelow\n'
+          '      || fitsAbove   != old.fitsAbove;\n'
+          '}',
+        ),
         _gap(10),
         Text(
           'Three exercises follow. We construct fresh delegates that differ '
@@ -1422,26 +1569,36 @@ dynamic build(BuildContext context) {
         ),
         _gap(10),
         _kvLine(
-            'identical anchors and fitsAbove',
-            relSame ? 'true (UNEXPECTED)' : 'false'),
+          'identical anchors and fitsAbove',
+          relSame ? 'true (UNEXPECTED)' : 'false',
+        ),
         _kvLine(
-            'anchorAbove moved by 1 pixel',
-            relMovedAbove ? 'true' : 'false'),
+          'anchorAbove moved by 1 pixel',
+          relMovedAbove ? 'true' : 'false',
+        ),
         _kvLine(
-            'anchorBelow moved by 1 pixel',
-            relMovedBelow ? 'true' : 'false'),
+          'anchorBelow moved by 1 pixel',
+          relMovedBelow ? 'true' : 'false',
+        ),
         _kvLine(
-            'fitsAbove flipped (true->false)',
-            relFitFlipped ? 'true' : 'false'),
+          'fitsAbove flipped (true->false)',
+          relFitFlipped ? 'true' : 'false',
+        ),
         _gap(10),
-        _bullet('A floating selection in motion (drag-to-extend) constantly '
-            'changes anchorBelow. Each frame relayouts the toolbar -- this is '
-            'fine; the work is small.'),
-        _bullet('A static selection that the user merely interacts with does '
-            'NOT change the anchors. shouldRelayout returns false and the '
-            'previous Offset is reused.'),
-        _bullet('fitsAbove flips when the keyboard appears or disappears, '
-            'shrinking the available band above the selection.'),
+        _bullet(
+          'A floating selection in motion (drag-to-extend) constantly '
+          'changes anchorBelow. Each frame relayouts the toolbar -- this is '
+          'fine; the work is small.',
+        ),
+        _bullet(
+          'A static selection that the user merely interacts with does '
+          'NOT change the anchors. shouldRelayout returns false and the '
+          'previous Offset is reused.',
+        ),
+        _bullet(
+          'fitsAbove flips when the keyboard appears or disappears, '
+          'shrinking the available band above the selection.',
+        ),
       ],
     ),
   );
@@ -1464,20 +1621,21 @@ dynamic build(BuildContext context) {
         ),
         _gap(10),
         _codeBlock(
-            '// Inside the toolbar overlay (simplified):\n'
-            'Widget build(BuildContext context) {\n'
-            '  return CustomSingleChildLayout(\n'
-            '    delegate: TextSelectionToolbarLayoutDelegate(\n'
-            '      anchorAbove: selectionTopGlobal,\n'
-            '      anchorBelow: selectionBottomGlobal,\n'
-            '    ),\n'
-            '    child: TextSelectionToolbar(\n'
-            '      anchorAbove: selectionTopGlobal,\n'
-            '      anchorBelow: selectionBottomGlobal,\n'
-            '      children: <Widget>[ /* Cut, Copy, Paste */ ],\n'
-            '    ),\n'
-            '  );\n'
-            '}'),
+          '// Inside the toolbar overlay (simplified):\n'
+          'Widget build(BuildContext context) {\n'
+          '  return CustomSingleChildLayout(\n'
+          '    delegate: TextSelectionToolbarLayoutDelegate(\n'
+          '      anchorAbove: selectionTopGlobal,\n'
+          '      anchorBelow: selectionBottomGlobal,\n'
+          '    ),\n'
+          '    child: TextSelectionToolbar(\n'
+          '      anchorAbove: selectionTopGlobal,\n'
+          '      anchorBelow: selectionBottomGlobal,\n'
+          '      children: <Widget>[ /* Cut, Copy, Paste */ ],\n'
+          '    ),\n'
+          '  );\n'
+          '}',
+        ),
         _gap(10),
         Text(
           'The toolbar widget itself ALSO receives the anchors. That is not '
@@ -1503,17 +1661,19 @@ dynamic build(BuildContext context) {
         ),
         _gap(12),
         _logbookEntry(
-            '2024-01-12',
-            'Wrote a custom toolbar that nudged itself away from the safe '
-            'area. The trick was to PRE-ADJUST anchorAbove/anchorBelow before '
-            'handing them to the delegate. The delegate itself does not know '
-            'about safe areas; it trusts the anchors it receives.'),
+          '2024-01-12',
+          'Wrote a custom toolbar that nudged itself away from the safe '
+              'area. The trick was to PRE-ADJUST anchorAbove/anchorBelow before '
+              'handing them to the delegate. The delegate itself does not know '
+              'about safe areas; it trusts the anchors it receives.',
+        ),
         _logbookEntry(
-            '2024-02-03',
-            'Discovered that flipping fitsAbove every frame produces a '
-            'jittery toolbar. The fix is to compute fitsAbove once when the '
-            'selection becomes visible, then keep it stable until the '
-            'selection moves.'),
+          '2024-02-03',
+          'Discovered that flipping fitsAbove every frame produces a '
+              'jittery toolbar. The fix is to compute fitsAbove once when the '
+              'selection becomes visible, then keep it stable until the '
+              'selection moves.',
+        ),
       ],
     ),
   );
@@ -1537,44 +1697,56 @@ dynamic build(BuildContext context) {
           style: _body(),
         ),
         _gap(10),
-        _bullet('Position determines reading order. A toolbar above the '
-            'selection is announced before the selection text in some screen '
-            'readers because of geometric ordering. A toolbar below is '
-            'announced after.'),
-        _bullet('Position determines focus traversal. The TalkBack swipe-next '
-            'gesture moves to the next semantic node by visual position, so '
-            'a toolbar that flips above/below mid-utterance can confuse the '
-            'user.'),
-        _bullet('Position determines hit-testing. Stable Offsets mean stable '
-            'tap targets. Use shouldRelayout to AVOID needless repositioning.'),
+        _bullet(
+          'Position determines reading order. A toolbar above the '
+          'selection is announced before the selection text in some screen '
+          'readers because of geometric ordering. A toolbar below is '
+          'announced after.',
+        ),
+        _bullet(
+          'Position determines focus traversal. The TalkBack swipe-next '
+          'gesture moves to the next semantic node by visual position, so '
+          'a toolbar that flips above/below mid-utterance can confuse the '
+          'user.',
+        ),
+        _bullet(
+          'Position determines hit-testing. Stable Offsets mean stable '
+          'tap targets. Use shouldRelayout to AVOID needless repositioning.',
+        ),
         _gap(10),
         _calloutDo(
-            'PRE-COMPUTE fitsAbove WHEN POSSIBLE',
-            'If you know the selection is above the keyboard fold, force '
-            'fitsAbove: false explicitly so the toolbar does not wobble when '
-            'the keyboard animation starts.'),
+          'PRE-COMPUTE fitsAbove WHEN POSSIBLE',
+          'If you know the selection is above the keyboard fold, force '
+              'fitsAbove: false explicitly so the toolbar does not wobble when '
+              'the keyboard animation starts.',
+        ),
         _calloutDo(
-            'KEEP ANCHORS IN LOCAL COORDINATES',
-            'The delegate expects anchors in the SAME coordinate space as '
-            'the parent size it receives. Convert globals to locals before '
-            'passing them in, or you will see the toolbar fly off-screen.'),
+          'KEEP ANCHORS IN LOCAL COORDINATES',
+          'The delegate expects anchors in the SAME coordinate space as '
+              'the parent size it receives. Convert globals to locals before '
+              'passing them in, or you will see the toolbar fly off-screen.',
+        ),
         _calloutDo(
-            'RESPECT SAFE AREAS',
-            'Pre-shrink anchorAbove.dy by the top safe area inset and '
-            'anchorBelow.dy + childHeight should not exceed (parentHeight - '
-            'bottomSafeArea). The delegate does not know about insets.'),
+          'RESPECT SAFE AREAS',
+          'Pre-shrink anchorAbove.dy by the top safe area inset and '
+              'anchorBelow.dy + childHeight should not exceed (parentHeight - '
+              'bottomSafeArea). The delegate does not know about insets.',
+        ),
         _calloutAvoid(
-            'PASSING GLOBAL OFFSETS',
-            'Globals work in some cases by accident (when the host fills the '
-            'screen). They are wrong everywhere else.'),
+          'PASSING GLOBAL OFFSETS',
+          'Globals work in some cases by accident (when the host fills the '
+              'screen). They are wrong everywhere else.',
+        ),
         _calloutAvoid(
-            'MUTATING ANCHORS EVERY FRAME',
-            'A jittery floating toolbar is unusable for screen-reader users. '
-            'Debounce or pin until the selection actually moves.'),
+          'MUTATING ANCHORS EVERY FRAME',
+          'A jittery floating toolbar is unusable for screen-reader users. '
+              'Debounce or pin until the selection actually moves.',
+        ),
         _calloutAvoid(
-            'OVERRIDING fitsAbove BLINDLY',
-            'Forcing fitsAbove: true in a tall keyboard scenario will paint '
-            'the toolbar OFF-SCREEN above the visible band.'),
+          'OVERRIDING fitsAbove BLINDLY',
+          'Forcing fitsAbove: true in a tall keyboard scenario will paint '
+              'the toolbar OFF-SCREEN above the visible band.',
+        ),
       ],
     ),
   );
@@ -1589,31 +1761,37 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _calloutDo(
-            'ANCHOR AT SELECTION CENTRE',
-            'Use the horizontal centre of the selection rect for both '
-            'anchorAbove.dx and anchorBelow.dx. centerOn does the rest.'),
+          'ANCHOR AT SELECTION CENTRE',
+          'Use the horizontal centre of the selection rect for both '
+              'anchorAbove.dx and anchorBelow.dx. centerOn does the rest.',
+        ),
         _calloutDo(
-            'PASS PARENT-LOCAL Y',
-            'anchorAbove.dy is the y of the TOP of the selection (in local '
-            'space). anchorBelow.dy is the y of the BOTTOM. Not the centre.'),
+          'PASS PARENT-LOCAL Y',
+          'anchorAbove.dy is the y of the TOP of the selection (in local '
+              'space). anchorBelow.dy is the y of the BOTTOM. Not the centre.',
+        ),
         _calloutDo(
-            'TRUST THE CLAMP',
-            'You do not need to clamp dx yourself before constructing the '
-            'delegate. centerOn will do it.'),
+          'TRUST THE CLAMP',
+          'You do not need to clamp dx yourself before constructing the '
+              'delegate. centerOn will do it.',
+        ),
         _calloutAvoid(
-            'PASSING SELECTION CORNERS',
-            'Corners are off-centre. Use centres or you get a left-aligned '
-            'toolbar instead of a centred one.'),
+          'PASSING SELECTION CORNERS',
+          'Corners are off-centre. Use centres or you get a left-aligned '
+              'toolbar instead of a centred one.',
+        ),
         _calloutAvoid(
-            'CONFLATING PARENT WITH SCREEN',
-            'The delegate operates in PARENT-LOCAL coordinates. The parent '
-            'may be smaller than the screen.'),
+          'CONFLATING PARENT WITH SCREEN',
+          'The delegate operates in PARENT-LOCAL coordinates. The parent '
+              'may be smaller than the screen.',
+        ),
         _calloutAvoid(
-            'RECREATING ON EVERY FRAME',
-            'Cache the delegate when anchors are stable. Recreating it '
-            'forces shouldRelayout to fire (because the OLD delegate compares '
-            'unequal to the new one when references differ -- though field '
-            'comparison is what saves you).'),
+          'RECREATING ON EVERY FRAME',
+          'Cache the delegate when anchors are stable. Recreating it '
+              'forces shouldRelayout to fire (because the OLD delegate compares '
+              'unequal to the new one when references differ -- though field '
+              'comparison is what saves you).',
+        ),
       ],
     ),
   );
@@ -1637,62 +1815,68 @@ dynamic build(BuildContext context) {
         Text('RECIPE 1 -- vanilla toolbar host', style: _h3()),
         _gap(6),
         _codeBlock(
-            'CustomSingleChildLayout(\n'
-            '  delegate: TextSelectionToolbarLayoutDelegate(\n'
-            '    anchorAbove: selectionTopLocal,\n'
-            '    anchorBelow: selectionBottomLocal,\n'
-            '  ),\n'
-            '  child: MyToolbar(),\n'
-            ');'),
+          'CustomSingleChildLayout(\n'
+          '  delegate: TextSelectionToolbarLayoutDelegate(\n'
+          '    anchorAbove: selectionTopLocal,\n'
+          '    anchorBelow: selectionBottomLocal,\n'
+          '  ),\n'
+          '  child: MyToolbar(),\n'
+          ');',
+        ),
         _gap(12),
-        Text('RECIPE 2 -- forced "below" for sticky-keyboard scenarios',
-            style: _h3()),
+        Text(
+          'RECIPE 2 -- forced "below" for sticky-keyboard scenarios',
+          style: _h3(),
+        ),
         _gap(6),
         _codeBlock(
-            'CustomSingleChildLayout(\n'
-            '  delegate: TextSelectionToolbarLayoutDelegate(\n'
-            '    anchorAbove: selectionTopLocal,\n'
-            '    anchorBelow: selectionBottomLocal,\n'
-            '    fitsAbove: false, // keyboard always covers above-band\n'
-            '  ),\n'
-            '  child: MyToolbar(),\n'
-            ');'),
+          'CustomSingleChildLayout(\n'
+          '  delegate: TextSelectionToolbarLayoutDelegate(\n'
+          '    anchorAbove: selectionTopLocal,\n'
+          '    anchorBelow: selectionBottomLocal,\n'
+          '    fitsAbove: false, // keyboard always covers above-band\n'
+          '  ),\n'
+          '  child: MyToolbar(),\n'
+          ');',
+        ),
         _gap(12),
         Text('RECIPE 3 -- pre-adjust for safe areas', style: _h3()),
         _gap(6),
         _codeBlock(
-            'final EdgeInsets pad = MediaQuery.of(context).padding;\n'
-            'final Offset above = Offset(\n'
-            '  selectionCentreX,\n'
-            '  selectionTopY - pad.top,\n'
-            ');\n'
-            'final Offset below = Offset(\n'
-            '  selectionCentreX,\n'
-            '  selectionBottomY - pad.top,\n'
-            ');\n'
-            'CustomSingleChildLayout(\n'
-            '  delegate: TextSelectionToolbarLayoutDelegate(\n'
-            '    anchorAbove: above,\n'
-            '    anchorBelow: below,\n'
-            '  ),\n'
-            '  child: MyToolbar(),\n'
-            ');'),
+          'final EdgeInsets pad = MediaQuery.of(context).padding;\n'
+          'final Offset above = Offset(\n'
+          '  selectionCentreX,\n'
+          '  selectionTopY - pad.top,\n'
+          ');\n'
+          'final Offset below = Offset(\n'
+          '  selectionCentreX,\n'
+          '  selectionBottomY - pad.top,\n'
+          ');\n'
+          'CustomSingleChildLayout(\n'
+          '  delegate: TextSelectionToolbarLayoutDelegate(\n'
+          '    anchorAbove: above,\n'
+          '    anchorBelow: below,\n'
+          '  ),\n'
+          '  child: MyToolbar(),\n'
+          ');',
+        ),
         _gap(12),
         Text('RECIPE 4 -- borrow centerOn for non-toolbar UI', style: _h3()),
         _gap(6),
         _codeBlock(
-            '// Reuse centerOn for a tooltip that follows a hover position.\n'
-            'final double left = TextSelectionToolbarLayoutDelegate.centerOn(\n'
-            '  hoverX,\n'
-            '  tooltipWidth,\n'
-            '  parentSize.width,\n'
-            ');\n'
-            'final double top  = hoverY - tooltipHeight - 8;\n'
-            'return Positioned(\n'
-            '  left: left,\n'
-            '  top:  top,\n'
-            '  child: Tooltip(...),\n'
-            ');'),
+          '// Reuse centerOn for a tooltip that follows a hover position.\n'
+          'final double left = TextSelectionToolbarLayoutDelegate.centerOn(\n'
+          '  hoverX,\n'
+          '  tooltipWidth,\n'
+          '  parentSize.width,\n'
+          ');\n'
+          'final double top  = hoverY - tooltipHeight - 8;\n'
+          'return Positioned(\n'
+          '  left: left,\n'
+          '  top:  top,\n'
+          '  child: Tooltip(...),\n'
+          ');',
+        ),
       ],
     ),
   );
@@ -1707,17 +1891,19 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: kStarShine,
         borderRadius: BorderRadius.circular(6),
-        border: Border(
-            left: BorderSide(width: 4, color: kPlumLogbook)),
+        border: Border(left: BorderSide(width: 4, color: kPlumLogbook)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(term,
-              style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: kPlumLogbook)),
+          Text(
+            term,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: kPlumLogbook,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(defn, style: _bodyDark()),
         ],
@@ -1731,53 +1917,77 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        gItem('anchorAbove',
-            'The Offset (in parent-local coordinates) that names where the '
-            'BOTTOM edge of the toolbar should sit when the toolbar fits in '
-            'the band above the selection. Its dx is the selection\'s '
-            'horizontal centre.'),
-        gItem('anchorBelow',
-            'The Offset that names where the TOP edge of the toolbar should '
-            'sit when the toolbar does NOT fit above the selection. Its dx '
-            'is, again, the selection\'s horizontal centre.'),
-        gItem('fitsAbove',
-            'An optional bool override. When null, the delegate computes '
-            '`size.height >= childSize.height` to decide. When non-null, the '
-            'caller has already decided.'),
-        gItem('centerOn',
-            'A static helper that translates "centre this band of width w '
-            'around x" into "left edge = ...", clamped to [0, max - w].'),
-        gItem('SingleChildLayoutDelegate',
-            'The Flutter contract for an object that lays out exactly one '
-            'child inside a host box. Four methods: getSize, '
-            'getConstraintsForChild, getPositionForChild, shouldRelayout.'),
-        gItem('CustomSingleChildLayout',
-            'The widget that consumes a SingleChildLayoutDelegate. It takes '
-            'a delegate and a child; it asks the delegate where to put '
-            'the child.'),
-        gItem('shouldRelayout',
-            'A pure-comparison method that the framework calls on the NEW '
-            'delegate, passing the OLD one. Returns true to trigger a fresh '
-            'layout, false to reuse the cached result.'),
-        gItem('TextSelectionOverlay',
-            'The framework class that owns the selection toolbar overlay. '
-            'It is the one that wraps the toolbar in a '
-            'CustomSingleChildLayout configured with our delegate.'),
-        gItem('TextSelectionToolbar',
-            'The Material implementation of the toolbar widget. It uses the '
-            'same anchors for its own painting (e.g. the small triangle '
-            'pointing at the selection).'),
-        gItem('TextSelectionControls',
-            'The class you subclass when you want a custom toolbar shape. '
-            'Override buildToolbar; the framework supplies the layout host.'),
-        gItem('parent-local coordinates',
-            'A coordinate space whose origin (0,0) is the top-left of the '
-            'parent of the toolbar host. Convert from globals with '
-            'box.globalToLocal(...).'),
-        gItem('clamp',
-            'A bounded operation that maps any input to the closest value '
-            'in a target range. centerOn clamps the toolbar\'s left edge '
-            'to [0, parentWidth - toolbarWidth].'),
+        gItem(
+          'anchorAbove',
+          'The Offset (in parent-local coordinates) that names where the '
+              'BOTTOM edge of the toolbar should sit when the toolbar fits in '
+              'the band above the selection. Its dx is the selection\'s '
+              'horizontal centre.',
+        ),
+        gItem(
+          'anchorBelow',
+          'The Offset that names where the TOP edge of the toolbar should '
+              'sit when the toolbar does NOT fit above the selection. Its dx '
+              'is, again, the selection\'s horizontal centre.',
+        ),
+        gItem(
+          'fitsAbove',
+          'An optional bool override. When null, the delegate computes '
+              '`size.height >= childSize.height` to decide. When non-null, the '
+              'caller has already decided.',
+        ),
+        gItem(
+          'centerOn',
+          'A static helper that translates "centre this band of width w '
+              'around x" into "left edge = ...", clamped to [0, max - w].',
+        ),
+        gItem(
+          'SingleChildLayoutDelegate',
+          'The Flutter contract for an object that lays out exactly one '
+              'child inside a host box. Four methods: getSize, '
+              'getConstraintsForChild, getPositionForChild, shouldRelayout.',
+        ),
+        gItem(
+          'CustomSingleChildLayout',
+          'The widget that consumes a SingleChildLayoutDelegate. It takes '
+              'a delegate and a child; it asks the delegate where to put '
+              'the child.',
+        ),
+        gItem(
+          'shouldRelayout',
+          'A pure-comparison method that the framework calls on the NEW '
+              'delegate, passing the OLD one. Returns true to trigger a fresh '
+              'layout, false to reuse the cached result.',
+        ),
+        gItem(
+          'TextSelectionOverlay',
+          'The framework class that owns the selection toolbar overlay. '
+              'It is the one that wraps the toolbar in a '
+              'CustomSingleChildLayout configured with our delegate.',
+        ),
+        gItem(
+          'TextSelectionToolbar',
+          'The Material implementation of the toolbar widget. It uses the '
+              'same anchors for its own painting (e.g. the small triangle '
+              'pointing at the selection).',
+        ),
+        gItem(
+          'TextSelectionControls',
+          'The class you subclass when you want a custom toolbar shape. '
+              'Override buildToolbar; the framework supplies the layout host.',
+        ),
+        gItem(
+          'parent-local coordinates',
+          'A coordinate space whose origin (0,0) is the top-left of the '
+              'parent of the toolbar host. Convert from globals with '
+              'box.globalToLocal(...).',
+        ),
+        gItem(
+          'clamp',
+          'A bounded operation that maps any input to the closest value '
+              'in a target range. centerOn clamps the toolbar\'s left edge '
+              'to [0, parentWidth - toolbarWidth].',
+        ),
       ],
     ),
   );
@@ -1793,38 +2003,46 @@ dynamic build(BuildContext context) {
       children: [
         Text('LIVE DELEGATE READOUTS', style: _label()),
         _gap(8),
-        _kvLine('dCenteredFit.anchorAbove',
-            '(${dCenteredFit.anchorAbove.dx}, ${dCenteredFit.anchorAbove.dy})'),
-        _kvLine('dCenteredFit.anchorBelow',
-            '(${dCenteredFit.anchorBelow.dx}, ${dCenteredFit.anchorBelow.dy})'),
-        _kvLine('dCenteredFit.fitsAbove',
-            '${dCenteredFit.fitsAbove}'),
-        _kvLine('dCenteredNoFit.anchorAbove',
-            '(${dCenteredNoFit.anchorAbove.dx}, ${dCenteredNoFit.anchorAbove.dy})'),
-        _kvLine('dCenteredNoFit.fitsAbove',
-            '${dCenteredNoFit.fitsAbove}'),
-        _kvLine('dForcedAbove.fitsAbove',
-            '${dForcedAbove.fitsAbove}'),
-        _kvLine('dForcedBelow.fitsAbove',
-            '${dForcedBelow.fitsAbove}'),
-        _kvLine('dLeftEdge.anchorAbove.dx',
-            '${dLeftEdge.anchorAbove.dx}'),
-        _kvLine('dRightEdge.anchorAbove.dx',
-            '${dRightEdge.anchorAbove.dx}'),
-        _kvLine('dNearTop.anchorAbove.dy',
-            '${dNearTop.anchorAbove.dy}'),
-        _kvLine('dNearBottom.anchorBelow.dy',
-            '${dNearBottom.anchorBelow.dy}'),
-        _kvLine('dWide.anchorAbove',
-            '(${dWide.anchorAbove.dx}, ${dWide.anchorAbove.dy})'),
-        _kvLine('dNarrow.anchorAbove',
-            '(${dNarrow.anchorAbove.dx}, ${dNarrow.anchorAbove.dy})'),
-        _kvLine('dFlush.anchorAbove',
-            '(${dFlush.anchorAbove.dx}, ${dFlush.anchorAbove.dy})'),
-        _kvLine('dDiag.anchorAbove',
-            '(${dDiag.anchorAbove.dx}, ${dDiag.anchorAbove.dy})'),
-        _kvLine('dDiag.anchorBelow',
-            '(${dDiag.anchorBelow.dx}, ${dDiag.anchorBelow.dy})'),
+        _kvLine(
+          'dCenteredFit.anchorAbove',
+          '(${dCenteredFit.anchorAbove.dx}, ${dCenteredFit.anchorAbove.dy})',
+        ),
+        _kvLine(
+          'dCenteredFit.anchorBelow',
+          '(${dCenteredFit.anchorBelow.dx}, ${dCenteredFit.anchorBelow.dy})',
+        ),
+        _kvLine('dCenteredFit.fitsAbove', '${dCenteredFit.fitsAbove}'),
+        _kvLine(
+          'dCenteredNoFit.anchorAbove',
+          '(${dCenteredNoFit.anchorAbove.dx}, ${dCenteredNoFit.anchorAbove.dy})',
+        ),
+        _kvLine('dCenteredNoFit.fitsAbove', '${dCenteredNoFit.fitsAbove}'),
+        _kvLine('dForcedAbove.fitsAbove', '${dForcedAbove.fitsAbove}'),
+        _kvLine('dForcedBelow.fitsAbove', '${dForcedBelow.fitsAbove}'),
+        _kvLine('dLeftEdge.anchorAbove.dx', '${dLeftEdge.anchorAbove.dx}'),
+        _kvLine('dRightEdge.anchorAbove.dx', '${dRightEdge.anchorAbove.dx}'),
+        _kvLine('dNearTop.anchorAbove.dy', '${dNearTop.anchorAbove.dy}'),
+        _kvLine('dNearBottom.anchorBelow.dy', '${dNearBottom.anchorBelow.dy}'),
+        _kvLine(
+          'dWide.anchorAbove',
+          '(${dWide.anchorAbove.dx}, ${dWide.anchorAbove.dy})',
+        ),
+        _kvLine(
+          'dNarrow.anchorAbove',
+          '(${dNarrow.anchorAbove.dx}, ${dNarrow.anchorAbove.dy})',
+        ),
+        _kvLine(
+          'dFlush.anchorAbove',
+          '(${dFlush.anchorAbove.dx}, ${dFlush.anchorAbove.dy})',
+        ),
+        _kvLine(
+          'dDiag.anchorAbove',
+          '(${dDiag.anchorAbove.dx}, ${dDiag.anchorAbove.dy})',
+        ),
+        _kvLine(
+          'dDiag.anchorBelow',
+          '(${dDiag.anchorBelow.dx}, ${dDiag.anchorBelow.dy})',
+        ),
         _gap(10),
         Text('CENTER-ON SCALE READOUTS', style: _label()),
         _gap(8),
@@ -1862,12 +2080,15 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('SEXTANT INDIGO -- CLOSING MOTTO',
-                  style: TextStyle(
-                      color: kBrassScaleMark,
-                      fontSize: 11,
-                      letterSpacing: 1.6,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                'SEXTANT INDIGO -- CLOSING MOTTO',
+                style: TextStyle(
+                  color: kBrassScaleMark,
+                  fontSize: 11,
+                  letterSpacing: 1.6,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               _gap(8),
               Text(
                 'Two anchors and a clamp. Above when there is sky enough; '
@@ -1876,9 +2097,10 @@ dynamic build(BuildContext context) {
                 'and ancient -- the same arithmetic a navigator would use '
                 'to pin a star to a horizon-glass at midnight.',
                 style: TextStyle(
-                    fontSize: 13,
-                    height: 1.5,
-                    color: kStarShine.withValues(alpha: 0.95)),
+                  fontSize: 13,
+                  height: 1.5,
+                  color: kStarShine.withValues(alpha: 0.95),
+                ),
               ),
             ],
           ),

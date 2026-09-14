@@ -11,14 +11,16 @@ const List<_ThemePalette> _themePalettes = <_ThemePalette>[
     name: 'Ocean Lab',
     seed: Color(0xFF0F766E),
     brightness: Brightness.light,
-    subtitle: 'High-contrast repaint overlays for comparing isolated and non-isolated regions.',
+    subtitle:
+        'High-contrast repaint overlays for comparing isolated and non-isolated regions.',
   ),
   _ThemePalette(
     id: 'citrus-grid',
     name: 'Citrus Grid',
     seed: Color(0xFFEA580C),
     brightness: Brightness.light,
-    subtitle: 'Warm palette optimized for animation stress scenes and snapshot demos.',
+    subtitle:
+        'Warm palette optimized for animation stress scenes and snapshot demos.',
   ),
   _ThemePalette(
     id: 'midnight-ops',
@@ -33,32 +35,38 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     mode: _ScenarioMode.isolationArena,
     title: 'Isolation Arena',
-    description: 'Side-by-side animated lanes comparing wrapped vs unwrapped repaint regions.',
+    description:
+        'Side-by-side animated lanes comparing wrapped vs unwrapped repaint regions.',
   ),
   _Scenario(
     mode: _ScenarioMode.captureStudio,
     title: 'Capture Studio',
-    description: 'Interactive RepaintBoundary image capture workflow with render metadata.',
+    description:
+        'Interactive RepaintBoundary image capture workflow with render metadata.',
   ),
   _Scenario(
     mode: _ScenarioMode.scrollBoard,
     title: 'Scroll Board',
-    description: 'Scrollable content where selected cards are isolated by explicit boundaries.',
+    description:
+        'Scrollable content where selected cards are isolated by explicit boundaries.',
   ),
   _Scenario(
     mode: _ScenarioMode.dashboardPulse,
     title: 'Dashboard Pulse',
-    description: 'Dashboard widgets with repaint pressure controls and selective isolation.',
+    description:
+        'Dashboard widgets with repaint pressure controls and selective isolation.',
   ),
   _Scenario(
     mode: _ScenarioMode.heatGrid,
     title: 'Heat Grid',
-    description: 'Grid-based repaint intensity visualization with boundary lane toggles.',
+    description:
+        'Grid-based repaint intensity visualization with boundary lane toggles.',
   ),
   _Scenario(
     mode: _ScenarioMode.verification,
     title: 'Verification',
-    description: 'Checklist board, expected outcomes, and debugging timeline for interpreter runs.',
+    description:
+        'Checklist board, expected outcomes, and debugging timeline for interpreter runs.',
   ),
 ];
 
@@ -84,23 +92,28 @@ class _Faq {
 const List<_Faq> _faqs = <_Faq>[
   _Faq(
     question: 'When should I add a RepaintBoundary?',
-    answer: 'Add it around subtrees that repaint often while nearby content is mostly static and expensive to repaint.',
+    answer:
+        'Add it around subtrees that repaint often while nearby content is mostly static and expensive to repaint.',
   ),
   _Faq(
     question: 'Can I wrap everything in boundaries?',
-    answer: 'You can, but doing so may hurt memory and compositing; selective use is usually better.',
+    answer:
+        'You can, but doing so may hurt memory and compositing; selective use is usually better.',
   ),
   _Faq(
     question: 'How do I verify boundary impact?',
-    answer: 'Create controlled visual stress scenarios and compare repaint counters/timelines with and without isolation.',
+    answer:
+        'Create controlled visual stress scenarios and compare repaint counters/timelines with and without isolation.',
   ),
   _Faq(
     question: 'What is toImage used for?',
-    answer: 'It captures a boundary subtree as an image, useful for previews, exports, and diagnostics snapshots.',
+    answer:
+        'It captures a boundary subtree as an image, useful for previews, exports, and diagnostics snapshots.',
   ),
   _Faq(
     question: 'Is this only about performance?',
-    answer: 'Mostly performance and diagnostics, but capture-based workflows are also practical product features.',
+    answer:
+        'Mostly performance and diagnostics, but capture-based workflows are also practical product features.',
   ),
 ];
 
@@ -130,7 +143,11 @@ class _ThemePalette {
 }
 
 class _Scenario {
-  const _Scenario({required this.mode, required this.title, required this.description});
+  const _Scenario({
+    required this.mode,
+    required this.title,
+    required this.description,
+  });
 
   final _ScenarioMode mode;
   final String title;
@@ -173,10 +190,13 @@ class _RenderRepaintBoundaryObservatory extends StatefulWidget {
   const _RenderRepaintBoundaryObservatory();
 
   @override
-  State<_RenderRepaintBoundaryObservatory> createState() => _RenderRepaintBoundaryObservatoryState();
+  State<_RenderRepaintBoundaryObservatory> createState() =>
+      _RenderRepaintBoundaryObservatoryState();
 }
 
-class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundaryObservatory> with SingleTickerProviderStateMixin {
+class _RenderRepaintBoundaryObservatoryState
+    extends State<_RenderRepaintBoundaryObservatory>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _clock = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 9200),
@@ -274,7 +294,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       _scrollTick += 1;
     });
     if (_scrollTick % 6 == 0) {
-      _pushEvent('scroll', 'offset=${_scrollController.offset.toStringAsFixed(1)}');
+      _pushEvent(
+        'scroll',
+        'offset=${_scrollController.offset.toStringAsFixed(1)}',
+      );
     }
   }
 
@@ -284,7 +307,12 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       _lastMessage = message;
       _timeline.insert(
         0,
-        _TimelineEvent(time: DateTime.now(), channel: channel, message: message, tick: _frameTick),
+        _TimelineEvent(
+          time: DateTime.now(),
+          channel: channel,
+          message: message,
+          tick: _frameTick,
+        ),
       );
       if (_timeline.length > 220) {
         _timeline.removeRange(220, _timeline.length);
@@ -301,7 +329,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         _heatPoints.removeRange(180, _heatPoints.length);
       }
     });
-    _pushEvent('interaction', '$lane hit @ ${localPosition.dx.toStringAsFixed(1)},${localPosition.dy.toStringAsFixed(1)}');
+    _pushEvent(
+      'interaction',
+      '$lane hit @ ${localPosition.dx.toStringAsFixed(1)},${localPosition.dy.toStringAsFixed(1)}',
+    );
   }
 
   Future<void> _captureBoundary() async {
@@ -321,14 +352,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       if (renderObject is! RenderRepaintBoundary) {
         setState(() {
           _captureFailure += 1;
-          _captureInfo = 'Capture failed: target is not a RenderRepaintBoundary';
+          _captureInfo =
+              'Capture failed: target is not a RenderRepaintBoundary';
         });
         _pushEvent('capture', 'failure: non-boundary target');
         return;
       }
 
-      final ui.Image image = await renderObject.toImage(pixelRatio: _captureScale.clamp(0.5, 4.0));
-      final ByteData? data = await image.toByteData(format: ui.ImageByteFormat.png);
+      final ui.Image image = await renderObject.toImage(
+        pixelRatio: _captureScale.clamp(0.5, 4.0),
+      );
+      final ByteData? data = await image.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
       final int bytes = data?.lengthInBytes ?? 0;
 
       setState(() {
@@ -338,7 +374,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         _capturedBytes = bytes;
         _captureInfo = 'Captured ${image.width}x${image.height}, bytes=$bytes';
       });
-      _pushEvent('capture', 'success ${image.width}x${image.height}, bytes=$bytes');
+      _pushEvent(
+        'capture',
+        'success ${image.width}x${image.height}, bytes=$bytes',
+      );
       image.dispose();
     } catch (error) {
       setState(() {
@@ -434,7 +473,11 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
     );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: palette.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: palette.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
@@ -442,7 +485,11 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
             ),
           ),
           child: SafeArea(
@@ -494,15 +541,35 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.auto_graph_outlined, size: 26, color: scheme.primary),
+                Icon(
+                  Icons.auto_graph_outlined,
+                  size: 26,
+                  color: scheme.primary,
+                ),
                 Text(
                   'RenderRepaintBoundary Performance Observatory',
-                  style: TextStyle(color: scheme.onSurface, fontSize: 25, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -526,12 +593,21 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 17)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_themePalettes.length, (int index) {
+              children: List<Widget>.generate(_themePalettes.length, (
+                int index,
+              ) {
                 final _ThemePalette theme = _themePalettes[index];
                 return ChoiceChip(
                   selected: index == _themeIndex,
@@ -541,9 +617,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themePalettes[_themeIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themePalettes[_themeIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Modes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 17)),
+            Text(
+              'Scenario Modes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -558,7 +644,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -576,13 +665,27 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Control Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Control Board',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Tune repaint pressure, boundary wrapping, and visual diagnostics.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune repaint pressure, boundary wrapping, and visual diagnostics.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -592,7 +695,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 980,
               divisions: 280,
               onChanged: (double v) => setState(() => _stageHeight = v),
-              onChangeEnd: (double v) => _controlEdit('stageHeight', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('stageHeight', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -602,7 +706,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _isolationStrength = v),
-              onChangeEnd: (double v) => _controlEdit('isolationStrength', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('isolationStrength', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -612,7 +717,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 2.0,
               divisions: 70,
               onChanged: (double v) => setState(() => _animationSpeed = v),
-              onChangeEnd: (double v) => _controlEdit('animationSpeed', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('animationSpeed', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -622,7 +728,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 42,
               divisions: 84,
               onChanged: (double v) => setState(() => _tileRoundness = v),
-              onChangeEnd: (double v) => _controlEdit('tileRoundness', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('tileRoundness', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -632,7 +739,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 1.0,
               divisions: 80,
               onChanged: (double v) => setState(() => _tileOpacity = v),
-              onChangeEnd: (double v) => _controlEdit('tileOpacity', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('tileOpacity', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -642,7 +750,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _noise = v),
-              onChangeEnd: (double v) => _controlEdit('noise', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('noise', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -652,7 +761,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _heatIntensity = v),
-              onChangeEnd: (double v) => _controlEdit('heatIntensity', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('heatIntensity', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -662,7 +772,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 3,
               divisions: 50,
               onChanged: (double v) => setState(() => _captureScale = v),
-              onChangeEnd: (double v) => _controlEdit('captureScale', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('captureScale', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -672,61 +783,106 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               max: 52,
               divisions: 38,
               onChanged: (double v) => setState(() => _gridDensity = v),
-              onChangeEnd: (double v) => _controlEdit('gridDensity', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _controlEdit('gridDensity', v.toStringAsFixed(1)),
             ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animate, onChanged: (bool? v) {
-                  setState(() => _animate = v ?? true);
-                  if (_animate) {
-                    _clock.repeat();
-                  } else {
-                    _clock.stop();
-                  }
-                  _controlEdit('animate', '${v ?? true}');
-                }, child: const Text('Animate')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) {
-                  setState(() => _showGrid = v ?? true);
-                  _controlEdit('showGrid', '${v ?? true}');
-                }, child: const Text('Grid')),
-                CheckboxMenuButton(value: _showHeat, onChanged: (bool? v) {
-                  setState(() => _showHeat = v ?? true);
-                  _controlEdit('showHeat', '${v ?? true}');
-                }, child: const Text('Heat Map')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) {
-                  setState(() => _showDiagnostics = v ?? true);
-                  _controlEdit('diagnostics', '${v ?? true}');
-                }, child: const Text('Diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) {
-                  setState(() => _showGuide = v ?? true);
-                  _controlEdit('guide', '${v ?? true}');
-                }, child: const Text('Guide')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) {
-                  setState(() => _showTimeline = v ?? true);
-                  _controlEdit('timeline', '${v ?? true}');
-                }, child: const Text('Timeline')),
-                CheckboxMenuButton(value: _wrapStaticPanel, onChanged: (bool? v) {
-                  setState(() => _wrapStaticPanel = v ?? true);
-                  _controlEdit('wrapStaticPanel', '${v ?? true}');
-                }, child: const Text('Wrap static lane')),
-                CheckboxMenuButton(value: _wrapDynamicPanel, onChanged: (bool? v) {
-                  setState(() => _wrapDynamicPanel = v ?? true);
-                  _controlEdit('wrapDynamicPanel', '${v ?? true}');
-                }, child: const Text('Wrap dynamic lane')),
-                CheckboxMenuButton(value: _wrapScrollCards, onChanged: (bool? v) {
-                  setState(() => _wrapScrollCards = v ?? true);
-                  _controlEdit('wrapScrollCards', '${v ?? true}');
-                }, child: const Text('Wrap scroll cards')),
-                CheckboxMenuButton(value: _wrapDashboardCharts, onChanged: (bool? v) {
-                  setState(() => _wrapDashboardCharts = v ?? true);
-                  _controlEdit('wrapDashboardCharts', '${v ?? true}');
-                }, child: const Text('Wrap charts')),
-                CheckboxMenuButton(value: _enableStress, onChanged: (bool? v) {
-                  setState(() => _enableStress = v ?? true);
-                  _controlEdit('enableStress', '${v ?? true}');
-                }, child: const Text('Stress mode')),
+                CheckboxMenuButton(
+                  value: _animate,
+                  onChanged: (bool? v) {
+                    setState(() => _animate = v ?? true);
+                    if (_animate) {
+                      _clock.repeat();
+                    } else {
+                      _clock.stop();
+                    }
+                    _controlEdit('animate', '${v ?? true}');
+                  },
+                  child: const Text('Animate'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) {
+                    setState(() => _showGrid = v ?? true);
+                    _controlEdit('showGrid', '${v ?? true}');
+                  },
+                  child: const Text('Grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showHeat,
+                  onChanged: (bool? v) {
+                    setState(() => _showHeat = v ?? true);
+                    _controlEdit('showHeat', '${v ?? true}');
+                  },
+                  child: const Text('Heat Map'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) {
+                    setState(() => _showDiagnostics = v ?? true);
+                    _controlEdit('diagnostics', '${v ?? true}');
+                  },
+                  child: const Text('Diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) {
+                    setState(() => _showGuide = v ?? true);
+                    _controlEdit('guide', '${v ?? true}');
+                  },
+                  child: const Text('Guide'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) {
+                    setState(() => _showTimeline = v ?? true);
+                    _controlEdit('timeline', '${v ?? true}');
+                  },
+                  child: const Text('Timeline'),
+                ),
+                CheckboxMenuButton(
+                  value: _wrapStaticPanel,
+                  onChanged: (bool? v) {
+                    setState(() => _wrapStaticPanel = v ?? true);
+                    _controlEdit('wrapStaticPanel', '${v ?? true}');
+                  },
+                  child: const Text('Wrap static lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _wrapDynamicPanel,
+                  onChanged: (bool? v) {
+                    setState(() => _wrapDynamicPanel = v ?? true);
+                    _controlEdit('wrapDynamicPanel', '${v ?? true}');
+                  },
+                  child: const Text('Wrap dynamic lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _wrapScrollCards,
+                  onChanged: (bool? v) {
+                    setState(() => _wrapScrollCards = v ?? true);
+                    _controlEdit('wrapScrollCards', '${v ?? true}');
+                  },
+                  child: const Text('Wrap scroll cards'),
+                ),
+                CheckboxMenuButton(
+                  value: _wrapDashboardCharts,
+                  onChanged: (bool? v) {
+                    setState(() => _wrapDashboardCharts = v ?? true);
+                    _controlEdit('wrapDashboardCharts', '${v ?? true}');
+                  },
+                  child: const Text('Wrap charts'),
+                ),
+                CheckboxMenuButton(
+                  value: _enableStress,
+                  onChanged: (bool? v) {
+                    setState(() => _enableStress = v ?? true);
+                    _controlEdit('enableStress', '${v ?? true}');
+                  },
+                  child: const Text('Stress mode'),
+                ),
               ],
             ),
           ],
@@ -750,11 +906,23 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -768,9 +936,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Scenario Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Scenario Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Interact with each mode to observe repaint-boundary behavior in realistic UI compositions.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Interact with each mode to observe repaint-boundary behavior in realistic UI compositions.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             SizedBox(
               height: _stageHeight,
@@ -793,7 +971,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                     if (_showHeat)
                       IgnorePointer(
                         child: CustomPaint(
-                          painter: _HeatPainter(points: _heatPoints, intensity: _heatIntensity),
+                          painter: _HeatPainter(
+                            points: _heatPoints,
+                            intensity: _heatIntensity,
+                          ),
                         ),
                       ),
                   ],
@@ -833,7 +1014,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               scheme: scheme,
               laneId: 'baseline-lane',
               title: 'Baseline (No Explicit Boundary)',
-              subtitle: 'Animated visuals without dedicated subtree capture boundary.',
+              subtitle:
+                  'Animated visuals without dedicated subtree capture boundary.',
               colorA: scheme.secondary,
               colorB: scheme.tertiary,
               withBoundary: false,
@@ -845,7 +1027,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               scheme: scheme,
               laneId: 'isolated-lane',
               title: 'Isolated (RepaintBoundary)',
-              subtitle: 'Animated subtree wrapped for repaint isolation and selective capture.',
+              subtitle:
+                  'Animated subtree wrapped for repaint isolation and selective capture.',
               colorA: scheme.primary,
               colorB: scheme.secondary,
               withBoundary: true,
@@ -875,7 +1058,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: <Color>[colorA.withValues(alpha: _tileOpacity), colorB.withValues(alpha: _tileOpacity)],
+            colors: <Color>[
+              colorA.withValues(alpha: _tileOpacity),
+              colorB.withValues(alpha: _tileOpacity),
+            ],
           ),
         ),
         child: Padding(
@@ -883,9 +1069,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 5),
-              Text(subtitle, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+              Text(
+                subtitle,
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
+              ),
               const SizedBox(height: 10),
               Expanded(
                 child: AnimatedBuilder(
@@ -894,7 +1090,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                     final double t = _clock.value * _animationSpeed;
                     return Column(
                       children: List<Widget>.generate(4, (int i) {
-                        final double n = (math.sin((t + i * 0.2) * math.pi * 2) + 1) / 2;
+                        final double n =
+                            (math.sin((t + i * 0.2) * math.pi * 2) + 1) / 2;
                         return Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 8),
@@ -903,15 +1100,22 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                                 borderRadius: BorderRadius.circular(12),
                                 gradient: LinearGradient(
                                   colors: <Color>[
-                                    Colors.white.withValues(alpha: 0.08 + n * 0.30),
-                                    Colors.black.withValues(alpha: 0.10 + (1 - n) * 0.34),
+                                    Colors.white.withValues(
+                                      alpha: 0.08 + n * 0.30,
+                                    ),
+                                    Colors.black.withValues(
+                                      alpha: 0.10 + (1 - n) * 0.34,
+                                    ),
                                   ],
                                 ),
                               ),
                               child: Center(
                                 child: Text(
                                   'pulse ${(n * 100).toStringAsFixed(0)}%',
-                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
                               ),
                             ),
@@ -925,8 +1129,18 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(999)),
-                child: Text('hits=${_laneHits[laneId] ?? 0}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12)),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.22),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: Text(
+                  'hits=${_laneHits[laneId] ?? 0}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
               ),
             ],
           ),
@@ -960,9 +1174,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text('Capture Surface', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
+            const Text(
+              'Capture Surface',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
-            const Text('This panel is wrapped in RepaintBoundary and can be exported with toImage.', style: TextStyle(color: Colors.white70)),
+            const Text(
+              'This panel is wrapped in RepaintBoundary and can be exported with toImage.',
+              style: TextStyle(color: Colors.white70),
+            ),
             const SizedBox(height: 12),
             Expanded(
               child: AnimatedBuilder(
@@ -1003,7 +1227,8 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           Expanded(
             flex: 3,
             child: Listener(
-              onPointerDown: (PointerDownEvent e) => _hit('capture-surface', e.localPosition),
+              onPointerDown: (PointerDownEvent e) =>
+                  _hit('capture-surface', e.localPosition),
               child: RepaintBoundary(key: _captureKey, child: captureSurface),
             ),
           ),
@@ -1020,9 +1245,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('Capture Console', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'Capture Console',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 16,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  Text(_captureInfo, style: const TextStyle(color: Colors.white70)),
+                  Text(
+                    _captureInfo,
+                    style: const TextStyle(color: Colors.white70),
+                  ),
                   const SizedBox(height: 10),
                   ElevatedButton.icon(
                     onPressed: _captureBoundary,
@@ -1030,14 +1265,35 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                     label: const Text('Capture boundary image'),
                   ),
                   const SizedBox(height: 10),
-                  Text('last size=${_capturedWidth}x$_capturedHeight', style: const TextStyle(color: Colors.white70)),
-                  Text('last bytes=$_capturedBytes', style: const TextStyle(color: Colors.white70)),
+                  Text(
+                    'last size=${_capturedWidth}x$_capturedHeight',
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  Text(
+                    'last bytes=$_capturedBytes',
+                    style: const TextStyle(color: Colors.white70),
+                  ),
                   const SizedBox(height: 12),
-                  const Text('Practical usage samples:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  const Text(
+                    'Practical usage samples:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  const Text('1. Export chart image previews', style: TextStyle(color: Colors.white70)),
-                  const Text('2. Generate shareable snapshots', style: TextStyle(color: Colors.white70)),
-                  const Text('3. Debug visual states in interpreter flows', style: TextStyle(color: Colors.white70)),
+                  const Text(
+                    '1. Export chart image previews',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  const Text(
+                    '2. Generate shareable snapshots',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                  const Text(
+                    '3. Debug visual states in interpreter flows',
+                    style: TextStyle(color: Colors.white70),
+                  ),
                 ],
               ),
             ),
@@ -1096,14 +1352,18 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
   Widget _scrollTile(ColorScheme scheme, int index, bool boundaryCandidate) {
     final Color base = boundaryCandidate ? scheme.primary : scheme.secondary;
     return Listener(
-      onPointerDown: (PointerDownEvent e) => _hit('scroll-$index', e.localPosition),
+      onPointerDown: (PointerDownEvent e) =>
+          _hit('scroll-$index', e.localPosition),
       child: Container(
         height: 112,
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_tileRoundness),
           gradient: LinearGradient(
-            colors: <Color>[base.withValues(alpha: _tileOpacity), scheme.tertiary.withValues(alpha: _tileOpacity)],
+            colors: <Color>[
+              base.withValues(alpha: _tileOpacity),
+              scheme.tertiary.withValues(alpha: _tileOpacity),
+            ],
           ),
           border: Border.all(color: Colors.white.withValues(alpha: 0.44)),
         ),
@@ -1113,8 +1373,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
             Container(
               width: 44,
               height: 44,
-              decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.22), borderRadius: BorderRadius.circular(12)),
-              child: Center(child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800))),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.22),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -1122,11 +1393,20 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Scroll card ${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+                  Text(
+                    'Scroll card ${index + 1}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   Text(
                     boundaryCandidate
-                        ? (_wrapScrollCards ? 'Wrapped in RepaintBoundary' : 'Candidate boundary disabled')
+                        ? (_wrapScrollCards
+                              ? 'Wrapped in RepaintBoundary'
+                              : 'Candidate boundary disabled')
                         : 'Baseline sibling card',
                     style: const TextStyle(color: Colors.white70),
                   ),
@@ -1136,8 +1416,18 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
             Container(
               margin: const EdgeInsets.only(right: 12),
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.24), borderRadius: BorderRadius.circular(999)),
-              child: Text('hits=${_laneHits['scroll-$index'] ?? 0}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.24),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                'hits=${_laneHits['scroll-$index'] ?? 0}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                ),
+              ),
             ),
           ],
         ),
@@ -1150,7 +1440,12 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       final Widget chartWidget = Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(_tileRoundness),
-          gradient: LinearGradient(colors: <Color>[a.withValues(alpha: _tileOpacity), b.withValues(alpha: _tileOpacity)]),
+          gradient: LinearGradient(
+            colors: <Color>[
+              a.withValues(alpha: _tileOpacity),
+              b.withValues(alpha: _tileOpacity),
+            ],
+          ),
           border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
         ),
         child: Listener(
@@ -1160,7 +1455,11 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
             builder: (BuildContext context, Widget? child) {
               final double t = _clock.value * _animationSpeed;
               return CustomPaint(
-                painter: _BarPulsePainter(progress: t, strength: _isolationStrength, noise: _noise),
+                painter: _BarPulsePainter(
+                  progress: t,
+                  strength: _isolationStrength,
+                  noise: _noise,
+                ),
                 child: const SizedBox.expand(),
               );
             },
@@ -1183,11 +1482,24 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Static Panel', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+          Text(
+            'Static Panel',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 15,
+            ),
+          ),
           SizedBox(height: 6),
-          Text('This region simulates mostly static UI around dynamic charts.', style: TextStyle(color: Colors.white70)),
+          Text(
+            'This region simulates mostly static UI around dynamic charts.',
+            style: TextStyle(color: Colors.white70),
+          ),
           SizedBox(height: 6),
-          Text('Boundary wrapping can keep this panel from repainting excessively.', style: TextStyle(color: Colors.white70)),
+          Text(
+            'Boundary wrapping can keep this panel from repainting excessively.',
+            style: TextStyle(color: Colors.white70),
+          ),
         ],
       ),
     );
@@ -1202,7 +1514,14 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Dynamic Counters', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+          const Text(
+            'Dynamic Counters',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 15,
+            ),
+          ),
           const SizedBox(height: 8),
           _counterRow('frameTick', _frameTick),
           _counterRow('paintTick', _paintTick),
@@ -1219,11 +1538,25 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(child: chart('dash-chart-1', scheme.primary, scheme.secondary)),
+                Expanded(
+                  child: chart(
+                    'dash-chart-1',
+                    scheme.primary,
+                    scheme.secondary,
+                  ),
+                ),
                 const SizedBox(width: 10),
-                Expanded(child: chart('dash-chart-2', scheme.secondary, scheme.tertiary)),
+                Expanded(
+                  child: chart(
+                    'dash-chart-2',
+                    scheme.secondary,
+                    scheme.tertiary,
+                  ),
+                ),
                 const SizedBox(width: 10),
-                Expanded(child: chart('dash-chart-3', scheme.tertiary, scheme.primary)),
+                Expanded(
+                  child: chart('dash-chart-3', scheme.tertiary, scheme.primary),
+                ),
               ],
             ),
           ),
@@ -1231,9 +1564,17 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(child: _wrapStaticPanel ? RepaintBoundary(child: staticPanel) : staticPanel),
+                Expanded(
+                  child: _wrapStaticPanel
+                      ? RepaintBoundary(child: staticPanel)
+                      : staticPanel,
+                ),
                 const SizedBox(width: 10),
-                Expanded(child: _wrapDynamicPanel ? RepaintBoundary(child: dynamicPanel) : dynamicPanel),
+                Expanded(
+                  child: _wrapDynamicPanel
+                      ? RepaintBoundary(child: dynamicPanel)
+                      : dynamicPanel,
+                ),
               ],
             ),
           ),
@@ -1247,8 +1588,16 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
       padding: const EdgeInsets.only(bottom: 6),
       child: Row(
         children: <Widget>[
-          Expanded(child: Text(label, style: const TextStyle(color: Colors.white70))),
-          Text('$value', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Expanded(
+            child: Text(label, style: const TextStyle(color: Colors.white70)),
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -1268,12 +1617,15 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         itemBuilder: (BuildContext context, int index) {
           final bool boundary = index.isEven;
           final Widget cell = Listener(
-            onPointerDown: (PointerDownEvent e) => _hit('heat-$index', e.localPosition),
-            onPointerMove: (PointerMoveEvent e) => _hit('heat-$index', e.localPosition),
+            onPointerDown: (PointerDownEvent e) =>
+                _hit('heat-$index', e.localPosition),
+            onPointerMove: (PointerMoveEvent e) =>
+                _hit('heat-$index', e.localPosition),
             child: AnimatedBuilder(
               animation: _clock,
               builder: (BuildContext context, Widget? child) {
-                final double t = (_clock.value * _animationSpeed + index * 0.07) % 1.0;
+                final double t =
+                    (_clock.value * _animationSpeed + index * 0.07) % 1.0;
                 final double pulse = (math.sin(t * math.pi * 2) + 1) / 2;
                 return Container(
                   decoration: BoxDecoration(
@@ -1281,15 +1633,22 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                     gradient: LinearGradient(
                       colors: <Color>[
                         scheme.primary.withValues(alpha: 0.22 + pulse * 0.55),
-                        scheme.secondary.withValues(alpha: 0.22 + (1 - pulse) * 0.55),
+                        scheme.secondary.withValues(
+                          alpha: 0.22 + (1 - pulse) * 0.55,
+                        ),
                       ],
                     ),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.45),
+                    ),
                   ),
                   child: Center(
                     child: Text(
                       boundary ? 'B$index' : 'N$index',
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 );
@@ -1324,14 +1683,39 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('Interpreter Verification Checklist', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 17)),
+              const Text(
+                'Interpreter Verification Checklist',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 17,
+                ),
+              ),
               const SizedBox(height: 10),
-              const Text('1. Compare Isolation Arena lanes while animation runs.', style: TextStyle(color: Colors.white70)),
-              const Text('2. Toggle boundary wrappers and confirm metric/timeline changes.', style: TextStyle(color: Colors.white70)),
-              const Text('3. Use Capture Studio to run toImage workflow and inspect output metadata.', style: TextStyle(color: Colors.white70)),
-              const Text('4. Scroll the board and test selective card boundaries.', style: TextStyle(color: Colors.white70)),
-              const Text('5. Validate dashboard lane behavior with chart/static panel toggles.', style: TextStyle(color: Colors.white70)),
-              const Text('6. Confirm no analyzer issues for this demo file.', style: TextStyle(color: Colors.white70)),
+              const Text(
+                '1. Compare Isolation Arena lanes while animation runs.',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const Text(
+                '2. Toggle boundary wrappers and confirm metric/timeline changes.',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const Text(
+                '3. Use Capture Studio to run toImage workflow and inspect output metadata.',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const Text(
+                '4. Scroll the board and test selective card boundaries.',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const Text(
+                '5. Validate dashboard lane behavior with chart/static panel toggles.',
+                style: TextStyle(color: Colors.white70),
+              ),
+              const Text(
+                '6. Confirm no analyzer issues for this demo file.',
+                style: TextStyle(color: Colors.white70),
+              ),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -1360,7 +1744,14 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         color: Colors.black.withValues(alpha: 0.22),
         border: Border.all(color: Colors.white.withValues(alpha: 0.42)),
       ),
-      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -1373,9 +1764,19 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Concept Map', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Concept Map',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Different practical ways RepaintBoundary appears in product UIs.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Different practical ways RepaintBoundary appears in product UIs.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1383,25 +1784,44 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                 final Widget cardA = _conceptCard(
                   scheme,
                   title: 'Animation Islands',
-                  note: 'Boundary around active animation to protect static siblings from repaint churn.',
+                  note:
+                      'Boundary around active animation to protect static siblings from repaint churn.',
                   accent: const Color(0xFF0EA5E9),
                 );
                 final Widget cardB = _conceptCard(
                   scheme,
                   title: 'Snapshot Regions',
-                  note: 'Boundary key used with toImage for exportable visual captures.',
+                  note:
+                      'Boundary key used with toImage for exportable visual captures.',
                   accent: const Color(0xFFEA580C),
                 );
                 final Widget cardC = _conceptCard(
                   scheme,
                   title: 'Scrollable Cards',
-                  note: 'Selective card-level boundaries for mixed static/dynamic feed items.',
+                  note:
+                      'Selective card-level boundaries for mixed static/dynamic feed items.',
                   accent: const Color(0xFF7C3AED),
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[cardA, const SizedBox(height: 10), cardB, const SizedBox(height: 10), cardC]);
+                  return Column(
+                    children: <Widget>[
+                      cardA,
+                      const SizedBox(height: 10),
+                      cardB,
+                      const SizedBox(height: 10),
+                      cardC,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: cardA), const SizedBox(width: 10), Expanded(child: cardB), const SizedBox(width: 10), Expanded(child: cardC)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: cardA),
+                    const SizedBox(width: 10),
+                    Expanded(child: cardB),
+                    const SizedBox(width: 10),
+                    Expanded(child: cardC),
+                  ],
+                );
               },
             ),
           ],
@@ -1410,7 +1830,12 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
     );
   }
 
-  Widget _conceptCard(ColorScheme scheme, {required String title, required String note, required Color accent}) {
+  Widget _conceptCard(
+    ColorScheme scheme, {
+    required String title,
+    required String note,
+    required Color accent,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1422,9 +1847,18 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 6),
-            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              note,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -1435,7 +1869,10 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                 border: Border.all(color: accent.withValues(alpha: 0.75)),
               ),
               child: Center(
-                child: Text('Boundary candidate', style: TextStyle(color: accent, fontWeight: FontWeight.w800)),
+                child: Text(
+                  'Boundary candidate',
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w800),
+                ),
               ),
             ),
           ],
@@ -1446,26 +1883,128 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
 
   Widget _buildMetricsBoard(ColorScheme scheme) {
     final List<_MetricCard> metrics = <_MetricCard>[
-      _MetricCard(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Current stage mode.', icon: Icons.route_outlined),
-      _MetricCard(label: 'Theme', value: _themePalettes[_themeIndex].name, note: 'Active palette.', icon: Icons.palette_outlined),
-      _MetricCard(label: 'Frame Tick', value: '$_frameTick', note: 'Animation frame progression.', icon: Icons.timelapse_outlined),
-      _MetricCard(label: 'Paint Tick', value: '$_paintTick', note: 'Estimated repaint pressure indicator.', icon: Icons.brush_outlined),
-      _MetricCard(label: 'Scroll Tick', value: '$_scrollTick', note: 'Scroll event count.', icon: Icons.swap_vert_outlined),
-      _MetricCard(label: 'Interaction Tick', value: '$_interactionTick', note: 'Pointer interactions on stage.', icon: Icons.touch_app_outlined),
-      _MetricCard(label: 'Scenario Switches', value: '$_scenarioSwitches', note: 'Scenario changes.', icon: Icons.change_circle_outlined),
-      _MetricCard(label: 'Theme Switches', value: '$_themeSwitches', note: 'Theme changes.', icon: Icons.color_lens_outlined),
-      _MetricCard(label: 'Control Edits', value: '$_controlEdits', note: 'Control interaction count.', icon: Icons.tune_outlined),
-      _MetricCard(label: 'Capture Attempts', value: '$_captureAttempts', note: 'Boundary capture requests.', icon: Icons.camera_outlined),
-      _MetricCard(label: 'Capture Success', value: '$_captureSuccess', note: 'Successful captures.', icon: Icons.check_circle_outline),
-      _MetricCard(label: 'Capture Failure', value: '$_captureFailure', note: 'Failed captures.', icon: Icons.error_outline),
-      _MetricCard(label: 'Capture Size', value: '${_capturedWidth}x$_capturedHeight', note: 'Last capture dimensions.', icon: Icons.photo_size_select_large_outlined),
-      _MetricCard(label: 'Capture Bytes', value: '$_capturedBytes', note: 'PNG byte length.', icon: Icons.data_object_outlined),
-      _MetricCard(label: 'Animation Speed', value: _animationSpeed.toStringAsFixed(2), note: 'Clock multiplier.', icon: Icons.speed_outlined),
-      _MetricCard(label: 'Isolation Strength', value: _isolationStrength.toStringAsFixed(2), note: 'Visual stress intensity.', icon: Icons.layers_outlined),
-      _MetricCard(label: 'Tile Style', value: 'r=${_tileRoundness.toStringAsFixed(1)} o=${_tileOpacity.toStringAsFixed(2)}', note: 'Stage tile look.', icon: Icons.widgets_outlined),
-      _MetricCard(label: 'Grid', value: '${_showGrid ? 'on' : 'off'} @${_gridDensity.toStringAsFixed(1)}', note: 'Background grid state.', icon: Icons.grid_on_outlined),
-      _MetricCard(label: 'Heat Points', value: '${_heatPoints.length}', note: 'Current heat-map samples.', icon: Icons.blur_on_outlined),
-      _MetricCard(label: 'Last Event', value: _lastChannel, note: _lastMessage, icon: Icons.info_outline),
+      _MetricCard(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Current stage mode.',
+        icon: Icons.route_outlined,
+      ),
+      _MetricCard(
+        label: 'Theme',
+        value: _themePalettes[_themeIndex].name,
+        note: 'Active palette.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricCard(
+        label: 'Frame Tick',
+        value: '$_frameTick',
+        note: 'Animation frame progression.',
+        icon: Icons.timelapse_outlined,
+      ),
+      _MetricCard(
+        label: 'Paint Tick',
+        value: '$_paintTick',
+        note: 'Estimated repaint pressure indicator.',
+        icon: Icons.brush_outlined,
+      ),
+      _MetricCard(
+        label: 'Scroll Tick',
+        value: '$_scrollTick',
+        note: 'Scroll event count.',
+        icon: Icons.swap_vert_outlined,
+      ),
+      _MetricCard(
+        label: 'Interaction Tick',
+        value: '$_interactionTick',
+        note: 'Pointer interactions on stage.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricCard(
+        label: 'Scenario Switches',
+        value: '$_scenarioSwitches',
+        note: 'Scenario changes.',
+        icon: Icons.change_circle_outlined,
+      ),
+      _MetricCard(
+        label: 'Theme Switches',
+        value: '$_themeSwitches',
+        note: 'Theme changes.',
+        icon: Icons.color_lens_outlined,
+      ),
+      _MetricCard(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Control interaction count.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricCard(
+        label: 'Capture Attempts',
+        value: '$_captureAttempts',
+        note: 'Boundary capture requests.',
+        icon: Icons.camera_outlined,
+      ),
+      _MetricCard(
+        label: 'Capture Success',
+        value: '$_captureSuccess',
+        note: 'Successful captures.',
+        icon: Icons.check_circle_outline,
+      ),
+      _MetricCard(
+        label: 'Capture Failure',
+        value: '$_captureFailure',
+        note: 'Failed captures.',
+        icon: Icons.error_outline,
+      ),
+      _MetricCard(
+        label: 'Capture Size',
+        value: '${_capturedWidth}x$_capturedHeight',
+        note: 'Last capture dimensions.',
+        icon: Icons.photo_size_select_large_outlined,
+      ),
+      _MetricCard(
+        label: 'Capture Bytes',
+        value: '$_capturedBytes',
+        note: 'PNG byte length.',
+        icon: Icons.data_object_outlined,
+      ),
+      _MetricCard(
+        label: 'Animation Speed',
+        value: _animationSpeed.toStringAsFixed(2),
+        note: 'Clock multiplier.',
+        icon: Icons.speed_outlined,
+      ),
+      _MetricCard(
+        label: 'Isolation Strength',
+        value: _isolationStrength.toStringAsFixed(2),
+        note: 'Visual stress intensity.',
+        icon: Icons.layers_outlined,
+      ),
+      _MetricCard(
+        label: 'Tile Style',
+        value:
+            'r=${_tileRoundness.toStringAsFixed(1)} o=${_tileOpacity.toStringAsFixed(2)}',
+        note: 'Stage tile look.',
+        icon: Icons.widgets_outlined,
+      ),
+      _MetricCard(
+        label: 'Grid',
+        value:
+            '${_showGrid ? 'on' : 'off'} @${_gridDensity.toStringAsFixed(1)}',
+        note: 'Background grid state.',
+        icon: Icons.grid_on_outlined,
+      ),
+      _MetricCard(
+        label: 'Heat Points',
+        value: '${_heatPoints.length}',
+        note: 'Current heat-map samples.',
+        icon: Icons.blur_on_outlined,
+      ),
+      _MetricCard(
+        label: 'Last Event',
+        value: _lastChannel,
+        note: _lastMessage,
+        icon: Icons.info_outline,
+      ),
     ];
 
     return Card(
@@ -1476,17 +2015,24 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1512,15 +2058,44 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(metric.icon, size: 18, color: scheme.primary),
+                                Icon(
+                                  metric.icon,
+                                  size: 18,
+                                  color: scheme.primary,
+                                ),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(metric.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    metric.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(metric.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              metric.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(metric.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              metric.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1562,7 +2137,14 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideLines.map((String line) {
               return Padding(
@@ -1570,15 +2152,23 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqs.map(( _Faq faq) {
+            ..._faqs.map((_Faq faq) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(12),
@@ -1590,9 +2180,18 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(faq.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                    Text(
+                      faq.question,
+                      style: TextStyle(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text(faq.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text(
+                      faq.answer,
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    ),
                   ],
                 ),
               );
@@ -1614,7 +2213,14 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1638,12 +2244,16 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Interact with the scenario to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Interact with the scenario to populate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.take(46).map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.take(46).map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 9),
                     decoration: BoxDecoration(
@@ -1655,10 +2265,26 @@ class _RenderRepaintBoundaryObservatoryState extends State<_RenderRepaintBoundar
                       dense: true,
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(event.channel.characters.first.toUpperCase(), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        child: Text(
+                          event.channel.characters.first.toUpperCase(),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
                       ),
-                      title: Text('${event.channel} | tick ${event.tick}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13)),
-                      subtitle: Text('$stamp  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                      title: Text(
+                        '${event.channel} | tick ${event.tick}',
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  ${event.message}',
+                        style: TextStyle(
+                          color: scheme.onSurfaceVariant,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1699,7 +2325,10 @@ class _GridPainter extends CustomPainter {
         ],
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bg);
-    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.black.withValues(alpha: 0.22));
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = Colors.black.withValues(alpha: 0.22),
+    );
 
     final Paint grid = Paint()
       ..color = Colors.white.withValues(alpha: 0.12)
@@ -1731,7 +2360,8 @@ class _HeatPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (int i = 0; i < points.length; i += 1) {
-      final double strength = (1 - (i / math.max(points.length, 1))) * intensity;
+      final double strength =
+          (1 - (i / math.max(points.length, 1))) * intensity;
       final Offset p = points[i];
       final Rect rect = Rect.fromCircle(center: p, radius: 28);
       final Paint paint = Paint()
@@ -1778,19 +2408,26 @@ class _CaptureWavePainter extends CustomPainter {
     path.moveTo(0, size.height * 0.65);
     for (double x = 0; x <= size.width; x += 8) {
       final double t = x / size.width;
-      final double y = size.height * (0.65 + (math.sin((t + progress) * math.pi * 2) * 0.16 * strength));
+      final double y =
+          size.height *
+          (0.65 + (math.sin((t + progress) * math.pi * 2) * 0.16 * strength));
       path.lineTo(x, y);
     }
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
     path.close();
 
-    canvas.drawPath(path, Paint()..color = Colors.white.withValues(alpha: 0.18));
+    canvas.drawPath(
+      path,
+      Paint()..color = Colors.white.withValues(alpha: 0.18),
+    );
   }
 
   @override
   bool shouldRepaint(covariant _CaptureWavePainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.strength != strength || oldDelegate.alpha != alpha;
+    return oldDelegate.progress != progress ||
+        oldDelegate.strength != strength ||
+        oldDelegate.alpha != alpha;
   }
 }
 
@@ -1807,24 +2444,37 @@ class _BarPulsePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint base = Paint()..color = Colors.black.withValues(alpha: 0.18 + 0.12 * noise);
+    final Paint base = Paint()
+      ..color = Colors.black.withValues(alpha: 0.18 + 0.12 * noise);
     canvas.drawRect(Offset.zero & size, base);
 
     final int bars = 12;
     final double bw = size.width / (bars + 2);
     for (int i = 0; i < bars; i += 1) {
       final double t = (progress + i * 0.07) % 1.0;
-      final double hFactor = 0.2 + 0.75 * (0.5 + 0.5 * math.sin(t * math.pi * 2));
+      final double hFactor =
+          0.2 + 0.75 * (0.5 + 0.5 * math.sin(t * math.pi * 2));
       final double h = size.height * hFactor * (0.3 + strength * 0.7);
-      final Rect rect = Rect.fromLTWH((i + 1) * bw, size.height - h, bw * 0.65, h);
+      final Rect rect = Rect.fromLTWH(
+        (i + 1) * bw,
+        size.height - h,
+        bw * 0.65,
+        h,
+      );
       final RRect bar = RRect.fromRectAndRadius(rect, const Radius.circular(6));
-      final Color color = Color.lerp(const Color(0xFF22D3EE), const Color(0xFFF59E0B), i / bars)!;
+      final Color color = Color.lerp(
+        const Color(0xFF22D3EE),
+        const Color(0xFFF59E0B),
+        i / bars,
+      )!;
       canvas.drawRRect(bar, Paint()..color = color.withValues(alpha: 0.72));
     }
   }
 
   @override
   bool shouldRepaint(covariant _BarPulsePainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.strength != strength || oldDelegate.noise != noise;
+    return oldDelegate.progress != progress ||
+        oldDelegate.strength != strength ||
+        oldDelegate.noise != noise;
   }
 }

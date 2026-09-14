@@ -82,9 +82,7 @@ class _OverlayChildLocationDemo extends StatelessWidget {
             tabAlignment: TabAlignment.start,
             labelColor: cs.onPrimaryContainer,
             indicatorColor: cs.primary,
-            tabs: _tabLabels
-                .map((String label) => Tab(text: label))
-                .toList(),
+            tabs: _tabLabels.map((String label) => Tab(text: label)).toList(),
           ),
         ),
         body: const TabBarView(
@@ -142,7 +140,8 @@ class _HeroBannerTab extends StatelessWidget {
                       Expanded(
                         child: Text(
                           'OverlayChildLocation',
-                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(
                                 color: cs.onPrimaryContainer,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -156,17 +155,26 @@ class _HeroBannerTab extends StatelessWidget {
                     'renders its overlay child on — the nearest ancestor Overlay '
                     'or the root Overlay above the current View.',
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: cs.onPrimaryContainer,
-                        ),
+                      color: cs.onPrimaryContainer,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: <Widget>[
-                      _HeroBadge(label: 'Flutter 3.27+', icon: Icons.flutter_dash),
-                      _HeroBadge(label: 'widgets library', icon: Icons.widgets_rounded),
-                      _HeroBadge(label: 'OverlayPortal', icon: Icons.open_in_new_rounded),
+                      _HeroBadge(
+                        label: 'Flutter 3.27+',
+                        icon: Icons.flutter_dash,
+                      ),
+                      _HeroBadge(
+                        label: 'widgets library',
+                        icon: Icons.widgets_rounded,
+                      ),
+                      _HeroBadge(
+                        label: 'OverlayPortal',
+                        icon: Icons.open_in_new_rounded,
+                      ),
                       _HeroBadge(label: 'enum', icon: Icons.code_rounded),
                     ],
                   ),
@@ -310,15 +318,17 @@ class _EnumValueCard extends StatelessWidget {
                   Text(
                     name,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: onColor,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'monospace',
-                        ),
+                      color: onColor,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     description,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: onColor),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: onColor),
                   ),
                 ],
               ),
@@ -410,21 +420,26 @@ class _OverlayArchitecturePainter extends CustomPainter {
         ..strokeWidth = 1.5,
     );
     final TextPainter tp = TextPainter(
-      text: TextSpan(text: label, style: style.copyWith(color: fg, fontSize: 12)),
+      text: TextSpan(
+        text: label,
+        style: style.copyWith(color: fg, fontSize: 12),
+      ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
     )..layout(maxWidth: _boxW - 8);
     tp.paint(
       canvas,
-      topLeft +
-          Offset(
-            (_boxW - tp.width) / 2,
-            (_boxH - tp.height) / 2,
-          ),
+      topLeft + Offset((_boxW - tp.width) / 2, (_boxH - tp.height) / 2),
     );
   }
 
-  void _drawArrow(Canvas canvas, Offset from, Offset to, Color color, {bool dashed = false}) {
+  void _drawArrow(
+    Canvas canvas,
+    Offset from,
+    Offset to,
+    Color color, {
+    bool dashed = false,
+  }) {
     final Paint p = Paint()
       ..color = color
       ..strokeWidth = 2
@@ -478,26 +493,82 @@ class _OverlayArchitecturePainter extends CustomPainter {
     final double cx = size.width / 2;
 
     // Root View box
-    _drawBox(canvas, Offset(cx - _boxW / 2, 8), 'View', colorScheme.surfaceContainerHighest, colorScheme.outline, style);
+    _drawBox(
+      canvas,
+      Offset(cx - _boxW / 2, 8),
+      'View',
+      colorScheme.surfaceContainerHighest,
+      colorScheme.outline,
+      style,
+    );
 
     // Root Overlay box
-    _drawBox(canvas, Offset(16, 68), 'Root Overlay', colorScheme.primaryContainer, colorScheme.onPrimaryContainer, style);
+    _drawBox(
+      canvas,
+      Offset(16, 68),
+      'Root Overlay',
+      colorScheme.primaryContainer,
+      colorScheme.onPrimaryContainer,
+      style,
+    );
 
     // MaterialApp / Navigator box
-    _drawBox(canvas, Offset(cx - _boxW / 2, 68), 'MaterialApp\n(Navigator)', colorScheme.secondaryContainer, colorScheme.onSecondaryContainer, style);
+    _drawBox(
+      canvas,
+      Offset(cx - _boxW / 2, 68),
+      'MaterialApp\n(Navigator)',
+      colorScheme.secondaryContainer,
+      colorScheme.onSecondaryContainer,
+      style,
+    );
 
     // Nested Navigator
-    _drawBox(canvas, Offset(size.width - _boxW - 16, 68), 'Nested\nNavigator', colorScheme.tertiaryContainer, colorScheme.onTertiaryContainer, style);
+    _drawBox(
+      canvas,
+      Offset(size.width - _boxW - 16, 68),
+      'Nested\nNavigator',
+      colorScheme.tertiaryContainer,
+      colorScheme.onTertiaryContainer,
+      style,
+    );
 
     // Route Overlay (nearest)
-    _drawBox(canvas, Offset(cx - _boxW / 2, 148), 'Route Overlay\n(nearest)', colorScheme.secondaryContainer, colorScheme.onSecondaryContainer, style);
+    _drawBox(
+      canvas,
+      Offset(cx - _boxW / 2, 148),
+      'Route Overlay\n(nearest)',
+      colorScheme.secondaryContainer,
+      colorScheme.onSecondaryContainer,
+      style,
+    );
 
     // OverlayPortal
-    _drawBox(canvas, Offset(cx - _boxW / 2, 228), 'OverlayPortal', colorScheme.errorContainer, colorScheme.onErrorContainer, style);
+    _drawBox(
+      canvas,
+      Offset(cx - _boxW / 2, 228),
+      'OverlayPortal',
+      colorScheme.errorContainer,
+      colorScheme.onErrorContainer,
+      style,
+    );
 
     // overlayLocation labels
-    _drawBox(canvas, Offset(16, 308), 'rootOverlay\nchild', colorScheme.primaryContainer, colorScheme.onPrimaryContainer, style);
-    _drawBox(canvas, Offset(cx - _boxW / 2, 308), 'nearestOverlay\nchild', colorScheme.secondaryContainer, colorScheme.onSecondaryContainer, style);
+    _drawBox(
+      canvas,
+      Offset(16, 308),
+      'rootOverlay\nchild',
+      colorScheme.primaryContainer,
+      colorScheme.onPrimaryContainer,
+      style,
+    );
+    _drawBox(
+      canvas,
+      Offset(cx - _boxW / 2, 308),
+      'nearestOverlay\nchild',
+      colorScheme.secondaryContainer,
+      colorScheme.onSecondaryContainer,
+      style,
+    );
 
     // Draw connection lines
     final Color lineColor = colorScheme.outline;
@@ -505,11 +576,21 @@ class _OverlayArchitecturePainter extends CustomPainter {
     final Color rootColor = colorScheme.primary;
 
     // View → Root Overlay
-    _drawArrow(canvas, Offset(cx - _boxW / 2, 30), Offset(16 + _boxW / 2, 68), lineColor);
+    _drawArrow(
+      canvas,
+      Offset(cx - _boxW / 2, 30),
+      Offset(16 + _boxW / 2, 68),
+      lineColor,
+    );
     // View → MaterialApp
     _drawArrow(canvas, Offset(cx, 52), Offset(cx, 68), lineColor);
     // View → Nested Navigator
-    _drawArrow(canvas, Offset(cx + _boxW / 2, 30), Offset(size.width - 16 - _boxW / 2, 68), lineColor);
+    _drawArrow(
+      canvas,
+      Offset(cx + _boxW / 2, 30),
+      Offset(size.width - 16 - _boxW / 2, 68),
+      lineColor,
+    );
     // MaterialApp → Route Overlay
     _drawArrow(canvas, Offset(cx, 112), Offset(cx, 148), lineColor);
     // Route Overlay → OverlayPortal
@@ -517,7 +598,13 @@ class _OverlayArchitecturePainter extends CustomPainter {
     // OverlayPortal → nearestOverlay child
     _drawArrow(canvas, Offset(cx, 272), Offset(cx, 308), nearColor);
     // OverlayPortal → rootOverlay child (dashed, curved via intermediate point)
-    _drawArrow(canvas, Offset(cx - _boxW / 2, 252), Offset(16 + _boxW / 2, 330), rootColor, dashed: true);
+    _drawArrow(
+      canvas,
+      Offset(cx - _boxW / 2, 252),
+      Offset(16 + _boxW / 2, 330),
+      rootColor,
+      dashed: true,
+    );
 
     // Legend text
     final TextPainter nearTP = TextPainter(
@@ -527,7 +614,10 @@ class _OverlayArchitecturePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    nearTP.paint(canvas, Offset(cx + _boxW / 2 + 8, 308 + (_boxH - nearTP.height) / 2));
+    nearTP.paint(
+      canvas,
+      Offset(cx + _boxW / 2 + 8, 308 + (_boxH - nearTP.height) / 2),
+    );
 
     final TextPainter rootTP = TextPainter(
       text: TextSpan(
@@ -539,8 +629,20 @@ class _OverlayArchitecturePainter extends CustomPainter {
     rootTP.paint(canvas, Offset(16, 308 + _boxH + 8));
 
     // Step labels
-    _drawLabel(canvas, Offset(cx + _boxW / 2 + 8, 148 + 8), '② nearest Overlay\n   receives child', colorScheme.secondary, style);
-    _drawLabel(canvas, Offset(16, 68 + _boxH + 8), '① root Overlay\n   receives child', colorScheme.primary, style);
+    _drawLabel(
+      canvas,
+      Offset(cx + _boxW / 2 + 8, 148 + 8),
+      '② nearest Overlay\n   receives child',
+      colorScheme.secondary,
+      style,
+    );
+    _drawLabel(
+      canvas,
+      Offset(16, 68 + _boxH + 8),
+      '① root Overlay\n   receives child',
+      colorScheme.primary,
+      style,
+    );
 
     // Divider showing "above route" boundary
     final Paint divPaint = Paint()
@@ -551,7 +653,8 @@ class _OverlayArchitecturePainter extends CustomPainter {
     canvas.drawLine(Offset(0, divY), Offset(size.width, divY), divPaint);
     final TextPainter divTP = TextPainter(
       text: TextSpan(
-        text: 'Overlay paint order: OverlayEntry → OverlayPortal children → next OverlayEntry',
+        text:
+            'Overlay paint order: OverlayEntry → OverlayPortal children → next OverlayEntry',
         style: style.copyWith(fontSize: 10, color: colorScheme.outline),
       ),
       textDirection: TextDirection.ltr,
@@ -559,9 +662,18 @@ class _OverlayArchitecturePainter extends CustomPainter {
     divTP.paint(canvas, Offset(16, divY + 8));
   }
 
-  void _drawLabel(Canvas canvas, Offset pos, String text, Color color, TextStyle base) {
+  void _drawLabel(
+    Canvas canvas,
+    Offset pos,
+    String text,
+    Color color,
+    TextStyle base,
+  ) {
     final TextPainter tp = TextPainter(
-      text: TextSpan(text: text, style: base.copyWith(color: color, fontSize: 10)),
+      text: TextSpan(
+        text: text,
+        style: base.copyWith(color: color, fontSize: 10),
+      ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: 160);
     tp.paint(canvas, pos);
@@ -583,8 +695,14 @@ class _LayerLegend extends StatelessWidget {
       runSpacing: 8,
       children: <Widget>[
         _LegendChip(color: colorScheme.primaryContainer, label: 'Root Overlay'),
-        _LegendChip(color: colorScheme.secondaryContainer, label: 'Nearest Overlay'),
-        _LegendChip(color: colorScheme.tertiaryContainer, label: 'Nested Navigator'),
+        _LegendChip(
+          color: colorScheme.secondaryContainer,
+          label: 'Nearest Overlay',
+        ),
+        _LegendChip(
+          color: colorScheme.tertiaryContainer,
+          label: 'Nested Navigator',
+        ),
         _LegendChip(color: colorScheme.errorContainer, label: 'OverlayPortal'),
       ],
     );
@@ -602,7 +720,10 @@ class _LegendChip extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         DecoratedBox(
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(4),
+          ),
           child: const SizedBox(width: 20, height: 20),
         ),
         const SizedBox(width: 6),
@@ -672,48 +793,59 @@ class _LocationSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<OverlayChildLocation>(
       valueListenable: _activeLocation,
-      builder: (BuildContext context, OverlayChildLocation value, Widget? child) {
-        return Card(
-          elevation: 0,
-          color: colorScheme.surfaceContainerLow,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'overlayLocation:',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+      builder:
+          (BuildContext context, OverlayChildLocation value, Widget? child) {
+            return Card(
+              elevation: 0,
+              color: colorScheme.surfaceContainerLow,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'overlayLocation:',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: colorScheme.onSurfaceVariant,
                       ),
-                ),
-                const SizedBox(height: 12),
-                RadioGroup<OverlayChildLocation>(
-                  groupValue: value,
-                  onChanged: (OverlayChildLocation? v) {
-                    if (v != null) _activeLocation.value = v;
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      RadioListTile<OverlayChildLocation>(
-                        title: const Text('OverlayChildLocation.nearestOverlay'),
-                        subtitle: const Text('Default — targets closest ancestor Overlay'),
-                        value: OverlayChildLocation.nearestOverlay,
+                    ),
+                    const SizedBox(height: 12),
+                    RadioGroup<OverlayChildLocation>(
+                      groupValue: value,
+                      onChanged: (OverlayChildLocation? v) {
+                        if (v != null) _activeLocation.value = v;
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          RadioListTile<OverlayChildLocation>(
+                            title: const Text(
+                              'OverlayChildLocation.nearestOverlay',
+                            ),
+                            subtitle: const Text(
+                              'Default — targets closest ancestor Overlay',
+                            ),
+                            value: OverlayChildLocation.nearestOverlay,
+                          ),
+                          RadioListTile<OverlayChildLocation>(
+                            title: const Text(
+                              'OverlayChildLocation.rootOverlay',
+                            ),
+                            subtitle: const Text(
+                              'Targets root Overlay, bypasses nested navigators',
+                            ),
+                            value: OverlayChildLocation.rootOverlay,
+                          ),
+                        ],
                       ),
-                      RadioListTile<OverlayChildLocation>(
-                        title: const Text('OverlayChildLocation.rootOverlay'),
-                        subtitle: const Text('Targets root Overlay, bypasses nested navigators'),
-                        value: OverlayChildLocation.rootOverlay,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+            );
+          },
     );
   }
 }
@@ -726,77 +858,86 @@ class _LiveOverlayDemoArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<OverlayChildLocation>(
       valueListenable: _activeLocation,
-      builder: (BuildContext context, OverlayChildLocation location, Widget? child) {
-        return Card(
-          elevation: 2,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  'Active: ${location == OverlayChildLocation.nearestOverlay ? "nearestOverlay" : "rootOverlay"}',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+      builder:
+          (BuildContext context, OverlayChildLocation location, Widget? child) {
+            return Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Active: ${location == OverlayChildLocation.nearestOverlay ? "nearestOverlay" : "rootOverlay"}',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: colorScheme.primary,
                         fontWeight: FontWeight.w700,
                       ),
-                ),
-                const SizedBox(height: 16),
-                OverlayPortal(
-                  controller: _tooltipController,
-                  overlayLocation: location,
-                  overlayChildBuilder: (BuildContext ctx) {
-                    return Positioned(
-                      top: 90,
-                      left: 24,
-                      right: 24,
-                      child: _FloatingOverlayBanner(
-                        location: location,
-                        onDismiss: _tooltipController.hide,
-                      ),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FilledButton.icon(
-                        onPressed: _tooltipController.show,
-                        icon: const Icon(Icons.visibility_rounded),
-                        label: const Text('Show Overlay'),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton.icon(
-                        onPressed: _tooltipController.hide,
-                        icon: const Icon(Icons.visibility_off_rounded),
-                        label: const Text('Hide Overlay'),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
-                ValueListenableBuilder<bool>(
-                  valueListenable: ValueNotifier<bool>(true),
-                  builder: (BuildContext ctx, bool value2, Widget? child2) {
-                    final bool isShowing = _tooltipController.isShowing;
-                    return Text(
-                      'Controller.isShowing = $isShowing',
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: isShowing ? colorScheme.primary : colorScheme.outline,
+                    ),
+                    const SizedBox(height: 16),
+                    OverlayPortal(
+                      controller: _tooltipController,
+                      overlayLocation: location,
+                      overlayChildBuilder: (BuildContext ctx) {
+                        return Positioned(
+                          top: 90,
+                          left: 24,
+                          right: 24,
+                          child: _FloatingOverlayBanner(
+                            location: location,
+                            onDismiss: _tooltipController.hide,
                           ),
-                    );
-                  },
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FilledButton.icon(
+                            onPressed: _tooltipController.show,
+                            icon: const Icon(Icons.visibility_rounded),
+                            label: const Text('Show Overlay'),
+                          ),
+                          const SizedBox(width: 12),
+                          OutlinedButton.icon(
+                            onPressed: _tooltipController.hide,
+                            icon: const Icon(Icons.visibility_off_rounded),
+                            label: const Text('Hide Overlay'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: ValueNotifier<bool>(true),
+                      builder: (BuildContext ctx, bool value2, Widget? child2) {
+                        final bool isShowing = _tooltipController.isShowing;
+                        return Text(
+                          'Controller.isShowing = $isShowing',
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
+                                color: isShowing
+                                    ? colorScheme.primary
+                                    : colorScheme.outline,
+                              ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+            );
+          },
     );
   }
 }
 
 class _FloatingOverlayBanner extends StatelessWidget {
-  const _FloatingOverlayBanner({required this.location, required this.onDismiss});
+  const _FloatingOverlayBanner({
+    required this.location,
+    required this.onDismiss,
+  });
   final OverlayChildLocation location;
   final VoidCallback onDismiss;
 
@@ -825,24 +966,30 @@ class _FloatingOverlayBanner extends StatelessWidget {
                   Text(
                     isRoot ? 'Root Overlay Child' : 'Nearest Overlay Child',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: isRoot ? cs.onPrimaryContainer : cs.onSecondaryContainer,
-                          fontWeight: FontWeight.w700,
-                        ),
+                      color: isRoot
+                          ? cs.onPrimaryContainer
+                          : cs.onSecondaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Text(
                     isRoot
                         ? 'Rendered on the root Overlay — floats above everything'
                         : 'Rendered on the nearest ancestor Overlay',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: isRoot ? cs.onPrimaryContainer : cs.onSecondaryContainer,
-                        ),
+                      color: isRoot
+                          ? cs.onPrimaryContainer
+                          : cs.onSecondaryContainer,
+                    ),
                   ),
                 ],
               ),
             ),
             IconButton(
-              icon: Icon(Icons.close_rounded,
-                  color: isRoot ? cs.onPrimaryContainer : cs.onSecondaryContainer),
+              icon: Icon(
+                Icons.close_rounded,
+                color: isRoot ? cs.onPrimaryContainer : cs.onSecondaryContainer,
+              ),
               onPressed: onDismiss,
             ),
           ],
@@ -991,9 +1138,9 @@ class _UseCaseCard extends StatelessWidget {
                       Text(
                         title,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: onColor,
-                              fontWeight: FontWeight.w700,
-                            ),
+                          color: onColor,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const Spacer(),
                       Chip(
@@ -1010,7 +1157,9 @@ class _UseCaseCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: onColor),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: onColor),
                   ),
                 ],
               ),
@@ -1038,7 +1187,9 @@ class _InteractiveShowcase extends StatelessWidget {
           controller: _dropdownController,
           location: OverlayChildLocation.nearestOverlay,
           colorScheme: colorScheme,
-          overlayContent: _DropdownOverlayContent(onDismiss: _dropdownController.hide),
+          overlayContent: _DropdownOverlayContent(
+            onDismiss: _dropdownController.hide,
+          ),
         ),
         _ShowcaseButton(
           label: 'Context Menu',
@@ -1046,7 +1197,9 @@ class _InteractiveShowcase extends StatelessWidget {
           controller: _contextMenuController,
           location: OverlayChildLocation.nearestOverlay,
           colorScheme: colorScheme,
-          overlayContent: _ContextMenuContent(onDismiss: _contextMenuController.hide),
+          overlayContent: _ContextMenuContent(
+            onDismiss: _contextMenuController.hide,
+          ),
         ),
         _ShowcaseButton(
           label: 'Popover',
@@ -1099,12 +1252,7 @@ class _ShowcaseButton extends StatelessWidget {
                 onTap: controller.hide,
               ),
             ),
-            Positioned(
-              top: 120,
-              left: 24,
-              right: 24,
-              child: overlayContent,
-            ),
+            Positioned(top: 120, left: 24, right: 24, child: overlayContent),
           ],
         );
       },
@@ -1121,7 +1269,12 @@ class _DropdownOverlayContent extends StatelessWidget {
   const _DropdownOverlayContent({required this.onDismiss});
   final VoidCallback onDismiss;
 
-  static const List<String> _items = <String>['Option Alpha', 'Option Beta', 'Option Gamma', 'Option Delta'];
+  static const List<String> _items = <String>[
+    'Option Alpha',
+    'Option Beta',
+    'Option Gamma',
+    'Option Delta',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -1156,11 +1309,27 @@ class _ContextMenuContent extends StatelessWidget {
       color: cs.surfaceContainerHigh,
       child: Column(
         children: <Widget>[
-          ListTile(leading: const Icon(Icons.copy_rounded), title: const Text('Copy'), onTap: onDismiss),
-          ListTile(leading: const Icon(Icons.cut_rounded), title: const Text('Cut'), onTap: onDismiss),
-          ListTile(leading: const Icon(Icons.paste_rounded), title: const Text('Paste'), onTap: onDismiss),
+          ListTile(
+            leading: const Icon(Icons.copy_rounded),
+            title: const Text('Copy'),
+            onTap: onDismiss,
+          ),
+          ListTile(
+            leading: const Icon(Icons.cut_rounded),
+            title: const Text('Cut'),
+            onTap: onDismiss,
+          ),
+          ListTile(
+            leading: const Icon(Icons.paste_rounded),
+            title: const Text('Paste'),
+            onTap: onDismiss,
+          ),
           const Divider(),
-          ListTile(leading: const Icon(Icons.delete_outline_rounded), title: const Text('Delete'), onTap: onDismiss),
+          ListTile(
+            leading: const Icon(Icons.delete_outline_rounded),
+            title: const Text('Delete'),
+            onTap: onDismiss,
+          ),
         ],
       ),
     );
@@ -1187,10 +1356,20 @@ class _PopoverContent extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.info_rounded, color: cs.onInverseSurface),
                 const SizedBox(width: 8),
-                Text('Popover Info', style: TextStyle(color: cs.onInverseSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Popover Info',
+                  style: TextStyle(
+                    color: cs.onInverseSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const Spacer(),
                 IconButton(
-                  icon: Icon(Icons.close_rounded, color: cs.onInverseSurface, size: 18),
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: cs.onInverseSurface,
+                    size: 18,
+                  ),
                   onPressed: onDismiss,
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
@@ -1230,7 +1409,10 @@ class _RootBannerContent extends StatelessWidget {
             Expanded(
               child: Text(
                 'Root Overlay Banner — floats above everything via rootOverlay',
-                style: TextStyle(color: cs.onPrimaryContainer, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: cs.onPrimaryContainer,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
             IconButton(
@@ -1283,7 +1465,8 @@ class _AnchorPatternTab extends StatelessWidget {
               _ApiField(
                 name: 'childSize',
                 type: 'Size',
-                description: 'The size of the OverlayPortal child in its own coordinate system.',
+                description:
+                    'The size of the OverlayPortal child in its own coordinate system.',
               ),
               _ApiField(
                 name: 'childPaintTransform',
@@ -1295,7 +1478,8 @@ class _AnchorPatternTab extends StatelessWidget {
               _ApiField(
                 name: 'overlaySize',
                 type: 'Size',
-                description: 'The size of the target Overlay, useful for edge clamping.',
+                description:
+                    'The size of the target Overlay, useful for edge clamping.',
               ),
             ],
           ),
@@ -1326,25 +1510,35 @@ class _AnchorDemo extends StatelessWidget {
           children: <Widget>[
             Text(
               'overlayChildLayoutBuilder Demo',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 12),
             OverlayPortal.overlayChildLayoutBuilder(
               controller: _badgeController,
               overlayLocation: OverlayChildLocation.nearestOverlay,
-              overlayChildBuilder: (BuildContext ctx, OverlayChildLayoutInfo info) {
-                // Position the badge in the top-right corner of the trigger
-                final Matrix4 transform = info.childPaintTransform;
-                final double dx = transform.getTranslation().x + info.childSize.width - 8;
-                final double dy = transform.getTranslation().y - 8;
-                final double safeX = dx.clamp(0, info.overlaySize.width - 24);
-                final double safeY = dy.clamp(0, info.overlaySize.height - 24);
-                return Positioned(
-                  left: safeX,
-                  top: safeY,
-                  child: _NotificationBadge(),
-                );
-              },
+              overlayChildBuilder:
+                  (BuildContext ctx, OverlayChildLayoutInfo info) {
+                    // Position the badge in the top-right corner of the trigger
+                    final Matrix4 transform = info.childPaintTransform;
+                    final double dx =
+                        transform.getTranslation().x + info.childSize.width - 8;
+                    final double dy = transform.getTranslation().y - 8;
+                    final double safeX = dx.clamp(
+                      0,
+                      info.overlaySize.width - 24,
+                    );
+                    final double safeY = dy.clamp(
+                      0,
+                      info.overlaySize.height - 24,
+                    );
+                    return Positioned(
+                      left: safeX,
+                      top: safeY,
+                      child: _NotificationBadge(),
+                    );
+                  },
               child: FilledButton.tonalIcon(
                 onPressed: () {
                   if (_badgeController.isShowing) {
@@ -1362,8 +1556,8 @@ class _AnchorDemo extends StatelessWidget {
               'The red badge is positioned relative to the button using '
               'OverlayChildLayoutInfo.childPaintTransform and childSize.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),
@@ -1386,7 +1580,14 @@ class _NotificationBadge extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(6),
-        child: Text('3', style: TextStyle(color: cs.onError, fontSize: 11, fontWeight: FontWeight.w800)),
+        child: Text(
+          '3',
+          style: TextStyle(
+            color: cs.onError,
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ),
     );
   }
@@ -1409,7 +1610,9 @@ class _CompositedAnchorDemo extends StatelessWidget {
           children: <Widget>[
             Text(
               'CompositedTransformTarget + Follower',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 12),
             _ProseCard(
@@ -1496,48 +1699,117 @@ class _ComparisonTable extends StatelessWidget {
       child: DataTable(
         headingRowColor: WidgetStateProperty.all(colorScheme.primaryContainer),
         columns: <DataColumn>[
-          DataColumn(label: Text('Approach', style: TextStyle(fontWeight: FontWeight.w700, color: colorScheme.onPrimaryContainer))),
-          DataColumn(label: Text('InheritedWidget access', style: TextStyle(fontWeight: FontWeight.w700, color: colorScheme.onPrimaryContainer))),
-          DataColumn(label: Text('Overlay target', style: TextStyle(fontWeight: FontWeight.w700, color: colorScheme.onPrimaryContainer))),
-          DataColumn(label: Text('Lifetime', style: TextStyle(fontWeight: FontWeight.w700, color: colorScheme.onPrimaryContainer))),
-          DataColumn(label: Text('Best for', style: TextStyle(fontWeight: FontWeight.w700, color: colorScheme.onPrimaryContainer))),
+          DataColumn(
+            label: Text(
+              'Approach',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onPrimaryContainer,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'InheritedWidget access',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onPrimaryContainer,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'Overlay target',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onPrimaryContainer,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'Lifetime',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onPrimaryContainer,
+              ),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'Best for',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onPrimaryContainer,
+              ),
+            ),
+          ),
         ],
         rows: const <DataRow>[
-          DataRow(cells: <DataCell>[
-            DataCell(Text('OverlayEntry', style: TextStyle(fontFamily: 'monospace'))),
-            DataCell(Text('❌ No — separate subtree')),
-            DataCell(Text('manual insert/remove')),
-            DataCell(Text('manual')),
-            DataCell(Text('Complex drag avatars')),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text('OverlayPortal (nearest)', style: TextStyle(fontFamily: 'monospace'))),
-            DataCell(Text('✅ Yes')),
-            DataCell(Text('closest ancestor Overlay')),
-            DataCell(Text('tied to OverlayPortal')),
-            DataCell(Text('Tooltips, dropdowns')),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text('OverlayPortal (root)', style: TextStyle(fontFamily: 'monospace'))),
-            DataCell(Text('✅ Yes')),
-            DataCell(Text('root Overlay')),
-            DataCell(Text('tied to OverlayPortal')),
-            DataCell(Text('Global banners')),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text('Stack', style: TextStyle(fontFamily: 'monospace'))),
-            DataCell(Text('✅ Yes')),
-            DataCell(Text('N/A — within widget')),
-            DataCell(Text('widget lifetime')),
-            DataCell(Text('Simple local layering')),
-          ]),
-          DataRow(cells: <DataCell>[
-            DataCell(Text('Navigator.overlay', style: TextStyle(fontFamily: 'monospace'))),
-            DataCell(Text('❌ No')),
-            DataCell(Text('Navigator\'s Overlay')),
-            DataCell(Text('manual')),
-            DataCell(Text('Route transitions')),
-          ]),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text('OverlayEntry', style: TextStyle(fontFamily: 'monospace')),
+              ),
+              DataCell(Text('❌ No — separate subtree')),
+              DataCell(Text('manual insert/remove')),
+              DataCell(Text('manual')),
+              DataCell(Text('Complex drag avatars')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text(
+                  'OverlayPortal (nearest)',
+                  style: TextStyle(fontFamily: 'monospace'),
+                ),
+              ),
+              DataCell(Text('✅ Yes')),
+              DataCell(Text('closest ancestor Overlay')),
+              DataCell(Text('tied to OverlayPortal')),
+              DataCell(Text('Tooltips, dropdowns')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text(
+                  'OverlayPortal (root)',
+                  style: TextStyle(fontFamily: 'monospace'),
+                ),
+              ),
+              DataCell(Text('✅ Yes')),
+              DataCell(Text('root Overlay')),
+              DataCell(Text('tied to OverlayPortal')),
+              DataCell(Text('Global banners')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text('Stack', style: TextStyle(fontFamily: 'monospace')),
+              ),
+              DataCell(Text('✅ Yes')),
+              DataCell(Text('N/A — within widget')),
+              DataCell(Text('widget lifetime')),
+              DataCell(Text('Simple local layering')),
+            ],
+          ),
+          DataRow(
+            cells: <DataCell>[
+              DataCell(
+                Text(
+                  'Navigator.overlay',
+                  style: TextStyle(fontFamily: 'monospace'),
+                ),
+              ),
+              DataCell(Text('❌ No')),
+              DataCell(Text('Navigator\'s Overlay')),
+              DataCell(Text('manual')),
+              DataCell(Text('Route transitions')),
+            ],
+          ),
         ],
       ),
     );
@@ -1554,7 +1826,8 @@ class _DecisionFlow extends StatelessWidget {
       children: <Widget>[
         _FlowStep(
           step: '1',
-          question: 'Does the overlay need InheritedWidget access (Theme, locale)?',
+          question:
+              'Does the overlay need InheritedWidget access (Theme, locale)?',
           yes: 'Use OverlayPortal',
           no: 'OverlayEntry is also fine',
           colorScheme: colorScheme,
@@ -1609,18 +1882,37 @@ class _FlowStep extends StatelessWidget {
               backgroundColor: colorScheme.primary,
               foregroundColor: colorScheme.onPrimary,
               radius: 14,
-              child: Text(step, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
+              child: Text(
+                step,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 13,
+                ),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(question, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600)),
+                  Text(
+                    question,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   const SizedBox(height: 8),
-                  _FlowAnswerRow(label: 'YES', text: yes, color: colorScheme.primary),
+                  _FlowAnswerRow(
+                    label: 'YES',
+                    text: yes,
+                    color: colorScheme.primary,
+                  ),
                   const SizedBox(height: 4),
-                  _FlowAnswerRow(label: 'NO', text: no, color: colorScheme.outline),
+                  _FlowAnswerRow(
+                    label: 'NO',
+                    text: no,
+                    color: colorScheme.outline,
+                  ),
                 ],
               ),
             ),
@@ -1632,7 +1924,11 @@ class _FlowStep extends StatelessWidget {
 }
 
 class _FlowAnswerRow extends StatelessWidget {
-  const _FlowAnswerRow({required this.label, required this.text, required this.color});
+  const _FlowAnswerRow({
+    required this.label,
+    required this.text,
+    required this.color,
+  });
   final String label;
   final String text;
   final Color color;
@@ -1641,8 +1937,17 @@ class _FlowAnswerRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Text('$label: ', style: TextStyle(fontWeight: FontWeight.w700, color: color, fontSize: 12)),
-        Expanded(child: Text(text, style: Theme.of(context).textTheme.bodySmall)),
+        Text(
+          '$label: ',
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: color,
+            fontSize: 12,
+          ),
+        ),
+        Expanded(
+          child: Text(text, style: Theme.of(context).textTheme.bodySmall),
+        ),
       ],
     );
   }
@@ -1673,12 +1978,33 @@ class _PaintOrderCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Paint Order (bottom → top)', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              'Paint Order (bottom → top)',
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 12),
-            _PaintLayer(index: 1, label: 'OverlayEntry (enclosing Route)', color: colorScheme.surfaceContainerLowest),
-            _PaintLayer(index: 2, label: 'OverlayPortal child (first show())', color: colorScheme.primaryContainer),
-            _PaintLayer(index: 3, label: 'OverlayPortal child (second show())', color: colorScheme.secondaryContainer),
-            _PaintLayer(index: 4, label: 'Next OverlayEntry above', color: colorScheme.tertiaryContainer),
+            _PaintLayer(
+              index: 1,
+              label: 'OverlayEntry (enclosing Route)',
+              color: colorScheme.surfaceContainerLowest,
+            ),
+            _PaintLayer(
+              index: 2,
+              label: 'OverlayPortal child (first show())',
+              color: colorScheme.primaryContainer,
+            ),
+            _PaintLayer(
+              index: 3,
+              label: 'OverlayPortal child (second show())',
+              color: colorScheme.secondaryContainer,
+            ),
+            _PaintLayer(
+              index: 4,
+              label: 'Next OverlayEntry above',
+              color: colorScheme.tertiaryContainer,
+            ),
           ],
         ),
       ),
@@ -1687,7 +2013,11 @@ class _PaintOrderCard extends StatelessWidget {
 }
 
 class _PaintLayer extends StatelessWidget {
-  const _PaintLayer({required this.index, required this.label, required this.color});
+  const _PaintLayer({
+    required this.index,
+    required this.label,
+    required this.color,
+  });
   final int index;
   final String label;
   final Color color;
@@ -1699,8 +2029,23 @@ class _PaintLayer extends StatelessWidget {
       child: Row(
         children: <Widget>[
           DecoratedBox(
-            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(6)),
-            child: SizedBox(width: 28, height: 28, child: Center(child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)))),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: SizedBox(
+              width: 28,
+              height: 28,
+              child: Center(
+                child: Text(
+                  '$index',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Text(label, style: Theme.of(context).textTheme.bodyMedium),
@@ -1796,7 +2141,11 @@ class _MiniCardGrid extends StatelessWidget {
       ),
       itemCount: _cards.length,
       itemBuilder: (BuildContext context, int index) {
-        return _MiniCard(data: _cards[index], colorScheme: colorScheme, index: index);
+        return _MiniCard(
+          data: _cards[index],
+          colorScheme: colorScheme,
+          index: index,
+        );
       },
     );
   }
@@ -1818,7 +2167,11 @@ class _MiniCardData {
 }
 
 class _MiniCard extends StatelessWidget {
-  const _MiniCard({required this.data, required this.colorScheme, required this.index});
+  const _MiniCard({
+    required this.data,
+    required this.colorScheme,
+    required this.index,
+  });
   final _MiniCardData data;
   final ColorScheme colorScheme;
   final int index;
@@ -1860,28 +2213,56 @@ class _MiniCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     data.title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: fg, fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: fg,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
-            Text(data.scenario, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: fg)),
+            Text(
+              data.scenario,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: fg),
+            ),
             const SizedBox(height: 10),
             DecoratedBox(
-              decoration: BoxDecoration(color: fg.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                color: fg.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(data.code, style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: fg)),
+                child: Text(
+                  data.code,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: fg,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline_rounded, size: 14, color: fg.withValues(alpha: 0.7)),
+                Icon(
+                  Icons.lightbulb_outline_rounded,
+                  size: 14,
+                  color: fg.withValues(alpha: 0.7),
+                ),
                 const SizedBox(width: 4),
-                Expanded(child: Text(data.reason, style: TextStyle(fontSize: 11, color: fg.withValues(alpha: 0.85)))),
+                Expanded(
+                  child: Text(
+                    data.reason,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: fg.withValues(alpha: 0.85),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -1910,7 +2291,8 @@ class _PitfallsTab extends StatelessWidget {
           const SizedBox(height: 12),
           _PitfallTile(
             number: 1,
-            title: 'Using CompositedTransformFollower between OverlayPortal and Overlay',
+            title:
+                'Using CompositedTransformFollower between OverlayPortal and Overlay',
             detail:
                 'When using OverlayPortal.overlayChildLayoutBuilder, the RenderObject '
                 'of CompositedTransformFollower only establishes its paint transform '
@@ -1923,7 +2305,8 @@ class _PitfallsTab extends StatelessWidget {
           const SizedBox(height: 12),
           _PitfallTile(
             number: 2,
-            title: 'Calling show() / hide() before the OverlayPortal is mounted',
+            title:
+                'Calling show() / hide() before the OverlayPortal is mounted',
             detail:
                 'OverlayPortalController.show() and hide() can be called before the '
                 'controller is attached to any OverlayPortal. However, the isShowing '
@@ -1992,14 +2375,17 @@ class _PitfallTile extends StatelessWidget {
         leading: CircleAvatar(
           backgroundColor: colorScheme.error,
           foregroundColor: colorScheme.onError,
-          child: Text('$number', style: const TextStyle(fontWeight: FontWeight.w800)),
+          child: Text(
+            '$number',
+            style: const TextStyle(fontWeight: FontWeight.w800),
+          ),
         ),
         title: Text(
           title,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: colorScheme.onErrorContainer,
-                fontWeight: FontWeight.w700,
-              ),
+            color: colorScheme.onErrorContainer,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         iconColor: colorScheme.onErrorContainer,
         collapsedIconColor: colorScheme.onErrorContainer,
@@ -2008,7 +2394,9 @@ class _PitfallTile extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Text(
               detail,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorScheme.onErrorContainer),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onErrorContainer,
+              ),
             ),
           ),
         ],
@@ -2034,14 +2422,17 @@ class _DeprecationWarning extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(Icons.warning_amber_rounded, color: colorScheme.onTertiaryContainer),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: colorScheme.onTertiaryContainer,
+                ),
                 const SizedBox(width: 8),
                 Text(
                   'Deprecated: OverlayPortal.targetsRootOverlay()',
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: colorScheme.onTertiaryContainer,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    color: colorScheme.onTertiaryContainer,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ],
             ),
@@ -2053,9 +2444,9 @@ class _DeprecationWarning extends StatelessWidget {
               'After:\n  OverlayPortal(controller: c, overlayChildBuilder: b,\n'
               '    overlayLocation: OverlayChildLocation.rootOverlay)',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onTertiaryContainer,
-                    fontFamily: 'monospace',
-                  ),
+                color: colorScheme.onTertiaryContainer,
+                fontFamily: 'monospace',
+              ),
             ),
           ],
         ),
@@ -2108,7 +2499,8 @@ class _CheatSheetTab extends StatelessWidget {
               _ApiField(
                 name: 'controller',
                 type: 'OverlayPortalController',
-                description: 'Required. Controls show/hide/bringToTop of the overlay child.',
+                description:
+                    'Required. Controls show/hide/bringToTop of the overlay child.',
               ),
               _ApiField(
                 name: 'overlayChildBuilder',
@@ -2126,12 +2518,15 @@ class _CheatSheetTab extends StatelessWidget {
               _ApiField(
                 name: 'child',
                 type: 'Widget?',
-                description: 'The primary child of the OverlayPortal in the normal widget tree.',
+                description:
+                    'The primary child of the OverlayPortal in the normal widget tree.',
               ),
             ],
           ),
           const SizedBox(height: 20),
-          _SectionSubtitle('OverlayPortal.overlayChildLayoutBuilder (named constructor)'),
+          _SectionSubtitle(
+            'OverlayPortal.overlayChildLayoutBuilder (named constructor)',
+          ),
           const SizedBox(height: 8),
           _FieldTable(
             fields: const <_ApiField>[
@@ -2159,7 +2554,8 @@ class _CheatSheetTab extends StatelessWidget {
               _ApiField(
                 name: 'hide()',
                 type: 'void',
-                description: 'Hides the overlay child. Stateful descendants may lose state.',
+                description:
+                    'Hides the overlay child. Stateful descendants may lose state.',
               ),
               _ApiField(
                 name: 'isShowing',
@@ -2176,7 +2572,8 @@ class _CheatSheetTab extends StatelessWidget {
               _ApiField(
                 name: 'childSize',
                 type: 'Size',
-                description: 'Size of OverlayPortal.child in its own coordinate space.',
+                description:
+                    'Size of OverlayPortal.child in its own coordinate space.',
               ),
               _ApiField(
                 name: 'childPaintTransform',
@@ -2188,7 +2585,8 @@ class _CheatSheetTab extends StatelessWidget {
               _ApiField(
                 name: 'overlaySize',
                 type: 'Size',
-                description: 'Size of the target Overlay. Use for edge-clamp calculations.',
+                description:
+                    'Size of the target Overlay. Use for edge-clamp calculations.',
               ),
             ],
           ),
@@ -2251,9 +2649,9 @@ class _SectionTitle extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: cs.primary,
-            fontWeight: FontWeight.w800,
-          ),
+        color: cs.primary,
+        fontWeight: FontWeight.w800,
+      ),
     );
   }
 }
@@ -2268,9 +2666,9 @@ class _SectionSubtitle extends StatelessWidget {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: cs.secondary,
-            fontWeight: FontWeight.w700,
-          ),
+        color: cs.secondary,
+        fontWeight: FontWeight.w700,
+      ),
     );
   }
 }
@@ -2315,9 +2713,9 @@ class _CodeExplanationCard extends StatelessWidget {
           child: Text(
             code,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontFamily: 'monospace',
-                  color: cs.onSurface,
-                ),
+              fontFamily: 'monospace',
+              color: cs.onSurface,
+            ),
           ),
         ),
       ),
@@ -2326,7 +2724,11 @@ class _CodeExplanationCard extends StatelessWidget {
 }
 
 class _ApiField {
-  const _ApiField({required this.name, required this.type, required this.description});
+  const _ApiField({
+    required this.name,
+    required this.type,
+    required this.description,
+  });
   final String name;
   final String type;
   final String description;
@@ -2346,7 +2748,9 @@ class _FieldTable extends StatelessWidget {
           child: Card(
             elevation: 0,
             color: cs.surfaceContainerLow,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Row(
@@ -2359,7 +2763,8 @@ class _FieldTable extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           f.name,
-                          style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(
                                 fontFamily: 'monospace',
                                 fontWeight: FontWeight.w700,
                                 color: cs.primary,
@@ -2367,7 +2772,8 @@ class _FieldTable extends StatelessWidget {
                         ),
                         Text(
                           f.type,
-                          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
                                 color: cs.secondary,
                                 fontFamily: 'monospace',
                               ),

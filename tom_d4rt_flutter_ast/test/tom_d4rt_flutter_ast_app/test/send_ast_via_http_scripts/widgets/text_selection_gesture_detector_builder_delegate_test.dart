@@ -104,8 +104,7 @@ class _TsgdbdApp extends StatefulWidget {
   State<_TsgdbdApp> createState() => _TsgdbdAppState();
 }
 
-class _TsgdbdAppState extends State<_TsgdbdApp>
-    with TickerProviderStateMixin {
+class _TsgdbdAppState extends State<_TsgdbdApp> with TickerProviderStateMixin {
   late final AnimationController _pulseController;
 
   @override
@@ -194,8 +193,7 @@ class _TsgdbdAppState extends State<_TsgdbdApp>
               _TsgdbdSectionHeading(
                 ordinal: '04',
                 title: 'Signal-flow diagram',
-                subtitle:
-                    'Gesture → Detector → Delegate → EditableTextState.',
+                subtitle: 'Gesture → Detector → Delegate → EditableTextState.',
               ),
               const SizedBox(height: 12),
               _TsgdbdSignalFlowCard(controller: _pulseController),
@@ -321,15 +319,9 @@ class _TsgdbdHeroHeader extends StatelessWidget {
             const SizedBox(height: 10),
             Row(
               children: <Widget>[
-                _TsgdbdLegendDot(
-                  color: _tsgdbdTeal,
-                  label: 'pier / detector',
-                ),
+                _TsgdbdLegendDot(color: _tsgdbdTeal, label: 'pier / detector'),
                 const SizedBox(width: 14),
-                _TsgdbdLegendDot(
-                  color: _tsgdbdMustard,
-                  label: 'signal pulse',
-                ),
+                _TsgdbdLegendDot(color: _tsgdbdMustard, label: 'signal pulse'),
                 const SizedBox(width: 14),
                 _TsgdbdLegendDot(
                   color: _tsgdbdCream,
@@ -362,10 +354,7 @@ class _TsgdbdLegendDot extends StatelessWidget {
             color: color,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: color.withValues(alpha: 0.5),
-                blurRadius: 6,
-              ),
+              BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 6),
             ],
           ),
         ),
@@ -448,10 +437,7 @@ class _TsgdbdBridgePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[
-          _tsgdbdNavy,
-          _tsgdbdTealDeep.withValues(alpha: 0.7),
-        ],
+        colors: <Color>[_tsgdbdNavy, _tsgdbdTealDeep.withValues(alpha: 0.7)],
       ).createShader(rect);
     canvas.drawRect(rect, paint);
   }
@@ -487,22 +473,14 @@ class _TsgdbdBridgePainter extends CustomPainter {
     final Rect deck = Rect.fromLTWH(0, deckY, size.width, 6);
     canvas.drawRect(deck, deckPaint);
 
-    final Paint shadow = Paint()
-      ..color = _tsgdbdNavy.withValues(alpha: 0.5);
-    canvas.drawRect(
-      Rect.fromLTWH(0, deckY + 6, size.width, 2),
-      shadow,
-    );
+    final Paint shadow = Paint()..color = _tsgdbdNavy.withValues(alpha: 0.5);
+    canvas.drawRect(Rect.fromLTWH(0, deckY + 6, size.width, 2), shadow);
 
     final Paint guard = Paint()
       ..color = _tsgdbdMustard.withValues(alpha: 0.6)
       ..strokeWidth = 1.1;
     for (double x = 4; x < size.width; x += 12) {
-      canvas.drawLine(
-        Offset(x, deckY),
-        Offset(x, deckY - 3),
-        guard,
-      );
+      canvas.drawLine(Offset(x, deckY), Offset(x, deckY - 3), guard);
     }
   }
 
@@ -523,13 +501,8 @@ class _TsgdbdBridgePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[
-          _tsgdbdTeal,
-          _tsgdbdTealDeep,
-        ],
-      ).createShader(
-        Rect.fromLTWH(x - 10, topY, 20, baseY - topY),
-      );
+        colors: <Color>[_tsgdbdTeal, _tsgdbdTealDeep],
+      ).createShader(Rect.fromLTWH(x - 10, topY, 20, baseY - topY));
     canvas.drawPath(pylon, pylonPaint);
 
     final Paint crown = Paint()..color = _tsgdbdMustardGlow;
@@ -651,7 +624,8 @@ class _TsgdbdBridgePainter extends CustomPainter {
 // StatefulWidget wrapping the EditableText. Doing it as a standalone
 // class here makes the three-member contract very easy to read.
 // =========================================================================
-class _TsgdbdBridgeDelegate implements TextSelectionGestureDetectorBuilderDelegate {
+class _TsgdbdBridgeDelegate
+    implements TextSelectionGestureDetectorBuilderDelegate {
   _TsgdbdBridgeDelegate({
     required this.editableTextKey,
     required this.forcePressEnabled,
@@ -753,10 +727,7 @@ class _TsgdbdStageState extends State<_TsgdbdStage> {
       return;
     }
     if (sel.isCollapsed) {
-      _appendLog(
-        'caret at offset ${sel.baseOffset}',
-        _TsgdbdLogKind.caret,
-      );
+      _appendLog('caret at offset ${sel.baseOffset}', _TsgdbdLogKind.caret);
     } else {
       _appendLog(
         'selection [${sel.start}..${sel.end}]',
@@ -773,13 +744,13 @@ class _TsgdbdStageState extends State<_TsgdbdStage> {
   }
 
   void _onChanged(String value) {
-    _appendLog(
-      'onChanged — length=${value.length}',
-      _TsgdbdLogKind.edit,
-    );
+    _appendLog('onChanged — length=${value.length}', _TsgdbdLogKind.edit);
   }
 
-  void _onSelectionChanged(TextSelection selection, SelectionChangedCause? cause) {
+  void _onSelectionChanged(
+    TextSelection selection,
+    SelectionChangedCause? cause,
+  ) {
     _appendLog(
       'onSelectionChanged — cause=${cause ?? "unknown"}, '
       'range=[${selection.start}..${selection.end}]',
@@ -812,11 +783,7 @@ class _TsgdbdStageState extends State<_TsgdbdStage> {
       key: _editableKey,
       controller: _controller,
       focusNode: _focusNode,
-      style: const TextStyle(
-        color: _tsgdbdCream,
-        fontSize: 15,
-        height: 1.35,
-      ),
+      style: const TextStyle(color: _tsgdbdCream, fontSize: 15, height: 1.35),
       cursorColor: _tsgdbdMustard,
       backgroundCursorColor: _tsgdbdCream,
       maxLines: 3,
@@ -873,9 +840,7 @@ class _TsgdbdStageState extends State<_TsgdbdStage> {
             decoration: BoxDecoration(
               color: _tsgdbdNavy.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _tsgdbdCream.withValues(alpha: 0.15),
-              ),
+              border: Border.all(color: _tsgdbdCream.withValues(alpha: 0.15)),
             ),
             padding: const EdgeInsets.all(12),
             child: _builder.buildGestureDetector(
@@ -884,7 +849,10 @@ class _TsgdbdStageState extends State<_TsgdbdStage> {
             ),
           ),
           const SizedBox(height: 14),
-          _TsgdbdDelegatePropertyRow(delegate: _delegate, accent: widget.accent),
+          _TsgdbdDelegatePropertyRow(
+            delegate: _delegate,
+            accent: widget.accent,
+          ),
           const SizedBox(height: 14),
           _TsgdbdLogPanel(entries: _log, accent: widget.accent),
           const SizedBox(height: 10),
@@ -993,13 +961,7 @@ class _TsgdbdPropertyTile extends StatelessWidget {
 // =========================================================================
 // _TsgdbdLogEntry + _TsgdbdLogPanel — live action log.
 // =========================================================================
-enum _TsgdbdLogKind {
-  lifecycle,
-  focus,
-  caret,
-  selection,
-  edit,
-}
+enum _TsgdbdLogKind { lifecycle, focus, caret, selection, edit }
 
 class _TsgdbdLogEntry {
   _TsgdbdLogEntry({
@@ -1258,8 +1220,11 @@ class _TsgdbdSuppressedStage extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.info_outline,
-                  color: _tsgdbdMustardGlow, size: 18),
+              const Icon(
+                Icons.info_outline,
+                color: _tsgdbdMustardGlow,
+                size: 18,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1435,7 +1400,8 @@ class _TsgdbdSectionHeading extends StatelessWidget {
 class _TsgdbdApiCard extends StatelessWidget {
   const _TsgdbdApiCard();
 
-  static const String _interfaceSource = '''abstract class TextSelectionGestureDetectorBuilderDelegate {
+  static const String _interfaceSource =
+      '''abstract class TextSelectionGestureDetectorBuilderDelegate {
   /// [GlobalKey] to the [EditableText] for which the
   /// [TextSelectionGestureDetectorBuilder] will build a
   /// [TextSelectionGestureDetector].
@@ -1575,8 +1541,7 @@ class _TsgdbdSignalFlowCard extends StatelessWidget {
               animation: controller,
               builder: (BuildContext ctx, Widget? child) {
                 return CustomPaint(
-                  painter:
-                      _TsgdbdSignalFlowPainter(progress: controller.value),
+                  painter: _TsgdbdSignalFlowPainter(progress: controller.value),
                 );
               },
             ),
@@ -1666,11 +1631,7 @@ class _TsgdbdSignalFlowPainter extends CustomPainter {
   }
 
   void _paintNode(Canvas canvas, _TsgdbdFlowNode node, double w, double h) {
-    final Rect rect = Rect.fromCenter(
-      center: node.center,
-      width: w,
-      height: h,
-    );
+    final Rect rect = Rect.fromCenter(center: node.center, width: w, height: h);
     final RRect rrect = RRect.fromRectAndRadius(rect, const Radius.circular(8));
     final Paint fill = Paint()..color = node.color.withValues(alpha: 0.2);
     final Paint border = Paint()
@@ -1695,8 +1656,10 @@ class _TsgdbdSignalFlowPainter extends CustomPainter {
     )..layout(maxWidth: w - 6);
     titleTp.paint(
       canvas,
-      Offset(node.center.dx - titleTp.width / 2,
-          node.center.dy - titleTp.height - 1),
+      Offset(
+        node.center.dx - titleTp.width / 2,
+        node.center.dy - titleTp.height - 1,
+      ),
     );
 
     final TextPainter subTp = TextPainter(
@@ -1713,8 +1676,7 @@ class _TsgdbdSignalFlowPainter extends CustomPainter {
     )..layout(maxWidth: w - 6);
     subTp.paint(
       canvas,
-      Offset(node.center.dx - subTp.width / 2,
-          node.center.dy + 2),
+      Offset(node.center.dx - subTp.width / 2, node.center.dy + 2),
     );
   }
 
@@ -1733,12 +1695,14 @@ class _TsgdbdSignalFlowPainter extends CustomPainter {
     // Arrow head.
     final double angle = math.atan2(to.dy - from.dy, to.dx - from.dx);
     const double headLen = 7;
-    final Offset headLeft = to +
+    final Offset headLeft =
+        to +
         Offset(
           -headLen * math.cos(angle - math.pi / 7),
           -headLen * math.sin(angle - math.pi / 7),
         );
-    final Offset headRight = to +
+    final Offset headRight =
+        to +
         Offset(
           -headLen * math.cos(angle + math.pi / 7),
           -headLen * math.sin(angle + math.pi / 7),
@@ -1753,11 +1717,7 @@ class _TsgdbdSignalFlowPainter extends CustomPainter {
     // Pulse travelling along the arrow.
     final double t = (progress + phase) % 1.0;
     final Offset pulsePos = Offset.lerp(from, to, t)!;
-    canvas.drawCircle(
-      pulsePos,
-      3.6,
-      Paint()..color = _tsgdbdMustardGlow,
-    );
+    canvas.drawCircle(pulsePos, 3.6, Paint()..color = _tsgdbdMustardGlow);
     canvas.drawCircle(
       pulsePos,
       6.5,
@@ -1831,8 +1791,7 @@ class _TsgdbdMethodDirectory extends StatelessWidget {
       member: 'selectionEnabled',
       kind: 'getter',
       returns: 'bool',
-      role:
-          'Gates selection-affecting callbacks (long-press, drag-select, …).',
+      role: 'Gates selection-affecting callbacks (long-press, drag-select, …).',
     ),
     _TsgdbdDirectoryRow(
       member: 'onSingleTapUp',
@@ -1955,11 +1914,11 @@ class _TsgdbdMethodDirectory extends StatelessWidget {
               headingRowColor: WidgetStateProperty.all(
                 _tsgdbdNavy.withValues(alpha: 0.7),
               ),
-              dataRowColor: WidgetStateProperty.resolveWith(
-                (Set<WidgetState> states) {
-                  return _tsgdbdNavy.withValues(alpha: 0.25);
-                },
-              ),
+              dataRowColor: WidgetStateProperty.resolveWith((
+                Set<WidgetState> states,
+              ) {
+                return _tsgdbdNavy.withValues(alpha: 0.25);
+              }),
               headingTextStyle: const TextStyle(
                 color: _tsgdbdMustardGlow,
                 fontWeight: FontWeight.w700,
@@ -2149,8 +2108,7 @@ class _TsgdbdFooter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: <Widget>[
-          const Icon(Icons.all_inclusive,
-              color: _tsgdbdMustardGlow, size: 20),
+          const Icon(Icons.all_inclusive, color: _tsgdbdMustardGlow, size: 20),
           const SizedBox(width: 12),
           Expanded(
             child: Text(

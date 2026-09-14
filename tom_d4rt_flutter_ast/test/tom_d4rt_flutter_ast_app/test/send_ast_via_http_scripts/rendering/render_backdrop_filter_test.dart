@@ -7,7 +7,8 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
   _ThemePreset(
     id: 'glacier',
     name: 'Glacier Studio',
-    description: 'Bright high-contrast profile for blur comparison and edge readability.',
+    description:
+        'Bright high-contrast profile for blur comparison and edge readability.',
     seed: Color(0xFF0284C7),
     brightness: Brightness.light,
   ),
@@ -21,7 +22,8 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
   _ThemePreset(
     id: 'night',
     name: 'Night Deck',
-    description: 'Dark profile that makes frosted overlay effects very obvious.',
+    description:
+        'Dark profile that makes frosted overlay effects very obvious.',
     seed: Color(0xFF334155),
     brightness: Brightness.dark,
   ),
@@ -38,7 +40,8 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
   _ScenarioPreset(
     id: 'gallery',
     title: 'Frosted Gallery',
-    subtitle: 'Multiple cards compare blur strengths and tint overlays over one backdrop.',
+    subtitle:
+        'Multiple cards compare blur strengths and tint overlays over one backdrop.',
   ),
   _ScenarioPreset(
     id: 'blend',
@@ -63,26 +66,87 @@ const List<_ScenarioPreset> _scenarios = <_ScenarioPreset>[
 ];
 
 const List<_BlurPreset> _blurPresets = <_BlurPreset>[
-  _BlurPreset(label: 'Light', sigmaX: 3, sigmaY: 3, note: 'Subtle frosted effect.'),
-  _BlurPreset(label: 'Balanced', sigmaX: 8, sigmaY: 8, note: 'General-purpose glass effect.'),
-  _BlurPreset(label: 'Heavy', sigmaX: 14, sigmaY: 14, note: 'Strong blur for modal emphasis.'),
-  _BlurPreset(label: 'Wide X', sigmaX: 16, sigmaY: 5, note: 'Directional blur emphasizing horizontal smear.'),
-  _BlurPreset(label: 'Wide Y', sigmaX: 5, sigmaY: 16, note: 'Directional blur emphasizing vertical smear.'),
+  _BlurPreset(
+    label: 'Light',
+    sigmaX: 3,
+    sigmaY: 3,
+    note: 'Subtle frosted effect.',
+  ),
+  _BlurPreset(
+    label: 'Balanced',
+    sigmaX: 8,
+    sigmaY: 8,
+    note: 'General-purpose glass effect.',
+  ),
+  _BlurPreset(
+    label: 'Heavy',
+    sigmaX: 14,
+    sigmaY: 14,
+    note: 'Strong blur for modal emphasis.',
+  ),
+  _BlurPreset(
+    label: 'Wide X',
+    sigmaX: 16,
+    sigmaY: 5,
+    note: 'Directional blur emphasizing horizontal smear.',
+  ),
+  _BlurPreset(
+    label: 'Wide Y',
+    sigmaX: 5,
+    sigmaY: 16,
+    note: 'Directional blur emphasizing vertical smear.',
+  ),
 ];
 
 const List<_BlendPreset> _blendPresets = <_BlendPreset>[
-  _BlendPreset(label: 'SrcOver', mode: BlendMode.srcOver, note: 'Default compositing behavior.'),
-  _BlendPreset(label: 'Screen', mode: BlendMode.screen, note: 'Brightens overlays while preserving highlights.'),
-  _BlendPreset(label: 'Multiply', mode: BlendMode.multiply, note: 'Darkens and enriches dense backgrounds.'),
-  _BlendPreset(label: 'Overlay', mode: BlendMode.overlay, note: 'Boosts contrast with mixed bright/dark regions.'),
-  _BlendPreset(label: 'Plus', mode: BlendMode.plus, note: 'Additive blend useful for glow-like panels.'),
+  _BlendPreset(
+    label: 'SrcOver',
+    mode: BlendMode.srcOver,
+    note: 'Default compositing behavior.',
+  ),
+  _BlendPreset(
+    label: 'Screen',
+    mode: BlendMode.screen,
+    note: 'Brightens overlays while preserving highlights.',
+  ),
+  _BlendPreset(
+    label: 'Multiply',
+    mode: BlendMode.multiply,
+    note: 'Darkens and enriches dense backgrounds.',
+  ),
+  _BlendPreset(
+    label: 'Overlay',
+    mode: BlendMode.overlay,
+    note: 'Boosts contrast with mixed bright/dark regions.',
+  ),
+  _BlendPreset(
+    label: 'Plus',
+    mode: BlendMode.plus,
+    note: 'Additive blend useful for glow-like panels.',
+  ),
 ];
 
 const List<_ClipPreset> _clipPresets = <_ClipPreset>[
-  _ClipPreset(label: 'None', value: Clip.none, note: 'No clipping around filter region.'),
-  _ClipPreset(label: 'HardEdge', value: Clip.hardEdge, note: 'Fast rectangular clipping.'),
-  _ClipPreset(label: 'AntiAlias', value: Clip.antiAlias, note: 'Smoothed clip boundary.'),
-  _ClipPreset(label: 'SaveLayer', value: Clip.antiAliasWithSaveLayer, note: 'Highest fidelity with extra compositing cost.'),
+  _ClipPreset(
+    label: 'None',
+    value: Clip.none,
+    note: 'No clipping around filter region.',
+  ),
+  _ClipPreset(
+    label: 'HardEdge',
+    value: Clip.hardEdge,
+    note: 'Fast rectangular clipping.',
+  ),
+  _ClipPreset(
+    label: 'AntiAlias',
+    value: Clip.antiAlias,
+    note: 'Smoothed clip boundary.',
+  ),
+  _ClipPreset(
+    label: 'SaveLayer',
+    value: Clip.antiAliasWithSaveLayer,
+    note: 'Highest fidelity with extra compositing cost.',
+  ),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -101,19 +165,23 @@ const List<String> _guideBullets = <String>[
 const List<_FaqEntry> _faq = <_FaqEntry>[
   _FaqEntry(
     question: 'What does BackdropFilter blur exactly?',
-    answer: 'It blurs content already painted behind the filter region, not the child itself.',
+    answer:
+        'It blurs content already painted behind the filter region, not the child itself.',
   ),
   _FaqEntry(
     question: 'Why clip blur regions?',
-    answer: 'Without clipping, the filtered layer can cover larger areas than intended and cost more.',
+    answer:
+        'Without clipping, the filtered layer can cover larger areas than intended and cost more.',
   ),
   _FaqEntry(
     question: 'Should I animate sigma values?',
-    answer: 'You can, but test carefully because frequent large-kernel blur updates can be costly.',
+    answer:
+        'You can, but test carefully because frequent large-kernel blur updates can be costly.',
   ),
   _FaqEntry(
     question: 'How is this different from ImageFiltered?',
-    answer: 'ImageFiltered filters its child, while BackdropFilter filters content behind the child.',
+    answer:
+        'ImageFiltered filters its child, while BackdropFilter filters content behind the child.',
   ),
 ];
 
@@ -134,7 +202,11 @@ class _ThemePreset {
 }
 
 class _ScenarioPreset {
-  const _ScenarioPreset({required this.id, required this.title, required this.subtitle});
+  const _ScenarioPreset({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -142,7 +214,12 @@ class _ScenarioPreset {
 }
 
 class _BlurPreset {
-  const _BlurPreset({required this.label, required this.sigmaX, required this.sigmaY, required this.note});
+  const _BlurPreset({
+    required this.label,
+    required this.sigmaX,
+    required this.sigmaY,
+    required this.note,
+  });
 
   final String label;
   final double sigmaX;
@@ -151,7 +228,11 @@ class _BlurPreset {
 }
 
 class _BlendPreset {
-  const _BlendPreset({required this.label, required this.mode, required this.note});
+  const _BlendPreset({
+    required this.label,
+    required this.mode,
+    required this.note,
+  });
 
   final String label;
   final BlendMode mode;
@@ -159,7 +240,11 @@ class _BlendPreset {
 }
 
 class _ClipPreset {
-  const _ClipPreset({required this.label, required this.value, required this.note});
+  const _ClipPreset({
+    required this.label,
+    required this.value,
+    required this.note,
+  });
 
   final String label;
   final Clip value;
@@ -174,7 +259,12 @@ class _FaqEntry {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -183,7 +273,11 @@ class _MetricEntry {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -214,10 +308,13 @@ class _RenderBackdropFilterStudio extends StatefulWidget {
   const _RenderBackdropFilterStudio();
 
   @override
-  State<_RenderBackdropFilterStudio> createState() => _RenderBackdropFilterStudioState();
+  State<_RenderBackdropFilterStudio> createState() =>
+      _RenderBackdropFilterStudioState();
 }
 
-class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio> with SingleTickerProviderStateMixin {
+class _RenderBackdropFilterStudioState
+    extends State<_RenderBackdropFilterStudio>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
 
   late final AnimationController _motionController = AnimationController(
@@ -264,7 +361,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
     super.initState();
     _applyBlurPreset(_blurPresets[_activeBlurIndex], silent: true);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _pushTimeline('Init', 'RenderBackdropFilter Glass Optics Studio initialized.');
+      _pushTimeline(
+        'Init',
+        'RenderBackdropFilter Glass Optics Studio initialized.',
+      );
     });
   }
 
@@ -292,7 +392,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
     });
     if (!silent) {
       _presetApplyCount += 1;
-      _pushTimeline('Blur Preset', '${preset.label} (${preset.sigmaX.toStringAsFixed(1)}, ${preset.sigmaY.toStringAsFixed(1)}) applied.');
+      _pushTimeline(
+        'Blur Preset',
+        '${preset.label} (${preset.sigmaX.toStringAsFixed(1)}, ${preset.sigmaY.toStringAsFixed(1)}) applied.',
+      );
     }
   }
 
@@ -330,40 +433,142 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Current exploration lane.', icon: Icons.dashboard_customize_outlined),
-      _MetricEntry(label: 'Theme', value: _themes[_themeIndex].name, note: 'Active color profile.', icon: Icons.palette_outlined),
-      _MetricEntry(label: 'SigmaX', value: _sigmaX.toStringAsFixed(1), note: 'Horizontal blur kernel.', icon: Icons.swap_horiz_outlined),
-      _MetricEntry(label: 'SigmaY', value: _sigmaY.toStringAsFixed(1), note: 'Vertical blur kernel.', icon: Icons.swap_vert_outlined),
-      _MetricEntry(label: 'Blend', value: _blendPresets[_activeBlendIndex].label, note: _blendPresets[_activeBlendIndex].note, icon: Icons.layers_outlined),
-      _MetricEntry(label: 'Clip', value: _clipPresets[_clipIndex].label, note: _clipPresets[_clipIndex].note, icon: Icons.crop_outlined),
-      _MetricEntry(label: 'Panel', value: '${_panelWidth.toStringAsFixed(0)} x ${_panelHeight.toStringAsFixed(0)}', note: 'Primary glass panel dimensions.', icon: Icons.aspect_ratio_outlined),
-      _MetricEntry(label: 'Radius', value: _cornerRadius.toStringAsFixed(0), note: 'Rounded clip curvature.', icon: Icons.rounded_corner),
-      _MetricEntry(label: 'Tint', value: _tintOpacity.toStringAsFixed(2), note: 'Foreground glass tint opacity.', icon: Icons.opacity_outlined),
-      _MetricEntry(label: 'Overlay', value: _overlayOpacity.toStringAsFixed(2), note: 'Animated background overlay intensity.', icon: Icons.gradient_outlined),
-      _MetricEntry(label: 'Phase', value: _phaseLabel, note: 'Current interaction phase marker.', icon: Icons.flag_outlined),
-      _MetricEntry(label: 'Blur Switches', value: '$_blurSwitchCount', note: 'Blur profile changes.', icon: Icons.blur_on_outlined),
-      _MetricEntry(label: 'Blend Switches', value: '$_blendSwitchCount', note: 'Blend mode changes.', icon: Icons.compare_arrows_outlined),
-      _MetricEntry(label: 'Clip Switches', value: '$_clipSwitchCount', note: 'Clip behavior changes.', icon: Icons.content_cut_outlined),
-      _MetricEntry(label: 'Preset Uses', value: '$_presetApplyCount', note: 'Preset apply count.', icon: Icons.bookmark_added_outlined),
-      _MetricEntry(label: 'Host Taps', value: '$_hostTapCount', note: 'Main panel interaction count.', icon: Icons.touch_app_outlined),
-      _MetricEntry(label: 'Gallery Taps', value: '$_galleryTapCount', note: 'Gallery card tap count.', icon: Icons.grid_view_outlined),
-      _MetricEntry(label: 'Motion Toggles', value: '$_motionToggleCount', note: 'Animated backdrop mode switches.', icon: Icons.motion_photos_on_outlined),
+      _MetricEntry(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Current exploration lane.',
+        icon: Icons.dashboard_customize_outlined,
+      ),
+      _MetricEntry(
+        label: 'Theme',
+        value: _themes[_themeIndex].name,
+        note: 'Active color profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricEntry(
+        label: 'SigmaX',
+        value: _sigmaX.toStringAsFixed(1),
+        note: 'Horizontal blur kernel.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricEntry(
+        label: 'SigmaY',
+        value: _sigmaY.toStringAsFixed(1),
+        note: 'Vertical blur kernel.',
+        icon: Icons.swap_vert_outlined,
+      ),
+      _MetricEntry(
+        label: 'Blend',
+        value: _blendPresets[_activeBlendIndex].label,
+        note: _blendPresets[_activeBlendIndex].note,
+        icon: Icons.layers_outlined,
+      ),
+      _MetricEntry(
+        label: 'Clip',
+        value: _clipPresets[_clipIndex].label,
+        note: _clipPresets[_clipIndex].note,
+        icon: Icons.crop_outlined,
+      ),
+      _MetricEntry(
+        label: 'Panel',
+        value:
+            '${_panelWidth.toStringAsFixed(0)} x ${_panelHeight.toStringAsFixed(0)}',
+        note: 'Primary glass panel dimensions.',
+        icon: Icons.aspect_ratio_outlined,
+      ),
+      _MetricEntry(
+        label: 'Radius',
+        value: _cornerRadius.toStringAsFixed(0),
+        note: 'Rounded clip curvature.',
+        icon: Icons.rounded_corner,
+      ),
+      _MetricEntry(
+        label: 'Tint',
+        value: _tintOpacity.toStringAsFixed(2),
+        note: 'Foreground glass tint opacity.',
+        icon: Icons.opacity_outlined,
+      ),
+      _MetricEntry(
+        label: 'Overlay',
+        value: _overlayOpacity.toStringAsFixed(2),
+        note: 'Animated background overlay intensity.',
+        icon: Icons.gradient_outlined,
+      ),
+      _MetricEntry(
+        label: 'Phase',
+        value: _phaseLabel,
+        note: 'Current interaction phase marker.',
+        icon: Icons.flag_outlined,
+      ),
+      _MetricEntry(
+        label: 'Blur Switches',
+        value: '$_blurSwitchCount',
+        note: 'Blur profile changes.',
+        icon: Icons.blur_on_outlined,
+      ),
+      _MetricEntry(
+        label: 'Blend Switches',
+        value: '$_blendSwitchCount',
+        note: 'Blend mode changes.',
+        icon: Icons.compare_arrows_outlined,
+      ),
+      _MetricEntry(
+        label: 'Clip Switches',
+        value: '$_clipSwitchCount',
+        note: 'Clip behavior changes.',
+        icon: Icons.content_cut_outlined,
+      ),
+      _MetricEntry(
+        label: 'Preset Uses',
+        value: '$_presetApplyCount',
+        note: 'Preset apply count.',
+        icon: Icons.bookmark_added_outlined,
+      ),
+      _MetricEntry(
+        label: 'Host Taps',
+        value: '$_hostTapCount',
+        note: 'Main panel interaction count.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricEntry(
+        label: 'Gallery Taps',
+        value: '$_galleryTapCount',
+        note: 'Gallery card tap count.',
+        icon: Icons.grid_view_outlined,
+      ),
+      _MetricEntry(
+        label: 'Motion Toggles',
+        value: '$_motionToggleCount',
+        note: 'Animated backdrop mode switches.',
+        icon: Icons.motion_photos_on_outlined,
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLowest,
+                scheme.surfaceContainerLow,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -427,12 +632,28 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                 Icon(Icons.blur_on_outlined, color: scheme.primary, size: 26),
                 Text(
                   'RenderBackdropFilter Glass Optics Studio',
-                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26),
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 26,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -456,7 +677,14 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -474,9 +702,19 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -494,7 +732,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
             Wrap(
               spacing: 8,
@@ -507,7 +748,8 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                 ),
                 CheckboxMenuButton(
                   value: _showColorBand,
-                  onChanged: (bool? v) => setState(() => _showColorBand = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showColorBand = v ?? true),
                   child: const Text('Show color bands'),
                 ),
                 CheckboxMenuButton(
@@ -520,23 +762,31 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                     } else {
                       _motionController.stop();
                     }
-                    _pushTimeline('Motion', _enableMotion ? 'Animated backdrop enabled.' : 'Animated backdrop paused.');
+                    _pushTimeline(
+                      'Motion',
+                      _enableMotion
+                          ? 'Animated backdrop enabled.'
+                          : 'Animated backdrop paused.',
+                    );
                   },
                   child: const Text('Enable motion'),
                 ),
                 CheckboxMenuButton(
                   value: _showDiagnostics,
-                  onChanged: (bool? v) => setState(() => _showDiagnostics = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showDiagnostics = v ?? true),
                   child: const Text('Show diagnostics'),
                 ),
                 CheckboxMenuButton(
                   value: _showGuide,
-                  onChanged: (bool? v) => setState(() => _showGuide = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showGuide = v ?? true),
                   child: const Text('Show guide'),
                 ),
                 CheckboxMenuButton(
                   value: _showTimeline,
-                  onChanged: (bool? v) => setState(() => _showTimeline = v ?? true),
+                  onChanged: (bool? v) =>
+                      setState(() => _showTimeline = v ?? true),
                   child: const Text('Show timeline'),
                 ),
               ],
@@ -571,7 +821,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
   }
 
   Widget _buildMainStage(ColorScheme scheme) {
-    final ui.ImageFilter filter = ui.ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY);
+    final ui.ImageFilter filter = ui.ImageFilter.blur(
+      sigmaX: _sigmaX,
+      sigmaY: _sigmaY,
+    );
     final BlendMode mode = _blendPresets[_activeBlendIndex].mode;
 
     return Card(
@@ -584,9 +837,20 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Main Blur Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Main Blur Stage',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _resetConsole, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _resetConsole,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -609,7 +873,14 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                   ),
                   child: Stack(
                     children: <Widget>[
-                      Positioned.fill(child: _AnimatedBackdropCanvas(controller: _motionController, showGrid: _showGrid, showBands: _showColorBand, overlayOpacity: _overlayOpacity)),
+                      Positioned.fill(
+                        child: _AnimatedBackdropCanvas(
+                          controller: _motionController,
+                          showGrid: _showGrid,
+                          showBands: _showColorBand,
+                          overlayOpacity: _overlayOpacity,
+                        ),
+                      ),
                       Positioned.fill(
                         child: Center(
                           child: GestureDetector(
@@ -618,10 +889,15 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                                 _hostTapCount += 1;
                                 _phaseLabel = 'tap';
                               });
-                              _pushTimeline('Panel Tap', 'Main blur panel tapped at sigma ${_sigmaX.toStringAsFixed(1)} / ${_sigmaY.toStringAsFixed(1)}.');
+                              _pushTimeline(
+                                'Panel Tap',
+                                'Main blur panel tapped at sigma ${_sigmaX.toStringAsFixed(1)} / ${_sigmaY.toStringAsFixed(1)}.',
+                              );
                             },
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(_cornerRadius * 0.8),
+                              borderRadius: BorderRadius.circular(
+                                _cornerRadius * 0.8,
+                              ),
                               clipBehavior: _clipPresets[_clipIndex].value,
                               child: BackdropFilter(
                                 filter: filter,
@@ -630,21 +906,56 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                                   width: _panelWidth * 0.74,
                                   height: _panelHeight * 0.66,
                                   decoration: BoxDecoration(
-                                    color: _enableTint ? Colors.white.withValues(alpha: _tintOpacity) : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(_cornerRadius * 0.8),
-                                    border: Border.all(color: Colors.white.withValues(alpha: 0.55)),
+                                    color: _enableTint
+                                        ? Colors.white.withValues(
+                                            alpha: _tintOpacity,
+                                          )
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(
+                                      _cornerRadius * 0.8,
+                                    ),
+                                    border: Border.all(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.55,
+                                      ),
+                                    ),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.all(14),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text('BackdropFilter Panel', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                                        Text(
+                                          'BackdropFilter Panel',
+                                          style: TextStyle(
+                                            color: scheme.onSurface,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
                                         const SizedBox(height: 6),
-                                        Text('sigmaX ${_sigmaX.toStringAsFixed(1)}  sigmaY ${_sigmaY.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
-                                        Text('blend ${_blendPresets[_activeBlendIndex].label}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                                        Text(
+                                          'sigmaX ${_sigmaX.toStringAsFixed(1)}  sigmaY ${_sigmaY.toStringAsFixed(1)}',
+                                          style: TextStyle(
+                                            color: scheme.onSurfaceVariant,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        Text(
+                                          'blend ${_blendPresets[_activeBlendIndex].label}',
+                                          style: TextStyle(
+                                            color: scheme.onSurfaceVariant,
+                                            fontSize: 12,
+                                          ),
+                                        ),
                                         const Spacer(),
-                                        Text('tap count $_hostTapCount', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                                        Text(
+                                          'tap count $_hostTapCount',
+                                          style: TextStyle(
+                                            color: scheme.onSurface,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -654,9 +965,33 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                           ),
                         ),
                       ),
-                      Positioned(top: 10, left: 10, child: _chip(scheme, 'phase $_phaseLabel', Icons.flag_circle_outlined)),
-                      Positioned(top: 10, right: 10, child: _chip(scheme, _blendPresets[_activeBlendIndex].label, Icons.layers_outlined)),
-                      Positioned(bottom: 10, right: 10, child: _chip(scheme, _clipPresets[_clipIndex].label, Icons.crop_outlined)),
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: _chip(
+                          scheme,
+                          'phase $_phaseLabel',
+                          Icons.flag_circle_outlined,
+                        ),
+                      ),
+                      Positioned(
+                        top: 10,
+                        right: 10,
+                        child: _chip(
+                          scheme,
+                          _blendPresets[_activeBlendIndex].label,
+                          Icons.layers_outlined,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: _chip(
+                          scheme,
+                          _clipPresets[_clipIndex].label,
+                          Icons.crop_outlined,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -682,7 +1017,14 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
           children: <Widget>[
             Icon(icon, size: 14, color: scheme.primary),
             const SizedBox(width: 6),
-            Text(label, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12, fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              style: TextStyle(
+                color: scheme.onSurfaceVariant,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
@@ -698,9 +1040,19 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Control Console', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Control Console',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Tune blur kernels, blending, geometry, and clipping to inspect RenderBackdropFilter behavior.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune blur kernels, blending, geometry, and clipping to inspect RenderBackdropFilter behavior.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             _slider(
               scheme: scheme,
@@ -715,7 +1067,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                   _phaseLabel = 'tuning';
                 });
               },
-              onChangeEnd: (double value) => _pushTimeline('Sigma', 'SigmaX tuned to ${value.toStringAsFixed(1)}.'),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Sigma',
+                'SigmaX tuned to ${value.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -730,7 +1085,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                   _phaseLabel = 'tuning';
                 });
               },
-              onChangeEnd: (double value) => _pushTimeline('Sigma', 'SigmaY tuned to ${value.toStringAsFixed(1)}.'),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Sigma',
+                'SigmaY tuned to ${value.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -740,7 +1098,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               max: 700,
               divisions: 84,
               onChanged: (double value) => setState(() => _panelWidth = value),
-              onChangeEnd: (double value) => _pushTimeline('Geometry', 'Panel width set to ${value.toStringAsFixed(0)}.'),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Geometry',
+                'Panel width set to ${value.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -750,7 +1111,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               max: 420,
               divisions: 50,
               onChanged: (double value) => setState(() => _panelHeight = value),
-              onChangeEnd: (double value) => _pushTimeline('Geometry', 'Panel height set to ${value.toStringAsFixed(0)}.'),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Geometry',
+                'Panel height set to ${value.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -759,8 +1123,12 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               min: 0,
               max: 44,
               divisions: 44,
-              onChanged: (double value) => setState(() => _cornerRadius = value),
-              onChangeEnd: (double value) => _pushTimeline('Clip', 'Corner radius set to ${value.toStringAsFixed(0)}.'),
+              onChanged: (double value) =>
+                  setState(() => _cornerRadius = value),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Clip',
+                'Corner radius set to ${value.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -770,7 +1138,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               max: 0.55,
               divisions: 55,
               onChanged: (double value) => setState(() => _tintOpacity = value),
-              onChangeEnd: (double value) => _pushTimeline('Tint', 'Tint opacity set to ${value.toStringAsFixed(2)}.'),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Tint',
+                'Tint opacity set to ${value.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -779,11 +1150,21 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               min: 0,
               max: 0.45,
               divisions: 45,
-              onChanged: (double value) => setState(() => _overlayOpacity = value),
-              onChangeEnd: (double value) => _pushTimeline('Backdrop', 'Overlay opacity set to ${value.toStringAsFixed(2)}.'),
+              onChanged: (double value) =>
+                  setState(() => _overlayOpacity = value),
+              onChangeEnd: (double value) => _pushTimeline(
+                'Backdrop',
+                'Overlay opacity set to ${value.toStringAsFixed(2)}.',
+              ),
             ),
             const Divider(height: 22),
-            Text('Blur Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Blur Presets',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -804,9 +1185,18 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               }),
             ),
             const SizedBox(height: 8),
-            Text(_blurPresets[_activeBlurIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _blurPresets[_activeBlurIndex].note,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Blend Modes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Blend Modes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -822,13 +1212,22 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                       _blendSwitchCount += 1;
                       _phaseLabel = 'blend';
                     });
-                    _pushTimeline('Blend', 'Blend mode switched to ${b.label}.');
+                    _pushTimeline(
+                      'Blend',
+                      'Blend mode switched to ${b.label}.',
+                    );
                   },
                 );
               }),
             ),
             const Divider(height: 22),
-            Text('Clip Behavior', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Clip Behavior',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -843,7 +1242,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                       _clipIndex = i;
                       _clipSwitchCount += 1;
                     });
-                    _pushTimeline('Clip', 'Clip behavior switched to ${c.label}.');
+                    _pushTimeline(
+                      'Clip',
+                      'Clip behavior switched to ${c.label}.',
+                    );
                   },
                 );
               }),
@@ -875,11 +1277,23 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -924,14 +1338,24 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Frosted Gallery', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Frosted Gallery',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Reusable card examples showing different blur + blend + tint profiles over one shared backdrop.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Reusable card examples showing different blur + blend + tint profiles over one shared backdrop.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 12,
               runSpacing: 12,
-              children: specs.map(( _GallerySpec spec) {
+              children: specs.map((_GallerySpec spec) {
                 return SizedBox(
                   width: 318,
                   child: DecoratedBox(
@@ -947,18 +1371,29 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Text(spec.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                              Text(
+                                spec.title,
+                                style: TextStyle(
+                                  color: scheme.onSurface,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               const Spacer(),
                               TextButton(
                                 onPressed: () {
                                   setState(() {
                                     _sigmaX = spec.blur.sigmaX;
                                     _sigmaY = spec.blur.sigmaY;
-                                    _activeBlendIndex = _blendPresets.indexOf(spec.blend);
+                                    _activeBlendIndex = _blendPresets.indexOf(
+                                      spec.blend,
+                                    );
                                     _phaseLabel = 'gallery';
                                     _galleryTapCount += 1;
                                   });
-                                  _pushTimeline('Gallery Apply', '${spec.title} profile applied to main panel.');
+                                  _pushTimeline(
+                                    'Gallery Apply',
+                                    '${spec.title} profile applied to main panel.',
+                                  );
                                 },
                                 child: const Text('Apply'),
                               ),
@@ -985,24 +1420,47 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
                                         child: BackdropFilter(
-                                          filter: ui.ImageFilter.blur(sigmaX: spec.blur.sigmaX, sigmaY: spec.blur.sigmaY),
+                                          filter: ui.ImageFilter.blur(
+                                            sigmaX: spec.blur.sigmaX,
+                                            sigmaY: spec.blur.sigmaY,
+                                          ),
                                           blendMode: spec.blend.mode,
                                           child: Container(
                                             width: 186,
                                             height: 106,
                                             decoration: BoxDecoration(
                                               color: spec.tint,
-                                              borderRadius: BorderRadius.circular(10),
-                                              border: Border.all(color: Colors.white.withValues(alpha: 0.58)),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.58,
+                                                ),
+                                              ),
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(8),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
-                                                  Text(spec.blur.label, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                                                  Text(
+                                                    spec.blur.label,
+                                                    style: TextStyle(
+                                                      color: scheme.onSurface,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
                                                   const Spacer(),
-                                                  Text(spec.blend.label, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                                                  Text(
+                                                    spec.blend.label,
+                                                    style: TextStyle(
+                                                      color: scheme
+                                                          .onSurfaceVariant,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1016,7 +1474,13 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(spec.note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                          Text(
+                            spec.note,
+                            style: TextStyle(
+                              color: scheme.onSurfaceVariant,
+                              fontSize: 12,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1039,9 +1503,19 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Blend Observatory', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Blend Observatory',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Directly compare blend modes with identical blur kernels to observe contrast and color interaction shifts.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Directly compare blend modes with identical blur kernels to observe contrast and color interaction shifts.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             SizedBox(
               height: 215,
@@ -1056,9 +1530,16 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                     width: 250,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: selected ? scheme.secondaryContainer.withValues(alpha: 0.35) : scheme.surfaceContainerHighest,
+                        color: selected
+                            ? scheme.secondaryContainer.withValues(alpha: 0.35)
+                            : scheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: selected ? scheme.primary : scheme.outlineVariant, width: selected ? 2 : 1),
+                        border: Border.all(
+                          color: selected
+                              ? scheme.primary
+                              : scheme.outlineVariant,
+                          width: selected ? 2 : 1,
+                        ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -1067,7 +1548,15 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Expanded(child: Text(preset.label, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    preset.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurface,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                                 IconButton(
                                   icon: const Icon(Icons.playlist_add_check),
                                   onPressed: () {
@@ -1076,7 +1565,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                                       _blendSwitchCount += 1;
                                       _phaseLabel = 'blend';
                                     });
-                                    _pushTimeline('Blend Apply', '${preset.label} set as active blend mode.');
+                                    _pushTimeline(
+                                      'Blend Apply',
+                                      '${preset.label} set as active blend mode.',
+                                    );
                                   },
                                 ),
                               ],
@@ -1099,17 +1591,30 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                                     Positioned.fill(
                                       child: Center(
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                            10,
+                                          ),
                                           child: BackdropFilter(
-                                            filter: ui.ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+                                            filter: ui.ImageFilter.blur(
+                                              sigmaX: _sigmaX,
+                                              sigmaY: _sigmaY,
+                                            ),
                                             blendMode: preset.mode,
                                             child: Container(
                                               width: 142,
                                               height: 88,
                                               decoration: BoxDecoration(
-                                                color: _enableTint ? Colors.white.withValues(alpha: _tintOpacity) : Colors.transparent,
-                                                borderRadius: BorderRadius.circular(10),
-                                                border: Border.all(color: Colors.white.withValues(alpha: 0.58)),
+                                                color: _enableTint
+                                                    ? Colors.white.withValues(
+                                                        alpha: _tintOpacity,
+                                                      )
+                                                    : Colors.transparent,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.58),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -1121,7 +1626,13 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(preset.note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              preset.note,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1145,9 +1656,19 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Bounds and Clip Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Bounds and Clip Lab',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Three lanes show how filter region size influences visual result and expected cost.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Three lanes show how filter region size influences visual result and expected cost.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1158,21 +1679,24 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                     title: 'Compact Pane',
                     width: 150,
                     height: 96,
-                    note: 'Small blur region generally cheaper and highly focused.',
+                    note:
+                        'Small blur region generally cheaper and highly focused.',
                   ),
                   _boundsLane(
                     scheme: scheme,
                     title: 'Balanced Pane',
                     width: 220,
                     height: 128,
-                    note: 'Typical card size for frosted overlays in dashboard layouts.',
+                    note:
+                        'Typical card size for frosted overlays in dashboard layouts.',
                   ),
                   _boundsLane(
                     scheme: scheme,
                     title: 'Large Pane',
                     width: 290,
                     height: 170,
-                    note: 'Large region increases effect but can raise compositing cost.',
+                    note:
+                        'Large region increases effect but can raise compositing cost.',
                   ),
                 ];
                 if (narrow) {
@@ -1204,7 +1728,13 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
     );
   }
 
-  Widget _boundsLane({required ColorScheme scheme, required String title, required double width, required double height, required String note}) {
+  Widget _boundsLane({
+    required ColorScheme scheme,
+    required String title,
+    required double width,
+    required double height,
+    required String note,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1216,7 +1746,13 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             SizedBox(
               height: 170,
@@ -1239,18 +1775,33 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                           borderRadius: BorderRadius.circular(10),
                           clipBehavior: _clipPresets[_clipIndex].value,
                           child: BackdropFilter(
-                            filter: ui.ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+                            filter: ui.ImageFilter.blur(
+                              sigmaX: _sigmaX,
+                              sigmaY: _sigmaY,
+                            ),
                             blendMode: _blendPresets[_activeBlendIndex].mode,
                             child: Container(
                               width: width,
                               height: height,
                               decoration: BoxDecoration(
-                                color: _enableTint ? Colors.white.withValues(alpha: _tintOpacity) : Colors.transparent,
+                                color: _enableTint
+                                    ? Colors.white.withValues(
+                                        alpha: _tintOpacity,
+                                      )
+                                    : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.white.withValues(alpha: 0.6)),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.6),
+                                ),
                               ),
                               alignment: Alignment.center,
-                              child: Text('${width.toStringAsFixed(0)} x ${height.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                              child: Text(
+                                '${width.toStringAsFixed(0)} x ${height.toStringAsFixed(0)}',
+                                style: TextStyle(
+                                  color: scheme.onSurface,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -1261,7 +1812,10 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               ),
             ),
             const SizedBox(height: 8),
-            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              note,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
           ],
         ),
       ),
@@ -1278,17 +1832,24 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1316,13 +1877,38 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1355,16 +1941,40 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id} phase=$_phaseLabel', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('sigma=(${_sigmaX.toStringAsFixed(1)}, ${_sigmaY.toStringAsFixed(1)}) blend=${_blendPresets[_activeBlendIndex].label} clip=${_clipPresets[_clipIndex].label}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('panel=${_panelWidth.toStringAsFixed(0)}x${_panelHeight.toStringAsFixed(0)} radius=${_cornerRadius.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('tint=$_enableTint tintOpacity=${_tintOpacity.toStringAsFixed(2)} overlay=${_overlayOpacity.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('grid=$_showGrid bands=$_showColorBand motion=$_enableMotion', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('hostTaps=$_hostTapCount galleryTaps=$_galleryTapCount presetUses=$_presetApplyCount', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id} phase=$_phaseLabel',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'sigma=(${_sigmaX.toStringAsFixed(1)}, ${_sigmaY.toStringAsFixed(1)}) blend=${_blendPresets[_activeBlendIndex].label} clip=${_clipPresets[_clipIndex].label}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'panel=${_panelWidth.toStringAsFixed(0)}x${_panelHeight.toStringAsFixed(0)} radius=${_cornerRadius.toStringAsFixed(0)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'tint=$_enableTint tintOpacity=${_tintOpacity.toStringAsFixed(2)} overlay=${_overlayOpacity.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'grid=$_showGrid bands=$_showColorBand motion=$_enableMotion',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'hostTaps=$_hostTapCount galleryTaps=$_galleryTapCount presetUses=$_presetApplyCount',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1380,7 +1990,14 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1393,13 +2010,18 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faq.map(( _FaqEntry entry) {
+            ..._faq.map((_FaqEntry entry) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1412,9 +2034,18 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(entry.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        entry.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(entry.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        entry.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1437,17 +2068,28 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]),
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological event stream for filter tuning and interaction changes.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological event stream for filter tuning and interaction changes.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
@@ -1458,12 +2100,16 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Interact with controls to populate logs.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate logs.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
@@ -1474,10 +2120,22 @@ class _RenderBackdropFilterStudioState extends State<_RenderBackdropFilterStudio
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
                       ),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1509,9 +2167,21 @@ class _AnimatedBackdropCanvas extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         final double t = controller.value;
         final List<Color> palette = <Color>[
-          Color.lerp(const Color(0xFF0EA5E9), const Color(0xFF6366F1), (math.sin(t * math.pi * 2) + 1) / 2)!,
-          Color.lerp(const Color(0xFFF97316), const Color(0xFF10B981), (math.cos(t * math.pi * 2) + 1) / 2)!,
-          Color.lerp(const Color(0xFFE11D48), const Color(0xFF14B8A6), (math.sin(t * math.pi * 4) + 1) / 2)!,
+          Color.lerp(
+            const Color(0xFF0EA5E9),
+            const Color(0xFF6366F1),
+            (math.sin(t * math.pi * 2) + 1) / 2,
+          )!,
+          Color.lerp(
+            const Color(0xFFF97316),
+            const Color(0xFF10B981),
+            (math.cos(t * math.pi * 2) + 1) / 2,
+          )!,
+          Color.lerp(
+            const Color(0xFFE11D48),
+            const Color(0xFF14B8A6),
+            (math.sin(t * math.pi * 4) + 1) / 2,
+          )!,
         ];
         return CustomPaint(
           painter: _BackdropPainter(
@@ -1556,10 +2226,14 @@ class _BackdropPainter extends CustomPainter {
     final Paint circle = Paint()..style = PaintingStyle.fill;
     for (int i = 0; i < 14; i += 1) {
       final double wave = progress * math.pi * 2 + (i * 0.45);
-      final double x = (size.width * 0.5) + math.cos(wave) * (size.width * 0.38);
-      final double y = (size.height * 0.5) + math.sin(wave * 1.3) * (size.height * 0.34);
+      final double x =
+          (size.width * 0.5) + math.cos(wave) * (size.width * 0.38);
+      final double y =
+          (size.height * 0.5) + math.sin(wave * 1.3) * (size.height * 0.34);
       final double radius = 14 + ((i % 5) * 7);
-      circle.color = palette[i % palette.length].withValues(alpha: 0.23 + ((i % 3) * 0.09));
+      circle.color = palette[i % palette.length].withValues(
+        alpha: 0.23 + ((i % 3) * 0.09),
+      );
       canvas.drawCircle(Offset(x, y), radius, circle);
     }
 
@@ -1568,7 +2242,10 @@ class _BackdropPainter extends CustomPainter {
       for (int i = 0; i < 5; i += 1) {
         final double top = (size.height / 5) * i;
         band.color = palette[i % palette.length].withValues(alpha: 0.12);
-        canvas.drawRect(Rect.fromLTWH(0, top, size.width, size.height / 7), band);
+        canvas.drawRect(
+          Rect.fromLTWH(0, top, size.width, size.height / 7),
+          band,
+        );
       }
     }
 
@@ -1585,7 +2262,8 @@ class _BackdropPainter extends CustomPainter {
       }
     }
 
-    final Paint overlay = Paint()..color = Colors.black.withValues(alpha: overlayOpacity);
+    final Paint overlay = Paint()
+      ..color = Colors.black.withValues(alpha: overlayOpacity);
     canvas.drawRect(Offset.zero & size, overlay);
   }
 

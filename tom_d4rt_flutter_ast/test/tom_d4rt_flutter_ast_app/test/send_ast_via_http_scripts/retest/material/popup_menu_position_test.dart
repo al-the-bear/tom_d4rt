@@ -34,7 +34,9 @@ dynamic build(BuildContext context) {
   print('\n[3] Index arithmetic & round-trip');
   for (final v in pmAllValues) {
     final roundTrip = PopupMenuPosition.values[v.index];
-    print('  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})');
+    print(
+      '  ${v.name} -> index ${v.index} -> values[${v.index}] = ${roundTrip.name} (match: ${roundTrip == v})',
+    );
   }
 
   // ──────────────────────────────────────────────
@@ -52,9 +54,11 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────
   print('\n[5] Sorting & ordering');
   print('  Natural: ${pmAllValues.map((v) => v.name).join(", ")}');
-  final pmAlpha = List<PopupMenuPosition>.from(pmAllValues)..sort((a, b) => a.name.compareTo(b.name));
+  final pmAlpha = List<PopupMenuPosition>.from(pmAllValues)
+    ..sort((a, b) => a.name.compareTo(b.name));
   print('  Alpha  : ${pmAlpha.map((v) => v.name).join(", ")}');
-  final pmRev = List<PopupMenuPosition>.from(pmAllValues)..sort((a, b) => b.index.compareTo(a.index));
+  final pmRev = List<PopupMenuPosition>.from(pmAllValues)
+    ..sort((a, b) => b.index.compareTo(a.index));
   print('  Reverse: ${pmRev.map((v) => v.name).join(", ")}');
 
   // ──────────────────────────────────────────────
@@ -75,7 +79,8 @@ dynamic build(BuildContext context) {
   print('\n[7] Pattern matching / switch expression');
   for (final v in pmAllValues) {
     final desc = switch (v) {
-      PopupMenuPosition.over => 'classic overlay — item selection replaces button',
+      PopupMenuPosition.over =>
+        'classic overlay — item selection replaces button',
       PopupMenuPosition.under => 'context-preserving — button remains visible',
       _ => 'unknown', // D4RT-LIMITATION: enum exhaustiveness
     };
@@ -95,7 +100,9 @@ dynamic build(BuildContext context) {
       PopupMenuPosition.under => pmBtnTop + pmBtnHeight,
       _ => pmBtnTop, // D4RT-LIMITATION: enum exhaustiveness
     };
-    print('  ${pos.name}: button@y=$pmBtnTop h=$pmBtnHeight -> menu@y=$menuTop h=$pmMenuHeight');
+    print(
+      '  ${pos.name}: button@y=$pmBtnTop h=$pmBtnHeight -> menu@y=$menuTop h=$pmMenuHeight',
+    );
     final overlap = pos == pmOver;
     print('    Overlaps button: $overlap');
   }
@@ -128,7 +135,14 @@ dynamic build(BuildContext context) {
           children: [
             Icon(icon, size: 18, color: const Color(0xFFFF8F00)),
             const SizedBox(width: 8),
-            Text(label, style: const TextStyle(color: Color(0xFFE65100), fontWeight: FontWeight.w600, fontSize: 12)),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFFE65100),
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
+            ),
           ],
         ),
       ),
@@ -136,7 +150,11 @@ dynamic build(BuildContext context) {
   }
 
   final pmOverBtn = pmBuildButton(pmOver, 'Position: over', Icons.arrow_upward);
-  final pmUnderBtn = pmBuildButton(pmUnder, 'Position: under', Icons.arrow_downward);
+  final pmUnderBtn = pmBuildButton(
+    pmUnder,
+    'Position: under',
+    Icons.arrow_downward,
+  );
   print('  Built PopupMenuButton(over): items=${pmMenuItems.length}');
   print('  Built PopupMenuButton(under): items=${pmMenuItems.length}');
 
@@ -155,7 +173,9 @@ dynamic build(BuildContext context) {
     ),
     useMaterial3: true,
   );
-  print('  ThemeData.popupMenuTheme.position: ${pmFullTheme.popupMenuTheme.position}');
+  print(
+    '  ThemeData.popupMenuTheme.position: ${pmFullTheme.popupMenuTheme.position}',
+  );
 
   // ──────────────────────────────────────────────
   // 11. Use-case scenarios
@@ -189,8 +209,16 @@ dynamic build(BuildContext context) {
   for (final pos in pmAllValues) {
     print('  Scenario: user taps button with position=${pos.name}');
     final steps = switch (pos) {
-      PopupMenuPosition.over => ['Menu appears at button top', 'Button obscured by menu', 'Tap item to dismiss'],
-      PopupMenuPosition.under => ['Menu appears below button', 'Button stays visible above', 'Tap item to dismiss'],
+      PopupMenuPosition.over => [
+        'Menu appears at button top',
+        'Button obscured by menu',
+        'Tap item to dismiss',
+      ],
+      PopupMenuPosition.under => [
+        'Menu appears below button',
+        'Button stays visible above',
+        'Tap item to dismiss',
+      ],
       _ => ['Unknown position'], // D4RT-LIMITATION: enum exhaustiveness
     };
     for (var i = 0; i < steps.length; i++) {
@@ -205,11 +233,17 @@ dynamic build(BuildContext context) {
   const pmAmber = Color(0xFFFF8F00);
   const pmHoney = Color(0xFFFFB300);
   const pmAmberLight = Color(0xFFFFF8E1);
-  final pmColors = <String, Color>{'amber': pmAmber, 'honey': pmHoney, 'amberLight': pmAmberLight};
+  final pmColors = <String, Color>{
+    'amber': pmAmber,
+    'honey': pmHoney,
+    'amberLight': pmAmberLight,
+  };
   for (final entry in pmColors.entries) {
     final c = entry.value;
-    print('  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
-        'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}');
+    print(
+      '  ${entry.key}: a=${c.a.toStringAsFixed(2)}, r=${c.r.toStringAsFixed(2)}, '
+      'g=${c.g.toStringAsFixed(2)}, b=${c.b.toStringAsFixed(2)}',
+    );
   }
 
   // ──────────────────────────────────────────────
@@ -258,7 +292,14 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6),
               ),
               alignment: Alignment.center,
-              child: const Text('Button', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Button',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           // Menu representation
@@ -272,13 +313,26 @@ dynamic build(BuildContext context) {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(color: pmHoney),
-                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.15), blurRadius: 6)],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 6,
+                  ),
+                ],
               ),
               child: Column(
-                children: pmMenuItems.take(3).map((item) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                  child: Text(item, style: const TextStyle(fontSize: 10)),
-                )).toList(),
+                children: pmMenuItems
+                    .take(3)
+                    .map(
+                      (item) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 10,
+                        ),
+                        child: Text(item, style: const TextStyle(fontSize: 10)),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),
@@ -287,9 +341,15 @@ dynamic build(BuildContext context) {
             bottom: 2,
             left: 0,
             right: 0,
-            child: Text(pos.name.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Color.lerp(pmAmber, Colors.black, 0.2))),
+            child: Text(
+              pos.name.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 11,
+                color: Color.lerp(pmAmber, Colors.black, 0.2),
+              ),
+            ),
           ),
         ],
       ),
@@ -312,7 +372,12 @@ dynamic build(BuildContext context) {
           child: const Text(
             'PopupMenuPosition\nDeep Demo',
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, height: 1.3),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              height: 1.3,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -328,12 +393,31 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Enum Overview', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color.lerp(pmAmber, Colors.black, 0.15))),
+              Text(
+                'Enum Overview',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color.lerp(pmAmber, Colors.black, 0.15),
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('Total values: ${pmAllValues.length}', style: const TextStyle(fontSize: 13)),
-              Text('Type: ${pmOver.runtimeType}', style: const TextStyle(fontSize: 13)),
-              const Text('Default: over (Material Design classic)', style: TextStyle(fontSize: 13)),
-              const Text('Purpose: Controls popup menu placement relative to trigger', style: TextStyle(fontSize: 13)),
+              Text(
+                'Total values: ${pmAllValues.length}',
+                style: const TextStyle(fontSize: 13),
+              ),
+              Text(
+                'Type: ${pmOver.runtimeType}',
+                style: const TextStyle(fontSize: 13),
+              ),
+              const Text(
+                'Default: over (Material Design classic)',
+                style: TextStyle(fontSize: 13),
+              ),
+              const Text(
+                'Purpose: Controls popup menu placement relative to trigger',
+                style: TextStyle(fontSize: 13),
+              ),
             ],
           ),
         ),
@@ -344,7 +428,9 @@ dynamic build(BuildContext context) {
           spacing: 10,
           runSpacing: 10,
           children: pmAllValues.map((v) {
-            final icon = v == pmOver ? Icons.vertical_align_top : Icons.vertical_align_bottom;
+            final icon = v == pmOver
+                ? Icons.vertical_align_top
+                : Icons.vertical_align_bottom;
             return Container(
               width: 165,
               padding: const EdgeInsets.all(12),
@@ -357,12 +443,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(icon, color: Colors.white, size: 28),
                   const SizedBox(height: 6),
-                  Text(v.name.toUpperCase(),
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text(
+                    v.name.toUpperCase(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(pmDescMap[v] ?? '',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white70, fontSize: 10)),
+                  Text(
+                    pmDescMap[v] ?? '',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white70, fontSize: 10),
+                  ),
                 ],
               ),
             );
@@ -371,7 +465,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // Placement diagrams
-        const Text('Placement Diagrams', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        const Text(
+          'Placement Diagrams',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         const SizedBox(height: 8),
         Wrap(
           spacing: 12,
@@ -390,9 +487,16 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Live PopupMenuButtons', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Live PopupMenuButtons',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 10),
-              Wrap(spacing: 14, runSpacing: 10, children: [pmOverBtn, pmUnderBtn]),
+              Wrap(
+                spacing: 14,
+                runSpacing: 10,
+                children: [pmOverBtn, pmUnderBtn],
+              ),
             ],
           ),
         ),
@@ -408,7 +512,10 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Placement Geometry', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Placement Geometry',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
               ...pmAllValues.map((pos) {
                 final menuTop = switch (pos) {
@@ -420,11 +527,21 @@ dynamic build(BuildContext context) {
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     children: [
-                      SizedBox(width: 70, child: Text(pos.name,
-                          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12))),
+                      SizedBox(
+                        width: 70,
+                        child: Text(
+                          pos.name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                        child: Text('button@y=${pmBtnTop.toStringAsFixed(0)} -> menu@y=${menuTop.toStringAsFixed(0)}',
-                            style: const TextStyle(fontSize: 12)),
+                        child: Text(
+                          'button@y=${pmBtnTop.toStringAsFixed(0)} -> menu@y=${menuTop.toStringAsFixed(0)}',
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                     ],
                   ),
@@ -445,21 +562,38 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Use-Case Scenarios', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Use-Case Scenarios',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
-              ...pmUseCases.entries.map((entry) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(entry.key.name, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: Color.lerp(pmAmber, Colors.black, 0.15))),
-                        ...entry.value.map((use) => Padding(
-                              padding: const EdgeInsets.only(left: 12, top: 2),
-                              child: Text('• $use', style: const TextStyle(fontSize: 11)),
-                            )),
-                      ],
-                    ),
-                  )),
+              ...pmUseCases.entries.map(
+                (entry) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        entry.key.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Color.lerp(pmAmber, Colors.black, 0.15),
+                        ),
+                      ),
+                      ...entry.value.map(
+                        (use) => Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 2),
+                          child: Text(
+                            '• $use',
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -475,12 +609,23 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Interaction Flow', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+              const Text(
+                'Interaction Flow',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
               const SizedBox(height: 8),
               ...pmAllValues.map((pos) {
                 final steps = switch (pos) {
-                  PopupMenuPosition.over => ['Menu at button top', 'Button obscured', 'Tap to dismiss'],
-                  PopupMenuPosition.under => ['Menu below button', 'Button visible', 'Tap to dismiss'],
+                  PopupMenuPosition.over => [
+                    'Menu at button top',
+                    'Button obscured',
+                    'Tap to dismiss',
+                  ],
+                  PopupMenuPosition.under => [
+                    'Menu below button',
+                    'Button visible',
+                    'Tap to dismiss',
+                  ],
                   _ => ['Unknown'], // D4RT-LIMITATION: enum exhaustiveness
                 };
                 return Padding(
@@ -488,11 +633,22 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(pos.name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
-                      ...steps.asMap().entries.map((s) => Padding(
-                            padding: const EdgeInsets.only(left: 12, top: 2),
-                            child: Text('${s.key + 1}. ${s.value}', style: const TextStyle(fontSize: 11)),
-                          )),
+                      Text(
+                        pos.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                      ...steps.asMap().entries.map(
+                        (s) => Padding(
+                          padding: const EdgeInsets.only(left: 12, top: 2),
+                          child: Text(
+                            '${s.key + 1}. ${s.value}',
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 );

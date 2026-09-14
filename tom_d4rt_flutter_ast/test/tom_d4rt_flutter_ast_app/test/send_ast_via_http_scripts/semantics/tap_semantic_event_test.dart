@@ -33,8 +33,7 @@ dynamic build(BuildContext context) {
 
   AnnounceSemanticsEvent? announceEvent;
   try {
-    announceEvent =
-        const AnnounceSemanticsEvent('Saved', TextDirection.ltr, 0);
+    announceEvent = const AnnounceSemanticsEvent('Saved', TextDirection.ltr, 0);
   } catch (_) {}
 
   TooltipSemanticsEvent? tooltipEvent;
@@ -118,8 +117,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: kAccent.withValues(alpha: 0.55)),
               ),
-              child: const Icon(Icons.touch_app_outlined,
-                  color: kAccent, size: 26),
+              child: const Icon(
+                Icons.touch_app_outlined,
+                color: kAccent,
+                size: 26,
+              ),
             ),
             const SizedBox(width: 14),
             const Expanded(
@@ -170,9 +172,14 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: const TextStyle(
-                  color: kInk, fontSize: 13.5, fontWeight: FontWeight.w700)),
+          Text(
+            title,
+            style: const TextStyle(
+              color: kInk,
+              fontSize: 13.5,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 2),
           Text(subtitle, style: const TextStyle(color: kInkDim, fontSize: 11)),
         ],
@@ -195,21 +202,40 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Semantics layer pipeline',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Semantics layer pipeline',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 12),
         layerBox('Widgets', 'Semantics(onTap: ...) wraps content', kInfo),
         arrowDown,
-        layerBox('Semantics tree', 'SemanticsNode graph mirrors widgets', kInfo),
+        layerBox(
+          'Semantics tree',
+          'SemanticsNode graph mirrors widgets',
+          kInfo,
+        ),
         arrowDown,
-        layerBox('SemanticsBinding', 'sendSemanticsUpdate + sendEvent', kAccent),
+        layerBox(
+          'SemanticsBinding',
+          'sendSemanticsUpdate + sendEvent',
+          kAccent,
+        ),
         arrowDown,
-        layerBox('Engine channel', 'flutter/accessibility platform message',
-            kAccent),
+        layerBox(
+          'Engine channel',
+          'flutter/accessibility platform message',
+          kAccent,
+        ),
         arrowDown,
-        layerBox('Assistive technology',
-            'TalkBack / VoiceOver / Switch Control speaks', kOk),
+        layerBox(
+          'Assistive technology',
+          'TalkBack / VoiceOver / Switch Control speaks',
+          kOk,
+        ),
       ],
     ),
   );
@@ -220,24 +246,29 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.only(left: depth * 18.0, top: 4, bottom: 4),
       child: Row(
         children: <Widget>[
-          Text(depth == 0 ? '' : '\u2514\u2500 ',
-              style: const TextStyle(color: kInkDim, fontFamily: 'monospace')),
+          Text(
+            depth == 0 ? '' : '\u2514\u2500 ',
+            style: const TextStyle(color: kInkDim, fontFamily: 'monospace'),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: focal ? 0.28 : 0.12),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: tone.withValues(alpha: focal ? 0.9 : 0.4),
-                  width: focal ? 1.4 : 1),
+                color: tone.withValues(alpha: focal ? 0.9 : 0.4),
+                width: focal ? 1.4 : 1,
+              ),
             ),
-            child: Text(label,
-                style: TextStyle(
-                    color: focal ? kInk : kInkDim,
-                    fontFamily: 'monospace',
-                    fontSize: 12.5,
-                    fontWeight:
-                        focal ? FontWeight.w700 : FontWeight.w500)),
+            child: Text(
+              label,
+              style: TextStyle(
+                color: focal ? kInk : kInkDim,
+                fontFamily: 'monospace',
+                fontSize: 12.5,
+                fontWeight: focal ? FontWeight.w700 : FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
@@ -254,9 +285,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('SemanticsEvent hierarchy',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'SemanticsEvent hierarchy',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         hLine('SemanticsEvent (abstract)', 0, kInfo),
         hLine('TapSemanticEvent', 1, kAccent, focal: true),
@@ -277,18 +313,24 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 130,
-            child: Text(k,
-                style: const TextStyle(
-                    color: kInkDim,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w600)),
+            child: Text(
+              k,
+              style: const TextStyle(
+                color: kInkDim,
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(v,
-                style: TextStyle(
-                    color: accent ?? kInk,
-                    fontFamily: 'monospace',
-                    fontSize: 12.5)),
+            child: Text(
+              v,
+              style: TextStyle(
+                color: accent ?? kInk,
+                fontFamily: 'monospace',
+                fontSize: 12.5,
+              ),
+            ),
           ),
         ],
       ),
@@ -305,21 +347,34 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Anatomy of a TapSemanticEvent',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Anatomy of a TapSemanticEvent',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         anatomyRow('class', 'TapSemanticEvent extends SemanticsEvent'),
         anatomyRow('constructor', 'const TapSemanticEvent();'),
         anatomyRow('type', '"${tapEvent?.type ?? '?'}"', accent: kOk),
         anatomyRow('payload', tapMap.isEmpty ? '{}' : tapMap.toString()),
         anatomyRow('getDataMap()', '{ "type": "${tapEvent?.type ?? '?'}" }'),
-        anatomyRow('toMap()',
-            tapEvent == null ? '?' : tapEvent.toMap().toString()),
-        anatomyRow('error', tapEventErr.isEmpty ? '(none)' : tapEventErr,
-            accent: tapEventErr.isEmpty ? kOk : kWarn),
-        anatomyRow('mapErr', tapMapErr.isEmpty ? '(none)' : tapMapErr,
-            accent: tapMapErr.isEmpty ? kOk : kWarn),
+        anatomyRow(
+          'toMap()',
+          tapEvent == null ? '?' : tapEvent.toMap().toString(),
+        ),
+        anatomyRow(
+          'error',
+          tapEventErr.isEmpty ? '(none)' : tapEventErr,
+          accent: tapEventErr.isEmpty ? kOk : kWarn,
+        ),
+        anatomyRow(
+          'mapErr',
+          tapMapErr.isEmpty ? '(none)' : tapMapErr,
+          accent: tapMapErr.isEmpty ? kOk : kWarn,
+        ),
       ],
     ),
   );
@@ -332,27 +387,31 @@ dynamic build(BuildContext context) {
     final bool focal = !header && r[0] == 'TapSemanticEvent';
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
-        child: Text(
-          r[j],
-          style: TextStyle(
-            color: header ? kAccent : (focal ? kAccentSoft : kInk),
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            fontWeight: header || focal ? FontWeight.w700 : FontWeight.w500,
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+          child: Text(
+            r[j],
+            style: TextStyle(
+              color: header ? kAccent : (focal ? kAccentSoft : kInk),
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: header || focal ? FontWeight.w700 : FontWeight.w500,
+            ),
           ),
         ),
-      ));
+      );
     }
-    sisterTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header
-            ? kAccent.withValues(alpha: 0.15)
-            : (focal ? kAccent.withValues(alpha: 0.08) : Colors.transparent),
+    sisterTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header
+              ? kAccent.withValues(alpha: 0.15)
+              : (focal ? kAccent.withValues(alpha: 0.08) : Colors.transparent),
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget sisterPanel = Container(
@@ -365,9 +424,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Sister events',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Sister events',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         Table(
           columnWidths: const <int, TableColumnWidth>{
@@ -377,7 +441,9 @@ dynamic build(BuildContext context) {
             3: FlexColumnWidth(2.2),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: sisterTable,
         ),
       ],
@@ -395,9 +461,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('TapSemanticEvent vs SemanticsService.announce',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'TapSemanticEvent vs SemanticsService.announce',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         const Text(
           'TapSemanticEvent fires implicitly: a node has onTap, the engine '
@@ -426,7 +497,10 @@ dynamic build(BuildContext context) {
             "SemanticsService.announce('Saved', TextDirection.ltr);\n"
             "SemanticsService.tooltip('More options');",
             style: TextStyle(
-                color: kAccentSoft, fontFamily: 'monospace', fontSize: 12),
+              color: kAccentSoft,
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
         ),
       ],
@@ -444,16 +518,24 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 8),
           SizedBox(
             width: 96,
-            child: Text(reader,
-                style: TextStyle(
-                    color: c, fontSize: 12, fontWeight: FontWeight.w700)),
+            child: Text(
+              reader,
+              style: TextStyle(
+                color: c,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
-            child: Text('"$spoken"',
-                style: const TextStyle(
-                    color: kInk,
-                    fontSize: 12.5,
-                    fontStyle: FontStyle.italic)),
+            child: Text(
+              '"$spoken"',
+              style: const TextStyle(
+                color: kInk,
+                fontSize: 12.5,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
           ),
         ],
       ),
@@ -470,21 +552,38 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Reader transcript (mock)',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Reader transcript (mock)',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Approximate spoken output when each event reaches the platform.',
           style: TextStyle(color: kInkDim, fontSize: 11.5),
         ),
         const SizedBox(height: 10),
-        transcriptLine('TalkBack', 'Save. Button. Double-tap to activate.',
-            Icons.android, kOk),
-        transcriptLine('VoiceOver', 'Save, button. Activated.',
-            Icons.phone_iphone, kInfo),
         transcriptLine(
-            'NVDA', 'button Save pressed', Icons.desktop_windows, kAccent),
+          'TalkBack',
+          'Save. Button. Double-tap to activate.',
+          Icons.android,
+          kOk,
+        ),
+        transcriptLine(
+          'VoiceOver',
+          'Save, button. Activated.',
+          Icons.phone_iphone,
+          kInfo,
+        ),
+        transcriptLine(
+          'NVDA',
+          'button Save pressed',
+          Icons.desktop_windows,
+          kAccent,
+        ),
         const Divider(height: 18, color: kBorder),
         transcriptLine('TalkBack', 'Saved.', Icons.campaign, kOk),
         transcriptLine('VoiceOver', 'More options.', Icons.info_outline, kInfo),
@@ -503,9 +602,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Example: Semantics widget tree',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Example: Semantics widget tree',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         Container(
           width: double.infinity,
@@ -533,7 +637,10 @@ dynamic build(BuildContext context) {
             "  ),\n"
             ");",
             style: TextStyle(
-                color: kAccentSoft, fontFamily: 'monospace', fontSize: 12),
+              color: kAccentSoft,
+              fontFamily: 'monospace',
+              fontSize: 12,
+            ),
           ),
         ),
         const SizedBox(height: 10),
@@ -560,23 +667,29 @@ dynamic build(BuildContext context) {
     final bool header = i == 0;
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(r[j],
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
             style: TextStyle(
-                color: header ? kAccent : kInk,
-                fontFamily: 'monospace',
-                fontSize: 11.5,
-                fontWeight:
-                    header ? FontWeight.w700 : FontWeight.w500)),
-      ));
+              color: header ? kAccent : kInk,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+        ),
+      );
     }
-    tagTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header ? kAccent.withValues(alpha: 0.12) : Colors.transparent,
+    tagTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header ? kAccent.withValues(alpha: 0.12) : Colors.transparent,
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget tagPanel = Container(
@@ -589,9 +702,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('SemanticsTag (related concept)',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'SemanticsTag (related concept)',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Tags decorate SemanticsNodes for traversal and platform hints. '
@@ -605,7 +723,9 @@ dynamic build(BuildContext context) {
             1: FlexColumnWidth(2.6),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: tagTable,
         ),
       ],
@@ -636,16 +756,18 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 8),
           SizedBox(
             width: 150,
-            child: Text(k,
-                style: const TextStyle(
-                    color: kAccent,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              k,
+              style: const TextStyle(
+                color: kAccent,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(v,
-                style: const TextStyle(color: kInk, fontSize: 12.3)),
+            child: Text(v, style: const TextStyle(color: kInk, fontSize: 12.3)),
           ),
         ],
       ),
@@ -667,9 +789,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Accessibility checklist for tappable nodes',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Accessibility checklist for tappable nodes',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         ...checklistRows,
       ],
@@ -680,12 +807,18 @@ dynamic build(BuildContext context) {
   final List<List<String>> edgeRows = <List<String>>[
     <String>['null label', 'reader falls back to child Text or "" — bad UX'],
     <String>['hidden node', 'excludeSemantics: true skips event dispatch'],
-    <String>['merged semantics',
-        'TapSemanticEvent fires on the merged ancestor'],
-    <String>['disabled control',
-        'enabled: false -> reader announces "dimmed", no tap'],
-    <String>['scrollable parent',
-        'tap propagates only if no scroll handles it'],
+    <String>[
+      'merged semantics',
+      'TapSemanticEvent fires on the merged ancestor',
+    ],
+    <String>[
+      'disabled control',
+      'enabled: false -> reader announces "dimmed", no tap',
+    ],
+    <String>[
+      'scrollable parent',
+      'tap propagates only if no scroll handles it',
+    ],
   ];
   Widget edgeRow(String l, String r) {
     return Padding(
@@ -697,15 +830,17 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 8),
           SizedBox(
             width: 150,
-            child: Text(l,
-                style: const TextStyle(
-                    color: kWarn,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              l,
+              style: const TextStyle(
+                color: kWarn,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(r,
-                style: const TextStyle(color: kInk, fontSize: 12.3)),
+            child: Text(r, style: const TextStyle(color: kInk, fontSize: 12.3)),
           ),
         ],
       ),
@@ -727,9 +862,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Edge cases',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Edge cases',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         ...edgeWidgets,
       ],
@@ -752,30 +892,31 @@ dynamic build(BuildContext context) {
     final bool focal = !header && r[0] == 'TapSemanticEvent';
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(r[j],
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
             style: TextStyle(
-                color: header
-                    ? kAccent
-                    : (focal ? kAccentSoft : kInk),
-                fontFamily: 'monospace',
-                fontSize: 11.5,
-                fontWeight: header || focal
-                    ? FontWeight.w700
-                    : FontWeight.w500)),
-      ));
+              color: header ? kAccent : (focal ? kAccentSoft : kInk),
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: header || focal ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+        ),
+      );
     }
-    refTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header
-            ? kAccent.withValues(alpha: 0.15)
-            : (focal
-                ? kAccent.withValues(alpha: 0.08)
-                : Colors.transparent),
+    refTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header
+              ? kAccent.withValues(alpha: 0.15)
+              : (focal ? kAccent.withValues(alpha: 0.08) : Colors.transparent),
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget refPanel = Container(
@@ -788,9 +929,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('SemanticsEvent reference',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'SemanticsEvent reference',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         Table(
           columnWidths: const <int, TableColumnWidth>{
@@ -799,7 +945,9 @@ dynamic build(BuildContext context) {
             2: FlexColumnWidth(2.2),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: refTable,
         ),
       ],
@@ -818,9 +966,14 @@ dynamic build(BuildContext context) {
     child: const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Take-aways',
-            style: TextStyle(
-                color: kAccent, fontSize: 14, fontWeight: FontWeight.w700)),
+        Text(
+          'Take-aways',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         SizedBox(height: 6),
         Text(
           '· TapSemanticEvent is a tag, not a payload carrier.\n'
@@ -852,22 +1005,32 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 10),
           SizedBox(
             width: 110,
-            child: Text(name,
-                style: const TextStyle(
-                    color: kAccent,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              name,
+              style: const TextStyle(
+                color: kAccent,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           SizedBox(
             width: 90,
-            child: Text(hex,
-                style: const TextStyle(
-                    color: kInkDim, fontFamily: 'monospace', fontSize: 11.5)),
+            child: Text(
+              hex,
+              style: const TextStyle(
+                color: kInkDim,
+                fontFamily: 'monospace',
+                fontSize: 11.5,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(role,
-                style: const TextStyle(color: kInk, fontSize: 12.2)),
+            child: Text(
+              role,
+              style: const TextStyle(color: kInk, fontSize: 12.2),
+            ),
           ),
         ],
       ),
@@ -884,9 +1047,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Demo palette',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Demo palette',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Colour roles used throughout this TapSemanticEvent demo. Distinct '
@@ -912,24 +1080,60 @@ dynamic build(BuildContext context) {
   // ---- Gesture-to-Semantic mapping grid ----
   final List<List<String>> gestureRows = <List<String>>[
     <String>['raw gesture', 'a11y action', 'event class', 'spoken cue'],
-    <String>['single tap', 'activate', 'TapSemanticEvent',
-        'reader plays activation chirp'],
-    <String>['double-tap (TalkBack)', 'activate', 'TapSemanticEvent',
-        '"double-tap to activate" → activated'],
-    <String>['long press', 'longPress',
-        'LongPressSemanticsEvent', '"more options"'],
-    <String>['swipe up/down (T)', 'increase/decrease',
-        '(custom semantics)', 'reads new value'],
-    <String>['swipe right (V)', 'next focusable',
-        '(focus traversal)', 'reads next label'],
-    <String>['rotor (V) / explore (T)', 'explore by type',
-        '(category filter)', 'jumps headings/links/buttons'],
-    <String>['three-finger tap (V)', 'announce',
-        'AnnounceSemanticsEvent', 'speaks message'],
-    <String>['hover briefly', 'tooltip',
-        'TooltipSemanticsEvent', 'speaks tooltip text'],
-    <String>['focus enters', 'focus',
-        'FocusSemanticEvent', 'reader anchors to node'],
+    <String>[
+      'single tap',
+      'activate',
+      'TapSemanticEvent',
+      'reader plays activation chirp',
+    ],
+    <String>[
+      'double-tap (TalkBack)',
+      'activate',
+      'TapSemanticEvent',
+      '"double-tap to activate" → activated',
+    ],
+    <String>[
+      'long press',
+      'longPress',
+      'LongPressSemanticsEvent',
+      '"more options"',
+    ],
+    <String>[
+      'swipe up/down (T)',
+      'increase/decrease',
+      '(custom semantics)',
+      'reads new value',
+    ],
+    <String>[
+      'swipe right (V)',
+      'next focusable',
+      '(focus traversal)',
+      'reads next label',
+    ],
+    <String>[
+      'rotor (V) / explore (T)',
+      'explore by type',
+      '(category filter)',
+      'jumps headings/links/buttons',
+    ],
+    <String>[
+      'three-finger tap (V)',
+      'announce',
+      'AnnounceSemanticsEvent',
+      'speaks message',
+    ],
+    <String>[
+      'hover briefly',
+      'tooltip',
+      'TooltipSemanticsEvent',
+      'speaks tooltip text',
+    ],
+    <String>[
+      'focus enters',
+      'focus',
+      'FocusSemanticEvent',
+      'reader anchors to node',
+    ],
   ];
 
   final List<TableRow> gestureTable = <TableRow>[];
@@ -939,27 +1143,31 @@ dynamic build(BuildContext context) {
     final bool focal = !header && r[2] == 'TapSemanticEvent';
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(
-          r[j],
-          style: TextStyle(
-            color: header ? kAccent : (focal ? kAccentSoft : kInk),
-            fontFamily: 'monospace',
-            fontSize: 11.3,
-            fontWeight: header || focal ? FontWeight.w700 : FontWeight.w500,
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
+            style: TextStyle(
+              color: header ? kAccent : (focal ? kAccentSoft : kInk),
+              fontFamily: 'monospace',
+              fontSize: 11.3,
+              fontWeight: header || focal ? FontWeight.w700 : FontWeight.w500,
+            ),
           ),
         ),
-      ));
+      );
     }
-    gestureTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header
-            ? kAccent.withValues(alpha: 0.15)
-            : (focal ? kAccent.withValues(alpha: 0.08) : Colors.transparent),
+    gestureTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header
+              ? kAccent.withValues(alpha: 0.15)
+              : (focal ? kAccent.withValues(alpha: 0.08) : Colors.transparent),
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget gesturePanel = Container(
@@ -972,9 +1180,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Gesture → semantic action map',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Gesture → semantic action map',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'How user-facing gestures map onto semantic actions and which '
@@ -990,7 +1203,9 @@ dynamic build(BuildContext context) {
             3: FlexColumnWidth(2.2),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: gestureTable,
         ),
       ],
@@ -1025,25 +1240,29 @@ dynamic build(BuildContext context) {
       } else {
         cellColor = kAccent;
       }
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(
-          r[j],
-          style: TextStyle(
-            color: cellColor,
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
+            style: TextStyle(
+              color: cellColor,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+            ),
           ),
         ),
-      ));
+      );
     }
-    labelTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+    labelTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget labelPanel = Container(
@@ -1056,9 +1275,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Label dos and don\'ts',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Label dos and don\'ts',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'A TapSemanticEvent is silent on its own — the spoken result depends '
@@ -1074,7 +1298,9 @@ dynamic build(BuildContext context) {
             2: FlexColumnWidth(2.6),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: labelTable,
         ),
       ],
@@ -1101,15 +1327,17 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < asciiTreeLines.length; i++) {
     final String line = asciiTreeLines[i];
     final bool focal = line.contains('TapSemanticEvent');
-    asciiTreeWidgets.add(Text(
-      line,
-      style: TextStyle(
-        color: focal ? kAccent : kInk,
-        fontFamily: 'monospace',
-        fontSize: 12,
-        fontWeight: focal ? FontWeight.w700 : FontWeight.w400,
+    asciiTreeWidgets.add(
+      Text(
+        line,
+        style: TextStyle(
+          color: focal ? kAccent : kInk,
+          fontFamily: 'monospace',
+          fontSize: 12,
+          fontWeight: focal ? FontWeight.w700 : FontWeight.w400,
+        ),
       ),
-    ));
+    );
   }
 
   final Widget asciiTreePanel = Container(
@@ -1122,9 +1350,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('ASCII view of a Semantics tree',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'ASCII view of a Semantics tree',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Each onTap edge in the tree is a potential TapSemanticEvent '
@@ -1166,27 +1399,38 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(14),
               border: Border.all(color: tone.withValues(alpha: 0.7)),
             ),
-            child: Text('$idx',
-                style: TextStyle(
-                    color: tone,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              '$idx',
+              style: TextStyle(
+                color: tone,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title,
-                    style: TextStyle(
-                        color: tone,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: tone,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(detail,
-                    style: const TextStyle(
-                        color: kInk, fontSize: 12.3, height: 1.4)),
+                Text(
+                  detail,
+                  style: const TextStyle(
+                    color: kInk,
+                    fontSize: 12.3,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1205,9 +1449,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Lifecycle of a tap activation',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Lifecycle of a tap activation',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'From the moment a screen-reader user double-taps until the audible '
@@ -1215,30 +1464,48 @@ dynamic build(BuildContext context) {
           style: TextStyle(color: kInkDim, fontSize: 11.5),
         ),
         const SizedBox(height: 10),
-        timelineStep(1, 'Gesture captured',
-            'Platform a11y service detects activation gesture (TalkBack '
-            'double-tap, VoiceOver single-tap).',
-            kInfo),
-        timelineStep(2, 'Action dispatched',
-            'Engine receives "didPerformAction(activate, nodeId)" and routes '
-            'it to the SemanticsOwner.',
-            kInfo),
-        timelineStep(3, 'Handler invoked',
-            'SemanticsNode.onTap (or SemanticsActions.tap) runs in the '
-            'Flutter UI isolate.',
-            kAccent),
-        timelineStep(4, 'Event queued',
-            'SemanticsBinding.sendEvent posts a TapSemanticEvent over the '
-            'flutter/accessibility platform channel.',
-            kAccent),
-        timelineStep(5, 'AT confirms',
-            'TalkBack/VoiceOver/NVDA receives type="tap" and plays its '
-            'activation chirp.',
-            kOk),
-        timelineStep(6, 'UI updates',
-            'Visual side-effects of onTap (state change, navigation) follow '
-            'on the next frame.',
-            kOk),
+        timelineStep(
+          1,
+          'Gesture captured',
+          'Platform a11y service detects activation gesture (TalkBack '
+              'double-tap, VoiceOver single-tap).',
+          kInfo,
+        ),
+        timelineStep(
+          2,
+          'Action dispatched',
+          'Engine receives "didPerformAction(activate, nodeId)" and routes '
+              'it to the SemanticsOwner.',
+          kInfo,
+        ),
+        timelineStep(
+          3,
+          'Handler invoked',
+          'SemanticsNode.onTap (or SemanticsActions.tap) runs in the '
+              'Flutter UI isolate.',
+          kAccent,
+        ),
+        timelineStep(
+          4,
+          'Event queued',
+          'SemanticsBinding.sendEvent posts a TapSemanticEvent over the '
+              'flutter/accessibility platform channel.',
+          kAccent,
+        ),
+        timelineStep(
+          5,
+          'AT confirms',
+          'TalkBack/VoiceOver/NVDA receives type="tap" and plays its '
+              'activation chirp.',
+          kOk,
+        ),
+        timelineStep(
+          6,
+          'UI updates',
+          'Visual side-effects of onTap (state change, navigation) follow '
+              'on the next frame.',
+          kOk,
+        ),
       ],
     ),
   );
@@ -1254,9 +1521,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('How each screen reader handles "tap"',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'How each screen reader handles "tap"',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         const Text(
           'TalkBack (Android). When the user explores by touch and finds a '
@@ -1303,18 +1575,28 @@ dynamic build(BuildContext context) {
   // ---- API-surface mini reference ----
   final List<List<String>> apiRows = <List<String>>[
     <String>['member', 'kind', 'description'],
-    <String>['TapSemanticEvent()', 'const ctor', 'no parameters; type tag only'],
+    <String>[
+      'TapSemanticEvent()',
+      'const ctor',
+      'no parameters; type tag only',
+    ],
     <String>['type', 'String', 'always "tap"'],
-    <String>['getDataMap()',
-        'Map<String,dynamic>',
-        'returns event-specific extras ({} for tap)'],
-    <String>['toMap()',
-        'Map<String,dynamic>',
-        '{"type": type, "data": getDataMap()}'],
+    <String>[
+      'getDataMap()',
+      'Map<String,dynamic>',
+      'returns event-specific extras ({} for tap)',
+    ],
+    <String>[
+      'toMap()',
+      'Map<String,dynamic>',
+      '{"type": type, "data": getDataMap()}',
+    ],
     <String>['toString()', 'String', 'human-readable identifier'],
-    <String>['SemanticsBinding.sendEvent(e)',
-        'void',
-        'enqueues for platform channel'],
+    <String>[
+      'SemanticsBinding.sendEvent(e)',
+      'void',
+      'enqueues for platform channel',
+    ],
   ];
   final List<TableRow> apiTable = <TableRow>[];
   for (int i = 0; i < apiRows.length; i++) {
@@ -1322,23 +1604,29 @@ dynamic build(BuildContext context) {
     final bool header = i == 0;
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(r[j],
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
             style: TextStyle(
-                color: header ? kAccent : kInk,
-                fontFamily: 'monospace',
-                fontSize: 11.4,
-                fontWeight:
-                    header ? FontWeight.w700 : FontWeight.w500)),
-      ));
+              color: header ? kAccent : kInk,
+              fontFamily: 'monospace',
+              fontSize: 11.4,
+              fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+        ),
+      );
     }
-    apiTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+    apiTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget apiPanel = Container(
@@ -1351,9 +1639,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('API surface (mini)',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'API surface (mini)',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         Table(
           columnWidths: const <int, TableColumnWidth>{
@@ -1362,7 +1655,9 @@ dynamic build(BuildContext context) {
             2: FlexColumnWidth(3.0),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: apiTable,
         ),
       ],
@@ -1370,8 +1665,7 @@ dynamic build(BuildContext context) {
   );
 
   // ---- Scenario panels: button, list-tile, custom-painted ----
-  Widget scenarioPanel(
-      String title, String prose, String code, Color tint) {
+  Widget scenarioPanel(String title, String prose, String code, Color tint) {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -1387,18 +1681,22 @@ dynamic build(BuildContext context) {
               Icon(Icons.bookmark_border, size: 18, color: tint),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                        color: tint,
-                        fontSize: 13.5,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: tint,
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(prose,
-              style:
-                  const TextStyle(color: kInk, fontSize: 12.4, height: 1.45)),
+          Text(
+            prose,
+            style: const TextStyle(color: kInk, fontSize: 12.4, height: 1.45),
+          ),
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
@@ -1408,12 +1706,15 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: kBorder),
             ),
-            child: Text(code,
-                style: const TextStyle(
-                    color: kAccentSoft,
-                    fontFamily: 'monospace',
-                    fontSize: 11.8,
-                    height: 1.35)),
+            child: Text(
+              code,
+              style: const TextStyle(
+                color: kAccentSoft,
+                fontFamily: 'monospace',
+                fontSize: 11.8,
+                height: 1.35,
+              ),
+            ),
           ),
         ],
       ),
@@ -1423,49 +1724,49 @@ dynamic build(BuildContext context) {
   final Widget scenarioButton = scenarioPanel(
     'Scenario A · plain Material button',
     'Stock Material widgets attach onTap-driven semantics automatically. '
-    'Each press through assistive technology emits TapSemanticEvent. The '
-    'reader reads label + role + state; Flutter quietly fires the event.',
+        'Each press through assistive technology emits TapSemanticEvent. The '
+        'reader reads label + role + state; Flutter quietly fires the event.',
     "ElevatedButton(\n"
-    "  onPressed: saveDocument,\n"
-    "  child: const Text('Save'),\n"
-    ");\n"
-    "// implicit Semantics with onTap → TapSemanticEvent",
+        "  onPressed: saveDocument,\n"
+        "  child: const Text('Save'),\n"
+        ");\n"
+        "// implicit Semantics with onTap → TapSemanticEvent",
     kInfo,
   );
 
   final Widget scenarioListTile = scenarioPanel(
     'Scenario B · ListTile with trailing action',
     'A ListTile groups label, subtitle, and trailing icon into a single '
-    'merged semantics node. A tap on any region activates the parent and '
-    'fires one TapSemanticEvent; the trailing IconButton can opt out via '
-    'excludeFromSemantics or split into its own SemanticsNode.',
+        'merged semantics node. A tap on any region activates the parent and '
+        'fires one TapSemanticEvent; the trailing IconButton can opt out via '
+        'excludeFromSemantics or split into its own SemanticsNode.',
     "ListTile(\n"
-    "  title: const Text('Project sync'),\n"
-    "  subtitle: const Text('Today, 14:30'),\n"
-    "  trailing: IconButton(\n"
-    "    icon: const Icon(Icons.archive_outlined),\n"
-    "    onPressed: archive,\n"
-    "  ),\n"
-    "  onTap: openThread,\n"
-    ");",
+        "  title: const Text('Project sync'),\n"
+        "  subtitle: const Text('Today, 14:30'),\n"
+        "  trailing: IconButton(\n"
+        "    icon: const Icon(Icons.archive_outlined),\n"
+        "    onPressed: archive,\n"
+        "  ),\n"
+        "  onTap: openThread,\n"
+        ");",
     kAccent,
   );
 
   final Widget scenarioCustomPaint = scenarioPanel(
     'Scenario C · custom-painted hit target',
     'A bare CustomPaint has no built-in semantics. Wrap it in Semantics with '
-    'an explicit label, role, and onTap. The framework will treat onTap as '
-    'an activate action and emit TapSemanticEvent on user activation.',
+        'an explicit label, role, and onTap. The framework will treat onTap as '
+        'an activate action and emit TapSemanticEvent on user activation.',
     "Semantics(\n"
-    "  label: 'Toggle gauge zoom',\n"
-    "  hint: 'Activates a wider time window',\n"
-    "  button: true,\n"
-    "  onTap: toggleZoom,\n"
-    "  child: GestureDetector(\n"
-    "    onTap: toggleZoom,\n"
-    "    child: CustomPaint(painter: gaugePainter),\n"
-    "  ),\n"
-    ");",
+        "  label: 'Toggle gauge zoom',\n"
+        "  hint: 'Activates a wider time window',\n"
+        "  button: true,\n"
+        "  onTap: toggleZoom,\n"
+        "  child: GestureDetector(\n"
+        "    onTap: toggleZoom,\n"
+        "    child: CustomPaint(painter: gaugePainter),\n"
+        "  ),\n"
+        ");",
     kOk,
   );
 
@@ -1479,9 +1780,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Practical scenarios',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Practical scenarios',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Three concrete patterns showing where TapSemanticEvent appears.',
@@ -1514,23 +1820,29 @@ dynamic build(BuildContext context) {
     final bool header = i == 0;
     final List<Widget> cells = <Widget>[];
     for (int j = 0; j < r.length; j++) {
-      cells.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-        child: Text(r[j],
+      cells.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: Text(
+            r[j],
             style: TextStyle(
-                color: header ? kAccent : kInk,
-                fontFamily: 'monospace',
-                fontSize: 11.4,
-                fontWeight:
-                    header ? FontWeight.w700 : FontWeight.w500)),
-      ));
+              color: header ? kAccent : kInk,
+              fontFamily: 'monospace',
+              fontSize: 11.4,
+              fontWeight: header ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
+        ),
+      );
     }
-    matrixTable.add(TableRow(
-      decoration: BoxDecoration(
-        color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+    matrixTable.add(
+      TableRow(
+        decoration: BoxDecoration(
+          color: header ? kAccent.withValues(alpha: 0.15) : Colors.transparent,
+        ),
+        children: cells,
       ),
-      children: cells,
-    ));
+    );
   }
 
   final Widget matrixPanel = Container(
@@ -1543,9 +1855,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Self-check matrix per reader',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Self-check matrix per reader',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Sanity boxes to tick when QA-ing tappable widgets across the three '
@@ -1561,7 +1878,9 @@ dynamic build(BuildContext context) {
             3: FlexColumnWidth(1.4),
           },
           border: TableBorder.all(
-              color: kBorder.withValues(alpha: 0.5), width: 0.7),
+            color: kBorder.withValues(alpha: 0.5),
+            width: 0.7,
+          ),
           children: matrixTable,
         ),
       ],
@@ -1570,30 +1889,44 @@ dynamic build(BuildContext context) {
 
   // ---- Common pitfalls list ----
   final List<List<String>> pitfallRows = <List<String>>[
-    <String>['Detached GestureDetector',
-        'Wrap in Semantics(onTap: ...) so the engine knows the gesture is '
-            'a semantic activation and emits TapSemanticEvent.'],
-    <String>['Two onTaps in one merged subtree',
-        'Use mergeSemantics: false or wrap the child in '
-            'ExcludeSemantics so the AT does not stutter activations.'],
-    <String>['Missing role flag',
-        'Mark buttons with button: true so readers say "button" before the '
-            'label; otherwise the activation chirp is ambiguous.'],
-    <String>['Empty label fallback',
-        'A node with onTap but no label inherits child Text — fragile when '
-            'the child is an Icon. Always provide an explicit label.'],
-    <String>['Tap fires but no UI change',
-        'AT users hear the activation chirp and expect a state change. '
-            'Either announce explicitly via SemanticsService.announce or '
-            'update the value/label so the AT re-reads.'],
-    <String>['Hidden tap target',
-        'opacity: 0 or Offstage subtrees still receive semantics unless '
-            'excluded. Wrap in ExcludeSemantics to prevent stray '
-            'TapSemanticEvent dispatches.'],
-    <String>['Long-press conflated with tap',
-        'Use distinct onLongPress so the framework can emit '
-            'LongPressSemanticsEvent rather than collapsing both into '
-            'TapSemanticEvent.'],
+    <String>[
+      'Detached GestureDetector',
+      'Wrap in Semantics(onTap: ...) so the engine knows the gesture is '
+          'a semantic activation and emits TapSemanticEvent.',
+    ],
+    <String>[
+      'Two onTaps in one merged subtree',
+      'Use mergeSemantics: false or wrap the child in '
+          'ExcludeSemantics so the AT does not stutter activations.',
+    ],
+    <String>[
+      'Missing role flag',
+      'Mark buttons with button: true so readers say "button" before the '
+          'label; otherwise the activation chirp is ambiguous.',
+    ],
+    <String>[
+      'Empty label fallback',
+      'A node with onTap but no label inherits child Text — fragile when '
+          'the child is an Icon. Always provide an explicit label.',
+    ],
+    <String>[
+      'Tap fires but no UI change',
+      'AT users hear the activation chirp and expect a state change. '
+          'Either announce explicitly via SemanticsService.announce or '
+          'update the value/label so the AT re-reads.',
+    ],
+    <String>[
+      'Hidden tap target',
+      'opacity: 0 or Offstage subtrees still receive semantics unless '
+          'excluded. Wrap in ExcludeSemantics to prevent stray '
+          'TapSemanticEvent dispatches.',
+    ],
+    <String>[
+      'Long-press conflated with tap',
+      'Use distinct onLongPress so the framework can emit '
+          'LongPressSemanticsEvent rather than collapsing both into '
+          'TapSemanticEvent.',
+    ],
   ];
 
   Widget pitfallRow(String title, String detail) {
@@ -1602,22 +1935,29 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.report_gmailerrorred,
-              size: 18, color: kWarn),
+          const Icon(Icons.report_gmailerrorred, size: 18, color: kWarn),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title,
-                    style: const TextStyle(
-                        color: kWarn,
-                        fontSize: 12.8,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: kWarn,
+                    fontSize: 12.8,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(detail,
-                    style: const TextStyle(
-                        color: kInk, fontSize: 12.2, height: 1.45)),
+                Text(
+                  detail,
+                  style: const TextStyle(
+                    color: kInk,
+                    fontSize: 12.2,
+                    height: 1.45,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1641,9 +1981,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Common pitfalls when relying on TapSemanticEvent',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Common pitfalls when relying on TapSemanticEvent',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         ...pitfallWidgets,
       ],
@@ -1652,38 +1997,58 @@ dynamic build(BuildContext context) {
 
   // ---- Glossary panel ----
   final List<List<String>> glossaryRows = <List<String>>[
-    <String>['SemanticsEvent',
-        'Abstract base for one-shot signals sent over the accessibility '
-            'platform channel. Subclasses encode the kind of signal in their '
-            'type string.'],
-    <String>['TapSemanticEvent',
-        'Concrete subclass with type "tap" and an empty data map. Fires '
-            'whenever a node\'s onTap activate action is invoked through '
-            'assistive technology.'],
-    <String>['LongPressSemanticsEvent',
-        'Sister event with type "longPress". No data map. Emitted on the '
-            'long-press activate action.'],
-    <String>['AnnounceSemanticsEvent',
-        'Carries a spoken message and reading direction. Use when there is '
-            'no specific node to attach the announcement to.'],
-    <String>['TooltipSemanticsEvent',
-        'Carries the tooltip string. Sent when a tooltip becomes visible '
-            'to the user.'],
-    <String>['FocusSemanticEvent',
-        'Signals that focus changed and the new node should be re-read by '
-            'the assistive technology.'],
-    <String>['SemanticsBinding',
-        'Binding mixin that owns the SemanticsOwner and provides sendEvent '
-            'for shipping events to the platform.'],
-    <String>['SemanticsOwner',
-        'Holds the live SemanticsNode tree and dispatches updates to the '
-            'engine. The thing TapSemanticEvent is delivered against.'],
-    <String>['SemanticsAction',
-        'Enum of activate, longPress, scrollLeft, copy, paste, etc. The '
-            'action that triggers TapSemanticEvent is "tap".'],
-    <String>['SemanticsTag',
-        'Identifier used to mark special nodes (e.g. excluded from scroll). '
-            'Unrelated to events but lives in the same package.'],
+    <String>[
+      'SemanticsEvent',
+      'Abstract base for one-shot signals sent over the accessibility '
+          'platform channel. Subclasses encode the kind of signal in their '
+          'type string.',
+    ],
+    <String>[
+      'TapSemanticEvent',
+      'Concrete subclass with type "tap" and an empty data map. Fires '
+          'whenever a node\'s onTap activate action is invoked through '
+          'assistive technology.',
+    ],
+    <String>[
+      'LongPressSemanticsEvent',
+      'Sister event with type "longPress". No data map. Emitted on the '
+          'long-press activate action.',
+    ],
+    <String>[
+      'AnnounceSemanticsEvent',
+      'Carries a spoken message and reading direction. Use when there is '
+          'no specific node to attach the announcement to.',
+    ],
+    <String>[
+      'TooltipSemanticsEvent',
+      'Carries the tooltip string. Sent when a tooltip becomes visible '
+          'to the user.',
+    ],
+    <String>[
+      'FocusSemanticEvent',
+      'Signals that focus changed and the new node should be re-read by '
+          'the assistive technology.',
+    ],
+    <String>[
+      'SemanticsBinding',
+      'Binding mixin that owns the SemanticsOwner and provides sendEvent '
+          'for shipping events to the platform.',
+    ],
+    <String>[
+      'SemanticsOwner',
+      'Holds the live SemanticsNode tree and dispatches updates to the '
+          'engine. The thing TapSemanticEvent is delivered against.',
+    ],
+    <String>[
+      'SemanticsAction',
+      'Enum of activate, longPress, scrollLeft, copy, paste, etc. The '
+          'action that triggers TapSemanticEvent is "tap".',
+    ],
+    <String>[
+      'SemanticsTag',
+      'Identifier used to mark special nodes (e.g. excluded from scroll). '
+          'Unrelated to events but lives in the same package.',
+    ],
   ];
 
   Widget glossaryRow(String term, String def) {
@@ -1694,17 +2059,21 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           SizedBox(
             width: 180,
-            child: Text(term,
-                style: const TextStyle(
-                    color: kAccent,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              term,
+              style: const TextStyle(
+                color: kAccent,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(def,
-                style: const TextStyle(
-                    color: kInk, fontSize: 12.2, height: 1.45)),
+            child: Text(
+              def,
+              style: const TextStyle(color: kInk, fontSize: 12.2, height: 1.45),
+            ),
           ),
         ],
       ),
@@ -1726,9 +2095,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Glossary',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'Glossary',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         ...glossaryWidgets,
       ],
@@ -1750,12 +2124,15 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Icon(ok ? Icons.check : Icons.error_outline, size: 14, color: tone),
           const SizedBox(width: 6),
-          Text(label,
-              style: TextStyle(
-                  color: tone,
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700)),
+          Text(
+            label,
+            style: TextStyle(
+              color: tone,
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ],
       ),
     );
@@ -1771,9 +2148,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Construction status',
-            style: TextStyle(
-                color: kAccent, fontSize: 14, fontWeight: FontWeight.w700)),
+        const Text(
+          'Construction status',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         const Text(
           'Did each bridged constructor succeed under the d4rt interpreter?',
@@ -1832,17 +2214,19 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('TapSemanticEvent — at a glance',
-                  style: TextStyle(
-                      color: kAccent,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w800)),
+              Text(
+                'TapSemanticEvent — at a glance',
+                style: TextStyle(
+                  color: kAccent,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               SizedBox(height: 4),
               Text(
                 'A const-constructible "tap" tag. No payload. The platform '
                 'turns it into the activation chirp users hear.',
-                style: TextStyle(
-                    color: kInk, fontSize: 12.5, height: 1.4),
+                style: TextStyle(color: kInk, fontSize: 12.5, height: 1.4),
               ),
             ],
           ),
@@ -1862,9 +2246,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('When NOT to model a node as tappable',
-            style: TextStyle(
-                color: kAccent, fontSize: 15, fontWeight: FontWeight.w700)),
+        const Text(
+          'When NOT to model a node as tappable',
+          style: TextStyle(
+            color: kAccent,
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         const Text(
           'TapSemanticEvent is cheap, but pretending an inert region is '

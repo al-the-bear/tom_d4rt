@@ -14,10 +14,10 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   // ── colour palette ──────────────────────────────────────────
-  const smPrimary = Color(0xFF1565C0);   // sapphire
-  const smAccent = Color(0xFF42A5F5);    // azure
-  final smLight = const Color(0xFFE3F2FD);  // pale azure
-  const smDark = Color(0xFF0D47A1);      // deep sapphire
+  const smPrimary = Color(0xFF1565C0); // sapphire
+  const smAccent = Color(0xFF42A5F5); // azure
+  final smLight = const Color(0xFFE3F2FD); // pale azure
+  const smDark = Color(0xFF0D47A1); // deep sapphire
   const smSurface = Color(0xFFF5F9FF);
   const smOnSurface = Color(0xFF1A237E);
   const smMuted = Color(0xFF546E7A);
@@ -28,7 +28,8 @@ dynamic build(BuildContext context) {
       'value': StretchMode.zoomBackground,
       'name': 'zoomBackground',
       'title': 'Zoom Background',
-      'desc': 'Scales the background image up as the user overscrolls '
+      'desc':
+          'Scales the background image up as the user overscrolls '
           'downward. The further the overscroll, the larger the zoom. '
           'This is the default and most common stretch mode.',
       'effect': 'Scale transform on background',
@@ -39,7 +40,8 @@ dynamic build(BuildContext context) {
       'value': StretchMode.blurBackground,
       'name': 'blurBackground',
       'title': 'Blur Background',
-      'desc': 'Applies a progressive gaussian blur to the background '
+      'desc':
+          'Applies a progressive gaussian blur to the background '
           'as the user overscrolls. Creates an iOS-style frosted '
           'glass effect that intensifies with scroll distance.',
       'effect': 'ImageFilter.blur applied progressively',
@@ -50,7 +52,8 @@ dynamic build(BuildContext context) {
       'value': StretchMode.fadeTitle,
       'name': 'fadeTitle',
       'title': 'Fade Title',
-      'desc': 'Fades the title text to transparent as the user '
+      'desc':
+          'Fades the title text to transparent as the user '
           'overscrolls. The title opacity decreases proportionally '
           'to the overscroll distance.',
       'effect': 'Opacity animation on title widget',
@@ -83,24 +86,28 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [smPrimary, smAccent],
+              gradient: LinearGradient(colors: [smPrimary, smAccent]),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: child ??
+            child:
+                child ??
                 Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: children ?? []),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children ?? [],
+                ),
           ),
         ],
       ),
@@ -110,19 +117,24 @@ dynamic build(BuildContext context) {
   Widget smLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: smOnSurface)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: smOnSurface,
+        ),
+      ),
     );
   }
 
   Widget smBody(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: smMuted, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: smMuted, height: 1.5),
+      ),
     );
   }
 
@@ -135,8 +147,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: smAccent.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -173,7 +187,10 @@ dynamic build(BuildContext context) {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [headerColor, Color.lerp(headerColor, Colors.black, 0.3)!],
+                colors: [
+                  headerColor,
+                  Color.lerp(headerColor, Colors.black, 0.3)!,
+                ],
               ),
             ),
             child: Stack(
@@ -204,17 +221,22 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800)),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       Row(
                         children: [
                           for (final m in modes) ...[
-                            smChip(m.name,
-                                bg: Colors.white.withValues(alpha: 0.2)),
+                            smChip(
+                              m.name,
+                              bg: Colors.white.withValues(alpha: 0.2),
+                            ),
                           ],
                         ],
                       ),
@@ -226,8 +248,10 @@ dynamic build(BuildContext context) {
                   top: 8,
                   right: 8,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(12),
@@ -235,9 +259,10 @@ dynamic build(BuildContext context) {
                     child: Text(
                       modes.map((m) => m.name).join(' + '),
                       style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600),
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -249,8 +274,10 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             color: smLight,
-            child: Text(description,
-                style: TextStyle(fontSize: 12, color: smMuted, height: 1.4)),
+            child: Text(
+              description,
+              style: TextStyle(fontSize: 12, color: smMuted, height: 1.4),
+            ),
           ),
         ],
       ),
@@ -270,9 +297,10 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 70,
-            child: Text(label,
-                style: const TextStyle(
-                    fontSize: 11, fontWeight: FontWeight.w600)),
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+            ),
           ),
           Expanded(
             child: Container(
@@ -290,11 +318,14 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   alignment: Alignment.center,
-                  child: Text(effectLabel,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    effectLabel,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -327,28 +358,36 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('StretchMode',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  'StretchMode',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'Controls the visual effect applied to '
                   'FlexibleSpaceBar content during overscroll.',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.87),
-                      fontSize: 14,
-                      height: 1.5),
+                    color: Colors.white.withValues(alpha: 0.87),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     smChip('enum', bg: Colors.white.withValues(alpha: 0.2)),
-                    smChip('FlexibleSpaceBar',
-                        bg: Colors.white.withValues(alpha: 0.2)),
-                    smChip('SliverAppBar',
-                        bg: Colors.white.withValues(alpha: 0.2)),
+                    smChip(
+                      'FlexibleSpaceBar',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
+                    smChip(
+                      'SliverAppBar',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
                   ],
                 ),
               ],
@@ -358,41 +397,45 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
 
           // ── 2. Enum Overview ─────────────────────────────────
-          smSection('Enum Overview',
+          smSection(
+            'Enum Overview',
             children: [
               smBody(
                 'StretchMode is an enum used in FlexibleSpaceBar.stretchModes '
                 'to define what happens when the user overscrolls beyond '
                 'the top of a scrollable area containing a SliverAppBar. '
-                'Multiple modes can be combined in a list.'),
+                'Multiple modes can be combined in a list.',
+              ),
               smBody(
                 'Stretch only activates when SliverAppBar.stretch is true '
                 'and the scroll physics allow overscroll (like '
-                'BouncingScrollPhysics on iOS).'),
+                'BouncingScrollPhysics on iOS).',
+              ),
               Wrap(
-                children: [
-                  for (final v in StretchMode.values)
-                    smChip(v.name),
-                ],
+                children: [for (final v in StretchMode.values) smChip(v.name)],
               ),
               const SizedBox(height: 8),
-              smBody(
-                'Default: [StretchMode.zoomBackground]'),
+              smBody('Default: [StretchMode.zoomBackground]'),
             ],
           ),
 
           // ── 3. Individual Mode Cards ─────────────────────────
           for (final m in smModeData)
-            smSection('${m['name']}',
+            smSection(
+              '${m['name']}',
               children: [
                 Row(
                   children: [
                     Icon(m['icon'] as IconData, color: smPrimary, size: 24),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(m['title'] as String,
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        m['title'] as String,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -409,12 +452,14 @@ dynamic build(BuildContext context) {
             ),
 
           // ── 4. Live Demo — zoomBackground ────────────────────
-          smSection('Live Preview — zoomBackground',
+          smSection(
+            'Live Preview — zoomBackground',
             children: [
               smBody(
                 'The background image scales up proportionally to the '
                 'overscroll distance. Below is a simulated SliverAppBar '
-                'with a gridded background so you can see the zoom:'),
+                'with a gridded background so you can see the zoom:',
+              ),
               smAppBarPreview(
                 title: 'Zoom Effect',
                 modes: [StretchMode.zoomBackground],
@@ -428,16 +473,19 @@ dynamic build(BuildContext context) {
               smBody(
                 'The zoom factor is proportional to overscroll pixels: '
                 'at 0px overscroll the scale is 1.0, and it increases '
-                'linearly. The image is clipped to its original bounds.'),
+                'linearly. The image is clipped to its original bounds.',
+              ),
             ],
           ),
 
           // ── 5. Live Demo — blurBackground ────────────────────
-          smSection('Live Preview — blurBackground',
+          smSection(
+            'Live Preview — blurBackground',
             children: [
               smBody(
                 'A gaussian blur intensifies with overscroll distance. '
-                'The blur sigma increases from 0 to a maximum:'),
+                'The blur sigma increases from 0 to a maximum:',
+              ),
               smAppBarPreview(
                 title: 'Blur Effect',
                 modes: [StretchMode.blurBackground],
@@ -463,7 +511,11 @@ dynamic build(BuildContext context) {
                       {'scroll': '0px', 'sigma': '0.0', 'desc': 'Sharp'},
                       {'scroll': '20px', 'sigma': '2.0', 'desc': 'Slight blur'},
                       {'scroll': '50px', 'sigma': '5.0', 'desc': 'Moderate'},
-                      {'scroll': '100px', 'sigma': '10.0', 'desc': 'Heavy frost'},
+                      {
+                        'scroll': '100px',
+                        'sigma': '10.0',
+                        'desc': 'Heavy frost',
+                      },
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
@@ -471,22 +523,30 @@ dynamic build(BuildContext context) {
                           children: [
                             SizedBox(
                               width: 60,
-                              child: Text(step['scroll']!,
-                                  style: const TextStyle(
-                                      fontSize: 11,
-                                      fontFamily: 'monospace',
-                                      fontWeight: FontWeight.w600)),
+                              child: Text(
+                                step['scroll']!,
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontFamily: 'monospace',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: 60,
-                              child: Text('σ ${step['sigma']}',
-                                  style: TextStyle(
-                                      fontSize: 11, color: smPrimary)),
+                              child: Text(
+                                'σ ${step['sigma']}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: smPrimary,
+                                ),
+                              ),
                             ),
                             Expanded(
-                              child: Text(step['desc']!,
-                                  style: TextStyle(
-                                      fontSize: 11, color: smMuted)),
+                              child: Text(
+                                step['desc']!,
+                                style: TextStyle(fontSize: 11, color: smMuted),
+                              ),
                             ),
                           ],
                         ),
@@ -498,11 +558,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 6. Live Demo — fadeTitle ──────────────────────────
-          smSection('Live Preview — fadeTitle',
+          smSection(
+            'Live Preview — fadeTitle',
             children: [
               smBody(
                 'The title fades out as the user overscrolls. The '
-                'opacity decreases from 1.0 to 0.0:'),
+                'opacity decreases from 1.0 to 0.0:',
+              ),
               smAppBarPreview(
                 title: 'Fade Title',
                 modes: [StretchMode.fadeTitle],
@@ -532,19 +594,25 @@ dynamic build(BuildContext context) {
                           children: [
                             SizedBox(
                               width: 60,
-                              child: Text('${(op * 100).toInt()}%',
-                                  style: const TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600)),
+                              child: Text(
+                                '${(op * 100).toInt()}%',
+                                style: const TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                             ),
                             Expanded(
                               child: Opacity(
                                 opacity: op,
-                                child: Text('Sample Title Text',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                        color: smDark)),
+                                child: Text(
+                                  'Sample Title Text',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: smDark,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -557,18 +625,17 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 7. Combined Modes Demo ───────────────────────────
-          smSection('Combined Modes',
+          smSection(
+            'Combined Modes',
             children: [
               smBody(
                 'stretchModes accepts a List<StretchMode>, so '
                 'multiple effects run simultaneously. Common '
-                'combinations:'),
+                'combinations:',
+              ),
               smAppBarPreview(
                 title: 'Zoom + Fade',
-                modes: [
-                  StretchMode.zoomBackground,
-                  StretchMode.fadeTitle,
-                ],
+                modes: [StretchMode.zoomBackground, StretchMode.fadeTitle],
                 headerColor: const Color(0xFFAD1457),
                 description:
                     'Background zooms while title fades. The zoom '
@@ -591,10 +658,7 @@ dynamic build(BuildContext context) {
               ),
               smAppBarPreview(
                 title: 'Blur + Fade',
-                modes: [
-                  StretchMode.blurBackground,
-                  StretchMode.fadeTitle,
-                ],
+                modes: [StretchMode.blurBackground, StretchMode.fadeTitle],
                 headerColor: const Color(0xFF00695C),
                 description:
                     'Background blurs without zooming while title '
@@ -605,19 +669,22 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 8. Stretch Mechanics ─────────────────────────────
-          smSection('Stretch Mechanics Visualisation',
+          smSection(
+            'Stretch Mechanics Visualisation',
             children: [
               smBody(
                 'The stretch effect intensity is proportional to the '
                 'overscroll pixels. Below shows relative intensity at '
-                'different overscroll depths:'),
+                'different overscroll depths:',
+              ),
               smLabel('zoomBackground Intensity'),
               for (final px in [10, 30, 60, 100])
                 smStretchBar(
                   label: '${px}px',
                   fraction: px / 100.0,
                   color: smPrimary,
-                  effectLabel: 'scale ${(1.0 + px / 200.0).toStringAsFixed(2)}x',
+                  effectLabel:
+                      'scale ${(1.0 + px / 200.0).toStringAsFixed(2)}x',
                 ),
               smDivider(),
               smLabel('blurBackground Intensity'),
@@ -635,16 +702,20 @@ dynamic build(BuildContext context) {
                   label: '${px}px',
                   fraction: px / 100.0,
                   color: const Color(0xFF00897B),
-                  effectLabel: 'opacity ${(1.0 - px / 100.0).toStringAsFixed(1)}',
+                  effectLabel:
+                      'opacity ${(1.0 - px / 100.0).toStringAsFixed(1)}',
                 ),
             ],
           ),
 
           // ── 9. Comparison Table ──────────────────────────────
-          smSection('Effect Comparison Table',
+          smSection(
+            'Effect Comparison Table',
             child: Table(
               border: TableBorder.all(
-                  color: smAccent.withValues(alpha: 0.3), width: 1),
+                color: smAccent.withValues(alpha: 0.3),
+                width: 1,
+              ),
               columnWidths: const {
                 0: FlexColumnWidth(2),
                 1: FlexColumnWidth(1.5),
@@ -653,8 +724,9 @@ dynamic build(BuildContext context) {
               },
               children: [
                 TableRow(
-                  decoration:
-                      BoxDecoration(color: smPrimary.withValues(alpha: 0.1)),
+                  decoration: BoxDecoration(
+                    color: smPrimary.withValues(alpha: 0.1),
+                  ),
                   children: [
                     for (final h in [
                       'Property',
@@ -664,9 +736,13 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: EdgeInsets.all(7),
-                        child: Text(h,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 10)),
+                        child: Text(
+                          h,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 10,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -683,12 +759,16 @@ dynamic build(BuildContext context) {
                       for (int i = 0; i < 4; i++)
                         Padding(
                           padding: EdgeInsets.all(7),
-                          child: Text(row[i],
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight:
-                                      i == 0 ? FontWeight.w600 : FontWeight.w400,
-                                  color: i == 0 ? smDark : smMuted)),
+                          child: Text(
+                            row[i],
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: i == 0
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
+                              color: i == 0 ? smDark : smMuted,
+                            ),
+                          ),
                         ),
                     ],
                   ),
@@ -697,16 +777,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 10. SliverAppBar Integration ─────────────────────
-          smSection('SliverAppBar Integration',
+          smSection(
+            'SliverAppBar Integration',
             children: [
               smBody(
                 'StretchMode is only meaningful when SliverAppBar.stretch '
-                'is true. Here are the key properties that interact:'),
+                'is true. Here are the key properties that interact:',
+              ),
               for (final prop in [
-                [
-                  'stretch',
-                  'Must be true to enable stretch effects',
-                ],
+                ['stretch', 'Must be true to enable stretch effects'],
                 [
                   'stretchTriggerOffset',
                   'Pixels of overscroll needed to trigger onStretchTrigger',
@@ -715,10 +794,7 @@ dynamic build(BuildContext context) {
                   'onStretchTrigger',
                   'Callback when stretchTriggerOffset is reached',
                 ],
-                [
-                  'expandedHeight',
-                  'Height of the app bar when fully expanded',
-                ],
+                ['expandedHeight', 'Height of the app bar when fully expanded'],
                 [
                   'flexibleSpace',
                   'Usually a FlexibleSpaceBar with stretchModes',
@@ -744,15 +820,20 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(
                         width: 160,
-                        child: Text(prop[0],
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          prop[0],
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(prop[1],
-                            style: TextStyle(fontSize: 12, color: smMuted)),
+                        child: Text(
+                          prop[1],
+                          style: TextStyle(fontSize: 12, color: smMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -761,16 +842,19 @@ dynamic build(BuildContext context) {
               smBody(
                 'The FlexibleSpaceBar reads the parent SliverAppBar '
                 'constraints. When scroll position goes negative '
-                '(overscroll), it applies the configured stretch modes.'),
+                '(overscroll), it applies the configured stretch modes.',
+              ),
             ],
           ),
 
           // ── 11. Scroll Physics Context ───────────────────────
-          smSection('Scroll Physics & Platform Context',
+          smSection(
+            'Scroll Physics & Platform Context',
             children: [
               smBody(
                 'Stretch effects depend on the scroll physics allowing '
-                'overscroll. Platform defaults differ:'),
+                'overscroll. Platform defaults differ:',
+              ),
               Row(
                 children: [
                   Expanded(
@@ -784,25 +868,35 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.phone_iphone, color: smDark, size: 28),
                           const SizedBox(height: 6),
-                          const Text('iOS',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'iOS',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('BouncingScrollPhysics',
-                              style: TextStyle(fontSize: 10, color: smMuted)),
+                          Text(
+                            'BouncingScrollPhysics',
+                            style: TextStyle(fontSize: 10, color: smMuted),
+                          ),
                           const SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 3),
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.green.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text('Stretch works natively',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.green.shade700)),
+                            child: Text(
+                              'Stretch works natively',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.green.shade700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -820,25 +914,35 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.phone_android, color: smDark, size: 28),
                           const SizedBox(height: 6),
-                          const Text('Android',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Android',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('ClampingScrollPhysics',
-                              style: TextStyle(fontSize: 10, color: smMuted)),
+                          Text(
+                            'ClampingScrollPhysics',
+                            style: TextStyle(fontSize: 10, color: smMuted),
+                          ),
                           const SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 3),
+                              horizontal: 8,
+                              vertical: 3,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.orange.withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text('No overscroll by default',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.orange.shade800)),
+                            child: Text(
+                              'No overscroll by default',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.orange.shade800,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -851,7 +955,8 @@ dynamic build(BuildContext context) {
                 'To enable stretch on Android, use '
                 'BouncingScrollPhysics or '
                 'AlwaysScrollableScrollPhysics with bouncing '
-                'parent, for example in a CustomScrollView:'),
+                'parent, for example in a CustomScrollView:',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -880,11 +985,14 @@ dynamic build(BuildContext context) {
                       '  ],',
                       ')',
                     ])
-                      Text(line,
-                          style: const TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              height: 1.5)),
+                      Text(
+                        line,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          height: 1.5,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -892,7 +1000,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 12. Common Pitfalls ──────────────────────────────
-          smSection('Common Pitfalls',
+          smSection(
+            'Common Pitfalls',
             children: [
               for (final pit in [
                 {
@@ -931,28 +1040,35 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8EAF6),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: smPrimary.withValues(alpha: 0.2)),
+                    border: Border.all(color: smPrimary.withValues(alpha: 0.2)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded,
-                              color: smDark, size: 16),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: smDark,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
-                            child: Text(pit['title']!,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700)),
+                            child: Text(
+                              pit['title']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(pit['detail']!,
-                          style: TextStyle(fontSize: 11, color: smMuted)),
+                      Text(
+                        pit['detail']!,
+                        style: TextStyle(fontSize: 11, color: smMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -960,13 +1076,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 13. onStretchTrigger Demo ────────────────────────
-          smSection('onStretchTrigger Callback',
+          smSection(
+            'onStretchTrigger Callback',
             children: [
               smBody(
                 'SliverAppBar.onStretchTrigger fires when the overscroll '
                 'exceeds stretchTriggerOffset (default: 100.0). This '
                 'callback is separate from StretchMode effects but '
-                'commonly used together for pull-to-refresh patterns:'),
+                'commonly used together for pull-to-refresh patterns:',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
@@ -987,11 +1105,14 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 3),
-                        child: Text(step,
-                            style: const TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.w500)),
+                        child: Text(
+                          step,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -1000,32 +1121,37 @@ dynamic build(BuildContext context) {
               smBody(
                 'The default stretchTriggerOffset of 100.0 can be '
                 'customised. Set a smaller value for easier triggering '
-                'or a larger one to require more deliberate overscroll.'),
+                'or a larger one to require more deliberate overscroll.',
+              ),
             ],
           ),
 
           // ── 14. Performance Notes ────────────────────────────
-          smSection('Performance Notes',
+          smSection(
+            'Performance Notes',
             children: [
               for (final note in [
                 {
                   'mode': 'zoomBackground',
                   'cost': 'Low',
-                  'detail': 'Simple transform matrix scale — handled '
+                  'detail':
+                      'Simple transform matrix scale — handled '
                       'entirely by the compositor with no extra '
                       'rasterization.',
                 },
                 {
                   'mode': 'blurBackground',
                   'cost': 'Medium–High',
-                  'detail': 'Uses BackdropFilter / ImageFilter.blur '
+                  'detail':
+                      'Uses BackdropFilter / ImageFilter.blur '
                       'which requires GPU shader passes. Can drop frames '
                       'on low-end devices.',
                 },
                 {
                   'mode': 'fadeTitle',
                   'cost': 'Very Low',
-                  'detail': 'Opacity change via RenderOpacity — one '
+                  'detail':
+                      'Opacity change via RenderOpacity — one '
                       'of the cheapest operations available.',
                 },
               ])
@@ -1044,10 +1170,13 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(note['mode']!,
-                                style: const TextStyle(
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w700)),
+                            Text(
+                              note['mode']!,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             const SizedBox(height: 2),
                             smChip(note['cost']!),
                           ],
@@ -1055,8 +1184,10 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(note['detail']!,
-                            style: TextStyle(fontSize: 11, color: smMuted)),
+                        child: Text(
+                          note['detail']!,
+                          style: TextStyle(fontSize: 11, color: smMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -1065,7 +1196,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 15. Related APIs ─────────────────────────────────
-          smSection('Related APIs',
+          smSection(
+            'Related APIs',
             children: [
               for (final api in [
                 {
@@ -1100,15 +1232,20 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 190,
-                        child: Text(api['name']!,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: smDark)),
+                        child: Text(
+                          api['name']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: smDark,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(api['rel']!,
-                            style: TextStyle(fontSize: 12, color: smMuted)),
+                        child: Text(
+                          api['rel']!,
+                          style: TextStyle(fontSize: 12, color: smMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -1117,7 +1254,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 16. Summary Dashboard ────────────────────────────
-          smSection('Summary Dashboard',
+          smSection(
+            'Summary Dashboard',
             child: Column(
               children: [
                 Row(
@@ -1132,13 +1270,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Text(
-                                '${StretchMode.values.length}',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: smDark)),
-                            const Text('Enum Values',
-                                style: TextStyle(fontSize: 11)),
+                              '${StretchMode.values.length}',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: smDark,
+                              ),
+                            ),
+                            const Text(
+                              'Enum Values',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1153,13 +1295,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('7',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: smDark)),
-                            const Text('Combinations',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '7',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: smDark,
+                              ),
+                            ),
+                            const Text(
+                              'Combinations',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1174,13 +1321,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('6',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: smDark)),
-                            const Text('Previews',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '6',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: smDark,
+                              ),
+                            ),
+                            const Text(
+                              'Previews',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1200,8 +1352,7 @@ dynamic build(BuildContext context) {
                     'for SliverAppBar. Combine modes for rich visual '
                     'feedback. Remember: stretch requires bouncing '
                     'scroll physics and stretch: true.',
-                    style: TextStyle(
-                        fontSize: 12, color: smMuted, height: 1.5),
+                    style: TextStyle(fontSize: 12, color: smMuted, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1218,19 +1369,23 @@ dynamic build(BuildContext context) {
             color: smDark,
             child: Column(
               children: [
-                const Text('StretchMode Deep Demo',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'StretchMode Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Sapphire/Azure theme  •  Batch 61  •  '
                   '${StretchMode.values.length} enum values  •  '
                   '6 live previews',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 11),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

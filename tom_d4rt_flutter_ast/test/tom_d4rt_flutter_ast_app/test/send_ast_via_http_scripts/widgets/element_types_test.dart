@@ -55,7 +55,8 @@ dynamic build(BuildContext context) {
         'Container(color: Colors.red)',
         'StatefulWidget subclasses',
       ],
-      'job': 'Describe what the UI should look like, in plain Dart '
+      'job':
+          'Describe what the UI should look like, in plain Dart '
           'objects that are cheap to throw away.',
     },
     <String, dynamic>{
@@ -71,7 +72,8 @@ dynamic build(BuildContext context) {
         'InheritedElement',
         'RenderObjectElement (Single / Multi / Leaf)',
       ],
-      'job': 'Hold identity, manage parent / child / slot, decide whether '
+      'job':
+          'Hold identity, manage parent / child / slot, decide whether '
           'a Widget update can reuse the existing slot, drive build() '
           'for component widgets, and own the RenderObject for '
           'render widgets.',
@@ -89,7 +91,8 @@ dynamic build(BuildContext context) {
         'RenderPadding',
         'RenderBox subclasses',
       ],
-      'job': 'Perform layout (constraints down, sizes up), paint into a '
+      'job':
+          'Perform layout (constraints down, sizes up), paint into a '
           'PictureLayer, and respond to hit-testing. Only '
           'RenderObjectWidgets create one; component widgets do not.',
     },
@@ -104,7 +107,8 @@ dynamic build(BuildContext context) {
       'depth': 0,
       'color': cInk,
       'kind': 'abstract',
-      'note': 'Root abstract class. Holds Widget reference, parent, slot, '
+      'note':
+          'Root abstract class. Holds Widget reference, parent, slot, '
           'depth, owner. Implements BuildContext.',
     },
     <String, dynamic>{
@@ -112,7 +116,8 @@ dynamic build(BuildContext context) {
       'depth': 1,
       'color': cElement,
       'kind': 'abstract',
-      'note': 'For widgets that COMPOSE other widgets. Has a single child '
+      'note':
+          'For widgets that COMPOSE other widgets. Has a single child '
           'slot. Implements performRebuild → build → updateChild.',
     },
     <String, dynamic>{
@@ -127,7 +132,8 @@ dynamic build(BuildContext context) {
       'depth': 2,
       'color': cStateful,
       'kind': 'concrete',
-      'note': 'Backs StatefulWidget. Owns the State object. build() '
+      'note':
+          'Backs StatefulWidget. Owns the State object. build() '
           'returns state.build(this).',
     },
     <String, dynamic>{
@@ -135,7 +141,8 @@ dynamic build(BuildContext context) {
       'depth': 2,
       'color': cInherited,
       'kind': 'abstract',
-      'note': 'For widgets that wrap a single child without composing — '
+      'note':
+          'For widgets that wrap a single child without composing — '
           'they propagate information instead.',
     },
     <String, dynamic>{
@@ -143,7 +150,8 @@ dynamic build(BuildContext context) {
       'depth': 3,
       'color': cInherited,
       'kind': 'concrete',
-      'note': 'Backs InheritedWidget. Maintains dependent map and notifies '
+      'note':
+          'Backs InheritedWidget. Maintains dependent map and notifies '
           'descendants when updateShouldNotify returns true.',
     },
     <String, dynamic>{
@@ -151,7 +159,8 @@ dynamic build(BuildContext context) {
       'depth': 1,
       'color': cRoElement,
       'kind': 'abstract',
-      'note': 'For widgets that CREATE a RenderObject. Owns the render '
+      'note':
+          'For widgets that CREATE a RenderObject. Owns the render '
           'object directly; does NOT call build().',
     },
     <String, dynamic>{
@@ -173,7 +182,8 @@ dynamic build(BuildContext context) {
       'depth': 2,
       'color': cMulti,
       'kind': 'concrete',
-      'note': 'List of children with slots = previous-sibling. e.g. Row, '
+      'note':
+          'List of children with slots = previous-sibling. e.g. Row, '
           'Column, Stack, Flex.',
     },
   ];
@@ -192,11 +202,13 @@ dynamic build(BuildContext context) {
         'Widget build() => (widget as StatelessWidget).build(this)',
         'void update(StatelessWidget newWidget) → super + rebuild()',
       ],
-      'why': 'StatelessElement is intentionally tiny. It just delegates '
+      'why':
+          'StatelessElement is intentionally tiny. It just delegates '
           'to widget.build(this) and lets the framework reconcile the '
           'returned subtree. There is no per-instance state; all '
           'configuration comes from the (immutable) widget.',
-      'lifeMatters': 'A new StatelessWidget instance arrives every '
+      'lifeMatters':
+          'A new StatelessWidget instance arrives every '
           'rebuild; the StatelessElement is reused if runtimeType + '
           'key match. The element holds no fields of its own.',
     },
@@ -213,12 +225,14 @@ dynamic build(BuildContext context) {
         'void deactivate() → state.deactivate()',
         'void unmount() → state.dispose()',
       ],
-      'why': 'StatefulElement carries the State object across widget '
+      'why':
+          'StatefulElement carries the State object across widget '
           'rebuilds. That is the entire point of StatefulWidget: keep '
           'something that survives configuration changes. The Element '
           'is the long-lived thing; the StatefulWidget instances are '
           'disposable wrappers.',
-      'lifeMatters': 'When the parent rebuilds, a new StatefulWidget '
+      'lifeMatters':
+          'When the parent rebuilds, a new StatefulWidget '
           'arrives. canUpdate matches → element keeps the same State '
           'instance, calls state.didUpdateWidget(old). That is how '
           'TextField keeps its cursor position across parent rebuilds.',
@@ -235,12 +249,14 @@ dynamic build(BuildContext context) {
         'Object? getDependencies(Element dep) / setDependencies(...)',
         'void updateDependencies(Element dep, Object? aspect)',
       ],
-      'why': 'InheritedElement is the only Element that maintains a '
+      'why':
+          'InheritedElement is the only Element that maintains a '
           'reverse map: a Set<Element> of descendants that depend on '
           'this widget. When the InheritedWidget changes and '
           'updateShouldNotify returns true, every dependent Element '
           'is marked dirty.',
-      'lifeMatters': 'context.dependOnInheritedWidgetOfExactType<T>() '
+      'lifeMatters':
+          'context.dependOnInheritedWidgetOfExactType<T>() '
           'walks UP the element tree, finds the nearest '
           'InheritedElement of type T, and registers the calling '
           'element as a dependent. That is O(depth), not O(n).',
@@ -257,11 +273,13 @@ dynamic build(BuildContext context) {
         'void unmount() → widget.didUnmountRenderObject(ro)',
         'void insertRenderObjectChild / moveRenderObjectChild / remove…',
       ],
-      'why': 'RenderObjectElement is the seam between the Element world '
+      'why':
+          'RenderObjectElement is the seam between the Element world '
           'and the RenderObject world. It owns a RenderObject and '
           'forwards Widget changes to it. There is no build() — the '
           'render object IS the visual output.',
-      'lifeMatters': 'When the framework finalizes layout, it walks the '
+      'lifeMatters':
+          'When the framework finalizes layout, it walks the '
           'render tree, NOT the element tree. RenderObjectElement keeps '
           'them aligned: every change to its widget is mirrored to its '
           'render object via updateRenderObject.',
@@ -278,7 +296,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.circle_outlined,
       'color': cLeaf,
       'examples': 'RichText, RawImage, Texture, PerformanceOverlay',
-      'note': 'Has no element children. Render object has no children. '
+      'note':
+          'Has no element children. Render object has no children. '
           'Common for terminal nodes that paint pixels themselves.',
     },
     <String, dynamic>{
@@ -286,9 +305,11 @@ dynamic build(BuildContext context) {
       'children': '1',
       'icon': Icons.expand,
       'color': cSingle,
-      'examples': 'Padding, Align, Center, Opacity, Transform, '
+      'examples':
+          'Padding, Align, Center, Opacity, Transform, '
           'ConstrainedBox, ColoredBox',
-      'note': 'Exactly one child element. The RenderObject is a '
+      'note':
+          'Exactly one child element. The RenderObject is a '
           'RenderProxyBox or similar single-child render object.',
     },
     <String, dynamic>{
@@ -296,8 +317,10 @@ dynamic build(BuildContext context) {
       'children': 'N',
       'icon': Icons.view_column,
       'color': cMulti,
-      'examples': 'Row, Column, Stack, Flex, Wrap, ListBody, CustomMultiChildLayout',
-      'note': 'Manages a List<Element> _children. Slot of each child is '
+      'examples':
+          'Row, Column, Stack, Flex, Wrap, ListBody, CustomMultiChildLayout',
+      'note':
+          'Manages a List<Element> _children. Slot of each child is '
           'a reference to its previous sibling — that is how children '
           'are inserted into the linked list of the RenderObject.',
     },
@@ -313,7 +336,8 @@ dynamic build(BuildContext context) {
       'name': 'createElement()',
       'color': cWidget,
       'who': 'Widget',
-      'detail': 'The framework calls widget.createElement(). For '
+      'detail':
+          'The framework calls widget.createElement(). For '
           'StatelessWidget that returns StatelessElement(this); for '
           'StatefulWidget StatefulElement(this) which also calls '
           'createState() and stores the State.',
@@ -324,7 +348,8 @@ dynamic build(BuildContext context) {
       'name': 'mount(parent, newSlot)',
       'color': cElement,
       'who': 'Element',
-      'detail': 'The element is inserted into the tree. _parent and _slot '
+      'detail':
+          'The element is inserted into the tree. _parent and _slot '
           'are set. _depth = parent.depth + 1. State becomes "active". '
           'For StatefulElement, state.initState() runs here, '
           'followed by state.didChangeDependencies().',
@@ -335,7 +360,8 @@ dynamic build(BuildContext context) {
       'name': 'performRebuild() → build()',
       'color': cElement,
       'who': 'ComponentElement',
-      'detail': 'First build. ComponentElement calls build() which '
+      'detail':
+          'First build. ComponentElement calls build() which '
           'returns a child Widget. updateChild(null, newChild, slot) '
           'inflates the child Widget into a new child Element by '
           'calling newChild.createElement().mount(this, slot).',
@@ -346,7 +372,8 @@ dynamic build(BuildContext context) {
       'name': 'parent rebuilds → update(newWidget)',
       'color': cInherited,
       'who': 'Element',
-      'detail': 'Parent build() emits a new widget for this slot. '
+      'detail':
+          'Parent build() emits a new widget for this slot. '
           'Framework checks Widget.canUpdate(oldWidget, newWidget). '
           'If true, _widget = newWidget, _dirty = true, element '
           'queued for rebuild. State (for StatefulElement) is kept.',
@@ -357,7 +384,8 @@ dynamic build(BuildContext context) {
       'name': 'markNeedsBuild()',
       'color': cStateful,
       'who': 'Element / setState',
-      'detail': 'setState() in a State ultimately calls '
+      'detail':
+          'setState() in a State ultimately calls '
           'element.markNeedsBuild(), which adds the element to the '
           'BuildOwner._dirtyElements list. Nothing happens '
           'synchronously — the rebuild is scheduled for the next frame.',
@@ -368,7 +396,8 @@ dynamic build(BuildContext context) {
       'name': 'rebuild() in next frame',
       'color': cElement,
       'who': 'BuildOwner',
-      'detail': 'During the build phase, BuildOwner.buildScope sorts '
+      'detail':
+          'During the build phase, BuildOwner.buildScope sorts '
           'dirty elements by depth (ancestors first) and calls '
           'rebuild() → performRebuild() → build() on each. '
           'updateChild reconciles the new widget with the existing '
@@ -380,7 +409,8 @@ dynamic build(BuildContext context) {
       'name': 'deactivate()',
       'color': cMuted,
       'who': 'Element',
-      'detail': 'Element is removed from its parent. State becomes '
+      'detail':
+          'Element is removed from its parent. State becomes '
           '"inactive". Element is added to BuildOwner._inactiveElements. '
           'It MAY come back this frame (e.g. GlobalKey reparenting), '
           'so resources are kept alive temporarily.',
@@ -391,7 +421,8 @@ dynamic build(BuildContext context) {
       'name': 'activate() (reparenting)',
       'color': cElement,
       'who': 'Element',
-      'detail': 'Optional. If the element was deactivated and then '
+      'detail':
+          'Optional. If the element was deactivated and then '
           'matched against a new slot via GlobalKey, activate() runs '
           'instead of unmount(). State is preserved across the move.',
     },
@@ -401,7 +432,8 @@ dynamic build(BuildContext context) {
       'name': 'unmount()',
       'color': cInk,
       'who': 'Element',
-      'detail': 'End of frame, element was not reactivated. '
+      'detail':
+          'End of frame, element was not reactivated. '
           'unmount() runs: child elements are unmounted recursively, '
           'state.dispose() runs, render objects are detached, and '
           '_widget is cleared. State becomes "defunct". The Element '
@@ -419,7 +451,8 @@ dynamic build(BuildContext context) {
       'newType': 'Padding',
       'newKey': 'null',
       'verdict': 'REUSE',
-      'note': 'Same runtimeType, same null key → element kept, '
+      'note':
+          'Same runtimeType, same null key → element kept, '
           'state preserved.',
       'color': cRoElement,
     },
@@ -438,7 +471,8 @@ dynamic build(BuildContext context) {
       'newType': 'Counter',
       'newKey': 'ValueKey("b")',
       'verdict': 'REPLACE',
-      'note': 'Different keys → old element is deactivated, new one '
+      'note':
+          'Different keys → old element is deactivated, new one '
           'created. State is LOST.',
       'color': cStateful,
     },
@@ -457,7 +491,8 @@ dynamic build(BuildContext context) {
       'newType': 'Padding',
       'newKey': 'null',
       'verdict': 'REPLACE',
-      'note': 'Different runtimeType → element replaced unconditionally. '
+      'note':
+          'Different runtimeType → element replaced unconditionally. '
           'A subtree swap occurs.',
       'color': cStateful,
     },
@@ -467,7 +502,8 @@ dynamic build(BuildContext context) {
       'newType': 'Counter',
       'newKey': 'same GlobalKey',
       'verdict': 'REUSE + MOVE',
-      'note': 'GlobalKey allows the element to move across the tree '
+      'note':
+          'GlobalKey allows the element to move across the tree '
           'without losing state. activate() instead of unmount().',
       'color': cInherited,
     },
@@ -480,7 +516,8 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'fact': 'BuildContext is just an Element',
       'icon': Icons.fingerprint,
-      'detail': 'In Flutter, the BuildContext interface is implemented '
+      'detail':
+          'In Flutter, the BuildContext interface is implemented '
           'by Element. When you write build(BuildContext context), the '
           'context parameter IS the element backing the current widget. '
           'That is how Theme.of(context) can walk up the tree.',
@@ -489,7 +526,8 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'fact': 'context.findAncestor* walks the Element tree',
       'icon': Icons.alt_route,
-      'detail': 'findAncestorWidgetOfExactType, '
+      'detail':
+          'findAncestorWidgetOfExactType, '
           'findAncestorRenderObjectOfType, '
           'dependOnInheritedWidgetOfExactType — all use Element._parent '
           'links. The Widget tree is recreated each rebuild and cannot '
@@ -499,7 +537,8 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'fact': 'Do not use context after unmount',
       'icon': Icons.report_outlined,
-      'detail': 'Once the Element is unmounted, context.mounted is '
+      'detail':
+          'Once the Element is unmounted, context.mounted is '
           'false. Async callbacks must guard with `if (!context.mounted) '
           'return;` or capture values up-front. Calling Navigator.of '
           'on a defunct context throws.',
@@ -508,7 +547,8 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'fact': 'Each widget has its OWN context',
       'icon': Icons.center_focus_strong,
-      'detail': 'A common mistake is calling Theme.of(context) at the '
+      'detail':
+          'A common mistake is calling Theme.of(context) at the '
           'top of a build method that wraps in a Theme widget. The '
           'top-level context belongs to the parent element — it sees '
           'the OLD theme. Use a Builder to get a fresh context below '
@@ -525,7 +565,8 @@ dynamic build(BuildContext context) {
       'title': 'Wrapping in a different type loses state',
       'icon': Icons.warning_amber_outlined,
       'color': cStateful,
-      'detail': 'If you conditionally wrap a child in a Padding when '
+      'detail':
+          'If you conditionally wrap a child in a Padding when '
           'some flag is true, the child changes runtimeType in the '
           'eyes of the parent slot — element replaced, state lost. '
           'Use a stable wrapper (always Padding with variable padding) '
@@ -535,7 +576,8 @@ dynamic build(BuildContext context) {
       'title': 'Reordering children without keys',
       'icon': Icons.swap_vert,
       'color': cMulti,
-      'detail': 'In a Column, MultiChildRenderObjectElement matches '
+      'detail':
+          'In a Column, MultiChildRenderObjectElement matches '
           'children by index by default. Swapping the order of two '
           'StatefulWidget children without keys means each one keeps '
           'the OTHER one\'s state. Add ValueKey to each child.',
@@ -544,7 +586,8 @@ dynamic build(BuildContext context) {
       'title': 'Calling setState in initState',
       'icon': Icons.error_outline,
       'color': cStateful,
-      'detail': 'During mount, the element is already being built — '
+      'detail':
+          'During mount, the element is already being built — '
           'markNeedsBuild during build is illegal. Use '
           'WidgetsBinding.instance.addPostFrameCallback or set state '
           'directly in initState without setState.',
@@ -553,7 +596,8 @@ dynamic build(BuildContext context) {
       'title': 'Using context inside initState',
       'icon': Icons.bolt_outlined,
       'color': cInherited,
-      'detail': 'context is valid in initState, but inherited '
+      'detail':
+          'context is valid in initState, but inherited '
           'dependencies are NOT yet wired up — '
           'dependOnInheritedWidgetOfExactType throws. Move that work '
           'to didChangeDependencies which runs immediately after.',
@@ -562,7 +606,8 @@ dynamic build(BuildContext context) {
       'title': 'Holding the Widget across rebuilds',
       'icon': Icons.handyman_outlined,
       'color': cWidget,
-      'detail': 'Widget instances are short-lived. Don\'t store '
+      'detail':
+          'Widget instances are short-lived. Don\'t store '
           '"my parent\'s widget" in a field. Use the Element via '
           'context.findAncestor… or read the widget property from State '
           'fresh each call.',
@@ -571,7 +616,8 @@ dynamic build(BuildContext context) {
       'title': 'GlobalKey thrash',
       'icon': Icons.vpn_key_outlined,
       'color': cElement,
-      'detail': 'GlobalKey lookups are linear in the tree per frame. '
+      'detail':
+          'GlobalKey lookups are linear in the tree per frame. '
           'Allocating GlobalKey in build() creates a new key each '
           'rebuild — element identity is lost AND lookups are wasted. '
           'Always store GlobalKey as an instance field.',
@@ -728,34 +774,42 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> reuseRules = <Map<String, dynamic>>[
     <String, dynamic>{
       'rule': 'Element reuse condition',
-      'expression': 'oldWidget.runtimeType == newWidget.runtimeType '
+      'expression':
+          'oldWidget.runtimeType == newWidget.runtimeType '
           '&& oldWidget.key == newWidget.key',
-      'detail': 'This is exactly Widget.canUpdate(old, new). It is '
+      'detail':
+          'This is exactly Widget.canUpdate(old, new). It is '
           'static, fast, and called once per slot per frame.',
       'color': cElement,
     },
     <String, dynamic>{
       'rule': 'Why not reuse on different types?',
-      'expression': 'StatefulElement holds a State<T> where T is the '
+      'expression':
+          'StatefulElement holds a State<T> where T is the '
           'specific widget type. Different type → wrong State.',
-      'detail': 'The framework would have to dispose state anyway, '
+      'detail':
+          'The framework would have to dispose state anyway, '
           'so it just creates a fresh element.',
       'color': cStateful,
     },
     <String, dynamic>{
       'rule': 'Why does key matter?',
-      'expression': 'Two children with same type but different '
+      'expression':
+          'Two children with same type but different '
           'identities (e.g. todo items) — keys distinguish them.',
-      'detail': 'Without keys, children of a list are matched by '
+      'detail':
+          'Without keys, children of a list are matched by '
           'position; reordering scrambles state. With keys, the '
           'framework matches by key first.',
       'color': cMulti,
     },
     <String, dynamic>{
       'rule': 'GlobalKey identity',
-      'expression': 'A GlobalKey points at most one Element across the '
+      'expression':
+          'A GlobalKey points at most one Element across the '
           'entire tree. Moving the widget moves the element with state.',
-      'detail': 'Implementation: BuildOwner._globalKeyRegistry maps '
+      'detail':
+          'Implementation: BuildOwner._globalKeyRegistry maps '
           'key → element. Reparenting is just remove + reinsert.',
       'color': cInherited,
     },
@@ -801,10 +855,7 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            cElement,
-            cInherited,
-          ],
+          colors: <Color>[cElement, cInherited],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: <BoxShadow>[
@@ -826,8 +877,11 @@ dynamic build(BuildContext context) {
                   color: Colors.white.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(Icons.account_tree_outlined,
-                    color: Colors.white, size: 28),
+                child: Icon(
+                  Icons.account_tree_outlined,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
               SizedBox(width: 14),
               Expanded(
@@ -889,8 +943,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget sectionHeader(String number, String title, String subtitle,
-      Color accent) {
+  Widget sectionHeader(
+    String number,
+    String title,
+    String subtitle,
+    Color accent,
+  ) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -898,9 +956,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: accent, width: 5),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 5)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -942,13 +998,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    color: cInkSoft,
-                    fontSize: 12,
-                  ),
-                ),
+                Text(subtitle, style: TextStyle(color: cInkSoft, fontSize: 12)),
               ],
             ),
           ),
@@ -974,9 +1024,7 @@ dynamic build(BuildContext context) {
             offset: Offset(0, 2),
           ),
         ],
-        border: Border(
-          top: BorderSide(color: color, width: 4),
-        ),
+        border: Border(top: BorderSide(color: color, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -989,8 +1037,7 @@ dynamic build(BuildContext context) {
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(tree['icon'] as IconData,
-                    color: color, size: 20),
+                child: Icon(tree['icon'] as IconData, color: color, size: 20),
               ),
               SizedBox(width: 10),
               Expanded(
@@ -1033,17 +1080,15 @@ dynamic build(BuildContext context) {
                     Text(
                       'lifetime: ',
                       style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: cInk),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: cInk,
+                      ),
                     ),
                     Expanded(
                       child: Text(
                         tree['lifetime'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: cInkSoft,
-                        ),
+                        style: TextStyle(fontSize: 11, color: cInkSoft),
                       ),
                     ),
                   ],
@@ -1054,17 +1099,15 @@ dynamic build(BuildContext context) {
                     Text(
                       'mutability: ',
                       style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: cInk),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: cInk,
+                      ),
                     ),
                     Expanded(
                       child: Text(
                         tree['mutability'] as String,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: cInkSoft,
-                        ),
+                        style: TextStyle(fontSize: 11, color: cInkSoft),
                       ),
                     ),
                   ],
@@ -1075,11 +1118,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10),
           Text(
             tree['job'] as String,
-            style: TextStyle(
-              fontSize: 13,
-              color: cInkSoft,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 13, color: cInkSoft, height: 1.5),
           ),
           SizedBox(height: 10),
           Wrap(
@@ -1088,14 +1127,11 @@ dynamic build(BuildContext context) {
             children: examples
                 .map<Widget>(
                   (String e) => Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(
-                        color: color.withValues(alpha: 0.4),
-                      ),
+                      border: Border.all(color: color.withValues(alpha: 0.4)),
                     ),
                     child: Text(
                       e,
@@ -1162,8 +1198,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(8),
@@ -1184,7 +1219,9 @@ dynamic build(BuildContext context) {
                       SizedBox(width: 6),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 1),
+                          horizontal: 5,
+                          vertical: 1,
+                        ),
                         decoration: BoxDecoration(
                           color: color.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(4),
@@ -1233,9 +1270,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border(
-          left: BorderSide(color: color, width: 5),
-        ),
+        border: Border(left: BorderSide(color: color, width: 5)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -1255,8 +1290,7 @@ dynamic build(BuildContext context) {
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(v['icon'] as IconData,
-                    color: color, size: 22),
+                child: Icon(v['icon'] as IconData, color: color, size: 22),
               ),
               SizedBox(width: 12),
               Expanded(
@@ -1352,11 +1386,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12),
           Text(
             v['why'] as String,
-            style: TextStyle(
-              fontSize: 13,
-              color: cInkSoft,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 13, color: cInkSoft, height: 1.5),
           ),
           SizedBox(height: 8),
           Container(
@@ -1365,15 +1395,12 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: cBg,
               borderRadius: BorderRadius.circular(8),
-              border: Border(
-                left: BorderSide(color: color, width: 3),
-              ),
+              border: Border(left: BorderSide(color: color, width: 3)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline,
-                    size: 16, color: color),
+                Icon(Icons.lightbulb_outline, size: 16, color: color),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1410,9 +1437,7 @@ dynamic build(BuildContext context) {
             offset: Offset(0, 2),
           ),
         ],
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1433,8 +1458,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(20),
@@ -1453,11 +1477,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 10),
           Text(
             r['note'] as String,
-            style: TextStyle(
-              fontSize: 12,
-              color: cInkSoft,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.45),
           ),
           SizedBox(height: 8),
           Container(
@@ -1490,9 +1510,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -1508,10 +1526,7 @@ dynamic build(BuildContext context) {
             width: 32,
             height: 32,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             child: Text(
               step['step'] as String,
               style: TextStyle(
@@ -1540,8 +1555,7 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 2),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.16),
                         borderRadius: BorderRadius.circular(20),
@@ -1570,11 +1584,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Text(
                   step['detail'] as String,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: cInkSoft,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.5),
                 ),
               ],
             ),
@@ -1601,9 +1611,7 @@ dynamic build(BuildContext context) {
             offset: Offset(0, 1),
           ),
         ],
-        border: Border.all(
-          color: color.withValues(alpha: 0.35),
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1621,12 +1629,15 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('OLD',
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: cMuted,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.6)),
+                      Text(
+                        'OLD',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: cMuted,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
                       SizedBox(height: 2),
                       Text(
                         r['oldType'] as String,
@@ -1651,8 +1662,7 @@ dynamic build(BuildContext context) {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(Icons.arrow_forward,
-                    size: 16, color: cMuted),
+                child: Icon(Icons.arrow_forward, size: 16, color: cMuted),
               ),
               Expanded(
                 child: Container(
@@ -1664,12 +1674,15 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('NEW',
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: cMuted,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.6)),
+                      Text(
+                        'NEW',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: cMuted,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
                       SizedBox(height: 2),
                       Text(
                         r['newType'] as String,
@@ -1698,8 +1711,7 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(20),
@@ -1708,9 +1720,7 @@ dynamic build(BuildContext context) {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Icon(
-                      reuse
-                          ? Icons.recycling_outlined
-                          : Icons.cancel_outlined,
+                      reuse ? Icons.recycling_outlined : Icons.cancel_outlined,
                       size: 14,
                       color: color,
                     ),
@@ -1732,11 +1742,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8),
           Text(
             r['note'] as String,
-            style: TextStyle(
-              fontSize: 12,
-              color: cInkSoft,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.4),
           ),
         ],
       ),
@@ -1752,9 +1758,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -1790,11 +1794,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Text(
                   f['detail'] as String,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: cInkSoft,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.5),
                 ),
               ],
             ),
@@ -1868,16 +1868,16 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          ...contrast.asMap().entries.map<Widget>((MapEntry<int, Map<String, dynamic>> e) {
+          ...contrast.asMap().entries.map<Widget>((
+            MapEntry<int, Map<String, dynamic>> e,
+          ) {
             final int i = e.key;
             final Map<String, dynamic> row = e.value;
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                 color: i.isEven ? cBg : Colors.white,
-                border: Border(
-                  bottom: BorderSide(color: cLine, width: 1),
-                ),
+                border: Border(bottom: BorderSide(color: cLine, width: 1)),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1931,21 +1931,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cInk,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding:
-                EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.18),
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(12),
-              ),
+              borderRadius: BorderRadius.only(topRight: Radius.circular(12)),
             ),
             child: Row(
               children: <Widget>[
@@ -1974,8 +1969,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: lines
@@ -2017,9 +2011,7 @@ dynamic build(BuildContext context) {
             offset: Offset(0, 1),
           ),
         ],
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2041,11 +2033,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6),
                 Text(
                   p['detail'] as String,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: cInkSoft,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.5),
                 ),
               ],
             ),
@@ -2064,9 +2052,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -2089,8 +2075,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8),
           Container(
             width: double.infinity,
-            padding:
-                EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(8),
@@ -2109,11 +2094,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8),
           Text(
             r['detail'] as String,
-            style: TextStyle(
-              fontSize: 12,
-              color: cInkSoft,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12, color: cInkSoft, height: 1.5),
           ),
         ],
       ),
@@ -2137,8 +2118,7 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.bookmark_outline,
-                  color: Colors.white, size: 20),
+              Icon(Icons.bookmark_outline, color: Colors.white, size: 20),
               SizedBox(width: 8),
               Text(
                 'Mental model takeaway',
@@ -2171,16 +2151,14 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 18),
           Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: 12, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.format_list_numbered,
-                    color: Colors.white, size: 18),
+                Icon(Icons.format_list_numbered, color: Colors.white, size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -2220,10 +2198,7 @@ dynamic build(BuildContext context) {
             SizedBox(width: 10),
             Text(
               'Element Types',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.4,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 0.4),
             ),
           ],
         ),
@@ -2388,17 +2363,12 @@ dynamic build(BuildContext context) {
                   _recapChip('Widget = config', cWidget),
                   _recapChip('RenderObject = paint', cRender),
                   _recapChip('build() lives on Component', cStateless),
-                  _recapChip(
-                      'createRenderObject lives on RO', cRoElement),
-                  _recapChip('State lives on StatefulElement',
-                      cStateful),
-                  _recapChip('Inherited propagates updates',
-                      cInherited),
+                  _recapChip('createRenderObject lives on RO', cRoElement),
+                  _recapChip('State lives on StatefulElement', cStateful),
+                  _recapChip('Inherited propagates updates', cInherited),
                   _recapChip('canUpdate = type+key', cMulti),
-                  _recapChip('GlobalKey = move-with-state',
-                      cInherited),
-                  _recapChip('context.mounted before async',
-                      cStateful),
+                  _recapChip('GlobalKey = move-with-state', cInherited),
+                  _recapChip('context.mounted before async', cStateful),
                 ],
               ),
             ),
@@ -2429,29 +2399,50 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _apiRow('Element.mount(parent, slot)',
-                      'Insert into tree, set parent/slot/depth, become active.'),
-                  _apiRow('Element.update(newWidget)',
-                      'Adopt new widget config; mark dirty.'),
-                  _apiRow('Element.activate()',
-                      'Re-attach after a transient deactivate (e.g. GlobalKey move).'),
-                  _apiRow('Element.deactivate()',
-                      'Detach from tree but keep around for end-of-frame reuse.'),
-                  _apiRow('Element.unmount()',
-                      'Final teardown; State.dispose runs here.'),
-                  _apiRow('Element.markNeedsBuild()',
-                      'Add to BuildOwner dirty list for next frame.'),
-                  _apiRow('Element.rebuild()',
-                      'Drive performRebuild if dirty.'),
-                  _apiRow('ComponentElement.performRebuild()',
-                      'Call build(), then updateChild for the returned widget.'),
-                  _apiRow('Element.updateChild(child, newWidget, slot)',
-                      'Reconcile one slot: reuse, replace, insert or remove.'),
-                  _apiRow('RenderObjectElement.insertRenderObjectChild',
-                      'Hook child render object into parent render object.'),
                   _apiRow(
-                      'InheritedElement.notifyClients(oldWidget)',
-                      'Walk dependents and mark them needing rebuild.'),
+                    'Element.mount(parent, slot)',
+                    'Insert into tree, set parent/slot/depth, become active.',
+                  ),
+                  _apiRow(
+                    'Element.update(newWidget)',
+                    'Adopt new widget config; mark dirty.',
+                  ),
+                  _apiRow(
+                    'Element.activate()',
+                    'Re-attach after a transient deactivate (e.g. GlobalKey move).',
+                  ),
+                  _apiRow(
+                    'Element.deactivate()',
+                    'Detach from tree but keep around for end-of-frame reuse.',
+                  ),
+                  _apiRow(
+                    'Element.unmount()',
+                    'Final teardown; State.dispose runs here.',
+                  ),
+                  _apiRow(
+                    'Element.markNeedsBuild()',
+                    'Add to BuildOwner dirty list for next frame.',
+                  ),
+                  _apiRow(
+                    'Element.rebuild()',
+                    'Drive performRebuild if dirty.',
+                  ),
+                  _apiRow(
+                    'ComponentElement.performRebuild()',
+                    'Call build(), then updateChild for the returned widget.',
+                  ),
+                  _apiRow(
+                    'Element.updateChild(child, newWidget, slot)',
+                    'Reconcile one slot: reuse, replace, insert or remove.',
+                  ),
+                  _apiRow(
+                    'RenderObjectElement.insertRenderObjectChild',
+                    'Hook child render object into parent render object.',
+                  ),
+                  _apiRow(
+                    'InheritedElement.notifyClients(oldWidget)',
+                    'Walk dependents and mark them needing rebuild.',
+                  ),
                 ],
               ),
             ),
@@ -2481,11 +2472,7 @@ Widget _recapChip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: color,
-        fontWeight: FontWeight.w700,
-        fontSize: 11,
-      ),
+      style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11),
     ),
   );
 }

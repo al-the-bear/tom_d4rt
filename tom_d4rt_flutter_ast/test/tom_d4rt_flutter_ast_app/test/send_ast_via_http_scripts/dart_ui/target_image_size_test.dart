@@ -122,43 +122,66 @@ const BorderRadius _kRadiusXl = BorderRadius.all(Radius.circular(28));
 // All const-constructible because the constructor is `const`.
 // ---------------------------------------------------------------------------
 
-const ui.TargetImageSize _tisThumbXs = ui.TargetImageSize(width: 64, height: 48);
-const ui.TargetImageSize _tisThumbSm =
-    ui.TargetImageSize(width: 128, height: 96);
-const ui.TargetImageSize _tisThumbMd =
-    ui.TargetImageSize(width: 256, height: 192);
-const ui.TargetImageSize _tisCard =
-    ui.TargetImageSize(width: 512, height: 384);
-const ui.TargetImageSize _tisHero =
-    ui.TargetImageSize(width: 1024, height: 768);
-const ui.TargetImageSize _tisFull =
-    ui.TargetImageSize(width: 2048, height: 1536);
+const ui.TargetImageSize _tisThumbXs = ui.TargetImageSize(
+  width: 64,
+  height: 48,
+);
+const ui.TargetImageSize _tisThumbSm = ui.TargetImageSize(
+  width: 128,
+  height: 96,
+);
+const ui.TargetImageSize _tisThumbMd = ui.TargetImageSize(
+  width: 256,
+  height: 192,
+);
+const ui.TargetImageSize _tisCard = ui.TargetImageSize(width: 512, height: 384);
+const ui.TargetImageSize _tisHero = ui.TargetImageSize(
+  width: 1024,
+  height: 768,
+);
+const ui.TargetImageSize _tisFull = ui.TargetImageSize(
+  width: 2048,
+  height: 1536,
+);
 
 // Aspect ratio buckets.
-const ui.TargetImageSize _tisSquareAvatar =
-    ui.TargetImageSize(width: 64, height: 64);
-const ui.TargetImageSize _tisSquareList =
-    ui.TargetImageSize(width: 88, height: 88);
-const ui.TargetImageSize _tis43Photo =
-    ui.TargetImageSize(width: 800, height: 600);
-const ui.TargetImageSize _tis169Banner =
-    ui.TargetImageSize(width: 1080, height: 608);
-const ui.TargetImageSize _tisPortrait34 =
-    ui.TargetImageSize(width: 600, height: 800);
-const ui.TargetImageSize _tisUltrawide219 =
-    ui.TargetImageSize(width: 1680, height: 720);
+const ui.TargetImageSize _tisSquareAvatar = ui.TargetImageSize(
+  width: 64,
+  height: 64,
+);
+const ui.TargetImageSize _tisSquareList = ui.TargetImageSize(
+  width: 88,
+  height: 88,
+);
+const ui.TargetImageSize _tis43Photo = ui.TargetImageSize(
+  width: 800,
+  height: 600,
+);
+const ui.TargetImageSize _tis169Banner = ui.TargetImageSize(
+  width: 1080,
+  height: 608,
+);
+const ui.TargetImageSize _tisPortrait34 = ui.TargetImageSize(
+  width: 600,
+  height: 800,
+);
+const ui.TargetImageSize _tisUltrawide219 = ui.TargetImageSize(
+  width: 1680,
+  height: 720,
+);
 
 // DPR-aware sizes for a logical 100×100 widget.
-const ui.TargetImageSize _tisDpr1 =
-    ui.TargetImageSize(width: 100, height: 100);
-const ui.TargetImageSize _tisDpr1_5 =
-    ui.TargetImageSize(width: 150, height: 150);
-const ui.TargetImageSize _tisDpr2 =
-    ui.TargetImageSize(width: 200, height: 200);
-const ui.TargetImageSize _tisDpr2_5 =
-    ui.TargetImageSize(width: 250, height: 250);
-const ui.TargetImageSize _tisDpr3 =
-    ui.TargetImageSize(width: 300, height: 300);
+const ui.TargetImageSize _tisDpr1 = ui.TargetImageSize(width: 100, height: 100);
+const ui.TargetImageSize _tisDpr1_5 = ui.TargetImageSize(
+  width: 150,
+  height: 150,
+);
+const ui.TargetImageSize _tisDpr2 = ui.TargetImageSize(width: 200, height: 200);
+const ui.TargetImageSize _tisDpr2_5 = ui.TargetImageSize(
+  width: 250,
+  height: 250,
+);
+const ui.TargetImageSize _tisDpr3 = ui.TargetImageSize(width: 300, height: 300);
 
 // Single-axis (preserve aspect ratio) hints.
 const ui.TargetImageSize _tisOnlyWidth = ui.TargetImageSize(width: 480);
@@ -166,32 +189,54 @@ const ui.TargetImageSize _tisOnlyHeight = ui.TargetImageSize(height: 360);
 const ui.TargetImageSize _tisIntrinsic = ui.TargetImageSize();
 
 // Practical recipe sizes.
-const ui.TargetImageSize _tisRecipeAvatar =
-    ui.TargetImageSize(width: 64, height: 64);
-const ui.TargetImageSize _tisRecipeListThumb =
-    ui.TargetImageSize(width: 88, height: 88);
-const ui.TargetImageSize _tisRecipeHeroBanner =
-    ui.TargetImageSize(width: 1080, height: 608);
-const ui.TargetImageSize _tisRecipeFullScreen =
-    ui.TargetImageSize(width: 1440, height: 2960);
-const ui.TargetImageSize _tisRecipeChatBubble =
-    ui.TargetImageSize(width: 360, height: 360);
-const ui.TargetImageSize _tisRecipeProductCard =
-    ui.TargetImageSize(width: 512, height: 512);
+const ui.TargetImageSize _tisRecipeAvatar = ui.TargetImageSize(
+  width: 64,
+  height: 64,
+);
+const ui.TargetImageSize _tisRecipeListThumb = ui.TargetImageSize(
+  width: 88,
+  height: 88,
+);
+const ui.TargetImageSize _tisRecipeHeroBanner = ui.TargetImageSize(
+  width: 1080,
+  height: 608,
+);
+const ui.TargetImageSize _tisRecipeFullScreen = ui.TargetImageSize(
+  width: 1440,
+  height: 2960,
+);
+const ui.TargetImageSize _tisRecipeChatBubble = ui.TargetImageSize(
+  width: 360,
+  height: 360,
+);
+const ui.TargetImageSize _tisRecipeProductCard = ui.TargetImageSize(
+  width: 512,
+  height: 512,
+);
 
 // Comparison panel.
-const ui.TargetImageSize _tisCompareSourceish =
-    ui.TargetImageSize(width: 4032, height: 3024);
-const ui.TargetImageSize _tisCompareHinted =
-    ui.TargetImageSize(width: 1080, height: 810);
+const ui.TargetImageSize _tisCompareSourceish = ui.TargetImageSize(
+  width: 4032,
+  height: 3024,
+);
+const ui.TargetImageSize _tisCompareHinted = ui.TargetImageSize(
+  width: 1080,
+  height: 810,
+);
 
 // Footgun examples.
-const ui.TargetImageSize _tisFootgunAspectMismatch =
-    ui.TargetImageSize(width: 600, height: 200);
-const ui.TargetImageSize _tisFootgunLogicalNotPhysical =
-    ui.TargetImageSize(width: 100, height: 100);
-const ui.TargetImageSize _tisFootgunForgotOn4K =
-    ui.TargetImageSize(width: 3840, height: 2160);
+const ui.TargetImageSize _tisFootgunAspectMismatch = ui.TargetImageSize(
+  width: 600,
+  height: 200,
+);
+const ui.TargetImageSize _tisFootgunLogicalNotPhysical = ui.TargetImageSize(
+  width: 100,
+  height: 100,
+);
+const ui.TargetImageSize _tisFootgunForgotOn4K = ui.TargetImageSize(
+  width: 3840,
+  height: 2160,
+);
 
 // ---------------------------------------------------------------------------
 // Entrypoint expected by the bridge.
@@ -304,7 +349,11 @@ Widget _sectionHeader({
               const SizedBox(height: 6),
               Text(
                 subtitle,
-                style: const TextStyle(color: _kInk, fontSize: 13, height: 1.35),
+                style: const TextStyle(
+                  color: _kInk,
+                  fontSize: 13,
+                  height: 1.35,
+                ),
               ),
             ],
           ),
@@ -319,11 +368,7 @@ Widget _prose(String text) {
     padding: const EdgeInsets.symmetric(horizontal: 4),
     child: Text(
       text,
-      style: const TextStyle(
-        color: _kInkSoft,
-        fontSize: 14,
-        height: 1.55,
-      ),
+      style: const TextStyle(color: _kInkSoft, fontSize: 14, height: 1.55),
     ),
   );
 }
@@ -669,10 +714,7 @@ Widget _anatomyArrow({required ui.TargetImageSize target}) {
       const SizedBox(height: 4),
       const Icon(Icons.arrow_forward, color: _kAccent, size: 24),
       const SizedBox(height: 2),
-      const Text(
-        'decode',
-        style: TextStyle(color: _kInkMute, fontSize: 10),
-      ),
+      const Text('decode', style: TextStyle(color: _kInkMute, fontSize: 10)),
     ],
   );
 }
@@ -957,13 +999,14 @@ Widget _memoryRow(
   required bool striped,
 }) {
   final int bytes = _tisBytes(tis);
-  final double savings =
-      sourceBytes <= 0 ? 0 : (1.0 - (bytes / sourceBytes)) * 100.0;
+  final double savings = sourceBytes <= 0
+      ? 0
+      : (1.0 - (bytes / sourceBytes)) * 100.0;
   final Color savingsColor = savings >= 95
       ? _kAccentD
       : savings >= 80
-          ? _kAccentC
-          : _kAccentE;
+      ? _kAccentC
+      : _kAccentE;
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
     decoration: BoxDecoration(
@@ -1242,11 +1285,7 @@ Widget _buildDprRecipeSection() {
             dprs.length,
             (int i) => Padding(
               padding: EdgeInsets.only(bottom: i == dprs.length - 1 ? 0 : 10),
-              child: _dprRow(
-                dpr: dprs[i],
-                tis: tisPerDpr[i],
-                note: notes[i],
-              ),
+              child: _dprRow(dpr: dprs[i], tis: tisPerDpr[i], note: notes[i]),
             ),
           ),
         ),
@@ -1572,8 +1611,7 @@ Widget _buildFootgunSection() {
         _footgunCard(
           title: 'FOOTGUN 2 — Aspect-ratio mismatch',
           accent: _kAccentC,
-          headline:
-              'TargetImageSize(width: 600, height: 200)  for a 4:3 photo',
+          headline: 'TargetImageSize(width: 600, height: 200)  for a 4:3 photo',
           symptom:
               'The decoded bitmap is squashed: the photo gets a 3:1 frame so faces and skylines look distorted.',
           fix:
@@ -1697,7 +1735,11 @@ Widget _footgunVisualInvalid(Color accent) {
         Text(
           'assertion failure\nwidth > 0 && height > 0',
           textAlign: TextAlign.center,
-          style: TextStyle(color: accent, fontSize: 11, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: accent,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ],
     ),
@@ -1717,7 +1759,10 @@ Widget _footgunVisualSquashed(Color accent) {
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.08),
               borderRadius: _kRadiusXs,
-              border: Border.all(color: accent.withValues(alpha: 0.6), width: 1),
+              border: Border.all(
+                color: accent.withValues(alpha: 0.6),
+                width: 1,
+              ),
             ),
             alignment: Alignment.center,
             child: Text(
@@ -1737,7 +1782,11 @@ Widget _footgunVisualSquashed(Color accent) {
             alignment: Alignment.center,
             child: Text(
               '600×200 hint',
-              style: TextStyle(color: _kInk, fontSize: 10, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: _kInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
@@ -1768,7 +1817,11 @@ Widget _footgunVisualBlurry(Color accent) {
             child: Text(
               'logical\n100×100',
               textAlign: TextAlign.center,
-              style: TextStyle(color: accent, fontSize: 10, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: accent,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
@@ -1778,13 +1831,20 @@ Widget _footgunVisualBlurry(Color accent) {
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.06),
               borderRadius: _kRadiusXs,
-              border: Border.all(color: accent.withValues(alpha: 0.5), width: 1),
+              border: Border.all(
+                color: accent.withValues(alpha: 0.5),
+                width: 1,
+              ),
             ),
             alignment: Alignment.center,
             child: Text(
               'physical\n300×300',
               textAlign: TextAlign.center,
-              style: TextStyle(color: accent, fontSize: 10, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: accent,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
@@ -1809,7 +1869,11 @@ Widget _footgunVisualGiant(Color accent) {
         const SizedBox(height: 6),
         Text(
           '${_bytesHuman(_tisBytes(_tisFootgunForgotOn4K))} per image',
-          style: TextStyle(color: accent, fontSize: 11, fontWeight: FontWeight.w700),
+          style: TextStyle(
+            color: accent,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         const SizedBox(height: 2),
         const Text(

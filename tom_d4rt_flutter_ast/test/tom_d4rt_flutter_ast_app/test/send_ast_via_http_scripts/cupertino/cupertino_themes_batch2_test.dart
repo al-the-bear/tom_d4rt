@@ -35,7 +35,12 @@ const Color kDarkMuted = Color(0xFF8E8E93);
 // SECTION BUILDERS (top-level for clarity)
 // ============================================================================
 
-Widget _sectionHeader(String index, String title, String subtitle, Color accent) {
+Widget _sectionHeader(
+  String index,
+  String title,
+  String subtitle,
+  Color accent,
+) {
   return Container(
     margin: const EdgeInsets.only(top: 32.0, bottom: 12.0),
     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
@@ -112,7 +117,11 @@ Widget _sectionHeader(String index, String title, String subtitle, Color accent)
   );
 }
 
-Widget _narrative(String text, {Color background = kInkSurface, Color border = kInkLine}) {
+Widget _narrative(
+  String text, {
+  Color background = kInkSurface,
+  Color border = kInkLine,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 8.0),
     padding: const EdgeInsets.all(14.0),
@@ -124,7 +133,11 @@ Widget _narrative(String text, {Color background = kInkSurface, Color border = k
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Icon(CupertinoIcons.info_circle_fill, size: 18.0, color: Color(0xFF0A84FF)),
+        const Icon(
+          CupertinoIcons.info_circle_fill,
+          size: 18.0,
+          color: Color(0xFF0A84FF),
+        ),
         const SizedBox(width: 10.0),
         Expanded(
           child: Text(
@@ -166,7 +179,9 @@ Widget _swatch(String label, Color color, {String? hint}) {
           height: 64.0,
           decoration: BoxDecoration(
             color: color,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(11.0)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(11.0),
+            ),
           ),
           alignment: Alignment.bottomLeft,
           padding: const EdgeInsets.all(8.0),
@@ -237,7 +252,9 @@ Widget _iosFrame({
   final Color bar = data.barBackgroundColor;
   final Color primary = data.primaryColor;
   final Color textColor = brightness == Brightness.dark ? kDarkText : kInkText;
-  final Color mutedColor = brightness == Brightness.dark ? kDarkMuted : kInkMuted;
+  final Color mutedColor = brightness == Brightness.dark
+      ? kDarkMuted
+      : kInkMuted;
   final Color outline = brightness == Brightness.dark ? kDarkLine : kInkLine;
 
   return Container(
@@ -286,7 +303,11 @@ Widget _iosFrame({
                     const Spacer(),
                     Icon(CupertinoIcons.wifi, size: 11.0, color: textColor),
                     const SizedBox(width: 4.0),
-                    Icon(CupertinoIcons.battery_full, size: 13.0, color: textColor),
+                    Icon(
+                      CupertinoIcons.battery_full,
+                      size: 13.0,
+                      color: textColor,
+                    ),
                   ],
                 ),
               ),
@@ -364,7 +385,9 @@ Widget _iosFrame({
                       // List rows
                       Container(
                         decoration: BoxDecoration(
-                          color: brightness == Brightness.dark ? kDarkSurface : Colors.white,
+                          color: brightness == Brightness.dark
+                              ? kDarkSurface
+                              : Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
                           border: Border.all(color: outline, width: 0.6),
                         ),
@@ -390,7 +413,10 @@ Widget _iosFrame({
                                 border: last
                                     ? null
                                     : Border(
-                                        bottom: BorderSide(color: outline, width: 0.5),
+                                        bottom: BorderSide(
+                                          color: outline,
+                                          width: 0.5,
+                                        ),
                                       ),
                               ),
                               child: Row(
@@ -403,7 +429,11 @@ Widget _iosFrame({
                                       borderRadius: BorderRadius.circular(6.0),
                                     ),
                                     alignment: Alignment.center,
-                                    child: Icon(icons[rowIndex], size: 13.0, color: primary),
+                                    child: Icon(
+                                      icons[rowIndex],
+                                      size: 13.0,
+                                      color: primary,
+                                    ),
                                   ),
                                   const SizedBox(width: 8.0),
                                   Expanded(
@@ -478,9 +508,7 @@ Widget _iosFrame({
                 height: 34.0,
                 decoration: BoxDecoration(
                   color: bar,
-                  border: Border(
-                    top: BorderSide(color: outline, width: 0.5),
-                  ),
+                  border: Border(top: BorderSide(color: outline, width: 0.5)),
                 ),
                 child: Row(
                   children: List<Widget>.generate(4, (int tabIndex) {
@@ -552,8 +580,16 @@ dynamic build(BuildContext context) {
   // Build a small reference table of the main CupertinoThemeData fields.
   final List<List<String>> fieldRows = <List<String>>[
     <String>['brightness', 'Brightness?', 'Light / dark / inherit (null)'],
-    <String>['primaryColor', 'Color?', 'Default tint for buttons, links, icons'],
-    <String>['primaryContrastingColor', 'Color?', 'On-top color when primary is BG'],
+    <String>[
+      'primaryColor',
+      'Color?',
+      'Default tint for buttons, links, icons',
+    ],
+    <String>[
+      'primaryContrastingColor',
+      'Color?',
+      'On-top color when primary is BG',
+    ],
     <String>['barBackgroundColor', 'Color?', 'Nav + tab bar background'],
     <String>['scaffoldBackgroundColor', 'Color?', 'Page background'],
     <String>['textTheme', 'CupertinoTextThemeData?', 'Typography bundle'],
@@ -659,7 +695,9 @@ dynamic build(BuildContext context) {
     children: List<Widget>.generate(systemColors.length, (int swatchIndex) {
       final List<dynamic> entry = systemColors[swatchIndex];
       final String label = entry[0] as String;
-      final Color color = (entry[1] as CupertinoDynamicColor).resolveFrom(context);
+      final Color color = (entry[1] as CupertinoDynamicColor).resolveFrom(
+        context,
+      );
       return _swatch(label, color, hint: 'dynamic');
     }),
   );
@@ -673,13 +711,37 @@ dynamic build(BuildContext context) {
     <dynamic>['link', CupertinoColors.link, 'hyperlink'],
     <dynamic>['placeholderText', CupertinoColors.placeholderText, 'inputs'],
     <dynamic>['systemBackground', CupertinoColors.systemBackground, 'page'],
-    <dynamic>['secondarySystemBackground', CupertinoColors.secondarySystemBackground, 'card'],
-    <dynamic>['tertiarySystemBackground', CupertinoColors.tertiarySystemBackground, 'tier 3'],
-    <dynamic>['systemGroupedBackground', CupertinoColors.systemGroupedBackground, 'grouped'],
-    <dynamic>['secondarySystemGroupedBackground', CupertinoColors.secondarySystemGroupedBackground, 'grouped 2'],
-    <dynamic>['tertiarySystemGroupedBackground', CupertinoColors.tertiarySystemGroupedBackground, 'grouped 3'],
+    <dynamic>[
+      'secondarySystemBackground',
+      CupertinoColors.secondarySystemBackground,
+      'card',
+    ],
+    <dynamic>[
+      'tertiarySystemBackground',
+      CupertinoColors.tertiarySystemBackground,
+      'tier 3',
+    ],
+    <dynamic>[
+      'systemGroupedBackground',
+      CupertinoColors.systemGroupedBackground,
+      'grouped',
+    ],
+    <dynamic>[
+      'secondarySystemGroupedBackground',
+      CupertinoColors.secondarySystemGroupedBackground,
+      'grouped 2',
+    ],
+    <dynamic>[
+      'tertiarySystemGroupedBackground',
+      CupertinoColors.tertiarySystemGroupedBackground,
+      'grouped 3',
+    ],
     <dynamic>['separator', CupertinoColors.separator, 'lines'],
-    <dynamic>['opaqueSeparator', CupertinoColors.opaqueSeparator, 'opaque lines'],
+    <dynamic>[
+      'opaqueSeparator',
+      CupertinoColors.opaqueSeparator,
+      'opaque lines',
+    ],
   ];
 
   final Widget section2AccentSwatches = Wrap(
@@ -687,8 +749,9 @@ dynamic build(BuildContext context) {
       final List<dynamic> entry = accentColors[idx];
       final String label = entry[0] as String;
       final dynamic raw = entry[1];
-      final Color color =
-          raw is CupertinoDynamicColor ? raw.resolveFrom(context) : raw as Color;
+      final Color color = raw is CupertinoDynamicColor
+          ? raw.resolveFrom(context)
+          : raw as Color;
       final String hint = entry[2] as String;
       return _swatch(label, color, hint: hint);
     }),
@@ -980,10 +1043,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'name': 'navActionTextStyle',
-      'style': const TextStyle(
-        fontSize: 17.0,
-        color: Color(0xFF0A84FF),
-      ),
+      'style': const TextStyle(fontSize: 17.0, color: Color(0xFF0A84FF)),
       'sample': 'Edit  Done  Save',
     },
     <String, dynamic>{
@@ -1085,7 +1145,10 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'label': 'XL · pink, 70% alpha',
-      'data': IconThemeData(size: 38.0, color: const Color(0xFFFF2D55).withValues(alpha: 0.7)),
+      'data': IconThemeData(
+        size: 38.0,
+        color: const Color(0xFFFF2D55).withValues(alpha: 0.7),
+      ),
     },
     <String, dynamic>{
       'label': 'XXL · green',
@@ -1131,7 +1194,9 @@ dynamic build(BuildContext context) {
                 data: row['data'] as IconThemeData,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: List<Widget>.generate(iconSet.length, (int iconIndex) {
+                  children: List<Widget>.generate(iconSet.length, (
+                    int iconIndex,
+                  ) {
                     return Icon(iconSet[iconIndex]);
                   }),
                 ),
@@ -1187,10 +1252,15 @@ dynamic build(BuildContext context) {
         Row(
           children: <Widget>[
             _kvChip('brightness', '${rawNoDefault.brightness}'),
-            _kvChip('primaryColor', _hex(rawNoDefault.primaryColor ?? CupertinoColors.systemPink)),
+            _kvChip(
+              'primaryColor',
+              _hex(rawNoDefault.primaryColor ?? CupertinoColors.systemPink),
+            ),
             _kvChip(
               'barBackgroundColor',
-              rawNoDefault.barBackgroundColor == null ? 'null' : _hex(rawNoDefault.barBackgroundColor!),
+              rawNoDefault.barBackgroundColor == null
+                  ? 'null'
+                  : _hex(rawNoDefault.barBackgroundColor!),
             ),
           ],
         ),
@@ -1299,22 +1369,34 @@ dynamic build(BuildContext context) {
   final Widget section11Demo = Column(
     children: <Widget>[
       CupertinoTheme(
-        data: const CupertinoThemeData(primaryColor: CupertinoColors.systemBlue),
+        data: const CupertinoThemeData(
+          primaryColor: CupertinoColors.systemBlue,
+        ),
         child: _themeReader('Outer · blue'),
       ),
       CupertinoTheme(
-        data: const CupertinoThemeData(primaryColor: CupertinoColors.systemBlue),
+        data: const CupertinoThemeData(
+          primaryColor: CupertinoColors.systemBlue,
+        ),
         child: CupertinoTheme(
-          data: const CupertinoThemeData(primaryColor: CupertinoColors.systemGreen),
+          data: const CupertinoThemeData(
+            primaryColor: CupertinoColors.systemGreen,
+          ),
           child: _themeReader('Inner · green overrides blue'),
         ),
       ),
       CupertinoTheme(
-        data: const CupertinoThemeData(primaryColor: CupertinoColors.systemBlue),
+        data: const CupertinoThemeData(
+          primaryColor: CupertinoColors.systemBlue,
+        ),
         child: CupertinoTheme(
-          data: const CupertinoThemeData(primaryColor: CupertinoColors.systemGreen),
+          data: const CupertinoThemeData(
+            primaryColor: CupertinoColors.systemGreen,
+          ),
           child: CupertinoTheme(
-            data: const CupertinoThemeData(primaryColor: CupertinoColors.systemPink),
+            data: const CupertinoThemeData(
+              primaryColor: CupertinoColors.systemPink,
+            ),
             child: _themeReader('Deeper · pink overrides all'),
           ),
         ),
@@ -1480,7 +1562,8 @@ dynamic build(BuildContext context) {
       final Map<String, dynamic> entry = themes[themeIndex];
       final CupertinoThemeData data = entry['data'] as CupertinoThemeData;
       final String name = entry['name'] as String;
-      final bool dark = (data.brightness ?? Brightness.light) == Brightness.dark;
+      final bool dark =
+          (data.brightness ?? Brightness.light) == Brightness.dark;
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 5.0),
         padding: const EdgeInsets.all(12.0),
@@ -1564,7 +1647,10 @@ dynamic build(BuildContext context) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: const Color(0xFF0A84FF).withValues(alpha: 0.25), width: 1.0),
+      border: Border.all(
+        color: const Color(0xFF0A84FF).withValues(alpha: 0.25),
+        width: 1.0,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1690,7 +1776,9 @@ Widget _matrixCell(String label, Color color) {
             height: 40.0,
             decoration: BoxDecoration(
               color: color,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(7.0)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7.0),
+              ),
             ),
           ),
           Padding(
@@ -1735,10 +1823,7 @@ Widget _themeCard(BuildContext context, Map<String, dynamic> theme) {
     decoration: BoxDecoration(
       color: dark ? kDarkSurface : kInkSurface,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.35),
-        width: 1.4,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.4),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -1794,8 +1879,18 @@ Widget _themeCard(BuildContext context, Map<String, dynamic> theme) {
         const SizedBox(height: 12.0),
         _fieldRow('brightness', dark ? 'dark' : 'light', dark),
         _fieldRow('primaryColor', _hex(accent), dark, accent: accent),
-        _fieldRow('scaffoldBg', _hex(data.scaffoldBackgroundColor), dark, accent: data.scaffoldBackgroundColor),
-        _fieldRow('barBg', _hex(data.barBackgroundColor), dark, accent: data.barBackgroundColor),
+        _fieldRow(
+          'scaffoldBg',
+          _hex(data.scaffoldBackgroundColor),
+          dark,
+          accent: data.scaffoldBackgroundColor,
+        ),
+        _fieldRow(
+          'barBg',
+          _hex(data.barBackgroundColor),
+          dark,
+          accent: data.barBackgroundColor,
+        ),
       ],
     ),
   );
@@ -1813,7 +1908,10 @@ Widget _fieldRow(String key, String value, bool dark, {Color? accent}) {
             decoration: BoxDecoration(
               color: accent,
               borderRadius: BorderRadius.circular(4.0),
-              border: Border.all(color: dark ? kDarkLine : kInkLine, width: 1.0),
+              border: Border.all(
+                color: dark ? kDarkLine : kInkLine,
+                width: 1.0,
+              ),
             ),
           ),
           const SizedBox(width: 8.0),
@@ -1889,7 +1987,8 @@ Widget _resolveDemoCard({
   // Build a synthetic MediaQuery to force resolution.  Note this is for
   // illustration only - we render the resolved values rather than re-rendering
   // every CupertinoColors lookup which would require the live MediaQuery.
-  final List<Map<String, Color>> resolvedSamples = brightness == Brightness.light
+  final List<Map<String, Color>> resolvedSamples =
+      brightness == Brightness.light
       ? <Map<String, Color>>[
           <String, Color>{'systemBlue': const Color(0xFF007AFF)},
           <String, Color>{'label': const Color(0xFF000000)},
@@ -1908,10 +2007,7 @@ Widget _resolveDemoCard({
     decoration: BoxDecoration(
       color: dark ? kDarkSurface : kInkSurface,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: dark ? kDarkLine : kInkLine,
-        width: 1.0,
-      ),
+      border: Border.all(color: dark ? kDarkLine : kInkLine, width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1919,7 +2015,9 @@ Widget _resolveDemoCard({
         Row(
           children: <Widget>[
             Icon(
-              dark ? CupertinoIcons.moon_stars_fill : CupertinoIcons.sun_max_fill,
+              dark
+                  ? CupertinoIcons.moon_stars_fill
+                  : CupertinoIcons.sun_max_fill,
               size: 18.0,
               color: dark ? kDarkText : const Color(0xFFFF9500),
             ),
@@ -1936,7 +2034,9 @@ Widget _resolveDemoCard({
         ),
         const SizedBox(height: 10.0),
         Column(
-          children: List<Widget>.generate(resolvedSamples.length, (int sampleIndex) {
+          children: List<Widget>.generate(resolvedSamples.length, (
+            int sampleIndex,
+          ) {
             final Map<String, Color> entry = resolvedSamples[sampleIndex];
             final String name = entry.keys.first;
             final Color color = entry.values.first;
@@ -2012,7 +2112,9 @@ Widget _applyToAllCard({
               ),
               alignment: Alignment.center,
               child: Icon(
-                flag ? CupertinoIcons.checkmark_seal_fill : CupertinoIcons.exclamationmark_circle_fill,
+                flag
+                    ? CupertinoIcons.checkmark_seal_fill
+                    : CupertinoIcons.exclamationmark_circle_fill,
                 size: 18.0,
                 color: accent,
               ),
@@ -2034,17 +2136,18 @@ Widget _applyToAllCard({
         const SizedBox(height: 10.0),
         Text(
           description,
-          style: const TextStyle(
-            fontSize: 12.0,
-            color: kInkText,
-            height: 1.45,
-          ),
+          style: const TextStyle(fontSize: 12.0, color: kInkText, height: 1.45),
         ),
         const SizedBox(height: 12.0),
         // A simplified visual of the cascade
         Row(
           children: List<Widget>.generate(4, (int badgeIndex) {
-            final List<String> names = <String>['Buttons', 'NavBar', 'Dialogs', 'Trans.'];
+            final List<String> names = <String>[
+              'Buttons',
+              'NavBar',
+              'Dialogs',
+              'Trans.',
+            ];
             final bool tinted = flag || badgeIndex < 2;
             return Expanded(
               child: Container(
@@ -2097,7 +2200,11 @@ Widget _themeReader(String label) {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(CupertinoIcons.paintbrush_fill, color: Colors.white, size: 16.0),
+              child: const Icon(
+                CupertinoIcons.paintbrush_fill,
+                color: Colors.white,
+                size: 16.0,
+              ),
             ),
             const SizedBox(width: 10.0),
             Expanded(
@@ -2243,7 +2350,10 @@ Widget _heroBanner() {
               'applyThemeToAll',
             ];
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 5.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(20.0),

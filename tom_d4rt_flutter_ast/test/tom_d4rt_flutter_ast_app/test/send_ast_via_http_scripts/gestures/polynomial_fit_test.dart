@@ -144,10 +144,7 @@ double _privatePolyDerivative(List<double> coeffs, double x) {
   return acc;
 }
 
-PolynomialFit? _privateSolveOrNull(
-  List<_PrivateSample> samples,
-  int degree,
-) {
+PolynomialFit? _privateSolveOrNull(List<_PrivateSample> samples, int degree) {
   if (samples.length < degree + 1) return null;
   final List<double> xs = <double>[];
   final List<double> ys = <double>[];
@@ -245,16 +242,35 @@ class _PrivateScatterFitPainter extends CustomPainter {
       ..color = _privateInkSoft
       ..strokeWidth = 1.2;
     final Offset origin = Offset(_pad.left, size.height - _pad.bottom);
-    final Offset xEnd = Offset(size.width - _pad.right, size.height - _pad.bottom);
+    final Offset xEnd = Offset(
+      size.width - _pad.right,
+      size.height - _pad.bottom,
+    );
     final Offset yEnd = Offset(_pad.left, _pad.top);
     canvas.drawLine(origin, xEnd, axis);
     canvas.drawLine(origin, yEnd, axis);
 
     // Axis tick labels (min and max only, to keep things calm).
-    _drawText(canvas, range.minX.toStringAsFixed(1), origin + const Offset(-6, 4));
-    _drawText(canvas, range.maxX.toStringAsFixed(1), xEnd + const Offset(-22, 4));
-    _drawText(canvas, range.minY.toStringAsFixed(0), origin + const Offset(-32, -6));
-    _drawText(canvas, range.maxY.toStringAsFixed(0), yEnd + const Offset(-32, -4));
+    _drawText(
+      canvas,
+      range.minX.toStringAsFixed(1),
+      origin + const Offset(-6, 4),
+    );
+    _drawText(
+      canvas,
+      range.maxX.toStringAsFixed(1),
+      xEnd + const Offset(-22, 4),
+    );
+    _drawText(
+      canvas,
+      range.minY.toStringAsFixed(0),
+      origin + const Offset(-32, -6),
+    );
+    _drawText(
+      canvas,
+      range.maxY.toStringAsFixed(0),
+      yEnd + const Offset(-32, -4),
+    );
   }
 
   void _paintResiduals(Canvas canvas, Size size) {
@@ -495,11 +511,7 @@ class _PrivatePipelinePainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: const TextStyle(
-          color: _privateInk,
-          fontSize: 9.5,
-          height: 1.2,
-        ),
+        style: const TextStyle(color: _privateInk, fontSize: 9.5, height: 1.2),
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
@@ -507,10 +519,7 @@ class _PrivatePipelinePainter extends CustomPainter {
     tp.layout(maxWidth: r.width - 6);
     tp.paint(
       canvas,
-      Offset(
-        r.center.dx - tp.width / 2,
-        r.center.dy - tp.height / 2,
-      ),
+      Offset(r.center.dx - tp.width / 2, r.center.dy - tp.height / 2),
     );
   }
 
@@ -1283,7 +1292,10 @@ Widget _privateConfidenceCluster() {
   );
 }
 
-Widget _privateConfidenceTile(_PrivateConfidenceCase c, _PrivateAxisRange range) {
+Widget _privateConfidenceTile(
+  _PrivateConfidenceCase c,
+  _PrivateAxisRange range,
+) {
   final PolynomialFit fit = _privateSolveOrFallback(c.samples, 2);
   return Container(
     padding: const EdgeInsets.all(14),
@@ -1300,23 +1312,14 @@ Widget _privateConfidenceTile(_PrivateConfidenceCase c, _PrivateAxisRange range)
             Container(
               width: 12,
               height: 12,
-              decoration: BoxDecoration(
-                color: c.tint,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: c.tint, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
-            Text(
-              c.label,
-              style: const TextStyle(fontWeight: FontWeight.w800),
-            ),
+            Text(c.label, style: const TextStyle(fontWeight: FontWeight.w800)),
             const SizedBox(width: 8),
             Text(
               c.subtitle,
-              style: const TextStyle(
-                fontSize: 12,
-                color: _privateInkSoft,
-              ),
+              style: const TextStyle(fontSize: 12, color: _privateInkSoft),
             ),
             const Spacer(),
             Text(
@@ -1425,11 +1428,7 @@ Widget _privateVelocityEstimateCard() {
           'Both are derived from the same PolynomialFit; VelocityEstimate '
           'preserves the diagnostic info, Velocity is the lean version that '
           'reaches gesture callbacks.',
-          style: TextStyle(
-            fontSize: 12,
-            color: _privateInkSoft,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 12, color: _privateInkSoft, height: 1.45),
         ),
       ],
     ),
@@ -1667,17 +1666,12 @@ dynamic build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       scaffoldBackgroundColor: _privatePaper,
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: _privateInk),
-      ),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: _privateInk)),
     ),
     home: Scaffold(
       backgroundColor: _privatePaper,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 28,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

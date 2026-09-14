@@ -14,12 +14,11 @@ import 'package:flutter/material.dart';
 
 final ValueNotifier<double> _tweenT = ValueNotifier<double>(0.35);
 final ValueNotifier<bool> _atDetail = ValueNotifier<bool>(false);
-final ValueNotifier<List<String>> _observerLog = ValueNotifier<List<String>>(
-  <String>[
-    '10:00:01  HeroController installed (observer[0])',
-    '10:00:01  Navigator.initialRoute pushed   →  didPush(/, null)',
-  ],
-);
+final ValueNotifier<List<String>> _observerLog =
+    ValueNotifier<List<String>>(<String>[
+      '10:00:01  HeroController installed (observer[0])',
+      '10:00:01  Navigator.initialRoute pushed   →  didPush(/, null)',
+    ]);
 final ValueNotifier<String> _activeTweenKind = ValueNotifier<String>('arc');
 final ValueNotifier<bool> _gestureActive = ValueNotifier<bool>(false);
 
@@ -425,9 +424,9 @@ class _FeatureTile extends StatelessWidget {
                   sub,
                   style: TextStyle(
                     fontSize: 11,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(
-                      alpha: 0.7,
-                    ),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -1063,11 +1062,7 @@ class _TweenCard extends StatelessWidget {
 }
 
 class _TweenPathPainter extends CustomPainter {
-  _TweenPathPainter({
-    required this.kind,
-    required this.t,
-    required this.color,
-  });
+  _TweenPathPainter({required this.kind, required this.t, required this.color});
 
   final String kind;
   final double t;
@@ -1325,18 +1320,8 @@ class _FlightStage extends StatelessWidget {
           builder: (context, constraints) {
             final double w = constraints.maxWidth;
             final double h = constraints.maxHeight;
-            final Rect smallRect = Rect.fromLTWH(
-              12,
-              h - 100,
-              100,
-              80,
-            );
-            final Rect bigRect = Rect.fromLTWH(
-              w * 0.35,
-              20,
-              w * 0.55,
-              160,
-            );
+            final Rect smallRect = Rect.fromLTWH(12, h - 100, 100, 80);
+            final Rect bigRect = Rect.fromLTWH(w * 0.35, 20, w * 0.55, 160);
             final Rect target = atDetail ? bigRect : smallRect;
             return Stack(
               fit: StackFit.expand,
@@ -1535,17 +1520,15 @@ class _TabLog extends StatelessWidget {
               label: 'Push Detail',
               icon: Icons.add_road,
               color: scheme.primary,
-              onTap: () => _appendLog(
-                '${_now()}  didPush(DetailRoute, ListRoute)',
-              ),
+              onTap: () =>
+                  _appendLog('${_now()}  didPush(DetailRoute, ListRoute)'),
             ),
             _LogButton(
               label: 'Pop',
               icon: Icons.arrow_back,
               color: scheme.secondary,
-              onTap: () => _appendLog(
-                '${_now()}  didPop(DetailRoute, ListRoute)',
-              ),
+              onTap: () =>
+                  _appendLog('${_now()}  didPop(DetailRoute, ListRoute)'),
             ),
             _LogButton(
               label: 'Replace',
@@ -1559,17 +1542,15 @@ class _TabLog extends StatelessWidget {
               label: 'Remove',
               icon: Icons.remove_circle_outline,
               color: scheme.error,
-              onTap: () => _appendLog(
-                '${_now()}  didRemove(OrphanRoute, ListRoute)',
-              ),
+              onTap: () =>
+                  _appendLog('${_now()}  didRemove(OrphanRoute, ListRoute)'),
             ),
             _LogButton(
               label: 'Clear',
               icon: Icons.layers_clear,
               color: scheme.outline,
-              onTap: () => _observerLog.value = <String>[
-                '${_now()}  log cleared',
-              ],
+              onTap: () =>
+                  _observerLog.value = <String>['${_now()}  log cleared'],
             ),
           ],
         ),
@@ -1592,12 +1573,12 @@ class _TabLog extends StatelessWidget {
                   final Color c = entry.contains('didPush')
                       ? const Color(0xFF93C5FD)
                       : entry.contains('didPop')
-                          ? const Color(0xFFFCA5A5)
-                          : entry.contains('didReplace')
-                              ? const Color(0xFFC4B5FD)
-                              : entry.contains('didRemove')
-                                  ? const Color(0xFFFBBF24)
-                                  : const Color(0xFF94A3B8);
+                      ? const Color(0xFFFCA5A5)
+                      : entry.contains('didReplace')
+                      ? const Color(0xFFC4B5FD)
+                      : entry.contains('didRemove')
+                      ? const Color(0xFFFBBF24)
+                      : const Color(0xFF94A3B8);
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Text(
@@ -1626,26 +1607,11 @@ class _TabLog extends StatelessWidget {
           spacing: 10,
           runSpacing: 8,
           children: const <Widget>[
-            _LogLegendEntry(
-              name: 'didPush',
-              color: Color(0xFF93C5FD),
-            ),
-            _LogLegendEntry(
-              name: 'didPop',
-              color: Color(0xFFFCA5A5),
-            ),
-            _LogLegendEntry(
-              name: 'didReplace',
-              color: Color(0xFFC4B5FD),
-            ),
-            _LogLegendEntry(
-              name: 'didRemove',
-              color: Color(0xFFFBBF24),
-            ),
-            _LogLegendEntry(
-              name: 'other',
-              color: Color(0xFF94A3B8),
-            ),
+            _LogLegendEntry(name: 'didPush', color: Color(0xFF93C5FD)),
+            _LogLegendEntry(name: 'didPop', color: Color(0xFFFCA5A5)),
+            _LogLegendEntry(name: 'didReplace', color: Color(0xFFC4B5FD)),
+            _LogLegendEntry(name: 'didRemove', color: Color(0xFFFBBF24)),
+            _LogLegendEntry(name: 'other', color: Color(0xFF94A3B8)),
           ],
         ),
         const SizedBox(height: 24),
@@ -1820,9 +1786,7 @@ class _TabGestures extends StatelessWidget {
                 color: scheme.primary,
                 onTap: () {
                   _gestureActive.value = true;
-                  _appendLog(
-                    '${_now()}  didStartUserGesture(Route, previous)',
-                  );
+                  _appendLog('${_now()}  didStartUserGesture(Route, previous)');
                 },
               ),
             ),
@@ -2475,19 +2439,14 @@ class _ApiCheatSheet extends StatelessWidget {
           ),
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                 color: i.isEven
                     ? scheme.surface
                     : scheme.surfaceContainerHighest,
                 border: i == rows.length - 1
                     ? null
-                    : Border(
-                        bottom: BorderSide(color: scheme.outlineVariant),
-                      ),
+                    : Border(bottom: BorderSide(color: scheme.outlineVariant)),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,

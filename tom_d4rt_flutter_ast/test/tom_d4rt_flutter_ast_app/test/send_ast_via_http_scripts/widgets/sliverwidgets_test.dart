@@ -111,26 +111,23 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              height: 44.0,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE3F2FD),
-                border: Border(
-                  bottom: BorderSide(color: const Color(0xFFBBDEFB)),
-                ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return Container(
+            height: 44.0,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE3F2FD),
+              border: Border(
+                bottom: BorderSide(color: const Color(0xFFBBDEFB)),
               ),
-              child: Text(
-                'Atelier item ${index + 1}',
-                style: const TextStyle(fontSize: 13.0, color: Color(0xFF0D47A1)),
-              ),
-            );
-          },
-          childCount: 8,
-        ),
+            ),
+            child: Text(
+              'Atelier item ${index + 1}',
+              style: const TextStyle(fontSize: 13.0, color: Color(0xFF0D47A1)),
+            ),
+          );
+        }, childCount: 8),
       ),
     ],
   );
@@ -143,72 +140,66 @@ dynamic build(BuildContext context) {
     physics: const NeverScrollableScrollPhysics(),
     slivers: <Widget>[
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            final Map<String, dynamic> entry =
-                _atelierCatalog[index % _atelierCatalog.length];
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          final Map<String, dynamic> entry =
+              _atelierCatalog[index % _atelierCatalog.length];
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Color(entry['tone'] as int),
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(
+                color: Color(entry['accent'] as int),
+                width: 1.0,
               ),
-              padding: const EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Color(entry['tone'] as int),
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: Color(entry['accent'] as int),
-                  width: 1.0,
+            ),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 28.0,
+                  height: 28.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Color(entry['accent'] as int),
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: Text(
+                    '${index + 1}',
+                    style: const TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                    ),
+                  ),
                 ),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 28.0,
-                    height: 28.0,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Color(entry['accent'] as int),
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                    child: Text(
-                      '${index + 1}',
-                      style: const TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        entry['title'] as String,
+                        style: TextStyle(
+                          color: Color(entry['accent'] as int),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          entry['title'] as String,
-                          style: TextStyle(
-                            color: Color(entry['accent'] as int),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.0,
-                          ),
+                      Text(
+                        entry['subtitle'] as String,
+                        style: const TextStyle(
+                          fontSize: 11.0,
+                          color: Color(0xFF616161),
                         ),
-                        Text(
-                          entry['subtitle'] as String,
-                          style: const TextStyle(
-                            fontSize: 11.0,
-                            color: Color(0xFF616161),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          },
-          childCount: 12,
-        ),
+                ),
+              ],
+            ),
+          );
+        }, childCount: 12),
       ),
     ],
   );
@@ -222,12 +213,42 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverList(
         delegate: SliverChildListDelegate(<Widget>[
-          _atelierTile('Ink Mist', 'Static delegate row 1', 0xFFECEFF1, 0xFF455A64),
-          _atelierTile('Brass Glow', 'Static delegate row 2', 0xFFFFF8E1, 0xFFFF8F00),
-          _atelierTile('Verdant Loft', 'Static delegate row 3', 0xFFE8F5E9, 0xFF2E7D32),
-          _atelierTile('Crimson Studio', 'Static delegate row 4', 0xFFFCE4EC, 0xFFC2185B),
-          _atelierTile('Cobalt Workshop', 'Static delegate row 5', 0xFFE3F2FD, 0xFF1565C0),
-          _atelierTile('Amber Studio', 'Static delegate row 6', 0xFFFFF3E0, 0xFFE65100),
+          _atelierTile(
+            'Ink Mist',
+            'Static delegate row 1',
+            0xFFECEFF1,
+            0xFF455A64,
+          ),
+          _atelierTile(
+            'Brass Glow',
+            'Static delegate row 2',
+            0xFFFFF8E1,
+            0xFFFF8F00,
+          ),
+          _atelierTile(
+            'Verdant Loft',
+            'Static delegate row 3',
+            0xFFE8F5E9,
+            0xFF2E7D32,
+          ),
+          _atelierTile(
+            'Crimson Studio',
+            'Static delegate row 4',
+            0xFFFCE4EC,
+            0xFFC2185B,
+          ),
+          _atelierTile(
+            'Cobalt Workshop',
+            'Static delegate row 5',
+            0xFFE3F2FD,
+            0xFF1565C0,
+          ),
+          _atelierTile(
+            'Amber Studio',
+            'Static delegate row 6',
+            0xFFFFF3E0,
+            0xFFE65100,
+          ),
         ]),
       ),
     ],
@@ -242,54 +263,48 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverFixedExtentList(
         itemExtent: 56.0,
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 2.0,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                color: const Color(0xFFEDE7F6),
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: const Color(0xFF7E57C2)),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 6.0,
-                    height: 32.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF512DA8),
-                      borderRadius: BorderRadius.circular(3.0),
-                    ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: const Color(0xFFEDE7F6),
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: const Color(0xFF7E57C2)),
+            ),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 6.0,
+                  height: 32.0,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF512DA8),
+                    borderRadius: BorderRadius.circular(3.0),
                   ),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: Text(
-                      'FixedExtent row ${index + 1} • 56.0 dp',
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        color: Color(0xFF311B92),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    'extent=56',
+                ),
+                const SizedBox(width: 12.0),
+                Expanded(
+                  child: Text(
+                    'FixedExtent row ${index + 1} • 56.0 dp',
                     style: const TextStyle(
-                      fontSize: 10.0,
-                      fontFamily: 'monospace',
-                      color: Color(0xFF7E57C2),
+                      fontSize: 12.0,
+                      color: Color(0xFF311B92),
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-          childCount: 8,
-        ),
+                ),
+                Text(
+                  'extent=56',
+                  style: const TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF7E57C2),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }, childCount: 8),
       ),
     ],
   );
@@ -310,55 +325,55 @@ dynamic build(BuildContext context) {
             crossAxisSpacing: 8.0,
             childAspectRatio: 1.2,
           ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              final Map<String, dynamic> entry =
-                  _atelierCatalog[index % _atelierCatalog.length];
-              return Container(
-                decoration: BoxDecoration(
-                  color: Color(entry['tone'] as int),
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: Color(entry['accent'] as int),
-                    width: 1.0,
-                  ),
+          delegate: SliverChildBuilderDelegate((
+            BuildContext context,
+            int index,
+          ) {
+            final Map<String, dynamic> entry =
+                _atelierCatalog[index % _atelierCatalog.length];
+            return Container(
+              decoration: BoxDecoration(
+                color: Color(entry['tone'] as int),
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: Color(entry['accent'] as int),
+                  width: 1.0,
                 ),
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 28.0,
-                      height: 28.0,
-                      decoration: BoxDecoration(
-                        color: Color(entry['accent'] as int),
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                      ),
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 28.0,
+                    height: 28.0,
+                    decoration: BoxDecoration(
+                      color: Color(entry['accent'] as int),
+                      borderRadius: BorderRadius.circular(14.0),
                     ),
-                    const SizedBox(height: 4.0),
-                    Text(
-                      entry['title'] as String,
-                      style: TextStyle(
-                        color: Color(entry['accent'] as int),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        color: Color(0xFFFFFFFF),
                         fontWeight: FontWeight.bold,
-                        fontSize: 11.0,
+                        fontSize: 12.0,
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
-            childCount: 9,
-          ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    entry['title'] as String,
+                    style: TextStyle(
+                      color: Color(entry['accent'] as int),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.0,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }, childCount: 9),
         ),
       ),
     ],
@@ -429,25 +444,22 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              height: 36.0,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                color: index.isEven
-                    ? const Color(0xFFFFF8E1)
-                    : const Color(0xFFFFFDE7),
-              ),
-              child: Text(
-                'Trailing list row ${index + 1}',
-                style: const TextStyle(fontSize: 12.0, color: Color(0xFF6D4C41)),
-              ),
-            );
-          },
-          childCount: 4,
-        ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return Container(
+            height: 36.0,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: index.isEven
+                  ? const Color(0xFFFFF8E1)
+                  : const Color(0xFFFFFDE7),
+            ),
+            child: Text(
+              'Trailing list row ${index + 1}',
+              style: const TextStyle(fontSize: 12.0, color: Color(0xFF6D4C41)),
+            ),
+          );
+        }, childCount: 4),
       ),
     ],
   );
@@ -514,47 +526,44 @@ dynamic build(BuildContext context) {
     slivers: <Widget>[
       SliverFillViewport(
         viewportFraction: 0.5,
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            final Map<String, dynamic> entry =
-                _atelierCatalog[index % _atelierCatalog.length];
-            return Container(
-              margin: const EdgeInsets.all(6.0),
-              decoration: BoxDecoration(
-                color: Color(entry['tone'] as int),
-                borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(
-                  color: Color(entry['accent'] as int),
-                  width: 1.2,
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          final Map<String, dynamic> entry =
+              _atelierCatalog[index % _atelierCatalog.length];
+          return Container(
+            margin: const EdgeInsets.all(6.0),
+            decoration: BoxDecoration(
+              color: Color(entry['tone'] as int),
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(
+                color: Color(entry['accent'] as int),
+                width: 1.2,
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  entry['title'] as String,
+                  style: TextStyle(
+                    color: Color(entry['accent'] as int),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14.0,
+                  ),
                 ),
-              ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    entry['title'] as String,
-                    style: TextStyle(
-                      color: Color(entry['accent'] as int),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0,
-                    ),
+                const SizedBox(height: 4.0),
+                Text(
+                  'page ${index + 1}',
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF616161),
                   ),
-                  const SizedBox(height: 4.0),
-                  Text(
-                    'page ${index + 1}',
-                    style: const TextStyle(
-                      fontSize: 11.0,
-                      fontFamily: 'monospace',
-                      color: Color(0xFF616161),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-          childCount: 5,
-        ),
+                ),
+              ],
+            ),
+          );
+        }, childCount: 5),
       ),
     ],
   );
@@ -570,9 +579,24 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
         sliver: SliverList(
           delegate: SliverChildListDelegate(<Widget>[
-            _atelierTile('Padded row 1', 'EdgeInsets.fromLTRB(24,12,24,12)', 0xFFF3E5F5, 0xFF6A1B9A),
-            _atelierTile('Padded row 2', 'Inset on all sides', 0xFFEDE7F6, 0xFF512DA8),
-            _atelierTile('Padded row 3', 'Outer SliverPadding wraps inner SliverList', 0xFFE8EAF6, 0xFF303F9F),
+            _atelierTile(
+              'Padded row 1',
+              'EdgeInsets.fromLTRB(24,12,24,12)',
+              0xFFF3E5F5,
+              0xFF6A1B9A,
+            ),
+            _atelierTile(
+              'Padded row 2',
+              'Inset on all sides',
+              0xFFEDE7F6,
+              0xFF512DA8,
+            ),
+            _atelierTile(
+              'Padded row 3',
+              'Outer SliverPadding wraps inner SliverList',
+              0xFFE8EAF6,
+              0xFF303F9F,
+            ),
           ]),
         ),
       ),
@@ -624,25 +648,22 @@ dynamic build(BuildContext context) {
         ),
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            return Container(
-              height: 40.0,
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              decoration: BoxDecoration(
-                color: index.isEven
-                    ? const Color(0xFFECEFF1)
-                    : const Color(0xFFCFD8DC),
-              ),
-              child: Text(
-                'Row ${index + 1} below pinned header',
-                style: const TextStyle(fontSize: 12.0, color: Color(0xFF263238)),
-              ),
-            );
-          },
-          childCount: 6,
-        ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return Container(
+            height: 40.0,
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(
+              color: index.isEven
+                  ? const Color(0xFFECEFF1)
+                  : const Color(0xFFCFD8DC),
+            ),
+            child: Text(
+              'Row ${index + 1} below pinned header',
+              style: const TextStyle(fontSize: 12.0, color: Color(0xFF263238)),
+            ),
+          );
+        }, childCount: 6),
       ),
     ],
   );
@@ -711,7 +732,10 @@ dynamic build(BuildContext context) {
                   <String>['Property', 'Purpose'],
                   <String>['builder', 'IndexedWidgetBuilder'],
                   <String>['childCount', 'Total items'],
-                  <String>['addAutomaticKeepAlives', 'Preserve scrolled-off state'],
+                  <String>[
+                    'addAutomaticKeepAlives',
+                    'Preserve scrolled-off state',
+                  ],
                   <String>['addRepaintBoundaries', 'Cheap repaints'],
                 ],
               ),
@@ -1069,7 +1093,11 @@ Widget _conceptOverview() {
           'one layout pattern — lists, grids, headers, fill regions, padding, or single '
           'box adapters. The sections below host bounded CustomScrollViews so we can '
           'showcase every supported sliver side by side inside an outer SingleChildScrollView.',
-          style: TextStyle(fontSize: 13.0, height: 1.5, color: Color(0xFF37474F)),
+          style: TextStyle(
+            fontSize: 13.0,
+            height: 1.5,
+            color: Color(0xFF37474F),
+          ),
         ),
         const SizedBox(height: 12.0),
         const Text(
@@ -1283,8 +1311,8 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
               color: i == 0
                   ? Color(border).withOpacity(0.18)
                   : (i.isEven
-                      ? const Color(0xFFFFFFFF)
-                      : const Color(0xFFF5F5F5)),
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFFF5F5F5)),
               borderRadius: BorderRadius.circular(4.0),
             ),
             margin: const EdgeInsets.only(bottom: 2.0),
@@ -1300,9 +1328,7 @@ Widget _comparisonTable(List<List<String>> rows, int accent, int border) {
                         fontWeight: i == 0
                             ? FontWeight.bold
                             : FontWeight.normal,
-                        color: i == 0
-                            ? Color(accent)
-                            : const Color(0xFF424242),
+                        color: i == 0 ? Color(accent) : const Color(0xFF424242),
                       ),
                     ),
                   ),
@@ -1457,7 +1483,11 @@ Widget _epiloguePanel() {
         const SizedBox(height: 10.0),
         const Text(
           'Every sliver in the bridged surface area has a live demo, recipe card, and comparison table above. Below is the coverage manifest.',
-          style: TextStyle(fontSize: 12.0, color: Color(0xFFC8E6C9), height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFFC8E6C9),
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 12.0),
         for (final String item in achievements)
@@ -1545,7 +1575,10 @@ Widget _atelierTile(String title, String subtitle, int tone, int accent) {
               ),
               Text(
                 subtitle,
-                style: const TextStyle(fontSize: 10.5, color: Color(0xFF616161)),
+                style: const TextStyle(
+                  fontSize: 10.5,
+                  color: Color(0xFF616161),
+                ),
               ),
             ],
           ),

@@ -16,11 +16,7 @@ enum _DemoStage {
   compendium,
 }
 
-enum _CanvasStyle {
-  waves,
-  blueprint,
-  constellation,
-}
+enum _CanvasStyle { waves, blueprint, constellation }
 
 class _Palette {
   final String name;
@@ -102,10 +98,7 @@ class _ShortcutBinding {
   final ShortcutActivator activator;
   final _ActionSpec action;
 
-  const _ShortcutBinding({
-    required this.activator,
-    required this.action,
-  });
+  const _ShortcutBinding({required this.activator, required this.action});
 }
 
 class _EventLog {
@@ -142,10 +135,12 @@ class _CallbackShortcutsDeepDemo extends StatefulWidget {
   const _CallbackShortcutsDeepDemo();
 
   @override
-  State<_CallbackShortcutsDeepDemo> createState() => _CallbackShortcutsDeepDemoState();
+  State<_CallbackShortcutsDeepDemo> createState() =>
+      _CallbackShortcutsDeepDemoState();
 }
 
-class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> {
+class _CallbackShortcutsDeepDemoState
+    extends State<_CallbackShortcutsDeepDemo> {
   _DemoStage _stage = _DemoStage.primer;
   int _paletteIndex = 0;
   _CanvasStyle _canvasStyle = _CanvasStyle.waves;
@@ -170,8 +165,12 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
   final FocusNode _outerFocusNode = FocusNode(debugLabel: 'callback.outer');
   final FocusNode _innerFocusNode = FocusNode(debugLabel: 'callback.inner');
   final FocusNode _listFocusNode = FocusNode(debugLabel: 'callback.list');
-  final FocusNode _bridgeLocalFocusNode = FocusNode(debugLabel: 'callback.bridge.local');
-  final FocusNode _bridgeGlobalFocusNode = FocusNode(debugLabel: 'callback.bridge.global');
+  final FocusNode _bridgeLocalFocusNode = FocusNode(
+    debugLabel: 'callback.bridge.local',
+  );
+  final FocusNode _bridgeGlobalFocusNode = FocusNode(
+    debugLabel: 'callback.bridge.global',
+  );
 
   final Map<String, int> _actionCounts = <String, int>{};
   final List<_EventLog> _events = <_EventLog>[];
@@ -235,7 +234,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         tone: const Color(0xFF2E7D32),
         bindings: <_ShortcutBinding>[
           _ShortcutBinding(
-            activator: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+            activator: const SingleActivator(
+              LogicalKeyboardKey.keyS,
+              control: true,
+            ),
             action: _ActionSpec(
               id: 'edit.save',
               title: 'Save Draft',
@@ -245,7 +247,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             ),
           ),
           _ShortcutBinding(
-            activator: const SingleActivator(LogicalKeyboardKey.keyZ, control: true),
+            activator: const SingleActivator(
+              LogicalKeyboardKey.keyZ,
+              control: true,
+            ),
             action: _ActionSpec(
               id: 'edit.undo',
               title: 'Undo Step',
@@ -311,7 +316,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         tone: const Color(0xFF8E4A15),
         bindings: <_ShortcutBinding>[
           _ShortcutBinding(
-            activator: const SingleActivator(LogicalKeyboardKey.keyR, control: true),
+            activator: const SingleActivator(
+              LogicalKeyboardKey.keyR,
+              control: true,
+            ),
             action: _ActionSpec(
               id: 'ops.run',
               title: 'Run Routine',
@@ -321,7 +329,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             ),
           ),
           _ShortcutBinding(
-            activator: const SingleActivator(LogicalKeyboardKey.keyL, alt: true),
+            activator: const SingleActivator(
+              LogicalKeyboardKey.keyL,
+              alt: true,
+            ),
             action: _ActionSpec(
               id: 'ops.logs',
               title: 'Toggle Logs',
@@ -346,7 +357,12 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
   }
 
   void _addEvent(String lane, String message, Color tone) {
-    final log = _EventLog(at: DateTime.now(), lane: lane, message: message, tone: tone);
+    final log = _EventLog(
+      at: DateTime.now(),
+      lane: lane,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, log);
       if (_events.length > 180) {
@@ -358,7 +374,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     }
   }
 
-  void _triggerAction(_ActionSpec action, {required String lane, required String source}) {
+  void _triggerAction(
+    _ActionSpec action, {
+    required String lane,
+    required String source,
+  }) {
     setState(() {
       _shortcutCount += 1;
       _actionCounts[action.id] = (_actionCounts[action.id] ?? 0) + 1;
@@ -378,13 +398,21 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
 
   void _switchPalette(int index) {
     setState(() => _paletteIndex = index);
-    _addEvent('palette', 'Changed palette to ${_palettes[index].name}', _palettes[index].accentA);
+    _addEvent(
+      'palette',
+      'Changed palette to ${_palettes[index].name}',
+      _palettes[index].accentA,
+    );
   }
 
-  Map<ShortcutActivator, VoidCallback> _profileCallbacks(_Profile profile, String lane) {
+  Map<ShortcutActivator, VoidCallback> _profileCallbacks(
+    _Profile profile,
+    String lane,
+  ) {
     final callbacks = <ShortcutActivator, VoidCallback>{};
     for (final binding in profile.bindings) {
-      callbacks[binding.activator] = () => _triggerAction(binding.action, lane: lane, source: 'keyboard');
+      callbacks[binding.activator] = () =>
+          _triggerAction(binding.action, lane: lane, source: 'keyboard');
     }
     return callbacks;
   }
@@ -404,14 +432,23 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       if (activator.meta) {
         parts.add('Meta');
       }
-      parts.add(activator.trigger.keyLabel.isNotEmpty ? activator.trigger.keyLabel.toUpperCase() : activator.trigger.debugName ?? 'Key');
+      parts.add(
+        activator.trigger.keyLabel.isNotEmpty
+            ? activator.trigger.keyLabel.toUpperCase()
+            : activator.trigger.debugName ?? 'Key',
+      );
       return parts.join(' + ');
     }
     if (activator is CharacterActivator) {
       return "Character '${activator.character}'";
     }
     if (activator is LogicalKeySet) {
-      final labels = activator.keys.map((key) => key.keyLabel.isNotEmpty ? key.keyLabel : key.debugName ?? 'Key').toList();
+      final labels = activator.keys
+          .map(
+            (key) =>
+                key.keyLabel.isNotEmpty ? key.keyLabel : key.debugName ?? 'Key',
+          )
+          .toList();
       return labels.join(' + ');
     }
     return activator.toString();
@@ -431,10 +468,7 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                 children: <Widget>[
                   Expanded(child: _stageBody()),
                   if (_showTimeline)
-                    SizedBox(
-                      width: 380,
-                      child: _timelinePanel(),
-                    ),
+                    SizedBox(width: 380, child: _timelinePanel()),
                 ],
               ),
             ),
@@ -461,7 +495,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.keyboard_command_key, color: Colors.white, size: 27),
+              const Icon(
+                Icons.keyboard_command_key,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -474,7 +512,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -516,10 +557,24 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Stage',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _stageTitles.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
@@ -557,7 +612,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -565,14 +622,22 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     );
   }
 
-  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
+  Widget _toggleChip(
+    String label,
+    bool value,
+    void Function(bool value) assign,
+  ) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -631,9 +696,19 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
+            Text(
+              title,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.8,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
+            Text(
+              subtitle,
+              style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33),
+            ),
             const SizedBox(height: 10),
             child,
           ],
@@ -645,7 +720,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
   Widget _primerStage() {
     final bindings = <_ShortcutBinding>[
       _ShortcutBinding(
-        activator: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+        activator: const SingleActivator(
+          LogicalKeyboardKey.keyS,
+          control: true,
+        ),
         action: _ActionSpec(
           id: 'primer.save',
           title: 'Save Scene',
@@ -678,7 +756,8 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
 
     final callbackMap = <ShortcutActivator, VoidCallback>{};
     for (final binding in bindings) {
-      callbackMap[binding.activator] = () => _triggerAction(binding.action, lane: 'primer', source: 'keyboard');
+      callbackMap[binding.activator] = () =>
+          _triggerAction(binding.action, lane: 'primer', source: 'keyboard');
     }
 
     return SingleChildScrollView(
@@ -700,7 +779,8 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               Expanded(
                 child: _panel(
                   title: 'Primary Callback Zone',
-                  subtitle: 'Click inside first to focus this area, then type mapped keys.',
+                  subtitle:
+                      'Click inside first to focus this area, then type mapped keys.',
                   tint: _p.accentA.withValues(alpha: 0.04),
                   child: SizedBox(
                     height: 430,
@@ -710,19 +790,33 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                         focusNode: _primerFocusNode,
                         autofocus: true,
                         onFocusChange: (focused) {
-                          _addEvent('primer-focus', focused ? 'Primer focus acquired' : 'Primer focus lost', _p.accentA);
+                          _addEvent(
+                            'primer-focus',
+                            focused
+                                ? 'Primer focus acquired'
+                                : 'Primer focus lost',
+                            _p.accentA,
+                          );
                         },
                         child: GestureDetector(
                           onTap: () {
                             _primerFocusNode.requestFocus();
-                            _recordTap('primer', 'Tapped primer focus surface', _p.accentA);
+                            _recordTap(
+                              'primer',
+                              'Tapped primer focus surface',
+                              _p.accentA,
+                            );
                           },
                           child: _deviceShell(
                             title: 'Primer keyboard zone',
-                            selectedLabel: _primerFocusNode.hasFocus ? 'focused' : 'click to focus',
+                            selectedLabel: _primerFocusNode.hasFocus
+                                ? 'focused'
+                                : 'click to focus',
                             body: Stack(
                               children: <Widget>[
-                                Positioned.fill(child: _background(_canvasStyle)),
+                                Positioned.fill(
+                                  child: _background(_canvasStyle),
+                                ),
                                 Positioned.fill(
                                   // Cluster H follow-up: the inner Column
                                   // (Text + Wrap of pills + _actionCardGrid
@@ -743,13 +837,19 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                   child: Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: SingleChildScrollView(
-                                      physics: const NeverScrollableScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
                                             'Mapped callbacks',
-                                            style: TextStyle(color: _p.ink, fontSize: 12.6, fontWeight: FontWeight.w800),
+                                            style: TextStyle(
+                                              color: _p.ink,
+                                              fontSize: 12.6,
+                                              fontWeight: FontWeight.w800,
+                                            ),
                                           ),
                                           const SizedBox(height: 8),
                                           Wrap(
@@ -758,15 +858,21 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                             children: bindings
                                                 .map(
                                                   (binding) => _bindingPill(
-                                                    label: _activatorLabel(binding.activator),
-                                                    detail: binding.action.title,
+                                                    label: _activatorLabel(
+                                                      binding.activator,
+                                                    ),
+                                                    detail:
+                                                        binding.action.title,
                                                     tone: binding.action.tone,
                                                   ),
                                                 )
                                                 .toList(),
                                           ),
                                           const SizedBox(height: 14),
-                                          _actionCardGrid(bindings, lane: 'primer-manual'),
+                                          _actionCardGrid(
+                                            bindings,
+                                            lane: 'primer-manual',
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -791,10 +897,18 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('CallbackShortcuts binds ShortcutActivator keys directly to callbacks.'),
-                        _bullet('Focus decides whether key events are handled in this branch.'),
-                        _bullet('Use it for lightweight handlers without custom Intent/Action classes.'),
-                        _bullet('Manual trigger cards in this demo call the same callback handlers.'),
+                        _bullet(
+                          'CallbackShortcuts binds ShortcutActivator keys directly to callbacks.',
+                        ),
+                        _bullet(
+                          'Focus decides whether key events are handled in this branch.',
+                        ),
+                        _bullet(
+                          'Use it for lightweight handlers without custom Intent/Action classes.',
+                        ),
+                        _bullet(
+                          'Manual trigger cards in this demo call the same callback handlers.',
+                        ),
                       ],
                     ),
                   ),
@@ -869,7 +983,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                       _innerFocused = false;
                       _focusSwitchCount += 1;
                     });
-                    _addEvent('focus', 'Focus moved to outer domain', _p.accentA);
+                    _addEvent(
+                      'focus',
+                      'Focus moved to outer domain',
+                      _p.accentA,
+                    );
                   },
                   icon: const Icon(Icons.layers_outlined),
                   label: const Text('Focus Outer'),
@@ -882,7 +1000,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                       _innerFocused = true;
                       _focusSwitchCount += 1;
                     });
-                    _addEvent('focus', 'Focus moved to inner domain', _p.accentB);
+                    _addEvent(
+                      'focus',
+                      'Focus moved to inner domain',
+                      _p.accentB,
+                    );
                   },
                   icon: const Icon(Icons.filter_none),
                   label: const Text('Focus Inner'),
@@ -894,16 +1016,29 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
           const SizedBox(height: 12),
           _panel(
             title: 'Nested CallbackShortcuts Surface',
-            subtitle: 'Outer and inner layers share the same activators with distinct callbacks.',
+            subtitle:
+                'Outer and inner layers share the same activators with distinct callbacks.',
             tint: _p.accentB.withValues(alpha: 0.05),
             child: SizedBox(
               height: 470,
               child: CallbackShortcuts(
                 bindings: <ShortcutActivator, VoidCallback>{
-                  const SingleActivator(LogicalKeyboardKey.keyS, control: true):
-                      () => _triggerAction(outerSave, lane: 'outer', source: 'keyboard'),
-                  const SingleActivator(LogicalKeyboardKey.enter, alt: true):
-                      () => _triggerAction(outerRun, lane: 'outer', source: 'keyboard'),
+                  const SingleActivator(
+                    LogicalKeyboardKey.keyS,
+                    control: true,
+                  ): () => _triggerAction(
+                    outerSave,
+                    lane: 'outer',
+                    source: 'keyboard',
+                  ),
+                  const SingleActivator(
+                    LogicalKeyboardKey.enter,
+                    alt: true,
+                  ): () => _triggerAction(
+                    outerRun,
+                    lane: 'outer',
+                    source: 'keyboard',
+                  ),
                 },
                 child: Focus(
                   focusNode: _outerFocusNode,
@@ -919,7 +1054,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
-                          color: _outerFocused ? _p.accentA : _p.muted.withValues(alpha: 0.3),
+                          color: _outerFocused
+                              ? _p.accentA
+                              : _p.muted.withValues(alpha: 0.3),
                           width: 2,
                         ),
                       ),
@@ -934,7 +1071,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                 children: <Widget>[
                                   Text(
                                     'Outer Domain',
-                                    style: TextStyle(color: _p.ink, fontSize: 12.8, fontWeight: FontWeight.w800),
+                                    style: TextStyle(
+                                      color: _p.ink,
+                                      fontSize: 12.8,
+                                      fontWeight: FontWeight.w800,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   _bindingPill(
@@ -951,54 +1092,84 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                   const SizedBox(height: 14),
                                   Expanded(
                                     child: CallbackShortcuts(
-                                      bindings: <ShortcutActivator, VoidCallback>{
-                                        const SingleActivator(LogicalKeyboardKey.keyS, control: true):
-                                            () => _triggerAction(innerSave, lane: 'inner', source: 'keyboard'),
-                                        const SingleActivator(LogicalKeyboardKey.enter, alt: true):
-                                            () => _triggerAction(innerRun, lane: 'inner', source: 'keyboard'),
-                                      },
+                                      bindings:
+                                          <ShortcutActivator, VoidCallback>{
+                                            const SingleActivator(
+                                              LogicalKeyboardKey.keyS,
+                                              control: true,
+                                            ): () => _triggerAction(
+                                              innerSave,
+                                              lane: 'inner',
+                                              source: 'keyboard',
+                                            ),
+                                            const SingleActivator(
+                                              LogicalKeyboardKey.enter,
+                                              alt: true,
+                                            ): () => _triggerAction(
+                                              innerRun,
+                                              lane: 'inner',
+                                              source: 'keyboard',
+                                            ),
+                                          },
                                       child: Focus(
                                         focusNode: _innerFocusNode,
                                         onFocusChange: (focused) {
-                                          setState(() => _innerFocused = focused);
+                                          setState(
+                                            () => _innerFocused = focused,
+                                          );
                                         },
                                         child: GestureDetector(
                                           onTap: () {
                                             _innerFocusNode.requestFocus();
-                                            _recordTap('inner', 'Inner surface tapped', _p.accentC);
+                                            _recordTap(
+                                              'inner',
+                                              'Inner surface tapped',
+                                              _p.accentC,
+                                            );
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Colors.white.withValues(alpha: 0.76),
-                                              borderRadius: BorderRadius.circular(12),
+                                              color: Colors.white.withValues(
+                                                alpha: 0.76,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
                                               border: Border.all(
-                                                color: _innerFocused ? _p.accentC : _p.muted.withValues(alpha: 0.26),
+                                                color: _innerFocused
+                                                    ? _p.accentC
+                                                    : _p.muted.withValues(
+                                                        alpha: 0.26,
+                                                      ),
                                                 width: 2,
                                               ),
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     'Inner Domain (Override Layer)',
                                                     style: TextStyle(
                                                       color: _p.ink,
                                                       fontSize: 12.2,
-                                                      fontWeight: FontWeight.w800,
+                                                      fontWeight:
+                                                          FontWeight.w800,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 7),
                                                   _bindingPill(
                                                     label: 'Ctrl + S',
-                                                    detail: 'Inner Save Override',
+                                                    detail:
+                                                        'Inner Save Override',
                                                     tone: _p.accentC,
                                                   ),
                                                   const SizedBox(height: 6),
                                                   _bindingPill(
                                                     label: 'Alt + Enter',
-                                                    detail: 'Inner Run Override',
+                                                    detail:
+                                                        'Inner Run Override',
                                                     tone: _p.accentC,
                                                   ),
                                                   const SizedBox(height: 12),
@@ -1006,14 +1177,29 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                                     spacing: 8,
                                                     runSpacing: 8,
                                                     children: <Widget>[
-                                                      _miniMetric('outer focused', _outerFocused ? 'yes' : 'no', _p.accentA),
-                                                      _miniMetric('inner focused', _innerFocused ? 'yes' : 'no', _p.accentC),
+                                                      _miniMetric(
+                                                        'outer focused',
+                                                        _outerFocused
+                                                            ? 'yes'
+                                                            : 'no',
+                                                        _p.accentA,
+                                                      ),
+                                                      _miniMetric(
+                                                        'inner focused',
+                                                        _innerFocused
+                                                            ? 'yes'
+                                                            : 'no',
+                                                        _p.accentC,
+                                                      ),
                                                     ],
                                                   ),
                                                   const Spacer(),
                                                   Text(
                                                     'Tap either panel to move focus and test precedence.',
-                                                    style: TextStyle(color: _p.muted, fontSize: 10.6),
+                                                    style: TextStyle(
+                                                      color: _p.muted,
+                                                      fontSize: 10.6,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1057,7 +1243,8 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
           const SizedBox(height: 12),
           _panel(
             title: 'Profile Switcher',
-            subtitle: 'Each profile has different activators and callback intentions.',
+            subtitle:
+                'Each profile has different activators and callback intentions.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -1071,10 +1258,18 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                         _profileIndex = i;
                         _profileSwitchCount += 1;
                       });
-                      _addEvent('profile', 'Switched to ${_profiles[i].name}', _profiles[i].tone);
+                      _addEvent(
+                        'profile',
+                        'Switched to ${_profiles[i].name}',
+                        _profiles[i].tone,
+                      );
                     },
                   ),
-                _miniMetric('profile switches', '$_profileSwitchCount', _p.accentB),
+                _miniMetric(
+                  'profile switches',
+                  '$_profileSwitchCount',
+                  _p.accentB,
+                ),
               ],
             ),
           ),
@@ -1096,29 +1291,41 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                         onFocusChange: (focused) {
                           _addEvent(
                             'profile-focus',
-                            focused ? 'Profile focus acquired' : 'Profile focus lost',
+                            focused
+                                ? 'Profile focus acquired'
+                                : 'Profile focus lost',
                             profile.tone,
                           );
                         },
                         child: GestureDetector(
                           onTap: () {
-                            _recordTap('profile', 'Tapped profile workbench', profile.tone);
+                            _recordTap(
+                              'profile',
+                              'Tapped profile workbench',
+                              profile.tone,
+                            );
                           },
                           child: _deviceShell(
                             title: 'Profile workbench',
                             selectedLabel: profile.name,
                             body: Stack(
                               children: <Widget>[
-                                Positioned.fill(child: _background(_canvasStyle)),
+                                Positioned.fill(
+                                  child: _background(_canvasStyle),
+                                ),
                                 Positioned.fill(
                                   child: Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Row(
                                           children: <Widget>[
-                                            Icon(profile.icon, color: profile.tone),
+                                            Icon(
+                                              profile.icon,
+                                              color: profile.tone,
+                                            ),
                                             const SizedBox(width: 8),
                                             Text(
                                               'Active profile bindings',
@@ -1135,56 +1342,95 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                           child: ListView.builder(
                                             itemCount: profile.bindings.length,
                                             itemBuilder: (context, index) {
-                                              final binding = profile.bindings[index];
-                                              final count = _actionCounts[binding.action.id] ?? 0;
+                                              final binding =
+                                                  profile.bindings[index];
+                                              final count =
+                                                  _actionCounts[binding
+                                                      .action
+                                                      .id] ??
+                                                  0;
                                               return Container(
-                                                margin: const EdgeInsets.only(bottom: 8),
-                                                padding: const EdgeInsets.all(10),
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 8,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                  10,
+                                                ),
                                                 decoration: BoxDecoration(
-                                                  color: Colors.white.withValues(alpha: 0.8),
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  border: Border.all(color: binding.action.tone.withValues(alpha: 0.3)),
+                                                  color: Colors.white
+                                                      .withValues(alpha: 0.8),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: binding.action.tone
+                                                        .withValues(alpha: 0.3),
+                                                  ),
                                                 ),
                                                 child: Row(
                                                   children: <Widget>[
-                                                    Icon(binding.action.icon, color: binding.action.tone, size: 18),
+                                                    Icon(
+                                                      binding.action.icon,
+                                                      color:
+                                                          binding.action.tone,
+                                                      size: 18,
+                                                    ),
                                                     const SizedBox(width: 8),
                                                     Expanded(
                                                       child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: <Widget>[
                                                           Text(
-                                                            binding.action.title,
+                                                            binding
+                                                                .action
+                                                                .title,
                                                             style: TextStyle(
                                                               color: _p.ink,
-                                                              fontWeight: FontWeight.w700,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
                                                               fontSize: 11.7,
                                                             ),
                                                           ),
-                                                          const SizedBox(height: 2),
+                                                          const SizedBox(
+                                                            height: 2,
+                                                          ),
                                                           Text(
                                                             binding.action.hint,
-                                                            style: TextStyle(color: _p.muted, fontSize: 10.3),
+                                                            style: TextStyle(
+                                                              color: _p.muted,
+                                                              fontSize: 10.3,
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
                                                     ),
                                                     const SizedBox(width: 8),
                                                     Text(
-                                                      _activatorLabel(binding.activator),
+                                                      _activatorLabel(
+                                                        binding.activator,
+                                                      ),
                                                       style: TextStyle(
                                                         color: _p.accentA,
                                                         fontFamily: 'monospace',
                                                         fontSize: 10.2,
-                                                        fontWeight: FontWeight.w700,
+                                                        fontWeight:
+                                                            FontWeight.w700,
                                                       ),
                                                     ),
                                                     const SizedBox(width: 8),
                                                     FilledButton.tonal(
                                                       onPressed: () {
-                                                        _triggerAction(binding.action, lane: 'profile', source: 'manual');
+                                                        _triggerAction(
+                                                          binding.action,
+                                                          lane: 'profile',
+                                                          source: 'manual',
+                                                        );
                                                       },
-                                                      child: Text('run ($count)'),
+                                                      child: Text(
+                                                        'run ($count)',
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -1215,10 +1461,18 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('Keep profile structures declarative and easy to diff.'),
-                        _bullet('Expose profile switching through explicit UI state changes.'),
-                        _bullet('Use timeline logs to validate callback routing after remap.'),
-                        _bullet('Prefer CallbackShortcuts for simple callback actions, then migrate to Actions when needed.'),
+                        _bullet(
+                          'Keep profile structures declarative and easy to diff.',
+                        ),
+                        _bullet(
+                          'Expose profile switching through explicit UI state changes.',
+                        ),
+                        _bullet(
+                          'Use timeline logs to validate callback routing after remap.',
+                        ),
+                        _bullet(
+                          'Prefer CallbackShortcuts for simple callback actions, then migrate to Actions when needed.',
+                        ),
                       ],
                     ),
                   ),
@@ -1269,7 +1523,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       },
       const SingleActivator(LogicalKeyboardKey.enter): () {
         _triggerAction(openAction, lane: 'list', source: 'keyboard');
-        _addEvent('list', 'Opened task: ${_tasks[_selectedListRow]}', _p.accentC);
+        _addEvent(
+          'list',
+          'Opened task: ${_tasks[_selectedListRow]}',
+          _p.accentC,
+        );
       },
     };
 
@@ -1292,17 +1550,34 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                _bindingPill(label: 'Arrow Up', detail: 'Move selection up', tone: _p.accentA),
-                _bindingPill(label: 'Arrow Down', detail: 'Move selection down', tone: _p.accentB),
-                _bindingPill(label: 'Enter', detail: 'Open selected task', tone: _p.accentC),
-                _miniMetric('selected row', '${_selectedListRow + 1}', _p.accentA),
+                _bindingPill(
+                  label: 'Arrow Up',
+                  detail: 'Move selection up',
+                  tone: _p.accentA,
+                ),
+                _bindingPill(
+                  label: 'Arrow Down',
+                  detail: 'Move selection down',
+                  tone: _p.accentB,
+                ),
+                _bindingPill(
+                  label: 'Enter',
+                  detail: 'Open selected task',
+                  tone: _p.accentC,
+                ),
+                _miniMetric(
+                  'selected row',
+                  '${_selectedListRow + 1}',
+                  _p.accentA,
+                ),
               ],
             ),
           ),
           const SizedBox(height: 12),
           _panel(
             title: 'Keyboard List Surface',
-            subtitle: 'This region uses CallbackShortcuts to coordinate list interactions.',
+            subtitle:
+                'This region uses CallbackShortcuts to coordinate list interactions.',
             tint: _p.accentC.withValues(alpha: 0.05),
             child: SizedBox(
               height: 500,
@@ -1310,7 +1585,8 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                 bindings: callbacks,
                 child: Focus(
                   focusNode: _listFocusNode,
-                  onFocusChange: (focused) => setState(() => _listFocused = focused),
+                  onFocusChange: (focused) =>
+                      setState(() => _listFocused = focused),
                   child: GestureDetector(
                     onTap: () {
                       _listFocusNode.requestFocus();
@@ -1318,7 +1594,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                     },
                     child: _deviceShell(
                       title: 'Task navigator',
-                      selectedLabel: _listFocused ? 'focused' : 'click to focus',
+                      selectedLabel: _listFocused
+                          ? 'focused'
+                          : 'click to focus',
                       body: Stack(
                         children: <Widget>[
                           Positioned.fill(child: _background(_canvasStyle)),
@@ -1330,30 +1608,58 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                 children: <Widget>[
                                   Text(
                                     'Operator task queue',
-                                    style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.7),
+                                    style: TextStyle(
+                                      color: _p.ink,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 12.7,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   Expanded(
                                     child: ListView.builder(
                                       itemCount: _tasks.length,
                                       itemBuilder: (context, index) {
-                                        final selected = index == _selectedListRow;
+                                        final selected =
+                                            index == _selectedListRow;
                                         return GestureDetector(
                                           onTap: () {
-                                            setState(() => _selectedListRow = index);
-                                            _recordTap('list', 'Selected row ${index + 1}', _p.accentB);
+                                            setState(
+                                              () => _selectedListRow = index,
+                                            );
+                                            _recordTap(
+                                              'list',
+                                              'Selected row ${index + 1}',
+                                              _p.accentB,
+                                            );
                                           },
                                           child: AnimatedContainer(
-                                            duration: const Duration(milliseconds: 160),
-                                            margin: const EdgeInsets.only(bottom: 8),
+                                            duration: const Duration(
+                                              milliseconds: 160,
+                                            ),
+                                            margin: const EdgeInsets.only(
+                                              bottom: 8,
+                                            ),
                                             padding: const EdgeInsets.all(10),
                                             decoration: BoxDecoration(
-                                              color: (selected ? _p.accentA : _p.accentB).withValues(alpha: selected ? 0.2 : 0.11),
-                                              borderRadius: BorderRadius.circular(10),
+                                              color:
+                                                  (selected
+                                                          ? _p.accentA
+                                                          : _p.accentB)
+                                                      .withValues(
+                                                        alpha: selected
+                                                            ? 0.2
+                                                            : 0.11,
+                                                      ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               border: Border.all(
                                                 color: selected
-                                                    ? _p.accentA.withValues(alpha: 0.52)
-                                                    : _p.muted.withValues(alpha: 0.24),
+                                                    ? _p.accentA.withValues(
+                                                        alpha: 0.52,
+                                                      )
+                                                    : _p.muted.withValues(
+                                                        alpha: 0.24,
+                                                      ),
                                               ),
                                             ),
                                             child: Row(
@@ -1361,9 +1667,19 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                                 CircleAvatar(
                                                   radius: 12,
                                                   backgroundColor: selected
-                                                      ? _p.accentA.withValues(alpha: 0.36)
-                                                      : _p.accentB.withValues(alpha: 0.25),
-                                                  child: Text('${index + 1}', style: TextStyle(color: _p.ink, fontSize: 10)),
+                                                      ? _p.accentA.withValues(
+                                                          alpha: 0.36,
+                                                        )
+                                                      : _p.accentB.withValues(
+                                                          alpha: 0.25,
+                                                        ),
+                                                  child: Text(
+                                                    '${index + 1}',
+                                                    style: TextStyle(
+                                                      color: _p.ink,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
                                                 ),
                                                 const SizedBox(width: 10),
                                                 Expanded(
@@ -1372,12 +1688,19 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                                     style: TextStyle(
                                                       color: _p.ink,
                                                       fontSize: 11.9,
-                                                      fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                                                      fontWeight: selected
+                                                          ? FontWeight.w800
+                                                          : FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
                                                 if (selected)
-                                                  Icon(Icons.play_circle_fill_rounded, color: _p.accentC, size: 18),
+                                                  Icon(
+                                                    Icons
+                                                        .play_circle_fill_rounded,
+                                                    color: _p.accentC,
+                                                    size: 18,
+                                                  ),
                                               ],
                                             ),
                                           ),
@@ -1437,27 +1760,39 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               Expanded(
                 child: _panel(
                   title: 'Bridge Surface',
-                  subtitle: 'Ctrl+I is local callback, F1 triggers global action.',
+                  subtitle:
+                      'Ctrl+I is local callback, F1 triggers global action.',
                   tint: _p.accentA.withValues(alpha: 0.05),
                   child: SizedBox(
                     height: 470,
                     child: Shortcuts(
                       shortcuts: <ShortcutActivator, Intent>{
-                        const SingleActivator(LogicalKeyboardKey.f1): const _GlobalHelpIntent(),
+                        const SingleActivator(LogicalKeyboardKey.f1):
+                            const _GlobalHelpIntent(),
                       },
                       child: Actions(
                         actions: <Type, Action<Intent>>{
                           _GlobalHelpIntent: CallbackAction<_GlobalHelpIntent>(
                             onInvoke: (intent) {
-                              _triggerAction(globalAction, lane: 'bridge-global', source: 'actions');
+                              _triggerAction(
+                                globalAction,
+                                lane: 'bridge-global',
+                                source: 'actions',
+                              );
                               return null;
                             },
                           ),
                         },
                         child: CallbackShortcuts(
                           bindings: <ShortcutActivator, VoidCallback>{
-                            const SingleActivator(LogicalKeyboardKey.keyI, control: true):
-                                () => _triggerAction(localAction, lane: 'bridge-local', source: 'keyboard'),
+                            const SingleActivator(
+                              LogicalKeyboardKey.keyI,
+                              control: true,
+                            ): () => _triggerAction(
+                              localAction,
+                              lane: 'bridge-local',
+                              source: 'keyboard',
+                            ),
                           },
                           child: FocusScope(
                             child: Column(
@@ -1467,48 +1802,66 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                     Expanded(
                                       child: Focus(
                                         focusNode: _bridgeLocalFocusNode,
-                                        onFocusChange: (focused) => setState(() => _bridgeLocalFocused = focused),
+                                        onFocusChange: (focused) => setState(
+                                          () => _bridgeLocalFocused = focused,
+                                        ),
                                         child: GestureDetector(
                                           onTap: () {
-                                            _bridgeLocalFocusNode.requestFocus();
-                                            _recordTap('bridge', 'Local focus panel tapped', _p.accentA);
+                                            _bridgeLocalFocusNode
+                                                .requestFocus();
+                                            _recordTap(
+                                              'bridge',
+                                              'Local focus panel tapped',
+                                              _p.accentA,
+                                            );
                                           },
                                           child: Container(
                                             height: 180,
-                                            margin: const EdgeInsets.only(right: 6),
+                                            margin: const EdgeInsets.only(
+                                              right: 6,
+                                            ),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius: BorderRadius.circular(12),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
                                               border: Border.all(
                                                 color: _bridgeLocalFocused
                                                     ? _p.accentA
-                                                    : _p.muted.withValues(alpha: 0.26),
+                                                    : _p.muted.withValues(
+                                                        alpha: 0.26,
+                                                      ),
                                                 width: 2,
                                               ),
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     'Local Callback Zone',
                                                     style: TextStyle(
                                                       color: _p.ink,
-                                                      fontWeight: FontWeight.w800,
+                                                      fontWeight:
+                                                          FontWeight.w800,
                                                       fontSize: 12,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 6),
                                                   _bindingPill(
                                                     label: 'Ctrl + I',
-                                                    detail: 'Local inspect callback',
+                                                    detail:
+                                                        'Local inspect callback',
                                                     tone: _p.accentA,
                                                   ),
                                                   const SizedBox(height: 8),
                                                   Text(
                                                     'Focus here and press Ctrl+I. This should hit CallbackShortcuts.',
-                                                    style: TextStyle(color: _p.muted, fontSize: 10.7),
+                                                    style: TextStyle(
+                                                      color: _p.muted,
+                                                      fontSize: 10.7,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1522,40 +1875,59 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                         focusNode: _bridgeGlobalFocusNode,
                                         child: GestureDetector(
                                           onTap: () {
-                                            _bridgeGlobalFocusNode.requestFocus();
-                                            _recordTap('bridge', 'Global focus panel tapped', _p.accentB);
+                                            _bridgeGlobalFocusNode
+                                                .requestFocus();
+                                            _recordTap(
+                                              'bridge',
+                                              'Global focus panel tapped',
+                                              _p.accentB,
+                                            );
                                           },
                                           child: Container(
                                             height: 180,
-                                            margin: const EdgeInsets.only(left: 6),
+                                            margin: const EdgeInsets.only(
+                                              left: 6,
+                                            ),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius: BorderRadius.circular(12),
-                                              border: Border.all(color: _p.muted.withValues(alpha: 0.26), width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              border: Border.all(
+                                                color: _p.muted.withValues(
+                                                  alpha: 0.26,
+                                                ),
+                                                width: 2,
+                                              ),
                                             ),
                                             child: Padding(
                                               padding: const EdgeInsets.all(10),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Text(
                                                     'Global Actions Zone',
                                                     style: TextStyle(
                                                       color: _p.ink,
-                                                      fontWeight: FontWeight.w800,
+                                                      fontWeight:
+                                                          FontWeight.w800,
                                                       fontSize: 12,
                                                     ),
                                                   ),
                                                   const SizedBox(height: 6),
                                                   _bindingPill(
                                                     label: 'F1',
-                                                    detail: 'Global help via Actions',
+                                                    detail:
+                                                        'Global help via Actions',
                                                     tone: _p.accentB,
                                                   ),
                                                   const SizedBox(height: 8),
                                                   Text(
                                                     'Press F1 to trigger Shortcuts -> Actions fallback flow.',
-                                                    style: TextStyle(color: _p.muted, fontSize: 10.7),
+                                                    style: TextStyle(
+                                                      color: _p.muted,
+                                                      fontSize: 10.7,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1570,14 +1942,24 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                                 Expanded(
                                   child: _panel(
                                     title: 'Bridge Notes',
-                                    subtitle: 'When to use CallbackShortcuts vs Shortcuts/Actions',
+                                    subtitle:
+                                        'When to use CallbackShortcuts vs Shortcuts/Actions',
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        _bullet('Use CallbackShortcuts for concise local command wiring.'),
-                                        _bullet('Use Shortcuts/Actions for intent-centric app architecture.'),
-                                        _bullet('Combine both when local overrides and global intents coexist.'),
-                                        _bullet('Focus placement still determines who receives the key event first.'),
+                                        _bullet(
+                                          'Use CallbackShortcuts for concise local command wiring.',
+                                        ),
+                                        _bullet(
+                                          'Use Shortcuts/Actions for intent-centric app architecture.',
+                                        ),
+                                        _bullet(
+                                          'Combine both when local overrides and global intents coexist.',
+                                        ),
+                                        _bullet(
+                                          'Focus placement still determines who receives the key event first.',
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -1601,10 +1983,18 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _check('Local Ctrl+I command handled through CallbackShortcuts callback map.'),
-                        _check('Global F1 command handled through Shortcuts and Actions.'),
-                        _check('Two focus surfaces demonstrate event ownership boundaries.'),
-                        _check('Timeline records make the routing path visible in interpreter runs.'),
+                        _check(
+                          'Local Ctrl+I command handled through CallbackShortcuts callback map.',
+                        ),
+                        _check(
+                          'Global F1 command handled through Shortcuts and Actions.',
+                        ),
+                        _check(
+                          'Two focus surfaces demonstrate event ownership boundaries.',
+                        ),
+                        _check(
+                          'Timeline records make the routing path visible in interpreter runs.',
+                        ),
                       ],
                     ),
                   ),
@@ -1630,40 +2020,64 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             subtitle: 'Concept and usage coverage from this deep demo.',
             child: Column(
               children: <Widget>[
-                _matrix('Core purpose', 'Bind ShortcutActivator keys directly to callbacks in widget subtree.'),
-                _matrix('Focus routing', 'Only focused branches receive and resolve keyboard events.'),
-                _matrix('Nested precedence', 'Inner focused CallbackShortcuts can override outer bindings.'),
-                _matrix('Dynamic maps', 'Profiles can swap binding maps at runtime with state updates.'),
-                _matrix('Collection control', 'Arrows and Enter can drive list selection and execution flows.'),
-                _matrix('Bridge strategy', 'CallbackShortcuts can coexist with Shortcuts/Actions intents.'),
+                _matrix(
+                  'Core purpose',
+                  'Bind ShortcutActivator keys directly to callbacks in widget subtree.',
+                ),
+                _matrix(
+                  'Focus routing',
+                  'Only focused branches receive and resolve keyboard events.',
+                ),
+                _matrix(
+                  'Nested precedence',
+                  'Inner focused CallbackShortcuts can override outer bindings.',
+                ),
+                _matrix(
+                  'Dynamic maps',
+                  'Profiles can swap binding maps at runtime with state updates.',
+                ),
+                _matrix(
+                  'Collection control',
+                  'Arrows and Enter can drive list selection and execution flows.',
+                ),
+                _matrix(
+                  'Bridge strategy',
+                  'CallbackShortcuts can coexist with Shortcuts/Actions intents.',
+                ),
               ],
             ),
           ),
           const SizedBox(height: 12),
           _panel(
             title: 'Do and Dont',
-            subtitle: 'Implementation guidance for production keyboard systems.',
+            subtitle:
+                'Implementation guidance for production keyboard systems.',
             child: Column(
               children: <Widget>[
                 _doDont(
                   good: true,
-                  title: 'Do centralize local shortcut maps near the focused widget subtree',
-                  detail: 'Local ownership keeps callback behavior easy to reason about.',
+                  title:
+                      'Do centralize local shortcut maps near the focused widget subtree',
+                  detail:
+                      'Local ownership keeps callback behavior easy to reason about.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do validate focus transitions in visual demos',
-                  detail: 'Most shortcut confusion comes from missing or unexpected focus.',
+                  detail:
+                      'Most shortcut confusion comes from missing or unexpected focus.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont overload one map with unrelated global commands',
-                  detail: 'Use Shortcuts and Actions for cross-cutting intent architecture.',
+                  detail:
+                      'Use Shortcuts and Actions for cross-cutting intent architecture.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont rely on print-only verification for key routing',
-                  detail: 'Use visible state updates and event timelines for confident behavior checks.',
+                  detail:
+                      'Use visible state updates and event timelines for confident behavior checks.',
                 ),
               ],
             ),
@@ -1700,11 +2114,21 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Multiple visual stages show callback mapping, precedence, and integration patterns.'),
-                _check('Each stage explains when and why CallbackShortcuts usage is appropriate.'),
-                _check('Keyboard interaction is demonstrated through focused widgets and live counters.'),
-                _check('Instructional sections provide practical implementation and architecture guidance.'),
-                _check('Timeline panel captures callback execution flow for interpreter verification.'),
+                _check(
+                  'Multiple visual stages show callback mapping, precedence, and integration patterns.',
+                ),
+                _check(
+                  'Each stage explains when and why CallbackShortcuts usage is appropriate.',
+                ),
+                _check(
+                  'Keyboard interaction is demonstrated through focused widgets and live counters.',
+                ),
+                _check(
+                  'Instructional sections provide practical implementation and architecture guidance.',
+                ),
+                _check(
+                  'Timeline panel captures callback execution flow for interpreter verification.',
+                ),
               ],
             ),
           ),
@@ -1729,7 +2153,10 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     );
   }
 
-  Widget _actionCardGrid(List<_ShortcutBinding> bindings, {required String lane}) {
+  Widget _actionCardGrid(
+    List<_ShortcutBinding> bindings, {
+    required String lane,
+  }) {
     return Wrap(
       spacing: 8,
       runSpacing: 8,
@@ -1740,7 +2167,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               child: _actionCard(
                 action: binding.action,
                 shortcutLabel: _activatorLabel(binding.activator),
-                onRun: () => _triggerAction(binding.action, lane: lane, source: 'manual'),
+                onRun: () => _triggerAction(
+                  binding.action,
+                  lane: lane,
+                  source: 'manual',
+                ),
               ),
             ),
           )
@@ -1771,7 +2202,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               Expanded(
                 child: Text(
                   action.title,
-                  style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11.6),
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 11.6,
+                  ),
                 ),
               ),
             ],
@@ -1791,11 +2226,18 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
-              FilledButton.tonal(onPressed: onRun, child: const Text('Trigger')),
+              FilledButton.tonal(
+                onPressed: onRun,
+                child: const Text('Trigger'),
+              ),
               const Spacer(),
               Text(
                 'count: $count',
-                style: TextStyle(color: _p.muted, fontSize: 10.2, fontFamily: 'monospace'),
+                style: TextStyle(
+                  color: _p.muted,
+                  fontSize: 10.2,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -1804,7 +2246,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     );
   }
 
-  Widget _bindingPill({required String label, required String detail, required Color tone}) {
+  Widget _bindingPill({
+    required String label,
+    required String detail,
+    required Color tone,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
@@ -1814,7 +2260,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       ),
       child: Text(
         '$label  ·  $detail',
-        style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 10.5),
+        style: TextStyle(
+          color: _p.ink,
+          fontWeight: FontWeight.w700,
+          fontSize: 10.5,
+        ),
       ),
     );
   }
@@ -1822,7 +2272,8 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
   Widget _globalMetricsPanel() {
     return _panel(
       title: 'Global Metrics',
-      subtitle: 'Interaction counters for shortcut callbacks and manual triggers.',
+      subtitle:
+          'Interaction counters for shortcut callbacks and manual triggers.',
       child: Wrap(
         spacing: 8,
         runSpacing: 8,
@@ -1846,7 +2297,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       ),
       child: Text(
         '$label: $value',
-        style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.2,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -1859,7 +2314,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
+          ),
         ],
       ),
     );
@@ -1889,13 +2346,22 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
               ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1914,9 +2380,23 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1937,9 +2417,19 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
+          Text(
+            'Q: $q',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.9,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33)),
+          Text(
+            'A: $a',
+            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33),
+          ),
         ],
       ),
     );
@@ -1953,7 +2443,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
+          ),
         ],
       ),
     );
@@ -1963,7 +2455,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         color: _p.card,
-        border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.25))),
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.25)),
+        ),
       ),
       child: Column(
         children: <Widget>[
@@ -1972,12 +2466,21 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Shortcut Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Shortcut Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Event stream for callbacks, focus transitions, and profile changes.',
@@ -2018,7 +2521,9 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.26)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.26),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2047,7 +2552,14 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.31,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -2084,8 +2596,12 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: _p.canvas,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -2093,7 +2609,11 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                 const Spacer(),
                 Text(
                   selectedLabel,
-                  style: TextStyle(color: _p.muted, fontSize: 10.3, fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 10.3,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ],
             ),
@@ -2119,12 +2639,17 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentA.withValues(alpha: 0.22), _p.accentB.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentA.withValues(alpha: 0.22),
+            _p.accentB.withValues(alpha: 0.22),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
+      child: CustomPaint(
+        painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
+      ),
     );
   }
 
@@ -2132,12 +2657,17 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentB.withValues(alpha: 0.23), _p.accentC.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentB.withValues(alpha: 0.23),
+            _p.accentC.withValues(alpha: 0.22),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-      child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22))),
+      child: CustomPaint(
+        painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22)),
+      ),
     );
   }
 
@@ -2145,17 +2675,38 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentC.withValues(alpha: 0.22), _p.accentA.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentC.withValues(alpha: 0.22),
+            _p.accentA.withValues(alpha: 0.22),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned.fill(child: CustomPaint(painter: _StarsPainter(color: Colors.white.withValues(alpha: 0.2)))),
-          Positioned(left: 24, top: 24, child: _ring(88, Colors.white.withValues(alpha: 0.16))),
-          Positioned(right: 30, top: 40, child: _ring(68, Colors.white.withValues(alpha: 0.15))),
-          Positioned(left: 110, bottom: 28, child: _ring(110, Colors.white.withValues(alpha: 0.13))),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _StarsPainter(
+                color: Colors.white.withValues(alpha: 0.2),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 24,
+            top: 24,
+            child: _ring(88, Colors.white.withValues(alpha: 0.16)),
+          ),
+          Positioned(
+            right: 30,
+            top: 40,
+            child: _ring(68, Colors.white.withValues(alpha: 0.15)),
+          ),
+          Positioned(
+            left: 110,
+            bottom: 28,
+            child: _ring(110, Colors.white.withValues(alpha: 0.13)),
+          ),
         ],
       ),
     );
@@ -2179,7 +2730,14 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_stageTitles[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _stageTitles[_stage.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           Wrap(
             spacing: 8,
@@ -2188,18 +2746,34 @@ class _CallbackShortcutsDeepDemoState extends State<_CallbackShortcutsDeepDemo> 
                 value: _canvasStyle,
                 borderRadius: BorderRadius.circular(8),
                 items: const <DropdownMenuItem<_CanvasStyle>>[
-                  DropdownMenuItem(value: _CanvasStyle.waves, child: Text('Waves')),
-                  DropdownMenuItem(value: _CanvasStyle.blueprint, child: Text('Blueprint')),
-                  DropdownMenuItem(value: _CanvasStyle.constellation, child: Text('Constellation')),
+                  DropdownMenuItem(
+                    value: _CanvasStyle.waves,
+                    child: Text('Waves'),
+                  ),
+                  DropdownMenuItem(
+                    value: _CanvasStyle.blueprint,
+                    child: Text('Blueprint'),
+                  ),
+                  DropdownMenuItem(
+                    value: _CanvasStyle.constellation,
+                    child: Text('Constellation'),
+                  ),
                 ],
                 onChanged: (value) {
                   if (value != null) {
                     setState(() => _canvasStyle = value);
-                    _addEvent('canvas', 'Canvas style changed to $value', _p.accentC);
+                    _addEvent(
+                      'canvas',
+                      'Canvas style changed to $value',
+                      _p.accentC,
+                    );
                   }
                 },
               ),
-              Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+              Text(
+                'Palette: ${_p.name}',
+                style: TextStyle(color: _p.muted, fontSize: 11.1),
+              ),
             ],
           ),
         ],

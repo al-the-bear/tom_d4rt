@@ -165,11 +165,7 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            icons[item['kind']] ?? Icons.code,
-            color: _wiAccent,
-            size: 28.0,
-          ),
+          Icon(icons[item['kind']] ?? Icons.code, color: _wiAccent, size: 28.0),
           const SizedBox(width: 12.0),
           Expanded(
             child: Column(
@@ -195,10 +191,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     item['kind']!,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: _wiMuted,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: _wiMuted),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -221,8 +214,7 @@ dynamic build(BuildContext context) {
   final apiSection = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      for (int i = 0; i < apiItems.length; i++)
-        wiApiCard(apiItems[i], i),
+      for (int i = 0; i < apiItems.length; i++) wiApiCard(apiItems[i], i),
     ],
   );
 
@@ -238,9 +230,7 @@ dynamic build(BuildContext context) {
     required IconData icon,
   }) {
     final borderColor = enabled ? _wiAccent : Colors.grey.shade400;
-    final bg = enabled
-        ? _wiLight.withValues(alpha: 0.7)
-        : Colors.grey.shade100;
+    final bg = enabled ? _wiLight.withValues(alpha: 0.7) : Colors.grey.shade100;
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: 7.0),
@@ -419,12 +409,7 @@ dynamic build(BuildContext context) {
             ? _wiLight.withValues(alpha: 0.5 + depth * 0.1)
             : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(
-            color: hue,
-            width: 3.0,
-          ),
-        ),
+        border: Border(left: BorderSide(color: hue, width: 3.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -542,11 +527,7 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'Re-enabled: a child scope can override its parent \'s '
                   'disable, making this subsection inspectable again.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: _wiDark,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: _wiDark, height: 1.4),
                 ),
               ),
             ],
@@ -570,7 +551,8 @@ dynamic build(BuildContext context) {
           'In debug mode, the inspector scope is enabled so developers '
           'can freely explore the widget tree, check layouts, and '
           'diagnose rendering issues.',
-      'code': 'EnableWidgetInspectorScope(\n'
+      'code':
+          'EnableWidgetInspectorScope(\n'
           '  enable: kDebugMode,\n'
           '  child: MyApp(),\n'
           ')',
@@ -583,7 +565,8 @@ dynamic build(BuildContext context) {
           'In profile mode, inspection may be partially disabled to '
           'reduce overhead from the DevTools protocol, while keeping '
           'performance overlays visible.',
-      'code': 'EnableWidgetInspectorScope(\n'
+      'code':
+          'EnableWidgetInspectorScope(\n'
           '  enable: false,\n'
           '  child: PerformanceDashboard(),\n'
           ')',
@@ -596,7 +579,8 @@ dynamic build(BuildContext context) {
           'When displaying credentials, keys, or privacy-sensitive '
           'data you can wrap the subtree with enable=false to prevent '
           'the inspector from exposing text content.',
-      'code': 'EnableWidgetInspectorScope(\n'
+      'code':
+          'EnableWidgetInspectorScope(\n'
           '  enable: false,\n'
           '  child: PasswordField(),\n'
           ')',
@@ -609,7 +593,8 @@ dynamic build(BuildContext context) {
           'Tooltip overlays, modals, and transient UI might clutter '
           'the widget tree in DevTools.  Disabling the scope for '
           'those keeps the inspector focused on stable content.',
-      'code': 'EnableWidgetInspectorScope(\n'
+      'code':
+          'EnableWidgetInspectorScope(\n'
           '  enable: false,\n'
           '  child: TooltipOverlay(),\n'
           ')',
@@ -625,9 +610,7 @@ dynamic build(BuildContext context) {
         color: on ? _wiLight : Colors.grey.shade50,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(
-          color: on
-              ? _wiAccent.withValues(alpha: 0.4)
-              : Colors.grey.shade300,
+          color: on ? _wiAccent.withValues(alpha: 0.4) : Colors.grey.shade300,
           width: 1.5,
         ),
       ),
@@ -743,9 +726,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.only(left: d * 18.0, top: 3.0, bottom: 3.0),
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       decoration: BoxDecoration(
-        color: vis
-            ? _wiLight.withValues(alpha: 0.6)
-            : Colors.grey.shade100,
+        color: vis ? _wiLight.withValues(alpha: 0.6) : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(6.0),
         border: Border(
           left: BorderSide(
@@ -995,10 +976,7 @@ dynamic build(BuildContext context) {
                   color: _wiAccent,
                   borderRadius: BorderRadius.circular(3.0),
                 ),
-                child: const Text(
-                  '🔍',
-                  style: TextStyle(fontSize: 9.0),
-                ),
+                child: const Text('🔍', style: TextStyle(fontSize: 9.0)),
               ),
             ),
         ],
@@ -1163,10 +1141,7 @@ dynamic build(BuildContext context) {
         children: [
           // Old value chip
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: (s['old'] as bool)
                   ? _wiAccent.withValues(alpha: 0.15)
@@ -1192,10 +1167,7 @@ dynamic build(BuildContext context) {
           ),
           // New value chip
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: (s['new_val'] as bool)
                   ? _wiAccent.withValues(alpha: 0.15)
@@ -1317,10 +1289,7 @@ dynamic build(BuildContext context) {
         children: [
           Container(
             width: 90.0,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: _wiPrimary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6.0),
@@ -1336,10 +1305,7 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 10.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: _wiAccent.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(6.0),
@@ -1455,20 +1421,13 @@ dynamic build(BuildContext context) {
         color: (p['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12.0),
         border: Border(
-          left: BorderSide(
-            color: p['color'] as Color,
-            width: 4.0,
-          ),
+          left: BorderSide(color: p['color'] as Color, width: 4.0),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            p['icon'] as IconData,
-            color: p['color'] as Color,
-            size: 24.0,
-          ),
+          Icon(p['icon'] as IconData, color: p['color'] as Color, size: 24.0),
           const SizedBox(width: 12.0),
           Expanded(
             child: Column(
@@ -1549,9 +1508,7 @@ dynamic build(BuildContext context) {
         color: highlight
             ? _wiLight
             : (index.isEven ? Colors.grey.shade50 : Colors.white),
-        border: highlight
-            ? Border.all(color: _wiAccent, width: 1.5)
-            : null,
+        border: highlight ? Border.all(color: _wiAccent, width: 1.5) : null,
         borderRadius: BorderRadius.circular(6.0),
       ),
       child: Row(

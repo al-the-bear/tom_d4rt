@@ -49,7 +49,12 @@ Widget buildInfoCard(String label, String value) {
   );
 }
 
-Widget buildStatusIndicator(String statusName, bool isActive, Color color, String description) {
+Widget buildStatusIndicator(
+  String statusName,
+  bool isActive,
+  Color color,
+  String description,
+) {
   print('Building status indicator: $statusName = $isActive');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -93,10 +98,7 @@ Widget buildStatusIndicator(String statusName, bool isActive, Color color, Strin
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -132,7 +134,7 @@ Widget buildCacheStateCard(
   print('Building cache state card: $title');
   bool tracking = pending || keepAlive || live;
   bool untracked = !tracking;
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -159,11 +161,7 @@ Widget buildCacheStateCard(
                 color: themeColor.withAlpha(30),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                Icons.memory,
-                color: themeColor,
-                size: 24,
-              ),
+              child: Icon(Icons.memory, color: themeColor, size: 24),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -181,10 +179,7 @@ Widget buildCacheStateCard(
                   SizedBox(height: 2),
                   Text(
                     scenario,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -204,9 +199,7 @@ Widget buildCacheStateCard(
               child: buildMiniStatusChip('keepAlive', keepAlive, Colors.blue),
             ),
             SizedBox(width: 8),
-            Expanded(
-              child: buildMiniStatusChip('live', live, Colors.green),
-            ),
+            Expanded(child: buildMiniStatusChip('live', live, Colors.green)),
           ],
         ),
         SizedBox(height: 8),
@@ -234,9 +227,7 @@ Widget buildMiniStatusChip(String label, bool active, Color color) {
     decoration: BoxDecoration(
       color: active ? color.withAlpha(30) : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(
-        color: active ? color : Colors.grey.shade300,
-      ),
+      border: Border.all(color: active ? color : Colors.grey.shade300),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -310,10 +301,7 @@ Widget buildPropertyExplanationCard(
         SizedBox(height: 12),
         Text(
           explanation,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
         ),
         SizedBox(height: 12),
         Container(
@@ -332,10 +320,7 @@ Widget buildPropertyExplanationCard(
               Expanded(
                 child: Text(
                   'When true: $whenTrue',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.green.shade800,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.green.shade800),
                 ),
               ),
             ],
@@ -357,10 +342,7 @@ Widget buildPropertyExplanationCard(
               Expanded(
                 child: Text(
                   'When false: $whenFalse',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.red.shade800,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.red.shade800),
                 ),
               ),
             ],
@@ -372,7 +354,9 @@ Widget buildPropertyExplanationCard(
 }
 
 Widget buildTrackingVisualization(bool tracking, bool untracked) {
-  print('Building tracking visualization: tracking=$tracking, untracked=$untracked');
+  print(
+    'Building tracking visualization: tracking=$tracking, untracked=$untracked',
+  );
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -422,10 +406,7 @@ Widget buildTrackingVisualization(bool tracking, bool untracked) {
                 ? 'The ImageCache is actively managing this image entry. At least one of pending, keepAlive, or live is true.'
                 : 'The image is not being managed by the cache. It may have been evicted or was never cached.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey.shade700,
-            ),
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
         ),
       ],
@@ -455,30 +436,63 @@ Widget buildCacheLifecycleFlow() {
           ),
         ),
         SizedBox(height: 16),
-        buildLifecycleStep(1, 'Request Image', 'ImageProvider resolves key', Colors.blue, true),
+        buildLifecycleStep(
+          1,
+          'Request Image',
+          'ImageProvider resolves key',
+          Colors.blue,
+          true,
+        ),
         buildLifecycleArrow(),
-        buildLifecycleStep(2, 'Pending', 'Codec decoding in progress', Colors.orange, true),
+        buildLifecycleStep(
+          2,
+          'Pending',
+          'Codec decoding in progress',
+          Colors.orange,
+          true,
+        ),
         buildLifecycleArrow(),
-        buildLifecycleStep(3, 'Live', 'Active listeners present', Colors.green, true),
+        buildLifecycleStep(
+          3,
+          'Live',
+          'Active listeners present',
+          Colors.green,
+          true,
+        ),
         buildLifecycleArrow(),
-        buildLifecycleStep(4, 'KeepAlive', 'No listeners, cached for reuse', Colors.blue, true),
+        buildLifecycleStep(
+          4,
+          'KeepAlive',
+          'No listeners, cached for reuse',
+          Colors.blue,
+          true,
+        ),
         buildLifecycleArrow(),
-        buildLifecycleStep(5, 'Evicted', 'Memory pressure or cache full', Colors.red, false),
+        buildLifecycleStep(
+          5,
+          'Evicted',
+          'Memory pressure or cache full',
+          Colors.red,
+          false,
+        ),
       ],
     ),
   );
 }
 
-Widget buildLifecycleStep(int step, String title, String description, Color color, bool isTracked) {
+Widget buildLifecycleStep(
+  int step,
+  String title,
+  String description,
+  Color color,
+  bool isTracked,
+) {
   return Row(
     children: [
       Container(
         width: 36,
         height: 36,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             '$step',
@@ -509,14 +523,18 @@ Widget buildLifecycleStep(int step, String title, String description, Color colo
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
-                    color: isTracked ? Colors.green.shade100 : Colors.red.shade100,
+                    color: isTracked
+                        ? Colors.green.shade100
+                        : Colors.red.shade100,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     isTracked ? 'tracked' : 'untracked',
                     style: TextStyle(
                       fontSize: 10,
-                      color: isTracked ? Colors.green.shade700 : Colors.red.shade700,
+                      color: isTracked
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
                     ),
                   ),
                 ),
@@ -524,10 +542,7 @@ Widget buildLifecycleStep(int step, String title, String description, Color colo
             ),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
           ],
         ),
@@ -541,18 +556,18 @@ Widget buildLifecycleArrow() {
     padding: EdgeInsets.only(left: 16),
     child: Column(
       children: [
-        Container(
-          width: 2,
-          height: 16,
-          color: Colors.grey.shade400,
-        ),
+        Container(width: 2, height: 16, color: Colors.grey.shade400),
         Icon(Icons.arrow_downward, size: 16, color: Colors.grey.shade400),
       ],
     ),
   );
 }
 
-Widget buildSimulatedCacheStatePanel(String scenario, Map<String, bool> states, Color color) {
+Widget buildSimulatedCacheStatePanel(
+  String scenario,
+  Map<String, bool> states,
+  Color color,
+) {
   print('Building simulated cache state: $scenario');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -612,38 +627,48 @@ Widget buildSimulatedCacheStatePanel(String scenario, Map<String, bool> states, 
 dynamic build(BuildContext context) {
   print('ImageCacheStatus deep demo executing');
   print('==========================================');
-  
+
   print('\n--- Section: ImageCacheStatus Overview ---');
-  print('ImageCacheStatus provides status information about an image in ImageCache');
+  print(
+    'ImageCacheStatus provides status information about an image in ImageCache',
+  );
   print('Returned by imageCache.statusForKey(provider)');
-  
+
   print('\n--- Section: Property Details ---');
   print('pending: Image codec is currently being decoded');
   print('keepAlive: Image is in keepAlive list (no active listeners)');
   print('live: Image is in live list (has active listeners)');
   print('tracking: Any of pending, keepAlive, or live is true');
   print('untracked: Not in cache (tracking is false)');
-  
+
   print('\n--- Section: Tracking Property ---');
   bool simulatedPending = false;
   bool simulatedKeepAlive = true;
   bool simulatedLive = false;
-  List<bool> trackingInputs = [simulatedPending, simulatedKeepAlive, simulatedLive];
+  List<bool> trackingInputs = [
+    simulatedPending,
+    simulatedKeepAlive,
+    simulatedLive,
+  ];
   bool calculatedTracking = trackingInputs.any((b) => b);
   print('tracking = pending || keepAlive || live');
   print('Current simulation: tracking = $calculatedTracking');
-  
+
   print('\n--- Section: Untracked Property ---');
   bool calculatedUntracked = !calculatedTracking;
   print('untracked = !tracking');
   print('Current simulation: untracked = $calculatedUntracked');
-  
+
   print('\n--- Section: Simulated Cache States ---');
   print('State 1: Image loading (pending=true, keepAlive=false, live=false)');
-  print('State 2: Image with listeners (pending=false, keepAlive=false, live=true)');
-  print('State 3: Image cached no listeners (pending=false, keepAlive=true, live=false)');
+  print(
+    'State 2: Image with listeners (pending=false, keepAlive=false, live=true)',
+  );
+  print(
+    'State 3: Image cached no listeners (pending=false, keepAlive=true, live=false)',
+  );
   print('State 4: Image evicted (pending=false, keepAlive=false, live=false)');
-  
+
   print('\nImageCacheStatus deep demo completed');
 
   return SingleChildScrollView(
@@ -695,10 +720,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Text(
                         'Obtained via PaintingBinding.instance.imageCache.statusForKey()',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(fontSize: 13, color: Colors.white),
                       ),
                     ),
                   ],
@@ -707,13 +729,16 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         buildSectionHeader('ImageCacheStatus Properties'),
         buildInfoCard('Class', 'ImageCacheStatus'),
         buildInfoCard('Library', 'painting (dart:ui dependent)'),
         buildInfoCard('Purpose', 'Report cache state of a specific image'),
-        buildInfoCard('Immutable', 'Yes - represents a snapshot of cache state'),
-        
+        buildInfoCard(
+          'Immutable',
+          'Yes - represents a snapshot of cache state',
+        ),
+
         SizedBox(height: 8),
         buildPropertyExplanationCard(
           'pending',
@@ -739,10 +764,13 @@ dynamic build(BuildContext context) {
           Icons.visibility,
           Colors.green,
         ),
-        
+
         buildSectionHeader('Tracking Property'),
         buildInfoCard('Definition', 'tracking = pending || keepAlive || live'),
-        buildInfoCard('Purpose', 'Quickly check if cache knows about the image'),
+        buildInfoCard(
+          'Purpose',
+          'Quickly check if cache knows about the image',
+        ),
         Container(
           margin: EdgeInsets.symmetric(vertical: 8),
           padding: EdgeInsets.all(16),
@@ -765,10 +793,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'The tracking property is a convenience getter that returns true if the image cache is actively managing this image in any capacity. It combines all three primary states into a single boolean check.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.purple.shade800,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.purple.shade800),
               ),
               SizedBox(height: 12),
               Row(
@@ -792,7 +817,10 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 8),
               Center(
-                child: Icon(Icons.arrow_downward, color: Colors.purple.shade400),
+                child: Icon(
+                  Icons.arrow_downward,
+                  color: Colors.purple.shade400,
+                ),
               ),
               SizedBox(height: 8),
               Center(
@@ -815,7 +843,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         buildTrackingVisualization(true, false),
-        
+
         buildSectionHeader('Untracked Property'),
         buildInfoCard('Definition', 'untracked = !tracking'),
         buildInfoCard('Purpose', 'Check if image is NOT in cache'),
@@ -841,10 +869,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8),
               Text(
                 'An untracked image is one that the ImageCache has no record of. This can happen when the image was never loaded through the cache, has been evicted due to memory pressure, or was explicitly removed.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
               ),
               SizedBox(height: 12),
               Container(
@@ -856,7 +881,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.warning_amber, color: Colors.amber.shade700, size: 20),
+                    Icon(
+                      Icons.warning_amber,
+                      color: Colors.amber.shade700,
+                      size: 20,
+                    ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -874,10 +903,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         buildTrackingVisualization(false, true),
-        
+
         buildSectionHeader('Status Visualization'),
         buildCacheLifecycleFlow(),
-        
+
         buildSectionHeader('Simulated Cache States'),
         buildCacheStateCard(
           'Loading Image',
@@ -919,29 +948,21 @@ dynamic build(BuildContext context) {
           'Image loading while widget waits',
           Colors.purple,
         ),
-        
-        buildSimulatedCacheStatePanel(
-          'Scenario: Fresh App Start',
-          {
-            'pending': false,
-            'keepAlive': false,
-            'live': false,
-            'tracking': false,
-            'untracked': true,
-          },
-          Colors.grey,
-        ),
-        buildSimulatedCacheStatePanel(
-          'Scenario: Image Widget Mounted',
-          {
-            'pending': true,
-            'keepAlive': false,
-            'live': false,
-            'tracking': true,
-            'untracked': false,
-          },
-          Colors.orange,
-        ),
+
+        buildSimulatedCacheStatePanel('Scenario: Fresh App Start', {
+          'pending': false,
+          'keepAlive': false,
+          'live': false,
+          'tracking': false,
+          'untracked': true,
+        }, Colors.grey),
+        buildSimulatedCacheStatePanel('Scenario: Image Widget Mounted', {
+          'pending': true,
+          'keepAlive': false,
+          'live': false,
+          'tracking': true,
+          'untracked': false,
+        }, Colors.orange),
         buildSimulatedCacheStatePanel(
           'Scenario: Image Decoded, Widget Visible',
           {
@@ -953,29 +974,21 @@ dynamic build(BuildContext context) {
           },
           Colors.green,
         ),
-        buildSimulatedCacheStatePanel(
-          'Scenario: Widget Scrolled Off Screen',
-          {
-            'pending': false,
-            'keepAlive': true,
-            'live': false,
-            'tracking': true,
-            'untracked': false,
-          },
-          Colors.blue,
-        ),
-        buildSimulatedCacheStatePanel(
-          'Scenario: Memory Pressure Eviction',
-          {
-            'pending': false,
-            'keepAlive': false,
-            'live': false,
-            'tracking': false,
-            'untracked': true,
-          },
-          Colors.red,
-        ),
-        
+        buildSimulatedCacheStatePanel('Scenario: Widget Scrolled Off Screen', {
+          'pending': false,
+          'keepAlive': true,
+          'live': false,
+          'tracking': true,
+          'untracked': false,
+        }, Colors.blue),
+        buildSimulatedCacheStatePanel('Scenario: Memory Pressure Eviction', {
+          'pending': false,
+          'keepAlive': false,
+          'live': false,
+          'tracking': false,
+          'untracked': true,
+        }, Colors.red),
+
         buildSectionHeader('Practical Usage'),
         Container(
           margin: EdgeInsets.symmetric(vertical: 8),
@@ -1061,7 +1074,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         Container(
           margin: EdgeInsets.symmetric(vertical: 8),
           padding: EdgeInsets.all(16),
@@ -1082,16 +1095,32 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8),
-              buildDebugTipRow(Icons.pending, 'pending is always true', 'Check for decode errors'),
-              buildDebugTipRow(Icons.storage, 'keepAlive fills quickly', 'Review maximumSize setting'),
-              buildDebugTipRow(Icons.sync_problem, 'Image reloads constantly', 'Key might be changing'),
-              buildDebugTipRow(Icons.memory, 'Memory pressure frequent', 'Consider lower resolution images'),
+              buildDebugTipRow(
+                Icons.pending,
+                'pending is always true',
+                'Check for decode errors',
+              ),
+              buildDebugTipRow(
+                Icons.storage,
+                'keepAlive fills quickly',
+                'Review maximumSize setting',
+              ),
+              buildDebugTipRow(
+                Icons.sync_problem,
+                'Image reloads constantly',
+                'Key might be changing',
+              ),
+              buildDebugTipRow(
+                Icons.memory,
+                'Memory pressure frequent',
+                'Consider lower resolution images',
+              ),
             ],
           ),
         ),
-        
+
         buildStatusComparisonTable(),
-        
+
         SizedBox(height: 20),
         Container(
           width: double.infinity,
@@ -1116,10 +1145,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'All properties and states demonstrated',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.teal.shade600,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.teal.shade600),
               ),
             ],
           ),
@@ -1151,10 +1177,7 @@ Widget buildDebugTipRow(IconData icon, String symptom, String suggestion) {
                 ),
                 TextSpan(
                   text: ' → $suggestion',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.indigo.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13, color: Colors.indigo.shade600),
                 ),
               ],
             ),
@@ -1215,23 +1238,69 @@ Widget buildStatusComparisonTable() {
 Widget buildTableHeaderRow() {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-    decoration: BoxDecoration(
-      color: Colors.teal.shade50,
-    ),
+    decoration: BoxDecoration(color: Colors.teal.shade50),
     child: Row(
       children: [
-        Expanded(flex: 2, child: Text('State', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-        Expanded(child: Center(child: Text('pending', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-        Expanded(child: Center(child: Text('keepAlive', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-        Expanded(child: Center(child: Text('live', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-        Expanded(child: Center(child: Text('tracking', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
-        Expanded(child: Center(child: Text('untracked', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)))),
+        Expanded(
+          flex: 2,
+          child: Text(
+            'State',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'pending',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'keepAlive',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'live',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'tracking',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: Text(
+              'untracked',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+            ),
+          ),
+        ),
       ],
     ),
   );
 }
 
-Widget buildTableDataRow(String state, bool pending, bool keepAlive, bool live, bool tracking, bool untracked) {
+Widget buildTableDataRow(
+  String state,
+  bool pending,
+  bool keepAlive,
+  bool live,
+  bool tracking,
+  bool untracked,
+) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
     decoration: BoxDecoration(

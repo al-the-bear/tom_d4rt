@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'Keyboard Shortcut Host Widget',
-      'body': 'ShortcutRegistrar creates a ShortcutRegistry and '
+      'body':
+          'ShortcutRegistrar creates a ShortcutRegistry and '
           'ShortcutManager, then places them in the widget tree via '
           'an InheritedWidget scope. Descendant widgets can register '
           'shortcuts dynamically without modifying the parent.',
@@ -25,7 +26,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_fix_high,
       'title': 'Pre-installed by MaterialApp',
-      'body': 'MaterialApp, CupertinoApp, and WidgetsApp all include a '
+      'body':
+          'MaterialApp, CupertinoApp, and WidgetsApp all include a '
           'ShortcutRegistrar above your app. You rarely need to create '
           'one yourself — just use ShortcutRegistry.of(context) to '
           'access the existing one.',
@@ -33,14 +35,16 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.add_circle,
       'title': 'Dynamic Registration',
-      'body': 'Unlike the Shortcuts widget (static map), ShortcutRegistrar '
+      'body':
+          'Unlike the Shortcuts widget (static map), ShortcutRegistrar '
           'allows widgets to register shortcuts at any point in their '
           'lifecycle. Register on mount, unregister on dispose.',
     },
     {
       'icon': Icons.merge_type,
       'title': 'Shortcut Merging',
-      'body': 'The ShortcutManager receives the merged map of all '
+      'body':
+          'The ShortcutManager receives the merged map of all '
           'registered shortcuts. Later registrations override earlier '
           'ones with the same activator. The ShortcutRegistrar forwards '
           'this merged map to a Shortcuts.manager() widget internally.',
@@ -63,7 +67,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.teal.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.teal.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -71,13 +79,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['title'] as String,
-                    style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
-                        color: Colors.teal.shade700),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.teal.shade700,
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -98,21 +113,24 @@ dynamic build(BuildContext context) {
       'name': 'ShortcutRegistrar',
       'type': 'StatefulWidget',
       'color': Colors.teal,
-      'desc': 'The outer widget. Creates both ShortcutRegistry and '
+      'desc':
+          'The outer widget. Creates both ShortcutRegistry and '
           'ShortcutManager in its State. Only parameter: child.',
     },
     {
       'name': '_ShortcutRegistrarScope',
       'type': 'InheritedWidget',
       'color': Colors.blue,
-      'desc': 'Internal InheritedWidget that exposes the ShortcutRegistry '
+      'desc':
+          'Internal InheritedWidget that exposes the ShortcutRegistry '
           'to descendants via ShortcutRegistry.of(context).',
     },
     {
       'name': 'Shortcuts.manager()',
       'type': 'Widget',
       'color': Colors.purple,
-      'desc': 'Receives the ShortcutManager from ShortcutRegistrar. '
+      'desc':
+          'Receives the ShortcutManager from ShortcutRegistrar. '
           'The manager holds the merged shortcut map and processes '
           'key events.',
     },
@@ -120,7 +138,8 @@ dynamic build(BuildContext context) {
       'name': 'ShortcutRegistry',
       'type': 'ChangeNotifier',
       'color': Colors.orange,
-      'desc': 'Holds all registered shortcut entries. Notifies the '
+      'desc':
+          'Holds all registered shortcut entries. Notifies the '
           'ShortcutManager when shortcuts change. Managed by the '
           'ShortcutRegistrar state.',
     },
@@ -128,7 +147,8 @@ dynamic build(BuildContext context) {
       'name': 'ShortcutManager',
       'type': 'ChangeNotifier',
       'color': Colors.red,
-      'desc': 'Processes key events and invokes Actions. Receives '
+      'desc':
+          'Processes key events and invokes Actions. Receives '
           'the shortcut map from ShortcutRegistry.',
     },
   ];
@@ -151,7 +171,9 @@ dynamic build(BuildContext context) {
               height: 60.0,
               decoration: BoxDecoration(
                 color: color,
-                borderRadius: const BorderRadius.horizontal(left: Radius.circular(7.0)),
+                borderRadius: const BorderRadius.horizontal(
+                  left: Radius.circular(7.0),
+                ),
               ),
             ),
             Expanded(
@@ -162,25 +184,45 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Text(layer['name'] as String,
-                            style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                                fontWeight: FontWeight.w700, color: color)),
+                        Text(
+                          layer['name'] as String,
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                          ),
+                        ),
                         const SizedBox(width: 6.0),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4.0,
+                            vertical: 1.0,
+                          ),
                           decoration: BoxDecoration(
                             color: color.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(3.0),
                           ),
-                          child: Text(layer['type'] as String,
-                              style: TextStyle(fontSize: 8.0, fontFamily: 'monospace',
-                                  color: color)),
+                          child: Text(
+                            layer['type'] as String,
+                            style: TextStyle(
+                              fontSize: 8.0,
+                              fontFamily: 'monospace',
+                              color: color,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 4.0),
-                    Text(layer['desc'] as String,
-                        style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600, height: 1.3)),
+                    Text(
+                      layer['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        color: Colors.grey.shade600,
+                        height: 1.3,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -188,7 +230,11 @@ dynamic build(BuildContext context) {
             if (i < archLayers.length - 1)
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: Icon(Icons.arrow_downward, size: 14.0, color: Colors.grey.shade400),
+                child: Icon(
+                  Icons.arrow_downward,
+                  size: 14.0,
+                  color: Colors.grey.shade400,
+                ),
               ),
           ],
         ),
@@ -213,7 +259,8 @@ dynamic build(BuildContext context) {
       'title': 'Register in initState',
       'icon': Icons.play_arrow,
       'color': Colors.green,
-      'code': 'late ShortcutRegistryEntry _entry;\n'
+      'code':
+          'late ShortcutRegistryEntry _entry;\n'
           '\n'
           '@override\n'
           'void initState() {\n'
@@ -228,19 +275,22 @@ dynamic build(BuildContext context) {
           '    ): const SaveIntent(),\n'
           '  });\n'
           '}',
-      'desc': 'Register shortcuts when the widget mounts. The entry '
+      'desc':
+          'Register shortcuts when the widget mounts. The entry '
           'tracks ownership for clean disposal.',
     },
     {
       'title': 'Dispose Entry',
       'icon': Icons.stop,
       'color': Colors.red,
-      'code': '@override\n'
+      'code':
+          '@override\n'
           'void dispose() {\n'
           '  _entry.dispose();\n'
           '  super.dispose();\n'
           '}',
-      'desc': 'Always dispose the entry to unregister shortcuts and '
+      'desc':
+          'Always dispose the entry to unregister shortcuts and '
           'prevent memory leaks. The registry removes the entry from '
           'its merged map.',
     },
@@ -248,7 +298,8 @@ dynamic build(BuildContext context) {
       'title': 'Replace Shortcuts',
       'icon': Icons.swap_horiz,
       'color': Colors.blue,
-      'code': '// Update registered shortcuts\n'
+      'code':
+          '// Update registered shortcuts\n'
           '_entry.replaceAll(\n'
           '  <ShortcutActivator, Intent>{\n'
           '    SingleActivator(\n'
@@ -262,14 +313,16 @@ dynamic build(BuildContext context) {
           '    ): const RedoIntent(),\n'
           '  },\n'
           ');',
-      'desc': 'Replace all shortcuts in an entry without create/dispose. '
+      'desc':
+          'Replace all shortcuts in an entry without create/dispose. '
           'The registry updates its merged map and notifies.',
     },
     {
       'title': 'Multiple Entries',
       'icon': Icons.layers,
       'color': Colors.purple,
-      'code': '// Each feature registers\n'
+      'code':
+          '// Each feature registers\n'
           '// its own entry\n'
           'final editEntry = registry.addAll(\n'
           '  editShortcuts);\n'
@@ -280,7 +333,8 @@ dynamic build(BuildContext context) {
           '\n'
           '// Dispose independently\n'
           'editEntry.dispose();',
-      'desc': 'Multiple widgets/features can register separate entries. '
+      'desc':
+          'Multiple widgets/features can register separate entries. '
           'Each entry is independently disposable.',
     },
   ];
@@ -302,14 +356,22 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
                   Icon(u['icon'] as IconData, size: 16.0, color: color),
                   const SizedBox(width: 6.0),
-                  Text(u['title'] as String,
-                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
+                  Text(
+                    u['title'] as String,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -326,13 +388,24 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade200),
                     ),
-                    child: Text(u['code'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                            color: Colors.grey.shade700)),
+                    child: Text(
+                      u['code'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(u['desc'] as String,
-                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
+                  Text(
+                    u['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                      height: 1.3,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -360,7 +433,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.check_circle,
       'color': Colors.green,
       'isRecommended': true,
-      'code': '// MaterialApp automatically\n'
+      'code':
+          '// MaterialApp automatically\n'
           '// includes ShortcutRegistrar\n'
           'class MyWidget extends StatefulWidget {\n'
           '  @override\n'
@@ -379,7 +453,8 @@ dynamic build(BuildContext context) {
           '      context).addAll(myShortcuts);\n'
           '  }\n'
           '}',
-      'desc': 'The most common case: just access the existing registry. '
+      'desc':
+          'The most common case: just access the existing registry. '
           'No need to wrap anything in ShortcutRegistrar.',
     },
     {
@@ -387,12 +462,14 @@ dynamic build(BuildContext context) {
       'icon': Icons.settings,
       'color': Colors.orange,
       'isRecommended': false,
-      'code': '// Only needed for isolated\n'
+      'code':
+          '// Only needed for isolated\n'
           '// shortcut scopes\n'
           'ShortcutRegistrar(\n'
           '  child: MyIsolatedPanel(),\n'
           ')',
-      'desc': 'Use a custom ShortcutRegistrar when you need isolated '
+      'desc':
+          'Use a custom ShortcutRegistrar when you need isolated '
           'shortcut scopes — for example, a panel that should not '
           'inherit or affect the main app shortcuts.',
     },
@@ -415,26 +492,42 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
                   Icon(item['icon'] as IconData, size: 16.0, color: color),
                   const SizedBox(width: 6.0),
                   Expanded(
-                    child: Text(item['title'] as String,
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
+                    child: Text(
+                      item['title'] as String,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: color,
+                      ),
+                    ),
                   ),
                   if (item['isRecommended'] as bool)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.green.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: const Text('RECOMMENDED',
-                          style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.w900,
-                              color: Colors.green)),
+                      child: const Text(
+                        'RECOMMENDED',
+                        style: TextStyle(
+                          fontSize: 8.0,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.green,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -452,13 +545,24 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade200),
                     ),
-                    child: Text(item['code'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                            color: Colors.grey.shade700)),
+                    child: Text(
+                      item['code'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8.0),
-                  Text(item['desc'] as String,
-                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3)),
+                  Text(
+                    item['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                      height: 1.3,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -481,12 +585,33 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.keyboard, 'text': 'ShortcutRegistrar hosts a ShortcutRegistry + ShortcutManager'},
-    {'icon': Icons.auto_fix_high, 'text': 'Pre-installed by MaterialApp — rarely needs manual setup'},
-    {'icon': Icons.add_circle, 'text': 'Enables dynamic shortcut registration from any descendant widget'},
-    {'icon': Icons.merge_type, 'text': 'All registered shortcuts are merged into one map for the manager'},
-    {'icon': Icons.swap_horiz, 'text': 'Entries support replaceAll() for updating and dispose() for cleanup'},
-    {'icon': Icons.layers, 'text': 'Nested ShortcutRegistrars create isolated shortcut scopes'},
+    {
+      'icon': Icons.keyboard,
+      'text': 'ShortcutRegistrar hosts a ShortcutRegistry + ShortcutManager',
+    },
+    {
+      'icon': Icons.auto_fix_high,
+      'text': 'Pre-installed by MaterialApp — rarely needs manual setup',
+    },
+    {
+      'icon': Icons.add_circle,
+      'text':
+          'Enables dynamic shortcut registration from any descendant widget',
+    },
+    {
+      'icon': Icons.merge_type,
+      'text':
+          'All registered shortcuts are merged into one map for the manager',
+    },
+    {
+      'icon': Icons.swap_horiz,
+      'text':
+          'Entries support replaceAll() for updating and dispose() for cleanup',
+    },
+    {
+      'icon': Icons.layers,
+      'text': 'Nested ShortcutRegistrars create isolated shortcut scopes',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -497,11 +622,21 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.teal.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.teal.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(sp['text'] as String,
-                  style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3)),
+              child: Text(
+                sp['text'] as String,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
+              ),
             ),
           ],
         ),
@@ -547,9 +682,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('ShortcutRegistrar',
-                    'A widget that provides dynamic keyboard shortcut '
-                    'registration to its subtree via ShortcutRegistry.'),
+                _buildSRBullet(
+                  'ShortcutRegistrar',
+                  'A widget that provides dynamic keyboard shortcut '
+                      'registration to its subtree via ShortcutRegistry.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -561,8 +698,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Internal Architecture',
-                    'Layered composition from StatefulWidget to ShortcutManager.'),
+                _buildSRBullet(
+                  'Internal Architecture',
+                  'Layered composition from StatefulWidget to ShortcutManager.',
+                ),
                 const SizedBox(height: 14.0),
                 ...archCards,
               ],
@@ -574,8 +713,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Widget Tree Visualization',
-                    'How ShortcutRegistrar fits into a typical app.'),
+                _buildSRBullet(
+                  'Widget Tree Visualization',
+                  'How ShortcutRegistrar fits into a typical app.',
+                ),
                 const SizedBox(height: 14.0),
                 treeDemo,
               ],
@@ -587,8 +728,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Usage Patterns',
-                    'Common patterns for registering and managing shortcuts.'),
+                _buildSRBullet(
+                  'Usage Patterns',
+                  'Common patterns for registering and managing shortcuts.',
+                ),
                 const SizedBox(height: 14.0),
                 ...usageCards,
               ],
@@ -600,8 +743,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Interactive Demo',
-                    'Simulate shortcut registration/unregistration.'),
+                _buildSRBullet(
+                  'Interactive Demo',
+                  'Simulate shortcut registration/unregistration.',
+                ),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -613,8 +758,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Default vs Custom',
-                    'When to use the built-in vs create your own.'),
+                _buildSRBullet(
+                  'Default vs Custom',
+                  'When to use the built-in vs create your own.',
+                ),
                 const SizedBox(height: 14.0),
                 ...cvdCards,
               ],
@@ -626,8 +773,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Component Relationships',
-                    'How ShortcutRegistrar relates to other shortcut classes.'),
+                _buildSRBullet(
+                  'Component Relationships',
+                  'How ShortcutRegistrar relates to other shortcut classes.',
+                ),
                 const SizedBox(height: 14.0),
                 relDemo,
               ],
@@ -651,7 +800,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.teal.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.teal.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -681,11 +832,24 @@ Widget _buildSRBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
-            color: Colors.teal.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.teal.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -708,26 +872,56 @@ class _SRTreeDemo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('MaterialApp Widget Tree',
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
+          const Text(
+            'MaterialApp Widget Tree',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 14.0),
-          _buildTreeNode('MaterialApp', 'Provides theme, routes, etc.', Colors.blue, 0),
+          _buildTreeNode(
+            'MaterialApp',
+            'Provides theme, routes, etc.',
+            Colors.blue,
+            0,
+          ),
           _buildTreeLine(0),
-          _buildTreeNode('WidgetsApp', 'Core app shell', Colors.blue.shade300, 1),
+          _buildTreeNode(
+            'WidgetsApp',
+            'Core app shell',
+            Colors.blue.shade300,
+            1,
+          ),
           _buildTreeLine(1),
-          _buildTreeNode('ShortcutRegistrar', 'Created here automatically',
-              Colors.teal, 2, isHighlighted: true),
+          _buildTreeNode(
+            'ShortcutRegistrar',
+            'Created here automatically',
+            Colors.teal,
+            2,
+            isHighlighted: true,
+          ),
           _buildTreeLine(2),
-          _buildTreeNode('_ShortcutRegistrarScope', 'InheritedWidget (registry)',
-              Colors.teal.shade300, 3),
+          _buildTreeNode(
+            '_ShortcutRegistrarScope',
+            'InheritedWidget (registry)',
+            Colors.teal.shade300,
+            3,
+          ),
           _buildTreeLine(3),
-          _buildTreeNode('Shortcuts.manager()', 'Receives ShortcutManager',
-              Colors.purple, 4),
+          _buildTreeNode(
+            'Shortcuts.manager()',
+            'Receives ShortcutManager',
+            Colors.purple,
+            4,
+          ),
           _buildTreeLine(4),
           _buildTreeNode('Navigator', 'Route management', Colors.orange, 5),
           _buildTreeLine(5),
-          _buildTreeNode('YourPage', 'Can call ShortcutRegistry.of(context)',
-              Colors.green, 6, isHighlighted: true),
+          _buildTreeNode(
+            'YourPage',
+            'Can call ShortcutRegistry.of(context)',
+            Colors.green,
+            6,
+            isHighlighted: true,
+          ),
           const SizedBox(height: 14.0),
           Container(
             width: double.infinity,
@@ -740,13 +934,21 @@ class _SRTreeDemo extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.info_outline, size: 14.0, color: Colors.amber.shade800),
+                Icon(
+                  Icons.info_outline,
+                  size: 14.0,
+                  color: Colors.amber.shade800,
+                ),
                 const SizedBox(width: 6.0),
                 Expanded(
                   child: Text(
                     'ShortcutRegistry.of(context) walks UP the tree to find '
                     'the nearest _ShortcutRegistrarScope, which holds the registry.',
-                    style: TextStyle(fontSize: 10.5, color: Colors.amber.shade800, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 10.5,
+                      color: Colors.amber.shade800,
+                      height: 1.3,
+                    ),
                   ),
                 ),
               ],
@@ -757,14 +959,21 @@ class _SRTreeDemo extends StatelessWidget {
     );
   }
 
-  Widget _buildTreeNode(String name, String desc, Color color, int depth,
-      {bool isHighlighted = false}) {
+  Widget _buildTreeNode(
+    String name,
+    String desc,
+    Color color,
+    int depth, {
+    bool isHighlighted = false,
+  }) {
     return Padding(
       padding: EdgeInsets.only(left: depth * 16.0),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         decoration: BoxDecoration(
-          color: isHighlighted ? color.withValues(alpha: 0.1) : Colors.grey.shade50,
+          color: isHighlighted
+              ? color.withValues(alpha: 0.1)
+              : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(6.0),
           border: Border.all(
             color: isHighlighted ? color : Colors.grey.shade200,
@@ -780,11 +989,21 @@ class _SRTreeDemo extends StatelessWidget {
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6.0),
-            Text(name, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                fontWeight: FontWeight.w700, color: color)),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 10.0,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
             const SizedBox(width: 8.0),
             Flexible(
-              child: Text(desc, style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500)),
+              child: Text(
+                desc,
+                style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
+              ),
             ),
           ],
         ),
@@ -838,11 +1057,7 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
     if (_availableShortcuts.isEmpty) return;
     final shortcut = _availableShortcuts.removeAt(0);
     setState(() {
-      _entries.add({
-        'id': _nextId++,
-        'shortcut': shortcut,
-        'active': true,
-      });
+      _entries.add({'id': _nextId++, 'shortcut': shortcut, 'active': true});
       _lastAction = 'Registered: ${shortcut['key']} -> ${shortcut['action']}';
     });
   }
@@ -861,7 +1076,8 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
       _entries[index]['active'] = !(_entries[index]['active'] as bool);
       final s = _entries[index]['shortcut'] as Map<String, dynamic>;
       final active = _entries[index]['active'] as bool;
-      _lastAction = '${active ? "Activated" : "Deactivated"}: '
+      _lastAction =
+          '${active ? "Activated" : "Deactivated"}: '
           '${s['key']} -> ${s['action']}';
     });
   }
@@ -882,18 +1098,28 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
         children: [
           Row(
             children: [
-              const Text('Shortcut Registration Simulator',
-                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
+              const Text(
+                'Shortcut Registration Simulator',
+                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+              ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.teal.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Text('$activeCount active',
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                        color: Colors.teal.shade700)),
+                child: Text(
+                  '$activeCount active',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.teal.shade700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -904,7 +1130,10 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
               GestureDetector(
                 onTap: _availableShortcuts.isNotEmpty ? _addEntry : null,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 6.0,
+                  ),
                   decoration: BoxDecoration(
                     color: _availableShortcuts.isNotEmpty
                         ? Colors.teal.withValues(alpha: 0.1)
@@ -919,16 +1148,24 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.add, size: 14.0,
+                      Icon(
+                        Icons.add,
+                        size: 14.0,
+                        color: _availableShortcuts.isNotEmpty
+                            ? Colors.teal.shade700
+                            : Colors.grey,
+                      ),
+                      const SizedBox(width: 4.0),
+                      Text(
+                        'Register Shortcut',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.w600,
                           color: _availableShortcuts.isNotEmpty
                               ? Colors.teal.shade700
-                              : Colors.grey),
-                      const SizedBox(width: 4.0),
-                      Text('Register Shortcut',
-                          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                              color: _availableShortcuts.isNotEmpty
-                                  ? Colors.teal.shade700
-                                  : Colors.grey)),
+                              : Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -940,14 +1177,18 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                     setState(() {
                       for (final e in _entries) {
                         _availableShortcuts.add(
-                            e['shortcut'] as Map<String, dynamic>);
+                          e['shortcut'] as Map<String, dynamic>,
+                        );
                       }
                       _entries.clear();
                       _lastAction = 'Disposed all entries';
                     });
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6.0),
@@ -956,11 +1197,20 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.delete_sweep, size: 14.0, color: Colors.red.shade700),
+                        Icon(
+                          Icons.delete_sweep,
+                          size: 14.0,
+                          color: Colors.red.shade700,
+                        ),
                         const SizedBox(width: 4.0),
-                        Text('Dispose All',
-                            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                                color: Colors.red.shade700)),
+                        Text(
+                          'Dispose All',
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -982,10 +1232,14 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                 children: [
                   Icon(Icons.keyboard_hide, size: 32.0, color: Colors.grey),
                   SizedBox(height: 6.0),
-                  Text('No shortcuts registered',
-                      style: TextStyle(fontSize: 11.0, color: Colors.grey)),
-                  Text('Tap "Register Shortcut" to add entries',
-                      style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                  Text(
+                    'No shortcuts registered',
+                    style: TextStyle(fontSize: 11.0, color: Colors.grey),
+                  ),
+                  Text(
+                    'Tap "Register Shortcut" to add entries',
+                    style: TextStyle(fontSize: 10.0, color: Colors.grey),
+                  ),
                 ],
               ),
             )
@@ -1009,38 +1263,65 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(3.0),
                       ),
-                      child: Text('#${entry['id']}',
-                          style: TextStyle(fontSize: 8.0, fontFamily: 'monospace',
-                              color: Colors.grey.shade500)),
+                      child: Text(
+                        '#${entry['id']}',
+                        style: TextStyle(
+                          fontSize: 8.0,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 6.0),
-                    Icon(shortcut['icon'] as IconData, size: 14.0,
-                        color: active ? Colors.teal.shade700 : Colors.grey),
+                    Icon(
+                      shortcut['icon'] as IconData,
+                      size: 14.0,
+                      color: active ? Colors.teal.shade700 : Colors.grey,
+                    ),
                     const SizedBox(width: 6.0),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: active
                             ? Colors.teal.withValues(alpha: 0.1)
                             : Colors.grey.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Text(shortcut['key'] as String,
-                          style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                              fontWeight: FontWeight.w700,
-                              color: active ? Colors.teal.shade700 : Colors.grey)),
+                      child: Text(
+                        shortcut['key'] as String,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700,
+                          color: active ? Colors.teal.shade700 : Colors.grey,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 6.0),
                     Expanded(
-                      child: Text(shortcut['action'] as String,
-                          style: TextStyle(fontSize: 10.5,
-                              color: active ? Colors.grey.shade700 : Colors.grey.shade400,
-                              decoration: active ? null : TextDecoration.lineThrough)),
+                      child: Text(
+                        shortcut['action'] as String,
+                        style: TextStyle(
+                          fontSize: 10.5,
+                          color: active
+                              ? Colors.grey.shade700
+                              : Colors.grey.shade400,
+                          decoration: active
+                              ? null
+                              : TextDecoration.lineThrough,
+                        ),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () => _toggleEntry(i),
@@ -1053,7 +1334,11 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                     const SizedBox(width: 4.0),
                     GestureDetector(
                       onTap: () => _removeEntry(i),
-                      child: Icon(Icons.close, size: 16.0, color: Colors.red.shade300),
+                      child: Icon(
+                        Icons.close,
+                        size: 16.0,
+                        color: Colors.red.shade300,
+                      ),
                     ),
                   ],
                 ),
@@ -1074,11 +1359,20 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.merge_type, size: 14.0, color: Colors.indigo.shade700),
+                    Icon(
+                      Icons.merge_type,
+                      size: 14.0,
+                      color: Colors.indigo.shade700,
+                    ),
                     const SizedBox(width: 6.0),
-                    Text('Merged Shortcut Map (${_entries.where((e) => e['active'] as bool).length} entries)',
-                        style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                            color: Colors.indigo.shade700)),
+                    Text(
+                      'Merged Shortcut Map (${_entries.where((e) => e['active'] as bool).length} entries)',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.indigo.shade700,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 4.0),
@@ -1089,8 +1383,11 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
                           final s = e['shortcut'] as Map<String, dynamic>;
                           return '  ${s['key']}: ${s['action']}Intent()';
                         }).join(',\n')}\n}',
-                  style: TextStyle(fontSize: 9.5, fontFamily: 'monospace',
-                      color: Colors.indigo.shade600),
+                  style: TextStyle(
+                    fontSize: 9.5,
+                    fontFamily: 'monospace',
+                    color: Colors.indigo.shade600,
+                  ),
                 ),
               ],
             ),
@@ -1108,8 +1405,13 @@ class _SRLiveDemoState extends State<_SRLiveDemo> {
               children: [
                 Icon(Icons.history, size: 12.0, color: Colors.amber.shade700),
                 const SizedBox(width: 6.0),
-                Text(_lastAction,
-                    style: TextStyle(fontSize: 10.0, color: Colors.amber.shade800)),
+                Text(
+                  _lastAction,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.amber.shade800,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1135,8 +1437,10 @@ class _SRRelationshipDemo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Shortcut System Components',
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700)),
+          const Text(
+            'Shortcut System Components',
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 14.0),
           _buildRelation(
             from: 'ShortcutRegistrar',
@@ -1206,9 +1510,14 @@ class _SRRelationshipDemo extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Data Flow:',
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700,
-                        color: Colors.teal.shade700)),
+                Text(
+                  'Data Flow:',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.teal.shade700,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
                 Text(
                   'Widget calls registry.addAll(shortcuts)\n'
@@ -1218,8 +1527,12 @@ class _SRRelationshipDemo extends StatelessWidget {
                   '  -> Key event matches activator\n'
                   '  -> Manager dispatches Intent\n'
                   '  -> Actions invokes handler',
-                  style: TextStyle(fontSize: 9.5, fontFamily: 'monospace',
-                      color: Colors.grey.shade700, height: 1.5),
+                  style: TextStyle(
+                    fontSize: 9.5,
+                    fontFamily: 'monospace',
+                    color: Colors.grey.shade700,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -1253,17 +1566,29 @@ class _SRRelationshipDemo extends StatelessWidget {
               color: fromColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(from,
-                style: TextStyle(fontSize: 8.5, fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700, color: fromColor)),
+            child: Text(
+              from,
+              style: TextStyle(
+                fontSize: 8.5,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                color: fromColor,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: Column(
               children: [
-                Icon(Icons.arrow_forward, size: 10.0, color: Colors.grey.shade400),
-                Text(relation,
-                    style: TextStyle(fontSize: 7.0, color: Colors.grey.shade500)),
+                Icon(
+                  Icons.arrow_forward,
+                  size: 10.0,
+                  color: Colors.grey.shade400,
+                ),
+                Text(
+                  relation,
+                  style: TextStyle(fontSize: 7.0, color: Colors.grey.shade500),
+                ),
               ],
             ),
           ),
@@ -1273,16 +1598,27 @@ class _SRRelationshipDemo extends StatelessWidget {
               color: toColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(to,
-                style: TextStyle(fontSize: 8.5, fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700, color: toColor)),
+            child: Text(
+              to,
+              style: TextStyle(
+                fontSize: 8.5,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                color: toColor,
+              ),
+            ),
           ),
           const SizedBox(width: 6.0),
           Expanded(
-            child: Text(desc,
-                style: TextStyle(fontSize: 9.0, fontStyle: FontStyle.italic,
-                    color: Colors.grey.shade500),
-                textAlign: TextAlign.end),
+            child: Text(
+              desc,
+              style: TextStyle(
+                fontSize: 9.0,
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade500,
+              ),
+              textAlign: TextAlign.end,
+            ),
           ),
         ],
       ),

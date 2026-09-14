@@ -9,11 +9,7 @@ dynamic build(BuildContext context) {
   // Hero header gradient palette
   // ============================================================
   final heroGradient = LinearGradient(
-    colors: [
-      Color(0xFF0F2027),
-      Color(0xFF203A43),
-      Color(0xFF2C5364),
-    ],
+    colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -42,7 +38,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.cyanAccent.shade400, Colors.tealAccent.shade400],
+                  colors: [
+                    Colors.cyanAccent.shade400,
+                    Colors.tealAccent.shade400,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -55,7 +54,11 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: Icon(Icons.layers_outlined, size: 36.0, color: Colors.black87),
+              child: Icon(
+                Icons.layers_outlined,
+                size: 36.0,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -91,17 +94,16 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.35),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.cyanAccent.withValues(alpha: 0.4), width: 1.0),
+            border: Border.all(
+              color: Colors.cyanAccent.withValues(alpha: 0.4),
+              width: 1.0,
+            ),
           ),
           child: Text(
             'Each value is the name of a VM service extension registered by '
             'RendererBinding.initServiceExtensions(). DevTools and ext.flutter.* '
             'callers use these names to flip rendering-pipeline debug flags.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.45),
           ),
         ),
       ],
@@ -153,7 +155,11 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _anatomyNode('DevTools / IDE', Icons.developer_mode, Colors.deepPurple),
+            _anatomyNode(
+              'DevTools / IDE',
+              Icons.developer_mode,
+              Colors.deepPurple,
+            ),
             _anatomyArrow(Colors.deepPurple),
             _anatomyNode('ext.flutter.<name>', Icons.api, Colors.indigo),
             _anatomyArrow(Colors.indigo),
@@ -174,7 +180,11 @@ dynamic build(BuildContext context) {
             '"repaintRainbow", ...). Calling that extension toggles the '
             'underlying flag (debugPaintSizeEnabled, debugRepaintRainbowEnabled, ...) '
             'which the rendering pipeline reads on the next paint or layout.',
-            style: TextStyle(fontSize: 12.0, color: Colors.indigo.shade900, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.indigo.shade900,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -187,121 +197,156 @@ dynamic build(BuildContext context) {
   final perValueCards = <Widget>[];
 
   // 3.1 invertOversizedImages -> show inverted thumbnails
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.invertOversizedImages,
-    accent: Colors.pink,
-    summary: 'Color-inverts and horizontally flips images decoded too big.',
-    flagName: 'debugInvertOversizedImages',
-    visual: _invertImagesVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.invertOversizedImages,
+      accent: Colors.pink,
+      summary: 'Color-inverts and horizontally flips images decoded too big.',
+      flagName: 'debugInvertOversizedImages',
+      visual: _invertImagesVisual(),
+    ),
+  );
 
   // 3.2 debugPaint -> show layout overlay
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugPaint,
-    accent: Colors.teal,
-    summary: 'Outlines RenderBox bounds, padding, alignments and construction lines.',
-    flagName: 'debugPaintSizeEnabled',
-    visual: _debugPaintVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugPaint,
+      accent: Colors.teal,
+      summary:
+          'Outlines RenderBox bounds, padding, alignments and construction lines.',
+      flagName: 'debugPaintSizeEnabled',
+      visual: _debugPaintVisual(),
+    ),
+  );
 
   // 3.3 debugPaintBaselinesEnabled -> show baselines
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugPaintBaselinesEnabled,
-    accent: Colors.deepOrange,
-    summary: 'Draws alphabetic and ideographic baselines under each text run.',
-    flagName: 'debugPaintBaselinesEnabled',
-    visual: _baselinesVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugPaintBaselinesEnabled,
+      accent: Colors.deepOrange,
+      summary:
+          'Draws alphabetic and ideographic baselines under each text run.',
+      flagName: 'debugPaintBaselinesEnabled',
+      visual: _baselinesVisual(),
+    ),
+  );
 
   // 3.4 repaintRainbow -> rotating colors over repaint regions
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.repaintRainbow,
-    accent: Colors.purple,
-    summary: 'Overlays rotating rainbow on layers as they repaint - hot spots glow.',
-    flagName: 'debugRepaintRainbowEnabled',
-    visual: _rainbowVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.repaintRainbow,
+      accent: Colors.purple,
+      summary:
+          'Overlays rotating rainbow on layers as they repaint - hot spots glow.',
+      flagName: 'debugRepaintRainbowEnabled',
+      visual: _rainbowVisual(),
+    ),
+  );
 
   // 3.5 debugDumpLayerTree -> ascii layer dump
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDumpLayerTree,
-    accent: Colors.blueGrey,
-    summary: 'Prints the layer tree to the console for offline inspection.',
-    flagName: '(no flag - one-shot dump)',
-    visual: _layerTreeDumpVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDumpLayerTree,
+      accent: Colors.blueGrey,
+      summary: 'Prints the layer tree to the console for offline inspection.',
+      flagName: '(no flag - one-shot dump)',
+      visual: _layerTreeDumpVisual(),
+    ),
+  );
 
   // 3.6 debugDisableClipLayers -> shows what gets cut off when clip is off
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDisableClipLayers,
-    accent: Colors.red,
-    summary: 'Bypasses ClipRect / ClipRRect / ClipPath - reveals overflow.',
-    flagName: 'debugDisableClipLayers',
-    visual: _clipDisabledVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDisableClipLayers,
+      accent: Colors.red,
+      summary: 'Bypasses ClipRect / ClipRRect / ClipPath - reveals overflow.',
+      flagName: 'debugDisableClipLayers',
+      visual: _clipDisabledVisual(),
+    ),
+  );
 
   // 3.7 debugDisablePhysicalShapeLayers -> flatten material shadows
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDisablePhysicalShapeLayers,
-    accent: Colors.brown,
-    summary: 'Removes elevation / physical shadows - ideal for raster cost diffs.',
-    flagName: 'debugDisablePhysicalShapeLayers',
-    visual: _physicalShapeVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDisablePhysicalShapeLayers,
+      accent: Colors.brown,
+      summary:
+          'Removes elevation / physical shadows - ideal for raster cost diffs.',
+      flagName: 'debugDisablePhysicalShapeLayers',
+      visual: _physicalShapeVisual(),
+    ),
+  );
 
   // 3.8 debugDisableOpacityLayers -> opaque vs transparent compare
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDisableOpacityLayers,
-    accent: Colors.amber,
-    summary: 'Forces opaque rendering of Opacity widgets to measure overhead.',
-    flagName: 'debugDisableOpacityLayers',
-    visual: _opacityDisabledVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDisableOpacityLayers,
+      accent: Colors.amber,
+      summary:
+          'Forces opaque rendering of Opacity widgets to measure overhead.',
+      flagName: 'debugDisableOpacityLayers',
+      visual: _opacityDisabledVisual(),
+    ),
+  );
 
   // 3.9 debugDumpRenderTree -> ascii render tree
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDumpRenderTree,
-    accent: Colors.green,
-    summary: 'Prints the RenderObject tree with constraints and sizes.',
-    flagName: '(no flag - one-shot dump)',
-    visual: _renderTreeDumpVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDumpRenderTree,
+      accent: Colors.green,
+      summary: 'Prints the RenderObject tree with constraints and sizes.',
+      flagName: '(no flag - one-shot dump)',
+      visual: _renderTreeDumpVisual(),
+    ),
+  );
 
   // 3.10 debugDumpSemanticsTreeInTraversalOrder
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDumpSemanticsTreeInTraversalOrder,
-    accent: Colors.cyan,
-    summary: 'Dumps the semantics tree in screen-reader traversal order.',
-    flagName: '(no flag - one-shot dump)',
-    visual: _semanticsTraversalVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.debugDumpSemanticsTreeInTraversalOrder,
+      accent: Colors.cyan,
+      summary: 'Dumps the semantics tree in screen-reader traversal order.',
+      flagName: '(no flag - one-shot dump)',
+      visual: _semanticsTraversalVisual(),
+    ),
+  );
 
   // 3.11 debugDumpSemanticsTreeInInverseHitTestOrder
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.debugDumpSemanticsTreeInInverseHitTestOrder,
-    accent: Colors.lightBlue,
-    summary: 'Dumps semantics in inverse hit-test order - debugging gestures first.',
-    flagName: '(no flag - one-shot dump)',
-    visual: _semanticsHitTestVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions
+          .debugDumpSemanticsTreeInInverseHitTestOrder,
+      accent: Colors.lightBlue,
+      summary:
+          'Dumps semantics in inverse hit-test order - debugging gestures first.',
+      flagName: '(no flag - one-shot dump)',
+      visual: _semanticsHitTestVisual(),
+    ),
+  );
 
   // 3.12 profileRenderObjectPaints -> timeline bars
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.profileRenderObjectPaints,
-    accent: Colors.orange,
-    summary: 'Adds Timeline events for every painted RenderObject (perf overlay).',
-    flagName: 'debugProfilePaintsEnabled',
-    visual: _profilePaintsVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.profileRenderObjectPaints,
+      accent: Colors.orange,
+      summary:
+          'Adds Timeline events for every painted RenderObject (perf overlay).',
+      flagName: 'debugProfilePaintsEnabled',
+      visual: _profilePaintsVisual(),
+    ),
+  );
 
   // 3.13 profileRenderObjectLayouts -> timeline bars
-  perValueCards.add(_valueCardScaffold(
-    value: RenderingServiceExtensions.profileRenderObjectLayouts,
-    accent: Colors.lime,
-    summary: 'Adds Timeline events for every laid-out RenderObject (perf overlay).',
-    flagName: 'debugProfileLayoutsEnabled',
-    visual: _profileLayoutsVisual(),
-  ));
+  perValueCards.add(
+    _valueCardScaffold(
+      value: RenderingServiceExtensions.profileRenderObjectLayouts,
+      accent: Colors.lime,
+      summary:
+          'Adds Timeline events for every laid-out RenderObject (perf overlay).',
+      flagName: 'debugProfileLayoutsEnabled',
+      visual: _profileLayoutsVisual(),
+    ),
+  );
 
   // ============================================================
   // SECTION 4: DevTools recipes
@@ -329,7 +374,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.terminal, color: Colors.greenAccent.shade400, size: 20.0),
+            Icon(
+              Icons.terminal,
+              color: Colors.greenAccent.shade400,
+              size: 20.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'DevTools / VM service recipes',
@@ -379,7 +428,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.red.shade50, Colors.orange.shade50, Colors.yellow.shade50],
+        colors: [
+          Colors.red.shade50,
+          Colors.orange.shade50,
+          Colors.yellow.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -522,7 +575,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepPurple.shade50, Colors.purple.shade50, Colors.pink.shade50],
+        colors: [
+          Colors.deepPurple.shade50,
+          Colors.purple.shade50,
+          Colors.pink.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -541,7 +598,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.grid_view, color: Colors.deepPurple.shade700, size: 22.0),
+            Icon(
+              Icons.grid_view,
+              color: Colors.deepPurple.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Quick reference (all ${RenderingServiceExtensions.values.length} values)',
@@ -554,11 +615,7 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: quickRefTiles,
-        ),
+        Wrap(spacing: 8.0, runSpacing: 8.0, children: quickRefTiles),
       ],
     ),
   );
@@ -594,21 +651,49 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('+----------------------------------------------------------------+'),
-          Text('|              RenderingServiceExtensions cheat-sheet            |'),
-          Text('+----------------------------------------------------------------+'),
-          Text('| toggles ............ debugPaint, debugPaintBaselinesEnabled,   |'),
-          Text('|                      repaintRainbow, invertOversizedImages,    |'),
-          Text('|                      debugDisableClipLayers,                   |'),
-          Text('|                      debugDisablePhysicalShapeLayers,          |'),
-          Text('|                      debugDisableOpacityLayers                 |'),
-          Text('| dumps .............. debugDumpLayerTree, debugDumpRenderTree,  |'),
-          Text('|                      debugDumpSemanticsTree*                   |'),
-          Text('| profilers .......... profileRenderObjectPaints,                |'),
-          Text('|                      profileRenderObjectLayouts                |'),
-          Text('+----------------------------------------------------------------+'),
+          Text(
+            '+----------------------------------------------------------------+',
+          ),
+          Text(
+            '|              RenderingServiceExtensions cheat-sheet            |',
+          ),
+          Text(
+            '+----------------------------------------------------------------+',
+          ),
+          Text(
+            '| toggles ............ debugPaint, debugPaintBaselinesEnabled,   |',
+          ),
+          Text(
+            '|                      repaintRainbow, invertOversizedImages,    |',
+          ),
+          Text(
+            '|                      debugDisableClipLayers,                   |',
+          ),
+          Text(
+            '|                      debugDisablePhysicalShapeLayers,          |',
+          ),
+          Text(
+            '|                      debugDisableOpacityLayers                 |',
+          ),
+          Text(
+            '| dumps .............. debugDumpLayerTree, debugDumpRenderTree,  |',
+          ),
+          Text(
+            '|                      debugDumpSemanticsTree*                   |',
+          ),
+          Text(
+            '| profilers .......... profileRenderObjectPaints,                |',
+          ),
+          Text(
+            '|                      profileRenderObjectLayouts                |',
+          ),
+          Text(
+            '+----------------------------------------------------------------+',
+          ),
           SizedBox(height: 6.0),
-          Text('// generated for d4rt deep-visual demo - static animations only'),
+          Text(
+            '// generated for d4rt deep-visual demo - static animations only',
+          ),
         ],
       ),
     ),
@@ -754,7 +839,10 @@ Widget _valueCardScaffold({
           padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [accent.withValues(alpha: 0.25), accent.withValues(alpha: 0.08)],
+              colors: [
+                accent.withValues(alpha: 0.25),
+                accent.withValues(alpha: 0.08),
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -828,7 +916,11 @@ Widget _valueCardScaffold({
             children: [
               Text(
                 summary,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.4,
+                ),
               ),
               SizedBox(height: 12.0),
               visual,
@@ -880,18 +972,31 @@ Widget _imageTile(String label, Color label_, bool inverted) {
       ],
     ),
     alignment: Alignment.center,
-    child: Icon(Icons.image, size: 42.0, color: Colors.white.withValues(alpha: 0.85)),
+    child: Icon(
+      Icons.image,
+      size: 42.0,
+      color: Colors.white.withValues(alpha: 0.85),
+    ),
   );
   return Column(
     children: [
       // Horizontal flip when "ON"
       Transform(
         alignment: Alignment.center,
-        transform: inverted ? (Matrix4.identity()..scale(-1.0, 1.0, 1.0)) : Matrix4.identity(),
+        transform: inverted
+            ? (Matrix4.identity()..scale(-1.0, 1.0, 1.0))
+            : Matrix4.identity(),
         child: tile,
       ),
       SizedBox(height: 6.0),
-      Text(label, style: TextStyle(color: label_, fontWeight: FontWeight.bold, fontSize: 12.0)),
+      Text(
+        label,
+        style: TextStyle(
+          color: label_,
+          fontWeight: FontWeight.bold,
+          fontSize: 12.0,
+        ),
+      ),
     ],
   );
 }
@@ -906,9 +1011,7 @@ Widget _debugPaintVisual() {
     ),
     child: Stack(
       children: [
-        Positioned.fill(
-          child: CustomPaint(painter: _DebugPaintPainter()),
-        ),
+        Positioned.fill(child: CustomPaint(painter: _DebugPaintPainter())),
         Center(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -925,7 +1028,11 @@ Widget _debugPaintVisual() {
             ),
             child: Text(
               'RenderBox bounds + padding',
-              style: TextStyle(fontSize: 11.0, color: Colors.teal.shade800, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.teal.shade800,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -941,17 +1048,31 @@ class _DebugPaintPainter extends CustomPainter {
       ..color = Colors.teal
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
-    canvas.drawRect(Offset(4, 4) & Size(size.width - 8, size.height - 8), outline);
+    canvas.drawRect(
+      Offset(4, 4) & Size(size.width - 8, size.height - 8),
+      outline,
+    );
     final pad = Paint()
       ..color = Colors.tealAccent.withValues(alpha: 0.5)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
-    canvas.drawRect(Offset(16, 16) & Size(size.width - 32, size.height - 32), pad);
+    canvas.drawRect(
+      Offset(16, 16) & Size(size.width - 32, size.height - 32),
+      pad,
+    );
     final cross = Paint()
       ..color = Colors.teal.shade300
       ..strokeWidth = 0.8;
-    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), cross);
-    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), cross);
+    canvas.drawLine(
+      Offset(0, size.height / 2),
+      Offset(size.width, size.height / 2),
+      cross,
+    );
+    canvas.drawLine(
+      Offset(size.width / 2, 0),
+      Offset(size.width / 2, size.height),
+      cross,
+    );
   }
 
   @override
@@ -976,19 +1097,27 @@ Widget _baselinesVisual() {
     ),
     child: Stack(
       children: [
-        Positioned.fill(
-          child: CustomPaint(painter: _BaselinePainter()),
-        ),
+        Positioned.fill(child: CustomPaint(painter: _BaselinePainter())),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Quick',
-                  style: TextStyle(fontSize: 22.0, color: Colors.deepOrange.shade900)),
+              Text(
+                'Quick',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  color: Colors.deepOrange.shade900,
+                ),
+              ),
               SizedBox(height: 12.0),
-              Text('brown fox',
-                  style: TextStyle(fontSize: 18.0, color: Colors.deepOrange.shade700)),
+              Text(
+                'brown fox',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.deepOrange.shade700,
+                ),
+              ),
             ],
           ),
         ),
@@ -1119,7 +1248,10 @@ Widget _clipPanel({required bool clipped}) {
       ],
     ),
     alignment: Alignment.center,
-    child: Text('overflow', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+    child: Text(
+      'overflow',
+      style: TextStyle(color: Colors.white, fontSize: 11.0),
+    ),
   );
 
   return Column(
@@ -1189,7 +1321,11 @@ Widget _physicalCard({required bool elevated}) {
         alignment: Alignment.center,
         child: Text(
           elevated ? 'elev: 6' : 'elev: -',
-          style: TextStyle(color: Colors.brown.shade900, fontSize: 12.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.brown.shade900,
+            fontSize: 12.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       SizedBox(height: 6.0),
@@ -1248,7 +1384,14 @@ Widget _opacityCard({required double opacity, required String label}) {
         ),
       ),
       SizedBox(height: 6.0),
-      Text(label, style: TextStyle(fontSize: 10.5, color: Colors.amber.shade900, fontWeight: FontWeight.bold)),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 10.5,
+          color: Colors.amber.shade900,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     ],
   );
 }
@@ -1282,7 +1425,10 @@ Widget _semanticsTraversalVisual() {
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [cyan.withValues(alpha: 0.18), cyan.withValues(alpha: 0.05)],
+              colors: [
+                cyan.withValues(alpha: 0.18),
+                cyan.withValues(alpha: 0.05),
+              ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -1296,8 +1442,14 @@ Widget _semanticsTraversalVisual() {
                 height: 22.0,
                 decoration: BoxDecoration(color: cyan, shape: BoxShape.circle),
                 alignment: Alignment.center,
-                child: Text('${i + 1}',
-                    style: TextStyle(color: Colors.white, fontSize: 10.0, fontWeight: FontWeight.bold)),
+                child: Text(
+                  '${i + 1}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               SizedBox(width: 10.0),
               Text(
@@ -1309,7 +1461,11 @@ Widget _semanticsTraversalVisual() {
                 ),
               ),
               Spacer(),
-              Icon(Icons.arrow_downward, size: 14.0, color: cyan.withValues(alpha: 0.4)),
+              Icon(
+                Icons.arrow_downward,
+                size: 14.0,
+                color: cyan.withValues(alpha: 0.4),
+              ),
             ],
           ),
         ),
@@ -1319,7 +1475,13 @@ Widget _semanticsTraversalVisual() {
 
 // 3.11 semantics inverse hit-test order
 Widget _semanticsHitTestVisual() {
-  final order = ['top-most overlay', 'modal sheet', 'fab', 'list-tile', 'background'];
+  final order = [
+    'top-most overlay',
+    'modal sheet',
+    'fab',
+    'list-tile',
+    'background',
+  ];
   final blue = Colors.lightBlue.shade700;
   return Column(
     children: [
@@ -1329,7 +1491,10 @@ Widget _semanticsHitTestVisual() {
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [blue.withValues(alpha: 0.15), blue.withValues(alpha: 0.04)],
+              colors: [
+                blue.withValues(alpha: 0.15),
+                blue.withValues(alpha: 0.04),
+              ],
               begin: Alignment.centerRight,
               end: Alignment.centerLeft,
             ),
@@ -1342,7 +1507,11 @@ Widget _semanticsHitTestVisual() {
               SizedBox(width: 10.0),
               Text(
                 order[i],
-                style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: blue),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'monospace',
+                  color: blue,
+                ),
               ),
               Spacer(),
               Container(
@@ -1350,8 +1519,14 @@ Widget _semanticsHitTestVisual() {
                 height: 22.0,
                 decoration: BoxDecoration(color: blue, shape: BoxShape.circle),
                 alignment: Alignment.center,
-                child: Text('${order.length - i}',
-                    style: TextStyle(color: Colors.white, fontSize: 10.0, fontWeight: FontWeight.bold)),
+                child: Text(
+                  '${order.length - i}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1389,12 +1564,19 @@ Widget _profileLayoutsVisual() {
 // ================================================================
 // Helper: console dump block
 // ================================================================
-Widget _consoleDump({required List<String> lines, required Color fg, required Color bg}) {
+Widget _consoleDump({
+  required List<String> lines,
+  required Color fg,
+  required Color bg,
+}) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [bg, Color.alphaBlend(Colors.black.withValues(alpha: 0.25), bg)],
+        colors: [
+          bg,
+          Color.alphaBlend(Colors.black.withValues(alpha: 0.25), bg),
+        ],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1408,7 +1590,12 @@ Widget _consoleDump({required List<String> lines, required Color fg, required Co
       ],
     ),
     child: DefaultTextStyle(
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, color: fg, height: 1.4),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: fg,
+        height: 1.4,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [for (final l in lines) Text(l)],
@@ -1420,7 +1607,10 @@ Widget _consoleDump({required List<String> lines, required Color fg, required Co
 // ================================================================
 // Helper: timeline bar group
 // ================================================================
-Widget _timelineBars({required List<(String, double, double, Color)> rows, required Color accent}) {
+Widget _timelineBars({
+  required List<(String, double, double, Color)> rows,
+  required Color accent,
+}) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1438,7 +1628,14 @@ Widget _timelineBars({required List<(String, double, double, Color)> rows, requi
               children: [
                 SizedBox(
                   width: 150.0,
-                  child: Text(r.$1, style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.black87)),
+                  child: Text(
+                    r.$1,
+                    style: TextStyle(
+                      fontSize: 10.5,
+                      fontFamily: 'monospace',
+                      color: Colors.black87,
+                    ),
+                  ),
                 ),
                 SizedBox(width: 8.0),
                 Expanded(
@@ -1477,7 +1674,11 @@ Widget _timelineBars({required List<(String, double, double, Color)> rows, requi
                         FractionallySizedBox(
                           widthFactor: 1.0,
                           child: CustomPaint(
-                            painter: _BarPainter(start: r.$2, length: r.$3, color: r.$4),
+                            painter: _BarPainter(
+                              start: r.$2,
+                              length: r.$3,
+                              color: r.$4,
+                            ),
                           ),
                         ),
                       ],
@@ -1521,7 +1722,11 @@ class _BarPainter extends CustomPainter {
 // ================================================================
 // Helper: recipe block (DevTools recipes)
 // ================================================================
-Widget _recipeBlock({required String label, required String extName, required Color color}) {
+Widget _recipeBlock({
+  required String label,
+  required String extName,
+  required Color color,
+}) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 5.0),
     padding: EdgeInsets.all(10.0),
@@ -1538,7 +1743,11 @@ Widget _recipeBlock({required String label, required String extName, required Co
             Icon(Icons.chevron_right, color: color, size: 16.0),
             Text(
               label,
-              style: TextStyle(color: color, fontSize: 12.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: color,
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -1582,12 +1791,20 @@ Widget _pitfallRow(String title, String body, Color color) {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800, height: 1.35),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.grey.shade800,
+                  height: 1.35,
+                ),
               ),
             ],
           ),
@@ -1612,7 +1829,12 @@ List<List<String>> _comparisonRows() {
     ['debugDisableOpacityLayers', 'toggle', 'layers', 'persistent'],
     ['debugDumpRenderTree', 'dump', 'render obj', 'one-shot'],
     ['debugDumpSemanticsTreeInTraversalOrder', 'dump', 'semantics', 'one-shot'],
-    ['debugDumpSemanticsTreeInInverseHitTestOrder', 'dump', 'semantics', 'one-shot'],
+    [
+      'debugDumpSemanticsTreeInInverseHitTestOrder',
+      'dump',
+      'semantics',
+      'one-shot',
+    ],
     ['profileRenderObjectPaints', 'profile', 'paints', 'persistent'],
     ['profileRenderObjectLayouts', 'profile', 'layouts', 'persistent'],
   ];
@@ -1682,7 +1904,14 @@ Widget _compKindBadge(String kind, double width) {
         children: [
           Icon(icon, size: 12.0, color: color),
           SizedBox(width: 4.0),
-          Text(kind, style: TextStyle(fontSize: 10.5, color: color, fontWeight: FontWeight.bold)),
+          Text(
+            kind,
+            style: TextStyle(
+              fontSize: 10.5,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     ),
@@ -1735,8 +1964,14 @@ Widget _quickRefTile(RenderingServiceExtensions value) {
           height: 24.0,
           alignment: Alignment.center,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: Text('${value.index}',
-              style: TextStyle(color: Colors.white, fontSize: 10.5, fontWeight: FontWeight.bold)),
+          child: Text(
+            '${value.index}',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 10.5,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(width: 8.0),
         Expanded(

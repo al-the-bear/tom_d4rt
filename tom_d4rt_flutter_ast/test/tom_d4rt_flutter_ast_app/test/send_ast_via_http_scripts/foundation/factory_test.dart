@@ -40,7 +40,14 @@ dynamic build(BuildContext context) {
       children: [
         Icon(Icons.factory, color: Colors.white, size: 44.0),
         SizedBox(height: 8.0),
-        Text('Factory<T>', style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(
+          'Factory<T>',
+          style: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 4.0),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
@@ -48,12 +55,22 @@ dynamic build(BuildContext context) {
             color: Colors.white.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Text('Generic builder function wrapper', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.white)),
+          child: Text(
+            'Generic builder function wrapper',
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
         ),
         SizedBox(height: 8.0),
         Text(
           'Factory<T> wraps a constructor function T Function() so objects can be created on demand. Each call() invocation produces a fresh instance.',
-          style: TextStyle(fontSize: 12.0, color: Colors.white.withValues(alpha: 0.9)),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.white.withValues(alpha: 0.9),
+          ),
           textAlign: TextAlign.center,
         ),
       ],
@@ -65,7 +82,12 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 2: Class Anatomy ===');
 
-  Widget fcAnatomyRow(String member, String signature, String description, Color accent) {
+  Widget fcAnatomyRow(
+    String member,
+    String signature,
+    String description,
+    Color accent,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 3.0),
       padding: EdgeInsets.all(10.0),
@@ -79,13 +101,30 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Text(member, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0, color: accent)),
+              Text(
+                member,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12.0,
+                  color: accent,
+                ),
+              ),
               Spacer(),
-              Text(signature, style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: Colors.grey.shade700)),
+              Text(
+                signature,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10.5,
+                  color: Colors.grey.shade700,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 4.0),
-          Text(description, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+          Text(
+            description,
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+          ),
         ],
       ),
     );
@@ -112,7 +151,14 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.info_outline, color: Colors.orange.shade700, size: 22.0),
             SizedBox(width: 8.0),
-            Text('D4rt Bridge Note', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.orange.shade800)),
+            Text(
+              'D4rt Bridge Note',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.orange.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8.0),
@@ -129,7 +175,11 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             'class _FactoryWrapper<T> {\n  final T Function() constructor;\n  const _FactoryWrapper(this.constructor);\n  T call() => constructor();\n  Type get type => T;\n}',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: Colors.grey.shade800),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.0,
+              color: Colors.grey.shade800,
+            ),
           ),
         ),
       ],
@@ -145,7 +195,13 @@ dynamic build(BuildContext context) {
   print('String factory result: $fcStringResult');
   print('type: ${fcString.type}');
 
-  Widget fcResultCard(String title, String factoryType, String result, IconData icon, Color accent) {
+  Widget fcResultCard(
+    String title,
+    String factoryType,
+    String result,
+    IconData icon,
+    Color accent,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       padding: EdgeInsets.all(12.0),
@@ -161,12 +217,30 @@ dynamic build(BuildContext context) {
             children: [
               Icon(icon, color: accent, size: 18.0),
               SizedBox(width: 8.0),
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0, color: accent)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.0,
+                  color: accent,
+                ),
+              ),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
-                decoration: BoxDecoration(color: accent.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(4.0)),
-                child: Text(factoryType, style: TextStyle(fontFamily: 'monospace', fontSize: 10.0, fontWeight: FontWeight.bold, color: accent)),
+                decoration: BoxDecoration(
+                  color: accent.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                child: Text(
+                  factoryType,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                    color: accent,
+                  ),
+                ),
               ),
             ],
           ),
@@ -174,8 +248,14 @@ dynamic build(BuildContext context) {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(color: accent.withValues(alpha: 0.04), borderRadius: BorderRadius.circular(6.0)),
-            child: Text(result, style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+            decoration: BoxDecoration(
+              color: accent.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(6.0),
+            ),
+            child: Text(
+              result,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+            ),
           ),
         ],
       ),
@@ -208,24 +288,53 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.add_circle, color: Color(0xFF00695C), size: 22.0),
             SizedBox(width: 8.0),
-            Text('Stateful Counter Factory', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Color(0xFF00695C))),
+            Text(
+              'Stateful Counter Factory',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Color(0xFF00695C),
+              ),
+            ),
           ],
         ),
         SizedBox(height: 4.0),
-        Text('Factory closures can capture mutable state. Each call() increments:', style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700)),
+        Text(
+          'Factory closures can capture mutable state. Each call() increments:',
+          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _FcCallChip(label: 'call() #1', value: '$fcR1', color: Color(0xFF00897B)),
+            _FcCallChip(
+              label: 'call() #1',
+              value: '$fcR1',
+              color: Color(0xFF00897B),
+            ),
             Icon(Icons.arrow_forward, color: Colors.grey, size: 16.0),
-            _FcCallChip(label: 'call() #2', value: '$fcR2', color: Color(0xFF00897B)),
+            _FcCallChip(
+              label: 'call() #2',
+              value: '$fcR2',
+              color: Color(0xFF00897B),
+            ),
             Icon(Icons.arrow_forward, color: Colors.grey, size: 16.0),
-            _FcCallChip(label: 'call() #3', value: '$fcR3', color: Color(0xFF00897B)),
+            _FcCallChip(
+              label: 'call() #3',
+              value: '$fcR3',
+              color: Color(0xFF00897B),
+            ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('Each invocation produces a new, incrementing value from the captured closure.', style: TextStyle(fontSize: 10.5, fontStyle: FontStyle.italic, color: Colors.grey.shade600)),
+        Text(
+          'Each invocation produces a new, incrementing value from the captured closure.',
+          style: TextStyle(
+            fontSize: 10.5,
+            fontStyle: FontStyle.italic,
+            color: Colors.grey.shade600,
+          ),
+        ),
       ],
     ),
   );
@@ -245,7 +354,9 @@ dynamic build(BuildContext context) {
   // SECTION 7: Map Factory
   // ============================================================
   print('=== Section 7: Map Factory ===');
-  final fcMap = _FactoryWrapper<Map<String, int>>(() => {'x': 10, 'y': 20, 'z': 30});
+  final fcMap = _FactoryWrapper<Map<String, int>>(
+    () => {'x': 10, 'y': 20, 'z': 30},
+  );
   final fcMapResult = fcMap.call();
   print('Map: $fcMapResult');
 
@@ -253,15 +364,19 @@ dynamic build(BuildContext context) {
   // SECTION 8: Widget Factory
   // ============================================================
   print('=== Section 8: Widget Factory ===');
-  final fcWidget = _FactoryWrapper<Widget>(() => Container(
-    width: 60.0,
-    height: 60.0,
-    decoration: BoxDecoration(
-      color: Color(0xFF4DB6AC),
-      borderRadius: BorderRadius.circular(12.0),
+  final fcWidget = _FactoryWrapper<Widget>(
+    () => Container(
+      width: 60.0,
+      height: 60.0,
+      decoration: BoxDecoration(
+        color: Color(0xFF4DB6AC),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Center(
+        child: Icon(Icons.widgets, color: Colors.white, size: 28.0),
+      ),
     ),
-    child: Center(child: Icon(Icons.widgets, color: Colors.white, size: 28.0)),
-  ));
+  );
   final fcWidgetInstance = fcWidget.call();
   print('Widget: ${fcWidgetInstance.runtimeType}');
 
@@ -280,11 +395,21 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.widgets, color: Colors.purple.shade700, size: 22.0),
             SizedBox(width: 8.0),
-            Text('Widget Factory', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.purple.shade800)),
+            Text(
+              'Widget Factory',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.purple.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 4.0),
-        Text('Factory<Widget> can produce fresh widget trees on demand:', style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700)),
+        Text(
+          'Factory<Widget> can produce fresh widget trees on demand:',
+          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+        ),
         SizedBox(height: 10.0),
         Row(
           children: [
@@ -294,10 +419,31 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Factory<Widget>', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.purple.shade700)),
-                  Text('Each call() returns a new widget subtree', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
+                  Text(
+                    'Factory<Widget>',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.purple.shade700,
+                    ),
+                  ),
+                  Text(
+                    'Each call() returns a new widget subtree',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                   SizedBox(height: 4.0),
-                  Text('type: ${fcWidget.type}', style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: Colors.grey)),
+                  Text(
+                    'type: ${fcWidget.type}',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10.5,
+                      color: Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -344,42 +490,92 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.hourglass_empty, color: Colors.blue.shade700, size: 22.0),
+            Icon(
+              Icons.hourglass_empty,
+              color: Colors.blue.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
-            Text('Lazy Initialization', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.blue.shade800)),
+            Text(
+              'Lazy Initialization',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.blue.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 4.0),
-        Text('Factory defers object creation until call() is invoked. No work is done at construction time.', style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700)),
+        Text(
+          'Factory defers object creation until call() is invoked. No work is done at construction time.',
+          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+        ),
         SizedBox(height: 10.0),
         Row(
           children: [
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(color: Colors.blue.shade50, borderRadius: BorderRadius.circular(8.0)),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 child: Column(
                   children: [
-                    Text('Before call()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0, color: Colors.blue.shade700)),
-                    Text('count = 0', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
-                    Text('Constructor stored, not executed', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                    Text(
+                      'Before call()',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11.0,
+                        color: Colors.blue.shade700,
+                      ),
+                    ),
+                    Text(
+                      'count = 0',
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                    ),
+                    Text(
+                      'Constructor stored, not executed',
+                      style: TextStyle(fontSize: 10.0, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Icon(Icons.arrow_forward, color: Colors.blue.shade300, size: 20.0),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.blue.shade300,
+                size: 20.0,
+              ),
             ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(8.0)),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade50,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 child: Column(
                   children: [
-                    Text('After call()', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0, color: Colors.green.shade700)),
-                    Text('count = $fcExpensiveCallCount', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
-                    Text(fcLazyResult, style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                    Text(
+                      'After call()',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11.0,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
+                    Text(
+                      'count = $fcExpensiveCallCount',
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                    ),
+                    Text(
+                      fcLazyResult,
+                      style: TextStyle(fontSize: 10.0, color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -410,13 +606,23 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.cached, color: Colors.pink.shade700, size: 22.0),
             SizedBox(width: 8.0),
-            Text('Factory vs Cached Singleton', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.pink.shade800)),
+            Text(
+              'Factory vs Cached Singleton',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.pink.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Colors.pink.shade50, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.pink.shade50,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -424,18 +630,38 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.factory, color: Color(0xFF00695C), size: 16.0),
                   SizedBox(width: 6.0),
-                  Text('Factory<T>', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0, color: Color(0xFF00695C))),
+                  Text(
+                    'Factory<T>',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                      color: Color(0xFF00695C),
+                    ),
+                  ),
                 ],
               ),
-              Text('call() → new instance every time', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
-              Text('identical(a, b) = false', style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: Colors.red.shade600)),
+              Text(
+                'call() → new instance every time',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+              ),
+              Text(
+                'identical(a, b) = false',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10.5,
+                  color: Colors.red.shade600,
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 6.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Colors.pink.shade50, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.pink.shade50,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -443,16 +669,40 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.lock, color: Colors.pink.shade700, size: 16.0),
                   SizedBox(width: 6.0),
-                  Text('Singleton / late final', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0, color: Colors.pink.shade700)),
+                  Text(
+                    'Singleton / late final',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                      color: Colors.pink.shade700,
+                    ),
+                  ),
                 ],
               ),
-              Text('Always returns same instance', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
-              Text('identical(a, b) = true', style: TextStyle(fontFamily: 'monospace', fontSize: 10.5, color: Colors.green.shade600)),
+              Text(
+                'Always returns same instance',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+              ),
+              Text(
+                'identical(a, b) = true',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10.5,
+                  color: Colors.green.shade600,
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 6.0),
-        Text('List identical check: ${identical(fcListA, fcListB)} (demonstrates fresh instances)', style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade700)),
+        Text(
+          'List identical check: ${identical(fcListA, fcListB)} (demonstrates fresh instances)',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+            color: Colors.grey.shade700,
+          ),
+        ),
       ],
     ),
   );
@@ -480,13 +730,27 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.app_registration, color: Colors.deepPurple.shade700, size: 22.0),
+            Icon(
+              Icons.app_registration,
+              color: Colors.deepPurple.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
-            Text('Factory Registry Pattern', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.deepPurple.shade800)),
+            Text(
+              'Factory Registry Pattern',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.deepPurple.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 4.0),
-        Text('A Map<String, Factory<T>> acts as a service locator:', style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700)),
+        Text(
+          'A Map<String, Factory<T>> acts as a service locator:',
+          style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+        ),
         SizedBox(height: 10.0),
         ...fcRegistry.entries.map((entry) {
           final result = entry.value.call();
@@ -496,14 +760,34 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.deepPurple.withValues(alpha: 0.04),
               borderRadius: BorderRadius.circular(6.0),
-              border: Border(left: BorderSide(color: Colors.deepPurple, width: 2.0)),
+              border: Border(
+                left: BorderSide(color: Colors.deepPurple, width: 2.0),
+              ),
             ),
             child: Row(
               children: [
-                SizedBox(width: 70.0, child: Text(entry.key, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0, color: Colors.deepPurple))),
+                SizedBox(
+                  width: 70.0,
+                  child: Text(
+                    entry.key,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11.0,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                ),
                 Text('→ ', style: TextStyle(color: Colors.grey)),
-                Expanded(child: Text('$result', style: TextStyle(fontFamily: 'monospace', fontSize: 11.0))),
-                Text('(${result.runtimeType})', style: TextStyle(fontSize: 9.5, color: Colors.grey)),
+                Expanded(
+                  child: Text(
+                    '$result',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+                  ),
+                ),
+                Text(
+                  '(${result.runtimeType})',
+                  style: TextStyle(fontSize: 9.5, color: Colors.grey),
+                ),
               ],
             ),
           );
@@ -535,17 +819,47 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.fingerprint, color: Colors.lightGreen.shade700, size: 22.0),
+            Icon(
+              Icons.fingerprint,
+              color: Colors.lightGreen.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
-            Text('Identity & Equality', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.lightGreen.shade800)),
+            Text(
+              'Identity & Equality',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+                color: Colors.lightGreen.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 10.0),
-        _FcCompareRow(label: 'factoryA == factoryB', result: fcA == fcB, note: 'Different objects'),
-        _FcCompareRow(label: 'identical(factoryA, factoryB)', result: identical(fcA, fcB), note: 'Not same reference'),
-        _FcCompareRow(label: 'factoryA() == factoryB()', result: fcA.call() == fcB.call(), note: 'Same value output'),
+        _FcCompareRow(
+          label: 'factoryA == factoryB',
+          result: fcA == fcB,
+          note: 'Different objects',
+        ),
+        _FcCompareRow(
+          label: 'identical(factoryA, factoryB)',
+          result: identical(fcA, fcB),
+          note: 'Not same reference',
+        ),
+        _FcCompareRow(
+          label: 'factoryA() == factoryB()',
+          result: fcA.call() == fcB.call(),
+          note: 'Same value output',
+        ),
         SizedBox(height: 6.0),
-        Text('Factories are compared by reference, not by output. Two factories producing the same value are still different objects.', style: TextStyle(fontSize: 10.5, fontStyle: FontStyle.italic, color: Colors.grey.shade600)),
+        Text(
+          'Factories are compared by reference, not by output. Two factories producing the same value are still different objects.',
+          style: TextStyle(
+            fontSize: 10.5,
+            fontStyle: FontStyle.italic,
+            color: Colors.grey.shade600,
+          ),
+        ),
       ],
     ),
   );
@@ -555,7 +869,12 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 14: Flutter Uses ===');
 
-  Widget fcUseCaseRow(String where, String description, IconData icon, Color accent) {
+  Widget fcUseCaseRow(
+    String where,
+    String description,
+    IconData icon,
+    Color accent,
+  ) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 3.0),
       padding: EdgeInsets.all(10.0),
@@ -572,8 +891,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(where, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0, color: accent)),
-                Text(description, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
+                Text(
+                  where,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: accent,
+                  ),
+                ),
+                Text(
+                  description,
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                ),
               ],
             ),
           ),
@@ -600,12 +929,26 @@ dynamic build(BuildContext context) {
       width: 95.0,
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(10.0)),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Column(
         children: [
-          Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: text)),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: text,
+            ),
+          ),
           SizedBox(height: 2.0),
-          Text(label, style: TextStyle(fontSize: 9.5, color: text.withValues(alpha: 0.7)), textAlign: TextAlign.center),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9.5, color: text.withValues(alpha: 0.7)),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -634,122 +977,341 @@ dynamic build(BuildContext context) {
 
             // Section 2: Anatomy
             SizedBox(height: 20.0),
-            Text('2. Class Anatomy', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '2. Class Anatomy',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
-            fcAnatomyRow('const Factory()', 'T Function() constructor', 'Creates a factory wrapping the given constructor function', Color(0xFF00897B)),
-            fcAnatomyRow('.constructor', 'T Function()', 'Returns the stored builder function', Color(0xFF00897B)),
-            fcAnatomyRow('.call()', 'T', 'Invokes constructor and returns a fresh T instance', Color(0xFF00897B)),
-            fcAnatomyRow('.type', 'Type', 'Returns the static type parameter T', Color(0xFF00897B)),
+            fcAnatomyRow(
+              'const Factory()',
+              'T Function() constructor',
+              'Creates a factory wrapping the given constructor function',
+              Color(0xFF00897B),
+            ),
+            fcAnatomyRow(
+              '.constructor',
+              'T Function()',
+              'Returns the stored builder function',
+              Color(0xFF00897B),
+            ),
+            fcAnatomyRow(
+              '.call()',
+              'T',
+              'Invokes constructor and returns a fresh T instance',
+              Color(0xFF00897B),
+            ),
+            fcAnatomyRow(
+              '.type',
+              'Type',
+              'Returns the static type parameter T',
+              Color(0xFF00897B),
+            ),
 
             // Section 3: Workaround
             SizedBox(height: 20.0),
-            Text('3. D4rt Bridge Workaround', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '3. D4rt Bridge Workaround',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcWorkaround,
 
             // Section 4: String
             SizedBox(height: 20.0),
-            Text('4. String Factory', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '4. String Factory',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
-            fcResultCard('String Factory', 'Factory<String>', 'Result: "$fcStringResult"', Icons.text_fields, Color(0xFF00897B)),
+            fcResultCard(
+              'String Factory',
+              'Factory<String>',
+              'Result: "$fcStringResult"',
+              Icons.text_fields,
+              Color(0xFF00897B),
+            ),
 
             // Section 5: Counter
             SizedBox(height: 20.0),
-            Text('5. Stateful Counter', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '5. Stateful Counter',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcCounterDemo,
 
             // Section 6: List
             SizedBox(height: 20.0),
-            Text('6. List Factory', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '6. List Factory',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
-            fcResultCard('List Factory', 'Factory<List<int>>', 'A: $fcListA\nB: $fcListB\nidentical: ${identical(fcListA, fcListB)}', Icons.list, Color(0xFF00897B)),
+            fcResultCard(
+              'List Factory',
+              'Factory<List<int>>',
+              'A: $fcListA\nB: $fcListB\nidentical: ${identical(fcListA, fcListB)}',
+              Icons.list,
+              Color(0xFF00897B),
+            ),
 
             // Section 7: Map
             SizedBox(height: 20.0),
-            Text('7. Map Factory', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '7. Map Factory',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
-            fcResultCard('Map Factory', 'Factory<Map>', '$fcMapResult', Icons.data_object, Color(0xFF00897B)),
+            fcResultCard(
+              'Map Factory',
+              'Factory<Map>',
+              '$fcMapResult',
+              Icons.data_object,
+              Color(0xFF00897B),
+            ),
 
             // Section 8: Widget
             SizedBox(height: 20.0),
-            Text('8. Widget Factory', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '8. Widget Factory',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcWidgetDemo,
 
             // Section 9: Nested
             SizedBox(height: 20.0),
-            Text('9. Nested Factories', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '9. Nested Factories',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
-            fcResultCard('Nested', 'Factory<Factory<String>>', 'outer.call().call() → "$fcInnerResult"', Icons.layers, Color(0xFF00897B)),
+            fcResultCard(
+              'Nested',
+              'Factory<Factory<String>>',
+              'outer.call().call() → "$fcInnerResult"',
+              Icons.layers,
+              Color(0xFF00897B),
+            ),
 
             // Section 10: Lazy
             SizedBox(height: 20.0),
-            Text('10. Lazy Initialization', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '10. Lazy Initialization',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcLazySection,
 
             // Section 11: Caching
             SizedBox(height: 20.0),
-            Text('11. Factory vs Singleton', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '11. Factory vs Singleton',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcCachingSection,
 
             // Section 12: Registry
             SizedBox(height: 20.0),
-            Text('12. Factory Registry', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '12. Factory Registry',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcRegistrySection,
 
             // Section 13: Identity
             SizedBox(height: 20.0),
-            Text('13. Identity & Equality', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '13. Identity & Equality',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
             fcIdentitySection,
 
             // Section 14: Use cases
             SizedBox(height: 20.0),
-            Text('14. Flutter Use Cases', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '14. Flutter Use Cases',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 4.0),
-            Text('Where Factory<T> appears in the Flutter framework:', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+            Text(
+              'Where Factory<T> appears in the Flutter framework:',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+            ),
             SizedBox(height: 8.0),
-            fcUseCaseRow('WidgetSpan', 'Deferred widget creation inside rich text', Icons.text_snippet, Color(0xFF00897B)),
-            fcUseCaseRow('AnimationController', 'Ticker factory for vsync timing', Icons.animation, Color(0xFF00897B)),
-            fcUseCaseRow('ScrollBehavior', 'Platform-specific physics factory', Icons.swipe, Color(0xFF00897B)),
-            fcUseCaseRow('ThemeData', 'Widget factories for default look', Icons.palette, Color(0xFF00897B)),
-            fcUseCaseRow('Route generation', 'RouteFactory creates routes by name', Icons.route, Color(0xFF00897B)),
+            fcUseCaseRow(
+              'WidgetSpan',
+              'Deferred widget creation inside rich text',
+              Icons.text_snippet,
+              Color(0xFF00897B),
+            ),
+            fcUseCaseRow(
+              'AnimationController',
+              'Ticker factory for vsync timing',
+              Icons.animation,
+              Color(0xFF00897B),
+            ),
+            fcUseCaseRow(
+              'ScrollBehavior',
+              'Platform-specific physics factory',
+              Icons.swipe,
+              Color(0xFF00897B),
+            ),
+            fcUseCaseRow(
+              'ThemeData',
+              'Widget factories for default look',
+              Icons.palette,
+              Color(0xFF00897B),
+            ),
+            fcUseCaseRow(
+              'Route generation',
+              'RouteFactory creates routes by name',
+              Icons.route,
+              Color(0xFF00897B),
+            ),
 
             // Section 15: toString
             SizedBox(height: 20.0),
-            Text('15. toString()', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '15. toString()',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
             Container(
               padding: EdgeInsets.all(12.0),
-              decoration: BoxDecoration(color: Color(0xFFE0F2F1), borderRadius: BorderRadius.circular(10.0)),
+              decoration: BoxDecoration(
+                color: Color(0xFFE0F2F1),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('$fcString', style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+                  Text(
+                    '$fcString',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+                  ),
                   SizedBox(height: 4.0),
-                  Text('$fcList', style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+                  Text(
+                    '$fcList',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+                  ),
                   SizedBox(height: 4.0),
-                  Text('$fcMap', style: TextStyle(fontFamily: 'monospace', fontSize: 11.0)),
+                  Text(
+                    '$fcMap',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+                  ),
                 ],
               ),
             ),
 
             // Section 16: Summary
             SizedBox(height: 20.0),
-            Text('16. Summary', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Color(0xFF00695C))),
+            Text(
+              '16. Summary',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF00695C),
+              ),
+            ),
             SizedBox(height: 8.0),
             Wrap(
               children: [
-                fcSummaryTile('Factories', '${fcRegistry.length + 7}', Color(0xFFE0F2F1), Color(0xFF00695C)),
-                fcSummaryTile('Types', '6', Color(0xFFE3F2FD), Colors.blue.shade700),
-                fcSummaryTile('Calls', '${3 + 2 + 1 + 1 + 1 + 1 + 1 + 3}', Color(0xFFF3E5F5), Colors.purple.shade700),
-                fcSummaryTile('Patterns', '4', Color(0xFFFFF3E0), Colors.orange.shade700),
-                fcSummaryTile('Use Cases', '5', Color(0xFFFCE4EC), Colors.pink.shade700),
-                fcSummaryTile('Sections', '16', Color(0xFFF1F8E9), Colors.green.shade700),
+                fcSummaryTile(
+                  'Factories',
+                  '${fcRegistry.length + 7}',
+                  Color(0xFFE0F2F1),
+                  Color(0xFF00695C),
+                ),
+                fcSummaryTile(
+                  'Types',
+                  '6',
+                  Color(0xFFE3F2FD),
+                  Colors.blue.shade700,
+                ),
+                fcSummaryTile(
+                  'Calls',
+                  '${3 + 2 + 1 + 1 + 1 + 1 + 1 + 3}',
+                  Color(0xFFF3E5F5),
+                  Colors.purple.shade700,
+                ),
+                fcSummaryTile(
+                  'Patterns',
+                  '4',
+                  Color(0xFFFFF3E0),
+                  Colors.orange.shade700,
+                ),
+                fcSummaryTile(
+                  'Use Cases',
+                  '5',
+                  Color(0xFFFCE4EC),
+                  Colors.pink.shade700,
+                ),
+                fcSummaryTile(
+                  'Sections',
+                  '16',
+                  Color(0xFFF1F8E9),
+                  Colors.green.shade700,
+                ),
               ],
             ),
 
@@ -767,7 +1329,11 @@ class _FcCallChip extends StatelessWidget {
   final String value;
   final Color color;
 
-  const _FcCallChip({required this.label, required this.value, required this.color});
+  const _FcCallChip({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -775,8 +1341,18 @@ class _FcCallChip extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(10.0)),
-          child: Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0, color: Colors.white)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Colors.white,
+            ),
+          ),
         ),
         SizedBox(height: 4.0),
         Text(label, style: TextStyle(fontSize: 9.5, color: Colors.grey)),
@@ -791,7 +1367,11 @@ class _FcCompareRow extends StatelessWidget {
   final bool result;
   final String note;
 
-  const _FcCompareRow({required this.label, required this.result, required this.note});
+  const _FcCompareRow({
+    required this.label,
+    required this.result,
+    required this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -804,14 +1384,27 @@ class _FcCompareRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: TextStyle(fontFamily: 'monospace', fontSize: 11.0))),
+          Expanded(
+            child: Text(
+              label,
+              style: TextStyle(fontFamily: 'monospace', fontSize: 11.0),
+            ),
+          ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
             decoration: BoxDecoration(
               color: result ? Colors.green.shade100 : Colors.red.shade100,
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text('$result', style: TextStyle(fontFamily: 'monospace', fontSize: 10.0, fontWeight: FontWeight.bold, color: result ? Colors.green.shade700 : Colors.red.shade700)),
+            child: Text(
+              '$result',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10.0,
+                fontWeight: FontWeight.bold,
+                color: result ? Colors.green.shade700 : Colors.red.shade700,
+              ),
+            ),
           ),
           SizedBox(width: 6.0),
           Text(note, style: TextStyle(fontSize: 9.5, color: Colors.grey)),

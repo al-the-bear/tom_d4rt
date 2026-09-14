@@ -29,7 +29,10 @@ Widget _apSection(String title, List<Widget> children) {
       border: Border.all(color: _apLightIndigo, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x1A283593), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x1A283593),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -41,11 +44,14 @@ Widget _apSection(String title, List<Widget> children) {
             color: _apIndigo,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _apWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _apWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -57,19 +63,24 @@ Widget _apSection(String title, List<Widget> children) {
 Widget _apLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _apDarkIndigo,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _apDarkIndigo,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _apBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _apGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _apGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -83,12 +94,15 @@ Widget _apCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _apLightIndigo.withValues(alpha: 0.6)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _apDarkIndigo,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _apDarkIndigo,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -100,9 +114,10 @@ Widget _apChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -135,8 +150,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('AutocompletePreviousOptionIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+        title: const Text(
+          'AutocompletePreviousOptionIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -165,27 +182,48 @@ dynamic build(BuildContext context) {
                       color: _apWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.arrow_upward_rounded,
-                        color: _apWhite, size: 32),
+                    child: const Icon(
+                      Icons.arrow_upward_rounded,
+                      color: _apWhite,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(height: 14),
-                  const Text('AutocompletePreviousOptionIntent',
-                      style: TextStyle(
-                          color: _apWhite,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'AutocompletePreviousOptionIntent',
+                    style: TextStyle(
+                      color: _apWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  Text('Navigate backward through autocomplete suggestions',
-                      style: TextStyle(
-                          color: _apWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                  Text(
+                    'Navigate backward through autocomplete suggestions',
+                    style: TextStyle(
+                      color: _apWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _apChip('Intent', _apWhite.withValues(alpha: 0.25), _apWhite),
-                      _apChip('Arrow ↑', _apWhite.withValues(alpha: 0.25), _apWhite),
-                      _apChip('Backward', _apWhite.withValues(alpha: 0.25), _apWhite),
+                      _apChip(
+                        'Intent',
+                        _apWhite.withValues(alpha: 0.25),
+                        _apWhite,
+                      ),
+                      _apChip(
+                        'Arrow ↑',
+                        _apWhite.withValues(alpha: 0.25),
+                        _apWhite,
+                      ),
+                      _apChip(
+                        'Backward',
+                        _apWhite.withValues(alpha: 0.25),
+                        _apWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -404,12 +442,27 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _apSummaryRow(Icons.arrow_upward, 'Single-step backward navigation'),
+                    _apSummaryRow(
+                      Icons.arrow_upward,
+                      'Single-step backward navigation',
+                    ),
                     _apSummaryRow(Icons.loop, 'Wraps from first → last item'),
-                    _apSummaryRow(Icons.keyboard, 'Mapped to Arrow ↑ by default'),
-                    _apSummaryRow(Icons.swap_vert, 'Symmetric mirror of NextOptionIntent'),
-                    _apSummaryRow(Icons.undo, 'Enables overshoot-and-correct UX'),
-                    _apSummaryRow(Icons.accessible, 'WCAG-required bidirectional navigation'),
+                    _apSummaryRow(
+                      Icons.keyboard,
+                      'Mapped to Arrow ↑ by default',
+                    ),
+                    _apSummaryRow(
+                      Icons.swap_vert,
+                      'Symmetric mirror of NextOptionIntent',
+                    ),
+                    _apSummaryRow(
+                      Icons.undo,
+                      'Enables overshoot-and-correct UX',
+                    ),
+                    _apSummaryRow(
+                      Icons.accessible,
+                      'WCAG-required bidirectional navigation',
+                    ),
                   ],
                 ),
               ),
@@ -444,24 +497,36 @@ Widget _buildMirrorComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.arrow_downward,
-                    size: 24, color: _apAccentGreen),
+                const Icon(
+                  Icons.arrow_downward,
+                  size: 24,
+                  color: _apAccentGreen,
+                ),
                 const SizedBox(height: 6),
-                const Text('NextOptionIntent',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: _apAccentGreen,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700)),
-                Text('index + 1',
-                    style: TextStyle(
-                        color: _apAccentGreen.withValues(alpha: 0.8),
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
-                Text('Key: Arrow ↓',
-                    style: TextStyle(
-                        color: _apAccentGreen.withValues(alpha: 0.7),
-                        fontSize: 10)),
+                const Text(
+                  'NextOptionIntent',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: _apAccentGreen,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  'index + 1',
+                  style: TextStyle(
+                    color: _apAccentGreen.withValues(alpha: 0.8),
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                Text(
+                  'Key: Arrow ↓',
+                  style: TextStyle(
+                    color: _apAccentGreen.withValues(alpha: 0.7),
+                    fontSize: 10,
+                  ),
+                ),
               ],
             ),
           ),
@@ -470,20 +535,21 @@ Widget _buildMirrorComparison() {
           margin: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             children: [
-              const Icon(Icons.swap_horiz,
-                  color: _apIndigo, size: 20),
+              const Icon(Icons.swap_horiz, color: _apIndigo, size: 20),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _apIndigo.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('mirror',
-                    style: TextStyle(
-                        color: _apIndigo,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600)),
+                child: const Text(
+                  'mirror',
+                  style: TextStyle(
+                    color: _apIndigo,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -498,24 +564,32 @@ Widget _buildMirrorComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.arrow_upward,
-                    size: 24, color: _apIndigo),
+                const Icon(Icons.arrow_upward, size: 24, color: _apIndigo),
                 const SizedBox(height: 6),
-                const Text('PreviousOptionIntent',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: _apIndigo,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700)),
-                Text('index - 1',
-                    style: TextStyle(
-                        color: _apIndigo.withValues(alpha: 0.8),
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
-                Text('Key: Arrow ↑',
-                    style: TextStyle(
-                        color: _apIndigo.withValues(alpha: 0.7),
-                        fontSize: 10)),
+                const Text(
+                  'PreviousOptionIntent',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: _apIndigo,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  'index - 1',
+                  style: TextStyle(
+                    color: _apIndigo.withValues(alpha: 0.8),
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                Text(
+                  'Key: Arrow ↑',
+                  style: TextStyle(
+                    color: _apIndigo.withValues(alpha: 0.7),
+                    fontSize: 10,
+                  ),
+                ),
               ],
             ),
           ),
@@ -556,8 +630,7 @@ List<Widget> _buildDispatchSteps() {
       decoration: BoxDecoration(
         color: (s['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -568,22 +641,25 @@ List<Widget> _buildDispatchSteps() {
               color: s['color'] as Color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child:
-                Icon(s['icon'] as IconData, color: _apWhite, size: 18),
+            child: Icon(s['icon'] as IconData, color: _apWhite, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(s['title'] as String,
-                    style: TextStyle(
-                        color: s['color'] as Color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12)),
-                Text(s['detail'] as String,
-                    style: const TextStyle(
-                        color: _apGray, fontSize: 11)),
+                Text(
+                  s['title'] as String,
+                  style: TextStyle(
+                    color: s['color'] as Color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  s['detail'] as String,
+                  style: const TextStyle(color: _apGray, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -623,32 +699,40 @@ Widget _buildBackwardSteppingVisual() {
             children: [
               SizedBox(
                 width: 105,
-                child: Text(step['label'] as String,
-                    style: TextStyle(
-                        color: isWrap ? _apAccentOrange : _apDarkIndigo,
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  step['label'] as String,
+                  style: TextStyle(
+                    color: isWrap ? _apAccentOrange : _apDarkIndigo,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
-              const Icon(Icons.arrow_right_alt,
-                  size: 14, color: _apIndigo),
+              const Icon(Icons.arrow_right_alt, size: 14, color: _apIndigo),
               const SizedBox(width: 4),
               ...items.asMap().entries.map((e) {
                 final isHl = e.key == hlIdx;
                 return Container(
                   margin: const EdgeInsets.only(right: 3),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 3),
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: isHl ? _apIndigo : _apWhite,
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                        color: isHl ? _apIndigo : _apLightIndigo),
+                      color: isHl ? _apIndigo : _apLightIndigo,
+                    ),
                   ),
-                  child: Text(e.value[0],
-                      style: TextStyle(
-                          color: isHl ? _apWhite : _apGray,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    e.value[0],
+                    style: TextStyle(
+                      color: isHl ? _apWhite : _apGray,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 );
               }),
             ],
@@ -684,16 +768,17 @@ Widget _buildWrapVisual() {
                 decoration: BoxDecoration(
                   color: isHl ? _apIndigo : _apWhite,
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                      color: isHl ? _apIndigo : _apLightIndigo),
+                  border: Border.all(color: isHl ? _apIndigo : _apLightIndigo),
                 ),
-                child: Text(e.value,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: isHl ? _apWhite : _apDarkIndigo,
-                        fontSize: 9.5,
-                        fontWeight:
-                            isHl ? FontWeight.w700 : FontWeight.w400)),
+                child: Text(
+                  e.value,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: isHl ? _apWhite : _apDarkIndigo,
+                    fontSize: 9.5,
+                    fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
               ),
             );
           }).toList(),
@@ -702,20 +787,21 @@ Widget _buildWrapVisual() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.arrow_upward,
-                size: 16, color: _apAccentOrange),
+            const Icon(Icons.arrow_upward, size: 16, color: _apAccentOrange),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: _apAccentOrange.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: const Text('↑ Press — WRAPS!',
-                  style: TextStyle(
-                      color: _apAccentOrange,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700)),
+              child: const Text(
+                '↑ Press — WRAPS!',
+                style: TextStyle(
+                  color: _apAccentOrange,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ],
         ),
@@ -731,16 +817,17 @@ Widget _buildWrapVisual() {
                 decoration: BoxDecoration(
                   color: isHl ? _apIndigo : _apWhite,
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                      color: isHl ? _apIndigo : _apLightIndigo),
+                  border: Border.all(color: isHl ? _apIndigo : _apLightIndigo),
                 ),
-                child: Text(e.value,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: isHl ? _apWhite : _apDarkIndigo,
-                        fontSize: 9.5,
-                        fontWeight:
-                            isHl ? FontWeight.w700 : FontWeight.w400)),
+                child: Text(
+                  e.value,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: isHl ? _apWhite : _apDarkIndigo,
+                    fontSize: 9.5,
+                    fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
               ),
             );
           }).toList(),
@@ -775,24 +862,27 @@ Widget _buildNavigationPairsTable() {
           color: isHeader
               ? _apIndigo
               : entry.key.isEven
-                  ? _apPeriwinkle
-                  : _apWhite,
+              ? _apPeriwinkle
+              : _apWhite,
           child: Row(
             children: row.asMap().entries.map((col) {
               final isStarred = col.value.contains('★');
               return Expanded(
                 flex: col.key == 0 ? 2 : 3,
-                child: Text(col.value,
-                    style: TextStyle(
-                        color: isHeader
-                            ? _apWhite
-                            : isStarred
-                                ? _apIndigo
-                                : _apGray,
-                        fontSize: 11,
-                        fontWeight: isHeader || isStarred
-                            ? FontWeight.w700
-                            : FontWeight.w400)),
+                child: Text(
+                  col.value,
+                  style: TextStyle(
+                    color: isHeader
+                        ? _apWhite
+                        : isStarred
+                        ? _apIndigo
+                        : _apGray,
+                    fontSize: 11,
+                    fontWeight: isHeader || isStarred
+                        ? FontWeight.w700
+                        : FontWeight.w400,
+                  ),
+                ),
               );
             }).toList(),
           ),
@@ -804,10 +894,30 @@ Widget _buildNavigationPairsTable() {
 
 List<Widget> _buildPlatformCards() {
   final platforms = <Map<String, dynamic>>[
-    {'platform': 'macOS', 'key': 'Arrow ↑', 'alt': 'Ctrl+P (Emacs)', 'icon': Icons.desktop_mac},
-    {'platform': 'Windows', 'key': 'Arrow ↑', 'alt': '—', 'icon': Icons.desktop_windows},
-    {'platform': 'Linux', 'key': 'Arrow ↑', 'alt': 'Ctrl+P', 'icon': Icons.computer},
-    {'platform': 'Web', 'key': 'Arrow ↑', 'alt': 'Follows host OS', 'icon': Icons.language},
+    {
+      'platform': 'macOS',
+      'key': 'Arrow ↑',
+      'alt': 'Ctrl+P (Emacs)',
+      'icon': Icons.desktop_mac,
+    },
+    {
+      'platform': 'Windows',
+      'key': 'Arrow ↑',
+      'alt': '—',
+      'icon': Icons.desktop_windows,
+    },
+    {
+      'platform': 'Linux',
+      'key': 'Arrow ↑',
+      'alt': 'Ctrl+P',
+      'icon': Icons.computer,
+    },
+    {
+      'platform': 'Web',
+      'key': 'Arrow ↑',
+      'alt': 'Follows host OS',
+      'icon': Icons.language,
+    },
   ];
   return platforms.map((p) {
     return Container(
@@ -826,21 +936,28 @@ List<Widget> _buildPlatformCards() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(p['platform'] as String,
-                    style: const TextStyle(
-                        color: _apDarkIndigo,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  p['platform'] as String,
+                  style: const TextStyle(
+                    color: _apDarkIndigo,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 Row(
                   children: [
-                    Text('Primary: ${p['key']}',
-                        style: const TextStyle(
-                            color: _apGray, fontSize: 10)),
+                    Text(
+                      'Primary: ${p['key']}',
+                      style: const TextStyle(color: _apGray, fontSize: 10),
+                    ),
                     const SizedBox(width: 10),
-                    Text('Alt: ${p['alt']}',
-                        style: TextStyle(
-                            color: _apGray.withValues(alpha: 0.7),
-                            fontSize: 10)),
+                    Text(
+                      'Alt: ${p['alt']}',
+                      style: TextStyle(
+                        color: _apGray.withValues(alpha: 0.7),
+                        fontSize: 10,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -873,11 +990,14 @@ Widget _buildOvershootScenario() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Target: Carol (index 2)',
-            style: TextStyle(
-                color: _apDarkIndigo,
-                fontSize: 12,
-                fontWeight: FontWeight.w700)),
+        const Text(
+          'Target: Carol (index 2)',
+          style: TextStyle(
+            color: _apDarkIndigo,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 10),
         ...timeline.map((t) {
           final hlIdx = t['idx'] as int;
@@ -891,9 +1011,8 @@ Widget _buildOvershootScenario() {
                   : _apWhite,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: isTarget
-                      ? _apAccentGreen
-                      : _apLightIndigo),
+                color: isTarget ? _apAccentGreen : _apLightIndigo,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -902,25 +1021,31 @@ Widget _buildOvershootScenario() {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: isTarget ? _apAccentGreen : _apIndigo,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(t['action'] as String,
-                          style: const TextStyle(
-                              color: _apWhite,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'monospace')),
+                      child: Text(
+                        t['action'] as String,
+                        style: const TextStyle(
+                          color: _apWhite,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text(t['desc'] as String,
-                        style: TextStyle(
-                            color: isTarget
-                                ? _apAccentGreen
-                                : _apGray,
-                            fontSize: 11)),
+                    Text(
+                      t['desc'] as String,
+                      style: TextStyle(
+                        color: isTarget ? _apAccentGreen : _apGray,
+                        fontSize: 11,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -935,14 +1060,18 @@ Widget _buildOvershootScenario() {
                           color: isHl ? _apIndigo : _apWhite,
                           borderRadius: BorderRadius.circular(3),
                           border: Border.all(
-                              color: isHl ? _apIndigo : _apLightIndigo),
+                            color: isHl ? _apIndigo : _apLightIndigo,
+                          ),
                         ),
-                        child: Text(e.value,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: isHl ? _apWhite : _apGray,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w600)),
+                        child: Text(
+                          e.value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: isHl ? _apWhite : _apGray,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     );
                   }).toList(),
@@ -996,17 +1125,21 @@ Widget _buildFilterInteractionDemo() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border:
-              Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(s['step'] as String,
-                style: TextStyle(
-                    color: s['color'] as Color,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 11.5)),
+            Text(
+              s['step'] as String,
+              style: TextStyle(
+                color: s['color'] as Color,
+                fontWeight: FontWeight.w700,
+                fontSize: 11.5,
+              ),
+            ),
             const SizedBox(height: 6),
             Wrap(
               spacing: 6,
@@ -1014,18 +1147,24 @@ Widget _buildFilterInteractionDemo() {
                 final isHl = e.key == hlIdx;
                 return Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 5),
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: isHl ? _apIndigo : _apWhite,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                        color: isHl ? _apIndigo : _apLightIndigo),
+                      color: isHl ? _apIndigo : _apLightIndigo,
+                    ),
                   ),
-                  child: Text(e.value,
-                      style: TextStyle(
-                          color: isHl ? _apWhite : _apDarkIndigo,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    e.value,
+                    style: TextStyle(
+                      color: isHl ? _apWhite : _apDarkIndigo,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 );
               }).toList(),
             ),
@@ -1070,24 +1209,29 @@ Widget _buildSimulatedDropdown() {
               const Icon(Icons.code, color: _apIndigo, size: 18),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text('Programming Language|',
-                    style: TextStyle(
-                        color: _apDarkIndigo,
-                        fontSize: 13,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  'Programming Language|',
+                  style: TextStyle(
+                    color: _apDarkIndigo,
+                    fontSize: 13,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _apIndigo.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('↓×4 ↑×2',
-                    style: TextStyle(
-                        color: _apIndigo,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700)),
+                child: const Text(
+                  '↓×4 ↑×2',
+                  style: TextStyle(
+                    color: _apIndigo,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1095,13 +1239,14 @@ Widget _buildSimulatedDropdown() {
         ...items.asMap().entries.map((e) {
           final isHl = e.key == hlIdx;
           return Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: isHl ? _apIndigo : _apWhite,
               border: Border(
-                  bottom: BorderSide(
-                      color: _apLightIndigo.withValues(alpha: 0.3))),
+                bottom: BorderSide(
+                  color: _apLightIndigo.withValues(alpha: 0.3),
+                ),
+              ),
             ),
             child: Row(
               children: [
@@ -1115,24 +1260,28 @@ Widget _buildSimulatedDropdown() {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   alignment: Alignment.center,
-                  child: Text('${e.key}',
-                      style: TextStyle(
-                          color: isHl ? _apWhite : _apGray,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    '${e.key}',
+                    style: TextStyle(
+                      color: isHl ? _apWhite : _apGray,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(e.value,
-                      style: TextStyle(
-                          color: isHl ? _apWhite : _apDarkIndigo,
-                          fontSize: 13,
-                          fontWeight:
-                              isHl ? FontWeight.w700 : FontWeight.w400)),
+                  child: Text(
+                    e.value,
+                    style: TextStyle(
+                      color: isHl ? _apWhite : _apDarkIndigo,
+                      fontSize: 13,
+                      fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
+                    ),
+                  ),
                 ),
                 if (isHl)
-                  const Icon(Icons.check_circle,
-                      size: 16, color: _apWhite),
+                  const Icon(Icons.check_circle, size: 16, color: _apWhite),
               ],
             ),
           );
@@ -1141,8 +1290,7 @@ Widget _buildSimulatedDropdown() {
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
             color: _apPeriwinkle,
-            borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(10)),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1174,21 +1322,24 @@ Widget _apKeyHint(String key, String label) {
           border: Border.all(color: _apLightIndigo),
           boxShadow: const [
             BoxShadow(
-                color: Color(0x0F283593),
-                blurRadius: 2,
-                offset: Offset(0, 1)),
+              color: Color(0x0F283593),
+              blurRadius: 2,
+              offset: Offset(0, 1),
+            ),
           ],
         ),
-        child: Text(key,
-            style: const TextStyle(
-                color: _apDarkIndigo,
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+        child: Text(
+          key,
+          style: const TextStyle(
+            color: _apDarkIndigo,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
       ),
       const SizedBox(width: 4),
-      Text(label,
-          style: const TextStyle(color: _apGray, fontSize: 9.5)),
+      Text(label, style: const TextStyle(color: _apGray, fontSize: 9.5)),
     ],
   );
 }
@@ -1222,17 +1373,23 @@ Widget _buildEmailFieldDemo() {
           ),
           child: const Row(
             children: [
-              Text('To: ',
-                  style: TextStyle(
-                      color: _apGray,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600)),
+              Text(
+                'To: ',
+                style: TextStyle(
+                  color: _apGray,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Expanded(
-                child: Text('A|',
-                    style: TextStyle(
-                        color: _apDarkIndigo,
-                        fontSize: 14,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  'A|',
+                  style: TextStyle(
+                    color: _apDarkIndigo,
+                    fontSize: 14,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
             ],
           ),
@@ -1241,14 +1398,14 @@ Widget _buildEmailFieldDemo() {
           final isHl = e.key == hlIdx;
           final contact = e.value;
           return Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color:
-                  isHl ? _apIndigo.withValues(alpha: 0.1) : _apWhite,
+              color: isHl ? _apIndigo.withValues(alpha: 0.1) : _apWhite,
               border: Border(
-                  bottom: BorderSide(
-                      color: _apLightIndigo.withValues(alpha: 0.3))),
+                bottom: BorderSide(
+                  color: _apLightIndigo.withValues(alpha: 0.3),
+                ),
+              ),
             ),
             child: Row(
               children: [
@@ -1262,36 +1419,40 @@ Widget _buildEmailFieldDemo() {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   alignment: Alignment.center,
-                  child: Text(contact['avatar']!,
-                      style: TextStyle(
-                          color: isHl ? _apWhite : _apIndigo,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    contact['avatar']!,
+                    style: TextStyle(
+                      color: isHl ? _apWhite : _apIndigo,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(contact['name']!,
-                          style: TextStyle(
-                              color: isHl
-                                  ? _apIndigo
-                                  : _apDarkIndigo,
-                              fontSize: 12,
-                              fontWeight: isHl
-                                  ? FontWeight.w700
-                                  : FontWeight.w500)),
-                      Text(contact['email']!,
-                          style: TextStyle(
-                              color: _apGray.withValues(alpha: 0.7),
-                              fontSize: 10.5)),
+                      Text(
+                        contact['name']!,
+                        style: TextStyle(
+                          color: isHl ? _apIndigo : _apDarkIndigo,
+                          fontSize: 12,
+                          fontWeight: isHl ? FontWeight.w700 : FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        contact['email']!,
+                        style: TextStyle(
+                          color: _apGray.withValues(alpha: 0.7),
+                          fontSize: 10.5,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 if (isHl)
-                  const Icon(Icons.arrow_back,
-                      size: 14, color: _apIndigo),
+                  const Icon(Icons.arrow_back, size: 14, color: _apIndigo),
               ],
             ),
           );
@@ -1300,15 +1461,17 @@ Widget _buildEmailFieldDemo() {
           padding: const EdgeInsets.all(8),
           decoration: const BoxDecoration(
             color: _apPeriwinkle,
-            borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(10)),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
           ),
-          child: const Text('Overshot Amanda (↓×3), corrected with ↑ to Amanda',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: _apIndigo,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: const Text(
+            'Overshot Amanda (↓×3), corrected with ↑ to Amanda',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: _apIndigo,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     ),
@@ -1362,11 +1525,14 @@ Widget _buildAccessibilityChecklistVisual() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('WCAG Autocomplete Navigation Checklist',
-            style: TextStyle(
-                color: _apDarkIndigo,
-                fontSize: 12,
-                fontWeight: FontWeight.w700)),
+        const Text(
+          'WCAG Autocomplete Navigation Checklist',
+          style: TextStyle(
+            color: _apDarkIndigo,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 8),
         ...items.map((item) {
           return Container(
@@ -1376,32 +1542,44 @@ Widget _buildAccessibilityChecklistVisual() {
               color: _apWhite,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: (item['color'] as Color).withValues(alpha: 0.3)),
+                color: (item['color'] as Color).withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               children: [
-                Icon(item['icon'] as IconData,
-                    size: 18, color: item['color'] as Color),
+                Icon(
+                  item['icon'] as IconData,
+                  size: 18,
+                  color: item['color'] as Color,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(item['check'] as String,
-                      style: const TextStyle(
-                          color: _apDarkIndigo,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w500)),
+                  child: Text(
+                    item['check'] as String,
+                    style: const TextStyle(
+                      color: _apDarkIndigo,
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: (item['color'] as Color).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(3),
                   ),
-                  child: Text(item['status'] as String,
-                      style: TextStyle(
-                          color: item['color'] as Color,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    item['status'] as String,
+                    style: TextStyle(
+                      color: item['color'] as Color,
+                      fontSize: 9.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1423,10 +1601,13 @@ Widget _apSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _apWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _apWhite.withValues(alpha: 0.95),
-                  fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _apWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

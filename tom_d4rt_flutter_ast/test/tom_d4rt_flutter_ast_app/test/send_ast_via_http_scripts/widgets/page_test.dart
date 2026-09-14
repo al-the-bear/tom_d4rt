@@ -653,10 +653,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  copper,
-                  bronze,
-                ],
+                colors: [copper, bronze],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -716,14 +713,10 @@ dynamic build(BuildContext context) {
             return Container(
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                color: isTop
-                    ? itemColor.withValues(alpha: 0.15)
-                    : Colors.white,
+                color: isTop ? itemColor.withValues(alpha: 0.15) : Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isTop
-                      ? itemColor
-                      : burlywood.withValues(alpha: 0.4),
+                  color: isTop ? itemColor : burlywood.withValues(alpha: 0.4),
                   width: isTop ? 2 : 1,
                 ),
                 boxShadow: isTop
@@ -785,11 +778,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                       )
-                    : Icon(
-                        Icons.layers,
-                        color: camel,
-                        size: 18,
-                      ),
+                    : Icon(Icons.layers, color: camel, size: 18),
               ),
             );
           }),
@@ -818,10 +807,26 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {'old': 'MaterialPage(key: "A")', 'new': 'MaterialPage(key: "A")', 'result': 'true  (update)'},
-                  {'old': 'MaterialPage(key: "A")', 'new': 'MaterialPage(key: "B")', 'result': 'false (replace)'},
-                  {'old': 'MaterialPage(key: "A")', 'new': 'CupertinoPage(key: "A")', 'result': 'false (diff type)'},
-                  {'old': 'MaterialPage(key: null)', 'new': 'MaterialPage(key: null)', 'result': 'true  (null==null)'},
+                  {
+                    'old': 'MaterialPage(key: "A")',
+                    'new': 'MaterialPage(key: "A")',
+                    'result': 'true  (update)',
+                  },
+                  {
+                    'old': 'MaterialPage(key: "A")',
+                    'new': 'MaterialPage(key: "B")',
+                    'result': 'false (replace)',
+                  },
+                  {
+                    'old': 'MaterialPage(key: "A")',
+                    'new': 'CupertinoPage(key: "A")',
+                    'result': 'false (diff type)',
+                  },
+                  {
+                    'old': 'MaterialPage(key: null)',
+                    'new': 'MaterialPage(key: null)',
+                    'result': 'true  (null==null)',
+                  },
                 ].map((comparison) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -845,15 +850,25 @@ dynamic build(BuildContext context) {
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: (comparison['result'] as String).startsWith('true')
-                                ? const Color(0xFF4CAF50).withValues(alpha: 0.15)
-                                : const Color(0xFFE53935).withValues(alpha: 0.15),
+                            color:
+                                (comparison['result'] as String).startsWith(
+                                  'true',
+                                )
+                                ? const Color(
+                                    0xFF4CAF50,
+                                  ).withValues(alpha: 0.15)
+                                : const Color(
+                                    0xFFE53935,
+                                  ).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
                             comparison['result']!,
                             style: TextStyle(
-                              color: (comparison['result'] as String).startsWith('true')
+                              color:
+                                  (comparison['result'] as String).startsWith(
+                                    'true',
+                                  )
                                   ? const Color(0xFF2E7D32)
                                   : const Color(0xFFC62828),
                               fontSize: 10,
@@ -971,16 +986,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────┐');
-  print('  │  Copper       ${copper.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Bronze       ${bronze.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Camel        ${camel.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Warm Cream   ${warmCream.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Dark Bronze  ${darkBronze.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Burlywood    ${burlywood.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Sienna       ${sienna.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Light Copper ${lightCopper.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Antique Wht  ${antiqueWhite.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
-  print('  │  Saddle Brown ${saddleBrown.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print(
+    '  │  Copper       ${copper.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Bronze       ${bronze.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Camel        ${camel.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Warm Cream   ${warmCream.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Dark Bronze  ${darkBronze.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Burlywood    ${burlywood.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Sienna       ${sienna.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Light Copper ${lightCopper.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Antique Wht  ${antiqueWhite.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
+  print(
+    '  │  Saddle Brown ${saddleBrown.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
   print('  └──────────────────────────────────────────────────┘');
   print('');
 

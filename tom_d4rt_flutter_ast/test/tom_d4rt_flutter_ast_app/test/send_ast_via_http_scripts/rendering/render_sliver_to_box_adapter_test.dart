@@ -82,8 +82,14 @@ Widget _taSectionTitle(String title, IconData icon) {
 Widget _taBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -109,9 +115,23 @@ Widget _taInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _taTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _taTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _taTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _taTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -126,8 +146,19 @@ Widget _taInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _taCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _taSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _taAccent, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _taSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _taAccent,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -164,24 +195,64 @@ Widget _taSection1Overview() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Where it fits in the tree', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _taTextDark)),
+            Text(
+              'Where it fits in the tree',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _taTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
               {'depth': 0, 'name': 'CustomScrollView', 'color': _taBlue},
-              {'depth': 1, 'name': 'Viewport (viewport render object)', 'color': _taIndigo},
+              {
+                'depth': 1,
+                'name': 'Viewport (viewport render object)',
+                'color': _taIndigo,
+              },
               {'depth': 2, 'name': 'SliverToBoxAdapter', 'color': _taPrimary},
-              {'depth': 3, 'name': 'RenderSliverToBoxAdapter', 'color': _taAccent},
-              {'depth': 4, 'name': 'Your box child (Card, Image...)', 'color': _taGreen},
-            ].map((e) => Padding(
-              padding: EdgeInsets.only(left: (e['depth'] as int) * 16.0, bottom: 4),
-              child: Row(
-                children: [
-                  Container(width: 8, height: 8, decoration: BoxDecoration(color: e['color'] as Color, shape: BoxShape.circle)),
-                  SizedBox(width: 6),
-                  Flexible(child: Text(e['name'] as String, style: TextStyle(fontSize: 11, color: e['color'] as Color, fontWeight: FontWeight.w600))),
-                ],
+              {
+                'depth': 3,
+                'name': 'RenderSliverToBoxAdapter',
+                'color': _taAccent,
+              },
+              {
+                'depth': 4,
+                'name': 'Your box child (Card, Image...)',
+                'color': _taGreen,
+              },
+            ].map(
+              (e) => Padding(
+                padding: EdgeInsets.only(
+                  left: (e['depth'] as int) * 16.0,
+                  bottom: 4,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: e['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        e['name'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: e['color'] as Color,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -194,12 +265,36 @@ Widget _taSection1Overview() {
 // ---------------------------------------------------------------------------
 Widget _taSection2Wrapping() {
   final wrappable = <Map<String, dynamic>>[
-    {'widget': 'Container', 'icon': Icons.square_outlined, 'desc': 'Any sized container with decoration'},
-    {'widget': 'Card', 'icon': Icons.credit_card, 'desc': 'Material card with elevation'},
-    {'widget': 'Image', 'icon': Icons.image, 'desc': 'Network, asset, or memory images'},
-    {'widget': 'Row / Column', 'icon': Icons.view_column, 'desc': 'Horizontal or vertical flex layouts'},
-    {'widget': 'Text / RichText', 'icon': Icons.text_fields, 'desc': 'Text content of any length'},
-    {'widget': 'Custom widgets', 'icon': Icons.extension, 'desc': 'Any widget that uses box layout'},
+    {
+      'widget': 'Container',
+      'icon': Icons.square_outlined,
+      'desc': 'Any sized container with decoration',
+    },
+    {
+      'widget': 'Card',
+      'icon': Icons.credit_card,
+      'desc': 'Material card with elevation',
+    },
+    {
+      'widget': 'Image',
+      'icon': Icons.image,
+      'desc': 'Network, asset, or memory images',
+    },
+    {
+      'widget': 'Row / Column',
+      'icon': Icons.view_column,
+      'desc': 'Horizontal or vertical flex layouts',
+    },
+    {
+      'widget': 'Text / RichText',
+      'icon': Icons.text_fields,
+      'desc': 'Text content of any length',
+    },
+    {
+      'widget': 'Custom widgets',
+      'icon': Icons.extension,
+      'desc': 'Any widget that uses box layout',
+    },
   ];
 
   return Column(
@@ -225,29 +320,49 @@ Widget _taSection2Wrapping() {
         child: Wrap(
           spacing: 6,
           runSpacing: 6,
-          children: wrappable.map((w) => Container(
-            width: 140,
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: _taSurface,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: _taDivider.withValues(alpha: 0.5)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(w['icon'] as IconData, size: 14, color: _taPrimary),
-                    SizedBox(width: 4),
-                    Text(w['widget'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _taTextDark)),
-                  ],
+          children: wrappable
+              .map(
+                (w) => Container(
+                  width: 140,
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _taSurface,
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border.all(
+                      color: _taDivider.withValues(alpha: 0.5),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            w['icon'] as IconData,
+                            size: 14,
+                            color: _taPrimary,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            w['widget'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: _taTextDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        w['desc'] as String,
+                        style: TextStyle(fontSize: 9, color: _taTextMedium),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 2),
-                Text(w['desc'] as String, style: TextStyle(fontSize: 9, color: _taTextMedium)),
-              ],
-            ),
-          )).toList(),
+              )
+              .toList(),
         ),
       ),
     ],
@@ -294,11 +409,19 @@ Widget _taSection3Layout() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _taCode('// 1. Bail out if no remaining extent', color: _taGrey),
+                  _taCode(
+                    '// 1. Bail out if no remaining extent',
+                    color: _taGrey,
+                  ),
                   SizedBox(height: 2),
-                  _taCode('if (child == null) { geometry = SliverGeometry.zero; return; }'),
+                  _taCode(
+                    'if (child == null) { geometry = SliverGeometry.zero; return; }',
+                  ),
                   SizedBox(height: 4),
-                  Text('If there is no child, report zero geometry.', style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                  Text(
+                    'If there is no child, report zero geometry.',
+                    style: TextStyle(fontSize: 10, color: _taTextMedium),
+                  ),
                 ],
               ),
             ),
@@ -314,11 +437,19 @@ Widget _taSection3Layout() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _taCode('// 2. Lay out child with box constraints', color: _taGrey),
+                  _taCode(
+                    '// 2. Lay out child with box constraints',
+                    color: _taGrey,
+                  ),
                   SizedBox(height: 2),
-                  _taCode('child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);'),
+                  _taCode(
+                    'child!.layout(constraints.asBoxConstraints(), parentUsesSize: true);',
+                  ),
                   SizedBox(height: 4),
-                  Text('asBoxConstraints() creates tight cross-axis, unconstrained main-axis.', style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                  Text(
+                    'asBoxConstraints() creates tight cross-axis, unconstrained main-axis.',
+                    style: TextStyle(fontSize: 10, color: _taTextMedium),
+                  ),
                 ],
               ),
             ),
@@ -334,13 +465,21 @@ Widget _taSection3Layout() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _taCode('// 3. Compute child extent and paint extent', color: _taGrey),
+                  _taCode(
+                    '// 3. Compute child extent and paint extent',
+                    color: _taGrey,
+                  ),
                   SizedBox(height: 2),
                   _taCode('final childExtent = ...child main-axis size'),
                   SizedBox(height: 2),
-                  _taCode('final paintedChildSize = clamp(childExtent - scrollOffset, 0, remaining)'),
+                  _taCode(
+                    'final paintedChildSize = clamp(childExtent - scrollOffset, 0, remaining)',
+                  ),
                   SizedBox(height: 4),
-                  Text('Subtract scrollOffset to find the visible portion.', style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                  Text(
+                    'Subtract scrollOffset to find the visible portion.',
+                    style: TextStyle(fontSize: 10, color: _taTextMedium),
+                  ),
                 ],
               ),
             ),
@@ -364,7 +503,10 @@ Widget _taSection3Layout() {
                   _taCode('  maxPaintExtent: childExtent,'),
                   _taCode(');'),
                   SizedBox(height: 4),
-                  Text('scrollExtent is always the full child size.', style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                  Text(
+                    'scrollExtent is always the full child size.',
+                    style: TextStyle(fontSize: 10, color: _taTextMedium),
+                  ),
                 ],
               ),
             ),
@@ -382,9 +524,14 @@ Widget _taSection3Layout() {
                 children: [
                   _taCode('// 5. Set child paint offset', color: _taGrey),
                   SizedBox(height: 2),
-                  _taCode('setChildParentData(child!, constraints, geometry!);'),
+                  _taCode(
+                    'setChildParentData(child!, constraints, geometry!);',
+                  ),
                   SizedBox(height: 4),
-                  Text('Positions child relative to the sliver\'s paint origin.', style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                  Text(
+                    'Positions child relative to the sliver\'s paint origin.',
+                    style: TextStyle(fontSize: 10, color: _taTextMedium),
+                  ),
                 ],
               ),
             ),
@@ -424,7 +571,10 @@ Widget _taSection4Painting() {
           children: [
             // Viewport boundary
             Positioned(
-              left: 16, top: 30, right: 16, bottom: 16,
+              left: 16,
+              top: 30,
+              right: 16,
+              bottom: 16,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
@@ -433,16 +583,26 @@ Widget _taSection4Painting() {
               ),
             ),
             Positioned(
-              left: 20, top: 22,
+              left: 20,
+              top: 22,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                 color: Colors.white,
-                child: Text('Visible region', style: TextStyle(fontSize: 9, color: _taPrimary, fontWeight: FontWeight.w700)),
+                child: Text(
+                  'Visible region',
+                  style: TextStyle(
+                    fontSize: 9,
+                    color: _taPrimary,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
             // Clipped portion (above viewport)
             Positioned(
-              left: 40, top: 6, right: 40,
+              left: 40,
+              top: 6,
+              right: 40,
               child: Container(
                 height: 30,
                 decoration: BoxDecoration(
@@ -451,12 +611,17 @@ Widget _taSection4Painting() {
                   border: Border.all(color: _taAccent.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text('Clipped (scrolled off top)', style: TextStyle(fontSize: 8, color: _taAccent)),
+                child: Text(
+                  'Clipped (scrolled off top)',
+                  style: TextStyle(fontSize: 8, color: _taAccent),
+                ),
               ),
             ),
             // Visible portion
             Positioned(
-              left: 40, top: 36, right: 40,
+              left: 40,
+              top: 36,
+              right: 40,
               child: Container(
                 height: 80,
                 decoration: BoxDecoration(
@@ -467,32 +632,58 @@ Widget _taSection4Painting() {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Painted portion', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _taGreen)),
-                    Text('paintExtent = visible part', style: TextStyle(fontSize: 8, color: _taTextMedium)),
+                    Text(
+                      'Painted portion',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _taGreen,
+                      ),
+                    ),
+                    Text(
+                      'paintExtent = visible part',
+                      style: TextStyle(fontSize: 8, color: _taTextMedium),
+                    ),
                   ],
                 ),
               ),
             ),
             // Below visible portion
             Positioned(
-              left: 40, top: 116, right: 40, bottom: 20,
+              left: 40,
+              top: 116,
+              right: 40,
+              bottom: 20,
               child: Container(
                 decoration: BoxDecoration(
                   color: _taAmber.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(4)),
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(4),
+                  ),
                   border: Border.all(color: _taAmber.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text('Not yet visible (below viewport)', style: TextStyle(fontSize: 8, color: _taAmber)),
+                child: Text(
+                  'Not yet visible (below viewport)',
+                  style: TextStyle(fontSize: 8, color: _taAmber),
+                ),
               ),
             ),
             // Offset annotation
             Positioned(
-              right: 20, top: 40,
+              right: 20,
+              top: 40,
               child: Column(
                 children: [
                   Icon(Icons.arrow_upward, size: 12, color: _taAccent),
-                  Text('scrollOffset', style: TextStyle(fontSize: 8, color: _taAccent, fontWeight: FontWeight.w600)),
+                  Text(
+                    'scrollOffset',
+                    style: TextStyle(
+                      fontSize: 8,
+                      color: _taAccent,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -508,12 +699,42 @@ Widget _taSection4Painting() {
 // ---------------------------------------------------------------------------
 Widget _taSection5UseCases() {
   final cases = <Map<String, dynamic>>[
-    {'title': 'Section header', 'desc': 'Place a titled header between SliverList sections', 'icon': Icons.title, 'color': _taPrimary},
-    {'title': 'Hero banner', 'desc': 'Full-width image or promotional banner', 'icon': Icons.photo_size_select_actual, 'color': _taBlue},
-    {'title': 'Search bar', 'desc': 'A search TextField above the list content', 'icon': Icons.search, 'color': _taTeal},
-    {'title': 'Footer / copyright', 'desc': 'A footer at the end of all scrollable content', 'icon': Icons.copyright, 'color': _taGrey},
-    {'title': 'Empty state', 'desc': '"No results found" placeholder widget', 'icon': Icons.inbox, 'color': _taOrange},
-    {'title': 'Loading spinner', 'desc': 'A CircularProgressIndicator at the list bottom', 'icon': Icons.autorenew, 'color': _taPurple},
+    {
+      'title': 'Section header',
+      'desc': 'Place a titled header between SliverList sections',
+      'icon': Icons.title,
+      'color': _taPrimary,
+    },
+    {
+      'title': 'Hero banner',
+      'desc': 'Full-width image or promotional banner',
+      'icon': Icons.photo_size_select_actual,
+      'color': _taBlue,
+    },
+    {
+      'title': 'Search bar',
+      'desc': 'A search TextField above the list content',
+      'icon': Icons.search,
+      'color': _taTeal,
+    },
+    {
+      'title': 'Footer / copyright',
+      'desc': 'A footer at the end of all scrollable content',
+      'icon': Icons.copyright,
+      'color': _taGrey,
+    },
+    {
+      'title': 'Empty state',
+      'desc': '"No results found" placeholder widget',
+      'icon': Icons.inbox,
+      'color': _taOrange,
+    },
+    {
+      'title': 'Loading spinner',
+      'desc': 'A CircularProgressIndicator at the list bottom',
+      'icon': Icons.autorenew,
+      'color': _taPurple,
+    },
   ];
 
   return Column(
@@ -535,30 +756,53 @@ Widget _taSection5UseCases() {
           border: Border.all(color: _taDivider),
         ),
         child: Column(
-          children: cases.map((c) => Container(
-            margin: EdgeInsets.only(bottom: 6),
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-            decoration: BoxDecoration(
-              color: (c['color'] as Color).withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(6),
-              border: Border(left: BorderSide(color: c['color'] as Color, width: 3)),
-            ),
-            child: Row(
-              children: [
-                Icon(c['icon'] as IconData, size: 18, color: c['color'] as Color),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+          children: cases
+              .map(
+                (c) => Container(
+                  margin: EdgeInsets.only(bottom: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: (c['color'] as Color).withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(6),
+                    border: Border(
+                      left: BorderSide(color: c['color'] as Color, width: 3),
+                    ),
+                  ),
+                  child: Row(
                     children: [
-                      Text(c['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: c['color'] as Color)),
-                      Text(c['desc'] as String, style: TextStyle(fontSize: 10, color: _taTextMedium)),
+                      Icon(
+                        c['icon'] as IconData,
+                        size: 18,
+                        color: c['color'] as Color,
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              c['title'] as String,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                                color: c['color'] as Color,
+                              ),
+                            ),
+                            Text(
+                              c['desc'] as String,
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _taTextMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          )).toList(),
+              )
+              .toList(),
         ),
       ),
     ],
@@ -593,7 +837,14 @@ Widget _taSection6MultiAdapters() {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 4, bottom: 4),
-              child: Text('Scrollable with mixed slivers', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _taTextDark)),
+              child: Text(
+                'Scrollable with mixed slivers',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _taTextDark,
+                ),
+              ),
             ),
             SizedBox(
               height: 320,
@@ -607,15 +858,28 @@ Widget _taSection6MultiAdapters() {
                         height: 70,
                         margin: EdgeInsets.all(4),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(colors: [_taPrimary, _taAccent]),
+                          gradient: LinearGradient(
+                            colors: [_taPrimary, _taAccent],
+                          ),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.view_in_ar, color: _taOnPrimary, size: 20),
-                            Text('Header Adapter', style: TextStyle(color: _taOnPrimary, fontWeight: FontWeight.bold, fontSize: 13)),
+                            Icon(
+                              Icons.view_in_ar,
+                              color: _taOnPrimary,
+                              size: 20,
+                            ),
+                            Text(
+                              'Header Adapter',
+                              style: TextStyle(
+                                color: _taOnPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -625,32 +889,52 @@ Widget _taSection6MultiAdapters() {
                       itemCount: 4,
                       itemBuilder: (ctx, i) => Container(
                         height: 36,
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: _taBlue.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _taDivider.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _taDivider.withValues(alpha: 0.3),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(left: 12),
-                        child: Text('List item ${i + 1}', style: TextStyle(fontSize: 11, color: _taTextDark)),
+                        child: Text(
+                          'List item ${i + 1}',
+                          style: TextStyle(fontSize: 11, color: _taTextDark),
+                        ),
                       ),
                     ),
                     // Divider adapter
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 6,
+                        ),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: _taTeal.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: _taTeal.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _taTeal.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Row(
                           children: [
                             Icon(Icons.info, size: 16, color: _taTeal),
                             SizedBox(width: 8),
-                            Text('Section divider adapter', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _taTeal)),
+                            Text(
+                              'Section divider adapter',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                                color: _taTeal,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -661,15 +945,27 @@ Widget _taSection6MultiAdapters() {
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 4,
                       childAspectRatio: 1.5,
-                      children: List.generate(6, (i) => Container(
-                        decoration: BoxDecoration(
-                          color: _taOrange.withValues(alpha: 0.06),
-                          borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _taOrange.withValues(alpha: 0.3)),
+                      children: List.generate(
+                        6,
+                        (i) => Container(
+                          decoration: BoxDecoration(
+                            color: _taOrange.withValues(alpha: 0.06),
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                              color: _taOrange.withValues(alpha: 0.3),
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'G${i + 1}',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: _taOrange,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                        alignment: Alignment.center,
-                        child: Text('G${i + 1}', style: TextStyle(fontSize: 10, color: _taOrange, fontWeight: FontWeight.w600)),
-                      )),
+                      ),
                     ),
                     // Footer adapter
                     SliverToBoxAdapter(
@@ -679,10 +975,15 @@ Widget _taSection6MultiAdapters() {
                         decoration: BoxDecoration(
                           color: _taGrey.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: _taGrey.withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: _taGrey.withValues(alpha: 0.2),
+                          ),
                         ),
                         alignment: Alignment.center,
-                        child: Text('Footer adapter — end of content', style: TextStyle(fontSize: 11, color: _taGrey)),
+                        child: Text(
+                          'Footer adapter — end of content',
+                          style: TextStyle(fontSize: 11, color: _taGrey),
+                        ),
                       ),
                     ),
                   ],
@@ -724,7 +1025,14 @@ Widget _taSection7WithAppBar() {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 4, bottom: 4),
-              child: Text('SliverAppBar + SliverToBoxAdapter + SliverList', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _taTextDark)),
+              child: Text(
+                'SliverAppBar + SliverToBoxAdapter + SliverList',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _taTextDark,
+                ),
+              ),
             ),
             SizedBox(
               height: 340,
@@ -738,14 +1046,20 @@ Widget _taSection7WithAppBar() {
                       floating: true,
                       pinned: false,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: Text('Coral App', style: TextStyle(fontSize: 14)),
+                        title: Text(
+                          'Coral App',
+                          style: TextStyle(fontSize: 14),
+                        ),
                         background: Container(color: _taAccent),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: Container(
                         margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
@@ -755,25 +1069,41 @@ Widget _taSection7WithAppBar() {
                           children: [
                             Icon(Icons.search, size: 18, color: _taGrey),
                             SizedBox(width: 8),
-                            Text('Search items...', style: TextStyle(fontSize: 12, color: _taGrey)),
+                            Text(
+                              'Search items...',
+                              style: TextStyle(fontSize: 12, color: _taGrey),
+                            ),
                           ],
                         ),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: _taPrimary.withValues(alpha: 0.06),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: _taPrimary.withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: _taPrimary.withValues(alpha: 0.2),
+                          ),
                         ),
                         child: Row(
                           children: [
                             Icon(Icons.campaign, size: 16, color: _taPrimary),
                             SizedBox(width: 8),
-                            Expanded(child: Text('Promotional banner via SliverToBoxAdapter', style: TextStyle(fontSize: 11, color: _taPrimary))),
+                            Expanded(
+                              child: Text(
+                                'Promotional banner via SliverToBoxAdapter',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: _taPrimary,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -782,27 +1112,46 @@ Widget _taSection7WithAppBar() {
                       itemCount: 20,
                       itemBuilder: (ctx, i) => Container(
                         height: 44,
-                        margin: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: i % 2 == 0 ? Colors.white : _taSurface,
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _taDivider.withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: _taDivider.withValues(alpha: 0.2),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         child: Row(
                           children: [
                             Container(
-                              width: 28, height: 28,
+                              width: 28,
+                              height: 28,
                               decoration: BoxDecoration(
                                 color: _taPrimary.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               alignment: Alignment.center,
-                              child: Text('${i + 1}', style: TextStyle(fontSize: 10, color: _taPrimary, fontWeight: FontWeight.w700)),
+                              child: Text(
+                                '${i + 1}',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: _taPrimary,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                             SizedBox(width: 10),
-                            Text('List item ${i + 1}', style: TextStyle(fontSize: 12, color: _taTextDark)),
+                            Text(
+                              'List item ${i + 1}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _taTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -825,35 +1174,40 @@ Widget _taSection8EdgeCases() {
   final gotchas = <Map<String, dynamic>>[
     {
       'title': 'Unconstrained child height',
-      'desc': 'A child with no height constraint (e.g. unbounded Column) '
+      'desc':
+          'A child with no height constraint (e.g. unbounded Column) '
           'may overflow. Always give the child a defined size.',
       'icon': Icons.warning,
       'color': _taOrange,
     },
     {
       'title': 'Too many adapters',
-      'desc': 'Using 50+ SliverToBoxAdapters instead of a SliverList is '
+      'desc':
+          'Using 50+ SliverToBoxAdapters instead of a SliverList is '
           'wasteful — each has its own render object overhead.',
       'icon': Icons.report,
       'color': _taAccent,
     },
     {
       'title': 'No lazy building',
-      'desc': 'Unlike SliverList, SliverToBoxAdapter always builds its child. '
+      'desc':
+          'Unlike SliverList, SliverToBoxAdapter always builds its child. '
           'It cannot defer construction to when items scroll into view.',
       'icon': Icons.memory,
       'color': _taPurple,
     },
     {
       'title': 'Horizontal scrolling',
-      'desc': 'For horizontal CustomScrollViews, the adapter constrains height '
+      'desc':
+          'For horizontal CustomScrollViews, the adapter constrains height '
           '(cross-axis) tightly and leaves width (main-axis) unbounded.',
       'icon': Icons.swap_horiz,
       'color': _taBlue,
     },
     {
       'title': 'Scroll position calculation',
-      'desc': 'The adapter does not know its own absolute scroll position. Use '
+      'desc':
+          'The adapter does not know its own absolute scroll position. Use '
           'ScrollController to query viewport offset if needed.',
       'icon': Icons.straight,
       'color': _taTeal,
@@ -871,32 +1225,46 @@ Widget _taSection8EdgeCases() {
             'that can lead to layout errors or performance issues.',
         Icons.visibility,
       ),
-      ...gotchas.map((g) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: g['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(g['icon'] as IconData, size: 18, color: g['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(g['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _taTextDark)),
-                  SizedBox(height: 2),
-                  Text(g['desc'] as String, style: TextStyle(fontSize: 11, color: _taTextMedium)),
-                ],
-              ),
+      ...gotchas.map(
+        (g) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: g['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(g['icon'] as IconData, size: 18, color: g['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      g['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _taTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      g['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _taTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     ],
   );
 }
@@ -932,23 +1300,48 @@ Widget _taSection9Summary() {
               {'label': 'Base class', 'value': 'RenderSliverSingleBoxAdapter'},
               {'label': 'Child count', 'value': 'Exactly one RenderBox'},
               {'label': 'Main-axis constraint', 'value': 'Unconstrained'},
-              {'label': 'Cross-axis constraint', 'value': 'Tight (viewport width)'},
+              {
+                'label': 'Cross-axis constraint',
+                'value': 'Tight (viewport width)',
+              },
               {'label': 'Lazy building', 'value': 'No — always built'},
-            ].map((r) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: _taDivider.withValues(alpha: 0.3))),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 120,
-                    child: Text(r['label']!, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _taTextDark)),
+            ].map(
+              (r) => Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: _taDivider.withValues(alpha: 0.3),
+                    ),
                   ),
-                  Expanded(child: Text(r['value']!, style: TextStyle(fontSize: 11, color: _taPrimary, fontWeight: FontWeight.w600))),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        r['label']!,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _taTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r['value']!,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: _taPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -958,7 +1351,10 @@ Widget _taSection9Summary() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_taPrimary.withValues(alpha: 0.08), _taAccent.withValues(alpha: 0.08)],
+            colors: [
+              _taPrimary.withValues(alpha: 0.08),
+              _taAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _taPrimary.withValues(alpha: 0.2)),
@@ -969,7 +1365,11 @@ Widget _taSection9Summary() {
             SizedBox(height: 8),
             Text(
               'RenderSliverToBoxAdapter',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _taTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _taTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -1029,7 +1429,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'The concrete adapter that places any box widget in a sliver context',
-                style: TextStyle(fontSize: 12, color: _taOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _taOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

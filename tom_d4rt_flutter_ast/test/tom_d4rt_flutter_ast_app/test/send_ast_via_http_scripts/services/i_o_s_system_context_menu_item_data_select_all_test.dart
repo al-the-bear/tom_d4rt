@@ -160,11 +160,7 @@ TextStyle _codeStyle({Color color = cWaxCream, double size = 12.5}) {
 }
 
 TextStyle _captionStyle({Color color = cSepiaWarmth, double size = 11}) {
-  return TextStyle(
-    color: color,
-    fontSize: size,
-    fontStyle: FontStyle.italic,
-  );
+  return TextStyle(color: color, fontSize: size, fontStyle: FontStyle.italic);
 }
 
 TextStyle _rubricStyle({Color color = cCinnabarRubric, double size = 14}) {
@@ -231,9 +227,7 @@ Widget _sectionHeader(String index, String title, {Color? accent}) {
           ),
         ),
         const SizedBox(width: 10),
-        Expanded(
-          child: Text(title, style: _titleStyle(size: 18)),
-        ),
+        Expanded(child: Text(title, style: _titleStyle(size: 18))),
       ],
     ),
   );
@@ -293,10 +287,7 @@ Widget _bulletList(List<String> bullets, {Color dot = cLarkspurViolet}) {
       ),
     );
   }
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: rows,
-  );
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
 }
 
 Widget _kvRow(String key, String value, {Color? keyColor}) {
@@ -309,10 +300,7 @@ Widget _kvRow(String key, String value, {Color? keyColor}) {
           width: 168,
           child: Text(
             key,
-            style: _subtitleStyle(
-              color: keyColor ?? cLarkspurDeep,
-              size: 13,
-            ),
+            style: _subtitleStyle(color: keyColor ?? cLarkspurDeep, size: 13),
           ),
         ),
         Expanded(
@@ -535,10 +523,7 @@ Widget _siblingRow(
           ? accent.withValues(alpha: 0.32)
           : accent.withValues(alpha: 0.14),
       borderRadius: BorderRadius.circular(7),
-      border: Border.all(
-        color: accent,
-        width: highlight ? 2.2 : 1.0,
-      ),
+      border: Border.all(color: accent, width: highlight ? 2.2 : 1.0),
     ),
     child: Row(
       children: <Widget>[
@@ -563,9 +548,7 @@ Widget _siblingRow(
             ),
           ),
         ),
-        Expanded(
-          child: Text(example, style: _bodyStyle(size: 12)),
-        ),
+        Expanded(child: Text(example, style: _bodyStyle(size: 12))),
       ],
     ),
   );
@@ -702,9 +685,7 @@ Widget _menuCard({
               ),
             ),
             const SizedBox(width: 10),
-            Expanded(
-              child: Text(summary, style: _subtitleStyle(size: 13)),
-            ),
+            Expanded(child: Text(summary, style: _subtitleStyle(size: 13))),
           ],
         ),
         const SizedBox(height: 10),
@@ -767,7 +748,9 @@ Widget _instanceCard(
 //                                  build()
 // ===========================================================================
 dynamic build(BuildContext context) {
-  print('=== Tablet Larkspur almanac for IOSSystemContextMenuItemDataSelectAll ===');
+  print(
+    '=== Tablet Larkspur almanac for IOSSystemContextMenuItemDataSelectAll ===',
+  );
   print('Step 1: priming the wax tablet and decanting the larkspur ink.');
   print('Step 2: minting a clutch of SelectAll instances.');
 
@@ -790,36 +773,44 @@ dynamic build(BuildContext context) {
   final IOSSystemContextMenuItemDataSelectAll selectTheta =
       IOSSystemContextMenuItemDataSelectAll();
 
-  print('Step 3: confirming runtimeType is identical across instances: '
-      '${selectAlpha.runtimeType} == ${selectBeta.runtimeType}');
-  print('Step 4: identical(alpha, beta) = '
-      '${identical(selectAlpha, selectBeta)} (expected false).');
-  print('Step 5: identical(alpha, alpha) = '
-      '${identical(selectAlpha, selectAlpha)} (expected true).');
+  print(
+    'Step 3: confirming runtimeType is identical across instances: '
+    '${selectAlpha.runtimeType} == ${selectBeta.runtimeType}',
+  );
+  print(
+    'Step 4: identical(alpha, beta) = '
+    '${identical(selectAlpha, selectBeta)} (expected false).',
+  );
+  print(
+    'Step 5: identical(alpha, alpha) = '
+    '${identical(selectAlpha, selectAlpha)} (expected true).',
+  );
 
   // Sample IOSSystemContextMenuItemData lists used in the menu cards. We
   // keep these local-final so the AST can fold them deterministically.
   final List<IOSSystemContextMenuItemData> menuListAlpha =
       <IOSSystemContextMenuItemData>[
-    IOSSystemContextMenuItemDataSelectAll(),
-    IOSSystemContextMenuItemDataCut(),
-    IOSSystemContextMenuItemDataCopy(),
-    IOSSystemContextMenuItemDataPaste(),
-  ];
+        IOSSystemContextMenuItemDataSelectAll(),
+        IOSSystemContextMenuItemDataCut(),
+        IOSSystemContextMenuItemDataCopy(),
+        IOSSystemContextMenuItemDataPaste(),
+      ];
   final List<IOSSystemContextMenuItemData> menuListBeta =
       <IOSSystemContextMenuItemData>[
-    IOSSystemContextMenuItemDataSelectAll(),
-    IOSSystemContextMenuItemDataPaste(),
-  ];
+        IOSSystemContextMenuItemDataSelectAll(),
+        IOSSystemContextMenuItemDataPaste(),
+      ];
   final List<IOSSystemContextMenuItemData> menuListGamma =
       <IOSSystemContextMenuItemData>[
-    IOSSystemContextMenuItemDataCopy(),
-    IOSSystemContextMenuItemDataSelectAll(),
-  ];
+        IOSSystemContextMenuItemDataCopy(),
+        IOSSystemContextMenuItemDataSelectAll(),
+      ];
 
-  print('Step 6: assembled three sample menu lists with sizes '
-      '${menuListAlpha.length}, ${menuListBeta.length}, '
-      '${menuListGamma.length}.');
+  print(
+    'Step 6: assembled three sample menu lists with sizes '
+    '${menuListAlpha.length}, ${menuListBeta.length}, '
+    '${menuListGamma.length}.',
+  );
   print('Step 7: building the title banner with palette swatches.');
 
   // -------------------------------------------------------------------------
@@ -900,8 +891,11 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('02', 'Sealed taxonomy of IOSSystemContextMenuItemData',
-          accent: cLapisCapital),
+      _sectionHeader(
+        '02',
+        'Sealed taxonomy of IOSSystemContextMenuItemData',
+        accent: cLapisCapital,
+      ),
       _proseBlock(
         'IOSSystemContextMenuItemData is a sealed class. Its set of '
         'subtypes is closed at compile time: Cut, Copy, Paste, SelectAll, '
@@ -925,8 +919,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: <Widget>[
-            _treeNode('sealed IOSSystemContextMenuItemData',
-                cLarkspurDeep, highlight: true),
+            _treeNode(
+              'sealed IOSSystemContextMenuItemData',
+              cLarkspurDeep,
+              highlight: true,
+            ),
             Container(
               width: 2,
               height: 14,
@@ -976,8 +973,11 @@ dynamic build(BuildContext context) {
   final Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('03', 'Anatomy of SelectAll: const, no fields, identity',
-          accent: cLarkspurViolet),
+      _sectionHeader(
+        '03',
+        'Anatomy of SelectAll: const, no fields, identity',
+        accent: cLarkspurViolet,
+      ),
       _proseBlock(
         'IOSSystemContextMenuItemDataSelectAll is the simplest possible '
         'leaf. It exposes a no-arg const constructor and declares no '
@@ -1000,7 +1000,10 @@ dynamic build(BuildContext context) {
             _kvRow('Type', 'IOSSystemContextMenuItemDataSelectAll'),
             _kvRow('Library', 'package:flutter/services.dart'),
             _kvRow('Sealed parent', 'IOSSystemContextMenuItemData'),
-            _kvRow('Constructor', 'const IOSSystemContextMenuItemDataSelectAll()'),
+            _kvRow(
+              'Constructor',
+              'const IOSSystemContextMenuItemDataSelectAll()',
+            ),
             _kvRow('Fields', '(none)'),
             _kvRow('Methods', '(inherited only)'),
             _kvRow('Equality', 'identity (default)'),
@@ -1011,12 +1014,18 @@ dynamic build(BuildContext context) {
             _kvRow('Identity (alpha)', '${selectAlpha.runtimeType}'),
             _kvRow('Identity (beta)', '${selectBeta.runtimeType}'),
             _kvRow('Identity (gamma)', '${selectGamma.runtimeType}'),
-            _kvRow('Hash bucket (alpha)',
-                '0x${(selectAlpha.hashCode & 0xFFFF).toRadixString(16)}'),
-            _kvRow('Hash bucket (beta)',
-                '0x${(selectBeta.hashCode & 0xFFFF).toRadixString(16)}'),
-            _kvRow('Hash bucket (gamma)',
-                '0x${(selectGamma.hashCode & 0xFFFF).toRadixString(16)}'),
+            _kvRow(
+              'Hash bucket (alpha)',
+              '0x${(selectAlpha.hashCode & 0xFFFF).toRadixString(16)}',
+            ),
+            _kvRow(
+              'Hash bucket (beta)',
+              '0x${(selectBeta.hashCode & 0xFFFF).toRadixString(16)}',
+            ),
+            _kvRow(
+              'Hash bucket (gamma)',
+              '0x${(selectGamma.hashCode & 0xFFFF).toRadixString(16)}',
+            ),
           ],
         ),
       ),
@@ -1058,9 +1067,16 @@ dynamic build(BuildContext context) {
       _instanceCard('Alpha (canonical)', selectAlpha, cLarkspurViolet),
       _instanceCard('Beta (paired with Cut/Copy)', selectBeta, cCinnabarRubric),
       _instanceCard('Gamma (full edit menu)', selectGamma, cGoldStylus),
-      _instanceCard('Delta (long-press in editable)', selectDelta, cVerdigrisSeal),
-      _instanceCard('Epsilon (long-press in read-only)',
-          selectEpsilon, cLapisCapital),
+      _instanceCard(
+        'Delta (long-press in editable)',
+        selectDelta,
+        cVerdigrisSeal,
+      ),
+      _instanceCard(
+        'Epsilon (long-press in read-only)',
+        selectEpsilon,
+        cLapisCapital,
+      ),
       _instanceCard('Zeta (snapshot test)', selectZeta, cSageMargin),
       _instanceCard('Eta (clipboard QA harness)', selectEta, cSepiaWarmth),
       _instanceCard('Theta (RTL locale check)', selectTheta, cLarkspurDeep),
@@ -1074,37 +1090,37 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Pattern 1: const at the call-site (recommended)',
         'const items = <IOSSystemContextMenuItemData>[\n'
-        '  IOSSystemContextMenuItemDataSelectAll(),\n'
-        '  IOSSystemContextMenuItemDataCopy(),\n'
-        '];',
+            '  IOSSystemContextMenuItemDataSelectAll(),\n'
+            '  IOSSystemContextMenuItemDataCopy(),\n'
+            '];',
         accent: cVerdigrisSeal,
       ),
       _codeCard(
         'Pattern 2: non-const inside a builder',
         'List<IOSSystemContextMenuItemData> buildMenu() {\n'
-        '  return <IOSSystemContextMenuItemData>[\n'
-        '    IOSSystemContextMenuItemDataSelectAll(),\n'
-        '    IOSSystemContextMenuItemDataPaste(),\n'
-        '  ];\n'
-        '}',
+            '  return <IOSSystemContextMenuItemData>[\n'
+            '    IOSSystemContextMenuItemDataSelectAll(),\n'
+            '    IOSSystemContextMenuItemDataPaste(),\n'
+            '  ];\n'
+            '}',
         accent: cGoldStylus,
       ),
       _codeCard(
         'Pattern 3: factory wrapper for future-proofing',
         'IOSSystemContextMenuItemDataSelectAll makeSelectAll() {\n'
-        '  return IOSSystemContextMenuItemDataSelectAll();\n'
-        '}\n\n'
-        '// future Flutter versions may add an optional title;\n'
-        '// the wrapper isolates the change-site.',
+            '  return IOSSystemContextMenuItemDataSelectAll();\n'
+            '}\n\n'
+            '// future Flutter versions may add an optional title;\n'
+            '// the wrapper isolates the change-site.',
         accent: cLarkspurViolet,
       ),
       _codeCard(
         'Pattern 4: late-init for a controller-driven menu',
         'late final IOSSystemContextMenuItemDataSelectAll _selectAll;\n'
-        'void initState() {\n'
-        '  super.initState();\n'
-        '  _selectAll = IOSSystemContextMenuItemDataSelectAll();\n'
-        '}',
+            'void initState() {\n'
+            '  super.initState();\n'
+            '  _selectAll = IOSSystemContextMenuItemDataSelectAll();\n'
+            '}',
         accent: cCinnabarRubric,
       ),
     ],
@@ -1118,8 +1134,11 @@ dynamic build(BuildContext context) {
   final Widget section5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('05', 'List composition: wiring SelectAll into a SystemContextMenu',
-          accent: cVerdigrisSeal),
+      _sectionHeader(
+        '05',
+        'List composition: wiring SelectAll into a SystemContextMenu',
+        accent: cVerdigrisSeal,
+      ),
       _proseBlock(
         'A SystemContextMenu accepts a List<IOSSystemContextMenuItemData>. '
         'SelectAll is one entry among the eight sealed leaves. The order '
@@ -1136,38 +1155,38 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Composition A: empty editable field',
         '<IOSSystemContextMenuItemData>[\n'
-        '  IOSSystemContextMenuItemDataSelectAll(),\n'
-        '  IOSSystemContextMenuItemDataPaste(),\n'
-        ']',
+            '  IOSSystemContextMenuItemDataSelectAll(),\n'
+            '  IOSSystemContextMenuItemDataPaste(),\n'
+            ']',
         accent: cLarkspurViolet,
       ),
       _codeCard(
         'Composition B: editable with text and selection',
         '<IOSSystemContextMenuItemData>[\n'
-        '  IOSSystemContextMenuItemDataCut(),\n'
-        '  IOSSystemContextMenuItemDataCopy(),\n'
-        '  IOSSystemContextMenuItemDataPaste(),\n'
-        '  IOSSystemContextMenuItemDataSelectAll(),\n'
-        ']',
+            '  IOSSystemContextMenuItemDataCut(),\n'
+            '  IOSSystemContextMenuItemDataCopy(),\n'
+            '  IOSSystemContextMenuItemDataPaste(),\n'
+            '  IOSSystemContextMenuItemDataSelectAll(),\n'
+            ']',
         accent: cGoldStylus,
       ),
       _codeCard(
         'Composition C: read-only with selection',
         '<IOSSystemContextMenuItemData>[\n'
-        '  IOSSystemContextMenuItemDataCopy(),\n'
-        '  IOSSystemContextMenuItemDataSelectAll(),\n'
-        '  IOSSystemContextMenuItemDataLookUp(),\n'
-        ']',
+            '  IOSSystemContextMenuItemDataCopy(),\n'
+            '  IOSSystemContextMenuItemDataSelectAll(),\n'
+            '  IOSSystemContextMenuItemDataLookUp(),\n'
+            ']',
         accent: cVerdigrisSeal,
       ),
       _codeCard(
         'Composition D: search context (no Cut)',
         '<IOSSystemContextMenuItemData>[\n'
-        '  IOSSystemContextMenuItemDataCopy(),\n'
-        '  IOSSystemContextMenuItemDataSelectAll(),\n'
-        '  IOSSystemContextMenuItemDataSearchWeb(),\n'
-        '  IOSSystemContextMenuItemDataShare(),\n'
-        ']',
+            '  IOSSystemContextMenuItemDataCopy(),\n'
+            '  IOSSystemContextMenuItemDataSelectAll(),\n'
+            '  IOSSystemContextMenuItemDataSearchWeb(),\n'
+            '  IOSSystemContextMenuItemDataShare(),\n'
+            ']',
         accent: cLapisCapital,
       ),
       const SizedBox(height: 8),
@@ -1189,8 +1208,10 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Sample list dump (constructed at build time):',
-                style: _subtitleStyle(size: 13)),
+            Text(
+              'Sample list dump (constructed at build time):',
+              style: _subtitleStyle(size: 13),
+            ),
             const SizedBox(height: 6),
             _kvRow('menuListAlpha.length', '${menuListAlpha.length}'),
             _kvRow('menuListAlpha[0]', '${menuListAlpha[0].runtimeType}'),
@@ -1219,8 +1240,7 @@ dynamic build(BuildContext context) {
     summary: 'Editable text field with text, no selection',
     accent: cLarkspurViolet,
     rows: <Widget>[
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Paste', cVerdigrisSeal, 'V'),
     ],
   );
@@ -1243,8 +1263,7 @@ dynamic build(BuildContext context) {
       _menuRow('Cut', cCinnabarRubric, 'X'),
       _menuRow('Copy', cGoldStylus, 'C'),
       _menuRow('Paste', cVerdigrisSeal, 'V'),
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
     ],
   );
 
@@ -1254,8 +1273,7 @@ dynamic build(BuildContext context) {
     accent: cLapisCapital,
     rows: <Widget>[
       _menuRow('Copy', cGoldStylus, 'C'),
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Look Up', cLapisCapital, 'L'),
     ],
   );
@@ -1266,8 +1284,7 @@ dynamic build(BuildContext context) {
     accent: cSageMargin,
     rows: <Widget>[
       _menuRow('Copy', cGoldStylus, 'C'),
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Search Web', cSageMargin, 'W'),
       _menuRow('Share', cSepiaWarmth, 'S'),
     ],
@@ -1303,8 +1320,7 @@ dynamic build(BuildContext context) {
       _menuRow('Cut', cCinnabarRubric, 'X'),
       _menuRow('Copy', cGoldStylus, 'C'),
       _menuRow('Paste', cVerdigrisSeal, 'V'),
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Look Up', cLapisCapital, 'L'),
       _menuRow('Share', cSepiaWarmth, 'S'),
     ],
@@ -1315,8 +1331,7 @@ dynamic build(BuildContext context) {
     summary: 'RTL locale (Arabic); item order mirrored by UIKit',
     accent: cLarkspurMist,
     rows: <Widget>[
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Paste', cVerdigrisSeal, 'V'),
       _menuRow('Copy', cGoldStylus, 'C'),
       _menuRow('Cut', cCinnabarRubric, 'X'),
@@ -1328,8 +1343,7 @@ dynamic build(BuildContext context) {
     summary: 'iOS 16 LiveText capture; SelectAll first',
     accent: cVerdigrisSeal,
     rows: <Widget>[
-      _menuRow('Select All', cLarkspurViolet, 'A',
-          isSelectAll: true),
+      _menuRow('Select All', cLarkspurViolet, 'A', isSelectAll: true),
       _menuRow('Copy', cGoldStylus, 'C'),
       _menuRow('Look Up', cLapisCapital, 'L'),
       _menuRow('Live Text', cSageMargin, 'T'),
@@ -1339,8 +1353,11 @@ dynamic build(BuildContext context) {
   final Widget section6 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('06', 'Mocked iOS context-menu rendering (10 scenarios)',
-          accent: cCinnabarRubric),
+      _sectionHeader(
+        '06',
+        'Mocked iOS context-menu rendering (10 scenarios)',
+        accent: cCinnabarRubric,
+      ),
       _proseBlock(
         'Each card below is a small floating panel imitating the way '
         'UIEditMenuInteraction draws an iOS edit menu. The "focus" badge '
@@ -1374,8 +1391,11 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('07', 'Sibling comparison grid: payload schemas',
-          accent: cSageMargin),
+      _sectionHeader(
+        '07',
+        'Sibling comparison grid: payload schemas',
+        accent: cSageMargin,
+      ),
       _proseBlock(
         'Each sealed sibling carries a different payload. SelectAll, Cut, '
         'Copy, Paste, and LiveText are pure markers. LookUp ships a '
@@ -1392,30 +1412,55 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: <Widget>[
-            _siblingRow('Cut', '(none)',
-                'Marker leaf; UIKit fires cut(_:) on responder.',
-                cCinnabarRubric),
-            _siblingRow('Copy', '(none)',
-                'Marker leaf; UIKit fires copy(_:) on responder.',
-                cGoldStylus),
-            _siblingRow('Paste', '(none)',
-                'Marker leaf; UIKit fires paste(_:) when clipboard non-empty.',
-                cVerdigrisSeal),
-            _siblingRow('SelectAll', '(none)',
-                'Marker leaf; UIKit fires selectAll(_:) on responder.',
-                cLarkspurViolet, highlight: true),
-            _siblingRow('LookUp', 'String text',
-                'Carries the substring iOS should look up in the dictionary.',
-                cLapisCapital),
-            _siblingRow('SearchWeb', 'String query',
-                'Carries the query iOS forwards to the system search engine.',
-                cSageMargin),
-            _siblingRow('Share', 'Object payload',
-                'Carries a shareable payload; UIKit opens the Share sheet.',
-                cSepiaWarmth),
-            _siblingRow('LiveText', '(none)',
-                'Marker leaf; iOS 16+ live-text capture from a camera frame.',
-                cLarkspurMist),
+            _siblingRow(
+              'Cut',
+              '(none)',
+              'Marker leaf; UIKit fires cut(_:) on responder.',
+              cCinnabarRubric,
+            ),
+            _siblingRow(
+              'Copy',
+              '(none)',
+              'Marker leaf; UIKit fires copy(_:) on responder.',
+              cGoldStylus,
+            ),
+            _siblingRow(
+              'Paste',
+              '(none)',
+              'Marker leaf; UIKit fires paste(_:) when clipboard non-empty.',
+              cVerdigrisSeal,
+            ),
+            _siblingRow(
+              'SelectAll',
+              '(none)',
+              'Marker leaf; UIKit fires selectAll(_:) on responder.',
+              cLarkspurViolet,
+              highlight: true,
+            ),
+            _siblingRow(
+              'LookUp',
+              'String text',
+              'Carries the substring iOS should look up in the dictionary.',
+              cLapisCapital,
+            ),
+            _siblingRow(
+              'SearchWeb',
+              'String query',
+              'Carries the query iOS forwards to the system search engine.',
+              cSageMargin,
+            ),
+            _siblingRow(
+              'Share',
+              'Object payload',
+              'Carries a shareable payload; UIKit opens the Share sheet.',
+              cSepiaWarmth,
+            ),
+            _siblingRow(
+              'LiveText',
+              '(none)',
+              'Marker leaf; iOS 16+ live-text capture from a camera frame.',
+              cLarkspurMist,
+            ),
           ],
         ),
       ),
@@ -1443,43 +1488,46 @@ dynamic build(BuildContext context) {
   final Widget section8 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('08', 'Platform-channel notes: how SelectAll reaches UIKit',
-          accent: cLapisCapital),
+      _sectionHeader(
+        '08',
+        'Platform-channel notes: how SelectAll reaches UIKit',
+        accent: cLapisCapital,
+      ),
       _pipelineHop(
         1,
         'Widget tree authors mount SystemContextMenu',
         'Your Dart code declares the menu inline with a TextField overlay '
-        'or hands it to a custom selection controller.',
+            'or hands it to a custom selection controller.',
         cLarkspurViolet,
       ),
       _pipelineHop(
         2,
         'SystemContextMenu collects IOSSystemContextMenuItemData entries',
         'SelectAll is one entry; the framework validates that the list is '
-        'non-empty and that the items are sealed leaves.',
+            'non-empty and that the items are sealed leaves.',
         cGoldStylus,
       ),
       _pipelineHop(
         3,
         'SystemContextMenuController.show() crosses the platform channel',
         'A method-channel call goes out on the flutter/platform channel '
-        'with the encoded item list. SelectAll appears as the tag '
-        '"selectAll" with no payload fields.',
+            'with the encoded item list. SelectAll appears as the tag '
+            '"selectAll" with no payload fields.',
         cVerdigrisSeal,
       ),
       _pipelineHop(
         4,
         'UIKit UIEditMenuInteraction renders the menu',
         'iOS picks up the call inside the Flutter engine\'s plugin layer '
-        'and forwards it to UIEditMenuInteraction with the matching '
-        'standard responder selector.',
+            'and forwards it to UIEditMenuInteraction with the matching '
+            'standard responder selector.',
         cLapisCapital,
       ),
       _pipelineHop(
         5,
         'User taps Select All and UIKit fires selectAll(_:)',
         'The standard responder chain delivers the action to whichever '
-        'first responder claims canPerformAction(\\#selector(selectAll:)).',
+            'first responder claims canPerformAction(\\#selector(selectAll:)).',
         cCinnabarRubric,
       ),
       _proseBlock(
@@ -1498,30 +1546,30 @@ dynamic build(BuildContext context) {
       _codeCard(
         'Approximate channel payload (single SelectAll entry)',
         '{\n'
-        '  "method": "ContextMenu.showSystemContextMenu",\n'
-        '  "args": {\n'
-        '    "anchor": { "x": 120, "y": 240, "w": 80, "h": 24 },\n'
-        '    "items": [\n'
-        '      { "type": "selectAll" }\n'
-        '    ]\n'
-        '  }\n'
-        '}',
+            '  "method": "ContextMenu.showSystemContextMenu",\n'
+            '  "args": {\n'
+            '    "anchor": { "x": 120, "y": 240, "w": 80, "h": 24 },\n'
+            '    "items": [\n'
+            '      { "type": "selectAll" }\n'
+            '    ]\n'
+            '  }\n'
+            '}',
         accent: cVerdigrisSeal,
       ),
       _codeCard(
         'Approximate channel payload (full edit menu)',
         '{\n'
-        '  "method": "ContextMenu.showSystemContextMenu",\n'
-        '  "args": {\n'
-        '    "anchor": { "x": 100, "y": 220, "w": 96, "h": 24 },\n'
-        '    "items": [\n'
-        '      { "type": "cut" },\n'
-        '      { "type": "copy" },\n'
-        '      { "type": "paste" },\n'
-        '      { "type": "selectAll" }\n'
-        '    ]\n'
-        '  }\n'
-        '}',
+            '  "method": "ContextMenu.showSystemContextMenu",\n'
+            '  "args": {\n'
+            '    "anchor": { "x": 100, "y": 220, "w": 96, "h": 24 },\n'
+            '    "items": [\n'
+            '      { "type": "cut" },\n'
+            '      { "type": "copy" },\n'
+            '      { "type": "paste" },\n'
+            '      { "type": "selectAll" }\n'
+            '    ]\n'
+            '  }\n'
+            '}',
         accent: cGoldStylus,
       ),
     ],
@@ -1547,25 +1595,25 @@ dynamic build(BuildContext context) {
       _doAvoid(
         'DO assert on runtimeType strings',
         'Snapshot tests should check "SelectAll" appears in the type name. '
-        'Stable across Flutter releases.',
+            'Stable across Flutter releases.',
         isDo: true,
       ),
       _doAvoid(
         'DO use const ctors when the leaf is built at compile time',
         'Const construction is canonicalised; the engine can short-circuit '
-        'list comparison by identity.',
+            'list comparison by identity.',
         isDo: true,
       ),
       _doAvoid(
         'DO mock SystemContextMenuController in widget tests',
         'Capture the items argument of show() and assert on its content; '
-        'do not rely on UIKit being available in the test environment.',
+            'do not rely on UIKit being available in the test environment.',
         isDo: true,
       ),
       _doAvoid(
         'DO branch tests on the runtime type for state-bearing siblings',
         'Compare payload fields only on LookUp, SearchWeb, and Share; '
-        'compare by type alone for SelectAll, Cut, Copy, Paste, LiveText.',
+            'compare by type alone for SelectAll, Cut, Copy, Paste, LiveText.',
         isDo: true,
       ),
       _doAvoid(
@@ -1576,19 +1624,19 @@ dynamic build(BuildContext context) {
       _doAvoid(
         'AVOID asserting that two SelectAll calls are ==',
         'They are not, unless both calls are const at the same site. Use '
-        'identical() if you need to confirm canonicalisation.',
+            'identical() if you need to confirm canonicalisation.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID using IOSSystemContextMenuItemDataSelectAll on Android',
         'It is iOS-only. On Android, use AdaptiveTextSelectionToolbar with '
-        'an onSelectAll callback.',
+            'an onSelectAll callback.',
         isDo: false,
       ),
       _doAvoid(
         'AVOID expecting the Select All glyph in empty fields',
         'iOS suppresses Select All when there is nothing to select; the '
-        'Dart-side leaf is still passed but the glyph is hidden.',
+            'Dart-side leaf is still passed but the glyph is hidden.',
         isDo: false,
       ),
       _proseBlock(
@@ -1610,55 +1658,87 @@ dynamic build(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       _sectionHeader('10', 'Glossary', accent: cSepiaWarmth),
-      _glossaryItem('SystemContextMenu',
-          'Flutter widget that mounts an iOS-native context menu by '
-          'forwarding a list of IOSSystemContextMenuItemData entries to '
-          'the engine.'),
-      _glossaryItem('SystemContextMenuController',
-          'Service object exposing imperative show()/hide() methods for '
-          'the iOS-native context menu.'),
-      _glossaryItem('IOSSystemContextMenuItemData',
-          'Sealed base class whose leaves describe each menu entry: Cut, '
-          'Copy, Paste, SelectAll, LookUp, SearchWeb, Share, LiveText.'),
-      _glossaryItem('IOSSystemContextMenuItemDataSelectAll',
-          'Sealed leaf that requests the Select All action. No-arg const '
-          'ctor; identity equality; iOS-only.'),
-      _glossaryItem('UIEditMenuInteraction',
-          'UIKit class that renders the iOS-native edit menu. Flutter\'s '
-          'engine talks to it on your behalf.'),
-      _glossaryItem('selectAll(_:)',
-          'Selector defined on UIResponderStandardEditActions that fires '
-          'when the user picks Select All.'),
-      _glossaryItem('Responder chain',
-          'UIKit mechanism that routes actions like selectAll(_:) up the '
-          'view hierarchy until a responder claims them.'),
-      _glossaryItem('Method channel',
-          'Asynchronous bridge between Dart and platform code. Carries '
-          'the menu item list and user selection.'),
-      _glossaryItem('Sealed type',
-          'Dart type whose set of subtypes is closed at compile time. '
-          'Enables exhaustive switch statements.'),
-      _glossaryItem('Marker object',
-          'Lightweight value whose only purpose is to declare intent; '
-          'IOSSystemContextMenuItemDataSelectAll is one such marker.'),
-      _glossaryItem('Canonical const',
-          'Property of const construction that lets two const calls with '
-          'identical arguments share a single underlying object.'),
-      _glossaryItem('Identity equality',
-          'Default Dart equality based on object reference; what '
-          'SelectAll uses absent overrides.'),
-      _glossaryItem('AdaptiveTextSelectionToolbar',
-          'Cross-platform alternative used on Android, the web, and '
-          'desktop when iOS-native menus are unavailable.'),
-      _glossaryItem('Pasteboard',
-          'iOS term for the system clipboard. Affects Paste visibility '
-          'but not SelectAll directly.'),
-      _glossaryItem('First responder',
-          'UIKit object that currently owns input focus and to which '
-          'edit-menu actions are dispatched.'),
-      _glossaryItem('Snapshot test',
-          'Test pattern that captures a stable representation of widget '
-          'output and compares it against a baseline file.'),
+      _glossaryItem(
+        'SystemContextMenu',
+        'Flutter widget that mounts an iOS-native context menu by '
+            'forwarding a list of IOSSystemContextMenuItemData entries to '
+            'the engine.',
+      ),
+      _glossaryItem(
+        'SystemContextMenuController',
+        'Service object exposing imperative show()/hide() methods for '
+            'the iOS-native context menu.',
+      ),
+      _glossaryItem(
+        'IOSSystemContextMenuItemData',
+        'Sealed base class whose leaves describe each menu entry: Cut, '
+            'Copy, Paste, SelectAll, LookUp, SearchWeb, Share, LiveText.',
+      ),
+      _glossaryItem(
+        'IOSSystemContextMenuItemDataSelectAll',
+        'Sealed leaf that requests the Select All action. No-arg const '
+            'ctor; identity equality; iOS-only.',
+      ),
+      _glossaryItem(
+        'UIEditMenuInteraction',
+        'UIKit class that renders the iOS-native edit menu. Flutter\'s '
+            'engine talks to it on your behalf.',
+      ),
+      _glossaryItem(
+        'selectAll(_:)',
+        'Selector defined on UIResponderStandardEditActions that fires '
+            'when the user picks Select All.',
+      ),
+      _glossaryItem(
+        'Responder chain',
+        'UIKit mechanism that routes actions like selectAll(_:) up the '
+            'view hierarchy until a responder claims them.',
+      ),
+      _glossaryItem(
+        'Method channel',
+        'Asynchronous bridge between Dart and platform code. Carries '
+            'the menu item list and user selection.',
+      ),
+      _glossaryItem(
+        'Sealed type',
+        'Dart type whose set of subtypes is closed at compile time. '
+            'Enables exhaustive switch statements.',
+      ),
+      _glossaryItem(
+        'Marker object',
+        'Lightweight value whose only purpose is to declare intent; '
+            'IOSSystemContextMenuItemDataSelectAll is one such marker.',
+      ),
+      _glossaryItem(
+        'Canonical const',
+        'Property of const construction that lets two const calls with '
+            'identical arguments share a single underlying object.',
+      ),
+      _glossaryItem(
+        'Identity equality',
+        'Default Dart equality based on object reference; what '
+            'SelectAll uses absent overrides.',
+      ),
+      _glossaryItem(
+        'AdaptiveTextSelectionToolbar',
+        'Cross-platform alternative used on Android, the web, and '
+            'desktop when iOS-native menus are unavailable.',
+      ),
+      _glossaryItem(
+        'Pasteboard',
+        'iOS term for the system clipboard. Affects Paste visibility '
+            'but not SelectAll directly.',
+      ),
+      _glossaryItem(
+        'First responder',
+        'UIKit object that currently owns input focus and to which '
+            'edit-menu actions are dispatched.',
+      ),
+      _glossaryItem(
+        'Snapshot test',
+        'Test pattern that captures a stable representation of widget '
+            'output and compares it against a baseline file.',
+      ),
     ],
   );
 
@@ -1696,26 +1776,20 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 10),
-        _bulletList(
-          <String>[
-            'Sealed leaf of IOSSystemContextMenuItemData; iOS-only.',
-            'No-arg const ctor; no fields; identity equality.',
-            'Mapped on the platform channel to UIKit selectAll(_:).',
-            'iOS suppresses the glyph when there is no text to select.',
-            'Wired into SystemContextMenu / SystemContextMenuController.',
-            'Construct as const at the call-site for canonicalisation.',
-            'Use AdaptiveTextSelectionToolbar on non-iOS platforms.',
-            'Snapshot tests should compare runtimeType strings only.',
-          ],
-          dot: cGoldLeaf,
-        ),
+        _bulletList(<String>[
+          'Sealed leaf of IOSSystemContextMenuItemData; iOS-only.',
+          'No-arg const ctor; no fields; identity equality.',
+          'Mapped on the platform channel to UIKit selectAll(_:).',
+          'iOS suppresses the glyph when there is no text to select.',
+          'Wired into SystemContextMenu / SystemContextMenuController.',
+          'Construct as const at the call-site for canonicalisation.',
+          'Use AdaptiveTextSelectionToolbar on non-iOS platforms.',
+          'Snapshot tests should compare runtimeType strings only.',
+        ], dot: cGoldLeaf),
         const SizedBox(height: 12),
         Text(
           'Tablet Larkspur almanac complete.',
-          style: TextStyle(
-            color: cLarkspurMist,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(color: cLarkspurMist, fontStyle: FontStyle.italic),
         ),
       ],
     ),
@@ -1727,8 +1801,11 @@ dynamic build(BuildContext context) {
   final Widget section12 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('12', 'Instance dump (quick reference)',
-          accent: cWaxShadow),
+      _sectionHeader(
+        '12',
+        'Instance dump (quick reference)',
+        accent: cWaxShadow,
+      ),
       _proseBlock(
         'Direct dump of the eight instances minted in section 4. Useful '
         'for comparing snapshot baselines and verifying that ctor calls '
@@ -1752,26 +1829,46 @@ dynamic build(BuildContext context) {
             _kvRow('zeta.runtimeType', '${selectZeta.runtimeType}'),
             _kvRow('eta.runtimeType', '${selectEta.runtimeType}'),
             _kvRow('theta.runtimeType', '${selectTheta.runtimeType}'),
-            _kvRow('alpha is base',
-                '${(selectAlpha as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('beta is base',
-                '${(selectBeta as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('gamma is base',
-                '${(selectGamma as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('delta is base',
-                '${(selectDelta as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('epsilon is base',
-                '${(selectEpsilon as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('zeta is base',
-                '${(selectZeta as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('eta is base',
-                '${(selectEta as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('theta is base',
-                '${(selectTheta as Object) is IOSSystemContextMenuItemData}'),
-            _kvRow('identical(alpha, beta)',
-                '${identical(selectAlpha, selectBeta)}'),
-            _kvRow('identical(alpha, alpha)',
-                '${identical(selectAlpha, selectAlpha)}'),
+            _kvRow(
+              'alpha is base',
+              '${(selectAlpha as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'beta is base',
+              '${(selectBeta as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'gamma is base',
+              '${(selectGamma as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'delta is base',
+              '${(selectDelta as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'epsilon is base',
+              '${(selectEpsilon as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'zeta is base',
+              '${(selectZeta as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'eta is base',
+              '${(selectEta as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'theta is base',
+              '${(selectTheta as Object) is IOSSystemContextMenuItemData}',
+            ),
+            _kvRow(
+              'identical(alpha, beta)',
+              '${identical(selectAlpha, selectBeta)}',
+            ),
+            _kvRow(
+              'identical(alpha, alpha)',
+              '${identical(selectAlpha, selectAlpha)}',
+            ),
           ],
         ),
       ),

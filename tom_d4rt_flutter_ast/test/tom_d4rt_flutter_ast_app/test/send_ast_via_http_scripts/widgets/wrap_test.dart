@@ -110,12 +110,7 @@ dynamic build(BuildContext context) {
   final List<Widget> startAlignedBoxes = List<Widget>.generate(11, (int index) {
     final Color tint = spectrum[index % spectrum.length];
     final double w = 56.0 + (index % 4) * 14.0;
-    return _buildLabelBox(
-      label: 'A$index',
-      tint: tint,
-      width: w,
-      height: 44.0,
-    );
+    return _buildLabelBox(label: 'A$index', tint: tint, width: w, height: 44.0);
   });
 
   final Wrap startWrap = Wrap(
@@ -133,12 +128,7 @@ dynamic build(BuildContext context) {
   final List<Widget> endAlignedBoxes = List<Widget>.generate(9, (int index) {
     final Color tint = spectrum[(index + 4) % spectrum.length];
     final double w = 60.0 + (index % 3) * 18.0;
-    return _buildLabelBox(
-      label: 'E$index',
-      tint: tint,
-      width: w,
-      height: 44.0,
-    );
+    return _buildLabelBox(label: 'E$index', tint: tint, width: w, height: 44.0);
   });
 
   final Wrap endWrap = Wrap(
@@ -156,12 +146,7 @@ dynamic build(BuildContext context) {
   final List<Widget> centerAlignedBoxes = List<Widget>.generate(7, (int index) {
     final Color tint = spectrum[(index + 8) % spectrum.length];
     final double w = 64.0 + (index % 5) * 10.0;
-    return _buildLabelBox(
-      label: 'C$index',
-      tint: tint,
-      width: w,
-      height: 44.0,
-    );
+    return _buildLabelBox(label: 'C$index', tint: tint, width: w, height: 44.0);
   });
 
   final Wrap centerWrap = Wrap(
@@ -558,11 +543,7 @@ dynamic build(BuildContext context) {
   final List<Widget> galleryTiles = List<Widget>.generate(12, (int index) {
     final Color tint = spectrum[(index * 5) % spectrum.length];
     final Color tint2 = spectrum[(index * 5 + 3) % spectrum.length];
-    return _buildGalleryTile(
-      index: index,
-      primary: tint,
-      secondary: tint2,
-    );
+    return _buildGalleryTile(index: index, primary: tint, secondary: tint2);
   });
 
   final Wrap galleryWrap = Wrap(
@@ -788,7 +769,8 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           _buildIntroCard(
             title: 'Wrap fundamentals',
-            body: 'Wrap lays out children sequentially in the main axis and '
+            body:
+                'Wrap lays out children sequentially in the main axis and '
                 'starts a new run when the next child does not fit. It is the '
                 'natural choice for chip clusters, tag editors, flowing '
                 'galleries, badge grids, and any UI where layout density '
@@ -1044,8 +1026,7 @@ dynamic build(BuildContext context) {
           _buildSectionCard(
             number: '12',
             title: 'Clip.none (default)',
-            subtitle:
-                'Children may paint outside Wrap bounds; lowest cost.',
+            subtitle: 'Children may paint outside Wrap bounds; lowest cost.',
             child: clipNoneWrap,
             surface: cardSurface,
             border: borderSoft,
@@ -1132,8 +1113,7 @@ dynamic build(BuildContext context) {
           _buildSectionCard(
             number: '20',
             title: 'Tag editor',
-            subtitle:
-                'Editable tags with delete affordance plus an add tile.',
+            subtitle: 'Editable tags with delete affordance plus an add tile.',
             child: tagEditorWrap,
             surface: cardSurfaceLight,
             border: borderSoft,
@@ -1173,7 +1153,8 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 22.0),
           _buildFooterNote(
-            text: 'End of Wrap gallery — '
+            text:
+                'End of Wrap gallery — '
                 '${spectrum.length} spectrum colors, '
                 '${programmingTags.length} programming tags, '
                 '${moodTags.length} mood tags, '
@@ -1213,10 +1194,7 @@ Widget _buildLabelBox({
         ],
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.85),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.85), width: 1.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: tint.withValues(alpha: 0.25),
@@ -1243,10 +1221,7 @@ Widget _buildChip({required String label, required Color tint}) {
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.55),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.55), width: 1.0),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1258,10 +1233,7 @@ Widget _buildChip({required String label, required Color tint}) {
             color: tint,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: tint.withValues(alpha: 0.6),
-                blurRadius: 6.0,
-              ),
+              BoxShadow(color: tint.withValues(alpha: 0.6), blurRadius: 6.0),
             ],
           ),
         ),
@@ -1336,10 +1308,7 @@ Widget _buildGalleryTile({
         ],
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: primary.withValues(alpha: 0.85),
-        width: 1.2,
-      ),
+      border: Border.all(color: primary.withValues(alpha: 0.85), width: 1.2),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: primary.withValues(alpha: 0.28),
@@ -1389,19 +1358,12 @@ Widget _buildBadge({required String label, required Color tint}) {
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(6.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.6),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.6), width: 1.0),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(
-          Icons.verified_outlined,
-          color: tint,
-          size: 12.0,
-        ),
+        Icon(Icons.verified_outlined, color: tint, size: 12.0),
         const SizedBox(width: 6.0),
         Text(
           label.toUpperCase(),
@@ -1440,10 +1402,7 @@ Widget _buildEditableTag({required String label, required Color tint}) {
     decoration: BoxDecoration(
       color: tint.withValues(alpha: 0.16),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.55),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.55), width: 1.0),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1465,11 +1424,7 @@ Widget _buildEditableTag({required String label, required Color tint}) {
             color: tint.withValues(alpha: 0.35),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.close,
-            color: _darken(tint, 0.45),
-            size: 12.0,
-          ),
+          child: Icon(Icons.close, color: _darken(tint, 0.45), size: 12.0),
         ),
       ],
     ),
@@ -1511,10 +1466,7 @@ Widget _buildSwatch({required Color color, required String code}) {
     decoration: BoxDecoration(
       color: const Color(0xFF111827),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: const Color(0xFF334155),
-        width: 1.0,
-      ),
+      border: Border.all(color: const Color(0xFF334155), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1559,10 +1511,7 @@ Widget _buildTimelineNode({
         decoration: BoxDecoration(
           color: tint.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(6.0),
-          border: Border.all(
-            color: tint.withValues(alpha: 0.6),
-            width: 1.0,
-          ),
+          border: Border.all(color: tint.withValues(alpha: 0.6), width: 1.0),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1570,10 +1519,7 @@ Widget _buildTimelineNode({
             Container(
               width: 6.0,
               height: 6.0,
-              decoration: BoxDecoration(
-                color: tint,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6.0),
             Text(
@@ -1677,12 +1623,15 @@ Widget _buildSectionCard({
   required Color border,
   bool inverted = false,
 }) {
-  final Color titleColor =
-      inverted ? const Color(0xFF0F172A) : const Color(0xFFE2E8F0);
-  final Color subtitleColor =
-      inverted ? const Color(0xFF334155) : const Color(0xFF94A3B8);
-  final Color numberColor =
-      inverted ? const Color(0xFF1E40AF) : const Color(0xFF38BDF8);
+  final Color titleColor = inverted
+      ? const Color(0xFF0F172A)
+      : const Color(0xFFE2E8F0);
+  final Color subtitleColor = inverted
+      ? const Color(0xFF334155)
+      : const Color(0xFF94A3B8);
+  final Color numberColor = inverted
+      ? const Color(0xFF1E40AF)
+      : const Color(0xFF38BDF8);
   return Container(
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
@@ -1696,8 +1645,10 @@ Widget _buildSectionCard({
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: numberColor.withValues(alpha: 0.16),
                 borderRadius: BorderRadius.circular(6.0),
@@ -1734,11 +1685,7 @@ Widget _buildSectionCard({
         const SizedBox(height: 6.0),
         Text(
           subtitle,
-          style: TextStyle(
-            color: subtitleColor,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: subtitleColor, fontSize: 11.5, height: 1.4),
         ),
         const SizedBox(height: 12.0),
         Container(
@@ -1777,10 +1724,7 @@ Widget _buildSectionHeader({
         ],
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.55),
-        width: 1.0,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.55), width: 1.0),
     ),
     child: Row(
       children: <Widget>[
@@ -1840,10 +1784,7 @@ Widget _buildBigSectionHeader({
         ],
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.7),
-        width: 1.2,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.7), width: 1.2),
     ),
     child: Row(
       children: <Widget>[
@@ -1889,10 +1830,7 @@ Widget _buildLabeledTile({
     decoration: BoxDecoration(
       color: const Color(0xFF0F172A).withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.55),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.55), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1902,10 +1840,7 @@ Widget _buildLabeledTile({
             Container(
               width: 6.0,
               height: 6.0,
-              decoration: BoxDecoration(
-                color: tint,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
             ),
             const SizedBox(width: 6.0),
             Text(
@@ -2013,10 +1948,7 @@ Widget _buildFooterNote({
     decoration: BoxDecoration(
       color: ground.withValues(alpha: 0.55),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: tint.withValues(alpha: 0.45),
-        width: 1.0,
-      ),
+      border: Border.all(color: tint.withValues(alpha: 0.45), width: 1.0),
     ),
     child: Row(
       children: <Widget>[
@@ -2040,12 +1972,18 @@ Widget _buildFooterNote({
 
 Color _darken(Color color, double amount) {
   final double clamped = amount.clamp(0.0, 1.0);
-  final int r =
-      ((color.r * 255.0).round() * (1.0 - clamped)).round().clamp(0, 255);
-  final int g =
-      ((color.g * 255.0).round() * (1.0 - clamped)).round().clamp(0, 255);
-  final int b =
-      ((color.b * 255.0).round() * (1.0 - clamped)).round().clamp(0, 255);
+  final int r = ((color.r * 255.0).round() * (1.0 - clamped)).round().clamp(
+    0,
+    255,
+  );
+  final int g = ((color.g * 255.0).round() * (1.0 - clamped)).round().clamp(
+    0,
+    255,
+  );
+  final int b = ((color.b * 255.0).round() * (1.0 - clamped)).round().clamp(
+    0,
+    255,
+  );
   return Color.fromARGB((color.a * 255.0).round(), r, g, b);
 }
 

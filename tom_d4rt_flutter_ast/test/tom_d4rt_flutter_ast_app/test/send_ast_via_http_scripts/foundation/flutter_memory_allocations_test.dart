@@ -73,11 +73,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _kHeroDeep,
-          _kHeroBright,
-          _kAccentRose.withValues(alpha: 0.9),
-        ],
+        colors: [_kHeroDeep, _kHeroBright, _kAccentRose.withValues(alpha: 0.9)],
         stops: [0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -108,11 +104,7 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(16.0),
               ),
-              child: Icon(
-                Icons.memory,
-                size: 44.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.memory, size: 44.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -131,10 +123,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'Singleton lifecycle registry for Disposable objects',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white70,
-                    ),
+                    style: TextStyle(fontSize: 14.0, color: Colors.white70),
                   ),
                 ],
               ),
@@ -170,11 +159,7 @@ dynamic build(BuildContext context) {
           'used by Flutter to surface object-creation and disposal events. '
           'Listeners receive ObjectEvent instances describing the lifecycle '
           'transition; the registry itself never retains the objects.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.white,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.45),
         ),
       ],
     ),
@@ -194,10 +179,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          _kSurfaceMuted,
-        ],
+        colors: [Colors.white, _kSurfaceMuted],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -264,10 +246,7 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.all(14.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      _kHeroDeep,
-                      _kHeroBright,
-                    ],
+                    colors: [_kHeroDeep, _kHeroBright],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -372,10 +351,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.grey.shade900,
-          Colors.black,
-        ],
+        colors: [Colors.grey.shade900, Colors.black],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -446,16 +422,15 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.teal.shade50,
-          Colors.cyan.shade50,
-          Colors.blue.shade50,
-        ],
+        colors: [Colors.teal.shade50, Colors.cyan.shade50, Colors.blue.shade50],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: _kAccentTeal.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: _kAccentTeal.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: _kAccentTeal.withValues(alpha: 0.18),
@@ -550,26 +525,86 @@ dynamic build(BuildContext context) {
 
   print('=== Section 5: Allocation timeline strip ===');
   final List<_MockAllocEvent> mockEvents = <_MockAllocEvent>[
-    _MockAllocEvent(t: 0.02, kind: _AllocKind.created, label: 'AnimController#a1'),
-    _MockAllocEvent(t: 0.07, kind: _AllocKind.created, label: 'TextEditingController#t1'),
-    _MockAllocEvent(t: 0.12, kind: _AllocKind.created, label: 'ScrollController#s1'),
-    _MockAllocEvent(t: 0.18, kind: _AllocKind.disposed, label: 'AnimController#a1'),
-    _MockAllocEvent(t: 0.24, kind: _AllocKind.created, label: 'ChangeNotifier#c1'),
-    _MockAllocEvent(t: 0.31, kind: _AllocKind.created, label: 'AnimController#a2'),
-    _MockAllocEvent(t: 0.38, kind: _AllocKind.disposed, label: 'TextEditingController#t1'),
+    _MockAllocEvent(
+      t: 0.02,
+      kind: _AllocKind.created,
+      label: 'AnimController#a1',
+    ),
+    _MockAllocEvent(
+      t: 0.07,
+      kind: _AllocKind.created,
+      label: 'TextEditingController#t1',
+    ),
+    _MockAllocEvent(
+      t: 0.12,
+      kind: _AllocKind.created,
+      label: 'ScrollController#s1',
+    ),
+    _MockAllocEvent(
+      t: 0.18,
+      kind: _AllocKind.disposed,
+      label: 'AnimController#a1',
+    ),
+    _MockAllocEvent(
+      t: 0.24,
+      kind: _AllocKind.created,
+      label: 'ChangeNotifier#c1',
+    ),
+    _MockAllocEvent(
+      t: 0.31,
+      kind: _AllocKind.created,
+      label: 'AnimController#a2',
+    ),
+    _MockAllocEvent(
+      t: 0.38,
+      kind: _AllocKind.disposed,
+      label: 'TextEditingController#t1',
+    ),
     _MockAllocEvent(t: 0.46, kind: _AllocKind.created, label: 'FocusNode#f1'),
-    _MockAllocEvent(t: 0.53, kind: _AllocKind.disposed, label: 'ScrollController#s1'),
-    _MockAllocEvent(t: 0.60, kind: _AllocKind.created, label: 'AnimController#a3'),
-    _MockAllocEvent(t: 0.66, kind: _AllocKind.disposed, label: 'AnimController#a2'),
-    _MockAllocEvent(t: 0.72, kind: _AllocKind.disposed, label: 'ChangeNotifier#c1'),
-    _MockAllocEvent(t: 0.78, kind: _AllocKind.created, label: 'TabController#tab1'),
+    _MockAllocEvent(
+      t: 0.53,
+      kind: _AllocKind.disposed,
+      label: 'ScrollController#s1',
+    ),
+    _MockAllocEvent(
+      t: 0.60,
+      kind: _AllocKind.created,
+      label: 'AnimController#a3',
+    ),
+    _MockAllocEvent(
+      t: 0.66,
+      kind: _AllocKind.disposed,
+      label: 'AnimController#a2',
+    ),
+    _MockAllocEvent(
+      t: 0.72,
+      kind: _AllocKind.disposed,
+      label: 'ChangeNotifier#c1',
+    ),
+    _MockAllocEvent(
+      t: 0.78,
+      kind: _AllocKind.created,
+      label: 'TabController#tab1',
+    ),
     _MockAllocEvent(t: 0.84, kind: _AllocKind.disposed, label: 'FocusNode#f1'),
-    _MockAllocEvent(t: 0.91, kind: _AllocKind.disposed, label: 'AnimController#a3'),
-    _MockAllocEvent(t: 0.97, kind: _AllocKind.disposed, label: 'TabController#tab1'),
+    _MockAllocEvent(
+      t: 0.91,
+      kind: _AllocKind.disposed,
+      label: 'AnimController#a3',
+    ),
+    _MockAllocEvent(
+      t: 0.97,
+      kind: _AllocKind.disposed,
+      label: 'TabController#tab1',
+    ),
   ];
 
-  final int mockCreated = mockEvents.where((e) => e.kind == _AllocKind.created).length;
-  final int mockDisposed = mockEvents.where((e) => e.kind == _AllocKind.disposed).length;
+  final int mockCreated = mockEvents
+      .where((e) => e.kind == _AllocKind.created)
+      .length;
+  final int mockDisposed = mockEvents
+      .where((e) => e.kind == _AllocKind.disposed)
+      .length;
   final int mockBalance = mockCreated - mockDisposed;
 
   final Widget timelineStrip = Container(
@@ -577,10 +612,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.deepPurple.shade50,
-          Colors.purple.shade50,
-        ],
+        colors: [Colors.deepPurple.shade50, Colors.purple.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -597,7 +629,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('5. Allocation timeline', Colors.deepPurple.shade700),
+        _buildSectionTitle(
+          '5. Allocation timeline',
+          Colors.deepPurple.shade700,
+        ),
         SizedBox(height: 8.0),
         Text(
           'Mock sequence of ObjectCreated / ObjectDisposed events. The '
@@ -762,10 +797,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.blueGrey.shade50,
-          Colors.indigo.shade50,
-        ],
+        colors: [Colors.blueGrey.shade50, Colors.indigo.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -835,10 +867,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.green.shade50,
-          Colors.lightGreen.shade50,
-        ],
+        colors: [Colors.green.shade50, Colors.lightGreen.shade50],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -930,10 +959,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.red.shade50,
-          Colors.pink.shade50,
-        ],
+        colors: [Colors.red.shade50, Colors.pink.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1008,11 +1034,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.black,
-          Colors.grey.shade900,
-          Colors.indigo.shade900,
-        ],
+        colors: [Colors.black, Colors.grey.shade900, Colors.indigo.shade900],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1145,10 +1167,7 @@ Widget _buildAnatomyNode({
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.22),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.22)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1230,10 +1249,7 @@ Widget _buildFlowStep({
             width: 24.0,
             height: 24.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             child: Text(
               '$index',
               style: TextStyle(
@@ -1414,10 +1430,7 @@ Widget _buildLegendChip(String label, Color color) {
         Container(
           width: 8.0,
           height: 8.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 6.0),
         Text(
@@ -1548,11 +1561,7 @@ class _MockAllocEvent {
   final _AllocKind kind;
   final String label;
 
-  _MockAllocEvent({
-    required this.t,
-    required this.kind,
-    required this.label,
-  });
+  _MockAllocEvent({required this.t, required this.kind, required this.label});
 }
 
 // =============================================================================
@@ -1578,7 +1587,11 @@ class _TimelinePainter extends CustomPainter {
       ..strokeWidth = 1.0;
     for (int i = 0; i <= 10; i++) {
       final double x = padding + (size.width - padding * 2) * (i / 10.0);
-      canvas.drawLine(Offset(x, padding), Offset(x, size.height - padding), gridPaint);
+      canvas.drawLine(
+        Offset(x, padding),
+        Offset(x, size.height - padding),
+        gridPaint,
+      );
     }
 
     // Baseline.
@@ -1617,18 +1630,10 @@ class _TimelinePainter extends CustomPainter {
     for (final _MockAllocEvent ev in events) {
       final double x = padding + (size.width - padding * 2) * ev.t;
       if (ev.kind == _AllocKind.created) {
-        canvas.drawLine(
-          Offset(x, midY),
-          Offset(x, midY - 22.0),
-          createdPaint,
-        );
+        canvas.drawLine(Offset(x, midY), Offset(x, midY - 22.0), createdPaint);
         canvas.drawCircle(Offset(x, midY - 22.0), 3.0, createdPaint);
       } else {
-        canvas.drawLine(
-          Offset(x, midY),
-          Offset(x, midY + 22.0),
-          disposedPaint,
-        );
+        canvas.drawLine(Offset(x, midY), Offset(x, midY + 22.0), disposedPaint);
         canvas.drawCircle(Offset(x, midY + 22.0), 3.0, disposedPaint);
       }
     }
@@ -1772,10 +1777,7 @@ class _GraphPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: 44.0);
-      tp.paint(
-        canvas,
-        Offset(c.dx - tp.width / 2.0, c.dy - tp.height / 2.0),
-      );
+      tp.paint(canvas, Offset(c.dx - tp.width / 2.0, c.dy - tp.height / 2.0));
     }
   }
 

@@ -89,17 +89,11 @@ Widget _buildExplanation(String text, {Color? accent}) {
     decoration: BoxDecoration(
       color: color.withOpacity(0.06),
       borderRadius: BorderRadius.circular(10),
-      border: Border(
-        left: BorderSide(color: color, width: 4),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4)),
     ),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 13,
-        height: 1.4,
-        color: Colors.grey.shade800,
-      ),
+      style: TextStyle(fontSize: 13, height: 1.4, color: Colors.grey.shade800),
     ),
   );
 }
@@ -130,10 +124,7 @@ Widget _buildComparisonLabel(String label, Color color) {
 // ---------------------------------------------------------------------------
 // Card frame for each section.
 // ---------------------------------------------------------------------------
-Widget _wrapInCard({
-  required Widget header,
-  required Widget body,
-}) {
+Widget _wrapInCard({required Widget header, required Widget body}) {
   return Container(
     margin: const EdgeInsets.only(bottom: 18),
     decoration: BoxDecoration(
@@ -151,10 +142,7 @@ Widget _wrapInCard({
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         header,
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 6, 0, 16),
-          child: body,
-        ),
+        Padding(padding: const EdgeInsets.fromLTRB(0, 6, 0, 16), child: body),
       ],
     ),
   );
@@ -200,7 +188,11 @@ Widget _buildIntroCard() {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.lightbulb, color: Colors.amber.shade700, size: 18),
+                    Icon(
+                      Icons.lightbulb,
+                      color: Colors.amber.shade700,
+                      size: 18,
+                    ),
                     const SizedBox(width: 6),
                     const Text(
                       'Three places it lives',
@@ -213,7 +205,9 @@ Widget _buildIntroCard() {
                 ),
                 const SizedBox(height: 8),
                 _buildBullet('1. ThemeData(textButtonTheme: …) on MaterialApp'),
-                _buildBullet('2. Theme(data: parent.copyWith(textButtonTheme: …))'),
+                _buildBullet(
+                  '2. Theme(data: parent.copyWith(textButtonTheme: …))',
+                ),
                 _buildBullet('3. Per-button TextButton.styleFrom(…) overrides'),
               ],
             ),
@@ -282,14 +276,8 @@ Widget _buildAppLevelThemeCard() {
             spacing: 12,
             runSpacing: 12,
             children: [
-              TextButton(
-                onPressed: () {},
-                child: const Text('Save draft'),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text('Publish'),
-              ),
+              TextButton(onPressed: () {}, child: const Text('Save draft')),
+              TextButton(onPressed: () {}, child: const Text('Publish')),
               TextButton.icon(
                 onPressed: () {},
                 icon: const Icon(Icons.cloud_upload, size: 18),
@@ -300,10 +288,7 @@ Widget _buildAppLevelThemeCard() {
                 icon: const Icon(Icons.share, size: 18),
                 label: const Text('Share'),
               ),
-              const TextButton(
-                onPressed: null,
-                child: Text('Disabled action'),
-              ),
+              const TextButton(onPressed: null, child: Text('Disabled action')),
             ],
           ),
         ),
@@ -330,7 +315,11 @@ Widget _buildAppLevelThemeCard() {
             ),
             child: Row(
               children: [
-                Icon(Icons.tips_and_updates, color: Colors.teal.shade700, size: 22),
+                Icon(
+                  Icons.tips_and_updates,
+                  color: Colors.teal.shade700,
+                  size: 22,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -388,10 +377,7 @@ Widget _buildLocalThemeOverrideCard() {
                       spacing: 10,
                       runSpacing: 8,
                       children: [
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text('Edit'),
-                        ),
+                        TextButton(onPressed: () {}, child: const Text('Edit')),
                         TextButton(
                           onPressed: () {},
                           child: const Text('Cancel'),
@@ -413,7 +399,8 @@ Widget _buildLocalThemeOverrideCard() {
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.purple.shade600,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 22, vertical: 14,
+                            horizontal: 22,
+                            vertical: 14,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(28),
@@ -489,7 +476,8 @@ Widget _buildStyleFromShortcutCard() {
   return _wrapInCard(
     header: _buildHeaderStrip(
       title: 'TextButton.styleFrom shortcut',
-      subtitle: 'Concise builder for ButtonStyle without typing WidgetStateProperty',
+      subtitle:
+          'Concise builder for ButtonStyle without typing WidgetStateProperty',
       icon: Icons.flash_on,
       gradientColors: const [Color(0xFFEF6C00), Color(0xFFFB8C00)],
     ),
@@ -558,7 +546,8 @@ Widget _buildStyleFromShortcutCard() {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.deepOrange,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12,
+                          horizontal: 20,
+                          vertical: 12,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -571,10 +560,12 @@ Widget _buildStyleFromShortcutCard() {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.orange.shade800,
                         side: BorderSide(
-                          color: Colors.orange.shade800, width: 2,
+                          color: Colors.orange.shade800,
+                          width: 2,
                         ),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 12,
+                          horizontal: 18,
+                          vertical: 12,
                         ),
                       ),
                       child: const Text('Outlined'),
@@ -587,7 +578,8 @@ Widget _buildStyleFromShortcutCard() {
                         foregroundColor: Colors.red.shade700,
                         backgroundColor: Colors.red.shade50,
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 12,
+                          horizontal: 18,
+                          vertical: 12,
                         ),
                       ),
                     ),
@@ -633,8 +625,9 @@ Widget _buildWidgetStatePropertySection() {
                 data: Theme.of(context).copyWith(
                   textButtonTheme: TextButtonThemeData(
                     style: ButtonStyle(
-                      foregroundColor:
-                          WidgetStateProperty.resolveWith<Color>((states) {
+                      foregroundColor: WidgetStateProperty.resolveWith<Color>((
+                        states,
+                      ) {
                         if (states.contains(WidgetState.disabled)) {
                           return Colors.grey.shade400;
                         }
@@ -646,8 +639,9 @@ Widget _buildWidgetStatePropertySection() {
                         }
                         return Colors.blue.shade700;
                       }),
-                      backgroundColor:
-                          WidgetStateProperty.resolveWith<Color>((states) {
+                      backgroundColor: WidgetStateProperty.resolveWith<Color>((
+                        states,
+                      ) {
                         if (states.contains(WidgetState.disabled)) {
                           return Colors.grey.shade100;
                         }
@@ -657,7 +651,10 @@ Widget _buildWidgetStatePropertySection() {
                         return Colors.blue.shade50;
                       }),
                       padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+                        const EdgeInsets.symmetric(
+                          horizontal: 22,
+                          vertical: 14,
+                        ),
                       ),
                       shape: WidgetStateProperty.all<OutlinedBorder>(
                         RoundedRectangleBorder(
@@ -733,7 +730,11 @@ Widget _buildWidgetStatePropertySection() {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.info_outline, color: Colors.amber.shade800, size: 20),
+                Icon(
+                  Icons.info_outline,
+                  color: Colors.amber.shade800,
+                  size: 20,
+                ),
                 const SizedBox(width: 10),
                 const Expanded(
                   child: Text(
@@ -793,7 +794,8 @@ Widget _buildShapeAndPaddingShowcase() {
                       borderRadius: BorderRadius.zero,
                     ),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18, vertical: 12,
+                      horizontal: 18,
+                      vertical: 12,
                     ),
                   ),
                   _buildShapeTile(
@@ -805,7 +807,8 @@ Widget _buildShapeAndPaddingShowcase() {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 12,
+                      horizontal: 20,
+                      vertical: 12,
                     ),
                   ),
                   _buildShapeTile(
@@ -817,7 +820,8 @@ Widget _buildShapeAndPaddingShowcase() {
                       borderRadius: BorderRadius.circular(14),
                     ),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 22, vertical: 14,
+                      horizontal: 22,
+                      vertical: 14,
                     ),
                   ),
                   _buildShapeTile(
@@ -827,7 +831,8 @@ Widget _buildShapeAndPaddingShowcase() {
                     fg: Colors.deepPurple.shade800,
                     shape: const StadiumBorder(),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 14,
+                      horizontal: 24,
+                      vertical: 14,
                     ),
                   ),
                   _buildShapeTile(
@@ -840,7 +845,8 @@ Widget _buildShapeAndPaddingShowcase() {
                       side: BorderSide(color: Colors.indigo.shade400, width: 2),
                     ),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 12,
+                      horizontal: 20,
+                      vertical: 12,
                     ),
                   ),
                   _buildShapeTile(
@@ -852,7 +858,8 @@ Widget _buildShapeAndPaddingShowcase() {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 32, vertical: 20,
+                      horizontal: 32,
+                      vertical: 20,
                     ),
                   ),
                 ],
@@ -916,10 +923,7 @@ Widget _buildShapeTile({
               ),
             ),
           ),
-          child: TextButton(
-            onPressed: () {},
-            child: const Text('Action'),
-          ),
+          child: TextButton(onPressed: () {}, child: const Text('Action')),
         ),
       ],
     ),
@@ -1072,14 +1076,8 @@ Widget _buildTypographyRow({
               spacing: 10,
               runSpacing: 8,
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Primary'),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Secondary'),
-                ),
+                TextButton(onPressed: () {}, child: const Text('Primary')),
+                TextButton(onPressed: () {}, child: const Text('Secondary')),
                 TextButton.icon(
                   onPressed: () {},
                   icon: const Icon(Icons.arrow_forward, size: 16),
@@ -1136,7 +1134,8 @@ Widget _buildSideBySideComparisonCard() {
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.blueGrey.shade700,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 22, vertical: 14,
+                            horizontal: 22,
+                            vertical: 14,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4),
@@ -1163,7 +1162,8 @@ Widget _buildSideBySideComparisonCard() {
                           foregroundColor: Colors.pink.shade900,
                           backgroundColor: Colors.pink.shade50,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12,
+                            horizontal: 24,
+                            vertical: 12,
                           ),
                           shape: const StadiumBorder(),
                           textStyle: const TextStyle(
@@ -1171,7 +1171,8 @@ Widget _buildSideBySideComparisonCard() {
                             fontWeight: FontWeight.w700,
                           ),
                           side: BorderSide(
-                            color: Colors.pink.shade300, width: 1.5,
+                            color: Colors.pink.shade300,
+                            width: 1.5,
                           ),
                         ),
                       ),
@@ -1197,23 +1198,14 @@ Widget _buildSampleButtons() {
     spacing: 10,
     runSpacing: 10,
     children: [
-      TextButton(
-        onPressed: () {},
-        child: const Text('OK'),
-      ),
-      TextButton(
-        onPressed: () {},
-        child: const Text('Cancel'),
-      ),
+      TextButton(onPressed: () {}, child: const Text('OK')),
+      TextButton(onPressed: () {}, child: const Text('Cancel')),
       TextButton.icon(
         onPressed: () {},
         icon: const Icon(Icons.send, size: 18),
         label: const Text('Send'),
       ),
-      const TextButton(
-        onPressed: null,
-        child: Text('Disabled'),
-      ),
+      const TextButton(onPressed: null, child: Text('Disabled')),
     ],
   );
 }
@@ -1439,9 +1431,7 @@ dynamic build(BuildContext context) {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           textStyle: const TextStyle(fontWeight: FontWeight.w600),
         ),
       ),

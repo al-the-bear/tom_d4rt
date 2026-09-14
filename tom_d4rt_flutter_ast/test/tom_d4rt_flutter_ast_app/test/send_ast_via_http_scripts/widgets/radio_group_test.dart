@@ -230,7 +230,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         // Arrow
         Center(
-          child: Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 24.0),
+          child: Icon(
+            Icons.arrow_downward,
+            color: Colors.grey.shade400,
+            size: 24.0,
+          ),
         ),
         SizedBox(height: 12.0),
         // AFTER
@@ -246,7 +250,11 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green.shade600, size: 16.0),
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green.shade600,
+                    size: 16.0,
+                  ),
                   SizedBox(width: 6.0),
                   Text(
                     'AFTER: With RadioGroup',
@@ -325,7 +333,10 @@ dynamic build(BuildContext context) {
           children: [
             Radio<int>(value: 2),
             SizedBox(width: 4.0),
-            Text('Option B (selected)', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+            Text(
+              'Option B (selected)',
+              style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         Row(
@@ -351,7 +362,10 @@ dynamic build(BuildContext context) {
         Text('Light', style: TextStyle(fontSize: 11.0)),
         SizedBox(width: 16.0),
         Radio<String>(value: 'dark'),
-        Text('Dark', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold)),
+        Text(
+          'Dark',
+          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+        ),
         SizedBox(width: 16.0),
         Radio<String>(value: 'system'),
         Text('System', style: TextStyle(fontSize: 11.0)),
@@ -462,7 +476,7 @@ dynamic build(BuildContext context) {
           'groupValue',
           'T?',
           'The currently selected value. Radio widgets whose value '
-          'matches this will appear filled. null = no selection.',
+              'matches this will appear filled. null = no selection.',
           Colors.purple,
         ),
         SizedBox(height: 10.0),
@@ -470,7 +484,7 @@ dynamic build(BuildContext context) {
           'onChanged',
           'ValueChanged<T?>',
           'Called when a descendant Radio is tapped. Receives the new '
-          'value. Required — RadioGroup always needs a change handler.',
+              'value. Required — RadioGroup always needs a change handler.',
           Colors.blue,
         ),
         SizedBox(height: 10.0),
@@ -478,7 +492,7 @@ dynamic build(BuildContext context) {
           'child',
           'Widget',
           'The subtree that contains Radio<T> widgets. They inherit '
-          'groupValue and onChanged from this RadioGroup.',
+              'groupValue and onChanged from this RadioGroup.',
           Colors.green,
         ),
         SizedBox(height: 14.0),
@@ -544,9 +558,19 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         // Tree diagram
-        _buildTreeNode('RadioGroup<int>', 'groupValue: 2, onChanged: fn', Colors.purple, 0),
+        _buildTreeNode(
+          'RadioGroup<int>',
+          'groupValue: 2, onChanged: fn',
+          Colors.purple,
+          0,
+        ),
         _buildTreeConnector(),
-        _buildTreeNode('RadioGroupScope', 'InheritedWidget (inserted by RadioGroup)', Colors.indigo, 1),
+        _buildTreeNode(
+          'RadioGroupScope',
+          'InheritedWidget (inserted by RadioGroup)',
+          Colors.indigo,
+          1,
+        ),
         _buildTreeConnector(),
         _buildTreeNode('child: Column', 'Your layout widget', Colors.grey, 1),
         _buildTreeConnector(),
@@ -556,11 +580,26 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  _buildTreeNode('Radio(value: 1)', 'Inherits scope → unfilled', Colors.blue, 2),
+                  _buildTreeNode(
+                    'Radio(value: 1)',
+                    'Inherits scope → unfilled',
+                    Colors.blue,
+                    2,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildTreeNode('Radio(value: 2)', 'Inherits scope → FILLED', Colors.green, 2),
+                  _buildTreeNode(
+                    'Radio(value: 2)',
+                    'Inherits scope → FILLED',
+                    Colors.green,
+                    2,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildTreeNode('Radio(value: 3)', 'Inherits scope → unfilled', Colors.blue, 2),
+                  _buildTreeNode(
+                    'Radio(value: 3)',
+                    'Inherits scope → unfilled',
+                    Colors.blue,
+                    2,
+                  ),
                 ],
               ),
             ),
@@ -639,7 +678,10 @@ dynamic build(BuildContext context) {
           child: Row(
             children: [
               Radio<String>(value: 'b'),
-              Text('Inside Container (selected)', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold)),
+              Text(
+                'Inside Container (selected)',
+                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),
@@ -709,11 +751,19 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 10.0),
         // Nesting depth indicators
-        _buildDepthIndicator(0, 'Radio(value: "a")', 'Direct child of RadioGroup'),
+        _buildDepthIndicator(
+          0,
+          'Radio(value: "a")',
+          'Direct child of RadioGroup',
+        ),
         SizedBox(height: 4.0),
         _buildDepthIndicator(1, 'Radio(value: "b")', 'Inside Container'),
         SizedBox(height: 4.0),
-        _buildDepthIndicator(2, 'Radio(value: "c")', 'Inside Padding > Container'),
+        _buildDepthIndicator(
+          2,
+          'Radio(value: "c")',
+          'Inside Padding > Container',
+        ),
       ],
     ),
   );
@@ -767,7 +817,11 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green.shade600, size: 14.0),
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green.shade600,
+                    size: 14.0,
+                  ),
                   SizedBox(width: 6.0),
                   Text(
                     'Correct: Matching types',
@@ -961,7 +1015,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(6.0),
@@ -1006,7 +1063,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(6.0),
@@ -1085,7 +1145,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 8.0),
-            Text('vs', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500)),
+            Text(
+              'vs',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
             SizedBox(width: 8.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
@@ -1289,7 +1352,12 @@ Widget _buildApiProperty(
   );
 }
 
-Widget _buildTreeNode(String name, String desc, MaterialColor color, int depth) {
+Widget _buildTreeNode(
+  String name,
+  String desc,
+  MaterialColor color,
+  int depth,
+) {
   return Container(
     margin: EdgeInsets.only(left: depth * 20.0),
     padding: EdgeInsets.all(8.0),
@@ -1377,7 +1445,11 @@ Widget _buildDepthIndicator(int depth, String name, String location) {
           alignment: Alignment.center,
           child: Text(
             '$depth',
-            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(width: 8.0),
@@ -1461,7 +1533,10 @@ Widget _buildVsRow(String aspect, String radioGroup, String manual) {
                 ),
                 child: Text(
                   radioGroup,
-                  style: TextStyle(fontSize: 9.0, color: Colors.purple.shade700),
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    color: Colors.purple.shade700,
+                  ),
                 ),
               ),
             ),

@@ -9,10 +9,7 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: const _Page(),
-  );
+  return MaterialApp(debugShowCheckedModeBanner: false, home: const _Page());
 }
 
 class _Page extends StatefulWidget {

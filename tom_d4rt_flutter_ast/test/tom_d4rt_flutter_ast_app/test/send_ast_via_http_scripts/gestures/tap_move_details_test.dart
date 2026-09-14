@@ -160,11 +160,7 @@ dynamic build(BuildContext context) {
             'that already triggered onTapDown wiggles within slop tolerance, '
             'before the gesture either completes (onTapUp) or escalates to '
             'a drag (onTapCancel + drag callbacks).',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.4),
           ),
         ),
         SizedBox(height: 12.0),
@@ -192,7 +188,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'kind',
       'type': 'PointerDeviceKind (required)',
-      'desc': 'The input device that produced the move event. Required '
+      'desc':
+          'The input device that produced the move event. Required '
           'because TapMoveDetails has no sensible default for the source.',
       'icon': Icons.devices_other,
       'color': amber,
@@ -201,7 +198,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'globalPosition',
       'type': 'Offset = Offset.zero',
-      'desc': 'Pointer location in absolute screen coordinates at the moment '
+      'desc':
+          'Pointer location in absolute screen coordinates at the moment '
           'this move event was dispatched.',
       'icon': Icons.public,
       'color': teal,
@@ -210,7 +208,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'localPosition',
       'type': 'Offset? (defaults to globalPosition)',
-      'desc': 'Pointer location translated into the listener\'s local box. '
+      'desc':
+          'Pointer location translated into the listener\'s local box. '
           'When omitted the constructor copies globalPosition.',
       'icon': Icons.crop_free,
       'color': indigo,
@@ -219,7 +218,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'delta',
       'type': 'Offset = Offset.zero',
-      'desc': 'Incremental motion since the previous TapMoveDetails. '
+      'desc':
+          'Incremental motion since the previous TapMoveDetails. '
           'Accumulating deltas reproduces the path inside slop.',
       'icon': Icons.trending_up,
       'color': magenta,
@@ -237,10 +237,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.10),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -309,11 +306,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 10.0),
             Text(
               field['desc'] as String,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: slateMid,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 12.0, color: slateMid, height: 1.35),
             ),
             SizedBox(height: 10.0),
             Container(
@@ -367,7 +360,8 @@ dynamic build(BuildContext context) {
       'n': 1,
       'title': 'pointer-down',
       'sub': 'TapDownDetails',
-      'desc': 'Pointer first contacts the screen inside the recognizer\'s '
+      'desc':
+          'Pointer first contacts the screen inside the recognizer\'s '
           'hit-test region. The recognizer claims the pointer and emits '
           'onTapDown(TapDownDetails).',
       'icon': Icons.south,
@@ -377,7 +371,8 @@ dynamic build(BuildContext context) {
       'n': 2,
       'title': 'pointer-move (within slop)',
       'sub': 'TapMoveDetails #1',
-      'desc': 'Pointer wiggles by less than kTouchSlop (≈18 logical px). The '
+      'desc':
+          'Pointer wiggles by less than kTouchSlop (≈18 logical px). The '
           'recognizer still believes this is a tap and dispatches '
           'onTapMove(TapMoveDetails) — note delta is the *incremental* shift.',
       'icon': Icons.swap_horiz,
@@ -387,7 +382,8 @@ dynamic build(BuildContext context) {
       'n': 3,
       'title': 'pointer-move (within slop)',
       'sub': 'TapMoveDetails #2',
-      'desc': 'Another tiny shift. delta is the diff since #1, NOT since '
+      'desc':
+          'Another tiny shift. delta is the diff since #1, NOT since '
           'the down event. globalPosition reflects the new absolute '
           'location. Many of these may fire in succession.',
       'icon': Icons.swap_horiz,
@@ -397,7 +393,8 @@ dynamic build(BuildContext context) {
       'n': 4,
       'title': 'pointer-move (within slop)',
       'sub': 'TapMoveDetails #3',
-      'desc': 'Still inside the slop circle. The recognizer is still in '
+      'desc':
+          'Still inside the slop circle. The recognizer is still in '
           '"possible tap" state — no other recognizer has stolen the '
           'pointer in the gesture arena yet.',
       'icon': Icons.swap_horiz,
@@ -407,7 +404,8 @@ dynamic build(BuildContext context) {
       'n': 5,
       'title': 'pointer-up',
       'sub': 'TapUpDetails (HAPPY PATH)',
-      'desc': 'Pointer is released while still within slop. The recognizer '
+      'desc':
+          'Pointer is released while still within slop. The recognizer '
           'wins the arena and fires onTapUp(TapUpDetails) followed by '
           'onTap. The whole lifecycle was a successful tap.',
       'icon': Icons.north,
@@ -417,7 +415,8 @@ dynamic build(BuildContext context) {
       'n': 6,
       'title': 'OR escape slop → escalate to drag',
       'sub': 'onTapCancel + DragUpdateDetails',
-      'desc': 'If at any move the pointer moves *beyond* slop, the tap '
+      'desc':
+          'If at any move the pointer moves *beyond* slop, the tap '
           'recognizer concedes the arena. onTapCancel fires and a drag '
           'recognizer (if present) takes over with DragUpdateDetails.',
       'icon': Icons.call_split,
@@ -434,10 +433,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.10),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -483,11 +479,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 12.0),
-            Icon(
-              step['icon'] as IconData,
-              color: color,
-              size: 24.0,
-            ),
+            Icon(step['icon'] as IconData, color: color, size: 24.0),
             SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -666,7 +658,11 @@ dynamic build(BuildContext context) {
                               spacing: 6.0,
                               runSpacing: 4.0,
                               children: [
-                                _kvChip('global', '${m.globalPosition}', accent),
+                                _kvChip(
+                                  'global',
+                                  '${m.globalPosition}',
+                                  accent,
+                                ),
                                 _kvChip('Δ', '${m.delta}', accent),
                               ],
                             ),
@@ -829,13 +825,7 @@ dynamic build(BuildContext context) {
       'PointerDeviceKind',
       'PointerDeviceKind?',
     ],
-    [
-      'globalPosition',
-      'Offset',
-      'Offset',
-      'Offset',
-      'Offset',
-    ],
+    ['globalPosition', 'Offset', 'Offset', 'Offset', 'Offset'],
     [
       'localPosition',
       'Offset (default = global)',
@@ -850,20 +840,8 @@ dynamic build(BuildContext context) {
       '—',
       'Offset (incremental)',
     ],
-    [
-      'primaryDelta',
-      '—',
-      '—',
-      '—',
-      'double? (axis)',
-    ],
-    [
-      'sourceTimeStamp',
-      '—',
-      '—',
-      '—',
-      'Duration?',
-    ],
+    ['primaryDelta', '—', '—', '—', 'double? (axis)'],
+    ['sourceTimeStamp', '—', '—', '—', 'Duration?'],
     [
       'when fires',
       'pointer-down',
@@ -871,13 +849,7 @@ dynamic build(BuildContext context) {
       'pointer-up',
       'pointer-move post-arena',
     ],
-    [
-      'callback',
-      'onTapDown',
-      'onTapMove',
-      'onTapUp',
-      'onPan/HorizDragUpdate',
-    ],
+    ['callback', 'onTapDown', 'onTapMove', 'onTapUp', 'onPan/HorizDragUpdate'],
     [
       'recognizer',
       'TapGestureRecognizer',
@@ -922,12 +894,7 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(
-      children: [
-        comparisonHeader,
-        ...comparisonBody,
-      ],
-    ),
+    child: Column(children: [comparisonHeader, ...comparisonBody]),
   );
   print('Comparison table built');
 
@@ -993,10 +960,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.12),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.12)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1103,35 +1067,40 @@ dynamic build(BuildContext context) {
       'name': 'touch',
       'icon': Icons.touch_app,
       'color': teal,
-      'desc': 'Finger on a touchscreen — slop ≈ 18 px so micro-wiggles still '
+      'desc':
+          'Finger on a touchscreen — slop ≈ 18 px so micro-wiggles still '
           'count as a tap.',
     },
     {
       'name': 'mouse',
       'icon': Icons.mouse,
       'color': indigo,
-      'desc': 'Precise mouse cursor — slop ≈ 1 px so even tiny mouse jitter '
+      'desc':
+          'Precise mouse cursor — slop ≈ 1 px so even tiny mouse jitter '
           'will escalate to drag.',
     },
     {
       'name': 'stylus',
       'icon': Icons.edit,
       'color': amber,
-      'desc': 'Active pen — also precise; slop is small. Very rarely emits '
+      'desc':
+          'Active pen — also precise; slop is small. Very rarely emits '
           'TapMoveDetails before escaping.',
     },
     {
       'name': 'trackpad',
       'icon': Icons.swipe,
       'color': coral,
-      'desc': 'Trackpad gestures may translate as touch or scroll. Some '
+      'desc':
+          'Trackpad gestures may translate as touch or scroll. Some '
           'platforms route tap-clicks through this kind.',
     },
     {
       'name': 'invertedStylus',
       'icon': Icons.swap_vert,
       'color': Color(0xFF8B5CF6),
-      'desc': 'Pen flipped to eraser end — rare but supported by '
+      'desc':
+          'Pen flipped to eraser end — rare but supported by '
           'TapMoveDetails.kind.',
     },
     {
@@ -1152,10 +1121,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.12),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.12)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1211,11 +1177,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               k['desc'] as String,
-              style: TextStyle(
-                fontSize: 11.5,
-                color: slateMid,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 11.5, color: slateMid, height: 1.35),
             ),
           ],
         ),
@@ -1270,22 +1232,31 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         _code('GestureDetector(', tealSoft),
         _code('  onTapDown: (TapDownDetails d) {', slateSoft),
-        _code('    print(\'down @ \${d.globalPosition}\');',
-            Color(0xFFFCD34D)),
+        _code('    print(\'down @ \${d.globalPosition}\');', Color(0xFFFCD34D)),
         _code('  },', slateSoft),
         _code('  onTapMove: (TapMoveDetails m) {', slateSoft),
-        _code('    // m.kind           — required PointerDeviceKind',
-            Color(0xFF94A3B8)),
-        _code('    // m.globalPosition — current screen-space pos',
-            Color(0xFF94A3B8)),
-        _code('    // m.localPosition  — relative to listener',
-            Color(0xFF94A3B8)),
+        _code(
+          '    // m.kind           — required PointerDeviceKind',
+          Color(0xFF94A3B8),
+        ),
+        _code(
+          '    // m.globalPosition — current screen-space pos',
+          Color(0xFF94A3B8),
+        ),
+        _code(
+          '    // m.localPosition  — relative to listener',
+          Color(0xFF94A3B8),
+        ),
         _code('    // m.delta          — incremental shift', Color(0xFF94A3B8)),
         _code('    accumulator += m.delta;', Color(0xFF93C5FD)),
-        _code('    if (accumulator.distance > kTouchSlop) {',
-            Color(0xFF93C5FD)),
-        _code('      // recognizer will call onTapCancel for us',
-            Color(0xFF94A3B8)),
+        _code(
+          '    if (accumulator.distance > kTouchSlop) {',
+          Color(0xFF93C5FD),
+        ),
+        _code(
+          '      // recognizer will call onTapCancel for us',
+          Color(0xFF94A3B8),
+        ),
         _code('    }', slateSoft),
         _code('  },', slateSoft),
         _code('  onTapUp:    (TapUpDetails u) { /* commit */ },', slateSoft),
@@ -1305,7 +1276,8 @@ dynamic build(BuildContext context) {
   final whyBullets = [
     {
       'title': 'Highlight-on-press feedback',
-      'desc': 'Material InkWell uses pre-drag motion to drift the splash '
+      'desc':
+          'Material InkWell uses pre-drag motion to drift the splash '
           'centre with the finger before the tap fires. Without TapMoveDetails '
           'the splash would freeze the moment onTapDown returned.',
       'icon': Icons.water_drop,
@@ -1313,7 +1285,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Pressure-aware tap targets',
-      'desc': 'Custom widgets can show a "considering" preview that follows '
+      'desc':
+          'Custom widgets can show a "considering" preview that follows '
           'the pointer while the user decides. Once they release inside slop '
           'it commits; if they drift outside it cancels.',
       'icon': Icons.compass_calibration,
@@ -1321,14 +1294,16 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Sub-pixel debouncing',
-      'desc': 'Reading delta lets you ignore micro-jitter from imprecise '
+      'desc':
+          'Reading delta lets you ignore micro-jitter from imprecise '
           'sensors without paying for a full DragUpdateDetails pipeline.',
       'icon': Icons.tune,
       'color': indigo,
     },
     {
       'title': 'Hand-off to drag recognizers',
-      'desc': 'When a tap recognizer sees it lose the arena (because the '
+      'desc':
+          'When a tap recognizer sees it lose the arena (because the '
           'pointer escaped slop), the same incremental delta stream becomes '
           'the first DragUpdateDetails — TapMoveDetails is the bridge.',
       'icon': Icons.alt_route,
@@ -1336,7 +1311,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hover-friendly UI on touch',
-      'desc': 'Touch screens have no hover; TapMoveDetails simulates a '
+      'desc':
+          'Touch screens have no hover; TapMoveDetails simulates a '
           '"holding-and-aiming" hover state: while the finger is down, '
           'where exactly is it pointing right now?',
       'icon': Icons.center_focus_strong,
@@ -1428,7 +1404,8 @@ dynamic build(BuildContext context) {
   final footguns = [
     {
       'title': 'kind is required',
-      'desc': 'Unlike TapDownDetails (where kind is named & nullable), '
+      'desc':
+          'Unlike TapDownDetails (where kind is named & nullable), '
           'TapMoveDetails demands a non-null PointerDeviceKind in the '
           'constructor. Forgetting it is a compile-time error.',
       'icon': Icons.error_outline,
@@ -1436,7 +1413,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'delta is incremental, not cumulative',
-      'desc': 'Each TapMoveDetails.delta is the shift since the *previous* '
+      'desc':
+          'Each TapMoveDetails.delta is the shift since the *previous* '
           'TapMoveDetails. To get total displacement from the down event, '
           'you must accumulate the deltas yourself.',
       'icon': Icons.repeat,
@@ -1444,7 +1422,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onTapMove is a recent API',
-      'desc': 'The hook landed in Flutter only with the introduction of '
+      'desc':
+          'The hook landed in Flutter only with the introduction of '
           'TapMoveDetails — older codebases will not have it. Wrap usage '
           'with feature checks if you must support old SDKs.',
       'icon': Icons.history,
@@ -1452,7 +1431,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Mouse + onTapMove is rare',
-      'desc': 'Because mouse slop is 1 px, the sequence onTapDown → '
+      'desc':
+          'Because mouse slop is 1 px, the sequence onTapDown → '
           'onTapMove → onTapUp almost never happens for a mouse — the '
           'gesture escalates to drag immediately on any motion.',
       'icon': Icons.mouse,
@@ -1460,7 +1440,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Slop is reset per-down, not per-move',
-      'desc': 'Cumulative slop is measured from the original pointer-down '
+      'desc':
+          'Cumulative slop is measured from the original pointer-down '
           'position, NOT from the most recent onTapMove. Don\'t reset your '
           'accumulator on every callback or you\'ll never detect drag.',
       'icon': Icons.refresh,
@@ -1468,7 +1449,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'localPosition defaults to globalPosition',
-      'desc': 'The constructor copies globalPosition into localPosition '
+      'desc':
+          'The constructor copies globalPosition into localPosition '
           'when localPosition is null. If you really need local coordinates '
           'you must pass them explicitly.',
       'icon': Icons.crop_free,
@@ -1671,21 +1653,28 @@ dynamic build(BuildContext context) {
           Wrap(alignment: WrapAlignment.center, children: anatomyCards),
           SizedBox(height: 28.0),
 
-          _sectionHeader('2. Lifecycle: Down → Move (×n) → Up / drag escalate',
-              slateDeep, magenta),
+          _sectionHeader(
+            '2. Lifecycle: Down → Move (×n) → Up / drag escalate',
+            slateDeep,
+            magenta,
+          ),
           ...lifecycleCards,
           SizedBox(height: 28.0),
 
-          _sectionHeader('3. Slop tolerance — kTouchSlop / kPrecisePointerHitSlop',
-              slateDeep, indigo),
+          _sectionHeader(
+            '3. Slop tolerance — kTouchSlop / kPrecisePointerHitSlop',
+            slateDeep,
+            indigo,
+          ),
           slopCard,
           SizedBox(height: 28.0),
 
           _sectionHeader(
-              '4. Comparison: TapDownDetails vs TapMoveDetails vs '
-              'TapUpDetails vs DragUpdateDetails',
-              slateDeep,
-              slateMid),
+            '4. Comparison: TapDownDetails vs TapMoveDetails vs '
+            'TapUpDetails vs DragUpdateDetails',
+            slateDeep,
+            slateMid,
+          ),
           comparisonTable,
           SizedBox(height: 28.0),
 
@@ -1697,16 +1686,20 @@ dynamic build(BuildContext context) {
           Wrap(alignment: WrapAlignment.center, children: kindCards),
           SizedBox(height: 28.0),
 
-          _sectionHeader('7. onTapMove callback signature', slateDeep,
-              tealDeep),
+          _sectionHeader(
+            '7. onTapMove callback signature',
+            slateDeep,
+            tealDeep,
+          ),
           codeBlock,
           SizedBox(height: 28.0),
 
           _sectionHeader(
-              '8. Why TapMoveDetails exists — pre-drag micro-movement '
-              'reporting',
-              slateDeep,
-              magenta),
+            '8. Why TapMoveDetails exists — pre-drag micro-movement '
+            'reporting',
+            slateDeep,
+            magenta,
+          ),
           Wrap(alignment: WrapAlignment.center, children: whyCards),
           SizedBox(height: 28.0),
 
@@ -1734,9 +1727,7 @@ Widget _sectionHeader(String text, Color textColor, Color accent) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: accent, width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 5.0)),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),

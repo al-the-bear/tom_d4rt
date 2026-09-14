@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum _LabelStyle {
-  plain,
-  currency,
-  percent,
-  duration,
-  temperature,
-  compact,
-}
+enum _LabelStyle { plain, currency, percent, duration, temperature, compact }
 
 class _RangeScenario {
   const _RangeScenario({
@@ -46,10 +39,7 @@ class _TraceEntry {
 }
 
 class _LabelGuideRow {
-  const _LabelGuideRow({
-    required this.title,
-    required this.text,
-  });
+  const _LabelGuideRow({required this.title, required this.text});
 
   final String title;
   final String text;
@@ -309,8 +299,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               Text(
                 subtitle,
@@ -416,19 +408,31 @@ dynamic build(BuildContext context) {
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         avatar: const Icon(Icons.label, color: Colors.white),
-                        label: Text('start ${labels.start}', style: const TextStyle(color: Colors.white)),
+                        label: Text(
+                          'start ${labels.start}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
-                        avatar: const Icon(Icons.label_important, color: Colors.white),
-                        label: Text('end ${labels.end}', style: const TextStyle(color: Colors.white)),
+                        avatar: const Icon(
+                          Icons.label_important,
+                          color: Colors.white,
+                        ),
+                        label: Text(
+                          'end ${labels.end}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                       Chip(
                         side: BorderSide.none,
                         backgroundColor: Colors.white.withValues(alpha: 0.16),
                         avatar: const Icon(Icons.palette, color: Colors.white),
-                        label: Text('style ${styleName(labelStyle)}', style: const TextStyle(color: Colors.white)),
+                        label: Text(
+                          'style ${styleName(labelStyle)}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
@@ -474,23 +478,29 @@ dynamic build(BuildContext context) {
                           setState(() {
                             labelStyle = style;
                           });
-                          addConsole('Label style switched to ${styleName(style)}.');
+                          addConsole(
+                            'Label style switched to ${styleName(style)}.',
+                          );
                         },
                       );
                     }).toList(),
                   ),
                   const SizedBox(height: 10),
-                  Text(styleDescription(labelStyle),
-                      style: TextStyle(
-                        color: accent,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  Text(
+                    styleDescription(labelStyle),
+                    style: TextStyle(
+                      color: accent,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 10),
-                  Text('RangeSlider with RangeLabels',
-                      style: TextStyle(
-                        color: Colors.blueGrey.shade700,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  Text(
+                    'RangeSlider with RangeLabels',
+                    style: TextStyle(
+                      color: Colors.blueGrey.shade700,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   RangeSlider(
                     min: min,
                     max: max,
@@ -525,7 +535,8 @@ dynamic build(BuildContext context) {
                       FilterChip(
                         label: const Text('Segments'),
                         selected: showSegments,
-                        onSelected: (bool v) => setState(() => showSegments = v),
+                        onSelected: (bool v) =>
+                            setState(() => showSegments = v),
                       ),
                       FilterChip(
                         label: const Text('Comparison table'),
@@ -536,7 +547,8 @@ dynamic build(BuildContext context) {
                       FilterChip(
                         label: const Text('Second slider'),
                         selected: showSecondSlider,
-                        onSelected: (bool v) => setState(() => showSecondSlider = v),
+                        onSelected: (bool v) =>
+                            setState(() => showSecondSlider = v),
                       ),
                       FilterChip(
                         label: const Text('Midpoint highlight'),
@@ -592,7 +604,9 @@ dynamic build(BuildContext context) {
                             values = const RangeValues(20, 80);
                             labelStyle = _LabelStyle.plain;
                           });
-                          addConsole('Composer reset to baseline plain labels.');
+                          addConsole(
+                            'Composer reset to baseline plain labels.',
+                          );
                         },
                         icon: const Icon(Icons.restart_alt),
                         label: const Text('Reset Baseline'),
@@ -605,7 +619,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Current Label Metrics',
-              subtitle: 'Computed values and text output produced by RangeLabels.',
+              subtitle:
+                  'Computed values and text output produced by RangeLabels.',
               icon: Icons.analytics,
             ),
             const SizedBox(height: 10),
@@ -682,7 +697,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Label Visualization Canvas',
-              subtitle: 'Visual track with start/end labels, midpoint markers, and optional segment grid.',
+              subtitle:
+                  'Visual track with start/end labels, midpoint markers, and optional segment grid.',
               icon: Icons.insights,
             ),
             const SizedBox(height: 10),
@@ -712,12 +728,15 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Scenario Gallery',
-              subtitle: 'Load curated domain use-cases for RangeLabels formatting.',
+              subtitle:
+                  'Load curated domain use-cases for RangeLabels formatting.',
               icon: Icons.view_carousel,
             ),
             const SizedBox(height: 10),
             Column(
-              children: scenarios.asMap().entries.map((MapEntry<int, _RangeScenario> entry) {
+              children: scenarios.asMap().entries.map((
+                MapEntry<int, _RangeScenario> entry,
+              ) {
                 final int idx = entry.key;
                 final _RangeScenario item = entry.value;
                 final bool selected = idx == selectedScenario;
@@ -824,7 +843,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             sectionTitle(
               title: 'Cross-Style Comparison Table',
-              subtitle: 'Same numeric values rendered with every RangeLabels formatting style.',
+              subtitle:
+                  'Same numeric values rendered with every RangeLabels formatting style.',
               icon: Icons.table_chart,
             ),
             const SizedBox(height: 10),
@@ -832,7 +852,9 @@ dynamic build(BuildContext context) {
               duration: const Duration(milliseconds: 250),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: showComparisonTable ? Colors.white : Colors.blueGrey.shade50,
+                color: showComparisonTable
+                    ? Colors.white
+                    : Colors.blueGrey.shade50,
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(color: Colors.blueGrey.shade100),
               ),
@@ -847,7 +869,9 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: color.withValues(alpha: 0.08),
-                            border: Border.all(color: color.withValues(alpha: 0.30)),
+                            border: Border.all(
+                              color: color.withValues(alpha: 0.30),
+                            ),
                           ),
                           child: Row(
                             children: <Widget>[
@@ -874,7 +898,9 @@ dynamic build(BuildContext context) {
                                     const SizedBox(height: 3),
                                     Text(
                                       'start: ${row.start}   end: ${row.end}',
-                                      style: const TextStyle(fontWeight: FontWeight.w600),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -897,7 +923,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Timeline Replay',
-              subtitle: 'Chronological snapshots of generated RangeLabels output.',
+              subtitle:
+                  'Chronological snapshots of generated RangeLabels output.',
               icon: Icons.timeline,
             ),
             const SizedBox(height: 10),
@@ -919,7 +946,9 @@ dynamic build(BuildContext context) {
                       ),
                     )
                   : Column(
-                      children: timeline.asMap().entries.map((MapEntry<int, _TraceEntry> entry) {
+                      children: timeline.asMap().entries.map((
+                        MapEntry<int, _TraceEntry> entry,
+                      ) {
                         final _TraceEntry row = entry.value;
                         return Container(
                           margin: const EdgeInsets.only(bottom: 8),
@@ -927,7 +956,9 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: row.color.withValues(alpha: 0.08),
-                            border: Border.all(color: row.color.withValues(alpha: 0.30)),
+                            border: Border.all(
+                              color: row.color.withValues(alpha: 0.30),
+                            ),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -944,7 +975,12 @@ dynamic build(BuildContext context) {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(row.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+                                    Text(
+                                      row.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
                                     const SizedBox(height: 3),
                                     Text(
                                       row.detail,
@@ -981,7 +1017,9 @@ dynamic build(BuildContext context) {
                     width: double.infinity,
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.blueGrey.shade50)),
+                      border: Border(
+                        bottom: BorderSide(color: Colors.blueGrey.shade50),
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1011,7 +1049,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Reference Snippet',
-              subtitle: 'Typical pattern for producing and passing dynamic RangeLabels.',
+              subtitle:
+                  'Typical pattern for producing and passing dynamic RangeLabels.',
               icon: Icons.code,
             ),
             const SizedBox(height: 10),
@@ -1044,7 +1083,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Diagnostics Console',
-              subtitle: 'Interaction log for scenario and label-state transitions.',
+              subtitle:
+                  'Interaction log for scenario and label-state transitions.',
               icon: Icons.terminal,
             ),
             const SizedBox(height: 10),
@@ -1279,14 +1319,18 @@ class _RangeLabelsPainter extends CustomPainter {
     )..layout(maxWidth: size.width - 16);
     caption.paint(canvas, const Offset(8, 8));
 
-    final Rect lower = Rect.fromLTWH(14, size.height * 0.12, size.width - 28, 90);
+    final Rect lower = Rect.fromLTWH(
+      14,
+      size.height * 0.12,
+      size.width - 28,
+      90,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(lower, const Radius.circular(10)),
       Paint()..color = accent.withValues(alpha: 0.10),
     );
 
-    final String startPos =
-        '${(startP * 100).toStringAsFixed(1)}% of track';
+    final String startPos = '${(startP * 100).toStringAsFixed(1)}% of track';
     final String endPos = '${(endP * 100).toStringAsFixed(1)}% of track';
     final String span =
         'Span ${(values.end - values.start).toStringAsFixed(2)} across ${(max - min).toStringAsFixed(1)} total';

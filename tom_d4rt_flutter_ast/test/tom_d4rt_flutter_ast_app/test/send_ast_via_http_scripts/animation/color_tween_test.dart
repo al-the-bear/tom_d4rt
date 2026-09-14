@@ -25,7 +25,11 @@ dynamic build(BuildContext context) {
   final fundamentalCards = <Widget>[];
   final tweenData = [
     {'name': 'Basic (Red→Blue)', 'tween': basicTween, 'icon': Icons.palette},
-    {'name': 'Warm (Orange→Yellow)', 'tween': warmTween, 'icon': Icons.wb_sunny},
+    {
+      'name': 'Warm (Orange→Yellow)',
+      'tween': warmTween,
+      'icon': Icons.wb_sunny,
+    },
     {'name': 'Cool (Cyan→Purple)', 'tween': coolTween, 'icon': Icons.ac_unit},
     {'name': 'Earth (Brown→Green)', 'tween': earthTween, 'icon': Icons.park},
   ];
@@ -76,9 +80,7 @@ dynamic build(BuildContext context) {
                       fontSize: 14.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      shadows: [
-                        Shadow(color: Colors.black54, blurRadius: 4.0),
-                      ],
+                      shadows: [Shadow(color: Colors.black54, blurRadius: 4.0)],
                     ),
                   ),
                 ],
@@ -110,7 +112,10 @@ dynamic build(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Begin:', style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+                      Text(
+                        'Begin:',
+                        style: TextStyle(color: Colors.white70, fontSize: 11.0),
+                      ),
                       Container(
                         width: 50.0,
                         height: 16.0,
@@ -126,7 +131,10 @@ dynamic build(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('End:', style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+                      Text(
+                        'End:',
+                        style: TextStyle(color: Colors.white70, fontSize: 11.0),
+                      ),
                       Container(
                         width: 50.0,
                         height: 16.0,
@@ -260,14 +268,47 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Multiple Tween Comparison ===');
 
   final comparisonTweens = [
-    {'name': 'Primary', 'tween': ColorTween(begin: Colors.red, end: Colors.blue)},
-    {'name': 'Secondary', 'tween': ColorTween(begin: Colors.green, end: Colors.amber)},
-    {'name': 'Accent', 'tween': ColorTween(begin: Colors.purple, end: Colors.pink)},
-    {'name': 'Neutral', 'tween': ColorTween(begin: Colors.grey.shade800, end: Colors.grey.shade200)},
-    {'name': 'Sunset', 'tween': ColorTween(begin: Colors.deepOrange, end: Colors.yellow)},
-    {'name': 'Ocean', 'tween': ColorTween(begin: Colors.blue.shade900, end: Colors.cyan.shade200)},
-    {'name': 'Forest', 'tween': ColorTween(begin: Colors.green.shade900, end: Colors.lightGreen.shade300)},
-    {'name': 'Neon', 'tween': ColorTween(begin: Colors.pinkAccent, end: Colors.cyanAccent)},
+    {
+      'name': 'Primary',
+      'tween': ColorTween(begin: Colors.red, end: Colors.blue),
+    },
+    {
+      'name': 'Secondary',
+      'tween': ColorTween(begin: Colors.green, end: Colors.amber),
+    },
+    {
+      'name': 'Accent',
+      'tween': ColorTween(begin: Colors.purple, end: Colors.pink),
+    },
+    {
+      'name': 'Neutral',
+      'tween': ColorTween(
+        begin: Colors.grey.shade800,
+        end: Colors.grey.shade200,
+      ),
+    },
+    {
+      'name': 'Sunset',
+      'tween': ColorTween(begin: Colors.deepOrange, end: Colors.yellow),
+    },
+    {
+      'name': 'Ocean',
+      'tween': ColorTween(
+        begin: Colors.blue.shade900,
+        end: Colors.cyan.shade200,
+      ),
+    },
+    {
+      'name': 'Forest',
+      'tween': ColorTween(
+        begin: Colors.green.shade900,
+        end: Colors.lightGreen.shade300,
+      ),
+    },
+    {
+      'name': 'Neon',
+      'tween': ColorTween(begin: Colors.pinkAccent, end: Colors.cyanAccent),
+    },
   ];
 
   final comparisonGrid = <Widget>[];
@@ -284,9 +325,7 @@ dynamic build(BuildContext context) {
         Expanded(
           child: Container(
             height: 40.0,
-            decoration: BoxDecoration(
-              color: tween.lerp(t),
-            ),
+            decoration: BoxDecoration(color: tween.lerp(t)),
           ),
         ),
       );
@@ -329,7 +368,11 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(width: 6.0),
-                  Icon(Icons.arrow_forward, size: 12.0, color: Colors.grey.shade600),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 12.0,
+                    color: Colors.grey.shade600,
+                  ),
                   SizedBox(width: 6.0),
                   Container(
                     width: 12.0,
@@ -454,10 +497,7 @@ dynamic build(BuildContext context) {
         Text(
           'ColorTween treats null colors as fully transparent. This enables smooth\n'
           'fade-in and fade-out animations without explicit alpha management.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20.0),
         // Null begin demo
@@ -517,9 +557,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                ),
+                decoration: BoxDecoration(color: Colors.grey.shade200),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: nullEndSamples,
@@ -569,7 +607,9 @@ dynamic build(BuildContext context) {
     final lerpResult = transformTween.lerp(t)!;
     final transformResult = transformTween.transform(t)!;
     final areEqual = lerpResult == transformResult;
-    print('t=$t: lerp=$lerpResult, transform=$transformResult, equal=$areEqual');
+    print(
+      't=$t: lerp=$lerpResult, transform=$transformResult, equal=$areEqual',
+    );
 
     transformComparison.add(
       Container(
@@ -603,7 +643,13 @@ dynamic build(BuildContext context) {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('lerp()', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                      Text(
+                        'lerp()',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
                       Container(
                         width: 80.0,
@@ -619,7 +665,13 @@ dynamic build(BuildContext context) {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('transform()', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                      Text(
+                        'transform()',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                       SizedBox(height: 4.0),
                       Container(
                         width: 80.0,
@@ -675,10 +727,7 @@ dynamic build(BuildContext context) {
         Text(
           'The transform() method internally calls lerp(). For ColorTween,\n'
           'they produce identical results. transform() exists for Animatable interface compatibility.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 16.0),
         ...transformComparison,
@@ -694,14 +743,19 @@ dynamic build(BuildContext context) {
 
   // Use Case 1: Status Indicator
   final statusColors = [
-    ColorTween(begin: Colors.grey, end: Colors.green),  // inactive → success
-    ColorTween(begin: Colors.grey, end: Colors.red),    // inactive → error
-    ColorTween(begin: Colors.grey, end: Colors.amber),  // inactive → warning
-    ColorTween(begin: Colors.grey, end: Colors.blue),   // inactive → info
+    ColorTween(begin: Colors.grey, end: Colors.green), // inactive → success
+    ColorTween(begin: Colors.grey, end: Colors.red), // inactive → error
+    ColorTween(begin: Colors.grey, end: Colors.amber), // inactive → warning
+    ColorTween(begin: Colors.grey, end: Colors.blue), // inactive → info
   ];
 
   final statusLabels = ['Success', 'Error', 'Warning', 'Info'];
-  final statusIcons = [Icons.check_circle, Icons.error, Icons.warning, Icons.info];
+  final statusIcons = [
+    Icons.check_circle,
+    Icons.error,
+    Icons.warning,
+    Icons.info,
+  ];
 
   final statusIndicators = <Widget>[];
   for (var i = 0; i < statusColors.length; i++) {
@@ -729,10 +783,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               statusLabels[i],
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: tween.end,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: tween.end),
             ),
             SizedBox(height: 8.0),
             Container(
@@ -774,10 +825,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 '$temp°C',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: tempColor,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: tempColor),
               ),
             ),
             SizedBox(width: 8.0),
@@ -802,7 +850,9 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(width: 8.0),
             Icon(
-              temp < 10 ? Icons.ac_unit : (temp > 25 ? Icons.wb_sunny : Icons.cloud),
+              temp < 10
+                  ? Icons.ac_unit
+                  : (temp > 25 ? Icons.wb_sunny : Icons.cloud),
               color: tempColor,
               size: 24.0,
             ),
@@ -821,7 +871,10 @@ dynamic build(BuildContext context) {
     {'label': 'Hover End', 't': 0.75},
     {'label': 'Pressed', 't': 1.0},
   ];
-  final buttonTween = ColorTween(begin: Colors.blue.shade400, end: Colors.blue.shade800);
+  final buttonTween = ColorTween(
+    begin: Colors.blue.shade400,
+    end: Colors.blue.shade800,
+  );
 
   final buttonStateDemo = <Widget>[];
   for (final state in buttonStates) {
@@ -963,7 +1016,8 @@ dynamic build(BuildContext context) {
     },
     {
       'method': 'lerp(double t)',
-      'description': 'Interpolates between begin and end at position t (0.0 to 1.0)',
+      'description':
+          'Interpolates between begin and end at position t (0.0 to 1.0)',
       'icon': Icons.linear_scale,
     },
     {
@@ -1112,10 +1166,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Smooth color interpolation for Flutter animations',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1141,10 +1192,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: fundamentalCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: fundamentalCards),
 
         // Section 2: Lerp Visualization
         SizedBox(height: 32.0),

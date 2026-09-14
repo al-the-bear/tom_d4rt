@@ -275,11 +275,7 @@ class _IntroCard extends StatelessWidget {
             'lists the constructors and operators that matter, then renders '
             'a small playground via CustomPaint so the meaning is visible. '
             'No animations, no I/O - just shape, colour, and geometry.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.55,
-              color: kTextMuted,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.55, color: kTextMuted),
           ),
         ],
       ),
@@ -310,10 +306,7 @@ class _SectionDivider extends StatelessWidget {
         ),
         const SizedBox(width: 10.0),
         Expanded(
-          child: Container(
-            height: 1.0,
-            color: accent.withValues(alpha: 0.18),
-          ),
+          child: Container(height: 1.0, color: accent.withValues(alpha: 0.18)),
         ),
       ],
     );
@@ -321,7 +314,11 @@ class _SectionDivider extends StatelessWidget {
 }
 
 class _Card extends StatelessWidget {
-  const _Card({required this.title, required this.subtitle, required this.child});
+  const _Card({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
 
   final String title;
   final String subtitle;
@@ -358,7 +355,11 @@ class _Card extends StatelessWidget {
           const SizedBox(height: 4.0),
           Text(
             subtitle,
-            style: const TextStyle(fontSize: 12.0, color: kTextMuted, height: 1.4),
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: kTextMuted,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 14.0),
           child,
@@ -426,7 +427,10 @@ class _RRectSection extends StatelessWidget {
               final List<String> f = facts[i];
               return Container(
                 margin: const EdgeInsets.only(bottom: 6.0),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? const Color(0xFFF7F8FC) : Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -562,13 +566,7 @@ class _RRectGridPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      tp.paint(
-        canvas,
-        Offset(
-          cell.left + 8.0,
-          cell.top + 8.0,
-        ),
-      );
+      tp.paint(canvas, Offset(cell.left + 8.0, cell.top + 8.0));
     }
   }
 
@@ -618,7 +616,8 @@ class _PaintSection extends StatelessWidget {
         const SizedBox(height: 14.0),
         _Card(
           title: 'Stroke widths',
-          subtitle: 'Eight progressively thicker strokes; same colour, same path.',
+          subtitle:
+              'Eight progressively thicker strokes; same colour, same path.',
           child: SizedBox(
             height: 160.0,
             child: CustomPaint(
@@ -642,7 +641,11 @@ class _PaintStylePainter extends CustomPainter {
     final List<String> labels = <String>['fill', 'stroke', 'stroke + fill'];
     for (int i = 0; i < 3; i++) {
       final Offset center = Offset(cellW * i + cellW / 2.0, cy);
-      final Rect rect = Rect.fromCenter(center: center, width: 90.0, height: 90.0);
+      final Rect rect = Rect.fromCenter(
+        center: center,
+        width: 90.0,
+        height: 90.0,
+      );
       switch (i) {
         case 0:
           canvas.drawRect(rect, Paint()..color = kAccentPlum);
@@ -887,8 +890,14 @@ class _PathBuilderPainter extends CustomPainter {
       final Offset c = Offset(cellW * 2.5, cy);
       final Path p = Path()
         ..moveTo(c.dx - 50.0, c.dy + 20.0)
-        ..cubicTo(c.dx - 30.0, c.dy - 80.0, c.dx + 30.0, c.dy + 80.0,
-            c.dx + 50.0, c.dy - 20.0);
+        ..cubicTo(
+          c.dx - 30.0,
+          c.dy - 80.0,
+          c.dx + 30.0,
+          c.dy + 80.0,
+          c.dx + 50.0,
+          c.dy - 20.0,
+        );
       canvas.drawPath(
         p,
         Paint()
@@ -909,10 +918,7 @@ class _PathBuilderPainter extends CustomPainter {
           Offset(c.dx - 24.0, c.dy + 34.0),
           Offset(c.dx - 38.0, c.dy - 12.0),
         ], true);
-      canvas.drawPath(
-        p,
-        Paint()..color = kAccentSun.withValues(alpha: 0.75),
-      );
+      canvas.drawPath(p, Paint()..color = kAccentSun.withValues(alpha: 0.75));
       canvas.drawPath(
         p,
         Paint()
@@ -950,15 +956,24 @@ class _PathCombinePainter extends CustomPainter {
       PathOperation.difference,
       PathOperation.xor,
     ];
-    final List<String> labels = <String>['union', 'intersect', 'difference', 'xor'];
+    final List<String> labels = <String>[
+      'union',
+      'intersect',
+      'difference',
+      'xor',
+    ];
     final double cellW = size.width / ops.length;
     const double cy = 90.0;
     for (int i = 0; i < ops.length; i++) {
       final Offset center = Offset(cellW * i + cellW / 2.0, cy);
       final Path a = Path()
-        ..addOval(Rect.fromCircle(center: center.translate(-14.0, 0.0), radius: 32.0));
+        ..addOval(
+          Rect.fromCircle(center: center.translate(-14.0, 0.0), radius: 32.0),
+        );
       final Path b = Path()
-        ..addOval(Rect.fromCircle(center: center.translate(14.0, 0.0), radius: 32.0));
+        ..addOval(
+          Rect.fromCircle(center: center.translate(14.0, 0.0), radius: 32.0),
+        );
       final Path combined = Path.combine(ops[i], a, b);
       canvas.drawPath(
         combined,
@@ -1007,7 +1022,11 @@ class _StarPainter extends CustomPainter {
       canvas.drawPath(
         star,
         Paint()
-          ..color = Color.lerp(kAccentSun, kAccentPink, i / (pointCounts.length - 1))!,
+          ..color = Color.lerp(
+            kAccentSun,
+            kAccentPink,
+            i / (pointCounts.length - 1),
+          )!,
       );
       final TextPainter tp = TextPainter(
         text: TextSpan(
@@ -1020,7 +1039,12 @@ class _StarPainter extends CustomPainter {
     }
   }
 
-  static Path _buildStar(Offset center, double outer, double inner, int points) {
+  static Path _buildStar(
+    Offset center,
+    double outer,
+    double inner,
+    int points,
+  ) {
     final Path path = Path();
     final int total = points * 2;
     for (int i = 0; i < total; i++) {
@@ -1107,10 +1131,7 @@ class _BlendModePainter extends CustomPainter {
         cellH - 12.0,
       );
       // Background.
-      canvas.drawRect(
-        cell,
-        Paint()..color = const Color(0xFFF2F4FB),
-      );
+      canvas.drawRect(cell, Paint()..color = const Color(0xFFF2F4FB));
       // Layer A (cyan square).
       final Rect a = Rect.fromLTWH(
         cell.left + cell.width * 0.18,
@@ -1123,10 +1144,7 @@ class _BlendModePainter extends CustomPainter {
       canvas.drawRect(a, Paint()..color = const Color(0xFF00BCD4));
       // Layer B (magenta circle) blended over A.
       canvas.drawCircle(
-        Offset(
-          cell.left + cell.width * 0.55,
-          cell.top + cell.height * 0.55,
-        ),
+        Offset(cell.left + cell.width * 0.55, cell.top + cell.height * 0.55),
         cell.shortestSide * 0.28,
         Paint()
           ..color = const Color(0xFFE91E63)
@@ -1280,7 +1298,12 @@ class _GradientPainter extends CustomPainter {
 
     // Linear.
     {
-      final Rect rect = Rect.fromLTWH(pad, pad, cellW - pad * 2.0, cellH - pad * 2.0);
+      final Rect rect = Rect.fromLTWH(
+        pad,
+        pad,
+        cellW - pad * 2.0,
+        cellH - pad * 2.0,
+      );
       final ui.Gradient g = ui.Gradient.linear(
         rect.topLeft,
         rect.bottomRight,
@@ -1288,11 +1311,20 @@ class _GradientPainter extends CustomPainter {
         <double>[0.0, 0.5, 1.0],
       );
       canvas.drawRect(rect, Paint()..shader = g);
-      _label(canvas, 'Gradient.linear', Offset(rect.center.dx, rect.bottom + 8.0));
+      _label(
+        canvas,
+        'Gradient.linear',
+        Offset(rect.center.dx, rect.bottom + 8.0),
+      );
     }
     // Radial.
     {
-      final Rect rect = Rect.fromLTWH(cellW + pad, pad, cellW - pad * 2.0, cellH - pad * 2.0);
+      final Rect rect = Rect.fromLTWH(
+        cellW + pad,
+        pad,
+        cellW - pad * 2.0,
+        cellH - pad * 2.0,
+      );
       final ui.Gradient g = ui.Gradient.radial(
         rect.center,
         rect.shortestSide / 2.0,
@@ -1300,11 +1332,20 @@ class _GradientPainter extends CustomPainter {
         <double>[0.0, 0.6, 1.0],
       );
       canvas.drawRect(rect, Paint()..shader = g);
-      _label(canvas, 'Gradient.radial', Offset(rect.center.dx, rect.bottom + 8.0));
+      _label(
+        canvas,
+        'Gradient.radial',
+        Offset(rect.center.dx, rect.bottom + 8.0),
+      );
     }
     // Sweep.
     {
-      final Rect rect = Rect.fromLTWH(cellW * 2.0 + pad, pad, cellW - pad * 2.0, cellH - pad * 2.0);
+      final Rect rect = Rect.fromLTWH(
+        cellW * 2.0 + pad,
+        pad,
+        cellW - pad * 2.0,
+        cellH - pad * 2.0,
+      );
       final ui.Gradient g = ui.Gradient.sweep(
         rect.center,
         <Color>[
@@ -1317,8 +1358,16 @@ class _GradientPainter extends CustomPainter {
         ],
         <double>[0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
       );
-      canvas.drawCircle(rect.center, rect.shortestSide / 2.0, Paint()..shader = g);
-      _label(canvas, 'Gradient.sweep', Offset(rect.center.dx, rect.bottom + 8.0));
+      canvas.drawCircle(
+        rect.center,
+        rect.shortestSide / 2.0,
+        Paint()..shader = g,
+      );
+      _label(
+        canvas,
+        'Gradient.sweep',
+        Offset(rect.center.dx, rect.bottom + 8.0),
+      );
     }
   }
 
@@ -1452,10 +1501,26 @@ class _ColorFilterPainter extends CustomPainter {
       Offset(col * 2.5, cy),
       kAccentBlue,
       const ColorFilter.matrix(<double>[
-        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-        0.2126, 0.7152, 0.0722, 0.0, 0.0,
-        0.0, 0.0, 0.0, 1.0, 0.0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0.0,
+        0.0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0.0,
+        0.0,
+        0.2126,
+        0.7152,
+        0.0722,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
       ]),
       'matrix gray',
     );
@@ -1465,21 +1530,47 @@ class _ColorFilterPainter extends CustomPainter {
       Offset(col * 3.5, cy),
       kAccentBlue,
       const ColorFilter.matrix(<double>[
-        -1.0, 0.0, 0.0, 0.0, 255.0,
-        0.0, -1.0, 0.0, 0.0, 255.0,
-        0.0, 0.0, -1.0, 0.0, 255.0,
-        0.0, 0.0, 0.0, 1.0, 0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        255.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        255.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        255.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
       ]),
       'matrix invert',
     );
   }
 
-  static void _swatch(Canvas canvas, Offset center, Color base, ColorFilter? cf, String label) {
+  static void _swatch(
+    Canvas canvas,
+    Offset center,
+    Color base,
+    ColorFilter? cf,
+    String label,
+  ) {
     final Paint p = Paint()..color = base;
     if (cf != null) {
       p.colorFilter = cf;
     }
-    final Rect rect = Rect.fromCenter(center: center, width: 70.0, height: 70.0);
+    final Rect rect = Rect.fromCenter(
+      center: center,
+      width: 70.0,
+      height: 70.0,
+    );
     canvas.drawRect(rect, p);
     final TextPainter tp = TextPainter(
       text: TextSpan(
@@ -1758,7 +1849,9 @@ class _ColorSection extends StatelessWidget {
                   spacing: 6.0,
                   runSpacing: 6.0,
                   children: <Widget>[
-                    _CodeChip('value: 0x${cHex.toARGB32().toRadixString(16).toUpperCase()}'),
+                    _CodeChip(
+                      'value: 0x${cHex.toARGB32().toRadixString(16).toUpperCase()}',
+                    ),
                     _CodeChip('opacity: ${cHex.a.toStringAsFixed(2)}'),
                     _CodeChip('equal: ${cHex == cArgb && cArgb == cRgbo}'),
                   ],
@@ -1782,7 +1875,9 @@ class _ColorSection extends StatelessWidget {
               ][i];
               return Expanded(
                 child: Container(
-                  margin: EdgeInsets.only(right: i == channels.length - 1 ? 0.0 : 8.0),
+                  margin: EdgeInsets.only(
+                    right: i == channels.length - 1 ? 0.0 : 8.0,
+                  ),
                   padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: paint.withValues(alpha: 0.08),
@@ -1882,10 +1977,7 @@ class _ColorSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 6.0),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 11.0, color: kTextMuted),
-        ),
+        Text(label, style: const TextStyle(fontSize: 11.0, color: kTextMuted)),
       ],
     );
   }
@@ -1904,9 +1996,12 @@ class _HueWheelPainter extends CustomPainter {
       final double sweep = (math.pi * 2.0) / sectors;
       final double hue = i / sectors;
       // Naive HSL->RGB.
-      final int r = (((math.sin(hue * math.pi * 2.0) + 1.0) / 2.0) * 255.0).round();
-      final int g = (((math.sin(hue * math.pi * 2.0 + 2.0) + 1.0) / 2.0) * 255.0).round();
-      final int b = (((math.sin(hue * math.pi * 2.0 + 4.0) + 1.0) / 2.0) * 255.0).round();
+      final int r = (((math.sin(hue * math.pi * 2.0) + 1.0) / 2.0) * 255.0)
+          .round();
+      final int g =
+          (((math.sin(hue * math.pi * 2.0 + 2.0) + 1.0) / 2.0) * 255.0).round();
+      final int b =
+          (((math.sin(hue * math.pi * 2.0 + 4.0) + 1.0) / 2.0) * 255.0).round();
       final Paint paint = Paint()..color = Color.fromARGB(255, r, g, b);
       final Path wedge = Path()
         ..moveTo(center.dx, center.dy)
@@ -1980,7 +2075,10 @@ class _OffsetSection extends StatelessWidget {
               final List<String> r = rows[i];
               return Container(
                 margin: const EdgeInsets.only(bottom: 6.0),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? const Color(0xFFF7F8FC) : Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -2045,8 +2143,16 @@ class _PolarOffsetPainter extends CustomPainter {
     final Paint axis = Paint()
       ..color = kBorderSoft
       ..strokeWidth = 1.0;
-    canvas.drawLine(Offset(0.0, center.dy), Offset(size.width, center.dy), axis);
-    canvas.drawLine(Offset(center.dx, 0.0), Offset(center.dx, size.height), axis);
+    canvas.drawLine(
+      Offset(0.0, center.dy),
+      Offset(size.width, center.dy),
+      axis,
+    );
+    canvas.drawLine(
+      Offset(center.dx, 0.0),
+      Offset(center.dx, size.height),
+      axis,
+    );
     for (int i = 1; i <= 4; i++) {
       canvas.drawCircle(
         center,
@@ -2095,10 +2201,19 @@ class _SizeSection extends StatelessWidget {
     final Size grown = s1 * 1.5;
 
     final List<List<String>> facts = <List<String>>[
-      <String>['Size(120, 80)', 'aspectRatio = ${s1.aspectRatio.toStringAsFixed(3)}'],
+      <String>[
+        'Size(120, 80)',
+        'aspectRatio = ${s1.aspectRatio.toStringAsFixed(3)}',
+      ],
       <String>['Size.square(64)', 'shortestSide = ${s2.shortestSide}'],
-      <String>['Size.fromWidth(200)', 'height isInfinite = ${s3.height.isInfinite}'],
-      <String>['Size.fromHeight(48)', 'width isInfinite = ${s4.width.isInfinite}'],
+      <String>[
+        'Size.fromWidth(200)',
+        'height isInfinite = ${s3.height.isInfinite}',
+      ],
+      <String>[
+        'Size.fromHeight(48)',
+        'width isInfinite = ${s4.width.isInfinite}',
+      ],
       <String>['Size.fromRadius(40)', 'longestSide = ${s5.longestSide}'],
       <String>['s1 / 2', '${shrunk.width} x ${shrunk.height}'],
       <String>['s1 * 1.5', '${grown.width} x ${grown.height}'],
@@ -2119,13 +2234,17 @@ class _SizeSection extends StatelessWidget {
       children: <Widget>[
         _Card(
           title: 'Factory constructors and properties',
-          subtitle: 'Size has many named constructors and rich derived getters.',
+          subtitle:
+              'Size has many named constructors and rich derived getters.',
           child: Column(
             children: List<Widget>.generate(facts.length, (int i) {
               final List<String> f = facts[i];
               return Container(
                 margin: const EdgeInsets.only(bottom: 6.0),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? const Color(0xFFF7F8FC) : Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -2212,13 +2331,19 @@ class _RectSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final Rect a = const Rect.fromLTWH(20.0, 20.0, 120.0, 80.0);
     final Rect b = Rect.fromLTRB(50.0, 40.0, 200.0, 140.0);
-    final Rect circle = Rect.fromCircle(center: const Offset(100.0, 100.0), radius: 50.0);
+    final Rect circle = Rect.fromCircle(
+      center: const Offset(100.0, 100.0),
+      radius: 50.0,
+    );
     final Rect center = Rect.fromCenter(
       center: const Offset(120.0, 120.0),
       width: 100.0,
       height: 60.0,
     );
-    final Rect points = Rect.fromPoints(const Offset(20.0, 20.0), const Offset(100.0, 90.0));
+    final Rect points = Rect.fromPoints(
+      const Offset(20.0, 20.0),
+      const Offset(100.0, 90.0),
+    );
     final Rect inflated = a.inflate(10.0);
     final Rect deflated = a.deflate(10.0);
     final Rect intersect = a.intersect(b);
@@ -2234,14 +2359,32 @@ class _RectSection extends StatelessWidget {
       <String>['a.longestSide', '${a.longestSide}'],
       <String>['a.contains(center)', '${a.contains(a.center)}'],
       <String>['a.overlaps(b)', '${a.overlaps(b)}'],
-      <String>['fromCircle.size', '${circle.size.width} x ${circle.size.height}'],
-      <String>['fromCenter.topLeft', '${center.topLeft.dx}, ${center.topLeft.dy}'],
+      <String>[
+        'fromCircle.size',
+        '${circle.size.width} x ${circle.size.height}',
+      ],
+      <String>[
+        'fromCenter.topLeft',
+        '${center.topLeft.dx}, ${center.topLeft.dy}',
+      ],
       <String>['fromPoints.width', '${points.width}'],
-      <String>['inflate(10).size', '${inflated.size.width} x ${inflated.size.height}'],
-      <String>['deflate(10).size', '${deflated.size.width} x ${deflated.size.height}'],
-      <String>['intersect(b).size', '${intersect.size.width} x ${intersect.size.height}'],
+      <String>[
+        'inflate(10).size',
+        '${inflated.size.width} x ${inflated.size.height}',
+      ],
+      <String>[
+        'deflate(10).size',
+        '${deflated.size.width} x ${deflated.size.height}',
+      ],
+      <String>[
+        'intersect(b).size',
+        '${intersect.size.width} x ${intersect.size.height}',
+      ],
       <String>['union(b).size', '${union.size.width} x ${union.size.height}'],
-      <String>['shift(20,10).topLeft', '${shifted.topLeft.dx}, ${shifted.topLeft.dy}'],
+      <String>[
+        'shift(20,10).topLeft',
+        '${shifted.topLeft.dx}, ${shifted.topLeft.dy}',
+      ],
     ];
 
     return Column(
@@ -2249,13 +2392,17 @@ class _RectSection extends StatelessWidget {
       children: <Widget>[
         _Card(
           title: 'Constructors and derived geometry',
-          subtitle: 'Rect.fromLTWH, fromLTRB, fromCircle, fromCenter, fromPoints.',
+          subtitle:
+              'Rect.fromLTWH, fromLTRB, fromCircle, fromCenter, fromPoints.',
           child: Column(
             children: List<Widget>.generate(facts.length, (int i) {
               final List<String> f = facts[i];
               return Container(
                 margin: const EdgeInsets.only(bottom: 4.0),
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? const Color(0xFFF7F8FC) : Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -2323,12 +2470,13 @@ class _RectOpsPainter extends CustomPainter {
       String label,
       void Function(Canvas, Rect) painter,
     ) {
-      final Rect cell = Rect.fromLTWH(col * cellW + 8.0, row * cellH + 8.0,
-          cellW - 16.0, cellH - 16.0);
-      canvas.drawRect(
-        cell,
-        Paint()..color = kCanvasBg,
+      final Rect cell = Rect.fromLTWH(
+        col * cellW + 8.0,
+        row * cellH + 8.0,
+        cellW - 16.0,
+        cellH - 16.0,
       );
+      canvas.drawRect(cell, Paint()..color = kCanvasBg);
       canvas.drawRect(
         cell,
         Paint()
@@ -2453,7 +2601,11 @@ class _Footer extends StatelessWidget {
           Text(
             'Every shape above was drawn through dart:ui primitives. '
             'Same primitives back every Flutter widget you have ever seen.',
-            style: TextStyle(color: Colors.white70, fontSize: 12.0, height: 1.5),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 12.0,
+              height: 1.5,
+            ),
           ),
         ],
       ),

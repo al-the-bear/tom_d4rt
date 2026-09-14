@@ -210,9 +210,7 @@ dynamic build(BuildContext context) {
     elevation: 24.0,
     title: Text('Styled'),
     content: Text('Rounded 24px corners, amber background, elevation 24.'),
-    actions: [
-      TextButton(onPressed: () {}, child: Text('Got it')),
-    ],
+    actions: [TextButton(onPressed: () {}, child: Text('Got it'))],
   );
   print('Shaped AlertDialog created');
 
@@ -284,7 +282,12 @@ dynamic build(BuildContext context) {
     _DialogPreview('Two actions', twoActionAlert, 200.0, Colors.red),
     _DialogPreview('With icon', iconAlert, 280.0, Colors.orange),
     _DialogPreview('Custom shape', shapedAlert, 220.0, Colors.amber),
-    _DialogPreview('Centered actions', centeredActionsAlert, 260.0, Colors.purple),
+    _DialogPreview(
+      'Centered actions',
+      centeredActionsAlert,
+      260.0,
+      Colors.purple,
+    ),
     _DialogPreview('Scrollable', scrollableAlert, 320.0, Colors.teal),
   ];
 
@@ -357,10 +360,7 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.add, color: Colors.blue),
             SizedBox(width: 12.0),
-            Text(
-              'Add account',
-              style: TextStyle(color: Colors.blue),
-            ),
+            Text('Add account', style: TextStyle(color: Colors.blue)),
           ],
         ),
       ),
@@ -372,26 +372,11 @@ dynamic build(BuildContext context) {
   final languagePickerDialog = SimpleDialog(
     title: Text('Select language'),
     children: [
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('English'),
-      ),
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('Deutsch'),
-      ),
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('Français'),
-      ),
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('日本語'),
-      ),
-      SimpleDialogOption(
-        onPressed: () {},
-        child: Text('Español'),
-      ),
+      SimpleDialogOption(onPressed: () {}, child: Text('English')),
+      SimpleDialogOption(onPressed: () {}, child: Text('Deutsch')),
+      SimpleDialogOption(onPressed: () {}, child: Text('Français')),
+      SimpleDialogOption(onPressed: () {}, child: Text('日本語')),
+      SimpleDialogOption(onPressed: () {}, child: Text('Español')),
     ],
   );
   print('Language-picker SimpleDialog created');
@@ -401,10 +386,7 @@ dynamic build(BuildContext context) {
     backgroundColor: Colors.indigo.shade50,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
     elevation: 16.0,
-    title: Text(
-      'Sort by',
-      style: TextStyle(color: Colors.indigo.shade900),
-    ),
+    title: Text('Sort by', style: TextStyle(color: Colors.indigo.shade900)),
     children: [
       SimpleDialogOption(
         onPressed: () {},
@@ -443,7 +425,12 @@ dynamic build(BuildContext context) {
   final simpleVariants = <_DialogPreview>[
     _DialogPreview('Account picker', accountPickerDialog, 320.0, Colors.blue),
     _DialogPreview('Language picker', languagePickerDialog, 280.0, Colors.blue),
-    _DialogPreview('Styled / sort by', styledSimpleDialog, 240.0, Colors.indigo),
+    _DialogPreview(
+      'Styled / sort by',
+      styledSimpleDialog,
+      240.0,
+      Colors.indigo,
+    ),
   ];
 
   final simpleWidgets = <Widget>[];
@@ -477,10 +464,7 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
           ),
           SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Continue'),
-          ),
+          ElevatedButton(onPressed: () {}, child: Text('Continue')),
         ],
       ),
     ),
@@ -515,10 +499,7 @@ dynamic build(BuildContext context) {
           Text(
             'shape, backgroundColor, elevation,\ninsetPadding all customised.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.deepPurple.shade700,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.deepPurple.shade700),
           ),
         ],
       ),
@@ -534,10 +515,7 @@ dynamic build(BuildContext context) {
         AppBar(
           backgroundColor: Colors.lightBlue,
           title: Text('Fullscreen Dialog'),
-          leading: IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () {},
-          ),
+          leading: IconButton(icon: Icon(Icons.close), onPressed: () {}),
         ),
         Expanded(
           child: Center(
@@ -548,10 +526,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 12.0),
                 Text(
                   'Dialog.fullscreen',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Covers the entire screen.',
@@ -592,9 +567,7 @@ dynamic build(BuildContext context) {
         'All visual properties (background, shape, text styles, elevation) '
         'come from the surrounding DialogTheme.',
       ),
-      actions: [
-        TextButton(onPressed: () {}, child: Text('Got it')),
-      ],
+      actions: [TextButton(onPressed: () {}, child: Text('Got it'))],
     ),
   );
   print('Themed dialog created');
@@ -666,10 +639,7 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Work',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  Text('Work', style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(
                     'me@company.com',
                     style: TextStyle(fontSize: 11.0, color: Colors.grey),
@@ -735,9 +705,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     ),
-    actions: [
-      TextButton(onPressed: () {}, child: Text('Close')),
-    ],
+    actions: [TextButton(onPressed: () {}, child: Text('Close'))],
   );
 
   // 5d. Error-message dialog
@@ -943,10 +911,7 @@ dynamic build(BuildContext context) {
               flex: 5,
               child: Text(
                 row['slots'] as String,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
               ),
             ),
           ],
@@ -1222,10 +1187,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: overviewCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: overviewCards),
             SizedBox(height: 32.0),
 
             // Section 2

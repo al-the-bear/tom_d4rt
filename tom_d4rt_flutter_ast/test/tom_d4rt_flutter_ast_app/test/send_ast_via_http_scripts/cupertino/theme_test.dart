@@ -195,11 +195,7 @@ Widget _buildHeaderBanner(ColorScheme scheme) {
             'textTheme, barBackgroundColor and scaffoldBackgroundColor from '
             'the nearest CupertinoTheme. CupertinoThemeData is immutable; use '
             'copyWith() to derive variants.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.5,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12.5, height: 1.4),
           ),
         ),
       ],
@@ -218,28 +214,32 @@ Widget _buildSection1Banner(ColorScheme scheme) {
     _LegendItem(
       icon: CupertinoIcons.color_filter,
       title: 'Theme inheritance',
-      body: 'CupertinoTheme widgets propagate CupertinoThemeData via context. '
+      body:
+          'CupertinoTheme widgets propagate CupertinoThemeData via context. '
           'Wrap any subtree to override the inherited theme.',
       color: const Color(0xFF0A84FF),
     ),
     _LegendItem(
       icon: CupertinoIcons.sun_max,
       title: 'Brightness drives defaults',
-      body: 'CupertinoColors resolve against Brightness.light / dark. The '
+      body:
+          'CupertinoColors resolve against Brightness.light / dark. The '
           'rest of the theme follows brightness when unspecified.',
       color: const Color(0xFFFF9F0A),
     ),
     _LegendItem(
       icon: CupertinoIcons.textformat,
       title: 'Typography is structured',
-      body: 'CupertinoTextThemeData exposes eight named text styles, each '
+      body:
+          'CupertinoTextThemeData exposes eight named text styles, each '
           'used by a specific Cupertino widget category.',
       color: const Color(0xFF30D158),
     ),
     _LegendItem(
       icon: CupertinoIcons.paintbrush,
       title: 'Tint controls everything',
-      body: 'primaryColor is the system tint for buttons, switches, sliders '
+      body:
+          'primaryColor is the system tint for buttons, switches, sliders '
           'and active tab items. Pick brand-appropriate colours.',
       color: const Color(0xFFBF5AF2),
     ),
@@ -459,10 +459,7 @@ Widget _renderPropertyCard(_PropertyCard card, ColorScheme scheme, int index) {
     decoration: BoxDecoration(
       color: scheme.surfaceContainerHighest.withValues(alpha: 0.45),
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(
-        color: scheme.outlineVariant,
-        width: 1.0,
-      ),
+      border: Border.all(color: scheme.outlineVariant, width: 1.0),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -485,8 +482,10 @@ Widget _renderPropertyCard(_PropertyCard card, ColorScheme scheme, int index) {
             ),
             const SizedBox(height: 8.0),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: card.swatchColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(20.0),
@@ -625,8 +624,7 @@ Widget _buildPrimaryColorPreview(CupertinoThemeData base) {
     ),
     child: Center(
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
         decoration: BoxDecoration(
           color: base.primaryColor,
           borderRadius: BorderRadius.circular(8.0),
@@ -739,8 +737,7 @@ Widget _buildScaffoldBackgroundPreview(CupertinoThemeData base) {
     ),
     child: Center(
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
         decoration: BoxDecoration(
           color: CupertinoColors.systemGrey6,
           borderRadius: BorderRadius.circular(8.0),
@@ -769,8 +766,11 @@ Widget _buildApplyThemeToAllPreview(CupertinoThemeData base) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(CupertinoIcons.arrow_down_circle,
-            color: base.primaryColor, size: 26.0),
+        Icon(
+          CupertinoIcons.arrow_down_circle,
+          color: base.primaryColor,
+          size: 26.0,
+        ),
         const SizedBox(height: 4.0),
         Text(
           base.applyThemeToAll ? 'cascades' : 'isolated',
@@ -799,7 +799,8 @@ Widget _buildSection3TextTheme(ColorScheme scheme) {
   final List<_TextStyleCard> entries = <_TextStyleCard>[
     _TextStyleCard(
       name: 'textStyle',
-      description: 'Default body text. Used wherever no more specific style '
+      description:
+          'Default body text. Used wherever no more specific style '
           'is applicable. Size 17 on iOS.',
       style: textTheme.textStyle,
       sample: 'The quick brown fox jumps over the lazy dog.',
@@ -867,8 +868,7 @@ Widget _buildSection3TextTheme(ColorScheme scheme) {
     ),
     _TextStyleCard(
       name: 'dateTimePickerTextStyle',
-      description:
-          'Used by CupertinoDatePicker for date / time wheel entries.',
+      description: 'Used by CupertinoDatePicker for date / time wheel entries.',
       style: textTheme.dateTimePickerTextStyle,
       sample: '12 : 45',
       icon: CupertinoIcons.clock,
@@ -1027,8 +1027,7 @@ Widget _buildSection4Brightness(ColorScheme scheme) {
     scheme: scheme,
     sectionNumber: 4,
     title: 'Light vs Dark brightness',
-    subtitle:
-        'Same Inbox layout, two CupertinoThemeData brightness settings.',
+    subtitle: 'Same Inbox layout, two CupertinoThemeData brightness settings.',
     child: Wrap(
       alignment: WrapAlignment.center,
       spacing: 16.0,
@@ -1059,13 +1058,14 @@ Widget _buildPhoneFrame({
 }) {
   final Color bg = theme.scaffoldBackgroundColor;
   final Color barBg = theme.barBackgroundColor;
-  final Color textPrimary =
-      isDark ? CupertinoColors.white : CupertinoColors.black;
-  final Color textSecondary =
-      isDark ? const Color(0xFF8E8E93) : const Color(0xFF6C6C70);
+  final Color textPrimary = isDark
+      ? CupertinoColors.white
+      : CupertinoColors.black;
+  final Color textSecondary = isDark
+      ? const Color(0xFF8E8E93)
+      : const Color(0xFF6C6C70);
   final Color rowBg = isDark ? const Color(0xFF1C1C1E) : CupertinoColors.white;
-  final Color sep =
-      isDark ? const Color(0xFF38383A) : const Color(0xFFE5E5EA);
+  final Color sep = isDark ? const Color(0xFF38383A) : const Color(0xFFE5E5EA);
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1115,11 +1115,13 @@ Widget _buildPhoneFrame({
                   ),
                   Row(
                     children: <Widget>[
-                      Icon(CupertinoIcons.wifi,
-                          color: textPrimary, size: 13.0),
+                      Icon(CupertinoIcons.wifi, color: textPrimary, size: 13.0),
                       const SizedBox(width: 4.0),
-                      Icon(CupertinoIcons.battery_full,
-                          color: textPrimary, size: 16.0),
+                      Icon(
+                        CupertinoIcons.battery_full,
+                        color: textPrimary,
+                        size: 16.0,
+                      ),
                     ],
                   ),
                 ],
@@ -1135,8 +1137,7 @@ Widget _buildPhoneFrame({
                 children: <Widget>[
                   Text(
                     'Edit',
-                    style:
-                        theme.textTheme.navActionTextStyle.copyWith(
+                    style: theme.textTheme.navActionTextStyle.copyWith(
                       fontSize: 15.0,
                       color: accent,
                     ),
@@ -1147,8 +1148,7 @@ Widget _buildPhoneFrame({
                       color: textPrimary,
                     ),
                   ),
-                  Icon(CupertinoIcons.square_pencil,
-                      color: accent, size: 22.0),
+                  Icon(CupertinoIcons.square_pencil, color: accent, size: 22.0),
                 ],
               ),
             ),
@@ -1160,8 +1160,7 @@ Widget _buildPhoneFrame({
               color: bg,
               child: Text(
                 'Inbox',
-                style:
-                    theme.textTheme.navLargeTitleTextStyle.copyWith(
+                style: theme.textTheme.navLargeTitleTextStyle.copyWith(
                   color: textPrimary,
                 ),
               ),
@@ -1172,22 +1171,68 @@ Widget _buildPhoneFrame({
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
                 children: <Widget>[
-                  _buildMailRow('Apple', 'Welcome to iCloud+',
-                      '9:30 AM', textPrimary, textSecondary, rowBg, sep, accent,
-                      unread: true),
-                  _buildMailRow('Travel', 'Your itinerary',
-                      '8:42 AM', textPrimary, textSecondary, rowBg, sep, accent,
-                      unread: true),
-                  _buildMailRow('GitHub', 'PR review requested',
-                      'Yesterday', textPrimary, textSecondary, rowBg, sep,
-                      accent),
-                  _buildMailRow('Alice Chen', 'Lunch tomorrow?',
-                      'Yesterday', textPrimary, textSecondary, rowBg, sep,
-                      accent),
-                  _buildMailRow('Stripe', 'Receipt for invoice',
-                      'Mon', textPrimary, textSecondary, rowBg, sep, accent),
-                  _buildMailRow('Bob', 'Recipes from the weekend',
-                      'Sun', textPrimary, textSecondary, rowBg, sep, accent),
+                  _buildMailRow(
+                    'Apple',
+                    'Welcome to iCloud+',
+                    '9:30 AM',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                    unread: true,
+                  ),
+                  _buildMailRow(
+                    'Travel',
+                    'Your itinerary',
+                    '8:42 AM',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                    unread: true,
+                  ),
+                  _buildMailRow(
+                    'GitHub',
+                    'PR review requested',
+                    'Yesterday',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                  ),
+                  _buildMailRow(
+                    'Alice Chen',
+                    'Lunch tomorrow?',
+                    'Yesterday',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                  ),
+                  _buildMailRow(
+                    'Stripe',
+                    'Receipt for invoice',
+                    'Mon',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                  ),
+                  _buildMailRow(
+                    'Bob',
+                    'Recipes from the weekend',
+                    'Sun',
+                    textPrimary,
+                    textSecondary,
+                    rowBg,
+                    sep,
+                    accent,
+                  ),
                 ],
               ),
             ),
@@ -1236,28 +1281,23 @@ Widget _buildMailRow(
                       Text(
                         sender,
                         style: TextStyle(
-                          fontWeight:
-                              unread ? FontWeight.w700 : FontWeight.w600,
+                          fontWeight: unread
+                              ? FontWeight.w700
+                              : FontWeight.w600,
                           fontSize: 13.0,
                           color: textPrimary,
                         ),
                       ),
                       Text(
                         time,
-                        style: TextStyle(
-                          fontSize: 11.0,
-                          color: textSecondary,
-                        ),
+                        style: TextStyle(fontSize: 11.0, color: textSecondary),
                       ),
                     ],
                   ),
                   const SizedBox(height: 2.0),
                   Text(
                     preview,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: textSecondary,
-                    ),
+                    style: TextStyle(fontSize: 12.0, color: textSecondary),
                   ),
                 ],
               ),
@@ -1318,10 +1358,7 @@ Widget _buildTintRow(_TintSample tint, ColorScheme scheme) {
     decoration: BoxDecoration(
       color: scheme.surface,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: tint.color.withValues(alpha: 0.45),
-        width: 1.4,
-      ),
+      border: Border.all(color: tint.color.withValues(alpha: 0.45), width: 1.4),
     ),
     child: Row(
       children: <Widget>[
@@ -1374,8 +1411,7 @@ Widget _buildTintRow(_TintSample tint, ColorScheme scheme) {
         const SizedBox(width: 12.0),
         // Static button preview
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: tint.color,
             borderRadius: BorderRadius.circular(10.0),
@@ -1588,14 +1624,18 @@ class _SwatchTheme {
 Widget _buildSwatchPhone(_SwatchTheme sample) {
   final CupertinoThemeData t = sample.theme;
   final Color accent = t.primaryColor;
-  final Color textPrimary =
-      sample.isDark ? CupertinoColors.white : CupertinoColors.black;
-  final Color textSecondary =
-      sample.isDark ? const Color(0xFF8E8E93) : const Color(0xFF6C6C70);
-  final Color rowBg =
-      sample.isDark ? const Color(0xFF1C1C1E) : CupertinoColors.white;
-  final Color sep =
-      sample.isDark ? const Color(0xFF38383A) : const Color(0xFFE5E5EA);
+  final Color textPrimary = sample.isDark
+      ? CupertinoColors.white
+      : CupertinoColors.black;
+  final Color textSecondary = sample.isDark
+      ? const Color(0xFF8E8E93)
+      : const Color(0xFF6C6C70);
+  final Color rowBg = sample.isDark
+      ? const Color(0xFF1C1C1E)
+      : CupertinoColors.white;
+  final Color sep = sample.isDark
+      ? const Color(0xFF38383A)
+      : const Color(0xFFE5E5EA);
 
   return CupertinoTheme(
     data: t,
@@ -1604,8 +1644,7 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
       children: <Widget>[
         // Title chip
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
           decoration: BoxDecoration(
             color: accent.withValues(alpha: 0.16),
             borderRadius: BorderRadius.circular(12.0),
@@ -1622,10 +1661,7 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
         const SizedBox(height: 4.0),
         Text(
           sample.subtitle,
-          style: const TextStyle(
-            fontSize: 11.0,
-            color: Color(0xFF6C6C70),
-          ),
+          style: const TextStyle(fontSize: 11.0, color: Color(0xFF6C6C70)),
         ),
         const SizedBox(height: 8.0),
         Container(
@@ -1635,7 +1671,8 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
             color: t.scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(28.0),
             border: Border.all(
-                color: sample.isDark ? Colors.black : Colors.black12),
+              color: sample.isDark ? Colors.black : Colors.black12,
+            ),
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.18),
@@ -1663,8 +1700,11 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Icon(CupertinoIcons.battery_full,
-                        color: textPrimary, size: 14.0),
+                    Icon(
+                      CupertinoIcons.battery_full,
+                      color: textPrimary,
+                      size: 14.0,
+                    ),
                   ],
                 ),
               ),
@@ -1694,10 +1734,7 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                 padding: const EdgeInsets.all(14.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      accent,
-                      accent.withValues(alpha: 0.7),
-                    ],
+                    colors: <Color>[accent, accent.withValues(alpha: 0.7)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1738,8 +1775,9 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                     Text(
                       'Soothing tracks for focused work.',
                       style: TextStyle(
-                        color:
-                            t.primaryContrastingColor.withValues(alpha: 0.85),
+                        color: t.primaryContrastingColor.withValues(
+                          alpha: 0.85,
+                        ),
                         fontSize: 12.0,
                       ),
                     ),
@@ -1786,20 +1824,45 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                     child: Column(
                       children: <Widget>[
                         _buildSwatchRow(
-                            CupertinoIcons.music_note, 'Listen Now',
-                            accent, textPrimary, sep, false),
+                          CupertinoIcons.music_note,
+                          'Listen Now',
+                          accent,
+                          textPrimary,
+                          sep,
+                          false,
+                        ),
                         _buildSwatchRow(
-                            CupertinoIcons.radiowaves_right, 'Radio',
-                            accent, textPrimary, sep, false),
+                          CupertinoIcons.radiowaves_right,
+                          'Radio',
+                          accent,
+                          textPrimary,
+                          sep,
+                          false,
+                        ),
                         _buildSwatchRow(
-                            CupertinoIcons.cloud_download, 'Downloads',
-                            accent, textPrimary, sep, false),
+                          CupertinoIcons.cloud_download,
+                          'Downloads',
+                          accent,
+                          textPrimary,
+                          sep,
+                          false,
+                        ),
                         _buildSwatchRow(
-                            CupertinoIcons.heart_fill, 'Favourites',
-                            accent, textPrimary, sep, false),
+                          CupertinoIcons.heart_fill,
+                          'Favourites',
+                          accent,
+                          textPrimary,
+                          sep,
+                          false,
+                        ),
                         _buildSwatchRow(
-                            CupertinoIcons.square_list, 'Playlists',
-                            accent, textPrimary, sep, true),
+                          CupertinoIcons.square_list,
+                          'Playlists',
+                          accent,
+                          textPrimary,
+                          sep,
+                          true,
+                        ),
                       ],
                     ),
                   ),
@@ -1811,22 +1874,29 @@ Widget _buildSwatchPhone(_SwatchTheme sample) {
                 height: 56.0,
                 decoration: BoxDecoration(
                   color: t.barBackgroundColor,
-                  border: Border(
-                    top: BorderSide(color: sep),
-                  ),
+                  border: Border(top: BorderSide(color: sep)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     _buildTabIcon(
-                        CupertinoIcons.music_note_2, 'Library', accent,
-                        active: true),
+                      CupertinoIcons.music_note_2,
+                      'Library',
+                      accent,
+                      active: true,
+                    ),
                     _buildTabIcon(
-                        CupertinoIcons.search, 'Search', textSecondary,
-                        active: false),
+                      CupertinoIcons.search,
+                      'Search',
+                      textSecondary,
+                      active: false,
+                    ),
                     _buildTabIcon(
-                        CupertinoIcons.person_2, 'Friends', textSecondary,
-                        active: false),
+                      CupertinoIcons.person_2,
+                      'Friends',
+                      textSecondary,
+                      active: false,
+                    ),
                   ],
                 ),
               ),
@@ -1852,8 +1922,7 @@ Widget _buildSwatchRow(
           ? null
           : Border(bottom: BorderSide(color: sep, width: 0.5)),
     ),
-    padding:
-        const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
     child: Row(
       children: <Widget>[
         Container(
@@ -2018,8 +2087,7 @@ Widget _buildSection7Recipes(ColorScheme scheme) {
     scheme: scheme,
     sectionNumber: 7,
     title: 'Theming recipes',
-    subtitle:
-        'Idiomatic CupertinoTheme patterns for everyday app development.',
+    subtitle: 'Idiomatic CupertinoTheme patterns for everyday app development.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: rendered,
@@ -2047,17 +2115,13 @@ Widget _renderRecipe(_Recipe r, ColorScheme scheme) {
     decoration: BoxDecoration(
       color: scheme.surface,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(
-        color: r.accent.withValues(alpha: 0.4),
-        width: 1.3,
-      ),
+      border: Border.all(color: r.accent.withValues(alpha: 0.4), width: 1.3),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding:
-              const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 12.0),
           decoration: BoxDecoration(
             color: r.accent.withValues(alpha: 0.12),
             borderRadius: const BorderRadius.only(
@@ -2132,46 +2196,106 @@ Widget _buildSection8Glossary(ColorScheme scheme) {
   print('=== Section 8: Glossary ===');
 
   final List<_GlossaryEntry> entries = <_GlossaryEntry>[
-    _GlossaryEntry('applyThemeToAll', 'bool',
-        'Propagate the Cupertino theme into descendant Material widgets.'),
-    _GlossaryEntry('barBackgroundColor', 'Color',
-        'Fill colour for CupertinoNavigationBar and CupertinoTabBar.'),
-    _GlossaryEntry('brightness', 'Brightness?',
-        'Root brightness for the subtree. Drives default colours.'),
-    _GlossaryEntry('CupertinoTheme', 'InheritedWidget',
-        'Widget that exposes a CupertinoThemeData to descendants.'),
-    _GlossaryEntry('CupertinoThemeData', 'class',
-        'Immutable bag of theming primitives consumed by Cupertino widgets.'),
-    _GlossaryEntry('CupertinoTextThemeData', 'class',
-        'Eight named text styles used by Cupertino widgets.'),
-    _GlossaryEntry('primaryColor', 'Color',
-        'Tint colour applied to interactive Cupertino widgets.'),
-    _GlossaryEntry('primaryContrastingColor', 'Color',
-        'Foreground colour on top of primaryColor surfaces.'),
-    _GlossaryEntry('scaffoldBackgroundColor', 'Color',
-        'Background of CupertinoPageScaffold and CupertinoTabScaffold.'),
-    _GlossaryEntry('textTheme', 'CupertinoTextThemeData',
-        'Aggregated Cupertino text styles for the subtree.'),
-    _GlossaryEntry('textTheme.textStyle', 'TextStyle',
-        'Default body text style. Size 17 on iOS.'),
-    _GlossaryEntry('textTheme.actionTextStyle', 'TextStyle',
-        'Default style for CupertinoButton text.'),
-    _GlossaryEntry('textTheme.tabLabelTextStyle', 'TextStyle',
-        'Caption-sized label under CupertinoTabBar icons.'),
-    _GlossaryEntry('textTheme.navTitleTextStyle', 'TextStyle',
-        'Title in CupertinoNavigationBar.'),
-    _GlossaryEntry('textTheme.navLargeTitleTextStyle', 'TextStyle',
-        'Large bold title used by CupertinoSliverNavigationBar.'),
-    _GlossaryEntry('textTheme.navActionTextStyle', 'TextStyle',
-        'Style for leading/trailing buttons in a Cupertino nav bar.'),
-    _GlossaryEntry('textTheme.pickerTextStyle', 'TextStyle',
-        'Style for CupertinoPicker entries.'),
-    _GlossaryEntry('textTheme.dateTimePickerTextStyle', 'TextStyle',
-        'Style for CupertinoDatePicker wheel entries.'),
-    _GlossaryEntry('copyWith()', 'method',
-        'Derive a new CupertinoThemeData by overriding selected fields.'),
-    _GlossaryEntry('resolveFrom()', 'method',
-        'Resolve CupertinoDynamicColor entries against a BuildContext.'),
+    _GlossaryEntry(
+      'applyThemeToAll',
+      'bool',
+      'Propagate the Cupertino theme into descendant Material widgets.',
+    ),
+    _GlossaryEntry(
+      'barBackgroundColor',
+      'Color',
+      'Fill colour for CupertinoNavigationBar and CupertinoTabBar.',
+    ),
+    _GlossaryEntry(
+      'brightness',
+      'Brightness?',
+      'Root brightness for the subtree. Drives default colours.',
+    ),
+    _GlossaryEntry(
+      'CupertinoTheme',
+      'InheritedWidget',
+      'Widget that exposes a CupertinoThemeData to descendants.',
+    ),
+    _GlossaryEntry(
+      'CupertinoThemeData',
+      'class',
+      'Immutable bag of theming primitives consumed by Cupertino widgets.',
+    ),
+    _GlossaryEntry(
+      'CupertinoTextThemeData',
+      'class',
+      'Eight named text styles used by Cupertino widgets.',
+    ),
+    _GlossaryEntry(
+      'primaryColor',
+      'Color',
+      'Tint colour applied to interactive Cupertino widgets.',
+    ),
+    _GlossaryEntry(
+      'primaryContrastingColor',
+      'Color',
+      'Foreground colour on top of primaryColor surfaces.',
+    ),
+    _GlossaryEntry(
+      'scaffoldBackgroundColor',
+      'Color',
+      'Background of CupertinoPageScaffold and CupertinoTabScaffold.',
+    ),
+    _GlossaryEntry(
+      'textTheme',
+      'CupertinoTextThemeData',
+      'Aggregated Cupertino text styles for the subtree.',
+    ),
+    _GlossaryEntry(
+      'textTheme.textStyle',
+      'TextStyle',
+      'Default body text style. Size 17 on iOS.',
+    ),
+    _GlossaryEntry(
+      'textTheme.actionTextStyle',
+      'TextStyle',
+      'Default style for CupertinoButton text.',
+    ),
+    _GlossaryEntry(
+      'textTheme.tabLabelTextStyle',
+      'TextStyle',
+      'Caption-sized label under CupertinoTabBar icons.',
+    ),
+    _GlossaryEntry(
+      'textTheme.navTitleTextStyle',
+      'TextStyle',
+      'Title in CupertinoNavigationBar.',
+    ),
+    _GlossaryEntry(
+      'textTheme.navLargeTitleTextStyle',
+      'TextStyle',
+      'Large bold title used by CupertinoSliverNavigationBar.',
+    ),
+    _GlossaryEntry(
+      'textTheme.navActionTextStyle',
+      'TextStyle',
+      'Style for leading/trailing buttons in a Cupertino nav bar.',
+    ),
+    _GlossaryEntry(
+      'textTheme.pickerTextStyle',
+      'TextStyle',
+      'Style for CupertinoPicker entries.',
+    ),
+    _GlossaryEntry(
+      'textTheme.dateTimePickerTextStyle',
+      'TextStyle',
+      'Style for CupertinoDatePicker wheel entries.',
+    ),
+    _GlossaryEntry(
+      'copyWith()',
+      'method',
+      'Derive a new CupertinoThemeData by overriding selected fields.',
+    ),
+    _GlossaryEntry(
+      'resolveFrom()',
+      'method',
+      'Resolve CupertinoDynamicColor entries against a BuildContext.',
+    ),
   ];
 
   return _buildSectionShell(
@@ -2265,10 +2389,7 @@ Widget _buildFooter(ColorScheme scheme) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          scheme.primaryContainer,
-          scheme.secondaryContainer,
-        ],
+        colors: <Color>[scheme.primaryContainer, scheme.secondaryContainer],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

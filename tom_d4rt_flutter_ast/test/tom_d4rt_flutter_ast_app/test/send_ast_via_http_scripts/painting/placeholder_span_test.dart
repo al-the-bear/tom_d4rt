@@ -112,10 +112,7 @@ dynamic build(BuildContext context) {
               children: <InlineSpan>[
                 TextSpan(
                   text: 'Reserve a slot ',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 14.0),
                 ),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
@@ -140,10 +137,7 @@ dynamic build(BuildContext context) {
                 ),
                 TextSpan(
                   text: ' inside a paragraph.',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 14.0),
                 ),
               ],
             ),
@@ -342,7 +336,8 @@ dynamic build(BuildContext context) {
     final String name = spec['name'] as String;
     final String desc = spec['desc'] as String;
     final IconData icon = spec['icon'] as IconData;
-    final PlaceholderAlignment alignment = spec['value'] as PlaceholderAlignment;
+    final PlaceholderAlignment alignment =
+        spec['value'] as PlaceholderAlignment;
 
     print('PlaceholderAlignment.$name -> $alignment');
     alignmentCards.add(
@@ -390,10 +385,7 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 6.0),
-            Text(
-              desc,
-              style: TextStyle(fontSize: 10.5, color: inkDark),
-            ),
+            Text(desc, style: TextStyle(fontSize: 10.5, color: inkDark)),
             SizedBox(height: 10.0),
             // Visual rendering of this alignment versus a baseline.
             Container(
@@ -414,7 +406,8 @@ dynamic build(BuildContext context) {
                     ),
                     WidgetSpan(
                       alignment: alignment,
-                      baseline: alignment == PlaceholderAlignment.baseline ||
+                      baseline:
+                          alignment == PlaceholderAlignment.baseline ||
                               alignment == PlaceholderAlignment.aboveBaseline ||
                               alignment == PlaceholderAlignment.belowBaseline
                           ? TextBaseline.alphabetic
@@ -489,7 +482,10 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [tealSoft.withValues(alpha: 0.45), cyanSoft.withValues(alpha: 0.6)],
+        colors: [
+          tealSoft.withValues(alpha: 0.45),
+          cyanSoft.withValues(alpha: 0.6),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -508,7 +504,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.star_rate_rounded, color: Colors.amber.shade700, size: 22.0),
+            Icon(
+              Icons.star_rate_rounded,
+              color: Colors.amber.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Hello star world',
@@ -663,10 +663,7 @@ dynamic build(BuildContext context) {
                         SizedBox(width: 2.0),
                         Text(
                           'fast',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11.0,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 11.0),
                         ),
                       ],
                     ),
@@ -681,9 +678,7 @@ dynamic build(BuildContext context) {
                       vertical: 3.0,
                     ),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [tealMid, cyanMid],
-                      ),
+                      gradient: LinearGradient(colors: [tealMid, cyanMid]),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
@@ -757,31 +752,19 @@ dynamic build(BuildContext context) {
                 TextSpan(text: 'Default: '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Container(
-                    width: 14.0,
-                    height: 14.0,
-                    color: tealMid,
-                  ),
+                  child: Container(width: 14.0, height: 14.0, color: tealMid),
                 ),
                 TextSpan(text: '   Bigger style: '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   style: TextStyle(fontSize: 28.0, letterSpacing: 4.0),
-                  child: Container(
-                    width: 14.0,
-                    height: 14.0,
-                    color: cyanMid,
-                  ),
+                  child: Container(width: 14.0, height: 14.0, color: cyanMid),
                 ),
                 TextSpan(text: '   Tight: '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   style: TextStyle(fontSize: 10.0, letterSpacing: 0.0),
-                  child: Container(
-                    width: 14.0,
-                    height: 14.0,
-                    color: cyanDeep,
-                  ),
+                  child: Container(width: 14.0, height: 14.0, color: cyanDeep),
                 ),
               ],
             ),
@@ -900,9 +883,7 @@ dynamic build(BuildContext context) {
             TextSpan(
               style: TextStyle(fontSize: 14.0, color: inkDark, height: 1.6),
               children: <InlineSpan>[
-                TextSpan(
-                  text: 'Your subscription is ',
-                ),
+                TextSpan(text: 'Your subscription is '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
                   child: Container(
@@ -936,9 +917,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                 ),
-                TextSpan(
-                  text: ' and renews automatically next month.',
-                ),
+                TextSpan(text: ' and renews automatically next month.'),
               ],
             ),
           ),
@@ -1095,20 +1074,8 @@ dynamic build(BuildContext context) {
           'TextSpan',
           tealDeep,
         ),
-        _comparisonRow(
-          'Abstract?',
-          'yes',
-          'yes',
-          'no',
-          tealDeep,
-        ),
-        _comparisonRow(
-          'Carries text',
-          'maybe',
-          'no (slot)',
-          'yes',
-          tealDeep,
-        ),
+        _comparisonRow('Abstract?', 'yes', 'yes', 'no', tealDeep),
+        _comparisonRow('Carries text', 'maybe', 'no (slot)', 'yes', tealDeep),
         _comparisonRow(
           'Carries widget',
           'maybe',
@@ -1161,8 +1128,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.orange.shade800, size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.orange.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Footguns',
@@ -1250,9 +1220,7 @@ dynamic build(BuildContext context) {
         _recapBullet(
           'PlaceholderSpan is the abstract base for inline rectangle slots.',
         ),
-        _recapBullet(
-          'WidgetSpan is the only built-in concrete subclass.',
-        ),
+        _recapBullet('WidgetSpan is the only built-in concrete subclass.'),
         _recapBullet(
           'PlaceholderAlignment has 6 values; baseline-relative ones need TextBaseline.',
         ),
@@ -1408,10 +1376,7 @@ Widget _legendDot(String label, Color color) {
       Container(
         width: 10.0,
         height: 10.0,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       SizedBox(width: 4.0),
       Text(
@@ -1434,10 +1399,7 @@ Widget _annotation(String text, Color color) {
         Icon(Icons.info_outline, size: 14.0, color: color),
         SizedBox(width: 6.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 11.0, color: color),
-          ),
+          child: Text(text, style: TextStyle(fontSize: 11.0, color: color)),
         ),
       ],
     ),
@@ -1522,9 +1484,7 @@ Widget _comparisonRow(
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Colors.grey.shade300),
-      ),
+      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
     ),
     child: Row(
       children: <Widget>[

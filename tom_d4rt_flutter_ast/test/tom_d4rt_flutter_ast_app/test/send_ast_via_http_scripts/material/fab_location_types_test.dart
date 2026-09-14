@@ -186,7 +186,9 @@ class _PrivateHeroCard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 4.0),
+                    horizontal: 10.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(12.0),
@@ -229,7 +231,9 @@ class _PrivateHeroCard extends StatelessWidget {
                     _PrivateHeroChip(label: '6 mini', icon: Icons.bubble_chart),
                     SizedBox(width: 8.0),
                     _PrivateHeroChip(
-                        label: '3 docked', icon: Icons.vertical_align_bottom),
+                      label: '3 docked',
+                      icon: Icons.vertical_align_bottom,
+                    ),
                   ],
                 ),
               ],
@@ -381,11 +385,7 @@ class _PrivateSectionTitle extends StatelessWidget {
               SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: _kInkSoft,
-                  fontSize: 13.0,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: _kInkSoft, fontSize: 13.0, height: 1.4),
               ),
             ],
           ),
@@ -406,17 +406,31 @@ class _PrivateStandardLocationsGrid extends StatelessWidget {
       _PrivateLocationSpec('centerTop', _PrivateBand.top, _PrivateAlign.center),
       _PrivateLocationSpec('endTop', _PrivateBand.top, _PrivateAlign.end),
       _PrivateLocationSpec(
-          'startFloat', _PrivateBand.floatBand, _PrivateAlign.start),
+        'startFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.start,
+      ),
       _PrivateLocationSpec(
-          'centerFloat', _PrivateBand.floatBand, _PrivateAlign.center),
+        'centerFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.center,
+      ),
       _PrivateLocationSpec(
-          'endFloat', _PrivateBand.floatBand, _PrivateAlign.end),
+        'endFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.end,
+      ),
       _PrivateLocationSpec(
-          'startDocked', _PrivateBand.docked, _PrivateAlign.start),
+        'startDocked',
+        _PrivateBand.docked,
+        _PrivateAlign.start,
+      ),
       _PrivateLocationSpec(
-          'centerDocked', _PrivateBand.docked, _PrivateAlign.center),
-      _PrivateLocationSpec(
-          'endDocked', _PrivateBand.docked, _PrivateAlign.end),
+        'centerDocked',
+        _PrivateBand.docked,
+        _PrivateAlign.center,
+      ),
+      _PrivateLocationSpec('endDocked', _PrivateBand.docked, _PrivateAlign.end),
     ];
 
     return Container(
@@ -473,22 +487,46 @@ class _PrivateMiniLocationsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final locations = <_PrivateLocationSpec>[
       _PrivateLocationSpec(
-          'miniStartTop', _PrivateBand.top, _PrivateAlign.start),
+        'miniStartTop',
+        _PrivateBand.top,
+        _PrivateAlign.start,
+      ),
       _PrivateLocationSpec(
-          'miniCenterTop', _PrivateBand.top, _PrivateAlign.center),
+        'miniCenterTop',
+        _PrivateBand.top,
+        _PrivateAlign.center,
+      ),
       _PrivateLocationSpec('miniEndTop', _PrivateBand.top, _PrivateAlign.end),
       _PrivateLocationSpec(
-          'miniStartFloat', _PrivateBand.floatBand, _PrivateAlign.start),
+        'miniStartFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.start,
+      ),
       _PrivateLocationSpec(
-          'miniCenterFloat', _PrivateBand.floatBand, _PrivateAlign.center),
+        'miniCenterFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.center,
+      ),
       _PrivateLocationSpec(
-          'miniEndFloat', _PrivateBand.floatBand, _PrivateAlign.end),
+        'miniEndFloat',
+        _PrivateBand.floatBand,
+        _PrivateAlign.end,
+      ),
       _PrivateLocationSpec(
-          'miniStartDocked', _PrivateBand.docked, _PrivateAlign.start),
+        'miniStartDocked',
+        _PrivateBand.docked,
+        _PrivateAlign.start,
+      ),
       _PrivateLocationSpec(
-          'miniCenterDocked', _PrivateBand.docked, _PrivateAlign.center),
+        'miniCenterDocked',
+        _PrivateBand.docked,
+        _PrivateAlign.center,
+      ),
       _PrivateLocationSpec(
-          'miniEndDocked', _PrivateBand.docked, _PrivateAlign.end),
+        'miniEndDocked',
+        _PrivateBand.docked,
+        _PrivateAlign.end,
+      ),
     ];
 
     return Container(
@@ -521,11 +559,7 @@ class _PrivateMiniLocationsGrid extends StatelessWidget {
             'shift the FAB closer to the edge to compensate for the smaller '
             'visual mass — the offset rules are encoded in the location, not '
             'the button.',
-            style: TextStyle(
-              color: _kInkSoft,
-              fontSize: 12.5,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.45),
           ),
           SizedBox(height: 14.0),
           Wrap(
@@ -675,17 +709,18 @@ class _PrivatePhoneMockup extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         color: Color(0xFFECEFF1),
-                        border: Border(
-                          top: BorderSide(color: _kHairline),
-                        ),
+                        border: Border(top: BorderSide(color: _kHairline)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Icon(Icons.home, size: 12.0, color: _kInkSoft),
                           Icon(Icons.search, size: 12.0, color: _kInkSoft),
-                          Icon(Icons.notifications,
-                              size: 12.0, color: _kInkSoft),
+                          Icon(
+                            Icons.notifications,
+                            size: 12.0,
+                            color: _kInkSoft,
+                          ),
                           Icon(Icons.person, size: 12.0, color: _kInkSoft),
                         ],
                       ),
@@ -763,11 +798,7 @@ class _PrivateFakeFab extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(
-        Icons.add,
-        color: Colors.white,
-        size: size * 0.55,
-      ),
+      child: Icon(Icons.add, color: Colors.white, size: size * 0.55),
     );
   }
 }
@@ -808,10 +839,7 @@ class _PrivateLegendChip extends StatelessWidget {
           ),
         ),
         SizedBox(width: 6.0),
-        Text(
-          label,
-          style: TextStyle(color: _kInkSoft, fontSize: 11.5),
-        ),
+        Text(label, style: TextStyle(color: _kInkSoft, fontSize: 11.5)),
       ],
     );
   }
@@ -922,11 +950,7 @@ class _PrivateAnatomyRow extends StatelessWidget {
           Expanded(
             child: RichText(
               text: TextSpan(
-                style: TextStyle(
-                  color: _kInkSoft,
-                  fontSize: 12.5,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.4),
                 children: [
                   TextSpan(
                     text: '$title — ',
@@ -1076,10 +1100,7 @@ class _PrivateComparisonTable extends StatelessWidget {
           _PrivateComparisonHeader(),
           Container(height: 1.0, color: _kHairline),
           for (int i = 0; i < rows.length; i++)
-            _PrivateComparisonDataRow(
-              row: rows[i],
-              alt: i.isOdd,
-            ),
+            _PrivateComparisonDataRow(row: rows[i], alt: i.isOdd),
         ],
       ),
     );
@@ -1093,7 +1114,12 @@ class _PrivateTableRow {
   final bool mini;
   final bool top;
   const _PrivateTableRow(
-      this.name, this.edge, this.docked, this.mini, this.top);
+    this.name,
+    this.edge,
+    this.docked,
+    this.mini,
+    this.top,
+  );
 }
 
 class _PrivateComparisonHeader extends StatelessWidget {
@@ -1173,9 +1199,7 @@ class _PrivateComparisonDataRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: alt ? _kSurfaceAlt : Colors.transparent,
-      ),
+      decoration: BoxDecoration(color: alt ? _kSurfaceAlt : Colors.transparent),
       padding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 8.0),
       child: Row(
         children: [
@@ -1251,15 +1275,20 @@ class _PrivateNotchDemo extends StatelessWidget {
                 ),
                 SizedBox(height: 14.0),
                 _PrivateBulletPoint(
-                    'shape: CircularNotchedRectangle() — cuts a circle.'),
+                  'shape: CircularNotchedRectangle() — cuts a circle.',
+                ),
                 _PrivateBulletPoint(
-                    'shape: AutomaticNotchedShape(...) — composes two ShapeBorders.'),
+                  'shape: AutomaticNotchedShape(...) — composes two ShapeBorders.',
+                ),
                 _PrivateBulletPoint(
-                    'notchMargin: 4.0 (default) — space between FAB and bar.'),
+                  'notchMargin: 4.0 (default) — space between FAB and bar.',
+                ),
                 _PrivateBulletPoint(
-                    'Pair docked locations only: endDocked, centerDocked, etc.'),
+                  'Pair docked locations only: endDocked, centerDocked, etc.',
+                ),
                 _PrivateBulletPoint(
-                    'On Material 3, BottomAppBar prefers no notch by default.'),
+                  'On Material 3, BottomAppBar prefers no notch by default.',
+                ),
               ],
             ),
           ),
@@ -1284,19 +1313,12 @@ class _PrivateBulletPoint extends StatelessWidget {
             width: 6.0,
             height: 6.0,
             margin: EdgeInsets.only(top: 6.0, right: 8.0),
-            decoration: BoxDecoration(
-              color: _kAccent,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: _kAccent, shape: BoxShape.circle),
           ),
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                color: _kInkSoft,
-                fontSize: 12.5,
-                height: 1.45,
-              ),
+              style: TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.45),
             ),
           ),
         ],
@@ -1456,7 +1478,8 @@ class _PrivateNotchPainter extends CustomPainter {
 
     // Notch geometry: a half-circle on the top edge, slightly right of center.
     const double notchRadius = 28.0;
-    final double centerX = size.width - 18.0 - 22.0; // align to FAB right=18, fab=44
+    final double centerX =
+        size.width - 18.0 - 22.0; // align to FAB right=18, fab=44
     final double topY = 0.0;
 
     final Path path = Path();
@@ -1507,47 +1530,65 @@ class _PrivateCodeListingCard extends StatelessWidget {
       _PrivateCodeLine('Scaffold(', _PrivateTokenKind.keyword),
       _PrivateCodeLine('  appBar: AppBar(', _PrivateTokenKind.normal),
       _PrivateCodeLine(
-          "    title: const Text('Compose'),", _PrivateTokenKind.string),
+        "    title: const Text('Compose'),",
+        _PrivateTokenKind.string,
+      ),
       _PrivateCodeLine('  ),', _PrivateTokenKind.normal),
-      _PrivateCodeLine('  body: const _MessageList(),', _PrivateTokenKind.normal),
-      _PrivateCodeLine('  bottomNavigationBar: BottomAppBar(',
-          _PrivateTokenKind.normal),
       _PrivateCodeLine(
-          '    shape: const CircularNotchedRectangle(),',
-          _PrivateTokenKind.normal),
+        '  body: const _MessageList(),',
+        _PrivateTokenKind.normal,
+      ),
+      _PrivateCodeLine(
+        '  bottomNavigationBar: BottomAppBar(',
+        _PrivateTokenKind.normal,
+      ),
+      _PrivateCodeLine(
+        '    shape: const CircularNotchedRectangle(),',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('    notchMargin: 6.0,', _PrivateTokenKind.number),
       _PrivateCodeLine('    child: Row(', _PrivateTokenKind.normal),
       _PrivateCodeLine(
-          '      mainAxisAlignment: MainAxisAlignment.spaceAround,',
-          _PrivateTokenKind.normal),
+        '      mainAxisAlignment: MainAxisAlignment.spaceAround,',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('      children: const [', _PrivateTokenKind.normal),
+      _PrivateCodeLine('        Icon(Icons.menu),', _PrivateTokenKind.normal),
+      _PrivateCodeLine('        Icon(Icons.search),', _PrivateTokenKind.normal),
       _PrivateCodeLine(
-          '        Icon(Icons.menu),', _PrivateTokenKind.normal),
-      _PrivateCodeLine(
-          '        Icon(Icons.search),', _PrivateTokenKind.normal),
-      _PrivateCodeLine(
-          '        Icon(Icons.notifications),', _PrivateTokenKind.normal),
+        '        Icon(Icons.notifications),',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('      ],', _PrivateTokenKind.normal),
       _PrivateCodeLine('    ),', _PrivateTokenKind.normal),
       _PrivateCodeLine('  ),', _PrivateTokenKind.normal),
-      _PrivateCodeLine('  floatingActionButton: FloatingActionButton(',
-          _PrivateTokenKind.normal),
+      _PrivateCodeLine(
+        '  floatingActionButton: FloatingActionButton(',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('    onPressed: _onCompose,', _PrivateTokenKind.normal),
+      _PrivateCodeLine("    tooltip: 'Compose',", _PrivateTokenKind.string),
       _PrivateCodeLine(
-          "    tooltip: 'Compose',", _PrivateTokenKind.string),
-      _PrivateCodeLine(
-          '    child: const Icon(Icons.add),', _PrivateTokenKind.normal),
+        '    child: const Icon(Icons.add),',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('  ),', _PrivateTokenKind.normal),
       _PrivateCodeLine(
-          '  floatingActionButtonLocation:', _PrivateTokenKind.normal),
+        '  floatingActionButtonLocation:',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine(
-          '      FloatingActionButtonLocation.endDocked,',
-          _PrivateTokenKind.highlight),
+        '      FloatingActionButtonLocation.endDocked,',
+        _PrivateTokenKind.highlight,
+      ),
       _PrivateCodeLine(
-          '  floatingActionButtonAnimator:', _PrivateTokenKind.normal),
+        '  floatingActionButtonAnimator:',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine(
-          '      FloatingActionButtonAnimator.scaling,',
-          _PrivateTokenKind.normal),
+        '      FloatingActionButtonAnimator.scaling,',
+        _PrivateTokenKind.normal,
+      ),
       _PrivateCodeLine('),', _PrivateTokenKind.normal),
     ];
 
@@ -1711,11 +1752,7 @@ class _PrivateAnimatorCard extends StatelessWidget {
             'When the FAB enters, exits, or moves between locations, the Scaffold '
             'consults its floatingActionButtonAnimator to compute the geometry. '
             'Two static animators are bundled with the framework:',
-            style: TextStyle(
-              color: _kInkSoft,
-              fontSize: 13.0,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _kInkSoft, fontSize: 13.0, height: 1.5),
           ),
           SizedBox(height: 14.0),
           Row(
@@ -1754,8 +1791,7 @@ class _PrivateAnimatorCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.lightbulb_outline,
-                    size: 16.0, color: _kAccentDeep),
+                Icon(Icons.lightbulb_outline, size: 16.0, color: _kAccentDeep),
                 SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -1834,11 +1870,7 @@ class _PrivateAnimatorTile extends StatelessWidget {
           SizedBox(height: 8.0),
           Text(
             desc,
-            style: TextStyle(
-              color: _kInkSoft,
-              fontSize: 12.0,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _kInkSoft, fontSize: 12.0, height: 1.5),
           ),
         ],
       ),
@@ -2040,7 +2072,9 @@ class _PrivateFooter extends StatelessWidget {
           Wrap(
             spacing: 12.0,
             runSpacing: 12.0,
-            children: swatches.map((s) => _PrivateSwatchTile(swatch: s)).toList(),
+            children: swatches
+                .map((s) => _PrivateSwatchTile(swatch: s))
+                .toList(),
           ),
           SizedBox(height: 18.0),
           Container(height: 1.0, color: _kHairline),

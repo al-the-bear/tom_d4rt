@@ -398,9 +398,7 @@ Widget _composeTitle({
     rowKids.add(_miniIcon(leading, size: 18, color: leadingColor));
     rowKids.add(const SizedBox(width: 10));
   }
-  final List<Widget> textKids = <Widget>[
-    Text(title, style: kTileTitleStyle),
-  ];
+  final List<Widget> textKids = <Widget>[Text(title, style: kTileTitleStyle)];
   if (subtitle != null) {
     textKids.add(const SizedBox(height: 2));
     textKids.add(Text(subtitle, style: kTileSubStyle));
@@ -417,10 +415,7 @@ Widget _composeTitle({
     rowKids.add(const SizedBox(width: 8));
     rowKids.add(trailingBadge);
   }
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: rowKids,
-  );
+  return Row(crossAxisAlignment: CrossAxisAlignment.center, children: rowKids);
 }
 
 // A small reusable "collapsed-state mock" --- a hand-drawn row that
@@ -438,9 +433,7 @@ Widget _collapsedMock({
     rowKids.add(_miniIcon(leading, size: 20, color: leadingColor));
     rowKids.add(const SizedBox(width: 12));
   }
-  final List<Widget> textKids = <Widget>[
-    Text(title, style: kTileTitleStyle),
-  ];
+  final List<Widget> textKids = <Widget>[Text(title, style: kTileTitleStyle)];
   if (subtitle != null) {
     textKids.add(const SizedBox(height: 2));
     textKids.add(Text(subtitle, style: kTileSubStyle));
@@ -457,19 +450,19 @@ Widget _collapsedMock({
   if (trailing != null) {
     rowKids.add(trailing);
   } else {
-    rowKids.add(const Icon(
-      CupertinoIcons.right_chevron,
-      size: 14,
-      color: CupertinoColors.activeBlue,
-    ));
+    rowKids.add(
+      const Icon(
+        CupertinoIcons.right_chevron,
+        size: 14,
+        color: CupertinoColors.activeBlue,
+      ),
+    );
   }
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     decoration: const BoxDecoration(
       color: cGlacialSnow,
-      border: Border(
-        bottom: BorderSide(color: cGraniteFog, width: 0.5),
-      ),
+      border: Border(bottom: BorderSide(color: cGraniteFog, width: 0.5)),
     ),
     child: Row(children: rowKids),
   );
@@ -516,7 +509,10 @@ Widget _buildTitleBanner() {
     final BoxDecoration swatchDeco = BoxDecoration(
       color: c,
       borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: cGlacialWhite.withValues(alpha: 0.55), width: 1),
+      border: Border.all(
+        color: cGlacialWhite.withValues(alpha: 0.55),
+        width: 1,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: cFjordAbyss.withValues(alpha: 0.45),
@@ -775,19 +771,26 @@ Widget _buildAnatomySection() {
 
 const List<List<String>> kPropertyTable = <List<String>>[
   <String>[
-    'title', 'Widget', '(required)',
+    'title',
+    'Widget',
+    '(required)',
     'The mandatory headline. iOS prefers a single Text or composed Row.',
   ],
   <String>[
-    'child', 'Widget', '(required)',
+    'child',
+    'Widget',
+    '(required)',
     'The single body widget revealed when the tile is expanded.',
   ],
   <String>[
-    'controller', 'ExpansibleController?', 'null',
+    'controller',
+    'ExpansibleController?',
+    'null',
     'Imperative open/close handle. Not driven in this demo.',
   ],
   <String>[
-    'transitionMode', 'ExpansionTileTransitionMode',
+    'transitionMode',
+    'ExpansionTileTransitionMode',
     'fade',
     'fade or scroll. iOS Settings prefers fade.',
   ],
@@ -802,9 +805,7 @@ Widget _buildPropertyTable() {
     Container(
       decoration: const BoxDecoration(
         color: cCoral,
-        border: Border(
-          bottom: BorderSide(color: cGraniteDark, width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: cGraniteDark, width: 1)),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
@@ -905,9 +906,7 @@ Widget _buildPropertyTable() {
                 ),
               ),
             ),
-            Expanded(
-              child: Text(row[3], style: kBodyStyle),
-            ),
+            Expanded(child: Text(row[3], style: kBodyStyle)),
           ],
         ),
       ),
@@ -942,7 +941,10 @@ Widget _buildPropertyTable() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const <Widget>[
-            Text('FOUR PROPERTIES, ENDLESS COMPOSITIONS', style: kSmallLabelStyle),
+            Text(
+              'FOUR PROPERTIES, ENDLESS COMPOSITIONS',
+              style: kSmallLabelStyle,
+            ),
             SizedBox(height: 6),
             Text(
               'The actual constructor is small on purpose. iOS apps achieve '
@@ -1048,9 +1050,7 @@ Widget _buildCollapsedCatalogue() {
           border: Border.all(color: cGraniteFog, width: 1),
         ),
         clipBehavior: Clip.antiAlias,
-        child: Column(
-          children: <Widget>[mockA, mockB, mockC, mockD, mockE],
-        ),
+        child: Column(children: <Widget>[mockA, mockB, mockC, mockD, mockE]),
       ),
     ],
   );
@@ -1330,9 +1330,7 @@ Widget _buildNestedTiles() {
       subtitle: '2 sub-folders',
     ),
     transitionMode: ExpansionTileTransitionMode.fade,
-    child: Column(
-      children: <Widget>[innerA, innerB],
-    ),
+    child: Column(children: <Widget>[innerA, innerB]),
   );
 
   final Widget lead = Padding(
@@ -1400,10 +1398,7 @@ Widget _buildHeaderVariants() {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: cGraniteFog, width: 1),
       ),
-      child: const Text(
-        'placeholder child',
-        style: kTileBodyStyle,
-      ),
+      child: const Text('placeholder child', style: kTileBodyStyle),
     ),
   );
 
@@ -1505,8 +1500,11 @@ Widget _buildHeaderVariants() {
       leading: CupertinoIcons.lock_fill,
       leadingColor: cKelpGreen,
       title: 'E. Locked section',
-      trailingBadge: _miniIcon(CupertinoIcons.lock,
-          size: 16, color: cGraniteMid),
+      trailingBadge: _miniIcon(
+        CupertinoIcons.lock,
+        size: 16,
+        color: cGraniteMid,
+      ),
     ),
     transitionMode: ExpansionTileTransitionMode.fade,
     child: placeholderChild,
@@ -1707,10 +1705,7 @@ Widget _buildSettingsPanelMock() {
         ),
         footer: const Text(
           'Some sections require a passcode to expand.',
-          style: TextStyle(
-            color: cGraniteMid,
-            fontSize: 11,
-          ),
+          style: TextStyle(color: cGraniteMid, fontSize: 11),
         ),
         children: <Widget>[
           settingsGeneral,
@@ -1889,7 +1884,10 @@ Widget _buildCupertinoVsMaterial() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const <Widget>[
-            Text('DIFFERENCES IN A NAVIGATOR\'S NUTSHELL', style: kSmallLabelStyle),
+            Text(
+              'DIFFERENCES IN A NAVIGATOR\'S NUTSHELL',
+              style: kSmallLabelStyle,
+            ),
             SizedBox(height: 6),
             Text(
               '   * API surface     --- iOS exposes title + child + controller\n'
@@ -1992,11 +1990,7 @@ Widget _buildDoAvoidCallouts() {
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-      doCard,
-      const SizedBox(height: 12),
-      avoidCard,
-    ],
+    children: <Widget>[doCard, const SizedBox(height: 12), avoidCard],
   );
 }
 
@@ -2011,17 +2005,17 @@ const List<List<String>> kRecipes = <List<String>>[
         'when you have a single category of options that the user might '
         'want to fold away.',
     'CupertinoListSection.insetGrouped(\n'
-    '   children: <Widget>[\n'
-    '      CupertinoExpansionTile(\n'
-    '         title: const Text(\'General\'),\n'
-    '         child: Column(\n'
-    '            children: const <Widget>[\n'
-    '               CupertinoListTile(title: Text(\'About\')),\n'
-    '            ],\n'
-    '         ),\n'
-    '      ),\n'
-    '   ],\n'
-    ')',
+        '   children: <Widget>[\n'
+        '      CupertinoExpansionTile(\n'
+        '         title: const Text(\'General\'),\n'
+        '         child: Column(\n'
+        '            children: const <Widget>[\n'
+        '               CupertinoListTile(title: Text(\'About\')),\n'
+        '            ],\n'
+        '         ),\n'
+        '      ),\n'
+        '   ],\n'
+        ')',
   ],
   <String>[
     'Recipe 2: A title that composes leading + subtitle',
@@ -2029,54 +2023,54 @@ const List<List<String>> kRecipes = <List<String>>[
         'the single title Widget by wrapping in Row(Icon, Column(title, '
         'subtitle)).',
     'CupertinoExpansionTile(\n'
-    '   title: Row(children: <Widget>[\n'
-    '      Icon(CupertinoIcons.wifi),\n'
-    '      const SizedBox(width: 10),\n'
-    '      Expanded(child: Column(\n'
-    '         crossAxisAlignment: CrossAxisAlignment.start,\n'
-    '         children: const <Widget>[\n'
-    '            Text(\'Wi-Fi\'),\n'
-    '            Text(\'Glacial-Bay-5GHz\'),\n'
-    '         ],\n'
-    '      )),\n'
-    '   ]),\n'
-    '   child: const SizedBox.shrink(),\n'
-    ')',
+        '   title: Row(children: <Widget>[\n'
+        '      Icon(CupertinoIcons.wifi),\n'
+        '      const SizedBox(width: 10),\n'
+        '      Expanded(child: Column(\n'
+        '         crossAxisAlignment: CrossAxisAlignment.start,\n'
+        '         children: const <Widget>[\n'
+        '            Text(\'Wi-Fi\'),\n'
+        '            Text(\'Glacial-Bay-5GHz\'),\n'
+        '         ],\n'
+        '      )),\n'
+        '   ]),\n'
+        '   child: const SizedBox.shrink(),\n'
+        ')',
   ],
   <String>[
     'Recipe 3: A coral NEW pill at the trailing edge of the title',
     'Add a coloured pill to the end of the title Row. Keep the pill '
         'small; iOS punishes loud trailing widgets.',
     'CupertinoExpansionTile(\n'
-    '   title: Row(children: <Widget>[\n'
-    '      Icon(CupertinoIcons.lock_shield),\n'
-    '      const SizedBox(width: 10),\n'
-    '      const Expanded(child: Text(\'Privacy\')),\n'
-    '      Container(\n'
-    '         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),\n'
-    '         decoration: BoxDecoration(\n'
-    '            color: const Color(0xFFE7704A),\n'
-    '            borderRadius: BorderRadius.circular(8),\n'
-    '         ),\n'
-    '         child: const Text(\'NEW\'),\n'
-    '      ),\n'
-    '   ]),\n'
-    '   child: /* ... */ const SizedBox.shrink(),\n'
-    ')',
+        '   title: Row(children: <Widget>[\n'
+        '      Icon(CupertinoIcons.lock_shield),\n'
+        '      const SizedBox(width: 10),\n'
+        '      const Expanded(child: Text(\'Privacy\')),\n'
+        '      Container(\n'
+        '         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),\n'
+        '         decoration: BoxDecoration(\n'
+        '            color: const Color(0xFFE7704A),\n'
+        '            borderRadius: BorderRadius.circular(8),\n'
+        '         ),\n'
+        '         child: const Text(\'NEW\'),\n'
+        '      ),\n'
+        '   ]),\n'
+        '   child: /* ... */ const SizedBox.shrink(),\n'
+        ')',
   ],
   <String>[
     'Recipe 4: Pick a transitionMode that matches the surrounding screen',
     'iOS Settings tends toward fade; iOS Files tends toward scroll. '
         'Pick once per screen and stay with it.',
     'CupertinoExpansionTile(\n'
-    '   title: const Text(\'Display\'),\n'
-    '   transitionMode: ExpansionTileTransitionMode.scroll,\n'
-    '   child: Column(\n'
-    '      children: const <Widget>[\n'
-    '         CupertinoListTile(title: Text(\'Text Size\')),\n'
-    '      ],\n'
-    '   ),\n'
-    ')',
+        '   title: const Text(\'Display\'),\n'
+        '   transitionMode: ExpansionTileTransitionMode.scroll,\n'
+        '   child: Column(\n'
+        '      children: const <Widget>[\n'
+        '         CupertinoListTile(title: Text(\'Text Size\')),\n'
+        '      ],\n'
+        '   ),\n'
+        ')',
   ],
   <String>[
     'Recipe 5: Two nested tiles inside a parent tile',
@@ -2084,19 +2078,19 @@ const List<List<String>> kRecipes = <List<String>>[
         'far edge of what users can keep in their head. Add a small '
         'leading inset on the inner tiles to suggest hierarchy.',
     'CupertinoExpansionTile(\n'
-    '   title: const Text(\'Documents\'),\n'
-    '   child: Column(\n'
-    '      children: <Widget>[\n'
-    '         Padding(\n'
-    '            padding: const EdgeInsets.only(left: 12),\n'
-    '            child: CupertinoExpansionTile(\n'
-    '               title: const Text(\'Sub-folder A\'),\n'
-    '               child: const SizedBox.shrink(),\n'
-    '            ),\n'
-    '         ),\n'
-    '      ],\n'
-    '   ),\n'
-    ')',
+        '   title: const Text(\'Documents\'),\n'
+        '   child: Column(\n'
+        '      children: <Widget>[\n'
+        '         Padding(\n'
+        '            padding: const EdgeInsets.only(left: 12),\n'
+        '            child: CupertinoExpansionTile(\n'
+        '               title: const Text(\'Sub-folder A\'),\n'
+        '               child: const SizedBox.shrink(),\n'
+        '            ),\n'
+        '         ),\n'
+        '      ],\n'
+        '   ),\n'
+        ')',
   ],
 ];
 
@@ -2270,10 +2264,7 @@ Widget _buildGlossary() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              width: 150,
-              child: Text(term, style: kGlossaryTermStyle),
-            ),
+            SizedBox(width: 150, child: Text(term, style: kGlossaryTermStyle)),
             const SizedBox(width: 8),
             Expanded(child: Text(def, style: kGlossaryDefStyle)),
           ],
@@ -2370,11 +2361,7 @@ Widget _buildRecapFooter() {
           'mock, and a Cupertino-vs-Material side-by-side. We ended with '
           'DO/AVOID guidance, five recipe cards, and a glossary you can '
           'keep at the helm.',
-          style: TextStyle(
-            color: cGlacialIce,
-            fontSize: 13,
-            height: 1.45,
-          ),
+          style: TextStyle(color: cGlacialIce, fontSize: 13, height: 1.45),
         ),
         const SizedBox(height: 10),
         const Text(

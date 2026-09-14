@@ -58,9 +58,7 @@ Widget _ggSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_ggRust, _ggDarkRust],
-      ),
+      gradient: LinearGradient(colors: [_ggRust, _ggDarkRust]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -310,8 +308,8 @@ dynamic build(BuildContext context) {
           _ggInfoCard(
             'Data class — not a widget',
             'SliverGridGeometry has no build method and is never placed in a '
-            'widget tree.  It is purely a data carrier.  This demo uses '
-            'visual cards to show what the four properties mean.',
+                'widget tree.  It is purely a data carrier.  This demo uses '
+                'visual cards to show what the four properties mean.',
             Icons.data_object,
             _ggRust,
           ),
@@ -322,21 +320,34 @@ dynamic build(BuildContext context) {
           // ================================================================
           _ggSectionHeader(
             '1 · The Four Properties',
-            subtitle: 'scrollOffset, crossAxisOffset, mainAxisExtent, crossAxisExtent',
+            subtitle:
+                'scrollOffset, crossAxisOffset, mainAxisExtent, crossAxisExtent',
           ),
           const SizedBox(height: 8),
           _ggParagraph(
             'A SliverGridGeometry stores four doubles.  Together they form a '
             'rectangle in the sliver coordinate system:',
           ),
-          _ggLabelValue('scrollOffset', '${geo.scrollOffset} px',
-              valueColor: _ggTeal),
-          _ggLabelValue('crossAxisOffset', '${geo.crossAxisOffset} px',
-              valueColor: _ggIndigo),
-          _ggLabelValue('mainAxisExtent', '${geo.mainAxisExtent} px',
-              valueColor: _ggCoral),
-          _ggLabelValue('crossAxisExtent', '${geo.crossAxisExtent} px',
-              valueColor: _ggForest),
+          _ggLabelValue(
+            'scrollOffset',
+            '${geo.scrollOffset} px',
+            valueColor: _ggTeal,
+          ),
+          _ggLabelValue(
+            'crossAxisOffset',
+            '${geo.crossAxisOffset} px',
+            valueColor: _ggIndigo,
+          ),
+          _ggLabelValue(
+            'mainAxisExtent',
+            '${geo.mainAxisExtent} px',
+            valueColor: _ggCoral,
+          ),
+          _ggLabelValue(
+            'crossAxisExtent',
+            '${geo.crossAxisExtent} px',
+            valueColor: _ggForest,
+          ),
           const SizedBox(height: 10),
           // Visual: a grid area with the tile rectangle highlighted
           Container(
@@ -353,20 +364,26 @@ dynamic build(BuildContext context) {
                 const Positioned(
                   left: 8,
                   top: 8,
-                  child: Text('Origin (0,0)',
-                      style: TextStyle(fontSize: 10, color: _ggSlate)),
+                  child: Text(
+                    'Origin (0,0)',
+                    style: TextStyle(fontSize: 10, color: _ggSlate),
+                  ),
                 ),
                 const Positioned(
                   right: 8,
                   top: 8,
-                  child: Text('→ cross axis',
-                      style: TextStyle(fontSize: 10, color: _ggIndigo)),
+                  child: Text(
+                    '→ cross axis',
+                    style: TextStyle(fontSize: 10, color: _ggIndigo),
+                  ),
                 ),
                 const Positioned(
                   left: 8,
                   bottom: 8,
-                  child: Text('↓ scroll axis',
-                      style: TextStyle(fontSize: 10, color: _ggTeal)),
+                  child: Text(
+                    '↓ scroll axis',
+                    style: TextStyle(fontSize: 10, color: _ggTeal),
+                  ),
                 ),
                 // The tile rectangle
                 Positioned(
@@ -384,13 +401,18 @@ dynamic build(BuildContext context) {
                     child: const Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Tile',
-                            style: TextStyle(
-                                color: _ggDarkRust,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13)),
-                        Text('crossAxisExtent × mainAxisExtent',
-                            style: TextStyle(color: _ggCharcoal, fontSize: 9)),
+                        Text(
+                          'Tile',
+                          style: TextStyle(
+                            color: _ggDarkRust,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                        Text(
+                          'crossAxisExtent × mainAxisExtent',
+                          style: TextStyle(color: _ggCharcoal, fontSize: 9),
+                        ),
                       ],
                     ),
                   ),
@@ -441,11 +463,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Vertical scroll — three rows',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggTeal)),
+                const Text(
+                  'Vertical scroll — three rows',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggTeal,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 // Row 0: scrollOffset = 0
                 Row(
@@ -453,12 +478,15 @@ dynamic build(BuildContext context) {
                     Container(
                       width: 80,
                       padding: const EdgeInsets.only(right: 8),
-                      child: const Text('scroll: 0',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: _ggTeal)),
+                      child: const Text(
+                        'scroll: 0',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: _ggTeal,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Row(
@@ -480,12 +508,15 @@ dynamic build(BuildContext context) {
                     Container(
                       width: 80,
                       padding: const EdgeInsets.only(right: 8),
-                      child: const Text('scroll: 50',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: _ggTeal)),
+                      child: const Text(
+                        'scroll: 50',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: _ggTeal,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Row(
@@ -507,12 +538,15 @@ dynamic build(BuildContext context) {
                     Container(
                       width: 80,
                       padding: const EdgeInsets.only(right: 8),
-                      child: const Text('scroll: 100',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: _ggTeal)),
+                      child: const Text(
+                        'scroll: 100',
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: _ggTeal,
+                        ),
+                      ),
                     ),
                     Expanded(
                       child: Row(
@@ -562,11 +596,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Cross-axis offsets in a 3-column grid',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggIndigo)),
+                const Text(
+                  'Cross-axis offsets in a 3-column grid',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggIndigo,
+                  ),
+                ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
@@ -581,9 +618,10 @@ dynamic build(BuildContext context) {
                             textColor: _ggIndigo,
                           ),
                           const SizedBox(height: 4),
-                          const Text('Col 0',
-                              style: TextStyle(
-                                  fontSize: 10, color: _ggIndigo)),
+                          const Text(
+                            'Col 0',
+                            style: TextStyle(fontSize: 10, color: _ggIndigo),
+                          ),
                         ],
                       ),
                     ),
@@ -599,9 +637,10 @@ dynamic build(BuildContext context) {
                             textColor: _ggIndigo,
                           ),
                           const SizedBox(height: 4),
-                          const Text('Col 1',
-                              style: TextStyle(
-                                  fontSize: 10, color: _ggIndigo)),
+                          const Text(
+                            'Col 1',
+                            style: TextStyle(fontSize: 10, color: _ggIndigo),
+                          ),
                         ],
                       ),
                     ),
@@ -617,9 +656,10 @@ dynamic build(BuildContext context) {
                             textColor: Colors.white,
                           ),
                           const SizedBox(height: 4),
-                          const Text('Col 2',
-                              style: TextStyle(
-                                  fontSize: 10, color: _ggIndigo)),
+                          const Text(
+                            'Col 2',
+                            style: TextStyle(fontSize: 10, color: _ggIndigo),
+                          ),
                         ],
                       ),
                     ),
@@ -669,11 +709,14 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Column(
                     children: [
-                      const Text('Tall tile',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: _ggCoral)),
+                      const Text(
+                        'Tall tile',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: _ggCoral,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       _ggTileBox(
                         width: 60,
@@ -690,11 +733,14 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Column(
                     children: [
-                      const Text('Wide tile',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: _ggForest)),
+                      const Text(
+                        'Wide tile',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: _ggForest,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       _ggTileBox(
                         width: 120,
@@ -711,11 +757,14 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Column(
                     children: [
-                      const Text('Square tile',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: _ggPlum)),
+                      const Text(
+                        'Square tile',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: _ggPlum,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       _ggTileBox(
                         width: 80,
@@ -795,12 +844,15 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     alignment: Alignment.center,
-                    child: const Text('Tile A\nscroll: 0→60',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _ggTeal)),
+                    child: const Text(
+                      'Tile A\nscroll: 0→60',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: _ggTeal,
+                      ),
+                    ),
                   ),
                 ),
                 // Trailing edge marker A
@@ -808,17 +860,22 @@ dynamic build(BuildContext context) {
                   left: 155,
                   top: 32,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: _ggTeal.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(3),
                     ),
-                    child: const Text('trailing: 60',
-                        style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            color: _ggTeal)),
+                    child: const Text(
+                      'trailing: 60',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: _ggTeal,
+                      ),
+                    ),
                   ),
                 ),
                 // Tile B: scrollOffset=65, mainAxisExtent=80
@@ -834,12 +891,15 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     alignment: Alignment.center,
-                    child: const Text('Tile B\nscroll: 65→145',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: _ggIndigo)),
+                    child: const Text(
+                      'Tile B\nscroll: 65→145',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: _ggIndigo,
+                      ),
+                    ),
                   ),
                 ),
                 // Trailing edge marker B
@@ -847,17 +907,22 @@ dynamic build(BuildContext context) {
                   left: 155,
                   top: 98,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: _ggIndigo.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(3),
                     ),
-                    child: const Text('trailing: 145',
-                        style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            color: _ggIndigo)),
+                    child: const Text(
+                      'trailing: 145',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                        color: _ggIndigo,
+                      ),
+                    ),
                   ),
                 ),
                 // Spacing annotation
@@ -865,17 +930,22 @@ dynamic build(BuildContext context) {
                   left: 260,
                   top: 55,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: _ggAmber.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('5px spacing',
-                        style: TextStyle(
-                            fontSize: 9,
-                            color: _ggCharcoal,
-                            fontWeight: FontWeight.w600)),
+                    child: const Text(
+                      '5px spacing',
+                      style: TextStyle(
+                        fontSize: 9,
+                        color: _ggCharcoal,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -912,11 +982,14 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Text('Axis-dependent mapping',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: _ggSky)),
+                const Text(
+                  'Axis-dependent mapping',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: _ggSky,
+                  ),
+                ),
                 const SizedBox(height: 12),
                 // Vertical grid row
                 Row(
@@ -933,14 +1006,19 @@ dynamic build(BuildContext context) {
                       child: const Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Vertical grid',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: _ggSky)),
-                          Text('width = cross\nheight = main',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 9, color: _ggSlate)),
+                          Text(
+                            'Vertical grid',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: _ggSky,
+                            ),
+                          ),
+                          Text(
+                            'width = cross\nheight = main',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 9, color: _ggSlate),
+                          ),
                         ],
                       ),
                     ),
@@ -982,14 +1060,19 @@ dynamic build(BuildContext context) {
                       child: const Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Horizontal grid',
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                  color: _ggPlum)),
-                          Text('width = main\nheight = cross',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 9, color: _ggSlate)),
+                          Text(
+                            'Horizontal grid',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: _ggPlum,
+                            ),
+                          ),
+                          Text(
+                            'width = main\nheight = cross',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 9, color: _ggSlate),
+                          ),
                         ],
                       ),
                     ),
@@ -1050,11 +1133,14 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Text('3 × 3 uniform grid',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggRust)),
+                const Text(
+                  '3 × 3 uniform grid',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggRust,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 for (int row = 0; row < 3; row++) ...[
                   if (row > 0) const SizedBox(height: 6),
@@ -1066,10 +1152,10 @@ dynamic build(BuildContext context) {
                         _ggTileBox(
                           width: 80,
                           height: 60,
-                          label:
-                              's:${row * 66}\nc:${col * 86}\n80×60',
-                          color: _ggRust
-                              .withValues(alpha: 0.1 + (row * 3 + col) * 0.05),
+                          label: 's:${row * 66}\nc:${col * 86}\n80×60',
+                          color: _ggRust.withValues(
+                            alpha: 0.1 + (row * 3 + col) * 0.05,
+                          ),
                         ),
                       ],
                     ],
@@ -1095,11 +1181,14 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Text('4-column compact grid',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggForest)),
+                const Text(
+                  '4-column compact grid',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggForest,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 for (int row = 0; row < 2; row++) ...[
                   if (row > 0) const SizedBox(height: 4),
@@ -1112,8 +1201,7 @@ dynamic build(BuildContext context) {
                           width: 62,
                           height: 46,
                           label: '($row,$col)',
-                          color:
-                              _ggForest.withValues(alpha: 0.1 + col * 0.08),
+                          color: _ggForest.withValues(alpha: 0.1 + col * 0.08),
                           textColor: _ggForest,
                         ),
                       ],
@@ -1153,11 +1241,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Staggered 2-column layout',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggPlum)),
+                const Text(
+                  'Staggered 2-column layout',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggPlum,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1280,24 +1371,24 @@ dynamic build(BuildContext context) {
           _ggInfoCard(
             'Square tile at origin',
             'SliverGridGeometry(scrollOffset: 0, crossAxisOffset: 0, '
-            'mainAxisExtent: 100, crossAxisExtent: 100)\n'
-            '→ trailingScrollOffset = 100',
+                'mainAxisExtent: 100, crossAxisExtent: 100)\n'
+                '→ trailingScrollOffset = 100',
             Icons.crop_square,
             _ggTeal,
           ),
           _ggInfoCard(
             'Wide banner in second row',
             'SliverGridGeometry(scrollOffset: 110, crossAxisOffset: 0, '
-            'mainAxisExtent: 60, crossAxisExtent: 360)\n'
-            '→ trailingScrollOffset = 170',
+                'mainAxisExtent: 60, crossAxisExtent: 360)\n'
+                '→ trailingScrollOffset = 170',
             Icons.panorama_wide_angle,
             _ggIndigo,
           ),
           _ggInfoCard(
             'Small thumbnail, third column',
             'SliverGridGeometry(scrollOffset: 0, crossAxisOffset: 240, '
-            'mainAxisExtent: 48, crossAxisExtent: 48)\n'
-            '→ trailingScrollOffset = 48',
+                'mainAxisExtent: 48, crossAxisExtent: 48)\n'
+                '→ trailingScrollOffset = 48',
             Icons.photo_size_select_small,
             _ggCoral,
           ),
@@ -1333,27 +1424,30 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Text('Layout flow',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: _ggAmber)),
+                const Text(
+                  'Layout flow',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: _ggAmber,
+                  ),
+                ),
                 const SizedBox(height: 10),
-                _ggFlowStep('SliverGridLayout.getGeometryForChildIndex(i)',
-                    _ggTeal),
-                const Icon(Icons.arrow_downward,
-                    size: 16, color: _ggSlate),
-                _ggFlowStep('SliverGridGeometry returned', _ggRust),
-                const Icon(Icons.arrow_downward,
-                    size: 16, color: _ggSlate),
-                _ggFlowStep('getBoxConstraints(sliverConstraints)', _ggIndigo),
-                const Icon(Icons.arrow_downward,
-                    size: 16, color: _ggSlate),
-                _ggFlowStep('child.layout(constraints)', _ggForest),
-                const Icon(Icons.arrow_downward,
-                    size: 16, color: _ggSlate),
                 _ggFlowStep(
-                    'paint at (crossAxisOffset, scrollOffset)', _ggPlum),
+                  'SliverGridLayout.getGeometryForChildIndex(i)',
+                  _ggTeal,
+                ),
+                const Icon(Icons.arrow_downward, size: 16, color: _ggSlate),
+                _ggFlowStep('SliverGridGeometry returned', _ggRust),
+                const Icon(Icons.arrow_downward, size: 16, color: _ggSlate),
+                _ggFlowStep('getBoxConstraints(sliverConstraints)', _ggIndigo),
+                const Icon(Icons.arrow_downward, size: 16, color: _ggSlate),
+                _ggFlowStep('child.layout(constraints)', _ggForest),
+                const Icon(Icons.arrow_downward, size: 16, color: _ggSlate),
+                _ggFlowStep(
+                  'paint at (crossAxisOffset, scrollOffset)',
+                  _ggPlum,
+                ),
               ],
             ),
           ),
@@ -1382,53 +1476,78 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: _ggDarkRust,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(8)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(8),
+              ),
             ),
             child: const Row(
               children: [
                 SizedBox(
-                    width: 40,
-                    child: Text('Tile',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  width: 40,
+                  child: Text(
+                    'Tile',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text('scroll',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  child: Text(
+                    'scroll',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text('cross',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  child: Text(
+                    'cross',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text('mainExt',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  child: Text(
+                    'mainExt',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text('crossExt',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  child: Text(
+                    'crossExt',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Text('trailing',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold))),
+                  child: Text(
+                    'trailing',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1437,56 +1556,65 @@ dynamic build(BuildContext context) {
             for (int col = 0; col < 3; col++)
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: (row * 3 + col).isEven
                       ? _ggSand.withValues(alpha: 0.4)
                       : Colors.white,
                   border: Border(
-                    bottom: BorderSide(
-                        color: _ggSlate.withValues(alpha: 0.15)),
+                    bottom: BorderSide(color: _ggSlate.withValues(alpha: 0.15)),
                   ),
                 ),
                 child: Row(
                   children: [
                     SizedBox(
                       width: 40,
-                      child: Text('($row,$col)',
-                          style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: _ggRust)),
+                      child: Text(
+                        '($row,$col)',
+                        style: const TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: _ggRust,
+                        ),
+                      ),
                     ),
                     Expanded(
-                      child: Text('${row * 66}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 10, color: _ggTeal)),
+                      child: Text(
+                        '${row * 66}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 10, color: _ggTeal),
+                      ),
                     ),
                     Expanded(
-                      child: Text('${col * 86}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 10, color: _ggIndigo)),
+                      child: Text(
+                        '${col * 86}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 10, color: _ggIndigo),
+                      ),
                     ),
                     const Expanded(
-                      child: Text('60',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: _ggCoral)),
+                      child: Text(
+                        '60',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: _ggCoral),
+                      ),
                     ),
                     const Expanded(
-                      child: Text('80',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: _ggForest)),
+                      child: Text(
+                        '80',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: _ggForest),
+                      ),
                     ),
                     Expanded(
-                      child: Text('${row * 66 + 60}',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 10, color: _ggPlum)),
+                      child: Text(
+                        '${row * 66 + 60}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 10, color: _ggPlum),
+                      ),
                     ),
                   ],
                 ),
@@ -1497,8 +1625,9 @@ dynamic build(BuildContext context) {
             height: 3,
             decoration: BoxDecoration(
               color: _ggDarkRust,
-              borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(8)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(8),
+              ),
             ),
           ),
           _ggCaption(
@@ -1532,11 +1661,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Photo gallery — 3 columns, aspect ratio 1.0',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggRust)),
+                const Text(
+                  'Photo gallery — 3 columns, aspect ratio 1.0',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggRust,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 200,
@@ -1579,7 +1711,9 @@ dynamic build(BuildContext context) {
                             Text(
                               'Tile $i',
                               style: const TextStyle(
-                                  fontSize: 10, color: _ggDarkRust),
+                                fontSize: 10,
+                                color: _ggDarkRust,
+                              ),
                             ),
                           ],
                         ),
@@ -1603,11 +1737,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Landscape cards — 2 columns, ratio 2.0',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggTeal)),
+                const Text(
+                  'Landscape cards — 2 columns, ratio 2.0',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggTeal,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 140,
@@ -1623,8 +1760,9 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: _ggTeal.withValues(alpha: 0.12 + i * 0.08),
                           borderRadius: BorderRadius.circular(6),
-                          border:
-                              Border.all(color: _ggTeal.withValues(alpha: 0.4)),
+                          border: Border.all(
+                            color: _ggTeal.withValues(alpha: 0.4),
+                          ),
                         ),
                         padding: const EdgeInsets.all(8),
                         child: Row(
@@ -1644,7 +1782,9 @@ dynamic build(BuildContext context) {
                               child: Text(
                                 'Card $i — wide ratio',
                                 style: const TextStyle(
-                                    fontSize: 11, color: _ggCharcoal),
+                                  fontSize: 11,
+                                  color: _ggCharcoal,
+                                ),
                               ),
                             ),
                           ],
@@ -1669,11 +1809,14 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Portrait cards — 4 columns, ratio 0.65',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: _ggPlum)),
+                const Text(
+                  'Portrait cards — 4 columns, ratio 0.65',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: _ggPlum,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 SizedBox(
                   height: 190,
@@ -1697,7 +1840,8 @@ dynamic build(BuildContext context) {
                           ),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                              color: _ggPlum.withValues(alpha: 0.3)),
+                            color: _ggPlum.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -1713,11 +1857,14 @@ dynamic build(BuildContext context) {
                               size: 28,
                             ),
                             const SizedBox(height: 6),
-                            Text('P$i',
-                                style: const TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: _ggPlum)),
+                            Text(
+                              'P$i',
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: _ggPlum,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1748,39 +1895,39 @@ dynamic build(BuildContext context) {
           _ggInfoCard(
             'SliverGridDelegate',
             'Top-level strategy. Receives SliverConstraints and produces '
-            'a SliverGridLayout. Examples: '
-            'SliverGridDelegateWithFixedCrossAxisCount, '
-            'SliverGridDelegateWithMaxCrossAxisExtent.',
+                'a SliverGridLayout. Examples: '
+                'SliverGridDelegateWithFixedCrossAxisCount, '
+                'SliverGridDelegateWithMaxCrossAxisExtent.',
             Icons.account_tree,
             _ggSky,
           ),
           _ggInfoCard(
             'SliverGridLayout',
             'Abstract interface returned by the delegate. Provides '
-            'getGeometryForChildIndex(i) → SliverGridGeometry and '
-            'computeMaxScrollOffset(childCount).',
+                'getGeometryForChildIndex(i) → SliverGridGeometry and '
+                'computeMaxScrollOffset(childCount).',
             Icons.grid_on,
             _ggForest,
           ),
           _ggInfoCard(
             'SliverGridRegularTileLayout',
             'Concrete SliverGridLayout for uniform grids. Computes geometry '
-            'from crossAxisCount, mainAxisStride, crossAxisStride, etc.',
+                'from crossAxisCount, mainAxisStride, crossAxisStride, etc.',
             Icons.apps,
             _ggPlum,
           ),
           _ggInfoCard(
             'SliverGridGeometry',
             'The data object you\'re looking at now — carries four doubles '
-            'and two derived getters.  Created by SliverGridLayout, consumed '
-            'by RenderSliverGrid.',
+                'and two derived getters.  Created by SliverGridLayout, consumed '
+                'by RenderSliverGrid.',
             Icons.data_object,
             _ggRust,
           ),
           _ggInfoCard(
             'RenderSliverGrid',
             'Render object that iterates children, asks the layout for '
-            'geometry, and positions each child accordingly.',
+                'geometry, and positions each child accordingly.',
             Icons.view_module,
             _ggAmber,
           ),
@@ -1812,11 +1959,7 @@ dynamic build(BuildContext context) {
                 // Zero mainAxisExtent
                 Row(
                   children: [
-                    Container(
-                      width: 100,
-                      height: 2,
-                      color: _ggCoral,
-                    ),
+                    Container(width: 100, height: 2, color: _ggCoral),
                     const SizedBox(width: 10),
                     const Expanded(
                       child: Text(
@@ -1840,8 +1983,10 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       alignment: Alignment.center,
-                      child: const Text('full width',
-                          style: TextStyle(fontSize: 9, color: _ggForest)),
+                      child: const Text(
+                        'full width',
+                        style: TextStyle(fontSize: 9, color: _ggForest),
+                      ),
                     ),
                     const SizedBox(width: 10),
                     const Expanded(
@@ -1866,8 +2011,10 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       alignment: Alignment.center,
-                      child: const Text('far down',
-                          style: TextStyle(fontSize: 9, color: _ggSky)),
+                      child: const Text(
+                        'far down',
+                        style: TextStyle(fontSize: 9, color: _ggSky),
+                      ),
                     ),
                     const SizedBox(width: 10),
                     const Expanded(
@@ -1882,17 +2029,16 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          _ggCaption('The data class imposes no constraints — the layout '
-              'strategy is responsible for sensible values.'),
+          _ggCaption(
+            'The data class imposes no constraints — the layout '
+            'strategy is responsible for sensible values.',
+          ),
           _ggDivider(),
 
           // ================================================================
           // SECTION 16 — Summary
           // ================================================================
-          _ggSectionHeader(
-            '15 · Summary',
-            subtitle: 'Key take-aways',
-          ),
+          _ggSectionHeader('15 · Summary', subtitle: 'Key take-aways'),
           const SizedBox(height: 8),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -1912,29 +2058,59 @@ dynamic build(BuildContext context) {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('• SliverGridGeometry is an immutable data class.',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
-                Text('• Four properties: scrollOffset, crossAxisOffset, '
-                    'mainAxisExtent, crossAxisExtent.',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
-                Text('• Two derived getters: trailingScrollOffset, '
-                    'getBoxConstraints().',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
-                Text('• Produced by SliverGridLayout, consumed by '
-                    'RenderSliverGrid.',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
-                Text('• Same structure, different values → uniform or '
-                    'staggered grids.',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
-                Text('• Works identically for vertical and horizontal '
-                    'scroll directions.',
-                    style: TextStyle(fontSize: 13, color: _ggCharcoal,
-                        height: 1.6)),
+                Text(
+                  '• SliverGridGeometry is an immutable data class.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
+                Text(
+                  '• Four properties: scrollOffset, crossAxisOffset, '
+                  'mainAxisExtent, crossAxisExtent.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
+                Text(
+                  '• Two derived getters: trailingScrollOffset, '
+                  'getBoxConstraints().',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
+                Text(
+                  '• Produced by SliverGridLayout, consumed by '
+                  'RenderSliverGrid.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
+                Text(
+                  '• Same structure, different values → uniform or '
+                  'staggered grids.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
+                Text(
+                  '• Works identically for vertical and horizontal '
+                  'scroll directions.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: _ggCharcoal,
+                    height: 1.6,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1962,11 +2138,7 @@ Widget _ggFlowStep(String text, Color color) {
     child: Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(
-        color: color,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }

@@ -174,11 +174,7 @@ Widget paragraph(String text, {Color? color}) {
     padding: const EdgeInsets.symmetric(vertical: 5),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 13.5,
-        height: 1.55,
-        color: color ?? kInkSoft,
-      ),
+      style: TextStyle(fontSize: 13.5, height: 1.55, color: color ?? kInkSoft),
     ),
   );
 }
@@ -201,11 +197,7 @@ Widget subheading(String text, {Color color = kInkSoft}) {
     padding: const EdgeInsets.only(top: 4, bottom: 8),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 13,
-        fontStyle: FontStyle.italic,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: color),
     ),
   );
 }
@@ -403,19 +395,12 @@ Widget bullet(String text, {Color tint = kInk}) {
           margin: const EdgeInsets.only(top: 7, right: 10),
           width: 6,
           height: 6,
-          decoration: BoxDecoration(
-            color: tint,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
         ),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 13.5,
-              height: 1.5,
-              color: kInkSoft,
-            ),
+            style: TextStyle(fontSize: 13.5, height: 1.5, color: kInkSoft),
           ),
         ),
       ],
@@ -496,11 +481,7 @@ Widget pipelineNode({
                 color: color,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                icon ?? Icons.bolt,
-                size: 16,
-                color: Colors.white,
-              ),
+              child: Icon(icon ?? Icons.bolt, size: 16, color: Colors.white),
             ),
             hgap(8),
             Expanded(
@@ -519,11 +500,7 @@ Widget pipelineNode({
         gap(8),
         Text(
           role,
-          style: const TextStyle(
-            fontSize: 11.5,
-            height: 1.4,
-            color: kInkSoft,
-          ),
+          style: const TextStyle(fontSize: 11.5, height: 1.4, color: kInkSoft),
         ),
       ],
     ),
@@ -622,9 +599,7 @@ Widget table({
         ),
         for (var r = 0; r < rows.length; r++)
           TableRow(
-            decoration: BoxDecoration(
-              color: r.isEven ? kSurface : zebra,
-            ),
+            decoration: BoxDecoration(color: r.isEven ? kSurface : zebra),
             children: rows[r]
                 .map(
                   (cell) => Padding(
@@ -673,10 +648,7 @@ Widget pageHeader() {
         Row(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(999),
@@ -694,10 +666,7 @@ Widget pageHeader() {
             ),
             hgap(10),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: kAmber,
                 borderRadius: BorderRadius.circular(999),
@@ -836,7 +805,9 @@ Widget section1Pipeline() {
                   children: [
                     label('RESPONSE PATH', color: kEmeraldDark),
                     gap(6),
-                    bullet('Handler returns success / error / not-implemented.'),
+                    bullet(
+                      'Handler returns success / error / not-implemented.',
+                    ),
                     bullet('Host codec encodes envelope back to bytes.'),
                     bullet('Engine relays buffer to Dart side.'),
                     bullet('MethodCodec decodes envelope, completes Future.'),
@@ -877,10 +848,7 @@ class _PipelineDiagram extends StatelessWidget {
               label('DART SIDE', color: kBlueDark),
               hgap(8),
               Expanded(
-                child: Container(
-                  height: 1,
-                  color: kBlue.withOpacity(0.25),
-                ),
+                child: Container(height: 1, color: kBlue.withOpacity(0.25)),
               ),
               hgap(8),
               label('PLATFORM SIDE', color: kEmeraldDark),
@@ -1038,17 +1006,12 @@ Widget section2MethodChannel() {
               gap(6),
               keyValue('name', jsonMethod.name),
               keyValue('codec', jsonMethod.codec.runtimeType.toString()),
-              keyValue(
-                'envelope',
-                'JSON-encoded String -> UTF-8 -> ByteData',
-              ),
+              keyValue('envelope', 'JSON-encoded String -> UTF-8 -> ByteData'),
             ],
           ),
         ),
         gap(14),
-        codeCard(
-          title: 'plugin/battery_plugin.dart  -  the Dart side',
-          '''
+        codeCard(title: 'plugin/battery_plugin.dart  -  the Dart side', '''
 class BatteryPlugin {
   static const _channel =
       MethodChannel('com.example.tom/battery');
@@ -1074,8 +1037,7 @@ class BatteryPlugin {
       }
     });
   }
-}''',
-        ),
+}'''),
         gap(14),
         codeCard(
           title: 'BatteryPlugin.kt  -  the Android host handler',
@@ -1318,9 +1280,7 @@ class _CallSimulator extends StatelessWidget {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (final entry in logs.take(4)) _logRow(entry),
-                  ],
+                  children: [for (final entry in logs.take(4)) _logRow(entry)],
                 ),
               ),
             ],
@@ -1534,9 +1494,7 @@ Widget section3BasicMessage() {
           ],
         ),
         gap(16),
-        codeCard(
-          title: 'logger_channel.dart  -  string message channel',
-          '''
+        codeCard(title: 'logger_channel.dart  -  string message channel', '''
 final logChannel = BasicMessageChannel<String>(
   'com.example.tom/log_line',
   StringCodec(),
@@ -1552,8 +1510,7 @@ void listen() {
     debugPrint('host says: \$message');
     return 'ack';
   });
-}''',
-        ),
+}'''),
       ],
     ),
   );
@@ -1686,9 +1643,7 @@ Widget section4EventChannel() {
         gap(14),
         _EventTimeline(),
         gap(14),
-        codeCard(
-          title: 'sensor_channel.dart  -  receiveBroadcastStream',
-          '''
+        codeCard(title: 'sensor_channel.dart  -  receiveBroadcastStream', '''
 const _events =
     EventChannel('com.example.tom/sensor_stream');
 
@@ -1704,8 +1659,7 @@ Stream<SensorPacket> get sensorPackets {
           accelZ: (m['z'] as num).toDouble(),
         );
       });
-}''',
-        ),
+}'''),
       ],
     ),
   );
@@ -1826,70 +1780,91 @@ Widget section5Comparison() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _shapeCard(
-              icon: Icons.swap_horiz,
-              title: 'MethodChannel',
-              cap: 'request -> response',
-              tint: kBlue,
-              light: kBlueLight,
-              points: [
-                'invokeMethod(name, args) -> Future<T>',
-                'Tagged success/error envelope on the wire.',
-                'Throws PlatformException on host error.',
-                'Throws MissingPluginException when no handler.',
-                'Best for actions: read battery, open URL, sign in.',
-              ],
-            )),
+            Expanded(
+              child: _shapeCard(
+                icon: Icons.swap_horiz,
+                title: 'MethodChannel',
+                cap: 'request -> response',
+                tint: kBlue,
+                light: kBlueLight,
+                points: [
+                  'invokeMethod(name, args) -> Future<T>',
+                  'Tagged success/error envelope on the wire.',
+                  'Throws PlatformException on host error.',
+                  'Throws MissingPluginException when no handler.',
+                  'Best for actions: read battery, open URL, sign in.',
+                ],
+              ),
+            ),
             hgap(10),
-            Expanded(child: _shapeCard(
-              icon: Icons.compare_arrows,
-              title: 'BasicMessageChannel<T>',
-              cap: 'typed payload either way',
-              tint: kTeal,
-              light: kTealLight,
-              points: [
-                'send(message) -> Future<T>',
-                'No method name; payload type follows codec.',
-                'Codec-bound: String, Object?, ByteData?.',
-                'Both sides may setMessageHandler.',
-                'Best for streams of records: logs, sensor frames.',
-              ],
-            )),
+            Expanded(
+              child: _shapeCard(
+                icon: Icons.compare_arrows,
+                title: 'BasicMessageChannel<T>',
+                cap: 'typed payload either way',
+                tint: kTeal,
+                light: kTealLight,
+                points: [
+                  'send(message) -> Future<T>',
+                  'No method name; payload type follows codec.',
+                  'Codec-bound: String, Object?, ByteData?.',
+                  'Both sides may setMessageHandler.',
+                  'Best for streams of records: logs, sensor frames.',
+                ],
+              ),
+            ),
             hgap(10),
-            Expanded(child: _shapeCard(
-              icon: Icons.sensors,
-              title: 'EventChannel',
-              cap: 'subscribe -> events',
-              tint: kViolet,
-              light: kVioletLight,
-              points: [
-                'receiveBroadcastStream() -> Stream<dynamic>',
-                'Implicit listen / cancel envelopes.',
-                'Host pushes events at its own rate.',
-                'Errors surface on the stream as PlatformException.',
-                'Best for sensors, GPS, connectivity, BLE.',
-              ],
-            )),
+            Expanded(
+              child: _shapeCard(
+                icon: Icons.sensors,
+                title: 'EventChannel',
+                cap: 'subscribe -> events',
+                tint: kViolet,
+                light: kVioletLight,
+                points: [
+                  'receiveBroadcastStream() -> Stream<dynamic>',
+                  'Implicit listen / cancel envelopes.',
+                  'Host pushes events at its own rate.',
+                  'Errors surface on the stream as PlatformException.',
+                  'Best for sensors, GPS, connectivity, BLE.',
+                ],
+              ),
+            ),
           ],
         ),
         gap(16),
         label('DECISION MATRIX — flow vs channel shape', color: kAmberDark),
         gap(8),
         table(
-          headers: const [
-            'Use case',
-            'Initiator',
-            'Replies',
-            'Best channel',
-          ],
+          headers: const ['Use case', 'Initiator', 'Replies', 'Best channel'],
           rows: const [
             ['Read battery level once', 'framework', '1', 'MethodChannel'],
             ['Open native settings', 'framework', '1 ok', 'MethodChannel'],
-            ['Probe optional feature', 'framework', '0..1', 'OptionalMethodChannel'],
+            [
+              'Probe optional feature',
+              'framework',
+              '0..1',
+              'OptionalMethodChannel',
+            ],
             ['Stream sensor packets', 'host', 'N', 'EventChannel'],
-            ['Push diagnostic logs', 'framework', '0..N', 'BasicMessageChannel<String>'],
-            ['Sync key/value config', 'either', '1 each', 'BasicMessageChannel<Object?>'],
-            ['Transport raw audio frames', 'either', 'N', 'BasicMessageChannel<ByteData?>'],
+            [
+              'Push diagnostic logs',
+              'framework',
+              '0..N',
+              'BasicMessageChannel<String>',
+            ],
+            [
+              'Sync key/value config',
+              'either',
+              '1 each',
+              'BasicMessageChannel<Object?>',
+            ],
+            [
+              'Transport raw audio frames',
+              'either',
+              'N',
+              'BasicMessageChannel<ByteData?>',
+            ],
             ['Listen for connectivity', 'host', 'N', 'EventChannel'],
           ],
         ),
@@ -2003,16 +1978,8 @@ Widget section6Codecs() {
         ),
         gap(14),
         pillRow([
-          chip(
-            'BinaryCodec  ->  ByteData?',
-            bg: kSlateLight,
-            fg: kSlateDark,
-          ),
-          chip(
-            'StringCodec  ->  String',
-            bg: kBlueLight,
-            fg: kBlueDark,
-          ),
+          chip('BinaryCodec  ->  ByteData?', bg: kSlateLight, fg: kSlateDark),
+          chip('StringCodec  ->  String', bg: kBlueLight, fg: kBlueDark),
           chip(
             'JSONMessageCodec  ->  Object?',
             bg: kAmberLight,
@@ -2186,16 +2153,10 @@ Widget section7Envelope() {
               ),
               gap(8),
               keyValue('method', '"${call.method}"'),
-              keyValue(
-                'arguments',
-                '{deviceId: "tom-01", detailed: true}',
-              ),
+              keyValue('arguments', '{deviceId: "tom-01", detailed: true}'),
               keyValue('codec', 'StandardMethodCodec (default)'),
               keyValue('reply on success', '[0x00, encoded result]'),
-              keyValue(
-                'reply on error',
-                '[0x01, code, message?, details?]',
-              ),
+              keyValue('reply on error', '[0x01, code, message?, details?]'),
               keyValue('reply on not impl', '[]  (empty ByteData)'),
             ],
           ),
@@ -2278,10 +2239,7 @@ Widget section8Exceptions() {
   final pex = PlatformException(
     code: 'UNAVAILABLE',
     message: 'Battery service unavailable',
-    details: <String, Object?>{
-      'reason': 'timeout',
-      'retryAfter': 5,
-    },
+    details: <String, Object?>{'reason': 'timeout', 'retryAfter': 5},
     stacktrace: 'at BatteryPlugin.getBatteryLevel (BatteryPlugin.kt:42)',
   );
   final mex = MissingPluginException(
@@ -2319,36 +2277,38 @@ Widget section8Exceptions() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _exceptionCard(
-              icon: Icons.error_outline,
-              title: 'PlatformException',
-              tint: kRose,
-              light: kRoseLight,
-              rows: [
-                ['code', pex.code],
-                ['message', pex.message ?? ''],
-                ['details', pex.details.toString()],
-                ['stacktrace', pex.stacktrace ?? ''],
-              ],
-            )),
+            Expanded(
+              child: _exceptionCard(
+                icon: Icons.error_outline,
+                title: 'PlatformException',
+                tint: kRose,
+                light: kRoseLight,
+                rows: [
+                  ['code', pex.code],
+                  ['message', pex.message ?? ''],
+                  ['details', pex.details.toString()],
+                  ['stacktrace', pex.stacktrace ?? ''],
+                ],
+              ),
+            ),
             hgap(14),
-            Expanded(child: _exceptionCard(
-              icon: Icons.extension_off,
-              title: 'MissingPluginException',
-              tint: kAmber,
-              light: kAmberLight,
-              rows: [
-                ['message', mex.message ?? ''],
-                ['typical cause', 'plugin not registered on this OS'],
-                ['mitigation', 'use OptionalMethodChannel'],
-              ],
-            )),
+            Expanded(
+              child: _exceptionCard(
+                icon: Icons.extension_off,
+                title: 'MissingPluginException',
+                tint: kAmber,
+                light: kAmberLight,
+                rows: [
+                  ['message', mex.message ?? ''],
+                  ['typical cause', 'plugin not registered on this OS'],
+                  ['mitigation', 'use OptionalMethodChannel'],
+                ],
+              ),
+            ),
           ],
         ),
         gap(14),
-        codeCard(
-          title: 'try/catch around invokeMethod',
-          '''
+        codeCard(title: 'try/catch around invokeMethod', '''
 try {
   final level = await _channel.invokeMethod<int>('getBatteryLevel');
   emit(BatteryLevel(level ?? -1));
@@ -2358,8 +2318,7 @@ try {
 } on MissingPluginException {
   // OS does not expose battery level via plugin
   emit(BatteryLevel.unsupported());
-}''',
-        ),
+}'''),
         gap(14),
         label('PALETTE — concepts visited in this file', color: kSlateDark),
         gap(8),

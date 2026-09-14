@@ -46,9 +46,7 @@ Widget _rbSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_rbSteel, _rbDarkSteel],
-      ),
+      gradient: LinearGradient(colors: [_rbSteel, _rbDarkSteel]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,12 +161,21 @@ Widget _rbBadge(String label, Color bg) {
     ),
     child: Text(
       label,
-      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
 
-Widget _rbPipelinePhaseBox(String phase, String description, IconData icon, Color color) {
+Widget _rbPipelinePhaseBox(
+  String phase,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
     padding: const EdgeInsets.all(12),
@@ -274,7 +281,8 @@ Widget _rbSection1BindingHierarchy() {
     children: [
       _rbSectionHeader(
         '1. Binding Hierarchy',
-        subtitle: 'Where RendererBinding fits in Flutter\'s initialization chain',
+        subtitle:
+            'Where RendererBinding fits in Flutter\'s initialization chain',
       ),
       const SizedBox(height: 12),
       _rbInfoCard(
@@ -296,7 +304,9 @@ Widget _rbSection1BindingHierarchy() {
             color: isRenderer ? _rbSteel.withValues(alpha: 0.1) : Colors.white,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: isRenderer ? _rbSteel : (b['color'] as Color).withValues(alpha: 0.3),
+              color: isRenderer
+                  ? _rbSteel
+                  : (b['color'] as Color).withValues(alpha: 0.3),
               width: isRenderer ? 2 : 1,
             ),
           ),
@@ -313,7 +323,9 @@ Widget _rbSection1BindingHierarchy() {
                         Text(
                           b['name'] as String,
                           style: TextStyle(
-                            fontWeight: isRenderer ? FontWeight.bold : FontWeight.w600,
+                            fontWeight: isRenderer
+                                ? FontWeight.bold
+                                : FontWeight.w600,
                             fontSize: 13,
                             color: b['color'] as Color,
                           ),
@@ -327,7 +339,10 @@ Widget _rbSection1BindingHierarchy() {
                     const SizedBox(height: 2),
                     Text(
                       b['role'] as String,
-                      style: const TextStyle(fontSize: 11.5, color: _rbCharcoal),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        color: _rbCharcoal,
+                      ),
                     ),
                   ],
                 ),
@@ -386,7 +401,11 @@ Widget _rbSection2RenderPipeline() {
       Center(
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 2),
-          child: const Icon(Icons.arrow_downward, color: _rbLightSteel, size: 20),
+          child: const Icon(
+            Icons.arrow_downward,
+            color: _rbLightSteel,
+            size: 20,
+          ),
         ),
       ),
       _rbPipelinePhaseBox(
@@ -400,7 +419,11 @@ Widget _rbSection2RenderPipeline() {
       Center(
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 2),
-          child: const Icon(Icons.arrow_downward, color: _rbLightSteel, size: 20),
+          child: const Icon(
+            Icons.arrow_downward,
+            color: _rbLightSteel,
+            size: 20,
+          ),
         ),
       ),
       _rbPipelinePhaseBox(
@@ -413,7 +436,11 @@ Widget _rbSection2RenderPipeline() {
       Center(
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 2),
-          child: const Icon(Icons.arrow_downward, color: _rbLightSteel, size: 20),
+          child: const Icon(
+            Icons.arrow_downward,
+            color: _rbLightSteel,
+            size: 20,
+          ),
         ),
       ),
       _rbPipelinePhaseBox(
@@ -427,7 +454,11 @@ Widget _rbSection2RenderPipeline() {
       Center(
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 2),
-          child: const Icon(Icons.arrow_downward, color: _rbLightSteel, size: 20),
+          child: const Icon(
+            Icons.arrow_downward,
+            color: _rbLightSteel,
+            size: 20,
+          ),
         ),
       ),
       _rbPipelinePhaseBox(
@@ -462,22 +493,26 @@ Widget _rbSection3PipelineOwner() {
   final List<Map<String, String>> responsibilities = [
     {
       'title': 'Layout dirty list',
-      'desc': 'Tracks render objects marked as needing layout. '
+      'desc':
+          'Tracks render objects marked as needing layout. '
           'flushLayout() processes them in depth order.',
     },
     {
       'title': 'Paint dirty list',
-      'desc': 'Tracks render objects marked as needing paint. '
+      'desc':
+          'Tracks render objects marked as needing paint. '
           'flushPaint() processes them in reverse depth order.',
     },
     {
       'title': 'Semantics dirty list',
-      'desc': 'Tracks render objects whose semantics changed. '
+      'desc':
+          'Tracks render objects whose semantics changed. '
           'flushSemantics() processes them for accessibility.',
     },
     {
       'title': 'Compositing bits',
-      'desc': 'Manages whether objects need their own layer. '
+      'desc':
+          'Manages whether objects need their own layer. '
           'flushCompositingBits() resolves this.',
     },
   ];
@@ -500,49 +535,55 @@ Widget _rbSection3PipelineOwner() {
         icon: Icons.hub,
       ),
       const SizedBox(height: 8),
-      ...responsibilities.map((r) => Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: _rbPewter.withValues(alpha: 0.4)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 8,
-              height: 8,
-              margin: const EdgeInsets.only(top: 5, right: 10),
-              decoration: const BoxDecoration(
-                color: _rbSteel,
-                shape: BoxShape.circle,
+      ...responsibilities.map(
+        (r) => Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: _rbPewter.withValues(alpha: 0.4)),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 8,
+                height: 8,
+                margin: const EdgeInsets.only(top: 5, right: 10),
+                decoration: const BoxDecoration(
+                  color: _rbSteel,
+                  shape: BoxShape.circle,
+                ),
               ),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    r['title']!,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: _rbDarkSteel,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      r['title']!,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: _rbDarkSteel,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    r['desc']!,
-                    style: const TextStyle(fontSize: 12, color: _rbCharcoal, height: 1.4),
-                  ),
-                ],
+                    const SizedBox(height: 3),
+                    Text(
+                      r['desc']!,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: _rbCharcoal,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      )),
+      ),
       const SizedBox(height: 8),
       _rbCodeBlock(
         '// When a RenderObject needs layout:\n'
@@ -595,7 +636,11 @@ Widget _rbSection4RenderView() {
           children: [
             const Text(
               'Render Tree Structure:',
-              style: TextStyle(color: _rbAccent, fontWeight: FontWeight.bold, fontSize: 13),
+              style: TextStyle(
+                color: _rbAccent,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
             ),
             const SizedBox(height: 10),
             _rbTreeNode('RenderView', 0, isRoot: true),
@@ -697,7 +742,10 @@ Widget _rbSection5DeviceMetrics() {
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_rbSteel.withValues(alpha: 0.08), _rbPewter.withValues(alpha: 0.08)],
+            colors: [
+              _rbSteel.withValues(alpha: 0.08),
+              _rbPewter.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: _rbPewter.withValues(alpha: 0.3)),
@@ -745,10 +793,7 @@ Widget _rbMetricRow(String label, String value) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, color: _rbCharcoal),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12, color: _rbCharcoal)),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
           decoration: BoxDecoration(
@@ -815,12 +860,32 @@ Widget _rbSection6WarmUpFrame() {
             ),
             const SizedBox(height: 10),
             _rbTimelineEntry('t=0ms', 'main() called', _rbSteel),
-            _rbTimelineEntry('t=2ms', 'runApp() → WidgetsFlutterBinding.ensureInitialized()', const Color(0xFF5B8FA8)),
-            _rbTimelineEntry('t=3ms', 'RendererBinding.initInstances()', _rbSteel),
+            _rbTimelineEntry(
+              't=2ms',
+              'runApp() → WidgetsFlutterBinding.ensureInitialized()',
+              const Color(0xFF5B8FA8),
+            ),
+            _rbTimelineEntry(
+              't=3ms',
+              'RendererBinding.initInstances()',
+              _rbSteel,
+            ),
             _rbTimelineEntry('t=5ms', 'scheduleWarmUpFrame()', _rbAccent),
-            _rbTimelineEntry('t=6ms', 'Build widgets → Element tree', const Color(0xFF7B8D6E)),
-            _rbTimelineEntry('t=8ms', 'Layout → Paint → Composite', const Color(0xFFD4793A)),
-            _rbTimelineEntry('t=10ms', 'First frame on screen!', const Color(0xFF3D9970)),
+            _rbTimelineEntry(
+              't=6ms',
+              'Build widgets → Element tree',
+              const Color(0xFF7B8D6E),
+            ),
+            _rbTimelineEntry(
+              't=8ms',
+              'Layout → Paint → Composite',
+              const Color(0xFFD4793A),
+            ),
+            _rbTimelineEntry(
+              't=10ms',
+              'First frame on screen!',
+              const Color(0xFF3D9970),
+            ),
           ],
         ),
       ),
@@ -858,10 +923,7 @@ Widget _rbTimelineEntry(String time, String label, Color color) {
         Container(
           width: 10,
           height: 10,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -920,15 +982,24 @@ Widget _rbSection7FrameScheduling() {
             _rbFlowArrow(),
             _rbFlowStep('Element marked dirty', _rbMint),
             _rbFlowArrow(),
-            _rbFlowStep('scheduleBuildFor() → scheduleFrame()', const Color(0xFF5B8FA8)),
+            _rbFlowStep(
+              'scheduleBuildFor() → scheduleFrame()',
+              const Color(0xFF5B8FA8),
+            ),
             _rbFlowArrow(),
             _rbFlowStep('Engine sends vsync callback', _rbAccent),
             _rbFlowArrow(),
-            _rbFlowStep('handleBeginFrame() — animations tick', const Color(0xFF8E6DAF)),
+            _rbFlowStep(
+              'handleBeginFrame() — animations tick',
+              const Color(0xFF8E6DAF),
+            ),
             _rbFlowArrow(),
             _rbFlowStep('handleDrawFrame() — build + render', _rbSteel),
             _rbFlowArrow(),
-            _rbFlowStep('drawFrame() — layout/paint/composite', const Color(0xFF3D9970)),
+            _rbFlowStep(
+              'drawFrame() — layout/paint/composite',
+              const Color(0xFF3D9970),
+            ),
           ],
         ),
       ),
@@ -1034,12 +1105,19 @@ Widget _rbSection8VisualDemo() {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.straighten, color: Color(0xFF4A90D9), size: 20),
+                          Icon(
+                            Icons.straighten,
+                            color: Color(0xFF4A90D9),
+                            size: 20,
+                          ),
                           SizedBox(height: 4),
                           Text(
                             'Tight\nConstraints',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: Color(0xFF4A90D9)),
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFF4A90D9),
+                            ),
                           ),
                         ],
                       ),
@@ -1059,12 +1137,19 @@ Widget _rbSection8VisualDemo() {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.open_with, color: Color(0xFF7B68AE), size: 20),
+                          Icon(
+                            Icons.open_with,
+                            color: Color(0xFF7B68AE),
+                            size: 20,
+                          ),
                           SizedBox(height: 4),
                           Text(
                             'Loose\nConstraints',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: Color(0xFF7B68AE)),
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFF7B68AE),
+                            ),
                           ),
                         ],
                       ),
@@ -1084,12 +1169,19 @@ Widget _rbSection8VisualDemo() {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.aspect_ratio, color: Color(0xFF3D9970), size: 20),
+                          Icon(
+                            Icons.aspect_ratio,
+                            color: Color(0xFF3D9970),
+                            size: 20,
+                          ),
                           SizedBox(height: 4),
                           Text(
                             'Bounded\nConstraints',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10, color: Color(0xFF3D9970)),
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Color(0xFF3D9970),
+                            ),
                           ),
                         ],
                       ),
@@ -1198,12 +1290,36 @@ Widget _rbSection9Summary() {
       ),
       const SizedBox(height: 12),
       // Key-value summary cards
-      _rbSummaryItem('Singleton?', 'Yes — accessed via RendererBinding.instance', Icons.looks_one),
-      _rbSummaryItem('Creates', 'Root PipelineOwner + RenderView', Icons.create),
-      _rbSummaryItem('Drives', 'drawFrame() → layout/paint/composite/semantics', Icons.play_circle),
-      _rbSummaryItem('Reacts to', 'Device metrics, locale, semantics changes', Icons.sensors),
-      _rbSummaryItem('First frame', 'scheduleWarmUpFrame() for instant rendering', Icons.flash_on),
-      _rbSummaryItem('Accessibility', 'Manages SemanticsOwner and semantics tree', Icons.accessibility),
+      _rbSummaryItem(
+        'Singleton?',
+        'Yes — accessed via RendererBinding.instance',
+        Icons.looks_one,
+      ),
+      _rbSummaryItem(
+        'Creates',
+        'Root PipelineOwner + RenderView',
+        Icons.create,
+      ),
+      _rbSummaryItem(
+        'Drives',
+        'drawFrame() → layout/paint/composite/semantics',
+        Icons.play_circle,
+      ),
+      _rbSummaryItem(
+        'Reacts to',
+        'Device metrics, locale, semantics changes',
+        Icons.sensors,
+      ),
+      _rbSummaryItem(
+        'First frame',
+        'scheduleWarmUpFrame() for instant rendering',
+        Icons.flash_on,
+      ),
+      _rbSummaryItem(
+        'Accessibility',
+        'Manages SemanticsOwner and semantics tree',
+        Icons.accessibility,
+      ),
       const SizedBox(height: 10),
       _rbDivider(),
       _rbInfoCard(
@@ -1225,9 +1341,7 @@ Widget _rbSection9Summary() {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [_rbSteel, _rbDarkSteel],
-          ),
+          gradient: const LinearGradient(colors: [_rbSteel, _rbDarkSteel]),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Row(
@@ -1237,7 +1351,7 @@ Widget _rbSection9Summary() {
             Expanded(
               child: Text(
                 'RendererBinding is the engine room of Flutter — it turns '
-                    'your widget tree into pixels on screen, frame by frame.',
+                'your widget tree into pixels on screen, frame by frame.',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.5,
@@ -1356,8 +1470,8 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'The singleton binding that connects Flutter\'s '
-                        'rendering layer to the engine — driving layout, '
-                        'paint, compositing, and semantics every frame.',
+                    'rendering layer to the engine — driving layout, '
+                    'paint, compositing, and semantics every frame.',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.85),
                       fontSize: 13,

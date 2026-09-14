@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: orchid, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: lavender),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: darkPlum.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: darkPlum.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -103,16 +112,21 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: darkPlum,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: darkPlum,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: deepPlum)),
+            child: Text(
+              detail,
+              style: TextStyle(fontSize: 12, color: deepPlum),
+            ),
           ),
         ],
       ),
@@ -148,16 +162,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: darkPlum)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: darkPlum,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -175,11 +189,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? darkPlum : deepPlum)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? darkPlum : deepPlum,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -196,18 +213,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkPlum : deepPlum,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: orchid),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: orchid),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -235,10 +257,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dpHierarchyItem(0, 'PlatformViewController', 'Abstract base', plum),
-            _dpHierarchyItem(1, 'DarwinPlatformViewController', 'Apple base', deepPlum),
-            _dpHierarchyItem(2, 'UiKitViewController', 'iOS (UIView)', mulberry),
-            _dpHierarchyItem(2, 'AppKitViewController', 'macOS (NSView)', orchid),
+            _dpHierarchyItem(
+              0,
+              'PlatformViewController',
+              'Abstract base',
+              plum,
+            ),
+            _dpHierarchyItem(
+              1,
+              'DarwinPlatformViewController',
+              'Apple base',
+              deepPlum,
+            ),
+            _dpHierarchyItem(
+              2,
+              'UiKitViewController',
+              'iOS (UIView)',
+              mulberry,
+            ),
+            _dpHierarchyItem(
+              2,
+              'AppKitViewController',
+              'macOS (NSView)',
+              orchid,
+            ),
           ],
         ),
       ),
@@ -264,7 +306,11 @@ dynamic build(BuildContext context) {
             dpRow(['Aspect', 'iOS', 'macOS'], isHeader: true),
             dpRow(['Native view', 'UIView', 'NSView']),
             dpRow(['Widget', 'UiKitView', 'AppKitView']),
-            dpRow(['Controller', 'UiKitViewController', 'AppKitViewController']),
+            dpRow([
+              'Controller',
+              'UiKitViewController',
+              'AppKitViewController',
+            ]),
             dpRow(['Rendering', 'Texture / Hybrid', 'Texture']),
             dpRow(['Touch events', 'UIEvent forwarding', 'NSEvent forwarding']),
             dpRow(['Framework', 'UIKit', 'AppKit']),
@@ -292,8 +338,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dpFlow(['Register factory', 'Build widget', 'Send params',
-                'Create native view', 'Return texture ID']),
+            dpFlow([
+              'Register factory',
+              'Build widget',
+              'Send params',
+              'Create native view',
+              'Return texture ID',
+            ]),
             const SizedBox(height: 12),
             dpCode('viewType', 'String identifier matching native factory'),
             dpCode('creationParams', 'Dynamic data sent to native factory'),
@@ -328,11 +379,19 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Expanded(
-                  child: _dpLayerBox('Flutter layers', 'Skia / Impeller', deepPlum),
+                  child: _dpLayerBox(
+                    'Flutter layers',
+                    'Skia / Impeller',
+                    deepPlum,
+                  ),
                 ),
                 const SizedBox(width: 4),
                 Expanded(
-                  child: _dpLayerBox('Texture layer', 'Native view snapshot', mulberry),
+                  child: _dpLayerBox(
+                    'Texture layer',
+                    'Native view snapshot',
+                    mulberry,
+                  ),
                 ),
               ],
             ),
@@ -420,12 +479,42 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dpLifecycleStep(1, 'Create', 'Factory receives params, creates native view', plum),
-            _dpLifecycleStep(2, 'Size', 'View sized to match Flutter layout', deepPlum),
-            _dpLifecycleStep(3, 'Render', 'Native content composited via texture', mulberry),
-            _dpLifecycleStep(4, 'Events', 'Touch/pointer forwarded to native', orchid),
-            _dpLifecycleStep(5, 'Resize', 'Size updates sent on layout change', lilac),
-            _dpLifecycleStep(6, 'Dispose', 'Native view + texture destroyed', darkPlum),
+            _dpLifecycleStep(
+              1,
+              'Create',
+              'Factory receives params, creates native view',
+              plum,
+            ),
+            _dpLifecycleStep(
+              2,
+              'Size',
+              'View sized to match Flutter layout',
+              deepPlum,
+            ),
+            _dpLifecycleStep(
+              3,
+              'Render',
+              'Native content composited via texture',
+              mulberry,
+            ),
+            _dpLifecycleStep(
+              4,
+              'Events',
+              'Touch/pointer forwarded to native',
+              orchid,
+            ),
+            _dpLifecycleStep(
+              5,
+              'Resize',
+              'Size updates sent on layout change',
+              lilac,
+            ),
+            _dpLifecycleStep(
+              6,
+              'Dispose',
+              'Native view + texture destroyed',
+              darkPlum,
+            ),
           ],
         ),
       ),
@@ -461,10 +550,7 @@ dynamic build(BuildContext context) {
                 height: 80,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      const Color(0xFF90CAF9),
-                      const Color(0xFF81C784),
-                    ],
+                    colors: [const Color(0xFF90CAF9), const Color(0xFF81C784)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -472,20 +558,40 @@ dynamic build(BuildContext context) {
                 ),
                 child: Stack(
                   children: [
-                    Center(child: Icon(Icons.map, size: 28,
-                        color: Colors.white.withValues(alpha: 0.5))),
-                    Positioned(left: 30, top: 20,
-                      child: Icon(Icons.location_on, size: 18,
-                          color: const Color(0xFFE53935))),
-                    Positioned(right: 40, top: 30,
-                      child: Icon(Icons.location_on, size: 18,
-                          color: const Color(0xFF1565C0))),
+                    Center(
+                      child: Icon(
+                        Icons.map,
+                        size: 28,
+                        color: Colors.white.withValues(alpha: 0.5),
+                      ),
+                    ),
+                    Positioned(
+                      left: 30,
+                      top: 20,
+                      child: Icon(
+                        Icons.location_on,
+                        size: 18,
+                        color: const Color(0xFFE53935),
+                      ),
+                    ),
+                    Positioned(
+                      right: 40,
+                      top: 30,
+                      child: Icon(
+                        Icons.location_on,
+                        size: 18,
+                        color: const Color(0xFF1565C0),
+                      ),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
               dpCode('viewType', '\'apple_maps\''),
-              dpCode('creationParams', '{lat: 37.7749, lng: -122.4194, zoom: 12}'),
+              dpCode(
+                'creationParams',
+                '{lat: 37.7749, lng: -122.4194, zoom: 12}',
+              ),
             ],
           ),
         ),
@@ -540,8 +646,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dpFlow(['AVCaptureSession', 'PreviewLayer', 'PlatformView',
-                'Flutter texture', 'Screen']),
+            dpFlow([
+              'AVCaptureSession',
+              'PreviewLayer',
+              'PlatformView',
+              'Flutter texture',
+              'Screen',
+            ]),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -589,12 +700,18 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Size constraints propagate:',
-                      style: TextStyle(
-                          fontSize: 11, fontWeight: FontWeight.bold,
-                          color: darkPlum)),
-                  Text('Flutter layout → setSize() → native frame update → re-render texture',
-                      style: TextStyle(fontSize: 10, color: deepPlum)),
+                  Text(
+                    'Size constraints propagate:',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: darkPlum,
+                    ),
+                  ),
+                  Text(
+                    'Flutter layout → setSize() → native frame update → re-render texture',
+                    style: TextStyle(fontSize: 10, color: deepPlum),
+                  ),
                 ],
               ),
             ),
@@ -653,17 +770,39 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Expanded(child: _dpMetricBox('1 view', 'Minimal', const Color(0xFF4CAF50))),
+                Expanded(
+                  child: _dpMetricBox(
+                    '1 view',
+                    'Minimal',
+                    const Color(0xFF4CAF50),
+                  ),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dpMetricBox('2-3 views', 'Moderate', const Color(0xFFFFA726))),
+                Expanded(
+                  child: _dpMetricBox(
+                    '2-3 views',
+                    'Moderate',
+                    const Color(0xFFFFA726),
+                  ),
+                ),
                 const SizedBox(width: 6),
-                Expanded(child: _dpMetricBox('4+ views', 'Significant', const Color(0xFFE53935))),
+                Expanded(
+                  child: _dpMetricBox(
+                    '4+ views',
+                    'Significant',
+                    const Color(0xFFE53935),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
             _dpPerfItem('Texture copy', 'Each frame syncs GPU surface', orchid),
             _dpPerfItem('Thread sync', 'Platform thread ↔ raster thread', plum),
-            _dpPerfItem('Resize jank', 'Visible during orientation change', mulberry),
+            _dpPerfItem(
+              'Resize jank',
+              'Visible during orientation change',
+              mulberry,
+            ),
             _dpPerfItem('Memory', 'CALayer + IOSurface per view', deepPlum),
           ],
         ),
@@ -688,14 +827,26 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _dpErrorItem('Unregistered viewType',
-                'Factory not registered in AppDelegate / MainFlutterWindow', plum),
-            _dpErrorItem('Codec mismatch',
-                'creationParamsCodec differs from encoding on native side', deepPlum),
-            _dpErrorItem('View creation failed',
-                'Native factory threw exception during init', mulberry),
-            _dpErrorItem('Disposal race',
-                'Widget disposed while view still creating', orchid),
+            _dpErrorItem(
+              'Unregistered viewType',
+              'Factory not registered in AppDelegate / MainFlutterWindow',
+              plum,
+            ),
+            _dpErrorItem(
+              'Codec mismatch',
+              'creationParamsCodec differs from encoding on native side',
+              deepPlum,
+            ),
+            _dpErrorItem(
+              'View creation failed',
+              'Native factory threw exception during init',
+              mulberry,
+            ),
+            _dpErrorItem(
+              'Disposal race',
+              'Widget disposed while view still creating',
+              orchid,
+            ),
           ],
         ),
       ),
@@ -786,11 +937,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('DarwinPlatformViewController — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'DarwinPlatformViewController — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From UIKit and AppKit view hosting through texture composition, '
@@ -821,10 +975,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -850,15 +1016,20 @@ Widget _dpHierarchyItem(int indent, String name, String desc, Color color) {
           ),
         ),
         const SizedBox(width: 8),
-        Text(name,
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: color,
-                fontFamily: 'monospace')),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: color,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(width: 6),
-        Text(desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
+        ),
       ],
     ),
   );
@@ -875,13 +1046,18 @@ Widget _dpLayerBox(String name, String sub, Color color) {
     ),
     child: Column(
       children: [
-        Text(name,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: color)),
-        Text(sub,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(
+          sub,
+          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+        ),
       ],
     ),
   );
@@ -899,11 +1075,14 @@ Widget _dpEventMap(String flutter, String native, Color color) {
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(flutter,
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: color)),
+            child: Text(
+              flutter,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: color,
+              ),
+            ),
           ),
         ),
         Padding(
@@ -917,11 +1096,14 @@ Widget _dpEventMap(String flutter, String native, Color color) {
               color: color.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(native,
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: color)),
+            child: Text(
+              native,
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: color,
+              ),
+            ),
           ),
         ),
       ],
@@ -943,11 +1125,14 @@ Widget _dpLifecycleStep(int num, String title, String desc, Color color) {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -955,14 +1140,18 @@ Widget _dpLifecycleStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF3C1441))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF3C1441)),
+              ),
             ],
           ),
         ),
@@ -981,13 +1170,15 @@ Widget _dpMetricBox(String label, String value, Color color) {
     ),
     child: Column(
       children: [
-        Text(value,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: color)),
-        Text(label,
-            style: TextStyle(fontSize: 9, color: color)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(label, style: TextStyle(fontSize: 9, color: color)),
       ],
     ),
   );
@@ -1004,14 +1195,18 @@ Widget _dpPerfItem(String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: color)),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 9, color: Color(0xFF5C2D5E))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 9, color: Color(0xFF5C2D5E)),
+              ),
             ],
           ),
         ),
@@ -1032,14 +1227,18 @@ Widget _dpErrorItem(String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: color)),
-              Text(desc,
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF5C2D5E))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF5C2D5E)),
+              ),
             ],
           ),
         ),

@@ -173,9 +173,7 @@ dynamic build(BuildContext context) {
   final basicAlertDialog = CupertinoAlertDialog(
     title: Text('Alert'),
     content: Text('This is a simple iOS alert message.'),
-    actions: [
-      CupertinoDialogAction(child: Text('OK'), onPressed: () {}),
-    ],
+    actions: [CupertinoDialogAction(child: Text('OK'), onPressed: () {})],
   );
   print('Variant 2A: basic single-action alert created');
 
@@ -258,9 +256,7 @@ dynamic build(BuildContext context) {
     insetAnimationCurve: Curves.easeInOut,
     title: Text('Custom Animation'),
     content: Text('This alert uses a custom inset animation.'),
-    actions: [
-      CupertinoDialogAction(child: Text('OK'), onPressed: () {}),
-    ],
+    actions: [CupertinoDialogAction(child: Text('OK'), onPressed: () {})],
   );
   print('Variant 2F: animated alert created');
 
@@ -462,10 +458,7 @@ dynamic build(BuildContext context) {
     {
       'name': 'Disabled (onPressed: null)',
       'desc': 'Greyed out, not tappable',
-      'action': CupertinoDialogAction(
-        onPressed: null,
-        child: Text('Disabled'),
-      ),
+      'action': CupertinoDialogAction(onPressed: null, child: Text('Disabled')),
       'color': Colors.grey,
       'icon': CupertinoIcons.nosign,
     },
@@ -561,10 +554,7 @@ dynamic build(BuildContext context) {
         child: Text('Share to Mail'),
         onPressed: () {},
       ),
-      CupertinoActionSheetAction(
-        child: Text('Copy Link'),
-        onPressed: () {},
-      ),
+      CupertinoActionSheetAction(child: Text('Copy Link'), onPressed: () {}),
     ],
     cancelButton: CupertinoActionSheetAction(
       child: Text('Cancel'),
@@ -601,14 +591,8 @@ dynamic build(BuildContext context) {
         child: Text('Save'),
         onPressed: () {},
       ),
-      CupertinoActionSheetAction(
-        child: Text('Save As...'),
-        onPressed: () {},
-      ),
-      CupertinoActionSheetAction(
-        child: Text('Export'),
-        onPressed: () {},
-      ),
+      CupertinoActionSheetAction(child: Text('Save As...'), onPressed: () {}),
+      CupertinoActionSheetAction(child: Text('Export'), onPressed: () {}),
     ],
     cancelButton: CupertinoActionSheetAction(
       child: Text('Cancel'),
@@ -761,9 +745,7 @@ dynamic build(BuildContext context) {
   // Example A: Confirm Delete
   final confirmDeleteExample = CupertinoAlertDialog(
     title: Text('Delete Item?'),
-    content: Text(
-      'This item will be removed permanently from your library.',
-    ),
+    content: Text('This item will be removed permanently from your library.'),
     actions: [
       CupertinoDialogAction(child: Text('Cancel'), onPressed: () {}),
       CupertinoDialogAction(
@@ -797,14 +779,8 @@ dynamic build(BuildContext context) {
         child: Text('Send via Mail'),
         onPressed: () {},
       ),
-      CupertinoActionSheetAction(
-        child: Text('AirDrop'),
-        onPressed: () {},
-      ),
-      CupertinoActionSheetAction(
-        child: Text('Copy Link'),
-        onPressed: () {},
-      ),
+      CupertinoActionSheetAction(child: Text('AirDrop'), onPressed: () {}),
+      CupertinoActionSheetAction(child: Text('Copy Link'), onPressed: () {}),
     ],
     cancelButton: CupertinoActionSheetAction(
       child: Text('Cancel'),
@@ -842,10 +818,7 @@ dynamic build(BuildContext context) {
         child: Text('Choose from Library'),
         onPressed: () {},
       ),
-      CupertinoActionSheetAction(
-        child: Text('Browse Files'),
-        onPressed: () {},
-      ),
+      CupertinoActionSheetAction(child: Text('Browse Files'), onPressed: () {}),
     ],
     cancelButton: CupertinoActionSheetAction(
       child: Text('Cancel'),
@@ -996,10 +969,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 12.0),
           Text(
             'Painted Popup Surface',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15.0,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
           ),
           SizedBox(height: 6.0),
           Text(
@@ -1026,11 +996,7 @@ dynamic build(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            CupertinoIcons.paintbrush_fill,
-            color: Colors.white,
-            size: 36.0,
-          ),
+          Icon(CupertinoIcons.paintbrush_fill, color: Colors.white, size: 36.0),
           SizedBox(height: 12.0),
           Text(
             'Custom-Painted Surface',
@@ -1125,11 +1091,7 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  Widget buildComparisonCell(
-    String text, {
-    bool header = false,
-    Color? color,
-  }) {
+  Widget buildComparisonCell(String text, {bool header = false, Color? color}) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
       decoration: BoxDecoration(
@@ -1469,10 +1431,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: overviewCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: overviewCards),
             SizedBox(height: 32.0),
 
             // Section 2
@@ -1493,10 +1452,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: actionStateWidgets,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: actionStateWidgets),
             SizedBox(height: 32.0),
 
             // Section 4

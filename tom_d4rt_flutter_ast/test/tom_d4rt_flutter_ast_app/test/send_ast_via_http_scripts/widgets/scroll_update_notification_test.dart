@@ -152,8 +152,7 @@ class _ScrollPulseHomeState extends State<ScrollPulseHome>
     _userDriven.value = note.dragDetails != null;
 
     // Near-bottom threshold for infinite-scroll use-case.
-    final double headroom =
-        note.metrics.maxScrollExtent - note.metrics.pixels;
+    final double headroom = note.metrics.maxScrollExtent - note.metrics.pixels;
     final bool near = headroom < 200 && note.metrics.maxScrollExtent > 0;
     if (near != _nearBottom.value) {
       _nearBottom.value = near;
@@ -220,7 +219,9 @@ class _ScrollPulseHomeState extends State<ScrollPulseHome>
         child: CustomScrollView(
           slivers: <Widget>[
             SliverToBoxAdapter(child: _HeroHeader(pulse: _heroPulse)),
-            const SliverToBoxAdapter(child: _SectionDivider('1. Live telemetry')),
+            const SliverToBoxAdapter(
+              child: _SectionDivider('1. Live telemetry'),
+            ),
             SliverToBoxAdapter(
               child: _LiveTelemetrySection(
                 pixels: _pixels,
@@ -235,34 +236,32 @@ class _ScrollPulseHomeState extends State<ScrollPulseHome>
               ),
             ),
             const SliverToBoxAdapter(
-                child: _SectionDivider('2. Sparkline — last 120 frames')),
+              child: _SectionDivider('2. Sparkline — last 120 frames'),
+            ),
             SliverToBoxAdapter(
-              child: _SparklinePanel(
-                samples: _samples,
-                tick: _sampleTick,
-              ),
+              child: _SparklinePanel(samples: _samples, tick: _sampleTick),
             ),
             const SliverToBoxAdapter(
-                child: _SectionDivider('3. Delta distribution')),
+              child: _SectionDivider('3. Delta distribution'),
+            ),
             SliverToBoxAdapter(
-              child: _HistogramPanel(
-                buckets: _buckets,
-                tick: _sampleTick,
-              ),
+              child: _HistogramPanel(buckets: _buckets, tick: _sampleTick),
             ),
             const SliverToBoxAdapter(
-                child: _SectionDivider('4. Recent updates — USER vs PROG')),
+              child: _SectionDivider('4. Recent updates — USER vs PROG'),
+            ),
             SliverToBoxAdapter(
-              child: _RecentUpdatesPanel(
-                recent: _recent,
-                tick: _sampleTick,
-              ),
+              child: _RecentUpdatesPanel(recent: _recent, tick: _sampleTick),
             ),
             const SliverToBoxAdapter(
-                child: _SectionDivider('5. Anatomy of a ScrollUpdateNotification')),
+              child: _SectionDivider(
+                '5. Anatomy of a ScrollUpdateNotification',
+              ),
+            ),
             const SliverToBoxAdapter(child: _AnatomyCard()),
             const SliverToBoxAdapter(
-                child: _SectionDivider('6. Teaching panel')),
+              child: _SectionDivider('6. Teaching panel'),
+            ),
             const SliverToBoxAdapter(child: _TeachingPanel()),
             const SliverToBoxAdapter(child: _FooterSummary()),
             const SliverPadding(padding: EdgeInsets.only(bottom: 24)),
@@ -315,8 +314,7 @@ class _HeroHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: kCyan.withValues(alpha: 0.5)),
                 ),
-                child: const Icon(Icons.monitor_heart,
-                    color: kCyan, size: 26),
+                child: const Icon(Icons.monitor_heart, color: kCyan, size: 26),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -408,18 +406,22 @@ class _HeroChip extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Text(label,
-              style: TextStyle(
-                fontSize: 10,
-                color: kPaper.withValues(alpha: 0.7),
-                letterSpacing: 1.2,
-              )),
-          Text(value,
-              style: const TextStyle(
-                color: kPaper,
-                fontWeight: FontWeight.w700,
-                fontSize: 13,
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              color: kPaper.withValues(alpha: 0.7),
+              letterSpacing: 1.2,
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              color: kPaper,
+              fontWeight: FontWeight.w700,
+              fontSize: 13,
+            ),
+          ),
         ],
       ),
     );
@@ -626,9 +628,10 @@ class _LiveTelemetrySection extends StatelessWidget {
           _ProgressBarRow(pixels: pixels, maxExtent: maxExtent),
           const SizedBox(height: 10),
           _SessionChipsRow(
-              userDriven: userDriven,
-              frameCount: frameCount,
-              nearBottom: nearBottom),
+            userDriven: userDriven,
+            frameCount: frameCount,
+            nearBottom: nearBottom,
+          ),
         ],
       ),
     );
@@ -669,7 +672,10 @@ class _CollapsingStickyHeader extends StatelessWidget {
               ),
             ],
           ),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + 10 * (1 - t)),
+          padding: EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8 + 10 * (1 - t),
+          ),
           alignment: Alignment.centerLeft,
           child: Row(
             children: <Widget>[
@@ -688,17 +694,19 @@ class _CollapsingStickyHeader extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: kPaper.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text('${(t * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(
-                        color: kPaper,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12)),
+                child: Text(
+                  '${(t * 100).toStringAsFixed(0)}%',
+                  style: const TextStyle(
+                    color: kPaper,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
               ),
             ],
           ),
@@ -813,7 +821,9 @@ class _ScrollViewportState extends State<_ScrollViewport> {
                     child: Container(
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: kAmber,
                         borderRadius: BorderRadius.circular(10),
@@ -832,7 +842,9 @@ class _ScrollViewportState extends State<_ScrollViewport> {
                             child: Text(
                               'Near bottom — pixels > maxExtent - 200. Load more!',
                               style: TextStyle(
-                                  color: kInk, fontWeight: FontWeight.w700),
+                                color: kInk,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ],
@@ -888,19 +900,24 @@ class _SampleTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             alignment: Alignment.center,
-            child: Text('${index + 1}',
-                style: TextStyle(color: accent, fontWeight: FontWeight.w800)),
+            child: Text(
+              '${index + 1}',
+              style: TextStyle(color: accent, fontWeight: FontWeight.w800),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title,
-                    style: const TextStyle(
-                        color: kInk,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 const Text(
                   'Driven by ScrollUpdateNotification each frame of the scroll.',
@@ -952,8 +969,9 @@ class _GaugeRow extends StatelessWidget {
           child: ValueListenableBuilder<double>(
             valueListenable: lastDelta,
             builder: (BuildContext context, double v, Widget? _) {
-              final IconData arrow =
-                  v > 0 ? Icons.arrow_downward : (v < 0 ? Icons.arrow_upward : Icons.remove);
+              final IconData arrow = v > 0
+                  ? Icons.arrow_downward
+                  : (v < 0 ? Icons.arrow_upward : Icons.remove);
               final Color c = v > 0 ? kRose : (v < 0 ? kLime : kMuted);
               return _Gauge(
                 label: 'scrollDelta',
@@ -1063,10 +1081,7 @@ class _Gauge extends StatelessWidget {
               fontFamily: 'monospace',
             ),
           ),
-          Text(
-            unit,
-            style: const TextStyle(color: kMuted, fontSize: 10),
-          ),
+          Text(unit, style: const TextStyle(color: kMuted, fontSize: 10)),
         ],
       ),
     );
@@ -1095,9 +1110,14 @@ class _ProgressBarRow extends StatelessWidget {
             children: <Widget>[
               Icon(Icons.rule, color: kElectricBlue, size: 16),
               SizedBox(width: 6),
-              Text('pixels / maxScrollExtent',
-                  style: TextStyle(
-                      color: kInk, fontWeight: FontWeight.w700, fontSize: 12)),
+              Text(
+                'pixels / maxScrollExtent',
+                style: TextStyle(
+                  color: kInk,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -1135,7 +1155,8 @@ class _ProgressBarRow extends StatelessWidget {
                               ),
                               // Threshold marker at 200 px from end.
                               Positioned(
-                                left: cs.maxWidth *
+                                left:
+                                    cs.maxWidth *
                                     ((mx - 200) / mx).clamp(0.0, 1.0),
                                 child: Container(
                                   height: 10,
@@ -1150,18 +1171,24 @@ class _ProgressBarRow extends StatelessWidget {
                       const SizedBox(height: 6),
                       Row(
                         children: <Widget>[
-                          Text('${px.toStringAsFixed(1)} px',
-                              style: const TextStyle(
-                                  color: kInk,
-                                  fontFamily: 'monospace',
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11)),
+                          Text(
+                            '${px.toStringAsFixed(1)} px',
+                            style: const TextStyle(
+                              color: kInk,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
                           const Spacer(),
-                          Text('max ${mx.toStringAsFixed(0)} px',
-                              style: const TextStyle(
-                                  color: kMuted,
-                                  fontFamily: 'monospace',
-                                  fontSize: 11)),
+                          Text(
+                            'max ${mx.toStringAsFixed(0)} px',
+                            style: const TextStyle(
+                              color: kMuted,
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -1235,8 +1262,11 @@ class _SessionChipsRow extends StatelessWidget {
 }
 
 class _StatusChip extends StatelessWidget {
-  const _StatusChip(
-      {required this.label, required this.color, required this.icon});
+  const _StatusChip({
+    required this.label,
+    required this.color,
+    required this.icon,
+  });
 
   final String label;
   final Color color;
@@ -1311,14 +1341,19 @@ class _SparklinePanel extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.show_chart, color: kElectricBlue, size: 16),
                 SizedBox(width: 6),
-                Text('scrollDelta waveform',
-                    style: TextStyle(
-                        color: kInk,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12)),
+                Text(
+                  'scrollDelta waveform',
+                  style: TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 Spacer(),
-                Text('positive = down, negative = up',
-                    style: TextStyle(color: kMuted, fontSize: 10)),
+                Text(
+                  'positive = down, negative = up',
+                  style: TextStyle(color: kMuted, fontSize: 10),
+                ),
               ],
             ),
             const SizedBox(height: 8),
@@ -1363,8 +1398,9 @@ class _SparkPainter extends CustomPainter {
     if (samples.isEmpty) {
       final TextPainter tp = TextPainter(
         text: const TextSpan(
-            text: 'scroll the list to generate samples',
-            style: TextStyle(color: kMuted, fontSize: 12)),
+          text: 'scroll the list to generate samples',
+          style: TextStyle(color: kMuted, fontSize: 12),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
       tp.paint(canvas, Offset((size.width - tp.width) / 2, cy - tp.height / 2));
@@ -1470,24 +1506,29 @@ class _HistogramPanel extends StatelessWidget {
           valueListenable: tick,
           builder: (BuildContext context, int _, Widget? child) {
             final int maxV = buckets.fold<int>(
-                1, (int acc, int v) => v > acc ? v : acc);
+              1,
+              (int acc, int v) => v > acc ? v : acc,
+            );
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    const Icon(Icons.bar_chart,
-                        color: kElectricBlue, size: 16),
+                    const Icon(Icons.bar_chart, color: kElectricBlue, size: 16),
                     const SizedBox(width: 6),
-                    const Text('Delta bucket counts',
-                        style: TextStyle(
-                            color: kInk,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12)),
+                    const Text(
+                      'Delta bucket counts',
+                      style: TextStyle(
+                        color: kInk,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
                     const Spacer(),
-                    Text('max $maxV',
-                        style:
-                            const TextStyle(color: kMuted, fontSize: 10)),
+                    Text(
+                      'max $maxV',
+                      style: const TextStyle(color: kMuted, fontSize: 10),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -1501,23 +1542,26 @@ class _HistogramPanel extends StatelessWidget {
                       final Color c = _bucketColor(i);
                       return Expanded(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text('${buckets[i]}',
-                                  style: TextStyle(
-                                      color: c,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700)),
+                              Text(
+                                '${buckets[i]}',
+                                style: TextStyle(
+                                  color: c,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               const SizedBox(height: 2),
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 120),
                                 height: h + 4,
                                 decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(6)),
+                                    top: Radius.circular(6),
+                                  ),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
@@ -1537,7 +1581,9 @@ class _HistogramPanel extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Row(
-                  children: List<Widget>.generate(kBucketLabels.length, (int i) {
+                  children: List<Widget>.generate(kBucketLabels.length, (
+                    int i,
+                  ) {
                     return Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -1547,9 +1593,10 @@ class _HistogramPanel extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
-                              color: kMuted,
-                              fontSize: 9,
-                              fontFamily: 'monospace'),
+                            color: kMuted,
+                            fontSize: 9,
+                            fontFamily: 'monospace',
+                          ),
                         ),
                       ),
                     );
@@ -1613,9 +1660,7 @@ class _RecentUpdatesPanel extends StatelessWidget {
                 ),
               );
             }
-            return Column(
-              children: recent.map(_entryRow).toList(),
-            );
+            return Column(children: recent.map(_entryRow).toList());
           },
         ),
       ),
@@ -1624,8 +1669,9 @@ class _RecentUpdatesPanel extends StatelessWidget {
 
   Widget _entryRow(_TelemetryEntry e) {
     final Color chipColor = e.userDriven ? kLime : kViolet;
-    final Color deltaColor =
-        e.delta > 0 ? kRose : (e.delta < 0 ? kLime : kMuted);
+    final Color deltaColor = e.delta > 0
+        ? kRose
+        : (e.delta < 0 ? kLime : kMuted);
     final IconData arrow = e.delta > 0
         ? Icons.arrow_downward
         : (e.delta < 0 ? Icons.arrow_upward : Icons.remove);
@@ -1643,10 +1689,11 @@ class _RecentUpdatesPanel extends StatelessWidget {
             child: Text(
               e.userDriven ? 'USER' : 'PROG',
               style: TextStyle(
-                  color: chipColor,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.6),
+                color: chipColor,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 0.6,
+              ),
             ),
           ),
           const SizedBox(width: 10),
@@ -1665,16 +1712,20 @@ class _RecentUpdatesPanel extends StatelessWidget {
           Text(
             'px=${e.pixels.toStringAsFixed(1)}',
             style: const TextStyle(
-                color: kInk,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w600,
-                fontSize: 12),
+              color: kInk,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
           ),
           const SizedBox(width: 12),
           Text(
             '${e.stamp.hour.toString().padLeft(2, '0')}:${e.stamp.minute.toString().padLeft(2, '0')}:${e.stamp.second.toString().padLeft(2, '0')}',
             style: const TextStyle(
-                color: kMuted, fontFamily: 'monospace', fontSize: 11),
+              color: kMuted,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
           ),
         ],
       ),
@@ -1690,16 +1741,31 @@ class _AnatomyCard extends StatelessWidget {
   const _AnatomyCard();
 
   static const List<List<String>> _rows = <List<String>>[
-    <String>['metrics', 'ScrollMetrics',
-        'Absolute position: pixels, min/maxScrollExtent, viewportDimension, axis.'],
-    <String>['context', 'BuildContext?',
-        'The BuildContext of the notifying Scrollable — use to look up inherited widgets.'],
-    <String>['scrollDelta', 'double?',
-        'The INCREMENTAL pixel change this frame. null when reserved; typically non-null.'],
-    <String>['dragDetails', 'DragUpdateDetails?',
-        'Non-null only when this update comes from a user drag. null during ballistic / programmatic.'],
-    <String>['depth', 'int',
-        'Inherited from ScrollNotification — nesting level inside other scrollables.'],
+    <String>[
+      'metrics',
+      'ScrollMetrics',
+      'Absolute position: pixels, min/maxScrollExtent, viewportDimension, axis.',
+    ],
+    <String>[
+      'context',
+      'BuildContext?',
+      'The BuildContext of the notifying Scrollable — use to look up inherited widgets.',
+    ],
+    <String>[
+      'scrollDelta',
+      'double?',
+      'The INCREMENTAL pixel change this frame. null when reserved; typically non-null.',
+    ],
+    <String>[
+      'dragDetails',
+      'DragUpdateDetails?',
+      'Non-null only when this update comes from a user drag. null during ballistic / programmatic.',
+    ],
+    <String>[
+      'depth',
+      'int',
+      'Inherited from ScrollNotification — nesting level inside other scrollables.',
+    ],
   ];
 
   @override
@@ -1720,36 +1786,50 @@ class _AnatomyCard extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.account_tree, color: kElectricBlue, size: 18),
                 SizedBox(width: 8),
-                Text('Fields of ScrollUpdateNotification',
-                    style: TextStyle(
-                        color: kInk,
-                        fontWeight: FontWeight.w800,
-                        fontSize: 15)),
+                Text(
+                  'Fields of ScrollUpdateNotification',
+                  style: TextStyle(
+                    color: kInk,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 12),
             Row(
               children: const <Widget>[
                 SizedBox(
-                    width: 120,
-                    child: Text('Field',
-                        style: TextStyle(
-                            color: kMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11))),
+                  width: 120,
+                  child: Text(
+                    'Field',
+                    style: TextStyle(
+                      color: kMuted,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
                 SizedBox(
-                    width: 130,
-                    child: Text('Type',
-                        style: TextStyle(
-                            color: kMuted,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11))),
+                  width: 130,
+                  child: Text(
+                    'Type',
+                    style: TextStyle(
+                      color: kMuted,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
+                ),
                 Expanded(
-                  child: Text('Meaning',
-                      style: TextStyle(
-                          color: kMuted,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 11)),
+                  child: Text(
+                    'Meaning',
+                    style: TextStyle(
+                      color: kMuted,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1768,26 +1848,33 @@ class _AnatomyCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(
-              width: 120,
-              child: Text(r[0],
-                  style: const TextStyle(
-                    color: kElectricBlue,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
-                  ))),
+            width: 120,
+            child: Text(
+              r[0],
+              style: const TextStyle(
+                color: kElectricBlue,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
+            ),
+          ),
           SizedBox(
-              width: 130,
-              child: Text(r[1],
-                  style: const TextStyle(
-                    color: kViolet,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                  ))),
+            width: 130,
+            child: Text(
+              r[1],
+              style: const TextStyle(
+                color: kViolet,
+                fontFamily: 'monospace',
+                fontSize: 12,
+              ),
+            ),
+          ),
           Expanded(
-            child: Text(r[2],
-                style: const TextStyle(
-                    color: kInk, fontSize: 12, height: 1.35)),
+            child: Text(
+              r[2],
+              style: const TextStyle(color: kInk, fontSize: 12, height: 1.35),
+            ),
           ),
         ],
       ),
@@ -1892,14 +1979,16 @@ class _TeachingPanel extends StatelessWidget {
           Text(
             t['title']!,
             style: const TextStyle(
-                color: kInk, fontWeight: FontWeight.w800, fontSize: 13),
+              color: kInk,
+              fontWeight: FontWeight.w800,
+              fontSize: 13,
+            ),
           ),
           const SizedBox(height: 6),
           Expanded(
             child: Text(
               t['body']!,
-              style: const TextStyle(
-                  color: kMuted, fontSize: 12, height: 1.35),
+              style: const TextStyle(color: kMuted, fontSize: 12, height: 1.35),
             ),
           ),
         ],
@@ -1943,11 +2032,14 @@ class _FooterSummary extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.flag, color: kCyan, size: 20),
                 SizedBox(width: 8),
-                Text('Scroll Pulse Telemetry — recap',
-                    style: TextStyle(
-                        color: kPaper,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800)),
+                Text(
+                  'Scroll Pulse Telemetry — recap',
+                  style: TextStyle(
+                    color: kPaper,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -1957,9 +2049,10 @@ class _FooterSummary extends StatelessWidget {
               'your handler cheap, push state into ValueNotifiers, and trust that each frame of drag + ballistic phases will '
               'produce exactly one notification with scrollDelta describing the change and dragDetails telling you who caused it.',
               style: TextStyle(
-                  color: kPaper.withValues(alpha: 0.9),
-                  fontSize: 12,
-                  height: 1.5),
+                color: kPaper.withValues(alpha: 0.9),
+                fontSize: 12,
+                height: 1.5,
+              ),
             ),
             const SizedBox(height: 12),
             Wrap(
@@ -1998,10 +2091,11 @@ class _FooterPill extends StatelessWidget {
       child: Text(
         label,
         style: const TextStyle(
-            color: kPaper,
-            fontFamily: 'monospace',
-            fontSize: 11,
-            fontWeight: FontWeight.w600),
+          color: kPaper,
+          fontFamily: 'monospace',
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

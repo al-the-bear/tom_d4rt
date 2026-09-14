@@ -43,14 +43,15 @@ class _WmLatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: _wmLatIndigo,
-      brightness: Brightness.light,
-    ).copyWith(
-      primary: _wmLatIndigoDeep,
-      secondary: _wmLatAquaDeep,
-      surface: _wmLatPaper,
-    );
+    final ColorScheme scheme =
+        ColorScheme.fromSeed(
+          seedColor: _wmLatIndigo,
+          brightness: Brightness.light,
+        ).copyWith(
+          primary: _wmLatIndigoDeep,
+          secondary: _wmLatAquaDeep,
+          surface: _wmLatPaper,
+        );
     final ThemeData theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -178,7 +179,9 @@ class _WmLatAppBarTitle extends StatelessWidget {
             ),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+                color: (_wmLatAqua ?? const Color(0xFF000000)).withValues(
+                  alpha: 0.5,
+                ),
                 blurRadius: 12,
                 offset: const Offset(0, 3),
               ),
@@ -222,9 +225,7 @@ class _WmLatAppBarBackdrop extends StatelessWidget {
     return AnimatedBuilder(
       animation: phase,
       builder: (BuildContext context, Widget? child) {
-        return CustomPaint(
-          painter: _WmLatAppBarPainter(phase: phase.value),
-        );
+        return CustomPaint(painter: _WmLatAppBarPainter(phase: phase.value));
       },
     );
   }
@@ -260,20 +261,21 @@ class _WmLatAppBarPainter extends CustomPainter {
 
     final Paint pulse = Paint()
       ..style = PaintingStyle.fill
-      ..shader = RadialGradient(
-        colors: <Color>[
-          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.45),
-          (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.0),
-        ],
-      ).createShader(
-        Rect.fromCircle(
-          center: Offset(
-            size.width * (0.3 + 0.4 * math.sin(phase * math.pi * 2)),
-            size.height * 0.55,
-          ),
-          radius: 120,
-        ),
-      );
+      ..shader =
+          RadialGradient(
+            colors: <Color>[
+              (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+              (_wmLatAqua ?? const Color(0xFF000000)).withValues(alpha: 0.0),
+            ],
+          ).createShader(
+            Rect.fromCircle(
+              center: Offset(
+                size.width * (0.3 + 0.4 * math.sin(phase * math.pi * 2)),
+                size.height * 0.55,
+              ),
+              radius: 120,
+            ),
+          );
     canvas.drawCircle(
       Offset(
         size.width * (0.3 + 0.4 * math.sin(phase * math.pi * 2)),
@@ -320,7 +322,9 @@ class _WmLatBackgroundPainter extends CustomPainter {
     final Paint lattice = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.6
-      ..color = (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.08);
+      ..color = (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+        alpha: 0.08,
+      );
     const double r = 30;
     final double h = r * math.sqrt(3.0);
     for (double y = -h; y < size.height + h; y += h) {
@@ -362,14 +366,29 @@ class _WmLatTableOfContents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<_WmLatTocEntry> entries = <_WmLatTocEntry>[
-      _WmLatTocEntry('I',   'Preamble',  'what and why',           _wmLatAqua),
-      _WmLatTocEntry('II',  'Anatomy',   'API surface of WeakMap', _wmLatIndigo),
-      _WmLatTocEntry('III', 'Playground','live particle registry', _wmLatMint),
-      _WmLatTocEntry('IV',  'Cache',     'derived-data on objects',_wmLatAmber),
-      _WmLatTocEntry('V',   'Matrix',    'WeakMap vs Map vs …',    _wmLatRose),
-      _WmLatTocEntry('VI',  'Contrast',  'strong vs weak side-by-side', _wmLatAquaDeep),
-      _WmLatTocEntry('VII', 'Recipes',   'snippets you can copy',  _wmLatIndigoDeep),
-      _WmLatTocEntry('VIII','Epilogue',  'gotchas and production', _wmLatDanger),
+      _WmLatTocEntry('I', 'Preamble', 'what and why', _wmLatAqua),
+      _WmLatTocEntry('II', 'Anatomy', 'API surface of WeakMap', _wmLatIndigo),
+      _WmLatTocEntry('III', 'Playground', 'live particle registry', _wmLatMint),
+      _WmLatTocEntry('IV', 'Cache', 'derived-data on objects', _wmLatAmber),
+      _WmLatTocEntry('V', 'Matrix', 'WeakMap vs Map vs …', _wmLatRose),
+      _WmLatTocEntry(
+        'VI',
+        'Contrast',
+        'strong vs weak side-by-side',
+        _wmLatAquaDeep,
+      ),
+      _WmLatTocEntry(
+        'VII',
+        'Recipes',
+        'snippets you can copy',
+        _wmLatIndigoDeep,
+      ),
+      _WmLatTocEntry(
+        'VIII',
+        'Epilogue',
+        'gotchas and production',
+        _wmLatDanger,
+      ),
     ];
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 8),
@@ -389,10 +408,13 @@ class _WmLatTableOfContents extends StatelessWidget {
                       height: 28,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: (e.accent ?? const Color(0xFF000000)).withValues(alpha: 0.14),
+                        color: (e.accent ?? const Color(0xFF000000)).withValues(
+                          alpha: 0.14,
+                        ),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                          color: (e.accent ?? const Color(0xFF000000)).withValues(alpha: 0.7),
+                          color: (e.accent ?? const Color(0xFF000000))
+                              .withValues(alpha: 0.7),
                         ),
                       ),
                       child: Text(
@@ -468,7 +490,9 @@ class _WmLatCard extends StatelessWidget {
         border: Border.all(color: _wmLatSilver),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.06),
+            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+              alpha: 0.06,
+            ),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -480,12 +504,18 @@ class _WmLatCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
             decoration: BoxDecoration(
-              color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.08),
+              color: (accent ?? const Color(0xFF000000)).withValues(
+                alpha: 0.08,
+              ),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(14),
               ),
               border: Border(
-                bottom: BorderSide(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
+                bottom: BorderSide(
+                  color: (accent ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.35,
+                  ),
+                ),
               ),
             ),
             child: Row(
@@ -570,7 +600,10 @@ class _WmLatChapterHeader extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[accent, (accent ?? const Color(0xFF000000)).withValues(alpha: 0.7)],
+                colors: <Color>[
+                  accent,
+                  (accent ?? const Color(0xFF000000)).withValues(alpha: 0.7),
+                ],
               ),
               borderRadius: BorderRadius.circular(10),
             ),
@@ -601,10 +634,7 @@ class _WmLatChapterHeader extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   blurb,
-                  style: const TextStyle(
-                    color: _wmLatInkSoft,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: _wmLatInkSoft, fontSize: 13),
                 ),
               ],
             ),
@@ -616,11 +646,7 @@ class _WmLatChapterHeader extends StatelessWidget {
 }
 
 class _WmLatPill extends StatelessWidget {
-  const _WmLatPill({
-    required this.label,
-    required this.color,
-    this.icon,
-  });
+  const _WmLatPill({required this.label, required this.color, this.icon});
 
   final String label;
   final Color color;
@@ -633,7 +659,9 @@ class _WmLatPill extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
+        border: Border.all(
+          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -748,7 +776,11 @@ class _WmLatChapterPreamble extends StatelessWidget {
                   'the WeakMap entry becomes eligible for garbage collection. '
                   'That property makes it safe to attach ephemeral metadata to '
                   'user-owned objects without creating memory leaks.',
-                  style: TextStyle(color: _wmLatInk, fontSize: 13.5, height: 1.5),
+                  style: TextStyle(
+                    color: _wmLatInk,
+                    fontSize: 13.5,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Wrap(
@@ -764,7 +796,8 @@ class _WmLatChapterPreamble extends StatelessWidget {
                 ),
                 const _WmLatDivider(),
                 const _WmLatCodeBlock(
-                  code: '// From package:flutter/foundation.dart\n'
+                  code:
+                      '// From package:flutter/foundation.dart\n'
                       'final WeakMap<Object, int> notes = WeakMap<Object, int>();\n'
                       'final Object key = Object();\n'
                       'notes[key] = 42;                 // set\n'
@@ -782,7 +815,8 @@ class _WmLatChapterPreamble extends StatelessWidget {
           child: _WmLatCard(
             accent: _wmLatIndigo,
             title: 'Why Flutter ships one',
-            subtitle: 'internal caches that follow the lifetime of user objects',
+            subtitle:
+                'internal caches that follow the lifetime of user objects',
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
@@ -829,7 +863,11 @@ class _WmLatChapterPreamble extends StatelessWidget {
                   'lattice stays rigid only as long as at least one outside hand '
                   'holds each silver atom in place. When an atom is released, the '
                   'labels attached to that atom fall silently out of the lattice.',
-                  style: TextStyle(color: _wmLatInk, height: 1.5, fontSize: 13.5),
+                  style: TextStyle(
+                    color: _wmLatInk,
+                    height: 1.5,
+                    fontSize: 13.5,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 _WmLatLatticeIllustration(),
@@ -1028,7 +1066,8 @@ class _WmLatChapterAnatomy extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: const <Widget>[
                 _WmLatCodeBlock(
-                  code: 'final WeakMap<Widget, int> stamps =\n'
+                  code:
+                      'final WeakMap<Widget, int> stamps =\n'
                       '    WeakMap<Widget, int>();\n\n'
                       '// Type parameters default to <dynamic, dynamic>.\n'
                       'final WeakMap<Object, String> plain = WeakMap();',
@@ -1059,27 +1098,31 @@ class _WmLatChapterAnatomy extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Expanded(child: _WmLatPlatformCard(
-                      title: 'Dart VM',
-                      accent: _wmLatAqua,
-                      lines: const <String>[
-                        'Wraps dart:core Expando<Object>.',
-                        'Uses native weak references provided by the VM.',
-                        'Reliable weak semantics, GC timing is VM-specific.',
-                        'No JS-interop indirection.',
-                      ],
-                    )),
+                    Expanded(
+                      child: _WmLatPlatformCard(
+                        title: 'Dart VM',
+                        accent: _wmLatAqua,
+                        lines: const <String>[
+                          'Wraps dart:core Expando<Object>.',
+                          'Uses native weak references provided by the VM.',
+                          'Reliable weak semantics, GC timing is VM-specific.',
+                          'No JS-interop indirection.',
+                        ],
+                      ),
+                    ),
                     const SizedBox(width: 12),
-                    Expanded(child: _WmLatPlatformCard(
-                      title: 'Web (JS)',
-                      accent: _wmLatIndigo,
-                      lines: const <String>[
-                        'Wraps the global JavaScript WeakMap.',
-                        'Keys must be non-primitive JS values.',
-                        'GC follows the browser engine — opaque.',
-                        'FinalizationRegistry is available but separate.',
-                      ],
-                    )),
+                    Expanded(
+                      child: _WmLatPlatformCard(
+                        title: 'Web (JS)',
+                        accent: _wmLatIndigo,
+                        lines: const <String>[
+                          'Wraps the global JavaScript WeakMap.',
+                          'Keys must be non-primitive JS values.',
+                          'GC follows the browser engine — opaque.',
+                          'FinalizationRegistry is available but separate.',
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -1111,7 +1154,9 @@ class _WmLatApiRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4)),
+        border: Border.all(
+          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1119,10 +1164,7 @@ class _WmLatApiRow extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(4),
@@ -1179,7 +1221,9 @@ class _WmLatPlatformCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
+        border: Border.all(
+          color: (accent ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1200,11 +1244,13 @@ class _WmLatPlatformCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('• ',
-                      style: TextStyle(
-                        color: _wmLatInkSoft,
-                        fontWeight: FontWeight.w900,
-                      )),
+                  const Text(
+                    '• ',
+                    style: TextStyle(
+                      color: _wmLatInkSoft,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
                   Expanded(
                     child: Text(
                       l,
@@ -1233,35 +1279,40 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
       _WmLatLifetimeStep(
         phase: 'create',
         title: 'Object is created',
-        body: 'Your code allocates an object — the runtime stores a strong '
+        body:
+            'Your code allocates an object — the runtime stores a strong '
             'reference from your variable.',
         color: _wmLatAqua,
       ),
       _WmLatLifetimeStep(
         phase: 'attach',
         title: 'WeakMap entry attached',
-        body: 'You call map[object] = meta. The WeakMap holds object weakly, '
+        body:
+            'You call map[object] = meta. The WeakMap holds object weakly, '
             'meta strongly.',
         color: _wmLatIndigo,
       ),
       _WmLatLifetimeStep(
         phase: 'use',
         title: 'Lookups succeed',
-        body: 'Reads via map[object] return meta as long as at least one '
+        body:
+            'Reads via map[object] return meta as long as at least one '
             'strong reference to object exists somewhere else.',
         color: _wmLatMint,
       ),
       _WmLatLifetimeStep(
         phase: 'release',
         title: 'External strong references drop',
-        body: 'Your code clears its variables. The WeakMap entry becomes '
+        body:
+            'Your code clears its variables. The WeakMap entry becomes '
             'eligible for collection — but not necessarily collected yet.',
         color: _wmLatAmber,
       ),
       _WmLatLifetimeStep(
         phase: 'collect',
         title: 'GC reclaims the key',
-        body: 'At a later time, the GC reclaims object. Any subsequent '
+        body:
+            'At a later time, the GC reclaims object. Any subsequent '
             'map[object] would return null — but there is no "object" left to ask.',
         color: _wmLatRose,
       ),
@@ -1284,7 +1335,8 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                            color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.35),
+                            color: (steps[i].color ?? const Color(0xFF000000))
+                                .withValues(alpha: 0.35),
                             blurRadius: 6,
                           ),
                         ],
@@ -1302,7 +1354,8 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                       Container(
                         width: 2,
                         height: 36,
-                        color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.4),
+                        color: (steps[i].color ?? const Color(0xFF000000))
+                            .withValues(alpha: 0.4),
                       ),
                   ],
                 ),
@@ -1312,10 +1365,12 @@ class _WmLatLifetimeDiagram extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     margin: const EdgeInsets.only(bottom: 4),
                     decoration: BoxDecoration(
-                      color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.06),
+                      color: (steps[i].color ?? const Color(0xFF000000))
+                          .withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: (steps[i].color ?? const Color(0xFF000000)).withValues(alpha: 0.35),
+                        color: (steps[i].color ?? const Color(0xFF000000))
+                            .withValues(alpha: 0.35),
                       ),
                     ),
                     child: Column(
@@ -1429,8 +1484,22 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
   int _selected = 0;
 
   static const List<String> _glyphs = <String>[
-    'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta',
-    'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi',
+    'Alpha',
+    'Beta',
+    'Gamma',
+    'Delta',
+    'Epsilon',
+    'Zeta',
+    'Eta',
+    'Theta',
+    'Iota',
+    'Kappa',
+    'Lambda',
+    'Mu',
+    'Nu',
+    'Xi',
+    'Omicron',
+    'Pi',
   ];
   static const List<Color> _huePool = <Color>[
     _wmLatAqua,
@@ -1520,10 +1589,7 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
       if (data != null) {
         data.spin = (data.spin + 1) % 8;
         data.writeCount += 1;
-        _log.insert(
-          0,
-          'tick $_tick — spun ${data.label} spin=${data.spin}',
-        );
+        _log.insert(0, 'tick $_tick — spun ${data.label} spin=${data.spin}');
         if (_log.length > 10) _log.removeLast();
       }
     });
@@ -1737,7 +1803,9 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
       decoration: BoxDecoration(
         color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+        border: Border.all(
+          color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1751,7 +1819,9 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: (d.hue ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+                  color: (d.hue ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.45,
+                  ),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -1780,12 +1850,18 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text('Energy: ${d.energy}',
-                    style: const TextStyle(color: _wmLatInk, fontSize: 13)),
-                Text('Spin: ${d.spin}',
-                    style: const TextStyle(color: _wmLatInk, fontSize: 13)),
-                Text('Created at tick: ${d.createdTick}',
-                    style: const TextStyle(color: _wmLatInkSoft, fontSize: 12)),
+                Text(
+                  'Energy: ${d.energy}',
+                  style: const TextStyle(color: _wmLatInk, fontSize: 13),
+                ),
+                Text(
+                  'Spin: ${d.spin}',
+                  style: const TextStyle(color: _wmLatInk, fontSize: 13),
+                ),
+                Text(
+                  'Created at tick: ${d.createdTick}',
+                  style: const TextStyle(color: _wmLatInkSoft, fontSize: 12),
+                ),
                 Text(
                   'Reads: ${d.readCount}  ·  Writes: ${d.writeCount}',
                   style: const TextStyle(color: _wmLatInkSoft, fontSize: 12),
@@ -1793,15 +1869,9 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
                 const SizedBox(height: 6),
                 Row(
                   children: <Widget>[
-                    const _WmLatPill(
-                      label: 'held weakly',
-                      color: _wmLatMint,
-                    ),
+                    const _WmLatPill(label: 'held weakly', color: _wmLatMint),
                     const SizedBox(width: 6),
-                    _WmLatPill(
-                      label: 'value held strongly',
-                      color: d.hue,
-                    ),
+                    _WmLatPill(label: 'value held strongly', color: d.hue),
                   ],
                 ),
               ],
@@ -1822,9 +1892,15 @@ class _WmLatChapterPlaygroundState extends State<_WmLatChapterPlayground> {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: (_wmLatDangerPale ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+        color: (_wmLatDangerPale ?? const Color(0xFF000000)).withValues(
+          alpha: 0.5,
+        ),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: (_wmLatDanger ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
+        border: Border.all(
+          color: (_wmLatDanger ?? const Color(0xFF000000)).withValues(
+            alpha: 0.45,
+          ),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1942,12 +2018,13 @@ class _WmLatToolbarButton extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
             color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+            border: Border.all(
+              color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+            ),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -1998,7 +2075,9 @@ class _WmLatParticleTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: selected
                 ? (accent ?? const Color(0xFF000000)).withValues(alpha: 0.15)
-                : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.6),
+                : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.6,
+                  ),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: selected ? accent : _wmLatSilver,
@@ -2072,13 +2151,18 @@ class _WmLatReleasedKeyTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+        border: Border.all(
+          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(alive ? Icons.visibility : Icons.visibility_off,
-              size: 14, color: color),
+          Icon(
+            alive ? Icons.visibility : Icons.visibility_off,
+            size: 14,
+            color: color,
+          ),
           const SizedBox(width: 6),
           Text(
             'key#$index ${alive ? "reachable" : "collected?"}',
@@ -2103,7 +2187,9 @@ class _WmLatEmptyPanel extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.7),
+        color: (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(
+          alpha: 0.7,
+        ),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: _wmLatSilver),
       ),
@@ -2112,10 +2198,7 @@ class _WmLatEmptyPanel extends StatelessWidget {
           const Icon(Icons.info_outline, color: _wmLatInkSoft, size: 16),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              message,
-              style: const TextStyle(color: _wmLatInkSoft),
-            ),
+            child: Text(message, style: const TextStyle(color: _wmLatInkSoft)),
           ),
         ],
       ),
@@ -2342,8 +2425,12 @@ class _WmLatChapterCacheState extends State<_WmLatChapterCache> {
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: hot
-            ? (_wmLatAmberPale ?? const Color(0xFF000000)).withValues(alpha: 0.5)
-            : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(alpha: 0.7),
+            ? (_wmLatAmberPale ?? const Color(0xFF000000)).withValues(
+                alpha: 0.5,
+              )
+            : (_wmLatSilverSoft ?? const Color(0xFF000000)).withValues(
+                alpha: 0.7,
+              ),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: hot ? _wmLatAmber : _wmLatSilver),
       ),
@@ -2379,15 +2466,26 @@ class _WmLatChapterCacheState extends State<_WmLatChapterCache> {
           ),
           const SizedBox(height: 6),
           if (entry != null) ...<Widget>[
-            Text('digest ${entry.digest}',
-                style: const TextStyle(
-                    color: _wmLatInk, fontSize: 12, fontWeight: FontWeight.w700)),
-            Text('bytes ${entry.bytes}',
-                style: const TextStyle(color: _wmLatInk, fontSize: 11.5)),
-            Text('cost ${entry.costMs} ms',
-                style: const TextStyle(color: _wmLatInk, fontSize: 11.5)),
-            Text('built @ t=${entry.builtAtTick}',
-                style: const TextStyle(color: _wmLatInkSoft, fontSize: 11)),
+            Text(
+              'digest ${entry.digest}',
+              style: const TextStyle(
+                color: _wmLatInk,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            Text(
+              'bytes ${entry.bytes}',
+              style: const TextStyle(color: _wmLatInk, fontSize: 11.5),
+            ),
+            Text(
+              'cost ${entry.costMs} ms',
+              style: const TextStyle(color: _wmLatInk, fontSize: 11.5),
+            ),
+            Text(
+              'built @ t=${entry.builtAtTick}',
+              style: const TextStyle(color: _wmLatInkSoft, fontSize: 11),
+            ),
           ] else ...<Widget>[
             const Text(
               'cold — next access will recompute',
@@ -2441,9 +2539,15 @@ class _WmLatChapterCacheState extends State<_WmLatChapterCache> {
           height: 84,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.1),
+            color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+              alpha: 0.1,
+            ),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+            border: Border.all(
+              color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+                alpha: 0.5,
+              ),
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -2510,7 +2614,9 @@ class _WmLatTinyBtn extends StatelessWidget {
           decoration: BoxDecoration(
             color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55)),
+            border: Border.all(
+              color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.55),
+            ),
           ),
           child: Text(
             label,
@@ -2554,96 +2660,66 @@ class _WmLatChapterMatrix extends StatelessWidget {
   ];
 
   static const List<_WmLatMatrixRow> _rows = <_WmLatMatrixRow>[
-    _WmLatMatrixRow(
-      'Holds keys strongly',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('no — weak', _WmLatTone.ok),
-        _WmLatMatrixCell('yes', _WmLatTone.warn),
-        _WmLatMatrixCell('no — weak', _WmLatTone.ok),
-        _WmLatMatrixCell('yes', _WmLatTone.warn),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Iterable keys / values',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('no', _WmLatTone.no),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-        _WmLatMatrixCell('no', _WmLatTone.no),
-        _WmLatMatrixCell('yes, ordered', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Keys can be primitives',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('no (objects only)', _WmLatTone.no),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-        _WmLatMatrixCell('no (objects only)', _WmLatTone.no),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Constant-time lookup',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
-        _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
-        _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
-        _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Preserves insertion order',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('n/a (no iteration)', _WmLatTone.info),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-        _WmLatMatrixCell('n/a', _WmLatTone.info),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Length / size query',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('no', _WmLatTone.no),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-        _WmLatMatrixCell('no', _WmLatTone.no),
-        _WmLatMatrixCell('yes', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'On-web implementation',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('JS WeakMap', _WmLatTone.info),
-        _WmLatMatrixCell('dart2js HashMap', _WmLatTone.info),
-        _WmLatMatrixCell('not available (VM only)', _WmLatTone.no),
-        _WmLatMatrixCell('dart2js LinkedHashMap', _WmLatTone.info),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Built-in observability',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('none', _WmLatTone.no),
-        _WmLatMatrixCell('keys, values, length', _WmLatTone.ok),
-        _WmLatMatrixCell('none', _WmLatTone.no),
-        _WmLatMatrixCell('keys, values, length', _WmLatTone.ok),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Typical use',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('metadata on user objects', _WmLatTone.info),
-        _WmLatMatrixCell('general key → value', _WmLatTone.info),
-        _WmLatMatrixCell('private state by object', _WmLatTone.info),
-        _WmLatMatrixCell('ordered config / cache', _WmLatTone.info),
-      ],
-    ),
-    _WmLatMatrixRow(
-      'Cleanup on key GC',
-      <_WmLatMatrixCell>[
-        _WmLatMatrixCell('automatic', _WmLatTone.ok),
-        _WmLatMatrixCell('none — manual', _WmLatTone.warn),
-        _WmLatMatrixCell('automatic', _WmLatTone.ok),
-        _WmLatMatrixCell('none — manual', _WmLatTone.warn),
-      ],
-    ),
+    _WmLatMatrixRow('Holds keys strongly', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('no — weak', _WmLatTone.ok),
+      _WmLatMatrixCell('yes', _WmLatTone.warn),
+      _WmLatMatrixCell('no — weak', _WmLatTone.ok),
+      _WmLatMatrixCell('yes', _WmLatTone.warn),
+    ]),
+    _WmLatMatrixRow('Iterable keys / values', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('no', _WmLatTone.no),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+      _WmLatMatrixCell('no', _WmLatTone.no),
+      _WmLatMatrixCell('yes, ordered', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('Keys can be primitives', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('no (objects only)', _WmLatTone.no),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+      _WmLatMatrixCell('no (objects only)', _WmLatTone.no),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('Constant-time lookup', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
+      _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
+      _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
+      _WmLatMatrixCell('yes (amortised)', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('Preserves insertion order', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('n/a (no iteration)', _WmLatTone.info),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+      _WmLatMatrixCell('n/a', _WmLatTone.info),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('Length / size query', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('no', _WmLatTone.no),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+      _WmLatMatrixCell('no', _WmLatTone.no),
+      _WmLatMatrixCell('yes', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('On-web implementation', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('JS WeakMap', _WmLatTone.info),
+      _WmLatMatrixCell('dart2js HashMap', _WmLatTone.info),
+      _WmLatMatrixCell('not available (VM only)', _WmLatTone.no),
+      _WmLatMatrixCell('dart2js LinkedHashMap', _WmLatTone.info),
+    ]),
+    _WmLatMatrixRow('Built-in observability', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('none', _WmLatTone.no),
+      _WmLatMatrixCell('keys, values, length', _WmLatTone.ok),
+      _WmLatMatrixCell('none', _WmLatTone.no),
+      _WmLatMatrixCell('keys, values, length', _WmLatTone.ok),
+    ]),
+    _WmLatMatrixRow('Typical use', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('metadata on user objects', _WmLatTone.info),
+      _WmLatMatrixCell('general key → value', _WmLatTone.info),
+      _WmLatMatrixCell('private state by object', _WmLatTone.info),
+      _WmLatMatrixCell('ordered config / cache', _WmLatTone.info),
+    ]),
+    _WmLatMatrixRow('Cleanup on key GC', <_WmLatMatrixCell>[
+      _WmLatMatrixCell('automatic', _WmLatTone.ok),
+      _WmLatMatrixCell('none — manual', _WmLatTone.warn),
+      _WmLatMatrixCell('automatic', _WmLatTone.ok),
+      _WmLatMatrixCell('none — manual', _WmLatTone.warn),
+    ]),
   ];
 
   @override
@@ -2699,13 +2775,18 @@ class _WmLatChapterMatrix extends StatelessWidget {
           Expanded(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 3),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.12),
+                color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+                  alpha: 0.12,
+                ),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+                border: Border.all(
+                  color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.5,
+                  ),
+                ),
               ),
               child: Text(
                 c,
@@ -2779,7 +2860,9 @@ class _WmLatChapterMatrix extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4)),
+        border: Border.all(
+          color: (color ?? const Color(0xFF000000)).withValues(alpha: 0.4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2807,7 +2890,11 @@ class _WmLatChapterMatrix extends StatelessWidget {
       spacing: 10,
       runSpacing: 6,
       children: const <Widget>[
-        _WmLatPill(label: 'strong', color: _wmLatMint, icon: Icons.check_circle),
+        _WmLatPill(
+          label: 'strong',
+          color: _wmLatMint,
+          icon: Icons.check_circle,
+        ),
         _WmLatPill(label: 'attention', color: _wmLatAmber, icon: Icons.error),
         _WmLatPill(label: 'missing', color: _wmLatDanger, icon: Icons.cancel),
         _WmLatPill(label: 'nuance', color: _wmLatIndigo, icon: Icons.info),
@@ -3035,10 +3122,14 @@ class _WmLatChapterContrastState extends State<_WmLatChapterContrast> {
       margin: const EdgeInsets.symmetric(vertical: 3),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
-        color: (accent ?? const Color(0xFF000000)).withValues(alpha: strongHeld ? 0.1 : 0.03),
+        color: (accent ?? const Color(0xFF000000)).withValues(
+          alpha: strongHeld ? 0.1 : 0.03,
+        ),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(
-          color: (accent ?? const Color(0xFF000000)).withValues(alpha: strongHeld ? 0.5 : 0.25),
+          color: (accent ?? const Color(0xFF000000)).withValues(
+            alpha: strongHeld ? 0.5 : 0.25,
+          ),
         ),
       ),
       child: Row(
@@ -3104,7 +3195,8 @@ class _WmLatChapterRecipes extends StatelessWidget {
       accent: _wmLatAqua,
       title: 'Recipe 1 — memoise a derived value',
       blurb: 'Avoid recomputing per-object work inside a build method.',
-      code: 'final WeakMap<Widget, _Derived> _memo = WeakMap();\n\n'
+      code:
+          'final WeakMap<Widget, _Derived> _memo = WeakMap();\n\n'
           '_Derived derivedFor(Widget w) {\n'
           '  final _Derived? hit = _memo[w];\n'
           '  if (hit != null) return hit;\n'
@@ -3121,7 +3213,8 @@ class _WmLatChapterRecipes extends StatelessWidget {
       title: 'Recipe 2 — per-controller flags',
       blurb:
           'Attach framework-side debug flags to user controllers without subclassing.',
-      code: 'final WeakMap<ScrollController, bool> _firstPaintSeen = WeakMap();\n\n'
+      code:
+          'final WeakMap<ScrollController, bool> _firstPaintSeen = WeakMap();\n\n'
           'void onFirstPaint(ScrollController c) {\n'
           '  if (_firstPaintSeen[c] == true) return;\n'
           '  _firstPaintSeen[c] = true;\n'
@@ -3135,7 +3228,8 @@ class _WmLatChapterRecipes extends StatelessWidget {
       accent: _wmLatMint,
       title: 'Recipe 3 — tag third-party objects',
       blurb: 'Decorate objects from a library that never offered a Finalizer.',
-      code: 'final WeakMap<Object, String> _tags = WeakMap<Object, String>();\n\n'
+      code:
+          'final WeakMap<Object, String> _tags = WeakMap<Object, String>();\n\n'
           'void tag(Object o, String tag) => _tags[o] = tag;\n'
           'String? tagOf(Object o) => _tags[o];',
       notes:
@@ -3145,9 +3239,9 @@ class _WmLatChapterRecipes extends StatelessWidget {
       icon: Icons.settings_input_component,
       accent: _wmLatAmber,
       title: 'Recipe 4 — pair with Finalizer',
-      blurb:
-          'Run cleanup code when an externally-owned object is collected.',
-      code: 'final Finalizer<String> _finaliser =\n'
+      blurb: 'Run cleanup code when an externally-owned object is collected.',
+      code:
+          'final Finalizer<String> _finaliser =\n'
           '    Finalizer<String>((String id) {\n'
           '  debugPrint("finalised: \$id");\n'
           '});\n\n'
@@ -3164,7 +3258,8 @@ class _WmLatChapterRecipes extends StatelessWidget {
       accent: _wmLatRose,
       title: 'Recipe 5 — write-through with invalidation',
       blurb: 'Evict entries when the underlying object mutates.',
-      code: 'class Thumbnail { /* ... */ }\n\n'
+      code:
+          'class Thumbnail { /* ... */ }\n\n'
           'final WeakMap<Image, Thumbnail> _thumbs = WeakMap();\n\n'
           'Thumbnail thumbFor(Image img, {bool force = false}) {\n'
           '  if (force) _thumbs.remove(img);\n'
@@ -3178,7 +3273,8 @@ class _WmLatChapterRecipes extends StatelessWidget {
       accent: _wmLatAquaDeep,
       title: 'Recipe 6 — per-frame scratch state',
       blurb: 'Cheap sidecar state that must not outlive a frame\'s objects.',
-      code: 'final WeakMap<RenderObject, _Scratch> _scratch = WeakMap();\n\n'
+      code:
+          'final WeakMap<RenderObject, _Scratch> _scratch = WeakMap();\n\n'
           'void annotate(RenderObject r, _Scratch s) {\n'
           '  _scratch[r] = s;\n'
           '}\n'
@@ -3226,10 +3322,16 @@ class _WmLatChapterRecipes extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+              border: Border.all(
+                color: (r.accent ?? const Color(0xFF000000)).withValues(
+                  alpha: 0.5,
+                ),
+              ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.12),
+                  color: (r.accent ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.12,
+                  ),
                   blurRadius: 10,
                   offset: const Offset(0, 3),
                 ),
@@ -3241,9 +3343,12 @@ class _WmLatChapterRecipes extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
                   decoration: BoxDecoration(
-                    color: (r.accent ?? const Color(0xFF000000)).withValues(alpha: 0.12),
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(12)),
+                    color: (r.accent ?? const Color(0xFF000000)).withValues(
+                      alpha: 0.12,
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                   ),
                   child: Row(
                     children: <Widget>[
@@ -3290,10 +3395,12 @@ class _WmLatChapterRecipes extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: (_wmLatAmberPale ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+                          color: (_wmLatAmberPale ?? const Color(0xFF000000))
+                              .withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: (_wmLatAmber ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+                            color: (_wmLatAmber ?? const Color(0xFF000000))
+                                .withValues(alpha: 0.45),
                           ),
                         ),
                         child: Row(
@@ -3437,7 +3544,9 @@ class _WmLatChapterEpilogue extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(alpha: 0.45),
+                  color: (_wmLatIndigo ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.45,
+                  ),
                 ),
               ),
               child: const Column(
@@ -3496,8 +3605,7 @@ class _WmLatChapterEpilogue extends StatelessWidget {
                       'Is the value cheap, or at least rebuildable from the key when missed?',
                 ),
                 _WmLatChecklistItem(
-                  text:
-                      'Are all code paths robust to a null lookup result?',
+                  text: 'Are all code paths robust to a null lookup result?',
                 ),
               ],
             ),
@@ -3544,7 +3652,9 @@ class _WmLatChapterEpilogue extends StatelessWidget {
       decoration: BoxDecoration(
         color: (g.color ?? const Color(0xFF000000)).withValues(alpha: 0.07),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: (g.color ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+        border: Border.all(
+          color: (g.color ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3623,11 +3733,7 @@ class _WmLatChecklistItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
               border: Border.all(color: _wmLatMint),
             ),
-            child: const Icon(
-              Icons.check,
-              size: 13,
-              color: _wmLatMint,
-            ),
+            child: const Icon(Icons.check, size: 13, color: _wmLatMint),
           ),
           const SizedBox(width: 10),
           Expanded(

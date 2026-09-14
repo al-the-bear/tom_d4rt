@@ -225,26 +225,11 @@ dynamic build(BuildContext context) {
               'SliverReorderableList',
               Color(0xFF283593),
               [
-                {
-                  'text': 'Integrates with CustomScrollView',
-                  'positive': true,
-                },
-                {
-                  'text': 'Compose with other slivers',
-                  'positive': true,
-                },
-                {
-                  'text': 'Flexible layout control',
-                  'positive': true,
-                },
-                {
-                  'text': 'Requires manual scroll setup',
-                  'positive': false,
-                },
-                {
-                  'text': 'More boilerplate',
-                  'positive': false,
-                },
+                {'text': 'Integrates with CustomScrollView', 'positive': true},
+                {'text': 'Compose with other slivers', 'positive': true},
+                {'text': 'Flexible layout control', 'positive': true},
+                {'text': 'Requires manual scroll setup', 'positive': false},
+                {'text': 'More boilerplate', 'positive': false},
               ],
             ),
             buildCompareColumn(
@@ -252,26 +237,11 @@ dynamic build(BuildContext context) {
               'Convenience wrapper',
               Color(0xFF00695C),
               [
-                {
-                  'text': 'Ready-to-use scrollable list',
-                  'positive': true,
-                },
-                {
-                  'text': 'Simpler API',
-                  'positive': true,
-                },
-                {
-                  'text': 'Built-in header/footer',
-                  'positive': true,
-                },
-                {
-                  'text': 'Cannot mix with other slivers',
-                  'positive': false,
-                },
-                {
-                  'text': 'Less layout flexibility',
-                  'positive': false,
-                },
+                {'text': 'Ready-to-use scrollable list', 'positive': true},
+                {'text': 'Simpler API', 'positive': true},
+                {'text': 'Built-in header/footer', 'positive': true},
+                {'text': 'Cannot mix with other slivers', 'positive': false},
+                {'text': 'Less layout flexibility', 'positive': false},
               ],
             ),
           ],
@@ -454,7 +424,11 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(width: 4.0),
-              Icon(Icons.arrow_forward, size: 16.0, color: Colors.grey.shade600),
+              Icon(
+                Icons.arrow_forward,
+                size: 16.0,
+                color: Colors.grey.shade600,
+              ),
               SizedBox(width: 4.0),
               Text(
                 'user drags...',
@@ -465,7 +439,11 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(width: 4.0),
-              Icon(Icons.arrow_forward, size: 16.0, color: Colors.grey.shade600),
+              Icon(
+                Icons.arrow_forward,
+                size: 16.0,
+                color: Colors.grey.shade600,
+              ),
               SizedBox(width: 4.0),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -483,7 +461,11 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(width: 4.0),
-              Icon(Icons.arrow_forward, size: 16.0, color: Colors.grey.shade600),
+              Icon(
+                Icons.arrow_forward,
+                size: 16.0,
+                color: Colors.grey.shade600,
+              ),
               SizedBox(width: 4.0),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
@@ -528,10 +510,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: isReorderable ? 0.2 : 0.1),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(
-          color: color,
-          width: isReorderable ? 2.0 : 1.0,
-        ),
+        border: Border.all(color: color, width: isReorderable ? 2.0 : 1.0),
       ),
       child: Stack(
         children: [
@@ -671,10 +650,7 @@ dynamic build(BuildContext context) {
                   'Unlike ReorderableListView, ReorderableList '
                   'composes freely with SliverAppBar, SliverGrid, '
                   'and other sliver widgets in the same scroll view.',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Color(0xFFE65100),
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFE65100)),
                 ),
               ),
             ],
@@ -956,14 +932,62 @@ dynamic build(BuildContext context) {
   print('=== Section 6: Grocery list example ===');
 
   final groceryItems = <Map<String, dynamic>>[
-    {'name': 'Avocados', 'qty': '3', 'icon': Icons.eco, 'color': Color(0xFF4CAF50), 'checked': false},
-    {'name': 'Sourdough bread', 'qty': '1', 'icon': Icons.bakery_dining, 'color': Color(0xFF8D6E63), 'checked': true},
-    {'name': 'Greek yogurt', 'qty': '2', 'icon': Icons.icecream, 'color': Color(0xFFE1F5FE), 'checked': false},
-    {'name': 'Cherry tomatoes', 'qty': '1 box', 'icon': Icons.local_florist, 'color': Color(0xFFF44336), 'checked': false},
-    {'name': 'Olive oil', 'qty': '500ml', 'icon': Icons.water_drop, 'color': Color(0xFFFFD54F), 'checked': true},
-    {'name': 'Feta cheese', 'qty': '200g', 'icon': Icons.lunch_dining, 'color': Color(0xFFFFECB3), 'checked': false},
-    {'name': 'Fresh basil', 'qty': '1 bunch', 'icon': Icons.grass, 'color': Color(0xFF66BB6A), 'checked': false},
-    {'name': 'Lemons', 'qty': '4', 'icon': Icons.circle, 'color': Color(0xFFFFF176), 'checked': false},
+    {
+      'name': 'Avocados',
+      'qty': '3',
+      'icon': Icons.eco,
+      'color': Color(0xFF4CAF50),
+      'checked': false,
+    },
+    {
+      'name': 'Sourdough bread',
+      'qty': '1',
+      'icon': Icons.bakery_dining,
+      'color': Color(0xFF8D6E63),
+      'checked': true,
+    },
+    {
+      'name': 'Greek yogurt',
+      'qty': '2',
+      'icon': Icons.icecream,
+      'color': Color(0xFFE1F5FE),
+      'checked': false,
+    },
+    {
+      'name': 'Cherry tomatoes',
+      'qty': '1 box',
+      'icon': Icons.local_florist,
+      'color': Color(0xFFF44336),
+      'checked': false,
+    },
+    {
+      'name': 'Olive oil',
+      'qty': '500ml',
+      'icon': Icons.water_drop,
+      'color': Color(0xFFFFD54F),
+      'checked': true,
+    },
+    {
+      'name': 'Feta cheese',
+      'qty': '200g',
+      'icon': Icons.lunch_dining,
+      'color': Color(0xFFFFECB3),
+      'checked': false,
+    },
+    {
+      'name': 'Fresh basil',
+      'qty': '1 bunch',
+      'icon': Icons.grass,
+      'color': Color(0xFF66BB6A),
+      'checked': false,
+    },
+    {
+      'name': 'Lemons',
+      'qty': '4',
+      'icon': Icons.circle,
+      'color': Color(0xFFFFF176),
+      'checked': false,
+    },
   ];
 
   Widget buildGroceryItem(Map<String, dynamic> item, int index) {
@@ -972,9 +996,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
       decoration: BoxDecoration(
-        color: checked
-            ? Colors.grey.shade100
-            : Colors.white,
+        color: checked ? Colors.grey.shade100 : Colors.white,
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: checked ? Colors.grey.shade300 : Colors.grey.shade200,
@@ -982,11 +1004,7 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.drag_indicator,
-            color: Colors.grey.shade400,
-            size: 18.0,
-          ),
+          Icon(Icons.drag_indicator, color: Colors.grey.shade400, size: 18.0),
           SizedBox(width: 8.0),
           Icon(
             checked ? Icons.check_box : Icons.check_box_outline_blank,
@@ -1093,9 +1111,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFFCE4EC), Color(0xFFF8BBD0)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFFFCE4EC), Color(0xFFF8BBD0)]),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFFC62828)),
     ),
@@ -1256,11 +1272,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1A237E),
-                Color(0xFF283593),
-                Color(0xFF303F9F),
-              ],
+              colors: [Color(0xFF1A237E), Color(0xFF283593), Color(0xFF303F9F)],
             ),
           ),
           child: Column(
@@ -1397,10 +1409,7 @@ Widget _buildReorderableWarning(
               SizedBox(height: 2.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
               ),
             ],
           ),

@@ -154,8 +154,8 @@ class _HeroBannerSection extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   'A static catalogue of long-running task UI:'
-                  ' linear, circular and refresh indicators, bottom-sheet')
-                ,
+                  ' linear, circular and refresh indicators, bottom-sheet',
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'mocks, cancel/retry layouts and theme integration tips.',
@@ -405,15 +405,15 @@ class _PhaseStripSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
-          _PhaseRow(value: 0.0,  label: '0%',   note: 'Idle / queued.'),
+          _PhaseRow(value: 0.0, label: '0%', note: 'Idle / queued.'),
           SizedBox(height: 10),
-          _PhaseRow(value: 0.25, label: '25%',  note: 'Started, fetching.'),
+          _PhaseRow(value: 0.25, label: '25%', note: 'Started, fetching.'),
           SizedBox(height: 10),
-          _PhaseRow(value: 0.5,  label: '50%',  note: 'Halfway, processing.'),
+          _PhaseRow(value: 0.5, label: '50%', note: 'Halfway, processing.'),
           SizedBox(height: 10),
-          _PhaseRow(value: 0.75, label: '75%',  note: 'Almost there.'),
+          _PhaseRow(value: 0.75, label: '75%', note: 'Almost there.'),
           SizedBox(height: 10),
-          _PhaseRow(value: 1.0,  label: '100%', note: 'Complete, ready.'),
+          _PhaseRow(value: 1.0, label: '100%', note: 'Complete, ready.'),
         ],
       ),
     );
@@ -707,9 +707,7 @@ class _BottomSheetMock extends StatelessWidget {
       case _BottomSheetPhase.working:
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const <Widget>[
-            _MockButton(label: 'Hide', primary: false),
-          ],
+          children: const <Widget>[_MockButton(label: 'Hide', primary: false)],
         );
       case _BottomSheetPhase.progress:
         return Row(
@@ -717,14 +715,14 @@ class _BottomSheetMock extends StatelessWidget {
           children: const <Widget>[
             _MockButton(label: 'Cancel', primary: false),
             SizedBox(width: 8),
-            _MockButton(label: 'Pause',  primary: false),
+            _MockButton(label: 'Pause', primary: false),
           ],
         );
       case _BottomSheetPhase.done:
         return Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: const <Widget>[
-            _MockButton(label: 'View',  primary: false),
+            _MockButton(label: 'View', primary: false),
             SizedBox(width: 8),
             _MockButton(label: 'Done', primary: true),
           ],
@@ -743,9 +741,7 @@ class _MockButton extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: primary
-            ? const Color(0xFF3949AB)
-            : Colors.transparent,
+        color: primary ? const Color(0xFF3949AB) : Colors.transparent,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: primary
@@ -756,9 +752,7 @@ class _MockButton extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          color: primary
-              ? Colors.white
-              : Colors.black.withValues(alpha: 0.8),
+          color: primary ? Colors.white : Colors.black.withValues(alpha: 0.8),
           fontSize: 13,
           fontWeight: FontWeight.w600,
         ),
@@ -1053,9 +1047,9 @@ class _ThemeIntegrationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
-          _ThemeRow(name: 'color',                value: '#3949AB'),
-          _ThemeRow(name: 'linearTrackColor',     value: '#E8EAF6'),
-          _ThemeRow(name: 'circularTrackColor',  value: '#E8EAF6'),
+          _ThemeRow(name: 'color', value: '#3949AB'),
+          _ThemeRow(name: 'linearTrackColor', value: '#E8EAF6'),
+          _ThemeRow(name: 'circularTrackColor', value: '#E8EAF6'),
           _ThemeRow(name: 'refreshBackgroundColor', value: '#FFFFFF'),
           SizedBox(height: 12),
           _CodeBlock(
@@ -1211,8 +1205,8 @@ class _AccessibilitySection extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Text(
-              'Tip: always set semanticsLabel; set semanticsValue when the')
-                 ,
+              'Tip: always set semanticsLabel; set semanticsValue when the',
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(10),
@@ -1221,8 +1215,8 @@ class _AccessibilitySection extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Text(
-              'progress is known. For indeterminate indicators, omit ')
-            ,
+              'progress is known. For indeterminate indicators, omit ',
+            ),
           ),
           Container(
             padding: const EdgeInsets.all(10),
@@ -1230,9 +1224,7 @@ class _AccessibilitySection extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Text(
-              'semanticsValue and just announce the activity.',
-            ),
+            child: const Text('semanticsValue and just announce the activity.'),
           ),
         ],
       ),
@@ -1254,9 +1246,7 @@ class _A11yRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color tint = good
-        ? const Color(0xFF00838F)
-        : const Color(0xFFC62828);
+    final Color tint = good ? const Color(0xFF00838F) : const Color(0xFFC62828);
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -1266,10 +1256,7 @@ class _A11yRow extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            good ? Icons.check_circle : Icons.warning,
-            color: tint,
-          ),
+          Icon(good ? Icons.check_circle : Icons.warning, color: tint),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -1277,17 +1264,11 @@ class _A11yRow extends StatelessWidget {
               children: <Widget>[
                 Text(
                   'label: "$label"',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                  ),
+                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
                 ),
                 Text(
                   'value: "$value"',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'monospace',
-                  ),
+                  style: const TextStyle(fontSize: 12, fontFamily: 'monospace'),
                 ),
                 Text(
                   'announces: $announce',
@@ -1337,32 +1318,32 @@ class _PitfallsSection extends StatelessWidget {
         children: const <Widget>[
           _PitfallRow(
             title: 'Indeterminate while progress is known',
-            body: 'If you can compute a 0..1 value, pass it. Indeterminate ')
-            ,
+            body: 'If you can compute a 0..1 value, pass it. Indeterminate ',
+          ),
           _PitfallRow(
             title: 'spins forever and tells users nothing.',
             body: 'Even an estimate is better than a swirling bar.',
           ),
           _PitfallRow(
             title: 'Blocking the entire UI',
-            body: 'Full-screen modal sheets stop users from doing anything.')
-            ,
+            body: 'Full-screen modal sheets stop users from doing anything.',
+          ),
           _PitfallRow(
             title: 'Prefer non-modal inline progress for >30 s tasks.',
             body: 'Reserve modal sheets for short, atomic operations.',
           ),
           _PitfallRow(
             title: 'No cancel path',
-            body: 'Always provide a way out — Cancel, Pause or Background.')
-            ,
+            body: 'Always provide a way out — Cancel, Pause or Background.',
+          ),
           _PitfallRow(
             title: 'Without it, a stuck network leads to force-quit.',
             body: 'Wire your indicator to a controller you can interrupt.',
           ),
           _PitfallRow(
             title: 'Stacked indicators',
-            body: 'Two indicators in the same view confuse users. Pick the')
-            ,
+            body: 'Two indicators in the same view confuse users. Pick the',
+          ),
           _PitfallRow(
             title: 'one that reflects the real work being done.',
             body: 'Nested progress is almost always a refactor smell.',
@@ -1395,10 +1376,7 @@ class _PitfallRow extends StatelessWidget {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 2),
-            child: Icon(
-              Icons.report_gmailerrorred,
-              color: Color(0xFFC62828),
-            ),
+            child: Icon(Icons.report_gmailerrorred, color: Color(0xFFC62828)),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -1456,23 +1434,17 @@ class _BestPracticesSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
-          _PracticeRow(text: 'Show progress immediately — never leave a tap')
-            ,
+          _PracticeRow(text: 'Show progress immediately — never leave a tap'),
           _PracticeRow(text: 'unacknowledged for more than ~100ms.'),
-          _PracticeRow(text: 'Prefer determinate indicators whenever you')
-            ,
+          _PracticeRow(text: 'Prefer determinate indicators whenever you'),
           _PracticeRow(text: 'have enough information to estimate.'),
-          _PracticeRow(text: 'Use bottom sheets for confined, modal work;')
-            ,
+          _PracticeRow(text: 'Use bottom sheets for confined, modal work;'),
           _PracticeRow(text: 'use inline indicators for list / grid items.'),
-          _PracticeRow(text: 'Always wire a cancel path — Cancel, Pause or')
-            ,
+          _PracticeRow(text: 'Always wire a cancel path — Cancel, Pause or'),
           _PracticeRow(text: 'Background. Never leave the user stuck.'),
-          _PracticeRow(text: 'Announce progress to screen readers via')
-            ,
+          _PracticeRow(text: 'Announce progress to screen readers via'),
           _PracticeRow(text: 'semanticsLabel + semanticsValue.'),
-          _PracticeRow(text: 'Theme indicators globally with')
-            ,
+          _PracticeRow(text: 'Theme indicators globally with'),
           _PracticeRow(text: 'ProgressIndicatorThemeData for visual unity.'),
         ],
       ),
@@ -1493,11 +1465,7 @@ class _PracticeRow extends StatelessWidget {
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.only(top: 3),
-            child: Icon(
-              Icons.check_circle,
-              size: 16,
-              color: Color(0xFF2E7D32),
-            ),
+            child: Icon(Icons.check_circle, size: 16, color: Color(0xFF2E7D32)),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -1591,9 +1559,7 @@ class _FooterTag extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.32),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.32)),
       ),
       child: Text(
         label,
@@ -5039,4 +5005,3 @@ class _DocFinal extends StatelessWidget {
     );
   }
 }
-

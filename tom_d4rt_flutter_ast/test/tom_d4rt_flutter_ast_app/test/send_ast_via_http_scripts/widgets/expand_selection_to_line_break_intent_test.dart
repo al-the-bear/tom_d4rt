@@ -127,7 +127,13 @@ dynamic build(BuildContext context) {
           width: isTarget ? 2.0 : 1.0,
         ),
         boxShadow: isTarget
-            ? [BoxShadow(color: _slPrimary.withValues(alpha: 0.15), blurRadius: 6.0, offset: const Offset(0.0, 3.0))]
+            ? [
+                BoxShadow(
+                  color: _slPrimary.withValues(alpha: 0.15),
+                  blurRadius: 6.0,
+                  offset: const Offset(0.0, 3.0),
+                ),
+              ]
             : [],
       ),
       child: Row(
@@ -142,8 +148,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(c['name']!, style: TextStyle(fontSize: 14.0, fontWeight: isTarget ? FontWeight.w700 : FontWeight.w500, color: isTarget ? _slPrimary : _slDark)),
-                Text(c['note']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
+                Text(
+                  c['name']!,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: isTarget ? FontWeight.w700 : FontWeight.w500,
+                    color: isTarget ? _slPrimary : _slDark,
+                  ),
+                ),
+                Text(
+                  c['note']!,
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                ),
               ],
             ),
           ),
@@ -174,7 +190,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'What is a "line break"?',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: _slDark),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
         ),
         const SizedBox(height: 10.0),
         Text(
@@ -191,7 +211,11 @@ dynamic build(BuildContext context) {
           'long paragraph wraps across three visual lines, pressing '
           'Shift+End selects only to the end of the current visual line, '
           'not to the \\n at the end of the paragraph.',
-          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.55),
+          style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.grey.shade700,
+            height: 1.55,
+          ),
         ),
         const SizedBox(height: 14.0),
         // Visual diagram
@@ -208,7 +232,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Logical line', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _slPrimary)),
+                    Text(
+                      'Logical line',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: _slPrimary,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
                     Container(
                       width: double.infinity,
@@ -217,7 +248,16 @@ dynamic build(BuildContext context) {
                         color: _slAccent.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Center(child: Text('One long paragraph \\n', style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _slDark))),
+                      child: Center(
+                        child: Text(
+                          'One long paragraph \\n',
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            fontFamily: 'monospace',
+                            color: _slDark,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -235,9 +275,20 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Visual lines', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _slPrimary)),
+                    Text(
+                      'Visual lines',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: _slPrimary,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
-                    for (final vl in ['One long para-', 'graph that wraps', 'across three rows'])
+                    for (final vl in [
+                      'One long para-',
+                      'graph that wraps',
+                      'across three rows',
+                    ])
                       Container(
                         width: double.infinity,
                         height: 22.0,
@@ -246,7 +297,16 @@ dynamic build(BuildContext context) {
                           color: _slHighlight.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(3.0),
                         ),
-                        child: Center(child: Text(vl, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: _slDark))),
+                        child: Center(
+                          child: Text(
+                            vl,
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              fontFamily: 'monospace',
+                              color: _slDark,
+                            ),
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -289,12 +349,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: _slDark)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w700,
+              color: _slDark,
+            ),
+          ),
           const SizedBox(height: 8.0),
           for (int li = 0; li < sampleText.length; li++)
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               margin: const EdgeInsets.only(bottom: 1.0),
               decoration: BoxDecoration(
                 color: hasSelection && li == selLine
@@ -306,11 +376,25 @@ dynamic build(BuildContext context) {
                 children: [
                   SizedBox(
                     width: 18.0,
-                    child: Text('${li + 1}', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade400, fontFamily: 'monospace')),
+                    child: Text(
+                      '${li + 1}',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey.shade400,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 4.0),
                   Expanded(
-                    child: Text(sampleText[li], style: TextStyle(fontSize: 13.0, fontFamily: 'monospace', color: _slDark)),
+                    child: Text(
+                      sampleText[li],
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontFamily: 'monospace',
+                        color: _slDark,
+                      ),
+                    ),
                   ),
                   if (!hasSelection && li == caretLine)
                     Container(width: 2.0, height: 16.0, color: _slAccent),
@@ -322,7 +406,11 @@ dynamic build(BuildContext context) {
             hasSelection
                 ? 'Selection: line ${selLine + 1} chars $selStart–$selEnd'
                 : 'Caret at line ${caretLine + 1}',
-            style: TextStyle(fontSize: 11.0, color: _slMuted, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11.0,
+              color: _slMuted,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ],
       ),
@@ -341,16 +429,31 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'forward: true — select to line end',
-          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _slDark),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
         ),
         const SizedBox(height: 4.0),
         Text(
           'Caret at line 2, character 10.  Dispatching with forward=true '
           'moves the extent to the end of line 2.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 8.0),
-        slLinePreview(title: 'BEFORE', caretLine: 1, selLine: 0, selStart: 0, selEnd: 0, hasSelection: false),
+        slLinePreview(
+          title: 'BEFORE',
+          caretLine: 1,
+          selLine: 0,
+          selStart: 0,
+          selEnd: 0,
+          hasSelection: false,
+        ),
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -359,12 +462,26 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.arrow_forward, color: _slAccent, size: 22.0),
                 const SizedBox(width: 6.0),
-                Text('Shift+End', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _slAccent)),
+                Text(
+                  'Shift+End',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slAccent,
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        slLinePreview(title: 'AFTER', caretLine: 1, selLine: 1, selStart: 10, selEnd: 24, hasSelection: true),
+        slLinePreview(
+          title: 'AFTER',
+          caretLine: 1,
+          selLine: 1,
+          selStart: 10,
+          selEnd: 24,
+          hasSelection: true,
+        ),
       ],
     ),
   );
@@ -386,16 +503,31 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'forward: false — select to line start',
-          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _slDark),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
         ),
         const SizedBox(height: 4.0),
         Text(
           'Same caret at line 2, character 10.  Dispatching with '
           'forward=false moves the extent to character 0 of line 2.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 8.0),
-        slLinePreview(title: 'BEFORE', caretLine: 1, selLine: 0, selStart: 0, selEnd: 0, hasSelection: false),
+        slLinePreview(
+          title: 'BEFORE',
+          caretLine: 1,
+          selLine: 0,
+          selStart: 0,
+          selEnd: 0,
+          hasSelection: false,
+        ),
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -404,12 +536,26 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.arrow_back, color: _slMuted, size: 22.0),
                 const SizedBox(width: 6.0),
-                Text('Shift+Home', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _slMuted)),
+                Text(
+                  'Shift+Home',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slMuted,
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        slLinePreview(title: 'AFTER', caretLine: 1, selLine: 1, selStart: 0, selEnd: 10, hasSelection: true),
+        slLinePreview(
+          title: 'AFTER',
+          caretLine: 1,
+          selLine: 1,
+          selStart: 0,
+          selEnd: 10,
+          hasSelection: true,
+        ),
       ],
     ),
   );
@@ -452,7 +598,9 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (w['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border(left: BorderSide(color: w['color'] as Color, width: 4.0)),
+        border: Border(
+          left: BorderSide(color: w['color'] as Color, width: 4.0),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -463,11 +611,28 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(w['type'] as String, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _slDark)),
+                Text(
+                  w['type'] as String,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: _slDark,
+                  ),
+                ),
                 const SizedBox(height: 3.0),
-                Text(w['visual'] as String, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
+                Text(
+                  w['visual'] as String,
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                ),
                 const SizedBox(height: 3.0),
-                Text(w['behavior'] as String, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4)),
+                Text(
+                  w['behavior'] as String,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade700,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -486,10 +651,30 @@ dynamic build(BuildContext context) {
   print('=== Section 7: Keyboard shortcuts ===');
 
   final shortcutRows = <Map<String, String>>[
-    {'platform': 'macOS', 'toStart': '\u21E7+\u2318+\u2190', 'toEnd': '\u21E7+\u2318+\u2192', 'note': 'Cmd+Shift+Arrow'},
-    {'platform': 'Windows', 'toStart': 'Shift+Home', 'toEnd': 'Shift+End', 'note': 'Standard'},
-    {'platform': 'Linux', 'toStart': 'Shift+Home', 'toEnd': 'Shift+End', 'note': 'Same as Windows'},
-    {'platform': 'Web', 'toStart': 'Shift+Home', 'toEnd': 'Shift+End', 'note': 'Follows host OS'},
+    {
+      'platform': 'macOS',
+      'toStart': '\u21E7+\u2318+\u2190',
+      'toEnd': '\u21E7+\u2318+\u2192',
+      'note': 'Cmd+Shift+Arrow',
+    },
+    {
+      'platform': 'Windows',
+      'toStart': 'Shift+Home',
+      'toEnd': 'Shift+End',
+      'note': 'Standard',
+    },
+    {
+      'platform': 'Linux',
+      'toStart': 'Shift+Home',
+      'toEnd': 'Shift+End',
+      'note': 'Same as Windows',
+    },
+    {
+      'platform': 'Web',
+      'toStart': 'Shift+Home',
+      'toEnd': 'Shift+End',
+      'note': 'Follows host OS',
+    },
   ];
 
   Widget slShortcutRow(Map<String, String> s, int idx) {
@@ -501,10 +686,44 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          SizedBox(width: 70.0, child: Text(s['platform']!, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _slDark))),
-          Expanded(child: Text(s['toStart']!, style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: _slAccent))),
-          Expanded(child: Text(s['toEnd']!, style: TextStyle(fontSize: 12.0, fontFamily: 'monospace', color: _slMuted))),
-          SizedBox(width: 80.0, child: Text(s['note']!, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500))),
+          SizedBox(
+            width: 70.0,
+            child: Text(
+              s['platform']!,
+              style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.w600,
+                color: _slDark,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              s['toStart']!,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontFamily: 'monospace',
+                color: _slAccent,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              s['toEnd']!,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontFamily: 'monospace',
+                color: _slMuted,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 80.0,
+            child: Text(
+              s['note']!,
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
+            ),
+          ),
         ],
       ),
     );
@@ -520,7 +739,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Platform keyboard shortcuts', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _slDark)),
+        Text(
+          'Platform keyboard shortcuts',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
+        ),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
@@ -530,16 +756,57 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              SizedBox(width: 70.0, child: Text('Platform', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
-              Expanded(child: Text('To Start', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
-              Expanded(child: Text('To End', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
-              SizedBox(width: 80.0, child: Text('Note', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
+              SizedBox(
+                width: 70.0,
+                child: Text(
+                  'Platform',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'To Start',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'To End',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 80.0,
+                child: Text(
+                  'Note',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 4.0),
         for (int i = 0; i < shortcutRows.length; i++)
-          Padding(padding: const EdgeInsets.only(bottom: 2.0), child: slShortcutRow(shortcutRows[i], i)),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2.0),
+            child: slShortcutRow(shortcutRows[i], i),
+          ),
       ],
     ),
   );
@@ -550,11 +817,35 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Dispatch flow ===');
 
   final steps = <Map<String, String>>[
-    {'step': '1', 'title': 'Key combo matched', 'detail': 'Shift+End is received and mapped to ExpandSelectionToLineBreakIntent(forward: true).'},
-    {'step': '2', 'title': 'Intent dispatched', 'detail': 'The Shortcuts widget calls Actions.invoke with the intent.'},
-    {'step': '3', 'title': 'Line metrics queried', 'detail': 'The action asks the RenderEditable for the current line\'s start and end offsets.'},
-    {'step': '4', 'title': 'Selection updated', 'detail': 'TextEditingController.selection is set with the base preserved and extent moved to the line boundary.'},
-    {'step': '5', 'title': 'Repaint triggered', 'detail': 'RenderEditable repaints the selection highlight to cover the newly selected range.'},
+    {
+      'step': '1',
+      'title': 'Key combo matched',
+      'detail':
+          'Shift+End is received and mapped to ExpandSelectionToLineBreakIntent(forward: true).',
+    },
+    {
+      'step': '2',
+      'title': 'Intent dispatched',
+      'detail': 'The Shortcuts widget calls Actions.invoke with the intent.',
+    },
+    {
+      'step': '3',
+      'title': 'Line metrics queried',
+      'detail':
+          'The action asks the RenderEditable for the current line\'s start and end offsets.',
+    },
+    {
+      'step': '4',
+      'title': 'Selection updated',
+      'detail':
+          'TextEditingController.selection is set with the base preserved and extent moved to the line boundary.',
+    },
+    {
+      'step': '5',
+      'title': 'Repaint triggered',
+      'detail':
+          'RenderEditable repaints the selection highlight to cover the newly selected range.',
+    },
   ];
 
   Widget slStepRow(Map<String, String> s, bool isLast) {
@@ -564,11 +855,29 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             Container(
-              width: 30.0, height: 30.0,
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: _slPrimary),
-              child: Center(child: Text(s['step']!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0))),
+              width: 30.0,
+              height: 30.0,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: _slPrimary,
+              ),
+              child: Center(
+                child: Text(
+                  s['step']!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                  ),
+                ),
+              ),
             ),
-            if (!isLast) Container(width: 2.0, height: 34.0, color: _slMuted.withValues(alpha: 0.3)),
+            if (!isLast)
+              Container(
+                width: 2.0,
+                height: 34.0,
+                color: _slMuted.withValues(alpha: 0.3),
+              ),
           ],
         ),
         const SizedBox(width: 12.0),
@@ -576,13 +885,30 @@ dynamic build(BuildContext context) {
           child: Container(
             margin: const EdgeInsets.only(bottom: 4.0),
             padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(color: _slLight.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(8.0)),
+            decoration: BoxDecoration(
+              color: _slLight.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(s['title']!, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _slDark)),
+                Text(
+                  s['title']!,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
                 const SizedBox(height: 2.0),
-                Text(s['detail']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4)),
+                Text(
+                  s['detail']!,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade700,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -593,13 +919,25 @@ dynamic build(BuildContext context) {
 
   final dispatchSection = Container(
     padding: const EdgeInsets.all(16.0),
-    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.0), border: Border.all(color: _slPrimary.withValues(alpha: 0.15))),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12.0),
+      border: Border.all(color: _slPrimary.withValues(alpha: 0.15)),
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Dispatch flow', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _slDark)),
+        Text(
+          'Dispatch flow',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
+        ),
         const SizedBox(height: 10.0),
-        for (int i = 0; i < steps.length; i++) slStepRow(steps[i], i == steps.length - 1),
+        for (int i = 0; i < steps.length; i++)
+          slStepRow(steps[i], i == steps.length - 1),
       ],
     ),
   );
@@ -651,9 +989,29 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: [
-          SizedBox(width: 80.0, child: Text(c['aspect']!, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _slDark))),
-          Expanded(child: Text(c['line']!, style: TextStyle(fontSize: 12.0, color: _slAccent))),
-          Expanded(child: Text(c['document']!, style: TextStyle(fontSize: 12.0, color: _slMuted))),
+          SizedBox(
+            width: 80.0,
+            child: Text(
+              c['aspect']!,
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w600,
+                color: _slDark,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              c['line']!,
+              style: TextStyle(fontSize: 12.0, color: _slAccent),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              c['document']!,
+              style: TextStyle(fontSize: 12.0, color: _slMuted),
+            ),
+          ),
         ],
       ),
     );
@@ -661,25 +1019,71 @@ dynamic build(BuildContext context) {
 
   final compSection = Container(
     padding: const EdgeInsets.all(16.0),
-    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12.0), border: Border.all(color: _slPrimary.withValues(alpha: 0.15))),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12.0),
+      border: Border.all(color: _slPrimary.withValues(alpha: 0.15)),
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Line boundary vs document boundary', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _slDark)),
+        Text(
+          'Line boundary vs document boundary',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _slDark,
+          ),
+        ),
         const SizedBox(height: 6.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          decoration: BoxDecoration(color: _slPrimary.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(6.0)),
+          decoration: BoxDecoration(
+            color: _slPrimary.withValues(alpha: 0.06),
+            borderRadius: BorderRadius.circular(6.0),
+          ),
           child: Row(
             children: [
-              SizedBox(width: 80.0, child: Text('Aspect', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
-              Expanded(child: Text('Line Break', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
-              Expanded(child: Text('Document Boundary', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _slDark))),
+              SizedBox(
+                width: 80.0,
+                child: Text(
+                  'Aspect',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Line Break',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Document Boundary',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 4.0),
-        for (int i = 0; i < compRows.length; i++) Padding(padding: const EdgeInsets.only(bottom: 2.0), child: slCompRow(compRows[i], i)),
+        for (int i = 0; i < compRows.length; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2.0),
+            child: slCompRow(compRows[i], i),
+          ),
       ],
     ),
   );
@@ -693,8 +1097,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'Select entire logical line',
       'icon': Icons.text_snippet,
-      'description': 'Override the default to select to the hard line break instead of the visual wrap point.',
-      'code': 'CallbackAction<ExpandSelectionToLineBreakIntent>(\n'
+      'description':
+          'Override the default to select to the hard line break instead of the visual wrap point.',
+      'code':
+          'CallbackAction<ExpandSelectionToLineBreakIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    final text = controller.text;\n'
           '    final pos = controller.selection.baseOffset;\n'
@@ -712,8 +1118,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'Toolbar "Select to End" button',
       'icon': Icons.touch_app,
-      'description': 'Fire the intent programmatically when the user taps a toolbar icon.',
-      'code': 'Actions.invoke<ExpandSelectionToLineBreakIntent>(\n'
+      'description':
+          'Fire the intent programmatically when the user taps a toolbar icon.',
+      'code':
+          'Actions.invoke<ExpandSelectionToLineBreakIntent>(\n'
           '  context,\n'
           '  const ExpandSelectionToLineBreakIntent(\n'
           '    forward: true,\n'
@@ -723,8 +1131,10 @@ dynamic build(BuildContext context) {
     {
       'title': 'Block in read-only mode',
       'icon': Icons.lock,
-      'description': 'Prevent line selection expansion when the field is in read-only viewing mode.',
-      'code': 'CallbackAction<ExpandSelectionToLineBreakIntent>(\n'
+      'description':
+          'Prevent line selection expansion when the field is in read-only viewing mode.',
+      'code':
+          'CallbackAction<ExpandSelectionToLineBreakIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    if (readOnly) return null;\n'
           '    return Actions.invoke(context, intent);\n'
@@ -749,17 +1159,44 @@ dynamic build(BuildContext context) {
             children: [
               Icon(p['icon'] as IconData, color: _slPrimary, size: 22.0),
               const SizedBox(width: 10.0),
-              Expanded(child: Text(p['title'] as String, style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _slDark))),
+              Expanded(
+                child: Text(
+                  p['title'] as String,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: _slDark,
+                  ),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6.0),
-          Text(p['description'] as String, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            p['description'] as String,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
           const SizedBox(height: 10.0),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(color: _slDark.withValues(alpha: 0.05), borderRadius: BorderRadius.circular(8.0)),
-            child: Text(p['code'] as String, style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: _slDark, height: 1.4)),
+            decoration: BoxDecoration(
+              color: _slDark.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              p['code'] as String,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+                color: _slDark,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -776,12 +1213,33 @@ dynamic build(BuildContext context) {
   print('=== Section 11: Edge cases ===');
 
   final edgeCases = <Map<String, String>>[
-    {'case': 'Caret at line start, forward=false', 'result': 'No change — extent is already at the boundary.'},
-    {'case': 'Caret at line end, forward=true', 'result': 'No change — extent is already at the line end.'},
-    {'case': 'Empty line', 'result': 'Both directions produce a collapsed selection at offset 0 of that line.'},
-    {'case': 'Single character line', 'result': 'Selects the one character in the appropriate direction.'},
-    {'case': 'RTL text', 'result': 'forward still means toward higher offsets (logical end of line).'},
-    {'case': 'Bidirectional text', 'result': 'Visual ordering may differ from logical; selection follows logical offsets.'},
+    {
+      'case': 'Caret at line start, forward=false',
+      'result': 'No change — extent is already at the boundary.',
+    },
+    {
+      'case': 'Caret at line end, forward=true',
+      'result': 'No change — extent is already at the line end.',
+    },
+    {
+      'case': 'Empty line',
+      'result':
+          'Both directions produce a collapsed selection at offset 0 of that line.',
+    },
+    {
+      'case': 'Single character line',
+      'result': 'Selects the one character in the appropriate direction.',
+    },
+    {
+      'case': 'RTL text',
+      'result':
+          'forward still means toward higher offsets (logical end of line).',
+    },
+    {
+      'case': 'Bidirectional text',
+      'result':
+          'Visual ordering may differ from logical; selection follows logical offsets.',
+    },
   ];
 
   Widget slEdgeRow(Map<String, String> e) {
@@ -802,9 +1260,23 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(e['case']!, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _slDark)),
+                Text(
+                  e['case']!,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
                 const SizedBox(height: 2.0),
-                Text(e['result']!, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.35)),
+                Text(
+                  e['result']!,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade600,
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -823,11 +1295,31 @@ dynamic build(BuildContext context) {
   print('=== Section 12: Integration with EditableText ===');
 
   final integrationParts = <Map<String, dynamic>>[
-    {'component': 'Shortcuts', 'role': 'Maps Shift+Home/End to the intent', 'icon': Icons.keyboard},
-    {'component': 'Actions', 'role': 'Resolves the intent to an action', 'icon': Icons.play_circle_outline},
-    {'component': 'EditableTextState', 'role': 'Default action implementation', 'icon': Icons.text_fields},
-    {'component': 'RenderEditable', 'role': 'Provides line metrics via getLineAtOffset()', 'icon': Icons.straighten},
-    {'component': 'TextPainter', 'role': 'Computes visual line boundaries', 'icon': Icons.format_paint},
+    {
+      'component': 'Shortcuts',
+      'role': 'Maps Shift+Home/End to the intent',
+      'icon': Icons.keyboard,
+    },
+    {
+      'component': 'Actions',
+      'role': 'Resolves the intent to an action',
+      'icon': Icons.play_circle_outline,
+    },
+    {
+      'component': 'EditableTextState',
+      'role': 'Default action implementation',
+      'icon': Icons.text_fields,
+    },
+    {
+      'component': 'RenderEditable',
+      'role': 'Provides line metrics via getLineAtOffset()',
+      'icon': Icons.straighten,
+    },
+    {
+      'component': 'TextPainter',
+      'role': 'Computes visual line boundaries',
+      'icon': Icons.format_paint,
+    },
   ];
 
   Widget slIntRow(Map<String, dynamic> ip, int idx) {
@@ -842,8 +1334,12 @@ dynamic build(BuildContext context) {
       child: Row(
         children: [
           Container(
-            width: 36.0, height: 36.0,
-            decoration: BoxDecoration(shape: BoxShape.circle, color: _slPrimary.withValues(alpha: 0.08)),
+            width: 36.0,
+            height: 36.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _slPrimary.withValues(alpha: 0.08),
+            ),
             child: Icon(ip['icon'] as IconData, color: _slAccent, size: 20.0),
           ),
           const SizedBox(width: 12.0),
@@ -851,20 +1347,37 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(ip['component'] as String, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _slDark)),
-                Text(ip['role'] as String, style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
+                Text(
+                  ip['component'] as String,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _slDark,
+                  ),
+                ),
+                Text(
+                  ip['role'] as String,
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
+                ),
               ],
             ),
           ),
           if (idx < integrationParts.length - 1)
-            Icon(Icons.arrow_forward_ios, size: 12.0, color: _slMuted.withValues(alpha: 0.5)),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 12.0,
+              color: _slMuted.withValues(alpha: 0.5),
+            ),
         ],
       ),
     );
   }
 
   final integrationSection = Column(
-    children: [for (int i = 0; i < integrationParts.length; i++) slIntRow(integrationParts[i], i)],
+    children: [
+      for (int i = 0; i < integrationParts.length; i++)
+        slIntRow(integrationParts[i], i),
+    ],
   );
 
   // ================================================================
@@ -888,7 +1401,10 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [_slPrimary.withValues(alpha: 0.08), _slLight.withValues(alpha: 0.5)],
+        colors: [
+          _slPrimary.withValues(alpha: 0.08),
+          _slLight.withValues(alpha: 0.5),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -902,7 +1418,14 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.summarize, color: _slPrimary, size: 24.0),
             const SizedBox(width: 10.0),
-            Text('Summary', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: _slDark)),
+            Text(
+              'Summary',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: _slDark,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -912,8 +1435,25 @@ dynamic build(BuildContext context) {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(width: 6.0, height: 6.0, margin: const EdgeInsets.only(top: 6.0, right: 10.0), decoration: const BoxDecoration(shape: BoxShape.circle, color: _slAccent)),
-                Expanded(child: Text(b, style: TextStyle(fontSize: 13.0, color: _slDark, height: 1.45))),
+                Container(
+                  width: 6.0,
+                  height: 6.0,
+                  margin: const EdgeInsets.only(top: 6.0, right: 10.0),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _slAccent,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    b,
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: _slDark,
+                      height: 1.45,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -982,10 +1522,20 @@ Widget slSectionHeader(String title) {
         Container(
           width: 4.0,
           height: 22.0,
-          decoration: BoxDecoration(color: _slAccent, borderRadius: BorderRadius.circular(2.0)),
+          decoration: BoxDecoration(
+            color: _slAccent,
+            borderRadius: BorderRadius.circular(2.0),
+          ),
         ),
         const SizedBox(width: 10.0),
-        Text(title, style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold, color: _slDark)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 17.0,
+            fontWeight: FontWeight.bold,
+            color: _slDark,
+          ),
+        ),
       ],
     ),
   );

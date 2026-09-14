@@ -63,9 +63,7 @@ Widget _glSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_glViolet, _glDeepViolet],
-      ),
+      gradient: LinearGradient(colors: [_glViolet, _glDeepViolet]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,11 +238,7 @@ Widget _glBadge(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: fg,
-        fontSize: 11,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -364,8 +358,8 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Key insight',
           'SliverGridLayout is a strategy object. The delegate is the factory, '
-          'the layout is the strategy, and the render object is the consumer. '
-          'Swapping delegates swaps layouts at zero cost.',
+              'the layout is the strategy, and the render object is the consumer. '
+              'Swapping delegates swaps layouts at zero cost.',
           Icons.lightbulb_outline,
           _glAmber,
         ),
@@ -586,45 +580,79 @@ dynamic build(BuildContext context) {
               // Row 0
               Row(
                 children: [
-                  _glDiagramCell('idx 0\n(0, 0)',
-                      color: _glViolet, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 0\n(0, 0)',
+                    color: _glViolet,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 1\n(100, 0)',
-                      color: _glTeal, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 1\n(100, 0)',
+                    color: _glTeal,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 2\n(200, 0)',
-                      color: _glAmber,
-                      width: 90,
-                      height: 60,
-                      textColor: _glCharcoal),
+                  _glDiagramCell(
+                    'idx 2\n(200, 0)',
+                    color: _glAmber,
+                    width: 90,
+                    height: 60,
+                    textColor: _glCharcoal,
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
               // Row 1
               Row(
                 children: [
-                  _glDiagramCell('idx 3\n(0, 100)',
-                      color: _glCoral, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 3\n(0, 100)',
+                    color: _glCoral,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 4\n(100, 100)',
-                      color: _glForest, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 4\n(100, 100)',
+                    color: _glForest,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 5\n(200, 100)',
-                      color: _glSky, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 5\n(200, 100)',
+                    color: _glSky,
+                    width: 90,
+                    height: 60,
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
               // Row 2
               Row(
                 children: [
-                  _glDiagramCell('idx 6\n(0, 200)',
-                      color: _glPlum, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 6\n(0, 200)',
+                    color: _glPlum,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 7\n(100, 200)',
-                      color: _glRose, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 7\n(100, 200)',
+                    color: _glRose,
+                    width: 90,
+                    height: 60,
+                  ),
                   const SizedBox(width: 6),
-                  _glDiagramCell('idx 8\n(200, 200)',
-                      color: _glIndigo, width: 90, height: 60),
+                  _glDiagramCell(
+                    'idx 8\n(200, 200)',
+                    color: _glIndigo,
+                    width: 90,
+                    height: 60,
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -655,8 +683,7 @@ dynamic build(BuildContext context) {
             children: [
               // Header row
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 decoration: BoxDecoration(
                   color: _glViolet.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -665,42 +692,57 @@ dynamic build(BuildContext context) {
                   children: [
                     SizedBox(
                       width: 50,
-                      child: Text('Index',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _glDeepViolet)),
+                      child: Text(
+                        'Index',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _glDeepViolet,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 70,
-                      child: Text('scroll',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _glDeepViolet)),
+                      child: Text(
+                        'scroll',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _glDeepViolet,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 70,
-                      child: Text('cross',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _glDeepViolet)),
+                      child: Text(
+                        'cross',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _glDeepViolet,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 70,
-                      child: Text('main',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _glDeepViolet)),
+                      child: Text(
+                        'main',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _glDeepViolet,
+                        ),
+                      ),
                     ),
                     Expanded(
-                      child: Text('crossExt',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _glDeepViolet)),
+                      child: Text(
+                        'crossExt',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _glDeepViolet,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -753,23 +795,26 @@ dynamic build(BuildContext context) {
               _glScrollExtentRow('Row 0', 'tiles 0–2', _glViolet, 100),
               const SizedBox(height: 2),
               Container(
-                  height: 10,
-                  width: 280,
-                  color: _glLavender.withValues(alpha: 0.5)),
+                height: 10,
+                width: 280,
+                color: _glLavender.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 2),
               _glScrollExtentRow('Row 1', 'tiles 3–5', _glTeal, 100),
               const SizedBox(height: 2),
               Container(
-                  height: 10,
-                  width: 280,
-                  color: _glLavender.withValues(alpha: 0.5)),
+                height: 10,
+                width: 280,
+                color: _glLavender.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 2),
               _glScrollExtentRow('Row 2', 'tiles 6–8', _glAmber, 100),
               const SizedBox(height: 2),
               Container(
-                  height: 10,
-                  width: 280,
-                  color: _glLavender.withValues(alpha: 0.5)),
+                height: 10,
+                width: 280,
+                color: _glLavender.withValues(alpha: 0.5),
+              ),
               const SizedBox(height: 2),
               _glScrollExtentRow('Row 3', 'tile 9', _glCoral, 100),
               const SizedBox(height: 12),
@@ -797,7 +842,8 @@ dynamic build(BuildContext context) {
         // ================================================================
         _glSectionHeader(
           '5 · Fixed Cross-Axis Count Grid',
-          subtitle: 'SliverGridDelegateWithFixedCrossAxisCount → SliverGridLayout',
+          subtitle:
+              'SliverGridDelegateWithFixedCrossAxisCount → SliverGridLayout',
         ),
         const SizedBox(height: 8),
         _glParagraph(
@@ -913,10 +959,10 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Index → position formula',
           'For crossAxisCount = N:\n'
-          '  row = index ~/ N\n'
-          '  col = index % N\n'
-          '  scrollOffset = row × (tileMainAxisExtent + mainAxisSpacing)\n'
-          '  crossAxisOffset = col × (tileCrossAxisExtent + crossAxisSpacing)',
+              '  row = index ~/ N\n'
+              '  col = index % N\n'
+              '  scrollOffset = row × (tileMainAxisExtent + mainAxisSpacing)\n'
+              '  crossAxisOffset = col × (tileCrossAxisExtent + crossAxisSpacing)',
           Icons.functions,
           _glViolet,
         ),
@@ -928,7 +974,8 @@ dynamic build(BuildContext context) {
         // ================================================================
         _glSectionHeader(
           '6 · Max Cross-Axis Extent Grid',
-          subtitle: 'SliverGridDelegateWithMaxCrossAxisExtent → SliverGridLayout',
+          subtitle:
+              'SliverGridDelegateWithMaxCrossAxisExtent → SliverGridLayout',
         ),
         const SizedBox(height: 8),
         _glParagraph(
@@ -1012,8 +1059,8 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Responsive vs. fixed',
           'Use FixedCrossAxisCount when you want an exact number of columns '
-          'regardless of screen size. Use MaxCrossAxisExtent when tiles should '
-          'maintain a size range and the column count should adapt.',
+              'regardless of screen size. Use MaxCrossAxisExtent when tiles should '
+              'maintain a size range and the column count should adapt.',
           Icons.devices,
           _glSky,
         ),
@@ -1222,8 +1269,8 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Extensibility',
           'The abstract nature of SliverGridLayout means any arrangement is '
-          'possible — spiral grids, diagonal flows, variable-density layouts. '
-          'The only contract is index→geometry and childCount→maxScroll.',
+              'possible — spiral grids, diagonal flows, variable-density layouts. '
+              'The only contract is index→geometry and childCount→maxScroll.',
           Icons.extension,
           _glForest,
         ),
@@ -1427,8 +1474,10 @@ dynamic build(BuildContext context) {
               // List header
               SliverToBoxAdapter(
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   color: _glLavender.withValues(alpha: 0.5),
                   child: const Text(
                     'Header section (SliverToBoxAdapter)',
@@ -1438,45 +1487,41 @@ dynamic build(BuildContext context) {
               ),
               // Grid section
               SliverGrid(
-                gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   mainAxisSpacing: 4,
                   crossAxisSpacing: 4,
                   childAspectRatio: 1.0,
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final gridColors = [
-                      _glViolet,
-                      _glTeal,
-                      _glAmber,
-                      _glCoral,
-                      _glForest,
-                      _glSky,
-                      _glPlum,
-                      _glRose,
-                      _glIndigo,
-                    ];
-                    return Container(
-                      margin: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        color: gridColors[index % gridColors.length],
-                        borderRadius: BorderRadius.circular(6),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final gridColors = [
+                    _glViolet,
+                    _glTeal,
+                    _glAmber,
+                    _glCoral,
+                    _glForest,
+                    _glSky,
+                    _glPlum,
+                    _glRose,
+                    _glIndigo,
+                  ];
+                  return Container(
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: gridColors[index % gridColors.length],
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'G$index',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        'G$index',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    );
-                  },
-                  childCount: 9,
-                ),
+                    ),
+                  );
+                }, childCount: 9),
               ),
               // Footer
               SliverToBoxAdapter(
@@ -1530,8 +1575,10 @@ dynamic build(BuildContext context) {
             children: [
               // Strategy A
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _glViolet.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -1550,8 +1597,7 @@ dynamic build(BuildContext context) {
                 height: 140,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1.0,
                     crossAxisSpacing: 4,
@@ -1568,8 +1614,9 @@ dynamic build(BuildContext context) {
                     child: Text(
                       '$i',
                       style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -1577,8 +1624,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               // Strategy B
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _glTeal.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -1597,8 +1646,7 @@ dynamic build(BuildContext context) {
                 height: 80,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: 1.0,
                     crossAxisSpacing: 4,
@@ -1615,8 +1663,9 @@ dynamic build(BuildContext context) {
                     child: Text(
                       '$i',
                       style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -1624,8 +1673,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               // Strategy C
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _glAmber.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6),
@@ -1644,8 +1695,7 @@ dynamic build(BuildContext context) {
                 height: 120,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                      const SliverGridDelegateWithMaxCrossAxisExtent(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 80,
                     childAspectRatio: 0.75,
                     crossAxisSpacing: 4,
@@ -1662,8 +1712,9 @@ dynamic build(BuildContext context) {
                     child: Text(
                       '$i',
                       style: const TextStyle(
-                          color: _glCharcoal,
-                          fontWeight: FontWeight.bold),
+                        color: _glCharcoal,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -1719,9 +1770,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       '1',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1762,9 +1814,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       '2',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1805,9 +1858,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       '3',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1848,9 +1902,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       '4',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1891,9 +1946,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       '5',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1925,8 +1981,8 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Constraint transformation',
           'SliverConstraints → (delegate) → SliverGridLayout → '
-          '(per-tile) → SliverGridGeometry → (per-tile) → BoxConstraints. '
-          'Three constraint types, one clean pipeline.',
+              '(per-tile) → SliverGridGeometry → (per-tile) → BoxConstraints. '
+              'Three constraint types, one clean pipeline.',
           Icons.transform,
           _glPlum,
         ),
@@ -1995,38 +2051,38 @@ dynamic build(BuildContext context) {
         _glInfoCard(
           'Abstract contract',
           'SliverGridLayout defines exactly two methods: '
-          'getGeometryForChildIndex(index) and computeMaxScrollOffset(childCount). '
-          'This minimal interface is sufficient for any grid arrangement.',
+              'getGeometryForChildIndex(index) and computeMaxScrollOffset(childCount). '
+              'This minimal interface is sufficient for any grid arrangement.',
           Icons.architecture,
           _glViolet,
         ),
         _glInfoCard(
           'Strategy pattern',
           'The delegate is the factory, the layout is the strategy, and '
-          'RenderSliverGrid is the consumer. Swapping delegates swaps '
-          'entire grid layouts transparently.',
+              'RenderSliverGrid is the consumer. Swapping delegates swaps '
+              'entire grid layouts transparently.',
           Icons.swap_horiz,
           _glTeal,
         ),
         _glInfoCard(
           'Built-in implementation',
           'SliverGridRegularTileLayout handles uniform grids. '
-          'Both FixedCrossAxisCount and MaxCrossAxisExtent delegates '
-          'produce this same layout type with different parameters.',
+              'Both FixedCrossAxisCount and MaxCrossAxisExtent delegates '
+              'produce this same layout type with different parameters.',
           Icons.grid_view,
           _glAmber,
         ),
         _glInfoCard(
           'Extensibility',
           'Custom SliverGridLayout subclasses enable staggered, masonry, '
-          'radial, or any non-uniform grid arrangement.',
+              'radial, or any non-uniform grid arrangement.',
           Icons.extension,
           _glForest,
         ),
         _glInfoCard(
           'Constraint pipeline',
           'SliverConstraints → SliverGridLayout → SliverGridGeometry → '
-          'BoxConstraints. The layout sits at the heart of this transformation.',
+              'BoxConstraints. The layout sits at the heart of this transformation.',
           Icons.linear_scale,
           _glCoral,
         ),
@@ -2116,41 +2172,55 @@ List<Widget> _glIndexGeometryRows() {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Text(d['index']!,
-                    style: const TextStyle(fontSize: 12, color: _glCharcoal)),
+                Text(
+                  d['index']!,
+                  style: const TextStyle(fontSize: 12, color: _glCharcoal),
+                ),
               ],
             ),
           ),
           SizedBox(
             width: 70,
-            child: Text(d['scroll']!,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: _glViolet,
-                    fontFamily: 'monospace')),
+            child: Text(
+              d['scroll']!,
+              style: const TextStyle(
+                fontSize: 12,
+                color: _glViolet,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           SizedBox(
             width: 70,
-            child: Text(d['cross']!,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: _glTeal,
-                    fontFamily: 'monospace')),
+            child: Text(
+              d['cross']!,
+              style: const TextStyle(
+                fontSize: 12,
+                color: _glTeal,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           SizedBox(
             width: 70,
-            child: Text(d['main']!,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: _glAmber,
-                    fontFamily: 'monospace')),
+            child: Text(
+              d['main']!,
+              style: const TextStyle(
+                fontSize: 12,
+                color: _glAmber,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           Expanded(
-            child: Text(d['crossExt']!,
-                style: const TextStyle(
-                    fontSize: 12,
-                    color: _glCoral,
-                    fontFamily: 'monospace')),
+            child: Text(
+              d['crossExt']!,
+              style: const TextStyle(
+                fontSize: 12,
+                color: _glCoral,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -2160,7 +2230,11 @@ List<Widget> _glIndexGeometryRows() {
 
 /// Scroll extent row for the diagram.
 Widget _glScrollExtentRow(
-    String label, String sublabel, Color color, double height) {
+  String label,
+  String sublabel,
+  Color color,
+  double height,
+) {
   return Row(
     children: [
       SizedBox(
@@ -2207,7 +2281,11 @@ Widget _glScrollExtentRow(
 
 /// Pipeline stage box.
 Widget _glPipelineStage(
-    String title, String subtitle, IconData icon, Color color) {
+  String title,
+  String subtitle,
+  IconData icon,
+  Color color,
+) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),

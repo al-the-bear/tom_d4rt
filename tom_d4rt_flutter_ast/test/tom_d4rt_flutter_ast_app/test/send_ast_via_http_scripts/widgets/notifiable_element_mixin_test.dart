@@ -43,10 +43,7 @@ class _NotifiableElementMixinDemo extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('NotifiableElementMixin'),
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: _tabs,
-          ),
+          bottom: const TabBar(isScrollable: true, tabs: _tabs),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -160,7 +157,12 @@ class _HeroTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('What is it?', style: tt.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    'What is it?',
+                    style: tt.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Text(
                     'NotifiableElementMixin is a mixin applied to Flutter framework Element '
@@ -301,11 +303,20 @@ class _DiagramTab extends StatelessWidget {
           const SizedBox(height: 24),
 
           // ── legend ──
-          Text('Legend', style: tt.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            'Legend',
+            style: tt.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
-          _LegendRow(color: cs.primary, label: 'App-level trigger (ValueNotifier.value = …)'),
+          _LegendRow(
+            color: cs.primary,
+            label: 'App-level trigger (ValueNotifier.value = …)',
+          ),
           const SizedBox(height: 6),
-          _LegendRow(color: cs.secondary, label: 'InheritedNotifier internal machinery'),
+          _LegendRow(
+            color: cs.secondary,
+            label: 'InheritedNotifier internal machinery',
+          ),
           const SizedBox(height: 6),
           _LegendRow(color: cs.tertiary, label: 'NotifiableElementMixin hook'),
           const SizedBox(height: 6),
@@ -324,24 +335,43 @@ class _DiagramTab extends StatelessWidget {
                     style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  _StepRow(step: '1', text: 'App code sets valueNotifier.value = newValue.'),
-                  _StepRow(step: '2', text: 'ValueNotifier calls notifyListeners() internally.'),
+                  _StepRow(
+                    step: '1',
+                    text: 'App code sets valueNotifier.value = newValue.',
+                  ),
+                  _StepRow(
+                    step: '2',
+                    text: 'ValueNotifier calls notifyListeners() internally.',
+                  ),
                   _StepRow(
                     step: '3',
-                    text: 'InheritedNotifier is subscribed to the Listenable; its _handleUpdate() fires.',
+                    text:
+                        'InheritedNotifier is subscribed to the Listenable; its _handleUpdate() fires.',
                   ),
-                  _StepRow(step: '4', text: 'InheritedNotifier calls notifyClients() on its element.'),
+                  _StepRow(
+                    step: '4',
+                    text:
+                        'InheritedNotifier calls notifyClients() on its element.',
+                  ),
                   _StepRow(
                     step: '5',
-                    text: 'For each dependent Element that is a NotifiableElementMixin, '
+                    text:
+                        'For each dependent Element that is a NotifiableElementMixin, '
                         'notifyDependent() is called.',
                   ),
                   _StepRow(
                     step: '6',
-                    text: 'notifyDependent() calls element.didChangeDependencies() on the dependent.',
+                    text:
+                        'notifyDependent() calls element.didChangeDependencies() on the dependent.',
                   ),
-                  _StepRow(step: '7', text: 'The element schedules a rebuild (markNeedsBuild).'),
-                  _StepRow(step: '8', text: 'On the next frame, build() is called on the widget.'),
+                  _StepRow(
+                    step: '7',
+                    text: 'The element schedules a rebuild (markNeedsBuild).',
+                  ),
+                  _StepRow(
+                    step: '8',
+                    text: 'On the next frame, build() is called on the widget.',
+                  ),
                 ],
               ),
             ),
@@ -381,13 +411,41 @@ class _FlowDiagramPainter extends CustomPainter {
 
     final List<_DiagramNode> nodes = <_DiagramNode>[
       _DiagramNode('valueNotifier.value = x', primaryColor, startY),
-      _DiagramNode('ValueNotifier.notifyListeners()', primaryColor, startY + (boxH + gap)),
-      _DiagramNode('InheritedNotifier._handleUpdate()', secondaryColor, startY + 2 * (boxH + gap)),
-      _DiagramNode('InheritedNotifier.notifyClients()', secondaryColor, startY + 3 * (boxH + gap)),
-      _DiagramNode('NotifiableElementMixin.onNotification()', tertiaryColor, startY + 4 * (boxH + gap)),
-      _DiagramNode('element.didChangeDependencies()', tertiaryColor, startY + 5 * (boxH + gap)),
-      _DiagramNode('element.markNeedsBuild()', errorColor, startY + 6 * (boxH + gap)),
-      _DiagramNode('widget.build(context)', errorColor, startY + 7 * (boxH + gap)),
+      _DiagramNode(
+        'ValueNotifier.notifyListeners()',
+        primaryColor,
+        startY + (boxH + gap),
+      ),
+      _DiagramNode(
+        'InheritedNotifier._handleUpdate()',
+        secondaryColor,
+        startY + 2 * (boxH + gap),
+      ),
+      _DiagramNode(
+        'InheritedNotifier.notifyClients()',
+        secondaryColor,
+        startY + 3 * (boxH + gap),
+      ),
+      _DiagramNode(
+        'NotifiableElementMixin.onNotification()',
+        tertiaryColor,
+        startY + 4 * (boxH + gap),
+      ),
+      _DiagramNode(
+        'element.didChangeDependencies()',
+        tertiaryColor,
+        startY + 5 * (boxH + gap),
+      ),
+      _DiagramNode(
+        'element.markNeedsBuild()',
+        errorColor,
+        startY + 6 * (boxH + gap),
+      ),
+      _DiagramNode(
+        'widget.build(context)',
+        errorColor,
+        startY + 7 * (boxH + gap),
+      ),
     ];
 
     final Paint arrowPaint = Paint()
@@ -410,10 +468,7 @@ class _FlowDiagramPainter extends CustomPainter {
       final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(8));
 
       // fill
-      canvas.drawRRect(
-        rr,
-        Paint()..color = n.color.withAlpha(40),
-      );
+      canvas.drawRRect(rr, Paint()..color = n.color.withAlpha(40));
       // stroke
       canvas.drawRRect(
         rr,
@@ -436,10 +491,7 @@ class _FlowDiagramPainter extends CustomPainter {
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: boxW - 8);
-      tp.paint(
-        canvas,
-        Offset(cx - tp.width / 2, top + (boxH - tp.height) / 2),
-      );
+      tp.paint(canvas, Offset(cx - tp.width / 2, top + (boxH - tp.height) / 2));
 
       // arrow to next
       if (i < nodes.length - 1) {
@@ -448,7 +500,11 @@ class _FlowDiagramPainter extends CustomPainter {
         final double midY = (arrowTop + arrowBot) / 2;
 
         // line
-        canvas.drawLine(Offset(cx, arrowTop), Offset(cx, arrowBot - 8), arrowPaint);
+        canvas.drawLine(
+          Offset(cx, arrowTop),
+          Offset(cx, arrowBot - 8),
+          arrowPaint,
+        );
 
         // arrowhead
         final Path path = Path()
@@ -466,7 +522,10 @@ class _FlowDiagramPainter extends CustomPainter {
           ),
           textDirection: TextDirection.ltr,
         )..layout();
-        stepPainter.paint(canvas, Offset(cx + 10, midY - stepPainter.height / 2));
+        stepPainter.paint(
+          canvas,
+          Offset(cx + 10, midY - stepPainter.height / 2),
+        );
       }
     }
   }
@@ -489,10 +548,7 @@ class _DiagramNode {
 
 // InheritedNotifier scope
 class _CounterScope extends InheritedNotifier<ValueNotifier<int>> {
-  const _CounterScope({
-    required super.notifier,
-    required super.child,
-  });
+  const _CounterScope({required super.notifier, required super.child});
 
   static ValueNotifier<int>? of(BuildContext context) {
     return context
@@ -576,7 +632,9 @@ class _ObservableTab extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'What is happening',
-                          style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                          style: tt.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -723,15 +781,22 @@ class _ReturnValueTab extends StatelessWidget {
                       const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 14,
+                        ),
                         decoration: BoxDecoration(
                           color: cs.surface,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: cs.outline),
                         ),
                         child: Text(
-                          returning ? 'true  → consumed; propagation stops' : 'false → propagates further up the tree',
-                          style: tt.bodyMedium?.copyWith(fontFamily: 'monospace'),
+                          returning
+                              ? 'true  → consumed; propagation stops'
+                              : 'false → propagates further up the tree',
+                          style: tt.bodyMedium?.copyWith(
+                            fontFamily: 'monospace',
+                          ),
                         ),
                       ),
                     ],
@@ -858,7 +923,11 @@ class _ReturnValueDiagramPainter extends CustomPainter {
       final TextPainter tp = TextPainter(
         text: TextSpan(
           text: text,
-          style: TextStyle(fontSize: 11, color: onSurfaceColor, fontFamily: 'monospace'),
+          style: TextStyle(
+            fontSize: 11,
+            color: onSurfaceColor,
+            fontFamily: 'monospace',
+          ),
         ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
@@ -904,8 +973,16 @@ class _ReturnValueDiagramPainter extends CustomPainter {
         ..color = errorColor.withAlpha(120)
         ..strokeWidth = 2;
       final double xOff = cx + boxW / 2 + 20;
-      canvas.drawLine(Offset(xOff - 10, 195), Offset(xOff + 10, 215), crossPaint);
-      canvas.drawLine(Offset(xOff + 10, 195), Offset(xOff - 10, 215), crossPaint);
+      canvas.drawLine(
+        Offset(xOff - 10, 195),
+        Offset(xOff + 10, 215),
+        crossPaint,
+      );
+      canvas.drawLine(
+        Offset(xOff + 10, 195),
+        Offset(xOff - 10, 215),
+        crossPaint,
+      );
     } else {
       // not consumed → normal path
       drawArrow(120, 150, 'false', secondaryColor);
@@ -916,7 +993,8 @@ class _ReturnValueDiagramPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_ReturnValueDiagramPainter old) => old.consumed != consumed;
+  bool shouldRepaint(_ReturnValueDiagramPainter old) =>
+      old.consumed != consumed;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -925,10 +1003,7 @@ class _ReturnValueDiagramPainter extends CustomPainter {
 
 // Second InheritedNotifier scope for selective demo
 class _SelectiveScope extends InheritedNotifier<ValueNotifier<int>> {
-  const _SelectiveScope({
-    required super.notifier,
-    required super.child,
-  });
+  const _SelectiveScope({required super.notifier, required super.child});
 
   static ValueNotifier<int>? of(BuildContext context) {
     return context
@@ -1030,7 +1105,9 @@ class _SelectiveRebuildTab extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'How selectivity works',
-                          style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                          style: tt.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -1073,7 +1150,10 @@ final scope = context
 }
 
 class _SelectiveDependentCard extends StatelessWidget {
-  const _SelectiveDependentCard({required this.label, required this.isRegistered});
+  const _SelectiveDependentCard({
+    required this.label,
+    required this.isRegistered,
+  });
 
   final String label;
   final bool isRegistered;
@@ -1095,7 +1175,10 @@ class _SelectiveDependentCard extends StatelessWidget {
           children: <Widget>[
             Icon(Icons.link_rounded, color: cs.primary, size: 20),
             const SizedBox(height: 6),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+            ),
             const SizedBox(height: 6),
             _RebuildChip(count: value ?? 0, color: cs.primary),
           ],
@@ -1127,7 +1210,10 @@ class _SelectiveIndependentCard extends StatelessWidget {
           children: <Widget>[
             Icon(Icons.link_off_rounded, color: cs.outline, size: 20),
             const SizedBox(height: 6),
-            Text(label, style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13)),
+            Text(
+              label,
+              style: TextStyle(color: cs.onSurfaceVariant, fontSize: 13),
+            ),
             const SizedBox(height: 6),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -1137,7 +1223,11 @@ class _SelectiveIndependentCard extends StatelessWidget {
               ),
               child: Text(
                 'never rebuilds',
-                style: TextStyle(fontSize: 11, color: cs.outline, fontFamily: 'monospace'),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: cs.outline,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ],
@@ -1275,7 +1365,11 @@ class _LifecycleDiagramPainter extends CustomPainter {
     final List<(String, Color, bool)> phases = <(String, Color, bool)>[
       ('createElement()', primaryColor, false),
       ('mount()', secondaryColor, false),
-      ('didChangeDependencies()  ← NotifiableElementMixin', tertiaryColor, true),
+      (
+        'didChangeDependencies()  ← NotifiableElementMixin',
+        tertiaryColor,
+        true,
+      ),
       ('build()', primaryColor, false),
       ('update() / rebuild', secondaryColor, false),
       ('unmount()', errorColor, false),
@@ -1291,7 +1385,10 @@ class _LifecycleDiagramPainter extends CustomPainter {
       );
       final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(8));
 
-      canvas.drawRRect(rr, Paint()..color = color.withAlpha(highlight ? 80 : 35));
+      canvas.drawRRect(
+        rr,
+        Paint()..color = color.withAlpha(highlight ? 80 : 35),
+      );
       canvas.drawRRect(
         rr,
         Paint()
@@ -1404,14 +1501,21 @@ class _ComparisonTab extends StatelessWidget {
 
           // comparison table
           Table(
-            border: TableBorder.all(color: cs.outline, borderRadius: BorderRadius.circular(8)),
+            border: TableBorder.all(
+              color: cs.outline,
+              borderRadius: BorderRadius.circular(8),
+            ),
             columnWidths: const <int, TableColumnWidth>{
               0: FlexColumnWidth(2),
               1: FlexColumnWidth(3),
               2: FlexColumnWidth(3),
             },
             children: <TableRow>[
-              _tableHeader(cs, tt, <String>['Aspect', 'InheritedWidget', 'InheritedNotifier']),
+              _tableHeader(cs, tt, <String>[
+                'Aspect',
+                'InheritedWidget',
+                'InheritedNotifier',
+              ]),
               _tableRow(cs, tt, <String>[
                 'Trigger',
                 'Parent rebuilds → updateShouldNotify() returns true',
@@ -1465,7 +1569,9 @@ class _ComparisonTab extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'InheritedWidget',
-                          style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                          style: tt.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -1489,7 +1595,9 @@ class _ComparisonTab extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'InheritedNotifier',
-                          style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                          style: tt.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         Text(
@@ -1517,7 +1625,10 @@ class _ComparisonTab extends StatelessWidget {
           .map(
             (String c) => Padding(
               padding: const EdgeInsets.all(8),
-              child: Text(c, style: tt.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
+              child: Text(
+                c,
+                style: tt.labelMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
             ),
           )
           .toList(),
@@ -1570,7 +1681,8 @@ class _SnippetTab extends StatelessWidget {
           _AnnotatedCodeBlock(
             segments: const <_CodeSegment>[
               _CodeSegment(
-                code: '// 1. Define your Listenable model\n'
+                code:
+                    '// 1. Define your Listenable model\n'
                     'class CounterModel extends ChangeNotifier {\n'
                     '  int _value = 0;\n'
                     '  int get value => _value;\n'
@@ -1582,7 +1694,8 @@ class _SnippetTab extends StatelessWidget {
                 annotationIndex: 0,
               ),
               _CodeSegment(
-                code: '\n// 2. Wrap it in an InheritedNotifier\n'
+                code:
+                    '\n// 2. Wrap it in an InheritedNotifier\n'
                     'class CounterScope\n'
                     '    extends InheritedNotifier<CounterModel> {\n'
                     '  const CounterScope({\n'
@@ -1605,7 +1718,8 @@ class _SnippetTab extends StatelessWidget {
                 annotationIndex: 1,
               ),
               _CodeSegment(
-                code: '\n// 3. Consume in a stateless widget\n'
+                code:
+                    '\n// 3. Consume in a stateless widget\n'
                     'class CounterDisplay extends StatelessWidget {\n'
                     '  const CounterDisplay({super.key});\n'
                     '\n'
@@ -1620,7 +1734,8 @@ class _SnippetTab extends StatelessWidget {
                 annotationIndex: 2,
               ),
               _CodeSegment(
-                code: '\n// 4. Trigger from anywhere\n'
+                code:
+                    '\n// 4. Trigger from anywhere\n'
                     'CounterScope.of(context).increment();\n'
                     '// → ChangeNotifier.notifyListeners()\n'
                     '// → InheritedNotifier._handleUpdate()\n'
@@ -1636,7 +1751,10 @@ class _SnippetTab extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          Text('Annotation Key', style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
+          Text(
+            'Annotation Key',
+            style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
 
           _AnnotationKey(
@@ -1839,10 +1957,18 @@ class _PitfallsTab extends StatelessWidget {
                     style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
-                  _BulletPoint('Prefer ValueListenableBuilder / AnimatedBuilder for frequent updates.'),
-                  _BulletPoint('Use select() (from Provider or similar) to narrow rebuild scope.'),
-                  _BulletPoint('Always register dependencies via dependOnInheritedWidgetOfExactType.'),
-                  _BulletPoint('Never call notifyListeners() synchronously inside build().'),
+                  _BulletPoint(
+                    'Prefer ValueListenableBuilder / AnimatedBuilder for frequent updates.',
+                  ),
+                  _BulletPoint(
+                    'Use select() (from Provider or similar) to narrow rebuild scope.',
+                  ),
+                  _BulletPoint(
+                    'Always register dependencies via dependOnInheritedWidgetOfExactType.',
+                  ),
+                  _BulletPoint(
+                    'Never call notifyListeners() synchronously inside build().',
+                  ),
                   _BulletPoint(
                     'Dispose Listenables only after the InheritedNotifier has been removed from the tree.',
                   ),
@@ -1895,7 +2021,10 @@ class _InfoRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    title,
+                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                   const SizedBox(height: 6),
                   Text(body, style: tt.bodySmall),
                 ],
@@ -1926,7 +2055,11 @@ class _Chip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: cs.onSurface),
+        style: TextStyle(
+          fontSize: 11,
+          fontFamily: 'monospace',
+          color: cs.onSurface,
+        ),
       ),
     );
   }
@@ -1944,7 +2077,11 @@ class _LegendRow extends StatelessWidget {
 
     return Row(
       children: <Widget>[
-        Container(width: 16, height: 16, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         const SizedBox(width: 8),
         Text(label, style: tt.bodySmall),
       ],
@@ -1971,11 +2108,18 @@ class _StepRow extends StatelessWidget {
           Container(
             width: 22,
             height: 22,
-            decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: cs.primary,
+              shape: BoxShape.circle,
+            ),
             child: Center(
               child: Text(
                 step,
-                style: TextStyle(fontSize: 11, color: cs.onPrimary, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: cs.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -2092,14 +2236,25 @@ class _PhaseCard extends StatelessWidget {
       color: color,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: highlight ? BorderSide(color: Theme.of(context).colorScheme.tertiary, width: 2) : BorderSide.none,
+        side: highlight
+            ? BorderSide(
+                color: Theme.of(context).colorScheme.tertiary,
+                width: 2,
+              )
+            : BorderSide.none,
       ),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(phase, style: tt.titleSmall?.copyWith(fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+            Text(
+              phase,
+              style: tt.titleSmall?.copyWith(
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(description, style: tt.bodySmall),
           ],
@@ -2144,18 +2299,32 @@ class _PitfallCard extends StatelessWidget {
                 Container(
                   width: 28,
                   height: 28,
-                  decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: cs.primary,
+                    shape: BoxShape.circle,
+                  ),
                   child: Center(
                     child: Text(
                       '$number',
-                      style: TextStyle(color: cs.onPrimary, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: cs.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 10),
-                Expanded(child: Text(title, style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold))),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: tt.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: severityColor.withAlpha(30),
                     borderRadius: BorderRadius.circular(12),
@@ -2163,7 +2332,11 @@ class _PitfallCard extends StatelessWidget {
                   ),
                   child: Text(
                     severity,
-                    style: TextStyle(fontSize: 10, color: severityColor, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: severityColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -2182,7 +2355,10 @@ class _PitfallCard extends StatelessWidget {
                         children: <Widget>[
                           Icon(Icons.close_rounded, size: 14, color: cs.error),
                           const SizedBox(width: 4),
-                          Text('Avoid', style: tt.labelSmall?.copyWith(color: cs.error)),
+                          Text(
+                            'Avoid',
+                            style: tt.labelSmall?.copyWith(color: cs.error),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -2195,7 +2371,11 @@ class _PitfallCard extends StatelessWidget {
                         ),
                         child: Text(
                           badCode,
-                          style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: cs.onSurface),
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                            color: cs.onSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -2208,7 +2388,11 @@ class _PitfallCard extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.check_rounded, size: 14, color: Colors.green),
+                          Icon(
+                            Icons.check_rounded,
+                            size: 14,
+                            color: Colors.green,
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             'Prefer',
@@ -2226,7 +2410,11 @@ class _PitfallCard extends StatelessWidget {
                         ),
                         child: Text(
                           goodCode,
-                          style: TextStyle(fontFamily: 'monospace', fontSize: 10, color: cs.onSurface),
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                            color: cs.onSurface,
+                          ),
                         ),
                       ),
                     ],
@@ -2260,7 +2448,10 @@ class _BulletPoint extends StatelessWidget {
             width: 6,
             height: 6,
             margin: const EdgeInsets.only(top: 5, right: 8),
-            decoration: BoxDecoration(color: cs.primary, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: cs.primary,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(child: Text(text, style: tt.bodySmall)),
         ],
@@ -2270,7 +2461,11 @@ class _BulletPoint extends StatelessWidget {
 }
 
 class _AnnotationKey extends StatelessWidget {
-  const _AnnotationKey({required this.index, required this.color, required this.text});
+  const _AnnotationKey({
+    required this.index,
+    required this.color,
+    required this.text,
+  });
 
   final int index;
   final Color color;
@@ -2290,7 +2485,11 @@ class _AnnotationKey extends StatelessWidget {
           child: Center(
             child: Text(
               '${index + 1}',
-              style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -2336,7 +2535,8 @@ class _AnnotatedCodeBlock extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: segments.map((seg) {
-          final Color accent = _annotationColors[seg.annotationIndex % _annotationColors.length];
+          final Color accent =
+              _annotationColors[seg.annotationIndex % _annotationColors.length];
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -2366,11 +2566,18 @@ class _AnnotatedCodeBlock extends StatelessWidget {
                 width: 20,
                 height: 20,
                 margin: const EdgeInsets.only(left: 6, top: 2),
-                decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: accent,
+                  shape: BoxShape.circle,
+                ),
                 child: Center(
                   child: Text(
                     '${seg.annotationIndex + 1}',
-                    style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

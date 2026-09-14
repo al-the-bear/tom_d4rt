@@ -298,14 +298,30 @@ dynamic build(BuildContext context) {
   );
 
   final iconVariantCards = <Widget>[
-    _iconVariantCard('Default icon', 'iconSize: 24 (default)', iconDefault,
-        Colors.blueGrey),
-    _iconVariantCard('Custom icon + size', 'iconSize: 32, deepOrange',
-        iconCustom, Colors.deepOrange),
-    _iconVariantCard('Circle icon', 'iconSize: 28, teal', iconCircle,
-        Colors.teal),
-    _iconVariantCard('Disabled state', 'iconDisabledColor: red', iconDisabled,
-        Colors.redAccent),
+    _iconVariantCard(
+      'Default icon',
+      'iconSize: 24 (default)',
+      iconDefault,
+      Colors.blueGrey,
+    ),
+    _iconVariantCard(
+      'Custom icon + size',
+      'iconSize: 32, deepOrange',
+      iconCustom,
+      Colors.deepOrange,
+    ),
+    _iconVariantCard(
+      'Circle icon',
+      'iconSize: 28, teal',
+      iconCircle,
+      Colors.teal,
+    ),
+    _iconVariantCard(
+      'Disabled state',
+      'iconDisabledColor: red',
+      iconDisabled,
+      Colors.redAccent,
+    ),
   ];
   print('Created ${iconVariantCards.length} icon variant cards');
 
@@ -409,9 +425,7 @@ dynamic build(BuildContext context) {
       labelText: 'Travel city',
       helperText: 'Outlined style',
       prefixIcon: Icon(Icons.flight_takeoff),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
     ),
     items: cityItems,
     onChanged: (v) => print('Form outlined: $v'),
@@ -430,12 +444,19 @@ dynamic build(BuildContext context) {
   );
 
   final formFieldCards = <Widget>[
-    _formFieldCard('Filled', 'filled: true + fillColor', formFilled,
-        Colors.indigo),
-    _formFieldCard('Outlined', 'OutlineInputBorder', formOutlined,
-        Colors.teal),
-    _formFieldCard('Underline', 'UnderlineInputBorder', formUnderlined,
-        Colors.pink),
+    _formFieldCard(
+      'Filled',
+      'filled: true + fillColor',
+      formFilled,
+      Colors.indigo,
+    ),
+    _formFieldCard('Outlined', 'OutlineInputBorder', formOutlined, Colors.teal),
+    _formFieldCard(
+      'Underline',
+      'UnderlineInputBorder',
+      formUnderlined,
+      Colors.pink,
+    ),
   ];
 
   final formPanel = Form(
@@ -529,12 +550,24 @@ dynamic build(BuildContext context) {
   );
 
   final menuCards = <Widget>[
-    _menuCard('Default DropdownMenu', 'plain entries', defaultMenu,
-        Colors.blue),
-    _menuCard('Leading + trailing icons', 'iconEntries', iconMenu,
-        Colors.green),
-    _menuCard('Disabled entries', 'enabled: false', disabledMenu,
-        Colors.orange),
+    _menuCard(
+      'Default DropdownMenu',
+      'plain entries',
+      defaultMenu,
+      Colors.blue,
+    ),
+    _menuCard(
+      'Leading + trailing icons',
+      'iconEntries',
+      iconMenu,
+      Colors.green,
+    ),
+    _menuCard(
+      'Disabled entries',
+      'enabled: false',
+      disabledMenu,
+      Colors.orange,
+    ),
   ];
   print('Created ${menuCards.length} DropdownMenu cards');
 
@@ -553,27 +586,24 @@ dynamic build(BuildContext context) {
   };
 
   Widget chipForColor(String name) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 16.0,
-            height: 16.0,
-            decoration: BoxDecoration(
-              color: colorSwatch[name],
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.black26, width: 1.0),
-            ),
-          ),
-          SizedBox(width: 8.0),
-          Text(
-            name.toUpperCase(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorSwatch[name],
-            ),
-          ),
-        ],
-      );
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(
+        width: 16.0,
+        height: 16.0,
+        decoration: BoxDecoration(
+          color: colorSwatch[name],
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.black26, width: 1.0),
+        ),
+      ),
+      SizedBox(width: 8.0),
+      Text(
+        name.toUpperCase(),
+        style: TextStyle(fontWeight: FontWeight.bold, color: colorSwatch[name]),
+      ),
+    ],
+  );
 
   // U22 workaround (entry #17): the original `selectedItemBuilder`
   // returned `colorChoices.map<Widget>((name) => Container(...)).toList()`.
@@ -597,10 +627,8 @@ dynamic build(BuildContext context) {
     isExpanded: true,
     items: colorChoices
         .map<DropdownMenuItem<String>>(
-          (name) => DropdownMenuItem<String>(
-            value: name,
-            child: chipForColor(name),
-          ),
+          (name) =>
+              DropdownMenuItem<String>(value: name, child: chipForColor(name)),
         )
         .toList(),
     onChanged: (v) => print('Color picked: $v'),
@@ -630,10 +658,7 @@ dynamic build(BuildContext context) {
             SizedBox(width: 8.0),
             Text(
               'selectedItemBuilder',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
             ),
           ],
         ),
@@ -707,13 +732,18 @@ dynamic build(BuildContext context) {
   final layoutCards = <Widget>[
     _layoutCard('isDense: true', denseDropdown, Colors.blue),
     _layoutCard('isExpanded: true', expandedDropdown, Colors.green),
-    _layoutCard('itemHeight: 64 + menuMaxHeight: 220',
-        itemHeightDropdown, Colors.orange),
+    _layoutCard(
+      'itemHeight: 64 + menuMaxHeight: 220',
+      itemHeightDropdown,
+      Colors.orange,
+    ),
     _layoutCard('alignment: centerEnd', alignmentDropdown, Colors.purple),
-    _layoutCard('focusNode + autofocus: false', focusNodeDropdown,
-        Colors.teal),
-    _layoutCard('DropdownButtonHideUnderline', hideUnderlineDropdown,
-        Colors.pink),
+    _layoutCard('focusNode + autofocus: false', focusNodeDropdown, Colors.teal),
+    _layoutCard(
+      'DropdownButtonHideUnderline',
+      hideUnderlineDropdown,
+      Colors.pink,
+    ),
   ];
   print('Created ${layoutCards.length} layout/flag cards');
 
@@ -974,8 +1004,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(Icons.arrow_drop_down_circle,
-                  size: 56.0, color: Colors.white),
+              Icon(
+                Icons.arrow_drop_down_circle,
+                size: 56.0,
+                color: Colors.white,
+              ),
               SizedBox(height: 8.0),
               Text(
                 'Dropdown Deep Demo',
@@ -1258,8 +1291,7 @@ Widget _formFieldCard(
             ),
             SizedBox(width: 8.0),
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1282,12 +1314,7 @@ Widget _formFieldCard(
   );
 }
 
-Widget _menuCard(
-  String title,
-  String subtitle,
-  Widget menu,
-  Color accent,
-) {
+Widget _menuCard(String title, String subtitle, Widget menu, Color accent) {
   return Container(
     width: 260.0,
     margin: EdgeInsets.all(8.0),

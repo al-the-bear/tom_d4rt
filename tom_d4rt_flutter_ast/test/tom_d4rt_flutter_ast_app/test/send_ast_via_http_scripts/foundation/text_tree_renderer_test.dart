@@ -159,11 +159,7 @@ dynamic build(BuildContext context) {
               '${entry['wrapWidthProperties']}',
               color,
             ),
-            _buildKv(
-              'maxDescendents',
-              '${entry['maxDescendents']}',
-              color,
-            ),
+            _buildKv('maxDescendents', '${entry['maxDescendents']}', color),
           ],
         ),
       ),
@@ -286,10 +282,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 4.0),
             Text(
               'index ${level.index}',
-              style: TextStyle(
-                fontSize: 10.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
             ),
             SizedBox(height: 6.0),
             Container(
@@ -476,10 +469,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.cyan.shade50,
-              Colors.cyan.shade200,
-            ],
+            colors: [Colors.cyan.shade50, Colors.cyan.shade200],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -495,11 +485,7 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Icon(
-              Icons.view_agenda,
-              color: Colors.cyan.shade800,
-              size: 24.0,
-            ),
+            Icon(Icons.view_agenda, color: Colors.cyan.shade800, size: 24.0),
             SizedBox(height: 4.0),
             Text(
               'wrap=$ww',
@@ -544,18 +530,12 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.deepOrange.shade50,
-              Colors.deepOrange.shade200,
-            ],
+            colors: [Colors.deepOrange.shade50, Colors.deepOrange.shade200],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.deepOrange.shade400,
-            width: 1.5,
-          ),
+          border: Border.all(color: Colors.deepOrange.shade400, width: 1.5),
           boxShadow: [
             BoxShadow(
               color: Colors.deepOrange.withValues(alpha: 0.25),
@@ -733,10 +713,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.blueGrey.shade50,
-          Colors.blueGrey.shade200,
-        ],
+        colors: [Colors.blueGrey.shade50, Colors.blueGrey.shade200],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -764,11 +741,7 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildPipelineNode(
-              'Widget',
-              Colors.green,
-              Icons.widgets,
-            ),
+            _buildPipelineNode('Widget', Colors.green, Icons.widgets),
             Icon(
               Icons.arrow_forward,
               color: Colors.blueGrey.shade700,
@@ -784,21 +757,13 @@ dynamic build(BuildContext context) {
               color: Colors.blueGrey.shade700,
               size: 26.0,
             ),
-            _buildPipelineNode(
-              'TextTreeRenderer',
-              Colors.indigo,
-              Icons.build,
-            ),
+            _buildPipelineNode('TextTreeRenderer', Colors.indigo, Icons.build),
             Icon(
               Icons.arrow_forward,
               color: Colors.blueGrey.shade700,
               size: 26.0,
             ),
-            _buildPipelineNode(
-              'String',
-              Colors.deepPurple,
-              Icons.text_snippet,
-            ),
+            _buildPipelineNode('String', Colors.deepPurple, Icons.text_snippet),
           ],
         ),
         SizedBox(height: 16.0),
@@ -815,10 +780,7 @@ dynamic build(BuildContext context) {
             'maxDescendentsTruncatableNode truncation, then emits a '
             'String.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.blueGrey.shade900,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade900),
           ),
         ),
       ],
@@ -924,10 +886,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.amber.shade50,
-          Colors.amber.shade200,
-        ],
+        colors: [Colors.amber.shade50, Colors.amber.shade200],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1063,11 +1022,7 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Icon(
-                    Icons.account_tree,
-                    color: Colors.white,
-                    size: 56.0,
-                  ),
+                  Icon(Icons.account_tree, color: Colors.white, size: 56.0),
                   SizedBox(height: 8.0),
                   Text(
                     'TextTreeRenderer',
@@ -1089,10 +1044,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 6.0),
                   Text(
                     'Diagnostic tree text rendering pipeline',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.white,
-                    ),
+                    style: TextStyle(fontSize: 14.0, color: Colors.white),
                   ),
                 ],
               ),
@@ -1107,10 +1059,7 @@ dynamic build(BuildContext context) {
               Icons.tune,
               Colors.indigo,
             ),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: constructionCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: constructionCards),
             SizedBox(height: 24.0),
 
             // Section 2
@@ -1191,11 +1140,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 24.0),
 
             // Section 10
-            _buildSectionHeading(
-              '10. API Reference',
-              Icons.code,
-              Colors.grey,
-            ),
+            _buildSectionHeading('10. API Reference', Icons.code, Colors.grey),
             apiCodeBlock,
             SizedBox(height: 24.0),
 
@@ -1213,10 +1158,7 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.grey.shade300,
-                    Colors.grey.shade500,
-                  ],
+                  colors: [Colors.grey.shade300, Colors.grey.shade500],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
@@ -1378,10 +1320,7 @@ Widget _buildRenderCard({
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 6.0,
-                  vertical: 2.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1448,11 +1387,7 @@ Widget _buildDataCell(String text, double width, Color color) {
     child: Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(
-        fontFamily: 'monospace',
-        fontSize: 11.0,
-        color: color,
-      ),
+      style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: color),
     ),
   );
 }
@@ -1465,10 +1400,7 @@ Widget _buildCodeBlock(String code, Color textColor) {
     decoration: BoxDecoration(
       color: Colors.grey.shade800,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: textColor.withValues(alpha: 0.4),
-        width: 1.0,
-      ),
+      border: Border.all(color: textColor.withValues(alpha: 0.4), width: 1.0),
     ),
     child: Text(
       code,
@@ -1489,10 +1421,7 @@ Widget _buildPipelineNode(String label, Color color, IconData icon) {
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.15),
-          color.withValues(alpha: 0.35),
-        ],
+        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.35)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1587,10 +1516,7 @@ Widget _buildPropertyRow(
               SizedBox(height: 4.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.amber.shade900,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.amber.shade900),
               ),
             ],
           ),
@@ -1616,9 +1542,7 @@ Widget _buildSectionHeading(String label, IconData icon, Color color) {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: color, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4.0)),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.20),
@@ -1660,10 +1584,7 @@ Widget _buildStat(String label, String value, IconData icon) {
           color: Colors.white,
         ),
       ),
-      Text(
-        label,
-        style: TextStyle(fontSize: 11.0, color: Colors.white70),
-      ),
+      Text(label, style: TextStyle(fontSize: 11.0, color: Colors.white70)),
     ],
   );
 }

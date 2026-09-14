@@ -175,11 +175,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(24.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          paletteMidnight,
-          paletteAccent,
-          Color(0xFF8C7BFF),
-        ],
+        colors: <Color>[paletteMidnight, paletteAccent, Color(0xFF8C7BFF)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -243,11 +239,7 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 16.0),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: heroChipWidgets,
-        ),
+        Wrap(spacing: 8.0, runSpacing: 8.0, children: heroChipWidgets),
       ],
     ),
   );
@@ -485,11 +477,7 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: <Widget>[
-                  const Icon(
-                    Icons.timeline,
-                    color: paletteAccent,
-                    size: 18.0,
-                  ),
+                  const Icon(Icons.timeline, color: paletteAccent, size: 18.0),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -509,7 +497,6 @@ dynamic build(BuildContext context) {
       );
     },
   );
-
 
   // ===========================================================================
   // SECTION 2 - TOGGLE SWITCH STATE
@@ -580,14 +567,9 @@ dynamic build(BuildContext context) {
         final bool value = toggleState[key] ?? false;
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 4.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           decoration: BoxDecoration(
-            color: value
-                ? color.withValues(alpha: 0.10)
-                : Colors.white,
+            color: value ? color.withValues(alpha: 0.10) : Colors.white,
             borderRadius: BorderRadius.circular(14.0),
             border: Border.all(
               color: value ? color : paletteOutline,
@@ -648,8 +630,7 @@ dynamic build(BuildContext context) {
         );
       }).toList();
 
-      final int onCount =
-          toggleState.values.where((bool v) => v).length;
+      final int onCount = toggleState.values.where((bool v) => v).length;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -665,11 +646,7 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.toggle_on,
-                  color: paletteAccent,
-                  size: 20.0,
-                ),
+                const Icon(Icons.toggle_on, color: paletteAccent, size: 20.0),
                 const SizedBox(width: 8.0),
                 Text(
                   '$onCount of ${toggleItems.length} preferences enabled',
@@ -733,10 +710,7 @@ dynamic build(BuildContext context) {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: <Color>[
-                            paletteTeal,
-                            Color(0xFF00BFA5),
-                          ],
+                          colors: <Color>[paletteTeal, Color(0xFF00BFA5)],
                         ),
                         borderRadius: BorderRadius.circular(14.0),
                       ),
@@ -908,8 +882,9 @@ dynamic build(BuildContext context) {
 
   final Widget section4Accordion = StatefulBuilder(
     builder: (BuildContext ctx, StateSetter setState) {
-      final List<Widget> panels =
-          List<Widget>.generate(accordionItems.length, (int i) {
+      final List<Widget> panels = List<Widget>.generate(accordionItems.length, (
+        int i,
+      ) {
         final Map<String, dynamic> item = accordionItems[i];
         final bool open = accordionOpen[i];
         final Color color = item['color'] as Color;
@@ -942,9 +917,7 @@ dynamic build(BuildContext context) {
                         height: 36.0,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: open
-                              ? color
-                              : color.withValues(alpha: 0.12),
+                          color: open ? color : color.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Icon(
@@ -976,9 +949,7 @@ dynamic build(BuildContext context) {
               AnimatedCrossFade(
                 firstChild: const SizedBox.shrink(),
                 secondChild: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    16.0, 0.0, 16.0, 14.0,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 14.0),
                   child: Text(
                     item['body'] as String,
                     style: const TextStyle(
@@ -1040,9 +1011,7 @@ dynamic build(BuildContext context) {
   // SECTION 5 - TAB SWITCHER
   // ===========================================================================
 
-  final Map<String, dynamic> tabState = <String, dynamic>{
-    'index': 0,
-  };
+  final Map<String, dynamic> tabState = <String, dynamic>{'index': 0};
   final List<Map<String, dynamic>> tabs = <Map<String, dynamic>>[
     <String, dynamic>{
       'label': 'Overview',
@@ -1090,8 +1059,9 @@ dynamic build(BuildContext context) {
       final int idx = tabState['index'] as int;
       final Map<String, dynamic> active = tabs[idx];
       final Color color = active['color'] as Color;
-      final List<Widget> tabButtons =
-          List<Widget>.generate(tabs.length, (int i) {
+      final List<Widget> tabButtons = List<Widget>.generate(tabs.length, (
+        int i,
+      ) {
         final Map<String, dynamic> t = tabs[i];
         final bool sel = i == idx;
         return Expanded(
@@ -1200,9 +1170,7 @@ dynamic build(BuildContext context) {
   // SECTION 6 - COLOR PICKER GRID
   // ===========================================================================
 
-  final Map<String, dynamic> colorPickerState = <String, dynamic>{
-    'index': 4,
-  };
+  final Map<String, dynamic> colorPickerState = <String, dynamic>{'index': 4};
   final List<Map<String, dynamic>> swatches = <Map<String, dynamic>>[
     <String, dynamic>{'color': const Color(0xFFB3261E), 'name': 'Crimson'},
     <String, dynamic>{'color': const Color(0xFFD68900), 'name': 'Amber'},
@@ -1223,41 +1191,43 @@ dynamic build(BuildContext context) {
       final int idx = colorPickerState['index'] as int;
       final Color sel = swatches[idx]['color'] as Color;
       final String selName = swatches[idx]['name'] as String;
-      final List<Widget> swatchWidgets =
-          List<Widget>.generate(swatches.length, (int i) {
-        final Color c = swatches[i]['color'] as Color;
-        final bool active = i == idx;
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              colorPickerState['index'] = i;
-            });
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: 56.0,
-            height: 56.0,
-            decoration: BoxDecoration(
-              color: c,
-              borderRadius: BorderRadius.circular(active ? 18.0 : 12.0),
-              border: Border.all(
-                color: active ? Colors.white : Colors.transparent,
-                width: 3.0,
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: c.withValues(alpha: active ? 0.55 : 0.20),
-                  blurRadius: active ? 14.0 : 6.0,
-                  offset: const Offset(0, 4),
+      final List<Widget> swatchWidgets = List<Widget>.generate(
+        swatches.length,
+        (int i) {
+          final Color c = swatches[i]['color'] as Color;
+          final bool active = i == idx;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                colorPickerState['index'] = i;
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 56.0,
+              height: 56.0,
+              decoration: BoxDecoration(
+                color: c,
+                borderRadius: BorderRadius.circular(active ? 18.0 : 12.0),
+                border: Border.all(
+                  color: active ? Colors.white : Colors.transparent,
+                  width: 3.0,
                 ),
-              ],
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: c.withValues(alpha: active ? 0.55 : 0.20),
+                    blurRadius: active ? 14.0 : 6.0,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: active
+                  ? const Icon(Icons.check, color: Colors.white, size: 26.0)
+                  : null,
             ),
-            child: active
-                ? const Icon(Icons.check, color: Colors.white, size: 26.0)
-                : null,
-          ),
-        );
-      });
+          );
+        },
+      );
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1328,11 +1298,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 14.0),
-          Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
-            children: swatchWidgets,
-          ),
+          Wrap(spacing: 10.0, runSpacing: 10.0, children: swatchWidgets),
         ],
       );
     },
@@ -1381,8 +1347,9 @@ dynamic build(BuildContext context) {
 
   final Widget section7Sliders = StatefulBuilder(
     builder: (BuildContext ctx, StateSetter setState) {
-      final List<Widget> rows =
-          List<Widget>.generate(sliderItems.length, (int i) {
+      final List<Widget> rows = List<Widget>.generate(sliderItems.length, (
+        int i,
+      ) {
         final Map<String, dynamic> item = sliderItems[i];
         final String key = item['key'] as String;
         final Color color = item['color'] as Color;
@@ -1477,17 +1444,11 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.equalizer,
-                  color: paletteAccent,
-                  size: 20.0,
-                ),
+                const Icon(Icons.equalizer, color: paletteAccent, size: 20.0),
                 const SizedBox(width: 10.0),
                 Expanded(
                   child: Text(
-                    'Composite score: ${(sliderState.values.reduce(
-                      (double a, double b) => a + b,
-                    ) / 4).toStringAsFixed(1)}',
+                    'Composite score: ${(sliderState.values.reduce((double a, double b) => a + b) / 4).toStringAsFixed(1)}',
                     style: const TextStyle(
                       color: paletteInk,
                       fontWeight: FontWeight.w700,
@@ -1578,8 +1539,7 @@ dynamic build(BuildContext context) {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                          const BorderSide(color: paletteOutline),
+                      borderSide: const BorderSide(color: paletteOutline),
                     ),
                   ),
                   onChanged: (String v) {
@@ -1599,8 +1559,7 @@ dynamic build(BuildContext context) {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide:
-                          const BorderSide(color: paletteOutline),
+                      borderSide: const BorderSide(color: paletteOutline),
                     ),
                   ),
                   onChanged: (String v) {
@@ -1711,12 +1670,15 @@ dynamic build(BuildContext context) {
                   'Email: ${email.isEmpty ? "(empty)" : email}',
                   style: const TextStyle(color: paletteInk),
                 ),
-                Text('Role: $role',
-                    style: const TextStyle(color: paletteInk)),
-                Text('Experience: $years years',
-                    style: const TextStyle(color: paletteInk)),
-                Text('Remote: ${remote ? "yes" : "no"}',
-                    style: const TextStyle(color: paletteInk)),
+                Text('Role: $role', style: const TextStyle(color: paletteInk)),
+                Text(
+                  'Experience: $years years',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'Remote: ${remote ? "yes" : "no"}',
+                  style: const TextStyle(color: paletteInk),
+                ),
               ],
             ),
           ),
@@ -1885,14 +1847,10 @@ dynamic build(BuildContext context) {
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        color: current
-                            ? paletteAccent
-                            : Colors.white,
+                        color: current ? paletteAccent : Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
-                          color: current
-                              ? paletteAccent
-                              : paletteOutline,
+                          color: current ? paletteAccent : paletteOutline,
                           width: 1.0,
                         ),
                       ),
@@ -1940,10 +1898,7 @@ dynamic build(BuildContext context) {
         final bool done = it['done'] as bool;
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 4.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: done
                 ? paletteGreenSoft.withValues(alpha: 0.45)
@@ -2026,9 +1981,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Expanded(
                 child: Text(
-                  '${items.length} tasks, ${items.where(
-                    (Map<String, dynamic> m) => m['done'] as bool,
-                  ).length} done',
+                  '${items.length} tasks, ${items.where((Map<String, dynamic> m) => m['done'] as bool).length} done',
                   style: const TextStyle(
                     color: paletteInkSoft,
                     fontWeight: FontWeight.w700,
@@ -2096,36 +2049,31 @@ dynamic build(BuildContext context) {
   // SECTION 11 - PAGINATION
   // ===========================================================================
 
-  final Map<String, dynamic> paginationState = <String, dynamic>{
-    'page': 0,
-  };
+  final Map<String, dynamic> paginationState = <String, dynamic>{'page': 0};
   const int pageSize = 5;
-  final List<Map<String, dynamic>> paginatedRows = List<Map<String, dynamic>>
-      .generate(38, (int i) {
-    return <String, dynamic>{
-      'id': 1000 + i,
-      'name': 'Record ${(i + 1).toString().padLeft(2, "0")}',
-      'category': <String>[
-        'Alpha',
-        'Bravo',
-        'Charlie',
-        'Delta',
-      ][i % 4],
-      'amount': (i * 7 + 13) % 250,
-    };
-  });
+  final List<Map<String, dynamic>> paginatedRows =
+      List<Map<String, dynamic>>.generate(38, (int i) {
+        return <String, dynamic>{
+          'id': 1000 + i,
+          'name': 'Record ${(i + 1).toString().padLeft(2, "0")}',
+          'category': <String>['Alpha', 'Bravo', 'Charlie', 'Delta'][i % 4],
+          'amount': (i * 7 + 13) % 250,
+        };
+      });
 
   final Widget section11Pagination = StatefulBuilder(
     builder: (BuildContext ctx, StateSetter setState) {
       final int page = paginationState['page'] as int;
-      final int totalPages =
-          (paginatedRows.length / pageSize).ceil();
+      final int totalPages = (paginatedRows.length / pageSize).ceil();
       final int start = page * pageSize;
       final int end = (start + pageSize).clamp(0, paginatedRows.length);
-      final List<Map<String, dynamic>> slice =
-          paginatedRows.sublist(start, end);
-      final List<Widget> pageButtons =
-          List<Widget>.generate(totalPages, (int i) {
+      final List<Map<String, dynamic>> slice = paginatedRows.sublist(
+        start,
+        end,
+      );
+      final List<Widget> pageButtons = List<Widget>.generate(totalPages, (
+        int i,
+      ) {
         final bool active = i == page;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 3.0),
@@ -2161,10 +2109,7 @@ dynamic build(BuildContext context) {
       final List<Widget> sliceRows = slice.map((Map<String, dynamic> r) {
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 3.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
@@ -2245,11 +2190,7 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.table_rows,
-                  color: paletteAccent,
-                  size: 18.0,
-                ),
+                const Icon(Icons.table_rows, color: paletteAccent, size: 18.0),
                 const SizedBox(width: 8.0),
                 Text(
                   'Showing ${start + 1}-$end of '
@@ -2356,11 +2297,7 @@ dynamic build(BuildContext context) {
                     color: phaseColor,
                     borderRadius: BorderRadius.circular(14.0),
                   ),
-                  child: Icon(
-                    phaseIcon,
-                    color: Colors.white,
-                    size: 30.0,
-                  ),
+                  child: Icon(phaseIcon, color: Colors.white, size: 30.0),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
@@ -2493,11 +2430,7 @@ dynamic build(BuildContext context) {
               ),
               child: const Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.info_outline,
-                    color: paletteInkSoft,
-                    size: 20.0,
-                  ),
+                  Icon(Icons.info_outline, color: paletteInkSoft, size: 20.0),
                   SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
@@ -2620,8 +2553,7 @@ dynamic build(BuildContext context) {
         icon = Icons.verified;
         label = 'Recovered';
       }
-      final List<Widget> attemptDots =
-          List<Widget>.generate(5, (int i) {
+      final List<Widget> attemptDots = List<Widget>.generate(5, (int i) {
         final bool filled = i < attempts;
         return Container(
           width: 16.0,
@@ -2701,11 +2633,7 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: <Widget>[
-                  const Icon(
-                    Icons.bug_report,
-                    color: paletteRed,
-                    size: 22.0,
-                  ),
+                  const Icon(Icons.bug_report, color: paletteRed, size: 22.0),
                   const SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
@@ -2730,11 +2658,7 @@ dynamic build(BuildContext context) {
               ),
               child: const Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.celebration,
-                    color: paletteGreen,
-                    size: 22.0,
-                  ),
+                  Icon(Icons.celebration, color: paletteGreen, size: 22.0),
                   SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
@@ -2852,18 +2776,9 @@ dynamic build(BuildContext context) {
       'title': 'Company',
       'subtitle': 'Tell us about your organisation',
     },
-    <String, String>{
-      'title': 'Plan',
-      'subtitle': 'Choose the right tier',
-    },
-    <String, String>{
-      'title': 'Seats',
-      'subtitle': 'How many people will join',
-    },
-    <String, String>{
-      'title': 'Consent',
-      'subtitle': 'Confirm and submit',
-    },
+    <String, String>{'title': 'Plan', 'subtitle': 'Choose the right tier'},
+    <String, String>{'title': 'Seats', 'subtitle': 'How many people will join'},
+    <String, String>{'title': 'Consent', 'subtitle': 'Confirm and submit'},
   ];
 
   final Widget section14Wizard = StatefulBuilder(
@@ -2873,51 +2788,52 @@ dynamic build(BuildContext context) {
       final String plan = wizardState['plan'] as String;
       final int seats = wizardState['seats'] as int;
       final bool consent = wizardState['consent'] as bool;
-      final List<Widget> stepIndicators =
-          List<Widget>.generate(wizardSteps.length, (int i) {
-        final bool done = i < step;
-        final bool current = i == step;
-        return Expanded(
-          child: Row(
-            children: <Widget>[
-              Container(
-                width: 32.0,
-                height: 32.0,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: done
-                      ? paletteGreen
-                      : (current ? paletteAccent : Colors.white),
-                  shape: BoxShape.circle,
-                  border: Border.all(
+      final List<Widget> stepIndicators = List<Widget>.generate(
+        wizardSteps.length,
+        (int i) {
+          final bool done = i < step;
+          final bool current = i == step;
+          return Expanded(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 32.0,
+                  height: 32.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
                     color: done
                         ? paletteGreen
-                        : (current ? paletteAccent : paletteOutline),
-                    width: 1.6,
+                        : (current ? paletteAccent : Colors.white),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: done
+                          ? paletteGreen
+                          : (current ? paletteAccent : paletteOutline),
+                      width: 1.6,
+                    ),
                   ),
-                ),
-                child: done
-                    ? const Icon(Icons.check,
-                        color: Colors.white, size: 18.0)
-                    : Text(
-                        '${i + 1}',
-                        style: TextStyle(
-                          color: current ? Colors.white : paletteInkSoft,
-                          fontWeight: FontWeight.w800,
+                  child: done
+                      ? const Icon(Icons.check, color: Colors.white, size: 18.0)
+                      : Text(
+                          '${i + 1}',
+                          style: TextStyle(
+                            color: current ? Colors.white : paletteInkSoft,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
-              ),
-              if (i < wizardSteps.length - 1)
-                Expanded(
-                  child: Container(
-                    height: 2.0,
-                    color: done ? paletteGreen : paletteOutline,
-                  ),
                 ),
-            ],
-          ),
-        );
-      });
+                if (i < wizardSteps.length - 1)
+                  Expanded(
+                    child: Container(
+                      height: 2.0,
+                      color: done ? paletteGreen : paletteOutline,
+                    ),
+                  ),
+              ],
+            ),
+          );
+        },
+      );
 
       Widget content;
       if (step == 0) {
@@ -2939,15 +2855,14 @@ dynamic build(BuildContext context) {
         );
       } else if (step == 1) {
         content = Column(
-          children: const <String>['Starter', 'Pro', 'Business']
-              .map((String p) {
+          children: const <String>['Starter', 'Pro', 'Business'].map((
+            String p,
+          ) {
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 5.0),
               padding: const EdgeInsets.all(14.0),
               decoration: BoxDecoration(
-                color: p == plan
-                    ? paletteAccent
-                    : Colors.white,
+                color: p == plan ? paletteAccent : Colors.white,
                 borderRadius: BorderRadius.circular(12.0),
                 border: Border.all(
                   color: p == plan ? paletteAccent : paletteOutline,
@@ -3119,18 +3034,17 @@ dynamic build(BuildContext context) {
                           });
                         }
                       : (canSubmit
-                          ? () {
-                              setState(() {
-                                wizardState['step'] = 0;
-                                wizardState['consent'] = false;
-                              });
-                            }
-                          : null),
+                            ? () {
+                                setState(() {
+                                  wizardState['step'] = 0;
+                                  wizardState['consent'] = false;
+                                });
+                              }
+                            : null),
                   icon: Icon(canNext ? Icons.arrow_forward : Icons.send),
                   label: Text(canNext ? 'Continue' : 'Submit'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        canNext ? paletteAccent : paletteGreen,
+                    backgroundColor: canNext ? paletteAccent : paletteGreen,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 14.0),
                   ),
@@ -3166,8 +3080,7 @@ dynamic build(BuildContext context) {
       final bool biometric = settingsState['biometric'] as bool;
       final bool autoUpdate = settingsState['autoUpdate'] as bool;
       final String tele = settingsState['telemetryLevel'] as String;
-      final List<Widget> themeChoices =
-          List<Widget>.generate(3, (int i) {
+      final List<Widget> themeChoices = List<Widget>.generate(3, (int i) {
         final String t = <String>['system', 'light', 'dark'][i];
         final IconData ic = <IconData>[
           Icons.smartphone,
@@ -3188,9 +3101,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: sel ? paletteAccent : Colors.white,
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(
-                  color: sel ? paletteAccent : paletteOutline,
-                ),
+                border: Border.all(color: sel ? paletteAccent : paletteOutline),
               ),
               child: Column(
                 children: <Widget>[
@@ -3217,28 +3128,28 @@ dynamic build(BuildContext context) {
       });
       final List<Widget> teleChoices =
           const <String>['minimal', 'balanced', 'full'].map((String t) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: ChoiceChip(
-            label: Text(t),
-            selected: t == tele,
-            selectedColor: paletteAccent,
-            labelStyle: TextStyle(
-              color: t == tele ? Colors.white : paletteInk,
-              fontWeight: FontWeight.w700,
-            ),
-            backgroundColor: Colors.white,
-            side: BorderSide(
-              color: t == tele ? paletteAccent : paletteOutline,
-            ),
-            onSelected: (bool s) {
-              setState(() {
-                settingsState['telemetryLevel'] = t;
-              });
-            },
-          ),
-        );
-      }).toList();
+            return Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ChoiceChip(
+                label: Text(t),
+                selected: t == tele,
+                selectedColor: paletteAccent,
+                labelStyle: TextStyle(
+                  color: t == tele ? Colors.white : paletteInk,
+                  fontWeight: FontWeight.w700,
+                ),
+                backgroundColor: Colors.white,
+                side: BorderSide(
+                  color: t == tele ? paletteAccent : paletteOutline,
+                ),
+                onSelected: (bool s) {
+                  setState(() {
+                    settingsState['telemetryLevel'] = t;
+                  });
+                },
+              ),
+            );
+          }).toList();
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -3256,11 +3167,13 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8.0),
           Row(
             children: <Widget>[
-              const Text('Font scale',
-                  style: TextStyle(
-                    color: paletteInk,
-                    fontWeight: FontWeight.w700,
-                  )),
+              const Text(
+                'Font scale',
+                style: TextStyle(
+                  color: paletteInk,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               Expanded(
                 child: Slider(
                   value: fontScale,
@@ -3374,32 +3287,33 @@ dynamic build(BuildContext context) {
           Wrap(
             spacing: 8.0,
             runSpacing: 8.0,
-            children: const <String>[
-              'English',
-              'Deutsch',
-              'Français',
-              'Español',
-              '日本語',
-            ].map((String l) {
-              return ChoiceChip(
-                label: Text(l),
-                selected: l == language,
-                selectedColor: paletteAccent,
-                labelStyle: TextStyle(
-                  color: l == language ? Colors.white : paletteInk,
-                  fontWeight: FontWeight.w700,
-                ),
-                side: BorderSide(
-                  color: l == language ? paletteAccent : paletteOutline,
-                ),
-                backgroundColor: Colors.white,
-                onSelected: (bool s) {
-                  setState(() {
-                    settingsState['language'] = l;
-                  });
-                },
-              );
-            }).toList(),
+            children:
+                const <String>[
+                  'English',
+                  'Deutsch',
+                  'Français',
+                  'Español',
+                  '日本語',
+                ].map((String l) {
+                  return ChoiceChip(
+                    label: Text(l),
+                    selected: l == language,
+                    selectedColor: paletteAccent,
+                    labelStyle: TextStyle(
+                      color: l == language ? Colors.white : paletteInk,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    side: BorderSide(
+                      color: l == language ? paletteAccent : paletteOutline,
+                    ),
+                    backgroundColor: Colors.white,
+                    onSelected: (bool s) {
+                      setState(() {
+                        settingsState['language'] = l;
+                      });
+                    },
+                  );
+                }).toList(),
           ),
           const SizedBox(height: 18.0),
           Container(
@@ -3421,19 +3335,34 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 8.0),
-                Text('theme: $theme', style: const TextStyle(color: paletteInk)),
-                Text('language: $language',
-                    style: const TextStyle(color: paletteInk)),
-                Text('font scale: ${(fontScale * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(color: paletteInk)),
-                Text('sync wifi-only: $syncWifiOnly',
-                    style: const TextStyle(color: paletteInk)),
-                Text('biometric: $biometric',
-                    style: const TextStyle(color: paletteInk)),
-                Text('auto-update: $autoUpdate',
-                    style: const TextStyle(color: paletteInk)),
-                Text('telemetry: $tele',
-                    style: const TextStyle(color: paletteInk)),
+                Text(
+                  'theme: $theme',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'language: $language',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'font scale: ${(fontScale * 100).toStringAsFixed(0)}%',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'sync wifi-only: $syncWifiOnly',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'biometric: $biometric',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'auto-update: $autoUpdate',
+                  style: const TextStyle(color: paletteInk),
+                ),
+                Text(
+                  'telemetry: $tele',
+                  style: const TextStyle(color: paletteInk),
+                ),
               ],
             ),
           ),
@@ -3616,11 +3545,7 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(
-                  Icons.task_alt,
-                  color: Colors.white,
-                  size: 32.0,
-                ),
+                const Icon(Icons.task_alt, color: Colors.white, size: 32.0),
                 const SizedBox(width: 14.0),
                 Expanded(
                   child: Column(

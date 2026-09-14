@@ -104,22 +104,34 @@ dynamic build(BuildContext context) {
   final LinearGradient gAnatomy = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[accentBlue.withValues(alpha: 0.10), accentGold.withValues(alpha: 0.10)],
+    colors: <Color>[
+      accentBlue.withValues(alpha: 0.10),
+      accentGold.withValues(alpha: 0.10),
+    ],
   );
   final LinearGradient gPitfall = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[accentRed.withValues(alpha: 0.10), accentRed.withValues(alpha: 0.04)],
+    colors: <Color>[
+      accentRed.withValues(alpha: 0.10),
+      accentRed.withValues(alpha: 0.04),
+    ],
   );
   final LinearGradient gMath = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[accentTeal.withValues(alpha: 0.08), accentBlue.withValues(alpha: 0.06)],
+    colors: <Color>[
+      accentTeal.withValues(alpha: 0.08),
+      accentBlue.withValues(alpha: 0.06),
+    ],
   );
   final LinearGradient gWidgetSpan = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
-    colors: <Color>[accentMagenta.withValues(alpha: 0.10), accentGold.withValues(alpha: 0.08)],
+    colors: <Color>[
+      accentMagenta.withValues(alpha: 0.10),
+      accentGold.withValues(alpha: 0.08),
+    ],
   );
 
   // -----------------------------------------------------------------
@@ -450,7 +462,10 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text('§ 2 — TextSpan anatomy', style: labelStyle),
         const SizedBox(height: 6),
-        Text('The named arguments of the TextSpan constructor', style: subheadingStyle),
+        Text(
+          'The named arguments of the TextSpan constructor',
+          style: subheadingStyle,
+        ),
         const SizedBox(height: 16),
         anatomyRow(
           'text',
@@ -572,7 +587,10 @@ TextSpan (root, baseProse 16pt)
       children: <Widget>[
         Text('§ 3 — Tree visualization', style: labelStyle),
         const SizedBox(height: 6),
-        Text('A single sentence rendered from a recursive TextSpan tree', style: subheadingStyle),
+        Text(
+          'A single sentence rendered from a recursive TextSpan tree',
+          style: subheadingStyle,
+        ),
         const SizedBox(height: 16),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -656,12 +674,16 @@ TextSpan (root, baseProse 16pt)
                 ),
                 text: 'It was smaller than memory had told him, ',
               ),
-              const TextSpan(text: 'a thumbprint of yellow light pressed against the dark. '),
+              const TextSpan(
+                text: 'a thumbprint of yellow light pressed against the dark. ',
+              ),
               TextSpan(
                 style: const TextStyle(fontWeight: FontWeight.w800),
                 text: 'He had not eaten in two days. ',
               ),
-              const TextSpan(text: 'Above him the gulls described their slow, '),
+              const TextSpan(
+                text: 'Above him the gulls described their slow, ',
+              ),
               TextSpan(
                 style: TextStyle(
                   color: accentBlue,
@@ -679,7 +701,10 @@ TextSpan (root, baseProse 16pt)
                 ),
                 text: 'metallic clang of the warning buoy.',
               ),
-              const TextSpan(text: ' He sat in the sand and remembered the line carved above the door of the orphanage: '),
+              const TextSpan(
+                text:
+                    ' He sat in the sand and remembered the line carved above the door of the orphanage: ',
+              ),
               TextSpan(
                 style: TextStyle(
                   fontFamily: 'monospace',
@@ -713,7 +738,11 @@ TextSpan (root, baseProse 16pt)
       children: <InlineSpan>[
         TextSpan(
           text: '${lineNo.toString().padLeft(2, ' ')}  ',
-          style: TextStyle(color: gutter, fontFamily: 'monospace', fontSize: 13.5),
+          style: TextStyle(
+            color: gutter,
+            fontFamily: 'monospace',
+            fontSize: 13.5,
+          ),
         ),
         ...tokens,
         const TextSpan(text: '\n'),
@@ -722,21 +751,33 @@ TextSpan (root, baseProse 16pt)
   }
 
   TextSpan kw(String t) => TextSpan(
-        text: t,
-        style: TextStyle(color: tokenKeyword, fontWeight: FontWeight.w700),
-      );
-  TextSpan str(String t) => TextSpan(text: t, style: TextStyle(color: tokenString));
+    text: t,
+    style: TextStyle(color: tokenKeyword, fontWeight: FontWeight.w700),
+  );
+  TextSpan str(String t) => TextSpan(
+    text: t,
+    style: TextStyle(color: tokenString),
+  );
   TextSpan cm(String t) => TextSpan(
-        text: t,
-        style: TextStyle(color: tokenComment, fontStyle: FontStyle.italic),
-      );
-  TextSpan nm(String t) => TextSpan(text: t, style: TextStyle(color: tokenNumber));
-  TextSpan ty(String t) => TextSpan(text: t, style: TextStyle(color: tokenType));
-  TextSpan id(String t) => TextSpan(text: t, style: TextStyle(color: tokenIdent));
+    text: t,
+    style: TextStyle(color: tokenComment, fontStyle: FontStyle.italic),
+  );
+  TextSpan nm(String t) => TextSpan(
+    text: t,
+    style: TextStyle(color: tokenNumber),
+  );
+  TextSpan ty(String t) => TextSpan(
+    text: t,
+    style: TextStyle(color: tokenType),
+  );
+  TextSpan id(String t) => TextSpan(
+    text: t,
+    style: TextStyle(color: tokenIdent),
+  );
   TextSpan op(String t) => TextSpan(
-        text: t,
-        style: TextStyle(color: tokenIdent.withValues(alpha: 0.85)),
-      );
+    text: t,
+    style: TextStyle(color: tokenIdent.withValues(alpha: 0.85)),
+  );
 
   final RichText codeListing = RichText(
     text: TextSpan(
@@ -745,12 +786,23 @@ TextSpan (root, baseProse 16pt)
         codeLine(
           lineNo: 1,
           gutter: tokenComment,
-          tokens: <InlineSpan>[cm('// Greeting renderer — maps a name to a stylised greeting.')],
+          tokens: <InlineSpan>[
+            cm('// Greeting renderer — maps a name to a stylised greeting.'),
+          ],
         ),
         codeLine(
           lineNo: 2,
           gutter: tokenComment,
-          tokens: <InlineSpan>[ty('String'), id(' '), id('greet'), op('('), ty('String'), id(' '), id('name'), op(') {')],
+          tokens: <InlineSpan>[
+            ty('String'),
+            id(' '),
+            id('greet'),
+            op('('),
+            ty('String'),
+            id(' '),
+            id('name'),
+            op(') {'),
+          ],
         ),
         codeLine(
           lineNo: 3,
@@ -814,11 +866,7 @@ TextSpan (root, baseProse 16pt)
           gutter: tokenComment,
           tokens: <InlineSpan>[op('}')],
         ),
-        codeLine(
-          lineNo: 7,
-          gutter: tokenComment,
-          tokens: <InlineSpan>[],
-        ),
+        codeLine(lineNo: 7, gutter: tokenComment, tokens: <InlineSpan>[]),
         codeLine(
           lineNo: 8,
           gutter: tokenComment,
@@ -827,12 +875,7 @@ TextSpan (root, baseProse 16pt)
         codeLine(
           lineNo: 9,
           gutter: tokenComment,
-          tokens: <InlineSpan>[
-            kw('void'),
-            id(' '),
-            id('main'),
-            op('() {'),
-          ],
+          tokens: <InlineSpan>[kw('void'), id(' '), id('main'), op('() {')],
         ),
         codeLine(
           lineNo: 10,
@@ -951,10 +994,18 @@ TextSpan (root, baseProse 16pt)
         termLine('INFO', termInfo, 'resolving workspace dependencies'),
         termLine('INFO', termInfo, 'compiling tom_core_kernel (12 files)'),
         termLine('INFO', termInfo, 'compiling tom_core_flutter (37 files)'),
-        termLine('WARN', termWarn, 'deprecated API in tom_core_flutter/text.dart:42'),
+        termLine(
+          'WARN',
+          termWarn,
+          'deprecated API in tom_core_flutter/text.dart:42',
+        ),
         termLine('WARN', termWarn, 'unused import in main.dart:7'),
         termLine('INFO', termInfo, 'running analyzer pass'),
-        termLine('ERR ', termErr, 'analyzer reported 1 issue (treating as fatal)'),
+        termLine(
+          'ERR ',
+          termErr,
+          'analyzer reported 1 issue (treating as fatal)',
+        ),
         termLine('INFO', termInfo, 'aborting build, see report.json'),
         TextSpan(
           text: '\$ ',
@@ -1005,13 +1056,21 @@ TextSpan (root, baseProse 16pt)
   // MathJax" — fine for one-line formulas, not for fractions or roots.
   // =================================================================
   TextSpan sup(String t) => TextSpan(
-        text: t,
-        style: const TextStyle(fontSize: 9, height: 1, fontFeatures: <FontFeature>[FontFeature.superscripts()]),
-      );
+    text: t,
+    style: const TextStyle(
+      fontSize: 9,
+      height: 1,
+      fontFeatures: <FontFeature>[FontFeature.superscripts()],
+    ),
+  );
   TextSpan sub(String t) => TextSpan(
-        text: t,
-        style: const TextStyle(fontSize: 9, height: 1, fontFeatures: <FontFeature>[FontFeature.subscripts()]),
-      );
+    text: t,
+    style: const TextStyle(
+      fontSize: 9,
+      height: 1,
+      fontFeatures: <FontFeature>[FontFeature.subscripts()],
+    ),
+  );
 
   final Widget mathSection = Container(
     width: double.infinity,
@@ -1029,7 +1088,10 @@ TextSpan (root, baseProse 16pt)
       children: <Widget>[
         Text('§ 7 — Inline math', style: labelStyle),
         const SizedBox(height: 6),
-        Text('Superscripts & subscripts via fontFeatures + smaller fontSize', style: subheadingStyle),
+        Text(
+          'Superscripts & subscripts via fontFeatures + smaller fontSize',
+          style: subheadingStyle,
+        ),
         const SizedBox(height: 16),
         Text.rich(
           TextSpan(
@@ -1037,7 +1099,10 @@ TextSpan (root, baseProse 16pt)
             children: <InlineSpan>[
               const TextSpan(text: 'Pythagoras:  '),
               TextSpan(
-                style: TextStyle(color: accentBlue, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: accentBlue,
+                  fontWeight: FontWeight.w700,
+                ),
                 children: <InlineSpan>[
                   const TextSpan(text: 'a'),
                   sup('2'),
@@ -1058,7 +1123,10 @@ TextSpan (root, baseProse 16pt)
             children: <InlineSpan>[
               const TextSpan(text: 'Water:  '),
               TextSpan(
-                style: TextStyle(color: accentTeal, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: accentTeal,
+                  fontWeight: FontWeight.w700,
+                ),
                 children: <InlineSpan>[
                   const TextSpan(text: 'H'),
                   sub('2'),
@@ -1067,7 +1135,10 @@ TextSpan (root, baseProse 16pt)
               ),
               const TextSpan(text: '   ·   Sulfate:  '),
               TextSpan(
-                style: TextStyle(color: accentForest, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: accentForest,
+                  fontWeight: FontWeight.w700,
+                ),
                 children: <InlineSpan>[
                   const TextSpan(text: 'SO'),
                   sub('4'),
@@ -1085,7 +1156,10 @@ TextSpan (root, baseProse 16pt)
             children: <InlineSpan>[
               const TextSpan(text: 'Series:  '),
               TextSpan(
-                style: TextStyle(color: accentMagenta, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: accentMagenta,
+                  fontWeight: FontWeight.w700,
+                ),
                 children: <InlineSpan>[
                   const TextSpan(text: 'S'),
                   sub('n'),
@@ -1131,14 +1205,15 @@ TextSpan (root, baseProse 16pt)
           backgroundColor: accentBlue,
           child: const Text(
             'F',
-            style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         label: const Text('Flutter'),
-        labelStyle: TextStyle(
-          color: accentBlue,
-          fontWeight: FontWeight.w700,
-        ),
+        labelStyle: TextStyle(color: accentBlue, fontWeight: FontWeight.w700),
         backgroundColor: accentBlue.withValues(alpha: 0.10),
         side: BorderSide(color: accentBlue.withValues(alpha: 0.35)),
       ),
@@ -1282,17 +1357,17 @@ TextSpan (root, baseProse 16pt)
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('§ 9 — textScaler / strutStyle / heightBehavior', style: labelStyle),
+        Text(
+          '§ 9 — textScaler / strutStyle / heightBehavior',
+          style: labelStyle,
+        ),
         const SizedBox(height: 6),
         Text('Same prose, three layout configurations', style: subheadingStyle),
         const SizedBox(height: 14),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            layoutSampleBox(
-              'DEFAULT',
-              RichText(text: layoutSample),
-            ),
+            layoutSampleBox('DEFAULT', RichText(text: layoutSample)),
             const SizedBox(width: 10),
             layoutSampleBox(
               'textScaler 1.4',
@@ -1574,24 +1649,24 @@ TextSpan (root, baseProse 16pt)
         pitfall(
           'RichText does not inherit DefaultTextStyle',
           'Unlike Text, the low-level RichText widget never consults the ambient '
-          'DefaultTextStyle. If your root TextSpan has no explicit style, the text '
-          'renders with engine defaults (typically 14pt black sans). Always provide '
-          'a TextStyle on the root span — or use Text.rich, which DOES merge with '
-          'DefaultTextStyle.',
+              'DefaultTextStyle. If your root TextSpan has no explicit style, the text '
+              'renders with engine defaults (typically 14pt black sans). Always provide '
+              'a TextStyle on the root span — or use Text.rich, which DOES merge with '
+              'DefaultTextStyle.',
         ),
         pitfall(
           'WidgetSpan baseline alignment uses placeholderAlignment',
           'A bare WidgetSpan defaults to PlaceholderAlignment.bottom, which often '
-          'looks wrong next to glyphs. Use PlaceholderAlignment.middle for chips '
-          'and pills, and PlaceholderAlignment.baseline (with a baseline: argument) '
-          'when you want the widget\'s bottom to sit on the alphabetic baseline.',
+              'looks wrong next to glyphs. Use PlaceholderAlignment.middle for chips '
+              'and pills, and PlaceholderAlignment.baseline (with a baseline: argument) '
+              'when you want the widget\'s bottom to sit on the alphabetic baseline.',
         ),
         pitfall(
           'Long unbreakable spans can overflow',
           'A single TextSpan containing a long unbreakable token (a URL, a hash, '
-          'an identifier) will not wrap and will trigger a layout overflow if the '
-          'parent is constrained. Wrap such spans with softWrap-friendly characters, '
-          'or break the token at known points (zero-width spaces, hyphens, slashes).',
+              'an identifier) will not wrap and will trigger a layout overflow if the '
+              'parent is constrained. Wrap such spans with softWrap-friendly characters, '
+              'or break the token at known points (zero-width spaces, hyphens, slashes).',
         ),
       ],
     ),
@@ -1605,16 +1680,15 @@ TextSpan (root, baseProse 16pt)
     padding: const EdgeInsets.fromLTRB(28, 22, 28, 28),
     decoration: BoxDecoration(
       color: paperDeep,
-      border: Border(top: BorderSide(color: inkSoft.withValues(alpha: 0.20), width: 1)),
+      border: Border(
+        top: BorderSide(color: inkSoft.withValues(alpha: 0.20), width: 1),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          'END OF FOUNDRY',
-          style: labelStyle.copyWith(color: inkSoft),
-        ),
+        Text('END OF FOUNDRY', style: labelStyle.copyWith(color: inkSoft)),
         const SizedBox(height: 6),
         Text(
           'Eleven sections. Every span hand-authored. No loops, no random words.',
@@ -1638,9 +1712,7 @@ TextSpan (root, baseProse 16pt)
     theme: ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: paperCream,
-      textTheme: TextTheme(
-        bodyMedium: baseProse,
-      ),
+      textTheme: TextTheme(bodyMedium: baseProse),
       colorScheme: ColorScheme.fromSeed(seedColor: accentBlue),
     ),
     home: Scaffold(

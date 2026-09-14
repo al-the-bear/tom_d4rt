@@ -114,12 +114,48 @@ dynamic build(BuildContext context) {
   //   curveB(i) starts high and dips.
   // The hero graph highlights where each branch wins.
   final List<double> curveA = <double>[
-    0.05, 0.10, 0.20, 0.32, 0.45, 0.55, 0.62, 0.70, 0.78, 0.84,
-    0.88, 0.91, 0.93, 0.95, 0.96, 0.97, 0.98, 0.98, 0.99, 0.99,
+    0.05,
+    0.10,
+    0.20,
+    0.32,
+    0.45,
+    0.55,
+    0.62,
+    0.70,
+    0.78,
+    0.84,
+    0.88,
+    0.91,
+    0.93,
+    0.95,
+    0.96,
+    0.97,
+    0.98,
+    0.98,
+    0.99,
+    0.99,
   ];
   final List<double> curveB = <double>[
-    0.95, 0.92, 0.88, 0.82, 0.74, 0.65, 0.55, 0.45, 0.36, 0.28,
-    0.22, 0.18, 0.15, 0.13, 0.12, 0.11, 0.10, 0.10, 0.10, 0.10,
+    0.95,
+    0.92,
+    0.88,
+    0.82,
+    0.74,
+    0.65,
+    0.55,
+    0.45,
+    0.36,
+    0.28,
+    0.22,
+    0.18,
+    0.15,
+    0.13,
+    0.12,
+    0.11,
+    0.10,
+    0.10,
+    0.10,
+    0.10,
   ];
   final List<double> curveMin = <double>[];
   final List<int> curveWinner = <int>[]; // 0 = A wins, 1 = B wins, 2 = tie
@@ -179,10 +215,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 4.0),
             Text(
               i.toString(),
-              style: TextStyle(
-                color: frostMuted,
-                fontSize: 9.0,
-              ),
+              style: TextStyle(color: frostMuted, fontSize: 9.0),
             ),
           ],
         ),
@@ -226,38 +259,17 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         Row(
           children: <Widget>[
-            Container(
-              width: 10.0,
-              height: 10.0,
-              color: cobaltLine,
-            ),
+            Container(width: 10.0, height: 10.0, color: cobaltLine),
             SizedBox(width: 6.0),
-            Text(
-              'A',
-              style: TextStyle(color: frostText, fontSize: 12.0),
-            ),
+            Text('A', style: TextStyle(color: frostText, fontSize: 12.0)),
             SizedBox(width: 18.0),
-            Container(
-              width: 10.0,
-              height: 10.0,
-              color: carmineMin,
-            ),
+            Container(width: 10.0, height: 10.0, color: carmineMin),
             SizedBox(width: 6.0),
-            Text(
-              'B',
-              style: TextStyle(color: frostText, fontSize: 12.0),
-            ),
+            Text('B', style: TextStyle(color: frostText, fontSize: 12.0)),
             SizedBox(width: 18.0),
-            Container(
-              width: 10.0,
-              height: 10.0,
-              color: lemonEqual,
-            ),
+            Container(width: 10.0, height: 10.0, color: lemonEqual),
             SizedBox(width: 6.0),
-            Text(
-              'Tie',
-              style: TextStyle(color: frostText, fontSize: 12.0),
-            ),
+            Text('Tie', style: TextStyle(color: frostText, fontSize: 12.0)),
           ],
         ),
       ],
@@ -268,18 +280,18 @@ dynamic build(BuildContext context) {
   // Palette table (12 swatches with name + hex + role).
   // ============================================================
   final List<List<String>> paletteRows = <List<String>>[
-    <String>['Slate Ink',        '#12182A', 'page void'],
-    <String>['Slate Panel',      '#1B2440', 'card body'],
-    <String>['Slate Panel Alt',  '#243056', 'alt row'],
-    <String>['Cobalt Line',      '#3F6BD9', 'curve A'],
-    <String>['Cobalt Glow',      '#6E96F2', 'highlights'],
-    <String>['Carmine Min',      '#D43A5C', 'curve B / min winner'],
+    <String>['Slate Ink', '#12182A', 'page void'],
+    <String>['Slate Panel', '#1B2440', 'card body'],
+    <String>['Slate Panel Alt', '#243056', 'alt row'],
+    <String>['Cobalt Line', '#3F6BD9', 'curve A'],
+    <String>['Cobalt Glow', '#6E96F2', 'highlights'],
+    <String>['Carmine Min', '#D43A5C', 'curve B / min winner'],
     <String>['Carmine Min Soft', '#E56C84', 'min ghost'],
-    <String>['Lemon Equal',      '#E8C547', 'tie marker'],
-    <String>['Frost Text',       '#EAF1FF', 'primary type'],
-    <String>['Frost Muted',      '#A8B5D6', 'secondary type'],
-    <String>['Edge Outline',     '#34406B', 'card border'],
-    <String>['Edge Outline Warm','#7A3245', 'pitfall border'],
+    <String>['Lemon Equal', '#E8C547', 'tie marker'],
+    <String>['Frost Text', '#EAF1FF', 'primary type'],
+    <String>['Frost Muted', '#A8B5D6', 'secondary type'],
+    <String>['Edge Outline', '#34406B', 'card border'],
+    <String>['Edge Outline Warm', '#7A3245', 'pitfall border'],
   ];
   final List<Color> paletteHues = <Color>[
     slateInk,
@@ -334,11 +346,7 @@ dynamic build(BuildContext context) {
             : slatePanelAlt.withValues(alpha: 0.6),
         child: Row(
           children: <Widget>[
-            Container(
-              width: 28.0,
-              height: 18.0,
-              color: paletteHues[i],
-            ),
+            Container(width: 28.0, height: 18.0, color: paletteHues[i]),
             SizedBox(width: 8.0),
             SizedBox(
               width: 150.0,
@@ -418,11 +426,7 @@ dynamic build(BuildContext context) {
       'Animation<U>',
       'Chain through an Animatable<U>.',
     ],
-    <String>[
-      'Animation.value',
-      'T',
-      'Current scalar at the snapshot moment.',
-    ],
+    <String>['Animation.value', 'T', 'Current scalar at the snapshot moment.'],
     <String>[
       'Animation.status',
       'AnimationStatus',
@@ -485,29 +489,20 @@ dynamic build(BuildContext context) {
             width: 220.0,
             child: Text(
               'Member',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
           SizedBox(
             width: 160.0,
             child: Text(
               'Returns',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
           Expanded(
             child: Text(
               'Notes',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -518,9 +513,7 @@ dynamic build(BuildContext context) {
     apiTableChildren.add(
       Container(
         padding: EdgeInsets.all(8.0),
-        color: i.isEven
-            ? slatePanel
-            : slatePanelAlt.withValues(alpha: 0.5),
+        color: i.isEven ? slatePanel : slatePanelAlt.withValues(alpha: 0.5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -662,9 +655,7 @@ dynamic build(BuildContext context) {
             Container(
               width: 12.0,
               height: 14.0,
-              color: tied
-                  ? lemonEqual
-                  : (aWins ? cobaltLine : carmineMin),
+              color: tied ? lemonEqual : (aWins ? cobaltLine : carmineMin),
             ),
             SizedBox(width: 6.0),
             Text(
@@ -720,7 +711,8 @@ dynamic build(BuildContext context) {
   // ASCII diagram of min(a,b) over time.
   // We render a plain Text monospace block with line graphs.
   // ============================================================
-  const String asciiGraph = ''
+  const String asciiGraph =
+      ''
       'value                                                                     \n'
       ' 1.0 |####B##B##B                                                          \n'
       ' 0.9 |        ##B##B                                                       \n'
@@ -826,20 +818,12 @@ dynamic build(BuildContext context) {
         SizedBox(height: 8.0),
         Text(
           prose1,
-          style: TextStyle(
-            color: frostText,
-            fontSize: 13.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: frostText, fontSize: 13.0, height: 1.45),
         ),
         SizedBox(height: 10.0),
         Text(
           prose2,
-          style: TextStyle(
-            color: frostText,
-            fontSize: 13.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: frostText, fontSize: 13.0, height: 1.45),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -916,11 +900,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Container(
-                  width: 8.0,
-                  height: 8.0,
-                  color: cobaltGlow,
-                ),
+                Container(width: 8.0, height: 8.0, color: cobaltGlow),
                 SizedBox(width: 8.0),
                 Text(
                   scenarios[i][0],
@@ -932,15 +912,11 @@ dynamic build(BuildContext context) {
                 ),
                 SizedBox(width: 10.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 6.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   color: carmineMin.withValues(alpha: 0.25),
                   child: Text(
                     scenarios[i][2],
-                    style: TextStyle(
-                      color: carmineMinSoft,
-                      fontSize: 10.0,
-                    ),
+                    style: TextStyle(color: carmineMinSoft, fontSize: 10.0),
                   ),
                 ),
               ],
@@ -948,11 +924,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               scenarios[i][1],
-              style: TextStyle(
-                color: frostMuted,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
+              style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
             ),
           ],
         ),
@@ -1071,11 +1043,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               pitfalls[i][1],
-              style: TextStyle(
-                color: frostMuted,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
+              style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
             ),
           ],
         ),
@@ -1152,10 +1120,7 @@ dynamic build(BuildContext context) {
       'CompoundAnimation',
       'Abstract base class composing two parents; AnimationMin extends it.',
     ],
-    <String>[
-      'pointwise',
-      'Adjective: applied at each instant independently.',
-    ],
+    <String>['pointwise', 'Adjective: applied at each instant independently.'],
     <String>[
       'governor',
       'A clamp-like animation that keeps another animation in a band.',
@@ -1238,18 +1203,11 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: 64.0,
-              height: 28.0,
-              color: paletteHues[i],
-            ),
+            Container(width: 64.0, height: 28.0, color: paletteHues[i]),
             SizedBox(height: 3.0),
             Text(
               paletteRows[i][0],
-              style: TextStyle(
-                color: frostMuted,
-                fontSize: 9.0,
-              ),
+              style: TextStyle(color: frostMuted, fontSize: 9.0),
             ),
             Text(
               paletteRows[i][1],
@@ -1284,9 +1242,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Wrap(
-          children: swatchTiles,
-        ),
+        Wrap(children: swatchTiles),
       ],
     ),
   );
@@ -1341,29 +1297,20 @@ dynamic build(BuildContext context) {
             width: 220.0,
             child: Text(
               'Operator',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
           SizedBox(
             width: 160.0,
             child: Text(
               'Returns',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
           Expanded(
             child: Text(
               'When',
-              style: TextStyle(
-                color: frostText,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(color: frostText, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -1374,9 +1321,7 @@ dynamic build(BuildContext context) {
     comparisonChildren.add(
       Container(
         padding: EdgeInsets.all(8.0),
-        color: i.isEven
-            ? slatePanel
-            : slatePanelAlt.withValues(alpha: 0.5),
+        color: i.isEven ? slatePanel : slatePanelAlt.withValues(alpha: 0.5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -1451,7 +1396,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   // Decision flowchart.
   // ============================================================
-  const String flowchart = ''
+  const String flowchart =
+      ''
       'Q1. Do you have TWO animations that should "fight" for visibility?\n'
       '     YES -> go to Q2.\n'
       '     NO  -> reach for CurvedAnimation or Tween, not min.\n'
@@ -1510,13 +1456,15 @@ dynamic build(BuildContext context) {
   // ============================================================
   // Code snippets.
   // ============================================================
-  const String snippet1 = ''
+  const String snippet1 =
+      ''
       '// Snapshot pair — safest for d4rt scripts.\n'
       'final a = AlwaysStoppedAnimation<double>(0.30);\n'
       'final b = AlwaysStoppedAnimation<double>(0.70);\n'
       'final m = AnimationMin<double>(a, b); // m.value == 0.30\n'
       '';
-  const String snippet2 = ''
+  const String snippet2 =
+      ''
       '// Capping a fade-in at 60%.\n'
       'final fade = controller.drive(\n'
       '  CurveTween(curve: Curves.easeOut),\n'
@@ -1525,14 +1473,16 @@ dynamic build(BuildContext context) {
       'final capped = AnimationMin<double>(fade, cap);\n'
       '// `capped` rises with the fade until it bumps the 0.60 ceiling.\n'
       '';
-  const String snippet3 = ''
+  const String snippet3 =
+      ''
       '// Multi-stage governor: each stage cannot outshine the slowest.\n'
       'final stage1 = controllerA.view;\n'
       'final stage2 = AnimationMin<double>(stage1, controllerB.view);\n'
       'final stage3 = AnimationMin<double>(stage2, controllerC.view);\n'
       '// stage3 is the pointwise min of all three.\n'
       '';
-  const String snippet4 = ''
+  const String snippet4 =
+      ''
       '// Snapshot probe with try/catch — defensive script style.\n'
       'double safeMin(double x, double y) {\n'
       '  try {\n'
@@ -1546,7 +1496,8 @@ dynamic build(BuildContext context) {
       '  }\n'
       '}\n'
       '';
-  const String snippet5 = ''
+  const String snippet5 =
+      ''
       '// Comparison with math.min — note the type difference.\n'
       'final scalar = math.min(0.3, 0.7); // a `num`, not animated.\n'
       'final animated = AnimationMin<double>(\n'
@@ -1577,8 +1528,7 @@ dynamic build(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 6.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
               color: slatePanelAlt,
               width: double.infinity,
               child: Text(
@@ -1731,42 +1681,26 @@ dynamic build(BuildContext context) {
           'AlwaysStoppedAnimation<double> values, drawn entirely from '
           'Container strips, Rows, and Columns. No tickers, no controllers, '
           'no futures — just algebra and pixels.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 13.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 13.5, height: 1.45),
         ),
         SizedBox(height: 14.0),
         Row(
           children: <Widget>[
-            Container(
-              width: 14.0,
-              height: 14.0,
-              color: cobaltGlow,
-            ),
+            Container(width: 14.0, height: 14.0, color: cobaltGlow),
             SizedBox(width: 8.0),
             Text(
               'Cobalt = curve A',
               style: TextStyle(color: frostText, fontSize: 12.0),
             ),
             SizedBox(width: 24.0),
-            Container(
-              width: 14.0,
-              height: 14.0,
-              color: carmineMin,
-            ),
+            Container(width: 14.0, height: 14.0, color: carmineMin),
             SizedBox(width: 8.0),
             Text(
               'Carmine = curve B / min winner',
               style: TextStyle(color: frostText, fontSize: 12.0),
             ),
             SizedBox(width: 24.0),
-            Container(
-              width: 14.0,
-              height: 14.0,
-              color: lemonEqual,
-            ),
+            Container(width: 14.0, height: 14.0, color: lemonEqual),
             SizedBox(width: 8.0),
             Text(
               'Lemon = tie',
@@ -1807,11 +1741,7 @@ dynamic build(BuildContext context) {
           'distinct from math.min (a scalar), CurvedAnimation (a reshaper), '
           'and Tween (a ranger). Demo built from snapshots only, the algebra '
           'still holds.',
-          style: TextStyle(
-            color: frostText,
-            fontSize: 13.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: frostText, fontSize: 13.0, height: 1.45),
         ),
         SizedBox(height: 8.0),
         Text(

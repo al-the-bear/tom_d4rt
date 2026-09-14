@@ -89,12 +89,24 @@ const List<_AnchorSpec> _anchors = <_AnchorSpec>[
   _AnchorSpec('topLeft', Alignment.topLeft, 'Corner for menus and badges.'),
   _AnchorSpec('topCenter', Alignment.topCenter, 'Top midpoint for tooltips.'),
   _AnchorSpec('topRight', Alignment.topRight, 'Top-right aligned overlays.'),
-  _AnchorSpec('centerLeft', Alignment.centerLeft, 'Side-linked nested flyouts.'),
+  _AnchorSpec(
+    'centerLeft',
+    Alignment.centerLeft,
+    'Side-linked nested flyouts.',
+  ),
   _AnchorSpec('center', Alignment.center, 'Centered dialogs and callouts.'),
   _AnchorSpec('centerRight', Alignment.centerRight, 'Right edge sidecars.'),
   _AnchorSpec('bottomLeft', Alignment.bottomLeft, 'Dropdown default origin.'),
-  _AnchorSpec('bottomCenter', Alignment.bottomCenter, 'Bottom-centered sheets.'),
-  _AnchorSpec('bottomRight', Alignment.bottomRight, 'Right aligned context panes.'),
+  _AnchorSpec(
+    'bottomCenter',
+    Alignment.bottomCenter,
+    'Bottom-centered sheets.',
+  ),
+  _AnchorSpec(
+    'bottomRight',
+    Alignment.bottomRight,
+    'Right aligned context panes.',
+  ),
 ];
 
 const List<_ScenarioPreset> _presets = <_ScenarioPreset>[
@@ -268,105 +280,135 @@ class _ControlLab extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child: ValueListenableBuilder8<int, int, double, double, bool, bool,
-            bool, double>(
-          first: parentAnchorIndex,
-          second: childAnchorIndex,
-          third: offsetX,
-          fourth: offsetY,
-          fifth: allowFlip,
-          sixth: allowSlide,
-          seventh: allowResize,
-          eighth: childWidth,
-          builder: (BuildContext context, int parent, int child, double dx,
-              double dy, bool flip, bool slide, bool resize, double width) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Position Controls',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                ),
-                const SizedBox(height: 10),
-                _AnchorDropdown(
-                  label: 'Parent anchor',
-                  value: parent,
-                  onChanged: (int v) => parentAnchorIndex.value = v,
-                ),
-                const SizedBox(height: 8),
-                _AnchorDropdown(
-                  label: 'Child anchor',
-                  value: child,
-                  onChanged: (int v) => childAnchorIndex.value = v,
-                ),
-                const SizedBox(height: 10),
-                Text('Offset X: ${dx.toStringAsFixed(1)}'),
-                Slider(
-                  min: -60,
-                  max: 60,
-                  divisions: 120,
-                  value: dx,
-                  onChanged: (double v) => offsetX.value = v,
-                ),
-                Text('Offset Y: ${dy.toStringAsFixed(1)}'),
-                Slider(
-                  min: -60,
-                  max: 60,
-                  divisions: 120,
-                  value: dy,
-                  onChanged: (double v) => offsetY.value = v,
-                ),
-                Text('Popup width: ${width.toStringAsFixed(0)}'),
-                Slider(
-                  min: 110,
-                  max: 260,
-                  divisions: 150,
-                  value: width,
-                  onChanged: (double v) => childWidth.value = v,
-                ),
-                ValueListenableBuilder<double>(
-                  valueListenable: childHeight,
-                  builder: (BuildContext context, double height, Widget? child) {
+        child:
+            ValueListenableBuilder8<
+              int,
+              int,
+              double,
+              double,
+              bool,
+              bool,
+              bool,
+              double
+            >(
+              first: parentAnchorIndex,
+              second: childAnchorIndex,
+              third: offsetX,
+              fourth: offsetY,
+              fifth: allowFlip,
+              sixth: allowSlide,
+              seventh: allowResize,
+              eighth: childWidth,
+              builder:
+                  (
+                    BuildContext context,
+                    int parent,
+                    int child,
+                    double dx,
+                    double dy,
+                    bool flip,
+                    bool slide,
+                    bool resize,
+                    double width,
+                  ) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Popup height: ${height.toStringAsFixed(0)}'),
+                        const Text(
+                          'Position Controls',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        _AnchorDropdown(
+                          label: 'Parent anchor',
+                          value: parent,
+                          onChanged: (int v) => parentAnchorIndex.value = v,
+                        ),
+                        const SizedBox(height: 8),
+                        _AnchorDropdown(
+                          label: 'Child anchor',
+                          value: child,
+                          onChanged: (int v) => childAnchorIndex.value = v,
+                        ),
+                        const SizedBox(height: 10),
+                        Text('Offset X: ${dx.toStringAsFixed(1)}'),
                         Slider(
-                          min: 80,
-                          max: 220,
-                          divisions: 140,
-                          value: height,
-                          onChanged: (double v) => childHeight.value = v,
+                          min: -60,
+                          max: 60,
+                          divisions: 120,
+                          value: dx,
+                          onChanged: (double v) => offsetX.value = v,
+                        ),
+                        Text('Offset Y: ${dy.toStringAsFixed(1)}'),
+                        Slider(
+                          min: -60,
+                          max: 60,
+                          divisions: 120,
+                          value: dy,
+                          onChanged: (double v) => offsetY.value = v,
+                        ),
+                        Text('Popup width: ${width.toStringAsFixed(0)}'),
+                        Slider(
+                          min: 110,
+                          max: 260,
+                          divisions: 150,
+                          value: width,
+                          onChanged: (double v) => childWidth.value = v,
+                        ),
+                        ValueListenableBuilder<double>(
+                          valueListenable: childHeight,
+                          builder:
+                              (
+                                BuildContext context,
+                                double height,
+                                Widget? child,
+                              ) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Popup height: ${height.toStringAsFixed(0)}',
+                                    ),
+                                    Slider(
+                                      min: 80,
+                                      max: 220,
+                                      divisions: 140,
+                                      value: height,
+                                      onChanged: (double v) =>
+                                          childHeight.value = v,
+                                    ),
+                                  ],
+                                );
+                              },
+                        ),
+                        SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Allow flip adjustment'),
+                          value: flip,
+                          onChanged: (bool v) => allowFlip.value = v,
+                        ),
+                        SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Allow slide adjustment'),
+                          value: slide,
+                          onChanged: (bool v) => allowSlide.value = v,
+                        ),
+                        SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Allow resize adjustment'),
+                          value: resize,
+                          onChanged: (bool v) => allowResize.value = v,
                         ),
                       ],
                     );
                   },
-                ),
-                SwitchListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Allow flip adjustment'),
-                  value: flip,
-                  onChanged: (bool v) => allowFlip.value = v,
-                ),
-                SwitchListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Allow slide adjustment'),
-                  value: slide,
-                  onChanged: (bool v) => allowSlide.value = v,
-                ),
-                SwitchListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Allow resize adjustment'),
-                  value: resize,
-                  onChanged: (bool v) => allowResize.value = v,
-                ),
-              ],
-            );
-          },
-        ),
+            ),
       ),
     );
   }
@@ -397,10 +439,7 @@ class _AnchorDropdown extends StatelessWidget {
             ),
             items: <DropdownMenuItem<int>>[
               for (int i = 0; i < _anchors.length; i++)
-                DropdownMenuItem<int>(
-                  value: i,
-                  child: Text(_anchors[i].name),
-                ),
+                DropdownMenuItem<int>(value: i, child: Text(_anchors[i].name)),
             ],
             onChanged: (int? next) {
               if (next != null) {
@@ -442,78 +481,103 @@ class _ViewportSimulation extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child: ValueListenableBuilder9<int, int, double, double, bool, bool,
-            bool, double, double>(
-          first: parentAnchorIndex,
-          second: childAnchorIndex,
-          third: offsetX,
-          fourth: offsetY,
-          fifth: allowFlip,
-          sixth: allowSlide,
-          seventh: allowResize,
-          eighth: childWidth,
-          ninth: childHeight,
-          builder: (BuildContext context, int parent, int child, double dx,
-              double dy, bool flip, bool slide, bool resize, double width,
-              double height) {
-            const Rect viewport = Rect.fromLTWH(0, 0, 360, 260);
-            const Rect parentRect = Rect.fromLTWH(118, 90, 120, 54);
-            final Size childSize = Size(width, height);
-            final _Placement placement = _placePopup(
-              viewport: viewport,
-              parentRect: parentRect,
-              childSize: childSize,
-              parentAnchor: _anchors[parent].alignment,
-              childAnchor: _anchors[child].alignment,
-              offset: Offset(dx, dy),
-              allowFlip: flip,
-              allowSlide: slide,
-              allowResize: resize,
-            );
+        child:
+            ValueListenableBuilder9<
+              int,
+              int,
+              double,
+              double,
+              bool,
+              bool,
+              bool,
+              double,
+              double
+            >(
+              first: parentAnchorIndex,
+              second: childAnchorIndex,
+              third: offsetX,
+              fourth: offsetY,
+              fifth: allowFlip,
+              sixth: allowSlide,
+              seventh: allowResize,
+              eighth: childWidth,
+              ninth: childHeight,
+              builder:
+                  (
+                    BuildContext context,
+                    int parent,
+                    int child,
+                    double dx,
+                    double dy,
+                    bool flip,
+                    bool slide,
+                    bool resize,
+                    double width,
+                    double height,
+                  ) {
+                    const Rect viewport = Rect.fromLTWH(0, 0, 360, 260);
+                    const Rect parentRect = Rect.fromLTWH(118, 90, 120, 54);
+                    final Size childSize = Size(width, height);
+                    final _Placement placement = _placePopup(
+                      viewport: viewport,
+                      parentRect: parentRect,
+                      childSize: childSize,
+                      parentAnchor: _anchors[parent].alignment,
+                      childAnchor: _anchors[child].alignment,
+                      offset: Offset(dx, dy),
+                      allowFlip: flip,
+                      allowSlide: slide,
+                      allowResize: resize,
+                    );
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Viewport Simulation',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                ),
-                const SizedBox(height: 10),
-                AspectRatio(
-                  aspectRatio: 360 / 260,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFD2E0E8)),
-                      color: const Color(0xFFFAFCFE),
-                    ),
-                    child: CustomPaint(
-                      painter: _WindowPositionPainter(
-                        viewport: viewport,
-                        parentRect: parentRect,
-                        rawRect: placement.rawRect,
-                        adjustedRect: placement.adjustedRect,
-                        parentAnchor: _anchors[parent].alignment,
-                        childAnchor: _anchors[child].alignment,
-                      ),
-                      child: const SizedBox.expand(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Placement steps: ${placement.steps.join(' -> ')}',
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  'Overflow score: ${placement.overflow.toStringAsFixed(1)} px | '
-                  'final rect: ${_rectLabel(placement.adjustedRect)}',
-                ),
-              ],
-            );
-          },
-        ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Viewport Simulation',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        AspectRatio(
+                          aspectRatio: 360 / 260,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: const Color(0xFFD2E0E8),
+                              ),
+                              color: const Color(0xFFFAFCFE),
+                            ),
+                            child: CustomPaint(
+                              painter: _WindowPositionPainter(
+                                viewport: viewport,
+                                parentRect: parentRect,
+                                rawRect: placement.rawRect,
+                                adjustedRect: placement.adjustedRect,
+                                parentAnchor: _anchors[parent].alignment,
+                                childAnchor: _anchors[child].alignment,
+                              ),
+                              child: const SizedBox.expand(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Placement steps: ${placement.steps.join(' -> ')}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Overflow score: ${placement.overflow.toStringAsFixed(1)} px | '
+                          'final rect: ${_rectLabel(placement.adjustedRect)}',
+                        ),
+                      ],
+                    );
+                  },
+            ),
       ),
     );
   }
@@ -545,19 +609,22 @@ class _UsagePatterns extends StatelessWidget {
                 title: 'showMenu-style context panels',
                 code:
                     'parentAnchor: bottomLeft\nchildAnchor: topLeft\noffset: Offset(0, 6)',
-                note: 'Great for row actions where horizontal alignment matters.',
+                note:
+                    'Great for row actions where horizontal alignment matters.',
               ),
               const _PatternItem(
                 title: 'Tooltip balancing',
                 code:
                     'parentAnchor: topCenter\nchildAnchor: bottomCenter\noffset: Offset(0, -8)',
-                note: 'Keeps descriptive overlays centered over trigger controls.',
+                note:
+                    'Keeps descriptive overlays centered over trigger controls.',
               ),
               const _PatternItem(
                 title: 'Submenu cascades',
                 code:
                     'parentAnchor: centerRight\nchildAnchor: centerLeft\noffset: Offset(4, 0)',
-                note: 'Useful for desktop navigation where stacked menus expand.',
+                note:
+                    'Useful for desktop navigation where stacked menus expand.',
               ),
             ];
 
@@ -579,7 +646,9 @@ class _UsagePatterns extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: const Color(0xFFD5E2E8)),
+                              border: Border.all(
+                                color: const Color(0xFFD5E2E8),
+                              ),
                               color: const Color(0xFFF8FBFD),
                             ),
                             child: Padding(
@@ -785,7 +854,12 @@ _Placement _placePopup({
   required bool allowResize,
 }) {
   final Offset parentPoint = _anchorPoint(parentRect, parentAnchor);
-  final Rect provisional = Rect.fromLTWH(0, 0, childSize.width, childSize.height);
+  final Rect provisional = Rect.fromLTWH(
+    0,
+    0,
+    childSize.width,
+    childSize.height,
+  );
   final Offset childPoint = _anchorPoint(provisional, childAnchor);
   final Rect raw = provisional.shift(parentPoint - childPoint + offset);
 
@@ -919,12 +993,8 @@ class _WindowPositionPainter extends CustomPainter {
     final double sx = size.width / viewport.width;
     final double sy = size.height / viewport.height;
 
-    Rect mapRect(Rect r) => Rect.fromLTWH(
-          r.left * sx,
-          r.top * sy,
-          r.width * sx,
-          r.height * sy,
-        );
+    Rect mapRect(Rect r) =>
+        Rect.fromLTWH(r.left * sx, r.top * sy, r.width * sx, r.height * sy);
 
     Offset mapOffset(Offset o) => Offset(o.dx * sx, o.dy * sy);
 
@@ -949,8 +1019,14 @@ class _WindowPositionPainter extends CustomPainter {
       ..color = const Color(0xFF2C82A0)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
-    canvas.drawRRect(RRect.fromRectAndRadius(p, const Radius.circular(10)), parentFill);
-    canvas.drawRRect(RRect.fromRectAndRadius(p, const Radius.circular(10)), parentBorder);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(p, const Radius.circular(10)),
+      parentFill,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(p, const Radius.circular(10)),
+      parentBorder,
+    );
 
     final Paint rawFill = Paint()
       ..color = const Color(0xFFC96B4E).withValues(alpha: 0.22)
@@ -984,8 +1060,12 @@ class _WindowPositionPainter extends CustomPainter {
       adjustedBorder,
     );
 
-    final Offset parentAnchorPoint = mapOffset(_anchorPoint(parentRect, parentAnchor));
-    final Offset childAnchorPoint = mapOffset(_anchorPoint(adjustedRect, childAnchor));
+    final Offset parentAnchorPoint = mapOffset(
+      _anchorPoint(parentRect, parentAnchor),
+    );
+    final Offset childAnchorPoint = mapOffset(
+      _anchorPoint(adjustedRect, childAnchor),
+    );
 
     final Paint linkPaint = Paint()
       ..color = const Color(0xFF5D707A)
@@ -1153,8 +1233,18 @@ class ValueListenableBuilder8<A, B, C, D, E, F, G, H> extends StatelessWidget {
   final ValueNotifier<F> sixth;
   final ValueNotifier<G> seventh;
   final ValueNotifier<H> eighth;
-  final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f,
-      G g, H h) builder;
+  final Widget Function(
+    BuildContext context,
+    A a,
+    B b,
+    C c,
+    D d,
+    E e,
+    F f,
+    G g,
+    H h,
+  )
+  builder;
 
   @override
   Widget build(BuildContext context) {
@@ -1183,18 +1273,18 @@ class ValueListenableBuilder8<A, B, C, D, E, F, G, H> extends StatelessWidget {
                                   valueListenable: eighth,
                                   builder:
                                       (BuildContext context, H h, Widget? l3) {
-                                    return builder(
-                                      context,
-                                      a,
-                                      b,
-                                      c,
-                                      d,
-                                      e,
-                                      f,
-                                      g,
-                                      h,
-                                    );
-                                  },
+                                        return builder(
+                                          context,
+                                          a,
+                                          b,
+                                          c,
+                                          d,
+                                          e,
+                                          f,
+                                          g,
+                                          h,
+                                        );
+                                      },
                                 );
                               },
                             );
@@ -1238,8 +1328,19 @@ class ValueListenableBuilder9<A, B, C, D, E, F, G, H, I>
   final ValueNotifier<G> seventh;
   final ValueNotifier<H> eighth;
   final ValueNotifier<I> ninth;
-  final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f,
-      G g, H h, I i) builder;
+  final Widget Function(
+    BuildContext context,
+    A a,
+    B b,
+    C c,
+    D d,
+    E e,
+    F f,
+    G g,
+    H h,
+    I i,
+  )
+  builder;
 
   @override
   Widget build(BuildContext context) {
@@ -1268,25 +1369,29 @@ class ValueListenableBuilder9<A, B, C, D, E, F, G, H, I>
                                   valueListenable: eighth,
                                   builder:
                                       (BuildContext context, H h, Widget? l3) {
-                                    return ValueListenableBuilder<I>(
-                                      valueListenable: ninth,
-                                      builder: (BuildContext context, I i,
-                                          Widget? l4) {
-                                        return builder(
-                                          context,
-                                          a,
-                                          b,
-                                          c,
-                                          d,
-                                          e,
-                                          f,
-                                          g,
-                                          h,
-                                          i,
+                                        return ValueListenableBuilder<I>(
+                                          valueListenable: ninth,
+                                          builder:
+                                              (
+                                                BuildContext context,
+                                                I i,
+                                                Widget? l4,
+                                              ) {
+                                                return builder(
+                                                  context,
+                                                  a,
+                                                  b,
+                                                  c,
+                                                  d,
+                                                  e,
+                                                  f,
+                                                  g,
+                                                  h,
+                                                  i,
+                                                );
+                                              },
                                         );
                                       },
-                                    );
-                                  },
                                 );
                               },
                             );

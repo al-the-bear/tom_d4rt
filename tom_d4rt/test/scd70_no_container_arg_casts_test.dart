@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt) — no bridge adapter in either tree casts an argument to a parameterised container.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 // SCD70 — a bridge adapter never CASTS an argument to a parameterised
 // container.
 //

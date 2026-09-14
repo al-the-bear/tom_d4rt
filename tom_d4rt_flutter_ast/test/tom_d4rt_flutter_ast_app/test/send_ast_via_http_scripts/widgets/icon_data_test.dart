@@ -17,19 +17,22 @@ import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 
 /// Drives the codePoint inspector dropdown (section 3).
-final ValueNotifier<IconData> kInspectorIcon =
-    ValueNotifier<IconData>(Icons.favorite);
+final ValueNotifier<IconData> kInspectorIcon = ValueNotifier<IconData>(
+  Icons.favorite,
+);
 
 /// Drives the interactive size slider (section 4).
 final ValueNotifier<double> kPlaygroundSize = ValueNotifier<double>(48.0);
 
 /// Drives the interactive color chip selection (section 4).
-final ValueNotifier<Color> kPlaygroundColor =
-    ValueNotifier<Color>(const Color(0xFF6750A4));
+final ValueNotifier<Color> kPlaygroundColor = ValueNotifier<Color>(
+  const Color(0xFF6750A4),
+);
 
 /// Drives the playground icon selection (section 4).
-final ValueNotifier<IconData> kPlaygroundIcon =
-    ValueNotifier<IconData>(Icons.star);
+final ValueNotifier<IconData> kPlaygroundIcon = ValueNotifier<IconData>(
+  Icons.star,
+);
 
 /// Drives the custom IconData preview (section 6). The user can flip through
 /// a short list of "simulated" custom glyphs that in reality reuse an existing
@@ -277,10 +280,7 @@ class _HeroBanner extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            scheme.primaryContainer,
-            scheme.secondaryContainer,
-          ],
+          colors: <Color>[scheme.primaryContainer, scheme.secondaryContainer],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -302,9 +302,9 @@ class _HeroBanner extends StatelessWidget {
                 Text(
                   'IconData',
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: scheme.onPrimaryContainer,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -313,8 +313,8 @@ class _HeroBanner extends StatelessWidget {
                   'Icons.favorite, Icons.settings — are all IconData '
                   'instances pointing into the bundled MaterialIcons font.',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: scheme.onPrimaryContainer,
-                      ),
+                    color: scheme.onPrimaryContainer,
+                  ),
                 ),
               ],
             ),
@@ -397,14 +397,15 @@ class _HeroFactCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     fact.title,
-                    style:
-                        Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text(fact.body,
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    fact.body,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
               ),
             ),
@@ -435,8 +436,10 @@ class _HeroAnatomy extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.architecture, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Anatomy of an IconData',
-                    style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  'Anatomy of an IconData',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -516,10 +519,7 @@ class _AnatomyRow extends StatelessWidget {
           ),
           SizedBox(
             width: 110,
-            child: Text(
-              type,
-              style: const TextStyle(fontFamily: 'monospace'),
-            ),
+            child: Text(type, style: const TextStyle(fontFamily: 'monospace')),
           ),
           Expanded(child: Text(note)),
         ],
@@ -573,8 +573,11 @@ class _GalleryTab extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final int columns =
-            constraints.maxWidth > 900 ? 5 : constraints.maxWidth > 600 ? 4 : 3;
+        final int columns = constraints.maxWidth > 900
+            ? 5
+            : constraints.maxWidth > 600
+            ? 4
+            : 3;
         return GridView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: _galleryEntries.length,
@@ -656,10 +659,7 @@ class _GalleryCard extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               '${size.toInt()}px',
-              style: TextStyle(
-                fontSize: 10,
-                color: scheme.onSurfaceVariant,
-              ),
+              style: TextStyle(fontSize: 10, color: scheme.onSurfaceVariant),
             ),
           ],
         ),
@@ -871,7 +871,8 @@ class _InspectorFields extends StatelessWidget {
               children: <Widget>[
                 _FieldRow(
                   label: 'codePoint (hex)',
-                  value: '0x${current.codePoint.toRadixString(16).toUpperCase()}',
+                  value:
+                      '0x${current.codePoint.toRadixString(16).toUpperCase()}',
                 ),
                 const Divider(),
                 _FieldRow(
@@ -954,8 +955,10 @@ class _InspectorHexBreakdown extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Hex breakdown',
-                    style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  'Hex breakdown',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: <Widget>[
@@ -967,8 +970,9 @@ class _InspectorHexBreakdown extends StatelessWidget {
                           height: 48,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: scheme.primary
-                                .withValues(alpha: 0.12 + i * 0.08),
+                            color: scheme.primary.withValues(
+                              alpha: 0.12 + i * 0.08,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
@@ -1091,7 +1095,9 @@ class _PlaygroundSizeSlider extends StatelessWidget {
                     const Spacer(),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: scheme.primary,
                         borderRadius: BorderRadius.circular(10),
@@ -1440,8 +1446,7 @@ class _DirectionCell extends StatelessWidget {
                   color: scheme.primaryContainer,
                   shape: BoxShape.circle,
                 ),
-                child:
-                    Icon(icon, size: 48, color: scheme.onPrimaryContainer),
+                child: Icon(icon, size: 48, color: scheme.onPrimaryContainer),
               ),
             ),
           ],
@@ -1493,18 +1498,30 @@ class _DirectionalUseCases extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<_UseCase> useCases = <_UseCase>[
-      _UseCase(Icons.arrow_back, 'Back navigation',
-          'Back arrows should always point toward the start of the reading '
-              'direction, so they flip in RTL.'),
-      _UseCase(Icons.chevron_right, 'Disclosure chevrons',
-          'Chevrons used to expand a row should follow text direction so the '
-              'user reads into them naturally.'),
-      _UseCase(Icons.send, 'Send affordance',
-          'Send icons that show a paper airplane pointing forward look wrong '
-              'in RTL unless mirrored.'),
-      _UseCase(Icons.reply, 'Reply / forward',
-          'Reply icons literally indicate direction of motion and must be '
-              'mirrored to preserve meaning.'),
+      _UseCase(
+        Icons.arrow_back,
+        'Back navigation',
+        'Back arrows should always point toward the start of the reading '
+            'direction, so they flip in RTL.',
+      ),
+      _UseCase(
+        Icons.chevron_right,
+        'Disclosure chevrons',
+        'Chevrons used to expand a row should follow text direction so the '
+            'user reads into them naturally.',
+      ),
+      _UseCase(
+        Icons.send,
+        'Send affordance',
+        'Send icons that show a paper airplane pointing forward look wrong '
+            'in RTL unless mirrored.',
+      ),
+      _UseCase(
+        Icons.reply,
+        'Reply / forward',
+        'Reply icons literally indicate direction of motion and must be '
+            'mirrored to preserve meaning.',
+      ),
     ];
     return Column(
       children: <Widget>[
@@ -1683,8 +1700,10 @@ flutter:
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Font asset declaration',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Font asset declaration',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(12),
@@ -1763,8 +1782,7 @@ class _CategorySection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Text(group.name,
-                    style: Theme.of(context).textTheme.titleLarge),
+                Text(group.name, style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
             const SizedBox(height: 12),
@@ -1853,8 +1871,10 @@ class _FallbackExplainer extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.format_list_numbered, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('fontFamilyFallback lookup order',
-                    style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  'fontFamilyFallback lookup order',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -1900,8 +1920,11 @@ class _FallbackDiagram extends StatelessWidget {
                 scheme: scheme,
               ),
               if (i < fallbackChain.length - 1)
-                Icon(Icons.arrow_downward,
-                    color: scheme.onSurfaceVariant, size: 20),
+                Icon(
+                  Icons.arrow_downward,
+                  color: scheme.onSurfaceVariant,
+                  size: 20,
+                ),
             ],
             const SizedBox(height: 12),
             Wrap(
@@ -1973,8 +1996,7 @@ class _FallbackStep extends StatelessWidget {
           ),
           if (isMatch)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: scheme.tertiary,
                 borderRadius: BorderRadius.circular(20),
@@ -2009,8 +2031,10 @@ class _CompareTab extends StatelessWidget {
       children: <Widget>[
         _FallbackExplainer(scheme: scheme),
         const SizedBox(height: 20),
-        Text('Comparison — four ways to render a glyph',
-            style: Theme.of(context).textTheme.titleLarge),
+        Text(
+          'Comparison — four ways to render a glyph',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         const SizedBox(height: 12),
         _CompareRow(
           title: 'IconData + Icon',
@@ -2098,10 +2122,7 @@ class _CompareTab extends StatelessWidget {
             style: TextStyle(fontSize: 42, color: Color(0xFFEF6C00)),
           ),
           scheme: scheme,
-          pros: const <String>[
-            'Zero assets',
-            'Trivially scalable',
-          ],
+          pros: const <String>['Zero assets', 'Trivially scalable'],
           cons: const <String>[
             'Font-dependent appearance',
             'No IconTheme integration',
@@ -2158,13 +2179,15 @@ class _CompareRow extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(title,
-                          style:
-                              Theme.of(context).textTheme.titleMedium),
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                       const SizedBox(height: 4),
-                      Text(description,
-                          style:
-                              Theme.of(context).textTheme.bodyMedium),
+                      Text(
+                        description,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ],
                   ),
                 ),
@@ -2215,8 +2238,9 @@ class _ProsCons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent =
-        positive ? const Color(0xFF2E7D32) : const Color(0xFFB3261E);
+    final Color accent = positive
+        ? const Color(0xFF2E7D32)
+        : const Color(0xFFB3261E);
     final IconData marker = positive ? Icons.check_circle : Icons.cancel;
     return Container(
       padding: const EdgeInsets.all(10),
@@ -2345,8 +2369,7 @@ class _PitfallTile extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(body,
-                      style: TextStyle(color: scheme.onErrorContainer)),
+                  Text(body, style: TextStyle(color: scheme.onErrorContainer)),
                 ],
               ),
             ),
@@ -2383,8 +2406,10 @@ const IconData(
               children: <Widget>[
                 Icon(Icons.menu_book, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('API cheat sheet',
-                    style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  'API cheat sheet',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -2404,8 +2429,7 @@ const IconData(
               ),
             ),
             const SizedBox(height: 16),
-            Text('Fields',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text('Fields', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 6),
             const _FieldDoc(
               name: 'codePoint',
@@ -2441,8 +2465,10 @@ const IconData(
                   'missing from fontFamily.',
             ),
             const SizedBox(height: 12),
-            Text('Operators and overrides',
-                style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Operators and overrides',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: 6),
             const _FieldDoc(
               name: 'operator ==',
@@ -2459,7 +2485,8 @@ const IconData(
             const _FieldDoc(
               name: 'toString',
               type: 'String',
-              note: "Returns 'IconData(U+XXXX)' where XXXX is the code point in hex.",
+              note:
+                  "Returns 'IconData(U+XXXX)' where XXXX is the code point in hex.",
             ),
           ],
         ),
@@ -2469,11 +2496,7 @@ const IconData(
 }
 
 class _FieldDoc extends StatelessWidget {
-  const _FieldDoc({
-    required this.name,
-    required this.type,
-    required this.note,
-  });
+  const _FieldDoc({required this.name, required this.type, required this.note});
 
   final String name;
   final String type;
@@ -2498,10 +2521,7 @@ class _FieldDoc extends StatelessWidget {
           ),
           SizedBox(
             width: 100,
-            child: Text(
-              type,
-              style: const TextStyle(fontFamily: 'monospace'),
-            ),
+            child: Text(type, style: const TextStyle(fontFamily: 'monospace')),
           ),
           Expanded(child: Text(note)),
         ],

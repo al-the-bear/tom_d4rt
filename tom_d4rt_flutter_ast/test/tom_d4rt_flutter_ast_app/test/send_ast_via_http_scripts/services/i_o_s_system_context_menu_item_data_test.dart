@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: blush, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: blush),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: darkRuby.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: darkRuby.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -119,16 +128,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: darkRuby)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: darkRuby,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -139,18 +148,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? ruby.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: blush.withValues(alpha: 0.5)),
-        ),
+        border: Border(bottom: BorderSide(color: blush.withValues(alpha: 0.5))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? darkRuby : garnet)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? darkRuby : garnet,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -167,18 +177,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkRuby : deepRuby,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: ruby),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: ruby),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -199,16 +214,18 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: darkRuby,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: darkRuby,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: garnet)),
+            child: Text(detail, style: TextStyle(fontSize: 12, color: garnet)),
           ),
         ],
       ),
@@ -245,11 +262,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.phone_iphone, size: 22, color: ruby),
                   const SizedBox(width: 8),
-                  Text('iOS Text Selection Menu',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: darkRuby)),
+                  Text(
+                    'iOS Text Selection Menu',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: darkRuby,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -340,9 +360,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.phone_iphone, size: 22, color: ruby),
                     const SizedBox(height: 4),
-                    Text('System Items',
-                        style: TextStyle(
-                            fontSize: 11, fontWeight: FontWeight.bold, color: ruby)),
+                    Text(
+                      'System Items',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: ruby,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     _ioCompareItem('OS-provided', ruby),
                     _ioCompareItem('Fixed labels', ruby),
@@ -365,9 +390,14 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.extension, size: 22, color: garnet),
                     const SizedBox(height: 4),
-                    Text('Custom Items',
-                        style: TextStyle(
-                            fontSize: 11, fontWeight: FontWeight.bold, color: garnet)),
+                    Text(
+                      'Custom Items',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: garnet,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     _ioCompareItem('App-defined', garnet),
                     _ioCompareItem('Custom labels', garnet),
@@ -403,7 +433,11 @@ dynamic build(BuildContext context) {
             ioRow(['iOS Version', 'API', 'Presentation'], isHeader: true),
             ioRow(['< 16', 'UIMenuController', 'Black bubble above text']),
             ioRow(['>= 16', 'UIEditMenuInteraction', 'Modern rounded menu']),
-            ioRow(['Flutter', 'IOSSystemContextMenuItemData', 'Abstraction layer']),
+            ioRow([
+              'Flutter',
+              'IOSSystemContextMenuItemData',
+              'Abstraction layer',
+            ]),
           ],
         ),
       ),
@@ -428,8 +462,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ioFlow(['Text selected', 'Build toolbar items',
-                'IOSSystemContextMenuItemData', 'iOS system menu']),
+            ioFlow([
+              'Text selected',
+              'Build toolbar items',
+              'IOSSystemContextMenuItemData',
+              'iOS system menu',
+            ]),
             const SizedBox(height: 10),
             ioRow(['Step', 'Component', 'Responsibility'], isHeader: true),
             ioRow(['1', 'EditableText', 'Detects selection']),
@@ -460,13 +498,55 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ioSystemItem('Cut', 'cut:', 'Requires selection', Icons.content_cut, ruby),
-            _ioSystemItem('Copy', 'copy:', 'Requires selection', Icons.copy, garnet),
-            _ioSystemItem('Paste', 'paste:', 'Requires clipboard', Icons.paste, deepRuby),
-            _ioSystemItem('Select All', 'selectAll:', 'Always available', Icons.select_all, claret),
-            _ioSystemItem('Look Up', '_lookup:', 'Requires selection', Icons.search, rosewood),
-            _ioSystemItem('Translate', '_translate:', 'iOS 15+', Icons.translate, darkRuby),
-            _ioSystemItem('Share…', '_share:', 'Requires selection', Icons.share, garnet),
+            _ioSystemItem(
+              'Cut',
+              'cut:',
+              'Requires selection',
+              Icons.content_cut,
+              ruby,
+            ),
+            _ioSystemItem(
+              'Copy',
+              'copy:',
+              'Requires selection',
+              Icons.copy,
+              garnet,
+            ),
+            _ioSystemItem(
+              'Paste',
+              'paste:',
+              'Requires clipboard',
+              Icons.paste,
+              deepRuby,
+            ),
+            _ioSystemItem(
+              'Select All',
+              'selectAll:',
+              'Always available',
+              Icons.select_all,
+              claret,
+            ),
+            _ioSystemItem(
+              'Look Up',
+              '_lookup:',
+              'Requires selection',
+              Icons.search,
+              rosewood,
+            ),
+            _ioSystemItem(
+              'Translate',
+              '_translate:',
+              'iOS 15+',
+              Icons.translate,
+              darkRuby,
+            ),
+            _ioSystemItem(
+              'Share…',
+              '_share:',
+              'Requires selection',
+              Icons.share,
+              garnet,
+            ),
           ],
         ),
       ),
@@ -564,8 +644,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ioFlow(['Tap item', 'iOS → channel', 'Match action',
-                'Invoke callback', 'Update UI']),
+            ioFlow([
+              'Tap item',
+              'iOS → channel',
+              'Match action',
+              'Invoke callback',
+              'Update UI',
+            ]),
             const SizedBox(height: 10),
             ioRow(['Step', 'Thread', 'Action'], isHeader: true),
             ioRow(['1', 'Main (iOS)', 'User taps menu item']),
@@ -657,7 +742,11 @@ dynamic build(BuildContext context) {
         'Accessibility Features',
         Column(
           children: [
-            ioRow(['Feature', 'System Menu', 'Flutter Toolbar'], isHeader: true),
+            ioRow([
+              'Feature',
+              'System Menu',
+              'Flutter Toolbar',
+            ], isHeader: true),
             ioRow(['VoiceOver', 'Automatic', 'Manual semantics']),
             ioRow(['Dynamic Type', 'Automatic', 'Manual sizing']),
             ioRow(['RTL support', 'Automatic', 'Manual layout']),
@@ -716,11 +805,36 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ioDismissItem('Item tap', 'Action fires then dismiss', Icons.touch_app, ruby),
-            _ioDismissItem('Outside tap', 'Silent dismiss', Icons.exit_to_app, garnet),
-            _ioDismissItem('Scroll', 'Content moved', Icons.swap_vert, deepRuby),
-            _ioDismissItem('Selection change', 'Programmatic', Icons.deselect, claret),
-            _ioDismissItem('Window resign', 'App backgrounded', Icons.visibility_off, rosewood),
+            _ioDismissItem(
+              'Item tap',
+              'Action fires then dismiss',
+              Icons.touch_app,
+              ruby,
+            ),
+            _ioDismissItem(
+              'Outside tap',
+              'Silent dismiss',
+              Icons.exit_to_app,
+              garnet,
+            ),
+            _ioDismissItem(
+              'Scroll',
+              'Content moved',
+              Icons.swap_vert,
+              deepRuby,
+            ),
+            _ioDismissItem(
+              'Selection change',
+              'Programmatic',
+              Icons.deselect,
+              claret,
+            ),
+            _ioDismissItem(
+              'Window resign',
+              'App backgrounded',
+              Icons.visibility_off,
+              rosewood,
+            ),
           ],
         ),
       ),
@@ -813,11 +927,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('IOSSystemContextMenuItemData — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'IOSSystemContextMenuItemData — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From system items through custom callbacks, serialization, '
@@ -849,10 +966,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -876,8 +1005,14 @@ Widget _ioMenuItem(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 16, color: color),
         const SizedBox(height: 2),
-        Text(label,
-            style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600, color: color)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 8,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -905,7 +1040,13 @@ Widget _ioCompareItem(String text, Color color) {
   );
 }
 
-Widget _ioSystemItem(String name, String action, String condition, IconData icon, Color color) {
+Widget _ioSystemItem(
+  String name,
+  String action,
+  String condition,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -922,17 +1063,29 @@ Widget _ioSystemItem(String name, String action, String condition, IconData icon
         const SizedBox(width: 8),
         SizedBox(
           width: 60,
-          child: Text(name,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(action,
-              style: TextStyle(
-                  fontSize: 9, fontFamily: 'monospace', color: color.withValues(alpha: 0.7))),
+          child: Text(
+            action,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.7),
+            ),
+          ),
         ),
-        Text(condition,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6))),
+        Text(
+          condition,
+          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6)),
+        ),
       ],
     ),
   );
@@ -951,15 +1104,19 @@ Widget _ioOrderItem(int num, String label, String source, Color color) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(label,
-              style: TextStyle(fontSize: 11, color: color)),
+          child: Text(label, style: TextStyle(fontSize: 11, color: color)),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -967,9 +1124,14 @@ Widget _ioOrderItem(int num, String label, String source, Color color) {
             color: color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(source,
-              style: TextStyle(
-                  fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            source,
+            style: TextStyle(
+              fontSize: 9,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
       ],
     ),
@@ -995,11 +1157,21 @@ Widget _ioDismissItem(String label, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold, color: color)),
-              Text(desc,
-                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),

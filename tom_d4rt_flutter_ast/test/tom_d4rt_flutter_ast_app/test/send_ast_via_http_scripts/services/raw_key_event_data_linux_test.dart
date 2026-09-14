@@ -193,8 +193,7 @@ class _Section extends StatelessWidget {
         children: [
           // Header strip — Ubuntu-style title bar
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -223,10 +222,7 @@ class _Section extends StatelessWidget {
                   height: 44,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        accent,
-                        accent.withValues(alpha: 0.65),
-                      ],
+                      colors: [accent, accent.withValues(alpha: 0.65)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -268,10 +264,7 @@ class _Section extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(18),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(18), child: child),
         ],
       ),
     );
@@ -350,8 +343,7 @@ class _Term extends StatelessWidget {
         children: [
           // Terminal title bar
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color: _Pal.termPanel,
               borderRadius: const BorderRadius.only(
@@ -451,10 +443,7 @@ class _Pill extends StatelessWidget {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: color.withValues(alpha: 0.7),
-          width: 1.1,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.7), width: 1.1),
       ),
       child: Text(
         label,
@@ -513,10 +502,7 @@ class _DeprecationBanner extends StatelessWidget {
             height: 56,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  _Pal.amberSoft,
-                  _Pal.ubuOrange,
-                ],
+                colors: [_Pal.amberSoft, _Pal.ubuOrange],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -550,12 +536,15 @@ class _DeprecationBanner extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 9, vertical: 3),
+                        horizontal: 9,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.4)),
+                          color: Colors.white.withValues(alpha: 0.4),
+                        ),
                       ),
                       child: const Text(
                         '@Deprecated',
@@ -789,10 +778,7 @@ class _HeroFact extends StatelessWidget {
               color: color,
               shape: BoxShape.circle,
               boxShadow: [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.6),
-                  blurRadius: 6,
-                ),
+                BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 6),
               ],
             ),
           ),
@@ -835,14 +821,10 @@ class _Hierarchy extends StatelessWidget {
         // Parent abstract class node
         Center(
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  _Pal.aubergine,
-                  _Pal.aubergineSoft,
-                ],
+                colors: [_Pal.aubergine, _Pal.aubergineSoft],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -885,42 +867,71 @@ class _Hierarchy extends StatelessWidget {
         const SizedBox(height: 4),
         // Vertical connector
         Center(
-          child: Container(
-            width: 2,
-            height: 20,
-            color: _Pal.aubergineSoft,
-          ),
+          child: Container(width: 2, height: 20, color: _Pal.aubergineSoft),
         ),
         // Horizontal rail
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: Container(
-            height: 2,
-            color: _Pal.aubergineSoft,
-          ),
+          child: Container(height: 2, color: _Pal.aubergineSoft),
         ),
         const SizedBox(height: 4),
         // Six subclass boxes
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            Expanded(child: _SubclassNode(name: 'Android', code: 'AOSP',
-                color: _Pal.termGreen, highlighted: false)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'Android',
+                code: 'AOSP',
+                color: _Pal.termGreen,
+                highlighted: false,
+              ),
+            ),
             SizedBox(width: 6),
-            Expanded(child: _SubclassNode(name: 'iOS', code: 'UIKey',
-                color: _Pal.gtkBlue, highlighted: false)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'iOS',
+                code: 'UIKey',
+                color: _Pal.gtkBlue,
+                highlighted: false,
+              ),
+            ),
             SizedBox(width: 6),
-            Expanded(child: _SubclassNode(name: 'Linux', code: 'GTK/GLFW',
-                color: _Pal.ubuOrange, highlighted: true)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'Linux',
+                code: 'GTK/GLFW',
+                color: _Pal.ubuOrange,
+                highlighted: true,
+              ),
+            ),
             SizedBox(width: 6),
-            Expanded(child: _SubclassNode(name: 'MacOS', code: 'NSEvent',
-                color: _Pal.aubergineSoft, highlighted: false)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'MacOS',
+                code: 'NSEvent',
+                color: _Pal.aubergineSoft,
+                highlighted: false,
+              ),
+            ),
             SizedBox(width: 6),
-            Expanded(child: _SubclassNode(name: 'Web', code: 'KeyboardEvent',
-                color: _Pal.teal, highlighted: false)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'Web',
+                code: 'KeyboardEvent',
+                color: _Pal.teal,
+                highlighted: false,
+              ),
+            ),
             SizedBox(width: 6),
-            Expanded(child: _SubclassNode(name: 'Windows', code: 'VK_*',
-                color: _Pal.crimson, highlighted: false)),
+            Expanded(
+              child: _SubclassNode(
+                name: 'Windows',
+                code: 'VK_*',
+                color: _Pal.crimson,
+                highlighted: false,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 16),
@@ -929,14 +940,16 @@ class _Hierarchy extends StatelessWidget {
           decoration: BoxDecoration(
             color: _Pal.ubuOrange.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-                color: _Pal.ubuOrange.withValues(alpha: 0.45)),
+            border: Border.all(color: _Pal.ubuOrange.withValues(alpha: 0.45)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.fiber_manual_record,
-                  size: 12, color: _Pal.ubuOrange),
+              const Icon(
+                Icons.fiber_manual_record,
+                size: 12,
+                color: _Pal.ubuOrange,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -972,20 +985,13 @@ class _SubclassNode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 2,
-          height: 16,
-          color: _Pal.aubergineSoft,
-        ),
+        Container(width: 2, height: 16, color: _Pal.aubergineSoft),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 11),
           decoration: BoxDecoration(
             gradient: highlighted
                 ? LinearGradient(
-                    colors: [
-                      color,
-                      color.withValues(alpha: 0.7),
-                    ],
+                    colors: [color, color.withValues(alpha: 0.7)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   )
@@ -993,9 +999,7 @@ class _SubclassNode extends StatelessWidget {
             color: highlighted ? null : Colors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: highlighted
-                  ? color
-                  : color.withValues(alpha: 0.6),
+              color: highlighted ? color : color.withValues(alpha: 0.6),
               width: highlighted ? 2 : 1.1,
             ),
             boxShadow: highlighted
@@ -1033,8 +1037,7 @@ class _SubclassNode extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 5, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 decoration: BoxDecoration(
                   color: highlighted
                       ? Colors.white.withValues(alpha: 0.2)
@@ -1198,10 +1201,7 @@ class _FieldCard extends StatelessWidget {
             height: 56,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  spec.color,
-                  spec.color.withValues(alpha: 0.55),
-                ],
+                colors: [spec.color, spec.color.withValues(alpha: 0.55)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1234,7 +1234,9 @@ class _FieldCard extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: spec.color.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(4),
@@ -1277,18 +1279,20 @@ class _FieldCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 5),
+                    horizontal: 8,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                        color: spec.color.withValues(alpha: 0.35)),
+                      color: spec.color.withValues(alpha: 0.35),
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('e.g. ',
-                          style: _T.caption.copyWith(fontSize: 10)),
+                      Text('e.g. ', style: _T.caption.copyWith(fontSize: 10)),
                       Text(
                         spec.example,
                         style: TextStyle(
@@ -1335,13 +1339,13 @@ class _KeyHelperCompare extends StatelessWidget {
                     'the standard desktop Flutter build on Linux. This is '
                     'the case the vast majority of the time.',
                 masks: [
-                  _MaskRow('Shift',     'GDK_SHIFT_MASK',   0x00000001),
-                  _MaskRow('CapsLock',  'GDK_LOCK_MASK',    0x00000002),
-                  _MaskRow('Control',   'GDK_CONTROL_MASK', 0x00000004),
-                  _MaskRow('Alt',       'GDK_MOD1_MASK',    0x00000008),
-                  _MaskRow('NumLock',   'GDK_MOD2_MASK',    0x00000010),
-                  _MaskRow('Meta',      'GDK_META_MASK',    0x10000000),
-                  _MaskRow('Super',     'GDK_SUPER_MASK',   0x04000000),
+                  _MaskRow('Shift', 'GDK_SHIFT_MASK', 0x00000001),
+                  _MaskRow('CapsLock', 'GDK_LOCK_MASK', 0x00000002),
+                  _MaskRow('Control', 'GDK_CONTROL_MASK', 0x00000004),
+                  _MaskRow('Alt', 'GDK_MOD1_MASK', 0x00000008),
+                  _MaskRow('NumLock', 'GDK_MOD2_MASK', 0x00000010),
+                  _MaskRow('Meta', 'GDK_META_MASK', 0x10000000),
+                  _MaskRow('Super', 'GDK_SUPER_MASK', 0x04000000),
                 ],
               ),
             ),
@@ -1357,13 +1361,13 @@ class _KeyHelperCompare extends StatelessWidget {
                     'historically the original Flutter desktop prototype '
                     'and still used by some embedded / custom shells.',
                 masks: [
-                  _MaskRow('Shift',     'GLFW_MOD_SHIFT',     0x0001),
-                  _MaskRow('Control',   'GLFW_MOD_CONTROL',   0x0002),
-                  _MaskRow('Alt',       'GLFW_MOD_ALT',       0x0004),
-                  _MaskRow('Super',     'GLFW_MOD_SUPER',     0x0008),
-                  _MaskRow('CapsLock',  'GLFW_MOD_CAPS_LOCK', 0x0010),
-                  _MaskRow('NumLock',   'GLFW_MOD_NUM_LOCK',  0x0020),
-                  _MaskRow('Meta',      '(synthesized)',      0x0008),
+                  _MaskRow('Shift', 'GLFW_MOD_SHIFT', 0x0001),
+                  _MaskRow('Control', 'GLFW_MOD_CONTROL', 0x0002),
+                  _MaskRow('Alt', 'GLFW_MOD_ALT', 0x0004),
+                  _MaskRow('Super', 'GLFW_MOD_SUPER', 0x0008),
+                  _MaskRow('CapsLock', 'GLFW_MOD_CAPS_LOCK', 0x0010),
+                  _MaskRow('NumLock', 'GLFW_MOD_NUM_LOCK', 0x0020),
+                  _MaskRow('Meta', '(synthesized)', 0x0008),
                 ],
               ),
             ),
@@ -1382,14 +1386,16 @@ class _KeyHelperCompare extends StatelessWidget {
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-                color: _Pal.amber.withValues(alpha: 0.45)),
+            border: Border.all(color: _Pal.amber.withValues(alpha: 0.45)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.warning_amber_rounded,
-                  size: 18, color: _Pal.amber),
+              const Icon(
+                Icons.warning_amber_rounded,
+                size: 18,
+                color: _Pal.amber,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1437,10 +1443,7 @@ class _HelperCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(13),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.6),
-          width: 1.3,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.6), width: 1.3),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1468,10 +1471,7 @@ class _HelperCard extends StatelessWidget {
                   height: 40,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        accent,
-                        accent.withValues(alpha: 0.6),
-                      ],
+                      colors: [accent, accent.withValues(alpha: 0.6)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -1493,16 +1493,20 @@ class _HelperCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 15,
-                            color: accent,
-                            fontWeight: FontWeight.w800,
-                          )),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 15,
+                          color: accent,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                       const SizedBox(height: 2),
-                      Text(subtitle,
-                          style: _T.caption.copyWith(fontSize: 10.5)),
+                      Text(
+                        subtitle,
+                        style: _T.caption.copyWith(fontSize: 10.5),
+                      ),
                     ],
                   ),
                 ),
@@ -1514,13 +1518,14 @@ class _HelperCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Selected when',
-                    style: _T.caption.copyWith(fontSize: 10)),
+                Text('Selected when', style: _T.caption.copyWith(fontSize: 10)),
                 const SizedBox(height: 4),
                 Text(selectedWhen, style: _T.bodyDim),
                 const SizedBox(height: 12),
-                Text('Modifier masks',
-                    style: _T.caption.copyWith(fontSize: 10)),
+                Text(
+                  'Modifier masks',
+                  style: _T.caption.copyWith(fontSize: 10),
+                ),
                 const SizedBox(height: 6),
                 Container(
                   padding: const EdgeInsets.all(2),
@@ -1534,7 +1539,9 @@ class _HelperCard extends StatelessWidget {
                       for (int i = 0; i < masks.length; i++)
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 9, vertical: 6),
+                            horizontal: 9,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
@@ -1603,13 +1610,13 @@ class _ModifierGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mods = <_ModSpec>[
-      _ModSpec('Shift',      '⇧',  _Pal.gtkBlue,        0x00000001, true),
-      _ModSpec('Control',    '⎈',  _Pal.ubuOrange,      0x00000004, true),
-      _ModSpec('Alt',        '⌥',  _Pal.amber,          0x00000008, false),
-      _ModSpec('Meta/Super', '✦',  _Pal.aubergineSoft,  0x04000000, false),
-      _ModSpec('CapsLock',   'A',  _Pal.termGreen,      0x00000002, true),
-      _ModSpec('NumLock',    '1',  _Pal.teal,           0x00000010, false),
-      _ModSpec('ScrollLock', '↕',  _Pal.crimson,        0x00008000, false),
+      _ModSpec('Shift', '⇧', _Pal.gtkBlue, 0x00000001, true),
+      _ModSpec('Control', '⎈', _Pal.ubuOrange, 0x00000004, true),
+      _ModSpec('Alt', '⌥', _Pal.amber, 0x00000008, false),
+      _ModSpec('Meta/Super', '✦', _Pal.aubergineSoft, 0x04000000, false),
+      _ModSpec('CapsLock', 'A', _Pal.termGreen, 0x00000002, true),
+      _ModSpec('NumLock', '1', _Pal.teal, 0x00000010, false),
+      _ModSpec('ScrollLock', '↕', _Pal.crimson, 0x00008000, false),
     ];
 
     return Column(
@@ -1619,10 +1626,7 @@ class _ModifierGrid extends StatelessWidget {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _Pal.paper,
-                _Pal.paperWarm,
-              ],
+              colors: [_Pal.paper, _Pal.paperWarm],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1636,7 +1640,9 @@ class _ModifierGrid extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: _Pal.ink,
                       borderRadius: BorderRadius.circular(4),
@@ -1663,15 +1669,15 @@ class _ModifierGrid extends StatelessWidget {
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: [
-                  for (final m in mods) _ModChip(m),
-                ],
+                children: [for (final m in mods) _ModChip(m)],
               ),
               const SizedBox(height: 14),
               // Computed mask line
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: _Pal.termBg,
                   borderRadius: BorderRadius.circular(8),
@@ -1684,14 +1690,18 @@ class _ModifierGrid extends StatelessWidget {
                       style: _T.term.copyWith(color: _Pal.termComment),
                     ),
                     const SizedBox(width: 8),
-                    Text('0x00000007',
-                        style: _T.term.copyWith(
-                          color: _Pal.termNum,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    Text(
+                      '0x00000007',
+                      style: _T.term.copyWith(
+                        color: _Pal.termNum,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(width: 8),
-                    Text('//',
-                        style: _T.term.copyWith(color: _Pal.termComment)),
+                    Text(
+                      '//',
+                      style: _T.term.copyWith(color: _Pal.termComment),
+                    ),
                     const SizedBox(width: 4),
                     Text(
                       'SHIFT(1) | LOCK(2) | CONTROL(4)',
@@ -1731,10 +1741,7 @@ class _ModChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: m.active ? m.color : Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: m.color,
-          width: m.active ? 2 : 1.2,
-        ),
+        border: Border.all(color: m.color, width: m.active ? 2 : 1.2),
         boxShadow: m.active
             ? [
                 BoxShadow(
@@ -1789,9 +1796,7 @@ class _ModChip extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'monospace',
               fontSize: 10.5,
-              color: m.active
-                  ? Colors.white.withValues(alpha: 0.85)
-                  : m.color,
+              color: m.active ? Colors.white.withValues(alpha: 0.85) : m.color,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -1827,10 +1832,7 @@ class _BitmaskDiagram extends StatelessWidget {
             children: [
               for (int b = 15; b >= 0; b--)
                 Expanded(
-                  child: _BitCell(
-                    bit: b,
-                    spec: _findFor(b),
-                  ),
+                  child: _BitCell(bit: b, spec: _findFor(b)),
                 ),
             ],
           ),
@@ -1881,13 +1883,11 @@ class _BitCell extends StatelessWidget {
         color: filled
             ? color
             : reserved
-                ? color.withValues(alpha: 0.20)
-                : _Pal.termPanel,
+            ? color.withValues(alpha: 0.20)
+            : _Pal.termPanel,
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: reserved
-              ? color.withValues(alpha: 0.85)
-              : _Pal.termGutter,
+          color: reserved ? color.withValues(alpha: 0.85) : _Pal.termGutter,
           width: 1,
         ),
       ),
@@ -1900,8 +1900,8 @@ class _BitCell extends StatelessWidget {
             color: filled
                 ? Colors.white
                 : reserved
-                    ? color
-                    : _Pal.termGutter,
+                ? color
+                : _Pal.termGutter,
             fontWeight: FontWeight.w800,
           ),
         ),
@@ -1920,91 +1920,96 @@ class _KeyboardMap extends StatelessWidget {
   Widget build(BuildContext context) {
     // Rows of (label, scanCode, keyval) — six are spotlighted with a color
     final row1 = <_Cap>[
-      _Cap('Esc',   1,   0xFF1B, accent: _Pal.crimson, highlight: true),
-      _Cap('F1',    59,  0xFFBE),
-      _Cap('F2',    60,  0xFFBF),
-      _Cap('F3',    61,  0xFFC0),
-      _Cap('F4',    62,  0xFFC1),
-      _Cap('F5',    63,  0xFFC2),
-      _Cap('F6',    64,  0xFFC3),
-      _Cap('F7',    65,  0xFFC4),
-      _Cap('F8',    66,  0xFFC5),
-      _Cap('F9',    67,  0xFFC6),
-      _Cap('F10',   68,  0xFFC7),
-      _Cap('F11',   87,  0xFFC8),
-      _Cap('F12',   88,  0xFFC9),
+      _Cap('Esc', 1, 0xFF1B, accent: _Pal.crimson, highlight: true),
+      _Cap('F1', 59, 0xFFBE),
+      _Cap('F2', 60, 0xFFBF),
+      _Cap('F3', 61, 0xFFC0),
+      _Cap('F4', 62, 0xFFC1),
+      _Cap('F5', 63, 0xFFC2),
+      _Cap('F6', 64, 0xFFC3),
+      _Cap('F7', 65, 0xFFC4),
+      _Cap('F8', 66, 0xFFC5),
+      _Cap('F9', 67, 0xFFC6),
+      _Cap('F10', 68, 0xFFC7),
+      _Cap('F11', 87, 0xFFC8),
+      _Cap('F12', 88, 0xFFC9),
     ];
     final row2 = <_Cap>[
-      _Cap('`',     41,  0x0060),
-      _Cap('1',     2,   0x0031),
-      _Cap('2',     3,   0x0032),
-      _Cap('3',     4,   0x0033),
-      _Cap('4',     5,   0x0034),
-      _Cap('5',     6,   0x0035),
-      _Cap('6',     7,   0x0036),
-      _Cap('7',     8,   0x0037),
-      _Cap('8',     9,   0x0038),
-      _Cap('9',     10,  0x0039),
-      _Cap('0',     11,  0x0030),
-      _Cap('-',     12,  0x002D),
-      _Cap('=',     13,  0x003D),
-      _Cap('⌫',     14,  0xFF08, accent: _Pal.amber, highlight: true),
+      _Cap('`', 41, 0x0060),
+      _Cap('1', 2, 0x0031),
+      _Cap('2', 3, 0x0032),
+      _Cap('3', 4, 0x0033),
+      _Cap('4', 5, 0x0034),
+      _Cap('5', 6, 0x0035),
+      _Cap('6', 7, 0x0036),
+      _Cap('7', 8, 0x0037),
+      _Cap('8', 9, 0x0038),
+      _Cap('9', 10, 0x0039),
+      _Cap('0', 11, 0x0030),
+      _Cap('-', 12, 0x002D),
+      _Cap('=', 13, 0x003D),
+      _Cap('⌫', 14, 0xFF08, accent: _Pal.amber, highlight: true),
     ];
     final row3 = <_Cap>[
-      _Cap('Tab',   15,  0xFF09, accent: _Pal.teal, highlight: true),
-      _Cap('Q',     16,  0x0071),
-      _Cap('W',     17,  0x0077),
-      _Cap('E',     18,  0x0065),
-      _Cap('R',     19,  0x0072),
-      _Cap('T',     20,  0x0074),
-      _Cap('Y',     21,  0x0079),
-      _Cap('U',     22,  0x0075),
-      _Cap('I',     23,  0x0069),
-      _Cap('O',     24,  0x006F),
-      _Cap('P',     25,  0x0070),
-      _Cap('[',     26,  0x005B),
-      _Cap(']',     27,  0x005D),
-      _Cap('\\',    43,  0x005C),
+      _Cap('Tab', 15, 0xFF09, accent: _Pal.teal, highlight: true),
+      _Cap('Q', 16, 0x0071),
+      _Cap('W', 17, 0x0077),
+      _Cap('E', 18, 0x0065),
+      _Cap('R', 19, 0x0072),
+      _Cap('T', 20, 0x0074),
+      _Cap('Y', 21, 0x0079),
+      _Cap('U', 22, 0x0075),
+      _Cap('I', 23, 0x0069),
+      _Cap('O', 24, 0x006F),
+      _Cap('P', 25, 0x0070),
+      _Cap('[', 26, 0x005B),
+      _Cap(']', 27, 0x005D),
+      _Cap('\\', 43, 0x005C),
     ];
     final row4 = <_Cap>[
-      _Cap('Caps',  58,  0xFFE5),
-      _Cap('A',     30,  0x0061,
-          accent: _Pal.ubuOrange, highlight: true),
-      _Cap('S',     31,  0x0073),
-      _Cap('D',     32,  0x0064),
-      _Cap('F',     33,  0x0066),
-      _Cap('G',     34,  0x0067),
-      _Cap('H',     35,  0x0068),
-      _Cap('J',     36,  0x006A),
-      _Cap('K',     37,  0x006B),
-      _Cap('L',     38,  0x006C),
-      _Cap(';',     39,  0x003B),
-      _Cap("'",     40,  0x0027),
-      _Cap('⏎',     28,  0xFF0D,
-          accent: _Pal.termGreen, highlight: true, wide: true),
+      _Cap('Caps', 58, 0xFFE5),
+      _Cap('A', 30, 0x0061, accent: _Pal.ubuOrange, highlight: true),
+      _Cap('S', 31, 0x0073),
+      _Cap('D', 32, 0x0064),
+      _Cap('F', 33, 0x0066),
+      _Cap('G', 34, 0x0067),
+      _Cap('H', 35, 0x0068),
+      _Cap('J', 36, 0x006A),
+      _Cap('K', 37, 0x006B),
+      _Cap('L', 38, 0x006C),
+      _Cap(';', 39, 0x003B),
+      _Cap("'", 40, 0x0027),
+      _Cap(
+        '⏎',
+        28,
+        0xFF0D,
+        accent: _Pal.termGreen,
+        highlight: true,
+        wide: true,
+      ),
     ];
     final row5 = <_Cap>[
-      _Cap('Shift', 42,  0xFFE1),
-      _Cap('Z',     44,  0x007A),
-      _Cap('X',     45,  0x0078),
-      _Cap('C',     46,  0x0063),
-      _Cap('V',     47,  0x0076),
-      _Cap('B',     48,  0x0062),
-      _Cap('N',     49,  0x006E),
-      _Cap('M',     50,  0x006D),
-      _Cap(',',     51,  0x002C),
-      _Cap('.',     52,  0x002E),
-      _Cap('/',     53,  0x002F),
-      _Cap('Shift', 54,  0xFFE2),
+      _Cap('Shift', 42, 0xFFE1),
+      _Cap('Z', 44, 0x007A),
+      _Cap('X', 45, 0x0078),
+      _Cap('C', 46, 0x0063),
+      _Cap('V', 47, 0x0076),
+      _Cap('B', 48, 0x0062),
+      _Cap('N', 49, 0x006E),
+      _Cap('M', 50, 0x006D),
+      _Cap(',', 51, 0x002C),
+      _Cap('.', 52, 0x002E),
+      _Cap('/', 53, 0x002F),
+      _Cap('Shift', 54, 0xFFE2),
     ];
     final row6 = <_Cap>[
-      _Cap('Ctrl',  29,  0xFFE3),
+      _Cap('Ctrl', 29, 0xFFE3),
       _Cap('Super', 125, 0xFFEB, accent: _Pal.aubergineSoft, highlight: true),
-      _Cap('Alt',   56,  0xFFE9),
-      _Cap('Space', 57,  0x0020, wide: true, extraWide: true),
-      _Cap('Alt',   100, 0xFFEA),
-      _Cap('Menu',  127, 0xFF67),
-      _Cap('Ctrl',  97,  0xFFE4),
+      _Cap('Alt', 56, 0xFFE9),
+      _Cap('Space', 57, 0x0020, wide: true, extraWide: true),
+      _Cap('Alt', 100, 0xFFEA),
+      _Cap('Menu', 127, 0xFF67),
+      _Cap('Ctrl', 97, 0xFFE4),
     ];
 
     return Column(
@@ -2023,7 +2028,9 @@ class _KeyboardMap extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-                color: _Pal.ubuOrange.withValues(alpha: 0.6), width: 1.2),
+              color: _Pal.ubuOrange.withValues(alpha: 0.6),
+              width: 1.2,
+            ),
             boxShadow: [
               BoxShadow(
                 color: _Pal.aubergine.withValues(alpha: 0.35),
@@ -2066,11 +2073,11 @@ class _KeyboardMap extends StatelessWidget {
                 spacing: 10,
                 runSpacing: 8,
                 children: const [
-                  _Legend('A',     30,  0x0061, _Pal.ubuOrange),
-                  _Legend('Esc',   1,   0xFF1B, _Pal.crimson),
-                  _Legend('Tab',   15,  0xFF09, _Pal.teal),
-                  _Legend('⌫ BS',  14,  0xFF08, _Pal.amber),
-                  _Legend('⏎ Ret', 28,  0xFF0D, _Pal.termGreen),
+                  _Legend('A', 30, 0x0061, _Pal.ubuOrange),
+                  _Legend('Esc', 1, 0xFF1B, _Pal.crimson),
+                  _Legend('Tab', 15, 0xFF09, _Pal.teal),
+                  _Legend('⌫ BS', 14, 0xFF08, _Pal.amber),
+                  _Legend('⏎ Ret', 28, 0xFF0D, _Pal.termGreen),
                   _Legend('Super', 125, 0xFFEB, _Pal.aubergineSoft),
                 ],
               ),
@@ -2141,10 +2148,7 @@ class _KeyCap extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: cap.highlight
             ? LinearGradient(
-                colors: [
-                  accent,
-                  accent.withValues(alpha: 0.6),
-                ],
+                colors: [accent, accent.withValues(alpha: 0.6)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               )
@@ -2164,12 +2168,7 @@ class _KeyCap extends StatelessWidget {
           width: cap.highlight ? 1.5 : 1,
         ),
         boxShadow: cap.highlight
-            ? [
-                BoxShadow(
-                  color: accent.withValues(alpha: 0.6),
-                  blurRadius: 12,
-                ),
-              ]
+            ? [BoxShadow(color: accent.withValues(alpha: 0.6), blurRadius: 12)]
             : [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.25),
@@ -2389,10 +2388,7 @@ class _HelperCard2 extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            spec.color.withValues(alpha: 0.10),
-            Colors.white,
-          ],
+          colors: [spec.color.withValues(alpha: 0.10), Colors.white],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -2460,10 +2456,7 @@ class _HelperCard2 extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'bool get',
-                      style: _T.caption.copyWith(fontSize: 9.5),
-                    ),
+                    Text('bool get', style: _T.caption.copyWith(fontSize: 9.5)),
                     const SizedBox(height: 2),
                     Text(
                       spec.getter,
@@ -2477,7 +2470,9 @@ class _HelperCard2 extends StatelessWidget {
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: spec.color.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -2501,14 +2496,11 @@ class _HelperCard2 extends StatelessWidget {
           Text(spec.description, style: _T.body),
           const SizedBox(height: 10),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(7),
-              border: Border.all(
-                color: spec.color.withValues(alpha: 0.35),
-              ),
+              border: Border.all(color: spec.color.withValues(alpha: 0.35)),
             ),
             child: Row(
               children: [
@@ -2551,13 +2543,16 @@ class _CodeListenerExample extends StatelessWidget {
             const _Ln([
               _Tok('// ', _T.termComment),
               _Tok(
-                  'Legacy raw keyboard listener — pattern shown for reference.',
-                  _T.termComment),
+                'Legacy raw keyboard listener — pattern shown for reference.',
+                _T.termComment,
+              ),
             ]),
             const _Ln([
               _Tok('// ', _T.termComment),
-              _Tok('In new code, prefer HardwareKeyboard / KeyEvent.',
-                  _T.termComment),
+              _Tok(
+                'In new code, prefer HardwareKeyboard / KeyEvent.',
+                _T.termComment,
+              ),
             ]),
             _Ln.blank(),
             const _Ln([
@@ -2628,7 +2623,7 @@ class _CodeListenerExample extends StatelessWidget {
               _Tok('    debugPrint', _T.termIdent),
               _Tok('(', _T.term),
               _Tok("'helper=", _T.termStr),
-              _Tok(r"${" , _T.termStr),
+              _Tok(r"${", _T.termStr),
               _Tok('linux.keyHelper.runtimeType', _T.termIdent),
               _Tok(r"} sc=", _T.termStr),
               _Tok(r"${", _T.termStr),
@@ -2649,14 +2644,12 @@ class _CodeListenerExample extends StatelessWidget {
           decoration: BoxDecoration(
             color: _Pal.termGreen.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-                color: _Pal.termGreen.withValues(alpha: 0.55)),
+            border: Border.all(color: _Pal.termGreen.withValues(alpha: 0.55)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.terminal,
-                  size: 18, color: _Pal.termGreen),
+              const Icon(Icons.terminal, size: 18, color: _Pal.termGreen),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -2698,16 +2691,26 @@ class _LegacyVsModern extends StatelessWidget {
                 subtitle: 'Linux variant: RawKeyEventDataLinux',
                 accent: _Pal.crimson,
                 bullets: const [
-                  _ApiBullet('RawKeyboard.instance.addListener',
-                      'One global stream, no per-Focus routing.'),
-                  _ApiBullet('event.data is RawKeyEventDataLinux',
-                      'Manual platform-specific cast for each call site.'),
-                  _ApiBullet('linux.keyHelper / scanCode / keyCode',
-                      'Raw GTK or GLFW values — toolkit-aware logic.'),
-                  _ApiBullet('linux.modifiers (raw int)',
-                      'Bitmask whose layout depends on the helper.'),
-                  _ApiBullet('@Deprecated',
-                      'Marked for removal; no new features.'),
+                  _ApiBullet(
+                    'RawKeyboard.instance.addListener',
+                    'One global stream, no per-Focus routing.',
+                  ),
+                  _ApiBullet(
+                    'event.data is RawKeyEventDataLinux',
+                    'Manual platform-specific cast for each call site.',
+                  ),
+                  _ApiBullet(
+                    'linux.keyHelper / scanCode / keyCode',
+                    'Raw GTK or GLFW values — toolkit-aware logic.',
+                  ),
+                  _ApiBullet(
+                    'linux.modifiers (raw int)',
+                    'Bitmask whose layout depends on the helper.',
+                  ),
+                  _ApiBullet(
+                    '@Deprecated',
+                    'Marked for removal; no new features.',
+                  ),
                 ],
               ),
             ),
@@ -2720,16 +2723,26 @@ class _LegacyVsModern extends StatelessWidget {
                 subtitle: 'Cross-platform, Focus-aware',
                 accent: _Pal.termGreen,
                 bullets: const [
-                  _ApiBullet('HardwareKeyboard.instance.addHandler',
-                      'Focus-aware delivery — input falls through if unhandled.'),
-                  _ApiBullet('event.physicalKey  /  event.logicalKey',
-                      'PhysicalKeyboardKey / LogicalKeyboardKey — same on all OSes.'),
-                  _ApiBullet('event.character',
-                      'Already-decoded character (when applicable).'),
-                  _ApiBullet('HardwareKeyboard.instance.isControlPressed',
-                      'Modifier state queryable directly, no helper indirection.'),
-                  _ApiBullet('Active API',
-                      'New features and shortcut framework target this API.'),
+                  _ApiBullet(
+                    'HardwareKeyboard.instance.addHandler',
+                    'Focus-aware delivery — input falls through if unhandled.',
+                  ),
+                  _ApiBullet(
+                    'event.physicalKey  /  event.logicalKey',
+                    'PhysicalKeyboardKey / LogicalKeyboardKey — same on all OSes.',
+                  ),
+                  _ApiBullet(
+                    'event.character',
+                    'Already-decoded character (when applicable).',
+                  ),
+                  _ApiBullet(
+                    'HardwareKeyboard.instance.isControlPressed',
+                    'Modifier state queryable directly, no helper indirection.',
+                  ),
+                  _ApiBullet(
+                    'Active API',
+                    'New features and shortcut framework target this API.',
+                  ),
                 ],
               ),
             ),
@@ -2768,10 +2781,7 @@ class _ApiColumn extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(13),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.55),
-          width: 1.3,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.55), width: 1.3),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2797,7 +2807,9 @@ class _ApiColumn extends StatelessWidget {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 3),
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: badgeColor,
                     borderRadius: BorderRadius.circular(5),
@@ -2814,13 +2826,15 @@ class _ApiColumn extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(title,
-                    style: TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 14.5,
-                      color: accent,
-                      fontWeight: FontWeight.w800,
-                    )),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 14.5,
+                    color: accent,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 2),
                 Text(subtitle, style: _T.caption.copyWith(fontSize: 10.5)),
               ],
@@ -2848,13 +2862,15 @@ class _ApiColumn extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(b.api,
-                                style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 11.5,
-                                  color: _Pal.ink,
-                                  fontWeight: FontWeight.w800,
-                                )),
+                            Text(
+                              b.api,
+                              style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11.5,
+                                color: _Pal.ink,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                             const SizedBox(height: 2),
                             Text(b.note, style: _T.bodyDim),
                           ],
@@ -2971,18 +2987,12 @@ class _UseCaseCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Colors.white,
-            c.color.withValues(alpha: 0.08),
-          ],
+          colors: [Colors.white, c.color.withValues(alpha: 0.08)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(13),
-        border: Border.all(
-          color: c.color.withValues(alpha: 0.5),
-          width: 1.2,
-        ),
+        border: Border.all(color: c.color.withValues(alpha: 0.5), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3188,10 +3198,7 @@ class _Footer extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            _Pal.aubergine,
-            _Pal.aubergineSoft.withValues(alpha: 0.8),
-          ],
+          colors: [_Pal.aubergine, _Pal.aubergineSoft.withValues(alpha: 0.8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -3253,8 +3260,7 @@ class _Footer extends StatelessWidget {
             ),
           ),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(20),

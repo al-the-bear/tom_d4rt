@@ -224,8 +224,10 @@ dynamic build(BuildContext context) {
     'Doc-ID: F0X-Δ-77 ❘ status=DRAFT ❘ ver=2.3.1',
     'Cost ≈ €99 (was €119); savings ≈ 16.8%',
   ];
-  print('Sample lines ready (${englishLines.length} EN, '
-      '${rtlLines.length} RTL, ${mixedLines.length} mixed)');
+  print(
+    'Sample lines ready (${englishLines.length} EN, '
+    '${rtlLines.length} RTL, ${mixedLines.length} mixed)',
+  );
 
   // ------------------------------------------------------------------
   // CONTROLLER + FOCUS SETUP — used by the live mock fields below.
@@ -398,9 +400,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Expanded(
-            child: Text(v, style: styleBody),
-          ),
+          Expanded(child: Text(v, style: styleBody)),
         ],
       ),
     );
@@ -709,7 +709,12 @@ dynamic build(BuildContext context) {
     TextAlign.end,
   ];
   final List<String> alignNames = [
-    'left', 'center', 'right', 'justify', 'start', 'end',
+    'left',
+    'center',
+    'right',
+    'justify',
+    'start',
+    'end',
   ];
 
   Widget alignSampleCard(int i) {
@@ -761,10 +766,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            'index $i — ${a.toString()}',
-            style: styleCaption,
-          ),
+          Text('index $i — ${a.toString()}', style: styleCaption),
         ],
       ),
     );
@@ -1052,10 +1054,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            'rectangle h=$h w=$w offsetY=$offsetY',
-            style: styleCaption,
-          ),
+          Text('rectangle h=$h w=$w offsetY=$offsetY', style: styleCaption),
         ],
       ),
     );
@@ -1069,16 +1068,23 @@ dynamic build(BuildContext context) {
     boxStylePreview('BoxHeightStyle.max', 28.0, 180.0, 14.0),
   );
   heightStyleCards.add(
-    boxStylePreview('BoxHeightStyle.includeLineSpacingMiddle',
-        24.0, 180.0, 16.0),
+    boxStylePreview(
+      'BoxHeightStyle.includeLineSpacingMiddle',
+      24.0,
+      180.0,
+      16.0,
+    ),
   );
   heightStyleCards.add(
-    boxStylePreview('BoxHeightStyle.includeLineSpacingTop',
-        26.0, 180.0, 12.0),
+    boxStylePreview('BoxHeightStyle.includeLineSpacingTop', 26.0, 180.0, 12.0),
   );
   heightStyleCards.add(
-    boxStylePreview('BoxHeightStyle.includeLineSpacingBottom',
-        26.0, 180.0, 18.0),
+    boxStylePreview(
+      'BoxHeightStyle.includeLineSpacingBottom',
+      26.0,
+      180.0,
+      18.0,
+    ),
   );
   heightStyleCards.add(
     boxStylePreview('BoxHeightStyle.strut', 22.0, 180.0, 17.0),
@@ -1088,9 +1094,7 @@ dynamic build(BuildContext context) {
   widthStyleCards.add(
     boxStylePreview('BoxWidthStyle.tight', 18.0, 120.0, 18.0),
   );
-  widthStyleCards.add(
-    boxStylePreview('BoxWidthStyle.max', 18.0, 200.0, 18.0),
-  );
+  widthStyleCards.add(boxStylePreview('BoxWidthStyle.max', 18.0, 200.0, 18.0));
 
   // ------------------------------------------------------------------
   // TEXT-WIDTH-BASIS COMPARISON.
@@ -1153,12 +1157,18 @@ dynamic build(BuildContext context) {
   // ------------------------------------------------------------------
   // TEXT-HEIGHT-BEHAVIOR ANATOMY DIAGRAM.
   // ------------------------------------------------------------------
-  Widget thbDiagramRow(String label, bool topApplied, bool bottomApplied,
-      String distribution) {
-    final Color topColor =
-        topApplied ? ledgerGreen : oxblood.withValues(alpha: 0.6);
-    final Color botColor =
-        bottomApplied ? ledgerGreen : oxblood.withValues(alpha: 0.6);
+  Widget thbDiagramRow(
+    String label,
+    bool topApplied,
+    bool bottomApplied,
+    String distribution,
+  ) {
+    final Color topColor = topApplied
+        ? ledgerGreen
+        : oxblood.withValues(alpha: 0.6);
+    final Color botColor = bottomApplied
+        ? ledgerGreen
+        : oxblood.withValues(alpha: 0.6);
     return Container(
       margin: EdgeInsets.only(bottom: 8.0),
       padding: EdgeInsets.all(8.0),
@@ -1169,10 +1179,7 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: 220.0,
-            child: Text(label, style: styleMono),
-          ),
+          SizedBox(width: 220.0, child: Text(label, style: styleMono)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1204,10 +1211,7 @@ dynamic build(BuildContext context) {
                   style: styleCaption,
                 ),
                 SizedBox(height: 2.0),
-                Text(
-                  'leadingDistribution: $distribution',
-                  style: styleCaption,
-                ),
+                Text('leadingDistribution: $distribution', style: styleCaption),
               ],
             ),
           ),
@@ -1219,24 +1223,38 @@ dynamic build(BuildContext context) {
   final Widget thbDiagrams = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      thbDiagramRow('TextHeightBehavior() — defaults',
-          true, true, 'proportional'),
-      thbDiagramRow('applyHeightToFirstAscent: false',
-          false, true, 'proportional'),
-      thbDiagramRow('applyHeightToLastDescent: false',
-          true, false, 'proportional'),
-      thbDiagramRow('leadingDistribution: even',
-          true, true, 'even'),
-      thbDiagramRow('all-off + even leading',
-          false, false, 'even'),
+      thbDiagramRow(
+        'TextHeightBehavior() — defaults',
+        true,
+        true,
+        'proportional',
+      ),
+      thbDiagramRow(
+        'applyHeightToFirstAscent: false',
+        false,
+        true,
+        'proportional',
+      ),
+      thbDiagramRow(
+        'applyHeightToLastDescent: false',
+        true,
+        false,
+        'proportional',
+      ),
+      thbDiagramRow('leadingDistribution: even', true, true, 'even'),
+      thbDiagramRow('all-off + even leading', false, false, 'even'),
     ],
   );
 
   // ------------------------------------------------------------------
   // SCENARIO PANELS.
   // ------------------------------------------------------------------
-  Widget scenarioPanel(String title, String subtitle, List<List<String>> rows,
-      Widget mock) {
+  Widget scenarioPanel(
+    String title,
+    String subtitle,
+    List<List<String>> rows,
+    Widget mock,
+  ) {
     final List<Widget> kids = [];
     kids.add(
       Text(
@@ -1518,10 +1536,7 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget pitfallTable = Table(
-    columnWidths: {
-      0: FlexColumnWidth(2.4),
-      1: FlexColumnWidth(4.0),
-    },
+    columnWidths: {0: FlexColumnWidth(2.4), 1: FlexColumnWidth(4.0)},
     children: pitfallTableRows,
   );
 
@@ -1557,14 +1572,8 @@ dynamic build(BuildContext context) {
       'SpellCheckConfiguration',
       'Bundles spell-check service and misspelled-word style for editors.',
     ],
-    [
-      'SmartDashesType',
-      'iOS-style "--" → "—" conversion toggle.',
-    ],
-    [
-      'SmartQuotesType',
-      'iOS-style straight-to-curly quotes toggle.',
-    ],
+    ['SmartDashesType', 'iOS-style "--" → "—" conversion toggle.'],
+    ['SmartQuotesType', 'iOS-style straight-to-curly quotes toggle.'],
     [
       'BoxHeightStyle',
       'Vertical extent of selection rectangles within a line.',
@@ -1622,10 +1631,7 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget glossaryTable = Table(
-    columnWidths: {
-      0: FlexColumnWidth(2.0),
-      1: FlexColumnWidth(5.0),
-    },
+    columnWidths: {0: FlexColumnWidth(2.0), 1: FlexColumnWidth(5.0)},
     children: glossaryTableRows,
   );
 
@@ -1663,12 +1669,7 @@ dynamic build(BuildContext context) {
       'all TextInputType variants',
       'n/a (no input)',
     ],
-    [
-      'textCapitalization',
-      'fully supported',
-      'fully supported',
-      'n/a',
-    ],
+    ['textCapitalization', 'fully supported', 'fully supported', 'n/a'],
     [
       'smartDashesType / smartQuotesType',
       'fully supported',
@@ -1681,12 +1682,7 @@ dynamic build(BuildContext context) {
       'SpellCheckConfiguration',
       'n/a',
     ],
-    [
-      'autofill',
-      'AutofillHints supported',
-      'AutofillHints supported',
-      'n/a',
-    ],
+    ['autofill', 'AutofillHints supported', 'AutofillHints supported', 'n/a'],
     [
       'selection controls',
       'Material handles',
@@ -1940,10 +1936,7 @@ dynamic build(BuildContext context) {
     );
   }
   final Widget cheatTable = Table(
-    columnWidths: {
-      0: FlexColumnWidth(2.0),
-      1: FlexColumnWidth(5.0),
-    },
+    columnWidths: {0: FlexColumnWidth(2.0), 1: FlexColumnWidth(5.0)},
     children: cheatTableRows,
   );
 
@@ -1964,10 +1957,7 @@ dynamic build(BuildContext context) {
           width: 8.0,
           height: 8.0,
           margin: EdgeInsets.only(top: 5.0, right: 8.0),
-          decoration: BoxDecoration(
-            color: brassPale,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: brassPale, shape: BoxShape.circle),
         ),
         Expanded(
           child: Column(
@@ -2077,139 +2067,157 @@ dynamic build(BuildContext context) {
 
   pageChildren.add(heroCard);
 
-  pageChildren.add(sectionTitle(
-    'Palette table',
-    'The named ink, paper, brass, ledger, oxblood, and charcoal colours.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Palette table',
+      'The named ink, paper, brass, ledger, oxblood, and charcoal colours.',
+    ),
+  );
   pageChildren.add(cardShell(child: paletteTable));
 
-  pageChildren.add(sectionTitle(
-    'Palette swatches',
-    'The same palette laid out as inspectable rectangles.',
-  ));
   pageChildren.add(
-    cardShell(
-      child: Wrap(children: paletteSwatches),
+    sectionTitle(
+      'Palette swatches',
+      'The same palette laid out as inspectable rectangles.',
     ),
   );
+  pageChildren.add(cardShell(child: Wrap(children: paletteSwatches)));
 
-  pageChildren.add(sectionTitle(
-    'Enum catalog',
-    'Each EditableText-adjacent enum, with its values, default and meaning.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Enum catalog',
+      'Each EditableText-adjacent enum, with its values, default and meaning.',
+    ),
+  );
   pageChildren.add(cardShell(child: enumTable));
 
-  pageChildren.add(sectionTitle(
-    'TextAlign gallery',
-    'Six framed paragraphs, one per TextAlign value.',
-  ));
   pageChildren.add(
-    cardShell(
-      child: Wrap(children: alignCards),
+    sectionTitle(
+      'TextAlign gallery',
+      'Six framed paragraphs, one per TextAlign value.',
     ),
   );
+  pageChildren.add(cardShell(child: Wrap(children: alignCards)));
 
-  pageChildren.add(sectionTitle(
-    'TextDirection mock',
-    'LTR English flow next to an RTL Arabic flow.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'TextDirection mock',
+      'LTR English flow next to an RTL Arabic flow.',
+    ),
+  );
   pageChildren.add(cardShell(child: directionRow));
 
-  pageChildren.add(sectionTitle(
-    'TextCapitalization gallery',
-    'Four cards illustrating the keyboard capitalisation hint.',
-  ));
   pageChildren.add(
-    cardShell(
-      child: Wrap(children: capCards),
+    sectionTitle(
+      'TextCapitalization gallery',
+      'Four cards illustrating the keyboard capitalisation hint.',
     ),
   );
+  pageChildren.add(cardShell(child: Wrap(children: capCards)));
 
-  pageChildren.add(sectionTitle(
-    'Smart quotes & dashes',
-    'Configuration table for the iOS-style autocorrect family.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Smart quotes & dashes',
+      'Configuration table for the iOS-style autocorrect family.',
+    ),
+  );
   pageChildren.add(cardShell(child: smartTable));
 
-  pageChildren.add(sectionTitle(
-    'BoxHeightStyle preview',
-    'Visual mocks showing how each height-style sizes the selection rect.',
-  ));
   pageChildren.add(
-    cardShell(
-      child: Wrap(children: heightStyleCards),
+    sectionTitle(
+      'BoxHeightStyle preview',
+      'Visual mocks showing how each height-style sizes the selection rect.',
     ),
   );
+  pageChildren.add(cardShell(child: Wrap(children: heightStyleCards)));
 
-  pageChildren.add(sectionTitle(
-    'BoxWidthStyle preview',
-    'Visual mocks comparing tight versus max selection width.',
-  ));
   pageChildren.add(
-    cardShell(
-      child: Wrap(children: widthStyleCards),
+    sectionTitle(
+      'BoxWidthStyle preview',
+      'Visual mocks comparing tight versus max selection width.',
     ),
   );
+  pageChildren.add(cardShell(child: Wrap(children: widthStyleCards)));
 
-  pageChildren.add(sectionTitle(
-    'TextWidthBasis comparison',
-    'A two-line paragraph rendered with both basis values.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'TextWidthBasis comparison',
+      'A two-line paragraph rendered with both basis values.',
+    ),
+  );
   pageChildren.add(cardShell(child: widthBasisRow));
 
-  pageChildren.add(sectionTitle(
-    'TextHeightBehavior anatomy',
-    'Five diagrams of half-leading and leading distribution.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'TextHeightBehavior anatomy',
+      'Five diagrams of half-leading and leading distribution.',
+    ),
+  );
   pageChildren.add(cardShell(child: thbDiagrams));
 
-  pageChildren.add(sectionTitle(
-    'Scenario — search',
-    'A rounded search bar with all autocorrect helpers off.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Scenario — search',
+      'A rounded search bar with all autocorrect helpers off.',
+    ),
+  );
   pageChildren.add(scenarioSearch);
 
-  pageChildren.add(sectionTitle(
-    'Scenario — multiline editor',
-    'A six-line editor with sentence capitalisation.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Scenario — multiline editor',
+      'A six-line editor with sentence capitalisation.',
+    ),
+  );
   pageChildren.add(scenarioEditor);
 
-  pageChildren.add(sectionTitle(
-    'Scenario — RTL form field',
-    'A right-to-left input wrapped in a Directionality.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Scenario — RTL form field',
+      'A right-to-left input wrapped in a Directionality.',
+    ),
+  );
   pageChildren.add(scenarioRTL);
 
-  pageChildren.add(sectionTitle(
-    'Scenario — code editor',
-    'A monospaced field on a charcoal plate.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Scenario — code editor',
+      'A monospaced field on a charcoal plate.',
+    ),
+  );
   pageChildren.add(scenarioCode);
 
-  pageChildren.add(sectionTitle(
-    'Pitfalls',
-    'Common configuration mistakes around these enums.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Pitfalls',
+      'Common configuration mistakes around these enums.',
+    ),
+  );
   pageChildren.add(cardShell(child: pitfallTable));
 
-  pageChildren.add(sectionTitle(
-    'Glossary',
-    'Plain-English definitions for the supporting types.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Glossary',
+      'Plain-English definitions for the supporting types.',
+    ),
+  );
   pageChildren.add(cardShell(child: glossaryTable));
 
-  pageChildren.add(sectionTitle(
-    'TextField vs CupertinoTextField vs SelectableText',
-    'Side-by-side configuration map.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'TextField vs CupertinoTextField vs SelectableText',
+      'Side-by-side configuration map.',
+    ),
+  );
   pageChildren.add(cardShell(child: comparisonTable));
   pageChildren.add(cardShell(child: liveComparisonRow));
 
-  pageChildren.add(sectionTitle(
-    'Platform notes',
-    'Where these enums actually do something — and where they\'re polite.',
-  ));
+  pageChildren.add(
+    sectionTitle(
+      'Platform notes',
+      'Where these enums actually do something — and where they\'re polite.',
+    ),
+  );
   pageChildren.add(
     cardShell(
       child: Column(
@@ -2219,10 +2227,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  pageChildren.add(sectionTitle(
-    'Cheatsheet',
-    'One-line recipes for the common cases.',
-  ));
+  pageChildren.add(
+    sectionTitle('Cheatsheet', 'One-line recipes for the common cases.'),
+  );
   pageChildren.add(cardShell(child: cheatTable));
 
   pageChildren.add(pageDivider(thickness: 1.5));
@@ -2253,8 +2260,10 @@ dynamic build(BuildContext context) {
   }
   print('--- TextLeadingDistribution values ---');
   for (int i = 0; i < TextLeadingDistribution.values.length; i++) {
-    print('TextLeadingDistribution[$i] = '
-        '${TextLeadingDistribution.values[i].name}');
+    print(
+      'TextLeadingDistribution[$i] = '
+      '${TextLeadingDistribution.values[i].name}',
+    );
   }
   print('--- TextOverflow values ---');
   for (int i = 0; i < TextOverflow.values.length; i++) {
@@ -2291,10 +2300,7 @@ dynamic build(BuildContext context) {
       ),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(4.0),
-        child: Container(
-          height: 4.0,
-          color: brass,
-        ),
+        child: Container(height: 4.0, color: brass),
       ),
     ),
     body: Container(

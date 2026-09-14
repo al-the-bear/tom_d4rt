@@ -83,8 +83,14 @@ Widget _saSectionTitle(String title, IconData icon) {
 Widget _saBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -110,9 +116,23 @@ Widget _saInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _saTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _saTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _saTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _saTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -127,8 +147,19 @@ Widget _saInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _saCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _saSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _saPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _saSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _saPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -139,7 +170,10 @@ Widget _saSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _saSectionTitle('1 · Semantics Annotations Overview', Icons.accessibility),
+      _saSectionTitle(
+        '1 · Semantics Annotations Overview',
+        Icons.accessibility,
+      ),
       _saInfoCard(
         'What is RenderSliverSemanticsAnnotations?',
         'A sliver render object proxy that adds semantic annotations without '
@@ -165,7 +199,14 @@ Widget _saSection1Overview() {
         ),
         child: Column(
           children: [
-            Text('Transparency principle', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _saTextDark)),
+            Text(
+              'Transparency principle',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: _saTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -174,8 +215,18 @@ Widget _saSection1Overview() {
                     children: [
                       Icon(Icons.grid_on, size: 24, color: _saGrey),
                       SizedBox(height: 4),
-                      Text('Layout', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saGrey)),
-                      Text('Unchanged', style: TextStyle(fontSize: 9, color: _saTextMedium)),
+                      Text(
+                        'Layout',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _saGrey,
+                        ),
+                      ),
+                      Text(
+                        'Unchanged',
+                        style: TextStyle(fontSize: 9, color: _saTextMedium),
+                      ),
                     ],
                   ),
                 ),
@@ -184,8 +235,18 @@ Widget _saSection1Overview() {
                     children: [
                       Icon(Icons.brush, size: 24, color: _saGrey),
                       SizedBox(height: 4),
-                      Text('Painting', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saGrey)),
-                      Text('Unchanged', style: TextStyle(fontSize: 9, color: _saTextMedium)),
+                      Text(
+                        'Painting',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _saGrey,
+                        ),
+                      ),
+                      Text(
+                        'Unchanged',
+                        style: TextStyle(fontSize: 9, color: _saTextMedium),
+                      ),
                     ],
                   ),
                 ),
@@ -194,8 +255,18 @@ Widget _saSection1Overview() {
                     children: [
                       Icon(Icons.accessibility, size: 24, color: _saPrimary),
                       SizedBox(height: 4),
-                      Text('Semantics', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saPrimary)),
-                      Text('Modified ✓', style: TextStyle(fontSize: 9, color: _saPrimary)),
+                      Text(
+                        'Semantics',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _saPrimary,
+                        ),
+                      ),
+                      Text(
+                        'Modified ✓',
+                        style: TextStyle(fontSize: 9, color: _saPrimary),
+                      ),
                     ],
                   ),
                 ),
@@ -234,29 +305,65 @@ Widget _saSection2AccessTree() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tree layers', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _saTextDark)),
+            Text(
+              'Tree layers',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _saTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
-              {'layer': 'Widget Tree', 'detail': 'Declarative UI configuration', 'color': _saBlue},
-              {'layer': 'Element Tree', 'detail': 'Lifecycle and state management', 'color': _saTeal},
-              {'layer': 'Render Tree', 'detail': 'Layout, painting, hit testing', 'color': _saOrange},
-              {'layer': 'Semantics Tree', 'detail': 'Accessibility annotations ← Here', 'color': _saPrimary},
-            ].map((l) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: (l['color'] as Color).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(4),
-                border: Border(left: BorderSide(color: l['color'] as Color, width: 3)),
+              {
+                'layer': 'Widget Tree',
+                'detail': 'Declarative UI configuration',
+                'color': _saBlue,
+              },
+              {
+                'layer': 'Element Tree',
+                'detail': 'Lifecycle and state management',
+                'color': _saTeal,
+              },
+              {
+                'layer': 'Render Tree',
+                'detail': 'Layout, painting, hit testing',
+                'color': _saOrange,
+              },
+              {
+                'layer': 'Semantics Tree',
+                'detail': 'Accessibility annotations ← Here',
+                'color': _saPrimary,
+              },
+            ].map(
+              (l) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (l['color'] as Color).withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border(
+                    left: BorderSide(color: l['color'] as Color, width: 3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    _saBadge(
+                      l['layer'] as String,
+                      l['color'] as Color,
+                      _saOnPrimary,
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        l['detail'] as String,
+                        style: TextStyle(fontSize: 10, color: _saTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  _saBadge(l['layer'] as String, l['color'] as Color, _saOnPrimary),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(l['detail'] as String, style: TextStyle(fontSize: 10, color: _saTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -269,14 +376,54 @@ Widget _saSection2AccessTree() {
 // ---------------------------------------------------------------------------
 Widget _saSection3Properties() {
   final props = <Map<String, dynamic>>[
-    {'prop': 'label', 'desc': 'Human-readable description of the sliver content', 'example': '"Product list section"', 'color': _saPrimary},
-    {'prop': 'value', 'desc': 'Current value for adjustable content', 'example': '"Page 3 of 10"', 'color': _saBlue},
-    {'prop': 'hint', 'desc': 'Action hint for screen readers', 'example': '"Double tap to expand"', 'color': _saTeal},
-    {'prop': 'isHeader', 'desc': 'Marks the sliver as a heading element', 'example': 'true for section headers', 'color': _saOrange},
-    {'prop': 'isHidden', 'desc': 'Hides the node from accessibility tools', 'example': 'true for decorative slivers', 'color': _saGrey},
-    {'prop': 'liveRegion', 'desc': 'Announces changes automatically', 'example': 'true for dynamic content areas', 'color': _saAmber},
-    {'prop': 'sortKey', 'desc': 'Controls traversal order for screen readers', 'example': 'OrdinalSortKey(1.0)', 'color': _saIndigo},
-    {'prop': 'container', 'desc': 'Groups child semantics into one node', 'example': 'true for logical sections', 'color': _saCyan},
+    {
+      'prop': 'label',
+      'desc': 'Human-readable description of the sliver content',
+      'example': '"Product list section"',
+      'color': _saPrimary,
+    },
+    {
+      'prop': 'value',
+      'desc': 'Current value for adjustable content',
+      'example': '"Page 3 of 10"',
+      'color': _saBlue,
+    },
+    {
+      'prop': 'hint',
+      'desc': 'Action hint for screen readers',
+      'example': '"Double tap to expand"',
+      'color': _saTeal,
+    },
+    {
+      'prop': 'isHeader',
+      'desc': 'Marks the sliver as a heading element',
+      'example': 'true for section headers',
+      'color': _saOrange,
+    },
+    {
+      'prop': 'isHidden',
+      'desc': 'Hides the node from accessibility tools',
+      'example': 'true for decorative slivers',
+      'color': _saGrey,
+    },
+    {
+      'prop': 'liveRegion',
+      'desc': 'Announces changes automatically',
+      'example': 'true for dynamic content areas',
+      'color': _saAmber,
+    },
+    {
+      'prop': 'sortKey',
+      'desc': 'Controls traversal order for screen readers',
+      'example': 'OrdinalSortKey(1.0)',
+      'color': _saIndigo,
+    },
+    {
+      'prop': 'container',
+      'desc': 'Groups child semantics into one node',
+      'example': 'true for logical sections',
+      'color': _saCyan,
+    },
   ];
 
   return Column(
@@ -291,29 +438,45 @@ Widget _saSection3Properties() {
             'tell accessibility tools what the content is and how to interact.',
         Icons.tune,
       ),
-      ...props.map((p) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                _saCode(p['prop'] as String, color: p['color'] as Color),
-                SizedBox(width: 8),
-                Expanded(child: Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _saTextMedium))),
-              ],
+      ...props.map(
+        (p) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: p['color'] as Color, width: 3),
             ),
-            SizedBox(height: 4),
-            Text('Example: ${p['example']}', style: TextStyle(fontSize: 10, color: _saGrey, fontStyle: FontStyle.italic)),
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  _saCode(p['prop'] as String, color: p['color'] as Color),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      p['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _saTextMedium),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4),
+              Text(
+                'Example: ${p['example']}',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: _saGrey,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     ],
   );
 }
@@ -323,11 +486,31 @@ Widget _saSection3Properties() {
 // ---------------------------------------------------------------------------
 Widget _saSection4SliverVsBox() {
   final diffs = <Map<String, String>>[
-    {'aspect': 'Widget', 'box': 'Semantics', 'sliver': 'SliverSemanticsAnnotations (or via render object)'},
-    {'aspect': 'Render', 'box': 'RenderSemanticsAnnotations', 'sliver': 'RenderSliverSemanticsAnnotations'},
-    {'aspect': 'Protocol', 'box': 'Box protocol (BoxConstraints)', 'sliver': 'Sliver protocol (SliverConstraints)'},
-    {'aspect': 'Parent', 'box': 'Any RenderBox parent', 'sliver': 'Viewport or sliver parent'},
-    {'aspect': 'Effect', 'box': 'Same — adds semantics only', 'sliver': 'Same — adds semantics only'},
+    {
+      'aspect': 'Widget',
+      'box': 'Semantics',
+      'sliver': 'SliverSemanticsAnnotations (or via render object)',
+    },
+    {
+      'aspect': 'Render',
+      'box': 'RenderSemanticsAnnotations',
+      'sliver': 'RenderSliverSemanticsAnnotations',
+    },
+    {
+      'aspect': 'Protocol',
+      'box': 'Box protocol (BoxConstraints)',
+      'sliver': 'Sliver protocol (SliverConstraints)',
+    },
+    {
+      'aspect': 'Parent',
+      'box': 'Any RenderBox parent',
+      'sliver': 'Viewport or sliver parent',
+    },
+    {
+      'aspect': 'Effect',
+      'box': 'Same — adds semantics only',
+      'sliver': 'Same — adds semantics only',
+    },
   ];
 
   return Column(
@@ -354,27 +537,86 @@ Widget _saSection4SliverVsBox() {
           children: [
             Container(
               padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              decoration: BoxDecoration(color: _saSurface, borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(
+                color: _saSurface,
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: Row(
                 children: [
-                  SizedBox(width: 60, child: Text('Aspect', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saTextDark))),
-                  Expanded(child: Text('Box', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saBlue))),
-                  Expanded(child: Text('Sliver', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _saPrimary))),
+                  SizedBox(
+                    width: 60,
+                    child: Text(
+                      'Aspect',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _saTextDark,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Box',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _saBlue,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Sliver',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _saPrimary,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            ...diffs.map((d) => Container(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: _saDivider.withValues(alpha: 0.3)))),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 60, child: Text(d['aspect']!, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _saTextDark))),
-                  Expanded(child: Text(d['box']!, style: TextStyle(fontSize: 10, color: _saBlue))),
-                  Expanded(child: Text(d['sliver']!, style: TextStyle(fontSize: 10, color: _saPrimary))),
-                ],
+            ...diffs.map(
+              (d) => Container(
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: _saDivider.withValues(alpha: 0.3),
+                    ),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 60,
+                      child: Text(
+                        d['aspect']!,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: _saTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        d['box']!,
+                        style: TextStyle(fontSize: 10, color: _saBlue),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        d['sliver']!,
+                        style: TextStyle(fontSize: 10, color: _saPrimary),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -409,35 +651,85 @@ Widget _saSection5PropertiesMapping() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Data flow', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _saTextDark)),
+            Text(
+              'Data flow',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _saTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             ...[
-              {'step': '1', 'desc': 'Widget provides SemanticsProperties', 'color': _saPrimary},
-              {'step': '2', 'desc': 'RenderSliverSemanticsAnnotations stores them', 'color': _saAccent},
-              {'step': '3', 'desc': 'describeSemanticsConfiguration() applies to SemanticsConfiguration', 'color': _saTeal},
-              {'step': '4', 'desc': 'SemanticsNode is updated in the semantics tree', 'color': _saBlue},
-              {'step': '5', 'desc': 'Platform bridge sends to OS accessibility framework', 'color': _saOrange},
-              {'step': '6', 'desc': 'Screen reader announces content to user', 'color': _saGreen},
-            ].map((s) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                color: (s['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(4),
+              {
+                'step': '1',
+                'desc': 'Widget provides SemanticsProperties',
+                'color': _saPrimary,
+              },
+              {
+                'step': '2',
+                'desc': 'RenderSliverSemanticsAnnotations stores them',
+                'color': _saAccent,
+              },
+              {
+                'step': '3',
+                'desc':
+                    'describeSemanticsConfiguration() applies to SemanticsConfiguration',
+                'color': _saTeal,
+              },
+              {
+                'step': '4',
+                'desc': 'SemanticsNode is updated in the semantics tree',
+                'color': _saBlue,
+              },
+              {
+                'step': '5',
+                'desc': 'Platform bridge sends to OS accessibility framework',
+                'color': _saOrange,
+              },
+              {
+                'step': '6',
+                'desc': 'Screen reader announces content to user',
+                'color': _saGreen,
+              },
+            ].map(
+              (s) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (s['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: s['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        s['step'] as String,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _saOnPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        s['desc'] as String,
+                        style: TextStyle(fontSize: 11, color: _saTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 20, height: 20,
-                    decoration: BoxDecoration(color: s['color'] as Color, shape: BoxShape.circle),
-                    alignment: Alignment.center,
-                    child: Text(s['step'] as String, style: TextStyle(fontSize: 10, color: _saOnPrimary, fontWeight: FontWeight.w700)),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(child: Text(s['desc'] as String, style: TextStyle(fontSize: 11, color: _saTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -450,11 +742,36 @@ Widget _saSection5PropertiesMapping() {
 // ---------------------------------------------------------------------------
 Widget _saSection6ScreenReader() {
   final platforms = <Map<String, dynamic>>[
-    {'platform': 'iOS', 'reader': 'VoiceOver', 'icon': Icons.phone_iphone, 'color': _saGrey},
-    {'platform': 'Android', 'reader': 'TalkBack', 'icon': Icons.phone_android, 'color': _saGreen},
-    {'platform': 'macOS', 'reader': 'VoiceOver', 'icon': Icons.desktop_mac, 'color': _saBlue},
-    {'platform': 'Windows', 'reader': 'Narrator', 'icon': Icons.desktop_windows, 'color': _saIndigo},
-    {'platform': 'Web', 'reader': 'ARIA / NVDA / JAWS', 'icon': Icons.web, 'color': _saOrange},
+    {
+      'platform': 'iOS',
+      'reader': 'VoiceOver',
+      'icon': Icons.phone_iphone,
+      'color': _saGrey,
+    },
+    {
+      'platform': 'Android',
+      'reader': 'TalkBack',
+      'icon': Icons.phone_android,
+      'color': _saGreen,
+    },
+    {
+      'platform': 'macOS',
+      'reader': 'VoiceOver',
+      'icon': Icons.desktop_mac,
+      'color': _saBlue,
+    },
+    {
+      'platform': 'Windows',
+      'reader': 'Narrator',
+      'icon': Icons.desktop_windows,
+      'color': _saIndigo,
+    },
+    {
+      'platform': 'Web',
+      'reader': 'ARIA / NVDA / JAWS',
+      'icon': Icons.web,
+      'color': _saOrange,
+    },
   ];
 
   return Column(
@@ -480,24 +797,52 @@ Widget _saSection6ScreenReader() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Platform screen readers', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _saTextDark)),
+            Text(
+              'Platform screen readers',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: _saTextDark,
+              ),
+            ),
             SizedBox(height: 6),
-            ...platforms.map((p) => Container(
-              margin: EdgeInsets.only(bottom: 4),
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              decoration: BoxDecoration(
-                color: (p['color'] as Color).withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(4),
+            ...platforms.map(
+              (p) => Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: (p['color'] as Color).withValues(alpha: 0.06),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      p['icon'] as IconData,
+                      size: 16,
+                      color: p['color'] as Color,
+                    ),
+                    SizedBox(width: 8),
+                    SizedBox(
+                      width: 60,
+                      child: Text(
+                        p['platform'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _saTextDark,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        p['reader'] as String,
+                        style: TextStyle(fontSize: 11, color: _saTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Row(
-                children: [
-                  Icon(p['icon'] as IconData, size: 16, color: p['color'] as Color),
-                  SizedBox(width: 8),
-                  SizedBox(width: 60, child: Text(p['platform'] as String, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _saTextDark))),
-                  Expanded(child: Text(p['reader'] as String, style: TextStyle(fontSize: 11, color: _saTextMedium))),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -510,11 +855,31 @@ Widget _saSection6ScreenReader() {
 // ---------------------------------------------------------------------------
 Widget _saSection7Testing() {
   final methods = <Map<String, dynamic>>[
-    {'method': 'find.bySemanticsLabel()', 'desc': 'Find widgets by their semantic label in tests', 'color': _saPrimary},
-    {'method': 'SemanticsHandle', 'desc': 'Enable semantics tree in widget tests', 'color': _saAccent},
-    {'method': 'tester.getSemantics()', 'desc': 'Get the SemanticsNode for a specific finder', 'color': _saTeal},
-    {'method': 'SemanticsFlag checks', 'desc': 'Assert that specific flags are set on nodes', 'color': _saBlue},
-    {'method': 'Accessibility audit', 'desc': 'Run full accessibility audits in integration tests', 'color': _saOrange},
+    {
+      'method': 'find.bySemanticsLabel()',
+      'desc': 'Find widgets by their semantic label in tests',
+      'color': _saPrimary,
+    },
+    {
+      'method': 'SemanticsHandle',
+      'desc': 'Enable semantics tree in widget tests',
+      'color': _saAccent,
+    },
+    {
+      'method': 'tester.getSemantics()',
+      'desc': 'Get the SemanticsNode for a specific finder',
+      'color': _saTeal,
+    },
+    {
+      'method': 'SemanticsFlag checks',
+      'desc': 'Assert that specific flags are set on nodes',
+      'color': _saBlue,
+    },
+    {
+      'method': 'Accessibility audit',
+      'desc': 'Run full accessibility audits in integration tests',
+      'color': _saOrange,
+    },
   ];
 
   return Column(
@@ -540,27 +905,39 @@ Widget _saSection7Testing() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Test utilities', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _saTextDark)),
+            Text(
+              'Test utilities',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _saTextDark,
+              ),
+            ),
             Divider(color: _saDivider, height: 12),
-            ...methods.map((m) => Container(
-              margin: EdgeInsets.only(bottom: 6),
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: _saSurface,
-                borderRadius: BorderRadius.circular(6),
+            ...methods.map(
+              (m) => Container(
+                margin: EdgeInsets.only(bottom: 6),
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _saSurface,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _saCode(m['method'] as String, color: m['color'] as Color),
+                    SizedBox(height: 4),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(
+                        m['desc'] as String,
+                        style: TextStyle(fontSize: 10, color: _saTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _saCode(m['method'] as String, color: m['color'] as Color),
-                  SizedBox(height: 4),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8),
-                    child: Text(m['desc'] as String, style: TextStyle(fontSize: 10, color: _saTextMedium)),
-                  ),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -597,7 +974,14 @@ Widget _saSection8Demo() {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 4, bottom: 4),
-              child: Text('Semantics-annotated CustomScrollView', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _saTextDark)),
+              child: Text(
+                'Semantics-annotated CustomScrollView',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: _saTextDark,
+                ),
+              ),
             ),
             SizedBox(
               height: 300,
@@ -614,16 +998,33 @@ Widget _saSection8Demo() {
                           height: 80,
                           decoration: BoxDecoration(
                             color: _saPrimary,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(4),
+                            ),
                           ),
                           alignment: Alignment.center,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.accessibility, color: _saOnPrimary, size: 28),
+                              Icon(
+                                Icons.accessibility,
+                                color: _saOnPrimary,
+                                size: 28,
+                              ),
                               SizedBox(height: 4),
-                              Text('Accessible Scroll View', style: TextStyle(color: _saOnPrimary, fontWeight: FontWeight.bold, fontSize: 14)),
-                              _saBadge('Semantics: label, header', _saAccent, _saOnPrimary),
+                              Text(
+                                'Accessible Scroll View',
+                                style: TextStyle(
+                                  color: _saOnPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              _saBadge(
+                                'Semantics: label, header',
+                                _saAccent,
+                                _saOnPrimary,
+                              ),
                             ],
                           ),
                         ),
@@ -641,28 +1042,59 @@ Widget _saSection8Demo() {
                             children: [
                               Row(
                                 children: [
-                                  Text('Categories', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _saTextDark)),
+                                  Text(
+                                    'Categories',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: _saTextDark,
+                                    ),
+                                  ),
                                   Spacer(),
-                                  _saBadge('container: true', _saTeal, _saOnPrimary),
+                                  _saBadge(
+                                    'container: true',
+                                    _saTeal,
+                                    _saOnPrimary,
+                                  ),
                                 ],
                               ),
                               SizedBox(height: 4),
                               Wrap(
                                 spacing: 6,
                                 runSpacing: 4,
-                                children: ['Electronics', 'Books', 'Clothing', 'Home'].map((cat) => Semantics(
-                                  label: '$cat category',
-                                  button: true,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: _saAccentLight.withValues(alpha: 0.3),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(color: _saAccent.withValues(alpha: 0.3)),
-                                    ),
-                                    child: Text(cat, style: TextStyle(fontSize: 11, color: _saPrimary)),
-                                  ),
-                                )).toList(),
+                                children:
+                                    ['Electronics', 'Books', 'Clothing', 'Home']
+                                        .map(
+                                          (cat) => Semantics(
+                                            label: '$cat category',
+                                            button: true,
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                                vertical: 4,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: _saAccentLight
+                                                    .withValues(alpha: 0.3),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                border: Border.all(
+                                                  color: _saAccent.withValues(
+                                                    alpha: 0.3,
+                                                  ),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                cat,
+                                                style: TextStyle(
+                                                  fontSize: 11,
+                                                  color: _saPrimary,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
                               ),
                             ],
                           ),
@@ -677,22 +1109,38 @@ Widget _saSection8Demo() {
                         hint: 'Double tap to view details',
                         child: Container(
                           height: 48,
-                          margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: i.isEven
                                 ? _saPrimary.withValues(alpha: 0.03)
                                 : _saAccent.withValues(alpha: 0.03),
                             borderRadius: BorderRadius.circular(4),
-                            border: Border.all(color: _saDivider.withValues(alpha: 0.2)),
+                            border: Border.all(
+                              color: _saDivider.withValues(alpha: 0.2),
+                            ),
                           ),
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             children: [
                               Icon(Icons.label, size: 14, color: _saAccent),
                               SizedBox(width: 8),
-                              Text('Product ${i + 1}', style: TextStyle(fontSize: 12, color: _saTextDark)),
+                              Text(
+                                'Product ${i + 1}',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: _saTextDark,
+                                ),
+                              ),
                               Spacer(),
-                              if (i < 3) _saBadge('label + hint', _saPrimary.withValues(alpha: 0.15), _saPrimary),
+                              if (i < 3)
+                                _saBadge(
+                                  'label + hint',
+                                  _saPrimary.withValues(alpha: 0.15),
+                                  _saPrimary,
+                                ),
                             ],
                           ),
                         ),
@@ -714,13 +1162,52 @@ Widget _saSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _saSection9BestPractices() {
   final practices = <Map<String, dynamic>>[
-    {'title': 'Label everything interactive', 'desc': 'Every tappable sliver must have a semantic label for screen readers', 'icon': Icons.touch_app, 'color': _saPrimary},
-    {'title': 'Use container for groups', 'desc': 'Set container: true on logical sections so screen readers group child nodes', 'icon': Icons.folder, 'color': _saTeal},
-    {'title': 'Mark headers as headers', 'desc': 'Set header: true on section headers for proper document structure', 'icon': Icons.title, 'color': _saBlue},
-    {'title': 'Avoid redundant labels', 'desc': 'Don\'t duplicate text already visible — add context instead', 'icon': Icons.content_copy, 'color': _saAmber},
-    {'title': 'Test with a screen reader', 'desc': 'Run TalkBack/VoiceOver to verify the experience, not just the tree', 'icon': Icons.hearing, 'color': _saOrange},
-    {'title': 'Use excludeSemantics sparingly', 'desc': 'Only exclude decorative elements that add no information', 'icon': Icons.remove_circle, 'color': _saRed},
-    {'title': 'Order matters', 'desc': 'Use sortKey when visual order differs from reading order', 'icon': Icons.sort, 'color': _saIndigo},
+    {
+      'title': 'Label everything interactive',
+      'desc':
+          'Every tappable sliver must have a semantic label for screen readers',
+      'icon': Icons.touch_app,
+      'color': _saPrimary,
+    },
+    {
+      'title': 'Use container for groups',
+      'desc':
+          'Set container: true on logical sections so screen readers group child nodes',
+      'icon': Icons.folder,
+      'color': _saTeal,
+    },
+    {
+      'title': 'Mark headers as headers',
+      'desc':
+          'Set header: true on section headers for proper document structure',
+      'icon': Icons.title,
+      'color': _saBlue,
+    },
+    {
+      'title': 'Avoid redundant labels',
+      'desc': 'Don\'t duplicate text already visible — add context instead',
+      'icon': Icons.content_copy,
+      'color': _saAmber,
+    },
+    {
+      'title': 'Test with a screen reader',
+      'desc':
+          'Run TalkBack/VoiceOver to verify the experience, not just the tree',
+      'icon': Icons.hearing,
+      'color': _saOrange,
+    },
+    {
+      'title': 'Use excludeSemantics sparingly',
+      'desc': 'Only exclude decorative elements that add no information',
+      'icon': Icons.remove_circle,
+      'color': _saRed,
+    },
+    {
+      'title': 'Order matters',
+      'desc': 'Use sortKey when visual order differs from reading order',
+      'icon': Icons.sort,
+      'color': _saIndigo,
+    },
   ];
 
   return Column(
@@ -735,39 +1222,56 @@ Widget _saSection9BestPractices() {
             'rich accessibility information even in complex sliver layouts.',
         Icons.verified_user,
       ),
-      ...practices.map((p) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _saTextDark)),
-                  SizedBox(height: 2),
-                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _saTextMedium)),
-                ],
-              ),
+      ...practices.map(
+        (p) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: p['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      p['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _saTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _saTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_saPrimary.withValues(alpha: 0.08), _saAccent.withValues(alpha: 0.08)],
+            colors: [
+              _saPrimary.withValues(alpha: 0.08),
+              _saAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _saPrimary.withValues(alpha: 0.2)),
@@ -778,7 +1282,11 @@ Widget _saSection9BestPractices() {
             SizedBox(height: 8),
             Text(
               'RenderSliverSemanticsAnnotations',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _saTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _saTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -839,7 +1347,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Adding accessibility annotations to sliver content',
-                style: TextStyle(fontSize: 12, color: _saOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _saOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

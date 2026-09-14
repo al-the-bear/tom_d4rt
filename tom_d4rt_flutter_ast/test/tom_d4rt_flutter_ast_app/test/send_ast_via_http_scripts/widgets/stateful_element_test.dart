@@ -20,19 +20,20 @@ import 'package:flutter/material.dart';
 /// 7. Best practices
 
 // ─── palette ───────────────────────────────────────────────
-const _kIndigo     = Color(0xFF3F51B5);
+const _kIndigo = Color(0xFF3F51B5);
 const _kIndigoLight = Color(0xFFC5CAE9);
 const _kIndigoDark = Color(0xFF1A237E);
-const _kGreen      = Color(0xFF4CAF50);
+const _kGreen = Color(0xFF4CAF50);
 const _kGreenLight = Color(0xFFE8F5E9);
-const _kGreenDark  = Color(0xFF1B5E20);
-const _kSurface    = Color(0xFFFBFBFD);
-const _kDivider    = Color(0xFFE0E0E0);
-const _kTextDark   = Color(0xFF212121);
-const _kTextMuted  = Color(0xFF757575);
+const _kGreenDark = Color(0xFF1B5E20);
+const _kSurface = Color(0xFFFBFBFD);
+const _kDivider = Color(0xFFE0E0E0);
+const _kTextDark = Color(0xFF212121);
+const _kTextMuted = Color(0xFF757575);
 
 // ─── theory content ────────────────────────────────────────
-const _kOverview = 'StatefulElement is the bridge between a StatefulWidget and '
+const _kOverview =
+    'StatefulElement is the bridge between a StatefulWidget and '
     'its State object. When Flutter creates the widget tree, every StatefulWidget '
     'produces a StatefulElement via createElement(). The element owns the State '
     'object for the widget\'s entire mounted lifetime. Even when a parent rebuilds '
@@ -48,41 +49,57 @@ class _Phase {
 }
 
 const _kPhases = <_Phase>[
-  _Phase('createElement()',
-      'Framework inflates the StatefulWidget for the first time.',
-      'StatefulWidget.createElement() returns a new StatefulElement. '
-      'This element is not yet mounted — it has no parent or slot.'),
-  _Phase('createState()',
-      'StatefulElement constructor or first mount.',
-      'The element calls widget.createState() to obtain the State object. '
-      'State._element is set to this element, and State._widget to the widget.'),
-  _Phase('mount(parent, slot)',
-      'Element is inserted into the element tree.',
-      'The element acquires its parent, slot, and depth. It calls '
-      'State.initState() and then State.didChangeDependencies(). '
-      'After that, the first build() happens.'),
-  _Phase('build()',
-      'Every time setState() is called or the parent rebuilds.',
-      'StatefulElement calls State.build(context) to produce the child '
-      'widget subtree. The element then updates its child elements via '
-      'updateChild().'),
-  _Phase('update(newWidget)',
-      'Parent rebuilds and provides a new widget of the same runtimeType.',
-      'The element keeps the same State but calls '
-      'State.didUpdateWidget(oldWidget). This is how configuration '
-      'changes (e.g., new parameters) flow to the State without losing it.'),
-  _Phase('didChangeDependencies()',
-      'An InheritedWidget ancestor changes.',
-      'Called when an InheritedWidget this element depends on changes. '
-      'The element marks itself as dirty, triggering a rebuild.'),
-  _Phase('deactivate()',
-      'Element is removed from the tree (may be reinserted).',
-      'State.deactivate() is called. The element is in a transient state — '
-      'if it is reinserted before the frame ends, it avoids unmounting.'),
-  _Phase('unmount()',
-      'Element is permanently removed.',
-      'State.dispose() is called. All references are cleared. The State '
-      'object must not call setState() after dispose().'),
+  _Phase(
+    'createElement()',
+    'Framework inflates the StatefulWidget for the first time.',
+    'StatefulWidget.createElement() returns a new StatefulElement. '
+        'This element is not yet mounted — it has no parent or slot.',
+  ),
+  _Phase(
+    'createState()',
+    'StatefulElement constructor or first mount.',
+    'The element calls widget.createState() to obtain the State object. '
+        'State._element is set to this element, and State._widget to the widget.',
+  ),
+  _Phase(
+    'mount(parent, slot)',
+    'Element is inserted into the element tree.',
+    'The element acquires its parent, slot, and depth. It calls '
+        'State.initState() and then State.didChangeDependencies(). '
+        'After that, the first build() happens.',
+  ),
+  _Phase(
+    'build()',
+    'Every time setState() is called or the parent rebuilds.',
+    'StatefulElement calls State.build(context) to produce the child '
+        'widget subtree. The element then updates its child elements via '
+        'updateChild().',
+  ),
+  _Phase(
+    'update(newWidget)',
+    'Parent rebuilds and provides a new widget of the same runtimeType.',
+    'The element keeps the same State but calls '
+        'State.didUpdateWidget(oldWidget). This is how configuration '
+        'changes (e.g., new parameters) flow to the State without losing it.',
+  ),
+  _Phase(
+    'didChangeDependencies()',
+    'An InheritedWidget ancestor changes.',
+    'Called when an InheritedWidget this element depends on changes. '
+        'The element marks itself as dirty, triggering a rebuild.',
+  ),
+  _Phase(
+    'deactivate()',
+    'Element is removed from the tree (may be reinserted).',
+    'State.deactivate() is called. The element is in a transient state — '
+        'if it is reinserted before the frame ends, it avoids unmounting.',
+  ),
+  _Phase(
+    'unmount()',
+    'Element is permanently removed.',
+    'State.dispose() is called. All references are cleared. The State '
+        'object must not call setState() after dispose().',
+  ),
 ];
 
 class _Relationship {
@@ -93,18 +110,30 @@ class _Relationship {
 }
 
 const _kRelationships = <_Relationship>[
-  _Relationship('StatefulWidget', 'Immutable, recreated on rebuild',
-      'Configuration. Describes what the UI should look like. '
-      'Creates the Element and State.'),
-  _Relationship('StatefulElement', 'Persists across rebuilds',
-      'Manager. Owns the State. Compares old and new widgets. '
-      'Decides whether to update or replace.'),
-  _Relationship('State', 'Persists across rebuilds (owned by Element)',
-      'Mutable state + build logic. Holds data that changes over time '
-      'and produces the child widget subtree.'),
-  _Relationship('RenderObject', 'Persists across rebuilds',
-      'Layout and paint. Handles hit testing, sizing, and rendering '
-      'to the screen. Managed by RenderObjectElement subclasses.'),
+  _Relationship(
+    'StatefulWidget',
+    'Immutable, recreated on rebuild',
+    'Configuration. Describes what the UI should look like. '
+        'Creates the Element and State.',
+  ),
+  _Relationship(
+    'StatefulElement',
+    'Persists across rebuilds',
+    'Manager. Owns the State. Compares old and new widgets. '
+        'Decides whether to update or replace.',
+  ),
+  _Relationship(
+    'State',
+    'Persists across rebuilds (owned by Element)',
+    'Mutable state + build logic. Holds data that changes over time '
+        'and produces the child widget subtree.',
+  ),
+  _Relationship(
+    'RenderObject',
+    'Persists across rebuilds',
+    'Layout and paint. Handles hit testing, sizing, and rendering '
+        'to the screen. Managed by RenderObjectElement subclasses.',
+  ),
 ];
 
 class _Callback {
@@ -115,18 +144,24 @@ class _Callback {
 }
 
 const _kCallbacks = <_Callback>[
-  _Callback('didUpdateWidget(oldWidget)',
-      'Parent provides a new widget with new parameters.',
-      'Compare old and new parameters. Restart animations, cancel '
-      'subscriptions for changed values, recalculate derived state.'),
-  _Callback('reassemble()',
-      'Hot reload only.',
-      'Called during development hot reload. Reinitializes state '
-      'that depends on const values or code changes.'),
-  _Callback('didChangeDependencies()',
-      'An InheritedWidget dependency changes.',
-      'Fetch new values from the inherited widget. Common with '
-      'Theme.of(context), MediaQuery.of(context), or custom providers.'),
+  _Callback(
+    'didUpdateWidget(oldWidget)',
+    'Parent provides a new widget with new parameters.',
+    'Compare old and new parameters. Restart animations, cancel '
+        'subscriptions for changed values, recalculate derived state.',
+  ),
+  _Callback(
+    'reassemble()',
+    'Hot reload only.',
+    'Called during development hot reload. Reinitializes state '
+        'that depends on const values or code changes.',
+  ),
+  _Callback(
+    'didChangeDependencies()',
+    'An InheritedWidget dependency changes.',
+    'Fetch new values from the inherited widget. Common with '
+        'Theme.of(context), MediaQuery.of(context), or custom providers.',
+  ),
 ];
 
 const _kPractices = <String, String>{
@@ -162,9 +197,15 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(title,
-              style: TextStyle(color: Colors.white, fontSize: 16,
-                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.4,
+            ),
+          ),
         ),
       ],
     ),
@@ -179,20 +220,29 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04),
-          blurRadius: 6, offset: Offset(0, 2))],
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
+      ],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(text,
-      style: TextStyle(fontSize: 11, color: _kTextMuted,
-          fontWeight: FontWeight.w600, letterSpacing: 0.6));
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 11,
+      color: _kTextMuted,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.6,
+    ),
+  );
 }
-
-
 
 Widget _bullet(String text) {
   return Padding(
@@ -200,11 +250,19 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
-            decoration: BoxDecoration(color: _kIndigo, shape: BoxShape.circle)),
+        Container(
+          margin: EdgeInsets.only(top: 7),
+          width: 5,
+          height: 5,
+          decoration: BoxDecoration(color: _kIndigo, shape: BoxShape.circle),
+        ),
         SizedBox(width: 10),
-        Expanded(child: Text(text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
       ],
     ),
   );
@@ -220,7 +278,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: _kIndigo, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: _kIndigo,
+        brightness: Brightness.light,
+      ),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoScaffold(),
@@ -253,8 +314,14 @@ class _DemoScaffoldState extends State<_DemoScaffold> {
         selectedItemColor: _kIndigoDark,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.school_outlined), label: 'Theory'),
-          BottomNavigationBarItem(icon: Icon(Icons.timeline), label: 'Lifecycle'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school_outlined),
+            label: 'Theory',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.timeline),
+            label: 'Lifecycle',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.refresh), label: 'Rebuild'),
         ],
       ),
@@ -273,8 +340,12 @@ class _TheoryPage extends StatelessWidget {
       children: [
         _sectionHeader('1 · What Is StatefulElement?', Icons.info_outline),
         SizedBox(height: 8),
-        _card(child: Text(_kOverview,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        _card(
+          child: Text(
+            _kOverview,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
 
         SizedBox(height: 12),
         _sectionHeader('2 · Lifecycle Phases', Icons.account_tree_outlined),
@@ -289,136 +360,203 @@ class _TheoryPage extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      width: 26, height: 26,
+                      width: 26,
+                      height: 26,
                       decoration: BoxDecoration(
                         color: _kIndigoLight,
                         shape: BoxShape.circle,
                       ),
                       alignment: Alignment.center,
-                      child: Text('${i + 1}',
-                          style: TextStyle(fontSize: 11,
-                              fontWeight: FontWeight.w800,
-                              color: _kIndigoDark)),
+                      child: Text(
+                        '${i + 1}',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w800,
+                          color: _kIndigoDark,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 8),
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 3),
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: _kGreenLight,
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Text(p.name,
-                            style: TextStyle(fontFamily: 'monospace',
-                                fontWeight: FontWeight.w700, fontSize: 12,
-                                color: _kGreenDark)),
+                        child: Text(
+                          p.name,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                            color: _kGreenDark,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 4),
-                Text(p.when,
-                    style: TextStyle(fontStyle: FontStyle.italic,
-                        fontSize: 11, color: _kIndigo)),
+                Text(
+                  p.when,
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 11,
+                    color: _kIndigo,
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text(p.what,
-                    style: TextStyle(fontSize: 12.5, color: _kTextDark,
-                        height: 1.35)),
+                Text(
+                  p.what,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           );
         }),
 
         SizedBox(height: 12),
-        _sectionHeader('3 · Widget – Element – State – RenderObject',
-            Icons.layers_outlined),
+        _sectionHeader(
+          '3 · Widget – Element – State – RenderObject',
+          Icons.layers_outlined,
+        ),
         SizedBox(height: 8),
-        ..._kRelationships.map((r) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kIndigoLight,
-                  borderRadius: BorderRadius.circular(6),
+        ..._kRelationships.map(
+          (r) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kIndigoLight,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    r.layer,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kIndigoDark,
+                    ),
+                  ),
                 ),
-                child: Text(r.layer,
-                    style: TextStyle(fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700, fontSize: 12,
-                        color: _kIndigoDark)),
-              ),
-              SizedBox(height: 4),
-              Text(r.lives,
-                  style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic,
-                      color: _kGreen)),
-              SizedBox(height: 4),
-              Text(r.role,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark,
-                      height: 1.35)),
-            ],
+                SizedBox(height: 4),
+                Text(
+                  r.lives,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                    color: _kGreen,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  r.role,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
         _sectionHeader('6 · Callback Comparison', Icons.compare),
         SizedBox(height: 8),
-        ..._kCallbacks.map((c) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color: _kGreenLight,
-                  borderRadius: BorderRadius.circular(5),
+        ..._kCallbacks.map(
+          (c) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: _kGreenLight,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    c.name,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kGreenDark,
+                    ),
+                  ),
                 ),
-                child: Text(c.name,
-                    style: TextStyle(fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700, fontSize: 12,
-                        color: _kGreenDark)),
-              ),
-              SizedBox(height: 4),
-              Text('Trigger: ${c.trigger}',
-                  style: TextStyle(fontSize: 11, color: _kTextMuted)),
-              SizedBox(height: 4),
-              Text(c.useCase,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark,
-                      height: 1.35)),
-            ],
+                SizedBox(height: 4),
+                Text(
+                  'Trigger: ${c.trigger}',
+                  style: TextStyle(fontSize: 11, color: _kTextMuted),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  c.useCase,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
         _sectionHeader('7 · Best Practices', Icons.lightbulb_outlined),
         SizedBox(height: 8),
-        ..._kPractices.entries.map((e) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.check_circle_outline, color: _kGreen, size: 18),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(e.key,
-                        style: TextStyle(fontWeight: FontWeight.w600,
-                            fontSize: 13, color: _kIndigoDark)),
+        ..._kPractices.entries.map(
+          (e) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.check_circle_outline, color: _kGreen, size: 18),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        e.key,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                          color: _kIndigoDark,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Padding(
+                  padding: EdgeInsets.only(left: 26),
+                  child: Text(
+                    e.value,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: _kTextDark,
+                      height: 1.35,
+                    ),
                   ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Padding(
-                padding: EdgeInsets.only(left: 26),
-                child: Text(e.value,
-                    style: TextStyle(fontSize: 12.5, color: _kTextDark,
-                        height: 1.35)),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -446,14 +584,25 @@ class _LifecyclePageState extends State<_LifecyclePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('LIFECYCLE EVENT TRACKER',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'LIFECYCLE EVENT TRACKER',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('Toggle visibility to trigger mount/unmount. Change config '
-                  'to trigger didUpdateWidget. Watch lifecycle events appear.',
-                  style: TextStyle(color: Colors.white70, fontSize: 10.5,
-                      height: 1.3)),
+              Text(
+                'Toggle visibility to trigger mount/unmount. Change config '
+                'to trigger didUpdateWidget. Watch lifecycle events appear.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -482,10 +631,14 @@ class _LifecyclePageState extends State<_LifecyclePage> {
                     children: [
                       Icon(Icons.child_care, color: _kDivider, size: 48),
                       SizedBox(height: 8),
-                      Text('Child removed — Element unmounted',
-                          style: TextStyle(color: _kTextMuted, fontSize: 13)),
-                      Text('State.dispose() was called',
-                          style: TextStyle(fontSize: 11, color: _kTextMuted)),
+                      Text(
+                        'Child removed — Element unmounted',
+                        style: TextStyle(color: _kTextMuted, fontSize: 13),
+                      ),
+                      Text(
+                        'State.dispose() was called',
+                        style: TextStyle(fontSize: 11, color: _kTextMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -511,10 +664,15 @@ class _LifecyclePageState extends State<_LifecyclePage> {
               Icon(icon, color: _kGreen, size: 16),
               SizedBox(width: 6),
               Expanded(
-                child: Text(label,
-                    style: TextStyle(color: Colors.white, fontSize: 11,
-                        fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -545,15 +703,21 @@ class _TrackedChildState extends State<_TrackedChild> {
   @override
   void initState() {
     super.initState();
-    _events.add(_LifecycleEvent(
-        phase: 'initState', detail: 'State created. Version: ${widget.version}'));
+    _events.add(
+      _LifecycleEvent(
+        phase: 'initState',
+        detail: 'State created. Version: ${widget.version}',
+      ),
+    );
   }
 
   @override
   void didUpdateWidget(covariant _TrackedChild oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _log('didUpdateWidget',
-        'Config changed: v${oldWidget.version} → v${widget.version}');
+    _log(
+      'didUpdateWidget',
+      'Config changed: v${oldWidget.version} → v${widget.version}',
+    );
   }
 
   @override
@@ -579,8 +743,10 @@ class _TrackedChildState extends State<_TrackedChild> {
   Widget build(BuildContext context) {
     _buildCount++;
     // Add build event without setState (we're already in build)
-    _events.insert(0, _LifecycleEvent(
-        phase: 'build', detail: 'Build #$_buildCount'));
+    _events.insert(
+      0,
+      _LifecycleEvent(phase: 'build', detail: 'Build #$_buildCount'),
+    );
 
     return ListView(
       padding: EdgeInsets.all(12),
@@ -612,21 +778,21 @@ class _TrackedChildState extends State<_TrackedChild> {
           final color = isInit
               ? _kGreen
               : isBuild
-                  ? _kIndigo
-                  : isUpdate
-                      ? _kGreen
-                      : isDeps
-                          ? Colors.orange
-                          : _kTextMuted;
+              ? _kIndigo
+              : isUpdate
+              ? _kGreen
+              : isDeps
+              ? Colors.orange
+              : _kTextMuted;
           final bgColor = isInit
               ? _kGreenLight
               : isBuild
-                  ? _kIndigoLight.withOpacity(0.3)
-                  : isUpdate
-                      ? _kGreenLight
-                      : isDeps
-                          ? Colors.orange.shade50
-                          : Colors.grey.shade100;
+              ? _kIndigoLight.withOpacity(0.3)
+              : isUpdate
+              ? _kGreenLight
+              : isDeps
+              ? Colors.orange.shade50
+              : Colors.grey.shade100;
           return Container(
             margin: EdgeInsets.only(bottom: 3),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
@@ -638,20 +804,31 @@ class _TrackedChildState extends State<_TrackedChild> {
             child: Row(
               children: [
                 Container(
-                  width: 8, height: 8,
+                  width: 8,
+                  height: 8,
                   decoration: BoxDecoration(
-                    color: color, shape: BoxShape.circle),
+                    color: color,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 SizedBox(width: 8),
                 SizedBox(
                   width: 120,
-                  child: Text(e.phase,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 10.5,
-                          fontWeight: FontWeight.w700, color: color)),
+                  child: Text(
+                    e.phase,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: Text(e.detail,
-                      style: TextStyle(fontSize: 10.5, color: _kTextDark)),
+                  child: Text(
+                    e.detail,
+                    style: TextStyle(fontSize: 10.5, color: _kTextDark),
+                  ),
                 ),
               ],
             ),
@@ -664,10 +841,23 @@ class _TrackedChildState extends State<_TrackedChild> {
   Widget _miniStat(String label, String value) {
     return Column(
       children: [
-        Text(label, style: TextStyle(fontSize: 9, color: _kTextMuted,
-            fontWeight: FontWeight.w600)),
-        Text(value, style: TextStyle(fontFamily: 'monospace', fontSize: 14,
-            fontWeight: FontWeight.w800, color: _kIndigoDark)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            color: _kTextMuted,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            color: _kIndigoDark,
+          ),
+        ),
       ],
     );
   }
@@ -693,8 +883,12 @@ class _RebuildPageState extends State<_RebuildPage> {
   bool _useKey = false;
 
   static const _kColorOptions = <Color>[
-    Color(0xFF4CAF50), Color(0xFFFF9800), Color(0xFF2196F3),
-    Color(0xFFE91E63), Color(0xFF9C27B0), Color(0xFF009688),
+    Color(0xFF4CAF50),
+    Color(0xFFFF9800),
+    Color(0xFF2196F3),
+    Color(0xFFE91E63),
+    Color(0xFF9C27B0),
+    Color(0xFF009688),
   ];
 
   void _triggerParentRebuild() {
@@ -714,14 +908,25 @@ class _RebuildPageState extends State<_RebuildPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('STATE PERSISTENCE ACROSS REBUILDS',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'STATE PERSISTENCE ACROSS REBUILDS',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('The child keeps its counter even when the parent rebuilds. '
-                  'Toggle "Use Key" to force a new Element (and new State).',
-                  style: TextStyle(color: Colors.white70, fontSize: 10.5,
-                      height: 1.3)),
+              Text(
+                'The child keeps its counter even when the parent rebuilds. '
+                'Toggle "Use Key" to force a new Element (and new State).',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -744,9 +949,14 @@ class _RebuildPageState extends State<_RebuildPage> {
                           border: Border.all(color: _kGreen),
                         ),
                         alignment: Alignment.center,
-                        child: Text('Rebuild parent',
-                            style: TextStyle(color: Colors.white,
-                                fontSize: 11, fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Rebuild parent',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -762,12 +972,18 @@ class _RebuildPageState extends State<_RebuildPage> {
                               : Colors.white.withOpacity(0.08),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                              color: _useKey ? _kIndigo : Colors.white24),
+                            color: _useKey ? _kIndigo : Colors.white24,
+                          ),
                         ),
                         alignment: Alignment.center,
-                        child: Text('Toggle key: ${_useKey ? "ON" : "OFF"}',
-                            style: TextStyle(color: Colors.white,
-                                fontSize: 11, fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Toggle key: ${_useKey ? "ON" : "OFF"}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -791,13 +1007,19 @@ class _RebuildPageState extends State<_RebuildPage> {
             children: [
               _label('HOW IT WORKS'),
               SizedBox(height: 6),
-              _bullet('Without a key: same Element persists across parent rebuilds. '
-                  'didUpdateWidget fires, but State (and its counter) remain.'),
-              _bullet('With a key that changes: the framework creates a new Element '
-                  'because the key differs. The old State is disposed, a new State '
-                  'is created with counter back to 0.'),
-              _bullet('This demonstrates the core role of StatefulElement — it '
-                  'decides whether to reuse or replace the State.'),
+              _bullet(
+                'Without a key: same Element persists across parent rebuilds. '
+                'didUpdateWidget fires, but State (and its counter) remain.',
+              ),
+              _bullet(
+                'With a key that changes: the framework creates a new Element '
+                'because the key differs. The old State is disposed, a new State '
+                'is created with counter back to 0.',
+              ),
+              _bullet(
+                'This demonstrates the core role of StatefulElement — it '
+                'decides whether to reuse or replace the State.',
+              ),
             ],
           ),
         ),
@@ -817,11 +1039,23 @@ class _RebuildPageState extends State<_RebuildPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(color: Colors.white54, fontSize: 9,
-                fontWeight: FontWeight.w600)),
-            Text(value, style: TextStyle(color: _kGreen,
-                fontFamily: 'monospace', fontSize: 13,
-                fontWeight: FontWeight.w700)),
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                color: _kGreen,
+                fontFamily: 'monospace',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
       ),
@@ -861,28 +1095,47 @@ class _CounterChildState extends State<_CounterChild> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: widget.accentColor.withOpacity(0.5), width: 2),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06),
-            blurRadius: 12, offset: Offset(0, 4))],
+        border: Border.all(
+          color: widget.accentColor.withOpacity(0.5),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.06),
+            blurRadius: 12,
+            offset: Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Child Counter',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700,
-                  color: _kTextDark)),
+          Text(
+            'Child Counter',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kTextDark,
+            ),
+          ),
           SizedBox(height: 12),
           Container(
-            width: 80, height: 80,
+            width: 80,
+            height: 80,
             decoration: BoxDecoration(
               color: widget.accentColor.withOpacity(0.15),
               shape: BoxShape.circle,
               border: Border.all(color: widget.accentColor, width: 2),
             ),
             alignment: Alignment.center,
-            child: Text('$_counter',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900,
-                    color: widget.accentColor)),
+            child: Text(
+              '$_counter',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: widget.accentColor,
+              ),
+            ),
           ),
           SizedBox(height: 12),
           Row(
@@ -891,20 +1144,26 @@ class _CounterChildState extends State<_CounterChild> {
               GestureDetector(
                 onTap: () => setState(() => _counter--),
                 child: Container(
-                  width: 36, height: 36,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
                     color: widget.accentColor.withOpacity(0.1),
                     shape: BoxShape.circle,
                   ),
                   alignment: Alignment.center,
-                  child: Icon(Icons.remove, color: widget.accentColor, size: 20),
+                  child: Icon(
+                    Icons.remove,
+                    color: widget.accentColor,
+                    size: 20,
+                  ),
                 ),
               ),
               SizedBox(width: 16),
               GestureDetector(
                 onTap: () => setState(() => _counter++),
                 child: Container(
-                  width: 36, height: 36,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
                     color: widget.accentColor.withOpacity(0.1),
                     shape: BoxShape.circle,
@@ -942,8 +1201,15 @@ class _CounterChildState extends State<_CounterChild> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(l, style: TextStyle(fontSize: 10, color: _kTextMuted)),
-          Text(v, style: TextStyle(fontFamily: 'monospace', fontSize: 10,
-              fontWeight: FontWeight.w700, color: _kIndigoDark)),
+          Text(
+            v,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: _kIndigoDark,
+            ),
+          ),
         ],
       ),
     );

@@ -153,73 +153,73 @@ dynamic build(BuildContext context) {
 
   // A swatch tile used by the property anatomy panel.
   Widget swatch(Color base, Color border) => Container(
-        width: 22,
-        height: 22,
-        decoration: BoxDecoration(
-          color: base,
-          border: Border.all(color: border, width: 1.4),
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: base.withValues(alpha: 0.45),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
+    width: 22,
+    height: 22,
+    decoration: BoxDecoration(
+      color: base,
+      border: Border.all(color: border, width: 1.4),
+      borderRadius: BorderRadius.circular(6),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: base.withValues(alpha: 0.45),
+          blurRadius: 4,
+          offset: const Offset(0, 2),
         ),
-      );
+      ],
+    ),
+  );
 
   // A small monospace tag.
   Widget codeTag(String label, Color bg, Color fg) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(color: fg.withValues(alpha: 0.35), width: 0.8),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 10,
-            color: fg,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+      border: Border.all(color: fg.withValues(alpha: 0.35), width: 0.8),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 10,
+        color: fg,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
 
   // A connector arrow built from plain Containers.
   Widget connector(Color line, Color tip) => SizedBox(
-        width: 44,
-        height: 18,
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Container(
-              height: 2,
-              margin: const EdgeInsets.symmetric(horizontal: 6),
-              decoration: BoxDecoration(
-                color: line,
-                borderRadius: BorderRadius.circular(1),
-              ),
-            ),
-            Positioned(
-              right: 4,
-              child: Container(
-                width: 0,
-                height: 0,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(color: Colors.transparent, width: 6),
-                    bottom: BorderSide(color: Colors.transparent, width: 6),
-                    left: BorderSide(color: tip, width: 10),
-                  ),
-                ),
-              ),
-            ),
-          ],
+    width: 44,
+    height: 18,
+    child: Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Container(
+          height: 2,
+          margin: const EdgeInsets.symmetric(horizontal: 6),
+          decoration: BoxDecoration(
+            color: line,
+            borderRadius: BorderRadius.circular(1),
+          ),
         ),
-      );
+        Positioned(
+          right: 4,
+          child: Container(
+            width: 0,
+            height: 0,
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(color: Colors.transparent, width: 6),
+                bottom: BorderSide(color: Colors.transparent, width: 6),
+                left: BorderSide(color: tip, width: 10),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 
   // A description row inside the anatomy panel.
   Widget anatomyRow(String name, String description, Color sw1, Color sw2) =>
@@ -264,7 +264,8 @@ dynamic build(BuildContext context) {
       );
 
   // A section title tile.
-  Widget sectionTitle(String number, String title, String subtitle) => Container(
+  Widget sectionTitle(String number, String title, String subtitle) =>
+      Container(
         margin: const EdgeInsets.only(top: 18, bottom: 8),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
@@ -334,25 +335,26 @@ dynamic build(BuildContext context) {
 
   // A prose paragraph styled in the cream/charcoal idiom.
   Widget prose(String text) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: creamPaper,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: paperLine.withValues(alpha: 0.7), width: 0.8),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 11.5,
-            height: 1.45,
-            color: charcoalText.withValues(alpha: 0.9),
-          ),
-        ),
-      );
+    margin: const EdgeInsets.symmetric(vertical: 6),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: creamPaper,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: paperLine.withValues(alpha: 0.7), width: 0.8),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11.5,
+        height: 1.45,
+        color: charcoalText.withValues(alpha: 0.9),
+      ),
+    ),
+  );
 
   // A row of two states — "off" left and "on" right with a connector.
-  Widget beforeAfterRow(Widget off, Widget on, Color line, Color tip) => Padding(
+  Widget beforeAfterRow(Widget off, Widget on, Color line, Color tip) =>
+      Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -366,14 +368,14 @@ dynamic build(BuildContext context) {
 
   // A wrapper that adds a soft frame around a chip so the theme reads.
   Widget chipFrame(Widget chip, Color frame) => Container(
-        padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: frame.withValues(alpha: 0.18),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: frame.withValues(alpha: 0.45), width: 1),
-        ),
-        child: chip,
-      );
+    padding: const EdgeInsets.all(6),
+    decoration: BoxDecoration(
+      color: frame.withValues(alpha: 0.18),
+      borderRadius: BorderRadius.circular(14),
+      border: Border.all(color: frame.withValues(alpha: 0.45), width: 1),
+    ),
+    child: chip,
+  );
 
   // ===========================================================================
   // Section 1 — Title banner.
@@ -598,7 +600,11 @@ dynamic build(BuildContext context) {
       selectedColor: rosePetal,
       backgroundColor: creamPanel,
       selectedShadowColor: mulberryShadow,
-      labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
+      labelStyle: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w700,
+        fontSize: 12,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: BorderSide(color: crimsonInk, width: 1.4),
@@ -633,10 +639,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'ChoiceChip is the canonical "single-value selector" implementation of '
-              'SelectableChipAttributes. The selected flag flips the background '
-              'tint to selectedColor, and Material uses our crimson ink for the '
-              'label silhouette. Below: eight moods rendered first in their off '
-              'state, then in their selected state.',
+          'SelectableChipAttributes. The selected flag flips the background '
+          'tint to selectedColor, and Material uses our crimson ink for the '
+          'label silhouette. Below: eight moods rendered first in their off '
+          'state, then in their selected state.',
         ),
         const SizedBox(height: 8),
         Text(
@@ -672,52 +678,68 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < foodRows.length; i++) {
     final String food = foodRows[i][0];
     final String tag = foodRows[i][1];
-    foodOff.add(chipFrame(
-      FilterChip(
-        label: Text(food),
-        selected: false,
-        onSelected: noop,
-        selectedColor: coralPop,
-        backgroundColor: creamPanel,
-        avatar: CircleAvatar(
-          backgroundColor: blushSoft,
-          child: Text(
-            tag.substring(0, 1).toUpperCase(),
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+    foodOff.add(
+      chipFrame(
+        FilterChip(
+          label: Text(food),
+          selected: false,
+          onSelected: noop,
+          selectedColor: coralPop,
+          backgroundColor: creamPanel,
+          avatar: CircleAvatar(
+            backgroundColor: blushSoft,
+            child: Text(
+              tag.substring(0, 1).toUpperCase(),
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: TextStyle(color: charcoalText, fontSize: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: paperLine, width: 1),
           ),
         ),
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: paperLine, width: 1),
-        ),
+        blushSoft,
       ),
-      blushSoft,
-    ));
-    foodOn.add(chipFrame(
-      FilterChip(
-        label: Text(food),
-        selected: true,
-        onSelected: noop,
-        selectedColor: coralPop,
-        backgroundColor: creamPanel,
-        selectedShadowColor: mulberryShadow,
-        avatarBorder: const StadiumBorder(),
-        avatar: CircleAvatar(
-          backgroundColor: creamPaper,
-          child: Text(
-            tag.substring(0, 1).toUpperCase(),
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+    );
+    foodOn.add(
+      chipFrame(
+        FilterChip(
+          label: Text(food),
+          selected: true,
+          onSelected: noop,
+          selectedColor: coralPop,
+          backgroundColor: creamPanel,
+          selectedShadowColor: mulberryShadow,
+          avatarBorder: const StadiumBorder(),
+          avatar: CircleAvatar(
+            backgroundColor: creamPaper,
+            child: Text(
+              tag.substring(0, 1).toUpperCase(),
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: crimsonInk, width: 1.4),
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
+        coralPop,
       ),
-      coralPop,
-    ));
+    );
   }
 
   final Widget foodsGallery = Container(
@@ -745,17 +767,31 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'FilterChip implements SelectableChipAttributes alongside its own '
-              'check-mark API. We illustrate selectedColor with a coral fill and '
-              'avatarBorder by switching the leading avatar to a StadiumBorder '
-              'when selected — note how the avatar visually merges with the '
-              'chip body, a subtle but powerful side-effect of the contract.',
+          'check-mark API. We illustrate selectedColor with a coral fill and '
+          'avatarBorder by switching the leading avatar to a StadiumBorder '
+          'when selected — note how the avatar visually merges with the '
+          'chip body, a subtle but powerful side-effect of the contract.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: foodOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: foodOn),
       ],
@@ -770,68 +806,84 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < languageRows.length; i++) {
     final String lang = languageRows[i][0];
     final String area = languageRows[i][1];
-    langOff.add(chipFrame(
-      FilterChip(
-        label: Text(lang),
-        selected: false,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        backgroundColor: creamPaper,
-        avatar: Container(
-          width: 22,
-          height: 22,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: blushSoft,
-            shape: BoxShape.circle,
-            border: Border.all(color: paperLine, width: 1),
+    langOff.add(
+      chipFrame(
+        FilterChip(
+          label: Text(lang),
+          selected: false,
+          onSelected: noop,
+          selectedColor: rosePetal,
+          backgroundColor: creamPaper,
+          avatar: Container(
+            width: 22,
+            height: 22,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: blushSoft,
+              shape: BoxShape.circle,
+              border: Border.all(color: paperLine, width: 1),
+            ),
+            child: Text(
+              lang.substring(0, 1),
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
-          child: Text(
-            lang.substring(0, 1),
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+          labelStyle: TextStyle(color: charcoalText, fontSize: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: paperLine, width: 1),
           ),
         ),
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: paperLine, width: 1),
-        ),
+        blushSoft,
       ),
-      blushSoft,
-    ));
-    langOn.add(chipFrame(
-      FilterChip(
-        label: Text(lang),
-        selected: true,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        backgroundColor: creamPaper,
-        selectedShadowColor: mulberryShadow,
-        avatarBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
-        avatar: Container(
-          width: 22,
-          height: 22,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: creamPaper,
-            shape: BoxShape.circle,
+    );
+    langOn.add(
+      chipFrame(
+        FilterChip(
+          label: Text(lang),
+          selected: true,
+          onSelected: noop,
+          selectedColor: rosePetal,
+          backgroundColor: creamPaper,
+          selectedShadowColor: mulberryShadow,
+          avatarBorder: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+            side: BorderSide(color: crimsonInk, width: 1.4),
           ),
-          child: Text(
-            lang.substring(0, 1),
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+          avatar: Container(
+            width: 22,
+            height: 22,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: creamPaper,
+              shape: BoxShape.circle,
+            ),
+            child: Text(
+              lang.substring(0, 1),
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: crimsonInk, width: 1.4),
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
+        rosePetal,
       ),
-      rosePetal,
-    ));
+    );
     print('  language[$i] = $lang ($area)');
   }
 
@@ -856,16 +908,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'Here avatarBorder switches from a soft circle in the off state to a '
-              'sharp rounded-rectangle in the selected state. Material clips the '
-              'avatar against the new shape, so the same widget reads differently '
-              'before and after selection — without us touching the avatar tree.',
+          'sharp rounded-rectangle in the selected state. Material clips the '
+          'avatar against the new shape, so the same widget reads differently '
+          'before and after selection — without us touching the avatar tree.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: langOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: langOn),
       ],
@@ -879,31 +945,39 @@ dynamic build(BuildContext context) {
   final List<Widget> dietOn = <Widget>[];
   for (int i = 0; i < dietaryRows.length; i++) {
     final String diet = dietaryRows[i][0];
-    dietOff.add(chipFrame(
-      FilterChip(
-        label: Text(diet),
-        selected: false,
-        onSelected: noop,
-        selectedColor: leafSage,
-        backgroundColor: creamPaper,
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12),
-        shape: const StadiumBorder(),
+    dietOff.add(
+      chipFrame(
+        FilterChip(
+          label: Text(diet),
+          selected: false,
+          onSelected: noop,
+          selectedColor: leafSage,
+          backgroundColor: creamPaper,
+          labelStyle: TextStyle(color: charcoalText, fontSize: 12),
+          shape: const StadiumBorder(),
+        ),
+        leafSage,
       ),
-      leafSage,
-    ));
-    dietOn.add(chipFrame(
-      FilterChip(
-        label: Text(diet),
-        selected: true,
-        onSelected: noop,
-        selectedColor: leafSage,
-        selectedShadowColor: mulberryShadow,
-        backgroundColor: creamPaper,
-        labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
-        shape: const StadiumBorder(),
+    );
+    dietOn.add(
+      chipFrame(
+        FilterChip(
+          label: Text(diet),
+          selected: true,
+          onSelected: noop,
+          selectedColor: leafSage,
+          selectedShadowColor: mulberryShadow,
+          backgroundColor: creamPaper,
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          shape: const StadiumBorder(),
+        ),
+        leafSage,
       ),
-      leafSage,
-    ));
+    );
   }
 
   final Widget dietGallery = Container(
@@ -931,16 +1005,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'A second FilterChip lane, this time using a sage selectedColor to '
-              'demonstrate that selectedColor is a free parameter — the contract '
-              'doesn\'t force any particular hue. The painter simply asks the '
-              'mixin "what fill?" and trusts whatever Color comes back.',
+          'demonstrate that selectedColor is a free parameter — the contract '
+          'doesn\'t force any particular hue. The painter simply asks the '
+          'mixin "what fill?" and trusts whatever Color comes back.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: dietOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: dietOn),
       ],
@@ -955,52 +1043,68 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < contactRows.length; i++) {
     final String name = contactRows[i][0];
     final String initial = contactRows[i][1];
-    contactOff.add(chipFrame(
-      InputChip(
-        label: Text(name),
-        selected: false,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        backgroundColor: creamPaper,
-        avatar: CircleAvatar(
-          backgroundColor: blushSoft,
-          child: Text(
-            initial,
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
-          ),
-        ),
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: paperLine, width: 1),
-        ),
-      ),
-      blushSoft,
-    ));
-    contactOn.add(chipFrame(
-      InputChip(
-        label: Text(name),
-        selected: true,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        selectedShadowColor: mulberryShadow,
-        avatarBorder: const CircleBorder(),
-        backgroundColor: creamPaper,
-        avatar: CircleAvatar(
+    contactOff.add(
+      chipFrame(
+        InputChip(
+          label: Text(name),
+          selected: false,
+          onSelected: noop,
+          selectedColor: rosePetal,
           backgroundColor: creamPaper,
-          child: Text(
-            initial,
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+          avatar: CircleAvatar(
+            backgroundColor: blushSoft,
+            child: Text(
+              initial,
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: TextStyle(color: charcoalText, fontSize: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: paperLine, width: 1),
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
+        blushSoft,
       ),
-      rosePetal,
-    ));
+    );
+    contactOn.add(
+      chipFrame(
+        InputChip(
+          label: Text(name),
+          selected: true,
+          onSelected: noop,
+          selectedColor: rosePetal,
+          selectedShadowColor: mulberryShadow,
+          avatarBorder: const CircleBorder(),
+          backgroundColor: creamPaper,
+          avatar: CircleAvatar(
+            backgroundColor: creamPaper,
+            child: Text(
+              initial,
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: crimsonInk, width: 1.4),
+          ),
+        ),
+        rosePetal,
+      ),
+    );
   }
 
   final Widget contactsGallery = Container(
@@ -1024,16 +1128,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'InputChip carries SelectableChipAttributes too. It\'s the chip that '
-              'represents user input or an entity tag. We pin avatarBorder to a '
-              'CircleBorder while selected — the avatar still shows initials, '
-              'but the painter clips it to a perfect circle.',
+          'represents user input or an entity tag. We pin avatarBorder to a '
+          'CircleBorder while selected — the avatar still shows initials, '
+          'but the painter clips it to a perfect circle.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: contactOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: contactOn),
       ],
@@ -1047,42 +1165,50 @@ dynamic build(BuildContext context) {
   final List<Widget> hashOn = <Widget>[];
   for (int i = 0; i < hashtagRows.length; i++) {
     final String tag = hashtagRows[i][0];
-    hashOff.add(chipFrame(
-      InputChip(
-        label: Text(tag),
-        selected: false,
-        onSelected: noop,
-        selectedColor: goldenStamen,
-        backgroundColor: creamPaper,
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12, fontFamily: 'monospace'),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-          side: BorderSide(color: paperLine, width: 1),
+    hashOff.add(
+      chipFrame(
+        InputChip(
+          label: Text(tag),
+          selected: false,
+          onSelected: noop,
+          selectedColor: goldenStamen,
+          backgroundColor: creamPaper,
+          labelStyle: TextStyle(
+            color: charcoalText,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+            side: BorderSide(color: paperLine, width: 1),
+          ),
         ),
+        goldenStamen,
       ),
-      goldenStamen,
-    ));
-    hashOn.add(chipFrame(
-      InputChip(
-        label: Text(tag),
-        selected: true,
-        onSelected: noop,
-        selectedColor: goldenStamen,
-        selectedShadowColor: mulberryShadow,
-        backgroundColor: creamPaper,
-        labelStyle: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: 12,
-          fontFamily: 'monospace',
+    );
+    hashOn.add(
+      chipFrame(
+        InputChip(
+          label: Text(tag),
+          selected: true,
+          onSelected: noop,
+          selectedColor: goldenStamen,
+          selectedShadowColor: mulberryShadow,
+          backgroundColor: creamPaper,
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6),
+            side: BorderSide(color: crimsonInk, width: 1.4),
+          ),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
+        goldenStamen,
       ),
-      goldenStamen,
-    ));
+    );
   }
 
   final Widget hashGallery = Container(
@@ -1110,16 +1236,30 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'Hashtags read best in monospace; we keep that face for both states '
-              'and let selectedColor swing the entire chip from cream to honey '
-              'gold. The painter doesn\'t care that we\'re mixing typefaces — '
-              'the mixin contract is purely about chrome.',
+          'and let selectedColor swing the entire chip from cream to honey '
+          'gold. The painter doesn\'t care that we\'re mixing typefaces — '
+          'the mixin contract is purely about chrome.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: hashOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: hashOn),
       ],
@@ -1132,9 +1272,28 @@ dynamic build(BuildContext context) {
   final List<List<dynamic>> rawConfigs = <List<dynamic>>[
     <dynamic>['Coral / Stadium', coralPop, const StadiumBorder(), 'A'],
     <dynamic>['Rose / Circle', rosePetal, const CircleBorder(), 'B'],
-    <dynamic>['Crimson / Rounded', crimsonInk, RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)), 'C'],
-    <dynamic>['Sage / Beveled', leafSage, const BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))), 'D'],
-    <dynamic>['Gold / Continuous', goldenStamen, const ContinuousRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12))), 'E'],
+    <dynamic>[
+      'Crimson / Rounded',
+      crimsonInk,
+      RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      'C',
+    ],
+    <dynamic>[
+      'Sage / Beveled',
+      leafSage,
+      const BeveledRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      ),
+      'D',
+    ],
+    <dynamic>[
+      'Gold / Continuous',
+      goldenStamen,
+      const ContinuousRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+      'E',
+    ],
   ];
 
   final List<Widget> rawOff = <Widget>[];
@@ -1145,54 +1304,70 @@ dynamic build(BuildContext context) {
     final ShapeBorder border = rawConfigs[i][2] as ShapeBorder;
     final String initial = rawConfigs[i][3] as String;
 
-    rawOff.add(chipFrame(
-      RawChip(
-        label: Text(label),
-        selected: false,
-        onSelected: noop,
-        selectedColor: sel,
-        backgroundColor: creamPaper,
-        avatar: CircleAvatar(
-          backgroundColor: blushSoft,
-          child: Text(
-            initial,
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
-          ),
-        ),
-        labelStyle: TextStyle(color: charcoalText, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: paperLine, width: 1),
-        ),
-      ),
-      blushSoft,
-    ));
-
-    rawOn.add(chipFrame(
-      RawChip(
-        label: Text(label),
-        selected: true,
-        onSelected: noop,
-        selectedColor: sel,
-        selectedShadowColor: mulberryShadow,
-        avatarBorder: border,
-        backgroundColor: creamPaper,
-        elevation: 4,
-        avatar: CircleAvatar(
+    rawOff.add(
+      chipFrame(
+        RawChip(
+          label: Text(label),
+          selected: false,
+          onSelected: noop,
+          selectedColor: sel,
           backgroundColor: creamPaper,
-          child: Text(
-            initial,
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
+          avatar: CircleAvatar(
+            backgroundColor: blushSoft,
+            child: Text(
+              initial,
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: TextStyle(color: charcoalText, fontSize: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: paperLine, width: 1),
           ),
         ),
-        labelStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: crimsonInk, width: 1.4),
-        ),
+        blushSoft,
       ),
-      sel,
-    ));
+    );
+
+    rawOn.add(
+      chipFrame(
+        RawChip(
+          label: Text(label),
+          selected: true,
+          onSelected: noop,
+          selectedColor: sel,
+          selectedShadowColor: mulberryShadow,
+          avatarBorder: border,
+          backgroundColor: creamPaper,
+          elevation: 4,
+          avatar: CircleAvatar(
+            backgroundColor: creamPaper,
+            child: Text(
+              initial,
+              style: TextStyle(
+                color: crimsonInk,
+                fontSize: 10,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+          labelStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: crimsonInk, width: 1.4),
+          ),
+        ),
+        sel,
+      ),
+    );
   }
 
   final Widget rawLane = Container(
@@ -1220,17 +1395,31 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'RawChip is the bare-metal Material chip on which ChoiceChip, '
-              'FilterChip, and ActionChip are built. It exposes the full '
-              'SelectableChipAttributes surface directly. Below we step through '
-              'five different (selectedColor, avatarBorder) pairs so the '
-              'pipeline\'s reaction to each variation is visible.',
+          'FilterChip, and ActionChip are built. It exposes the full '
+          'SelectableChipAttributes surface directly. Below we step through '
+          'five different (selectedColor, avatarBorder) pairs so the '
+          'pipeline\'s reaction to each variation is visible.',
         ),
         const SizedBox(height: 8),
-        Text('Off state', style: TextStyle(color: charcoalText, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Off state',
+          style: TextStyle(
+            color: charcoalText,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: rawOff),
         const SizedBox(height: 12),
-        Text('Selected state', style: TextStyle(color: crimsonInk, fontWeight: FontWeight.w700, fontSize: 11)),
+        Text(
+          'Selected state',
+          style: TextStyle(
+            color: crimsonInk,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
         const SizedBox(height: 4),
         Wrap(spacing: 8, runSpacing: 8, children: rawOn),
       ],
@@ -1241,102 +1430,126 @@ dynamic build(BuildContext context) {
   // Section 11 — Side-by-side before/after rows.
   // ===========================================================================
   ChoiceChip baChoice(bool sel) => ChoiceChip(
-        label: const Text('Daring'),
-        selected: sel,
-        onSelected: noop,
-        selectedColor: coralPop,
-        backgroundColor: creamPanel,
-        selectedShadowColor: sel ? mulberryShadow : null,
-        labelStyle: TextStyle(
-          color: sel ? Colors.white : charcoalText,
-          fontSize: 12,
-          fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: BorderSide(color: sel ? crimsonInk : paperLine, width: sel ? 1.4 : 1),
-        ),
-      );
+    label: const Text('Daring'),
+    selected: sel,
+    onSelected: noop,
+    selectedColor: coralPop,
+    backgroundColor: creamPanel,
+    selectedShadowColor: sel ? mulberryShadow : null,
+    labelStyle: TextStyle(
+      color: sel ? Colors.white : charcoalText,
+      fontSize: 12,
+      fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+      side: BorderSide(
+        color: sel ? crimsonInk : paperLine,
+        width: sel ? 1.4 : 1,
+      ),
+    ),
+  );
 
   FilterChip baFilter(bool sel) => FilterChip(
-        label: const Text('Curry'),
-        selected: sel,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        backgroundColor: creamPaper,
-        selectedShadowColor: sel ? mulberryShadow : null,
-        avatar: CircleAvatar(
-          backgroundColor: sel ? creamPaper : blushSoft,
-          child: Text(
-            'C',
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
-          ),
+    label: const Text('Curry'),
+    selected: sel,
+    onSelected: noop,
+    selectedColor: rosePetal,
+    backgroundColor: creamPaper,
+    selectedShadowColor: sel ? mulberryShadow : null,
+    avatar: CircleAvatar(
+      backgroundColor: sel ? creamPaper : blushSoft,
+      child: Text(
+        'C',
+        style: TextStyle(
+          color: crimsonInk,
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
         ),
-        avatarBorder: sel ? const StadiumBorder() : const CircleBorder(),
-        labelStyle: TextStyle(
-          color: sel ? Colors.white : charcoalText,
-          fontSize: 12,
-          fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: sel ? crimsonInk : paperLine, width: sel ? 1.4 : 1),
-        ),
-      );
+      ),
+    ),
+    avatarBorder: sel ? const StadiumBorder() : const CircleBorder(),
+    labelStyle: TextStyle(
+      color: sel ? Colors.white : charcoalText,
+      fontSize: 12,
+      fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+      side: BorderSide(
+        color: sel ? crimsonInk : paperLine,
+        width: sel ? 1.4 : 1,
+      ),
+    ),
+  );
 
   InputChip baInput(bool sel) => InputChip(
-        label: const Text('Anya P.'),
-        selected: sel,
-        onSelected: noop,
-        selectedColor: rosePetal,
-        backgroundColor: creamPaper,
-        selectedShadowColor: sel ? mulberryShadow : null,
-        avatarBorder: sel ? const CircleBorder() : const StadiumBorder(),
-        avatar: CircleAvatar(
-          backgroundColor: sel ? creamPaper : blushSoft,
-          child: Text(
-            'A',
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
-          ),
+    label: const Text('Anya P.'),
+    selected: sel,
+    onSelected: noop,
+    selectedColor: rosePetal,
+    backgroundColor: creamPaper,
+    selectedShadowColor: sel ? mulberryShadow : null,
+    avatarBorder: sel ? const CircleBorder() : const StadiumBorder(),
+    avatar: CircleAvatar(
+      backgroundColor: sel ? creamPaper : blushSoft,
+      child: Text(
+        'A',
+        style: TextStyle(
+          color: crimsonInk,
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
         ),
-        labelStyle: TextStyle(
-          color: sel ? Colors.white : charcoalText,
-          fontSize: 12,
-          fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: sel ? crimsonInk : paperLine, width: sel ? 1.4 : 1),
-        ),
-      );
+      ),
+    ),
+    labelStyle: TextStyle(
+      color: sel ? Colors.white : charcoalText,
+      fontSize: 12,
+      fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+      side: BorderSide(
+        color: sel ? crimsonInk : paperLine,
+        width: sel ? 1.4 : 1,
+      ),
+    ),
+  );
 
   RawChip baRaw(bool sel) => RawChip(
-        label: const Text('Custom'),
-        selected: sel,
-        onSelected: noop,
-        selectedColor: crimsonInk,
-        backgroundColor: creamPaper,
-        selectedShadowColor: sel ? mulberryShadow : null,
-        avatarBorder: sel
-            ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))
-            : const CircleBorder(),
-        avatar: CircleAvatar(
-          backgroundColor: sel ? creamPaper : blushSoft,
-          child: Text(
-            'X',
-            style: TextStyle(color: crimsonInk, fontSize: 10, fontWeight: FontWeight.w800),
-          ),
+    label: const Text('Custom'),
+    selected: sel,
+    onSelected: noop,
+    selectedColor: crimsonInk,
+    backgroundColor: creamPaper,
+    selectedShadowColor: sel ? mulberryShadow : null,
+    avatarBorder: sel
+        ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))
+        : const CircleBorder(),
+    avatar: CircleAvatar(
+      backgroundColor: sel ? creamPaper : blushSoft,
+      child: Text(
+        'X',
+        style: TextStyle(
+          color: crimsonInk,
+          fontSize: 10,
+          fontWeight: FontWeight.w800,
         ),
-        labelStyle: TextStyle(
-          color: sel ? Colors.white : charcoalText,
-          fontSize: 12,
-          fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: sel ? crimsonInk : paperLine, width: sel ? 1.4 : 1),
-        ),
-      );
+      ),
+    ),
+    labelStyle: TextStyle(
+      color: sel ? Colors.white : charcoalText,
+      fontSize: 12,
+      fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+      side: BorderSide(
+        color: sel ? crimsonInk : paperLine,
+        width: sel ? 1.4 : 1,
+      ),
+    ),
+  );
 
   final Widget beforeAfterPanel = Container(
     padding: const EdgeInsets.all(14),
@@ -1363,14 +1576,34 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         prose(
           'Each row shows the same chip painted twice. The arrow points from the '
-              'unselected state to the selected state — the contract members are '
-              'identical, only the boolean changes.',
+          'unselected state to the selected state — the contract members are '
+          'identical, only the boolean changes.',
         ),
         const SizedBox(height: 10),
-        beforeAfterRow(chipFrame(baChoice(false), blushSoft), chipFrame(baChoice(true), coralPop), rosePetal, crimsonInk),
-        beforeAfterRow(chipFrame(baFilter(false), blushSoft), chipFrame(baFilter(true), rosePetal), rosePetal, crimsonInk),
-        beforeAfterRow(chipFrame(baInput(false), blushSoft), chipFrame(baInput(true), rosePetal), rosePetal, crimsonInk),
-        beforeAfterRow(chipFrame(baRaw(false), blushSoft), chipFrame(baRaw(true), crimsonInk), rosePetal, crimsonInk),
+        beforeAfterRow(
+          chipFrame(baChoice(false), blushSoft),
+          chipFrame(baChoice(true), coralPop),
+          rosePetal,
+          crimsonInk,
+        ),
+        beforeAfterRow(
+          chipFrame(baFilter(false), blushSoft),
+          chipFrame(baFilter(true), rosePetal),
+          rosePetal,
+          crimsonInk,
+        ),
+        beforeAfterRow(
+          chipFrame(baInput(false), blushSoft),
+          chipFrame(baInput(true), rosePetal),
+          rosePetal,
+          crimsonInk,
+        ),
+        beforeAfterRow(
+          chipFrame(baRaw(false), blushSoft),
+          chipFrame(baRaw(true), crimsonInk),
+          rosePetal,
+          crimsonInk,
+        ),
       ],
     ),
   );
@@ -1445,17 +1678,41 @@ dynamic build(BuildContext context) {
           anatomyPanel,
           sectionTitle('2', 'ChoiceChip — moods', 'Eight petals, two states'),
           moodsGallery,
-          sectionTitle('3', 'FilterChip — cuisines', 'avatarBorder swaps to a stadium'),
+          sectionTitle(
+            '3',
+            'FilterChip — cuisines',
+            'avatarBorder swaps to a stadium',
+          ),
           foodsGallery,
-          sectionTitle('4', 'FilterChip — languages', 'Avatar clipping shifts to rounded-rectangle'),
+          sectionTitle(
+            '4',
+            'FilterChip — languages',
+            'Avatar clipping shifts to rounded-rectangle',
+          ),
           langsGallery,
-          sectionTitle('5', 'FilterChip — dietary', 'Free choice of selectedColor'),
+          sectionTitle(
+            '5',
+            'FilterChip — dietary',
+            'Free choice of selectedColor',
+          ),
           dietGallery,
-          sectionTitle('6', 'InputChip — contacts', 'CircleBorder around initials'),
+          sectionTitle(
+            '6',
+            'InputChip — contacts',
+            'CircleBorder around initials',
+          ),
           contactsGallery,
-          sectionTitle('7', 'InputChip — hashtags', 'Monospace face, golden selection'),
+          sectionTitle(
+            '7',
+            'InputChip — hashtags',
+            'Monospace face, golden selection',
+          ),
           hashGallery,
-          sectionTitle('8', 'RawChip — direct surface', 'Five border shapes vs five colors'),
+          sectionTitle(
+            '8',
+            'RawChip — direct surface',
+            'Five border shapes vs five colors',
+          ),
           rawLane,
           sectionTitle('9', 'Before vs after', 'Visual diff of the boolean'),
           beforeAfterPanel,

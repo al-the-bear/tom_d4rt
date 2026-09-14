@@ -67,11 +67,26 @@ class _Faq {
 }
 
 const List<_Faq> _faqs = <_Faq>[
-  _Faq('Can I instantiate RenderProxySliver directly?', 'No. It is abstract and intended as a base for specialized proxy slivers.'),
-  _Faq('When should I use sliver wrappers?', 'Use them when you need to modify a sliver behavior without rewriting its core layout logic.'),
-  _Faq('What is a practical first wrapper?', 'SliverOpacity is a common first step to visualize wrapper behavior.'),
-  _Faq('How do I test interaction routing?', 'Wrap content in ignore-pointer style wrappers and log taps/hover while scrolling.'),
-  _Faq('Why include a timeline?', 'A timeline helps validate ordering of scroll, visibility, and wrapper-related interactions.'),
+  _Faq(
+    'Can I instantiate RenderProxySliver directly?',
+    'No. It is abstract and intended as a base for specialized proxy slivers.',
+  ),
+  _Faq(
+    'When should I use sliver wrappers?',
+    'Use them when you need to modify a sliver behavior without rewriting its core layout logic.',
+  ),
+  _Faq(
+    'What is a practical first wrapper?',
+    'SliverOpacity is a common first step to visualize wrapper behavior.',
+  ),
+  _Faq(
+    'How do I test interaction routing?',
+    'Wrap content in ignore-pointer style wrappers and log taps/hover while scrolling.',
+  ),
+  _Faq(
+    'Why include a timeline?',
+    'A timeline helps validate ordering of scroll, visibility, and wrapper-related interactions.',
+  ),
 ];
 
 class _TimelineEvent {
@@ -160,7 +175,9 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
   }
 
   void _onScroll() {
-    final double offset = _scrollController.hasClients ? _scrollController.offset : 0;
+    final double offset = _scrollController.hasClients
+        ? _scrollController.offset
+        : 0;
     setState(() {
       _lastOffset = offset;
       _scrollEvents += 1;
@@ -173,7 +190,9 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
   }
 
   void _pushTimeline(String channel, String message) {
-    final double offset = _scrollController.hasClients ? _scrollController.offset : _lastOffset;
+    final double offset = _scrollController.hasClients
+        ? _scrollController.offset
+        : _lastOffset;
     setState(() {
       _timeline.insert(
         0,
@@ -248,7 +267,11 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
     );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: preset.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: preset.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
@@ -312,7 +335,11 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.view_stream_outlined, size: 26, color: scheme.primary),
+                Icon(
+                  Icons.view_stream_outlined,
+                  size: 26,
+                  color: scheme.primary,
+                ),
                 Text(
                   'RenderProxySliver Deep Demo Lab',
                   style: TextStyle(
@@ -322,7 +349,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(999),
@@ -357,7 +387,14 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme and Scenarios', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 17)),
+            Text(
+              'Theme and Scenarios',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -372,17 +409,40 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_presets[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _presets[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                _scenarioChip(scheme, _SliverScenario.proxyOverview, 'Proxy Overview'),
-                _scenarioChip(scheme, _SliverScenario.opacityStack, 'Opacity Stack'),
-                _scenarioChip(scheme, _SliverScenario.offstageSwitch, 'Offstage Switch'),
-                _scenarioChip(scheme, _SliverScenario.ignorePointer, 'Ignore Pointer'),
-                _scenarioChip(scheme, _SliverScenario.geometryTimeline, 'Geometry Timeline'),
+                _scenarioChip(
+                  scheme,
+                  _SliverScenario.proxyOverview,
+                  'Proxy Overview',
+                ),
+                _scenarioChip(
+                  scheme,
+                  _SliverScenario.opacityStack,
+                  'Opacity Stack',
+                ),
+                _scenarioChip(
+                  scheme,
+                  _SliverScenario.offstageSwitch,
+                  'Offstage Switch',
+                ),
+                _scenarioChip(
+                  scheme,
+                  _SliverScenario.ignorePointer,
+                  'Ignore Pointer',
+                ),
+                _scenarioChip(
+                  scheme,
+                  _SliverScenario.geometryTimeline,
+                  'Geometry Timeline',
+                ),
                 _scenarioChip(scheme, _SliverScenario.mixedDeck, 'Mixed Deck'),
               ],
             ),
@@ -392,7 +452,11 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
     );
   }
 
-  Widget _scenarioChip(ColorScheme scheme, _SliverScenario scenario, String label) {
+  Widget _scenarioChip(
+    ColorScheme scheme,
+    _SliverScenario scenario,
+    String label,
+  ) {
     return FilterChip(
       selected: _scenario == scenario,
       label: Text(label),
@@ -411,13 +475,27 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Interactive Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Interactive Controls',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 6),
-            Text('These controls adjust wrapper behavior, layout intensity, and diagnostics.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'These controls adjust wrapper behavior, layout intensity, and diagnostics.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             _slider(
               scheme: scheme,
@@ -427,7 +505,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 180,
               divisions: 58,
               onChanged: (double v) => setState(() => _headerHeight = v),
-              onChangeEnd: (double v) => _onControlChanged('headerHeight', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('headerHeight', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -437,7 +516,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 1,
               divisions: 95,
               onChanged: (double v) => setState(() => _opacityA = v),
-              onChangeEnd: (double v) => _onControlChanged('opacityA', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('opacityA', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -447,7 +527,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 1,
               divisions: 95,
               onChanged: (double v) => setState(() => _opacityB = v),
-              onChangeEnd: (double v) => _onControlChanged('opacityB', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('opacityB', v.toStringAsFixed(2)),
             ),
             _slider(
               scheme: scheme,
@@ -457,7 +538,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 170,
               divisions: 100,
               onChanged: (double v) => setState(() => _tileHeight = v),
-              onChangeEnd: (double v) => _onControlChanged('tileHeight', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('tileHeight', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -467,7 +549,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 24,
               divisions: 48,
               onChanged: (double v) => setState(() => _spacing = v),
-              onChangeEnd: (double v) => _onControlChanged('spacing', v.toStringAsFixed(1)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('spacing', v.toStringAsFixed(1)),
             ),
             _slider(
               scheme: scheme,
@@ -477,7 +560,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _curveFactor = v),
-              onChangeEnd: (double v) => _onControlChanged('curveFactor', v.toStringAsFixed(2)),
+              onChangeEnd: (double v) =>
+                  _onControlChanged('curveFactor', v.toStringAsFixed(2)),
             ),
             Wrap(
               spacing: 8,
@@ -578,11 +662,23 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -596,9 +692,19 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Scenario Playground', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Scenario Playground',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Each scenario demonstrates a different practical proxy-sliver behavior pattern.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Each scenario demonstrates a different practical proxy-sliver behavior pattern.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             SizedBox(
               height: 620,
@@ -610,7 +716,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                 clipBehavior: Clip.antiAlias,
                 child: NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification notification) {
-                    _pushTimeline('scrollNotification', '${notification.runtimeType} pixels=${notification.metrics.pixels.toStringAsFixed(1)}');
+                    _pushTimeline(
+                      'scrollNotification',
+                      '${notification.runtimeType} pixels=${notification.metrics.pixels.toStringAsFixed(1)}',
+                    );
                     return false;
                   },
                   child: _buildScenarioScrollView(scheme),
@@ -649,7 +758,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                 padding: const EdgeInsets.all(12),
                 child: Text(
                   'offset ${_lastOffset.toStringAsFixed(1)}',
-                  style: TextStyle(color: scheme.onPrimaryContainer.withValues(alpha: 0.8), fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: scheme.onPrimaryContainer.withValues(alpha: 0.8),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
@@ -699,10 +811,7 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
       ),
     );
 
-    return CustomScrollView(
-      controller: _scrollController,
-      slivers: slivers,
-    );
+    return CustomScrollView(controller: _scrollController, slivers: slivers);
   }
 
   List<Widget> _buildOverviewSlivers(ColorScheme scheme) {
@@ -715,7 +824,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
             scheme,
             index: index,
             title: 'Proxy concept ${index + 1}',
-            subtitle: 'Wrapper composition pattern for sliver tree stabilization.',
+            subtitle:
+                'Wrapper composition pattern for sliver tree stabilization.',
             color: index.isEven ? scheme.primary : scheme.secondary,
           );
         },
@@ -735,7 +845,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               scheme,
               index: index,
               title: 'Opacity lane A-${index + 1}',
-              subtitle: 'Visualizing proxy paint forwarding under opacity wrapper.',
+              subtitle:
+                  'Visualizing proxy paint forwarding under opacity wrapper.',
               color: Color.lerp(scheme.primary, scheme.tertiary, index / 10)!,
             );
           },
@@ -750,7 +861,8 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               scheme,
               index: index + 100,
               title: 'Opacity lane B-${index + 1}',
-              subtitle: 'Second layer shows side-by-side effect of alternate alpha.',
+              subtitle:
+                  'Second layer shows side-by-side effect of alternate alpha.',
               color: Color.lerp(scheme.secondary, scheme.error, index / 8)!,
             );
           },
@@ -796,7 +908,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
             _offstageEnabled
                 ? 'Offstage is ON: conditional lane hidden from layout and paint.'
                 : 'Offstage is OFF: conditional lane visible and interactive.',
-            style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
@@ -836,7 +951,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
             _ignorePointerEnabled
                 ? 'IgnorePointer is ON: taps should not reach wrapped cards.'
                 : 'IgnorePointer is OFF: taps reach wrapped cards normally.',
-            style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
@@ -918,7 +1036,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
           child: Text(
             'This deck combines multiple proxy wrappers to show ordering effects in one scroll scene.',
-            style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),
@@ -936,7 +1057,13 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: scheme.outlineVariant),
           ),
-          child: Text(text, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: scheme.onSurface,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
       ),
     );
@@ -976,7 +1103,10 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
               child: Center(
                 child: Text(
                   '${index + 1}',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -986,7 +1116,14 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   Text(subtitle, style: const TextStyle(color: Colors.white70)),
                 ],
@@ -1030,16 +1167,29 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
           child: Row(
             children: <Widget>[
               const SizedBox(width: 14),
-              Icon(Icons.touch_app_outlined, color: Colors.white.withValues(alpha: 0.92)),
+              Icon(
+                Icons.touch_app_outlined,
+                color: Colors.white.withValues(alpha: 0.92),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 15)),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(subtitle, style: const TextStyle(color: Colors.white70)),
+                    Text(
+                      subtitle,
+                      style: const TextStyle(color: Colors.white70),
+                    ),
                   ],
                 ),
               ),
@@ -1050,7 +1200,13 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                   borderRadius: BorderRadius.circular(999),
                   color: Colors.black.withValues(alpha: 0.22),
                 ),
-                child: Text('tap ${_tapCount + index}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Text(
+                  'tap ${_tapCount + index}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1068,9 +1224,19 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Proxy Sliver Primer', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Proxy Sliver Primer',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Core wrapper behaviors commonly backed by RenderProxySliver-derived render objects.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Core wrapper behaviors commonly backed by RenderProxySliver-derived render objects.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1078,19 +1244,22 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                 final Widget opacity = _primerCard(
                   scheme,
                   title: 'SliverOpacity',
-                  note: 'Adjust paint contribution while preserving child sliver structure.',
+                  note:
+                      'Adjust paint contribution while preserving child sliver structure.',
                   accent: const Color(0xFF0891B2),
                 );
                 final Widget offstage = _primerCard(
                   scheme,
                   title: 'SliverOffstage',
-                  note: 'Temporarily remove a sliver branch from paint/layout participation.',
+                  note:
+                      'Temporarily remove a sliver branch from paint/layout participation.',
                   accent: const Color(0xFFB45309),
                 );
                 final Widget ignore = _primerCard(
                   scheme,
                   title: 'SliverIgnorePointer',
-                  note: 'Keep visuals while disabling pointer interaction routing to children.',
+                  note:
+                      'Keep visuals while disabling pointer interaction routing to children.',
                   accent: const Color(0xFF7C3AED),
                 );
 
@@ -1140,9 +1309,18 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 6),
-            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              note,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -1167,26 +1345,127 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
 
   Widget _buildMetricsBoard(ColorScheme scheme) {
     final List<_MetricCard> metrics = <_MetricCard>[
-      _MetricCard(label: 'Scenario', value: _scenario.name, note: 'Active scenario lane.', icon: Icons.view_agenda_outlined),
-      _MetricCard(label: 'Theme', value: _presets[_themeIndex].name, note: 'Active visual profile.', icon: Icons.palette_outlined),
-      _MetricCard(label: 'Scroll Events', value: '$_scrollEvents', note: 'Scroll controller event count.', icon: Icons.swap_vert_outlined),
-      _MetricCard(label: 'Pointer Events', value: '$_pointerEvents', note: 'Pointer interactions in cards.', icon: Icons.touch_app_outlined),
-      _MetricCard(label: 'Tap Count', value: '$_tapCount', note: 'Taps received by interactive cards.', icon: Icons.ads_click_outlined),
-      _MetricCard(label: 'Last Offset', value: _lastOffset.toStringAsFixed(1), note: 'Most recent scroll offset.', icon: Icons.linear_scale_outlined),
-      _MetricCard(label: 'Last Channel', value: _lastChannel, note: 'Latest timeline channel.', icon: Icons.fiber_manual_record_outlined),
-      _MetricCard(label: 'Last Message', value: _lastMessage, note: 'Latest event note.', icon: Icons.notes_outlined),
-      _MetricCard(label: 'Scenario Switches', value: '$_scenarioSwitches', note: 'How often scenario changed.', icon: Icons.swap_horiz_outlined),
-      _MetricCard(label: 'Theme Switches', value: '$_themeSwitches', note: 'How often theme changed.', icon: Icons.style_outlined),
-      _MetricCard(label: 'Control Edits', value: '$_controlEdits', note: 'Manual control modifications.', icon: Icons.tune_outlined),
-      _MetricCard(label: 'Opacity Pair', value: '${_opacityA.toStringAsFixed(2)} / ${_opacityB.toStringAsFixed(2)}', note: 'Current opacity values.', icon: Icons.opacity_outlined),
-      _MetricCard(label: 'Header Height', value: _headerHeight.toStringAsFixed(1), note: 'Pinned header height.', icon: Icons.vertical_align_top_outlined),
-      _MetricCard(label: 'Tile Height', value: _tileHeight.toStringAsFixed(1), note: 'Scenario tile height.', icon: Icons.height_outlined),
-      _MetricCard(label: 'Spacing', value: _spacing.toStringAsFixed(1), note: 'Tile vertical spacing.', icon: Icons.space_bar_outlined),
-      _MetricCard(label: 'Curve Factor', value: _curveFactor.toStringAsFixed(2), note: 'Geometry visualization factor.', icon: Icons.show_chart_outlined),
-      _MetricCard(label: 'Pinned Header', value: '$_usePinnedHeader', note: 'Header pin behavior.', icon: Icons.push_pin_outlined),
-      _MetricCard(label: 'Offstage', value: '$_offstageEnabled', note: 'Offstage wrapper status.', icon: Icons.visibility_off_outlined),
-      _MetricCard(label: 'Ignore Pointer', value: '$_ignorePointerEnabled', note: 'Pointer wrapper status.', icon: Icons.block_outlined),
-      _MetricCard(label: 'Timeline Entries', value: '${_timeline.length}', note: 'Captured timeline events.', icon: Icons.timeline_outlined),
+      _MetricCard(
+        label: 'Scenario',
+        value: _scenario.name,
+        note: 'Active scenario lane.',
+        icon: Icons.view_agenda_outlined,
+      ),
+      _MetricCard(
+        label: 'Theme',
+        value: _presets[_themeIndex].name,
+        note: 'Active visual profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricCard(
+        label: 'Scroll Events',
+        value: '$_scrollEvents',
+        note: 'Scroll controller event count.',
+        icon: Icons.swap_vert_outlined,
+      ),
+      _MetricCard(
+        label: 'Pointer Events',
+        value: '$_pointerEvents',
+        note: 'Pointer interactions in cards.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricCard(
+        label: 'Tap Count',
+        value: '$_tapCount',
+        note: 'Taps received by interactive cards.',
+        icon: Icons.ads_click_outlined,
+      ),
+      _MetricCard(
+        label: 'Last Offset',
+        value: _lastOffset.toStringAsFixed(1),
+        note: 'Most recent scroll offset.',
+        icon: Icons.linear_scale_outlined,
+      ),
+      _MetricCard(
+        label: 'Last Channel',
+        value: _lastChannel,
+        note: 'Latest timeline channel.',
+        icon: Icons.fiber_manual_record_outlined,
+      ),
+      _MetricCard(
+        label: 'Last Message',
+        value: _lastMessage,
+        note: 'Latest event note.',
+        icon: Icons.notes_outlined,
+      ),
+      _MetricCard(
+        label: 'Scenario Switches',
+        value: '$_scenarioSwitches',
+        note: 'How often scenario changed.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricCard(
+        label: 'Theme Switches',
+        value: '$_themeSwitches',
+        note: 'How often theme changed.',
+        icon: Icons.style_outlined,
+      ),
+      _MetricCard(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Manual control modifications.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricCard(
+        label: 'Opacity Pair',
+        value:
+            '${_opacityA.toStringAsFixed(2)} / ${_opacityB.toStringAsFixed(2)}',
+        note: 'Current opacity values.',
+        icon: Icons.opacity_outlined,
+      ),
+      _MetricCard(
+        label: 'Header Height',
+        value: _headerHeight.toStringAsFixed(1),
+        note: 'Pinned header height.',
+        icon: Icons.vertical_align_top_outlined,
+      ),
+      _MetricCard(
+        label: 'Tile Height',
+        value: _tileHeight.toStringAsFixed(1),
+        note: 'Scenario tile height.',
+        icon: Icons.height_outlined,
+      ),
+      _MetricCard(
+        label: 'Spacing',
+        value: _spacing.toStringAsFixed(1),
+        note: 'Tile vertical spacing.',
+        icon: Icons.space_bar_outlined,
+      ),
+      _MetricCard(
+        label: 'Curve Factor',
+        value: _curveFactor.toStringAsFixed(2),
+        note: 'Geometry visualization factor.',
+        icon: Icons.show_chart_outlined,
+      ),
+      _MetricCard(
+        label: 'Pinned Header',
+        value: '$_usePinnedHeader',
+        note: 'Header pin behavior.',
+        icon: Icons.push_pin_outlined,
+      ),
+      _MetricCard(
+        label: 'Offstage',
+        value: '$_offstageEnabled',
+        note: 'Offstage wrapper status.',
+        icon: Icons.visibility_off_outlined,
+      ),
+      _MetricCard(
+        label: 'Ignore Pointer',
+        value: '$_ignorePointerEnabled',
+        note: 'Pointer wrapper status.',
+        icon: Icons.block_outlined,
+      ),
+      _MetricCard(
+        label: 'Timeline Entries',
+        value: '${_timeline.length}',
+        note: 'Captured timeline events.',
+        icon: Icons.timeline_outlined,
+      ),
     ];
 
     return Card(
@@ -1197,17 +1476,24 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1200
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1233,12 +1519,19 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(card.icon, size: 17, color: scheme.primary),
+                                Icon(
+                                  card.icon,
+                                  size: 17,
+                                  color: scheme.primary,
+                                ),
                                 const SizedBox(width: 7),
                                 Expanded(
                                   child: Text(
                                     card.label,
-                                    style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -1248,14 +1541,21 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                               card.value,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15),
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               card.note,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
                             ),
                           ],
                         ),
@@ -1298,7 +1598,14 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideLines.map((String line) {
               return Padding(
@@ -1311,13 +1618,18 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqs.map(( _Faq faq) {
+            ..._faqs.map((_Faq faq) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(12),
@@ -1329,9 +1641,18 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(faq.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                    Text(
+                      faq.question,
+                      style: TextStyle(
+                        color: scheme.onSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text(faq.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                    Text(
+                      faq.answer,
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    ),
                   ],
                 ),
               );
@@ -1353,7 +1674,14 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Event Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Event Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1375,12 +1703,16 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Scroll or interact with cards to record events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Scroll or interact with cards to record events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.take(44).map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.take(44).map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 9),
                     decoration: BoxDecoration(
@@ -1405,9 +1737,19 @@ class _RenderProxySliverLabState extends State<_RenderProxySliverLab> {
                       ),
                       title: Text(
                         '${event.channel}  |  offset ${event.offset.toStringAsFixed(1)}',
-                        style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 13),
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
                       ),
-                      subtitle: Text('$stamp  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                      subtitle: Text(
+                        '$stamp  ${event.message}',
+                        style: TextStyle(
+                          color: scheme.onSurfaceVariant,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1456,7 +1798,8 @@ class _GeometryGridPainter extends CustomPainter {
     curve.moveTo(0, size.height * 0.72);
     for (double x = 0; x <= size.width; x += 12) {
       final double t = x / size.width;
-      final double y = size.height * (0.7 - 0.45 * curveFactor * (0.5 - (t - 0.5).abs()));
+      final double y =
+          size.height * (0.7 - 0.45 * curveFactor * (0.5 - (t - 0.5).abs()));
       curve.lineTo(x, y);
     }
     canvas.drawPath(
@@ -1470,7 +1813,12 @@ class _GeometryGridPainter extends CustomPainter {
     if (showHighlight) {
       canvas.drawRRect(
         RRect.fromRectAndRadius(
-          Rect.fromLTWH(size.width * 0.66, size.height * 0.2, size.width * 0.28, size.height * 0.55),
+          Rect.fromLTWH(
+            size.width * 0.66,
+            size.height * 0.2,
+            size.width * 0.28,
+            size.height * 0.55,
+          ),
           const Radius.circular(12),
         ),
         Paint()
@@ -1482,6 +1830,8 @@ class _GeometryGridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _GeometryGridPainter oldDelegate) {
-    return oldDelegate.color != color || oldDelegate.curveFactor != curveFactor || oldDelegate.showHighlight != showHighlight;
+    return oldDelegate.color != color ||
+        oldDelegate.curveFactor != curveFactor ||
+        oldDelegate.showHighlight != showHighlight;
   }
 }

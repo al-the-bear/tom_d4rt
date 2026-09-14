@@ -158,9 +158,7 @@ class _DemoTabBar extends StatelessWidget {
       indicatorColor: scheme.onPrimary,
       labelColor: scheme.onPrimary,
       unselectedLabelColor: scheme.onPrimary.withValues(alpha: 0.6),
-      tabs: _titles
-          .map((String t) => Tab(text: t, height: 44))
-          .toList(),
+      tabs: _titles.map((String t) => Tab(text: t, height: 44)).toList(),
     );
   }
 }
@@ -182,10 +180,7 @@ class _HeroBannerTab extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                scheme.primary,
-                scheme.primaryContainer,
-              ],
+              colors: <Color>[scheme.primary, scheme.primaryContainer],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -197,7 +192,11 @@ class _HeroBannerTab extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(Icons.center_focus_strong, color: scheme.onPrimary, size: 36),
+                  Icon(
+                    Icons.center_focus_strong,
+                    color: scheme.onPrimary,
+                    size: 36,
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
@@ -239,38 +238,79 @@ class _HeroBannerTab extends StatelessWidget {
         const SizedBox(height: 24),
 
         // ── Pipeline diagram ───────────────────────────────────────────────
-        Text('Actions / Intents Pipeline', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Actions / Intents Pipeline',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 12),
         const _PipelineDiagram(),
 
         const SizedBox(height: 24),
 
         // ── Key facts ─────────────────────────────────────────────────────
-        Text('Key Facts', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Key Facts',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 12),
         ...<_FactRow>[
-          const _FactRow(icon: Icons.play_arrow, label: 'Trigger', value: 'Actions.invoke(context, RequestFocusIntent(node))'),
-          const _FactRow(icon: Icons.settings_input_composite, label: 'Intent type', value: 'RequestFocusIntent(FocusNode node)'),
-          const _FactRow(icon: Icons.architecture, label: 'Action type', value: 'Action<RequestFocusIntent>'),
-          const _FactRow(icon: Icons.widgets, label: 'Registered by', value: 'Flutter framework (WidgetsApp / Actions widget)'),
-          const _FactRow(icon: Icons.keyboard, label: 'Keyboard aware', value: 'Yes — wired via Shortcuts to LogicalKeySet'),
-          const _FactRow(icon: Icons.code, label: 'Effect', value: 'Calls intent.focusNode.requestFocus()'),
+          const _FactRow(
+            icon: Icons.play_arrow,
+            label: 'Trigger',
+            value: 'Actions.invoke(context, RequestFocusIntent(node))',
+          ),
+          const _FactRow(
+            icon: Icons.settings_input_composite,
+            label: 'Intent type',
+            value: 'RequestFocusIntent(FocusNode node)',
+          ),
+          const _FactRow(
+            icon: Icons.architecture,
+            label: 'Action type',
+            value: 'Action<RequestFocusIntent>',
+          ),
+          const _FactRow(
+            icon: Icons.widgets,
+            label: 'Registered by',
+            value: 'Flutter framework (WidgetsApp / Actions widget)',
+          ),
+          const _FactRow(
+            icon: Icons.keyboard,
+            label: 'Keyboard aware',
+            value: 'Yes — wired via Shortcuts to LogicalKeySet',
+          ),
+          const _FactRow(
+            icon: Icons.code,
+            label: 'Effect',
+            value: 'Calls intent.focusNode.requestFocus()',
+          ),
         ],
 
         const SizedBox(height: 24),
 
         // ── When to use ───────────────────────────────────────────────────
-        Text('When to Use', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'When to Use',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 12),
         _InfoCard(
           color: scheme.primaryContainer,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem('You want focus changes to flow through the Actions/Intents layer so they can be intercepted or overridden.'),
-              _BulletItem('You are wiring keyboard shortcuts to specific FocusNodes via a Shortcuts widget.'),
-              _BulletItem('You want to keep widget code decoupled — the sender does not need to hold the FocusNode reference.'),
-              _BulletItem('You are building an accessibility-first UI where every focus transition is auditable and testable.'),
+              _BulletItem(
+                'You want focus changes to flow through the Actions/Intents layer so they can be intercepted or overridden.',
+              ),
+              _BulletItem(
+                'You are wiring keyboard shortcuts to specific FocusNodes via a Shortcuts widget.',
+              ),
+              _BulletItem(
+                'You want to keep widget code decoupled — the sender does not need to hold the FocusNode reference.',
+              ),
+              _BulletItem(
+                'You are building an accessibility-first UI where every focus transition is auditable and testable.',
+              ),
             ],
           ),
         ),
@@ -278,7 +318,10 @@ class _HeroBannerTab extends StatelessWidget {
         const SizedBox(height: 24),
 
         // ── Related classes ────────────────────────────────────────────────
-        Text('Related Classes', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Related Classes',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8,
@@ -307,11 +350,31 @@ class _PipelineDiagram extends StatelessWidget {
   const _PipelineDiagram();
 
   static const List<_PipelineStep> _steps = <_PipelineStep>[
-    _PipelineStep(icon: Icons.keyboard, label: 'User event\nor button tap', color: Color(0xFF1565C0)),
-    _PipelineStep(icon: Icons.send, label: 'RequestFocusIntent\n(carries FocusNode)', color: Color(0xFF6A1B9A)),
-    _PipelineStep(icon: Icons.search, label: 'Actions.invoke\nfinds handler', color: Color(0xFF00695C)),
-    _PipelineStep(icon: Icons.flash_on, label: 'RequestFocusAction\n.invoke()', color: Color(0xFFAD1457)),
-    _PipelineStep(icon: Icons.center_focus_strong, label: 'FocusNode\n.requestFocus()', color: Color(0xFFE65100)),
+    _PipelineStep(
+      icon: Icons.keyboard,
+      label: 'User event\nor button tap',
+      color: Color(0xFF1565C0),
+    ),
+    _PipelineStep(
+      icon: Icons.send,
+      label: 'RequestFocusIntent\n(carries FocusNode)',
+      color: Color(0xFF6A1B9A),
+    ),
+    _PipelineStep(
+      icon: Icons.search,
+      label: 'Actions.invoke\nfinds handler',
+      color: Color(0xFF00695C),
+    ),
+    _PipelineStep(
+      icon: Icons.flash_on,
+      label: 'RequestFocusAction\n.invoke()',
+      color: Color(0xFFAD1457),
+    ),
+    _PipelineStep(
+      icon: Icons.center_focus_strong,
+      label: 'FocusNode\n.requestFocus()',
+      color: Color(0xFFE65100),
+    ),
   ];
 
   @override
@@ -325,7 +388,11 @@ class _PipelineDiagram extends StatelessWidget {
             if (i < _steps.length - 1)
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Icon(Icons.arrow_forward, size: 20, color: Color(0xFF757575)),
+                child: Icon(
+                  Icons.arrow_forward,
+                  size: 20,
+                  color: Color(0xFF757575),
+                ),
               ),
           ],
         ],
@@ -338,7 +405,11 @@ class _PipelineStep {
   final IconData icon;
   final String label;
   final Color color;
-  const _PipelineStep({required this.icon, required this.label, required this.color});
+  const _PipelineStep({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
 }
 
 class _PipelineStepWidget extends StatelessWidget {
@@ -363,7 +434,12 @@ class _PipelineStepWidget extends StatelessWidget {
           Text(
             step.label,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 11, color: step.color, fontWeight: FontWeight.w600, height: 1.3),
+            style: TextStyle(
+              fontSize: 11,
+              color: step.color,
+              fontWeight: FontWeight.w600,
+              height: 1.3,
+            ),
           ),
         ],
       ),
@@ -377,12 +453,19 @@ class _PipelineStepWidget extends StatelessWidget {
 class _LiveDemoTab extends StatelessWidget {
   const _LiveDemoTab();
 
-  List<FocusNode> get _nodes => <FocusNode>[_node1, _node2, _node3, _node4, _node5];
+  List<FocusNode> get _nodes => <FocusNode>[
+    _node1,
+    _node2,
+    _node3,
+    _node4,
+    _node5,
+  ];
 
   void _invokeFocus(BuildContext context, int index) {
     Actions.invoke(context, RequestFocusIntent(_nodes[index]));
     _focusedNodeId.value = _nodeLabels[index];
-    _lastAction.value = 'Actions.invoke → RequestFocusIntent(${_nodeLabels[index]})';
+    _lastAction.value =
+        'Actions.invoke → RequestFocusIntent(${_nodeLabels[index]})';
   }
 
   @override
@@ -390,13 +473,14 @@ class _LiveDemoTab extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final TextTheme txt = Theme.of(context).textTheme;
     return Actions(
-      actions: <Type, Action<Intent>>{
-        RequestFocusIntent: RequestFocusAction(),
-      },
+      actions: <Type, Action<Intent>>{RequestFocusIntent: RequestFocusAction()},
       child: ListView(
         padding: const EdgeInsets.all(20),
         children: <Widget>[
-          Text('Live Demo — 5 FocusNodes', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+          Text(
+            'Live Demo — 5 FocusNodes',
+            style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 4),
           Text(
             'Tap a button to invoke RequestFocusAction via the Actions/Intents pipeline. '
@@ -411,16 +495,25 @@ class _LiveDemoTab extends StatelessWidget {
             builder: (BuildContext ctx, String id, Widget? _) {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
-                  color: id == 'none' ? scheme.surfaceContainerHighest : scheme.primaryContainer,
+                  color: id == 'none'
+                      ? scheme.surfaceContainerHighest
+                      : scheme.primaryContainer,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scheme.primary.withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: scheme.primary.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      id == 'none' ? Icons.radio_button_unchecked : Icons.center_focus_strong,
+                      id == 'none'
+                          ? Icons.radio_button_unchecked
+                          : Icons.center_focus_strong,
                       color: scheme.primary,
                       size: 20,
                     ),
@@ -492,7 +585,10 @@ class _LiveDemoTab extends StatelessWidget {
           const SizedBox(height: 16),
 
           // ── Quick-focus button row ─────────────────────────────────────
-          Text('Quick Focus Buttons', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+          Text(
+            'Quick Focus Buttons',
+            style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -521,7 +617,11 @@ class _LiveNodeCard extends StatelessWidget {
   final int index;
   final FocusNode node;
   final VoidCallback onFocusRequest;
-  const _LiveNodeCard({required this.index, required this.node, required this.onFocusRequest});
+  const _LiveNodeCard({
+    required this.index,
+    required this.node,
+    required this.onFocusRequest,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -541,7 +641,13 @@ class _LiveNodeCard extends StatelessWidget {
               width: isFocused ? 2.5 : 1,
             ),
             boxShadow: isFocused
-                ? <BoxShadow>[BoxShadow(color: base.withValues(alpha: 0.25), blurRadius: 12, offset: const Offset(0, 4))]
+                ? <BoxShadow>[
+                    BoxShadow(
+                      color: base.withValues(alpha: 0.25),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
                 : const <BoxShadow>[],
           ),
           child: Row(
@@ -554,13 +660,21 @@ class _LiveNodeCard extends StatelessWidget {
                   color: base,
                   shape: BoxShape.circle,
                   boxShadow: <BoxShadow>[
-                    BoxShadow(color: base.withValues(alpha: 0.35), blurRadius: 8, offset: const Offset(0, 2)),
+                    BoxShadow(
+                      color: base.withValues(alpha: 0.35),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Center(
                   child: Text(
                     '${index + 1}',
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
@@ -572,7 +686,11 @@ class _LiveNodeCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       _nodeLabels[index],
-                      style: TextStyle(fontWeight: FontWeight.w700, color: base, fontSize: 15),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: base,
+                        fontSize: 15,
+                      ),
                     ),
                     Text(
                       isFocused ? 'Currently focused' : 'Not focused',
@@ -594,7 +712,10 @@ class _LiveNodeCard extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: base,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   minimumSize: Size.zero,
                 ),
                 child: const Text('Focus', style: TextStyle(fontSize: 12)),
@@ -613,7 +734,13 @@ class _LiveNodeCard extends StatelessWidget {
 class _ShortcutsTab extends StatelessWidget {
   const _ShortcutsTab();
 
-  List<FocusNode> get _nodes => <FocusNode>[_node1, _node2, _node3, _node4, _node5];
+  List<FocusNode> get _nodes => <FocusNode>[
+    _node1,
+    _node2,
+    _node3,
+    _node4,
+    _node5,
+  ];
 
   static const List<LogicalKeyboardKey> _keys = <LogicalKeyboardKey>[
     LogicalKeyboardKey.f1,
@@ -631,10 +758,11 @@ class _ShortcutsTab extends StatelessWidget {
     final TextTheme txt = Theme.of(context).textTheme;
 
     // Build shortcuts map: LogicalKeySet → RequestFocusIntent
-    final Map<ShortcutActivator, Intent> shortcutsMap = <ShortcutActivator, Intent>{
-      for (int i = 0; i < _nodes.length; i++)
-        SingleActivator(_keys[i]): RequestFocusIntent(_nodes[i]),
-    };
+    final Map<ShortcutActivator, Intent> shortcutsMap =
+        <ShortcutActivator, Intent>{
+          for (int i = 0; i < _nodes.length; i++)
+            SingleActivator(_keys[i]): RequestFocusIntent(_nodes[i]),
+        };
 
     return Shortcuts(
       shortcuts: shortcutsMap,
@@ -645,13 +773,19 @@ class _ShortcutsTab extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
-            Text('Via Shortcuts Widget', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+            Text(
+              'Via Shortcuts Widget',
+              style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 8),
             Text(
               'A Shortcuts widget maps LogicalKeyboardKey (F1–F5) to '
               'RequestFocusIntent instances. Pressing the key on a physical '
               'keyboard invokes RequestFocusAction automatically.',
-              style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+              style: txt.bodySmall?.copyWith(
+                color: scheme.onSurfaceVariant,
+                height: 1.5,
+              ),
             ),
 
             const SizedBox(height: 16),
@@ -662,7 +796,12 @@ class _ShortcutsTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Wire-up pattern', style: txt.labelLarge?.copyWith(fontWeight: FontWeight.w700)),
+                  Text(
+                    'Wire-up pattern',
+                    style: txt.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   _MonoText(
                     'Shortcuts(\n'
@@ -688,33 +827,47 @@ class _ShortcutsTab extends StatelessWidget {
             const SizedBox(height: 16),
 
             // ── Keyboard shortcut cards ───────────────────────────────
-            Text('Keyboard Shortcut Cards', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'Keyboard Shortcut Cards',
+              style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 10),
             for (int i = 0; i < _nodes.length; i++) ...<Widget>[
-              _ShortcutCard(
-                index: i,
-                keyLabel: _keyLabels[i],
-                node: _nodes[i],
-              ),
+              _ShortcutCard(index: i, keyLabel: _keyLabels[i], node: _nodes[i]),
               const SizedBox(height: 8),
             ],
 
             const SizedBox(height: 16),
 
             // ── How Shortcuts works ───────────────────────────────────
-            Text('How Shortcuts Resolution Works', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'How Shortcuts Resolution Works',
+              style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 8),
             _InfoCard(
               color: scheme.tertiaryContainer,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _BulletItem('Shortcuts widget registers a ShortcutManager in the widget tree.'),
-                  _BulletItem('On key event, ShortcutManager walks up the tree to find a matching ShortcutActivator.'),
-                  _BulletItem('Matched Intent is dispatched via Actions.invoke(context, intent).'),
-                  _BulletItem('Actions walks up the tree to find an Action<RequestFocusIntent> handler.'),
-                  _BulletItem('RequestFocusAction.invoke() is called with the intent.'),
-                  _BulletItem('FocusNode.requestFocus() is called on intent.focusNode.'),
+                  _BulletItem(
+                    'Shortcuts widget registers a ShortcutManager in the widget tree.',
+                  ),
+                  _BulletItem(
+                    'On key event, ShortcutManager walks up the tree to find a matching ShortcutActivator.',
+                  ),
+                  _BulletItem(
+                    'Matched Intent is dispatched via Actions.invoke(context, intent).',
+                  ),
+                  _BulletItem(
+                    'Actions walks up the tree to find an Action<RequestFocusIntent> handler.',
+                  ),
+                  _BulletItem(
+                    'RequestFocusAction.invoke() is called with the intent.',
+                  ),
+                  _BulletItem(
+                    'FocusNode.requestFocus() is called on intent.focusNode.',
+                  ),
                 ],
               ),
             ),
@@ -722,7 +875,10 @@ class _ShortcutsTab extends StatelessWidget {
             const SizedBox(height: 16),
 
             // ── SingleActivator vs LogicalKeySet ──────────────────────
-            Text('SingleActivator vs LogicalKeySet', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+            Text(
+              'SingleActivator vs LogicalKeySet',
+              style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 8),
             _ComparisonRow(
               leftTitle: 'SingleActivator (preferred)',
@@ -752,7 +908,11 @@ class _ShortcutCard extends StatelessWidget {
   final int index;
   final String keyLabel;
   final FocusNode node;
-  const _ShortcutCard({required this.index, required this.keyLabel, required this.node});
+  const _ShortcutCard({
+    required this.index,
+    required this.keyLabel,
+    required this.node,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -766,23 +926,38 @@ class _ShortcutCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: isFocused ? base.withValues(alpha: 0.1) : Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: isFocused ? base : base.withValues(alpha: 0.3), width: isFocused ? 2 : 1),
+            border: Border.all(
+              color: isFocused ? base : base.withValues(alpha: 0.3),
+              width: isFocused ? 2 : 1,
+            ),
           ),
           child: Row(
             children: <Widget>[
               // Keyboard key badge
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: base,
                   borderRadius: BorderRadius.circular(6),
                   boxShadow: <BoxShadow>[
-                    BoxShadow(color: base.withValues(alpha: 0.4), blurRadius: 6, offset: const Offset(0, 2)),
+                    BoxShadow(
+                      color: base.withValues(alpha: 0.4),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
                   ],
                 ),
                 child: Text(
                   keyLabel,
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14, fontFamily: 'monospace'),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
               const SizedBox(width: 14),
@@ -792,11 +967,21 @@ class _ShortcutCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       '→ RequestFocusIntent(${_nodeLabels[index]})',
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 12, color: base, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        color: base,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Text(
-                      isFocused ? 'Active — this node is focused' : 'Press $keyLabel to focus',
-                      style: TextStyle(fontSize: 11, color: isFocused ? base : Colors.grey.shade500),
+                      isFocused
+                          ? 'Active — this node is focused'
+                          : 'Press $keyLabel to focus',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: isFocused ? base : Colors.grey.shade500,
+                      ),
                     ),
                   ],
                 ),
@@ -821,35 +1006,41 @@ class _LifecycleTab extends StatelessWidget {
       icon: Icons.add_circle_outline,
       title: '1. Create',
       code: 'final node = FocusNode(debugLabel: \'MyNode\');',
-      description: 'FocusNode is instantiated. At this point it is detached — not part of any FocusScopeNode. No focus operations are valid yet.',
+      description:
+          'FocusNode is instantiated. At this point it is detached — not part of any FocusScopeNode. No focus operations are valid yet.',
       color: Color(0xFF1565C0),
     ),
     _LifecyclePhase(
       icon: Icons.link,
       title: '2. Attach (mount)',
       code: 'Focus(focusNode: node, child: widget)',
-      description: 'The Focus widget mounts and attaches the node to the nearest FocusScopeNode in the tree. The node is now a valid focus target.',
+      description:
+          'The Focus widget mounts and attaches the node to the nearest FocusScopeNode in the tree. The node is now a valid focus target.',
       color: Color(0xFF6A1B9A),
     ),
     _LifecyclePhase(
       icon: Icons.center_focus_strong,
       title: '3. RequestFocus',
-      code: 'Actions.invoke(ctx, RequestFocusIntent(node));\n// or: node.requestFocus();',
-      description: 'Focus is transferred to this node. hasFocus becomes true. FocusManager.instance.primaryFocus points here. onFocusChange callbacks fire.',
+      code:
+          'Actions.invoke(ctx, RequestFocusIntent(node));\n// or: node.requestFocus();',
+      description:
+          'Focus is transferred to this node. hasFocus becomes true. FocusManager.instance.primaryFocus points here. onFocusChange callbacks fire.',
       color: Color(0xFF00695C),
     ),
     _LifecyclePhase(
       icon: Icons.remove_circle_outline,
       title: '4. Unfocus',
       code: 'node.unfocus();\n// or focus another node',
-      description: 'Focus leaves this node. hasFocus becomes false. The node remains attached and can receive focus again.',
+      description:
+          'Focus leaves this node. hasFocus becomes false. The node remains attached and can receive focus again.',
       color: Color(0xFFAD1457),
     ),
     _LifecyclePhase(
       icon: Icons.delete_outline,
       title: '5. Dispose',
       code: 'node.dispose(); // in State.dispose()',
-      description: 'Must be called when the owning State is disposed. Removes the node from the focus tree and releases resources. Never call requestFocus after dispose.',
+      description:
+          'Must be called when the owning State is disposed. Removes the node from the focus tree and releases resources. Never call requestFocus after dispose.',
       color: Color(0xFFE65100),
     ),
   ];
@@ -861,35 +1052,57 @@ class _LifecycleTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('FocusNode Lifecycle', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'FocusNode Lifecycle',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 4),
         Text(
           'A FocusNode goes through five distinct phases. RequestFocusAction '
           'operates in the requestFocus phase (step 3).',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
         // ── Timeline ──────────────────────────────────────────────────
         for (int i = 0; i < _phases.length; i++) ...<Widget>[
-          _LifecyclePhaseCard(phase: _phases[i], isLast: i == _phases.length - 1),
+          _LifecyclePhaseCard(
+            phase: _phases[i],
+            isLast: i == _phases.length - 1,
+          ),
         ],
 
         const SizedBox(height: 20),
 
         // ── Lifecycle with RequestFocusAction highlighted ─────────────
-        Text('RequestFocusAction in Context', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'RequestFocusAction in Context',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _InfoCard(
           color: scheme.primaryContainer,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem('RequestFocusAction only works safely in phase 2–4 (node attached, not disposed).'),
-              _BulletItem('If node is not attached, requestFocus() is a no-op.'),
-              _BulletItem('If node is disposed, requestFocus() throws in debug mode.'),
-              _BulletItem('Always create FocusNode in initState, dispose in dispose().'),
-              _BulletItem('Top-level FocusNode (like this demo) are valid but never disposed — use only in demos.'),
+              _BulletItem(
+                'RequestFocusAction only works safely in phase 2–4 (node attached, not disposed).',
+              ),
+              _BulletItem(
+                'If node is not attached, requestFocus() is a no-op.',
+              ),
+              _BulletItem(
+                'If node is disposed, requestFocus() throws in debug mode.',
+              ),
+              _BulletItem(
+                'Always create FocusNode in initState, dispose in dispose().',
+              ),
+              _BulletItem(
+                'Top-level FocusNode (like this demo) are valid but never disposed — use only in demos.',
+              ),
             ],
           ),
         ),
@@ -897,15 +1110,30 @@ class _LifecycleTab extends StatelessWidget {
         const SizedBox(height: 20),
 
         // ── State properties ──────────────────────────────────────────
-        Text('FocusNode State Properties', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'FocusNode State Properties',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
           headers: const <String>['Property', 'Type', 'Description'],
           rows: const <List<String>>[
             ['hasFocus', 'bool', 'True if this node or a descendant has focus'],
-            ['hasPrimaryFocus', 'bool', 'True if this exact node is the primary focus'],
-            ['canRequestFocus', 'bool', 'Whether focus can be requested (e.g. not in read-only scope)'],
-            ['skipTraversal', 'bool', 'Excluded from keyboard traversal if true'],
+            [
+              'hasPrimaryFocus',
+              'bool',
+              'True if this exact node is the primary focus',
+            ],
+            [
+              'canRequestFocus',
+              'bool',
+              'Whether focus can be requested (e.g. not in read-only scope)',
+            ],
+            [
+              'skipTraversal',
+              'bool',
+              'Excluded from keyboard traversal if true',
+            ],
             ['debugLabel', 'String?', 'Human-readable label for debugging'],
             ['parent', 'FocusNode?', 'Parent node in the focus tree'],
             ['children', 'Iterable<FocusNode>', 'Direct child nodes'],
@@ -969,7 +1197,14 @@ class _LifecyclePhaseCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(phase.title, style: TextStyle(fontWeight: FontWeight.w700, color: phase.color, fontSize: 15)),
+                Text(
+                  phase.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: phase.color,
+                    fontSize: 15,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Container(
                   width: double.infinity,
@@ -980,11 +1215,23 @@ class _LifecyclePhaseCard extends StatelessWidget {
                   ),
                   child: Text(
                     phase.code,
-                    style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFFE0E0E0), height: 1.5),
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      color: Color(0xFFE0E0E0),
+                      height: 1.5,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(phase.description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.5)),
+                Text(
+                  phase.description,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey.shade700,
+                    height: 1.5,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1007,13 +1254,19 @@ class _FocusTreeTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('Focus Tree Visualization', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Focus Tree Visualization',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 4),
         Text(
           'The focus tree mirrors the widget tree. FocusScopeNode acts as a '
           'container; FocusNode leaves receive actual keyboard events. '
           'RequestFocusAction moves the primaryFocus pointer.',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
@@ -1028,7 +1281,11 @@ class _FocusTreeTab extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: scheme.outlineVariant),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8, offset: const Offset(0, 2)),
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.06),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
                 ],
               ),
               child: ClipRRect(
@@ -1048,18 +1305,30 @@ class _FocusTreeTab extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _LegendItem(color: const Color(0xFF1565C0), label: 'FocusScopeNode'),
+            _LegendItem(
+              color: const Color(0xFF1565C0),
+              label: 'FocusScopeNode',
+            ),
             const SizedBox(width: 20),
-            _LegendItem(color: const Color(0xFF00695C), label: 'FocusNode (inactive)'),
+            _LegendItem(
+              color: const Color(0xFF00695C),
+              label: 'FocusNode (inactive)',
+            ),
             const SizedBox(width: 20),
-            _LegendItem(color: const Color(0xFFE65100), label: 'FocusNode (active)'),
+            _LegendItem(
+              color: const Color(0xFFE65100),
+              label: 'FocusNode (active)',
+            ),
           ],
         ),
 
         const SizedBox(height: 20),
 
         // ── Tree structure explanation ─────────────────────────────────
-        Text('Tree Structure', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Tree Structure',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _InfoCard(
           color: scheme.surfaceContainerHigh,
@@ -1082,7 +1351,10 @@ class _FocusTreeTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── FocusScopeNode vs FocusNode ───────────────────────────────
-        Text('FocusScopeNode vs FocusNode', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'FocusScopeNode vs FocusNode',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _ComparisonRow(
           leftTitle: 'FocusScopeNode',
@@ -1112,7 +1384,13 @@ class _FocusTreePainter extends CustomPainter {
   final String focusedNodeId;
   const _FocusTreePainter({required this.focusedNodeId});
 
-  static const List<String> _nodeNames = <String>['Node-1', 'Node-2', 'Node-3', 'Node-4', 'Node-5'];
+  static const List<String> _nodeNames = <String>[
+    'Node-1',
+    'Node-2',
+    'Node-3',
+    'Node-4',
+    'Node-5',
+  ];
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1143,15 +1421,43 @@ class _FocusTreePainter extends CustomPainter {
 
     // ── Root scope node ───────────────────────────────────────────────
     final Offset rootPos = Offset(size.width / 2, 50);
-    canvas.drawCircle(rootPos, 28, Paint()..color = const Color(0xFF1565C0).withValues(alpha: 0.15)..style = PaintingStyle.fill);
-    canvas.drawCircle(rootPos, 28, scopePaint..style = PaintingStyle.stroke..strokeWidth = 2.5);
+    canvas.drawCircle(
+      rootPos,
+      28,
+      Paint()
+        ..color = const Color(0xFF1565C0).withValues(alpha: 0.15)
+        ..style = PaintingStyle.fill,
+    );
+    canvas.drawCircle(
+      rootPos,
+      28,
+      scopePaint
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.5,
+    );
     _drawLabel(canvas, 'FocusScope\n(root)', rootPos, const Color(0xFF1565C0));
 
     // ── App scope node ─────────────────────────────────────────────────
     final Offset appScopePos = Offset(size.width / 2, 150);
-    canvas.drawLine(rootPos + const Offset(0, 28), appScopePos - const Offset(0, 24), linePaint);
-    canvas.drawCircle(appScopePos, 24, Paint()..color = const Color(0xFF1565C0).withValues(alpha: 0.1)..style = PaintingStyle.fill);
-    canvas.drawCircle(appScopePos, 24, scopePaint..style = PaintingStyle.stroke..strokeWidth = 2);
+    canvas.drawLine(
+      rootPos + const Offset(0, 28),
+      appScopePos - const Offset(0, 24),
+      linePaint,
+    );
+    canvas.drawCircle(
+      appScopePos,
+      24,
+      Paint()
+        ..color = const Color(0xFF1565C0).withValues(alpha: 0.1)
+        ..style = PaintingStyle.fill,
+    );
+    canvas.drawCircle(
+      appScopePos,
+      24,
+      scopePaint
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
     _drawLabel(canvas, 'App\nScope', appScopePos, const Color(0xFF1565C0));
 
     // ── Five leaf nodes ────────────────────────────────────────────────
@@ -1163,7 +1469,11 @@ class _FocusTreePainter extends CustomPainter {
       final bool isActive = focusedNodeId == _nodeNames[i];
 
       // Connection line
-      canvas.drawLine(appScopePos, leafPos - Offset(0, isActive ? 22 : 20), linePaint);
+      canvas.drawLine(
+        appScopePos,
+        leafPos - Offset(0, isActive ? 22 : 20),
+        linePaint,
+      );
 
       // Glow if active
       if (isActive) {
@@ -1177,7 +1487,13 @@ class _FocusTreePainter extends CustomPainter {
             : _nodeColors[i].withValues(alpha: 0.1)
         ..style = PaintingStyle.fill;
       canvas.drawCircle(leafPos, isActive ? 22 : 20, fillPaint);
-      final Paint borderPaint = isActive ? (activePaint..style = PaintingStyle.stroke..strokeWidth = 2.5) : (nodePaint..style = PaintingStyle.stroke..strokeWidth = 1.5);
+      final Paint borderPaint = isActive
+          ? (activePaint
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2.5)
+          : (nodePaint
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.5);
       canvas.drawCircle(leafPos, isActive ? 22 : 20, borderPaint);
 
       // Active focus arrow
@@ -1192,12 +1508,25 @@ class _FocusTreePainter extends CustomPainter {
           arrowPaint,
         );
         // Arrow head
-        canvas.drawLine(Offset(x, leafY - 26), Offset(x - 5, leafY - 34), arrowPaint);
-        canvas.drawLine(Offset(x, leafY - 26), Offset(x + 5, leafY - 34), arrowPaint);
+        canvas.drawLine(
+          Offset(x, leafY - 26),
+          Offset(x - 5, leafY - 34),
+          arrowPaint,
+        );
+        canvas.drawLine(
+          Offset(x, leafY - 26),
+          Offset(x + 5, leafY - 34),
+          arrowPaint,
+        );
       }
 
       // Label
-      _drawLabel(canvas, 'N-${i + 1}', leafPos, isActive ? const Color(0xFFE65100) : _nodeColors[i]);
+      _drawLabel(
+        canvas,
+        'N-${i + 1}',
+        leafPos,
+        isActive ? const Color(0xFFE65100) : _nodeColors[i],
+      );
 
       // Bottom label
       final TextPainter namePainter = TextPainter(
@@ -1217,7 +1546,10 @@ class _FocusTreePainter extends CustomPainter {
         width: namePainter.width + 8,
         height: namePainter.height + 4,
       );
-      canvas.drawRRect(RRect.fromRectAndRadius(nameBg, const Radius.circular(4)), textBgPaint);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(nameBg, const Radius.circular(4)),
+        textBgPaint,
+      );
       namePainter.paint(canvas, Offset(x - namePainter.width / 2, leafY + 30));
     }
 
@@ -1229,7 +1561,12 @@ class _FocusTreePainter extends CustomPainter {
         final TextPainter pf = TextPainter(
           text: const TextSpan(
             text: 'primaryFocus',
-            style: TextStyle(fontSize: 9, color: Color(0xFFE65100), fontWeight: FontWeight.w600, fontFamily: 'monospace'),
+            style: TextStyle(
+              fontSize: 9,
+              color: Color(0xFFE65100),
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+            ),
           ),
           textDirection: TextDirection.ltr,
         );
@@ -1243,7 +1580,12 @@ class _FocusTreePainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(fontSize: 10, color: color, fontWeight: FontWeight.w700, height: 1.3),
+        style: TextStyle(
+          fontSize: 10,
+          color: color,
+          fontWeight: FontWeight.w700,
+          height: 1.3,
+        ),
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
@@ -1271,18 +1613,27 @@ class _InvokePatternTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('Actions.invoke Pattern', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Actions.invoke Pattern',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 8),
         Text(
           'Actions.invoke() is the public entry point for dispatching intents. '
           'It walks up the widget tree to find the nearest Actions ancestor '
           'that handles the given intent type.',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
         // ── Actions.invoke code ───────────────────────────────────────
-        Text('Using Actions.invoke', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Using Actions.invoke',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'Via Actions.invoke (pipeline)',
@@ -1306,7 +1657,10 @@ if (result == null) {
         const SizedBox(height: 16),
 
         // ── Direct call code ──────────────────────────────────────────
-        Text('Direct FocusNode call (bypass pipeline)', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Direct FocusNode call (bypass pipeline)',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'Direct (no pipeline)',
@@ -1324,25 +1678,51 @@ FocusScope.of(context).requestFocus(myFocusNode);''',
         const SizedBox(height: 16),
 
         // ── Comparison table ──────────────────────────────────────────
-        Text('Pipeline vs Direct — Comparison', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Pipeline vs Direct — Comparison',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
-          headers: const <String>['Aspect', 'Actions.invoke', 'Direct .requestFocus'],
+          headers: const <String>[
+            'Aspect',
+            'Actions.invoke',
+            'Direct .requestFocus',
+          ],
           rows: const <List<String>>[
-            ['Interception', 'Yes — any ancestor can override Action', 'No — direct call'],
-            ['Testability', 'High — mock Actions in tests', 'Moderate — need node ref'],
-            ['Decoupling', 'Sender has no FocusNode ref needed', 'Requires direct reference'],
+            [
+              'Interception',
+              'Yes — any ancestor can override Action',
+              'No — direct call',
+            ],
+            [
+              'Testability',
+              'High — mock Actions in tests',
+              'Moderate — need node ref',
+            ],
+            [
+              'Decoupling',
+              'Sender has no FocusNode ref needed',
+              'Requires direct reference',
+            ],
             ['Shortcut wiring', 'Yes — via Shortcuts widget', 'No'],
             ['Accessibility', 'Full pipeline audit', 'Limited'],
             ['Complexity', 'More setup required', 'Simpler, fewer lines'],
-            ['Typical use', 'App-level focus routing', 'Widget-local focus logic'],
+            [
+              'Typical use',
+              'App-level focus routing',
+              'Widget-local focus logic',
+            ],
           ],
         ),
 
         const SizedBox(height: 16),
 
         // ── Actions.maybeInvoke ───────────────────────────────────────
-        Text('Actions.maybeInvoke — Safe Invocation', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Actions.maybeInvoke — Safe Invocation',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _InfoCard(
           color: scheme.tertiaryContainer,
@@ -1350,9 +1730,15 @@ FocusScope.of(context).requestFocus(myFocusNode);''',
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _BulletItem('Actions.invoke throws if no handler is found.'),
-              _BulletItem('Actions.maybeInvoke returns null instead of throwing.'),
-              _BulletItem('Use maybeInvoke when the action handler is optional.'),
-              _BulletItem('Use invoke when the action must be handled (assertion failure is desired).'),
+              _BulletItem(
+                'Actions.maybeInvoke returns null instead of throwing.',
+              ),
+              _BulletItem(
+                'Use maybeInvoke when the action handler is optional.',
+              ),
+              _BulletItem(
+                'Use invoke when the action must be handled (assertion failure is desired).',
+              ),
             ],
           ),
         ),
@@ -1360,7 +1746,10 @@ FocusScope.of(context).requestFocus(myFocusNode);''',
         const SizedBox(height: 16),
 
         // ── isEnabled ─────────────────────────────────────────────────
-        Text('Checking if Action is Enabled', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Checking if Action is Enabled',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'isEnabled check',
@@ -1391,18 +1780,27 @@ class _ConditionalFocusTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('Conditional Focus Action', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Conditional Focus Action',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 8),
         Text(
           'A custom Action subclass can check a condition before delegating '
           'to requestFocus. This allows guard logic such as form validation '
           'checks, permission gates, or feature flags.',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
         // ── Custom action code ─────────────────────────────────────────
-        Text('Custom ConditionalFocusAction', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Custom ConditionalFocusAction',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'ConditionalFocusAction',
@@ -1435,7 +1833,10 @@ class _ConditionalFocusTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── Live condition toggle ──────────────────────────────────────
-        Text('Live Demo — Condition Gate', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Live Demo — Condition Gate',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         ValueListenableBuilder<bool>(
           valueListenable: _conditionMet,
@@ -1451,14 +1852,18 @@ class _ConditionalFocusTab extends StatelessWidget {
                         : const Color(0xFFAD1457).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: condMet ? const Color(0xFF00695C) : const Color(0xFFAD1457),
+                      color: condMet
+                          ? const Color(0xFF00695C)
+                          : const Color(0xFFAD1457),
                     ),
                   ),
                   child: Row(
                     children: <Widget>[
                       Icon(
                         condMet ? Icons.check_circle : Icons.cancel,
-                        color: condMet ? const Color(0xFF00695C) : const Color(0xFFAD1457),
+                        color: condMet
+                            ? const Color(0xFF00695C)
+                            : const Color(0xFFAD1457),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -1468,7 +1873,9 @@ class _ConditionalFocusTab extends StatelessWidget {
                               : 'Condition: INVALID — focus requests will be blocked',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: condMet ? const Color(0xFF00695C) : const Color(0xFFAD1457),
+                            color: condMet
+                                ? const Color(0xFF00695C)
+                                : const Color(0xFFAD1457),
                           ),
                         ),
                       ),
@@ -1483,7 +1890,9 @@ class _ConditionalFocusTab extends StatelessWidget {
                 const SizedBox(height: 12),
                 Actions(
                   actions: <Type, Action<Intent>>{
-                    RequestFocusIntent: _ConditionalFocusActionImpl(condition: _conditionMet),
+                    RequestFocusIntent: _ConditionalFocusActionImpl(
+                      condition: _conditionMet,
+                    ),
                   },
                   child: Wrap(
                     spacing: 8,
@@ -1492,7 +1901,11 @@ class _ConditionalFocusTab extends StatelessWidget {
                       for (int i = 0; i < 3; i++)
                         Builder(
                           builder: (BuildContext bCtx) {
-                            final List<FocusNode> nodes = <FocusNode>[_node1, _node2, _node3];
+                            final List<FocusNode> nodes = <FocusNode>[
+                              _node1,
+                              _node2,
+                              _node3,
+                            ];
                             return ElevatedButton.icon(
                               onPressed: () {
                                 final Object? result = Actions.maybeInvoke(
@@ -1502,7 +1915,9 @@ class _ConditionalFocusTab extends StatelessWidget {
                                 if (result == null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Focus blocked — condition not met'),
+                                      content: Text(
+                                        'Focus blocked — condition not met',
+                                      ),
                                       duration: Duration(seconds: 1),
                                     ),
                                   );
@@ -1510,10 +1925,15 @@ class _ConditionalFocusTab extends StatelessWidget {
                                   _focusedNodeId.value = _nodeLabels[i];
                                 }
                               },
-                              icon: const Icon(Icons.center_focus_weak, size: 16),
+                              icon: const Icon(
+                                Icons.center_focus_weak,
+                                size: 16,
+                              ),
                               label: Text('Focus ${_nodeLabels[i]}'),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: condMet ? _nodeColors[i] : Colors.grey,
+                                backgroundColor: condMet
+                                    ? _nodeColors[i]
+                                    : Colors.grey,
                                 foregroundColor: Colors.white,
                               ),
                             );
@@ -1530,18 +1950,31 @@ class _ConditionalFocusTab extends StatelessWidget {
         const SizedBox(height: 20),
 
         // ── Use cases for conditional focus ───────────────────────────
-        Text('Conditional Focus Use Cases', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Conditional Focus Use Cases',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _InfoCard(
           color: scheme.secondaryContainer,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _BulletItem('Form step validation: only allow focus on the next field if the current one is valid.'),
-              _BulletItem('Permission gates: block focus on premium-only fields for free-tier users.'),
-              _BulletItem('Disabled states: keep UI accessible but silently reject focus on disabled sections.'),
-              _BulletItem('Tutorial flows: restrict focus to guide the user through a specific path.'),
-              _BulletItem('Read-only modes: prevent editing focus while document is locked.'),
+              _BulletItem(
+                'Form step validation: only allow focus on the next field if the current one is valid.',
+              ),
+              _BulletItem(
+                'Permission gates: block focus on premium-only fields for free-tier users.',
+              ),
+              _BulletItem(
+                'Disabled states: keep UI accessible but silently reject focus on disabled sections.',
+              ),
+              _BulletItem(
+                'Tutorial flows: restrict focus to guide the user through a specific path.',
+              ),
+              _BulletItem(
+                'Read-only modes: prevent editing focus while document is locked.',
+              ),
             ],
           ),
         ),
@@ -1549,7 +1982,10 @@ class _ConditionalFocusTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── isEnabled vs invoke ───────────────────────────────────────
-        Text('isEnabled vs invoke Guard', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'isEnabled vs invoke Guard',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _ComparisonRow(
           leftTitle: 'Override isEnabled',
@@ -1605,12 +2041,18 @@ class _FocusScopeVsManagerTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('FocusScope.of vs FocusManager', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'FocusScope.of vs FocusManager',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 8),
         Text(
           'Flutter provides two high-level ways to navigate focus programmatically, '
           'in addition to the Actions/Intents approach via RequestFocusAction.',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
@@ -1621,12 +2063,14 @@ class _FocusScopeVsManagerTab extends StatelessWidget {
           items: const <_ApiItem>[
             _ApiItem(
               method: '.requestFocus(node)',
-              description: 'Request focus on a specific node within the scope. Equivalent to node.requestFocus() but goes through the scope.',
+              description:
+                  'Request focus on a specific node within the scope. Equivalent to node.requestFocus() but goes through the scope.',
               code: 'FocusScope.of(context).requestFocus(myNode);',
             ),
             _ApiItem(
               method: '.nextFocus()',
-              description: 'Move focus to the next focusable widget in traversal order.',
+              description:
+                  'Move focus to the next focusable widget in traversal order.',
               code: 'FocusScope.of(context).nextFocus();',
             ),
             _ApiItem(
@@ -1651,17 +2095,21 @@ class _FocusScopeVsManagerTab extends StatelessWidget {
           items: const <_ApiItem>[
             _ApiItem(
               method: '.primaryFocus',
-              description: 'The currently focused FocusNode. Null if nothing is focused.',
+              description:
+                  'The currently focused FocusNode. Null if nothing is focused.',
               code: 'final FocusNode? f = FocusManager.instance.primaryFocus;',
             ),
             _ApiItem(
               method: '.rootScope',
-              description: 'The root FocusScopeNode. Top of the entire focus tree.',
-              code: 'final FocusScopeNode root = FocusManager.instance.rootScope;',
+              description:
+                  'The root FocusScopeNode. Top of the entire focus tree.',
+              code:
+                  'final FocusScopeNode root = FocusManager.instance.rootScope;',
             ),
             _ApiItem(
               method: '.highlightMode',
-              description: 'Current highlight mode (touch vs traditional keyboard).',
+              description:
+                  'Current highlight mode (touch vs traditional keyboard).',
               code: 'FocusManager.instance.highlightMode;',
             ),
           ],
@@ -1670,12 +2118,25 @@ class _FocusScopeVsManagerTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── Three-way comparison ──────────────────────────────────────
-        Text('Three-Way Focus API Comparison', style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600)),
+        Text(
+          'Three-Way Focus API Comparison',
+          style: txt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
-          headers: const <String>['Method', 'Scope', 'Interception', 'Shortcut-able'],
+          headers: const <String>[
+            'Method',
+            'Scope',
+            'Interception',
+            'Shortcut-able',
+          ],
           rows: const <List<String>>[
-            ['Actions.invoke (RequestFocusAction)', 'Widget tree', 'Yes', 'Yes'],
+            [
+              'Actions.invoke (RequestFocusAction)',
+              'Widget tree',
+              'Yes',
+              'Yes',
+            ],
             ['FocusScope.of.requestFocus(node)', 'Current scope', 'No', 'No'],
             ['node.requestFocus()', 'Node directly', 'No', 'No'],
             ['FocusScope.of.nextFocus()', 'Traversal order', 'No', 'Partial'],
@@ -1686,41 +2147,56 @@ class _FocusScopeVsManagerTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── Pitfalls panel ────────────────────────────────────────────
-        Text('Pitfalls & Common Mistakes', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700, color: const Color(0xFFAD1457))),
+        Text(
+          'Pitfalls & Common Mistakes',
+          style: txt.titleMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFFAD1457),
+          ),
+        ),
         const SizedBox(height: 8),
         _PitfallCard(
           index: 1,
           title: 'Focusing a disposed node',
-          description: 'Calling requestFocus() after dispose() will throw an assertion in debug mode and silently fail in release.',
+          description:
+              'Calling requestFocus() after dispose() will throw an assertion in debug mode and silently fail in release.',
           fix: 'Always check: if (node.context != null) node.requestFocus();',
         ),
         const SizedBox(height: 8),
         _PitfallCard(
           index: 2,
           title: 'Focusing before attach',
-          description: 'A FocusNode not yet mounted via a Focus widget cannot receive focus. requestFocus() is a no-op.',
-          fix: 'Use addPostFrameCallback or ensure the widget is mounted first.',
+          description:
+              'A FocusNode not yet mounted via a Focus widget cannot receive focus. requestFocus() is a no-op.',
+          fix:
+              'Use addPostFrameCallback or ensure the widget is mounted first.',
         ),
         const SizedBox(height: 8),
         _PitfallCard(
           index: 3,
           title: 'No RequestFocusAction handler in tree',
-          description: 'Actions.invoke() throws if no ancestor Actions widget provides a RequestFocusAction handler.',
-          fix: 'Use Actions.maybeInvoke() or wrap with Actions(actions: {RequestFocusIntent: RequestFocusAction()}).',
+          description:
+              'Actions.invoke() throws if no ancestor Actions widget provides a RequestFocusAction handler.',
+          fix:
+              'Use Actions.maybeInvoke() or wrap with Actions(actions: {RequestFocusIntent: RequestFocusAction()}).',
         ),
         const SizedBox(height: 8),
         _PitfallCard(
           index: 4,
           title: 'Calling requestFocus in build()',
-          description: 'Modifying focus state during build causes layout issues and assertion failures.',
-          fix: 'Use addPostFrameCallback: WidgetsBinding.instance.addPostFrameCallback((_) => node.requestFocus());',
+          description:
+              'Modifying focus state during build causes layout issues and assertion failures.',
+          fix:
+              'Use addPostFrameCallback: WidgetsBinding.instance.addPostFrameCallback((_) => node.requestFocus());',
         ),
         const SizedBox(height: 8),
         _PitfallCard(
           index: 5,
           title: 'Order of operations with Shortcuts',
-          description: 'Shortcuts must wrap Actions in the tree, not the other way around, for proper key event routing.',
-          fix: 'Shortcuts → Actions → child (top to bottom in the widget tree).',
+          description:
+              'Shortcuts must wrap Actions in the tree, not the other way around, for proper key event routing.',
+          fix:
+              'Shortcuts → Actions → child (top to bottom in the widget tree).',
         ),
       ],
     );
@@ -1733,7 +2209,12 @@ class _PitfallCard extends StatelessWidget {
   final String title;
   final String description;
   final String fix;
-  const _PitfallCard({required this.index, required this.title, required this.description, required this.fix});
+  const _PitfallCard({
+    required this.index,
+    required this.title,
+    required this.description,
+    required this.fix,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1742,7 +2223,9 @@ class _PitfallCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFFFF3F3),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFAD1457).withValues(alpha: 0.3)),
+        border: Border.all(
+          color: const Color(0xFFAD1457).withValues(alpha: 0.3),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1752,19 +2235,42 @@ class _PitfallCard extends StatelessWidget {
               Container(
                 width: 24,
                 height: 24,
-                decoration: const BoxDecoration(color: Color(0xFFAD1457), shape: BoxShape.circle),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFAD1457),
+                  shape: BoxShape.circle,
+                ),
                 child: Center(
-                  child: Text('$index', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFFAD1457))),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFFAD1457),
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.5)),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade700,
+              height: 1.5,
+            ),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.all(8),
@@ -1775,12 +2281,21 @@ class _PitfallCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(Icons.check_circle_outline, color: Color(0xFF00695C), size: 16),
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Color(0xFF00695C),
+                  size: 16,
+                ),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     'Fix: $fix',
-                    style: const TextStyle(fontSize: 11, color: Color(0xFF00695C), fontFamily: 'monospace', height: 1.4),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color(0xFF00695C),
+                      fontFamily: 'monospace',
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -1805,17 +2320,26 @@ class _ApiCheatSheetTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        Text('API Cheat Sheet', style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'API Cheat Sheet',
+          style: txt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+        ),
         const SizedBox(height: 4),
         Text(
           'Complete reference for RequestFocusAction, RequestFocusIntent, '
           'and the most commonly used FocusNode APIs.',
-          style: txt.bodySmall?.copyWith(color: scheme.onSurfaceVariant, height: 1.5),
+          style: txt.bodySmall?.copyWith(
+            color: scheme.onSurfaceVariant,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 20),
 
         // ── RequestFocusAction ─────────────────────────────────────────
-        _SectionHeader(title: 'RequestFocusAction', color: const Color(0xFF1565C0)),
+        _SectionHeader(
+          title: 'RequestFocusAction',
+          color: const Color(0xFF1565C0),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'class RequestFocusAction',
@@ -1838,7 +2362,10 @@ class _ApiCheatSheetTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         // ── RequestFocusIntent ─────────────────────────────────────────
-        _SectionHeader(title: 'RequestFocusIntent', color: const Color(0xFF6A1B9A)),
+        _SectionHeader(
+          title: 'RequestFocusIntent',
+          color: const Color(0xFF6A1B9A),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'class RequestFocusIntent',
@@ -1859,49 +2386,128 @@ Actions.invoke(context, intent);''',
         const SizedBox(height: 16),
 
         // ── FocusNode API ──────────────────────────────────────────────
-        _SectionHeader(title: 'FocusNode Key APIs', color: const Color(0xFF00695C)),
+        _SectionHeader(
+          title: 'FocusNode Key APIs',
+          color: const Color(0xFF00695C),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
           headers: const <String>['Member', 'Signature', 'Description'],
           rows: const <List<String>>[
-            ['constructor', 'FocusNode({String? debugLabel, bool skipTraversal, bool canRequestFocus})', 'Creates a new focus node.'],
-            ['requestFocus()', 'void requestFocus()', 'Moves focus to this node.'],
-            ['unfocus()', 'void unfocus({UnfocusDisposition disposition})', 'Removes focus from this node.'],
-            ['nextFocus()', 'bool nextFocus()', 'Moves focus to the next node.'],
-            ['previousFocus()', 'bool previousFocus()', 'Moves focus to the previous node.'],
-            ['hasFocus', 'bool get hasFocus', 'True if this or a descendant has focus.'],
-            ['hasPrimaryFocus', 'bool get hasPrimaryFocus', 'True if this is the primary focus.'],
-            ['canRequestFocus', 'bool get canRequestFocus', 'Whether requestFocus can succeed.'],
-            ['dispose()', 'void dispose()', 'Must be called to release resources.'],
-            ['addListener()', 'void addListener(VoidCallback)', 'Listen for focus changes.'],
+            [
+              'constructor',
+              'FocusNode({String? debugLabel, bool skipTraversal, bool canRequestFocus})',
+              'Creates a new focus node.',
+            ],
+            [
+              'requestFocus()',
+              'void requestFocus()',
+              'Moves focus to this node.',
+            ],
+            [
+              'unfocus()',
+              'void unfocus({UnfocusDisposition disposition})',
+              'Removes focus from this node.',
+            ],
+            [
+              'nextFocus()',
+              'bool nextFocus()',
+              'Moves focus to the next node.',
+            ],
+            [
+              'previousFocus()',
+              'bool previousFocus()',
+              'Moves focus to the previous node.',
+            ],
+            [
+              'hasFocus',
+              'bool get hasFocus',
+              'True if this or a descendant has focus.',
+            ],
+            [
+              'hasPrimaryFocus',
+              'bool get hasPrimaryFocus',
+              'True if this is the primary focus.',
+            ],
+            [
+              'canRequestFocus',
+              'bool get canRequestFocus',
+              'Whether requestFocus can succeed.',
+            ],
+            [
+              'dispose()',
+              'void dispose()',
+              'Must be called to release resources.',
+            ],
+            [
+              'addListener()',
+              'void addListener(VoidCallback)',
+              'Listen for focus changes.',
+            ],
           ],
         ),
 
         const SizedBox(height: 16),
 
         // ── Actions API ────────────────────────────────────────────────
-        _SectionHeader(title: 'Actions Widget & Static API', color: const Color(0xFFAD1457)),
+        _SectionHeader(
+          title: 'Actions Widget & Static API',
+          color: const Color(0xFFAD1457),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
           headers: const <String>['Method', 'Returns', 'Description'],
           rows: const <List<String>>[
-            ['Actions.invoke(ctx, intent)', 'Object?', 'Invoke the action; throws if no handler.'],
-            ['Actions.maybeInvoke(ctx, intent)', 'Object?', 'Invoke; returns null if no handler.'],
-            ['Actions.find<I>(ctx)', 'Action<I>?', 'Find handler action for intent type.'],
-            ['Actions.isEnabled(ctx, intent)', 'bool', 'Check if action is enabled.'],
-            ['Actions.handler<I>(ctx, intent)', 'Action<I>?', 'Get handler; null if not found.'],
+            [
+              'Actions.invoke(ctx, intent)',
+              'Object?',
+              'Invoke the action; throws if no handler.',
+            ],
+            [
+              'Actions.maybeInvoke(ctx, intent)',
+              'Object?',
+              'Invoke; returns null if no handler.',
+            ],
+            [
+              'Actions.find<I>(ctx)',
+              'Action<I>?',
+              'Find handler action for intent type.',
+            ],
+            [
+              'Actions.isEnabled(ctx, intent)',
+              'bool',
+              'Check if action is enabled.',
+            ],
+            [
+              'Actions.handler<I>(ctx, intent)',
+              'Action<I>?',
+              'Get handler; null if not found.',
+            ],
           ],
         ),
 
         const SizedBox(height: 16),
 
         // ── Quick comparison ───────────────────────────────────────────
-        _SectionHeader(title: 'RequestFocusAction vs Alternatives', color: const Color(0xFFE65100)),
+        _SectionHeader(
+          title: 'RequestFocusAction vs Alternatives',
+          color: const Color(0xFFE65100),
+        ),
         const SizedBox(height: 8),
         _PropertiesTable(
-          headers: const <String>['API', 'Interception', 'Shortcuts', 'Traversal-aware'],
+          headers: const <String>[
+            'API',
+            'Interception',
+            'Shortcuts',
+            'Traversal-aware',
+          ],
           rows: const <List<String>>[
-            ['RequestFocusAction (via Actions)', 'Yes', 'Yes', 'No (direct node)'],
+            [
+              'RequestFocusAction (via Actions)',
+              'Yes',
+              'Yes',
+              'No (direct node)',
+            ],
             ['FocusNode.requestFocus()', 'No', 'No', 'No'],
             ['FocusScope.of.nextFocus()', 'No', 'Partial', 'Yes'],
             ['FocusTraversalGroup', 'No', 'No', 'Yes (group scope)'],
@@ -1911,7 +2517,10 @@ Actions.invoke(context, intent);''',
         const SizedBox(height: 16),
 
         // ── Complete minimal example ───────────────────────────────────
-        _SectionHeader(title: 'Complete Minimal Example', color: const Color(0xFF00695C)),
+        _SectionHeader(
+          title: 'Complete Minimal Example',
+          color: const Color(0xFF00695C),
+        ),
         const SizedBox(height: 8),
         _CodeBlock(
           title: 'Minimal RequestFocusAction wiring',
@@ -2048,13 +2657,19 @@ class _BulletItem extends StatelessWidget {
               width: 6,
               height: 6,
               child: DecoratedBox(
-                decoration: BoxDecoration(color: Color(0xFF424242), shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: Color(0xFF424242),
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: const TextStyle(fontSize: 13, height: 1.5)),
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 13, height: 1.5),
+            ),
           ),
         ],
       ),
@@ -2079,7 +2694,11 @@ class _Chip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 12, color: scheme.onPrimaryContainer, fontWeight: FontWeight.w500),
+        style: TextStyle(
+          fontSize: 12,
+          color: scheme.onPrimaryContainer,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
@@ -2094,7 +2713,12 @@ class _MonoText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.6, color: Color(0xFF1A1A2E)),
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        height: 1.6,
+        color: Color(0xFF1A1A2E),
+      ),
     );
   }
 }
@@ -2104,7 +2728,11 @@ class _FactRow extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  const _FactRow({required this.icon, required this.label, required this.value});
+  const _FactRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2118,12 +2746,19 @@ class _FactRow extends StatelessWidget {
           const SizedBox(width: 10),
           SizedBox(
             width: 90,
-            child: Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12)),
+            child: Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+            ),
           ),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12, color: Color(0xFF1A1A2E)),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: Color(0xFF1A1A2E),
+              ),
             ),
           ),
         ],
@@ -2154,9 +2789,21 @@ class _ComparisonRow extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: _ComparisonCard(title: leftTitle, lines: leftLines, color: leftColor)),
+        Expanded(
+          child: _ComparisonCard(
+            title: leftTitle,
+            lines: leftLines,
+            color: leftColor,
+          ),
+        ),
         const SizedBox(width: 8),
-        Expanded(child: _ComparisonCard(title: rightTitle, lines: rightLines, color: rightColor)),
+        Expanded(
+          child: _ComparisonCard(
+            title: rightTitle,
+            lines: rightLines,
+            color: rightColor,
+          ),
+        ),
       ],
     );
   }
@@ -2166,7 +2813,11 @@ class _ComparisonCard extends StatelessWidget {
   final String title;
   final List<String> lines;
   final Color color;
-  const _ComparisonCard({required this.title, required this.lines, required this.color});
+  const _ComparisonCard({
+    required this.title,
+    required this.lines,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2180,12 +2831,22 @@ class _ComparisonCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color, fontSize: 12)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: color,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 6),
           for (final String line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
-              child: Text(line, style: const TextStyle(fontSize: 11, height: 1.4)),
+              child: Text(
+                line,
+                style: const TextStyle(fontSize: 11, height: 1.4),
+              ),
             ),
         ],
       ),
@@ -2198,7 +2859,11 @@ class _CodeBlock extends StatelessWidget {
   final String title;
   final String code;
   final Color accentColor;
-  const _CodeBlock({required this.title, required this.code, required this.accentColor});
+  const _CodeBlock({
+    required this.title,
+    required this.code,
+    required this.accentColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2224,7 +2889,14 @@ class _CodeBlock extends StatelessWidget {
                 Icon(Icons.code, size: 14, color: accentColor),
                 const SizedBox(width: 6),
                 Expanded(
-                  child: Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: accentColor)),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: accentColor,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -2283,9 +2955,18 @@ class _PropertiesTable extends StatelessWidget {
             ),
             child: Row(
               children: headers
-                  .map((String h) => Expanded(
-                        child: Text(h, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: scheme.onPrimaryContainer)),
-                      ))
+                  .map(
+                    (String h) => Expanded(
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                          color: scheme.onPrimaryContainer,
+                        ),
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           ),
@@ -2295,7 +2976,11 @@ class _PropertiesTable extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: i.isOdd ? scheme.surfaceContainerLowest : Colors.white,
-                border: Border(top: BorderSide(color: scheme.outlineVariant.withValues(alpha: 0.5))),
+                border: Border(
+                  top: BorderSide(
+                    color: scheme.outlineVariant.withValues(alpha: 0.5),
+                  ),
+                ),
                 borderRadius: i == rows.length - 1
                     ? const BorderRadius.only(
                         bottomLeft: Radius.circular(9),
@@ -2306,16 +2991,20 @@ class _PropertiesTable extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: rows[i]
-                    .map((String cell) => Expanded(
-                          child: Text(
-                            cell,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: rows[i].indexOf(cell) == 0 ? 'monospace' : null,
-                              height: 1.4,
-                            ),
+                    .map(
+                      (String cell) => Expanded(
+                        child: Text(
+                          cell,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: rows[i].indexOf(cell) == 0
+                                ? 'monospace'
+                                : null,
+                            height: 1.4,
                           ),
-                        ))
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ),
@@ -2335,8 +3024,20 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Container(width: 4, height: 20, color: color, margin: const EdgeInsets.only(right: 10)),
-        Text(title, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: color)),
+        Container(
+          width: 4,
+          height: 20,
+          color: color,
+          margin: const EdgeInsets.only(right: 10),
+        ),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),
+        ),
       ],
     );
   }
@@ -2363,7 +3064,14 @@ class _LegendItem extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 5),
-        Text(label, style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     );
   }
@@ -2374,7 +3082,11 @@ class _ApiBlock extends StatelessWidget {
   final String title;
   final Color color;
   final List<_ApiItem> items;
-  const _ApiBlock({required this.title, required this.color, required this.items});
+  const _ApiBlock({
+    required this.title,
+    required this.color,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2390,12 +3102,26 @@ class _ApiBlock extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(11), topRight: Radius.circular(11)),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(11),
+                topRight: Radius.circular(11),
+              ),
             ),
-            child: Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: color, fontSize: 14)),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: color,
+                fontSize: 14,
+              ),
+            ),
           ),
           for (int i = 0; i < items.length; i++)
-            _ApiItemWidget(item: items[i], color: color, isLast: i == items.length - 1),
+            _ApiItemWidget(
+              item: items[i],
+              color: color,
+              isLast: i == items.length - 1,
+            ),
         ],
       ),
     );
@@ -2406,14 +3132,22 @@ class _ApiItem {
   final String method;
   final String description;
   final String code;
-  const _ApiItem({required this.method, required this.description, required this.code});
+  const _ApiItem({
+    required this.method,
+    required this.description,
+    required this.code,
+  });
 }
 
 class _ApiItemWidget extends StatelessWidget {
   final _ApiItem item;
   final Color color;
   final bool isLast;
-  const _ApiItemWidget({required this.item, required this.color, required this.isLast});
+  const _ApiItemWidget({
+    required this.item,
+    required this.color,
+    required this.isLast,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2425,15 +3159,33 @@ class _ApiItemWidget extends StatelessWidget {
           bottom: isLast ? BorderSide.none : BorderSide.none,
         ),
         borderRadius: isLast
-            ? const BorderRadius.only(bottomLeft: Radius.circular(11), bottomRight: Radius.circular(11))
+            ? const BorderRadius.only(
+                bottomLeft: Radius.circular(11),
+                bottomRight: Radius.circular(11),
+              )
             : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(item.method, style: TextStyle(fontFamily: 'monospace', fontWeight: FontWeight.w600, fontSize: 12, color: color)),
+          Text(
+            item.method,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+              color: color,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(item.description, style: TextStyle(fontSize: 12, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            item.description,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
           const SizedBox(height: 6),
           Container(
             width: double.infinity,
@@ -2444,7 +3196,12 @@ class _ApiItemWidget extends StatelessWidget {
             ),
             child: Text(
               item.code,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFE0E0E0), height: 1.4),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: Color(0xFFE0E0E0),
+                height: 1.4,
+              ),
             ),
           ),
         ],

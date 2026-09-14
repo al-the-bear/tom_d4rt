@@ -250,9 +250,7 @@ class _HeroSection extends StatelessWidget {
           final bool wide = c.maxWidth > 720;
           final Widget canvas = SizedBox(
             height: 240,
-            child: CustomPaint(
-              painter: _HeroArrowPainter(sample: hero),
-            ),
+            child: CustomPaint(painter: _HeroArrowPainter(sample: hero)),
           );
           final Widget copy = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,18 +384,16 @@ class _HeroArrowPainter extends CustomPainter {
         text:
             '${sample.duration.inMilliseconds} ms • '
             '${sample.pixelsPerSecond.distance.toStringAsFixed(0)} px/s',
-        style: const TextStyle(color: _ink, fontSize: 12, fontWeight: FontWeight.w600),
+        style: const TextStyle(
+          color: _ink,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    final Rect ribbon = Rect.fromLTWH(
-      12,
-      12,
-      tp.width + 16,
-      tp.height + 8,
-    );
-    final Paint ribbonBg = Paint()
-      ..color = _surfaceAlt.withValues(alpha: 0.85);
+    final Rect ribbon = Rect.fromLTWH(12, 12, tp.width + 16, tp.height + 8);
+    final Paint ribbonBg = Paint()..color = _surfaceAlt.withValues(alpha: 0.85);
     canvas.drawRRect(
       RRect.fromRectAndRadius(ribbon, const Radius.circular(8)),
       ribbonBg,
@@ -436,7 +432,13 @@ class _HeroArrowPainter extends CustomPainter {
       oldDelegate.sample != sample;
 }
 
-void _drawArrowHead(Canvas canvas, Offset from, Offset to, Color color, double headSize) {
+void _drawArrowHead(
+  Canvas canvas,
+  Offset from,
+  Offset to,
+  Color color,
+  double headSize,
+) {
   final double dx = to.dx - from.dx;
   final double dy = to.dy - from.dy;
   final double angle = math.atan2(dy, dx);
@@ -558,10 +560,7 @@ class _AnatomyTile extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _surface,
-            _surfaceAlt.withValues(alpha: 0.85),
-          ],
+          colors: <Color>[_surface, _surfaceAlt.withValues(alpha: 0.85)],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: tone.withValues(alpha: 0.45), width: 1),
@@ -695,13 +694,13 @@ class _GalleryCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _surface,
-            sample.tint.withValues(alpha: 0.10),
-          ],
+          colors: <Color>[_surface, sample.tint.withValues(alpha: 0.10)],
         ),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: sample.tint.withValues(alpha: 0.35), width: 1),
+        border: Border.all(
+          color: sample.tint.withValues(alpha: 0.35),
+          width: 1,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.32),
@@ -750,15 +749,14 @@ class _GalleryCard extends StatelessWidget {
             aspectRatio: 1.6,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: CustomPaint(
-                painter: _SampleArrowPainter(sample: sample),
-              ),
+              child: CustomPaint(painter: _SampleArrowPainter(sample: sample)),
             ),
           ),
           const SizedBox(height: 10),
           _DataRow(
             k: 'pixelsPerSecond',
-            v: '(${sample.pixelsPerSecond.dx.toStringAsFixed(0)}, '
+            v:
+                '(${sample.pixelsPerSecond.dx.toStringAsFixed(0)}, '
                 '${sample.pixelsPerSecond.dy.toStringAsFixed(0)})',
             tone: _accentA,
           ),
@@ -774,7 +772,8 @@ class _GalleryCard extends StatelessWidget {
           ),
           _DataRow(
             k: 'offset',
-            v: '(${sample.offset.dx.toStringAsFixed(0)}, '
+            v:
+                '(${sample.offset.dx.toStringAsFixed(0)}, '
                 '${sample.offset.dy.toStringAsFixed(0)})',
             tone: _accentE,
           ),
@@ -846,10 +845,7 @@ class _SampleArrowPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          _bg1,
-          _bg2.withValues(alpha: 0.85),
-        ],
+        colors: <Color>[_bg1, _bg2.withValues(alpha: 0.85)],
       ).createShader(r);
     canvas.drawRect(r, bg);
 
@@ -980,7 +976,9 @@ class _ConfidenceSection extends StatelessWidget {
         children: <Widget>[
           LayoutBuilder(
             builder: (BuildContext ctx, BoxConstraints c) {
-              final int cols = c.maxWidth > 880 ? 5 : (c.maxWidth > 580 ? 3 : 2);
+              final int cols = c.maxWidth > 880
+                  ? 5
+                  : (c.maxWidth > 580 ? 3 : 2);
               return _Grid(
                 cols: cols,
                 spacing: 12,
@@ -1029,10 +1027,7 @@ class _ConfidenceSection extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[
-                  _surface,
-                  _accentB.withValues(alpha: 0.10),
-                ],
+                colors: <Color>[_surface, _accentB.withValues(alpha: 0.10)],
               ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
@@ -1079,10 +1074,7 @@ class _ConfidenceCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            _surface,
-            tone.withValues(alpha: 0.08),
-          ],
+          colors: <Color>[_surface, tone.withValues(alpha: 0.08)],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1162,10 +1154,7 @@ class _GaugePainter extends CustomPainter {
         ..shader = SweepGradient(
           startAngle: start,
           endAngle: start + sweep,
-          colors: <Color>[
-            tone.withValues(alpha: 0.4),
-            tone,
-          ],
+          colors: <Color>[tone.withValues(alpha: 0.4), tone],
         ).createShader(arc)
         ..strokeWidth = 12
         ..style = PaintingStyle.stroke
@@ -1184,7 +1173,10 @@ class _GaugePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(canvas, Offset(center.dx - tp.width / 2, center.dy - tp.height - 2));
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height - 2),
+    );
   }
 
   @override
@@ -1283,10 +1275,7 @@ class _ComparePanel extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _surface,
-            tone.withValues(alpha: 0.12),
-          ],
+          colors: <Color>[_surface, tone.withValues(alpha: 0.12)],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: tone.withValues(alpha: 0.45)),
@@ -1455,10 +1444,7 @@ class _ScenarioCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _surface,
-            tone.withValues(alpha: 0.10),
-          ],
+          colors: <Color>[_surface, tone.withValues(alpha: 0.10)],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1700,10 +1686,7 @@ class _ConstructionSection extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: <Color>[
-              _bg1,
-              _accentA.withValues(alpha: 0.06),
-            ],
+            colors: <Color>[_bg1, _accentA.withValues(alpha: 0.06)],
           ),
           boxShadow: <BoxShadow>[
             BoxShadow(
@@ -1730,7 +1713,8 @@ class _CodeBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String code = '// ${sample.label} — ${sample.subtitle}\n'
+    final String code =
+        '// ${sample.label} — ${sample.subtitle}\n'
         'const VelocityEstimate(\n'
         '  pixelsPerSecond: Offset(${sample.pixelsPerSecond.dx.toStringAsFixed(1)}, '
         '${sample.pixelsPerSecond.dy.toStringAsFixed(1)}),\n'
@@ -1842,11 +1826,7 @@ class _LimitationsSection extends StatelessWidget {
 }
 
 class _Callout extends StatelessWidget {
-  const _Callout({
-    required this.tone,
-    required this.title,
-    required this.copy,
-  });
+  const _Callout({required this.tone, required this.title, required this.copy});
   final Color tone;
   final String title;
   final String copy;
@@ -1876,10 +1856,7 @@ class _Callout extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: <Color>[
-            tone.withValues(alpha: 0.15),
-            _surface,
-          ],
+          colors: <Color>[tone.withValues(alpha: 0.15), _surface],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1992,7 +1969,10 @@ class _UnitsSection extends StatelessWidget {
             const _UnitRow(label: 'Comfortable scroll', value: '~  900 px/s'),
             const _UnitRow(label: 'Quick flick', value: '~ 2000 px/s'),
             const _UnitRow(label: 'Fast fling', value: '~ 4000 px/s'),
-            const _UnitRow(label: 'Hardware maximum', value: '> 8000 px/s (rare)'),
+            const _UnitRow(
+              label: 'Hardware maximum',
+              value: '> 8000 px/s (rare)',
+            ),
             _UnitRow(
               label: 'kMinFlingVelocity (flutter/gestures)',
               value: '${kMinFlingVelocity.toStringAsFixed(0)} px/s',
@@ -2069,10 +2049,7 @@ class _NotesSection extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: <Color>[
-              _surface,
-              _accentD.withValues(alpha: 0.10),
-            ],
+            colors: <Color>[_surface, _accentD.withValues(alpha: 0.10)],
           ),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: _accentD.withValues(alpha: 0.35)),
@@ -2214,9 +2191,7 @@ class _SectionShell extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Row(
-            children: <Widget>[
-              _Pill(text: eyebrow, tone: _accentA),
-            ],
+            children: <Widget>[_Pill(text: eyebrow, tone: _accentA)],
           ),
           const SizedBox(height: 10),
           Text(
@@ -2231,11 +2206,7 @@ class _SectionShell extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: _inkSoft,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: _inkSoft, fontSize: 13, height: 1.5),
           ),
           const SizedBox(height: 16),
           child,

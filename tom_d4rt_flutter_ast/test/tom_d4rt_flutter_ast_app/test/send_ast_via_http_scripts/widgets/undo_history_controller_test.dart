@@ -93,7 +93,11 @@ class _UhCtlGearMotifPainter extends CustomPainter {
       final double y = rng.nextDouble() * size.height;
       final double x1 = rng.nextDouble() * size.width * 0.3;
       final double x2 = size.width - rng.nextDouble() * size.width * 0.3;
-      canvas.drawLine(Offset(x1, y), Offset(x2, y + rng.nextDouble() * 2 - 1), grain);
+      canvas.drawLine(
+        Offset(x1, y),
+        Offset(x2, y + rng.nextDouble() * 2 - 1),
+        grain,
+      );
     }
 
     // Three brass gears of varying sizes.
@@ -127,8 +131,16 @@ class _UhCtlGearMotifPainter extends CustomPainter {
       ..color = _UhCtlPalette.brass.withValues(alpha: 0.55)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2;
-    final Rect borderRect = Rect.fromLTWH(4, 4, size.width - 8, size.height - 8);
-    canvas.drawRRect(RRect.fromRectAndRadius(borderRect, const Radius.circular(10)), border);
+    final Rect borderRect = Rect.fromLTWH(
+      4,
+      4,
+      size.width - 8,
+      size.height - 8,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(borderRect, const Radius.circular(10)),
+      border,
+    );
   }
 
   void _drawGear(Canvas canvas, _UhCtlGearSpec spec) {
@@ -139,7 +151,8 @@ class _UhCtlGearMotifPainter extends CustomPainter {
     for (int i = 0; i < n * 2; i++) {
       final double angle = (i / (n * 2)) * math.pi * 2 + spec.rotation;
       final double r = i.isEven ? outer : inner;
-      final Offset p = spec.center + Offset(math.cos(angle) * r, math.sin(angle) * r);
+      final Offset p =
+          spec.center + Offset(math.cos(angle) * r, math.sin(angle) * r);
       if (i == 0) {
         gearPath.moveTo(p.dx, p.dy);
       } else {
@@ -174,18 +187,33 @@ class _UhCtlGearMotifPainter extends CustomPainter {
       ..strokeWidth = 2.0;
     for (int s = 0; s < 4; s++) {
       final double a = spec.rotation + (s / 4) * math.pi * 2;
-      final Offset from = spec.center + Offset(math.cos(a) * spec.radius * 0.34, math.sin(a) * spec.radius * 0.34);
-      final Offset to = spec.center + Offset(math.cos(a) * spec.radius * 0.78, math.sin(a) * spec.radius * 0.78);
+      final Offset from =
+          spec.center +
+          Offset(
+            math.cos(a) * spec.radius * 0.34,
+            math.sin(a) * spec.radius * 0.34,
+          );
+      final Offset to =
+          spec.center +
+          Offset(
+            math.cos(a) * spec.radius * 0.78,
+            math.sin(a) * spec.radius * 0.78,
+          );
       canvas.drawLine(from, to, spoke);
     }
 
     // Center screw.
-    canvas.drawCircle(spec.center, spec.radius * 0.08, Paint()..color = _UhCtlPalette.brassBright);
+    canvas.drawCircle(
+      spec.center,
+      spec.radius * 0.08,
+      Paint()..color = _UhCtlPalette.brassBright,
+    );
     canvas.drawCircle(spec.center, spec.radius * 0.08, rim);
   }
 
   @override
-  bool shouldRepaint(covariant _UhCtlGearMotifPainter oldDelegate) => oldDelegate.seed != seed;
+  bool shouldRepaint(covariant _UhCtlGearMotifPainter oldDelegate) =>
+      oldDelegate.seed != seed;
 }
 
 class _UhCtlGearSpec {
@@ -215,9 +243,7 @@ class _UhCtlMasthead extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          CustomPaint(
-            painter: _UhCtlGearMotifPainter(seed: 7),
-          ),
+          CustomPaint(painter: _UhCtlGearMotifPainter(seed: 7)),
           Padding(
             padding: const EdgeInsets.fromLTRB(26, 22, 26, 18),
             child: Column(
@@ -227,11 +253,17 @@ class _UhCtlMasthead extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: _UhCtlPalette.brass.withValues(alpha: 0.9),
                         borderRadius: BorderRadius.circular(3),
-                        border: Border.all(color: _UhCtlPalette.brassDark, width: 1),
+                        border: Border.all(
+                          color: _UhCtlPalette.brassDark,
+                          width: 1,
+                        ),
                       ),
                       child: const Text(
                         'TIME MACHINE · WORKSHOP',
@@ -246,7 +278,10 @@ class _UhCtlMasthead extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: _UhCtlPalette.patinaDeep,
                         borderRadius: BorderRadius.circular(3),
@@ -403,7 +438,8 @@ const List<_UhCtlPreambleEntry> _uhCtlPreamble = <_UhCtlPreambleEntry>[
     icon: Icons.history,
     accent: _UhCtlPalette.brass,
     title: 'What is UndoHistoryController?',
-    body: 'UndoHistoryController extends ValueNotifier<UndoHistoryValue>. '
+    body:
+        'UndoHistoryController extends ValueNotifier<UndoHistoryValue>. '
         'It sits next to an EditableText / TextField and exposes the '
         'current undo stack summary (canUndo, canRedo) as its value. '
         'Calling undo() or redo() on the controller asks the underlying '
@@ -414,7 +450,8 @@ const List<_UhCtlPreambleEntry> _uhCtlPreamble = <_UhCtlPreambleEntry>[
     icon: Icons.layers,
     accent: _UhCtlPalette.patina,
     title: 'Where does it fit?',
-    body: 'Inside every EditableText there is an UndoHistory<TextEditingValue> '
+    body:
+        'Inside every EditableText there is an UndoHistory<TextEditingValue> '
         'that quietly records the text field\'s state at each meaningful '
         'change. UndoHistoryController is the remote control for that '
         'invisible recorder. TextField exposes an `undoController` '
@@ -425,7 +462,8 @@ const List<_UhCtlPreambleEntry> _uhCtlPreamble = <_UhCtlPreambleEntry>[
     icon: Icons.notifications_active,
     accent: _UhCtlPalette.emberOrange,
     title: 'Observing state',
-    body: 'Because the controller IS a ValueNotifier, you can wrap it in '
+    body:
+        'Because the controller IS a ValueNotifier, you can wrap it in '
         'ValueListenableBuilder<UndoHistoryValue> to rebuild buttons and '
         'badges whenever the stack changes. The controller additionally '
         'exposes onUndo and onRedo (ChangeNotifier) which fire when '
@@ -436,7 +474,8 @@ const List<_UhCtlPreambleEntry> _uhCtlPreamble = <_UhCtlPreambleEntry>[
     icon: Icons.keyboard_command_key,
     accent: _UhCtlPalette.skyBlue,
     title: 'Keyboard integration',
-    body: 'UndoHistory wires itself into DefaultTextEditingShortcuts so that '
+    body:
+        'UndoHistory wires itself into DefaultTextEditingShortcuts so that '
         'Ctrl+Z / Cmd+Z / Ctrl+Shift+Z / Cmd+Shift+Z work out of the box. '
         'Your custom buttons and the keyboard shortcuts both walk through '
         'the same underlying stack, and both update the controller\'s '
@@ -447,7 +486,8 @@ const List<_UhCtlPreambleEntry> _uhCtlPreamble = <_UhCtlPreambleEntry>[
     icon: Icons.auto_fix_high,
     accent: _UhCtlPalette.leafGreen,
     title: 'Disposal etiquette',
-    body: 'An UndoHistoryController holds two inner ChangeNotifiers (onUndo, '
+    body:
+        'An UndoHistoryController holds two inner ChangeNotifiers (onUndo, '
         'onRedo). Calling dispose() on the controller cleans them up as '
         'well. Treat it like a TextEditingController: one controller per '
         'State, created in initState, released in dispose. Sharing a '
@@ -469,7 +509,10 @@ class _UhCtlPreambleCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: _UhCtlPalette.paperGradient(),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: entry.accent.withValues(alpha: 0.65), width: 1.6),
+        border: Border.all(
+          color: entry.accent.withValues(alpha: 0.65),
+          width: 1.6,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: _UhCtlPalette.teakShadow.withValues(alpha: 0.18),
@@ -501,7 +544,10 @@ class _UhCtlPreambleCard extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: entry.accent,
                           borderRadius: BorderRadius.circular(3),
@@ -570,7 +616,9 @@ class _UhCtlCapabilityBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color bg = enabled ? activeColor : _UhCtlPalette.teakLight;
-    final Color fg = enabled ? _UhCtlPalette.teakShadow : _UhCtlPalette.sepia.withValues(alpha: 0.5);
+    final Color fg = enabled
+        ? _UhCtlPalette.teakShadow
+        : _UhCtlPalette.sepia.withValues(alpha: 0.5);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 180),
       curve: Curves.easeOutCubic,
@@ -613,7 +661,9 @@ class _UhCtlCapabilityBadge extends StatelessWidget {
             height: 8,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: enabled ? _UhCtlPalette.leafGreen : _UhCtlPalette.rustRed.withValues(alpha: 0.7),
+              color: enabled
+                  ? _UhCtlPalette.leafGreen
+                  : _UhCtlPalette.rustRed.withValues(alpha: 0.7),
               border: Border.all(color: _UhCtlPalette.teakShadow, width: 0.8),
             ),
           ),
@@ -726,10 +776,7 @@ class _UhCtlHistorySample {
 // ============================================================================
 
 class _UhCtlHistoryRibbonPainter extends CustomPainter {
-  _UhCtlHistoryRibbonPainter({
-    required this.samples,
-    required this.pulse,
-  });
+  _UhCtlHistoryRibbonPainter({required this.samples, required this.pulse});
 
   final List<_UhCtlHistorySample> samples;
   final double pulse;
@@ -739,7 +786,10 @@ class _UhCtlHistoryRibbonPainter extends CustomPainter {
     // Background.
     final Paint bg = Paint()
       ..shader = _UhCtlPalette.paperGradient().createShader(Offset.zero & size);
-    final RRect rr = RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(8));
+    final RRect rr = RRect.fromRectAndRadius(
+      Offset.zero & size,
+      const Radius.circular(8),
+    );
     canvas.drawRRect(rr, bg);
 
     // Faint grid.
@@ -768,11 +818,16 @@ class _UhCtlHistoryRibbonPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       );
       tp.layout(minWidth: 0, maxWidth: size.width);
-      tp.paint(canvas, Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset((size.width - tp.width) / 2, (size.height - tp.height) / 2),
+      );
       return;
     }
 
-    final int maxLen = samples.map((_UhCtlHistorySample s) => s.textLength).fold<int>(1, math.max);
+    final int maxLen = samples
+        .map((_UhCtlHistorySample s) => s.textLength)
+        .fold<int>(1, math.max);
     final double dx = (size.width - 24) / math.max(1, samples.length - 1);
 
     final Path line = Path();
@@ -948,7 +1003,11 @@ class _UhCtlTimeMachinePanelState extends State<_UhCtlTimeMachinePanel>
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.panorama_horizontal, color: _UhCtlPalette.rustRed, size: 22),
+              const Icon(
+                Icons.panorama_horizontal,
+                color: _UhCtlPalette.rustRed,
+                size: 22,
+              ),
               const SizedBox(width: 8),
               const Text(
                 'Primary Time Machine',
@@ -1191,14 +1250,22 @@ class _UhCtlTwinFieldsPanel extends StatefulWidget {
 class _UhCtlTwinFieldsPanelState extends State<_UhCtlTwinFieldsPanel> {
   // Left side: two fields sharing ONE controller (last-bound wins).
   final UndoHistoryController _sharedCtl = UndoHistoryController();
-  final TextEditingController _leftA = TextEditingController(text: 'Left-A shares the controller');
-  final TextEditingController _leftB = TextEditingController(text: 'Left-B also binds it');
+  final TextEditingController _leftA = TextEditingController(
+    text: 'Left-A shares the controller',
+  );
+  final TextEditingController _leftB = TextEditingController(
+    text: 'Left-B also binds it',
+  );
 
   // Right side: each field owns its own controller.
   final UndoHistoryController _rightCtlA = UndoHistoryController();
   final UndoHistoryController _rightCtlB = UndoHistoryController();
-  final TextEditingController _rightA = TextEditingController(text: 'Right-A has its own stack');
-  final TextEditingController _rightB = TextEditingController(text: 'Right-B has its own stack too');
+  final TextEditingController _rightA = TextEditingController(
+    text: 'Right-A has its own stack',
+  );
+  final TextEditingController _rightB = TextEditingController(
+    text: 'Right-B has its own stack too',
+  );
 
   @override
   void dispose() {
@@ -1261,11 +1328,7 @@ class _UhCtlTwinFieldsPanelState extends State<_UhCtlTwinFieldsPanel> {
               final Widget right = _buildSplitColumn();
               if (narrow) {
                 return Column(
-                  children: <Widget>[
-                    left,
-                    const SizedBox(height: 12),
-                    right,
-                  ],
+                  children: <Widget>[left, const SizedBox(height: 12), right],
                 );
               }
               return Row(
@@ -1289,7 +1352,10 @@ class _UhCtlTwinFieldsPanelState extends State<_UhCtlTwinFieldsPanel> {
       decoration: BoxDecoration(
         color: _UhCtlPalette.sepiaLight,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _UhCtlPalette.rustRed.withValues(alpha: 0.55), width: 1.2),
+        border: Border.all(
+          color: _UhCtlPalette.rustRed.withValues(alpha: 0.55),
+          width: 1.2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1324,30 +1390,32 @@ class _UhCtlTwinFieldsPanelState extends State<_UhCtlTwinFieldsPanel> {
               Expanded(
                 child: ValueListenableBuilder<UndoHistoryValue>(
                   valueListenable: _sharedCtl,
-                  builder: (BuildContext context, UndoHistoryValue v, Widget? _) {
-                    return _UhCtlToolbarButton(
-                      icon: Icons.undo,
-                      label: 'UNDO (shared)',
-                      enabled: v.canUndo,
-                      tint: _UhCtlPalette.rustRed,
-                      onPressed: _sharedCtl.undo,
-                    );
-                  },
+                  builder:
+                      (BuildContext context, UndoHistoryValue v, Widget? _) {
+                        return _UhCtlToolbarButton(
+                          icon: Icons.undo,
+                          label: 'UNDO (shared)',
+                          enabled: v.canUndo,
+                          tint: _UhCtlPalette.rustRed,
+                          onPressed: _sharedCtl.undo,
+                        );
+                      },
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: ValueListenableBuilder<UndoHistoryValue>(
                   valueListenable: _sharedCtl,
-                  builder: (BuildContext context, UndoHistoryValue v, Widget? _) {
-                    return _UhCtlToolbarButton(
-                      icon: Icons.redo,
-                      label: 'REDO (shared)',
-                      enabled: v.canRedo,
-                      tint: _UhCtlPalette.plum,
-                      onPressed: _sharedCtl.redo,
-                    );
-                  },
+                  builder:
+                      (BuildContext context, UndoHistoryValue v, Widget? _) {
+                        return _UhCtlToolbarButton(
+                          icon: Icons.redo,
+                          label: 'REDO (shared)',
+                          enabled: v.canRedo,
+                          tint: _UhCtlPalette.plum,
+                          onPressed: _sharedCtl.redo,
+                        );
+                      },
                 ),
               ),
             ],
@@ -1363,7 +1431,10 @@ class _UhCtlTwinFieldsPanelState extends State<_UhCtlTwinFieldsPanel> {
       decoration: BoxDecoration(
         color: _UhCtlPalette.sepiaLight,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _UhCtlPalette.patinaDeep.withValues(alpha: 0.65), width: 1.2),
+        border: Border.all(
+          color: _UhCtlPalette.patinaDeep.withValues(alpha: 0.65),
+          width: 1.2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1461,7 +1532,10 @@ class _UhCtlMiniField extends StatelessWidget {
               ),
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
                 isDense: true,
               ),
             ),
@@ -1734,42 +1808,48 @@ const List<_UhCtlKeyShortcut> _uhCtlShortcuts = <_UhCtlKeyShortcut>[
     platform: 'Windows / Linux',
     keys: <String>['Ctrl', 'Z'],
     purpose: 'Undo last change',
-    note: 'Works while the TextField has focus; drives the same stack as '
+    note:
+        'Works while the TextField has focus; drives the same stack as '
         'UndoHistoryController.undo().',
   ),
   _UhCtlKeyShortcut(
     platform: 'Windows / Linux',
     keys: <String>['Ctrl', 'Shift', 'Z'],
     purpose: 'Redo previously-undone change',
-    note: 'Equivalent to UndoHistoryController.redo(). Some apps also accept '
+    note:
+        'Equivalent to UndoHistoryController.redo(). Some apps also accept '
         'Ctrl+Y.',
   ),
   _UhCtlKeyShortcut(
     platform: 'Windows / Linux',
     keys: <String>['Ctrl', 'Y'],
     purpose: 'Redo (alternative)',
-    note: 'Honored on Windows by DefaultTextEditingShortcuts for parity with '
+    note:
+        'Honored on Windows by DefaultTextEditingShortcuts for parity with '
         'native editors.',
   ),
   _UhCtlKeyShortcut(
     platform: 'macOS',
     keys: <String>['⌘', 'Z'],
     purpose: 'Undo last change',
-    note: 'Cmd+Z is the canonical Mac undo gesture; Flutter wires this the '
+    note:
+        'Cmd+Z is the canonical Mac undo gesture; Flutter wires this the '
         'same way as Ctrl+Z on Linux/Windows.',
   ),
   _UhCtlKeyShortcut(
     platform: 'macOS',
     keys: <String>['⌘', '⇧', 'Z'],
     purpose: 'Redo previously-undone change',
-    note: 'Shift+Cmd+Z is the mac-standard redo. The ValueListenable on the '
+    note:
+        'Shift+Cmd+Z is the mac-standard redo. The ValueListenable on the '
         'controller updates as soon as the stack actually moves.',
   ),
   _UhCtlKeyShortcut(
     platform: 'All',
     keys: <String>['Backspace'],
     purpose: 'Normal edit',
-    note: 'Not an undo — but every edit pushes onto the stack, so '
+    note:
+        'Not an undo — but every edit pushes onto the stack, so '
         'UndoHistoryController.value will reflect it.',
   ),
 ];
@@ -1843,7 +1923,10 @@ class _UhCtlShortcutCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _UhCtlPalette.paper,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _UhCtlPalette.brassDark.withValues(alpha: 0.65), width: 1),
+        border: Border.all(
+          color: _UhCtlPalette.brassDark.withValues(alpha: 0.65),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1982,7 +2065,8 @@ const List<_UhCtlAutopilotStep> _uhCtlAutopilotScript = <_UhCtlAutopilotStep>[
     icon: Icons.undo,
     label: 'undo',
     action: 'controller.undo()',
-    explanation: 'Jumps back to "Hello, Tom"; controller fires onUndo and '
+    explanation:
+        'Jumps back to "Hello, Tom"; controller fires onUndo and '
         'canRedo flips true.',
   ),
   _UhCtlAutopilotStep(
@@ -2001,14 +2085,16 @@ const List<_UhCtlAutopilotStep> _uhCtlAutopilotScript = <_UhCtlAutopilotStep>[
     icon: Icons.keyboard,
     label: 'type',
     action: 'setState: text = "Hello, Tom — branched"',
-    explanation: 'Editing after an undo chops the redo tail — canRedo flips '
+    explanation:
+        'Editing after an undo chops the redo tail — canRedo flips '
         'back to false.',
   ),
   _UhCtlAutopilotStep(
     icon: Icons.history_toggle_off,
     label: 'final',
     action: 'inspect controller.value',
-    explanation: 'UndoHistoryValue(canUndo: true, canRedo: false) — the '
+    explanation:
+        'UndoHistoryValue(canUndo: true, canRedo: false) — the '
         'single source of truth for our buttons.',
   ),
 ];
@@ -2024,7 +2110,10 @@ class _UhCtlAutopilotPanel extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: _UhCtlPalette.paperGradient(),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: _UhCtlPalette.emberOrange.withValues(alpha: 0.75), width: 1.5),
+        border: Border.all(
+          color: _UhCtlPalette.emberOrange.withValues(alpha: 0.75),
+          width: 1.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2076,7 +2165,8 @@ class _UhCtlAutopilotControls extends StatefulWidget {
   const _UhCtlAutopilotControls();
 
   @override
-  State<_UhCtlAutopilotControls> createState() => _UhCtlAutopilotControlsState();
+  State<_UhCtlAutopilotControls> createState() =>
+      _UhCtlAutopilotControlsState();
 }
 
 class _UhCtlAutopilotControlsState extends State<_UhCtlAutopilotControls> {
@@ -2090,7 +2180,9 @@ class _UhCtlAutopilotControlsState extends State<_UhCtlAutopilotControls> {
       decoration: BoxDecoration(
         color: _UhCtlPalette.sepiaLight,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: _UhCtlPalette.brassDark.withValues(alpha: 0.6)),
+        border: Border.all(
+          color: _UhCtlPalette.brassDark.withValues(alpha: 0.6),
+        ),
       ),
       child: Row(
         children: <Widget>[
@@ -2190,7 +2282,10 @@ class _UhCtlAutopilotRow extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _accent,
                   shape: BoxShape.circle,
-                  border: Border.all(color: _UhCtlPalette.teakShadow, width: 1.2),
+                  border: Border.all(
+                    color: _UhCtlPalette.teakShadow,
+                    width: 1.2,
+                  ),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -2230,7 +2325,10 @@ class _UhCtlAutopilotRow extends StatelessWidget {
                       Icon(step.icon, size: 16, color: _accent),
                       const SizedBox(width: 6),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5,
+                          vertical: 1,
+                        ),
                         decoration: BoxDecoration(
                           color: _accent.withValues(alpha: 0.25),
                           borderRadius: BorderRadius.circular(3),
@@ -2304,7 +2402,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.delete_sweep,
     accent: _UhCtlPalette.rustRed,
     title: 'Always dispose()',
-    body: 'UndoHistoryController owns two ChangeNotifiers (onUndo, onRedo). '
+    body:
+        'UndoHistoryController owns two ChangeNotifiers (onUndo, onRedo). '
         'Forgetting to dispose leaks them. The canonical spot is the '
         'State\'s dispose() method — mirror your TextEditingController '
         'disposal discipline.',
@@ -2313,7 +2412,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.warning_amber,
     accent: _UhCtlPalette.emberOrange,
     title: 'Last-bound wins',
-    body: 'Binding a single UndoHistoryController to multiple EditableTexts '
+    body:
+        'Binding a single UndoHistoryController to multiple EditableTexts '
         'works but only the most-recently-attached field actually drives '
         'the value. Usually you want one controller per field.',
   ),
@@ -2321,7 +2421,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.memory,
     accent: _UhCtlPalette.patinaDeep,
     title: 'History is bounded',
-    body: 'UndoHistory uses an internal stack with a cap '
+    body:
+        'UndoHistory uses an internal stack with a cap '
         '(maxHistoryLength). The cap stops a long-lived field from '
         'eating unbounded memory. Configure it on the UndoHistory '
         'widget, not the controller.',
@@ -2330,7 +2431,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.sync_problem,
     accent: _UhCtlPalette.plum,
     title: 'Programmatic text writes still push states',
-    body: 'Setting TextEditingController.text programmatically creates a '
+    body:
+        'Setting TextEditingController.text programmatically creates a '
         'new state that UndoHistory will record. Autopilot scripts that '
         'want "invisible" writes should use focusedContext carefully '
         'or pre-seed history.',
@@ -2339,7 +2441,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.visibility,
     accent: _UhCtlPalette.leafGreen,
     title: 'Prefer ValueListenableBuilder',
-    body: 'For UI reactive to canUndo/canRedo, use the controller as a '
+    body:
+        'For UI reactive to canUndo/canRedo, use the controller as a '
         'ValueListenable rather than subscribing to onUndo/onRedo. '
         'Those two ChangeNotifiers are great for side effects (sound, '
         'telemetry) but miss keyboard-driven edits.',
@@ -2348,7 +2451,8 @@ const List<_UhCtlEpilogueEntry> _uhCtlEpilogue = <_UhCtlEpilogueEntry>[
     icon: Icons.shield_moon,
     accent: _UhCtlPalette.skyBlue,
     title: 'Interplay with form validation',
-    body: 'Undo/redo bypasses the form validator pipeline; if your form '
+    body:
+        'Undo/redo bypasses the form validator pipeline; if your form '
         'validates on-change, make sure the validator also runs after '
         'an undo so error messages stay in sync with the restored '
         'text.',
@@ -2593,14 +2697,16 @@ class _UhCtlDemo extends StatelessWidget {
               const _UhCtlSectionHeader(
                 index: 2,
                 title: 'Time Machine',
-                subtitle: 'A single field, a controller, a live history ribbon.',
+                subtitle:
+                    'A single field, a controller, a live history ribbon.',
                 icon: Icons.cast_for_education,
               ),
               const _UhCtlTimeMachinePanel(),
               const _UhCtlSectionHeader(
                 index: 3,
                 title: 'Scoping',
-                subtitle: 'Shared vs per-field controllers — and why it matters.',
+                subtitle:
+                    'Shared vs per-field controllers — and why it matters.',
                 icon: Icons.scatter_plot,
               ),
               const _UhCtlTwinFieldsPanel(),

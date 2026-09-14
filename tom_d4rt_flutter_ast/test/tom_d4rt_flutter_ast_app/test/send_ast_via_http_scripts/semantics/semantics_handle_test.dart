@@ -65,10 +65,7 @@ dynamic build(BuildContext context) {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: Center(
-              child: Text(
-                'a11y first',
-                style: TextStyle(fontSize: 14),
-              ),
+              child: Text('a11y first', style: TextStyle(fontSize: 14)),
             ),
           ),
         ],
@@ -166,25 +163,37 @@ class _IntroSection extends StatelessWidget {
               style: text.bodyMedium,
             ),
             const SizedBox(height: 8),
-            const _Bullet('A platform screen reader (TalkBack, VoiceOver, '
-                'NVDA, JAWS, ChromeVox) connects.'),
-            const _Bullet('A WidgetTester runs in semantics-aware mode '
-                '(SemanticsTester or testWidgets with a SemanticsHandle).'),
-            const _Bullet('An integration test harness or a11y inspector tool '
-                'attaches to the running app.'),
+            const _Bullet(
+              'A platform screen reader (TalkBack, VoiceOver, '
+              'NVDA, JAWS, ChromeVox) connects.',
+            ),
+            const _Bullet(
+              'A WidgetTester runs in semantics-aware mode '
+              '(SemanticsTester or testWidgets with a SemanticsHandle).',
+            ),
+            const _Bullet(
+              'An integration test harness or a11y inspector tool '
+              'attaches to the running app.',
+            ),
             const SizedBox(height: 12),
             Text(
               'You do call it explicitly when you are:',
               style: text.bodyMedium,
             ),
             const SizedBox(height: 8),
-            const _Bullet('Writing a unit test that needs to inspect the '
-                'semantics tree without booting an entire screen reader.'),
-            const _Bullet('Building a debugging overlay that visualises '
-                'semantics nodes.'),
-            const _Bullet('Implementing a custom accessibility bridge to a '
-                'non-standard runtime (kiosk modes, embedded devices, '
-                'remote-control protocols).'),
+            const _Bullet(
+              'Writing a unit test that needs to inspect the '
+              'semantics tree without booting an entire screen reader.',
+            ),
+            const _Bullet(
+              'Building a debugging overlay that visualises '
+              'semantics nodes.',
+            ),
+            const _Bullet(
+              'Implementing a custom accessibility bridge to a '
+              'non-standard runtime (kiosk modes, embedded devices, '
+              'remote-control protocols).',
+            ),
             const SizedBox(height: 12),
             Text(
               'The widget below acquires a handle at startup and lets you '
@@ -268,17 +277,18 @@ class _LiveHandleCounterState extends State<_LiveHandleCounter> {
   }
 
   void _acquire({bool initial = false}) {
-    final SemanticsHandle handle =
-        SemanticsBinding.instance.ensureSemantics();
+    final SemanticsHandle handle = SemanticsBinding.instance.ensureSemantics();
     setState(() {
       _handles.add(handle);
-      _events.add(_HandleEvent(
-        when: DateTime.now(),
-        message: initial
-            ? 'initState acquired handle #${_handles.length}'
-            : 'acquired handle #${_handles.length}',
-        kind: _HandleEventKind.acquire,
-      ));
+      _events.add(
+        _HandleEvent(
+          when: DateTime.now(),
+          message: initial
+              ? 'initState acquired handle #${_handles.length}'
+              : 'acquired handle #${_handles.length}',
+          kind: _HandleEventKind.acquire,
+        ),
+      );
       // Trim the journal so the UI does not grow without bound.
       if (_events.length > 16) {
         _events.removeAt(0);
@@ -289,22 +299,26 @@ class _LiveHandleCounterState extends State<_LiveHandleCounter> {
   void _release() {
     if (_handles.isEmpty) {
       setState(() {
-        _events.add(_HandleEvent(
-          when: DateTime.now(),
-          message: 'release ignored: no live handles',
-          kind: _HandleEventKind.noop,
-        ));
+        _events.add(
+          _HandleEvent(
+            when: DateTime.now(),
+            message: 'release ignored: no live handles',
+            kind: _HandleEventKind.noop,
+          ),
+        );
       });
       return;
     }
     final SemanticsHandle handle = _handles.removeLast();
     handle.dispose();
     setState(() {
-      _events.add(_HandleEvent(
-        when: DateTime.now(),
-        message: 'released a handle, ${_handles.length} remain',
-        kind: _HandleEventKind.release,
-      ));
+      _events.add(
+        _HandleEvent(
+          when: DateTime.now(),
+          message: 'released a handle, ${_handles.length} remain',
+          kind: _HandleEventKind.release,
+        ),
+      );
       if (_events.length > 16) {
         _events.removeAt(0);
       }
@@ -380,12 +394,12 @@ class _LiveHandleCounterState extends State<_LiveHandleCounter> {
                         Text(
                           treeActive
                               ? 'The semantics tree is being generated and '
-                                  'updated on every frame that affects '
-                                  'accessibility-relevant state.'
+                                    'updated on every frame that affects '
+                                    'accessibility-relevant state.'
                               : 'No handles are alive.  The semantics tree '
-                                  'has been torn down; further updates are '
-                                  'no-ops until at least one handle is '
-                                  'acquired again.',
+                                    'has been torn down; further updates are '
+                                    'no-ops until at least one handle is '
+                                    'acquired again.',
                           style: text.bodySmall,
                         ),
                       ],
@@ -406,11 +420,7 @@ class _LiveHandleCounterState extends State<_LiveHandleCounter> {
 }
 
 class _HandleEvent {
-  _HandleEvent({
-    required this.when,
-    required this.message,
-    required this.kind,
-  });
+  _HandleEvent({required this.when, required this.message, required this.kind});
 
   final DateTime when;
   final String message;
@@ -449,7 +459,8 @@ class _HandleEventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TimeOfDay time = TimeOfDay.fromDateTime(event.when);
-    final String stamp = '${time.hour.toString().padLeft(2, '0')}:'
+    final String stamp =
+        '${time.hour.toString().padLeft(2, '0')}:'
         '${time.minute.toString().padLeft(2, '0')}:'
         '${event.when.second.toString().padLeft(2, '0')}';
     return Padding(
@@ -534,7 +545,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'hint',
-              note: 'Hint is read after a short pause: "Submit, double tap '
+              note:
+                  'Hint is read after a short pause: "Submit, double tap '
                   'to send the form".',
               child: Semantics(
                 label: 'Submit',
@@ -564,7 +576,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'header: true',
-              note: 'Tells screen readers to treat this as a heading; '
+              note:
+                  'Tells screen readers to treat this as a heading; '
                   'rotor-style navigation can jump between headers.',
               child: Semantics(
                 header: true,
@@ -580,7 +593,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'liveRegion: true',
-              note: 'When the contained text changes, the screen reader '
+              note:
+                  'When the contained text changes, the screen reader '
                   'announces the new value automatically.',
               child: Semantics(
                 liveRegion: true,
@@ -593,7 +607,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'toggled: true',
-              note: 'Reads "switch, on".  Pair with onTap to actually flip '
+              note:
+                  'Reads "switch, on".  Pair with onTap to actually flip '
                   'the value in a real app.',
               child: Semantics(
                 toggled: true,
@@ -634,7 +649,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'selected: true',
-              note: 'Indicates membership in a selected group; reads '
+              note:
+                  'Indicates membership in a selected group; reads '
                   '"selected" after the label.',
               child: Semantics(
                 selected: true,
@@ -648,7 +664,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'enabled: false',
-              note: 'Reads "dimmed" / "disabled" - screen readers and the '
+              note:
+                  'Reads "dimmed" / "disabled" - screen readers and the '
                   'high-contrast inspector treat the node as unavailable.',
               child: Semantics(
                 label: 'Send',
@@ -663,7 +680,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'excludeSemantics',
-              note: 'Hides the entire subtree from the accessibility tree.  '
+              note:
+                  'Hides the entire subtree from the accessibility tree.  '
                   'Use for purely decorative content.',
               child: Semantics(
                 excludeSemantics: true,
@@ -683,7 +701,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             const _SemanticsCard(
               title: 'MergeSemantics',
-              note: 'Collapses the subtree into a single node so it reads as '
+              note:
+                  'Collapses the subtree into a single node so it reads as '
                   'one phrase, not three separate ones.',
               child: MergeSemantics(
                 child: Padding(
@@ -707,7 +726,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'image: true',
-              note: 'Tells the screen reader to announce "image" so the user '
+              note:
+                  'Tells the screen reader to announce "image" so the user '
                   'knows the node is graphical.',
               child: Semantics(
                 image: true,
@@ -733,7 +753,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'link: true',
-              note: 'Announces "link"; on iOS the rotor exposes a "links" '
+              note:
+                  'Announces "link"; on iOS the rotor exposes a "links" '
                   'category that lists every node so flagged.',
               child: Semantics(
                 link: true,
@@ -753,7 +774,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'readOnly: true',
-              note: 'On a textField:true node, signals the value is not '
+              note:
+                  'On a textField:true node, signals the value is not '
                   'editable - reads "read only".',
               child: Semantics(
                 textField: true,
@@ -769,7 +791,8 @@ class _SemanticsGallery extends StatelessWidget {
             const SizedBox(height: 12),
             _SemanticsCard(
               title: 'obscured: true',
-              note: 'Marks the value as sensitive (typically a password); '
+              note:
+                  'Marks the value as sensitive (typically a password); '
                   'screen readers may suppress character-by-character echo.',
               child: Semantics(
                 textField: true,
@@ -827,10 +850,7 @@ class _SemanticsCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: child),
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
             child: Text(
@@ -938,8 +958,7 @@ class _CustomActionsSectionState extends State<_CustomActionsSection> {
               ],
             ),
             const SizedBox(height: 12),
-            Text('Last invoked action: $_lastAction',
-                style: text.bodySmall),
+            Text('Last invoked action: $_lastAction', style: text.bodySmall),
             const SizedBox(height: 16),
             Text(
               'For a full custom widget you would expose actions for every '
@@ -1067,9 +1086,10 @@ class _SideBySidePanel extends StatelessWidget {
           const SizedBox(height: 8),
           child,
           const SizedBox(height: 8),
-          Text(note,
-              style:
-                  TextStyle(color: colors.onSurfaceVariant, fontSize: 12)),
+          Text(
+            note,
+            style: TextStyle(color: colors.onSurfaceVariant, fontSize: 12),
+          ),
         ],
       ),
     );
@@ -1240,8 +1260,7 @@ class _LiveRegionsSectionState extends State<_LiveRegionsSection> {
                   children: <Widget>[
                     const Icon(Icons.timelapse),
                     const SizedBox(width: 12),
-                    Text('Counter: $_ticks',
-                        style: text.titleLarge),
+                    Text('Counter: $_ticks', style: text.titleLarge),
                     const Spacer(),
                     const Text('Updates every 2s'),
                   ],
@@ -1292,7 +1311,8 @@ class _FormSemanticsSectionState extends State<_FormSemanticsSection> {
 
   void _submit() {
     setState(() {
-      _summary = 'Submitted email "${_email.text}" '
+      _summary =
+          'Submitted email "${_email.text}" '
           '(password length: ${_password.text.length}, '
           'remember me: $_remember)';
     });
@@ -1418,21 +1438,24 @@ class _LifecycleVisualization extends StatelessWidget {
                   _LifecycleCard(
                     icon: Icons.send,
                     title: '1. request handle',
-                    detail: 'Call SemanticsBinding.instance.ensureSemantics() '
+                    detail:
+                        'Call SemanticsBinding.instance.ensureSemantics() '
                         'to ask the binding to start producing the tree.',
                   ),
                   SizedBox(width: 12),
                   _LifecycleCard(
                     icon: Icons.account_tree_outlined,
                     title: '2. tree built',
-                    detail: 'The binding walks every render object and '
+                    detail:
+                        'The binding walks every render object and '
                         'gathers labels, hints, flags, and actions.',
                   ),
                   SizedBox(width: 12),
                   _LifecycleCard(
                     icon: Icons.sync,
                     title: '3. update propagates',
-                    detail: 'On every frame that affects accessibility, the '
+                    detail:
+                        'On every frame that affects accessibility, the '
                         'tree diffs and emits change events to platform '
                         'channels.',
                   ),
@@ -1440,7 +1463,8 @@ class _LifecycleVisualization extends StatelessWidget {
                   _LifecycleCard(
                     icon: Icons.delete_outline,
                     title: '4. dispose handle',
-                    detail: 'Call .dispose() on each SemanticsHandle when '
+                    detail:
+                        'Call .dispose() on each SemanticsHandle when '
                         'you are done.  The binding decrements its '
                         'reference count.',
                   ),
@@ -1448,7 +1472,8 @@ class _LifecycleVisualization extends StatelessWidget {
                   _LifecycleCard(
                     icon: Icons.power_settings_new,
                     title: '5. tree torn down',
-                    detail: 'When the count reaches zero the binding stops '
+                    detail:
+                        'When the count reaches zero the binding stops '
                         'producing the tree.  Future ensureSemantics calls '
                         'rebuild it on demand.',
                   ),
@@ -1490,8 +1515,7 @@ class _LifecycleCard extends StatelessWidget {
           children: <Widget>[
             Icon(icon, size: 28, color: colors.primary),
             const SizedBox(height: 8),
-            Text(title,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(detail, style: const TextStyle(fontSize: 12)),
           ],
@@ -1552,7 +1576,9 @@ class _RecipeGalleryState extends State<_RecipeGallery> {
                   onTap: () {},
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.indigo,
                       borderRadius: BorderRadius.circular(8),
@@ -1580,14 +1606,15 @@ class _RecipeGalleryState extends State<_RecipeGallery> {
                         height: 22,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.indigo, width: 2),
-                          color: _checked
-                              ? Colors.indigo
-                              : Colors.transparent,
+                          color: _checked ? Colors.indigo : Colors.transparent,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: _checked
-                            ? const Icon(Icons.check,
-                                size: 16, color: Colors.white)
+                            ? const Icon(
+                                Icons.check,
+                                size: 16,
+                                color: Colors.white,
+                              )
                             : null,
                       ),
                     ),
@@ -1618,7 +1645,9 @@ class _RecipeGalleryState extends State<_RecipeGallery> {
                           onTap: () => setState(() => _tabIndex = i),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
@@ -1664,8 +1693,7 @@ class _RecipeGalleryState extends State<_RecipeGallery> {
                                   color: _selectedDatapoint == i
                                       ? Colors.indigo
                                       : Colors.indigo.shade200,
-                                  borderRadius:
-                                      BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
                               ),
                             ),
@@ -1679,7 +1707,8 @@ class _RecipeGalleryState extends State<_RecipeGallery> {
             const SizedBox(height: 12),
             Semantics(
               liveRegion: true,
-              label: 'Selected datapoint: day '
+              label:
+                  'Selected datapoint: day '
                   '${_selectedDatapoint + 1}, '
                   '${_datapoints[_selectedDatapoint]} units',
               child: Text(
@@ -1736,76 +1765,122 @@ class _ReferenceTable extends StatelessWidget {
   // Table rows held as (property, effect, reacts) tuples to keep the build
   // method readable.  The header row is rendered separately.
   static const List<List<String>> _rows = <List<String>>[
-    <String>['label', 'Primary string the AT reads.',
-        'TB / VO / NV / JA / CV / FT'],
-    <String>['value', 'Secondary value (e.g. "75 percent").',
-        'TB / VO / NV / JA / CV / FT'],
-    <String>['hint',
-        'Hint read after a short delay; describes the action.',
-        'TB / VO / NV / JA / FT'],
-    <String>['button: true',
-        'Announces "Button"; rotor exposes buttons category.',
-        'TB / VO / NV / JA / CV'],
-    <String>['header: true',
-        'Marks node as heading; rotor jumps between headers.',
-        'TB / VO / NV / JA / CV'],
-    <String>['liveRegion: true',
-        'AT announces value changes automatically.',
-        'TB / VO / NV / JA / CV'],
-    <String>['toggled: true|false',
-        'Reads "switch on / switch off".',
-        'TB / VO / NV / JA'],
-    <String>['checked: true|false|null',
-        'Reads "checkbox checked / not checked".',
-        'TB / VO / NV / JA'],
-    <String>['selected: true',
-        'Indicates membership in a selected group.',
-        'TB / VO / NV / JA / CV'],
-    <String>['enabled: false',
-        'Reads "disabled / dimmed"; rotor may skip.',
-        'TB / VO / NV / JA / CV'],
-    <String>['excludeSemantics',
-        'Hides subtree from accessibility tree entirely.',
-        'all'],
-    <String>['mergeAllDescendants',
-        'Collapses subtree into a single node.',
-        'all'],
-    <String>['image: true',
-        'Announces "image"; rotor exposes images category.',
-        'TB / VO / NV / JA'],
-    <String>['link: true',
-        'Announces "link"; rotor exposes links category.',
-        'TB / VO / NV / JA / CV'],
-    <String>['textField: true',
-        'Marks node as editable text input.',
-        'TB / VO / NV / JA / CV'],
-    <String>['readOnly: true',
-        'Reads "read only" on a textField node.',
-        'TB / VO / NV / JA'],
-    <String>['obscured: true',
-        'Marks value as sensitive (passwords).',
-        'TB / VO / NV / JA'],
-    <String>['slider: true',
-        'Announces "adjustable"; pairs with custom actions.',
-        'TB / VO / NV / JA'],
-    <String>['customSemanticsActions',
-        'Adds entries to the AT gesture menu.',
-        'TB / VO'],
-    <String>['onTap',
-        'Default tap action; AT can invoke without touching.',
-        'all'],
-    <String>['onLongPress',
-        'Default long-press action.',
-        'TB / VO / NV / JA'],
-    <String>['onDismiss',
-        'Lets AT dismiss the node (e.g. snackbars).',
-        'TB / VO'],
-    <String>['onIncrease / onDecrease',
-        'Standard adjustable actions for sliders.',
-        'TB / VO / NV / JA'],
-    <String>['onScrollUp / onScrollDown',
-        'Standard scrolling actions.',
-        'TB / VO / NV / JA'],
+    <String>[
+      'label',
+      'Primary string the AT reads.',
+      'TB / VO / NV / JA / CV / FT',
+    ],
+    <String>[
+      'value',
+      'Secondary value (e.g. "75 percent").',
+      'TB / VO / NV / JA / CV / FT',
+    ],
+    <String>[
+      'hint',
+      'Hint read after a short delay; describes the action.',
+      'TB / VO / NV / JA / FT',
+    ],
+    <String>[
+      'button: true',
+      'Announces "Button"; rotor exposes buttons category.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'header: true',
+      'Marks node as heading; rotor jumps between headers.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'liveRegion: true',
+      'AT announces value changes automatically.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'toggled: true|false',
+      'Reads "switch on / switch off".',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'checked: true|false|null',
+      'Reads "checkbox checked / not checked".',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'selected: true',
+      'Indicates membership in a selected group.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'enabled: false',
+      'Reads "disabled / dimmed"; rotor may skip.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'excludeSemantics',
+      'Hides subtree from accessibility tree entirely.',
+      'all',
+    ],
+    <String>[
+      'mergeAllDescendants',
+      'Collapses subtree into a single node.',
+      'all',
+    ],
+    <String>[
+      'image: true',
+      'Announces "image"; rotor exposes images category.',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'link: true',
+      'Announces "link"; rotor exposes links category.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'textField: true',
+      'Marks node as editable text input.',
+      'TB / VO / NV / JA / CV',
+    ],
+    <String>[
+      'readOnly: true',
+      'Reads "read only" on a textField node.',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'obscured: true',
+      'Marks value as sensitive (passwords).',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'slider: true',
+      'Announces "adjustable"; pairs with custom actions.',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'customSemanticsActions',
+      'Adds entries to the AT gesture menu.',
+      'TB / VO',
+    ],
+    <String>[
+      'onTap',
+      'Default tap action; AT can invoke without touching.',
+      'all',
+    ],
+    <String>['onLongPress', 'Default long-press action.', 'TB / VO / NV / JA'],
+    <String>[
+      'onDismiss',
+      'Lets AT dismiss the node (e.g. snackbars).',
+      'TB / VO',
+    ],
+    <String>[
+      'onIncrease / onDecrease',
+      'Standard adjustable actions for sliders.',
+      'TB / VO / NV / JA',
+    ],
+    <String>[
+      'onScrollUp / onScrollDown',
+      'Standard scrolling actions.',
+      'TB / VO / NV / JA',
+    ],
   ];
 
   @override
@@ -1838,9 +1913,7 @@ class _ReferenceTable extends StatelessWidget {
               },
               children: <TableRow>[
                 TableRow(
-                  decoration: BoxDecoration(
-                    color: colors.surfaceContainerHigh,
-                  ),
+                  decoration: BoxDecoration(color: colors.surfaceContainerHigh),
                   children: const <Widget>[
                     _TableHeaderCell('Property'),
                     _TableHeaderCell('Effect'),
@@ -1894,10 +1967,7 @@ class _TableCellMono extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      child: Text(
-        text,
-        style: const TextStyle(fontFamily: 'monospace'),
-      ),
+      child: Text(text, style: const TextStyle(fontFamily: 'monospace')),
     );
   }
 }
@@ -1910,10 +1980,7 @@ class _TableHeaderCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: Text(
-        text,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
+      child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
     );
   }
 }

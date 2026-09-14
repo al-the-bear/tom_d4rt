@@ -175,7 +175,8 @@ dynamic build(BuildContext context) {
     observedKeysPressed = modelKeysPressed.length;
     rawKeyboardSnapshot =
         'RawKeyboard.instance modelled OK (illustrative) · '
-        'keysPressed.length=' + observedKeysPressed.toString();
+            'keysPressed.length=' +
+        observedKeysPressed.toString();
     snapshotOk = true;
   } catch (_) {
     rawKeyboardClass = 'RawKeyboard';
@@ -228,10 +229,7 @@ dynamic build(BuildContext context) {
                 color: _coral,
                 shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: _alpha(_coral, 0.7),
-                    blurRadius: 12.0,
-                  ),
+                  BoxShadow(color: _alpha(_coral, 0.7), blurRadius: 12.0),
                 ],
               ),
             ),
@@ -266,7 +264,9 @@ dynamic build(BuildContext context) {
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0, vertical: 6.0),
+                horizontal: 12.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: _alpha(_magenta, 0.18),
                 borderRadius: BorderRadius.circular(20.0),
@@ -349,15 +349,11 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 22.0),
         // Snapshot pill.
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: _alpha(snapshotOk ? _lime : _coral, 0.10),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: snapshotOk ? _lime : _coral,
-              width: 1.0,
-            ),
+            border: Border.all(color: snapshotOk ? _lime : _coral, width: 1.0),
           ),
           child: Row(
             children: <Widget>[
@@ -401,7 +397,8 @@ dynamic build(BuildContext context) {
       name: 'character',
       type: 'String?',
       example: '"S"',
-      note: 'The text the OS thinks this keystroke produced — null for non-text keys.',
+      note:
+          'The text the OS thinks this keystroke produced — null for non-text keys.',
     ),
     _AnatomyField(
       name: 'physicalKey',
@@ -451,73 +448,75 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < anatomyFields.length; i++) {
     final _AnatomyField f = anatomyFields[i];
     final bool even = i.isEven;
-    anatomyRows.add(Container(
-      margin: const EdgeInsets.only(bottom: 10.0),
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: even
-              ? const <Color>[_indigoDeep, _indigo]
-              : const <Color>[_indigo, _indigoLite],
-          begin: even ? Alignment.centerLeft : Alignment.centerRight,
-          end: even ? Alignment.centerRight : Alignment.centerLeft,
+    anatomyRows.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: even
+                ? const <Color>[_indigoDeep, _indigo]
+                : const <Color>[_indigo, _indigoLite],
+            begin: even ? Alignment.centerLeft : Alignment.centerRight,
+            end: even ? Alignment.centerRight : Alignment.centerLeft,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: _alpha(even ? _cyan : _magenta, 0.45),
+            width: 1.0,
+          ),
         ),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: _alpha(even ? _cyan : _magenta, 0.45),
-          width: 1.0,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 150.0,
+              child: Text(
+                f.name,
+                style: TextStyle(
+                  color: even ? _cyanSoft : _magentaSoft,
+                  fontSize: 14.0,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 170.0,
+              child: Text(
+                f.type,
+                style: const TextStyle(
+                  color: _amberSoft,
+                  fontSize: 12.5,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 200.0,
+              child: Text(
+                f.example,
+                style: const TextStyle(
+                  color: _ink,
+                  fontSize: 12.5,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                f.note,
+                style: const TextStyle(
+                  color: _inkMute,
+                  fontSize: 12.5,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 150.0,
-            child: Text(
-              f.name,
-              style: TextStyle(
-                color: even ? _cyanSoft : _magentaSoft,
-                fontSize: 14.0,
-                fontFamily: 'monospace',
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 170.0,
-            child: Text(
-              f.type,
-              style: const TextStyle(
-                color: _amberSoft,
-                fontSize: 12.5,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 200.0,
-            child: Text(
-              f.example,
-              style: const TextStyle(
-                color: _ink,
-                fontSize: 12.5,
-                fontFamily: 'monospace',
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              f.note,
-              style: const TextStyle(
-                color: _inkMute,
-                fontSize: 12.5,
-                height: 1.4,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ));
+    );
   }
 
   final Widget anatomyCard = Container(
@@ -565,11 +564,7 @@ dynamic build(BuildContext context) {
             'modern KeyEvent — but KeyEvent normalises the data across '
             'platforms, so you almost never need to drop down to the raw '
             'subclass.',
-            style: TextStyle(
-              color: _inkMute,
-              fontSize: 13.0,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _inkMute, fontSize: 13.0, height: 1.5),
           ),
         ),
       ],
@@ -583,25 +578,121 @@ dynamic build(BuildContext context) {
   // ===========================================================================
   const List<_ModifierCell> modifierCells = <_ModifierCell>[
     // Row A — no Ctrl, no Shift.
-    _ModifierCell(ctrl: false, shift: false, alt: false, meta: false, mnemonic: 'plain'),
-    _ModifierCell(ctrl: false, shift: false, alt: true,  meta: false, mnemonic: 'alt'),
-    _ModifierCell(ctrl: false, shift: false, alt: false, meta: true,  mnemonic: 'cmd'),
-    _ModifierCell(ctrl: false, shift: false, alt: true,  meta: true,  mnemonic: 'alt+cmd'),
+    _ModifierCell(
+      ctrl: false,
+      shift: false,
+      alt: false,
+      meta: false,
+      mnemonic: 'plain',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: false,
+      alt: true,
+      meta: false,
+      mnemonic: 'alt',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: false,
+      alt: false,
+      meta: true,
+      mnemonic: 'cmd',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: false,
+      alt: true,
+      meta: true,
+      mnemonic: 'alt+cmd',
+    ),
     // Row B — Shift only.
-    _ModifierCell(ctrl: false, shift: true,  alt: false, meta: false, mnemonic: 'shift'),
-    _ModifierCell(ctrl: false, shift: true,  alt: true,  meta: false, mnemonic: 'shift+alt'),
-    _ModifierCell(ctrl: false, shift: true,  alt: false, meta: true,  mnemonic: 'shift+cmd'),
-    _ModifierCell(ctrl: false, shift: true,  alt: true,  meta: true,  mnemonic: 'shift+alt+cmd'),
+    _ModifierCell(
+      ctrl: false,
+      shift: true,
+      alt: false,
+      meta: false,
+      mnemonic: 'shift',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: true,
+      alt: true,
+      meta: false,
+      mnemonic: 'shift+alt',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: true,
+      alt: false,
+      meta: true,
+      mnemonic: 'shift+cmd',
+    ),
+    _ModifierCell(
+      ctrl: false,
+      shift: true,
+      alt: true,
+      meta: true,
+      mnemonic: 'shift+alt+cmd',
+    ),
     // Row C — Ctrl only.
-    _ModifierCell(ctrl: true,  shift: false, alt: false, meta: false, mnemonic: 'ctrl'),
-    _ModifierCell(ctrl: true,  shift: false, alt: true,  meta: false, mnemonic: 'ctrl+alt'),
-    _ModifierCell(ctrl: true,  shift: false, alt: false, meta: true,  mnemonic: 'ctrl+cmd'),
-    _ModifierCell(ctrl: true,  shift: false, alt: true,  meta: true,  mnemonic: 'ctrl+alt+cmd'),
+    _ModifierCell(
+      ctrl: true,
+      shift: false,
+      alt: false,
+      meta: false,
+      mnemonic: 'ctrl',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: false,
+      alt: true,
+      meta: false,
+      mnemonic: 'ctrl+alt',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: false,
+      alt: false,
+      meta: true,
+      mnemonic: 'ctrl+cmd',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: false,
+      alt: true,
+      meta: true,
+      mnemonic: 'ctrl+alt+cmd',
+    ),
     // Row D — Ctrl + Shift.
-    _ModifierCell(ctrl: true,  shift: true,  alt: false, meta: false, mnemonic: 'ctrl+shift'),
-    _ModifierCell(ctrl: true,  shift: true,  alt: true,  meta: false, mnemonic: 'ctrl+shift+alt'),
-    _ModifierCell(ctrl: true,  shift: true,  alt: false, meta: true,  mnemonic: 'ctrl+shift+cmd'),
-    _ModifierCell(ctrl: true,  shift: true,  alt: true,  meta: true,  mnemonic: 'all four'),
+    _ModifierCell(
+      ctrl: true,
+      shift: true,
+      alt: false,
+      meta: false,
+      mnemonic: 'ctrl+shift',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: true,
+      alt: true,
+      meta: false,
+      mnemonic: 'ctrl+shift+alt',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: true,
+      alt: false,
+      meta: true,
+      mnemonic: 'ctrl+shift+cmd',
+    ),
+    _ModifierCell(
+      ctrl: true,
+      shift: true,
+      alt: true,
+      meta: true,
+      mnemonic: 'all four',
+    ),
   ];
 
   final List<Widget> modifierRows = <Widget>[];
@@ -610,69 +701,79 @@ dynamic build(BuildContext context) {
     for (int c = 0; c < 4; c++) {
       final _ModifierCell m = modifierCells[r * 4 + c];
       final int activeCount =
-          (m.ctrl ? 1 : 0) + (m.shift ? 1 : 0) + (m.alt ? 1 : 0) + (m.meta ? 1 : 0);
+          (m.ctrl ? 1 : 0) +
+          (m.shift ? 1 : 0) +
+          (m.alt ? 1 : 0) +
+          (m.meta ? 1 : 0);
       final Color cellAccent = activeCount == 0
           ? _inkFaint
           : (activeCount == 1
-              ? _cyan
-              : (activeCount == 2 ? _violet : (activeCount == 3 ? _magenta : _amber)));
-      rowCells.add(Expanded(
-        child: Container(
-          margin: const EdgeInsets.all(5.0),
-          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: <Color>[_indigoDeep, _alpha(cellAccent, 0.22)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+                ? _cyan
+                : (activeCount == 2
+                      ? _violet
+                      : (activeCount == 3 ? _magenta : _amber)));
+      rowCells.add(
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 14.0,
             ),
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: _alpha(cellAccent, 0.65), width: 1.0),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: _alpha(cellAccent, 0.25),
-                blurRadius: 14.0,
-                offset: const Offset(0.0, 4.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[_indigoDeep, _alpha(cellAccent, 0.22)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                m.mnemonic,
-                style: TextStyle(
-                  color: _ink,
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4,
+              borderRadius: BorderRadius.circular(12.0),
+              border: Border.all(color: _alpha(cellAccent, 0.65), width: 1.0),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: _alpha(cellAccent, 0.25),
+                  blurRadius: 14.0,
+                  offset: const Offset(0.0, 4.0),
                 ),
-              ),
-              const SizedBox(height: 10.0),
-              Row(
-                children: <Widget>[
-                  _modifierFlag('C', m.ctrl, _coral),
-                  const SizedBox(width: 4.0),
-                  _modifierFlag('S', m.shift, _amber),
-                  const SizedBox(width: 4.0),
-                  _modifierFlag('A', m.alt, _lime),
-                  const SizedBox(width: 4.0),
-                  _modifierFlag('M', m.meta, _cyan),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                'count=' + activeCount.toString(),
-                style: TextStyle(
-                  color: _alpha(_inkMute, 0.9),
-                  fontSize: 10.5,
-                  fontFamily: 'monospace',
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  m.mnemonic,
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.4,
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 10.0),
+                Row(
+                  children: <Widget>[
+                    _modifierFlag('C', m.ctrl, _coral),
+                    const SizedBox(width: 4.0),
+                    _modifierFlag('S', m.shift, _amber),
+                    const SizedBox(width: 4.0),
+                    _modifierFlag('A', m.alt, _lime),
+                    const SizedBox(width: 4.0),
+                    _modifierFlag('M', m.meta, _cyan),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Text(
+                  'count=' + activeCount.toString(),
+                  style: TextStyle(
+                    color: _alpha(_inkMute, 0.9),
+                    fontSize: 10.5,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ));
+      );
     }
     modifierRows.add(Row(children: rowCells));
   }
@@ -719,25 +820,120 @@ dynamic build(BuildContext context) {
   // layouts.
   // ===========================================================================
   const List<_PhysicalLogicalPair> keyPairs = <_PhysicalLogicalPair>[
-    _PhysicalLogicalPair(label: 'Q', physicalUsbHid: '0x00070014', logicalKeyId: '0x00000071', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'W', physicalUsbHid: '0x0007001A', logicalKeyId: '0x00000077', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'E', physicalUsbHid: '0x00070008', logicalKeyId: '0x00000065', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'R', physicalUsbHid: '0x00070015', logicalKeyId: '0x00000072', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'T', physicalUsbHid: '0x00070017', logicalKeyId: '0x00000074', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'Y', physicalUsbHid: '0x0007001C', logicalKeyId: '0x00000079', row: 'qwerty'),
-    _PhysicalLogicalPair(label: 'A', physicalUsbHid: '0x00070004', logicalKeyId: '0x00000061', row: 'asdf'),
-    _PhysicalLogicalPair(label: 'S', physicalUsbHid: '0x00070016', logicalKeyId: '0x00000073', row: 'asdf'),
-    _PhysicalLogicalPair(label: 'D', physicalUsbHid: '0x00070007', logicalKeyId: '0x00000064', row: 'asdf'),
-    _PhysicalLogicalPair(label: 'F', physicalUsbHid: '0x00070009', logicalKeyId: '0x00000066', row: 'asdf'),
-    _PhysicalLogicalPair(label: '1', physicalUsbHid: '0x0007001E', logicalKeyId: '0x00000031', row: 'digits'),
-    _PhysicalLogicalPair(label: '2', physicalUsbHid: '0x0007001F', logicalKeyId: '0x00000032', row: 'digits'),
-    _PhysicalLogicalPair(label: '3', physicalUsbHid: '0x00070020', logicalKeyId: '0x00000033', row: 'digits'),
-    _PhysicalLogicalPair(label: '4', physicalUsbHid: '0x00070021', logicalKeyId: '0x00000034', row: 'digits'),
-    _PhysicalLogicalPair(label: '5', physicalUsbHid: '0x00070022', logicalKeyId: '0x00000035', row: 'digits'),
-    _PhysicalLogicalPair(label: '↑', physicalUsbHid: '0x00070052', logicalKeyId: '0x00100000301', row: 'arrows'),
-    _PhysicalLogicalPair(label: '↓', physicalUsbHid: '0x00070051', logicalKeyId: '0x00100000303', row: 'arrows'),
-    _PhysicalLogicalPair(label: '←', physicalUsbHid: '0x00070050', logicalKeyId: '0x00100000302', row: 'arrows'),
-    _PhysicalLogicalPair(label: '→', physicalUsbHid: '0x0007004F', logicalKeyId: '0x00100000304', row: 'arrows'),
+    _PhysicalLogicalPair(
+      label: 'Q',
+      physicalUsbHid: '0x00070014',
+      logicalKeyId: '0x00000071',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'W',
+      physicalUsbHid: '0x0007001A',
+      logicalKeyId: '0x00000077',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'E',
+      physicalUsbHid: '0x00070008',
+      logicalKeyId: '0x00000065',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'R',
+      physicalUsbHid: '0x00070015',
+      logicalKeyId: '0x00000072',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'T',
+      physicalUsbHid: '0x00070017',
+      logicalKeyId: '0x00000074',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'Y',
+      physicalUsbHid: '0x0007001C',
+      logicalKeyId: '0x00000079',
+      row: 'qwerty',
+    ),
+    _PhysicalLogicalPair(
+      label: 'A',
+      physicalUsbHid: '0x00070004',
+      logicalKeyId: '0x00000061',
+      row: 'asdf',
+    ),
+    _PhysicalLogicalPair(
+      label: 'S',
+      physicalUsbHid: '0x00070016',
+      logicalKeyId: '0x00000073',
+      row: 'asdf',
+    ),
+    _PhysicalLogicalPair(
+      label: 'D',
+      physicalUsbHid: '0x00070007',
+      logicalKeyId: '0x00000064',
+      row: 'asdf',
+    ),
+    _PhysicalLogicalPair(
+      label: 'F',
+      physicalUsbHid: '0x00070009',
+      logicalKeyId: '0x00000066',
+      row: 'asdf',
+    ),
+    _PhysicalLogicalPair(
+      label: '1',
+      physicalUsbHid: '0x0007001E',
+      logicalKeyId: '0x00000031',
+      row: 'digits',
+    ),
+    _PhysicalLogicalPair(
+      label: '2',
+      physicalUsbHid: '0x0007001F',
+      logicalKeyId: '0x00000032',
+      row: 'digits',
+    ),
+    _PhysicalLogicalPair(
+      label: '3',
+      physicalUsbHid: '0x00070020',
+      logicalKeyId: '0x00000033',
+      row: 'digits',
+    ),
+    _PhysicalLogicalPair(
+      label: '4',
+      physicalUsbHid: '0x00070021',
+      logicalKeyId: '0x00000034',
+      row: 'digits',
+    ),
+    _PhysicalLogicalPair(
+      label: '5',
+      physicalUsbHid: '0x00070022',
+      logicalKeyId: '0x00000035',
+      row: 'digits',
+    ),
+    _PhysicalLogicalPair(
+      label: '↑',
+      physicalUsbHid: '0x00070052',
+      logicalKeyId: '0x00100000301',
+      row: 'arrows',
+    ),
+    _PhysicalLogicalPair(
+      label: '↓',
+      physicalUsbHid: '0x00070051',
+      logicalKeyId: '0x00100000303',
+      row: 'arrows',
+    ),
+    _PhysicalLogicalPair(
+      label: '←',
+      physicalUsbHid: '0x00070050',
+      logicalKeyId: '0x00100000302',
+      row: 'arrows',
+    ),
+    _PhysicalLogicalPair(
+      label: '→',
+      physicalUsbHid: '0x0007004F',
+      logicalKeyId: '0x00100000304',
+      row: 'arrows',
+    ),
   ];
 
   final List<Widget> keypadKeycaps = <Widget>[];
@@ -745,91 +941,93 @@ dynamic build(BuildContext context) {
     final _PhysicalLogicalPair p = keyPairs[i];
     final Color rowAccent = p.row == 'qwerty'
         ? _cyan
-        : (p.row == 'asdf'
-            ? _amber
-            : (p.row == 'digits' ? _lime : _magenta));
-    keypadKeycaps.add(Container(
-      width: 130.0,
-      padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 12.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[_alpha(rowAccent, 0.16), _abyss],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
+        : (p.row == 'asdf' ? _amber : (p.row == 'digits' ? _lime : _magenta));
+    keypadKeycaps.add(
+      Container(
+        width: 130.0,
+        padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 12.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[_alpha(rowAccent, 0.16), _abyss],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: _alpha(rowAccent, 0.7), width: 1.0),
         ),
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: _alpha(rowAccent, 0.7), width: 1.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                p.label,
-                style: TextStyle(
-                  color: _ink,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6.0, vertical: 2.0),
-                decoration: BoxDecoration(
-                  color: _alpha(rowAccent, 0.2),
-                  borderRadius: BorderRadius.circular(4.0),
-                ),
-                child: Text(
-                  p.row,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  p.label,
                   style: TextStyle(
-                    color: rowAccent,
-                    fontSize: 9.5,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700,
+                    color: _ink,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _alpha(rowAccent, 0.2),
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Text(
+                    p.row,
+                    style: TextStyle(
+                      color: rowAccent,
+                      fontSize: 9.5,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              'phys',
+              style: TextStyle(
+                color: _alpha(_inkFaint, 0.9),
+                fontSize: 10.0,
+                letterSpacing: 0.6,
               ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            'phys',
-            style: TextStyle(
-              color: _alpha(_inkFaint, 0.9),
-              fontSize: 10.0,
-              letterSpacing: 0.6,
             ),
-          ),
-          Text(
-            p.physicalUsbHid,
-            style: const TextStyle(
-              color: _cyanSoft,
-              fontSize: 11.0,
-              fontFamily: 'monospace',
+            Text(
+              p.physicalUsbHid,
+              style: const TextStyle(
+                color: _cyanSoft,
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+              ),
             ),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            'logical',
-            style: TextStyle(
-              color: _alpha(_inkFaint, 0.9),
-              fontSize: 10.0,
-              letterSpacing: 0.6,
+            const SizedBox(height: 6.0),
+            Text(
+              'logical',
+              style: TextStyle(
+                color: _alpha(_inkFaint, 0.9),
+                fontSize: 10.0,
+                letterSpacing: 0.6,
+              ),
             ),
-          ),
-          Text(
-            p.logicalKeyId,
-            style: const TextStyle(
-              color: _amberSoft,
-              fontSize: 11.0,
-              fontFamily: 'monospace',
+            Text(
+              p.logicalKeyId,
+              style: const TextStyle(
+                color: _amberSoft,
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final Widget keyMapCard = Container(
@@ -859,11 +1057,7 @@ dynamic build(BuildContext context) {
           accent: _amber,
         ),
         const SizedBox(height: 16.0),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: keypadKeycaps,
-        ),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: keypadKeycaps),
       ],
     ),
   );
@@ -980,100 +1174,109 @@ dynamic build(BuildContext context) {
         grad = Alignment.centerRight;
         break;
     }
-    sampleEventCards.add(Container(
-      width: 320.0,
-      margin: const EdgeInsets.all(6.0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[_indigoDeep, _abyss],
-          begin: grad,
-          end: Alignment.center,
-        ),
-        borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: _alpha(band, 0.6), width: 1.0),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: _alpha(band, 0.22),
-            blurRadius: 20.0,
-            offset: const Offset(0.0, 8.0),
+    sampleEventCards.add(
+      Container(
+        width: 320.0,
+        margin: const EdgeInsets.all(6.0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: <Color>[_indigoDeep, _abyss],
+            begin: grad,
+            end: Alignment.center,
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(14.0, 10.0, 14.0, 10.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[_alpha(band, 0.40), _alpha(band, 0.08)],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(13.0),
-                topRight: Radius.circular(13.0),
-              ),
+          borderRadius: BorderRadius.circular(14.0),
+          border: Border.all(color: _alpha(band, 0.6), width: 1.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: _alpha(band, 0.22),
+              blurRadius: 20.0,
+              offset: const Offset(0.0, 8.0),
             ),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  width: 8.0,
-                  height: 8.0,
-                  decoration: BoxDecoration(
-                    color: band,
-                    shape: BoxShape.circle,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: _alpha(band, 0.7),
-                        blurRadius: 8.0,
-                      ),
-                    ],
-                  ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(14.0, 10.0, 14.0, 10.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[_alpha(band, 0.40), _alpha(band, 0.08)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
                 ),
-                const SizedBox(width: 10.0),
-                Expanded(
-                  child: Text(
-                    e.label,
-                    style: const TextStyle(
-                      color: _ink,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w700,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(13.0),
+                  topRight: Radius.circular(13.0),
+                ),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 8.0,
+                    height: 8.0,
+                    decoration: BoxDecoration(
+                      color: band,
+                      shape: BoxShape.circle,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(color: _alpha(band, 0.7), blurRadius: 8.0),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: Text(
+                      e.label,
+                      style: const TextStyle(
+                        color: _ink,
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14.0, 12.0, 14.0, 14.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _kvLine('platform', e.platform, _cyanSoft),
-                _kvLine('phase', e.phase, _amberSoft),
-                _kvLine('character', e.character, _ink),
-                _kvLine('physicalKey', e.physicalKey, _cyanSoft),
-                _kvLine('logicalKey', e.logicalKey, _amberSoft),
-                _kvLine('repeat', e.repeat.toString(),
-                    e.repeat ? _coral : _inkMute),
-                _kvLine(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(14.0, 12.0, 14.0, 14.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _kvLine('platform', e.platform, _cyanSoft),
+                  _kvLine('phase', e.phase, _amberSoft),
+                  _kvLine('character', e.character, _ink),
+                  _kvLine('physicalKey', e.physicalKey, _cyanSoft),
+                  _kvLine('logicalKey', e.logicalKey, _amberSoft),
+                  _kvLine(
+                    'repeat',
+                    e.repeat.toString(),
+                    e.repeat ? _coral : _inkMute,
+                  ),
+                  _kvLine(
                     'modifiers',
                     e.modifiers.isEmpty
                         ? '[]'
                         : '[' + e.modifiers.join(', ') + ']',
-                    _magentaSoft),
-                _kvLine('rawKeyCode', '0x' + e.rawKeyCode.toRadixString(16),
-                    _ink),
-                _kvLine('scanCode', '0x' + e.scanCode.toRadixString(16),
-                    _ink),
-              ],
+                    _magentaSoft,
+                  ),
+                  _kvLine(
+                    'rawKeyCode',
+                    '0x' + e.rawKeyCode.toRadixString(16),
+                    _ink,
+                  ),
+                  _kvLine(
+                    'scanCode',
+                    '0x' + e.scanCode.toRadixString(16),
+                    _ink,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final Widget sampleEventsCard = Container(
@@ -1120,35 +1323,40 @@ dynamic build(BuildContext context) {
   const List<_LifecycleStep> lifecycleSteps = <_LifecycleStep>[
     _LifecycleStep(
       title: 'addListener',
-      detail: 'You register a callback on RawKeyboard.instance.  From this '
+      detail:
+          'You register a callback on RawKeyboard.instance.  From this '
           'moment every raw key event flows through it.',
       icon: Icons.power_settings_new,
       tint: _cyan,
     ),
     _LifecycleStep(
       title: 'RawKeyDownEvent',
-      detail: 'Key goes down: data, character, modifiers all populated.  '
+      detail:
+          'Key goes down: data, character, modifiers all populated.  '
           'isRepeat is false on the first hit.',
       icon: Icons.keyboard_arrow_down,
       tint: _amber,
     ),
     _LifecycleStep(
       title: 'RawKeyDownEvent (repeat)',
-      detail: 'OS auto-repeat fires further RawKeyDownEvents while the key is '
+      detail:
+          'OS auto-repeat fires further RawKeyDownEvents while the key is '
           'held.  Some platforms set `repeat=true`, others rely on cadence.',
       icon: Icons.repeat,
       tint: _coral,
     ),
     _LifecycleStep(
       title: 'RawKeyUpEvent',
-      detail: 'Finger lifts: a final RawKeyUpEvent matches the last down.  '
+      detail:
+          'Finger lifts: a final RawKeyUpEvent matches the last down.  '
           'Use this to stop accumulating modifier state.',
       icon: Icons.keyboard_arrow_up,
       tint: _lime,
     ),
     _LifecycleStep(
       title: 'removeListener',
-      detail: 'Always remove your listener in dispose — leaks here are a '
+      detail:
+          'Always remove your listener in dispose — leaks here are a '
           'classic source of zombie shortcut handlers.',
       icon: Icons.power_off,
       tint: _magenta,
@@ -1158,68 +1366,72 @@ dynamic build(BuildContext context) {
   final List<Widget> lifecycleNodes = <Widget>[];
   for (int i = 0; i < lifecycleSteps.length; i++) {
     final _LifecycleStep s = lifecycleSteps[i];
-    lifecycleNodes.add(Expanded(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(14.0),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[_alpha(s.tint, 0.30), _abyss],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-              borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: _alpha(s.tint, 0.7), width: 1.0),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: _alpha(s.tint, 0.30),
-                  blurRadius: 18.0,
-                  offset: const Offset(0.0, 6.0),
+    lifecycleNodes.add(
+      Expanded(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(14.0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[_alpha(s.tint, 0.30), _abyss],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-              ],
-            ),
-            child: Column(
-              children: <Widget>[
-                Icon(s.icon, color: s.tint, size: 28.0),
-                const SizedBox(height: 8.0),
-                Text(
-                  s.title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: _ink,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w700,
+                borderRadius: BorderRadius.circular(12.0),
+                border: Border.all(color: _alpha(s.tint, 0.7), width: 1.0),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: _alpha(s.tint, 0.30),
+                    blurRadius: 18.0,
+                    offset: const Offset(0.0, 6.0),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: Text(
-              s.detail,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: _inkMute,
-                fontSize: 11.0,
-                height: 1.4,
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Icon(s.icon, color: s.tint, size: 28.0),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    s.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: _ink,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
-      ),
-    ));
-    if (i != lifecycleSteps.length - 1) {
-      lifecycleNodes.add(Padding(
-        padding: const EdgeInsets.only(top: 26.0),
-        child: Icon(
-          Icons.arrow_right_alt,
-          color: _alpha(_inkMute, 0.7),
-          size: 32.0,
+            const SizedBox(height: 8.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Text(
+                s.detail,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: _inkMute,
+                  fontSize: 11.0,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
         ),
-      ));
+      ),
+    );
+    if (i != lifecycleSteps.length - 1) {
+      lifecycleNodes.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 26.0),
+          child: Icon(
+            Icons.arrow_right_alt,
+            color: _alpha(_inkMute, 0.7),
+            size: 32.0,
+          ),
+        ),
+      );
     }
   }
 
@@ -1313,54 +1525,56 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < apiRows.length; i++) {
     final _ApiRow r = apiRows[i];
     final bool stripe = i.isOdd;
-    comparisonRows.add(Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        color: stripe ? _alpha(_indigo, 0.45) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: _alpha(_inkFaint, 0.25), width: 0.6),
+    comparisonRows.add(
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+        decoration: BoxDecoration(
+          color: stripe ? _alpha(_indigo, 0.45) : Colors.transparent,
+          border: Border(
+            bottom: BorderSide(color: _alpha(_inkFaint, 0.25), width: 0.6),
+          ),
         ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: 150.0,
-            child: Text(
-              r.topic,
-              style: const TextStyle(
-                color: _amberSoft,
-                fontWeight: FontWeight.w700,
-                fontSize: 12.5,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: 150.0,
+              child: Text(
+                r.topic,
+                style: const TextStyle(
+                  color: _amberSoft,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12.5,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 14.0),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 14.0),
+                child: Text(
+                  r.rawSide,
+                  style: const TextStyle(
+                    color: _inkMute,
+                    fontSize: 12.5,
+                    height: 1.45,
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
               child: Text(
-                r.rawSide,
+                r.hardwareSide,
                 style: const TextStyle(
-                  color: _inkMute,
+                  color: _ink,
                   fontSize: 12.5,
                   height: 1.45,
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Text(
-              r.hardwareSide,
-              style: const TextStyle(
-                color: _ink,
-                fontSize: 12.5,
-                height: 1.45,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final Widget comparisonCard = Container(
@@ -1391,8 +1605,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 18.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 14.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: <Color>[_violet, _teal],
@@ -1484,8 +1697,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 16.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
           // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #98, P5(a))
           // BoxDecoration combined `borderRadius.only(topLeft, topRight)`
           // with `Border(bottom: BorderSide(_lime@0.5, width: 1.0))` —
@@ -1498,8 +1710,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: _alpha(_lime, 0.18),
             border: Border(
-              bottom:
-                  BorderSide(color: _alpha(_lime, 0.5), width: 1.0),
+              bottom: BorderSide(color: _alpha(_lime, 0.5), width: 1.0),
             ),
           ),
           child: Row(
@@ -1527,25 +1738,32 @@ dynamic build(BuildContext context) {
               _termLine('> RawKeyboard.instance', _cyanSoft),
               _termLine('  runtimeType  : ' + rawKeyboardClass, _ink),
               _termLine(
-                  '  status       : ' + (snapshotOk ? 'available' : 'unavailable'),
-                  snapshotOk ? _lime : _coral),
+                '  status       : ' +
+                    (snapshotOk ? 'available' : 'unavailable'),
+                snapshotOk ? _lime : _coral,
+              ),
               _termLine('  keysPressed  : Set<LogicalKeyboardKey>', _ink),
               _termLine(
-                  '  .length      : ' + observedKeysPressed.toString(),
-                  _amberSoft),
+                '  .length      : ' + observedKeysPressed.toString(),
+                _amberSoft,
+              ),
               const SizedBox(height: 8.0),
               _termLine(
-                  '> note: keysPressed is a *snapshot*, not a stream.',
-                  _inkMute),
+                '> note: keysPressed is a *snapshot*, not a stream.',
+                _inkMute,
+              ),
               _termLine(
-                  '> note: querying it inside a build is fine, but you',
-                  _inkMute),
+                '> note: querying it inside a build is fine, but you',
+                _inkMute,
+              ),
               _termLine(
-                  '> will not be rebuilt when state changes — that is',
-                  _inkMute),
+                '> will not be rebuilt when state changes — that is',
+                _inkMute,
+              ),
               _termLine(
-                  '> the whole point of HardwareKeyboard listeners.',
-                  _inkMute),
+                '> the whole point of HardwareKeyboard listeners.',
+                _inkMute,
+              ),
             ],
           ),
         ),
@@ -1685,7 +1903,9 @@ dynamic build(BuildContext context) {
           // Visual mock — a tiny "key chord" pill specific to this tile.
           Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: 10.0, vertical: 6.0),
+              horizontal: 10.0,
+              vertical: 6.0,
+            ),
             decoration: BoxDecoration(
               color: _alpha(t.accent, 0.22),
               borderRadius: BorderRadius.circular(20.0),
@@ -1730,7 +1950,9 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 4.0),
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: t.accent,
                   borderRadius: BorderRadius.circular(4.0),
@@ -1780,7 +2002,9 @@ dynamic build(BuildContext context) {
           // Tiny code-style preview line.
           Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: 10.0, vertical: 8.0),
+              horizontal: 10.0,
+              vertical: 8.0,
+            ),
             decoration: BoxDecoration(
               color: _voidBlack,
               borderRadius: BorderRadius.circular(6.0),
@@ -1942,8 +2166,7 @@ dynamic build(BuildContext context) {
       step: '01',
       title: 'Replace listener registration',
       before: 'RawKeyboard.instance.addListener(_handleRaw);',
-      after:
-          'HardwareKeyboard.instance.addHandler(_handle);  // returns bool',
+      after: 'HardwareKeyboard.instance.addHandler(_handle);  // returns bool',
     ),
     _migrationStep(
       step: '02',
@@ -1961,18 +2184,14 @@ dynamic build(BuildContext context) {
     _migrationStep(
       step: '03',
       title: 'Use explicit repeat',
-      before:
-          'if (e is RawKeyDownEvent && e.repeat) { ... }',
-      after:
-          'if (e is KeyRepeatEvent) { ... }',
+      before: 'if (e is RawKeyDownEvent && e.repeat) { ... }',
+      after: 'if (e is KeyRepeatEvent) { ... }',
     ),
     _migrationStep(
       step: '04',
       title: 'Query state without singletons-as-globals',
-      before:
-          'RawKeyboard.instance.keysPressed',
-      after:
-          'HardwareKeyboard.instance.logicalKeysPressed',
+      before: 'RawKeyboard.instance.keysPressed',
+      after: 'HardwareKeyboard.instance.logicalKeysPressed',
     ),
     _migrationStep(
       step: '05',
@@ -2099,10 +2318,7 @@ dynamic build(BuildContext context) {
       primaryColor: _violet,
       fontFamily: 'Roboto',
     ),
-    home: Scaffold(
-      backgroundColor: _voidBlack,
-      body: body,
-    ),
+    home: Scaffold(backgroundColor: _voidBlack, body: body),
   );
 }
 
@@ -2116,89 +2332,123 @@ Widget _heroKeyboardGraphic() {
   // Function row: F1..F8 — small flat caps with thin underline.
   final List<Widget> functionRow = <Widget>[];
   for (int i = 1; i <= 8; i++) {
-    functionRow.add(Container(
-      width: 38.0,
-      height: 28.0,
-      margin: const EdgeInsets.symmetric(horizontal: 3.0),
-      decoration: BoxDecoration(
-        color: _alpha(_indigoDeep, 0.9),
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: _alpha(_violet, 0.5), width: 0.8),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        'F' + i.toString(),
-        style: const TextStyle(
-          color: _inkMute,
-          fontSize: 10.0,
-          fontFamily: 'monospace',
+    functionRow.add(
+      Container(
+        width: 38.0,
+        height: 28.0,
+        margin: const EdgeInsets.symmetric(horizontal: 3.0),
+        decoration: BoxDecoration(
+          color: _alpha(_indigoDeep, 0.9),
+          borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(color: _alpha(_violet, 0.5), width: 0.8),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'F' + i.toString(),
+          style: const TextStyle(
+            color: _inkMute,
+            fontSize: 10.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   // Digit row: 1..9 0 — slightly bigger caps with neon top edge.
-  const List<String> digitGlyphs = <String>['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+  const List<String> digitGlyphs = <String>[
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '0',
+  ];
   final List<Widget> digitRow = <Widget>[];
   for (int i = 0; i < digitGlyphs.length; i++) {
-    digitRow.add(Container(
-      width: 44.0,
-      height: 44.0,
-      margin: const EdgeInsets.symmetric(horizontal: 3.0),
-      // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #98, P5(a))
-      // BoxDecoration combined `borderRadius.circular(7)` with a
-      // four-side Border whose top side (cyan@0.6, width 1.5) differs
-      // from the left/right/bottom sides (violet@0.4, default width).
-      // Different colour AND width across sides => Border.isUniform
-      // returns false => "A borderRadius can only be given on borders
-      // with uniform colors." fires once per digit key. The loop builds
-      // 10 keys ('1'..'9','0') so this single helper accounts for ~10
-      // banners per build. Dropping borderRadius makes each digit cap
-      // square but preserves the gradient + dual-tone bezel.
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: <Color>[_indigo, _indigoDeep],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        border: Border(
-          top: BorderSide(color: _alpha(_cyan, 0.6), width: 1.5),
-          left: BorderSide(color: _alpha(_violet, 0.4)),
-          right: BorderSide(color: _alpha(_violet, 0.4)),
-          bottom: BorderSide(color: _alpha(_violet, 0.4)),
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: _alpha(_cyan, 0.20),
-            blurRadius: 8.0,
-            offset: const Offset(0.0, 2.0),
+    digitRow.add(
+      Container(
+        width: 44.0,
+        height: 44.0,
+        margin: const EdgeInsets.symmetric(horizontal: 3.0),
+        // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #98, P5(a))
+        // BoxDecoration combined `borderRadius.circular(7)` with a
+        // four-side Border whose top side (cyan@0.6, width 1.5) differs
+        // from the left/right/bottom sides (violet@0.4, default width).
+        // Different colour AND width across sides => Border.isUniform
+        // returns false => "A borderRadius can only be given on borders
+        // with uniform colors." fires once per digit key. The loop builds
+        // 10 keys ('1'..'9','0') so this single helper accounts for ~10
+        // banners per build. Dropping borderRadius makes each digit cap
+        // square but preserves the gradient + dual-tone bezel.
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: <Color>[_indigo, _indigoDeep],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-        ],
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        digitGlyphs[i],
-        style: const TextStyle(
-          color: _ink,
-          fontSize: 16.0,
-          fontWeight: FontWeight.w700,
+          border: Border(
+            top: BorderSide(color: _alpha(_cyan, 0.6), width: 1.5),
+            left: BorderSide(color: _alpha(_violet, 0.4)),
+            right: BorderSide(color: _alpha(_violet, 0.4)),
+            bottom: BorderSide(color: _alpha(_violet, 0.4)),
+          ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: _alpha(_cyan, 0.20),
+              blurRadius: 8.0,
+              offset: const Offset(0.0, 2.0),
+            ),
+          ],
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          digitGlyphs[i],
+          style: const TextStyle(
+            color: _ink,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-    ));
+    );
   }
 
   // QWERTY row.
-  const List<String> qwertyGlyphs = <String>['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+  const List<String> qwertyGlyphs = <String>[
+    'Q',
+    'W',
+    'E',
+    'R',
+    'T',
+    'Y',
+    'U',
+    'I',
+    'O',
+    'P',
+  ];
   final List<Widget> qwertyRow = <Widget>[];
   for (int i = 0; i < qwertyGlyphs.length; i++) {
     qwertyRow.add(_keycap(qwertyGlyphs[i], width: 46.0, accent: _magenta));
   }
 
   // ASDF row — slightly inset, with a "Caps" key on the left and "Enter" on the right.
-  const List<String> asdfGlyphs = <String>['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
-  final List<Widget> asdfRow = <Widget>[
-    _wideKey('Caps', 60.0, _amber),
+  const List<String> asdfGlyphs = <String>[
+    'A',
+    'S',
+    'D',
+    'F',
+    'G',
+    'H',
+    'J',
+    'K',
+    'L',
   ];
+  final List<Widget> asdfRow = <Widget>[_wideKey('Caps', 60.0, _amber)];
   for (int i = 0; i < asdfGlyphs.length; i++) {
     asdfRow.add(_keycap(asdfGlyphs[i], width: 46.0, accent: _amber));
   }
@@ -2206,9 +2456,7 @@ Widget _heroKeyboardGraphic() {
 
   // ZXCV row — wide Shifts on the outside.
   const List<String> zxcvGlyphs = <String>['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
-  final List<Widget> zxcvRow = <Widget>[
-    _wideKey('Shift', 80.0, _coral),
-  ];
+  final List<Widget> zxcvRow = <Widget>[_wideKey('Shift', 80.0, _coral)];
   for (int i = 0; i < zxcvGlyphs.length; i++) {
     zxcvRow.add(_keycap(zxcvGlyphs[i], width: 46.0, accent: _cyan));
   }
@@ -2323,12 +2571,7 @@ Widget _modifierFlag(String letter, bool active, Color color) {
         width: 1.0,
       ),
       boxShadow: active
-          ? <BoxShadow>[
-              BoxShadow(
-                color: _alpha(color, 0.6),
-                blurRadius: 8.0,
-              ),
-            ]
+          ? <BoxShadow>[BoxShadow(color: _alpha(color, 0.6), blurRadius: 8.0)]
           : const <BoxShadow>[],
     ),
     alignment: Alignment.center,
@@ -2354,8 +2597,7 @@ Widget _sectionHeader({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
         decoration: BoxDecoration(
           color: _alpha(accent, 0.18),
           borderRadius: BorderRadius.circular(8.0),
@@ -2498,7 +2740,9 @@ Widget _migrationStep({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _alpha(_amber, 0.20),
                 borderRadius: BorderRadius.circular(4.0),
@@ -2532,15 +2776,11 @@ Widget _migrationStep({
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _codeBlock('before · raw API', before, _coral),
-            ),
+            Expanded(child: _codeBlock('before · raw API', before, _coral)),
             const SizedBox(width: 12.0),
             Icon(Icons.east, color: _alpha(_inkMute, 0.7), size: 22.0),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: _codeBlock('after · modern API', after, _lime),
-            ),
+            Expanded(child: _codeBlock('after · modern API', after, _lime)),
           ],
         ),
       ],

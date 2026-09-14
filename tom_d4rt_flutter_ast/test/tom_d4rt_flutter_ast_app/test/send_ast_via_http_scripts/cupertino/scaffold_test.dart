@@ -142,11 +142,7 @@ Widget _miniPhone({
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(28.0),
-            child: SizedBox(
-              height: height,
-              width: 264.0,
-              child: content,
-            ),
+            child: SizedBox(height: height, width: 264.0, child: content),
           ),
         ),
       ],
@@ -176,7 +172,11 @@ Widget _statusBar({Brightness brightness = Brightness.light}) {
         ),
         Row(
           children: <Widget>[
-            Icon(CupertinoIcons.antenna_radiowaves_left_right, color: fg, size: 12.0),
+            Icon(
+              CupertinoIcons.antenna_radiowaves_left_right,
+              color: fg,
+              size: 12.0,
+            ),
             const SizedBox(width: 4.0),
             Icon(CupertinoIcons.wifi, color: fg, size: 14.0),
             const SizedBox(width: 4.0),
@@ -340,7 +340,8 @@ Widget _buildSection1Legend(ColorScheme scheme) {
   final List<Map<String, dynamic>> cards = <Map<String, dynamic>>[
     <String, dynamic>{
       'title': 'CupertinoPageScaffold',
-      'desc': 'Top-level structure for a single iOS page. Hosts a child and\n'
+      'desc':
+          'Top-level structure for a single iOS page. Hosts a child and\n'
           'an optional navigationBar; manages background color and bottom\n'
           'inset behaviour when the keyboard appears.',
       'icon': CupertinoIcons.square_stack_3d_up,
@@ -348,7 +349,8 @@ Widget _buildSection1Legend(ColorScheme scheme) {
     },
     <String, dynamic>{
       'title': 'CupertinoNavigationBar',
-      'desc': 'Translucent iOS-style header. Slots leading, middle and\n'
+      'desc':
+          'Translucent iOS-style header. Slots leading, middle and\n'
           'trailing widgets, supports borders, padding and automatic back\n'
           'button inference.',
       'icon': CupertinoIcons.rectangle_grid_2x2,
@@ -356,14 +358,16 @@ Widget _buildSection1Legend(ColorScheme scheme) {
     },
     <String, dynamic>{
       'title': 'CupertinoTabScaffold',
-      'desc': 'Hosts a tab bar at the bottom and a content area for the\n'
+      'desc':
+          'Hosts a tab bar at the bottom and a content area for the\n'
           'currently selected tab. Often combined with CupertinoTabBar.',
       'icon': CupertinoIcons.square_split_2x2,
       'color': const Color(0xFFFF9F0A),
     },
     <String, dynamic>{
       'title': 'CupertinoTabBar',
-      'desc': 'iOS-style bottom bar with selectable items. Each item has\n'
+      'desc':
+          'iOS-style bottom bar with selectable items. Each item has\n'
           'an icon and label; active/inactive colors are configurable.',
       'icon': CupertinoIcons.rectangle_stack_badge_person_crop,
       'color': const Color(0xFFBF5AF2),
@@ -491,9 +495,7 @@ Widget _buildSection2Anatomy(ColorScheme scheme) {
         _statusBar(),
         Expanded(
           child: CupertinoPageScaffold(
-            navigationBar: const CupertinoNavigationBar(
-              middle: Text('Inbox'),
-            ),
+            navigationBar: const CupertinoNavigationBar(middle: Text('Inbox')),
             child: ListView(
               children: <Widget>[
                 for (int i = 0; i < 6; i++)
@@ -579,8 +581,9 @@ Widget _buildSection2Anatomy(ColorScheme scheme) {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: CupertinoColors.separator
-                                    .withValues(alpha: i == 3 ? 0.0 : 1.0),
+                                color: CupertinoColors.separator.withValues(
+                                  alpha: i == 3 ? 0.0 : 1.0,
+                                ),
                                 width: 0.5,
                               ),
                             ),
@@ -660,9 +663,7 @@ Widget _buildSection3NavBars(ColorScheme scheme) {
           _statusBar(),
           Expanded(
             child: CupertinoPageScaffold(
-              navigationBar: const CupertinoNavigationBar(
-                middle: Text('Home'),
-              ),
+              navigationBar: const CupertinoNavigationBar(middle: Text('Home')),
               child: const Center(
                 child: Text(
                   'middle: Text(...)',
@@ -818,10 +819,7 @@ Widget _buildSection3NavBars(ColorScheme scheme) {
                     width: 2.0,
                   ),
                 ),
-                padding: const EdgeInsetsDirectional.only(
-                  start: 8.0,
-                  end: 8.0,
-                ),
+                padding: const EdgeInsetsDirectional.only(start: 8.0, end: 8.0),
                 leading: CupertinoButton(
                   padding: EdgeInsets.zero,
                   onPressed: () {},
@@ -935,12 +933,7 @@ Widget _buildSection4SettingsApp(ColorScheme scheme) {
             child: Icon(icon, color: CupertinoColors.white, size: 18.0),
           ),
           const SizedBox(width: 12.0),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 14.0),
-            ),
-          ),
+          Expanded(child: Text(title, style: const TextStyle(fontSize: 14.0))),
           if (trailing != null)
             Padding(
               padding: const EdgeInsets.only(right: 4.0),
@@ -1155,10 +1148,7 @@ Widget _buildSection5ContactsApp(ColorScheme scheme) {
   Widget contactRow(Map<String, String> c, bool isLast) {
     final String name = c['name'] ?? '';
     final String initials = name.isNotEmpty
-        ? name
-            .split(' ')
-            .map((String w) => w.isNotEmpty ? w[0] : '')
-            .join()
+        ? name.split(' ').map((String w) => w.isNotEmpty ? w[0] : '').join()
         : '?';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -1360,9 +1350,7 @@ Widget _buildSection6ProfileApp(ColorScheme scheme) {
             child: Icon(icon, color: color, size: 18.0),
           ),
           const SizedBox(width: 10.0),
-          Expanded(
-            child: Text(label, style: const TextStyle(fontSize: 13.0)),
-          ),
+          Expanded(child: Text(label, style: const TextStyle(fontSize: 13.0))),
           Text(
             value,
             style: TextStyle(
@@ -1403,8 +1391,9 @@ Widget _buildSection6ProfileApp(ColorScheme scheme) {
                 child: CupertinoPageScaffold(
                   backgroundColor: const Color(0xFFF2F2F7),
                   navigationBar: CupertinoNavigationBar(
-                    backgroundColor:
-                        const Color(0xFFF2F2F7).withValues(alpha: 0.85),
+                    backgroundColor: const Color(
+                      0xFFF2F2F7,
+                    ).withValues(alpha: 0.85),
                     border: Border(
                       bottom: BorderSide(
                         color: CupertinoColors.separator.withValues(alpha: 0.6),
@@ -1464,8 +1453,7 @@ Widget _buildSection6ProfileApp(ColorScheme scheme) {
                             ),
                             const SizedBox(height: 14.0),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 statColumn(
                                   'Posts',
@@ -1570,8 +1558,9 @@ Widget _buildSection7TabScaffold(ColorScheme scheme) {
                 currentIndex: currentIndex,
                 activeColor: activeColor,
                 inactiveColor: CupertinoColors.systemGrey,
-                backgroundColor:
-                    CupertinoColors.systemBackground.withValues(alpha: 0.85),
+                backgroundColor: CupertinoColors.systemBackground.withValues(
+                  alpha: 0.85,
+                ),
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.house_fill),
@@ -1612,11 +1601,7 @@ Widget _buildSection7TabScaffold(ColorScheme scheme) {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(
-                          icons[index],
-                          size: 64.0,
-                          color: activeColor,
-                        ),
+                        Icon(icons[index], size: 64.0, color: activeColor),
                         const SizedBox(height: 12.0),
                         Text(
                           'Tab #$index',
@@ -1715,10 +1700,11 @@ Widget _buildSection8ThemingCompare(ColorScheme scheme) {
                     ? const Color(0xFFF2F2F7)
                     : const Color(0xFF1C1C1E),
                 navigationBar: CupertinoNavigationBar(
-                  backgroundColor: (brightness == Brightness.light
-                          ? const Color(0xFFF2F2F7)
-                          : const Color(0xFF1C1C1E))
-                      .withValues(alpha: 0.85),
+                  backgroundColor:
+                      (brightness == Brightness.light
+                              ? const Color(0xFFF2F2F7)
+                              : const Color(0xFF1C1C1E))
+                          .withValues(alpha: 0.85),
                   middle: Text(
                     'Theming',
                     style: TextStyle(
@@ -1955,10 +1941,7 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionTitle(
-        '=== Section 9: Recipe book ===',
-        const Color(0xFF5AC8FA),
-      ),
+      _sectionTitle('=== Section 9: Recipe book ===', const Color(0xFF5AC8FA)),
       const SizedBox(height: 8.0),
       const Padding(
         padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
@@ -1973,7 +1956,8 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
         when: 'You only need a header with a title and scrollable content.',
         color: const Color(0xFF0A84FF),
         icon: CupertinoIcons.doc_text,
-        code: 'CupertinoPageScaffold(\n'
+        code:
+            'CupertinoPageScaffold(\n'
             '  navigationBar: const CupertinoNavigationBar(\n'
             '    middle: Text("Inbox"),\n'
             '  ),\n'
@@ -1982,10 +1966,12 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
       ),
       recipeCard(
         title: 'Recipe 2: Detail page with back + action',
-        when: 'A pushed page that needs an explicit action in the trailing slot.',
+        when:
+            'A pushed page that needs an explicit action in the trailing slot.',
         color: const Color(0xFF30D158),
         icon: CupertinoIcons.square_arrow_right,
-        code: 'CupertinoPageScaffold(\n'
+        code:
+            'CupertinoPageScaffold(\n'
             '  navigationBar: CupertinoNavigationBar(\n'
             '    leading: CupertinoButton(\n'
             '      padding: EdgeInsets.zero,\n'
@@ -2007,7 +1993,8 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
         when: 'A settings-style screen with a grouped background.',
         color: const Color(0xFFFF9500),
         icon: CupertinoIcons.gear_alt,
-        code: 'CupertinoPageScaffold(\n'
+        code:
+            'CupertinoPageScaffold(\n'
             '  backgroundColor: CupertinoColors.systemGroupedBackground,\n'
             '  navigationBar: const CupertinoNavigationBar(\n'
             '    middle: Text("Settings"),\n'
@@ -2020,7 +2007,8 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
         when: 'The root of an iOS-style app with bottom-tab navigation.',
         color: const Color(0xFFBF5AF2),
         icon: CupertinoIcons.rectangle_grid_2x2,
-        code: 'CupertinoTabScaffold(\n'
+        code:
+            'CupertinoTabScaffold(\n'
             '  tabBar: CupertinoTabBar(\n'
             '    items: const <BottomNavigationBarItem>[\n'
             '      BottomNavigationBarItem(\n'
@@ -2039,7 +2027,8 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
         when: 'You explicitly want the nav bar to stay in place across routes.',
         color: const Color(0xFFFF2D55),
         icon: CupertinoIcons.lock_shield,
-        code: 'CupertinoNavigationBar(\n'
+        code:
+            'CupertinoNavigationBar(\n'
             '  transitionBetweenRoutes: false,\n'
             '  middle: Text("Static"),\n'
             ');',
@@ -2049,7 +2038,8 @@ Widget _buildSection9Recipes(ColorScheme scheme) {
         when: 'A form-heavy page that should resize when the keyboard appears.',
         color: const Color(0xFFFFD60A),
         icon: CupertinoIcons.keyboard,
-        code: 'CupertinoPageScaffold(\n'
+        code:
+            'CupertinoPageScaffold(\n'
             '  resizeToAvoidBottomInset: true,\n'
             '  navigationBar: const CupertinoNavigationBar(\n'
             '    middle: Text("New Message"),\n'
@@ -2256,10 +2246,7 @@ Widget _buildSection10Glossary(ColorScheme scheme) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionTitle(
-        '=== Section 10: Glossary ===',
-        const Color(0xFFFF2D55),
-      ),
+      _sectionTitle('=== Section 10: Glossary ===', const Color(0xFFFF2D55)),
       const SizedBox(height: 8.0),
       const Padding(
         padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),

@@ -12,8 +12,14 @@ Widget vpSectionHeader(String title, IconData icon) {
         Icon(icon, color: Color(0xFF2E7D32), size: 22.0),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(title,
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: Color(0xFF1B5E20))),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1B5E20),
+            ),
+          ),
         ),
       ],
     ),
@@ -24,7 +30,10 @@ Widget vpChip(String label, Color bg) {
   return Container(
     margin: EdgeInsets.only(right: 6.0, bottom: 6.0),
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(12.0)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(12.0),
+    ),
     child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.white)),
   );
 }
@@ -52,7 +61,11 @@ Widget vpInfoRow(String label, String value) {
         ),
         SizedBox(width: 6.0),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 12.0, color: Color(0xFF4E6B4E)))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF4E6B4E)),
+          ),
+        ),
       ],
     ),
   );
@@ -62,14 +75,25 @@ Widget vpCodeBlock(String code) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(10.0),
-    decoration: BoxDecoration(color: Color(0xFFF1F8E9), borderRadius: BorderRadius.circular(6.0)),
-    child: Text(code, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF1B5E20))),
+    decoration: BoxDecoration(
+      color: Color(0xFFF1F8E9),
+      borderRadius: BorderRadius.circular(6.0),
+    ),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontSize: 10.0,
+        fontFamily: 'monospace',
+        color: Color(0xFF1B5E20),
+      ),
+    ),
   );
 }
 
 Widget vpScrollBar(double fraction, Color accent) {
   return Container(
-    width: 8.0, height: 80.0,
+    width: 8.0,
+    height: 80.0,
     decoration: BoxDecoration(
       color: accent.withValues(alpha: 0.15),
       borderRadius: BorderRadius.circular(4.0),
@@ -77,9 +101,12 @@ Widget vpScrollBar(double fraction, Color accent) {
     child: Align(
       alignment: Alignment(0.0, -1.0 + fraction * 2.0),
       child: Container(
-        width: 8.0, height: 24.0,
+        width: 8.0,
+        height: 24.0,
         decoration: BoxDecoration(
-          color: accent, borderRadius: BorderRadius.circular(4.0)),
+          color: accent,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
       ),
     ),
   );
@@ -98,7 +125,8 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [Color(0xFF2E7D32), Color(0xFF1B5E20)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
     ),
@@ -110,21 +138,31 @@ dynamic build(BuildContext context) {
             Icon(Icons.swap_vert, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('Viewport & Scroll Rendering',
-                  style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text(
+                'Viewport & Scroll Rendering',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('Low-level scroll position, direction, and viewport rendering',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFC8E6C9))),
+        Text(
+          'Low-level scroll position, direction, and viewport rendering',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFC8E6C9)),
+        ),
         SizedBox(height: 8.0),
-        Wrap(children: [
-          vpChip('ViewportOffset', Color(0xFF43A047)),
-          vpChip('ScrollDirection', Color(0xFF388E3C)),
-          vpChip('BoxParentData', Color(0xFF2E7D32)),
-          vpChip('Slivers', Color(0xFF1B5E20)),
-        ]),
+        Wrap(
+          children: [
+            vpChip('ViewportOffset', Color(0xFF43A047)),
+            vpChip('ScrollDirection', Color(0xFF388E3C)),
+            vpChip('BoxParentData', Color(0xFF2E7D32)),
+            vpChip('Slivers', Color(0xFF1B5E20)),
+          ],
+        ),
       ],
     ),
   );
@@ -147,22 +185,50 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Abstract base class for scroll positions in viewports',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Abstract base class for scroll positions in viewports',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           children: [
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 child: Column(
                   children: [
                     Icon(Icons.looks_one, color: Color(0xFF2E7D32), size: 24.0),
                     SizedBox(height: 4.0),
-                    Text('fixed(100.0)', style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF1B5E20))),
-                    Text('pixels: ${fixedOffset.pixels}', style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
-                    Text('hasPixels: ${fixedOffset.hasPixels}', style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+                    Text(
+                      'fixed(100.0)',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF1B5E20),
+                      ),
+                    ),
+                    Text(
+                      'pixels: ${fixedOffset.pixels}',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
+                    Text(
+                      'hasPixels: ${fixedOffset.hasPixels}',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -171,14 +237,40 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 child: Column(
                   children: [
-                    Icon(Icons.exposure_zero, color: Color(0xFF2E7D32), size: 24.0),
+                    Icon(
+                      Icons.exposure_zero,
+                      color: Color(0xFF2E7D32),
+                      size: 24.0,
+                    ),
                     SizedBox(height: 4.0),
-                    Text('zero()', style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF1B5E20))),
-                    Text('pixels: ${zeroOffset.pixels}', style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
-                    Text('hasPixels: ${zeroOffset.hasPixels}', style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+                    Text(
+                      'zero()',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF1B5E20),
+                      ),
+                    ),
+                    Text(
+                      'pixels: ${zeroOffset.pixels}',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
+                    Text(
+                      'hasPixels: ${zeroOffset.hasPixels}',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -186,7 +278,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 8.0),
-        vpCodeBlock('final offset = ViewportOffset.fixed(100.0);\nprint(offset.pixels); // 100.0'),
+        vpCodeBlock(
+          'final offset = ViewportOffset.fixed(100.0);\nprint(offset.pixels); // 100.0',
+        ),
       ],
     ),
   );
@@ -199,14 +293,30 @@ dynamic build(BuildContext context) {
   print('  allowImplicitScrolling: ${fixedOffset.allowImplicitScrolling}');
 
   final offsetProps = <Map<String, dynamic>>[
-    {'prop': 'pixels', 'type': 'double', 'color': Color(0xFF43A047),
-     'desc': 'Current scroll offset in logical pixels'},
-    {'prop': 'hasPixels', 'type': 'bool', 'color': Color(0xFF388E3C),
-     'desc': 'Whether the pixels value is available yet'},
-    {'prop': 'userScrollDirection', 'type': 'ScrollDirection', 'color': Color(0xFF2E7D32),
-     'desc': 'Direction user is scrolling (idle/forward/reverse)'},
-    {'prop': 'allowImplicitScrolling', 'type': 'bool', 'color': Color(0xFF1B5E20),
-     'desc': 'Whether accessibility tools can trigger scrolling'},
+    {
+      'prop': 'pixels',
+      'type': 'double',
+      'color': Color(0xFF43A047),
+      'desc': 'Current scroll offset in logical pixels',
+    },
+    {
+      'prop': 'hasPixels',
+      'type': 'bool',
+      'color': Color(0xFF388E3C),
+      'desc': 'Whether the pixels value is available yet',
+    },
+    {
+      'prop': 'userScrollDirection',
+      'type': 'ScrollDirection',
+      'color': Color(0xFF2E7D32),
+      'desc': 'Direction user is scrolling (idle/forward/reverse)',
+    },
+    {
+      'prop': 'allowImplicitScrolling',
+      'type': 'bool',
+      'color': Color(0xFF1B5E20),
+      'desc': 'Whether accessibility tools can trigger scrolling',
+    },
   ];
 
   final vpPropsSection = Container(
@@ -225,18 +335,35 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(6.0),
-            border: Border(left: BorderSide(color: op['color'] as Color, width: 3.0)),
+            border: Border(
+              left: BorderSide(color: op['color'] as Color, width: 3.0),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(children: [
-                Text(op['prop'] as String,
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, fontFamily: 'monospace', color: op['color'] as Color)),
-                SizedBox(width: 6.0),
-                vpChip(op['type'] as String, (op['color'] as Color).withValues(alpha: 0.7)),
-              ]),
-              Text(op['desc'] as String, style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+              Row(
+                children: [
+                  Text(
+                    op['prop'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                      color: op['color'] as Color,
+                    ),
+                  ),
+                  SizedBox(width: 6.0),
+                  vpChip(
+                    op['type'] as String,
+                    (op['color'] as Color).withValues(alpha: 0.7),
+                  ),
+                ],
+              ),
+              Text(
+                op['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)),
+              ),
             ],
           ),
         );
@@ -252,18 +379,33 @@ dynamic build(BuildContext context) {
   print('  applyContentDimensions(0, 500): $contentResult');
 
   final offsetMethods = <Map<String, dynamic>>[
-    {'method': 'applyViewportDimension()', 'color': Color(0xFF43A047),
-     'sig': 'bool applyViewportDimension(double viewportDimension)',
-     'desc': 'Called when viewport size changes; returns whether layout is needed'},
-    {'method': 'applyContentDimensions()', 'color': Color(0xFF388E3C),
-     'sig': 'bool applyContentDimensions(double minScrollExtent, double maxScrollExtent)',
-     'desc': 'Called when content extent changes; returns whether scroll is valid'},
-    {'method': 'correctBy()', 'color': Color(0xFF2E7D32),
-     'sig': 'void correctBy(double correction)',
-     'desc': 'Adjust scroll position without triggering notification'},
-    {'method': 'jumpTo()', 'color': Color(0xFF1B5E20),
-     'sig': 'void jumpTo(double pixels)',
-     'desc': 'Jump to position without animation'},
+    {
+      'method': 'applyViewportDimension()',
+      'color': Color(0xFF43A047),
+      'sig': 'bool applyViewportDimension(double viewportDimension)',
+      'desc':
+          'Called when viewport size changes; returns whether layout is needed',
+    },
+    {
+      'method': 'applyContentDimensions()',
+      'color': Color(0xFF388E3C),
+      'sig':
+          'bool applyContentDimensions(double minScrollExtent, double maxScrollExtent)',
+      'desc':
+          'Called when content extent changes; returns whether scroll is valid',
+    },
+    {
+      'method': 'correctBy()',
+      'color': Color(0xFF2E7D32),
+      'sig': 'void correctBy(double correction)',
+      'desc': 'Adjust scroll position without triggering notification',
+    },
+    {
+      'method': 'jumpTo()',
+      'color': Color(0xFF1B5E20),
+      'sig': 'void jumpTo(double pixels)',
+      'desc': 'Jump to position without animation',
+    },
   ];
 
   final vpMethodsSection = Container(
@@ -286,13 +428,28 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(om['method'] as String,
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: om['color'] as Color)),
+              Text(
+                om['method'] as String,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: om['color'] as Color,
+                ),
+              ),
               SizedBox(height: 2.0),
-              Text(om['sig'] as String,
-                  style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF1B5E20))),
+              Text(
+                om['sig'] as String,
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF1B5E20),
+                ),
+              ),
               SizedBox(height: 4.0),
-              Text(om['desc'] as String, style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+              Text(
+                om['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)),
+              ),
             ],
           ),
         );
@@ -307,12 +464,24 @@ dynamic build(BuildContext context) {
   }
 
   final directions = <Map<String, dynamic>>[
-    {'value': ScrollDirection.idle, 'icon': Icons.pause_circle_outline,
-     'color': Color(0xFF43A047), 'desc': 'User is not scrolling'},
-    {'value': ScrollDirection.forward, 'icon': Icons.arrow_upward,
-     'color': Color(0xFF2E7D32), 'desc': 'Content moving down (finger up)'},
-    {'value': ScrollDirection.reverse, 'icon': Icons.arrow_downward,
-     'color': Color(0xFF1B5E20), 'desc': 'Content moving up (finger down)'},
+    {
+      'value': ScrollDirection.idle,
+      'icon': Icons.pause_circle_outline,
+      'color': Color(0xFF43A047),
+      'desc': 'User is not scrolling',
+    },
+    {
+      'value': ScrollDirection.forward,
+      'icon': Icons.arrow_upward,
+      'color': Color(0xFF2E7D32),
+      'desc': 'Content moving down (finger up)',
+    },
+    {
+      'value': ScrollDirection.reverse,
+      'icon': Icons.arrow_downward,
+      'color': Color(0xFF1B5E20),
+      'desc': 'Content moving up (finger down)',
+    },
   ];
 
   final vpDirectionSection = Container(
@@ -325,8 +494,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Direction of user scroll gesture',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Direction of user scroll gesture',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 8.0),
         Wrap(
           spacing: 8.0,
@@ -340,17 +515,40 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: (d['color'] as Color).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: (d['color'] as Color).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(d['icon'] as IconData, color: d['color'] as Color, size: 28.0),
+                  Icon(
+                    d['icon'] as IconData,
+                    color: d['color'] as Color,
+                    size: 28.0,
+                  ),
                   SizedBox(height: 4.0),
-                  Text(dir.name, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: d['color'] as Color)),
-                  Text('index: ${dir.index}', style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF4E6B4E))),
+                  Text(
+                    dir.name,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w700,
+                      color: d['color'] as Color,
+                    ),
+                  ),
+                  Text(
+                    'index: ${dir.index}',
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      fontFamily: 'monospace',
+                      color: Color(0xFF4E6B4E),
+                    ),
+                  ),
                   SizedBox(height: 2.0),
-                  Text(d['desc'] as String, textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E))),
+                  Text(
+                    d['desc'] as String,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E)),
+                  ),
                 ],
               ),
             );
@@ -375,8 +573,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Parent-owned data for positioning child RenderBoxes',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Parent-owned data for positioning child RenderBoxes',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 8.0),
         vpInfoRow('offset:', parentData.offset.toString()),
         vpInfoRow('Type:', 'Extends ParentData'),
@@ -392,39 +596,61 @@ dynamic build(BuildContext context) {
           ),
           child: Stack(
             children: [
-              Positioned(left: 8.0, top: 8.0,
-                child: Text('Parent RenderBox', style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E)))),
-              Positioned(left: 30.0, top: 30.0,
+              Positioned(
+                left: 8.0,
+                top: 8.0,
+                child: Text(
+                  'Parent RenderBox',
+                  style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E)),
+                ),
+              ),
+              Positioned(
+                left: 30.0,
+                top: 30.0,
                 child: Container(
-                  width: 80.0, height: 40.0,
+                  width: 80.0,
+                  height: 40.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF2E7D32).withValues(alpha: 0.15),
                     border: Border.all(color: Color(0xFF2E7D32), width: 1.5),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Center(child: Text('Child\noffset: (30,30)',
+                  child: Center(
+                    child: Text(
+                      'Child\noffset: (30,30)',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 8.0, color: Color(0xFF1B5E20)))),
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFF1B5E20)),
+                    ),
+                  ),
                 ),
               ),
-              Positioned(left: 160.0, top: 20.0,
+              Positioned(
+                left: 160.0,
+                top: 20.0,
                 child: Container(
-                  width: 80.0, height: 40.0,
+                  width: 80.0,
+                  height: 40.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF43A047).withValues(alpha: 0.15),
                     border: Border.all(color: Color(0xFF43A047), width: 1.5),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: Center(child: Text('Child\noffset: (160,20)',
+                  child: Center(
+                    child: Text(
+                      'Child\noffset: (160,20)',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 8.0, color: Color(0xFF2E7D32)))),
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFF2E7D32)),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
         ),
         SizedBox(height: 8.0),
-        vpCodeBlock('final data = BoxParentData();\ndata.offset = Offset(30.0, 30.0);'),
+        vpCodeBlock(
+          'final data = BoxParentData();\ndata.offset = Offset(30.0, 30.0);',
+        ),
       ],
     ),
   );
@@ -435,14 +661,30 @@ dynamic build(BuildContext context) {
   print('  Manages visible portion of scrollable content');
 
   final archLayers = <Map<String, dynamic>>[
-    {'name': 'ScrollView', 'level': 'Widget', 'color': Color(0xFF43A047),
-     'desc': 'High-level scrollable widget API'},
-    {'name': 'Scrollable', 'level': 'Widget', 'color': Color(0xFF388E3C),
-     'desc': 'Manages scroll gestures and notifications'},
-    {'name': 'Viewport', 'level': 'Widget', 'color': Color(0xFF2E7D32),
-     'desc': 'Creates RenderViewport with slivers'},
-    {'name': 'RenderViewport', 'level': 'RenderObject', 'color': Color(0xFF1B5E20),
-     'desc': 'Layout engine for scrollable content'},
+    {
+      'name': 'ScrollView',
+      'level': 'Widget',
+      'color': Color(0xFF43A047),
+      'desc': 'High-level scrollable widget API',
+    },
+    {
+      'name': 'Scrollable',
+      'level': 'Widget',
+      'color': Color(0xFF388E3C),
+      'desc': 'Manages scroll gestures and notifications',
+    },
+    {
+      'name': 'Viewport',
+      'level': 'Widget',
+      'color': Color(0xFF2E7D32),
+      'desc': 'Creates RenderViewport with slivers',
+    },
+    {
+      'name': 'RenderViewport',
+      'level': 'RenderObject',
+      'color': Color(0xFF1B5E20),
+      'desc': 'Layout engine for scrollable content',
+    },
   ];
 
   final vpArchSection = Container(
@@ -458,10 +700,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.only(bottom: 6.0),
           child: Row(
             children: [
-              Container(
-                width: 4.0, height: 40.0,
-                color: al['color'] as Color,
-              ),
+              Container(width: 4.0, height: 40.0, color: al['color'] as Color),
               SizedBox(width: 8.0),
               Expanded(
                 child: Container(
@@ -476,15 +715,29 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(al['name'] as String,
-                                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                                    fontFamily: 'monospace', color: al['color'] as Color)),
-                            Text(al['desc'] as String,
-                                style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+                            Text(
+                              al['name'] as String,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'monospace',
+                                color: al['color'] as Color,
+                              ),
+                            ),
+                            Text(
+                              al['desc'] as String,
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Color(0xFF4E6B4E),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      vpChip(al['level'] as String, (al['color'] as Color).withValues(alpha: 0.7)),
+                      vpChip(
+                        al['level'] as String,
+                        (al['color'] as Color).withValues(alpha: 0.7),
+                      ),
                     ],
                   ),
                 ),
@@ -502,14 +755,30 @@ dynamic build(BuildContext context) {
   print('  Viewport asks slivers how much space they need');
 
   final sliverSteps = <Map<String, dynamic>>[
-    {'step': '1', 'title': 'Viewport sends SliverConstraints', 'icon': Icons.arrow_downward,
-     'desc': 'scrollOffset, remainingPaintExtent, crossAxisExtent'},
-    {'step': '2', 'title': 'Sliver performs layout', 'icon': Icons.straighten,
-     'desc': 'Computes visible children, sizes, offsets'},
-    {'step': '3', 'title': 'Sliver returns SliverGeometry', 'icon': Icons.arrow_upward,
-     'desc': 'scrollExtent, paintExtent, maxPaintExtent, layoutExtent'},
-    {'step': '4', 'title': 'Viewport positions sliver', 'icon': Icons.open_with,
-     'desc': 'Places sliver in viewport using paintOffset'},
+    {
+      'step': '1',
+      'title': 'Viewport sends SliverConstraints',
+      'icon': Icons.arrow_downward,
+      'desc': 'scrollOffset, remainingPaintExtent, crossAxisExtent',
+    },
+    {
+      'step': '2',
+      'title': 'Sliver performs layout',
+      'icon': Icons.straighten,
+      'desc': 'Computes visible children, sizes, offsets',
+    },
+    {
+      'step': '3',
+      'title': 'Sliver returns SliverGeometry',
+      'icon': Icons.arrow_upward,
+      'desc': 'scrollExtent, paintExtent, maxPaintExtent, layoutExtent',
+    },
+    {
+      'step': '4',
+      'title': 'Viewport positions sliver',
+      'icon': Icons.open_with,
+      'desc': 'Places sliver in viewport using paintOffset',
+    },
   ];
 
   final vpSliverSection = Container(
@@ -526,22 +795,49 @@ dynamic build(BuildContext context) {
           child: Row(
             children: [
               Container(
-                width: 32.0, height: 32.0,
-                decoration: BoxDecoration(color: Color(0xFF2E7D32), shape: BoxShape.circle),
-                child: Center(child: Text(ss['step'] as String,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0))),
+                width: 32.0,
+                height: 32.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFF2E7D32),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    ss['step'] as String,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ),
               ),
               SizedBox(width: 10.0),
-              Icon(ss['icon'] as IconData, color: Color(0xFF2E7D32), size: 20.0),
+              Icon(
+                ss['icon'] as IconData,
+                color: Color(0xFF2E7D32),
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(ss['title'] as String,
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: Color(0xFF1B5E20))),
-                    Text(ss['desc'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+                    Text(
+                      ss['title'] as String,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF1B5E20),
+                      ),
+                    ),
+                    Text(
+                      ss['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -556,8 +852,14 @@ dynamic build(BuildContext context) {
   print('\n[9] SliverConstraints Key Properties');
 
   final constraintProps = <Map<String, dynamic>>[
-    {'prop': 'scrollOffset', 'desc': 'How far content has scrolled past this sliver'},
-    {'prop': 'remainingPaintExtent', 'desc': 'Visible space remaining in viewport'},
+    {
+      'prop': 'scrollOffset',
+      'desc': 'How far content has scrolled past this sliver',
+    },
+    {
+      'prop': 'remainingPaintExtent',
+      'desc': 'Visible space remaining in viewport',
+    },
     {'prop': 'crossAxisExtent', 'desc': 'Width (vertical scroll) or height'},
     {'prop': 'overlap', 'desc': 'Overlap from previous sliver (for app bars)'},
     {'prop': 'cacheOrigin', 'desc': 'Start of cache area relative to sliver'},
@@ -574,19 +876,39 @@ dynamic build(BuildContext context) {
     child: Column(
       children: constraintProps.asMap().entries.map((entry) {
         final cp = entry.value;
-        final shade = Color.lerp(Color(0xFF43A047), Color(0xFF1B5E20), entry.key / constraintProps.length)!;
+        final shade = Color.lerp(
+          Color(0xFF43A047),
+          Color(0xFF1B5E20),
+          entry.key / constraintProps.length,
+        )!;
         return Padding(
           padding: EdgeInsets.only(bottom: 4.0),
           child: Row(
             children: [
-              Container(width: 8.0, height: 8.0,
-                decoration: BoxDecoration(color: shade, shape: BoxShape.circle)),
+              Container(
+                width: 8.0,
+                height: 8.0,
+                decoration: BoxDecoration(color: shade, shape: BoxShape.circle),
+              ),
               SizedBox(width: 8.0),
-              SizedBox(width: 130.0,
-                child: Text(cp['prop'] as String,
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, fontFamily: 'monospace', color: shade))),
-              Expanded(child: Text(cp['desc'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)))),
+              SizedBox(
+                width: 130.0,
+                child: Text(
+                  cp['prop'] as String,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                    color: shade,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  cp['desc'] as String,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)),
+                ),
+              ),
             ],
           ),
         );
@@ -616,8 +938,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('What the sliver reports back after layout',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'What the sliver reports back after layout',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 8.0),
         ...geomProps.asMap().entries.map((entry) {
           final gp = entry.value;
@@ -627,7 +955,9 @@ dynamic build(BuildContext context) {
           );
         }),
         SizedBox(height: 8.0),
-        vpCodeBlock('SliverGeometry(\n  scrollExtent: 1000.0,\n  paintExtent: 400.0,\n  maxPaintExtent: 1000.0,\n)'),
+        vpCodeBlock(
+          'SliverGeometry(\n  scrollExtent: 1000.0,\n  paintExtent: 400.0,\n  maxPaintExtent: 1000.0,\n)',
+        ),
       ],
     ),
   );
@@ -645,8 +975,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Viewport shows a window into content',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Viewport shows a window into content',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 8.0),
         Row(
           children: [
@@ -661,35 +997,74 @@ dynamic build(BuildContext context) {
                 child: Stack(
                   children: [
                     // Full content area
-                    Positioned(left: 8.0, top: 8.0, right: 20.0, bottom: 8.0,
+                    Positioned(
+                      left: 8.0,
+                      top: 8.0,
+                      right: 20.0,
+                      bottom: 8.0,
                       child: Container(
                         decoration: BoxDecoration(
                           color: Color(0xFF2E7D32).withValues(alpha: 0.05),
                           borderRadius: BorderRadius.circular(4.0),
-                          border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.2)),
+                          border: Border.all(
+                            color: Color(0xFF2E7D32).withValues(alpha: 0.2),
+                          ),
                         ),
                         child: Column(
                           children: [
                             Container(
-                              height: 20.0, width: double.infinity,
+                              height: 20.0,
+                              width: double.infinity,
                               color: Color(0xFF2E7D32).withValues(alpha: 0.05),
-                              child: Center(child: Text('..above..', style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)))),
+                              child: Center(
+                                child: Text(
+                                  '..above..',
+                                  style: TextStyle(
+                                    fontSize: 8.0,
+                                    color: Color(0xFF4E6B4E),
+                                  ),
+                                ),
+                              ),
                             ),
                             Container(
-                              height: 60.0, width: double.infinity,
+                              height: 60.0,
+                              width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Color(0xFF2E7D32).withValues(alpha: 0.15),
-                                border: Border.all(color: Color(0xFF2E7D32), width: 2.0),
+                                color: Color(
+                                  0xFF2E7D32,
+                                ).withValues(alpha: 0.15),
+                                border: Border.all(
+                                  color: Color(0xFF2E7D32),
+                                  width: 2.0,
+                                ),
                               ),
-                              child: Center(child: Text('VISIBLE\nVIEWPORT',
+                              child: Center(
+                                child: Text(
+                                  'VISIBLE\nVIEWPORT',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)))),
+                                  style: TextStyle(
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF1B5E20),
+                                  ),
+                                ),
+                              ),
                             ),
                             Expanded(
                               child: Container(
                                 width: double.infinity,
-                                color: Color(0xFF2E7D32).withValues(alpha: 0.05),
-                                child: Center(child: Text('..below..', style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)))),
+                                color: Color(
+                                  0xFF2E7D32,
+                                ).withValues(alpha: 0.05),
+                                child: Center(
+                                  child: Text(
+                                    '..below..',
+                                    style: TextStyle(
+                                      fontSize: 8.0,
+                                      color: Color(0xFF4E6B4E),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -697,8 +1072,11 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     // Scroll indicator
-                    Positioned(right: 4.0, top: 8.0,
-                      child: vpScrollBar(0.3, Color(0xFF2E7D32))),
+                    Positioned(
+                      right: 4.0,
+                      top: 8.0,
+                      child: vpScrollBar(0.3, Color(0xFF2E7D32)),
+                    ),
                   ],
                 ),
               ),
@@ -709,15 +1087,15 @@ dynamic build(BuildContext context) {
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: 120.0),
                 child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  vpInfoRow('Content:', '1000px'),
-                  vpInfoRow('Viewport:', '400px'),
-                  vpInfoRow('Scroll pos:', '100px'),
-                  vpInfoRow('Visible:', '100-500'),
-                ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    vpInfoRow('Content:', '1000px'),
+                    vpInfoRow('Viewport:', '400px'),
+                    vpInfoRow('Scroll pos:', '100px'),
+                    vpInfoRow('Visible:', '100-500'),
+                  ],
+                ),
               ),
-            ),
             ),
           ],
         ),
@@ -729,18 +1107,42 @@ dynamic build(BuildContext context) {
   print('\n[12] Scroll Position Lifecycle');
 
   final lifecycle = <Map<String, dynamic>>[
-    {'event': 'attach()', 'phase': 'Mount', 'color': Color(0xFF43A047),
-     'desc': 'Position attached to viewport'},
-    {'event': 'applyViewportDimension()', 'phase': 'Size', 'color': Color(0xFF388E3C),
-     'desc': 'Viewport tells position its size'},
-    {'event': 'applyContentDimensions()', 'phase': 'Content', 'color': Color(0xFF2E7D32),
-     'desc': 'Content extent becomes known'},
-    {'event': 'jumpTo() / animateTo()', 'phase': 'Scroll', 'color': Color(0xFF1B5E20),
-     'desc': 'User or code changes position'},
-    {'event': 'correctBy()', 'phase': 'Adjust', 'color': Color(0xFF33691E),
-     'desc': 'Silent correction during layout'},
-    {'event': 'detach()', 'phase': 'Unmount', 'color': Color(0xFF1B5E20),
-     'desc': 'Position detached from viewport'},
+    {
+      'event': 'attach()',
+      'phase': 'Mount',
+      'color': Color(0xFF43A047),
+      'desc': 'Position attached to viewport',
+    },
+    {
+      'event': 'applyViewportDimension()',
+      'phase': 'Size',
+      'color': Color(0xFF388E3C),
+      'desc': 'Viewport tells position its size',
+    },
+    {
+      'event': 'applyContentDimensions()',
+      'phase': 'Content',
+      'color': Color(0xFF2E7D32),
+      'desc': 'Content extent becomes known',
+    },
+    {
+      'event': 'jumpTo() / animateTo()',
+      'phase': 'Scroll',
+      'color': Color(0xFF1B5E20),
+      'desc': 'User or code changes position',
+    },
+    {
+      'event': 'correctBy()',
+      'phase': 'Adjust',
+      'color': Color(0xFF33691E),
+      'desc': 'Silent correction during layout',
+    },
+    {
+      'event': 'detach()',
+      'phase': 'Unmount',
+      'color': Color(0xFF1B5E20),
+      'desc': 'Position detached from viewport',
+    },
   ];
 
   final vpLifecycleSection = Container(
@@ -756,16 +1158,40 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.only(bottom: 6.0),
           child: Row(
             children: [
-              Container(width: 8.0, height: 8.0,
-                decoration: BoxDecoration(color: lc['color'] as Color, shape: BoxShape.circle)),
+              Container(
+                width: 8.0,
+                height: 8.0,
+                decoration: BoxDecoration(
+                  color: lc['color'] as Color,
+                  shape: BoxShape.circle,
+                ),
+              ),
               SizedBox(width: 8.0),
-              SizedBox(width: 55.0,
-                child: Text(lc['phase'] as String, style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)))),
-              SizedBox(width: 110.0,
-                child: Text(lc['event'] as String,
-                    style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, fontFamily: 'monospace', color: lc['color'] as Color))),
-              Expanded(child: Text(lc['desc'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)))),
+              SizedBox(
+                width: 55.0,
+                child: Text(
+                  lc['phase'] as String,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)),
+                ),
+              ),
+              SizedBox(
+                width: 110.0,
+                child: Text(
+                  lc['event'] as String,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                    color: lc['color'] as Color,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  lc['desc'] as String,
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E)),
+                ),
+              ),
             ],
           ),
         );
@@ -777,16 +1203,36 @@ dynamic build(BuildContext context) {
   print('\n[13] Common Sliver Types');
 
   final sliverTypes = <Map<String, dynamic>>[
-    {'name': 'SliverList', 'icon': Icons.view_list, 'color': Color(0xFF43A047),
-     'desc': 'Linear list of children on main axis'},
-    {'name': 'SliverGrid', 'icon': Icons.grid_view, 'color': Color(0xFF388E3C),
-     'desc': '2D grid layout of children'},
-    {'name': 'SliverAppBar', 'icon': Icons.web_asset, 'color': Color(0xFF2E7D32),
-     'desc': 'Collapsing/floating app bar in scroll'},
-    {'name': 'SliverToBoxAdapter', 'icon': Icons.crop_square, 'color': Color(0xFF1B5E20),
-     'desc': 'Wraps a regular box widget as sliver'},
-    {'name': 'SliverPersistentHeader', 'icon': Icons.push_pin, 'color': Color(0xFF33691E),
-     'desc': 'Pinned or floating header in scroll'},
+    {
+      'name': 'SliverList',
+      'icon': Icons.view_list,
+      'color': Color(0xFF43A047),
+      'desc': 'Linear list of children on main axis',
+    },
+    {
+      'name': 'SliverGrid',
+      'icon': Icons.grid_view,
+      'color': Color(0xFF388E3C),
+      'desc': '2D grid layout of children',
+    },
+    {
+      'name': 'SliverAppBar',
+      'icon': Icons.web_asset,
+      'color': Color(0xFF2E7D32),
+      'desc': 'Collapsing/floating app bar in scroll',
+    },
+    {
+      'name': 'SliverToBoxAdapter',
+      'icon': Icons.crop_square,
+      'color': Color(0xFF1B5E20),
+      'desc': 'Wraps a regular box widget as sliver',
+    },
+    {
+      'name': 'SliverPersistentHeader',
+      'icon': Icons.push_pin,
+      'color': Color(0xFF33691E),
+      'desc': 'Pinned or floating header in scroll',
+    },
   ];
 
   final vpSliverTypesSection = Container(
@@ -802,18 +1248,38 @@ dynamic build(BuildContext context) {
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 6.0),
           padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
           child: Row(
             children: [
-              Icon(st['icon'] as IconData, color: st['color'] as Color, size: 22.0),
+              Icon(
+                st['icon'] as IconData,
+                color: st['color'] as Color,
+                size: 22.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(st['name'] as String,
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, fontFamily: 'monospace', color: st['color'] as Color)),
-                    Text(st['desc'] as String, style: TextStyle(fontSize: 10.0, color: Color(0xFF4E6B4E))),
+                    Text(
+                      st['name'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'monospace',
+                        color: st['color'] as Color,
+                      ),
+                    ),
+                    Text(
+                      st['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF4E6B4E),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -839,61 +1305,114 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Pre-build items outside viewport for smooth scrolling',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Pre-build items outside viewport for smooth scrolling',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 10.0),
         Container(
           width: double.infinity,
           height: 120.0,
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Stack(
             children: [
               // Cache above
-              Positioned(left: 20.0, top: 5.0,
+              Positioned(
+                left: 20.0,
+                top: 5.0,
                 child: Container(
-                  width: 200.0, height: 25.0,
+                  width: 200.0,
+                  height: 25.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF2E7D32).withValues(alpha: 0.08),
-                    border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.3), style: BorderStyle.solid),
+                    border: Border.all(
+                      color: Color(0xFF2E7D32).withValues(alpha: 0.3),
+                      style: BorderStyle.solid,
+                    ),
                     borderRadius: BorderRadius.circular(3.0),
                   ),
-                  child: Center(child: Text('Cache (above)', style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)))),
+                  child: Center(
+                    child: Text(
+                      'Cache (above)',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)),
+                    ),
+                  ),
                 ),
               ),
               // Visible viewport
-              Positioned(left: 20.0, top: 32.0,
+              Positioned(
+                left: 20.0,
+                top: 32.0,
                 child: Container(
-                  width: 200.0, height: 55.0,
+                  width: 200.0,
+                  height: 55.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF2E7D32).withValues(alpha: 0.15),
                     border: Border.all(color: Color(0xFF2E7D32), width: 2.0),
                     borderRadius: BorderRadius.circular(3.0),
                   ),
-                  child: Center(child: Text('VISIBLE VIEWPORT',
-                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)))),
+                  child: Center(
+                    child: Text(
+                      'VISIBLE VIEWPORT',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1B5E20),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               // Cache below
-              Positioned(left: 20.0, top: 89.0,
+              Positioned(
+                left: 20.0,
+                top: 89.0,
                 child: Container(
-                  width: 200.0, height: 25.0,
+                  width: 200.0,
+                  height: 25.0,
                   decoration: BoxDecoration(
                     color: Color(0xFF2E7D32).withValues(alpha: 0.08),
-                    border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: Color(0xFF2E7D32).withValues(alpha: 0.3),
+                    ),
                     borderRadius: BorderRadius.circular(3.0),
                   ),
-                  child: Center(child: Text('Cache (below)', style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)))),
+                  child: Center(
+                    child: Text(
+                      'Cache (below)',
+                      style: TextStyle(fontSize: 8.0, color: Color(0xFF4E6B4E)),
+                    ),
+                  ),
                 ),
               ),
               // Label
-              Positioned(right: 10.0, top: 50.0,
-                child: Text('cacheExtent\n= 250px', textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF1B5E20)))),
+              Positioned(
+                right: 10.0,
+                top: 50.0,
+                child: Text(
+                  'cacheExtent\n= 250px',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF1B5E20),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(height: 8.0),
-        vpCodeBlock('ListView(\n  cacheExtent: 250.0,\n  // Items built for visible + 250px above/below\n)'),
+        vpCodeBlock(
+          'ListView(\n  cacheExtent: 250.0,\n  // Items built for visible + 250px above/below\n)',
+        ),
       ],
     ),
   );
@@ -914,8 +1433,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Direction slivers grow relative to scroll offset',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF1B5E20))),
+        Text(
+          'Direction slivers grow relative to scroll offset',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF1B5E20),
+          ),
+        ),
         SizedBox(height: 8.0),
         Wrap(
           spacing: 10.0,
@@ -929,20 +1454,42 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20)),
+                border: Border.all(
+                  color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20),
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(isForward ? Icons.arrow_downward : Icons.arrow_upward,
-                      color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20), size: 28.0),
+                  Icon(
+                    isForward ? Icons.arrow_downward : Icons.arrow_upward,
+                    color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20),
+                    size: 28.0,
+                  ),
                   SizedBox(height: 4.0),
-                  Text(gd.name, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                      color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20))),
-                  Text('index: ${gd.index}', style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF4E6B4E))),
+                  Text(
+                    gd.name,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: isForward ? Color(0xFF43A047) : Color(0xFF1B5E20),
+                    ),
+                  ),
+                  Text(
+                    'index: ${gd.index}',
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      fontFamily: 'monospace',
+                      color: Color(0xFF4E6B4E),
+                    ),
+                  ),
                   SizedBox(height: 4.0),
-                  Text(isForward ? 'Slivers grow toward\nscroll direction' : 'Slivers grow against\nscroll direction',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E))),
+                  Text(
+                    isForward
+                        ? 'Slivers grow toward\nscroll direction'
+                        : 'Slivers grow against\nscroll direction',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 9.0, color: Color(0xFF4E6B4E)),
+                  ),
                 ],
               ),
             );
@@ -964,41 +1511,74 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       gradient: LinearGradient(
         colors: [Color(0xFF1B5E20), Color(0xFF2E7D32)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
     ),
     child: Column(
       children: [
-        Text('Viewport & Scroll Dashboard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(
+          'Viewport & Scroll Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Wrap(
           spacing: 20.0,
           runSpacing: 10.0,
           alignment: WrapAlignment.center,
           children: [
-            Column(children: [
-              Icon(Icons.swap_vert, color: Color(0xFFC8E6C9), size: 28.0),
-              Text('Offset', style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9))),
-            ]),
-            Column(children: [
-              Icon(Icons.arrow_downward, color: Color(0xFFC8E6C9), size: 28.0),
-              Text('Direction', style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9))),
-            ]),
-            Column(children: [
-              Icon(Icons.view_list, color: Color(0xFFC8E6C9), size: 28.0),
-              Text('Slivers', style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9))),
-            ]),
-            Column(children: [
-              Icon(Icons.cached, color: Color(0xFFC8E6C9), size: 28.0),
-              Text('Cache', style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9))),
-            ]),
+            Column(
+              children: [
+                Icon(Icons.swap_vert, color: Color(0xFFC8E6C9), size: 28.0),
+                Text(
+                  'Offset',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(
+                  Icons.arrow_downward,
+                  color: Color(0xFFC8E6C9),
+                  size: 28.0,
+                ),
+                Text(
+                  'Direction',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(Icons.view_list, color: Color(0xFFC8E6C9), size: 28.0),
+                Text(
+                  'Slivers',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Icon(Icons.cached, color: Color(0xFFC8E6C9), size: 28.0),
+                Text(
+                  'Cache',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFC8E6C9)),
+                ),
+              ],
+            ),
           ],
         ),
         SizedBox(height: 10.0),
         Wrap(
-          spacing: 6.0, runSpacing: 4.0, alignment: WrapAlignment.center,
+          spacing: 6.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.center,
           children: [
             vpChip('ViewportOffset', Color(0xFF43A047)),
             vpChip('ScrollDirection', Color(0xFF388E3C)),

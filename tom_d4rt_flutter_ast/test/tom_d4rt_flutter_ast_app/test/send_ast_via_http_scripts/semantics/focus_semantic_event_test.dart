@@ -60,8 +60,10 @@ dynamic build(BuildContext context) {
     events.add(FocusSemanticEvent());
   }
   for (int i = 0; i < events.length; i++) {
-    print('  events[$i] runtimeType=${events[i].runtimeType} '
-        'type=${events[i].type}');
+    print(
+      '  events[$i] runtimeType=${events[i].runtimeType} '
+      'type=${events[i].type}',
+    );
   }
 
   // Probe the type string and toMap once — they're identical for every
@@ -160,11 +162,7 @@ dynamic build(BuildContext context) {
           'on the platform channel and announce the focused widget. '
           'There is no payload: the event\'s identity is its type '
           'string "$probeType".',
-          style: TextStyle(
-            color: frostInk,
-            fontSize: 13.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: frostInk, fontSize: 13.0, height: 1.45),
         ),
         SizedBox(height: 16.0),
         Row(
@@ -332,17 +330,10 @@ dynamic build(BuildContext context) {
           'The class has no fields. Its behavior is encoded entirely '
           'in the inherited `type` string and in the platform channel '
           'protocol. Each row below maps a single facet of the event.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: anatomyBands,
-        ),
+        Column(mainAxisSize: MainAxisSize.min, children: anatomyBands),
       ],
     ),
   );
@@ -422,10 +413,7 @@ dynamic build(BuildContext context) {
           margin: EdgeInsets.symmetric(horizontal: 2.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                stationHues[i],
-                stationHues[i + 1],
-              ],
+              colors: <Color>[stationHues[i], stationHues[i + 1]],
             ),
           ),
         ),
@@ -458,11 +446,7 @@ dynamic build(BuildContext context) {
           'Each station is one hop in the journey of a single Focus-'
           'SemanticEvent — from the user gesture that requests focus '
           'all the way to the spoken announcement.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
         SingleChildScrollView(
@@ -578,9 +562,7 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(bottom: 6.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
         decoration: BoxDecoration(
-          color: current
-              ? amberSpot.withValues(alpha: 0.18)
-              : slatePanelDeep,
+          color: current ? amberSpot.withValues(alpha: 0.18) : slatePanelDeep,
           border: Border.all(
             color: current ? amberSpot : edgeRule,
             width: current ? 1.8 : 1.0,
@@ -608,8 +590,7 @@ dynamic build(BuildContext context) {
                     color: current ? amberSoft : frostInk,
                     fontFamily: 'monospace',
                     fontSize: 11.5,
-                    fontWeight:
-                        current ? FontWeight.w700 : FontWeight.w400,
+                    fontWeight: current ? FontWeight.w700 : FontWeight.w400,
                   ),
                 ),
               ],
@@ -662,11 +643,7 @@ dynamic build(BuildContext context) {
           'panel paints the semantics tree; the right panel logs the '
           'FocusSemanticEvent objects fired on every advance. The '
           'highlighted node is the current focus owner.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
         Row(
@@ -835,10 +812,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 10.0,
                   height: 10.0,
-                  decoration: BoxDecoration(
-                    color: hue,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: hue, shape: BoxShape.circle),
                 ),
                 SizedBox(width: 6.0),
                 Expanded(
@@ -908,16 +882,10 @@ dynamic build(BuildContext context) {
           'Five siblings in the SemanticsEvent family. Focus is the '
           'one with no payload and a fire-on-focus contract; the '
           'others differ in payload and trigger.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Wrap(
-          children: compareCards,
-        ),
+        Wrap(children: compareCards),
       ],
     ),
   );
@@ -1067,16 +1035,10 @@ dynamic build(BuildContext context) {
           'Each tile constructs a fresh FocusSemanticEvent() and '
           'reads its `type` and `toMap()`. The values never change '
           'across instances — this class is a pure marker event.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Wrap(
-          children: instanceTiles,
-        ),
+        Wrap(children: instanceTiles),
       ],
     ),
   );
@@ -1125,10 +1087,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              hue.withValues(alpha: 0.4),
-              slatePanelDeep,
-            ],
+            colors: <Color>[hue.withValues(alpha: 0.4), slatePanelDeep],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -1142,10 +1101,7 @@ dynamic build(BuildContext context) {
               width: 28.0,
               height: 28.0,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: hue,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: hue, shape: BoxShape.circle),
               child: Text(
                 '${i + 1}',
                 style: TextStyle(
@@ -1222,17 +1178,10 @@ dynamic build(BuildContext context) {
           'user actually hears anything. Each hop adds context but '
           'never mutates the event itself — the payload is just '
           '{type: "focus"}.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: dispatchHopWidgets,
-        ),
+        Column(mainAxisSize: MainAxisSize.min, children: dispatchHopWidgets),
       ],
     ),
   );
@@ -1380,17 +1329,10 @@ dynamic build(BuildContext context) {
         Text(
           'Eight rules for living comfortably with FocusSemanticEvent. '
           'Mostly: trust the framework, do not poke the engine.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: ledgerRows,
-        ),
+        Column(mainAxisSize: MainAxisSize.min, children: ledgerRows),
       ],
     ),
   );
@@ -1496,16 +1438,10 @@ dynamic build(BuildContext context) {
         Text(
           'Each card in this demo borrows hues from the same twelve-'
           'tone palette. Below is the cheat sheet — colour, name, role.',
-          style: TextStyle(
-            color: frostMuted,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: frostMuted, fontSize: 12.5, height: 1.4),
         ),
         SizedBox(height: 14.0),
-        Wrap(
-          children: legendChips,
-        ),
+        Wrap(children: legendChips),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -1630,10 +1566,7 @@ Widget _swatch(Color color, String label) {
         Container(
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 6.0),
         Text(
@@ -1666,14 +1599,7 @@ Widget _compareCell(String label, String value, Color ink, Color muted) {
             letterSpacing: 0.6,
           ),
         ),
-        Text(
-          value,
-          style: TextStyle(
-            color: ink,
-            fontSize: 11.5,
-            height: 1.3,
-          ),
-        ),
+        Text(value, style: TextStyle(color: ink, fontSize: 11.5, height: 1.3)),
       ],
     ),
   );

@@ -19,35 +19,40 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.select_all,
       'title': 'Core Selection Engine',
-      'body': 'SelectableRegion is the low-level widget that manages text '
+      'body':
+          'SelectableRegion is the low-level widget that manages text '
           'selection across one or more Selectable children. It handles '
           'gesture detection, selection state, magnifier, and context menus.',
     },
     {
       'icon': Icons.auto_awesome,
       'title': 'SelectionArea Wrapper',
-      'body': 'SelectionArea is a convenience widget that wraps SelectableRegion '
+      'body':
+          'SelectionArea is a convenience widget that wraps SelectableRegion '
           'with MaterialSelectionControls and default configuration. For most '
           'apps, SelectionArea is sufficient.',
     },
     {
       'icon': Icons.gesture,
       'title': 'Gesture Handling',
-      'body': 'Recognises single-tap (to place cursor), double-tap (word '
+      'body':
+          'Recognises single-tap (to place cursor), double-tap (word '
           'selection), triple-tap (paragraph selection), and long-press + '
           'drag (free-form selection).',
     },
     {
       'icon': Icons.layers_outlined,
       'title': 'Multi-Widget Selection',
-      'body': 'Unlike SelectableText (single widget), SelectableRegion enables '
+      'body':
+          'Unlike SelectableText (single widget), SelectableRegion enables '
           'selection that spans across multiple Text, RichText, and other '
           'Selectable descendants in a single contiguous highlight.',
     },
     {
       'icon': Icons.menu_book,
       'title': 'Context Menu Integration',
-      'body': 'Provides contextMenuBuilder to customise the right-click / '
+      'body':
+          'Provides contextMenuBuilder to customise the right-click / '
           'long-press menu. Default shows Copy and Select All.',
     },
   ];
@@ -85,7 +90,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -159,47 +168,81 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(6.0)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(6.0),
+            ),
           ),
           child: const Row(
-            children: [
-              Expanded(flex: 2, child: Text('Aspect', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 3, child: Text('SelectableRegion', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 3, child: Text('SelectionArea', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700))),
-            ],
-          ),
-        ),
-        ...comparisonRows.map((row) => Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
-          decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-          ),
-          child: Row(
             children: [
               Expanded(
                 flex: 2,
                 child: Text(
-                  row['aspect'] as String,
-                  style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
+                  'Aspect',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
-                  row['region'] as String,
-                  style: TextStyle(fontSize: 11.5, color: Colors.teal.shade700),
+                  'SelectableRegion',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700),
                 ),
               ),
               Expanded(
                 flex: 3,
                 child: Text(
-                  row['area'] as String,
-                  style: TextStyle(fontSize: 11.5, color: Colors.indigo.shade700),
+                  'SelectionArea',
+                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
           ),
-        )),
+        ),
+        ...comparisonRows.map(
+          (row) => Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 7.0,
+            ),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    row['aspect'] as String,
+                    style: const TextStyle(
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    row['region'] as String,
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.teal.shade700,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    row['area'] as String,
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.indigo.shade700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -214,7 +257,8 @@ dynamic build(BuildContext context) {
       'name': 'selectionControls',
       'type': 'TextSelectionControls',
       'req': 'Required',
-      'desc': 'Controls the visual style of selection handles and toolbar. '
+      'desc':
+          'Controls the visual style of selection handles and toolbar. '
           'Use materialTextSelectionControls for Material 2 or '
           'materialTextSelectionHandleControls for Material 3.',
     },
@@ -222,35 +266,40 @@ dynamic build(BuildContext context) {
       'name': 'focusNode',
       'type': 'FocusNode',
       'req': 'Required',
-      'desc': 'Focus node for the region. Must be provided and managed '
+      'desc':
+          'Focus node for the region. Must be provided and managed '
           'by the parent. Receives focus when selection starts.',
     },
     {
       'name': 'child',
       'type': 'Widget',
       'req': 'Required',
-      'desc': 'The widget subtree whose Selectable descendants will '
+      'desc':
+          'The widget subtree whose Selectable descendants will '
           'participate in the selection.',
     },
     {
       'name': 'contextMenuBuilder',
       'type': 'WidgetBuilder?',
       'req': 'Optional',
-      'desc': 'Builder for the context menu shown on right-click or '
+      'desc':
+          'Builder for the context menu shown on right-click or '
           'long-press. Receives an EditableTextState-like context.',
     },
     {
       'name': 'magnifierConfiguration',
       'type': 'TextMagnifierConfiguration?',
       'req': 'Optional',
-      'desc': 'Configuration for the magnifier shown during selection '
+      'desc':
+          'Configuration for the magnifier shown during selection '
           'drag on mobile platforms.',
     },
     {
       'name': 'onSelectionChanged',
       'type': 'ValueChanged<SelectedContent?>?',
       'req': 'Optional',
-      'desc': 'Called when the selection changes. The SelectedContent '
+      'desc':
+          'Called when the selection changes. The SelectedContent '
           'contains the plain text of the current selection.',
     },
   ];
@@ -288,7 +337,10 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(width: 8.0),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: isReq
                         ? Colors.red.withValues(alpha: 0.1)
@@ -309,12 +361,20 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 3.0),
             Text(
               '→ ${p['type']}',
-              style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.teal.shade700),
+              style: TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: Colors.teal.shade700,
+              ),
             ),
             const SizedBox(height: 4.0),
             Text(
               p['desc']!,
-              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+                height: 1.35,
+              ),
             ),
           ],
         ),
@@ -414,7 +474,9 @@ dynamic build(BuildContext context) {
                 shape: BoxShape.circle,
                 color: color.withValues(alpha: 0.15),
               ),
-              child: Center(child: Icon(g['icon'] as IconData, color: color, size: 18.0)),
+              child: Center(
+                child: Icon(g['icon'] as IconData, color: color, size: 18.0),
+              ),
             ),
             const SizedBox(width: 12.0),
             Expanded(
@@ -425,18 +487,28 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         g['gesture'] as String,
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w700,
+                          color: color,
+                        ),
                       ),
                       const Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
                           g['platform'] as String,
-                          style: TextStyle(fontSize: 9.5, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 9.5,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ),
                     ],
@@ -444,7 +516,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 3.0),
                   Text(
                     g['effect'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -471,7 +547,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'Region Created',
-      'desc': 'SelectableRegion builds and registers its SelectionContainer '
+      'desc':
+          'SelectableRegion builds and registers its SelectionContainer '
           'scope with Selectable children.',
       'icon': Icons.add_circle_outline,
       'color': Colors.blue,
@@ -479,7 +556,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Gesture Detected',
-      'desc': 'RawGestureDetector inside the region recognises a selection '
+      'desc':
+          'RawGestureDetector inside the region recognises a selection '
           'gesture (tap, double-tap, drag, etc.).',
       'icon': Icons.touch_app,
       'color': Colors.orange,
@@ -487,7 +565,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'Selection Updated',
-      'desc': 'The SelectionHandler communicates with each Selectable child '
+      'desc':
+          'The SelectionHandler communicates with each Selectable child '
           'to determine what content is in the gesture\'s range.',
       'icon': Icons.sync,
       'color': Colors.purple,
@@ -495,7 +574,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'title': 'Status Scope Updated',
-      'desc': 'SelectableRegionSelectionStatusScope is updated to reflect '
+      'desc':
+          'SelectableRegionSelectionStatusScope is updated to reflect '
           'the new status (none / selecting / selected).',
       'icon': Icons.layers,
       'color': Colors.indigo,
@@ -503,7 +583,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'title': 'Callback Fired',
-      'desc': 'onSelectionChanged is called with the selected plainText '
+      'desc':
+          'onSelectionChanged is called with the selected plainText '
           'content, or null if the selection was cleared.',
       'icon': Icons.notifications_active,
       'color': Colors.teal,
@@ -511,7 +592,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'title': 'UI Updates',
-      'desc': 'Selection handles appear, context menu can be shown, '
+      'desc':
+          'Selection handles appear, context menu can be shown, '
           'and dependent widgets rebuild.',
       'icon': Icons.visibility,
       'color': Colors.green,
@@ -539,7 +621,11 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   ls['step'] as String,
-                  style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -552,11 +638,19 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     ls['title'] as String,
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                   Text(
                     ls['desc'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -573,7 +667,11 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               Container(width: 2.0, height: 4.0, color: Colors.grey.shade300),
-              Icon(Icons.arrow_drop_down, size: 14.0, color: Colors.grey.shade400),
+              Icon(
+                Icons.arrow_drop_down,
+                size: 14.0,
+                color: Colors.grey.shade400,
+              ),
             ],
           ),
         ),
@@ -640,7 +738,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+              Icon(
+                Icons.info_outline,
+                size: 16.0,
+                color: Colors.amber.shade800,
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -648,7 +750,11 @@ dynamic build(BuildContext context) {
                   'This receives the build context and positions the menu '
                   'near the selection. Return any Widget – a simple Column, '
                   'a Material DropdownMenu, or a custom floating panel.',
-                  style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    color: Colors.amber.shade900,
+                    height: 1.35,
+                  ),
                 ),
               ),
             ],
@@ -664,13 +770,34 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.select_all, 'text': 'Core widget for multi-widget text selection'},
-    {'icon': Icons.auto_awesome, 'text': 'SelectionArea is the high-level convenience wrapper'},
-    {'icon': Icons.gesture, 'text': 'Handles tap, double-tap, triple-tap, long-press, drag'},
-    {'icon': Icons.layers, 'text': 'Creates SelectionContainer & StatusScope for descendants'},
-    {'icon': Icons.menu_book, 'text': 'Customisable context menus via contextMenuBuilder'},
-    {'icon': Icons.content_copy, 'text': 'Built-in clipboard integration (Copy, Select All)'},
-    {'icon': Icons.zoom_in, 'text': 'Magnifier support on mobile via magnifierConfiguration'},
+    {
+      'icon': Icons.select_all,
+      'text': 'Core widget for multi-widget text selection',
+    },
+    {
+      'icon': Icons.auto_awesome,
+      'text': 'SelectionArea is the high-level convenience wrapper',
+    },
+    {
+      'icon': Icons.gesture,
+      'text': 'Handles tap, double-tap, triple-tap, long-press, drag',
+    },
+    {
+      'icon': Icons.layers,
+      'text': 'Creates SelectionContainer & StatusScope for descendants',
+    },
+    {
+      'icon': Icons.menu_book,
+      'text': 'Customisable context menus via contextMenuBuilder',
+    },
+    {
+      'icon': Icons.content_copy,
+      'text': 'Built-in clipboard integration (Copy, Select All)',
+    },
+    {
+      'icon': Icons.zoom_in,
+      'text': 'Magnifier support on mobile via magnifierConfiguration',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -686,7 +813,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -733,11 +864,13 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('What is SelectableRegion?',
-                    'The foundational widget that enables text selection across '
-                    'one or more child widgets. It creates a SelectionContainer '
-                    'scope and handles all gesture recognition, selection state, '
-                    'and platform integration.'),
+                _buildSRBullet(
+                  'What is SelectableRegion?',
+                  'The foundational widget that enables text selection across '
+                      'one or more child widgets. It creates a SelectionContainer '
+                      'scope and handles all gesture recognition, selection state, '
+                      'and platform integration.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -749,10 +882,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('SelectableRegion vs SelectionArea',
-                    'SelectionArea is a convenience wrapper around SelectableRegion '
-                    'that provides Material defaults. Use SelectableRegion directly '
-                    'when you need full control.'),
+                _buildSRBullet(
+                  'SelectableRegion vs SelectionArea',
+                  'SelectionArea is a convenience wrapper around SelectableRegion '
+                      'that provides Material defaults. Use SelectableRegion directly '
+                      'when you need full control.',
+                ),
                 const SizedBox(height: 14.0),
                 compTable,
                 const SizedBox(height: 16.0),
@@ -761,18 +896,28 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.green.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: Colors.green.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.lightbulb_outline, color: Colors.green, size: 18.0),
+                          const Icon(
+                            Icons.lightbulb_outline,
+                            color: Colors.green,
+                            size: 18.0,
+                          ),
                           const SizedBox(width: 8.0),
                           const Text(
                             'When to Use Which?',
-                            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: Colors.green),
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       ),
@@ -781,7 +926,11 @@ dynamic build(BuildContext context) {
                         '• SelectionArea: Most apps, standard Material design\n'
                         '• SelectableRegion: Custom handle styles, Cupertino design, '
                         'or platform-specific context menus',
-                        style: TextStyle(fontSize: 12.0, color: Colors.green.shade800, height: 1.4),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.green.shade800,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),
@@ -795,8 +944,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Constructor Parameters',
-                    'All parameters of SelectableRegion and their roles.'),
+                _buildSRBullet(
+                  'Constructor Parameters',
+                  'All parameters of SelectableRegion and their roles.',
+                ),
                 const SizedBox(height: 14.0),
                 ...paramCards,
               ],
@@ -808,9 +959,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Live Selection Demo',
-                    'Select text in the region below. The status and selected '
-                    'content are displayed in real time.'),
+                _buildSRBullet(
+                  'Live Selection Demo',
+                  'Select text in the region below. The status and selected '
+                      'content are displayed in real time.',
+                ),
                 const SizedBox(height: 14.0),
                 liveSelectionDemo,
               ],
@@ -822,10 +975,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Multi-Paragraph Selection',
-                    'SelectableRegion enables selection across multiple Text '
-                    'widgets in a single contiguous highlight – a key feature '
-                    'not available with individual SelectableText widgets.'),
+                _buildSRBullet(
+                  'Multi-Paragraph Selection',
+                  'SelectableRegion enables selection across multiple Text '
+                      'widgets in a single contiguous highlight – a key feature '
+                      'not available with individual SelectableText widgets.',
+                ),
                 const SizedBox(height: 14.0),
                 multiParaDemo,
               ],
@@ -837,9 +992,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Gesture Mechanics',
-                    'All the gestures that SelectableRegion recognises '
-                    'and their effects on the selection.'),
+                _buildSRBullet(
+                  'Gesture Mechanics',
+                  'All the gestures that SelectableRegion recognises '
+                      'and their effects on the selection.',
+                ),
                 const SizedBox(height: 14.0),
                 ...gestureCards,
               ],
@@ -851,9 +1008,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRBullet('Selection with Styled Text',
-                    'SelectableRegion works with RichText / Text.rich that '
-                    'contain TextSpan trees with mixed styles.'),
+                _buildSRBullet(
+                  'Selection with Styled Text',
+                  'SelectableRegion works with RichText / Text.rich that '
+                      'contain TextSpan trees with mixed styles.',
+                ),
                 const SizedBox(height: 14.0),
                 styledTextDemo,
                 const SizedBox(height: 16.0),
@@ -870,7 +1029,10 @@ dynamic build(BuildContext context) {
                     children: [
                       const Text(
                         'Selection Lifecycle',
-                        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(height: 10.0),
                       ...lifecycleWidgets,
@@ -900,7 +1062,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.teal.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.teal.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -930,10 +1094,24 @@ Widget _buildSRBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.teal)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.teal,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -943,7 +1121,13 @@ Widget _buildSRBullet(String title, String body) {
 // ---------------------------------------------------------------------------
 // Helper: clipboard row
 // ---------------------------------------------------------------------------
-Widget _buildClipboardRow(IconData icon, String action, String desc, Color color, String shortcut) {
+Widget _buildClipboardRow(
+  IconData icon,
+  String action,
+  String desc,
+  Color color,
+  String shortcut,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6.0),
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -962,19 +1146,39 @@ Widget _buildClipboardRow(IconData icon, String action, String desc, Color color
             children: [
               Row(
                 children: [
-                  Text(action, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color)),
+                  Text(
+                    action,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text(shortcut, style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade600)),
+                    child: Text(
+                      shortcut,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Text(desc, style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600)),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -1005,7 +1209,10 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: Colors.teal.withValues(alpha: 0.3)),
         boxShadow: [
-          BoxShadow(color: Colors.teal.withValues(alpha: 0.08), blurRadius: 8.0),
+          BoxShadow(
+            color: Colors.teal.withValues(alpha: 0.08),
+            blurRadius: 8.0,
+          ),
         ],
       ),
       child: Column(
@@ -1017,7 +1224,11 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
               const SizedBox(width: 8.0),
               const Text(
                 'Select Any Text Below',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: Colors.teal),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.teal,
+                ),
               ),
             ],
           ),
@@ -1027,9 +1238,13 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
               setState(() {
                 if (value != null) {
                   final txt = value.plainText as String;
-                  _selectedText = txt.length > 60 ? '${txt.substring(0, 60)}...' : txt;
+                  _selectedText = txt.length > 60
+                      ? '${txt.substring(0, 60)}...'
+                      : txt;
                   _charCount = txt.length;
-                  _wordCount = txt.trim().isEmpty ? 0 : txt.trim().split(RegExp(r'\s+')).length;
+                  _wordCount = txt.trim().isEmpty
+                      ? 0
+                      : txt.trim().split(RegExp(r'\s+')).length;
                 } else {
                   _selectedText = '';
                   _charCount = 0;
@@ -1052,7 +1267,11 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
                     'architecture. At the bottom sits SelectableRegion, which '
                     'provides the gesture recognition and selection state '
                     'management.',
-                    style: TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.black87,
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   Text(
@@ -1060,7 +1279,11 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
                     'Material-themed handles and context menus. Most apps '
                     'only need to wrap their content in a SelectionArea to '
                     'enable full text selection.',
-                    style: TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.black87,
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   Text(
@@ -1068,7 +1291,11 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
                     'platform-specific context menus, or integration with '
                     'custom accessibility features – use SelectableRegion '
                     'directly.',
-                    style: TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.black87,
+                    ),
                   ),
                 ],
               ),
@@ -1132,7 +1359,14 @@ class _LiveSelectionDemoState extends State<_LiveSelectionDemo> {
         children: [
           Text(label, style: TextStyle(fontSize: 10.0, color: color)),
           const SizedBox(width: 4.0),
-          Text(value, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
         ],
       ),
     );
@@ -1158,7 +1392,8 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
         'title': 'Paragraph 1: The Widget Tree',
         'icon': Icons.account_tree,
         'color': Colors.blue,
-        'text': 'Flutter builds user interfaces as a tree of Widget objects. '
+        'text':
+            'Flutter builds user interfaces as a tree of Widget objects. '
             'Each widget describes what its view should look like given its '
             'current configuration and state. Widgets are lightweight and '
             'immutable descriptions of a part of the UI.',
@@ -1167,7 +1402,8 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
         'title': 'Paragraph 2: The Element Tree',
         'icon': Icons.device_hub,
         'color': Colors.purple,
-        'text': 'When a Widget is inflated, Flutter creates a corresponding '
+        'text':
+            'When a Widget is inflated, Flutter creates a corresponding '
             'Element. Elements are mutable and manage the lifecycle of their '
             'widget – holding references to the widget, parent element, '
             'and child elements.',
@@ -1176,7 +1412,8 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
         'title': 'Paragraph 3: The RenderObject Tree',
         'icon': Icons.layers,
         'color': Colors.teal,
-        'text': 'For visual widgets, the Element also creates a RenderObject '
+        'text':
+            'For visual widgets, the Element also creates a RenderObject '
             'which handles layout and painting. RenderObjects are what '
             'actually compute positions, sizes, and draw to the screen. '
             'This three-tree architecture is the foundation of Flutter.',
@@ -1200,7 +1437,11 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
               const Expanded(
                 child: Text(
                   'Try selecting across multiple paragraphs',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: Colors.indigo),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.indigo,
+                  ),
                 ),
               ),
             ],
@@ -1209,7 +1450,11 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
           Text(
             'With SelectableRegion / SelectionArea, you can drag from one '
             'paragraph into the next and the selection spans seamlessly.',
-            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 12.0),
           SelectionArea(
@@ -1235,7 +1480,10 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
                       color: (para['color'] as Color).withValues(alpha: 0.04),
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border(
-                        left: BorderSide(color: para['color'] as Color, width: 3.0),
+                        left: BorderSide(
+                          color: para['color'] as Color,
+                          width: 3.0,
+                        ),
                       ),
                     ),
                     child: Column(
@@ -1243,7 +1491,11 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
                       children: [
                         Row(
                           children: [
-                            Icon(para['icon'] as IconData, color: para['color'] as Color, size: 16.0),
+                            Icon(
+                              para['icon'] as IconData,
+                              color: para['color'] as Color,
+                              size: 16.0,
+                            ),
                             const SizedBox(width: 6.0),
                             Text(
                               para['title'] as String,
@@ -1279,7 +1531,9 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
                   : Colors.grey.shade50,
               borderRadius: BorderRadius.circular(6.0),
               border: Border.all(
-                color: _spansMultiple ? Colors.green.shade300 : Colors.grey.shade300,
+                color: _spansMultiple
+                    ? Colors.green.shade300
+                    : Colors.grey.shade300,
               ),
             ),
             child: Row(
@@ -1296,8 +1550,12 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
                       : '$_selectedLength chars selected${_spansMultiple ? ' (multi-paragraph!)' : ''}',
                   style: TextStyle(
                     fontSize: 11.5,
-                    color: _spansMultiple ? Colors.green.shade700 : Colors.grey.shade600,
-                    fontWeight: _spansMultiple ? FontWeight.w600 : FontWeight.normal,
+                    color: _spansMultiple
+                        ? Colors.green.shade700
+                        : Colors.grey.shade600,
+                    fontWeight: _spansMultiple
+                        ? FontWeight.w600
+                        : FontWeight.normal,
                   ),
                 ),
               ],
@@ -1314,7 +1572,8 @@ class _MultiParagraphDemoState extends State<_MultiParagraphDemo> {
 // ---------------------------------------------------------------------------
 class _StyledTextSelectionDemo extends StatefulWidget {
   @override
-  State<_StyledTextSelectionDemo> createState() => _StyledTextSelectionDemoState();
+  State<_StyledTextSelectionDemo> createState() =>
+      _StyledTextSelectionDemoState();
 }
 
 class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
@@ -1334,11 +1593,19 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
         children: [
           Row(
             children: [
-              const Icon(Icons.format_color_text, color: Colors.deepPurple, size: 20.0),
+              const Icon(
+                Icons.format_color_text,
+                color: Colors.deepPurple,
+                size: 20.0,
+              ),
               const SizedBox(width: 8.0),
               const Text(
                 'Mixed-Style Selectable Text',
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: Colors.deepPurple),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.deepPurple,
+                ),
               ),
             ],
           ),
@@ -1346,7 +1613,11 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
           Text(
             'Selection works correctly across styled TextSpans – bold, italic, '
             'coloured, and linked text can all be selected together.',
-            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 12.0),
           SelectionArea(
@@ -1354,7 +1625,9 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
               setState(() {
                 if (value != null) {
                   final txt = value.plainText as String;
-                  _styledSelection = txt.length > 80 ? '${txt.substring(0, 80)}...' : txt;
+                  _styledSelection = txt.length > 80
+                      ? '${txt.substring(0, 80)}...'
+                      : txt;
                 } else {
                   _styledSelection = '';
                 }
@@ -1371,7 +1644,11 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
                 children: [
                   Text.rich(
                     TextSpan(
-                      style: const TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                      style: const TextStyle(
+                        fontSize: 13.5,
+                        height: 1.6,
+                        color: Colors.black87,
+                      ),
                       children: [
                         const TextSpan(text: 'The '),
                         TextSpan(
@@ -1381,15 +1658,25 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
                             color: Colors.teal.shade700,
                           ),
                         ),
-                        const TextSpan(text: ' widget supports selection across '),
+                        const TextSpan(
+                          text: ' widget supports selection across ',
+                        ),
                         const TextSpan(
                           text: 'rich text spans',
-                          style: TextStyle(fontStyle: FontStyle.italic, color: Colors.deepPurple),
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.deepPurple,
+                          ),
                         ),
-                        const TextSpan(text: ' with mixed styles. You can have '),
+                        const TextSpan(
+                          text: ' with mixed styles. You can have ',
+                        ),
                         TextSpan(
                           text: 'bold text',
-                          style: TextStyle(fontWeight: FontWeight.w900, color: Colors.blue.shade800),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            color: Colors.blue.shade800,
+                          ),
                         ),
                         const TextSpan(text: ', '),
                         TextSpan(
@@ -1404,25 +1691,34 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
                             color: Colors.red.shade700,
                           ),
                         ),
-                        const TextSpan(text: ' all seamlessly selected together.'),
+                        const TextSpan(
+                          text: ' all seamlessly selected together.',
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 12.0),
                   Text.rich(
                     TextSpan(
-                      style: const TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                      style: const TextStyle(
+                        fontSize: 13.5,
+                        height: 1.6,
+                        color: Colors.black87,
+                      ),
                       children: [
                         const TextSpan(text: 'The selected '),
                         TextSpan(
                           text: 'plain text',
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            backgroundColor: Colors.yellow.withValues(alpha: 0.3),
+                            backgroundColor: Colors.yellow.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         const TextSpan(
-                          text: ' returned by onSelectionChanged strips formatting – '
+                          text:
+                              ' returned by onSelectionChanged strips formatting – '
                               'you receive the raw characters regardless of styling. '
                               'This makes clipboard integration consistent.',
                         ),
@@ -1443,7 +1739,11 @@ class _StyledTextSelectionDemoState extends State<_StyledTextSelectionDemo> {
               ),
               child: Text(
                 'Plain text: "$_styledSelection"',
-                style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade600,
+                ),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),

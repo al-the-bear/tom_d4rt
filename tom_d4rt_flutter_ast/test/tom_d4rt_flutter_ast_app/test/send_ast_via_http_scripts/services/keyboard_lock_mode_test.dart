@@ -795,8 +795,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.report_gmailerrorred,
-                color: Color(0xFFB91C1C), size: 22.0),
+            Icon(
+              Icons.report_gmailerrorred,
+              color: Color(0xFFB91C1C),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Common pitfalls',
@@ -874,30 +877,34 @@ dynamic build(BuildContext context) {
         const Text(
           '+--------------------------------------------------------+',
           style: TextStyle(
-              color: Color(0xFF22D3EE),
-              fontFamily: 'monospace',
-              fontSize: 12.0),
+            color: Color(0xFF22D3EE),
+            fontFamily: 'monospace',
+            fontSize: 12.0,
+          ),
         ),
         const Text(
           '|         K E Y B O A R D   L O C K   M O D E            |',
           style: TextStyle(
-              color: Color(0xFFE0F2FE),
-              fontFamily: 'monospace',
-              fontSize: 12.0),
+            color: Color(0xFFE0F2FE),
+            fontFamily: 'monospace',
+            fontSize: 12.0,
+          ),
         ),
         const Text(
           '|  caps . . . num . . . scroll . . .  HardwareKeyboard   |',
           style: TextStyle(
-              color: Color(0xFFCBD5E1),
-              fontFamily: 'monospace',
-              fontSize: 12.0),
+            color: Color(0xFFCBD5E1),
+            fontFamily: 'monospace',
+            fontSize: 12.0,
+          ),
         ),
         const Text(
           '+--------------------------------------------------------+',
           style: TextStyle(
-              color: Color(0xFF22D3EE),
-              fontFamily: 'monospace',
-              fontSize: 12.0),
+            color: Color(0xFF22D3EE),
+            fontFamily: 'monospace',
+            fontSize: 12.0,
+          ),
         ),
         const SizedBox(height: 12.0),
         const Text(
@@ -1128,11 +1135,7 @@ class _AnatomyArrow extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        const Icon(
-          Icons.arrow_right_alt,
-          color: Color(0xFF64748B),
-          size: 28.0,
-        ),
+        const Icon(Icons.arrow_right_alt, color: Color(0xFF64748B), size: 28.0),
         Text(
           label,
           style: const TextStyle(
@@ -1188,10 +1191,7 @@ Widget _lockSpecCard(_LockSpec spec) {
               height: 84.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    spec.glow,
-                    spec.dim,
-                  ],
+                  colors: <Color>[spec.glow, spec.dim],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1249,10 +1249,14 @@ Widget _lockSpecCard(_LockSpec spec) {
                     spacing: 6.0,
                     runSpacing: 6.0,
                     children: <Widget>[
-                      _miniTag('KeyboardLockMode.${spec.mode.name}',
-                          const Color(0xFF1E293B)),
-                      _miniTag('index ${spec.mode.index}',
-                          const Color(0xFF334155)),
+                      _miniTag(
+                        'KeyboardLockMode.${spec.mode.name}',
+                        const Color(0xFF1E293B),
+                      ),
+                      _miniTag(
+                        'index ${spec.mode.index}',
+                        const Color(0xFF334155),
+                      ),
                       _miniTag(spec.logicalKeyName, spec.dim),
                     ],
                   ),
@@ -1312,7 +1316,9 @@ Widget _lockSpecCard(_LockSpec spec) {
               const SizedBox(height: 10.0),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 6.0),
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: spec.glow.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(6.0),
@@ -1411,15 +1417,15 @@ Widget _highlightedKeyCap({
     margin: const EdgeInsets.symmetric(horizontal: 1.5),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          accent,
-          accent.withValues(alpha: 0.7),
-        ],
+        colors: <Color>[accent, accent.withValues(alpha: 0.7)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
       borderRadius: BorderRadius.circular(5.0),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.4), width: 1.0),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.4),
+        width: 1.0,
+      ),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.7),
@@ -1492,7 +1498,9 @@ Widget _ledIndicator({required _LockSpec spec, required bool on}) {
       Text(
         on ? 'latched' : 'released',
         style: TextStyle(
-          color: on ? spec.glow.withValues(alpha: 0.85) : const Color(0xFF475569),
+          color: on
+              ? spec.glow.withValues(alpha: 0.85)
+              : const Color(0xFF475569),
           fontSize: 10.0,
           fontStyle: FontStyle.italic,
         ),
@@ -1579,10 +1587,7 @@ Widget _statusBanner({
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          background,
-          background.withValues(alpha: 0.6),
-        ],
+        colors: <Color>[background, background.withValues(alpha: 0.6)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

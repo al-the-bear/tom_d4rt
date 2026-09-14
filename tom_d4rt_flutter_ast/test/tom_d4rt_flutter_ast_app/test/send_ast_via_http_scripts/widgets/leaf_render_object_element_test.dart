@@ -29,18 +29,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: fg,
-                  letterSpacing: 0.3)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: fg,
+              letterSpacing: 0.3,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: fg.withValues(alpha: 0.75),
-                  fontStyle: FontStyle.italic)),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: fg.withValues(alpha: 0.75),
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
@@ -56,8 +62,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(10),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: border, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: border, height: 1.5),
+      ),
     );
   }
 
@@ -79,19 +87,25 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: accent,
+              ),
+            ),
           ),
           Flexible(
-            child: Text(value,
-                style: TextStyle(
-                    fontSize: 11,
-                    color: accent.withValues(alpha: 0.8),
-                    fontFamily: 'monospace'),
-                overflow: TextOverflow.ellipsis),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 11,
+                color: accent.withValues(alpha: 0.8),
+                fontFamily: 'monospace',
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
@@ -106,8 +120,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -119,18 +135,24 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(key,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: accent)),
+            child: Text(
+              key,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(val,
-                style: TextStyle(
-                    fontSize: 11,
-                    color: accent.withValues(alpha: 0.8),
-                    fontFamily: 'monospace')),
+            child: Text(
+              val,
+              style: TextStyle(
+                fontSize: 11,
+                color: accent.withValues(alpha: 0.8),
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -150,31 +172,45 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 3),
-        Text(label,
-            style: const TextStyle(fontSize: 8, color: Colors.black54)),
+        Text(label, style: const TextStyle(fontSize: 8, color: Colors.black54)),
       ],
     );
   }
 
-  Widget hierarchyRow(String indent, String className, Color accent, bool highlight) {
+  Widget hierarchyRow(
+    String indent,
+    String className,
+    Color accent,
+    bool highlight,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: highlight ? accent.withValues(alpha: 0.12) : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
-        border: highlight ? Border.all(color: accent.withValues(alpha: 0.3)) : null,
+        border: highlight
+            ? Border.all(color: accent.withValues(alpha: 0.3))
+            : null,
       ),
-      child: Text('$indent$className',
-          style: TextStyle(
-              fontSize: 11,
-              fontWeight: highlight ? FontWeight.w700 : FontWeight.w400,
-              color: highlight ? accent : accent.withValues(alpha: 0.7),
-              fontFamily: 'monospace')),
+      child: Text(
+        '$indent$className',
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: highlight ? FontWeight.w700 : FontWeight.w400,
+          color: highlight ? accent : accent.withValues(alpha: 0.7),
+          fontFamily: 'monospace',
+        ),
+      ),
     );
   }
 
-  Widget methodCard(String name, String description, String behavior, Color accent) {
+  Widget methodCard(
+    String name,
+    String description,
+    String behavior,
+    Color accent,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(12),
@@ -194,29 +230,38 @@ dynamic build(BuildContext context) {
                   color: accent,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(name,
-                    style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(description,
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: accent)),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: accent,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 6),
-          Text(behavior,
-              style: TextStyle(
-                  fontSize: 11,
-                  color: accent.withValues(alpha: 0.75),
-                  height: 1.4)),
+          Text(
+            behavior,
+            style: TextStyle(
+              fontSize: 11,
+              color: accent.withValues(alpha: 0.75),
+              height: 1.4,
+            ),
+          ),
         ],
       ),
     );
@@ -242,28 +287,37 @@ dynamic build(BuildContext context) {
               color: accent,
               borderRadius: BorderRadius.circular(13),
             ),
-            child: Text('$step',
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white)),
+            child: Text(
+              '$step',
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: accent)),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: accent,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(detail,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: accent.withValues(alpha: 0.75),
-                        height: 1.3)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: accent.withValues(alpha: 0.75),
+                    height: 1.3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -282,14 +336,19 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Text(value,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: fg)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: fg,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(label,
-              style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7))),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7)),
+          ),
         ],
       ),
     );
@@ -391,8 +450,12 @@ dynamic build(BuildContext context) {
         ),
 
         // ── 2. Concept overview ──────────────────────────────────────
-        sectionBanner('2 · Concept Overview',
-            'Understanding leaf elements', eucalyptus, Colors.white),
+        sectionBanner(
+          '2 · Concept Overview',
+          'Understanding leaf elements',
+          eucalyptus,
+          Colors.white,
+        ),
         noteBox(
           'LeafRenderObjectElement is the Element subclass used by '
           'LeafRenderObjectWidget. It represents a leaf node in the '
@@ -412,13 +475,21 @@ dynamic build(BuildContext context) {
         infoCard('Class', 'LeafRenderObjectElement', deepJade),
         infoCard('Parent', 'RenderObjectElement', coolMint),
         infoCard('Children', 'None (leaf)', jadeGreen),
-        infoCard('Created by', 'LeafRenderObjectWidget.createElement()', spearmint),
+        infoCard(
+          'Created by',
+          'LeafRenderObjectWidget.createElement()',
+          spearmint,
+        ),
         infoCard('Package', 'flutter/widgets.dart', eucalyptus),
         const SizedBox(height: 14),
 
         // ── 3. Element hierarchy ─────────────────────────────────────
-        sectionBanner('3 · Element Class Hierarchy',
-            'Where LeafRenderObjectElement fits', softMint, deepJade),
+        sectionBanner(
+          '3 · Element Class Hierarchy',
+          'Where LeafRenderObjectElement fits',
+          softMint,
+          deepJade,
+        ),
         noteBox(
           'The Element hierarchy mirrors the Widget hierarchy. Each '
           'RenderObjectWidget subclass has a corresponding Element subclass '
@@ -432,8 +503,18 @@ dynamic build(BuildContext context) {
         hierarchyRow('  │   └─ ', 'StatefulElement', spearmint, false),
         hierarchyRow('  └─ ', 'RenderObjectElement', eucalyptus, false),
         hierarchyRow('      ├─ ', 'LeafRenderObjectElement', deepJade, true),
-        hierarchyRow('      ├─ ', 'SingleChildRenderObjectElement', coolMint, false),
-        hierarchyRow('      └─ ', 'MultiChildRenderObjectElement', jadeGreen, false),
+        hierarchyRow(
+          '      ├─ ',
+          'SingleChildRenderObjectElement',
+          coolMint,
+          false,
+        ),
+        hierarchyRow(
+          '      └─ ',
+          'MultiChildRenderObjectElement',
+          jadeGreen,
+          false,
+        ),
         const SizedBox(height: 8),
         noteBox(
           'LeafRenderObjectElement is the simplest RenderObjectElement — '
@@ -445,8 +526,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Leaf behavior card ────────────────────────────────────
-        sectionBanner('4 · No-Children Guarantee',
-            'Child operations assert false', jadeGreen, Colors.white),
+        sectionBanner(
+          '4 · No-Children Guarantee',
+          'Child operations assert false',
+          jadeGreen,
+          Colors.white,
+        ),
         noteBox(
           'LeafRenderObjectElement enforces the no-children invariant by '
           'overriding all child-related methods to assert false. Attempting '
@@ -454,23 +539,39 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        methodCard('forgetChild', 'Remove child reference',
-            'Always asserts false — leaf cannot have children to forget',
-            deepJade),
-        methodCard('insertRenderObjectChild', 'Insert child render object',
-            'Always asserts false — no child slot exists in a leaf',
-            coolMint),
-        methodCard('moveRenderObjectChild', 'Move child render object',
-            'Always asserts false — cannot move non-existent children',
-            jadeGreen),
-        methodCard('removeRenderObjectChild', 'Remove child render object',
-            'Always asserts false — nothing to remove from a leaf',
-            spearmint),
+        methodCard(
+          'forgetChild',
+          'Remove child reference',
+          'Always asserts false — leaf cannot have children to forget',
+          deepJade,
+        ),
+        methodCard(
+          'insertRenderObjectChild',
+          'Insert child render object',
+          'Always asserts false — no child slot exists in a leaf',
+          coolMint,
+        ),
+        methodCard(
+          'moveRenderObjectChild',
+          'Move child render object',
+          'Always asserts false — cannot move non-existent children',
+          jadeGreen,
+        ),
+        methodCard(
+          'removeRenderObjectChild',
+          'Remove child render object',
+          'Always asserts false — nothing to remove from a leaf',
+          spearmint,
+        ),
         const SizedBox(height: 14),
 
         // ── 5. ErrorWidget example ───────────────────────────────────
-        sectionBanner('5 · ErrorWidget as Leaf',
-            'Concrete LeafRenderObjectWidget example', spearmint, Colors.white),
+        sectionBanner(
+          '5 · ErrorWidget as Leaf',
+          'Concrete LeafRenderObjectWidget example',
+          spearmint,
+          Colors.white,
+        ),
         noteBox(
           'ErrorWidget is Flutter\'s built-in error display widget. It '
           'extends LeafRenderObjectWidget and creates a RenderErrorBox '
@@ -495,11 +596,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('ErrorWidget Internals',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'ErrorWidget Internals',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 6),
               dataRow('Widget', 'ErrorWidget', deepJade),
               dataRow('Element', 'LeafRenderObjectElement', coolMint),
@@ -511,8 +615,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. SizedBox analysis ─────────────────────────────────────
-        sectionBanner('6 · SizedBox Comparison',
-            'SingleChild vs Leaf distinction', eucalyptus, Colors.white),
+        sectionBanner(
+          '6 · SizedBox Comparison',
+          'SingleChild vs Leaf distinction',
+          eucalyptus,
+          Colors.white,
+        ),
         noteBox(
           'SizedBox extends SingleChildRenderObjectWidget, NOT '
           'LeafRenderObjectWidget, because it can have a child. Even '
@@ -524,7 +632,11 @@ dynamic build(BuildContext context) {
         dataRow('SizedBox.shrink()', '${shrinkBox.runtimeType}', deepJade),
         dataRow('SizedBox.expand()', '${expandBox.runtimeType}', coolMint),
         dataRow('SizedBox(100x50).width', '${sizedBox.width}', jadeGreen),
-        dataRow('SizedBox element', 'SingleChildRenderObjectElement', spearmint),
+        dataRow(
+          'SizedBox element',
+          'SingleChildRenderObjectElement',
+          spearmint,
+        ),
         dataRow('ErrorWidget element', 'LeafRenderObjectElement', eucalyptus),
         noteBox(
           'Key distinction: Leaf widgets CANNOT have children by design. '
@@ -536,8 +648,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Render object methods ─────────────────────────────────
-        sectionBanner('7 · Key RenderObject Methods',
-            'Methods that configure the render object', wintergreen, deepJade),
+        sectionBanner(
+          '7 · Key RenderObject Methods',
+          'Methods that configure the render object',
+          wintergreen,
+          deepJade,
+        ),
         noteBox(
           'The LeafRenderObjectWidget subclass must implement '
           'createRenderObject() and may override updateRenderObject(). '
@@ -545,23 +661,36 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        methodCard('createRenderObject', 'Required — creates the RenderObject',
-            'Called once during mount. Returns the initial render object '
-            'configured from widget properties. Must not be null.',
-            deepJade),
-        methodCard('updateRenderObject', 'Optional — updates existing RenderObject',
-            'Called when the widget changes but the element stays. Updates '
-            'render object properties to match new widget configuration.',
-            coolMint),
-        methodCard('didUnmountRenderObject', 'Optional — cleanup hook',
-            'Called when the render object is unmounted from the tree. '
-            'Use for releasing resources held by the render object.',
-            jadeGreen),
+        methodCard(
+          'createRenderObject',
+          'Required — creates the RenderObject',
+          'Called once during mount. Returns the initial render object '
+              'configured from widget properties. Must not be null.',
+          deepJade,
+        ),
+        methodCard(
+          'updateRenderObject',
+          'Optional — updates existing RenderObject',
+          'Called when the widget changes but the element stays. Updates '
+              'render object properties to match new widget configuration.',
+          coolMint,
+        ),
+        methodCard(
+          'didUnmountRenderObject',
+          'Optional — cleanup hook',
+          'Called when the render object is unmounted from the tree. '
+              'Use for releasing resources held by the render object.',
+          jadeGreen,
+        ),
         const SizedBox(height: 14),
 
         // ── 8. Element lifecycle ─────────────────────────────────────
-        sectionBanner('8 · Element Lifecycle',
-            'Creation, mount, update, unmount', softMint, deepJade),
+        sectionBanner(
+          '8 · Element Lifecycle',
+          'Creation, mount, update, unmount',
+          softMint,
+          deepJade,
+        ),
         noteBox(
           'LeafRenderObjectElement follows the standard Element lifecycle '
           'but without any child-related phases. This makes it the '
@@ -569,26 +698,45 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        lifecycleStep(1, 'createElement()',
-            'Widget.createElement() creates the LeafRenderObjectElement',
-            deepJade),
-        lifecycleStep(2, 'mount(parent, slot)',
-            'Element mounts into tree, createRenderObject() is called',
-            coolMint),
-        lifecycleStep(3, 'update(newWidget)',
-            'When widget changes, updateRenderObject() is called',
-            jadeGreen),
-        lifecycleStep(4, 'deactivate()',
-            'Element is temporarily removed from tree',
-            spearmint),
-        lifecycleStep(5, 'unmount()',
-            'Element is permanently removed, didUnmountRenderObject() called',
-            eucalyptus),
+        lifecycleStep(
+          1,
+          'createElement()',
+          'Widget.createElement() creates the LeafRenderObjectElement',
+          deepJade,
+        ),
+        lifecycleStep(
+          2,
+          'mount(parent, slot)',
+          'Element mounts into tree, createRenderObject() is called',
+          coolMint,
+        ),
+        lifecycleStep(
+          3,
+          'update(newWidget)',
+          'When widget changes, updateRenderObject() is called',
+          jadeGreen,
+        ),
+        lifecycleStep(
+          4,
+          'deactivate()',
+          'Element is temporarily removed from tree',
+          spearmint,
+        ),
+        lifecycleStep(
+          5,
+          'unmount()',
+          'Element is permanently removed, didUnmountRenderObject() called',
+          eucalyptus,
+        ),
         const SizedBox(height: 14),
 
         // ── 9. Mount behavior ────────────────────────────────────────
-        sectionBanner('9 · Mount & Unmount Behavior',
-            'Render object creation and disposal', coolMint, Colors.white),
+        sectionBanner(
+          '9 · Mount & Unmount Behavior',
+          'Render object creation and disposal',
+          coolMint,
+          Colors.white,
+        ),
         noteBox(
           'When a LeafRenderObjectElement is mounted, it creates its '
           'RenderObject via createRenderObject() and inserts it into '
@@ -608,16 +756,31 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Mount Sequence',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Mount Sequence',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 6),
               dataRow('1. mount()', 'Called by parent Element', deepJade),
-              dataRow('2. createRenderObject()', 'Creates the RenderObject', coolMint),
-              dataRow('3. attachRenderObject()', 'Inserts into render tree', jadeGreen),
-              dataRow('4. (no children)', 'Leaf skips child processing', spearmint),
+              dataRow(
+                '2. createRenderObject()',
+                'Creates the RenderObject',
+                coolMint,
+              ),
+              dataRow(
+                '3. attachRenderObject()',
+                'Inserts into render tree',
+                jadeGreen,
+              ),
+              dataRow(
+                '4. (no children)',
+                'Leaf skips child processing',
+                spearmint,
+              ),
             ],
           ),
         ),
@@ -633,15 +796,22 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Unmount Sequence',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Unmount Sequence',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 6),
               dataRow('1. deactivate()', 'Temporarily removed', deepJade),
               dataRow('2. unmount()', 'Permanently removed', coolMint),
-              dataRow('3. detachRenderObject()', 'Removes render object', jadeGreen),
+              dataRow(
+                '3. detachRenderObject()',
+                'Removes render object',
+                jadeGreen,
+              ),
               dataRow('4. didUnmountRenderObject()', 'Cleanup hook', spearmint),
             ],
           ),
@@ -649,8 +819,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Update behavior ──────────────────────────────────────
-        sectionBanner('10 · Update Behavior',
-            'Handling widget configuration changes', deepJade, Colors.white),
+        sectionBanner(
+          '10 · Update Behavior',
+          'Handling widget configuration changes',
+          deepJade,
+          Colors.white,
+        ),
         noteBox(
           'When the parent rebuilds with a new widget of the same type, '
           'the Element is updated rather than recreated. The render object '
@@ -658,23 +832,39 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        lifecycleStep(1, 'Parent rebuilds',
-            'Framework compares old widget with new widget of same type',
-            deepJade),
-        lifecycleStep(2, 'update(newWidget)',
-            'Element stores reference to new widget, calls updateRenderObject',
-            coolMint),
-        lifecycleStep(3, 'updateRenderObject()',
-            'New property values are applied to the existing RenderObject',
-            jadeGreen),
-        lifecycleStep(4, 'markNeedsPaint()',
-            'RenderObject marks itself as needing repaint if visuals changed',
-            spearmint),
+        lifecycleStep(
+          1,
+          'Parent rebuilds',
+          'Framework compares old widget with new widget of same type',
+          deepJade,
+        ),
+        lifecycleStep(
+          2,
+          'update(newWidget)',
+          'Element stores reference to new widget, calls updateRenderObject',
+          coolMint,
+        ),
+        lifecycleStep(
+          3,
+          'updateRenderObject()',
+          'New property values are applied to the existing RenderObject',
+          jadeGreen,
+        ),
+        lifecycleStep(
+          4,
+          'markNeedsPaint()',
+          'RenderObject marks itself as needing repaint if visuals changed',
+          spearmint,
+        ),
         const SizedBox(height: 14),
 
         // ── 11. Assertion patterns ───────────────────────────────────
-        sectionBanner('11 · Assertion Enforcement',
-            'How the leaf invariant is protected', jadeGreen, Colors.white),
+        sectionBanner(
+          '11 · Assertion Enforcement',
+          'How the leaf invariant is protected',
+          jadeGreen,
+          Colors.white,
+        ),
         noteBox(
           'LeafRenderObjectElement overrides four child-related methods, '
           'each with an assert(false) to ensure the leaf invariant.'
@@ -693,27 +883,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Protected Methods',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Protected Methods',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 8),
               dataRow('forgetChild(child)', 'assert(false)', deepJade),
               dataRow('insertRenderObjectChild', 'assert(false)', coolMint),
               dataRow('moveRenderObjectChild', 'assert(false)', jadeGreen),
               dataRow('removeRenderObjectChild', 'assert(false)', spearmint),
               const SizedBox(height: 6),
-              dataRow('visitChildren(visitor)', 'No-op (empty body)', eucalyptus),
-              dataRow('debugDescribeChildren()', 'Returns empty list', wintergreen),
+              dataRow(
+                'visitChildren(visitor)',
+                'No-op (empty body)',
+                eucalyptus,
+              ),
+              dataRow(
+                'debugDescribeChildren()',
+                'Returns empty list',
+                wintergreen,
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 12. Custom leaf design ───────────────────────────────────
-        sectionBanner('12 · Custom Leaf Widget Design',
-            'Implementing a custom LeafRenderObjectWidget', spearmint, Colors.white),
+        sectionBanner(
+          '12 · Custom Leaf Widget Design',
+          'Implementing a custom LeafRenderObjectWidget',
+          spearmint,
+          Colors.white,
+        ),
         noteBox(
           'To create a custom leaf widget: extend LeafRenderObjectWidget, '
           'implement createRenderObject(), and create a RenderBox subclass '
@@ -722,18 +927,30 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        lifecycleStep(1, 'Extend LeafRenderObjectWidget',
-            'Create your widget subclass with configuration properties',
-            deepJade),
-        lifecycleStep(2, 'Create RenderBox subclass',
-            'Implement performLayout() and paint() for custom rendering',
-            coolMint),
-        lifecycleStep(3, 'Implement createRenderObject()',
-            'Return a new instance of your RenderBox, configured from widget props',
-            jadeGreen),
-        lifecycleStep(4, 'Override updateRenderObject()',
-            'Update the RenderBox when widget properties change',
-            spearmint),
+        lifecycleStep(
+          1,
+          'Extend LeafRenderObjectWidget',
+          'Create your widget subclass with configuration properties',
+          deepJade,
+        ),
+        lifecycleStep(
+          2,
+          'Create RenderBox subclass',
+          'Implement performLayout() and paint() for custom rendering',
+          coolMint,
+        ),
+        lifecycleStep(
+          3,
+          'Implement createRenderObject()',
+          'Return a new instance of your RenderBox, configured from widget props',
+          jadeGreen,
+        ),
+        lifecycleStep(
+          4,
+          'Override updateRenderObject()',
+          'Update the RenderBox when widget properties change',
+          spearmint,
+        ),
         noteBox(
           'The LeafRenderObjectElement is created by the framework — '
           'you never instantiate it directly. Your responsibility is '
@@ -744,8 +961,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Performance notes ────────────────────────────────────
-        sectionBanner('13 · Performance Characteristics',
-            'Why leaf elements are efficient', eucalyptus, Colors.white),
+        sectionBanner(
+          '13 · Performance Characteristics',
+          'Why leaf elements are efficient',
+          eucalyptus,
+          Colors.white,
+        ),
         noteBox(
           'Leaf elements are the lightest elements in the tree. They have '
           'no child management overhead, no child iteration, and no child '
@@ -765,17 +986,32 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Performance Comparison',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Performance Comparison',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 8),
               dataRow('Leaf element', 'Zero child overhead', deepJade),
-              dataRow('Single-child element', 'One child slot managed', coolMint),
-              dataRow('Multi-child element', 'N child slots managed', jadeGreen),
+              dataRow(
+                'Single-child element',
+                'One child slot managed',
+                coolMint,
+              ),
+              dataRow(
+                'Multi-child element',
+                'N child slots managed',
+                jadeGreen,
+              ),
               const SizedBox(height: 6),
-              dataRow('Leaf rebuild cost', 'Minimal — no children to reconcile', spearmint),
+              dataRow(
+                'Leaf rebuild cost',
+                'Minimal — no children to reconcile',
+                spearmint,
+              ),
               dataRow('Leaf memory', 'Smallest element footprint', eucalyptus),
             ],
           ),
@@ -783,8 +1019,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Debug information ────────────────────────────────────
-        sectionBanner('14 · Debug Information',
-            'Diagnostics and tree inspection', wintergreen, deepJade),
+        sectionBanner(
+          '14 · Debug Information',
+          'Diagnostics and tree inspection',
+          wintergreen,
+          deepJade,
+        ),
         noteBox(
           'LeafRenderObjectElement participates in Flutter\'s diagnostics '
           'system. debugDescribeChildren() returns an empty list, and '
@@ -793,22 +1033,35 @@ dynamic build(BuildContext context) {
           deepJade,
           mintCream,
         ),
-        methodCard('debugDescribeChildren()', 'Returns empty DiagnosticsNode list',
-            'No children means no child diagnostics to report',
-            deepJade),
-        methodCard('toDiagnosticsNode()', 'Element diagnostics',
-            'Reports widget type, depth, and render object info',
-            coolMint),
-        methodCard('describeMissingChild()', 'Not applicable',
-            'Leaf elements never have missing children to describe',
-            jadeGreen),
+        methodCard(
+          'debugDescribeChildren()',
+          'Returns empty DiagnosticsNode list',
+          'No children means no child diagnostics to report',
+          deepJade,
+        ),
+        methodCard(
+          'toDiagnosticsNode()',
+          'Element diagnostics',
+          'Reports widget type, depth, and render object info',
+          coolMint,
+        ),
+        methodCard(
+          'describeMissingChild()',
+          'Not applicable',
+          'Leaf elements never have missing children to describe',
+          jadeGreen,
+        ),
         dataRow('In widget inspector', 'Shows as leaf node', deepJade),
         dataRow('Child count', '0 (always)', coolMint),
         const SizedBox(height: 14),
 
         // ── 15. Element type comparison ──────────────────────────────
-        sectionBanner('15 · Element Type Comparison',
-            'Leaf vs SingleChild vs MultiChild', softMint, deepJade),
+        sectionBanner(
+          '15 · Element Type Comparison',
+          'Leaf vs SingleChild vs MultiChild',
+          softMint,
+          deepJade,
+        ),
         noteBox(
           'The three RenderObjectElement subclasses serve different child '
           'configurations. Choosing correctly is essential — mismatched '
@@ -827,11 +1080,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Element Types',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Element Types',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 8),
               dataRow('LeafRenderObjectElement', '0 children', deepJade),
               dataRow('  Widget', 'LeafRenderObjectWidget', coolMint),
@@ -850,8 +1106,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary dashboard ────────────────────────────────────
-        sectionBanner('16 · Summary Dashboard',
-            'LeafRenderObjectElement metrics', deepJade, Colors.white),
+        sectionBanner(
+          '16 · Summary Dashboard',
+          'LeafRenderObjectElement metrics',
+          deepJade,
+          Colors.white,
+        ),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -889,11 +1149,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Mint / Jade Palette',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: deepJade)),
+              Text(
+                'Mint / Jade Palette',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepJade,
+                ),
+              ),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,

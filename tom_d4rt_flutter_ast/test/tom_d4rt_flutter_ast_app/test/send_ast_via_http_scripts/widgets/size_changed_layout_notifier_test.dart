@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.photo_size_select_small,
       'title': 'Size Change Detection',
-      'body': 'SizeChangedLayoutNotifier wraps a child widget and automatically '
+      'body':
+          'SizeChangedLayoutNotifier wraps a child widget and automatically '
           'dispatches a SizeChangedLayoutNotification whenever the child\'s '
           'size changes during layout. This notification bubbles up through '
           'the widget tree for any ancestor to catch.',
@@ -26,21 +27,24 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.notifications_active,
       'title': 'Notification Pattern',
-      'body': 'Uses Flutter\'s Notification system — notifications bubble up '
+      'body':
+          'Uses Flutter\'s Notification system — notifications bubble up '
           'from child to parent. Any ancestor NotificationListener<'
           'SizeChangedLayoutNotification> can intercept and respond.',
     },
     {
       'icon': Icons.memory,
       'title': 'RenderObject-Based',
-      'body': 'Internally creates a RenderSizeChangedWithCallback '
+      'body':
+          'Internally creates a RenderSizeChangedWithCallback '
           'render object. The callback fires after the layout phase when '
           'the measured size differs from the previous frame.',
     },
     {
       'icon': Icons.bolt,
       'title': 'No Extra Layout Pass',
-      'body': 'Unlike measuring with GlobalKey.currentContext.size (which '
+      'body':
+          'Unlike measuring with GlobalKey.currentContext.size (which '
           'requires an additional frame), SizeChangedLayoutNotifier fires '
           'during the same layout pass — giving you immediate notification.',
     },
@@ -62,7 +66,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.amber.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.amber.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -70,13 +78,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['title'] as String,
-                    style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
-                        color: Colors.amber.shade700),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.amber.shade700,
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -101,7 +116,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'child',
       'type': 'Widget?',
-      'desc': 'The child widget to track size changes for. The notifier wraps '
+      'desc':
+          'The child widget to track size changes for. The notifier wraps '
           'this widget and monitors its render box dimensions.',
     },
   ];
@@ -114,9 +130,7 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
         decoration: BoxDecoration(
-          color: i.isEven
-              ? Colors.amber.withValues(alpha: 0.03)
-              : Colors.white,
+          color: i.isEven ? Colors.amber.withValues(alpha: 0.03) : Colors.white,
           border: Border(
             bottom: BorderSide(color: Colors.amber.withValues(alpha: 0.15)),
           ),
@@ -129,18 +143,36 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(p['name']!, style: TextStyle(fontSize: 13.0,
-                      fontWeight: FontWeight.w700, color: Colors.amber.shade800,
-                      fontFamily: 'monospace')),
-                  Text(p['type']!, style: TextStyle(fontSize: 10.0,
-                      color: Colors.amber.shade400, fontStyle: FontStyle.italic)),
+                  Text(
+                    p['name']!,
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.amber.shade800,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                  Text(
+                    p['type']!,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.amber.shade400,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
                 ],
               ),
             ),
             const SizedBox(width: 12.0),
             Expanded(
-              child: Text(p['desc']!, style: TextStyle(fontSize: 12.0,
-                  color: Colors.grey.shade700, height: 1.35)),
+              child: Text(
+                p['desc']!,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.35,
+                ),
+              ),
             ),
           ],
         ),
@@ -208,8 +240,11 @@ dynamic build(BuildContext context) {
       );
       flowWidgets.add(
         Center(
-          child: Icon(Icons.arrow_downward, size: 16.0,
-              color: Colors.amber.withValues(alpha: 0.5)),
+          child: Icon(
+            Icons.arrow_downward,
+            size: 16.0,
+            color: Colors.amber.withValues(alpha: 0.5),
+          ),
         ),
       );
     }
@@ -221,7 +256,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -233,24 +270,44 @@ dynamic build(BuildContext context) {
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
-              child: Text('${s['step']}', style: const TextStyle(fontSize: 13.0,
-                  fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text(
+                '${s['step']}',
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(s['label'] as String, style: TextStyle(fontSize: 12.5,
-                      fontWeight: FontWeight.w700, color: s['color'] as Color,
-                      fontFamily: 'monospace')),
-                  Text(s['detail'] as String, style: TextStyle(fontSize: 11.0,
-                      color: Colors.grey.shade600)),
+                  Text(
+                    s['label'] as String,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: s['color'] as Color,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                  Text(
+                    s['detail'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
                 ],
               ),
             ),
-            Icon(s['icon'] as IconData, color: (s['color'] as Color).withValues(alpha: 0.5),
-                size: 22.0),
+            Icon(
+              s['icon'] as IconData,
+              color: (s['color'] as Color).withValues(alpha: 0.5),
+              size: 22.0,
+            ),
           ],
         ),
       ),
@@ -266,7 +323,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.aspect_ratio,
       'title': 'Responsive Layouts',
-      'body': 'Track when a container resizes (e.g., window resize, orientation '
+      'body':
+          'Track when a container resizes (e.g., window resize, orientation '
           'change) and adapt child layout accordingly. Unlike MediaQuery, '
           'this tracks the actual widget size, not the screen size.',
       'example': 'A sidebar that collapses when its parent gets narrow.',
@@ -274,30 +332,36 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'Dynamic Content Sizing',
-      'body': 'When text content changes length or images load, '
+      'body':
+          'When text content changes length or images load, '
           'SizeChangedLayoutNotifier tells parent widgets to adjust '
           'surrounding layout — e.g., reposition overlays or scrolling.',
-      'example': 'Chat bubbles that expand when message text wraps to new lines.',
+      'example':
+          'Chat bubbles that expand when message text wraps to new lines.',
     },
     {
       'icon': Icons.animation,
       'title': 'Animation Triggers',
-      'body': 'Trigger animations when a widget changes size. For instance, '
+      'body':
+          'Trigger animations when a widget changes size. For instance, '
           'animate a background gradient or border when an accordion expands.',
       'example': 'ExpansionTile that fades in a shadow when it opens.',
     },
     {
       'icon': Icons.layers,
       'title': 'Overlay Repositioning',
-      'body': 'When a target widget changes size, overlays (tooltips, popups, '
+      'body':
+          'When a target widget changes size, overlays (tooltips, popups, '
           'dropdowns) need to reposition. SizeChangedLayoutNotifier signals '
           'the overlay to recalculate its anchor position.',
-      'example': 'Autocomplete dropdown that shifts when the input field resizes.',
+      'example':
+          'Autocomplete dropdown that shifts when the input field resizes.',
     },
     {
       'icon': Icons.stacked_bar_chart,
       'title': 'Custom Scroll Effects',
-      'body': 'ScrollViews that need to know when content height changes. '
+      'body':
+          'ScrollViews that need to know when content height changes. '
           'SizeChangedLayoutNotifier can trigger scroll extent recalculation.',
       'example': 'Infinite scroll that adjusts when items collapse/expand.',
     },
@@ -321,17 +385,33 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(u['icon'] as IconData, color: Colors.amber.shade700, size: 22.0),
+                Icon(
+                  u['icon'] as IconData,
+                  color: Colors.amber.shade700,
+                  size: 22.0,
+                ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: Text(u['title'] as String, style: TextStyle(fontSize: 13.0,
-                      fontWeight: FontWeight.w700, color: Colors.amber.shade700)),
+                  child: Text(
+                    u['title'] as String,
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.amber.shade700,
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 6.0),
-            Text(u['body'] as String, style: TextStyle(fontSize: 12.0,
-                color: Colors.grey.shade700, height: 1.35)),
+            Text(
+              u['body'] as String,
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+                height: 1.35,
+              ),
+            ),
             const SizedBox(height: 6.0),
             Container(
               width: double.infinity,
@@ -342,12 +422,21 @@ dynamic build(BuildContext context) {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline, size: 14.0, color: Colors.amber.shade600),
+                  Icon(
+                    Icons.lightbulb_outline,
+                    size: 14.0,
+                    color: Colors.amber.shade600,
+                  ),
                   const SizedBox(width: 6.0),
                   Expanded(
-                    child: Text('Example: ${u['example']}',
-                        style: TextStyle(fontSize: 11.0, color: Colors.amber.shade700,
-                            fontStyle: FontStyle.italic)),
+                    child: Text(
+                      'Example: ${u['example']}',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.amber.shade700,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -418,18 +507,42 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'icon': Icons.photo_size_select_small, 'text': 'SizeChangedLayoutNotifier '
-        'detects when its child changes size during layout'},
-    {'icon': Icons.notifications, 'text': 'Dispatches SizeChangedLayout'
-        'Notification — a standard Flutter notification'},
-    {'icon': Icons.hearing, 'text': 'Caught by ancestor NotificationListener '
-        '— no callbacks, no GlobalKey needed'},
-    {'icon': Icons.memory, 'text': 'Uses RenderSizeChangedWithCallback '
-        'internally — integrates with the rendering pipeline'},
-    {'icon': Icons.speed, 'text': 'Fires during layout phase — no post-frame '
-        'delay unlike GlobalKey measurements'},
-    {'icon': Icons.architecture, 'text': 'Decouples size tracking from the '
-        'widget that changes — clean separation of concerns'},
+    {
+      'icon': Icons.photo_size_select_small,
+      'text':
+          'SizeChangedLayoutNotifier '
+          'detects when its child changes size during layout',
+    },
+    {
+      'icon': Icons.notifications,
+      'text':
+          'Dispatches SizeChangedLayout'
+          'Notification — a standard Flutter notification',
+    },
+    {
+      'icon': Icons.hearing,
+      'text':
+          'Caught by ancestor NotificationListener '
+          '— no callbacks, no GlobalKey needed',
+    },
+    {
+      'icon': Icons.memory,
+      'text':
+          'Uses RenderSizeChangedWithCallback '
+          'internally — integrates with the rendering pipeline',
+    },
+    {
+      'icon': Icons.speed,
+      'text':
+          'Fires during layout phase — no post-frame '
+          'delay unlike GlobalKey measurements',
+    },
+    {
+      'icon': Icons.architecture,
+      'text':
+          'Decouples size tracking from the '
+          'widget that changes — clean separation of concerns',
+    },
   ];
 
   final summaryBullets = <Widget>[];
@@ -442,11 +555,21 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(s['icon'] as IconData, size: 18.0, color: Colors.amber.shade600),
+            Icon(
+              s['icon'] as IconData,
+              size: 18.0,
+              color: Colors.amber.shade600,
+            ),
             const SizedBox(width: 10.0),
             Expanded(
-              child: Text(s['text'] as String,
-                  style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.35)),
+              child: Text(
+                s['text'] as String,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.35,
+                ),
+              ),
             ),
           ],
         ),
@@ -466,8 +589,14 @@ dynamic build(BuildContext context) {
           Icon(icon, size: 16.0, color: color ?? Colors.amber.shade600),
           const SizedBox(width: 8.0),
           Expanded(
-            child: Text(text,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.3)),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+                height: 1.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -492,7 +621,10 @@ dynamic build(BuildContext context) {
           indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          labelStyle: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
+          labelStyle: const TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w600,
+          ),
           unselectedLabelStyle: const TextStyle(fontSize: 11.0),
           tabs: const [
             Tab(text: 'Concept'),
@@ -512,10 +644,12 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSCLNBullet(Icons.info_outline,
-                  'SizeChangedLayoutNotifier is a SingleChildRenderObjectWidget '
-                  'that monitors its render object\'s size and dispatches a '
-                  'notification when it changes.'),
+              buildSCLNBullet(
+                Icons.info_outline,
+                'SizeChangedLayoutNotifier is a SingleChildRenderObjectWidget '
+                'that monitors its render object\'s size and dispatches a '
+                'notification when it changes.',
+              ),
               const SizedBox(height: 12.0),
               ...conceptCards,
               const SizedBox(height: 12.0),
@@ -528,19 +662,30 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('How it differs from LayoutBuilder',
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                            color: Colors.amber.shade800)),
+                    Text(
+                      'How it differs from LayoutBuilder',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.amber.shade800,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
-                    buildSCLNBullet(Icons.compare,
-                        'LayoutBuilder gives you constraints before building — '
-                        'it rebuilds the child with new constraints.'),
-                    buildSCLNBullet(Icons.notifications,
-                        'SizeChangedLayoutNotifier fires after layout — it tells '
-                        'ancestors what happened. The child is not rebuilt.'),
-                    buildSCLNBullet(Icons.arrow_upward,
-                        'LayoutBuilder flows downward (constraints). '
-                        'SizeChangedLayoutNotifier flows upward (notifications).'),
+                    buildSCLNBullet(
+                      Icons.compare,
+                      'LayoutBuilder gives you constraints before building — '
+                      'it rebuilds the child with new constraints.',
+                    ),
+                    buildSCLNBullet(
+                      Icons.notifications,
+                      'SizeChangedLayoutNotifier fires after layout — it tells '
+                      'ancestors what happened. The child is not rebuilt.',
+                    ),
+                    buildSCLNBullet(
+                      Icons.arrow_upward,
+                      'LayoutBuilder flows downward (constraints). '
+                      'SizeChangedLayoutNotifier flows upward (notifications).',
+                    ),
                   ],
                 ),
               ),
@@ -556,9 +701,14 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Basic usage pattern',
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade700)),
+                    Text(
+                      'Basic usage pattern',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
                     Text(
                       'NotificationListener<SizeChangedLayoutNotification>(\n'
@@ -570,8 +720,12 @@ dynamic build(BuildContext context) {
                       '    child: MyDynamicWidget(),\n'
                       '  ),\n'
                       ')',
-                      style: TextStyle(fontSize: 11.5, fontFamily: 'monospace',
-                          color: Colors.grey.shade800, height: 1.4),
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade800,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -595,8 +749,12 @@ dynamic build(BuildContext context) {
                   '  Key? key,\n'
                   '  Widget? child,\n'
                   '})',
-                  style: TextStyle(fontSize: 12.5, fontFamily: 'monospace',
-                      color: Colors.grey.shade800, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    fontFamily: 'monospace',
+                    color: Colors.grey.shade800,
+                    height: 1.4,
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -607,21 +765,32 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Simplest API in Flutter',
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                            color: Colors.amber.shade700)),
+                    Text(
+                      'Simplest API in Flutter',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.amber.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
                     Text(
                       'With only an optional child parameter, SizeChangedLayout'
                       'Notifier has one of the simplest constructors in the '
                       'Flutter framework. The complexity is in the rendering '
                       'layer — RenderSizeChangedWithCallback does the real work.',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                      ),
                     ),
                   ],
                 ),
@@ -632,29 +801,50 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Inheritance Chain',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.amber.shade700)),
+                    Text(
+                      'Inheritance Chain',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.amber.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
                     ...[
                       'Widget',
                       '  └─ RenderObjectWidget',
                       '      └─ SingleChildRenderObjectWidget',
                       '          └─ SizeChangedLayoutNotifier',
-                    ].map((line) => Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(line, style: TextStyle(fontSize: 11.5,
-                          fontFamily: 'monospace', color: Colors.amber.shade800, height: 1.3)),
-                    )),
+                    ].map(
+                      (line) => Padding(
+                        padding: const EdgeInsets.only(bottom: 2.0),
+                        child: Text(
+                          line,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontFamily: 'monospace',
+                            color: Colors.amber.shade800,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
-                    Text('Creates: RenderSizeChangedWithCallback',
-                        style: TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic,
-                            color: Colors.amber.shade600)),
+                    Text(
+                      'Creates: RenderSizeChangedWithCallback',
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.amber.shade600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -670,42 +860,75 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Related Classes',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.grey.shade700)),
+                    Text(
+                      'Related Classes',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
                     ...<Map<String, String>>[
-                      {'name': 'SizeChangedLayoutNotification',
-                          'desc': 'The notification dispatched (extends LayoutChangedNotification)'},
-                      {'name': 'LayoutChangedNotification',
-                          'desc': 'Base class for layout-related notifications'},
-                      {'name': 'RenderSizeChangedWithCallback',
-                          'desc': 'RenderProxyBox that triggers callback on size change'},
-                      {'name': 'NotificationListener',
-                          'desc': 'Widget that listens for notifications from descendants'},
-                    ].map((r) => Padding(
-                      padding: const EdgeInsets.only(bottom: 6.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.circle, size: 6.0, color: Colors.amber.shade400),
-                          const SizedBox(width: 8.0),
-                          Expanded(
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(text: r['name']!,
-                                      style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
-                                          fontWeight: FontWeight.w600, color: Colors.amber.shade800)),
-                                  TextSpan(text: ' — ${r['desc']}',
-                                      style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600)),
-                                ],
+                      {
+                        'name': 'SizeChangedLayoutNotification',
+                        'desc':
+                            'The notification dispatched (extends LayoutChangedNotification)',
+                      },
+                      {
+                        'name': 'LayoutChangedNotification',
+                        'desc': 'Base class for layout-related notifications',
+                      },
+                      {
+                        'name': 'RenderSizeChangedWithCallback',
+                        'desc':
+                            'RenderProxyBox that triggers callback on size change',
+                      },
+                      {
+                        'name': 'NotificationListener',
+                        'desc':
+                            'Widget that listens for notifications from descendants',
+                      },
+                    ].map(
+                      (r) => Padding(
+                        padding: const EdgeInsets.only(bottom: 6.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              size: 6.0,
+                              color: Colors.amber.shade400,
+                            ),
+                            const SizedBox(width: 8.0),
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: r['name']!,
+                                      style: TextStyle(
+                                        fontSize: 12.0,
+                                        fontFamily: 'monospace',
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.amber.shade800,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' — ${r['desc']}',
+                                      style: TextStyle(
+                                        fontSize: 11.5,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                 ),
               ),
@@ -716,9 +939,11 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSCLNBullet(Icons.route,
-                  'The notification flows from the RenderObject through the '
-                  'Element tree up to any listening ancestor.'),
+              buildSCLNBullet(
+                Icons.route,
+                'The notification flows from the RenderObject through the '
+                'Element tree up to any listening ancestor.',
+              ),
               const SizedBox(height: 12.0),
               ...flowWidgets,
               const SizedBox(height: 16.0),
@@ -727,24 +952,42 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Timing details', style: TextStyle(fontSize: 12.5,
-                        fontWeight: FontWeight.w700, color: Colors.amber.shade700)),
+                    Text(
+                      'Timing details',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.amber.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
-                    buildSCLNBullet(Icons.schedule,
-                        '1. Layout phase: RenderSizeChangedWithCallback.performLayout()'),
-                    buildSCLNBullet(Icons.compare_arrows,
-                        '2. Size comparison: oldSize != newSize?'),
-                    buildSCLNBullet(Icons.schedule_send,
-                        '3. Callback scheduled via SchedulerBinding.addPostFrameCallback'),
-                    buildSCLNBullet(Icons.notifications_active,
-                        '4. Post-frame: notification.dispatch(context)'),
-                    buildSCLNBullet(Icons.hearing,
-                        '5. Notification bubbles up to NotificationListener'),
+                    buildSCLNBullet(
+                      Icons.schedule,
+                      '1. Layout phase: RenderSizeChangedWithCallback.performLayout()',
+                    ),
+                    buildSCLNBullet(
+                      Icons.compare_arrows,
+                      '2. Size comparison: oldSize != newSize?',
+                    ),
+                    buildSCLNBullet(
+                      Icons.schedule_send,
+                      '3. Callback scheduled via SchedulerBinding.addPostFrameCallback',
+                    ),
+                    buildSCLNBullet(
+                      Icons.notifications_active,
+                      '4. Post-frame: notification.dispatch(context)',
+                    ),
+                    buildSCLNBullet(
+                      Icons.hearing,
+                      '5. Notification bubbles up to NotificationListener',
+                    ),
                   ],
                 ),
               ),
@@ -754,17 +997,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.purple.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.purple.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.purple.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.lightbulb, color: Colors.purple.shade600, size: 18.0),
+                        Icon(
+                          Icons.lightbulb,
+                          color: Colors.purple.shade600,
+                          size: 18.0,
+                        ),
                         const SizedBox(width: 6.0),
-                        Text('Key insight', style: TextStyle(fontSize: 12.5,
-                            fontWeight: FontWeight.w700, color: Colors.purple.shade700)),
+                        Text(
+                          'Key insight',
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.purple.shade700,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -773,7 +1028,11 @@ dynamic build(BuildContext context) {
                       'not during the layout phase itself. This means listeners '
                       'can safely call setState() without interfering with the '
                       'current layout/paint cycle.',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -785,8 +1044,10 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSCLNBullet(Icons.apps,
-                  'Real-world scenarios where SizeChangedLayoutNotifier shines:'),
+              buildSCLNBullet(
+                Icons.apps,
+                'Real-world scenarios where SizeChangedLayoutNotifier shines:',
+              ),
               const SizedBox(height: 12.0),
               ...useCaseCards,
             ],
@@ -802,14 +1063,18 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSCLNBullet(Icons.compare,
-                  'Three approaches to tracking widget size:'),
+              buildSCLNBullet(
+                Icons.compare,
+                'Three approaches to tracking widget size:',
+              ),
               const SizedBox(height: 12.0),
               // Comparison table
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.25),
+                  ),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Column(
@@ -819,21 +1084,53 @@ dynamic build(BuildContext context) {
                       color: Colors.amber.shade700,
                       child: const Row(
                         children: [
-                          Expanded(flex: 2, child: Text('Feature',
-                              style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                          Expanded(flex: 2, child: Text('Notifier',
-                              style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center)),
-                          Expanded(flex: 2, child: Text('LayoutBuilder',
-                              style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center)),
-                          Expanded(flex: 2, child: Text('GlobalKey',
-                              style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center)),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Feature',
+                              style: TextStyle(
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Notifier',
+                              style: TextStyle(
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'LayoutBuilder',
+                              style: TextStyle(
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'GlobalKey',
+                              style: TextStyle(
+                                fontSize: 10.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -841,22 +1138,59 @@ dynamic build(BuildContext context) {
                       final r = entry.value;
                       final isEven = entry.key.isEven;
                       return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-                        color: isEven ? Colors.amber.withValues(alpha: 0.03) : Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 10.0,
+                        ),
+                        color: isEven
+                            ? Colors.amber.withValues(alpha: 0.03)
+                            : Colors.white,
                         child: Row(
                           children: [
-                            Expanded(flex: 2, child: Text(r['feature']!,
-                                style: TextStyle(fontSize: 10.5,
-                                    fontWeight: FontWeight.w600, color: Colors.grey.shade800))),
-                            Expanded(flex: 2, child: Text(r['notifier']!,
-                                style: TextStyle(fontSize: 10.5, color: Colors.amber.shade700),
-                                textAlign: TextAlign.center)),
-                            Expanded(flex: 2, child: Text(r['layoutBuilder']!,
-                                style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
-                                textAlign: TextAlign.center)),
-                            Expanded(flex: 2, child: Text(r['globalKey']!,
-                                style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
-                                textAlign: TextAlign.center)),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                r['feature']!,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                r['notifier']!,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: Colors.amber.shade700,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                r['layoutBuilder']!,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: Colors.grey.shade600,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                r['globalKey']!,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: Colors.grey.shade600,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -870,20 +1204,39 @@ dynamic build(BuildContext context) {
                 {
                   'title': 'SizeChangedLayoutNotifier',
                   'color': Colors.amber,
-                  'pros': ['Zero boilerplate', 'Ancestor-aware', 'No rebuild needed'],
-                  'cons': ['Only detects size changes', 'No size value in notification'],
+                  'pros': [
+                    'Zero boilerplate',
+                    'Ancestor-aware',
+                    'No rebuild needed',
+                  ],
+                  'cons': [
+                    'Only detects size changes',
+                    'No size value in notification',
+                  ],
                 },
                 {
                   'title': 'LayoutBuilder',
                   'color': Colors.blue,
-                  'pros': ['Gives constraints', 'Reactive building', 'Very common'],
+                  'pros': [
+                    'Gives constraints',
+                    'Reactive building',
+                    'Very common',
+                  ],
                   'cons': ['Rebuilds child on change', 'Local scope only'],
                 },
                 {
                   'title': 'GlobalKey measurement',
                   'color': Colors.green,
-                  'pros': ['Exact Size value', 'Cross-tree access', 'RenderBox position'],
-                  'cons': ['Post-frame delay', 'Manual scheduling', 'GlobalKey cost'],
+                  'pros': [
+                    'Exact Size value',
+                    'Cross-tree access',
+                    'RenderBox position',
+                  ],
+                  'cons': [
+                    'Post-frame delay',
+                    'Manual scheduling',
+                    'GlobalKey cost',
+                  ],
                 },
               ].map((approach) {
                 final color = approach['color'] as MaterialColor;
@@ -898,9 +1251,14 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(approach['title'] as String,
-                          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                              color: color.shade700)),
+                      Text(
+                        approach['title'] as String,
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w700,
+                          color: color.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 8.0),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -909,23 +1267,41 @@ dynamic build(BuildContext context) {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Pros', style: TextStyle(fontSize: 11.0,
-                                    fontWeight: FontWeight.w600, color: Colors.green.shade600)),
-                                const SizedBox(height: 4.0),
-                                ...(approach['pros'] as List<String>).map((p) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 3.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.add_circle, size: 12.0,
-                                          color: Colors.green.shade400),
-                                      const SizedBox(width: 4.0),
-                                      Expanded(child: Text(p,
-                                          style: TextStyle(fontSize: 11.0,
-                                              color: Colors.grey.shade700))),
-                                    ],
+                                Text(
+                                  'Pros',
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green.shade600,
                                   ),
-                                )),
+                                ),
+                                const SizedBox(height: 4.0),
+                                ...(approach['pros'] as List<String>).map(
+                                  (p) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 3.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.add_circle,
+                                          size: 12.0,
+                                          color: Colors.green.shade400,
+                                        ),
+                                        const SizedBox(width: 4.0),
+                                        Expanded(
+                                          child: Text(
+                                            p,
+                                            style: TextStyle(
+                                              fontSize: 11.0,
+                                              color: Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -934,23 +1310,41 @@ dynamic build(BuildContext context) {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Cons', style: TextStyle(fontSize: 11.0,
-                                    fontWeight: FontWeight.w600, color: Colors.red.shade600)),
-                                const SizedBox(height: 4.0),
-                                ...(approach['cons'] as List<String>).map((c) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 3.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(Icons.remove_circle, size: 12.0,
-                                          color: Colors.red.shade400),
-                                      const SizedBox(width: 4.0),
-                                      Expanded(child: Text(c,
-                                          style: TextStyle(fontSize: 11.0,
-                                              color: Colors.grey.shade700))),
-                                    ],
+                                Text(
+                                  'Cons',
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red.shade600,
                                   ),
-                                )),
+                                ),
+                                const SizedBox(height: 4.0),
+                                ...(approach['cons'] as List<String>).map(
+                                  (c) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 3.0),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.remove_circle,
+                                          size: 12.0,
+                                          color: Colors.red.shade400,
+                                        ),
+                                        const SizedBox(width: 4.0),
+                                        Expanded(
+                                          child: Text(
+                                            c,
+                                            style: TextStyle(
+                                              fontSize: 11.0,
+                                              color: Colors.grey.shade700,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -966,23 +1360,37 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.green.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('When to pick what', style: TextStyle(fontSize: 12.5,
-                        fontWeight: FontWeight.w700, color: Colors.green.shade700)),
+                    Text(
+                      'When to pick what',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
-                    buildSCLNBullet(Icons.arrow_right,
-                        'Need parent to react to child size → SizeChangedLayoutNotifier',
-                        color: Colors.amber.shade600),
-                    buildSCLNBullet(Icons.arrow_right,
-                        'Need to build differently based on space → LayoutBuilder',
-                        color: Colors.blue.shade600),
-                    buildSCLNBullet(Icons.arrow_right,
-                        'Need exact pixel size cross-tree → GlobalKey measurement',
-                        color: Colors.green.shade600),
+                    buildSCLNBullet(
+                      Icons.arrow_right,
+                      'Need parent to react to child size → SizeChangedLayoutNotifier',
+                      color: Colors.amber.shade600,
+                    ),
+                    buildSCLNBullet(
+                      Icons.arrow_right,
+                      'Need to build differently based on space → LayoutBuilder',
+                      color: Colors.blue.shade600,
+                    ),
+                    buildSCLNBullet(
+                      Icons.arrow_right,
+                      'Need exact pixel size cross-tree → GlobalKey measurement',
+                      color: Colors.green.shade600,
+                    ),
                   ],
                 ),
               ),
@@ -1005,16 +1413,29 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.photo_size_select_small, size: 40.0,
-                        color: Colors.amber.shade700),
+                    Icon(
+                      Icons.photo_size_select_small,
+                      size: 40.0,
+                      color: Colors.amber.shade700,
+                    ),
                     const SizedBox(height: 8.0),
-                    Text('SizeChangedLayoutNotifier',
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,
-                            color: Colors.amber.shade800)),
+                    Text(
+                      'SizeChangedLayoutNotifier',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.amber.shade800,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
-                    Text('Passive size-change detection via notifications',
-                        style: TextStyle(fontSize: 12.5, color: Colors.amber.shade600,
-                            fontStyle: FontStyle.italic)),
+                    Text(
+                      'Passive size-change detection via notifications',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Colors.amber.shade600,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1026,14 +1447,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Quick Reference',
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                            color: Colors.amber.shade700)),
+                    Text(
+                      'Quick Reference',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.amber.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
                     Text(
                       '// Wrap content that may resize:\n'
@@ -1051,8 +1479,12 @@ dynamic build(BuildContext context) {
                       '  },\n'
                       '  child: ...,\n'
                       ')',
-                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                          color: Colors.grey.shade800, height: 1.35),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade800,
+                        height: 1.35,
+                      ),
                     ),
                   ],
                 ),
@@ -1086,8 +1518,11 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
     setState(() {
       _notificationCount++;
       final timestamp = DateTime.now().toString().substring(11, 19);
-      _sizeLog.insert(0, '[$timestamp] Notification #$_notificationCount — '
-          'size changed!');
+      _sizeLog.insert(
+        0,
+        '[$timestamp] Notification #$_notificationCount — '
+        'size changed!',
+      );
       if (_sizeLog.length > 15) _sizeLog.removeLast();
     });
   }
@@ -1108,13 +1543,24 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Resize Controls', style: TextStyle(fontSize: 13.0,
-                  fontWeight: FontWeight.w700, color: Colors.amber.shade700)),
+              Text(
+                'Resize Controls',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.amber.shade700,
+                ),
+              ),
               const SizedBox(height: 10.0),
               Row(
                 children: [
-                  Text('Width: ${_width.toInt()}px',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                  Text(
+                    'Width: ${_width.toInt()}px',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                   Expanded(
                     child: Slider(
                       value: _width,
@@ -1129,8 +1575,13 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
               ),
               Row(
                 children: [
-                  Text('Height: ${_height.toInt()}px',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                  Text(
+                    'Height: ${_height.toInt()}px',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                   Expanded(
                     child: Slider(
                       value: _height,
@@ -1144,10 +1595,14 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
                 ],
               ),
               SwitchListTile(
-                title: Text('Show extra content inside',
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
-                subtitle: Text('Triggers internal size change',
-                    style: TextStyle(fontSize: 10.5, color: Colors.grey.shade500)),
+                title: Text(
+                  'Show extra content inside',
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                ),
+                subtitle: Text(
+                  'Triggers internal size change',
+                  style: TextStyle(fontSize: 10.5, color: Colors.grey.shade500),
+                ),
                 value: _showExtraContent,
                 activeColor: Colors.amber.shade600,
                 dense: true,
@@ -1174,17 +1629,24 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
           ),
           child: Row(
             children: [
-              Icon(Icons.notifications_active,
-                  color: _notificationCount > 0
-                      ? Colors.green.shade600
-                      : Colors.grey.shade400,
-                  size: 22.0),
+              Icon(
+                Icons.notifications_active,
+                color: _notificationCount > 0
+                    ? Colors.green.shade600
+                    : Colors.grey.shade400,
+                size: 22.0,
+              ),
               const SizedBox(width: 8.0),
-              Text('Notifications received: $_notificationCount',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600,
-                      color: _notificationCount > 0
-                          ? Colors.green.shade700
-                          : Colors.grey.shade500)),
+              Text(
+                'Notifications received: $_notificationCount',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: _notificationCount > 0
+                      ? Colors.green.shade700
+                      : Colors.grey.shade500,
+                ),
+              ),
               const Spacer(),
               if (_notificationCount > 0)
                 TextButton(
@@ -1192,8 +1654,13 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
                     _notificationCount = 0;
                     _sizeLog.clear();
                   }),
-                  child: Text('Reset', style: TextStyle(fontSize: 11.0,
-                      color: Colors.amber.shade700)),
+                  child: Text(
+                    'Reset',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.amber.shade700,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -1213,10 +1680,7 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
                 height: _showExtraContent ? _height + 40.0 : _height,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.amber.shade200,
-                      Colors.amber.shade400,
-                    ],
+                    colors: [Colors.amber.shade200, Colors.amber.shade400],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1233,21 +1697,35 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.crop_free, color: Colors.white, size: 28.0),
+                    const Icon(
+                      Icons.crop_free,
+                      color: Colors.white,
+                      size: 28.0,
+                    ),
                     const SizedBox(height: 4.0),
-                    Text('${_width.toInt()} × ${(_showExtraContent ? _height + 40 : _height).toInt()}',
-                        style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                    Text(
+                      '${_width.toInt()} × ${(_showExtraContent ? _height + 40 : _height).toInt()}',
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                     if (_showExtraContent) ...[
                       const SizedBox(height: 4.0),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                          vertical: 3.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: const Text('Extra content!',
-                            style: TextStyle(fontSize: 10.0, color: Colors.white)),
+                        child: const Text(
+                          'Extra content!',
+                          style: TextStyle(fontSize: 10.0, color: Colors.white),
+                        ),
                       ),
                     ],
                   ],
@@ -1269,14 +1747,28 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Event Log', style: TextStyle(fontSize: 12.0,
-                    fontWeight: FontWeight.w600, color: Colors.grey.shade700)),
+                Text(
+                  'Event Log',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
                 const SizedBox(height: 6.0),
-                ..._sizeLog.map((entry) => Padding(
-                  padding: const EdgeInsets.only(bottom: 3.0),
-                  child: Text(entry, style: TextStyle(fontSize: 10.5,
-                      fontFamily: 'monospace', color: Colors.grey.shade600)),
-                )),
+                ..._sizeLog.map(
+                  (entry) => Padding(
+                    padding: const EdgeInsets.only(bottom: 3.0),
+                    child: Text(
+                      entry,
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1292,17 +1784,29 @@ class _SCLNLiveDemoState extends State<_SCLNLiveDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('What to try', style: TextStyle(fontSize: 12.5,
-                  fontWeight: FontWeight.w700, color: Colors.amber.shade700)),
+              Text(
+                'What to try',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.amber.shade700,
+                ),
+              ),
               const SizedBox(height: 6.0),
-              Text('• Drag the width/height sliders — each size change fires '
-                  'a notification\n'
-                  '• Toggle "extra content" — the container grows, triggering '
-                  'another notification\n'
-                  '• Watch the event log — each entry is a real '
-                  'SizeChangedLayoutNotification\n'
-                  '• Reset counter to start fresh',
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4)),
+              Text(
+                '• Drag the width/height sliders — each size change fires '
+                'a notification\n'
+                '• Toggle "extra content" — the container grows, triggering '
+                'another notification\n'
+                '• Watch the event log — each entry is a real '
+                'SizeChangedLayoutNotification\n'
+                '• Reset counter to start fresh',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -1360,9 +1864,14 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Pattern: Wrapping with NotificationListener',
-                  style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                      color: Colors.grey.shade700)),
+              Text(
+                'Pattern: Wrapping with NotificationListener',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.grey.shade700,
+                ),
+              ),
               const SizedBox(height: 8.0),
               Text(
                 'NotificationListener<SizeChangedLayoutNotification>(\n'
@@ -1377,8 +1886,12 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                 '    child: myDynamicWidget,\n'
                 '  ),\n'
                 ')',
-                style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                    color: Colors.grey.shade800, height: 1.35),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade800,
+                  height: 1.35,
+                ),
               ),
             ],
           ),
@@ -1395,8 +1908,14 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Live listener demo', style: TextStyle(fontSize: 13.0,
-                  fontWeight: FontWeight.w700, color: Colors.amber.shade700)),
+              Text(
+                'Live listener demo',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.amber.shade700,
+                ),
+              ),
               const SizedBox(height: 8.0),
               // Status indicator
               AnimatedContainer(
@@ -1420,13 +1939,22 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: Text(_listenerStatus,
-                          style: TextStyle(fontSize: 12.0,
-                              color: Colors.grey.shade700)),
+                      child: Text(
+                        _listenerStatus,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     ),
-                    Text('Hits: $_listenerHits',
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                            color: Colors.amber.shade700)),
+                    Text(
+                      'Hits: $_listenerHits',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.amber.shade700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1446,31 +1974,42 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                     decoration: BoxDecoration(
                       color: Colors.amber.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: Colors.amber.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.article, color: Colors.amber.shade600,
-                                size: 20.0),
+                            Icon(
+                              Icons.article,
+                              color: Colors.amber.shade600,
+                              size: 20.0,
+                            ),
                             const SizedBox(width: 8.0),
-                            Text('Content Card',
-                                style: TextStyle(fontSize: 13.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.amber.shade700)),
+                            Text(
+                              'Content Card',
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber.shade700,
+                              ),
+                            ),
                             const Spacer(),
                             TextButton.icon(
-                              onPressed: () => setState(() =>
-                                  _isExpanded = !_isExpanded),
+                              onPressed: () =>
+                                  setState(() => _isExpanded = !_isExpanded),
                               icon: Icon(
                                 _isExpanded
                                     ? Icons.expand_less
                                     : Icons.expand_more,
                                 size: 18.0,
                               ),
-                              label: Text(_isExpanded ? 'Collapse' : 'Expand',
-                                  style: const TextStyle(fontSize: 11.0)),
+                              label: Text(
+                                _isExpanded ? 'Collapse' : 'Expand',
+                                style: const TextStyle(fontSize: 11.0),
+                              ),
                             ),
                           ],
                         ),
@@ -1479,8 +2018,11 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                           'This card can be expanded to show more content. '
                           'When it resizes, the SizeChangedLayoutNotifier '
                           'dispatches a notification.',
-                          style: TextStyle(fontSize: 12.0,
-                              color: Colors.grey.shade600, height: 1.3),
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade600,
+                            height: 1.3,
+                          ),
                         ),
                         if (_isExpanded) ...[
                           const SizedBox(height: 12.0),
@@ -1493,53 +2035,78 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Expanded details',
-                                    style: TextStyle(fontSize: 12.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.amber.shade700)),
+                                Text(
+                                  'Expanded details',
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.amber.shade700,
+                                  ),
+                                ),
                                 const SizedBox(height: 4.0),
                                 Text(
                                   'This extra content increases the card\'s height. '
                                   'The RenderSizeChangedWithCallback detects this '
                                   'and fires a notification to the ancestor '
                                   'NotificationListener.',
-                                  style: TextStyle(fontSize: 11.5,
-                                      color: Colors.grey.shade600, height: 1.35),
+                                  style: TextStyle(
+                                    fontSize: 11.5,
+                                    color: Colors.grey.shade600,
+                                    height: 1.35,
+                                  ),
                                 ),
                                 const SizedBox(height: 8.0),
                                 Row(
                                   children: [
                                     Container(
-                                      width: 60.0, height: 40.0,
+                                      width: 60.0,
+                                      height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.amber.shade100,
-                                        borderRadius: BorderRadius.circular(6.0),
+                                        borderRadius: BorderRadius.circular(
+                                          6.0,
+                                        ),
                                       ),
                                       alignment: Alignment.center,
-                                      child: Icon(Icons.image,
-                                          color: Colors.amber.shade400, size: 18.0),
+                                      child: Icon(
+                                        Icons.image,
+                                        color: Colors.amber.shade400,
+                                        size: 18.0,
+                                      ),
                                     ),
                                     const SizedBox(width: 8.0),
                                     Container(
-                                      width: 60.0, height: 40.0,
+                                      width: 60.0,
+                                      height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.amber.shade100,
-                                        borderRadius: BorderRadius.circular(6.0),
+                                        borderRadius: BorderRadius.circular(
+                                          6.0,
+                                        ),
                                       ),
                                       alignment: Alignment.center,
-                                      child: Icon(Icons.insert_chart,
-                                          color: Colors.amber.shade400, size: 18.0),
+                                      child: Icon(
+                                        Icons.insert_chart,
+                                        color: Colors.amber.shade400,
+                                        size: 18.0,
+                                      ),
                                     ),
                                     const SizedBox(width: 8.0),
                                     Container(
-                                      width: 60.0, height: 40.0,
+                                      width: 60.0,
+                                      height: 40.0,
                                       decoration: BoxDecoration(
                                         color: Colors.amber.shade100,
-                                        borderRadius: BorderRadius.circular(6.0),
+                                        borderRadius: BorderRadius.circular(
+                                          6.0,
+                                        ),
                                       ),
                                       alignment: Alignment.center,
-                                      child: Icon(Icons.pie_chart,
-                                          color: Colors.amber.shade400, size: 18.0),
+                                      child: Icon(
+                                        Icons.pie_chart,
+                                        color: Colors.amber.shade400,
+                                        size: 18.0,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1553,9 +2120,14 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                 ),
               ),
               const SizedBox(height: 8.0),
-              Text('Tap "Expand" / "Collapse" to trigger size change notifications.',
-                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500,
-                      fontStyle: FontStyle.italic)),
+              Text(
+                'Tap "Expand" / "Collapse" to trigger size change notifications.',
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.grey.shade500,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
             ],
           ),
         ),
@@ -1573,10 +2145,20 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
             children: [
               Row(
                 children: [
-                  Icon(Icons.question_mark, color: Colors.purple.shade600, size: 18.0),
+                  Icon(
+                    Icons.question_mark,
+                    color: Colors.purple.shade600,
+                    size: 18.0,
+                  ),
                   const SizedBox(width: 6.0),
-                  Text('Return value matters', style: TextStyle(fontSize: 12.5,
-                      fontWeight: FontWeight.w700, color: Colors.purple.shade700)),
+                  Text(
+                    'Return value matters',
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.purple.shade700,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8.0),
@@ -1586,7 +2168,11 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                 '• false — notification continues to ancestors\n\n'
                 'Multiple NotificationListeners can form a chain. '
                 'Return false if you want ancestors to also react.',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1603,37 +2189,64 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Chained listener pattern',
-                  style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                      color: Colors.amber.shade700)),
+              Text(
+                'Chained listener pattern',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.amber.shade700,
+                ),
+              ),
               const SizedBox(height: 8.0),
               ...<Map<String, dynamic>>[
-                {'label': 'Listener A (return false)', 'color': Colors.blue.shade100,
-                    'border': Colors.blue.shade300, 'arrow': true},
-                {'label': 'Listener B (return false)', 'color': Colors.green.shade100,
-                    'border': Colors.green.shade300, 'arrow': true},
-                {'label': 'Listener C (return true)', 'color': Colors.red.shade100,
-                    'border': Colors.red.shade300, 'arrow': false},
-              ].map((l) => Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                    padding: const EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      color: l['color'] as Color,
-                      borderRadius: BorderRadius.circular(6.0),
-                      border: Border.all(color: l['border'] as Color),
+                {
+                  'label': 'Listener A (return false)',
+                  'color': Colors.blue.shade100,
+                  'border': Colors.blue.shade300,
+                  'arrow': true,
+                },
+                {
+                  'label': 'Listener B (return false)',
+                  'color': Colors.green.shade100,
+                  'border': Colors.green.shade300,
+                  'arrow': true,
+                },
+                {
+                  'label': 'Listener C (return true)',
+                  'color': Colors.red.shade100,
+                  'border': Colors.red.shade300,
+                  'arrow': false,
+                },
+              ].map(
+                (l) => Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: l['color'] as Color,
+                        borderRadius: BorderRadius.circular(6.0),
+                        border: Border.all(color: l['border'] as Color),
+                      ),
+                      child: Text(
+                        l['label'] as String,
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey.shade700,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    child: Text(l['label'] as String,
-                        style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
-                        textAlign: TextAlign.center),
-                  ),
-                  if (l['arrow'] as bool)
-                    Icon(Icons.arrow_upward, size: 16.0,
-                        color: Colors.amber.shade400),
-                ],
-              )),
+                    if (l['arrow'] as bool)
+                      Icon(
+                        Icons.arrow_upward,
+                        size: 16.0,
+                        color: Colors.amber.shade400,
+                      ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 4.0),
               Center(
                 child: Container(
@@ -1644,16 +2257,23 @@ class _SCLNListenerDemoState extends State<_SCLNListenerDemo> {
                     borderRadius: BorderRadius.circular(6.0),
                     border: Border.all(color: Colors.amber.shade300),
                   ),
-                  child: const Text('SizeChangedLayoutNotifier + child',
-                      style: TextStyle(fontSize: 11.0),
-                      textAlign: TextAlign.center),
+                  child: const Text(
+                    'SizeChangedLayoutNotifier + child',
+                    style: TextStyle(fontSize: 11.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               const SizedBox(height: 8.0),
-              Text('A and B both see the notification. C stops it.',
-                  style: TextStyle(fontSize: 10.5, color: Colors.grey.shade500,
-                      fontStyle: FontStyle.italic),
-                  textAlign: TextAlign.center),
+              Text(
+                'A and B both see the notification. C stops it.',
+                style: TextStyle(
+                  fontSize: 10.5,
+                  color: Colors.grey.shade500,
+                  fontStyle: FontStyle.italic,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),

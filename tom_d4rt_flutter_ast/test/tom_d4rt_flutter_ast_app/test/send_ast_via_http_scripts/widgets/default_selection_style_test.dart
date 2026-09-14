@@ -51,17 +51,20 @@ dynamic build(BuildContext context) {
   // when navigating away, so leak-tracking warnings should be limited to the
   // process exit. Using `final` with default text gives us instantly visible
   // selection candidates without the user having to type anything.
-  final TextEditingController baselineFirstName =
-      TextEditingController(text: 'Marie Curie');
-  final TextEditingController baselineEmail =
-      TextEditingController(text: 'marie.curie@example.org');
+  final TextEditingController baselineFirstName = TextEditingController(
+    text: 'Marie Curie',
+  );
+  final TextEditingController baselineEmail = TextEditingController(
+    text: 'marie.curie@example.org',
+  );
   final TextEditingController baselineNotes = TextEditingController(
     text:
         'Triple-click to select this entire line, or drag across a few words to see the default selection color from your active theme.',
   );
 
   final TextEditingController singleOrangeOne = TextEditingController(
-    text: 'Highlight me — the selection rectangle should be deep-orange tinted.',
+    text:
+        'Highlight me — the selection rectangle should be deep-orange tinted.',
   );
   final TextEditingController singleOrangeTwo = TextEditingController(
     text: 'And the caret here should be a bright deep-orange while focused.',
@@ -100,7 +103,8 @@ dynamic build(BuildContext context) {
     text: 'Wrapping in a `Theme(...)` flips the inherited selection palette.',
   );
   final TextEditingController themeIntegrationThree = TextEditingController(
-    text: 'No `DefaultSelectionStyle` ancestor needed — the theme is the source of truth.',
+    text:
+        'No `DefaultSelectionStyle` ancestor needed — the theme is the source of truth.',
   );
 
   final TextEditingController mouseCursorText = TextEditingController(
@@ -116,14 +120,18 @@ dynamic build(BuildContext context) {
         'Hover this field — DefaultSelectionStyle.mouseCursor: SystemMouseCursors.help.',
   );
 
-  final TextEditingController loginEmail =
-      TextEditingController(text: 'ada.lovelace@analyticalengine.io');
-  final TextEditingController loginPassword =
-      TextEditingController(text: 'difference-engine-1837');
-  final TextEditingController signupName =
-      TextEditingController(text: 'Augusta Ada King');
-  final TextEditingController signupHandle =
-      TextEditingController(text: '@enchantress_of_numbers');
+  final TextEditingController loginEmail = TextEditingController(
+    text: 'ada.lovelace@analyticalengine.io',
+  );
+  final TextEditingController loginPassword = TextEditingController(
+    text: 'difference-engine-1837',
+  );
+  final TextEditingController signupName = TextEditingController(
+    text: 'Augusta Ada King',
+  );
+  final TextEditingController signupHandle = TextEditingController(
+    text: '@enchantress_of_numbers',
+  );
   final TextEditingController signupBio = TextEditingController(
     text:
         'Mathematician, writer, and the first computer programmer. I select text to take notes.',
@@ -192,7 +200,9 @@ dynamic build(BuildContext context) {
                       Text(
                         'Three values DefaultSelectionStyle owns',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -237,7 +247,9 @@ dynamic build(BuildContext context) {
                       Text(
                         'Inheritance diagram',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -248,8 +260,10 @@ dynamic build(BuildContext context) {
                         '                 └── DefaultSelectionStyle (optional, your override)\n'
                         '                      └── EditableText / TextField / SelectableText\n'
                         '                           ▲ reads DefaultSelectionStyle.of(context)',
-                        style:
-                            TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12.5,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -339,8 +353,10 @@ dynamic build(BuildContext context) {
                         'Expected colors here:\n'
                         '• cursorColor   = #FF3F51B5  (indigo 500)\n'
                         '• selectionColor = #553F51B5  (indigo 500 @ 33%)',
-                        style:
-                            TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12.5,
+                        ),
                       ),
                     ],
                   ),
@@ -386,14 +402,18 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Scope: deep-orange',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         const Text(
                           'selectionColor: 0x66FF6F00   — orange-700 @ 40%\n'
                           'cursorColor:    Colors.deepOrange',
                           style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 12.5),
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         TextField(
@@ -473,13 +493,17 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Outer scope (warm)',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         const Text(
                           'selectionColor: 0x66E53935   cursorColor: 0xFFC62828',
                           style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 12.5),
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         TextField(
@@ -500,21 +524,22 @@ dynamic build(BuildContext context) {
                             child: Padding(
                               padding: const EdgeInsets.all(12),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.stretch,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   const Text(
                                     'Inner scope (cool) — overrides outer',
                                     style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                   const SizedBox(height: 4),
                                   const Text(
                                     'selectionColor: 0x6600BCD4   cursorColor: 0xFF006064',
                                     style: TextStyle(
-                                        fontFamily: 'monospace',
-                                        fontSize: 12.5),
+                                      fontFamily: 'monospace',
+                                      fontSize: 12.5,
+                                    ),
                                   ),
                                   const SizedBox(height: 10),
                                   TextField(
@@ -598,7 +623,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette A — Indigo',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -627,7 +654,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette B — Teal',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -656,7 +685,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette C — Crimson',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -684,7 +715,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette D — Forest green',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -712,7 +745,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette E — Slate',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -740,7 +775,9 @@ dynamic build(BuildContext context) {
                         Text(
                           'Palette F — Amber',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(height: 6),
                         SelectableText(
@@ -795,7 +832,9 @@ dynamic build(BuildContext context) {
                         const Text(
                           'OUTER (red selection + red cursor)',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         TextField(
@@ -825,15 +864,17 @@ dynamic build(BuildContext context) {
                                         const Text(
                                           '.merge ⇒ cursor only',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
                                         const SizedBox(height: 4),
                                         const Text(
                                           'cursorColor changed → indigo-900\n'
                                           'selectionColor inherited → STILL RED',
                                           style: TextStyle(
-                                              fontFamily: 'monospace',
-                                              fontSize: 12),
+                                            fontFamily: 'monospace',
+                                            fontSize: 12,
+                                          ),
                                         ),
                                         const SizedBox(height: 8),
                                         TextField(
@@ -867,15 +908,17 @@ dynamic build(BuildContext context) {
                                         const Text(
                                           '.merge ⇒ both fields',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.w600),
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
                                         const SizedBox(height: 4),
                                         const Text(
                                           'selectionColor → teal @ 40%\n'
                                           'cursorColor → teal-900',
                                           style: TextStyle(
-                                              fontFamily: 'monospace',
-                                              fontSize: 12),
+                                            fontFamily: 'monospace',
+                                            fontSize: 12,
+                                          ),
                                         ),
                                         const SizedBox(height: 8),
                                         TextField(
@@ -901,7 +944,9 @@ dynamic build(BuildContext context) {
                           'DefaultSelectionStyle.merge(...)  ≈ PATCH only the\n'
                           '                                  fields you pass',
                           style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 12.5),
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
                         ),
                       ],
                     ),
@@ -957,7 +1002,9 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Theme override: warm-paper palette',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         const Text(
@@ -965,7 +1012,9 @@ dynamic build(BuildContext context) {
                           'selectionColor: 0x558D6E63 (brown 400 @ 33%)\n'
                           'selectionHandleColor: 0xFF6D4C41 (brown 600)',
                           style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 12.5),
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
                         ),
                         const SizedBox(height: 12),
                         TextField(
@@ -1062,7 +1111,9 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Cursor: SystemMouseCursors.text (I-beam, default)',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         TextField(
@@ -1097,7 +1148,9 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Cursor: SystemMouseCursors.grab (open hand)',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         TextField(
@@ -1134,7 +1187,9 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Cursor: SystemMouseCursors.help (question mark)',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 6),
                         TextField(
@@ -1195,13 +1250,17 @@ dynamic build(BuildContext context) {
                         const Text(
                           'Brand: Violet Ink',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         const Text(
                           'selectionColor: 0x667E57C2   cursorColor: 0xFF4527A0',
                           style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 12.5),
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         Row(
@@ -1220,16 +1279,18 @@ dynamic build(BuildContext context) {
                                       const Text(
                                         'Sign in',
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                       const SizedBox(height: 4),
                                       const SelectableText(
                                         'Welcome back. Hold shift+arrow to '
                                         'extend a selection.',
                                         style: TextStyle(
-                                            fontSize: 12.5,
-                                            color: Color(0xFF666666)),
+                                          fontSize: 12.5,
+                                          color: Color(0xFF666666),
+                                        ),
                                       ),
                                       const SizedBox(height: 14),
                                       TextField(
@@ -1238,7 +1299,9 @@ dynamic build(BuildContext context) {
                                           labelText: 'Email',
                                           border: OutlineInputBorder(),
                                           isDense: true,
-                                          prefixIcon: Icon(Icons.email_outlined),
+                                          prefixIcon: Icon(
+                                            Icons.email_outlined,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -1286,15 +1349,17 @@ dynamic build(BuildContext context) {
                                       const Text(
                                         'Create account',
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                       const SizedBox(height: 4),
                                       const SelectableText(
                                         'New here? It only takes a minute.',
                                         style: TextStyle(
-                                            fontSize: 12.5,
-                                            color: Color(0xFF666666)),
+                                          fontSize: 12.5,
+                                          color: Color(0xFF666666),
+                                        ),
                                       ),
                                       const SizedBox(height: 14),
                                       TextField(
@@ -1303,7 +1368,9 @@ dynamic build(BuildContext context) {
                                           labelText: 'Full name',
                                           border: OutlineInputBorder(),
                                           isDense: true,
-                                          prefixIcon: Icon(Icons.person_outline),
+                                          prefixIcon: Icon(
+                                            Icons.person_outline,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -1313,7 +1380,9 @@ dynamic build(BuildContext context) {
                                           labelText: 'Handle',
                                           border: OutlineInputBorder(),
                                           isDense: true,
-                                          prefixIcon: Icon(Icons.alternate_email),
+                                          prefixIcon: Icon(
+                                            Icons.alternate_email,
+                                          ),
                                         ),
                                       ),
                                       const SizedBox(height: 10),
@@ -1343,8 +1412,10 @@ dynamic build(BuildContext context) {
                           'Footer note. Try selecting words across both '
                           'columns: every input inside the violet brand card '
                           'shares the SAME selection look.',
-                          style:
-                              TextStyle(fontSize: 13, color: Color(0xFF555555)),
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Color(0xFF555555),
+                          ),
                         ),
                       ],
                     ),
@@ -1390,12 +1461,17 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         const Row(
                           children: <Widget>[
-                            Icon(Icons.brush_outlined, color: Color(0xFF3F51B5)),
+                            Icon(
+                              Icons.brush_outlined,
+                              color: Color(0xFF3F51B5),
+                            ),
                             SizedBox(width: 8),
                             Text(
                               'Preset: Indigo',
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),
@@ -1427,12 +1503,17 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         const Row(
                           children: <Widget>[
-                            Icon(Icons.brush_outlined, color: Color(0xFF009688)),
+                            Icon(
+                              Icons.brush_outlined,
+                              color: Color(0xFF009688),
+                            ),
                             SizedBox(width: 8),
                             Text(
                               'Preset: Teal',
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),
@@ -1464,12 +1545,17 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         const Row(
                           children: <Widget>[
-                            Icon(Icons.brush_outlined, color: Color(0xFFD81B60)),
+                            Icon(
+                              Icons.brush_outlined,
+                              color: Color(0xFFD81B60),
+                            ),
                             SizedBox(width: 8),
                             Text(
                               'Preset: Crimson',
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ],
                         ),
@@ -1517,8 +1603,10 @@ dynamic build(BuildContext context) {
                         '  cursorColor:    _curFor(_palette),\n'
                         '  child: ...the input region...\n'
                         ')',
-                        style:
-                            TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12.5,
+                        ),
                       ),
                       SizedBox(height: 6),
                       Text(
@@ -1549,14 +1637,18 @@ dynamic build(BuildContext context) {
                     children: const <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.warning_amber_rounded,
-                              color: Color(0xFFC62828)),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Color(0xFFC62828),
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Pitfall 1 — TextSelectionTheme precedence',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 15),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
@@ -1587,14 +1679,18 @@ dynamic build(BuildContext context) {
                     children: const <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.warning_amber_rounded,
-                              color: Color(0xFFE65100)),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Color(0xFFE65100),
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Pitfall 2 — Color opacity / readability',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 15),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
@@ -1623,14 +1719,18 @@ dynamic build(BuildContext context) {
                     children: const <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.warning_amber_rounded,
-                              color: Color(0xFF1565C0)),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Color(0xFF1565C0),
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Pitfall 3 — Cursor color != Selection color',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 15),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
@@ -1662,14 +1762,18 @@ dynamic build(BuildContext context) {
                     children: const <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.warning_amber_rounded,
-                              color: Color(0xFF2E7D32)),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Color(0xFF2E7D32),
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Pitfall 4 — Accessibility / contrast',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 15),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
@@ -1700,14 +1804,18 @@ dynamic build(BuildContext context) {
                     children: const <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.warning_amber_rounded,
-                              color: Color(0xFF6A1B9A)),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: Color(0xFF6A1B9A),
+                          ),
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Pitfall 5 — Propagating too broadly',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 15),
+                                fontWeight: FontWeight.w700,
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
@@ -1753,15 +1861,17 @@ dynamic build(BuildContext context) {
                           children: <Widget>[
                             Expanded(
                               flex: 3,
-                              child: Text('Symbol',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700)),
+                              child: Text(
+                                'Symbol',
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
                             ),
                             Expanded(
                               flex: 5,
-                              child: Text('Role',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700)),
+                              child: Text(
+                                'Role',
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
                             ),
                           ],
                         ),
@@ -1772,10 +1882,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('DefaultSelectionStyle',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'DefaultSelectionStyle',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1792,10 +1904,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('DefaultSelectionStyle.merge',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'DefaultSelectionStyle.merge',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1813,10 +1927,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('TextSelectionTheme',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'TextSelectionTheme',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1835,10 +1951,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('TextSelectionThemeData',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'TextSelectionThemeData',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1856,10 +1974,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('ThemeData',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'ThemeData',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1878,10 +1998,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('EditableText',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'EditableText',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1901,10 +2023,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('SelectableText',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'SelectableText',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1922,10 +2046,12 @@ dynamic build(BuildContext context) {
                         child: Row(
                           children: <Widget>[
                             Expanded(
-                                flex: 3,
-                                child: Text('TextField',
-                                    style: TextStyle(
-                                        fontFamily: 'monospace'))),
+                              flex: 3,
+                              child: Text(
+                                'TextField',
+                                style: TextStyle(fontFamily: 'monospace'),
+                              ),
+                            ),
                             Expanded(
                               flex: 5,
                               child: Text(
@@ -1953,7 +2079,9 @@ dynamic build(BuildContext context) {
                       Text(
                         'Cheat sheet',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       SizedBox(height: 8),
                       Text(
@@ -1979,9 +2107,10 @@ dynamic build(BuildContext context) {
                 'live; select text in any of them and verify the section\'s '
                 'declared colors visually.',
                 style: TextStyle(
-                    fontSize: 13,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xFF555555)),
+                  fontSize: 13,
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF555555),
+                ),
               ),
               const SizedBox(height: 32),
             ],

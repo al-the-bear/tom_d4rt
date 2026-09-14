@@ -107,10 +107,7 @@ Widget _gradientHeader({
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -208,10 +205,7 @@ Widget _captionedCell(String caption, Widget child) {
         Text(
           caption,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 11,
-            color: Color(0xFF6B6F86),
-          ),
+          style: const TextStyle(fontSize: 11, color: Color(0xFF6B6F86)),
         ),
       ],
     ),
@@ -291,10 +285,7 @@ Widget _buildIntroCard() {
                       SizedBox(height: 4),
                       Text(
                         'A side-by-side tour of the Material 3 button family',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 13,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 13),
                       ),
                     ],
                   ),
@@ -418,9 +409,7 @@ Widget _buildElevatedButtonSection() {
     style: ElevatedButton.styleFrom(
       foregroundColor: Colors.white,
       backgroundColor: const Color(0xFF455A64),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
     ),
     child: const Text('Confirm'),
@@ -764,9 +753,7 @@ Widget _buildTextButtonSection() {
   );
   final Widget textColor = TextButton(
     onPressed: () {},
-    style: TextButton.styleFrom(
-      foregroundColor: const Color(0xFFD81B60),
-    ),
+    style: TextButton.styleFrom(foregroundColor: const Color(0xFFD81B60)),
     child: const Text('Forget password?'),
   );
   final Widget textBoldStyle = TextButton(
@@ -1153,9 +1140,7 @@ Widget _buildMenuItemButtonSection() {
       size: 18,
       color: Color(0xFFD32F2F),
     ),
-    style: MenuItemButton.styleFrom(
-      foregroundColor: const Color(0xFFD32F2F),
-    ),
+    style: MenuItemButton.styleFrom(foregroundColor: const Color(0xFFD32F2F)),
     child: const Text('Delete'),
   );
   final Widget menuDisabled = MenuItemButton(
@@ -1464,8 +1449,18 @@ Widget _decisionMatrix() {
   final List<List<String>> rows = <List<String>>[
     <String>['Type', 'Emphasis', 'Container', 'Use it for'],
     <String>['ElevatedButton', 'High', 'Filled + shadow', 'Single primary CTA'],
-    <String>['FilledButton', 'High', 'Filled, no shadow', 'Primary on dense screens'],
-    <String>['FilledButton.tonal', 'Medium', 'Tonal fill', 'Secondary, still tappable'],
+    <String>[
+      'FilledButton',
+      'High',
+      'Filled, no shadow',
+      'Primary on dense screens',
+    ],
+    <String>[
+      'FilledButton.tonal',
+      'Medium',
+      'Tonal fill',
+      'Secondary, still tappable',
+    ],
     <String>['OutlinedButton', 'Medium-low', 'Border only', 'Cancel / decline'],
     <String>['TextButton', 'Low', 'No container', 'Tertiary / link-like'],
     <String>['IconButton', 'Variable', 'Optional', 'Compact toolbar action'],
@@ -1564,15 +1559,9 @@ Widget _pairingExamples() {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            OutlinedButton(
-              onPressed: () {},
-              child: const Text('Cancel'),
-            ),
+            OutlinedButton(onPressed: () {}, child: const Text('Cancel')),
             const SizedBox(width: 8),
-            FilledButton(
-              onPressed: () {},
-              child: const Text('Confirm'),
-            ),
+            FilledButton(onPressed: () {}, child: const Text('Confirm')),
           ],
         ),
       ],
@@ -1601,10 +1590,7 @@ Widget _pairingExamples() {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            TextButton(
-              onPressed: () {},
-              child: const Text('Cancel'),
-            ),
+            TextButton(onPressed: () {}, child: const Text('Cancel')),
             const SizedBox(width: 8),
             FilledButton(
               onPressed: () {},
@@ -1642,10 +1628,7 @@ Widget _pairingExamples() {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            TextButton(
-              onPressed: () {},
-              child: const Text('Skip'),
-            ),
+            TextButton(onPressed: () {}, child: const Text('Skip')),
             FilledButton.icon(
               onPressed: () {},
               icon: const Icon(Icons.arrow_forward, size: 18),

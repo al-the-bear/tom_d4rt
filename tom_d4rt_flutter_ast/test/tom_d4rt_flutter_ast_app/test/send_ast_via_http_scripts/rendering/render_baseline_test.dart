@@ -4,7 +4,8 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'ink',
     name: 'Ink Studio',
-    description: 'High-legibility profile for studying baseline offsets and cap-height contrast.',
+    description:
+        'High-legibility profile for studying baseline offsets and cap-height contrast.',
     seed: Color(0xFF1D4ED8),
     brightness: Brightness.light,
   ),
@@ -18,14 +19,16 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'night',
     name: 'Night Proof',
-    description: 'Dark profile emphasizing baseline guide lines and glyph silhouettes.',
+    description:
+        'Dark profile emphasizing baseline guide lines and glyph silhouettes.',
     seed: Color(0xFF334155),
     brightness: Brightness.dark,
   ),
   _ThemePreset(
     id: 'mint',
     name: 'Mint Panel',
-    description: 'Balanced profile for long diagnostic sessions and board comparisons.',
+    description:
+        'Balanced profile for long diagnostic sessions and board comparisons.',
     seed: Color(0xFF047857),
     brightness: Brightness.light,
   ),
@@ -60,10 +63,26 @@ const List<_ScenarioPreset> _scenarioPresets = <_ScenarioPreset>[
 ];
 
 const List<_BaselinePreset> _baselinePresets = <_BaselinePreset>[
-  _BaselinePreset(label: 'Compact', value: 20, note: 'Useful for compact labels and chips.'),
-  _BaselinePreset(label: 'Body', value: 28, note: 'Typical baseline for body text rows.'),
-  _BaselinePreset(label: 'Display', value: 42, note: 'Display typography with larger baseline depth.'),
-  _BaselinePreset(label: 'Large Display', value: 58, note: 'Hero text and large card heading alignment.'),
+  _BaselinePreset(
+    label: 'Compact',
+    value: 20,
+    note: 'Useful for compact labels and chips.',
+  ),
+  _BaselinePreset(
+    label: 'Body',
+    value: 28,
+    note: 'Typical baseline for body text rows.',
+  ),
+  _BaselinePreset(
+    label: 'Display',
+    value: 42,
+    note: 'Display typography with larger baseline depth.',
+  ),
+  _BaselinePreset(
+    label: 'Large Display',
+    value: 58,
+    note: 'Hero text and large card heading alignment.',
+  ),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -82,28 +101,27 @@ const List<String> _guideBullets = <String>[
 const List<_FaqEntry> _faq = <_FaqEntry>[
   _FaqEntry(
     question: 'When should I use Baseline widget directly?',
-    answer: 'Use it when you need precise control of one child alignment relative to an explicit baseline offset.',
+    answer:
+        'Use it when you need precise control of one child alignment relative to an explicit baseline offset.',
   ),
   _FaqEntry(
     question: 'Why does CrossAxisAlignment.baseline need textBaseline?',
-    answer: 'Flutter needs to know whether alphabetic or ideographic baseline should be used for row alignment.',
+    answer:
+        'Flutter needs to know whether alphabetic or ideographic baseline should be used for row alignment.',
   ),
   _FaqEntry(
     question: 'Can icons align with text baselines?',
-    answer: 'Yes, wrap icons in Baseline with tuned offset so visual bottoms align with neighboring text.',
+    answer:
+        'Yes, wrap icons in Baseline with tuned offset so visual bottoms align with neighboring text.',
   ),
   _FaqEntry(
     question: 'Does baseline differ across scripts?',
-    answer: 'Yes, script metrics differ. Always test multilingual samples where typography consistency matters.',
+    answer:
+        'Yes, script metrics differ. Always test multilingual samples where typography consistency matters.',
   ),
 ];
 
-enum _FontLane {
-  inter,
-  serif,
-  mono,
-  playful,
-}
+enum _FontLane { inter, serif, mono, playful }
 
 class _ThemePreset {
   const _ThemePreset({
@@ -122,7 +140,11 @@ class _ThemePreset {
 }
 
 class _ScenarioPreset {
-  const _ScenarioPreset({required this.id, required this.title, required this.subtitle});
+  const _ScenarioPreset({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -130,7 +152,11 @@ class _ScenarioPreset {
 }
 
 class _BaselinePreset {
-  const _BaselinePreset({required this.label, required this.value, required this.note});
+  const _BaselinePreset({
+    required this.label,
+    required this.value,
+    required this.note,
+  });
 
   final String label;
   final double value;
@@ -145,7 +171,12 @@ class _FaqEntry {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -154,7 +185,11 @@ class _MetricEntry {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -236,7 +271,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
     super.initState();
     _applyBaselinePreset(_baselinePresets[_baselinePresetIndex], silent: true);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _pushTimeline('Init', 'RenderBaseline Typographic Alignment Lab initialized.');
+      _pushTimeline(
+        'Init',
+        'RenderBaseline Typographic Alignment Lab initialized.',
+      );
     });
   }
 
@@ -262,7 +300,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
     });
     if (!silent) {
       _presetApplyCount += 1;
-      _pushTimeline('Baseline Preset', '${preset.label} (${preset.value.toStringAsFixed(1)}) applied.');
+      _pushTimeline(
+        'Baseline Preset',
+        '${preset.label} (${preset.value.toStringAsFixed(1)}) applied.',
+      );
     }
   }
 
@@ -281,22 +322,102 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Scenario', value: _scenarioPresets[_scenarioIndex].title, note: 'Current exploration lane.', icon: Icons.dashboard_customize_outlined),
-      _MetricEntry(label: 'Theme', value: _themePresets[_themeIndex].name, note: 'Active visual profile.', icon: Icons.palette_outlined),
-      _MetricEntry(label: 'Baseline', value: _baselineOffset.toStringAsFixed(1), note: 'Target baseline offset from top.', icon: Icons.height_outlined),
-      _MetricEntry(label: 'Font Scale', value: _fontScale.toStringAsFixed(2), note: 'Global typographic scaling factor.', icon: Icons.text_fields_outlined),
-      _MetricEntry(label: 'Icon Baseline', value: _iconBaseline.toStringAsFixed(1), note: 'Icon alignment baseline offset.', icon: Icons.image_outlined),
-      _MetricEntry(label: 'Inspector Height', value: _inspectorHeight.toStringAsFixed(0), note: 'Grid inspector panel height.', icon: Icons.table_rows_outlined),
-      _MetricEntry(label: 'Card Padding', value: _cardPadding.toStringAsFixed(0), note: 'Padding around baseline cards.', icon: Icons.space_dashboard_outlined),
-      _MetricEntry(label: 'Lane Spacing', value: _laneSpacing.toStringAsFixed(0), note: 'Vertical spacing between demonstration lanes.', icon: Icons.format_line_spacing_outlined),
-      _MetricEntry(label: 'Phase', value: _phase, note: 'Current interaction phase.', icon: Icons.flag_outlined),
-      _MetricEntry(label: 'Baseline Switches', value: '$_baselineSwitchCount', note: 'Manual baseline adjustments count.', icon: Icons.tune_outlined),
-      _MetricEntry(label: 'Font Switches', value: '$_fontSwitchCount', note: 'Font lane profile changes.', icon: Icons.font_download_outlined),
-      _MetricEntry(label: 'Icon Tunes', value: '$_iconTuneCount', note: 'Icon baseline adjustments.', icon: Icons.align_horizontal_center_outlined),
-      _MetricEntry(label: 'Script Variant', value: '$_scriptVariant', note: 'Current multilingual row variant.', icon: Icons.language_outlined),
-      _MetricEntry(label: 'Script Switches', value: '$_scriptSwitchCount', note: 'Script lane toggles.', icon: Icons.translate_outlined),
-      _MetricEntry(label: 'Preset Uses', value: '$_presetApplyCount', note: 'Baseline preset usage.', icon: Icons.bookmark_added_outlined),
-      _MetricEntry(label: 'Taps', value: '$_tapCount', note: 'Interactive baseline lane taps.', icon: Icons.touch_app_outlined),
+      _MetricEntry(
+        label: 'Scenario',
+        value: _scenarioPresets[_scenarioIndex].title,
+        note: 'Current exploration lane.',
+        icon: Icons.dashboard_customize_outlined,
+      ),
+      _MetricEntry(
+        label: 'Theme',
+        value: _themePresets[_themeIndex].name,
+        note: 'Active visual profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricEntry(
+        label: 'Baseline',
+        value: _baselineOffset.toStringAsFixed(1),
+        note: 'Target baseline offset from top.',
+        icon: Icons.height_outlined,
+      ),
+      _MetricEntry(
+        label: 'Font Scale',
+        value: _fontScale.toStringAsFixed(2),
+        note: 'Global typographic scaling factor.',
+        icon: Icons.text_fields_outlined,
+      ),
+      _MetricEntry(
+        label: 'Icon Baseline',
+        value: _iconBaseline.toStringAsFixed(1),
+        note: 'Icon alignment baseline offset.',
+        icon: Icons.image_outlined,
+      ),
+      _MetricEntry(
+        label: 'Inspector Height',
+        value: _inspectorHeight.toStringAsFixed(0),
+        note: 'Grid inspector panel height.',
+        icon: Icons.table_rows_outlined,
+      ),
+      _MetricEntry(
+        label: 'Card Padding',
+        value: _cardPadding.toStringAsFixed(0),
+        note: 'Padding around baseline cards.',
+        icon: Icons.space_dashboard_outlined,
+      ),
+      _MetricEntry(
+        label: 'Lane Spacing',
+        value: _laneSpacing.toStringAsFixed(0),
+        note: 'Vertical spacing between demonstration lanes.',
+        icon: Icons.format_line_spacing_outlined,
+      ),
+      _MetricEntry(
+        label: 'Phase',
+        value: _phase,
+        note: 'Current interaction phase.',
+        icon: Icons.flag_outlined,
+      ),
+      _MetricEntry(
+        label: 'Baseline Switches',
+        value: '$_baselineSwitchCount',
+        note: 'Manual baseline adjustments count.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricEntry(
+        label: 'Font Switches',
+        value: '$_fontSwitchCount',
+        note: 'Font lane profile changes.',
+        icon: Icons.font_download_outlined,
+      ),
+      _MetricEntry(
+        label: 'Icon Tunes',
+        value: '$_iconTuneCount',
+        note: 'Icon baseline adjustments.',
+        icon: Icons.align_horizontal_center_outlined,
+      ),
+      _MetricEntry(
+        label: 'Script Variant',
+        value: '$_scriptVariant',
+        note: 'Current multilingual row variant.',
+        icon: Icons.language_outlined,
+      ),
+      _MetricEntry(
+        label: 'Script Switches',
+        value: '$_scriptSwitchCount',
+        note: 'Script lane toggles.',
+        icon: Icons.translate_outlined,
+      ),
+      _MetricEntry(
+        label: 'Preset Uses',
+        value: '$_presetApplyCount',
+        note: 'Baseline preset usage.',
+        icon: Icons.bookmark_added_outlined,
+      ),
+      _MetricEntry(
+        label: 'Taps',
+        value: '$_tapCount',
+        note: 'Interactive baseline lane taps.',
+        icon: Icons.touch_app_outlined,
+      ),
     ];
   }
 
@@ -333,16 +454,27 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themePresets[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLowest,
+                scheme.surfaceContainerLow,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -405,12 +537,35 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.align_vertical_bottom_outlined, color: scheme.primary, size: 26),
-                Text('RenderBaseline Typographic Alignment Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26)),
+                Icon(
+                  Icons.align_vertical_bottom_outlined,
+                  color: scheme.primary,
+                  size: 26,
+                ),
+                Text(
+                  'RenderBaseline Typographic Alignment Lab',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 26,
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarioPresets[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarioPresets[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -434,7 +589,14 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -452,9 +614,19 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themePresets[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themePresets[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -472,17 +644,44 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarioPresets[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarioPresets[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
             Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => setState(() => _showGrid = v ?? true), child: const Text('Show grid guides')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => setState(() => _showDiagnostics = v ?? true), child: const Text('Show diagnostics')),
-                CheckboxMenuButton(value: _showScriptNotes, onChanged: (bool? v) => setState(() => _showScriptNotes = v ?? true), child: const Text('Show script notes')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => setState(() => _showGuide = v ?? true), child: const Text('Show guide board')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => setState(() => _showTimeline = v ?? true), child: const Text('Show timeline board')),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) => setState(() => _showGrid = v ?? true),
+                  child: const Text('Show grid guides'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) =>
+                      setState(() => _showDiagnostics = v ?? true),
+                  child: const Text('Show diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showScriptNotes,
+                  onChanged: (bool? v) =>
+                      setState(() => _showScriptNotes = v ?? true),
+                  child: const Text('Show script notes'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) =>
+                      setState(() => _showGuide = v ?? true),
+                  child: const Text('Show guide board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) =>
+                      setState(() => _showTimeline = v ?? true),
+                  child: const Text('Show timeline board'),
+                ),
               ],
             ),
           ],
@@ -498,7 +697,9 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         final Widget gallery = _buildBaselineGallery(scheme);
         final Widget controls = _buildControlConsole(scheme);
         if (narrow) {
-          return Column(children: <Widget>[gallery, const SizedBox(height: 12), controls]);
+          return Column(
+            children: <Widget>[gallery, const SizedBox(height: 12), controls],
+          );
         }
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -553,13 +754,27 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Baseline Gallery', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Baseline Gallery',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _resetConsole, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _resetConsole,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Mixed typographic samples aligned on a shared baseline using Baseline widget wrappers.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Mixed typographic samples aligned on a shared baseline using Baseline widget wrappers.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             DecoratedBox(
               decoration: BoxDecoration(
@@ -577,7 +792,9 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                         Positioned.fill(
                           child: CustomPaint(
                             painter: _BaselineGridPainter(
-                              color: scheme.outlineVariant.withValues(alpha: 0.24),
+                              color: scheme.outlineVariant.withValues(
+                                alpha: 0.24,
+                              ),
                               baseline: _baselineOffset,
                             ),
                           ),
@@ -592,13 +809,17 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                                   _tapCount += 1;
                                   _phase = 'tap';
                                 });
-                                _pushTimeline('Gallery Tap', 'Baseline gallery lane tapped.');
+                                _pushTimeline(
+                                  'Gallery Tap',
+                                  'Baseline gallery lane tapped.',
+                                );
                               },
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.baseline,
                                 textBaseline: TextBaseline.alphabetic,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: samples.map(( _BaselineSample sample) {
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: samples.map((_BaselineSample sample) {
                                   return Baseline(
                                     baseline: _baselineOffset,
                                     baselineType: TextBaseline.alphabetic,
@@ -633,7 +854,14 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(sample.title, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            sample.title,
+            style: TextStyle(
+              color: scheme.onSurfaceVariant,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(
             sample.text,
@@ -646,7 +874,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
             ),
           ),
           const SizedBox(height: 4),
-          Text(sample.note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11)),
+          Text(
+            sample.note,
+            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 11),
+          ),
         ],
       ),
     );
@@ -661,9 +892,19 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Control Console', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Control Console',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Tune baseline offsets, font scaling, card geometry, and script variants.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune baseline offsets, font scaling, card geometry, and script variants.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             _slider(
               scheme: scheme,
@@ -679,7 +920,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                   _phase = 'tuning';
                 });
               },
-              onChangeEnd: (double v) => _pushTimeline('Baseline', 'Baseline offset tuned to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Baseline',
+                'Baseline offset tuned to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -689,7 +933,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               max: 1.8,
               divisions: 115,
               onChanged: (double v) => setState(() => _fontScale = v),
-              onChangeEnd: (double v) => _pushTimeline('Typography', 'Font scale set to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Typography',
+                'Font scale set to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -704,7 +951,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                   _iconTuneCount += 1;
                 });
               },
-              onChangeEnd: (double v) => _pushTimeline('Icon Baseline', 'Icon baseline tuned to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Icon Baseline',
+                'Icon baseline tuned to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -714,7 +964,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               max: 320,
               divisions: 90,
               onChanged: (double v) => setState(() => _inspectorHeight = v),
-              onChangeEnd: (double v) => _pushTimeline('Inspector', 'Inspector height set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Inspector',
+                'Inspector height set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -724,7 +977,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               max: 28,
               divisions: 22,
               onChanged: (double v) => setState(() => _cardPadding = v),
-              onChangeEnd: (double v) => _pushTimeline('Layout', 'Card padding set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Layout',
+                'Card padding set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -734,10 +990,19 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               max: 34,
               divisions: 26,
               onChanged: (double v) => setState(() => _laneSpacing = v),
-              onChangeEnd: (double v) => _pushTimeline('Layout', 'Lane spacing set to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _pushTimeline(
+                'Layout',
+                'Lane spacing set to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             const Divider(height: 22),
-            Text('Baseline Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Baseline Presets',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -755,14 +1020,23 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_baselinePresets[_baselinePresetIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _baselinePresets[_baselinePresetIndex].note,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Font Lane', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Font Lane',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _FontLane.values.map(( _FontLane lane) {
+              children: _FontLane.values.map((_FontLane lane) {
                 return ChoiceChip(
                   selected: _fontLane == lane,
                   label: Text(lane.name),
@@ -771,7 +1045,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                       _fontLane = lane;
                       _fontSwitchCount += 1;
                     });
-                    _pushTimeline('Font Lane', 'Switched font lane to ${lane.name}.');
+                    _pushTimeline(
+                      'Font Lane',
+                      'Switched font lane to ${lane.name}.',
+                    );
                   },
                 );
               }).toList(),
@@ -797,11 +1074,23 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -815,9 +1104,19 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Baseline Grid Inspector', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Baseline Grid Inspector',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Guide rails and mixed-size samples reveal how baseline adjustments move all children together.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Guide rails and mixed-size samples reveal how baseline adjustments move all children together.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             DecoratedBox(
               decoration: BoxDecoration(
@@ -830,7 +1129,16 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                 child: Stack(
                   children: <Widget>[
                     if (_showGrid)
-                      Positioned.fill(child: CustomPaint(painter: _BaselineGridPainter(color: scheme.outlineVariant.withValues(alpha: 0.25), baseline: _baselineOffset))),
+                      Positioned.fill(
+                        child: CustomPaint(
+                          painter: _BaselineGridPainter(
+                            color: scheme.outlineVariant.withValues(
+                              alpha: 0.25,
+                            ),
+                            baseline: _baselineOffset,
+                          ),
+                        ),
+                      ),
                     Positioned.fill(
                       child: Center(
                         child: Row(
@@ -841,22 +1149,53 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                             Baseline(
                               baseline: _baselineOffset,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('Aa', style: TextStyle(fontSize: 22 * _fontScale, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
+                              child: Text(
+                                'Aa',
+                                style: TextStyle(
+                                  fontSize: 22 * _fontScale,
+                                  fontFamily: _fontFamilyForLane(_fontLane),
+                                  fontStyle: _fontStyleForLane(_fontLane),
+                                ),
+                              ),
                             ),
                             Baseline(
                               baseline: _baselineOffset,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('gQp', style: TextStyle(fontSize: 34 * _fontScale, fontWeight: FontWeight.w700, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
+                              child: Text(
+                                'gQp',
+                                style: TextStyle(
+                                  fontSize: 34 * _fontScale,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: _fontFamilyForLane(_fontLane),
+                                  fontStyle: _fontStyleForLane(_fontLane),
+                                ),
+                              ),
                             ),
                             Baseline(
                               baseline: _baselineOffset,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('2026', style: TextStyle(fontSize: 26 * _fontScale, fontWeight: FontWeight.w700, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
+                              child: Text(
+                                '2026',
+                                style: TextStyle(
+                                  fontSize: 26 * _fontScale,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: _fontFamilyForLane(_fontLane),
+                                  fontStyle: _fontStyleForLane(_fontLane),
+                                ),
+                              ),
                             ),
                             Baseline(
                               baseline: _baselineOffset,
                               baselineType: TextBaseline.alphabetic,
-                              child: Text('Typo', style: TextStyle(fontSize: 46 * _fontScale, fontWeight: FontWeight.w800, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
+                              child: Text(
+                                'Typo',
+                                style: TextStyle(
+                                  fontSize: 46 * _fontScale,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: _fontFamilyForLane(_fontLane),
+                                  fontStyle: _fontStyleForLane(_fontLane),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -873,7 +1212,12 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
   }
 
   Widget _buildIconPairingBoard(ColorScheme scheme) {
-    final List<IconData> icons = <IconData>[Icons.home_outlined, Icons.analytics_outlined, Icons.mail_outline, Icons.schedule_outlined];
+    final List<IconData> icons = <IconData>[
+      Icons.home_outlined,
+      Icons.analytics_outlined,
+      Icons.mail_outline,
+      Icons.schedule_outlined,
+    ];
     return Card(
       elevation: 0,
       color: scheme.surfaceContainer,
@@ -882,13 +1226,25 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Icon + Text Pairing', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Icon + Text Pairing',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Rows demonstrate icon/text alignment using Baseline wrappers for icon glyph containers.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Rows demonstrate icon/text alignment using Baseline wrappers for icon glyph containers.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             ...List<Widget>.generate(icons.length, (int i) {
               return Container(
-                margin: EdgeInsets.only(bottom: i == icons.length - 1 ? 0 : _laneSpacing),
+                margin: EdgeInsets.only(
+                  bottom: i == icons.length - 1 ? 0 : _laneSpacing,
+                ),
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: scheme.surfaceContainerHighest,
@@ -902,7 +1258,11 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                     Baseline(
                       baseline: _iconBaseline,
                       baselineType: TextBaseline.alphabetic,
-                      child: Icon(icons[i], size: 30 + (i * 3), color: scheme.primary),
+                      child: Icon(
+                        icons[i],
+                        size: 30 + (i * 3),
+                        color: scheme.primary,
+                      ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
@@ -911,7 +1271,12 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                         baselineType: TextBaseline.alphabetic,
                         child: Text(
                           'Row ${i + 1}: baseline-aligned label for icon pairing',
-                          style: TextStyle(fontSize: (17 + i).toDouble() * _fontScale, fontWeight: FontWeight.w600, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane)),
+                          style: TextStyle(
+                            fontSize: (17 + i).toDouble() * _fontScale,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: _fontFamilyForLane(_fontLane),
+                            fontStyle: _fontStyleForLane(_fontLane),
+                          ),
                         ),
                       ),
                     ),
@@ -937,16 +1302,27 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Script Mix Lane', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Script Mix Lane',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 OutlinedButton.icon(
                   onPressed: () {
                     setState(() {
-                      _scriptVariant = (_scriptVariant + 1) % _scriptRows.length;
+                      _scriptVariant =
+                          (_scriptVariant + 1) % _scriptRows.length;
                       _scriptSwitchCount += 1;
                       _phase = 'scripts';
                     });
-                    _pushTimeline('Scripts', 'Script mix switched to variant $_scriptVariant.');
+                    _pushTimeline(
+                      'Scripts',
+                      'Script mix switched to variant $_scriptVariant.',
+                    );
                   },
                   icon: const Icon(Icons.cached),
                   label: const Text('Cycle'),
@@ -954,7 +1330,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               ],
             ),
             const SizedBox(height: 8),
-            Text('Baseline behavior across multiple writing systems and numeric strings.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Baseline behavior across multiple writing systems and numeric strings.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             DecoratedBox(
               decoration: BoxDecoration(
@@ -971,13 +1350,21 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                       textBaseline: TextBaseline.alphabetic,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: List<Widget>.generate(row.length, (int i) {
-                        final double size = (16 + (i * 7)).toDouble() * _fontScale;
+                        final double size =
+                            (16 + (i * 7)).toDouble() * _fontScale;
                         return Baseline(
                           baseline: _baselineOffset,
                           baselineType: TextBaseline.alphabetic,
                           child: Text(
                             row[i],
-                            style: TextStyle(fontSize: size, fontWeight: i.isEven ? FontWeight.w700 : FontWeight.w500, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane)),
+                            style: TextStyle(
+                              fontSize: size,
+                              fontWeight: i.isEven
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
+                              fontFamily: _fontFamilyForLane(_fontLane),
+                              fontStyle: _fontStyleForLane(_fontLane),
+                            ),
                           ),
                         );
                       }),
@@ -986,7 +1373,10 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                     if (_showScriptNotes)
                       Text(
                         'Observe baseline consistency despite different glyph shapes and script metrics. Fine-tune offsets where multilingual labels share one row.',
-                        style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+                        style: TextStyle(
+                          color: scheme.onSurfaceVariant,
+                          fontSize: 12,
+                        ),
                       ),
                   ],
                 ),
@@ -999,7 +1389,11 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
   }
 
   Widget _buildChallengeBoard(ColorScheme scheme) {
-    final List<double> offsets = <double>[_baselineOffset - 8, _baselineOffset, _baselineOffset + 10];
+    final List<double> offsets = <double>[
+      _baselineOffset - 8,
+      _baselineOffset,
+      _baselineOffset + 10,
+    ];
     return Card(
       elevation: 0,
       color: scheme.surfaceContainer,
@@ -1008,68 +1402,134 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Baseline Shift Challenges', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Baseline Shift Challenges',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Three challenge cards demonstrate near, exact, and exaggerated baseline offsets.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Three challenge cards demonstrate near, exact, and exaggerated baseline offsets.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final bool narrow = constraints.maxWidth < 1000;
-                final List<Widget> cards = List<Widget>.generate(offsets.length, (int i) {
-                  final double target = offsets[i].clamp(8, 90);
-                  return Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: i == offsets.length - 1 || narrow ? 0 : 10, bottom: narrow && i < offsets.length - 1 ? 10 : 0),
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: scheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: scheme.outlineVariant),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Target ${target.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                          const SizedBox(height: 8),
-                          SizedBox(
-                            height: 104,
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned.fill(
-                                  child: CustomPaint(painter: _BaselineGridPainter(color: scheme.outlineVariant.withValues(alpha: 0.22), baseline: target)),
-                                ),
-                                Positioned.fill(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                                    textBaseline: TextBaseline.alphabetic,
-                                    children: <Widget>[
-                                      Baseline(
-                                        baseline: target,
-                                        baselineType: TextBaseline.alphabetic,
-                                        child: Text('A', style: TextStyle(fontSize: 26 * _fontScale, fontWeight: FontWeight.w700, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
-                                      ),
-                                      Baseline(
-                                        baseline: target,
-                                        baselineType: TextBaseline.alphabetic,
-                                        child: Text('Baseline', style: TextStyle(fontSize: 18 * _fontScale, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
-                                      ),
-                                      Baseline(
-                                        baseline: target,
-                                        baselineType: TextBaseline.alphabetic,
-                                        child: Text('123', style: TextStyle(fontSize: 22 * _fontScale, fontWeight: FontWeight.w700, fontFamily: _fontFamilyForLane(_fontLane), fontStyle: _fontStyleForLane(_fontLane))),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                final List<Widget> cards = List<Widget>.generate(
+                  offsets.length,
+                  (int i) {
+                    final double target = offsets[i].clamp(8, 90);
+                    return Expanded(
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: i == offsets.length - 1 || narrow ? 0 : 10,
+                          bottom: narrow && i < offsets.length - 1 ? 10 : 0,
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: scheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: scheme.outlineVariant),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Target ${target.toStringAsFixed(1)}',
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 104,
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned.fill(
+                                    child: CustomPaint(
+                                      painter: _BaselineGridPainter(
+                                        color: scheme.outlineVariant.withValues(
+                                          alpha: 0.22,
+                                        ),
+                                        baseline: target,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned.fill(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.baseline,
+                                      textBaseline: TextBaseline.alphabetic,
+                                      children: <Widget>[
+                                        Baseline(
+                                          baseline: target,
+                                          baselineType: TextBaseline.alphabetic,
+                                          child: Text(
+                                            'A',
+                                            style: TextStyle(
+                                              fontSize: 26 * _fontScale,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: _fontFamilyForLane(
+                                                _fontLane,
+                                              ),
+                                              fontStyle: _fontStyleForLane(
+                                                _fontLane,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Baseline(
+                                          baseline: target,
+                                          baselineType: TextBaseline.alphabetic,
+                                          child: Text(
+                                            'Baseline',
+                                            style: TextStyle(
+                                              fontSize: 18 * _fontScale,
+                                              fontFamily: _fontFamilyForLane(
+                                                _fontLane,
+                                              ),
+                                              fontStyle: _fontStyleForLane(
+                                                _fontLane,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Baseline(
+                                          baseline: target,
+                                          baselineType: TextBaseline.alphabetic,
+                                          child: Text(
+                                            '123',
+                                            style: TextStyle(
+                                              fontSize: 22 * _fontScale,
+                                              fontWeight: FontWeight.w700,
+                                              fontFamily: _fontFamilyForLane(
+                                                _fontLane,
+                                              ),
+                                              fontStyle: _fontStyleForLane(
+                                                _fontLane,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                });
+                    );
+                  },
+                );
 
                 if (narrow) {
                   return Column(children: cards);
@@ -1093,17 +1553,24 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1131,13 +1598,38 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1170,16 +1662,40 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themePresets[_themeIndex].id} scenario=${_scenarioPresets[_scenarioIndex].id} phase=$_phase', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('baseline=${_baselineOffset.toStringAsFixed(1)} fontScale=${_fontScale.toStringAsFixed(2)} iconBaseline=${_iconBaseline.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('inspectorHeight=${_inspectorHeight.toStringAsFixed(0)} cardPadding=${_cardPadding.toStringAsFixed(0)} laneSpacing=${_laneSpacing.toStringAsFixed(0)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('fontLane=${_fontLane.name} scriptVariant=$_scriptVariant showGrid=$_showGrid', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('switches baseline=$_baselineSwitchCount font=$_fontSwitchCount script=$_scriptSwitchCount icon=$_iconTuneCount', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('taps=$_tapCount presetUses=$_presetApplyCount', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themePresets[_themeIndex].id} scenario=${_scenarioPresets[_scenarioIndex].id} phase=$_phase',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'baseline=${_baselineOffset.toStringAsFixed(1)} fontScale=${_fontScale.toStringAsFixed(2)} iconBaseline=${_iconBaseline.toStringAsFixed(1)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'inspectorHeight=${_inspectorHeight.toStringAsFixed(0)} cardPadding=${_cardPadding.toStringAsFixed(0)} laneSpacing=${_laneSpacing.toStringAsFixed(0)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'fontLane=${_fontLane.name} scriptVariant=$_scriptVariant showGrid=$_showGrid',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'switches baseline=$_baselineSwitchCount font=$_fontSwitchCount script=$_scriptSwitchCount icon=$_iconTuneCount',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'taps=$_tapCount presetUses=$_presetApplyCount',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1195,7 +1711,14 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1208,13 +1731,18 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faq.map(( _FaqEntry entry) {
+            ..._faq.map((_FaqEntry entry) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1227,9 +1755,18 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(entry.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        entry.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(entry.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        entry.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1252,17 +1789,28 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]),
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological log of baseline operations and control updates.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological log of baseline operations and control updates.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
@@ -1273,12 +1821,16 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Interact with controls to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
@@ -1289,10 +1841,22 @@ class _RenderBaselineLabState extends State<_RenderBaselineLab> {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
                       ),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1334,7 +1898,11 @@ class _BaselineGridPainter extends CustomPainter {
     final Paint centerPaint = Paint()
       ..color = color.withValues(alpha: 0.7)
       ..strokeWidth = 1.4;
-    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), centerPaint);
+    canvas.drawLine(
+      Offset(size.width / 2, 0),
+      Offset(size.width / 2, size.height),
+      centerPaint,
+    );
   }
 
   @override

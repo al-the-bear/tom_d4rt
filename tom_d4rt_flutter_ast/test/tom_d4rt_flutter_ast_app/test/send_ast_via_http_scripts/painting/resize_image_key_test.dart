@@ -119,10 +119,7 @@ Widget buildKeyPropertyCard(
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -141,7 +138,7 @@ Widget buildDimensionVisualization(
   print('Building dimension visualization: $label ($width x $height)');
   double displayW = (width ?? 100).toDouble().clamp(40.0, 150.0);
   double displayH = (height ?? 100).toDouble().clamp(40.0, 100.0);
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -203,7 +200,10 @@ Widget buildDimensionVisualization(
                     child: RotatedBox(
                       quarterTurns: 1,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: color,
                           borderRadius: BorderRadius.circular(4),
@@ -237,10 +237,7 @@ Widget buildDimensionVisualization(
           children: [
             Text(
               'Target: ${width ?? "auto"} x ${height ?? "auto"}',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
             ),
           ],
         ),
@@ -277,11 +274,7 @@ Widget buildPolicyCard(
             color: isSelected ? color : Colors.grey.shade300,
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 20,
-          ),
+          child: Icon(icon, color: Colors.white, size: 20),
         ),
         SizedBox(width: 12),
         Expanded(
@@ -299,10 +292,7 @@ Widget buildPolicyCard(
               SizedBox(height: 2),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -352,7 +342,9 @@ Widget buildAllowUpscalingToggle(bool allowUpscaling, Color color) {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: allowUpscaling ? Colors.green.shade600 : Colors.orange.shade600,
+            color: allowUpscaling
+                ? Colors.green.shade600
+                : Colors.orange.shade600,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(
@@ -371,7 +363,9 @@ Widget buildAllowUpscalingToggle(bool allowUpscaling, Color color) {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: allowUpscaling ? Colors.green.shade800 : Colors.orange.shade800,
+                  color: allowUpscaling
+                      ? Colors.green.shade800
+                      : Colors.orange.shade800,
                 ),
               ),
               SizedBox(height: 4),
@@ -379,10 +373,7 @@ Widget buildAllowUpscalingToggle(bool allowUpscaling, Color color) {
                 allowUpscaling
                     ? 'Image can be scaled larger than original dimensions'
                     : 'Image will not exceed original dimensions when resizing',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
               ),
             ],
           ),
@@ -478,13 +469,15 @@ Widget buildMiniKeyBox(String label, Map<String, String> props, Color color) {
           ),
         ),
         SizedBox(height: 6),
-        ...props.entries.map((e) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 1),
-          child: Text(
-            '${e.key}: ${e.value}',
-            style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
+        ...props.entries.map(
+          (e) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 1),
+            child: Text(
+              '${e.key}: ${e.value}',
+              style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -543,10 +536,7 @@ Widget buildCacheBehaviorCard(
                   SizedBox(height: 2),
                   Text(
                     description,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -575,22 +565,29 @@ Widget buildCacheBehaviorCard(
               Wrap(
                 spacing: 6,
                 runSpacing: 6,
-                children: keyComponents.map((c) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: color.withAlpha(25),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(color: color.withAlpha(60)),
-                  ),
-                  child: Text(
-                    c,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: color,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                )).toList(),
+                children: keyComponents
+                    .map(
+                      (c) => Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: color.withAlpha(25),
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: color.withAlpha(60)),
+                        ),
+                        child: Text(
+                          c,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: color,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
             ],
           ),
@@ -646,30 +643,63 @@ Widget buildCacheFlowVisualization() {
           ),
         ),
         SizedBox(height: 16),
-        buildFlowStep(1, 'ResizeImage requested', 'Provider wraps original ImageProvider', Colors.blue, true),
+        buildFlowStep(
+          1,
+          'ResizeImage requested',
+          'Provider wraps original ImageProvider',
+          Colors.blue,
+          true,
+        ),
         buildFlowArrow(),
-        buildFlowStep(2, 'ResizeImageKey generated', 'Combines provider, width, height, policy, allowUpscaling', Colors.deepPurple, true),
+        buildFlowStep(
+          2,
+          'ResizeImageKey generated',
+          'Combines provider, width, height, policy, allowUpscaling',
+          Colors.deepPurple,
+          true,
+        ),
         buildFlowArrow(),
-        buildFlowStep(3, 'Cache lookup', 'ImageCache checks for existing key', Colors.orange, true),
+        buildFlowStep(
+          3,
+          'Cache lookup',
+          'ImageCache checks for existing key',
+          Colors.orange,
+          true,
+        ),
         buildFlowArrow(),
-        buildFlowStep(4, 'Hit or Miss', 'Returns cached image or triggers decode', Colors.green, true),
+        buildFlowStep(
+          4,
+          'Hit or Miss',
+          'Returns cached image or triggers decode',
+          Colors.green,
+          true,
+        ),
         buildFlowArrow(),
-        buildFlowStep(5, 'Store result', 'Decoded image stored with ResizeImageKey', Colors.teal, true),
+        buildFlowStep(
+          5,
+          'Store result',
+          'Decoded image stored with ResizeImageKey',
+          Colors.teal,
+          true,
+        ),
       ],
     ),
   );
 }
 
-Widget buildFlowStep(int step, String title, String description, Color color, bool isActive) {
+Widget buildFlowStep(
+  int step,
+  String title,
+  String description,
+  Color color,
+  bool isActive,
+) {
   return Row(
     children: [
       Container(
         width: 32,
         height: 32,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             '$step',
@@ -696,10 +726,7 @@ Widget buildFlowStep(int step, String title, String description, Color color, bo
             ),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
             ),
           ],
         ),
@@ -713,11 +740,7 @@ Widget buildFlowArrow() {
     padding: EdgeInsets.only(left: 14),
     child: Column(
       children: [
-        Container(
-          width: 2,
-          height: 12,
-          color: Colors.grey.shade400,
-        ),
+        Container(width: 2, height: 12, color: Colors.grey.shade400),
         Icon(Icons.arrow_downward, size: 14, color: Colors.grey.shade400),
       ],
     ),
@@ -752,40 +775,39 @@ Widget buildKeyHashCodeDemo(Map<String, int> hashCodes, Color color) {
           ],
         ),
         SizedBox(height: 12),
-        ...hashCodes.entries.map((entry) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  entry.key,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade700,
+        ...hashCodes.entries.map(
+          (entry) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    entry.key,
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                   ),
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: color.withAlpha(20),
-                  borderRadius: BorderRadius.circular(4),
-                  border: Border.all(color: color.withAlpha(60)),
-                ),
-                child: Text(
-                  '${entry.value}',
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: color,
-                    fontWeight: FontWeight.w600,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: color.withAlpha(20),
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(color: color.withAlpha(60)),
+                  ),
+                  child: Text(
+                    '${entry.value}',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: color,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -803,7 +825,7 @@ Widget buildImageResizeScenario(
   print('Building resize scenario: $title');
   int finalW = targetW ?? originalW;
   int finalH = targetH ?? originalH;
-  
+
   if (!allowUpscaling) {
     if (targetW != null && targetW > originalW) {
       finalW = originalW;
@@ -812,7 +834,7 @@ Widget buildImageResizeScenario(
       finalH = originalH;
     }
   }
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -850,14 +872,18 @@ Widget buildImageResizeScenario(
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: allowUpscaling ? Colors.green.shade100 : Colors.orange.shade100,
+                color: allowUpscaling
+                    ? Colors.green.shade100
+                    : Colors.orange.shade100,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
                 'allowUpscaling: $allowUpscaling',
                 style: TextStyle(
                   fontSize: 11,
-                  color: allowUpscaling ? Colors.green.shade800 : Colors.orange.shade800,
+                  color: allowUpscaling
+                      ? Colors.green.shade800
+                      : Colors.orange.shade800,
                 ),
               ),
             ),
@@ -871,10 +897,7 @@ Widget buildImageResizeScenario(
 Widget buildSizeBox(String label, int? w, int? h, Color color) {
   return Column(
     children: [
-      Text(
-        label,
-        style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
-      ),
+      Text(label, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
       SizedBox(height: 4),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -924,11 +947,36 @@ Widget buildKeyComponentsBreakdown(Color color) {
           ],
         ),
         SizedBox(height: 16),
-        buildComponentRow('_providerCacheKey', 'Object', 'Inner provider cache key for comparison', Colors.blue),
-        buildComponentRow('width', 'int?', 'Target width in logical pixels', Colors.green),
-        buildComponentRow('height', 'int?', 'Target height in logical pixels', Colors.orange),
-        buildComponentRow('policy', 'ImageResizePolicy', 'Resize policy enum value', Colors.purple),
-        buildComponentRow('allowUpscaling', 'bool', 'Whether upscaling is permitted', Colors.teal),
+        buildComponentRow(
+          '_providerCacheKey',
+          'Object',
+          'Inner provider cache key for comparison',
+          Colors.blue,
+        ),
+        buildComponentRow(
+          'width',
+          'int?',
+          'Target width in logical pixels',
+          Colors.green,
+        ),
+        buildComponentRow(
+          'height',
+          'int?',
+          'Target height in logical pixels',
+          Colors.orange,
+        ),
+        buildComponentRow(
+          'policy',
+          'ImageResizePolicy',
+          'Resize policy enum value',
+          Colors.purple,
+        ),
+        buildComponentRow(
+          'allowUpscaling',
+          'bool',
+          'Whether upscaling is permitted',
+          Colors.teal,
+        ),
       ],
     ),
   );
@@ -942,10 +990,7 @@ Widget buildComponentRow(String name, String type, String desc, Color color) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -979,10 +1024,7 @@ Widget buildComponentRow(String name, String type, String desc, Color color) {
           flex: 3,
           child: Text(
             desc,
-            style: TextStyle(
-              fontSize: 11,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -990,7 +1032,12 @@ Widget buildComponentRow(String name, String type, String desc, Color color) {
   );
 }
 
-Widget buildPracticalUsageExample(String title, String code, String explanation, Color color) {
+Widget buildPracticalUsageExample(
+  String title,
+  String code,
+  String explanation,
+  Color color,
+) {
   print('Building practical usage example: $title');
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
@@ -1037,10 +1084,7 @@ Widget buildPracticalUsageExample(String title, String code, String explanation,
         SizedBox(height: 10),
         Text(
           explanation,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
         ),
       ],
     ),
@@ -1050,36 +1094,36 @@ Widget buildPracticalUsageExample(String title, String code, String explanation,
 dynamic build(BuildContext context) {
   print('ResizeImageKey deep demo executing');
   print('==========================================');
-  
+
   print('\n--- Section: ResizeImageKey Construction ---');
   print('ResizeImageKey is created internally by ResizeImage');
   print('It combines the inner provider key with resize parameters');
-  
+
   print('\n--- Section: Width/Height Parameters ---');
   print('width: Target width for resized image (null for auto)');
   print('height: Target height for resized image (null for auto)');
   print('At least one dimension should be specified');
-  
+
   print('\n--- Section: Policy Parameter ---');
   print('ImageResizePolicy.exact - Exact dimensions, may distort');
   print('ImageResizePolicy.fit - Fit within bounds, preserve aspect ratio');
-  
+
   print('\n--- Section: allowUpscaling Parameter ---');
   print('allowUpscaling: false - Prevents image from exceeding original size');
   print('allowUpscaling: true - Allows scaling beyond original dimensions');
-  
+
   print('\n--- Section: Key Equality ---');
   print('Two ResizeImageKey instances are equal if all components match:');
   print('- Same inner provider key');
   print('- Same width and height');
   print('- Same policy');
   print('- Same allowUpscaling value');
-  
+
   print('\n--- Section: Cache Behavior ---');
   print('ResizeImageKey determines cache hits/misses');
   print('Different resize parameters = different cache entries');
   print('Same parameters = cache hit');
-  
+
   print('\nResizeImageKey deep demo completed');
 
   MaterialColor primaryColor = Colors.deepPurple;
@@ -1133,10 +1177,7 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Text(
                         'Internal key used by ResizeImage for ImageCache lookups',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(fontSize: 13, color: Colors.white),
                       ),
                     ),
                   ],
@@ -1145,30 +1186,54 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         buildSectionHeader('ResizeImageKey Construction'),
-        buildInfoCard('Purpose', 'Uniquely identifies a resized image variant in the cache'),
-        buildInfoCard('Creation', 'Generated internally when ResizeImage resolves its key'),
+        buildInfoCard(
+          'Purpose',
+          'Uniquely identifies a resized image variant in the cache',
+        ),
+        buildInfoCard(
+          'Creation',
+          'Generated internally when ResizeImage resolves its key',
+        ),
         buildInfoCard('Immutability', 'Key is immutable once created'),
-        
+
         buildKeyComponentsBreakdown(primaryColor),
-        
+
         buildPracticalUsageExample(
           'Creating ResizeImage',
           'ResizeImage(\n  AssetImage("photo.jpg"),\n  width: 200,\n  height: 150,\n)',
           'ResizeImage wraps an ImageProvider and generates a ResizeImageKey for caching.',
           primaryColor,
         ),
-        
+
         buildSectionHeader('Width / Height Parameters'),
         buildInfoCard('width', 'Target width in logical pixels (int?)'),
         buildInfoCard('height', 'Target height in logical pixels (int?)'),
-        buildInfoCard('Behavior', 'At least one should be non-null for meaningful resize'),
-        
-        buildDimensionVisualization('Width Only (300 x null)', 300, null, Colors.blue),
-        buildDimensionVisualization('Height Only (null x 200)', null, 200, Colors.green),
-        buildDimensionVisualization('Both Specified (300 x 200)', 300, 200, Colors.orange),
-        
+        buildInfoCard(
+          'Behavior',
+          'At least one should be non-null for meaningful resize',
+        ),
+
+        buildDimensionVisualization(
+          'Width Only (300 x null)',
+          300,
+          null,
+          Colors.blue,
+        ),
+        buildDimensionVisualization(
+          'Height Only (null x 200)',
+          null,
+          200,
+          Colors.green,
+        ),
+        buildDimensionVisualization(
+          'Both Specified (300 x 200)',
+          300,
+          200,
+          Colors.orange,
+        ),
+
         buildKeyPropertyCard(
           'width',
           '300',
@@ -1183,11 +1248,11 @@ dynamic build(BuildContext context) {
           Icons.swap_vert,
           Colors.green,
         ),
-        
+
         buildSectionHeader('Policy Parameter'),
         buildInfoCard('Type', 'ImageResizePolicy enum'),
         buildInfoCard('Options', 'exact, fit'),
-        
+
         buildPolicyCard(
           'ImageResizePolicy.exact',
           'Resize to exact dimensions - may distort aspect ratio',
@@ -1202,33 +1267,56 @@ dynamic build(BuildContext context) {
           Colors.green,
           Icons.fit_screen,
         ),
-        
+
         buildImageResizeScenario(
           'Policy: exact (original 800x600 -> target 300x200)',
-          800, 600, 300, 200, true, Colors.red.shade600,
+          800,
+          600,
+          300,
+          200,
+          true,
+          Colors.red.shade600,
         ),
         buildImageResizeScenario(
           'Policy: fit (maintains aspect, fits bounds)',
-          800, 600, 300, 200, true, Colors.green.shade600,
+          800,
+          600,
+          300,
+          200,
+          true,
+          Colors.green.shade600,
         ),
-        
+
         buildSectionHeader('allowUpscaling Parameter'),
         buildInfoCard('Type', 'bool'),
         buildInfoCard('Default', 'false'),
-        buildInfoCard('Purpose', 'Controls whether image can exceed original dimensions'),
-        
+        buildInfoCard(
+          'Purpose',
+          'Controls whether image can exceed original dimensions',
+        ),
+
         buildAllowUpscalingToggle(false, Colors.orange),
         buildAllowUpscalingToggle(true, Colors.green),
-        
+
         buildImageResizeScenario(
           'Small image with allowUpscaling: false',
-          100, 80, 200, 160, false, Colors.orange.shade600,
+          100,
+          80,
+          200,
+          160,
+          false,
+          Colors.orange.shade600,
         ),
         buildImageResizeScenario(
           'Small image with allowUpscaling: true',
-          100, 80, 200, 160, true, Colors.green.shade600,
+          100,
+          80,
+          200,
+          160,
+          true,
+          Colors.green.shade600,
         ),
-        
+
         buildKeyPropertyCard(
           'allowUpscaling',
           'false',
@@ -1243,11 +1331,14 @@ dynamic build(BuildContext context) {
           Icons.zoom_out_map,
           Colors.green,
         ),
-        
+
         buildSectionHeader('Key Equality'),
-        buildInfoCard('Equality Check', 'All five components must match for equality'),
+        buildInfoCard(
+          'Equality Check',
+          'All five components must match for equality',
+        ),
         buildInfoCard('hashCode', 'Computed from all component values'),
-        
+
         buildKeyEqualityDemo(
           'Key A',
           'Key B',
@@ -1284,7 +1375,7 @@ dynamic build(BuildContext context) {
           {'w': '200', 'h': '150', 'policy': 'fit', 'upscale': 'true'},
           primaryColor,
         ),
-        
+
         buildKeyHashCodeDemo({
           'Key(200x150, fit, false)': 847392651,
           'Key(300x150, fit, false)': 239184756,
@@ -1292,19 +1383,31 @@ dynamic build(BuildContext context) {
           'Key(200x150, exact, false)': 102938475,
           'Key(200x150, fit, true)': 738291654,
         }, primaryColor),
-        
+
         buildSectionHeader('Cache Behavior Visualization'),
-        buildInfoCard('Cache System', 'ImageCache uses keys to store and retrieve decoded images'),
-        buildInfoCard('Key Role', 'ResizeImageKey uniquely identifies each resized variant'),
-        
+        buildInfoCard(
+          'Cache System',
+          'ImageCache uses keys to store and retrieve decoded images',
+        ),
+        buildInfoCard(
+          'Key Role',
+          'ResizeImageKey uniquely identifies each resized variant',
+        ),
+
         buildCacheFlowVisualization(),
-        
+
         buildCacheBehaviorCard(
           'Cache Hit Scenario',
           'Same ResizeImage parameters requested again',
           Icons.flash_on,
           Colors.green,
-          ['provider: same', 'width: 200', 'height: 150', 'policy: fit', 'allowUpscaling: false'],
+          [
+            'provider: same',
+            'width: 200',
+            'height: 150',
+            'policy: fit',
+            'allowUpscaling: false',
+          ],
           'Instant return from cache',
         ),
         buildCacheBehaviorCard(
@@ -1312,7 +1415,13 @@ dynamic build(BuildContext context) {
           'Different parameters create new cache entry',
           Icons.cloud_download,
           Colors.orange,
-          ['provider: same', 'width: 300', 'height: 225', 'policy: fit', 'allowUpscaling: false'],
+          [
+            'provider: same',
+            'width: 300',
+            'height: 225',
+            'policy: fit',
+            'allowUpscaling: false',
+          ],
           'Decode and store new entry',
         ),
         buildCacheBehaviorCard(
@@ -1323,21 +1432,21 @@ dynamic build(BuildContext context) {
           ['Thumbnail: 100x75', 'Preview: 400x300', 'Full: 800x600'],
           'Three separate cache entries',
         ),
-        
+
         buildPracticalUsageExample(
           'Cache-Efficient Usage',
           'final thumbnail = ResizeImage(\n  networkImage,\n  width: 100,\n);\nfinal preview = ResizeImage(\n  networkImage,\n  width: 400,\n);',
           'Each size creates a unique key and separate cache entry for efficient memory usage.',
           Colors.teal,
         ),
-        
+
         buildPracticalUsageExample(
           'Policy Impact on Caching',
           '// These create DIFFERENT cache entries\nResizeImage(img, width: 200, policy: ImageResizePolicy.exact)\nResizeImage(img, width: 200, policy: ImageResizePolicy.fit)',
           'Changing policy changes the key, resulting in separate cached images.',
           Colors.purple,
         ),
-        
+
         Container(
           margin: EdgeInsets.only(top: 16),
           padding: EdgeInsets.all(20),
@@ -1361,10 +1470,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4),
               Text(
                 'All key components and cache behaviors demonstrated',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: primaryColor.shade600,
-                ),
+                style: TextStyle(fontSize: 14, color: primaryColor.shade600),
               ),
             ],
           ),

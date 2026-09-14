@@ -248,18 +248,10 @@ dynamic build(BuildContext context) {
     {'name': 'left', 'type': 'double?', 'desc': 'distance from Stack left'},
     {'name': 'top', 'type': 'double?', 'desc': 'distance from Stack top'},
     {'name': 'right', 'type': 'double?', 'desc': 'distance from Stack right'},
-    {
-      'name': 'bottom',
-      'type': 'double?',
-      'desc': 'distance from Stack bottom',
-    },
+    {'name': 'bottom', 'type': 'double?', 'desc': 'distance from Stack bottom'},
     {'name': 'width', 'type': 'double?', 'desc': 'fixed child width'},
     {'name': 'height', 'type': 'double?', 'desc': 'fixed child height'},
-    {
-      'name': 'duration',
-      'type': 'Duration',
-      'desc': 'tween length (required)',
-    },
+    {'name': 'duration', 'type': 'Duration', 'desc': 'tween length (required)'},
     {'name': 'curve', 'type': 'Curve', 'desc': 'easing curve, default linear'},
     {'name': 'child', 'type': 'Widget', 'desc': 'positioned subtree'},
     {'name': 'onEnd', 'type': 'VoidCallback?', 'desc': 'fires on settle'},
@@ -935,11 +927,7 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.white,
-                    size: 16.0,
-                  ),
+                  Icon(Icons.check_circle, color: Colors.white, size: 16.0),
                   SizedBox(width: 8.0),
                   Text(
                     'Revealed tile',
@@ -965,11 +953,7 @@ dynamic build(BuildContext context) {
     color: pink600,
     body: Stack(
       children: [
-        Positioned.fill(
-          child: Container(
-            color: rose50.withValues(alpha: 0.5),
-          ),
-        ),
+        Positioned.fill(child: Container(color: rose50.withValues(alpha: 0.5))),
         _ghostBox(left: -180.0, top: 0.0, width: 180.0, height: 110.0),
         AnimatedPositioned(
           left: 0.0,
@@ -1042,9 +1026,7 @@ dynamic build(BuildContext context) {
           curve: Curves.elasticOut,
           child: Container(
             decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: [fuchsia400, pink600, rose700],
-              ),
+              gradient: RadialGradient(colors: [fuchsia400, pink600, rose700]),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -1153,10 +1135,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              cc.withValues(alpha: 0.08),
-              cc.withValues(alpha: 0.16),
-            ],
+            colors: [cc.withValues(alpha: 0.08), cc.withValues(alpha: 0.16)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1198,10 +1177,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 3.0),
                   Text(
                     cmp['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: slate700,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: slate700),
                   ),
                 ],
               ),
@@ -1369,10 +1345,7 @@ dynamic build(BuildContext context) {
           '1.',
           'AnimatedPositioned animates Stack-position changes implicitly.',
         ),
-        _recapRow(
-          '2.',
-          'It MUST be a child of Stack — uses StackParentData.',
-        ),
+        _recapRow('2.', 'It MUST be a child of Stack — uses StackParentData.'),
         _recapRow(
           '3.',
           'Set at most two of left/right/width per axis; same for vertical.',
@@ -1385,14 +1358,8 @@ dynamic build(BuildContext context) {
           '5.',
           'Rebuild with new params to retrigger; setState higher up.',
         ),
-        _recapRow(
-          '6.',
-          '.fromRect(rect:) is sugar for left/top/width/height.',
-        ),
-        _recapRow(
-          '7.',
-          'onEnd fires once per settle — even on no-op tweens.',
-        ),
+        _recapRow('6.', '.fromRect(rect:) is sugar for left/top/width/height.'),
+        _recapRow('7.', 'onEnd fires once per settle — even on no-op tweens.'),
         _recapRow(
           '8.',
           'Use AnimatedPositionedDirectional for RTL-aware layouts.',
@@ -1507,19 +1474,11 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           Wrap(alignment: WrapAlignment.center, children: durationStacks),
           SizedBox(height: 28.0),
-          _sectionHeader(
-            '5. Curve variants',
-            Icons.show_chart,
-            rose700,
-          ),
+          _sectionHeader('5. Curve variants', Icons.show_chart, rose700),
           SizedBox(height: 8.0),
           Wrap(alignment: WrapAlignment.center, children: curveStacks),
           SizedBox(height: 28.0),
-          _sectionHeader(
-            '6. .fromRect() factory',
-            Icons.crop_square,
-            rose700,
-          ),
+          _sectionHeader('6. .fromRect() factory', Icons.crop_square, rose700),
           SizedBox(height: 8.0),
           Wrap(
             alignment: WrapAlignment.center,
@@ -1541,11 +1500,7 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           Column(children: compareCards),
           SizedBox(height: 28.0),
-          _sectionHeader(
-            '9. Footguns & gotchas',
-            Icons.warning_amber,
-            rose700,
-          ),
+          _sectionHeader('9. Footguns & gotchas', Icons.warning_amber, rose700),
           SizedBox(height: 8.0),
           Column(children: footgunCards),
           SizedBox(height: 28.0),
@@ -1760,10 +1715,7 @@ Widget _mockPanel({
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.20),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.20)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1810,10 +1762,7 @@ Widget _mockPanel({
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-              color: color.withValues(alpha: 0.4),
-              width: 1.0,
-            ),
+            border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
           ),
           child: body,
         ),
@@ -1829,10 +1778,7 @@ Widget _menuRow(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 14.0, color: color),
         SizedBox(width: 6.0),
-        Text(
-          label,
-          style: TextStyle(fontSize: 11.0, color: color),
-        ),
+        Text(label, style: TextStyle(fontSize: 11.0, color: color)),
       ],
     ),
   );
@@ -1843,17 +1789,12 @@ Widget _sectionHeader(String label, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.04),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
     ),
     child: Row(
       children: [

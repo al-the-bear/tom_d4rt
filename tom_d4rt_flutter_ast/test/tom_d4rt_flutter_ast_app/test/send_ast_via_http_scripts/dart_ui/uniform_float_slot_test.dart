@@ -96,12 +96,14 @@ dynamic build(BuildContext context) {
   print('  identityHashCode(slotType) = $slotTypeHash');
   print('  slotType.hashCode          = $slotTypeStdHash');
   print('  slotType.runtimeType       = $slotTypeRtt');
-  sections.add(_buildSection0Anchor(
-    typeStr: slotTypeStr,
-    runtimeTypeStr: slotTypeRtt,
-    identityHash: slotTypeHash,
-    standardHash: slotTypeStdHash,
-  ));
+  sections.add(
+    _buildSection0Anchor(
+      typeStr: slotTypeStr,
+      runtimeTypeStr: slotTypeRtt,
+      identityHash: slotTypeHash,
+      standardHash: slotTypeStdHash,
+    ),
+  );
   sections.add(const SizedBox(height: 18));
 
   // -------- Section 1: Title banner ----------------------------------------
@@ -178,8 +180,10 @@ dynamic build(BuildContext context) {
   sections.add(_buildSignatureCard(slotTypeStr));
 
   print('==============================================================');
-  print('UniformFloatSlot deep-demo build() finished, sections: '
-      '${sections.length}');
+  print(
+    'UniformFloatSlot deep-demo build() finished, sections: '
+    '${sections.length}',
+  );
   print('==============================================================');
 
   // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #8):
@@ -269,16 +273,15 @@ Widget _buildSection0Anchor({
         const Text(
           'The Type literal ui.UniformFloatSlot is the only handle the Dart '
           'sandbox can grab without compiling a real FragmentProgram.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 12.5, height: 1.4),
         ),
         const SizedBox(height: 14),
         _buildKeyValueRow('Type literal', typeStr),
         _buildKeyValueRow('runtimeType.toString()', runtimeTypeStr),
-        _buildKeyValueRow('identityHashCode', '0x${identityHash.toRadixString(16)}'),
+        _buildKeyValueRow(
+          'identityHashCode',
+          '0x${identityHash.toRadixString(16)}',
+        ),
         _buildKeyValueRow('hashCode', '0x${standardHash.toRadixString(16)}'),
         const SizedBox(height: 10),
         Container(
@@ -381,12 +384,7 @@ Widget _buildSection1TitleBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          _kVoid,
-          _kSpectrumF,
-          _kSpectrumE,
-          _kBone,
-        ],
+        colors: <Color>[_kVoid, _kSpectrumF, _kSpectrumE, _kBone],
         stops: <double>[0.0, 0.45, 0.78, 1.0],
       ),
       boxShadow: const <BoxShadow>[
@@ -419,10 +417,7 @@ Widget _buildSection1TitleBanner() {
               gradient: const RadialGradient(
                 center: Alignment(0.85, -0.6),
                 radius: 1.2,
-                colors: <Color>[
-                  Color(0x66FFFFFF),
-                  Color(0x00000000),
-                ],
+                colors: <Color>[Color(0x66FFFFFF), Color(0x00000000)],
                 stops: <double>[0.0, 1.0],
               ),
             ),
@@ -696,10 +691,7 @@ Widget _buildBitStrip() {
         ),
       ),
       const SizedBox(height: 6),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: cells,
-      ),
+      Row(mainAxisSize: MainAxisSize.min, children: cells),
       const SizedBox(height: 4),
       const Text(
         'S = sign (1 bit)   E = exponent (8 bits)   M = mantissa (23 bits)',
@@ -802,11 +794,7 @@ Widget _buildSection3UseCaseGallery() {
           ],
         ),
         const SizedBox(height: 12),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: cards,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: cards),
       ],
     ),
   );
@@ -892,11 +880,41 @@ Widget _buildUseCaseCard({
 Widget _buildSection4ComparisonTable() {
   print('  _buildSection4ComparisonTable: composing 5-row, 5-col table');
   final List<List<String>> rows = const <List<String>>[
-    <String>['UniformFloatSlot', '1', '4', 'setFloat(i, double)', 'scalar param'],
-    <String>['UniformVec2Slot', '2', '8', 'setFloat(i, x); setFloat(i+1, y)', 'uv / size'],
-    <String>['UniformVec3Slot', '3', '12', 'setFloat per channel', 'rgb / position'],
-    <String>['UniformVec4Slot', '4', '16', 'setFloat per channel', 'rgba / quat'],
-    <String>['UniformSamplerSlot', '-', '-', 'setImageSampler(i, image)', 'texture bind'],
+    <String>[
+      'UniformFloatSlot',
+      '1',
+      '4',
+      'setFloat(i, double)',
+      'scalar param',
+    ],
+    <String>[
+      'UniformVec2Slot',
+      '2',
+      '8',
+      'setFloat(i, x); setFloat(i+1, y)',
+      'uv / size',
+    ],
+    <String>[
+      'UniformVec3Slot',
+      '3',
+      '12',
+      'setFloat per channel',
+      'rgb / position',
+    ],
+    <String>[
+      'UniformVec4Slot',
+      '4',
+      '16',
+      'setFloat per channel',
+      'rgba / quat',
+    ],
+    <String>[
+      'UniformSamplerSlot',
+      '-',
+      '-',
+      'setImageSampler(i, image)',
+      'texture bind',
+    ],
   ];
   return Container(
     padding: const EdgeInsets.all(18),
@@ -935,8 +953,7 @@ Widget _buildSection4ComparisonTable() {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
             gradient: const LinearGradient(
               colors: <Color>[_kSpectrumF, _kSpectrumE],
             ),
@@ -1005,8 +1022,9 @@ Widget _buildSection4ComparisonTable() {
         Container(
           decoration: BoxDecoration(
             color: _kCarbon,
-            borderRadius:
-                const BorderRadius.vertical(bottom: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
             border: Border.all(color: _kHairline, width: 1),
           ),
           child: Column(
@@ -1050,8 +1068,7 @@ List<Widget> _buildTableRows(List<List<String>> rows) {
                   color: current ? _kAccent : _kBone,
                   fontSize: 12,
                   fontFamily: 'monospace',
-                  fontWeight:
-                      current ? FontWeight.w800 : FontWeight.w600,
+                  fontWeight: current ? FontWeight.w800 : FontWeight.w600,
                 ),
               ),
             ),
@@ -1113,31 +1130,11 @@ List<Widget> _buildTableRows(List<List<String>> rows) {
 Widget _buildSection5LifecycleFlow() {
   print('  _buildSection5LifecycleFlow: composing 5-stage pipeline');
   final List<Map<String, String>> stages = <Map<String, String>>[
-    <String, String>{
-      'label': 'host double',
-      'sub': 'Dart 64-bit',
-      'icon': 'D',
-    },
-    <String, String>{
-      'label': 'narrow',
-      'sub': 'cast to f32',
-      'icon': '~',
-    },
-    <String, String>{
-      'label': 'setFloat',
-      'sub': 'engine call',
-      'icon': 'S',
-    },
-    <String, String>{
-      'label': 'UBO',
-      'sub': 'uniform buffer',
-      'icon': 'U',
-    },
-    <String, String>{
-      'label': 'shader',
-      'sub': 'uniform float',
-      'icon': 'G',
-    },
+    <String, String>{'label': 'host double', 'sub': 'Dart 64-bit', 'icon': 'D'},
+    <String, String>{'label': 'narrow', 'sub': 'cast to f32', 'icon': '~'},
+    <String, String>{'label': 'setFloat', 'sub': 'engine call', 'icon': 'S'},
+    <String, String>{'label': 'UBO', 'sub': 'uniform buffer', 'icon': 'U'},
+    <String, String>{'label': 'shader', 'sub': 'uniform float', 'icon': 'G'},
   ];
   final List<Widget> stageWidgets = <Widget>[];
   for (int i = 0; i < stages.length; i++) {
@@ -1194,11 +1191,7 @@ Widget _buildSection5LifecycleFlow() {
           'Each setFloat call only stages the value into a host-side mirror. '
           'The actual GPU upload happens when the shader is bound to a Paint '
           'and the engine flushes the next draw.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 11.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 11.5, height: 1.45),
         ),
       ],
     ),
@@ -1303,31 +1296,36 @@ Widget _buildSection6PrecisionNotes() {
   final List<Map<String, String>> notes = <Map<String, String>>[
     <String, String>{
       'title': 'double -> float32 cast',
-      'body': 'Dart double (64-bit) is silently narrowed to float32. '
+      'body':
+          'Dart double (64-bit) is silently narrowed to float32. '
           'Mantissa truncates from 52 to 23 bits.',
       'state': 'info',
     },
     <String, String>{
       'title': 'NaN propagation',
-      'body': 'A NaN reaches the shader as NaN. Comparisons with NaN '
+      'body':
+          'A NaN reaches the shader as NaN. Comparisons with NaN '
           'are false; many GPU intrinsics propagate or sanitise it.',
       'state': 'warn',
     },
     <String, String>{
       'title': 'Inf clamping',
-      'body': '+Inf / -Inf survive the cast but most fragment ops will '
+      'body':
+          '+Inf / -Inf survive the cast but most fragment ops will '
           'collapse them on output. Clamp on the host when in doubt.',
       'state': 'warn',
     },
     <String, String>{
       'title': 'Denormals',
-      'body': 'Subnormal values may be flushed to zero on some GPUs. '
+      'body':
+          'Subnormal values may be flushed to zero on some GPUs. '
           'Do not rely on tiny sub-2^-126 magnitudes.',
       'state': 'warn',
     },
     <String, String>{
       'title': 'Magnitude range',
-      'body': 'Approx +/- 3.4e38, with about 7 decimal digits of precision. '
+      'body':
+          'Approx +/- 3.4e38, with about 7 decimal digits of precision. '
           'Time uniforms past ~16 hours start to lose seconds-level resolution.',
       'state': 'info',
     },
@@ -1574,10 +1572,7 @@ Widget _buildExamplePanel({
             gradient: RadialGradient(
               center: const Alignment(-0.1, -0.1),
               radius: 0.9,
-              colors: <Color>[
-                accent,
-                accent.withOpacity(0.0),
-              ],
+              colors: <Color>[accent, accent.withOpacity(0.0)],
               stops: const <double>[0.0, 1.0],
             ),
           ),
@@ -1660,10 +1655,7 @@ Widget _buildMockSlider({required double value, required Color accent}) {
             width: 220 * value,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  accent.withOpacity(0.6),
-                  accent,
-                ],
+                colors: <Color>[accent.withOpacity(0.6), accent],
               ),
               borderRadius: BorderRadius.circular(2),
             ),
@@ -1788,11 +1780,7 @@ Widget _buildSection8CheatSheet() {
         const Text(
           'Multi-component slots are written as consecutive float entries: '
           'a vec4 at index i is set with setFloat(i + 0..3).',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 11.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 11.5, height: 1.45),
         ),
       ],
     ),
@@ -1850,11 +1838,7 @@ Widget _buildLegendCard() {
           ),
         ),
         const SizedBox(height: 10),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: chips,
-        ),
+        Wrap(spacing: 8, runSpacing: 8, children: chips),
       ],
     ),
   );

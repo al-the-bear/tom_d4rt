@@ -108,7 +108,10 @@ dynamic build(BuildContext context) {
 
   final chain = <Map<String, String>>[
     {'name': 'Intent', 'note': 'Root of the intent hierarchy'},
-    {'name': 'DirectionalTextEditingIntent', 'note': 'Adds forward:bool property'},
+    {
+      'name': 'DirectionalTextEditingIntent',
+      'note': 'Adds forward:bool property',
+    },
     {
       'name': 'ExpandSelectionToDocumentBoundaryIntent',
       'note': 'Concrete — selects to document start/end',
@@ -160,10 +163,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 2.0),
                 Text(
                   c['note']!,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -226,10 +226,7 @@ dynamic build(BuildContext context) {
             ? _sdLight.withValues(alpha: 0.7)
             : _sdSurface.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          color: forward ? _sdAccent : _sdMuted,
-          width: 1.5,
-        ),
+        border: Border.all(color: forward ? _sdAccent : _sdMuted, width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +234,9 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Icon(
-                forward ? Icons.vertical_align_bottom : Icons.vertical_align_top,
+                forward
+                    ? Icons.vertical_align_bottom
+                    : Icons.vertical_align_top,
                 color: forward ? _sdAccent : _sdMuted,
                 size: 28.0,
               ),
@@ -253,9 +252,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
-                  color: (forward ? _sdAccent : _sdMuted).withValues(alpha: 0.12),
+                  color: (forward ? _sdAccent : _sdMuted).withValues(
+                    alpha: 0.12,
+                  ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Text(
@@ -272,7 +276,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10.0),
           Text(
             description,
-            style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.45),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 10.0),
           Row(
@@ -359,10 +367,14 @@ dynamic build(BuildContext context) {
           for (int lineIdx = 0; lineIdx < sampleLines.length; lineIdx++)
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               margin: const EdgeInsets.only(bottom: 1.0),
               decoration: BoxDecoration(
-                color: hasSelection &&
+                color:
+                    hasSelection &&
                         lineIdx >= selStartLine &&
                         lineIdx <= selEndLine
                     ? _sdHighlight.withValues(alpha: 0.25)
@@ -394,11 +406,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   if (!hasSelection && lineIdx == caretLine)
-                    Container(
-                      width: 2.0,
-                      height: 16.0,
-                      color: _sdAccent,
-                    ),
+                    Container(width: 2.0, height: 16.0, color: _sdAccent),
                 ],
               ),
             ),
@@ -450,7 +458,11 @@ dynamic build(BuildContext context) {
           'The caret sits at line 3, character 14.  Dispatching the '
           'intent with forward=true expands the selection to the end '
           'of line 6.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 8.0),
         sdDocumentPreview(
@@ -519,7 +531,11 @@ dynamic build(BuildContext context) {
         Text(
           'Same caret at line 3:14.  Dispatching with forward=false '
           'selects everything from the document start to the caret.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 8.0),
         sdDocumentPreview(
@@ -675,21 +691,45 @@ dynamic build(BuildContext context) {
             children: [
               SizedBox(
                 width: 70.0,
-                child: Text('Platform',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _sdDark)),
+                child: Text(
+                  'Platform',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('To Start',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _sdDark)),
+                child: Text(
+                  'To Start',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('To End',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _sdDark)),
+                child: Text(
+                  'To End',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 90.0,
-                child: Text('Note',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: _sdDark)),
+                child: Text(
+                  'Note',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
+                ),
               ),
             ],
           ),
@@ -773,7 +813,11 @@ dynamic build(BuildContext context) {
               ),
             ),
             if (!isLast)
-              Container(width: 2.0, height: 36.0, color: _sdMuted.withValues(alpha: 0.3)),
+              Container(
+                width: 2.0,
+                height: 36.0,
+                color: _sdMuted.withValues(alpha: 0.3),
+              ),
           ],
         ),
         const SizedBox(width: 14.0),
@@ -790,12 +834,20 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   s['title']!,
-                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600, color: _sdDark),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
                 ),
                 const SizedBox(height: 3.0),
                 Text(
                   s['detail']!,
-                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: Colors.grey.shade700,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -817,7 +869,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Dispatch flow: key press → selection update',
-          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _sdDark),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _sdDark,
+          ),
         ),
         const SizedBox(height: 12.0),
         for (int i = 0; i < dispatchSteps.length; i++)
@@ -870,7 +926,9 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.symmetric(vertical: 3.0),
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: isThis ? _sdLight : (idx.isEven ? Colors.grey.shade50 : Colors.white),
+        color: isThis
+            ? _sdLight
+            : (idx.isEven ? Colors.grey.shade50 : Colors.white),
         borderRadius: BorderRadius.circular(8.0),
         border: isThis ? Border.all(color: _sdAccent, width: 1.5) : null,
       ),
@@ -922,14 +980,22 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Related selection intents',
-          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: _sdDark),
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: _sdDark,
+          ),
         ),
         const SizedBox(height: 4.0),
         Text(
           '"Expand" keeps the anchor and moves the extent.  '
           '"Extend" is similar but may collapse first.  Compare '
           'granularity levels: character, word, line, document.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.4,
+          ),
         ),
         const SizedBox(height: 8.0),
         for (int i = 0; i < relatedIntents.length; i++)
@@ -1025,7 +1091,11 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   p['title'] as String,
-                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _sdDark),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w700,
+                    color: _sdDark,
+                  ),
                 ),
               ),
             ],
@@ -1033,7 +1103,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8.0),
           Text(
             p['description'] as String,
-            style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.45),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 10.0),
           Container(
@@ -1122,12 +1196,20 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   e['case']!,
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _sdDark),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
                 ),
                 const SizedBox(height: 3.0),
                 Text(
                   e['behavior']!,
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: Colors.grey.shade700,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1201,7 +1283,11 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   ip['component'] as String,
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: _sdDark),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                    color: _sdDark,
+                  ),
                 ),
                 const SizedBox(height: 2.0),
                 Text(
@@ -1212,7 +1298,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           if (idx < integrationPoints.length - 1)
-            Icon(Icons.arrow_forward_ios, size: 14.0, color: _sdMuted.withValues(alpha: 0.5)),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 14.0,
+              color: _sdMuted.withValues(alpha: 0.5),
+            ),
         ],
       ),
     );
@@ -1265,7 +1355,11 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 10.0),
             Text(
               'Summary',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: _sdDark),
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: _sdDark,
+              ),
             ),
           ],
         ),
@@ -1280,12 +1374,19 @@ dynamic build(BuildContext context) {
                   width: 6.0,
                   height: 6.0,
                   margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-                  decoration: const BoxDecoration(shape: BoxShape.circle, color: _sdAccent),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _sdAccent,
+                  ),
                 ),
                 Expanded(
                   child: Text(
                     b,
-                    style: TextStyle(fontSize: 13.0, color: _sdDark, height: 1.45),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: _sdDark,
+                      height: 1.45,
+                    ),
                   ),
                 ),
               ],
@@ -1372,7 +1473,11 @@ Widget sdSectionHeader(String title) {
         const SizedBox(width: 10.0),
         Text(
           title,
-          style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold, color: _sdDark),
+          style: TextStyle(
+            fontSize: 17.0,
+            fontWeight: FontWeight.bold,
+            color: _sdDark,
+          ),
         ),
       ],
     ),

@@ -39,7 +39,10 @@ import 'package:flutter/services.dart';
 
 const double _kSectionSpacing = 28.0;
 const double _kCardSpacing = 16.0;
-const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18, vertical: 14);
+const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(
+  horizontal: 18,
+  vertical: 14,
+);
 const EdgeInsets _kCardPadding = EdgeInsets.all(14);
 const BorderRadius _kCardRadius = BorderRadius.all(Radius.circular(12));
 
@@ -117,10 +120,7 @@ Widget _sectionHeader(String index, String title, String subtitle) {
 Widget _bodyParagraph(String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6),
-    child: Text(
-      text,
-      style: const TextStyle(fontSize: 14.0, height: 1.45),
-    ),
+    child: Text(text, style: const TextStyle(fontSize: 14.0, height: 1.45)),
   );
 }
 
@@ -173,10 +173,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'DismissIntent — Live Demo',
-    theme: ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: Colors.indigo,
-    ),
+    theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.indigo),
     home: Scaffold(
       appBar: AppBar(
         title: const Text('DismissIntent — Live Demo'),
@@ -241,18 +238,18 @@ class _IntroSection extends StatelessWidget {
           ),
           _bodyParagraph(
             'A DismissIntent is a small immutable object that travels through '
-                'the Actions/Shortcuts pipeline. By itself it does nothing — it '
-                'simply signals intent. The handler that actually performs the '
-                'work is whatever Action is registered for the DismissIntent '
-                'type at the focused subtree.',
+            'the Actions/Shortcuts pipeline. By itself it does nothing — it '
+            'simply signals intent. The handler that actually performs the '
+            'work is whatever Action is registered for the DismissIntent '
+            'type at the focused subtree.',
           ),
           _bodyParagraph(
             'WidgetsApp (and therefore MaterialApp) installs a default global '
-                'shortcut binding that maps the escape key to DismissIntent. So '
-                'most apps need to do only one thing to participate: register '
-                'an Actions entry mapping DismissIntent to a CallbackAction '
-                '(or a custom Action<DismissIntent> subclass) somewhere above '
-                'the focused widget.',
+            'shortcut binding that maps the escape key to DismissIntent. So '
+            'most apps need to do only one thing to participate: register '
+            'an Actions entry mapping DismissIntent to a CallbackAction '
+            '(or a custom Action<DismissIntent> subclass) somewhere above '
+            'the focused widget.',
           ),
           const SizedBox(height: 8),
           Wrap(
@@ -260,8 +257,10 @@ class _IntroSection extends StatelessWidget {
               _keyHint('Esc'),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-                child: Text('→ DismissIntent → Actions.invoke(...)',
-                    style: TextStyle(fontSize: 13.5)),
+                child: Text(
+                  '→ DismissIntent → Actions.invoke(...)',
+                  style: TextStyle(fontSize: 13.5),
+                ),
               ),
             ],
           ),
@@ -270,8 +269,10 @@ class _IntroSection extends StatelessWidget {
           _bullet('Default binding: WidgetsApp.shortcuts maps Esc to it.'),
           _bullet('No default Action — you supply one via Actions(...).'),
           _bullet('Bubbles up the focus tree until something handles it.'),
-          _bullet('Returning null from invoke means "I did not handle it"; '
-              'parents get a chance.'),
+          _bullet(
+            'Returning null from invoke means "I did not handle it"; '
+            'parents get a chance.',
+          ),
         ],
       ),
     );
@@ -285,7 +286,8 @@ class _IntroSection extends StatelessWidget {
 class _LiveDialogDismissSection extends StatefulWidget {
   const _LiveDialogDismissSection();
   @override
-  State<_LiveDialogDismissSection> createState() => _LiveDialogDismissSectionState();
+  State<_LiveDialogDismissSection> createState() =>
+      _LiveDialogDismissSectionState();
 }
 
 class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
@@ -331,8 +333,8 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
           ),
           _bodyParagraph(
             'Below is a Focus widget wrapped in a Shortcuts → Actions pair. '
-                'Click into the card to give it focus, then press Esc; the '
-                'CallbackAction fires and toggles the visual.',
+            'Click into the card to give it focus, then press Esc; the '
+            'CallbackAction fires and toggles the visual.',
           ),
           const SizedBox(height: 12),
           Shortcuts(
@@ -341,7 +343,9 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
             },
             child: Actions(
               actions: <Type, Action<Intent>>{
-                DismissIntent: CallbackAction<DismissIntent>(onInvoke: _handleDismiss),
+                DismissIntent: CallbackAction<DismissIntent>(
+                  onInvoke: _handleDismiss,
+                ),
               },
               child: Focus(
                 focusNode: _focusNode,
@@ -360,7 +364,9 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
                               ? Colors.grey.shade300
                               : Colors.indigo.shade50,
                           border: Border.all(
-                            color: hasFocus ? Colors.indigo : Colors.grey.shade400,
+                            color: hasFocus
+                                ? Colors.indigo
+                                : Colors.grey.shade400,
                             width: hasFocus ? 2.4 : 1,
                           ),
                         ),
@@ -379,7 +385,9 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    _dismissed ? 'Dismissed' : 'Press Esc to close',
+                                    _dismissed
+                                        ? 'Dismissed'
+                                        : 'Press Esc to close',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 16,
@@ -389,10 +397,10 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
                                   Text(
                                     _dismissed
                                         ? 'Dispatched $_dismissCount time'
-                                            '${_dismissCount == 1 ? '' : 's'}.'
+                                              '${_dismissCount == 1 ? '' : 's'}.'
                                         : hasFocus
-                                            ? 'This card has focus.'
-                                            : 'Tap to focus this card.',
+                                        ? 'This card has focus.'
+                                        : 'Tap to focus this card.',
                                     style: TextStyle(
                                       fontSize: 12.5,
                                       color: Colors.grey.shade700,
@@ -435,12 +443,18 @@ class _LiveDialogDismissSectionState extends State<_LiveDialogDismissSection> {
             ],
           ),
           const SizedBox(height: 4),
-          _bullet('Focus is required; without it the Shortcuts subtree never '
-              'sees the keystroke.'),
-          _bullet('CallbackAction returns null — that is fine for terminal '
-              'actions.'),
-          _bullet('Actions.maybeInvoke walks up the focus tree the same way '
-              'a real keypress would.'),
+          _bullet(
+            'Focus is required; without it the Shortcuts subtree never '
+            'sees the keystroke.',
+          ),
+          _bullet(
+            'CallbackAction returns null — that is fine for terminal '
+            'actions.',
+          ),
+          _bullet(
+            'Actions.maybeInvoke walks up the focus tree the same way '
+            'a real keypress would.',
+          ),
         ],
       ),
     );
@@ -509,9 +523,9 @@ class _PopupMenuSectionState extends State<_PopupMenuSection> {
           ),
           _bodyParagraph(
             'Real menus typically use Flutter\'s Overlay; for a self-contained '
-                'demo we use a Stack so the dismiss wiring is explicit and easy '
-                'to inspect. The popup itself is a Focus + Shortcuts + Actions '
-                'subtree.',
+            'demo we use a Stack so the dismiss wiring is explicit and easy '
+            'to inspect. The popup itself is a Focus + Shortcuts + Actions '
+            'subtree.',
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -591,11 +605,15 @@ class _PopupMenuSectionState extends State<_PopupMenuSection> {
                                       onTap: () => _select(item),
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 8),
+                                          horizontal: 12,
+                                          vertical: 8,
+                                        ),
                                         child: Row(
                                           children: <Widget>[
-                                            const Icon(Icons.chevron_right,
-                                                size: 18),
+                                            const Icon(
+                                              Icons.chevron_right,
+                                              size: 18,
+                                            ),
                                             const SizedBox(width: 8),
                                             Text(item),
                                           ],
@@ -609,8 +627,10 @@ class _PopupMenuSectionState extends State<_PopupMenuSection> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         _keyHint('Esc'),
-                                        const Text('to dismiss',
-                                            style: TextStyle(fontSize: 12)),
+                                        const Text(
+                                          'to dismiss',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -626,12 +646,18 @@ class _PopupMenuSectionState extends State<_PopupMenuSection> {
             ),
           ),
           const SizedBox(height: 10),
-          _bullet('The popup itself owns the Shortcuts/Actions binding — that '
-              'way Esc only closes the popup, not the surrounding page.'),
-          _bullet('autofocus: true lets the Focus widget claim focus the moment '
-              'the popup mounts.'),
-          _bullet('Returning null from the CallbackAction is "handled" because '
-              'we do not propagate further.'),
+          _bullet(
+            'The popup itself owns the Shortcuts/Actions binding — that '
+            'way Esc only closes the popup, not the surrounding page.',
+          ),
+          _bullet(
+            'autofocus: true lets the Focus widget claim focus the moment '
+            'the popup mounts.',
+          ),
+          _bullet(
+            'Returning null from the CallbackAction is "handled" because '
+            'we do not propagate further.',
+          ),
         ],
       ),
     );
@@ -645,7 +671,8 @@ class _PopupMenuSectionState extends State<_PopupMenuSection> {
 class _InlineExpandableSection extends StatefulWidget {
   const _InlineExpandableSection();
   @override
-  State<_InlineExpandableSection> createState() => _InlineExpandableSectionState();
+  State<_InlineExpandableSection> createState() =>
+      _InlineExpandableSectionState();
 }
 
 class _InlineExpandableSectionState extends State<_InlineExpandableSection> {
@@ -695,9 +722,9 @@ class _InlineExpandableSectionState extends State<_InlineExpandableSection> {
           ),
           _bodyParagraph(
             'Notice how the Shortcuts+Actions+Focus block lives inside the '
-                'expanded body. When the panel is collapsed, the focusable '
-                'subtree is gone and Esc has nothing to dismiss — that is '
-                'exactly what you want.',
+            'expanded body. When the panel is collapsed, the focusable '
+            'subtree is gone and Esc has nothing to dismiss — that is '
+            'exactly what you want.',
           ),
           const SizedBox(height: 12),
           Container(
@@ -726,11 +753,13 @@ class _InlineExpandableSectionState extends State<_InlineExpandableSection> {
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
-                        Text('Esc collapses: $_collapsedByEsc',
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 12,
-                            )),
+                        Text(
+                          'Esc collapses: $_collapsedByEsc',
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -743,8 +772,9 @@ class _InlineExpandableSectionState extends State<_InlineExpandableSection> {
                     },
                     child: Actions(
                       actions: <Type, Action<Intent>>{
-                        DismissIntent:
-                            CallbackAction<DismissIntent>(onInvoke: _onEsc),
+                        DismissIntent: CallbackAction<DismissIntent>(
+                          onInvoke: _onEsc,
+                        ),
                       },
                       child: Focus(
                         focusNode: _expandedFocus,
@@ -799,7 +829,8 @@ class _InlineExpandableSectionState extends State<_InlineExpandableSection> {
 class _MultipleSubtreesSection extends StatefulWidget {
   const _MultipleSubtreesSection();
   @override
-  State<_MultipleSubtreesSection> createState() => _MultipleSubtreesSectionState();
+  State<_MultipleSubtreesSection> createState() =>
+      _MultipleSubtreesSectionState();
 }
 
 class _MultipleSubtreesSectionState extends State<_MultipleSubtreesSection> {
@@ -873,12 +904,21 @@ class _MultipleSubtreesSectionState extends State<_MultipleSubtreesSection> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(focused ? Icons.center_focus_strong : Icons.crop_free,
-                              color: tint, size: 22),
+                          Icon(
+                            focused
+                                ? Icons.center_focus_strong
+                                : Icons.crop_free,
+                            color: tint,
+                            size: 22,
+                          ),
                           const SizedBox(width: 8),
-                          Text(label,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 16)),
+                          Text(
+                            label,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 6),
@@ -886,8 +926,8 @@ class _MultipleSubtreesSectionState extends State<_MultipleSubtreesSection> {
                         _dismissed[index]
                             ? 'Dismissed (${_counts[index]})'
                             : focused
-                                ? 'Focused — press Esc'
-                                : 'Tap to focus',
+                            ? 'Focused — press Esc'
+                            : 'Tap to focus',
                         style: TextStyle(color: Colors.grey.shade800),
                       ),
                     ],
@@ -917,14 +957,13 @@ class _MultipleSubtreesSectionState extends State<_MultipleSubtreesSection> {
           ),
           _bodyParagraph(
             'This is the canonical way to scope DismissIntent: by composition. '
-                'Place the Shortcuts/Actions inside whichever subtree should '
-                'react. Flutter\'s focus tree handles routing automatically.',
+            'Place the Shortcuts/Actions inside whichever subtree should '
+            'react. Flutter\'s focus tree handles routing automatically.',
           ),
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
-              Expanded(
-                  child: _buildCard(0, 'Card A', Colors.deepPurple)),
+              Expanded(child: _buildCard(0, 'Card A', Colors.deepPurple)),
               const SizedBox(width: 10),
               Expanded(child: _buildCard(1, 'Card B', Colors.teal)),
               const SizedBox(width: 10),
@@ -953,7 +992,8 @@ class _MultipleSubtreesSectionState extends State<_MultipleSubtreesSection> {
 class _ToggleableActionSection extends StatefulWidget {
   const _ToggleableActionSection();
   @override
-  State<_ToggleableActionSection> createState() => _ToggleableActionSectionState();
+  State<_ToggleableActionSection> createState() =>
+      _ToggleableActionSectionState();
 }
 
 class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
@@ -976,8 +1016,10 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
 
   Object? _outerInvoke(DismissIntent _) {
     setState(() => _outerHits += 1);
-    print('[Section 6] outer (fallback) action handled DismissIntent '
-        '(hits=$_outerHits)');
+    print(
+      '[Section 6] outer (fallback) action handled DismissIntent '
+      '(hits=$_outerHits)',
+    );
     return Object();
   }
 
@@ -1002,9 +1044,9 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
           ),
           _bodyParagraph(
             'We swap the inner Actions map at build time depending on the '
-                'switch. When disabled, DismissIntent has no inner handler '
-                'and bubbles up to the outer Actions, where the fallback '
-                'logs to a separate counter.',
+            'switch. When disabled, DismissIntent has no inner handler '
+            'and bubbles up to the outer Actions, where the fallback '
+            'logs to a separate counter.',
           ),
           const SizedBox(height: 8),
           Row(
@@ -1016,14 +1058,18 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
                 onChanged: (bool v) => setState(() => _enabled = v),
               ),
               const Spacer(),
-              Text('inner: $_innerHits   outer: $_outerHits',
-                  style: const TextStyle(fontFamily: 'monospace')),
+              Text(
+                'inner: $_innerHits   outer: $_outerHits',
+                style: const TextStyle(fontFamily: 'monospace'),
+              ),
             ],
           ),
           const SizedBox(height: 10),
           Actions(
             actions: <Type, Action<Intent>>{
-              DismissIntent: CallbackAction<DismissIntent>(onInvoke: _outerInvoke),
+              DismissIntent: CallbackAction<DismissIntent>(
+                onInvoke: _outerInvoke,
+              ),
             },
             child: Shortcuts(
               shortcuts: <LogicalKeySet, Intent>{
@@ -1057,7 +1103,9 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
                             children: <Widget>[
                               Icon(
                                 _enabled ? Icons.toggle_on : Icons.toggle_off,
-                                color: _enabled ? Colors.indigo : Colors.amber.shade800,
+                                color: _enabled
+                                    ? Colors.indigo
+                                    : Colors.amber.shade800,
                                 size: 28,
                               ),
                               const SizedBox(width: 12),
@@ -1066,7 +1114,9 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
                                   _enabled
                                       ? 'Inner action handles Esc.'
                                       : 'Inner action absent — outer fallback handles Esc.',
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
@@ -1080,12 +1130,18 @@ class _ToggleableActionSectionState extends State<_ToggleableActionSection> {
             ),
           ),
           const SizedBox(height: 10),
-          _bullet('Omitting an entry from the Actions map is the simplest way '
-              'to disable a binding.'),
-          _bullet('You can also subclass Action and override isEnabled if you '
-              'need richer logic.'),
-          _bullet('Bubbling is automatic — inner-to-outer is just the build '
-              'tree order.'),
+          _bullet(
+            'Omitting an entry from the Actions map is the simplest way '
+            'to disable a binding.',
+          ),
+          _bullet(
+            'You can also subclass Action and override isEnabled if you '
+            'need richer logic.',
+          ),
+          _bullet(
+            'Bubbling is automatic — inner-to-outer is just the build '
+            'tree order.',
+          ),
         ],
       ),
     );
@@ -1128,14 +1184,16 @@ class _CustomActionSubclassSectionState
   @override
   void initState() {
     super.initState();
-    _action = _LoggingDismissAction(onLog: (String entry) {
-      setState(() {
-        _log.insert(0, entry);
-        if (_log.length > 12) {
-          _log.removeLast();
-        }
-      });
-    });
+    _action = _LoggingDismissAction(
+      onLog: (String entry) {
+        setState(() {
+          _log.insert(0, entry);
+          if (_log.length > 12) {
+            _log.removeLast();
+          }
+        });
+      },
+    );
   }
 
   @override
@@ -1162,8 +1220,8 @@ class _CustomActionSubclassSectionState
           ),
           _bodyParagraph(
             'A subclass keeps internal state (the call counter) without '
-                'leaking it into the host widget. The host receives a stream '
-                'of log entries and renders them as Chips.',
+            'leaking it into the host widget. The host receives a stream '
+            'of log entries and renders them as Chips.',
           ),
           const SizedBox(height: 10),
           Shortcuts(
@@ -1171,9 +1229,7 @@ class _CustomActionSubclassSectionState
               LogicalKeySet(LogicalKeyboardKey.escape): const DismissIntent(),
             },
             child: Actions(
-              actions: <Type, Action<Intent>>{
-                DismissIntent: _action,
-              },
+              actions: <Type, Action<Intent>>{DismissIntent: _action},
               child: Focus(
                 focusNode: _focus,
                 child: Builder(
@@ -1196,13 +1252,18 @@ class _CustomActionSubclassSectionState
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                const Icon(Icons.bug_report,
-                                    color: Colors.teal, size: 22),
+                                const Icon(
+                                  Icons.bug_report,
+                                  color: Colors.teal,
+                                  size: 22,
+                                ),
                                 const SizedBox(width: 8),
                                 const Text(
                                   'Logging dismiss action',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w700, fontSize: 15),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15,
+                                  ),
                                 ),
                                 const Spacer(),
                                 TextButton.icon(
@@ -1224,8 +1285,9 @@ class _CustomActionSubclassSectionState
                               const Text(
                                 'No dismiss events yet.',
                                 style: TextStyle(
-                                    fontStyle: FontStyle.italic,
-                                    color: Colors.black54),
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black54,
+                                ),
                               )
                             else
                               Wrap(
@@ -1234,9 +1296,12 @@ class _CustomActionSubclassSectionState
                                 children: <Widget>[
                                   for (final String entry in _log)
                                     Chip(
-                                      label: Text(entry,
-                                          style: const TextStyle(
-                                              fontFamily: 'monospace')),
+                                      label: Text(
+                                        entry,
+                                        style: const TextStyle(
+                                          fontFamily: 'monospace',
+                                        ),
+                                      ),
                                       backgroundColor: Colors.teal.shade100,
                                     ),
                                 ],
@@ -1252,10 +1317,14 @@ class _CustomActionSubclassSectionState
           ),
           const SizedBox(height: 8),
           _bullet('Subclasses can override isEnabled to gate dispatch.'),
-          _bullet('They can also notifyActionListeners() if their enable state '
-              'changes asynchronously.'),
-          _bullet('Use a subclass when the action carries non-trivial state '
-              'such as counters, caches or animation controllers.'),
+          _bullet(
+            'They can also notifyActionListeners() if their enable state '
+            'changes asynchronously.',
+          ),
+          _bullet(
+            'Use a subclass when the action carries non-trivial state '
+            'such as counters, caches or animation controllers.',
+          ),
         ],
       ),
     );
@@ -1273,7 +1342,8 @@ class _CoordinatedDismissSection extends StatefulWidget {
       _CoordinatedDismissSectionState();
 }
 
-class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> {
+class _CoordinatedDismissSectionState
+    extends State<_CoordinatedDismissSection> {
   bool _innerEnabled = true;
   bool _middleEnabled = true;
   bool _outerEnabled = true;
@@ -1328,14 +1398,18 @@ class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> 
               children: <Widget>[
                 Icon(Icons.layers, color: tint, size: 18),
                 const SizedBox(width: 6),
-                Text(name,
-                    style: TextStyle(fontWeight: FontWeight.w700, color: tint)),
+                Text(
+                  name,
+                  style: TextStyle(fontWeight: FontWeight.w700, color: tint),
+                ),
                 const SizedBox(width: 10),
-                Text(enabled ? 'enabled' : 'disabled',
-                    style: TextStyle(
-                      color: enabled ? Colors.green : Colors.red,
-                      fontSize: 12,
-                    )),
+                Text(
+                  enabled ? 'enabled' : 'disabled',
+                  style: TextStyle(
+                    color: enabled ? Colors.green : Colors.red,
+                    fontSize: 12,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 4),
@@ -1362,9 +1436,9 @@ class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> 
           ),
           _bodyParagraph(
             'This shows how to build cancel/back/dismiss priority chains. The '
-                'inner Actions are tried first because of focus-tree ordering. '
-                'Returning null from invoke means "I did not handle this", '
-                'which Flutter interprets by trying the next outer Action.',
+            'inner Actions are tried first because of focus-tree ordering. '
+            'Returning null from invoke means "I did not handle this", '
+            'which Flutter interprets by trying the next outer Action.',
           ),
           const SizedBox(height: 8),
           Wrap(
@@ -1421,9 +1495,11 @@ class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> 
                                 const Icon(Icons.keyboard_alt_outlined),
                                 const SizedBox(width: 8),
                                 Expanded(
-                                  child: Text(focused
-                                      ? 'Focused — press Esc to test priority'
-                                      : 'Tap me to focus the innermost zone'),
+                                  child: Text(
+                                    focused
+                                        ? 'Focused — press Esc to test priority'
+                                        : 'Tap me to focus the innermost zone',
+                                  ),
                                 ),
                               ],
                             ),
@@ -1437,14 +1513,22 @@ class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> 
             ),
           ),
           const SizedBox(height: 10),
-          Text('Recent dispatch trace:',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, color: Colors.grey.shade800)),
+          Text(
+            'Recent dispatch trace:',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.grey.shade800,
+            ),
+          ),
           const SizedBox(height: 4),
           if (_trace.isEmpty)
-            const Text('—',
-                style: TextStyle(
-                    fontStyle: FontStyle.italic, color: Colors.black54))
+            const Text(
+              '—',
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                color: Colors.black54,
+              ),
+            )
           else
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1452,8 +1536,13 @@ class _CoordinatedDismissSectionState extends State<_CoordinatedDismissSection> 
                 for (final String entry in _trace)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 1),
-                    child: Text('• $entry',
-                        style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+                    child: Text(
+                      '• $entry',
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12.5,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -1475,8 +1564,14 @@ class _RecipeGallerySection extends StatefulWidget {
 
 class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
   // Recipe 1: chip deletion
-  final List<String> _chips =
-      <String>['flutter', 'dart', 'intent', 'shortcut', 'focus', 'esc'];
+  final List<String> _chips = <String>[
+    'flutter',
+    'dart',
+    'intent',
+    'shortcut',
+    'focus',
+    'esc',
+  ];
   String? _selectedChip;
   final FocusNode _chipFocus = FocusNode(debugLabel: 'chip-confirm');
 
@@ -1556,18 +1651,17 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Recipe 1 — chip deletion confirm',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Recipe 1 — chip deletion confirm',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Wrap(
             spacing: 6,
             runSpacing: 6,
             children: <Widget>[
               for (final String c in _chips)
-                ActionChip(
-                  label: Text(c),
-                  onPressed: () => _confirmChip(c),
-                ),
+                ActionChip(label: Text(c), onPressed: () => _confirmChip(c)),
             ],
           ),
           const SizedBox(height: 8),
@@ -1578,8 +1672,9 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
               },
               child: Actions(
                 actions: <Type, Action<Intent>>{
-                  DismissIntent:
-                      CallbackAction<DismissIntent>(onInvoke: _cancelChipDelete),
+                  DismissIntent: CallbackAction<DismissIntent>(
+                    onInvoke: _cancelChipDelete,
+                  ),
                 },
                 child: Focus(
                   focusNode: _chipFocus,
@@ -1601,8 +1696,9 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                         ElevatedButton(
                           onPressed: _commitChipDelete,
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white),
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
                           child: const Text('Delete'),
                         ),
                       ],
@@ -1623,8 +1719,10 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Recipe 2 — modal sheet (tap-outside or Esc)',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Recipe 2 — modal sheet (tap-outside or Esc)',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           ElevatedButton.icon(
             icon: const Icon(Icons.menu_open),
@@ -1659,7 +1757,8 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                     child: Actions(
                       actions: <Type, Action<Intent>>{
                         DismissIntent: CallbackAction<DismissIntent>(
-                            onInvoke: _closeSheet),
+                          onInvoke: _closeSheet,
+                        ),
                       },
                       child: Focus(
                         focusNode: _sheetFocus,
@@ -1675,7 +1774,8 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                                 const SizedBox(width: 8),
                                 const Expanded(
                                   child: Text(
-                                      'Sheet content. Tap outside or press Esc.'),
+                                    'Sheet content. Tap outside or press Esc.',
+                                  ),
                                 ),
                                 TextButton(
                                   onPressed: () =>
@@ -1704,8 +1804,10 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Recipe 3 — overlay tooltip dismissal',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Recipe 3 — overlay tooltip dismissal',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Row(
             children: <Widget>[
@@ -1729,7 +1831,8 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                   child: Actions(
                     actions: <Type, Action<Intent>>{
                       DismissIntent: CallbackAction<DismissIntent>(
-                          onInvoke: _closeTooltip),
+                        onInvoke: _closeTooltip,
+                      ),
                     },
                     child: Focus(
                       focusNode: _tooltipFocus,
@@ -1740,12 +1843,17 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                         color: Colors.black87,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 6),
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: const <Widget>[
-                              Icon(Icons.lightbulb_outline,
-                                  size: 16, color: Colors.white),
+                              Icon(
+                                Icons.lightbulb_outline,
+                                size: 16,
+                                color: Colors.white,
+                              ),
                               SizedBox(width: 6),
                               Text(
                                 'Tip: press Esc',
@@ -1772,8 +1880,10 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Recipe 4 — snackbar dismiss-on-Esc',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Recipe 4 — snackbar dismiss-on-Esc',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Row(
             children: <Widget>[
@@ -1799,8 +1909,9 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                 },
                 child: Actions(
                   actions: <Type, Action<Intent>>{
-                    DismissIntent:
-                        CallbackAction<DismissIntent>(onInvoke: _closeSnack),
+                    DismissIntent: CallbackAction<DismissIntent>(
+                      onInvoke: _closeSnack,
+                    ),
                   },
                   child: Focus(
                     focusNode: _snackFocus,
@@ -1816,8 +1927,10 @@ class _RecipeGallerySectionState extends State<_RecipeGallerySection> {
                           const Icon(Icons.info, color: Colors.white),
                           const SizedBox(width: 8),
                           const Expanded(
-                            child: Text('Saved! Press Esc to dismiss.',
-                                style: TextStyle(color: Colors.white)),
+                            child: Text(
+                              'Saved! Press Esc to dismiss.',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           TextButton(
                             onPressed: () =>
@@ -1891,15 +2004,23 @@ class _PitfallsSection extends StatelessWidget {
               CircleAvatar(
                 radius: 12,
                 backgroundColor: Colors.amber.shade700,
-                child: Text('$idx',
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w700)),
+                child: Text(
+                  '$idx',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700, fontSize: 15)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1980,46 +2101,46 @@ class _ReferenceTableSection extends StatelessWidget {
   static const List<List<String>> _rows = <List<String>>[
     <String>[
       'DismissIntent',
-      'const Intent dispatched to ask the focused subtree to dismiss itself.'
+      'const Intent dispatched to ask the focused subtree to dismiss itself.',
     ],
     <String>[
       'DismissAction',
       'Action<DismissIntent> base class; subclass it (or use CallbackAction) '
-          'to react to the intent.'
+          'to react to the intent.',
     ],
     <String>[
       'Actions',
       'Inherited widget that maps Intent types to Action instances; resolved '
-          'by walking up from the focused widget.'
+          'by walking up from the focused widget.',
     ],
     <String>[
       'Shortcuts',
-      'Inherited widget that maps key combinations (LogicalKeySet) to Intents.'
+      'Inherited widget that maps key combinations (LogicalKeySet) to Intents.',
     ],
     <String>[
       'Focus',
       'The FocusableActionDetector building block that owns a FocusNode and '
-          'lets Shortcuts/Actions reach it.'
+          'lets Shortcuts/Actions reach it.',
     ],
     <String>[
       'FocusNode',
       'The leaf focus object; create one yourself when you need stable focus '
-          'identity across rebuilds.'
+          'identity across rebuilds.',
     ],
     <String>[
       'Navigator.maybePop',
       'High-level helper to pop the current route; PopScope can intercept '
-          'and convert into a DismissIntent-style flow.'
+          'and convert into a DismissIntent-style flow.',
     ],
     <String>[
       'PopScope',
       'Replacement for WillPopScope that exposes onPopInvoked; pairs nicely '
-          'with DismissIntent on the focus side.'
+          'with DismissIntent on the focus side.',
     ],
     <String>[
       'ModalRoute',
       'The route that owns the dismiss semantics for dialogs/sheets and '
-          'consumes Esc before the focus tree.'
+          'consumes Esc before the focus tree.',
     ],
   ];
 
@@ -2048,22 +2169,29 @@ class _ReferenceTableSection extends StatelessWidget {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 10),
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.indigo.shade50,
                     borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10)),
+                      top: Radius.circular(10),
+                    ),
                   ),
                   child: Row(
                     children: const <Widget>[
                       SizedBox(
                         width: 170,
-                        child: Text('Type / API',
-                            style: TextStyle(fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Type / API',
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
                       ),
                       Expanded(
-                        child: Text('Role',
-                            style: TextStyle(fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Role',
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ],
                   ),
@@ -2071,7 +2199,9 @@ class _ReferenceTableSection extends StatelessWidget {
                 for (int i = 0; i < _rows.length; i++)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 10),
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: i.isEven ? Colors.white : Colors.grey.shade50,
                       border: Border(
@@ -2107,11 +2237,11 @@ class _ReferenceTableSection extends StatelessWidget {
           const SizedBox(height: 14),
           _bodyParagraph(
             'When everything is wired correctly, the runtime sees a single '
-                'flow: keystroke → Shortcuts maps to const DismissIntent() → '
-                'Actions.invoke walks up the focus tree → an Action<DismissIntent> '
-                'mutates state. Every section in this file exercises exactly '
-                'that path with no shortcuts (pun intended) through string '
-                'matching.',
+            'flow: keystroke → Shortcuts maps to const DismissIntent() → '
+            'Actions.invoke walks up the focus tree → an Action<DismissIntent> '
+            'mutates state. Every section in this file exercises exactly '
+            'that path with no shortcuts (pun intended) through string '
+            'matching.',
           ),
         ],
       ),

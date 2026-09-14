@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: orchid, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: lilac),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: indigo.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: indigo.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: indigo)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: indigo,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -140,18 +149,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? plum.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: lilac.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: lilac.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? indigo : deepPlum)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? indigo : deepPlum,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +178,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? indigo : deepPlum,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: plum),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: plum),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -206,8 +221,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            sdFlow(['User types --', 'Platform detects', 'SmartDashesType?',
-                'Replace with –', 'Display en-dash']),
+            sdFlow([
+              'User types --',
+              'Platform detects',
+              'SmartDashesType?',
+              'Replace with –',
+              'Display en-dash',
+            ]),
             const SizedBox(height: 10),
             _sdDashDemo('- (hyphen)', 'U+002D', 'Single keystroke', indigo),
             _sdDashDemo('– (en-dash)', 'U+2013', 'Two hyphens → --', deepPlum),
@@ -279,7 +299,12 @@ dynamic build(BuildContext context) {
             sdRow(['–', 'En-dash', 'Ranges', 'pp. 12–34']),
             sdRow(['—', 'Em-dash', 'Parenthetical', 'She — the CEO — spoke']),
             sdRow(['−', 'Minus', 'Math', '5 − 3 = 2']),
-            sdRow(['‐', 'Hyphen (U+2010)', 'Explicit hyphen', 'Line-break hyphen']),
+            sdRow([
+              '‐',
+              'Hyphen (U+2010)',
+              'Explicit hyphen',
+              'Line-break hyphen',
+            ]),
           ],
         ),
       ),
@@ -371,8 +396,16 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             sdRow(['Input', 'Replaced With', 'Unicode'], isHeader: true),
-            sdRow(['" (straight)', '\u201C or \u201D (curly)', 'U+201C / U+201D']),
-            sdRow(['\' (straight)', '\u2018 or \u2019 (curly)', 'U+2018 / U+2019']),
+            sdRow([
+              '" (straight)',
+              '\u201C or \u201D (curly)',
+              'U+201C / U+201D',
+            ]),
+            sdRow([
+              '\' (straight)',
+              '\u2018 or \u2019 (curly)',
+              'U+2018 / U+2019',
+            ]),
           ],
         ),
       ),
@@ -409,12 +442,42 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _sdScenarioItem(Icons.code, 'Code editors', 'Syntax breaks with em-dash', indigo),
-            _sdScenarioItem(Icons.link, 'URL fields', 'Dashes in URLs must be exact', deepPlum),
-            _sdScenarioItem(Icons.terminal, 'Terminal input', 'CLI flags use hyphens', plum),
-            _sdScenarioItem(Icons.search, 'Search queries', 'Operators use hyphens', amethyst),
-            _sdScenarioItem(Icons.storage, 'Database queries', 'SQL needs exact chars', violet),
-            _sdScenarioItem(Icons.folder, 'File paths', 'Filenames use hyphens', iris),
+            _sdScenarioItem(
+              Icons.code,
+              'Code editors',
+              'Syntax breaks with em-dash',
+              indigo,
+            ),
+            _sdScenarioItem(
+              Icons.link,
+              'URL fields',
+              'Dashes in URLs must be exact',
+              deepPlum,
+            ),
+            _sdScenarioItem(
+              Icons.terminal,
+              'Terminal input',
+              'CLI flags use hyphens',
+              plum,
+            ),
+            _sdScenarioItem(
+              Icons.search,
+              'Search queries',
+              'Operators use hyphens',
+              amethyst,
+            ),
+            _sdScenarioItem(
+              Icons.storage,
+              'Database queries',
+              'SQL needs exact chars',
+              violet,
+            ),
+            _sdScenarioItem(
+              Icons.folder,
+              'File paths',
+              'Filenames use hyphens',
+              iris,
+            ),
           ],
         ),
       ),
@@ -470,8 +533,18 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _sdHierarchyLevel(1, 'System setting OFF', 'No smart dashes anywhere', indigo),
-            _sdHierarchyLevel(2, 'System setting ON', 'Respects per-field setting', deepPlum),
+            _sdHierarchyLevel(
+              1,
+              'System setting OFF',
+              'No smart dashes anywhere',
+              indigo,
+            ),
+            _sdHierarchyLevel(
+              2,
+              'System setting ON',
+              'Respects per-field setting',
+              deepPlum,
+            ),
             _sdHierarchyLevel(3, 'Field: enabled', 'Smart dashes active', plum),
             _sdHierarchyLevel(4, 'Field: disabled', 'No replacement', amethyst),
           ],
@@ -556,8 +629,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            sdFlow(['Type --', 'Auto-replace –', 'Backspace',
-                'Revert to --', 'Hyphens restored']),
+            sdFlow([
+              'Type --',
+              'Auto-replace –',
+              'Backspace',
+              'Revert to --',
+              'Hyphens restored',
+            ]),
             const SizedBox(height: 10),
             sdRow(['Action', 'Before', 'After'], isHeader: true),
             sdRow(['Type --', 'hello--', 'hello–']),
@@ -617,11 +695,27 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _sdTestItem('Unit tests', 'Verify configuration is passed correctly', indigo),
-            _sdTestItem('Widget tests', 'Platform keyboard not simulated', deepPlum),
+            _sdTestItem(
+              'Unit tests',
+              'Verify configuration is passed correctly',
+              indigo,
+            ),
+            _sdTestItem(
+              'Widget tests',
+              'Platform keyboard not simulated',
+              deepPlum,
+            ),
             _sdTestItem('Integration tests', 'Real keyboard on device', plum),
-            _sdTestItem('Manual test', 'Type -- and --- on real device', amethyst),
-            _sdTestItem('Cross-platform', 'Test on iOS + Android separately', violet),
+            _sdTestItem(
+              'Manual test',
+              'Type -- and --- on real device',
+              amethyst,
+            ),
+            _sdTestItem(
+              'Cross-platform',
+              'Test on iOS + Android separately',
+              violet,
+            ),
           ],
         ),
       ),
@@ -714,11 +808,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('SmartDashesType — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'SmartDashesType — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'Automatic typographic dash replacement in Flutter: from Unicode '
@@ -750,10 +847,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -772,19 +881,31 @@ Widget _sdDashDemo(String dash, String unicode, String trigger, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(dash,
-              style: TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            dash,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(
           width: 60,
-          child: Text(unicode,
-              style: TextStyle(
-                  fontSize: 9, fontFamily: 'monospace', color: color.withValues(alpha: 0.6))),
+          child: Text(
+            unicode,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.6),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(trigger,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            trigger,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -794,12 +915,15 @@ Widget _sdDashDemo(String dash, String unicode, String trigger, Color color) {
 Widget _sdCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }
 
@@ -812,13 +936,20 @@ Widget _sdScenarioItem(IconData icon, String title, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 90,
-          child: Text(title,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -838,21 +969,33 @@ Widget _sdHierarchyLevel(int level, String name, String effect, Color color) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text('$level',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$level',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 6),
         SizedBox(
           width: 120,
-          child: Text(name,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(effect,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            effect,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -875,13 +1018,20 @@ Widget _sdTestItem(String type, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(type,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            type,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),

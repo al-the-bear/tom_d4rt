@@ -114,10 +114,7 @@ Widget _treeDiagram({required bool withBuilder}) {
         for (final line in lines)
           Text(
             line,
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.0,
-            ),
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0),
           ),
       ],
     ),
@@ -561,11 +558,7 @@ Widget _directionRow(TextDirection dir, String label) {
         : const Color(0xFFFFCC80),
     child: Row(
       children: [
-        Icon(
-          dir == TextDirection.rtl
-              ? Icons.arrow_back
-              : Icons.arrow_forward,
-        ),
+        Icon(dir == TextDirection.rtl ? Icons.arrow_back : Icons.arrow_forward),
         const SizedBox(width: 8.0),
         Expanded(child: Text(label)),
         Text('[${dir.name}]'),
@@ -644,10 +637,7 @@ Widget _scaffoldBadge(String label, ScaffoldState? state) {
     padding: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       color: ok ? const Color(0xFFC8E6C9) : const Color(0xFFFFCDD2),
-      border: Border.all(
-        color: ok ? Colors.green : Colors.red,
-        width: 1.5,
-      ),
+      border: Border.all(color: ok ? Colors.green : Colors.red, width: 1.5),
       borderRadius: BorderRadius.circular(4.0),
     ),
     child: Row(
@@ -844,9 +834,7 @@ Widget _section9Nested() {
                                   _level('Level 2', t2.primaryColor),
                                   const SizedBox(height: 8.0),
                                   Theme(
-                                    data: ThemeData(
-                                      primaryColor: Colors.brown,
-                                    ),
+                                    data: ThemeData(primaryColor: Colors.brown),
                                     child: Builder(
                                       builder: (ctx3) {
                                         final t3 = Theme.of(ctx3);
@@ -973,10 +961,7 @@ Widget _doDontPanel({required bool isDo}) {
       children: [
         Row(
           children: [
-            Icon(
-              isDo ? Icons.thumb_up : Icons.thumb_down,
-              color: color,
-            ),
+            Icon(isDo ? Icons.thumb_up : Icons.thumb_down, color: color),
             const SizedBox(width: 8.0),
             Text(
               title,
@@ -1079,10 +1064,7 @@ Widget _section12Recap() {
           'each Builder reads the local cascade level',
         ),
         _recapRow('IconTheme.of', 'nested Builders see nested icon themes'),
-        _recapRow(
-          'Directionality.of',
-          'flip with Directionality + Builder',
-        ),
+        _recapRow('Directionality.of', 'flip with Directionality + Builder'),
         _recapRow(
           'Anti-pattern',
           'wrapping root in Builder with no .of inside',
@@ -1091,10 +1073,7 @@ Widget _section12Recap() {
           'Alternative',
           'extract to a widget so it has its own context',
         ),
-        _recapRow(
-          'Cost',
-          'one closure call per rebuild, no memoisation',
-        ),
+        _recapRow('Cost', 'one closure call per rebuild, no memoisation'),
       ],
     ),
   );
@@ -1108,10 +1087,7 @@ Widget _recapRow(String key, String value) {
       children: [
         SizedBox(
           width: 150.0,
-          child: Text(
-            key,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          child: Text(key, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
         Expanded(child: Text(value)),
       ],

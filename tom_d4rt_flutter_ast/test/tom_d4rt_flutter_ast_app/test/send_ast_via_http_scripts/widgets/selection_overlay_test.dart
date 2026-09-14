@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Overlay Management Object',
-      'body': 'SelectionOverlay is NOT a widget – it is an object that '
+      'body':
+          'SelectionOverlay is NOT a widget – it is an object that '
           'inserts and manages OverlayEntries for selection handles, a '
           'toolbar (context menu), and a magnifier glass. It belongs to '
           'the low-level text selection infrastructure.',
@@ -26,21 +27,24 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.edit,
       'title': 'Used by Text Editing Widgets',
-      'body': 'TextField, EditableText, and SelectableText create a '
+      'body':
+          'TextField, EditableText, and SelectableText create a '
           'SelectionOverlay internally via TextSelectionOverlay. You '
           'rarely create one directly unless building a custom editor.',
     },
     {
       'icon': Icons.touch_app,
       'title': 'Handles and Toolbar',
-      'body': 'Manages a start handle, end handle, and a floating toolbar. '
+      'body':
+          'Manages a start handle, end handle, and a floating toolbar. '
           'Handles can be dragged to change selection. The toolbar shows '
           'actions like Cut, Copy, Paste, Select All.',
     },
     {
       'icon': Icons.search,
       'title': 'Magnifier Support',
-      'body': 'On mobile platforms, shows a magnifier glass that follows '
+      'body':
+          'On mobile platforms, shows a magnifier glass that follows '
           'the finger during selection. Configuration is provided via '
           'TextMagnifierConfiguration.',
     },
@@ -62,7 +66,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.indigo.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.indigo.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -79,7 +87,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -144,11 +156,18 @@ dynamic build(BuildContext context) {
                   Container(
                     width: 28.0,
                     height: 28.0,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: color,
+                    ),
                     child: Center(
                       child: Text(
                         '${i + 1}',
-                        style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -159,12 +178,19 @@ dynamic build(BuildContext context) {
                       children: [
                         Text(
                           layer['layer'] as String,
-                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color),
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                          ),
                         ),
                         const SizedBox(height: 2.0),
                         Text(
                           layer['items'] as String,
-                          style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ],
                     ),
@@ -176,7 +202,11 @@ dynamic build(BuildContext context) {
               SizedBox(
                 height: 18.0,
                 child: Center(
-                  child: Icon(Icons.arrow_downward, size: 14.0, color: Colors.grey.shade400),
+                  child: Icon(
+                    Icons.arrow_downward,
+                    size: 14.0,
+                    color: Colors.grey.shade400,
+                  ),
                 ),
               ),
           ],
@@ -195,7 +225,8 @@ dynamic build(BuildContext context) {
       'type': 'TextSelectionHandleType.left',
       'icon': Icons.format_textdirection_l_to_r,
       'color': Colors.blue,
-      'desc': 'Start handle (left side of LTR selection). The teardrop '
+      'desc':
+          'Start handle (left side of LTR selection). The teardrop '
           'points right, anchored at the left edge of the selection.',
       'usage': 'Used as startHandleType when selection starts on the left.',
     },
@@ -203,7 +234,8 @@ dynamic build(BuildContext context) {
       'type': 'TextSelectionHandleType.right',
       'icon': Icons.format_textdirection_r_to_l,
       'color': Colors.green,
-      'desc': 'End handle (right side of LTR selection). The teardrop '
+      'desc':
+          'End handle (right side of LTR selection). The teardrop '
           'points left, anchored at the right edge of the selection.',
       'usage': 'Used as endHandleType when selection ends on the right.',
     },
@@ -211,7 +243,8 @@ dynamic build(BuildContext context) {
       'type': 'TextSelectionHandleType.collapsed',
       'icon': Icons.text_fields,
       'color': Colors.orange,
-      'desc': 'Single cursor handle. Shown when the selection is collapsed '
+      'desc':
+          'Single cursor handle. Shown when the selection is collapsed '
           '(cursor position with no highlighted text). Rendered as a '
           'single teardrop below the cursor.',
       'usage': 'Used for both start and end when selection is collapsed.',
@@ -235,7 +268,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
@@ -246,7 +281,11 @@ dynamic build(BuildContext context) {
                       shape: BoxShape.circle,
                       color: color.withValues(alpha: 0.15),
                     ),
-                    child: Icon(ht['icon'] as IconData, color: color, size: 20.0),
+                    child: Icon(
+                      ht['icon'] as IconData,
+                      color: color,
+                      size: 20.0,
+                    ),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
@@ -270,7 +309,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     ht['desc'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
                   ),
                   const SizedBox(height: 6.0),
                   Container(
@@ -282,7 +325,11 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       ht['usage'] as String,
-                      style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic, color: Colors.grey.shade600),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ),
                 ],
@@ -358,7 +405,8 @@ dynamic build(BuildContext context) {
       'name': 'selectionControls',
       'type': 'TextSelectionControls?',
       'group': 'Rendering',
-      'desc': 'Builds the actual handle and toolbar widgets (Material/Cupertino).',
+      'desc':
+          'Builds the actual handle and toolbar widgets (Material/Cupertino).',
     },
     {
       'name': 'clipboardStatus',
@@ -398,46 +446,74 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.08),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Text(
                 entry.key,
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ),
-            ...entry.value.map((p) => Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey.shade100)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        p['name'] as String,
-                        style: TextStyle(fontSize: 11.5, fontFamily: 'monospace', fontWeight: FontWeight.w700, color: color),
-                      ),
-                      const SizedBox(width: 6.0),
-                      Text(
-                        p['type'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade500),
-                      ),
-                    ],
+            ...entry.value.map(
+              (p) => Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 8.0,
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade100),
                   ),
-                  const SizedBox(height: 2.0),
-                  Text(
-                    p['desc'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-                  ),
-                ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          p['name'] as String,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                          ),
+                        ),
+                        const SizedBox(width: 6.0),
+                        Text(
+                          p['type'] as String,
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontFamily: 'monospace',
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2.0),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -460,62 +536,72 @@ dynamic build(BuildContext context) {
     {
       'method': 'showHandles()',
       'color': Colors.green,
-      'desc': 'Inserts start and end handle OverlayEntries into the Overlay. '
+      'desc':
+          'Inserts start and end handle OverlayEntries into the Overlay. '
           'Handles become visible and draggable. Only works if '
           'selectionControls is non-null.',
     },
     {
       'method': 'hideHandles()',
       'color': Colors.red,
-      'desc': 'Removes handle entries from the Overlay. Handles disappear '
+      'desc':
+          'Removes handle entries from the Overlay. Handles disappear '
           'and cannot be interacted with until showHandles() is called again.',
     },
     {
       'method': 'showToolbar()',
       'color': Colors.blue,
-      'desc': 'Shows the selection toolbar (context menu) at the appropriate '
+      'desc':
+          'Shows the selection toolbar (context menu) at the appropriate '
           'position. Can accept contextMenuBuilder for custom menu UI.',
     },
     {
       'method': 'hideToolbar()',
       'color': Colors.orange,
-      'desc': 'Hides the toolbar. Call when the user taps away, scrolls, '
+      'desc':
+          'Hides the toolbar. Call when the user taps away, scrolls, '
           'or the selection is cleared.',
     },
     {
       'method': 'showMagnifier(info)',
       'color': Colors.purple,
-      'desc': 'Shows the magnifier lens at the given MagnifierInfo position. '
+      'desc':
+          'Shows the magnifier lens at the given MagnifierInfo position. '
           'Used during drag gestures on mobile to show zoomed text.',
     },
     {
       'method': 'updateMagnifier(info)',
       'color': Colors.teal,
-      'desc': 'Updates the magnifier position as the user drags. Called '
+      'desc':
+          'Updates the magnifier position as the user drags. Called '
           'on each frame during a handle drag gesture.',
     },
     {
       'method': 'hideMagnifier()',
       'color': Colors.brown,
-      'desc': 'Removes the magnifier overlay entry. Called when the drag '
+      'desc':
+          'Removes the magnifier overlay entry. Called when the drag '
           'gesture ends or is cancelled.',
     },
     {
       'method': 'markNeedsBuild()',
       'color': Colors.indigo,
-      'desc': 'Marks handle and toolbar entries as needing rebuild. Call '
+      'desc':
+          'Marks handle and toolbar entries as needing rebuild. Call '
           'after updating properties (endPoints, handleType, etc.).',
     },
     {
       'method': 'hide()',
       'color': Colors.grey,
-      'desc': 'Convenience method: hides handles, toolbar, and magnifier '
+      'desc':
+          'Convenience method: hides handles, toolbar, and magnifier '
           'all at once.',
     },
     {
       'method': 'dispose()',
       'color': Colors.red.shade900,
-      'desc': 'Releases all overlay entries and resources. Must be called '
+      'desc':
+          'Releases all overlay entries and resources. Must be called '
           'when the SelectionOverlay is no longer needed.',
     },
   ];
@@ -557,7 +643,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     m['desc'] as String,
-                    style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade700,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -577,10 +667,12 @@ dynamic build(BuildContext context) {
     {
       'title': 'Basic Setup',
       'color': Colors.blue,
-      'desc': 'Creating a SelectionOverlay requires LayerLinks for positioning '
+      'desc':
+          'Creating a SelectionOverlay requires LayerLinks for positioning '
           'handles relative to the text, selectionControls for the visual '
           'appearance, and the BuildContext for overlay insertion.',
-      'code': 'final startLink = LayerLink();\n'
+      'code':
+          'final startLink = LayerLink();\n'
           'final endLink = LayerLink();\n'
           'final toolbarLink = LayerLink();\n'
           '\n'
@@ -605,9 +697,11 @@ dynamic build(BuildContext context) {
     {
       'title': 'Handle Drag Callbacks',
       'color': Colors.green,
-      'desc': 'Attach callbacks to handle drag events to update the text '
+      'desc':
+          'Attach callbacks to handle drag events to update the text '
           'selection as the user drags handles.',
-      'code': 'SelectionOverlay(\n'
+      'code':
+          'SelectionOverlay(\n'
           '  // ...other params...\n'
           '  onStartHandleDragStart: (details) {\n'
           '    // Begin tracking drag\n'
@@ -626,9 +720,11 @@ dynamic build(BuildContext context) {
     {
       'title': 'Visibility Control',
       'color': Colors.purple,
-      'desc': 'Use ValueNotifier<bool> to control handle and toolbar '
+      'desc':
+          'Use ValueNotifier<bool> to control handle and toolbar '
           'visibility without destroying the overlay entries.',
-      'code': 'final handleVisible =\n'
+      'code':
+          'final handleVisible =\n'
           '  ValueNotifier<bool>(true);\n'
           'final toolbarVisible =\n'
           '  ValueNotifier<bool>(false);\n'
@@ -643,9 +739,11 @@ dynamic build(BuildContext context) {
     {
       'title': 'Lifecycle Management',
       'color': Colors.orange,
-      'desc': 'Always dispose the overlay when done to prevent overlay '
+      'desc':
+          'Always dispose the overlay when done to prevent overlay '
           'entry leaks. Show/hide as needed during the editing lifecycle.',
-      'code': '// Show selection UI\n'
+      'code':
+          '// Show selection UI\n'
           'overlay.showHandles();\n'
           'overlay.showToolbar();\n'
           '\n'
@@ -677,18 +775,31 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Text(
                 p['title'] as String,
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               child: Text(
                 p['desc'] as String,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.35,
+                ),
               ),
             ),
             Container(
@@ -702,7 +813,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 p['code'] as String,
-                style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 10.5,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
           ],
@@ -717,12 +832,33 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.layers, 'text': 'SelectionOverlay is an object, not a widget – manages OverlayEntries'},
-    {'icon': Icons.edit, 'text': 'Used internally by TextField and SelectableText for selection UI'},
-    {'icon': Icons.touch_app, 'text': 'Manages start handle, end handle, toolbar, and magnifier'},
-    {'icon': Icons.link, 'text': 'Uses LayerLinks to position handles relative to text via CompositedTransform'},
-    {'icon': Icons.visibility, 'text': 'show/hide methods control overlay entry lifecycle'},
-    {'icon': Icons.delete_outline, 'text': 'Always dispose() to clean up overlay entries and prevent leaks'},
+    {
+      'icon': Icons.layers,
+      'text':
+          'SelectionOverlay is an object, not a widget – manages OverlayEntries',
+    },
+    {
+      'icon': Icons.edit,
+      'text':
+          'Used internally by TextField and SelectableText for selection UI',
+    },
+    {
+      'icon': Icons.touch_app,
+      'text': 'Manages start handle, end handle, toolbar, and magnifier',
+    },
+    {
+      'icon': Icons.link,
+      'text':
+          'Uses LayerLinks to position handles relative to text via CompositedTransform',
+    },
+    {
+      'icon': Icons.visibility,
+      'text': 'show/hide methods control overlay entry lifecycle',
+    },
+    {
+      'icon': Icons.delete_outline,
+      'text': 'Always dispose() to clean up overlay entries and prevent leaks',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -733,12 +869,20 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.indigo.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.indigo.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -785,10 +929,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('What is SelectionOverlay?',
-                    'A low-level object that manages OverlayEntries for '
-                    'text selection handles, toolbar, and magnifier. It is '
-                    'the engine behind the selection UI in text editors.'),
+                _buildSOBullet(
+                  'What is SelectionOverlay?',
+                  'A low-level object that manages OverlayEntries for '
+                      'text selection handles, toolbar, and magnifier. It is '
+                      'the engine behind the selection UI in text editors.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
                 const SizedBox(height: 10.0),
@@ -802,7 +948,11 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+                      Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber.shade800,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -810,7 +960,11 @@ dynamic build(BuildContext context) {
                           'It is created by TextSelectionOverlay, which is used '
                           'by EditableTextState. Understanding it helps debug '
                           'selection issues and build custom text editors.',
-                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: Colors.amber.shade900,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -825,8 +979,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('Text Selection Stack',
-                    'The layers from high-level widget to low-level overlay.'),
+                _buildSOBullet(
+                  'Text Selection Stack',
+                  'The layers from high-level widget to low-level overlay.',
+                ),
                 const SizedBox(height: 14.0),
                 ...archWidgets,
                 const SizedBox(height: 14.0),
@@ -835,21 +991,32 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.indigo.withValues(alpha: 0.04),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.indigo.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.indigo.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('LayerLink Positioning System',
-                          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                              color: Colors.indigo.shade700)),
+                      Text(
+                        'LayerLink Positioning System',
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.indigo.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 8.0),
                       Text(
                         'Each handle and the toolbar are positioned using a '
                         'CompositedTransformTarget/Follower pair connected by a '
                         'LayerLink. The target is placed at the text position, '
                         'and the overlay follower tracks it even during scrolling.',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                          height: 1.4,
+                        ),
                       ),
                       const SizedBox(height: 10.0),
                       Container(
@@ -871,7 +1038,11 @@ dynamic build(BuildContext context) {
                           '  link: startHandleLayerLink,\n'
                           '  child: handleWidget,\n'
                           ')',
-                          style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.grey.shade700),
+                          style: TextStyle(
+                            fontSize: 10.5,
+                            fontFamily: 'monospace',
+                            color: Colors.grey.shade700,
+                          ),
                         ),
                       ),
                     ],
@@ -886,9 +1057,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('TextSelectionHandleType',
-                    'Three handle types control the visual appearance '
-                    'and anchor position of selection handles.'),
+                _buildSOBullet(
+                  'TextSelectionHandleType',
+                  'Three handle types control the visual appearance '
+                      'and anchor position of selection handles.',
+                ),
                 const SizedBox(height: 14.0),
                 ...handleCards,
                 const SizedBox(height: 10.0),
@@ -897,14 +1070,21 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.indigo.withValues(alpha: 0.04),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: Colors.indigo.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.indigo.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Handle Type Transitions',
-                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                              color: Colors.indigo.shade700)),
+                      Text(
+                        'Handle Type Transitions',
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.indigo.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 6.0),
                       Text(
                         'Handle types change dynamically as the user drags:\n'
@@ -912,7 +1092,11 @@ dynamic build(BuildContext context) {
                         '- Double-tap to select word -> left + right\n'
                         '- Drag start past end -> types swap (left/right)\n'
                         '- Selection collapses -> back to collapsed',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),
@@ -926,8 +1110,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('Constructor Parameters',
-                    'Required parameters grouped by function.'),
+                _buildSOBullet(
+                  'Constructor Parameters',
+                  'Required parameters grouped by function.',
+                ),
                 const SizedBox(height: 14.0),
                 ...paramSections,
               ],
@@ -939,9 +1125,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('Interactive Selection Demo',
-                    'Tap and drag to select text. The SelectionOverlay '
-                    'manages the handles and toolbar that appear.'),
+                _buildSOBullet(
+                  'Interactive Selection Demo',
+                  'Tap and drag to select text. The SelectionOverlay '
+                      'manages the handles and toolbar that appear.',
+                ),
                 const SizedBox(height: 14.0),
                 editingDemo,
               ],
@@ -953,9 +1141,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('Overlay Lifecycle Methods',
-                    'Methods to show, hide, update, and dispose '
-                    'the overlay entries.'),
+                _buildSOBullet(
+                  'Overlay Lifecycle Methods',
+                  'Methods to show, hide, update, and dispose '
+                      'the overlay entries.',
+                ),
                 const SizedBox(height: 14.0),
                 ...methodCards,
               ],
@@ -967,8 +1157,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSOBullet('Usage Patterns',
-                    'Code examples for common SelectionOverlay operations.'),
+                _buildSOBullet(
+                  'Usage Patterns',
+                  'Code examples for common SelectionOverlay operations.',
+                ),
                 const SizedBox(height: 14.0),
                 ...patternCards,
               ],
@@ -992,7 +1184,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.indigo.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.indigo.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1017,15 +1211,31 @@ Widget _buildSOBullet(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.indigo.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(left: BorderSide(color: Colors.indigo.shade700, width: 3.0)),
+      border: Border(
+        left: BorderSide(color: Colors.indigo.shade700, width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.indigo.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.indigo.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -1042,7 +1252,8 @@ class _SOEditingDemo extends StatefulWidget {
 
 class _SOEditingDemoState extends State<_SOEditingDemo> {
   final TextEditingController _ctrl = TextEditingController(
-    text: 'SelectionOverlay manages the handles you see when selecting '
+    text:
+        'SelectionOverlay manages the handles you see when selecting '
         'this text. Try double-tapping to select a word, then drag the '
         'handles to extend the selection. The toolbar with Cut, Copy, '
         'and Paste appears above the selection. All of this is managed '
@@ -1111,7 +1322,9 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
             maxLines: 5,
             style: const TextStyle(fontSize: 14.0, height: 1.6),
             decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
               contentPadding: const EdgeInsets.all(12.0),
               filled: true,
               fillColor: Colors.indigo.withValues(alpha: 0.02),
@@ -1134,14 +1347,22 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
                   children: [
                     Icon(Icons.info, size: 16.0, color: Colors.indigo.shade700),
                     const SizedBox(width: 6.0),
-                    Text('Selection State (read from TextEditingController)',
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                            color: Colors.indigo.shade700)),
+                    Text(
+                      'Selection State (read from TextEditingController)',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.indigo.shade700,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10.0),
-                _stateRow('Has Selection', _hasSelection ? 'Yes' : 'No',
-                    _hasSelection ? Colors.green : Colors.grey),
+                _stateRow(
+                  'Has Selection',
+                  _hasSelection ? 'Yes' : 'No',
+                  _hasSelection ? Colors.green : Colors.grey,
+                ),
                 _stateRow('Selection Start', '$_selectionStart', Colors.blue),
                 _stateRow('Selection End', '$_selectionEnd', Colors.blue),
                 _stateRow('Last Action', _lastAction, Colors.purple),
@@ -1159,7 +1380,11 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
                     'SelectionOverlay instance created internally. It uses '
                     'three LayerLinks to position the start handle, end '
                     'handle, and toolbar relative to the text.',
-                    style: TextStyle(fontSize: 10.5, color: Colors.amber.shade900, height: 1.35),
+                    style: TextStyle(
+                      fontSize: 10.5,
+                      color: Colors.amber.shade900,
+                      height: 1.35,
+                    ),
                   ),
                 ),
               ],
@@ -1178,9 +1403,14 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('SelectableText (also uses SelectionOverlay)',
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                        color: Colors.indigo.shade700)),
+                Text(
+                  'SelectableText (also uses SelectionOverlay)',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.indigo.shade700,
+                  ),
+                ),
                 const SizedBox(height: 8.0),
                 const SelectableText(
                   'This SelectableText also uses SelectionOverlay internally. '
@@ -1203,7 +1433,10 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
         children: [
           SizedBox(
             width: 120.0,
-            child: Text(label, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+            child: Text(
+              label,
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+            ),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
@@ -1211,8 +1444,15 @@ class _SOEditingDemoState extends State<_SOEditingDemo> {
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(value, style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                fontWeight: FontWeight.w600, color: color)),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ),
         ],
       ),

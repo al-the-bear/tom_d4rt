@@ -68,10 +68,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 6.0),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 10.0, color: kInkSoft),
-        ),
+        Text(label, style: const TextStyle(fontSize: 10.0, color: kInkSoft)),
       ],
     );
   }
@@ -137,11 +134,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         body,
-        style: const TextStyle(
-          fontSize: 13.5,
-          color: kInkDeep,
-          height: 1.55,
-        ),
+        style: const TextStyle(fontSize: 13.5, color: kInkDeep, height: 1.55),
       ),
     );
   }
@@ -335,7 +328,10 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: kPaperWarm,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(color: kAccentAmber.withValues(alpha: 0.4), width: 1.5),
+      border: Border.all(
+        color: kAccentAmber.withValues(alpha: 0.4),
+        width: 1.5,
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -464,27 +460,30 @@ dynamic build(BuildContext context) {
   ];
 
   final List<String> rotateLabels = <String>[
-    '0°', '15°', '30°', '45°', '60°', '90°', '120°', '180°',
+    '0°',
+    '15°',
+    '30°',
+    '45°',
+    '60°',
+    '90°',
+    '120°',
+    '180°',
   ];
 
   // Use List.generate (not a for-loop) because we capture `i` in a callback
   // when building, and a normal Dart for-loop's index variable is shared
   // across iterations under D4rt — every closure would see the last value.
-  final List<Widget> rotateSweep = List<Widget>.generate(
-    rotateAngles.length,
-    (int i) {
-      final double angle = rotateAngles[i];
-      final String label = rotateLabels[i];
-      return miniFrame(
-        'rotate $label',
-        'angle: ${angle.toStringAsFixed(2)} rad',
-        Transform.rotate(
-          angle: angle,
-          child: token(kAccentMagenta, label),
-        ),
-      );
-    },
-  );
+  final List<Widget> rotateSweep = List<Widget>.generate(rotateAngles.length, (
+    int i,
+  ) {
+    final double angle = rotateAngles[i];
+    final String label = rotateLabels[i];
+    return miniFrame(
+      'rotate $label',
+      'angle: ${angle.toStringAsFixed(2)} rad',
+      Transform.rotate(angle: angle, child: token(kAccentMagenta, label)),
+    );
+  });
 
   // =========================================================================
   // SECTION 4: TRANSFORM.ROTATE — alignment vs origin
@@ -503,10 +502,7 @@ dynamic build(BuildContext context) {
   final Widget rotateAlignCenter = miniFrame(
     'alignment: center',
     'default — pivot at midpoint',
-    Transform.rotate(
-      angle: math.pi / 6,
-      child: token(kAccentTeal, 'C'),
-    ),
+    Transform.rotate(angle: math.pi / 6, child: token(kAccentTeal, 'C')),
   );
 
   final Widget rotateAlignBottomRight = miniFrame(
@@ -535,20 +531,16 @@ dynamic build(BuildContext context) {
 
   final List<double> uniformScales = <double>[0.5, 0.75, 1.0, 1.25, 1.5, 1.75];
 
-  final List<Widget> scaleSweep = List<Widget>.generate(
-    uniformScales.length,
-    (int i) {
-      final double s = uniformScales[i];
-      return miniFrame(
-        'scale ${s}x',
-        'uniform — same on X and Y',
-        Transform.scale(
-          scale: s,
-          child: token(kAccentAmber, '${s}x'),
-        ),
-      );
-    },
-  );
+  final List<Widget> scaleSweep = List<Widget>.generate(uniformScales.length, (
+    int i,
+  ) {
+    final double s = uniformScales[i];
+    return miniFrame(
+      'scale ${s}x',
+      'uniform — same on X and Y',
+      Transform.scale(scale: s, child: token(kAccentAmber, '${s}x')),
+    );
+  });
 
   // Per-axis: a non-uniform scale stretches a square into a rectangle. We
   // pick a handful of (sx, sy) combinations that explore the corners of the
@@ -602,10 +594,7 @@ dynamic build(BuildContext context) {
       return miniFrame(
         'translate',
         'dx:${o.dx.toStringAsFixed(0)}  dy:${o.dy.toStringAsFixed(0)}',
-        Transform.translate(
-          offset: o,
-          child: token(kAccentRose, 'T'),
-        ),
+        Transform.translate(offset: o, child: token(kAccentRose, 'T')),
       );
     },
   );
@@ -623,29 +612,19 @@ dynamic build(BuildContext context) {
   final Widget flipX = miniFrame(
     'flip — flipX',
     'mirrored horizontally',
-    Transform.flip(
-      flipX: true,
-      child: token(kAccentSky, 'F'),
-    ),
+    Transform.flip(flipX: true, child: token(kAccentSky, 'F')),
   );
 
   final Widget flipY = miniFrame(
     'flip — flipY',
     'mirrored vertically',
-    Transform.flip(
-      flipY: true,
-      child: token(kAccentSky, 'F'),
-    ),
+    Transform.flip(flipY: true, child: token(kAccentSky, 'F')),
   );
 
   final Widget flipBoth = miniFrame(
     'flip — both',
     'X and Y simultaneously',
-    Transform.flip(
-      flipX: true,
-      flipY: true,
-      child: token(kAccentSky, 'F'),
-    ),
+    Transform.flip(flipX: true, flipY: true, child: token(kAccentSky, 'F')),
   );
 
   // =========================================================================
@@ -789,48 +768,52 @@ dynamic build(BuildContext context) {
   ];
 
   final List<String> ySweepLabels = <String>[
-    '-60°', '-30°', '-15°', '0°', '+15°', '+30°', '+60°',
+    '-60°',
+    '-30°',
+    '-15°',
+    '0°',
+    '+15°',
+    '+30°',
+    '+60°',
   ];
 
-  final List<Widget> perspectiveYRow = List<Widget>.generate(
-    ySweep.length,
-    (int i) {
-      return miniFrame(
-        'rotY ${ySweepLabels[i]}',
-        'persp 0.001',
-        Transform(
-          transform: makePerspective(
-            persp: 0.001,
-            rotX: 0.0,
-            rotY: ySweep[i],
-            rotZ: 0.0,
-          ),
-          alignment: Alignment.center,
-          child: token(kAccentSky, 'Y'),
+  final List<Widget> perspectiveYRow = List<Widget>.generate(ySweep.length, (
+    int i,
+  ) {
+    return miniFrame(
+      'rotY ${ySweepLabels[i]}',
+      'persp 0.001',
+      Transform(
+        transform: makePerspective(
+          persp: 0.001,
+          rotX: 0.0,
+          rotY: ySweep[i],
+          rotZ: 0.0,
         ),
-      );
-    },
-  );
+        alignment: Alignment.center,
+        child: token(kAccentSky, 'Y'),
+      ),
+    );
+  });
 
-  final List<Widget> perspectiveXRow = List<Widget>.generate(
-    ySweep.length,
-    (int i) {
-      return miniFrame(
-        'rotX ${ySweepLabels[i]}',
-        'persp 0.001',
-        Transform(
-          transform: makePerspective(
-            persp: 0.001,
-            rotX: ySweep[i],
-            rotY: 0.0,
-            rotZ: 0.0,
-          ),
-          alignment: Alignment.center,
-          child: token(kAccentIndigo, 'X'),
+  final List<Widget> perspectiveXRow = List<Widget>.generate(ySweep.length, (
+    int i,
+  ) {
+    return miniFrame(
+      'rotX ${ySweepLabels[i]}',
+      'persp 0.001',
+      Transform(
+        transform: makePerspective(
+          persp: 0.001,
+          rotX: ySweep[i],
+          rotY: 0.0,
+          rotZ: 0.0,
         ),
-      );
-    },
-  );
+        alignment: Alignment.center,
+        child: token(kAccentIndigo, 'X'),
+      ),
+    );
+  });
 
   // Perspective strength sweep — same rotation, escalating depth.
   final List<double> perspSweep = <double>[0.0, 0.0005, 0.001, 0.002, 0.004];
@@ -925,10 +908,7 @@ dynamic build(BuildContext context) {
     'outer rotates, inner scales',
     Transform.rotate(
       angle: math.pi / 8,
-      child: Transform.scale(
-        scale: 1.2,
-        child: token(kAccentTeal, 'RS'),
-      ),
+      child: Transform.scale(scale: 1.2, child: token(kAccentTeal, 'RS')),
     ),
   );
 
@@ -963,10 +943,7 @@ dynamic build(BuildContext context) {
       offset: const Offset(-8.0, -8.0),
       child: Transform.rotate(
         angle: math.pi / 10,
-        child: Transform.scale(
-          scale: 0.95,
-          child: token(kAccentAmber, 'TRS'),
-        ),
+        child: Transform.scale(scale: 0.95, child: token(kAccentAmber, 'TRS')),
       ),
     ),
   );
@@ -1011,10 +988,7 @@ dynamic build(BuildContext context) {
         Transform.rotate(
           angle: math.pi / 4,
           transformHitTests: true,
-          child: GestureDetector(
-            onTap: () {},
-            child: token(kAccentMint, '✓'),
-          ),
+          child: GestureDetector(onTap: () {}, child: token(kAccentMint, '✓')),
         ),
       ),
       miniFrame(
@@ -1023,10 +997,7 @@ dynamic build(BuildContext context) {
         Transform.rotate(
           angle: math.pi / 4,
           transformHitTests: false,
-          child: GestureDetector(
-            onTap: () {},
-            child: token(kAccentMint, '×'),
-          ),
+          child: GestureDetector(onTap: () {}, child: token(kAccentMint, '×')),
         ),
       ),
     ],
@@ -1049,24 +1020,21 @@ dynamic build(BuildContext context) {
     FilterQuality.high,
   ];
 
-  final List<String> filterLabels = <String>[
-    'none', 'low', 'medium', 'high',
-  ];
+  final List<String> filterLabels = <String>['none', 'low', 'medium', 'high'];
 
-  final List<Widget> filterRow = List<Widget>.generate(
-    filterQualities.length,
-    (int i) {
-      return miniFrame(
-        'filter: ${filterLabels[i]}',
-        'FilterQuality.${filterLabels[i]}',
-        Transform.rotate(
-          angle: math.pi / 8,
-          filterQuality: filterQualities[i],
-          child: token(kAccentIndigo, filterLabels[i].substring(0, 1)),
-        ),
-      );
-    },
-  );
+  final List<Widget> filterRow = List<Widget>.generate(filterQualities.length, (
+    int i,
+  ) {
+    return miniFrame(
+      'filter: ${filterLabels[i]}',
+      'FilterQuality.${filterLabels[i]}',
+      Transform.rotate(
+        angle: math.pi / 8,
+        filterQuality: filterQualities[i],
+        child: token(kAccentIndigo, filterLabels[i].substring(0, 1)),
+      ),
+    );
+  });
 
   // =========================================================================
   // SECTION 13: ROTATEDBOX vs TRANSFORM.ROTATE
@@ -1355,35 +1323,34 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final List<Widget> cheatsheetRows = List<Widget>.generate(
-    cheatsheet.length,
-    (int i) {
-      final Map<String, String> row = cheatsheet[i];
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Icon(Icons.arrow_right, size: 16.0, color: kAccentTeal),
-            const SizedBox(width: 6.0),
-            SizedBox(
-              width: 220.0,
-              child: Text(
-                row['when'] ?? '',
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  color: kInkDeep,
-                  fontWeight: FontWeight.w600,
-                ),
+  final List<Widget> cheatsheetRows = List<Widget>.generate(cheatsheet.length, (
+    int i,
+  ) {
+    final Map<String, String> row = cheatsheet[i];
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Icon(Icons.arrow_right, size: 16.0, color: kAccentTeal),
+          const SizedBox(width: 6.0),
+          SizedBox(
+            width: 220.0,
+            child: Text(
+              row['when'] ?? '',
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: kInkDeep,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(width: 8.0),
-            Expanded(child: codeChip(row['use'] ?? '')),
-          ],
-        ),
-      );
-    },
-  );
+          ),
+          const SizedBox(width: 8.0),
+          Expanded(child: codeChip(row['use'] ?? '')),
+        ],
+      ),
+    );
+  });
 
   // =========================================================================
   // SECTION 16: EPILOGUE
@@ -1540,11 +1507,7 @@ dynamic build(BuildContext context) {
               'between 0.95 and 1.05. Because the layout slot is unchanged, '
               'neighbors do not reflow as the scale animates.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: scaleSweep,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: scaleSweep),
 
             // ----- Non-uniform scale -----
             sectionHeader(
@@ -1553,11 +1516,7 @@ dynamic build(BuildContext context) {
               'When scaleX and scaleY diverge, you get stretches, squashes, '
                   'and the cartoon-style "anticipation" pose.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: nonUniformWidgets,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: nonUniformWidgets),
 
             // ----- Translate -----
             sectionHeader(
@@ -1572,11 +1531,7 @@ dynamic build(BuildContext context) {
               'only the painted offset moves. Compare against AnimatedAlign '
               'or Positioned which both trigger layout passes.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: translateWidgets,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: translateWidgets),
 
             // ----- Flip -----
             sectionHeader(
@@ -1611,11 +1566,7 @@ dynamic build(BuildContext context) {
               'constructor. The cascade syntax (..rotateZ(..)..scale(..)) '
               'makes multi-step composition concise.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: matrixGallery,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: matrixGallery),
 
             // ----- 3D perspective sweep -----
             sectionHeader(
@@ -1631,11 +1582,7 @@ dynamic build(BuildContext context) {
               'the GPU do a perspective divide during compositing. Smaller '
               'values give subtle 3D; larger values exaggerate it.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: perspectiveYRow,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: perspectiveYRow),
 
             // ----- X axis sweep -----
             sectionHeader(
@@ -1644,11 +1591,7 @@ dynamic build(BuildContext context) {
               'Now rotating around the X axis instead. The token tilts '
                   'forward and back.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: perspectiveXRow,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: perspectiveXRow),
 
             // ----- Strength sweep -----
             sectionHeader(
@@ -1715,11 +1658,7 @@ dynamic build(BuildContext context) {
               'odd sizes) bumping filterQuality up to medium or high can '
               'reduce shimmer at the cost of a small per-frame GPU expense.',
             ),
-            Wrap(
-              spacing: 12.0,
-              runSpacing: 12.0,
-              children: filterRow,
-            ),
+            Wrap(spacing: 12.0, runSpacing: 12.0, children: filterRow),
 
             // ----- RotatedBox vs Transform.rotate -----
             sectionHeader(

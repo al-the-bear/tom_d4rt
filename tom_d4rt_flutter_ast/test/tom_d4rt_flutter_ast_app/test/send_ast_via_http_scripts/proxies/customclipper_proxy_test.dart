@@ -147,8 +147,10 @@ class _WaveClipper extends CustomClipper<Path> {
     );
 
     // Second control point on the right third.
-    final Offset secondControl =
-        Offset(size.width * 0.75, size.height - amplitude * 2);
+    final Offset secondControl = Offset(
+      size.width * 0.75,
+      size.height - amplitude * 2,
+    );
     final Offset secondEnd = Offset(size.width, size.height - amplitude);
     path.quadraticBezierTo(
       secondControl.dx,
@@ -427,8 +429,7 @@ class _StripePathClipper extends CustomClipper<Path> {
 // arguments change.
 // -----------------------------------------------------------------------------
 class _AnimatedWaveClipper extends CustomClipper<Path> {
-  _AnimatedWaveClipper({required this.progress})
-      : super(reclip: progress);
+  _AnimatedWaveClipper({required this.progress}) : super(reclip: progress);
 
   final ValueNotifier<double> progress;
 
@@ -443,7 +444,8 @@ class _AnimatedWaveClipper extends CustomClipper<Path> {
     const int segments = 24;
     for (int i = 1; i <= segments; i++) {
       final double x = size.width * i / segments;
-      final double y = size.height -
+      final double y =
+          size.height -
           amp -
           amp * 0.5 * _sin(phase + (i / segments) * 6.283185307179586);
       path.lineTo(x, y);
@@ -630,10 +632,7 @@ Widget _label(String text, Color ink) {
 Widget _prose(String text, Color ink) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(
-      text,
-      style: TextStyle(color: ink, fontSize: 13, height: 1.45),
-    ),
+    child: Text(text, style: TextStyle(color: ink, fontSize: 13, height: 1.45)),
   );
 }
 
@@ -694,7 +693,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // INTRO CARD
               // ================================================================
-              _sectionHeader('00', 'Intro — CustomClipper<T>', _heroBg, _heroInk),
+              _sectionHeader(
+                '00',
+                'Intro — CustomClipper<T>',
+                _heroBg,
+                _heroInk,
+              ),
               _sectionCard(
                 bg: _heroBg,
                 ink: _heroInk,
@@ -745,7 +749,9 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: _heroAccent.withOpacity(0.10),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _heroAccent.withOpacity(0.30)),
+                        border: Border.all(
+                          color: _heroAccent.withOpacity(0.30),
+                        ),
                       ),
                       child: Text(
                         'Contract:\n'
@@ -767,8 +773,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 01 — _WaveClipper
               // ================================================================
-              _sectionHeader('01', '_WaveClipper — concave wave bottom edge',
-                  _waveBg, _waveInk),
+              _sectionHeader(
+                '01',
+                '_WaveClipper — concave wave bottom edge',
+                _waveBg,
+                _waveInk,
+              ),
               _sectionCard(
                 bg: _waveBg,
                 ink: _waveInk,
@@ -824,8 +834,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 02 — _DiagonalClipper
               // ================================================================
-              _sectionHeader('02', '_DiagonalClipper — diagonal slice',
-                  _diagonalBg, _diagonalInk),
+              _sectionHeader(
+                '02',
+                '_DiagonalClipper — diagonal slice',
+                _diagonalBg,
+                _diagonalInk,
+              ),
               _sectionCard(
                 bg: _diagonalBg,
                 ink: _diagonalInk,
@@ -879,8 +893,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 03 — _ZigZagClipper
               // ================================================================
-              _sectionHeader('03', '_ZigZagClipper — saw-tooth bottom edge',
-                  _zigzagBg, _zigzagInk),
+              _sectionHeader(
+                '03',
+                '_ZigZagClipper — saw-tooth bottom edge',
+                _zigzagBg,
+                _zigzagInk,
+              ),
               _sectionCard(
                 bg: _zigzagBg,
                 ink: _zigzagInk,
@@ -934,8 +952,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 04 — _RoundedTopClipper
               // ================================================================
-              _sectionHeader('04', '_RoundedTopClipper — rounded top corners',
-                  _roundedTopBg, _roundedTopInk),
+              _sectionHeader(
+                '04',
+                '_RoundedTopClipper — rounded top corners',
+                _roundedTopBg,
+                _roundedTopInk,
+              ),
               _sectionCard(
                 bg: _roundedTopBg,
                 ink: _roundedTopInk,
@@ -990,8 +1012,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 05 — _BowtieClipper
               // ================================================================
-              _sectionHeader('05', '_BowtieClipper — hourglass shape',
-                  _bowtieBg, _bowtieInk),
+              _sectionHeader(
+                '05',
+                '_BowtieClipper — hourglass shape',
+                _bowtieBg,
+                _bowtieInk,
+              ),
               _sectionCard(
                 bg: _bowtieBg,
                 ink: _bowtieInk,
@@ -1020,8 +1046,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 06 — _GradientHexagonClipper
               // ================================================================
-              _sectionHeader('06', '_GradientHexagonClipper — regular hexagon',
-                  _hexBg, _hexInk),
+              _sectionHeader(
+                '06',
+                '_GradientHexagonClipper — regular hexagon',
+                _hexBg,
+                _hexInk,
+              ),
               _sectionCard(
                 bg: _hexBg,
                 ink: _hexInk,
@@ -1075,8 +1105,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 07 — _TicketClipper
               // ================================================================
-              _sectionHeader('07', '_TicketClipper — ticket / coupon notches',
-                  _ticketBg, _ticketInk),
+              _sectionHeader(
+                '07',
+                '_TicketClipper — ticket / coupon notches',
+                _ticketBg,
+                _ticketInk,
+              ),
               _sectionCard(
                 bg: _ticketBg,
                 ink: _ticketInk,
@@ -1104,7 +1138,9 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: ClipPath(
                             clipper: const _TicketClipper(
-                                notchRadius: 8, notchOffset: 0.3),
+                              notchRadius: 8,
+                              notchOffset: 0.3,
+                            ),
                             child: _coloredBlock(
                               color: const Color(0xFFFFB300),
                               height: 90,
@@ -1116,7 +1152,9 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: ClipPath(
                             clipper: const _TicketClipper(
-                                notchRadius: 22, notchOffset: 0.7),
+                              notchRadius: 22,
+                              notchOffset: 0.7,
+                            ),
                             child: _coloredBlock(
                               color: const Color(0xFFFF8F00),
                               height: 90,
@@ -1133,8 +1171,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 08 — _StripeClipper (CustomClipper<Rect>)
               // ================================================================
-              _sectionHeader('08', '_StripeClipper — CustomClipper<Rect>',
-                  _stripeBg, _stripeInk),
+              _sectionHeader(
+                '08',
+                '_StripeClipper — CustomClipper<Rect>',
+                _stripeBg,
+                _stripeInk,
+              ),
               _sectionCard(
                 bg: _stripeBg,
                 ink: _stripeInk,
@@ -1149,8 +1191,10 @@ dynamic build(BuildContext context) {
                       _stripeInk,
                     ),
                     ClipPath(
-                      clipper:
-                          const _StripePathClipper(fraction: 0.5, height: 50),
+                      clipper: const _StripePathClipper(
+                        fraction: 0.5,
+                        height: 50,
+                      ),
                       child: Container(
                         height: 120,
                         decoration: BoxDecoration(
@@ -1180,7 +1224,9 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: ClipPath(
                             clipper: const _StripePathClipper(
-                                fraction: 0.0, height: 30),
+                              fraction: 0.0,
+                              height: 30,
+                            ),
                             child: Container(
                               height: 90,
                               color: const Color(0xFF004D40),
@@ -1196,7 +1242,9 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: ClipPath(
                             clipper: const _StripePathClipper(
-                                fraction: 1.0, height: 30),
+                              fraction: 1.0,
+                              height: 30,
+                            ),
                             child: Container(
                               height: 90,
                               color: const Color(0xFF00695C),
@@ -1217,8 +1265,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 09 — Side-by-side comparison
               // ================================================================
-              _sectionHeader('09',
-                  'ClipPath vs ClipRect vs ClipOval', _comparisonBg, _comparisonInk),
+              _sectionHeader(
+                '09',
+                'ClipPath vs ClipRect vs ClipOval',
+                _comparisonBg,
+                _comparisonInk,
+              ),
               _sectionCard(
                 bg: _comparisonBg,
                 ink: _comparisonInk,
@@ -1278,7 +1330,9 @@ dynamic build(BuildContext context) {
                                 height: 110,
                                 child: ClipPath(
                                   clipper: const _StripePathClipper(
-                                      fraction: 0.5, height: 60),
+                                    fraction: 0.5,
+                                    height: 60,
+                                  ),
                                   child: _coloredBlock(
                                     color: const Color(0xFF3949AB),
                                     height: 110,
@@ -1331,9 +1385,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 10 — ShapeBorderClipper
               // ================================================================
-              _sectionHeader('10',
-                  'ShapeBorderClipper — adapter for ShapeBorder',
-                  _shapeBorderBg, _shapeBorderInk),
+              _sectionHeader(
+                '10',
+                'ShapeBorderClipper — adapter for ShapeBorder',
+                _shapeBorderBg,
+                _shapeBorderInk,
+              ),
               _sectionCard(
                 bg: _shapeBorderBg,
                 ink: _shapeBorderInk,
@@ -1447,9 +1504,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 11 — Animated clipper
               // ================================================================
-              _sectionHeader('11',
-                  'Animated clipper — Listenable in super-constructor',
-                  _animatedBg, _animatedInk),
+              _sectionHeader(
+                '11',
+                'Animated clipper — Listenable in super-constructor',
+                _animatedBg,
+                _animatedInk,
+              ),
               _sectionCard(
                 bg: _animatedBg,
                 ink: _animatedInk,
@@ -1517,9 +1577,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 12 — shouldReclip discussion
               // ================================================================
-              _sectionHeader('12',
-                  'shouldReclip — always vs smart', _shouldReclipBg,
-                  _shouldReclipInk),
+              _sectionHeader(
+                '12',
+                'shouldReclip — always vs smart',
+                _shouldReclipBg,
+                _shouldReclipInk,
+              ),
               _sectionCard(
                 bg: _shouldReclipBg,
                 ink: _shouldReclipInk,
@@ -1639,8 +1702,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 13 — Recipe: hero header with wave
               // ================================================================
-              _sectionHeader('13', 'Recipe — Hero header with wave bottom',
-                  _heroRecipeBg, _heroRecipeInk),
+              _sectionHeader(
+                '13',
+                'Recipe — Hero header with wave bottom',
+                _heroRecipeBg,
+                _heroRecipeInk,
+              ),
               _sectionCard(
                 bg: _heroRecipeBg,
                 ink: _heroRecipeInk,
@@ -1667,8 +1734,7 @@ dynamic build(BuildContext context) {
                             end: Alignment.bottomRight,
                           ),
                         ),
-                        padding:
-                            const EdgeInsets.fromLTRB(20, 28, 20, 36),
+                        padding: const EdgeInsets.fromLTRB(20, 28, 20, 36),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
@@ -1699,8 +1765,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 14 — Recipe: ticket / coupon
               // ================================================================
-              _sectionHeader('14', 'Recipe — Ticket / coupon look',
-                  _ticketRecipeBg, _ticketRecipeInk),
+              _sectionHeader(
+                '14',
+                'Recipe — Ticket / coupon look',
+                _ticketRecipeBg,
+                _ticketRecipeInk,
+              ),
               _sectionCard(
                 bg: _ticketRecipeBg,
                 ink: _ticketRecipeInk,
@@ -1715,7 +1785,9 @@ dynamic build(BuildContext context) {
                     ),
                     ClipPath(
                       clipper: const _TicketClipper(
-                          notchRadius: 18, notchOffset: 0.65),
+                        notchRadius: 18,
+                        notchOffset: 0.65,
+                      ),
                       child: Container(
                         height: 140,
                         decoration: BoxDecoration(
@@ -1810,8 +1882,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 15 — Recipe: profile picture
               // ================================================================
-              _sectionHeader('15', 'Recipe — Hexagonal profile picture',
-                  _profileRecipeBg, _profileRecipeInk),
+              _sectionHeader(
+                '15',
+                'Recipe — Hexagonal profile picture',
+                _profileRecipeBg,
+                _profileRecipeInk,
+              ),
               _sectionCard(
                 bg: _profileRecipeBg,
                 ink: _profileRecipeInk,
@@ -1826,30 +1902,31 @@ dynamic build(BuildContext context) {
                     Wrap(
                       spacing: 12,
                       runSpacing: 12,
-                      children: <Color>[
-                        const Color(0xFF26C6DA),
-                        const Color(0xFF00ACC1),
-                        const Color(0xFF0097A7),
-                        _profileRecipeAccent,
-                        const Color(0xFF006064),
-                      ].map((Color c) {
-                        return SizedBox(
-                          width: 80,
-                          height: 80,
-                          child: ClipPath(
-                            clipper: const _GradientHexagonClipper(),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [c, c.withOpacity(0.5)],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
+                      children:
+                          <Color>[
+                            const Color(0xFF26C6DA),
+                            const Color(0xFF00ACC1),
+                            const Color(0xFF0097A7),
+                            _profileRecipeAccent,
+                            const Color(0xFF006064),
+                          ].map((Color c) {
+                            return SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: ClipPath(
+                                clipper: const _GradientHexagonClipper(),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [c, c.withOpacity(0.5)],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                            );
+                          }).toList(),
                     ),
                   ],
                 ),
@@ -1858,8 +1935,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 16 — Recipe: diagonal tag
               // ================================================================
-              _sectionHeader('16', 'Recipe — Diagonal tag/label',
-                  _tagRecipeBg, _tagRecipeInk),
+              _sectionHeader(
+                '16',
+                'Recipe — Diagonal tag/label',
+                _tagRecipeBg,
+                _tagRecipeInk,
+              ),
               _sectionCard(
                 bg: _tagRecipeBg,
                 ink: _tagRecipeInk,
@@ -1930,9 +2011,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 17 — Clip enum
               // ================================================================
-              _sectionHeader('17',
-                  'Clip enum — none / hardEdge / antiAlias / antiAliasWithSaveLayer',
-                  _clipEnumBg, _clipEnumInk),
+              _sectionHeader(
+                '17',
+                'Clip enum — none / hardEdge / antiAlias / antiAliasWithSaveLayer',
+                _clipEnumBg,
+                _clipEnumInk,
+              ),
               _sectionCard(
                 bg: _clipEnumBg,
                 ink: _clipEnumInk,
@@ -2042,9 +2126,12 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 18 — Decision card
               // ================================================================
-              _sectionHeader('18',
-                  'Decision — CustomClipper vs ShapeDecoration vs ClipOval',
-                  _decisionBg, _decisionInk),
+              _sectionHeader(
+                '18',
+                'Decision — CustomClipper vs ShapeDecoration vs ClipOval',
+                _decisionBg,
+                _decisionInk,
+              ),
               _sectionCard(
                 bg: _decisionBg,
                 ink: _decisionInk,
@@ -2107,45 +2194,93 @@ dynamic build(BuildContext context) {
               // ================================================================
               // SECTION 19 — Reference table
               // ================================================================
-              _sectionHeader('19',
-                  'Reference — clipper subclasses & their consumer widgets',
-                  _refBg, _refInk),
+              _sectionHeader(
+                '19',
+                'Reference — clipper subclasses & their consumer widgets',
+                _refBg,
+                _refInk,
+              ),
               _sectionCard(
                 bg: _refBg,
                 ink: _refInk,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _refRow('CustomClipper<Path>', 'ClipPath',
-                        'irregular path geometry'),
-                    _refRow('CustomClipper<Rect>', 'ClipRect, ClipOval',
-                        'axis-aligned rect (oval bounding box)'),
-                    _refRow('CustomClipper<RRect>', 'ClipRRect',
-                        'rounded rectangle'),
-                    _refRow('ShapeBorderClipper', 'ClipPath',
-                        'adapter for any ShapeBorder'),
-                    _refRow('_WaveClipper', 'ClipPath',
-                        'concave wave at bottom edge'),
-                    _refRow('_DiagonalClipper', 'ClipPath',
-                        'diagonal trapezoid'),
-                    _refRow('_ZigZagClipper', 'ClipPath',
-                        'saw-tooth bottom edge'),
-                    _refRow('_RoundedTopClipper', 'ClipPath',
-                        'rounded top, flat bottom'),
-                    _refRow('_BowtieClipper', 'ClipPath',
-                        'self-intersecting hourglass'),
-                    _refRow('_GradientHexagonClipper', 'ClipPath',
-                        'regular hexagon'),
-                    _refRow('_TicketClipper', 'ClipPath',
-                        'side notches via arcToPoint'),
-                    _refRow('_StripeClipper', 'ClipRect',
-                        'horizontal stripe rect'),
-                    _refRow('_AnimatedWaveClipper', 'ClipPath',
-                        'reclips on Listenable fire'),
-                    _refRow('_AlwaysReclipWaveClipper', 'ClipPath',
-                        'pedagogical foil — shouldReclip => true'),
-                    _refRow('_SmartReclipWaveClipper', 'ClipPath',
-                        'compares old.value to current'),
+                    _refRow(
+                      'CustomClipper<Path>',
+                      'ClipPath',
+                      'irregular path geometry',
+                    ),
+                    _refRow(
+                      'CustomClipper<Rect>',
+                      'ClipRect, ClipOval',
+                      'axis-aligned rect (oval bounding box)',
+                    ),
+                    _refRow(
+                      'CustomClipper<RRect>',
+                      'ClipRRect',
+                      'rounded rectangle',
+                    ),
+                    _refRow(
+                      'ShapeBorderClipper',
+                      'ClipPath',
+                      'adapter for any ShapeBorder',
+                    ),
+                    _refRow(
+                      '_WaveClipper',
+                      'ClipPath',
+                      'concave wave at bottom edge',
+                    ),
+                    _refRow(
+                      '_DiagonalClipper',
+                      'ClipPath',
+                      'diagonal trapezoid',
+                    ),
+                    _refRow(
+                      '_ZigZagClipper',
+                      'ClipPath',
+                      'saw-tooth bottom edge',
+                    ),
+                    _refRow(
+                      '_RoundedTopClipper',
+                      'ClipPath',
+                      'rounded top, flat bottom',
+                    ),
+                    _refRow(
+                      '_BowtieClipper',
+                      'ClipPath',
+                      'self-intersecting hourglass',
+                    ),
+                    _refRow(
+                      '_GradientHexagonClipper',
+                      'ClipPath',
+                      'regular hexagon',
+                    ),
+                    _refRow(
+                      '_TicketClipper',
+                      'ClipPath',
+                      'side notches via arcToPoint',
+                    ),
+                    _refRow(
+                      '_StripeClipper',
+                      'ClipRect',
+                      'horizontal stripe rect',
+                    ),
+                    _refRow(
+                      '_AnimatedWaveClipper',
+                      'ClipPath',
+                      'reclips on Listenable fire',
+                    ),
+                    _refRow(
+                      '_AlwaysReclipWaveClipper',
+                      'ClipPath',
+                      'pedagogical foil — shouldReclip => true',
+                    ),
+                    _refRow(
+                      '_SmartReclipWaveClipper',
+                      'ClipPath',
+                      'compares old.value to current',
+                    ),
                   ],
                 ),
               ),
@@ -2176,8 +2311,9 @@ dynamic build(BuildContext context) {
 // variable. They are private and non-instantiable.
 // =============================================================================
 abstract class _AnimatedSection {
-  static final ValueNotifier<double> _progressNotifier =
-      ValueNotifier<double>(0.4);
+  static final ValueNotifier<double> _progressNotifier = ValueNotifier<double>(
+    0.4,
+  );
 }
 
 abstract class _ReclipSection {

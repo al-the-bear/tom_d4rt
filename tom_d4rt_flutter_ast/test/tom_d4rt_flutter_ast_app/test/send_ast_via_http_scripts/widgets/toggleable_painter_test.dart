@@ -188,9 +188,7 @@ class _PrivateHeroCard extends StatelessWidget {
                     color: Color(0xFFFFFFFF).withValues(alpha: 0.12),
                   ),
                 ),
-                child: CustomPaint(
-                  painter: _PrivateHeroBackgroundPainter(),
-                ),
+                child: CustomPaint(painter: _PrivateHeroBackgroundPainter()),
               ),
             ),
           ),
@@ -211,9 +209,7 @@ class _PrivateHeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xFFFFFFFF).withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: Color(0xFFFFFFFF).withValues(alpha: 0.20),
-        ),
+        border: Border.all(color: Color(0xFFFFFFFF).withValues(alpha: 0.20)),
       ),
       child: Text(
         label,
@@ -286,14 +282,16 @@ class _PrivateAnatomySection extends StatelessWidget {
         name: 'position',
         type: 'Animation<double>',
         kind: 'animation',
-        blurb: 'Toggle progress 0..1. Drives the on/off transition; the '
+        blurb:
+            'Toggle progress 0..1. Drives the on/off transition; the '
             'subclass interprets it (e.g. checkmark draw, thumb slide).',
       ),
       _PrivateField(
         name: 'reaction',
         type: 'Animation<double>',
         kind: 'animation',
-        blurb: 'Tap reaction 0..1. Scales the radial ink splash drawn by '
+        blurb:
+            'Tap reaction 0..1. Scales the radial ink splash drawn by '
             'paintRadialReaction.',
       ),
       _PrivateField(
@@ -371,7 +369,8 @@ class _PrivateAnatomySection extends StatelessWidget {
     ];
     return _PrivateCard(
       title: 'Anatomy',
-      subtitle: 'Every setter on ToggleablePainter swaps the listener and '
+      subtitle:
+          'Every setter on ToggleablePainter swaps the listener and '
           'calls notifyListeners(); the CustomPaint repaints automatically.',
       child: Column(
         children: [
@@ -489,7 +488,8 @@ class _PrivateCheckboxFramesSection extends StatelessWidget {
     final List<double> stops = [0.0, 0.25, 0.5, 0.75, 1.0];
     return _PrivateCard(
       title: 'Frozen frames: Checkbox',
-      subtitle: 'Five static replicas of a Material checkbox at position '
+      subtitle:
+          'Five static replicas of a Material checkbox at position '
           '0, 0.25, 0.5, 0.75 and 1. Drawn entirely by hand — no live '
           'animation, no real Checkbox widget.',
       child: Column(
@@ -596,8 +596,7 @@ class _PrivateCheckboxFramePainter extends CustomPainter {
     );
     final RRect rrect = RRect.fromRectAndRadius(box, Radius.circular(3));
     final Color blended = Color.lerp(inactiveColor, activeColor, t)!;
-    final Paint fill = Paint()
-      ..color = Color.lerp(fillColor, activeColor, t)!;
+    final Paint fill = Paint()..color = Color.lerp(fillColor, activeColor, t)!;
     final Paint border = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2
@@ -611,23 +610,33 @@ class _PrivateCheckboxFramePainter extends CustomPainter {
         ..strokeWidth = 2.4
         ..strokeCap = StrokeCap.round
         ..strokeJoin = StrokeJoin.round;
-      final Offset a = Offset(box.left + box.width * 0.22,
-          box.top + box.height * 0.55);
-      final Offset b = Offset(box.left + box.width * 0.42,
-          box.top + box.height * 0.74);
-      final Offset c = Offset(box.left + box.width * 0.78,
-          box.top + box.height * 0.32);
+      final Offset a = Offset(
+        box.left + box.width * 0.22,
+        box.top + box.height * 0.55,
+      );
+      final Offset b = Offset(
+        box.left + box.width * 0.42,
+        box.top + box.height * 0.74,
+      );
+      final Offset c = Offset(
+        box.left + box.width * 0.78,
+        box.top + box.height * 0.32,
+      );
       final Path path = Path()..moveTo(a.dx, a.dy);
       if (t < 0.5) {
         final double k = t / 0.5;
-        final Offset mid =
-            Offset(a.dx + (b.dx - a.dx) * k, a.dy + (b.dy - a.dy) * k);
+        final Offset mid = Offset(
+          a.dx + (b.dx - a.dx) * k,
+          a.dy + (b.dy - a.dy) * k,
+        );
         path.lineTo(mid.dx, mid.dy);
       } else {
         path.lineTo(b.dx, b.dy);
         final double k = (t - 0.5) / 0.5;
-        final Offset mid =
-            Offset(b.dx + (c.dx - b.dx) * k, b.dy + (c.dy - b.dy) * k);
+        final Offset mid = Offset(
+          b.dx + (c.dx - b.dx) * k,
+          b.dy + (c.dy - b.dy) * k,
+        );
         path.lineTo(mid.dx, mid.dy);
       }
       canvas.drawPath(path, check);
@@ -652,7 +661,8 @@ class _PrivateSwitchFramesSection extends StatelessWidget {
     final List<double> stops = [0.0, 0.25, 0.5, 0.75, 1.0];
     return _PrivateCard(
       title: 'Frozen frames: Switch',
-      subtitle: 'Same idea, but the painter draws a track and a thumb that '
+      subtitle:
+          'Same idea, but the painter draws a track and a thumb that '
           'slides from left to right as position goes 0 -> 1.',
       child: Column(
         children: [
@@ -673,7 +683,8 @@ class _PrivateSwitchFramesSection extends StatelessWidget {
           ),
           SizedBox(height: 16),
           _PrivateNoteBlock(
-            text: 'The real _SwitchPainter additionally consults the '
+            text:
+                'The real _SwitchPainter additionally consults the '
                 'theme-resolved colors and the thumb-image factories; here '
                 'we keep it deliberately simple so the position math stays '
                 'visible.',
@@ -703,8 +714,11 @@ class _PrivateSwitchFramePainter extends CustomPainter {
       width: size.width * 0.85,
       height: trackHeight,
     );
-    final Color trackColor =
-        Color.lerp(inactiveColor, activeColor, t)!.withValues(alpha: 0.55);
+    final Color trackColor = Color.lerp(
+      inactiveColor,
+      activeColor,
+      t,
+    )!.withValues(alpha: 0.55);
     final Paint trackPaint = Paint()..color = trackColor;
     canvas.drawRRect(
       RRect.fromRectAndRadius(track, Radius.circular(trackHeight / 2)),
@@ -744,7 +758,8 @@ class _PrivateRadioFramesSection extends StatelessWidget {
     final List<double> stops = [0.0, 0.25, 0.5, 0.75, 1.0];
     return _PrivateCard(
       title: 'Frozen frames: Radio',
-      subtitle: 'Same five positions, this time interpreted as the radius '
+      subtitle:
+          'Same five positions, this time interpreted as the radius '
           'of the inner dot inside an outer ring.',
       child: Column(
         children: [
@@ -765,7 +780,8 @@ class _PrivateRadioFramesSection extends StatelessWidget {
           ),
           SizedBox(height: 16),
           _PrivateNoteBlock(
-            text: 'Material\'s _RadioPainter also fades the ring color '
+            text:
+                'Material\'s _RadioPainter also fades the ring color '
                 'between inactiveColor and activeColor as position grows. '
                 'We mirror that by lerping with t.',
           ),
@@ -820,7 +836,8 @@ class _PrivateReactionGallerySection extends StatelessWidget {
     final List<double> stops = [0.0, 0.25, 0.5, 0.75, 1.0];
     return _PrivateCard(
       title: 'Reaction ripple gallery',
-      subtitle: 'Five frozen states of the radial reaction (the splash) '
+      subtitle:
+          'Five frozen states of the radial reaction (the splash) '
           'that ToggleablePainter.paintRadialReaction() would draw under '
           'the indicator. The inner dot represents the indicator itself.',
       child: Column(
@@ -847,7 +864,8 @@ class _PrivateReactionGallerySection extends StatelessWidget {
             children: [
               Expanded(
                 child: _PrivateNoteBlock(
-                  text: 'The splash radius interpolates 0 -> splashRadius. '
+                  text:
+                      'The splash radius interpolates 0 -> splashRadius. '
                       'The opacity follows a roughly parabolic curve that '
                       'fades back to zero by reaction = 1.',
                 ),
@@ -855,7 +873,8 @@ class _PrivateReactionGallerySection extends StatelessWidget {
               SizedBox(width: 12),
               Expanded(
                 child: _PrivateNoteBlock(
-                  text: 'inactiveReactionColor is used while the toggle is '
+                  text:
+                      'inactiveReactionColor is used while the toggle is '
                       'off; reactionColor while it is on — Material picks '
                       'between the two based on position.value.',
                 ),
@@ -981,7 +1000,8 @@ class _PrivateColorMatrixSection extends StatelessWidget {
     ];
     return _PrivateCard(
       title: 'Color matrix',
-      subtitle: 'Eight combinations of activeColor, inactiveColor, '
+      subtitle:
+          'Eight combinations of activeColor, inactiveColor, '
           'reactionColor, hoverColor and focusColor — each card shows the '
           'indicator at position 1 with a focus and a hover halo behind it.',
       child: Wrap(
@@ -1178,7 +1198,8 @@ class _PrivateSubclassFamilySection extends StatelessWidget {
     ];
     return _PrivateCard(
       title: 'Subclass family',
-      subtitle: 'The three named ToggleablePainter subclasses inside '
+      subtitle:
+          'The three named ToggleablePainter subclasses inside '
           'flutter/material — each one re-uses the same field set but '
           'gives "position" its own meaning.',
       child: Column(
@@ -1323,46 +1344,65 @@ class _PrivateCustomPaintCodeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<_PrivateCodeLine> lines = [
-      _PrivateCodeLine('class _StarTogglePainter extends ToggleablePainter {',
-          _PrivateCodeKind.keyword),
-      _PrivateCodeLine('  @override', _PrivateCodeKind.annotation),
-      _PrivateCodeLine('  void paint(Canvas canvas, Size size) {',
-          _PrivateCodeKind.keyword),
-      _PrivateCodeLine('    final double t = position.value;',
-          _PrivateCodeKind.code),
-      _PrivateCodeLine('    final Offset c = size.center(Offset.zero);',
-          _PrivateCodeKind.code),
-      _PrivateCodeLine('    final Color tint =',
-          _PrivateCodeKind.code),
       _PrivateCodeLine(
-          '        Color.lerp(inactiveColor, activeColor, t)!;',
-          _PrivateCodeKind.code),
-      _PrivateCodeLine('    final Paint star = Paint()..color = tint;',
-          _PrivateCodeKind.code),
+        'class _StarTogglePainter extends ToggleablePainter {',
+        _PrivateCodeKind.keyword,
+      ),
+      _PrivateCodeLine('  @override', _PrivateCodeKind.annotation),
+      _PrivateCodeLine(
+        '  void paint(Canvas canvas, Size size) {',
+        _PrivateCodeKind.keyword,
+      ),
+      _PrivateCodeLine(
+        '    final double t = position.value;',
+        _PrivateCodeKind.code,
+      ),
+      _PrivateCodeLine(
+        '    final Offset c = size.center(Offset.zero);',
+        _PrivateCodeKind.code,
+      ),
+      _PrivateCodeLine('    final Color tint =', _PrivateCodeKind.code),
+      _PrivateCodeLine(
+        '        Color.lerp(inactiveColor, activeColor, t)!;',
+        _PrivateCodeKind.code,
+      ),
+      _PrivateCodeLine(
+        '    final Paint star = Paint()..color = tint;',
+        _PrivateCodeKind.code,
+      ),
       _PrivateCodeLine('    if (isHovered)', _PrivateCodeKind.keyword),
       _PrivateCodeLine(
-          '      canvas.drawCircle(c, splashRadius,',
-          _PrivateCodeKind.code),
+        '      canvas.drawCircle(c, splashRadius,',
+        _PrivateCodeKind.code,
+      ),
       _PrivateCodeLine(
-          '          Paint()..color = hoverColor.withValues(alpha: 0.12));',
-          _PrivateCodeKind.code),
+        '          Paint()..color = hoverColor.withValues(alpha: 0.12));',
+        _PrivateCodeKind.code,
+      ),
       _PrivateCodeLine('    if (isFocused)', _PrivateCodeKind.keyword),
       _PrivateCodeLine(
-          '      canvas.drawCircle(c, splashRadius,',
-          _PrivateCodeKind.code),
+        '      canvas.drawCircle(c, splashRadius,',
+        _PrivateCodeKind.code,
+      ),
       _PrivateCodeLine(
-          '          Paint()..color = focusColor.withValues(alpha: 0.18));',
-          _PrivateCodeKind.code),
-      _PrivateCodeLine('    paintRadialReaction(canvas: canvas, offset: c);',
-          _PrivateCodeKind.code),
-      _PrivateCodeLine('    canvas.drawPath(_starPath(c, t), star);',
-          _PrivateCodeKind.code),
+        '          Paint()..color = focusColor.withValues(alpha: 0.18));',
+        _PrivateCodeKind.code,
+      ),
+      _PrivateCodeLine(
+        '    paintRadialReaction(canvas: canvas, offset: c);',
+        _PrivateCodeKind.code,
+      ),
+      _PrivateCodeLine(
+        '    canvas.drawPath(_starPath(c, t), star);',
+        _PrivateCodeKind.code,
+      ),
       _PrivateCodeLine('  }', _PrivateCodeKind.keyword),
       _PrivateCodeLine('}', _PrivateCodeKind.keyword),
     ];
     return _PrivateCard(
       title: 'Sketch: a custom ToggleablePainter',
-      subtitle: 'A minimal subclass that draws a star which fades from '
+      subtitle:
+          'A minimal subclass that draws a star which fades from '
           'inactive to active color. The reaction splash, hover halo and '
           'focus halo are reused via paintRadialReaction and the existing '
           'hover/focus colors.',
@@ -1374,9 +1414,7 @@ class _PrivateCustomPaintCodeSection extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            for (final l in lines) _PrivateCodeLineView(line: l),
-          ],
+          children: [for (final l in lines) _PrivateCodeLineView(line: l)],
         ),
       ),
     );
@@ -1433,43 +1471,50 @@ class _PrivatePitfallsSection extends StatelessWidget {
     final List<_PrivatePitfall> pitfalls = [
       _PrivatePitfall(
         title: 'Forgetting to call notifyListeners()',
-        body: 'If you add new fields to a ToggleablePainter subclass and '
+        body:
+            'If you add new fields to a ToggleablePainter subclass and '
             'forget to call notifyListeners() in their setters, the '
             'CustomPaint will not repaint when they change.',
       ),
       _PrivatePitfall(
         title: 'Reading position.value off-frame',
-        body: 'position is an Animation<double>; reading position.value '
+        body:
+            'position is an Animation<double>; reading position.value '
             'outside paint() (or without listening) may give a stale value '
             'between ticks.',
       ),
       _PrivatePitfall(
         title: 'Mixing colors with .withOpacity',
-        body: 'Prefer Color.withValues(alpha: ...) over the deprecated '
+        body:
+            'Prefer Color.withValues(alpha: ...) over the deprecated '
             'withOpacity for accurate color-space-aware blending.',
       ),
       _PrivatePitfall(
         title: 'Drawing outside the size',
-        body: 'paintRadialReaction with a large splashRadius may overflow '
+        body:
+            'paintRadialReaction with a large splashRadius may overflow '
             'size; clip the canvas or pick a sensible radius for your '
             'indicator size.',
       ),
       _PrivatePitfall(
         title: 'Not implementing shouldRepaint correctly',
-        body: 'ToggleablePainter\'s default uses ChangeNotifier comparison '
+        body:
+            'ToggleablePainter\'s default uses ChangeNotifier comparison '
             'via the _RepaintingPainter mechanism — overriding it manually '
             'with a wrong comparison breaks repaints on color changes.',
       ),
       _PrivatePitfall(
         title: 'Hard-coding theme colors',
-        body: 'activeColor, inactiveColor and reaction colors should come '
+        body:
+            'activeColor, inactiveColor and reaction colors should come '
             'from MaterialState resolvers / the theme so the toggle '
             'follows light/dark and density automatically.',
       ),
     ];
     return _PrivateCard(
       title: 'Pitfalls',
-      subtitle: 'Things that bite when you write or extend a '
+      subtitle:
+          'Things that bite when you write or extend a '
           'ToggleablePainter subclass.',
       child: Column(
         children: [for (final p in pitfalls) _PrivatePitfallRow(pitfall: p)],
@@ -1534,11 +1579,7 @@ class _PrivatePitfallRow extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(
                   pitfall.body,
-                  style: TextStyle(
-                    color: _kInkDim,
-                    fontSize: 13,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: _kInkDim, fontSize: 13, height: 1.4),
                 ),
               ],
             ),
@@ -1571,9 +1612,7 @@ class _PrivateFooter extends StatelessWidget {
               color: _kAccent,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: CustomPaint(
-              painter: _PrivateFooterMarkPainter(),
-            ),
+            child: CustomPaint(painter: _PrivateFooterMarkPainter()),
           ),
           SizedBox(width: 16),
           Expanded(

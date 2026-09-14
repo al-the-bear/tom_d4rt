@@ -180,10 +180,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            colors: [
-              cockpitPanel,
-              cockpitDeep,
-            ],
+            colors: [cockpitPanel, cockpitDeep],
             radius: 1.1,
             center: Alignment.topLeft,
           ),
@@ -209,10 +206,7 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(icon, color: lamp, size: 28.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 3.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: lamp.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(4.0),
@@ -293,10 +287,7 @@ dynamic build(BuildContext context) {
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
-                              lamp.withValues(alpha: 0.6),
-                              lamp,
-                            ],
+                            colors: [lamp.withValues(alpha: 0.6), lamp],
                           ),
                           borderRadius: BorderRadius.circular(6.0),
                           boxShadow: [
@@ -324,10 +315,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(4.0),
@@ -361,7 +349,7 @@ dynamic build(BuildContext context) {
       'color': amberLamp,
       'desc':
           'Pilot pushes the throttle. SchedulerBinding registers the request '
-              'and returns a handle.',
+          'and returns a handle.',
     },
     <String, Object>{
       'icon': Icons.confirmation_number,
@@ -370,7 +358,7 @@ dynamic build(BuildContext context) {
       'color': cyanLamp,
       'desc':
           'Engine is now biased toward the chosen mode. Hold this handle '
-              'for the duration of the high-performance phase.',
+          'for the duration of the high-performance phase.',
     },
     <String, Object>{
       'icon': Icons.flight_land,
@@ -379,7 +367,7 @@ dynamic build(BuildContext context) {
       'color': greenLamp,
       'desc':
           'Phase complete. Handle is released; reference count for the mode '
-              'decreases. When count hits zero, mode is cleared.',
+          'decreases. When count hits zero, mode is cleared.',
     },
   ];
 
@@ -399,20 +387,14 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              color.withValues(alpha: 0.16),
-              cockpitDeep,
-            ],
+            colors: [color.withValues(alpha: 0.16), cockpitDeep],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: color, width: 1.5),
           boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.4),
-              blurRadius: 12.0,
-            ),
+            BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 12.0),
           ],
         ),
         child: Column(
@@ -434,10 +416,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 3.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(4.0),
@@ -468,11 +447,7 @@ dynamic build(BuildContext context) {
       flightPathTiles.add(
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.0),
-          child: Icon(
-            Icons.chevron_right,
-            color: amberLamp,
-            size: 32.0,
-          ),
+          child: Icon(Icons.chevron_right, color: amberLamp, size: 32.0),
         ),
       );
     }
@@ -490,10 +465,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: cockpitFrame, width: 1.5),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.6),
-          blurRadius: 12.0,
-        ),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.6), blurRadius: 12.0),
       ],
     ),
     child: Column(
@@ -541,10 +513,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: cyanLamp, width: 1.5),
       boxShadow: [
-        BoxShadow(
-          color: cyanLamp.withValues(alpha: 0.25),
-          blurRadius: 18.0,
-        ),
+        BoxShadow(color: cyanLamp.withValues(alpha: 0.25), blurRadius: 18.0),
       ],
     ),
     child: Column(
@@ -569,12 +538,7 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildStateNode(
-              'BALANCED',
-              greenLamp,
-              Icons.balance,
-              cockpitDeep,
-            ),
+            _buildStateNode('BALANCED', greenLamp, Icons.balance, cockpitDeep),
             Column(
               children: [
                 Icon(Icons.swap_horiz, color: amberLamp, size: 28.0),
@@ -588,12 +552,7 @@ dynamic build(BuildContext context) {
                 ),
               ],
             ),
-            _buildStateNode(
-              'LATENCY',
-              redLamp,
-              Icons.speed,
-              cockpitDeep,
-            ),
+            _buildStateNode('LATENCY', redLamp, Icons.speed, cockpitDeep),
             Column(
               children: [
                 Icon(Icons.swap_horiz, color: amberLamp, size: 28.0),
@@ -662,22 +621,26 @@ dynamic build(BuildContext context) {
   final List<Map<String, String>> leakBullets = <Map<String, String>>[
     <String, String>{
       'h': 'Engine pinned',
-      'd': 'The engine remains in the requested mode forever — no '
+      'd':
+          'The engine remains in the requested mode forever — no '
           'reference count ever reaches zero.',
     },
     <String, String>{
       'h': 'Power drain',
-      'd': 'latency / throughput modes consume more energy. On battery, '
+      'd':
+          'latency / throughput modes consume more energy. On battery, '
           'this shortens device lifetime.',
     },
     <String, String>{
       'h': 'Thermal headroom lost',
-      'd': 'Sustained boost mode raises chip temperature; the OS may '
+      'd':
+          'Sustained boost mode raises chip temperature; the OS may '
           'throttle other apps as a result.',
     },
     <String, String>{
       'h': 'Reference leak',
-      'd': 'Each forgotten handle bumps the count permanently — even '
+      'd':
+          'Each forgotten handle bumps the count permanently — even '
           'further dispose() calls from siblings cannot clear the mode.',
     },
   ];
@@ -691,20 +654,14 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              redLamp.withValues(alpha: 0.18),
-              cockpitDeep,
-            ],
+            colors: [redLamp.withValues(alpha: 0.18), cockpitDeep],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(color: redLamp.withValues(alpha: 0.55)),
           boxShadow: [
-            BoxShadow(
-              color: redLamp.withValues(alpha: 0.25),
-              blurRadius: 8.0,
-            ),
+            BoxShadow(color: redLamp.withValues(alpha: 0.25), blurRadius: 8.0),
           ],
         ),
         child: Row(
@@ -747,23 +704,14 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: RadialGradient(
-        colors: [
-          Color(0xFF2A0A12),
-          cockpitDeep,
-        ],
+        colors: [Color(0xFF2A0A12), cockpitDeep],
         radius: 1.2,
       ),
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: redLamp, width: 1.5),
       boxShadow: [
-        BoxShadow(
-          color: redLamp.withValues(alpha: 0.45),
-          blurRadius: 20.0,
-        ),
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.6),
-          blurRadius: 8.0,
-        ),
+        BoxShadow(color: redLamp.withValues(alpha: 0.45), blurRadius: 20.0),
+        BoxShadow(color: Colors.black.withValues(alpha: 0.6), blurRadius: 8.0),
       ],
     ),
     child: Column(
@@ -790,11 +738,7 @@ dynamic build(BuildContext context) {
           'reference (or your widget is disposed without forwarding the '
           'call to handle.dispose()), you have created a performance-mode '
           'leak. Symptoms:',
-          style: TextStyle(
-            color: brushedMetal,
-            fontSize: 12.0,
-            height: 1.4,
-          ),
+          style: TextStyle(color: brushedMetal, fontSize: 12.0, height: 1.4),
         ),
         SizedBox(height: 8.0),
         Column(children: leakRows),
@@ -840,7 +784,8 @@ dynamic build(BuildContext context) {
       'lamp': greenLamp,
       'icon': Icons.balance,
       'title': 'BALANCED — the default cruise altitude',
-      'body': 'Use balanced for the vast majority of your application '
+      'body':
+          'Use balanced for the vast majority of your application '
           'time. It signals to the Dart VM that nothing exceptional is '
           'happening: the GC may run, JIT may optimize, the CPU governor '
           'may down-clock. Idle screens, settings pages, and any code '
@@ -853,7 +798,8 @@ dynamic build(BuildContext context) {
       'lamp': redLamp,
       'icon': Icons.speed,
       'title': 'LATENCY — sharp inputs, smooth animation',
-      'body': 'Request latency the moment a high-frequency interaction '
+      'body':
+          'Request latency the moment a high-frequency interaction '
           'begins: gesture start, fling-scroll, drag-and-drop, focused '
           'text editing, or a custom animation curve where every frame '
           'must land in the 16ms (or 8ms on 120Hz) budget. The engine '
@@ -867,7 +813,8 @@ dynamic build(BuildContext context) {
       'lamp': cyanLamp,
       'icon': Icons.show_chart,
       'title': 'THROUGHPUT — bulk power for finite jobs',
-      'body': 'Request throughput when you need maximum total work per '
+      'body':
+          'Request throughput when you need maximum total work per '
           'unit time and the user is willing to tolerate a small input-'
           'lag jitter: video transcoding, large image filter chains, '
           'bulk JSON parsing on launch, scientific number-crunching. '
@@ -892,20 +839,14 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              lamp.withValues(alpha: 0.12),
-              cockpitDeep,
-            ],
+            colors: [lamp.withValues(alpha: 0.12), cockpitDeep],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(color: lamp.withValues(alpha: 0.6)),
           boxShadow: [
-            BoxShadow(
-              color: lamp.withValues(alpha: 0.18),
-              blurRadius: 14.0,
-            ),
+            BoxShadow(color: lamp.withValues(alpha: 0.18), blurRadius: 14.0),
           ],
         ),
         child: Column(
@@ -926,10 +867,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(4.0),
@@ -1019,10 +957,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(4.0),
             border: Border.all(color: Colors.black, width: 1.0),
             boxShadow: [
-              BoxShadow(
-                color: color.withValues(alpha: 0.55),
-                blurRadius: 6.0,
-              ),
+              BoxShadow(color: color.withValues(alpha: 0.55), blurRadius: 6.0),
             ],
           ),
           child: Center(
@@ -1100,10 +1035,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 6.0,
-                vertical: 3.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1136,10 +1068,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: amberLamp, width: 1.2),
       boxShadow: [
-        BoxShadow(
-          color: amberLamp.withValues(alpha: 0.18),
-          blurRadius: 14.0,
-        ),
+        BoxShadow(color: amberLamp.withValues(alpha: 0.18), blurRadius: 14.0),
       ],
     ),
     child: Column(
@@ -1165,11 +1094,7 @@ dynamic build(BuildContext context) {
           'Each requestPerformanceMode() bumps the per-mode counter. '
           'Each dispose() decrements it. Mode bias is active iff at '
           'least one handle remains alive.',
-          style: TextStyle(
-            color: brushedMetal,
-            fontSize: 12.0,
-            height: 1.4,
-          ),
+          style: TextStyle(color: brushedMetal, fontSize: 12.0, height: 1.4),
         ),
         SizedBox(height: 10.0),
         Column(children: stackRows),
@@ -1194,10 +1119,7 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: cyanLamp.withValues(alpha: 0.7), width: 1.2),
       boxShadow: [
-        BoxShadow(
-          color: cyanLamp.withValues(alpha: 0.2),
-          blurRadius: 14.0,
-        ),
+        BoxShadow(color: cyanLamp.withValues(alpha: 0.2), blurRadius: 14.0),
       ],
     ),
     child: Column(
@@ -1367,11 +1289,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(22.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF000814),
-                cockpitDeep,
-                cockpitPanel,
-              ],
+              colors: [Color(0xFF000814), cockpitDeep, cockpitPanel],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1392,11 +1310,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.airplanemode_active,
-                color: amberLamp,
-                size: 56.0,
-              ),
+              Icon(Icons.airplanemode_active, color: amberLamp, size: 56.0),
               SizedBox(height: 8.0),
               Text(
                 'PERFORMANCE-MODE COCKPIT',
@@ -1418,10 +1332,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.black.withValues(alpha: 0.4),
                   borderRadius: BorderRadius.circular(20.0),
@@ -1533,16 +1444,11 @@ Widget _sectionHeading(String title, Color amber, Color metal) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          amber.withValues(alpha: 0.22),
-          Colors.transparent,
-        ],
+        colors: [amber.withValues(alpha: 0.22), Colors.transparent],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
-      border: Border(
-        left: BorderSide(color: amber, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: amber, width: 4.0)),
     ),
     child: Row(
       children: [
@@ -1559,40 +1465,26 @@ Widget _sectionHeading(String title, Color amber, Color metal) {
         ),
         SizedBox(width: 10.0),
         Expanded(
-          child: Container(
-            height: 1.0,
-            color: metal.withValues(alpha: 0.4),
-          ),
+          child: Container(height: 1.0, color: metal.withValues(alpha: 0.4)),
         ),
       ],
     ),
   );
 }
 
-Widget _buildStateNode(
-  String label,
-  Color color,
-  IconData icon,
-  Color bg,
-) {
+Widget _buildStateNode(String label, Color color, IconData icon, Color bg) {
   return Container(
     width: 92.0,
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: RadialGradient(
-        colors: [
-          color.withValues(alpha: 0.35),
-          bg,
-        ],
+        colors: [color.withValues(alpha: 0.35), bg],
         radius: 1.1,
       ),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: color, width: 2.0),
       boxShadow: [
-        BoxShadow(
-          color: color.withValues(alpha: 0.55),
-          blurRadius: 12.0,
-        ),
+        BoxShadow(color: color.withValues(alpha: 0.55), blurRadius: 12.0),
       ],
     ),
     child: Column(

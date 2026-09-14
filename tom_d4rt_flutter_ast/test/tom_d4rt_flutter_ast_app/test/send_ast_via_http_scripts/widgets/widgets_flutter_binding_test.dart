@@ -35,7 +35,8 @@ const List<_BindingCapability> _capabilities = <_BindingCapability>[
   ),
   _BindingCapability(
     title: 'RendererBinding',
-    description: 'PipelineOwner, render views, and composite frame orchestration.',
+    description:
+        'PipelineOwner, render views, and composite frame orchestration.',
     color: Color(0xFF7A2F00),
     icon: Icons.layers,
   ),
@@ -125,8 +126,10 @@ dynamic build(BuildContext context) {
 
   print('WidgetsFlutterBinding deep demo executing');
   print('Binding runtimeType: ${binding.runtimeType}');
-  print('Identical ensureInitialized: '
-      '${identical(binding, WidgetsFlutterBinding.ensureInitialized())}');
+  print(
+    'Identical ensureInitialized: '
+    '${identical(binding, WidgetsFlutterBinding.ensureInitialized())}',
+  );
   print('Render views count: ${binding.renderViews.length}');
 
   return Theme(
@@ -219,11 +222,15 @@ Widget _buildBindingSnapshot(WidgetsBinding binding) {
   final List<_SnapshotRow> rows = <_SnapshotRow>[
     _SnapshotRow('is singleton alive', 'true'),
     _SnapshotRow('renderViews', binding.renderViews.length.toString()),
-    _SnapshotRow('platform views',
-        binding.platformDispatcher.views.length.toString()),
+    _SnapshotRow(
+      'platform views',
+      binding.platformDispatcher.views.length.toString(),
+    ),
     _SnapshotRow('framesEnabled', binding.framesEnabled.toString()),
-    _SnapshotRow('lifecycleState',
-        binding.lifecycleState?.name ?? 'unavailable in this context'),
+    _SnapshotRow(
+      'lifecycleState',
+      binding.lifecycleState?.name ?? 'unavailable in this context',
+    ),
   ];
 
   return Card(
@@ -312,7 +319,9 @@ Widget _buildLifecycleBoard(ValueNotifier<int> selectedLifecycle) {
                     Text(
                       current.title,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 16),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     Text(current.details),
@@ -386,8 +395,9 @@ Widget _buildCapabilitiesBoard(ValueNotifier<int> selectedCapability) {
                           Expanded(
                             child: Text(
                               item.title,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w600),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],
@@ -469,7 +479,9 @@ Widget _buildFrameBudgetSimulator({
               return SwitchListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Simulate heavy post-frame callback workload'),
+                title: const Text(
+                  'Simulate heavy post-frame callback workload',
+                ),
                 subtitle: const Text(
                   'When enabled, pretend one callback consumes 12ms on the UI thread.',
                 ),
@@ -572,17 +584,20 @@ Widget _buildPracticalPatternDeck() {
   const List<_PatternCardData> patterns = <_PatternCardData>[
     _PatternCardData(
       title: 'Pre-runApp initialization',
-      snippet: 'WidgetsFlutterBinding.ensureInitialized();\nawait loadConfig();\nrunApp(App());',
+      snippet:
+          'WidgetsFlutterBinding.ensureInitialized();\nawait loadConfig();\nrunApp(App());',
       note: 'Use when startup needs platform channels or async setup.',
     ),
     _PatternCardData(
       title: 'Post frame measurement',
-      snippet: 'WidgetsBinding.instance.addPostFrameCallback((_) {\n  // read size\n});',
+      snippet:
+          'WidgetsBinding.instance.addPostFrameCallback((_) {\n  // read size\n});',
       note: 'Safe point for querying layout-dependent values.',
     ),
     _PatternCardData(
       title: 'Observer registration',
-      snippet: 'final observer = LifecycleObserver();\nWidgetsBinding.instance.addObserver(observer);',
+      snippet:
+          'final observer = LifecycleObserver();\nWidgetsBinding.instance.addObserver(observer);',
       note: 'Integrate app lifecycle transitions and memory pressure signals.',
     ),
   ];
@@ -618,8 +633,9 @@ Widget _buildPracticalPatternDeck() {
                           children: <Widget>[
                             Text(
                               card.title,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w700),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Container(

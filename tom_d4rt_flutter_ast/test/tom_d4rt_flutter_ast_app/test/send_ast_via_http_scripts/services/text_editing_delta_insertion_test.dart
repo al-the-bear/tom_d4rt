@@ -64,11 +64,7 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(
-                Icons.text_fields,
-                size: 36.0,
-                color: cream,
-              ),
+              child: Icon(Icons.text_fields, size: 36.0, color: cream),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -103,10 +99,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.25),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: cream.withValues(alpha: 0.3),
-              width: 1.0,
-            ),
+            border: Border.all(color: cream.withValues(alpha: 0.3), width: 1.0),
           ),
           child: Row(
             children: [
@@ -320,8 +313,10 @@ dynamic build(BuildContext context) {
   for (final entry in galleryDeltas) {
     final delta = entry['delta'] as TextEditingDeltaInsertion;
     final color = entry['color'] as Color;
-    print('Gallery: ${entry['label']} insert="${delta.textInserted}" '
-        '@${delta.insertionOffset}');
+    print(
+      'Gallery: ${entry['label']} insert="${delta.textInserted}" '
+      '@${delta.insertionOffset}',
+    );
     galleryCards.add(
       Container(
         width: 220.0,
@@ -501,11 +496,7 @@ dynamic build(BuildContext context) {
             _glyphStrip(before, caretAt: offset, highlight: -1),
             SizedBox(height: 8.0),
             Center(
-              child: Icon(
-                Icons.arrow_downward,
-                color: tealDeep,
-                size: 22.0,
-              ),
+              child: Icon(Icons.arrow_downward, color: tealDeep, size: 22.0),
             ),
             SizedBox(height: 8.0),
             _glyphStrip(after, caretAt: offset + 1, highlight: offset),
@@ -557,11 +548,14 @@ dynamic build(BuildContext context) {
       ),
       composing: composing,
     );
-    final newText = (c['old'] as String).substring(0, c['offset'] as int) +
+    final newText =
+        (c['old'] as String).substring(0, c['offset'] as int) +
         (c['inserted'] as String) +
         (c['old'] as String).substring(c['offset'] as int);
-    print('Composing step: ins="${delta.textInserted}" '
-        'composing=${composing.isValid ? "${composing.start}-${composing.end}" : "empty"}');
+    print(
+      'Composing step: ins="${delta.textInserted}" '
+      'composing=${composing.isValid ? "${composing.start}-${composing.end}" : "empty"}',
+    );
 
     composingWidgets.add(
       Container(
@@ -844,7 +838,8 @@ dynamic build(BuildContext context) {
   String running = '';
   int idx = 0;
   for (final d in chatDeltas) {
-    running = running.substring(0, d.insertionOffset) +
+    running =
+        running.substring(0, d.insertionOffset) +
         d.textInserted +
         running.substring(d.insertionOffset);
     print('Chat delta #$idx: ins="${d.textInserted}" → "$running"');
@@ -853,9 +848,7 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(vertical: 3.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
         decoration: BoxDecoration(
-          color: idx.isEven
-              ? indigoSoft.withValues(alpha: 0.55)
-              : Colors.white,
+          color: idx.isEven ? indigoSoft.withValues(alpha: 0.55) : Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
             color: indigoMid.withValues(alpha: 0.25),
@@ -972,11 +965,7 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 14.0, color: ink),
                 ),
               ),
-              Container(
-                width: 2.0,
-                height: 18.0,
-                color: indigoDeep,
-              ),
+              Container(width: 2.0, height: 18.0, color: indigoDeep),
               SizedBox(width: 10.0),
               Icon(Icons.send, color: tealDeep, size: 18.0),
             ],
@@ -1013,8 +1002,8 @@ dynamic build(BuildContext context) {
   final beforeText = applyDelta.oldText;
   final afterText =
       beforeText.substring(0, applyDelta.insertionOffset) +
-          applyDelta.textInserted +
-          beforeText.substring(applyDelta.insertionOffset);
+      applyDelta.textInserted +
+      beforeText.substring(applyDelta.insertionOffset);
   print('apply(): "$beforeText" → "$afterText"');
 
   final applyFlow = Container(
@@ -1067,10 +1056,7 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.arrow_downward, color: tealDeep, size: 26.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 4.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: tealDeep,
                   borderRadius: BorderRadius.circular(8.0),
@@ -1386,11 +1372,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     p,
-                    style: TextStyle(
-                      color: cream,
-                      fontSize: 12.5,
-                      height: 1.4,
-                    ),
+                    style: TextStyle(color: cream, fontSize: 12.5, height: 1.4),
                   ),
                 ),
               ],
@@ -1469,17 +1451,12 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.04),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
     ),
     child: Row(
       children: [
@@ -1534,10 +1511,7 @@ Widget _anatomyRow(
                 ),
                 SizedBox(width: 10.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(4.0),
@@ -1556,10 +1530,7 @@ Widget _anatomyRow(
             SizedBox(height: 3.0),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Color(0xFF607D8B),
-              ),
+              style: TextStyle(fontSize: 11.0, color: Color(0xFF607D8B)),
             ),
           ],
         ),
@@ -1601,7 +1572,11 @@ Widget _miniRow(String key, String value, Color color) {
   );
 }
 
-Widget _glyphStrip(String text, {required int caretAt, required int highlight}) {
+Widget _glyphStrip(
+  String text, {
+  required int caretAt,
+  required int highlight,
+}) {
   final units = <Widget>[];
   for (int i = 0; i < text.length; i++) {
     final isHighlight = i == highlight;
@@ -1670,9 +1645,8 @@ Widget _glyphStrip(String text, {required int caretAt, required int highlight}) 
 Widget _composingStrip(String text, TextRange composing) {
   final units = <Widget>[];
   for (int i = 0; i < text.length; i++) {
-    final inComposing = composing.isValid &&
-        i >= composing.start &&
-        i < composing.end;
+    final inComposing =
+        composing.isValid && i >= composing.start && i < composing.end;
     units.add(
       Container(
         margin: EdgeInsets.symmetric(horizontal: 2.0),
@@ -1802,4 +1776,3 @@ Widget _valueBlock(
     ),
   );
 }
-

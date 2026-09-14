@@ -130,7 +130,10 @@ const TextStyle _kCellHeaderStyle = TextStyle(
   height: 1.35,
 );
 const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
-const EdgeInsets _kCardMargin = EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0);
+const EdgeInsets _kCardMargin = EdgeInsets.symmetric(
+  horizontal: 18.0,
+  vertical: 6.0,
+);
 
 // ---------------------------------------------------------------------------
 // MATH HELPERS
@@ -151,7 +154,12 @@ double _turnsToDegrees(double turns) => turns * 360.0;
 // through the demo rather than a wall of nested constructors.
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -213,7 +221,12 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -360,7 +373,12 @@ Widget _sectionDivider() {
 }
 
 // A small "key/value" row used in the API reference table.
-Widget _apiRow(String name, String type, String description, {Color accent = _kAccent}) {
+Widget _apiRow(
+  String name,
+  String type,
+  String description, {
+  Color accent = _kAccent,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Row(
@@ -389,9 +407,7 @@ Widget _apiRow(String name, String type, String description, {Color accent = _kA
             ),
           ),
         ),
-        Expanded(
-          child: Text(description, style: _kBodyStyle),
-        ),
+        Expanded(child: Text(description, style: _kBodyStyle)),
       ],
     ),
   );
@@ -871,10 +887,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF2563EB),
-          Color(0xFF7C3AED),
-        ],
+        colors: <Color>[Color(0xFF2563EB), Color(0xFF7C3AED)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -925,16 +938,23 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: const <Widget>[
             _LegendChip(label: 'turns = revolutions', icon: Icons.repeat),
-            _LegendChip(label: 'radians = 2pi*turns',  icon: Icons.calculate),
-            _LegendChip(label: 'degrees = 360*turns',  icon: Icons.straighten),
-            _LegendChip(label: 'static via AlwaysStoppedAnimation', icon: Icons.pause_circle),
+            _LegendChip(label: 'radians = 2pi*turns', icon: Icons.calculate),
+            _LegendChip(label: 'degrees = 360*turns', icon: Icons.straighten),
+            _LegendChip(
+              label: 'static via AlwaysStoppedAnimation',
+              icon: Icons.pause_circle,
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Icon(Icons.lightbulb_outline, color: Color(0xFFFFD60A), size: 18.0),
+            const Icon(
+              Icons.lightbulb_outline,
+              color: Color(0xFFFFD60A),
+              size: 18.0,
+            ),
             const SizedBox(width: 6.0),
             Expanded(
               child: const Text(
@@ -985,31 +1005,31 @@ dynamic build(BuildContext context) {
           'turns',
           'Animation<double>',
           'How many full revolutions to apply. 0.25 = 90 degrees clockwise. '
-          'Wrap a static value in AlwaysStoppedAnimation<double>(t) for a '
-          'frozen snapshot.',
+              'Wrap a static value in AlwaysStoppedAnimation<double>(t) for a '
+              'frozen snapshot.',
           accent: _kAccent,
         ),
         _apiRow(
           'alignment',
           'AlignmentGeometry',
           'The pivot the rotation happens around, expressed in the child\'s '
-          'box. Defaults to Alignment.center. (-1,-1) is the top-left, '
-          '(1,1) is the bottom-right.',
+              'box. Defaults to Alignment.center. (-1,-1) is the top-left, '
+              '(1,1) is the bottom-right.',
           accent: _kAccentPurple,
         ),
         _apiRow(
           'filterQuality',
           'FilterQuality?',
           'Optional image-sampling quality applied while the transform is '
-          'active. Default is null (no filtering). Use FilterQuality.low for '
-          'rotated bitmaps to avoid jagged edges.',
+              'active. Default is null (no filtering). Use FilterQuality.low for '
+              'rotated bitmaps to avoid jagged edges.',
           accent: _kAccentTeal,
         ),
         _apiRow(
           'child',
           'Widget?',
           'The thing being rotated. Kept outside the build closure of the '
-          'animation so the framework can reuse it across frames.',
+              'animation so the framework can reuse it across frames.',
           accent: _kAccentOrange,
         ),
         const SizedBox(height: 12.0),
@@ -1053,18 +1073,18 @@ dynamic build(BuildContext context) {
   // Generate the twelve tiles with rotating colour for variety. The colours
   // are picked so adjacent tiles contrast nicely.
   final List<Color> reelColours = const <Color>[
-    _kAccent,        // 0/12
-    _kAccentTeal,    // 1/12
-    _kAccentGreen,   // 2/12
-    _kAccentAmber,   // 3/12
-    _kAccentOrange,  // 4/12
-    _kAccentRed,     // 5/12
-    _kAccentPink,    // 6/12
-    _kAccentPurple,  // 7/12
-    _kAccent,        // 8/12
-    _kAccentCyan,    // 9/12
-    _kAccentGreen,   // 10/12
-    _kAccentOrange,  // 11/12
+    _kAccent, // 0/12
+    _kAccentTeal, // 1/12
+    _kAccentGreen, // 2/12
+    _kAccentAmber, // 3/12
+    _kAccentOrange, // 4/12
+    _kAccentRed, // 5/12
+    _kAccentPink, // 6/12
+    _kAccentPurple, // 7/12
+    _kAccent, // 8/12
+    _kAccentCyan, // 9/12
+    _kAccentGreen, // 10/12
+    _kAccentOrange, // 11/12
   ];
 
   final List<Widget> reelTiles = <Widget>[
@@ -1081,7 +1101,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               '12 snapshots, one widget',
-              subtitle: 'Same arrow, turns ∈ {0, 1/12, ... , 11/12}, '
+              subtitle:
+                  'Same arrow, turns ∈ {0, 1/12, ... , 11/12}, '
                   'AlwaysStoppedAnimation makes each one frozen.',
             ),
           ],
@@ -1089,10 +1110,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         // The 4x3 grid is implemented with a Wrap so it gracefully reflows
         // on narrower viewports.
-        Wrap(
-          alignment: WrapAlignment.start,
-          children: reelTiles,
-        ),
+        Wrap(alignment: WrapAlignment.start, children: reelTiles),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -1134,11 +1152,16 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.center_focus_strong, color: _kAccentPurple, size: 20.0),
+            const Icon(
+              Icons.center_focus_strong,
+              color: _kAccentPurple,
+              size: 20.0,
+            ),
             const SizedBox(width: 6.0),
             _cardTitle(
               'Alignment pivots',
-              subtitle: '1/8 turn (45 degrees) around five different anchor '
+              subtitle:
+                  '1/8 turn (45 degrees) around five different anchor '
                   'points. Red dot = pivot.',
             ),
           ],
@@ -1325,9 +1348,10 @@ dynamic build(BuildContext context) {
               width: 72.0,
               height: 72.0,
               child: RotationTransition(
-                turns: Tween<double>(begin: 0.0, end: 1.0).animate(
-                  AlwaysStoppedAnimation<double>(t),
-                ),
+                turns: Tween<double>(
+                  begin: 0.0,
+                  end: 1.0,
+                ).animate(AlwaysStoppedAnimation<double>(t)),
                 child: _arrow(_kAccent, size: 56.0),
               ),
             ),
@@ -1372,7 +1396,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Tween<double> snapshots',
-              subtitle: 'Tween<double>(begin: 0, end: 1).animate(AlwaysStoppedAnimation(t))',
+              subtitle:
+                  'Tween<double>(begin: 0, end: 1).animate(AlwaysStoppedAnimation(t))',
             ),
           ],
         ),
@@ -1392,7 +1417,8 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   _cardTitle(
                     'CurvedAnimation at t=0.5',
-                    subtitle: 'CurvedAnimation(parent: AlwaysStoppedAnimation(0.5), curve: Curves.easeInOut)',
+                    subtitle:
+                        'CurvedAnimation(parent: AlwaysStoppedAnimation(0.5), curve: Curves.easeInOut)',
                   ),
                   const SizedBox(height: 6.0),
                   Text(
@@ -1469,10 +1495,7 @@ dynamic build(BuildContext context) {
             ),
             Text(
               '${_turnsToDegrees(_radiansToTurns(diagramAngles[i])).toStringAsFixed(0)}°',
-              style: const TextStyle(
-                fontSize: 11.0,
-                color: _kInkTertiary,
-              ),
+              style: const TextStyle(fontSize: 11.0, color: _kInkTertiary),
             ),
           ],
         ),
@@ -1651,13 +1674,19 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Pick the right tool',
-              subtitle: 'RotationTransition vs Transform.rotate vs '
+              subtitle:
+                  'RotationTransition vs Transform.rotate vs '
                   'AnimatedRotation vs RotatedBox',
             ),
           ],
         ),
         const SizedBox(height: 14.0),
-        _tableHeader(const <String>['Widget', 'Unit', 'Animated?', 'When to use']),
+        _tableHeader(const <String>[
+          'Widget',
+          'Unit',
+          'Animated?',
+          'When to use',
+        ]),
         const SizedBox(height: 4.0),
         _tableRow(const <String>[
           'RotationTransition',
@@ -1742,7 +1771,8 @@ dynamic build(BuildContext context) {
           icon: Icons.swap_horiz,
           iconColour: _kAccentRed,
           title: 'Turns vs radians confusion',
-          body: 'RotationTransition / AnimatedRotation take TURNS (1.0 = '
+          body:
+              'RotationTransition / AnimatedRotation take TURNS (1.0 = '
               'full revolution). Transform.rotate takes RADIANS (2*pi = '
               'full revolution). A common bug is passing math.pi/2 where '
               'turns is expected, which produces ~94 revolutions instead '
@@ -1752,7 +1782,8 @@ dynamic build(BuildContext context) {
           icon: Icons.center_focus_weak,
           iconColour: _kAccentOrange,
           title: 'Alignment is not Transform alignment',
-          body: 'RotationTransition.alignment is in the child\'s local box. '
+          body:
+              'RotationTransition.alignment is in the child\'s local box. '
               'Transform.rotate.alignment is also local, but Transform '
               'defaults to (0, 0) instead of center. Migrating between the '
               'two without setting alignment explicitly produces a pivot '
@@ -1762,7 +1793,8 @@ dynamic build(BuildContext context) {
           icon: Icons.blur_on,
           iconColour: _kAccentAmber,
           title: 'filterQuality drops on Hardware',
-          body: 'Setting filterQuality lets you sample the rotated child '
+          body:
+              'Setting filterQuality lets you sample the rotated child '
               'with bilinear/cubic filtering. The default null means '
               'nearest-neighbour, which is fast but produces visible '
               'aliasing on rotated bitmaps. Always set filterQuality on '
@@ -1772,7 +1804,8 @@ dynamic build(BuildContext context) {
           icon: Icons.broken_image,
           iconColour: _kAccentPurple,
           title: 'Missing RepaintBoundary kills perf',
-          body: 'A spinning RotationTransition repaints every frame. '
+          body:
+              'A spinning RotationTransition repaints every frame. '
               'Without a RepaintBoundary the ancestor layer is invalidated '
               'too, dragging the whole subtree into the rotation\'s frame '
               'budget. Wrap the rotation in a RepaintBoundary for any '
@@ -1782,7 +1815,8 @@ dynamic build(BuildContext context) {
           icon: Icons.crop_square,
           iconColour: _kAccentTeal,
           title: 'RotatedBox only supports quarter turns',
-          body: 'RotatedBox(quarterTurns: int) takes an integer count of '
+          body:
+              'RotatedBox(quarterTurns: int) takes an integer count of '
               '90-degree steps. There is no way to rotate it by 30 degrees '
               '- the layout-box rotation only works for axis-aligned '
               'angles. Use RotationTransition for everything else.',
@@ -1791,7 +1825,8 @@ dynamic build(BuildContext context) {
           icon: Icons.bug_report,
           iconColour: _kAccentRed,
           title: 'Leaked AnimationController',
-          body: 'When pairing RotationTransition with a controller you '
+          body:
+              'When pairing RotationTransition with a controller you '
               'created in initState, call dispose() in dispose(). A leaked '
               'controller keeps the ticker registered with the SchedulerBinding '
               'forever, which on debug builds eventually trips an assertion.',
@@ -1937,12 +1972,27 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _cheatRow('RotationTransition', 'RotationTransition(turns:, alignment:?, filterQuality:?, child:)'),
-              _cheatRow('AnimatedRotation', 'AnimatedRotation(turns:, duration:, curve:?, child:)'),
-              _cheatRow('Transform.rotate', 'Transform.rotate(angle:, alignment:?, child:)'),
+              _cheatRow(
+                'RotationTransition',
+                'RotationTransition(turns:, alignment:?, filterQuality:?, child:)',
+              ),
+              _cheatRow(
+                'AnimatedRotation',
+                'AnimatedRotation(turns:, duration:, curve:?, child:)',
+              ),
+              _cheatRow(
+                'Transform.rotate',
+                'Transform.rotate(angle:, alignment:?, child:)',
+              ),
               _cheatRow('RotatedBox', 'RotatedBox(quarterTurns:, child:)'),
-              _cheatRow('AlwaysStoppedAnimation', 'AlwaysStoppedAnimation<double>(t)'),
-              _cheatRow('Tween<double>', 'Tween<double>(begin:, end:).animate(parent)'),
+              _cheatRow(
+                'AlwaysStoppedAnimation',
+                'AlwaysStoppedAnimation<double>(t)',
+              ),
+              _cheatRow(
+                'Tween<double>',
+                'Tween<double>(begin:, end:).animate(parent)',
+              ),
               _cheatRow('CurvedAnimation', 'CurvedAnimation(parent:, curve:)'),
             ],
           ),
@@ -1988,17 +2038,33 @@ dynamic build(BuildContext context) {
   print('  assembling final widget tree');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'API reference', 'turns / alignment / filterQuality / child'),
+    _sectionHeader(
+      2,
+      'API reference',
+      'turns / alignment / filterQuality / child',
+    ),
     apiTable,
-    _sectionHeader(3, 'Snapshot reel', '12 RotationTransition frames in a 4x3 grid'),
+    _sectionHeader(
+      3,
+      'Snapshot reel',
+      '12 RotationTransition frames in a 4x3 grid',
+    ),
     reelGallery,
     _sectionHeader(4, 'Alignment', 'Five pivots, painter overlay'),
     alignmentGallery,
     _sectionHeader(5, 'Cousins', 'AnimatedRotation vs Transform.rotate'),
     comparePanel,
-    _sectionHeader(6, 'Tween + Curve', 'Plug a Tween into a RotationTransition'),
+    _sectionHeader(
+      6,
+      'Tween + Curve',
+      'Plug a Tween into a RotationTransition',
+    ),
     tweenCard,
-    _sectionHeader(7, 'Matrix diagram', 'How a 2D rotation matrix turns a frame'),
+    _sectionHeader(
+      7,
+      'Matrix diagram',
+      'How a 2D rotation matrix turns a frame',
+    ),
     matrixDiagramCard,
     _sectionDivider(),
     _sectionHeader(8, 'Code', 'Six idiomatic snippets'),

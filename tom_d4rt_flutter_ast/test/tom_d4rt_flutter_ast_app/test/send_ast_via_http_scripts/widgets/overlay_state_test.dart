@@ -92,14 +92,7 @@ class _OverlayStateDemo extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            tabs: _tabs
-                .map(
-                  (t) => Tab(
-                    icon: Icon(t.$1),
-                    text: t.$2,
-                  ),
-                )
-                .toList(),
+            tabs: _tabs.map((t) => Tab(icon: Icon(t.$1), text: t.$2)).toList(),
           ),
         ),
         body: const TabBarView(
@@ -163,7 +156,8 @@ class _HeroBannerTab extends StatelessWidget {
           const _InfoCard(
             icon: Icons.explore,
             title: 'How to access it',
-            body: 'Call Overlay.of(context) anywhere below a MaterialApp or '
+            body:
+                'Call Overlay.of(context) anywhere below a MaterialApp or '
                 'Navigator (both install an Overlay). The returned OverlayState '
                 'is valid until the Overlay is disposed. You can also supply a '
                 'rootOverlay: true flag to skip local Overlays and reach the '
@@ -184,7 +178,8 @@ class _HeroBannerTab extends StatelessWidget {
           const _InfoCard(
             icon: Icons.bolt,
             title: 'Key methods at a glance',
-            body: '• insert(entry)  — add one entry on top\n'
+            body:
+                '• insert(entry)  — add one entry on top\n'
                 '• insertAll(entries)  — add many entries at once\n'
                 '• insertAllBelow(entries, below: anchor)  — insert a batch below an existing entry\n'
                 '• rearrange(entries)  — reorder all entries atomically\n\n'
@@ -237,8 +232,8 @@ class _LiveInsertRemoveTab extends StatelessWidget {
   void _insertEntry(BuildContext context) {
     final overlay = Overlay.of(context);
     final label = 'Entry-${_activeEntryLabels.value.length + 1}';
-    final color = _cardColors[
-        _activeEntryLabels.value.length % _cardColors.length];
+    final color =
+        _cardColors[_activeEntryLabels.value.length % _cardColors.length];
 
     late OverlayEntry entry;
     entry = OverlayEntry(
@@ -566,11 +561,7 @@ class _PropertyDemoRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            SizedBox(
-              width: 100,
-              height: 100,
-              child: stackPreview,
-            ),
+            SizedBox(width: 100, height: 100, child: stackPreview),
           ],
         ),
       ),
@@ -874,10 +865,7 @@ class _ZOrderDiagram extends StatelessWidget {
               ),
               Text(
                 'Z = $z',
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -897,9 +885,7 @@ class _MarkNeedsBuildTab extends StatelessWidget {
   void _createCounterEntry(BuildContext context) {
     _counterEntry?.remove();
     _counterEntry = OverlayEntry(
-      builder: (_) => _CounterOverlayWidget(
-        notifier: _markNeedsBuildCounter,
-      ),
+      builder: (_) => _CounterOverlayWidget(notifier: _markNeedsBuildCounter),
     );
     Overlay.of(context).insert(_counterEntry!);
   }
@@ -1220,7 +1206,11 @@ const List<String> _dropdownItems = [
 class _DropdownSimulationTab extends StatelessWidget {
   const _DropdownSimulationTab();
 
-  void _openDropdown(BuildContext context, Offset buttonGlobal, Size buttonSize) {
+  void _openDropdown(
+    BuildContext context,
+    Offset buttonGlobal,
+    Size buttonSize,
+  ) {
     if (_dropdownVisible.value) return;
     _dropdownVisible.value = true;
 
@@ -1242,8 +1232,9 @@ class _DropdownSimulationTab extends StatelessWidget {
       ),
     );
 
-    Overlay.of(context)
-        .insertAll([_dropdownBarrierEntry!, _dropdownMenuEntry!]);
+    Overlay.of(
+      context,
+    ).insertAll([_dropdownBarrierEntry!, _dropdownMenuEntry!]);
   }
 
   void _closeDropdown() {
@@ -1289,8 +1280,9 @@ class _DropdownSimulationTab extends StatelessWidget {
                         return GestureDetector(
                           key: buttonKey,
                           onTap: () {
-                            final box = buttonKey.currentContext
-                                ?.findRenderObject() as RenderBox?;
+                            final box =
+                                buttonKey.currentContext?.findRenderObject()
+                                    as RenderBox?;
                             if (box == null) return;
                             final pos = box.localToGlobal(Offset.zero);
                             _openDropdown(ctx, pos, box.size);
@@ -1300,8 +1292,7 @@ class _DropdownSimulationTab extends StatelessWidget {
                             height: 48,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color:
-                                    Theme.of(ctx).colorScheme.outlineVariant,
+                                color: Theme.of(ctx).colorScheme.outlineVariant,
                               ),
                               borderRadius: BorderRadius.circular(8),
                               color: Theme.of(ctx).colorScheme.surface,
@@ -1335,7 +1326,8 @@ class _DropdownSimulationTab extends StatelessWidget {
           _SectionHeader(label: 'Pattern code'),
           const SizedBox(height: 12),
           const _CodeSnippetCard(
-            code: '''void _openDropdown(BuildContext ctx, Offset pos, Size size) {
+            code:
+                '''void _openDropdown(BuildContext ctx, Offset pos, Size size) {
   late OverlayEntry barrier, menu;
 
   barrier = OverlayEntry(
@@ -1365,10 +1357,7 @@ class _DropdownSimulationTab extends StatelessWidget {
 }
 
 class _DropdownMenuOverlay extends StatelessWidget {
-  const _DropdownMenuOverlay({
-    required this.position,
-    required this.onSelect,
-  });
+  const _DropdownMenuOverlay({required this.position, required this.onSelect});
 
   final Offset position;
   final ValueChanged<String> onSelect;
@@ -1439,9 +1428,7 @@ class _StackDiagramTab extends StatelessWidget {
           SizedBox(
             height: 480,
             child: CustomPaint(
-              painter: _StackDiagramPainter(
-                theme: Theme.of(context),
-              ),
+              painter: _StackDiagramPainter(theme: Theme.of(context)),
               child: const SizedBox.expand(),
             ),
           ),
@@ -1468,37 +1455,37 @@ class _StackDiagramPainter extends CustomPainter {
         'MaterialApp',
         Color(0xFF6750A4),
         'Root — installs Navigator + Theme',
-        1
+        1,
       ),
       (
         'Navigator',
         Color(0xFF7965AF),
         'Manages route stack; installs Overlay',
-        2
+        2,
       ),
       (
         'Overlay (OverlayState)',
         Color(0xFF03DAC6),
         'Hosts all floating entries',
-        3
+        3,
       ),
       (
         'Route 1 — previous page',
         Color(0xFF388E3C),
         'Beneath current route; may be hidden',
-        4
+        4,
       ),
       (
         'Route 2 — current page',
         Color(0xFF1976D2),
         'Active page; highest route Z',
-        5
+        5,
       ),
       (
         'OverlayEntry (tooltip/menu)',
         Color(0xFFEF6C00),
         'Floats above all routes',
-        6
+        6,
       ),
     ];
 
@@ -1541,10 +1528,7 @@ class _StackDiagramPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      zText.paint(
-        canvas,
-        Offset(rect.right - zText.width - 8, rect.top + 8),
-      );
+      zText.paint(canvas, Offset(rect.right - zText.width - 8, rect.top + 8));
 
       // Layer name.
       final nameText = TextPainter(
@@ -1564,17 +1548,11 @@ class _StackDiagramPainter extends CustomPainter {
       final descText = TextPainter(
         text: TextSpan(
           text: layer.$3,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 10,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 10),
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: rect.width - 60);
-      descText.paint(
-        canvas,
-        Offset(rect.left + 8, rect.top + 28),
-      );
+      descText.paint(canvas, Offset(rect.left + 8, rect.top + 28));
 
       // Arrow down (except last).
       if (i < layers.length - 1) {
@@ -1602,12 +1580,36 @@ class _LayerDescriptionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const items = [
-      (Color(0xFF6750A4), 'MaterialApp', 'Root widget. Installs Navigator, Theme, Directionality and more.'),
-      (Color(0xFF7965AF), 'Navigator', 'Manages the stack of Route objects. Installs its own Overlay to host routes and transitions.'),
-      (Color(0xFF03DAC6), 'Overlay / OverlayState', 'The Z-ordered stack that backs all floating widgets. The OverlayState is reached via Overlay.of(context).'),
-      (Color(0xFF388E3C), 'Route 1 (previous)', 'A route beneath the active one. Hidden by opaque: true routes above it.'),
-      (Color(0xFF1976D2), 'Route 2 (current)', 'The active page shown to the user. Built by the route\'s builder.'),
-      (Color(0xFFEF6C00), 'OverlayEntry', 'A floating layer above all routes. Used for tooltips, menus, banners, and custom HUD elements.'),
+      (
+        Color(0xFF6750A4),
+        'MaterialApp',
+        'Root widget. Installs Navigator, Theme, Directionality and more.',
+      ),
+      (
+        Color(0xFF7965AF),
+        'Navigator',
+        'Manages the stack of Route objects. Installs its own Overlay to host routes and transitions.',
+      ),
+      (
+        Color(0xFF03DAC6),
+        'Overlay / OverlayState',
+        'The Z-ordered stack that backs all floating widgets. The OverlayState is reached via Overlay.of(context).',
+      ),
+      (
+        Color(0xFF388E3C),
+        'Route 1 (previous)',
+        'A route beneath the active one. Hidden by opaque: true routes above it.',
+      ),
+      (
+        Color(0xFF1976D2),
+        'Route 2 (current)',
+        'The active page shown to the user. Built by the route\'s builder.',
+      ),
+      (
+        Color(0xFFEF6C00),
+        'OverlayEntry',
+        'A floating layer above all routes. Used for tooltips, menus, banners, and custom HUD elements.',
+      ),
     ];
 
     return Column(
@@ -1793,10 +1795,9 @@ class _LifecycleStep extends StatelessWidget {
                 children: [
                   Text(
                     state,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(color: color),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleSmall?.copyWith(color: color),
                   ),
                   const SizedBox(height: 4),
                   Container(
@@ -1805,9 +1806,9 @@ class _LifecycleStep extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surfaceContainerHighest,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
@@ -1952,8 +1953,7 @@ class _ComparisonTab extends StatelessWidget {
               'Controller must be managed (StatefulWidget or notifier)',
               'Less flexible than raw OverlayEntry for custom scenarios',
             ],
-            usedFor:
-                'Declarative popups, autocomplete, ComboBox-style widgets',
+            usedFor: 'Declarative popups, autocomplete, ComboBox-style widgets',
           ),
           const SizedBox(height: 32),
         ],
@@ -1990,10 +1990,7 @@ class _ComparisonCard extends StatelessWidget {
               children: [
                 Icon(icon, color: cs.primary),
                 const SizedBox(width: 8),
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
+                Text(name, style: Theme.of(context).textTheme.titleMedium),
               ],
             ),
             const SizedBox(height: 12),
@@ -2094,15 +2091,13 @@ class _ApiCheatSheetTab extends StatelessWidget {
                     'Throws if none found (use rootOverlay: true to reach Navigator\'s root Overlay).',
               ),
               _ApiEntry(
-                signature:
-                    'Overlay.of(context, rootOverlay: true)',
+                signature: 'Overlay.of(context, rootOverlay: true)',
                 returns: 'OverlayState',
                 description:
                     'Skips any local Overlays and returns the root Navigator\'s OverlayState.',
               ),
               _ApiEntry(
-                signature:
-                    'Overlay.maybeOf(BuildContext context)',
+                signature: 'Overlay.maybeOf(BuildContext context)',
                 returns: 'OverlayState?',
                 description:
                     'Like Overlay.of but returns null if no Overlay is found instead of throwing.',
@@ -2114,26 +2109,30 @@ class _ApiCheatSheetTab extends StatelessWidget {
             title: 'OverlayState methods',
             entries: const [
               _ApiEntry(
-                signature: 'insert(OverlayEntry entry, {OverlayEntry? below, OverlayEntry? above})',
+                signature:
+                    'insert(OverlayEntry entry, {OverlayEntry? below, OverlayEntry? above})',
                 returns: 'void',
                 description:
                     'Inserts entry into the overlay. Optionally specify below or above to control Z-order relative to an existing entry.',
               ),
               _ApiEntry(
-                signature: 'insertAll(Iterable<OverlayEntry> entries, {OverlayEntry? below, OverlayEntry? above})',
+                signature:
+                    'insertAll(Iterable<OverlayEntry> entries, {OverlayEntry? below, OverlayEntry? above})',
                 returns: 'void',
                 description:
                     'Inserts multiple entries atomically. Entries are ordered as given (first is bottom-most of the batch).',
               ),
               _ApiEntry(
-                signature: 'insertAllBelow(Iterable<OverlayEntry> entries, {required OverlayEntry below})',
+                signature:
+                    'insertAllBelow(Iterable<OverlayEntry> entries, {required OverlayEntry below})',
                 returns: 'void',
                 description:
                     'Inserts a batch of entries below the specified anchor entry. '
                     'Entries are ordered bottom-to-top as given, all below the anchor.',
               ),
               _ApiEntry(
-                signature: 'rearrange(Iterable<OverlayEntry> newEntries, {OverlayEntry? below, OverlayEntry? above})',
+                signature:
+                    'rearrange(Iterable<OverlayEntry> newEntries, {OverlayEntry? below, OverlayEntry? above})',
                 returns: 'void',
                 description:
                     'Atomically reorders all (or a subset of) entries. Entries not in the iterable remain in their existing positions.',
@@ -2251,10 +2250,7 @@ Overlay.of(context).insert(tip);''',
 }
 
 class _ApiSection extends StatelessWidget {
-  const _ApiSection({
-    required this.title,
-    required this.entries,
-  });
+  const _ApiSection({required this.title, required this.entries});
 
   final String title;
   final List<_ApiEntry> entries;
@@ -2273,15 +2269,17 @@ class _ApiSection extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
           ),
         ),
         const SizedBox(height: 8),
-        ...entries.map((e) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: _ApiEntryCard(entry: e),
-            )),
+        ...entries.map(
+          (e) => Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: _ApiEntryCard(entry: e),
+          ),
+        ),
       ],
     );
   }
@@ -2409,10 +2407,7 @@ class _GradientBanner extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 15,
-            ),
+            style: const TextStyle(color: Colors.white70, fontSize: 15),
           ),
         ],
       ),
@@ -2445,15 +2440,9 @@ class _InfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text(title, style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 6),
-                  Text(
-                    body,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
+                  Text(body, style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
             ),
@@ -2504,10 +2493,7 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      child: Text(label, style: Theme.of(context).textTheme.titleLarge),
     );
   }
 }
@@ -2530,16 +2516,10 @@ class _StatChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '$label: ',
-            style: const TextStyle(fontSize: 13),
-          ),
+          Text('$label: ', style: const TextStyle(fontSize: 13)),
           Text(
             value,
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
           ),
         ],
       ),
@@ -2560,10 +2540,7 @@ class _EmptyStateChip extends StatelessWidget {
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(
-        label,
-        style: Theme.of(context).textTheme.bodySmall,
-      ),
+      child: Text(label, style: Theme.of(context).textTheme.bodySmall),
     );
   }
 }

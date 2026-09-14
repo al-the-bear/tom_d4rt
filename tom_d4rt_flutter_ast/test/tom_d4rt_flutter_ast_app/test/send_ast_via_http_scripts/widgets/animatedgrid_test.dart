@@ -284,7 +284,8 @@ class _ExplanationCard extends StatelessWidget {
                 child: _MiniInfo(
                   icon: Icons.dashboard_customize,
                   label: 'GridView',
-                  description: 'Static or scroll-only grid. No mutation animations.',
+                  description:
+                      'Static or scroll-only grid. No mutation animations.',
                   color: const Color(0xFFB0A8C7),
                 ),
               ),
@@ -367,10 +368,7 @@ class _MiniInfo extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6.0),
-          Text(
-            description,
-            style: TextStyle(fontSize: 11.0, color: color),
-          ),
+          Text(description, style: TextStyle(fontSize: 11.0, color: color)),
         ],
       ),
     );
@@ -390,18 +388,30 @@ class _PhotoData {
 }
 
 const List<_PhotoData> _photoCatalogue = <_PhotoData>[
-  _PhotoData('Sunset Cliff', 'Algarve · 18:42', Icons.wb_twilight,
-      <Color>[Color(0xFFFFB347), Color(0xFFD7263D)]),
-  _PhotoData('Ocean Drift', 'Bali · 06:11', Icons.waves,
-      <Color>[Color(0xFF36D1DC), Color(0xFF1E3A8A)]),
-  _PhotoData('Forest Hush', 'Black Forest · 09:30', Icons.park,
-      <Color>[Color(0xFFA8E063), Color(0xFF1B5E20)]),
-  _PhotoData('Neon Alley', 'Tokyo · 23:05', Icons.nightlife,
-      <Color>[Color(0xFFFF61D8), Color(0xFF4B0082)]),
-  _PhotoData('Desert Glow', 'Mojave · 17:55', Icons.brightness_low,
-      <Color>[Color(0xFFFFE259), Color(0xFFB76E00)]),
-  _PhotoData('Glacier Wind', 'Patagonia · 14:20', Icons.ac_unit,
-      <Color>[Color(0xFFB6FBFF), Color(0xFF1D5DC1)]),
+  _PhotoData('Sunset Cliff', 'Algarve · 18:42', Icons.wb_twilight, <Color>[
+    Color(0xFFFFB347),
+    Color(0xFFD7263D),
+  ]),
+  _PhotoData('Ocean Drift', 'Bali · 06:11', Icons.waves, <Color>[
+    Color(0xFF36D1DC),
+    Color(0xFF1E3A8A),
+  ]),
+  _PhotoData('Forest Hush', 'Black Forest · 09:30', Icons.park, <Color>[
+    Color(0xFFA8E063),
+    Color(0xFF1B5E20),
+  ]),
+  _PhotoData('Neon Alley', 'Tokyo · 23:05', Icons.nightlife, <Color>[
+    Color(0xFFFF61D8),
+    Color(0xFF4B0082),
+  ]),
+  _PhotoData('Desert Glow', 'Mojave · 17:55', Icons.brightness_low, <Color>[
+    Color(0xFFFFE259),
+    Color(0xFFB76E00),
+  ]),
+  _PhotoData('Glacier Wind', 'Patagonia · 14:20', Icons.ac_unit, <Color>[
+    Color(0xFFB6FBFF),
+    Color(0xFF1D5DC1),
+  ]),
 ];
 
 class _PhotoGallerySection extends StatefulWidget {
@@ -450,8 +460,10 @@ class _PhotoGallerySectionState extends State<_PhotoGallerySection> {
     final _PhotoData next = _photoCatalogue[_nextIndex];
     _photos.add(next);
     _nextIndex++;
-    _gridKey.currentState
-        ?.insertItem(_photos.length - 1, duration: const Duration(milliseconds: 500));
+    _gridKey.currentState?.insertItem(
+      _photos.length - 1,
+      duration: const Duration(milliseconds: 500),
+    );
     debugPrint('PhotoGallery inserted ${next.title}, count=${_photos.length}');
   }
 
@@ -502,9 +514,10 @@ class _PhotoGallerySectionState extends State<_PhotoGallerySection> {
                 crossAxisSpacing: 8.0,
                 childAspectRatio: 0.85,
               ),
-              itemBuilder: (BuildContext ctx, int index, Animation<double> animation) {
-                return _tile(index, animation);
-              },
+              itemBuilder:
+                  (BuildContext ctx, int index, Animation<double> animation) {
+                    return _tile(index, animation);
+                  },
             ),
           ),
         ],
@@ -540,7 +553,10 @@ class _PhotoTile extends StatelessWidget {
             children: <Widget>[
               Icon(data.icon, color: Colors.white, size: 22.0),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(6.0),
@@ -627,7 +643,10 @@ class _InventorySectionState extends State<_InventorySection> {
   @override
   void initState() {
     super.initState();
-    _ticker = Timer.periodic(const Duration(milliseconds: 2500), (_) => _cycle());
+    _ticker = Timer.periodic(
+      const Duration(milliseconds: 2500),
+      (_) => _cycle(),
+    );
   }
 
   void _cycle() {
@@ -636,33 +655,36 @@ class _InventorySectionState extends State<_InventorySection> {
     }
     final int removeAt = _rng.nextInt(_items.length);
     final _InventoryItem removed = _items.removeAt(removeAt);
-    _gridKey.currentState?.removeItem(
-      removeAt,
-      (BuildContext ctx, Animation<double> animation) {
-        return FadeTransition(
-          opacity: animation,
-          child: ScaleTransition(
-            scale: CurvedAnimation(parent: animation, curve: Curves.easeInBack),
-            child: _InventoryTile(item: removed, faded: true),
-          ),
-        );
-      },
-      duration: const Duration(milliseconds: 360),
-    );
+    _gridKey.currentState?.removeItem(removeAt, (
+      BuildContext ctx,
+      Animation<double> animation,
+    ) {
+      return FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: CurvedAnimation(parent: animation, curve: Curves.easeInBack),
+          child: _InventoryTile(item: removed, faded: true),
+        ),
+      );
+    }, duration: const Duration(milliseconds: 360));
     debugPrint('Inventory removed ${removed.name} count=${_items.length}');
 
     Future<void>.delayed(const Duration(milliseconds: 700), () {
       if (!mounted) {
         return;
       }
-      final _InventoryItem reAdd = _initialInventory[
-          _replenishIndex % _initialInventory.length];
+      final _InventoryItem reAdd =
+          _initialInventory[_replenishIndex % _initialInventory.length];
       _replenishIndex++;
       final int insertAt = _items.isEmpty ? 0 : _rng.nextInt(_items.length + 1);
       _items.insert(insertAt, reAdd);
-      _gridKey.currentState
-          ?.insertItem(insertAt, duration: const Duration(milliseconds: 420));
-      debugPrint('Inventory inserted ${reAdd.name} at $insertAt count=${_items.length}');
+      _gridKey.currentState?.insertItem(
+        insertAt,
+        duration: const Duration(milliseconds: 420),
+      );
+      debugPrint(
+        'Inventory inserted ${reAdd.name} at $insertAt count=${_items.length}',
+      );
     });
   }
 
@@ -701,19 +723,20 @@ class _InventorySectionState extends State<_InventorySection> {
                 crossAxisSpacing: 8.0,
                 childAspectRatio: 0.95,
               ),
-              itemBuilder: (BuildContext ctx, int index, Animation<double> animation) {
-                final _InventoryItem item = _items[index];
-                return FadeTransition(
-                  opacity: animation,
-                  child: ScaleTransition(
-                    scale: CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeOutBack,
-                    ),
-                    child: _InventoryTile(item: item),
-                  ),
-                );
-              },
+              itemBuilder:
+                  (BuildContext ctx, int index, Animation<double> animation) {
+                    final _InventoryItem item = _items[index];
+                    return FadeTransition(
+                      opacity: animation,
+                      child: ScaleTransition(
+                        scale: CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOutBack,
+                        ),
+                        child: _InventoryTile(item: item),
+                      ),
+                    );
+                  },
             ),
           ),
         ],
@@ -775,7 +798,10 @@ class _InventoryTile extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
@@ -847,7 +873,9 @@ class _CardFlipSectionState extends State<_CardFlipSection> {
           _cards.length - 1,
           duration: const Duration(milliseconds: 600),
         );
-        debugPrint('Flip inserted ${_flipDeck[i].label} count=${_cards.length}');
+        debugPrint(
+          'Flip inserted ${_flipDeck[i].label} count=${_cards.length}',
+        );
       });
       _pendingTimers.add(t);
     }
@@ -862,15 +890,9 @@ class _CardFlipSectionState extends State<_CardFlipSection> {
       return;
     }
     final AnimatedGridState? state = _gridKey.currentState;
-    state?.removeAllItems(
-      (BuildContext c, Animation<double> animation) {
-        return FadeTransition(
-          opacity: animation,
-          child: const SizedBox.shrink(),
-        );
-      },
-      duration: const Duration(milliseconds: 250),
-    );
+    state?.removeAllItems((BuildContext c, Animation<double> animation) {
+      return FadeTransition(opacity: animation, child: const SizedBox.shrink());
+    }, duration: const Duration(milliseconds: 250));
     _cards.clear();
     debugPrint('Flip restart, count=${_cards.length}');
     _scheduleStagger();
@@ -916,13 +938,14 @@ class _CardFlipSectionState extends State<_CardFlipSection> {
                 crossAxisSpacing: 10.0,
                 childAspectRatio: 0.8,
               ),
-              itemBuilder: (BuildContext ctx, int index, Animation<double> animation) {
-                if (index >= _cards.length) {
-                  return const SizedBox.shrink();
-                }
-                final _FlipCard card = _cards[index];
-                return _FlipTile(card: card, animation: animation);
-              },
+              itemBuilder:
+                  (BuildContext ctx, int index, Animation<double> animation) {
+                    if (index >= _cards.length) {
+                      return const SizedBox.shrink();
+                    }
+                    final _FlipCard card = _cards[index];
+                    return _FlipTile(card: card, animation: animation);
+                  },
             ),
           ),
         ],
@@ -1055,15 +1078,9 @@ class _CarouselSectionState extends State<_CarouselSection> {
     if (state == null) {
       return;
     }
-    state.removeAllItems(
-      (BuildContext c, Animation<double> animation) {
-        return FadeTransition(
-          opacity: animation,
-          child: const SizedBox.shrink(),
-        );
-      },
-      duration: const Duration(milliseconds: 250),
-    );
+    state.removeAllItems((BuildContext c, Animation<double> animation) {
+      return FadeTransition(opacity: animation, child: const SizedBox.shrink());
+    }, duration: const Duration(milliseconds: 250));
     _chips.clear();
     debugPrint('Carousel removeAllItems, count=${_chips.length}');
     Future<void>.delayed(const Duration(milliseconds: 400), () {
@@ -1116,25 +1133,30 @@ class _CarouselSectionState extends State<_CarouselSection> {
                 mainAxisSpacing: 10.0,
                 childAspectRatio: 0.9,
               ),
-              itemBuilder: (BuildContext ctx, int index, Animation<double> animation) {
-                if (index >= _chips.length) {
-                  return const SizedBox.shrink();
-                }
-                final _Chip chip = _chips[index];
-                final Animation<Offset> slide = Tween<Offset>(
-                  begin: const Offset(1.2, 0.0),
-                  end: Offset.zero,
-                ).animate(
-                  CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
-                );
-                return SlideTransition(
-                  position: slide,
-                  child: FadeTransition(
-                    opacity: animation,
-                    child: _ChipTile(chip: chip),
-                  ),
-                );
-              },
+              itemBuilder:
+                  (BuildContext ctx, int index, Animation<double> animation) {
+                    if (index >= _chips.length) {
+                      return const SizedBox.shrink();
+                    }
+                    final _Chip chip = _chips[index];
+                    final Animation<Offset> slide =
+                        Tween<Offset>(
+                          begin: const Offset(1.2, 0.0),
+                          end: Offset.zero,
+                        ).animate(
+                          CurvedAnimation(
+                            parent: animation,
+                            curve: Curves.easeOutCubic,
+                          ),
+                        );
+                    return SlideTransition(
+                      position: slide,
+                      child: FadeTransition(
+                        opacity: animation,
+                        child: _ChipTile(chip: chip),
+                      ),
+                    );
+                  },
             ),
           ),
         ],
@@ -1242,7 +1264,8 @@ class _DelegateComparisonSectionState
                   children: <Widget>[
                     _DelegateCaption(
                       title: 'FixedCrossAxisCount(4)',
-                      detail: 'crossAxisCount fixed; tile width = (w - gaps) / 4',
+                      detail:
+                          'crossAxisCount fixed; tile width = (w - gaps) / 4',
                       color: const Color(0xFF3A6EA5),
                     ),
                     const SizedBox(height: 8.0),
@@ -1253,10 +1276,10 @@ class _DelegateComparisonSectionState
                         initialItemCount: _swatches.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          mainAxisSpacing: 6.0,
-                          crossAxisSpacing: 6.0,
-                        ),
+                              crossAxisCount: 4,
+                              mainAxisSpacing: 6.0,
+                              crossAxisSpacing: 6.0,
+                            ),
                         itemBuilder: _buildSwatch,
                       ),
                     ),
@@ -1281,10 +1304,10 @@ class _DelegateComparisonSectionState
                         initialItemCount: _swatches.length,
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 120.0,
-                          mainAxisSpacing: 6.0,
-                          crossAxisSpacing: 6.0,
-                        ),
+                              maxCrossAxisExtent: 120.0,
+                              mainAxisSpacing: 6.0,
+                              crossAxisSpacing: 6.0,
+                            ),
                         itemBuilder: _buildSwatch,
                       ),
                     ),
@@ -1298,7 +1321,11 @@ class _DelegateComparisonSectionState
     );
   }
 
-  Widget _buildSwatch(BuildContext ctx, int index, Animation<double> animation) {
+  Widget _buildSwatch(
+    BuildContext ctx,
+    int index,
+    Animation<double> animation,
+  ) {
     final _DelegateSwatch s = _swatches[index];
     return FadeTransition(
       opacity: animation,
@@ -1353,10 +1380,7 @@ class _DelegateCaption extends StatelessWidget {
               fontSize: 12.0,
             ),
           ),
-          Text(
-            detail,
-            style: TextStyle(color: color, fontSize: 10.0),
-          ),
+          Text(detail, style: TextStyle(color: color, fontSize: 10.0)),
         ],
       ),
     );
@@ -1407,27 +1431,25 @@ class _RemovedItemBuilderSectionState
       // removedItemBuilder must not depend on _colors at animation time.
       final Color captured = _colors[idx];
       _colors.removeAt(idx);
-      _gridKey.currentState?.removeItem(
-        idx,
-        (BuildContext ctx, Animation<double> animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: ScaleTransition(
-              scale: animation,
-              child: _AnnotatedSwatch(color: captured, removed: true),
-            ),
-          );
-        },
-        duration: const Duration(milliseconds: 350),
-      );
+      _gridKey.currentState?.removeItem(idx, (
+        BuildContext ctx,
+        Animation<double> animation,
+      ) {
+        return FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: animation,
+            child: _AnnotatedSwatch(color: captured, removed: true),
+          ),
+        );
+      }, duration: const Duration(milliseconds: 350));
       setState(() {
-        _lastEvent = 'Removed swatch (captured color #${captured.toARGB32().toRadixString(16)})';
+        _lastEvent =
+            'Removed swatch (captured color #${captured.toARGB32().toRadixString(16)})';
       });
       debugPrint('RemovedBuilder removed at $idx, captured=$captured');
     } else {
-      final Color toAdd = Color(
-        0xFF000000 | (math.Random().nextInt(0xFFFFFF)),
-      );
+      final Color toAdd = Color(0xFF000000 | (math.Random().nextInt(0xFFFFFF)));
       _colors.add(toAdd);
       _gridKey.currentState?.insertItem(
         _colors.length - 1,
@@ -1495,12 +1517,17 @@ class _RemovedItemBuilderSectionState
                         'animation and must therefore CAPTURE whatever it needs from '
                         'the data BEFORE the removal — typically inside the same '
                         'function that calls removeItem.',
-                        style: TextStyle(fontSize: 12.0, color: Color(0xFF5A3522)),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Color(0xFF5A3522),
+                        ),
                       ),
                       const SizedBox(height: 10.0),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 6.0),
+                          horizontal: 10.0,
+                          vertical: 6.0,
+                        ),
                         decoration: BoxDecoration(
                           color: const Color(0xFF2C2046),
                           borderRadius: BorderRadius.circular(8.0),
@@ -1528,20 +1555,24 @@ class _RemovedItemBuilderSectionState
                     initialItemCount: _colors.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 6.0,
-                      crossAxisSpacing: 6.0,
-                    ),
-                    itemBuilder:
-                        (BuildContext ctx, int index, Animation<double> animation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: ScaleTransition(
-                          scale: animation,
-                          child: _AnnotatedSwatch(color: _colors[index]),
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 6.0,
+                          crossAxisSpacing: 6.0,
                         ),
-                      );
-                    },
+                    itemBuilder:
+                        (
+                          BuildContext ctx,
+                          int index,
+                          Animation<double> animation,
+                        ) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: ScaleTransition(
+                              scale: animation,
+                              child: _AnnotatedSwatch(color: _colors[index]),
+                            ),
+                          );
+                        },
                   ),
                 ),
               ),
@@ -1634,61 +1665,89 @@ class _CheatSheetCard extends StatelessWidget {
               ),
             ),
             children: const <TableRow>[
-              TableRow(children: <Widget>[
-                _ChHead('Member'),
-                _ChHead('Effect'),
-                _ChHead('Notes'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('initialItemCount', mono: true),
-                _ChCell('Sets the count at first build.'),
-                _ChCell('Must equal your backing list length on first build.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('itemBuilder', mono: true),
-                _ChCell('Builds visible items.'),
-                _ChCell('Receives index and Animation<double> for inserts.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('GlobalKey<AnimatedGridState>', mono: true),
-                _ChCell('Imperative handle.'),
-                _ChCell('Required to call insertItem / removeItem from outside.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('insertItem(index)', mono: true),
-                _ChCell('Animates one item in.'),
-                _ChCell('Update your backing list FIRST, then call this.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('insertAllItems(start, count)', mono: true),
-                _ChCell('Batches inserts.'),
-                _ChCell('Backing list must already contain count entries.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('removeItem(index, builder)', mono: true),
-                _ChCell('Animates one item out.'),
-                _ChCell('Remove from list FIRST; builder must capture data.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('removeAllItems(builder)', mono: true),
-                _ChCell('Animates the entire grid out.'),
-                _ChCell('Useful when resetting between cycles.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('gridDelegate', mono: true),
-                _ChCell('Controls layout.'),
-                _ChCell('FixedCrossAxisCount or MaxCrossAxisExtent.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('scrollDirection', mono: true),
-                _ChCell('Vertical or horizontal.'),
-                _ChCell('Combine with crossAxisCount: 1 for a single-row carousel.'),
-              ]),
-              TableRow(children: <Widget>[
-                _ChCell('SliverAnimatedGrid', mono: true),
-                _ChCell('Sliver variant.'),
-                _ChCell('Embed inside CustomScrollView with other slivers.'),
-              ]),
+              TableRow(
+                children: <Widget>[
+                  _ChHead('Member'),
+                  _ChHead('Effect'),
+                  _ChHead('Notes'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('initialItemCount', mono: true),
+                  _ChCell('Sets the count at first build.'),
+                  _ChCell(
+                    'Must equal your backing list length on first build.',
+                  ),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('itemBuilder', mono: true),
+                  _ChCell('Builds visible items.'),
+                  _ChCell('Receives index and Animation<double> for inserts.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('GlobalKey<AnimatedGridState>', mono: true),
+                  _ChCell('Imperative handle.'),
+                  _ChCell(
+                    'Required to call insertItem / removeItem from outside.',
+                  ),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('insertItem(index)', mono: true),
+                  _ChCell('Animates one item in.'),
+                  _ChCell('Update your backing list FIRST, then call this.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('insertAllItems(start, count)', mono: true),
+                  _ChCell('Batches inserts.'),
+                  _ChCell('Backing list must already contain count entries.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('removeItem(index, builder)', mono: true),
+                  _ChCell('Animates one item out.'),
+                  _ChCell('Remove from list FIRST; builder must capture data.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('removeAllItems(builder)', mono: true),
+                  _ChCell('Animates the entire grid out.'),
+                  _ChCell('Useful when resetting between cycles.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('gridDelegate', mono: true),
+                  _ChCell('Controls layout.'),
+                  _ChCell('FixedCrossAxisCount or MaxCrossAxisExtent.'),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('scrollDirection', mono: true),
+                  _ChCell('Vertical or horizontal.'),
+                  _ChCell(
+                    'Combine with crossAxisCount: 1 for a single-row carousel.',
+                  ),
+                ],
+              ),
+              TableRow(
+                children: <Widget>[
+                  _ChCell('SliverAnimatedGrid', mono: true),
+                  _ChCell('Sliver variant.'),
+                  _ChCell('Embed inside CustomScrollView with other slivers.'),
+                ],
+              ),
             ],
           ),
         ],

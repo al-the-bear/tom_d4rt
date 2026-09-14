@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.padding,
       'title': 'Animating Whitespace',
-      'body': 'EdgeInsetsTween smoothly interpolates between two '
+      'body':
+          'EdgeInsetsTween smoothly interpolates between two '
           'EdgeInsets values. Just as ColorTween blends between '
           'colors, EdgeInsetsTween blends padding/margin values '
           'so content can expand, contract, or shift smoothly.',
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Subclass of Tween<EdgeInsets?>',
-      'body': 'EdgeInsetsTween extends Tween<EdgeInsets?> and '
+      'body':
+          'EdgeInsetsTween extends Tween<EdgeInsets?> and '
           'overrides the lerp method to use EdgeInsets.lerp(). '
           'At t=0.0 it returns begin, at t=1.0 it returns end, '
           'and in between it linearly interpolates each of the '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.border_all,
       'title': 'Four Independent Sides',
-      'body': 'EdgeInsets has left, top, right, bottom. The tween '
+      'body':
+          'EdgeInsets has left, top, right, bottom. The tween '
           'interpolates each independently: if begin has 8px left '
           'and end has 32px left, at t=0.5 it is 20px left. Each '
           'side can go in different directions simultaneously.',
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build,
       'title': 'How to Use It',
-      'body': 'Create the tween with begin and end EdgeInsets '
+      'body':
+          'Create the tween with begin and end EdgeInsets '
           'values, then use it with an AnimationController: '
           'tween.animate(controller) gives an Animation<EdgeInsets?> '
           'that you can apply to Padding, Container.margin, or '
@@ -132,7 +136,8 @@ dynamic build(BuildContext context) {
       'begin': 8.0,
       'end': 32.0,
       'color': Colors.teal[500]!,
-      'description': 'Space from left edge of parent to content. '
+      'description':
+          'Space from left edge of parent to content. '
           'Increases from 8px to 32px, pushing content rightward.',
     },
     {
@@ -141,7 +146,8 @@ dynamic build(BuildContext context) {
       'begin': 8.0,
       'end': 48.0,
       'color': Colors.cyan[500]!,
-      'description': 'Space from top of parent to content. Grows '
+      'description':
+          'Space from top of parent to content. Grows '
           'from 8px to 48px — the largest change in this example. '
           'Pushes content downward.',
     },
@@ -151,7 +157,8 @@ dynamic build(BuildContext context) {
       'begin': 8.0,
       'end': 32.0,
       'color': Colors.teal[600]!,
-      'description': 'Space from content to right edge of parent. '
+      'description':
+          'Space from content to right edge of parent. '
           'Same change as left (8→32), keeping content centered '
           'horizontally as both sides grow equally.',
     },
@@ -161,7 +168,8 @@ dynamic build(BuildContext context) {
       'begin': 8.0,
       'end': 68.0,
       'color': Colors.cyan[700]!,
-      'description': 'Space from content to bottom of parent. '
+      'description':
+          'Space from content to bottom of parent. '
           'Grows dramatically from 8px to 68px. Asymmetric growth '
           'with top (48px end) means content shifts upward overall.',
     },
@@ -181,7 +189,8 @@ dynamic build(BuildContext context) {
       'color': Colors.teal[500]!,
       'begin': 'EdgeInsets.all(4)',
       'end': 'EdgeInsets.all(24)',
-      'usage': 'Expand padding equally on all sides. Good for '
+      'usage':
+          'Expand padding equally on all sides. Good for '
           'highlight animations, focus indicators, or breathing '
           'effects on cards.',
     },
@@ -191,7 +200,8 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan[500]!,
       'begin': 'EdgeInsets.only(top: 0)',
       'end': 'EdgeInsets.only(top: 64)',
-      'usage': 'Push content down to reveal a toolbar, banner, '
+      'usage':
+          'Push content down to reveal a toolbar, banner, '
           'or notification area. Only the top value changes.',
     },
     {
@@ -200,7 +210,8 @@ dynamic build(BuildContext context) {
       'color': Colors.teal[600]!,
       'begin': 'EdgeInsets.symmetric(horizontal: 40)',
       'end': 'EdgeInsets.symmetric(horizontal: 8)',
-      'usage': 'Reduce horizontal padding so content becomes '
+      'usage':
+          'Reduce horizontal padding so content becomes '
           'wider. Useful for full-width mode toggles or '
           'responsive layout transitions.',
     },
@@ -210,7 +221,8 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan[600]!,
       'begin': 'EdgeInsets.only(bottom: 300)',
       'end': 'EdgeInsets.only(bottom: 16)',
-      'usage': 'Animate a bottom sheet into view by reducing the '
+      'usage':
+          'Animate a bottom sheet into view by reducing the '
           'bottom padding from offscreen to visible. Content '
           'slides up smoothly.',
     },
@@ -220,7 +232,8 @@ dynamic build(BuildContext context) {
       'color': Colors.teal[700]!,
       'begin': 'EdgeInsets.only(left: 8)',
       'end': 'EdgeInsets.only(left: 48, right: 8)',
-      'usage': 'Content slides left-to-right as left padding '
+      'usage':
+          'Content slides left-to-right as left padding '
           'increases. Classic navigation drawer push animation.',
     },
     {
@@ -229,7 +242,8 @@ dynamic build(BuildContext context) {
       'color': Colors.cyan[700]!,
       'begin': 'EdgeInsets.all(32)',
       'end': 'EdgeInsets.zero',
-      'usage': 'Remove all padding, useful for transitioning '
+      'usage':
+          'Remove all padding, useful for transitioning '
           'from card layout to full-bleed layout.',
     },
   ];
@@ -247,7 +261,8 @@ dynamic build(BuildContext context) {
       'target': 'EdgeInsets?',
       'icon': Icons.padding,
       'color': Colors.teal[600]!,
-      'description': 'Animate padding and margins. The subject '
+      'description':
+          'Animate padding and margins. The subject '
           'of this demo. Lerps each side independently.',
       'highlight': true,
     },
@@ -256,7 +271,8 @@ dynamic build(BuildContext context) {
       'target': 'EdgeInsetsGeometry?',
       'icon': Icons.format_indent_increase,
       'color': Colors.teal[500]!,
-      'description': 'Parent class that also handles '
+      'description':
+          'Parent class that also handles '
           'EdgeInsetsDirectional (start/end instead of left/right). '
           'Use this when you need RTL-aware animated padding.',
       'highlight': false,
@@ -266,7 +282,8 @@ dynamic build(BuildContext context) {
       'target': 'Alignment?',
       'icon': Icons.align_horizontal_center,
       'color': Colors.cyan[500]!,
-      'description': 'Animate alignment positions (x, y from -1 to 1). '
+      'description':
+          'Animate alignment positions (x, y from -1 to 1). '
           'Used with AnimatedAlign or AnimatedContainer.',
       'highlight': false,
     },
@@ -275,7 +292,8 @@ dynamic build(BuildContext context) {
       'target': 'BorderRadius?',
       'icon': Icons.rounded_corner,
       'color': Colors.cyan[600]!,
-      'description': 'Animate corner radii. Lerps each corner\'s '
+      'description':
+          'Animate corner radii. Lerps each corner\'s '
           'x and y radii independently.',
       'highlight': false,
     },
@@ -284,7 +302,8 @@ dynamic build(BuildContext context) {
       'target': 'Rect?',
       'icon': Icons.crop,
       'color': Colors.teal[700]!,
-      'description': 'Animate rectangular regions. Used in Hero '
+      'description':
+          'Animate rectangular regions. Used in Hero '
           'transitions and custom clipper animations.',
       'highlight': false,
     },
@@ -293,7 +312,8 @@ dynamic build(BuildContext context) {
       'target': 'Size?',
       'icon': Icons.width_full,
       'color': Colors.cyan[700]!,
-      'description': 'Animate width and height. Each dimension '
+      'description':
+          'Animate width and height. Each dimension '
           'interpolates independently.',
       'highlight': false,
     },
@@ -311,35 +331,40 @@ dynamic build(BuildContext context) {
       'name': 'linear',
       'icon': Icons.trending_flat,
       'color': Colors.grey[600]!,
-      'description': 'Constant speed. Each side changes at the '
+      'description':
+          'Constant speed. Each side changes at the '
           'same rate throughout.',
     },
     {
       'name': 'easeInOut',
       'icon': Icons.auto_graph,
       'color': Colors.teal[500]!,
-      'description': 'Slow start, fast middle, slow end. The '
+      'description':
+          'Slow start, fast middle, slow end. The '
           'most natural-feeling curve for padding changes.',
     },
     {
       'name': 'easeOut',
       'icon': Icons.trending_down,
       'color': Colors.cyan[600]!,
-      'description': 'Fast start, slow end. Content jumps quickly '
+      'description':
+          'Fast start, slow end. Content jumps quickly '
           'then settles. Good for reveal animations.',
     },
     {
       'name': 'bounceOut',
       'icon': Icons.sports_basketball,
       'color': Colors.teal[600]!,
-      'description': 'Overshoots and bounces. Playful effect — '
+      'description':
+          'Overshoots and bounces. Playful effect — '
           'content expands past target then settles back.',
     },
     {
       'name': 'elasticOut',
       'icon': Icons.waves,
       'color': Colors.cyan[700]!,
-      'description': 'Spring-like oscillation. Content wiggles '
+      'description':
+          'Spring-like oscillation. Content wiggles '
           'around its target before settling. Very expressive.',
     },
   ];
@@ -358,7 +383,8 @@ dynamic build(BuildContext context) {
       'sides': 'left, top, right, bottom',
       'icon': Icons.format_textdirection_l_to_r,
       'color': Colors.teal[600]!,
-      'description': 'Physical/absolute sides. Left always means '
+      'description':
+          'Physical/absolute sides. Left always means '
           'left, regardless of text direction. Use for layout '
           'that should not flip in RTL locales.',
     },
@@ -368,7 +394,8 @@ dynamic build(BuildContext context) {
       'sides': 'start, top, end, bottom',
       'icon': Icons.swap_horiz,
       'color': Colors.cyan[600]!,
-      'description': 'Logical sides. "start" is left in LTR, right '
+      'description':
+          'Logical sides. "start" is left in LTR, right '
           'in RTL. Use for text-related padding or any layout '
           'that should mirror in RTL locales.',
     },
@@ -386,23 +413,27 @@ dynamic build(BuildContext context) {
       'method': 'AnimatedPadding (Implicit)',
       'icon': Icons.auto_awesome,
       'color': Colors.teal[500]!,
-      'code': 'AnimatedPadding(\n'
+      'code':
+          'AnimatedPadding(\n'
           '  padding: _expanded\n'
           '    ? EdgeInsets.all(32)\n'
           '    : EdgeInsets.all(8),\n'
           '  duration: Duration(ms: 300),\n'
           '  child: content,\n'
           ')',
-      'pros': 'Simple — just change the padding value and the '
+      'pros':
+          'Simple — just change the padding value and the '
           'widget handles the animation. No controller needed.',
-      'cons': 'Less control — can\'t pause, reverse mid-animation, '
+      'cons':
+          'Less control — can\'t pause, reverse mid-animation, '
           'or combine with other animations in a stagger.',
     },
     {
       'method': 'EdgeInsetsTween + Controller (Explicit)',
       'icon': Icons.tune,
       'color': Colors.cyan[600]!,
-      'code': 'final tween = EdgeInsetsTween(\n'
+      'code':
+          'final tween = EdgeInsetsTween(\n'
           '  begin: EdgeInsets.all(8),\n'
           '  end: EdgeInsets.all(32),\n'
           ');\n'
@@ -412,16 +443,19 @@ dynamic build(BuildContext context) {
           '    curve: Curves.easeInOut,\n'
           '  ),\n'
           ');',
-      'pros': 'Full control — pause, reverse, repeat, stagger '
+      'pros':
+          'Full control — pause, reverse, repeat, stagger '
           'with other tweens on the same controller.',
-      'cons': 'More boilerplate — need AnimationController, '
+      'cons':
+          'More boilerplate — need AnimationController, '
           'TickerProvider, dispose, AnimatedBuilder.',
     },
     {
       'method': 'AnimatedContainer (Implicit)',
       'icon': Icons.view_in_ar,
       'color': Colors.teal[600]!,
-      'code': 'AnimatedContainer(\n'
+      'code':
+          'AnimatedContainer(\n'
           '  padding: _expanded\n'
           '    ? EdgeInsets.all(32)\n'
           '    : EdgeInsets.all(8),\n'
@@ -431,9 +465,11 @@ dynamic build(BuildContext context) {
           '  duration: Duration(ms: 300),\n'
           '  child: content,\n'
           ')',
-      'pros': 'Animates padding AND margin AND other properties '
+      'pros':
+          'Animates padding AND margin AND other properties '
           'all at once. Very convenient for multi-property changes.',
-      'cons': 'Same limitations as other implicit animations — '
+      'cons':
+          'Same limitations as other implicit animations — '
           'no fine-grained control over the animation.',
     },
   ];
@@ -449,7 +485,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'EdgeInsets.lerp Under the Hood',
-      'body': 'EdgeInsetsTween.lerp() delegates to EdgeInsets.lerp() '
+      'body':
+          'EdgeInsetsTween.lerp() delegates to EdgeInsets.lerp() '
           'which computes: left + (other.left - left) * t for each '
           'side. This is a simple linear interpolation — the tween '
           'itself adds no magic, just a convenient wrapper.',
@@ -458,7 +495,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Prefer AnimatedPadding for Simple Cases',
-      'body': 'If you just want padding to change when state changes '
+      'body':
+          'If you just want padding to change when state changes '
           'and don\'t need pause/reverse/stagger, AnimatedPadding is '
           'the simplest path. It uses EdgeInsetsTween internally.',
       'severity': 'tip',
@@ -466,7 +504,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Nullable Begin and End',
-      'body': 'EdgeInsetsTween extends Tween<EdgeInsets?>, so begin '
+      'body':
+          'EdgeInsetsTween extends Tween<EdgeInsets?>, so begin '
           'and end are nullable. If either is null at lerp time, '
           'EdgeInsets.lerp treats null as EdgeInsets.zero. This '
           'means animating from null fades in from zero padding.',
@@ -475,7 +514,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Large Padding Changes Cause Layout Jumps',
-      'body': 'Animating from EdgeInsets.all(0) to all(100) causes '
+      'body':
+          'Animating from EdgeInsets.all(0) to all(100) causes '
           'huge layout shifts. If the content is in a list, this '
           'forces expensive re-layout on every frame. Consider '
           'using Transform.translate instead for visual-only shifts.',
@@ -484,7 +524,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Combine with Other Tweens',
-      'body': 'Use the same AnimationController for EdgeInsetsTween, '
+      'body':
+          'Use the same AnimationController for EdgeInsetsTween, '
           'ColorTween, double tweens, etc. to create coordinated '
           'animations. The controller drives all of them in sync.',
       'severity': 'tip',
@@ -492,7 +533,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Negative EdgeInsets',
-      'body': 'EdgeInsets can technically hold negative values, and '
+      'body':
+          'EdgeInsets can technically hold negative values, and '
           'lerp will interpolate through them. But negative padding '
           'causes content to overflow its parent. Avoid begin/end '
           'combinations that cross through negative values.',
@@ -564,50 +606,63 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _sectionTitle('1', 'What is EdgeInsetsTween?'),
           SizedBox(height: 12),
-          ...conceptCards.map((card) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: card['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (card) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: card['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(card['icon'] as IconData,
-                            color: card['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          card['icon'] as IconData,
+                          color: card['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(card['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            card['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(card['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      card['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -628,46 +683,56 @@ dynamic build(BuildContext context) {
               '  end: EdgeInsets.fromLTRB(32, 48, 32, 68),\n'
               ')',
               style: TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'monospace',
-                  color: Colors.teal[800],
-                  height: 1.5),
+                fontSize: 12,
+                fontFamily: 'monospace',
+                color: Colors.teal[800],
+                height: 1.5,
+              ),
             ),
           ),
           SizedBox(height: 12),
-          ...lerpSteps.map((step) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: (step['color'] as Color).withOpacity(0.4)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...lerpSteps.map(
+            (step) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: (step['color'] as Color).withOpacity(0.4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: step['color'] as Color,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Text(step['label'] as String,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 11)),
+                          child: Text(
+                            step['label'] as String,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
                         SizedBox(width: 8),
                         Expanded(
@@ -677,292 +742,357 @@ dynamic build(BuildContext context) {
                             'R=${(step['right'] as double).toStringAsFixed(0)}  '
                             'B=${(step['bottom'] as double).toStringAsFixed(0)}',
                             style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[700]),
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[700],
+                            ),
                           ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      // Visual padding representation
-                      Container(
-                        width: double.infinity,
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    // Visual padding representation
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: (step['color'] as Color).withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      padding: EdgeInsets.fromLTRB(
+                        (step['left'] as double) * 0.8,
+                        (step['top'] as double) * 0.3,
+                        (step['right'] as double) * 0.8,
+                        (step['bottom'] as double) * 0.3,
+                      ),
+                      child: Container(
+                        height: 24,
                         decoration: BoxDecoration(
-                          color: (step['color'] as Color).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
+                          color: step['color'] as Color,
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        padding: EdgeInsets.fromLTRB(
-                          (step['left'] as double) * 0.8,
-                          (step['top'] as double) * 0.3,
-                          (step['right'] as double) * 0.8,
-                          (step['bottom'] as double) * 0.3,
-                        ),
-                        child: Container(
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: step['color'] as Color,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                            child: Text('content',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold)),
+                        child: Center(
+                          child: Text(
+                            'content',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 3: Four Sides ──
           _sectionTitle('3', 'The Four Independent Sides'),
           SizedBox(height: 12),
-          ...sides.map((side) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: side['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...sides.map(
+            (side) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: side['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(side['icon'] as IconData,
-                            color: side['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          side['icon'] as IconData,
+                          color: side['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
-                        Text('.${side['name']}',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                color: side['color'] as Color)),
+                        Text(
+                          '.${side['name']}',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            color: side['color'] as Color,
+                          ),
+                        ),
                         Spacer(),
                         Text(
                           '${(side['begin'] as double).toStringAsFixed(0)} → '
                           '${(side['end'] as double).toStringAsFixed(0)} px',
                           style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: Colors.grey[600]),
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            color: Colors.grey[600],
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      // Progress bar showing range
-                      Stack(
-                        children: [
-                          Container(
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    // Progress bar showing range
+                    Stack(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        FractionallySizedBox(
+                          widthFactor: ((side['end'] as double) / 80.0).clamp(
+                            0.0,
+                            1.0,
+                          ),
+                          child: Container(
                             height: 10,
-                            width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              gradient: LinearGradient(
+                                colors: [
+                                  (side['color'] as Color).withOpacity(0.4),
+                                  side['color'] as Color,
+                                ],
+                              ),
                               borderRadius: BorderRadius.circular(5),
                             ),
                           ),
-                          FractionallySizedBox(
-                            widthFactor:
-                                ((side['end'] as double) / 80.0).clamp(0.0, 1.0),
-                            child: Container(
-                              height: 10,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(colors: [
-                                  (side['color'] as Color).withOpacity(0.4),
-                                  side['color'] as Color,
-                                ]),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      side['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
                       ),
-                      SizedBox(height: 8),
-                      Text(side['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 4: Common Patterns ──
           _sectionTitle('4', 'Common EdgeInsetsTween Patterns'),
           SizedBox(height: 12),
-          ...tweenPatterns.map((tp) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: tp['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...tweenPatterns.map(
+            (tp) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: tp['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(tp['icon'] as IconData,
-                            color: tp['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          tp['icon'] as IconData,
+                          color: tp['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(tp['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
+                          child: Text(
+                            tp['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: (tp['color'] as Color).withOpacity(0.06),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('begin: ${tp['begin']}',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    fontFamily: 'monospace',
-                                    color: Colors.grey[600])),
-                            Text('end:   ${tp['end']}',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    fontFamily: 'monospace',
-                                    color: Colors.grey[600])),
-                          ],
-                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: (tp['color'] as Color).withOpacity(0.06),
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      SizedBox(height: 8),
-                      Text(tp['usage'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'begin: ${tp['begin']}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          Text(
+                            'end:   ${tp['end']}',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      tp['usage'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 5: Tween Family ──
           _sectionTitle('5', 'The Geometry Tweens Family'),
           SizedBox(height: 12),
-          ...tweenFamily.map((tf) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
+          ...tweenFamily.map(
+            (tf) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: (tf['highlight'] as bool)
+                      ? (tf['color'] as Color).withOpacity(0.08)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
                     color: (tf['highlight'] as bool)
-                        ? (tf['color'] as Color).withOpacity(0.08)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: (tf['highlight'] as bool)
-                          ? (tf['color'] as Color).withOpacity(0.5)
-                          : Colors.grey[200]!,
-                      width: (tf['highlight'] as bool) ? 2 : 1,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+                        ? (tf['color'] as Color).withOpacity(0.5)
+                        : Colors.grey[200]!,
+                    width: (tf['highlight'] as bool) ? 2 : 1,
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: (tf['color'] as Color).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(tf['icon'] as IconData,
-                            color: tf['color'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: (tf['color'] as Color).withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(children: [
-                              Text(tf['name'] as String,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      fontFamily: 'monospace')),
+                      child: Icon(
+                        tf['icon'] as IconData,
+                        color: tf['color'] as Color,
+                        size: 22,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                tf['name'] as String,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  fontFamily: 'monospace',
+                                ),
+                              ),
                               SizedBox(width: 6),
-                              Text('→ ${tf['target']}',
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.grey[500])),
+                              Text(
+                                '→ ${tf['target']}',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey[500],
+                                ),
+                              ),
                               if (tf['highlight'] as bool) ...[
                                 SizedBox(width: 6),
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 1),
+                                    horizontal: 6,
+                                    vertical: 1,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: tf['color'] as Color,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Text('this demo',
-                                      style: TextStyle(
-                                          fontSize: 8,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
+                                  child: Text(
+                                    'this demo',
+                                    style: TextStyle(
+                                      fontSize: 8,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ],
-                            ]),
-                            SizedBox(height: 4),
-                            Text(tf['description'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[700],
-                                    height: 1.4)),
-                          ],
-                        ),
+                            ],
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            tf['description'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -973,231 +1103,295 @@ dynamic build(BuildContext context) {
             'Wrapping the tween animation with CurvedAnimation '
             'changes the rate of change between begin and end.',
             style: TextStyle(
-                fontSize: 13, color: Colors.grey[600], height: 1.5),
+              fontSize: 13,
+              color: Colors.grey[600],
+              height: 1.5,
+            ),
           ),
           SizedBox(height: 12),
-          ...curves.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                        color: (c['color'] as Color).withOpacity(0.3)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 2,
-                          offset: Offset(0, 1))
-                    ],
+          ...curves.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: (c['color'] as Color).withOpacity(0.3),
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: (c['color'] as Color).withOpacity(0.12),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(c['icon'] as IconData,
-                            color: c['color'] as Color, size: 20),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Curves.${c['name']}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    fontFamily: 'monospace')),
-                            SizedBox(height: 3),
-                            Text(c['description'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[700],
-                                    height: 1.3)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 2,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
                 ),
-              )),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: (c['color'] as Color).withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        c['icon'] as IconData,
+                        color: c['color'] as Color,
+                        size: 20,
+                      ),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Curves.${c['name']}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
+                          SizedBox(height: 3),
+                          Text(
+                            c['description'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Directional Variants ──
           _sectionTitle('7', 'EdgeInsets vs EdgeInsetsDirectional'),
           SizedBox(height: 12),
-          ...directionalItems.map((d) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: (d['color'] as Color).withOpacity(0.06),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                        color: (d['color'] as Color).withOpacity(0.4)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...directionalItems.map(
+            (d) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: (d['color'] as Color).withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: (d['color'] as Color).withOpacity(0.4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(d['icon'] as IconData,
-                            color: d['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          d['icon'] as IconData,
+                          color: d['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(d['variant'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15)),
+                          child: Text(
+                            d['variant'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 6),
-                      Row(children: [
-                        _edgeBadge('Tween', d['tween'] as String,
-                            d['color'] as Color),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Row(
+                      children: [
+                        _edgeBadge(
+                          'Tween',
+                          d['tween'] as String,
+                          d['color'] as Color,
+                        ),
                         SizedBox(width: 8),
                         _edgeBadge(
-                            'Sides', d['sides'] as String, Colors.grey[600]!),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(d['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                          'Sides',
+                          d['sides'] as String,
+                          Colors.grey[600]!,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      d['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Implicit vs Explicit ──
           _sectionTitle('8', 'Implicit vs Explicit Animation'),
           SizedBox(height: 12),
-          ...animMethods.map((am) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: am['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...animMethods.map(
+            (am) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: am['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(am['icon'] as IconData,
-                            color: am['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          am['icon'] as IconData,
+                          color: am['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(am['method'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14)),
-                        ),
-                      ]),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: (am['color'] as Color).withOpacity(0.06),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(am['code'] as String,
+                          child: Text(
+                            am['method'] as String,
                             style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                color: Colors.grey[700],
-                                height: 1.4)),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.green[50],
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Pros',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          color: Colors.green[700])),
-                                  SizedBox(height: 2),
-                                  Text(am['pros'] as String,
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey[700],
-                                          height: 1.3)),
-                                ],
-                              ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
                             ),
                           ),
-                          SizedBox(width: 6),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Colors.orange[50],
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Cons',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                          color: Colors.orange[700])),
-                                  SizedBox(height: 2),
-                                  Text(am['cons'] as String,
-                                      style: TextStyle(
-                                          fontSize: 11,
-                                          color: Colors.grey[700],
-                                          height: 1.3)),
-                                ],
-                              ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: (am['color'] as Color).withOpacity(0.06),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        am['code'] as String,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: Colors.grey[700],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.green[50],
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Pros',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    color: Colors.green[700],
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  am['pros'] as String,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        SizedBox(width: 6),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.orange[50],
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Cons',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10,
+                                    color: Colors.orange[700],
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  am['cons'] as String,
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey[700],
+                                    height: 1.3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1229,29 +1423,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1292,20 +1498,26 @@ Widget _sectionTitle(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );

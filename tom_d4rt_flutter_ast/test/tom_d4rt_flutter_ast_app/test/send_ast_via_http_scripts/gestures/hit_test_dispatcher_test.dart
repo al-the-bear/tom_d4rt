@@ -115,11 +115,7 @@ dynamic build(BuildContext context) {
           child: Text(
             'Abstract interface for objects that can dispatch a PointerEvent\n'
             'down a HitTestResult, walking the captured target path.',
-            style: TextStyle(
-              fontSize: 13.0,
-              color: _emberGlow,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 13.0, color: _emberGlow, height: 1.45),
           ),
         ),
         SizedBox(height: 12.0),
@@ -147,10 +143,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _slateDeep,
-          _slateMid,
-        ],
+        colors: [_slateDeep, _slateMid],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -194,10 +187,7 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: _cyanCore.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(6.0),
@@ -205,11 +195,7 @@ dynamic build(BuildContext context) {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.code,
-                      color: _cyanGlow,
-                      size: 14.0,
-                    ),
+                    Icon(Icons.code, color: _cyanGlow, size: 14.0),
                     SizedBox(width: 6.0),
                     Text(
                       '<<abstract>> HitTestDispatcher',
@@ -224,10 +210,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              Container(
-                height: 1.0,
-                color: _slateLine,
-              ),
+              Container(height: 1.0, color: _slateLine),
               SizedBox(height: 12.0),
               Text(
                 'fields:',
@@ -247,10 +230,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              Container(
-                height: 1.0,
-                color: _slateLine,
-              ),
+              Container(height: 1.0, color: _slateLine),
               SizedBox(height: 12.0),
               Text(
                 'methods:',
@@ -544,10 +524,7 @@ dynamic build(BuildContext context) {
                       padding: EdgeInsets.all(6.0),
                       child: Text(
                         'Scaffold',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: _slateMist,
-                        ),
+                        style: TextStyle(fontSize: 9.0, color: _slateMist),
                       ),
                     ),
                   ),
@@ -570,10 +547,7 @@ dynamic build(BuildContext context) {
                       padding: EdgeInsets.all(4.0),
                       child: Text(
                         'Stack',
-                        style: TextStyle(
-                          fontSize: 9.0,
-                          color: _amberAccent,
-                        ),
+                        style: TextStyle(fontSize: 9.0, color: _amberAccent),
                       ),
                     ),
                   ),
@@ -826,10 +800,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: _slateSoft.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(
-              color: _slateLine,
-              width: 1.0,
-            ),
+            border: Border.all(color: _slateLine, width: 1.0),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -865,9 +836,11 @@ dynamic build(BuildContext context) {
     pointer: 7,
     position: Offset(120.0, 80.0),
   );
-  print('Sample PointerDownEvent: ${samplePointerDown.runtimeType}, '
-      'pointer=${samplePointerDown.pointer}, '
-      'position=${samplePointerDown.position}');
+  print(
+    'Sample PointerDownEvent: ${samplePointerDown.runtimeType}, '
+    'pointer=${samplePointerDown.pointer}, '
+    'position=${samplePointerDown.position}',
+  );
 
   final pointerFamilyCards = <Widget>[];
   final pointerFamilyData = <Map<String, dynamic>>[
@@ -917,10 +890,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _slateMid,
-              _slateSoft.withValues(alpha: 0.85),
-            ],
+            colors: [_slateMid, _slateSoft.withValues(alpha: 0.85)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -942,10 +912,7 @@ dynamic build(BuildContext context) {
                 Icon(data['icon'] as IconData, color: color, size: 22.0),
                 SizedBox(width: 6.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(4.0),
@@ -974,11 +941,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               data['role'] as String,
-              style: TextStyle(
-                fontSize: 10.5,
-                color: _slateMist,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 10.5, color: _slateMist, height: 1.35),
             ),
           ],
         ),
@@ -1029,30 +992,12 @@ dynamic build(BuildContext context) {
           '// 1. Abstract interface (gestures library)',
           _slateMist,
         ),
-        _buildCodeSegment(
-          'abstract class HitTestDispatcher {',
-          _cyanSoft,
-        ),
-        _buildCodeSegment(
-          '  void dispatchEvent(',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '    PointerEvent event,',
-          _emberSoft,
-        ),
-        _buildCodeSegment(
-          '    HitTestResult result,',
-          _emberSoft,
-        ),
-        _buildCodeSegment(
-          '  );',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '}',
-          _cyanSoft,
-        ),
+        _buildCodeSegment('abstract class HitTestDispatcher {', _cyanSoft),
+        _buildCodeSegment('  void dispatchEvent(', Colors.white),
+        _buildCodeSegment('    PointerEvent event,', _emberSoft),
+        _buildCodeSegment('    HitTestResult result,', _emberSoft),
+        _buildCodeSegment('  );', Colors.white),
+        _buildCodeSegment('}', _cyanSoft),
         SizedBox(height: 12.0),
         _buildCodeSegment(
           '// 2. GestureBinding implementation (sketch)',
@@ -1062,10 +1007,7 @@ dynamic build(BuildContext context) {
           'mixin GestureBinding implements HitTestDispatcher {',
           _cyanSoft,
         ),
-        _buildCodeSegment(
-          '  @override',
-          _amberAccent,
-        ),
+        _buildCodeSegment('  @override', _amberAccent),
         _buildCodeSegment(
           '  void dispatchEvent(PointerEvent event, HitTestResult result) {',
           Colors.white,
@@ -1074,10 +1016,7 @@ dynamic build(BuildContext context) {
           '    for (final HitTestEntry entry in result.path) {',
           Colors.white,
         ),
-        _buildCodeSegment(
-          '      try {',
-          Colors.white,
-        ),
+        _buildCodeSegment('      try {', Colors.white),
         _buildCodeSegment(
           '        entry.target.handleEvent(event.transformed(',
           Colors.white,
@@ -1086,47 +1025,23 @@ dynamic build(BuildContext context) {
           '            entry.transform), entry);',
           Colors.white,
         ),
-        _buildCodeSegment(
-          '      } catch (e, s) {',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '        FlutterError.reportError(...);',
-          _slateMist,
-        ),
-        _buildCodeSegment(
-          '      }',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '    }',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '  }',
-          Colors.white,
-        ),
-        _buildCodeSegment(
-          '}',
-          _cyanSoft,
-        ),
+        _buildCodeSegment('      } catch (e, s) {', Colors.white),
+        _buildCodeSegment('        FlutterError.reportError(...);', _slateMist),
+        _buildCodeSegment('      }', Colors.white),
+        _buildCodeSegment('    }', Colors.white),
+        _buildCodeSegment('  }', Colors.white),
+        _buildCodeSegment('}', _cyanSoft),
         SizedBox(height: 12.0),
         _buildCodeSegment(
           '// 3. Helper that builds a HitTestResult',
           _slateMist,
         ),
-        _buildCodeSegment(
-          'HitTestResult buildEmptyResult() {',
-          _cyanSoft,
-        ),
+        _buildCodeSegment('HitTestResult buildEmptyResult() {', _cyanSoft),
         _buildCodeSegment(
           '  return HitTestResult();   // path is empty by default',
           Colors.white,
         ),
-        _buildCodeSegment(
-          '}',
-          _cyanSoft,
-        ),
+        _buildCodeSegment('}', _cyanSoft),
       ],
     ),
   );
@@ -1216,35 +1131,40 @@ dynamic build(BuildContext context) {
   final footgunData = <Map<String, dynamic>>[
     {
       'title': 'Order matters',
-      'note': 'result.path is deepest-first. Skipping that order or '
+      'note':
+          'result.path is deepest-first. Skipping that order or '
           'iterating in reverse breaks bubble semantics.',
       'icon': Icons.format_list_numbered,
       'color': _emberCore,
     },
     {
       'title': 'Propagation is implicit',
-      'note': 'There is no stopPropagation; every entry sees the event '
+      'note':
+          'There is no stopPropagation; every entry sees the event '
           'unless the handler throws or arena cancels.',
       'icon': Icons.arrow_circle_down,
       'color': _emberSoft,
     },
     {
       'title': 'Custom dispatchers are rare',
-      'note': 'Replacing the dispatcher means you also own arena '
+      'note':
+          'Replacing the dispatcher means you also own arena '
           'cleanup and recognizer lifecycle.',
       'icon': Icons.warning_amber,
       'color': _amberAccent,
     },
     {
       'title': 'Empty path is legal',
-      'note': 'A hit-test off-tree returns an empty path. dispatchEvent '
+      'note':
+          'A hit-test off-tree returns an empty path. dispatchEvent '
           'simply does nothing — no error, no fallback.',
       'icon': Icons.do_not_disturb,
       'color': _cyanSoft,
     },
     {
       'title': 'Transforms are local',
-      'note': 'Each entry has its own transform. Caching the event '
+      'note':
+          'Each entry has its own transform. Caching the event '
           'globally and reusing it across entries is wrong.',
       'icon': Icons.transform,
       'color': _cyanCore,
@@ -1261,10 +1181,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              _slateMid,
-              _slateSoft,
-            ],
+            colors: [_slateMid, _slateSoft],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1311,11 +1228,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               data['note'] as String,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: _slateMist,
-                height: 1.4,
-              ),
+              style: TextStyle(fontSize: 11.0, color: _slateMist, height: 1.4),
             ),
           ],
         ),
@@ -1411,11 +1324,7 @@ dynamic build(BuildContext context) {
             'Replacing the dispatcher is unusual — the default '
             'GestureBinding implementation already handles arena, '
             'transforms, and error reporting.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: _cyanGlow,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12.0, color: _cyanGlow, height: 1.45),
           ),
         ),
       ],
@@ -1469,10 +1378,7 @@ dynamic build(BuildContext context) {
           _buildSectionTitle('9. Footguns'),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8.0),
-            child: Wrap(
-              alignment: WrapAlignment.start,
-              children: footgunCards,
-            ),
+            child: Wrap(alignment: WrapAlignment.start, children: footgunCards),
           ),
           SizedBox(height: 16.0),
           _buildSectionTitle('10. Recap'),
@@ -1502,9 +1408,7 @@ Widget _buildSectionTitle(String text) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: _cyanSoft, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: _cyanSoft, width: 4.0)),
     ),
     child: Text(
       text,
@@ -1524,10 +1428,7 @@ Widget _buildPill(String text, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.6),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.6), width: 1.0),
     ),
     child: Text(
       text,
@@ -1541,11 +1442,7 @@ Widget _buildPill(String text, Color color) {
   );
 }
 
-Widget _buildSignatureLine(
-  String prefix,
-  String params,
-  String suffix,
-) {
+Widget _buildSignatureLine(String prefix, String params, String suffix) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
     decoration: BoxDecoration(
@@ -1595,18 +1492,12 @@ Widget _buildPipelineStep(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.04),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.5),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1680,11 +1571,7 @@ Widget _buildPipelineArrow() {
     margin: EdgeInsets.symmetric(vertical: 4.0),
     alignment: Alignment.centerLeft,
     padding: EdgeInsets.only(left: 16.0),
-    child: Icon(
-      Icons.arrow_downward,
-      color: _emberSoft,
-      size: 20.0,
-    ),
+    child: Icon(Icons.arrow_downward, color: _emberSoft, size: 20.0),
   );
 }
 
@@ -1712,9 +1599,7 @@ Widget _buildFamRow(
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: _slateLine, width: 0.5),
-      ),
+      border: Border(bottom: BorderSide(color: _slateLine, width: 0.5)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1735,11 +1620,7 @@ Widget _buildFamRow(
           width: 200.0,
           child: Text(
             role,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: _slateMist,
-              height: 1.35,
-            ),
+            style: TextStyle(fontSize: 11.0, color: _slateMist, height: 1.35),
           ),
         ),
         SizedBox(
@@ -1770,18 +1651,12 @@ Widget _buildHitEntry(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.2),
-          color.withValues(alpha: 0.05),
-        ],
+        colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.05)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.5),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Row(
       children: [
@@ -1834,11 +1709,7 @@ Widget _buildArrowDown() {
     margin: EdgeInsets.symmetric(vertical: 2.0),
     alignment: Alignment.centerLeft,
     padding: EdgeInsets.only(left: 10.0),
-    child: Icon(
-      Icons.south,
-      color: _emberSoft,
-      size: 14.0,
-    ),
+    child: Icon(Icons.south, color: _emberSoft, size: 14.0),
   );
 }
 
@@ -1854,10 +1725,7 @@ Widget _buildImplCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _slateMid,
-          _slateSoft.withValues(alpha: 0.85),
-        ],
+        colors: [_slateMid, _slateSoft.withValues(alpha: 0.85)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1913,19 +1781,13 @@ Widget _buildImplCard(
         SizedBox(height: 10.0),
         Text(
           body,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: _slateMist,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 12.0, color: _slateMist, height: 1.45),
         ),
         SizedBox(height: 10.0),
         Wrap(
           spacing: 6.0,
           runSpacing: 6.0,
-          children: [
-            for (final tag in tags) _buildPill(tag, color),
-          ],
+          children: [for (final tag in tags) _buildPill(tag, color)],
         ),
       ],
     ),
@@ -1947,20 +1809,14 @@ Widget _buildCodeSegment(String text, Color color) {
   );
 }
 
-Widget _buildLifecycleStep(
-  int index,
-  String title,
-  String body,
-) {
+Widget _buildLifecycleStep(int index, String title, String body) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       color: _slateSoft.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: _emberCore, width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: _emberCore, width: 3.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2020,9 +1876,7 @@ Widget _buildRecapLine(String label, String body, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color, width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 3.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -2042,11 +1896,7 @@ Widget _buildRecapLine(String label, String body, Color color) {
         Expanded(
           child: Text(
             body,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: _slateMist,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 11.5, color: _slateMist, height: 1.4),
           ),
         ),
       ],

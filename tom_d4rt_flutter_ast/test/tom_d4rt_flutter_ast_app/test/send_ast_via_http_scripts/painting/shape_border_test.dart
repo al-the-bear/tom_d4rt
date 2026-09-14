@@ -141,13 +141,7 @@ Widget _captionLine(String label, String value) {
           ),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(
-              fontSize: 11,
-              color: kInkBlack,
-            ),
-          ),
+          child: Text(value, style: TextStyle(fontSize: 11, color: kInkBlack)),
         ),
       ],
     ),
@@ -163,11 +157,7 @@ Widget _swatch(String name, ShapeBorder shape, Color fill, double w, double h) {
       shape: shape,
       color: fill,
       shadows: [
-        BoxShadow(
-          color: kFoldShadow,
-          blurRadius: 6,
-          offset: Offset(2, 3),
-        ),
+        BoxShadow(color: kFoldShadow, blurRadius: 6, offset: Offset(2, 3)),
       ],
     ),
     child: Text(
@@ -191,11 +181,7 @@ Widget _gallerySwatch(String name, ShapeBorder shape, Gradient gradient) {
       shape: shape,
       gradient: gradient,
       shadows: [
-        BoxShadow(
-          color: kFoldShadow,
-          blurRadius: 8,
-          offset: Offset(2, 4),
-        ),
+        BoxShadow(color: kFoldShadow, blurRadius: 8, offset: Offset(2, 4)),
       ],
     ),
     child: Padding(
@@ -221,11 +207,7 @@ Widget _paperCard(Widget child) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: kFoldShadow, width: 1),
       boxShadow: [
-        BoxShadow(
-          color: kFoldShadow,
-          blurRadius: 6,
-          offset: Offset(0, 3),
-        ),
+        BoxShadow(color: kFoldShadow, blurRadius: 6, offset: Offset(0, 3)),
       ],
     ),
     child: child,
@@ -248,10 +230,7 @@ Widget _legendDot(Color color, String label) {
           ),
         ),
         _hSpace(6),
-        Text(
-          label,
-          style: TextStyle(fontSize: 11, color: kInkBlack),
-        ),
+        Text(label, style: TextStyle(fontSize: 11, color: kInkBlack)),
       ],
     ),
   );
@@ -280,7 +259,9 @@ dynamic build(BuildContext context) {
   print('anchorRounded.borderRadius        = ${anchorRounded.borderRadius}');
   print('anchorRounded.side                = ${anchorRounded.side}');
   print('anchorRounded.dimensions          = ${anchorRounded.dimensions}');
-  print('anchorRounded.preferPaintInterior = ${anchorRounded.preferPaintInterior}');
+  print(
+    'anchorRounded.preferPaintInterior = ${anchorRounded.preferPaintInterior}',
+  );
 
   final CircleBorder anchorCircle = CircleBorder(
     side: BorderSide(width: 2, color: kEdgeGold),
@@ -288,7 +269,9 @@ dynamic build(BuildContext context) {
   print('anchorCircle.runtimeType          = ${anchorCircle.runtimeType}');
   print('anchorCircle.side                 = ${anchorCircle.side}');
   print('anchorCircle.dimensions           = ${anchorCircle.dimensions}');
-  print('anchorCircle.preferPaintInterior  = ${anchorCircle.preferPaintInterior}');
+  print(
+    'anchorCircle.preferPaintInterior  = ${anchorCircle.preferPaintInterior}',
+  );
 
   final StadiumBorder anchorStadium = StadiumBorder(
     side: BorderSide(width: 2, color: kCoolMint),
@@ -328,11 +311,7 @@ dynamic build(BuildContext context) {
         stops: [0.0, 0.6, 1.0],
       ),
       shadows: [
-        BoxShadow(
-          color: kFoldShadow,
-          blurRadius: 12,
-          offset: Offset(0, 6),
-        ),
+        BoxShadow(color: kFoldShadow, blurRadius: 12, offset: Offset(0, 6)),
       ],
     ),
     child: Row(
@@ -695,8 +674,15 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> radiusCards = [];
   for (int i = 0; i < radiusVariants.length; i++) {
-    radiusCards.add(_swatch(radiusLabels[i], radiusVariants[i],
-        i.isEven ? kPaperCream : kSeaSalt, 110, 70));
+    radiusCards.add(
+      _swatch(
+        radiusLabels[i],
+        radiusVariants[i],
+        i.isEven ? kPaperCream : kSeaSalt,
+        110,
+        70,
+      ),
+    );
   }
 
   final Widget radiusBlock = _paperCard(
@@ -723,7 +709,9 @@ dynamic build(BuildContext context) {
   print('');
   print('[Section 5] Beveled vs Continuous rectangle borders');
   print('-- BeveledRectangleBorder: corners are straight diagonal cuts --');
-  print('-- ContinuousRectangleBorder: corners blend smoothly (squircle-ish) --');
+  print(
+    '-- ContinuousRectangleBorder: corners blend smoothly (squircle-ish) --',
+  );
   print('-- both share borderRadius and side properties --');
   print('-- continuous uses a fancier path math under the hood --');
 
@@ -1215,10 +1203,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[1],
-                style: TextStyle(
-                  fontSize: 12,
-                  color: kFoldDeep,
-                ),
+                style: TextStyle(fontSize: 12, color: kFoldDeep),
               ),
             ),
           ],
@@ -1279,52 +1264,60 @@ dynamic build(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               titleBanner,
-        _vSpace(14),
-        _sectionTitle('1', 'Title banner', kAccentMagenta),
-        _divider(kFoldShadow),
-        _sectionTitle('2', 'Anatomy of a ShapeBorder', kAccentMagenta),
-        anatomyDiagram,
-        _vSpace(14),
-        _sectionTitle('3', 'Nine-card gallery', kEdgeGold),
-        _paperCard(galleryCards),
-        _vSpace(14),
-        _sectionTitle('4', 'RoundedRectangleBorder x BorderRadius', kCoolBlue),
-        radiusBlock,
-        _vSpace(14),
-        _sectionTitle('5', 'Beveled vs Continuous', kCoolMint),
-        bcBlock,
-        _vSpace(14),
-        _sectionTitle('6', 'BorderSide variations', kAccentMagentaDeep),
-        sideBlock,
-        _vSpace(14),
-        _sectionTitle('7', 'LinearBorder + LinearBorderEdge', kEdgeGoldDeep),
-        linearBlock,
-        _vSpace(14),
-        _sectionTitle('8', 'StarBorder explorations', kAccentMagenta),
-        starBlock,
-        _vSpace(14),
-        _sectionTitle('9', 'Cheat sheet', kInkBlack),
-        cheatBlock,
-        _vSpace(20),
-        Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: kPaperWhite,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: kFoldShadow, width: 1),
+              _vSpace(14),
+              _sectionTitle('1', 'Title banner', kAccentMagenta),
+              _divider(kFoldShadow),
+              _sectionTitle('2', 'Anatomy of a ShapeBorder', kAccentMagenta),
+              anatomyDiagram,
+              _vSpace(14),
+              _sectionTitle('3', 'Nine-card gallery', kEdgeGold),
+              _paperCard(galleryCards),
+              _vSpace(14),
+              _sectionTitle(
+                '4',
+                'RoundedRectangleBorder x BorderRadius',
+                kCoolBlue,
+              ),
+              radiusBlock,
+              _vSpace(14),
+              _sectionTitle('5', 'Beveled vs Continuous', kCoolMint),
+              bcBlock,
+              _vSpace(14),
+              _sectionTitle('6', 'BorderSide variations', kAccentMagentaDeep),
+              sideBlock,
+              _vSpace(14),
+              _sectionTitle(
+                '7',
+                'LinearBorder + LinearBorderEdge',
+                kEdgeGoldDeep,
+              ),
+              linearBlock,
+              _vSpace(14),
+              _sectionTitle('8', 'StarBorder explorations', kAccentMagenta),
+              starBlock,
+              _vSpace(14),
+              _sectionTitle('9', 'Cheat sheet', kInkBlack),
+              cheatBlock,
+              _vSpace(20),
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: kPaperWhite,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: kFoldShadow, width: 1),
+                ),
+                child: Text(
+                  'shape_border_test :: end of demo',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: kFoldDeep,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+            ],
           ),
-          child: Text(
-            'shape_border_test :: end of demo',
-            style: TextStyle(
-              fontSize: 12,
-              color: kFoldDeep,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
-        ),
-      ],
-    ),
         ),
       ),
     ),

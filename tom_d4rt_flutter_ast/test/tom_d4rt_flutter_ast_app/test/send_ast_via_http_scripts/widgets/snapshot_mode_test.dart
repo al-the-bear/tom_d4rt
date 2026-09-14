@@ -212,7 +212,8 @@ class _SmodeHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform platform = Theme.of(context).platform;
-    final bool desktopHint = platform == TargetPlatform.linux ||
+    final bool desktopHint =
+        platform == TargetPlatform.linux ||
         platform == TargetPlatform.macOS ||
         platform == TargetPlatform.windows;
 
@@ -398,8 +399,11 @@ class _SmodeIntroPanel extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.collections_outlined,
-                  color: _kSmodeAmberGlow, size: 22),
+              const Icon(
+                Icons.collections_outlined,
+                color: _kSmodeAmberGlow,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Text(
                 'Three exposures, one negative',
@@ -481,10 +485,7 @@ class _SmodeHeroReel extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _kSmodeCharcoalSoft,
-            _kSmodeCharcoalDeep,
-          ],
+          colors: <Color>[_kSmodeCharcoalSoft, _kSmodeCharcoalDeep],
         ),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: _kSmodeBorderHi),
@@ -824,7 +825,8 @@ class _SmodeTriptychPanelState extends State<_SmodeTriptychPanel> {
         children: <Widget>[
           const _SmodeSectionHeader(
             title: 'Triptych — three modes side by side',
-            subtitle: 'Each panel is a real SnapshotWidget bound to a real '
+            subtitle:
+                'Each panel is a real SnapshotWidget bound to a real '
                 'SnapshotController.',
             icon: Icons.view_column_outlined,
           ),
@@ -843,10 +845,7 @@ class _SmodeTriptychPanelState extends State<_SmodeTriptychPanel> {
 }
 
 class _SmodeTriptychRow extends StatelessWidget {
-  const _SmodeTriptychRow({
-    required this.mode,
-    required this.controller,
-  });
+  const _SmodeTriptychRow({required this.mode, required this.controller});
 
   final SnapshotMode mode;
   final SnapshotController controller;
@@ -927,9 +926,7 @@ class _SmodeTriptychTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: info.accent.withOpacity(0.55), width: 1.4),
       ),
-      child: Center(
-        child: Icon(info.icon, color: info.accent, size: 28),
-      ),
+      child: Center(child: Icon(info.icon, color: info.accent, size: 28)),
     );
   }
 }
@@ -983,10 +980,7 @@ class _SmodePermissiveShowcaseState extends State<_SmodePermissiveShowcase> {
               controller: _controller,
               mode: mode, // Live: SnapshotMode.permissive
               autoresize: i == 0,
-              child: _SmodeShowcaseTile(
-                info: info,
-                index: i,
-              ),
+              child: _SmodeShowcaseTile(info: info, index: i),
             ),
           ),
       ],
@@ -1033,10 +1027,7 @@ class _SmodeNormalShowcaseState extends State<_SmodeNormalShowcase> {
             child: SnapshotWidget(
               controller: _controller,
               mode: mode, // Live: SnapshotMode.normal
-              child: _SmodeShowcaseTile(
-                info: info,
-                index: i,
-              ),
+              child: _SmodeShowcaseTile(info: info, index: i),
             ),
           ),
       ],
@@ -1083,10 +1074,7 @@ class _SmodeForcedShowcaseState extends State<_SmodeForcedShowcase> {
             child: SnapshotWidget(
               controller: _controller,
               mode: mode, // Live: SnapshotMode.forced
-              child: _SmodeShowcaseTile(
-                info: info,
-                index: i,
-              ),
+              child: _SmodeShowcaseTile(info: info, index: i),
             ),
           ),
       ],
@@ -1125,8 +1113,10 @@ class _SmodeShowcaseShell extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: info.accent.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(4),
@@ -1179,12 +1169,14 @@ class _SmodeShowcaseShell extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Row(children: <Widget>[
-            for (int i = 0; i < gallery.length; i++) ...<Widget>[
-              gallery[i],
-              if (i != gallery.length - 1) const SizedBox(width: 10),
+          Row(
+            children: <Widget>[
+              for (int i = 0; i < gallery.length; i++) ...<Widget>[
+                gallery[i],
+                if (i != gallery.length - 1) const SizedBox(width: 10),
+              ],
             ],
-          ]),
+          ),
           const SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -1196,8 +1188,11 @@ class _SmodeShowcaseShell extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.info_outline,
-                    color: info.accent.withOpacity(0.8), size: 14),
+                Icon(
+                  Icons.info_outline,
+                  color: info.accent.withOpacity(0.8),
+                  size: 14,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -1843,8 +1838,10 @@ class _SmodeControllerCell extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _kSmodeFilm,
                   borderRadius: BorderRadius.circular(6),
-                  border:
-                      Border.all(color: info.accent.withOpacity(0.6), width: 2),
+                  border: Border.all(
+                    color: info.accent.withOpacity(0.6),
+                    width: 2,
+                  ),
                 ),
                 child: Center(
                   child: Icon(info.icon, color: info.accent, size: 22),
@@ -2043,8 +2040,11 @@ class _SmodeFooter extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.handyman_outlined,
-                  color: _kSmodeAmberGlow, size: 18),
+              const Icon(
+                Icons.handyman_outlined,
+                color: _kSmodeAmberGlow,
+                size: 18,
+              ),
               const SizedBox(width: 8),
               Text(
                 'Build notes',
@@ -2061,9 +2061,9 @@ class _SmodeFooter extends StatelessWidget {
           Text(
             desktopHint
                 ? 'Detected a desktop platform — SnapshotWidget on desktop is '
-                    'as cheap as it gets, since the engine is GPU-accelerated.'
+                      'as cheap as it gets, since the engine is GPU-accelerated.'
                 : 'Detected a mobile/web-class platform — measure carefully on '
-                    'CanvasKit, where snapshotting can compete with UI thread.',
+                      'CanvasKit, where snapshotting can compete with UI thread.',
             style: TextStyle(
               color: _kSmodeEmulsion.withOpacity(0.88),
               fontSize: 11,

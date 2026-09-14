@@ -171,9 +171,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                 'a ClipRRect with the same corner radius.',
           ]),
           const SizedBox(height: 16),
-          _CurvatureComparisonDiagram(
-            controller: _pulseController,
-          ),
+          _CurvatureComparisonDiagram(controller: _pulseController),
           const SizedBox(height: 12),
           const _AsciiCurvatureDiagram(),
           const SizedBox(height: 12),
@@ -230,10 +228,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            Colors.indigo.shade400,
-            Colors.indigo.shade700,
-          ],
+          colors: <Color>[Colors.indigo.shade400, Colors.indigo.shade700],
         ),
       ),
       alignment: Alignment.center,
@@ -260,8 +255,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                   child: child,
                 ),
                 const SizedBox(height: 6),
-                Text('ClipRSuperellipse  r=${radius.toStringAsFixed(0)}',
-                    style: const TextStyle(fontFamily: 'monospace')),
+                Text(
+                  'ClipRSuperellipse  r=${radius.toStringAsFixed(0)}',
+                  style: const TextStyle(fontFamily: 'monospace'),
+                ),
               ],
             ),
           ),
@@ -274,8 +271,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                   child: child,
                 ),
                 const SizedBox(height: 6),
-                Text('ClipRRect          r=${radius.toStringAsFixed(0)}',
-                    style: const TextStyle(fontFamily: 'monospace')),
+                Text(
+                  'ClipRRect          r=${radius.toStringAsFixed(0)}',
+                  style: const TextStyle(fontFamily: 'monospace'),
+                ),
               ],
             ),
           ),
@@ -290,8 +289,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                   child: child,
                 ),
                 const SizedBox(height: 6),
-                Text('Fallback (CustomClipper)  r=${radius.toStringAsFixed(0)}',
-                    style: const TextStyle(fontFamily: 'monospace')),
+                Text(
+                  'Fallback (CustomClipper)  r=${radius.toStringAsFixed(0)}',
+                  style: const TextStyle(fontFamily: 'monospace'),
+                ),
               ],
             ),
           ),
@@ -384,8 +385,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                                   setState(() {
                                     _manualRadius = v;
                                   });
-                                  print('Manual radius slider -> '
-                                      '${v.toStringAsFixed(1)}');
+                                  print(
+                                    'Manual radius slider -> '
+                                    '${v.toStringAsFixed(1)}',
+                                  );
                                 },
                         ),
                       ),
@@ -574,30 +577,78 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
   // -------------------------------------------------------------------------
   Widget _buildSection5IconGrid(BuildContext context) {
     final List<_IconMockup> icons = <_IconMockup>[
-      const _IconMockup(label: 'Mail', icon: Icons.mail_outline,
-          a: Color(0xFF2193B0), b: Color(0xFF6DD5ED)),
-      const _IconMockup(label: 'Photos', icon: Icons.photo_camera,
-          a: Color(0xFFFF6E7F), b: Color(0xFFBFE9FF)),
-      const _IconMockup(label: 'Music', icon: Icons.music_note,
-          a: Color(0xFFEC008C), b: Color(0xFFFC6767)),
-      const _IconMockup(label: 'Maps', icon: Icons.map_outlined,
-          a: Color(0xFF11998E), b: Color(0xFF38EF7D)),
-      const _IconMockup(label: 'Notes', icon: Icons.note_alt_outlined,
-          a: Color(0xFFFDC830), b: Color(0xFFF37335)),
-      const _IconMockup(label: 'Health', icon: Icons.favorite,
-          a: Color(0xFFE53935), b: Color(0xFFE35D5B)),
-      const _IconMockup(label: 'Wallet', icon: Icons.account_balance_wallet,
-          a: Color(0xFF000428), b: Color(0xFF004E92)),
-      const _IconMockup(label: 'Books', icon: Icons.book_outlined,
-          a: Color(0xFF8E2DE2), b: Color(0xFF4A00E0)),
-      const _IconMockup(label: 'Shop', icon: Icons.shopping_bag_outlined,
-          a: Color(0xFF00B4DB), b: Color(0xFF0083B0)),
-      const _IconMockup(label: 'Calc', icon: Icons.calculate,
-          a: Color(0xFF373B44), b: Color(0xFF4286F4)),
-      const _IconMockup(label: 'Files', icon: Icons.folder_outlined,
-          a: Color(0xFFf2994a), b: Color(0xFFf2c94c)),
-      const _IconMockup(label: 'Voice', icon: Icons.mic_none,
-          a: Color(0xFF1F1C2C), b: Color(0xFF928DAB)),
+      const _IconMockup(
+        label: 'Mail',
+        icon: Icons.mail_outline,
+        a: Color(0xFF2193B0),
+        b: Color(0xFF6DD5ED),
+      ),
+      const _IconMockup(
+        label: 'Photos',
+        icon: Icons.photo_camera,
+        a: Color(0xFFFF6E7F),
+        b: Color(0xFFBFE9FF),
+      ),
+      const _IconMockup(
+        label: 'Music',
+        icon: Icons.music_note,
+        a: Color(0xFFEC008C),
+        b: Color(0xFFFC6767),
+      ),
+      const _IconMockup(
+        label: 'Maps',
+        icon: Icons.map_outlined,
+        a: Color(0xFF11998E),
+        b: Color(0xFF38EF7D),
+      ),
+      const _IconMockup(
+        label: 'Notes',
+        icon: Icons.note_alt_outlined,
+        a: Color(0xFFFDC830),
+        b: Color(0xFFF37335),
+      ),
+      const _IconMockup(
+        label: 'Health',
+        icon: Icons.favorite,
+        a: Color(0xFFE53935),
+        b: Color(0xFFE35D5B),
+      ),
+      const _IconMockup(
+        label: 'Wallet',
+        icon: Icons.account_balance_wallet,
+        a: Color(0xFF000428),
+        b: Color(0xFF004E92),
+      ),
+      const _IconMockup(
+        label: 'Books',
+        icon: Icons.book_outlined,
+        a: Color(0xFF8E2DE2),
+        b: Color(0xFF4A00E0),
+      ),
+      const _IconMockup(
+        label: 'Shop',
+        icon: Icons.shopping_bag_outlined,
+        a: Color(0xFF00B4DB),
+        b: Color(0xFF0083B0),
+      ),
+      const _IconMockup(
+        label: 'Calc',
+        icon: Icons.calculate,
+        a: Color(0xFF373B44),
+        b: Color(0xFF4286F4),
+      ),
+      const _IconMockup(
+        label: 'Files',
+        icon: Icons.folder_outlined,
+        a: Color(0xFFf2994a),
+        b: Color(0xFFf2c94c),
+      ),
+      const _IconMockup(
+        label: 'Voice',
+        icon: Icons.mic_none,
+        a: Color(0xFF1F1C2C),
+        b: Color(0xFF928DAB),
+      ),
     ];
     return _SectionShell(
       number: 5,
@@ -612,9 +663,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
         childAspectRatio: 0.85,
-        children: <Widget>[
-          for (final _IconMockup i in icons) _appIcon(i),
-        ],
+        children: <Widget>[for (final _IconMockup i in icons) _appIcon(i)],
       ),
     );
   }
@@ -659,9 +708,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                       ),
                     ),
                   ),
-                  Center(
-                    child: Icon(i.icon, color: Colors.white, size: 36),
-                  ),
+                  Center(child: Icon(i.icon, color: Colors.white, size: 36)),
                 ],
               ),
             ),
@@ -815,17 +862,13 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
         b: const Color(0xFF5B86E5),
       ),
       _AsymEntry(
-        radius: const BorderRadius.vertical(
-          top: Radius.circular(80),
-        ),
+        radius: const BorderRadius.vertical(top: Radius.circular(80)),
         label: 'BorderRadius.vertical(top: 80)',
         a: const Color(0xFF11998E),
         b: const Color(0xFF38EF7D),
       ),
       _AsymEntry(
-        radius: const BorderRadius.horizontal(
-          left: Radius.circular(80),
-        ),
+        radius: const BorderRadius.horizontal(left: Radius.circular(80)),
         label: 'BorderRadius.horizontal(left: 80)',
         a: const Color(0xFFEC008C),
         b: const Color(0xFFFC6767),
@@ -985,15 +1028,18 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    )),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(subtitle,
-                    style:
-                        TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+                Text(
+                  subtitle,
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                ),
               ],
             ),
           ),
@@ -1102,8 +1148,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Squircle progress',
-              style: TextStyle(fontWeight: FontWeight.w600)),
+          const Text(
+            'Squircle progress',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 6),
           ClipRSuperellipse(
             borderRadius: BorderRadius.circular(12),
@@ -1124,8 +1172,10 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
             ),
           ),
           const SizedBox(height: 4),
-          Text('${(v * 100).toStringAsFixed(0)}% complete',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700)),
+          Text(
+            '${(v * 100).toStringAsFixed(0)}% complete',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+          ),
         ],
       ),
     );
@@ -1151,13 +1201,18 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Modal sheet',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600)),
-                Text('Continuous-curvature top corners',
-                    style: TextStyle(color: Colors.white70, fontSize: 12)),
+                Text(
+                  'Modal sheet',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'Continuous-curvature top corners',
+                  style: TextStyle(color: Colors.white70, fontSize: 12),
+                ),
               ],
             ),
             ClipRSuperellipse(
@@ -1179,11 +1234,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
     return Center(
       child: ClipRSuperellipse(
         borderRadius: BorderRadius.circular(3),
-        child: Container(
-          width: 50,
-          height: 6,
-          color: Colors.grey.shade400,
-        ),
+        child: Container(width: 50, height: 6, color: Colors.grey.shade400),
       ),
     );
   }
@@ -1248,9 +1299,7 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
           '5 things that bite when you adopt ClipRSuperellipse in production.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          for (final _Pitfall p in pitfalls) _pitfallCard(p),
-        ],
+        children: <Widget>[for (final _Pitfall p in pitfalls) _pitfallCard(p)],
       ),
     );
   }
@@ -1281,14 +1330,18 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(p.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                        )),
+                    Text(
+                      p.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(p.body,
-                        style: const TextStyle(fontSize: 12, height: 1.45)),
+                    Text(
+                      p.body,
+                      style: const TextStyle(fontSize: 12, height: 1.45),
+                    ),
                   ],
                 ),
               ),
@@ -1304,26 +1357,51 @@ class _ClipRSuperellipseHomeState extends State<_ClipRSuperellipseHome>
   // -------------------------------------------------------------------------
   Widget _buildSection11Reference(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>['ClipRSuperellipse', 'Continuous-curvature squircle clip',
-          'New in modern Flutter (3.41+)'],
-      <String>['ClipRRect', 'Circular-arc rounded rectangle clip',
-          'Universal, well-supported'],
-      <String>['ClipPath', 'Clip via arbitrary CustomClipper<Path>',
-          'Most flexible, slowest'],
-      <String>['ClipOval', 'Clip to ellipse inscribed in rect',
-          'Use for circular avatars'],
-      <String>['CustomClipper<Path>', 'Subclass to define your own clip path',
-          'Pair with ClipPath'],
-      <String>['CustomClipper<RSuperellipse>',
-          'Subclass for squircle clipper variants',
-          'Pair with ClipRSuperellipse.clipper'],
-      <String>['BorderRadius', 'Geometric corner radii (LTR)',
-          'Default for most widgets'],
-      <String>['BorderRadiusDirectional',
-          'Logical (start/end) radii — RTL-aware',
-          'Use when supporting Arabic/Hebrew'],
-      <String>['RSuperellipse', 'Math primitive: rounded-superellipse shape',
-          'Returned by clipper, used by render layer'],
+      <String>[
+        'ClipRSuperellipse',
+        'Continuous-curvature squircle clip',
+        'New in modern Flutter (3.41+)',
+      ],
+      <String>[
+        'ClipRRect',
+        'Circular-arc rounded rectangle clip',
+        'Universal, well-supported',
+      ],
+      <String>[
+        'ClipPath',
+        'Clip via arbitrary CustomClipper<Path>',
+        'Most flexible, slowest',
+      ],
+      <String>[
+        'ClipOval',
+        'Clip to ellipse inscribed in rect',
+        'Use for circular avatars',
+      ],
+      <String>[
+        'CustomClipper<Path>',
+        'Subclass to define your own clip path',
+        'Pair with ClipPath',
+      ],
+      <String>[
+        'CustomClipper<RSuperellipse>',
+        'Subclass for squircle clipper variants',
+        'Pair with ClipRSuperellipse.clipper',
+      ],
+      <String>[
+        'BorderRadius',
+        'Geometric corner radii (LTR)',
+        'Default for most widgets',
+      ],
+      <String>[
+        'BorderRadiusDirectional',
+        'Logical (start/end) radii — RTL-aware',
+        'Use when supporting Arabic/Hebrew',
+      ],
+      <String>[
+        'RSuperellipse',
+        'Math primitive: rounded-superellipse shape',
+        'Returned by clipper, used by render layer',
+      ],
     ];
     return _SectionShell(
       number: 11,
@@ -1453,10 +1531,7 @@ class _ProseBlock extends StatelessWidget {
         for (final String p in paragraphs)
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Text(
-              p,
-              style: const TextStyle(fontSize: 13, height: 1.55),
-            ),
+            child: Text(p, style: const TextStyle(fontSize: 13, height: 1.55)),
           ),
       ],
     );
@@ -1493,11 +1568,15 @@ class _CalloutCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title,
-                      style: const TextStyle(fontWeight: FontWeight.w700)),
+                  Text(
+                    title,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(height: 4),
-                  Text(body,
-                      style: const TextStyle(fontSize: 12, height: 1.45)),
+                  Text(
+                    body,
+                    style: const TextStyle(fontSize: 12, height: 1.45),
+                  ),
                 ],
               ),
             ),
@@ -1586,7 +1665,9 @@ class _CurvatureComparisonPainter extends CustomPainter {
     final double rrR = r * 0.55;
     canvas.drawArc(
       Rect.fromCircle(
-          center: Offset(r1.right - rrR, r1.top + rrR), radius: rrR),
+        center: Offset(r1.right - rrR, r1.top + rrR),
+        radius: rrR,
+      ),
       -math.pi / 2,
       math.pi / 2,
       false,
@@ -1630,9 +1711,7 @@ Path _superellipsePath(Rect r, {double n = 5.0}) {
     final double cosT = math.cos(theta);
     final double sinT = math.sin(theta);
     // |x/a|^n + |y/b|^n = 1, parametric form using sign-preserved roots.
-    final double px = cx +
-        a *
-            _signPow(cosT, 2.0 / n);
+    final double px = cx + a * _signPow(cosT, 2.0 / n);
     final double py = cy + b * _signPow(sinT, 2.0 / n);
     if (i == 0) {
       path.moveTo(px, py);
@@ -1745,11 +1824,7 @@ class _AsymEntry {
 }
 
 class _Pitfall {
-  const _Pitfall({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _Pitfall({required this.icon, required this.title, required this.body});
   final IconData icon;
   final String title;
   final String body;
@@ -1800,11 +1875,7 @@ class _SuperellipseClipper extends CustomClipper<Path> {
 /// Build a rounded-superellipse path: rectangle with four superellipse
 /// corner quadrants. We splice four quadrant arcs together with straight
 /// edges between them.
-Path _roundedSuperellipsePath(
-  Rect rect,
-  BorderRadius radii,
-  double n,
-) {
+Path _roundedSuperellipsePath(Rect rect, BorderRadius radii, double n) {
   final Path path = Path();
   // Per-corner radii, clamped so opposite-side sums don't exceed dimensions.
   final double tlx = math.min(radii.topLeft.x, rect.width / 2);
@@ -1818,44 +1889,52 @@ Path _roundedSuperellipsePath(
 
   // Start at the bottom of the top-left curve (going clockwise).
   path.moveTo(rect.left, rect.top + tly);
-  _appendCornerArc(path,
-      cx: rect.left + tlx,
-      cy: rect.top + tly,
-      rx: tlx,
-      ry: tly,
-      startAngle: math.pi,
-      sweep: math.pi / 2,
-      n: n);
+  _appendCornerArc(
+    path,
+    cx: rect.left + tlx,
+    cy: rect.top + tly,
+    rx: tlx,
+    ry: tly,
+    startAngle: math.pi,
+    sweep: math.pi / 2,
+    n: n,
+  );
   // Top edge to top-right corner.
   path.lineTo(rect.right - trx, rect.top);
-  _appendCornerArc(path,
-      cx: rect.right - trx,
-      cy: rect.top + trY,
-      rx: trx,
-      ry: trY,
-      startAngle: -math.pi / 2,
-      sweep: math.pi / 2,
-      n: n);
+  _appendCornerArc(
+    path,
+    cx: rect.right - trx,
+    cy: rect.top + trY,
+    rx: trx,
+    ry: trY,
+    startAngle: -math.pi / 2,
+    sweep: math.pi / 2,
+    n: n,
+  );
   // Right edge to bottom-right corner.
   path.lineTo(rect.right, rect.bottom - bry);
-  _appendCornerArc(path,
-      cx: rect.right - brx,
-      cy: rect.bottom - bry,
-      rx: brx,
-      ry: bry,
-      startAngle: 0,
-      sweep: math.pi / 2,
-      n: n);
+  _appendCornerArc(
+    path,
+    cx: rect.right - brx,
+    cy: rect.bottom - bry,
+    rx: brx,
+    ry: bry,
+    startAngle: 0,
+    sweep: math.pi / 2,
+    n: n,
+  );
   // Bottom edge to bottom-left corner.
   path.lineTo(rect.left + blx, rect.bottom);
-  _appendCornerArc(path,
-      cx: rect.left + blx,
-      cy: rect.bottom - bly,
-      rx: blx,
-      ry: bly,
-      startAngle: math.pi / 2,
-      sweep: math.pi / 2,
-      n: n);
+  _appendCornerArc(
+    path,
+    cx: rect.left + blx,
+    cy: rect.bottom - bly,
+    rx: blx,
+    ry: bly,
+    startAngle: math.pi / 2,
+    sweep: math.pi / 2,
+    n: n,
+  );
   path.close();
   return path;
 }

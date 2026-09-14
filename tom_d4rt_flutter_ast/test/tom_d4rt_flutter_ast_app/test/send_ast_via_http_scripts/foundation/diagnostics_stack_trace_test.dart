@@ -193,10 +193,7 @@ class _HeroBannerSection extends StatelessWidget {
                       color: const Color(0xFF66BB6A),
                     ),
                     const SizedBox(width: 8),
-                    _Pill(
-                      label: 'StackTrace',
-                      color: const Color(0xFFFFCA28),
-                    ),
+                    _Pill(label: 'StackTrace', color: const Color(0xFFFFCA28)),
                   ],
                 ),
               ],
@@ -317,9 +314,7 @@ class _ClassLineageRow extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
-          color: highlight
-              ? color.withValues(alpha: 0.12)
-              : Colors.white,
+          color: highlight ? color.withValues(alpha: 0.12) : Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
             color: highlight
@@ -612,10 +607,7 @@ class _ParamRow extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: 80,
-            child: _RequiredBadge(required: required),
-          ),
+          SizedBox(width: 80, child: _RequiredBadge(required: required)),
           Expanded(
             child: Text(
               description,
@@ -953,10 +945,7 @@ class _PipelineBox extends StatelessWidget {
             Text(
               sub,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Color(0xFF555555),
-              ),
+              style: const TextStyle(fontSize: 11, color: Color(0xFF555555)),
             ),
           ],
         ),
@@ -972,11 +961,7 @@ class _PipelineArrow extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 4),
-      child: Icon(
-        Icons.east,
-        size: 18,
-        color: Color(0xFF8E24AA),
-      ),
+      child: Icon(Icons.east, size: 18, color: Color(0xFF8E24AA)),
     );
   }
 }
@@ -997,17 +982,26 @@ class _FilterFrameComparison extends StatelessWidget {
               _FrameEntry('#0  _MyButtonState.handleTap', kept: true),
               _FrameEntry('#1  _InkResponseState._handleTap', kept: true),
               _FrameEntry('#2  GestureRecognizer.invokeCallback', kept: false),
-              _FrameEntry('#3  TapGestureRecognizer.acceptGesture', kept: false),
-              _FrameEntry('#4  TapGestureRecognizer.handlePrimaryTapUp',
-                  kept: false),
+              _FrameEntry(
+                '#3  TapGestureRecognizer.acceptGesture',
+                kept: false,
+              ),
+              _FrameEntry(
+                '#4  TapGestureRecognizer.handlePrimaryTapUp',
+                kept: false,
+              ),
               _FrameEntry('#5  GestureBinding._dispatchEvent', kept: false),
               _FrameEntry('#6  RendererBinding.dispatchEvent', kept: false),
               _FrameEntry('#7  GestureBinding.dispatchEvent', kept: false),
-              _FrameEntry('#8  GestureBinding._handlePointerEventImmediately',
-                  kept: false),
+              _FrameEntry(
+                '#8  GestureBinding._handlePointerEventImmediately',
+                kept: false,
+              ),
               _FrameEntry('#9  GestureBinding.handlePointerEvent', kept: false),
-              _FrameEntry('#10 GestureBinding._flushPointerEventQueue',
-                  kept: false),
+              _FrameEntry(
+                '#10 GestureBinding._flushPointerEventQueue',
+                kept: false,
+              ),
               _FrameEntry('#11 _rootRunUnary (dart:async)', kept: false),
             ],
           ),
@@ -1020,10 +1014,16 @@ class _FilterFrameComparison extends StatelessWidget {
             entries: const [
               _FrameEntry('#0  _MyButtonState.handleTap', kept: true),
               _FrameEntry('#1  _InkResponseState._handleTap', kept: true),
-              _FrameEntry('... 8 frames from package:flutter (gestures)',
-                  kept: true, summary: true),
-              _FrameEntry('... 2 frames from dart:async', kept: true,
-                  summary: true),
+              _FrameEntry(
+                '... 8 frames from package:flutter (gestures)',
+                kept: true,
+                summary: true,
+              ),
+              _FrameEntry(
+                '... 2 frames from dart:async',
+                kept: true,
+                summary: true,
+              ),
             ],
           ),
         ),
@@ -1091,8 +1091,8 @@ class _FrameListPanel extends StatelessWidget {
                     color: e.summary
                         ? const Color(0xFF1E88E5)
                         : (e.kept
-                            ? const Color(0xFF43A047)
-                            : const Color(0xFFE53935)),
+                              ? const Color(0xFF43A047)
+                              : const Color(0xFFE53935)),
                   ),
                   const SizedBox(width: 6),
                   Expanded(
@@ -1216,7 +1216,8 @@ class _ErrorPipelineDiagram extends StatelessWidget {
                 child: _ErrorPipelineStep(
                   icon: Icons.error_outline,
                   title: 'Exception thrown',
-                  detail: 'In a build() method, gesture handler, or async '
+                  detail:
+                      'In a build() method, gesture handler, or async '
                       'callback.',
                   color: Color(0xFFE53935),
                 ),
@@ -1228,7 +1229,8 @@ class _ErrorPipelineDiagram extends StatelessWidget {
                 child: _ErrorPipelineStep(
                   icon: Icons.assignment_late_outlined,
                   title: 'FlutterErrorDetails',
-                  detail: 'Bundles exception, stack, library, context, '
+                  detail:
+                      'Bundles exception, stack, library, context, '
                       'informationCollector.',
                   color: Color(0xFFFB8C00),
                 ),
@@ -1242,7 +1244,8 @@ class _ErrorPipelineDiagram extends StatelessWidget {
                 child: _ErrorPipelineStep(
                   icon: Icons.layers_outlined,
                   title: 'toDiagnosticsNode',
-                  detail: 'Builds tree: summary, library, exception, stack '
+                  detail:
+                      'Builds tree: summary, library, exception, stack '
                       '(DiagnosticsStackTrace), context.',
                   color: Color(0xFF1E88E5),
                 ),
@@ -1254,7 +1257,8 @@ class _ErrorPipelineDiagram extends StatelessWidget {
                 child: _ErrorPipelineStep(
                   icon: Icons.terminal,
                   title: 'dumpErrorToConsole',
-                  detail: 'Renders tree via TextTreeRenderer into the console '
+                  detail:
+                      'Renders tree via TextTreeRenderer into the console '
                       'output stream.',
                   color: Color(0xFF43A047),
                 ),
@@ -1555,8 +1559,7 @@ class _BestPracticeSection extends StatelessWidget {
             wrap: false,
           ),
           _PracticeRow(
-            scenario:
-                'Comparing two traces in a developer-only debug screen',
+            scenario: 'Comparing two traces in a developer-only debug screen',
             recommendation:
                 'Wrap both with the same stackFilter for an apples-to-apples '
                 'view.',
@@ -1599,8 +1602,7 @@ class _PracticeRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: base.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6),
@@ -1736,10 +1738,7 @@ class _PitfallCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
-          colors: [
-            Colors.white,
-            color.withValues(alpha: 0.06),
-          ],
+          colors: [Colors.white, color.withValues(alpha: 0.06)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1831,11 +1830,7 @@ class _FooterSection extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.menu_book_outlined,
-            color: Colors.white,
-            size: 30,
-          ),
+          const Icon(Icons.menu_book_outlined, color: Colors.white, size: 30),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -1863,8 +1858,7 @@ class _FooterSection extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: const Color(0xFFFFC107).withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(40),

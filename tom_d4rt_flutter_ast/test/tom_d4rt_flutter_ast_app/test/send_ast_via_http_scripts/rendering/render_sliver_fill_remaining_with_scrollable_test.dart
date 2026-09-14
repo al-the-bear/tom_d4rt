@@ -64,11 +64,7 @@ enum _Stage {
   verification,
 }
 
-enum _PhysicsMode {
-  clamping,
-  bouncing,
-  never,
-}
+enum _PhysicsMode { clamping, bouncing, never }
 
 dynamic build(BuildContext context) {
   return const _ScrollableFillStudio();
@@ -170,8 +166,11 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
         children: [
           Row(
             children: [
-              const Icon(Icons.view_timeline_rounded,
-                  color: Colors.white, size: 27),
+              const Icon(
+                Icons.view_timeline_rounded,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -184,8 +183,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(999),
@@ -391,9 +392,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                     CustomScrollView(
                       physics: const BouncingScrollPhysics(),
                       slivers: [
-                        SliverToBoxAdapter(
-                          child: _stageBanner('Lead slivers'),
-                        ),
+                        SliverToBoxAdapter(child: _stageBanner('Lead slivers')),
                         SliverList.builder(
                           itemCount: lead,
                           itemBuilder: (context, index) => _storyCard(
@@ -419,7 +418,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                         top: 8,
                         right: 8,
                         child: _metricChip(
-                            'mode', _baseUseScrollable ? 'scroll-body' : 'static', _t.secondary),
+                          'mode',
+                          _baseUseScrollable ? 'scroll-body' : 'static',
+                          _t.secondary,
+                        ),
                       ),
                   ],
                 ),
@@ -494,8 +496,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _controlShowInnerHeader = v ?? true),
                     ),
-                    Text('Show inner header',
-                        style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Show inner header',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _controlShowScrollbar,
@@ -503,8 +507,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _controlShowScrollbar = v ?? true),
                     ),
-                    Text('Show inner scrollbar',
-                        style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Show inner scrollbar',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _metricChip('inner', '$inner', _t.secondary),
                   ],
@@ -515,7 +521,8 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
           const SizedBox(height: 12),
           _card(
             title: 'Control Room Viewport',
-            subtitle: 'Observe handoff from outer sliver flow into inner list view.',
+            subtitle:
+                'Observe handoff from outer sliver flow into inner list view.',
             tint: _t.secondary.withValues(alpha: 0.04),
             child: SizedBox(
               height: 560,
@@ -529,7 +536,9 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                   physics: const BouncingScrollPhysics(),
                   slivers: [
                     SliverToBoxAdapter(
-                      child: _stageBanner('Outer lead section before scroll-body fill'),
+                      child: _stageBanner(
+                        'Outer lead section before scroll-body fill',
+                      ),
                     ),
                     SliverList.builder(
                       itemCount: lead,
@@ -560,9 +569,15 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet('Outer slivers scroll until fill region becomes primary viewport.'),
-                _bullet('Inner physics choice changes feel of nested scrolling.'),
-                _bullet('Scrollbar helps communicate independent inner scroll state.'),
+                _bullet(
+                  'Outer slivers scroll until fill region becomes primary viewport.',
+                ),
+                _bullet(
+                  'Inner physics choice changes feel of nested scrolling.',
+                ),
+                _bullet(
+                  'Scrollbar helps communicate independent inner scroll state.',
+                ),
               ],
             ),
           ),
@@ -609,7 +624,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _pinnedHeader = v ?? true),
                     ),
-                    Text('Pinned', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Pinned',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _floatingHeader,
@@ -617,7 +635,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _floatingHeader = v ?? false),
                     ),
-                    Text('Floating', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Floating',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _pinnedShowLegend,
@@ -625,7 +646,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _pinnedShowLegend = v ?? true),
                     ),
-                    Text('Legend badge', style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Legend badge',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _metricChip('lead', '$lead', _t.primary),
                   ],
@@ -657,8 +681,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                           expandedHeight: 120,
                           backgroundColor: _t.primary,
                           flexibleSpace: FlexibleSpaceBar(
-                            title: const Text('Integrated Header',
-                                style: TextStyle(fontSize: 13)),
+                            title: const Text(
+                              'Integrated Header',
+                              style: TextStyle(fontSize: 13),
+                            ),
                             background: Container(
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -746,8 +772,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _ownerShowRail = v ?? true),
                     ),
-                    Text('Show ownership rail',
-                        style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Show ownership rail',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const SizedBox(width: 12),
                     Checkbox(
                       value: _ownerDenseInner,
@@ -755,10 +783,16 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _ownerDenseInner = v ?? false),
                     ),
-                    Text('Dense inner feed',
-                        style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Dense inner feed',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const Spacer(),
-                    _metricChip('inner items', _ownerDenseInner ? '34' : '18', _t.secondary),
+                    _metricChip(
+                      'inner items',
+                      _ownerDenseInner ? '34' : '18',
+                      _t.secondary,
+                    ),
                   ],
                 ),
               ],
@@ -780,13 +814,17 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _t.muted.withValues(alpha: 0.24)),
+                        border: Border.all(
+                          color: _t.muted.withValues(alpha: 0.24),
+                        ),
                       ),
                       child: CustomScrollView(
                         physics: const BouncingScrollPhysics(),
                         slivers: [
                           SliverToBoxAdapter(
-                            child: _stageBanner('Ownership handoff demonstration'),
+                            child: _stageBanner(
+                              'Ownership handoff demonstration',
+                            ),
                           ),
                           SliverList.builder(
                             itemCount: lead,
@@ -824,7 +862,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       children: [
                         _railStep('1', 'Outer slivers consume scroll offset'),
                         _railStep('2', 'Fill region reaches viewport boundary'),
-                        _railStep('3', 'Inner viewport starts handling dense content'),
+                        _railStep(
+                          '3',
+                          'Inner viewport starts handling dense content',
+                        ),
                         _railStep('4', 'User perceives seamless continuity'),
                         const SizedBox(height: 8),
                         Container(
@@ -833,8 +874,9 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
-                            border:
-                                Border.all(color: _t.muted.withValues(alpha: 0.2)),
+                            border: Border.all(
+                              color: _t.muted.withValues(alpha: 0.2),
+                            ),
                           ),
                           child: Text(
                             'Why this render class matters:\n'
@@ -942,8 +984,10 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                       onChanged: (v) =>
                           setState(() => _showThreeDevices = v ?? true),
                     ),
-                    Text('Show trio mode',
-                        style: TextStyle(color: _t.ink, fontSize: 12)),
+                    Text(
+                      'Show trio mode',
+                      style: TextStyle(color: _t.ink, fontSize: 12),
+                    ),
                     const Spacer(),
                     _metricChip('lead', '$lead', _t.secondary),
                   ],
@@ -973,7 +1017,9 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
               children: [
                 _bullet('Compact shells reach inner scroll-body sooner.'),
                 _bullet('Balanced shells show mixed outer and inner movement.'),
-                _bullet('Tall shells leave more room for visible fill panel framing.'),
+                _bullet(
+                  'Tall shells leave more room for visible fill panel framing.',
+                ),
               ],
             ),
           ),
@@ -1105,22 +1151,26 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
               children: [
                 _qa(
                   q: 'How is this different from regular SliverFillRemaining?',
-                  a: 'This variant is for scroll-body children and preserves '
+                  a:
+                      'This variant is for scroll-body children and preserves '
                       'a robust internal viewport experience.',
                 ),
                 _qa(
                   q: 'Can I place ListView inside this fill region?',
-                  a: 'Yes. It is a common pattern for trailing detail panes '
+                  a:
+                      'Yes. It is a common pattern for trailing detail panes '
                       'or activity feeds.',
                 ),
                 _qa(
                   q: 'Is this only for desktop-like layouts?',
-                  a: 'No. It also helps on mobile when bottom sections need '
+                  a:
+                      'No. It also helps on mobile when bottom sections need '
                       'independent scroll behavior.',
                 ),
                 _qa(
                   q: 'Should I always show a scrollbar?',
-                  a: 'Not always, but it improves discoverability in nested '
+                  a:
+                      'Not always, but it improves discoverability in nested '
                       'scroll-heavy interfaces.',
                 ),
               ],
@@ -1133,11 +1183,17 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check('Baseline static vs scroll-body fill comparison provided.'),
+                _check(
+                  'Baseline static vs scroll-body fill comparison provided.',
+                ),
                 _check('Control room includes inner item and physics tuning.'),
-                _check('Pinned/floating header integration scenario implemented.'),
+                _check(
+                  'Pinned/floating header integration scenario implemented.',
+                ),
                 _check('Viewport ownership handoff visualization included.'),
-                _check('Device height showcase demonstrates adaptive behavior.'),
+                _check(
+                  'Device height showcase demonstrates adaptive behavior.',
+                ),
                 _check('Guide includes matrix, do/dont, FAQ, and checklist.'),
               ],
             ),
@@ -1336,11 +1392,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
               Text(
                 detail,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: _t.muted,
-                  fontSize: 12.2,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: _t.muted, fontSize: 12.2, height: 1.35),
               ),
             ],
           ),
@@ -1390,11 +1442,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
-              color: _t.muted,
-              fontSize: 11.2,
-              height: 1.3,
-            ),
+            style: TextStyle(color: _t.muted, fontSize: 11.2, height: 1.3),
           ),
         ],
       ),
@@ -1411,7 +1459,11 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
       ),
       child: Row(
         children: [
-          Icon(Icons.vertical_align_bottom_rounded, color: _t.primary, size: 16),
+          Icon(
+            Icons.vertical_align_bottom_rounded,
+            color: _t.primary,
+            size: 16,
+          ),
           const SizedBox(width: 8),
           Text(
             text,
@@ -1530,8 +1582,11 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel,
-              color: color, size: 18),
+          Icon(
+            good ? Icons.check_circle : Icons.cancel,
+            color: color,
+            size: 18,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1546,10 +1601,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  detail,
-                  style: TextStyle(color: _t.muted, fontSize: 11.3),
-                ),
+                Text(detail, style: TextStyle(color: _t.muted, fontSize: 11.3)),
               ],
             ),
           ),
@@ -1597,10 +1649,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _t.ink, fontSize: 12),
-            ),
+            child: Text(text, style: TextStyle(color: _t.ink, fontSize: 12)),
           ),
         ],
       ),
@@ -1689,10 +1738,7 @@ class _ScrollableFillStudioState extends State<_ScrollableFillStudio> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(color: _t.muted, fontSize: 11.5),
-          ),
+          Text(subtitle, style: TextStyle(color: _t.muted, fontSize: 11.5)),
           const SizedBox(height: 10),
           child,
         ],

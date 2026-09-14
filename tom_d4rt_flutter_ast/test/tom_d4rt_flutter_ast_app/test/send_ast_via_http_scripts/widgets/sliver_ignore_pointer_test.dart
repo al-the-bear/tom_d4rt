@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.do_not_touch,
       'title': 'What Is SliverIgnorePointer?',
-      'body': 'SliverIgnorePointer wraps a child sliver and makes it '
+      'body':
+          'SliverIgnorePointer wraps a child sliver and makes it '
           'invisible to pointer events. When ignoring is true, taps, '
           'drags, and all pointer interactions simply pass through the '
           'sliver as if it did not exist. The content remains visible — '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'IgnorePointer vs AbsorbPointer',
-      'body': 'IgnorePointer lets pointer events pass through to widgets '
+      'body':
+          'IgnorePointer lets pointer events pass through to widgets '
           'behind it. AbsorbPointer catches those events but does not '
           'respond, preventing anything behind it from receiving them. '
           'SliverIgnorePointer follows the IgnorePointer model — events '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility_new,
       'title': 'Semantics Control',
-      'body': 'The optional ignoringSemantics parameter controls whether '
+      'body':
+          'The optional ignoringSemantics parameter controls whether '
           'the sliver is also hidden from accessibility services (screen '
           'readers). By default, semantics follows the ignoring flag, but '
           'you can decouple them for cases where the content should remain '
@@ -48,7 +51,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.build_circle,
       'title': 'Typical Use Cases',
-      'body': 'Disabling a sliver section while loading. Showing a '
+      'body':
+          'Disabling a sliver section while loading. Showing a '
           'decorative or informational sliver overlay that should not '
           'intercept gestures. Temporarily blocking input during animations. '
           'Creating non-interactive preview or read-only scroll regions.',
@@ -123,7 +127,8 @@ dynamic build(BuildContext context) {
       'type': 'bool',
       'required': false,
       'defaultVal': 'true',
-      'desc': 'Whether this sliver is ignored during hit testing. When true, '
+      'desc':
+          'Whether this sliver is ignored during hit testing. When true, '
           'pointer events pass through; when false, the sliver behaves '
           'normally and receives taps and gestures.',
     },
@@ -132,7 +137,8 @@ dynamic build(BuildContext context) {
       'type': 'bool?',
       'required': false,
       'defaultVal': 'null',
-      'desc': 'Whether the semantics of this sliver should also be ignored. '
+      'desc':
+          'Whether the semantics of this sliver should also be ignored. '
           'When null, the value follows the ignoring parameter. Set to '
           'false to keep the sliver accessible to screen readers even '
           'when pointer events are ignored.',
@@ -142,7 +148,8 @@ dynamic build(BuildContext context) {
       'type': 'Widget?',
       'required': false,
       'defaultVal': 'null',
-      'desc': 'The child sliver whose pointer events will be controlled. '
+      'desc':
+          'The child sliver whose pointer events will be controlled. '
           'Can be any sliver: SliverList, SliverGrid, SliverToBoxAdapter, etc.',
     },
     {
@@ -353,12 +360,7 @@ dynamic build(BuildContext context) {
         ignoring: true,
         sliver: SliverList(
           delegate: SliverChildListDelegate(
-            _buildInteractiveCards(
-              'Ignored',
-              Colors.red,
-              6,
-              isDisabled: true,
-            ),
+            _buildInteractiveCards('Ignored', Colors.red, 6, isDisabled: true),
           ),
         ),
       ),
@@ -387,12 +389,7 @@ dynamic build(BuildContext context) {
       ),
       SliverList(
         delegate: SliverChildListDelegate(
-          _buildInteractiveCards(
-            'Active',
-            Colors.green,
-            6,
-            isDisabled: false,
-          ),
+          _buildInteractiveCards('Active', Colors.green, 6, isDisabled: false),
         ),
       ),
     ],
@@ -420,10 +417,7 @@ dynamic build(BuildContext context) {
                   'like having no SliverIgnorePointer at all — the child '
                   'sliver receives events normally. This is useful for '
                   'dynamic toggling.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.blue.shade700,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.blue.shade700),
                 ),
               ),
             ],
@@ -461,109 +455,100 @@ dynamic build(BuildContext context) {
           SliverIgnorePointer(
             ignoring: true, // simulating "loading" state
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final titles = [
-                    'Order #1024 — Shipped',
-                    'Order #1023 — Processing',
-                    'Order #1022 — Delivered',
-                    'Order #1021 — Pending',
-                    'Order #1020 — Cancelled',
-                    'Order #1019 — Refunded',
-                    'Order #1018 — Delivered',
-                    'Order #1017 — Shipped',
-                    'Order #1016 — Processing',
-                    'Order #1015 — Delivered',
-                  ];
-                  final statusColors = [
-                    Colors.blue,
-                    Colors.orange,
-                    Colors.green,
-                    Colors.amber,
-                    Colors.red,
-                    Colors.purple,
-                    Colors.green,
-                    Colors.blue,
-                    Colors.orange,
-                    Colors.green,
-                  ];
-                  final statusIcons = [
-                    Icons.local_shipping,
-                    Icons.hourglass_top,
-                    Icons.check_circle,
-                    Icons.pending,
-                    Icons.cancel,
-                    Icons.replay,
-                    Icons.check_circle,
-                    Icons.local_shipping,
-                    Icons.hourglass_top,
-                    Icons.check_circle,
-                  ];
-                  return Opacity(
-                    opacity: 0.4,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 14.0,
-                        vertical: 4.0,
-                      ),
-                      padding: const EdgeInsets.all(14.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
-                          color: Colors.grey.shade200,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 38.0,
-                            height: 38.0,
-                            decoration: BoxDecoration(
-                              color: statusColors[index]
-                                  .withValues(alpha: 0.15),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              statusIcons[index],
-                              color: statusColors[index],
-                              size: 20.0,
-                            ),
-                          ),
-                          const SizedBox(width: 12.0),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  titles[index],
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.0,
-                                  ),
-                                ),
-                                const SizedBox(height: 2.0),
-                                Text(
-                                  'Tap to view details (disabled during load)',
-                                  style: TextStyle(
-                                    fontSize: 11.0,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Icon(
-                            Icons.chevron_right,
-                            color: Colors.grey.shade300,
-                          ),
-                        ],
-                      ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final titles = [
+                  'Order #1024 — Shipped',
+                  'Order #1023 — Processing',
+                  'Order #1022 — Delivered',
+                  'Order #1021 — Pending',
+                  'Order #1020 — Cancelled',
+                  'Order #1019 — Refunded',
+                  'Order #1018 — Delivered',
+                  'Order #1017 — Shipped',
+                  'Order #1016 — Processing',
+                  'Order #1015 — Delivered',
+                ];
+                final statusColors = [
+                  Colors.blue,
+                  Colors.orange,
+                  Colors.green,
+                  Colors.amber,
+                  Colors.red,
+                  Colors.purple,
+                  Colors.green,
+                  Colors.blue,
+                  Colors.orange,
+                  Colors.green,
+                ];
+                final statusIcons = [
+                  Icons.local_shipping,
+                  Icons.hourglass_top,
+                  Icons.check_circle,
+                  Icons.pending,
+                  Icons.cancel,
+                  Icons.replay,
+                  Icons.check_circle,
+                  Icons.local_shipping,
+                  Icons.hourglass_top,
+                  Icons.check_circle,
+                ];
+                return Opacity(
+                  opacity: 0.4,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 14.0,
+                      vertical: 4.0,
                     ),
-                  );
-                },
-                childCount: 10,
-              ),
+                    padding: const EdgeInsets.all(14.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(color: Colors.grey.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 38.0,
+                          height: 38.0,
+                          decoration: BoxDecoration(
+                            color: statusColors[index].withValues(alpha: 0.15),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            statusIcons[index],
+                            color: statusColors[index],
+                            size: 20.0,
+                          ),
+                        ),
+                        const SizedBox(width: 12.0),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                titles[index],
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13.0,
+                                ),
+                              ),
+                              const SizedBox(height: 2.0),
+                              Text(
+                                'Tap to view details (disabled during load)',
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(Icons.chevron_right, color: Colors.grey.shade300),
+                      ],
+                    ),
+                  ),
+                );
+              }, childCount: 10),
             ),
           ),
         ],
@@ -576,10 +561,7 @@ dynamic build(BuildContext context) {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircularProgressIndicator(
-                  color: Colors.red,
-                  strokeWidth: 3.0,
-                ),
+                CircularProgressIndicator(color: Colors.red, strokeWidth: 3.0),
                 SizedBox(height: 16.0),
                 Text(
                   'Refreshing orders...',
@@ -592,10 +574,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'SliverIgnorePointer blocks all input',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(color: Colors.grey, fontSize: 11.0),
                 ),
               ],
             ),
@@ -743,8 +722,14 @@ dynamic build(BuildContext context) {
       Colors.red,
       [
         {'label': 'Pointer events', 'desc': 'Pass through to layers beneath'},
-        {'label': 'Sliver child', 'desc': 'Visible but completely non-interactive'},
-        {'label': 'Widgets behind', 'desc': 'CAN receive the pass-through events'},
+        {
+          'label': 'Sliver child',
+          'desc': 'Visible but completely non-interactive',
+        },
+        {
+          'label': 'Widgets behind',
+          'desc': 'CAN receive the pass-through events',
+        },
         {'label': 'Use when', 'desc': 'You want content behind to be tappable'},
       ],
       'SliverIgnorePointer(\n  ignoring: true,\n  sliver: mySliverList,\n)',
@@ -755,10 +740,22 @@ dynamic build(BuildContext context) {
       Icons.crop_square,
       Colors.orange,
       [
-        {'label': 'Pointer events', 'desc': 'Pass through to the widget stack below'},
-        {'label': 'Child', 'desc': 'Any box widget — also visible but non-interactive'},
-        {'label': 'Difference', 'desc': 'Works in Column/Row/Stack, not in sliver contexts'},
-        {'label': 'Use when', 'desc': 'Non-sliver layout needs pointer passthrough'},
+        {
+          'label': 'Pointer events',
+          'desc': 'Pass through to the widget stack below',
+        },
+        {
+          'label': 'Child',
+          'desc': 'Any box widget — also visible but non-interactive',
+        },
+        {
+          'label': 'Difference',
+          'desc': 'Works in Column/Row/Stack, not in sliver contexts',
+        },
+        {
+          'label': 'Use when',
+          'desc': 'Non-sliver layout needs pointer passthrough',
+        },
       ],
       'IgnorePointer(\n  ignoring: true,\n  child: myBoxWidget,\n)',
     ),
@@ -768,9 +765,18 @@ dynamic build(BuildContext context) {
       Icons.block,
       Colors.purple,
       [
-        {'label': 'Pointer events', 'desc': 'Absorbed and discarded — no passthrough'},
-        {'label': 'Child', 'desc': 'Visible but non-interactive, same as IgnorePointer'},
-        {'label': 'Widgets behind', 'desc': 'CANNOT receive events — they are consumed'},
+        {
+          'label': 'Pointer events',
+          'desc': 'Absorbed and discarded — no passthrough',
+        },
+        {
+          'label': 'Child',
+          'desc': 'Visible but non-interactive, same as IgnorePointer',
+        },
+        {
+          'label': 'Widgets behind',
+          'desc': 'CANNOT receive events — they are consumed',
+        },
         {'label': 'Use when', 'desc': 'You want a modal-like block on events'},
       ],
       'AbsorbPointer(\n  absorbing: true,\n  child: myBoxWidget,\n)',
@@ -975,13 +981,16 @@ dynamic build(BuildContext context) {
             ),
             Container(
               margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 4.0,
+                horizontal: 14.0,
+                vertical: 4.0,
               ),
               padding: const EdgeInsets.all(14.0),
               decoration: BoxDecoration(
                 color: Colors.orange.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.orange.withValues(alpha: 0.15)),
+                border: Border.all(
+                  color: Colors.orange.withValues(alpha: 0.15),
+                ),
               ),
               child: Row(
                 children: [
@@ -1046,7 +1055,8 @@ dynamic build(BuildContext context) {
     },
     {
       'icon': Icons.lightbulb_outline,
-      'text': 'Use ignoringSemantics to decouple accessibility from pointer behavior',
+      'text':
+          'Use ignoringSemantics to decouple accessibility from pointer behavior',
       'color': Colors.amber,
     },
     {
@@ -1056,7 +1066,8 @@ dynamic build(BuildContext context) {
     },
     {
       'icon': Icons.warning_amber,
-      'text': 'No AbsorbPointer equivalent for slivers — SliverIgnorePointer only ignores',
+      'text':
+          'No AbsorbPointer equivalent for slivers — SliverIgnorePointer only ignores',
       'color': Colors.orange,
     },
     {
@@ -1211,10 +1222,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'SliverIgnorePointer has three key parameters that control '
                   'pointer and semantics behavior.',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
                 ),
                 const SizedBox(height: 16.0),
                 ...paramWidgets,
@@ -1246,10 +1254,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'Flutter offers several ways to block pointer events. '
                   'Here is how they differ:',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
                 ),
                 const SizedBox(height: 16.0),
                 ...comparisonWidgets,
@@ -1280,10 +1285,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: semanticsDemo,
-              ),
+              Expanded(flex: 3, child: semanticsDemo),
             ],
           ),
           // Tab 8: Summary
@@ -1449,10 +1451,7 @@ Widget _sipRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
           ),
         ),
       ],

@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: lavender, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: lavender),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: grape.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: grape.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -119,16 +128,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: grape)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: grape,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -146,11 +155,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? grape : deepViolet)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? grape : deepViolet,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -167,18 +179,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? grape : deepViolet,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: violet),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: violet),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -205,8 +222,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            pvFlow(['PlatformViewController', 'Platform channel', 'Native view',
-                'OS rendering']),
+            pvFlow([
+              'PlatformViewController',
+              'Platform channel',
+              'Native view',
+              'OS rendering',
+            ]),
             const SizedBox(height: 10),
             _pvRoleBadge('Creates', 'Instantiates the native view', grape),
             _pvRoleBadge('Resizes', 'Sends new size to platform', deepViolet),
@@ -237,9 +258,19 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _pvPhaseItem(1, 'create()', 'Send viewType + params', grape),
-            _pvPhaseItem(2, 'Receive viewId', 'Engine assigns unique ID', deepViolet),
+            _pvPhaseItem(
+              2,
+              'Receive viewId',
+              'Engine assigns unique ID',
+              deepViolet,
+            ),
             _pvPhaseItem(3, 'clearFocus()', 'Called when losing focus', plum),
-            _pvPhaseItem(4, 'dispatchPointerEvent()', 'Forward touches', violet),
+            _pvPhaseItem(
+              4,
+              'dispatchPointerEvent()',
+              'Forward touches',
+              violet,
+            ),
             _pvPhaseItem(5, 'dispose()', 'Destroy native view', amethyst),
           ],
         ),
@@ -265,8 +296,18 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             pvRow(['Mode', 'How', 'Perf', 'Compat'], isHeader: true),
-            pvRow(['Virtual Display', 'Off-screen surface', 'Good', 'Some issues']),
-            pvRow(['Hybrid Composition', 'Real view hierarchy', 'Varies', 'Full']),
+            pvRow([
+              'Virtual Display',
+              'Off-screen surface',
+              'Good',
+              'Some issues',
+            ]),
+            pvRow([
+              'Hybrid Composition',
+              'Real view hierarchy',
+              'Varies',
+              'Full',
+            ]),
             pvRow(['Texture Layer', 'Draw to texture', 'Best', 'Limited']),
           ],
         ),
@@ -321,11 +362,19 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            pvFlow(['Register factory', 'Flutter creates widget',
-                'Engine calls factory', 'Native view returned']),
+            pvFlow([
+              'Register factory',
+              'Flutter creates widget',
+              'Engine calls factory',
+              'Native view returned',
+            ]),
             const SizedBox(height: 10),
             _pvKeyValue('viewType', '"my_google_map"', grape),
-            _pvKeyValue('Registration', 'registerViewFactory(type, factory)', deepViolet),
+            _pvKeyValue(
+              'Registration',
+              'registerViewFactory(type, factory)',
+              deepViolet,
+            ),
             _pvKeyValue('Params', 'creationParams + codec', plum),
           ],
         ),
@@ -379,10 +428,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _pvPhaseItem(1, 'User taps Flutter widget', 'Focus moves to Flutter', grape),
-            _pvPhaseItem(2, 'FocusNode.requestFocus()', 'Flutter widget gets focus', deepViolet),
-            _pvPhaseItem(3, 'controller.clearFocus()', 'Native view loses focus', plum),
-            _pvPhaseItem(4, 'Native keyboard dismissed', 'If applicable', violet),
+            _pvPhaseItem(
+              1,
+              'User taps Flutter widget',
+              'Focus moves to Flutter',
+              grape,
+            ),
+            _pvPhaseItem(
+              2,
+              'FocusNode.requestFocus()',
+              'Flutter widget gets focus',
+              deepViolet,
+            ),
+            _pvPhaseItem(
+              3,
+              'controller.clearFocus()',
+              'Native view loses focus',
+              plum,
+            ),
+            _pvPhaseItem(
+              4,
+              'Native keyboard dismissed',
+              'If applicable',
+              violet,
+            ),
           ],
         ),
       ),
@@ -463,8 +532,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            pvFlow(['Flutter layout', 'RenderBox.size', 'Controller resize',
-                'Native layout', 'Render']),
+            pvFlow([
+              'Flutter layout',
+              'RenderBox.size',
+              'Controller resize',
+              'Native layout',
+              'Render',
+            ]),
           ],
         ),
       ),
@@ -672,11 +746,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('PlatformViewController — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'PlatformViewController — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From abstract controller through Android/iOS implementations, '
@@ -708,10 +785,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -739,13 +828,20 @@ Widget _pvRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(role,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            role,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -765,9 +861,14 @@ Widget _pvPhaseItem(int num, String title, String desc, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -775,13 +876,21 @@ Widget _pvPhaseItem(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 9,
-                      color: color.withValues(alpha: 0.7))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -797,15 +906,24 @@ Widget _pvKeyValue(String key, String value, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(key,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            key,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(
-                  fontSize: 10, fontFamily: 'monospace',
-                  color: color.withValues(alpha: 0.8))),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.8),
+            ),
+          ),
         ),
       ],
     ),

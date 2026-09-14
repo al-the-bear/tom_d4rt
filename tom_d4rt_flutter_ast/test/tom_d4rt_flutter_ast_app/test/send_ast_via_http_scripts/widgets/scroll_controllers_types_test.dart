@@ -18,8 +18,12 @@ import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 
 const Color kAccentScroll = Color(0xFF6D28D9); // purple — ScrollController
-const Color kAccentTrack = Color(0xFFDB2777); // magenta — TrackingScrollController
-const Color kAccentPrimary = Color(0xFF0E9488); // teal   — PrimaryScrollController
+const Color kAccentTrack = Color(
+  0xFFDB2777,
+); // magenta — TrackingScrollController
+const Color kAccentPrimary = Color(
+  0xFF0E9488,
+); // teal   — PrimaryScrollController
 const Color kAccentPage = Color(0xFFF59E0B); // amber  — PageController
 
 const Color kInk = Color(0xFF111827);
@@ -50,10 +54,7 @@ dynamic build(BuildContext context) {
       colorSchemeSeed: kAccentScroll,
       scaffoldBackgroundColor: kSurface,
       textTheme: const TextTheme(
-        titleLarge: TextStyle(
-          fontWeight: FontWeight.w700,
-          color: kInk,
-        ),
+        titleLarge: TextStyle(fontWeight: FontWeight.w700, color: kInk),
         bodyMedium: TextStyle(color: kInk),
       ),
     ),
@@ -166,10 +167,7 @@ class _SectionCard extends StatelessWidget {
             height: 6,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  accent,
-                  accent.withValues(alpha: 0.6),
-                ],
+                colors: <Color>[accent, accent.withValues(alpha: 0.6)],
               ),
             ),
           ),
@@ -186,11 +184,7 @@ class _SectionCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(
-                    icon ?? Icons.swap_vert,
-                    color: accent,
-                    size: 20,
-                  ),
+                  child: Icon(icon ?? Icons.swap_vert, color: accent, size: 20),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -208,10 +202,7 @@ class _SectionCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         subtitle,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: kInkMuted,
-                        ),
+                        style: const TextStyle(fontSize: 12, color: kInkMuted),
                       ),
                     ],
                   ),
@@ -398,10 +389,8 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
     if (!mounted) return;
     final bool attached = _controller.hasClients;
     final double px = attached ? _controller.position.pixels : 0;
-    final double min =
-        attached ? _controller.position.minScrollExtent : 0;
-    final double max =
-        attached ? _controller.position.maxScrollExtent : 0;
+    final double min = attached ? _controller.position.minScrollExtent : 0;
+    final double max = attached ? _controller.position.maxScrollExtent : 0;
     setState(() {
       _pixels = px;
       _minExtent = min;
@@ -430,8 +419,10 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
 
   Future<void> _animatePlus200() async {
     if (!_controller.hasClients) return;
-    final double target = (_controller.position.pixels + 200)
-        .clamp(0.0, _controller.position.maxScrollExtent);
+    final double target = (_controller.position.pixels + 200).clamp(
+      0.0,
+      _controller.position.maxScrollExtent,
+    );
     debugPrint('ScrollController card: animateTo(+200) target=$target');
     await _controller.animateTo(
       target,
@@ -442,8 +433,7 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
 
   void _scrub(double value) {
     if (!_controller.hasClients) return;
-    final double target =
-        (value * _controller.position.maxScrollExtent).clamp(
+    final double target = (value * _controller.position.maxScrollExtent).clamp(
       _controller.position.minScrollExtent,
       _controller.position.maxScrollExtent,
     );
@@ -473,9 +463,7 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
             decoration: BoxDecoration(
               color: kAccentScroll.withValues(alpha: 0.04),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: kAccentScroll.withValues(alpha: 0.18),
-              ),
+              border: Border.all(color: kAccentScroll.withValues(alpha: 0.18)),
             ),
             clipBehavior: Clip.antiAlias,
             child: ListView.builder(
@@ -484,18 +472,21 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
               padding: const EdgeInsets.symmetric(vertical: 4),
               itemBuilder: (BuildContext context, int index) {
                 final double t = (index % 10) / 10.0;
-                final Color tile =
-                    Color.lerp(kAccentScroll, const Color(0xFFF472B6), t)!;
+                final Color tile = Color.lerp(
+                  kAccentScroll,
+                  const Color(0xFFF472B6),
+                  t,
+                )!;
                 return Container(
                   height: 36,
                   margin: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 3),
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: tile.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: tile.withValues(alpha: 0.4),
-                    ),
+                    border: Border.all(color: tile.withValues(alpha: 0.4)),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   alignment: Alignment.centerLeft,
@@ -533,8 +524,7 @@ class _ScrollControllerCardState extends State<_ScrollControllerCard> {
           // Scrub slider
           Row(
             children: <Widget>[
-              const Icon(Icons.drag_indicator,
-                  size: 18, color: kInkMuted),
+              const Icon(Icons.drag_indicator, size: 18, color: kInkMuted),
               Expanded(
                 child: Slider(
                   activeColor: kAccentScroll,
@@ -623,8 +613,7 @@ class _TrackingScrollControllerCardState
   @override
   void initState() {
     super.initState();
-    debugPrint(
-        'TrackingScrollController card: initState — tracker listening');
+    debugPrint('TrackingScrollController card: initState — tracker listening');
     _tracker.addListener(_onTrackerChanged);
   }
 
@@ -675,10 +664,7 @@ class _TrackingScrollControllerCardState
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _ActiveBadge(
-            index: _activeIndex,
-            accent: kAccentTrack,
-          ),
+          _ActiveBadge(index: _activeIndex, accent: kAccentTrack),
           const SizedBox(height: 10),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -773,8 +759,10 @@ class _TrackingScrollControllerCardState
               itemCount: 40,
               padding: const EdgeInsets.symmetric(vertical: 4),
               itemBuilder: (BuildContext context, int index) {
-                final double t =
-                    ((startHue + index / 40.0) % 1.0).clamp(0.0, 1.0);
+                final double t = ((startHue + index / 40.0) % 1.0).clamp(
+                  0.0,
+                  1.0,
+                );
                 final Color c = Color.lerp(
                   kAccentTrack,
                   const Color(0xFFF472B6),
@@ -783,7 +771,9 @@ class _TrackingScrollControllerCardState
                 return Container(
                   height: 28,
                   margin: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: c.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(5),
@@ -863,7 +853,8 @@ class _PrimaryScrollControllerCardState
   void initState() {
     super.initState();
     debugPrint(
-        'PrimaryScrollController card: initState — primary + sibling wired');
+      'PrimaryScrollController card: initState — primary + sibling wired',
+    );
     _primary.addListener(_onPrimary);
   }
 
@@ -936,38 +927,38 @@ class _PrimaryScrollControllerCardState
                           ),
                         ),
                         SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              final Color c = Color.lerp(
-                                kAccentPrimary,
-                                const Color(0xFF22D3EE),
-                                (index % 10) / 10.0,
-                              )!;
-                              return Container(
-                                height: 34,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
+                          delegate: SliverChildBuilderDelegate((
+                            BuildContext context,
+                            int index,
+                          ) {
+                            final Color c = Color.lerp(
+                              kAccentPrimary,
+                              const Color(0xFF22D3EE),
+                              (index % 10) / 10.0,
+                            )!;
+                            return Container(
+                              height: 34,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: c.withValues(alpha: 0.18),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                              ),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Primary row ${index + 1}',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: kInk,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: c.withValues(alpha: 0.18),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Primary row ${index + 1}',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: kInk,
-                                  ),
-                                ),
-                              );
-                            },
-                            childCount: 40,
-                          ),
+                              ),
+                            );
+                          }, childCount: 40),
                         ),
                       ],
                     ),
@@ -1005,8 +996,9 @@ class _PrimaryScrollControllerCardState
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF9CA3AF)
-                                .withValues(alpha: 0.25),
+                            color: const Color(
+                              0xFF9CA3AF,
+                            ).withValues(alpha: 0.25),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -1040,11 +1032,7 @@ class _PrimaryScrollControllerCardState
                 child: Text(
                   'The sibling on the right sets primary: false, so the '
                   'external controller does not move it.',
-                  style: TextStyle(
-                    color: kInkMuted,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: kInkMuted, fontSize: 12, height: 1.4),
                 ),
               ),
             ],
@@ -1056,10 +1044,7 @@ class _PrimaryScrollControllerCardState
         entries: <_MetricEntry>[
           _MetricEntry('primary px', _primaryPx.toStringAsFixed(1)),
           _MetricEntry('sibling px', _siblingPx.toStringAsFixed(1)),
-          _MetricEntry(
-            'attached',
-            _primary.hasClients ? 'yes' : 'no',
-          ),
+          _MetricEntry('attached', _primary.hasClients ? 'yes' : 'no'),
           const _MetricEntry('inherited', 'via InheritedWidget'),
         ],
       ),
@@ -1092,25 +1077,51 @@ class _PageControllerCardState extends State<_PageControllerCard> {
   int _indicatorPage = _initialPage;
 
   static const List<_PageData> _pages = <_PageData>[
-    _PageData('Welcome', Icons.waving_hand, Color(0xFFF59E0B),
-        'Kick off your onboarding flow.'),
-    _PageData('Connect', Icons.cable, Color(0xFFEF4444),
-        'Link your accounts and data sources.'),
-    _PageData('Customize', Icons.tune, Color(0xFF8B5CF6),
-        'Pick a palette and layout density.'),
-    _PageData('Invite', Icons.group_add, Color(0xFF0E9488),
-        'Add teammates and assign roles.'),
-    _PageData('Review', Icons.fact_check, Color(0xFF2563EB),
-        'Double-check before you launch.'),
-    _PageData('Launch', Icons.rocket_launch, Color(0xFFDB2777),
-        'Go live — PageController snaps into place.'),
+    _PageData(
+      'Welcome',
+      Icons.waving_hand,
+      Color(0xFFF59E0B),
+      'Kick off your onboarding flow.',
+    ),
+    _PageData(
+      'Connect',
+      Icons.cable,
+      Color(0xFFEF4444),
+      'Link your accounts and data sources.',
+    ),
+    _PageData(
+      'Customize',
+      Icons.tune,
+      Color(0xFF8B5CF6),
+      'Pick a palette and layout density.',
+    ),
+    _PageData(
+      'Invite',
+      Icons.group_add,
+      Color(0xFF0E9488),
+      'Add teammates and assign roles.',
+    ),
+    _PageData(
+      'Review',
+      Icons.fact_check,
+      Color(0xFF2563EB),
+      'Double-check before you launch.',
+    ),
+    _PageData(
+      'Launch',
+      Icons.rocket_launch,
+      Color(0xFFDB2777),
+      'Go live — PageController snaps into place.',
+    ),
   ];
 
   @override
   void initState() {
     super.initState();
-    debugPrint('PageController card: initState (viewportFraction='
-        '$_viewportFraction, initialPage=$_initialPage)');
+    debugPrint(
+      'PageController card: initState (viewportFraction='
+      '$_viewportFraction, initialPage=$_initialPage)',
+    );
     _page.addListener(_onPage);
   }
 
@@ -1173,7 +1184,9 @@ class _PageControllerCardState extends State<_PageControllerCard> {
                 final _PageData data = _pages[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 4),
+                    horizontal: 6,
+                    vertical: 4,
+                  ),
                   child: _OnboardingPage(data: data),
                 );
               },
@@ -1247,10 +1260,7 @@ class _OnboardingPage extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            data.color,
-            data.color.withValues(alpha: 0.65),
-          ],
+          colors: <Color>[data.color, data.color.withValues(alpha: 0.65)],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1327,8 +1337,7 @@ class _PageIndicator extends StatelessWidget {
           height: 8,
           margin: const EdgeInsets.symmetric(horizontal: 3),
           decoration: BoxDecoration(
-            color:
-                active ? accent : accent.withValues(alpha: 0.3),
+            color: active ? accent : accent.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(999),
           ),
         );
@@ -1388,13 +1397,10 @@ class _ComparisonTableCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
             decoration: BoxDecoration(
               color: kInk.withValues(alpha: 0.04),
-              border: const Border(
-                bottom: BorderSide(color: kCardOutline),
-              ),
+              border: const Border(bottom: BorderSide(color: kCardOutline)),
             ),
             child: Row(
               children: const <Widget>[
@@ -1706,11 +1712,7 @@ class _TipTile extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               body,
-              style: const TextStyle(
-                fontSize: 12,
-                color: kInk,
-                height: 1.4,
-              ),
+              style: const TextStyle(fontSize: 12, color: kInk, height: 1.4),
             ),
           ],
         ),
@@ -1730,7 +1732,8 @@ class _CodeSnippetCard extends StatelessWidget {
     _Snippet(
       accent: kAccentScroll,
       title: 'ScrollController',
-      code: 'final c = ScrollController(\n'
+      code:
+          'final c = ScrollController(\n'
           '  initialScrollOffset: 0,\n'
           '  keepScrollOffset: true,\n'
           ');\n\n'
@@ -1744,7 +1747,8 @@ class _CodeSnippetCard extends StatelessWidget {
     _Snippet(
       accent: kAccentTrack,
       title: 'TrackingScrollController',
-      code: 'final t = TrackingScrollController();\n\n'
+      code:
+          'final t = TrackingScrollController();\n\n'
           'ListView(controller: t, ...);\n'
           'ListView(controller: t, ...);\n\n'
           'final ScrollPosition? active =\n'
@@ -1755,7 +1759,8 @@ class _CodeSnippetCard extends StatelessWidget {
     _Snippet(
       accent: kAccentPrimary,
       title: 'PrimaryScrollController',
-      code: 'PrimaryScrollController(\n'
+      code:
+          'PrimaryScrollController(\n'
           '  controller: c,\n'
           '  child: CustomScrollView(\n'
           '    // primary: true by default\n'
@@ -1768,7 +1773,8 @@ class _CodeSnippetCard extends StatelessWidget {
     _Snippet(
       accent: kAccentPage,
       title: 'PageController',
-      code: 'final p = PageController(\n'
+      code:
+          'final p = PageController(\n'
           '  initialPage: 0,\n'
           '  viewportFraction: 0.85,\n'
           '  keepPage: true,\n'
@@ -1852,8 +1858,7 @@ class _SnippetBlock extends StatelessWidget {
           children: <Widget>[
             Container(
               color: snippet.accent.withValues(alpha: 0.25),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 children: <Widget>[
                   Container(
@@ -2066,10 +2071,7 @@ class _FooterCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            Color(0xFF111827),
-            Color(0xFF1F2937),
-          ],
+          colors: <Color>[Color(0xFF111827), Color(0xFF1F2937)],
         ),
       ),
       padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
@@ -2086,8 +2088,11 @@ class _FooterCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.check_circle,
-                    color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.check_circle,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               const Expanded(
@@ -2123,12 +2128,12 @@ class _FooterCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: const <Widget>[
-              _FooterChip(label: 'disposed in State.dispose',
-                  color: kAccentScroll),
               _FooterChip(
-                  label: 'no runApp / no main', color: kAccentTrack),
-              _FooterChip(
-                  label: 'withValues(alpha:)', color: kAccentPrimary),
+                label: 'disposed in State.dispose',
+                color: kAccentScroll,
+              ),
+              _FooterChip(label: 'no runApp / no main', color: kAccentTrack),
+              _FooterChip(label: 'withValues(alpha:)', color: kAccentPrimary),
               _FooterChip(label: 'debugPrint only', color: kAccentPage),
             ],
           ),
@@ -2190,8 +2195,7 @@ class _PillButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         onTap: onPressed,
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(999),
             border: Border.all(color: color.withValues(alpha: 0.5)),

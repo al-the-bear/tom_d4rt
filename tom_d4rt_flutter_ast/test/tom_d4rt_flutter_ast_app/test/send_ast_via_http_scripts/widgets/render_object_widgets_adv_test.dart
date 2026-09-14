@@ -54,42 +54,22 @@ dynamic build(BuildContext context) {
   );
   const singleChildSizedBox = SizedBox(width: 48.0, height: 24.0);
   final singleChildCenter = Center(
-    child: Container(
-      color: const Color(0xFF80CBC4),
-      width: 24.0,
-      height: 24.0,
-    ),
+    child: Container(color: const Color(0xFF80CBC4), width: 24.0, height: 24.0),
   );
   final singleChildAlign = Align(
     alignment: Alignment.topRight,
-    child: Container(
-      color: const Color(0xFFFFAB91),
-      width: 16.0,
-      height: 16.0,
-    ),
+    child: Container(color: const Color(0xFFFFAB91), width: 16.0, height: 16.0),
   );
   final singleChildTransform = Transform.rotate(
     angle: 0.15,
-    child: Container(
-      color: const Color(0xFF90CAF9),
-      width: 40.0,
-      height: 24.0,
-    ),
+    child: Container(color: const Color(0xFF90CAF9), width: 40.0, height: 24.0),
   );
   final singleChildClipRect = ClipRect(
-    child: Container(
-      color: const Color(0xFFFFE082),
-      width: 48.0,
-      height: 24.0,
-    ),
+    child: Container(color: const Color(0xFFFFE082), width: 48.0, height: 24.0),
   );
   final singleChildOpacity = Opacity(
     opacity: 0.55,
-    child: Container(
-      color: const Color(0xFFF48FB1),
-      width: 40.0,
-      height: 24.0,
-    ),
+    child: Container(color: const Color(0xFFF48FB1), width: 40.0, height: 24.0),
   );
   final singleChildColoredBox = ColoredBox(
     color: const Color(0xFFA5D6A7),
@@ -282,7 +262,8 @@ dynamic build(BuildContext context) {
       'widget': 'ParentDataWidget<T>',
       'element': 'ParentDataElement<T>',
       'children': '1',
-      'use': 'Inject ParentData onto a child so a specific Multi parent reads it.',
+      'use':
+          'Inject ParentData onto a child so a specific Multi parent reads it.',
     },
   ];
 
@@ -291,22 +272,26 @@ dynamic build(BuildContext context) {
     {
       'title': 'Soft card frame',
       'primitives': 'ColoredBox + Padding + ClipRect',
-      'recipe': 'Wrap content in ClipRect → ColoredBox → Padding for a clean tile.',
+      'recipe':
+          'Wrap content in ClipRect → ColoredBox → Padding for a clean tile.',
     },
     {
       'title': 'Fixed-size badge',
       'primitives': 'SizedBox + ColoredBox + Center',
-      'recipe': 'SizedBox locks size, ColoredBox fills, Center positions glyph.',
+      'recipe':
+          'SizedBox locks size, ColoredBox fills, Center positions glyph.',
     },
     {
       'title': 'Overlay corner mark',
       'primitives': 'Stack + Positioned + SizedBox',
-      'recipe': 'Stack hosts base child; Positioned(top, right) injects parent data.',
+      'recipe':
+          'Stack hosts base child; Positioned(top, right) injects parent data.',
     },
     {
       'title': 'Two-column proportion split',
       'primitives': 'Row + Expanded',
-      'recipe': 'Row with two Expanded(flex: 2) and Expanded(flex: 3) children.',
+      'recipe':
+          'Row with two Expanded(flex: 2) and Expanded(flex: 3) children.',
     },
     {
       'title': 'Translucent overlay',
@@ -382,7 +367,8 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'LeafRenderObjectWidget',
-      'def': 'RenderObjectWidget with zero children. Creates LeafRenderObjectElement.',
+      'def':
+          'RenderObjectWidget with zero children. Creates LeafRenderObjectElement.',
     },
     {
       'term': 'SingleChildRenderObjectWidget',
@@ -414,7 +400,8 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'Element',
-      'def': 'Mutable instantiation of a Widget; tracks identity and lifecycle.',
+      'def':
+          'Mutable instantiation of a Widget; tracks identity and lifecycle.',
     },
     {
       'term': 'RenderObject',
@@ -426,7 +413,8 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'FlexParentData',
-      'def': 'ParentData used by RenderFlex (Row/Column) for flex factor + fit.',
+      'def':
+          'ParentData used by RenderFlex (Row/Column) for flex factor + fit.',
     },
   ];
 
@@ -506,8 +494,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 1 - DOSSIER
               // ============================================================
-              _sectionHeader('1. Dossier', 'When to reach for which base class',
-                  const Color(0xFF311B92)),
+              _sectionHeader(
+                '1. Dossier',
+                'When to reach for which base class',
+                const Color(0xFF311B92),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -515,8 +506,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEDE7F6),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFFB39DDB), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFB39DDB),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -524,7 +517,8 @@ dynamic build(BuildContext context) {
                     _DossierLine(
                       icon: 'L',
                       title: 'LeafRenderObjectWidget',
-                      body: 'No children. Paints itself entirely. Use for '
+                      body:
+                          'No children. Paints itself entirely. Use for '
                           'atomic visuals like Placeholder or custom painted glyphs.',
                       color: Color(0xFF1976D2),
                     ),
@@ -532,7 +526,8 @@ dynamic build(BuildContext context) {
                     _DossierLine(
                       icon: 'S',
                       title: 'SingleChildRenderObjectWidget',
-                      body: 'Exactly one child. Decorates/transforms. Use for '
+                      body:
+                          'Exactly one child. Decorates/transforms. Use for '
                           'Padding, Opacity, Transform, ClipRect, ColoredBox.',
                       color: Color(0xFF388E3C),
                     ),
@@ -540,7 +535,8 @@ dynamic build(BuildContext context) {
                     _DossierLine(
                       icon: 'M',
                       title: 'MultiChildRenderObjectWidget',
-                      body: 'List of children. Layout containers. Use for Row, '
+                      body:
+                          'List of children. Layout containers. Use for Row, '
                           'Column, Stack, Wrap, Flow, IndexedStack.',
                       color: Color(0xFFEF6C00),
                     ),
@@ -548,7 +544,8 @@ dynamic build(BuildContext context) {
                     _DossierLine(
                       icon: 'P',
                       title: 'ParentDataWidget<T>',
-                      body: 'Wraps a single child to inject ParentData of type '
+                      body:
+                          'Wraps a single child to inject ParentData of type '
                           'T. Use Positioned inside Stack, Flexible/Expanded inside Flex.',
                       color: Color(0xFFC2185B),
                     ),
@@ -562,8 +559,10 @@ dynamic build(BuildContext context) {
               // SECTION 2 - ANATOMY TABLE
               // ============================================================
               _sectionHeader(
-                  '2. Anatomy', 'Class hierarchy and lifecycle hooks',
-                  const Color(0xFF311B92)),
+                '2. Anatomy',
+                'Class hierarchy and lifecycle hooks',
+                const Color(0xFF311B92),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -571,8 +570,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFFB0BEC5), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFB0BEC5),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -725,9 +726,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 3 - LEAF GALLERY
               // ============================================================
-              _sectionHeader('3. Leaf gallery',
-                  'LeafRenderObjectWidget — zero children',
-                  const Color(0xFF1976D2)),
+              _sectionHeader(
+                '3. Leaf gallery',
+                'LeafRenderObjectWidget — zero children',
+                const Color(0xFF1976D2),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -735,8 +738,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE3F2FD),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF64B5F6), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF64B5F6),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -805,9 +810,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 4 - SINGLECHILD GALLERY
               // ============================================================
-              _sectionHeader('4. SingleChildRenderObjectWidget gallery',
-                  'Exactly one child slot',
-                  const Color(0xFF388E3C)),
+              _sectionHeader(
+                '4. SingleChildRenderObjectWidget gallery',
+                'Exactly one child slot',
+                const Color(0xFF388E3C),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -815,8 +822,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8F5E9),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF81C784), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF81C784),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -862,8 +871,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 5 - MULTICHILD GALLERY
               // ============================================================
-              _sectionHeader('5. MultiChildRenderObjectWidget gallery',
-                  'A List<Widget> of children', const Color(0xFFEF6C00)),
+              _sectionHeader(
+                '5. MultiChildRenderObjectWidget gallery',
+                'A List<Widget> of children',
+                const Color(0xFFEF6C00),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -871,8 +883,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF3E0),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFFFFB74D), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFFFB74D),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -930,11 +944,23 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              _miniBox(const Color(0xFFFFCC80), w: 24.0, h: 8.0),
+                              _miniBox(
+                                const Color(0xFFFFCC80),
+                                w: 24.0,
+                                h: 8.0,
+                              ),
                               const SizedBox(height: 2.0),
-                              _miniBox(const Color(0xFFFFB74D), w: 36.0, h: 8.0),
+                              _miniBox(
+                                const Color(0xFFFFB74D),
+                                w: 36.0,
+                                h: 8.0,
+                              ),
                               const SizedBox(height: 2.0),
-                              _miniBox(const Color(0xFFFF9800), w: 48.0, h: 8.0),
+                              _miniBox(
+                                const Color(0xFFFF9800),
+                                w: 48.0,
+                                h: 8.0,
+                              ),
                             ],
                           ),
                         ),
@@ -957,9 +983,21 @@ dynamic build(BuildContext context) {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              _miniBox(const Color(0xFFFFCC80), w: 40.0, h: 40.0),
-                              _miniBox(const Color(0xFFFF9800), w: 24.0, h: 24.0),
-                              _miniBox(const Color(0xFFE65100), w: 10.0, h: 10.0),
+                              _miniBox(
+                                const Color(0xFFFFCC80),
+                                w: 40.0,
+                                h: 40.0,
+                              ),
+                              _miniBox(
+                                const Color(0xFFFF9800),
+                                w: 24.0,
+                                h: 24.0,
+                              ),
+                              _miniBox(
+                                const Color(0xFFE65100),
+                                w: 10.0,
+                                h: 10.0,
+                              ),
                             ],
                           ),
                         ),
@@ -983,10 +1021,26 @@ dynamic build(BuildContext context) {
                             spacing: 2.0,
                             runSpacing: 2.0,
                             children: [
-                              _miniBox(const Color(0xFFFFCC80), w: 16.0, h: 16.0),
-                              _miniBox(const Color(0xFFFFB74D), w: 16.0, h: 16.0),
-                              _miniBox(const Color(0xFFFF9800), w: 16.0, h: 16.0),
-                              _miniBox(const Color(0xFFFB8C00), w: 16.0, h: 16.0),
+                              _miniBox(
+                                const Color(0xFFFFCC80),
+                                w: 16.0,
+                                h: 16.0,
+                              ),
+                              _miniBox(
+                                const Color(0xFFFFB74D),
+                                w: 16.0,
+                                h: 16.0,
+                              ),
+                              _miniBox(
+                                const Color(0xFFFF9800),
+                                w: 16.0,
+                                h: 16.0,
+                              ),
+                              _miniBox(
+                                const Color(0xFFFB8C00),
+                                w: 16.0,
+                                h: 16.0,
+                              ),
                             ],
                           ),
                         ),
@@ -1037,9 +1091,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 6 - PARENTDATAWIDGET GALLERY
               // ============================================================
-              _sectionHeader('6. ParentDataWidget gallery',
-                  'Inject ParentData into a child slot',
-                  const Color(0xFFC2185B)),
+              _sectionHeader(
+                '6. ParentDataWidget gallery',
+                'Inject ParentData into a child slot',
+                const Color(0xFFC2185B),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1047,8 +1103,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFCE4EC),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFFF06292), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFF06292),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1299,9 +1357,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 7 - ELEMENT TREE DIAGRAM
               // ============================================================
-              _sectionHeader('7. Element-tree visualization',
-                  'Widget : Element : RenderObject correspondence',
-                  const Color(0xFF263238)),
+              _sectionHeader(
+                '7. Element-tree visualization',
+                'Widget : Element : RenderObject correspondence',
+                const Color(0xFF263238),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1309,8 +1369,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFECEFF1),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF90A4AE), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF90A4AE),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1322,22 +1384,54 @@ dynamic build(BuildContext context) {
                       style: TextStyle(fontSize: 12.0, height: 1.4),
                     ),
                     const SizedBox(height: 14.0),
-                    _correspondenceRow('Placeholder', 'LeafRenderObjectWidget',
-                        'LeafRenderObjectElement', 'RenderCustomPaint'),
-                    _correspondenceRow('Padding', 'SingleChildRenderObjectWidget',
-                        'SingleChildRenderObjectElement', 'RenderPadding'),
-                    _correspondenceRow('Opacity', 'SingleChildRenderObjectWidget',
-                        'SingleChildRenderObjectElement', 'RenderOpacity'),
-                    _correspondenceRow('Row', 'MultiChildRenderObjectWidget',
-                        'MultiChildRenderObjectElement', 'RenderFlex'),
-                    _correspondenceRow('Column', 'MultiChildRenderObjectWidget',
-                        'MultiChildRenderObjectElement', 'RenderFlex'),
-                    _correspondenceRow('Stack', 'MultiChildRenderObjectWidget',
-                        'MultiChildRenderObjectElement', 'RenderStack'),
-                    _correspondenceRow('Positioned', 'ParentDataWidget<StackParentData>',
-                        'ParentDataElement<StackParentData>', '— (mutates child parentData)'),
-                    _correspondenceRow('Flexible', 'ParentDataWidget<FlexParentData>',
-                        'ParentDataElement<FlexParentData>', '— (mutates child parentData)'),
+                    _correspondenceRow(
+                      'Placeholder',
+                      'LeafRenderObjectWidget',
+                      'LeafRenderObjectElement',
+                      'RenderCustomPaint',
+                    ),
+                    _correspondenceRow(
+                      'Padding',
+                      'SingleChildRenderObjectWidget',
+                      'SingleChildRenderObjectElement',
+                      'RenderPadding',
+                    ),
+                    _correspondenceRow(
+                      'Opacity',
+                      'SingleChildRenderObjectWidget',
+                      'SingleChildRenderObjectElement',
+                      'RenderOpacity',
+                    ),
+                    _correspondenceRow(
+                      'Row',
+                      'MultiChildRenderObjectWidget',
+                      'MultiChildRenderObjectElement',
+                      'RenderFlex',
+                    ),
+                    _correspondenceRow(
+                      'Column',
+                      'MultiChildRenderObjectWidget',
+                      'MultiChildRenderObjectElement',
+                      'RenderFlex',
+                    ),
+                    _correspondenceRow(
+                      'Stack',
+                      'MultiChildRenderObjectWidget',
+                      'MultiChildRenderObjectElement',
+                      'RenderStack',
+                    ),
+                    _correspondenceRow(
+                      'Positioned',
+                      'ParentDataWidget<StackParentData>',
+                      'ParentDataElement<StackParentData>',
+                      '— (mutates child parentData)',
+                    ),
+                    _correspondenceRow(
+                      'Flexible',
+                      'ParentDataWidget<FlexParentData>',
+                      'ParentDataElement<FlexParentData>',
+                      '— (mutates child parentData)',
+                    ),
                   ],
                 ),
               ),
@@ -1347,9 +1441,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 8 - RECIPE CARDS
               // ============================================================
-              _sectionHeader('8. Recipes',
-                  'Composing custom-feeling widgets from primitives',
-                  const Color(0xFF00838F)),
+              _sectionHeader(
+                '8. Recipes',
+                'Composing custom-feeling widgets from primitives',
+                const Color(0xFF00838F),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1357,8 +1453,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE0F7FA),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF4DD0E1), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF4DD0E1),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -1422,9 +1520,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 9 - COMPARISON TABLE
               // ============================================================
-              _sectionHeader('9. Comparison table',
-                  'Leaf · Single · Multi · ParentData · vs StatelessWidget',
-                  const Color(0xFF5D4037)),
+              _sectionHeader(
+                '9. Comparison table',
+                'Leaf · Single · Multi · ParentData · vs StatelessWidget',
+                const Color(0xFF5D4037),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1432,8 +1532,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEFEBE9),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFFA1887F), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFA1887F),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   children: [
@@ -1576,8 +1678,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 10 - GLOSSARY
               // ============================================================
-              _sectionHeader('10. Glossary', 'Core vocabulary',
-                  const Color(0xFF3F51B5)),
+              _sectionHeader(
+                '10. Glossary',
+                'Core vocabulary',
+                const Color(0xFF3F51B5),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1585,8 +1690,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8EAF6),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF7986CB), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF7986CB),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1630,9 +1737,11 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SECTION 11 - FINAL COMPOSED TREE
               // ============================================================
-              _sectionHeader('11. Final composed widget tree',
-                  'Everything you just learned, glued into one demo',
-                  const Color(0xFF1B5E20)),
+              _sectionHeader(
+                '11. Final composed widget tree',
+                'Everything you just learned, glued into one demo',
+                const Color(0xFF1B5E20),
+              ),
               const SizedBox(height: 8.0),
               Container(
                 width: double.infinity,
@@ -1640,8 +1749,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFE8F5E9),
                   borderRadius: BorderRadius.circular(12.0),
-                  border:
-                      Border.all(color: const Color(0xFF66BB6A), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFF66BB6A),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1689,9 +1800,7 @@ dynamic build(BuildContext context) {
                                 children: [
                                   // SingleChild: ColoredBox base
                                   const Positioned.fill(
-                                    child: ColoredBox(
-                                      color: Color(0xFFA5D6A7),
-                                    ),
+                                    child: ColoredBox(color: Color(0xFFA5D6A7)),
                                   ),
                                   // Positioned ParentDataWidget
                                   Positioned(
@@ -1863,10 +1972,7 @@ Widget _sectionHeader(String title, String subtitle, Color color) {
         ),
         Text(
           subtitle,
-          style: const TextStyle(
-            color: Color(0xFFECEFF1),
-            fontSize: 11.0,
-          ),
+          style: const TextStyle(color: Color(0xFFECEFF1), fontSize: 11.0),
         ),
       ],
     ),
@@ -2007,10 +2113,7 @@ class _DossierLine extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2.0),
-              Text(
-                body,
-                style: const TextStyle(fontSize: 11.0, height: 1.4),
-              ),
+              Text(body, style: const TextStyle(fontSize: 11.0, height: 1.4)),
             ],
           ),
         ),
@@ -2046,13 +2149,9 @@ class _ThreeTreeDiagram extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Expanded(
-            child: _treeNode('Widget', widgetLabel, color),
-          ),
+          Expanded(child: _treeNode('Widget', widgetLabel, color)),
           Icon(Icons.arrow_forward, size: 14.0, color: color),
-          Expanded(
-            child: _treeNode('Element', elementLabel, color),
-          ),
+          Expanded(child: _treeNode('Element', elementLabel, color)),
           Icon(Icons.arrow_forward, size: 14.0, color: color),
           Expanded(
             child: _treeNode('RenderObject', '$renderLabel\n($slot)', color),

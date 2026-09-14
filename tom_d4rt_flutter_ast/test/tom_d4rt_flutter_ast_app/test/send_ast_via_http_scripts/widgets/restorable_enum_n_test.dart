@@ -41,8 +41,11 @@ const Color _kWarning = Color(0xFFFF7043);
 // DEMO ENUMS
 // =============================================================================
 enum ThemeMode { system, light, dark }
+
 enum SortOrder { nameAsc, nameDesc, dateAsc, dateDesc }
+
 enum Locale { en, es, fr, de, ja, zh }
+
 enum Priority { low, medium, high, urgent }
 
 // =============================================================================
@@ -89,11 +92,7 @@ class _RestorableEnumNDemoState extends State<_RestorableEnumNDemo>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _TheoryTab(),
-          _EnumExplorerTab(),
-          _SettingsTab(),
-        ],
+        children: [_TheoryTab(), _EnumExplorerTab(), _SettingsTab()],
       ),
     );
   }
@@ -265,7 +264,10 @@ class _TheoryTab extends StatelessWidget {
                     children: [
                       Text(
                         'Constructor Requirement',
-                        style: TextStyle(color: _kWarning, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: _kWarning,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       SizedBox(height: 4),
                       Text(
@@ -472,7 +474,12 @@ class _StateBox extends StatelessWidget {
   final Color color;
   final IconData icon;
 
-  const _StateBox({required this.label, required this.sublabel, required this.color, required this.icon});
+  const _StateBox({
+    required this.label,
+    required this.sublabel,
+    required this.color,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -487,8 +494,18 @@ class _StateBox extends StatelessWidget {
         children: [
           Icon(icon, color: color, size: 28),
           SizedBox(height: 8),
-          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 14)),
-          Text(sublabel, style: TextStyle(color: _kTextSecondary, fontSize: 11)),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          Text(
+            sublabel,
+            style: TextStyle(color: _kTextSecondary, fontSize: 11),
+          ),
         ],
       ),
     );
@@ -501,7 +518,12 @@ class _SerializationCard extends StatelessWidget {
   final String example;
   final String note;
 
-  const _SerializationCard({required this.title, required this.formula, required this.example, required this.note});
+  const _SerializationCard({
+    required this.title,
+    required this.formula,
+    required this.example,
+    required this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -514,9 +536,23 @@ class _SerializationCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: _kAccent, fontSize: 11, fontWeight: FontWeight.bold)),
+          Text(
+            title,
+            style: TextStyle(
+              color: _kAccent,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           SizedBox(height: 6),
-          Text(formula, style: TextStyle(color: _kTextPrimary, fontFamily: 'monospace', fontSize: 10)),
+          Text(
+            formula,
+            style: TextStyle(
+              color: _kTextPrimary,
+              fontFamily: 'monospace',
+              fontSize: 10,
+            ),
+          ),
           SizedBox(height: 4),
           Text(example, style: TextStyle(color: _kTextSecondary, fontSize: 9)),
           Text(note, style: TextStyle(color: _kNull, fontSize: 9)),
@@ -531,7 +567,11 @@ class _ComparisonCard extends StatelessWidget {
   final Color color;
   final List<String> items;
 
-  const _ComparisonCard({required this.title, required this.color, required this.items});
+  const _ComparisonCard({
+    required this.title,
+    required this.color,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -547,21 +587,31 @@ class _ComparisonCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 11, fontFamily: 'monospace'),
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+              fontFamily: 'monospace',
+            ),
           ),
           SizedBox(height: 8),
-          ...items.map((item) => Padding(
-            padding: EdgeInsets.only(bottom: 4),
-            child: Row(
-              children: [
-                Icon(Icons.check, color: color, size: 12),
-                SizedBox(width: 6),
-                Flexible(
-                  child: Text(item, style: TextStyle(color: _kTextPrimary, fontSize: 10)),
-                ),
-              ],
+          ...items.map(
+            (item) => Padding(
+              padding: EdgeInsets.only(bottom: 4),
+              child: Row(
+                children: [
+                  Icon(Icons.check, color: color, size: 12),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      item,
+                      style: TextStyle(color: _kTextPrimary, fontSize: 10),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -573,7 +623,11 @@ class _UseCaseItem extends StatelessWidget {
   final String title;
   final String desc;
 
-  const _UseCaseItem({required this.icon, required this.title, required this.desc});
+  const _UseCaseItem({
+    required this.icon,
+    required this.title,
+    required this.desc,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -599,8 +653,18 @@ class _UseCaseItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(color: _kTextPrimary, fontWeight: FontWeight.w500, fontSize: 13)),
-                Text(desc, style: TextStyle(color: _kTextSecondary, fontSize: 11)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _kTextPrimary,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  desc,
+                  style: TextStyle(color: _kTextSecondary, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -640,7 +704,10 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
       if (value == null) {
         _log.insert(0, '${_timeStamp()}: Set to null (no preference)');
       } else {
-        _log.insert(0, '${_timeStamp()}: Selected ${value.toString().split('.').last}');
+        _log.insert(
+          0,
+          '${_timeStamp()}: Selected ${value.toString().split('.').last}',
+        );
       }
       if (_log.length > 8) _log.removeLast();
     });
@@ -679,7 +746,11 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                   SizedBox(width: 8),
                   Text(
                     'Interactive Enum Explorer',
-                    style: TextStyle(color: _kTextPrimary, fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: _kTextPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -698,16 +769,23 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Select Enum Type:', style: TextStyle(color: _kTextSecondary, fontSize: 12)),
+              Text(
+                'Select Enum Type:',
+                style: TextStyle(color: _kTextSecondary, fontSize: 12),
+              ),
               SizedBox(height: 8),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: _enumData.keys.map((type) => _EnumTypeChip(
-                    label: type,
-                    isSelected: type == _selectedEnumType,
-                    onTap: () => _changeEnumType(type),
-                  )).toList(),
+                  children: _enumData.keys
+                      .map(
+                        (type) => _EnumTypeChip(
+                          label: type,
+                          isSelected: type == _selectedEnumType,
+                          onTap: () => _changeEnumType(type),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ],
@@ -723,20 +801,39 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('RestorableEnumN<$_selectedEnumType>', 
-                      style: TextStyle(color: _kAccent, fontFamily: 'monospace', fontSize: 12)),
+                    Text(
+                      'RestorableEnumN<$_selectedEnumType>',
+                      style: TextStyle(
+                        color: _kAccent,
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
                     SizedBox(height: 4),
                     Row(
                       children: [
-                        Text('Current: ', style: TextStyle(color: _kTextSecondary, fontSize: 12)),
+                        Text(
+                          'Current: ',
+                          style: TextStyle(
+                            color: _kTextSecondary,
+                            fontSize: 12,
+                          ),
+                        ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
-                            color: _currentValue == null ? _kNull.withOpacity(0.2) : _kSuccess.withOpacity(0.2),
+                            color: _currentValue == null
+                                ? _kNull.withOpacity(0.2)
+                                : _kSuccess.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            _currentValue == null ? 'null' : _currentValue.toString().split('.').last,
+                            _currentValue == null
+                                ? 'null'
+                                : _currentValue.toString().split('.').last,
                             style: TextStyle(
                               color: _currentValue == null ? _kNull : _kSuccess,
                               fontWeight: FontWeight.bold,
@@ -762,7 +859,10 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                     children: [
                       Icon(Icons.clear, color: _kNull, size: 20),
                       SizedBox(height: 4),
-                      Text('Clear', style: TextStyle(color: _kNull, fontSize: 10)),
+                      Text(
+                        'Clear',
+                        style: TextStyle(color: _kNull, fontSize: 10),
+                      ),
                     ],
                   ),
                 ),
@@ -777,8 +877,13 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Available Values (${values.length}):', 
-                  style: TextStyle(color: _kTextPrimary, fontWeight: FontWeight.bold)),
+                Text(
+                  'Available Values (${values.length}):',
+                  style: TextStyle(
+                    color: _kTextPrimary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 SizedBox(height: 12),
                 Expanded(
                   child: GridView.builder(
@@ -793,13 +898,15 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                       final value = values[index];
                       final name = value.toString().split('.').last;
                       final isSelected = _currentValue == value;
-                      
+
                       return GestureDetector(
                         onTap: () => _selectValue(value),
                         child: Container(
                           padding: EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: isSelected ? _kAccent.withOpacity(0.2) : _kCardBg,
+                            color: isSelected
+                                ? _kAccent.withOpacity(0.2)
+                                : _kCardBg,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
                               color: isSelected ? _kAccent : _kDivider,
@@ -819,7 +926,9 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                                   child: Text(
                                     '${index}',
                                     style: TextStyle(
-                                      color: isSelected ? Colors.black87 : _kTextSecondary,
+                                      color: isSelected
+                                          ? Colors.black87
+                                          : _kTextSecondary,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 11,
                                     ),
@@ -831,8 +940,12 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                                 child: Text(
                                   name,
                                   style: TextStyle(
-                                    color: isSelected ? _kAccent : _kTextPrimary,
-                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    color: isSelected
+                                        ? _kAccent
+                                        : _kTextPrimary,
+                                    fontWeight: isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
                                     fontSize: 11,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -857,7 +970,10 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
             children: [
               Icon(Icons.data_object, color: _kAccent, size: 18),
               SizedBox(width: 12),
-              Text('Serialized: ', style: TextStyle(color: _kTextSecondary, fontSize: 12)),
+              Text(
+                'Serialized: ',
+                style: TextStyle(color: _kTextSecondary, fontSize: 12),
+              ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -865,8 +981,14 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  _currentValue == null ? 'null' : '"${_currentValue.toString().split('.').last}"',
-                  style: TextStyle(color: _kTextPrimary, fontFamily: 'monospace', fontSize: 12),
+                  _currentValue == null
+                      ? 'null'
+                      : '"${_currentValue.toString().split('.').last}"',
+                  style: TextStyle(
+                    color: _kTextPrimary,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],
@@ -880,14 +1002,25 @@ class _EnumExplorerTabState extends State<_EnumExplorerTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Activity Log:', style: TextStyle(color: _kAccent, fontSize: 10)),
+              Text(
+                'Activity Log:',
+                style: TextStyle(color: _kAccent, fontSize: 10),
+              ),
               SizedBox(height: 6),
               Expanded(
                 child: ListView(
-                  children: _log.map((entry) => Text(
-                    entry, 
-                    style: TextStyle(color: _kTextPrimary, fontFamily: 'monospace', fontSize: 10),
-                  )).toList(),
+                  children: _log
+                      .map(
+                        (entry) => Text(
+                          entry,
+                          style: TextStyle(
+                            color: _kTextPrimary,
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ],
@@ -903,7 +1036,11 @@ class _EnumTypeChip extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _EnumTypeChip({required this.label, required this.isSelected, required this.onTap});
+  const _EnumTypeChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1008,8 +1145,17 @@ class _SettingsTabState extends State<_SettingsTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Settings Demo', style: TextStyle(color: _kTextPrimary, fontWeight: FontWeight.bold)),
-                    Text('Real-world nullable enum preferences', style: TextStyle(color: _kTextSecondary, fontSize: 11)),
+                    Text(
+                      'Settings Demo',
+                      style: TextStyle(
+                        color: _kTextPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Real-world nullable enum preferences',
+                      style: TextStyle(color: _kTextSecondary, fontSize: 11),
+                    ),
                   ],
                 ),
               ),
@@ -1021,7 +1167,10 @@ class _SettingsTabState extends State<_SettingsTab> {
                     color: _kWarning.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text('Reset All', style: TextStyle(color: _kWarning, fontSize: 11)),
+                  child: Text(
+                    'Reset All',
+                    style: TextStyle(color: _kWarning, fontSize: 11),
+                  ),
                 ),
               ),
             ],
@@ -1036,7 +1185,9 @@ class _SettingsTabState extends State<_SettingsTab> {
                 _SettingCard(
                   icon: Icons.palette,
                   title: 'Theme Mode',
-                  subtitle: _themeMode == null ? 'Following system default' : 'User selected',
+                  subtitle: _themeMode == null
+                      ? 'Following system default'
+                      : 'User selected',
                   current: _themeMode,
                   values: ThemeMode.values,
                   onChanged: _setTheme,
@@ -1050,7 +1201,9 @@ class _SettingsTabState extends State<_SettingsTab> {
                 _SettingCard(
                   icon: Icons.sort,
                   title: 'Sort Order',
-                  subtitle: _sortOrder == null ? 'Using default order' : 'Custom sort applied',
+                  subtitle: _sortOrder == null
+                      ? 'Using default order'
+                      : 'Custom sort applied',
                   current: _sortOrder,
                   values: SortOrder.values,
                   onChanged: _setSort,
@@ -1065,7 +1218,9 @@ class _SettingsTabState extends State<_SettingsTab> {
                 _SettingCard(
                   icon: Icons.language,
                   title: 'Language',
-                  subtitle: _locale == null ? 'Auto-detecting from device' : 'Manually selected',
+                  subtitle: _locale == null
+                      ? 'Auto-detecting from device'
+                      : 'Manually selected',
                   current: _locale,
                   values: Locale.values,
                   onChanged: _setLocale,
@@ -1082,7 +1237,9 @@ class _SettingsTabState extends State<_SettingsTab> {
                 _SettingCard(
                   icon: Icons.flag,
                   title: 'Default Priority',
-                  subtitle: _priority == null ? 'No default priority' : 'Priority assigned',
+                  subtitle: _priority == null
+                      ? 'No default priority'
+                      : 'Priority assigned',
                   current: _priority,
                   values: Priority.values,
                   onChanged: _setPriority,
@@ -1121,14 +1278,25 @@ class _SettingsTabState extends State<_SettingsTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Change Log:', style: TextStyle(color: _kAccent, fontSize: 10)),
+              Text(
+                'Change Log:',
+                style: TextStyle(color: _kAccent, fontSize: 10),
+              ),
               SizedBox(height: 6),
               Expanded(
                 child: ListView(
-                  children: _log.map((entry) => Text(
-                    entry, 
-                    style: TextStyle(color: _kTextPrimary, fontFamily: 'monospace', fontSize: 10),
-                  )).toList(),
+                  children: _log
+                      .map(
+                        (entry) => Text(
+                          entry,
+                          style: TextStyle(
+                            color: _kTextPrimary,
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ],
@@ -1185,8 +1353,17 @@ class _SettingCard<T extends Enum> extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: TextStyle(color: _kTextPrimary, fontWeight: FontWeight.bold)),
-                    Text(subtitle, style: TextStyle(color: _kTextSecondary, fontSize: 11)),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: _kTextPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: TextStyle(color: _kTextSecondary, fontSize: 11),
+                    ),
                   ],
                 ),
               ),
@@ -1195,9 +1372,13 @@ class _SettingCard<T extends Enum> extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: current == null ? _kNull.withOpacity(0.3) : _kSurface,
+                    color: current == null
+                        ? _kNull.withOpacity(0.3)
+                        : _kSurface,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: current == null ? _kNull : _kDivider),
+                    border: Border.all(
+                      color: current == null ? _kNull : _kDivider,
+                    ),
                   ),
                   child: Icon(
                     Icons.clear,
@@ -1217,7 +1398,7 @@ class _SettingCard<T extends Enum> extends StatelessWidget {
               final label = labelData?.$1 ?? value.name;
               final iconData = labelData?.$2 ?? Icons.circle;
               final isSelected = current == value;
-              
+
               return GestureDetector(
                 onTap: () => onChanged(value),
                 child: Container(
@@ -1225,19 +1406,27 @@ class _SettingCard<T extends Enum> extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: isSelected ? _kAccent.withOpacity(0.2) : _kSurface,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: isSelected ? _kAccent : _kDivider),
+                    border: Border.all(
+                      color: isSelected ? _kAccent : _kDivider,
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(iconData, color: isSelected ? _kAccent : _kTextSecondary, size: 14),
+                      Icon(
+                        iconData,
+                        color: isSelected ? _kAccent : _kTextSecondary,
+                        size: 14,
+                      ),
                       SizedBox(width: 6),
                       Text(
                         label,
                         style: TextStyle(
                           color: isSelected ? _kAccent : _kTextPrimary,
                           fontSize: 11,
-                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ],
@@ -1286,7 +1475,11 @@ class _TheoryCard extends StatelessWidget {
   final IconData icon;
   final Widget child;
 
-  const _TheoryCard({required this.title, required this.icon, required this.child});
+  const _TheoryCard({
+    required this.title,
+    required this.icon,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1308,14 +1501,18 @@ class _TheoryCard extends StatelessWidget {
               children: [
                 Icon(icon, color: _kAccent, size: 22),
                 SizedBox(width: 12),
-                Text(title, style: TextStyle(color: _kTextPrimary, fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _kTextPrimary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: child,
-          ),
+          Padding(padding: EdgeInsets.all(16), child: child),
         ],
       ),
     );

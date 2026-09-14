@@ -33,10 +33,7 @@ final ValueNotifier<int> newWindowCount = ValueNotifier<int>(0);
 // ============================================================================
 
 void _log(String line) {
-  final List<String> next = <String>[
-    '${_timestamp()} $line',
-    ...menuLog.value,
-  ];
+  final List<String> next = <String>['${_timestamp()} $line', ...menuLog.value];
   menuLog.value = next.length > 18 ? next.sublist(0, 18) : next;
 }
 
@@ -143,9 +140,9 @@ class _SectionHeader extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     subtitle!,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: cs.onSurfaceVariant,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall!.copyWith(color: cs.onSurfaceVariant),
                   ),
                 ],
               ],
@@ -224,10 +221,7 @@ class _PropRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: _CodeChip(name),
-          ),
+          Expanded(flex: 3, child: _CodeChip(name)),
           const SizedBox(width: 6),
           Expanded(
             flex: 2,
@@ -241,10 +235,7 @@ class _PropRow extends StatelessWidget {
           ),
           Expanded(
             flex: 5,
-            child: Text(
-              desc,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            child: Text(desc, style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -275,10 +266,7 @@ class _HeroTab extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: <Color>[
-                  cs.primary,
-                  cs.tertiary,
-                ],
+                colors: <Color>[cs.primary, cs.tertiary],
               ),
             ),
             child: Padding(
@@ -373,9 +361,21 @@ class _HeroTab extends StatelessWidget {
         'Widget',
         'Root host; connects Flutter to the platform menu delegate',
       ),
-      ('PlatformMenu', 'PlatformMenuItem', 'A top-level menu with a label and child items'),
-      ('PlatformMenuItem', 'PlatformMenuItem', 'A single clickable/shortcut item'),
-      ('PlatformMenuDivider', 'PlatformMenuItem', 'Horizontal separator between items'),
+      (
+        'PlatformMenu',
+        'PlatformMenuItem',
+        'A top-level menu with a label and child items',
+      ),
+      (
+        'PlatformMenuItem',
+        'PlatformMenuItem',
+        'A single clickable/shortcut item',
+      ),
+      (
+        'PlatformMenuDivider',
+        'PlatformMenuItem',
+        'Horizontal separator between items',
+      ),
       (
         'PlatformProvidedMenuItem',
         'PlatformMenuItem',
@@ -473,55 +473,53 @@ class _HeroTab extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
-          children: steps.indexed
-              .map(((int, String) pair) {
-                final int idx = pair.$1;
-                final String label = pair.$2;
-                return Column(
+          children: steps.indexed.map(((int, String) pair) {
+            final int idx = pair.$1;
+            final String label = pair.$2;
+            return Column(
+              children: <Widget>[
+                Row(
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Container(
-                          width: 28,
-                          height: 28,
-                          decoration: BoxDecoration(
-                            color: cs.primary,
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: Text(
-                            '${idx + 1}',
-                            style: TextStyle(
-                              color: cs.onPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            label,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (idx < steps.length - 1)
-                      Padding(
-                        padding: const EdgeInsets.only(left: 13),
-                        child: SizedBox(
-                          height: 20,
-                          child: VerticalDivider(
-                            color: cs.outlineVariant,
-                            width: 2,
-                          ),
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: cs.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${idx + 1}',
+                        style: TextStyle(
+                          color: cs.onPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
                         ),
                       ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        label,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                   ],
-                );
-              })
-              .toList(),
+                ),
+                if (idx < steps.length - 1)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13),
+                    child: SizedBox(
+                      height: 20,
+                      child: VerticalDivider(
+                        color: cs.outlineVariant,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          }).toList(),
         ),
       ),
     );
@@ -553,12 +551,18 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'New',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyN, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyN,
+                    meta: true,
+                  ),
                   onSelected: () => _log('File > New'),
                 ),
                 PlatformMenuItem(
                   label: 'Open…',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyO, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyO,
+                    meta: true,
+                  ),
                   onSelected: () => _log('File > Open…'),
                 ),
               ],
@@ -567,7 +571,10 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'Save',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyS, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyS,
+                    meta: true,
+                  ),
                   onSelected: () => _log('File > Save'),
                 ),
                 PlatformMenuItem(
@@ -585,7 +592,10 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'Close Window',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyW, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyW,
+                    meta: true,
+                  ),
                   onSelected: () => _log('File > Close Window'),
                 ),
               ],
@@ -599,7 +609,10 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'Undo',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyZ,
+                    meta: true,
+                  ),
                   onSelected: () => _log('Edit > Undo'),
                 ),
                 PlatformMenuItem(
@@ -617,17 +630,26 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'Cut',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyX, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyX,
+                    meta: true,
+                  ),
                   onSelected: () => _log('Edit > Cut'),
                 ),
                 PlatformMenuItem(
                   label: 'Copy',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyC, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyC,
+                    meta: true,
+                  ),
                   onSelected: () => _log('Edit > Copy'),
                 ),
                 PlatformMenuItem(
                   label: 'Paste',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.keyV, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.keyV,
+                    meta: true,
+                  ),
                   onSelected: () => _log('Edit > Paste'),
                 ),
               ],
@@ -641,12 +663,18 @@ class _PlatformMenuBarTab extends StatelessWidget {
               members: <PlatformMenuItem>[
                 PlatformMenuItem(
                   label: 'Zoom In',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.equal, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.equal,
+                    meta: true,
+                  ),
                   onSelected: () => _log('View > Zoom In'),
                 ),
                 PlatformMenuItem(
                   label: 'Zoom Out',
-                  shortcut: const SingleActivator(LogicalKeyboardKey.minus, meta: true),
+                  shortcut: const SingleActivator(
+                    LogicalKeyboardKey.minus,
+                    meta: true,
+                  ),
                   onSelected: () => _log('View > Zoom Out'),
                 ),
               ],
@@ -697,7 +725,11 @@ class _PlatformMenuBarTab extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(Icons.check_circle_outline, color: cs.primary, size: 20),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: cs.primary,
+                        size: 20,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         'PlatformMenuBar is mounted above',
@@ -736,10 +768,7 @@ class _PlatformMenuBarTab extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _codeBlock(
-                    context,
-                    cs,
-                    '''PlatformMenuBar(
+                  _codeBlock(context, cs, '''PlatformMenuBar(
   menus: <PlatformMenuItem>[
     PlatformMenu(
       label: 'File',
@@ -756,8 +785,7 @@ class _PlatformMenuBarTab extends StatelessWidget {
     ),
   ],
   child: myScaffold,
-)''',
-                  ),
+)'''),
                 ],
               ),
             ),
@@ -806,14 +834,16 @@ class _PlatformMenuBarTab extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Icon(Icons.fiber_manual_record,
-                              size: 10, color: cs.error),
+                          Icon(
+                            Icons.fiber_manual_record,
+                            size: 10,
+                            color: cs.error,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             'Live log',
-                            style: Theme.of(ctx).textTheme.labelMedium!.copyWith(
-                              color: cs.onSurfaceVariant,
-                            ),
+                            style: Theme.of(ctx).textTheme.labelMedium!
+                                .copyWith(color: cs.onSurfaceVariant),
                           ),
                           const Spacer(),
                           TextButton.icon(
@@ -992,9 +1022,8 @@ class _SimulatedMacOSTab extends StatelessWidget {
                           const Spacer(),
                           Text(
                             'My Flutter App',
-                            style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                              color: const Color(0xFF505050),
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall!
+                                .copyWith(color: const Color(0xFF505050)),
                           ),
                           const Spacer(),
                         ],
@@ -1037,8 +1066,7 @@ class _SimulatedMacOSTab extends StatelessWidget {
                                     final bool isOpen = open == label;
                                     return GestureDetector(
                                       onTap: () {
-                                        openMenu.value =
-                                            isOpen ? null : label;
+                                        openMenu.value = isOpen ? null : label;
                                         _log('Tapped $label menu');
                                       },
                                       child: Container(
@@ -1050,8 +1078,9 @@ class _SimulatedMacOSTab extends StatelessWidget {
                                           color: isOpen
                                               ? const Color(0xFF3478F6)
                                               : Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
                                         ),
                                         child: Text(
                                           label,
@@ -1140,12 +1169,13 @@ class _SimulatedMacOSTab extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      ...lines.take(6).map(
+                      ...lines
+                          .take(6)
+                          .map(
                             (String l) => Text(
                               l,
-                              style: Theme.of(ctx).textTheme.bodySmall!.copyWith(
-                                fontFamily: 'monospace',
-                              ),
+                              style: Theme.of(ctx).textTheme.bodySmall!
+                                  .copyWith(fontFamily: 'monospace'),
                             ),
                           ),
                     ],
@@ -1241,7 +1271,11 @@ class _MacDropdown extends StatelessWidget {
             if (item == '---') {
               return const Padding(
                 padding: EdgeInsets.symmetric(vertical: 3),
-                child: Divider(height: 1, thickness: 1, color: Color(0xFFD0D0D0)),
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Color(0xFFD0D0D0),
+                ),
               );
             }
             return GestureDetector(
@@ -1250,7 +1284,10 @@ class _MacDropdown extends StatelessWidget {
                 onClose();
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 4,
+                ),
                 child: Text(
                   item,
                   style: const TextStyle(
@@ -1563,8 +1600,8 @@ class _SimulatedMenuItem extends StatelessWidget {
     final Color textColor = disabled
         ? const Color(0xFFAAAAAA)
         : destructive
-            ? const Color(0xFFCC0000)
-            : const Color(0xFF111111);
+        ? const Color(0xFFCC0000)
+        : const Color(0xFF111111);
 
     return GestureDetector(
       onTap: disabled ? null : onTap,
@@ -1590,7 +1627,9 @@ class _SimulatedMenuItem extends StatelessWidget {
                 shortcut!,
                 style: TextStyle(
                   fontSize: 12,
-                  color: disabled ? const Color(0xFFAAAAAA) : const Color(0xFF666666),
+                  color: disabled
+                      ? const Color(0xFFAAAAAA)
+                      : const Color(0xFF666666),
                 ),
               ),
           ],
@@ -1700,26 +1739,21 @@ class _DividersTab extends StatelessWidget {
                           <String>['New', 'New Window', 'New Tab'],
                         ),
                         _buildDivider(),
-                        _buildGroup(
-                          context,
-                          cs,
-                          'GROUP B — Open',
-                          <String>['Open…', 'Open Recent'],
-                        ),
+                        _buildGroup(context, cs, 'GROUP B — Open', <String>[
+                          'Open…',
+                          'Open Recent',
+                        ]),
                         _buildDivider(),
-                        _buildGroup(
-                          context,
-                          cs,
-                          'GROUP C — Save',
-                          <String>['Save', 'Save As…', 'Revert to Saved'],
-                        ),
+                        _buildGroup(context, cs, 'GROUP C — Save', <String>[
+                          'Save',
+                          'Save As…',
+                          'Revert to Saved',
+                        ]),
                         _buildDivider(),
-                        _buildGroup(
-                          context,
-                          cs,
-                          'GROUP D — Print',
-                          <String>['Page Setup…', 'Print…'],
-                        ),
+                        _buildGroup(context, cs, 'GROUP D — Print', <String>[
+                          'Page Setup…',
+                          'Print…',
+                        ]),
                       ],
                     ),
                   ),
@@ -1904,9 +1938,9 @@ class _DividersTab extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             desc,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: cs.onTertiaryContainer,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall!.copyWith(color: cs.onTertiaryContainer),
           ),
         ],
       ),
@@ -2074,11 +2108,29 @@ if (PlatformProvidedMenuItem.hasMenu(
                     _menuDivider(),
                     _providedItem(context, cs, 'Preferences…', false),
                     _menuDivider(),
-                    _providedItem(context, cs, 'Hide MyApp', false, shortcut: '⌘H'),
-                    _providedItem(context, cs, 'Hide Others', false, shortcut: '⌥⌘H'),
+                    _providedItem(
+                      context,
+                      cs,
+                      'Hide MyApp',
+                      false,
+                      shortcut: '⌘H',
+                    ),
+                    _providedItem(
+                      context,
+                      cs,
+                      'Hide Others',
+                      false,
+                      shortcut: '⌥⌘H',
+                    ),
                     _providedItem(context, cs, 'Show All', false),
                     _menuDivider(),
-                    _providedItem(context, cs, 'Quit MyApp', false, shortcut: '⌘Q'),
+                    _providedItem(
+                      context,
+                      cs,
+                      'Quit MyApp',
+                      false,
+                      shortcut: '⌘Q',
+                    ),
                   ],
                 ),
               ),
@@ -2109,7 +2161,9 @@ if (PlatformProvidedMenuItem.hasMenu(
                 label,
                 style: TextStyle(
                   fontSize: 13,
-                  color: disabled ? const Color(0xFFAAAAAA) : const Color(0xFF111111),
+                  color: disabled
+                      ? const Color(0xFFAAAAAA)
+                      : const Color(0xFF111111),
                 ),
               ),
             ),
@@ -2176,9 +2230,9 @@ class _ProvidedTypeCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     macosLabel,
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontFamily: 'monospace',
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleSmall!.copyWith(fontFamily: 'monospace'),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -2206,8 +2260,8 @@ class _ShortcutsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
 
-    const List<(String, String, String, String, String)> shortcuts =
-        <(String, String, String, String, String)>[
+    const List<(String, String, String, String, String)>
+    shortcuts = <(String, String, String, String, String)>[
       (
         'New',
         '⌘ N',
@@ -2274,7 +2328,8 @@ class _ShortcutsTab extends StatelessWidget {
           const _SectionHeader(
             icon: Icons.keyboard_outlined,
             title: 'Shortcut display',
-            subtitle: 'SingleActivator connects keyboard shortcuts to menu items',
+            subtitle:
+                'SingleActivator connects keyboard shortcuts to menu items',
           ),
 
           Padding(
@@ -2349,10 +2404,28 @@ class _ShortcutsTab extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Column(
               children: <Widget>[
-                _modifierRow(context, cs, 'meta: true', '⌘ Command (macOS)', 'true'),
-                _modifierRow(context, cs, 'control: true', '^ Control', 'false'),
+                _modifierRow(
+                  context,
+                  cs,
+                  'meta: true',
+                  '⌘ Command (macOS)',
+                  'true',
+                ),
+                _modifierRow(
+                  context,
+                  cs,
+                  'control: true',
+                  '^ Control',
+                  'false',
+                ),
                 _modifierRow(context, cs, 'shift: true', '⇧ Shift', 'false'),
-                _modifierRow(context, cs, 'alt: true', '⌥ Option / Alt', 'false'),
+                _modifierRow(
+                  context,
+                  cs,
+                  'alt: true',
+                  '⌥ Option / Alt',
+                  'false',
+                ),
               ],
             ),
           ),
@@ -2395,9 +2468,9 @@ class _ShortcutsTab extends StatelessWidget {
             flex: 2,
             child: Text(
               'default: $defaultVal',
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                color: cs.onSurfaceVariant,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall!.copyWith(color: cs.onSurfaceVariant),
             ),
           ),
         ],
@@ -2455,10 +2528,7 @@ class _ShortcutCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    label,
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
+                  Text(label, style: Theme.of(context).textTheme.titleSmall),
                   const SizedBox(height: 3),
                   Text(
                     fullCode,
@@ -2491,29 +2561,64 @@ class _PlatformSupportTab extends StatelessWidget {
     // Rows: (widget/feature, macOS, Windows, Linux, iOS, Android)
     const List<(String, String, String, String, String, String)> matrix =
         <(String, String, String, String, String, String)>[
-      ('PlatformMenuBar', '✅ Native', '🚫 No-op', '🚫 No-op', '🚫 No-op', '🚫 No-op'),
-      ('PlatformMenu', '✅ Native', '🚫 No-op', '🚫 No-op', '🚫 No-op', '🚫 No-op'),
-      ('PlatformMenuItem', '✅ Native', '🚫 No-op', '🚫 No-op', '🚫 No-op', '🚫 No-op'),
-      ('PlatformMenuDivider', '✅ Native', '🚫 No-op', '🚫 No-op', '🚫 No-op', '🚫 No-op'),
-      (
-        'PlatformProvidedMenuItem',
-        '✅ Native',
-        '🚫 No-op',
-        '🚫 No-op',
-        '🚫 No-op',
-        '🚫 No-op',
-      ),
-      ('Shortcut registration', '✅ Global', '🚫 None', '🚫 None', '🚫 None', '🚫 None'),
-      ('hasMenu() = true', '✅ Yes', '❌ false', '❌ false', '❌ false', '❌ false'),
-      (
-        'child rendered',
-        '✅ Yes',
-        '✅ Yes',
-        '✅ Yes',
-        '✅ Yes',
-        '✅ Yes',
-      ),
-    ];
+          (
+            'PlatformMenuBar',
+            '✅ Native',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+          ),
+          (
+            'PlatformMenu',
+            '✅ Native',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+          ),
+          (
+            'PlatformMenuItem',
+            '✅ Native',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+          ),
+          (
+            'PlatformMenuDivider',
+            '✅ Native',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+          ),
+          (
+            'PlatformProvidedMenuItem',
+            '✅ Native',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+            '🚫 No-op',
+          ),
+          (
+            'Shortcut registration',
+            '✅ Global',
+            '🚫 None',
+            '🚫 None',
+            '🚫 None',
+            '🚫 None',
+          ),
+          (
+            'hasMenu() = true',
+            '✅ Yes',
+            '❌ false',
+            '❌ false',
+            '❌ false',
+            '❌ false',
+          ),
+          ('child rendered', '✅ Yes', '✅ Yes', '✅ Yes', '✅ Yes', '✅ Yes'),
+        ];
 
     return SingleChildScrollView(
       padding: const EdgeInsets.only(bottom: 32),
@@ -2586,19 +2691,17 @@ class _PlatformSupportTab extends StatelessWidget {
                 ],
                 rows: matrix
                     .map(
-                      (
-                        (String, String, String, String, String, String) r,
-                      ) =>
+                      ((String, String, String, String, String, String) r) =>
                           DataRow(
-                        cells: <DataCell>[
-                          DataCell(_CodeChip(r.$1)),
-                          DataCell(Text(r.$2)),
-                          DataCell(Text(r.$3)),
-                          DataCell(Text(r.$4)),
-                          DataCell(Text(r.$5)),
-                          DataCell(Text(r.$6)),
-                        ],
-                      ),
+                            cells: <DataCell>[
+                              DataCell(_CodeChip(r.$1)),
+                              DataCell(Text(r.$2)),
+                              DataCell(Text(r.$3)),
+                              DataCell(Text(r.$4)),
+                              DataCell(Text(r.$5)),
+                              DataCell(Text(r.$6)),
+                            ],
+                          ),
                     )
                     .toList(),
               ),
@@ -2615,20 +2718,50 @@ class _PlatformSupportTab extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: Column(
               children: <Widget>[
-                _platformRow(context, cs, 'macOS', '✅', true,
-                    'PlatformMenuBar → AppKit NSMenu → system menu bar'),
+                _platformRow(
+                  context,
+                  cs,
+                  'macOS',
+                  '✅',
+                  true,
+                  'PlatformMenuBar → AppKit NSMenu → system menu bar',
+                ),
                 const SizedBox(height: 8),
-                _platformRow(context, cs, 'Windows', '🚫', false,
-                    'PlatformMenuBar is a transparent Container — menus ignored'),
+                _platformRow(
+                  context,
+                  cs,
+                  'Windows',
+                  '🚫',
+                  false,
+                  'PlatformMenuBar is a transparent Container — menus ignored',
+                ),
                 const SizedBox(height: 8),
-                _platformRow(context, cs, 'Linux', '🚫', false,
-                    'PlatformMenuBar is a transparent Container — menus ignored'),
+                _platformRow(
+                  context,
+                  cs,
+                  'Linux',
+                  '🚫',
+                  false,
+                  'PlatformMenuBar is a transparent Container — menus ignored',
+                ),
                 const SizedBox(height: 8),
-                _platformRow(context, cs, 'iOS', '🚫', false,
-                    'No system menu bar concept; PlatformMenuBar = no-op'),
+                _platformRow(
+                  context,
+                  cs,
+                  'iOS',
+                  '🚫',
+                  false,
+                  'No system menu bar concept; PlatformMenuBar = no-op',
+                ),
                 const SizedBox(height: 8),
-                _platformRow(context, cs, 'Android', '🚫', false,
-                    'No system menu bar concept; PlatformMenuBar = no-op'),
+                _platformRow(
+                  context,
+                  cs,
+                  'Android',
+                  '🚫',
+                  false,
+                  'No system menu bar concept; PlatformMenuBar = no-op',
+                ),
               ],
             ),
           ),
@@ -2664,7 +2797,9 @@ class _PlatformSupportTab extends StatelessWidget {
         color: supported ? cs.primaryContainer : cs.surfaceContainerLow,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: supported ? cs.primary.withValues(alpha: 0.4) : cs.outlineVariant,
+          color: supported
+              ? cs.primary.withValues(alpha: 0.4)
+              : cs.outlineVariant,
         ),
       ),
       child: Row(
@@ -2827,60 +2962,37 @@ PlatformProvidedMenuItem(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cheatEntry(
-              context,
-              cs,
-              'PlatformMenuBar',
-              <(String, String)>[
-                ('menus', 'List<PlatformMenuItem> — top-level menus'),
-                ('child', 'Widget — Flutter UI content'),
-                ('focusNode', 'FocusNode? — optional keyboard focus'),
-              ],
-            ),
+            _cheatEntry(context, cs, 'PlatformMenuBar', <(String, String)>[
+              ('menus', 'List<PlatformMenuItem> — top-level menus'),
+              ('child', 'Widget — Flutter UI content'),
+              ('focusNode', 'FocusNode? — optional keyboard focus'),
+            ]),
             const SizedBox(height: 10),
-            _cheatEntry(
-              context,
-              cs,
-              'PlatformMenu',
-              <(String, String)>[
-                ('label', 'String — menu title in the menu bar'),
-                ('menus', 'List<PlatformMenuItem> — child items'),
-                ('onOpen', 'VoidCallback? — called when menu opens'),
-                ('onClose', 'VoidCallback? — called when menu closes'),
-              ],
-            ),
+            _cheatEntry(context, cs, 'PlatformMenu', <(String, String)>[
+              ('label', 'String — menu title in the menu bar'),
+              ('menus', 'List<PlatformMenuItem> — child items'),
+              ('onOpen', 'VoidCallback? — called when menu opens'),
+              ('onClose', 'VoidCallback? — called when menu closes'),
+            ]),
             const SizedBox(height: 10),
-            _cheatEntry(
-              context,
-              cs,
-              'PlatformMenuItem',
-              <(String, String)>[
-                ('label', 'String — item text'),
-                ('shortcut', 'MenuSerializableShortcut? — keyboard shortcut'),
-                ('onSelected', 'VoidCallback? — null = disabled'),
-                ('onSelectedIntent', 'Intent? — alternative to onSelected'),
-              ],
-            ),
+            _cheatEntry(context, cs, 'PlatformMenuItem', <(String, String)>[
+              ('label', 'String — item text'),
+              ('shortcut', 'MenuSerializableShortcut? — keyboard shortcut'),
+              ('onSelected', 'VoidCallback? — null = disabled'),
+              ('onSelectedIntent', 'Intent? — alternative to onSelected'),
+            ]),
             const SizedBox(height: 10),
-            _cheatEntry(
-              context,
-              cs,
-              'PlatformMenuDivider',
-              <(String, String)>[
-                ('(none)', 'const constructor — no properties'),
-              ],
-            ),
+            _cheatEntry(context, cs, 'PlatformMenuDivider', <(String, String)>[
+              ('(none)', 'const constructor — no properties'),
+            ]),
             const SizedBox(height: 10),
-            _cheatEntry(
-              context,
-              cs,
-              'PlatformProvidedMenuItem',
-              <(String, String)>[
-                ('type', 'PlatformProvidedMenuItemType — which built-in item'),
-                ('enabled', 'bool — whether the item is enabled (default: true)'),
-                ('hasMenu()', 'static bool — check platform support'),
-              ],
-            ),
+            _cheatEntry(context, cs, 'PlatformProvidedMenuItem', <
+              (String, String)
+            >[
+              ('type', 'PlatformProvidedMenuItemType — which built-in item'),
+              ('enabled', 'bool — whether the item is enabled (default: true)'),
+              ('hasMenu()', 'static bool — check platform support'),
+            ]),
           ],
         ),
       ),
@@ -2986,9 +3098,9 @@ class _PitfallCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: color,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium!.copyWith(color: color),
                   ),
                 ),
               ],

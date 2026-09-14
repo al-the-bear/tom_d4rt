@@ -1096,7 +1096,8 @@ dynamic build(BuildContext context) {
                               textScaler: TextScaler.linear(
                                 ov['scale'] as double,
                               ),
-                              platformBrightness: ov['brightness'] as Brightness,
+                              platformBrightness:
+                                  ov['brightness'] as Brightness,
                               padding: EdgeInsets.zero,
                               viewInsets: EdgeInsets.zero,
                               viewPadding: EdgeInsets.zero,
@@ -1141,7 +1142,8 @@ dynamic build(BuildContext context) {
                                               vertical: 2.0,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: m.platformBrightness ==
+                                              color:
+                                                  m.platformBrightness ==
                                                       Brightness.dark
                                                   ? Color(0xFF263238)
                                                   : Color(0xFFFFE082),
@@ -1154,9 +1156,9 @@ dynamic build(BuildContext context) {
                                                 fontSize: 9.0,
                                                 color:
                                                     m.platformBrightness ==
-                                                            Brightness.dark
-                                                        ? Color(0xFFFFFFFF)
-                                                        : Color(0xFF5D4037),
+                                                        Brightness.dark
+                                                    ? Color(0xFFFFFFFF)
+                                                    : Color(0xFF5D4037),
                                               ),
                                             ),
                                           ),
@@ -1982,7 +1984,10 @@ dynamic build(BuildContext context) {
                             ),
                             SizedBox(height: 10.0),
                             _darkInfoRow('size', '${m.size}'),
-                            _darkInfoRow('brightness', m.platformBrightness.name),
+                            _darkInfoRow(
+                              'brightness',
+                              m.platformBrightness.name,
+                            ),
                             _darkInfoRow('textScaler', m.textScaler.toString()),
                             _darkInfoRow('padding', m.padding.toString()),
                             _darkInfoRow('orientation', m.orientation.name),
@@ -2082,10 +2087,7 @@ dynamic build(BuildContext context) {
                 Center(
                   child: Text(
                     'Deep Demo • MediaQuery • Flutter Widgets',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Color(0xFF9E9E9E),
-                    ),
+                    style: TextStyle(fontSize: 12.0, color: Color(0xFF9E9E9E)),
                   ),
                 ),
               ],

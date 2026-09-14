@@ -423,15 +423,14 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  style: TextStyle(
-                    color: green800,
-                    fontSize: 12,
-                    height: 1.3,
-                  ),
+                  style: TextStyle(color: green800, fontSize: 12, height: 1.3),
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: green50,
                     borderRadius: BorderRadius.circular(4),
@@ -496,10 +495,26 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {'layer': 'PlatformViewSurface', 'type': 'LeafRenderObjectWidget', 'icon': Icons.layers},
-                  {'layer': 'PlatformViewRenderBox', 'type': 'RenderBox', 'icon': Icons.crop_square},
-                  {'layer': 'PlatformViewLayer', 'type': 'Compositor Layer', 'icon': Icons.filter_none},
-                  {'layer': 'Native View', 'type': 'Platform (Android/iOS)', 'icon': Icons.phone_android},
+                  {
+                    'layer': 'PlatformViewSurface',
+                    'type': 'LeafRenderObjectWidget',
+                    'icon': Icons.layers,
+                  },
+                  {
+                    'layer': 'PlatformViewRenderBox',
+                    'type': 'RenderBox',
+                    'icon': Icons.crop_square,
+                  },
+                  {
+                    'layer': 'PlatformViewLayer',
+                    'type': 'Compositor Layer',
+                    'icon': Icons.filter_none,
+                  },
+                  {
+                    'layer': 'Native View',
+                    'type': 'Platform (Android/iOS)',
+                    'icon': Icons.phone_android,
+                  },
                 ].asMap().entries.map((entry) {
                   final i = entry.key;
                   final item = entry.value;
@@ -639,10 +654,7 @@ dynamic build(BuildContext context) {
                         const SizedBox(height: 2),
                         Text(
                           prop['desc'] as String,
-                          style: TextStyle(
-                            color: green700,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: green700, fontSize: 12),
                         ),
                       ],
                     ),
@@ -666,21 +678,24 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           buildHitTestCard(
             mode: 'opaque',
-            description: 'Absorbs all touches. Flutter widgets behind are unreachable.',
+            description:
+                'Absorbs all touches. Flutter widgets behind are unreachable.',
             icon: Icons.block,
             accent: green900,
             example: 'Full-screen map, video player',
           ),
           buildHitTestCard(
             mode: 'translucent',
-            description: 'Both native view and Flutter widgets behind receive events.',
+            description:
+                'Both native view and Flutter widgets behind receive events.',
             icon: Icons.blur_on,
             accent: green600,
             example: 'Semi-transparent overlay',
           ),
           buildHitTestCard(
             mode: 'transparent',
-            description: 'All touches pass through. Native view receives nothing.',
+            description:
+                'All touches pass through. Native view receives nothing.',
             icon: Icons.visibility_off,
             accent: green200,
             example: 'Decorative native element, display-only',
@@ -710,9 +725,21 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {'mode': 'Virtual Display', 'surface': 'PlatformViewSurface', 'how': 'Texture capture'},
-                  {'mode': 'Hybrid Composition', 'surface': 'AndroidViewSurface', 'how': 'View hierarchy'},
-                  {'mode': 'Texture Layer', 'surface': 'PlatformViewSurface', 'how': 'SurfaceTexture'},
+                  {
+                    'mode': 'Virtual Display',
+                    'surface': 'PlatformViewSurface',
+                    'how': 'Texture capture',
+                  },
+                  {
+                    'mode': 'Hybrid Composition',
+                    'surface': 'AndroidViewSurface',
+                    'how': 'View hierarchy',
+                  },
+                  {
+                    'mode': 'Texture Layer',
+                    'surface': 'PlatformViewSurface',
+                    'how': 'SurfaceTexture',
+                  },
                 ].map((m) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 4),
@@ -790,16 +817,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  Green 900      ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Green 800      ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Green 700      ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Green 600      ${green600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Green 400      ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Green 200      ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Green 100      ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Green 50       ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  LightGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
-  print('  │  LightGreen 800 ${lightGreen800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print(
+    '  │  Green 900      ${green900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Green 800      ${green800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Green 700      ${green700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Green 600      ${green600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Green 400      ${green400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Green 200      ${green200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Green 100      ${green100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Green 50       ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  LightGreen 50  ${lightGreen50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
+  print(
+    '  │  LightGreen 800 ${lightGreen800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

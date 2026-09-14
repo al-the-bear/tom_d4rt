@@ -88,11 +88,7 @@ dynamic build(BuildContext context) {
             'is the base class for InheritedWidget (data propagation down '
             'the tree) and ParentDataWidget (layout configuration up to '
             'the parent RenderObject). It never renders anything itself.',
-            style: TextStyle(
-              fontSize: 13.5,
-              color: rose100,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 13.5, color: rose100, height: 1.5),
           ),
         ],
       ),
@@ -105,10 +101,7 @@ dynamic build(BuildContext context) {
       'label': 'Nature',
       'value': 'Abstract class — never instantiated directly',
     },
-    {
-      'label': 'Extends',
-      'value': 'Widget (the root of all widget classes)',
-    },
+    {'label': 'Extends', 'value': 'Widget (the root of all widget classes)'},
     {
       'label': 'Fields',
       'value': 'final Widget child — exactly one child widget',
@@ -117,10 +110,7 @@ dynamic build(BuildContext context) {
       'label': 'Constructor',
       'value': 'const ProxyWidget({Key? key, required this.child})',
     },
-    {
-      'label': 'Purpose',
-      'value': 'Provide metadata/context without rendering',
-    },
+    {'label': 'Purpose', 'value': 'Provide metadata/context without rendering'},
   ];
 
   for (final entry in characteristics) {
@@ -131,9 +121,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: burgundy900.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border(
-            left: BorderSide(color: burgundy700, width: 3.5),
-          ),
+          border: Border(left: BorderSide(color: burgundy700, width: 3.5)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,10 +265,14 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
-          color: isProxy ? burgundy600.withValues(alpha: 0.12) : Colors.grey.withValues(alpha: 0.06),
+          color: isProxy
+              ? burgundy600.withValues(alpha: 0.12)
+              : Colors.grey.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: isProxy ? burgundy500 : (branch['color'] as Color).withValues(alpha: 0.3),
+            color: isProxy
+                ? burgundy500
+                : (branch['color'] as Color).withValues(alpha: 0.3),
             width: isProxy ? 2.5 : 1.0,
           ),
         ),
@@ -378,7 +370,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  print('  Widget has 4 main branches: Stateless, Stateful, RenderObject, Proxy');
+  print(
+    '  Widget has 4 main branches: Stateless, Stateful, RenderObject, Proxy',
+  );
   print('  ProxyWidget is the invisible one — no rendering, just context');
 
   // ============================================================
@@ -441,11 +435,7 @@ dynamic build(BuildContext context) {
             'This enforces a clean contract: one wrapper, one wrapped widget. '
             'If you need multiple children, your child should be a Row, Column, '
             'Stack, or other multi-child widget.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: burgundy800,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: burgundy800, height: 1.5),
           ),
         ],
       ),
@@ -462,9 +452,7 @@ dynamic build(BuildContext context) {
             child: Container(
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [burgundy700, burgundy500],
-                ),
+                gradient: LinearGradient(colors: [burgundy700, burgundy500]),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Column(
@@ -532,9 +520,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Color(0xFFFFF3E0),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: Color(0xFFE65100), width: 3.5),
-        ),
+        border: Border(left: BorderSide(color: Color(0xFFE65100), width: 3.5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -624,11 +610,7 @@ dynamic build(BuildContext context) {
             'call dependOnInheritedWidgetOfExactType<T>() to read the data, '
             'and the framework automatically rebuilds dependents when the '
             'InheritedWidget changes (per updateShouldNotify).',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.5),
           ),
         ],
       ),
@@ -678,16 +660,16 @@ dynamic build(BuildContext context) {
           color: depth == 0
               ? Color(0xFF1A237E).withValues(alpha: 0.1)
               : depth == 3
-                  ? Color(0xFF2E7D32).withValues(alpha: 0.1)
-                  : Colors.grey.withValues(alpha: 0.06),
+              ? Color(0xFF2E7D32).withValues(alpha: 0.1)
+              : Colors.grey.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
           border: Border(
             left: BorderSide(
               color: depth == 0
                   ? Color(0xFF1A237E)
                   : depth == 3
-                      ? Color(0xFF2E7D32)
-                      : Colors.grey.withValues(alpha: 0.3),
+                  ? Color(0xFF2E7D32)
+                  : Colors.grey.withValues(alpha: 0.3),
               width: 3.0,
             ),
           ),
@@ -700,8 +682,8 @@ dynamic build(BuildContext context) {
               color: depth == 0
                   ? Color(0xFF1A237E)
                   : depth == 3
-                      ? Color(0xFF2E7D32)
-                      : Colors.grey,
+                  ? Color(0xFF2E7D32)
+                  : Colors.grey,
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -795,11 +777,7 @@ dynamic build(BuildContext context) {
             'RenderObject. It wraps a child and calls applyParentData() '
             'to configure how the parent positions/lays out that child. '
             'Positioned (in Stack) and Flexible (in Flex) are the classic examples.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.5),
           ),
         ],
       ),
@@ -818,11 +796,17 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF1A237E).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFF1A237E).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF1A237E).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(Icons.arrow_downward, color: Color(0xFF1A237E), size: 26.0),
+                  Icon(
+                    Icons.arrow_downward,
+                    color: Color(0xFF1A237E),
+                    size: 26.0,
+                  ),
                   SizedBox(height: 6.0),
                   Text(
                     'InheritedWidget',
@@ -858,11 +842,17 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFFE65100).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFFE65100).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFFE65100).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(Icons.arrow_upward, color: Color(0xFFE65100), size: 26.0),
+                  Icon(
+                    Icons.arrow_upward,
+                    color: Color(0xFFE65100),
+                    size: 26.0,
+                  ),
                   SizedBox(height: 6.0),
                   Text(
                     'ParentDataWidget',
@@ -946,7 +936,8 @@ dynamic build(BuildContext context) {
       'step': '2',
       'title': 'Implement updateShouldNotify()',
       'code': 'bool updateShouldNotify(MyData old) => data != old.data',
-      'desc': 'Return true when the data actually changed — prevents unnecessary rebuilds',
+      'desc':
+          'Return true when the data actually changed — prevents unnecessary rebuilds',
     },
     {
       'step': '3',
@@ -954,7 +945,8 @@ dynamic build(BuildContext context) {
       'code':
           'static MyData of(BuildContext ctx) =>\n'
           '  ctx.dependOnInherited...OfExactType<MyData>()!',
-      'desc': 'Registers context as dependent — auto-rebuilds when data changes',
+      'desc':
+          'Registers context as dependent — auto-rebuilds when data changes',
     },
     {
       'step': '4',
@@ -1044,7 +1036,9 @@ dynamic build(BuildContext context) {
     );
   }
 
-  print('  Pattern: extend InheritedWidget, add of/maybeOf, updateShouldNotify');
+  print(
+    '  Pattern: extend InheritedWidget, add of/maybeOf, updateShouldNotify',
+  );
 
   // ============================================================
   // SECTION 7: Familiar ProxyWidgets in Flutter
@@ -1084,7 +1078,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Theme',
       'type': 'InheritedWidget',
-      'what': 'Provides ThemeData (colors, typography, shapes) to entire subtree',
+      'what':
+          'Provides ThemeData (colors, typography, shapes) to entire subtree',
       'icon': Icons.palette,
       'color': Color(0xFF6A1B9A),
     },
@@ -1119,7 +1114,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Flexible / Expanded',
       'type': 'ParentDataWidget',
-      'what': 'Tells Row/Column how much space a child should take (flex factor)',
+      'what':
+          'Tells Row/Column how much space a child should take (flex factor)',
       'icon': Icons.swap_horiz,
       'color': Color(0xFF1565C0),
     },
@@ -1135,10 +1131,7 @@ dynamic build(BuildContext context) {
           color: (proxy['color'] as Color).withValues(alpha: 0.07),
           borderRadius: BorderRadius.circular(10.0),
           border: Border(
-            left: BorderSide(
-              color: proxy['color'] as Color,
-              width: 3.5,
-            ),
+            left: BorderSide(color: proxy['color'] as Color, width: 3.5),
           ),
         ),
         child: Row(
@@ -1173,7 +1166,10 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(width: 8.0),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: isParent
                               ? Color(0xFFE65100).withValues(alpha: 0.1)
@@ -1185,7 +1181,9 @@ dynamic build(BuildContext context) {
                           style: TextStyle(
                             fontSize: 9.0,
                             fontWeight: FontWeight.w600,
-                            color: isParent ? Color(0xFFE65100) : Color(0xFF1A237E),
+                            color: isParent
+                                ? Color(0xFFE65100)
+                                : Color(0xFF1A237E),
                           ),
                         ),
                       ),
@@ -1274,11 +1272,7 @@ dynamic build(BuildContext context) {
             'dependents are NOT rebuilt even though the widget itself changed. '
             'This is the performance optimization gate — it prevents cascading '
             'rebuilds when the actual data has not changed.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: burgundy800,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: burgundy800, height: 1.5),
           ),
         ],
       ),
@@ -1288,7 +1282,10 @@ dynamic build(BuildContext context) {
   // Flow diagram
   final flowSteps = <Map<String, String>>[
     {'label': 'Parent rebuilds', 'desc': 'Triggers InheritedWidget rebuild'},
-    {'label': 'Framework compares', 'desc': 'Calls updateShouldNotify(oldWidget)'},
+    {
+      'label': 'Framework compares',
+      'desc': 'Calls updateShouldNotify(oldWidget)',
+    },
     {'label': 'Returns true?', 'desc': 'Data changed → rebuild all dependents'},
     {'label': 'Returns false?', 'desc': 'Data same → skip dependent rebuilds'},
   ];
@@ -1302,7 +1299,9 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: isDecision
-              ? (i == 2 ? Color(0xFFC62828).withValues(alpha: 0.08) : Color(0xFF2E7D32).withValues(alpha: 0.08))
+              ? (i == 2
+                    ? Color(0xFFC62828).withValues(alpha: 0.08)
+                    : Color(0xFF2E7D32).withValues(alpha: 0.08))
               : burgundy600.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
           border: Border(
@@ -1317,7 +1316,9 @@ dynamic build(BuildContext context) {
         child: Row(
           children: [
             Icon(
-              isDecision ? (i == 2 ? Icons.refresh : Icons.block) : Icons.arrow_downward,
+              isDecision
+                  ? (i == 2 ? Icons.refresh : Icons.block)
+                  : Icons.arrow_downward,
               size: 16.0,
               color: isDecision
                   ? (i == 2 ? Color(0xFFC62828) : Color(0xFF2E7D32))
@@ -1661,7 +1662,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 3.0),
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-          color: isProxy ? burgundy600.withValues(alpha: 0.07) : Colors.grey.withValues(alpha: 0.04),
+          color: isProxy
+              ? burgundy600.withValues(alpha: 0.07)
+              : Colors.grey.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(8.0),
           border: isProxy
               ? Border.all(color: rose300.withValues(alpha: 0.5))
@@ -1697,10 +1700,7 @@ dynamic build(BuildContext context) {
               flex: 4,
               child: Text(
                 m['method']!,
-                style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 10.0, color: Colors.grey),
               ),
             ),
           ],
@@ -1717,9 +1717,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: rose50,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: burgundy500, width: 3.5),
-        ),
+        border: Border(left: BorderSide(color: burgundy500, width: 3.5)),
       ),
       child: Text(
         'ProxyElement.build() simply returns widget.child — it does not '
@@ -1835,7 +1833,9 @@ dynamic build(BuildContext context) {
                     layer['name'] as String,
                     style: TextStyle(
                       fontSize: depth == 4 ? 12.0 : 11.0,
-                      fontWeight: depth == 4 ? FontWeight.bold : FontWeight.w500,
+                      fontWeight: depth == 4
+                          ? FontWeight.bold
+                          : FontWeight.w500,
                       color: layerColor,
                     ),
                   ),
@@ -1948,11 +1948,7 @@ dynamic build(BuildContext context) {
             'the widget can be compile-time constant. The framework uses identical() '
             'to detect const widgets and skip rebuilds entirely — the widget '
             'is not just equal, it is literally the same object in memory.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: burgundy800,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: burgundy800, height: 1.5),
           ),
         ],
       ),
@@ -1971,11 +1967,17 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF2E7D32).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFF2E7D32).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF2E7D32).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 24.0),
+                  Icon(
+                    Icons.check_circle,
+                    color: Color(0xFF2E7D32),
+                    size: 24.0,
+                  ),
                   SizedBox(height: 6.0),
                   Text(
                     'const MyTheme(\nchild: Text("Hi")\n)',
@@ -2003,7 +2005,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFFC62828).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFFC62828).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFFC62828).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -2100,11 +2104,7 @@ dynamic build(BuildContext context) {
             'can specify which aspect it depends on. Only dependents of '
             'the changed aspect rebuild. This is a specialized ProxyWidget '
             'for high-performance scenarios.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.5),
           ),
         ],
       ),
@@ -2123,7 +2123,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF1A237E).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFF1A237E).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF1A237E).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -2154,7 +2156,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Color(0xFF4A148C).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: Color(0xFF4A148C).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF4A148C).withValues(alpha: 0.3),
+                ),
               ),
               child: Column(
                 children: [
@@ -2248,11 +2252,7 @@ dynamic build(BuildContext context) {
             'wraps the ceremony of creating an InheritedWidget, implementing '
             'updateShouldNotify, and providing the static of()/watch()/read() '
             'accessors. Under the hood, it is all ProxyWidgets.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: burgundy800,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 12.5, color: burgundy800, height: 1.5),
           ),
         ],
       ),
@@ -2328,9 +2328,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.fromLTRB(12.0, 20.0, 12.0, 8.0),
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [burgundy900, burgundy700],
-        ),
+        gradient: LinearGradient(colors: [burgundy900, burgundy700]),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Row(
@@ -2389,7 +2387,8 @@ dynamic build(BuildContext context) {
     },
     {
       'key': 'Key Insight',
-      'value': 'The invisible infrastructure that makes Flutter composition possible',
+      'value':
+          'The invisible infrastructure that makes Flutter composition possible',
     },
   ];
 
@@ -2401,9 +2400,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: burgundy600.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border(
-            left: BorderSide(color: rose400, width: 3.0),
-          ),
+          border: Border(left: BorderSide(color: rose400, width: 3.0)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

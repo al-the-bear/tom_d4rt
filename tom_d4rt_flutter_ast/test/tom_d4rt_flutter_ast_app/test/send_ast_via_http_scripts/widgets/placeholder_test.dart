@@ -132,8 +132,10 @@ class PitfallNote {
 
 dynamic build(BuildContext context) {
   print('[placeholder_test] build() entered');
-  print('[placeholder_test] sections: anatomy / sizes / palette / fallback / '
-      'wireframe / form / card-grid / bad-layouts / style / pitfalls / footer');
+  print(
+    '[placeholder_test] sections: anatomy / sizes / palette / fallback / '
+    'wireframe / form / card-grid / bad-layouts / style / pitfalls / footer',
+  );
 
   final List<Widget> sections = <Widget>[];
   sections.add(buildHeroBanner());
@@ -299,14 +301,7 @@ Widget buildSectionTitleRow({
 }
 
 Widget buildProse(String text, {Color tone = kInkSoft}) {
-  return Text(
-    text,
-    style: TextStyle(
-      fontSize: 12.8,
-      height: 1.5,
-      color: tone,
-    ),
-  );
+  return Text(text, style: TextStyle(fontSize: 12.8, height: 1.5, color: tone));
 }
 
 Widget buildChip(String text, Color tint) {
@@ -352,9 +347,7 @@ Widget buildLabelTag(String text, Color tint) {
 Widget buildDivider({Color tint = kInkFaint, double thickness = 0.9}) {
   return Container(
     height: thickness,
-    decoration: BoxDecoration(
-      color: tint.withValues(alpha: 0.55),
-    ),
+    decoration: BoxDecoration(color: tint.withValues(alpha: 0.55)),
   );
 }
 
@@ -422,7 +415,9 @@ Widget buildHeroBanner() {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -568,10 +563,7 @@ Widget buildAnatomySection() {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: kPaperFrame),
                 ),
-                child: Placeholder(
-                  color: kAnatomy,
-                  strokeWidth: 2.4,
-                ),
+                child: Placeholder(color: kAnatomy, strokeWidth: 2.4),
               ),
             ),
             const SizedBox(width: 14),
@@ -583,28 +575,28 @@ Widget buildAnatomySection() {
                   buildAnatomyCallout(
                     'Outer frame',
                     'Stroked rectangle, top/right/bottom/left edges drawn '
-                    'at the configured strokeWidth.',
+                        'at the configured strokeWidth.',
                     kAnatomy,
                   ),
                   const SizedBox(height: 10),
                   buildAnatomyCallout(
                     'Diagonals',
                     'Two corner-to-corner lines: top-left to bottom-right '
-                    'and top-right to bottom-left.',
+                        'and top-right to bottom-left.',
                     kAnatomy,
                   ),
                   const SizedBox(height: 10),
                   buildAnatomyCallout(
                     'Cross intersection',
                     'Centre of the shape. Visually identifies the box '
-                    'and confirms it has non-zero area.',
+                        'and confirms it has non-zero area.',
                     kAnatomy,
                   ),
                   const SizedBox(height: 10),
                   buildAnatomyCallout(
                     'Colour & strokeWidth',
                     'Same colour and pen-width is used for the frame and '
-                    'both diagonals. There is no separate fill.',
+                        'both diagonals. There is no separate fill.',
                     kAnatomy,
                   ),
                 ],
@@ -643,11 +635,7 @@ Widget buildAnatomyCallout(String title, String body, Color tint) {
         const SizedBox(height: 4),
         Text(
           body,
-          style: const TextStyle(
-            color: kInkSoft,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: kInkSoft, fontSize: 11.5, height: 1.4),
         ),
       ],
     ),
@@ -675,22 +663,32 @@ Widget buildAnatomyParameterTable() {
           ),
         ),
         const SizedBox(height: 10),
-        buildParamRow('color',
-            'Colour of the stroked rectangle and diagonals. Defaults to a '
-                'cool blue-grey.'),
-        buildParamRow('strokeWidth',
-            'Pen width in logical pixels. Defaults to 2.0. Used uniformly '
-                'across frame and diagonals.'),
-        buildParamRow('fallbackWidth',
-            'Width to use when the parent supplies an unbounded width '
-                'constraint. Defaults to 400.0.'),
-        buildParamRow('fallbackHeight',
-            'Height to use when the parent supplies an unbounded height '
-                'constraint. Defaults to 400.0.'),
-        buildParamRow('child',
-            'Optional child laid out inside the placeholder rectangle. '
-                'Useful for mocking a slot whose inner widget is already '
-                'known.'),
+        buildParamRow(
+          'color',
+          'Colour of the stroked rectangle and diagonals. Defaults to a '
+              'cool blue-grey.',
+        ),
+        buildParamRow(
+          'strokeWidth',
+          'Pen width in logical pixels. Defaults to 2.0. Used uniformly '
+              'across frame and diagonals.',
+        ),
+        buildParamRow(
+          'fallbackWidth',
+          'Width to use when the parent supplies an unbounded width '
+              'constraint. Defaults to 400.0.',
+        ),
+        buildParamRow(
+          'fallbackHeight',
+          'Height to use when the parent supplies an unbounded height '
+              'constraint. Defaults to 400.0.',
+        ),
+        buildParamRow(
+          'child',
+          'Optional child laid out inside the placeholder rectangle. '
+              'Useful for mocking a slot whose inner widget is already '
+              'known.',
+        ),
       ],
     ),
   );
@@ -717,11 +715,7 @@ Widget buildParamRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: const TextStyle(
-              color: kInkSoft,
-              fontSize: 12,
-              height: 1.45,
-            ),
+            style: const TextStyle(color: kInkSoft, fontSize: 12, height: 1.45),
           ),
         ),
       ],
@@ -1004,76 +998,78 @@ Widget buildPaletteHeaderRow(List<ColourSample> palette) {
   final List<Widget> cells = <Widget>[];
   cells.add(const SizedBox(width: 46));
   for (int i = 0; i < palette.length; i++) {
-    cells.add(Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-          decoration: BoxDecoration(
-            color: palette[i].colour.withValues(alpha: 0.16),
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: palette[i].colour.withValues(alpha: 0.5)),
-          ),
-          child: Center(
-            child: Text(
-              palette[i].label.toUpperCase(),
-              style: TextStyle(
-                color: palette[i].colour,
-                fontSize: 10,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 0.6,
+    cells.add(
+      Expanded(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            decoration: BoxDecoration(
+              color: palette[i].colour.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(
+                color: palette[i].colour.withValues(alpha: 0.5),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                palette[i].label.toUpperCase(),
+                style: TextStyle(
+                  color: palette[i].colour,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.6,
+                ),
               ),
             ),
           ),
         ),
       ),
-    ));
+    );
   }
   return Row(children: cells);
 }
 
 Widget buildPaletteRow(List<ColourSample> palette, double stroke) {
   final List<Widget> cells = <Widget>[];
-  cells.add(SizedBox(
-    width: 46,
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      decoration: BoxDecoration(
-        color: kPalette.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: kPalette.withValues(alpha: 0.4)),
-      ),
-      child: Center(
-        child: Text(
-          stroke.toStringAsFixed(0),
-          style: const TextStyle(
-            fontFamily: 'monospace',
-            color: kPalette,
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
+  cells.add(
+    SizedBox(
+      width: 46,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        decoration: BoxDecoration(
+          color: kPalette.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: kPalette.withValues(alpha: 0.4)),
+        ),
+        child: Center(
+          child: Text(
+            stroke.toStringAsFixed(0),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              color: kPalette,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
       ),
     ),
-  ));
+  );
   for (int i = 0; i < palette.length; i++) {
-    cells.add(Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3),
-        child: SizedBox(
-          height: 64,
-          child: Placeholder(
-            color: palette[i].colour,
-            strokeWidth: stroke,
+    cells.add(
+      Expanded(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3),
+          child: SizedBox(
+            height: 64,
+            child: Placeholder(color: palette[i].colour, strokeWidth: stroke),
           ),
         ),
       ),
-    ));
+    );
   }
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: cells,
-  );
+  return Row(crossAxisAlignment: CrossAxisAlignment.center, children: cells);
 }
 
 Widget buildPaletteLegend(List<ColourSample> palette) {
@@ -1081,11 +1077,7 @@ Widget buildPaletteLegend(List<ColourSample> palette) {
   for (int i = 0; i < palette.length; i++) {
     entries.add(buildPaletteLegendEntry(palette[i]));
   }
-  return Wrap(
-    spacing: 8,
-    runSpacing: 8,
-    children: entries,
-  );
+  return Wrap(spacing: 8, runSpacing: 8, children: entries);
 }
 
 Widget buildPaletteLegendEntry(ColourSample s) {
@@ -1167,18 +1159,20 @@ Widget buildFallbackSection() {
   for (int i = 0; i < cells.length; i += 2) {
     final FallbackCell left = cells[i];
     final FallbackCell? right = i + 1 < cells.length ? cells[i + 1] : null;
-    rows.add(Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Expanded(child: buildFallbackCell(left)),
-        const SizedBox(width: 12),
-        Expanded(
-          child: right != null
-              ? buildFallbackCell(right)
-              : const SizedBox.shrink(),
-        ),
-      ],
-    ));
+    rows.add(
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Expanded(child: buildFallbackCell(left)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: right != null
+                ? buildFallbackCell(right)
+                : const SizedBox.shrink(),
+          ),
+        ],
+      ),
+    );
     if (i + 2 < cells.length) rows.add(const SizedBox(height: 12));
   }
 
@@ -1260,11 +1254,7 @@ Widget buildFallbackCell(FallbackCell c) {
         const SizedBox(height: 8),
         Text(
           c.description,
-          style: const TextStyle(
-            color: kInkSoft,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: kInkSoft, fontSize: 11.5, height: 1.4),
         ),
       ],
     ),
@@ -1402,17 +1392,23 @@ Widget buildAppFrame() {
                             children: <Widget>[
                               Expanded(
                                 child: Placeholder(
-                                    color: kWheelGreen, strokeWidth: 2),
+                                  color: kWheelGreen,
+                                  strokeWidth: 2,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Placeholder(
-                                    color: kWheelGreen, strokeWidth: 2),
+                                  color: kWheelGreen,
+                                  strokeWidth: 2,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Placeholder(
-                                    color: kWheelGreen, strokeWidth: 2),
+                                  color: kWheelGreen,
+                                  strokeWidth: 2,
+                                ),
                               ),
                             ],
                           ),
@@ -1424,13 +1420,17 @@ Widget buildAppFrame() {
                               Expanded(
                                 flex: 2,
                                 child: Placeholder(
-                                    color: kWheelRed, strokeWidth: 2),
+                                  color: kWheelRed,
+                                  strokeWidth: 2,
+                                ),
                               ),
                               const SizedBox(width: 8),
                               Expanded(
                                 flex: 1,
                                 child: Placeholder(
-                                    color: kWheelRed, strokeWidth: 2),
+                                  color: kWheelRed,
+                                  strokeWidth: 2,
+                                ),
                               ),
                             ],
                           ),
@@ -1483,21 +1483,29 @@ Widget buildWireframeLegend() {
     runSpacing: 8,
     children: <Widget>[
       buildPaletteLegendEntry(
-          const ColourSample('logo', kWheelMagenta, 'app icon slot')),
+        const ColourSample('logo', kWheelMagenta, 'app icon slot'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('search', kWheelBlue, 'top-bar input')),
+        const ColourSample('search', kWheelBlue, 'top-bar input'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('actions', kWheelTeal, 'header CTAs')),
+        const ColourSample('actions', kWheelTeal, 'header CTAs'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('avatar', kWheelMustard, 'user menu')),
+        const ColourSample('avatar', kWheelMustard, 'user menu'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('nav', kWheelIndigo, 'sidebar items')),
+        const ColourSample('nav', kWheelIndigo, 'sidebar items'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('hero', kWheelOrange, 'hero strip')),
+        const ColourSample('hero', kWheelOrange, 'hero strip'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('tiles', kWheelGreen, 'content cards')),
+        const ColourSample('tiles', kWheelGreen, 'content cards'),
+      ),
       buildPaletteLegendEntry(
-          const ColourSample('feature', kWheelRed, 'spotlight tile')),
+        const ColourSample('feature', kWheelRed, 'spotlight tile'),
+      ),
     ],
   );
 }
@@ -1696,9 +1704,18 @@ Widget buildFormToggleRow(String label, Color tint) {
 
 Widget buildCardGridSection() {
   final List<int> productIndices = const <int>[
-    0, 1, 2, 3,
-    4, 5, 6, 7,
-    8, 9, 10, 11,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
   ];
 
   final List<Widget> rows = <Widget>[];
@@ -2080,10 +2097,7 @@ Widget buildStrokeStyleSection() {
           'almost a fill — useful when you want the sketch to nag.',
         ),
         const SizedBox(height: 14),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: tiles,
-        ),
+        Row(crossAxisAlignment: CrossAxisAlignment.start, children: tiles),
         const SizedBox(height: 14),
         buildStrokeScale(ramp),
       ],
@@ -2129,30 +2143,33 @@ Widget buildStrokeTile(StrokeSample s) {
 Widget buildStrokeScale(List<StrokeSample> ramp) {
   final List<Widget> ticks = <Widget>[];
   for (int i = 0; i < ramp.length; i++) {
-    ticks.add(Expanded(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: ramp[i].strokeWidth * 2 + 2,
-            decoration: BoxDecoration(
-              color: kStyle,
-              borderRadius:
-                  BorderRadius.circular(ramp[i].strokeWidth * 0.6 + 1),
+    ticks.add(
+      Expanded(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: ramp[i].strokeWidth * 2 + 2,
+              decoration: BoxDecoration(
+                color: kStyle,
+                borderRadius: BorderRadius.circular(
+                  ramp[i].strokeWidth * 0.6 + 1,
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            ramp[i].strokeWidth.toStringAsFixed(1),
-            style: const TextStyle(
-              fontFamily: 'monospace',
-              color: kStyle,
-              fontSize: 11,
-              fontWeight: FontWeight.w800,
+            const SizedBox(height: 4),
+            Text(
+              ramp[i].strokeWidth.toStringAsFixed(1),
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                color: kStyle,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
     if (i != ramp.length - 1) ticks.add(const SizedBox(width: 14));
   }
   return Container(
@@ -2175,10 +2192,7 @@ Widget buildStrokeScale(List<StrokeSample> ramp) {
           ),
         ),
         const SizedBox(height: 8),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: ticks,
-        ),
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: ticks),
       ],
     ),
   );
@@ -2521,8 +2535,7 @@ Widget buildFooterSection() {
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.16),
                 borderRadius: BorderRadius.circular(999),

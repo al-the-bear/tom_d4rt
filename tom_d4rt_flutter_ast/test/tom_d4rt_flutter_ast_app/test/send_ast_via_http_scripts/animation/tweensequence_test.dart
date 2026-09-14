@@ -66,10 +66,7 @@ dynamic build(BuildContext context) {
           Text(
             'Composes a list of\nTweenSequenceItems into a\nsingle Animatable<T>',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.deepPurple.shade700,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.deepPurple.shade700),
           ),
         ],
       ),
@@ -193,8 +190,10 @@ dynamic build(BuildContext context) {
   for (final t in samples) {
     final v = doubleSequence.transform(t);
     doubleSamples.add(v);
-    print('  doubleSequence.transform(${t.toStringAsFixed(2)}) = '
-        '${v.toStringAsFixed(3)}');
+    print(
+      '  doubleSequence.transform(${t.toStringAsFixed(2)}) = '
+      '${v.toStringAsFixed(3)}',
+    );
   }
 
   final doubleBars = <Widget>[];
@@ -355,10 +354,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 2.0),
-                Container(
-                  height: 90.0 * v + 3.0,
-                  color: color.shade500,
-                ),
+                Container(height: 90.0 * v + 3.0, color: color.shade500),
                 SizedBox(height: 2.0),
                 Text(
                   t.toStringAsFixed(1),
@@ -439,8 +435,10 @@ dynamic build(BuildContext context) {
     final r = (c.r * 255).round();
     final g = (c.g * 255).round();
     final b = (c.b * 255).round();
-    print('  colorSequence.transform(${t.toStringAsFixed(2)}) = '
-        'rgb($r,$g,$b)');
+    print(
+      '  colorSequence.transform(${t.toStringAsFixed(2)}) = '
+      'rgb($r,$g,$b)',
+    );
 
     colorSwatches.add(
       Expanded(
@@ -450,10 +448,7 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 't=${t.toStringAsFixed(1)}',
-                style: TextStyle(
-                  fontSize: 9.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 9.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 3.0),
               Container(
@@ -558,8 +553,10 @@ dynamic build(BuildContext context) {
     final left = pathPadding + pos.dx * usableW;
     final top = pathPadding + pos.dy * usableH;
 
-    print('  offsetSequence.transform(${t.toStringAsFixed(2)}) = '
-        '(${pos.dx.toStringAsFixed(2)}, ${pos.dy.toStringAsFixed(2)})');
+    print(
+      '  offsetSequence.transform(${t.toStringAsFixed(2)}) = '
+      '(${pos.dx.toStringAsFixed(2)}, ${pos.dy.toStringAsFixed(2)})',
+    );
 
     // Fade older dots so the trail is visible.
     final fade = 0.35 + 0.65 * (i / (samples.length - 1));
@@ -626,10 +623,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 6.0),
         Text(
           'Path: (0,0) → (1,0) → (1,1) → (0,1)',
-          style: TextStyle(
-            fontSize: 10.5,
-            color: Colors.purple.shade800,
-          ),
+          style: TextStyle(fontSize: 10.5, color: Colors.purple.shade800),
         ),
       ],
     ),
@@ -647,10 +641,7 @@ dynamic build(BuildContext context) {
       tween: Tween<double>(begin: 0.0, end: 1.0),
       weight: 1,
     ),
-    TweenSequenceItem<double>(
-      tween: ConstantTween<double>(1.0),
-      weight: 2,
-    ),
+    TweenSequenceItem<double>(tween: ConstantTween<double>(1.0), weight: 2),
     TweenSequenceItem<double>(
       tween: Tween<double>(begin: 1.0, end: 0.0),
       weight: 1,
@@ -661,8 +652,10 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < samples.length; i++) {
     final t = samples[i];
     final v = constantSequence.transform(t);
-    print('  constantSequence.transform(${t.toStringAsFixed(2)}) = '
-        '${v.toStringAsFixed(3)}');
+    print(
+      '  constantSequence.transform(${t.toStringAsFixed(2)}) = '
+      '${v.toStringAsFixed(3)}',
+    );
 
     constantBars.add(
       Expanded(
@@ -684,10 +677,7 @@ dynamic build(BuildContext context) {
                 height: 110.0 * v + 4.0,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Colors.brown.shade300,
-                      Colors.brown.shade700,
-                    ],
+                    colors: [Colors.brown.shade300, Colors.brown.shade700],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -770,13 +760,17 @@ dynamic build(BuildContext context) {
       'color': Colors.deepPurple,
       'seq': TweenSequence<double>([
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 1.0)
-              .chain(CurveTween(curve: Curves.easeInOut)),
+          tween: Tween<double>(
+            begin: 0.0,
+            end: 1.0,
+          ).chain(CurveTween(curve: Curves.easeInOut)),
           weight: 1,
         ),
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 1.0, end: 0.0)
-              .chain(CurveTween(curve: Curves.easeInOut)),
+          tween: Tween<double>(
+            begin: 1.0,
+            end: 0.0,
+          ).chain(CurveTween(curve: Curves.easeInOut)),
           weight: 1,
         ),
       ]),
@@ -786,13 +780,17 @@ dynamic build(BuildContext context) {
       'color': Colors.pink,
       'seq': TweenSequence<double>([
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 0.0, end: 1.0)
-              .chain(CurveTween(curve: Curves.bounceOut)),
+          tween: Tween<double>(
+            begin: 0.0,
+            end: 1.0,
+          ).chain(CurveTween(curve: Curves.bounceOut)),
           weight: 1,
         ),
         TweenSequenceItem<double>(
-          tween: Tween<double>(begin: 1.0, end: 0.0)
-              .chain(CurveTween(curve: Curves.bounceOut)),
+          tween: Tween<double>(
+            begin: 1.0,
+            end: 0.0,
+          ).chain(CurveTween(curve: Curves.bounceOut)),
           weight: 1,
         ),
       ]),
@@ -809,8 +807,10 @@ dynamic build(BuildContext context) {
     for (int i = 0; i < samples.length; i++) {
       final t = samples[i];
       final v = seq.transform(t);
-      print('  [$label] transform(${t.toStringAsFixed(2)}) = '
-          '${v.toStringAsFixed(3)}');
+      print(
+        '  [$label] transform(${t.toStringAsFixed(2)}) = '
+        '${v.toStringAsFixed(3)}',
+      );
 
       bars.add(
         Expanded(

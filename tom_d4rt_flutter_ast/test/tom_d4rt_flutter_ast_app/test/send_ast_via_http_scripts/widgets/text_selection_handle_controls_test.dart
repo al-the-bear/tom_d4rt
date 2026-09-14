@@ -217,10 +217,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 8.0,
-                  vertical: 2.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: rowColor.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(4.0),
@@ -370,10 +367,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: parchment.withValues(alpha: 0.85),
                 borderRadius: BorderRadius.circular(6.0),
@@ -498,10 +492,7 @@ dynamic build(BuildContext context) {
             left: 12.0,
             right: 12.0,
             top: 90.0,
-            child: Container(
-              height: 1.0,
-              color: oak.withValues(alpha: 0.25),
-            ),
+            child: Container(height: 1.0, color: oak.withValues(alpha: 0.25)),
           ),
           // Highlighted passage.
           Positioned(
@@ -512,20 +503,14 @@ dynamic build(BuildContext context) {
             child: Container(
               decoration: BoxDecoration(
                 color: pinColor.withValues(alpha: 0.18),
-                border: Border(
-                  bottom: BorderSide(color: pinColor, width: 2.0),
-                ),
+                border: Border(bottom: BorderSide(color: pinColor, width: 2.0)),
               ),
             ),
           ),
           // Pin stem.
           Positioned(
-            left: isCollapsed
-                ? 99.0
-                : (isLeft ? 28.0 : null),
-            right: isCollapsed
-                ? null
-                : (isLeft ? null : 28.0),
+            left: isCollapsed ? 99.0 : (isLeft ? 28.0 : null),
+            right: isCollapsed ? null : (isLeft ? null : 28.0),
             top: 86.0,
             child: Container(
               width: 3.0,
@@ -538,20 +523,14 @@ dynamic build(BuildContext context) {
           ),
           // Pin head.
           Positioned(
-            left: isCollapsed
-                ? 90.0
-                : (isLeft ? 19.0 : null),
-            right: isCollapsed
-                ? null
-                : (isLeft ? null : 19.0),
+            left: isCollapsed ? 90.0 : (isLeft ? 19.0 : null),
+            right: isCollapsed ? null : (isLeft ? null : 19.0),
             top: 116.0,
             child: Container(
               width: 22.0,
               height: 22.0,
               decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [gilt, pinColor],
-                ),
+                gradient: RadialGradient(colors: [gilt, pinColor]),
                 shape: BoxShape.circle,
                 border: Border.all(color: giltDeep, width: 1.2),
                 boxShadow: [
@@ -566,12 +545,8 @@ dynamic build(BuildContext context) {
           ),
           // Anchor point indicator (cross-hair).
           Positioned(
-            left: isCollapsed
-                ? 99.0
-                : (isLeft ? 30.0 : null),
-            right: isCollapsed
-                ? null
-                : (isLeft ? null : 30.0),
+            left: isCollapsed ? 99.0 : (isLeft ? 30.0 : null),
+            right: isCollapsed ? null : (isLeft ? null : 30.0),
             top: 84.0,
             child: Icon(Icons.add, size: 10.0, color: vermilion),
           ),
@@ -869,11 +844,7 @@ dynamic build(BuildContext context) {
           SizedBox(width: 4.0),
           Text(
             '$tag: (${o.dx.toStringAsFixed(1)}, ${o.dy.toStringAsFixed(1)})',
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11.0,
-              color: c,
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: c),
           ),
         ],
       ),
@@ -1041,10 +1012,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(height: 8.0),
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: parchment.withValues(alpha: 0.85),
                 borderRadius: BorderRadius.circular(4.0),
@@ -1266,12 +1234,21 @@ dynamic build(BuildContext context) {
   final List<List<String>> compareRows = [
     ['Concrete handles', 'rounded teardrop', 'circular bead'],
     ['Toolbar', 'M3 menu w/ buttons', 'iOS bubble menu'],
-    ['Mixin variant', 'MaterialTextSelectionHandleControls',
-     'CupertinoTextSelectionHandleControls'],
-    ['Default constant', 'materialTextSelectionControls',
-     'cupertinoTextSelectionControls'],
-    ['Handle constant', 'materialTextSelectionHandleControls',
-     'cupertinoTextSelectionHandleControls'],
+    [
+      'Mixin variant',
+      'MaterialTextSelectionHandleControls',
+      'CupertinoTextSelectionHandleControls',
+    ],
+    [
+      'Default constant',
+      'materialTextSelectionControls',
+      'cupertinoTextSelectionControls',
+    ],
+    [
+      'Handle constant',
+      'materialTextSelectionHandleControls',
+      'cupertinoTextSelectionHandleControls',
+    ],
     ['Theme alignment', 'theme.textSelectionTheme', 'CupertinoTheme'],
   ];
 
@@ -1426,7 +1403,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Pick the global handle controls',
       'color': vermilion,
-      'code': '// Material handles + toolbar\n'
+      'code':
+          '// Material handles + toolbar\n'
           'final controls = materialTextSelectionControls;\n\n'
           '// Material handles only (toolbar handled elsewhere)\n'
           'final handleOnly = materialTextSelectionHandleControls;',
@@ -1434,7 +1412,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Cupertino flavour',
       'color': lapis,
-      'code': '// Cupertino full kit\n'
+      'code':
+          '// Cupertino full kit\n'
           'final cup = cupertinoTextSelectionControls;\n\n'
           '// Cupertino handles only\n'
           'final cupHandles = cupertinoTextSelectionHandleControls;',
@@ -1442,7 +1421,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'TextSelectionHandleControls mixin',
       'color': gilt,
-      'code': 'class CalligraphyHandles extends MaterialTextSelectionControls\n'
+      'code':
+          'class CalligraphyHandles extends MaterialTextSelectionControls\n'
           '    with TextSelectionHandleControls {}\n\n'
           '// Mixin disables built-in toolbar; handles remain.\n'
           '// Pair with EditableText.contextMenuBuilder.',
@@ -1450,7 +1430,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Query handle metrics',
       'color': oak,
-      'code': 'final size = controls.getHandleSize(textLineHeight);\n'
+      'code':
+          'final size = controls.getHandleSize(textLineHeight);\n'
           'final anchorL = controls.getHandleAnchor(\n'
           '  TextSelectionHandleType.left, textLineHeight);\n'
           'final anchorR = controls.getHandleAnchor(\n'
@@ -1459,7 +1440,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Toolbar handlers via delegate',
       'color': vermilion,
-      'code': '// Inside a custom TextSelectionControls subclass:\n'
+      'code':
+          '// Inside a custom TextSelectionControls subclass:\n'
           'controls.handleSelectAll(delegate); '
           '// -> delegate.selectAll(...)\n'
           'controls.handleCopy(delegate);      '

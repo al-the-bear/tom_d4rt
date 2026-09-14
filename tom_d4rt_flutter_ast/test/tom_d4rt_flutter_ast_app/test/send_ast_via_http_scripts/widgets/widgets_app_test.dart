@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.foundation,
       'title': 'What is WidgetsApp?',
-      'body': 'WidgetsApp is the base application widget that provides '
+      'body':
+          'WidgetsApp is the base application widget that provides '
           'the fundamental infrastructure every Flutter app needs: '
           'navigation, localization, accessibility overlays, and '
           'the widget inspector. Both MaterialApp and CupertinoApp '
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.navigation,
       'title': 'Navigation Infrastructure',
-      'body': 'WidgetsApp sets up the Navigator that manages the route '
+      'body':
+          'WidgetsApp sets up the Navigator that manages the route '
           'stack. It provides named routes, onGenerateRoute, '
           'onUnknownRoute, and the initial route. All declarative '
           'and imperative navigation flows through this setup.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.language,
       'title': 'Localization Backbone',
-      'body': 'WidgetsApp hosts the Localizations widget that provides '
+      'body':
+          'WidgetsApp hosts the Localizations widget that provides '
           'translated strings. It resolves which locale to use, '
           'loads LocalizationsDelegate resources, and makes them '
           'available to the entire subtree via Localizations.of.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'Accessibility & Inspector',
-      'body': 'WidgetsApp provides accessibility overlays like the '
+      'body':
+          'WidgetsApp provides accessibility overlays like the '
           'SemanticsDebugger and the WidgetInspector. It wraps '
           'the app in MediaQuery and Directionality, ensuring '
           'proper text direction and screen metric access.',
@@ -124,56 +128,64 @@ dynamic build(BuildContext context) {
     {
       'name': 'home',
       'type': 'Widget?',
-      'desc': 'The default route widget. Displayed when the app opens '
+      'desc':
+          'The default route widget. Displayed when the app opens '
           'at "/". Cannot be used together with routes if routes '
           'also contains a "/" entry.',
     },
     {
       'name': 'routes',
       'type': 'Map<String, WidgetBuilder>',
-      'desc': 'A table of named routes. Each key is a route name (like '
+      'desc':
+          'A table of named routes. Each key is a route name (like '
           '"/settings") and the value is a builder function that '
           'returns the route\u0027s widget.',
     },
     {
       'name': 'onGenerateRoute',
       'type': 'RouteFactory?',
-      'desc': 'Called when Navigator.pushNamed is called with a name '
+      'desc':
+          'Called when Navigator.pushNamed is called with a name '
           'not in routes. Allows dynamic route generation based on '
           'the RouteSettings (name, arguments).',
     },
     {
       'name': 'onUnknownRoute',
       'type': 'RouteFactory?',
-      'desc': 'Fallback when onGenerateRoute returns null. Used for '
+      'desc':
+          'Fallback when onGenerateRoute returns null. Used for '
           '404-style pages. If both are null for an unknown route, '
           'the framework throws an assertion error.',
     },
     {
       'name': 'builder',
       'type': 'TransitionBuilder?',
-      'desc': 'Wraps the Navigator. Receives the Navigator as child '
+      'desc':
+          'Wraps the Navigator. Receives the Navigator as child '
           'and can add widgets above it (MediaQuery overrides, '
           'providers, overlays). Runs on every rebuild.',
     },
     {
       'name': 'locale',
       'type': 'Locale?',
-      'desc': 'Forces a specific Locale instead of using the system '
+      'desc':
+          'Forces a specific Locale instead of using the system '
           'locale. Useful for previewing the app in a different '
           'language during development.',
     },
     {
       'name': 'localizationsDelegates',
       'type': 'Iterable<LocalizationsDelegate>?',
-      'desc': 'Delegates that load localized resources. Each delegate '
+      'desc':
+          'Delegates that load localized resources. Each delegate '
           'is responsible for a specific set of translations. '
           'WidgetsApp provides default widget localizations.',
     },
     {
       'name': 'supportedLocales',
       'type': 'Iterable<Locale>',
-      'desc': 'The locales this app supports. Used during locale '
+      'desc':
+          'The locales this app supports. Used during locale '
           'resolution. If the system locale is not supported, the '
           'first entry is used as fallback.',
     },
@@ -262,10 +274,12 @@ dynamic build(BuildContext context) {
   final routingScenarios = <Map<String, dynamic>>[
     {
       'title': 'home Route',
-      'desc': 'The simplest navigation setup: provide a home widget. '
+      'desc':
+          'The simplest navigation setup: provide a home widget. '
           'WidgetsApp wraps it in a Navigator and displays it at '
           'the "/" route. No explicit route table needed.',
-      'diagram': 'WidgetsApp(\n'
+      'diagram':
+          'WidgetsApp(\n'
           '  home: MyHomePage(),\n'
           ')\n'
           '\n'
@@ -274,10 +288,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Named Routes Table',
-      'desc': 'Define a Map of route names to builder functions. Each '
+      'desc':
+          'Define a Map of route names to builder functions. Each '
           'route is built on demand when navigated to. The "/" '
           'entry becomes the initial route.',
-      'diagram': 'routes: {\n'
+      'diagram':
+          'routes: {\n'
           '  "/": (ctx) => Home(),\n'
           '  "/settings": (ctx) => Settings(),\n'
           '  "/profile": (ctx) => Profile(),\n'
@@ -288,10 +304,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onGenerateRoute (Dynamic)',
-      'desc': 'For dynamic routes with parameters or complex matching. '
+      'desc':
+          'For dynamic routes with parameters or complex matching. '
           'Receives RouteSettings with name and arguments. Returns '
           'a Route or null (to fall through to onUnknownRoute).',
-      'diagram': 'onGenerateRoute: (settings) {\n'
+      'diagram':
+          'onGenerateRoute: (settings) {\n'
           '  if (settings.name == "/user/123")\n'
           '    return MaterialPageRoute(\n'
           '      builder: (_) => UserPage(id: 123),\n'
@@ -302,10 +320,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onUnknownRoute (404)',
-      'desc': 'Fallback for unresolved routes. If onGenerateRoute '
+      'desc':
+          'Fallback for unresolved routes. If onGenerateRoute '
           'returns null and the route is not in the routes table, '
           'onUnknownRoute is called. Returns a "not found" page.',
-      'diagram': 'onUnknownRoute: (settings) {\n'
+      'diagram':
+          'onUnknownRoute: (settings) {\n'
           '  return MaterialPageRoute(\n'
           '    builder: (_) => NotFoundPage(\n'
           '      route: settings.name,\n'
@@ -384,7 +404,8 @@ dynamic build(BuildContext context) {
   final localeSteps = <Map<String, dynamic>>[
     {
       'step': '1. System Locale',
-      'desc': 'The platform provides the user\u0027s preferred locales '
+      'desc':
+          'The platform provides the user\u0027s preferred locales '
           'via PlatformDispatcher.locales. This is usually set in '
           'system settings (language preferences).',
       'icon': Icons.phone_android,
@@ -392,7 +413,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Locale Resolution',
-      'desc': 'WidgetsApp\u0027s localeResolutionCallback receives the '
+      'desc':
+          'WidgetsApp\u0027s localeResolutionCallback receives the '
           'system locales and supportedLocales. It returns the best '
           'match. If no callback, basic matching is used.',
       'icon': Icons.compare_arrows,
@@ -400,7 +422,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Load Delegates',
-      'desc': 'For the resolved locale, each LocalizationsDelegate '
+      'desc':
+          'For the resolved locale, each LocalizationsDelegate '
           'loads its resources (translated strings, date formats, '
           'number formats). This happens asynchronously.',
       'icon': Icons.download,
@@ -408,7 +431,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. Provide via Localizations',
-      'desc': 'The loaded resources are available to the subtree via '
+      'desc':
+          'The loaded resources are available to the subtree via '
           'Localizations.of<T>(context). Widgets call this to get '
           'translated text, formatted dates, etc.',
       'icon': Icons.share,
@@ -416,7 +440,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Locale Override',
-      'desc': 'Setting WidgetsApp.locale directly overrides the system '
+      'desc':
+          'Setting WidgetsApp.locale directly overrides the system '
           'locale. Useful for language preview, per-user settings, '
           'or testing specific translations.',
       'icon': Icons.edit,
@@ -443,11 +468,7 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    ls['icon'] as IconData,
-                    color: lsColor,
-                    size: 18,
-                  ),
+                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 18),
                 ),
                 if (i < localeSteps.length - 1)
                   Container(
@@ -504,35 +525,40 @@ dynamic build(BuildContext context) {
   final accessTopics = <Map<String, dynamic>>[
     {
       'title': 'Semantics Tree',
-      'desc': 'WidgetsApp enables the semantics tree, which describes '
+      'desc':
+          'WidgetsApp enables the semantics tree, which describes '
           'the UI for accessibility services. Screen readers use '
           'this tree to announce widgets, labels, and actions.',
       'color': Colors.cyan,
     },
     {
       'title': 'showSemanticsDebugger',
-      'desc': 'When true, WidgetsApp overlays a visual representation '
+      'desc':
+          'When true, WidgetsApp overlays a visual representation '
           'of the semantics tree on the app. Useful for verifying '
           'that accessibility labels and roles are correct.',
       'color': Colors.blue,
     },
     {
       'title': 'Text Direction',
-      'desc': 'WidgetsApp wraps the app in a Directionality widget '
+      'desc':
+          'WidgetsApp wraps the app in a Directionality widget '
           'based on the resolved locale. RTL locales (Arabic, '
           'Hebrew) get TextDirection.rtl; others get ltr.',
       'color': Colors.green,
     },
     {
       'title': 'Keyboard Shortcuts',
-      'desc': 'WidgetsApp registers default keyboard shortcuts for '
+      'desc':
+          'WidgetsApp registers default keyboard shortcuts for '
           'navigation (Tab, Shift+Tab) and common actions. These '
           'are provided via the Shortcuts widget in the app tree.',
       'color': Colors.orange,
     },
     {
       'title': 'Focus Management',
-      'desc': 'WidgetsApp includes a FocusScope at the app level. '
+      'desc':
+          'WidgetsApp includes a FocusScope at the app level. '
           'This manages keyboard focus traversal for the entire '
           'application, enabling accessible keyboard navigation.',
       'color': Colors.purple,
@@ -613,10 +639,12 @@ dynamic build(BuildContext context) {
   final builderUseCases = <Map<String, dynamic>>[
     {
       'title': 'MediaQuery Override',
-      'desc': 'The builder can wrap the Navigator in a custom MediaQuery '
+      'desc':
+          'The builder can wrap the Navigator in a custom MediaQuery '
           'to override text scaling, padding, or size for the '
           'entire app. This affects all routes.',
-      'diagram': 'builder: (ctx, child) {\n'
+      'diagram':
+          'builder: (ctx, child) {\n'
           '  return MediaQuery(\n'
           '    data: MediaQuery.of(ctx).copyWith(\n'
           '      textScaleFactor: 1.2,\n'
@@ -628,10 +656,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Global Provider',
-      'desc': 'The builder is ideal for adding app-wide state providers '
+      'desc':
+          'The builder is ideal for adding app-wide state providers '
           'above the Navigator. State is preserved across route '
           'transitions.',
-      'diagram': 'builder: (ctx, child) {\n'
+      'diagram':
+          'builder: (ctx, child) {\n'
           '  return AppStateProvider(\n'
           '    state: appState,\n'
           '    child: child!,\n'
@@ -641,10 +671,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Overlay Wrapper',
-      'desc': 'Add a persistent overlay (loading indicator, network '
+      'desc':
+          'Add a persistent overlay (loading indicator, network '
           'status bar, debug banner) that stays visible across all '
           'routes.',
-      'diagram': 'builder: (ctx, child) {\n'
+      'diagram':
+          'builder: (ctx, child) {\n'
           '  return Stack(\n'
           '    children: [\n'
           '      child!,\n'
@@ -657,10 +689,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'No Navigator',
-      'desc': 'If builder is provided but no home/routes/onGenerateRoute, '
+      'desc':
+          'If builder is provided but no home/routes/onGenerateRoute, '
           'WidgetsApp does not create a Navigator. The builder\u0027s '
           'child is null. Used for custom navigation implementations.',
-      'diagram': 'WidgetsApp(\n'
+      'diagram':
+          'WidgetsApp(\n'
           '  builder: (ctx, child) {\n'
           '    // child is null\n'
           '    return MyCustomNavigator();\n'
@@ -738,25 +772,31 @@ dynamic build(BuildContext context) {
   final hierarchyItems = <Map<String, dynamic>>[
     {
       'level': 'WidgetsApp',
-      'features': 'Navigator, Localizations, Shortcuts, Actions, '
+      'features':
+          'Navigator, Localizations, Shortcuts, Actions, '
           'FocusScope, DefaultTextEditingShortcuts, SemanticsDebugger',
-      'purpose': 'Bare-bones app infrastructure. No design system. '
+      'purpose':
+          'Bare-bones app infrastructure. No design system. '
           'Use when building a completely custom look.',
       'color': Colors.cyan,
     },
     {
       'level': 'MaterialApp',
-      'features': 'WidgetsApp + Theme, AnimatedTheme, ScrollConfiguration, '
+      'features':
+          'WidgetsApp + Theme, AnimatedTheme, ScrollConfiguration, '
           'ScaffoldMessenger, MaterialLocalizations',
-      'purpose': 'Material Design app. Adds theming, snackbar support, '
+      'purpose':
+          'Material Design app. Adds theming, snackbar support, '
           'and Material-specific localizations on top of WidgetsApp.',
       'color': Colors.blue,
     },
     {
       'level': 'CupertinoApp',
-      'features': 'WidgetsApp + CupertinoTheme, CupertinoLocalizations, '
+      'features':
+          'WidgetsApp + CupertinoTheme, CupertinoLocalizations, '
           'iOS-specific scroll behavior and haptics',
-      'purpose': 'iOS-style app. Adds Cupertino theming and localizations '
+      'purpose':
+          'iOS-style app. Adds Cupertino theming and localizations '
           'on top of WidgetsApp.',
       'color': Colors.orange,
     },
@@ -846,32 +886,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.foundation,
-      'text': 'WidgetsApp is the base app widget. MaterialApp and '
+      'text':
+          'WidgetsApp is the base app widget. MaterialApp and '
           'CupertinoApp both extend it with design-system specifics.',
     },
     {
       'icon': Icons.navigation,
-      'text': 'Provides Navigator infrastructure: home, routes, '
+      'text':
+          'Provides Navigator infrastructure: home, routes, '
           'onGenerateRoute, onUnknownRoute, initialRoute.',
     },
     {
       'icon': Icons.language,
-      'text': 'Hosts localization via Localizations widget, locale '
+      'text':
+          'Hosts localization via Localizations widget, locale '
           'resolution, and LocalizationsDelegate loading.',
     },
     {
       'icon': Icons.accessibility,
-      'text': 'Enables accessibility: semantics tree, keyboard '
+      'text':
+          'Enables accessibility: semantics tree, keyboard '
           'shortcuts, focus management, text direction.',
     },
     {
       'icon': Icons.build,
-      'text': 'The builder parameter wraps the Navigator for global '
+      'text':
+          'The builder parameter wraps the Navigator for global '
           'providers, overlays, or custom navigation.',
     },
     {
       'icon': Icons.layers,
-      'text': 'Use WidgetsApp directly for custom design systems that '
+      'text':
+          'Use WidgetsApp directly for custom design systems that '
           'don\u0027t follow Material or Cupertino patterns.',
     },
   ];

@@ -129,10 +129,7 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(18.0), child: child),
         ],
       ),
     );
@@ -179,10 +176,7 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15.0),
-        child: child,
-      ),
+      child: ClipRRect(borderRadius: BorderRadius.circular(15.0), child: child),
     );
   }
 
@@ -228,9 +222,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: accent, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 4.0)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,94 +653,96 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final List<Widget> dateOrderTiles =
-      List<Widget>.generate(dateOrderCatalog.length, (int i) {
-    final Map<String, dynamic> spec = dateOrderCatalog[i];
-    final DatePickerDateOrder order = spec['order'] as DatePickerDateOrder;
-    final String name = spec['name'] as String;
-    final String desc = spec['desc'] as String;
-    final String flag = spec['flag'] as String;
-    final Color color = spec['color'] as Color;
-    return Container(
-      width: 320.0,
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: CupertinoColors.systemBackground,
-        borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: color.withValues(alpha: 0.40), width: 1.2),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: color.withValues(alpha: 0.10),
-            blurRadius: 10.0,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 6.0,
-                ),
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  name.toUpperCase(),
-                  style: const TextStyle(
-                    color: CupertinoColors.white,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 12.0,
-                    letterSpacing: 1.0,
+  final List<Widget> dateOrderTiles = List<Widget>.generate(
+    dateOrderCatalog.length,
+    (int i) {
+      final Map<String, dynamic> spec = dateOrderCatalog[i];
+      final DatePickerDateOrder order = spec['order'] as DatePickerDateOrder;
+      final String name = spec['name'] as String;
+      final String desc = spec['desc'] as String;
+      final String flag = spec['flag'] as String;
+      final Color color = spec['color'] as Color;
+      return Container(
+        width: 320.0,
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: CupertinoColors.systemBackground,
+          borderRadius: BorderRadius.circular(14.0),
+          border: Border.all(color: color.withValues(alpha: 0.40), width: 1.2),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: color.withValues(alpha: 0.10),
+              blurRadius: 10.0,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 6.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Text(
+                    name.toUpperCase(),
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 12.0,
+                      letterSpacing: 1.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      desc,
-                      style: const TextStyle(
-                        color: paletteInk,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w700,
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        desc,
+                        style: const TextStyle(
+                          color: paletteInk,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      flag,
-                      style: const TextStyle(
-                        color: paletteInkSoft,
-                        fontSize: 11.0,
+                      Text(
+                        flag,
+                        style: const TextStyle(
+                          color: paletteInkSoft,
+                          fontSize: 11.0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          pickerFrame(
-            height: 180.0,
-            accent: color,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: today,
-              dateOrder: order,
-              onDateTimeChanged: (DateTime _) {},
+              ],
             ),
-          ),
-        ],
-      ),
-    );
-  });
+            const SizedBox(height: 8.0),
+            pickerFrame(
+              height: 180.0,
+              accent: color,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                initialDateTime: today,
+                dateOrder: order,
+                onDateTimeChanged: (DateTime _) {},
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 
   final Widget section4 = sectionShell(
     title: '04 — dateOrder permutations',
@@ -928,90 +922,92 @@ dynamic build(BuildContext context) {
     paletteBerry,
   ];
 
-  final List<Widget> intervalTiles =
-      List<Widget>.generate(minuteIntervals.length, (int i) {
-    final int interval = minuteIntervals[i];
-    final Color color = intervalColors[i];
-    return Container(
-      width: 230.0,
-      margin: const EdgeInsets.all(6.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: CupertinoColors.systemBackground,
-        borderRadius: BorderRadius.circular(14.0),
-        border: Border.all(color: color.withValues(alpha: 0.40), width: 1.2),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: color.withValues(alpha: 0.10),
-            blurRadius: 8.0,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Container(
-                width: 36.0,
-                height: 36.0,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Text(
-                  '$interval',
-                  style: const TextStyle(
-                    color: CupertinoColors.white,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 14.0,
+  final List<Widget> intervalTiles = List<Widget>.generate(
+    minuteIntervals.length,
+    (int i) {
+      final int interval = minuteIntervals[i];
+      final Color color = intervalColors[i];
+      return Container(
+        width: 230.0,
+        margin: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: CupertinoColors.systemBackground,
+          borderRadius: BorderRadius.circular(14.0),
+          border: Border.all(color: color.withValues(alpha: 0.40), width: 1.2),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: color.withValues(alpha: 0.10),
+              blurRadius: 8.0,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  width: 36.0,
+                  height: 36.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Text(
+                    '$interval',
+                    style: const TextStyle(
+                      color: CupertinoColors.white,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 14.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'every $interval min',
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w800,
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'every $interval min',
+                        style: TextStyle(
+                          color: color,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '60/$interval = ${60 ~/ interval} slots',
-                      style: const TextStyle(
-                        color: paletteInkSoft,
-                        fontSize: 11.0,
-                        fontFamily: 'monospace',
+                      Text(
+                        '60/$interval = ${60 ~/ interval} slots',
+                        style: const TextStyle(
+                          color: paletteInkSoft,
+                          fontSize: 11.0,
+                          fontFamily: 'monospace',
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8.0),
-          pickerFrame(
-            height: 160.0,
-            accent: color,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.time,
-              initialDateTime: meeting,
-              minuteInterval: interval,
-              use24hFormat: true,
-              onDateTimeChanged: (DateTime _) {},
+              ],
             ),
-          ),
-        ],
-      ),
-    );
-  });
+            const SizedBox(height: 8.0),
+            pickerFrame(
+              height: 160.0,
+              accent: color,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.time,
+                initialDateTime: meeting,
+                minuteInterval: interval,
+                use24hFormat: true,
+                onDateTimeChanged: (DateTime _) {},
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 
   final Widget section9 = sectionShell(
     title: '09 — minuteInterval (1 / 5 / 10 / 15 / 30)',
@@ -1043,10 +1039,7 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(14.0),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: <Color>[
-                Color(0xFF4B2D6F),
-                Color(0xFFB23A8B),
-              ],
+              colors: <Color>[Color(0xFF4B2D6F), Color(0xFFB23A8B)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1173,10 +1166,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(
-                    color: paletteOutline,
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: paletteOutline, width: 1.0),
                 ),
               ),
               const SizedBox(width: 10.0),
@@ -1369,10 +1359,7 @@ dynamic build(BuildContext context) {
               decoration: const BoxDecoration(
                 color: CupertinoColors.systemBackground,
                 border: Border(
-                  bottom: BorderSide(
-                    color: paletteOutline,
-                    width: 0.5,
-                  ),
+                  bottom: BorderSide(color: paletteOutline, width: 0.5),
                 ),
               ),
               child: Row(
@@ -1385,10 +1372,7 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 4.0),
                   Text(
                     'Back',
-                    style: TextStyle(
-                      color: paletteAccent,
-                      fontSize: 15.0,
-                    ),
+                    style: TextStyle(color: paletteAccent, fontSize: 15.0),
                   ),
                   Spacer(),
                   Text(
@@ -1542,10 +1526,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             decoration: const BoxDecoration(
               border: Border(
-                bottom: BorderSide(
-                  color: paletteOutline,
-                  width: 0.5,
-                ),
+                bottom: BorderSide(color: paletteOutline, width: 0.5),
               ),
             ),
             child: Row(
@@ -1555,10 +1536,7 @@ dynamic build(BuildContext context) {
                   onPressed: () {},
                   child: const Text(
                     'Cancel',
-                    style: TextStyle(
-                      color: paletteRose,
-                      fontSize: 15.0,
-                    ),
+                    style: TextStyle(color: paletteRose, fontSize: 15.0),
                   ),
                 ),
                 const Spacer(),
@@ -1641,10 +1619,7 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Text(
                       'Tap the field below to schedule the export...',
-                      style: TextStyle(
-                        color: paletteInkSoft,
-                        fontSize: 13.0,
-                      ),
+                      style: TextStyle(color: paletteInkSoft, fontSize: 13.0),
                     ),
                   ),
                 ],
@@ -1743,10 +1718,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4.0),
           const Text(
             'Define the daily window in which notifications are delivered.',
-            style: TextStyle(
-              color: paletteInkSoft,
-              fontSize: 12.0,
-            ),
+            style: TextStyle(color: paletteInkSoft, fontSize: 12.0),
           ),
           const SizedBox(height: 12.0),
           Row(
@@ -1842,8 +1814,9 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final List<Widget> timerTiles =
-      List<Widget>.generate(timerModes.length, (int i) {
+  final List<Widget> timerTiles = List<Widget>.generate(timerModes.length, (
+    int i,
+  ) {
     final Map<String, dynamic> spec = timerModes[i];
     final CupertinoTimerPickerMode mode =
         spec['mode'] as CupertinoTimerPickerMode;
@@ -1895,10 +1868,7 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   desc,
-                  style: const TextStyle(
-                    color: paletteInk,
-                    fontSize: 12.0,
-                  ),
+                  style: const TextStyle(color: paletteInk, fontSize: 12.0),
                 ),
               ),
             ],
@@ -2211,8 +2181,9 @@ dynamic build(BuildContext context) {
     paletteBerry,
   ];
 
-  final List<Widget> extentTiles =
-      List<Widget>.generate(extents.length, (int i) {
+  final List<Widget> extentTiles = List<Widget>.generate(extents.length, (
+    int i,
+  ) {
     final double extent = extents[i];
     final Color color = extentColors[i];
     return Container(
@@ -2393,10 +2364,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF13233F),
-          Color(0xFF2A4374),
-        ],
+        colors: <Color>[Color(0xFF13233F), Color(0xFF2A4374)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

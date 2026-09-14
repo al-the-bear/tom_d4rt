@@ -49,10 +49,7 @@ class _DemoRoot extends StatelessWidget {
             'RenderAbstractLayoutBuilderMixin',
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: _tabs,
-          ),
+          bottom: const TabBar(isScrollable: true, tabs: _tabs),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -103,9 +100,9 @@ Widget _bodyText(String text) {
 }
 
 Widget _divider() => const Padding(
-      padding: EdgeInsets.symmetric(vertical: 12),
-      child: Divider(),
-    );
+  padding: EdgeInsets.symmetric(vertical: 12),
+  child: Divider(),
+);
 
 Widget _chip(String label, Color color) {
   return Container(
@@ -116,9 +113,10 @@ Widget _chip(String label, Color color) {
       border: Border.all(color: color.withAlpha(160)),
       borderRadius: BorderRadius.circular(20),
     ),
-    child: Text(label,
-        style: TextStyle(
-            fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -155,11 +153,14 @@ Widget _infoCard(String title, String body, {Color? accent}) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                  fontSize: 13)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: color,
+              fontSize: 13,
+            ),
+          ),
           const SizedBox(height: 6),
           Text(body, style: const TextStyle(fontSize: 12, height: 1.5)),
         ],
@@ -188,10 +189,7 @@ class _HeroBannerTab extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                cs.primaryContainer,
-                cs.secondaryContainer,
-              ],
+              colors: <Color>[cs.primaryContainer, cs.secondaryContainer],
             ),
             borderRadius: BorderRadius.circular(16),
           ),
@@ -222,9 +220,10 @@ class _HeroBannerTab extends StatelessWidget {
                 'the builder callback during the layout phase — not the '
                 'build phase.',
                 style: TextStyle(
-                    fontSize: 13,
-                    color: cs.onPrimaryContainer,
-                    height: 1.6),
+                  fontSize: 13,
+                  color: cs.onPrimaryContainer,
+                  height: 1.6,
+                ),
               ),
               const SizedBox(height: 12),
               Wrap(
@@ -345,14 +344,16 @@ class _HeroBannerTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: color,
-                  fontSize: 13)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: color,
+              fontSize: 13,
+            ),
+          ),
           const SizedBox(height: 8),
-          Text(body,
-              style: const TextStyle(fontSize: 12, height: 1.55)),
+          Text(body, style: const TextStyle(fontSize: 12, height: 1.55)),
         ],
       ),
     );
@@ -473,10 +474,22 @@ class _ArchitecturePainter extends CustomPainter {
       ..strokeWidth = 1.5
       ..style = PaintingStyle.stroke;
 
-    void drawBox(double x, double y, double w, Color bg, Color border,
-        String label, [String? sub]) {
-      final RRect rr =
-          RRect.fromLTRBR(x, y, x + w, y + nodeH, const Radius.circular(8));
+    void drawBox(
+      double x,
+      double y,
+      double w,
+      Color bg,
+      Color border,
+      String label, [
+      String? sub,
+    ]) {
+      final RRect rr = RRect.fromLTRBR(
+        x,
+        y,
+        x + w,
+        y + nodeH,
+        const Radius.circular(8),
+      );
       fill.color = bg;
       stroke.color = border;
       canvas.drawRRect(rr, fill);
@@ -486,9 +499,10 @@ class _ArchitecturePainter extends CustomPainter {
         text: TextSpan(
           text: label,
           style: TextStyle(
-              color: border,
-              fontSize: 12,
-              fontWeight: FontWeight.w700),
+            color: border,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: w - 12);
@@ -498,8 +512,7 @@ class _ArchitecturePainter extends CustomPainter {
         final TextPainter sp = TextPainter(
           text: TextSpan(
             text: sub,
-            style: const TextStyle(
-                color: Color(0xFF555555), fontSize: 10),
+            style: const TextStyle(color: Color(0xFF555555), fontSize: 10),
           ),
           textDirection: TextDirection.ltr,
         )..layout(maxWidth: w - 12);
@@ -515,8 +528,10 @@ class _ArchitecturePainter extends CustomPainter {
       final double len = (dx * dx + dy * dy) > 0
           ? (dx * dx + dy * dy).abs().floorToDouble()
           : 1;
-      final double ux = dx / (len == 0 ? 1 : len.toDouble().floorToDouble().clamp(1, 999999));
-      final double uy = dy / (len == 0 ? 1 : len.toDouble().floorToDouble().clamp(1, 999999));
+      final double ux =
+          dx / (len == 0 ? 1 : len.toDouble().floorToDouble().clamp(1, 999999));
+      final double uy =
+          dy / (len == 0 ? 1 : len.toDouble().floorToDouble().clamp(1, 999999));
       // Simple triangle at tip
       final Path path = Path()
         ..moveTo(x2, y2a)
@@ -527,19 +542,61 @@ class _ArchitecturePainter extends CustomPainter {
     }
 
     // Draw nodes
-    drawBox(left, y0, nodeW, cs.primaryContainer.withAlpha(120),
-        cs.primary, 'ConstrainedLayoutBuilder<CT>', 'abstract Widget / RenderObjectWidget');
-    drawBox(left, y1, nodeW, cs.secondaryContainer.withAlpha(120),
-        cs.secondary, 'LayoutBuilder', 'extends ConstrainedLayoutBuilder<BoxConstraints>');
-    drawBox(left, y2, nodeW, const Color(0xFFE8F5E9),
-        Colors.teal, 'Element layer', 'creates _RenderLayoutBuilder via createRenderObject()');
-    drawBox(left, y3, nodeW, const Color(0xFFFFF3E0),
-        Colors.deepOrange, '_RenderLayoutBuilder', 'extends RenderBox');
+    drawBox(
+      left,
+      y0,
+      nodeW,
+      cs.primaryContainer.withAlpha(120),
+      cs.primary,
+      'ConstrainedLayoutBuilder<CT>',
+      'abstract Widget / RenderObjectWidget',
+    );
+    drawBox(
+      left,
+      y1,
+      nodeW,
+      cs.secondaryContainer.withAlpha(120),
+      cs.secondary,
+      'LayoutBuilder',
+      'extends ConstrainedLayoutBuilder<BoxConstraints>',
+    );
+    drawBox(
+      left,
+      y2,
+      nodeW,
+      const Color(0xFFE8F5E9),
+      Colors.teal,
+      'Element layer',
+      'creates _RenderLayoutBuilder via createRenderObject()',
+    );
+    drawBox(
+      left,
+      y3,
+      nodeW,
+      const Color(0xFFFFF3E0),
+      Colors.deepOrange,
+      '_RenderLayoutBuilder',
+      'extends RenderBox',
+    );
     // Mixin box
-    drawBox(mixinX, mixinY, mixinW, const Color(0xFFF3E5F5),
-        Colors.purple, 'RenderAbstractLayoutBuilderMixin', '<BoxConstraints, RenderBox>');
-    drawBox(left, y4, nodeW, const Color(0xFFE8EAF6),
-        const Color(0xFF5C6BC0), 'Layout Phase Callback', 'builder(context, constraints) → Widget');
+    drawBox(
+      mixinX,
+      mixinY,
+      mixinW,
+      const Color(0xFFF3E5F5),
+      Colors.purple,
+      'RenderAbstractLayoutBuilderMixin',
+      '<BoxConstraints, RenderBox>',
+    );
+    drawBox(
+      left,
+      y4,
+      nodeW,
+      const Color(0xFFE8EAF6),
+      const Color(0xFF5C6BC0),
+      'Layout Phase Callback',
+      'builder(context, constraints) → Widget',
+    );
 
     // Arrows
     drawArrow(cx, y0 + nodeH, cx, y1);
@@ -556,18 +613,21 @@ class _ArchitecturePainter extends CustomPainter {
     double dashX = left + nodeW;
     while (dashX < mixinX - 4) {
       canvas.drawLine(
-          Offset(dashX, connY), Offset(dashX + 8, connY), dashPaint);
+        Offset(dashX, connY),
+        Offset(dashX + 8, connY),
+        dashPaint,
+      );
       dashX += 14;
     }
     // label "with"
     final TextPainter withTp = TextPainter(
       text: const TextSpan(
-          text: 'with (mixin)',
-          style: TextStyle(color: Colors.purple, fontSize: 10)),
+        text: 'with (mixin)',
+        style: TextStyle(color: Colors.purple, fontSize: 10),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
-    withTp.paint(
-        canvas, Offset(left + nodeW + 6, connY - 14));
+    withTp.paint(canvas, Offset(left + nodeW + 6, connY - 14));
   }
 
   @override
@@ -605,8 +665,8 @@ class _LiveShowcasesTab extends StatelessWidget {
             final int cols = constraints.maxWidth < 360
                 ? 2
                 : constraints.maxWidth < 560
-                    ? 3
-                    : 4;
+                ? 3
+                : 4;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -623,7 +683,9 @@ class _LiveShowcasesTab extends StatelessWidget {
                   ),
                   itemCount: 8,
                   itemBuilder: (BuildContext ctx, int i) => _gridCell(
-                      'Cell $i', i.isEven ? const Color(0xFF5C6BC0) : Colors.teal),
+                    'Cell $i',
+                    i.isEven ? const Color(0xFF5C6BC0) : Colors.teal,
+                  ),
                 ),
               ],
             );
@@ -643,13 +705,13 @@ class _LiveShowcasesTab extends StatelessWidget {
             final double fs = constraints.maxWidth < 300
                 ? 11
                 : constraints.maxWidth < 480
-                    ? 14
-                    : 18;
+                ? 14
+                : 18;
             final String sizeLabel = constraints.maxWidth < 300
                 ? 'compact'
                 : constraints.maxWidth < 480
-                    ? 'medium'
-                    : 'expanded';
+                ? 'medium'
+                : 'expanded';
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -664,11 +726,14 @@ class _LiveShowcasesTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Layout: $sizeLabel',
-                          style: TextStyle(
-                              fontSize: fs,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.teal.shade700)),
+                      Text(
+                        'Layout: $sizeLabel',
+                        style: TextStyle(
+                          fontSize: fs,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.teal.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       Text(
                         'Adaptive typography driven by layout constraints. '
@@ -705,13 +770,14 @@ class _LiveShowcasesTab extends StatelessWidget {
                     ? Row(
                         children: <Widget>[
                           Expanded(
-                            child: _orientBox(
-                                'Left Panel', Colors.deepOrange),
+                            child: _orientBox('Left Panel', Colors.deepOrange),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: _orientBox(
-                                'Right Panel', Colors.deepOrangeAccent),
+                              'Right Panel',
+                              Colors.deepOrangeAccent,
+                            ),
                           ),
                         ],
                       )
@@ -719,8 +785,7 @@ class _LiveShowcasesTab extends StatelessWidget {
                         children: <Widget>[
                           _orientBox('Top Panel', Colors.deepOrange),
                           const SizedBox(height: 8),
-                          _orientBox(
-                              'Bottom Panel', Colors.deepOrangeAccent),
+                          _orientBox('Bottom Panel', Colors.deepOrangeAccent),
                         ],
                       ),
               ],
@@ -739,8 +804,14 @@ class _LiveShowcasesTab extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: color.withAlpha(100)),
       ),
-      child: Text(label,
-          style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 
@@ -753,8 +824,10 @@ class _LiveShowcasesTab extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color.withAlpha(100)),
       ),
-      child: Text(label,
-          style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+      child: Text(
+        label,
+        style: TextStyle(color: color, fontWeight: FontWeight.w700),
+      ),
     );
   }
 }
@@ -777,10 +850,11 @@ Widget _constraintCard(BoxConstraints constraints, Color accent) {
           'maxH=${constraints.hasBoundedHeight ? constraints.maxHeight.toStringAsFixed(0) : "∞"}  '
           'minW=${constraints.minWidth.toStringAsFixed(0)}',
           style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 11,
-              color: accent,
-              fontWeight: FontWeight.w600),
+            fontFamily: 'monospace',
+            fontSize: 11,
+            color: accent,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     ),
@@ -816,18 +890,24 @@ class _ShowcaseCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: accentColor,
-                  child: Text(label,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
-                Text('LayoutBuilder Showcase $label',
-                    style: TextStyle(
-                        color: accentColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13)),
+                Text(
+                  'LayoutBuilder Showcase $label',
+                  style: TextStyle(
+                    color: accentColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),
@@ -897,9 +977,13 @@ class _ConstraintChangeTab extends StatelessWidget {
                     ),
                     SizedBox(
                       width: 52,
-                      child: Text('${width.toStringAsFixed(0)} px',
-                          style: const TextStyle(
-                              fontFamily: 'monospace', fontSize: 12)),
+                      child: Text(
+                        '${width.toStringAsFixed(0)} px',
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -977,17 +1061,17 @@ class _ConstraintObserverBox extends StatelessWidget {
         final String breakpoint = constraints.maxWidth < 200
             ? 'XS'
             : constraints.maxWidth < 300
-                ? 'SM'
-                : constraints.maxWidth < 400
-                    ? 'MD'
-                    : 'LG';
+            ? 'SM'
+            : constraints.maxWidth < 400
+            ? 'MD'
+            : 'LG';
         final Color bpColor = constraints.maxWidth < 200
             ? Colors.red
             : constraints.maxWidth < 300
-                ? Colors.orange
-                : constraints.maxWidth < 400
-                    ? Colors.blue
-                    : Colors.green;
+            ? Colors.orange
+            : constraints.maxWidth < 400
+            ? Colors.blue
+            : Colors.green;
         return Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
@@ -1003,34 +1087,45 @@ class _ConstraintObserverBox extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: bpColor,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(breakpoint,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12)),
+                    child: Text(
+                      breakpoint,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  Text('Breakpoint',
-                      style: TextStyle(
-                          color: bpColor, fontWeight: FontWeight.w700)),
+                  Text(
+                    'Breakpoint',
+                    style: TextStyle(
+                      color: bpColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('maxWidth: ${constraints.maxWidth.toStringAsFixed(1)} px',
-                  style: const TextStyle(
-                      fontFamily: 'monospace', fontSize: 12)),
-              Text('minWidth: ${constraints.minWidth.toStringAsFixed(1)} px',
-                  style: const TextStyle(
-                      fontFamily: 'monospace', fontSize: 12)),
               Text(
-                  'maxHeight: ${constraints.hasBoundedHeight ? constraints.maxHeight.toStringAsFixed(1) : "∞"} px',
-                  style: const TextStyle(
-                      fontFamily: 'monospace', fontSize: 12)),
+                'maxWidth: ${constraints.maxWidth.toStringAsFixed(1)} px',
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+              Text(
+                'minWidth: ${constraints.minWidth.toStringAsFixed(1)} px',
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+              Text(
+                'maxHeight: ${constraints.hasBoundedHeight ? constraints.maxHeight.toStringAsFixed(1) : "∞"} px',
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
               const SizedBox(height: 6),
               Text(
                 'Builder was invoked because constraints changed '
@@ -1089,19 +1184,18 @@ class _SliverLayoutBuilderTab extends StatelessWidget {
             slivers: <Widget>[
               SliverAppBar(
                 backgroundColor: cs.primaryContainer,
-                title: Text('Sliver Demo',
-                    style: TextStyle(color: cs.onPrimaryContainer)),
+                title: Text(
+                  'Sliver Demo',
+                  style: TextStyle(color: cs.onPrimaryContainer),
+                ),
                 floating: true,
                 pinned: false,
               ),
               SliverLayoutBuilder(
-                builder:
-                    (BuildContext ctx, SliverConstraints constraints) {
+                builder: (BuildContext ctx, SliverConstraints constraints) {
                   final double scrolled = constraints.scrollOffset;
-                  final double vpExtent =
-                      constraints.viewportMainAxisExtent;
-                  final double crossExtent =
-                      constraints.crossAxisExtent;
+                  final double vpExtent = constraints.viewportMainAxisExtent;
+                  final double crossExtent = constraints.crossAxisExtent;
                   final bool isDeepScrolled = scrolled > 80;
 
                   return SliverToBoxAdapter(
@@ -1114,9 +1208,7 @@ class _SliverLayoutBuilderTab extends StatelessWidget {
                             : cs.secondaryContainer,
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: isDeepScrolled
-                              ? cs.tertiary
-                              : cs.secondary,
+                          color: isDeepScrolled ? cs.tertiary : cs.secondary,
                         ),
                       ),
                       child: Column(
@@ -1148,19 +1240,30 @@ class _SliverLayoutBuilderTab extends StatelessWidget {
                           ),
                           const SizedBox(height: 10),
                           _sliverConstraintRow(
-                              'scrollOffset', scrolled, Colors.purple),
+                            'scrollOffset',
+                            scrolled,
+                            Colors.purple,
+                          ),
                           _sliverConstraintRow(
-                              'viewportMainAxisExtent', vpExtent, Colors.teal),
+                            'viewportMainAxisExtent',
+                            vpExtent,
+                            Colors.teal,
+                          ),
                           _sliverConstraintRow(
-                              'crossAxisExtent', crossExtent, Colors.blue),
+                            'crossAxisExtent',
+                            crossExtent,
+                            Colors.blue,
+                          ),
                           _sliverConstraintRow(
-                              'overlap',
-                              constraints.overlap,
-                              Colors.deepOrange),
+                            'overlap',
+                            constraints.overlap,
+                            Colors.deepOrange,
+                          ),
                           _sliverConstraintRow(
-                              'remainingPaintExtent',
-                              constraints.remainingPaintExtent,
-                              Colors.green),
+                            'remainingPaintExtent',
+                            constraints.remainingPaintExtent,
+                            Colors.green,
+                          ),
                         ],
                       ),
                     ),
@@ -1172,12 +1275,15 @@ class _SliverLayoutBuilderTab extends StatelessWidget {
                   (BuildContext ctx, int i) => ListTile(
                     leading: CircleAvatar(
                       backgroundColor: cs.primaryContainer,
-                      child: Text('${i + 1}',
-                          style: TextStyle(color: cs.primary)),
+                      child: Text(
+                        '${i + 1}',
+                        style: TextStyle(color: cs.primary),
+                      ),
                     ),
                     title: Text('Scroll Item ${i + 1}'),
                     subtitle: Text(
-                        'Scroll to see SliverConstraints update above'),
+                      'Scroll to see SliverConstraints update above',
+                    ),
                   ),
                   childCount: 20,
                 ),
@@ -1217,16 +1323,20 @@ class _SliverLayoutBuilderTab extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: 200,
-            child: Text(name,
-                style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    color: color,
-                    fontWeight: FontWeight.w600)),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
-          Text(value.toStringAsFixed(1),
-              style: const TextStyle(
-                  fontFamily: 'monospace', fontSize: 11)),
+          Text(
+            value.toStringAsFixed(1),
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+          ),
         ],
       ),
     );
@@ -1260,38 +1370,80 @@ class _BuilderTimingTab extends StatelessWidget {
           'rendering pipeline through the mixin to the user\'s builder:',
         ),
         const SizedBox(height: 8),
-        _flowStep(1, 'Flutter Pipeline', 'PipelineOwner.flushLayout()',
-            'Triggers layout on all dirty RenderObjects', cs.primaryContainer, cs.primary),
+        _flowStep(
+          1,
+          'Flutter Pipeline',
+          'PipelineOwner.flushLayout()',
+          'Triggers layout on all dirty RenderObjects',
+          cs.primaryContainer,
+          cs.primary,
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(2, 'RenderObject', '_RenderLayoutBuilder.performLayout()',
-            'Called by parent\'s layout() call; receives BoxConstraints', cs.secondaryContainer, cs.secondary),
+        _flowStep(
+          2,
+          'RenderObject',
+          '_RenderLayoutBuilder.performLayout()',
+          'Called by parent\'s layout() call; receives BoxConstraints',
+          cs.secondaryContainer,
+          cs.secondary,
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(3, 'Mixin check', 'constraints != _previousConstraints?',
-            'If same: skip builder, just re-layout child. If different: proceed.', cs.tertiaryContainer, cs.tertiary),
+        _flowStep(
+          3,
+          'Mixin check',
+          'constraints != _previousConstraints?',
+          'If same: skip builder, just re-layout child. If different: proceed.',
+          cs.tertiaryContainer,
+          cs.tertiary,
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(4, 'invokeLayoutCallback()', 'RenderObject.invokeLayoutCallback<T>(cb)',
-            'Temporarily allows element-tree mutations during layout. Framework internal.', const Color(0xFFFFF3E0), Colors.deepOrange),
+        _flowStep(
+          4,
+          'invokeLayoutCallback()',
+          'RenderObject.invokeLayoutCallback<T>(cb)',
+          'Temporarily allows element-tree mutations during layout. Framework internal.',
+          const Color(0xFFFFF3E0),
+          Colors.deepOrange,
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(5, 'User callback', '_callback(constraints)',
-            'Your builder(context, constraints) function runs here. Returns a Widget.', const Color(0xFFE8F5E9), Colors.teal),
+        _flowStep(
+          5,
+          'User callback',
+          '_callback(constraints)',
+          'Your builder(context, constraints) function runs here. Returns a Widget.',
+          const Color(0xFFE8F5E9),
+          Colors.teal,
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(6, 'Element update', 'Element.update() / Element.inflateWidget()',
-            'The returned widget is used to update or inflate the child element subtree.', const Color(0xFFE8EAF6), const Color(0xFF5C6BC0)),
+        _flowStep(
+          6,
+          'Element update',
+          'Element.update() / Element.inflateWidget()',
+          'The returned widget is used to update or inflate the child element subtree.',
+          const Color(0xFFE8EAF6),
+          const Color(0xFF5C6BC0),
+        ),
         const SizedBox(height: 4),
         _flowArrow(),
         const SizedBox(height: 4),
-        _flowStep(7, 'Child layout', 'child.layout(constraints, parentUsesSize: true)',
-            'Child RenderObject is laid out. Its size is reported back.', const Color(0xFFF3E5F5), Colors.purple),
+        _flowStep(
+          7,
+          'Child layout',
+          'child.layout(constraints, parentUsesSize: true)',
+          'Child RenderObject is laid out. Its size is reported back.',
+          const Color(0xFFF3E5F5),
+          Colors.purple,
+        ),
 
         _divider(),
         _subTitle('Monospace Source Snippet'),
@@ -1346,8 +1498,14 @@ class _BuilderTimingTab extends StatelessWidget {
     );
   }
 
-  Widget _flowStep(int step, String phase, String method, String desc,
-      Color bg, Color accent) {
+  Widget _flowStep(
+    int step,
+    String phase,
+    String method,
+    String desc,
+    Color bg,
+    Color accent,
+  ) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -1361,28 +1519,41 @@ class _BuilderTimingTab extends StatelessWidget {
           CircleAvatar(
             radius: 12,
             backgroundColor: accent,
-            child: Text('$step',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$step',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(phase,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: accent,
-                        fontWeight: FontWeight.w700)),
-                Text(method,
-                    style: const TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600)),
+                Text(
+                  phase,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: accent,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  method,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(desc,
-                    style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                Text(
+                  desc,
+                  style: const TextStyle(fontSize: 11, color: Colors.grey),
+                ),
               ],
             ),
           ),
@@ -1493,11 +1664,14 @@ class _ComparisonTab extends StatelessWidget {
                 Icon(icon, color: color, size: 20),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: color,
-                          fontSize: 14)),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: color,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1523,15 +1697,20 @@ class _ComparisonTab extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: 130,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 11,
-                    color: color,
-                    fontWeight: FontWeight.w600)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: const TextStyle(fontSize: 11, height: 1.4)),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 11, height: 1.4),
+            ),
           ),
         ],
       ),
@@ -1544,9 +1723,14 @@ class _ComparisonTab extends StatelessWidget {
       ['Adapt layout to available width', 'LayoutBuilder'],
       ['Adapt sliver to scroll offset', 'SliverLayoutBuilder'],
       ['React to user tap', 'StatefulWidget + setState'],
-      ['Custom RenderObject needs child inflation during layout',
-          'invokeLayoutCallback directly'],
-      ['Animate size transitions', 'AnimatedContainer or TweenAnimationBuilder'],
+      [
+        'Custom RenderObject needs child inflation during layout',
+        'invokeLayoutCallback directly',
+      ],
+      [
+        'Animate size transitions',
+        'AnimatedContainer or TweenAnimationBuilder',
+      ],
       ['Read MediaQuery for orientation', 'MediaQuery.of() in build()'],
     ];
     return Table(
@@ -1555,29 +1739,29 @@ class _ComparisonTab extends StatelessWidget {
         0: FlexColumnWidth(3),
         1: FlexColumnWidth(2),
       },
-      children: rows
-          .asMap()
-          .entries
-          .map((MapEntry<int, List<String>> e) {
+      children: rows.asMap().entries.map((MapEntry<int, List<String>> e) {
         final bool isHeader = e.key == 0;
         return TableRow(
           decoration: BoxDecoration(
             color: isHeader
                 ? const Color(0xFF5C6BC0).withAlpha(30)
                 : e.key.isEven
-                    ? Colors.grey.withAlpha(10)
-                    : Colors.transparent,
+                ? Colors.grey.withAlpha(10)
+                : Colors.transparent,
           ),
           children: e.value
               .map(
                 (String cell) => Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text(cell,
-                      style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: isHeader
-                              ? FontWeight.w700
-                              : FontWeight.normal)),
+                  child: Text(
+                    cell,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: isHeader
+                          ? FontWeight.w700
+                          : FontWeight.normal,
+                    ),
+                  ),
                 ),
               )
               .toList(),
@@ -1621,25 +1805,31 @@ class _ObservablePatternsTab extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('ConstraintInspector',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 13)),
+                    const Text(
+                      'ConstraintInspector',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     _inspectorRow('minWidth', c.minWidth),
                     _inspectorRow('maxWidth', c.maxWidth),
+                    _inspectorRow('minHeight', c.minHeight),
                     _inspectorRow(
-                        'minHeight', c.minHeight),
-                    _inspectorRow(
-                        'maxHeight',
-                        c.hasBoundedHeight ? c.maxHeight : double.infinity),
+                      'maxHeight',
+                      c.hasBoundedHeight ? c.maxHeight : double.infinity,
+                    ),
                     const SizedBox(height: 6),
                     Text(
-                        'isTight: ${c.isTight}   hasBoundedWidth: ${c.hasBoundedWidth}   '
-                        'hasBoundedHeight: ${c.hasBoundedHeight}',
-                        style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 10,
-                            color: Colors.grey)),
+                      'isTight: ${c.isTight}   hasBoundedWidth: ${c.hasBoundedWidth}   '
+                      'hasBoundedHeight: ${c.hasBoundedHeight}',
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 );
               },
@@ -1673,21 +1863,24 @@ class _ObservablePatternsTab extends StatelessWidget {
                   ),
                   itemCount: cols * 2,
                   itemBuilder: (BuildContext context, int i) {
-                    final Color color = Colors.primaries[i % Colors.primaries.length];
+                    final Color color =
+                        Colors.primaries[i % Colors.primaries.length];
                     return Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: color.withAlpha(30),
                         borderRadius: BorderRadius.circular(6),
-                        border:
-                            Border.all(color: color.withAlpha(120)),
+                        border: Border.all(color: color.withAlpha(120)),
                       ),
-                      child: Text('$cols-col\n#$i',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: color,
-                              fontWeight: FontWeight.w600)),
+                      child: Text(
+                        '$cols-col\n#$i',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: color,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     );
                   },
                 );
@@ -1715,20 +1908,22 @@ class _ObservablePatternsTab extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: bp.color.withAlpha(25),
                         borderRadius: BorderRadius.circular(6),
-                        border:
-                            Border.all(color: bp.color.withAlpha(120)),
+                        border: Border.all(color: bp.color.withAlpha(120)),
                       ),
                       child: Text(
                         '${bp.name}  (maxWidth=${c.maxWidth.toStringAsFixed(0)})',
                         style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 12,
-                            color: bp.color,
-                            fontWeight: FontWeight.w700),
+                          fontFamily: 'monospace',
+                          fontSize: 12,
+                          color: bp.color,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -1777,15 +1972,20 @@ class _ObservablePatternsTab extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: 90,
-            child: Text(label,
-                style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    color: Color(0xFF5C6BC0),
-                    fontWeight: FontWeight.w600)),
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 12,
+                color: Color(0xFF5C6BC0),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
-          Text(display,
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12)),
+          Text(
+            display,
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+          ),
         ],
       ),
     );
@@ -1804,29 +2004,37 @@ class _Breakpoint {
       return _Breakpoint._(
         'XS (<300px)',
         Colors.red,
-        const Text('Single column — compact mode',
-            style: TextStyle(fontSize: 12)),
+        const Text(
+          'Single column — compact mode',
+          style: TextStyle(fontSize: 12),
+        ),
       );
     } else if (width < 450) {
       return _Breakpoint._(
         'SM (300–450px)',
         Colors.orange,
-        const Text('Single column — standard mobile',
-            style: TextStyle(fontSize: 13)),
+        const Text(
+          'Single column — standard mobile',
+          style: TextStyle(fontSize: 13),
+        ),
       );
     } else if (width < 650) {
       return _Breakpoint._(
         'MD (450–650px)',
         Colors.blue,
-        const Text('Two-column — tablet portrait',
-            style: TextStyle(fontSize: 14)),
+        const Text(
+          'Two-column — tablet portrait',
+          style: TextStyle(fontSize: 14),
+        ),
       );
     } else {
       return _Breakpoint._(
         'LG (650px+)',
         Colors.green,
-        const Text('Multi-column — expanded layout',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        const Text(
+          'Multi-column — expanded layout',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        ),
       );
     }
   }
@@ -1997,22 +2205,46 @@ class _PitfallsApiTab extends StatelessWidget {
 
         _divider(),
         _sectionTitle('Quick Rules'),
-        _ruleRow(Icons.check_circle, Colors.green,
-            'Use LayoutBuilder when you need constraints at widget build time'),
-        _ruleRow(Icons.check_circle, Colors.green,
-            'Return different widget trees for different constraint ranges'),
-        _ruleRow(Icons.check_circle, Colors.green,
-            'Combine with const constructors for efficient subtrees'),
-        _ruleRow(Icons.check_circle, Colors.green,
-            'Use SliverLayoutBuilder for scroll-offset-driven sliver content'),
-        _ruleRow(Icons.cancel, Colors.red,
-            'Never call setState / Navigator / showDialog from the builder'),
-        _ruleRow(Icons.cancel, Colors.red,
-            'Never perform async operations inside the builder'),
-        _ruleRow(Icons.cancel, Colors.red,
-            'Never assume builder runs on every parent rebuild'),
-        _ruleRow(Icons.cancel, Colors.red,
-            'Never put expensive sync computation in the builder'),
+        _ruleRow(
+          Icons.check_circle,
+          Colors.green,
+          'Use LayoutBuilder when you need constraints at widget build time',
+        ),
+        _ruleRow(
+          Icons.check_circle,
+          Colors.green,
+          'Return different widget trees for different constraint ranges',
+        ),
+        _ruleRow(
+          Icons.check_circle,
+          Colors.green,
+          'Combine with const constructors for efficient subtrees',
+        ),
+        _ruleRow(
+          Icons.check_circle,
+          Colors.green,
+          'Use SliverLayoutBuilder for scroll-offset-driven sliver content',
+        ),
+        _ruleRow(
+          Icons.cancel,
+          Colors.red,
+          'Never call setState / Navigator / showDialog from the builder',
+        ),
+        _ruleRow(
+          Icons.cancel,
+          Colors.red,
+          'Never perform async operations inside the builder',
+        ),
+        _ruleRow(
+          Icons.cancel,
+          Colors.red,
+          'Never assume builder runs on every parent rebuild',
+        ),
+        _ruleRow(
+          Icons.cancel,
+          Colors.red,
+          'Never put expensive sync computation in the builder',
+        ),
 
         const SizedBox(height: 20),
         Container(
@@ -2034,9 +2266,10 @@ class _PitfallsApiTab extends StatelessWidget {
                   'at widget construction time — a capability no other '
                   'widget type in Flutter provides.',
                   style: TextStyle(
-                      fontSize: 12,
-                      color: cs.onPrimaryContainer,
-                      height: 1.55),
+                    fontSize: 12,
+                    color: cs.onPrimaryContainer,
+                    height: 1.55,
+                  ),
                 ),
               ),
             ],
@@ -2071,25 +2304,33 @@ class _PitfallsApiTab extends StatelessWidget {
                 CircleAvatar(
                   radius: 12,
                   backgroundColor: accentColor,
-                  child: Text('$number',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '$number',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: accentColor,
-                          fontSize: 13)),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: accentColor,
+                      fontSize: 13,
+                    ),
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text(description,
-                style: const TextStyle(fontSize: 12, height: 1.5)),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 12, height: 1.5),
+            ),
             const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2100,13 +2341,18 @@ class _PitfallsApiTab extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         color: Colors.red.withAlpha(30),
-                        child: const Text('WRONG',
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold)),
+                        child: const Text(
+                          'WRONG',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       _codeBlock(wrongCode),
                     ],
@@ -2119,14 +2365,19 @@ class _PitfallsApiTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   color: Colors.green.withAlpha(30),
-                  child: const Text('RIGHT',
-                      style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'RIGHT',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 _codeBlock(rightCode),
               ],
@@ -2140,15 +2391,43 @@ class _PitfallsApiTab extends StatelessWidget {
   Widget _apiTable(ColorScheme cs) {
     const List<List<String>> rows = <List<String>>[
       ['Parameter / Property', 'Type', 'Description'],
-      ['builder', 'LayoutWidgetBuilder', 'Required. Called during layout with BoxConstraints.'],
-      ['constraints (in builder)', 'BoxConstraints', 'Incoming constraints from parent RenderObject.'],
-      ['constraints.maxWidth', 'double', 'Maximum width available. Most commonly used.'],
-      ['constraints.maxHeight', 'double', 'Maximum height. May be double.infinity in scrollables.'],
+      [
+        'builder',
+        'LayoutWidgetBuilder',
+        'Required. Called during layout with BoxConstraints.',
+      ],
+      [
+        'constraints (in builder)',
+        'BoxConstraints',
+        'Incoming constraints from parent RenderObject.',
+      ],
+      [
+        'constraints.maxWidth',
+        'double',
+        'Maximum width available. Most commonly used.',
+      ],
+      [
+        'constraints.maxHeight',
+        'double',
+        'Maximum height. May be double.infinity in scrollables.',
+      ],
       ['constraints.minWidth', 'double', 'Minimum width (0 for most cases).'],
       ['constraints.isTight', 'bool', 'True if min == max for both axes.'],
-      ['constraints.hasBoundedHeight', 'bool', 'False if inside an unconstrained vertical scroll.'],
-      ['constraints.biggest', 'Size', 'Size(maxWidth, maxHeight) — maximum size.'],
-      ['constraints.smallest', 'Size', 'Size(minWidth, minHeight) — minimum size.'],
+      [
+        'constraints.hasBoundedHeight',
+        'bool',
+        'False if inside an unconstrained vertical scroll.',
+      ],
+      [
+        'constraints.biggest',
+        'Size',
+        'Size(maxWidth, maxHeight) — maximum size.',
+      ],
+      [
+        'constraints.smallest',
+        'Size',
+        'Size(minWidth, minHeight) — minimum size.',
+      ],
     ];
     return _tableWidget(rows, cs);
   }
@@ -2156,13 +2435,41 @@ class _PitfallsApiTab extends StatelessWidget {
   Widget _sliverApiTable(ColorScheme cs) {
     const List<List<String>> rows = <List<String>>[
       ['Property', 'Type', 'Description'],
-      ['scrollOffset', 'double', 'How far the start of the sliver is from viewport start.'],
-      ['viewportMainAxisExtent', 'double', 'Total visible height of the viewport.'],
-      ['crossAxisExtent', 'double', 'Width (for vertical scroll) of the sliver.'],
-      ['overlap', 'double', 'Pixels painted by preceding slivers in this sliver\'s space.'],
-      ['remainingPaintExtent', 'double', 'Paint space remaining below this sliver.'],
-      ['remainingCacheExtent', 'double', 'Cache space remaining below visible area.'],
-      ['precedingScrollExtent', 'double', 'Total scroll extent of all preceding slivers.'],
+      [
+        'scrollOffset',
+        'double',
+        'How far the start of the sliver is from viewport start.',
+      ],
+      [
+        'viewportMainAxisExtent',
+        'double',
+        'Total visible height of the viewport.',
+      ],
+      [
+        'crossAxisExtent',
+        'double',
+        'Width (for vertical scroll) of the sliver.',
+      ],
+      [
+        'overlap',
+        'double',
+        'Pixels painted by preceding slivers in this sliver\'s space.',
+      ],
+      [
+        'remainingPaintExtent',
+        'double',
+        'Paint space remaining below this sliver.',
+      ],
+      [
+        'remainingCacheExtent',
+        'double',
+        'Cache space remaining below visible area.',
+      ],
+      [
+        'precedingScrollExtent',
+        'double',
+        'Total scroll extent of all preceding slivers.',
+      ],
     ];
     return _tableWidget(rows, cs);
   }
@@ -2171,33 +2478,34 @@ class _PitfallsApiTab extends StatelessWidget {
     return Table(
       border: TableBorder.all(color: Colors.grey.withAlpha(80)),
       defaultColumnWidth: const FlexColumnWidth(),
-      children: rows
-          .asMap()
-          .entries
-          .map((MapEntry<int, List<String>> e) {
+      children: rows.asMap().entries.map((MapEntry<int, List<String>> e) {
         final bool isHeader = e.key == 0;
         return TableRow(
           decoration: BoxDecoration(
             color: isHeader
                 ? cs.primaryContainer.withAlpha(180)
                 : e.key.isOdd
-                    ? Colors.transparent
-                    : Colors.grey.withAlpha(12),
+                ? Colors.transparent
+                : Colors.grey.withAlpha(12),
           ),
           children: e.value
-              .map((String cell) => Padding(
-                    padding: const EdgeInsets.all(7),
-                    child: Text(cell,
-                        style: TextStyle(
-                            fontFamily:
-                                (isHeader || e.value.indexOf(cell) <= 1)
-                                    ? 'monospace'
-                                    : null,
-                            fontSize: 11,
-                            fontWeight: isHeader
-                                ? FontWeight.w700
-                                : FontWeight.normal)),
-                  ))
+              .map(
+                (String cell) => Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: Text(
+                    cell,
+                    style: TextStyle(
+                      fontFamily: (isHeader || e.value.indexOf(cell) <= 1)
+                          ? 'monospace'
+                          : null,
+                      fontSize: 11,
+                      fontWeight: isHeader
+                          ? FontWeight.w700
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ),
+              )
               .toList(),
         );
       }).toList(),

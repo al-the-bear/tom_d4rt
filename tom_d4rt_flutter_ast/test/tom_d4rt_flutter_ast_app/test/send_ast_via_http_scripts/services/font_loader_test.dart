@@ -66,18 +66,18 @@ import 'package:flutter/services.dart';
 // Ten named colours plus a handful of derived tints.  All hex literals are
 // fully opaque; transparency is layered on at use-site via .withValues(...).
 class _Palette {
-  static const Color paper        = Color(0xFFF6EFE2); // aged cream paper
-  static const Color saffron      = Color(0xFFE7A33A); // saffron thread
-  static const Color ember        = Color(0xFFC25A1F); // ember orange
-  static const Color ink          = Color(0xFF1B1A17); // press ink black
-  static const Color brass        = Color(0xFFB08A4B); // gilded brass
-  static const Color apron        = Color(0xFF3D5B57); // apron blue-green
-  static const Color rule         = Color(0xFF8C7A55); // rule line ochre
-  static const Color shadow       = Color(0xFF6B5A3E); // soft shadow
-  static const Color highlight    = Color(0xFFFFD27A); // highlight wash
-  static const Color accent       = Color(0xFF7E2E1F); // accent oxblood
-  static const Color quietPaper   = Color(0xFFEFE5D2); // quieter paper
-  static const Color deepEmber    = Color(0xFF8E3A12); // deep ember edge
+  static const Color paper = Color(0xFFF6EFE2); // aged cream paper
+  static const Color saffron = Color(0xFFE7A33A); // saffron thread
+  static const Color ember = Color(0xFFC25A1F); // ember orange
+  static const Color ink = Color(0xFF1B1A17); // press ink black
+  static const Color brass = Color(0xFFB08A4B); // gilded brass
+  static const Color apron = Color(0xFF3D5B57); // apron blue-green
+  static const Color rule = Color(0xFF8C7A55); // rule line ochre
+  static const Color shadow = Color(0xFF6B5A3E); // soft shadow
+  static const Color highlight = Color(0xFFFFD27A); // highlight wash
+  static const Color accent = Color(0xFF7E2E1F); // accent oxblood
+  static const Color quietPaper = Color(0xFFEFE5D2); // quieter paper
+  static const Color deepEmber = Color(0xFF8E3A12); // deep ember edge
 }
 
 // ============================================================================
@@ -126,27 +126,33 @@ Widget _sectionHeader(String number, String title, String subtitle) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('SECTION $number',
+        Text(
+          'SECTION $number',
           style: const TextStyle(
             fontSize: 11,
             letterSpacing: 1.6,
             color: _Palette.deepEmber,
             fontWeight: FontWeight.w700,
-          )),
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(title,
+        Text(
+          title,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w800,
             color: _Palette.ink,
-          )),
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(subtitle,
+        Text(
+          subtitle,
           style: TextStyle(
             fontSize: 12,
             fontStyle: FontStyle.italic,
             color: _Palette.shadow.withValues(alpha: 0.9),
-          )),
+          ),
+        ),
       ],
     ),
   );
@@ -162,39 +168,45 @@ Widget _proseCard(String body) {
       border: Border.all(color: _Palette.rule.withValues(alpha: 0.5)),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(body,
-      style: const TextStyle(
-        fontSize: 13,
-        height: 1.45,
-        color: _Palette.ink,
-      )),
+    child: Text(
+      body,
+      style: const TextStyle(fontSize: 13, height: 1.45, color: _Palette.ink),
+    ),
   );
 }
 
 Widget _bulletList(List<String> items) {
   final List<Widget> rows = [];
   for (var i = 0; i < items.length; i++) {
-    rows.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 6, right: 8),
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: _Palette.saffron,
-              shape: BoxShape.circle,
+    rows.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 6, right: 8),
+              width: 6,
+              height: 6,
+              decoration: const BoxDecoration(
+                color: _Palette.saffron,
+                shape: BoxShape.circle,
+              ),
             ),
-          ),
-          Expanded(
-            child: Text(items[i],
-              style: const TextStyle(fontSize: 12.5, color: _Palette.ink, height: 1.4)),
-          ),
-        ],
+            Expanded(
+              child: Text(
+                items[i],
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: _Palette.ink,
+                  height: 1.4,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
 }
@@ -207,20 +219,24 @@ Widget _kvRow(String key, String value) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(key,
+          child: Text(
+            key,
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w700,
               color: _Palette.apron,
-            )),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
+          child: Text(
+            value,
             style: const TextStyle(
               fontSize: 12,
               color: _Palette.ink,
               height: 1.35,
-            )),
+            ),
+          ),
         ),
       ],
     ),
@@ -246,24 +262,34 @@ Widget _calloutCard(String tag, Color tagColor, String title, String body) {
             color: tagColor,
             borderRadius: BorderRadius.circular(3),
           ),
-          child: Text(tag,
+          child: Text(
+            tag,
             style: const TextStyle(
               fontSize: 10,
               letterSpacing: 1.4,
               color: _Palette.paper,
               fontWeight: FontWeight.w800,
-            )),
+            ),
+          ),
         ),
         const SizedBox(height: 6),
-        Text(title,
+        Text(
+          title,
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w700,
             color: _Palette.ink,
-          )),
+          ),
+        ),
         const SizedBox(height: 4),
-        Text(body,
-          style: const TextStyle(fontSize: 12, color: _Palette.ink, height: 1.4)),
+        Text(
+          body,
+          style: const TextStyle(
+            fontSize: 12,
+            color: _Palette.ink,
+            height: 1.4,
+          ),
+        ),
       ],
     ),
   );
@@ -290,23 +316,27 @@ Widget _codeCard(String title, String snippet, String note) {
               topRight: Radius.circular(8),
             ),
           ),
-          child: Text(title,
+          child: Text(
+            title,
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w800,
               color: _Palette.ink,
               letterSpacing: 1.2,
-            )),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(12),
-          child: Text(snippet,
+          child: Text(
+            snippet,
             style: TextStyle(
               fontSize: 11.5,
               fontFamily: 'monospace',
               height: 1.45,
               color: _Palette.highlight.withValues(alpha: 0.95),
-            )),
+            ),
+          ),
         ),
         Container(
           width: double.infinity,
@@ -318,12 +348,14 @@ Widget _codeCard(String title, String snippet, String note) {
               bottomRight: Radius.circular(8),
             ),
           ),
-          child: Text(note,
+          child: Text(
+            note,
             style: const TextStyle(
               fontSize: 11,
               fontStyle: FontStyle.italic,
               color: _Palette.paper,
-            )),
+            ),
+          ),
         ),
       ],
     ),
@@ -346,31 +378,38 @@ Widget _hop(int n, String label, String detail, Color color) {
           width: 28,
           height: 28,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
-          child: Text('$n',
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          child: Text(
+            '$n',
             style: const TextStyle(
               color: _Palette.paper,
               fontWeight: FontWeight.w800,
               fontSize: 13,
-            )),
+            ),
+          ),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
+              Text(
+                label,
                 style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: _Palette.ink,
-                )),
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(detail,
-                style: const TextStyle(fontSize: 11.5, color: _Palette.ink, height: 1.35)),
+              Text(
+                detail,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: _Palette.ink,
+                  height: 1.35,
+                ),
+              ),
             ],
           ),
         ),
@@ -389,18 +428,22 @@ Widget _kbBar(String label, double kb, double maxKb) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label,
+            Text(
+              label,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: _Palette.ink,
-              )),
-            Text('${kb.toStringAsFixed(1)} KB',
+              ),
+            ),
+            Text(
+              '${kb.toStringAsFixed(1)} KB',
               style: const TextStyle(
                 fontSize: 11,
                 color: _Palette.shadow,
                 fontFamily: 'monospace',
-              )),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 4),
@@ -436,22 +479,33 @@ Widget _glossaryRow(String term, String def) {
     decoration: BoxDecoration(
       color: _Palette.paper,
       border: Border(
-        left: BorderSide(color: _Palette.brass.withValues(alpha: 0.8), width: 3),
+        left: BorderSide(
+          color: _Palette.brass.withValues(alpha: 0.8),
+          width: 3,
+        ),
       ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(term,
+        Text(
+          term,
           style: const TextStyle(
             fontSize: 12.5,
             fontWeight: FontWeight.w800,
             color: _Palette.accent,
             letterSpacing: 0.5,
-          )),
+          ),
+        ),
         const SizedBox(height: 2),
-        Text(def,
-          style: const TextStyle(fontSize: 11.5, color: _Palette.ink, height: 1.4)),
+        Text(
+          def,
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: _Palette.ink,
+            height: 1.4,
+          ),
+        ),
       ],
     ),
   );
@@ -470,14 +524,14 @@ dynamic build(BuildContext context) {
   // therefore build many of these inside a snapshot build() with no risk of
   // blocking, throwing, or producing side effects.
   // --------------------------------------------------------------------------
-  final FontLoader loaderSaffron     = FontLoader('SaffronSerif');
-  final FontLoader loaderEmberSans   = FontLoader('EmberSans');
-  final FontLoader loaderInkRoman    = FontLoader('InkRoman');
-  final FontLoader loaderBrassMono   = FontLoader('BrassMono');
-  final FontLoader loaderApronText   = FontLoader('ApronText');
+  final FontLoader loaderSaffron = FontLoader('SaffronSerif');
+  final FontLoader loaderEmberSans = FontLoader('EmberSans');
+  final FontLoader loaderInkRoman = FontLoader('InkRoman');
+  final FontLoader loaderBrassMono = FontLoader('BrassMono');
+  final FontLoader loaderApronText = FontLoader('ApronText');
   final FontLoader loaderHighlightUI = FontLoader('HighlightUI');
   final FontLoader loaderRuleDisplay = FontLoader('RuleDisplay');
-  final FontLoader loaderShadowItalic= FontLoader('ShadowItalic');
+  final FontLoader loaderShadowItalic = FontLoader('ShadowItalic');
 
   print('  family[1] = ${loaderSaffron.family}');
   print('  family[2] = ${loaderEmberSans.family}');
@@ -502,7 +556,6 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           // ==============================================================
           // SECTION 1 -- Title banner with palette swatches
           // ==============================================================
@@ -524,44 +577,50 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('FontLoader',
+                Text(
+                  'FontLoader',
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.w900,
                     color: _Palette.highlight,
                     letterSpacing: 1.5,
                     height: 1.0,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('A deep demo in the Letterpress Saffron palette',
+                Text(
+                  'A deep demo in the Letterpress Saffron palette',
                   style: TextStyle(
                     fontSize: 14,
                     fontStyle: FontStyle.italic,
                     color: _Palette.paper.withValues(alpha: 0.88),
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 14),
-                Text('package:flutter/services.dart  ->  class FontLoader',
+                Text(
+                  'package:flutter/services.dart  ->  class FontLoader',
                   style: TextStyle(
                     fontSize: 12,
                     fontFamily: 'monospace',
                     color: _Palette.highlight.withValues(alpha: 0.85),
                     letterSpacing: 0.3,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 18),
                 Wrap(
                   children: [
-                    _swatch(_Palette.paper,      'paper'),
-                    _swatch(_Palette.saffron,    'saffron'),
-                    _swatch(_Palette.ember,      'ember'),
-                    _swatch(_Palette.ink,        'ink'),
-                    _swatch(_Palette.brass,      'brass'),
-                    _swatch(_Palette.apron,      'apron'),
-                    _swatch(_Palette.rule,       'rule'),
-                    _swatch(_Palette.shadow,     'shadow'),
-                    _swatch(_Palette.highlight,  'highlight'),
-                    _swatch(_Palette.accent,     'accent'),
+                    _swatch(_Palette.paper, 'paper'),
+                    _swatch(_Palette.saffron, 'saffron'),
+                    _swatch(_Palette.ember, 'ember'),
+                    _swatch(_Palette.ink, 'ink'),
+                    _swatch(_Palette.brass, 'brass'),
+                    _swatch(_Palette.apron, 'apron'),
+                    _swatch(_Palette.rule, 'rule'),
+                    _swatch(_Palette.shadow, 'shadow'),
+                    _swatch(_Palette.highlight, 'highlight'),
+                    _swatch(_Palette.accent, 'accent'),
                     _swatch(_Palette.quietPaper, 'quietPaper'),
-                    _swatch(_Palette.deepEmber,  'deepEmber'),
+                    _swatch(_Palette.deepEmber, 'deepEmber'),
                   ],
                 ),
               ],
@@ -571,14 +630,18 @@ dynamic build(BuildContext context) {
           // ==============================================================
           // SECTION 2 -- Prose anatomy of the font-loading pipeline
           // ==============================================================
-          _sectionHeader('02', 'Anatomy of a Font Load',
-            'Where bytes come from, how the engine receives them, and why FontLoader is the right tool.'),
+          _sectionHeader(
+            '02',
+            'Anatomy of a Font Load',
+            'Where bytes come from, how the engine receives them, and why FontLoader is the right tool.',
+          ),
           _proseCard(
             'A typeface, on disk, is a sequence of bytes -- typically TTF or OTF, '
             'occasionally a TTC collection or a WOFF2 web blob.  Flutter\'s normal '
             'pipeline copes with declared fonts beautifully: list them in pubspec.yaml '
             'under the fonts: key, ship them in the asset bundle, and the engine '
-            'registers them at startup.  But that pipeline is closed at compile time.'),
+            'registers them at startup.  But that pipeline is closed at compile time.',
+          ),
           _proseCard(
             'FontLoader exists for the moments when typography arrives later: a '
             'tenant-specific brand pack pulled from a CDN, an enterprise typeface '
@@ -586,26 +649,32 @@ dynamic build(BuildContext context) {
             'an A/B-tested marketing font swapped in at runtime.  In all those '
             'cases the application already has bytes in hand (rootBundle.load, '
             'http.get, File.readAsBytes, IndexedDB on web) and just needs to '
-            'hand them to the engine under a name that TextStyle.fontFamily can match.'),
+            'hand them to the engine under a name that TextStyle.fontFamily can match.',
+          ),
           _proseCard(
             'The FontLoader contract is small and pleasingly imperative: construct '
             'one with a family name, accumulate one or more variant byte streams '
             'via addFont(), then await load() exactly once.  Every variant added '
             'before load() lands under the same family; the engine separates them '
             'internally by reading the OS/2 weight and italic flags out of the font '
-            'tables themselves -- you do not (and cannot) declare those externally.'),
+            'tables themselves -- you do not (and cannot) declare those externally.',
+          ),
           _proseCard(
             'After load() resolves, any TextStyle whose fontFamily string equals the '
             'family you passed to the constructor will be drawn with the new font.  '
             'Existing widgets do NOT auto-rebuild -- you should trigger a rebuild '
             'yourself, typically by setState in a controlling stateful ancestor or '
-            'by completing a Future that gates your first paint.'),
+            'by completing a Future that gates your first paint.',
+          ),
 
           // ==============================================================
           // SECTION 3 -- Property anatomy
           // ==============================================================
-          _sectionHeader('03', 'Property Anatomy',
-            'Every member of FontLoader, what it does, and how to reason about it.'),
+          _sectionHeader(
+            '03',
+            'Property Anatomy',
+            'Every member of FontLoader, what it does, and how to reason about it.',
+          ),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(14),
@@ -617,30 +686,42 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _kvRow('family',
+                _kvRow(
+                  'family',
                   'String, final, set in the constructor.  This is the postscript '
-                  'family name that TextStyle.fontFamily must match.  Pick something '
-                  'distinctive enough to avoid colliding with bundled fonts.'),
-                _kvRow('addFont(bytes)',
+                      'family name that TextStyle.fontFamily must match.  Pick something '
+                      'distinctive enough to avoid colliding with bundled fonts.',
+                ),
+                _kvRow(
+                  'addFont(bytes)',
                   'Future<ByteData> -> void.  Records the byte stream for later '
-                  'registration.  Returns synchronously after enqueuing -- no I/O '
-                  'happens here.  Call once per variant: regular, bold, italic, etc.'),
-                _kvRow('load()',
+                      'registration.  Returns synchronously after enqueuing -- no I/O '
+                      'happens here.  Call once per variant: regular, bold, italic, etc.',
+                ),
+                _kvRow(
+                  'load()',
                   'Future<void>.  Awaits all enqueued addFont futures, hands their '
-                  'resolved bytes to the engine, and registers the family.  Idempotent '
-                  'on the engine side, but you should still load each FontLoader once.'),
-                _kvRow('accumulator',
+                      'resolved bytes to the engine, and registers the family.  Idempotent '
+                      'on the engine side, but you should still load each FontLoader once.',
+                ),
+                _kvRow(
+                  'accumulator',
                   'FontLoader is a write-once builder.  After load() it is essentially '
-                  'spent -- adding more bytes and reloading is undefined behaviour and '
-                  'should be avoided.  Build a fresh FontLoader for an updated family.'),
-                _kvRow('thread model',
+                      'spent -- adding more bytes and reloading is undefined behaviour and '
+                      'should be avoided.  Build a fresh FontLoader for an updated family.',
+                ),
+                _kvRow(
+                  'thread model',
                   'load() may parse and shape on a background isolate at the engine '
-                  'level, but from your Dart code\'s perspective it is a plain '
-                  'Future you await on the main isolate.'),
-                _kvRow('failure modes',
+                      'level, but from your Dart code\'s perspective it is a plain '
+                      'Future you await on the main isolate.',
+                ),
+                _kvRow(
+                  'failure modes',
                   'Corrupt bytes, unsupported format, or a zero-length blob will '
-                  'cause load() to complete with an error.  Wrap in try/catch and '
-                  'fall back to a system family if the registration fails.'),
+                      'cause load() to complete with an error.  Wrap in try/catch and '
+                      'fall back to a system family if the registration fails.',
+                ),
               ],
             ),
           ),
@@ -648,8 +729,11 @@ dynamic build(BuildContext context) {
           // ==============================================================
           // SECTION 4 -- Construction gallery
           // ==============================================================
-          _sectionHeader('04', 'Construction Gallery',
-            'Eight FontLoader instances built live, with previews of what each family would render.'),
+          _sectionHeader(
+            '04',
+            'Construction Gallery',
+            'Eight FontLoader instances built live, with previews of what each family would render.',
+          ),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 6),
@@ -665,45 +749,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderSaffron.family}',
+                      child: Text(
+                        'family: ${loaderSaffron.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('display serif, brand titles',
+                    Text(
+                      'display serif, brand titles',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('The quick saffron fox prints over the lazy press.',
+                Text(
+                  'The quick saffron fox prints over the lazy press.',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "SaffronSerif" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "SaffronSerif" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -722,45 +817,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderEmberSans.family}',
+                      child: Text(
+                        'family: ${loaderEmberSans.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('humanist sans, body copy',
+                    Text(
+                      'humanist sans, body copy',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('Body copy that warms the page like an ember at dusk.',
+                Text(
+                  'Body copy that warms the page like an ember at dusk.',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "EmberSans" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "EmberSans" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -779,45 +885,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderInkRoman.family}',
+                      child: Text(
+                        'family: ${loaderInkRoman.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('old-style roman, long form',
+                    Text(
+                      'old-style roman, long form',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('An ink-soft Roman for long-form letterpress reading.',
+                Text(
+                  'An ink-soft Roman for long-form letterpress reading.',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "InkRoman" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "InkRoman" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -836,45 +953,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderBrassMono.family}',
+                      child: Text(
+                        'family: ${loaderBrassMono.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('monospaced, code blocks',
+                    Text(
+                      'monospaced, code blocks',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('fn brass_mono() -> &str { "keeps every column straight" }',
+                Text(
+                  'fn brass_mono() -> &str { "keeps every column straight" }',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "BrassMono" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "BrassMono" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -893,45 +1021,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderApronText.family}',
+                      child: Text(
+                        'family: ${loaderApronText.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('narrow text, dense UI',
+                    Text(
+                      'narrow text, dense UI',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('Apron text condenses neatly into narrow side panels.',
+                Text(
+                  'Apron text condenses neatly into narrow side panels.',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "ApronText" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "ApronText" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -950,45 +1089,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderHighlightUI.family}',
+                      child: Text(
+                        'family: ${loaderHighlightUI.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('rounded UI, buttons',
+                    Text(
+                      'rounded UI, buttons',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('OK   Cancel   Save Draft   Publish Now',
+                Text(
+                  'OK   Cancel   Save Draft   Publish Now',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "HighlightUI" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "HighlightUI" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1007,45 +1157,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderRuleDisplay.family}',
+                      child: Text(
+                        'family: ${loaderRuleDisplay.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('tall display, posters',
+                    Text(
+                      'tall display, posters',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('RULE -- LARGE -- LOUD',
+                Text(
+                  'RULE -- LARGE -- LOUD',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                     fontStyle: FontStyle.normal,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "RuleDisplay" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "RuleDisplay" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1064,45 +1225,56 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
                       decoration: BoxDecoration(
                         color: _Palette.saffron.withValues(alpha: 0.85),
                         borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('family: ${loaderShadowItalic.family}',
+                      child: Text(
+                        'family: ${loaderShadowItalic.family}',
                         style: const TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                           color: _Palette.ink,
                           letterSpacing: 0.6,
-                        )),
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Text('expressive italic, pull quotes',
+                    Text(
+                      'expressive italic, pull quotes',
                       style: const TextStyle(
                         fontSize: 11,
                         fontStyle: FontStyle.italic,
                         color: _Palette.shadow,
-                      )),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                Text('...and so the apprentice set the saffron type.',
+                Text(
+                  '...and so the apprentice set the saffron type.',
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w400,
                     fontStyle: FontStyle.italic,
                     color: _Palette.ink,
                     height: 1.2,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Hypothetical render of "ShadowItalic" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
+                Text(
+                  'Hypothetical render of "ShadowItalic" -- the test runner cannot reach an asset bundle, so the glyphs above use the host fallback family.',
                   style: const TextStyle(
                     fontSize: 11,
                     color: _Palette.shadow,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1110,65 +1282,106 @@ dynamic build(BuildContext context) {
           // ==============================================================
           // SECTION 5 -- Lifecycle timeline
           // ==============================================================
-          _sectionHeader('05', 'Lifecycle Timeline',
-            'Five hops from constructor to a TextStyle that paints with the new family.'),
-          _hop(1, 'Construct',
+          _sectionHeader(
+            '05',
+            'Lifecycle Timeline',
+            'Five hops from constructor to a TextStyle that paints with the new family.',
+          ),
+          _hop(
+            1,
+            'Construct',
             'final loader = FontLoader("SaffronSerif"). Synchronous; just stores the family name.',
-            _Palette.brass),
-          _hop(2, 'Fetch bytes',
+            _Palette.brass,
+          ),
+          _hop(
+            2,
+            'Fetch bytes',
             'Acquire ByteData via rootBundle.load, http.get, File.readAsBytes, or any other byte source. Each variant is its own future.',
-            _Palette.saffron),
-          _hop(3, 'addFont(future)',
+            _Palette.saffron,
+          ),
+          _hop(
+            3,
+            'addFont(future)',
             'loader.addFont(bytesFuture). Repeat for every weight/style. The FontLoader queues the future internally.',
-            _Palette.ember),
-          _hop(4, 'await loader.load()',
+            _Palette.ember,
+          ),
+          _hop(
+            4,
+            'await loader.load()',
             'Engine awaits all queued byte futures, parses each font table, and registers them under the family name.',
-            _Palette.deepEmber),
-          _hop(5, 'Ready -- paint',
+            _Palette.deepEmber,
+          ),
+          _hop(
+            5,
+            'Ready -- paint',
             'TextStyle(fontFamily: "SaffronSerif") now resolves to the new typeface. Trigger a rebuild so existing widgets pick it up.',
-            _Palette.apron),
+            _Palette.apron,
+          ),
           _gap(8),
           _proseCard(
             'Note that hops 2 and 3 can be interleaved freely; addFont() does not '
             'wait for its argument to resolve.  Only hop 4 is a real blocking '
             'point.  In practice you usually gate first paint on a single Future '
-            'returned by load() and show a splash or skeleton while it resolves.'),
+            'returned by load() and show a splash or skeleton while it resolves.',
+          ),
 
           // ==============================================================
           // SECTION 6 -- asset font vs network font matrix
           // ==============================================================
-          _sectionHeader('06', 'Source x Cache Matrix',
-            'Four cards crossing byte source with cache strategy.'),
+          _sectionHeader(
+            '06',
+            'Source x Cache Matrix',
+            'Four cards crossing byte source with cache strategy.',
+          ),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 6),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: _Palette.paper,
-              border: Border.all(color: _Palette.brass.withValues(alpha: 0.7), width: 1.4),
+              border: Border.all(
+                color: _Palette.brass.withValues(alpha: 0.7),
+                width: 1.4,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Asset bundle x permanent cache',
+                Text(
+                  'Asset bundle x permanent cache',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: _Palette.ink,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('Bundled with the app; no network, OS-level read cache',
+                Text(
+                  'Bundled with the app; no network, OS-level read cache',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 8),
-                _kvRow('source', 'rootBundle.load("assets/fonts/SaffronSerif-Regular.ttf")'),
-                _kvRow('ttl', 'process lifetime; bytes live in the asset archive'),
-                _kvRow('failure', 'asset missing -> FlutterError at startup, not at load()'),
-                _kvRow('when to use', 'stable brand fonts that ship with every release'),
+                _kvRow(
+                  'source',
+                  'rootBundle.load("assets/fonts/SaffronSerif-Regular.ttf")',
+                ),
+                _kvRow(
+                  'ttl',
+                  'process lifetime; bytes live in the asset archive',
+                ),
+                _kvRow(
+                  'failure',
+                  'asset missing -> FlutterError at startup, not at load()',
+                ),
+                _kvRow(
+                  'when to use',
+                  'stable brand fonts that ship with every release',
+                ),
               ],
             ),
           ),
@@ -1178,30 +1391,49 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: _Palette.paper,
-              border: Border.all(color: _Palette.saffron.withValues(alpha: 0.7), width: 1.4),
+              border: Border.all(
+                color: _Palette.saffron.withValues(alpha: 0.7),
+                width: 1.4,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Network fetch x in-memory cache',
+                Text(
+                  'Network fetch x in-memory cache',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: _Palette.ink,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('HTTP GET into a Map<String, ByteData> keyed by family name',
+                Text(
+                  'HTTP GET into a Map<String, ByteData> keyed by family name',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 8),
-                _kvRow('source', 'http.get(uri).then((r) => ByteData.view(r.bodyBytes.buffer))'),
-                _kvRow('ttl', 'until the isolate is killed; not survived across restarts'),
-                _kvRow('failure', 'network error -> retry with backoff or fall back to system family'),
-                _kvRow('when to use', 'small variant set, low repeat-launch cost acceptable'),
+                _kvRow(
+                  'source',
+                  'http.get(uri).then((r) => ByteData.view(r.bodyBytes.buffer))',
+                ),
+                _kvRow(
+                  'ttl',
+                  'until the isolate is killed; not survived across restarts',
+                ),
+                _kvRow(
+                  'failure',
+                  'network error -> retry with backoff or fall back to system family',
+                ),
+                _kvRow(
+                  'when to use',
+                  'small variant set, low repeat-launch cost acceptable',
+                ),
               ],
             ),
           ),
@@ -1211,30 +1443,49 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: _Palette.paper,
-              border: Border.all(color: _Palette.ember.withValues(alpha: 0.7), width: 1.4),
+              border: Border.all(
+                color: _Palette.ember.withValues(alpha: 0.7),
+                width: 1.4,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Network fetch x disk cache',
+                Text(
+                  'Network fetch x disk cache',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: _Palette.ink,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('Bytes streamed to a file under getApplicationSupportDirectory',
+                Text(
+                  'Bytes streamed to a file under getApplicationSupportDirectory',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 8),
-                _kvRow('source', 'first run: http; subsequent runs: File.readAsBytes'),
-                _kvRow('ttl', 'manual; invalidate on version bump or ETag change'),
-                _kvRow('failure', 'corrupted file -> delete + re-fetch on the next launch'),
-                _kvRow('when to use', 'large fonts, many launches, expensive bandwidth'),
+                _kvRow(
+                  'source',
+                  'first run: http; subsequent runs: File.readAsBytes',
+                ),
+                _kvRow(
+                  'ttl',
+                  'manual; invalidate on version bump or ETag change',
+                ),
+                _kvRow(
+                  'failure',
+                  'corrupted file -> delete + re-fetch on the next launch',
+                ),
+                _kvRow(
+                  'when to use',
+                  'large fonts, many launches, expensive bandwidth',
+                ),
               ],
             ),
           ),
@@ -1244,30 +1495,46 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: _Palette.paper,
-              border: Border.all(color: _Palette.apron.withValues(alpha: 0.7), width: 1.4),
+              border: Border.all(
+                color: _Palette.apron.withValues(alpha: 0.7),
+                width: 1.4,
+              ),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('User upload x sandbox storage',
+                Text(
+                  'User upload x sandbox storage',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: _Palette.ink,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text('User picks a TTF; bytes copied into app sandbox and registered',
+                Text(
+                  'User picks a TTF; bytes copied into app sandbox and registered',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 8),
                 _kvRow('source', 'FilePicker -> File.readAsBytes()'),
-                _kvRow('ttl', 'user-controlled; bound to a project or document'),
-                _kvRow('failure', 'unsupported format -> reject in UI before calling addFont'),
-                _kvRow('when to use', 'design tools, branding apps, document editors'),
+                _kvRow(
+                  'ttl',
+                  'user-controlled; bound to a project or document',
+                ),
+                _kvRow(
+                  'failure',
+                  'unsupported format -> reject in UI before calling addFont',
+                ),
+                _kvRow(
+                  'when to use',
+                  'design tools, branding apps, document editors',
+                ),
               ],
             ),
           ),
@@ -1275,8 +1542,11 @@ dynamic build(BuildContext context) {
           // ==============================================================
           // SECTION 7 -- TextStyle preview gallery
           // ==============================================================
-          _sectionHeader('07', 'TextStyle Preview Gallery',
-            'Six text samples mixing weight, italic, and letterSpacing on a hypothetical loaded family.'),
+          _sectionHeader(
+            '07',
+            'TextStyle Preview Gallery',
+            'Six text samples mixing weight, italic, and letterSpacing on a hypothetical loaded family.',
+          ),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 5),
@@ -1289,15 +1559,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w200 -- ULTRALIGHT',
+                Text(
+                  'w200 -- ULTRALIGHT',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Saffron threads at sunrise.',
+                Text(
+                  'Saffron threads at sunrise.',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w200,
@@ -1305,15 +1578,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: 0.4,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Thin weights need extra letterSpacing to keep their delicate stems readable.',
+                Text(
+                  'Thin weights need extra letterSpacing to keep their delicate stems readable.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1329,15 +1605,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w400 -- REGULAR ITALIC',
+                Text(
+                  'w400 -- REGULAR ITALIC',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('The press hums softly under the apron.',
+                Text(
+                  'The press hums softly under the apron.',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -1345,15 +1624,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: 0.0,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Italic relies on the engine selecting the matching italic variant from the registered family.',
+                Text(
+                  'Italic relies on the engine selecting the matching italic variant from the registered family.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1369,15 +1651,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w500 -- MEDIUM, TIGHT',
+                Text(
+                  'w500 -- MEDIUM, TIGHT',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Headline copy that crowds in close.',
+                Text(
+                  'Headline copy that crowds in close.',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -1385,15 +1670,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: -0.5,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Negative letterSpacing is cosmetic; never use it for readable body text.',
+                Text(
+                  'Negative letterSpacing is cosmetic; never use it for readable body text.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1409,15 +1697,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w700 -- BOLD, OPEN',
+                Text(
+                  'w700 -- BOLD, OPEN',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('BOLD AND BREATHING ROOM',
+                Text(
+                  'BOLD AND BREATHING ROOM',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -1425,15 +1716,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: 1.2,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('All-caps headings benefit from generous tracking; bold weight balances the wider gaps.',
+                Text(
+                  'All-caps headings benefit from generous tracking; bold weight balances the wider gaps.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1449,15 +1743,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w800 -- EXTRABOLD ITALIC',
+                Text(
+                  'w800 -- EXTRABOLD ITALIC',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('An emphatic pull-quote.',
+                Text(
+                  'An emphatic pull-quote.',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
@@ -1465,15 +1762,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: 0.2,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Combining heavy weight with italic communicates urgency without shouting.',
+                Text(
+                  'Combining heavy weight with italic communicates urgency without shouting.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1489,15 +1789,18 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('w900 -- BLACK, DISPLAY',
+                Text(
+                  'w900 -- BLACK, DISPLAY',
                   style: const TextStyle(
                     fontSize: 10,
                     letterSpacing: 1.4,
                     fontWeight: FontWeight.w800,
                     color: _Palette.deepEmber,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('PRINT  RUN  TONIGHT',
+                Text(
+                  'PRINT  RUN  TONIGHT',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w900,
@@ -1505,15 +1808,18 @@ dynamic build(BuildContext context) {
                     letterSpacing: 2.0,
                     color: _Palette.ink,
                     height: 1.25,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text('Display weight at large size with wide tracking -- ideal for posters or hero banners.',
+                Text(
+                  'Display weight at large size with wide tracking -- ideal for posters or hero banners.',
                   style: const TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.shadow,
                     height: 1.4,
-                  )),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1521,8 +1827,11 @@ dynamic build(BuildContext context) {
           // ==============================================================
           // SECTION 8 -- Memory footprint
           // ==============================================================
-          _sectionHeader('08', 'Memory Footprint',
-            'Approximate KB sizes for common variant payloads, drawn as proportional bars.'),
+          _sectionHeader(
+            '08',
+            'Memory Footprint',
+            'Approximate KB sizes for common variant payloads, drawn as proportional bars.',
+          ),
           _proseCard(
             'A FontLoader holds nothing heavy itself -- the real cost is the byte '
             'buffer per variant.  Approximate sizes: a single Latin-only TTF '
@@ -1531,7 +1840,8 @@ dynamic build(BuildContext context) {
             'past 5 MB.  Loading every weight in a family multiplies the budget '
             'linearly.  Plan for it: lazily register only the variants the '
             'current screen actually demands, and unload nothing -- the engine '
-            'has no public unregister API.'),
+            'has no public unregister API.',
+          ),
           _gap(8),
           Container(
             width: double.infinity,
@@ -1544,15 +1854,15 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _kbBar('SaffronSerif Regular (Latin)',  64.0,  600.0),
-                _kbBar('SaffronSerif Bold (Latin)',     72.0,  600.0),
-                _kbBar('SaffronSerif Italic (Latin)',   78.0,  600.0),
-                _kbBar('SaffronSerif Bold Italic',      84.0,  600.0),
+                _kbBar('SaffronSerif Regular (Latin)', 64.0, 600.0),
+                _kbBar('SaffronSerif Bold (Latin)', 72.0, 600.0),
+                _kbBar('SaffronSerif Italic (Latin)', 78.0, 600.0),
+                _kbBar('SaffronSerif Bold Italic', 84.0, 600.0),
                 _kbBar('EmberSans Regular (Latin Ext)', 138.0, 600.0),
-                _kbBar('BrassMono Regular',             92.0,  600.0),
-                _kbBar('ApronText Variable (wght axis)',196.0, 600.0),
-                _kbBar('RuleDisplay Black',             58.0,  600.0),
-                _kbBar('CJK family (single weight)',    520.0, 600.0),
+                _kbBar('BrassMono Regular', 92.0, 600.0),
+                _kbBar('ApronText Variable (wght axis)', 196.0, 600.0),
+                _kbBar('RuleDisplay Black', 58.0, 600.0),
+                _kbBar('CJK family (single weight)', 520.0, 600.0),
               ],
             ),
           ),
@@ -1561,86 +1871,165 @@ dynamic build(BuildContext context) {
             'Variable fonts are a special-case win: a single byte payload covers an '
             'entire weight axis (and often optical-size and slant axes too).  One '
             'addFont() call, one variable file, and TextStyle(fontWeight: ...) '
-            'interpolates along the axis at zero extra registration cost.'),
+            'interpolates along the axis at zero extra registration cost.',
+          ),
 
           // ==============================================================
           // SECTION 9 -- DO / AVOID callouts
           // ==============================================================
-          _sectionHeader('09', 'DO / AVOID Callouts',
-            'Eight rules, each tagged DO or AVOID, distilled from real production incidents.'),
-          _calloutCard('DO', _Palette.apron, 'Construct FontLoader OUTSIDE build()',
-            'Build a FontLoader once -- in initState, in a top-level controller, or in a service. Constructing one inside build() is harmless but wasteful, and accidentally calling load() inside build() is a real bug.'),
-          _calloutCard('AVOID', _Palette.accent, 'Do not call load() in a synchronous render path',
-            'load() returns a Future that may take hundreds of milliseconds. Awaiting it inside a build is impossible; firing-and-forgetting it from a build leaks work and races first paint.'),
-          _calloutCard('DO', _Palette.apron, 'Await load() before first paint of styled text',
-            'Gate the screen on the Future. Use FutureBuilder, a splash screen, or a ready flag in your controller. Otherwise the user sees an FOUT (flash of unstyled text) as the family swaps in.'),
-          _calloutCard('AVOID', _Palette.accent, 'Do not reuse a FontLoader instance across reloads',
-            'FontLoader is a one-shot builder. After load() it is spent. Build a fresh FontLoader if a tenant or theme switch demands a different family or updated bytes.'),
-          _calloutCard('DO', _Palette.apron, 'Pick a postscript family name that cannot collide',
-            'Prefix with your app or tenant id (e.g. AcmeBrandSans). Collisions with bundled fonts produce silently wrong rendering that QA will miss until the wrong customer sees it.'),
-          _calloutCard('AVOID', _Palette.accent, 'Do not register the same family twice with different bytes',
-            'The engine will accept the second registration but the result is implementation-defined. Treat the family namespace as immutable for the process lifetime.'),
-          _calloutCard('DO', _Palette.apron, 'Surface load() failures in the UI',
-            'Wrap load() in try/catch. On failure, log telemetry, fall back to a known-good system family (Roboto, SF Pro, Segoe), and surface a discrete message instead of an empty screen.'),
-          _calloutCard('AVOID', _Palette.accent, 'Do not load fonts speculatively at startup',
-            'Every kilobyte of font bytes you fetch eagerly delays first paint. Defer non-critical families until the screen that needs them is on the route stack.'),
+          _sectionHeader(
+            '09',
+            'DO / AVOID Callouts',
+            'Eight rules, each tagged DO or AVOID, distilled from real production incidents.',
+          ),
+          _calloutCard(
+            'DO',
+            _Palette.apron,
+            'Construct FontLoader OUTSIDE build()',
+            'Build a FontLoader once -- in initState, in a top-level controller, or in a service. Constructing one inside build() is harmless but wasteful, and accidentally calling load() inside build() is a real bug.',
+          ),
+          _calloutCard(
+            'AVOID',
+            _Palette.accent,
+            'Do not call load() in a synchronous render path',
+            'load() returns a Future that may take hundreds of milliseconds. Awaiting it inside a build is impossible; firing-and-forgetting it from a build leaks work and races first paint.',
+          ),
+          _calloutCard(
+            'DO',
+            _Palette.apron,
+            'Await load() before first paint of styled text',
+            'Gate the screen on the Future. Use FutureBuilder, a splash screen, or a ready flag in your controller. Otherwise the user sees an FOUT (flash of unstyled text) as the family swaps in.',
+          ),
+          _calloutCard(
+            'AVOID',
+            _Palette.accent,
+            'Do not reuse a FontLoader instance across reloads',
+            'FontLoader is a one-shot builder. After load() it is spent. Build a fresh FontLoader if a tenant or theme switch demands a different family or updated bytes.',
+          ),
+          _calloutCard(
+            'DO',
+            _Palette.apron,
+            'Pick a postscript family name that cannot collide',
+            'Prefix with your app or tenant id (e.g. AcmeBrandSans). Collisions with bundled fonts produce silently wrong rendering that QA will miss until the wrong customer sees it.',
+          ),
+          _calloutCard(
+            'AVOID',
+            _Palette.accent,
+            'Do not register the same family twice with different bytes',
+            'The engine will accept the second registration but the result is implementation-defined. Treat the family namespace as immutable for the process lifetime.',
+          ),
+          _calloutCard(
+            'DO',
+            _Palette.apron,
+            'Surface load() failures in the UI',
+            'Wrap load() in try/catch. On failure, log telemetry, fall back to a known-good system family (Roboto, SF Pro, Segoe), and surface a discrete message instead of an empty screen.',
+          ),
+          _calloutCard(
+            'AVOID',
+            _Palette.accent,
+            'Do not load fonts speculatively at startup',
+            'Every kilobyte of font bytes you fetch eagerly delays first paint. Defer non-critical families until the screen that needs them is on the route stack.',
+          ),
 
           // ==============================================================
           // SECTION 10 -- Code recipe cards
           // ==============================================================
-          _sectionHeader('10', 'Canonical Recipes',
-            'Five copy-paste-ready snippets covering the common entry points.'),
-          _codeCard('RECIPE 1 -- rootBundle.load',
+          _sectionHeader(
+            '10',
+            'Canonical Recipes',
+            'Five copy-paste-ready snippets covering the common entry points.',
+          ),
+          _codeCard(
+            'RECIPE 1 -- rootBundle.load',
             'Future<void> registerFromAssets() async {\n  final loader = FontLoader(\'SaffronSerif\');\n  loader.addFont(rootBundle.load(\'assets/fonts/SaffronSerif-Regular.ttf\'));\n  loader.addFont(rootBundle.load(\'assets/fonts/SaffronSerif-Bold.ttf\'));\n  await loader.load();\n}',
-            'Cleanest path. Bytes ship with the app, no network, no cache logic.'),
-          _codeCard('RECIPE 2 -- HTTP GET, in-memory',
+            'Cleanest path. Bytes ship with the app, no network, no cache logic.',
+          ),
+          _codeCard(
+            'RECIPE 2 -- HTTP GET, in-memory',
             'Future<void> registerFromHttp(Uri uri) async {\n  final loader = FontLoader(\'EmberSans\');\n  final res = await http.get(uri);\n  final bytes = ByteData.view(res.bodyBytes.buffer);\n  loader.addFont(Future.value(bytes));\n  await loader.load();\n}',
-            'Use for small fonts that the app can refetch cheaply on each cold start.'),
-          _codeCard('RECIPE 3 -- Custom asset bundle',
+            'Use for small fonts that the app can refetch cheaply on each cold start.',
+          ),
+          _codeCard(
+            'RECIPE 3 -- Custom asset bundle',
             'Future<void> registerFromBundle(AssetBundle bundle) async {\n  final loader = FontLoader(\'InkRoman\');\n  loader.addFont(bundle.load(\'packages/brand_pack/fonts/InkRoman.ttf\'));\n  await loader.load();\n}',
-            'Useful when shipping fonts inside a sibling package; pass the package\'s AssetBundle.'),
-          _codeCard('RECIPE 4 -- Web fallback',
+            'Useful when shipping fonts inside a sibling package; pass the package\'s AssetBundle.',
+          ),
+          _codeCard(
+            'RECIPE 4 -- Web fallback',
             'Future<void> registerWebSafe() async {\n  if (kIsWeb) { /* CSS @font-face is usually preferable on web */\n    return;\n  }\n  final loader = FontLoader(\'BrassMono\');\n  loader.addFont(rootBundle.load(\'assets/fonts/BrassMono.ttf\'));\n  await loader.load();\n}',
-            'On web, @font-face hits browser cache better. Keep FontLoader for mobile/desktop.'),
-          _codeCard('RECIPE 5 -- Variable font (weight axis)',
+            'On web, @font-face hits browser cache better. Keep FontLoader for mobile/desktop.',
+          ),
+          _codeCard(
+            'RECIPE 5 -- Variable font (weight axis)',
             'Future<void> registerVariable() async {\n  final loader = FontLoader(\'ApronText\');\n  loader.addFont(rootBundle.load(\'assets/fonts/ApronText[wght].ttf\'));\n  await loader.load();\n  // Now any TextStyle(fontWeight: FontWeight.wXYZ) interpolates the axis.\n}',
-            'One byte payload, every weight. Modern, compact, and well supported on Skia/Impeller.'),
+            'One byte payload, every weight. Modern, compact, and well supported on Skia/Impeller.',
+          ),
 
           // ==============================================================
           // SECTION 11 -- Glossary
           // ==============================================================
-          _sectionHeader('11', 'Glossary',
-            'Twelve terms that recur whenever font loading is discussed.'),
-          _glossaryRow('Family',
-            'A named group of related typefaces (regular, bold, italic, ...) that share design DNA. Matched at render time by TextStyle.fontFamily.'),
-          _glossaryRow('Variant',
-            'One specific weight/style combination inside a family, for example Regular, Bold, Italic, Bold-Italic.'),
-          _glossaryRow('Postscript name',
-            'The internal identifier baked into a font\'s name table. Flutter uses the family-level postscript name to match a fontFamily string.'),
-          _glossaryRow('ByteData',
-            'Dart\'s typed view over a ByteBuffer. FontLoader.addFont expects a Future that resolves to one of these.'),
-          _glossaryRow('AssetBundle',
-            'Flutter abstraction over a bag of bytes keyed by string path. rootBundle is the default; tests and packages can supply their own.'),
-          _glossaryRow('TTF / OTF',
-            'TrueType / OpenType. The two everyday font binary formats. FontLoader accepts both transparently.'),
-          _glossaryRow('Variable font',
-            'A TTF/OTF that exposes one or more design axes (weight, optical size, slant). A single file replaces a whole variant set.'),
-          _glossaryRow('FOUT',
-            'Flash of Unstyled Text. The user sees a fallback family flash before your custom font registers. Mitigated by gating first paint on load().'),
-          _glossaryRow('Glyph cache',
-            'The engine\'s runtime LRU of rasterized glyphs. Loading a new family does not invalidate it; only specific glyphs from the new family populate it as they render.'),
-          _glossaryRow('OS/2 table',
-            'A table inside every TTF/OTF that declares weight class and italic flag. Flutter reads this to slot variants into the family correctly.'),
-          _glossaryRow('Shaper',
-            'The engine layer that turns a Unicode string + a font into a sequence of glyph IDs and positions (HarfBuzz on most platforms).'),
-          _glossaryRow('Idempotency',
-            'Property of an operation that has the same effect whether applied once or many times. FontLoader.load() is intended to be called exactly once per instance.'),
+          _sectionHeader(
+            '11',
+            'Glossary',
+            'Twelve terms that recur whenever font loading is discussed.',
+          ),
+          _glossaryRow(
+            'Family',
+            'A named group of related typefaces (regular, bold, italic, ...) that share design DNA. Matched at render time by TextStyle.fontFamily.',
+          ),
+          _glossaryRow(
+            'Variant',
+            'One specific weight/style combination inside a family, for example Regular, Bold, Italic, Bold-Italic.',
+          ),
+          _glossaryRow(
+            'Postscript name',
+            'The internal identifier baked into a font\'s name table. Flutter uses the family-level postscript name to match a fontFamily string.',
+          ),
+          _glossaryRow(
+            'ByteData',
+            'Dart\'s typed view over a ByteBuffer. FontLoader.addFont expects a Future that resolves to one of these.',
+          ),
+          _glossaryRow(
+            'AssetBundle',
+            'Flutter abstraction over a bag of bytes keyed by string path. rootBundle is the default; tests and packages can supply their own.',
+          ),
+          _glossaryRow(
+            'TTF / OTF',
+            'TrueType / OpenType. The two everyday font binary formats. FontLoader accepts both transparently.',
+          ),
+          _glossaryRow(
+            'Variable font',
+            'A TTF/OTF that exposes one or more design axes (weight, optical size, slant). A single file replaces a whole variant set.',
+          ),
+          _glossaryRow(
+            'FOUT',
+            'Flash of Unstyled Text. The user sees a fallback family flash before your custom font registers. Mitigated by gating first paint on load().',
+          ),
+          _glossaryRow(
+            'Glyph cache',
+            'The engine\'s runtime LRU of rasterized glyphs. Loading a new family does not invalidate it; only specific glyphs from the new family populate it as they render.',
+          ),
+          _glossaryRow(
+            'OS/2 table',
+            'A table inside every TTF/OTF that declares weight class and italic flag. Flutter reads this to slot variants into the family correctly.',
+          ),
+          _glossaryRow(
+            'Shaper',
+            'The engine layer that turns a Unicode string + a font into a sequence of glyph IDs and positions (HarfBuzz on most platforms).',
+          ),
+          _glossaryRow(
+            'Idempotency',
+            'Property of an operation that has the same effect whether applied once or many times. FontLoader.load() is intended to be called exactly once per instance.',
+          ),
 
           // ==============================================================
           // SECTION 12 -- Recap footer
           // ==============================================================
-          _sectionHeader('12', 'Recap',
-            'The whole demo, compressed into one paragraph and a checklist.'),
+          _sectionHeader(
+            '12',
+            'Recap',
+            'The whole demo, compressed into one paragraph and a checklist.',
+          ),
           _proseCard(
             'FontLoader is a tiny class with a focused job: register a family of '
             'typefaces with the engine after the app has started.  Construct one '
@@ -1650,7 +2039,8 @@ dynamic build(BuildContext context) {
             'one-shot builder, gate first paint on the load Future, and surface '
             'failures gracefully instead of letting them silently degrade '
             'typography.  Everything else -- where the bytes come from, how they '
-            'are cached, how the family is named -- is application policy.'),
+            'are cached, how the family is named -- is application policy.',
+          ),
           _gap(6),
           _bulletList(const [
             'Postscript family names are immutable for the process lifetime.',
@@ -1678,20 +2068,24 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('END OF DEMO -- Letterpress Saffron',
+                Text(
+                  'END OF DEMO -- Letterpress Saffron',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
                     color: _Palette.highlight,
                     letterSpacing: 1.4,
-                  )),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('FontLoader -- a one-shot builder for runtime typography.',
+                Text(
+                  'FontLoader -- a one-shot builder for runtime typography.',
                   style: TextStyle(
                     fontSize: 11,
                     fontStyle: FontStyle.italic,
                     color: _Palette.paper.withValues(alpha: 0.8),
-                  )),
+                  ),
+                ),
               ],
             ),
           ),

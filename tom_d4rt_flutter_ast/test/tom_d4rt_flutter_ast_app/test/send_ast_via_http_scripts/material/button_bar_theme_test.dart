@@ -35,8 +35,12 @@ dynamic build(BuildContext context) {
   print('  ctor             : ButtonBarTheme(data, child, key?)');
   print('  static method    : of(BuildContext) -> ButtonBarThemeData');
   print('  getters          : key / hashCode / child / data');
-  print('  methods          : updateShouldNotify, ==, toString, toStringShort,');
-  print('                     toStringShallow, toStringDeep, toDiagnosticsNode,');
+  print(
+    '  methods          : updateShouldNotify, ==, toString, toStringShort,',
+  );
+  print(
+    '                     toStringShallow, toStringDeep, toDiagnosticsNode,',
+  );
   print('                     debugFillProperties, debugDescribeChildren,');
   print('                     createElement');
 
@@ -300,17 +304,31 @@ dynamic build(BuildContext context) {
           final viaInherited = ButtonBarTheme.of(innerContext);
           final viaTheme = Theme.of(innerContext).buttonBarTheme;
           return card(lookupAccent, [
-            readout('ButtonBarTheme.of(ctx)',
-                viaInherited.toString(), lookupAccent),
-            readout('Theme.of(ctx).buttonBarTheme',
-                viaTheme.toString(), lookupAccent),
-            readout('identical(viaInherited, viaTheme)',
-                identical(viaInherited, viaTheme).toString(),
-                lookupAccent),
-            readout('runtimeType (inherited path)',
-                viaInherited.runtimeType.toString(), lookupAccent),
-            readout('runtimeType (theme path)',
-                viaTheme.runtimeType.toString(), lookupAccent),
+            readout(
+              'ButtonBarTheme.of(ctx)',
+              viaInherited.toString(),
+              lookupAccent,
+            ),
+            readout(
+              'Theme.of(ctx).buttonBarTheme',
+              viaTheme.toString(),
+              lookupAccent,
+            ),
+            readout(
+              'identical(viaInherited, viaTheme)',
+              identical(viaInherited, viaTheme).toString(),
+              lookupAccent,
+            ),
+            readout(
+              'runtimeType (inherited path)',
+              viaInherited.runtimeType.toString(),
+              lookupAccent,
+            ),
+            readout(
+              'runtimeType (theme path)',
+              viaTheme.runtimeType.toString(),
+              lookupAccent,
+            ),
           ]);
         },
       ),
@@ -357,18 +375,24 @@ dynamic build(BuildContext context) {
               builder: (innerContext) {
                 final fromInner = ButtonBarTheme.of(innerContext);
                 return card(mountAccent, [
-                  mono('mounted: ButtonBarTheme(key: ValueKey("mount-section-3"),',
-                      color: mountAccent),
+                  mono(
+                    'mounted: ButtonBarTheme(key: ValueKey("mount-section-3"),',
+                    color: mountAccent,
+                  ),
                   mono('               data: <ambient ButtonBarThemeData>,'),
                   mono('               child: Builder(...))'),
                   const SizedBox(height: 6),
-                  readout('lookup from outer',
-                      ambient.toString(), mountAccent),
-                  readout('lookup from inner',
-                      fromInner.toString(), mountAccent),
-                  readout('identical (outer, inner)',
-                      identical(ambient, fromInner).toString(),
-                      mountAccent),
+                  readout('lookup from outer', ambient.toString(), mountAccent),
+                  readout(
+                    'lookup from inner',
+                    fromInner.toString(),
+                    mountAccent,
+                  ),
+                  readout(
+                    'identical (outer, inner)',
+                    identical(ambient, fromInner).toString(),
+                    mountAccent,
+                  ),
                 ]);
               },
             ),
@@ -414,16 +438,19 @@ dynamic build(BuildContext context) {
             child: const SizedBox(width: 0, height: 0),
           );
           return card(gettersAccent, [
-            readout('widget.key',
-                widget.key.toString(), gettersAccent),
-            readout('widget.data',
-                widget.data.toString(), gettersAccent),
-            readout('widget.child',
-                widget.child.toString(), gettersAccent),
-            readout('widget.hashCode (int)',
-                widget.hashCode.toString(), gettersAccent),
-            readout('widget.runtimeType',
-                widget.runtimeType.toString(), gettersAccent),
+            readout('widget.key', widget.key.toString(), gettersAccent),
+            readout('widget.data', widget.data.toString(), gettersAccent),
+            readout('widget.child', widget.child.toString(), gettersAccent),
+            readout(
+              'widget.hashCode (int)',
+              widget.hashCode.toString(),
+              gettersAccent,
+            ),
+            readout(
+              'widget.runtimeType',
+              widget.runtimeType.toString(),
+              gettersAccent,
+            ),
           ]);
         },
       ),
@@ -466,12 +493,21 @@ dynamic build(BuildContext context) {
           return card(updateAccent, [
             readout('a.key', a.key.toString(), updateAccent),
             readout('b.key', b.key.toString(), updateAccent),
-            readout('a.data == b.data',
-                (a.data == b.data).toString(), updateAccent),
-            readout('a.updateShouldNotify(b)',
-                a.updateShouldNotify(b).toString(), updateAccent),
-            readout('b.updateShouldNotify(a)',
-                b.updateShouldNotify(a).toString(), updateAccent),
+            readout(
+              'a.data == b.data',
+              (a.data == b.data).toString(),
+              updateAccent,
+            ),
+            readout(
+              'a.updateShouldNotify(b)',
+              a.updateShouldNotify(b).toString(),
+              updateAccent,
+            ),
+            readout(
+              'b.updateShouldNotify(a)',
+              b.updateShouldNotify(a).toString(),
+              updateAccent,
+            ),
           ]);
         },
       ),
@@ -516,8 +552,11 @@ dynamic build(BuildContext context) {
             readout('b.hashCode', b.hashCode.toString(), equalityAccent),
             readout('a == b', (a == b).toString(), equalityAccent),
             readout('a == a', (a == a).toString(), equalityAccent),
-            readout('a.hashCode == a.hashCode',
-                (a.hashCode == a.hashCode).toString(), equalityAccent),
+            readout(
+              'a.hashCode == a.hashCode',
+              (a.hashCode == a.hashCode).toString(),
+              equalityAccent,
+            ),
           ]);
         },
       ),
@@ -556,11 +595,9 @@ dynamic build(BuildContext context) {
             child: const SizedBox(width: 1, height: 1),
           );
           return card(stringsAccent, [
-            readout('toStringShort()',
-                w.toStringShort(), stringsAccent),
+            readout('toStringShort()', w.toStringShort(), stringsAccent),
             readout('toString()', w.toString(), stringsAccent),
-            readout('toStringShallow()',
-                w.toStringShallow(), stringsAccent),
+            readout('toStringShallow()', w.toStringShallow(), stringsAccent),
           ]);
         },
       ),
@@ -597,8 +634,11 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               card(nestedAccent, [
-                readout('above all themes (ambient)',
-                    ambient.toString(), nestedAccent),
+                readout(
+                  'above all themes (ambient)',
+                  ambient.toString(),
+                  nestedAccent,
+                ),
               ]),
               ButtonBarTheme(
                 key: const ValueKey('outer'),
@@ -610,24 +650,31 @@ dynamic build(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         card(nestedAccent, [
-                          readout('between outer and inner',
-                              fromAfterOuter.toString(), nestedAccent),
+                          readout(
+                            'between outer and inner',
+                            fromAfterOuter.toString(),
+                            nestedAccent,
+                          ),
                         ]),
                         ButtonBarTheme(
                           key: const ValueKey('inner'),
                           data: ambient,
                           child: Builder(
                             builder: (afterInner) {
-                              final fromAfterInner =
-                                  ButtonBarTheme.of(afterInner);
+                              final fromAfterInner = ButtonBarTheme.of(
+                                afterInner,
+                              );
                               return card(nestedAccent, [
-                                readout('below inner',
-                                    fromAfterInner.toString(), nestedAccent),
                                 readout(
-                                    'identical(ambient, fromAfterInner)',
-                                    identical(ambient, fromAfterInner)
-                                        .toString(),
-                                    nestedAccent),
+                                  'below inner',
+                                  fromAfterInner.toString(),
+                                  nestedAccent,
+                                ),
+                                readout(
+                                  'identical(ambient, fromAfterInner)',
+                                  identical(ambient, fromAfterInner).toString(),
+                                  nestedAccent,
+                                ),
                               ]);
                             },
                           ),
@@ -704,17 +751,22 @@ dynamic build(BuildContext context) {
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
       ),
       const SizedBox(height: 4),
-      refRow('ButtonBarTheme(...)',
-          'const(Key?, ButtonBarThemeData, Widget)',
-          'Default constructor; data and child are required.'),
+      refRow(
+        'ButtonBarTheme(...)',
+        'const(Key?, ButtonBarThemeData, Widget)',
+        'Default constructor; data and child are required.',
+      ),
       const SizedBox(height: 8),
       const Text(
         'Static methods:',
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
       ),
       const SizedBox(height: 4),
-      refRow('of', 'ButtonBarThemeData of(BuildContext)',
-          'Inherited lookup — falls back to Theme.of(context).buttonBarTheme.'),
+      refRow(
+        'of',
+        'ButtonBarThemeData of(BuildContext)',
+        'Inherited lookup — falls back to Theme.of(context).buttonBarTheme.',
+      ),
       const SizedBox(height: 8),
       const Text(
         'Getters:',
@@ -724,42 +776,67 @@ dynamic build(BuildContext context) {
       refRow('key', 'Key?', 'Identifying key for the widget instance.'),
       refRow('hashCode', 'int', 'Standard widget hashCode.'),
       refRow('child', 'Widget', 'The single subtree the theme wraps.'),
-      refRow('data', 'ButtonBarThemeData',
-          'The propagated ButtonBarThemeData — unbridged value.'),
+      refRow(
+        'data',
+        'ButtonBarThemeData',
+        'The propagated ButtonBarThemeData — unbridged value.',
+      ),
       const SizedBox(height: 8),
       const Text(
         'Methods:',
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
       ),
       const SizedBox(height: 4),
-      refRow('updateShouldNotify',
-          'bool updateShouldNotify(ButtonBarTheme)',
-          'True if dependents must rebuild — i.e. data changed.'),
-      refRow('==', 'bool operator ==(Object?)',
-          'Reference equality on the widget instance.'),
-      refRow('toString',
-          'String toString({DiagnosticLevel minLevel})',
-          'Full diagnostic toString.'),
-      refRow('toStringShort', 'String toStringShort()',
-          'Shorter form — type and key only.'),
-      refRow('toStringShallow',
-          'String toStringShallow({String joiner, DiagnosticLevel})',
-          'One-level diagnostic dump.'),
-      refRow('toStringDeep',
-          'String toStringDeep({...})',
-          'Recursive diagnostic dump.'),
-      refRow('toDiagnosticsNode',
-          'DiagnosticsNode toDiagnosticsNode({String? name, ...})',
-          'Diagnostics node for tree introspection.'),
-      refRow('debugFillProperties',
-          'void debugFillProperties(DiagnosticPropertiesBuilder)',
-          'Populate a properties builder for the inspector.'),
-      refRow('debugDescribeChildren',
-          'List<DiagnosticsNode> debugDescribeChildren()',
-          'Children list for the inspector.'),
-      refRow('createElement',
-          'InheritedElement createElement()',
-          'Framework-internal element creation hook.'),
+      refRow(
+        'updateShouldNotify',
+        'bool updateShouldNotify(ButtonBarTheme)',
+        'True if dependents must rebuild — i.e. data changed.',
+      ),
+      refRow(
+        '==',
+        'bool operator ==(Object?)',
+        'Reference equality on the widget instance.',
+      ),
+      refRow(
+        'toString',
+        'String toString({DiagnosticLevel minLevel})',
+        'Full diagnostic toString.',
+      ),
+      refRow(
+        'toStringShort',
+        'String toStringShort()',
+        'Shorter form — type and key only.',
+      ),
+      refRow(
+        'toStringShallow',
+        'String toStringShallow({String joiner, DiagnosticLevel})',
+        'One-level diagnostic dump.',
+      ),
+      refRow(
+        'toStringDeep',
+        'String toStringDeep({...})',
+        'Recursive diagnostic dump.',
+      ),
+      refRow(
+        'toDiagnosticsNode',
+        'DiagnosticsNode toDiagnosticsNode({String? name, ...})',
+        'Diagnostics node for tree introspection.',
+      ),
+      refRow(
+        'debugFillProperties',
+        'void debugFillProperties(DiagnosticPropertiesBuilder)',
+        'Populate a properties builder for the inspector.',
+      ),
+      refRow(
+        'debugDescribeChildren',
+        'List<DiagnosticsNode> debugDescribeChildren()',
+        'Children list for the inspector.',
+      ),
+      refRow(
+        'createElement',
+        'InheritedElement createElement()',
+        'Framework-internal element creation hook.',
+      ),
     ],
   );
 

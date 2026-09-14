@@ -144,22 +144,13 @@ Widget _section1Hero() {
               spacing: 8,
               runSpacing: 8,
               children: const <Widget>[
-                _MiniBadge(
-                  label: 'PlaceholderSpan',
-                  color: Color(0xFF1A237E),
-                ),
-                _MiniBadge(
-                  label: 'WidgetSpan',
-                  color: Color(0xFF3949AB),
-                ),
+                _MiniBadge(label: 'PlaceholderSpan', color: Color(0xFF1A237E)),
+                _MiniBadge(label: 'WidgetSpan', color: Color(0xFF3949AB)),
                 _MiniBadge(
                   label: 'PlaceholderSpanIndexSemanticsTag',
                   color: Color(0xFF5C6BC0),
                 ),
-                _MiniBadge(
-                  label: 'SemanticsNode',
-                  color: Color(0xFF7986CB),
-                ),
+                _MiniBadge(label: 'SemanticsNode', color: Color(0xFF7986CB)),
               ],
             ),
             const SizedBox(height: 12),
@@ -374,8 +365,10 @@ class _EqualityDemoBodyState extends State<_EqualityDemoBody> {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  Text('index a: $a',
-                      style: TextStyle(color: widget.palette.primary)),
+                  Text(
+                    'index a: $a',
+                    style: TextStyle(color: widget.palette.primary),
+                  ),
                   Slider(
                     value: _a,
                     min: 0,
@@ -391,8 +384,10 @@ class _EqualityDemoBodyState extends State<_EqualityDemoBody> {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  Text('index b: $b',
-                      style: TextStyle(color: widget.palette.primary)),
+                  Text(
+                    'index b: $b',
+                    style: TextStyle(color: widget.palette.primary),
+                  ),
                   Slider(
                     value: _b,
                     min: 0,
@@ -561,18 +556,12 @@ Widget _section3WidgetSpanGallery() {
               const TextSpan(text: 'Build '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: _Pill(
-                  label: 'PASSED',
-                  color: const Color(0xFF2E7D32),
-                ),
+                child: _Pill(label: 'PASSED', color: const Color(0xFF2E7D32)),
               ),
               const TextSpan(text: ' on main and '),
               WidgetSpan(
                 alignment: PlaceholderAlignment.middle,
-                child: _Pill(
-                  label: 'FAILED',
-                  color: const Color(0xFFC62828),
-                ),
+                child: _Pill(label: 'FAILED', color: const Color(0xFFC62828)),
               ),
               const TextSpan(text: ' on dev.'),
             ],
@@ -605,8 +594,10 @@ Widget _section3WidgetSpanGallery() {
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: palette.primary,
-                  child: const Text('A',
-                      style: TextStyle(color: Colors.white, fontSize: 11)),
+                  child: const Text(
+                    'A',
+                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  ),
                 ),
               ),
               const TextSpan(text: ' Alice and '),
@@ -615,8 +606,10 @@ Widget _section3WidgetSpanGallery() {
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: palette.accent,
-                  child: const Text('B',
-                      style: TextStyle(color: Colors.white, fontSize: 11)),
+                  child: const Text(
+                    'B',
+                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  ),
                 ),
               ),
               const TextSpan(text: ' Bob commented on the issue.'),
@@ -748,7 +741,8 @@ Widget _section4IndexAwareShowcase() {
   return _SectionFrame(
     palette: palette,
     title: '4. Index-aware showcase',
-    subtitle: 'each WidgetSpan corresponds to PlaceholderSpanIndexSemanticsTag(i)',
+    subtitle:
+        'each WidgetSpan corresponds to PlaceholderSpanIndexSemanticsTag(i)',
     child: StatefulBuilder(
       builder: (context, setState) {
         final placeholders = <_PlaceholderRow>[
@@ -765,8 +759,10 @@ Widget _section4IndexAwareShowcase() {
             child: CircleAvatar(
               radius: 10,
               backgroundColor: palette.primary,
-              child: const Text('Z',
-                  style: TextStyle(color: Colors.white, fontSize: 11)),
+              child: const Text(
+                'Z',
+                style: TextStyle(color: Colors.white, fontSize: 11),
+              ),
             ),
           ),
           _PlaceholderRow(
@@ -777,25 +773,33 @@ Widget _section4IndexAwareShowcase() {
 
         // Build a Text.rich whose WidgetSpans are these placeholders, in order.
         final spans = <InlineSpan>[];
-        spans.add(WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: placeholders[0].child,
-        ));
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: placeholders[0].child,
+          ),
+        );
         spans.add(const TextSpan(text: ' Article: Inline widgets '));
-        spans.add(WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: placeholders[1].child,
-        ));
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: placeholders[1].child,
+          ),
+        );
         spans.add(const TextSpan(text: ' authored by '));
-        spans.add(WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: placeholders[2].child,
-        ));
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: placeholders[2].child,
+          ),
+        );
         spans.add(const TextSpan(text: ' — '));
-        spans.add(WidgetSpan(
-          alignment: PlaceholderAlignment.middle,
-          child: placeholders[3].child,
-        ));
+        spans.add(
+          WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: placeholders[3].child,
+          ),
+        );
         spans.add(const TextSpan(text: ' to read full text.'));
 
         return Column(
@@ -807,10 +811,7 @@ Widget _section4IndexAwareShowcase() {
                 padding: const EdgeInsets.all(12),
                 child: Text.rich(
                   TextSpan(
-                    style: TextStyle(
-                      color: palette.foreground,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: palette.foreground, fontSize: 14),
                     children: spans,
                   ),
                 ),
@@ -922,10 +923,7 @@ Widget _section5SemanticsIntegration() {
                 padding: const EdgeInsets.all(12),
                 child: Text.rich(
                   TextSpan(
-                    style: TextStyle(
-                      color: palette.foreground,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: palette.foreground, fontSize: 14),
                     children: spans,
                   ),
                 ),
@@ -956,10 +954,7 @@ Widget _section5SemanticsIntegration() {
                       'that survives semantic merging — even when adjacent '
                       'TextSpans collapse, the tag tells tooling which '
                       'inline widget produced the corresponding semantic node.',
-                      style: TextStyle(
-                        color: palette.foreground,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(color: palette.foreground, height: 1.4),
                     ),
                   ],
                 ),
@@ -973,16 +968,20 @@ Widget _section5SemanticsIntegration() {
                 DataColumn(label: Text('label')),
               ],
               rows: const <DataRow>[
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('0')),
-                  DataCell(Text('button')),
-                  DataCell(Text('Subscribe button')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('1')),
-                  DataCell(Text('link')),
-                  DataCell(Text('Learn more link')),
-                ]),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('0')),
+                    DataCell(Text('button')),
+                    DataCell(Text('Subscribe button')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('1')),
+                    DataCell(Text('link')),
+                    DataCell(Text('Learn more link')),
+                  ],
+                ),
               ],
             ),
           ],
@@ -1026,8 +1025,7 @@ Widget _section6UseCasesRecipe() {
                 const TextSpan(text: 'Tap '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child:
-                      Icon(Icons.share, size: 18, color: palette.primary),
+                  child: Icon(Icons.share, size: 18, color: palette.primary),
                 ),
                 const TextSpan(text: ' to share with friends.'),
               ],
@@ -1044,16 +1042,16 @@ Widget _section6UseCasesRecipe() {
                 const TextSpan(text: 'Reply: '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: _Pill(
-                    label: 'DELIVERED',
-                    color: palette.primary,
-                  ),
+                  child: _Pill(label: 'DELIVERED', color: palette.primary),
                 ),
                 const TextSpan(text: ' "See you at 6pm" '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: Icon(Icons.access_time,
-                      size: 14, color: palette.foreground),
+                  child: Icon(
+                    Icons.access_time,
+                    size: 14,
+                    color: palette.foreground,
+                  ),
                 ),
                 const TextSpan(text: ' 2 min ago.'),
               ],
@@ -1071,10 +1069,7 @@ Widget _section6UseCasesRecipe() {
                 const TextSpan(text: 'You can '),
                 WidgetSpan(
                   alignment: PlaceholderAlignment.middle,
-                  child: _Pill(
-                    label: 'ADD TO CART',
-                    color: palette.primary,
-                  ),
+                  child: _Pill(label: 'ADD TO CART', color: palette.primary),
                 ),
                 const TextSpan(
                   text: ' the recommended bundle, or browse the catalog.',
@@ -1132,10 +1127,7 @@ class _RecipeCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text.rich(
               TextSpan(
-                style: TextStyle(
-                  color: palette.foreground,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: palette.foreground, fontSize: 14),
                 children: spans,
               ),
             ),
@@ -1194,10 +1186,7 @@ Widget _section7AccessibilityNarrative() {
                   'placeholder code units (U+FFFC OBJECT REPLACEMENT '
                   'CHARACTER). Each placeholder has a position — first '
                   'placeholder = index 0, second = index 1.',
-                  style: TextStyle(
-                    color: palette.foreground,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: palette.foreground, height: 1.5),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -1209,10 +1198,7 @@ Widget _section7AccessibilityNarrative() {
                   'so when the widget child contributes its own semantic '
                   'node (e.g. a button), the framework can match the two by '
                   'looking for the tag.',
-                  style: TextStyle(
-                    color: palette.foreground,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: palette.foreground, height: 1.5),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -1223,10 +1209,7 @@ Widget _section7AccessibilityNarrative() {
                   'with them. This is normally fine, but it means automated '
                   'a11y tests should not assume tag indices are persistent '
                   'identifiers across builds — they are positional.',
-                  style: TextStyle(
-                    color: palette.foreground,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: palette.foreground, height: 1.5),
                 ),
               ],
             ),
@@ -1388,10 +1371,7 @@ Widget _section9TagIdentityStress() {
               ),
               padding: const EdgeInsets.all(8),
               child: CustomPaint(
-                painter: _IdentityGridPainter(
-                  tags: tags,
-                  palette: palette,
-                ),
+                painter: _IdentityGridPainter(tags: tags, palette: palette),
                 child: const SizedBox.expand(),
               ),
             ),
@@ -1400,10 +1380,7 @@ Widget _section9TagIdentityStress() {
               '50 PlaceholderSpanIndexSemanticsTag instances; each cell (i,j) '
               'is filled when tags[i] == tags[j]. Result is a clean diagonal '
               '— confirming equality is purely index-based.',
-              style: TextStyle(
-                color: palette.foreground,
-                fontSize: 13,
-              ),
+              style: TextStyle(color: palette.foreground, fontSize: 13),
             ),
             const SizedBox(height: 8),
             Wrap(
@@ -1415,18 +1392,17 @@ Widget _section9TagIdentityStress() {
                   color: palette.primary,
                 ),
                 _MiniBadge(
-                  label: 'distinct hashCodes ≈ '
+                  label:
+                      'distinct hashCodes ≈ '
                       '${tags.map((t) => t.hashCode).toSet().length}',
                   color: palette.accent,
                 ),
                 _MiniBadge(
-                  label:
-                      'tags[0] == tags[0] : ${tags[0] == tags[0]}',
+                  label: 'tags[0] == tags[0] : ${tags[0] == tags[0]}',
                   color: palette.primary,
                 ),
                 _MiniBadge(
-                  label:
-                      'tags[0] == tags[1] : ${tags[0] == tags[1]}',
+                  label: 'tags[0] == tags[1] : ${tags[0] == tags[1]}',
                   color: palette.accent,
                 ),
               ],
@@ -1603,10 +1579,7 @@ Widget _section11DecisionCard() {
                       'PlaceholderSpanIndexSemanticsTag manually. The framework '
                       'attaches the tag automatically when laying out '
                       'PlaceholderSpan / WidgetSpan inside a TextSpan tree.',
-                      style: TextStyle(
-                        color: palette.foreground,
-                        height: 1.4,
-                      ),
+                      style: TextStyle(color: palette.foreground, height: 1.4),
                     ),
                     const SizedBox(height: 6),
                     Text(
@@ -1652,8 +1625,10 @@ Widget _section11DecisionCard() {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Text('1. Wrap inline widgets in Semantics(...).',
-                        style: TextStyle(color: palette.foreground)),
+                    Text(
+                      '1. Wrap inline widgets in Semantics(...).',
+                      style: TextStyle(color: palette.foreground),
+                    ),
                     Text(
                       '2. Use MergeSemantics around a paragraph + inline '
                       'children when grouping is desired.',
@@ -1719,43 +1694,68 @@ Widget _section12ReferenceTable() {
                 DataColumn(label: Text('description')),
               ],
               rows: const <DataRow>[
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('PlaceholderSpanIndexSemanticsTag(int index)')),
-                  DataCell(Text('const ctor')),
-                  DataCell(Text(
-                      'Construct a tag identifying a placeholder by index.')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('index')),
-                  DataCell(Text('int')),
-                  DataCell(Text(
-                      'The placeholder position within its surrounding '
-                      'TextSpan tree.')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('operator ==')),
-                  DataCell(Text('bool')),
-                  DataCell(Text(
-                      'Two tags are equal iff their indices are equal.')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('hashCode')),
-                  DataCell(Text('int')),
-                  DataCell(Text('Hash derived from index.')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('toString()')),
-                  DataCell(Text('String')),
-                  DataCell(Text(
-                      'Class-name + index suitable for debug printing.')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('extends SemanticsTag')),
-                  DataCell(Text('-')),
-                  DataCell(Text(
-                      'Inherits the standard SemanticsTag behaviour and is '
-                      'attached by the framework to relevant SemanticsNodes.')),
-                ]),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(
+                      Text('PlaceholderSpanIndexSemanticsTag(int index)'),
+                    ),
+                    DataCell(Text('const ctor')),
+                    DataCell(
+                      Text(
+                        'Construct a tag identifying a placeholder by index.',
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('index')),
+                    DataCell(Text('int')),
+                    DataCell(
+                      Text(
+                        'The placeholder position within its surrounding '
+                        'TextSpan tree.',
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('operator ==')),
+                    DataCell(Text('bool')),
+                    DataCell(
+                      Text('Two tags are equal iff their indices are equal.'),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('hashCode')),
+                    DataCell(Text('int')),
+                    DataCell(Text('Hash derived from index.')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('toString()')),
+                    DataCell(Text('String')),
+                    DataCell(
+                      Text('Class-name + index suitable for debug printing.'),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('extends SemanticsTag')),
+                    DataCell(Text('-')),
+                    DataCell(
+                      Text(
+                        'Inherits the standard SemanticsTag behaviour and is '
+                        'attached by the framework to relevant SemanticsNodes.',
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1793,7 +1793,8 @@ Widget _section13Footer() {
               children: const <Widget>[
                 _RefRow(
                   symbol: 'SemanticsTag',
-                  description: 'Base class — typed marker attached to SemanticsNodes.',
+                  description:
+                      'Base class — typed marker attached to SemanticsNodes.',
                 ),
                 _RefRow(
                   symbol: 'PlaceholderSpan',
@@ -1968,19 +1969,13 @@ class _ValueCard extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: color),
           ),
           const SizedBox(height: 4),
           for (final l in lines)
             Text(
               l,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
             ),
         ],
       ),

@@ -14,10 +14,10 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   // ── colour palette ──────────────────────────────────────────
-  const siPrimary = Color(0xFF7CB342);   // pistachio green
-  const siAccent = Color(0xFFC0D860);    // lime
-  const siLight = Color(0xFFF1F8E9);     // pale lime
-  const siDark = Color(0xFF33691E);      // deep green
+  const siPrimary = Color(0xFF7CB342); // pistachio green
+  const siAccent = Color(0xFFC0D860); // lime
+  const siLight = Color(0xFFF1F8E9); // pale lime
+  const siDark = Color(0xFF33691E); // deep green
   const siSurface = Color(0xFFFAFDF5);
   const siOnSurface = Color(0xFF263238);
   const siMuted = Color(0xFF607D8B);
@@ -27,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'tapAndSlide',
       'title': 'Tap & Slide',
-      'desc': 'User can tap anywhere on the track to jump to that '
+      'desc':
+          'User can tap anywhere on the track to jump to that '
           'value, then slide to refine. This is the default and most '
           'permissive interaction mode.',
       'tap': 'Yes — jump to position',
@@ -39,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'tapOnly',
       'title': 'Tap Only',
-      'desc': 'User can only tap to set a value. Dragging/sliding '
+      'desc':
+          'User can only tap to set a value. Dragging/sliding '
           'has no effect. Best for discrete step selection where '
           'precision is unnecessary.',
       'tap': 'Yes — snap to position',
@@ -51,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'slideOnly',
       'title': 'Slide Only',
-      'desc': 'User can only slide to adjust the value. Tapping the '
+      'desc':
+          'User can only slide to adjust the value. Tapping the '
           'track does nothing. Prevents accidental value jumps.',
       'tap': 'No',
       'slide': 'Yes — from anywhere on track',
@@ -62,7 +65,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'slideThumb',
       'title': 'Slide Thumb',
-      'desc': 'The most restrictive mode: the user must start the '
+      'desc':
+          'The most restrictive mode: the user must start the '
           'gesture on the thumb itself, then drag. No tapping, no '
           'track-area sliding.',
       'tap': 'No',
@@ -97,22 +101,28 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [siPrimary, siDark],
+              gradient: LinearGradient(colors: [siPrimary, siDark]),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
             child:
-                child ?? Column(crossAxisAlignment: CrossAxisAlignment.start, children: children ?? []),
+                child ??
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children ?? [],
+                ),
           ),
         ],
       ),
@@ -122,19 +132,24 @@ dynamic build(BuildContext context) {
   Widget siLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: siOnSurface)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: siOnSurface,
+        ),
+      ),
     );
   }
 
   Widget siBody(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: siMuted, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: siMuted, height: 1.5),
+      ),
     );
   }
 
@@ -147,8 +162,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: siAccent.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -190,9 +207,13 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(label,
-                    style: const TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.w700)),
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -224,11 +245,14 @@ dynamic build(BuildContext context) {
           if (note != null)
             Padding(
               padding: const EdgeInsets.only(top: 4),
-              child: Text(note,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      color: siMuted)),
+              child: Text(
+                note,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  color: siMuted,
+                ),
+              ),
             ),
         ],
       ),
@@ -242,12 +266,15 @@ dynamic build(BuildContext context) {
     required bool trackSlide,
     required bool thumbSlide,
   }) {
-    final Color tapColor =
-        trackTap ? siPrimary.withValues(alpha: 0.25) : Colors.red.withValues(alpha: 0.08);
-    final Color slideColor =
-        trackSlide ? siPrimary.withValues(alpha: 0.35) : Colors.red.withValues(alpha: 0.08);
-    final Color thumbColor =
-        thumbSlide ? siDark : siMuted.withValues(alpha: 0.4);
+    final Color tapColor = trackTap
+        ? siPrimary.withValues(alpha: 0.25)
+        : Colors.red.withValues(alpha: 0.08);
+    final Color slideColor = trackSlide
+        ? siPrimary.withValues(alpha: 0.35)
+        : Colors.red.withValues(alpha: 0.08);
+    final Color thumbColor = thumbSlide
+        ? siDark
+        : siMuted.withValues(alpha: 0.4);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -260,9 +287,10 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(mode,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w700)),
+          Text(
+            mode,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           // Track diagram
           Stack(
@@ -294,7 +322,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: slideColor,
                     borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(4)),
+                      left: Radius.circular(4),
+                    ),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -329,9 +358,10 @@ dynamic build(BuildContext context) {
                   child: Text(
                     thumbSlide ? '◉' : '○',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700),
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
@@ -384,28 +414,33 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('SliderInteraction',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  'SliderInteraction',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'Defines which gestures the Slider responds to: '
                   'tapping, sliding, or only dragging the thumb.',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.87),
-                      fontSize: 14,
-                      height: 1.5),
+                    color: Colors.white.withValues(alpha: 0.87),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     siChip('enum', bg: Colors.white.withValues(alpha: 0.2)),
-                    siChip('SliderThemeData',
-                        bg: Colors.white.withValues(alpha: 0.2)),
-                    siChip('Gestures',
-                        bg: Colors.white.withValues(alpha: 0.2)),
+                    siChip(
+                      'SliderThemeData',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
+                    siChip('Gestures', bg: Colors.white.withValues(alpha: 0.2)),
                   ],
                 ),
               ],
@@ -415,21 +450,23 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
 
           // ── 2. Enum Overview ─────────────────────────────────
-          siSection('Enum Overview',
+          siSection(
+            'Enum Overview',
             children: [
               siBody(
                 'SliderInteraction is an enum that restricts which '
                 'touch/pointer gestures the Slider widget accepts. '
                 'It is set through '
                 'SliderThemeData.allowedInteraction and applies to '
-                'both Slider and RangeSlider.'),
+                'both Slider and RangeSlider.',
+              ),
               siBody(
                 'The four modes form a spectrum from most permissive '
-                '(tapAndSlide) to most restrictive (slideThumb).'),
+                '(tapAndSlide) to most restrictive (slideThumb).',
+              ),
               Wrap(
                 children: [
-                  for (final v in SliderInteraction.values)
-                    siChip(v.name),
+                  for (final v in SliderInteraction.values) siChip(v.name),
                 ],
               ),
             ],
@@ -437,7 +474,8 @@ dynamic build(BuildContext context) {
 
           // ── 3. Individual Mode Cards ─────────────────────────
           for (final m in siModes)
-            siSection('${m['icon']}  ${m['title']}',
+            siSection(
+              '${m['icon']}  ${m['title']}',
               children: [
                 siLabel('Mode'),
                 siChip(m['value']!),
@@ -449,19 +487,13 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          siLabel('Tap'),
-                          siBody(m['tap']!),
-                        ],
+                        children: [siLabel('Tap'), siBody(m['tap']!)],
                       ),
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          siLabel('Slide'),
-                          siBody(m['slide']!),
-                        ],
+                        children: [siLabel('Slide'), siBody(m['slide']!)],
                       ),
                     ),
                   ],
@@ -474,11 +506,13 @@ dynamic build(BuildContext context) {
             ),
 
           // ── 4. Live Slider Demos ─────────────────────────────
-          siSection('Live Slider Demos — Continuous',
+          siSection(
+            'Live Slider Demos — Continuous',
             children: [
               siBody(
                 'Each slider uses a different SliderInteraction mode. '
-                'Try interacting to feel the difference:'),
+                'Try interacting to feel the difference:',
+              ),
               siSliderCard(
                 label: 'tapAndSlide — default, most permissive',
                 mode: SliderInteraction.tapAndSlide,
@@ -507,12 +541,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 5. Live Slider Demos — Discrete ──────────────────
-          siSection('Live Slider Demos — Discrete (5 steps)',
+          siSection(
+            'Live Slider Demos — Discrete (5 steps)',
             children: [
               siBody(
                 'Same modes on a discrete slider with 5 divisions. '
                 'tapOnly is particularly natural here — each tap '
-                'snaps to the nearest step:'),
+                'snaps to the nearest step:',
+              ),
               siSliderCard(
                 label: 'tapAndSlide — 5 divisions',
                 mode: SliderInteraction.tapAndSlide,
@@ -542,12 +578,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 6. Interaction Zone Diagrams ─────────────────────
-          siSection('Interaction Zone Visualiser',
+          siSection(
+            'Interaction Zone Visualiser',
             children: [
               siBody(
                 'Each diagram shows the track and thumb with '
                 'colour-coded zones indicating which areas respond '
-                'to gestures. Green = active, red = inactive.'),
+                'to gestures. Green = active, red = inactive.',
+              ),
               siZoneDiagram(
                 mode: 'tapAndSlide',
                 trackTap: true,
@@ -576,10 +614,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 7. Gesture Comparison Table ──────────────────────
-          siSection('Gesture Comparison Table',
+          siSection(
+            'Gesture Comparison Table',
             child: Table(
               border: TableBorder.all(
-                  color: siAccent.withValues(alpha: 0.3), width: 1),
+                color: siAccent.withValues(alpha: 0.3),
+                width: 1,
+              ),
               columnWidths: const {
                 0: FlexColumnWidth(2),
                 1: FlexColumnWidth(1),
@@ -588,15 +629,25 @@ dynamic build(BuildContext context) {
               },
               children: [
                 TableRow(
-                  decoration:
-                      BoxDecoration(color: siPrimary.withValues(alpha: 0.12)),
+                  decoration: BoxDecoration(
+                    color: siPrimary.withValues(alpha: 0.12),
+                  ),
                   children: [
-                    for (final h in ['Mode', 'Track Tap', 'Track Slide', 'Thumb Drag'])
+                    for (final h in [
+                      'Mode',
+                      'Track Tap',
+                      'Track Slide',
+                      'Thumb Drag',
+                    ])
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(h,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 11)),
+                        child: Text(
+                          h,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -610,22 +661,28 @@ dynamic build(BuildContext context) {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(row[0],
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: siDark)),
+                        child: Text(
+                          row[0],
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: siDark,
+                          ),
+                        ),
                       ),
                       for (int i = 1; i < 4; i++)
                         Padding(
                           padding: EdgeInsets.all(8),
-                          child: Text(row[i],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: row[i] == '✓'
-                                      ? Colors.green.shade700
-                                      : Colors.red.shade600)),
+                          child: Text(
+                            row[i],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: row[i] == '✓'
+                                  ? Colors.green.shade700
+                                  : Colors.red.shade600,
+                            ),
+                          ),
                         ),
                     ],
                   ),
@@ -634,13 +691,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 8. UX Scenarios ──────────────────────────────────
-          siSection('UX Scenarios',
+          siSection(
+            'UX Scenarios',
             children: [
               for (final scenario in [
                 {
                   'title': 'Media Player Scrubber',
                   'mode': 'slideOnly',
-                  'why': 'Prevents accidental jumps when the user '
+                  'why':
+                      'Prevents accidental jumps when the user '
                       'taps near the progress bar. Only deliberate '
                       'sliding moves the playhead.',
                   'icon': Icons.play_circle_outline,
@@ -648,7 +707,8 @@ dynamic build(BuildContext context) {
                 {
                   'title': 'Star Rating Selector',
                   'mode': 'tapOnly',
-                  'why': 'Users tap to select 1–5 stars. Sliding is '
+                  'why':
+                      'Users tap to select 1–5 stars. Sliding is '
                       'unnatural for ratings — tap-to-snap is the '
                       'expected behaviour.',
                   'icon': Icons.star_outline,
@@ -656,7 +716,8 @@ dynamic build(BuildContext context) {
                 {
                   'title': 'Colour Mixer Knob',
                   'mode': 'slideThumb',
-                  'why': 'A sensitive colour-mixing knob that should '
+                  'why':
+                      'A sensitive colour-mixing knob that should '
                       'only move when the user grabs it deliberately. '
                       'Prevents accidental resets.',
                   'icon': Icons.palette_outlined,
@@ -664,7 +725,8 @@ dynamic build(BuildContext context) {
                 {
                   'title': 'Form Range Input',
                   'mode': 'tapAndSlide',
-                  'why': 'General-purpose range input in a form. '
+                  'why':
+                      'General-purpose range input in a form. '
                       'Maximum flexibility — user can tap to jump '
                       'or slide to refine.',
                   'icon': Icons.tune,
@@ -682,25 +744,34 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(scenario['icon'] as IconData,
-                          color: siDark, size: 28),
+                      Icon(
+                        scenario['icon'] as IconData,
+                        color: siDark,
+                        size: 28,
+                      ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(scenario['title'] as String,
-                                style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700)),
+                            Text(
+                              scenario['title'] as String,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             const SizedBox(height: 2),
                             siChip('${scenario['mode']}'),
                             const SizedBox(height: 6),
-                            Text(scenario['why'] as String,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: siMuted,
-                                    height: 1.4)),
+                            Text(
+                              scenario['why'] as String,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: siMuted,
+                                height: 1.4,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -712,12 +783,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 9. SliderThemeData Integration ───────────────────
-          siSection('SliderThemeData Integration',
+          siSection(
+            'SliderThemeData Integration',
             children: [
               siBody(
                 'SliderInteraction is set via the allowedInteraction '
                 'property of SliderThemeData. It complements other '
-                'theme properties:'),
+                'theme properties:',
+              ),
               for (final prop in [
                 ['allowedInteraction', 'Which gestures the slider accepts'],
                 ['showValueIndicator', 'When to show the value bubble'],
@@ -742,15 +815,20 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(
                         width: 170,
-                        child: Text(prop[0],
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          prop[0],
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(prop[1],
-                            style: TextStyle(fontSize: 12, color: siMuted)),
+                        child: Text(
+                          prop[1],
+                          style: TextStyle(fontSize: 12, color: siMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -759,17 +837,20 @@ dynamic build(BuildContext context) {
               siBody(
                 'Tip: Combine slideThumb with a larger thumbShape for '
                 'easier grab targets. The default 10dp radius can be '
-                'hard to target on small screens.'),
+                'hard to target on small screens.',
+              ),
             ],
           ),
 
           // ── 10. Accessibility Impact ─────────────────────────
-          siSection('Accessibility Impact',
+          siSection(
+            'Accessibility Impact',
             children: [
               siBody(
                 'SliderInteraction primarily affects pointer/touch '
                 'gestures. It does NOT affect keyboard or screen-reader '
-                'interaction:'),
+                'interaction:',
+              ),
               for (final item in [
                 'Arrow keys always work regardless of interaction mode.',
                 'TalkBack/VoiceOver users adjust via actions, not gestures.',
@@ -785,13 +866,18 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('→ ',
-                          style: TextStyle(
-                              color: siPrimary,
-                              fontWeight: FontWeight.w700)),
+                      const Text(
+                        '→ ',
+                        style: TextStyle(
+                          color: siPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(item,
-                            style: TextStyle(fontSize: 12, color: siMuted)),
+                        child: Text(
+                          item,
+                          style: TextStyle(fontSize: 12, color: siMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -800,16 +886,22 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 11. Touch Target Analysis ────────────────────────
-          siSection('Touch Target Size Analysis',
+          siSection(
+            'Touch Target Size Analysis',
             children: [
               siBody(
                 'The effective touch target for slideThumb depends on '
                 'the thumb radius. Visualisation of target areas at '
-                'different sizes:'),
+                'different sizes:',
+              ),
               for (final size in [
                 {'radius': 10.0, 'label': 'Default (10dp)', 'grade': 'Small'},
                 {'radius': 16.0, 'label': 'Medium (16dp)', 'grade': 'OK'},
-                {'radius': 22.0, 'label': 'Large (22dp)', 'grade': 'Recommended'},
+                {
+                  'radius': 22.0,
+                  'label': 'Large (22dp)',
+                  'grade': 'Recommended',
+                },
               ])
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
@@ -834,15 +926,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(size['label'] as String,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600)),
+                            Text(
+                              size['label'] as String,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                             Text(
                               'Grade: ${size['grade']}  •  '
                               'Diameter: ${((size['radius'] as double) * 2).toStringAsFixed(0)}dp',
-                              style: TextStyle(
-                                  fontSize: 11, color: siMuted),
+                              style: TextStyle(fontSize: 11, color: siMuted),
                             ),
                           ],
                         ),
@@ -853,12 +947,14 @@ dynamic build(BuildContext context) {
               siBody(
                 'For slideThumb, Material guidelines recommend at '
                 'least 48dp touch target. The overlay extends the '
-                'effective area beyond the visible thumb.'),
+                'effective area beyond the visible thumb.',
+              ),
             ],
           ),
 
           // ── 12. Common Pitfalls ──────────────────────────────
-          siSection('Common Pitfalls',
+          siSection(
+            'Common Pitfalls',
             children: [
               for (final pit in [
                 {
@@ -897,28 +993,35 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8F5E9),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: siPrimary.withValues(alpha: 0.3)),
+                    border: Border.all(color: siPrimary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded,
-                              color: siDark, size: 16),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: siDark,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
-                            child: Text(pit['title']!,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700)),
+                            child: Text(
+                              pit['title']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(pit['detail']!,
-                          style: TextStyle(fontSize: 11, color: siMuted)),
+                      Text(
+                        pit['detail']!,
+                        style: TextStyle(fontSize: 11, color: siMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -926,10 +1029,10 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 13. Decision Guide ───────────────────────────────
-          siSection('Decision Guide',
+          siSection(
+            'Decision Guide',
             children: [
-              siBody(
-                'Use this flow to pick the right mode:'),
+              siBody('Use this flow to pick the right mode:'),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
@@ -951,11 +1054,14 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(step,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.w500)),
+                        child: Text(
+                          step,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -964,7 +1070,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 14. Mobile vs Desktop ────────────────────────────
-          siSection('Mobile vs Desktop Considerations',
+          siSection(
+            'Mobile vs Desktop Considerations',
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -981,13 +1088,19 @@ dynamic build(BuildContext context) {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.phone_android,
-                                  color: siDark, size: 18),
+                              Icon(
+                                Icons.phone_android,
+                                color: siDark,
+                                size: 18,
+                              ),
                               const SizedBox(width: 6),
-                              const Text('Mobile',
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700)),
+                              const Text(
+                                'Mobile',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -999,9 +1112,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 4),
-                              child: Text('• $tip',
-                                  style: TextStyle(
-                                      fontSize: 11, color: siMuted)),
+                              child: Text(
+                                '• $tip',
+                                style: TextStyle(fontSize: 11, color: siMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -1020,13 +1134,19 @@ dynamic build(BuildContext context) {
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.desktop_windows_outlined,
-                                  color: siDark, size: 18),
+                              Icon(
+                                Icons.desktop_windows_outlined,
+                                color: siDark,
+                                size: 18,
+                              ),
                               const SizedBox(width: 6),
-                              const Text('Desktop',
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700)),
+                              const Text(
+                                'Desktop',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8),
@@ -1038,9 +1158,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 4),
-                              child: Text('• $tip',
-                                  style: TextStyle(
-                                      fontSize: 11, color: siMuted)),
+                              child: Text(
+                                '• $tip',
+                                style: TextStyle(fontSize: 11, color: siMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -1052,7 +1173,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 15. Related APIs ─────────────────────────────────
-          siSection('Related APIs',
+          siSection(
+            'Related APIs',
             children: [
               for (final api in [
                 {
@@ -1087,15 +1209,20 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 190,
-                        child: Text(api['name']!,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: siDark)),
+                        child: Text(
+                          api['name']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: siDark,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(api['rel']!,
-                            style: TextStyle(fontSize: 12, color: siMuted)),
+                        child: Text(
+                          api['rel']!,
+                          style: TextStyle(fontSize: 12, color: siMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -1104,7 +1231,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 16. Summary Dashboard ────────────────────────────
-          siSection('Summary Dashboard',
+          siSection(
+            'Summary Dashboard',
             child: Column(
               children: [
                 Row(
@@ -1119,13 +1247,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Text(
-                                '${SliderInteraction.values.length}',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: siDark)),
-                            const Text('Enum Values',
-                                style: TextStyle(fontSize: 11)),
+                              '${SliderInteraction.values.length}',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: siDark,
+                              ),
+                            ),
+                            const Text(
+                              'Enum Values',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1140,13 +1272,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('8',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: siDark)),
-                            const Text('Live Sliders',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '8',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: siDark,
+                              ),
+                            ),
+                            const Text(
+                              'Live Sliders',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1161,13 +1298,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('4',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: siDark)),
-                            const Text('Zone Diagrams',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '4',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: siDark,
+                              ),
+                            ),
+                            const Text(
+                              'Zone Diagrams',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1187,8 +1329,7 @@ dynamic build(BuildContext context) {
                     'how users operate Slider widgets. Choose the '
                     'right mode to match your UX expectations and '
                     'prevent accidental input.',
-                    style: TextStyle(
-                        fontSize: 12, color: siMuted, height: 1.5),
+                    style: TextStyle(fontSize: 12, color: siMuted, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1205,19 +1346,23 @@ dynamic build(BuildContext context) {
             color: siDark,
             child: Column(
               children: [
-                const Text('SliderInteraction Deep Demo',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'SliderInteraction Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Pistachio/Lime theme  •  Batch 61  •  '
                   '${SliderInteraction.values.length} enum values  •  '
                   '8 live sliders',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 11),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

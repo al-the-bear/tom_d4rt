@@ -157,14 +157,23 @@ Widget buildSectionFrame({
   required Widget body,
 }) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: kSectionGap / 2),
+    margin: const EdgeInsets.symmetric(
+      horizontal: 16.0,
+      vertical: kSectionGap / 2,
+    ),
     padding: const EdgeInsets.all(kCardPadding),
     decoration: BoxDecoration(
       color: kCoalDeep,
       borderRadius: const BorderRadius.all(Radius.circular(kCardRadius)),
-      border: const Border.fromBorderSide(BorderSide(color: kCoalEdge, width: 1.0)),
+      border: const Border.fromBorderSide(
+        BorderSide(color: kCoalEdge, width: 1.0),
+      ),
       boxShadow: const <BoxShadow>[
-        BoxShadow(color: Color(0x66000000), blurRadius: 18.0, offset: Offset(0.0, 8.0)),
+        BoxShadow(
+          color: Color(0x66000000),
+          blurRadius: 18.0,
+          offset: Offset(0.0, 8.0),
+        ),
       ],
     ),
     child: Column(
@@ -187,7 +196,9 @@ Widget buildBadge(String text, Color background, Color foreground) {
     decoration: BoxDecoration(
       color: background,
       borderRadius: const BorderRadius.all(Radius.circular(kBadgeRadius)),
-      border: Border.fromBorderSide(BorderSide(color: foreground.withValues(alpha: 0.5), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: foreground.withValues(alpha: 0.5), width: 1.0),
+      ),
     ),
     child: Text(
       text,
@@ -250,7 +261,9 @@ Widget buildCodeBlock(List<Widget> lines) {
     decoration: BoxDecoration(
       color: kCoalBlack,
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      border: Border.fromBorderSide(BorderSide(color: kEmeraldDeep.withValues(alpha: 0.6), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: kEmeraldDeep.withValues(alpha: 0.6), width: 1.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,9 +325,15 @@ Widget buildHero() {
       ),
       borderRadius: const BorderRadius.all(Radius.circular(kHeaderRadius)),
       boxShadow: const <BoxShadow>[
-        BoxShadow(color: Color(0x99000000), blurRadius: 22.0, offset: Offset(0.0, 10.0)),
+        BoxShadow(
+          color: Color(0x99000000),
+          blurRadius: 22.0,
+          offset: Offset(0.0, 10.0),
+        ),
       ],
-      border: Border.fromBorderSide(BorderSide(color: kEmeraldDeep.withValues(alpha: 0.7), width: 1.2)),
+      border: Border.fromBorderSide(
+        BorderSide(color: kEmeraldDeep.withValues(alpha: 0.7), width: 1.2),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -330,10 +349,18 @@ Widget buildHero() {
             ),
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
-              BoxShadow(color: kEmeraldHi.withValues(alpha: 0.25), blurRadius: 18.0, spreadRadius: 1.0),
+              BoxShadow(
+                color: kEmeraldHi.withValues(alpha: 0.25),
+                blurRadius: 18.0,
+                spreadRadius: 1.0,
+              ),
             ],
           ),
-          child: const Icon(Icons.recycling_rounded, color: kBoneWhite, size: 42.0),
+          child: const Icon(
+            Icons.recycling_rounded,
+            color: kBoneWhite,
+            size: 42.0,
+          ),
         ),
         const SizedBox(width: 22.0),
         Expanded(
@@ -387,12 +414,19 @@ Widget buildFlowStep({
     decoration: BoxDecoration(
       color: highlight ? kCoalSoft : kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-      border: Border.fromBorderSide(BorderSide(
-        color: highlight ? accent : kCoalEdge,
-        width: highlight ? 1.6 : 1.0,
-      )),
+      border: Border.fromBorderSide(
+        BorderSide(
+          color: highlight ? accent : kCoalEdge,
+          width: highlight ? 1.6 : 1.0,
+        ),
+      ),
       boxShadow: highlight
-          ? <BoxShadow>[BoxShadow(color: accent.withValues(alpha: 0.25), blurRadius: 18.0)]
+          ? <BoxShadow>[
+              BoxShadow(
+                color: accent.withValues(alpha: 0.25),
+                blurRadius: 18.0,
+              ),
+            ]
           : const <BoxShadow>[],
     ),
     child: Column(
@@ -408,11 +442,7 @@ Widget buildFlowStep({
           child: Icon(icon, color: accent, size: 22.0),
         ),
         const SizedBox(height: 10.0),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: kBodyStrong,
-        ),
+        Text(title, textAlign: TextAlign.center, style: kBodyStrong),
         const SizedBox(height: 4.0),
         Text(
           subtitle,
@@ -496,12 +526,18 @@ Widget buildConceptualFlow() {
           decoration: BoxDecoration(
             color: kEmeraldDeep.withValues(alpha: 0.18),
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: Border.fromBorderSide(BorderSide(color: kEmeraldDeep, width: 1.0)),
+            border: Border.fromBorderSide(
+              BorderSide(color: kEmeraldDeep, width: 1.0),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.info_outline_rounded, color: kEmeraldHi, size: 18.0),
+              const Icon(
+                Icons.info_outline_rounded,
+                color: kEmeraldHi,
+                size: 18.0,
+              ),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(
@@ -540,7 +576,9 @@ Widget buildAnatomyRow({
     decoration: BoxDecoration(
       color: kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      border: Border.fromBorderSide(BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -599,7 +637,8 @@ Widget buildAnatomy() {
         buildAnatomyRow(
           name: 'library',
           type: 'String',
-          prose: 'The library where the object lives, in the form '
+          prose:
+              'The library where the object lives, in the form '
               '"package:flutter/foundation.dart". Used by DevTools to group '
               'allocations by package.',
           accent: kBlueIce,
@@ -607,7 +646,8 @@ Widget buildAnatomy() {
         buildAnatomyRow(
           name: 'className',
           type: 'String',
-          prose: 'The runtime class name as a stable identifier. Pre-baked '
+          prose:
+              'The runtime class name as a stable identifier. Pre-baked '
               'so listeners do not need to call runtimeType.toString() on the '
               'hot path.',
           accent: kAmberHi,
@@ -615,7 +655,8 @@ Widget buildAnatomy() {
         buildAnatomyRow(
           name: 'object',
           type: 'Object',
-          prose: 'The disposed object itself. Listeners may keep a weak '
+          prose:
+              'The disposed object itself. Listeners may keep a weak '
               'reference for diagnostics, but should never retain a strong '
               'one — that would defeat the very leak tracking the event '
               'enables.',
@@ -657,10 +698,12 @@ Widget buildTimelinePhase({
                 decoration: BoxDecoration(
                   color: highlight ? accent : kCoalSoft,
                   borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                  border: Border.fromBorderSide(BorderSide(
-                    color: highlight ? accent : kCoalEdge,
-                    width: 2.0,
-                  )),
+                  border: Border.fromBorderSide(
+                    BorderSide(
+                      color: highlight ? accent : kCoalEdge,
+                      width: 2.0,
+                    ),
+                  ),
                 ),
                 child: Icon(
                   icon,
@@ -669,26 +712,24 @@ Widget buildTimelinePhase({
                 ),
               ),
               if (!isLast)
-                Expanded(
-                  child: Container(
-                    width: 2.0,
-                    color: kCoalEdge,
-                  ),
-                ),
+                Expanded(child: Container(width: 2.0, color: kCoalEdge)),
             ],
           ),
         ),
         Expanded(
           child: Container(
-            margin: EdgeInsets.only(left: 4.0, right: 0.0, bottom: isLast ? 0.0 : 12.0),
+            margin: EdgeInsets.only(
+              left: 4.0,
+              right: 0.0,
+              bottom: isLast ? 0.0 : 12.0,
+            ),
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               color: highlight ? accent.withValues(alpha: 0.12) : kCoalMid,
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              border: Border.fromBorderSide(BorderSide(
-                color: highlight ? accent : kCoalEdge,
-                width: 1.0,
-              )),
+              border: Border.fromBorderSide(
+                BorderSide(color: highlight ? accent : kCoalEdge, width: 1.0),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -745,7 +786,8 @@ Widget buildLifecycleTimeline() {
         buildTimelinePhase(
           phase: 'PHASE 01',
           name: 'not-created',
-          description: 'The class exists but no instance has been allocated. '
+          description:
+              'The class exists but no instance has been allocated. '
               'No memory is associated with the object yet.',
           emitsEvent: false,
           icon: Icons.crop_free_rounded,
@@ -754,7 +796,8 @@ Widget buildLifecycleTimeline() {
         buildTimelinePhase(
           phase: 'PHASE 02',
           name: 'Created (event)',
-          description: 'A constructor returned. FlutterMemoryAllocations '
+          description:
+              'A constructor returned. FlutterMemoryAllocations '
               'fans out an ObjectCreated event with library, className, and '
               'the new object reference.',
           emitsEvent: true,
@@ -764,7 +807,8 @@ Widget buildLifecycleTimeline() {
         buildTimelinePhase(
           phase: 'PHASE 03',
           name: 'live',
-          description: 'The object participates in the running app. Observers '
+          description:
+              'The object participates in the running app. Observers '
               'do not receive periodic events — only listeners from outside '
               'the registry observe state, e.g. via direct API calls.',
           emitsEvent: false,
@@ -774,7 +818,8 @@ Widget buildLifecycleTimeline() {
         buildTimelinePhase(
           phase: 'PHASE 04',
           name: 'Disposed (event)',
-          description: 'dispose() was invoked or the framework released the '
+          description:
+              'dispose() was invoked or the framework released the '
               'object. ObjectDisposed is dispatched. This is the moment '
               'leak detectors check whether the corresponding ObjectCreated '
               'was already paired with a previous Disposed.',
@@ -786,7 +831,8 @@ Widget buildLifecycleTimeline() {
         buildTimelinePhase(
           phase: 'PHASE 05',
           name: 'garbage-collected',
-          description: 'Some time later, the Dart VM reclaims the memory. '
+          description:
+              'Some time later, the Dart VM reclaims the memory. '
               'No event is produced here — disposal and collection are '
               'deliberately decoupled.',
           emitsEvent: false,
@@ -819,7 +865,9 @@ Widget buildTrackedChip({
     decoration: BoxDecoration(
       color: kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      border: Border.fromBorderSide(BorderSide(color: accent.withValues(alpha: 0.6), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: accent.withValues(alpha: 0.6), width: 1.0),
+      ),
     ),
     child: Row(
       children: <Widget>[
@@ -842,7 +890,11 @@ Widget buildTrackedChip({
               const SizedBox(height: 2.0),
               Text(
                 hint,
-                style: const TextStyle(color: kAshGrey, fontSize: 10.5, height: 1.3),
+                style: const TextStyle(
+                  color: kAshGrey,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -998,10 +1050,16 @@ Widget buildApiSurface() {
             TextSpan(text: ') {'),
           ]),
           buildCodeLine(<TextSpan>[
-            TextSpan(text: '      // event.library, event.className,', style: kCodeComment),
+            TextSpan(
+              text: '      // event.library, event.className,',
+              style: kCodeComment,
+            ),
           ]),
           buildCodeLine(<TextSpan>[
-            TextSpan(text: '      // event.object are now available.', style: kCodeComment),
+            TextSpan(
+              text: '      // event.object are now available.',
+              style: kCodeComment,
+            ),
           ]),
           buildCodeLine(<TextSpan>[TextSpan(text: '    }')]),
           buildCodeLine(<TextSpan>[TextSpan(text: '  },')]),
@@ -1031,7 +1089,9 @@ Widget buildDevToolsBlock({
     decoration: BoxDecoration(
       color: kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      border: Border.fromBorderSide(BorderSide(color: accent.withValues(alpha: 0.6), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: accent.withValues(alpha: 0.6), width: 1.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1075,7 +1135,8 @@ Widget buildDevToolsIntegration() {
               buildDevToolsBlock(
                 icon: Icons.memory_rounded,
                 title: 'Flutter app',
-                body: 'Dispatches ObjectCreated and ObjectDisposed via the '
+                body:
+                    'Dispatches ObjectCreated and ObjectDisposed via the '
                     'FlutterMemoryAllocations bus during normal execution.',
                 accent: kBlueIce,
               ),
@@ -1083,7 +1144,8 @@ Widget buildDevToolsIntegration() {
               buildDevToolsBlock(
                 icon: Icons.cable_rounded,
                 title: 'VM service',
-                body: 'Delivers events as service-protocol notifications to '
+                body:
+                    'Delivers events as service-protocol notifications to '
                     'connected DevTools sessions.',
                 accent: kAmberHi,
               ),
@@ -1091,7 +1153,8 @@ Widget buildDevToolsIntegration() {
               buildDevToolsBlock(
                 icon: Icons.analytics_rounded,
                 title: 'DevTools Memory',
-                body: 'Tallies allocations per class. Uses ObjectDisposed to '
+                body:
+                    'Tallies allocations per class. Uses ObjectDisposed to '
                     'decrement the live count for each class.',
                 accent: kEmeraldHi,
               ),
@@ -1099,7 +1162,8 @@ Widget buildDevToolsIntegration() {
               buildDevToolsBlock(
                 icon: Icons.bug_report_rounded,
                 title: 'Leak summary',
-                body: 'Surfaces classes whose ObjectCreated count outweighs '
+                body:
+                    'Surfaces classes whose ObjectCreated count outweighs '
                     'their ObjectDisposed count after a forced GC.',
                 accent: kRoseAccent,
               ),
@@ -1112,12 +1176,18 @@ Widget buildDevToolsIntegration() {
           decoration: BoxDecoration(
             color: kCoalMid,
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: const Border.fromBorderSide(BorderSide(color: kCoalSoft, width: 1.0)),
+            border: const Border.fromBorderSide(
+              BorderSide(color: kCoalSoft, width: 1.0),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.lightbulb_outline_rounded, color: kAmberHi, size: 18.0),
+              const Icon(
+                Icons.lightbulb_outline_rounded,
+                color: kAmberHi,
+                size: 18.0,
+              ),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(
@@ -1183,20 +1253,14 @@ Widget buildCustomSubscriber() {
             TextSpan(text: 'ObjectDisposed', style: kCodeIdent),
             TextSpan(text: ') {'),
           ]),
-          buildCodeLine(<TextSpan>[
-            TextSpan(text: '    disposed.update('),
-          ]),
-          buildCodeLine(<TextSpan>[
-            TextSpan(text: '      event.className,'),
-          ]),
+          buildCodeLine(<TextSpan>[TextSpan(text: '    disposed.update(')]),
+          buildCodeLine(<TextSpan>[TextSpan(text: '      event.className,')]),
           buildCodeLine(<TextSpan>[
             TextSpan(text: '      ('),
             TextSpan(text: 'int', style: kCodeIdent),
             TextSpan(text: ' n) => n + 1,'),
           ]),
-          buildCodeLine(<TextSpan>[
-            TextSpan(text: '      ifAbsent: () => 1,'),
-          ]),
+          buildCodeLine(<TextSpan>[TextSpan(text: '      ifAbsent: () => 1,')]),
           buildCodeLine(<TextSpan>[TextSpan(text: '    );')]),
           buildCodeLine(<TextSpan>[TextSpan(text: '  }')]),
           buildCodeLine(<TextSpan>[TextSpan(text: '}')]),
@@ -1212,7 +1276,9 @@ Widget buildCustomSubscriber() {
           decoration: BoxDecoration(
             color: kEmeraldDeep.withValues(alpha: 0.18),
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: Border.fromBorderSide(BorderSide(color: kEmeraldDeep, width: 1.0)),
+            border: Border.fromBorderSide(
+              BorderSide(color: kEmeraldDeep, width: 1.0),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1255,7 +1321,9 @@ Widget buildUseCaseCard({
     decoration: BoxDecoration(
       color: kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-      border: Border.fromBorderSide(BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1306,7 +1374,8 @@ Widget buildUseCases() {
               icon: Icons.bug_report_rounded,
               accent: kEmeraldHi,
               title: 'Leak detector',
-              body: 'After a forced GC, any object whose ObjectDisposed has '
+              body:
+                  'After a forced GC, any object whose ObjectDisposed has '
                   'never fired but whose owner is unreachable is flagged as '
                   'a candidate leak.',
             ),
@@ -1314,7 +1383,8 @@ Widget buildUseCases() {
               icon: Icons.report_gmailerrorred_rounded,
               accent: kAmberHi,
               title: 'Dispose-without-create',
-              body: 'Defensive assertion: catch tests where dispose() runs '
+              body:
+                  'Defensive assertion: catch tests where dispose() runs '
                   'twice or where dispose() is called for an object the '
                   'registry never observed creating.',
             ),
@@ -1322,7 +1392,8 @@ Widget buildUseCases() {
               icon: Icons.battery_alert_rounded,
               accent: kRoseAccent,
               title: 'Memory pressure response',
-              body: 'Aggregating disposal rates over time is a cheap signal '
+              body:
+                  'Aggregating disposal rates over time is a cheap signal '
                   'for memory pressure; spikes can drive cache eviction or '
                   'preload pause behaviour.',
             ),
@@ -1330,7 +1401,8 @@ Widget buildUseCases() {
               icon: Icons.timeline_rounded,
               accent: kBlueIce,
               title: 'Allocation tracing',
-              body: 'Pairing ObjectCreated with the matching ObjectDisposed '
+              body:
+                  'Pairing ObjectCreated with the matching ObjectDisposed '
                   'gives per-instance lifetimes, which can be visualised as '
                   'a flame chart in DevTools.',
             ),
@@ -1359,7 +1431,9 @@ Widget buildCaveatCard({
     decoration: BoxDecoration(
       color: kCoalMid,
       borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-      border: Border.fromBorderSide(BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: accent.withValues(alpha: 0.5), width: 1.0),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1408,8 +1482,10 @@ Widget buildCaveats() {
         buildCaveatCard(
           icon: Icons.power_settings_new_rounded,
           accent: kAmberHi,
-          title: 'Events fire only when kFlutterMemoryAllocationsEnabled is true',
-          body: 'In release mode the constant is false by default; the '
+          title:
+              'Events fire only when kFlutterMemoryAllocationsEnabled is true',
+          body:
+              'In release mode the constant is false by default; the '
               'dispatch sites short-circuit and no listeners are notified. '
               'At the moment of compilation this build observed '
               'kFlutterMemoryAllocationsEnabled = '
@@ -1420,7 +1496,8 @@ Widget buildCaveats() {
           icon: Icons.handyman_rounded,
           accent: kBlueIce,
           title: 'Debug-mode bias',
-          body: 'Even when enabled, profile builds may discard events for '
+          body:
+              'Even when enabled, profile builds may discard events for '
               'performance. Treat the bus as a debugging-only signal unless '
               'the surrounding tooling explicitly opts in.',
         ),
@@ -1429,7 +1506,8 @@ Widget buildCaveats() {
           icon: Icons.merge_type_rounded,
           accent: kEmeraldHi,
           title: 'Listener thread-safety',
-          body: 'All events fire on the platform thread. Listeners must not '
+          body:
+              'All events fire on the platform thread. Listeners must not '
               'block; offload heavy work to an Isolate or a microtask. '
               'Throwing from a listener is reported but does not abort the '
               'fan-out.',
@@ -1439,7 +1517,8 @@ Widget buildCaveats() {
           icon: Icons.shuffle_rounded,
           accent: kRoseAccent,
           title: 'Ordering with ObjectCreated',
-          body: 'ObjectCreated always arrives before ObjectDisposed for the '
+          body:
+              'ObjectCreated always arrives before ObjectDisposed for the '
               'same object, but unrelated events from other objects can '
               'interleave freely. Build state machines per-object, not '
               'globally.',
@@ -1449,7 +1528,8 @@ Widget buildCaveats() {
           icon: Icons.delete_sweep_rounded,
           accent: kFogWhite,
           title: 'GC vs dispose distinction',
-          body: 'ObjectDisposed marks the contractual end of an object — '
+          body:
+              'ObjectDisposed marks the contractual end of an object — '
               'when its owner declared it done. The Dart VM may keep the '
               'underlying memory live until the next garbage collection, '
               'so the event is NOT a memory-reclamation signal.',
@@ -1476,7 +1556,9 @@ Widget buildFooter() {
         colors: <Color>[kCoalDeep, kCoalBlack],
       ),
       borderRadius: const BorderRadius.all(Radius.circular(kHeaderRadius)),
-      border: Border.fromBorderSide(BorderSide(color: kEmeraldDeep.withValues(alpha: 0.6), width: 1.0)),
+      border: Border.fromBorderSide(
+        BorderSide(color: kEmeraldDeep.withValues(alpha: 0.6), width: 1.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1501,25 +1583,25 @@ Widget buildFooter() {
           Icons.check_circle_outline_rounded,
           kEmeraldHi,
           'ObjectDisposed is a lifecycle event — not a memory-reclamation '
-              'event. Pair it with ObjectCreated for full lifetimes.',
+          'event. Pair it with ObjectCreated for full lifetimes.',
         ),
         buildBulletRow(
           Icons.check_circle_outline_rounded,
           kEmeraldHi,
           'It is dispatched through FlutterMemoryAllocations.instance — a '
-              'singleton bus shared by the whole engine.',
+          'singleton bus shared by the whole engine.',
         ),
         buildBulletRow(
           Icons.check_circle_outline_rounded,
           kEmeraldHi,
           'Listeners must be lightweight, weak-reference friendly, and '
-              'aware of debug-only behaviour.',
+          'aware of debug-only behaviour.',
         ),
         buildBulletRow(
           Icons.check_circle_outline_rounded,
           kEmeraldHi,
           'DevTools and custom dashboards consume the same event stream — '
-              'so does your future leak detector.',
+          'so does your future leak detector.',
         ),
       ],
     ),

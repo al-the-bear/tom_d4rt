@@ -99,7 +99,12 @@ const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
 // ---------------------------------------------------------------------------
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -140,7 +145,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -161,7 +169,12 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -349,12 +362,21 @@ class _ParagraphAnnotationPainter extends CustomPainter {
       ..strokeWidth = 1.0
       ..style = PaintingStyle.stroke;
     // Outer paragraph rect.
-    final Rect outer = Rect.fromLTWH(20.0, 14.0, size.width - 40.0, size.height - 28.0);
+    final Rect outer = Rect.fromLTWH(
+      20.0,
+      14.0,
+      size.width - 40.0,
+      size.height - 28.0,
+    );
     canvas.drawRect(outer, dashedBound);
     // Three baselines.
     for (int i = 0; i < 3; i++) {
       final double y = outer.top + 22.0 + i * 30.0;
-      canvas.drawLine(Offset(outer.left + 6.0, y), Offset(outer.right - 6.0, y), baseline);
+      canvas.drawLine(
+        Offset(outer.left + 6.0, y),
+        Offset(outer.right - 6.0, y),
+        baseline,
+      );
       // Faint x-height guide above baseline.
       canvas.drawLine(
         Offset(outer.left + 6.0, y - 10.0),
@@ -366,12 +388,22 @@ class _ParagraphAnnotationPainter extends CustomPainter {
     final Paint caret = Paint()
       ..color = _kCaret
       ..strokeWidth = 1.5;
-    canvas.drawLine(Offset(outer.left + 6.0, outer.top + 8.0), Offset(outer.left + 6.0, outer.top + 30.0), caret);
+    canvas.drawLine(
+      Offset(outer.left + 6.0, outer.top + 8.0),
+      Offset(outer.left + 6.0, outer.top + 30.0),
+      caret,
+    );
     // Annotation tick marks on the right edge.
-    final Paint tick = Paint()..color = _kInkTertiary..strokeWidth = 1.0;
+    final Paint tick = Paint()
+      ..color = _kInkTertiary
+      ..strokeWidth = 1.0;
     for (int i = 0; i < 3; i++) {
       final double y = outer.top + 22.0 + i * 30.0;
-      canvas.drawLine(Offset(outer.right + 2.0, y), Offset(outer.right + 8.0, y), tick);
+      canvas.drawLine(
+        Offset(outer.right + 2.0, y),
+        Offset(outer.right + 8.0, y),
+        tick,
+      );
     }
   }
 
@@ -380,7 +412,10 @@ class _ParagraphAnnotationPainter extends CustomPainter {
 }
 
 class _StrutAnatomyPainter extends CustomPainter {
-  const _StrutAnatomyPainter({required this.leading, required this.forceStrutHeight});
+  const _StrutAnatomyPainter({
+    required this.leading,
+    required this.forceStrutHeight,
+  });
 
   final ui.TextLeadingDistribution leading;
   final bool forceStrutHeight;
@@ -409,7 +444,8 @@ class _StrutAnatomyPainter extends CustomPainter {
     final double leadingTop;
     final double leadingBottom;
     if (leading == ui.TextLeadingDistribution.proportional) {
-      leadingTop = total * leadingRatio * (ascentRatio / (ascentRatio + descentRatio));
+      leadingTop =
+          total * leadingRatio * (ascentRatio / (ascentRatio + descentRatio));
       leadingBottom = total * leadingRatio - leadingTop;
     } else {
       leadingTop = total * leadingRatio / 2.0;
@@ -426,7 +462,12 @@ class _StrutAnatomyPainter extends CustomPainter {
     );
     // Ascent band.
     canvas.drawRect(
-      Rect.fromLTWH(lineBox.left, lineBox.top + leadingTop, lineBox.width, ascentHeight),
+      Rect.fromLTWH(
+        lineBox.left,
+        lineBox.top + leadingTop,
+        lineBox.width,
+        ascentHeight,
+      ),
       ascentFill,
     );
     // Descent band.
@@ -472,7 +513,10 @@ class _StrutAnatomyPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    glyph.paint(canvas, Offset(cx - glyph.width / 2.0, baselineY - ascentHeight + 2.0));
+    glyph.paint(
+      canvas,
+      Offset(cx - glyph.width / 2.0, baselineY - ascentHeight + 2.0),
+    );
   }
 
   @override
@@ -495,7 +539,12 @@ class _LayoutOverlayPainter extends CustomPainter {
       ..color = _kCaret
       ..strokeWidth = 2.0;
 
-    final Rect outer = Rect.fromLTWH(14.0, 12.0, size.width - 28.0, size.height - 24.0);
+    final Rect outer = Rect.fromLTWH(
+      14.0,
+      12.0,
+      size.width - 28.0,
+      size.height - 24.0,
+    );
     canvas.drawRect(outer, paragraph);
 
     // Three TextBox selection rectangles.
@@ -506,10 +555,13 @@ class _LayoutOverlayPainter extends CustomPainter {
     ];
     for (final Rect r in selectionBoxes) {
       canvas.drawRect(r, selection);
-      canvas.drawRect(r, Paint()
-        ..color = _kAccentBlue
-        ..strokeWidth = 1.0
-        ..style = PaintingStyle.stroke);
+      canvas.drawRect(
+        r,
+        Paint()
+          ..color = _kAccentBlue
+          ..strokeWidth = 1.0
+          ..style = PaintingStyle.stroke,
+      );
     }
 
     // Glyph row text painters for the three lines.
@@ -541,7 +593,11 @@ class _LayoutOverlayPainter extends CustomPainter {
         ? outer.left + 8.0 + 120.0
         : outer.left + 8.0 + 40.0;
     final double caretY = outer.top + 34.0;
-    canvas.drawLine(Offset(caretX, caretY + 2.0), Offset(caretX, caretY + 20.0), caret);
+    canvas.drawLine(
+      Offset(caretX, caretY + 2.0),
+      Offset(caretX, caretY + 20.0),
+      caret,
+    );
     // Affinity hint glyph (small arrow).
     final Path arrow = Path();
     if (affinity == ui.TextAffinity.downstream) {
@@ -647,27 +703,59 @@ dynamic build(BuildContext context) {
   );
   print('  built ui.StrutStyle: $strutStyle');
 
-  final ui.TextBox box1 = ui.TextBox.fromLTRBD(10.0, 20.0, 110.0, 42.0, TextDirection.ltr);
-  final ui.TextBox box2 = ui.TextBox.fromLTRBD(0.0, 50.0, 180.0, 72.0, TextDirection.ltr);
-  final ui.TextBox boxRtl = ui.TextBox.fromLTRBD(0.0, 80.0, 64.0, 102.0, TextDirection.rtl);
+  final ui.TextBox box1 = ui.TextBox.fromLTRBD(
+    10.0,
+    20.0,
+    110.0,
+    42.0,
+    TextDirection.ltr,
+  );
+  final ui.TextBox box2 = ui.TextBox.fromLTRBD(
+    0.0,
+    50.0,
+    180.0,
+    72.0,
+    TextDirection.ltr,
+  );
+  final ui.TextBox boxRtl = ui.TextBox.fromLTRBD(
+    0.0,
+    80.0,
+    64.0,
+    102.0,
+    TextDirection.rtl,
+  );
   print('  built TextBoxes: $box1, $box2, $boxRtl');
 
   const ui.TextRange range = ui.TextRange(start: 7, end: 12);
   print('  built ui.TextRange(7,12): $range');
 
-  const ui.TextPosition positionDown = ui.TextPosition(offset: 12, affinity: ui.TextAffinity.downstream);
-  const ui.TextPosition positionUp = ui.TextPosition(offset: 12, affinity: ui.TextAffinity.upstream);
+  const ui.TextPosition positionDown = ui.TextPosition(
+    offset: 12,
+    affinity: ui.TextAffinity.downstream,
+  );
+  const ui.TextPosition positionUp = ui.TextPosition(
+    offset: 12,
+    affinity: ui.TextAffinity.upstream,
+  );
   print('  built TextPositions: $positionDown / $positionUp');
 
   const ui.Locale localeEnUs = ui.Locale('en', 'US');
-  final ui.Locale localeJaJp = ui.Locale.fromSubtags(languageCode: 'ja', countryCode: 'JP');
-  final ui.Locale localeArEg = ui.Locale.fromSubtags(languageCode: 'ar', countryCode: 'EG');
+  final ui.Locale localeJaJp = ui.Locale.fromSubtags(
+    languageCode: 'ja',
+    countryCode: 'JP',
+  );
+  final ui.Locale localeArEg = ui.Locale.fromSubtags(
+    languageCode: 'ar',
+    countryCode: 'EG',
+  );
   final ui.Locale localeZhHant = ui.Locale.fromSubtags(
     languageCode: 'zh',
     scriptCode: 'Hant',
     countryCode: 'TW',
   );
-  print('  built Locales: $localeEnUs, $localeJaJp, $localeArEg, $localeZhHant');
+  print(
+    '  built Locales: $localeEnUs, $localeJaJp, $localeArEg, $localeZhHant',
+  );
 
   // -------------------------------------------------------------------------
   // SECTION 1 - HERO INTRO
@@ -683,10 +771,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF1F2937),
-          Color(0xFF312E81),
-        ],
+        colors: <Color>[Color(0xFF1F2937), Color(0xFF312E81)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -805,8 +890,14 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(width: 130.0, child: Text(field, style: base)),
-          SizedBox(width: 70.0, child: Text(ui, style: base, textAlign: TextAlign.center)),
-          SizedBox(width: 90.0, child: Text(painting, style: base, textAlign: TextAlign.center)),
+          SizedBox(
+            width: 70.0,
+            child: Text(ui, style: base, textAlign: TextAlign.center),
+          ),
+          SizedBox(
+            width: 90.0,
+            child: Text(painting, style: base, textAlign: TextAlign.center),
+          ),
           Expanded(
             child: Text(
               use,
@@ -832,34 +923,163 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: _cardTitle(
             'ui.TextStyle  vs  painting.TextStyle',
-            subtitle: 'When to reach for the engine struct, when to reach for the widget class.',
+            subtitle:
+                'When to reach for the engine struct, when to reach for the widget class.',
           ),
         ),
-        tableRow(field: 'field', ui: 'ui', painting: 'painting', use: 'commentary', isHeader: true),
-        tableRow(field: 'color',                ui: 'yes', painting: 'yes',     use: 'Both accept Color. painting also resolves MaterialStateColor.'),
-        tableRow(field: 'backgroundColor',      ui: 'no',  painting: 'yes',     use: 'painting only; the engine takes a Paint via `background` instead.'),
-        tableRow(field: 'background (Paint)',   ui: 'yes', painting: 'yes',     use: 'A Paint is what the engine actually consumes; painting wraps it.'),
-        tableRow(field: 'foreground (Paint)',   ui: 'yes', painting: 'yes',     use: 'When set, color is ignored - foreground wins.'),
-        tableRow(field: 'fontSize',             ui: 'yes', painting: 'yes',     use: 'Logical pixels. Identical semantics in both layers.'),
-        tableRow(field: 'fontWeight',           ui: 'yes', painting: 'yes',     use: 'ui.FontWeight is re-exported as FontWeight in painting.'),
-        tableRow(field: 'fontStyle',            ui: 'yes', painting: 'yes',     use: 'normal vs italic - same enum, same values.'),
-        tableRow(field: 'fontFamily',           ui: 'yes', painting: 'yes',     use: 'Looked up against the asset registry; first match wins.'),
-        tableRow(field: 'fontFamilyFallback',   ui: 'yes', painting: 'yes',     use: 'Used when the primary family has no glyph for a codepoint.'),
-        tableRow(field: 'fontFeatures',         ui: 'yes', painting: 'yes',     use: 'OpenType feature tags - tabular figures, ligatures, etc.'),
-        tableRow(field: 'fontVariations',       ui: 'yes', painting: 'yes',     use: 'Variable-font axes (`wght`, `slnt`, custom).'),
-        tableRow(field: 'letterSpacing',        ui: 'yes', painting: 'yes',     use: 'Per-glyph in logical pixels (not em).'),
-        tableRow(field: 'wordSpacing',          ui: 'yes', painting: 'yes',     use: 'Extra space added between space-separated words.'),
-        tableRow(field: 'height',               ui: 'yes', painting: 'yes',     use: 'Line height as a multiplier of fontSize.'),
-        tableRow(field: 'leadingDistribution',  ui: 'yes', painting: 'yes',     use: 'How extra leading is split above/below the glyph.'),
-        tableRow(field: 'decoration',           ui: 'yes', painting: 'yes',     use: 'underline / overline / lineThrough or a combine of them.'),
-        tableRow(field: 'decorationColor',      ui: 'yes', painting: 'yes',     use: 'Defaults to the text color when omitted.'),
-        tableRow(field: 'decorationStyle',      ui: 'yes', painting: 'yes',     use: 'solid / double / dotted / dashed / wavy.'),
-        tableRow(field: 'decorationThickness',  ui: 'yes', painting: 'yes',     use: 'Multiplier of the font-defined line thickness.'),
-        tableRow(field: 'shadows',              ui: 'yes', painting: 'yes',     use: 'A List<Shadow> drawn behind every glyph.'),
-        tableRow(field: 'locale',               ui: 'yes', painting: 'yes',     use: 'Affects glyph variant selection and line-break rules.'),
-        tableRow(field: 'debugLabel',           ui: 'no',  painting: 'yes',     use: 'painting-only - used by toString and inheritance debugging.'),
-        tableRow(field: 'inherit',              ui: 'no',  painting: 'yes',     use: 'painting-only - controls merge() behaviour against parent.'),
-        tableRow(field: 'overflow',             ui: 'no',  painting: 'yes',     use: 'painting-only - widget-level overflow handling.'),
+        tableRow(
+          field: 'field',
+          ui: 'ui',
+          painting: 'painting',
+          use: 'commentary',
+          isHeader: true,
+        ),
+        tableRow(
+          field: 'color',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Both accept Color. painting also resolves MaterialStateColor.',
+        ),
+        tableRow(
+          field: 'backgroundColor',
+          ui: 'no',
+          painting: 'yes',
+          use:
+              'painting only; the engine takes a Paint via `background` instead.',
+        ),
+        tableRow(
+          field: 'background (Paint)',
+          ui: 'yes',
+          painting: 'yes',
+          use:
+              'A Paint is what the engine actually consumes; painting wraps it.',
+        ),
+        tableRow(
+          field: 'foreground (Paint)',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'When set, color is ignored - foreground wins.',
+        ),
+        tableRow(
+          field: 'fontSize',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Logical pixels. Identical semantics in both layers.',
+        ),
+        tableRow(
+          field: 'fontWeight',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'ui.FontWeight is re-exported as FontWeight in painting.',
+        ),
+        tableRow(
+          field: 'fontStyle',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'normal vs italic - same enum, same values.',
+        ),
+        tableRow(
+          field: 'fontFamily',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Looked up against the asset registry; first match wins.',
+        ),
+        tableRow(
+          field: 'fontFamilyFallback',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Used when the primary family has no glyph for a codepoint.',
+        ),
+        tableRow(
+          field: 'fontFeatures',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'OpenType feature tags - tabular figures, ligatures, etc.',
+        ),
+        tableRow(
+          field: 'fontVariations',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Variable-font axes (`wght`, `slnt`, custom).',
+        ),
+        tableRow(
+          field: 'letterSpacing',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Per-glyph in logical pixels (not em).',
+        ),
+        tableRow(
+          field: 'wordSpacing',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Extra space added between space-separated words.',
+        ),
+        tableRow(
+          field: 'height',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Line height as a multiplier of fontSize.',
+        ),
+        tableRow(
+          field: 'leadingDistribution',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'How extra leading is split above/below the glyph.',
+        ),
+        tableRow(
+          field: 'decoration',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'underline / overline / lineThrough or a combine of them.',
+        ),
+        tableRow(
+          field: 'decorationColor',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Defaults to the text color when omitted.',
+        ),
+        tableRow(
+          field: 'decorationStyle',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'solid / double / dotted / dashed / wavy.',
+        ),
+        tableRow(
+          field: 'decorationThickness',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Multiplier of the font-defined line thickness.',
+        ),
+        tableRow(
+          field: 'shadows',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'A List<Shadow> drawn behind every glyph.',
+        ),
+        tableRow(
+          field: 'locale',
+          ui: 'yes',
+          painting: 'yes',
+          use: 'Affects glyph variant selection and line-break rules.',
+        ),
+        tableRow(
+          field: 'debugLabel',
+          ui: 'no',
+          painting: 'yes',
+          use: 'painting-only - used by toString and inheritance debugging.',
+        ),
+        tableRow(
+          field: 'inherit',
+          ui: 'no',
+          painting: 'yes',
+          use: 'painting-only - controls merge() behaviour against parent.',
+        ),
+        tableRow(
+          field: 'overflow',
+          ui: 'no',
+          painting: 'yes',
+          use: 'painting-only - widget-level overflow handling.',
+        ),
       ],
     ),
   );
@@ -877,7 +1097,11 @@ dynamic build(BuildContext context) {
             children: const <Widget>[
               Text(
                 'When in doubt, use painting.TextStyle.',
-                style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _kInk),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -885,7 +1109,11 @@ dynamic build(BuildContext context) {
                 'Reach for ui.TextStyle only when you are pushing styles through a '
                 'ui.ParagraphBuilder by hand - typically in custom render objects '
                 'or when shaping text without the widget layer.',
-                style: TextStyle(fontSize: 12.5, color: _kInkSecondary, height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: _kInkSecondary,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -919,9 +1147,23 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: _kInk)),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w700,
+              color: _kInk,
+            ),
+          ),
           const SizedBox(height: 2.0),
-          Text(body, style: const TextStyle(fontSize: 11.5, color: _kInkSecondary, height: 1.35)),
+          Text(
+            body,
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: _kInkSecondary,
+              height: 1.35,
+            ),
+          ),
           const SizedBox(height: 8.0),
           SizedBox(
             height: 96.0,
@@ -945,7 +1187,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final ui.ParagraphStyle psAlign = ui.ParagraphStyle(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
+  final ui.ParagraphStyle psAlign = ui.ParagraphStyle(
+    textAlign: TextAlign.center,
+    textDirection: TextDirection.ltr,
+  );
   final ui.ParagraphStyle psMaxLines = ui.ParagraphStyle(
     textAlign: TextAlign.left,
     textDirection: TextDirection.ltr,
@@ -991,39 +1236,46 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'ui.ParagraphStyle showcase',
-          subtitle: 'Six literal constructions, each highlighting one parameter family.',
+          subtitle:
+              'Six literal constructions, each highlighting one parameter family.',
         ),
         const SizedBox(height: 12.0),
         Wrap(
           children: <Widget>[
             paragraphStyleCard(
               title: 'textAlign + textDirection',
-              body: 'Where the lines hang against the rect. LTR vs RTL flips left/right edges.',
+              body:
+                  'Where the lines hang against the rect. LTR vs RTL flips left/right edges.',
               ps: psAlign,
             ),
             paragraphStyleCard(
               title: 'maxLines + ellipsis',
-              body: 'Truncate after N lines. ellipsis text is inserted on the final line.',
+              body:
+                  'Truncate after N lines. ellipsis text is inserted on the final line.',
               ps: psMaxLines,
             ),
             paragraphStyleCard(
               title: 'fontFamily + fontSize',
-              body: 'Defaults for spans that do not specify their own family or size.',
+              body:
+                  'Defaults for spans that do not specify their own family or size.',
               ps: psFont,
             ),
             paragraphStyleCard(
               title: 'height multiplier',
-              body: 'Line height = fontSize * height. 1.0 hugs the metrics box.',
+              body:
+                  'Line height = fontSize * height. 1.0 hugs the metrics box.',
               ps: psHeight,
             ),
             paragraphStyleCard(
               title: 'textHeightBehavior',
-              body: 'Skip the height multiplier on the first ascent and last descent.',
+              body:
+                  'Skip the height multiplier on the first ascent and last descent.',
               ps: psBehavior,
             ),
             paragraphStyleCard(
               title: 'strutStyle',
-              body: 'Force every line to use a fixed metric box. See section 4.',
+              body:
+                  'Force every line to use a fixed metric box. See section 4.',
               ps: psStrut,
             ),
           ],
@@ -1108,15 +1360,32 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: _kInk)),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w700,
+              color: _kInk,
+            ),
+          ),
           const SizedBox(height: 4.0),
-          Text(legend, style: const TextStyle(fontSize: 11.0, color: _kInkSecondary, height: 1.35)),
+          Text(
+            legend,
+            style: const TextStyle(
+              fontSize: 11.0,
+              color: _kInkSecondary,
+              height: 1.35,
+            ),
+          ),
           const SizedBox(height: 6.0),
           SizedBox(
             height: 120.0,
             width: double.infinity,
             child: CustomPaint(
-              painter: _StrutAnatomyPainter(leading: leading, forceStrutHeight: force),
+              painter: _StrutAnatomyPainter(
+                leading: leading,
+                forceStrutHeight: force,
+              ),
             ),
           ),
           const SizedBox(height: 6.0),
@@ -1125,10 +1394,15 @@ dynamic build(BuildContext context) {
             runSpacing: 4.0,
             children: <Widget>[
               _pill(
-                leading == ui.TextLeadingDistribution.proportional ? 'proportional' : 'even',
+                leading == ui.TextLeadingDistribution.proportional
+                    ? 'proportional'
+                    : 'even',
                 colour: _kAccentBlue,
               ),
-              _pill(force ? 'forceStrutHeight' : 'soft strut', colour: force ? _kAccentRed : _kAccentTeal),
+              _pill(
+                force ? 'forceStrutHeight' : 'soft strut',
+                colour: force ? _kAccentRed : _kAccentTeal,
+              ),
             ],
           ),
         ],
@@ -1142,7 +1416,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'ui.StrutStyle anatomy',
-          subtitle: 'Half-leading vs proportional, plus the forceStrutHeight switch.',
+          subtitle:
+              'Half-leading vs proportional, plus the forceStrutHeight switch.',
         ),
         const SizedBox(height: 8.0),
         Container(
@@ -1162,7 +1437,11 @@ dynamic build(BuildContext context) {
                   'Each cell paints the box that surrounds one line. Amber bands are '
                   'leading, blue is ascent, red is descent. The horizontal amber '
                   'line is the baseline.',
-                  style: TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: _kInkSecondary,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -1185,13 +1464,15 @@ dynamic build(BuildContext context) {
             ),
             strutCell(
               title: 'proportional + forced',
-              legend: 'forceStrutHeight ignores per-span height: every line gets the strut box.',
+              legend:
+                  'forceStrutHeight ignores per-span height: every line gets the strut box.',
               leading: ui.TextLeadingDistribution.proportional,
               force: true,
             ),
             strutCell(
               title: 'even + forced',
-              legend: 'Same as above but with even leading - the most predictable layout.',
+              legend:
+                  'Same as above but with even leading - the most predictable layout.',
               leading: ui.TextLeadingDistribution.even,
               force: true,
             ),
@@ -1223,7 +1504,10 @@ dynamic build(BuildContext context) {
   // selection rectangles (TextBoxes), a caret at TextPosition(offset: 12)
   // and a small arrow indicating the affinity.
   // -------------------------------------------------------------------------
-  Widget layoutOverlayCard({required ui.TextAffinity affinity, required String label}) {
+  Widget layoutOverlayCard({
+    required ui.TextAffinity affinity,
+    required String label,
+  }) {
     return Container(
       width: 320.0,
       margin: const EdgeInsets.all(6.0),
@@ -1236,18 +1520,31 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(label, style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: _kInk)),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.w700,
+              color: _kInk,
+            ),
+          ),
           const SizedBox(height: 4.0),
           Text(
             'TextPosition(offset: 12, affinity: '
             '${affinity == ui.TextAffinity.downstream ? "downstream" : "upstream"})',
-            style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kAccentBlue),
+            style: const TextStyle(
+              fontSize: 11.0,
+              fontFamily: 'monospace',
+              color: _kAccentBlue,
+            ),
           ),
           const SizedBox(height: 6.0),
           SizedBox(
             height: 110.0,
             width: double.infinity,
-            child: CustomPaint(painter: _LayoutOverlayPainter(affinity: affinity)),
+            child: CustomPaint(
+              painter: _LayoutOverlayPainter(affinity: affinity),
+            ),
           ),
         ],
       ),
@@ -1260,7 +1557,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'TextBox + TextRange + TextPosition + TextAffinity',
-          subtitle: 'Engine returns these four when reporting selection geometry.',
+          subtitle:
+              'Engine returns these four when reporting selection geometry.',
         ),
         const SizedBox(height: 10.0),
         _codeBlock(
@@ -1278,8 +1576,14 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8.0),
         Wrap(
           children: <Widget>[
-            layoutOverlayCard(affinity: ui.TextAffinity.downstream, label: 'affinity: downstream'),
-            layoutOverlayCard(affinity: ui.TextAffinity.upstream, label: 'affinity: upstream'),
+            layoutOverlayCard(
+              affinity: ui.TextAffinity.downstream,
+              label: 'affinity: downstream',
+            ),
+            layoutOverlayCard(
+              affinity: ui.TextAffinity.upstream,
+              label: 'affinity: upstream',
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1295,18 +1599,50 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Constructor values',
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: _kInkTertiary, letterSpacing: 0.4),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInkTertiary,
+                  letterSpacing: 0.4,
+                ),
               ),
               const SizedBox(height: 6.0),
-              Text('TextRange.start         = ${range.start}',         style: _kBodyStyle),
-              Text('TextRange.end           = ${range.end}',           style: _kBodyStyle),
-              Text('TextRange.isCollapsed   = ${range.isCollapsed}',   style: _kBodyStyle),
-              Text('TextRange.isNormalized  = ${range.isNormalized}',  style: _kBodyStyle),
-              Text('TextPosition.offset     = ${positionDown.offset}', style: _kBodyStyle),
-              Text('TextPosition.affinity   = ${positionDown.affinity}', style: _kBodyStyle),
-              Text('TextBox.toRect()        = ${box1.toRect()}',       style: _kBodyStyle),
-              Text('TextBox.direction       = ${box1.direction}',      style: _kBodyStyle),
-              Text('boxRtl.direction        = ${boxRtl.direction}',    style: _kBodyStyle),
+              Text(
+                'TextRange.start         = ${range.start}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextRange.end           = ${range.end}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextRange.isCollapsed   = ${range.isCollapsed}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextRange.isNormalized  = ${range.isNormalized}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextPosition.offset     = ${positionDown.offset}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextPosition.affinity   = ${positionDown.affinity}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextBox.toRect()        = ${box1.toRect()}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'TextBox.direction       = ${box1.direction}',
+                style: _kBodyStyle,
+              ),
+              Text(
+                'boxRtl.direction        = ${boxRtl.direction}',
+                style: _kBodyStyle,
+              ),
             ],
           ),
         ),
@@ -1323,7 +1659,11 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   const String sampleParagraph =
       'The Engine Lays Out Text One Glyph At A Time, Aligning Lines To Edges Defined By The Caller.';
-  Widget alignCell({required TextAlign align, required TextDirection dir, required String label}) {
+  Widget alignCell({
+    required TextAlign align,
+    required TextDirection dir,
+    required String label,
+  }) {
     return Container(
       width: 220.0,
       height: 130.0,
@@ -1337,7 +1677,14 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(label, style: const TextStyle(fontSize: 11.0, color: _kAccentBlue, fontFamily: 'monospace')),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 11.0,
+              color: _kAccentBlue,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(height: 6.0),
           Expanded(
             child: Directionality(
@@ -1345,7 +1692,11 @@ dynamic build(BuildContext context) {
               child: Text(
                 sampleParagraph,
                 textAlign: align,
-                style: const TextStyle(fontSize: 11.5, height: 1.35, color: _kInk),
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  height: 1.35,
+                  color: _kInk,
+                ),
               ),
             ),
           ),
@@ -1360,23 +1711,72 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'TextAlign x TextDirection',
-          subtitle: 'Twelve cells: four alignments against three direction rules.',
+          subtitle:
+              'Twelve cells: four alignments against three direction rules.',
         ),
         const SizedBox(height: 10.0),
         Wrap(
           children: <Widget>[
-            alignCell(align: TextAlign.left,    dir: TextDirection.ltr, label: 'left   / ltr'),
-            alignCell(align: TextAlign.right,   dir: TextDirection.ltr, label: 'right  / ltr'),
-            alignCell(align: TextAlign.center,  dir: TextDirection.ltr, label: 'center / ltr'),
-            alignCell(align: TextAlign.justify, dir: TextDirection.ltr, label: 'justify/ ltr'),
-            alignCell(align: TextAlign.left,    dir: TextDirection.rtl, label: 'left   / rtl'),
-            alignCell(align: TextAlign.right,   dir: TextDirection.rtl, label: 'right  / rtl'),
-            alignCell(align: TextAlign.center,  dir: TextDirection.rtl, label: 'center / rtl'),
-            alignCell(align: TextAlign.justify, dir: TextDirection.rtl, label: 'justify/ rtl'),
-            alignCell(align: TextAlign.start,   dir: TextDirection.ltr, label: 'start  / ltr (= left)'),
-            alignCell(align: TextAlign.end,     dir: TextDirection.ltr, label: 'end    / ltr (= right)'),
-            alignCell(align: TextAlign.start,   dir: TextDirection.rtl, label: 'start  / rtl (= right)'),
-            alignCell(align: TextAlign.end,     dir: TextDirection.rtl, label: 'end    / rtl (= left)'),
+            alignCell(
+              align: TextAlign.left,
+              dir: TextDirection.ltr,
+              label: 'left   / ltr',
+            ),
+            alignCell(
+              align: TextAlign.right,
+              dir: TextDirection.ltr,
+              label: 'right  / ltr',
+            ),
+            alignCell(
+              align: TextAlign.center,
+              dir: TextDirection.ltr,
+              label: 'center / ltr',
+            ),
+            alignCell(
+              align: TextAlign.justify,
+              dir: TextDirection.ltr,
+              label: 'justify/ ltr',
+            ),
+            alignCell(
+              align: TextAlign.left,
+              dir: TextDirection.rtl,
+              label: 'left   / rtl',
+            ),
+            alignCell(
+              align: TextAlign.right,
+              dir: TextDirection.rtl,
+              label: 'right  / rtl',
+            ),
+            alignCell(
+              align: TextAlign.center,
+              dir: TextDirection.rtl,
+              label: 'center / rtl',
+            ),
+            alignCell(
+              align: TextAlign.justify,
+              dir: TextDirection.rtl,
+              label: 'justify/ rtl',
+            ),
+            alignCell(
+              align: TextAlign.start,
+              dir: TextDirection.ltr,
+              label: 'start  / ltr (= left)',
+            ),
+            alignCell(
+              align: TextAlign.end,
+              dir: TextDirection.ltr,
+              label: 'end    / ltr (= right)',
+            ),
+            alignCell(
+              align: TextAlign.start,
+              dir: TextDirection.rtl,
+              label: 'start  / rtl (= right)',
+            ),
+            alignCell(
+              align: TextAlign.end,
+              dir: TextDirection.rtl,
+              label: 'end    / rtl (= left)',
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1390,7 +1790,11 @@ dynamic build(BuildContext context) {
           child: const Text(
             'start/end follow ambient TextDirection; left/right are absolute. '
             'Use start/end in bilingual UIs - users will switch languages.',
-            style: TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: _kInkSecondary,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1404,7 +1808,12 @@ dynamic build(BuildContext context) {
   // lineThrough) x (solid / double / dotted / dashed / wavy) plus a couple
   // of color variants and a combine() example.
   // -------------------------------------------------------------------------
-  Widget decoCard(String label, TextDecoration deco, TextDecorationStyle style, Color color) {
+  Widget decoCard(
+    String label,
+    TextDecoration deco,
+    TextDecorationStyle style,
+    Color color,
+  ) {
     return Container(
       width: 170.0,
       margin: const EdgeInsets.all(5.0),
@@ -1419,7 +1828,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             label,
-            style: const TextStyle(fontSize: 10.5, color: _kInkTertiary, fontFamily: 'monospace'),
+            style: const TextStyle(
+              fontSize: 10.5,
+              color: _kInkTertiary,
+              fontFamily: 'monospace',
+            ),
           ),
           const SizedBox(height: 6.0),
           Text(
@@ -1439,15 +1852,16 @@ dynamic build(BuildContext context) {
     );
   }
 
-  final TextDecoration combinedUnderOver = TextDecoration.combine(<TextDecoration>[
-    TextDecoration.underline,
-    TextDecoration.overline,
-  ]);
-  final TextDecoration combinedAllThree = TextDecoration.combine(<TextDecoration>[
-    TextDecoration.underline,
-    TextDecoration.overline,
-    TextDecoration.lineThrough,
-  ]);
+  final TextDecoration combinedUnderOver = TextDecoration.combine(
+    <TextDecoration>[TextDecoration.underline, TextDecoration.overline],
+  );
+  final TextDecoration combinedAllThree = TextDecoration.combine(
+    <TextDecoration>[
+      TextDecoration.underline,
+      TextDecoration.overline,
+      TextDecoration.lineThrough,
+    ],
+  );
 
   final Widget decorationGallery = _card(
     child: Column(
@@ -1455,26 +1869,102 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'TextDecoration x TextDecorationStyle',
-          subtitle: 'Underline, overline, lineThrough crossed with five line styles and a few colors.',
+          subtitle:
+              'Underline, overline, lineThrough crossed with five line styles and a few colors.',
         ),
         const SizedBox(height: 10.0),
         Wrap(
           children: <Widget>[
-            decoCard('underline / solid',     TextDecoration.underline,   TextDecorationStyle.solid,  _kInk),
-            decoCard('underline / double',    TextDecoration.underline,   TextDecorationStyle.double, _kAccentBlue),
-            decoCard('underline / dotted',    TextDecoration.underline,   TextDecorationStyle.dotted, _kAccentRed),
-            decoCard('underline / dashed',    TextDecoration.underline,   TextDecorationStyle.dashed, _kAccent),
-            decoCard('underline / wavy',      TextDecoration.underline,   TextDecorationStyle.wavy,   _kAccentGreen),
-            decoCard('overline / solid',      TextDecoration.overline,    TextDecorationStyle.solid,  _kInk),
-            decoCard('overline / double',     TextDecoration.overline,    TextDecorationStyle.double, _kAccentTeal),
-            decoCard('overline / dashed',     TextDecoration.overline,    TextDecorationStyle.dashed, _kAccentIndigo),
-            decoCard('lineThrough / solid',   TextDecoration.lineThrough, TextDecorationStyle.solid,  _kInk),
-            decoCard('lineThrough / double',  TextDecoration.lineThrough, TextDecorationStyle.double, _kAccentRed),
-            decoCard('lineThrough / dotted',  TextDecoration.lineThrough, TextDecorationStyle.dotted, _kAccentBlue),
-            decoCard('lineThrough / dashed',  TextDecoration.lineThrough, TextDecorationStyle.dashed, _kAccentPink),
-            decoCard('lineThrough / wavy',    TextDecoration.lineThrough, TextDecorationStyle.wavy,   _kAccentViolet),
-            decoCard('combine: under+over',   combinedUnderOver,          TextDecorationStyle.solid,  _kAccent),
-            decoCard('combine: all three',    combinedAllThree,           TextDecorationStyle.wavy,   _kAccentIndigo),
+            decoCard(
+              'underline / solid',
+              TextDecoration.underline,
+              TextDecorationStyle.solid,
+              _kInk,
+            ),
+            decoCard(
+              'underline / double',
+              TextDecoration.underline,
+              TextDecorationStyle.double,
+              _kAccentBlue,
+            ),
+            decoCard(
+              'underline / dotted',
+              TextDecoration.underline,
+              TextDecorationStyle.dotted,
+              _kAccentRed,
+            ),
+            decoCard(
+              'underline / dashed',
+              TextDecoration.underline,
+              TextDecorationStyle.dashed,
+              _kAccent,
+            ),
+            decoCard(
+              'underline / wavy',
+              TextDecoration.underline,
+              TextDecorationStyle.wavy,
+              _kAccentGreen,
+            ),
+            decoCard(
+              'overline / solid',
+              TextDecoration.overline,
+              TextDecorationStyle.solid,
+              _kInk,
+            ),
+            decoCard(
+              'overline / double',
+              TextDecoration.overline,
+              TextDecorationStyle.double,
+              _kAccentTeal,
+            ),
+            decoCard(
+              'overline / dashed',
+              TextDecoration.overline,
+              TextDecorationStyle.dashed,
+              _kAccentIndigo,
+            ),
+            decoCard(
+              'lineThrough / solid',
+              TextDecoration.lineThrough,
+              TextDecorationStyle.solid,
+              _kInk,
+            ),
+            decoCard(
+              'lineThrough / double',
+              TextDecoration.lineThrough,
+              TextDecorationStyle.double,
+              _kAccentRed,
+            ),
+            decoCard(
+              'lineThrough / dotted',
+              TextDecoration.lineThrough,
+              TextDecorationStyle.dotted,
+              _kAccentBlue,
+            ),
+            decoCard(
+              'lineThrough / dashed',
+              TextDecoration.lineThrough,
+              TextDecorationStyle.dashed,
+              _kAccentPink,
+            ),
+            decoCard(
+              'lineThrough / wavy',
+              TextDecoration.lineThrough,
+              TextDecorationStyle.wavy,
+              _kAccentViolet,
+            ),
+            decoCard(
+              'combine: under+over',
+              combinedUnderOver,
+              TextDecorationStyle.solid,
+              _kAccent,
+            ),
+            decoCard(
+              'combine: all three',
+              combinedAllThree,
+              TextDecorationStyle.wavy,
+              _kAccentIndigo,
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -1495,7 +1985,11 @@ dynamic build(BuildContext context) {
                   'TextDecoration.combine([a, b]).contains(a) is your friend for '
                   'composing complex decorations. The set semantics make it cheap '
                   'to add/remove a single line.',
-                  style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4),
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    color: _kInkSecondary,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -1525,28 +2019,41 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(label, style: const TextStyle(fontSize: 10.5, color: _kInkTertiary, fontFamily: 'monospace')),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 10.5,
+              color: _kInkTertiary,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(height: 4.0),
           Text(
             'Aa Bb 123',
-            style: TextStyle(fontSize: 18.0, color: _kInk, fontWeight: weight, fontStyle: style),
+            style: TextStyle(
+              fontSize: 18.0,
+              color: _kInk,
+              fontWeight: weight,
+              fontStyle: style,
+            ),
           ),
         ],
       ),
     );
   }
 
-  final List<MapEntry<FontWeight, String>> _weights = const <MapEntry<FontWeight, String>>[
-    MapEntry(FontWeight.w100, 'w100 Thin'),
-    MapEntry(FontWeight.w200, 'w200 ExtraLight'),
-    MapEntry(FontWeight.w300, 'w300 Light'),
-    MapEntry(FontWeight.w400, 'w400 Normal'),
-    MapEntry(FontWeight.w500, 'w500 Medium'),
-    MapEntry(FontWeight.w600, 'w600 SemiBold'),
-    MapEntry(FontWeight.w700, 'w700 Bold'),
-    MapEntry(FontWeight.w800, 'w800 ExtraBold'),
-    MapEntry(FontWeight.w900, 'w900 Black'),
-  ];
+  final List<MapEntry<FontWeight, String>> _weights =
+      const <MapEntry<FontWeight, String>>[
+        MapEntry(FontWeight.w100, 'w100 Thin'),
+        MapEntry(FontWeight.w200, 'w200 ExtraLight'),
+        MapEntry(FontWeight.w300, 'w300 Light'),
+        MapEntry(FontWeight.w400, 'w400 Normal'),
+        MapEntry(FontWeight.w500, 'w500 Medium'),
+        MapEntry(FontWeight.w600, 'w600 SemiBold'),
+        MapEntry(FontWeight.w700, 'w700 Bold'),
+        MapEntry(FontWeight.w800, 'w800 ExtraBold'),
+        MapEntry(FontWeight.w900, 'w900 Black'),
+      ];
 
   final Widget weightGallery = _card(
     child: Column(
@@ -1559,7 +2066,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10.0),
         const Text(
           'normal',
-          style: TextStyle(fontSize: 12.0, color: _kInkTertiary, fontWeight: FontWeight.w700, letterSpacing: 0.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kInkTertiary,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.4,
+          ),
         ),
         const SizedBox(height: 4.0),
         Wrap(
@@ -1571,7 +2083,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         const Text(
           'italic',
-          style: TextStyle(fontSize: 12.0, color: _kInkTertiary, fontWeight: FontWeight.w700, letterSpacing: 0.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: _kInkTertiary,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.4,
+          ),
         ),
         const SizedBox(height: 4.0),
         Wrap(
@@ -1592,7 +2109,11 @@ dynamic build(BuildContext context) {
             'FontWeight is an opaque class wrapping a numeric index. FontWeight.normal == w400 and '
             'FontWeight.bold == w700. Variable fonts honour any value via fontVariations: '
             'FontVariation(\'wght\', N).',
-            style: TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: _kInkSecondary,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -1628,7 +2149,12 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6.0),
               Text(
                 loc.toString(),
-                style: const TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _kInk, fontFamily: 'monospace'),
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -1645,17 +2171,32 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             'toLanguageTag(): ${loc.toLanguageTag()}',
-            style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkSecondary),
+            style: const TextStyle(
+              fontSize: 11.0,
+              fontFamily: 'monospace',
+              color: _kInkSecondary,
+            ),
           ),
           if (loc.scriptCode != null) ...<Widget>[
             const SizedBox(height: 2.0),
             Text(
               'scriptCode: ${loc.scriptCode}',
-              style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInkSecondary),
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: _kInkSecondary,
+              ),
             ),
           ],
           const SizedBox(height: 6.0),
-          Text(hint, style: const TextStyle(fontSize: 11.5, color: _kInkSecondary, height: 1.35)),
+          Text(
+            hint,
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: _kInkSecondary,
+              height: 1.35,
+            ),
+          ),
         ],
       ),
     );
@@ -1667,7 +2208,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'ui.Locale construction',
-          subtitle: 'Eight named locales, demonstrating two-arg vs fromSubtags constructors.',
+          subtitle:
+              'Eight named locales, demonstrating two-arg vs fromSubtags constructors.',
         ),
         const SizedBox(height: 10.0),
         Wrap(
@@ -1689,13 +2231,17 @@ dynamic build(BuildContext context) {
             ),
             localeCard(
               loc: ui.Locale.fromSubtags(languageCode: 'ja', countryCode: 'JP'),
-              constructor: "ui.Locale.fromSubtags(\n  languageCode: 'ja',\n  countryCode: 'JP',\n)",
-              hint: 'Japanese. CJK linebreaks differ; vertical writing if asked.',
+              constructor:
+                  "ui.Locale.fromSubtags(\n  languageCode: 'ja',\n  countryCode: 'JP',\n)",
+              hint:
+                  'Japanese. CJK linebreaks differ; vertical writing if asked.',
             ),
             localeCard(
               loc: ui.Locale.fromSubtags(languageCode: 'ar', countryCode: 'EG'),
-              constructor: "ui.Locale.fromSubtags(\n  languageCode: 'ar',\n  countryCode: 'EG',\n)",
-              hint: 'Arabic (Egypt). Right-to-left script; contextual glyph forms.',
+              constructor:
+                  "ui.Locale.fromSubtags(\n  languageCode: 'ar',\n  countryCode: 'EG',\n)",
+              hint:
+                  'Arabic (Egypt). Right-to-left script; contextual glyph forms.',
             ),
             localeCard(
               loc: const ui.Locale('de', 'DE'),
@@ -1708,7 +2254,8 @@ dynamic build(BuildContext context) {
                 scriptCode: 'Hans',
                 countryCode: 'CN',
               ),
-              constructor: "ui.Locale.fromSubtags(\n  languageCode: 'zh',\n  scriptCode: 'Hans',\n  countryCode: 'CN',\n)",
+              constructor:
+                  "ui.Locale.fromSubtags(\n  languageCode: 'zh',\n  scriptCode: 'Hans',\n  countryCode: 'CN',\n)",
               hint: 'Chinese, simplified script, mainland China.',
             ),
             localeCard(
@@ -1717,8 +2264,10 @@ dynamic build(BuildContext context) {
                 scriptCode: 'Hant',
                 countryCode: 'TW',
               ),
-              constructor: "ui.Locale.fromSubtags(\n  languageCode: 'zh',\n  scriptCode: 'Hant',\n  countryCode: 'TW',\n)",
-              hint: 'Chinese, traditional script, Taiwan. Different glyph variants.',
+              constructor:
+                  "ui.Locale.fromSubtags(\n  languageCode: 'zh',\n  scriptCode: 'Hant',\n  countryCode: 'TW',\n)",
+              hint:
+                  'Chinese, traditional script, Taiwan. Different glyph variants.',
             ),
           ],
         ),
@@ -1765,9 +2314,23 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: _kInk)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
                 const SizedBox(height: 2.0),
-                Text(body, style: const TextStyle(fontSize: 12.5, height: 1.45, color: _kInkSecondary)),
+                Text(
+                  body,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    height: 1.45,
+                    color: _kInkSecondary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1782,11 +2345,16 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.warning_amber_rounded, color: _kAccent, size: 22.0),
+            const Icon(
+              Icons.warning_amber_rounded,
+              color: _kAccent,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             _cardTitle(
               'Pitfalls',
-              subtitle: 'Five misuses of the text value types that ship far too often.',
+              subtitle:
+                  'Five misuses of the text value types that ship far too often.',
             ),
           ],
         ),
@@ -1795,35 +2363,35 @@ dynamic build(BuildContext context) {
           Icons.copy_all,
           'TextStyle.copyWith null collisions',
           'copyWith only replaces fields you name; it cannot clear a field back to null. '
-          "To remove an inherited color, use TextStyle(inherit: false, ...) instead of copyWith(color: null).",
+              "To remove an inherited color, use TextStyle(inherit: false, ...) instead of copyWith(color: null).",
           _kAccentRed,
         ),
         pitfallRow(
           Icons.compare,
           'dart:ui vs painting confusion',
           'ui.TextStyle has no debugLabel, inherit or overflow fields. If you write ui.TextStyle '
-          "expecting the painting API, the analyzer will complain about missing parameters. Alias dart:ui as `ui` to keep them visually distinct.",
+              "expecting the painting API, the analyzer will complain about missing parameters. Alias dart:ui as `ui` to keep them visually distinct.",
           _kAccentBlue,
         ),
         pitfallRow(
           Icons.stacked_line_chart,
           'strut + height interaction',
           'TextStyle.height and StrutStyle.height are independent. With forceStrutHeight: true, the strut wins '
-          'and per-span heights are ignored. Without it, the engine takes the max of strut and span heights.',
+              'and per-span heights are ignored. Without it, the engine takes the max of strut and span heights.',
           _kAccentIndigo,
         ),
         pitfallRow(
           Icons.translate,
           'locale-sensitive glyph metrics',
           'The same codepoint can be shaped to different glyphs in zh-Hans vs zh-Hant or in ja-JP vs zh-CN. '
-          'Always pass a locale on TextStyle (or ParagraphStyle) when text contains CJK content.',
+              'Always pass a locale on TextStyle (or ParagraphStyle) when text contains CJK content.',
           _kAccentTeal,
         ),
         pitfallRow(
           Icons.do_not_disturb_alt,
           'deprecated TextDecoration.none chains',
           'Old code sometimes uses copyWith(decoration: TextDecoration.none) to clear inherited decoration. '
-          'This still works, but DefaultTextStyle.merge plus the modern decoration cascade are cleaner and avoid surprises.',
+              'This still works, but DefaultTextStyle.merge plus the modern decoration cascade are cleaner and avoid surprises.',
           _kAccentPink,
         ),
       ],
@@ -1857,7 +2425,8 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _cardTitle(
           'ui.LineMetrics (value only)',
-          subtitle: 'The struct the engine returns from Paragraph.computeLineMetrics().',
+          subtitle:
+              'The struct the engine returns from Paragraph.computeLineMetrics().',
         ),
         const SizedBox(height: 8.0),
         _codeBlock(
@@ -1880,13 +2449,22 @@ dynamic build(BuildContext context) {
             spacing: 6.0,
             runSpacing: 6.0,
             children: <Widget>[
-              _pill('hardBreak: ${sampleMetrics.hardBreak}',  colour: _kAccentBlue),
-              _pill('ascent: ${sampleMetrics.ascent}',        colour: _kAccent),
-              _pill('descent: ${sampleMetrics.descent}',      colour: _kAccentRed),
-              _pill('height: ${sampleMetrics.height}',        colour: _kAccentGreen),
-              _pill('width: ${sampleMetrics.width}',          colour: _kAccentIndigo),
-              _pill('baseline: ${sampleMetrics.baseline}',    colour: _kAccentTeal),
-              _pill('lineNumber: ${sampleMetrics.lineNumber}', colour: _kAccentViolet),
+              _pill(
+                'hardBreak: ${sampleMetrics.hardBreak}',
+                colour: _kAccentBlue,
+              ),
+              _pill('ascent: ${sampleMetrics.ascent}', colour: _kAccent),
+              _pill('descent: ${sampleMetrics.descent}', colour: _kAccentRed),
+              _pill('height: ${sampleMetrics.height}', colour: _kAccentGreen),
+              _pill('width: ${sampleMetrics.width}', colour: _kAccentIndigo),
+              _pill(
+                'baseline: ${sampleMetrics.baseline}',
+                colour: _kAccentTeal,
+              ),
+              _pill(
+                'lineNumber: ${sampleMetrics.lineNumber}',
+                colour: _kAccentViolet,
+              ),
             ],
           ),
         ),
@@ -2006,29 +2584,57 @@ dynamic build(BuildContext context) {
   print('  building widget tree with 11 sections');
   final List<Widget> sections = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'TextStyle table',     'ui.TextStyle vs painting.TextStyle, field by field'),
+    _sectionHeader(
+      2,
+      'TextStyle table',
+      'ui.TextStyle vs painting.TextStyle, field by field',
+    ),
     textStyleTable,
     tldr,
-    _sectionHeader(3, 'ParagraphStyle',      'Six literal constructions with annotation diagrams'),
+    _sectionHeader(
+      3,
+      'ParagraphStyle',
+      'Six literal constructions with annotation diagrams',
+    ),
     paragraphStyleSection,
     paragraphStyleCode,
-    _sectionHeader(4, 'StrutStyle anatomy',  'Half-leading vs proportional, forceStrutHeight'),
+    _sectionHeader(
+      4,
+      'StrutStyle anatomy',
+      'Half-leading vs proportional, forceStrutHeight',
+    ),
     strutAnatomy,
-    _sectionHeader(5, 'TextBox + friends',   'Selection geometry: TextBox / TextRange / TextPosition / TextAffinity'),
+    _sectionHeader(
+      5,
+      'TextBox + friends',
+      'Selection geometry: TextBox / TextRange / TextPosition / TextAffinity',
+    ),
     textBoxSection,
     _sectionDivider(),
-    _sectionHeader(6, 'Align grid',          'TextAlign x TextDirection, 12 cells'),
+    _sectionHeader(6, 'Align grid', 'TextAlign x TextDirection, 12 cells'),
     alignGrid,
-    _sectionHeader(7, 'Decoration gallery',  'TextDecoration crossed with TextDecorationStyle'),
+    _sectionHeader(
+      7,
+      'Decoration gallery',
+      'TextDecoration crossed with TextDecorationStyle',
+    ),
     decorationGallery,
-    _sectionHeader(8, 'Weight + style',      'FontWeight x FontStyle - 18 sample chips'),
+    _sectionHeader(
+      8,
+      'Weight + style',
+      'FontWeight x FontStyle - 18 sample chips',
+    ),
     weightGallery,
-    _sectionHeader(9, 'Locale',              'ui.Locale and Locale.fromSubtags - 8 named locales'),
+    _sectionHeader(
+      9,
+      'Locale',
+      'ui.Locale and Locale.fromSubtags - 8 named locales',
+    ),
     localeSection,
-    _sectionHeader(10, 'Pitfalls',           'Five common mistakes'),
+    _sectionHeader(10, 'Pitfalls', 'Five common mistakes'),
     pitfalls,
     lineMetricsCard,
-    _sectionHeader(11, 'Cheat sheet',        'Every type, grouped by family'),
+    _sectionHeader(11, 'Cheat sheet', 'Every type, grouped by family'),
     footer,
   ];
   print('  section widget count: ${sections.length}');
@@ -2038,9 +2644,7 @@ dynamic build(BuildContext context) {
     theme: ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: _kCanvas,
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: _kInk),
-      ),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: _kInk)),
     ),
     home: Scaffold(
       backgroundColor: _kCanvas,

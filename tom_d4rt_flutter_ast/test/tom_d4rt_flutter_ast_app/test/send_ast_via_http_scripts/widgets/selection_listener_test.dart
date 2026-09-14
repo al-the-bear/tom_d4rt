@@ -20,7 +20,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.hearing,
       'title': 'Selection Observer Widget',
-      'body': 'SelectionListener is a widget that wraps content in a '
+      'body':
+          'SelectionListener is a widget that wraps content in a '
           'SelectionContainer and reports selection changes through a '
           'SelectionListenerNotifier. It does not manage selection – '
           'it only observes what the enclosing SelectionArea provides.',
@@ -28,21 +29,24 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.broadcast_on_personal,
       'title': 'SelectionListenerNotifier',
-      'body': 'A ChangeNotifier that you create and pass to SelectionListener. '
+      'body':
+          'A ChangeNotifier that you create and pass to SelectionListener. '
           'Call addListener() to receive callbacks whenever selection changes. '
           'Access .selection for current SelectionDetails (status + range).',
     },
     {
       'icon': Icons.account_tree,
       'title': 'Works Inside SelectionArea',
-      'body': 'Must be placed inside a SelectionArea (or SelectableRegion). '
+      'body':
+          'Must be placed inside a SelectionArea (or SelectableRegion). '
           'SelectionListener wraps its child in a SelectionContainer with '
           'a special delegate that reports changes to the notifier.',
     },
     {
       'icon': Icons.tune,
       'title': 'Decoupled Architecture',
-      'body': 'The notifier is created externally and passed in. This '
+      'body':
+          'The notifier is created externally and passed in. This '
           'means multiple widgets can listen to the same notifier. '
           'The notifier survives widget rebuilds and can be shared.',
     },
@@ -64,7 +68,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.cyan.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.cyan.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -81,7 +89,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -108,7 +120,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Pass to SelectionListener',
-      'code': 'SelectionListener(\n'
+      'code':
+          'SelectionListener(\n'
           '  selectionNotifier: notifier,\n'
           '  child: Text("Content"),\n'
           ')',
@@ -118,7 +131,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'Add Listener Callback',
-      'code': 'notifier.addListener(() {\n'
+      'code':
+          'notifier.addListener(() {\n'
           '  final details = notifier.selection;\n'
           '  print(details.status);\n'
           '  print(details.range);\n'
@@ -129,11 +143,13 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'title': 'Read Selection Details',
-      'code': 'final status = notifier.selection.status;\n'
+      'code':
+          'final status = notifier.selection.status;\n'
           '// SelectionStatus.uncollapsed\n'
           '// SelectionStatus.collapsed\n'
           '// SelectionStatus.none',
-      'desc': 'status tells you the current selection state. range has offsets.',
+      'desc':
+          'status tells you the current selection state. range has offsets.',
       'color': Colors.orange,
     },
     {
@@ -159,28 +175,44 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.1),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
                   Container(
                     width: 22.0,
                     height: 22.0,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: color,
+                    ),
                     child: Center(
                       child: Text(
                         ls['step'] as String,
-                        style: const TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 11.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 8.0),
                   Text(
                     ls['title'] as String,
-                    style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                 ],
               ),
@@ -191,7 +223,11 @@ dynamic build(BuildContext context) {
               color: Colors.grey.shade50,
               child: Text(
                 ls['code'] as String,
-                style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade800,
+                ),
               ),
             ),
             Container(
@@ -199,7 +235,11 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               child: Text(
                 ls['desc'] as String,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.3),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.grey.shade600,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -218,21 +258,24 @@ dynamic build(BuildContext context) {
       'status': 'SelectionStatus.none',
       'color': Colors.grey,
       'icon': Icons.deselect,
-      'desc': 'No selection exists. The user has not selected anything '
+      'desc':
+          'No selection exists. The user has not selected anything '
           'or the selection has been cleared.',
     },
     {
       'status': 'SelectionStatus.collapsed',
       'color': Colors.orange,
       'icon': Icons.text_fields,
-      'desc': 'Selection exists but has zero length – the cursor is '
+      'desc':
+          'Selection exists but has zero length – the cursor is '
           'positioned but no text is highlighted.',
     },
     {
       'status': 'SelectionStatus.uncollapsed',
       'color': Colors.green,
       'icon': Icons.select_all,
-      'desc': 'Active selection with non-zero length. Text is highlighted '
+      'desc':
+          'Active selection with non-zero length. Text is highlighted '
           'and can be copied or acted upon.',
     },
   ];
@@ -277,7 +320,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     ss['desc'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
                   ),
                 ],
               ),
@@ -333,15 +380,36 @@ dynamic build(BuildContext context) {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Feature', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.grey.shade700)),
+          child: Text(
+            'Feature',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.grey.shade700,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('SelectionListener', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+          child: Text(
+            'SelectionListener',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.cyan.shade700,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('SelectionArea', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.blue.shade700)),
+          child: Text(
+            'SelectionArea',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.blue.shade700,
+            ),
+          ),
         ),
       ],
     ),
@@ -352,15 +420,24 @@ dynamic build(BuildContext context) {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(cr['feature'] as String, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
+            child: Text(
+              cr['feature'] as String,
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(cr['listener'] as String, style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade800)),
+            child: Text(
+              cr['listener'] as String,
+              style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade800),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(cr['area'] as String, style: TextStyle(fontSize: 11.0, color: Colors.blue.shade800)),
+            child: Text(
+              cr['area'] as String,
+              style: TextStyle(fontSize: 11.0, color: Colors.blue.shade800),
+            ),
           ),
         ],
       ),
@@ -391,10 +468,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.analytics,
       'title': 'Selection Analytics',
       'color': Colors.blue,
-      'body': 'Track selection status transitions to understand user '
+      'body':
+          'Track selection status transitions to understand user '
           'interaction patterns. Log when selections become uncollapsed '
           'to measure engagement with specific content sections.',
-      'code': 'notifier.addListener(() {\n'
+      'code':
+          'notifier.addListener(() {\n'
           '  if (notifier.selection.status ==\n'
           '      SelectionStatus.uncollapsed) {\n'
           '    analytics.log("selection_started");\n'
@@ -405,10 +484,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.dashboard_customize,
       'title': 'Selection-Aware Toolbar',
       'color': Colors.green,
-      'body': 'Show or hide a floating toolbar based on selection status. '
+      'body':
+          'Show or hide a floating toolbar based on selection status. '
           'When status changes to uncollapsed, show copy/share options. '
           'When status returns to none, hide the toolbar.',
-      'code': 'notifier.addListener(() {\n'
+      'code':
+          'notifier.addListener(() {\n'
           '  final hasSelection = notifier\n'
           '    .selection.status ==\n'
           '    SelectionStatus.uncollapsed;\n'
@@ -419,10 +500,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.text_snippet,
       'title': 'Status Bar Indicator',
       'color': Colors.purple,
-      'body': 'Display the current selection status in a status bar. '
+      'body':
+          'Display the current selection status in a status bar. '
           'Use AnimatedBuilder or ListenableBuilder with the notifier '
           'to rebuild only the status indicator widget.',
-      'code': 'ListenableBuilder(\n'
+      'code':
+          'ListenableBuilder(\n'
           '  listenable: notifier,\n'
           '  builder: (ctx, _) {\n'
           '    return Text(\n'
@@ -434,10 +517,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.share,
       'title': 'Scoped Section Tracking',
       'color': Colors.orange,
-      'body': 'Place individual listeners on different content sections '
+      'body':
+          'Place individual listeners on different content sections '
           'to know which section the user is selecting from. Each '
           'listener has its own notifier for independent tracking.',
-      'code': 'SelectionListener(\n'
+      'code':
+          'SelectionListener(\n'
           '  selectionNotifier: sectionNotifier,\n'
           '  child: sectionContent,\n'
           ')',
@@ -461,7 +546,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
@@ -469,16 +556,27 @@ dynamic build(BuildContext context) {
                   const SizedBox(width: 8.0),
                   Text(
                     pat['title'] as String,
-                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               child: Text(
                 pat['body'] as String,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.35,
+                ),
               ),
             ),
             Container(
@@ -492,7 +590,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 pat['code'] as String,
-                style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
           ],
@@ -507,12 +609,32 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.hearing, 'text': 'SelectionListener observes selection via SelectionListenerNotifier'},
-    {'icon': Icons.broadcast_on_personal, 'text': 'Notifier exposes .selection with status and range'},
-    {'icon': Icons.account_tree, 'text': 'Must be placed inside a SelectionArea to function'},
-    {'icon': Icons.layers, 'text': 'Multiple listeners with independent notifiers for section tracking'},
-    {'icon': Icons.sync, 'text': 'Uses ChangeNotifier pattern: addListener / removeListener'},
-    {'icon': Icons.delete_outline, 'text': 'Always dispose the notifier in State.dispose()'},
+    {
+      'icon': Icons.hearing,
+      'text':
+          'SelectionListener observes selection via SelectionListenerNotifier',
+    },
+    {
+      'icon': Icons.broadcast_on_personal,
+      'text': 'Notifier exposes .selection with status and range',
+    },
+    {
+      'icon': Icons.account_tree,
+      'text': 'Must be placed inside a SelectionArea to function',
+    },
+    {
+      'icon': Icons.layers,
+      'text':
+          'Multiple listeners with independent notifiers for section tracking',
+    },
+    {
+      'icon': Icons.sync,
+      'text': 'Uses ChangeNotifier pattern: addListener / removeListener',
+    },
+    {
+      'icon': Icons.delete_outline,
+      'text': 'Always dispose the notifier in State.dispose()',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -523,12 +645,20 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.cyan.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.cyan.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -575,10 +705,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('What is SelectionListener?',
-                    'A widget that wraps its child in a SelectionContainer '
-                    'and reports selection changes through a '
-                    'SelectionListenerNotifier (ChangeNotifier pattern).'),
+                _buildSL2Bullet(
+                  'What is SelectionListener?',
+                  'A widget that wraps its child in a SelectionContainer '
+                      'and reports selection changes through a '
+                      'SelectionListenerNotifier (ChangeNotifier pattern).',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -590,9 +722,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('Notifier Lifecycle',
-                    'Step-by-step: create notifier, pass to widget, '
-                    'add listener, read selection details, dispose.'),
+                _buildSL2Bullet(
+                  'Notifier Lifecycle',
+                  'Step-by-step: create notifier, pass to widget, '
+                      'add listener, read selection details, dispose.',
+                ),
                 const SizedBox(height: 14.0),
                 ...lifecycleWidgets,
               ],
@@ -604,9 +738,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('SelectionStatus Values',
-                    'The selection details expose a SelectionStatus '
-                    'indicating the current selection state.'),
+                _buildSL2Bullet(
+                  'SelectionStatus Values',
+                  'The selection details expose a SelectionStatus '
+                      'indicating the current selection state.',
+                ),
                 const SizedBox(height: 14.0),
                 ...statusCards,
                 const SizedBox(height: 14.0),
@@ -620,14 +756,22 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+                      Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber.shade800,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
                           'SelectionDetails also exposes .range which gives '
                           'the SelectedContentRange with start and end offsets '
                           'local to the SelectionListener subtree.',
-                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: Colors.amber.shade900,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -642,8 +786,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('SelectionListener vs SelectionArea',
-                    'Different approaches to observing selection events.'),
+                _buildSL2Bullet(
+                  'SelectionListener vs SelectionArea',
+                  'Different approaches to observing selection events.',
+                ),
                 const SizedBox(height: 14.0),
                 Container(
                   decoration: BoxDecoration(
@@ -671,19 +817,32 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.cyan.withValues(alpha: 0.05),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: Colors.cyan.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.cyan.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('When to Use Which', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+                      Text(
+                        'When to Use Which',
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.cyan.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 6.0),
                       Text(
                         'Use SelectionListener when you need structural/status '
                         'information (is something selected? where?). Use '
                         'SelectionArea.onSelectionChanged when you need the '
                         'actual selected text content.',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),
@@ -697,9 +856,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('Live Selection Listener',
-                    'Select text below and watch the notifier report '
-                    'status changes in real time.'),
+                _buildSL2Bullet(
+                  'Live Selection Listener',
+                  'Select text below and watch the notifier report '
+                      'status changes in real time.',
+                ),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -711,9 +872,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('Independent Section Listeners',
-                    'Two listeners with separate notifiers tracking '
-                    'different content sections independently.'),
+                _buildSL2Bullet(
+                  'Independent Section Listeners',
+                  'Two listeners with separate notifiers tracking '
+                      'different content sections independently.',
+                ),
                 const SizedBox(height: 14.0),
                 multiDemo,
               ],
@@ -725,8 +888,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSL2Bullet('Practical Integration Patterns',
-                    'Common ways to use SelectionListener in production.'),
+                _buildSL2Bullet(
+                  'Practical Integration Patterns',
+                  'Common ways to use SelectionListener in production.',
+                ),
                 const SizedBox(height: 14.0),
                 ...patternCards,
               ],
@@ -750,7 +915,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.cyan.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.cyan.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -780,10 +947,24 @@ Widget _buildSL2Bullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.cyan.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -872,7 +1053,9 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                 decoration: BoxDecoration(
                   color: Colors.cyan.withValues(alpha: 0.03),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.cyan.withValues(alpha: 0.15)),
+                  border: Border.all(
+                    color: Colors.cyan.withValues(alpha: 0.15),
+                  ),
                 ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -882,7 +1065,11 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                       'A SelectionListenerNotifier is created externally and '
                       'passed to the widget. You call addListener() to '
                       'receive notifications when selection changes.',
-                      style: TextStyle(fontSize: 13.0, height: 1.55, color: Colors.black87),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        height: 1.55,
+                        color: Colors.black87,
+                      ),
                     ),
                     SizedBox(height: 10.0),
                     Text(
@@ -890,7 +1077,11 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                       'SelectionDetails object with status (none, collapsed, '
                       'uncollapsed) and range (start/end offsets). This gives '
                       'structural information about the selection.',
-                      style: TextStyle(fontSize: 13.0, height: 1.55, color: Colors.black87),
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        height: 1.55,
+                        color: Colors.black87,
+                      ),
                     ),
                   ],
                 ),
@@ -911,17 +1102,38 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.hearing, size: 16.0, color: Colors.cyan.shade700),
+                    Icon(
+                      Icons.hearing,
+                      size: 16.0,
+                      color: Colors.cyan.shade700,
+                    ),
                     const SizedBox(width: 6.0),
-                    Text('Notifier Output', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+                    Text(
+                      'Notifier Output',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.cyan.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
-                      child: Text('$_eventCount events', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+                      child: Text(
+                        '$_eventCount events',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.cyan.shade700,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -933,7 +1145,9 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                   decoration: BoxDecoration(
                     color: statusColor.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(color: statusColor.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: statusColor.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -942,10 +1156,21 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Current Status', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500)),
+                          Text(
+                            'Current Status',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
                           Text(
                             'SelectionStatus.$_statusText',
-                            style: TextStyle(fontSize: 13.0, fontFamily: 'monospace', fontWeight: FontWeight.w700, color: statusColor),
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w700,
+                              color: statusColor,
+                            ),
                           ),
                         ],
                       ),
@@ -966,15 +1191,30 @@ class _SLListenerLiveDemoState extends State<_SLListenerLiveDemo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Event Log', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Colors.grey.shade500)),
-                        const SizedBox(height: 4.0),
-                        ..._statusLog.take(6).map((entry) => Padding(
-                          padding: const EdgeInsets.only(bottom: 2.0),
-                          child: Text(
-                            entry,
-                            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade600),
+                        Text(
+                          'Event Log',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.grey.shade500,
                           ),
-                        )),
+                        ),
+                        const SizedBox(height: 4.0),
+                        ..._statusLog
+                            .take(6)
+                            .map(
+                              (entry) => Padding(
+                                padding: const EdgeInsets.only(bottom: 2.0),
+                                child: Text(
+                                  entry,
+                                  style: TextStyle(
+                                    fontSize: 10.0,
+                                    fontFamily: 'monospace',
+                                    color: Colors.grey.shade600,
+                                  ),
+                                ),
+                              ),
+                            ),
                       ],
                     ),
                   ),
@@ -1057,7 +1297,11 @@ class _SLMultiListenerDemoState extends State<_SLMultiListenerDemo> {
           Text(
             'Each section has its own SelectionListenerNotifier. '
             'Selecting in one section only triggers that notifier.',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 14.0),
           SelectionArea(
@@ -1072,16 +1316,29 @@ class _SLMultiListenerDemoState extends State<_SLMultiListenerDemo> {
                       decoration: BoxDecoration(
                         color: Colors.blue.withValues(alpha: 0.04),
                         borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
+                        border: Border.all(
+                          color: Colors.blue.withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.hearing, size: 14.0, color: Colors.blue),
+                              Icon(
+                                Icons.hearing,
+                                size: 14.0,
+                                color: Colors.blue,
+                              ),
                               const SizedBox(width: 4.0),
-                              Text('Section A', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.blue)),
+                              Text(
+                                'Section A',
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.blue,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8.0),
@@ -1105,16 +1362,29 @@ class _SLMultiListenerDemoState extends State<_SLMultiListenerDemo> {
                       decoration: BoxDecoration(
                         color: Colors.purple.withValues(alpha: 0.04),
                         borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: Colors.purple.withValues(alpha: 0.2)),
+                        border: Border.all(
+                          color: Colors.purple.withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.hearing, size: 14.0, color: Colors.purple),
+                              Icon(
+                                Icons.hearing,
+                                size: 14.0,
+                                color: Colors.purple,
+                              ),
                               const SizedBox(width: 4.0),
-                              Text('Section B', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Colors.purple)),
+                              Text(
+                                'Section B',
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.purple,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 8.0),
@@ -1135,9 +1405,23 @@ class _SLMultiListenerDemoState extends State<_SLMultiListenerDemo> {
           const SizedBox(height: 14.0),
           Row(
             children: [
-              Expanded(child: _statusPanel('Notifier A', _statusA, _eventsA, Colors.blue)),
+              Expanded(
+                child: _statusPanel(
+                  'Notifier A',
+                  _statusA,
+                  _eventsA,
+                  Colors.blue,
+                ),
+              ),
               const SizedBox(width: 10.0),
-              Expanded(child: _statusPanel('Notifier B', _statusB, _eventsB, Colors.purple)),
+              Expanded(
+                child: _statusPanel(
+                  'Notifier B',
+                  _statusB,
+                  _eventsB,
+                  Colors.purple,
+                ),
+              ),
             ],
           ),
         ],
@@ -1158,7 +1442,14 @@ class _SLMultiListenerDemoState extends State<_SLMultiListenerDemo> {
         children: [
           Row(
             children: [
-              Text(label, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: color)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
               const Spacer(),
               Text('$events', style: TextStyle(fontSize: 10.0, color: color)),
             ],

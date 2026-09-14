@@ -206,8 +206,26 @@ const List<IconData> _kIcons = <IconData>[
 
 // Tile labels — short two-character strings so they read as little chips.
 const List<String> _kLabels = <String>[
-  'A1', 'B2', 'C3', 'D4', 'E5', 'F6', 'G7', 'H8', 'I9', 'J0',
-  'K1', 'L2', 'M3', 'N4', 'O5', 'P6', 'Q7', 'R8', 'S9', 'T0',
+  'A1',
+  'B2',
+  'C3',
+  'D4',
+  'E5',
+  'F6',
+  'G7',
+  'H8',
+  'I9',
+  'J0',
+  'K1',
+  'L2',
+  'M3',
+  'N4',
+  'O5',
+  'P6',
+  'Q7',
+  'R8',
+  'S9',
+  'T0',
 ];
 
 // =============================================================================
@@ -297,11 +315,7 @@ BoxDecoration _heroDecoration() {
     gradient: const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: <Color>[
-        Color(0xFF0F172A),
-        Color(0xFF1E293B),
-        Color(0xFF334155),
-      ],
+      colors: <Color>[Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF334155)],
     ),
     borderRadius: BorderRadius.circular(24.0),
     boxShadow: <BoxShadow>[
@@ -325,10 +339,7 @@ BoxDecoration _codeCardDecoration() {
     gradient: const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
-      colors: <Color>[
-        Color(0xFF1E293B),
-        Color(0xFF0F172A),
-      ],
+      colors: <Color>[Color(0xFF1E293B), Color(0xFF0F172A)],
     ),
     borderRadius: BorderRadius.circular(12.0),
     boxShadow: <BoxShadow>[
@@ -450,11 +461,7 @@ class _GridAnatomyPainter extends CustomPainter {
     // childAspectRatio bracket on one cell
     final double arX = padding + 2 * (cellW + crossSpacing);
     final double arY = padding + cellH + mainSpacing;
-    _drawBracket(
-      canvas,
-      dashPaint,
-      Rect.fromLTWH(arX, arY, cellW, cellH),
-    );
+    _drawBracket(canvas, dashPaint, Rect.fromLTWH(arX, arY, cellW, cellH));
     _drawLabel(canvas, 'childAspectRatio = w / h', arX - 8, arY + cellH + 6);
 
     // crossAxisCount label (top)
@@ -627,13 +634,8 @@ Widget _captionRow(String label, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: 140.0,
-          child: Text(label, style: _kCaptionStyle),
-        ),
-        Expanded(
-          child: Text(value, style: _kCodeStyle),
-        ),
+        SizedBox(width: 140.0, child: Text(label, style: _kCaptionStyle)),
+        Expanded(child: Text(value, style: _kCodeStyle)),
       ],
     ),
   );
@@ -774,10 +776,22 @@ Widget _buildAnatomySection() {
         ),
         const SizedBox(height: 16.0),
         _captionRow('crossAxisCount', 'number of slots across the cross axis'),
-        _captionRow('crossAxisSpacing', 'gap between columns (or rows if horizontal)'),
-        _captionRow('mainAxisSpacing', 'gap between rows (or columns if horizontal)'),
-        _captionRow('childAspectRatio', 'width / height — defaults to 1.0 (square)'),
-        _captionRow('mainAxisExtent', 'pin slot height directly; overrides aspect'),
+        _captionRow(
+          'crossAxisSpacing',
+          'gap between columns (or rows if horizontal)',
+        ),
+        _captionRow(
+          'mainAxisSpacing',
+          'gap between rows (or columns if horizontal)',
+        ),
+        _captionRow(
+          'childAspectRatio',
+          'width / height — defaults to 1.0 (square)',
+        ),
+        _captionRow(
+          'mainAxisExtent',
+          'pin slot height directly; overrides aspect',
+        ),
       ],
     ),
   );
@@ -835,9 +849,7 @@ Widget _buildDecisionMatrix() {
             primary: false,
             child: DataTable(
               columnSpacing: 24.0,
-              headingRowColor: WidgetStateProperty.all(
-                const Color(0xFFFFE4E6),
-              ),
+              headingRowColor: WidgetStateProperty.all(const Color(0xFFFFE4E6)),
               columns: const <DataColumn>[
                 DataColumn(label: Text('Constructor')),
                 DataColumn(label: Text('Built-in delegate')),
@@ -845,36 +857,48 @@ Widget _buildDecisionMatrix() {
                 DataColumn(label: Text('Use when…')),
               ],
               rows: const <DataRow>[
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('GridView.count')),
-                  DataCell(Text('FixedCrossAxisCount')),
-                  DataCell(Text('children: <Widget>[ ... ]')),
-                  DataCell(Text('static layout with a known column count')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('GridView.extent')),
-                  DataCell(Text('MaxCrossAxisExtent')),
-                  DataCell(Text('children: <Widget>[ ... ]')),
-                  DataCell(Text('responsive layout — fit as many as possible')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('GridView.builder')),
-                  DataCell(Text('any SliverGridDelegate')),
-                  DataCell(Text('itemBuilder + itemCount')),
-                  DataCell(Text('large / dynamic / lazy data')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('GridView.custom')),
-                  DataCell(Text('any SliverGridDelegate')),
-                  DataCell(Text('SliverChildDelegate')),
-                  DataCell(Text('custom child indexing / keys / reorder')),
-                ]),
-                DataRow(cells: <DataCell>[
-                  DataCell(Text('GridView(...)')),
-                  DataCell(Text('explicit gridDelegate')),
-                  DataCell(Text('children: <Widget>[ ... ]')),
-                  DataCell(Text('exotic delegates beyond the two built-ins')),
-                ]),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('GridView.count')),
+                    DataCell(Text('FixedCrossAxisCount')),
+                    DataCell(Text('children: <Widget>[ ... ]')),
+                    DataCell(Text('static layout with a known column count')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('GridView.extent')),
+                    DataCell(Text('MaxCrossAxisExtent')),
+                    DataCell(Text('children: <Widget>[ ... ]')),
+                    DataCell(
+                      Text('responsive layout — fit as many as possible'),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('GridView.builder')),
+                    DataCell(Text('any SliverGridDelegate')),
+                    DataCell(Text('itemBuilder + itemCount')),
+                    DataCell(Text('large / dynamic / lazy data')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('GridView.custom')),
+                    DataCell(Text('any SliverGridDelegate')),
+                    DataCell(Text('SliverChildDelegate')),
+                    DataCell(Text('custom child indexing / keys / reorder')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('GridView(...)')),
+                    DataCell(Text('explicit gridDelegate')),
+                    DataCell(Text('children: <Widget>[ ... ]')),
+                    DataCell(Text('exotic delegates beyond the two built-ins')),
+                  ],
+                ),
               ],
             ),
           ),
@@ -920,8 +944,10 @@ Widget _buildGridCountSection() {
           'the trade-offs visible at a glance.',
         ),
         const SizedBox(height: 14.0),
-        Text('3.1  crossAxisCount: 3, default spacing, square tiles',
-            style: _kCaptionStyle),
+        Text(
+          '3.1  crossAxisCount: 3, default spacing, square tiles',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -933,8 +959,10 @@ Widget _buildGridCountSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('3.2  crossAxisCount: 4, mainAxisSpacing 10, crossAxisSpacing 10',
-            style: _kCaptionStyle),
+        Text(
+          '3.2  crossAxisCount: 4, mainAxisSpacing 10, crossAxisSpacing 10',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -948,8 +976,10 @@ Widget _buildGridCountSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('3.3  crossAxisCount: 2, childAspectRatio: 2.4 (wide cards)',
-            style: _kCaptionStyle),
+        Text(
+          '3.3  crossAxisCount: 2, childAspectRatio: 2.4 (wide cards)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1027,8 +1057,10 @@ Widget _buildGridExtentSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('4.2  maxCrossAxisExtent: 140.0 (wider slots, fewer columns)',
-            style: _kCaptionStyle),
+        Text(
+          '4.2  maxCrossAxisExtent: 140.0 (wider slots, fewer columns)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.extent(
@@ -1042,8 +1074,10 @@ Widget _buildGridExtentSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('4.3  maxCrossAxisExtent: 200.0, childAspectRatio: 1.6',
-            style: _kCaptionStyle),
+        Text(
+          '4.3  maxCrossAxisExtent: 200.0, childAspectRatio: 1.6',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.extent(
@@ -1110,13 +1144,14 @@ Widget _buildGridBuilderSection() {
           'a single call.',
         ),
         const SizedBox(height: 14.0),
-        Text('5.1  Builder + SliverGridDelegateWithFixedCrossAxisCount',
-            style: _kCaptionStyle),
+        Text(
+          '5.1  Builder + SliverGridDelegateWithFixedCrossAxisCount',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.builder(
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
@@ -1132,13 +1167,14 @@ Widget _buildGridBuilderSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('5.2  Builder + SliverGridDelegateWithMaxCrossAxisExtent',
-            style: _kCaptionStyle),
+        Text(
+          '5.2  Builder + SliverGridDelegateWithMaxCrossAxisExtent',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.builder(
-            gridDelegate:
-                const SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 110.0,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
@@ -1154,13 +1190,14 @@ Widget _buildGridBuilderSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('5.3  Builder with index-aware content (number badges)',
-            style: _kCaptionStyle),
+        Text(
+          '5.3  Builder with index-aware content (number badges)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.builder(
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
               mainAxisSpacing: 6.0,
               crossAxisSpacing: 6.0,
@@ -1228,7 +1265,10 @@ Widget _buildGridCustomSection() {
           'that hot reloads preserve element identity across rebuilds.',
         ),
         const SizedBox(height: 14.0),
-        Text('6.1  Custom with SliverChildBuilderDelegate', style: _kCaptionStyle),
+        Text(
+          '6.1  Custom with SliverChildBuilderDelegate',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #112, P10):
@@ -1241,8 +1281,7 @@ Widget _buildGridCustomSection() {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             primary: false,
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
@@ -1250,10 +1289,7 @@ Widget _buildGridCustomSection() {
             ),
             childrenDelegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                return _buildGridTile(
-                  index,
-                  palette: _kPaletteCustom,
-                );
+                return _buildGridTile(index, palette: _kPaletteCustom);
               },
               childCount: 9,
               findChildIndexCallback: (Key key) {
@@ -1266,13 +1302,14 @@ Widget _buildGridCustomSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('6.2  Raw GridView(...) with explicit gridDelegate',
-            style: _kCaptionStyle),
+        Text(
+          '6.2  Raw GridView(...) with explicit gridDelegate',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView(
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               mainAxisSpacing: 6.0,
               crossAxisSpacing: 6.0,
@@ -1349,7 +1386,10 @@ Widget _buildAspectRatioSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('7.2  childAspectRatio: 1.0 — square tiles', style: _kCaptionStyle),
+        Text(
+          '7.2  childAspectRatio: 1.0 — square tiles',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1379,13 +1419,14 @@ Widget _buildAspectRatioSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('7.4  mainAxisExtent: 60.0 — slot height pinned to 60 px',
-            style: _kCaptionStyle),
+        Text(
+          '7.4  mainAxisExtent: 60.0 — slot height pinned to 60 px',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.builder(
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
@@ -1405,13 +1446,14 @@ Widget _buildAspectRatioSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('7.5  mainAxisExtent: 110.0 with MaxCrossAxisExtent delegate',
-            style: _kCaptionStyle),
+        Text(
+          '7.5  mainAxisExtent: 110.0 with MaxCrossAxisExtent delegate',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.builder(
-            gridDelegate:
-                const SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 140.0,
               mainAxisSpacing: 10.0,
               crossAxisSpacing: 10.0,
@@ -1475,7 +1517,10 @@ Widget _buildSpacingSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('8.2  mainAxisSpacing: 16, crossAxisSpacing: 0', style: _kCaptionStyle),
+        Text(
+          '8.2  mainAxisSpacing: 16, crossAxisSpacing: 0',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1488,7 +1533,10 @@ Widget _buildSpacingSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('8.3  mainAxisSpacing: 0, crossAxisSpacing: 16', style: _kCaptionStyle),
+        Text(
+          '8.3  mainAxisSpacing: 0, crossAxisSpacing: 16',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1501,7 +1549,10 @@ Widget _buildSpacingSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('8.4  mainAxisSpacing: 16, crossAxisSpacing: 16', style: _kCaptionStyle),
+        Text(
+          '8.4  mainAxisSpacing: 16, crossAxisSpacing: 16',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1565,8 +1616,10 @@ Widget _buildScrollDirectionSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('9.2  vertical, reverse: true (items flow upward)',
-            style: _kCaptionStyle),
+        Text(
+          '9.2  vertical, reverse: true (items flow upward)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         _gridFrame(
           GridView.count(
@@ -1581,8 +1634,10 @@ Widget _buildScrollDirectionSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('9.3  horizontal, crossAxisCount: 2 (two rows, scrolls sideways)',
-            style: _kCaptionStyle),
+        Text(
+          '9.3  horizontal, crossAxisCount: 2 (two rows, scrolls sideways)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -1672,8 +1727,10 @@ Widget _buildPaddingShrinkSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('10.2  padding: EdgeInsets.symmetric(h: 32, v: 8)',
-            style: _kCaptionStyle),
+        Text(
+          '10.2  padding: EdgeInsets.symmetric(h: 32, v: 8)',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         Container(
           decoration: _innerPanelDecoration(),
@@ -1692,8 +1749,10 @@ Widget _buildPaddingShrinkSection() {
           ),
         ),
         const SizedBox(height: 18.0),
-        Text('10.3  padding: EdgeInsets.fromLTRB(40, 0, 4, 16) — uneven',
-            style: _kCaptionStyle),
+        Text(
+          '10.3  padding: EdgeInsets.fromLTRB(40, 0, 4, 16) — uneven',
+          style: _kCaptionStyle,
+        ),
         const SizedBox(height: 8.0),
         Container(
           decoration: _innerPanelDecoration(),
@@ -1828,129 +1887,123 @@ Widget _buildInteractiveSection() {
       toneSoft: const Color(0xFF7DD3FC),
     ),
     child: _InteractiveStatefulScope(
-      builder: (
-        int currentCount,
-        bool isHorizontal,
-        double currentAspect,
-        ValueChanged<int> onCountChanged,
-        ValueChanged<bool> onHorizontalChanged,
-        ValueChanged<double> onAspectChanged,
-      ) {
-        return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              _sectionTitle(
-                '12. Interactive playground',
-                'StatefulBuilder-driven crossAxisCount, scrollDirection and aspect',
-                const Color(0xFF0EA5E9),
-              ),
-              const SizedBox(height: 14.0),
-              _bodyParagraph(
-                'This card uses a StatefulBuilder to keep tiny pieces of '
-                'state scoped to a single subtree. The crossAxisCount is '
-                'tied to a Slider, scrollDirection is bound to a Switch and '
-                'childAspectRatio is tied to another Slider. Every change '
-                'triggers a rebuild of the embedded GridView.builder. There '
-                'is no global state, no AnimationController, no Future — the '
-                'whole thing is a pure synchronous setState callback.',
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'crossAxisCount: $currentCount',
-                          style: _kCaptionStyle,
-                        ),
-                        Slider(
-                          value: currentCount.toDouble(),
-                          min: 2.0,
-                          max: 8.0,
-                          divisions: 6,
-                          label: '$currentCount',
-                          onChanged: (double v) =>
-                              onCountChanged(v.round()),
-                        ),
-                      ],
+      builder:
+          (
+            int currentCount,
+            bool isHorizontal,
+            double currentAspect,
+            ValueChanged<int> onCountChanged,
+            ValueChanged<bool> onHorizontalChanged,
+            ValueChanged<double> onAspectChanged,
+          ) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                _sectionTitle(
+                  '12. Interactive playground',
+                  'StatefulBuilder-driven crossAxisCount, scrollDirection and aspect',
+                  const Color(0xFF0EA5E9),
+                ),
+                const SizedBox(height: 14.0),
+                _bodyParagraph(
+                  'This card uses a StatefulBuilder to keep tiny pieces of '
+                  'state scoped to a single subtree. The crossAxisCount is '
+                  'tied to a Slider, scrollDirection is bound to a Switch and '
+                  'childAspectRatio is tied to another Slider. Every change '
+                  'triggers a rebuild of the embedded GridView.builder. There '
+                  'is no global state, no AnimationController, no Future — the '
+                  'whole thing is a pure synchronous setState callback.',
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'crossAxisCount: $currentCount',
+                            style: _kCaptionStyle,
+                          ),
+                          Slider(
+                            value: currentCount.toDouble(),
+                            min: 2.0,
+                            max: 8.0,
+                            divisions: 6,
+                            label: '$currentCount',
+                            onChanged: (double v) => onCountChanged(v.round()),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12.0),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'childAspectRatio: '
-                          '${currentAspect.toStringAsFixed(2)}',
-                          style: _kCaptionStyle,
-                        ),
-                        Slider(
-                          value: currentAspect,
-                          min: 0.6,
-                          max: 2.4,
-                          divisions: 18,
-                          label: currentAspect.toStringAsFixed(2),
-                          onChanged: onAspectChanged,
-                        ),
-                      ],
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'childAspectRatio: '
+                            '${currentAspect.toStringAsFixed(2)}',
+                            style: _kCaptionStyle,
+                          ),
+                          Slider(
+                            value: currentAspect,
+                            min: 0.6,
+                            max: 2.4,
+                            divisions: 18,
+                            label: currentAspect.toStringAsFixed(2),
+                            onChanged: onAspectChanged,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Text('scrollDirection:', style: _kCaptionStyle),
-                  const SizedBox(width: 8.0),
-                  Text(
-                    isHorizontal ? 'Axis.horizontal' : 'Axis.vertical',
-                    style: _kCodeStyle,
-                  ),
-                  const Spacer(),
-                  Switch(
-                    value: isHorizontal,
-                    onChanged: onHorizontalChanged,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                decoration: _innerPanelDecoration(),
-                child: SizedBox(
-                  height: isHorizontal ? 200.0 : null,
-                  child: GridView.builder(
-                    gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: currentCount,
-                      mainAxisSpacing: 6.0,
-                      crossAxisSpacing: 6.0,
-                      childAspectRatio: currentAspect,
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text('scrollDirection:', style: _kCaptionStyle),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      isHorizontal ? 'Axis.horizontal' : 'Axis.vertical',
+                      style: _kCodeStyle,
                     ),
-                    itemCount: 20,
-                    scrollDirection:
-                        isHorizontal ? Axis.horizontal : Axis.vertical,
-                    shrinkWrap: !isHorizontal,
-                    physics: isHorizontal
-                        ? const BouncingScrollPhysics()
-                        : const NeverScrollableScrollPhysics(),
-                    primary: false,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _buildGridTile(
-                        index,
-                        palette: _kPaletteScroll,
-                      );
-                    },
+                    const Spacer(),
+                    Switch(value: isHorizontal, onChanged: onHorizontalChanged),
+                  ],
+                ),
+                const SizedBox(height: 8.0),
+                Container(
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: _innerPanelDecoration(),
+                  child: SizedBox(
+                    height: isHorizontal ? 200.0 : null,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: currentCount,
+                        mainAxisSpacing: 6.0,
+                        crossAxisSpacing: 6.0,
+                        childAspectRatio: currentAspect,
+                      ),
+                      itemCount: 20,
+                      scrollDirection: isHorizontal
+                          ? Axis.horizontal
+                          : Axis.vertical,
+                      shrinkWrap: !isHorizontal,
+                      physics: isHorizontal
+                          ? const BouncingScrollPhysics()
+                          : const NeverScrollableScrollPhysics(),
+                      primary: false,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildGridTile(index, palette: _kPaletteScroll);
+                      },
+                    ),
                   ),
                 ),
-              ),
-            ],
-          );
-      },
+              ],
+            );
+          },
     ),
   );
 }
@@ -1967,15 +2020,15 @@ class _InteractiveStatefulScope extends StatefulWidget {
     ValueChanged<int> onCountChanged,
     ValueChanged<bool> onHorizontalChanged,
     ValueChanged<double> onAspectChanged,
-  ) builder;
+  )
+  builder;
 
   @override
   State<_InteractiveStatefulScope> createState() =>
       _InteractiveStatefulScopeState();
 }
 
-class _InteractiveStatefulScopeState
-    extends State<_InteractiveStatefulScope> {
+class _InteractiveStatefulScopeState extends State<_InteractiveStatefulScope> {
   int _crossAxisCount = 4;
   bool _horizontal = false;
   double _aspectRatio = 1.0;
@@ -2032,14 +2085,11 @@ Widget _buildReferenceCard() {
           },
           children: <TableRow>[
             TableRow(
-              decoration: BoxDecoration(
-                color: const Color(0xFFE2E8F0),
-              ),
+              decoration: BoxDecoration(color: const Color(0xFFE2E8F0)),
               children: const <Widget>[
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child:
-                      Text('Constructor', style: _kSubtitleStyle),
+                  child: Text('Constructor', style: _kSubtitleStyle),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
@@ -2089,10 +2139,7 @@ Widget _buildReferenceCard() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(
-                Icons.lightbulb_rounded,
-                color: Color(0xFFB45309),
-              ),
+              const Icon(Icons.lightbulb_rounded, color: Color(0xFFB45309)),
               const SizedBox(width: 10.0),
               Expanded(
                 child: Text(

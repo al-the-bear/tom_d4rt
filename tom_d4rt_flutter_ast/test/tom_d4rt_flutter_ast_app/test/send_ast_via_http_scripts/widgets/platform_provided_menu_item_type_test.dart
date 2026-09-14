@@ -384,18 +384,90 @@ dynamic build(BuildContext context) {
   print('');
 
   final typeData = <Map<String, dynamic>>[
-    {'name': 'about', 'icon': Icons.info_outline, 'shortcut': '—', 'category': 'App', 'desc': 'Show About panel'},
-    {'name': 'quit', 'icon': Icons.exit_to_app, 'shortcut': 'Cmd+Q', 'category': 'App', 'desc': 'Terminate app'},
-    {'name': 'servicesSubmenu', 'icon': Icons.miscellaneous_services, 'shortcut': '(submenu)', 'category': 'App', 'desc': 'OS Services'},
-    {'name': 'hide', 'icon': Icons.visibility_off, 'shortcut': 'Cmd+H', 'category': 'App', 'desc': 'Hide app'},
-    {'name': 'hideOtherApplications', 'icon': Icons.layers_clear, 'shortcut': 'Cmd+Opt+H', 'category': 'App', 'desc': 'Hide Others'},
-    {'name': 'showAllApplications', 'icon': Icons.layers, 'shortcut': '—', 'category': 'App', 'desc': 'Show All'},
-    {'name': 'startSpeaking', 'icon': Icons.record_voice_over, 'shortcut': '—', 'category': 'Edit', 'desc': 'Begin TTS'},
-    {'name': 'stopSpeaking', 'icon': Icons.voice_over_off, 'shortcut': '—', 'category': 'Edit', 'desc': 'Stop TTS'},
-    {'name': 'toggleFullScreen', 'icon': Icons.fullscreen, 'shortcut': 'Ctrl+Cmd+F', 'category': 'Window', 'desc': 'Full screen'},
-    {'name': 'minimizeWindow', 'icon': Icons.minimize, 'shortcut': 'Cmd+M', 'category': 'Window', 'desc': 'Minimize'},
-    {'name': 'zoomWindow', 'icon': Icons.zoom_out_map, 'shortcut': '—', 'category': 'Window', 'desc': 'Zoom / maximize'},
-    {'name': 'arrangeWindowsInFront', 'icon': Icons.flip_to_front, 'shortcut': '—', 'category': 'Window', 'desc': 'Bring all front'},
+    {
+      'name': 'about',
+      'icon': Icons.info_outline,
+      'shortcut': '—',
+      'category': 'App',
+      'desc': 'Show About panel',
+    },
+    {
+      'name': 'quit',
+      'icon': Icons.exit_to_app,
+      'shortcut': 'Cmd+Q',
+      'category': 'App',
+      'desc': 'Terminate app',
+    },
+    {
+      'name': 'servicesSubmenu',
+      'icon': Icons.miscellaneous_services,
+      'shortcut': '(submenu)',
+      'category': 'App',
+      'desc': 'OS Services',
+    },
+    {
+      'name': 'hide',
+      'icon': Icons.visibility_off,
+      'shortcut': 'Cmd+H',
+      'category': 'App',
+      'desc': 'Hide app',
+    },
+    {
+      'name': 'hideOtherApplications',
+      'icon': Icons.layers_clear,
+      'shortcut': 'Cmd+Opt+H',
+      'category': 'App',
+      'desc': 'Hide Others',
+    },
+    {
+      'name': 'showAllApplications',
+      'icon': Icons.layers,
+      'shortcut': '—',
+      'category': 'App',
+      'desc': 'Show All',
+    },
+    {
+      'name': 'startSpeaking',
+      'icon': Icons.record_voice_over,
+      'shortcut': '—',
+      'category': 'Edit',
+      'desc': 'Begin TTS',
+    },
+    {
+      'name': 'stopSpeaking',
+      'icon': Icons.voice_over_off,
+      'shortcut': '—',
+      'category': 'Edit',
+      'desc': 'Stop TTS',
+    },
+    {
+      'name': 'toggleFullScreen',
+      'icon': Icons.fullscreen,
+      'shortcut': 'Ctrl+Cmd+F',
+      'category': 'Window',
+      'desc': 'Full screen',
+    },
+    {
+      'name': 'minimizeWindow',
+      'icon': Icons.minimize,
+      'shortcut': 'Cmd+M',
+      'category': 'Window',
+      'desc': 'Minimize',
+    },
+    {
+      'name': 'zoomWindow',
+      'icon': Icons.zoom_out_map,
+      'shortcut': '—',
+      'category': 'Window',
+      'desc': 'Zoom / maximize',
+    },
+    {
+      'name': 'arrangeWindowsInFront',
+      'icon': Icons.flip_to_front,
+      'shortcut': '—',
+      'category': 'Window',
+      'desc': 'Bring all front',
+    },
   ];
 
   Color categoryColor(String cat) {
@@ -494,9 +566,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: cc.withValues(alpha: 0.2),
-                ),
+                border: Border.all(color: cc.withValues(alpha: 0.2)),
               ),
               child: Row(
                 children: [
@@ -536,16 +606,16 @@ dynamic build(BuildContext context) {
                         ),
                         Text(
                           item['desc'] as String,
-                          style: TextStyle(
-                            color: red700,
-                            fontSize: 11,
-                          ),
+                          style: TextStyle(color: red700, fontSize: 11),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: cc.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(4),
@@ -598,11 +668,7 @@ dynamic build(BuildContext context) {
                   '(0-11). The macOS embedding maps the index back to '
                   'the corresponding Objective-C selector. Adding new '
                   'values at the end is safe; reordering would break the API.',
-                  style: TextStyle(
-                    color: red800,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: red800, fontSize: 12, height: 1.4),
                 ),
               ],
             ),
@@ -705,16 +771,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  Red 900     ${red900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Deep Garnet ${deepGarnet.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
-  print('  │  Red 800     ${red800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Red 700     ${red700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Red 500     ${red500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Red 400     ${red400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Red 200     ${red200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Red 100     ${red100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Red 50      ${red50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Light       ${nearWhiteRed.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print(
+    '  │  Red 900     ${red900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Deep Garnet ${deepGarnet.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
+  print(
+    '  │  Red 800     ${red800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Red 700     ${red700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Red 500     ${red500.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Red 400     ${red400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Red 200     ${red200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Red 100     ${red100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Red 50      ${red50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Light       ${nearWhiteRed.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 
@@ -749,10 +835,7 @@ Widget _buildCategoryChip(String label, Color color, int count) {
         Container(
           width: 18,
           height: 18,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$count',

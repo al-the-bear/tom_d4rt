@@ -31,7 +31,10 @@ Widget _dwSection(String title, List<Widget> children) {
       border: Border.all(color: _dwLightSienna, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x158D4E25), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x158D4E25),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -43,11 +46,14 @@ Widget _dwSection(String title, List<Widget> children) {
             color: _dwSienna,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _dwWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _dwWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -59,20 +65,24 @@ Widget _dwSection(String title, List<Widget> children) {
 Widget _dwLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _dwDarkSienna,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _dwDarkSienna,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _dwBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(
-            color: _dwDarkText, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _dwDarkText, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -86,12 +96,15 @@ Widget _dwCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _dwLightSienna.withValues(alpha: 0.6)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _dwDarkSienna,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _dwDarkSienna,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -103,9 +116,10 @@ Widget _dwChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -127,9 +141,14 @@ Widget _dwInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
   );
 }
 
@@ -154,8 +173,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('DeleteToNextWordBoundaryIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+        title: const Text(
+          'DeleteToNextWordBoundaryIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -184,27 +205,48 @@ dynamic build(BuildContext context) {
                       color: _dwWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.space_bar,
-                        color: _dwWhite, size: 32),
+                    child: const Icon(
+                      Icons.space_bar,
+                      color: _dwWhite,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(height: 14),
-                  const Text('DeleteToNextWordBoundaryIntent',
-                      style: TextStyle(
-                          color: _dwWhite,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'DeleteToNextWordBoundaryIntent',
+                    style: TextStyle(
+                      color: _dwWhite,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  Text('Delete word by word — from cursor to word boundary',
-                      style: TextStyle(
-                          color: _dwWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                  Text(
+                    'Delete word by word — from cursor to word boundary',
+                    style: TextStyle(
+                      color: _dwWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _dwChip('Ctrl+Bksp', _dwWhite.withValues(alpha: 0.25), _dwWhite),
-                      _dwChip('Ctrl+Del', _dwWhite.withValues(alpha: 0.25), _dwWhite),
-                      _dwChip('Word Nav', _dwWhite.withValues(alpha: 0.25), _dwWhite),
+                      _dwChip(
+                        'Ctrl+Bksp',
+                        _dwWhite.withValues(alpha: 0.25),
+                        _dwWhite,
+                      ),
+                      _dwChip(
+                        'Ctrl+Del',
+                        _dwWhite.withValues(alpha: 0.25),
+                        _dwWhite,
+                      ),
+                      _dwChip(
+                        'Word Nav',
+                        _dwWhite.withValues(alpha: 0.25),
+                        _dwWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -319,9 +361,7 @@ dynamic build(BuildContext context) {
             // Section 6: Word boundary rules
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             _dwSection('6 · Word Boundary Rules', [
-              _dwBody(
-                'Different character categories create word boundaries:',
-              ),
+              _dwBody('Different character categories create word boundaries:'),
               _buildBoundaryRules(),
             ]),
 
@@ -373,9 +413,7 @@ dynamic build(BuildContext context) {
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 11: Edge cases
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            _dwSection('11 · Edge Cases', [
-              ..._buildWordEdgeCases(),
-            ]),
+            _dwSection('11 · Edge Cases', [..._buildWordEdgeCases()]),
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 12: Summary
@@ -395,11 +433,26 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _dwSummaryRow(Icons.space_bar, 'Deletes from cursor to word boundary'),
-                    _dwSummaryRow(Icons.swap_horiz, 'Forward or backward via forward flag'),
-                    _dwSummaryRow(Icons.keyboard, 'Ctrl+Bksp / Ctrl+Del (Opt on macOS)'),
-                    _dwSummaryRow(Icons.text_fields, 'Respects Unicode word boundary rules'),
-                    _dwSummaryRow(Icons.layers, 'Middle tier of char → word → line hierarchy'),
+                    _dwSummaryRow(
+                      Icons.space_bar,
+                      'Deletes from cursor to word boundary',
+                    ),
+                    _dwSummaryRow(
+                      Icons.swap_horiz,
+                      'Forward or backward via forward flag',
+                    ),
+                    _dwSummaryRow(
+                      Icons.keyboard,
+                      'Ctrl+Bksp / Ctrl+Del (Opt on macOS)',
+                    ),
+                    _dwSummaryRow(
+                      Icons.text_fields,
+                      'Respects Unicode word boundary rules',
+                    ),
+                    _dwSummaryRow(
+                      Icons.layers,
+                      'Middle tier of char → word → line hierarchy',
+                    ),
                     _dwSummaryRow(Icons.undo, 'Fully undoable with Ctrl+Z'),
                   ],
                 ),
@@ -447,20 +500,27 @@ Widget _buildWordBoundaryVisual() {
                 color: (w['color'] as Color).withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(
-                    color: (w['color'] as Color).withValues(alpha: 0.4)),
+                  color: (w['color'] as Color).withValues(alpha: 0.4),
+                ),
               ),
               child: Column(
                 children: [
-                  Text(w['text'] as String,
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: w['color'] as Color)),
-                  Text(w['type'] as String,
-                      style: TextStyle(
-                          color: (w['color'] as Color).withValues(alpha: 0.7),
-                          fontSize: 8)),
+                  Text(
+                    w['text'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: w['color'] as Color,
+                    ),
+                  ),
+                  Text(
+                    w['type'] as String,
+                    style: TextStyle(
+                      color: (w['color'] as Color).withValues(alpha: 0.7),
+                      fontSize: 8,
+                    ),
+                  ),
                 ],
               ),
             );
@@ -499,19 +559,28 @@ Widget _buildWordDirectionComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.keyboard_backspace,
-                    color: _dwAccentRed, size: 28),
+                const Icon(
+                  Icons.keyboard_backspace,
+                  color: _dwAccentRed,
+                  size: 28,
+                ),
                 const SizedBox(height: 6),
-                const Text('Backward',
-                    style: TextStyle(
-                        color: _dwAccentRed,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800)),
-                const Text('forward: false',
-                    style: TextStyle(
-                        color: _dwAccentRed,
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
+                const Text(
+                  'Backward',
+                  style: TextStyle(
+                    color: _dwAccentRed,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const Text(
+                  'forward: false',
+                  style: TextStyle(
+                    color: _dwAccentRed,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 _dwDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -521,19 +590,31 @@ Widget _buildWordDirectionComparison() {
                   ),
                   child: const Column(
                     children: [
-                      Text('Hello World|',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dwDarkText)),
+                      Text(
+                        'Hello World|',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dwDarkText,
+                        ),
+                      ),
                       Icon(Icons.arrow_downward, size: 14, color: _dwAccentRed),
-                      Text('Hello |',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dwDarkText)),
+                      Text(
+                        'Hello |',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dwDarkText,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text('Deletes word BEFORE cursor',
-                    style: TextStyle(color: _dwAccentRed, fontSize: 9)),
+                const Text(
+                  'Deletes word BEFORE cursor',
+                  style: TextStyle(color: _dwAccentRed, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -549,19 +630,24 @@ Widget _buildWordDirectionComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.last_page,
-                    color: _dwSienna, size: 28),
+                const Icon(Icons.last_page, color: _dwSienna, size: 28),
                 const SizedBox(height: 6),
-                const Text('Forward',
-                    style: TextStyle(
-                        color: _dwSienna,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800)),
-                const Text('forward: true',
-                    style: TextStyle(
-                        color: _dwSienna,
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
+                const Text(
+                  'Forward',
+                  style: TextStyle(
+                    color: _dwSienna,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const Text(
+                  'forward: true',
+                  style: TextStyle(
+                    color: _dwSienna,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 _dwDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -571,19 +657,31 @@ Widget _buildWordDirectionComparison() {
                   ),
                   child: const Column(
                     children: [
-                      Text('|Hello World',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dwDarkText)),
+                      Text(
+                        '|Hello World',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dwDarkText,
+                        ),
+                      ),
                       Icon(Icons.arrow_downward, size: 14, color: _dwSienna),
-                      Text('| World',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dwDarkText)),
+                      Text(
+                        '| World',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dwDarkText,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text('Deletes word AFTER cursor',
-                    style: TextStyle(color: _dwSienna, fontSize: 9)),
+                const Text(
+                  'Deletes word AFTER cursor',
+                  style: TextStyle(color: _dwSienna, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -642,13 +740,18 @@ List<Widget> _buildWordChain() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(l['title'] as String,
-                    style: TextStyle(
-                        color: l['color'] as Color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12)),
-                Text(l['detail'] as String,
-                    style: const TextStyle(color: _dwDarkText, fontSize: 11)),
+                Text(
+                  l['title'] as String,
+                  style: TextStyle(
+                    color: l['color'] as Color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  l['detail'] as String,
+                  style: const TextStyle(color: _dwDarkText, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -686,18 +789,20 @@ Widget _buildPlatformWordTable() {
           color: isHeader
               ? _dwSienna
               : entry.key.isEven
-                  ? _dwSand
-                  : _dwWhite,
+              ? _dwSand
+              : _dwWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
                 flex: col.key == 0 ? 2 : 1,
-                child: Text(col.value,
-                    style: TextStyle(
-                        color: isHeader ? _dwWhite : _dwDarkText,
-                        fontSize: 10.5,
-                        fontWeight:
-                            isHeader ? FontWeight.w700 : FontWeight.w400)),
+                child: Text(
+                  col.value,
+                  style: TextStyle(
+                    color: isHeader ? _dwWhite : _dwDarkText,
+                    fontSize: 10.5,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
               );
             }).toList(),
           ),
@@ -727,21 +832,9 @@ Widget _buildBoundaryRules() {
       'example': 'Hello|, World',
       'color': _dwAccentRed,
     },
-    {
-      'from': 'Digit → Space',
-      'example': '123| abc',
-      'color': _dwAccentPurple,
-    },
-    {
-      'from': 'Letter → Digit',
-      'example': 'abc|123',
-      'color': _dwAccentIndigo,
-    },
-    {
-      'from': 'Underscore',
-      'example': 'hello_|world',
-      'color': _dwSienna,
-    },
+    {'from': 'Digit → Space', 'example': '123| abc', 'color': _dwAccentPurple},
+    {'from': 'Letter → Digit', 'example': 'abc|123', 'color': _dwAccentIndigo},
+    {'from': 'Underscore', 'example': 'hello_|world', 'color': _dwSienna},
   ];
 
   return Column(
@@ -752,17 +845,22 @@ Widget _buildBoundaryRules() {
         decoration: BoxDecoration(
           color: (r['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: (r['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (r['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
             SizedBox(
               width: 100,
-              child: Text(r['from'] as String,
-                  style: TextStyle(
-                      color: r['color'] as Color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700)),
+              child: Text(
+                r['from'] as String,
+                style: TextStyle(
+                  color: r['color'] as Color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             Expanded(
               child: Container(
@@ -771,9 +869,14 @@ Widget _buildBoundaryRules() {
                   color: _dwWhite,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(r['example'] as String,
-                    style: const TextStyle(
-                        fontFamily: 'monospace', fontSize: 11, color: _dwDarkText)),
+                child: Text(
+                  r['example'] as String,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _dwDarkText,
+                  ),
+                ),
               ),
             ),
           ],
@@ -811,11 +914,14 @@ Widget _buildConsecutiveDeleteDemo() {
             children: [
               Icon(Icons.replay, color: _dwWhite, size: 14),
               SizedBox(width: 8),
-              Text('Consecutive Ctrl+Backspace',
-                  style: TextStyle(
-                      color: _dwWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                'Consecutive Ctrl+Backspace',
+                style: TextStyle(
+                  color: _dwWhite,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -833,37 +939,49 @@ Widget _buildConsecutiveDeleteDemo() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('${entry.key + 1}',
-                        style: const TextStyle(
-                            color: _dwSienna,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: const TextStyle(
+                        color: _dwSienna,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: 90,
-                  child: Text(entry.value['action']!,
-                      style: const TextStyle(
-                          color: _dwDarkSienna,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    entry.value['action']!,
+                    style: const TextStyle(
+                      color: _dwDarkSienna,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _dwWhite,
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                          color: _dwLightSienna.withValues(alpha: 0.5)),
+                        color: _dwLightSienna.withValues(alpha: 0.5),
+                      ),
                     ),
-                    child: Text(entry.value['field']!,
-                        style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: _dwDarkText)),
+                    child: Text(
+                      entry.value['field']!,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dwDarkText,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -912,7 +1030,9 @@ Widget _buildHierarchyVisual() {
         decoration: BoxDecoration(
           color: (l['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (l['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -924,26 +1044,35 @@ Widget _buildHierarchyVisual() {
                 color: l['color'] as Color,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(l['name'] as String,
-                  style: const TextStyle(
-                      color: _dwWhite,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700)),
+              child: Text(
+                l['name'] as String,
+                style: const TextStyle(
+                  color: _dwWhite,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${l['from']} → ${l['result']}',
-                      style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 10,
-                          color: _dwDarkText)),
-                  Text(l['removed'] as String,
-                      style: TextStyle(
-                          color: (l['color'] as Color).withValues(alpha: 0.7),
-                          fontSize: 9)),
+                  Text(
+                    '${l['from']} → ${l['result']}',
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10,
+                      color: _dwDarkText,
+                    ),
+                  ),
+                  Text(
+                    l['removed'] as String,
+                    style: TextStyle(
+                      color: (l['color'] as Color).withValues(alpha: 0.7),
+                      fontSize: 9,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -975,31 +1104,46 @@ Widget _buildCamelCaseDemo() {
                 decoration: BoxDecoration(
                   color: _dwAccentBlue.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _dwAccentBlue.withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: _dwAccentBlue.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Column(
                   children: [
-                    const Text('Standard mode',
-                        style: TextStyle(
-                            color: _dwAccentBlue,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700)),
+                    const Text(
+                      'Standard mode',
+                      style: TextStyle(
+                        color: _dwAccentBlue,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     _dwDivider(),
-                    const Text('myVariableName|',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: _dwDarkText)),
-                    const Icon(Icons.arrow_downward,
-                        size: 12, color: _dwAccentBlue),
-                    const Text('|',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: _dwDarkText)),
-                    const Text('Treats as one word',
-                        style: TextStyle(
-                            color: _dwAccentBlue, fontSize: 9)),
+                    const Text(
+                      'myVariableName|',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dwDarkText,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_downward,
+                      size: 12,
+                      color: _dwAccentBlue,
+                    ),
+                    const Text(
+                      '|',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dwDarkText,
+                      ),
+                    ),
+                    const Text(
+                      'Treats as one word',
+                      style: TextStyle(color: _dwAccentBlue, fontSize: 9),
+                    ),
                   ],
                 ),
               ),
@@ -1012,31 +1156,45 @@ Widget _buildCamelCaseDemo() {
                   color: _dwAccentPurple.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: _dwAccentPurple.withValues(alpha: 0.3)),
+                    color: _dwAccentPurple.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Column(
                   children: [
-                    const Text('CamelCase aware',
-                        style: TextStyle(
-                            color: _dwAccentPurple,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700)),
+                    const Text(
+                      'CamelCase aware',
+                      style: TextStyle(
+                        color: _dwAccentPurple,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     _dwDivider(),
-                    const Text('myVariableName|',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: _dwDarkText)),
-                    const Icon(Icons.arrow_downward,
-                        size: 12, color: _dwAccentPurple),
-                    const Text('myVariable|',
-                        style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 11,
-                            color: _dwDarkText)),
-                    const Text('Stops at capitals',
-                        style: TextStyle(
-                            color: _dwAccentPurple, fontSize: 9)),
+                    const Text(
+                      'myVariableName|',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dwDarkText,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.arrow_downward,
+                      size: 12,
+                      color: _dwAccentPurple,
+                    ),
+                    const Text(
+                      'myVariable|',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dwDarkText,
+                      ),
+                    ),
+                    const Text(
+                      'Stops at capitals',
+                      style: TextStyle(color: _dwAccentPurple, fontSize: 9),
+                    ),
                   ],
                 ),
               ),
@@ -1059,7 +1217,10 @@ Widget _buildCamelCaseDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildRefactoringScenario() {
   final steps = <Map<String, String>>[
-    {'action': 'Original', 'code': 'widget.computeLayout(context, constraints)|'},
+    {
+      'action': 'Original',
+      'code': 'widget.computeLayout(context, constraints)|',
+    },
     {'action': 'Ctrl+Bksp', 'code': 'widget.computeLayout(context, |'},
     {'action': 'Ctrl+Bksp', 'code': 'widget.computeLayout(|'},
     {'action': 'Type new args', 'code': 'widget.computeLayout(newCtx)|'},
@@ -1080,11 +1241,14 @@ Widget _buildRefactoringScenario() {
             children: [
               Icon(Icons.code, color: _dwWhite, size: 14),
               SizedBox(width: 8),
-              Text('Editing Method Arguments',
-                  style: TextStyle(
-                      color: _dwWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                'Editing Method Arguments',
+                style: TextStyle(
+                  color: _dwWhite,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -1102,37 +1266,49 @@ Widget _buildRefactoringScenario() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('${entry.key + 1}',
-                        style: const TextStyle(
-                            color: _dwSienna,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: const TextStyle(
+                        color: _dwSienna,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: 80,
-                  child: Text(entry.value['action']!,
-                      style: const TextStyle(
-                          color: _dwDarkSienna,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    entry.value['action']!,
+                    style: const TextStyle(
+                      color: _dwDarkSienna,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _dwWhite,
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                          color: _dwLightSienna.withValues(alpha: 0.5)),
+                        color: _dwLightSienna.withValues(alpha: 0.5),
+                      ),
                     ),
-                    child: Text(entry.value['code']!,
-                        style: const TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 10,
-                            color: _dwDarkText)),
+                    child: Text(
+                      entry.value['code']!,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _dwDarkText,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -1181,7 +1357,8 @@ List<Widget> _buildWordEdgeCases() {
     },
     {
       'case': 'Selection active',
-      'desc': 'Selection removed first, then word deletion from collapsed cursor',
+      'desc':
+          'Selection removed first, then word deletion from collapsed cursor',
       'icon': Icons.select_all,
       'color': _dwAccentIndigo,
     },
@@ -1212,13 +1389,18 @@ List<Widget> _buildWordEdgeCases() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(c['case'] as String,
-                    style: TextStyle(
-                        color: c['color'] as Color,
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w700)),
-                Text(c['desc'] as String,
-                    style: const TextStyle(color: _dwDarkText, fontSize: 10)),
+                Text(
+                  c['case'] as String,
+                  style: TextStyle(
+                    color: c['color'] as Color,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  c['desc'] as String,
+                  style: const TextStyle(color: _dwDarkText, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -1239,9 +1421,13 @@ Widget _dwSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _dwWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _dwWhite.withValues(alpha: 0.95), fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _dwWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

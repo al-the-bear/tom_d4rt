@@ -49,9 +49,7 @@ BoxDecoration _cardDecoration({
       colors: gradient,
     ),
     borderRadius: BorderRadius.circular(radius),
-    border: Border.all(
-      color: Colors.white.withOpacity(borderOpacity),
-    ),
+    border: Border.all(color: Colors.white.withOpacity(borderOpacity)),
     boxShadow: [
       BoxShadow(
         color: Colors.black.withOpacity(0.18),
@@ -106,7 +104,11 @@ Widget _sectionDivider(String label) {
   );
 }
 
-Widget _bullet(String text, {IconData icon = Icons.check_circle, Color? color}) {
+Widget _bullet(
+  String text, {
+  IconData icon = Icons.check_circle,
+  Color? color,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -191,11 +193,7 @@ Widget _buildHero() {
     width: double.infinity,
     padding: const EdgeInsets.all(28),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFF1A237E),
-        Color(0xFF311B92),
-        Color(0xFF6A1B9A),
-      ],
+      gradient: const [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF6A1B9A)],
       radius: 24,
     ),
     child: Column(
@@ -255,11 +253,7 @@ Widget _buildHero() {
           'the rectangle off to the native view system, which paints it with '
           'platform-native primitives, then the engine recombines the result '
           'with the rest of the Flutter scene.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            height: 1.6,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 14, height: 1.6),
         ),
         const SizedBox(height: 16),
         Wrap(
@@ -320,10 +314,7 @@ Widget _buildPlatformDetection(TargetPlatform platform) {
     width: double.infinity,
     padding: const EdgeInsets.all(22),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFF263238),
-        Color(0xFF37474F),
-      ],
+      gradient: const [Color(0xFF263238), Color(0xFF37474F)],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -351,8 +342,7 @@ Widget _buildPlatformDetection(TargetPlatform platform) {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(_platformIcon(platform),
-                      color: Colors.white, size: 14),
+                  Icon(_platformIcon(platform), color: Colors.white, size: 14),
                   const SizedBox(width: 6),
                   Text(
                     _platformLabel(platform),
@@ -386,14 +376,34 @@ Widget _buildPlatformDetection(TargetPlatform platform) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _platformRow('Android', Icons.android, _androidGreen,
-                  'AndroidView', platform == TargetPlatform.android),
-              _platformRow('iOS', Icons.phone_iphone, _iosBlue, 'UiKitView',
-                  platform == TargetPlatform.iOS),
-              _platformRow('macOS', Icons.desktop_mac, _macPurple,
-                  'AppKitView', platform == TargetPlatform.macOS),
-              _platformRow('Web (kIsWeb)', Icons.public, _webOrange,
-                  'HtmlElementView', kIsWeb),
+              _platformRow(
+                'Android',
+                Icons.android,
+                _androidGreen,
+                'AndroidView',
+                platform == TargetPlatform.android,
+              ),
+              _platformRow(
+                'iOS',
+                Icons.phone_iphone,
+                _iosBlue,
+                'UiKitView',
+                platform == TargetPlatform.iOS,
+              ),
+              _platformRow(
+                'macOS',
+                Icons.desktop_mac,
+                _macPurple,
+                'AppKitView',
+                platform == TargetPlatform.macOS,
+              ),
+              _platformRow(
+                'Web (kIsWeb)',
+                Icons.public,
+                _webOrange,
+                'HtmlElementView',
+                kIsWeb,
+              ),
             ],
           ),
         ),
@@ -412,7 +422,12 @@ Widget _buildPlatformDetection(TargetPlatform platform) {
 }
 
 Widget _platformRow(
-    String name, IconData icon, Color color, String widget, bool active) {
+  String name,
+  IconData icon,
+  Color color,
+  String widget,
+  bool active,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5),
     child: Row(
@@ -460,10 +475,7 @@ Widget _buildAndroidPanel(TargetPlatform platform) {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFE8F5E9),
-        Color(0xFFC8E6C9),
-      ],
+      gradient: const [Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -518,7 +530,8 @@ Widget _buildAndroidPanel(TargetPlatform platform) {
         if (available)
           _availabilityNotice(
             available: true,
-            text: 'You are on Android — a real AndroidView could be embedded '
+            text:
+                'You are on Android — a real AndroidView could be embedded '
                 'into the live tree right here. The mock below shows what a '
                 'Google Map AndroidView would look like in your render tree.',
             color: _androidGreenDark,
@@ -526,7 +539,8 @@ Widget _buildAndroidPanel(TargetPlatform platform) {
         else
           _availabilityNotice(
             available: false,
-            text: 'AndroidView only renders on Android — your platform is '
+            text:
+                'AndroidView only renders on Android — your platform is '
                 '${_platformLabel(platform)}. The embed slot would be empty '
                 'or fall back to the placeholderBuilder. The mock below '
                 'visualizes what would appear on a real device.',
@@ -542,12 +556,14 @@ Widget _buildAndroidPanel(TargetPlatform platform) {
         const SizedBox(height: 12),
         _mockGoogleMap(),
         const SizedBox(height: 14),
-        const Text('Constructor sketch',
-            style: TextStyle(
-              color: _androidGreenDark,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            )),
+        const Text(
+          'Constructor sketch',
+          style: TextStyle(
+            color: _androidGreenDark,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 6),
         _codeBlock(
           'AndroidView(\n'
@@ -560,12 +576,21 @@ Widget _buildAndroidPanel(TargetPlatform platform) {
           ')',
         ),
         const SizedBox(height: 12),
-        _bullet('Backed by hybrid composition since Flutter 1.22.',
-            icon: Icons.bolt, color: _androidGreenDark),
-        _bullet('Falls back to virtual display on older Android.',
-            icon: Icons.history, color: _androidGreenDark),
-        _bullet('Touch events flow through Flutter\'s gesture arena.',
-            icon: Icons.touch_app, color: _androidGreenDark),
+        _bullet(
+          'Backed by hybrid composition since Flutter 1.22.',
+          icon: Icons.bolt,
+          color: _androidGreenDark,
+        ),
+        _bullet(
+          'Falls back to virtual display on older Android.',
+          icon: Icons.history,
+          color: _androidGreenDark,
+        ),
+        _bullet(
+          'Touch events flow through Flutter\'s gesture arena.',
+          icon: Icons.touch_app,
+          color: _androidGreenDark,
+        ),
       ],
     ),
   );
@@ -581,10 +606,7 @@ Widget _buildIosPanel(TargetPlatform platform) {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFE3F2FD),
-        Color(0xFFBBDEFB),
-      ],
+      gradient: const [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -607,8 +629,11 @@ Widget _buildIosPanel(TargetPlatform platform) {
                   ),
                 ],
               ),
-              child:
-                  const Icon(Icons.phone_iphone, color: Colors.white, size: 22),
+              child: const Icon(
+                Icons.phone_iphone,
+                color: Colors.white,
+                size: 22,
+              ),
             ),
             const SizedBox(width: 12),
             const Expanded(
@@ -640,7 +665,8 @@ Widget _buildIosPanel(TargetPlatform platform) {
         if (available)
           _availabilityNotice(
             available: true,
-            text: 'You are on iOS — a real UiKitView could be embedded into '
+            text:
+                'You are on iOS — a real UiKitView could be embedded into '
                 'the tree. The mock below shows what an AVPlayer UIView '
                 'embed might look like.',
             color: _iosBlueDark,
@@ -648,7 +674,8 @@ Widget _buildIosPanel(TargetPlatform platform) {
         else
           _availabilityNotice(
             available: false,
-            text: 'UiKitView only renders on iOS — your platform is '
+            text:
+                'UiKitView only renders on iOS — your platform is '
                 '${_platformLabel(platform)}. The embed slot would be a no-op '
                 'or replaced with a placeholder. The mock below visualizes '
                 'what would appear on a real iPhone.',
@@ -665,12 +692,14 @@ Widget _buildIosPanel(TargetPlatform platform) {
         const SizedBox(height: 12),
         _mockVideoPlayer(),
         const SizedBox(height: 14),
-        const Text('Constructor sketch',
-            style: TextStyle(
-              color: _iosBlueDark,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            )),
+        const Text(
+          'Constructor sketch',
+          style: TextStyle(
+            color: _iosBlueDark,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 6),
         _codeBlock(
           'UiKitView(\n'
@@ -683,12 +712,21 @@ Widget _buildIosPanel(TargetPlatform platform) {
           ')',
         ),
         const SizedBox(height: 12),
-        _bullet('Always uses hybrid composition on iOS.',
-            icon: Icons.bolt, color: _iosBlueDark),
-        _bullet('Backed by FlutterPlatformViewsController in the embedder.',
-            icon: Icons.architecture, color: _iosBlueDark),
-        _bullet('Threading: must be created on the platform thread.',
-            icon: Icons.warning_amber, color: _iosBlueDark),
+        _bullet(
+          'Always uses hybrid composition on iOS.',
+          icon: Icons.bolt,
+          color: _iosBlueDark,
+        ),
+        _bullet(
+          'Backed by FlutterPlatformViewsController in the embedder.',
+          icon: Icons.architecture,
+          color: _iosBlueDark,
+        ),
+        _bullet(
+          'Threading: must be created on the platform thread.',
+          icon: Icons.warning_amber,
+          color: _iosBlueDark,
+        ),
       ],
     ),
   );
@@ -704,10 +742,7 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFF3E5F5),
-        Color(0xFFE1BEE7),
-      ],
+      gradient: const [Color(0xFFF3E5F5), Color(0xFFE1BEE7)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -730,8 +765,11 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
                   ),
                 ],
               ),
-              child:
-                  const Icon(Icons.desktop_mac, color: Colors.white, size: 22),
+              child: const Icon(
+                Icons.desktop_mac,
+                color: Colors.white,
+                size: 22,
+              ),
             ),
             const SizedBox(width: 12),
             const Expanded(
@@ -787,7 +825,8 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
         if (available)
           _availabilityNotice(
             available: true,
-            text: 'You are on macOS — a real AppKitView could be embedded. '
+            text:
+                'You are on macOS — a real AppKitView could be embedded. '
                 'The mock below shows a native NSButton + NSTextField group '
                 'as an AppKitView embed.',
             color: _macPurpleDark,
@@ -795,7 +834,8 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
         else
           _availabilityNotice(
             available: false,
-            text: 'AppKitView only renders on macOS — your platform is '
+            text:
+                'AppKitView only renders on macOS — your platform is '
                 '${_platformLabel(platform)}. The mock below visualizes what '
                 'would appear in a real macOS Flutter app.',
             color: _macPurpleDark,
@@ -811,12 +851,14 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
         const SizedBox(height: 12),
         _mockNativeButton(),
         const SizedBox(height: 14),
-        const Text('Constructor sketch',
-            style: TextStyle(
-              color: _macPurpleDark,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            )),
+        const Text(
+          'Constructor sketch',
+          style: TextStyle(
+            color: _macPurpleDark,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 6),
         _codeBlock(
           'AppKitView(\n'
@@ -829,12 +871,21 @@ Widget _buildMacOsPanel(TargetPlatform platform) {
           ')',
         ),
         const SizedBox(height: 12),
-        _bullet('NSView-based instead of UIView.',
-            icon: Icons.layers, color: _macPurpleDark),
-        _bullet('Inherits from DarwinPlatformView base.',
-            icon: Icons.account_tree, color: _macPurpleDark),
-        _bullet('Use cases: native menus, NSTextView, NSStackView, WKWebView.',
-            icon: Icons.menu_book, color: _macPurpleDark),
+        _bullet(
+          'NSView-based instead of UIView.',
+          icon: Icons.layers,
+          color: _macPurpleDark,
+        ),
+        _bullet(
+          'Inherits from DarwinPlatformView base.',
+          icon: Icons.account_tree,
+          color: _macPurpleDark,
+        ),
+        _bullet(
+          'Use cases: native menus, NSTextView, NSStackView, WKWebView.',
+          icon: Icons.menu_book,
+          color: _macPurpleDark,
+        ),
       ],
     ),
   );
@@ -850,10 +901,7 @@ Widget _buildWebPanel(TargetPlatform platform) {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFFFF3E0),
-        Color(0xFFFFE0B2),
-      ],
+      gradient: const [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -908,7 +956,8 @@ Widget _buildWebPanel(TargetPlatform platform) {
         if (available)
           _availabilityNotice(
             available: true,
-            text: 'kIsWeb is true — a real HtmlElementView could embed an '
+            text:
+                'kIsWeb is true — a real HtmlElementView could embed an '
                 'arbitrary HTMLElement (registered via platformViewRegistry) '
                 'in the DOM beneath the Flutter canvas.',
             color: _webOrangeDark,
@@ -916,7 +965,8 @@ Widget _buildWebPanel(TargetPlatform platform) {
         else
           _availabilityNotice(
             available: false,
-            text: 'HtmlElementView only renders when kIsWeb is true — you '
+            text:
+                'HtmlElementView only renders when kIsWeb is true — you '
                 'are running on ${_platformLabel(platform)}. The mock below '
                 'visualizes a faux <iframe> embed.',
             color: _webOrangeDark,
@@ -931,12 +981,14 @@ Widget _buildWebPanel(TargetPlatform platform) {
         const SizedBox(height: 12),
         _mockIframe(),
         const SizedBox(height: 14),
-        const Text('Constructor sketch',
-            style: TextStyle(
-              color: _webOrangeDark,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            )),
+        const Text(
+          'Constructor sketch',
+          style: TextStyle(
+            color: _webOrangeDark,
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 6),
         _codeBlock(
           '// Register first:\n'
@@ -950,12 +1002,21 @@ Widget _buildWebPanel(TargetPlatform platform) {
           ')',
         ),
         const SizedBox(height: 12),
-        _bullet('Use kIsWeb to compile-time-gate web-only code.',
-            icon: Icons.code, color: _webOrangeDark),
-        _bullet('No StandardMessageCodec — JS interop instead.',
-            icon: Icons.swap_horiz, color: _webOrangeDark),
-        _bullet('Element receives DOM events directly; gestures may bypass.',
-            icon: Icons.warning_amber, color: _webOrangeDark),
+        _bullet(
+          'Use kIsWeb to compile-time-gate web-only code.',
+          icon: Icons.code,
+          color: _webOrangeDark,
+        ),
+        _bullet(
+          'No StandardMessageCodec — JS interop instead.',
+          icon: Icons.swap_horiz,
+          color: _webOrangeDark,
+        ),
+        _bullet(
+          'Element receives DOM events directly; gestures may bypass.',
+          icon: Icons.warning_amber,
+          color: _webOrangeDark,
+        ),
       ],
     ),
   );
@@ -970,10 +1031,7 @@ Widget _buildCompositionModeTable() {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFECEFF1),
-        Color(0xFFCFD8DC),
-      ],
+      gradient: const [Color(0xFFECEFF1), Color(0xFFCFD8DC)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -1005,29 +1063,32 @@ Widget _buildCompositionModeTable() {
             children: [
               _modeHeader(),
               _modeRow(
-                  Icons.merge_type,
-                  Colors.indigo,
-                  'Hybrid composition',
-                  'Native view rendered into a separate CALayer/SurfaceView '
-                      'that the engine composites with the Flutter scene.',
-                  'Default on iOS/macOS, default on Android since 1.22.',
-                  'Slightly slower frame budget; correct ordering.'),
+                Icons.merge_type,
+                Colors.indigo,
+                'Hybrid composition',
+                'Native view rendered into a separate CALayer/SurfaceView '
+                    'that the engine composites with the Flutter scene.',
+                'Default on iOS/macOS, default on Android since 1.22.',
+                'Slightly slower frame budget; correct ordering.',
+              ),
               _modeRow(
-                  Icons.developer_board,
-                  Colors.deepOrange,
-                  'Virtual display',
-                  'Android draws the View into an off-screen Surface; '
-                      'Flutter samples it as a texture each frame.',
-                  'Legacy Android fallback (pre-hybrid composition).',
-                  'Cheap GPU-side; loses some accessibility & input events.'),
+                Icons.developer_board,
+                Colors.deepOrange,
+                'Virtual display',
+                'Android draws the View into an off-screen Surface; '
+                    'Flutter samples it as a texture each frame.',
+                'Legacy Android fallback (pre-hybrid composition).',
+                'Cheap GPU-side; loses some accessibility & input events.',
+              ),
               _modeRow(
-                  Icons.texture,
-                  Colors.teal,
-                  'Texture layer',
-                  'Native producer pushes frames into an OS texture; the '
-                      'Flutter Texture widget samples it.',
-                  'Used for video, camera, GL — no widget tree intrusion.',
-                  'Best perf for video; not appropriate for interactive UI.'),
+                Icons.texture,
+                Colors.teal,
+                'Texture layer',
+                'Native producer pushes frames into an OS texture; the '
+                    'Flutter Texture widget samples it.',
+                'Used for video, camera, GL — no widget tree intrusion.',
+                'Best perf for video; not appropriate for interactive UI.',
+              ),
             ],
           ),
         ),
@@ -1052,47 +1113,65 @@ Widget _modeHeader() {
         SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text('Mode',
-              style: TextStyle(
-                  color: _neutralInk,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6)),
+          child: Text(
+            'Mode',
+            style: TextStyle(
+              color: _neutralInk,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.6,
+            ),
+          ),
         ),
         Expanded(
           flex: 4,
-          child: Text('What it does',
-              style: TextStyle(
-                  color: _neutralInk,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6)),
+          child: Text(
+            'What it does',
+            style: TextStyle(
+              color: _neutralInk,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.6,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text('Where it\'s used',
-              style: TextStyle(
-                  color: _neutralInk,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6)),
+          child: Text(
+            'Where it\'s used',
+            style: TextStyle(
+              color: _neutralInk,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.6,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text('Trade-offs',
-              style: TextStyle(
-                  color: _neutralInk,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.6)),
+          child: Text(
+            'Trade-offs',
+            style: TextStyle(
+              color: _neutralInk,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.6,
+            ),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _modeRow(IconData icon, Color color, String name, String what,
-    String where, String tradeoffs) {
+Widget _modeRow(
+  IconData icon,
+  Color color,
+  String name,
+  String what,
+  String where,
+  String tradeoffs,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
     decoration: const BoxDecoration(
@@ -1105,27 +1184,47 @@ Widget _modeRow(IconData icon, Color color, String name, String what,
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text(name,
-              style: TextStyle(
-                  color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+          child: Text(
+            name,
+            style: TextStyle(
+              color: color,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         Expanded(
           flex: 4,
-          child: Text(what,
-              style: const TextStyle(
-                  color: _neutralInk, fontSize: 12, height: 1.45)),
+          child: Text(
+            what,
+            style: const TextStyle(
+              color: _neutralInk,
+              fontSize: 12,
+              height: 1.45,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(where,
-              style: const TextStyle(
-                  color: _neutralInk, fontSize: 12, height: 1.45)),
+          child: Text(
+            where,
+            style: const TextStyle(
+              color: _neutralInk,
+              fontSize: 12,
+              height: 1.45,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(tradeoffs,
-              style: const TextStyle(
-                  color: _neutralMuted, fontSize: 12, height: 1.45)),
+          child: Text(
+            tradeoffs,
+            style: const TextStyle(
+              color: _neutralMuted,
+              fontSize: 12,
+              height: 1.45,
+            ),
+          ),
         ),
       ],
     ),
@@ -1231,8 +1330,13 @@ Widget _buildApiReferenceMatrix() {
   );
 }
 
-Widget _apiCard(String name, IconData icon, Color color, String type,
-    String description) {
+Widget _apiCard(
+  String name,
+  IconData icon,
+  Color color,
+  String type,
+  String description,
+) {
   return SizedBox(
     width: 360,
     child: Container(
@@ -1322,10 +1426,7 @@ Widget _buildPitfalls() {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFFFEBEE),
-        Color(0xFFFFCDD2),
-      ],
+      gradient: const [Color(0xFFFFEBEE), Color(0xFFFFCDD2)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -1450,10 +1551,7 @@ Widget _buildSeeAlso() {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFFE0F2F1),
-        Color(0xFFB2DFDB),
-      ],
+      gradient: const [Color(0xFFE0F2F1), Color(0xFFB2DFDB)],
       borderOpacity: 0.4,
     ),
     child: Column(
@@ -1557,10 +1655,7 @@ Widget _buildMantra() {
     width: double.infinity,
     padding: const EdgeInsets.all(28),
     decoration: _cardDecoration(
-      gradient: const [
-        Color(0xFF263238),
-        Color(0xFF000000),
-      ],
+      gradient: const [Color(0xFF263238), Color(0xFF000000)],
       radius: 22,
     ),
     child: Column(
@@ -1710,11 +1805,7 @@ Widget _mockGoogleMap() {
             top: 80,
             child: Transform.rotate(
               angle: -0.15,
-              child: Container(
-                width: 380,
-                height: 14,
-                color: Colors.white,
-              ),
+              child: Container(width: 380, height: 14, color: Colors.white),
             ),
           ),
           // Vertical road.
@@ -1741,16 +1832,14 @@ Widget _mockGoogleMap() {
           const Positioned(
             left: 160,
             top: 70,
-            child: Icon(Icons.location_pin,
-                color: Color(0xFFD32F2F), size: 36),
+            child: Icon(Icons.location_pin, color: Color(0xFFD32F2F), size: 36),
           ),
           // Top-right Google watermark mock.
           Positioned(
             top: 8,
             right: 8,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
@@ -1777,8 +1866,7 @@ Widget _mockGoogleMap() {
             left: 8,
             bottom: 8,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(4),
@@ -1860,8 +1948,7 @@ Widget _mockVideoPlayer() {
             top: 8,
             left: 8,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: const Color(0xFFD32F2F),
                 borderRadius: BorderRadius.circular(4),
@@ -1869,8 +1956,11 @@ Widget _mockVideoPlayer() {
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.fiber_manual_record,
-                      color: Colors.white, size: 10),
+                  Icon(
+                    Icons.fiber_manual_record,
+                    color: Colors.white,
+                    size: 10,
+                  ),
                   SizedBox(width: 4),
                   Text(
                     'LIVE',
@@ -1917,9 +2007,10 @@ Widget _mockVideoPlayer() {
                 const Text(
                   '01:23 / 04:56',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                      fontFamily: 'monospace'),
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
                 ),
                 const SizedBox(width: 6),
                 const Icon(Icons.fullscreen, color: Colors.white, size: 18),
@@ -1931,8 +2022,7 @@ Widget _mockVideoPlayer() {
             right: 8,
             top: 8,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(4),
@@ -1940,9 +2030,10 @@ Widget _mockVideoPlayer() {
               child: const Text(
                 'UiKitView • avplayer',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 9,
-                    fontFamily: 'monospace'),
+                  color: Colors.white,
+                  fontSize: 9,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
           ),
@@ -2002,8 +2093,7 @@ Widget _mockNativeButton() {
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -2030,8 +2120,7 @@ Widget _mockNativeButton() {
             ),
             const SizedBox(width: 8),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
@@ -2039,15 +2128,11 @@ Widget _mockNativeButton() {
               ),
               child: const Text(
                 'Cancel',
-                style: TextStyle(
-                  color: _neutralInk,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: _neutralInk, fontSize: 12),
               ),
             ),
             const Spacer(),
-            const Icon(Icons.help_outline,
-                color: _neutralMuted, size: 16),
+            const Icon(Icons.help_outline, color: _neutralMuted, size: 16),
           ],
         ),
         const SizedBox(height: 10),
@@ -2127,7 +2212,9 @@ Widget _mockIframe() {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(4),
@@ -2176,15 +2263,21 @@ Widget _mockIframe() {
                           color: _webOrange,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Icon(Icons.flutter_dash,
-                            color: Colors.white, size: 16),
+                        child: const Icon(
+                          Icons.flutter_dash,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                       ),
                       const SizedBox(width: 8),
-                      const Text('flutter.dev',
-                          style: TextStyle(
-                              color: _neutralInk,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700)),
+                      const Text(
+                        'flutter.dev',
+                        style: TextStyle(
+                          color: _neutralInk,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -2217,7 +2310,9 @@ Widget _mockIframe() {
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(4),

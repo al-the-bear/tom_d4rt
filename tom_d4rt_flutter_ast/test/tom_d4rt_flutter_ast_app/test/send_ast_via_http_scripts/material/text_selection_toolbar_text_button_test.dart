@@ -45,7 +45,11 @@ Widget _buildIntroCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFFFE0B2), Color(0xFFFFCC80), Color(0xFFFFB74D)],
+        colors: <Color>[
+          Color(0xFFFFE0B2),
+          Color(0xFFFFCC80),
+          Color(0xFFFFB74D),
+        ],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: const <BoxShadow>[
@@ -106,10 +110,7 @@ Widget _buildIntroCard() {
                   SizedBox(height: 4),
                   Text(
                     'Inner action button used by TextSelectionToolbar',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF5D4037),
-                    ),
+                    style: TextStyle(fontSize: 13, color: Color(0xFF5D4037)),
                   ),
                 ],
               ),
@@ -146,7 +147,10 @@ Widget _buildIntroCard() {
             _buildPill('child: Text', const Color(0xFFFF6F00)),
             _buildPill('padding: EdgeInsetsGeometry', const Color(0xFFEF6C00)),
             _buildPill('onPressed: VoidCallback?', const Color(0xFFE65100)),
-            _buildPill('alignment: AlignmentGeometry?', const Color(0xFFD84315)),
+            _buildPill(
+              'alignment: AlignmentGeometry?',
+              const Color(0xFFD84315),
+            ),
             _buildPill('static getPadding(i, n)', const Color(0xFFBF360C)),
           ],
         ),
@@ -200,10 +204,7 @@ Widget _buildSingleButtonShowcase() {
               colors: <Color>[Color(0xFFFFFDE7), Color(0xFFFFF3E0)],
             ),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFFFFB74D),
-              width: 1.2,
-            ),
+            border: Border.all(color: const Color(0xFFFFB74D), width: 1.2),
           ),
           child: Column(
             children: <Widget>[
@@ -217,7 +218,10 @@ Widget _buildSingleButtonShowcase() {
               ),
               const SizedBox(height: 14),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(28),
@@ -230,7 +234,10 @@ Widget _buildSingleButtonShowcase() {
                   ],
                 ),
                 child: TextSelectionToolbarTextButton(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
                   onPressed: () {},
                   child: const Text('Tap me'),
                 ),
@@ -252,7 +259,11 @@ Widget _buildSingleButtonShowcase() {
             'a transparent background. The label color tracks the active '
             'ColorScheme.onSurface, falling back to black/white on the default '
             'light/dark schemes.',
-            style: TextStyle(fontSize: 12, color: Color(0xFF5D4037), height: 1.4),
+            style: TextStyle(
+              fontSize: 12,
+              color: Color(0xFF5D4037),
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -266,7 +277,8 @@ Widget _buildSingleButtonShowcase() {
 Widget _buildPaddingFromIndex() {
   return _sectionShell(
     title: 'TextSelectionToolbarTextButton.getPadding(index, total)',
-    subtitle: 'First/last buttons get more start/end padding so they breathe '
+    subtitle:
+        'First/last buttons get more start/end padding so they breathe '
         'against the rounded toolbar edges. Middle buttons stay tight.',
     accent: const Color(0xFFEF6C00),
     body: Column(
@@ -333,11 +345,7 @@ Widget _paddingRuleExplanation() {
           '  • last   (index == total - 1)    → start = 9.5,  end = 14.5\n\n'
           'Net effect: a 5-logical-pixel breathing room at the toolbar edges, '
           'and tight 9.5-pixel gutters between sibling buttons.',
-          style: TextStyle(
-            fontSize: 12,
-            height: 1.5,
-            color: Color(0xFF4E342E),
-          ),
+          style: TextStyle(fontSize: 12, height: 1.5, color: Color(0xFF4E342E)),
         ),
       ],
     ),
@@ -358,7 +366,8 @@ Widget _paddingRow1Single() {
         ),
       ],
     ),
-    description: 'A solitary button is treated as "only": both edges get the '
+    description:
+        'A solitary button is treated as "only": both edges get the '
         'wider 14.5px padding so the label is centered with comfortable margins.',
   );
 }
@@ -383,7 +392,8 @@ Widget _paddingRow2Pair() {
         ),
       ],
     ),
-    description: 'Two buttons share a tight inner gutter (9.5 + 9.5 = 19px '
+    description:
+        'Two buttons share a tight inner gutter (9.5 + 9.5 = 19px '
         'between glyph runs) but each outer edge is widened to 14.5px.',
   );
 }
@@ -414,7 +424,8 @@ Widget _paddingRow3Trio() {
         ),
       ],
     ),
-    description: 'Classic 3-button layout. The middle button uses the tighter '
+    description:
+        'Classic 3-button layout. The middle button uses the tighter '
         '9.5/9.5 padding. The first and last keep their wide outer edges.',
   );
 }
@@ -451,7 +462,8 @@ Widget _paddingRow4Quad() {
         ),
       ],
     ),
-    description: 'With 4 buttons, both inner buttons (indices 1 and 2) report '
+    description:
+        'With 4 buttons, both inner buttons (indices 1 and 2) report '
         'as middle and share the same tight padding profile.',
   );
 }
@@ -494,7 +506,8 @@ Widget _paddingRow5Quintet() {
         ),
       ],
     ),
-    description: 'Five buttons. Indices 1, 2 and 3 all map to the middle '
+    description:
+        'Five buttons. Indices 1, 2 and 3 all map to the middle '
         'position and share the 9.5/9.5 padding profile.',
   );
 }
@@ -543,7 +556,8 @@ Widget _paddingRow6Sextet() {
         ),
       ],
     ),
-    description: 'Six buttons. The same rule scales up: only the first and '
+    description:
+        'Six buttons. The same rule scales up: only the first and '
         'last receive the wider 14.5px outer edge; everything between is tight.',
   );
 }
@@ -675,8 +689,14 @@ Widget _tableRow(String a, String b, String c, {bool isHeader = false}) {
   return Row(
     children: <Widget>[
       Expanded(flex: 4, child: Text(a, style: style)),
-      Expanded(flex: 2, child: Text(b, style: style, textAlign: TextAlign.center)),
-      Expanded(flex: 2, child: Text(c, style: style, textAlign: TextAlign.center)),
+      Expanded(
+        flex: 2,
+        child: Text(b, style: style, textAlign: TextAlign.center),
+      ),
+      Expanded(
+        flex: 2,
+        child: Text(c, style: style, textAlign: TextAlign.center),
+      ),
     ],
   );
 }
@@ -710,7 +730,8 @@ Widget _buildStandardActionLabels() {
           label: 'Cut',
           icon: Icons.content_cut,
           color: const Color(0xFFD84315),
-          description: 'Removes the current selection and copies it to the '
+          description:
+              'Removes the current selection and copies it to the '
               'clipboard. Hidden when the selection is empty or read-only.',
         ),
         const SizedBox(height: 10),
@@ -718,7 +739,8 @@ Widget _buildStandardActionLabels() {
           label: 'Copy',
           icon: Icons.content_copy,
           color: const Color(0xFFE65100),
-          description: 'Copies the current selection to the clipboard. '
+          description:
+              'Copies the current selection to the clipboard. '
               'Hidden when the selection is empty.',
         ),
         const SizedBox(height: 10),
@@ -726,7 +748,8 @@ Widget _buildStandardActionLabels() {
           label: 'Paste',
           icon: Icons.content_paste,
           color: const Color(0xFFEF6C00),
-          description: 'Inserts clipboard content at the caret. Greyed out '
+          description:
+              'Inserts clipboard content at the caret. Greyed out '
               'when the clipboard is empty (platform-dependent).',
         ),
         const SizedBox(height: 10),
@@ -741,7 +764,8 @@ Widget _buildStandardActionLabels() {
           label: 'Look up',
           icon: Icons.menu_book,
           color: const Color(0xFFFB8C00),
-          description: 'Opens the system dictionary or definition lookup '
+          description:
+              'Opens the system dictionary or definition lookup '
               'for the current selection (platform-gated).',
         ),
         const SizedBox(height: 10),
@@ -749,7 +773,8 @@ Widget _buildStandardActionLabels() {
           label: 'Search',
           icon: Icons.search,
           color: const Color(0xFFFFA000),
-          description: 'Searches the web for the selected text using the '
+          description:
+              'Searches the web for the selected text using the '
               'platform default search provider.',
         ),
         const SizedBox(height: 10),
@@ -757,7 +782,8 @@ Widget _buildStandardActionLabels() {
           label: 'Share',
           icon: Icons.share,
           color: const Color(0xFFFFB300),
-          description: 'Opens the system share sheet with the selected '
+          description:
+              'Opens the system share sheet with the selected '
               'text as the share payload.',
         ),
         const SizedBox(height: 10),
@@ -765,7 +791,8 @@ Widget _buildStandardActionLabels() {
           label: 'Translate',
           icon: Icons.translate,
           color: const Color(0xFFFFC107),
-          description: 'Opens the system translation flow for the current '
+          description:
+              'Opens the system translation flow for the current '
               'selection. Available on iOS 18+ and select Android builds.',
         ),
         const SizedBox(height: 10),
@@ -773,7 +800,8 @@ Widget _buildStandardActionLabels() {
           label: 'Custom action',
           icon: Icons.extension,
           color: const Color(0xFFBF360C),
-          description: 'Apps can append additional actions via '
+          description:
+              'Apps can append additional actions via '
               'EditableTextContextMenuBuilder by emitting their own '
               'TextSelectionToolbarTextButton entries.',
         ),
@@ -853,7 +881,8 @@ Widget _actionLabelTile({
 Widget _buildToolbarSurrogate() {
   return _sectionShell(
     title: 'Toolbar surrogate',
-    subtitle: 'How buttons sit inside a rounded-pill container that mimics '
+    subtitle:
+        'How buttons sit inside a rounded-pill container that mimics '
         'the real TextSelectionToolbar.',
     accent: const Color(0xFFBF360C),
     body: Column(
@@ -1020,10 +1049,7 @@ Widget _toolbarStage({required String label, required List<Widget> children}) {
           ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: children,
-            ),
+            child: Row(mainAxisSize: MainAxisSize.min, children: children),
           ),
         ),
       ),
@@ -1051,7 +1077,8 @@ class _ToolbarDivider extends StatelessWidget {
 Widget _buildVariationsWithIcons() {
   return _sectionShell(
     title: 'Variations: leading icons, trailing chevrons',
-    subtitle: 'Even though the contract is `child: Widget`, you can compose '
+    subtitle:
+        'Even though the contract is `child: Widget`, you can compose '
         'arbitrarily — Row, icons, badges, chevrons.',
     accent: const Color(0xFFD84315),
     body: Column(
@@ -1099,7 +1126,8 @@ Widget _buildVariationsWithIcons() {
               ),
             ),
           ],
-          description: 'A Row child lets you prepend a 16px icon. Note that '
+          description:
+              'A Row child lets you prepend a 16px icon. Note that '
               'the standard padding still wraps the entire Row.',
         ),
         const SizedBox(height: 14),
@@ -1132,7 +1160,8 @@ Widget _buildVariationsWithIcons() {
               ),
             ),
           ],
-          description: 'A chevron in the trailing position is the standard '
+          description:
+              'A chevron in the trailing position is the standard '
               'pattern for "more actions". Tapping should expand the toolbar '
               'or open a secondary menu.',
         ),
@@ -1156,7 +1185,10 @@ Widget _buildVariationsWithIcons() {
                   const Text('Replace'),
                   const SizedBox(width: 6),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFAD1457),
                       borderRadius: BorderRadius.circular(10),
@@ -1180,7 +1212,8 @@ Widget _buildVariationsWithIcons() {
               child: const Text('Dismiss'),
             ),
           ],
-          description: 'Compose a tiny badge inside the child Row to surface '
+          description:
+              'Compose a tiny badge inside the child Row to surface '
               'a count, e.g. number of spell-check suggestions.',
         ),
         const SizedBox(height: 14),
@@ -1206,7 +1239,8 @@ Widget _buildVariationsWithIcons() {
               child: const Text('Share via …'),
             ),
           ],
-          description: 'Longer labels still respect the same padding rule. '
+          description:
+              'Longer labels still respect the same padding rule. '
               'The horizontal scroll inside our surrogate prevents overflow '
               'while preserving the visual rhythm.',
         ),
@@ -1229,10 +1263,7 @@ Widget _variationCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          accent.withOpacity(0.06),
-          accent.withOpacity(0.14),
-        ],
+        colors: <Color>[accent.withOpacity(0.06), accent.withOpacity(0.14)],
       ),
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: accent.withOpacity(0.3), width: 1),
@@ -1271,10 +1302,7 @@ Widget _variationCard({
           ),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: children,
-            ),
+            child: Row(mainAxisSize: MainAxisSize.min, children: children),
           ),
         ),
         const SizedBox(height: 10),
@@ -1324,13 +1352,37 @@ Widget _hoverPressedSection() {
         const SizedBox(height: 12),
         Row(
           children: <Widget>[
-            Expanded(child: _stateChip('default', const Color(0x00000000), Colors.transparent)),
+            Expanded(
+              child: _stateChip(
+                'default',
+                const Color(0x00000000),
+                Colors.transparent,
+              ),
+            ),
             const SizedBox(width: 8),
-            Expanded(child: _stateChip('hover', const Color(0x14000000), const Color(0xFFFFFFFF))),
+            Expanded(
+              child: _stateChip(
+                'hover',
+                const Color(0x14000000),
+                const Color(0xFFFFFFFF),
+              ),
+            ),
             const SizedBox(width: 8),
-            Expanded(child: _stateChip('focus', const Color(0x1F000000), const Color(0xFFFFFFFF))),
+            Expanded(
+              child: _stateChip(
+                'focus',
+                const Color(0x1F000000),
+                const Color(0xFFFFFFFF),
+              ),
+            ),
             const SizedBox(width: 8),
-            Expanded(child: _stateChip('pressed', const Color(0x29000000), const Color(0xFFFFFFFF))),
+            Expanded(
+              child: _stateChip(
+                'pressed',
+                const Color(0x29000000),
+                const Color(0xFFFFFFFF),
+              ),
+            ),
           ],
         ),
       ],
@@ -1377,7 +1429,8 @@ Widget _stateChip(String label, Color overlay, Color base) {
 Widget _buildButtonAnatomyDiagram() {
   return _sectionShell(
     title: 'Button anatomy',
-    subtitle: 'A labelled diagram showing the parts of one '
+    subtitle:
+        'A labelled diagram showing the parts of one '
         'TextSelectionToolbarTextButton inside its toolbar.',
     accent: const Color(0xFF6A1B9A),
     body: Column(
@@ -1581,11 +1634,7 @@ Widget _hitRegionExplanation() {
           'to be tapped reliably even when the label is short — e.g. "Cut" '
           'paints in roughly 22×16 px, but the underlying TextButton still '
           'reports a 48px-tall hit area.',
-          style: TextStyle(
-            fontSize: 12,
-            color: Color(0xFF5D4037),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12, color: Color(0xFF5D4037), height: 1.4),
         ),
       ],
     ),
@@ -1598,7 +1647,8 @@ Widget _hitRegionExplanation() {
 Widget _buildUsageGuide() {
   return _sectionShell(
     title: 'Usage guide',
-    subtitle: 'When (and when not) to instantiate '
+    subtitle:
+        'When (and when not) to instantiate '
         'TextSelectionToolbarTextButton directly.',
     accent: const Color(0xFF1B5E20),
     body: Column(
@@ -1607,7 +1657,8 @@ Widget _buildUsageGuide() {
           icon: Icons.check_circle,
           color: const Color(0xFF2E7D32),
           title: 'Do — extend the system menu',
-          body: 'Inside an EditableTextContextMenuBuilder, append your own '
+          body:
+              'Inside an EditableTextContextMenuBuilder, append your own '
               'TextSelectionToolbarTextButton entries to the buttonItems list '
               'so they pick up the same padding/typography as the built-in '
               'actions.',
@@ -1617,7 +1668,8 @@ Widget _buildUsageGuide() {
           icon: Icons.check_circle,
           color: const Color(0xFF388E3C),
           title: 'Do — use getPadding for parity',
-          body: 'When you instantiate buttons manually, always compute padding '
+          body:
+              'When you instantiate buttons manually, always compute padding '
               'with TextSelectionToolbarTextButton.getPadding(index, total). '
               'Hand-tuned padding will drift from the platform defaults.',
         ),
@@ -1626,7 +1678,8 @@ Widget _buildUsageGuide() {
           icon: Icons.check_circle,
           color: const Color(0xFF43A047),
           title: 'Do — keep the child a Text',
-          body: 'Stick to a Text or a small Row(<Icon, Text>) child. The '
+          body:
+              'Stick to a Text or a small Row(<Icon, Text>) child. The '
               'native menu does not support arbitrary widgets and your label '
               'should remain comparable in size to the others.',
         ),
@@ -1635,7 +1688,8 @@ Widget _buildUsageGuide() {
           icon: Icons.cancel,
           color: const Color(0xFFC62828),
           title: 'Don\'t — wrap in another button',
-          body: 'TextSelectionToolbarTextButton already builds a TextButton. '
+          body:
+              'TextSelectionToolbarTextButton already builds a TextButton. '
               'Wrapping it in InkWell, GestureDetector, or another button '
               'will create overlapping hit regions and confuse Material\'s '
               'overlay handling.',
@@ -1645,7 +1699,8 @@ Widget _buildUsageGuide() {
           icon: Icons.cancel,
           color: const Color(0xFFD32F2F),
           title: 'Don\'t — paint your own background',
-          body: 'The transparent background is intentional: the toolbar '
+          body:
+              'The transparent background is intentional: the toolbar '
               'paints the surface color underneath. Setting a backgroundColor '
               'on a wrapping Container will produce inconsistent visuals when '
               'themes flip between light and dark.',
@@ -1655,7 +1710,8 @@ Widget _buildUsageGuide() {
           icon: Icons.cancel,
           color: const Color(0xFFE53935),
           title: 'Don\'t — set a tiny tap target',
-          body: 'Don\'t shrink minimumSize below kMinInteractiveDimension. '
+          body:
+              'Don\'t shrink minimumSize below kMinInteractiveDimension. '
               'Use copyWith only for child / onPressed / padding / alignment.',
         ),
         const SizedBox(height: 14),

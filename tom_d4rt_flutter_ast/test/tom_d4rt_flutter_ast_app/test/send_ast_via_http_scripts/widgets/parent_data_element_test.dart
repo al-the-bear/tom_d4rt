@@ -937,16 +937,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────┐');
-  print('  │  Teal 900  ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Teal 800  ${teal800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
-  print('  │  Teal 700  ${teal700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Teal 600  ${teal600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Teal 400  ${teal400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Teal 300  ${teal300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Teal 200  ${teal200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Teal 100  ${teal100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Teal 50   ${teal50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Green 50  ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print(
+    '  │  Teal 900  ${teal900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Teal 800  ${teal800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
+  print(
+    '  │  Teal 700  ${teal700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Teal 600  ${teal600.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Teal 400  ${teal400.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Teal 300  ${teal300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Teal 200  ${teal200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Teal 100  ${teal100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Teal 50   ${teal50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Green 50  ${green50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
   print('  └──────────────────────────────────────────────────┘');
   print('');
 

@@ -117,8 +117,7 @@ dynamic build(BuildContext context) {
     {
       'param': 'level',
       'type': 'DiagnosticLevel',
-      'role':
-          'Filter knob (hidden < fine < debug < info < warning < error).',
+      'role': 'Filter knob (hidden < fine < debug < info < warning < error).',
     },
   ];
 
@@ -145,10 +144,16 @@ dynamic build(BuildContext context) {
   // `ifPresent` not displayed), so we pass an empty-string fallback in the
   // unused slot to satisfy the assertion without affecting the visible
   // output.
-  final gPresentNoText =
-      ObjectFlagProperty<Function>('onTap', () {}, ifNull: '');
-  final gAbsentNoText =
-      ObjectFlagProperty<Function>('onTap', null, ifPresent: '');
+  final gPresentNoText = ObjectFlagProperty<Function>(
+    'onTap',
+    () {},
+    ifNull: '',
+  );
+  final gAbsentNoText = ObjectFlagProperty<Function>(
+    'onTap',
+    null,
+    ifPresent: '',
+  );
   final gBoth = ObjectFlagProperty<String>(
     'title',
     'Hello',
@@ -437,8 +442,7 @@ dynamic build(BuildContext context) {
   final recipes = <Map<String, String>>[
     {
       'title': '1. Optional callback presence',
-      'code':
-          'ObjectFlagProperty<VoidCallback>.has(\'onTap\', widget.onTap)',
+      'code': 'ObjectFlagProperty<VoidCallback>.has(\'onTap\', widget.onTap)',
       'why':
           'Hides the closure spam, shows only "has onTap" when a handler '
           'is wired up. The most common usage by far.',
@@ -453,7 +457,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '3. Required field, warn when missing',
-      'code': "ObjectFlagProperty<String>(\n"
+      'code':
+          "ObjectFlagProperty<String>(\n"
           "  'apiKey',\n"
           "  apiKey,\n"
           "  ifNull: 'MISSING',\n"
@@ -465,7 +470,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '4. Yes/no without ceremony',
-      'code': "ObjectFlagProperty<dynamic>(\n"
+      'code':
+          "ObjectFlagProperty<dynamic>(\n"
           "  'attached',\n"
           "  controller,\n"
           "  ifPresent: 'yes',\n"
@@ -477,7 +483,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '5. Compact, no name',
-      'code': "ObjectFlagProperty<String>(\n"
+      'code':
+          "ObjectFlagProperty<String>(\n"
           "  'kind',\n"
           "  kind,\n"
           "  ifPresent: kind,\n"
@@ -489,7 +496,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '6. Debug-only presence',
-      'code': "ObjectFlagProperty<Object>(\n"
+      'code':
+          "ObjectFlagProperty<Object>(\n"
           "  'cache',\n"
           "  cache,\n"
           "  ifPresent: 'warm',\n"
@@ -501,7 +509,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '7. Pairs of present/absent',
-      'code': "ObjectFlagProperty<Function>(\n"
+      'code':
+          "ObjectFlagProperty<Function>(\n"
           "  'callback',\n"
           "  cb,\n"
           "  ifPresent: 'wired',\n"
@@ -513,7 +522,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': '8. Inside debugFillProperties',
-      'code': "@override\n"
+      'code':
+          "@override\n"
           "void debugFillProperties(DiagnosticPropertiesBuilder p) {\n"
           "  super.debugFillProperties(p);\n"
           "  p.add(ObjectFlagProperty<VoidCallback>.has('onTap', onTap));\n"
@@ -553,12 +563,7 @@ dynamic build(BuildContext context) {
       'fp': 'boolean toggles',
       'dp': 'plain value inspection',
     },
-    {
-      'feature': '.has() factory',
-      'ofp': 'yes',
-      'fp': 'no',
-      'dp': 'no',
-    },
+    {'feature': '.has() factory', 'ofp': 'yes', 'fp': 'no', 'dp': 'no'},
     {
       'feature': 'Rendered as',
       'ofp': '"name: ifPresent" / "name: ifNull"',
@@ -609,8 +614,7 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'ifNull',
-      'def':
-          'Text rendered when value is null. Null means "hide on absent".',
+      'def': 'Text rendered when value is null. Null means "hide on absent".',
     },
     {
       'term': '.has() factory',
@@ -695,10 +699,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     'present / absent flag chip for optional objects',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Color(0xFFFFFFFF),
-                    ),
+                    style: TextStyle(fontSize: 13.0, color: Color(0xFFFFFFFF)),
                   ),
                 ),
               ],
@@ -764,10 +765,7 @@ dynamic build(BuildContext context) {
                               SizedBox(height: 2.0),
                               Text(
                                 bullet['body']!,
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  height: 1.35,
-                                ),
+                                style: TextStyle(fontSize: 12.0, height: 1.35),
                               ),
                             ],
                           ),
@@ -1018,8 +1016,7 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'wired',
@@ -1058,8 +1055,7 @@ dynamic build(BuildContext context) {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'missing',
@@ -1474,10 +1470,7 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 6.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
                   decoration: BoxDecoration(
                     color: Color(0xFFAD1457),
                     borderRadius: BorderRadius.circular(4.0),

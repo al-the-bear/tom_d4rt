@@ -135,7 +135,12 @@ dynamic build(BuildContext context) {
 // interpreter can re-evaluate them deterministically.
 // ===========================================================================
 
-Widget _sectionHeader(String title, String subtitle, IconData icon, Color accent) {
+Widget _sectionHeader(
+  String title,
+  String subtitle,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -205,9 +210,7 @@ Widget _explanatoryParagraph(String text, Color accent) {
     decoration: BoxDecoration(
       color: accent.withOpacity(0.06),
       borderRadius: BorderRadius.circular(12),
-      border: Border(
-        left: BorderSide(color: accent, width: 4),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 4)),
     ),
     child: Text(
       text,
@@ -268,7 +271,11 @@ Widget _pillBadge(String label, Color color) {
   );
 }
 
-Widget _sectionShell({required Widget header, required List<Widget> children, Color background = Colors.white}) {
+Widget _sectionShell({
+  required Widget header,
+  required List<Widget> children,
+  Color background = Colors.white,
+}) {
   return Container(
     decoration: BoxDecoration(
       color: background,
@@ -326,7 +333,10 @@ Widget _buildIntroCard() {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.22),
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white.withOpacity(0.6), width: 2),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.6),
+                  width: 2,
+                ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Colors.white.withOpacity(0.25),
@@ -403,7 +413,12 @@ Widget _buildIntroCard() {
 // SECTION 2 — Class hierarchy diagram.
 // ===========================================================================
 
-Widget _hierarchyNode(String label, Color color, {double width = 180, IconData? icon}) {
+Widget _hierarchyNode(
+  String label,
+  Color color, {
+  double width = 180,
+  IconData? icon,
+}) {
   return Container(
     width: width,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -446,12 +461,11 @@ Widget _hierarchyNode(String label, Color color, {double width = 180, IconData? 
   );
 }
 
-Widget _verticalConnector({double height = 18, Color color = Colors.deepPurple}) {
-  return Container(
-    width: 2,
-    height: height,
-    color: color.withOpacity(0.55),
-  );
+Widget _verticalConnector({
+  double height = 18,
+  Color color = Colors.deepPurple,
+}) {
+  return Container(width: 2, height: height, color: color.withOpacity(0.55));
 }
 
 Widget _buildClassHierarchyDiagram() {
@@ -474,7 +488,12 @@ Widget _buildClassHierarchyDiagram() {
       ),
       const SizedBox(height: 10),
       Center(
-        child: _hierarchyNode('Intent (abstract)', Colors.indigo, width: 220, icon: Icons.bolt),
+        child: _hierarchyNode(
+          'Intent (abstract)',
+          Colors.indigo,
+          width: 220,
+          icon: Icons.bolt,
+        ),
       ),
       Center(child: _verticalConnector(height: 18)),
       Container(
@@ -489,21 +508,96 @@ Widget _buildClassHierarchyDiagram() {
           spacing: 8,
           runSpacing: 8,
           children: <Widget>[
-            _hierarchyNode('ActivateIntent', Colors.deepPurple, width: 160, icon: Icons.touch_app),
-            _hierarchyNode('ButtonActivateIntent', Colors.deepPurple, width: 200, icon: Icons.smart_button),
-            _hierarchyNode('DismissIntent', Colors.pink, width: 160, icon: Icons.cancel_outlined),
-            _hierarchyNode('DoNothingIntent', Colors.grey, width: 170, icon: Icons.do_not_disturb),
-            _hierarchyNode('DoNothingAndStopPropagationIntent', Colors.grey, width: 280, icon: Icons.block),
-            _hierarchyNode('NextFocusIntent', Colors.teal, width: 160, icon: Icons.arrow_forward),
-            _hierarchyNode('PreviousFocusIntent', Colors.teal, width: 180, icon: Icons.arrow_back),
-            _hierarchyNode('DirectionalFocusIntent', Colors.cyan, width: 200, icon: Icons.navigation),
-            _hierarchyNode('RequestFocusIntent', Colors.lightBlue, width: 180, icon: Icons.center_focus_strong),
-            _hierarchyNode('ScrollIntent', Colors.orange, width: 150, icon: Icons.swap_vert),
-            _hierarchyNode('CopySelectionTextIntent', Colors.green, width: 220, icon: Icons.copy),
-            _hierarchyNode('_GreetIntent (custom)', Colors.amber, width: 200, icon: Icons.waving_hand),
-            _hierarchyNode('_SaveIntent (custom)', Colors.lightGreen, width: 190, icon: Icons.save_alt),
-            _hierarchyNode('_UndoIntent (custom)', Colors.redAccent, width: 180, icon: Icons.undo),
-            _hierarchyNode('_RedoIntent (custom)', Colors.deepOrange, width: 180, icon: Icons.redo),
+            _hierarchyNode(
+              'ActivateIntent',
+              Colors.deepPurple,
+              width: 160,
+              icon: Icons.touch_app,
+            ),
+            _hierarchyNode(
+              'ButtonActivateIntent',
+              Colors.deepPurple,
+              width: 200,
+              icon: Icons.smart_button,
+            ),
+            _hierarchyNode(
+              'DismissIntent',
+              Colors.pink,
+              width: 160,
+              icon: Icons.cancel_outlined,
+            ),
+            _hierarchyNode(
+              'DoNothingIntent',
+              Colors.grey,
+              width: 170,
+              icon: Icons.do_not_disturb,
+            ),
+            _hierarchyNode(
+              'DoNothingAndStopPropagationIntent',
+              Colors.grey,
+              width: 280,
+              icon: Icons.block,
+            ),
+            _hierarchyNode(
+              'NextFocusIntent',
+              Colors.teal,
+              width: 160,
+              icon: Icons.arrow_forward,
+            ),
+            _hierarchyNode(
+              'PreviousFocusIntent',
+              Colors.teal,
+              width: 180,
+              icon: Icons.arrow_back,
+            ),
+            _hierarchyNode(
+              'DirectionalFocusIntent',
+              Colors.cyan,
+              width: 200,
+              icon: Icons.navigation,
+            ),
+            _hierarchyNode(
+              'RequestFocusIntent',
+              Colors.lightBlue,
+              width: 180,
+              icon: Icons.center_focus_strong,
+            ),
+            _hierarchyNode(
+              'ScrollIntent',
+              Colors.orange,
+              width: 150,
+              icon: Icons.swap_vert,
+            ),
+            _hierarchyNode(
+              'CopySelectionTextIntent',
+              Colors.green,
+              width: 220,
+              icon: Icons.copy,
+            ),
+            _hierarchyNode(
+              '_GreetIntent (custom)',
+              Colors.amber,
+              width: 200,
+              icon: Icons.waving_hand,
+            ),
+            _hierarchyNode(
+              '_SaveIntent (custom)',
+              Colors.lightGreen,
+              width: 190,
+              icon: Icons.save_alt,
+            ),
+            _hierarchyNode(
+              '_UndoIntent (custom)',
+              Colors.redAccent,
+              width: 180,
+              icon: Icons.undo,
+            ),
+            _hierarchyNode(
+              '_RedoIntent (custom)',
+              Colors.deepOrange,
+              width: 180,
+              icon: Icons.redo,
+            ),
           ],
         ),
       ),
@@ -522,12 +616,42 @@ Widget _buildClassHierarchyDiagram() {
         spacing: 8,
         runSpacing: 8,
         children: <Widget>[
-          _hierarchyNode('CallbackAction<T>', Colors.orange, width: 170, icon: Icons.call_to_action),
-          _hierarchyNode('ContextAction<T>', Colors.orange, width: 170, icon: Icons.web_asset),
-          _hierarchyNode('_GreetAction (custom)', Colors.amber, width: 200, icon: Icons.waving_hand),
-          _hierarchyNode('_SaveAction (custom)', Colors.lightGreen, width: 200, icon: Icons.save),
-          _hierarchyNode('_UndoAction (custom)', Colors.redAccent, width: 200, icon: Icons.undo),
-          _hierarchyNode('_RedoAction (custom)', Colors.deepOrange, width: 200, icon: Icons.redo),
+          _hierarchyNode(
+            'CallbackAction<T>',
+            Colors.orange,
+            width: 170,
+            icon: Icons.call_to_action,
+          ),
+          _hierarchyNode(
+            'ContextAction<T>',
+            Colors.orange,
+            width: 170,
+            icon: Icons.web_asset,
+          ),
+          _hierarchyNode(
+            '_GreetAction (custom)',
+            Colors.amber,
+            width: 200,
+            icon: Icons.waving_hand,
+          ),
+          _hierarchyNode(
+            '_SaveAction (custom)',
+            Colors.lightGreen,
+            width: 200,
+            icon: Icons.save,
+          ),
+          _hierarchyNode(
+            '_UndoAction (custom)',
+            Colors.redAccent,
+            width: 200,
+            icon: Icons.undo,
+          ),
+          _hierarchyNode(
+            '_RedoAction (custom)',
+            Colors.deepOrange,
+            width: 200,
+            icon: Icons.redo,
+          ),
         ],
       ),
       const SizedBox(height: 12),
@@ -651,14 +775,16 @@ Widget _buildIntentExamples() {
         children: <Widget>[
           _intentChip(
             name: 'ActivateIntent',
-            purpose: 'Generic "activate this widget" — what Enter/Space do on '
+            purpose:
+                'Generic "activate this widget" — what Enter/Space do on '
                 'a focused button.',
             icon: Icons.touch_app,
             color: Colors.deepPurple,
           ),
           _intentChip(
             name: 'ButtonActivateIntent',
-            purpose: 'Specialisation used by Material buttons; differs from '
+            purpose:
+                'Specialisation used by Material buttons; differs from '
                 'ActivateIntent in semantic-only ways.',
             icon: Icons.smart_button,
             color: Colors.indigo,
@@ -671,21 +797,24 @@ Widget _buildIntentExamples() {
           ),
           _intentChip(
             name: 'DoNothingIntent',
-            purpose: 'Used to explicitly opt out of a shortcut at a given '
+            purpose:
+                'Used to explicitly opt out of a shortcut at a given '
                 'scope without removing it.',
             icon: Icons.do_not_disturb,
             color: Colors.grey,
           ),
           _intentChip(
             name: 'DoNothingAndStopPropagationIntent',
-            purpose: 'Like DoNothing but also halts further key-event '
+            purpose:
+                'Like DoNothing but also halts further key-event '
                 'propagation up the tree.',
             icon: Icons.block,
             color: Colors.blueGrey,
           ),
           _intentChip(
             name: 'NextFocusIntent',
-            purpose: 'Move keyboard focus to the next focusable widget '
+            purpose:
+                'Move keyboard focus to the next focusable widget '
                 'in tab order.',
             icon: Icons.arrow_forward,
             color: Colors.teal,
@@ -698,28 +827,32 @@ Widget _buildIntentExamples() {
           ),
           _intentChip(
             name: 'DirectionalFocusIntent',
-            purpose: 'Move focus in a 2-D direction (up / down / left / '
+            purpose:
+                'Move focus in a 2-D direction (up / down / left / '
                 'right) — used by gamepads and arrow keys.',
             icon: Icons.navigation,
             color: Colors.cyan,
           ),
           _intentChip(
             name: 'RequestFocusIntent',
-            purpose: 'Request focus on a specific FocusNode; used to '
+            purpose:
+                'Request focus on a specific FocusNode; used to '
                 'programmatically focus a widget.',
             icon: Icons.center_focus_strong,
             color: Colors.lightBlue,
           ),
           _intentChip(
             name: 'ScrollIntent',
-            purpose: 'Scroll the nearest enclosing scrollable. Carries a '
+            purpose:
+                'Scroll the nearest enclosing scrollable. Carries a '
                 'direction and amount.',
             icon: Icons.swap_vert,
             color: Colors.orange,
           ),
           _intentChip(
             name: 'CopySelectionTextIntent',
-            purpose: 'Copy the currently selected text to the clipboard '
+            purpose:
+                'Copy the currently selected text to the clipboard '
                 '(Cmd/Ctrl-C).',
             icon: Icons.copy,
             color: Colors.green,
@@ -836,35 +969,40 @@ Widget _buildActionExamples() {
       ),
       _actionRow(
         name: 'CallbackAction<T>',
-        description: 'Built-in shortcut — wraps a callback. Best for one-off '
+        description:
+            'Built-in shortcut — wraps a callback. Best for one-off '
             'actions that don\'t need state or context.',
         color: Colors.orange,
         icon: Icons.call_to_action,
       ),
       _actionRow(
         name: '_GreetAction extends Action<_GreetIntent>',
-        description: 'Custom action defined at top of this script. Returns '
+        description:
+            'Custom action defined at top of this script. Returns '
             '"hello" when its Intent is dispatched.',
         color: Colors.amber,
         icon: Icons.waving_hand,
       ),
       _actionRow(
         name: '_SaveAction extends Action<_SaveIntent>',
-        description: 'Demonstrates a save operation. In a real app it would '
+        description:
+            'Demonstrates a save operation. In a real app it would '
             'persist data and return the persisted entity id.',
         color: Colors.lightGreen,
         icon: Icons.save,
       ),
       _actionRow(
         name: '_UndoAction extends Action<_UndoIntent>',
-        description: 'Reverses the last edit. Real implementations consult an '
+        description:
+            'Reverses the last edit. Real implementations consult an '
             'undo stack stored in an InheritedWidget.',
         color: Colors.redAccent,
         icon: Icons.undo,
       ),
       _actionRow(
         name: '_RedoAction extends Action<_RedoIntent>',
-        description: 'Re-applies the most recently undone edit, popping from '
+        description:
+            'Re-applies the most recently undone edit, popping from '
             'the redo stack.',
         color: Colors.deepOrange,
         icon: Icons.redo,
@@ -962,9 +1100,7 @@ Widget _buildActionsWidgetSection() {
   // Three real Actions(...) widget instances — these are the "live wiring"
   // demonstrations. We do NOT call Actions.invoke; we only render the tree.
   final Widget actionsOne = Actions(
-    actions: <Type, Action<Intent>>{
-      _GreetIntent: _GreetAction(),
-    },
+    actions: <Type, Action<Intent>>{_GreetIntent: _GreetAction()},
     child: Builder(
       builder: (BuildContext innerContext) {
         return Container(
@@ -1025,9 +1161,7 @@ Widget _buildActionsWidgetSection() {
   );
 
   final Widget actionsThree = Actions(
-    actions: <Type, Action<Intent>>{
-      _GreetIntent: _GreetAction(),
-    },
+    actions: <Type, Action<Intent>>{_GreetIntent: _GreetAction()},
     // Nested Actions widget — overrides the outer _GreetAction for a subtree.
     child: Actions(
       actions: <Type, Action<Intent>>{
@@ -1110,14 +1244,16 @@ Widget _buildActionsWidgetSection() {
       ),
       _renderedActionsCard(
         title: 'Actions #3 — nested Actions, inner overrides outer',
-        description: 'Showcases scoping: the inner Actions widget shadows the '
+        description:
+            'Showcases scoping: the inner Actions widget shadows the '
             'outer registration for its subtree only.',
         actionsWidget: actionsThree,
         accent: Colors.deepPurple,
       ),
       _renderedActionsCard(
         title: 'Actions #4 — mixing built-in + custom Intents',
-        description: 'Real applications register ActivateIntent and '
+        description:
+            'Real applications register ActivateIntent and '
             'DismissIntent alongside their own custom Intents.',
         actionsWidget: actionsFour,
         accent: Colors.teal,
@@ -1195,8 +1331,11 @@ Widget _buildShortcutsConnectionSection() {
           const _SaveIntent(),
       LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ):
           const _UndoIntent(),
-      LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.shift,
-          LogicalKeyboardKey.keyZ): const _RedoIntent(),
+      LogicalKeySet(
+        LogicalKeyboardKey.control,
+        LogicalKeyboardKey.shift,
+        LogicalKeyboardKey.keyZ,
+      ): const _RedoIntent(),
       const SingleActivator(LogicalKeyboardKey.escape): const DismissIntent(),
       const SingleActivator(LogicalKeyboardKey.enter): const ActivateIntent(),
     },
@@ -1404,7 +1543,12 @@ Widget _buildActionListenerSection() {
 // SECTION 8 — ActionDispatcher.
 // ===========================================================================
 
-Widget _dispatcherFlowStep(String label, IconData icon, Color color, {bool last = false}) {
+Widget _dispatcherFlowStep(
+  String label,
+  IconData icon,
+  Color color, {
+  bool last = false,
+}) {
   return Row(
     children: <Widget>[
       Container(
@@ -1509,15 +1653,36 @@ Widget _buildActionDispatcherSection() {
         ),
         child: Column(
           children: <Widget>[
-            _dispatcherFlowStep('User input or Actions.invoke(context, intent)', Icons.input, Colors.deepPurple),
+            _dispatcherFlowStep(
+              'User input or Actions.invoke(context, intent)',
+              Icons.input,
+              Colors.deepPurple,
+            ),
             const SizedBox(height: 6),
-            _dispatcherFlowStep('Walk up tree, find matching Actions widget', Icons.search, Colors.indigo),
+            _dispatcherFlowStep(
+              'Walk up tree, find matching Actions widget',
+              Icons.search,
+              Colors.indigo,
+            ),
             const SizedBox(height: 6),
-            _dispatcherFlowStep('Look up Action for runtimeType in actions map', Icons.map, Colors.blue),
+            _dispatcherFlowStep(
+              'Look up Action for runtimeType in actions map',
+              Icons.map,
+              Colors.blue,
+            ),
             const SizedBox(height: 6),
-            _dispatcherFlowStep('ActionDispatcher.invokeAction(action, intent)', Icons.send, Colors.teal),
+            _dispatcherFlowStep(
+              'ActionDispatcher.invokeAction(action, intent)',
+              Icons.send,
+              Colors.teal,
+            ),
             const SizedBox(height: 6),
-            _dispatcherFlowStep('action.invoke(intent) — your code runs', Icons.bolt, Colors.green, last: true),
+            _dispatcherFlowStep(
+              'action.invoke(intent) — your code runs',
+              Icons.bolt,
+              Colors.green,
+              last: true,
+            ),
           ],
         ),
       ),
@@ -1628,42 +1793,42 @@ Widget _buildUsageGuide() {
       _guideRow(
         'A keyboard shortcut should do the same thing as a menu item.',
         'Define an Intent + Action. Wire the menu item to dispatch the '
-        'Intent and bind the shortcut in Shortcuts.',
+            'Intent and bind the shortcut in Shortcuts.',
         Icons.keyboard,
         Colors.orange,
       ),
       _guideRow(
         'Different parts of your app should override the same command.',
         'Wrap each part in its own Actions widget mapping the Intent to a '
-        'different Action. Lookup is scope-based.',
+            'different Action. Lookup is scope-based.',
         Icons.account_tree,
         Colors.indigo,
       ),
       _guideRow(
         'Every dispatch should be logged or audited.',
         'Subclass ActionDispatcher and pass it to the top-level Actions '
-        'widget via the dispatcher: argument.',
+            'widget via the dispatcher: argument.',
         Icons.analytics,
         Colors.pink,
       ),
       _guideRow(
         'A side-bar should highlight while a particular Action is enabled.',
         'Wrap the side-bar in ActionListener and rebuild from its '
-        'listener callback.',
+            'listener callback.',
         Icons.hearing,
         Colors.teal,
       ),
       _guideRow(
         'You want to tab between custom focusable widgets.',
         'Bind Tab/Shift-Tab to NextFocusIntent / PreviousFocusIntent in '
-        'Shortcuts; default Actions registrations already handle them.',
+            'Shortcuts; default Actions registrations already handle them.',
         Icons.tab,
         Colors.cyan,
       ),
       _guideRow(
         'You need to opt out of a shortcut at a particular scope.',
         'Map the activator to DoNothingIntent or '
-        'DoNothingAndStopPropagationIntent.',
+            'DoNothingAndStopPropagationIntent.',
         Icons.do_not_disturb,
         Colors.grey,
       ),
@@ -1693,7 +1858,11 @@ Widget _buildUsageGuide() {
           '(actually save), Actions = scope (which verb wins here?), '
           'ActionDispatcher = middleware (logging, undo, analytics), '
           'Shortcuts = key-to-noun translation.',
-          style: TextStyle(fontSize: 12.5, height: 1.45, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.45,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     ],
@@ -1709,10 +1878,7 @@ Widget _buildFooter() {
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF311B92),
-          Color(0xFF512DA8),
-        ],
+        colors: <Color>[Color(0xFF311B92), Color(0xFF512DA8)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -76,10 +76,7 @@ Widget _buildHeaderCard() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0A84FF),
-          Color(0xFF5856D6),
-        ],
+        colors: <Color>[Color(0xFF0A84FF), Color(0xFF5856D6)],
       ),
       borderRadius: BorderRadius.circular(16.0),
     ),
@@ -131,7 +128,8 @@ Widget _buildHeaderCard() {
 Widget _buildAnatomyCard() {
   return _section(
     title: '1. Anatomy of a Cupertino page',
-    subtitle: 'CupertinoApp → CupertinoPageScaffold → '
+    subtitle:
+        'CupertinoApp → CupertinoPageScaffold → '
         '(CupertinoNavigationBar + child + CupertinoTabBar)',
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +248,10 @@ Widget _buildLightDarkPairCard() {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _themedPhone(brightness: Brightness.light, label: 'Brightness.light'),
+            _themedPhone(
+              brightness: Brightness.light,
+              label: 'Brightness.light',
+            ),
             _themedPhone(brightness: Brightness.dark, label: 'Brightness.dark'),
           ],
         ),
@@ -259,10 +260,7 @@ Widget _buildLightDarkPairCard() {
   );
 }
 
-Widget _themedPhone({
-  required Brightness brightness,
-  required String label,
-}) {
+Widget _themedPhone({required Brightness brightness, required String label}) {
   final bool isDark = brightness == Brightness.dark;
   final Color pageColor = isDark
       ? const Color(0xFF000000)
@@ -276,8 +274,9 @@ Widget _themedPhone({
   final Color secondaryText = isDark
       ? const Color(0xFFAEAEB2)
       : const Color(0xFF6E6E73);
-  final Color accent =
-      isDark ? const Color(0xFF0A84FF) : const Color(0xFF007AFF);
+  final Color accent = isDark
+      ? const Color(0xFF0A84FF)
+      : const Color(0xFF007AFF);
 
   return Column(
     children: <Widget>[
@@ -408,10 +407,7 @@ Widget _mailRow({
             ),
             Text(
               subject,
-              style: TextStyle(
-                fontSize: 12.5,
-                color: secondaryColor,
-              ),
+              style: TextStyle(fontSize: 12.5, color: secondaryColor),
             ),
           ],
         ),
@@ -491,9 +487,7 @@ Widget _swatchGrid(List<_Swatch> swatches) {
   return Wrap(
     spacing: 10.0,
     runSpacing: 10.0,
-    children: <Widget>[
-      for (final _Swatch s in swatches) _swatchTile(s),
-    ],
+    children: <Widget>[for (final _Swatch s in swatches) _swatchTile(s)],
   );
 }
 
@@ -521,10 +515,7 @@ Widget _swatchTile(_Swatch s) {
         Expanded(
           child: Text(
             s.name,
-            style: const TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w600,
-            ),
+            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -799,10 +790,7 @@ Widget _navBarPhone({
                 alignment: Alignment.center,
                 child: const Text(
                   'page body',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Color(0xFF8E8E93),
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Color(0xFF8E8E93)),
                 ),
               ),
             ),
@@ -911,8 +899,7 @@ Widget _buildPageScaffoldCard() {
             children: const <Widget>[
               Text(
                 'Composition:',
-                style:
-                    TextStyle(fontWeight: FontWeight.w700, fontSize: 14.5),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.5),
               ),
               SizedBox(height: 6.0),
               Text(
@@ -950,24 +937,14 @@ Widget _settingRow(String label, String trailing) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10.0),
     decoration: const BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFE5E5EA)),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFE5E5EA))),
     ),
     child: Row(
       children: <Widget>[
-        Expanded(
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 15.0),
-          ),
-        ),
+        Expanded(child: Text(label, style: const TextStyle(fontSize: 15.0))),
         Text(
           trailing,
-          style: const TextStyle(
-            fontSize: 16.0,
-            color: Color(0xFFC7C7CC),
-          ),
+          style: const TextStyle(fontSize: 16.0, color: Color(0xFFC7C7CC)),
         ),
       ],
     ),
@@ -1022,8 +999,7 @@ Widget _buildAppBarComparisonCard() {
                 const SizedBox(height: 8.0),
                 const Text(
                   'CupertinoNavigationBar',
-                  style:
-                      TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -1037,15 +1013,10 @@ Widget _buildAppBarComparisonCard() {
                       Container(
                         height: 56.0,
                         color: const Color(0xFF6750A4),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         child: Row(
                           children: const <Widget>[
-                            Icon(
-                              Icons.menu,
-                              color: Colors.white,
-                              size: 22.0,
-                            ),
+                            Icon(Icons.menu, color: Colors.white, size: 22.0),
                             SizedBox(width: 16.0),
                             Text(
                               'Messages',
@@ -1056,11 +1027,7 @@ Widget _buildAppBarComparisonCard() {
                               ),
                             ),
                             Spacer(),
-                            Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 22.0,
-                            ),
+                            Icon(Icons.search, color: Colors.white, size: 22.0),
                           ],
                         ),
                       ),
@@ -1077,8 +1044,7 @@ Widget _buildAppBarComparisonCard() {
                 const SizedBox(height: 8.0),
                 const Text(
                   'Material AppBar',
-                  style:
-                      TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -1128,9 +1094,7 @@ Widget _diffRow({
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     decoration: const BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFE5E5EA)),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFE5E5EA))),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1139,28 +1103,19 @@ Widget _diffRow({
           width: 130.0,
           child: Text(
             property,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12.5,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12.5),
           ),
         ),
         Expanded(
           child: Text(
             cupertino,
-            style: const TextStyle(
-              fontSize: 12.5,
-              color: Color(0xFF0A84FF),
-            ),
+            style: const TextStyle(fontSize: 12.5, color: Color(0xFF0A84FF)),
           ),
         ),
         Expanded(
           child: Text(
             material,
-            style: const TextStyle(
-              fontSize: 12.5,
-              color: Color(0xFF6750A4),
-            ),
+            style: const TextStyle(fontSize: 12.5, color: Color(0xFF6750A4)),
           ),
         ),
       ],
@@ -1175,8 +1130,7 @@ Widget _diffRow({
 Widget _buildPrimaryCascadeCard() {
   return _section(
     title: '8. Primary color cascade',
-    subtitle:
-        'CupertinoTheme primaryColor flows down to CupertinoButton tints',
+    subtitle: 'CupertinoTheme primaryColor flows down to CupertinoButton tints',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1320,14 +1274,12 @@ Widget _buildCupertinoAppConfigCard() {
               _configRow(
                 key: 'color',
                 value: 'CupertinoColors.systemBlue',
-                hint:
-                    'Primary color seen in the OS task-switcher card border.',
+                hint: 'Primary color seen in the OS task-switcher card border.',
               ),
               _configRow(
                 key: 'locale',
                 value: 'Locale("en", "US")',
-                hint:
-                    'Pin the app locale; null delegates to system locale.',
+                hint: 'Pin the app locale; null delegates to system locale.',
               ),
               _configRow(
                 key: 'supportedLocales',
@@ -1337,14 +1289,12 @@ Widget _buildCupertinoAppConfigCard() {
               _configRow(
                 key: 'localizationsDelegates',
                 value: '[DefaultCupertinoLocalizations.delegate]',
-                hint:
-                    'Provides the localized strings for built-in widgets.',
+                hint: 'Provides the localized strings for built-in widgets.',
               ),
               _configRow(
                 key: 'debugShowCheckedModeBanner',
                 value: 'false',
-                hint:
-                    'Hides the "DEBUG" ribbon on debug builds (demo only).',
+                hint: 'Hides the "DEBUG" ribbon on debug builds (demo only).',
               ),
               _configRow(
                 key: 'home',
@@ -1384,8 +1334,7 @@ Widget _buildCupertinoAppConfigCard() {
               _configRow(
                 key: 'builder',
                 value: '(context, child) => MediaQuery(data: …, child!)',
-                hint:
-                    'Wrap the entire navigator subtree with a custom layer.',
+                hint: 'Wrap the entire navigator subtree with a custom layer.',
               ),
               _configRow(
                 key: 'scrollBehavior',
@@ -1477,8 +1426,7 @@ Widget _configRow({
 Widget _buildLightDarkStrategyCard() {
   return _section(
     title: '10. Light / dark switching strategy',
-    subtitle:
-        'How CupertinoApp picks a brightness — and how to override it',
+    subtitle: 'How CupertinoApp picks a brightness — and how to override it',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1552,12 +1500,9 @@ Widget _strategyCard({
   required String body,
 }) {
   final bool isDark = brightness == Brightness.dark;
-  final Color bg =
-      isDark ? const Color(0xFF000000) : const Color(0xFFFFFFFF);
-  final Color fg =
-      isDark ? const Color(0xFFFFFFFF) : const Color(0xFF1C1C1E);
-  final Color sub =
-      isDark ? const Color(0xFFAEAEB2) : const Color(0xFF6E6E73);
+  final Color bg = isDark ? const Color(0xFF000000) : const Color(0xFFFFFFFF);
+  final Color fg = isDark ? const Color(0xFFFFFFFF) : const Color(0xFF1C1C1E);
+  final Color sub = isDark ? const Color(0xFFAEAEB2) : const Color(0xFF6E6E73);
 
   return _phoneFrame(
     width: 220.0,
@@ -1577,14 +1522,7 @@ Widget _strategyCard({
             ),
           ),
           const SizedBox(height: 8.0),
-          Text(
-            body,
-            style: TextStyle(
-              fontSize: 12.5,
-              color: sub,
-              height: 1.4,
-            ),
-          ),
+          Text(body, style: TextStyle(fontSize: 12.5, color: sub, height: 1.4)),
         ],
       ),
     ),
@@ -1663,18 +1601,15 @@ Widget _buildComponentsCatalogCard() {
             onValueChanged: _noopInt,
             children: const <int, Widget>{
               0: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 child: Text('Day'),
               ),
               1: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 child: Text('Week'),
               ),
               2: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 child: Text('Month'),
               ),
             },
@@ -1737,10 +1672,7 @@ Widget _catalogRow({
         ),
         const SizedBox(width: 12.0),
         Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: example,
-          ),
+          child: Align(alignment: Alignment.centerLeft, child: example),
         ),
       ],
     ),
@@ -1850,9 +1782,6 @@ Widget _phoneFrame({
       ],
     ),
     padding: const EdgeInsets.all(6.0),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(22.0),
-      child: child,
-    ),
+    child: ClipRRect(borderRadius: BorderRadius.circular(22.0), child: child),
   );
 }

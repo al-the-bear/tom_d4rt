@@ -72,10 +72,10 @@ const TextStyle _kBody = TextStyle(
 /// Builds the structured demo payload used across the document.
 ByteData _buildSamplePayload() {
   final WriteBuffer wb = WriteBuffer();
-  wb.putUint16(0xCAFE);          // magic
-  wb.putUint8(3);                // version
-  wb.putUint8(0);                // pad/reserved
-  wb.putInt32(0x0000002A);       // record id
+  wb.putUint16(0xCAFE); // magic
+  wb.putUint8(3); // version
+  wb.putUint8(0); // pad/reserved
+  wb.putInt32(0x0000002A); // record id
   final List<int> nameBytes = const <int>[84, 111, 109]; // "Tom"
   wb.putUint8(nameBytes.length); // name length
   wb.putUint8List(Uint8List.fromList(nameBytes));
@@ -84,7 +84,7 @@ ByteData _buildSamplePayload() {
   wb.putUint8(0);
   wb.putUint8(0);
   wb.putUint8(0);
-  wb.putInt32(3);                // values length
+  wb.putInt32(3); // values length
   wb.putFloat64List(Float64List.fromList(<double>[1.0, 2.0, 3.0]));
   return wb.done();
 }
@@ -151,8 +151,7 @@ List<String> _hexDumpLines(ByteData data, {int width = 16}) {
       }
       if (j == width ~/ 2 - 1) hex.write(' ');
     }
-    final String offset =
-        i.toRadixString(16).toUpperCase().padLeft(4, '0');
+    final String offset = i.toRadixString(16).toUpperCase().padLeft(4, '0');
     lines.add('$offset  $hex |$ascii|');
   }
   return lines;
@@ -521,11 +520,7 @@ Widget _buildIntroSection() {
                 color: Colors.white.withAlpha(70),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(
-                Icons.memory,
-                size: 36,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.memory, size: 36, color: Colors.white),
             ),
             const SizedBox(width: 14),
             const Expanded(
@@ -794,12 +789,54 @@ Widget _buildDecisionMatrixSection() {
               _row('putUint16(v)', '2', 'host', '2', 'getUint16()', cellStyle),
               _row('putInt32(v)', '4', 'host', '4', 'getInt32()', cellStyle),
               _row('putInt64(v)', '8', 'host', '8', 'getInt64()', cellStyle),
-              _row('putFloat64(v)', '8', 'host', '8', 'getFloat64()', cellStyle),
-              _row('putUint8List(list)', '1*N', 'n/a', '1', 'getUint8List(N)', cellStyle),
-              _row('putInt32List(list)', '4*N', 'host', '4', 'getInt32List(N)', cellStyle),
-              _row('putInt64List(list)', '8*N', 'host', '8', 'getInt64List(N)', cellStyle),
-              _row('putFloat32List(list)', '4*N', 'host', '4', 'getFloat32List(N)', cellStyle),
-              _row('putFloat64List(list)', '8*N', 'host', '8', 'getFloat64List(N)', cellStyle),
+              _row(
+                'putFloat64(v)',
+                '8',
+                'host',
+                '8',
+                'getFloat64()',
+                cellStyle,
+              ),
+              _row(
+                'putUint8List(list)',
+                '1*N',
+                'n/a',
+                '1',
+                'getUint8List(N)',
+                cellStyle,
+              ),
+              _row(
+                'putInt32List(list)',
+                '4*N',
+                'host',
+                '4',
+                'getInt32List(N)',
+                cellStyle,
+              ),
+              _row(
+                'putInt64List(list)',
+                '8*N',
+                'host',
+                '8',
+                'getInt64List(N)',
+                cellStyle,
+              ),
+              _row(
+                'putFloat32List(list)',
+                '4*N',
+                'host',
+                '4',
+                'getFloat32List(N)',
+                cellStyle,
+              ),
+              _row(
+                'putFloat64List(list)',
+                '8*N',
+                'host',
+                '8',
+                'getFloat64List(N)',
+                cellStyle,
+              ),
               _row('done()', '0', 'n/a', 'n/a', '(seals buffer)', cellStyle),
             ],
           ),
@@ -818,8 +855,14 @@ Widget _buildDecisionMatrixSection() {
   );
 }
 
-TableRow _row(String op, String bytes, String endian, String align,
-    String reader, TextStyle style) {
+TableRow _row(
+  String op,
+  String bytes,
+  String endian,
+  String align,
+  String reader,
+  TextStyle style,
+) {
   return TableRow(
     children: <Widget>[
       Padding(
@@ -886,8 +929,8 @@ Widget _buildAnatomySection(ByteData data) {
 
   final List<Widget> cells = <Widget>[];
   for (int i = 0; i < bytes.length; i++) {
-    final _ByteAnnotation a = ann[i] ??
-        const _ByteAnnotation('???', Color(0xFFEEEEEE));
+    final _ByteAnnotation a =
+        ann[i] ?? const _ByteAnnotation('???', Color(0xFFEEEEEE));
     cells.add(_hexCell(bytes[i], background: a.color, label: '${a.label}\n$i'));
   }
 
@@ -1064,9 +1107,17 @@ Widget _buildWorkedExampleSection(ByteData data) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _recordRow('magic', '0x${(record['magic'] as int).toRadixString(16).toUpperCase()}', 'int'),
+                  _recordRow(
+                    'magic',
+                    '0x${(record['magic'] as int).toRadixString(16).toUpperCase()}',
+                    'int',
+                  ),
                   _recordRow('version', '${record['version']}', 'int'),
-                  _recordRow('id', '0x${(record['id'] as int).toRadixString(16).toUpperCase()}', 'int'),
+                  _recordRow(
+                    'id',
+                    '0x${(record['id'] as int).toRadixString(16).toUpperCase()}',
+                    'int',
+                  ),
                   _recordRow('name', '"${record['name']}"', 'String'),
                   _recordRow('values', '${record['values']}', 'Float64List'),
                 ],
@@ -1141,9 +1192,7 @@ Widget _recordRow(String name, String value, String type) {
             ),
           ),
         ),
-        Expanded(
-          child: SelectableText(value, style: _kCodeStyle),
-        ),
+        Expanded(child: SelectableText(value, style: _kCodeStyle)),
       ],
     ),
   );
@@ -1194,12 +1243,8 @@ Widget _buildAlignmentSection() {
                   bytes[i],
                   background: i == 0
                       ? _kCellPrimary
-                      : (i < 5
-                          ? _kCellQuaternary
-                          : _kCellSecondary),
-                  label: i == 0
-                      ? 'u8\n$i'
-                      : (i < 5 ? 'i32\n$i' : 'f64\n$i'),
+                      : (i < 5 ? _kCellQuaternary : _kCellSecondary),
+                  label: i == 0 ? 'u8\n$i' : (i < 5 ? 'i32\n$i' : 'f64\n$i'),
                 ),
             ],
           ),
@@ -1227,7 +1272,11 @@ Widget _buildCodecRelationshipSection() {
     index: '09',
     title: 'Relationship to StandardMessageCodec',
     subtitle: 'How the buffer primitives compose into Flutter codecs.',
-    headerGradient: const <Color>[_kAccentAmberDeep, _kAccentMagenta, _kAccentBlueDeep],
+    headerGradient: const <Color>[
+      _kAccentAmberDeep,
+      _kAccentMagenta,
+      _kAccentBlueDeep,
+    ],
     bodyTint: _kPaper,
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1395,9 +1444,9 @@ Widget _buildPaletteSection() {
                       Text(
                         sealed
                             ? 'done() returned a ByteData of length $total. '
-                              'Press reset to start again.'
+                                  'Press reset to start again.'
                             : 'Tap chips above to add operations. Each chip shows the '
-                              'byte cost of one call.',
+                                  'byte cost of one call.',
                         style: TextStyle(
                           color: Colors.white.withAlpha(220),
                           fontSize: 12,
@@ -1430,10 +1479,7 @@ Widget _buildPaletteSection() {
                       if (log.isEmpty)
                         const Text(
                           'No operations yet. The buffer is empty.',
-                          style: TextStyle(
-                            color: _kInkMute,
-                            fontSize: 12,
-                          ),
+                          style: TextStyle(color: _kInkMute, fontSize: 12),
                         )
                       else
                         Column(
@@ -1441,7 +1487,9 @@ Widget _buildPaletteSection() {
                           children: <Widget>[
                             for (int i = 0; i < log.length; i++)
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 2),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 2,
+                                ),
                                 child: Row(
                                   children: <Widget>[
                                     SizedBox(
@@ -1508,9 +1556,7 @@ Widget _opChip(
       margin: const EdgeInsets.only(right: 8, bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: <Color>[color, color.withAlpha(190)],
-        ),
+        gradient: LinearGradient(colors: <Color>[color, color.withAlpha(190)]),
         borderRadius: BorderRadius.circular(12),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -1637,14 +1683,35 @@ Widget _buildReferenceCard() {
           ],
         ),
         const SizedBox(height: 12),
-        _refLine('1.', 'WriteBuffer accumulates bytes, ReadBuffer consumes them.'),
-        _refLine('2.', 'Endianness is host (little-endian on every Flutter target).'),
-        _refLine('3.', 'Alignment is your responsibility; insert padding bytes.'),
-        _refLine('4.', 'Length prefixes are a convention, not a built-in feature.'),
+        _refLine(
+          '1.',
+          'WriteBuffer accumulates bytes, ReadBuffer consumes them.',
+        ),
+        _refLine(
+          '2.',
+          'Endianness is host (little-endian on every Flutter target).',
+        ),
+        _refLine(
+          '3.',
+          'Alignment is your responsibility; insert padding bytes.',
+        ),
+        _refLine(
+          '4.',
+          'Length prefixes are a convention, not a built-in feature.',
+        ),
         _refLine('5.', 'done() seals the buffer and returns a ByteData view.'),
-        _refLine('6.', 'List getters may share storage; copy if you stash them.'),
-        _refLine('7.', 'StandardMessageCodec is a thin tag-prefixed layer on top.'),
-        _refLine('8.', 'Always call hasRemaining after decoding to catch drift.'),
+        _refLine(
+          '6.',
+          'List getters may share storage; copy if you stash them.',
+        ),
+        _refLine(
+          '7.',
+          'StandardMessageCodec is a thin tag-prefixed layer on top.',
+        ),
+        _refLine(
+          '8.',
+          'Always call hasRemaining after decoding to catch drift.',
+        ),
         const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.all(12),
@@ -1657,11 +1724,7 @@ Widget _buildReferenceCard() {
             'When in doubt: produce a hexdump on both sides of the channel and '
             'diff them byte by byte. Buffer bugs are deterministic — they are '
             'always reproducible from the bytes alone.',
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.white,
-              height: 1.55,
-            ),
+            style: TextStyle(fontSize: 13, color: Colors.white, height: 1.55),
           ),
         ),
       ],

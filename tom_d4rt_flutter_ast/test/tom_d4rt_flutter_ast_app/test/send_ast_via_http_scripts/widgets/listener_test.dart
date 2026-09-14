@@ -105,10 +105,7 @@ dynamic build(BuildContext context) {
             width: 36.0,
             height: 36.0,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: accent,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             child: Text(
               number,
               style: const TextStyle(
@@ -232,10 +229,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6.0),
-          Text(
-            body,
-            style: const TextStyle(fontSize: 12.5, height: 1.4),
-          ),
+          Text(body, style: const TextStyle(fontSize: 12.5, height: 1.4)),
         ],
       ),
     );
@@ -310,10 +304,10 @@ dynamic build(BuildContext context) {
         calloutBox(
           'Listener = "what the pointer DID"  /  GestureDetector = "what the user MEANT"',
           'Listener tells you "the finger went down at (210, 87), it moved '
-          '3px right then 1px up, then it came back up". GestureDetector '
-          'tells you "the user TAPPED" or "the user DRAGGED to (213, 88)". '
-          'You almost always want the latter for UI work — reach for '
-          'Listener only when GestureDetector cannot express your need.',
+              '3px right then 1px up, then it came back up". GestureDetector '
+              'tells you "the user TAPPED" or "the user DRAGGED to (213, 88)". '
+              'You almost always want the latter for UI work — reach for '
+              'Listener only when GestureDetector cannot express your need.',
           crimson,
         ),
         const SizedBox(height: 6.0),
@@ -366,14 +360,18 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 6.0,
+            ),
             color: amber.withOpacity(0.12),
             child: Row(
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6.0, vertical: 2.0),
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: amber,
                     borderRadius: BorderRadius.circular(3.0),
@@ -389,10 +387,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(width: 10.0),
-                Text(
-                  '→ ',
-                  style: TextStyle(color: amber.withOpacity(0.8)),
-                ),
+                Text('→ ', style: TextStyle(color: amber.withOpacity(0.8))),
                 Text(
                   eventType,
                   style: const TextStyle(
@@ -564,24 +559,89 @@ dynamic build(BuildContext context) {
   // ---- Recipe 3.1 : drag tracker with a mock-recorded path ----
 
   final List<Offset> dragPath = const <Offset>[
-    Offset(10, 90), Offset(18, 88), Offset(28, 85), Offset(40, 82),
-    Offset(53, 80), Offset(68, 79), Offset(82, 80), Offset(94, 84),
-    Offset(104, 89), Offset(112, 96), Offset(118, 105), Offset(123, 116),
-    Offset(127, 128), Offset(131, 140), Offset(137, 151), Offset(146, 159),
-    Offset(157, 164), Offset(170, 165), Offset(184, 162), Offset(196, 157),
-    Offset(207, 150), Offset(216, 141), Offset(223, 130), Offset(228, 118),
-    Offset(232, 105), Offset(235, 92), Offset(238, 80), Offset(243, 70),
-    Offset(252, 64), Offset(263, 62), Offset(275, 64), Offset(287, 71),
-    Offset(298, 81), Offset(308, 94), Offset(316, 109), Offset(322, 124),
-    Offset(326, 138), Offset(330, 150), Offset(334, 159), Offset(340, 164),
+    Offset(10, 90),
+    Offset(18, 88),
+    Offset(28, 85),
+    Offset(40, 82),
+    Offset(53, 80),
+    Offset(68, 79),
+    Offset(82, 80),
+    Offset(94, 84),
+    Offset(104, 89),
+    Offset(112, 96),
+    Offset(118, 105),
+    Offset(123, 116),
+    Offset(127, 128),
+    Offset(131, 140),
+    Offset(137, 151),
+    Offset(146, 159),
+    Offset(157, 164),
+    Offset(170, 165),
+    Offset(184, 162),
+    Offset(196, 157),
+    Offset(207, 150),
+    Offset(216, 141),
+    Offset(223, 130),
+    Offset(228, 118),
+    Offset(232, 105),
+    Offset(235, 92),
+    Offset(238, 80),
+    Offset(243, 70),
+    Offset(252, 64),
+    Offset(263, 62),
+    Offset(275, 64),
+    Offset(287, 71),
+    Offset(298, 81),
+    Offset(308, 94),
+    Offset(316, 109),
+    Offset(322, 124),
+    Offset(326, 138),
+    Offset(330, 150),
+    Offset(334, 159),
+    Offset(340, 164),
   ];
 
   final List<double> dragPressure = const <double>[
-    0.10, 0.20, 0.32, 0.42, 0.52, 0.60, 0.65, 0.68,
-    0.70, 0.72, 0.74, 0.76, 0.78, 0.80, 0.82, 0.84,
-    0.85, 0.85, 0.84, 0.83, 0.81, 0.78, 0.75, 0.71,
-    0.68, 0.65, 0.62, 0.58, 0.54, 0.50, 0.46, 0.42,
-    0.38, 0.34, 0.30, 0.26, 0.22, 0.18, 0.14, 0.10,
+    0.10,
+    0.20,
+    0.32,
+    0.42,
+    0.52,
+    0.60,
+    0.65,
+    0.68,
+    0.70,
+    0.72,
+    0.74,
+    0.76,
+    0.78,
+    0.80,
+    0.82,
+    0.84,
+    0.85,
+    0.85,
+    0.84,
+    0.83,
+    0.81,
+    0.78,
+    0.75,
+    0.71,
+    0.68,
+    0.65,
+    0.62,
+    0.58,
+    0.54,
+    0.50,
+    0.46,
+    0.42,
+    0.38,
+    0.34,
+    0.30,
+    0.26,
+    0.22,
+    0.18,
+    0.14,
+    0.10,
   ];
 
   final Widget recipeDrag = Container(
@@ -699,25 +759,82 @@ dynamic build(BuildContext context) {
   // ---- Recipe 3.2 : hover heatmap ----
 
   final List<Offset> hoverPoints = const <Offset>[
-    Offset(40, 30), Offset(58, 32), Offset(72, 36), Offset(80, 45),
-    Offset(82, 60), Offset(85, 76), Offset(96, 89), Offset(118, 94),
-    Offset(140, 92), Offset(158, 82), Offset(166, 65), Offset(165, 48),
-    Offset(160, 32), Offset(170, 22), Offset(195, 20), Offset(220, 30),
-    Offset(235, 50), Offset(240, 75), Offset(225, 95), Offset(204, 110),
-    Offset(180, 118), Offset(155, 120), Offset(132, 116), Offset(110, 110),
-    Offset(98, 104), Offset(92, 98), Offset(88, 90), Offset(86, 80),
-    Offset(86, 70), Offset(90, 60), Offset(100, 52), Offset(115, 48),
-    Offset(135, 50), Offset(155, 60), Offset(170, 75), Offset(178, 92),
-    Offset(180, 110), Offset(170, 124), Offset(155, 132), Offset(135, 134),
-    Offset(115, 132), Offset(100, 126), Offset(90, 118), Offset(85, 106),
-    Offset(86, 90), Offset(95, 78), Offset(112, 70), Offset(132, 68),
-    Offset(152, 72), Offset(168, 82), Offset(178, 96), Offset(180, 110),
-    Offset(180, 122), Offset(174, 132), Offset(162, 138), Offset(146, 140),
-    Offset(130, 138), Offset(118, 132), Offset(110, 124), Offset(108, 114),
-    Offset(258, 60), Offset(270, 62), Offset(285, 66), Offset(300, 74),
-    Offset(310, 86), Offset(312, 100), Offset(308, 114), Offset(300, 126),
-    Offset(286, 132), Offset(270, 132), Offset(258, 128), Offset(250, 120),
-    Offset(248, 108), Offset(252, 96), Offset(260, 86), Offset(272, 80),
+    Offset(40, 30),
+    Offset(58, 32),
+    Offset(72, 36),
+    Offset(80, 45),
+    Offset(82, 60),
+    Offset(85, 76),
+    Offset(96, 89),
+    Offset(118, 94),
+    Offset(140, 92),
+    Offset(158, 82),
+    Offset(166, 65),
+    Offset(165, 48),
+    Offset(160, 32),
+    Offset(170, 22),
+    Offset(195, 20),
+    Offset(220, 30),
+    Offset(235, 50),
+    Offset(240, 75),
+    Offset(225, 95),
+    Offset(204, 110),
+    Offset(180, 118),
+    Offset(155, 120),
+    Offset(132, 116),
+    Offset(110, 110),
+    Offset(98, 104),
+    Offset(92, 98),
+    Offset(88, 90),
+    Offset(86, 80),
+    Offset(86, 70),
+    Offset(90, 60),
+    Offset(100, 52),
+    Offset(115, 48),
+    Offset(135, 50),
+    Offset(155, 60),
+    Offset(170, 75),
+    Offset(178, 92),
+    Offset(180, 110),
+    Offset(170, 124),
+    Offset(155, 132),
+    Offset(135, 134),
+    Offset(115, 132),
+    Offset(100, 126),
+    Offset(90, 118),
+    Offset(85, 106),
+    Offset(86, 90),
+    Offset(95, 78),
+    Offset(112, 70),
+    Offset(132, 68),
+    Offset(152, 72),
+    Offset(168, 82),
+    Offset(178, 96),
+    Offset(180, 110),
+    Offset(180, 122),
+    Offset(174, 132),
+    Offset(162, 138),
+    Offset(146, 140),
+    Offset(130, 138),
+    Offset(118, 132),
+    Offset(110, 124),
+    Offset(108, 114),
+    Offset(258, 60),
+    Offset(270, 62),
+    Offset(285, 66),
+    Offset(300, 74),
+    Offset(310, 86),
+    Offset(312, 100),
+    Offset(308, 114),
+    Offset(300, 126),
+    Offset(286, 132),
+    Offset(270, 132),
+    Offset(258, 128),
+    Offset(250, 120),
+    Offset(248, 108),
+    Offset(252, 96),
+    Offset(260, 86),
+    Offset(272, 80),
   ];
 
   final Widget recipeHover = Container(
@@ -761,8 +878,9 @@ dynamic build(BuildContext context) {
               const double cell = 15.0;
               final int cols = (size.width / cell).ceil();
               final int rows = (size.height / cell).ceil();
-              final List<List<int>> buckets =
-                  List<List<int>>.generate(rows, (int r) {
+              final List<List<int>> buckets = List<List<int>>.generate(rows, (
+                int r,
+              ) {
                 return List<int>.filled(cols, 0);
               });
               for (final Offset p in hoverPoints) {
@@ -785,8 +903,7 @@ dynamic build(BuildContext context) {
                     const Color(0xFF2244AA),
                     const Color(0xFFFFE082),
                     t,
-                  )!
-                      .withOpacity(0.30 + (t * 0.6));
+                  )!.withOpacity(0.30 + (t * 0.6));
                   final Paint p = Paint()..color = tint;
                   canvas.drawRect(
                     Rect.fromLTWH(c * cell, r * cell, cell, cell),
@@ -837,9 +954,50 @@ dynamic build(BuildContext context) {
 
   // Mock log of PointerScrollEvent.scrollDelta.dy entries over time.
   final List<double> scrollDeltas = const <double>[
-    0, 0, 0, 0, 4, 16, 38, 52, 70, 84, 96, 102, 108, 110, 105, 96,
-    82, 64, 44, 28, 16, 8, 4, 2, 0, 0, 0, -6, -22, -48, -82, -106,
-    -120, -118, -104, -82, -56, -34, -18, -8, -4, -2, 0, 0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    16,
+    38,
+    52,
+    70,
+    84,
+    96,
+    102,
+    108,
+    110,
+    105,
+    96,
+    82,
+    64,
+    44,
+    28,
+    16,
+    8,
+    4,
+    2,
+    0,
+    0,
+    0,
+    -6,
+    -22,
+    -48,
+    -82,
+    -106,
+    -120,
+    -118,
+    -104,
+    -82,
+    -56,
+    -34,
+    -18,
+    -8,
+    -4,
+    -2,
+    0,
+    0,
   ];
 
   final Widget recipeScroll = Container(
@@ -965,26 +1123,128 @@ dynamic build(BuildContext context) {
   final List<List<String>> signalLog = const <List<String>>[
     <String>['t+000ms', 'PointerHoverEvent', 'mouse', '(120, 88)', '—'],
     <String>['t+032ms', 'PointerHoverEvent', 'mouse', '(122, 86)', '—'],
-    <String>['t+064ms', 'PointerSignalEvent', 'mouse', '(122, 86)', 'scrollDelta=(0,+40)'],
-    <String>['t+080ms', 'PointerSignalEvent', 'mouse', '(122, 86)', 'scrollDelta=(0,+80)'],
-    <String>['t+112ms', 'PointerSignalEvent', 'mouse', '(122, 86)', 'scrollDelta=(0,+96)'],
+    <String>[
+      't+064ms',
+      'PointerSignalEvent',
+      'mouse',
+      '(122, 86)',
+      'scrollDelta=(0,+40)',
+    ],
+    <String>[
+      't+080ms',
+      'PointerSignalEvent',
+      'mouse',
+      '(122, 86)',
+      'scrollDelta=(0,+80)',
+    ],
+    <String>[
+      't+112ms',
+      'PointerSignalEvent',
+      'mouse',
+      '(122, 86)',
+      'scrollDelta=(0,+96)',
+    ],
     <String>['t+148ms', 'PointerHoverEvent', 'mouse', '(125, 88)', '—'],
-    <String>['t+180ms', 'PointerDownEvent', 'mouse', '(125, 88)', 'buttons=0x1 primary'],
-    <String>['t+212ms', 'PointerMoveEvent', 'mouse', '(128, 90)', 'delta=(3,2)'],
-    <String>['t+228ms', 'PointerMoveEvent', 'mouse', '(133, 92)', 'delta=(5,2)'],
-    <String>['t+244ms', 'PointerMoveEvent', 'mouse', '(141, 94)', 'delta=(8,2)'],
+    <String>[
+      't+180ms',
+      'PointerDownEvent',
+      'mouse',
+      '(125, 88)',
+      'buttons=0x1 primary',
+    ],
+    <String>[
+      't+212ms',
+      'PointerMoveEvent',
+      'mouse',
+      '(128, 90)',
+      'delta=(3,2)',
+    ],
+    <String>[
+      't+228ms',
+      'PointerMoveEvent',
+      'mouse',
+      '(133, 92)',
+      'delta=(5,2)',
+    ],
+    <String>[
+      't+244ms',
+      'PointerMoveEvent',
+      'mouse',
+      '(141, 94)',
+      'delta=(8,2)',
+    ],
     <String>['t+260ms', 'PointerUpEvent', 'mouse', '(141, 94)', 'buttons=0'],
-    <String>['t+292ms', 'PointerPanZoomStartEvent', 'trackpad', '(141, 94)', '—'],
-    <String>['t+308ms', 'PointerPanZoomUpdateEvent', 'trackpad', '(141, 94)', 'pan=(20,0) scale=1.04'],
-    <String>['t+324ms', 'PointerPanZoomUpdateEvent', 'trackpad', '(141, 94)', 'pan=(46,2) scale=1.12'],
-    <String>['t+340ms', 'PointerPanZoomUpdateEvent', 'trackpad', '(141, 94)', 'pan=(72,2) scale=1.20'],
+    <String>[
+      't+292ms',
+      'PointerPanZoomStartEvent',
+      'trackpad',
+      '(141, 94)',
+      '—',
+    ],
+    <String>[
+      't+308ms',
+      'PointerPanZoomUpdateEvent',
+      'trackpad',
+      '(141, 94)',
+      'pan=(20,0) scale=1.04',
+    ],
+    <String>[
+      't+324ms',
+      'PointerPanZoomUpdateEvent',
+      'trackpad',
+      '(141, 94)',
+      'pan=(46,2) scale=1.12',
+    ],
+    <String>[
+      't+340ms',
+      'PointerPanZoomUpdateEvent',
+      'trackpad',
+      '(141, 94)',
+      'pan=(72,2) scale=1.20',
+    ],
     <String>['t+356ms', 'PointerPanZoomEndEvent', 'trackpad', '(141, 94)', '—'],
-    <String>['t+402ms', 'PointerDownEvent', 'touch#1', '(80, 200)', 'pressure=0.45'],
-    <String>['t+434ms', 'PointerDownEvent', 'touch#2', '(220, 198)', 'pressure=0.50'],
-    <String>['t+466ms', 'PointerMoveEvent', 'touch#1', '(82, 202)', 'delta=(2,2)'],
-    <String>['t+466ms', 'PointerMoveEvent', 'touch#2', '(218, 196)', 'delta=(-2,-2)'],
-    <String>['t+498ms', 'PointerCancelEvent', 'touch#1', '(82, 202)', 'app backgrounded'],
-    <String>['t+498ms', 'PointerCancelEvent', 'touch#2', '(218, 196)', 'app backgrounded'],
+    <String>[
+      't+402ms',
+      'PointerDownEvent',
+      'touch#1',
+      '(80, 200)',
+      'pressure=0.45',
+    ],
+    <String>[
+      't+434ms',
+      'PointerDownEvent',
+      'touch#2',
+      '(220, 198)',
+      'pressure=0.50',
+    ],
+    <String>[
+      't+466ms',
+      'PointerMoveEvent',
+      'touch#1',
+      '(82, 202)',
+      'delta=(2,2)',
+    ],
+    <String>[
+      't+466ms',
+      'PointerMoveEvent',
+      'touch#2',
+      '(218, 196)',
+      'delta=(-2,-2)',
+    ],
+    <String>[
+      't+498ms',
+      'PointerCancelEvent',
+      'touch#1',
+      '(82, 202)',
+      'app backgrounded',
+    ],
+    <String>[
+      't+498ms',
+      'PointerCancelEvent',
+      'touch#2',
+      '(218, 196)',
+      'app backgrounded',
+    ],
   ];
 
   Widget logTable(List<List<String>> rows, List<String> headers, Color accent) {
@@ -1073,19 +1333,21 @@ dynamic build(BuildContext context) {
           'because the app was backgrounded.',
         ),
         const SizedBox(height: 8.0),
-        logTable(
-          signalLog,
-          const <String>['time', 'event', 'kind', 'position', 'extra'],
-          olive,
-        ),
+        logTable(signalLog, const <String>[
+          'time',
+          'event',
+          'kind',
+          'position',
+          'extra',
+        ], olive),
         const SizedBox(height: 8.0),
         calloutBox(
           'Pointer-ID semantics',
           'Each physical pointer (each finger, each mouse, each stylus tip) '
-          'gets a STABLE int "pointer" id assigned by GestureBinding at the '
-          'down event.  All move/up/cancel events for that physical pointer '
-          'will carry the same id until up/cancel — then the id is retired. '
-          'When the next pointer hits the screen a NEW id is minted.',
+              'gets a STABLE int "pointer" id assigned by GestureBinding at the '
+              'down event.  All move/up/cancel events for that physical pointer '
+              'will carry the same id until up/cancel — then the id is retired. '
+              'When the next pointer hits the screen a NEW id is minted.',
           slate,
         ),
       ],
@@ -1096,11 +1358,46 @@ dynamic build(BuildContext context) {
 
   // Five finger paths simulating a multi-touch chord.
   final List<List<Offset>> multiTouch = const <List<Offset>>[
-    <Offset>[Offset(60, 60), Offset(62, 64), Offset(66, 70), Offset(72, 78), Offset(80, 86), Offset(88, 92)],
-    <Offset>[Offset(120, 50), Offset(118, 54), Offset(116, 60), Offset(116, 70), Offset(120, 80), Offset(126, 90)],
-    <Offset>[Offset(180, 60), Offset(178, 64), Offset(180, 72), Offset(184, 82), Offset(192, 90), Offset(202, 96)],
-    <Offset>[Offset(240, 70), Offset(244, 74), Offset(252, 80), Offset(260, 88), Offset(266, 96), Offset(270, 104)],
-    <Offset>[Offset(300, 80), Offset(302, 86), Offset(306, 94), Offset(310, 102), Offset(312, 110), Offset(310, 118)],
+    <Offset>[
+      Offset(60, 60),
+      Offset(62, 64),
+      Offset(66, 70),
+      Offset(72, 78),
+      Offset(80, 86),
+      Offset(88, 92),
+    ],
+    <Offset>[
+      Offset(120, 50),
+      Offset(118, 54),
+      Offset(116, 60),
+      Offset(116, 70),
+      Offset(120, 80),
+      Offset(126, 90),
+    ],
+    <Offset>[
+      Offset(180, 60),
+      Offset(178, 64),
+      Offset(180, 72),
+      Offset(184, 82),
+      Offset(192, 90),
+      Offset(202, 96),
+    ],
+    <Offset>[
+      Offset(240, 70),
+      Offset(244, 74),
+      Offset(252, 80),
+      Offset(260, 88),
+      Offset(266, 96),
+      Offset(270, 104),
+    ],
+    <Offset>[
+      Offset(300, 80),
+      Offset(302, 86),
+      Offset(306, 94),
+      Offset(310, 102),
+      Offset(312, 110),
+      Offset(310, 118),
+    ],
   ];
 
   final List<Color> fingerColors = const <Color>[
@@ -1278,7 +1575,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 6.0),
-            Text(description, style: const TextStyle(fontSize: 12.0, height: 1.4)),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 12.0, height: 1.4),
+            ),
             const SizedBox(height: 8.0),
             hitRow('itself receives events', selfHits),
             const SizedBox(height: 2.0),
@@ -1382,8 +1682,11 @@ dynamic build(BuildContext context) {
                 // Bottom button - red rectangle.
                 final Paint redFill = Paint()
                   ..color = const Color(0xFFE53935).withOpacity(0.8);
-                final Rect btmRect =
-                    Rect.fromCenter(center: Offset(cx, 140), width: 130, height: 60);
+                final Rect btmRect = Rect.fromCenter(
+                  center: Offset(cx, 140),
+                  width: 130,
+                  height: 60,
+                );
                 canvas.drawRect(btmRect, redFill);
                 final TextPainter tp = TextPainter(
                   textDirection: TextDirection.ltr,
@@ -1402,8 +1705,11 @@ dynamic build(BuildContext context) {
                 // Top Listener — only outlined for "deferToChild",
                 // solid translucent box for "opaque", solid striped for
                 // "translucent".
-                final Rect topRect =
-                    Rect.fromCenter(center: Offset(cx, 80), width: 150, height: 80);
+                final Rect topRect = Rect.fromCenter(
+                  center: Offset(cx, 80),
+                  width: 150,
+                  height: 80,
+                );
                 if (i == 0) {
                   // deferToChild — child here is just text; we draw a
                   // small inner solid child and surround it with dashed
@@ -1414,7 +1720,11 @@ dynamic build(BuildContext context) {
                     ..strokeWidth = 1.5;
                   // dashes
                   const double dash = 6, gap = 4;
-                  for (double x = topRect.left; x < topRect.right; x += dash + gap) {
+                  for (
+                    double x = topRect.left;
+                    x < topRect.right;
+                    x += dash + gap
+                  ) {
                     canvas.drawLine(
                       Offset(x, topRect.top),
                       Offset(x + dash, topRect.top),
@@ -1426,7 +1736,11 @@ dynamic build(BuildContext context) {
                       outline,
                     );
                   }
-                  for (double y = topRect.top; y < topRect.bottom; y += dash + gap) {
+                  for (
+                    double y = topRect.top;
+                    y < topRect.bottom;
+                    y += dash + gap
+                  ) {
                     canvas.drawLine(
                       Offset(topRect.left, y),
                       Offset(topRect.left, y + dash),
@@ -1460,7 +1774,8 @@ dynamic build(BuildContext context) {
                   tp.paint(canvas, Offset(cx - tp.width / 2, 72));
                 } else if (i == 1) {
                   // opaque — solid amber fill
-                  final Paint solid = Paint()..color = accent[1].withOpacity(0.85);
+                  final Paint solid = Paint()
+                    ..color = accent[1].withOpacity(0.85);
                   canvas.drawRect(topRect, solid);
                   tp.text = const TextSpan(
                     text: 'OPAQUE',
@@ -1480,9 +1795,11 @@ dynamic build(BuildContext context) {
                   // background tint
                   final Paint bg = Paint()..color = accent[2].withOpacity(0.15);
                   canvas.drawRect(topRect, bg);
-                  for (double xx = topRect.left - topRect.height;
-                      xx < topRect.right;
-                      xx += 12) {
+                  for (
+                    double xx = topRect.left - topRect.height;
+                    xx < topRect.right;
+                    xx += 12
+                  ) {
                     canvas.drawLine(
                       Offset(xx, topRect.bottom),
                       Offset(xx + topRect.height, topRect.top),
@@ -1551,13 +1868,13 @@ dynamic build(BuildContext context) {
         calloutBox(
           'Practical rule of thumb',
           '• Use deferToChild (default) when wrapping a positively-painted '
-          'widget tree such as Container/Image/Text.\n'
-          '• Use opaque when the Listener has no visible child but should '
-          'still catch the full box (e.g. an invisible overlay covering an '
-          'image to track pointer-down anywhere on it).\n'
-          '• Use translucent only for PASSIVE observers (analytics, '
-          'telemetry, ambient hover tracking). It is the most surprising '
-          'option because both layers receive the event.',
+              'widget tree such as Container/Image/Text.\n'
+              '• Use opaque when the Listener has no visible child but should '
+              'still catch the full box (e.g. an invisible overlay covering an '
+              'image to track pointer-down anywhere on it).\n'
+              '• Use translucent only for PASSIVE observers (analytics, '
+              'telemetry, ambient hover tracking). It is the most surprising '
+              'option because both layers receive the event.',
           teal,
         ),
       ],
@@ -1613,11 +1930,7 @@ dynamic build(BuildContext context) {
     Color noBg = const Color(0xFFFFCDD2);
     Color sometimesBg = const Color(0xFFFFF9C4);
 
-    Widget row(
-      String kind,
-      List<String> support,
-      String notes,
-    ) {
+    Widget row(String kind, List<String> support, String notes) {
       Color bg(String s) {
         if (s == '✓') return yesBg;
         if (s == '✕') return noBg;
@@ -1655,18 +1968,48 @@ dynamic build(BuildContext context) {
               header('notes'),
             ],
           ),
-          row('touch', <String>['✓', '✓', '✕', '✕', '✕'],
-              'finger / capacitive screens'),
-          row('mouse', <String>['✓', '✓', '✓', '✓', '✕'],
-              'wheel ticks arrive as signal'),
-          row('stylus', <String>['✓', '✓', '~', '~', '✕'],
-              'hover only when stylus supports it'),
-          row('invertedStylus', <String>['✓', '✓', '~', '✕', '✕'],
-              'stylus held eraser-end down'),
-          row('trackpad', <String>['~', '~', '✓', '✓', '✓'],
-              'down/up only when click-tap or click-down'),
-          row('unknown', <String>['~', '~', '~', '~', '~'],
-              'reported when engine cannot classify'),
+          row('touch', <String>[
+            '✓',
+            '✓',
+            '✕',
+            '✕',
+            '✕',
+          ], 'finger / capacitive screens'),
+          row('mouse', <String>[
+            '✓',
+            '✓',
+            '✓',
+            '✓',
+            '✕',
+          ], 'wheel ticks arrive as signal'),
+          row('stylus', <String>[
+            '✓',
+            '✓',
+            '~',
+            '~',
+            '✕',
+          ], 'hover only when stylus supports it'),
+          row('invertedStylus', <String>[
+            '✓',
+            '✓',
+            '~',
+            '✕',
+            '✕',
+          ], 'stylus held eraser-end down'),
+          row('trackpad', <String>[
+            '~',
+            '~',
+            '✓',
+            '✓',
+            '✓',
+          ], 'down/up only when click-tap or click-down'),
+          row('unknown', <String>[
+            '~',
+            '~',
+            '~',
+            '~',
+            '~',
+          ], 'reported when engine cannot classify'),
         ],
       ),
     );
@@ -1722,11 +2065,7 @@ dynamic build(BuildContext context) {
   // ============ SECTION 6: Comparison panels =================
   // ===========================================================
 
-  Widget compareCard(
-    String title,
-    Color color,
-    List<List<String>> rows,
-  ) {
+  Widget compareCard(String title, Color color, List<List<String>> rows) {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -1812,22 +2151,24 @@ dynamic build(BuildContext context) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            compareCard(
-              'Listener (low level)',
-              indigo,
-              const <List<String>>[
-                <String>['layer', 'raw PointerEvent'],
-                <String>['arena?', 'no — always fires'],
-                <String>['pre-empts?', 'cannot be pre-empted'],
-                <String>['can be pre-empted?', 'yes by AbsorbPointer/IgnorePointer above'],
-                <String>['hover?', 'yes via onPointerHover'],
-                <String>['scroll?', 'yes via onPointerSignal'],
-                <String>['trackpad pan-zoom?', 'yes via onPointerPanZoom*'],
-                <String>['multi-touch?', 'yes natively via pointer id'],
-                <String>['velocity?', 'no — you compute it'],
-                <String>['use when', 'building a recognizer, drawing paths, capturing wheel'],
+            compareCard('Listener (low level)', indigo, const <List<String>>[
+              <String>['layer', 'raw PointerEvent'],
+              <String>['arena?', 'no — always fires'],
+              <String>['pre-empts?', 'cannot be pre-empted'],
+              <String>[
+                'can be pre-empted?',
+                'yes by AbsorbPointer/IgnorePointer above',
               ],
-            ),
+              <String>['hover?', 'yes via onPointerHover'],
+              <String>['scroll?', 'yes via onPointerSignal'],
+              <String>['trackpad pan-zoom?', 'yes via onPointerPanZoom*'],
+              <String>['multi-touch?', 'yes natively via pointer id'],
+              <String>['velocity?', 'no — you compute it'],
+              <String>[
+                'use when',
+                'building a recognizer, drawing paths, capturing wheel',
+              ],
+            ]),
             compareCard(
               'GestureDetector (mid level)',
               const Color(0xFF2E7D32),
@@ -1841,7 +2182,10 @@ dynamic build(BuildContext context) {
                 <String>['trackpad pan-zoom?', 'partially via onScale*'],
                 <String>['multi-touch?', 'via onScale* (synthesized)'],
                 <String>['velocity?', 'yes (DragEndDetails.velocity)'],
-                <String>['use when', 'wiring buttons, drag handles, scale gestures'],
+                <String>[
+                  'use when',
+                  'wiring buttons, drag handles, scale gestures',
+                ],
               ],
             ),
             compareCard(
@@ -1857,7 +2201,10 @@ dynamic build(BuildContext context) {
                 <String>['trackpad pan-zoom?', 'no'],
                 <String>['multi-touch?', 'n/a — cursor only'],
                 <String>['velocity?', 'no'],
-                <String>['use when', 'changing cursor shape, computing hover boundaries'],
+                <String>[
+                  'use when',
+                  'changing cursor shape, computing hover boundaries',
+                ],
               ],
             ),
           ],
@@ -1866,11 +2213,11 @@ dynamic build(BuildContext context) {
         calloutBox(
           'Stacking them',
           'Listener, GestureDetector and MouseRegion frequently appear in '
-          'the same widget tree.  A common pattern: outer MouseRegion sets '
-          'the cursor, middle Listener tracks raw drag for analytics, inner '
-          'GestureDetector translates user intent into onTap/onDoubleTap.  '
-          'Because Listener fires BEFORE the gesture arena, it can observe '
-          'events even when the inner GestureDetector loses its competition.',
+              'the same widget tree.  A common pattern: outer MouseRegion sets '
+              'the cursor, middle Listener tracks raw drag for analytics, inner '
+              'GestureDetector translates user intent into onTap/onDoubleTap.  '
+              'Because Listener fires BEFORE the gesture arena, it can observe '
+              'events even when the inner GestureDetector loses its competition.',
           slate,
         ),
       ],
@@ -1930,48 +2277,86 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 8.0),
-        glossaryRow('PointerEvent',
-            'Base class for every raw pointer signal in Flutter.'),
-        glossaryRow('PointerDownEvent',
-            'A new pointer has made contact.  pointer id is now active.'),
-        glossaryRow('PointerMoveEvent',
-            'An active (down) pointer has moved.  delta is non-zero.'),
-        glossaryRow('PointerUpEvent',
-            'A pointer has lifted gracefully.  pointer id retired.'),
-        glossaryRow('PointerCancelEvent',
-            'A pointer was aborted by the OS — there will be no Up.'),
-        glossaryRow('PointerHoverEvent',
-            'A pointer that is NOT in contact moved (mouse / hover stylus).'),
-        glossaryRow('PointerSignalEvent',
-            'A non-positional input — most commonly the mouse wheel.'),
-        glossaryRow('PointerScrollEvent',
-            'Subclass of PointerSignalEvent for wheel ticks; carries scrollDelta.'),
-        glossaryRow('PointerPanZoom*Event',
-            'Trackpad-style pan/zoom/rotate gesture, reported as a single synthetic pointer.'),
-        glossaryRow('PointerDeviceKind',
-            'Enum: touch, mouse, stylus, invertedStylus, trackpad, unknown.'),
-        glossaryRow('pointer (id)',
-            'Stable int identifier for one physical pointer between down and up/cancel.'),
-        glossaryRow('buttons',
-            'Bitmask: kPrimaryButton (0x1), kSecondaryButton (0x2), kMiddleMouseButton (0x4)...'),
-        glossaryRow('pressure',
-            '0.0..1.0; reports 1.0 on devices without pressure sensors.'),
-        glossaryRow('delta vs localDelta',
-            'delta is in screen coordinates; localDelta in the listener\'s '
-                'transformed coordinate space.'),
-        glossaryRow('HitTestBehavior',
-            'How the underlying RenderPointerListener participates in hit testing.'),
-        glossaryRow('GestureBinding',
-            'The framework binding that owns the pointer router.'),
-        glossaryRow('pointerSignalResolver',
-            'Singleton used to disambiguate scroll signals between '
-                'nested listeners — see GestureBinding.instance.pointerSignalResolver.'),
-        glossaryRow('arena',
-            'The gesture arena where competing recognizers vie for a stream.  '
-                'Listener does NOT participate in the arena.'),
-        glossaryRow('RenderPointerListener',
-            'RenderObject backing Listener — exposes a "trampoline" method '
-                'for each callback.'),
+        glossaryRow(
+          'PointerEvent',
+          'Base class for every raw pointer signal in Flutter.',
+        ),
+        glossaryRow(
+          'PointerDownEvent',
+          'A new pointer has made contact.  pointer id is now active.',
+        ),
+        glossaryRow(
+          'PointerMoveEvent',
+          'An active (down) pointer has moved.  delta is non-zero.',
+        ),
+        glossaryRow(
+          'PointerUpEvent',
+          'A pointer has lifted gracefully.  pointer id retired.',
+        ),
+        glossaryRow(
+          'PointerCancelEvent',
+          'A pointer was aborted by the OS — there will be no Up.',
+        ),
+        glossaryRow(
+          'PointerHoverEvent',
+          'A pointer that is NOT in contact moved (mouse / hover stylus).',
+        ),
+        glossaryRow(
+          'PointerSignalEvent',
+          'A non-positional input — most commonly the mouse wheel.',
+        ),
+        glossaryRow(
+          'PointerScrollEvent',
+          'Subclass of PointerSignalEvent for wheel ticks; carries scrollDelta.',
+        ),
+        glossaryRow(
+          'PointerPanZoom*Event',
+          'Trackpad-style pan/zoom/rotate gesture, reported as a single synthetic pointer.',
+        ),
+        glossaryRow(
+          'PointerDeviceKind',
+          'Enum: touch, mouse, stylus, invertedStylus, trackpad, unknown.',
+        ),
+        glossaryRow(
+          'pointer (id)',
+          'Stable int identifier for one physical pointer between down and up/cancel.',
+        ),
+        glossaryRow(
+          'buttons',
+          'Bitmask: kPrimaryButton (0x1), kSecondaryButton (0x2), kMiddleMouseButton (0x4)...',
+        ),
+        glossaryRow(
+          'pressure',
+          '0.0..1.0; reports 1.0 on devices without pressure sensors.',
+        ),
+        glossaryRow(
+          'delta vs localDelta',
+          'delta is in screen coordinates; localDelta in the listener\'s '
+              'transformed coordinate space.',
+        ),
+        glossaryRow(
+          'HitTestBehavior',
+          'How the underlying RenderPointerListener participates in hit testing.',
+        ),
+        glossaryRow(
+          'GestureBinding',
+          'The framework binding that owns the pointer router.',
+        ),
+        glossaryRow(
+          'pointerSignalResolver',
+          'Singleton used to disambiguate scroll signals between '
+              'nested listeners — see GestureBinding.instance.pointerSignalResolver.',
+        ),
+        glossaryRow(
+          'arena',
+          'The gesture arena where competing recognizers vie for a stream.  '
+              'Listener does NOT participate in the arena.',
+        ),
+        glossaryRow(
+          'RenderPointerListener',
+          'RenderObject backing Listener — exposes a "trampoline" method '
+              'for each callback.',
+        ),
       ],
     ),
   );
@@ -2062,103 +2447,106 @@ dynamic build(BuildContext context) {
     child: SingleChildScrollView(
       padding: const EdgeInsets.all(14.0),
       child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        // Banner.
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xFF1A237E),
-                Color(0xFF3F51B5),
-                Color(0xFF5C6BC0),
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          // Banner.
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+                  Color(0xFF1A237E),
+                  Color(0xFF3F51B5),
+                  Color(0xFF5C6BC0),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[
+                Text(
+                  'LISTENER — Visual Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.6,
+                  ),
+                ),
+                SizedBox(height: 6.0),
+                Text(
+                  'A hand-authored dossier on Flutter\'s lowest-level pointer-event widget. '
+                  'Includes mock-recorded event traces rendered statically on canvas — no real '
+                  'interaction needed.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    height: 1.45,
+                  ),
+                ),
               ],
             ),
-            borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
-              Text(
-                'LISTENER — Visual Deep Demo',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 0.6,
-                ),
+
+          sectionTitle('1', 'Dossier — purpose and pipeline position', indigo),
+          dossier,
+
+          sectionTitle('2', 'Anatomy — every callback dissected', amber),
+          anatomy,
+
+          sectionTitle('3', 'Recipes — five worked patterns', olive),
+          recipeDrag,
+          const SizedBox(height: 10.0),
+          recipeHover,
+          const SizedBox(height: 10.0),
+          recipeScroll,
+          const SizedBox(height: 10.0),
+          recipeSignalLog,
+          const SizedBox(height: 10.0),
+          recipeMultiTouch,
+
+          sectionTitle('4', 'HitTestBehavior — visualizing each value', teal),
+          hitBehavior,
+
+          sectionTitle('5', 'PointerDeviceKind matrix', slate),
+          kindSection,
+
+          sectionTitle(
+            '6',
+            'Comparison: Listener vs. GestureDetector vs. MouseRegion',
+            slate,
+          ),
+          comparison,
+
+          sectionTitle('7', 'Glossary + recap', indigo),
+          glossary,
+          const SizedBox(height: 10.0),
+          recap,
+
+          const SizedBox(height: 16.0),
+          Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: rule),
+            ),
+            child: const Text(
+              'End of dossier.  Listener is the raw pointer-event surface — '
+              'reach for it deliberately, prefer GestureDetector or MouseRegion '
+              'where they suffice.',
+              style: TextStyle(
+                fontSize: 12.5,
+                fontStyle: FontStyle.italic,
+                color: Color(0xFF555555),
               ),
-              SizedBox(height: 6.0),
-              Text(
-                'A hand-authored dossier on Flutter\'s lowest-level pointer-event widget. '
-                'Includes mock-recorded event traces rendered statically on canvas — no real '
-                'interaction needed.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13.0,
-                  height: 1.45,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        sectionTitle('1', 'Dossier — purpose and pipeline position', indigo),
-        dossier,
-
-        sectionTitle('2', 'Anatomy — every callback dissected', amber),
-        anatomy,
-
-        sectionTitle('3', 'Recipes — five worked patterns', olive),
-        recipeDrag,
-        const SizedBox(height: 10.0),
-        recipeHover,
-        const SizedBox(height: 10.0),
-        recipeScroll,
-        const SizedBox(height: 10.0),
-        recipeSignalLog,
-        const SizedBox(height: 10.0),
-        recipeMultiTouch,
-
-        sectionTitle('4', 'HitTestBehavior — visualizing each value', teal),
-        hitBehavior,
-
-        sectionTitle('5', 'PointerDeviceKind matrix', slate),
-        kindSection,
-
-        sectionTitle('6', 'Comparison: Listener vs. GestureDetector vs. MouseRegion',
-            slate),
-        comparison,
-
-        sectionTitle('7', 'Glossary + recap', indigo),
-        glossary,
-        const SizedBox(height: 10.0),
-        recap,
-
-        const SizedBox(height: 16.0),
-        Container(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: rule),
-          ),
-          child: const Text(
-            'End of dossier.  Listener is the raw pointer-event surface — '
-            'reach for it deliberately, prefer GestureDetector or MouseRegion '
-            'where they suffice.',
-            style: TextStyle(
-              fontSize: 12.5,
-              fontStyle: FontStyle.italic,
-              color: Color(0xFF555555),
             ),
           ),
-        ),
-      ],
-    ),
+        ],
+      ),
     ),
   );
 }

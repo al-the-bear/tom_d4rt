@@ -160,7 +160,9 @@ const List<List<Object>> kPalette = <List<Object>>[
 dynamic build(BuildContext context) {
   print('[stack-spruce] ListBody deep-dive demo starting');
   print('[stack-spruce] Theme: forester cordwood, sixteen-color spruce scale');
-  print('[stack-spruce] D4rt mode: snapshot build, no Stateful, no controllers');
+  print(
+    '[stack-spruce] D4rt mode: snapshot build, no Stateful, no controllers',
+  );
   print('[stack-spruce] Target widget: ListBody (flex-less linear layout)');
   print('[stack-spruce] Constructor: ({mainAxis, reverse, children})');
   print('[stack-spruce] Composing 14-section snapshot tree...');
@@ -175,9 +177,11 @@ dynamic build(BuildContext context) {
       Container(height: 1.0, color: spruceFog),
     ],
   );
-  print('[stack-spruce] warmup ListBody built: '
-      'mainAxis=${warmup.mainAxis} reverse=${warmup.reverse} '
-      'children=${warmup.children.length}');
+  print(
+    '[stack-spruce] warmup ListBody built: '
+    'mainAxis=${warmup.mainAxis} reverse=${warmup.reverse} '
+    'children=${warmup.children.length}',
+  );
 
   return Scaffold(
     backgroundColor: spruceSnow,
@@ -266,12 +270,7 @@ Widget _section1TitleBanner() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          spruceNeedle,
-          spruceBough,
-          spruceMoss,
-          spruceSlate,
-        ],
+        colors: <Color>[spruceNeedle, spruceBough, spruceMoss, spruceSlate],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: <BoxShadow>[
@@ -357,11 +356,7 @@ Widget _section1TitleBanner() {
           ),
         ),
         const SizedBox(height: 10.0),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: swatches,
-        ),
+        Wrap(spacing: 8.0, runSpacing: 8.0, children: swatches),
       ],
     ),
   );
@@ -519,7 +514,8 @@ Widget _section3PropertyAnatomy() {
           type: 'Axis',
           required: false,
           defaultValue: 'Axis.vertical',
-          summary: 'Direction along which children are laid out. '
+          summary:
+              'Direction along which children are laid out. '
               'Axis.vertical stacks top-to-bottom; Axis.horizontal '
               'stacks left-to-right (or right-to-left under RTL).',
         ),
@@ -528,7 +524,8 @@ Widget _section3PropertyAnatomy() {
           type: 'bool',
           required: false,
           defaultValue: 'false',
-          summary: 'When true, children paint from end-to-start of the '
+          summary:
+              'When true, children paint from end-to-start of the '
               'main axis. The first child in the list lands at the far '
               'end, the last at the near end.',
         ),
@@ -537,7 +534,8 @@ Widget _section3PropertyAnatomy() {
           type: 'List<Widget>',
           required: false,
           defaultValue: 'const <Widget>[]',
-          summary: 'The widgets to lay out, in declaration order. There '
+          summary:
+              'The widgets to lay out, in declaration order. There '
               'is no automatic separator between them. Each child gets '
               'the cross-axis extent stretched, and its intrinsic main-'
               'axis extent honored.',
@@ -547,7 +545,8 @@ Widget _section3PropertyAnatomy() {
           type: 'Key?',
           required: false,
           defaultValue: 'null',
-          summary: 'Standard Widget key. Useful when ListBody appears '
+          summary:
+              'Standard Widget key. Useful when ListBody appears '
               'inside a list of siblings whose identity matters across '
               'rebuilds.',
         ),
@@ -585,7 +584,9 @@ Widget _propRow({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: spruceNeedle,
                 borderRadius: BorderRadius.circular(6.0),
@@ -603,7 +604,9 @@ Widget _propRow({
             const SizedBox(width: 8.0),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 7.0, vertical: 3.0),
+                horizontal: 7.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: spruceFern.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(5.0),
@@ -622,7 +625,9 @@ Widget _propRow({
             if (required)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 7.0, vertical: 3.0),
+                  horizontal: 7.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: spruceVest,
                   borderRadius: BorderRadius.circular(5.0),
@@ -640,7 +645,9 @@ Widget _propRow({
             else
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 7.0, vertical: 3.0),
+                  horizontal: 7.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: spruceFog,
                   borderRadius: BorderRadius.circular(5.0),
@@ -660,11 +667,7 @@ Widget _propRow({
         const SizedBox(height: 8.0),
         Text(
           summary,
-          style: TextStyle(
-            color: spruceChar,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: TextStyle(color: spruceChar, fontSize: 12.5, height: 1.5),
         ),
       ],
     ),
@@ -716,21 +719,23 @@ Widget _verticalRickBare() {
   // Build five plain rounds. Index loop, so no for-in over BridgedInstance.
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 5; i++) {
-    rounds.add(Container(
-      height: 38.0,
-      color: i.isEven ? spruceMoss : spruceLichen,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Text(
-        'round ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontSize: 12.5,
-          fontWeight: FontWeight.w700,
-          fontFamily: 'monospace',
+    rounds.add(
+      Container(
+        height: 38.0,
+        color: i.isEven ? spruceMoss : spruceLichen,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text(
+          'round ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(
@@ -741,7 +746,8 @@ Widget _verticalRickBare() {
 
   return _rickCard(
     title: '4.1 Bare rounds',
-    caption: 'mainAxis: Axis.vertical, reverse: false. '
+    caption:
+        'mainAxis: Axis.vertical, reverse: false. '
         'Five plain Containers, alternating moss/lichen.',
     height: 200.0,
     body: body,
@@ -759,35 +765,38 @@ Widget _verticalRickBanded() {
     spruceCambium,
   ];
   for (int i = 0; i < bands.length; i++) {
-    rounds.add(Container(
-      height: 30.0,
-      decoration: BoxDecoration(
-        color: bands[i],
-        border: Border(
-          bottom: BorderSide(
-            color: spruceChar.withValues(alpha: 0.45),
-            width: 1.0,
+    rounds.add(
+      Container(
+        height: 30.0,
+        decoration: BoxDecoration(
+          color: bands[i],
+          border: Border(
+            bottom: BorderSide(
+              color: spruceChar.withValues(alpha: 0.45),
+              width: 1.0,
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'band ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.6,
           ),
         ),
       ),
-      alignment: Alignment.center,
-      child: Text(
-        'band ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.6,
-        ),
-      ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
 
   return _rickCard(
     title: '4.2 Banded rounds',
-    caption: 'Default mainAxis (vertical). Alternating bark/cambium '
+    caption:
+        'Default mainAxis (vertical). Alternating bark/cambium '
         'with a hairline char divider on each round.',
     height: 220.0,
     body: body,
@@ -797,39 +806,37 @@ Widget _verticalRickBanded() {
 Widget _verticalRickSnowCapped() {
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 4; i++) {
-    rounds.add(Container(
-      height: 44.0,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            spruceSnow,
-            spruceFog,
-            spruceBark,
-            spruceBark,
-          ],
-          stops: const <double>[0.0, 0.18, 0.32, 1.0],
+    rounds.add(
+      Container(
+        height: 44.0,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[spruceSnow, spruceFog, spruceBark, spruceBark],
+            stops: const <double>[0.0, 0.18, 0.32, 1.0],
+          ),
+        ),
+        padding: const EdgeInsets.only(left: 12.0, top: 6.0),
+        alignment: Alignment.topLeft,
+        child: Text(
+          'snow-capped round ${i + 1}',
+          style: TextStyle(
+            color: spruceChar,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
-      padding: const EdgeInsets.only(left: 12.0, top: 6.0),
-      alignment: Alignment.topLeft,
-      child: Text(
-        'snow-capped round ${i + 1}',
-        style: TextStyle(
-          color: spruceChar,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
 
   return _rickCard(
     title: '4.3 Snow-capped rick',
-    caption: 'Each round shows a snow cap fading into bark. ListBody '
+    caption:
+        'Each round shows a snow cap fading into bark. ListBody '
         'lays them top-to-bottom; the cross axis fills the card width.',
     height: 220.0,
     body: body,
@@ -846,74 +853,79 @@ Widget _verticalRickTagged() {
     'A1 dry',
   ];
   for (int i = 0; i < grades.length; i++) {
-    rounds.add(Container(
-      height: 38.0,
-      decoration: BoxDecoration(
-        color: spruceDuff,
-        border: Border(
-          bottom: BorderSide(
-            color: spruceChar.withValues(alpha: 0.4),
-            width: 0.8,
+    rounds.add(
+      Container(
+        height: 38.0,
+        decoration: BoxDecoration(
+          color: spruceDuff,
+          border: Border(
+            bottom: BorderSide(
+              color: spruceChar.withValues(alpha: 0.4),
+              width: 0.8,
+            ),
           ),
         ),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 22.0,
-            height: 22.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: spruceSap,
-              borderRadius: BorderRadius.circular(11.0),
-            ),
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                color: spruceChar,
-                fontWeight: FontWeight.w800,
-                fontSize: 11.0,
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 22.0,
+              height: 22.0,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: spruceSap,
+                borderRadius: BorderRadius.circular(11.0),
+              ),
+              child: Text(
+                '${i + 1}',
+                style: TextStyle(
+                  color: spruceChar,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11.0,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 10.0),
-          Text(
-            'round',
-            style: TextStyle(
-              color: spruceSnow,
-              fontSize: 12.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const Spacer(),
-          Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 3.0),
-            decoration: BoxDecoration(
-              color: spruceSnow,
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            child: Text(
-              grades[i],
+            const SizedBox(width: 10.0),
+            Text(
+              'round',
               style: TextStyle(
-                color: spruceChar,
+                color: spruceSnow,
+                fontSize: 12.0,
                 fontWeight: FontWeight.w700,
-                fontFamily: 'monospace',
-                fontSize: 10.5,
               ),
             ),
-          ),
-        ],
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
+              decoration: BoxDecoration(
+                color: spruceSnow,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: Text(
+                grades[i],
+                style: TextStyle(
+                  color: spruceChar,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                  fontSize: 10.5,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
 
   return _rickCard(
     title: '4.4 Tagged rick',
-    caption: 'Each child is itself a Row with an index, a label, and a '
+    caption:
+        'Each child is itself a Row with an index, a label, and a '
         'paper grade tag. ListBody just stacks the Rows vertically.',
     height: 240.0,
     body: body,
@@ -924,24 +936,23 @@ Widget _verticalRickForeman() {
   // Foreman's rick: vest-colored separators. We interleave them.
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 4; i++) {
-    rounds.add(Container(
-      height: 36.0,
-      color: spruceHeartwood,
-      alignment: Alignment.center,
-      child: Text(
-        'heartwood round ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w700,
+    rounds.add(
+      Container(
+        height: 36.0,
+        color: spruceHeartwood,
+        alignment: Alignment.center,
+        child: Text(
+          'heartwood round ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-    ));
+    );
     if (i < 3) {
-      rounds.add(Container(
-        height: 4.0,
-        color: spruceVest,
-      ));
+      rounds.add(Container(height: 4.0, color: spruceVest));
     }
   }
 
@@ -949,7 +960,8 @@ Widget _verticalRickForeman() {
 
   return _rickCard(
     title: '4.5 Foreman\'s rick',
-    caption: 'Heartwood rounds separated by vest-orange spacer Containers. '
+    caption:
+        'Heartwood rounds separated by vest-orange spacer Containers. '
         'ListBody has no spacing knob, so we interleave separators by hand.',
     height: 220.0,
     body: body,
@@ -990,11 +1002,7 @@ Widget _rickCard({
         const SizedBox(height: 4.0),
         Text(
           caption,
-          style: TextStyle(
-            color: spruceSlate,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceSlate, fontSize: 12.0, height: 1.45),
         ),
         const SizedBox(height: 12.0),
         // ListBody requires unbounded main-axis room. We grant it a fixed
@@ -1053,38 +1061,38 @@ Widget _horizontalCordwood() {
     spruceCambium,
   ];
   for (int i = 0; i < shades.length; i++) {
-    rounds.add(Container(
-      width: 56.0,
-      decoration: BoxDecoration(
-        color: shades[i],
-        border: Border(
-          right: BorderSide(
-            color: spruceChar.withValues(alpha: 0.4),
-            width: 1.0,
+    rounds.add(
+      Container(
+        width: 56.0,
+        decoration: BoxDecoration(
+          color: shades[i],
+          border: Border(
+            right: BorderSide(
+              color: spruceChar.withValues(alpha: 0.4),
+              width: 1.0,
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'r${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 12.0,
+            fontFamily: 'monospace',
           ),
         ),
       ),
-      alignment: Alignment.center,
-      child: Text(
-        'r${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 12.0,
-          fontFamily: 'monospace',
-        ),
-      ),
-    ));
+    );
   }
 
-  final ListBody body = ListBody(
-    mainAxis: Axis.horizontal,
-    children: rounds,
-  );
+  final ListBody body = ListBody(mainAxis: Axis.horizontal, children: rounds);
 
   return _horizontalCard(
     title: '5.1 Cordwood row',
-    caption: 'mainAxis: Axis.horizontal. Six fixed-width rounds laid '
+    caption:
+        'mainAxis: Axis.horizontal. Six fixed-width rounds laid '
         'left-to-right. The cross axis (vertical) is stretched.',
     height: 80.0,
     body: body,
@@ -1094,22 +1102,20 @@ Widget _horizontalCordwood() {
 Widget _horizontalLogFence() {
   final List<Widget> posts = <Widget>[];
   for (int i = 0; i < 10; i++) {
-    posts.add(Container(
-      width: i.isEven ? 14.0 : 30.0,
-      decoration: BoxDecoration(
-        color: i.isEven ? spruceBark : spruceCambium,
+    posts.add(
+      Container(
+        width: i.isEven ? 14.0 : 30.0,
+        decoration: BoxDecoration(color: i.isEven ? spruceBark : spruceCambium),
       ),
-    ));
+    );
   }
 
-  final ListBody body = ListBody(
-    mainAxis: Axis.horizontal,
-    children: posts,
-  );
+  final ListBody body = ListBody(mainAxis: Axis.horizontal, children: posts);
 
   return _horizontalCard(
     title: '5.2 Two-tone log fence',
-    caption: 'Alternating thin bark posts and wide cambium rails. The '
+    caption:
+        'Alternating thin bark posts and wide cambium rails. The '
         'cross axis stretches each one to full card height.',
     height: 60.0,
     body: body,
@@ -1119,38 +1125,38 @@ Widget _horizontalLogFence() {
 Widget _horizontalSampleLine() {
   final List<Widget> cells = <Widget>[];
   for (int i = 0; i < 12; i++) {
-    cells.add(Container(
-      width: 40.0,
-      decoration: BoxDecoration(
-        color: i % 3 == 0 ? spruceVest : spruceFog,
-        border: Border(
-          right: BorderSide(
-            color: spruceChar.withValues(alpha: 0.4),
-            width: 0.8,
+    cells.add(
+      Container(
+        width: 40.0,
+        decoration: BoxDecoration(
+          color: i % 3 == 0 ? spruceVest : spruceFog,
+          border: Border(
+            right: BorderSide(
+              color: spruceChar.withValues(alpha: 0.4),
+              width: 0.8,
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          '${i + 1}',
+          style: TextStyle(
+            color: i % 3 == 0 ? spruceSnow : spruceChar,
+            fontWeight: FontWeight.w800,
+            fontSize: 12.0,
+            fontFamily: 'monospace',
           ),
         ),
       ),
-      alignment: Alignment.center,
-      child: Text(
-        '${i + 1}',
-        style: TextStyle(
-          color: i % 3 == 0 ? spruceSnow : spruceChar,
-          fontWeight: FontWeight.w800,
-          fontSize: 12.0,
-          fontFamily: 'monospace',
-        ),
-      ),
-    ));
+    );
   }
 
-  final ListBody body = ListBody(
-    mainAxis: Axis.horizontal,
-    children: cells,
-  );
+  final ListBody body = ListBody(mainAxis: Axis.horizontal, children: cells);
 
   return _horizontalCard(
     title: '5.3 Numbered sample line',
-    caption: 'Twelve numbered cells with a vest-orange call-out every '
+    caption:
+        'Twelve numbered cells with a vest-orange call-out every '
         'third one. Looks like a forester\'s measuring tape.',
     height: 70.0,
     body: body,
@@ -1184,11 +1190,7 @@ Widget _horizontalCard({
         const SizedBox(height: 4.0),
         Text(
           caption,
-          style: TextStyle(
-            color: spruceSlate,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceSlate, fontSize: 12.0, height: 1.45),
         ),
         const SizedBox(height: 12.0),
         SizedBox(
@@ -1223,13 +1225,9 @@ Widget _section6ReverseVariants() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-              child: _reverseVerticalCard(reverse: false),
-            ),
+            Expanded(child: _reverseVerticalCard(reverse: false)),
             const SizedBox(width: 14.0),
-            Expanded(
-              child: _reverseVerticalCard(reverse: true),
-            ),
+            Expanded(child: _reverseVerticalCard(reverse: true)),
           ],
         ),
         const SizedBox(height: 16.0),
@@ -1249,21 +1247,23 @@ Widget _reverseVerticalCard({required bool reverse}) {
     spruceFern,
   ];
   for (int i = 0; i < labels.length; i++) {
-    rounds.add(Container(
-      height: 36.0,
-      color: tones[i],
-      alignment: Alignment.center,
-      child: Text(
-        '${i + 1}. ${labels[i]}',
-        style: TextStyle(
-          color: i < 2 ? spruceSnow : spruceChar,
-          fontWeight: FontWeight.w800,
-          fontSize: 12.0,
-          letterSpacing: 0.5,
-          fontFamily: 'monospace',
+    rounds.add(
+      Container(
+        height: 36.0,
+        color: tones[i],
+        alignment: Alignment.center,
+        child: Text(
+          '${i + 1}. ${labels[i]}',
+          style: TextStyle(
+            color: i < 2 ? spruceSnow : spruceChar,
+            fontWeight: FontWeight.w800,
+            fontSize: 12.0,
+            letterSpacing: 0.5,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(
@@ -1333,20 +1333,22 @@ Widget _reverseHorizontalCard({required bool reverse}) {
   final List<Widget> cells = <Widget>[];
   const List<String> letters = <String>['A', 'B', 'C', 'D', 'E'];
   for (int i = 0; i < letters.length; i++) {
-    cells.add(Container(
-      width: 44.0,
-      color: i.isEven ? spruceBark : spruceCambium,
-      alignment: Alignment.center,
-      child: Text(
-        letters[i],
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 14.0,
-          fontFamily: 'monospace',
+    cells.add(
+      Container(
+        width: 44.0,
+        color: i.isEven ? spruceBark : spruceCambium,
+        alignment: Alignment.center,
+        child: Text(
+          letters[i],
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 14.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(
@@ -1388,9 +1390,7 @@ Widget _reverseHorizontalCard({required bool reverse}) {
         ),
         const SizedBox(height: 6.0),
         Text(
-          reverse
-              ? 'A painted at the FAR END.'
-              : 'A painted at the NEAR END.',
+          reverse ? 'A painted at the FAR END.' : 'A painted at the NEAR END.',
           style: TextStyle(
             color: spruceSlate,
             fontSize: 11.0,
@@ -1456,20 +1456,22 @@ List<Widget> _comparisonRounds() {
     spruceHeartwood,
   ];
   for (int i = 0; i < tones.length; i++) {
-    rounds.add(Container(
-      height: 28.0,
-      color: tones[i],
-      alignment: Alignment.center,
-      child: Text(
-        'r${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 11.0,
-          fontFamily: 'monospace',
+    rounds.add(
+      Container(
+        height: 28.0,
+        color: tones[i],
+        alignment: Alignment.center,
+        child: Text(
+          'r${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
   return rounds;
 }
@@ -1535,21 +1537,23 @@ Widget _compareWrap() {
     spruceHeartwood,
   ];
   for (int i = 0; i < tones.length; i++) {
-    chips.add(Container(
-      width: 60.0,
-      height: 28.0,
-      color: tones[i],
-      alignment: Alignment.center,
-      child: Text(
-        'r${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 11.0,
-          fontFamily: 'monospace',
+    chips.add(
+      Container(
+        width: 60.0,
+        height: 28.0,
+        color: tones[i],
+        alignment: Alignment.center,
+        child: Text(
+          'r${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
   return _comparisonCard(
     title: 'Wrap',
@@ -1557,11 +1561,7 @@ Widget _compareWrap() {
     accent: spruceFern,
     body: SizedBox(
       height: 200.0,
-      child: Wrap(
-        spacing: 6.0,
-        runSpacing: 6.0,
-        children: chips,
-      ),
+      child: Wrap(spacing: 6.0, runSpacing: 6.0, children: chips),
     ),
   );
 }
@@ -1635,11 +1635,7 @@ Widget _comparisonNotes() {
           'reserves the right to honor flex children, and is willing to '
           'lay out under bounded constraints; ListBody refuses both. '
           'ListView introduces scrolling and lazy build; Wrap breaks lines.',
-          style: TextStyle(
-            color: spruceChar,
-            fontSize: 12.0,
-            height: 1.5,
-          ),
+          style: TextStyle(color: spruceChar, fontSize: 12.0, height: 1.5),
         ),
       ],
     ),
@@ -1680,28 +1676,31 @@ Widget _section8NestedConstrained() {
 Widget _nestedIntrinsicHeight() {
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 4; i++) {
-    rounds.add(Container(
-      height: 32.0,
-      color: i.isEven ? spruceMoss : spruceBough,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Text(
-        'intrinsic-row ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w700,
-          fontSize: 11.5,
-          fontFamily: 'monospace',
+    rounds.add(
+      Container(
+        height: 32.0,
+        color: i.isEven ? spruceMoss : spruceBough,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text(
+          'intrinsic-row ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w700,
+            fontSize: 11.5,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
 
   return _nestCard(
     title: '8.1 IntrinsicHeight slot',
-    caption: 'IntrinsicHeight measures the natural height of its child '
+    caption:
+        'IntrinsicHeight measures the natural height of its child '
         'and constrains itself to that height. Inside it we wrap the '
         'ListBody in a SingleChildScrollView so the bridge sees both the '
         'outer slot type and the inner ListBody behavior.',
@@ -1724,28 +1723,31 @@ Widget _nestedIntrinsicHeight() {
 Widget _nestedConstrainedBox() {
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 6; i++) {
-    rounds.add(Container(
-      height: 30.0,
-      color: i.isEven ? spruceCambium : spruceHeartwood,
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Text(
-        'constrained-row ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w700,
-          fontSize: 11.5,
-          fontFamily: 'monospace',
+    rounds.add(
+      Container(
+        height: 30.0,
+        color: i.isEven ? spruceCambium : spruceHeartwood,
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Text(
+          'constrained-row ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w700,
+            fontSize: 11.5,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
 
   return _nestCard(
     title: '8.2 ConstrainedBox slot',
-    caption: 'A ConstrainedBox with maxHeight gives ListBody an upper '
+    caption:
+        'A ConstrainedBox with maxHeight gives ListBody an upper '
         'bound. We still need a SingleChildScrollView to legalize the '
         'unbounded main-axis contract; the ConstrainedBox simply caps '
         'the visible viewport.',
@@ -1771,37 +1773,41 @@ Widget _nestedListBodyInListBody() {
   // ListBody. We render them as a single rick of sub-ricks.
   final List<Widget> innerA = <Widget>[];
   for (int i = 0; i < 3; i++) {
-    innerA.add(Container(
-      height: 26.0,
-      color: spruceBough,
-      alignment: Alignment.center,
-      child: Text(
-        'A.${i + 1}',
-        style: TextStyle(
-          color: spruceSap,
-          fontWeight: FontWeight.w800,
-          fontSize: 11.0,
-          fontFamily: 'monospace',
+    innerA.add(
+      Container(
+        height: 26.0,
+        color: spruceBough,
+        alignment: Alignment.center,
+        child: Text(
+          'A.${i + 1}',
+          style: TextStyle(
+            color: spruceSap,
+            fontWeight: FontWeight.w800,
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
   final List<Widget> innerB = <Widget>[];
   for (int i = 0; i < 3; i++) {
-    innerB.add(Container(
-      height: 26.0,
-      color: spruceHeartwood,
-      alignment: Alignment.center,
-      child: Text(
-        'B.${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 11.0,
-          fontFamily: 'monospace',
+    innerB.add(
+      Container(
+        height: 26.0,
+        color: spruceHeartwood,
+        alignment: Alignment.center,
+        child: Text(
+          'B.${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+          ),
         ),
       ),
-    ));
+    );
   }
 
   final ListBody outer = ListBody(
@@ -1816,7 +1822,8 @@ Widget _nestedListBodyInListBody() {
 
   return _nestCard(
     title: '8.3 ListBody inside ListBody',
-    caption: 'The outer ListBody hosts two inner ListBodies plus their '
+    caption:
+        'The outer ListBody hosts two inner ListBodies plus their '
         'labels. Composition is fine: the bridge sees three ListBody '
         'instances inside the same SingleChildScrollView.',
     child: Container(
@@ -1877,11 +1884,7 @@ Widget _nestCard({
         const SizedBox(height: 4.0),
         Text(
           caption,
-          style: TextStyle(
-            color: spruceSlate,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceSlate, fontSize: 12.0, height: 1.45),
         ),
         const SizedBox(height: 10.0),
         child,
@@ -1921,29 +1924,31 @@ Widget _section9ScrollingIntegration() {
 Widget _scrollVerticalCard() {
   final List<Widget> rounds = <Widget>[];
   for (int i = 0; i < 14; i++) {
-    rounds.add(Container(
-      height: 32.0,
-      decoration: BoxDecoration(
-        color: i.isEven ? spruceBark : spruceHeartwood,
-        border: Border(
-          bottom: BorderSide(
-            color: spruceChar.withValues(alpha: 0.4),
-            width: 0.6,
+    rounds.add(
+      Container(
+        height: 32.0,
+        decoration: BoxDecoration(
+          color: i.isEven ? spruceBark : spruceHeartwood,
+          border: Border(
+            bottom: BorderSide(
+              color: spruceChar.withValues(alpha: 0.4),
+              width: 0.6,
+            ),
+          ),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'rick-row ${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w700,
+            fontSize: 11.5,
+            fontFamily: 'monospace',
           ),
         ),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        'rick-row ${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w700,
-          fontSize: 11.5,
-          fontFamily: 'monospace',
-        ),
-      ),
-    ));
+    );
   }
 
   final ListBody body = ListBody(children: rounds);
@@ -1971,11 +1976,7 @@ Widget _scrollVerticalCard() {
           'A 14-round rick wrapped in a SingleChildScrollView. The scroll '
           'view supplies the unbounded vertical constraint that the '
           'ListBody requires; no controller is needed.',
-          style: TextStyle(
-            color: spruceSlate,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceSlate, fontSize: 12.0, height: 1.45),
         ),
         const SizedBox(height: 10.0),
         Container(
@@ -1998,34 +1999,33 @@ Widget _scrollVerticalCard() {
 Widget _scrollHorizontalCard() {
   final List<Widget> cells = <Widget>[];
   for (int i = 0; i < 24; i++) {
-    cells.add(Container(
-      width: 50.0,
-      decoration: BoxDecoration(
-        color: i % 4 == 0 ? spruceVest : spruceCambium,
-        border: Border(
-          right: BorderSide(
-            color: spruceChar.withValues(alpha: 0.4),
-            width: 0.8,
+    cells.add(
+      Container(
+        width: 50.0,
+        decoration: BoxDecoration(
+          color: i % 4 == 0 ? spruceVest : spruceCambium,
+          border: Border(
+            right: BorderSide(
+              color: spruceChar.withValues(alpha: 0.4),
+              width: 0.8,
+            ),
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          '${i + 1}',
+          style: TextStyle(
+            color: spruceSnow,
+            fontWeight: FontWeight.w800,
+            fontSize: 12.0,
+            fontFamily: 'monospace',
           ),
         ),
       ),
-      alignment: Alignment.center,
-      child: Text(
-        '${i + 1}',
-        style: TextStyle(
-          color: spruceSnow,
-          fontWeight: FontWeight.w800,
-          fontSize: 12.0,
-          fontFamily: 'monospace',
-        ),
-      ),
-    ));
+    );
   }
 
-  final ListBody body = ListBody(
-    mainAxis: Axis.horizontal,
-    children: cells,
-  );
+  final ListBody body = ListBody(mainAxis: Axis.horizontal, children: cells);
 
   return Container(
     padding: const EdgeInsets.all(14.0),
@@ -2050,11 +2050,7 @@ Widget _scrollHorizontalCard() {
           'A 24-cell horizontal sample line wrapped in a horizontal '
           'SingleChildScrollView. ListBody.mainAxis must agree with the '
           'scroll view\'s scrollDirection.',
-          style: TextStyle(
-            color: spruceSlate,
-            fontSize: 12.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceSlate, fontSize: 12.0, height: 1.45),
         ),
         const SizedBox(height: 10.0),
         Container(
@@ -2105,11 +2101,7 @@ Widget _scrollProseTile() {
           'required: if you do not need to programmatically scroll, '
           'observe scroll position, or persist offsets, you can omit '
           'the ScrollController entirely.',
-          style: TextStyle(
-            color: spruceChar,
-            fontSize: 12.0,
-            height: 1.5,
-          ),
+          style: TextStyle(color: spruceChar, fontSize: 12.0, height: 1.5),
         ),
       ],
     ),
@@ -2195,10 +2187,7 @@ Widget _ringTilesHorizontal() {
     tiles.add(const SizedBox(width: 8.0));
   }
 
-  final ListBody body = ListBody(
-    mainAxis: Axis.horizontal,
-    children: tiles,
-  );
+  final ListBody body = ListBody(mainAxis: Axis.horizontal, children: tiles);
 
   return Container(
     padding: const EdgeInsets.all(12.0),
@@ -2232,7 +2221,11 @@ Widget _ringTilesHorizontal() {
   );
 }
 
-Widget _ringTile({required String label, required int rings, required bool big}) {
+Widget _ringTile({
+  required String label,
+  required int rings,
+  required bool big,
+}) {
   // Build concentric Containers via nested wrapping. We start from the
   // innermost and accumulate outward.
   final double innerSize = big ? 40.0 : 24.0;
@@ -2240,10 +2233,7 @@ Widget _ringTile({required String label, required int rings, required bool big})
   Widget core = Container(
     width: innerSize,
     height: innerSize,
-    decoration: BoxDecoration(
-      color: spruceSap,
-      shape: BoxShape.circle,
-    ),
+    decoration: BoxDecoration(color: spruceSap, shape: BoxShape.circle),
     alignment: Alignment.center,
     child: Text(
       '$rings',
@@ -2314,10 +2304,7 @@ Widget _ringTile({required String label, required int rings, required bool big})
                 const SizedBox(height: 2.0),
                 Text(
                   '$rings rings counted',
-                  style: TextStyle(
-                    color: spruceSlate,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(color: spruceSlate, fontSize: 11.0),
                 ),
               ],
             ],
@@ -2339,32 +2326,50 @@ Widget _section11DoAvoid() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _doRow('DO place ListBody inside a slot that supplies unbounded '
-            'main-axis constraints — most commonly a SingleChildScrollView '
-            'or a CustomScrollView slot.'),
-        _doRow('DO match ListBody.mainAxis to the surrounding scroll '
-            'view\'s scrollDirection. A horizontal ListBody inside a '
-            'vertical scroll view will throw at layout.'),
-        _doRow('DO use the reverse flag rather than pre-reversing your '
-            'children list. The flag interacts correctly with hit-testing '
-            'and directional embedding; a manual reverse does not.'),
-        _doRow('DO interleave SizedBox separators when you need spacing '
-            'between rounds. ListBody itself has no spacing knob.'),
-        _doRow('DO prefer ListBody over Column when you positively want '
-            'no flex bookkeeping and you are inside a scroll body — it '
-            'is the lighter-weight primitive.'),
-        _avoidRow('AVOID putting a ListBody inside a Column without a '
-            'SizedBox or scrollable wrapper. The bounded vertical '
-            'constraint will crash the layout.'),
-        _avoidRow('AVOID expecting Spacer or Expanded to do anything '
-            'inside a ListBody. They are flex widgets; ListBody is not '
-            'a Flex. They will throw.'),
-        _avoidRow('AVOID using ListBody when you actually need a long, '
-            'lazily-built list. ListBody builds every child up front; '
-            'ListView builds on demand.'),
-        _avoidRow('AVOID using ListBody when you actually need '
-            'cross-axis alignment options. ListBody always stretches '
-            'each child to the full cross-axis extent.'),
+        _doRow(
+          'DO place ListBody inside a slot that supplies unbounded '
+          'main-axis constraints — most commonly a SingleChildScrollView '
+          'or a CustomScrollView slot.',
+        ),
+        _doRow(
+          'DO match ListBody.mainAxis to the surrounding scroll '
+          'view\'s scrollDirection. A horizontal ListBody inside a '
+          'vertical scroll view will throw at layout.',
+        ),
+        _doRow(
+          'DO use the reverse flag rather than pre-reversing your '
+          'children list. The flag interacts correctly with hit-testing '
+          'and directional embedding; a manual reverse does not.',
+        ),
+        _doRow(
+          'DO interleave SizedBox separators when you need spacing '
+          'between rounds. ListBody itself has no spacing knob.',
+        ),
+        _doRow(
+          'DO prefer ListBody over Column when you positively want '
+          'no flex bookkeeping and you are inside a scroll body — it '
+          'is the lighter-weight primitive.',
+        ),
+        _avoidRow(
+          'AVOID putting a ListBody inside a Column without a '
+          'SizedBox or scrollable wrapper. The bounded vertical '
+          'constraint will crash the layout.',
+        ),
+        _avoidRow(
+          'AVOID expecting Spacer or Expanded to do anything '
+          'inside a ListBody. They are flex widgets; ListBody is not '
+          'a Flex. They will throw.',
+        ),
+        _avoidRow(
+          'AVOID using ListBody when you actually need a long, '
+          'lazily-built list. ListBody builds every child up front; '
+          'ListView builds on demand.',
+        ),
+        _avoidRow(
+          'AVOID using ListBody when you actually need '
+          'cross-axis alignment options. ListBody always stretches '
+          'each child to the full cross-axis extent.',
+        ),
       ],
     ),
   );
@@ -2387,11 +2392,7 @@ Widget _doRow(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: spruceChar,
-              fontSize: 13.0,
-              height: 1.45,
-            ),
+            style: TextStyle(color: spruceChar, fontSize: 13.0, height: 1.45),
           ),
         ),
       ],
@@ -2416,11 +2417,7 @@ Widget _avoidRow(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: spruceChar,
-              fontSize: 13.0,
-              height: 1.45,
-            ),
+            style: TextStyle(color: spruceChar, fontSize: 13.0, height: 1.45),
           ),
         ),
       ],
@@ -2442,7 +2439,8 @@ Widget _section12CodeRecipes() {
         _recipe(
           n: '1',
           title: 'ListBody inside SingleChildScrollView',
-          code: "SingleChildScrollView(\n"
+          code:
+              "SingleChildScrollView(\n"
               "  child: ListBody(\n"
               "    children: <Widget>[\n"
               "      Container(height: 40, color: Colors.blue),\n"
@@ -2455,7 +2453,8 @@ Widget _section12CodeRecipes() {
         _recipe(
           n: '2',
           title: 'Horizontal ListBody inside horizontal scroll',
-          code: "SingleChildScrollView(\n"
+          code:
+              "SingleChildScrollView(\n"
               "  scrollDirection: Axis.horizontal,\n"
               "  child: ListBody(\n"
               "    mainAxis: Axis.horizontal,\n"
@@ -2469,7 +2468,8 @@ Widget _section12CodeRecipes() {
         _recipe(
           n: '3',
           title: 'Reverse-stack from the bottom',
-          code: "ListBody(\n"
+          code:
+              "ListBody(\n"
               "  reverse: true,\n"
               "  children: <Widget>[\n"
               "    Text('first child paints at bottom'),\n"
@@ -2481,7 +2481,8 @@ Widget _section12CodeRecipes() {
         _recipe(
           n: '4',
           title: 'Interleaved separators',
-          code: "ListBody(\n"
+          code:
+              "ListBody(\n"
               "  children: <Widget>[\n"
               "    Round(label: 'A'),\n"
               "    SizedBox(height: 4),\n"
@@ -2494,7 +2495,8 @@ Widget _section12CodeRecipes() {
         _recipe(
           n: '5',
           title: 'ListBody as the body of a SliverToBoxAdapter',
-          code: "CustomScrollView(\n"
+          code:
+              "CustomScrollView(\n"
               "  slivers: <Widget>[\n"
               "    SliverToBoxAdapter(\n"
               "      child: ListBody(\n"
@@ -2513,7 +2515,11 @@ Widget _section12CodeRecipes() {
   );
 }
 
-Widget _recipe({required String n, required String title, required String code}) {
+Widget _recipe({
+  required String n,
+  required String title,
+  required String code,
+}) {
   return Container(
     margin: const EdgeInsets.only(bottom: 14.0),
     decoration: BoxDecoration(
@@ -2525,8 +2531,7 @@ Widget _recipe({required String n, required String title, required String code})
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: spruceNeedle,
             borderRadius: const BorderRadius.only(
@@ -2721,11 +2726,7 @@ Widget _glossaryRow(String term, String def) {
         const SizedBox(height: 4.0),
         Text(
           def,
-          style: TextStyle(
-            color: spruceChar,
-            fontSize: 12.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: spruceChar, fontSize: 12.5, height: 1.45),
         ),
       ],
     ),
@@ -2771,11 +2772,7 @@ Widget _section14RecapFooter() {
           'and other intrinsic-only contexts; reach for Column when '
           'you need flex, ListView when you need scroll, Wrap when '
           'you need line breaks.',
-          style: TextStyle(
-            color: spruceSnow,
-            fontSize: 13.0,
-            height: 1.55,
-          ),
+          style: TextStyle(color: spruceSnow, fontSize: 13.0, height: 1.55),
         ),
         const SizedBox(height: 14.0),
         Text(
@@ -2846,63 +2843,64 @@ Widget _container({
   );
 }
 
-Widget _proseCard({
-  required String title,
-  required List<String> paragraphs,
-}) {
+Widget _proseCard({required String title, required List<String> paragraphs}) {
   final List<Widget> children = <Widget>[];
-  children.add(Text(
-    title,
-    style: TextStyle(
-      color: spruceNeedle,
-      fontSize: 18.0,
-      fontWeight: FontWeight.w800,
+  children.add(
+    Text(
+      title,
+      style: TextStyle(
+        color: spruceNeedle,
+        fontSize: 18.0,
+        fontWeight: FontWeight.w800,
+      ),
     ),
-  ));
+  );
   children.add(const SizedBox(height: 12.0));
   for (int i = 0; i < paragraphs.length; i++) {
-    children.add(Container(
-      margin: const EdgeInsets.only(bottom: 10.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: spruceSnow,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: spruceLichen.withValues(alpha: 0.5)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: 22.0,
-            height: 22.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: spruceNeedle,
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                color: spruceSap,
-                fontSize: 11.0,
-                fontWeight: FontWeight.w800,
+    children.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: spruceSnow,
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: spruceLichen.withValues(alpha: 0.5)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: 22.0,
+              height: 22.0,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: spruceNeedle,
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              child: Text(
+                '${i + 1}',
+                style: TextStyle(
+                  color: spruceSap,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Text(
-              paragraphs[i],
-              style: TextStyle(
-                color: spruceChar,
-                fontSize: 13.0,
-                height: 1.55,
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Text(
+                paragraphs[i],
+                style: TextStyle(
+                  color: spruceChar,
+                  fontSize: 13.0,
+                  height: 1.55,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     width: double.infinity,

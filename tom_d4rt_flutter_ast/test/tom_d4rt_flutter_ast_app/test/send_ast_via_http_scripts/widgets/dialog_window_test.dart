@@ -99,8 +99,8 @@ dynamic build(BuildContext context) {
         _dgInfoBox(
           'Widget vs Controller',
           'DialogWindowController manages WHEN and HOW a dialog appears '
-          '(platform APIs, window handles). DialogWindow manages WHAT '
-          'the dialog looks like (widget tree, layout, style).',
+              '(platform APIs, window handles). DialogWindow manages WHAT '
+              'the dialog looks like (widget tree, layout, style).',
         ),
         const SizedBox(height: 24),
 
@@ -416,17 +416,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _dgTeal.withValues(alpha: 0.08),
-                _dgFrost,
-              ],
+              colors: [_dgTeal.withValues(alpha: 0.08), _dgFrost],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _dgTeal.withValues(alpha: 0.25),
-            ),
+            border: Border.all(color: _dgTeal.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -446,12 +441,24 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 14),
-              _dgSummaryRow('Widget Type', 'StatefulWidget with AnimationController'),
+              _dgSummaryRow(
+                'Widget Type',
+                'StatefulWidget with AnimationController',
+              ),
               _dgSummaryRow('Regions', 'Title, Content, Actions, Barrier'),
-              _dgSummaryRow('Constraints', '280–560px width, viewport-capped height'),
+              _dgSummaryRow(
+                'Constraints',
+                '280–560px width, viewport-capped height',
+              ),
               _dgSummaryRow('Scrolling', 'Optional via scrollable property'),
-              _dgSummaryRow('Animation', 'Scale + Fade with configurable duration'),
-              _dgSummaryRow('Accessibility', 'Scoped route, semantic label, focus trap'),
+              _dgSummaryRow(
+                'Animation',
+                'Scale + Fade with configurable duration',
+              ),
+              _dgSummaryRow(
+                'Accessibility',
+                'Scoped route, semantic label, focus trap',
+              ),
               _dgSummaryRow('Result', 'Typed value via Navigator.pop<T>'),
             ],
           ),
@@ -482,11 +489,7 @@ Widget _dgSection(String title) {
 Widget _dgBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _dgBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _dgBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -509,7 +512,6 @@ Widget _dgCodeBlock(String code) {
     ),
   );
 }
-
 
 Widget _dgInfoBox(String title, String content) {
   return Container(
@@ -540,11 +542,7 @@ Widget _dgInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _dgBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _dgBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -571,11 +569,7 @@ Widget _dgSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _dgBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _dgBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -697,26 +691,42 @@ Widget _buildConstraintsTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _dgTeal.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text('Constraint', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Constraint',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 3,
-                child: Text('Value', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Value',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Purpose', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Purpose',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -732,18 +742,32 @@ Widget _buildConstraintsTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(row[0], style: TextStyle(
-                    color: _dgDarkTeal, fontSize: 12, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _dgDarkTeal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(row[1], style: TextStyle(
-                    color: _dgBlack, fontSize: 12, fontFamily: 'monospace')),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(
+                      color: _dgBlack,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(row[2], style: TextStyle(
-                    color: _dgMuted, fontSize: 12)),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(color: _dgMuted, fontSize: 12),
+                  ),
                 ),
               ],
             ),
@@ -799,8 +823,7 @@ Widget _buildTitleVariants() {
             children: [
               Row(
                 children: [
-                  Icon(v['icon'] as IconData,
-                      color: _dgTeal, size: 18),
+                  Icon(v['icon'] as IconData, color: _dgTeal, size: 18),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -854,9 +877,15 @@ Widget _buildScrollBehaviorComparison() {
                 children: [
                   Icon(Icons.height, color: _dgTeal, size: 16),
                   const SizedBox(width: 6),
-                  Text('scrollable: false', style: TextStyle(
-                    color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold,
-                    fontFamily: 'monospace')),
+                  Text(
+                    'scrollable: false',
+                    style: TextStyle(
+                      color: _dgTeal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -885,9 +914,15 @@ Widget _buildScrollBehaviorComparison() {
                 children: [
                   Icon(Icons.swap_vert, color: _dgAccent, size: 16),
                   const SizedBox(width: 6),
-                  Text('scrollable: true', style: TextStyle(
-                    color: _dgAccent, fontSize: 12, fontWeight: FontWeight.bold,
-                    fontFamily: 'monospace')),
+                  Text(
+                    'scrollable: true',
+                    style: TextStyle(
+                      color: _dgAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -1011,31 +1046,53 @@ Widget _buildBarrierPropertiesTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _dgTeal.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 4,
-                child: Text('Property', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Property',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Text('Type', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Type',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Text('Default', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Default',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Purpose', style: TextStyle(
-                  color: _dgTeal, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Purpose',
+                  style: TextStyle(
+                    color: _dgTeal,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1051,24 +1108,40 @@ Widget _buildBarrierPropertiesTable() {
               children: [
                 Expanded(
                   flex: 4,
-                  child: Text(row[0], style: TextStyle(
-                    color: _dgDarkTeal, fontSize: 11,
-                    fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _dgDarkTeal,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(row[1], style: TextStyle(
-                    color: _dgMuted, fontSize: 11)),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(color: _dgMuted, fontSize: 11),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(row[2], style: TextStyle(
-                    color: _dgBlack, fontSize: 11, fontFamily: 'monospace')),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(
+                      color: _dgBlack,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(row[3], style: TextStyle(
-                    color: _dgMuted, fontSize: 11)),
+                  child: Text(
+                    row[3],
+                    style: TextStyle(color: _dgMuted, fontSize: 11),
+                  ),
                 ),
               ],
             ),
@@ -1134,8 +1207,7 @@ Widget _buildAnimationTimeline() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: (phases[i]['color'] as Color).withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
@@ -1189,7 +1261,8 @@ Widget _buildAccessibilityChecklist() {
     },
     {
       'feature': 'Focus Trap',
-      'desc': 'Tab key cycles only through dialog widgets, not background content',
+      'desc':
+          'Tab key cycles only through dialog widgets, not background content',
       'icon': Icons.crop_free,
     },
     {
@@ -1222,8 +1295,7 @@ Widget _buildAccessibilityChecklist() {
           ),
           child: Row(
             children: [
-              Icon(items[i]['icon'] as IconData,
-                  color: _dgTeal, size: 20),
+              Icon(items[i]['icon'] as IconData, color: _dgTeal, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1241,7 +1313,10 @@ Widget _buildAccessibilityChecklist() {
                     Text(
                       items[i]['desc'] as String,
                       style: TextStyle(
-                        color: _dgBlack, fontSize: 12, height: 1.4),
+                        color: _dgBlack,
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -1269,10 +1344,7 @@ Widget _buildResultFlowDiagram() {
       'step': 'Navigator.pop<T>(context, result)',
       'detail': 'Typed result passed back to caller',
     },
-    {
-      'step': 'Exit animation plays',
-      'detail': 'Dialog fades and scales out',
-    },
+    {'step': 'Exit animation plays', 'detail': 'Dialog fades and scales out'},
     {
       'step': 'Route completes with Future<T>',
       'detail': 'showDialog() Future resolves with result',
@@ -1325,10 +1397,7 @@ Widget _buildResultFlowDiagram() {
                     ),
                     Text(
                       steps[i]['detail']!,
-                      style: TextStyle(
-                        color: _dgMuted,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: _dgMuted, fontSize: 12),
                     ),
                   ],
                 ),
@@ -1389,8 +1458,11 @@ Widget _buildResponsiveBreakpoints() {
           ),
           child: Row(
             children: [
-              Icon(breakpoints[i]['icon'] as IconData,
-                  color: breakpoints[i]['color'] as Color, size: 22),
+              Icon(
+                breakpoints[i]['icon'] as IconData,
+                color: breakpoints[i]['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1409,7 +1481,10 @@ Widget _buildResponsiveBreakpoints() {
                     Text(
                       breakpoints[i]['behavior'] as String,
                       style: TextStyle(
-                        color: _dgBlack, fontSize: 12, height: 1.4),
+                        color: _dgBlack,
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),

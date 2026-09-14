@@ -11,10 +11,12 @@ final ValueNotifier<HitTestBehavior> _selectedBehavior =
 final ValueNotifier<Map<String, dynamic>?> _droppedPayload =
     ValueNotifier<Map<String, dynamic>?>(null);
 final ValueNotifier<String> _activeRegion = ValueNotifier<String>('none');
-final ValueNotifier<String> _typedMetaResult =
-    ValueNotifier<String>('tap a card');
-final ValueNotifier<String> _nestedResult =
-    ValueNotifier<String>('tap the nested zone');
+final ValueNotifier<String> _typedMetaResult = ValueNotifier<String>(
+  'tap a card',
+);
+final ValueNotifier<String> _nestedResult = ValueNotifier<String>(
+  'tap the nested zone',
+);
 
 // ---------------------------------------------------------------------------
 // Entry point
@@ -235,15 +237,16 @@ class _TabIntro extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.label_important_outline,
-                        size: 40, color: cs.primary),
+                    Icon(
+                      Icons.label_important_outline,
+                      size: 40,
+                      color: cs.primary,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         'MetaData',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
+                        style: Theme.of(context).textTheme.headlineMedium
                             ?.copyWith(
                               color: cs.onPrimaryContainer,
                               fontWeight: FontWeight.bold,
@@ -348,8 +351,7 @@ class _UseCaseRow extends StatelessWidget {
         Icon(icon, size: 18, color: cs.tertiary),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(color: cs.onSurface, height: 1.4)),
+          child: Text(text, style: TextStyle(color: cs.onSurface, height: 1.4)),
         ),
       ],
     );
@@ -403,8 +405,11 @@ class _RenderTreeDiagram extends StatelessWidget {
           if (i < nodes.length - 1)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 3),
-              child: Icon(Icons.arrow_downward,
-                  size: 18, color: cs.onSurfaceVariant),
+              child: Icon(
+                Icons.arrow_downward,
+                size: 18,
+                color: cs.onSurfaceVariant,
+              ),
             ),
         ],
       ],
@@ -559,14 +564,8 @@ class _HitTestFlowPainter extends CustomPainter {
     // simple triangle arrowhead
     final arrowPath = Path();
     arrowPath.moveTo(to.dx, to.dy);
-    arrowPath.lineTo(
-      to.dx - 10 * (angle.abs() > 1 ? 0.2 : 1),
-      to.dy - 7,
-    );
-    arrowPath.lineTo(
-      to.dx - 10 * (angle.abs() > 1 ? -0.2 : 1),
-      to.dy + 7,
-    );
+    arrowPath.lineTo(to.dx - 10 * (angle.abs() > 1 ? 0.2 : 1), to.dy - 7);
+    arrowPath.lineTo(to.dx - 10 * (angle.abs() > 1 ? -0.2 : 1), to.dy + 7);
     arrowPath.close();
     canvas.drawPath(arrowPath, head);
 
@@ -582,10 +581,7 @@ class _HitTestFlowPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      final mid = Offset(
-        (from.dx + to.dx) / 2 + 6,
-        (from.dy + to.dy) / 2 - 14,
-      );
+      final mid = Offset((from.dx + to.dx) / 2 + 6, (from.dy + to.dy) / 2 - 14);
       lp.paint(canvas, mid);
     }
   }
@@ -621,12 +617,7 @@ class _HitTestFlowPainter extends CustomPainter {
       'final data = ro.metaData',
     ];
 
-    final arrowLabels = [
-      'dispatched',
-      'walk tree',
-      'hit!',
-      'result.path',
-    ];
+    final arrowLabels = ['dispatched', 'walk tree', 'hit!', 'result.path'];
 
     for (int i = 0; i < rects.length; i++) {
       _drawBox(canvas, rects[i], colors[i], labels[i], sublabels[i]);
@@ -738,7 +729,11 @@ class _BasicMetaCard extends StatelessWidget {
   ];
 
   static const List<String> _icons = [
-    'alpha', 'beta', 'gamma', 'delta', 'epsilon',
+    'alpha',
+    'beta',
+    'gamma',
+    'delta',
+    'epsilon',
   ];
 
   @override
@@ -1042,9 +1037,13 @@ class _BehaviorTable extends StatelessWidget {
                 .map(
                   (cell) => Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(cell,
-                        style: const TextStyle(fontFamily: 'monospace',
-                            fontSize: 12)),
+                    child: Text(
+                      cell,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 )
                 .toList(),
@@ -1186,9 +1185,7 @@ class _DropTarget extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: hasPayload
-                  ? cs.primaryContainer
-                  : cs.surfaceContainerHigh,
+              color: hasPayload ? cs.primaryContainer : cs.surfaceContainerHigh,
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: hasPayload ? cs.primary : cs.outlineVariant,
@@ -1254,8 +1251,11 @@ class _DropTarget extends StatelessWidget {
                 : Center(
                     child: Column(
                       children: [
-                        Icon(Icons.inbox_outlined,
-                            size: 36, color: cs.onSurfaceVariant),
+                        Icon(
+                          Icons.inbox_outlined,
+                          size: 36,
+                          color: cs.onSurfaceVariant,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           'Drop zone — tap a source card above',
@@ -1310,8 +1310,10 @@ class _TabRegionLabeling extends StatelessWidget {
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
                 decoration: BoxDecoration(
                   color: region == 'none'
                       ? cs.surfaceContainerHigh
@@ -1324,18 +1326,16 @@ class _TabRegionLabeling extends StatelessWidget {
                       : 'Active region: $region',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color:
-                        region == 'none' ? cs.onSurfaceVariant : cs.onPrimary,
+                    color: region == 'none'
+                        ? cs.onSurfaceVariant
+                        : cs.onPrimary,
                   ),
                 ),
               );
             },
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            height: 300,
-            child: _RegionCanvas(regions: _regions),
-          ),
+          SizedBox(height: 300, child: _RegionCanvas(regions: _regions)),
           const SizedBox(height: 16),
           const _SectionTitle('Pattern'),
           const _CodeBlock(
@@ -1395,10 +1395,7 @@ class _RegionCanvas extends StatelessWidget {
           top: 90,
           left: 90,
           right: 90,
-          child: SizedBox(
-            height: 120,
-            child: _RegionZone(region: regions[4]),
-          ),
+          child: SizedBox(height: 120, child: _RegionZone(region: regions[4])),
         ),
       ],
     );
@@ -1499,8 +1496,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.numbers,
             color: const Color(0xFF4A6FFF),
             description: 'MetaData(metaData: 42)',
-            onTap: (v) =>
-                _typedMetaResult.value = 'int: $v  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'int: $v  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           // String metadata
@@ -1510,8 +1507,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.text_fields,
             color: const Color(0xFF2DB67D),
             description: 'MetaData(metaData: "hero-zone")',
-            onTap: (v) =>
-                _typedMetaResult.value = 'String: "$v"  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'String: "$v"  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           // enum metadata — cycles through all four enum values
@@ -1521,8 +1518,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.palette_outlined,
             color: const Color(0xFFFF6B35),
             description: 'MetaData(metaData: _CardCategory.design)',
-            onTap: (v) =>
-                _typedMetaResult.value = 'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           _TypedCard<_CardCategory>(
@@ -1531,8 +1528,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.science_outlined,
             color: const Color(0xFFE83F6F),
             description: 'MetaData(metaData: _CardCategory.testing)',
-            onTap: (v) =>
-                _typedMetaResult.value = 'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           _TypedCard<_CardCategory>(
@@ -1541,8 +1538,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.terminal_outlined,
             color: const Color(0xFF4A6FFF),
             description: 'MetaData(metaData: _CardCategory.devops)',
-            onTap: (v) =>
-                _typedMetaResult.value = 'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           _TypedCard<_CardCategory>(
@@ -1551,8 +1548,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.category_outlined,
             color: const Color(0xFF2DB67D),
             description: 'MetaData(metaData: _CardCategory.backend)',
-            onTap: (v) =>
-                _typedMetaResult.value = 'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
+            onTap: (v) => _typedMetaResult.value =
+                'enum: ${v.name}  (runtimeType: ${v.runtimeType})',
           ),
           const SizedBox(height: 12),
           // custom class metadata
@@ -1562,9 +1559,8 @@ class _TabTypedMetadata extends StatelessWidget {
             icon: Icons.class_outlined,
             color: const Color(0xFF9B5DE5),
             description: 'MetaData(metaData: TaskCard(...))',
-            onTap: (v) =>
-                _typedMetaResult.value =
-                    'TaskCard: title="${v.title}", category=${v.category.name}',
+            onTap: (v) => _typedMetaResult.value =
+                'TaskCard: title="${v.title}", category=${v.category.name}',
           ),
           const SizedBox(height: 20),
           const _SectionTitle('Why this matters'),
@@ -1710,8 +1706,11 @@ class _TabNestedMetaData extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Icon(Icons.layers_outlined,
-                                    color: cs.primary, size: 18),
+                                Icon(
+                                  Icons.layers_outlined,
+                                  color: cs.primary,
+                                  size: 18,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Outer MetaData  ("outer-panel")',
@@ -1744,7 +1743,9 @@ class _TabNestedMetaData extends StatelessWidget {
                                     color: cs.secondaryContainer,
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                        color: cs.secondary, width: 2),
+                                      color: cs.secondary,
+                                      width: 2,
+                                    ),
                                   ),
                                   child: Column(
                                     crossAxisAlignment:
@@ -1752,8 +1753,11 @@ class _TabNestedMetaData extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(Icons.layers,
-                                              color: cs.secondary, size: 16),
+                                          Icon(
+                                            Icons.layers,
+                                            color: cs.secondary,
+                                            size: 16,
+                                          ),
                                           const SizedBox(width: 8),
                                           Text(
                                             'Inner MetaData  ("inner-widget")',
@@ -1836,8 +1840,7 @@ class _NestingDepthDiagram extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: i * 16.0),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: levels[i].$2,
                 borderRadius: BorderRadius.circular(6),
@@ -2002,8 +2005,7 @@ class _PitfallTile extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            Text(body,
-                style: TextStyle(color: cs.onSurface, height: 1.45)),
+            Text(body, style: TextStyle(color: cs.onSurface, height: 1.45)),
             const SizedBox(height: 10),
             _CodeBlock(code),
           ],
@@ -2044,7 +2046,9 @@ class _TabApiCheatSheet extends StatelessWidget {
           const _SectionTitle('HitTestBehavior values'),
           _BehaviorDescTable(),
           const SizedBox(height: 20),
-          const _SectionTitle('Comparison: MetaData vs AbsorbPointer vs IgnorePointer'),
+          const _SectionTitle(
+            'Comparison: MetaData vs AbsorbPointer vs IgnorePointer',
+          ),
           _ComparisonTable(),
           const SizedBox(height: 20),
           const _SectionTitle('Use-cases at a glance'),
@@ -2114,8 +2118,11 @@ class _TabApiCheatSheet extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.check_circle_outline,
-                            size: 16, color: cs.primary),
+                        Icon(
+                          Icons.check_circle_outline,
+                          size: 16,
+                          color: cs.primary,
+                        ),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -2167,8 +2174,10 @@ class _PropTable extends StatelessWidget {
               .map(
                 (h) => Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text(h,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    h,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
               .toList(),
@@ -2206,10 +2215,7 @@ class _BehaviorDescTable extends StatelessWidget {
     ];
     return Table(
       border: TableBorder.all(color: cs.outlineVariant),
-      columnWidths: const {
-        0: FlexColumnWidth(1.6),
-        1: FlexColumnWidth(3),
-      },
+      columnWidths: const {0: FlexColumnWidth(1.6), 1: FlexColumnWidth(3)},
       children: [
         TableRow(
           decoration: BoxDecoration(color: cs.secondaryContainer),
@@ -2217,8 +2223,10 @@ class _BehaviorDescTable extends StatelessWidget {
               .map(
                 (h) => Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text(h,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    h,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
               .toList(),
@@ -2270,9 +2278,13 @@ class _ComparisonTable extends StatelessWidget {
               .map(
                 (h) => Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text(h,
-                      style: const TextStyle(fontWeight: FontWeight.bold,
-                          fontSize: 11)),
+                  child: Text(
+                    h,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11,
+                    ),
+                  ),
                 ),
               )
               .toList(),
@@ -2283,10 +2295,7 @@ class _ComparisonTable extends StatelessWidget {
                 .map(
                   (cell) => Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
-                      cell,
-                      style: const TextStyle(fontSize: 11),
-                    ),
+                    child: Text(cell, style: const TextStyle(fontSize: 11)),
                   ),
                 )
                 .toList(),
@@ -2301,19 +2310,22 @@ class _UseCasesTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     const rows = [
-      ['Card ID labeling', 'Identify which card was tapped without lifting state'],
+      [
+        'Card ID labeling',
+        'Identify which card was tapped without lifting state',
+      ],
       ['Drag-drop payload', 'Carry payload from source to drop target'],
       ['Map regions', 'Name geographic or canvas zones for analytics'],
       ['Custom hit testing', 'Attach data to custom render objects'],
       ['Game entities', 'Tag sprites or tiles with game entity references'],
-      ['Accessibility', 'Supply extra semantic context alongside SemanticsNode'],
+      [
+        'Accessibility',
+        'Supply extra semantic context alongside SemanticsNode',
+      ],
     ];
     return Table(
       border: TableBorder.all(color: cs.outlineVariant),
-      columnWidths: const {
-        0: FlexColumnWidth(1.8),
-        1: FlexColumnWidth(3),
-      },
+      columnWidths: const {0: FlexColumnWidth(1.8), 1: FlexColumnWidth(3)},
       children: [
         TableRow(
           decoration: BoxDecoration(color: cs.primaryContainer),
@@ -2321,8 +2333,10 @@ class _UseCasesTable extends StatelessWidget {
               .map(
                 (h) => Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Text(h,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  child: Text(
+                    h,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
               .toList(),
@@ -2333,8 +2347,7 @@ class _UseCasesTable extends StatelessWidget {
                 .map(
                   (cell) => Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(cell,
-                        style: const TextStyle(fontSize: 12)),
+                    child: Text(cell, style: const TextStyle(fontSize: 12)),
                   ),
                 )
                 .toList(),

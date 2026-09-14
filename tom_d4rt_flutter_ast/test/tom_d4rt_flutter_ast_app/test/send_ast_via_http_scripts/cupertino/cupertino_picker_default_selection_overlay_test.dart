@@ -82,7 +82,9 @@ const Color _kCodeKeyword = Color(0xFFFFA657);
 const Color _kCodeString = Color(0xFFA5D6A7);
 const Color _kCodeComment = Color(0xFF6E7681);
 const Color _kCodeType = Color(0xFFF9C8C2);
-const Color _kBandFill = Color(0x14787880); // CupertinoColors.tertiarySystemFill
+const Color _kBandFill = Color(
+  0x14787880,
+); // CupertinoColors.tertiarySystemFill
 const Color _kBandStroke = Color(0x335856D6);
 
 const TextStyle _kTitleStyle = TextStyle(
@@ -148,9 +150,7 @@ dynamic build(BuildContext context) {
       navigationBar: const CupertinoNavigationBar(
         middle: Text('Cupertino Picker Family'),
         backgroundColor: Color(0xF8F8F8FA),
-        border: Border(
-          bottom: BorderSide(color: _kHairline, width: 0.5),
-        ),
+        border: Border(bottom: BorderSide(color: _kHairline, width: 0.5)),
       ),
       child: SafeArea(
         bottom: false,
@@ -220,11 +220,7 @@ Widget _buildHeroSection() {
               label: 'PICKER FAMILY',
             ),
             Spacer(),
-            Icon(
-              CupertinoIcons.sparkles,
-              color: Color(0xFFFFFFFF),
-              size: 28,
-            ),
+            Icon(CupertinoIcons.sparkles, color: Color(0xFFFFFFFF), size: 28),
           ],
         ),
         const SizedBox(height: 18),
@@ -405,9 +401,7 @@ Widget _buildOverlayAnatomySection() {
         const SizedBox(height: 6),
         SizedBox(
           height: 200,
-          child: CustomPaint(
-            painter: _OverlayAnatomyPainter(),
-          ),
+          child: CustomPaint(painter: _OverlayAnatomyPainter()),
         ),
         const SizedBox(height: 16),
         const _SubHeader('Cap edges, all four combinations'),
@@ -490,13 +484,23 @@ Widget _buildOverlayAnatomySection() {
         const _CodeBlock(
           lines: <_CodeLine>[
             _CodeLine.comment('// chunky pill - default everywhere'),
-            _CodeLine.type('CupertinoPickerDefaultSelectionOverlay', plain: '('),
-            _CodeLine.plain('  background: CupertinoColors.tertiarySystemFill,'),
+            _CodeLine.type(
+              'CupertinoPickerDefaultSelectionOverlay',
+              plain: '(',
+            ),
+            _CodeLine.plain(
+              '  background: CupertinoColors.tertiarySystemFill,',
+            ),
             _CodeLine.plain('  capStartEdge: true,'),
             _CodeLine.plain('  capEndEdge: true,'),
             _CodeLine.plain(');'),
-            _CodeLine.comment('// flush pill - used inside a date picker column'),
-            _CodeLine.type('CupertinoPickerDefaultSelectionOverlay', plain: '('),
+            _CodeLine.comment(
+              '// flush pill - used inside a date picker column',
+            ),
+            _CodeLine.type(
+              'CupertinoPickerDefaultSelectionOverlay',
+              plain: '(',
+            ),
             _CodeLine.plain('  capStartEdge: false,'),
             _CodeLine.plain('  capEndEdge: true,'),
             _CodeLine.plain(');'),
@@ -553,17 +557,22 @@ class _OverlayMiniPreview extends StatelessWidget {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text('Row 1',
-                        style: TextStyle(
-                            fontSize: 11, color: _kInkTertiary)),
-                    Text('Row 2',
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: _kInk,
-                            fontWeight: FontWeight.w700)),
-                    Text('Row 3',
-                        style: TextStyle(
-                            fontSize: 11, color: _kInkTertiary)),
+                    Text(
+                      'Row 1',
+                      style: TextStyle(fontSize: 11, color: _kInkTertiary),
+                    ),
+                    Text(
+                      'Row 2',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: _kInk,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'Row 3',
+                      style: TextStyle(fontSize: 11, color: _kInkTertiary),
+                    ),
                   ],
                 ),
                 Positioned(
@@ -575,10 +584,7 @@ class _OverlayMiniPreview extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: background,
                       borderRadius: radius,
-                      border: Border.all(
-                        color: _kBandStroke,
-                        width: 0.6,
-                      ),
+                      border: Border.all(color: _kBandStroke, width: 0.6),
                     ),
                   ),
                 ),
@@ -609,9 +615,7 @@ class _OverlayAnatomyPainter extends CustomPainter {
     );
 
     // Wheel ghost rows
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
     final List<String> rows = <String>[
       'January',
       'February',
@@ -712,7 +716,10 @@ class _OverlayAnatomyPainter extends CustomPainter {
       ),
     );
     tp.layout();
-    tp.paint(canvas, Offset(size.width / 2 - tp.width / 2, bandRect.bottom + 4));
+    tp.paint(
+      canvas,
+      Offset(size.width / 2 - tp.width / 2, bandRect.bottom + 4),
+    );
   }
 
   @override
@@ -844,8 +851,7 @@ Widget _buildParameterTableSection() {
           name: 'selectedItem',
           type: 'int (getter)',
           defaultValue: '-',
-          description:
-              'Read the currently selected index from the controller.',
+          description: 'Read the currently selected index from the controller.',
         ),
         const _ParamRow(
           name: 'jumpToItem(int)',
@@ -883,14 +889,8 @@ class _ParamTableHeader extends StatelessWidget {
             flex: 4,
             child: Text('parameter', style: _kParamHeaderStyle),
           ),
-          Expanded(
-            flex: 3,
-            child: Text('type', style: _kParamHeaderStyle),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text('default', style: _kParamHeaderStyle),
-          ),
+          Expanded(flex: 3, child: Text('type', style: _kParamHeaderStyle)),
+          Expanded(flex: 3, child: Text('default', style: _kParamHeaderStyle)),
         ],
       ),
     );
@@ -1002,15 +1002,18 @@ Widget _buildPickerVariantsGallery() {
         SizedBox(
           height: 220,
           child: CustomPaint(
-            painter: _WheelPainter(items: <String>[
-              'Mountain View',
-              'Cupertino',
-              'San Francisco',
-              'Palo Alto',
-              'Mountain View',
-              'Cupertino',
-              'San Francisco',
-            ], selected: 3),
+            painter: _WheelPainter(
+              items: <String>[
+                'Mountain View',
+                'Cupertino',
+                'San Francisco',
+                'Palo Alto',
+                'Mountain View',
+                'Cupertino',
+                'San Francisco',
+              ],
+              selected: 3,
+            ),
           ),
         ),
         const SizedBox(height: 16),
@@ -1173,8 +1176,7 @@ class _WheelPainter extends CustomPainter {
       final TextStyle style = TextStyle(
         fontSize: 17 * scale + 4,
         color: Color.lerp(_kInkTertiary, _kInk, opacity)!,
-        fontWeight:
-            delta == 0 ? FontWeight.w700 : FontWeight.w500,
+        fontWeight: delta == 0 ? FontWeight.w700 : FontWeight.w500,
         letterSpacing: -0.2,
       );
       tp.text = TextSpan(text: items[i], style: style);
@@ -1206,29 +1208,26 @@ class _WheelPainter extends CustomPainter {
       ..shader = const LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: <Color>[
-          Color(0xFFFAFAFC),
-          Color(0x00FAFAFC),
-        ],
+        colors: <Color>[Color(0xFFFAFAFC), Color(0x00FAFAFC)],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height * 0.35));
     canvas.drawRect(
       Rect.fromLTWH(0, 0, size.width, size.height * 0.35),
       topFade,
     );
     final Paint bottomFade = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-        colors: <Color>[
-          Color(0xFFFAFAFC),
-          Color(0x00FAFAFC),
-        ],
-      ).createShader(Rect.fromLTWH(
-        0,
-        size.height * 0.65,
-        size.width,
-        size.height * 0.35,
-      ));
+      ..shader =
+          const LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: <Color>[Color(0xFFFAFAFC), Color(0x00FAFAFC)],
+          ).createShader(
+            Rect.fromLTWH(
+              0,
+              size.height * 0.65,
+              size.width,
+              size.height * 0.35,
+            ),
+          );
     canvas.drawRect(
       Rect.fromLTWH(0, size.height * 0.65, size.width, size.height * 0.35),
       bottomFade,
@@ -1256,8 +1255,7 @@ Widget _buildDatePickerViewportSection() {
         _DatePickerModeCard(
           mode: CupertinoDatePickerMode.dateAndTime,
           label: 'dateAndTime',
-          description:
-              '3 wheels: weekday+date, hour, minute (+ am/pm if 12h).',
+          description: '3 wheels: weekday+date, hour, minute (+ am/pm if 12h).',
         ),
         const SizedBox(height: 12),
         _DatePickerModeCard(
@@ -1321,8 +1319,7 @@ class _DatePickerModeCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kAccentIndigo,
                   borderRadius: BorderRadius.circular(6),
@@ -1338,9 +1335,7 @@ class _DatePickerModeCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Expanded(
-                child: Text(description, style: _kMonoTiny),
-              ),
+              Expanded(child: Text(description, style: _kMonoTiny)),
             ],
           ),
           const SizedBox(height: 8),
@@ -1355,12 +1350,16 @@ class _DatePickerModeCard extends StatelessWidget {
               use24hFormat: false,
               backgroundColor: const Color(0xFFFFFFFF),
               selectionOverlayBuilder:
-                  (BuildContext _, {required int columnCount, required int selectedIndex}) {
-                return CupertinoPickerDefaultSelectionOverlay(
-                  capStartEdge: selectedIndex == 0,
-                  capEndEdge: selectedIndex == columnCount - 1,
-                );
-              },
+                  (
+                    BuildContext _, {
+                    required int columnCount,
+                    required int selectedIndex,
+                  }) {
+                    return CupertinoPickerDefaultSelectionOverlay(
+                      capStartEdge: selectedIndex == 0,
+                      capEndEdge: selectedIndex == columnCount - 1,
+                    );
+                  },
             ),
           ),
         ],
@@ -1457,8 +1456,7 @@ class _TimerPickerModeCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _kAccentPurple,
                   borderRadius: BorderRadius.circular(6),
@@ -1474,12 +1472,9 @@ class _TimerPickerModeCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Expanded(
-                child: Text(description, style: _kMonoTiny),
-              ),
+              Expanded(child: Text(description, style: _kMonoTiny)),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEDEDF0),
                   borderRadius: BorderRadius.circular(4),
@@ -1528,9 +1523,7 @@ Widget _buildMagnificationVisualizationSection() {
         const SizedBox(height: 6),
         SizedBox(
           height: 200,
-          child: CustomPaint(
-            painter: _MagnificationPainter(),
-          ),
+          child: CustomPaint(painter: _MagnificationPainter()),
         ),
         const SizedBox(height: 12),
         const _SubHeader('Side by side - magnification 1.0 vs 1.2'),
@@ -1546,8 +1539,7 @@ Widget _buildMagnificationVisualizationSection() {
                   magnification: 1.0,
                   useMagnifier: false,
                   onSelectedItemChanged: (int _) {},
-                  scrollController:
-                      FixedExtentScrollController(initialItem: 3),
+                  scrollController: FixedExtentScrollController(initialItem: 3),
                   children: const <Widget>[
                     Center(child: Text('Red')),
                     Center(child: Text('Orange')),
@@ -1569,8 +1561,7 @@ Widget _buildMagnificationVisualizationSection() {
                   magnification: 1.2,
                   useMagnifier: true,
                   onSelectedItemChanged: (int _) {},
-                  scrollController:
-                      FixedExtentScrollController(initialItem: 3),
+                  scrollController: FixedExtentScrollController(initialItem: 3),
                   children: const <Widget>[
                     Center(child: Text('Red')),
                     Center(child: Text('Orange')),
@@ -1638,7 +1629,10 @@ class _MagnificationPainter extends CustomPainter {
         style: TextStyle(
           fontSize: 18 * scale,
           color: Color.lerp(
-              const Color(0x00000000), _kInk, opacity.clamp(0.0, 1.0))!,
+            const Color(0x00000000),
+            _kInk,
+            opacity.clamp(0.0, 1.0),
+          )!,
           fontWeight: i == 2 ? FontWeight.w700 : FontWeight.w500,
           fontFeatures: const <FontFeature>[FontFeature.tabularFigures()],
         ),
@@ -1646,8 +1640,10 @@ class _MagnificationPainter extends CustomPainter {
       tp.layout();
       tp.paint(
         canvas,
-        Offset((size.width - tp.width) / 2,
-            i * rowHeight + (rowHeight - tp.height) / 2),
+        Offset(
+          (size.width - tp.width) / 2,
+          i * rowHeight + (rowHeight - tp.height) / 2,
+        ),
       );
     }
 
@@ -1657,12 +1653,11 @@ class _MagnificationPainter extends CustomPainter {
       width: size.width * 0.65,
       height: rowHeight * 1.2,
     );
-    final RRect glassR =
-        RRect.fromRectAndRadius(glass, const Radius.circular(10));
-    canvas.drawRRect(
-      glassR,
-      Paint()..color = const Color(0x14000000),
+    final RRect glassR = RRect.fromRectAndRadius(
+      glass,
+      const Radius.circular(10),
     );
+    canvas.drawRRect(glassR, Paint()..color = const Color(0x14000000));
     canvas.drawRRect(
       glassR,
       Paint()
@@ -1690,7 +1685,10 @@ class _MagnificationPainter extends CustomPainter {
     );
     tp.layout();
     if (glass.right + 18 + tp.width < size.width) {
-      tp.paint(canvas, Offset(glass.right + 18, glass.center.dy - tp.height / 2));
+      tp.paint(
+        canvas,
+        Offset(glass.right + 18, glass.center.dy - tp.height / 2),
+      );
     }
 
     tp.text = const TextSpan(
@@ -1732,8 +1730,7 @@ Widget _buildLoopingAndPhysicsSection() {
                   itemExtent: 30,
                   looping: false,
                   onSelectedItemChanged: (int _) {},
-                  scrollController:
-                      FixedExtentScrollController(initialItem: 1),
+                  scrollController: FixedExtentScrollController(initialItem: 1),
                   children: const <Widget>[
                     Center(child: Text('Daily')),
                     Center(child: Text('Weekly')),
@@ -1751,8 +1748,7 @@ Widget _buildLoopingAndPhysicsSection() {
                   itemExtent: 30,
                   looping: true,
                   onSelectedItemChanged: (int _) {},
-                  scrollController:
-                      FixedExtentScrollController(initialItem: 1),
+                  scrollController: FixedExtentScrollController(initialItem: 1),
                   children: const <Widget>[
                     Center(child: Text('Daily')),
                     Center(child: Text('Weekly')),
@@ -1775,8 +1771,7 @@ Widget _buildLoopingAndPhysicsSection() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('FixedExtentScrollPhysics',
-                  style: _kSectionHeader),
+              const Text('FixedExtentScrollPhysics', style: _kSectionHeader),
               const SizedBox(height: 6),
               const Text(
                 'The wheel uses FixedExtentScrollPhysics, which inherits '
@@ -1788,9 +1783,13 @@ Widget _buildLoopingAndPhysicsSection() {
               const SizedBox(height: 10),
               const _CodeBlock(
                 lines: <_CodeLine>[
-                  _CodeLine.comment('// internal physics, you rarely override it'),
+                  _CodeLine.comment(
+                    '// internal physics, you rarely override it',
+                  ),
                   _CodeLine.type('ListWheelScrollView', plain: '('),
-                  _CodeLine.plain('  physics: const FixedExtentScrollPhysics(),'),
+                  _CodeLine.plain(
+                    '  physics: const FixedExtentScrollPhysics(),',
+                  ),
                   _CodeLine.plain('  itemExtent: 32.0,'),
                   _CodeLine.plain('  children: <Widget>[ ... ],'),
                   _CodeLine.plain(');'),
@@ -1849,8 +1848,10 @@ Widget _buildRecipeCardsSection() {
             _CodeLine.plain('  looping: true,'),
             _CodeLine.plain('  childCount: 100,'),
             _CodeLine.plain('  selectionOverlay: const'),
-            _CodeLine.type('  CupertinoPickerDefaultSelectionOverlay',
-                plain: '('),
+            _CodeLine.type(
+              '  CupertinoPickerDefaultSelectionOverlay',
+              plain: '(',
+            ),
             _CodeLine.plain('    background: Color(0x265856D6),'),
             _CodeLine.plain('  ),'),
             _CodeLine.plain('  itemBuilder: (BuildContext _, int i) {'),
@@ -1874,8 +1875,10 @@ Widget _buildRecipeCardsSection() {
             _CodeLine.plain('  (BuildContext _, {required int columnCount,'),
             _CodeLine.plain('   required int selectedIndex}) {'),
             _CodeLine.plain('    return'),
-            _CodeLine.type('     CupertinoPickerDefaultSelectionOverlay',
-                plain: '('),
+            _CodeLine.type(
+              '     CupertinoPickerDefaultSelectionOverlay',
+              plain: '(',
+            ),
             _CodeLine.plain('      capStartEdge: selectedIndex == 0,'),
             _CodeLine.plain('      capEndEdge:'),
             _CodeLine.plain('       selectedIndex == columnCount - 1,'),
@@ -1928,19 +1931,23 @@ class _RecipeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: _kInk,
-              )),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kInk,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(tagline,
-              style: const TextStyle(
-                fontSize: 12,
-                color: _kInkSecondary,
-                height: 1.4,
-              )),
+          Text(
+            tagline,
+            style: const TextStyle(
+              fontSize: 12,
+              color: _kInkSecondary,
+              height: 1.4,
+            ),
+          ),
           const SizedBox(height: 8),
           _CodeBlock(lines: code),
         ],
@@ -2103,11 +2110,7 @@ Widget _buildCheatSheetFooter() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              CupertinoIcons.book,
-              color: _kInkOnDark,
-              size: 18,
-            ),
+            const Icon(CupertinoIcons.book, color: _kInkOnDark, size: 18),
             const SizedBox(width: 8),
             const Text(
               'Picker cheat sheet',
@@ -2120,8 +2123,7 @@ Widget _buildCheatSheetFooter() {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: _kAccentIndigo,
                 borderRadius: BorderRadius.circular(6),
@@ -2326,18 +2328,14 @@ class _SubHeader extends StatelessWidget {
 // field to append a trailing un-tinted segment.
 
 class _CodeLine {
-  const _CodeLine.plain(this.text)
-      : kind = _CodeLineKind.plain,
-        plain = '';
+  const _CodeLine.plain(this.text) : kind = _CodeLineKind.plain, plain = '';
   const _CodeLine.keyword(this.text, {this.plain = ''})
-      : kind = _CodeLineKind.keyword;
+    : kind = _CodeLineKind.keyword;
   const _CodeLine.type(this.text, {this.plain = ''})
-      : kind = _CodeLineKind.type;
+    : kind = _CodeLineKind.type;
   const _CodeLine.string(this.text, {this.plain = ''})
-      : kind = _CodeLineKind.string;
-  const _CodeLine.comment(this.text)
-      : kind = _CodeLineKind.comment,
-        plain = '';
+    : kind = _CodeLineKind.string;
+  const _CodeLine.comment(this.text) : kind = _CodeLineKind.comment, plain = '';
 
   final _CodeLineKind kind;
   final String text;
@@ -2398,9 +2396,15 @@ class _CodeBlock extends StatelessWidget {
             color: _kCodeText,
           ),
           children: <InlineSpan>[
-            TextSpan(text: line.text, style: TextStyle(color: tint)),
+            TextSpan(
+              text: line.text,
+              style: TextStyle(color: tint),
+            ),
             if (line.plain.isNotEmpty)
-              TextSpan(text: line.plain, style: const TextStyle(color: _kCodeText)),
+              TextSpan(
+                text: line.plain,
+                style: const TextStyle(color: _kCodeText),
+              ),
           ],
         ),
       ),

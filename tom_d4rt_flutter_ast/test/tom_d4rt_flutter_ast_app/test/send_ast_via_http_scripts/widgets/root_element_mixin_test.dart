@@ -167,12 +167,7 @@ class _BuildOwnerAssignmentLabDemoState
     return results;
   }
 
-  void _walk(
-    Element element,
-    int depth,
-    int maxDepth,
-    List<_TreeNode> sink,
-  ) {
+  void _walk(Element element, int depth, int maxDepth, List<_TreeNode> sink) {
     if (depth > maxDepth) {
       return;
     }
@@ -270,10 +265,7 @@ class _BuildOwnerAssignmentLabDemoState
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _LabPalette.surface,
-            _LabPalette.surfaceRaised,
-          ],
+          colors: <Color>[_LabPalette.surface, _LabPalette.surfaceRaised],
         ),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: _LabPalette.outline),
@@ -430,12 +422,15 @@ class _BuildOwnerAssignmentLabDemoState
     required _PipelineStage stage,
     required bool active,
   }) {
-    final Color border =
-        active ? _LabPalette.electricSoft : _LabPalette.outline;
-    final Color fill =
-        active ? _LabPalette.electricGlow.withValues(alpha: 0.22) : _LabPalette.surface;
-    final Color iconTint =
-        active ? _LabPalette.electricSoft : _LabPalette.steelSoft;
+    final Color border = active
+        ? _LabPalette.electricSoft
+        : _LabPalette.outline;
+    final Color fill = active
+        ? _LabPalette.electricGlow.withValues(alpha: 0.22)
+        : _LabPalette.surface;
+    final Color iconTint = active
+        ? _LabPalette.electricSoft
+        : _LabPalette.steelSoft;
 
     return Container(
       constraints: const BoxConstraints(minHeight: 132),
@@ -444,10 +439,7 @@ class _BuildOwnerAssignmentLabDemoState
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: border,
-          width: active ? 2 : 1,
-        ),
+        border: Border.all(color: border, width: active ? 2 : 1),
         boxShadow: active
             ? <BoxShadow>[
                 BoxShadow(
@@ -468,8 +460,10 @@ class _BuildOwnerAssignmentLabDemoState
               const SizedBox(width: 8),
               if (active)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _LabPalette.electric.withValues(alpha: 0.25),
                     borderRadius: BorderRadius.circular(999),
@@ -541,10 +535,12 @@ class _BuildOwnerAssignmentLabDemoState
   // Section 2: live diagnostics panel.
   // -------------------------------------------------------------------------
   Widget _buildLiveDiagnostics() {
-    final String attachmentLabel =
-        _rootAttached ? '✓ Attached' : '✗ Not attached';
-    final Color attachmentColor =
-        _rootAttached ? _LabPalette.success : _LabPalette.accent;
+    final String attachmentLabel = _rootAttached
+        ? '✓ Attached'
+        : '✗ Not attached';
+    final Color attachmentColor = _rootAttached
+        ? _LabPalette.success
+        : _LabPalette.accent;
     final String hashLabel = _buildOwnerHash == null
         ? '--'
         : '#${_buildOwnerHash!.toRadixString(16).padLeft(8, '0')}';
@@ -571,10 +567,7 @@ class _BuildOwnerAssignmentLabDemoState
                   value: attachmentLabel,
                   valueColor: attachmentColor,
                 ),
-                _diagRow(
-                  label: 'buildOwner.hashCode',
-                  value: hashLabel,
-                ),
+                _diagRow(label: 'buildOwner.hashCode', value: hashLabel),
                 _diagRow(
                   label: 'focusManager.runtimeType',
                   value: _focusManagerRuntimeType,
@@ -627,8 +620,9 @@ class _BuildOwnerAssignmentLabDemoState
           Row(
             children: <Widget>[
               _HeaderChip(
-                label:
-                    _rootAttached ? 'probe: live' : 'probe: waiting for frame',
+                label: _rootAttached
+                    ? 'probe: live'
+                    : 'probe: waiting for frame',
                 color: _rootAttached
                     ? _LabPalette.electric
                     : _LabPalette.steelSoft,
@@ -783,8 +777,7 @@ class _BuildOwnerAssignmentLabDemoState
                 children: <Widget>[
                   for (int i = 0; i < scenarios.length; i++) ...<Widget>[
                     Expanded(child: _buildScenarioCard(scenarios[i])),
-                    if (i != scenarios.length - 1)
-                      const SizedBox(width: 12),
+                    if (i != scenarios.length - 1) const SizedBox(width: 12),
                   ],
                 ],
               ),
@@ -828,9 +821,7 @@ class _BuildOwnerAssignmentLabDemoState
                 decoration: BoxDecoration(
                   color: s.badgeTone.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: s.badgeTone.withValues(alpha: 0.7),
-                  ),
+                  border: Border.all(color: s.badgeTone.withValues(alpha: 0.7)),
                 ),
                 child: Text(
                   s.badgeLabel,
@@ -929,8 +920,7 @@ class _BuildOwnerAssignmentLabDemoState
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  for (final _TreeNode n in _treeSnapshot)
-                    ..._renderNode(n),
+                  for (final _TreeNode n in _treeSnapshot) ..._renderNode(n),
                 ],
               ),
       ),
@@ -962,8 +952,7 @@ class _BuildOwnerAssignmentLabDemoState
                       : _LabPalette.ink,
                   fontFamily: 'monospace',
                   fontSize: 12,
-                  fontWeight:
-                      n.depth == 0 ? FontWeight.w700 : FontWeight.w500,
+                  fontWeight: n.depth == 0 ? FontWeight.w700 : FontWeight.w500,
                 ),
               ),
             ),
@@ -1240,8 +1229,7 @@ class _BuildOwnerAssignmentLabDemoState
           const SizedBox(width: 10),
           _HeaderChip(
             label: _rootAttached ? 'root: live' : 'root: null',
-            color:
-                _rootAttached ? _LabPalette.success : _LabPalette.steelSoft,
+            color: _rootAttached ? _LabPalette.success : _LabPalette.steelSoft,
           ),
         ],
       ),
@@ -1289,9 +1277,7 @@ class _SectionCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: accent.withValues(alpha: 0.55),
-                  ),
+                  border: Border.all(color: accent.withValues(alpha: 0.55)),
                 ),
                 child: Icon(icon, color: accent, size: 20),
               ),

@@ -82,8 +82,14 @@ Widget _phSectionTitle(String title, IconData icon) {
 Widget _phBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -109,9 +115,23 @@ Widget _phInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _phTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _phTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _phTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _phTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -126,8 +146,19 @@ Widget _phInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _phCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _phSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _phPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _phSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _phPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -164,9 +195,20 @@ Widget _phSection1Overview() {
         ),
         child: Column(
           children: [
-            Text('Hierarchy', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _phTextDark)),
+            Text(
+              'Hierarchy',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: _phTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            _phBadge('RenderSliverPersistentHeader (abstract)', _phPrimary, _phOnPrimary),
+            _phBadge(
+              'RenderSliverPersistentHeader (abstract)',
+              _phPrimary,
+              _phOnPrimary,
+            ),
             SizedBox(height: 6),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -225,7 +267,14 @@ Widget _phSection2Extents() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Header extent range', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _phTextDark)),
+            Text(
+              'Header extent range',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _phTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             // Max extent bar
             SizedBox(
@@ -242,7 +291,14 @@ Widget _phSection2Extents() {
                   children: [
                     Icon(Icons.unfold_more, size: 16, color: _phPrimary),
                     SizedBox(width: 4),
-                    Text('maxExtent: 200px (expanded)', style: TextStyle(fontSize: 11, color: _phPrimary, fontWeight: FontWeight.w700)),
+                    Text(
+                      'maxExtent: 200px (expanded)',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _phPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -263,7 +319,14 @@ Widget _phSection2Extents() {
                   children: [
                     Icon(Icons.unfold_less, size: 16, color: _phAccent),
                     SizedBox(width: 4),
-                    Text('minExtent: 56px (collapsed)', style: TextStyle(fontSize: 11, color: _phAccent, fontWeight: FontWeight.w700)),
+                    Text(
+                      'minExtent: 56px (collapsed)',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _phAccent,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -272,7 +335,10 @@ Widget _phSection2Extents() {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('shrinkOffset range: ', style: TextStyle(fontSize: 10, color: _phTextMedium)),
+                Text(
+                  'shrinkOffset range: ',
+                  style: TextStyle(fontSize: 10, color: _phTextMedium),
+                ),
                 _phCode('0 .. (max - min) = 0 .. 144'),
               ],
             ),
@@ -289,8 +355,18 @@ Widget _phSection2Extents() {
 Widget _phSection3Shrinking() {
   final states = <Map<String, dynamic>>[
     {'label': 'Fully expanded', 'offset': '0', 'height': 60, 'color': _phGreen},
-    {'label': 'Partially collapsed', 'offset': '72', 'height': 42, 'color': _phAmber},
-    {'label': 'Fully collapsed', 'offset': '144', 'height': 24, 'color': _phAccent},
+    {
+      'label': 'Partially collapsed',
+      'offset': '72',
+      'height': 42,
+      'color': _phAmber,
+    },
+    {
+      'label': 'Fully collapsed',
+      'offset': '144',
+      'height': 24,
+      'color': _phAccent,
+    },
   ];
 
   return Column(
@@ -316,26 +392,44 @@ Widget _phSection3Shrinking() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Header at different scroll positions', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _phTextDark)),
+            Text(
+              'Header at different scroll positions',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _phTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            ...states.map((s) => Container(
-              height: (s['height'] as int).toDouble(),
-              margin: EdgeInsets.only(bottom: 6),
-              decoration: BoxDecoration(
-                color: (s['color'] as Color).withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.4)),
+            ...states.map(
+              (s) => Container(
+                height: (s['height'] as int).toDouble(),
+                margin: EdgeInsets.only(bottom: 6),
+                decoration: BoxDecoration(
+                  color: (s['color'] as Color).withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: (s['color'] as Color).withValues(alpha: 0.4),
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _phBadge(
+                      s['label'] as String,
+                      s['color'] as Color,
+                      _phOnPrimary,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'shrinkOffset: ${s['offset']}',
+                      style: TextStyle(fontSize: 10, color: _phTextMedium),
+                    ),
+                  ],
+                ),
               ),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _phBadge(s['label'] as String, s['color'] as Color, _phOnPrimary),
-                  SizedBox(width: 8),
-                  Text('shrinkOffset: ${s['offset']}', style: TextStyle(fontSize: 10, color: _phTextMedium)),
-                ],
-              ),
-            )),
+            ),
           ],
         ),
       ),
@@ -370,14 +464,25 @@ Widget _phSection4ShrinkOffset() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('shrinkOffset interpolation', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _phTextDark)),
+            Text(
+              'shrinkOffset interpolation',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _phTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             // Visual gradient bar
             Container(
               height: 30,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [_phGreen.withValues(alpha: 0.3), _phAmber.withValues(alpha: 0.3), _phAccent.withValues(alpha: 0.3)],
+                  colors: [
+                    _phGreen.withValues(alpha: 0.3),
+                    _phAmber.withValues(alpha: 0.3),
+                    _phAccent.withValues(alpha: 0.3),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(6),
               ),
@@ -386,12 +491,33 @@ Widget _phSection4ShrinkOffset() {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(left: 8),
-                    child: Text('0', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _phGreen)),
+                    child: Text(
+                      '0',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _phGreen,
+                      ),
+                    ),
                   ),
-                  Text('shrinkOffset', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _phTextMedium)),
+                  Text(
+                    'shrinkOffset',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: _phTextMedium,
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.only(right: 8),
-                    child: Text('max-min', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _phAccent)),
+                    child: Text(
+                      'max-min',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: _phAccent,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -403,17 +529,43 @@ Widget _phSection4ShrinkOffset() {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Expanded', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _phGreen)),
-                    Text('Full image visible', style: TextStyle(fontSize: 9, color: _phTextMedium)),
-                    Text('Large title', style: TextStyle(fontSize: 9, color: _phTextMedium)),
+                    Text(
+                      'Expanded',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: _phGreen,
+                      ),
+                    ),
+                    Text(
+                      'Full image visible',
+                      style: TextStyle(fontSize: 9, color: _phTextMedium),
+                    ),
+                    Text(
+                      'Large title',
+                      style: TextStyle(fontSize: 9, color: _phTextMedium),
+                    ),
                   ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Collapsed', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _phAccent)),
-                    Text('Image hidden', style: TextStyle(fontSize: 9, color: _phTextMedium)),
-                    Text('Small title', style: TextStyle(fontSize: 9, color: _phTextMedium)),
+                    Text(
+                      'Collapsed',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: _phAccent,
+                      ),
+                    ),
+                    Text(
+                      'Image hidden',
+                      style: TextStyle(fontSize: 9, color: _phTextMedium),
+                    ),
+                    Text(
+                      'Small title',
+                      style: TextStyle(fontSize: 9, color: _phTextMedium),
+                    ),
                   ],
                 ),
               ],
@@ -433,7 +585,8 @@ Widget _phSection5Subclasses() {
     {
       'name': 'Pinned',
       'class': 'RenderSliverPinnedPersistentHeader',
-      'desc': 'Header stays pinned at the top while content scrolls beneath. '
+      'desc':
+          'Header stays pinned at the top while content scrolls beneath. '
           'Compresses from maxExtent to minExtent and stays visible.',
       'icon': Icons.push_pin,
       'color': _phBlue,
@@ -441,7 +594,8 @@ Widget _phSection5Subclasses() {
     {
       'name': 'Floating',
       'class': 'RenderSliverFloatingPersistentHeader',
-      'desc': 'Header scrolls off screen but floats back when user scrolls '
+      'desc':
+          'Header scrolls off screen but floats back when user scrolls '
           'down even slightly. Useful for search bars and navigation.',
       'icon': Icons.arrow_upward,
       'color': _phTeal,
@@ -449,7 +603,8 @@ Widget _phSection5Subclasses() {
     {
       'name': 'Scrolling',
       'class': 'RenderSliverScrollingPersistentHeader',
-      'desc': 'Header scrolls off screen with content. No pinning or floating. '
+      'desc':
+          'Header scrolls off screen with content. No pinning or floating. '
           'Only visible when the scroll position is at the top.',
       'icon': Icons.swap_vert,
       'color': _phOrange,
@@ -468,31 +623,53 @@ Widget _phSection5Subclasses() {
             'behaviours. All share the same min/max extent mechanics.',
         Icons.architecture,
       ),
-      ...subclasses.map((s) => Container(
-        margin: EdgeInsets.only(bottom: 8),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          border: Border(left: BorderSide(color: s['color'] as Color, width: 4)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(s['icon'] as IconData, size: 18, color: s['color'] as Color),
-                SizedBox(width: 6),
-                Text(s['name'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: s['color'] as Color)),
-              ],
+      ...subclasses.map(
+        (s) => Container(
+          margin: EdgeInsets.only(bottom: 8),
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border(
+              left: BorderSide(color: s['color'] as Color, width: 4),
             ),
-            SizedBox(height: 4),
-            _phCode(s['class'] as String, color: s['color'] as Color),
-            SizedBox(height: 6),
-            Text(s['desc'] as String, style: TextStyle(fontSize: 11, color: _phTextMedium, height: 1.3)),
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    s['icon'] as IconData,
+                    size: 18,
+                    color: s['color'] as Color,
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    s['name'] as String,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: s['color'] as Color,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4),
+              _phCode(s['class'] as String, color: s['color'] as Color),
+              SizedBox(height: 6),
+              Text(
+                s['desc'] as String,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: _phTextMedium,
+                  height: 1.3,
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     ],
   );
 }
@@ -502,10 +679,16 @@ Widget _phSection5Subclasses() {
 // ---------------------------------------------------------------------------
 Widget _phSection6Delegate() {
   final methods = <Map<String, String>>[
-    {'method': 'build(context, shrinkOffset, overlapsContent)', 'desc': 'Build the header widget for current state'},
+    {
+      'method': 'build(context, shrinkOffset, overlapsContent)',
+      'desc': 'Build the header widget for current state',
+    },
     {'method': 'get minExtent', 'desc': 'Minimum height when fully collapsed'},
     {'method': 'get maxExtent', 'desc': 'Maximum height when fully expanded'},
-    {'method': 'shouldRebuild(old)', 'desc': 'Whether the delegate has changed'},
+    {
+      'method': 'shouldRebuild(old)',
+      'desc': 'Whether the delegate has changed',
+    },
   ];
 
   return Column(
@@ -531,22 +714,34 @@ Widget _phSection6Delegate() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Delegate methods', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _phTextDark)),
-            Divider(color: _phDivider, height: 12),
-            ...methods.map((m) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _phCode(m['method']!),
-                  SizedBox(height: 2),
-                  Padding(
-                    padding: EdgeInsets.only(left: 12),
-                    child: Text(m['desc']!, style: TextStyle(fontSize: 10, color: _phTextMedium)),
-                  ),
-                ],
+            Text(
+              'Delegate methods',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _phTextDark,
               ),
-            )),
+            ),
+            Divider(color: _phDivider, height: 12),
+            ...methods.map(
+              (m) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _phCode(m['method']!),
+                    SizedBox(height: 2),
+                    Padding(
+                      padding: EdgeInsets.only(left: 12),
+                      child: Text(
+                        m['desc']!,
+                        style: TextStyle(fontSize: 10, color: _phTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -581,19 +776,28 @@ Widget _phSection7Stretch() {
           children: [
             // Normal max
             Positioned(
-              left: 20, top: 50, right: 20,
+              left: 20,
+              top: 50,
+              right: 20,
               child: Container(
                 height: 2,
                 color: _phPrimary.withValues(alpha: 0.3),
               ),
             ),
             Positioned(
-              left: 20, top: 38,
-              child: Text('maxExtent', style: TextStyle(fontSize: 9, color: _phPrimary)),
+              left: 20,
+              top: 38,
+              child: Text(
+                'maxExtent',
+                style: TextStyle(fontSize: 9, color: _phPrimary),
+              ),
             ),
             // Stretched
             Positioned(
-              left: 30, top: 10, right: 30, bottom: 50,
+              left: 30,
+              top: 10,
+              right: 30,
+              bottom: 50,
               child: Container(
                 decoration: BoxDecoration(
                   color: _phPurple.withValues(alpha: 0.08),
@@ -606,15 +810,28 @@ Widget _phSection7Stretch() {
                   children: [
                     Icon(Icons.unfold_more, size: 20, color: _phPurple),
                     SizedBox(height: 4),
-                    Text('Stretched beyond max', style: TextStyle(fontSize: 10, color: _phPurple, fontWeight: FontWeight.w700)),
-                    Text('(over-scroll)', style: TextStyle(fontSize: 9, color: _phPurple)),
+                    Text(
+                      'Stretched beyond max',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: _phPurple,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      '(over-scroll)',
+                      style: TextStyle(fontSize: 9, color: _phPurple),
+                    ),
                   ],
                 ),
               ),
             ),
             // Normal extent
             Positioned(
-              left: 30, top: 50, right: 30, bottom: 20,
+              left: 30,
+              top: 50,
+              right: 30,
+              bottom: 20,
               child: Container(
                 decoration: BoxDecoration(
                   color: _phPrimary.withValues(alpha: 0.08),
@@ -622,20 +839,33 @@ Widget _phSection7Stretch() {
                   border: Border.all(color: _phPrimary.withValues(alpha: 0.3)),
                 ),
                 alignment: Alignment.center,
-                child: Text('Normal range (min..max)', style: TextStyle(fontSize: 10, color: _phPrimary, fontWeight: FontWeight.w600)),
+                child: Text(
+                  'Normal range (min..max)',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: _phPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             // Min line
             Positioned(
-              left: 20, bottom: 20, right: 20,
+              left: 20,
+              bottom: 20,
+              right: 20,
               child: Container(
                 height: 2,
                 color: _phAccent.withValues(alpha: 0.3),
               ),
             ),
             Positioned(
-              right: 20, bottom: 8,
-              child: Text('minExtent', style: TextStyle(fontSize: 9, color: _phAccent)),
+              right: 20,
+              bottom: 8,
+              child: Text(
+                'minExtent',
+                style: TextStyle(fontSize: 9, color: _phAccent),
+              ),
             ),
           ],
         ),
@@ -656,12 +886,18 @@ class _PhHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 160;
 
   @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => false;
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final progress = shrinkOffset / (maxExtent - minExtent);
-    final bgColor = Color.lerp(_phPrimary, _phPrimaryLight, progress) ?? _phPrimary;
+    final bgColor =
+        Color.lerp(_phPrimary, _phPrimaryLight, progress) ?? _phPrimary;
     final titleSize = 20.0 - (progress * 6);
     return Container(
       color: bgColor,
@@ -683,7 +919,10 @@ class _PhHeaderDelegate extends SliverPersistentHeaderDelegate {
           ),
           Text(
             'offset: ${shrinkOffset.toStringAsFixed(0)}',
-            style: TextStyle(color: _phOnPrimary.withValues(alpha: 0.7), fontSize: 10),
+            style: TextStyle(
+              color: _phOnPrimary.withValues(alpha: 0.7),
+              fontSize: 10,
+            ),
           ),
         ],
       ),
@@ -714,7 +953,14 @@ Widget _phSection8Demo() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Pinned SliverPersistentHeader', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _phTextDark)),
+            Text(
+              'Pinned SliverPersistentHeader',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _phTextDark,
+              ),
+            ),
             SizedBox(height: 6),
             SizedBox(
               height: 300,
@@ -730,13 +976,18 @@ Widget _phSection8Demo() {
                       itemCount: 30,
                       itemBuilder: (ctx, i) => Container(
                         height: 48,
-                        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: i.isEven
                               ? _phPrimary.withValues(alpha: 0.04)
                               : _phAccent.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _phDivider.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _phDivider.withValues(alpha: 0.3),
+                          ),
                         ),
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -744,7 +995,13 @@ Widget _phSection8Demo() {
                           children: [
                             Icon(Icons.article, size: 14, color: _phAccent),
                             SizedBox(width: 8),
-                            Text('Content item ${i + 1}', style: TextStyle(fontSize: 12, color: _phTextDark)),
+                            Text(
+                              'Content item ${i + 1}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _phTextDark,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -765,12 +1022,46 @@ Widget _phSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _phSection9BestPractices() {
   final practices = <Map<String, dynamic>>[
-    {'title': 'Choose the right subclass', 'desc': 'Pinned for app bars, floating for search bars, scrolling for page headers', 'icon': Icons.account_tree, 'color': _phPrimary},
-    {'title': 'Keep minExtent stable', 'desc': 'Changing minExtent dynamically can cause scroll jumps', 'icon': Icons.warning, 'color': _phAmber},
-    {'title': 'Use shrinkOffset for interpolation', 'desc': 'Calculate progress = shrinkOffset / (max - min) for smooth transitions', 'icon': Icons.tune, 'color': _phBlue},
-    {'title': 'Consider overlapsContent', 'desc': 'Add a shadow or border when overlapsContent is true to show depth', 'icon': Icons.layers, 'color': _phOrange},
-    {'title': 'Pair with SliverAppBar', 'desc': 'SliverAppBar wraps SliverPersistentHeader with Material-specific features', 'icon': Icons.web, 'color': _phTeal},
-    {'title': 'Test with BouncingScrollPhysics', 'desc': 'Verify stretch behaviour on iOS-style physics for edge cases', 'icon': Icons.phone_iphone, 'color': _phIndigo},
+    {
+      'title': 'Choose the right subclass',
+      'desc':
+          'Pinned for app bars, floating for search bars, scrolling for page headers',
+      'icon': Icons.account_tree,
+      'color': _phPrimary,
+    },
+    {
+      'title': 'Keep minExtent stable',
+      'desc': 'Changing minExtent dynamically can cause scroll jumps',
+      'icon': Icons.warning,
+      'color': _phAmber,
+    },
+    {
+      'title': 'Use shrinkOffset for interpolation',
+      'desc':
+          'Calculate progress = shrinkOffset / (max - min) for smooth transitions',
+      'icon': Icons.tune,
+      'color': _phBlue,
+    },
+    {
+      'title': 'Consider overlapsContent',
+      'desc':
+          'Add a shadow or border when overlapsContent is true to show depth',
+      'icon': Icons.layers,
+      'color': _phOrange,
+    },
+    {
+      'title': 'Pair with SliverAppBar',
+      'desc':
+          'SliverAppBar wraps SliverPersistentHeader with Material-specific features',
+      'icon': Icons.web,
+      'color': _phTeal,
+    },
+    {
+      'title': 'Test with BouncingScrollPhysics',
+      'desc': 'Verify stretch behaviour on iOS-style physics for edge cases',
+      'icon': Icons.phone_iphone,
+      'color': _phIndigo,
+    },
   ];
 
   return Column(
@@ -785,38 +1076,55 @@ Widget _phSection9BestPractices() {
             'build custom headers beyond what SliverAppBar provides.',
         Icons.tips_and_updates,
       ),
-      ...practices.map((p) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: p['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          children: [
-            Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(p['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _phTextDark)),
-                  SizedBox(height: 2),
-                  Text(p['desc'] as String, style: TextStyle(fontSize: 11, color: _phTextMedium)),
-                ],
-              ),
+      ...practices.map(
+        (p) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: p['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            children: [
+              Icon(p['icon'] as IconData, size: 18, color: p['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      p['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _phTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _phTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_phPrimary.withValues(alpha: 0.08), _phAccent.withValues(alpha: 0.08)],
+            colors: [
+              _phPrimary.withValues(alpha: 0.08),
+              _phAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _phPrimary.withValues(alpha: 0.2)),
@@ -827,7 +1135,11 @@ Widget _phSection9BestPractices() {
             SizedBox(height: 8),
             Text(
               'RenderSliverPersistentHeader',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _phTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _phTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -888,7 +1200,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'The base class for collapsing and expanding scroll headers',
-                style: TextStyle(fontSize: 12, color: _phOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _phOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

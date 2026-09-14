@@ -209,7 +209,10 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(999),
@@ -295,7 +298,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                   shape: BoxShape.circle,
                   color: _pals[i].primary,
                   border: Border.all(
-                    color: _paletteIndex == i ? Colors.white : Colors.transparent,
+                    color: _paletteIndex == i
+                        ? Colors.white
+                        : Colors.transparent,
                     width: 2,
                   ),
                 ),
@@ -336,17 +341,22 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
   }
 
   Widget _stageLifecycleTelemetry() {
-    final firstVisible = (_lifecycleScroll.hasClients
-            ? (_lifecycleScroll.offset / _lifecycleItemExtent).floor()
-            : 0)
-        .clamp(0, _lifecycleItemCount - 1);
-    final viewportCount = (_lifecycleScroll.hasClients
-            ? ((_lifecycleScroll.position.viewportDimension / _lifecycleItemExtent)
-                .ceil())
-            : 7)
-        .clamp(1, _lifecycleItemCount);
-    final lastVisible = (firstVisible + viewportCount - 1)
-        .clamp(0, _lifecycleItemCount - 1);
+    final firstVisible =
+        (_lifecycleScroll.hasClients
+                ? (_lifecycleScroll.offset / _lifecycleItemExtent).floor()
+                : 0)
+            .clamp(0, _lifecycleItemCount - 1);
+    final viewportCount =
+        (_lifecycleScroll.hasClients
+                ? ((_lifecycleScroll.position.viewportDimension /
+                          _lifecycleItemExtent)
+                      .ceil())
+                : 7)
+            .clamp(1, _lifecycleItemCount);
+    final lastVisible = (firstVisible + viewportCount - 1).clamp(
+      0,
+      _lifecycleItemCount - 1,
+    );
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -441,7 +451,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: _p.primary.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _p.primary.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Stack(
                       children: [
@@ -450,7 +462,10 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                           cacheExtent: 0,
                           slivers: [
                             SliverToBoxAdapter(
-                              child: _sliverBanner('Telemetry Header', _p.primary),
+                              child: _sliverBanner(
+                                'Telemetry Header',
+                                _p.primary,
+                              ),
                             ),
                             SliverFixedExtentList.builder(
                               itemExtent: _lifecycleItemExtent,
@@ -502,7 +517,10 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                               },
                             ),
                             SliverToBoxAdapter(
-                              child: _sliverBanner('Telemetry Footer', _p.primary),
+                              child: _sliverBanner(
+                                'Telemetry Footer',
+                                _p.primary,
+                              ),
                             ),
                           ],
                         ),
@@ -513,11 +531,19 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                _metricChip('first', '$firstVisible', _p.primary),
+                                _metricChip(
+                                  'first',
+                                  '$firstVisible',
+                                  _p.primary,
+                                ),
                                 const SizedBox(height: 6),
                                 _metricChip('last', '$lastVisible', _p.primary),
                                 const SizedBox(height: 6),
-                                _metricChip('visible', '$viewportCount', _p.secondary),
+                                _metricChip(
+                                  'visible',
+                                  '$viewportCount',
+                                  _p.secondary,
+                                ),
                               ],
                             ),
                           ),
@@ -561,8 +587,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(color: _p.muted.withValues(alpha: 0.22)),
+                          border: Border.all(
+                            color: _p.muted.withValues(alpha: 0.22),
+                          ),
                         ),
                         child: Text(
                           'Manager intuition:\n'
@@ -585,7 +612,8 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
-                                color: _p.muted.withValues(alpha: 0.22)),
+                              color: _p.muted.withValues(alpha: 0.22),
+                            ),
                           ),
                           child: ListView.builder(
                             itemCount: _lifecycleTelemetry.logs.length,
@@ -593,7 +621,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                               final entry = _lifecycleTelemetry.logs[i];
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
                                 child: Text(
                                   '${i + 1}. $entry',
                                   style: TextStyle(
@@ -641,7 +671,8 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
           const SizedBox(height: 12),
           _card(
             title: 'Mutation Controls',
-            subtitle: 'Trigger index shifts and watch id/index mapping changes.',
+            subtitle:
+                'Trigger index shifts and watch id/index mapping changes.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -705,7 +736,8 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     Checkbox(
                       value: _useStableKeys,
                       activeColor: _p.primary,
-                      onChanged: (v) => setState(() => _useStableKeys = v ?? true),
+                      onChanged: (v) =>
+                          setState(() => _useStableKeys = v ?? true),
                     ),
                     Text(
                       'Use ValueKey(id)',
@@ -733,7 +765,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: _p.primary.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: _p.primary.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: CustomScrollView(
                       slivers: [
@@ -748,7 +782,9 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                               key: _useStableKeys ? ValueKey<int>(id) : null,
                               margin: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
+                                horizontal: 10,
+                                vertical: 10,
+                              ),
                               decoration: BoxDecoration(
                                 color: index.isEven
                                     ? _p.primary.withValues(alpha: 0.11)
@@ -767,9 +803,10 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                                           ? 'Stable identity preserved by key'
                                           : 'No key: identity may shift on reorders',
                                       style: TextStyle(
-                                          color: _p.ink,
-                                          fontSize: 11.5,
-                                          fontWeight: FontWeight.w700),
+                                        color: _p.ink,
+                                        fontSize: 11.5,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -794,8 +831,12 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     children: [
                       _bullet('Manager asks delegate for child at index i.'),
                       _bullet('On insert/remove, downstream indexes shift.'),
-                      _bullet('Stable keys help preserve child identity state.'),
-                      _bullet('Without keys, UI state can appear to jump rows.'),
+                      _bullet(
+                        'Stable keys help preserve child identity state.',
+                      ),
+                      _bullet(
+                        'Without keys, UI state can appear to jump rows.',
+                      ),
                       const SizedBox(height: 8),
                       Container(
                         width: double.infinity,
@@ -804,7 +845,8 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: _p.muted.withValues(alpha: 0.22)),
+                            color: _p.muted.withValues(alpha: 0.22),
+                          ),
                         ),
                         child: Text(
                           'Current length: ${_mappedIds.length}\n'
@@ -856,7 +898,8 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     min: 30,
                     max: 150,
                     divisions: 12,
-                    onChanged: (v) => setState(() => _keepAliveCount = v.round()),
+                    onChanged: (v) =>
+                        setState(() => _keepAliveCount = v.round()),
                     color: _p.primary,
                   ),
                 ),
@@ -1083,17 +1126,14 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisExtent: 80,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return _prefetchTile(index, itemExtent);
-                        },
-                        childCount: 80,
-                      ),
+                            crossAxisCount: 2,
+                            mainAxisExtent: 80,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return _prefetchTile(index, itemExtent);
+                      }, childCount: 80),
                     )
                   else
                     SliverFixedExtentList.builder(
@@ -1116,9 +1156,13 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _bullet('Higher cacheExtent can reduce visible build pop-in.'),
-                _bullet('Excessive prefetch may increase memory and build work.'),
+                _bullet(
+                  'Excessive prefetch may increase memory and build work.',
+                ),
                 _bullet('Tune per screen complexity and scroll velocity.'),
-                _bullet('Manager/delegate collaboration decides child lifecycle timing.'),
+                _bullet(
+                  'Manager/delegate collaboration decides child lifecycle timing.',
+                ),
               ],
             ),
           ),
@@ -1130,8 +1174,10 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
   Widget _prefetchTile(int index, double itemExtent) {
     final idxOffset = index * itemExtent;
     final distance = (idxOffset - _prefetchOffset).abs();
-    final normalized =
-      (1 - (distance / (_cacheExtent + itemExtent))).clamp(0.0, 1.0);
+    final normalized = (1 - (distance / (_cacheExtent + itemExtent))).clamp(
+      0.0,
+      1.0,
+    );
     final intensity = _showPrefetchHeatmap ? normalized : 0.35;
     final color = Color.lerp(
       _p.secondary.withValues(alpha: 0.08),
@@ -1228,31 +1274,29 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                     crossAxisSpacing: 6,
                     mainAxisSpacing: 6,
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      return Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: _p.accent.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(6),
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: _p.accent.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        'G${index + 1}',
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 11,
                         ),
-                        child: Text(
-                          'G${index + 1}',
-                          style: TextStyle(
-                            color: _p.ink,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: 6,
-                  ),
+                      ),
+                    );
+                  }, childCount: 6),
                 ),
               ),
               _delegateCard(
                 title: 'SliverPrototypeExtentList',
-                subtitle: 'Prototype row drives extent; manager still maps indexes.',
+                subtitle:
+                    'Prototype row drives extent; manager still maps indexes.',
                 color: _p.primary,
                 sliver: SliverPrototypeExtentList(
                   prototypeItem: _smallDemoRow(
@@ -1278,11 +1322,17 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet('Create child for index when requested by render sliver.'),
+                _bullet(
+                  'Create child for index when requested by render sliver.',
+                ),
                 _bullet('Estimate and track child extents for layout flow.'),
-                _bullet('Retain or dispose children according to cache/keepAlive policy.'),
+                _bullet(
+                  'Retain or dispose children according to cache/keepAlive policy.',
+                ),
                 _bullet('Handle index identity transitions on data mutations.'),
-                _bullet('Coordinate with delegates for childCount and lookup bounds.'),
+                _bullet(
+                  'Coordinate with delegates for childCount and lookup bounds.',
+                ),
               ],
             ),
           ),
@@ -1314,9 +1364,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             slivers: [
-              SliverToBoxAdapter(
-                child: _sliverBanner('Mini stage', color),
-              ),
+              SliverToBoxAdapter(child: _sliverBanner('Mini stage', color)),
               sliver,
             ],
           ),
@@ -1335,7 +1383,11 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
       ),
       child: Text(
         text,
-        style: TextStyle(color: _p.ink, fontSize: 11, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -1383,8 +1435,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                 _decisionRow(
                   use: 'Use stable keys for mutable datasets',
                   decision: 'Do',
-                  reason:
-                      'Prevents child state mismatches when indexes shift.',
+                  reason: 'Prevents child state mismatches when indexes shift.',
                   good: true,
                 ),
                 _decisionRow(
@@ -1396,8 +1447,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                 _decisionRow(
                   use: 'Tune cacheExtent for smooth fast scrolling',
                   decision: 'Do',
-                  reason:
-                      'Balances prefetch smoothness with memory budget.',
+                  reason: 'Balances prefetch smoothness with memory budget.',
                   good: true,
                 ),
                 _decisionRow(
@@ -1419,22 +1469,26 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
               children: [
                 _qa(
                   q: 'Can I use RenderSliverBoxChildManager directly in app code?',
-                  a: 'Typically no. It is an internal render-layer contract '
+                  a:
+                      'Typically no. It is an internal render-layer contract '
                       'used by sliver adaptors and delegates.',
                 ),
                 _qa(
                   q: 'Why do off-screen items sometimes dispose quickly?',
-                  a: 'Cache extent and keepAlive strategy determine retention. '
+                  a:
+                      'Cache extent and keepAlive strategy determine retention. '
                       'Smaller caches and no keepAlive increase disposals.',
                 ),
                 _qa(
                   q: 'Does SliverList.builder use this manager?',
-                  a: 'Yes. Builder delegates are managed through sliver '
+                  a:
+                      'Yes. Builder delegates are managed through sliver '
                       'multi-box adaptor infrastructure with child manager logic.',
                 ),
                 _qa(
                   q: 'How do I reduce rebuild churn?',
-                  a: 'Use stable keys, tuned cache extent, and selective '
+                  a:
+                      'Use stable keys, tuned cache extent, and selective '
                       'keepAlive for expensive children.',
                 ),
               ],
@@ -1674,7 +1728,11 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(good ? Icons.check_circle : Icons.cancel, color: color, size: 18),
+          Icon(
+            good ? Icons.check_circle : Icons.cancel,
+            color: color,
+            size: 18,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -1698,10 +1756,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  reason,
-                  style: TextStyle(color: _p.muted, fontSize: 11.4),
-                ),
+                Text(reason, style: TextStyle(color: _p.muted, fontSize: 11.4)),
               ],
             ),
           ),
@@ -1749,10 +1804,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(color: _p.ink, fontSize: 12),
-            ),
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 12)),
           ),
         ],
       ),
@@ -1843,10 +1895,7 @@ class _LazyChildControlRoomState extends State<_LazyChildControlRoom> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(color: _p.muted, fontSize: 11.5),
-          ),
+          Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.5)),
           const SizedBox(height: 10),
           child,
         ],

@@ -51,8 +51,7 @@ class _SCROWDemo extends StatefulWidget {
   State<_SCROWDemo> createState() => _SCROWDemoState();
 }
 
-class _SCROWDemoState extends State<_SCROWDemo>
-    with TickerProviderStateMixin {
+class _SCROWDemoState extends State<_SCROWDemo> with TickerProviderStateMixin {
   late final TabController _tabCtrl;
 
   @override
@@ -94,11 +93,7 @@ class _SCROWDemoState extends State<_SCROWDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: const [
-          _ContractTab(),
-          _SubclassesTab(),
-          _CustomWidgetTab(),
-        ],
+        children: const [_ContractTab(), _SubclassesTab(), _CustomWidgetTab()],
       ),
     );
   }
@@ -136,30 +131,36 @@ class _ContractTabState extends State<_ContractTab>
           _sectionTitle('Class Hierarchy'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandHierarchy = !_expandHierarchy),
+            onTap: () => setState(() => _expandHierarchy = !_expandHierarchy),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader('Widget inheritance chain',
-                      _expandHierarchy),
+                  _expandHeader('Widget inheritance chain', _expandHierarchy),
                   if (_expandHierarchy) ...[
                     const SizedBox(height: 10),
                     _hierarchyNode(
-                        'Widget', _kDimText,
-                        'Immutable configuration', 0),
+                      'Widget',
+                      _kDimText,
+                      'Immutable configuration',
+                      0,
+                    ),
                     _hierarchyArrow(),
                     _hierarchyNode(
-                        'RenderObjectWidget', _kHighlight,
-                        'Creates/updates a RenderObject', 0),
+                      'RenderObjectWidget',
+                      _kHighlight,
+                      'Creates/updates a RenderObject',
+                      0,
+                    ),
                     _hierarchyArrow(),
                     _hierarchyNode(
-                        'SingleChildRenderObjectWidget',
-                        _kAccent,
-                        'Has optional single child', 0),
+                      'SingleChildRenderObjectWidget',
+                      _kAccent,
+                      'Has optional single child',
+                      0,
+                    ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -171,8 +172,7 @@ class _ContractTabState extends State<_ContractTab>
                           child: Text(
                             'Cannot be instantiated directly; '
                             'but subclasses can be const',
-                            style: TextStyle(
-                              color: _kDimText, fontSize: 9),
+                            style: TextStyle(color: _kDimText, fontSize: 9),
                           ),
                         ),
                       ],
@@ -188,8 +188,8 @@ class _ContractTabState extends State<_ContractTab>
           _sectionTitle('Constructor & Child'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() =>
-                _expandConstructor = !_expandConstructor),
+            onTap: () =>
+                setState(() => _expandConstructor = !_expandConstructor),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
@@ -197,9 +197,10 @@ class _ContractTabState extends State<_ContractTab>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _expandHeader(
-                      'const SingleChildRenderObject'
-                      'Widget({key, child})',
-                      _expandConstructor),
+                    'const SingleChildRenderObject'
+                    'Widget({key, child})',
+                    _expandConstructor,
+                  ),
                   if (_expandConstructor) ...[
                     const SizedBox(height: 10),
                     _codeBlock(
@@ -216,19 +217,24 @@ class _ContractTabState extends State<_ContractTab>
                       '}',
                     ),
                     const SizedBox(height: 8),
-                    _paramRow('key', 'Key?',
-                        'Widget identity for reconciliation',
-                        _kAmber),
-                    _paramRow('child', 'Widget?',
-                        'The optional single child widget',
-                        _kAccent),
+                    _paramRow(
+                      'key',
+                      'Key?',
+                      'Widget identity for reconciliation',
+                      _kAmber,
+                    ),
+                    _paramRow(
+                      'child',
+                      'Widget?',
+                      'The optional single child widget',
+                      _kAccent,
+                    ),
                     const SizedBox(height: 8),
                     const Text(
                       'The child is optional: an Opacity can '
                       'wrap a child, but a SizedBox.shrink() '
                       'has no child at all.',
-                      style: TextStyle(
-                        color: _kDimText, fontSize: 10),
+                      style: TextStyle(color: _kDimText, fontSize: 10),
                     ),
                   ],
                 ],
@@ -241,8 +247,7 @@ class _ContractTabState extends State<_ContractTab>
           _sectionTitle('Required Overrides'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(
-                () => _expandMethods = !_expandMethods),
+            onTap: () => setState(() => _expandMethods = !_expandMethods),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
@@ -250,17 +255,18 @@ class _ContractTabState extends State<_ContractTab>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _expandHeader(
-                      'Methods subclasses must implement',
-                      _expandMethods),
+                    'Methods subclasses must implement',
+                    _expandMethods,
+                  ),
                   if (_expandMethods) ...[
                     const SizedBox(height: 10),
                     _methodCard(
                       'createRenderObject',
                       'RenderObject createRenderObject(\n'
-                      '    BuildContext context)',
+                          '    BuildContext context)',
                       'Called once when widget is first mounted. '
-                      'Returns a new render object that will be '
-                      'managed by the element.',
+                          'Returns a new render object that will be '
+                          'managed by the element.',
                       _kGreen,
                       true,
                     ),
@@ -268,12 +274,12 @@ class _ContractTabState extends State<_ContractTab>
                     _methodCard(
                       'updateRenderObject',
                       'void updateRenderObject(\n'
-                      '    BuildContext context,\n'
-                      '    covariant RenderObject\n'
-                      '        renderObject)',
+                          '    BuildContext context,\n'
+                          '    covariant RenderObject\n'
+                          '        renderObject)',
                       'Called when widget rebuilds. Updates the '
-                      'existing render object with new property '
-                      'values from the widget.',
+                          'existing render object with new property '
+                          'values from the widget.',
                       _kHighlight,
                       true,
                     ),
@@ -281,10 +287,10 @@ class _ContractTabState extends State<_ContractTab>
                     _methodCard(
                       'createElement',
                       'SingleChildRenderObject\n'
-                      '    Element createElement()',
+                          '    Element createElement()',
                       'Automatically returns a new '
-                      'SingleChildRenderObjectElement. '
-                      'Rarely overridden.',
+                          'SingleChildRenderObjectElement. '
+                          'Rarely overridden.',
                       _kDimText,
                       false,
                     ),
@@ -292,10 +298,10 @@ class _ContractTabState extends State<_ContractTab>
                     _methodCard(
                       'didUnmountRenderObject',
                       'void didUnmountRenderObject(\n'
-                      '    covariant RenderObject\n'
-                      '        renderObject)',
+                          '    covariant RenderObject\n'
+                          '        renderObject)',
                       'Cleanup callback when render object '
-                      'is removed. Release resources here.',
+                          'is removed. Release resources here.',
                       _kPurple,
                       false,
                     ),
@@ -310,8 +316,7 @@ class _ContractTabState extends State<_ContractTab>
           _sectionTitle('Widget Family'),
           const SizedBox(height: 8),
           GestureDetector(
-            onTap: () => setState(() =>
-                _expandComparison = !_expandComparison),
+            onTap: () => setState(() => _expandComparison = !_expandComparison),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
@@ -319,8 +324,9 @@ class _ContractTabState extends State<_ContractTab>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _expandHeader(
-                      'RenderObjectWidget subclasses',
-                      _expandComparison),
+                    'RenderObjectWidget subclasses',
+                    _expandComparison,
+                  ),
                   if (_expandComparison) ...[
                     const SizedBox(height: 8),
                     _familyRow(
@@ -345,11 +351,13 @@ class _ContractTabState extends State<_ContractTab>
                     ),
                     const SizedBox(height: 8),
                     Row(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.arrow_right,
-                            size: 14, color: _kAccent),
+                        const Icon(
+                          Icons.arrow_right,
+                          size: 14,
+                          color: _kAccent,
+                        ),
                         const SizedBox(width: 4),
                         const Expanded(
                           child: Text(
@@ -357,8 +365,7 @@ class _ContractTabState extends State<_ContractTab>
                             'this is the most commonly used '
                             'variant, backing nearly all layout '
                             'wrappers in Flutter.',
-                            style: TextStyle(
-                              color: _kDimText, fontSize: 9),
+                            style: TextStyle(color: _kDimText, fontSize: 9),
                           ),
                         ),
                       ],
@@ -381,28 +388,34 @@ class _ContractTabState extends State<_ContractTab>
     );
   }
 
-  Widget _methodCard(String name, String sig, String desc,
-      Color color, bool required) {
+  Widget _methodCard(
+    String name,
+    String sig,
+    String desc,
+    Color color,
+    bool required,
+  ) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-            color: color.withValues(alpha: 0.25)),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace',
-                  )),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                ),
+              ),
               const Spacer(),
               if (required)
                 _badge('required', _kWarning)
@@ -411,41 +424,40 @@ class _ContractTabState extends State<_ContractTab>
             ],
           ),
           const SizedBox(height: 4),
-          Text(sig,
-              style: TextStyle(
-                color: color.withValues(alpha: 0.7),
-                fontSize: 8,
-                fontFamily: 'monospace',
-              )),
+          Text(
+            sig,
+            style: TextStyle(
+              color: color.withValues(alpha: 0.7),
+              fontSize: 8,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(desc,
-              style: const TextStyle(
-                color: _kDimText, fontSize: 9)),
+          Text(desc, style: const TextStyle(color: _kDimText, fontSize: 9)),
         ],
       ),
     );
   }
 
   Widget _familyRow(
-      String name, String children, String examples,
-      Color color) {
+    String name,
+    String children,
+    String examples,
+    Color color,
+  ) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-            color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
           Container(
             width: 5,
             height: 5,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 6),
           Expanded(
@@ -454,24 +466,29 @@ class _ContractTabState extends State<_ContractTab>
               children: [
                 Row(
                   children: [
-                    Text(name,
-                        style: TextStyle(
-                          color: color,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'monospace',
-                        )),
+                    Text(
+                      name,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                     const Spacer(),
-                    Text(children,
-                        style: TextStyle(
-                          color: color.withValues(alpha: 0.7),
-                          fontSize: 8,
-                        )),
+                    Text(
+                      children,
+                      style: TextStyle(
+                        color: color.withValues(alpha: 0.7),
+                        fontSize: 8,
+                      ),
+                    ),
                   ],
                 ),
-                Text(examples,
-                    style: const TextStyle(
-                      color: _kDimText, fontSize: 8)),
+                Text(
+                  examples,
+                  style: const TextStyle(color: _kDimText, fontSize: 8),
+                ),
               ],
             ),
           ),
@@ -480,35 +497,39 @@ class _ContractTabState extends State<_ContractTab>
     );
   }
 
-  Widget _paramRow(
-      String name, String type, String desc, Color color) {
+  Widget _paramRow(String name, String type, String desc, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           SizedBox(
             width: 50,
-            child: Text(name,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600,
-                )),
+            child: Text(
+              name,
+              style: TextStyle(
+                color: color,
+                fontSize: 10,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           SizedBox(
             width: 60,
-            child: Text(type,
-                style: const TextStyle(
-                  color: _kHighlight,
-                  fontSize: 9,
-                  fontFamily: 'monospace',
-                )),
+            child: Text(
+              type,
+              style: const TextStyle(
+                color: _kHighlight,
+                fontSize: 9,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           Expanded(
-            child: Text(desc,
-                style: const TextStyle(
-                  color: _kDimText, fontSize: 9)),
+            child: Text(
+              desc,
+              style: const TextStyle(color: _kDimText, fontSize: 9),
+            ),
           ),
         ],
       ),
@@ -523,8 +544,7 @@ class _ContractTabState extends State<_ContractTab>
 class _SubclassesTab extends StatefulWidget {
   const _SubclassesTab();
   @override
-  State<_SubclassesTab> createState() =>
-      _SubclassesTabState();
+  State<_SubclassesTab> createState() => _SubclassesTabState();
 }
 
 class _SubclassesTabState extends State<_SubclassesTab>
@@ -537,78 +557,78 @@ class _SubclassesTabState extends State<_SubclassesTab>
       'Adds empty space around the child',
       'RenderPadding',
       'Padding(\n'
-      '  padding:\n'
-      '      EdgeInsets.all(16),\n'
-      '  child: child,\n'
-      ')',
+          '  padding:\n'
+          '      EdgeInsets.all(16),\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'Align',
       'Positions child within available space',
       'RenderPositionedBox',
       'Align(\n'
-      '  alignment:\n'
-      '      Alignment.topRight,\n'
-      '  child: child,\n'
-      ')',
+          '  alignment:\n'
+          '      Alignment.topRight,\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'Opacity',
       'Makes child semi-transparent',
       'RenderOpacity',
       'Opacity(\n'
-      '  opacity: 0.5,\n'
-      '  child: child,\n'
-      ')',
+          '  opacity: 0.5,\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'Transform',
       'Applies a matrix transformation',
       'RenderTransform',
       'Transform.rotate(\n'
-      '  angle: 0.3,\n'
-      '  child: child,\n'
-      ')',
+          '  angle: 0.3,\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'ClipRRect',
       'Clips child with rounded rectangle',
       'RenderClipRRect',
       'ClipRRect(\n'
-      '  borderRadius:\n'
-      '    BorderRadius.circular(20),\n'
-      '  child: child,\n'
-      ')',
+          '  borderRadius:\n'
+          '    BorderRadius.circular(20),\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'SizedBox',
       'Imposes tight size constraints',
       'RenderConstrainedBox',
       'SizedBox(\n'
-      '  width: 100,\n'
-      '  height: 50,\n'
-      '  child: child,\n'
-      ')',
+          '  width: 100,\n'
+          '  height: 50,\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'DecoratedBox',
       'Paints decoration behind/in front',
       'RenderDecoratedBox',
       'DecoratedBox(\n'
-      '  decoration: BoxDecoration(\n'
-      '    gradient: gradient,\n'
-      '  ),\n'
-      '  child: child,\n'
-      ')',
+          '  decoration: BoxDecoration(\n'
+          '    gradient: gradient,\n'
+          '  ),\n'
+          '  child: child,\n'
+          ')',
     ),
     _SubclassEntry(
       'ColoredBox',
       'Fills background with solid color',
       'RenderColoredBox',
       'ColoredBox(\n'
-      '  color: Colors.blue,\n'
-      '  child: child,\n'
-      ')',
+          '  color: Colors.blue,\n'
+          '  child: child,\n'
+          ')',
     ),
   ];
 
@@ -639,38 +659,30 @@ class _SubclassesTabState extends State<_SubclassesTab>
             child: Wrap(
               spacing: 6,
               runSpacing: 6,
-              children: List.generate(
-                  _entries.length, (i) {
+              children: List.generate(_entries.length, (i) {
                 final sel = _selected == i;
                 return GestureDetector(
-                  onTap: () =>
-                      setState(() => _selected = i),
+                  onTap: () => setState(() => _selected = i),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 5),
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: sel
-                          ? _kPrimary
-                              .withValues(alpha: 0.3)
+                          ? _kPrimary.withValues(alpha: 0.3)
                           : Colors.transparent,
-                      borderRadius:
-                          BorderRadius.circular(14),
-                      border: Border.all(
-                        color: sel
-                            ? _kAccent
-                            : _kSubtle,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: sel ? _kAccent : _kSubtle),
+                    ),
+                    child: Text(
+                      _entries[i].name,
+                      style: TextStyle(
+                        color: sel ? _kAccent : _kDimText,
+                        fontSize: 11,
+                        fontWeight: sel ? FontWeight.w700 : FontWeight.w400,
                       ),
                     ),
-                    child: Text(_entries[i].name,
-                        style: TextStyle(
-                          color: sel
-                              ? _kAccent
-                              : _kDimText,
-                          fontSize: 11,
-                          fontWeight: sel
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                        )),
                   ),
                 );
               }),
@@ -684,8 +696,7 @@ class _SubclassesTabState extends State<_SubclassesTab>
             decoration: BoxDecoration(
               color: _kCard,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _kAccent.withValues(alpha: 0.3)),
+              border: Border.all(color: _kAccent.withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -701,16 +712,13 @@ class _SubclassesTabState extends State<_SubclassesTab>
                       ),
                     ),
                     const Spacer(),
-                    _badge(
-                        _entries[_selected].renderType,
-                        _kCyan),
+                    _badge(_entries[_selected].renderType, _kCyan),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
                   _entries[_selected].description,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 10),
+                  style: const TextStyle(color: _kDimText, fontSize: 10),
                 ),
                 const SizedBox(height: 10),
 
@@ -748,67 +756,75 @@ class _SubclassesTabState extends State<_SubclassesTab>
                   children: [
                     SizedBox(
                       width: 90,
-                      child: Text('Widget',
-                          style: TextStyle(
-                            color: _kAccent.withValues(
-                                alpha: 0.7),
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                          )),
+                      child: Text(
+                        'Widget',
+                        style: TextStyle(
+                          color: _kAccent.withValues(alpha: 0.7),
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       width: 85,
-                      child: Text('RenderObject',
-                          style: TextStyle(
-                            color: _kCyan.withValues(
-                                alpha: 0.7),
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                          )),
+                      child: Text(
+                        'RenderObject',
+                        style: TextStyle(
+                          color: _kCyan.withValues(alpha: 0.7),
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                     const Expanded(
-                      child: Text('Purpose',
-                          style: TextStyle(
-                            color: _kDimText,
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                          )),
+                      child: Text(
+                        'Purpose',
+                        style: TextStyle(
+                          color: _kDimText,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                const Divider(
-                    color: _kSubtle, height: 12),
+                const Divider(color: _kSubtle, height: 12),
                 ...List.generate(_entries.length, (i) {
                   final e = _entries[i];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 1),
+                    padding: const EdgeInsets.symmetric(vertical: 1),
                     child: Row(
                       children: [
                         SizedBox(
                           width: 90,
-                          child: Text(e.name,
-                              style: const TextStyle(
-                                color: _kAccent,
-                                fontSize: 9,
-                                fontFamily: 'monospace',
-                              )),
+                          child: Text(
+                            e.name,
+                            style: const TextStyle(
+                              color: _kAccent,
+                              fontSize: 9,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: 85,
-                          child: Text(e.renderType,
-                              style: const TextStyle(
-                                color: _kCyan,
-                                fontSize: 8,
-                                fontFamily: 'monospace',
-                              )),
+                          child: Text(
+                            e.renderType,
+                            style: const TextStyle(
+                              color: _kCyan,
+                              fontSize: 8,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
                         Expanded(
-                          child: Text(e.description,
-                              style: const TextStyle(
-                                color: _kDimText,
-                                fontSize: 8,
-                              )),
+                          child: Text(
+                            e.description,
+                            style: const TextStyle(
+                              color: _kDimText,
+                              fontSize: 8,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -835,18 +851,18 @@ class _SubclassesTabState extends State<_SubclassesTab>
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_kPrimary, _kAccent],
-        ),
+        gradient: LinearGradient(colors: [_kPrimary, _kAccent]),
         borderRadius: BorderRadius.circular(4),
       ),
       child: const Center(
-        child: Text('child',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 9,
-              fontWeight: FontWeight.w700,
-            )),
+        child: Text(
+          'child',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
     );
 
@@ -855,19 +871,13 @@ class _SubclassesTabState extends State<_SubclassesTab>
         return Center(
           child: Container(
             color: _kPrimary.withValues(alpha: 0.15),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: childBox,
-            ),
+            child: Padding(padding: const EdgeInsets.all(16), child: childBox),
           ),
         );
       case 1: // Align
         return Align(
           alignment: Alignment.topRight,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: childBox,
-          ),
+          child: Padding(padding: const EdgeInsets.all(6), child: childBox),
         );
       case 2: // Opacity
         return Center(
@@ -887,14 +897,11 @@ class _SubclassesTabState extends State<_SubclassesTab>
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Transform.rotate(
-                  angle: 0, child: childBox),
+              Transform.rotate(angle: 0, child: childBox),
               const SizedBox(width: 16),
-              Transform.rotate(
-                  angle: 0.3, child: childBox),
+              Transform.rotate(angle: 0.3, child: childBox),
               const SizedBox(width: 16),
-              Transform.rotate(
-                  angle: 0.8, child: childBox),
+              Transform.rotate(angle: 0.8, child: childBox),
             ],
           ),
         );
@@ -905,20 +912,17 @@ class _SubclassesTabState extends State<_SubclassesTab>
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(0),
-                child: Container(width: 50, height: 50,
-                    color: _kAccent),
+                child: Container(width: 50, height: 50, color: _kAccent),
               ),
               const SizedBox(width: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Container(width: 50, height: 50,
-                    color: _kAccent),
+                child: Container(width: 50, height: 50, color: _kAccent),
               ),
               const SizedBox(width: 8),
               ClipRRect(
                 borderRadius: BorderRadius.circular(25),
-                child: Container(width: 50, height: 50,
-                    color: _kAccent),
+                child: Container(width: 50, height: 50, color: _kAccent),
               ),
             ],
           ),
@@ -952,25 +956,21 @@ class _SubclassesTabState extends State<_SubclassesTab>
         return Center(
           child: DecoratedBox(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  _kPrimary,
-                  _kAccent,
-                  _kPurple,
-                ],
-              ),
+              gradient: LinearGradient(colors: [_kPrimary, _kAccent, _kPurple]),
               borderRadius: BorderRadius.circular(12),
             ),
             child: const SizedBox(
               width: 120,
               height: 60,
               child: Center(
-                child: Text('decorated',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  'decorated',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
           ),
@@ -986,11 +986,13 @@ class _SubclassesTabState extends State<_SubclassesTab>
                   width: 50,
                   height: 50,
                   child: Center(
-                    child: Text('A',
-                        style: TextStyle(
-                          color: _kSurface,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    child: Text(
+                      'A',
+                      style: TextStyle(
+                        color: _kSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1001,11 +1003,13 @@ class _SubclassesTabState extends State<_SubclassesTab>
                   width: 50,
                   height: 50,
                   child: Center(
-                    child: Text('B',
-                        style: TextStyle(
-                          color: _kSurface,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    child: Text(
+                      'B',
+                      style: TextStyle(
+                        color: _kSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1016,11 +1020,13 @@ class _SubclassesTabState extends State<_SubclassesTab>
                   width: 50,
                   height: 50,
                   child: Center(
-                    child: Text('C',
-                        style: TextStyle(
-                          color: _kSurface,
-                          fontWeight: FontWeight.w700,
-                        )),
+                    child: Text(
+                      'C',
+                      style: TextStyle(
+                        color: _kSurface,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1038,8 +1044,7 @@ class _SubclassEntry {
   final String description;
   final String renderType;
   final String code;
-  const _SubclassEntry(
-      this.name, this.description, this.renderType, this.code);
+  const _SubclassEntry(this.name, this.description, this.renderType, this.code);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1049,8 +1054,7 @@ class _SubclassEntry {
 class _CustomWidgetTab extends StatefulWidget {
   const _CustomWidgetTab();
   @override
-  State<_CustomWidgetTab> createState() =>
-      _CustomWidgetTabState();
+  State<_CustomWidgetTab> createState() => _CustomWidgetTabState();
 }
 
 class _CustomWidgetTabState extends State<_CustomWidgetTab>
@@ -1066,13 +1070,7 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
     _kAmber,
     _kPurple,
   ];
-  static const _tintLabels = [
-    'Orange',
-    'Blue',
-    'Green',
-    'Amber',
-    'Purple',
-  ];
+  static const _tintLabels = ['Orange', 'Blue', 'Green', 'Amber', 'Purple'];
 
   @override
   bool get wantKeepAlive => true;
@@ -1097,34 +1095,32 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
 
           // Steps
           GestureDetector(
-            onTap: () => setState(
-                () => _expandSteps = !_expandSteps),
+            onTap: () => setState(() => _expandSteps = !_expandSteps),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: _cardDecor(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _expandHeader(
-                      'Implementation Steps', _expandSteps),
+                  _expandHeader('Implementation Steps', _expandSteps),
                   if (_expandSteps) ...[
                     const SizedBox(height: 10),
                     _stepCard(
                       1,
                       'Extend '
-                      'SingleChildRenderObjectWidget',
+                          'SingleChildRenderObjectWidget',
                       'class TintOverlay extends\n'
-                      '    SingleChildRenderObject\n'
-                      '    Widget {\n'
-                      '  const TintOverlay({\n'
-                      '    super.key,\n'
-                      '    super.child,\n'
-                      '    required this.color,\n'
-                      '    this.opacity = 0.3,\n'
-                      '  });\n'
-                      '  final Color color;\n'
-                      '  final double opacity;\n'
-                      '}',
+                          '    SingleChildRenderObject\n'
+                          '    Widget {\n'
+                          '  const TintOverlay({\n'
+                          '    super.key,\n'
+                          '    super.child,\n'
+                          '    required this.color,\n'
+                          '    this.opacity = 0.3,\n'
+                          '  });\n'
+                          '  final Color color;\n'
+                          '  final double opacity;\n'
+                          '}',
                       _kGreen,
                     ),
                     const SizedBox(height: 8),
@@ -1132,13 +1128,13 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                       2,
                       'Create the RenderObject',
                       '@override\n'
-                      'RenderObject\n'
-                      '    createRenderObject(\n'
-                      '    BuildContext context) =>\n'
-                      '  _RenderTintOverlay(\n'
-                      '    color: color,\n'
-                      '    tintOpacity: opacity,\n'
-                      '  );',
+                          'RenderObject\n'
+                          '    createRenderObject(\n'
+                          '    BuildContext context) =>\n'
+                          '  _RenderTintOverlay(\n'
+                          '    color: color,\n'
+                          '    tintOpacity: opacity,\n'
+                          '  );',
                       _kHighlight,
                     ),
                     const SizedBox(height: 8),
@@ -1146,32 +1142,32 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                       3,
                       'Update the RenderObject',
                       '@override\n'
-                      'void updateRenderObject(\n'
-                      '    BuildContext context,\n'
-                      '    _RenderTintOverlay ro) {\n'
-                      '  ro\n'
-                      '    ..color = color\n'
-                      '    ..tintOpacity = opacity;\n'
-                      '}',
+                          'void updateRenderObject(\n'
+                          '    BuildContext context,\n'
+                          '    _RenderTintOverlay ro) {\n'
+                          '  ro\n'
+                          '    ..color = color\n'
+                          '    ..tintOpacity = opacity;\n'
+                          '}',
                       _kAmber,
                     ),
                     const SizedBox(height: 8),
                     _stepCard(
                       4,
                       'Implement the '
-                      'RenderProxyBox',
+                          'RenderProxyBox',
                       'class _RenderTintOverlay\n'
-                      '    extends RenderProxyBox {\n'
-                      '  Color _color;\n'
-                      '  double _opacity;\n'
-                      '  // Setters call\n'
-                      '  // markNeedsPaint()\n'
-                      '  @override\n'
-                      '  void paint(context, offset){\n'
-                      '    // Paint child first\n'
-                      '    // Then paint tint\n'
-                      '  }\n'
-                      '}',
+                          '    extends RenderProxyBox {\n'
+                          '  Color _color;\n'
+                          '  double _opacity;\n'
+                          '  // Setters call\n'
+                          '  // markNeedsPaint()\n'
+                          '  @override\n'
+                          '  void paint(context, offset){\n'
+                          '    // Paint child first\n'
+                          '    // Then paint tint\n'
+                          '  }\n'
+                          '}',
                       _kPurple,
                     ),
                   ],
@@ -1189,40 +1185,36 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
             decoration: BoxDecoration(
               color: _kCard,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _kAccent.withValues(alpha: 0.3)),
+              border: Border.all(color: _kAccent.withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Tint color selector
-                const Text('Tint Color:',
-                    style: TextStyle(
-                      color: _kDimText, fontSize: 10)),
+                const Text(
+                  'Tint Color:',
+                  style: TextStyle(color: _kDimText, fontSize: 10),
+                ),
                 const SizedBox(height: 6),
                 Wrap(
                   spacing: 6,
                   runSpacing: 4,
-                  children: List.generate(
-                      _tintColors.length, (i) {
+                  children: List.generate(_tintColors.length, (i) {
                     final sel = _tintColorIdx == i;
                     return GestureDetector(
-                      onTap: () => setState(
-                          () => _tintColorIdx = i),
+                      onTap: () => setState(() => _tintColorIdx = i),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: sel
-                              ? _tintColors[i]
-                                  .withValues(alpha: 0.2)
+                              ? _tintColors[i].withValues(alpha: 0.2)
                               : Colors.transparent,
-                          borderRadius:
-                              BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: sel
-                                ? _tintColors[i]
-                                : _kSubtle,
+                            color: sel ? _tintColors[i] : _kSubtle,
                           ),
                         ),
                         child: Row(
@@ -1237,13 +1229,13 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                               ),
                             ),
                             const SizedBox(width: 4),
-                            Text(_tintLabels[i],
-                                style: TextStyle(
-                                  color: sel
-                                      ? _tintColors[i]
-                                      : _kDimText,
-                                  fontSize: 10,
-                                )),
+                            Text(
+                              _tintLabels[i],
+                              style: TextStyle(
+                                color: sel ? _tintColors[i] : _kDimText,
+                                fontSize: 10,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1257,9 +1249,10 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                   children: [
                     const SizedBox(
                       width: 60,
-                      child: Text('Opacity:',
-                          style: TextStyle(
-                            color: _kDimText, fontSize: 10)),
+                      child: Text(
+                        'Opacity:',
+                        style: TextStyle(color: _kDimText, fontSize: 10),
+                      ),
                     ),
                     Expanded(
                       child: Slider(
@@ -1267,8 +1260,7 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                         min: 0,
                         max: 1,
                         activeColor: _kAccent,
-                        onChanged: (v) => setState(
-                            () => _tintOpacity = v),
+                        onChanged: (v) => setState(() => _tintOpacity = v),
                       ),
                     ),
                     SizedBox(
@@ -1302,36 +1294,36 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                         Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                _kPrimary,
-                                _kHighlight,
-                              ],
+                              colors: [_kPrimary, _kHighlight],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
                           ),
                           child: const Center(
                             child: Column(
-                              mainAxisSize:
-                                  MainAxisSize.min,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.image,
-                                    size: 30,
-                                    color: Colors.white70),
-                                Text('Child Content',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 11,
-                                    )),
+                                Icon(
+                                  Icons.image,
+                                  size: 30,
+                                  color: Colors.white70,
+                                ),
+                                Text(
+                                  'Child Content',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                         // Tint overlay
                         Container(
-                          color: _tintColors[_tintColorIdx]
-                              .withValues(
-                                  alpha: _tintOpacity),
+                          color: _tintColors[_tintColorIdx].withValues(
+                            alpha: _tintOpacity,
+                          ),
                         ),
                       ],
                     ),
@@ -1367,40 +1359,40 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                 _designPoint(
                   'RenderObjectWithChildMixin',
                   'Your render object MUST mix in '
-                  'RenderObjectWithChildMixin to expose '
-                  'the .child property for the element.',
+                      'RenderObjectWithChildMixin to expose '
+                      'the .child property for the element.',
                   _kHighlight,
                 ),
                 const SizedBox(height: 6),
                 _designPoint(
                   'RenderProxyBox',
                   'For typical single-child wrappers, extend '
-                  'RenderProxyBox — it already mixes in '
-                  'the child mixin and forwards layout.',
+                      'RenderProxyBox — it already mixes in '
+                      'the child mixin and forwards layout.',
                   _kGreen,
                 ),
                 const SizedBox(height: 6),
                 _designPoint(
                   'markNeedsPaint / markNeedsLayout',
                   'Setters that change visual properties must '
-                  'call markNeedsPaint(). Setters changing '
-                  'layout must call markNeedsLayout().',
+                      'call markNeedsPaint(). Setters changing '
+                      'layout must call markNeedsLayout().',
                   _kAmber,
                 ),
                 const SizedBox(height: 6),
                 _designPoint(
                   'Const constructor',
                   'If all fields are final and parameters '
-                  'allow it, make the constructor const for '
-                  'widget identity optimization.',
+                      'allow it, make the constructor const for '
+                      'widget identity optimization.',
                   _kCyan,
                 ),
                 const SizedBox(height: 6),
                 _designPoint(
                   'updateRenderObject',
                   'Must update ALL properties — the framework '
-                  'reuses the same render object when the '
-                  'widget type matches.',
+                      'reuses the same render object when the '
+                      'widget type matches.',
                   _kWarning,
                 ),
               ],
@@ -1419,15 +1411,13 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
     );
   }
 
-  Widget _stepCard(
-      int num, String title, String code, Color color) {
+  Widget _stepCard(int num, String title, String code, Color color) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(
-            color: color.withValues(alpha: 0.25)),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1440,26 +1430,29 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: color.withValues(alpha: 0.5)),
+                  border: Border.all(color: color.withValues(alpha: 0.5)),
                 ),
                 child: Center(
-                  child: Text('$num',
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  child: Text(
+                    '$num',
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 6),
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                      color: color,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                    )),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1470,8 +1463,7 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
     );
   }
 
-  Widget _designPoint(
-      String title, String desc, Color color) {
+  Widget _designPoint(String title, String desc, Color color) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1479,25 +1471,22 @@ class _CustomWidgetTabState extends State<_CustomWidgetTab>
           width: 5,
           height: 5,
           margin: const EdgeInsets.only(top: 4),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                  )),
-              Text(desc,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 9)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _kDimText, fontSize: 9)),
             ],
           ),
         ),
@@ -1519,12 +1508,14 @@ BoxDecoration _cardDecor() {
 }
 
 Widget _sectionTitle(String title) {
-  return Text(title,
-      style: const TextStyle(
-        color: _kAccent,
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-      ));
+  return Text(
+    title,
+    style: const TextStyle(
+      color: _kAccent,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    ),
+  );
 }
 
 Widget _codeBlock(String code) {
@@ -1535,12 +1526,14 @@ Widget _codeBlock(String code) {
       color: _kSurface,
       borderRadius: BorderRadius.circular(6),
     ),
-    child: Text(code,
-        style: const TextStyle(
-          color: Colors.white70,
-          fontSize: 10,
-          fontFamily: 'monospace',
-        )),
+    child: Text(
+      code,
+      style: const TextStyle(
+        color: Colors.white70,
+        fontSize: 10,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -1552,13 +1545,13 @@ Widget _infoBanner(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.lightbulb_outline,
-            size: 14, color: _kAccent),
+        const Icon(Icons.lightbulb_outline, size: 14, color: _kAccent),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: const TextStyle(
-                color: _kDimText, fontSize: 11)),
+          child: Text(
+            text,
+            style: const TextStyle(color: _kDimText, fontSize: 11),
+          ),
         ),
       ],
     ),
@@ -1567,20 +1560,16 @@ Widget _infoBanner(String text) {
 
 Widget _badge(String label, Color color) {
   return Container(
-    padding: const EdgeInsets.symmetric(
-        horizontal: 8, vertical: 3),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.12),
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(
-          color: color.withValues(alpha: 0.4)),
+      border: Border.all(color: color.withValues(alpha: 0.4)),
     ),
-    child: Text(label,
-        style: TextStyle(
-          color: color,
-          fontSize: 8,
-          fontWeight: FontWeight.w600,
-        )),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 8, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -1588,12 +1577,14 @@ Widget _expandHeader(String text, bool expanded) {
   return Row(
     children: [
       Expanded(
-        child: Text(text,
-            style: const TextStyle(
-              color: _kAccent,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            )),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: _kAccent,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       Icon(
         expanded ? Icons.expand_less : Icons.expand_more,
@@ -1604,42 +1595,37 @@ Widget _expandHeader(String text, bool expanded) {
   );
 }
 
-Widget _hierarchyNode(
-    String name, Color color, String desc, int depth) {
+Widget _hierarchyNode(String name, Color color, String desc, int depth) {
   return Container(
     margin: EdgeInsets.only(left: depth * 12.0),
     padding: const EdgeInsets.all(6),
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.06),
       borderRadius: BorderRadius.circular(4),
-      border: Border.all(
-          color: color.withValues(alpha: 0.3)),
+      border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     child: Row(
       children: [
         Container(
           width: 5,
           height: 5,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.w600,
-                  )),
-              Text(desc,
-                  style: const TextStyle(
-                    color: _kDimText, fontSize: 8)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _kDimText, fontSize: 8)),
             ],
           ),
         ),
@@ -1651,9 +1637,6 @@ Widget _hierarchyNode(
 Widget _hierarchyArrow() {
   return const Padding(
     padding: EdgeInsets.only(left: 2),
-    child: Icon(Icons.arrow_downward,
-        size: 10, color: _kDimText),
+    child: Icon(Icons.arrow_downward, size: 10, color: _kDimText),
   );
 }
-
-

@@ -105,8 +105,7 @@ class _PipelinePainter extends CustomPainter {
         height: boxH,
       );
       final bool isBoundary = i == 2;
-      final Paint fill = Paint()
-        ..color = isBoundary ? _accentWarn : _cardEdge;
+      final Paint fill = Paint()..color = isBoundary ? _accentWarn : _cardEdge;
       final Paint border = Paint()
         ..color = isBoundary ? _accentBad : _accentA
         ..style = PaintingStyle.stroke
@@ -129,10 +128,7 @@ class _PipelinePainter extends CustomPainter {
         maxLines: 2,
       );
       tp.layout(maxWidth: slotW - 16);
-      tp.paint(
-        canvas,
-        Offset(cx - tp.width / 2, y - tp.height / 2),
-      );
+      tp.paint(canvas, Offset(cx - tp.width / 2, y - tp.height / 2));
 
       // Arrow to next.
       if (i < _stages.length - 1) {
@@ -157,12 +153,7 @@ class _PipelinePainter extends CustomPainter {
     final double topY = y - boxH / 2 - 6;
     final Path loop = Path()
       ..moveTo(cxBoundary - 22, topY)
-      ..quadraticBezierTo(
-        cxBoundary,
-        topY - 28,
-        cxBoundary + 22,
-        topY,
-      );
+      ..quadraticBezierTo(cxBoundary, topY - 28, cxBoundary + 22, topY);
     canvas.drawPath(
       loop,
       Paint()
@@ -189,10 +180,7 @@ class _PipelinePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     caption.layout();
-    caption.paint(
-      canvas,
-      Offset(cxBoundary - caption.width / 2, topY - 44),
-    );
+    caption.paint(canvas, Offset(cxBoundary - caption.width / 2, topY - 44));
 
     // Title.
     final TextPainter title = TextPainter(
@@ -261,8 +249,7 @@ class _MixinStackPainter extends CustomPainter {
       final _MixinPlate p = plates[i];
       final double y = pad + i * (plateH + 4);
       final Rect r = Rect.fromLTWH(pad, y, plateW, plateH);
-      final RRect rr =
-          RRect.fromRectAndRadius(r, const Radius.circular(8));
+      final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(8));
       final Paint fill = Paint()..color = _cardEdge;
       final Paint band = Paint()..color = p.color;
       canvas.drawRRect(rr, fill);
@@ -311,10 +298,7 @@ class _MixinStackPainter extends CustomPainter {
         textDirection: TextDirection.ltr,
       );
       sub.layout(maxWidth: plateW - 24);
-      sub.paint(
-        canvas,
-        Offset(r.left + 18, r.top + 24),
-      );
+      sub.paint(canvas, Offset(r.left + 18, r.top + 24));
     }
 
     // Composition arrow on the right.
@@ -391,13 +375,7 @@ class _BoundaryTreePainter extends CustomPainter {
       _TreeNode(id: 0, x: 0.5, y: 0.18, label: 'View', boundary: false),
       _TreeNode(id: 1, x: 0.3, y: 0.38, label: 'Scaffold', boundary: false),
       _TreeNode(id: 2, x: 0.7, y: 0.38, label: 'Overlay', boundary: false),
-      _TreeNode(
-        id: 3,
-        x: 0.2,
-        y: 0.6,
-        label: 'ThreeMixin RO',
-        boundary: true,
-      ),
+      _TreeNode(id: 3, x: 0.2, y: 0.6, label: 'ThreeMixin RO', boundary: true),
       _TreeNode(id: 4, x: 0.45, y: 0.6, label: 'Padding', boundary: false),
       _TreeNode(id: 5, x: 0.7, y: 0.6, label: 'Stack', boundary: false),
       _TreeNode(id: 6, x: 0.2, y: 0.82, label: 'leaf', boundary: false),
@@ -440,8 +418,7 @@ class _BoundaryTreePainter extends CustomPainter {
     for (final _TreeNode n in nodes) {
       final Offset c = pos(n);
       final double r = n.boundary ? 28 : 22;
-      final Paint fill = Paint()
-        ..color = n.boundary ? _accentWarn : _cardEdge;
+      final Paint fill = Paint()..color = n.boundary ? _accentWarn : _cardEdge;
       final Paint border = Paint()
         ..color = n.boundary ? _accentBad : _accentA
         ..style = PaintingStyle.stroke
@@ -521,10 +498,7 @@ class _TreeNode {
 // stacked vertically and each is labeled with mock parentData info.
 // ─────────────────────────────────────────────────────────────────────────
 class _ThreeMixinMockPainter extends CustomPainter {
-  _ThreeMixinMockPainter({
-    required this.children,
-    required this.label,
-  });
+  _ThreeMixinMockPainter({required this.children, required this.label});
 
   final List<_MockChild> children;
   final String label;
@@ -658,11 +632,7 @@ class _SectionHeader extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: _inkDim,
-              fontSize: 13,
-              height: 1.35,
-            ),
+            style: const TextStyle(color: _inkDim, fontSize: 13, height: 1.35),
           ),
         ],
       ),
@@ -801,11 +771,7 @@ class _Bullet extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: _ink,
-                fontSize: 13,
-                height: 1.42,
-              ),
+              style: const TextStyle(color: _ink, fontSize: 13, height: 1.42),
             ),
           ),
         ],
@@ -904,11 +870,7 @@ class _UsageMockCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: _inkDim,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: _inkDim, fontSize: 12, height: 1.4),
           ),
           const SizedBox(height: 10),
           Container(
@@ -1004,10 +966,7 @@ Widget _buildPipelineDiagram() {
         const SizedBox(height: 8),
         SizedBox(
           height: 120,
-          child: CustomPaint(
-            painter: _PipelinePainter(),
-            size: Size.infinite,
-          ),
+          child: CustomPaint(painter: _PipelinePainter(), size: Size.infinite),
         ),
         const SizedBox(height: 10),
         const Text(
@@ -1953,15 +1912,11 @@ class _BadgePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Rect r = Offset.zero & size;
     final Paint bg = Paint()
-      ..shader = ui.Gradient.linear(
-        r.topLeft,
-        r.bottomRight,
-        const <Color>[_accentA, _mixinC],
-      );
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(r, const Radius.circular(12)),
-      bg,
-    );
+      ..shader = ui.Gradient.linear(r.topLeft, r.bottomRight, const <Color>[
+        _accentA,
+        _mixinC,
+      ]);
+    canvas.drawRRect(RRect.fromRectAndRadius(r, const Radius.circular(12)), bg);
 
     // Three layered plates.
     final double centerY = size.height / 2;
@@ -2280,10 +2235,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         child: SafeArea(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: children,
-          ),
+          child: ListView(padding: EdgeInsets.zero, children: children),
         ),
       ),
     ),

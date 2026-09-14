@@ -68,11 +68,7 @@ class _HeroBannerSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF1A237E),
-            Color(0xFF3949AB),
-            Color(0xFF5C6BC0),
-          ],
+          colors: [Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF5C6BC0)],
           stops: [0.0, 0.55, 1.0],
         ),
         borderRadius: BorderRadius.circular(20),
@@ -150,7 +146,10 @@ class _HeroBannerSection extends StatelessWidget {
             runSpacing: 10,
             children: const [
               _HeroChip(label: 'send()', icon: Icons.upload),
-              _HeroChip(label: 'setMessageHandler()', icon: Icons.call_received),
+              _HeroChip(
+                label: 'setMessageHandler()',
+                icon: Icons.call_received,
+              ),
               _HeroChip(label: 'handlePlatformMessage()', icon: Icons.history),
               _HeroChip(label: 'ByteData ↔ ByteData?', icon: Icons.data_object),
               _HeroChip(label: 'Channel-keyed', icon: Icons.tag),
@@ -174,9 +173,7 @@ class _HeroChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.18),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.4),
-        ),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -205,14 +202,16 @@ class _ClassAnatomySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionFrame(
       title: 'Class Anatomy',
-      subtitle: 'Abstract surface, lifecycle methods, and ServicesBinding default',
+      subtitle:
+          'Abstract surface, lifecycle methods, and ServicesBinding default',
       icon: Icons.account_tree,
       accent: const Color(0xFF1565C0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const [
           _MethodCard(
-            signature: "Future<ByteData?> send(String channel, ByteData? message)",
+            signature:
+                "Future<ByteData?> send(String channel, ByteData? message)",
             kind: 'Dart → Platform',
             description:
                 'Outbound. Encodes nothing; sends raw bytes. Returns the reply '
@@ -221,7 +220,8 @@ class _ClassAnatomySection extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _MethodCard(
-            signature: "void setMessageHandler(String channel, MessageHandler? handler)",
+            signature:
+                "void setMessageHandler(String channel, MessageHandler? handler)",
             kind: 'Platform → Dart',
             description:
                 'Inbound. Installs the receive callback for the channel. Passing '
@@ -230,7 +230,8 @@ class _ClassAnatomySection extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _MethodCard(
-            signature: "Future<void> handlePlatformMessage(String channel, ByteData? data, PlatformMessageResponseCallback? callback)",
+            signature:
+                "Future<void> handlePlatformMessage(String channel, ByteData? data, PlatformMessageResponseCallback? callback)",
             kind: 'Legacy entrypoint',
             description:
                 'Pre-1.17 entrypoint kept for compatibility. Newer code uses the '
@@ -240,7 +241,8 @@ class _ClassAnatomySection extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _MethodCard(
-            signature: "typedef MessageHandler = Future<ByteData?> Function(ByteData? message)",
+            signature:
+                "typedef MessageHandler = Future<ByteData?> Function(ByteData? message)",
             kind: 'Handler typedef',
             description:
                 'Always async — even synchronous-looking handlers must yield via '
@@ -258,7 +260,8 @@ class _ClassAnatomySection extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _MethodCard(
-            signature: "class BackgroundIsolateBinaryMessenger extends BinaryMessenger",
+            signature:
+                "class BackgroundIsolateBinaryMessenger extends BinaryMessenger",
             kind: 'Non-root isolate variant',
             description:
                 'Created via ensureInitialized(rootIsolateToken). Tunnels binary '
@@ -306,7 +309,10 @@ class _MethodCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
@@ -384,9 +390,7 @@ class _SectionFrame extends StatelessWidget {
             offset: const Offset(0, 6),
           ),
         ],
-        border: Border.all(
-          color: accent.withValues(alpha: 0.15),
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.15)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -400,10 +404,7 @@ class _SectionFrame extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [
-                      accent,
-                      accent.withValues(alpha: 0.6),
-                    ],
+                    colors: [accent, accent.withValues(alpha: 0.6)],
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -459,10 +460,7 @@ class _ChannelArchitectureSection extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFE0F2F1),
-              Color(0xFFB2DFDB),
-            ],
+            colors: [Color(0xFFE0F2F1), Color(0xFFB2DFDB)],
           ),
           borderRadius: BorderRadius.circular(14),
         ),
@@ -602,9 +600,7 @@ class _ArchArrow extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Colors.black.withValues(alpha: 0.15),
-              ),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.15)),
             ),
             child: Text(
               label,
@@ -688,10 +684,7 @@ class _HexBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1E1E2D),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: color.withValues(alpha: 0.45),
-          width: 1.2,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.45), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -813,10 +806,7 @@ class _LegendRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Text(
-            meaning,
-            style: const TextStyle(fontSize: 13),
-          ),
+          Text(meaning, style: const TextStyle(fontSize: 13)),
         ],
       ),
     );
@@ -835,7 +825,9 @@ class _ReplyEnvelopeBlock extends StatelessWidget {
           colors: [Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
         ),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFF2E7D32).withValues(alpha: 0.4)),
+        border: Border.all(
+          color: const Color(0xFF2E7D32).withValues(alpha: 0.4),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1021,9 +1013,7 @@ class _CodecRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(
-            color: Colors.black.withValues(alpha: 0.06),
-          ),
+          bottom: BorderSide(color: Colors.black.withValues(alpha: 0.06)),
         ),
       ),
       child: Row(
@@ -1044,10 +1034,7 @@ class _CodecRow extends StatelessWidget {
             flex: 3,
             child: Text(
               codec,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.5,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
             ),
           ),
           Expanded(
@@ -1093,11 +1080,7 @@ class _BackgroundIsolateSection extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: [
-              Color(0xFFE0F7FA),
-              Color(0xFFB2EBF2),
-              Color(0xFFE0F7FA),
-            ],
+            colors: [Color(0xFFE0F7FA), Color(0xFFB2EBF2), Color(0xFFE0F7FA)],
           ),
           borderRadius: BorderRadius.circular(12),
         ),
@@ -1353,7 +1336,11 @@ class _ReplayPanel extends StatelessWidget {
           _ReplayLine(time: '00.018', dir: '→', payload: 'getCharging()'),
           _ReplayLine(time: '00.020', dir: '←', payload: 'success(true)'),
           _ReplayLine(time: '00.044', dir: '→', payload: 'getUnknown()'),
-          _ReplayLine(time: '00.046', dir: '←', payload: 'error("unimplemented")'),
+          _ReplayLine(
+            time: '00.046',
+            dir: '←',
+            payload: 'error("unimplemented")',
+          ),
         ],
       ),
     );
@@ -1400,10 +1387,7 @@ class _ReplayLine extends StatelessWidget {
           Expanded(
             child: Text(
               payload,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.5,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
             ),
           ),
         ],
@@ -1428,7 +1412,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'A',
             title: 'Mock handler in a widget test',
-            body: 'Use TestDefaultBinaryMessengerBinding to install a handler '
+            body:
+                'Use TestDefaultBinaryMessengerBinding to install a handler '
                 'that intercepts a real plugin channel and returns a canned '
                 'reply. Always clear it in tearDown to avoid leaks across tests.',
             color: Color(0xFF2E7D32),
@@ -1437,7 +1422,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'B',
             title: 'Error envelope from native side',
-            body: 'Return MethodCodec.encodeErrorEnvelope(code: ..., message: ..., '
+            body:
+                'Return MethodCodec.encodeErrorEnvelope(code: ..., message: ..., '
                 'details: ...). On the Dart side this surfaces as a '
                 'PlatformException — handle it in invokeMethod call sites.',
             color: Color(0xFFC62828),
@@ -1446,7 +1432,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'C',
             title: 'Oneway send (no reply expected)',
-            body: 'send(channel, message) returns Future<ByteData?>. Native '
+            body:
+                'send(channel, message) returns Future<ByteData?>. Native '
                 'side may simply not reply; the future resolves to null. '
                 'Useful for fire-and-forget telemetry channels.',
             color: Color(0xFF1565C0),
@@ -1455,7 +1442,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'D',
             title: 'Per-channel custom messenger override',
-            body: 'MethodChannel takes an optional BinaryMessenger argument. '
+            body:
+                'MethodChannel takes an optional BinaryMessenger argument. '
                 'Inject a test instance to make a single channel mockable '
                 'without touching the global ServicesBinding default.',
             color: Color(0xFF6A1B9A),
@@ -1464,7 +1452,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'E',
             title: 'Reply forwarding & inspection',
-            body: 'Wrap an existing BinaryMessenger to log every send/handle. '
+            body:
+                'Wrap an existing BinaryMessenger to log every send/handle. '
                 'Forward the call, capture the result, return it unchanged — '
                 'great for diagnostic builds and integration captures.',
             color: Color(0xFFEF6C00),
@@ -1473,7 +1462,8 @@ class _CommonPatternsSection extends StatelessWidget {
           _PatternCard(
             badge: 'F',
             title: 'Per-handler codec scoping',
-            body: 'Decode messages with the same codec used to encode them. '
+            body:
+                'Decode messages with the same codec used to encode them. '
                 'Mixing StandardMessageCodec on one side and JSONMessageCodec '
                 'on the other yields opaque, hard-to-debug failures.',
             color: Color(0xFF00838F),
@@ -1581,11 +1571,7 @@ class _PitfallsSection extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFFFF3E0),
-              Color(0xFFFFE0B2),
-              Color(0xFFFFCCBC),
-            ],
+            colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2), Color(0xFFFFCCBC)],
           ),
           borderRadius: BorderRadius.circular(12),
         ),
@@ -1595,49 +1581,56 @@ class _PitfallsSection extends StatelessWidget {
             _PitfallTile(
               icon: Icons.error_outline,
               title: 'Forgetting to install the handler',
-              body: 'send() returns null forever. There is no exception — only '
+              body:
+                  'send() returns null forever. There is no exception — only '
                   'silence. Always call setMessageHandler before triggering '
                   'inbound messages in tests.',
             ),
             _PitfallTile(
               icon: Icons.lock_clock,
               title: 'Blocking the platform thread',
-              body: 'Long-running synchronous work inside a handler stalls the '
+              body:
+                  'Long-running synchronous work inside a handler stalls the '
                   'engine. Offload heavy work to an isolate and respond '
                   'asynchronously.',
             ),
             _PitfallTile(
               icon: Icons.cancel_presentation,
               title: 'Mismatched codecs',
-              body: 'Encoding with JSONMessageCodec but decoding with '
+              body:
+                  'Encoding with JSONMessageCodec but decoding with '
                   'StandardMessageCodec produces FormatException or garbage '
                   'shaped data. Pin the codec at the channel constructor.',
             ),
             _PitfallTile(
               icon: Icons.timer_off,
               title: 'Awaiting a reply that never comes',
-              body: 'Native side that never calls reply leaks the Dart-side '
+              body:
+                  'Native side that never calls reply leaks the Dart-side '
                   'completer. Always invoke the PlatformMessageResponseCallback '
                   'exactly once, even when the result is conceptually null.',
             ),
             _PitfallTile(
               icon: Icons.shuffle,
               title: 'Channel name collisions',
-              body: 'Two plugins choosing the same channel name silently fight '
+              body:
+                  'Two plugins choosing the same channel name silently fight '
                   'for the single handler slot. Namespace channels with the '
                   'plugin package id.',
             ),
             _PitfallTile(
               icon: Icons.flip_camera_android,
               title: 'Using a foreground messenger off the root isolate',
-              body: 'On non-root isolates, defaultBinaryMessenger is not '
+              body:
+                  'On non-root isolates, defaultBinaryMessenger is not '
                   'available. You must build a BackgroundIsolateBinaryMessenger '
                   'with ensureInitialized(rootIsolateToken).',
             ),
             _PitfallTile(
               icon: Icons.bug_report,
               title: 'Test handler leaking across tests',
-              body: 'Forgetting to clear a mock handler in tearDown will '
+              body:
+                  'Forgetting to clear a mock handler in tearDown will '
                   'interfere with later tests, often manifesting as flaky '
                   'platform exception assertions.',
             ),
@@ -1716,11 +1709,7 @@ class _FooterSection extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF263238),
-            Color(0xFF37474F),
-            Color(0xFF455A64),
-          ],
+          colors: [Color(0xFF263238), Color(0xFF37474F), Color(0xFF455A64)],
         ),
         borderRadius: BorderRadius.circular(18),
       ),
@@ -1799,9 +1788,7 @@ class _FooterSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.18),
-              ),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
             ),
             child: Text(
               'BinaryMessenger is the thinnest possible abstraction: a named '
@@ -1872,4 +1859,3 @@ class _ReferenceLine extends StatelessWidget {
     );
   }
 }
-

@@ -146,9 +146,15 @@ dynamic build(BuildContext context) {
         bodyMedium: TextStyle(color: _UsnTheme.ink, fontSize: 14),
         bodySmall: TextStyle(color: _UsnTheme.inkSoft, fontSize: 12),
         titleMedium: TextStyle(
-            color: _UsnTheme.ink, fontSize: 16, fontWeight: FontWeight.w700),
+          color: _UsnTheme.ink,
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+        ),
         titleLarge: TextStyle(
-            color: _UsnTheme.ink, fontSize: 20, fontWeight: FontWeight.w800),
+          color: _UsnTheme.ink,
+          fontSize: 20,
+          fontWeight: FontWeight.w800,
+        ),
       ),
       dividerColor: _UsnTheme.divider,
     ),
@@ -176,11 +182,12 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
 
   // --- multi-scrollable dashboard state ----------------------------------
   final List<_UsnRec> _dashSamples = <_UsnRec>[];
-  final Map<String, ScrollDirection> _dashDirections = <String, ScrollDirection>{
-    'feed-a': ScrollDirection.idle,
-    'feed-b': ScrollDirection.idle,
-    'feed-c': ScrollDirection.idle,
-  };
+  final Map<String, ScrollDirection> _dashDirections =
+      <String, ScrollDirection>{
+        'feed-a': ScrollDirection.idle,
+        'feed-b': ScrollDirection.idle,
+        'feed-c': ScrollDirection.idle,
+      };
   final Map<String, _UsnCounters> _dashCounters = <String, _UsnCounters>{
     'feed-a': _UsnCounters(),
     'feed-b': _UsnCounters(),
@@ -240,7 +247,9 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
       _primarySamples.add(rec);
       if (_primarySamples.length > _maxSamplesPerStrip) {
         _primarySamples.removeRange(
-            0, _primarySamples.length - _maxSamplesPerStrip);
+          0,
+          _primarySamples.length - _maxSamplesPerStrip,
+        );
       }
     });
     return false;
@@ -265,7 +274,9 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
       _dashSamples.add(rec);
       if (_dashSamples.length > _maxSamplesPerStrip * 2) {
         _dashSamples.removeRange(
-            0, _dashSamples.length - _maxSamplesPerStrip * 2);
+          0,
+          _dashSamples.length - _maxSamplesPerStrip * 2,
+        );
       }
     });
     return false;
@@ -314,8 +325,9 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
     }
     if (c == null || !c.hasClients) return;
     final pos = c.position;
-    final target =
-        pos.pixels < pos.maxScrollExtent / 2 ? pos.maxScrollExtent : 0.0;
+    final target = pos.pixels < pos.maxScrollExtent / 2
+        ? pos.maxScrollExtent
+        : 0.0;
     await c.animateTo(
       target,
       duration: const Duration(milliseconds: 700),
@@ -390,10 +402,7 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
           SizedBox(width: 10),
           Text(
             'UserScrollNotification — Seismograph',
-            style: TextStyle(
-              color: _UsnTheme.ink,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: _UsnTheme.ink, fontWeight: FontWeight.w800),
           ),
         ],
       ),
@@ -424,69 +433,73 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _UsnFactGrid(facts: const <_UsnFact>[
-            _UsnFact(
-              icon: Icons.category,
-              label: 'Class',
-              value: 'UserScrollNotification extends ScrollNotification',
-            ),
-            _UsnFact(
-              icon: Icons.swap_vert,
-              label: 'Field',
-              value: 'ScrollDirection direction — idle / forward / reverse',
-            ),
-            _UsnFact(
-              icon: Icons.tune,
-              label: 'Fires when',
-              value:
-                  'The user changes the direction of the drag on a Scrollable.',
-            ),
-            _UsnFact(
-              icon: Icons.layers,
-              label: 'Bubbles via',
-              value: 'NotificationListener; depth increments per Viewport.',
-            ),
-            _UsnFact(
-              icon: Icons.compare_arrows,
-              label: 'Not the same as',
-              value:
-                  'ScrollStartNotification (drag begins) or ScrollUpdateNotification (offset delta).',
-            ),
-            _UsnFact(
-              icon: Icons.auto_graph,
-              label: 'Use case',
-              value:
-                  'Hide/show toolbars, pause animations, report engagement analytics.',
-            ),
-          ]),
+          _UsnFactGrid(
+            facts: const <_UsnFact>[
+              _UsnFact(
+                icon: Icons.category,
+                label: 'Class',
+                value: 'UserScrollNotification extends ScrollNotification',
+              ),
+              _UsnFact(
+                icon: Icons.swap_vert,
+                label: 'Field',
+                value: 'ScrollDirection direction — idle / forward / reverse',
+              ),
+              _UsnFact(
+                icon: Icons.tune,
+                label: 'Fires when',
+                value:
+                    'The user changes the direction of the drag on a Scrollable.',
+              ),
+              _UsnFact(
+                icon: Icons.layers,
+                label: 'Bubbles via',
+                value: 'NotificationListener; depth increments per Viewport.',
+              ),
+              _UsnFact(
+                icon: Icons.compare_arrows,
+                label: 'Not the same as',
+                value:
+                    'ScrollStartNotification (drag begins) or ScrollUpdateNotification (offset delta).',
+              ),
+              _UsnFact(
+                icon: Icons.auto_graph,
+                label: 'Use case',
+                value:
+                    'Hide/show toolbars, pause animations, report engagement analytics.',
+              ),
+            ],
+          ),
           const SizedBox(height: 14),
-          _UsnCompareTable(rows: const <_UsnCompareRow>[
-            _UsnCompareRow(
-              lifecycle: 'ScrollStartNotification',
-              fires: 'Once per user gesture or animation start',
-              carries: 'metrics',
-            ),
-            _UsnCompareRow(
-              lifecycle: 'ScrollUpdateNotification',
-              fires: 'Every pixel change while scrolling',
-              carries: 'metrics, scrollDelta, dragDetails',
-            ),
-            _UsnCompareRow(
-              lifecycle: 'UserScrollNotification',
-              fires: 'User changes drag direction (incl. idle)',
-              carries: 'metrics, direction',
-            ),
-            _UsnCompareRow(
-              lifecycle: 'ScrollEndNotification',
-              fires: 'Scroll activity ends',
-              carries: 'metrics, dragDetails',
-            ),
-            _UsnCompareRow(
-              lifecycle: 'OverscrollNotification',
-              fires: 'Attempted scroll beyond bounds',
-              carries: 'metrics, overscroll, velocity',
-            ),
-          ]),
+          _UsnCompareTable(
+            rows: const <_UsnCompareRow>[
+              _UsnCompareRow(
+                lifecycle: 'ScrollStartNotification',
+                fires: 'Once per user gesture or animation start',
+                carries: 'metrics',
+              ),
+              _UsnCompareRow(
+                lifecycle: 'ScrollUpdateNotification',
+                fires: 'Every pixel change while scrolling',
+                carries: 'metrics, scrollDelta, dragDetails',
+              ),
+              _UsnCompareRow(
+                lifecycle: 'UserScrollNotification',
+                fires: 'User changes drag direction (incl. idle)',
+                carries: 'metrics, direction',
+              ),
+              _UsnCompareRow(
+                lifecycle: 'ScrollEndNotification',
+                fires: 'Scroll activity ends',
+                carries: 'metrics, dragDetails',
+              ),
+              _UsnCompareRow(
+                lifecycle: 'OverscrollNotification',
+                fires: 'Attempted scroll beyond bounds',
+                carries: 'metrics, overscroll, velocity',
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -576,9 +589,7 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
               ),
               TextButton.icon(
                 onPressed: _autoScrollPrimary,
-                style: TextButton.styleFrom(
-                  foregroundColor: _UsnTheme.teal,
-                ),
+                style: TextButton.styleFrom(foregroundColor: _UsnTheme.teal),
                 icon: const Icon(Icons.play_arrow, size: 18),
                 label: const Text('Auto-scroll'),
               ),
@@ -605,10 +616,11 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
           ),
           const SizedBox(height: 8),
           _UsnHelperCaption(
-              text:
-                  'Drag the list above. Note how ScrollDirection flips between '
-                  'forward and reverse when you reverse direction, and returns '
-                  'to idle when the drag ends.'),
+            text:
+                'Drag the list above. Note how ScrollDirection flips between '
+                'forward and reverse when you reverse direction, and returns '
+                'to idle when the drag ends.',
+          ),
         ],
       ),
     );
@@ -663,10 +675,7 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
           const SizedBox(height: 10),
           Text(
             'Total captured: ${c.total}',
-            style: const TextStyle(
-              color: _UsnTheme.inkSoft,
-              fontSize: 13,
-            ),
+            style: const TextStyle(color: _UsnTheme.inkSoft, fontSize: 13),
           ),
         ],
       ),
@@ -779,10 +788,7 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(
-                color: swatch,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: swatch, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -801,10 +807,7 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
               onPressed: () => _autoScrollDash(source),
               icon: const Icon(Icons.play_arrow, size: 16),
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(
-                minWidth: 28,
-                minHeight: 28,
-              ),
+              constraints: const BoxConstraints(minWidth: 28, minHeight: 28),
               color: _UsnTheme.teal,
             ),
           ],
@@ -902,10 +905,11 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
           ),
           const SizedBox(height: 8),
           _UsnHelperCaption(
-              text:
-                  'Implementation tip: only toggle visibility when the direction '
-                  'actually changed. This avoids rebuilding the pinned widget '
-                  'on every duplicate event.'),
+            text:
+                'Implementation tip: only toggle visibility when the direction '
+                'actually changed. This avoids rebuilding the pinned widget '
+                'on every duplicate event.',
+          ),
         ],
       ),
     );
@@ -925,18 +929,20 @@ class _UsnSeismographAppState extends State<_UsnSeismographApp> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _UsnCodePreview(lines: const <String>[
-            'NotificationListener<UserScrollNotification>(',
-            '  onNotification: (n) {',
-            '    if (suppressIdle && n.direction == ScrollDirection.idle) {',
-            '      return false; // drop the event before doing any work',
-            '    }',
-            '    _record(n);',
-            '    return false; // let the notification continue to bubble',
-            '  },',
-            '  child: _theScrollable,',
-            ')',
-          ]),
+          _UsnCodePreview(
+            lines: const <String>[
+              'NotificationListener<UserScrollNotification>(',
+              '  onNotification: (n) {',
+              '    if (suppressIdle && n.direction == ScrollDirection.idle) {',
+              '      return false; // drop the event before doing any work',
+              '    }',
+              '    _record(n);',
+              '    return false; // let the notification continue to bubble',
+              '  },',
+              '  child: _theScrollable,',
+              ')',
+            ],
+          ),
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
@@ -1145,8 +1151,11 @@ class _UsnFact {
   final IconData icon;
   final String label;
   final String value;
-  const _UsnFact(
-      {required this.icon, required this.label, required this.value});
+  const _UsnFact({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 }
 
 class _UsnFactGrid extends StatelessWidget {
@@ -1161,20 +1170,22 @@ class _UsnFactGrid extends StatelessWidget {
         final rows = <Widget>[];
         for (var i = 0; i < facts.length; i += cols) {
           final chunk = facts.skip(i).take(cols).toList();
-          rows.add(Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              for (var j = 0; j < chunk.length; j++) ...<Widget>[
-                Expanded(child: _UsnFactTile(fact: chunk[j])),
-                if (j != chunk.length - 1) const SizedBox(width: 10),
-              ],
-              if (chunk.length < cols)
-                for (var k = chunk.length; k < cols; k++) ...<Widget>[
-                  const SizedBox(width: 10),
-                  const Expanded(child: SizedBox.shrink()),
+          rows.add(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                for (var j = 0; j < chunk.length; j++) ...<Widget>[
+                  Expanded(child: _UsnFactTile(fact: chunk[j])),
+                  if (j != chunk.length - 1) const SizedBox(width: 10),
                 ],
-            ],
-          ));
+                if (chunk.length < cols)
+                  for (var k = chunk.length; k < cols; k++) ...<Widget>[
+                    const SizedBox(width: 10),
+                    const Expanded(child: SizedBox.shrink()),
+                  ],
+              ],
+            ),
+          );
           rows.add(const SizedBox(height: 10));
         }
         if (rows.isNotEmpty) rows.removeLast();
@@ -1285,10 +1296,11 @@ class _UsnCompareTable extends StatelessWidget {
                   child: Text(
                     'Notification',
                     style: TextStyle(
-                        fontSize: 11,
-                        color: _UsnTheme.inkSoft,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.6),
+                      fontSize: 11,
+                      color: _UsnTheme.inkSoft,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.6,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -1296,10 +1308,11 @@ class _UsnCompareTable extends StatelessWidget {
                   child: Text(
                     'Fires when',
                     style: TextStyle(
-                        fontSize: 11,
-                        color: _UsnTheme.inkSoft,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.6),
+                      fontSize: 11,
+                      color: _UsnTheme.inkSoft,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.6,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -1307,10 +1320,11 @@ class _UsnCompareTable extends StatelessWidget {
                   child: Text(
                     'Carries',
                     style: TextStyle(
-                        fontSize: 11,
-                        color: _UsnTheme.inkSoft,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.6),
+                      fontSize: 11,
+                      color: _UsnTheme.inkSoft,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.6,
+                    ),
                   ),
                 ),
               ],
@@ -1414,8 +1428,10 @@ class _UsnSliderRow extends StatelessWidget {
             ),
           ),
         ),
-        Text(minLabel,
-            style: const TextStyle(color: _UsnTheme.mute, fontSize: 11)),
+        Text(
+          minLabel,
+          style: const TextStyle(color: _UsnTheme.mute, fontSize: 11),
+        ),
         Expanded(
           child: SliderTheme(
             data: SliderTheme.of(context).copyWith(
@@ -1424,8 +1440,7 @@ class _UsnSliderRow extends StatelessWidget {
               thumbColor: _UsnTheme.needle,
               overlayColor: _UsnTheme.needle.withValues(alpha: 0.2),
               valueIndicatorColor: _UsnTheme.needle,
-              valueIndicatorTextStyle:
-                  const TextStyle(color: _UsnTheme.paper),
+              valueIndicatorTextStyle: const TextStyle(color: _UsnTheme.paper),
             ),
             child: Slider(
               value: value,
@@ -1437,8 +1452,10 @@ class _UsnSliderRow extends StatelessWidget {
             ),
           ),
         ),
-        Text(maxLabel,
-            style: const TextStyle(color: _UsnTheme.mute, fontSize: 11)),
+        Text(
+          maxLabel,
+          style: const TextStyle(color: _UsnTheme.mute, fontSize: 11),
+        ),
         const SizedBox(width: 10),
         SizedBox(
           width: 54,
@@ -2317,11 +2334,7 @@ class _UsnSeismographPainter extends CustomPainter {
       final s = slice[i];
       final x = (i / (visible - 1)) * size.width;
       final y = baseY - (baseY - topY) * s.normalizedOffset;
-      canvas.drawCircle(
-        Offset(x, y),
-        2.4,
-        Paint()..color = _colorFor(s),
-      );
+      canvas.drawCircle(Offset(x, y), 2.4, Paint()..color = _colorFor(s));
     }
   }
 
@@ -2365,12 +2378,7 @@ class _UsnSeismographPainter extends CustomPainter {
         ScrollDirection.reverse => 10.0,
       };
       final color = _colorFor(s);
-      final rect = Rect.fromLTWH(
-        x - 1.2,
-        baseY + 2,
-        2.4,
-        barHeight,
-      );
+      final rect = Rect.fromLTWH(x - 1.2, baseY + 2, 2.4, barHeight);
       canvas.drawRect(rect, Paint()..color = color.withValues(alpha: 0.8));
 
       if (showDepth && s.depth > 0) {
@@ -2437,10 +2445,7 @@ class _UsnSeismographPainter extends CustomPainter {
     double cursor = 12;
     for (final item in legendItems) {
       final chip = Paint()..color = item.value;
-      canvas.drawRect(
-        Rect.fromLTWH(cursor, 4, 10, 4),
-        chip,
-      );
+      canvas.drawRect(Rect.fromLTWH(cursor, 4, 10, 4), chip);
       final tp = TextPainter(
         text: TextSpan(
           text: item.key,

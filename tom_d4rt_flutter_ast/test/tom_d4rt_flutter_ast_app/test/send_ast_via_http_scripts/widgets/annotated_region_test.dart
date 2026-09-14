@@ -156,7 +156,8 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.system_update,
+                    Icon(
+                      Icons.system_update,
                       color: _basicDarkIcons ? Colors.black : Colors.white,
                     ),
                     const SizedBox(height: 8),
@@ -171,7 +172,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                       'Status bar icons would be ${_basicDarkIcons ? "dark" : "light"}',
                       style: TextStyle(
                         fontSize: 12,
-                        color: _basicDarkIcons ? Colors.black54 : Colors.white70,
+                        color: _basicDarkIcons
+                            ? Colors.black54
+                            : Colors.white70,
                       ),
                     ),
                   ],
@@ -186,7 +189,10 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   label: const Text('Dark Icons'),
                   selected: _basicDarkIcons,
                   onSelected: (s) {
-                    if (s) setState(() { _basicDarkIcons = true; });
+                    if (s)
+                      setState(() {
+                        _basicDarkIcons = true;
+                      });
                     print('Basic: dark icons');
                   },
                 ),
@@ -195,7 +201,10 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   label: const Text('Light Icons'),
                   selected: !_basicDarkIcons,
                   onSelected: (s) {
-                    if (s) setState(() { _basicDarkIcons = false; });
+                    if (s)
+                      setState(() {
+                        _basicDarkIcons = false;
+                      });
                     print('Basic: light icons');
                   },
                 ),
@@ -217,7 +226,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
     print('Preset: $_statusBarPreset');
 
     final presets = [
-      {'name': 'Transparent', 'color': Colors.transparent, 'icons': Brightness.dark},
+      {
+        'name': 'Transparent',
+        'color': Colors.transparent,
+        'icons': Brightness.dark,
+      },
       {'name': 'White', 'color': Colors.white, 'icons': Brightness.dark},
       {'name': 'Black', 'color': Colors.black, 'icons': Brightness.light},
       {'name': 'Blue', 'color': Colors.blue, 'icons': Brightness.light},
@@ -257,25 +270,37 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                       height: 28,
                       decoration: BoxDecoration(
                         color: _statusBarColor == Colors.transparent
-                            ? Colors.grey.shade200 : _statusBarColor,
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(11)),
+                            ? Colors.grey.shade200
+                            : _statusBarColor,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(11),
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(Icons.signal_cellular_4_bar, size: 14,
+                          Icon(
+                            Icons.signal_cellular_4_bar,
+                            size: 14,
                             color: _statusBarIconBrightness == Brightness.dark
-                                ? Colors.black : Colors.white,
+                                ? Colors.black
+                                : Colors.white,
                           ),
                           const SizedBox(width: 4),
-                          Icon(Icons.wifi, size: 14,
+                          Icon(
+                            Icons.wifi,
+                            size: 14,
                             color: _statusBarIconBrightness == Brightness.dark
-                                ? Colors.black : Colors.white,
+                                ? Colors.black
+                                : Colors.white,
                           ),
                           const SizedBox(width: 4),
-                          Icon(Icons.battery_full, size: 14,
+                          Icon(
+                            Icons.battery_full,
+                            size: 14,
                             color: _statusBarIconBrightness == Brightness.dark
-                                ? Colors.black : Colors.white,
+                                ? Colors.black
+                                : Colors.white,
                           ),
                           const SizedBox(width: 8),
                         ],
@@ -286,7 +311,10 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                       height: 60,
                       color: Colors.grey.shade100,
                       child: const Center(
-                        child: Text('App Content Area', style: TextStyle(color: Colors.grey)),
+                        child: Text(
+                          'App Content Area',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ),
                     ),
                   ],
@@ -334,7 +362,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
       {'name': 'White', 'color': Colors.white, 'icons': Brightness.dark},
       {'name': 'Black', 'color': Colors.black, 'icons': Brightness.light},
       {'name': 'Teal', 'color': Colors.teal, 'icons': Brightness.light},
-      {'name': 'Grey', 'color': Colors.grey.shade800, 'icons': Brightness.light},
+      {
+        'name': 'Grey',
+        'color': Colors.grey.shade800,
+        'icons': Brightness.light,
+      },
     ];
 
     return Card(
@@ -369,10 +401,15 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                       height: 80,
                       decoration: const BoxDecoration(
                         color: Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(11)),
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(11),
+                        ),
                       ),
                       child: const Center(
-                        child: Text('App Content', style: TextStyle(color: Colors.grey)),
+                        child: Text(
+                          'App Content',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ),
                     ),
                     // Simulated nav bar
@@ -381,22 +418,33 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                       height: 40,
                       decoration: BoxDecoration(
                         color: _navBarColor,
-                        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(11)),
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(11),
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Icon(Icons.arrow_back, size: 18,
+                          Icon(
+                            Icons.arrow_back,
+                            size: 18,
                             color: _navBarIconBrightness == Brightness.dark
-                                ? Colors.black54 : Colors.white70,
+                                ? Colors.black54
+                                : Colors.white70,
                           ),
-                          Icon(Icons.circle_outlined, size: 18,
+                          Icon(
+                            Icons.circle_outlined,
+                            size: 18,
                             color: _navBarIconBrightness == Brightness.dark
-                                ? Colors.black54 : Colors.white70,
+                                ? Colors.black54
+                                : Colors.white70,
                           ),
-                          Icon(Icons.crop_square, size: 18,
+                          Icon(
+                            Icons.crop_square,
+                            size: 18,
                             color: _navBarIconBrightness == Brightness.dark
-                                ? Colors.black54 : Colors.white70,
+                                ? Colors.black54
+                                : Colors.white70,
                           ),
                         ],
                       ),
@@ -484,8 +532,12 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                     Container(
                       height: 24,
                       decoration: BoxDecoration(
-                        color: _isDarkTheme ? const Color(0xFF1E1E1E) : Colors.grey.shade100,
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(11)),
+                        color: _isDarkTheme
+                            ? const Color(0xFF1E1E1E)
+                            : Colors.grey.shade100,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(11),
+                        ),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -494,7 +546,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                             '12:00',
                             style: TextStyle(
                               fontSize: 11,
-                              color: _isDarkTheme ? Colors.white70 : Colors.black54,
+                              color: _isDarkTheme
+                                  ? Colors.white70
+                                  : Colors.black54,
                             ),
                           ),
                         ],
@@ -513,7 +567,8 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                           Text(
                             _isDarkTheme ? 'Dark Theme' : 'Light Theme',
                             style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                               color: _isDarkTheme ? Colors.white : Colors.black,
                             ),
                           ),
@@ -524,7 +579,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                                 : 'Dark status icons, white nav bar',
                             style: TextStyle(
                               fontSize: 12,
-                              color: _isDarkTheme ? Colors.white54 : Colors.black54,
+                              color: _isDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
                             ),
                           ),
                         ],
@@ -534,8 +591,12 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                     Container(
                       height: 32,
                       decoration: BoxDecoration(
-                        color: _isDarkTheme ? const Color(0xFF1E1E1E) : Colors.grey.shade100,
-                        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(11)),
+                        color: _isDarkTheme
+                            ? const Color(0xFF1E1E1E)
+                            : Colors.grey.shade100,
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(11),
+                        ),
                       ),
                     ),
                   ],
@@ -548,7 +609,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
               title: const Text('Dark theme'),
               value: _isDarkTheme,
               onChanged: (val) {
-                setState(() { _isDarkTheme = val; });
+                setState(() {
+                  _isDarkTheme = val;
+                });
                 print('Theme: ${val ? "dark" : "light"}');
               },
             ),
@@ -631,13 +694,17 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(screen['icon'] as IconData, size: 40,
-                      color: screen['fg'] as Color),
+                    Icon(
+                      screen['icon'] as IconData,
+                      size: 40,
+                      color: screen['fg'] as Color,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       screen['name'] as String,
                       style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                         color: screen['fg'] as Color,
                       ),
                     ),
@@ -656,7 +723,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   selected: _selectedScreen == i,
                   onSelected: (s) {
                     if (s) {
-                      setState(() { _selectedScreen = i; });
+                      setState(() {
+                        _selectedScreen = i;
+                      });
                       print('Screen: ${screens[i]['name']}');
                     }
                   },
@@ -710,7 +779,10 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   children: [
                     const Text(
                       'Outer Region: Blue status bar',
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
                     ),
                     const SizedBox(height: 12),
 
@@ -733,12 +805,18 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                             children: [
                               const Text(
                                 'Inner Region: Red status bar',
-                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'This region overrides the outer one if it reaches the status bar area',
-                                style: TextStyle(fontSize: 12, color: Colors.red.shade700),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.red.shade700,
+                                ),
                               ),
                             ],
                           ),
@@ -768,7 +846,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
               title: const Text('Activate inner region'),
               value: _innerRegionActive,
               onChanged: (val) {
-                setState(() { _innerRegionActive = val; });
+                setState(() {
+                  _innerRegionActive = val;
+                });
                 print('Inner region: ${val ? "active" : "inactive"}');
               },
             ),
@@ -827,8 +907,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                 width: double.infinity,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: _isFullscreen ? Colors.black
-                      : _isScrolledDown ? Colors.white : Colors.grey.shade100,
+                  color: _isFullscreen
+                      ? Colors.black
+                      : _isScrolledDown
+                      ? Colors.white
+                      : Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.grey.shade400),
                 ),
@@ -837,14 +920,19 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      _isFullscreen ? Icons.fullscreen
-                          : _isScrolledDown ? Icons.arrow_downward : Icons.arrow_upward,
+                      _isFullscreen
+                          ? Icons.fullscreen
+                          : _isScrolledDown
+                          ? Icons.arrow_downward
+                          : Icons.arrow_upward,
                       color: _isFullscreen ? Colors.white : Colors.black,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      _isFullscreen ? 'Fullscreen: all dark chrome'
-                          : _isScrolledDown ? 'Scrolled: solid white bar'
+                      _isFullscreen
+                          ? 'Fullscreen: all dark chrome'
+                          : _isScrolledDown
+                          ? 'Scrolled: solid white bar'
                           : 'Default: transparent bar',
                       style: TextStyle(
                         fontSize: 12,
@@ -864,7 +952,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   label: const Text('Default'),
                   selected: !_isScrolledDown && !_isFullscreen,
                   onSelected: (s) {
-                    if (s) setState(() { _isScrolledDown = false; _isFullscreen = false; });
+                    if (s)
+                      setState(() {
+                        _isScrolledDown = false;
+                        _isFullscreen = false;
+                      });
                     print('Conditional: default');
                   },
                 ),
@@ -872,7 +964,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   label: const Text('Scrolled'),
                   selected: _isScrolledDown && !_isFullscreen,
                   onSelected: (s) {
-                    if (s) setState(() { _isScrolledDown = true; _isFullscreen = false; });
+                    if (s)
+                      setState(() {
+                        _isScrolledDown = true;
+                        _isFullscreen = false;
+                      });
                     print('Conditional: scrolled');
                   },
                 ),
@@ -880,7 +976,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   label: const Text('Fullscreen'),
                   selected: _isFullscreen,
                   onSelected: (s) {
-                    if (s) setState(() { _isFullscreen = true; _isScrolledDown = false; });
+                    if (s)
+                      setState(() {
+                        _isFullscreen = true;
+                        _isScrolledDown = false;
+                      });
                     print('Conditional: fullscreen');
                   },
                 ),
@@ -914,7 +1014,10 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
             const SizedBox(height: 24),
 
             // Use Case 1: Immersive mode
-            const Text('1. Immersive Mode Toggle', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '1. Immersive Mode Toggle',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             AnnotatedRegion<SystemUiOverlayStyle>(
               value: _immersiveMode
@@ -937,14 +1040,20 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        _immersiveMode ? Icons.visibility_off : Icons.visibility,
+                        _immersiveMode
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: _immersiveMode ? Colors.white : Colors.black,
                         size: 32,
                       ),
                       Text(
-                        _immersiveMode ? 'Immersive: chrome hidden' : 'Normal: chrome visible',
+                        _immersiveMode
+                            ? 'Immersive: chrome hidden'
+                            : 'Normal: chrome visible',
                         style: TextStyle(
-                          color: _immersiveMode ? Colors.white70 : Colors.black54,
+                          color: _immersiveMode
+                              ? Colors.white70
+                              : Colors.black54,
                         ),
                       ),
                     ],
@@ -955,22 +1064,34 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
             const SizedBox(height: 8),
             ElevatedButton.icon(
               onPressed: () {
-                setState(() { _immersiveMode = !_immersiveMode; });
+                setState(() {
+                  _immersiveMode = !_immersiveMode;
+                });
                 print('Immersive: $_immersiveMode');
               },
-              icon: Icon(_immersiveMode ? Icons.fullscreen_exit : Icons.fullscreen),
-              label: Text(_immersiveMode ? 'Exit Immersive' : 'Enter Immersive'),
+              icon: Icon(
+                _immersiveMode ? Icons.fullscreen_exit : Icons.fullscreen,
+              ),
+              label: Text(
+                _immersiveMode ? 'Exit Immersive' : 'Enter Immersive',
+              ),
             ),
             const SizedBox(height: 24),
 
             // Use Case 2: Themed tabs
-            const Text('2. Themed Tab Screens', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '2. Themed Tab Screens',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             _buildThemedTabs(),
             const SizedBox(height: 24),
 
             // Use Case 3: Scroll-dependent styling
-            const Text('3. Scroll-Dependent Styling', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '3. Scroll-Dependent Styling',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle(
@@ -980,7 +1101,8 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   (_scrollOffset / 100).clamp(0.0, 1.0),
                 ),
                 statusBarIconBrightness: _scrollOffset > 50
-                    ? Brightness.light : Brightness.dark,
+                    ? Brightness.light
+                    : Brightness.dark,
               ),
               child: Container(
                 width: double.infinity,
@@ -990,8 +1112,11 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color.lerp(Colors.white, Colors.deepPurple,
-                          (_scrollOffset / 100).clamp(0.0, 1.0))!,
+                      Color.lerp(
+                        Colors.white,
+                        Colors.deepPurple,
+                        (_scrollOffset / 100).clamp(0.0, 1.0),
+                      )!,
                       Colors.grey.shade100,
                     ],
                   ),
@@ -1013,14 +1138,19 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
               min: 0,
               max: 100,
               onChanged: (val) {
-                setState(() { _scrollOffset = val; });
+                setState(() {
+                  _scrollOffset = val;
+                });
                 print('Scroll offset: ${val.toInt()}');
               },
             ),
             const SizedBox(height: 24),
 
             // Use Case 4: Photo viewer overlay
-            const Text('4. Photo Viewer Overlay', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '4. Photo Viewer Overlay',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             AnnotatedRegion<SystemUiOverlayStyle>(
               value: _photoViewerActive
@@ -1032,14 +1162,18 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                   : SystemUiOverlayStyle.dark,
               child: GestureDetector(
                 onTap: () {
-                  setState(() { _photoViewerActive = !_photoViewerActive; });
+                  setState(() {
+                    _photoViewerActive = !_photoViewerActive;
+                  });
                   print('Photo viewer: $_photoViewerActive');
                 },
                 child: Container(
                   width: double.infinity,
                   height: 140,
                   decoration: BoxDecoration(
-                    color: _photoViewerActive ? Colors.black : Colors.grey.shade200,
+                    color: _photoViewerActive
+                        ? Colors.black
+                        : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Stack(
@@ -1048,7 +1182,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                         child: Icon(
                           Icons.photo,
                           size: 60,
-                          color: _photoViewerActive ? Colors.white24 : Colors.grey,
+                          color: _photoViewerActive
+                              ? Colors.white24
+                              : Colors.grey,
                         ),
                       ),
                       if (!_photoViewerActive)
@@ -1073,9 +1209,13 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                         ),
                       Center(
                         child: Text(
-                          _photoViewerActive ? 'Tap to show controls' : 'Tap to view fullscreen',
+                          _photoViewerActive
+                              ? 'Tap to show controls'
+                              : 'Tap to view fullscreen',
                           style: TextStyle(
-                            color: _photoViewerActive ? Colors.white70 : Colors.black54,
+                            color: _photoViewerActive
+                                ? Colors.white70
+                                : Colors.black54,
                             fontSize: 12,
                           ),
                         ),
@@ -1114,15 +1254,21 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
             height: 80,
             decoration: BoxDecoration(
               color: tabColor,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(12),
+              ),
             ),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(tab['icon'] as IconData, color: Colors.white, size: 28),
-                  Text(tab['name'] as String,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  Text(
+                    tab['name'] as String,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -1132,7 +1278,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
         Container(
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(12),
+            ),
           ),
           child: Row(
             children: List.generate(tabs.length, (i) {
@@ -1141,7 +1289,9 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
               return Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    setState(() { _activeTab = i; });
+                    setState(() {
+                      _activeTab = i;
+                    });
                     print('Tab: ${t['name']}');
                   },
                   child: Container(
@@ -1149,14 +1299,18 @@ class _AnnotatedRegionDemoState extends State<AnnotatedRegionDemo> {
                     decoration: BoxDecoration(
                       border: Border(
                         top: BorderSide(
-                          color: isActive ? t['color'] as Color : Colors.transparent,
+                          color: isActive
+                              ? t['color'] as Color
+                              : Colors.transparent,
                           width: 3,
                         ),
                       ),
                     ),
                     child: Column(
                       children: [
-                        Icon(t['icon'] as IconData, size: 20,
+                        Icon(
+                          t['icon'] as IconData,
+                          size: 20,
                           color: isActive ? t['color'] as Color : Colors.grey,
                         ),
                         Text(

@@ -31,7 +31,10 @@ Widget _dlSection(String title, List<Widget> children) {
       border: Border.all(color: _dlLightTeal, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x15004D40), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x15004D40),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -43,11 +46,14 @@ Widget _dlSection(String title, List<Widget> children) {
             color: _dlTeal,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _dlWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _dlWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -59,20 +65,24 @@ Widget _dlSection(String title, List<Widget> children) {
 Widget _dlLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _dlDarkTeal,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _dlDarkTeal,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _dlBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(
-            color: _dlDarkText, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _dlDarkText, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -86,12 +96,15 @@ Widget _dlCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _dlLightTeal.withValues(alpha: 0.6)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _dlDarkTeal,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _dlDarkTeal,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -103,9 +116,10 @@ Widget _dlChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -127,9 +141,14 @@ Widget _dlInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
   );
 }
 
@@ -154,8 +173,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('DeleteToLineBreakIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+        title: const Text(
+          'DeleteToLineBreakIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -184,27 +205,48 @@ dynamic build(BuildContext context) {
                       color: _dlWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.format_strikethrough,
-                        color: _dlWhite, size: 32),
+                    child: const Icon(
+                      Icons.format_strikethrough,
+                      color: _dlWhite,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(height: 14),
-                  const Text('DeleteToLineBreakIntent',
-                      style: TextStyle(
-                          color: _dlWhite,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'DeleteToLineBreakIntent',
+                    style: TextStyle(
+                      color: _dlWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  Text('Delete everything from cursor to line boundary',
-                      style: TextStyle(
-                          color: _dlWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                  Text(
+                    'Delete everything from cursor to line boundary',
+                    style: TextStyle(
+                      color: _dlWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _dlChip('Cmd+Backspace', _dlWhite.withValues(alpha: 0.25), _dlWhite),
-                      _dlChip('Line Delete', _dlWhite.withValues(alpha: 0.25), _dlWhite),
-                      _dlChip('Forward/Back', _dlWhite.withValues(alpha: 0.25), _dlWhite),
+                      _dlChip(
+                        'Cmd+Backspace',
+                        _dlWhite.withValues(alpha: 0.25),
+                        _dlWhite,
+                      ),
+                      _dlChip(
+                        'Line Delete',
+                        _dlWhite.withValues(alpha: 0.25),
+                        _dlWhite,
+                      ),
+                      _dlChip(
+                        'Forward/Back',
+                        _dlWhite.withValues(alpha: 0.25),
+                        _dlWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -417,9 +459,7 @@ dynamic build(BuildContext context) {
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 11: Edge cases
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            _dlSection('11 · Edge Cases', [
-              ..._buildEdgeCases(),
-            ]),
+            _dlSection('11 · Edge Cases', [..._buildEdgeCases()]),
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 12: Summary
@@ -432,19 +472,35 @@ dynamic build(BuildContext context) {
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [_dlTeal, _dlMedTeal],
-                  ),
+                  gradient: const LinearGradient(colors: [_dlTeal, _dlMedTeal]),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   children: [
-                    _dlSummaryRow(Icons.format_strikethrough, 'Deletes from cursor to line start or end'),
-                    _dlSummaryRow(Icons.swap_horiz, 'Direction via forward property'),
-                    _dlSummaryRow(Icons.apple, 'macOS: Cmd+Backspace / Cmd+Delete'),
-                    _dlSummaryRow(Icons.wrap_text, 'Respects line boundaries in multiline'),
-                    _dlSummaryRow(Icons.layers, 'Part of char → word → line hierarchy'),
-                    _dlSummaryRow(Icons.undo, 'Fully undoable with Ctrl+Z / Cmd+Z'),
+                    _dlSummaryRow(
+                      Icons.format_strikethrough,
+                      'Deletes from cursor to line start or end',
+                    ),
+                    _dlSummaryRow(
+                      Icons.swap_horiz,
+                      'Direction via forward property',
+                    ),
+                    _dlSummaryRow(
+                      Icons.apple,
+                      'macOS: Cmd+Backspace / Cmd+Delete',
+                    ),
+                    _dlSummaryRow(
+                      Icons.wrap_text,
+                      'Respects line boundaries in multiline',
+                    ),
+                    _dlSummaryRow(
+                      Icons.layers,
+                      'Part of char → word → line hierarchy',
+                    ),
+                    _dlSummaryRow(
+                      Icons.undo,
+                      'Fully undoable with Ctrl+Z / Cmd+Z',
+                    ),
                   ],
                 ),
               ),
@@ -479,19 +535,28 @@ Widget _buildLineDirectionComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.keyboard_backspace,
-                    color: _dlAccentAmber, size: 28),
+                const Icon(
+                  Icons.keyboard_backspace,
+                  color: _dlAccentAmber,
+                  size: 28,
+                ),
                 const SizedBox(height: 6),
-                const Text('To Line Start',
-                    style: TextStyle(
-                        color: _dlAccentAmber,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800)),
-                const Text('forward: false',
-                    style: TextStyle(
-                        color: _dlAccentAmber,
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
+                const Text(
+                  'To Line Start',
+                  style: TextStyle(
+                    color: _dlAccentAmber,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const Text(
+                  'forward: false',
+                  style: TextStyle(
+                    color: _dlAccentAmber,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 _dlDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -501,19 +566,35 @@ Widget _buildLineDirectionComparison() {
                   ),
                   child: const Column(
                     children: [
-                      Text('Hello World|end',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
-                      Icon(Icons.arrow_downward, size: 14, color: _dlAccentAmber),
-                      Text('|end',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                      Text(
+                        'Hello World|end',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dlDarkText,
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_downward,
+                        size: 14,
+                        color: _dlAccentAmber,
+                      ),
+                      Text(
+                        '|end',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dlDarkText,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text('Removes everything BEFORE cursor',
-                    style: TextStyle(color: _dlAccentAmber, fontSize: 9)),
+                const Text(
+                  'Removes everything BEFORE cursor',
+                  style: TextStyle(color: _dlAccentAmber, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -529,19 +610,24 @@ Widget _buildLineDirectionComparison() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.last_page,
-                    color: _dlTeal, size: 28),
+                const Icon(Icons.last_page, color: _dlTeal, size: 28),
                 const SizedBox(height: 6),
-                const Text('To Line End',
-                    style: TextStyle(
-                        color: _dlTeal,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800)),
-                const Text('forward: true',
-                    style: TextStyle(
-                        color: _dlTeal,
-                        fontSize: 10,
-                        fontFamily: 'monospace')),
+                const Text(
+                  'To Line End',
+                  style: TextStyle(
+                    color: _dlTeal,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const Text(
+                  'forward: true',
+                  style: TextStyle(
+                    color: _dlTeal,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 _dlDivider(),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -551,19 +637,31 @@ Widget _buildLineDirectionComparison() {
                   ),
                   child: const Column(
                     children: [
-                      Text('Hello|World end',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                      Text(
+                        'Hello|World end',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dlDarkText,
+                        ),
+                      ),
                       Icon(Icons.arrow_downward, size: 14, color: _dlTeal),
-                      Text('Hello|',
-                          style: TextStyle(
-                              fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                      Text(
+                        'Hello|',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11,
+                          color: _dlDarkText,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text('Removes everything AFTER cursor',
-                    style: TextStyle(color: _dlTeal, fontSize: 9)),
+                const Text(
+                  'Removes everything AFTER cursor',
+                  style: TextStyle(color: _dlTeal, fontSize: 9),
+                ),
               ],
             ),
           ),
@@ -622,13 +720,18 @@ List<Widget> _buildLineDeleteChain() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(l['title'] as String,
-                    style: TextStyle(
-                        color: l['color'] as Color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12)),
-                Text(l['detail'] as String,
-                    style: const TextStyle(color: _dlDarkText, fontSize: 11)),
+                Text(
+                  l['title'] as String,
+                  style: TextStyle(
+                    color: l['color'] as Color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  l['detail'] as String,
+                  style: const TextStyle(color: _dlDarkText, fontSize: 11),
+                ),
               ],
             ),
           ),
@@ -665,18 +768,20 @@ Widget _buildPlatformTable() {
           color: isHeader
               ? _dlTeal
               : entry.key.isEven
-                  ? _dlMint
-                  : _dlWhite,
+              ? _dlMint
+              : _dlWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
                 flex: col.key == 0 ? 2 : 1,
-                child: Text(col.value,
-                    style: TextStyle(
-                        color: isHeader ? _dlWhite : _dlDarkText,
-                        fontSize: 10,
-                        fontWeight:
-                            isHeader ? FontWeight.w700 : FontWeight.w400)),
+                child: Text(
+                  col.value,
+                  style: TextStyle(
+                    color: isHeader ? _dlWhite : _dlDarkText,
+                    fontSize: 10,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
               );
             }).toList(),
           ),
@@ -728,7 +833,9 @@ Widget _buildCursorBoundaryVisual() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -738,14 +845,22 @@ Widget _buildCursorBoundaryVisual() {
                 _dlChip(s['position'] as String, s['color'] as Color, _dlWhite),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _dlWhite,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text(s['before'] as String,
-                        style: const TextStyle(
-                            fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                    child: Text(
+                      s['before'] as String,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dlDarkText,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -759,21 +874,36 @@ Widget _buildCursorBoundaryVisual() {
                     decoration: BoxDecoration(
                       color: _dlAccentAmber.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: _dlAccentAmber.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: _dlAccentAmber.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('← To start',
-                            style: TextStyle(
-                                color: _dlAccentAmber,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700)),
-                        Text(s['backResult'] as String,
-                            style: const TextStyle(
-                                fontFamily: 'monospace', fontSize: 10, color: _dlDarkText)),
-                        Text(s['backLen'] as String,
-                            style: const TextStyle(color: _dlAccentAmber, fontSize: 8)),
+                        const Text(
+                          '← To start',
+                          style: TextStyle(
+                            color: _dlAccentAmber,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          s['backResult'] as String,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                            color: _dlDarkText,
+                          ),
+                        ),
+                        Text(
+                          s['backLen'] as String,
+                          style: const TextStyle(
+                            color: _dlAccentAmber,
+                            fontSize: 8,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -790,16 +920,26 @@ Widget _buildCursorBoundaryVisual() {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('→ To end',
-                            style: TextStyle(
-                                color: _dlTeal,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700)),
-                        Text(s['fwdResult'] as String,
-                            style: const TextStyle(
-                                fontFamily: 'monospace', fontSize: 10, color: _dlDarkText)),
-                        Text(s['fwdLen'] as String,
-                            style: const TextStyle(color: _dlTeal, fontSize: 8)),
+                        const Text(
+                          '→ To end',
+                          style: TextStyle(
+                            color: _dlTeal,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          s['fwdResult'] as String,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                            color: _dlDarkText,
+                          ),
+                        ),
+                        Text(
+                          s['fwdLen'] as String,
+                          style: const TextStyle(color: _dlTeal, fontSize: 8),
+                        ),
                       ],
                     ),
                   ),
@@ -842,14 +982,24 @@ Widget _buildMultilineDemo() {
                   Container(
                     width: 24,
                     alignment: Alignment.center,
-                    child: const Text('1',
-                        style: TextStyle(
-                            color: _dlMedTeal, fontSize: 10, fontFamily: 'monospace')),
+                    child: const Text(
+                      '1',
+                      style: TextStyle(
+                        color: _dlMedTeal,
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                   const Expanded(
-                    child: Text('Hello World',
-                        style: TextStyle(
-                            fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                    child: Text(
+                      'Hello World',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dlDarkText,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -858,14 +1008,24 @@ Widget _buildMultilineDemo() {
                   Container(
                     width: 24,
                     alignment: Alignment.center,
-                    child: const Text('2',
-                        style: TextStyle(
-                            color: _dlMedTeal, fontSize: 10, fontFamily: 'monospace')),
+                    child: const Text(
+                      '2',
+                      style: TextStyle(
+                        color: _dlMedTeal,
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                   const Expanded(
-                    child: Text('Foo Bar|Baz  ← cursor here',
-                        style: TextStyle(
-                            fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                    child: Text(
+                      'Foo Bar|Baz  ← cursor here',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dlDarkText,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -874,14 +1034,24 @@ Widget _buildMultilineDemo() {
                   Container(
                     width: 24,
                     alignment: Alignment.center,
-                    child: const Text('3',
-                        style: TextStyle(
-                            color: _dlMedTeal, fontSize: 10, fontFamily: 'monospace')),
+                    child: const Text(
+                      '3',
+                      style: TextStyle(
+                        color: _dlMedTeal,
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                   ),
                   const Expanded(
-                    child: Text('End Text',
-                        style: TextStyle(
-                            fontFamily: 'monospace', fontSize: 11, color: _dlDarkText)),
+                    child: Text(
+                      'End Text',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _dlDarkText,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -897,20 +1067,32 @@ Widget _buildMultilineDemo() {
                 decoration: BoxDecoration(
                   color: _dlAccentAmber.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: _dlAccentAmber.withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: _dlAccentAmber.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: const Column(
                   children: [
-                    Text('Backward',
-                        style: TextStyle(
-                            color: _dlAccentAmber,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700)),
-                    Text('Line 2: |Baz',
-                        style: TextStyle(
-                            fontFamily: 'monospace', fontSize: 10, color: _dlDarkText)),
-                    Text('Lines 1, 3 unchanged',
-                        style: TextStyle(color: _dlAccentAmber, fontSize: 9)),
+                    Text(
+                      'Backward',
+                      style: TextStyle(
+                        color: _dlAccentAmber,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'Line 2: |Baz',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _dlDarkText,
+                      ),
+                    ),
+                    Text(
+                      'Lines 1, 3 unchanged',
+                      style: TextStyle(color: _dlAccentAmber, fontSize: 9),
+                    ),
                   ],
                 ),
               ),
@@ -926,16 +1108,26 @@ Widget _buildMultilineDemo() {
                 ),
                 child: const Column(
                   children: [
-                    Text('Forward',
-                        style: TextStyle(
-                            color: _dlTeal,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700)),
-                    Text('Line 2: Foo Bar|',
-                        style: TextStyle(
-                            fontFamily: 'monospace', fontSize: 10, color: _dlDarkText)),
-                    Text('Lines 1, 3 unchanged',
-                        style: TextStyle(color: _dlTeal, fontSize: 9)),
+                    Text(
+                      'Forward',
+                      style: TextStyle(
+                        color: _dlTeal,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      'Line 2: Foo Bar|',
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _dlDarkText,
+                      ),
+                    ),
+                    Text(
+                      'Lines 1, 3 unchanged',
+                      style: TextStyle(color: _dlTeal, fontSize: 9),
+                    ),
                   ],
                 ),
               ),
@@ -986,8 +1178,9 @@ Widget _buildDeleteHierarchy() {
           color: (l['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-              color: (l['color'] as Color).withValues(alpha: 0.3),
-              width: scale * 2),
+            color: (l['color'] as Color).withValues(alpha: 0.3),
+            width: scale * 2,
+          ),
         ),
         child: Row(
           children: [
@@ -1005,23 +1198,33 @@ Widget _buildDeleteHierarchy() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(l['intent'] as String,
-                      style: TextStyle(
-                          color: l['color'] as Color,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 11.5,
-                          fontFamily: 'monospace')),
+                  Text(
+                    l['intent'] as String,
+                    style: TextStyle(
+                      color: l['color'] as Color,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11.5,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                   Row(
                     children: [
-                      Text('Scope: ${l['scope']}',
-                          style: const TextStyle(
-                              color: _dlDarkText, fontSize: 10)),
+                      Text(
+                        'Scope: ${l['scope']}',
+                        style: const TextStyle(
+                          color: _dlDarkText,
+                          fontSize: 10,
+                        ),
+                      ),
                       const SizedBox(width: 10),
-                      Text(l['key'] as String,
-                          style: TextStyle(
-                              color: (l['color'] as Color).withValues(alpha: 0.7),
-                              fontSize: 9,
-                              fontFamily: 'monospace')),
+                      Text(
+                        l['key'] as String,
+                        style: TextStyle(
+                          color: (l['color'] as Color).withValues(alpha: 0.7),
+                          fontSize: 9,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -1055,23 +1258,31 @@ Widget _buildSelectionInteraction() {
           ),
           child: Column(
             children: [
-              const Text('Before: selection active',
-                  style: TextStyle(
-                      color: _dlDarkTeal,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600)),
+              const Text(
+                'Before: selection active',
+                style: TextStyle(
+                  color: _dlDarkTeal,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const SizedBox(height: 6),
               RichText(
                 text: TextSpan(
                   style: const TextStyle(
-                      fontFamily: 'monospace', fontSize: 14, color: _dlDarkText),
+                    fontFamily: 'monospace',
+                    fontSize: 14,
+                    color: _dlDarkText,
+                  ),
                   children: [
                     const TextSpan(text: 'Hello '),
                     TextSpan(
-                        text: 'World',
-                        style: TextStyle(
-                            backgroundColor: _dlMedTeal.withValues(alpha: 0.3),
-                            fontWeight: FontWeight.w700)),
+                      text: 'World',
+                      style: TextStyle(
+                        backgroundColor: _dlMedTeal.withValues(alpha: 0.3),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const TextSpan(text: ' of Flutter'),
                   ],
                 ),
@@ -1099,8 +1310,14 @@ Widget _buildSelectionInteraction() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildCodeEditorScenario() {
   final steps = <Map<String, String>>[
-    {'action': 'Original', 'code': 'final result = computeData(input, options);'},
-    {'action': 'Cmd+End (go to end)', 'code': 'final result = computeData(input, options);|'},
+    {
+      'action': 'Original',
+      'code': 'final result = computeData(input, options);',
+    },
+    {
+      'action': 'Cmd+End (go to end)',
+      'code': 'final result = computeData(input, options);|',
+    },
     {'action': 'Cmd+Bksp', 'code': '|'},
     {'action': 'Type new code', 'code': 'final output = transform(data);|'},
   ];
@@ -1120,11 +1337,14 @@ Widget _buildCodeEditorScenario() {
             children: [
               Icon(Icons.code, color: _dlWhite, size: 14),
               SizedBox(width: 8),
-              Text('Refactoring a Line',
-                  style: TextStyle(
-                      color: _dlWhite,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                'Refactoring a Line',
+                style: TextStyle(
+                  color: _dlWhite,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -1142,31 +1362,49 @@ Widget _buildCodeEditorScenario() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('${entry.key + 1}',
-                        style: const TextStyle(
-                            color: _dlTeal, fontSize: 9, fontWeight: FontWeight.w700)),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: const TextStyle(
+                        color: _dlTeal,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 SizedBox(
                   width: 90,
-                  child: Text(entry.value['action']!,
-                      style: const TextStyle(
-                          color: _dlDarkTeal,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    entry.value['action']!,
+                    style: const TextStyle(
+                      color: _dlDarkTeal,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: _dlWhite,
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: _dlLightTeal.withValues(alpha: 0.5)),
+                      border: Border.all(
+                        color: _dlLightTeal.withValues(alpha: 0.5),
+                      ),
                     ),
-                    child: Text(entry.value['code']!,
-                        style: const TextStyle(
-                            fontFamily: 'monospace', fontSize: 10, color: _dlDarkText)),
+                    child: Text(
+                      entry.value['code']!,
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                        color: _dlDarkText,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -1246,13 +1484,18 @@ List<Widget> _buildEdgeCases() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(c['case'] as String,
-                    style: TextStyle(
-                        color: c['color'] as Color,
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w700)),
-                Text(c['desc'] as String,
-                    style: const TextStyle(color: _dlDarkText, fontSize: 10)),
+                Text(
+                  c['case'] as String,
+                  style: TextStyle(
+                    color: c['color'] as Color,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  c['desc'] as String,
+                  style: const TextStyle(color: _dlDarkText, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -1273,9 +1516,13 @@ Widget _dlSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _dlWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _dlWhite.withValues(alpha: 0.95), fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _dlWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

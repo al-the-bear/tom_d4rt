@@ -106,13 +106,14 @@ class _SectionFrame extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: _accent.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                      color: _accent.withValues(alpha: 0.45), width: 1),
+                    color: _accent.withValues(alpha: 0.45),
+                    width: 1,
+                  ),
                 ),
                 child: Text(
                   tag,
@@ -141,11 +142,7 @@ class _SectionFrame extends StatelessWidget {
           SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(
-              color: _muted,
-              fontSize: 14,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _muted, fontSize: 14, height: 1.45),
           ),
           SizedBox(height: 18),
           child,
@@ -218,10 +215,7 @@ class _KeyCap extends StatelessWidget {
                   _accent.withValues(alpha: 0.85),
                   _accent2.withValues(alpha: 0.65),
                 ]
-              : <Color>[
-                  tint,
-                  Color.lerp(tint, Colors.black, 0.35)!,
-                ],
+              : <Color>[tint, Color.lerp(tint, Colors.black, 0.35)!],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -348,11 +342,7 @@ class _TblRow extends StatelessWidget {
   final List<String> cells;
   final bool header;
   final List<int> flex;
-  const _TblRow({
-    required this.cells,
-    required this.flex,
-    this.header = false,
-  });
+  const _TblRow({required this.cells, required this.flex, this.header = false});
 
   @override
   Widget build(BuildContext context) {
@@ -361,9 +351,7 @@ class _TblRow extends StatelessWidget {
         color: header
             ? _accent.withValues(alpha: 0.18)
             : _panel.withValues(alpha: 0.6),
-        border: Border(
-          bottom: BorderSide(color: _border, width: 1),
-        ),
+        border: Border(bottom: BorderSide(color: _border, width: 1)),
       ),
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Row(
@@ -376,8 +364,7 @@ class _TblRow extends StatelessWidget {
                 style: TextStyle(
                   color: header ? _accent2 : _text,
                   fontFamily: header ? null : 'monospace',
-                  fontWeight:
-                      header ? FontWeight.w800 : FontWeight.w500,
+                  fontWeight: header ? FontWeight.w800 : FontWeight.w500,
                   fontSize: 12.5,
                   letterSpacing: header ? 0.6 : 0,
                 ),
@@ -393,8 +380,7 @@ class _Bullet extends StatelessWidget {
   final String text;
   final IconData icon;
   final Color color;
-  const _Bullet(
-      {required this.text, required this.icon, required this.color});
+  const _Bullet({required this.text, required this.icon, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -409,8 +395,7 @@ class _Bullet extends StatelessWidget {
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(6),
-              border:
-                  Border.all(color: color.withValues(alpha: 0.5), width: 1),
+              border: Border.all(color: color.withValues(alpha: 0.5), width: 1),
             ),
             alignment: Alignment.center,
             child: Icon(icon, size: 14, color: color),
@@ -419,11 +404,7 @@ class _Bullet extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                color: _text,
-                fontSize: 13.5,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _text, fontSize: 13.5, height: 1.5),
             ),
           ),
         ],
@@ -512,8 +493,11 @@ class _HeroBannerSection extends StatelessWidget {
                   ],
                 ),
                 alignment: Alignment.center,
-                child: Icon(Icons.keyboard_alt_outlined,
-                    color: Colors.white, size: 28),
+                child: Icon(
+                  Icons.keyboard_alt_outlined,
+                  color: Colors.white,
+                  size: 28,
+                ),
               ),
               SizedBox(width: 16),
               Column(
@@ -553,11 +537,7 @@ class _HeroBannerSection extends StatelessWidget {
               '(hardware location) and a logical-key identity (semantic meaning '
               'after layout translation), along with an optional rendered '
               'character and a monotonic timestamp.',
-              style: TextStyle(
-                color: _muted,
-                fontSize: 15,
-                height: 1.6,
-              ),
+              style: TextStyle(color: _muted, fontSize: 15, height: 1.6),
             ),
           ),
           SizedBox(height: 24),
@@ -585,11 +565,7 @@ class _HeroBannerSection extends StatelessWidget {
                 color: _accent5,
                 icon: Icons.text_fields,
               ),
-              _Chip(
-                label: 'timeStamp',
-                color: _accent6,
-                icon: Icons.schedule,
-              ),
+              _Chip(label: 'timeStamp', color: _accent6, icon: Icons.schedule),
               _Chip(
                 label: 'synthesized',
                 color: _accent,
@@ -612,7 +588,9 @@ class _HeroBannerSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: _accent.withValues(alpha: 0.4), width: 1),
+                      color: _accent.withValues(alpha: 0.4),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -648,7 +626,9 @@ class _HeroBannerSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: _accent3.withValues(alpha: 0.4), width: 1),
+                      color: _accent3.withValues(alpha: 0.4),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -684,7 +664,9 @@ class _HeroBannerSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: _accent5.withValues(alpha: 0.4), width: 1),
+                      color: _accent5.withValues(alpha: 0.4),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -760,13 +742,14 @@ class _HierarchyDiagramSection extends StatelessWidget {
               SizedBox(width: 8),
               if (sealed)
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.20),
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                        color: color.withValues(alpha: 0.6), width: 1),
+                      color: color.withValues(alpha: 0.6),
+                      width: 1,
+                    ),
                   ),
                   child: Text(
                     'sealed',
@@ -793,11 +776,7 @@ class _HierarchyDiagramSection extends StatelessWidget {
           SizedBox(height: 4),
           Text(
             subtitle,
-            style: TextStyle(
-              color: _muted,
-              fontSize: 11,
-              height: 1.35,
-            ),
+            style: TextStyle(color: _muted, fontSize: 11, height: 1.35),
           ),
         ],
       ),
@@ -814,16 +793,14 @@ class _HierarchyDiagramSection extends StatelessWidget {
           'KeyDownEvent, KeyRepeatEvent, KeyUpEvent — model the three discrete '
           'phases of a key interaction. Because the class is sealed, an '
           'exhaustive switch over a KeyEvent does not need a default branch.',
-      gradient: <Color>[
-        Color(0xFF1B1240),
-        Color(0xFF13182E),
-      ],
+      gradient: <Color>[Color(0xFF1B1240), Color(0xFF13182E)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           _node(
             title: 'KeyEvent',
-            subtitle: 'Sealed superclass. Carries physical/logical key, '
+            subtitle:
+                'Sealed superclass. Carries physical/logical key, '
                 'character, timeStamp, synthesized, deviceType.',
             color: _accent,
             icon: Icons.account_tree_outlined,
@@ -841,7 +818,8 @@ class _HierarchyDiagramSection extends StatelessWidget {
             children: <Widget>[
               _node(
                 title: 'KeyDownEvent',
-                subtitle: 'Initial press of a key. Fires once per physical '
+                subtitle:
+                    'Initial press of a key. Fires once per physical '
                     'press, before any repeats.',
                 color: _accent2,
                 icon: Icons.arrow_downward_rounded,
@@ -849,7 +827,8 @@ class _HierarchyDiagramSection extends StatelessWidget {
               SizedBox(width: 16),
               _node(
                 title: 'KeyRepeatEvent',
-                subtitle: 'OS-driven auto-repeat while the key is held. '
+                subtitle:
+                    'OS-driven auto-repeat while the key is held. '
                     'Cadence is platform-controlled.',
                 color: _accent3,
                 icon: Icons.repeat_rounded,
@@ -857,7 +836,8 @@ class _HierarchyDiagramSection extends StatelessWidget {
               SizedBox(width: 16),
               _node(
                 title: 'KeyUpEvent',
-                subtitle: 'Release of a key. Not always guaranteed — see the '
+                subtitle:
+                    'Release of a key. Not always guaranteed — see the '
                     'Pitfalls section below.',
                 color: _accent4,
                 icon: Icons.arrow_upward_rounded,
@@ -881,11 +861,7 @@ class _HierarchyDiagramSection extends StatelessWidget {
                     'A "press and hold" produces: 1× KeyDownEvent, '
                     'N× KeyRepeatEvent (platform cadence), 1× KeyUpEvent. '
                     'A single tap produces: 1× KeyDownEvent, 1× KeyUpEvent.',
-                    style: TextStyle(
-                      color: _text,
-                      fontSize: 13,
-                      height: 1.5,
-                    ),
+                    style: TextStyle(color: _text, fontSize: 13, height: 1.5),
                   ),
                 ),
               ],
@@ -894,7 +870,8 @@ class _HierarchyDiagramSection extends StatelessWidget {
           SizedBox(height: 12),
           _CodeBlock(
             title: 'exhaustive switch — no default branch needed',
-            code: 'String describe(KeyEvent e) => switch (e) {\n'
+            code:
+                'String describe(KeyEvent e) => switch (e) {\n'
                 '  KeyDownEvent()   => "down:   \${e.logicalKey.debugName}",\n'
                 '  KeyRepeatEvent() => "repeat: \${e.logicalKey.debugName}",\n'
                 '  KeyUpEvent()     => "up:     \${e.logicalKey.debugName}",\n'
@@ -941,7 +918,9 @@ class _FieldCardSection extends StatelessWidget {
                   color: color.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: color.withValues(alpha: 0.6), width: 1),
+                    color: color.withValues(alpha: 0.6),
+                    width: 1,
+                  ),
                 ),
                 alignment: Alignment.center,
                 child: Icon(icon, color: color, size: 18),
@@ -963,7 +942,9 @@ class _FieldCardSection extends StatelessWidget {
                   color: color.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
-                      color: color.withValues(alpha: 0.45), width: 1),
+                    color: color.withValues(alpha: 0.45),
+                    width: 1,
+                  ),
                 ),
                 child: Text(
                   type,
@@ -980,11 +961,7 @@ class _FieldCardSection extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             description,
-            style: TextStyle(
-              color: _text,
-              fontSize: 13.5,
-              height: 1.55,
-            ),
+            style: TextStyle(color: _text, fontSize: 13.5, height: 1.55),
           ),
           if (example != null) ...<Widget>[
             SizedBox(height: 10),
@@ -994,7 +971,9 @@ class _FieldCardSection extends StatelessWidget {
                 color: Color(0xFF0A0D1A),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                    color: color.withValues(alpha: 0.3), width: 1),
+                  color: color.withValues(alpha: 0.3),
+                  width: 1,
+                ),
               ),
               child: Row(
                 children: <Widget>[
@@ -1029,10 +1008,7 @@ class _FieldCardSection extends StatelessWidget {
           'set of immutable fields. The framework guarantees they are populated '
           'at construction time and never mutate; consumers can safely capture '
           'an event reference across frames.',
-      gradient: <Color>[
-        Color(0xFF14283D),
-        Color(0xFF0F1F30),
-      ],
+      gradient: <Color>[Color(0xFF14283D), Color(0xFF0F1F30)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1113,7 +1089,8 @@ class _FieldCardSection extends StatelessWidget {
           SizedBox(height: 4),
           _CodeBlock(
             title: 'constructing a KeyDownEvent (used in tests)',
-            code: 'final event = KeyDownEvent(\n'
+            code:
+                'final event = KeyDownEvent(\n'
                 '  physicalKey: PhysicalKeyboardKey.keyA,\n'
                 '  logicalKey:  LogicalKeyboardKey.keyA,\n'
                 '  character:   "a",\n'
@@ -1178,10 +1155,7 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
           'apps support international keyboard layouts cleanly. The physical '
           'identity is constant across layouts; the logical identity tracks '
           'what the user actually intends.',
-      gradient: <Color>[
-        Color(0xFF2A1438),
-        Color(0xFF1A0E2A),
-      ],
+      gradient: <Color>[Color(0xFF2A1438), Color(0xFF1A0E2A)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1206,22 +1180,38 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                _layoutRow(
-                    'US QWERTY',
-                    <String>['Q', 'W', 'E', 'R', 'T', 'Y'],
-                    _accent2),
-                _layoutRow(
-                    'FR AZERTY',
-                    <String>['A', 'Z', 'E', 'R', 'T', 'Y'],
-                    _accent3),
-                _layoutRow(
-                    'DE QWERTZ',
-                    <String>['Q', 'W', 'E', 'R', 'T', 'Z'],
-                    _accent5),
-                _layoutRow(
-                    'DVORAK',
-                    <String>["'", ',', '.', 'P', 'Y', 'F'],
-                    _accent4),
+                _layoutRow('US QWERTY', <String>[
+                  'Q',
+                  'W',
+                  'E',
+                  'R',
+                  'T',
+                  'Y',
+                ], _accent2),
+                _layoutRow('FR AZERTY', <String>[
+                  'A',
+                  'Z',
+                  'E',
+                  'R',
+                  'T',
+                  'Y',
+                ], _accent3),
+                _layoutRow('DE QWERTZ', <String>[
+                  'Q',
+                  'W',
+                  'E',
+                  'R',
+                  'T',
+                  'Z',
+                ], _accent5),
+                _layoutRow('DVORAK', <String>[
+                  "'",
+                  ',',
+                  '.',
+                  'P',
+                  'Y',
+                  'F',
+                ], _accent4),
               ],
             ),
           ),
@@ -1241,23 +1231,28 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: _accent3.withValues(alpha: 0.5), width: 1),
+                      color: _accent3.withValues(alpha: 0.5),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(Icons.hardware,
-                            color: _accent3, size: 16),
-                        SizedBox(width: 6),
-                        Text('physicalKey',
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.hardware, color: _accent3, size: 16),
+                          SizedBox(width: 6),
+                          Text(
+                            'physicalKey',
                             style: TextStyle(
                               color: _accent3,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'monospace',
                               fontSize: 14,
-                            )),
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 10),
                       Text(
                         'PhysicalKeyboardKey.keyQ',
@@ -1297,23 +1292,28 @@ class _PhysicalVsLogicalSection extends StatelessWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                        color: _accent4.withValues(alpha: 0.5), width: 1),
+                      color: _accent4.withValues(alpha: 0.5),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(children: <Widget>[
-                        Icon(Icons.translate,
-                            color: _accent4, size: 16),
-                        SizedBox(width: 6),
-                        Text('logicalKey',
+                      Row(
+                        children: <Widget>[
+                          Icon(Icons.translate, color: _accent4, size: 16),
+                          SizedBox(width: 6),
+                          Text(
+                            'logicalKey',
                             style: TextStyle(
                               color: _accent4,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'monospace',
                               fontSize: 14,
-                            )),
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 10),
                       Text(
                         'varies per layout',
@@ -1463,93 +1463,103 @@ class _EventTimelineSection extends StatelessWidget {
           'and approximate timeStamp. The first interaction is a simple tap; '
           'the second is a held key triggering OS auto-repeat; the third is a '
           'modifier combination.',
-      gradient: <Color>[
-        Color(0xFF103029),
-        Color(0xFF0A1C18),
-      ],
+      gradient: <Color>[Color(0xFF103029), Color(0xFF0A1C18)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _track('Single tap on "A"', <Widget>[
             _eventChip(
-                label: 'KeyDownEvent  A',
-                ts: 't = 0 ms',
-                color: _accent2,
-                icon: Icons.arrow_downward_rounded),
+              label: 'KeyDownEvent  A',
+              ts: 't = 0 ms',
+              color: _accent2,
+              icon: Icons.arrow_downward_rounded,
+            ),
             _Arrow(label: '~85 ms', color: _muted),
             _eventChip(
-                label: 'KeyUpEvent    A',
-                ts: 't = 85 ms',
-                color: _accent4,
-                icon: Icons.arrow_upward_rounded),
+              label: 'KeyUpEvent    A',
+              ts: 't = 85 ms',
+              color: _accent4,
+              icon: Icons.arrow_upward_rounded,
+            ),
           ]),
           _track('Held arrow-right (≈500 ms before release)', <Widget>[
             _eventChip(
-                label: 'KeyDownEvent  →',
-                ts: 't = 0 ms',
-                color: _accent2,
-                icon: Icons.arrow_downward_rounded),
+              label: 'KeyDownEvent  →',
+              ts: 't = 0 ms',
+              color: _accent2,
+              icon: Icons.arrow_downward_rounded,
+            ),
             _Arrow(label: '~400 ms', color: _muted),
             _eventChip(
-                label: 'KeyRepeatEvent →',
-                ts: 't = 400 ms',
-                color: _accent3,
-                icon: Icons.repeat_rounded),
+              label: 'KeyRepeatEvent →',
+              ts: 't = 400 ms',
+              color: _accent3,
+              icon: Icons.repeat_rounded,
+            ),
             _Arrow(label: '~30 ms', color: _muted),
             _eventChip(
-                label: 'KeyRepeatEvent →',
-                ts: 't = 430 ms',
-                color: _accent3,
-                icon: Icons.repeat_rounded),
+              label: 'KeyRepeatEvent →',
+              ts: 't = 430 ms',
+              color: _accent3,
+              icon: Icons.repeat_rounded,
+            ),
             _Arrow(label: '~30 ms', color: _muted),
             _eventChip(
-                label: 'KeyRepeatEvent →',
-                ts: 't = 460 ms',
-                color: _accent3,
-                icon: Icons.repeat_rounded),
+              label: 'KeyRepeatEvent →',
+              ts: 't = 460 ms',
+              color: _accent3,
+              icon: Icons.repeat_rounded,
+            ),
             _Arrow(label: '~40 ms', color: _muted),
             _eventChip(
-                label: 'KeyUpEvent    →',
-                ts: 't = 500 ms',
-                color: _accent4,
-                icon: Icons.arrow_upward_rounded),
+              label: 'KeyUpEvent    →',
+              ts: 't = 500 ms',
+              color: _accent4,
+              icon: Icons.arrow_upward_rounded,
+            ),
           ]),
           _track('Ctrl+Shift+S (overlapping presses)', <Widget>[
             _eventChip(
-                label: 'KeyDownEvent  Ctrl',
-                ts: 't = 0 ms',
-                color: _accent2,
-                icon: Icons.arrow_downward_rounded),
+              label: 'KeyDownEvent  Ctrl',
+              ts: 't = 0 ms',
+              color: _accent2,
+              icon: Icons.arrow_downward_rounded,
+            ),
             _Arrow(label: '~40 ms', color: _muted),
             _eventChip(
-                label: 'KeyDownEvent  Shift',
-                ts: 't = 40 ms',
-                color: _accent2,
-                icon: Icons.arrow_downward_rounded),
+              label: 'KeyDownEvent  Shift',
+              ts: 't = 40 ms',
+              color: _accent2,
+              icon: Icons.arrow_downward_rounded,
+            ),
             _Arrow(label: '~60 ms', color: _muted),
             _eventChip(
-                label: 'KeyDownEvent  S',
-                ts: 't = 100 ms',
-                color: _accent2,
-                icon: Icons.arrow_downward_rounded),
+              label: 'KeyDownEvent  S',
+              ts: 't = 100 ms',
+              color: _accent2,
+              icon: Icons.arrow_downward_rounded,
+            ),
             _Arrow(label: '~80 ms', color: _muted),
             _eventChip(
-                label: 'KeyUpEvent    S',
-                ts: 't = 180 ms',
-                color: _accent4,
-                icon: Icons.arrow_upward_rounded),
+              label: 'KeyUpEvent    S',
+              ts: 't = 180 ms',
+              color: _accent4,
+              icon: Icons.arrow_upward_rounded,
+            ),
             _Arrow(label: '~30 ms', color: _muted),
             _eventChip(
-                label: 'KeyUpEvent    Shift',
-                ts: 't = 210 ms',
-                color: _accent4,
-                icon: Icons.arrow_upward_rounded),
+              label: 'KeyUpEvent    Shift',
+              ts: 't = 210 ms',
+              color: _accent4,
+              icon: Icons.arrow_upward_rounded,
+            ),
             _Arrow(label: '~25 ms', color: _muted),
             _eventChip(
-                label: 'KeyUpEvent    Ctrl',
-                ts: 't = 235 ms',
-                color: _accent4,
-                icon: Icons.arrow_upward_rounded),
+              label: 'KeyUpEvent    Ctrl',
+              ts: 't = 235 ms',
+              color: _accent4,
+              icon: Icons.arrow_upward_rounded,
+            ),
           ]),
           SizedBox(height: 16),
           Container(
@@ -1558,12 +1568,13 @@ class _EventTimelineSection extends StatelessWidget {
               color: _accent3.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: _accent3.withValues(alpha: 0.4), width: 1),
+                color: _accent3.withValues(alpha: 0.4),
+                width: 1,
+              ),
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.lightbulb_outline,
-                    color: _accent3, size: 18),
+                Icon(Icons.lightbulb_outline, color: _accent3, size: 18),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -1571,11 +1582,7 @@ class _EventTimelineSection extends StatelessWidget {
                     'it lets text inputs accept repeats while game-style code '
                     'paths (which usually want only the initial press) can '
                     'filter them out by matching only on KeyDownEvent.',
-                    style: TextStyle(
-                      color: _text,
-                      fontSize: 13,
-                      height: 1.5,
-                    ),
+                    style: TextStyle(color: _text, fontSize: 13, height: 1.5),
                   ),
                 ),
               ],
@@ -1604,10 +1611,7 @@ class _CharacterVsLogicalTableSection extends StatelessWidget {
           'identifies "this key". character is the *result* of pressing it '
           'right now, with all active modifiers applied. Reading both lets a '
           'handler distinguish "the A key" from "the letter A".',
-      gradient: <Color>[
-        Color(0xFF38201A),
-        Color(0xFF24140F),
-      ],
+      gradient: <Color>[Color(0xFF38201A), Color(0xFF24140F)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1630,108 +1634,144 @@ class _CharacterVsLogicalTableSection extends StatelessWidget {
                       'context (modifiers / layout)',
                     ],
                   ),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'keyA',
-                    'keyA',
-                    '"a"',
-                    'US QWERTY, no modifiers',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'keyA',
-                    'keyA',
-                    '"A"',
-                    'US QWERTY, Shift held',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'keyA',
-                    'keyA',
-                    'null',
-                    'CapsLock toggling (some hosts)',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'keyQ',
-                    'keyA',
-                    '"a"',
-                    'FR AZERTY, no modifiers',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'keyQ',
-                    'keyA',
-                    '"A"',
-                    'FR AZERTY, Shift held',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'digit2',
-                    'digit2',
-                    '"2"',
-                    'US QWERTY',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'digit2',
-                    'digit2',
-                    '"@"',
-                    'US QWERTY + Shift',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'digit2',
-                    'digit2',
-                    '"é"',
-                    'FR AZERTY (top-row 2 yields é)',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'space',
-                    'space',
-                    '" "',
-                    'spacebar',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'enter',
-                    'enter',
-                    '"\\n"',
-                    'return key — character is newline',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'escape',
-                    'escape',
-                    'null',
-                    'no produced text',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'shiftLeft',
-                    'shiftLeft',
-                    'null',
-                    'pure modifier — never has character',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'controlLeft',
-                    'controlLeft',
-                    'null',
-                    'pure modifier',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'f1',
-                    'f1',
-                    'null',
-                    'function key, no glyph',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'arrowUp',
-                    'arrowUp',
-                    'null',
-                    'navigation, no glyph',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'numpad1',
-                    'numpad1',
-                    '"1"',
-                    'NumLock on',
-                  ]),
-                  _TblRow(flex: <int>[3, 3, 2, 4], cells: <String>[
-                    'numpad1',
-                    'end',
-                    'null',
-                    'NumLock off → numpad1 becomes End',
-                  ]),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'keyA',
+                      'keyA',
+                      '"a"',
+                      'US QWERTY, no modifiers',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'keyA',
+                      'keyA',
+                      '"A"',
+                      'US QWERTY, Shift held',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'keyA',
+                      'keyA',
+                      'null',
+                      'CapsLock toggling (some hosts)',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'keyQ',
+                      'keyA',
+                      '"a"',
+                      'FR AZERTY, no modifiers',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'keyQ',
+                      'keyA',
+                      '"A"',
+                      'FR AZERTY, Shift held',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>['digit2', 'digit2', '"2"', 'US QWERTY'],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'digit2',
+                      'digit2',
+                      '"@"',
+                      'US QWERTY + Shift',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'digit2',
+                      'digit2',
+                      '"é"',
+                      'FR AZERTY (top-row 2 yields é)',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>['space', 'space', '" "', 'spacebar'],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'enter',
+                      'enter',
+                      '"\\n"',
+                      'return key — character is newline',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'escape',
+                      'escape',
+                      'null',
+                      'no produced text',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'shiftLeft',
+                      'shiftLeft',
+                      'null',
+                      'pure modifier — never has character',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'controlLeft',
+                      'controlLeft',
+                      'null',
+                      'pure modifier',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'f1',
+                      'f1',
+                      'null',
+                      'function key, no glyph',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'arrowUp',
+                      'arrowUp',
+                      'null',
+                      'navigation, no glyph',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>['numpad1', 'numpad1', '"1"', 'NumLock on'],
+                  ),
+                  _TblRow(
+                    flex: <int>[3, 3, 2, 4],
+                    cells: <String>[
+                      'numpad1',
+                      'end',
+                      'null',
+                      'NumLock off → numpad1 becomes End',
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -1740,20 +1780,23 @@ class _CharacterVsLogicalTableSection extends StatelessWidget {
           _Bullet(
             icon: Icons.info,
             color: _accent2,
-            text: 'Rule of thumb: bind shortcuts on logicalKey. Bind text '
+            text:
+                'Rule of thumb: bind shortcuts on logicalKey. Bind text '
                 'input on character. Bind gameplay controls on physicalKey.',
           ),
           _Bullet(
             icon: Icons.warning_amber_rounded,
             color: _accent3,
-            text: 'character is String? — always null-check it. Many real '
+            text:
+                'character is String? — always null-check it. Many real '
                 'keys (modifiers, function keys, arrows, escape) produce no '
                 'character at all.',
           ),
           _Bullet(
             icon: Icons.swap_horiz,
             color: _accent5,
-            text: 'logicalKey can change identity when NumLock toggles '
+            text:
+                'logicalKey can change identity when NumLock toggles '
                 '(numpad keys), but physicalKey stays the same.',
           ),
         ],
@@ -1814,11 +1857,7 @@ class _HardwareKeyboardSection extends StatelessWidget {
           SizedBox(height: 6),
           Text(
             sub,
-            style: TextStyle(
-              color: _muted,
-              fontSize: 10.5,
-              height: 1.35,
-            ),
+            style: TextStyle(color: _muted, fontSize: 10.5, height: 1.35),
           ),
         ],
       ),
@@ -1835,10 +1874,7 @@ class _HardwareKeyboardSection extends StatelessWidget {
           'Flutter widget. KeyDownEvent is produced by the framework\'s '
           'embedding layer, fanned out by HardwareKeyboard, and surfaced to '
           'your code through several entry points.',
-      gradient: <Color>[
-        Color(0xFF0E2B3E),
-        Color(0xFF0A1E2C),
-      ],
+      gradient: <Color>[Color(0xFF0E2B3E), Color(0xFF0A1E2C)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -1849,7 +1885,8 @@ class _HardwareKeyboardSection extends StatelessWidget {
             children: <Widget>[
               _pipelineNode(
                 title: 'OS / Embedder',
-                sub: 'Native key event from Windows/macOS/Linux/Android/iOS/Web.',
+                sub:
+                    'Native key event from Windows/macOS/Linux/Android/iOS/Web.',
                 color: _accent6,
                 icon: Icons.computer,
               ),
@@ -1883,7 +1920,8 @@ class _HardwareKeyboardSection extends StatelessWidget {
               Expanded(
                 child: _CodeBlock(
                   title: 'HardwareKeyboard.instance.addHandler',
-                  code: 'bool _onKey(KeyEvent event) {\n'
+                  code:
+                      'bool _onKey(KeyEvent event) {\n'
                       '  if (event is KeyDownEvent &&\n'
                       '      event.logicalKey == LogicalKeyboardKey.escape) {\n'
                       '    // Handle ESC. Return true to mark as handled\n'
@@ -1906,7 +1944,8 @@ class _HardwareKeyboardSection extends StatelessWidget {
               Expanded(
                 child: _CodeBlock(
                   title: 'KeyboardListener widget',
-                  code: 'KeyboardListener(\n'
+                  code:
+                      'KeyboardListener(\n'
                       '  focusNode: FocusNode(),\n'
                       '  autofocus: true,\n'
                       '  onKeyEvent: (KeyEvent event) {\n'
@@ -2001,16 +2040,15 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           'Five common shapes you will write in production code. Each snippet '
           'is purely illustrative and could be dropped into a real Flutter app '
           'with minimal adjustment.',
-      gradient: <Color>[
-        Color(0xFF11233F),
-        Color(0xFF0A1830),
-      ],
+      gradient: <Color>[Color(0xFF11233F), Color(0xFF0A1830)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _CodeBlock(
-            title: '1. Detect an arrow-key press (KeyDownEvent only, no repeats)',
-            code: 'bool onlyDownArrows(KeyEvent event) {\n'
+            title:
+                '1. Detect an arrow-key press (KeyDownEvent only, no repeats)',
+            code:
+                'bool onlyDownArrows(KeyEvent event) {\n'
                 '  if (event is! KeyDownEvent) return false;\n'
                 '  switch (event.logicalKey) {\n'
                 '    case LogicalKeyboardKey.arrowUp:    moveUp();    return true;\n'
@@ -2025,7 +2063,8 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           _CodeBlock(
             title:
                 '2. Continuous movement — accept BOTH KeyDownEvent and KeyRepeatEvent',
-            code: 'bool moveWhileHeld(KeyEvent event) {\n'
+            code:
+                'bool moveWhileHeld(KeyEvent event) {\n'
                 '  final isPress = event is KeyDownEvent || event is KeyRepeatEvent;\n'
                 '  if (!isPress) return false;\n'
                 '  if (event.logicalKey == LogicalKeyboardKey.arrowRight) {\n'
@@ -2038,7 +2077,8 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           SizedBox(height: 12),
           _CodeBlock(
             title: '3. Modifier-aware shortcut (Ctrl+S to save)',
-            code: 'bool onCtrlS(KeyEvent event) {\n'
+            code:
+                'bool onCtrlS(KeyEvent event) {\n'
                 '  if (event is! KeyDownEvent) return false;\n'
                 '  final isCtrl = HardwareKeyboard.instance.isControlPressed;\n'
                 '  if (isCtrl && event.logicalKey == LogicalKeyboardKey.keyS) {\n'
@@ -2051,7 +2091,8 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           SizedBox(height: 12),
           _CodeBlock(
             title: '4. WASD game input — bind on physicalKey, not logicalKey',
-            code: 'bool wasd(KeyEvent event) {\n'
+            code:
+                'bool wasd(KeyEvent event) {\n'
                 '  if (event is! KeyDownEvent && event is! KeyRepeatEvent) return false;\n'
                 '  switch (event.physicalKey) {\n'
                 '    case PhysicalKeyboardKey.keyW: forward();  return true;\n'
@@ -2065,7 +2106,8 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           SizedBox(height: 12),
           _CodeBlock(
             title: '5. Text-style handler — use character, not logicalKey',
-            code: 'bool textInput(KeyEvent event) {\n'
+            code:
+                'bool textInput(KeyEvent event) {\n'
                 '  if (event is! KeyDownEvent && event is! KeyRepeatEvent) return false;\n'
                 '  final ch = event.character;\n'
                 '  if (ch == null || ch.isEmpty) return false;\n'
@@ -2076,7 +2118,8 @@ class _HandlerSnippetGallerySection extends StatelessWidget {
           SizedBox(height: 12),
           _CodeBlock(
             title: '6. Time-delta debug log',
-            code: 'Duration? _lastTs;\n'
+            code:
+                'Duration? _lastTs;\n'
                 'bool log(KeyEvent event) {\n'
                 '  if (event is! KeyDownEvent) return false;\n'
                 '  final delta = _lastTs == null\n'
@@ -2133,8 +2176,7 @@ class _PitfallsSection extends StatelessWidget {
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.25),
               borderRadius: BorderRadius.circular(8),
-              border:
-                  Border.all(color: color.withValues(alpha: 0.6), width: 1),
+              border: Border.all(color: color.withValues(alpha: 0.6), width: 1),
             ),
             alignment: Alignment.center,
             child: Icon(icon, color: color, size: 18),
@@ -2155,11 +2197,7 @@ class _PitfallsSection extends StatelessWidget {
                 SizedBox(height: 6),
                 Text(
                   body,
-                  style: TextStyle(
-                    color: _muted,
-                    fontSize: 13,
-                    height: 1.55,
-                  ),
+                  style: TextStyle(color: _muted, fontSize: 13, height: 1.55),
                 ),
               ],
             ),
@@ -2178,10 +2216,7 @@ class _PitfallsSection extends StatelessWidget {
           'Production keyboard code is full of edge cases. The framework '
           'papers over most of them, but a few escape into your handlers — '
           'these are the most common.',
-      gradient: <Color>[
-        Color(0xFF3A1422),
-        Color(0xFF24101A),
-      ],
+      gradient: <Color>[Color(0xFF3A1422), Color(0xFF24101A)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2288,10 +2323,7 @@ class _MigrationCheatSheetSection extends StatelessWidget {
           'RawKeyUpEvent) is now considered the previous generation. New code '
           'should use HardwareKeyboard + KeyEvent. This cheat-sheet maps the '
           'most common operations between the two APIs.',
-      gradient: <Color>[
-        Color(0xFF231336),
-        Color(0xFF160A24),
-      ],
+      gradient: <Color>[Color(0xFF231336), Color(0xFF160A24)],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2312,62 +2344,89 @@ class _MigrationCheatSheetSection extends StatelessWidget {
                       'modern (HardwareKeyboard / KeyEvent)',
                     ],
                   ),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyEvent (sealed-ish)',
-                    'KeyEvent (true sealed)',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyDownEvent',
-                    'KeyDownEvent',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyUpEvent',
-                    'KeyUpEvent',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    '— (no analogue)',
-                    'KeyRepeatEvent',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyboard.instance.addListener',
-                    'HardwareKeyboard.instance.addHandler',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyboardListener',
-                    'KeyboardListener',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.data.physicalKey',
-                    'event.physicalKey',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.data.logicalKey',
-                    'event.logicalKey',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.character',
-                    'event.character',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.data.isModifierPressed(...)',
-                    'HardwareKeyboard.instance.isShiftPressed etc.',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'RawKeyboard.instance.keysPressed',
-                    'HardwareKeyboard.instance.logicalKeysPressed',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.repeat (bool)',
-                    'event is KeyRepeatEvent',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'event.data.keyLabel',
-                    '(use logicalKey.keyLabel)',
-                  ]),
-                  _TblRow(flex: <int>[5, 5], cells: <String>[
-                    'platform-specific RawKeyEventData* casts',
-                    'no longer required — KeyEvent is uniform',
-                  ]),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'RawKeyEvent (sealed-ish)',
+                      'KeyEvent (true sealed)',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>['RawKeyDownEvent', 'KeyDownEvent'],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>['RawKeyUpEvent', 'KeyUpEvent'],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>['— (no analogue)', 'KeyRepeatEvent'],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'RawKeyboard.instance.addListener',
+                      'HardwareKeyboard.instance.addHandler',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>['RawKeyboardListener', 'KeyboardListener'],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'event.data.physicalKey',
+                      'event.physicalKey',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'event.data.logicalKey',
+                      'event.logicalKey',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>['event.character', 'event.character'],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'event.data.isModifierPressed(...)',
+                      'HardwareKeyboard.instance.isShiftPressed etc.',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'RawKeyboard.instance.keysPressed',
+                      'HardwareKeyboard.instance.logicalKeysPressed',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'event.repeat (bool)',
+                      'event is KeyRepeatEvent',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'event.data.keyLabel',
+                      '(use logicalKey.keyLabel)',
+                    ],
+                  ),
+                  _TblRow(
+                    flex: <int>[5, 5],
+                    cells: <String>[
+                      'platform-specific RawKeyEventData* casts',
+                      'no longer required — KeyEvent is uniform',
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -2375,7 +2434,8 @@ class _MigrationCheatSheetSection extends StatelessWidget {
           SizedBox(height: 18),
           _CodeBlock(
             title: 'Before — RawKeyDownEvent',
-            code: 'RawKeyboard.instance.addListener((RawKeyEvent event) {\n'
+            code:
+                'RawKeyboard.instance.addListener((RawKeyEvent event) {\n'
                 '  if (event is RawKeyDownEvent) {\n'
                 '    if (event.logicalKey == LogicalKeyboardKey.escape) {\n'
                 '      Navigator.pop(context);\n'
@@ -2386,7 +2446,8 @@ class _MigrationCheatSheetSection extends StatelessWidget {
           SizedBox(height: 10),
           _CodeBlock(
             title: 'After — KeyDownEvent',
-            code: 'HardwareKeyboard.instance.addHandler((KeyEvent event) {\n'
+            code:
+                'HardwareKeyboard.instance.addHandler((KeyEvent event) {\n'
                 '  if (event is KeyDownEvent &&\n'
                 '      event.logicalKey == LogicalKeyboardKey.escape) {\n'
                 '    Navigator.pop(context);\n'
@@ -2402,12 +2463,13 @@ class _MigrationCheatSheetSection extends StatelessWidget {
               color: _accent5.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: _accent5.withValues(alpha: 0.45), width: 1),
+                color: _accent5.withValues(alpha: 0.45),
+                width: 1,
+              ),
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.check_circle_outline,
-                    color: _accent5, size: 20),
+                Icon(Icons.check_circle_outline, color: _accent5, size: 20),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -2415,11 +2477,7 @@ class _MigrationCheatSheetSection extends StatelessWidget {
                     'marks the event as handled, which short-circuits other '
                     'handlers and (on web) prevents the browser default. '
                     'RawKeyboard had no such return-value contract.',
-                    style: TextStyle(
-                      color: _text,
-                      fontSize: 13,
-                      height: 1.5,
-                    ),
+                    style: TextStyle(color: _text, fontSize: 13, height: 1.5),
                   ),
                 ),
               ],
@@ -2463,8 +2521,7 @@ class _FooterSection extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.keyboard_alt_outlined,
-                  color: _accent2, size: 22),
+              Icon(Icons.keyboard_alt_outlined, color: _accent2, size: 22),
               SizedBox(width: 10),
               Text(
                 'End of KeyDownEvent deep demo',
@@ -2482,11 +2539,7 @@ class _FooterSection extends StatelessWidget {
             'real keyboard hardware, focus tree, or HardwareKeyboard instance '
             '— it just renders an explainer surface that can be screenshotted, '
             'embedded into documentation, or used as a snapshot test target.',
-            style: TextStyle(
-              color: _muted,
-              fontSize: 13,
-              height: 1.55,
-            ),
+            style: TextStyle(color: _muted, fontSize: 13, height: 1.55),
           ),
           SizedBox(height: 18),
           Wrap(
@@ -2511,8 +2564,7 @@ class _FooterSection extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                Icon(Icons.info_outline,
-                    color: _muted, size: 14),
+                Icon(Icons.info_outline, color: _muted, size: 14),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(

@@ -45,23 +45,35 @@ Widget rpInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 130.0,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF9E7C0C))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF9E7C0C),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12.0, color: Color(0xFF6D4C0A))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF6D4C0A)),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget rpResizePreview(String label, double srcW, double srcH,
-    double tgtW, double tgtH, bool isExact, Color accent) {
+Widget rpResizePreview(
+  String label,
+  double srcW,
+  double srcH,
+  double tgtW,
+  double tgtH,
+  bool isExact,
+  Color accent,
+) {
   // Simulates resize behavior: exact stretches, fit preserves ratio
   final displayW = isExact ? tgtW : _rpFitWidth(srcW, srcH, tgtW, tgtH);
   final displayH = isExact ? tgtH : _rpFitHeight(srcW, srcH, tgtW, tgtH);
@@ -85,17 +97,27 @@ Widget rpResizePreview(String label, double srcW, double srcH,
               borderRadius: BorderRadius.circular(3.0),
             ),
             child: Center(
-              child: Text('${displayW.toInt()}×${displayH.toInt()}',
-                  style: TextStyle(fontSize: 9.0, color: Colors.white,
-                      fontWeight: FontWeight.w600)),
+              child: Text(
+                '${displayW.toInt()}×${displayH.toInt()}',
+                style: TextStyle(
+                  fontSize: 9.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
       ),
       SizedBox(height: 4.0),
-      Text(label,
-          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
-              color: Color(0xFF9E7C0C))),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 10.0,
+          fontWeight: FontWeight.w600,
+          color: Color(0xFF9E7C0C),
+        ),
+      ),
     ],
   );
 }
@@ -137,21 +159,29 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.photo_size_select_large, color: Colors.white, size: 28.0),
+            Icon(
+              Icons.photo_size_select_large,
+              color: Colors.white,
+              size: 28.0,
+            ),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('ResizeImagePolicy',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                'ResizeImagePolicy',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('Controls how ResizeImage resizes decoded images for memory optimization',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFF3D0))),
+        Text(
+          'Controls how ResizeImage resizes decoded images for memory optimization',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFFFF3D0)),
+        ),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -184,26 +214,40 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: Color(0xFFE6A817).withValues(alpha: 0.4)),
+              border: Border.all(
+                color: Color(0xFFE6A817).withValues(alpha: 0.4),
+              ),
             ),
             child: Column(
               children: [
                 Icon(Icons.crop, color: Color(0xFFE6A817), size: 32.0),
                 SizedBox(height: 8.0),
-                Text('exact',
-                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
-                        color: Color(0xFF9E7C0C))),
+                Text(
+                  'exact',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF9E7C0C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
-                Text('Resize to exact dimensions specified',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A))),
+                Text(
+                  'Resize to exact dimensions specified',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                ),
                 SizedBox(height: 6.0),
                 rpChip('index: 0', Color(0xFFE6A817)),
                 SizedBox(height: 4.0),
-                Text('May distort aspect ratio',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
-                        color: Color(0xFFB8860B))),
+                Text(
+                  'May distort aspect ratio',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFB8860B),
+                  ),
+                ),
               ],
             ),
           ),
@@ -215,26 +259,40 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: Color(0xFF9E7C0C).withValues(alpha: 0.4)),
+              border: Border.all(
+                color: Color(0xFF9E7C0C).withValues(alpha: 0.4),
+              ),
             ),
             child: Column(
               children: [
                 Icon(Icons.fit_screen, color: Color(0xFF9E7C0C), size: 32.0),
                 SizedBox(height: 8.0),
-                Text('fit',
-                    style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700,
-                        color: Color(0xFF9E7C0C))),
+                Text(
+                  'fit',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF9E7C0C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
-                Text('Resize to fit within target bounds',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A))),
+                Text(
+                  'Resize to fit within target bounds',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                ),
                 SizedBox(height: 6.0),
                 rpChip('index: 1', Color(0xFF9E7C0C)),
                 SizedBox(height: 4.0),
-                Text('Preserves aspect ratio',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic,
-                        color: Color(0xFFB8860B))),
+                Text(
+                  'Preserves aspect ratio',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontStyle: FontStyle.italic,
+                    color: Color(0xFFB8860B),
+                  ),
+                ),
               ],
             ),
           ),
@@ -259,31 +317,69 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Source: 200×100 → Target: 80×80',
-            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
-                color: Color(0xFF9E7C0C))),
+        Text(
+          'Source: 200×100 → Target: 80×80',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF9E7C0C),
+          ),
+        ),
         SizedBox(height: 12.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            rpResizePreview('exact\n(stretches)', 200, 100, 80, 80, true,
-                Color(0xFFE6A817)),
-            rpResizePreview('fit\n(preserves)', 200, 100, 80, 80, false,
-                Color(0xFF9E7C0C)),
+            rpResizePreview(
+              'exact\n(stretches)',
+              200,
+              100,
+              80,
+              80,
+              true,
+              Color(0xFFE6A817),
+            ),
+            rpResizePreview(
+              'fit\n(preserves)',
+              200,
+              100,
+              80,
+              80,
+              false,
+              Color(0xFF9E7C0C),
+            ),
           ],
         ),
         SizedBox(height: 12.0),
-        Text('Source: 100×200 → Target: 80×80',
-            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
-                color: Color(0xFF9E7C0C))),
+        Text(
+          'Source: 100×200 → Target: 80×80',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF9E7C0C),
+          ),
+        ),
         SizedBox(height: 12.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            rpResizePreview('exact\n(stretches)', 100, 200, 80, 80, true,
-                Color(0xFFE6A817)),
-            rpResizePreview('fit\n(preserves)', 100, 200, 80, 80, false,
-                Color(0xFF9E7C0C)),
+            rpResizePreview(
+              'exact\n(stretches)',
+              100,
+              200,
+              80,
+              80,
+              true,
+              Color(0xFFE6A817),
+            ),
+            rpResizePreview(
+              'fit\n(preserves)',
+              100,
+              200,
+              80,
+              80,
+              false,
+              Color(0xFF9E7C0C),
+            ),
           ],
         ),
       ],
@@ -297,14 +393,34 @@ dynamic build(BuildContext context) {
   print('  fit never exceeds either dimension');
 
   final ratioExamples = <Map<String, dynamic>>[
-    {'src': '400×200', 'tgt': '100×100', 'exact': '100×100', 'fit': '100×50',
-     'note': 'Wide image: fit shrinks height'},
-    {'src': '200×400', 'tgt': '100×100', 'exact': '100×100', 'fit': '50×100',
-     'note': 'Tall image: fit shrinks width'},
-    {'src': '300×300', 'tgt': '100×100', 'exact': '100×100', 'fit': '100×100',
-     'note': 'Square: both policies identical'},
-    {'src': '50×25', 'tgt': '100×100', 'exact': '100×100', 'fit': '100×50',
-     'note': 'Upscale: same ratio logic applies'},
+    {
+      'src': '400×200',
+      'tgt': '100×100',
+      'exact': '100×100',
+      'fit': '100×50',
+      'note': 'Wide image: fit shrinks height',
+    },
+    {
+      'src': '200×400',
+      'tgt': '100×100',
+      'exact': '100×100',
+      'fit': '50×100',
+      'note': 'Tall image: fit shrinks width',
+    },
+    {
+      'src': '300×300',
+      'tgt': '100×100',
+      'exact': '100×100',
+      'fit': '100×100',
+      'note': 'Square: both policies identical',
+    },
+    {
+      'src': '50×25',
+      'tgt': '100×100',
+      'exact': '100×100',
+      'fit': '100×50',
+      'note': 'Upscale: same ratio logic applies',
+    },
   ];
 
   final rpAspectSection = Container(
@@ -318,43 +434,114 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(width: 70.0, child: Text('Source',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            SizedBox(width: 60.0, child: Text('Target',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            SizedBox(width: 60.0, child: Text('exact',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFFE6A817)))),
-            SizedBox(width: 60.0, child: Text('fit',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            Expanded(child: Text('Note',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
+            SizedBox(
+              width: 70.0,
+              child: Text(
+                'Source',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'Target',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'exact',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFFE6A817),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'fit',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Note',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFFFD54F)),
-        ...ratioExamples.map((r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 70.0, child: Text(r['src'] as String,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)))),
-              SizedBox(width: 60.0, child: Text(r['tgt'] as String,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)))),
-              SizedBox(width: 60.0, child: Text(r['exact'] as String,
-                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                      color: Color(0xFFE6A817)))),
-              SizedBox(width: 60.0, child: Text(r['fit'] as String,
-                  style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                      color: Color(0xFF9E7C0C)))),
-              Expanded(child: Text(r['note'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF8D6E00)))),
-            ],
+        ...ratioExamples.map(
+          (r) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 70.0,
+                  child: Text(
+                    r['src'] as String,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Text(
+                    r['tgt'] as String,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Text(
+                    r['exact'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE6A817),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Text(
+                    r['fit'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF9E7C0C),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    r['note'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF8D6E00)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -375,9 +562,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('ResizeImage Constructor',
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
-                color: Color(0xFF9E7C0C))),
+        Text(
+          'ResizeImage Constructor',
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF9E7C0C),
+          ),
+        ),
         SizedBox(height: 8.0),
         rpInfoRow('Class:', 'ResizeImage'),
         rpInfoRow('Wraps:', 'ImageProvider'),
@@ -400,8 +592,11 @@ dynamic build(BuildContext context) {
             '  policy: ResizeImagePolicy.fit,\n'
             '  allowUpscaling: false,\n'
             ')',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                color: Color(0xFF6D4C0A)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF6D4C0A),
+            ),
           ),
         ),
       ],
@@ -416,14 +611,30 @@ dynamic build(BuildContext context) {
   print('  96% memory savings');
 
   final memoryData = <Map<String, dynamic>>[
-    {'label': 'Original 4000×3000', 'bytes': '~48 MB', 'pct': 1.0,
-     'color': Color(0xFFF44336)},
-    {'label': 'exact 400×300', 'bytes': '~0.48 MB', 'pct': 0.01,
-     'color': Color(0xFFE6A817)},
-    {'label': 'fit 400×300', 'bytes': '~0.48 MB', 'pct': 0.01,
-     'color': Color(0xFF9E7C0C)},
-    {'label': 'exact 100×100', 'bytes': '~0.04 MB', 'pct': 0.001,
-     'color': Color(0xFF4CAF50)},
+    {
+      'label': 'Original 4000×3000',
+      'bytes': '~48 MB',
+      'pct': 1.0,
+      'color': Color(0xFFF44336),
+    },
+    {
+      'label': 'exact 400×300',
+      'bytes': '~0.48 MB',
+      'pct': 0.01,
+      'color': Color(0xFFE6A817),
+    },
+    {
+      'label': 'fit 400×300',
+      'bytes': '~0.48 MB',
+      'pct': 0.01,
+      'color': Color(0xFF9E7C0C),
+    },
+    {
+      'label': 'exact 100×100',
+      'bytes': '~0.04 MB',
+      'pct': 0.001,
+      'color': Color(0xFF4CAF50),
+    },
   ];
 
   final rpMemorySection = Container(
@@ -436,9 +647,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Decoded image memory comparison',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF8D6E00))),
+        Text(
+          'Decoded image memory comparison',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8D6E00),
+          ),
+        ),
         SizedBox(height: 8.0),
         ...memoryData.map((m) {
           return Padding(
@@ -449,12 +665,22 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(m['label'] as String,
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                            color: Color(0xFF6D4C0A))),
-                    Text(m['bytes'] as String,
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                            color: m['color'] as Color)),
+                    Text(
+                      m['label'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF6D4C0A),
+                      ),
+                    ),
+                    Text(
+                      m['bytes'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: m['color'] as Color,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4.0),
@@ -513,31 +739,68 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(width: 110.0, child: Text('Property',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            Expanded(child: Text('exact',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFFE6A817)))),
-            Expanded(child: Text('fit',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
+            SizedBox(
+              width: 110.0,
+              child: Text(
+                'Property',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'exact',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFFE6A817),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'fit',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFFFD54F)),
-        ...rpCompData.map((r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 110.0, child: Text(r['prop']!,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)))),
-              Expanded(child: Text(r['exact']!,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFFB8860B)))),
-              Expanded(child: Text(r['fit']!,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)))),
-            ],
+        ...rpCompData.map(
+          (r) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 110.0,
+                  child: Text(
+                    r['prop']!,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    r['exact']!,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFFB8860B)),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    r['fit']!,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -550,24 +813,48 @@ dynamic build(BuildContext context) {
   print('  Banners: fit for hero images');
 
   final rpUseCases = <Map<String, dynamic>>[
-    {'title': 'Thumbnail Grid', 'icon': Icons.grid_view,
-     'policy': 'exact', 'color': Color(0xFFE6A817),
-     'desc': 'Uniform grid cells need identical dimensions'},
-    {'title': 'Photo Gallery', 'icon': Icons.photo_library,
-     'policy': 'fit', 'color': Color(0xFF9E7C0C),
-     'desc': 'Preserve original aspect ratio for natural look'},
-    {'title': 'Avatar Circle', 'icon': Icons.account_circle,
-     'policy': 'exact', 'color': Color(0xFFE6A817),
-     'desc': 'Square output for circular clip, aspect irrelevant'},
-    {'title': 'Hero Banner', 'icon': Icons.panorama,
-     'policy': 'fit', 'color': Color(0xFF9E7C0C),
-     'desc': 'Wide image scaled down preserving content'},
-    {'title': 'Icon Badge', 'icon': Icons.badge,
-     'policy': 'exact', 'color': Color(0xFFE6A817),
-     'desc': 'Small fixed-size output for notification icons'},
-    {'title': 'Product Image', 'icon': Icons.shopping_bag,
-     'policy': 'fit', 'color': Color(0xFF9E7C0C),
-     'desc': 'Various product shapes need natural proportions'},
+    {
+      'title': 'Thumbnail Grid',
+      'icon': Icons.grid_view,
+      'policy': 'exact',
+      'color': Color(0xFFE6A817),
+      'desc': 'Uniform grid cells need identical dimensions',
+    },
+    {
+      'title': 'Photo Gallery',
+      'icon': Icons.photo_library,
+      'policy': 'fit',
+      'color': Color(0xFF9E7C0C),
+      'desc': 'Preserve original aspect ratio for natural look',
+    },
+    {
+      'title': 'Avatar Circle',
+      'icon': Icons.account_circle,
+      'policy': 'exact',
+      'color': Color(0xFFE6A817),
+      'desc': 'Square output for circular clip, aspect irrelevant',
+    },
+    {
+      'title': 'Hero Banner',
+      'icon': Icons.panorama,
+      'policy': 'fit',
+      'color': Color(0xFF9E7C0C),
+      'desc': 'Wide image scaled down preserving content',
+    },
+    {
+      'title': 'Icon Badge',
+      'icon': Icons.badge,
+      'policy': 'exact',
+      'color': Color(0xFFE6A817),
+      'desc': 'Small fixed-size output for notification icons',
+    },
+    {
+      'title': 'Product Image',
+      'icon': Icons.shopping_bag,
+      'policy': 'fit',
+      'color': Color(0xFF9E7C0C),
+      'desc': 'Various product shapes need natural proportions',
+    },
   ];
 
   final rpUseCaseSection = Container(
@@ -594,18 +881,31 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(uc['icon'] as IconData, color: Color(0xFFE6A817), size: 16.0),
+                  Icon(
+                    uc['icon'] as IconData,
+                    color: Color(0xFFE6A817),
+                    size: 16.0,
+                  ),
                   SizedBox(width: 4.0),
-                  Expanded(child: Text(uc['title'] as String,
-                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                          color: Color(0xFF9E7C0C)))),
+                  Expanded(
+                    child: Text(
+                      uc['title'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF9E7C0C),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4.0),
               rpChip(uc['policy'] as String, uc['color'] as Color),
               SizedBox(height: 4.0),
-              Text(uc['desc'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A))),
+              Text(
+                uc['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)),
+              ),
             ],
           ),
         );
@@ -620,10 +920,26 @@ dynamic build(BuildContext context) {
   print('  Interacts with both policies differently');
 
   final upscaleData = <Map<String, dynamic>>[
-    {'scenario': 'Small image, upscale=false', 'exact': 'No resize', 'fit': 'No resize'},
-    {'scenario': 'Small image, upscale=true', 'exact': 'Stretch to w×h', 'fit': 'Scale to fit'},
-    {'scenario': 'Large image, upscale=false', 'exact': 'Shrink to w×h', 'fit': 'Shrink to fit'},
-    {'scenario': 'Large image, upscale=true', 'exact': 'Shrink to w×h', 'fit': 'Shrink to fit'},
+    {
+      'scenario': 'Small image, upscale=false',
+      'exact': 'No resize',
+      'fit': 'No resize',
+    },
+    {
+      'scenario': 'Small image, upscale=true',
+      'exact': 'Stretch to w×h',
+      'fit': 'Scale to fit',
+    },
+    {
+      'scenario': 'Large image, upscale=false',
+      'exact': 'Shrink to w×h',
+      'fit': 'Shrink to fit',
+    },
+    {
+      'scenario': 'Large image, upscale=true',
+      'exact': 'Shrink to w×h',
+      'fit': 'Shrink to fit',
+    },
   ];
 
   final rpUpscaleSection = Container(
@@ -636,37 +952,83 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('How allowUpscaling interacts with each policy',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF8D6E00))),
+        Text(
+          'How allowUpscaling interacts with each policy',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8D6E00),
+          ),
+        ),
         SizedBox(height: 8.0),
         Row(
           children: [
-            Expanded(flex: 3, child: Text('Scenario',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF9E7C0C)))),
-            Expanded(flex: 2, child: Text('exact',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFFE6A817)))),
-            Expanded(flex: 2, child: Text('fit',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF9E7C0C)))),
+            Expanded(
+              flex: 3,
+              child: Text(
+                'Scenario',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                'exact',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFFE6A817),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                'fit',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFFFD54F)),
-        ...upscaleData.map((r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              Expanded(flex: 3, child: Text(r['scenario'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
-              Expanded(flex: 2, child: Text(r['exact'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFFB8860B)))),
-              Expanded(flex: 2, child: Text(r['fit'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
-            ],
+        ...upscaleData.map(
+          (r) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    r['scenario'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    r['exact'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFFB8860B)),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    r['fit'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -678,12 +1040,21 @@ dynamic build(BuildContext context) {
   print('  fit: scales to satisfy the specified constraint');
 
   final dimensionData = <Map<String, dynamic>>[
-    {'spec': 'width: 200, height: null', 'exact': 'Width=200, height=original',
-     'fit': 'Width≤200, height scaled'},
-    {'spec': 'width: null, height: 150', 'exact': 'Width=original, height=150',
-     'fit': 'Height≤150, width scaled'},
-    {'spec': 'width: 200, height: 150', 'exact': '200×150 exact',
-     'fit': 'Fits within 200×150'},
+    {
+      'spec': 'width: 200, height: null',
+      'exact': 'Width=200, height=original',
+      'fit': 'Width≤200, height scaled',
+    },
+    {
+      'spec': 'width: null, height: 150',
+      'exact': 'Width=original, height=150',
+      'fit': 'Height≤150, width scaled',
+    },
+    {
+      'spec': 'width: 200, height: 150',
+      'exact': '200×150 exact',
+      'fit': 'Fits within 200×150',
+    },
   ];
 
   final rpDimensionSection = Container(
@@ -696,9 +1067,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Behavior when only one dimension is specified',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF8D6E00))),
+        Text(
+          'Behavior when only one dimension is specified',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8D6E00),
+          ),
+        ),
         SizedBox(height: 8.0),
         ...dimensionData.map((d) {
           return Container(
@@ -712,23 +1088,43 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(d['spec'] as String,
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace', color: Color(0xFF9E7C0C))),
+                Text(
+                  d['spec'] as String,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF9E7C0C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
                 Row(
                   children: [
                     rpChip('exact', Color(0xFFE6A817)),
-                    Expanded(child: Text(d['exact'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
+                    Expanded(
+                      child: Text(
+                        d['exact'] as String,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Color(0xFF6D4C0A),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 2.0),
                 Row(
                   children: [
                     rpChip('fit', Color(0xFF9E7C0C)),
-                    Expanded(child: Text(d['fit'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
+                    Expanded(
+                      child: Text(
+                        d['fit'] as String,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Color(0xFF6D4C0A),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -759,9 +1155,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Dart 3 Switch Expression',
-            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                color: Color(0xFF9E7C0C))),
+        Text(
+          'Dart 3 Switch Expression',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF9E7C0C),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -777,8 +1178,11 @@ dynamic build(BuildContext context) {
             '  ResizeImagePolicy.fit =>\n'
             '    "Fit within bounds, preserve ratio",\n'
             '};',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                color: Color(0xFF6D4C0A)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF6D4C0A),
+            ),
           ),
         ),
         SizedBox(height: 8.0),
@@ -792,8 +1196,10 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 Icon(Icons.arrow_right, color: Color(0xFFE6A817), size: 16.0),
-                Text('${v.name} → $desc',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A))),
+                Text(
+                  '${v.name} → $desc',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A)),
+                ),
               ],
             ),
           );
@@ -807,7 +1213,12 @@ dynamic build(BuildContext context) {
   print('  Various source sizes → how each policy handles them');
 
   final sizeScenarios = <Map<String, String>>[
-    {'src': '1920×1080', 'tgt': '200×200', 'exact': '200×200', 'fit': '200×112'},
+    {
+      'src': '1920×1080',
+      'tgt': '200×200',
+      'exact': '200×200',
+      'fit': '200×112',
+    },
     {'src': '800×600', 'tgt': '150×150', 'exact': '150×150', 'fit': '150×112'},
     {'src': '500×500', 'tgt': '300×300', 'exact': '300×300', 'fit': '300×300'},
     {'src': '100×400', 'tgt': '200×200', 'exact': '200×200', 'fit': '50×200'},
@@ -825,45 +1236,105 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(width: 85.0, child: Text('Source',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            SizedBox(width: 60.0, child: Text('Target',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
-            SizedBox(width: 60.0, child: Text('exact',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFFE6A817)))),
-            Expanded(child: Text('fit',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF9E7C0C)))),
+            SizedBox(
+              width: 85.0,
+              child: Text(
+                'Source',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'Target',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'exact',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFFE6A817),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'fit',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF9E7C0C),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFFFFD54F)),
-        ...sizeScenarios.map((s) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 85.0, child: Text(s['src']!,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
-              SizedBox(width: 60.0, child: Text(s['tgt']!,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)))),
-              SizedBox(width: 60.0, child: Text(s['exact']!,
-                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
-                      color: Color(0xFFE6A817)))),
-              Expanded(child: Text(s['fit']!,
-                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
-                      color: Color(0xFF9E7C0C)))),
-            ],
+        ...sizeScenarios.map(
+          (s) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 85.0,
+                  child: Text(
+                    s['src']!,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Text(
+                    s['tgt']!,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF6D4C0A)),
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Text(
+                    s['exact']!,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFE6A817),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    s['fit']!,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF9E7C0C),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
 
   // ── Section 13: Equality & Hashing ───────────────────────────
   print('\n[13] Equality & Hashing');
-  print('  exact == exact: ${ResizeImagePolicy.exact == ResizeImagePolicy.exact}');
+  print(
+    '  exact == exact: ${ResizeImagePolicy.exact == ResizeImagePolicy.exact}',
+  );
   print('  exact == fit: ${ResizeImagePolicy.exact == ResizeImagePolicy.fit}');
   print('  hashCode exact: ${ResizeImagePolicy.exact.hashCode}');
   print('  hashCode fit: ${ResizeImagePolicy.fit.hashCode}');
@@ -878,8 +1349,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        rpInfoRow('exact == exact:', '${ResizeImagePolicy.exact == ResizeImagePolicy.exact}'),
-        rpInfoRow('exact == fit:', '${ResizeImagePolicy.exact == ResizeImagePolicy.fit}'),
+        rpInfoRow(
+          'exact == exact:',
+          '${ResizeImagePolicy.exact == ResizeImagePolicy.exact}',
+        ),
+        rpInfoRow(
+          'exact == fit:',
+          '${ResizeImagePolicy.exact == ResizeImagePolicy.fit}',
+        ),
         rpInfoRow('hashCode exact:', '${ResizeImagePolicy.exact.hashCode}'),
         rpInfoRow('hashCode fit:', '${ResizeImagePolicy.fit.hashCode}'),
         SizedBox(height: 6.0),
@@ -903,29 +1380,38 @@ dynamic build(BuildContext context) {
   print('  Pattern 3: Network image with resize');
 
   final rpPatterns = <Map<String, String>>[
-    {'title': 'ListView Thumbnail Optimization',
-     'code': 'Image(\n'
-         '  image: ResizeImage(\n'
-         '    NetworkImage(url),\n'
-         '    width: 100,\n'
-         '    height: 100,\n'
-         '    policy: ResizeImagePolicy.exact,\n'
-         '  ),\n'
-         ')'},
-    {'title': 'Conditional Policy Selection',
-     'code': 'final policy = preserveRatio\n'
-         '    ? ResizeImagePolicy.fit\n'
-         '    : ResizeImagePolicy.exact;\n'
-         'ResizeImage(provider,\n'
-         '    width: w, height: h,\n'
-         '    policy: policy)'},
-    {'title': 'Memory-Efficient Gallery',
-     'code': 'ResizeImage(\n'
-         '  FileImage(file),\n'
-         '  width: 300,\n'
-         '  policy: ResizeImagePolicy.fit,\n'
-         '  // height auto-calculated\n'
-         ')'},
+    {
+      'title': 'ListView Thumbnail Optimization',
+      'code':
+          'Image(\n'
+          '  image: ResizeImage(\n'
+          '    NetworkImage(url),\n'
+          '    width: 100,\n'
+          '    height: 100,\n'
+          '    policy: ResizeImagePolicy.exact,\n'
+          '  ),\n'
+          ')',
+    },
+    {
+      'title': 'Conditional Policy Selection',
+      'code':
+          'final policy = preserveRatio\n'
+          '    ? ResizeImagePolicy.fit\n'
+          '    : ResizeImagePolicy.exact;\n'
+          'ResizeImage(provider,\n'
+          '    width: w, height: h,\n'
+          '    policy: policy)',
+    },
+    {
+      'title': 'Memory-Efficient Gallery',
+      'code':
+          'ResizeImage(\n'
+          '  FileImage(file),\n'
+          '  width: 300,\n'
+          '  policy: ResizeImagePolicy.fit,\n'
+          '  // height auto-calculated\n'
+          ')',
+    },
   ];
 
   final rpPatternsSection = Container(
@@ -948,9 +1434,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(p['title']!,
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                      color: Color(0xFFE6A817))),
+              Text(
+                p['title']!,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFE6A817),
+                ),
+              ),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -959,9 +1450,14 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFFFF3D0),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(p['code']!,
-                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                        color: Color(0xFF6D4C0A))),
+                child: Text(
+                  p['code']!,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF6D4C0A),
+                  ),
+                ),
               ),
             ],
           ),
@@ -976,10 +1472,20 @@ dynamic build(BuildContext context) {
   print('  fit: Photos, galleries, hero images, previews');
 
   final rpWhenData = <Map<String, dynamic>>[
-    {'policy': 'exact', 'icon': Icons.crop, 'color': Color(0xFFE6A817),
-     'when': 'Avatars, thumbnails, notification icons, fixed-size grids, placeholder images'},
-    {'policy': 'fit', 'icon': Icons.fit_screen, 'color': Color(0xFF9E7C0C),
-     'when': 'Photo galleries, hero banners, product images, content previews, user uploads'},
+    {
+      'policy': 'exact',
+      'icon': Icons.crop,
+      'color': Color(0xFFE6A817),
+      'when':
+          'Avatars, thumbnails, notification icons, fixed-size grids, placeholder images',
+    },
+    {
+      'policy': 'fit',
+      'icon': Icons.fit_screen,
+      'color': Color(0xFF9E7C0C),
+      'when':
+          'Photo galleries, hero banners, product images, content previews, user uploads',
+    },
   ];
 
   final rpWhenSection = Container(
@@ -998,23 +1504,39 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border(left: BorderSide(color: w['color'] as Color, width: 4.0)),
+            border: Border(
+              left: BorderSide(color: w['color'] as Color, width: 4.0),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(w['icon'] as IconData, color: w['color'] as Color, size: 24.0),
+              Icon(
+                w['icon'] as IconData,
+                color: w['color'] as Color,
+                size: 24.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(w['policy'] as String,
-                        style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
-                            color: w['color'] as Color)),
+                    Text(
+                      w['policy'] as String,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700,
+                        color: w['color'] as Color,
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Text(w['when'] as String,
-                        style: TextStyle(fontSize: 11.0, color: Color(0xFF6D4C0A))),
+                    Text(
+                      w['when'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF6D4C0A),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1045,34 +1567,50 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('ResizeImagePolicy Dashboard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        Text(
+          'ResizeImagePolicy Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text('${ResizeImagePolicy.values.length}',
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,
-                        color: Color(0xFFFFF3D0))),
-                Text('Policies', style: TextStyle(fontSize: 11.0,
-                    color: Color(0xFFFFD54F))),
+                Text(
+                  '${ResizeImagePolicy.values.length}',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFFF3D0),
+                  ),
+                ),
+                Text(
+                  'Policies',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD54F)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.crop, color: Color(0xFFFFF3D0), size: 28.0),
-                Text('Default: exact',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD54F))),
+                Text(
+                  'Default: exact',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD54F)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.memory, color: Color(0xFFFFF3D0), size: 28.0),
-                Text('Memory saver',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD54F))),
+                Text(
+                  'Memory saver',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFFFFD54F)),
+                ),
               ],
             ),
           ],
@@ -1104,7 +1642,10 @@ dynamic build(BuildContext context) {
         rpSectionHeader('The Two Policies', Icons.compare_arrows),
         rpTwoValues,
         // 3 Visual Preview
-        rpSectionHeader('Visual Resize Behavior', Icons.photo_size_select_large),
+        rpSectionHeader(
+          'Visual Resize Behavior',
+          Icons.photo_size_select_large,
+        ),
         rpPreviewSection,
         // 4 Aspect Ratio
         rpSectionHeader('Aspect Ratio Impact', Icons.aspect_ratio),

@@ -123,7 +123,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)],
+          colors: [
+            color.withValues(alpha: 0.18),
+            color.withValues(alpha: 0.32),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -580,7 +583,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.28)],
+          colors: [
+            color.withValues(alpha: 0.12),
+            color.withValues(alpha: 0.28),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -737,10 +743,7 @@ dynamic build(BuildContext context) {
     height: 80.0,
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          coral.withValues(alpha: 0.5),
-          magenta.withValues(alpha: 0.5),
-        ],
+        colors: [coral.withValues(alpha: 0.5), magenta.withValues(alpha: 0.5)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -790,10 +793,7 @@ dynamic build(BuildContext context) {
                 opacityWidgetVariant,
                 SizedBox(height: 8.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: coralDeep.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(4.0),
@@ -810,10 +810,7 @@ dynamic build(BuildContext context) {
                 colorAlphaVariant,
                 SizedBox(height: 8.0),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Colors.green.shade100,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1101,10 +1098,7 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.task_alt, color: coral, size: 16.0),
             SizedBox(width: 8.0),
-            Text(
-              label,
-              style: TextStyle(fontSize: 12.0, color: ink),
-            ),
+            Text(label, style: TextStyle(fontSize: 12.0, color: ink)),
           ],
         ),
       ),
@@ -1198,10 +1192,7 @@ dynamic build(BuildContext context) {
                       ),
                       Text(
                         'dragging...',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11.0,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 11.0),
                       ),
                     ],
                   ),
@@ -1458,22 +1449,22 @@ dynamic build(BuildContext context) {
         recapBullet(
           Icons.check,
           'For solid colours prefer color.withValues(alpha:) — it skips '
-              'saveLayer and is much cheaper.',
+          'saveLayer and is much cheaper.',
         ),
         recapBullet(
           Icons.check,
           'Use AnimatedOpacity for declarative, duration-based fades; it is '
-              'still the same Opacity widget under the hood.',
+          'still the same Opacity widget under the hood.',
         ),
         recapBullet(
           Icons.check,
           'alwaysIncludeSemantics keeps fully transparent subtrees in the '
-              'semantic tree — important for accessibility.',
+          'semantic tree — important for accessibility.',
         ),
         recapBullet(
           Icons.check,
           'Opacity does not block hit testing — combine with IgnorePointer '
-              'or AbsorbPointer to truly disable interaction.',
+          'or AbsorbPointer to truly disable interaction.',
         ),
       ],
     ),

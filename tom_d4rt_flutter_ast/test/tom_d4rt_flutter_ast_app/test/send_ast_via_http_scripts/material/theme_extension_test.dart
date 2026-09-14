@@ -104,13 +104,13 @@ class BrandColors extends ThemeExtension<BrandColors> {
 
   @override
   int get hashCode => Object.hash(
-        hero,
-        accent,
-        cta,
-        ctaForeground,
-        surfaceTint,
-        heroForeground,
-      );
+    hero,
+    accent,
+    cta,
+    ctaForeground,
+    surfaceTint,
+    heroForeground,
+  );
 
   @override
   String toString() =>
@@ -185,8 +185,7 @@ class SemanticSpacing extends ThemeExtension<SemanticSpacing> {
   int get hashCode => Object.hash(xs, sm, md, lg, xl);
 
   @override
-  String toString() =>
-      'SemanticSpacing(xs:$xs sm:$sm md:$md lg:$lg xl:$xl)';
+  String toString() => 'SemanticSpacing(xs:$xs sm:$sm md:$md lg:$lg xl:$xl)';
 }
 
 @immutable
@@ -255,12 +254,10 @@ class Elevations extends ThemeExtension<Elevations> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(flat, low, medium, high, dramatic, shadow);
+  int get hashCode => Object.hash(flat, low, medium, high, dramatic, shadow);
 
   @override
-  String toString() =>
-      'Elevations(flat:$flat low:$low med:$medium high:$high)';
+  String toString() => 'Elevations(flat:$flat low:$low med:$medium high:$high)';
 }
 
 enum IllustrationMode { flat, gradient, embossed }
@@ -332,14 +329,8 @@ class IllustrationStyle extends ThemeExtension<IllustrationStyle> {
   }
 
   @override
-  int get hashCode => Object.hash(
-        mode,
-        primary,
-        secondary,
-        outline,
-        glowOpacity,
-        cornerRadius,
-      );
+  int get hashCode =>
+      Object.hash(mode, primary, secondary, outline, glowOpacity, cornerRadius);
 
   @override
   String toString() =>
@@ -386,14 +377,19 @@ class MarketingTokens extends ThemeExtension<MarketingTokens> {
   MarketingTokens lerp(covariant MarketingTokens? other, double t) {
     if (other == null) return this;
     return MarketingTokens(
-      heroAspectRatio:
-          lerpDouble(heroAspectRatio, other.heroAspectRatio, t)!,
+      heroAspectRatio: lerpDouble(heroAspectRatio, other.heroAspectRatio, t)!,
       ctaRadius: lerpDouble(ctaRadius, other.ctaRadius, t)!,
       headerWeight: t < 0.5 ? headerWeight : other.headerWeight,
-      dividerThickness:
-          lerpDouble(dividerThickness, other.dividerThickness, t)!,
-      heroOverlayOpacity:
-          lerpDouble(heroOverlayOpacity, other.heroOverlayOpacity, t)!,
+      dividerThickness: lerpDouble(
+        dividerThickness,
+        other.dividerThickness,
+        t,
+      )!,
+      heroOverlayOpacity: lerpDouble(
+        heroOverlayOpacity,
+        other.heroOverlayOpacity,
+        t,
+      )!,
     );
   }
 
@@ -410,12 +406,12 @@ class MarketingTokens extends ThemeExtension<MarketingTokens> {
 
   @override
   int get hashCode => Object.hash(
-        heroAspectRatio,
-        ctaRadius,
-        headerWeight,
-        dividerThickness,
-        heroOverlayOpacity,
-      );
+    heroAspectRatio,
+    ctaRadius,
+    headerWeight,
+    dividerThickness,
+    heroOverlayOpacity,
+  );
 
   @override
   String toString() =>
@@ -617,29 +613,11 @@ dynamic build(BuildContext context) {
     heroForeground: Color(0xFF1A237E),
   );
 
-  const spacingCompact = SemanticSpacing(
-    xs: 2,
-    sm: 4,
-    md: 8,
-    lg: 12,
-    xl: 16,
-  );
+  const spacingCompact = SemanticSpacing(xs: 2, sm: 4, md: 8, lg: 12, xl: 16);
 
-  const spacingDefault = SemanticSpacing(
-    xs: 4,
-    sm: 8,
-    md: 12,
-    lg: 20,
-    xl: 32,
-  );
+  const spacingDefault = SemanticSpacing(xs: 4, sm: 8, md: 12, lg: 20, xl: 32);
 
-  const spacingComfy = SemanticSpacing(
-    xs: 6,
-    sm: 12,
-    md: 20,
-    lg: 32,
-    xl: 48,
-  );
+  const spacingComfy = SemanticSpacing(xs: 6, sm: 12, md: 20, lg: 32, xl: 48);
 
   const elevLow = Elevations(
     flat: 0,
@@ -737,8 +715,10 @@ dynamic build(BuildContext context) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Found BrandColors? ${ext != null}',
-                style: const TextStyle(color: slateTitle)),
+            Text(
+              'Found BrandColors? ${ext != null}',
+              style: const TextStyle(color: slateTitle),
+            ),
             const SizedBox(height: 4),
             const Text(
               'Five extensions registered: BrandColors, SemanticSpacing, '
@@ -765,11 +745,13 @@ dynamic build(BuildContext context) {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Before: hard-coded',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF263238),
-              )),
+          Text(
+            'Before: hard-coded',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF263238),
+            ),
+          ),
           SizedBox(height: 6),
           Text(
             'Colors live inline. Reused across files? Copy-paste. Brand '
@@ -800,8 +782,7 @@ dynamic build(BuildContext context) {
           ),
           child: Builder(
             builder: (innerCtx) {
-              final brand =
-                  Theme.of(innerCtx).extension<BrandColors>()!;
+              final brand = Theme.of(innerCtx).extension<BrandColors>()!;
               return Container(
                 decoration: BoxDecoration(
                   color: brand.surfaceTint,
@@ -823,15 +804,14 @@ dynamic build(BuildContext context) {
                     Text(
                       'Reads brand.hero / brand.accent / brand.surfaceTint '
                       'from Theme.of(context).extension<BrandColors>().',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: brand.hero,
-                      ),
+                      style: TextStyle(fontSize: 12, color: brand.hero),
                     ),
                     const SizedBox(height: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: brand.cta,
                         borderRadius: BorderRadius.circular(6),
@@ -944,7 +924,9 @@ dynamic build(BuildContext context) {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
                             decoration: BoxDecoration(
                               color: brand.cta,
                               borderRadius: BorderRadius.circular(8),
@@ -960,10 +942,14 @@ dynamic build(BuildContext context) {
                           const SizedBox(width: 10),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 14, vertical: 8),
+                              horizontal: 14,
+                              vertical: 8,
+                            ),
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: brand.accent, width: 1.5),
+                              border: Border.all(
+                                color: brand.accent,
+                                width: 1.5,
+                              ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -1000,18 +986,11 @@ dynamic build(BuildContext context) {
   Widget settingsListWithSpacing(SemanticSpacing sp) {
     return Theme(
       data: rootTheme.copyWith(
-        extensions: [
-          brandLight,
-          sp,
-          elevLow,
-          illusFlat,
-          marketingDefault,
-        ],
+        extensions: [brandLight, sp, elevLow, illusFlat, marketingDefault],
       ),
       child: Builder(
         builder: (ctx) {
-          final spacing =
-              Theme.of(ctx).extension<SemanticSpacing>()!;
+          final spacing = Theme.of(ctx).extension<SemanticSpacing>()!;
           return Container(
             padding: spacing.pagePadding,
             decoration: BoxDecoration(
@@ -1050,8 +1029,7 @@ dynamic build(BuildContext context) {
                         SizedBox(width: spacing.md),
                         Expanded(
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 item['label']!,
@@ -1106,7 +1084,9 @@ dynamic build(BuildContext context) {
                   onTap: () => setState(() => current = i),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 6),
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: selected ? s4Title : s4Tile,
                       borderRadius: BorderRadius.circular(6),
@@ -1208,8 +1188,10 @@ dynamic build(BuildContext context) {
                   activeColor: s5Title,
                 ),
                 const SizedBox(width: 8),
-                Text(useHigh ? 'High preset' : 'Low preset',
-                    style: const TextStyle(color: s5Title)),
+                Text(
+                  useHigh ? 'High preset' : 'Low preset',
+                  style: const TextStyle(color: s5Title),
+                ),
               ],
             ),
             const SizedBox(height: 12),
@@ -1225,8 +1207,7 @@ dynamic build(BuildContext context) {
               ),
               child: Builder(
                 builder: (innerCtx) {
-                  final e =
-                      Theme.of(innerCtx).extension<Elevations>()!;
+                  final e = Theme.of(innerCtx).extension<Elevations>()!;
                   return elevationLadder(e);
                 },
               ),
@@ -1295,9 +1276,7 @@ dynamic build(BuildContext context) {
       child: Text(
         label,
         style: TextStyle(
-          color: s.mode == IllustrationMode.embossed
-              ? s.outline
-              : Colors.white,
+          color: s.mode == IllustrationMode.embossed ? s.outline : Colors.white,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -1482,10 +1461,13 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    const Text('A',
-                        style: TextStyle(
-                            color: s7Title,
-                            fontWeight: FontWeight.bold)),
+                    const Text(
+                      'A',
+                      style: TextStyle(
+                        color: s7Title,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Expanded(
                       child: Slider(
                         value: t,
@@ -1493,14 +1475,19 @@ dynamic build(BuildContext context) {
                         activeColor: s7Title,
                       ),
                     ),
-                    const Text('B',
-                        style: TextStyle(
-                            color: s7Title,
-                            fontWeight: FontWeight.bold)),
+                    const Text(
+                      'B',
+                      style: TextStyle(
+                        color: s7Title,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
-                Text('t = ${t.toStringAsFixed(2)}',
-                    style: const TextStyle(color: s7Title)),
+                Text(
+                  't = ${t.toStringAsFixed(2)}',
+                  style: const TextStyle(color: s7Title),
+                ),
                 const SizedBox(height: 8),
                 brandPreview(blended),
                 const SizedBox(height: 10),
@@ -1670,8 +1657,7 @@ dynamic build(BuildContext context) {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
-                        borderRadius:
-                            BorderRadius.circular(illus.cornerRadius),
+                        borderRadius: BorderRadius.circular(illus.cornerRadius),
                       ),
                       alignment: Alignment.bottomLeft,
                       padding: EdgeInsets.all(sp.md),
@@ -1686,10 +1672,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: sp.md),
-                  Divider(
-                    color: brand.accent,
-                    thickness: mk.dividerThickness,
-                  ),
+                  Divider(color: brand.accent, thickness: mk.dividerThickness),
                   SizedBox(height: sp.sm),
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -1698,8 +1681,7 @@ dynamic build(BuildContext context) {
                     ),
                     decoration: BoxDecoration(
                       color: brand.cta,
-                      borderRadius:
-                          BorderRadius.circular(mk.ctaRadius),
+                      borderRadius: BorderRadius.circular(mk.ctaRadius),
                     ),
                     child: Text(
                       'Composed CTA',
@@ -1794,39 +1776,44 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _comparisonRow(
-            'AnimatedTheme tweens',
-            'Manual interpolation in app code.',
-            'Built-in via lerp(); AnimatedTheme calls it for free.',
-            s11Bad,
-            s11Good),
+          'AnimatedTheme tweens',
+          'Manual interpolation in app code.',
+          'Built-in via lerp(); AnimatedTheme calls it for free.',
+          s11Bad,
+          s11Good,
+        ),
         const SizedBox(height: 6),
         _comparisonRow(
-            'Route inheritance',
-            'Lost unless you wrap pushed routes manually.',
-            'Carried by Theme through the standard machinery.',
-            s11Bad,
-            s11Good),
+          'Route inheritance',
+          'Lost unless you wrap pushed routes manually.',
+          'Carried by Theme through the standard machinery.',
+          s11Bad,
+          s11Good,
+        ),
         const SizedBox(height: 6),
         _comparisonRow(
-            'Per-subtree overrides',
-            'Rebuild custom InheritedWidget for every layer.',
-            'Theme(data: parent.copyWith(extensions: [...])) - done.',
-            s11Bad,
-            s11Good),
+          'Per-subtree overrides',
+          'Rebuild custom InheritedWidget for every layer.',
+          'Theme(data: parent.copyWith(extensions: [...])) - done.',
+          s11Bad,
+          s11Good,
+        ),
         const SizedBox(height: 6),
         _comparisonRow(
-            'Composability',
-            'One class, ever-growing fields, merge conflicts.',
-            'Independent extensions per concern.',
-            s11Bad,
-            s11Good),
+          'Composability',
+          'One class, ever-growing fields, merge conflicts.',
+          'Independent extensions per concern.',
+          s11Bad,
+          s11Good,
+        ),
         const SizedBox(height: 6),
         _comparisonRow(
-            'Type safety',
-            'Stringly-typed lookups or untyped maps.',
-            'extension<T>() returns T?, fully typed.',
-            s11Bad,
-            s11Good),
+          'Type safety',
+          'Stringly-typed lookups or untyped maps.',
+          'extension<T>() returns T?, fully typed.',
+          s11Bad,
+          s11Good,
+        ),
       ],
     ),
   );
@@ -1847,41 +1834,47 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _decisionRow(
-            'Token reused in 3+ places',
-            'Brand colours, spacing scale, elevation ramps.',
-            true,
-            s12Yes,
-            s12No),
+          'Token reused in 3+ places',
+          'Brand colours, spacing scale, elevation ramps.',
+          true,
+          s12Yes,
+          s12No,
+        ),
         _decisionRow(
-            'Light vs dark variants',
-            'Ship two instances; theme machinery picks the right one.',
-            true,
-            s12Yes,
-            s12No),
+          'Light vs dark variants',
+          'Ship two instances; theme machinery picks the right one.',
+          true,
+          s12Yes,
+          s12No,
+        ),
         _decisionRow(
-            'Smooth theme transitions',
-            'AnimatedTheme requires lerp(); ad-hoc fields cannot.',
-            true,
-            s12Yes,
-            s12No),
+          'Smooth theme transitions',
+          'AnimatedTheme requires lerp(); ad-hoc fields cannot.',
+          true,
+          s12Yes,
+          s12No,
+        ),
         _decisionRow(
-            'Per-subtree branding (whitelabel)',
-            'Theme.copyWith(extensions: ...) wraps a route or subtree.',
-            true,
-            s12Yes,
-            s12No),
+          'Per-subtree branding (whitelabel)',
+          'Theme.copyWith(extensions: ...) wraps a route or subtree.',
+          true,
+          s12Yes,
+          s12No,
+        ),
         _decisionRow(
-            'Single-use private constant',
-            'Just declare a const at file scope; do not wrap it.',
-            false,
-            s12Yes,
-            s12No),
+          'Single-use private constant',
+          'Just declare a const at file scope; do not wrap it.',
+          false,
+          s12Yes,
+          s12No,
+        ),
         _decisionRow(
-            'Runtime data (user prefs, server state)',
-            'That belongs in app state, not ThemeData.',
-            false,
-            s12Yes,
-            s12No),
+          'Runtime data (user prefs, server state)',
+          'That belongs in app state, not ThemeData.',
+          false,
+          s12Yes,
+          s12No,
+        ),
       ],
     ),
   );
@@ -1962,8 +1955,7 @@ Widget _comparisonRow(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: bad,
                 borderRadius: BorderRadius.circular(4),
@@ -1981,10 +1973,7 @@ Widget _comparisonRow(
             Expanded(
               child: Text(
                 adHoc,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF424242),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF424242)),
               ),
             ),
           ],
@@ -1994,8 +1983,7 @@ Widget _comparisonRow(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: good,
                 borderRadius: BorderRadius.circular(4),
@@ -2013,10 +2001,7 @@ Widget _comparisonRow(
             Expanded(
               child: Text(
                 ext,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF424242),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF424242)),
               ),
             ),
           ],
@@ -2075,10 +2060,7 @@ Widget _decisionRow(
               const SizedBox(height: 2),
               Text(
                 detail,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF33691E),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF33691E)),
               ),
             ],
           ),

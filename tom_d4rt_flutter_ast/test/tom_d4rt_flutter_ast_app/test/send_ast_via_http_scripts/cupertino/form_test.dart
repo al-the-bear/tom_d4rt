@@ -13,9 +13,7 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------------------
   // Profile (Half A, Section 1) - live TextEditingControllers.
   // ---------------------------------------------------------------------------
-  final profileFullNameController = TextEditingController(
-    text: 'Alexis Kyaw',
-  );
+  final profileFullNameController = TextEditingController(text: 'Alexis Kyaw');
   final profileEmailController = TextEditingController(
     text: 'alexis@example.com',
   );
@@ -23,9 +21,7 @@ dynamic build(BuildContext context) {
     text: 'Senior dev wandering through Cupertino form widgets.',
   );
   final profileHandleController = TextEditingController(text: '@al_the_bear');
-  final profilePhoneController = TextEditingController(
-    text: '+1 555 0136',
-  );
+  final profilePhoneController = TextEditingController(text: '+1 555 0136');
 
   // ---------------------------------------------------------------------------
   // Notifications (Half A, Section 2) - bool snapshots.
@@ -342,10 +338,7 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(vertical: 6.0),
           child: Text(
             row[1],
-            style: const TextStyle(
-              color: Color(0xFF8E8E93),
-              fontSize: 15.0,
-            ),
+            style: const TextStyle(color: Color(0xFF8E8E93), fontSize: 15.0),
             textAlign: TextAlign.right,
           ),
         ),
@@ -380,10 +373,7 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Text(
               trailing,
-              style: const TextStyle(
-                color: Color(0xFFFF3B30),
-                fontSize: 14.0,
-              ),
+              style: const TextStyle(color: Color(0xFFFF3B30), fontSize: 14.0),
             ),
             const SizedBox(width: 6.0),
             const Icon(
@@ -577,10 +567,7 @@ dynamic build(BuildContext context) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: const <Widget>[
-              Text(
-                'value',
-                style: TextStyle(color: Color(0xFF8E8E93)),
-              ),
+              Text('value', style: TextStyle(color: Color(0xFF8E8E93))),
               SizedBox(width: 6.0),
               Icon(
                 CupertinoIcons.chevron_forward,
@@ -879,10 +866,7 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 4.0),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: <Color>[
-              Color(0xFF3478F6),
-              Color(0xFF5E5CE6),
-            ],
+            colors: <Color>[Color(0xFF3478F6), Color(0xFF5E5CE6)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -902,10 +886,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               'A complete iOS Settings demo plus a row anatomy gallery.',
-              style: TextStyle(
-                fontSize: 14.0,
-                color: Color(0xCCFFFFFF),
-              ),
+              style: TextStyle(fontSize: 14.0, color: Color(0xCCFFFFFF)),
             ),
           ],
         ),
@@ -1047,10 +1028,7 @@ dynamic build(BuildContext context) {
         child: Center(
           child: Text(
             'Cupertino form_test - hand-rolled, ${DateTime.now().toIso8601String().substring(0, 10)}',
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: Color(0xFF8E8E93),
-            ),
+            style: const TextStyle(fontSize: 12.0, color: Color(0xFF8E8E93)),
           ),
         ),
       ),

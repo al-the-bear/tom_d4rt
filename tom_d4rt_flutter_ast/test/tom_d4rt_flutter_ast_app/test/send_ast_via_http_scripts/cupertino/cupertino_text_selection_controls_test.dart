@@ -102,10 +102,7 @@ Widget _buildIntroCard() {
               decoration: BoxDecoration(
                 color: const Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: const Color(0x66FFFFFF),
-                  width: 1.2,
-                ),
+                border: Border.all(color: const Color(0x66FFFFFF), width: 1.2),
               ),
               child: const Icon(
                 CupertinoIcons.text_cursor,
@@ -300,10 +297,7 @@ Widget _sectionFrame({
           icon: icon,
           gradient: gradient,
         ),
-        Padding(
-          padding: const EdgeInsets.all(14),
-          child: body,
-        ),
+        Padding(padding: const EdgeInsets.all(14), child: body),
       ],
     ),
   );
@@ -403,7 +397,8 @@ Widget _selectedTextStub({required double width, required double height}) {
 Widget _buildAnchorAboveSection() {
   return _sectionFrame(
     title: '2 · anchorAbove — toolbar floats above selection',
-    subtitle: 'When there is room above the selection, iOS prefers anchorAbove.',
+    subtitle:
+        'When there is room above the selection, iOS prefers anchorAbove.',
     icon: CupertinoIcons.arrow_up_circle_fill,
     gradient: const <Color>[Color(0xFF0A84FF), Color(0xFF30D158)],
     body: Column(
@@ -631,7 +626,8 @@ Widget _anchorAboveStack({
 Widget _buildAnchorBelowSection() {
   return _sectionFrame(
     title: '3 · anchorBelow — toolbar drops below selection',
-    subtitle: 'When there is no room above (e.g. status bar), the toolbar uses anchorBelow.',
+    subtitle:
+        'When there is no room above (e.g. status bar), the toolbar uses anchorBelow.',
     icon: CupertinoIcons.arrow_down_circle_fill,
     gradient: const <Color>[Color(0xFFFF9500), Color(0xFFFF3B30)],
     body: Column(
@@ -864,7 +860,8 @@ Widget _anchorBelowStack({
 Widget _buildButtonVariants() {
   return _sectionFrame(
     title: '4 · CupertinoTextSelectionToolbarButton variants',
-    subtitle: '.text(...) for plain labels and .buttonItem(...) for ContextMenuButtonItem-driven menus.',
+    subtitle:
+        '.text(...) for plain labels and .buttonItem(...) for ContextMenuButtonItem-driven menus.',
     icon: CupertinoIcons.square_grid_2x2_fill,
     gradient: const <Color>[Color(0xFF5E5CE6), Color(0xFF0A84FF)],
     body: Column(
@@ -1080,7 +1077,8 @@ Widget _variantRow(
 Widget _buildToolbarSurrogate() {
   return _sectionFrame(
     title: '5 · Real toolbar vs hand-drawn surrogate',
-    subtitle: 'Visual cross-check — the real widget on the left, a primitive surrogate on the right.',
+    subtitle:
+        'Visual cross-check — the real widget on the left, a primitive surrogate on the right.',
     icon: CupertinoIcons.rectangle_split_3x1_fill,
     gradient: const <Color>[Color(0xFFBF5AF2), Color(0xFF5E5CE6)],
     body: Column(
@@ -1211,16 +1209,8 @@ Widget _surrogateRight() {
                 top: 150,
                 child: _selectedTextStub(width: 80, height: 16),
               ),
-              Positioned(
-                left: 16,
-                top: 100,
-                child: _surrogatePill(),
-              ),
-              Positioned(
-                left: 86,
-                top: 134,
-                child: _surrogateArrowDown(),
-              ),
+              Positioned(left: 16, top: 100, child: _surrogatePill()),
+              Positioned(left: 86, top: 134, child: _surrogateArrowDown()),
             ],
           ),
         ),
@@ -1270,11 +1260,7 @@ Widget _surrogateButton(String label) {
 }
 
 Widget _surrogateDivider() {
-  return Container(
-    width: 1,
-    height: 20,
-    color: const Color(0x33FFFFFF),
-  );
+  return Container(width: 1, height: 20, color: const Color(0x33FFFFFF));
 }
 
 Widget _surrogateArrowDown() {
@@ -1324,16 +1310,8 @@ Widget _buildAnatomyDiagram() {
                   ),
                 ),
               ),
-              Positioned(
-                left: 30,
-                top: 60,
-                child: _surrogatePill(),
-              ),
-              Positioned(
-                left: 100,
-                top: 94,
-                child: _surrogateArrowDown(),
-              ),
+              Positioned(left: 30, top: 60, child: _surrogatePill()),
+              Positioned(left: 100, top: 94, child: _surrogateArrowDown()),
               Positioned(
                 left: 80,
                 top: 130,
@@ -1545,11 +1523,7 @@ Widget _vsCupertinoTile() {
         const SizedBox(height: 8),
         const Text(
           'Pill, dark surface, arrow tip.\nButtons separated by thin dividers.',
-          style: TextStyle(
-            color: Color(0xFF1C1C1E),
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: Color(0xFF1C1C1E), fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1580,11 +1554,7 @@ Widget _vsMaterialTile() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(
-              Icons.android,
-              size: 14,
-              color: Color(0xFF34A853),
-            ),
+            const Icon(Icons.android, size: 14, color: Color(0xFF34A853)),
             const SizedBox(width: 4),
             const Text(
               'Material (Android)',
@@ -1614,22 +1584,14 @@ Widget _vsMaterialTile() {
                 top: 150,
                 child: _selectedTextStub(width: 90, height: 16),
               ),
-              Positioned(
-                left: 24,
-                top: 100,
-                child: _materialSurrogate(),
-              ),
+              Positioned(left: 24, top: 100, child: _materialSurrogate()),
             ],
           ),
         ),
         const SizedBox(height: 8),
         const Text(
           'Light card, no arrow tip.\nLabels rendered in uppercase Material style.',
-          style: TextStyle(
-            color: Color(0xFF1C1C1E),
-            fontSize: 11,
-            height: 1.4,
-          ),
+          style: TextStyle(color: Color(0xFF1C1C1E), fontSize: 11, height: 1.4),
         ),
       ],
     ),
@@ -1682,7 +1644,8 @@ Widget _materialButton(String label) {
 Widget _buildControlsClassSection() {
   return _sectionFrame(
     title: '8 · CupertinoTextSelectionControls — the factory',
-    subtitle: 'The TextSelectionControls subclass that builds the iOS toolbar and handles.',
+    subtitle:
+        'The TextSelectionControls subclass that builds the iOS toolbar and handles.',
     icon: CupertinoIcons.gear_alt_fill,
     gradient: const <Color>[Color(0xFFFF9F0A), Color(0xFFFF3B30)],
     body: Column(
@@ -1860,12 +1823,7 @@ Widget _buildAdaptiveToolbarSection() {
   );
 }
 
-Widget _adaptiveCard(
-  String title,
-  String body,
-  Color tint,
-  IconData icon,
-) {
+Widget _adaptiveCard(String title, String body, Color tint, IconData icon) {
   return Container(
     decoration: BoxDecoration(
       color: const Color(0xFFFFFFFF),

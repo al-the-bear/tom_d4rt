@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: terracotta, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: sand),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: umber.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: umber.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: umber)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: umber,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -147,11 +156,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? umber : deepCopper)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? umber : deepCopper,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +180,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? umber : deepCopper,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: bronze),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: bronze),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -237,8 +254,16 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             reRow(['Property', 'Type', 'Description'], isHeader: true),
-            reRow(['logicalKey', 'LogicalKeyboardKey', 'What the user intended to press']),
-            reRow(['physicalKey', 'PhysicalKeyboardKey', 'Which hardware button']),
+            reRow([
+              'logicalKey',
+              'LogicalKeyboardKey',
+              'What the user intended to press',
+            ]),
+            reRow([
+              'physicalKey',
+              'PhysicalKeyboardKey',
+              'Which hardware button',
+            ]),
             reRow(['keyLabel', 'String', 'Printable label for the key']),
             reRow(['isModifierPressed()', 'bool', 'Test specific modifier']),
             reRow(['modifiersPressed', 'Map', 'All active modifiers']),
@@ -322,7 +347,11 @@ dynamic build(BuildContext context) {
           children: [
             reRow(['Property', 'Type', 'Example'], isHeader: true),
             reRow(['characters', 'String', '"a" or "A"']),
-            reRow(['charactersIgnoringModifiers', 'String', '"a" (always base)']),
+            reRow([
+              'charactersIgnoringModifiers',
+              'String',
+              '"a" (always base)',
+            ]),
             reRow(['keyCode', 'int', '0 = kVK_ANSI_A']),
             reRow(['modifiers', 'int', 'NSEventModifierFlags']),
           ],
@@ -457,7 +486,13 @@ dynamic build(BuildContext context) {
         'Modifier Bit Comparison',
         Column(
           children: [
-            reRow(['Modifier', 'Android', 'macOS', 'Windows', 'Web'], isHeader: true),
+            reRow([
+              'Modifier',
+              'Android',
+              'macOS',
+              'Windows',
+              'Web',
+            ], isHeader: true),
             reRow(['Shift', 'META_SHIFT', 'NSShift', 'VK_SHIFT', 'shiftKey']),
             reRow(['Ctrl', 'META_CTRL', 'NSControl', 'VK_CONTROL', 'ctrlKey']),
             reRow(['Alt', 'META_ALT', 'NSOption', 'VK_MENU', 'altKey']),
@@ -488,10 +523,30 @@ dynamic build(BuildContext context) {
           children: [
             reFlow(['Native code', 'Platform map', 'LogicalKeyboardKey']),
             const SizedBox(height: 10),
-            _reMapStep(1, 'Read native key code', 'keyCode / code / keyval', umber),
-            _reMapStep(2, 'Check character output', 'Was a character produced?', deepCopper),
-            _reMapStep(3, 'Lookup in platform table', 'Static mapping tables', copper),
-            _reMapStep(4, 'Apply layout correction', 'Handle non-US layouts', bronze),
+            _reMapStep(
+              1,
+              'Read native key code',
+              'keyCode / code / keyval',
+              umber,
+            ),
+            _reMapStep(
+              2,
+              'Check character output',
+              'Was a character produced?',
+              deepCopper,
+            ),
+            _reMapStep(
+              3,
+              'Lookup in platform table',
+              'Static mapping tables',
+              copper,
+            ),
+            _reMapStep(
+              4,
+              'Apply layout correction',
+              'Handle non-US layouts',
+              bronze,
+            ),
             _reMapStep(5, 'Fallback to USB HID', 'Generic mapping', amber),
           ],
         ),
@@ -577,11 +632,23 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             reRow(['Issue', 'Cause', 'Fix'], isHeader: true),
-            reRow(['Stuck modifier', 'Lost focus during press', 'Use HardwareKeyboard']),
-            reRow(['Wrong logicalKey', 'Layout mapping bug', 'Report + use physical']),
+            reRow([
+              'Stuck modifier',
+              'Lost focus during press',
+              'Use HardwareKeyboard',
+            ]),
+            reRow([
+              'Wrong logicalKey',
+              'Layout mapping bug',
+              'Report + use physical',
+            ]),
             reRow(['Null character', 'Non-printable key', 'Check keyLabel']),
             reRow(['Duplicate events', 'IME composition', 'Filter by type']),
-            reRow(['Missing data', 'Platform difference', 'Platform-check first']),
+            reRow([
+              'Missing data',
+              'Platform difference',
+              'Platform-check first',
+            ]),
           ],
         ),
       ),
@@ -617,10 +684,16 @@ dynamic build(BuildContext context) {
               _reCodeLine('if (data is RawKeyEventDataAndroid) {', deepCopper),
               _reCodeLine('  print("keyCode: \${data.keyCode}");', copper),
               _reCodeLine('  print("metaState: \${data.metaState}");', copper),
-              _reCodeLine('} else if (data is RawKeyEventDataWeb) {', deepCopper),
+              _reCodeLine(
+                '} else if (data is RawKeyEventDataWeb) {',
+                deepCopper,
+              ),
               _reCodeLine('  print("code: \${data.code}");', bronze),
               _reCodeLine('  print("key: \${data.key}");', bronze),
-              _reCodeLine('} else if (data is RawKeyEventDataMacOs) {', deepCopper),
+              _reCodeLine(
+                '} else if (data is RawKeyEventDataMacOs) {',
+                deepCopper,
+              ),
               _reCodeLine('  print("keyCode: \${data.keyCode}");', amber),
               _reCodeLine('}', deepCopper),
             ],
@@ -686,11 +759,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('RawKeyEventData — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'RawKeyEventData — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From abstract base through every platform subclass: Android, '
@@ -722,10 +798,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -758,13 +846,22 @@ Widget _reClassNode(String name, String role, int depth, Color color) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 9, fontWeight: FontWeight.bold, color: color)),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
               const SizedBox(width: 4),
-              Text(role,
-                  style: TextStyle(
-                      fontSize: 8, color: color.withValues(alpha: 0.7))),
+              Text(
+                role,
+                style: TextStyle(
+                  fontSize: 8,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -786,9 +883,14 @@ Widget _reMapStep(int num, String title, String desc, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -796,12 +898,21 @@ Widget _reMapStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -813,12 +924,15 @@ Widget _reMapStep(int num, String title, String desc, Color color) {
 Widget _reCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }
 

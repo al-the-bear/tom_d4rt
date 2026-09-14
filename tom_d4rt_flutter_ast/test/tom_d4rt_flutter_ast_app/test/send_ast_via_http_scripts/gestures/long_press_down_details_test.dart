@@ -147,10 +147,18 @@ dynamic build(BuildContext context) {
     localPosition: const Offset(0.0, 0.0),
   );
 
-  print('dTouch  global=${dTouch.globalPosition}  local=${dTouch.localPosition}  kind=${dTouch.kind}');
-  print('dMouse  global=${dMouse.globalPosition}  local=${dMouse.localPosition}  kind=${dMouse.kind}');
-  print('dStylus global=${dStylus.globalPosition} local=${dStylus.localPosition} kind=${dStylus.kind}');
-  print('dDefault global=${dDefault.globalPosition} local=${dDefault.localPosition} kind=${dDefault.kind}');
+  print(
+    'dTouch  global=${dTouch.globalPosition}  local=${dTouch.localPosition}  kind=${dTouch.kind}',
+  );
+  print(
+    'dMouse  global=${dMouse.globalPosition}  local=${dMouse.localPosition}  kind=${dMouse.kind}',
+  );
+  print(
+    'dStylus global=${dStylus.globalPosition} local=${dStylus.localPosition} kind=${dStylus.kind}',
+  );
+  print(
+    'dDefault global=${dDefault.globalPosition} local=${dDefault.localPosition} kind=${dDefault.kind}',
+  );
   print('Note: dDefault.kind is null - kind is a nullable PointerDeviceKind.');
   print('Note: when localPosition is omitted it DEFAULTS TO globalPosition,');
   print('      not to Offset.zero. This is a frequent source of confusion.');
@@ -362,7 +370,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF263238), Color(0xFF37474F), Color(0xFF455A64)],
+        colors: <Color>[
+          Color(0xFF263238),
+          Color(0xFF37474F),
+          Color(0xFF455A64),
+        ],
       ),
       borderRadius: BorderRadius.circular(14.0),
       boxShadow: const <BoxShadow>[
@@ -535,7 +547,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFFFFFFFF), Color(0xFFEDE7F6), Color(0xFFD1C4E9)],
+        colors: <Color>[
+          Color(0xFFFFFFFF),
+          Color(0xFFEDE7F6),
+          Color(0xFFD1C4E9),
+        ],
       ),
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: const <BoxShadow>[
@@ -567,11 +583,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 16.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: fingerCards,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: fingerCards),
       ],
     ),
   );
@@ -585,44 +597,51 @@ dynamic build(BuildContext context) {
     _ChainBox(
       callback: 'pointerDown',
       detailsType: 'PointerDownEvent',
-      summary: 'Raw pointer phase. Recognisers receive the event and decide whether to claim the arena.',
+      summary:
+          'Raw pointer phase. Recognisers receive the event and decide whether to claim the arena.',
       color: Color(0xFF90A4AE),
     ),
     _ChainBox(
       callback: 'onLongPressDown',
       detailsType: 'LongPressDownDetails',
-      summary: 'Long-press recogniser provisionally accepted the pointer. THIS is where LongPressDownDetails fires.',
+      summary:
+          'Long-press recogniser provisionally accepted the pointer. THIS is where LongPressDownDetails fires.',
       color: Color(0xFF7E57C2),
       highlighted: true,
     ),
     _ChainBox(
       callback: 'onLongPressCancel',
       detailsType: '(no details)',
-      summary: 'Pointer moved too far OR lifted before the long-press timeout - the recogniser bails.',
+      summary:
+          'Pointer moved too far OR lifted before the long-press timeout - the recogniser bails.',
       color: Color(0xFFE57373),
     ),
     _ChainBox(
       callback: 'onLongPressStart',
       detailsType: 'LongPressStartDetails',
-      summary: 'Timeout elapsed; the long-press is now FORMALLY recognised. carries globalPosition + localPosition.',
+      summary:
+          'Timeout elapsed; the long-press is now FORMALLY recognised. carries globalPosition + localPosition.',
       color: Color(0xFF66BB6A),
     ),
     _ChainBox(
       callback: 'onLongPressMoveUpdate',
       detailsType: 'LongPressMoveUpdateDetails',
-      summary: 'Pointer moves WHILE the long-press is held - drag-after-hold patterns live here.',
+      summary:
+          'Pointer moves WHILE the long-press is held - drag-after-hold patterns live here.',
       color: Color(0xFF26A69A),
     ),
     _ChainBox(
       callback: 'onLongPressEnd',
       detailsType: 'LongPressEndDetails',
-      summary: 'Pointer lifted; carries velocity for fling-after-hold gestures.',
+      summary:
+          'Pointer lifted; carries velocity for fling-after-hold gestures.',
       color: Color(0xFF42A5F5),
     ),
     _ChainBox(
       callback: 'onLongPressUp',
       detailsType: '(no details)',
-      summary: 'Companion to onLongPressEnd, kept for backwards-compatibility. Fires AFTER onLongPressEnd.',
+      summary:
+          'Companion to onLongPressEnd, kept for backwards-compatibility. Fires AFTER onLongPressEnd.',
       color: Color(0xFF9575CD),
     ),
   ];
@@ -676,7 +695,10 @@ dynamic build(BuildContext context) {
                 _chainBoxWidget(chain[i]),
                 if (i < chain.length - 1)
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 60.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 4.0,
+                      vertical: 60.0,
+                    ),
                     child: Icon(Icons.arrow_forward, color: Color(0xFFE65100)),
                   ),
               ],
@@ -694,28 +716,32 @@ dynamic build(BuildContext context) {
     _SiblingCard(
       type: 'LongPressDownDetails',
       fields: <String>['globalPosition', 'localPosition', 'kind'],
-      unique: 'Carries `kind` already at down-phase. localPosition defaults to globalPosition.',
+      unique:
+          'Carries `kind` already at down-phase. localPosition defaults to globalPosition.',
       tint: Color(0xFF7E57C2),
       icon: Icons.touch_app,
     ),
     _SiblingCard(
       type: 'DragDownDetails',
       fields: <String>['globalPosition', 'localPosition'],
-      unique: 'No `kind`. Pointer kind is reported on DragStartDetails instead.',
+      unique:
+          'No `kind`. Pointer kind is reported on DragStartDetails instead.',
       tint: Color(0xFF26A69A),
       icon: Icons.pan_tool,
     ),
     _SiblingCard(
       type: 'TapDownDetails',
       fields: <String>['globalPosition', 'localPosition', 'kind'],
-      unique: 'Same shape as LongPressDownDetails - kind is also a PointerDeviceKind (NON-nullable since 3.x).',
+      unique:
+          'Same shape as LongPressDownDetails - kind is also a PointerDeviceKind (NON-nullable since 3.x).',
       tint: Color(0xFF1E88E5),
       icon: Icons.touch_app,
     ),
     _SiblingCard(
       type: 'LongPressStartDetails',
       fields: <String>['globalPosition', 'localPosition'],
-      unique: 'Fires AFTER the timeout. No `kind` field - by then the recogniser has accepted the arena.',
+      unique:
+          'Fires AFTER the timeout. No `kind` field - by then the recogniser has accepted the arena.',
       tint: Color(0xFF66BB6A),
       icon: Icons.start,
     ),
@@ -763,11 +789,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 16.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: siblingCards,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: siblingCards),
       ],
     ),
   );
@@ -1139,7 +1161,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF1B1B1B), Color(0xFF2E2E2E), Color(0xFF424242)],
+        colors: <Color>[
+          Color(0xFF1B1B1B),
+          Color(0xFF2E2E2E),
+          Color(0xFF424242),
+        ],
       ),
       borderRadius: BorderRadius.circular(14.0),
       boxShadow: const <BoxShadow>[
@@ -1256,10 +1282,7 @@ Widget _anatomyField({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          color.withOpacity(0.08),
-          color.withOpacity(0.18),
-        ],
+        colors: <Color>[color.withOpacity(0.08), color.withOpacity(0.18)],
       ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: color, width: 1.4),
@@ -1333,8 +1356,12 @@ Widget _fingerCard(_Finger f, LongPressDownDetails sample) {
   // using simple clamping. The faux finger is a coloured circle with shadow.
   const double canvasW = 320.0;
   const double canvasH = 180.0;
-  final double dotX = sample.globalPosition.dx.clamp(0.0, canvasW - 24.0).toDouble();
-  final double dotY = sample.globalPosition.dy.clamp(0.0, canvasH - 24.0).toDouble();
+  final double dotX = sample.globalPosition.dx
+      .clamp(0.0, canvasW - 24.0)
+      .toDouble();
+  final double dotY = sample.globalPosition.dy
+      .clamp(0.0, canvasH - 24.0)
+      .toDouble();
 
   return Container(
     width: 340.0,
@@ -1343,10 +1370,7 @@ Widget _fingerCard(_Finger f, LongPressDownDetails sample) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          f.hue.withOpacity(0.08),
-        ],
+        colors: <Color>[Colors.white, f.hue.withOpacity(0.08)],
       ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: f.hue, width: 1.2),
@@ -1380,7 +1404,11 @@ Widget _fingerCard(_Finger f, LongPressDownDetails sample) {
         const SizedBox(height: 6.0),
         Text(
           f.story,
-          style: const TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.3),
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: Colors.black87,
+            height: 1.3,
+          ),
         ),
         const SizedBox(height: 10.0),
         // Canvas
@@ -1400,14 +1428,20 @@ Widget _fingerCard(_Finger f, LongPressDownDetails sample) {
                   left: gx.toDouble(),
                   top: 0.0,
                   bottom: 0.0,
-                  child: Container(width: 1.0, color: Colors.black.withOpacity(0.05)),
+                  child: Container(
+                    width: 1.0,
+                    color: Colors.black.withOpacity(0.05),
+                  ),
                 ),
               for (int gy = 30; gy < canvasH.toInt(); gy += 30)
                 Positioned(
                   top: gy.toDouble(),
                   left: 0.0,
                   right: 0.0,
-                  child: Container(height: 1.0, color: Colors.black.withOpacity(0.05)),
+                  child: Container(
+                    height: 1.0,
+                    color: Colors.black.withOpacity(0.05),
+                  ),
                 ),
               // Origin marker
               Positioned(
@@ -1448,7 +1482,10 @@ Widget _fingerCard(_Finger f, LongPressDownDetails sample) {
                 right: 6.0,
                 bottom: 6.0,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.black87,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1491,11 +1528,7 @@ Widget _miniChip(String text, Color tint) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 10.0,
-        color: tint,
-        fontFamily: 'monospace',
-      ),
+      style: TextStyle(fontSize: 10.0, color: tint, fontFamily: 'monospace'),
     ),
   );
 }
@@ -1514,10 +1547,7 @@ Widget _chainBoxWidget(_ChainBox c) {
         ],
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: c.color,
-        width: c.highlighted ? 3.0 : 1.0,
-      ),
+      border: Border.all(color: c.color, width: c.highlighted ? 3.0 : 1.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: c.color.withOpacity(c.highlighted ? 0.65 : 0.25),
@@ -1590,10 +1620,7 @@ Widget _siblingCardWidget(_SiblingCard s) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          s.tint.withOpacity(0.15),
-        ],
+        colors: <Color>[Colors.white, s.tint.withOpacity(0.15)],
       ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: s.tint, width: 1.2),
@@ -1675,10 +1702,7 @@ Widget _recipeCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          accent.withOpacity(0.12),
-        ],
+        colors: <Color>[Colors.white, accent.withOpacity(0.12)],
       ),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: accent.withOpacity(0.6)),
@@ -1743,10 +1767,7 @@ Widget _recipeCard({
               ),
             ),
             const SizedBox(width: 12.0),
-            Expanded(
-              flex: 2,
-              child: mock,
-            ),
+            Expanded(flex: 2, child: mock),
           ],
         ),
       ],
@@ -1842,12 +1863,13 @@ Widget _mockReorderTiles(LongPressDownDetails d) {
             ),
             child: Row(
               children: <Widget>[
-                const Icon(Icons.drag_handle, size: 14.0, color: Color(0xFF00695C)),
-                const SizedBox(width: 6.0),
-                Text(
-                  'Item ${i + 1}',
-                  style: const TextStyle(fontSize: 11.0),
+                const Icon(
+                  Icons.drag_handle,
+                  size: 14.0,
+                  color: Color(0xFF00695C),
                 ),
+                const SizedBox(width: 6.0),
+                Text('Item ${i + 1}', style: const TextStyle(fontSize: 11.0)),
                 if (i == liftedRow) ...<Widget>[
                   const Spacer(),
                   const Text(
@@ -1909,7 +1931,9 @@ Widget _mockImagePreview(LongPressDownDetails d) {
           style: const TextStyle(fontSize: 10.0, fontFamily: 'monospace'),
         ),
         Text(
-          d.kind == PointerDeviceKind.mouse ? 'Will defer to right-click' : 'Will preview at ${d.globalPosition}',
+          d.kind == PointerDeviceKind.mouse
+              ? 'Will defer to right-click'
+              : 'Will preview at ${d.globalPosition}',
           style: const TextStyle(fontSize: 10.0, color: Colors.black87),
         ),
       ],
@@ -1930,10 +1954,7 @@ Widget _coordinateCard({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Colors.white,
-          accent.withOpacity(0.10),
-        ],
+        colors: <Color>[Colors.white, accent.withOpacity(0.10)],
       ),
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: accent),
@@ -1968,7 +1989,11 @@ Widget _coordinateCard({
         const SizedBox(height: 4.0),
         Text(
           subtitle,
-          style: const TextStyle(fontSize: 11.0, color: Colors.black54, fontStyle: FontStyle.italic),
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: Colors.black54,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         const SizedBox(height: 8.0),
         for (final String b in bullets)
@@ -1982,7 +2007,11 @@ Widget _coordinateCard({
                 Expanded(
                   child: Text(
                     b,
-                    style: const TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.3),
+                    style: const TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.black87,
+                      height: 1.3,
+                    ),
                   ),
                 ),
               ],
@@ -2022,7 +2051,11 @@ Widget _kindRowWidget(_KindRow row) {
         Expanded(
           child: Text(
             row.typicalUse,
-            style: const TextStyle(fontSize: 11.5, color: Colors.black87, height: 1.3),
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: Colors.black87,
+              height: 1.3,
+            ),
           ),
         ),
       ],
@@ -2062,7 +2095,10 @@ Widget _pitfall({
           alignment: Alignment.center,
           child: Text(
             number.toString(),
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         const SizedBox(width: 10.0),
@@ -2081,7 +2117,11 @@ Widget _pitfall({
               const SizedBox(height: 4.0),
               Text(
                 body,
-                style: const TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.4),
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.black87,
+                  height: 1.4,
+                ),
               ),
             ],
           ),

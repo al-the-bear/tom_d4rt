@@ -59,7 +59,11 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
               const SizedBox(height: 2),
               Text(
                 'cylindrical list projection | geometry tuning | delegate strategies | controller-driven interaction',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.85),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -88,7 +92,12 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
                 title: 'Wheel Fundamentals Theater',
                 subtitle:
                     'Core ListWheelScrollView behavior with fixed item extent, selected index reporting, and centered selection lane.',
-                child: _FundamentalsScene(compact: _compact, guide: _guide, tips: _tips, scale: _scale),
+                child: _FundamentalsScene(
+                  compact: _compact,
+                  guide: _guide,
+                  tips: _tips,
+                  scale: _scale,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -97,7 +106,11 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
                 title: 'Geometry Parameter Lab',
                 subtitle:
                     'Interactive controls for diameterRatio, perspective, squeeze, offAxisFraction, magnifier, and overAndUnderCenterOpacity.',
-                child: _GeometryScene(compact: _compact, guide: _guide, tips: _tips),
+                child: _GeometryScene(
+                  compact: _compact,
+                  guide: _guide,
+                  tips: _tips,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -106,7 +119,11 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
                 title: 'Delegate Strategies Gallery',
                 subtitle:
                     'Compares direct children, builder delegate, and looping delegate while preserving the same wheel semantics.',
-                child: _DelegateScene(compact: _compact, guide: _guide, tips: _tips),
+                child: _DelegateScene(
+                  compact: _compact,
+                  guide: _guide,
+                  tips: _tips,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -115,7 +132,11 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
                 title: 'Physics and Controller Desk',
                 subtitle:
                     'Uses FixedExtentScrollController with jump/animate controls and physics variants to demonstrate deterministic wheel control.',
-                child: _PhysicsScene(compact: _compact, guide: _guide, tips: _tips),
+                child: _PhysicsScene(
+                  compact: _compact,
+                  guide: _guide,
+                  tips: _tips,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -124,7 +145,11 @@ class _ListWheelDeepDemoPageState extends State<_ListWheelDeepDemoPage> {
                 title: 'Practical Wheel Compositions',
                 subtitle:
                     'Real examples: schedule picker, command dial, and wheel-driven dashboard controls integrated into one workspace.',
-                child: _PracticalScene(compact: _compact, guide: _guide, tips: _tips),
+                child: _PracticalScene(
+                  compact: _compact,
+                  guide: _guide,
+                  tips: _tips,
+                ),
               ),
               const SizedBox(height: 12),
               const _RecapPanel(),
@@ -169,7 +194,12 @@ class _ControlDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF18384D), Color(0xFF2E5E7F), Color(0xFF4E6E90), Color(0xFF6D60A9)],
+          colors: [
+            Color(0xFF18384D),
+            Color(0xFF2E5E7F),
+            Color(0xFF4E6E90),
+            Color(0xFF6D60A9),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -179,7 +209,11 @@ class _ControlDeck extends StatelessWidget {
         children: [
           const Text(
             'ListWheel Interaction Deck',
-            style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           const SizedBox(height: 6),
           const Text(
@@ -198,7 +232,13 @@ class _ControlDeck extends StatelessWidget {
                     onChanged: onCompactChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Compact scenes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -210,7 +250,13 @@ class _ControlDeck extends StatelessWidget {
                     onChanged: onGuideChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Guide overlays',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -222,7 +268,13 @@ class _ControlDeck extends StatelessWidget {
                     onChanged: onTipsChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Show tips', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'Show tips',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -234,14 +286,26 @@ class _ControlDeck extends StatelessWidget {
                     onChanged: onRtlChanged,
                     dense: true,
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    title: const Text(
+                      'RTL mode',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 4),
-          Text('Visual scale: ${scale.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Text(
+            'Visual scale: ${scale.toStringAsFixed(2)}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           Slider(
             value: scale,
             min: 0.8,
@@ -279,7 +343,11 @@ class _SceneShell extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 15, offset: const Offset(0, 7)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 15,
+            offset: const Offset(0, 7),
+          ),
         ],
       ),
       child: Padding(
@@ -294,16 +362,32 @@ class _SceneShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: tone,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 19,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4F60), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF3A4F60),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -319,7 +403,12 @@ class _SceneShell extends StatelessWidget {
 }
 
 class _FundamentalsScene extends StatefulWidget {
-  const _FundamentalsScene({required this.compact, required this.guide, required this.tips, required this.scale});
+  const _FundamentalsScene({
+    required this.compact,
+    required this.guide,
+    required this.tips,
+    required this.scale,
+  });
 
   final bool compact;
   final bool guide;
@@ -335,7 +424,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
   int _selected = 8;
   bool _showCenterLine = true;
 
-  final List<String> _items = List<String>.generate(30, (i) => 'Station ${i + 1}');
+  final List<String> _items = List<String>.generate(
+    30,
+    (i) => 'Station ${i + 1}',
+  );
 
   @override
   void initState() {
@@ -366,15 +458,22 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Fundamental controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamental controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       FilledButton.tonal(
-                        onPressed: () => _animateTo((_selected - 1).clamp(0, _items.length - 1)),
+                        onPressed: () => _animateTo(
+                          (_selected - 1).clamp(0, _items.length - 1),
+                        ),
                         child: const Text('Select previous'),
                       ),
                       const SizedBox(height: 8),
                       FilledButton.tonal(
-                        onPressed: () => _animateTo((_selected + 1).clamp(0, _items.length - 1)),
+                        onPressed: () => _animateTo(
+                          (_selected + 1).clamp(0, _items.length - 1),
+                        ),
                         child: const Text('Select next'),
                       ),
                       const SizedBox(height: 8),
@@ -396,8 +495,14 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                       const SizedBox(height: 8),
                       _InfoTable(
                         rows: [
-                          _InfoRow(label: 'selected index', value: '$_selected'),
-                          _InfoRow(label: 'selected label', value: _items[_selected]),
+                          _InfoRow(
+                            label: 'selected index',
+                            value: '$_selected',
+                          ),
+                          _InfoRow(
+                            label: 'selected label',
+                            value: _items[_selected],
+                          ),
                           _InfoRow(label: 'itemExtent', value: '62 px'),
                           _InfoRow(
                             label: 'controller item',
@@ -445,7 +550,8 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           diameterRatio: 2.1,
                           perspective: 0.002,
                           physics: const FixedExtentScrollPhysics(),
-                          onSelectedItemChanged: (i) => setState(() => _selected = i),
+                          onSelectedItemChanged: (i) =>
+                              setState(() => _selected = i),
                           childDelegate: ListWheelChildBuilderDelegate(
                             builder: (context, index) {
                               if (index < 0 || index >= _items.length) {
@@ -469,7 +575,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                               height: 66,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: _blue.withValues(alpha: 0.46), width: 2),
+                                border: Border.all(
+                                  color: _blue.withValues(alpha: 0.46),
+                                  width: 2,
+                                ),
                                 color: _blue.withValues(alpha: 0.08),
                               ),
                             ),
@@ -487,12 +596,20 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
   }
 
   Future<void> _animateTo(int index) async {
-    await _controller.animateToItem(index, duration: const Duration(milliseconds: 280), curve: Curves.easeOutCubic);
+    await _controller.animateToItem(
+      index,
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOutCubic,
+    );
   }
 }
 
 class _GeometryScene extends StatefulWidget {
-  const _GeometryScene({required this.compact, required this.guide, required this.tips});
+  const _GeometryScene({
+    required this.compact,
+    required this.guide,
+    required this.tips,
+  });
 
   final bool compact;
   final bool guide;
@@ -558,14 +675,53 @@ class _GeometrySceneState extends State<_GeometryScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Geometry controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Geometry controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
-                      _SliderRow(label: 'diameterRatio', value: _diameterRatio, min: 1.1, max: 3.2, onChanged: (v) => setState(() => _diameterRatio = v)),
-                      _SliderRow(label: 'perspective', value: _perspective, min: 0.0005, max: 0.01, onChanged: (v) => setState(() => _perspective = v)),
-                      _SliderRow(label: 'squeeze', value: _squeeze, min: 0.7, max: 1.8, onChanged: (v) => setState(() => _squeeze = v)),
-                      _SliderRow(label: 'offAxisFraction', value: _offAxis, min: -0.8, max: 0.8, onChanged: (v) => setState(() => _offAxis = v)),
-                      _SliderRow(label: 'magnification', value: _magnification, min: 1.0, max: 1.7, onChanged: (v) => setState(() => _magnification = v)),
-                      _SliderRow(label: 'center opacity', value: _centerOpacity, min: 0.2, max: 1.0, onChanged: (v) => setState(() => _centerOpacity = v)),
+                      _SliderRow(
+                        label: 'diameterRatio',
+                        value: _diameterRatio,
+                        min: 1.1,
+                        max: 3.2,
+                        onChanged: (v) => setState(() => _diameterRatio = v),
+                      ),
+                      _SliderRow(
+                        label: 'perspective',
+                        value: _perspective,
+                        min: 0.0005,
+                        max: 0.01,
+                        onChanged: (v) => setState(() => _perspective = v),
+                      ),
+                      _SliderRow(
+                        label: 'squeeze',
+                        value: _squeeze,
+                        min: 0.7,
+                        max: 1.8,
+                        onChanged: (v) => setState(() => _squeeze = v),
+                      ),
+                      _SliderRow(
+                        label: 'offAxisFraction',
+                        value: _offAxis,
+                        min: -0.8,
+                        max: 0.8,
+                        onChanged: (v) => setState(() => _offAxis = v),
+                      ),
+                      _SliderRow(
+                        label: 'magnification',
+                        value: _magnification,
+                        min: 1.0,
+                        max: 1.7,
+                        onChanged: (v) => setState(() => _magnification = v),
+                      ),
+                      _SliderRow(
+                        label: 'center opacity',
+                        value: _centerOpacity,
+                        min: 0.2,
+                        max: 1.0,
+                        onChanged: (v) => setState(() => _centerOpacity = v),
+                      ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
@@ -579,10 +735,19 @@ class _GeometrySceneState extends State<_GeometryScene> {
                       const SizedBox(height: 8),
                       _InfoTable(
                         rows: [
-                          _InfoRow(label: 'selected', value: _samples[_selected]),
+                          _InfoRow(
+                            label: 'selected',
+                            value: _samples[_selected],
+                          ),
                           _InfoRow(label: 'index', value: '$_selected'),
-                          _InfoRow(label: 'diameter', value: _diameterRatio.toStringAsFixed(2)),
-                          _InfoRow(label: 'offAxis', value: _offAxis.toStringAsFixed(2)),
+                          _InfoRow(
+                            label: 'diameter',
+                            value: _diameterRatio.toStringAsFixed(2),
+                          ),
+                          _InfoRow(
+                            label: 'offAxis',
+                            value: _offAxis.toStringAsFixed(2),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -622,7 +787,8 @@ class _GeometrySceneState extends State<_GeometryScene> {
                         magnification: _magnification,
                         overAndUnderCenterOpacity: _centerOpacity,
                         physics: const FixedExtentScrollPhysics(),
-                        onSelectedItemChanged: (i) => setState(() => _selected = i),
+                        onSelectedItemChanged: (i) =>
+                            setState(() => _selected = i),
                         children: List<Widget>.generate(
                           _samples.length,
                           (i) => _WheelCard(
@@ -640,7 +806,10 @@ class _GeometrySceneState extends State<_GeometryScene> {
                           height: 62,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: _teal.withValues(alpha: 0.46), width: 2),
+                            border: Border.all(
+                              color: _teal.withValues(alpha: 0.46),
+                              width: 2,
+                            ),
                             color: _teal.withValues(alpha: 0.08),
                           ),
                         ),
@@ -658,7 +827,11 @@ class _GeometrySceneState extends State<_GeometryScene> {
 }
 
 class _DelegateScene extends StatefulWidget {
-  const _DelegateScene({required this.compact, required this.guide, required this.tips});
+  const _DelegateScene({
+    required this.compact,
+    required this.guide,
+    required this.tips,
+  });
 
   final bool compact;
   final bool guide;
@@ -696,7 +869,9 @@ class _DelegateSceneState extends State<_DelegateScene> {
   void initState() {
     super.initState();
     _listController = FixedExtentScrollController(initialItem: _listIndex);
-    _builderController = FixedExtentScrollController(initialItem: _builderIndex);
+    _builderController = FixedExtentScrollController(
+      initialItem: _builderIndex,
+    );
     _loopController = FixedExtentScrollController(initialItem: _loopIndex);
   }
 
@@ -725,13 +900,25 @@ class _DelegateSceneState extends State<_DelegateScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Delegate overview', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Delegate overview',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       _InfoTable(
                         rows: [
-                          _InfoRow(label: 'List delegate', value: _fixed[_listIndex]),
-                          _InfoRow(label: 'Builder delegate', value: 'Item ${_builderIndex + 1}'),
-                          _InfoRow(label: 'Looping delegate', value: _fixed[_loopIndex % _fixed.length]),
+                          _InfoRow(
+                            label: 'List delegate',
+                            value: _fixed[_listIndex],
+                          ),
+                          _InfoRow(
+                            label: 'Builder delegate',
+                            value: 'Item ${_builderIndex + 1}',
+                          ),
+                          _InfoRow(
+                            label: 'Looping delegate',
+                            value: _fixed[_loopIndex % _fixed.length],
+                          ),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -766,10 +953,16 @@ class _DelegateSceneState extends State<_DelegateScene> {
                           controller: _listController,
                           itemExtent: 54,
                           physics: const FixedExtentScrollPhysics(),
-                          onSelectedItemChanged: (i) => setState(() => _listIndex = i),
+                          onSelectedItemChanged: (i) =>
+                              setState(() => _listIndex = i),
                           children: List<Widget>.generate(
                             _fixed.length,
-                            (i) => _WheelCard(title: _fixed[i], index: i, selected: i == _listIndex, tone: _blue),
+                            (i) => _WheelCard(
+                              title: _fixed[i],
+                              index: i,
+                              selected: i == _listIndex,
+                              tone: _blue,
+                            ),
                           ),
                         ),
                       ),
@@ -783,7 +976,8 @@ class _DelegateSceneState extends State<_DelegateScene> {
                           controller: _builderController,
                           itemExtent: 54,
                           physics: const FixedExtentScrollPhysics(),
-                          onSelectedItemChanged: (i) => setState(() => _builderIndex = i),
+                          onSelectedItemChanged: (i) =>
+                              setState(() => _builderIndex = i),
                           childDelegate: ListWheelChildBuilderDelegate(
                             childCount: 40,
                             builder: (context, index) {
@@ -791,7 +985,12 @@ class _DelegateSceneState extends State<_DelegateScene> {
                                 return null;
                               }
                               final label = 'Metric ${index + 1}';
-                              return _WheelCard(title: label, index: index, selected: index == _builderIndex, tone: _teal);
+                              return _WheelCard(
+                                title: label,
+                                index: index,
+                                selected: index == _builderIndex,
+                                tone: _teal,
+                              );
                             },
                           ),
                         ),
@@ -806,11 +1005,17 @@ class _DelegateSceneState extends State<_DelegateScene> {
                           controller: _loopController,
                           itemExtent: 54,
                           physics: const FixedExtentScrollPhysics(),
-                          onSelectedItemChanged: (i) => setState(() => _loopIndex = i),
+                          onSelectedItemChanged: (i) =>
+                              setState(() => _loopIndex = i),
                           childDelegate: ListWheelChildLoopingListDelegate(
                             children: List<Widget>.generate(
                               _fixed.length,
-                              (i) => _WheelCard(title: _fixed[i], index: i, selected: i == (_loopIndex % _fixed.length), tone: _amber),
+                              (i) => _WheelCard(
+                                title: _fixed[i],
+                                index: i,
+                                selected: i == (_loopIndex % _fixed.length),
+                                tone: _amber,
+                              ),
                             ),
                           ),
                         ),
@@ -828,7 +1033,11 @@ class _DelegateSceneState extends State<_DelegateScene> {
 }
 
 class _DelegateColumn extends StatelessWidget {
-  const _DelegateColumn({required this.title, required this.tone, required this.child});
+  const _DelegateColumn({
+    required this.title,
+    required this.tone,
+    required this.child,
+  });
 
   final String title;
   final Color tone;
@@ -850,9 +1059,14 @@ class _DelegateColumn extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.12),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+            child: Text(
+              title,
+              style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+            ),
           ),
           Expanded(child: child),
         ],
@@ -861,14 +1075,14 @@ class _DelegateColumn extends StatelessWidget {
   }
 }
 
-enum _PhysicsMode {
-  fixed,
-  bouncing,
-  clamping,
-}
+enum _PhysicsMode { fixed, bouncing, clamping }
 
 class _PhysicsScene extends StatefulWidget {
-  const _PhysicsScene({required this.compact, required this.guide, required this.tips});
+  const _PhysicsScene({
+    required this.compact,
+    required this.guide,
+    required this.tips,
+  });
 
   final bool compact;
   final bool guide;
@@ -901,8 +1115,12 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
     final height = widget.compact ? 780.0 : 920.0;
     final physicsWidget = switch (_physics) {
       _PhysicsMode.fixed => const FixedExtentScrollPhysics(),
-      _PhysicsMode.bouncing => const BouncingScrollPhysics(parent: FixedExtentScrollPhysics()),
-      _PhysicsMode.clamping => const ClampingScrollPhysics(parent: FixedExtentScrollPhysics()),
+      _PhysicsMode.bouncing => const BouncingScrollPhysics(
+        parent: FixedExtentScrollPhysics(),
+      ),
+      _PhysicsMode.clamping => const ClampingScrollPhysics(
+        parent: FixedExtentScrollPhysics(),
+      ),
     };
 
     return SizedBox(
@@ -919,26 +1137,33 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Controller actions', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Controller actions',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
                         children: [
                           FilledButton.tonal(
-                            onPressed: () => _jumpTo((_selected - 5).clamp(0, 59)),
+                            onPressed: () =>
+                                _jumpTo((_selected - 5).clamp(0, 59)),
                             child: const Text('Jump -5'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _jumpTo((_selected + 5).clamp(0, 59)),
+                            onPressed: () =>
+                                _jumpTo((_selected + 5).clamp(0, 59)),
                             child: const Text('Jump +5'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _animateTo((_selected - 1).clamp(0, 59)),
+                            onPressed: () =>
+                                _animateTo((_selected - 1).clamp(0, 59)),
                             child: const Text('Animate -1'),
                           ),
                           FilledButton.tonal(
-                            onPressed: () => _animateTo((_selected + 1).clamp(0, 59)),
+                            onPressed: () =>
+                                _animateTo((_selected + 1).clamp(0, 59)),
                             child: const Text('Animate +1'),
                           ),
                         ],
@@ -946,12 +1171,22 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
                       const SizedBox(height: 8),
                       SegmentedButton<_PhysicsMode>(
                         segments: const [
-                          ButtonSegment(value: _PhysicsMode.fixed, label: Text('Fixed')),
-                          ButtonSegment(value: _PhysicsMode.bouncing, label: Text('Bouncing')),
-                          ButtonSegment(value: _PhysicsMode.clamping, label: Text('Clamping')),
+                          ButtonSegment(
+                            value: _PhysicsMode.fixed,
+                            label: Text('Fixed'),
+                          ),
+                          ButtonSegment(
+                            value: _PhysicsMode.bouncing,
+                            label: Text('Bouncing'),
+                          ),
+                          ButtonSegment(
+                            value: _PhysicsMode.clamping,
+                            label: Text('Clamping'),
+                          ),
                         ],
                         selected: {_physics},
-                        onSelectionChanged: (s) => setState(() => _physics = s.first),
+                        onSelectionChanged: (s) =>
+                            setState(() => _physics = s.first),
                       ),
                       const SizedBox(height: 8),
                       _InfoTable(
@@ -1026,10 +1261,7 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Expanded(
-                      flex: 4,
-                      child: _LogPanel(lines: _log),
-                    ),
+                    Expanded(flex: 4, child: _LogPanel(lines: _log)),
                   ],
                 ),
               ),
@@ -1052,7 +1284,11 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
   }
 
   Future<void> _animateTo(int index) async {
-    await _controller.animateToItem(index, duration: const Duration(milliseconds: 320), curve: Curves.easeInOutCubic);
+    await _controller.animateToItem(
+      index,
+      duration: const Duration(milliseconds: 320),
+      curve: Curves.easeInOutCubic,
+    );
     if (!mounted) {
       return;
     }
@@ -1067,7 +1303,11 @@ class _PhysicsSceneState extends State<_PhysicsScene> {
 }
 
 class _PracticalScene extends StatefulWidget {
-  const _PracticalScene({required this.compact, required this.guide, required this.tips});
+  const _PracticalScene({
+    required this.compact,
+    required this.guide,
+    required this.tips,
+  });
 
   final bool compact;
   final bool guide;
@@ -1175,15 +1415,9 @@ class _PracticalSceneState extends State<_PracticalScene> {
                     Expanded(
                       child: Row(
                         children: [
-                          Expanded(
-                            flex: 7,
-                            child: _workspaceSurface(modes),
-                          ),
+                          Expanded(flex: 7, child: _workspaceSurface(modes)),
                           const SizedBox(width: 10),
-                          Expanded(
-                            flex: 4,
-                            child: _summaryPanel(modes),
-                          ),
+                          Expanded(flex: 4, child: _summaryPanel(modes)),
                         ],
                       ),
                     ),
@@ -1202,14 +1436,26 @@ class _PracticalSceneState extends State<_PracticalScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Practical notes', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Practical notes',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     _InfoTable(
                       rows: [
-                        _InfoRow(label: 'hour', value: _hour.toString().padLeft(2, '0')),
-                        _InfoRow(label: 'minute', value: (_minute * 5).toString().padLeft(2, '0')),
+                        _InfoRow(
+                          label: 'hour',
+                          value: _hour.toString().padLeft(2, '0'),
+                        ),
+                        _InfoRow(
+                          label: 'minute',
+                          value: (_minute * 5).toString().padLeft(2, '0'),
+                        ),
                         _InfoRow(label: 'mode', value: modes[_mode]),
-                        _InfoRow(label: 'overlay', value: _showOverlay ? 'visible' : 'hidden'),
+                        _InfoRow(
+                          label: 'overlay',
+                          value: _showOverlay ? 'visible' : 'hidden',
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -1222,22 +1468,39 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    const Text('Recent events', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Recent events',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 6),
                     Expanded(
                       child: _showEvents
                           ? _events.isEmpty
-                              ? const Text('No events yet.', style: TextStyle(color: Color(0xFF627789)))
-                              : ListView.builder(
-                                  itemCount: _events.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(bottom: 3),
-                                      child: Text(_events[index], style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
-                                    );
-                                  },
-                                )
-                          : const Text('Event panel hidden.', style: TextStyle(color: Color(0xFF627789))),
+                                ? const Text(
+                                    'No events yet.',
+                                    style: TextStyle(color: Color(0xFF627789)),
+                                  )
+                                : ListView.builder(
+                                    itemCount: _events.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: 3,
+                                        ),
+                                        child: Text(
+                                          _events[index],
+                                          style: const TextStyle(
+                                            fontSize: 11,
+                                            fontFamily: 'monospace',
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  )
+                          : const Text(
+                              'Event panel hidden.',
+                              style: TextStyle(color: Color(0xFF627789)),
+                            ),
                     ),
                   ],
                 ),
@@ -1250,7 +1513,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
   }
 
   Widget _workspaceSurface(List<String> modes) {
-    final timeLabel = '${_hour.toString().padLeft(2, '0')}:${(_minute * 5).toString().padLeft(2, '0')}';
+    final timeLabel =
+        '${_hour.toString().padLeft(2, '0')}:${(_minute * 5).toString().padLeft(2, '0')}';
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1264,15 +1528,38 @@ class _PracticalSceneState extends State<_PracticalScene> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: _violet.withValues(alpha: 0.12),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text('Command Console | $timeLabel | ${modes[_mode]}', style: const TextStyle(color: _ink, fontWeight: FontWeight.w800)),
+            child: Text(
+              'Command Console | $timeLabel | ${modes[_mode]}',
+              style: const TextStyle(color: _ink, fontWeight: FontWeight.w800),
+            ),
           ),
           Expanded(
             child: Row(
               children: [
-                Expanded(child: _wheelBox('Hour', _hourController, 24, _hour, _amber, (i) => setState(() => _hour = i))),
-                Expanded(child: _wheelBox('Minute', _minuteController, 12, _minute, _teal, (i) => setState(() => _minute = i))),
+                Expanded(
+                  child: _wheelBox(
+                    'Hour',
+                    _hourController,
+                    24,
+                    _hour,
+                    _amber,
+                    (i) => setState(() => _hour = i),
+                  ),
+                ),
+                Expanded(
+                  child: _wheelBox(
+                    'Minute',
+                    _minuteController,
+                    12,
+                    _minute,
+                    _teal,
+                    (i) => setState(() => _minute = i),
+                  ),
+                ),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(8),
@@ -1285,11 +1572,17 @@ class _PracticalSceneState extends State<_PracticalScene> {
                           magnification: 1.10,
                           overAndUnderCenterOpacity: 0.75,
                           physics: const FixedExtentScrollPhysics(),
-                          onSelectedItemChanged: (i) => setState(() => _mode = i),
+                          onSelectedItemChanged: (i) =>
+                              setState(() => _mode = i),
                           childDelegate: ListWheelChildListDelegate(
                             children: List<Widget>.generate(
                               modes.length,
-                              (i) => _WheelCard(title: modes[i], index: i, selected: i == _mode, tone: _violet),
+                              (i) => _WheelCard(
+                                title: modes[i],
+                                index: i,
+                                selected: i == _mode,
+                                tone: _violet,
+                              ),
                             ),
                           ),
                         ),
@@ -1300,7 +1593,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                                 height: 58,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: _violet.withValues(alpha: 0.42), width: 2),
+                                  border: Border.all(
+                                    color: _violet.withValues(alpha: 0.42),
+                                    width: 2,
+                                  ),
                                   color: _violet.withValues(alpha: 0.08),
                                 ),
                               ),
@@ -1330,17 +1626,27 @@ class _PracticalSceneState extends State<_PracticalScene> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Live Snapshot', style: TextStyle(fontWeight: FontWeight.w800)),
+          const Text(
+            'Live Snapshot',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 8),
           _InfoTable(
             rows: [
-              _InfoRow(label: 'time', value: '${_hour.toString().padLeft(2, '0')}:${(_minute * 5).toString().padLeft(2, '0')}'),
+              _InfoRow(
+                label: 'time',
+                value:
+                    '${_hour.toString().padLeft(2, '0')}:${(_minute * 5).toString().padLeft(2, '0')}',
+              ),
               _InfoRow(label: 'mode', value: modes[_mode]),
               _InfoRow(label: 'queue', value: '${_hour + (_minute * 2)} items'),
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Execution readiness', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Execution readiness',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Container(
             height: 12,
@@ -1352,7 +1658,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
             child: FractionallySizedBox(
               widthFactor: progress.clamp(0.0, 1.0),
               child: Container(
-                decoration: BoxDecoration(color: _violet, borderRadius: BorderRadius.circular(999)),
+                decoration: BoxDecoration(
+                  color: _violet,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
             ),
           ),
@@ -1370,7 +1679,11 @@ class _PracticalSceneState extends State<_PracticalScene> {
               children: [
                 _miniMetric('Latency', '${90 + (_minute * 3)}ms', _blue),
                 _miniMetric('Threads', '${4 + (_mode * 2)}', _teal),
-                _miniMetric('Load', '${(progress * 100).toStringAsFixed(0)}%', _amber),
+                _miniMetric(
+                  'Load',
+                  '${(progress * 100).toStringAsFixed(0)}%',
+                  _amber,
+                ),
                 _miniMetric('Priority', '${_mode + 1}', _rose),
               ],
             ),
@@ -1392,7 +1705,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
       padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+          Text(
+            title,
+            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: Stack(
@@ -1414,7 +1730,12 @@ class _PracticalSceneState extends State<_PracticalScene> {
                       final label = title == 'Minute'
                           ? (index * 5).toString().padLeft(2, '0')
                           : index.toString().padLeft(2, '0');
-                      return _WheelCard(title: label, index: index, selected: index == selected, tone: tone);
+                      return _WheelCard(
+                        title: label,
+                        index: index,
+                        selected: index == selected,
+                        tone: tone,
+                      );
                     },
                   ),
                 ),
@@ -1425,7 +1746,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         height: 58,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: tone.withValues(alpha: 0.42), width: 2),
+                          border: Border.all(
+                            color: tone.withValues(alpha: 0.42),
+                            width: 2,
+                          ),
                           color: tone.withValues(alpha: 0.08),
                         ),
                       ),
@@ -1449,17 +1773,39 @@ class _PracticalSceneState extends State<_PracticalScene> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            label,
+            style: TextStyle(
+              color: tone,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(value, style: const TextStyle(color: _ink, fontWeight: FontWeight.w800, fontSize: 17)),
+          Text(
+            value,
+            style: const TextStyle(
+              color: _ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 17,
+            ),
+          ),
         ],
       ),
     );
   }
 
   Future<void> _animateSchedule(int hour, int minute) async {
-    await _hourController.animateToItem(hour, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
-    await _minuteController.animateToItem(minute, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
+    await _hourController.animateToItem(
+      hour,
+      duration: const Duration(milliseconds: 320),
+      curve: Curves.easeOutCubic,
+    );
+    await _minuteController.animateToItem(
+      minute,
+      duration: const Duration(milliseconds: 320),
+      curve: Curves.easeOutCubic,
+    );
     if (!mounted) {
       return;
     }
@@ -1470,7 +1816,11 @@ class _PracticalSceneState extends State<_PracticalScene> {
   }
 
   Future<void> _animateMode(int mode) async {
-    await _modeController.animateToItem(mode, duration: const Duration(milliseconds: 280), curve: Curves.easeOutCubic);
+    await _modeController.animateToItem(
+      mode,
+      duration: const Duration(milliseconds: 280),
+      curve: Curves.easeOutCubic,
+    );
     if (!mounted) {
       return;
     }
@@ -1488,7 +1838,12 @@ class _PracticalSceneState extends State<_PracticalScene> {
 }
 
 class _WheelCard extends StatelessWidget {
-  const _WheelCard({required this.title, required this.index, required this.selected, required this.tone});
+  const _WheelCard({
+    required this.title,
+    required this.index,
+    required this.selected,
+    required this.tone,
+  });
 
   final String title;
   final int index;
@@ -1504,10 +1859,17 @@ class _WheelCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? tone.withValues(alpha: 0.70) : Colors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: selected ? tone : tone.withValues(alpha: 0.35), width: selected ? 2 : 1.2),
+          border: Border.all(
+            color: selected ? tone : tone.withValues(alpha: 0.35),
+            width: selected ? 2 : 1.2,
+          ),
           boxShadow: [
             if (selected)
-              BoxShadow(color: tone.withValues(alpha: 0.22), blurRadius: 8, offset: const Offset(0, 4)),
+              BoxShadow(
+                color: tone.withValues(alpha: 0.22),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
           ],
         ),
         child: Row(
@@ -1616,8 +1978,22 @@ class _InfoTable extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
-                    SizedBox(width: 120, child: Text(r.label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
-                    Expanded(child: Text(r.value, style: const TextStyle(fontSize: 12))),
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        r.label,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r.value,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1629,7 +2005,13 @@ class _InfoTable extends StatelessWidget {
 }
 
 class _SliderRow extends StatelessWidget {
-  const _SliderRow({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
+  const _SliderRow({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
 
   final String label;
   final double value;
@@ -1642,7 +2024,10 @@ class _SliderRow extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$label: ${value.toStringAsFixed(3)}', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+        Text(
+          '$label: ${value.toStringAsFixed(3)}',
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+        ),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     );
@@ -1674,10 +2059,22 @@ class _Tips extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.circle, size: 7, color: Color(0xFF8ED4FF)),
+                      child: Icon(
+                        Icons.circle,
+                        size: 7,
+                        color: Color(0xFF8ED4FF),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFD6EAFB), height: 1.34))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: const TextStyle(
+                          color: Color(0xFFD6EAFB),
+                          height: 1.34,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1705,17 +2102,29 @@ class _LogPanel extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Controller Event Log', style: TextStyle(fontWeight: FontWeight.w800)),
+          const Text(
+            'Controller Event Log',
+            style: TextStyle(fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: lines.isEmpty
-                ? const Text('No log events yet.', style: TextStyle(color: Color(0xFF637889)))
+                ? const Text(
+                    'No log events yet.',
+                    style: TextStyle(color: Color(0xFF637889)),
+                  )
                 : ListView.builder(
                     itemCount: lines.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 3),
-                        child: Text(lines[index], style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
+                        child: Text(
+                          lines[index],
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -1740,7 +2149,14 @@ class _RecapPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: ListWheelScrollView', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: ListWheelScrollView',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'ListWheelScrollView is a strong choice for focused option browsing with clear centered selection and cylindrical depth cues. '

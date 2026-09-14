@@ -307,17 +307,83 @@ final List<ConstraintRecord> kConstraintCards = [
 ];
 
 final List<WidgetEntry> kWidgetTable = [
-  WidgetEntry('ConstrainedBox', 'caller-supplied min/max', 'any', 'O(1)', kBlueprintAccent),
-  WidgetEntry('LimitedBox', 'caps width/height only if unbounded', 'any', 'O(1)', kAccentTeal),
-  WidgetEntry('UnconstrainedBox', 'removes incoming constraints', 'any', 'O(1)', kAccentRust),
-  WidgetEntry('AspectRatio', 'forces width/height ratio', 'any', 'O(1)', kAccentOlive),
-  WidgetEntry('IntrinsicWidth', 'tight to child intrinsic width', 'must report intrinsic', 'O(N\u00B2)', kAccentLavender),
-  WidgetEntry('IntrinsicHeight', 'tight to child intrinsic height', 'must report intrinsic', 'O(N\u00B2)', kAccentLavender),
-  WidgetEntry('FractionallySizedBox', 'fraction of parent', 'any', 'O(1)', kBlueprintMid),
-  WidgetEntry('SizedOverflowBox', 'fixed layout size, child overflows', 'any', 'O(1)', kPencilSepia),
-  WidgetEntry('Flex / Row / Column', 'partitions main-axis', 'sizes by flex factor', 'O(N)', kBlueprintDeep),
-  WidgetEntry('Stack', 'overlays children', 'positioned or non-positioned', 'O(N)', kAccentRust),
-  WidgetEntry('CustomMultiChildLayout', 'delegate-driven', 'LayoutId children', 'O(N)', kAccentTeal),
+  WidgetEntry(
+    'ConstrainedBox',
+    'caller-supplied min/max',
+    'any',
+    'O(1)',
+    kBlueprintAccent,
+  ),
+  WidgetEntry(
+    'LimitedBox',
+    'caps width/height only if unbounded',
+    'any',
+    'O(1)',
+    kAccentTeal,
+  ),
+  WidgetEntry(
+    'UnconstrainedBox',
+    'removes incoming constraints',
+    'any',
+    'O(1)',
+    kAccentRust,
+  ),
+  WidgetEntry(
+    'AspectRatio',
+    'forces width/height ratio',
+    'any',
+    'O(1)',
+    kAccentOlive,
+  ),
+  WidgetEntry(
+    'IntrinsicWidth',
+    'tight to child intrinsic width',
+    'must report intrinsic',
+    'O(N\u00B2)',
+    kAccentLavender,
+  ),
+  WidgetEntry(
+    'IntrinsicHeight',
+    'tight to child intrinsic height',
+    'must report intrinsic',
+    'O(N\u00B2)',
+    kAccentLavender,
+  ),
+  WidgetEntry(
+    'FractionallySizedBox',
+    'fraction of parent',
+    'any',
+    'O(1)',
+    kBlueprintMid,
+  ),
+  WidgetEntry(
+    'SizedOverflowBox',
+    'fixed layout size, child overflows',
+    'any',
+    'O(1)',
+    kPencilSepia,
+  ),
+  WidgetEntry(
+    'Flex / Row / Column',
+    'partitions main-axis',
+    'sizes by flex factor',
+    'O(N)',
+    kBlueprintDeep,
+  ),
+  WidgetEntry(
+    'Stack',
+    'overlays children',
+    'positioned or non-positioned',
+    'O(N)',
+    kAccentRust,
+  ),
+  WidgetEntry(
+    'CustomMultiChildLayout',
+    'delegate-driven',
+    'LayoutId children',
+    'O(N)',
+    kAccentTeal,
+  ),
 ];
 
 final List<RecipeCard> kRecipes = [
@@ -360,23 +426,71 @@ final List<RecipeCard> kRecipes = [
 ];
 
 final List<GlossaryItem> kGlossary = [
-  GlossaryItem('BoxConstraints', 'Immutable min/max width and height passed from parent to child.'),
-  GlossaryItem('RenderBox', 'RenderObject with a Cartesian coordinate system and a Size.'),
-  GlossaryItem('RenderProxyBox', 'RenderBox with one child it forwards layout to almost unchanged.'),
-  GlossaryItem('RenderShiftedBox', 'RenderProxyBox subclass that positions its child via offset.'),
-  GlossaryItem('ParentData', 'Per-child slot for parent-specific layout metadata (e.g. FlexParentData).'),
-  GlossaryItem('performLayout', 'Method where a RenderObject lays out children and sets its own size.'),
-  GlossaryItem('layout()', 'Public entry point — receives constraints and runs performLayout if needed.'),
-  GlossaryItem('markNeedsLayout', 'Schedules a relayout pass walking up to the nearest relayout boundary.'),
-  GlossaryItem('hitTest', 'Walks the box tree to find which child contains a pointer event.'),
+  GlossaryItem(
+    'BoxConstraints',
+    'Immutable min/max width and height passed from parent to child.',
+  ),
+  GlossaryItem(
+    'RenderBox',
+    'RenderObject with a Cartesian coordinate system and a Size.',
+  ),
+  GlossaryItem(
+    'RenderProxyBox',
+    'RenderBox with one child it forwards layout to almost unchanged.',
+  ),
+  GlossaryItem(
+    'RenderShiftedBox',
+    'RenderProxyBox subclass that positions its child via offset.',
+  ),
+  GlossaryItem(
+    'ParentData',
+    'Per-child slot for parent-specific layout metadata (e.g. FlexParentData).',
+  ),
+  GlossaryItem(
+    'performLayout',
+    'Method where a RenderObject lays out children and sets its own size.',
+  ),
+  GlossaryItem(
+    'layout()',
+    'Public entry point — receives constraints and runs performLayout if needed.',
+  ),
+  GlossaryItem(
+    'markNeedsLayout',
+    'Schedules a relayout pass walking up to the nearest relayout boundary.',
+  ),
+  GlossaryItem(
+    'hitTest',
+    'Walks the box tree to find which child contains a pointer event.',
+  ),
   GlossaryItem('paint', 'Emits a Picture into the layer tree using a Canvas.'),
-  GlossaryItem('isRepaintBoundary', 'When true, the subtree paints into its own offscreen surface.'),
-  GlossaryItem('RelayoutBoundary', 'Subtree whose layout is independent of changes outside it.'),
-  GlossaryItem('sizedByParent', 'Box whose size is fully determined by its incoming constraints.'),
-  GlossaryItem('intrinsicWidth', 'The width a child would prefer given an unbounded constraint.'),
-  GlossaryItem('intrinsicHeight', 'The height a child would prefer for a given width.'),
-  GlossaryItem('TightConstraints', 'BoxConstraints whose min equals max — exactly one allowed size.'),
-  GlossaryItem('LooseConstraints', 'BoxConstraints whose min is zero — child may shrink freely.'),
+  GlossaryItem(
+    'isRepaintBoundary',
+    'When true, the subtree paints into its own offscreen surface.',
+  ),
+  GlossaryItem(
+    'RelayoutBoundary',
+    'Subtree whose layout is independent of changes outside it.',
+  ),
+  GlossaryItem(
+    'sizedByParent',
+    'Box whose size is fully determined by its incoming constraints.',
+  ),
+  GlossaryItem(
+    'intrinsicWidth',
+    'The width a child would prefer given an unbounded constraint.',
+  ),
+  GlossaryItem(
+    'intrinsicHeight',
+    'The height a child would prefer for a given width.',
+  ),
+  GlossaryItem(
+    'TightConstraints',
+    'BoxConstraints whose min equals max — exactly one allowed size.',
+  ),
+  GlossaryItem(
+    'LooseConstraints',
+    'BoxConstraints whose min is zero — child may shrink freely.',
+  ),
 ];
 
 final List<PitfallNote> kPitfalls = [
@@ -784,7 +898,11 @@ Widget buildConstrainedBox() {
     {
       'caption': 'maxWidth 100',
       'constraints': BoxConstraints(maxWidth: 100),
-      'child': Container(color: kAccentTeal, height: 40, width: double.infinity),
+      'child': Container(
+        color: kAccentTeal,
+        height: 40,
+        width: double.infinity,
+      ),
     },
     {
       'caption': 'minHeight 60..100',
@@ -1274,7 +1392,11 @@ Widget buildSizedOverflowBox() {
                     child: ClipRect(
                       child: SizedOverflowBox(
                         size: Size(60, 40),
-                        child: Container(width: 120, height: 80, color: kAccentRust),
+                        child: Container(
+                          width: 120,
+                          height: 80,
+                          color: kAccentRust,
+                        ),
                       ),
                     ),
                   ),
@@ -1289,7 +1411,11 @@ Widget buildSizedOverflowBox() {
                   child: Center(
                     child: SizedOverflowBox(
                       size: Size(100, 60),
-                      child: Container(width: 80, height: 40, color: kAccentOlive),
+                      child: Container(
+                        width: 80,
+                        height: 40,
+                        color: kAccentOlive,
+                      ),
                     ),
                   ),
                 ),
@@ -1522,7 +1648,9 @@ Widget buildStackSpecimens() {
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: Container(color: kBlueprintAccent.withOpacity(0.6)),
+                      child: Container(
+                        color: kBlueprintAccent.withOpacity(0.6),
+                      ),
                     ),
                     Positioned(
                       top: 12,
@@ -1753,46 +1881,47 @@ Widget buildConstraintFlowDiagram() {
 }
 
 Widget buildSizingClasses() {
-  Widget classCard(String title, String body, List<String> examples, Color color) =>
-      Expanded(
-        child: Container(
-          margin: EdgeInsets.all(4),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: color, width: 1.0),
+  Widget classCard(
+    String title,
+    String body,
+    List<String> examples,
+    Color color,
+  ) => Expanded(
+    child: Container(
+      margin: EdgeInsets.all(4),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: color, width: 1.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: color,
+              fontSize: 13,
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: 13,
-                ),
+          SizedBox(height: 6),
+          Text(body, style: TextStyle(fontSize: 11, color: kPencilGraphite)),
+          SizedBox(height: 8),
+          for (final e in examples)
+            Text(
+              '• $e',
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: kBlueprintInk,
               ),
-              SizedBox(height: 6),
-              Text(
-                body,
-                style: TextStyle(fontSize: 11, color: kPencilGraphite),
-              ),
-              SizedBox(height: 8),
-              for (final e in examples)
-                Text(
-                  '• $e',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'monospace',
-                    color: kBlueprintInk,
-                  ),
-                ),
-            ],
-          ),
-        ),
-      );
+            ),
+        ],
+      ),
+    ),
+  );
 
   return Container(
     decoration: kBlueprintCard(),
@@ -1816,27 +1945,31 @@ Widget buildSizingClasses() {
           padding: EdgeInsets.all(10),
           child: IntrinsicHeight(
             child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              classCard(
-                'Sized by parent',
-                'sizedByParent==true. The Size depends only on the incoming constraints. Cheap, stable.',
-                ['SizedBox.expand', 'ConstrainedBox tight', 'Container w/ tight'],
-                kBlueprintAccent,
-              ),
-              classCard(
-                'Sized by child',
-                'The Size depends on the child\'s preferred extent. Parent passes loose constraints.',
-                ['Wrap', 'Align loose', 'Flex with MainAxisSize.min'],
-                kAccentTeal,
-              ),
-              classCard(
-                'Sized by both',
-                'Both contribute: child proposes, parent clamps to its constraints.',
-                ['Padding', 'Default Container', 'Center'],
-                kAccentRust,
-              ),
-            ],
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                classCard(
+                  'Sized by parent',
+                  'sizedByParent==true. The Size depends only on the incoming constraints. Cheap, stable.',
+                  [
+                    'SizedBox.expand',
+                    'ConstrainedBox tight',
+                    'Container w/ tight',
+                  ],
+                  kBlueprintAccent,
+                ),
+                classCard(
+                  'Sized by child',
+                  'The Size depends on the child\'s preferred extent. Parent passes loose constraints.',
+                  ['Wrap', 'Align loose', 'Flex with MainAxisSize.min'],
+                  kAccentTeal,
+                ),
+                classCard(
+                  'Sized by both',
+                  'Both contribute: child proposes, parent clamps to its constraints.',
+                  ['Padding', 'Default Container', 'Center'],
+                  kAccentRust,
+                ),
+              ],
             ),
           ),
         ),
@@ -1872,92 +2005,96 @@ Widget buildRecipeCards() {
                   padding: EdgeInsets.only(bottom: 8),
                   child: IntrinsicHeight(
                     child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      for (int j = i; j < math.min(i + 2, kRecipes.length); j++)
-                        Expanded(
-                          // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan
-                          // #75 follow-up, P5(a) uniform-colors): the original
-                          // recipe-card decoration combined `Border(left: accent,
-                          // top/right/bottom: kBlueprintLine)` (non-uniform
-                          // colors) with `borderRadius: 10` — Flutter throws
-                          // "borderRadius can only be given on borders with
-                          // uniform colors" (6× per build, once per recipe).
-                          // Preserve the accent-left visual by dropping the
-                          // mixed-color Border entirely and re-creating the
-                          // accent stripe via a uniform `Border.all` plus an
-                          // explicit accent slab on the left side using
-                          // padding-only — i.e. paint the accent with a thicker
-                          // left padding filled by a sibling. Simplest variant
-                          // that survives the assertion: drop the borderRadius
-                          // (mixed colors are then legal). The card is still
-                          // visually distinct via background, accent left
-                          // border, and the inner content.
-                          child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: kChalkSoft,
-                              border: Border(
-                                left: BorderSide(
-                                  color: kRecipes[j].accent,
-                                  width: 4,
-                                ),
-                                top: BorderSide(
-                                  color: kBlueprintLine,
-                                  width: 0.6,
-                                ),
-                                right: BorderSide(
-                                  color: kBlueprintLine,
-                                  width: 0.6,
-                                ),
-                                bottom: BorderSide(
-                                  color: kBlueprintLine,
-                                  width: 0.6,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        for (
+                          int j = i;
+                          j < math.min(i + 2, kRecipes.length);
+                          j++
+                        )
+                          Expanded(
+                            // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan
+                            // #75 follow-up, P5(a) uniform-colors): the original
+                            // recipe-card decoration combined `Border(left: accent,
+                            // top/right/bottom: kBlueprintLine)` (non-uniform
+                            // colors) with `borderRadius: 10` — Flutter throws
+                            // "borderRadius can only be given on borders with
+                            // uniform colors" (6× per build, once per recipe).
+                            // Preserve the accent-left visual by dropping the
+                            // mixed-color Border entirely and re-creating the
+                            // accent stripe via a uniform `Border.all` plus an
+                            // explicit accent slab on the left side using
+                            // padding-only — i.e. paint the accent with a thicker
+                            // left padding filled by a sibling. Simplest variant
+                            // that survives the assertion: drop the borderRadius
+                            // (mixed colors are then legal). The card is still
+                            // visually distinct via background, accent left
+                            // border, and the inner content.
+                            child: Container(
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: kChalkSoft,
+                                border: Border(
+                                  left: BorderSide(
+                                    color: kRecipes[j].accent,
+                                    width: 4,
+                                  ),
+                                  top: BorderSide(
+                                    color: kBlueprintLine,
+                                    width: 0.6,
+                                  ),
+                                  right: BorderSide(
+                                    color: kBlueprintLine,
+                                    width: 0.6,
+                                  ),
+                                  bottom: BorderSide(
+                                    color: kBlueprintLine,
+                                    width: 0.6,
+                                  ),
                                 ),
                               ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  kRecipes[j].title,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: kBlueprintInk,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Container(
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    color: kBlueprintInk,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text(
-                                    kRecipes[j].snippet,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    kRecipes[j].title,
                                     style: TextStyle(
-                                      fontFamily: 'monospace',
-                                      color: kChalkWhite,
-                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: kBlueprintInk,
+                                      fontSize: 13,
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: 6),
-                                Text(
-                                  kRecipes[j].purpose,
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: kPencilGraphite,
-                                    fontStyle: FontStyle.italic,
+                                  SizedBox(height: 4),
+                                  Container(
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: kBlueprintInk,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      kRecipes[j].snippet,
+                                      style: TextStyle(
+                                        fontFamily: 'monospace',
+                                        color: kChalkWhite,
+                                        fontSize: 10,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(height: 6),
+                                  Text(
+                                    kRecipes[j].purpose,
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: kPencilGraphite,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
                     ),
                   ),
                 ),

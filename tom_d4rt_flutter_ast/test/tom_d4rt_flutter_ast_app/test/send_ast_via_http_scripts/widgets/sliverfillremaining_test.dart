@@ -229,9 +229,11 @@ dynamic build(BuildContext context) {
     fillOverscroll: false,
     child: Container(color: cnFlaxBright),
   );
-  print('[canyon-flax] warmup tail built: '
-      'hasScrollBody=${warmup.hasScrollBody} '
-      'fillOverscroll=${warmup.fillOverscroll}');
+  print(
+    '[canyon-flax] warmup tail built: '
+    'hasScrollBody=${warmup.hasScrollBody} '
+    'fillOverscroll=${warmup.fillOverscroll}',
+  );
 
   return Scaffold(
     backgroundColor: cnRimDust,
@@ -366,10 +368,7 @@ Widget _section1TitleBanner() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'SliverFillRemaining',
-                    style: kTitleStyle,
-                  ),
+                  Text('SliverFillRemaining', style: kTitleStyle),
                   const SizedBox(height: 6.0),
                   Text(
                     'A sliver that claims the leftover viewport extent. '
@@ -395,11 +394,7 @@ Widget _section1TitleBanner() {
           ),
         ),
         const SizedBox(height: 10.0),
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: swatches,
-        ),
+        Wrap(spacing: 8.0, runSpacing: 8.0, children: swatches),
       ],
     ),
   );
@@ -577,7 +572,8 @@ Widget _section3PropertyAnatomy() {
           type: 'Widget?',
           isRequired: false,
           defaultValue: 'null',
-          summary: 'Optional child to render inside the tail. Receives a '
+          summary:
+              'Optional child to render inside the tail. Receives a '
               'finite height equal to the remaining viewport extent and '
               'is stretched across the cross axis. The child does not '
               'control the tail height.',
@@ -587,7 +583,8 @@ Widget _section3PropertyAnatomy() {
           type: 'bool',
           isRequired: false,
           defaultValue: 'true',
-          summary: 'When true (default), the tail behaves like a scrollable '
+          summary:
+              'When true (default), the tail behaves like a scrollable '
               'body. When false, the tail is a flat panel and the viewport '
               'terminates at the tail\'s bottom edge.',
         ),
@@ -596,7 +593,8 @@ Widget _section3PropertyAnatomy() {
           type: 'bool',
           isRequired: false,
           defaultValue: 'false',
-          summary: 'When true, the tail also fills overscroll space '
+          summary:
+              'When true, the tail also fills overscroll space '
               'opened by bouncing physics (iOS-style). No effect under '
               'clamping physics.',
         ),
@@ -605,7 +603,8 @@ Widget _section3PropertyAnatomy() {
           type: 'Key?',
           isRequired: false,
           defaultValue: 'null',
-          summary: 'Standard Widget key. Useful when the surrounding '
+          summary:
+              'Standard Widget key. Useful when the surrounding '
               'CustomScrollView rebuilds and you want to preserve the '
               'tail\'s element identity.',
         ),
@@ -643,7 +642,9 @@ Widget _propRow({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: cnShadow,
                 borderRadius: BorderRadius.circular(6.0),
@@ -661,7 +662,9 @@ Widget _propRow({
             const SizedBox(width: 8.0),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 7.0, vertical: 3.0),
+                horizontal: 7.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: cnSage.withValues(alpha: 0.45),
                 borderRadius: BorderRadius.circular(5.0),
@@ -680,7 +683,9 @@ Widget _propRow({
             if (isRequired)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 7.0, vertical: 3.0),
+                  horizontal: 7.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: cnRust,
                   borderRadius: BorderRadius.circular(5.0),
@@ -698,7 +703,9 @@ Widget _propRow({
             else
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 7.0, vertical: 3.0),
+                  horizontal: 7.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: cnRimDust,
                   borderRadius: BorderRadius.circular(5.0),
@@ -718,11 +725,7 @@ Widget _propRow({
         const SizedBox(height: 8.0),
         Text(
           summary,
-          style: TextStyle(
-            color: cnInk,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: TextStyle(color: cnInk, fontSize: 12.5, height: 1.5),
         ),
       ],
     ),
@@ -759,9 +762,11 @@ Widget _section4ThreeStates() {
         _stateCard(
           tag: '4.1',
           title: 'hasScrollBody : true',
-          captionLine1: 'The default. The tail is a scrollable body of '
+          captionLine1:
+              'The default. The tail is a scrollable body of '
               'remaining extent.',
-          captionLine2: 'Content scrolls under the tail; the child can '
+          captionLine2:
+              'Content scrolls under the tail; the child can '
               'itself participate in scroll if it offers a body.',
           tailColor: cnSage,
           tailLabel: 'scrollable tail',
@@ -771,9 +776,11 @@ Widget _section4ThreeStates() {
         _stateCard(
           tag: '4.2',
           title: 'hasScrollBody : false',
-          captionLine1: 'A flat panel that fills the leftover viewport '
+          captionLine1:
+              'A flat panel that fills the leftover viewport '
               'extent.',
-          captionLine2: 'The viewport terminates at the bottom of this '
+          captionLine2:
+              'The viewport terminates at the bottom of this '
               'tail. The child receives a finite height; it cannot scroll.',
           tailColor: cnDryWash,
           tailLabel: 'flat panel tail',
@@ -784,7 +791,8 @@ Widget _section4ThreeStates() {
           tag: '4.3',
           title: 'hasScrollBody : false, fillOverscroll : true',
           captionLine1: 'iOS bounce: the tail extends into overscroll space.',
-          captionLine2: 'No visible effect under clamping (Android) physics, '
+          captionLine2:
+              'No visible effect under clamping (Android) physics, '
               'but harmless to set.',
           tailColor: cnFlaxBright,
           tailLabel: 'overscroll-fill tail',
@@ -818,7 +826,9 @@ Widget _stateCard({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: cnShadow,
                 borderRadius: BorderRadius.circular(5.0),
@@ -847,7 +857,9 @@ Widget _stateCard({
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 7.0, vertical: 3.0),
+                horizontal: 7.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: tailColor,
                 borderRadius: BorderRadius.circular(5.0),
@@ -886,10 +898,10 @@ Widget _miniCanyonViewportA() {
     slivers: <Widget>[
       SliverToBoxAdapter(child: _stratumBand('rim dust', cnRimDust, 28.0)),
       SliverToBoxAdapter(
-          child: _stratumBand('flax bright', cnFlaxBright, 36.0)),
+        child: _stratumBand('flax bright', cnFlaxBright, 36.0),
+      ),
       SliverToBoxAdapter(child: _stratumBand('flax deep', cnFlaxDeep, 36.0)),
-      SliverToBoxAdapter(
-          child: _stratumBand('terracotta', cnTerracotta, 28.0)),
+      SliverToBoxAdapter(child: _stratumBand('terracotta', cnTerracotta, 28.0)),
       SliverFillRemaining(
         hasScrollBody: true,
         fillOverscroll: false,
@@ -916,9 +928,9 @@ Widget _miniCanyonViewportB() {
     slivers: <Widget>[
       SliverToBoxAdapter(child: _stratumBand('rim dust', cnRimDust, 28.0)),
       SliverToBoxAdapter(
-          child: _stratumBand('flax bright', cnFlaxBright, 36.0)),
-      SliverToBoxAdapter(
-          child: _stratumBand('terracotta', cnTerracotta, 28.0)),
+        child: _stratumBand('flax bright', cnFlaxBright, 36.0),
+      ),
+      SliverToBoxAdapter(child: _stratumBand('terracotta', cnTerracotta, 28.0)),
       SliverFillRemaining(
         hasScrollBody: false,
         fillOverscroll: false,
@@ -960,7 +972,8 @@ Widget _miniCanyonViewportC() {
     slivers: <Widget>[
       SliverToBoxAdapter(child: _stratumBand('rim dust', cnRimDust, 28.0)),
       SliverToBoxAdapter(
-          child: _stratumBand('flax bright', cnFlaxBright, 36.0)),
+        child: _stratumBand('flax bright', cnFlaxBright, 36.0),
+      ),
       SliverFillRemaining(
         hasScrollBody: false,
         fillOverscroll: true,
@@ -1044,7 +1057,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.1',
           title: 'pinned appBar + strata list + flat tail',
-          summary: 'SliverAppBar pinned at the top, a SliverList of '
+          summary:
+              'SliverAppBar pinned at the top, a SliverList of '
               'six cliff-band rows, then a flat SliverFillRemaining.',
           buildView: () => _composition51(),
         ),
@@ -1052,7 +1066,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.2',
           title: 'floating appBar + sliver grid + scrollable tail',
-          summary: 'SliverAppBar that floats back into view, a 3-column '
+          summary:
+              'SliverAppBar that floats back into view, a 3-column '
               'SliverGrid of rust pebbles, then a scrollable tail.',
           buildView: () => _composition52(),
         ),
@@ -1060,7 +1075,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.3',
           title: 'persistent header + list + flat tail with overscroll',
-          summary: 'A custom SliverPersistentHeaderDelegate at the top, '
+          summary:
+              'A custom SliverPersistentHeaderDelegate at the top, '
               'a list of strata, and a flat tail that fills overscroll.',
           buildView: () => _composition53(),
         ),
@@ -1068,7 +1084,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.4',
           title: 'sliver padding wrappers + flat tail',
-          summary: 'SliverPadding wraps the body slivers, and the '
+          summary:
+              'SliverPadding wraps the body slivers, and the '
               'SliverFillRemaining is itself wrapped by SliverPadding.',
           buildView: () => _composition54(),
         ),
@@ -1076,7 +1093,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.5',
           title: 'cliff-bands list + strata list + flat tail',
-          summary: 'Two SliverLists in succession, finishing with a flat '
+          summary:
+              'Two SliverLists in succession, finishing with a flat '
               'tail painted in dryWash for visibility.',
           buildView: () => _composition55(),
         ),
@@ -1084,7 +1102,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.6',
           title: 'flexible-space appBar + grid + flat tail',
-          summary: 'SliverAppBar with FlexibleSpaceBar showing a flax-'
+          summary:
+              'SliverAppBar with FlexibleSpaceBar showing a flax-'
               'gradient title, a small grid, and a flat tail.',
           buildView: () => _composition56(),
         ),
@@ -1092,7 +1111,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.7',
           title: 'snap appBar + list + scrollable tail (default)',
-          summary: 'SliverAppBar with snap:true and floating:true, a '
+          summary:
+              'SliverAppBar with snap:true and floating:true, a '
               'list of strata, and the default scrollable tail.',
           buildView: () => _composition57(),
         ),
@@ -1100,7 +1120,8 @@ Widget _section5MiniCanyons() {
         _miniCanyonCard(
           tag: '5.8',
           title: 'deep stack: list + padding + list + flat tail',
-          summary: 'Three layered slivers above the tail: cliff-band '
+          summary:
+              'Three layered slivers above the tail: cliff-band '
               'list, padded stratum list, then the flat tail.',
           buildView: () => _composition58(),
         ),
@@ -1129,7 +1150,9 @@ Widget _miniCanyonCard({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: cnShadow,
                 borderRadius: BorderRadius.circular(5.0),
@@ -1204,9 +1227,7 @@ Widget _composition51() {
           ),
         ),
       ),
-      SliverList(
-        delegate: SliverChildListDelegate(bands),
-      ),
+      SliverList(delegate: SliverChildListDelegate(bands)),
       SliverFillRemaining(
         hasScrollBody: false,
         child: Container(
@@ -1231,23 +1252,25 @@ Widget _composition52() {
   final List<Widget> tiles = <Widget>[];
   for (int i = 0; i < 9; i++) {
     final Color base = i.isEven ? cnRust : cnTerraDeep;
-    tiles.add(Container(
-      margin: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-        color: base,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        'p$i',
-        style: TextStyle(
-          color: cnFlaxBright,
-          fontFamily: 'monospace',
-          fontSize: 10.5,
-          fontWeight: FontWeight.w700,
+    tiles.add(
+      Container(
+        margin: const EdgeInsets.all(3.0),
+        decoration: BoxDecoration(
+          color: base,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'p$i',
+          style: TextStyle(
+            color: cnFlaxBright,
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-    ));
+    );
   }
   return CustomScrollView(
     slivers: <Widget>[
@@ -1308,10 +1331,7 @@ Widget _composition53() {
   return CustomScrollView(
     physics: const BouncingScrollPhysics(),
     slivers: <Widget>[
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: _CanyonHeaderDelegate(),
-      ),
+      SliverPersistentHeader(pinned: true, delegate: _CanyonHeaderDelegate()),
       SliverList(delegate: SliverChildListDelegate(bands)),
       SliverFillRemaining(
         hasScrollBody: false,
@@ -1385,11 +1405,13 @@ Widget _composition55() {
     <Object>['cliff c', cnFlaxBurn, 24.0],
   ];
   for (int i = 0; i < cliffRows.length; i++) {
-    cliffs.add(_stratumBand(
-      cliffRows[i][0] as String,
-      cliffRows[i][1] as Color,
-      cliffRows[i][2] as double,
-    ));
+    cliffs.add(
+      _stratumBand(
+        cliffRows[i][0] as String,
+        cliffRows[i][1] as Color,
+        cliffRows[i][2] as double,
+      ),
+    );
   }
   final List<Widget> strata = <Widget>[];
   final List<List<Object>> strataRows = <List<Object>>[
@@ -1398,11 +1420,13 @@ Widget _composition55() {
     <Object>['stratum c', cnRust, 26.0],
   ];
   for (int i = 0; i < strataRows.length; i++) {
-    strata.add(_stratumBand(
-      strataRows[i][0] as String,
-      strataRows[i][1] as Color,
-      strataRows[i][2] as double,
-    ));
+    strata.add(
+      _stratumBand(
+        strataRows[i][0] as String,
+        strataRows[i][1] as Color,
+        strataRows[i][2] as double,
+      ),
+    );
   }
   return CustomScrollView(
     slivers: <Widget>[
@@ -1432,23 +1456,25 @@ Widget _composition56() {
   final List<Widget> tiles = <Widget>[];
   for (int i = 0; i < 6; i++) {
     final Color base = i.isEven ? cnOchre : cnTerracotta;
-    tiles.add(Container(
-      margin: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-        color: base,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        'g$i',
-        style: TextStyle(
-          color: cnInk,
-          fontFamily: 'monospace',
-          fontSize: 10.5,
-          fontWeight: FontWeight.w700,
+    tiles.add(
+      Container(
+        margin: const EdgeInsets.all(3.0),
+        decoration: BoxDecoration(
+          color: base,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          'g$i',
+          style: TextStyle(
+            color: cnInk,
+            fontFamily: 'monospace',
+            fontSize: 10.5,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
-    ));
+    );
   }
   return CustomScrollView(
     slivers: <Widget>[
@@ -1558,11 +1584,13 @@ Widget _composition58() {
     <Object>['flax bright', cnFlaxBright, 22.0],
   ];
   for (int i = 0; i < cliffRows.length; i++) {
-    cliffs.add(_stratumBand(
-      cliffRows[i][0] as String,
-      cliffRows[i][1] as Color,
-      cliffRows[i][2] as double,
-    ));
+    cliffs.add(
+      _stratumBand(
+        cliffRows[i][0] as String,
+        cliffRows[i][1] as Color,
+        cliffRows[i][2] as double,
+      ),
+    );
   }
   final List<Widget> strata = <Widget>[];
   final List<List<Object>> strataRows = <List<Object>>[
@@ -1572,11 +1600,13 @@ Widget _composition58() {
     <Object>['rust', cnRust, 22.0],
   ];
   for (int i = 0; i < strataRows.length; i++) {
-    strata.add(_stratumBand(
-      strataRows[i][0] as String,
-      strataRows[i][1] as Color,
-      strataRows[i][2] as double,
-    ));
+    strata.add(
+      _stratumBand(
+        strataRows[i][0] as String,
+        strataRows[i][1] as Color,
+        strataRows[i][2] as double,
+      ),
+    );
   }
   return CustomScrollView(
     slivers: <Widget>[
@@ -1613,7 +1643,11 @@ class _CanyonHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 36.0;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return Container(
       color: cnShadow,
       alignment: Alignment.center,
@@ -1684,7 +1718,8 @@ Widget _section6PullToRefresh() {
         _sketchCallout(
           label: 'NOTE',
           color: cnRust,
-          text: 'The refresh band shown here is decorative. The real '
+          text:
+              'The refresh band shown here is decorative. The real '
               'CupertinoSliverRefreshControl is stateful and we cannot '
               'instantiate it inside a snapshot demo.',
         ),
@@ -1703,11 +1738,13 @@ Widget _refreshSketchView() {
     <Object>['stratum 5', cnTerraDeep, 28.0],
   ];
   for (int i = 0; i < rows.length; i++) {
-    bands.add(_stratumBand(
-      rows[i][0] as String,
-      rows[i][1] as Color,
-      rows[i][2] as double,
-    ));
+    bands.add(
+      _stratumBand(
+        rows[i][0] as String,
+        rows[i][1] as Color,
+        rows[i][2] as double,
+      ),
+    );
   }
   return CustomScrollView(
     physics: const BouncingScrollPhysics(),
@@ -1766,8 +1803,7 @@ Widget _sketchCallout({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 7.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(4.0),
@@ -1783,12 +1819,7 @@ Widget _sketchCallout({
           ),
         ),
         const SizedBox(width: 10.0),
-        Expanded(
-          child: Text(
-            text,
-            style: kBodyStyle,
-          ),
-        ),
+        Expanded(child: Text(text, style: kBodyStyle)),
       ],
     ),
   );
@@ -1807,7 +1838,8 @@ Widget _sketchCallout({
 Widget _section7ComparisonGrid() {
   return _container(
     title: 'Comparison grid: tail-shaped slivers',
-    subtitle: 'SliverFillRemaining vs SliverFillViewport vs '
+    subtitle:
+        'SliverFillRemaining vs SliverFillViewport vs '
         'SliverToBoxAdapter vs SliverPadding vs SliverList.',
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1931,8 +1963,11 @@ Widget _comparisonBodyRow({
   );
 }
 
-Widget _comparisonBodyCell(String text, int flex,
-    {FontWeight weight = FontWeight.w600}) {
+Widget _comparisonBodyCell(
+  String text,
+  int flex, {
+  FontWeight weight = FontWeight.w600,
+}) {
   return Expanded(
     flex: flex,
     child: Text(
@@ -1971,36 +2006,44 @@ Widget _section8LayoutPitfalls() {
         _pitfallCard(
           tag: '8.1',
           title: 'Used outside a scrollable viewport',
-          mistake: 'You put SliverFillRemaining inside a Column or a '
+          mistake:
+              'You put SliverFillRemaining inside a Column or a '
               'SliverList delegate, expecting it to fill the parent.',
-          fix: 'SliverFillRemaining only works inside a sliver-aware '
+          fix:
+              'SliverFillRemaining only works inside a sliver-aware '
               'viewport (CustomScrollView, NestedScrollView). For non-'
               'sliver containers, use Expanded or SizedBox.expand.',
         ),
         _pitfallCard(
           tag: '8.2',
           title: 'Child intrinsic height is ignored',
-          mistake: 'You wrap a 200-pixel-tall card in a SliverFillRemaining '
+          mistake:
+              'You wrap a 200-pixel-tall card in a SliverFillRemaining '
               'expecting the tail to be 200 pixels tall.',
-          fix: 'The tail height is dictated by the viewport, not the child. '
+          fix:
+              'The tail height is dictated by the viewport, not the child. '
               'If you want the tail to be exactly the child\'s height, use '
               'SliverToBoxAdapter instead.',
         ),
         _pitfallCard(
           tag: '8.3',
           title: 'Another sliver placed after the tail',
-          mistake: 'You add a SliverList after SliverFillRemaining to show '
+          mistake:
+              'You add a SliverList after SliverFillRemaining to show '
               'a footer.',
-          fix: 'The tail has already claimed the leftover extent. Anything '
+          fix:
+              'The tail has already claimed the leftover extent. Anything '
               'after it gets zero space. Move the footer into the tail\'s '
               'child via Column(mainAxisAlignment: MainAxisAlignment.end).',
         ),
         _pitfallCard(
           tag: '8.4',
           title: 'fillOverscroll under clamping physics',
-          mistake: 'You set fillOverscroll:true on Android and expect a '
+          mistake:
+              'You set fillOverscroll:true on Android and expect a '
               'visible difference.',
-          fix: 'Clamping physics never opens overscroll, so the flag has '
+          fix:
+              'Clamping physics never opens overscroll, so the flag has '
               'no visible effect. It is harmless to set, but ineffective.',
         ),
       ],
@@ -2029,7 +2072,9 @@ Widget _pitfallCard({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 7.0, vertical: 3.0),
+                horizontal: 7.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: cnRust,
                 borderRadius: BorderRadius.circular(4.0),
@@ -2064,7 +2109,9 @@ Widget _pitfallCard({
             Container(
               width: 60.0,
               padding: const EdgeInsets.symmetric(
-                  horizontal: 6.0, vertical: 2.0),
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: cnRust.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4.0),
@@ -2089,7 +2136,9 @@ Widget _pitfallCard({
             Container(
               width: 60.0,
               padding: const EdgeInsets.symmetric(
-                  horizontal: 6.0, vertical: 2.0),
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: cnSageDeep.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(4.0),
@@ -2125,23 +2174,39 @@ Widget _section9DoAvoid() {
       children: <Widget>[
         _doRow('Place SliverFillRemaining as the LAST sliver in the list.'),
         _doRow('Use hasScrollBody:false for empty-state and error pages.'),
-        _doRow('Use fillOverscroll:true when you want the tail color to '
-            'extend into iOS-style bounce zone.'),
-        _doRow('Wrap the child in Center, Align, or Padding to control '
-            'positioning within the tail.'),
-        _doRow('Use SliverToBoxAdapter when the child should drive its '
-            'own height instead of the viewport.'),
+        _doRow(
+          'Use fillOverscroll:true when you want the tail color to '
+          'extend into iOS-style bounce zone.',
+        ),
+        _doRow(
+          'Wrap the child in Center, Align, or Padding to control '
+          'positioning within the tail.',
+        ),
+        _doRow(
+          'Use SliverToBoxAdapter when the child should drive its '
+          'own height instead of the viewport.',
+        ),
         const SizedBox(height: 8.0),
-        _avoidRow('Do NOT add slivers after SliverFillRemaining --- they '
-            'will be given zero extent.'),
-        _avoidRow('Do NOT rely on the child\'s intrinsic height. The '
-            'viewport, not the child, sets the tail height.'),
-        _avoidRow('Do NOT put SliverFillRemaining inside a non-sliver '
-            'parent --- it will throw at layout.'),
-        _avoidRow('Do NOT expect fillOverscroll to do anything visible '
-            'under clamping physics.'),
-        _avoidRow('Do NOT use SliverFillRemaining for content that '
-            'naturally exceeds the viewport --- use SliverList instead.'),
+        _avoidRow(
+          'Do NOT add slivers after SliverFillRemaining --- they '
+          'will be given zero extent.',
+        ),
+        _avoidRow(
+          'Do NOT rely on the child\'s intrinsic height. The '
+          'viewport, not the child, sets the tail height.',
+        ),
+        _avoidRow(
+          'Do NOT put SliverFillRemaining inside a non-sliver '
+          'parent --- it will throw at layout.',
+        ),
+        _avoidRow(
+          'Do NOT expect fillOverscroll to do anything visible '
+          'under clamping physics.',
+        ),
+        _avoidRow(
+          'Do NOT use SliverFillRemaining for content that '
+          'naturally exceeds the viewport --- use SliverList instead.',
+        ),
       ],
     ),
   );
@@ -2159,10 +2224,7 @@ Widget _doRow(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'DO',
-          style: kCalloutDoStyle,
-        ),
+        Text('DO', style: kCalloutDoStyle),
         const SizedBox(width: 10.0),
         Expanded(child: Text(text, style: kBodyStyle)),
       ],
@@ -2182,10 +2244,7 @@ Widget _avoidRow(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'AVOID',
-          style: kCalloutAvoidStyle,
-        ),
+        Text('AVOID', style: kCalloutAvoidStyle),
         const SizedBox(width: 10.0),
         Expanded(child: Text(text, style: kBodyStyle)),
       ],
@@ -2212,7 +2271,8 @@ Widget _section10CodeRecipes() {
         _recipeCard(
           name: 'recipe-01',
           title: 'Empty-state screen',
-          code: 'CustomScrollView(\n'
+          code:
+              'CustomScrollView(\n'
               '  slivers: <Widget>[\n'
               '    SliverAppBar(title: Text("Inbox")),\n'
               '    SliverFillRemaining(\n'
@@ -2227,7 +2287,8 @@ Widget _section10CodeRecipes() {
         _recipeCard(
           name: 'recipe-02',
           title: 'Error page that fills the viewport',
-          code: 'CustomScrollView(\n'
+          code:
+              'CustomScrollView(\n'
               '  slivers: <Widget>[\n'
               '    SliverFillRemaining(\n'
               '      hasScrollBody: false,\n'
@@ -2249,7 +2310,8 @@ Widget _section10CodeRecipes() {
         _recipeCard(
           name: 'recipe-03',
           title: 'iOS-style overscroll fill',
-          code: 'CustomScrollView(\n'
+          code:
+              'CustomScrollView(\n'
               '  physics: const BouncingScrollPhysics(),\n'
               '  slivers: <Widget>[\n'
               '    SliverList(delegate: ...),\n'
@@ -2264,7 +2326,8 @@ Widget _section10CodeRecipes() {
         _recipeCard(
           name: 'recipe-04',
           title: 'Footer pinned to the foot of the viewport',
-          code: 'CustomScrollView(\n'
+          code:
+              'CustomScrollView(\n'
               '  slivers: <Widget>[\n'
               '    SliverList(delegate: ...),\n'
               '    SliverFillRemaining(\n'
@@ -2282,7 +2345,8 @@ Widget _section10CodeRecipes() {
         _recipeCard(
           name: 'recipe-05',
           title: 'Loading state inside a scroll surface',
-          code: 'CustomScrollView(\n'
+          code:
+              'CustomScrollView(\n'
               '  slivers: <Widget>[\n'
               '    SliverAppBar(title: Text("Loading")),\n'
               '    SliverFillRemaining(\n'
@@ -2319,7 +2383,9 @@ Widget _recipeCard({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 7.0, vertical: 3.0),
+                horizontal: 7.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: cnFlaxBright,
                 borderRadius: BorderRadius.circular(4.0),
@@ -2355,10 +2421,7 @@ Widget _recipeCard({
             borderRadius: BorderRadius.circular(6.0),
           ),
           width: double.infinity,
-          child: Text(
-            code,
-            style: kCodeStyle,
-          ),
+          child: Text(code, style: kCodeStyle),
         ),
       ],
     ),
@@ -2465,8 +2528,7 @@ Widget _glossaryRow(String term, String definition) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 7.0, vertical: 3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: cnShadow,
             borderRadius: BorderRadius.circular(4.0),
@@ -2500,11 +2562,7 @@ Widget _section12RecapFooter() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          cnShadow,
-          cnTerraDeep,
-          cnRust,
-        ],
+        colors: <Color>[cnShadow, cnTerraDeep, cnRust],
       ),
       borderRadius: BorderRadius.circular(14.0),
     ),
@@ -2529,11 +2587,7 @@ Widget _section12RecapFooter() {
           'whether the floor is dry sage that you walk across, or a '
           'scrollable continuation of the canyon body. The third picks '
           'whether the floor extends into the iOS bounce zone.',
-          style: TextStyle(
-            color: cnBone,
-            fontSize: 13.0,
-            height: 1.55,
-          ),
+          style: TextStyle(color: cnBone, fontSize: 13.0, height: 1.55),
         ),
         const SizedBox(height: 10.0),
         Text(
@@ -2588,16 +2642,12 @@ Widget _container({
         Text(title, style: kSectionHeaderStyle),
         const SizedBox(height: 4.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 10.0, vertical: 5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
           decoration: BoxDecoration(
             color: cnFlaxBright.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(6.0),
           ),
-          child: Text(
-            subtitle,
-            style: kSectionLeadStyle,
-          ),
+          child: Text(subtitle, style: kSectionLeadStyle),
         ),
         const SizedBox(height: 16.0),
         child,
@@ -2606,10 +2656,7 @@ Widget _container({
   );
 }
 
-Widget _proseCard({
-  required String title,
-  required List<String> paragraphs,
-}) {
+Widget _proseCard({required String title, required List<String> paragraphs}) {
   final List<Widget> children = <Widget>[];
   children.add(Text(title, style: kSectionHeaderStyle));
   children.add(const SizedBox(height: 12.0));
@@ -2665,9 +2712,7 @@ Widget _proseParagraph(int index, String text) {
           ),
         ),
       ),
-      Expanded(
-        child: Text(text, style: kBodyStyle),
-      ),
+      Expanded(child: Text(text, style: kBodyStyle)),
     ],
   );
 }

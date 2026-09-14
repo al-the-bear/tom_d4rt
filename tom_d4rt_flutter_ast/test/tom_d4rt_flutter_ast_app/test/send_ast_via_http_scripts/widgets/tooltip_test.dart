@@ -14,11 +14,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF3949AB),
-          Color(0xFF7E57C2),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF7E57C2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -51,11 +47,7 @@ dynamic build(BuildContext context) {
                   width: 1.2,
                 ),
               ),
-              child: Icon(
-                Icons.info_outline,
-                color: Colors.white,
-                size: 36.0,
-              ),
+              child: Icon(Icons.info_outline, color: Colors.white, size: 36.0),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -116,10 +108,7 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 20.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFFE0F2F1),
-            Color(0xFFB2DFDB),
-          ],
+          colors: [Color(0xFFE0F2F1), Color(0xFFB2DFDB)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -154,11 +143,7 @@ dynamic build(BuildContext context) {
           // Vertical offset arrow
           Column(
             children: [
-              Icon(
-                Icons.arrow_drop_down,
-                size: 28.0,
-                color: Color(0xFF263238),
-              ),
+              Icon(Icons.arrow_drop_down, size: 28.0, color: Color(0xFF263238)),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 decoration: BoxDecoration(
@@ -325,11 +310,9 @@ dynamic build(BuildContext context) {
   ];
   final paramChips = <Widget>[];
   for (final p in paramCatalogue) {
-    paramChips.add(_paramChip(
-      p['name'] as String,
-      p['type'] as String,
-      p['color'] as Color,
-    ));
+    paramChips.add(
+      _paramChip(p['name'] as String, p['type'] as String, p['color'] as Color),
+    );
   }
   final paramSection = _sectionCard(
     sectionTitle: 'Section 3 — Constructor Parameters',
@@ -339,11 +322,7 @@ dynamic build(BuildContext context) {
         'Tooltip exposes a rich set of named parameters for content, '
         'positioning, timing and theming. Below is the full chip catalogue '
         'of every commonly-used named argument.',
-    body: Wrap(
-      spacing: 8.0,
-      runSpacing: 8.0,
-      children: paramChips,
-    ),
+    body: Wrap(spacing: 8.0, runSpacing: 8.0, children: paramChips),
   );
 
   // ============ SECTION 4: Plain message example ============
@@ -445,10 +424,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6.0),
                 Text(
                   'target',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Color(0xFF1565C0),
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF1565C0)),
                 ),
               ],
             ),
@@ -571,11 +547,7 @@ dynamic build(BuildContext context) {
       fontWeight: FontWeight.bold,
     ),
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-    child: Icon(
-      Icons.auto_awesome,
-      size: 32.0,
-      color: Color(0xFFEC407A),
-    ),
+    child: Icon(Icons.auto_awesome, size: 32.0, color: Color(0xFFEC407A)),
   );
 
   final monoTooltip = Tooltip(
@@ -722,12 +694,14 @@ dynamic build(BuildContext context) {
     },
   ];
   for (final t in triggerData) {
-    triggerCards.add(_triggerCard(
-      t['mode'] as String,
-      t['desc'] as String,
-      t['icon'] as IconData,
-      t['color'] as Color,
-    ));
+    triggerCards.add(
+      _triggerCard(
+        t['mode'] as String,
+        t['desc'] as String,
+        t['icon'] as IconData,
+        t['color'] as Color,
+      ),
+    );
   }
   final triggerSection = _sectionCard(
     sectionTitle: 'Section 8 — triggerMode',
@@ -754,14 +728,8 @@ dynamic build(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _preferBelowMockup(
-          true,
-          Color(0xFF26A69A),
-        ),
-        _preferBelowMockup(
-          false,
-          Color(0xFFEC407A),
-        ),
+        _preferBelowMockup(true, Color(0xFF26A69A)),
+        _preferBelowMockup(false, Color(0xFFEC407A)),
       ],
     ),
   );
@@ -794,8 +762,10 @@ dynamic build(BuildContext context) {
             children: [
               Expanded(
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6.0),
@@ -886,24 +856,15 @@ dynamic build(BuildContext context) {
             children: [
               Tooltip(
                 message: 'Bold (Ctrl+B)',
-                child: Icon(
-                  Icons.format_bold,
-                  color: Color(0xFF263238),
-                ),
+                child: Icon(Icons.format_bold, color: Color(0xFF263238)),
               ),
               Tooltip(
                 message: 'Italic (Ctrl+I)',
-                child: Icon(
-                  Icons.format_italic,
-                  color: Color(0xFF263238),
-                ),
+                child: Icon(Icons.format_italic, color: Color(0xFF263238)),
               ),
               Tooltip(
                 message: 'Underline (Ctrl+U)',
-                child: Icon(
-                  Icons.format_underlined,
-                  color: Color(0xFF263238),
-                ),
+                child: Icon(Icons.format_underlined, color: Color(0xFF263238)),
               ),
               Tooltip(
                 message: 'Strikethrough',
@@ -935,28 +896,19 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Service status:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 8.0),
               Row(
                 children: [
-                  _statusDot(
-                    Color(0xFF66BB6A),
-                    'Healthy — last ping 12s ago',
-                  ),
+                  _statusDot(Color(0xFF66BB6A), 'Healthy — last ping 12s ago'),
                   SizedBox(width: 12.0),
                   _statusDot(
                     Color(0xFFFFA726),
                     'Degraded — latency over 500ms',
                   ),
                   SizedBox(width: 12.0),
-                  _statusDot(
-                    Color(0xFFEF5350),
-                    'Down — last seen 4m ago',
-                  ),
+                  _statusDot(Color(0xFFEF5350), 'Down — last seen 4m ago'),
                 ],
               ),
             ],
@@ -1016,12 +968,14 @@ dynamic build(BuildContext context) {
   ];
   final footgunCards = <Widget>[];
   for (final f in footguns) {
-    footgunCards.add(_footgunCard(
-      f['title'] as String,
-      f['desc'] as String,
-      f['icon'] as IconData,
-      f['color'] as Color,
-    ));
+    footgunCards.add(
+      _footgunCard(
+        f['title'] as String,
+        f['desc'] as String,
+        f['icon'] as IconData,
+        f['color'] as Color,
+      ),
+    );
   }
   final footgunSection = _sectionCard(
     sectionTitle: 'Section 11 — Footguns',
@@ -1063,13 +1017,19 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _recapRow('message', 'String? — plain text content'),
-          _recapRow('richMessage', 'InlineSpan? — styled content (xor message)'),
+          _recapRow(
+            'richMessage',
+            'InlineSpan? — styled content (xor message)',
+          ),
           _recapRow('verticalOffset', 'double — default 24.0'),
           _recapRow('preferBelow', 'bool — default true (bubble below target)'),
           _recapRow('waitDuration', 'Duration? — hover delay before show'),
           _recapRow('showDuration', 'Duration? — keep visible after release'),
           _recapRow('exitDuration', 'Duration? — pointer-exit fade-out delay'),
-          _recapRow('triggerMode', 'TooltipTriggerMode? — longPress/tap/manual'),
+          _recapRow(
+            'triggerMode',
+            'TooltipTriggerMode? — longPress/tap/manual',
+          ),
           _recapRow('decoration', 'Decoration? — bubble background/border'),
           _recapRow('textStyle', 'TextStyle? — message text style'),
           _recapRow('padding', 'EdgeInsetsGeometry? — inside the bubble'),
@@ -1165,10 +1125,7 @@ Widget _sectionCard({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          sectionColor.withValues(alpha: 0.06),
-        ],
+        colors: [Colors.white, sectionColor.withValues(alpha: 0.06)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1242,10 +1199,7 @@ Widget _paramChip(String name, String type, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.32),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.32)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1426,10 +1380,7 @@ Widget _triggerCard(String mode, String desc, IconData icon, Color color) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.12),
-          color.withValues(alpha: 0.22),
-        ],
+        colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.22)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1488,10 +1439,7 @@ Widget _preferBelowMockup(bool below, Color color) {
       color: Color(0xFF263238),
       borderRadius: BorderRadius.circular(6.0),
     ),
-    child: Text(
-      'Hint',
-      style: TextStyle(color: Colors.white, fontSize: 11.0),
-    ),
+    child: Text('Hint', style: TextStyle(color: Colors.white, fontSize: 11.0)),
   );
   final target = Tooltip(
     message: 'Hint',
@@ -1557,10 +1505,7 @@ Widget _statusDot(Color color, String hint) {
             color: color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(4.0),
           ),
-          child: Text(
-            hint,
-            style: TextStyle(fontSize: 9.0, color: color),
-          ),
+          child: Text(hint, style: TextStyle(fontSize: 9.0, color: color)),
         ),
       ],
     ),
@@ -1576,10 +1521,7 @@ Widget _footgunCard(String title, String desc, IconData icon, Color color) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.22),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.22)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1664,10 +1606,7 @@ Widget _recapRow(String name, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey.shade900,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade900),
           ),
         ),
       ],

@@ -407,9 +407,15 @@ dynamic build(BuildContext context) {
           Colors.orangeAccent,
         ),
         _buildSourceLine('  // 3. Branch on e.code.', Colors.greenAccent),
-        _buildSourceLine('  if (e.code == "PERMISSION_DENIED") {', Colors.white),
+        _buildSourceLine(
+          '  if (e.code == "PERMISSION_DENIED") {',
+          Colors.white,
+        ),
         _buildSourceLine('    showPermissionBanner();', Colors.cyanAccent),
-        _buildSourceLine('  } else if (e.code == "NOT_AVAILABLE") {', Colors.white),
+        _buildSourceLine(
+          '  } else if (e.code == "NOT_AVAILABLE") {',
+          Colors.white,
+        ),
         _buildSourceLine('    showSensorMissingDialog();', Colors.cyanAccent),
         _buildSourceLine('  } else {', Colors.white),
         _buildSourceLine(
@@ -418,10 +424,7 @@ dynamic build(BuildContext context) {
         ),
         _buildSourceLine('  }', Colors.white),
         _buildSourceLine('  return null;', Colors.cyanAccent),
-        _buildSourceLine(
-          '} on MissingPluginException {',
-          Colors.orangeAccent,
-        ),
+        _buildSourceLine('} on MissingPluginException {', Colors.orangeAccent),
         _buildSourceLine(
           '  // 4. Plugin not registered on this platform.',
           Colors.greenAccent,
@@ -641,10 +644,7 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4.0),
                     Text(
                       permissionEx.message ?? 'Permission missing',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 12.0),
                     ),
                     SizedBox(height: 6.0),
                     Container(
@@ -669,10 +669,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -838,14 +835,8 @@ dynamic build(BuildContext context) {
                 "final ByteData blob = codec.encodeErrorEnvelope(",
                 Colors.cyanAccent,
               ),
-              _buildSourceLine(
-                "  code: 'NETWORK',",
-                Colors.orangeAccent,
-              ),
-              _buildSourceLine(
-                "  message: 'Timeout',",
-                Colors.orangeAccent,
-              ),
+              _buildSourceLine("  code: 'NETWORK',", Colors.orangeAccent),
+              _buildSourceLine("  message: 'Timeout',", Colors.orangeAccent),
               _buildSourceLine(
                 "  details: {'durationMs': 5000},",
                 Colors.orangeAccent,
@@ -950,11 +941,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.menu_book_rounded,
-              color: Colors.white,
-              size: 28.0,
-            ),
+            Icon(Icons.menu_book_rounded, color: Colors.white, size: 28.0),
             SizedBox(width: 12.0),
             Text(
               'Recap',
@@ -970,27 +957,27 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         _buildRecapPoint(
           'PlatformException is the Dart-side representation of a '
-              'platform channel error envelope.',
+          'platform channel error envelope.',
         ),
         _buildRecapPoint(
           'It implements Exception and is thrown from invokeMethod when '
-              'the native plugin returns an error.',
+          'the native plugin returns an error.',
         ),
         _buildRecapPoint(
           'Four fields: code (required), message, details (Standard-codec), '
-              'stacktrace (platform text).',
+          'stacktrace (platform text).',
         ),
         _buildRecapPoint(
           'toString format is "PlatformException(code, message, details, '
-              'stacktrace)".',
+          'stacktrace)".',
         ),
         _buildRecapPoint(
           'Always catch with "on PlatformException" before more generic '
-              'handlers and branch on e.code.',
+          'handlers and branch on e.code.',
         ),
         _buildRecapPoint(
           'Pair with MissingPluginException, FormatException, and a '
-              'generic Exception fallback for full coverage.',
+          'generic Exception fallback for full coverage.',
         ),
       ],
     ),
@@ -1011,7 +998,11 @@ dynamic build(BuildContext context) {
         children: [
           titleBanner,
           SizedBox(height: 28.0),
-          _sectionHeader('1. Anatomy', Icons.account_tree_rounded, paletteOrange),
+          _sectionHeader(
+            '1. Anatomy',
+            Icons.account_tree_rounded,
+            paletteOrange,
+          ),
           anatomyDiagram,
           SizedBox(height: 28.0),
           _sectionHeader(
@@ -1063,11 +1054,7 @@ dynamic build(BuildContext context) {
           ),
           ...footguns,
           SizedBox(height: 28.0),
-          _sectionHeader(
-            '9. Recap',
-            Icons.menu_book_rounded,
-            paletteAmber,
-          ),
+          _sectionHeader('9. Recap', Icons.menu_book_rounded, paletteAmber),
           recapCard,
           SizedBox(height: 32.0),
         ],
@@ -1091,9 +1078,7 @@ Widget _sectionHeader(String label, IconData icon, Color color) {
       // uniform colors." The heavy left accent bar carries the visual
       // identity of the section header; a square corner is acceptable.
       color: color.withValues(alpha: 0.1),
-      border: Border(
-        left: BorderSide(color: color, width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 5.0)),
     ),
     child: Row(
       children: [
@@ -1174,10 +1159,7 @@ Widget _buildFieldRow(
               SizedBox(height: 4.0),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
               ),
             ],
           ),
@@ -1202,10 +1184,7 @@ Widget _buildExceptionCard(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.18),
-        ],
+        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1287,7 +1266,11 @@ Widget _buildExceptionCard(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.terminal_rounded, color: Colors.amberAccent, size: 16.0),
+              Icon(
+                Icons.terminal_rounded,
+                color: Colors.amberAccent,
+                size: 16.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1632,10 +1615,7 @@ Widget _buildPipelineStep(
         Container(
           width: 32.0,
           height: 32.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           alignment: Alignment.center,
           child: Text(
             number,
@@ -1697,21 +1677,13 @@ Widget _buildPipelineArrow() {
 // ============================================================
 // Helper: Footgun card
 // ============================================================
-Widget _buildFootgun(
-  String title,
-  String body,
-  IconData icon,
-  Color color,
-) {
+Widget _buildFootgun(String title, String body, IconData icon, Color color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6.0),
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.05),
-          color.withValues(alpha: 0.15),
-        ],
+        colors: [color.withValues(alpha: 0.05), color.withValues(alpha: 0.15)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1747,11 +1719,7 @@ Widget _buildFootgun(
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.warning_amber_rounded,
-                    color: color,
-                    size: 16.0,
-                  ),
+                  Icon(Icons.warning_amber_rounded, color: color, size: 16.0),
                   SizedBox(width: 6.0),
                   Expanded(
                     child: Text(
@@ -1791,20 +1759,12 @@ Widget _buildRecapPoint(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.check_circle_rounded,
-          color: Colors.white,
-          size: 18.0,
-        ),
+        Icon(Icons.check_circle_rounded, color: Colors.white, size: 18.0),
         SizedBox(width: 10.0),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.45),
           ),
         ),
       ],

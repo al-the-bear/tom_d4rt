@@ -238,10 +238,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                   height: 2,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        accent,
-                        accent.withValues(alpha: 0.05),
-                      ],
+                      colors: [accent, accent.withValues(alpha: 0.05)],
                     ),
                   ),
                 ),
@@ -292,14 +289,8 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: dark
-                          ? [
-                              const Color(0xFF1F2A44),
-                              const Color(0xFF0E1320),
-                            ]
-                          : [
-                              const Color(0xFFE8ECFF),
-                              const Color(0xFFFDFDFF),
-                            ],
+                          ? [const Color(0xFF1F2A44), const Color(0xFF0E1320)]
+                          : [const Color(0xFFE8ECFF), const Color(0xFFFDFDFF)],
                     ),
                   ),
                   child: Row(
@@ -316,8 +307,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color:
-                                  Colors.indigo.withValues(alpha: 0.35),
+                              color: Colors.indigo.withValues(alpha: 0.35),
                               blurRadius: 18,
                               offset: const Offset(0, 6),
                             ),
@@ -380,7 +370,9 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                       // Faux app bar inside the preview.
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           color: card,
                           borderRadius: BorderRadius.circular(10),
@@ -407,8 +399,11 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                             ),
                             Icon(Icons.search, color: muted, size: 18),
                             const SizedBox(width: 10),
-                            Icon(Icons.notifications_none,
-                                color: muted, size: 18),
+                            Icon(
+                              Icons.notifications_none,
+                              color: muted,
+                              size: 18,
+                            ),
                           ],
                         ),
                       ),
@@ -425,11 +420,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                             CircleAvatar(
                               radius: 18,
                               backgroundColor: accent.withValues(alpha: 0.2),
-                              child: Icon(
-                                Icons.bolt,
-                                color: accent,
-                                size: 18,
-                              ),
+                              child: Icon(Icons.bolt, color: accent, size: 18),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -475,7 +466,9 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                         alignment: Alignment.centerLeft,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 10),
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
                           decoration: BoxDecoration(
                             color: accent,
                             borderRadius: BorderRadius.circular(24),
@@ -511,11 +504,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                       // Footer annotation: status banner driven by the bool.
                       Row(
                         children: [
-                          Icon(
-                            Icons.info_outline,
-                            color: muted,
-                            size: 14,
-                          ),
+                          Icon(Icons.info_outline, color: muted, size: 14),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
@@ -553,11 +542,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _sectionHeader(
-          'Privacy & Preferences',
-          Icons.tune,
-          Colors.deepPurple,
-        ),
+        _sectionHeader('Privacy & Preferences', Icons.tune, Colors.deepPurple),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -638,10 +623,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
         ),
         child: Icon(icon, color: iconColor),
       ),
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 2),
         child: Text(
@@ -757,10 +739,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Colors.amber.shade200,
-            Colors.orange.shade300,
-          ],
+          colors: [Colors.amber.shade200, Colors.orange.shade300],
         ),
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
@@ -826,9 +805,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
     return Card(
       key: const ValueKey('welcome-dismissed'),
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(18),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -844,10 +821,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                 children: [
                   Text(
                     'Banner dismissed',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 15,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                   ),
                   SizedBox(height: 4),
                   Text(
@@ -864,7 +838,8 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                   _welcomeDismissed.value = false;
                 });
                 debugPrint(
-                    '[RestorableBool demo] first-run state reset to false');
+                  '[RestorableBool demo] first-run state reset to false',
+                );
               },
               icon: const Icon(Icons.restart_alt),
               label: const Text('Reset'),
@@ -987,21 +962,14 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _sectionHeader(
-          'Feature Flags',
-          Icons.toggle_on,
-          Colors.green.shade700,
-        ),
+        _sectionHeader('Feature Flags', Icons.toggle_on, Colors.green.shade700),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.green.shade50,
-                  Colors.white,
-                ],
+                colors: [Colors.green.shade50, Colors.white],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -1035,15 +1003,14 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
             f.boolRef.value = !on;
           });
           debugPrint(
-              '[RestorableBool demo] flag "${f.name}" -> ${f.boolRef.value}');
+            '[RestorableBool demo] flag "${f.name}" -> ${f.boolRef.value}',
+          );
         },
         borderRadius: BorderRadius.circular(14),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           decoration: BoxDecoration(
-            color: on
-                ? f.color.withValues(alpha: 0.15)
-                : Colors.grey.shade100,
+            color: on ? f.color.withValues(alpha: 0.15) : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: on ? f.color : Colors.grey.shade300,
@@ -1065,11 +1032,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                f.icon,
-                color: on ? f.color : Colors.grey,
-                size: 28,
-              ),
+              Icon(f.icon, color: on ? f.color : Colors.grey, size: 28),
               const SizedBox(height: 8),
               Text(
                 f.name,
@@ -1222,10 +1185,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
                     color: Colors.redAccent.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.refresh,
-                    color: Colors.redAccent,
-                  ),
+                  child: const Icon(Icons.refresh, color: Colors.redAccent),
                 ),
                 const SizedBox(width: 8),
                 const Expanded(
@@ -1474,10 +1434,7 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFEDEFF7),
-              Color(0xFFFAFAFC),
-            ],
+            colors: [Color(0xFFEDEFF7), Color(0xFFFAFAFC)],
           ),
         ),
         // D6: replaced `SingleChildScrollView(child: Column(...))` with
@@ -1501,41 +1458,42 @@ class _SettingsHubDemoState extends State<SettingsHubDemo>
             const Divider(indent: 24, endIndent: 24, height: 1),
             _buildTeachingSection(),
             const SizedBox(height: 24),
-              // Footer summary: counts the number of registered RestorableBools.
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-                child: Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.indigo.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                        color: Colors.indigo.withValues(alpha: 0.25)),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.info_outline, color: Colors.indigo),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          'This demo registers ${1 + 5 + 1 + 9} `RestorableBool` '
-                          'instances across five visual sections. Each one is '
-                          'namespaced by a unique string id inside the '
-                          '`settings_hub_demo` restoration bucket.',
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.indigo,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
+            // Footer summary: counts the number of registered RestorableBools.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.indigo.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: Colors.indigo.withValues(alpha: 0.25),
                   ),
                 ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.info_outline, color: Colors.indigo),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        'This demo registers ${1 + 5 + 1 + 9} `RestorableBool` '
+                        'instances across five visual sections. Each one is '
+                        'namespaced by a unique string id inside the '
+                        '`settings_hub_demo` restoration bucket.',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     );
   }
 }
@@ -1564,11 +1522,7 @@ class _FlagDescriptor {
 
 /// Describes a single use-case row in the teaching panel.
 class _UseCase {
-  _UseCase({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
+  _UseCase({required this.icon, required this.label, required this.color});
 
   final IconData icon;
   final String label;

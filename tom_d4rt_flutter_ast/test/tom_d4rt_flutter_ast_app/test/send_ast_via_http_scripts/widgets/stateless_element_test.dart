@@ -29,7 +29,8 @@ class _StatelessElementDeepDemo extends StatefulWidget {
   const _StatelessElementDeepDemo();
 
   @override
-  State<_StatelessElementDeepDemo> createState() => _StatelessElementDeepDemoState();
+  State<_StatelessElementDeepDemo> createState() =>
+      _StatelessElementDeepDemoState();
 }
 
 class _StatelessElementDeepDemoState extends State<_StatelessElementDeepDemo>
@@ -55,7 +56,11 @@ class _StatelessElementDeepDemoState extends State<_StatelessElementDeepDemo>
         backgroundColor: _panel,
         title: const Text(
           'StatelessElement Deep Demo',
-          style: TextStyle(color: _yellow, fontWeight: FontWeight.w700, fontSize: 15),
+          style: TextStyle(
+            color: _yellow,
+            fontWeight: FontWeight.w700,
+            fontSize: 15,
+          ),
         ),
         bottom: TabBar(
           controller: _tabs,
@@ -71,11 +76,7 @@ class _StatelessElementDeepDemoState extends State<_StatelessElementDeepDemo>
       ),
       body: TabBarView(
         controller: _tabs,
-        children: const [
-          _LifecycleTab(),
-          _RebuildLabTab(),
-          _GuidanceTab(),
-        ],
+        children: const [_LifecycleTab(), _RebuildLabTab(), _GuidanceTab()],
       ),
     );
   }
@@ -112,10 +113,18 @@ class _LifecycleTabState extends State<_LifecycleTab>
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Bullet('StatelessElement is the runtime element used for StatelessWidget instances.'),
-                _Bullet('It holds widget configuration and calls build() when marked dirty.'),
-                _Bullet('It does not own mutable local state like StatefulElement does.'),
-                _Bullet('It still participates fully in element lifecycle, dependencies, and updates.'),
+                _Bullet(
+                  'StatelessElement is the runtime element used for StatelessWidget instances.',
+                ),
+                _Bullet(
+                  'It holds widget configuration and calls build() when marked dirty.',
+                ),
+                _Bullet(
+                  'It does not own mutable local state like StatefulElement does.',
+                ),
+                _Bullet(
+                  'It still participates fully in element lifecycle, dependencies, and updates.',
+                ),
               ],
             ),
           ),
@@ -137,9 +146,14 @@ class _LifecycleTabState extends State<_LifecycleTab>
                         _push('phase -> ${p.name}');
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 7,
+                        ),
                         decoration: BoxDecoration(
-                          color: active ? p.color.withValues(alpha: 0.2) : Colors.transparent,
+                          color: active
+                              ? p.color.withValues(alpha: 0.2)
+                              : Colors.transparent,
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(color: active ? p.color : _panel2),
                         ),
@@ -148,7 +162,9 @@ class _LifecycleTabState extends State<_LifecycleTab>
                           style: TextStyle(
                             color: active ? p.color : _text,
                             fontSize: 11,
-                            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                            fontWeight: active
+                                ? FontWeight.w700
+                                : FontWeight.w500,
                           ),
                         ),
                       ),
@@ -166,15 +182,40 @@ class _LifecycleTabState extends State<_LifecycleTab>
           _panelBox(
             child: Column(
               children: [
-                _pipelineNode(0, 'mount', 'Element inserted into tree with initial widget configuration.', _blue),
+                _pipelineNode(
+                  0,
+                  'mount',
+                  'Element inserted into tree with initial widget configuration.',
+                  _blue,
+                ),
                 const _Arrow(),
-                _pipelineNode(1, 'build', 'StatelessWidget.build executes and returns child widget subtree.', _green),
+                _pipelineNode(
+                  1,
+                  'build',
+                  'StatelessWidget.build executes and returns child widget subtree.',
+                  _green,
+                ),
                 const _Arrow(),
-                _pipelineNode(2, 'update', 'Parent supplies new widget instance with same runtimeType/key.', _yellow),
+                _pipelineNode(
+                  2,
+                  'update',
+                  'Parent supplies new widget instance with same runtimeType/key.',
+                  _yellow,
+                ),
                 const _Arrow(),
-                _pipelineNode(3, 'dependency change', 'InheritedWidget changes can re-trigger build.', _orange),
+                _pipelineNode(
+                  3,
+                  'dependency change',
+                  'InheritedWidget changes can re-trigger build.',
+                  _orange,
+                ),
                 const _Arrow(),
-                _pipelineNode(4, 'deactivate/unmount', 'Element is removed when subtree no longer retained.', _red),
+                _pipelineNode(
+                  4,
+                  'deactivate/unmount',
+                  'Element is removed when subtree no longer retained.',
+                  _red,
+                ),
               ],
             ),
           ),
@@ -196,12 +237,22 @@ class _LifecycleTabState extends State<_LifecycleTab>
                   final String row = _events[_events.length - 1 - index];
                   return Container(
                     margin: const EdgeInsets.only(bottom: 4),
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: _panel,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(row, style: const TextStyle(color: _yellow, fontFamily: 'monospace', fontSize: 10)),
+                    child: Text(
+                      row,
+                      style: const TextStyle(
+                        color: _yellow,
+                        fontFamily: 'monospace',
+                        fontSize: 10,
+                      ),
+                    ),
                   );
                 },
               ),
@@ -234,7 +285,12 @@ class _LifecycleTabState extends State<_LifecycleTab>
                 children: [
                   Icon(Icons.chevron_right_rounded, color: p.color, size: 16),
                   const SizedBox(width: 4),
-                  Expanded(child: Text(n, style: const TextStyle(color: _text, fontSize: 10))),
+                  Expanded(
+                    child: Text(
+                      n,
+                      style: const TextStyle(color: _text, fontSize: 10),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -252,12 +308,21 @@ class _LifecycleTabState extends State<_LifecycleTab>
       decoration: BoxDecoration(
         color: active ? color.withValues(alpha: 0.15) : _panel2,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: active ? color.withValues(alpha: 0.85) : _panel2),
+        border: Border.all(
+          color: active ? color.withValues(alpha: 0.85) : _panel2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: active ? color : _text, fontWeight: FontWeight.w700, fontSize: 11)),
+          Text(
+            title,
+            style: TextStyle(
+              color: active ? color : _text,
+              fontWeight: FontWeight.w700,
+              fontSize: 11,
+            ),
+          ),
           const SizedBox(height: 3),
           Text(desc, style: const TextStyle(color: _text, fontSize: 10)),
         ],
@@ -297,12 +362,7 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final Color tone = [
-      _blue,
-      _green,
-      _orange,
-      _yellow,
-    ][_themeTone % 4];
+    final Color tone = [_blue, _green, _orange, _yellow][_themeTone % 4];
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -331,7 +391,9 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                       child: ElevatedButton.icon(
                         onPressed: () {
                           setState(() => _themeTone++);
-                          _append('inherited-like theme tone changed: ${_themeTone % 4}');
+                          _append(
+                            'inherited-like theme tone changed: ${_themeTone % 4}',
+                          );
                         },
                         icon: const Icon(Icons.palette_rounded, size: 16),
                         label: const Text('Change Tone'),
@@ -345,7 +407,10 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                   contentPadding: EdgeInsets.zero,
                   value: _showParentDrivenRebuild,
                   activeThumbColor: _green,
-                  title: const Text('Show parent-driven rebuild sample', style: TextStyle(color: _text, fontSize: 11)),
+                  title: const Text(
+                    'Show parent-driven rebuild sample',
+                    style: TextStyle(color: _text, fontSize: 11),
+                  ),
                   onChanged: (bool v) {
                     setState(() => _showParentDrivenRebuild = v);
                     _append('toggle parent sample -> $v');
@@ -356,7 +421,10 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                   contentPadding: EdgeInsets.zero,
                   value: _showInheritedDependency,
                   activeThumbColor: _orange,
-                  title: const Text('Show inherited dependency sample', style: TextStyle(color: _text, fontSize: 11)),
+                  title: const Text(
+                    'Show inherited dependency sample',
+                    style: TextStyle(color: _text, fontSize: 11),
+                  ),
                   onChanged: (bool v) {
                     setState(() => _showInheritedDependency = v);
                     _append('toggle inherited sample -> $v');
@@ -381,7 +449,10 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                   _demoCard(
                     title: 'Inherited-like dependency rebuild',
                     color: _orange,
-                    child: _ToneDependentStatelessSample(counter: _counter, tone: tone),
+                    child: _ToneDependentStatelessSample(
+                      counter: _counter,
+                      tone: tone,
+                    ),
                   ),
               ],
             ),
@@ -393,10 +464,18 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Bullet('StatelessElement rebuilds are cheap when build methods are lightweight and compositional.'),
-                _Bullet('Frequent parent updates can still be expensive if child subtree is overly dense.'),
-                _Bullet('Use const constructors, split widgets, and memoized values where practical.'),
-                _Bullet('Inherited dependencies should be scoped narrowly to avoid unnecessary rebuild spread.'),
+                _Bullet(
+                  'StatelessElement rebuilds are cheap when build methods are lightweight and compositional.',
+                ),
+                _Bullet(
+                  'Frequent parent updates can still be expensive if child subtree is overly dense.',
+                ),
+                _Bullet(
+                  'Use const constructors, split widgets, and memoized values where practical.',
+                ),
+                _Bullet(
+                  'Inherited dependencies should be scoped narrowly to avoid unnecessary rebuild spread.',
+                ),
               ],
             ),
           ),
@@ -412,7 +491,12 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                 borderRadius: BorderRadius.circular(8),
               ),
               child: _log.isEmpty
-                  ? const Center(child: Text('No events yet.', style: TextStyle(color: _text, fontSize: 11)))
+                  ? const Center(
+                      child: Text(
+                        'No events yet.',
+                        style: TextStyle(color: _text, fontSize: 11),
+                      ),
+                    )
                   : ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemCount: _log.length,
@@ -420,12 +504,22 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
                         final String row = _log[_log.length - 1 - index];
                         return Container(
                           margin: const EdgeInsets.only(bottom: 4),
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: _panel,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: Text(row, style: const TextStyle(color: _blue, fontFamily: 'monospace', fontSize: 10)),
+                          child: Text(
+                            row,
+                            style: const TextStyle(
+                              color: _blue,
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -436,7 +530,11 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
     );
   }
 
-  Widget _demoCard({required String title, required Color color, required Widget child}) {
+  Widget _demoCard({
+    required String title,
+    required Color color,
+    required Widget child,
+  }) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 8),
@@ -449,7 +547,14 @@ class _RebuildLabTabState extends State<_RebuildLabTab>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+          Text(
+            title,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w700,
+              fontSize: 11,
+            ),
+          ),
           const SizedBox(height: 8),
           child,
         ],
@@ -491,7 +596,10 @@ class _ParentDrivenStatelessSample extends StatelessWidget {
 }
 
 class _ToneDependentStatelessSample extends StatelessWidget {
-  const _ToneDependentStatelessSample({required this.counter, required this.tone});
+  const _ToneDependentStatelessSample({
+    required this.counter,
+    required this.tone,
+  });
 
   final int counter;
   final Color tone;
@@ -550,9 +658,14 @@ class _GuidanceTabState extends State<_GuidanceTab>
                 return GestureDetector(
                   onTap: () => setState(() => _selected = index),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 7,
+                    ),
                     decoration: BoxDecoration(
-                      color: active ? g.color.withValues(alpha: 0.2) : Colors.transparent,
+                      color: active
+                          ? g.color.withValues(alpha: 0.2)
+                          : Colors.transparent,
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: active ? g.color : _panel2),
                     ),
@@ -582,9 +695,18 @@ class _GuidanceTabState extends State<_GuidanceTab>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(card.title, style: TextStyle(color: card.color, fontWeight: FontWeight.w700)),
+                  Text(
+                    card.title,
+                    style: TextStyle(
+                      color: card.color,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  Text(card.summary, style: const TextStyle(color: _text, fontSize: 11)),
+                  Text(
+                    card.summary,
+                    style: const TextStyle(color: _text, fontSize: 11),
+                  ),
                   const SizedBox(height: 8),
                   ...card.points.map(
                     (String p) => Padding(
@@ -592,9 +714,21 @@ class _GuidanceTabState extends State<_GuidanceTab>
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.check_rounded, color: card.color, size: 14),
+                          Icon(
+                            Icons.check_rounded,
+                            color: card.color,
+                            size: 14,
+                          ),
                           const SizedBox(width: 5),
-                          Expanded(child: Text(p, style: const TextStyle(color: _text, fontSize: 10))),
+                          Expanded(
+                            child: Text(
+                              p,
+                              style: const TextStyle(
+                                color: _text,
+                                fontSize: 10,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -610,9 +744,24 @@ class _GuidanceTabState extends State<_GuidanceTab>
             child: const Column(
               children: [
                 _CompareRow('Local mutable state', 'No', 'Yes', _red),
-                _CompareRow('Element type', 'StatelessElement', 'StatefulElement', _blue),
-                _CompareRow('Typical use', 'Presentational/compositional', 'Interactive local state owner', _green),
-                _CompareRow('Build trigger source', 'Parent/inherited changes', 'Parent/inherited + setState', _orange),
+                _CompareRow(
+                  'Element type',
+                  'StatelessElement',
+                  'StatefulElement',
+                  _blue,
+                ),
+                _CompareRow(
+                  'Typical use',
+                  'Presentational/compositional',
+                  'Interactive local state owner',
+                  _green,
+                ),
+                _CompareRow(
+                  'Build trigger source',
+                  'Parent/inherited changes',
+                  'Parent/inherited + setState',
+                  _orange,
+                ),
               ],
             ),
           ),
@@ -623,10 +772,18 @@ class _GuidanceTabState extends State<_GuidanceTab>
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Bullet('Keep build methods deterministic and side-effect free.'),
-                _Bullet('Use smaller stateless widgets to isolate rebuild boundaries.'),
-                _Bullet('Prefer immutable constructor fields and const usage where possible.'),
-                _Bullet('Elevate state ownership to parents when shared across siblings.'),
+                _Bullet(
+                  'Keep build methods deterministic and side-effect free.',
+                ),
+                _Bullet(
+                  'Use smaller stateless widgets to isolate rebuild boundaries.',
+                ),
+                _Bullet(
+                  'Prefer immutable constructor fields and const usage where possible.',
+                ),
+                _Bullet(
+                  'Elevate state ownership to parents when shared across siblings.',
+                ),
               ],
             ),
           ),
@@ -667,7 +824,8 @@ class _GuidanceCard {
 const List<_LifecyclePhase> _phases = [
   _LifecyclePhase(
     name: 'mount',
-    summary: 'Element is created and mounted with its initial StatelessWidget config.',
+    summary:
+        'Element is created and mounted with its initial StatelessWidget config.',
     notes: [
       'Runtime links widget -> element in the tree.',
       'Initial build returns first child subtree.',
@@ -676,7 +834,8 @@ const List<_LifecyclePhase> _phases = [
   ),
   _LifecyclePhase(
     name: 'build',
-    summary: 'build() computes descendants from immutable configuration and inherited context.',
+    summary:
+        'build() computes descendants from immutable configuration and inherited context.',
     notes: [
       'Should avoid side effects and preserve pure mapping style.',
       'Can depend on inherited widgets from context.',
@@ -685,7 +844,8 @@ const List<_LifecyclePhase> _phases = [
   ),
   _LifecyclePhase(
     name: 'update',
-    summary: 'Parent provides a new StatelessWidget instance; element swaps config and rebuilds.',
+    summary:
+        'Parent provides a new StatelessWidget instance; element swaps config and rebuilds.',
     notes: [
       'Happens when parent rebuilds same slot with same key/type.',
       'No separate State object lifecycle involved.',
@@ -694,7 +854,8 @@ const List<_LifecyclePhase> _phases = [
   ),
   _LifecyclePhase(
     name: 'dependency',
-    summary: 'Inherited dependency changes mark element dirty and trigger rebuild.',
+    summary:
+        'Inherited dependency changes mark element dirty and trigger rebuild.',
     notes: [
       'Theme, media query, localization are common triggers.',
       'Dependency scope design influences rebuild fan-out.',
@@ -703,7 +864,8 @@ const List<_LifecyclePhase> _phases = [
   ),
   _LifecyclePhase(
     name: 'unmount',
-    summary: 'Element leaves tree; resources owned in widget tree path are released.',
+    summary:
+        'Element leaves tree; resources owned in widget tree path are released.',
     notes: [
       'Stateless element itself has minimal teardown concerns.',
       'Child subtree deactivation/unmount still occurs as usual.',
@@ -715,7 +877,8 @@ const List<_LifecyclePhase> _phases = [
 const List<_GuidanceCard> _guidance = [
   _GuidanceCard(
     title: 'Use Stateless',
-    summary: 'Choose stateless widgets when output is a pure function of inputs and context.',
+    summary:
+        'Choose stateless widgets when output is a pure function of inputs and context.',
     points: [
       'Great for reusable UI atoms and composition shells.',
       'Works well with external state managers feeding immutable props.',
@@ -761,10 +924,18 @@ class _Bullet extends StatelessWidget {
             width: 6,
             height: 6,
             margin: const EdgeInsets.only(top: 6),
-            decoration: const BoxDecoration(color: _yellow, shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              color: _yellow,
+              shape: BoxShape.circle,
+            ),
           ),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: const TextStyle(color: _text, fontSize: 11))),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(color: _text, fontSize: 11),
+            ),
+          ),
         ],
       ),
     );
@@ -799,11 +970,28 @@ class _CompareRow extends StatelessWidget {
         children: [
           SizedBox(
             width: 120,
-            child: Text(aspect, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+            child: Text(
+              aspect,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w700,
+                fontSize: 11,
+              ),
+            ),
           ),
-          Expanded(child: Text(stateless, style: const TextStyle(color: _text, fontSize: 10))),
+          Expanded(
+            child: Text(
+              stateless,
+              style: const TextStyle(color: _text, fontSize: 10),
+            ),
+          ),
           const SizedBox(width: 8),
-          Expanded(child: Text(stateful, style: const TextStyle(color: _text, fontSize: 10))),
+          Expanded(
+            child: Text(
+              stateful,
+              style: const TextStyle(color: _text, fontSize: 10),
+            ),
+          ),
         ],
       ),
     );
@@ -813,7 +1001,11 @@ class _CompareRow extends StatelessWidget {
 Widget _title(String value) {
   return Text(
     value,
-    style: const TextStyle(color: _yellow, fontSize: 14, fontWeight: FontWeight.w700),
+    style: const TextStyle(
+      color: _yellow,
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
+    ),
   );
 }
 

@@ -220,7 +220,11 @@ class _HeroHeaderSection extends StatelessWidget {
             child: const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.lightbulb_outline, color: Colors.amberAccent, size: 20),
+                Icon(
+                  Icons.lightbulb_outline,
+                  color: Colors.amberAccent,
+                  size: 20,
+                ),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -314,7 +318,10 @@ class _FamilyTreeSection extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
@@ -345,10 +352,7 @@ class _FamilyTreeSection extends StatelessWidget {
             padding: EdgeInsets.only(left: 2, top: 2),
             child: Text(
               'Inheritance and channel relationships at a glance.',
-              style: TextStyle(
-                color: Color(0xCCFFFFFF),
-                fontSize: 13,
-              ),
+              style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 13),
             ),
           ),
           const SizedBox(height: 18),
@@ -617,13 +621,7 @@ class _LegendDot extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 6),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 11,
-          ),
-        ),
+        Text(label, style: const TextStyle(color: Colors.white, fontSize: 11)),
       ],
     );
   }
@@ -820,8 +818,7 @@ class _SectionHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.12),
               borderRadius: const BorderRadius.all(Radius.circular(6)),
@@ -919,7 +916,9 @@ class _CodecCard extends StatelessWidget {
                   accent.withValues(alpha: 0.75),
                 ],
               ),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(12),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -931,7 +930,9 @@ class _CodecCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.5)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
                   ),
                   child: Icon(iconLeft, color: Colors.white, size: 20),
                 ),
@@ -968,7 +969,9 @@ class _CodecCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: modelColor,
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.6)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.6),
+                    ),
                   ),
                   child: Text(
                     modelLabel,
@@ -1143,8 +1146,9 @@ class _StandardTypeTableSection extends StatelessWidget {
                         Color(0xFFE65100),
                       ],
                     ),
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                   ),
                   child: Row(
                     children: const <Widget>[
@@ -1164,77 +1168,92 @@ class _StandardTypeTableSection extends StatelessWidget {
                 ),
                 _TypeTableHeader(),
                 _TypeTableRow(
-                  tag: '0x00', dartType: 'null',
+                  tag: '0x00',
+                  dartType: 'null',
                   wire: '(no payload)',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x01', dartType: 'true',
+                  tag: '0x01',
+                  dartType: 'true',
                   wire: '(no payload)',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x02', dartType: 'false',
+                  tag: '0x02',
+                  dartType: 'false',
                   wire: '(no payload)',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x03', dartType: 'int (32-bit)',
+                  tag: '0x03',
+                  dartType: 'int (32-bit)',
                   wire: '4 bytes LE int32',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x04', dartType: 'int (64-bit)',
+                  tag: '0x04',
+                  dartType: 'int (64-bit)',
                   wire: '8 bytes LE int64',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x05', dartType: 'BigInt (removed)',
+                  tag: '0x05',
+                  dartType: 'BigInt (removed)',
                   wire: 'legacy: hex-string',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x06', dartType: 'double',
+                  tag: '0x06',
+                  dartType: 'double',
                   wire: 'aligned 8 bytes LE IEEE-754',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x07', dartType: 'String',
+                  tag: '0x07',
+                  dartType: 'String',
                   wire: 'size + UTF-8 bytes',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x08', dartType: 'Uint8List',
+                  tag: '0x08',
+                  dartType: 'Uint8List',
                   wire: 'size + raw bytes',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x09', dartType: 'Int32List',
+                  tag: '0x09',
+                  dartType: 'Int32List',
                   wire: 'aligned size + LE int32 elements',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x0A', dartType: 'Int64List',
+                  tag: '0x0A',
+                  dartType: 'Int64List',
                   wire: 'aligned size + LE int64 elements',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x0B', dartType: 'Float64List',
+                  tag: '0x0B',
+                  dartType: 'Float64List',
                   wire: 'aligned size + LE float64 elements',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x0C', dartType: 'List',
+                  tag: '0x0C',
+                  dartType: 'List',
                   wire: 'size + recursively-encoded items',
                   zebra: false,
                 ),
                 _TypeTableRow(
-                  tag: '0x0D', dartType: 'Map',
+                  tag: '0x0D',
+                  dartType: 'Map',
                   wire: 'size + alternating key/value pairs',
                   zebra: true,
                 ),
                 _TypeTableRow(
-                  tag: '0x0E', dartType: 'Float32List',
+                  tag: '0x0E',
+                  dartType: 'Float32List',
                   wire: 'aligned size + LE float32 elements',
                   zebra: false,
                 ),
@@ -1511,11 +1530,31 @@ class _MethodEnvelopeSection extends StatelessWidget {
                       'frame is a Standard-encoded String followed by a '
                       'Standard-encoded arguments value.',
                   bytes: <_ByteCell>[
-                    _ByteCell(tag: '07', label: 'String tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: 'NN', label: 'len(name)', tone: _ByteTone.size),
-                    _ByteCell(tag: '..', label: 'UTF-8 method name', tone: _ByteTone.payload),
-                    _ByteCell(tag: 'TT', label: 'args type tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: '..', label: 'standard-encoded args', tone: _ByteTone.payload),
+                    _ByteCell(
+                      tag: '07',
+                      label: 'String tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: 'NN',
+                      label: 'len(name)',
+                      tone: _ByteTone.size,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'UTF-8 method name',
+                      tone: _ByteTone.payload,
+                    ),
+                    _ByteCell(
+                      tag: 'TT',
+                      label: 'args type tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'standard-encoded args',
+                      tone: _ByteTone.payload,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -1526,9 +1565,21 @@ class _MethodEnvelopeSection extends StatelessWidget {
                       'normally. Leading 0x00 byte tells the caller "this is a '
                       'value, not an error".',
                   bytes: <_ByteCell>[
-                    _ByteCell(tag: '00', label: 'success', tone: _ByteTone.success),
-                    _ByteCell(tag: 'TT', label: 'value type tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: '..', label: 'standard-encoded value', tone: _ByteTone.payload),
+                    _ByteCell(
+                      tag: '00',
+                      label: 'success',
+                      tone: _ByteTone.success,
+                    ),
+                    _ByteCell(
+                      tag: 'TT',
+                      label: 'value type tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'standard-encoded value',
+                      tone: _ByteTone.payload,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -1540,12 +1591,36 @@ class _MethodEnvelopeSection extends StatelessWidget {
                       'standard-encoded details value.',
                   bytes: <_ByteCell>[
                     _ByteCell(tag: '01', label: 'error', tone: _ByteTone.error),
-                    _ByteCell(tag: 'TT', label: 'code String tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: '..', label: 'UTF-8 error code', tone: _ByteTone.payload),
-                    _ByteCell(tag: 'TT', label: 'message tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: '..', label: 'UTF-8 message or null', tone: _ByteTone.payload),
-                    _ByteCell(tag: 'TT', label: 'details tag', tone: _ByteTone.tag),
-                    _ByteCell(tag: '..', label: 'details or null', tone: _ByteTone.payload),
+                    _ByteCell(
+                      tag: 'TT',
+                      label: 'code String tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'UTF-8 error code',
+                      tone: _ByteTone.payload,
+                    ),
+                    _ByteCell(
+                      tag: 'TT',
+                      label: 'message tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'UTF-8 message or null',
+                      tone: _ByteTone.payload,
+                    ),
+                    _ByteCell(
+                      tag: 'TT',
+                      label: 'details tag',
+                      tone: _ByteTone.tag,
+                    ),
+                    _ByteCell(
+                      tag: '..',
+                      label: 'details or null',
+                      tone: _ByteTone.payload,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -1556,7 +1631,11 @@ class _MethodEnvelopeSection extends StatelessWidget {
                       'throws MissingPluginException. The wire format is a '
                       'zero-length ByteData buffer.',
                   bytes: <_ByteCell>[
-                    _ByteCell(tag: '--', label: 'empty buffer (length 0)', tone: _ByteTone.empty),
+                    _ByteCell(
+                      tag: '--',
+                      label: 'empty buffer (length 0)',
+                      tone: _ByteTone.empty,
+                    ),
                   ],
                 ),
               ],
@@ -1954,8 +2033,10 @@ class _ChannelMatrixSection extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 12,
+                  ),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.centerLeft,
@@ -1966,8 +2047,9 @@ class _ChannelMatrixSection extends StatelessWidget {
                         Color(0xFFEC407A),
                       ],
                     ),
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                   ),
                   child: Row(
                     children: const <Widget>[
@@ -2013,8 +2095,9 @@ class _ChannelMatrixSection extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(14, 10, 14, 14),
                   decoration: const BoxDecoration(
                     color: Color(0xFFFCE4EC),
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(12)),
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(12),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -2055,9 +2138,7 @@ class _MatrixHeaderRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: const BoxDecoration(
         color: Color(0xFFFCE4EC),
-        border: Border(
-          bottom: BorderSide(color: Color(0xFFF8BBD0)),
-        ),
+        border: Border(bottom: BorderSide(color: Color(0xFFF8BBD0))),
       ),
       child: Row(
         children: const <Widget>[
@@ -2144,8 +2225,7 @@ class _MatrixRow extends StatelessWidget {
           SizedBox(
             width: 180,
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: const Color(0xFFAD1457).withValues(alpha: 0.1),
                 borderRadius: const BorderRadius.all(Radius.circular(6)),
@@ -2502,8 +2582,10 @@ class _CheatRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFD54F),
                     borderRadius: const BorderRadius.all(Radius.circular(6)),

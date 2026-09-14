@@ -401,11 +401,7 @@ class _InlineSnackBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           if (icon != null) ...<Widget>[
-            Icon(
-              icon,
-              color: iconColor ?? const Color(0xFFFAF7F2),
-              size: 20.0,
-            ),
+            Icon(icon, color: iconColor ?? const Color(0xFFFAF7F2), size: 20.0),
             const SizedBox(width: 12.0),
           ],
           Expanded(
@@ -549,7 +545,8 @@ class _AnatomySection extends StatelessWidget {
                     ),
                     _AnatomyRow(
                       label: 'closeIcon',
-                      desc: 'Optional dismiss affordance (showCloseIcon: true).',
+                      desc:
+                          'Optional dismiss affordance (showCloseIcon: true).',
                       color: Color(0xFF6E6259),
                     ),
                     _AnatomyRow(
@@ -795,12 +792,7 @@ class _BehaviorCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 0.0,
-                  right: 0.0,
-                  bottom: 0.0,
-                  child: snackbar,
-                ),
+                Positioned(left: 0.0, right: 0.0, bottom: 0.0, child: snackbar),
               ],
             ),
           ),
@@ -921,14 +913,26 @@ class _ActionSection extends StatelessWidget {
               _ApiTable(
                 rows: <_ApiRow>[
                   _ApiRow('label', 'String', 'Button text (required).'),
-                  _ApiRow('onPressed', 'VoidCallback?',
-                      'Tap handler. May be null to disable.'),
-                  _ApiRow('textColor', 'Color?',
-                      'Foreground color of the label.'),
-                  _ApiRow('disabledTextColor', 'Color?',
-                      'Color when onPressed is null.'),
-                  _ApiRow('backgroundColor', 'Color?',
-                      'Optional pill background behind the label.'),
+                  _ApiRow(
+                    'onPressed',
+                    'VoidCallback?',
+                    'Tap handler. May be null to disable.',
+                  ),
+                  _ApiRow(
+                    'textColor',
+                    'Color?',
+                    'Foreground color of the label.',
+                  ),
+                  _ApiRow(
+                    'disabledTextColor',
+                    'Color?',
+                    'Color when onPressed is null.',
+                  ),
+                  _ApiRow(
+                    'backgroundColor',
+                    'Color?',
+                    'Optional pill background behind the label.',
+                  ),
                 ],
               ),
             ],
@@ -1171,10 +1175,7 @@ class _SeveritySection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xFFFAF7F2),
-                Color(0xFFEFE3D2),
-              ],
+              colors: <Color>[Color(0xFFFAF7F2), Color(0xFFEFE3D2)],
             ),
             borderRadius: const BorderRadius.all(Radius.circular(14.0)),
             border: Border.all(color: _line, width: 1.0),
@@ -1277,10 +1278,7 @@ class _SeverityRow extends StatelessWidget {
       children: <Widget>[
         Container(
           width: 84.0,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 6.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: soft,
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -1432,10 +1430,7 @@ class _DurationSection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: <Color>[
-                Color(0xFFE9EEF6),
-                Color(0xFFFAF7F2),
-              ],
+              colors: <Color>[Color(0xFFE9EEF6), Color(0xFFFAF7F2)],
             ),
             borderRadius: const BorderRadius.all(Radius.circular(14.0)),
             border: Border.all(color: _line, width: 1.0),
@@ -1493,14 +1488,26 @@ class _DurationSection extends StatelessWidget {
               const SizedBox(height: 12.0),
               _ApiTable(
                 rows: <_ApiRow>[
-                  _ApiRow('duration', 'Duration',
-                      'Time visible. Defaults to 4 seconds.'),
-                  _ApiRow('SnackBarClosedReason', 'enum',
-                      'timeout | action | dismiss | hide | remove | swipe.'),
-                  _ApiRow('hideCurrentSnackBar', 'method',
-                      'Removes the current bar and shows the next queued.'),
-                  _ApiRow('clearSnackBars', 'method',
-                      'Removes the current bar AND clears the queue.'),
+                  _ApiRow(
+                    'duration',
+                    'Duration',
+                    'Time visible. Defaults to 4 seconds.',
+                  ),
+                  _ApiRow(
+                    'SnackBarClosedReason',
+                    'enum',
+                    'timeout | action | dismiss | hide | remove | swipe.',
+                  ),
+                  _ApiRow(
+                    'hideCurrentSnackBar',
+                    'method',
+                    'Removes the current bar and shows the next queued.',
+                  ),
+                  _ApiRow(
+                    'clearSnackBars',
+                    'method',
+                    'Removes the current bar AND clears the queue.',
+                  ),
                 ],
               ),
             ],
@@ -1537,10 +1544,7 @@ class _QueueSlot extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 7.0,
-              vertical: 2.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: stageColor.withValues(alpha: 0.18),
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -1701,10 +1705,7 @@ class _ThemeSection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xFFF1E6F8),
-                Color(0xFFFAF7F2),
-              ],
+              colors: <Color>[Color(0xFFF1E6F8), Color(0xFFFAF7F2)],
             ),
             borderRadius: const BorderRadius.all(Radius.circular(14.0)),
             border: Border.all(color: _line, width: 1.0),
@@ -1724,30 +1725,66 @@ class _ThemeSection extends StatelessWidget {
               const SizedBox(height: 12.0),
               _ApiTable(
                 rows: const <_ApiRow>[
-                  _ApiRow('backgroundColor', 'Color?',
-                      'Default container color for SnackBars.'),
-                  _ApiRow('contentTextStyle', 'TextStyle?',
-                      'Style applied to the content text widget.'),
-                  _ApiRow('actionTextColor', 'Color?',
-                      'Default color of the SnackBarAction label.'),
-                  _ApiRow('disabledActionTextColor', 'Color?',
-                      'Action color when onPressed is null.'),
-                  _ApiRow('actionBackgroundColor', 'Color?',
-                      'Optional pill behind the action label.'),
-                  _ApiRow('shape', 'ShapeBorder?',
-                      'Default border / corner radius.'),
-                  _ApiRow('elevation', 'double?',
-                      'Default Material elevation (e.g. 6.0).'),
-                  _ApiRow('behavior', 'SnackBarBehavior?',
-                      'fixed | floating default.'),
-                  _ApiRow('width', 'double?',
-                      'Fixed width when floating. Null = match margin.'),
-                  _ApiRow('insetPadding', 'EdgeInsets?',
-                      'Margin around a floating SnackBar.'),
-                  _ApiRow('closeIconColor', 'Color?',
-                      'Tint of the close icon when showCloseIcon: true.'),
-                  _ApiRow('showCloseIcon', 'bool?',
-                      'Whether the close icon shows by default.'),
+                  _ApiRow(
+                    'backgroundColor',
+                    'Color?',
+                    'Default container color for SnackBars.',
+                  ),
+                  _ApiRow(
+                    'contentTextStyle',
+                    'TextStyle?',
+                    'Style applied to the content text widget.',
+                  ),
+                  _ApiRow(
+                    'actionTextColor',
+                    'Color?',
+                    'Default color of the SnackBarAction label.',
+                  ),
+                  _ApiRow(
+                    'disabledActionTextColor',
+                    'Color?',
+                    'Action color when onPressed is null.',
+                  ),
+                  _ApiRow(
+                    'actionBackgroundColor',
+                    'Color?',
+                    'Optional pill behind the action label.',
+                  ),
+                  _ApiRow(
+                    'shape',
+                    'ShapeBorder?',
+                    'Default border / corner radius.',
+                  ),
+                  _ApiRow(
+                    'elevation',
+                    'double?',
+                    'Default Material elevation (e.g. 6.0).',
+                  ),
+                  _ApiRow(
+                    'behavior',
+                    'SnackBarBehavior?',
+                    'fixed | floating default.',
+                  ),
+                  _ApiRow(
+                    'width',
+                    'double?',
+                    'Fixed width when floating. Null = match margin.',
+                  ),
+                  _ApiRow(
+                    'insetPadding',
+                    'EdgeInsets?',
+                    'Margin around a floating SnackBar.',
+                  ),
+                  _ApiRow(
+                    'closeIconColor',
+                    'Color?',
+                    'Tint of the close icon when showCloseIcon: true.',
+                  ),
+                  _ApiRow(
+                    'showCloseIcon',
+                    'bool?',
+                    'Whether the close icon shows by default.',
+                  ),
                 ],
               ),
               const SizedBox(height: 14.0),
@@ -2017,8 +2054,7 @@ class _CompareSection extends StatelessWidget {
         const _SectionHeader(
           number: '10',
           title: 'Compare to siblings',
-          subtitle:
-              'SnackBar vs BottomSheet vs MaterialBanner vs Dialog.',
+          subtitle: 'SnackBar vs BottomSheet vs MaterialBanner vs Dialog.',
           icon: Icons.compare_arrows,
           tint: Color(0xFF4E433C),
         ),
@@ -2040,10 +2076,7 @@ class _CompareSection extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
-                    colors: <Color>[
-                      Color(0xFFEFE3D2),
-                      Color(0xFFE3D9CC),
-                    ],
+                    colors: <Color>[Color(0xFFEFE3D2), Color(0xFFE3D9CC)],
                   ),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(14.0),
@@ -2266,10 +2299,7 @@ class _PitfallsSection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xFFFFF5E2),
-                Color(0xFFFAF7F2),
-              ],
+              colors: <Color>[Color(0xFFFFF5E2), Color(0xFFFAF7F2)],
             ),
             borderRadius: const BorderRadius.all(Radius.circular(14.0)),
             border: Border.all(color: _line, width: 1.0),
@@ -2306,7 +2336,8 @@ class _PitfallsSection extends StatelessWidget {
                     'only for transient post-tap states.',
               ),
               _Pitfall(
-                bad: 'Using SnackBar for critical errors that must be acted on.',
+                bad:
+                    'Using SnackBar for critical errors that must be acted on.',
                 good:
                     'Use a Dialog or MaterialBanner. SnackBar is dismissed in '
                     'seconds and may never be seen.',

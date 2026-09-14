@@ -300,17 +300,19 @@ Widget _keyChord(List<String> keys) {
   for (int i = 0; i < keys.length; i++) {
     children.add(_keyCap(keys[i]));
     if (i != keys.length - 1) {
-      children.add(const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 2.0),
-        child: Text(
-          '+',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: _kInkTertiary,
-            fontWeight: FontWeight.w700,
+      children.add(
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 2.0),
+          child: Text(
+            '+',
+            style: TextStyle(
+              fontSize: 13.0,
+              color: _kInkTertiary,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ));
+      );
     }
   }
   return Row(mainAxisSize: MainAxisSize.min, children: children);
@@ -391,24 +393,26 @@ Widget _bulletList(List<String> items) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: items
-        .map<Widget>((String s) => Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(top: 6.0, right: 8.0),
-                    width: 6.0,
-                    height: 6.0,
-                    decoration: const BoxDecoration(
-                      color: _kAccent,
-                      shape: BoxShape.circle,
-                    ),
+        .map<Widget>(
+          (String s) => Padding(
+            padding: const EdgeInsets.only(bottom: 5.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(top: 6.0, right: 8.0),
+                  width: 6.0,
+                  height: 6.0,
+                  decoration: const BoxDecoration(
+                    color: _kAccent,
+                    shape: BoxShape.circle,
                   ),
-                  Expanded(child: Text(s, style: _kBodySoftStyle)),
-                ],
-              ),
-            ))
+                ),
+                Expanded(child: Text(s, style: _kBodySoftStyle)),
+              ],
+            ),
+          ),
+        )
         .toList(growable: false),
   );
 }
@@ -424,7 +428,11 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF2E1065), Color(0xFF6D28D9), Color(0xFFA855F7)],
+        colors: <Color>[
+          Color(0xFF2E1065),
+          Color(0xFF6D28D9),
+          Color(0xFFA855F7),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -544,11 +552,7 @@ Widget _heroIntroCard() {
             'is an Intent-to-Action dispatcher. Both walk the focus tree to '
             'find a handler. Either layer can be overridden at any depth '
             'without touching the other.',
-            style: TextStyle(
-              fontSize: 13.5,
-              height: 1.5,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.5, height: 1.5, color: _kInk),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -556,20 +560,22 @@ Widget _heroIntroCard() {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
-                child: _bulletList(const <String>[
-              'ShortcutActivator: trigger predicate over RawKeyEvent.',
-              'Shortcuts widget: holds a Map<ShortcutActivator, Intent>.',
-              'ShortcutManager: pluggable handler chain for that map.',
-              'Intent: marker type the dispatcher keys off.',
-            ])),
+              child: _bulletList(const <String>[
+                'ShortcutActivator: trigger predicate over RawKeyEvent.',
+                'Shortcuts widget: holds a Map<ShortcutActivator, Intent>.',
+                'ShortcutManager: pluggable handler chain for that map.',
+                'Intent: marker type the dispatcher keys off.',
+              ]),
+            ),
             const SizedBox(width: 12.0),
             Expanded(
-                child: _bulletList(const <String>[
-              'Action<T extends Intent>: handler bound to one Intent type.',
-              'Actions widget: holds a Map<Type, Action<Intent>>.',
-              'ActionDispatcher: orchestrates invokeAction on an Action.',
-              'Action.overridable: stacks an action over an ancestor one.',
-            ])),
+              child: _bulletList(const <String>[
+                'Action<T extends Intent>: handler bound to one Intent type.',
+                'Actions widget: holds a Map<Type, Action<Intent>>.',
+                'ActionDispatcher: orchestrates invokeAction on an Action.',
+                'Action.overridable: stacks an action over an ancestor one.',
+              ]),
+            ),
           ],
         ),
       ],
@@ -604,26 +610,56 @@ class _KeyFlowPainter extends CustomPainter {
       ..color = _kAccent;
 
     final List<_FlowBox> stations = <_FlowBox>[
-      _FlowBox('Platform engine\nKeyEvent',
-          const Rect.fromLTWH(20, 30, 170, 56), const Color(0xFFDDD6FE)),
-      _FlowBox('HardwareKeyboard\n.instance',
-          const Rect.fromLTWH(220, 30, 170, 56), const Color(0xFFDDD6FE)),
-      _FlowBox('FocusManager\n.primaryFocus',
-          const Rect.fromLTWH(420, 30, 170, 56), const Color(0xFFBFDBFE)),
-      _FlowBox('Focus.onKeyEvent\n(walks up scope)',
-          const Rect.fromLTWH(420, 110, 170, 56), const Color(0xFFBFDBFE)),
-      _FlowBox('ShortcutManager\n.handleKeypress',
-          const Rect.fromLTWH(420, 190, 170, 56), const Color(0xFFFDE68A)),
-      _FlowBox('Lookup\nMap<Activator,Intent>',
-          const Rect.fromLTWH(220, 190, 170, 56), const Color(0xFFFDE68A)),
-      _FlowBox('Actions.invoke<I>\n(BuildContext, Intent)',
-          const Rect.fromLTWH(20, 190, 170, 56), const Color(0xFFA7F3D0)),
-      _FlowBox('ActionDispatcher\n.invokeAction',
-          const Rect.fromLTWH(20, 270, 170, 56), const Color(0xFFA7F3D0)),
-      _FlowBox('Action<I>\n.invoke(intent)',
-          const Rect.fromLTWH(220, 270, 170, 56), const Color(0xFFFCA5A5)),
-      _FlowBox('Action.overridable?\nchain to ancestor',
-          const Rect.fromLTWH(420, 270, 170, 56), const Color(0xFFFCA5A5)),
+      _FlowBox(
+        'Platform engine\nKeyEvent',
+        const Rect.fromLTWH(20, 30, 170, 56),
+        const Color(0xFFDDD6FE),
+      ),
+      _FlowBox(
+        'HardwareKeyboard\n.instance',
+        const Rect.fromLTWH(220, 30, 170, 56),
+        const Color(0xFFDDD6FE),
+      ),
+      _FlowBox(
+        'FocusManager\n.primaryFocus',
+        const Rect.fromLTWH(420, 30, 170, 56),
+        const Color(0xFFBFDBFE),
+      ),
+      _FlowBox(
+        'Focus.onKeyEvent\n(walks up scope)',
+        const Rect.fromLTWH(420, 110, 170, 56),
+        const Color(0xFFBFDBFE),
+      ),
+      _FlowBox(
+        'ShortcutManager\n.handleKeypress',
+        const Rect.fromLTWH(420, 190, 170, 56),
+        const Color(0xFFFDE68A),
+      ),
+      _FlowBox(
+        'Lookup\nMap<Activator,Intent>',
+        const Rect.fromLTWH(220, 190, 170, 56),
+        const Color(0xFFFDE68A),
+      ),
+      _FlowBox(
+        'Actions.invoke<I>\n(BuildContext, Intent)',
+        const Rect.fromLTWH(20, 190, 170, 56),
+        const Color(0xFFA7F3D0),
+      ),
+      _FlowBox(
+        'ActionDispatcher\n.invokeAction',
+        const Rect.fromLTWH(20, 270, 170, 56),
+        const Color(0xFFA7F3D0),
+      ),
+      _FlowBox(
+        'Action<I>\n.invoke(intent)',
+        const Rect.fromLTWH(220, 270, 170, 56),
+        const Color(0xFFFCA5A5),
+      ),
+      _FlowBox(
+        'Action.overridable?\nchain to ancestor',
+        const Rect.fromLTWH(420, 270, 170, 56),
+        const Color(0xFFFCA5A5),
+      ),
     ];
 
     for (final _FlowBox b in stations) {
@@ -662,10 +698,14 @@ class _KeyFlowPainter extends CustomPainter {
       const double tipLen = 8.0;
       final Path path = Path()
         ..moveTo(b.dx, b.dy)
-        ..lineTo(b.dx - tipLen * math.cos(angle - math.pi / 7),
-            b.dy - tipLen * math.sin(angle - math.pi / 7))
-        ..lineTo(b.dx - tipLen * math.cos(angle + math.pi / 7),
-            b.dy - tipLen * math.sin(angle + math.pi / 7))
+        ..lineTo(
+          b.dx - tipLen * math.cos(angle - math.pi / 7),
+          b.dy - tipLen * math.sin(angle - math.pi / 7),
+        )
+        ..lineTo(
+          b.dx - tipLen * math.cos(angle + math.pi / 7),
+          b.dy - tipLen * math.sin(angle + math.pi / 7),
+        )
         ..close();
       canvas.drawPath(path, Paint()..color = _kAccent);
     }
@@ -688,7 +728,8 @@ class _KeyFlowPainter extends CustomPainter {
     // legend strip at bottom
     final TextPainter legend = TextPainter(
       text: const TextSpan(
-        text: 'flow direction: platform -> focus -> shortcuts -> actions -> '
+        text:
+            'flow direction: platform -> focus -> shortcuts -> actions -> '
             'dispatcher -> action invoke',
         style: TextStyle(
           color: _kInkTertiary,
@@ -719,7 +760,8 @@ Widget _keyFlowSection() {
       children: <Widget>[
         _cardTitle(
           'Key-event flow: platform -> focus -> shortcuts -> actions',
-          subtitle: 'Each station hands the event to the next, and any '
+          subtitle:
+              'Each station hands the event to the next, and any '
               'station can short-circuit by returning KeyEventResult.handled.',
         ),
         const SizedBox(height: 14.0),
@@ -841,7 +883,8 @@ Widget _activatorInventorySection() {
           padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 10.0),
           child: _cardTitle(
             'ShortcutActivator family',
-            subtitle: 'Four concrete activators ship with Flutter. They all '
+            subtitle:
+                'Four concrete activators ship with Flutter. They all '
                 'implement the same one-method ShortcutActivator interface.',
           ),
         ),
@@ -990,12 +1033,7 @@ Widget _activatorChordsPanel() {
   );
 }
 
-Widget _chordRow(
-  String label,
-  List<String> keys,
-  String code,
-  String note,
-) {
+Widget _chordRow(String label, List<String> keys, String code, String note) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10.0),
     decoration: const BoxDecoration(
@@ -1104,7 +1142,8 @@ Widget _intentsMatrixSection() {
           padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 10.0),
           child: _cardTitle(
             'Built-in Intents and their default Actions',
-            subtitle: 'WidgetsApp installs a default Actions ancestor that '
+            subtitle:
+                'WidgetsApp installs a default Actions ancestor that '
                 'binds these Intents to safe, no-op-friendly defaults.',
           ),
         ),
@@ -1224,12 +1263,7 @@ Widget _intentsMatrixSection() {
 // ---------------------------------------------------------------------------
 // SECTION 5 - WORKED ACTIONS.INVOKE EXAMPLE
 // ---------------------------------------------------------------------------
-Widget _step(
-  int n,
-  String title,
-  String detail, {
-  Color colour = _kAccent,
-}) {
+Widget _step(int n, String title, String detail, {Color colour = _kAccent}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 12.0),
     child: Row(
@@ -1282,48 +1316,55 @@ Widget _workedInvokeSection() {
       children: <Widget>[
         _cardTitle(
           'Worked example: Actions.invoke<SaveIntent>(context, intent)',
-          subtitle: 'Step-by-step path the framework takes from the call '
+          subtitle:
+              'Step-by-step path the framework takes from the call '
               'site to a concrete Action.invoke().',
         ),
         const SizedBox(height: 14.0),
         _step(
-            1,
-            'Caller builds an Intent instance',
-            'final SaveIntent intent = const SaveIntent(); '
-                'Intents are typically const-constructed value objects.'),
+          1,
+          'Caller builds an Intent instance',
+          'final SaveIntent intent = const SaveIntent(); '
+              'Intents are typically const-constructed value objects.',
+        ),
         _step(
-            2,
-            'Actions.invoke walks ancestors',
-            'Starting from context, the helper finds the first _ActionsScope '
-                'whose actions map contains the intent\'s runtimeType.',
-            colour: _kAccentBlue),
+          2,
+          'Actions.invoke walks ancestors',
+          'Starting from context, the helper finds the first _ActionsScope '
+              'whose actions map contains the intent\'s runtimeType.',
+          colour: _kAccentBlue,
+        ),
         _step(
-            3,
-            'Action is resolved',
-            'The map lookup returns an Action<SaveIntent>. If that action is '
-                'Action.overridable, the wrapper finds the next ancestor '
-                'override and links it as defaultAction.',
-            colour: _kAccentBlue),
+          3,
+          'Action is resolved',
+          'The map lookup returns an Action<SaveIntent>. If that action is '
+              'Action.overridable, the wrapper finds the next ancestor '
+              'override and links it as defaultAction.',
+          colour: _kAccentBlue,
+        ),
         _step(
-            4,
-            'Action.isEnabled is consulted',
-            'isEnabled(intent) returns false to opt out. Disabled actions are '
-                'invisible to PrioritizedIntents fallback chains.',
-            colour: _kAccentTeal),
+          4,
+          'Action.isEnabled is consulted',
+          'isEnabled(intent) returns false to opt out. Disabled actions are '
+              'invisible to PrioritizedIntents fallback chains.',
+          colour: _kAccentTeal,
+        ),
         _step(
-            5,
-            'ActionDispatcher.invokeAction runs',
-            'The Actions widget\'s ActionDispatcher (or the default one) '
-                'calls Action.invoke(intent). It is allowed to be a normal '
-                'method call - no future is required.',
-            colour: _kAccentTeal),
+          5,
+          'ActionDispatcher.invokeAction runs',
+          'The Actions widget\'s ActionDispatcher (or the default one) '
+              'calls Action.invoke(intent). It is allowed to be a normal '
+              'method call - no future is required.',
+          colour: _kAccentTeal,
+        ),
         _step(
-            6,
-            'Result is returned to the caller',
-            'invoke() returns Object?. Actions.invoke<I> returns Object? '
-                'too. Most callers ignore it; some use it to read computed '
-                'state back.',
-            colour: _kAccentAmber),
+          6,
+          'Result is returned to the caller',
+          'invoke() returns Object?. Actions.invoke<I> returns Object? '
+              'too. Most callers ignore it; some use it to read computed '
+              'state back.',
+          colour: _kAccentAmber,
+        ),
         const SizedBox(height: 4.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -1337,11 +1378,7 @@ Widget _workedInvokeSection() {
             'imperative API. Shortcuts.maybeOf() lets you invoke programmatically '
             'without simulating a KeyEvent. This is the seam used by menu items, '
             'context menus and tests.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.5,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.5, color: _kInk),
           ),
         ),
       ],
@@ -1465,14 +1502,22 @@ Widget _codeSnippetsSection() {
               'to see how the surface area scales with the use case.',
         ),
       ),
-      _codeBlock(_callbackActionCode,
-          title: 'shortcuts_and_actions.dart - CallbackAction (simplest)'),
-      _codeBlock(_customActionCode,
-          title: 'save_action.dart - subclassing Action<T>'),
-      _codeBlock(_overridableCode,
-          title: 'overridable.dart - Action.overridable(defaultAction:)'),
-      _codeBlock(_focusableActionDetectorCode,
-          title: 'custom_button.dart - FocusableActionDetector'),
+      _codeBlock(
+        _callbackActionCode,
+        title: 'shortcuts_and_actions.dart - CallbackAction (simplest)',
+      ),
+      _codeBlock(
+        _customActionCode,
+        title: 'save_action.dart - subclassing Action<T>',
+      ),
+      _codeBlock(
+        _overridableCode,
+        title: 'overridable.dart - Action.overridable(defaultAction:)',
+      ),
+      _codeBlock(
+        _focusableActionDetectorCode,
+        title: 'custom_button.dart - FocusableActionDetector',
+      ),
     ],
   );
 }
@@ -1550,12 +1595,7 @@ Widget _comparisonCell(String text, {Color colour = _kInk, bool bold = false}) {
   );
 }
 
-Widget _comparisonRow(
-  String axis,
-  Widget shortcuts,
-  Widget fad,
-  Widget menu,
-) {
+Widget _comparisonRow(String axis, Widget shortcuts, Widget fad, Widget menu) {
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
     decoration: const BoxDecoration(
@@ -1603,55 +1643,80 @@ Widget _comparisonMatrixSection() {
         _comparisonHeaderRow(),
         _comparisonRow(
           'Owns focus',
-          _comparisonCell('No - relies on enclosing Focus.', colour: _kAccentRose),
-          _comparisonCell('Yes - wraps a Focus internally.',
-              colour: _kAccentGreen),
+          _comparisonCell(
+            'No - relies on enclosing Focus.',
+            colour: _kAccentRose,
+          ),
+          _comparisonCell(
+            'Yes - wraps a Focus internally.',
+            colour: _kAccentGreen,
+          ),
           _comparisonCell('Indirect - menu bar focus.', colour: _kAccentAmber),
         ),
         _comparisonRow(
           'Holds Intent map',
-          _comparisonCell('Yes - shortcuts: Map<Activator,Intent>.',
-              colour: _kAccentGreen),
+          _comparisonCell(
+            'Yes - shortcuts: Map<Activator,Intent>.',
+            colour: _kAccentGreen,
+          ),
           _comparisonCell('Yes - same map type.', colour: _kAccentGreen),
-          _comparisonCell('No - each item has its own callback.',
-              colour: _kAccentRose),
+          _comparisonCell(
+            'No - each item has its own callback.',
+            colour: _kAccentRose,
+          ),
         ),
         _comparisonRow(
           'Holds Action map',
-          _comparisonCell('No - delegates to ancestor Actions.',
-              colour: _kAccentRose),
-          _comparisonCell('Yes - actions: Map<Type, Action<Intent>>.',
-              colour: _kAccentGreen),
-          _comparisonCell('Implicit - the onSelected callback.',
-              colour: _kAccentAmber),
+          _comparisonCell(
+            'No - delegates to ancestor Actions.',
+            colour: _kAccentRose,
+          ),
+          _comparisonCell(
+            'Yes - actions: Map<Type, Action<Intent>>.',
+            colour: _kAccentGreen,
+          ),
+          _comparisonCell(
+            'Implicit - the onSelected callback.',
+            colour: _kAccentAmber,
+          ),
         ),
         _comparisonRow(
           'Surfaces in OS menu bar',
           _comparisonCell('No.', colour: _kAccentRose),
           _comparisonCell('No.', colour: _kAccentRose),
-          _comparisonCell('Yes - via channel on macOS/iOS/Linux.',
-              colour: _kAccentGreen),
+          _comparisonCell(
+            'Yes - via channel on macOS/iOS/Linux.',
+            colour: _kAccentGreen,
+          ),
         ),
         _comparisonRow(
           'Mouse cursor handling',
           _comparisonCell('No.', colour: _kAccentRose),
-          _comparisonCell('Yes - mouseCursor parameter.',
-              colour: _kAccentGreen),
+          _comparisonCell(
+            'Yes - mouseCursor parameter.',
+            colour: _kAccentGreen,
+          ),
           _comparisonCell('Driven by host platform.', colour: _kAccentAmber),
         ),
         _comparisonRow(
           'Tracks hover/focus states',
           _comparisonCell('No.', colour: _kAccentRose),
-          _comparisonCell('Yes - onShowFocusHighlight, onShowHoverHighlight.',
-              colour: _kAccentGreen),
+          _comparisonCell(
+            'Yes - onShowFocusHighlight, onShowHoverHighlight.',
+            colour: _kAccentGreen,
+          ),
           _comparisonCell('Platform-defined.', colour: _kAccentAmber),
         ),
         _comparisonRow(
           'Cost when child changes',
-          _comparisonCell('Cheap - InheritedWidget read.',
-              colour: _kAccentGreen),
-          _comparisonCell('Moderate - Focus + MouseRegion + Inherited.',
-              colour: _kAccentAmber),
+          _comparisonCell(
+            'Cheap - InheritedWidget read.',
+            colour: _kAccentGreen,
+          ),
+          _comparisonCell(
+            'Moderate - Focus + MouseRegion + Inherited.',
+            colour: _kAccentAmber,
+          ),
           _comparisonCell('IPC + platform-side rebuild.', colour: _kAccentRose),
         ),
         _comparisonRow(
@@ -1697,11 +1762,7 @@ Widget _dispatchRow(
           fontFamily: 'monospace',
           letterSpacing: 0.4,
         )
-      : const TextStyle(
-          fontSize: 12.5,
-          fontFamily: 'monospace',
-          color: _kInk,
-        );
+      : const TextStyle(fontSize: 12.5, fontFamily: 'monospace', color: _kInk);
   final TextStyle infoStyle = isHeader
       ? const TextStyle(
           fontSize: 11.5,
@@ -1709,10 +1770,7 @@ Widget _dispatchRow(
           color: _kInkSecondary,
           letterSpacing: 0.4,
         )
-      : const TextStyle(
-          fontSize: 12.5,
-          color: _kInkSecondary,
-        );
+      : const TextStyle(fontSize: 12.5, color: _kInkSecondary);
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
     color: isHeader ? _kCardSoft : null,
@@ -1739,7 +1797,8 @@ Widget _dispatchTableSection() {
       children: <Widget>[
         _cardTitle(
           'Intent dispatch table (live snapshot)',
-          subtitle: 'Conceptual map of the Actions widget at the WidgetsApp '
+          subtitle:
+              'Conceptual map of the Actions widget at the WidgetsApp '
               'level. Read top-down to see which Intent runtimeType is '
               'served by which Action.',
         ),
@@ -1751,24 +1810,48 @@ Widget _dispatchTableSection() {
           ),
           child: Column(
             children: <Widget>[
-              _dispatchRow('Type key', 'Action<Intent>', 'isEnabled default',
-                  isHeader: true),
-              _dispatchRow('ActivateIntent', 'ActivateAction',
-                  'true if focused widget accepts activation'),
-              _dispatchRow('DismissIntent', 'DismissAction',
-                  'Navigator.canPop(context)'),
               _dispatchRow(
-                  'NextFocusIntent', 'NextFocusAction', 'always true'),
-              _dispatchRow('PreviousFocusIntent', 'PreviousFocusAction',
-                  'always true'),
-              _dispatchRow('DirectionalFocusIntent', 'DirectionalFocusAction',
-                  'true if a sibling node exists in that direction'),
-              _dispatchRow('ScrollIntent', 'ScrollAction',
-                  'true if a Scrollable is in scope'),
-              _dispatchRow('PrioritizedIntents', '(meta-dispatcher)',
-                  'OR over child intents'),
-              _dispatchRow('SaveIntent', 'CallbackAction<SaveIntent>',
-                  'user-defined, e.g. controller.isDirty'),
+                'Type key',
+                'Action<Intent>',
+                'isEnabled default',
+                isHeader: true,
+              ),
+              _dispatchRow(
+                'ActivateIntent',
+                'ActivateAction',
+                'true if focused widget accepts activation',
+              ),
+              _dispatchRow(
+                'DismissIntent',
+                'DismissAction',
+                'Navigator.canPop(context)',
+              ),
+              _dispatchRow('NextFocusIntent', 'NextFocusAction', 'always true'),
+              _dispatchRow(
+                'PreviousFocusIntent',
+                'PreviousFocusAction',
+                'always true',
+              ),
+              _dispatchRow(
+                'DirectionalFocusIntent',
+                'DirectionalFocusAction',
+                'true if a sibling node exists in that direction',
+              ),
+              _dispatchRow(
+                'ScrollIntent',
+                'ScrollAction',
+                'true if a Scrollable is in scope',
+              ),
+              _dispatchRow(
+                'PrioritizedIntents',
+                '(meta-dispatcher)',
+                'OR over child intents',
+              ),
+              _dispatchRow(
+                'SaveIntent',
+                'CallbackAction<SaveIntent>',
+                'user-defined, e.g. controller.isDirty',
+              ),
             ],
           ),
         ),
@@ -1785,11 +1868,7 @@ Widget _dispatchTableSection() {
             'Lookups proceed leaf-to-root and the first match wins. '
             'Action.overridable lets a leaf wrap the ancestor entry instead '
             'of fully replacing it.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.5,
-              color: _kInk,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.5, color: _kInk),
           ),
         ),
       ],
@@ -1828,10 +1907,7 @@ Widget _pitfallCard(
           width: 30.0,
           height: 30.0,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: colour,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
           child: const Text(
             '!',
             style: TextStyle(
@@ -1986,26 +2062,28 @@ Widget _chipGroup(String label, List<String> chips, Color colour) {
           spacing: 6.0,
           runSpacing: 6.0,
           children: chips
-              .map<Widget>((String s) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 3.0,
+              .map<Widget>(
+                (String s) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colour.withOpacity(0.18),
+                    borderRadius: BorderRadius.circular(999.0),
+                    border: Border.all(color: colour.withOpacity(0.4)),
+                  ),
+                  child: Text(
+                    s,
+                    style: TextStyle(
+                      color: colour,
+                      fontSize: 11.5,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
                     ),
-                    decoration: BoxDecoration(
-                      color: colour.withOpacity(0.18),
-                      borderRadius: BorderRadius.circular(999.0),
-                      border: Border.all(color: colour.withOpacity(0.4)),
-                    ),
-                    child: Text(
-                      s,
-                      style: TextStyle(
-                        color: colour,
-                        fontSize: 11.5,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ))
+                  ),
+                ),
+              )
               .toList(growable: false),
         ),
       ],
@@ -2144,63 +2222,93 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1 - hero
           _heroBanner(),
-          _sectionHeader(1, 'Activator -> Intent -> Action',
-              'The three decoupled layers of Flutter\'s shortcut system.'),
+          _sectionHeader(
+            1,
+            'Activator -> Intent -> Action',
+            'The three decoupled layers of Flutter\'s shortcut system.',
+          ),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2 - key event flow CustomPainter
-          _sectionHeader(2, 'Key-event flow',
-              'How a KeyEvent walks from the engine to an Action.invoke call.'),
+          _sectionHeader(
+            2,
+            'Key-event flow',
+            'How a KeyEvent walks from the engine to an Action.invoke call.',
+          ),
           _keyFlowSection(),
           _sectionDivider(),
 
           // Section 3 - activator inventory
-          _sectionHeader(3, 'ShortcutActivator inventory',
-              'Four ways to say "this chord". Pick the right one.'),
+          _sectionHeader(
+            3,
+            'ShortcutActivator inventory',
+            'Four ways to say "this chord". Pick the right one.',
+          ),
           _activatorInventorySection(),
           _activatorChordsPanel(),
           _sectionDivider(),
 
           // Section 4 - built-in intents matrix
-          _sectionHeader(4, 'Built-in Intents',
-              'WidgetsApp ships defaults for these. Override per surface.'),
+          _sectionHeader(
+            4,
+            'Built-in Intents',
+            'WidgetsApp ships defaults for these. Override per surface.',
+          ),
           _intentsMatrixSection(),
           _sectionDivider(),
 
           // Section 5 - worked Actions.invoke example
-          _sectionHeader(5, 'Worked Actions.invoke<T> example',
-              'Step-by-step from call site to Action.invoke.'),
+          _sectionHeader(
+            5,
+            'Worked Actions.invoke<T> example',
+            'Step-by-step from call site to Action.invoke.',
+          ),
           _workedInvokeSection(),
           _sectionDivider(),
 
           // Section 6 - code snippet cards
-          _sectionHeader(6, 'Code snippet cards',
-              'CallbackAction, custom subclass, Action.overridable, FAD.'),
+          _sectionHeader(
+            6,
+            'Code snippet cards',
+            'CallbackAction, custom subclass, Action.overridable, FAD.',
+          ),
           _codeSnippetsSection(),
           _sectionDivider(),
 
           // Section 7 - comparison matrix
-          _sectionHeader(7, 'Comparison matrix',
-              'Shortcuts vs FocusableActionDetector vs PlatformMenu.'),
+          _sectionHeader(
+            7,
+            'Comparison matrix',
+            'Shortcuts vs FocusableActionDetector vs PlatformMenu.',
+          ),
           _comparisonMatrixSection(),
           _sectionDivider(),
 
           // Section 8 - dispatch table snapshot
-          _sectionHeader(8, 'Intent dispatch table',
-              'A conceptual snapshot of the root Actions widget.'),
+          _sectionHeader(
+            8,
+            'Intent dispatch table',
+            'A conceptual snapshot of the root Actions widget.',
+          ),
           _dispatchTableSection(),
           _sectionDivider(),
 
           // Section 9 - pitfalls
-          _sectionHeader(9, 'Pitfalls',
-              'Six traps that bite when wiring Shortcuts to Actions.'),
+          _sectionHeader(
+            9,
+            'Pitfalls',
+            'Six traps that bite when wiring Shortcuts to Actions.',
+          ),
           _pitfallsSection(),
           _sectionDivider(),
 
           // Section 10 - cheat sheet footer
-          _sectionHeader(10, 'Cheat-sheet',
-              'A compact map of the shortcuts/actions surface.'),
+          _sectionHeader(
+            10,
+            'Cheat-sheet',
+            'A compact map of the shortcuts/actions surface.',
+          ),
           _cheatSheetFooter(),
         ],
       ),

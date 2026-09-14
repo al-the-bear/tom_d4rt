@@ -43,9 +43,7 @@ Widget _roSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_roForest, _roDarkForest],
-      ),
+      gradient: LinearGradient(colors: [_roForest, _roDarkForest]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +158,11 @@ Widget _roBadge(String label, Color bg) {
     ),
     child: Text(
       label,
-      style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w600),
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -343,9 +345,15 @@ Widget _roSection2Origin() {
             _roFlowArrow(),
             _roFlowBox('viewport.getOffsetToReveal(target, alignment)', _roSky),
             _roFlowArrow(),
-            _roFlowBox('→ RevealedOffset(offset: 840.0, rect: Rect(...))', _roGold),
+            _roFlowBox(
+              '→ RevealedOffset(offset: 840.0, rect: Rect(...))',
+              _roGold,
+            ),
             _roFlowArrow(),
-            _roFlowBox('ScrollPosition.animateTo(revealed.offset)', _roLightForest),
+            _roFlowBox(
+              'ScrollPosition.animateTo(revealed.offset)',
+              _roLightForest,
+            ),
           ],
         ),
       ),
@@ -525,10 +533,7 @@ Widget _roAlignmentVisual(String label, String desc, double alignment) {
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                desc,
-                style: const TextStyle(fontSize: 12, color: _roBark),
-              ),
+              Text(desc, style: const TextStyle(fontSize: 12, color: _roBark)),
             ],
           ),
         ),
@@ -703,7 +708,10 @@ Widget _roSection5Nested() {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: const Center(
-                child: Text('Item A', style: TextStyle(color: _roBark, fontSize: 11)),
+                child: Text(
+                  'Item A',
+                  style: TextStyle(color: _roBark, fontSize: 11),
+                ),
               ),
             ),
             const SizedBox(height: 6),
@@ -748,7 +756,10 @@ Widget _roSection5Nested() {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: const Center(
-                child: Text('Item C', style: TextStyle(color: _roBark, fontSize: 11)),
+                child: Text(
+                  'Item C',
+                  style: TextStyle(color: _roBark, fontSize: 11),
+                ),
               ),
             ),
           ],
@@ -887,7 +898,11 @@ Widget _roEdgeCaseCard(String title, String desc, IconData icon, Color color) {
               const SizedBox(height: 4),
               Text(
                 desc,
-                style: const TextStyle(fontSize: 12, color: _roBark, height: 1.4),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: _roBark,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -966,14 +981,20 @@ Widget _roSection7VisualDemo() {
                     (name) => Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(vertical: 2),
-                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         name,
-                        style: TextStyle(color: Colors.grey.shade400, fontSize: 11),
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 11,
+                        ),
                       ),
                     ),
                   ),
@@ -986,7 +1007,10 @@ Widget _roSection7VisualDemo() {
               decoration: BoxDecoration(
                 color: _roForest.withValues(alpha: 0.05),
                 border: Border.symmetric(
-                  horizontal: BorderSide(color: _roForest.withValues(alpha: 0.3), width: 2),
+                  horizontal: BorderSide(
+                    color: _roForest.withValues(alpha: 0.3),
+                    width: 2,
+                  ),
                 ),
               ),
               child: Column(
@@ -1028,14 +1052,20 @@ Widget _roSection7VisualDemo() {
                     (name) => Container(
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(vertical: 2),
-                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         name,
-                        style: TextStyle(color: Colors.grey.shade400, fontSize: 11),
+                        style: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 11,
+                        ),
                       ),
                     ),
                   ),
@@ -1141,10 +1171,7 @@ Widget _roSection8Summary() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _roSectionHeader(
-        '8. Summary',
-        subtitle: 'RevealedOffset at a glance',
-      ),
+      _roSectionHeader('8. Summary', subtitle: 'RevealedOffset at a glance'),
       const SizedBox(height: 12),
       // Compact summary
       Container(
@@ -1159,7 +1186,10 @@ Widget _roSection8Summary() {
           children: [
             _roSummaryRow('Type', 'Immutable data class'),
             _roSummaryRow('Fields', 'offset (double) + rect (Rect)'),
-            _roSummaryRow('Created by', 'RenderAbstractViewport.getOffsetToReveal()'),
+            _roSummaryRow(
+              'Created by',
+              'RenderAbstractViewport.getOffsetToReveal()',
+            ),
             _roSummaryRow('Used by', 'Scrollable.ensureVisible()'),
             _roSummaryRow('Controls', 'Where to scroll and where target lands'),
             _roSummaryRow('alignment', '0.0=top, 0.5=center, 1.0=bottom'),
@@ -1181,9 +1211,7 @@ Widget _roSection8Summary() {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [_roForest, _roDarkForest],
-          ),
+          gradient: const LinearGradient(colors: [_roForest, _roDarkForest]),
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Row(
@@ -1193,7 +1221,7 @@ Widget _roSection8Summary() {
             Expanded(
               child: Text(
                 'RevealedOffset answers the question: "Where should I '
-                    'scroll, and where will the item be when I get there?"',
+                'scroll, and where will the item be when I get there?"',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.5,
@@ -1305,8 +1333,8 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 6),
                   Text(
                     'A data class that tells the scroll system exactly '
-                        'where to scroll and where the revealed item will '
-                        'appear in the viewport.',
+                    'where to scroll and where the revealed item will '
+                    'appear in the viewport.',
                     style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.85),
                       fontSize: 13,

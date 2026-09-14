@@ -137,9 +137,9 @@ dynamic build(BuildContext context) {
               _section(
                 '1. When to reach for BottomAppBar',
                 'BottomAppBar is the long horizontal slab anchored to the bottom of a Scaffold. '
-                'Unlike BottomNavigationBar or NavigationBar (which encode destinations), it is a free '
-                'canvas: drop in IconButtons, search fields, overflow menus, and dock a FloatingActionButton '
-                'through a NotchedShape.',
+                    'Unlike BottomNavigationBar or NavigationBar (which encode destinations), it is a free '
+                    'canvas: drop in IconButtons, search fields, overflow menus, and dock a FloatingActionButton '
+                    'through a NotchedShape.',
               ),
               const SizedBox(height: 14.0),
               _whenToReach(),
@@ -147,7 +147,7 @@ dynamic build(BuildContext context) {
               _section(
                 '2. API surface',
                 'Every constructor parameter of BottomAppBar with its type and default. '
-                'Defaults that resolve from BottomAppBarTheme are annotated.',
+                    'Defaults that resolve from BottomAppBarTheme are annotated.',
               ),
               const SizedBox(height: 14.0),
               _apiTable(),
@@ -155,8 +155,8 @@ dynamic build(BuildContext context) {
               _section(
                 '3. BottomAppBar gallery',
                 'Six full Scaffold snapshots, each in a ~360 x 640 phone bezel. Variants: classic, '
-                'notched FAB centerDocked, notched FAB endDocked, tinted, elevation 12 with shadow color, '
-                'and a rounded custom shape.',
+                    'notched FAB centerDocked, notched FAB endDocked, tinted, elevation 12 with shadow color, '
+                    'and a rounded custom shape.',
               ),
               const SizedBox(height: 14.0),
               _bottomAppBarGallery(),
@@ -164,8 +164,8 @@ dynamic build(BuildContext context) {
               _section(
                 '4. NotchedShape showcase',
                 'Three cards illustrating CircularNotchedRectangle, AutomaticNotchedShape with a star '
-                'host, and the no-shape baseline. Each card includes a CustomPainter that traces '
-                'getOuterPath against the FAB rectangle.',
+                    'host, and the no-shape baseline. Each card includes a CustomPainter that traces '
+                    'getOuterPath against the FAB rectangle.',
               ),
               const SizedBox(height: 14.0),
               _notchedShapeShowcase(),
@@ -173,8 +173,8 @@ dynamic build(BuildContext context) {
               _section(
                 '5. FloatingActionButtonLocation matrix',
                 'Six static snapshots showing where the FAB lands when paired with a BottomAppBar. '
-                'centerDocked is the canonical pairing; the others vary alignment, size, and a custom '
-                'subclass that anchors the FAB.',
+                    'centerDocked is the canonical pairing; the others vary alignment, size, and a custom '
+                    'subclass that anchors the FAB.',
               ),
               const SizedBox(height: 14.0),
               _fabLocationMatrix(),
@@ -182,7 +182,7 @@ dynamic build(BuildContext context) {
               _section(
                 '6. BottomAppBarTheme integration',
                 'A Theme wrapper that provides BottomAppBarTheme. All BottomAppBar instances beneath '
-                'inherit color, elevation, shape and padding unless overridden.',
+                    'inherit color, elevation, shape and padding unless overridden.',
               ),
               const SizedBox(height: 14.0),
               _themeIntegration(),
@@ -197,7 +197,7 @@ dynamic build(BuildContext context) {
               _section(
                 '8. BottomAppBar vs alternatives',
                 'A comparison table contrasting BottomAppBar with BottomNavigationBar, NavigationBar '
-                '(Material 3) and BottomSheet on key axes.',
+                    '(Material 3) and BottomSheet on key axes.',
               ),
               const SizedBox(height: 14.0),
               _comparisonTable(),
@@ -212,7 +212,7 @@ dynamic build(BuildContext context) {
               _section(
                 '10. Material 3 vs Material 2',
                 'Same BottomAppBar, two ThemeData configurations. M3 leans on surfaceTint + tonal '
-                'elevation; M2 leans on opaque color + shadow.',
+                    'elevation; M2 leans on opaque color + shadow.',
               ),
               const SizedBox(height: 14.0),
               _m3VsM2Cards(),
@@ -296,8 +296,11 @@ Widget _hero() {
             const SizedBox(width: 8.0),
             _heroBadge('FAB location'),
             const Spacer(),
-            const Icon(Icons.crop_landscape_rounded,
-                color: Colors.white70, size: 22.0),
+            const Icon(
+              Icons.crop_landscape_rounded,
+              color: Colors.white70,
+              size: 22.0,
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -428,8 +431,10 @@ Widget _section(String title, String description) {
 
 Widget _card({
   required Widget child,
-  EdgeInsetsGeometry padding =
-      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
+    horizontal: 16.0,
+    vertical: 16.0,
+  ),
   Color background = _kCard,
 }) {
   return Container(
@@ -488,27 +493,27 @@ Widget _whenToReach() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _whenColumn(
-              'Reach for BottomAppBar when...',
-              <String>[
+            Expanded(
+              child: _whenColumn('Reach for BottomAppBar when...', <String>[
                 'You need a docked FAB with a notched silhouette.',
                 'The action set is task-scoped (search, filter, share, overflow) rather than destinations.',
                 'You want full control of the children Row inside the bar.',
                 'A Scaffold already supplies the FAB and floatingActionButtonLocation.',
-              ],
-              _kAccent,
-            )),
+              ], _kAccent),
+            ),
             const SizedBox(width: 14.0),
-            Expanded(child: _whenColumn(
-              'Prefer BottomNavigationBar / NavigationBar when...',
-              <String>[
-                'The bar represents top-level destinations (Home / Search / Profile).',
-                'You need Material 3 destination semantics with selected state.',
-                'You want animated indicators between destinations.',
-                'Accessibility expects a tablist role rather than a toolbar.',
-              ],
-              _kRose,
-            )),
+            Expanded(
+              child: _whenColumn(
+                'Prefer BottomNavigationBar / NavigationBar when...',
+                <String>[
+                  'The bar represents top-level destinations (Home / Search / Profile).',
+                  'You need Material 3 destination semantics with selected state.',
+                  'You want animated indicators between destinations.',
+                  'Accessibility expects a tablist role rather than a toolbar.',
+                ],
+                _kRose,
+              ),
+            ),
           ],
         ),
       ],
@@ -550,8 +555,11 @@ Widget _whenColumn(String title, List<String> items, Color accent) {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 5.0),
-                  child: Icon(Icons.fiber_manual_record,
-                      color: accent.withOpacity(0.7), size: 6.0),
+                  child: Icon(
+                    Icons.fiber_manual_record,
+                    color: accent.withOpacity(0.7),
+                    size: 6.0,
+                  ),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(child: Text(item, style: _kBody)),
@@ -568,26 +576,56 @@ Widget _whenColumn(String title, List<String> items, Color accent) {
 // ---------------------------------------------------------------------------
 Widget _apiTable() {
   final List<List<String>> rows = <List<String>>[
-    <String>['color', 'Color?',
-      'Fill colour. Defaults to BottomAppBarTheme.color, then ColorScheme.surface.'],
-    <String>['elevation', 'double?',
-      'Z-elevation drawn below the bar. Defaults to theme; M3 default is 3.0.'],
-    <String>['shape', 'NotchedShape?',
-      'Notch carved for a docked FAB. Defaults to BottomAppBarTheme.shape, else null (flat).'],
-    <String>['notchMargin', 'double',
-      'Gap between FAB silhouette and notch edge. Default 4.0.'],
-    <String>['clipBehavior', 'Clip',
-      'How children are clipped. Default Clip.none; use Clip.antiAlias to honour shape.'],
-    <String>['padding', 'EdgeInsetsGeometry?',
-      'Inner padding around the child. Defaults to BottomAppBarTheme.padding.'],
-    <String>['height', 'double?',
-      'Fixed height. Defaults to BottomAppBarTheme.height, else kBottomNavigationBarHeight.'],
-    <String>['surfaceTintColor', 'Color?',
-      'M3 tonal tint applied on top of color. Defaults to ColorScheme.surfaceTint.'],
-    <String>['shadowColor', 'Color?',
-      'Shadow tint when elevation > 0. Defaults to ColorScheme.shadow.'],
-    <String>['child', 'Widget?',
-      'Single child (usually a Row of IconButtons + spacer for the FAB notch).'],
+    <String>[
+      'color',
+      'Color?',
+      'Fill colour. Defaults to BottomAppBarTheme.color, then ColorScheme.surface.',
+    ],
+    <String>[
+      'elevation',
+      'double?',
+      'Z-elevation drawn below the bar. Defaults to theme; M3 default is 3.0.',
+    ],
+    <String>[
+      'shape',
+      'NotchedShape?',
+      'Notch carved for a docked FAB. Defaults to BottomAppBarTheme.shape, else null (flat).',
+    ],
+    <String>[
+      'notchMargin',
+      'double',
+      'Gap between FAB silhouette and notch edge. Default 4.0.',
+    ],
+    <String>[
+      'clipBehavior',
+      'Clip',
+      'How children are clipped. Default Clip.none; use Clip.antiAlias to honour shape.',
+    ],
+    <String>[
+      'padding',
+      'EdgeInsetsGeometry?',
+      'Inner padding around the child. Defaults to BottomAppBarTheme.padding.',
+    ],
+    <String>[
+      'height',
+      'double?',
+      'Fixed height. Defaults to BottomAppBarTheme.height, else kBottomNavigationBarHeight.',
+    ],
+    <String>[
+      'surfaceTintColor',
+      'Color?',
+      'M3 tonal tint applied on top of color. Defaults to ColorScheme.surfaceTint.',
+    ],
+    <String>[
+      'shadowColor',
+      'Color?',
+      'Shadow tint when elevation > 0. Defaults to ColorScheme.shadow.',
+    ],
+    <String>[
+      'child',
+      'Widget?',
+      'Single child (usually a Row of IconButtons + spacer for the FAB notch).',
+    ],
     <String>['key', 'Key?', 'Optional widget key.'],
   ];
 
@@ -609,20 +647,35 @@ Widget _apiTable() {
             children: const <Widget>[
               SizedBox(
                 width: 150.0,
-                child: Text('Parameter',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700, color: _kInk, fontSize: 12.5)),
+                child: Text(
+                  'Parameter',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                    fontSize: 12.5,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 130.0,
-                child: Text('Type',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700, color: _kInk, fontSize: 12.5)),
+                child: Text(
+                  'Type',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                    fontSize: 12.5,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('Default / role',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700, color: _kInk, fontSize: 12.5)),
+                child: Text(
+                  'Default / role',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                    fontSize: 12.5,
+                  ),
+                ),
               ),
             ],
           ),
@@ -630,7 +683,9 @@ Widget _apiTable() {
         for (int i = 0; i < rows.length; i++)
           Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: 16.0, vertical: 10.0),
+              horizontal: 16.0,
+              vertical: 10.0,
+            ),
             decoration: BoxDecoration(
               color: i.isOdd ? _kPaper : Colors.white,
               border: const Border(
@@ -663,9 +718,7 @@ Widget _apiTable() {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Text(rows[i][2], style: _kBody),
-                ),
+                Expanded(child: Text(rows[i][2], style: _kBody)),
               ],
             ),
           ),
@@ -703,21 +756,14 @@ Widget _phoneBezel({
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(22.0)),
-          child: Container(
-            color: _kPhoneScreen,
-            child: content,
-          ),
+          child: Container(color: _kPhoneScreen, child: content),
         ),
       ),
       if (caption != null) ...<Widget>[
         const SizedBox(height: 8.0),
         SizedBox(
           width: width,
-          child: Text(
-            caption,
-            style: _kBodyMuted,
-            textAlign: TextAlign.center,
-          ),
+          child: Text(caption, style: _kBodyMuted, textAlign: TextAlign.center),
         ),
       ],
     ],
@@ -739,40 +785,42 @@ Widget _phoneScreenBody({
           alignment: Alignment.centerLeft,
           decoration: const BoxDecoration(
             color: Colors.white,
-            border: Border(
-              bottom: BorderSide(color: _kBorderSoft, width: 1.0),
-            ),
+            border: Border(bottom: BorderSide(color: _kBorderSoft, width: 1.0)),
           ),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.signal_cellular_alt,
-                  size: 12.0, color: _kMuted),
+              const Icon(Icons.signal_cellular_alt, size: 12.0, color: _kMuted),
               const SizedBox(width: 4.0),
               const Icon(Icons.wifi, size: 12.0, color: _kMuted),
               const Spacer(),
-              const Text('9:41',
-                  style: TextStyle(
-                      fontSize: 10.0,
-                      fontWeight: FontWeight.w700,
-                      color: _kInk)),
+              const Text(
+                '9:41',
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
               const Spacer(),
               const Icon(Icons.battery_full, size: 12.0, color: _kMuted),
             ],
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           decoration: const BoxDecoration(color: Colors.white),
           child: Row(
             children: <Widget>[
               const Icon(Icons.menu, size: 16.0, color: _kInk),
               const SizedBox(width: 10.0),
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w700,
-                      color: _kInk)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
               const Spacer(),
               const Icon(Icons.more_vert, size: 16.0, color: _kInk),
             ],
@@ -820,14 +868,19 @@ Widget _fakeCard(String title, String subtitle) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.w700,
-                      color: _kInk)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
               const SizedBox(height: 2.0),
-              Text(subtitle,
-                  style: const TextStyle(fontSize: 10.0, color: _kMuted)),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 10.0, color: _kMuted),
+              ),
             ],
           ),
         ),
@@ -907,7 +960,9 @@ Widget _galleryPhone({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _kAccentSoft,
                 borderRadius: BorderRadius.circular(999.0),
@@ -915,19 +970,14 @@ Widget _galleryPhone({
               child: Text(tag, style: _kTag),
             ),
             const Spacer(),
-            const Icon(Icons.smartphone_rounded,
-                size: 14.0, color: _kMuted),
+            const Icon(Icons.smartphone_rounded, size: 14.0, color: _kMuted),
           ],
         ),
         const SizedBox(height: 8.0),
         Text(label, style: _kH3),
         const SizedBox(height: 10.0),
         Center(
-          child: _phoneBezel(
-            width: 220.0,
-            height: 400.0,
-            content: content,
-          ),
+          child: _phoneBezel(width: 220.0, height: 400.0, content: content),
         ),
       ],
     ),
@@ -1159,11 +1209,9 @@ class _TopRoundedNotchedShape extends NotchedShape {
     if (guest == null || !host.overlaps(guest)) {
       final Path p = Path();
       p.moveTo(host.left, host.top + radius);
-      p.quadraticBezierTo(
-          host.left, host.top, host.left + radius, host.top);
+      p.quadraticBezierTo(host.left, host.top, host.left + radius, host.top);
       p.lineTo(host.right - radius, host.top);
-      p.quadraticBezierTo(
-          host.right, host.top, host.right, host.top + radius);
+      p.quadraticBezierTo(host.right, host.top, host.right, host.top + radius);
       p.lineTo(host.right, host.bottom);
       p.lineTo(host.left, host.bottom);
       p.close();
@@ -1184,9 +1232,7 @@ class _TopRoundedNotchedShape extends NotchedShape {
     p[0] = Offset(a - s1, b);
     p[1] = Offset(a, b);
     final double cmp = b < 0 ? -1.0 : 1.0;
-    p[2] = cmp * p2yA > cmp * p2yB
-        ? Offset(p2xA, p2yA)
-        : Offset(p2xB, p2yB);
+    p[2] = cmp * p2yA > cmp * p2yB ? Offset(p2xA, p2yA) : Offset(p2xB, p2yB);
     p[3] = Offset(-1.0 * p[2].dx, p[2].dy);
     p[4] = Offset(-1.0 * p[1].dx, p[1].dy);
     p[5] = Offset(-1.0 * p[0].dx, p[0].dy);
@@ -1195,8 +1241,7 @@ class _TopRoundedNotchedShape extends NotchedShape {
     }
     final Path path = Path();
     path.moveTo(host.left, host.top + radius);
-    path.quadraticBezierTo(
-        host.left, host.top, host.left + radius, host.top);
+    path.quadraticBezierTo(host.left, host.top, host.left + radius, host.top);
     path.lineTo(p[0].dx, p[0].dy);
     path.quadraticBezierTo(p[1].dx, p[1].dy, p[2].dx, p[2].dy);
     path.arcToPoint(
@@ -1206,8 +1251,7 @@ class _TopRoundedNotchedShape extends NotchedShape {
     );
     path.quadraticBezierTo(p[4].dx, p[4].dy, p[5].dx, p[5].dy);
     path.lineTo(host.right - radius, host.top);
-    path.quadraticBezierTo(
-        host.right, host.top, host.right, host.top + radius);
+    path.quadraticBezierTo(host.right, host.top, host.right, host.top + radius);
     path.lineTo(host.right, host.bottom);
     path.lineTo(host.left, host.bottom);
     path.close();
@@ -1222,45 +1266,43 @@ Widget _notchedShapeShowcase() {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Expanded(child: _notchedShapeCard(
-        title: 'CircularNotchedRectangle',
-        description:
-            'The canonical notch. Carves a circular cutout sized to the guest '
-            'FAB plus notchMargin. Default for Material BottomAppBar shape.',
-        painter: _NotchPainter(
-          mode: _NotchMode.circular,
-          margin: 6.0,
+      Expanded(
+        child: _notchedShapeCard(
+          title: 'CircularNotchedRectangle',
+          description:
+              'The canonical notch. Carves a circular cutout sized to the guest '
+              'FAB plus notchMargin. Default for Material BottomAppBar shape.',
+          painter: _NotchPainter(mode: _NotchMode.circular, margin: 6.0),
+          snippet: 'shape: const CircularNotchedRectangle()',
         ),
-        snippet: 'shape: const CircularNotchedRectangle()',
-      )),
+      ),
       const SizedBox(width: 14.0),
-      Expanded(child: _notchedShapeCard(
-        title: 'AutomaticNotchedShape (star host)',
-        description:
-            'AutomaticNotchedShape wraps any OutlinedBorder. The guest border '
-            'silhouette is subtracted from the host. Useful when the FAB has a '
-            'non-circular shape.',
-        painter: _NotchPainter(
-          mode: _NotchMode.star,
-          margin: 6.0,
+      Expanded(
+        child: _notchedShapeCard(
+          title: 'AutomaticNotchedShape (star host)',
+          description:
+              'AutomaticNotchedShape wraps any OutlinedBorder. The guest border '
+              'silhouette is subtracted from the host. Useful when the FAB has a '
+              'non-circular shape.',
+          painter: _NotchPainter(mode: _NotchMode.star, margin: 6.0),
+          snippet:
+              'AutomaticNotchedShape(\n'
+              '  RoundedRectangleBorder(),\n'
+              '  StarBorder(),\n'
+              ')',
         ),
-        snippet: 'AutomaticNotchedShape(\n'
-            '  RoundedRectangleBorder(),\n'
-            '  StarBorder(),\n'
-            ')',
-      )),
+      ),
       const SizedBox(width: 14.0),
-      Expanded(child: _notchedShapeCard(
-        title: 'no shape',
-        description:
-            'When shape is null the BottomAppBar is a flat rectangle. The FAB '
-            'still floats above but no cutout is drawn.',
-        painter: _NotchPainter(
-          mode: _NotchMode.flat,
-          margin: 0.0,
+      Expanded(
+        child: _notchedShapeCard(
+          title: 'no shape',
+          description:
+              'When shape is null the BottomAppBar is a flat rectangle. The FAB '
+              'still floats above but no cutout is drawn.',
+          painter: _NotchPainter(mode: _NotchMode.flat, margin: 0.0),
+          snippet: 'shape: null  // default before theme',
         ),
-        snippet: 'shape: null  // default before theme',
-      )),
+      ),
     ],
   );
 }
@@ -1287,10 +1329,7 @@ Widget _notchedShapeCard({
             border: Border.all(color: _kBorderSoft, width: 1.0),
           ),
           padding: const EdgeInsets.all(8.0),
-          child: CustomPaint(
-            painter: painter,
-            child: const SizedBox.expand(),
-          ),
+          child: CustomPaint(painter: painter, child: const SizedBox.expand()),
         ),
         const SizedBox(height: 10.0),
         _codeBox(snippet),
@@ -1332,8 +1371,10 @@ class _NotchPainter extends CustomPainter {
     Path barPath;
     switch (mode) {
       case _NotchMode.circular:
-        barPath = const CircularNotchedRectangle()
-            .getOuterPath(host, guest.inflate(margin));
+        barPath = const CircularNotchedRectangle().getOuterPath(
+          host,
+          guest.inflate(margin),
+        );
         break;
       case _NotchMode.star:
         barPath = const AutomaticNotchedShape(
@@ -1358,8 +1399,7 @@ class _NotchPainter extends CustomPainter {
       canvas.drawCircle(guest.center, fabR, fabRim);
     } else {
       final Paint fab = Paint()..color = _kAccent;
-      canvas.drawCircle(
-          Offset(size.width / 2.0, host.top - 6.0), fabR, fab);
+      canvas.drawCircle(Offset(size.width / 2.0, host.top - 6.0), fabR, fab);
     }
 
     final TextPainter tp = TextPainter(
@@ -1442,22 +1482,25 @@ Widget _fabLocationCell({
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _kVioletSoft,
                 borderRadius: BorderRadius.circular(999.0),
               ),
-              child: Text(label,
-                  style: const TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w700,
-                    color: _kViolet,
-                    letterSpacing: 0.4,
-                  )),
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kViolet,
+                  letterSpacing: 0.4,
+                ),
+              ),
             ),
             const Spacer(),
-            const Icon(Icons.location_on_outlined,
-                size: 14.0, color: _kMuted),
+            const Icon(Icons.location_on_outlined, size: 14.0, color: _kMuted),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -1510,8 +1553,10 @@ class _CustomFabLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry geom) {
     final double x =
-        geom.scaffoldSize.width * 0.75 - geom.floatingActionButtonSize.width / 2;
-    final double y = geom.scaffoldSize.height -
+        geom.scaffoldSize.width * 0.75 -
+        geom.floatingActionButtonSize.width / 2;
+    final double y =
+        geom.scaffoldSize.height -
         geom.floatingActionButtonSize.height -
         geom.bottomSheetSize.height -
         24.0;
@@ -1558,10 +1603,13 @@ Widget _themeIntegration() {
               const SizedBox(height: 12.0),
               _themedFieldRow('color', '_kPaper', 'fill colour'),
               _themedFieldRow('elevation', '3.0', 'shadow depth'),
-              _themedFieldRow('shape', 'CircularNotchedRectangle', 'notch shape'),
+              _themedFieldRow(
+                'shape',
+                'CircularNotchedRectangle',
+                'notch shape',
+              ),
               _themedFieldRow('height', '64.0', 'logical px'),
-              _themedFieldRow('padding', 'symmetric(h: 8)',
-                  'around child'),
+              _themedFieldRow('padding', 'symmetric(h: 8)', 'around child'),
             ],
           ),
         ),
@@ -1636,20 +1684,26 @@ Widget _themedFieldRow(String field, String value, String note) {
       children: <Widget>[
         SizedBox(
           width: 78.0,
-          child: Text(field,
-              style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.w700,
-                  color: _kAccentInk)),
+          child: Text(
+            field,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+              color: _kAccentInk,
+            ),
+          ),
         ),
         SizedBox(
           width: 150.0,
-          child: Text(value,
-              style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.5,
-                  color: _kSlate)),
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              color: _kSlate,
+            ),
+          ),
         ),
         Expanded(child: Text(note, style: _kBodyMuted)),
       ],
@@ -1849,7 +1903,9 @@ Widget _codeIdiomCard(_CodeIdiom idiom) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _kAccentSoft,
                 borderRadius: BorderRadius.circular(999.0),
@@ -1876,24 +1932,47 @@ Widget _codeIdiomCard(_CodeIdiom idiom) {
 // ---------------------------------------------------------------------------
 Widget _comparisonTable() {
   final List<List<String>> headers = <List<String>>[
-    <String>['Axis', 'BottomAppBar', 'BottomNavigationBar', 'NavigationBar',
-      'BottomSheet'],
+    <String>[
+      'Axis',
+      'BottomAppBar',
+      'BottomNavigationBar',
+      'NavigationBar',
+      'BottomSheet',
+    ],
   ];
   final List<List<String>> rows = <List<String>>[
     <String>['Material era', 'M2 + M3', 'M2 (legacy)', 'M3', 'M2 + M3'],
-    <String>['Semantics', 'Toolbar', 'Tab list', 'Tab list',
-      'Surface / dialog'],
+    <String>[
+      'Semantics',
+      'Toolbar',
+      'Tab list',
+      'Tab list',
+      'Surface / dialog',
+    ],
     <String>['Encodes destinations?', 'No', 'Yes', 'Yes', 'No'],
     <String>['FAB notch support', 'Yes (NotchedShape)', 'No', 'No', 'No'],
-    <String>['Selected state', 'Manual', 'currentIndex', 'selectedIndex',
-      'N/A'],
-    <String>['Theme class', 'BottomAppBarTheme',
-      'BottomNavigationBarTheme...', 'NavigationBarTheme...',
-      'BottomSheetTheme...'],
+    <String>[
+      'Selected state',
+      'Manual',
+      'currentIndex',
+      'selectedIndex',
+      'N/A',
+    ],
+    <String>[
+      'Theme class',
+      'BottomAppBarTheme',
+      'BottomNavigationBarTheme...',
+      'NavigationBarTheme...',
+      'BottomSheetTheme...',
+    ],
     <String>['Height default', '~80 (M3)', '~56', '~80', 'flex'],
-    <String>['Best for', 'Tool strip + FAB',
-      'Top-level dests (legacy)', 'Top-level dests',
-      'Transient surfaces'],
+    <String>[
+      'Best for',
+      'Tool strip + FAB',
+      'Top-level dests (legacy)',
+      'Top-level dests',
+      'Transient surfaces',
+    ],
   ];
 
   final List<double> widths = <double>[120.0, 130.0, 150.0, 130.0, 130.0];
@@ -1932,7 +2011,9 @@ Widget _comparisonTable() {
         for (int i = 0; i < rows.length; i++)
           Container(
             padding: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 10.0),
+              horizontal: 14.0,
+              vertical: 10.0,
+            ),
             decoration: BoxDecoration(
               color: i.isOdd ? _kPaper : Colors.white,
               border: const Border(
@@ -2053,22 +2134,29 @@ Widget _pitfallCard(_Pitfall p) {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 3.0),
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _kRoseSoft,
                 borderRadius: BorderRadius.circular(999.0),
               ),
-              child: Text(p.severity,
-                  style: const TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.w700,
-                    color: _kRose,
-                    letterSpacing: 0.4,
-                  )),
+              child: Text(
+                p.severity,
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kRose,
+                  letterSpacing: 0.4,
+                ),
+              ),
             ),
             const Spacer(),
-            const Icon(Icons.report_problem_outlined,
-                size: 16.0, color: _kRose),
+            const Icon(
+              Icons.report_problem_outlined,
+              size: 16.0,
+              color: _kRose,
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
@@ -2087,31 +2175,35 @@ Widget _m3VsM2Cards() {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Expanded(child: _eraCard(
-        era: 'Material 3',
-        accent: _kAccent,
-        notes: <String>[
-          'color = ColorScheme.surface (light) by default.',
-          'surfaceTintColor produces tonal elevation overlay.',
-          'Elevation default 3.0.',
-          'Shape often null unless paired with a FAB.',
-          'Padding aware of safe-area + window padding.',
-        ],
-        content: _m3Snapshot(),
-      )),
+      Expanded(
+        child: _eraCard(
+          era: 'Material 3',
+          accent: _kAccent,
+          notes: <String>[
+            'color = ColorScheme.surface (light) by default.',
+            'surfaceTintColor produces tonal elevation overlay.',
+            'Elevation default 3.0.',
+            'Shape often null unless paired with a FAB.',
+            'Padding aware of safe-area + window padding.',
+          ],
+          content: _m3Snapshot(),
+        ),
+      ),
       const SizedBox(width: 14.0),
-      Expanded(child: _eraCard(
-        era: 'Material 2',
-        accent: _kAmber,
-        notes: <String>[
-          'color = Theme.bottomAppBarColor (often white).',
-          'surfaceTintColor ignored.',
-          'Elevation default 8.0 with a hard shadow.',
-          'Shape almost always CircularNotchedRectangle.',
-          'No automatic tonal blend; flat colour only.',
-        ],
-        content: _m2Snapshot(),
-      )),
+      Expanded(
+        child: _eraCard(
+          era: 'Material 2',
+          accent: _kAmber,
+          notes: <String>[
+            'color = Theme.bottomAppBarColor (often white).',
+            'surfaceTintColor ignored.',
+            'Elevation default 8.0 with a hard shadow.',
+            'Shape almost always CircularNotchedRectangle.',
+            'No automatic tonal blend; flat colour only.',
+          ],
+          content: _m2Snapshot(),
+        ),
+      ),
     ],
   );
 }
@@ -2131,8 +2223,7 @@ Widget _eraCard({
             Container(
               width: 12.0,
               height: 12.0,
-              decoration: BoxDecoration(
-                  color: accent, shape: BoxShape.circle),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8.0),
             Text(era, style: _kH2),
@@ -2147,8 +2238,11 @@ Widget _eraCard({
               children: <Widget>[
                 const Padding(
                   padding: EdgeInsets.only(top: 6.0),
-                  child: Icon(Icons.fiber_manual_record,
-                      size: 6.0, color: _kMuted),
+                  child: Icon(
+                    Icons.fiber_manual_record,
+                    size: 6.0,
+                    color: _kMuted,
+                  ),
                 ),
                 const SizedBox(width: 6.0),
                 Expanded(child: Text(note, style: _kBody)),
@@ -2157,11 +2251,7 @@ Widget _eraCard({
           ),
         const SizedBox(height: 12.0),
         Center(
-          child: _phoneBezel(
-            width: 230.0,
-            height: 410.0,
-            content: content,
-          ),
+          child: _phoneBezel(width: 230.0, height: 410.0, content: content),
         ),
       ],
     ),
@@ -2272,46 +2362,65 @@ Widget _cheatSheetFooter() {
           style: _kBody,
         ),
         const SizedBox(height: 14.0),
-        _chipGroup('Widgets', <String>[
-          'BottomAppBar',
-          'Scaffold',
-          'FloatingActionButton',
-          'IconButton',
-          'Row',
-          'Material',
-        ], _kAccent, _kAccentSoft),
+        _chipGroup(
+          'Widgets',
+          <String>[
+            'BottomAppBar',
+            'Scaffold',
+            'FloatingActionButton',
+            'IconButton',
+            'Row',
+            'Material',
+          ],
+          _kAccent,
+          _kAccentSoft,
+        ),
         const SizedBox(height: 10.0),
-        _chipGroup('Shapes', <String>[
-          'NotchedShape',
-          'CircularNotchedRectangle',
-          'AutomaticNotchedShape',
-          'OutlinedBorder',
-          'RoundedRectangleBorder',
-          'StadiumBorder',
-        ], _kRose, _kRoseSoft),
+        _chipGroup(
+          'Shapes',
+          <String>[
+            'NotchedShape',
+            'CircularNotchedRectangle',
+            'AutomaticNotchedShape',
+            'OutlinedBorder',
+            'RoundedRectangleBorder',
+            'StadiumBorder',
+          ],
+          _kRose,
+          _kRoseSoft,
+        ),
         const SizedBox(height: 10.0),
-        _chipGroup('Theme', <String>[
-          'BottomAppBarTheme',
-          'ThemeData.bottomAppBarTheme',
-          'ColorScheme.surface',
-          'ColorScheme.surfaceTint',
-          'ColorScheme.shadow',
-        ], _kViolet, _kVioletSoft),
+        _chipGroup(
+          'Theme',
+          <String>[
+            'BottomAppBarTheme',
+            'ThemeData.bottomAppBarTheme',
+            'ColorScheme.surface',
+            'ColorScheme.surfaceTint',
+            'ColorScheme.shadow',
+          ],
+          _kViolet,
+          _kVioletSoft,
+        ),
         const SizedBox(height: 10.0),
-        _chipGroup('FAB locations', <String>[
-          'centerDocked',
-          'endDocked',
-          'startDocked',
-          'miniCenterDocked',
-          'miniEndDocked',
-          'centerFloat',
-          'endFloat',
-          'custom FloatingActionButtonLocation',
-        ], _kTeal, _kTealSoft),
+        _chipGroup(
+          'FAB locations',
+          <String>[
+            'centerDocked',
+            'endDocked',
+            'startDocked',
+            'miniCenterDocked',
+            'miniEndDocked',
+            'centerFloat',
+            'endFloat',
+            'custom FloatingActionButtonLocation',
+          ],
+          _kTeal,
+          _kTealSoft,
+        ),
         const SizedBox(height: 16.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 14.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           decoration: BoxDecoration(
             color: _kPaper,
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -2319,8 +2428,11 @@ Widget _cheatSheetFooter() {
           ),
           child: Row(
             children: const <Widget>[
-              Icon(Icons.tips_and_updates_outlined,
-                  color: _kAccent, size: 18.0),
+              Icon(
+                Icons.tips_and_updates_outlined,
+                color: _kAccent,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -2372,7 +2484,9 @@ Widget _chipGroup(
             for (final String item in items)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 9.0, vertical: 5.0),
+                  horizontal: 9.0,
+                  vertical: 5.0,
+                ),
                 decoration: BoxDecoration(
                   color: background,
                   borderRadius: BorderRadius.circular(999.0),

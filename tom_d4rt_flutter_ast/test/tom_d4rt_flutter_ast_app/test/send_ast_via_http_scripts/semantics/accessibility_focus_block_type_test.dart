@@ -163,10 +163,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.blueGrey.shade50,
-          Colors.blueGrey.shade100,
-        ],
+        colors: [Colors.blueGrey.shade50, Colors.blueGrey.shade100],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -272,7 +269,8 @@ dynamic build(BuildContext context) {
           'Use for offscreen content, decorative regions, or modal scrims '
           'that should be entirely ignored by assistive tech while present.',
       'intensity': intensitySubtree,
-      'asciiTree': '[A]   <-- skipped\n [B]  <-- skipped\n [C]  <-- skipped\n     [D]  <-- skipped',
+      'asciiTree':
+          '[A]   <-- skipped\n [B]  <-- skipped\n [C]  <-- skipped\n     [D]  <-- skipped',
     },
   ];
 
@@ -322,10 +320,7 @@ dynamic build(BuildContext context) {
                   padding: EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        color,
-                        color.withValues(alpha: 0.6),
-                      ],
+                      colors: [color, color.withValues(alpha: 0.6)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -369,7 +364,10 @@ dynamic build(BuildContext context) {
                         runSpacing: 4.0,
                         children: [
                           _miniChip('index ${value.index}', color),
-                          _miniChip('intensity ${(intensity.value * 100).toStringAsFixed(0)}%', color),
+                          _miniChip(
+                            'intensity ${(intensity.value * 100).toStringAsFixed(0)}%',
+                            color,
+                          ),
                         ],
                       ),
                     ],
@@ -462,10 +460,7 @@ dynamic build(BuildContext context) {
                       child: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [
-                              color.withValues(alpha: 0.5),
-                              color,
-                            ],
+                            colors: [color.withValues(alpha: 0.5), color],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ),
@@ -498,8 +493,11 @@ dynamic build(BuildContext context) {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.account_tree_outlined,
-                      color: Colors.greenAccent.shade100, size: 16.0),
+                  Icon(
+                    Icons.account_tree_outlined,
+                    color: Colors.greenAccent.shade100,
+                    size: 16.0,
+                  ),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -530,8 +528,8 @@ dynamic build(BuildContext context) {
     final Color rowColor = i == 0
         ? Colors.green
         : i == 1
-            ? Colors.orange
-            : Colors.red;
+        ? Colors.orange
+        : Colors.red;
     enumeratedRows.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 4.0),
@@ -767,10 +765,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              c.withValues(alpha: 0.05),
-              c.withValues(alpha: 0.18),
-            ],
+            colors: [c.withValues(alpha: 0.05), c.withValues(alpha: 0.18)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -802,8 +797,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
                   decoration: BoxDecoration(
                     color: c.withValues(alpha: 0.20),
                     borderRadius: BorderRadius.circular(10.0),
@@ -920,10 +914,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              c.withValues(alpha: 0.12),
-              c.withValues(alpha: 0.04),
-            ],
+            colors: [c.withValues(alpha: 0.12), c.withValues(alpha: 0.04)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -987,13 +978,7 @@ dynamic build(BuildContext context) {
   // SECTION 6: Comparison table (vs related public APIs)
   // ============================================================
   final List<List<String>> comparisonRows = [
-    [
-      'AccessibilityFocusBlockType.none',
-      'no',
-      'no',
-      'no',
-      'default',
-    ],
+    ['AccessibilityFocusBlockType.none', 'no', 'no', 'no', 'default'],
     [
       'AccessibilityFocusBlockType.blockNode',
       'this node',
@@ -1015,27 +1000,9 @@ dynamic build(BuildContext context) {
       'no',
       'remove from a11y',
     ],
-    [
-      'BlockSemantics',
-      'siblings',
-      'siblings',
-      'no',
-      'modal scrims',
-    ],
-    [
-      'IgnorePointer',
-      'no',
-      'no',
-      'whole subtree',
-      'pointer-only',
-    ],
-    [
-      'MergeSemantics',
-      'merges',
-      'merges',
-      'no',
-      'flattens reads',
-    ],
+    ['BlockSemantics', 'siblings', 'siblings', 'no', 'modal scrims'],
+    ['IgnorePointer', 'no', 'no', 'whole subtree', 'pointer-only'],
+    ['MergeSemantics', 'merges', 'merges', 'no', 'flattens reads'],
   ];
 
   final Widget comparisonTable = Container(
@@ -1079,10 +1046,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Colors.orange.shade300,
-                Colors.amber.shade300,
-              ],
+              colors: [Colors.orange.shade300, Colors.amber.shade300],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -1309,12 +1273,21 @@ dynamic build(BuildContext context) {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _simChild('Heading',
-                                  blocked: subtreeBlocked, color: color),
-                              _simChild('Body text',
-                                  blocked: subtreeBlocked, color: color),
-                              _simChild('Action button',
-                                  blocked: subtreeBlocked, color: color),
+                              _simChild(
+                                'Heading',
+                                blocked: subtreeBlocked,
+                                color: color,
+                              ),
+                              _simChild(
+                                'Body text',
+                                blocked: subtreeBlocked,
+                                color: color,
+                              ),
+                              _simChild(
+                                'Action button',
+                                blocked: subtreeBlocked,
+                                color: color,
+                              ),
                             ],
                           ),
                         ),
@@ -1328,7 +1301,9 @@ dynamic build(BuildContext context) {
                     right: 2.0,
                     child: Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 2.0),
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: color,
                         borderRadius: BorderRadius.circular(6.0),
@@ -1475,36 +1450,47 @@ dynamic build(BuildContext context) {
         heroHeader,
         SizedBox(height: 24.0),
         _sectionTitle(
-            '1. Anatomy', Icons.account_tree, Colors.blueGrey.shade800),
+          '1. Anatomy',
+          Icons.account_tree,
+          Colors.blueGrey.shade800,
+        ),
         anatomy,
         SizedBox(height: 20.0),
-        _sectionTitle('2. Per-value cards',
-            Icons.dashboard_customize, Colors.deepPurple),
+        _sectionTitle(
+          '2. Per-value cards',
+          Icons.dashboard_customize,
+          Colors.deepPurple,
+        ),
         ...valueCards,
         SizedBox(height: 20.0),
-        _sectionTitle(
-            '3. Enumeration sweep', Icons.list_alt, Colors.indigo),
+        _sectionTitle('3. Enumeration sweep', Icons.list_alt, Colors.indigo),
         enumerationSection,
         SizedBox(height: 20.0),
-        _sectionTitle(
-            '4. Accessibility recipes', Icons.menu_book, Colors.teal),
+        _sectionTitle('4. Accessibility recipes', Icons.menu_book, Colors.teal),
         ...recipeCards,
         SizedBox(height: 20.0),
-        _sectionTitle(
-            '5. Pitfalls', Icons.warning_amber, Colors.red.shade700),
+        _sectionTitle('5. Pitfalls', Icons.warning_amber, Colors.red.shade700),
         ...pitfallCards,
         SizedBox(height: 20.0),
-        _sectionTitle('6. Comparison vs related APIs',
-            Icons.compare_arrows, Colors.orange.shade800),
+        _sectionTitle(
+          '6. Comparison vs related APIs',
+          Icons.compare_arrows,
+          Colors.orange.shade800,
+        ),
         comparisonTable,
         SizedBox(height: 20.0),
-        _sectionTitle('7. Quick reference', Icons.flash_on, Colors.cyan.shade800),
+        _sectionTitle(
+          '7. Quick reference',
+          Icons.flash_on,
+          Colors.cyan.shade800,
+        ),
         cheatsheet,
         SizedBox(height: 20.0),
         _sectionTitle(
-            '8. Focus reachability simulator',
-            Icons.preview,
-            Colors.grey.shade800),
+          '8. Focus reachability simulator',
+          Icons.preview,
+          Colors.grey.shade800,
+        ),
         simulator,
         SizedBox(height: 20.0),
         _sectionTitle('9. ASCII footer', Icons.terminal, Colors.green.shade800),
@@ -1525,10 +1511,7 @@ Widget _heroBadge(String text, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.30),
-          color.withValues(alpha: 0.10),
-        ],
+        colors: [color.withValues(alpha: 0.30), color.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1559,10 +1542,7 @@ Widget _sectionTitle(String label, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.04),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.04)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1574,9 +1554,7 @@ Widget _sectionTitle(String label, IconData icon, Color color) {
       // repeats into the same 5-error count as the pitfallCards site. Drop
       // borderRadius; the heavy-left accent bar look is preserved by the
       // wider colored left BorderSide alone.
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
     ),
     child: Row(
       children: [
@@ -1623,10 +1601,7 @@ Widget _anatomyTree(String mode, Color color) {
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.20),
-        ],
+        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.20)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1676,9 +1651,7 @@ Widget _treeNode(String label, {required bool blocked, required Color color}) {
     height: 36.0,
     alignment: Alignment.center,
     decoration: BoxDecoration(
-      color: blocked
-          ? Colors.grey.shade400
-          : color.withValues(alpha: 0.85),
+      color: blocked ? Colors.grey.shade400 : color.withValues(alpha: 0.85),
       shape: BoxShape.circle,
       boxShadow: [
         BoxShadow(

@@ -68,9 +68,13 @@ const List<Color> _kTilePaletteFast = <Color>[
 // Entry point
 // ----------------------------------------------------------------------------
 dynamic build(BuildContext context) {
-  debugPrint('=== ScrollDecelerationRate Deep Demo — Deceleration Rate Dyno ===');
+  debugPrint(
+    '=== ScrollDecelerationRate Deep Demo — Deceleration Rate Dyno ===',
+  );
   debugPrint('.normal = iOS-style (slower), .fast = Android-style (snappier)');
-  debugPrint('Two ListViews, same content, different ScrollPhysics.decelerationRate.');
+  debugPrint(
+    'Two ListViews, same content, different ScrollPhysics.decelerationRate.',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -282,10 +286,7 @@ class _DynoHomePageState extends State<_DynoHomePage>
             // 5) Synchronized fling button row
             // -----------------------------------------------------------------
             SliverToBoxAdapter(
-              child: _FlingControls(
-                onFling: _flingBoth,
-                onReset: _resetBoth,
-              ),
+              child: _FlingControls(onFling: _flingBoth, onReset: _resetBoth),
             ),
 
             // -----------------------------------------------------------------
@@ -368,8 +369,11 @@ class _HeroHeader extends StatelessWidget {
                   ),
                 ),
                 child: const Center(
-                  child: Icon(Icons.speed_rounded, color: Colors.black,
-                      size: 24),
+                  child: Icon(
+                    Icons.speed_rounded,
+                    color: Colors.black,
+                    size: 24,
+                  ),
                 ),
               ),
               const SizedBox(width: 14),
@@ -388,10 +392,7 @@ class _HeroHeader extends StatelessWidget {
                     SizedBox(height: 4),
                     Text(
                       'Flick the same list two ways; watch them coast differently.',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: _kTextSecondary,
-                      ),
+                      style: TextStyle(fontSize: 13, color: _kTextSecondary),
                     ),
                   ],
                 ),
@@ -430,7 +431,11 @@ class _HeroBadge extends StatelessWidget {
   final String label;
   final String sub;
   final Color color;
-  const _HeroBadge({required this.label, required this.sub, required this.color});
+  const _HeroBadge({
+    required this.label,
+    required this.sub,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -447,10 +452,7 @@ class _HeroBadge extends StatelessWidget {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           ),
           const SizedBox(width: 8),
           Column(
@@ -468,10 +470,7 @@ class _HeroBadge extends StatelessWidget {
               ),
               Text(
                 sub,
-                style: const TextStyle(
-                  color: _kTextMuted,
-                  fontSize: 10,
-                ),
+                style: const TextStyle(color: _kTextMuted, fontSize: 10),
               ),
             ],
           ),
@@ -560,19 +559,12 @@ class _DynoLane extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           // Racing stripe header
-          _RacingStripeHeader(
-            label: label,
-            sublabel: sublabel,
-            color: color,
-          ),
+          _RacingStripeHeader(label: label, sublabel: sublabel, color: color),
           // The ListView — BISECT: no BouncingScrollPhysics
           Expanded(
             child: ListView.builder(
               controller: controller,
-              padding: const EdgeInsets.symmetric(
-                vertical: 8,
-                horizontal: 8,
-              ),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               itemCount: 50,
               itemBuilder: (context, index) {
                 return _LaneTile(
@@ -689,8 +681,11 @@ class _RacingStripesPainter extends CustomPainter {
     final paintB = Paint()..color = colorB;
     canvas.drawRect(Offset.zero & size, paintA);
     const double stripeWidth = 24;
-    for (double x = -size.height; x < size.width + size.height;
-        x += stripeWidth * 2) {
+    for (
+      double x = -size.height;
+      x < size.width + size.height;
+      x += stripeWidth * 2
+    ) {
       final path = Path()
         ..moveTo(x, 0)
         ..lineTo(x + stripeWidth, 0)
@@ -771,8 +766,11 @@ class _LaneTile extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.arrow_forward_ios,
-              color: accent.withValues(alpha: 0.6), size: 12),
+          Icon(
+            Icons.arrow_forward_ios,
+            color: accent.withValues(alpha: 0.6),
+            size: 12,
+          ),
         ],
       ),
     );
@@ -793,7 +791,10 @@ class _DecelerationBehavior extends ScrollBehavior {
 
   @override
   Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) {
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) {
     return child;
   }
 }
@@ -921,8 +922,7 @@ class _TelemetryCard extends StatelessWidget {
             // the telemetry card during that window and trip the null
             // check. See the Fa2 cluster diagnosis in the
             // `20260428-1333` issue-analysis sweep.
-            v: controller.hasClients &&
-                    controller.position.hasContentDimensions
+            v: controller.hasClients && controller.position.hasContentDimensions
                 ? controller.position.maxScrollExtent.toStringAsFixed(0)
                 : '—',
             color: _kTextSecondary,
@@ -1034,10 +1034,7 @@ class _Dot extends StatelessWidget {
         shape: BoxShape.circle,
         color: color,
         boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: color.withValues(alpha: 0.6),
-            blurRadius: 8,
-          ),
+          BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 8),
         ],
       ),
     );
@@ -1248,8 +1245,7 @@ class _SparkPainter extends CustomPainter {
     final fillPath = Path()..moveTo(0, size.height);
     for (int i = 0; i < samples.length; i++) {
       final x = size.width * i / (samples.length - 1);
-      final y = size.height -
-          ((samples[i] - minV) / range) * size.height;
+      final y = size.height - ((samples[i] - minV) / range) * size.height;
       if (i == 0) {
         linePath.moveTo(x, y);
       } else {
@@ -1266,13 +1262,8 @@ class _SparkPainter extends CustomPainter {
     // Current-value dot
     if (samples.isNotEmpty) {
       final lastX = size.width;
-      final lastY = size.height -
-          ((samples.last - minV) / range) * size.height;
-      canvas.drawCircle(
-        Offset(lastX, lastY),
-        3,
-        Paint()..color = color,
-      );
+      final lastY = size.height - ((samples.last - minV) / range) * size.height;
+      canvas.drawCircle(Offset(lastX, lastY), 3, Paint()..color = color);
       canvas.drawCircle(
         Offset(lastX, lastY),
         6,
@@ -1325,7 +1316,9 @@ class _FlingControls extends StatelessWidget {
                 const SizedBox(width: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _kAccentAmber.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(6),
@@ -1364,10 +1357,7 @@ class _FlingControls extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                _SmallButton(
-                  label: 'reset',
-                  onTap: onReset,
-                ),
+                _SmallButton(label: 'reset', onTap: onReset),
               ],
             ),
           ],
@@ -1750,9 +1740,7 @@ class _MatrixRowWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kCardBgSoft.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: checkColor, width: 3),
-        ),
+        border: Border(left: BorderSide(color: checkColor, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2025,8 +2013,7 @@ class SnappyBehavior extends ScrollBehavior {
                           .split('\n')
                           .map(
                             (line) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 1),
+                              padding: const EdgeInsets.symmetric(vertical: 1),
                               child: Text(
                                 line.isEmpty ? ' ' : line,
                                 style: TextStyle(
@@ -2143,11 +2130,7 @@ class _Gotcha {
   final IconData icon;
   final String title;
   final String body;
-  const _Gotcha({
-    required this.icon,
-    required this.title,
-    required this.body,
-  });
+  const _Gotcha({required this.icon, required this.title, required this.body});
 }
 
 class _GotchaTile extends StatelessWidget {
@@ -2162,9 +2145,7 @@ class _GotchaTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kCardBgSoft,
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: _kAccentAmber, width: 3),
-        ),
+        border: Border(left: BorderSide(color: _kAccentAmber, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2224,10 +2205,7 @@ class _FooterCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           gradient: const LinearGradient(
-            colors: <Color>[
-              Color(0xFF0E1117),
-              Color(0xFF181C26),
-            ],
+            colors: <Color>[Color(0xFF0E1117), Color(0xFF181C26)],
           ),
           border: Border.all(color: _kCardStroke),
         ),
@@ -2236,8 +2214,7 @@ class _FooterCard extends StatelessWidget {
           children: <Widget>[
             Row(
               children: const <Widget>[
-                Icon(Icons.flag_rounded,
-                    color: _kAccentGreen, size: 18),
+                Icon(Icons.flag_rounded, color: _kAccentGreen, size: 18),
                 SizedBox(width: 8),
                 Text(
                   'Summary',
@@ -2327,10 +2304,7 @@ class _StatChip extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               label,
-              style: const TextStyle(
-                color: _kTextMuted,
-                fontSize: 9.5,
-              ),
+              style: const TextStyle(color: _kTextMuted, fontSize: 9.5),
             ),
           ],
         ),

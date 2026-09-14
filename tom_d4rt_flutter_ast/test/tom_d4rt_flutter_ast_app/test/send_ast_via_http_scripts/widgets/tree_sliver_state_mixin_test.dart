@@ -167,56 +167,76 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildNorthwoodsTree() {
             byline: 'split at ~3m, hollow',
           ),
           children: <TreeSliverNode<_TsmNavEntry>>[
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_a.bough_1',
-              name: 'Southern Bough',
-              kind: _TsmNavEntryKind.bough,
-              byline: 'heavy horizontal limb',
-            ), children: <TreeSliverNode<_TsmNavEntry>>[
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_1.leaf_1',
-                name: 'acorn-cap cluster',
-                kind: _TsmNavEntryKind.leaf,
-              )),
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_1.leaf_2',
-                name: 'lobed leaf fan',
-                kind: _TsmNavEntryKind.leaf,
-              )),
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_1.nest_1',
-                name: 'jay nest',
-                kind: _TsmNavEntryKind.nest,
-                byline: 'twiggy, noisy',
-              )),
-            ]),
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_a.bough_2',
-              name: 'Crooked Upper Arm',
-              kind: _TsmNavEntryKind.bough,
-            ), children: <TreeSliverNode<_TsmNavEntry>>[
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_2.leaf_1',
-                name: 'young leaf spray',
-                kind: _TsmNavEntryKind.leaf,
-              )),
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_2.seed_1',
-                name: 'acorn — fat',
-                kind: _TsmNavEntryKind.seed,
-              )),
-              TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-                id: 'nw.oakwood.trunk_a.bough_2.seed_2',
-                name: 'acorn — thin',
-                kind: _TsmNavEntryKind.seed,
-              )),
-            ]),
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_a.fungus_1',
-              name: 'bracket fungus',
-              kind: _TsmNavEntryKind.fungus,
-              byline: 'shelf-like, layered',
-            )),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_a.bough_1',
+                name: 'Southern Bough',
+                kind: _TsmNavEntryKind.bough,
+                byline: 'heavy horizontal limb',
+              ),
+              children: <TreeSliverNode<_TsmNavEntry>>[
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_1.leaf_1',
+                    name: 'acorn-cap cluster',
+                    kind: _TsmNavEntryKind.leaf,
+                  ),
+                ),
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_1.leaf_2',
+                    name: 'lobed leaf fan',
+                    kind: _TsmNavEntryKind.leaf,
+                  ),
+                ),
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_1.nest_1',
+                    name: 'jay nest',
+                    kind: _TsmNavEntryKind.nest,
+                    byline: 'twiggy, noisy',
+                  ),
+                ),
+              ],
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_a.bough_2',
+                name: 'Crooked Upper Arm',
+                kind: _TsmNavEntryKind.bough,
+              ),
+              children: <TreeSliverNode<_TsmNavEntry>>[
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_2.leaf_1',
+                    name: 'young leaf spray',
+                    kind: _TsmNavEntryKind.leaf,
+                  ),
+                ),
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_2.seed_1',
+                    name: 'acorn — fat',
+                    kind: _TsmNavEntryKind.seed,
+                  ),
+                ),
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'nw.oakwood.trunk_a.bough_2.seed_2',
+                    name: 'acorn — thin',
+                    kind: _TsmNavEntryKind.seed,
+                  ),
+                ),
+              ],
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_a.fungus_1',
+                name: 'bracket fungus',
+                kind: _TsmNavEntryKind.fungus,
+                byline: 'shelf-like, layered',
+              ),
+            ),
           ],
         ),
         TreeSliverNode<_TsmNavEntry>(
@@ -227,21 +247,27 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildNorthwoodsTree() {
             byline: 'young oaks in a line',
           ),
           children: <TreeSliverNode<_TsmNavEntry>>[
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_b.leaf_1',
-              name: 'first-leaf flush',
-              kind: _TsmNavEntryKind.leaf,
-            )),
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_b.leaf_2',
-              name: 'second-leaf flush',
-              kind: _TsmNavEntryKind.leaf,
-            )),
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'nw.oakwood.trunk_b.seed_1',
-              name: 'soft acorn',
-              kind: _TsmNavEntryKind.seed,
-            )),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_b.leaf_1',
+                name: 'first-leaf flush',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_b.leaf_2',
+                name: 'second-leaf flush',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.oakwood.trunk_b.seed_1',
+                name: 'soft acorn',
+                kind: _TsmNavEntryKind.seed,
+              ),
+            ),
           ],
         ),
       ],
@@ -254,26 +280,34 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildNorthwoodsTree() {
         byline: 'damp, shaded understory',
       ),
       children: <TreeSliverNode<_TsmNavEntry>>[
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.fernhollow.leaf_1',
-          name: 'frond — unfurling',
-          kind: _TsmNavEntryKind.leaf,
-        )),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.fernhollow.leaf_2',
-          name: 'frond — mature',
-          kind: _TsmNavEntryKind.leaf,
-        )),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.fernhollow.fungus_1',
-          name: 'chanterelle cluster',
-          kind: _TsmNavEntryKind.fungus,
-        )),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.fernhollow.fungus_2',
-          name: 'morels — hidden',
-          kind: _TsmNavEntryKind.fungus,
-        )),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.fernhollow.leaf_1',
+            name: 'frond — unfurling',
+            kind: _TsmNavEntryKind.leaf,
+          ),
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.fernhollow.leaf_2',
+            name: 'frond — mature',
+            kind: _TsmNavEntryKind.leaf,
+          ),
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.fernhollow.fungus_1',
+            name: 'chanterelle cluster',
+            kind: _TsmNavEntryKind.fungus,
+          ),
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.fernhollow.fungus_2',
+            name: 'morels — hidden',
+            kind: _TsmNavEntryKind.fungus,
+          ),
+        ),
       ],
     ),
     TreeSliverNode<_TsmNavEntry>(
@@ -284,44 +318,60 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildNorthwoodsTree() {
         byline: 'slender, papery bark',
       ),
       children: <TreeSliverNode<_TsmNavEntry>>[
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.birchwalk.trunk_a',
-          name: 'First Birch',
-          kind: _TsmNavEntryKind.trunk,
-        ), children: <TreeSliverNode<_TsmNavEntry>>[
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'nw.birchwalk.trunk_a.leaf_1',
-            name: 'catkin',
-            kind: _TsmNavEntryKind.leaf,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'nw.birchwalk.trunk_a.leaf_2',
-            name: 'toothed leaf',
-            kind: _TsmNavEntryKind.leaf,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'nw.birchwalk.trunk_a.nest_1',
-            name: 'finch nest',
-            kind: _TsmNavEntryKind.nest,
-          )),
-        ]),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'nw.birchwalk.trunk_b',
-          name: 'Leaning Birch',
-          kind: _TsmNavEntryKind.trunk,
-          byline: 'tilts ~15° west',
-        ), children: <TreeSliverNode<_TsmNavEntry>>[
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'nw.birchwalk.trunk_b.leaf_1',
-            name: 'papery leaf drift',
-            kind: _TsmNavEntryKind.leaf,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'nw.birchwalk.trunk_b.seed_1',
-            name: 'winged samara',
-            kind: _TsmNavEntryKind.seed,
-          )),
-        ]),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.birchwalk.trunk_a',
+            name: 'First Birch',
+            kind: _TsmNavEntryKind.trunk,
+          ),
+          children: <TreeSliverNode<_TsmNavEntry>>[
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.birchwalk.trunk_a.leaf_1',
+                name: 'catkin',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.birchwalk.trunk_a.leaf_2',
+                name: 'toothed leaf',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.birchwalk.trunk_a.nest_1',
+                name: 'finch nest',
+                kind: _TsmNavEntryKind.nest,
+              ),
+            ),
+          ],
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'nw.birchwalk.trunk_b',
+            name: 'Leaning Birch',
+            kind: _TsmNavEntryKind.trunk,
+            byline: 'tilts ~15° west',
+          ),
+          children: <TreeSliverNode<_TsmNavEntry>>[
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.birchwalk.trunk_b.leaf_1',
+                name: 'papery leaf drift',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'nw.birchwalk.trunk_b.seed_1',
+                name: 'winged samara',
+                kind: _TsmNavEntryKind.seed,
+              ),
+            ),
+          ],
+        ),
       ],
     ),
   ];
@@ -337,49 +387,67 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildSouthwoodsTree() {
         byline: 'needled canopy, resin scent',
       ),
       children: <TreeSliverNode<_TsmNavEntry>>[
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.pineridge.trunk_a',
-          name: 'Red Pine',
-          kind: _TsmNavEntryKind.trunk,
-        ), children: <TreeSliverNode<_TsmNavEntry>>[
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_a.leaf_1',
-            name: 'needle bundle',
-            kind: _TsmNavEntryKind.leaf,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_a.seed_1',
-            name: 'pine cone — closed',
-            kind: _TsmNavEntryKind.seed,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_a.seed_2',
-            name: 'pine cone — open',
-            kind: _TsmNavEntryKind.seed,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_a.nest_1',
-            name: 'squirrel drey',
-            kind: _TsmNavEntryKind.nest,
-          )),
-        ]),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.pineridge.trunk_b',
-          name: 'White Pine',
-          kind: _TsmNavEntryKind.trunk,
-          byline: 'tallest on the ridge',
-        ), children: <TreeSliverNode<_TsmNavEntry>>[
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_b.leaf_1',
-            name: 'five-needle bundle',
-            kind: _TsmNavEntryKind.leaf,
-          )),
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.pineridge.trunk_b.seed_1',
-            name: 'long slim cone',
-            kind: _TsmNavEntryKind.seed,
-          )),
-        ]),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.pineridge.trunk_a',
+            name: 'Red Pine',
+            kind: _TsmNavEntryKind.trunk,
+          ),
+          children: <TreeSliverNode<_TsmNavEntry>>[
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_a.leaf_1',
+                name: 'needle bundle',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_a.seed_1',
+                name: 'pine cone — closed',
+                kind: _TsmNavEntryKind.seed,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_a.seed_2',
+                name: 'pine cone — open',
+                kind: _TsmNavEntryKind.seed,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_a.nest_1',
+                name: 'squirrel drey',
+                kind: _TsmNavEntryKind.nest,
+              ),
+            ),
+          ],
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.pineridge.trunk_b',
+            name: 'White Pine',
+            kind: _TsmNavEntryKind.trunk,
+            byline: 'tallest on the ridge',
+          ),
+          children: <TreeSliverNode<_TsmNavEntry>>[
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_b.leaf_1',
+                name: 'five-needle bundle',
+                kind: _TsmNavEntryKind.leaf,
+              ),
+            ),
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.pineridge.trunk_b.seed_1',
+                name: 'long slim cone',
+                kind: _TsmNavEntryKind.seed,
+              ),
+            ),
+          ],
+        ),
       ],
     ),
     TreeSliverNode<_TsmNavEntry>(
@@ -390,28 +458,38 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildSouthwoodsTree() {
         byline: 'along the slow creek',
       ),
       children: <TreeSliverNode<_TsmNavEntry>>[
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.willowbend.trunk_a',
-          name: 'Weeping Willow',
-          kind: _TsmNavEntryKind.trunk,
-        ), children: <TreeSliverNode<_TsmNavEntry>>[
-          TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-            id: 'sw.willowbend.trunk_a.bough_1',
-            name: 'Drooping Bough',
-            kind: _TsmNavEntryKind.bough,
-          ), children: <TreeSliverNode<_TsmNavEntry>>[
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'sw.willowbend.trunk_a.bough_1.leaf_1',
-              name: 'slender leaf',
-              kind: _TsmNavEntryKind.leaf,
-            )),
-            TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-              id: 'sw.willowbend.trunk_a.bough_1.leaf_2',
-              name: 'leaf curtain',
-              kind: _TsmNavEntryKind.leaf,
-            )),
-          ]),
-        ]),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.willowbend.trunk_a',
+            name: 'Weeping Willow',
+            kind: _TsmNavEntryKind.trunk,
+          ),
+          children: <TreeSliverNode<_TsmNavEntry>>[
+            TreeSliverNode<_TsmNavEntry>(
+              const _TsmNavEntry(
+                id: 'sw.willowbend.trunk_a.bough_1',
+                name: 'Drooping Bough',
+                kind: _TsmNavEntryKind.bough,
+              ),
+              children: <TreeSliverNode<_TsmNavEntry>>[
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'sw.willowbend.trunk_a.bough_1.leaf_1',
+                    name: 'slender leaf',
+                    kind: _TsmNavEntryKind.leaf,
+                  ),
+                ),
+                TreeSliverNode<_TsmNavEntry>(
+                  const _TsmNavEntry(
+                    id: 'sw.willowbend.trunk_a.bough_1.leaf_2',
+                    name: 'leaf curtain',
+                    kind: _TsmNavEntryKind.leaf,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     ),
     TreeSliverNode<_TsmNavEntry>(
@@ -422,21 +500,27 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildSouthwoodsTree() {
         byline: 'soft, spongy, always damp',
       ),
       children: <TreeSliverNode<_TsmNavEntry>>[
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.mossbed.leaf_1',
-          name: 'sphagnum mat',
-          kind: _TsmNavEntryKind.leaf,
-        )),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.mossbed.leaf_2',
-          name: 'cushion moss',
-          kind: _TsmNavEntryKind.leaf,
-        )),
-        TreeSliverNode<_TsmNavEntry>(const _TsmNavEntry(
-          id: 'sw.mossbed.fungus_1',
-          name: 'amanita ring',
-          kind: _TsmNavEntryKind.fungus,
-        )),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.mossbed.leaf_1',
+            name: 'sphagnum mat',
+            kind: _TsmNavEntryKind.leaf,
+          ),
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.mossbed.leaf_2',
+            name: 'cushion moss',
+            kind: _TsmNavEntryKind.leaf,
+          ),
+        ),
+        TreeSliverNode<_TsmNavEntry>(
+          const _TsmNavEntry(
+            id: 'sw.mossbed.fungus_1',
+            name: 'amanita ring',
+            kind: _TsmNavEntryKind.fungus,
+          ),
+        ),
       ],
     ),
   ];
@@ -447,7 +531,8 @@ List<TreeSliverNode<_TsmNavEntry>> _kTsmNavBuildSouthwoodsTree() {
 List<TreeSliverNode<_TsmNavEntry>> _kTsmNavFlatten(
   List<TreeSliverNode<_TsmNavEntry>> roots,
 ) {
-  final List<TreeSliverNode<_TsmNavEntry>> out = <TreeSliverNode<_TsmNavEntry>>[];
+  final List<TreeSliverNode<_TsmNavEntry>> out =
+      <TreeSliverNode<_TsmNavEntry>>[];
   void walk(List<TreeSliverNode<_TsmNavEntry>> list) {
     for (final TreeSliverNode<_TsmNavEntry> n in list) {
       out.add(n);
@@ -520,10 +605,7 @@ ThemeData _kTsmNavBuildTheme() {
       ),
     ),
     textTheme: base.textTheme
-        .apply(
-          bodyColor: _kTsmNavBarkEdge,
-          displayColor: _kTsmNavBarkEdge,
-        )
+        .apply(bodyColor: _kTsmNavBarkEdge, displayColor: _kTsmNavBarkEdge)
         .copyWith(
           titleLarge: const TextStyle(
             color: _kTsmNavBarkEdge,
@@ -697,14 +779,18 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
     final TreeSliverController ctl = _activeCtl;
     final TreeSliverNode<_TsmNavEntry>? target = _selected;
     if (!_ctlReady(ctl) || target == null) {
-      _pushLog(_TsmNavLogKind.warn,
-          'toggleNode: no target or controller not bound');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'toggleNode: no target or controller not bound',
+      );
       setState(() {});
       return;
     }
     if (target.children.isEmpty) {
-      _pushLog(_TsmNavLogKind.warn,
-          'toggleNode on leaf "${target.content.name}" — no-op');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'toggleNode on leaf "${target.content.name}" — no-op',
+      );
       setState(() {});
       return;
     }
@@ -722,14 +808,18 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
     final TreeSliverController ctl = _activeCtl;
     final TreeSliverNode<_TsmNavEntry>? target = _selected;
     if (!_ctlReady(ctl) || target == null) {
-      _pushLog(_TsmNavLogKind.warn,
-          'expandSelected: no target or controller not bound');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'expandSelected: no target or controller not bound',
+      );
       setState(() {});
       return;
     }
     if (target.children.isEmpty) {
-      _pushLog(_TsmNavLogKind.warn,
-          'expandSelected on leaf "${target.content.name}" — no-op');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'expandSelected on leaf "${target.content.name}" — no-op',
+      );
       setState(() {});
       return;
     }
@@ -753,14 +843,18 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
     final TreeSliverController ctl = _activeCtl;
     final TreeSliverNode<_TsmNavEntry>? target = _selected;
     if (!_ctlReady(ctl) || target == null) {
-      _pushLog(_TsmNavLogKind.warn,
-          'collapseSelected: no target or controller not bound');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'collapseSelected: no target or controller not bound',
+      );
       setState(() {});
       return;
     }
     if (target.children.isEmpty) {
-      _pushLog(_TsmNavLogKind.warn,
-          'collapseSelected on leaf "${target.content.name}" — no-op');
+      _pushLog(
+        _TsmNavLogKind.warn,
+        'collapseSelected on leaf "${target.content.name}" — no-op',
+      );
       setState(() {});
       return;
     }
@@ -796,20 +890,14 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
     if (n == null) return;
     setState(() {
       _selected = n;
-      _pushLog(
-        _TsmNavLogKind.info,
-        'selected target → "${n.content.name}"',
-      );
+      _pushLog(_TsmNavLogKind.info, 'selected target → "${n.content.name}"');
     });
   }
 
   void _onAnimChoice(_TsmNavAnimationChoice c) {
     setState(() {
       _animChoice = c;
-      _pushLog(
-        _TsmNavLogKind.info,
-        'animation style → ${c.label}',
-      );
+      _pushLog(_TsmNavLogKind.info, 'animation style → ${c.label}');
     });
   }
 
@@ -883,21 +971,14 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          SizedBox(
-            width: 360,
-            child: _TsmNavControlPanel(
-              parent: this,
-            ),
-          ),
+          SizedBox(width: 360, child: _TsmNavControlPanel(parent: this)),
           const SizedBox(width: 16),
           Expanded(
             flex: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Expanded(
-                  child: _TsmNavPreambleCard(),
-                ),
+                Expanded(child: _TsmNavPreambleCard()),
                 const SizedBox(height: 12),
                 Expanded(
                   flex: 3,
@@ -957,18 +1038,12 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Expanded(
-                        child: _TsmNavBreadcrumbCard(
-                          selected: _selected,
-                        ),
+                        child: _TsmNavBreadcrumbCard(selected: _selected),
                       ),
                       const SizedBox(width: 12),
-                      Expanded(
-                        child: _TsmNavLogCard(entries: _log),
-                      ),
+                      Expanded(child: _TsmNavLogCard(entries: _log)),
                       const SizedBox(width: 12),
-                      Expanded(
-                        child: _TsmNavEpilogueCard(),
-                      ),
+                      Expanded(child: _TsmNavEpilogueCard()),
                     ],
                   ),
                 ),
@@ -1001,8 +1076,10 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
                 tree: _northRoots,
                 toggleAnimationStyle: _animChoice.style(),
                 onNodeToggle: (TreeSliverNode<Object?> n) {
-                  _pushLog(_TsmNavLogKind.cb,
-                      'north.onNodeToggle: ${n.content}');
+                  _pushLog(
+                    _TsmNavLogKind.cb,
+                    'north.onNodeToggle: ${n.content}',
+                  );
                   setState(() {});
                 },
                 treeNodeBuilder: _kTsmNavTreeNodeBuilder,
@@ -1022,8 +1099,10 @@ class _TsmNavForestExplorerPageState extends State<_TsmNavForestExplorerPage> {
                 tree: _southRoots,
                 toggleAnimationStyle: _animChoice.style(),
                 onNodeToggle: (TreeSliverNode<Object?> n) {
-                  _pushLog(_TsmNavLogKind.cb,
-                      'south.onNodeToggle: ${n.content}');
+                  _pushLog(
+                    _TsmNavLogKind.cb,
+                    'south.onNodeToggle: ${n.content}',
+                  );
                   setState(() {});
                 },
                 treeNodeBuilder: _kTsmNavTreeNodeBuilder,
@@ -1143,10 +1222,12 @@ Widget _kTsmNavTreeNodeBuilder(
       ? _kTsmNavParchment
       : _kTsmNavParchmentDeep.withValues(alpha: 0.75);
 
-  final int? indexRaw =
-      TreeSliverController.of(context).getActiveIndexFor(node);
-  final String indexLabel =
-      indexRaw == null ? '—' : indexRaw.toString().padLeft(2, '0');
+  final int? indexRaw = TreeSliverController.of(
+    context,
+  ).getActiveIndexFor(node);
+  final String indexLabel = indexRaw == null
+      ? '—'
+      : indexRaw.toString().padLeft(2, '0');
 
   return Container(
     decoration: BoxDecoration(
@@ -1212,8 +1293,7 @@ Widget _kTsmNavTreeNodeBuilder(
                 style: TextStyle(
                   color: _kTsmNavBarkEdge,
                   fontSize: 14,
-                  fontWeight:
-                      hasChildren ? FontWeight.w700 : FontWeight.w500,
+                  fontWeight: hasChildren ? FontWeight.w700 : FontWeight.w500,
                 ),
               ),
               if (entry.byline.isNotEmpty)
@@ -1308,8 +1388,7 @@ class _TsmNavControlPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final TreeSliverController ctl = parent._activeCtl;
     final bool ready = parent._ctlReady(ctl);
-    final int expandedCount =
-        parent._countExpanded(ctl, parent._activeFlat);
+    final int expandedCount = parent._countExpanded(ctl, parent._activeFlat);
     final int activeCount = parent._countActive(ctl, parent._activeFlat);
     final int totalParents = parent._activeFlat
         .where((TreeSliverNode<_TsmNavEntry> n) => n.children.isNotEmpty)
@@ -1323,124 +1402,111 @@ class _TsmNavControlPanel extends StatelessWidget {
         // gives the SizedBox(width: 360). Scroll on overflow.
         child: SingleChildScrollView(
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const _TsmNavSectionTitle(
-              label: 'IMPERATIVE CONTROL',
-              glyph: '⌘',
-            ),
-            const SizedBox(height: 6),
-            const Text(
-              'Each button drives a TreeSliverController, which is nothing '
-              'more than a typed handle onto the state\'s '
-              'TreeSliverStateMixin. Every call below ultimately lands on a '
-              'method declared by that mixin.',
-              style: TextStyle(fontSize: 12, color: _kTsmNavBarkSoft),
-            ),
-            const SizedBox(height: 12),
-            _TsmNavTreeSelector(
-              current: parent._activeTree,
-              onChanged: parent._onSwitchTree,
-            ),
-            const SizedBox(height: 10),
-            _TsmNavMixinButton(
-              glyph: '+',
-              label: 'expandAll()',
-              colour: _kTsmNavMossDeep,
-              onPressed: parent._callExpandAll,
-            ),
-            const SizedBox(height: 6),
-            _TsmNavMixinButton(
-              glyph: '−',
-              label: 'collapseAll()',
-              colour: _kTsmNavBark,
-              onPressed: parent._callCollapseAll,
-            ),
-            const SizedBox(height: 12),
-            const Divider(),
-            const SizedBox(height: 8),
-            const _TsmNavSectionTitle(
-              label: 'TARGET NODE',
-              glyph: '○',
-            ),
-            const SizedBox(height: 8),
-            _TsmNavNodeDropdown(
-              nodes: parent._activeFlat,
-              selected: parent._selected,
-              onChanged: parent._onSelectNode,
-            ),
-            const SizedBox(height: 10),
-            _TsmNavMixinButton(
-              glyph: '⇌',
-              label: 'toggleNode(selected)',
-              colour: _kTsmNavAmberDeep,
-              onPressed: parent._callToggleSelected,
-            ),
-            const SizedBox(height: 6),
-            _TsmNavMixinButton(
-              glyph: '↧',
-              label: 'expand selected',
-              colour: _kTsmNavFern,
-              onPressed: parent._callExpandSelected,
-            ),
-            const SizedBox(height: 6),
-            _TsmNavMixinButton(
-              glyph: '↥',
-              label: 'collapse selected',
-              colour: _kTsmNavCinnabar,
-              onPressed: parent._callCollapseSelected,
-            ),
-            const SizedBox(height: 12),
-            const Divider(),
-            const SizedBox(height: 8),
-            const _TsmNavSectionTitle(
-              label: 'ANIMATION STYLE',
-              glyph: '∿',
-            ),
-            const SizedBox(height: 4),
-            _TsmNavAnimPicker(
-              current: parent._animChoice,
-              onChanged: parent._onAnimChoice,
-            ),
-            const SizedBox(height: 12),
-            const Divider(),
-            const SizedBox(height: 8),
-            const _TsmNavSectionTitle(
-              label: 'MIXIN READOUTS',
-              glyph: '⌁',
-            ),
-            const SizedBox(height: 6),
-            _TsmNavReadoutRow(
-              label: 'parent nodes',
-              value: '$totalParents',
-            ),
-            _TsmNavReadoutRow(
-              label: 'isExpanded() count',
-              value: '$expandedCount',
-            ),
-            _TsmNavReadoutRow(
-              label: 'isActive() count',
-              value: '$activeCount / ${parent._activeFlat.length}',
-            ),
-            if (parent._selected != null && ready)
-              _TsmNavReadoutRow(
-                label: 'getActiveIndexFor(sel)',
-                value:
-                    '${ctl.getActiveIndexFor(parent._selected!) ?? '—'}',
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const _TsmNavSectionTitle(
+                label: 'IMPERATIVE CONTROL',
+                glyph: '⌘',
               ),
-            if (parent._selected != null && ready)
-              _TsmNavReadoutRow(
-                label: 'isExpanded(sel)',
-                value: ctl.isExpanded(parent._selected!).toString(),
+              const SizedBox(height: 6),
+              const Text(
+                'Each button drives a TreeSliverController, which is nothing '
+                'more than a typed handle onto the state\'s '
+                'TreeSliverStateMixin. Every call below ultimately lands on a '
+                'method declared by that mixin.',
+                style: TextStyle(fontSize: 12, color: _kTsmNavBarkSoft),
               ),
-            if (parent._selected != null && ready)
-              _TsmNavReadoutRow(
-                label: 'isActive(sel)',
-                value: ctl.isActive(parent._selected!).toString(),
+              const SizedBox(height: 12),
+              _TsmNavTreeSelector(
+                current: parent._activeTree,
+                onChanged: parent._onSwitchTree,
               ),
-            const SizedBox(height: 8),
-            _TsmNavGetNodeForProbe(parent: parent),
-          ],
+              const SizedBox(height: 10),
+              _TsmNavMixinButton(
+                glyph: '+',
+                label: 'expandAll()',
+                colour: _kTsmNavMossDeep,
+                onPressed: parent._callExpandAll,
+              ),
+              const SizedBox(height: 6),
+              _TsmNavMixinButton(
+                glyph: '−',
+                label: 'collapseAll()',
+                colour: _kTsmNavBark,
+                onPressed: parent._callCollapseAll,
+              ),
+              const SizedBox(height: 12),
+              const Divider(),
+              const SizedBox(height: 8),
+              const _TsmNavSectionTitle(label: 'TARGET NODE', glyph: '○'),
+              const SizedBox(height: 8),
+              _TsmNavNodeDropdown(
+                nodes: parent._activeFlat,
+                selected: parent._selected,
+                onChanged: parent._onSelectNode,
+              ),
+              const SizedBox(height: 10),
+              _TsmNavMixinButton(
+                glyph: '⇌',
+                label: 'toggleNode(selected)',
+                colour: _kTsmNavAmberDeep,
+                onPressed: parent._callToggleSelected,
+              ),
+              const SizedBox(height: 6),
+              _TsmNavMixinButton(
+                glyph: '↧',
+                label: 'expand selected',
+                colour: _kTsmNavFern,
+                onPressed: parent._callExpandSelected,
+              ),
+              const SizedBox(height: 6),
+              _TsmNavMixinButton(
+                glyph: '↥',
+                label: 'collapse selected',
+                colour: _kTsmNavCinnabar,
+                onPressed: parent._callCollapseSelected,
+              ),
+              const SizedBox(height: 12),
+              const Divider(),
+              const SizedBox(height: 8),
+              const _TsmNavSectionTitle(label: 'ANIMATION STYLE', glyph: '∿'),
+              const SizedBox(height: 4),
+              _TsmNavAnimPicker(
+                current: parent._animChoice,
+                onChanged: parent._onAnimChoice,
+              ),
+              const SizedBox(height: 12),
+              const Divider(),
+              const SizedBox(height: 8),
+              const _TsmNavSectionTitle(label: 'MIXIN READOUTS', glyph: '⌁'),
+              const SizedBox(height: 6),
+              _TsmNavReadoutRow(label: 'parent nodes', value: '$totalParents'),
+              _TsmNavReadoutRow(
+                label: 'isExpanded() count',
+                value: '$expandedCount',
+              ),
+              _TsmNavReadoutRow(
+                label: 'isActive() count',
+                value: '$activeCount / ${parent._activeFlat.length}',
+              ),
+              if (parent._selected != null && ready)
+                _TsmNavReadoutRow(
+                  label: 'getActiveIndexFor(sel)',
+                  value: '${ctl.getActiveIndexFor(parent._selected!) ?? '—'}',
+                ),
+              if (parent._selected != null && ready)
+                _TsmNavReadoutRow(
+                  label: 'isExpanded(sel)',
+                  value: ctl.isExpanded(parent._selected!).toString(),
+                ),
+              if (parent._selected != null && ready)
+                _TsmNavReadoutRow(
+                  label: 'isActive(sel)',
+                  value: ctl.isActive(parent._selected!).toString(),
+                ),
+              const SizedBox(height: 8),
+              _TsmNavGetNodeForProbe(parent: parent),
+            ],
           ),
         ),
       ),
@@ -1589,8 +1655,7 @@ class _TsmNavMixinButton extends StatelessWidget {
               ),
             ],
           ),
-          padding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           child: Row(
             children: <Widget>[
               Container(
@@ -1731,8 +1796,11 @@ class _TsmNavAnimPicker extends StatelessWidget {
               ),
               child: active
                   ? const Center(
-                      child: Icon(Icons.check,
-                          size: 10, color: _kTsmNavParchment),
+                      child: Icon(
+                        Icons.check,
+                        size: 10,
+                        color: _kTsmNavParchment,
+                      ),
                     )
                   : null,
             ),
@@ -1768,10 +1836,7 @@ class _TsmNavReadoutRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: const TextStyle(
-                color: _kTsmNavBarkSoft,
-                fontSize: 11.5,
-              ),
+              style: const TextStyle(color: _kTsmNavBarkSoft, fontSize: 11.5),
             ),
           ),
           Text(
@@ -1799,10 +1864,9 @@ class _TsmNavGetNodeForProbe extends StatelessWidget {
     final bool ready = parent._ctlReady(ctl);
     // We probe the mixin's getNodeFor via a known content reference. The
     // controller forwards directly to TreeSliverStateMixin.getNodeFor.
-    final TreeSliverNode<Object?>? probe =
-        parent._selected == null || !ready
-            ? null
-            : ctl.getNodeFor(parent._selected!.content);
+    final TreeSliverNode<Object?>? probe = parent._selected == null || !ready
+        ? null
+        : ctl.getNodeFor(parent._selected!.content);
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -1827,8 +1891,8 @@ class _TsmNavGetNodeForProbe extends StatelessWidget {
             probe == null
                 ? '— null —'
                 : 'depth=${probe.depth ?? '?'}  '
-                    'children=${probe.children.length}  '
-                    'expanded=${probe.isExpanded}',
+                      'children=${probe.children.length}  '
+                      'expanded=${probe.isExpanded}',
             style: const TextStyle(
               fontFamily: 'monospace',
               fontSize: 11.5,
@@ -1863,8 +1927,9 @@ class _TsmNavViewportCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius:
-            const BorderRadius.all(Radius.circular(_kTsmNavCardRadius)),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(_kTsmNavCardRadius),
+        ),
         side: BorderSide(
           color: isActive ? _kTsmNavMossDeep : _kTsmNavParchmentEdge,
           width: isActive ? 2.2 : 1.2,
@@ -1875,8 +1940,7 @@ class _TsmNavViewportCard extends StatelessWidget {
         children: <Widget>[
           Container(
             color: isActive ? _kTsmNavMossDeep : _kTsmNavBark,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
               children: <Widget>[
                 Container(
@@ -1913,7 +1977,9 @@ class _TsmNavViewportCard extends StatelessWidget {
                 if (isActive)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: _kTsmNavFernGlow.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(4),
@@ -1947,16 +2013,20 @@ class _TsmNavViewportCard extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(12, 10, 12, 6),
                           child: Row(
                             children: <Widget>[
-                              const Icon(Icons.account_tree,
-                                  size: 16, color: _kTsmNavBranch),
+                              const Icon(
+                                Icons.account_tree,
+                                size: 16,
+                                color: _kTsmNavBranch,
+                              ),
                               const SizedBox(width: 6),
                               Text(
                                 'TreeSliver<_TsmNavEntry> · '
                                 'toggleAnimationStyle varies',
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color:
-                                      _kTsmNavBarkSoft.withValues(alpha: 0.9),
+                                  color: _kTsmNavBarkSoft.withValues(
+                                    alpha: 0.9,
+                                  ),
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -1965,9 +2035,7 @@ class _TsmNavViewportCard extends StatelessWidget {
                         ),
                       ),
                       tree,
-                      const SliverToBoxAdapter(
-                        child: SizedBox(height: 20),
-                      ),
+                      const SliverToBoxAdapter(child: SizedBox(height: 20)),
                     ],
                   ),
                 ),
@@ -1996,15 +2064,15 @@ class _TsmNavBranchPainter extends CustomPainter {
     canvas.drawRect(Offset.zero & size, bgPaint);
 
     final Paint branch = Paint()
-      ..color = (active ? _kTsmNavMossDeep : _kTsmNavBranch)
-          .withValues(alpha: 0.18)
+      ..color = (active ? _kTsmNavMossDeep : _kTsmNavBranch).withValues(
+        alpha: 0.18,
+      )
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = _kTsmNavBranchStroke;
 
     final Paint twig = Paint()
-      ..color = (active ? _kTsmNavMoss : _kTsmNavBranch)
-          .withValues(alpha: 0.12)
+      ..color = (active ? _kTsmNavMoss : _kTsmNavBranch).withValues(alpha: 0.12)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = _kTsmNavTwigStroke;
@@ -2032,12 +2100,7 @@ class _TsmNavBranchPainter extends CustomPainter {
         final double ey = ny - 6 + r.nextDouble() * 12;
         final Path t = Path()
           ..moveTo(nx, ny)
-          ..quadraticBezierTo(
-            nx + dir * len * 0.5,
-            ny - 4,
-            ex,
-            ey,
-          );
+          ..quadraticBezierTo(nx + dir * len * 0.5, ny - 4, ex, ey);
         canvas.drawPath(t, twig);
         // tiny terminal dot (a leaf)
         canvas.drawCircle(
@@ -2057,12 +2120,14 @@ class _TsmNavBranchPainter extends CustomPainter {
     // soft-moss swatch, odd-index motes use the branch-glow swatch, so both
     // accent colours appear in the motif.
     final Paint moteA = Paint()
-      ..color = (active ? _kTsmNavMossSoft : _kTsmNavAmber)
-          .withValues(alpha: 0.10)
+      ..color = (active ? _kTsmNavMossSoft : _kTsmNavAmber).withValues(
+        alpha: 0.10,
+      )
       ..style = PaintingStyle.fill;
     final Paint moteB = Paint()
-      ..color = (active ? _kTsmNavFernGlow : _kTsmNavBranchGlow)
-          .withValues(alpha: 0.08)
+      ..color = (active ? _kTsmNavFernGlow : _kTsmNavBranchGlow).withValues(
+        alpha: 0.08,
+      )
       ..style = PaintingStyle.fill;
     for (int i = 0; i < 22; i++) {
       final double mx = r.nextDouble() * size.width;
@@ -2122,70 +2187,75 @@ class _TsmNavPreambleCard extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'TreeSliverStateMixin<T>',
-                    style: TextStyle(
-                      color: _kTsmNavBarkEdge,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      'TreeSliverStateMixin<T>',
+                      style: TextStyle(
+                        color: _kTsmNavBarkEdge,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  const Text(
-                    'framework mixin · sliver_tree.dart',
-                    style: TextStyle(
-                      color: _kTsmNavBarkSoft,
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic,
+                    const SizedBox(height: 2),
+                    const Text(
+                      'framework mixin · sliver_tree.dart',
+                      style: TextStyle(
+                        color: _kTsmNavBarkSoft,
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'A mixin applied to the (private) state class behind '
-                    'TreeSliver<T>. It declares the imperative surface — '
-                    'isExpanded, isActive, toggleNode, expandAll, '
-                    'collapseAll, getNodeFor, getActiveIndexFor — that '
-                    'TreeSliverController forwards to under the hood.',
-                    style: TextStyle(
-                      color: _kTsmNavBarkEdge,
-                      fontSize: 13,
-                      height: 1.5,
+                    const SizedBox(height: 10),
+                    const Text(
+                      'A mixin applied to the (private) state class behind '
+                      'TreeSliver<T>. It declares the imperative surface — '
+                      'isExpanded, isActive, toggleNode, expandAll, '
+                      'collapseAll, getNodeFor, getActiveIndexFor — that '
+                      'TreeSliverController forwards to under the hood.',
+                      style: TextStyle(
+                        color: _kTsmNavBarkEdge,
+                        fontSize: 13,
+                        height: 1.5,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 6,
-                    children: const <Widget>[
-                      _TsmNavSignaturePill(
-                          text: 'isExpanded(TreeSliverNode<T>) → bool'),
-                      _TsmNavSignaturePill(
-                          text: 'isActive(TreeSliverNode<T>) → bool'),
-                      _TsmNavSignaturePill(
-                          text: 'toggleNode(TreeSliverNode<T>)'),
-                      _TsmNavSignaturePill(text: 'expandAll()'),
-                      _TsmNavSignaturePill(text: 'collapseAll()'),
-                      _TsmNavSignaturePill(
-                          text: 'getNodeFor(T) → TreeSliverNode<T>?'),
-                      _TsmNavSignaturePill(
-                          text: 'getActiveIndexFor(node) → int?'),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Each TreeSliverController holds a single reference to '
-                    'one mixin-bearing state, so two independent trees need '
-                    'two controllers — the side-by-side Northwoods and '
-                    'Southwoods cards below demonstrate that.',
-                    style: TextStyle(
-                      color: _kTsmNavBarkEdge,
-                      fontSize: 12.5,
-                      height: 1.45,
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 6,
+                      children: const <Widget>[
+                        _TsmNavSignaturePill(
+                          text: 'isExpanded(TreeSliverNode<T>) → bool',
+                        ),
+                        _TsmNavSignaturePill(
+                          text: 'isActive(TreeSliverNode<T>) → bool',
+                        ),
+                        _TsmNavSignaturePill(
+                          text: 'toggleNode(TreeSliverNode<T>)',
+                        ),
+                        _TsmNavSignaturePill(text: 'expandAll()'),
+                        _TsmNavSignaturePill(text: 'collapseAll()'),
+                        _TsmNavSignaturePill(
+                          text: 'getNodeFor(T) → TreeSliverNode<T>?',
+                        ),
+                        _TsmNavSignaturePill(
+                          text: 'getActiveIndexFor(node) → int?',
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Each TreeSliverController holds a single reference to '
+                      'one mixin-bearing state, so two independent trees need '
+                      'two controllers — the side-by-side Northwoods and '
+                      'Southwoods cards below demonstrate that.',
+                      style: TextStyle(
+                        color: _kTsmNavBarkEdge,
+                        fontSize: 12.5,
+                        height: 1.45,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -2232,8 +2302,9 @@ class _TsmNavBreadcrumbCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<TreeSliverNode<_TsmNavEntry>> path =
-        selected == null ? <TreeSliverNode<_TsmNavEntry>>[] : _kTsmNavPathOf(selected!);
+    final List<TreeSliverNode<_TsmNavEntry>> path = selected == null
+        ? <TreeSliverNode<_TsmNavEntry>>[]
+        : _kTsmNavPathOf(selected!);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(14),
@@ -2243,110 +2314,107 @@ class _TsmNavBreadcrumbCard extends StatelessWidget {
         // overflowing.
         child: SingleChildScrollView(
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const _TsmNavSectionTitle(
-              label: 'BREADCRUMB',
-              glyph: '↠',
-            ),
-            const SizedBox(height: 8),
-            if (selected == null)
-              const Text(
-                'No node selected.',
-                style: TextStyle(color: _kTsmNavBarkSoft),
-              )
-            else
-              Wrap(
-                spacing: 4,
-                runSpacing: 6,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: <Widget>[
-                  for (int i = 0; i < path.length; i++) ...<Widget>[
-                    _TsmNavCrumbChip(
-                      entry: path[i].content,
-                      isTail: i == path.length - 1,
-                    ),
-                    if (i < path.length - 1)
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        child: Icon(
-                          Icons.chevron_right,
-                          size: 16,
-                          color: _kTsmNavBarkSoft,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const _TsmNavSectionTitle(label: 'BREADCRUMB', glyph: '↠'),
+              const SizedBox(height: 8),
+              if (selected == null)
+                const Text(
+                  'No node selected.',
+                  style: TextStyle(color: _kTsmNavBarkSoft),
+                )
+              else
+                Wrap(
+                  spacing: 4,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: <Widget>[
+                    for (int i = 0; i < path.length; i++) ...<Widget>[
+                      _TsmNavCrumbChip(
+                        entry: path[i].content,
+                        isTail: i == path.length - 1,
+                      ),
+                      if (i < path.length - 1)
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2),
+                          child: Icon(
+                            Icons.chevron_right,
+                            size: 16,
+                            color: _kTsmNavBarkSoft,
+                          ),
+                        ),
+                    ],
+                  ],
+                ),
+              const SizedBox(height: 10),
+              if (selected != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _kTsmNavParchment,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: _kTsmNavParchmentEdge, width: 1),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        selected!.content.name,
+                        style: const TextStyle(
+                          color: _kTsmNavBarkEdge,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                  ],
-                ],
-              ),
-            const SizedBox(height: 10),
-            if (selected != null)
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: _kTsmNavParchment,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: _kTsmNavParchmentEdge,
-                    width: 1,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      selected!.content.name,
-                      style: const TextStyle(
-                        color: _kTsmNavBarkEdge,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'id: ${selected!.content.id}',
-                      style: const TextStyle(
-                        color: _kTsmNavBarkSoft,
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    if (selected!.content.byline.isNotEmpty)
+                      const SizedBox(height: 2),
                       Text(
-                        '"${selected!.content.byline}"',
+                        'id: ${selected!.content.id}',
                         style: const TextStyle(
                           color: _kTsmNavBarkSoft,
-                          fontSize: 11.5,
-                          fontStyle: FontStyle.italic,
+                          fontSize: 11,
+                          fontFamily: 'monospace',
                         ),
                       ),
-                    const SizedBox(height: 6),
-                    Row(
-                      children: <Widget>[
-                        _TsmNavStatChip(
-                          label: 'depth',
-                          value: '${selected!.depth ?? '?'}',
+                      if (selected!.content.byline.isNotEmpty)
+                        Text(
+                          '"${selected!.content.byline}"',
+                          style: const TextStyle(
+                            color: _kTsmNavBarkSoft,
+                            fontSize: 11.5,
+                            fontStyle: FontStyle.italic,
+                          ),
                         ),
-                        const SizedBox(width: 6),
-                        _TsmNavStatChip(
-                          label: 'children',
-                          value: '${selected!.children.length}',
-                        ),
-                        const SizedBox(width: 6),
-                        _TsmNavStatChip(
-                          label:
-                              selected!.children.isEmpty ? 'leaf' : 'parent',
-                          value: '',
-                          colour: selected!.children.isEmpty
-                              ? _kTsmNavFern
-                              : _kTsmNavAmberDeep,
-                        ),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(height: 6),
+                      Row(
+                        children: <Widget>[
+                          _TsmNavStatChip(
+                            label: 'depth',
+                            value: '${selected!.depth ?? '?'}',
+                          ),
+                          const SizedBox(width: 6),
+                          _TsmNavStatChip(
+                            label: 'children',
+                            value: '${selected!.children.length}',
+                          ),
+                          const SizedBox(width: 6),
+                          _TsmNavStatChip(
+                            label: selected!.children.isEmpty
+                                ? 'leaf'
+                                : 'parent',
+                            value: '',
+                            colour: selected!.children.isEmpty
+                                ? _kTsmNavFern
+                                : _kTsmNavAmberDeep,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-          ],
+            ],
           ),
         ),
       ),
@@ -2446,10 +2514,7 @@ class _TsmNavLogCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const _TsmNavSectionTitle(
-              label: 'OPERATION LOG',
-              glyph: '≡',
-            ),
+            const _TsmNavSectionTitle(label: 'OPERATION LOG', glyph: '≡'),
             const SizedBox(height: 8),
             Expanded(
               child: entries.isEmpty
@@ -2491,8 +2556,7 @@ class _TsmNavLogRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
             decoration: BoxDecoration(
               color: c.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(3),
@@ -2541,41 +2605,41 @@ class _TsmNavEpilogueCard extends StatelessWidget {
         // 2-flex bottom slot. Allow the card to scroll its contents.
         child: SingleChildScrollView(
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const _TsmNavSectionTitle(
-              label: 'WHEN TO USE WHICH',
-              glyph: '⚖',
-            ),
-            const SizedBox(height: 8),
-            _row(
-              glyph: 'M',
-              colour: _kTsmNavMossDeep,
-              title: 'Reach through a mixin-bearing state directly',
-              body: 'when you own the key, want strongly typed nodes of '
-                  'type TreeSliverNode<T>, and do not need to look up the '
-                  'controller from a descendant context.',
-            ),
-            const SizedBox(height: 8),
-            _row(
-              glyph: 'C',
-              colour: _kTsmNavAmberDeep,
-              title: 'Reach through TreeSliverController',
-              body: 'when a descendant widget needs to control the tree via '
-                  'TreeSliverController.of(context), or when several widgets '
-                  'share a single controller instance across rebuilds.',
-            ),
-            const SizedBox(height: 8),
-            _row(
-              glyph: '!',
-              colour: _kTsmNavCinnabar,
-              title: 'Lifecycle caveats',
-              body: 'the key\'s currentState is null before the first '
-                  'frame and after disposal; always null-check it, and '
-                  'never call expandAll/collapseAll/toggleNode from inside '
-                  'a build() — they schedule setState on the tree.',
-            ),
-          ],
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const _TsmNavSectionTitle(label: 'WHEN TO USE WHICH', glyph: '⚖'),
+              const SizedBox(height: 8),
+              _row(
+                glyph: 'M',
+                colour: _kTsmNavMossDeep,
+                title: 'Reach through a mixin-bearing state directly',
+                body:
+                    'when you own the key, want strongly typed nodes of '
+                    'type TreeSliverNode<T>, and do not need to look up the '
+                    'controller from a descendant context.',
+              ),
+              const SizedBox(height: 8),
+              _row(
+                glyph: 'C',
+                colour: _kTsmNavAmberDeep,
+                title: 'Reach through TreeSliverController',
+                body:
+                    'when a descendant widget needs to control the tree via '
+                    'TreeSliverController.of(context), or when several widgets '
+                    'share a single controller instance across rebuilds.',
+              ),
+              const SizedBox(height: 8),
+              _row(
+                glyph: '!',
+                colour: _kTsmNavCinnabar,
+                title: 'Lifecycle caveats',
+                body:
+                    'the key\'s currentState is null before the first '
+                    'frame and after disposal; always null-check it, and '
+                    'never call expandAll/collapseAll/toggleNode from inside '
+                    'a build() — they schedule setState on the tree.',
+              ),
+            ],
           ),
         ),
       ),

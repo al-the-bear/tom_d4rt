@@ -53,8 +53,10 @@ class _RegularWindowDemoState extends State<_RegularWindowDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('RegularWindow',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+        title: Text(
+          'RegularWindow',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -72,11 +74,7 @@ class _RegularWindowDemoState extends State<_RegularWindowDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _MultiWindowLabTab(),
-          _LifecycleScopingTab(),
-        ],
+        children: [_TheoryTab(), _MultiWindowLabTab(), _LifecycleScopingTab()],
       ),
     );
   }
@@ -119,7 +117,11 @@ class _TheoryTab extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _kPrimary.withOpacity(0.3)),
         boxShadow: [
-          BoxShadow(color: _kPrimary.withOpacity(0.08), blurRadius: 6, offset: Offset(0, 2)),
+          BoxShadow(
+            color: _kPrimary.withOpacity(0.08),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       padding: EdgeInsets.all(18),
@@ -130,8 +132,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.web_asset, color: _kPrimary, size: 22),
               SizedBox(width: 8),
-              Text('What is RegularWindow?',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'What is RegularWindow?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -156,7 +164,11 @@ class _TheoryTab extends StatelessWidget {
                   child: Text(
                     'RegularWindow is the widget-level entry point for Flutter\'s '
                     'experimental multi-window support on desktop platforms.',
-                    style: TextStyle(fontSize: 12, color: _kDarkText, fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: _kDarkText,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ],
@@ -164,10 +176,16 @@ class _TheoryTab extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _buildBullet(Icons.window, 'One widget = one native window'),
-          _buildBullet(Icons.account_tree, 'Child renders inside a platform View'),
+          _buildBullet(
+            Icons.account_tree,
+            'Child renders inside a platform View',
+          ),
           _buildBullet(Icons.control_camera, 'Controller manages window state'),
           _buildBullet(Icons.search, 'WindowScope provides context access'),
-          _buildBullet(Icons.delete_outline, 'Removal does NOT destroy the window'),
+          _buildBullet(
+            Icons.delete_outline,
+            'Removal does NOT destroy the window',
+          ),
         ],
       ),
     );
@@ -180,7 +198,12 @@ class _TheoryTab extends StatelessWidget {
         children: [
           Icon(icon, color: _kAccent, size: 16),
           SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(fontSize: 12, color: _kDarkText))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 12, color: _kDarkText),
+            ),
+          ),
         ],
       ),
     );
@@ -201,16 +224,42 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.layers, color: _kViewColor, size: 22),
               SizedBox(width: 8),
-              Text('Widget Tree Structure',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Widget Tree Structure',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           _buildTreeNode(0, 'RegularWindow', _kPrimary, 'Your entry point'),
-          _buildTreeNode(1, 'ListenableBuilder', Colors.grey.shade600, 'Rebuilds on controller changes'),
-          _buildTreeNode(2, 'WindowScope', _kScopeColor, 'Provides controller to subtree'),
-          _buildTreeNode(3, 'View', _kViewColor, 'Renders into native FlutterView'),
-          _buildTreeNode(4, 'child (your widget)', _kDelegateColor, 'Your app content'),
+          _buildTreeNode(
+            1,
+            'ListenableBuilder',
+            Colors.grey.shade600,
+            'Rebuilds on controller changes',
+          ),
+          _buildTreeNode(
+            2,
+            'WindowScope',
+            _kScopeColor,
+            'Provides controller to subtree',
+          ),
+          _buildTreeNode(
+            3,
+            'View',
+            _kViewColor,
+            'Renders into native FlutterView',
+          ),
+          _buildTreeNode(
+            4,
+            'child (your widget)',
+            _kDelegateColor,
+            'Your app content',
+          ),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(10),
@@ -222,7 +271,12 @@ class _TheoryTab extends StatelessWidget {
               'RegularWindow uses ListenableBuilder to listen\n'
               'for controller state changes (title, size, focus)\n'
               'and rebuilds the subtree when they occur.',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.5),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -236,7 +290,11 @@ class _TheoryTab extends StatelessWidget {
       child: Row(
         children: [
           if (depth > 0) ...[
-            Icon(Icons.subdirectory_arrow_right, color: color.withOpacity(0.5), size: 14),
+            Icon(
+              Icons.subdirectory_arrow_right,
+              color: color.withOpacity(0.5),
+              size: 14,
+            ),
             SizedBox(width: 4),
           ],
           Container(
@@ -246,12 +304,25 @@ class _TheoryTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: color.withOpacity(0.3)),
             ),
-            child: Text(label,
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Expanded(
-            child: Text(info, style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.6))),
+            child: Text(
+              info,
+              style: TextStyle(
+                fontSize: 10,
+                color: _kDarkText.withOpacity(0.6),
+              ),
+            ),
           ),
         ],
       ),
@@ -273,8 +344,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.build, color: _kPrimary, size: 22),
               SizedBox(width: 8),
-              Text('Constructor',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Constructor',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -290,12 +367,25 @@ class _TheoryTab extends StatelessWidget {
               '  required RegularWindowController controller,\n'
               '  required Widget child,\n'
               '})',
-              style: TextStyle(fontSize: 12, color: _kDarkText, fontFamily: 'monospace', height: 1.6),
+              style: TextStyle(
+                fontSize: 12,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.6,
+              ),
             ),
           ),
           SizedBox(height: 12),
-          _buildParamRow('controller', 'The window controller managing this window\'s native state', _kPrimary),
-          _buildParamRow('child', 'The widget tree to render inside the window', _kDelegateColor),
+          _buildParamRow(
+            'controller',
+            'The window controller managing this window\'s native state',
+            _kPrimary,
+          ),
+          _buildParamRow(
+            'child',
+            'The widget tree to render inside the window',
+            _kDelegateColor,
+          ),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.all(10),
@@ -306,7 +396,11 @@ class _TheoryTab extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.warning_amber_rounded, color: _kDestroyColor, size: 16),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: _kDestroyColor,
+                  size: 16,
+                ),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -334,12 +428,25 @@ class _TheoryTab extends StatelessWidget {
               color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(name,
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
-            child: Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7))),
+            child: Text(
+              desc,
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText.withOpacity(0.7),
+              ),
+            ),
           ),
         ],
       ),
@@ -361,8 +468,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.code, color: _kScopeColor, size: 22),
               SizedBox(width: 8),
-              Text('build() Implementation',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'build() Implementation',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -387,7 +500,12 @@ class _TheoryTab extends StatelessWidget {
               '    child: child,   // cached, not rebuilt\n'
               '  );\n'
               '}',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.6),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.6,
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -395,7 +513,11 @@ class _TheoryTab extends StatelessWidget {
             'Three key layers: ListenableBuilder watches for state changes, '
             'WindowScope provides the controller to descendants, and View '
             'routes rendering to the native window\'s FlutterView.',
-            style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.8), height: 1.4),
+            style: TextStyle(
+              fontSize: 12,
+              color: _kDarkText.withOpacity(0.8),
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -417,23 +539,37 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.visibility, color: _kViewColor, size: 22),
               SizedBox(width: 8),
-              Text('View Integration',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'View Integration',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           Row(
             children: [
               Expanded(
-                child: _buildInfoBox('FlutterView', 'Low-level engine surface. Each\n'
-                    'native window owns exactly one.\n'
-                    'controller.rootView returns it.', _kViewColor),
+                child: _buildInfoBox(
+                  'FlutterView',
+                  'Low-level engine surface. Each\n'
+                      'native window owns exactly one.\n'
+                      'controller.rootView returns it.',
+                  _kViewColor,
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
-                child: _buildInfoBox('View Widget', 'Framework widget that binds\n'
-                    'the widget tree to a FlutterView.\n'
-                    'Handles pixel ratio and sizing.', _kAccent),
+                child: _buildInfoBox(
+                  'View Widget',
+                  'Framework widget that binds\n'
+                      'the widget tree to a FlutterView.\n'
+                      'Handles pixel ratio and sizing.',
+                  _kAccent,
+                ),
               ),
             ],
           ),
@@ -467,9 +603,23 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
           SizedBox(height: 6),
-          Text(desc, style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.7), height: 1.4)),
+          Text(
+            desc,
+            style: TextStyle(
+              fontSize: 10,
+              color: _kDarkText.withOpacity(0.7),
+              height: 1.4,
+            ),
+          ),
         ],
       ),
     );
@@ -490,8 +640,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.search, color: _kScopeColor, size: 22),
               SizedBox(width: 8),
-              Text('WindowScope',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'WindowScope',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -513,7 +669,12 @@ class _TheoryTab extends StatelessWidget {
               'ctrl.setTitle("Updated Title");\n'
               'print(ctrl.isActivated); // focus state\n'
               'print(ctrl.isMaximized); // window state',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.6),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.6,
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -530,8 +691,21 @@ class _TheoryTab extends StatelessWidget {
                     children: [
                       Icon(Icons.check_circle, color: _kScopeColor, size: 18),
                       SizedBox(height: 4),
-                      Text('of(context)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kScopeColor)),
-                      Text('Throws if missing', style: TextStyle(fontSize: 9, color: _kDarkText.withOpacity(0.6))),
+                      Text(
+                        'of(context)',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _kScopeColor,
+                        ),
+                      ),
+                      Text(
+                        'Throws if missing',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: _kDarkText.withOpacity(0.6),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -546,10 +720,27 @@ class _TheoryTab extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.help_outline, color: _kDelegateColor, size: 18),
+                      Icon(
+                        Icons.help_outline,
+                        color: _kDelegateColor,
+                        size: 18,
+                      ),
                       SizedBox(height: 4),
-                      Text('maybeOf(context)', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _kDelegateColor)),
-                      Text('Returns null', style: TextStyle(fontSize: 9, color: _kDarkText.withOpacity(0.6))),
+                      Text(
+                        'maybeOf(context)',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _kDelegateColor,
+                        ),
+                      ),
+                      Text(
+                        'Returns null',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: _kDarkText.withOpacity(0.6),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -578,8 +769,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.science, color: _kPrimary, size: 20),
               SizedBox(width: 8),
-              Text('Experimental API',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Experimental API',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
@@ -589,7 +786,10 @@ class _TheoryTab extends StatelessWidget {
             style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.5),
           ),
           SizedBox(height: 10),
-          _buildBullet(Icons.desktop_mac, 'Desktop only: Windows, macOS, Linux'),
+          _buildBullet(
+            Icons.desktop_mac,
+            'Desktop only: Windows, macOS, Linux',
+          ),
           _buildBullet(Icons.flag, 'Requires --enable-windowing flag'),
           _buildBullet(Icons.warning, 'API subject to breaking changes'),
           _buildBullet(Icons.build_circle, 'iOS/Android: not supported'),
@@ -622,7 +822,11 @@ class _WindowSim {
 
 class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
   final List<_WindowSim> _windows = [
-    _WindowSim(title: 'Main Window', isActive: true, contentColor: Color(0xFF1565C0)),
+    _WindowSim(
+      title: 'Main Window',
+      isActive: true,
+      contentColor: Color(0xFF1565C0),
+    ),
   ];
   int _nextId = 2;
 
@@ -635,10 +839,12 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
       Color(0xFF00838F),
     ];
     setState(() {
-      _windows.add(_WindowSim(
-        title: 'Window $_nextId',
-        contentColor: colors[(_nextId - 1) % colors.length],
-      ));
+      _windows.add(
+        _WindowSim(
+          title: 'Window $_nextId',
+          contentColor: colors[(_nextId - 1) % colors.length],
+        ),
+      );
       _nextId++;
     });
     print('Added window: Window ${_nextId - 1}');
@@ -695,13 +901,23 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Multi-Window Laboratory',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+                Text(
+                  'Multi-Window Laboratory',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
                 SizedBox(height: 6),
                 Text(
                   'Simulate creating and managing multiple RegularWindow instances. '
                   'Each entry represents one native window with its own controller.',
-                  style: TextStyle(fontSize: 12, color: Colors.white70, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white70,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -719,7 +935,14 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                 children: [
                   Icon(Icons.add, color: Colors.white, size: 18),
                   SizedBox(width: 4),
-                  Text('New Window', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w600)),
+                  Text(
+                    'New Window',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -739,8 +962,10 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
           border: Border.all(color: Colors.grey.shade300),
         ),
         child: Center(
-          child: Text('No windows. Tap "New Window" to create one.',
-              style: TextStyle(fontSize: 13, color: Colors.grey)),
+          child: Text(
+            'No windows. Tap "New Window" to create one.',
+            style: TextStyle(fontSize: 13, color: Colors.grey),
+          ),
         ),
       );
     }
@@ -770,7 +995,12 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
             width: win.isActive ? 2 : 1,
           ),
           boxShadow: win.isActive
-              ? [BoxShadow(color: win.contentColor.withOpacity(0.15), blurRadius: 8)]
+              ? [
+                  BoxShadow(
+                    color: win.contentColor.withOpacity(0.15),
+                    blurRadius: 8,
+                  ),
+                ]
               : [],
         ),
         child: Column(
@@ -790,8 +1020,14 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                   Icon(Icons.window, color: Colors.white, size: 14),
                   SizedBox(width: 6),
                   Expanded(
-                    child: Text(win.title,
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white)),
+                    child: Text(
+                      win.title,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   if (win.isActive)
                     Container(
@@ -800,7 +1036,14 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text('ACTIVE', style: TextStyle(fontSize: 8, color: Colors.white, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        'ACTIVE',
+                        style: TextStyle(
+                          fontSize: 8,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   SizedBox(width: 8),
                   GestureDetector(
@@ -823,7 +1066,11 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                       color: win.contentColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Icon(Icons.widgets, color: win.contentColor, size: 20),
+                    child: Icon(
+                      Icons.widgets,
+                      color: win.contentColor,
+                      size: 20,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -831,12 +1078,23 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('RegularWindow(controller: ctrl_$index, child: ...)',
-                            style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: _kDarkText)),
+                        Text(
+                          'RegularWindow(controller: ctrl_$index, child: ...)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: _kDarkText,
+                          ),
+                        ),
                         SizedBox(height: 2),
                         Text(
-                          win.isActive ? 'Active — receives input' : 'Inactive — tap to activate',
-                          style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.5)),
+                          win.isActive
+                              ? 'Active — receives input'
+                              : 'Inactive — tap to activate',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _kDarkText.withOpacity(0.5),
+                          ),
                         ),
                       ],
                     ),
@@ -865,8 +1123,14 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
             children: [
               Icon(Icons.code, color: _kAccent, size: 20),
               SizedBox(width: 8),
-              Text('Multi-Window Pattern',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Multi-Window Pattern',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -889,7 +1153,12 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
               ')\n\n'
               '// Later, destroy the window\n'
               'ctrl.destroy();',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.6),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.6,
+              ),
             ),
           ),
         ],
@@ -912,13 +1181,21 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
             children: [
               Icon(Icons.list_alt, color: _kScopeColor, size: 20),
               SizedBox(width: 8),
-              Text('Controller Registry',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Controller Registry',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
-          Text('Active controllers: ${_windows.length}',
-              style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.7))),
+          Text(
+            'Active controllers: ${_windows.length}',
+            style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.7)),
+          ),
           SizedBox(height: 8),
           ...List.generate(_windows.length, (i) {
             final win = _windows[i];
@@ -935,14 +1212,30 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
                     ),
                   ),
                   SizedBox(width: 8),
-                  Text('ctrl_$i',
-                      style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _kScopeColor)),
+                  Text(
+                    'ctrl_$i',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: _kScopeColor,
+                    ),
+                  ),
                   SizedBox(width: 8),
-                  Text('→ "${win.title}"',
-                      style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6))),
+                  Text(
+                    '→ "${win.title}"',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: _kDarkText.withOpacity(0.6),
+                    ),
+                  ),
                   Spacer(),
-                  Text(win.isActive ? 'active' : 'background',
-                      style: TextStyle(fontSize: 10, color: win.isActive ? _kDelegateColor : Colors.grey)),
+                  Text(
+                    win.isActive ? 'active' : 'background',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: win.isActive ? _kDelegateColor : Colors.grey,
+                    ),
+                  ),
                 ],
               ),
             );
@@ -967,20 +1260,42 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
             children: [
               Icon(Icons.swap_horiz, color: _kDelegateColor, size: 20),
               SizedBox(width: 8),
-              Text('Cross-Window Communication',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Cross-Window Communication',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
           Text(
             'RegularWindow instances share the same Dart isolate. Communication '
             'between windows uses standard Dart patterns:',
-            style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.8), height: 1.4),
+            style: TextStyle(
+              fontSize: 12,
+              color: _kDarkText.withOpacity(0.8),
+              height: 1.4,
+            ),
           ),
           SizedBox(height: 10),
-          _buildCommRow('Shared State', 'ChangeNotifier / ValueNotifier', Icons.share),
-          _buildCommRow('Stream-based', 'StreamController.broadcast()', Icons.stream),
-          _buildCommRow('Provider', 'InheritedWidget above all windows', Icons.account_tree),
+          _buildCommRow(
+            'Shared State',
+            'ChangeNotifier / ValueNotifier',
+            Icons.share,
+          ),
+          _buildCommRow(
+            'Stream-based',
+            'StreamController.broadcast()',
+            Icons.stream,
+          ),
+          _buildCommRow(
+            'Provider',
+            'InheritedWidget above all windows',
+            Icons.account_tree,
+          ),
           _buildCommRow('Direct', 'Reference controller from list', Icons.link),
         ],
       ),
@@ -996,11 +1311,23 @@ class _MultiWindowLabTabState extends State<_MultiWindowLabTab> {
           SizedBox(width: 8),
           SizedBox(
             width: 90,
-            child: Text(method,
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kDelegateColor)),
+            child: Text(
+              method,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _kDelegateColor,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(detail, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6))),
+            child: Text(
+              detail,
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText.withOpacity(0.6),
+              ),
+            ),
           ),
         ],
       ),
@@ -1068,17 +1395,53 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.timeline, color: _kPrimary, size: 22),
               SizedBox(width: 8),
-              Text('Window Lifecycle Flow',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Window Lifecycle Flow',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
-          _buildFlowStep(1, 'Controller Created', 'RegularWindowController() → native window', _kDelegateColor),
-          _buildFlowStep(2, 'Widget Mounted', 'RegularWindow enters widget tree', _kPrimary),
-          _buildFlowStep(3, 'View Bound', 'Child renders into controller.rootView', _kViewColor),
-          _buildFlowStep(4, 'State Changes', 'Title, size, focus → notifyListeners()', _kAccent),
-          _buildFlowStep(5, 'Close Request', 'Delegate.onCloseRequested() called', _kScopeColor),
-          _buildFlowStep(6, 'Destroy', 'controller.destroy() releases native window', _kDestroyColor),
+          _buildFlowStep(
+            1,
+            'Controller Created',
+            'RegularWindowController() → native window',
+            _kDelegateColor,
+          ),
+          _buildFlowStep(
+            2,
+            'Widget Mounted',
+            'RegularWindow enters widget tree',
+            _kPrimary,
+          ),
+          _buildFlowStep(
+            3,
+            'View Bound',
+            'Child renders into controller.rootView',
+            _kViewColor,
+          ),
+          _buildFlowStep(
+            4,
+            'State Changes',
+            'Title, size, focus → notifyListeners()',
+            _kAccent,
+          ),
+          _buildFlowStep(
+            5,
+            'Close Request',
+            'Delegate.onCloseRequested() called',
+            _kScopeColor,
+          ),
+          _buildFlowStep(
+            6,
+            'Destroy',
+            'controller.destroy() releases native window',
+            _kDestroyColor,
+          ),
         ],
       ),
     );
@@ -1095,16 +1458,36 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             height: 26,
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             alignment: Alignment.center,
-            child: Text('$step', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),
+            child: Text(
+              '$step',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                  ),
+                ),
                 SizedBox(height: 2),
-                Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6))),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText.withOpacity(0.6),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1128,8 +1511,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.gavel, color: _kScopeColor, size: 22),
               SizedBox(width: 8),
-              Text('Delegate Close Handling',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Delegate Close Handling',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -1157,7 +1546,12 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
               '    return true;\n'
               '  }\n'
               '}',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.6),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.6,
+              ),
             ),
           ),
         ],
@@ -1180,13 +1574,21 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.play_circle_fill, color: _kAccent, size: 20),
               SizedBox(width: 8),
-              Text('Lifecycle Simulator',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Lifecycle Simulator',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 6),
-          Text('Current state: $_windowState',
-              style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.6))),
+          Text(
+            'Current state: $_windowState',
+            style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.6)),
+          ),
           SizedBox(height: 12),
           Container(
             padding: EdgeInsets.all(12),
@@ -1197,23 +1599,31 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
                   : _kDelegateColor.withOpacity(0.06),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: _windowState == 'destroyed' ? _kDestroyColor.withOpacity(0.3) : _kDelegateColor.withOpacity(0.2),
+                color: _windowState == 'destroyed'
+                    ? _kDestroyColor.withOpacity(0.3)
+                    : _kDelegateColor.withOpacity(0.2),
               ),
             ),
             child: Column(
               children: [
                 Icon(
                   _windowState == 'destroyed' ? Icons.dangerous : Icons.window,
-                  color: _windowState == 'destroyed' ? _kDestroyColor : _kDelegateColor,
+                  color: _windowState == 'destroyed'
+                      ? _kDestroyColor
+                      : _kDelegateColor,
                   size: 32,
                 ),
                 SizedBox(height: 6),
                 Text(
-                  _windowState == 'destroyed' ? 'Window Destroyed' : 'Window: $_windowState',
+                  _windowState == 'destroyed'
+                      ? 'Window Destroyed'
+                      : 'Window: $_windowState',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: _windowState == 'destroyed' ? _kDestroyColor : _kDelegateColor,
+                    color: _windowState == 'destroyed'
+                        ? _kDestroyColor
+                        : _kDelegateColor,
                   ),
                 ),
               ],
@@ -1280,8 +1690,10 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
                 : null,
           ),
           SizedBox(width: 8),
-          Text('Delegate blocks close',
-              style: TextStyle(fontSize: 12, color: _kDarkText)),
+          Text(
+            'Delegate blocks close',
+            style: TextStyle(fontSize: 12, color: _kDarkText),
+          ),
         ],
       ),
     );
@@ -1297,8 +1709,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: color.withOpacity(0.3)),
         ),
-        child: Text(label,
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
       ),
     );
   }
@@ -1318,8 +1736,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.warning, color: _kDestroyColor, size: 22),
               SizedBox(width: 8),
-              Text('Important: Widget Removal ≠ Destroy',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Important: Widget Removal ≠ Destroy',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -1335,12 +1759,29 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.remove_circle_outline, color: _kDelegateColor, size: 24),
+                      Icon(
+                        Icons.remove_circle_outline,
+                        color: _kDelegateColor,
+                        size: 24,
+                      ),
                       SizedBox(height: 6),
-                      Text('Remove Widget', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kDelegateColor)),
+                      Text(
+                        'Remove Widget',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: _kDelegateColor,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('Detaches widget tree\nbut window stays open.',
-                          style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.6)), textAlign: TextAlign.center),
+                      Text(
+                        'Detaches widget tree\nbut window stays open.',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _kDarkText.withOpacity(0.6),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -1359,12 +1800,29 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.delete_forever, color: _kDestroyColor, size: 24),
+                      Icon(
+                        Icons.delete_forever,
+                        color: _kDestroyColor,
+                        size: 24,
+                      ),
                       SizedBox(height: 6),
-                      Text('controller.destroy()', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kDestroyColor)),
+                      Text(
+                        'controller.destroy()',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: _kDestroyColor,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('Releases native window\nand all resources.',
-                          style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.6)), textAlign: TextAlign.center),
+                      Text(
+                        'Releases native window\nand all resources.',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _kDarkText.withOpacity(0.6),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
@@ -1391,8 +1849,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.account_tree, color: _kViewColor, size: 22),
               SizedBox(width: 8),
-              Text('WindowScope Access Patterns',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'WindowScope Access Patterns',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -1438,7 +1902,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kDarkText)),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: _kDarkText,
+                  ),
+                ),
                 SizedBox(height: 3),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -1446,8 +1917,14 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
                     color: _kCodeBg,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(code,
-                      style: TextStyle(fontSize: 10, color: _kViewColor, fontFamily: 'monospace')),
+                  child: Text(
+                    code,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: _kViewColor,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1471,33 +1948,56 @@ class _LifecycleScopingTabState extends State<_LifecycleScopingTab> {
             children: [
               Icon(Icons.terminal, color: _kAccent, size: 18),
               SizedBox(width: 8),
-              Text('Lifecycle Event Log',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _kAccent)),
+              Text(
+                'Lifecycle Event Log',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: _kAccent,
+                ),
+              ),
               Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _lifecycleLog.clear()),
-                child: Text('Clear', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
+                child: Text(
+                  'Clear',
+                  style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+                ),
               ),
             ],
           ),
           SizedBox(height: 10),
           if (_lifecycleLog.isEmpty)
-            Text('No events yet. Use simulator controls above.',
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600, fontStyle: FontStyle.italic))
+            Text(
+              'No events yet. Use simulator controls above.',
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
+            )
           else
-            ..._lifecycleLog.map((event) => Padding(
-                  padding: EdgeInsets.only(bottom: 4),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('● ', style: TextStyle(fontSize: 11, color: _kAccent)),
-                      Expanded(
-                        child: Text(event,
-                            style: TextStyle(fontSize: 11, color: Colors.grey.shade300, fontFamily: 'monospace')),
+            ..._lifecycleLog.map(
+              (event) => Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('● ', style: TextStyle(fontSize: 11, color: _kAccent)),
+                    Expanded(
+                      child: Text(
+                        event,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey.shade300,
+                          fontFamily: 'monospace',
+                        ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

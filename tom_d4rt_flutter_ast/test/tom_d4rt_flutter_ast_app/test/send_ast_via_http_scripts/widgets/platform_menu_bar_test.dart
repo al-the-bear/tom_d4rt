@@ -62,11 +62,7 @@ dynamic build(BuildContext context) {
           'Menus appear in the native menu bar area — NOT in the\n'
           'Flutter widget tree. This provides a platform-native\n'
           'experience that matches user expectations on each OS.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.white70,
-            height: 1.5,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.white70, height: 1.5),
         ),
         SizedBox(height: 16.0),
         // Visual: simulated macOS-style menu bar
@@ -80,22 +76,57 @@ dynamic build(BuildContext context) {
             children: [
               Icon(Icons.apple, color: Colors.black87, size: 16.0),
               SizedBox(width: 16.0),
-              Text('File', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'File',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 16.0),
-              Text('Edit', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'Edit',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 16.0),
-              Text('View', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'View',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 16.0),
-              Text('Help', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'Help',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               Spacer(),
-              Text('Mon 10:42', style: TextStyle(fontSize: 11.0, color: Colors.black54)),
+              Text(
+                'Mon 10:42',
+                style: TextStyle(fontSize: 11.0, color: Colors.black54),
+              ),
             ],
           ),
         ),
         SizedBox(height: 8.0),
         Text(
           '↑ This is what the OS renders — Flutter defines the structure',
-          style: TextStyle(fontSize: 10.0, color: Colors.amber.shade200, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.amber.shade200,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -154,9 +185,7 @@ dynamic build(BuildContext context) {
         ],
       ),
     ],
-    child: Center(
-      child: Text('App content under PlatformMenuBar'),
-    ),
+    child: Center(child: Text('App content under PlatformMenuBar')),
   );
   print('Constructed basic PlatformMenuBar with File and Edit menus');
   print('basicMenuBar child: ${basicMenuBar.child}');
@@ -175,7 +204,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 2: Basic Menu Structure',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -211,7 +244,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6.0),
                 boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0, offset: Offset(0, 2)),
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 8.0,
+                    offset: Offset(0, 2),
+                  ),
                 ],
               ),
               child: Column(
@@ -233,7 +270,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6.0),
                 boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 8.0, offset: Offset(0, 2)),
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 8.0,
+                    offset: Offset(0, 2),
+                  ),
                 ],
               ),
               child: Column(
@@ -301,27 +342,43 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'New Document',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyN, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyN,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+N: New Document'),
           ),
           PlatformMenuItem(
             label: 'Open...',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyO, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyO,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+O: Open'),
           ),
           PlatformMenuItem(
             label: 'Save',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyS,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+S: Save'),
           ),
           PlatformMenuItem(
             label: 'Save As...',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true, shift: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyS,
+              control: true,
+              shift: true,
+            ),
             onSelected: () => print('Ctrl+Shift+S: Save As'),
           ),
           PlatformMenuItem(
             label: 'Print',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyP, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyP,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+P: Print'),
           ),
         ],
@@ -331,22 +388,34 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'Cut',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyX, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyX,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+X: Cut'),
           ),
           PlatformMenuItem(
             label: 'Copy',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyC, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyC,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+C: Copy'),
           ),
           PlatformMenuItem(
             label: 'Paste',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyV, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyV,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+V: Paste'),
           ),
           PlatformMenuItem(
             label: 'Select All',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyA, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyA,
+              control: true,
+            ),
             onSelected: () => print('Ctrl+A: Select All'),
           ),
         ],
@@ -359,15 +428,60 @@ dynamic build(BuildContext context) {
 
   // Visual shortcut showcase
   final shortcutEntries = [
-    {'action': 'New Document', 'keys': 'Ctrl + N', 'icon': Icons.note_add, 'color': Colors.blue},
-    {'action': 'Open...', 'keys': 'Ctrl + O', 'icon': Icons.folder_open, 'color': Colors.orange},
-    {'action': 'Save', 'keys': 'Ctrl + S', 'icon': Icons.save, 'color': Colors.green},
-    {'action': 'Save As...', 'keys': 'Ctrl + Shift + S', 'icon': Icons.save_as, 'color': Colors.teal},
-    {'action': 'Print', 'keys': 'Ctrl + P', 'icon': Icons.print, 'color': Colors.purple},
-    {'action': 'Cut', 'keys': 'Ctrl + X', 'icon': Icons.content_cut, 'color': Colors.red},
-    {'action': 'Copy', 'keys': 'Ctrl + C', 'icon': Icons.copy, 'color': Colors.indigo},
-    {'action': 'Paste', 'keys': 'Ctrl + V', 'icon': Icons.paste, 'color': Colors.brown},
-    {'action': 'Select All', 'keys': 'Ctrl + A', 'icon': Icons.select_all, 'color': Colors.cyan},
+    {
+      'action': 'New Document',
+      'keys': 'Ctrl + N',
+      'icon': Icons.note_add,
+      'color': Colors.blue,
+    },
+    {
+      'action': 'Open...',
+      'keys': 'Ctrl + O',
+      'icon': Icons.folder_open,
+      'color': Colors.orange,
+    },
+    {
+      'action': 'Save',
+      'keys': 'Ctrl + S',
+      'icon': Icons.save,
+      'color': Colors.green,
+    },
+    {
+      'action': 'Save As...',
+      'keys': 'Ctrl + Shift + S',
+      'icon': Icons.save_as,
+      'color': Colors.teal,
+    },
+    {
+      'action': 'Print',
+      'keys': 'Ctrl + P',
+      'icon': Icons.print,
+      'color': Colors.purple,
+    },
+    {
+      'action': 'Cut',
+      'keys': 'Ctrl + X',
+      'icon': Icons.content_cut,
+      'color': Colors.red,
+    },
+    {
+      'action': 'Copy',
+      'keys': 'Ctrl + C',
+      'icon': Icons.copy,
+      'color': Colors.indigo,
+    },
+    {
+      'action': 'Paste',
+      'keys': 'Ctrl + V',
+      'icon': Icons.paste,
+      'color': Colors.brown,
+    },
+    {
+      'action': 'Select All',
+      'keys': 'Ctrl + A',
+      'icon': Icons.select_all,
+      'color': Colors.cyan,
+    },
   ];
 
   final shortcutCards = <Widget>[];
@@ -389,7 +503,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 entry['action'] as String,
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w500, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ),
             Container(
@@ -428,7 +546,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 3: Keyboard Shortcuts',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -441,7 +563,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  print('Created keyboard shortcut showcase with ${shortcutCards.length} entries');
+  print(
+    'Created keyboard shortcut showcase with ${shortcutCards.length} entries',
+  );
 
   // ============================================================
   // SECTION 4: Nested Submenus
@@ -461,25 +585,43 @@ dynamic build(BuildContext context) {
             menus: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Bold',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyB, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyB,
+                  control: true,
+                ),
                 onSelected: () => print('Format > Text > Bold'),
               ),
               PlatformMenuItem(
                 label: 'Italic',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyI, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyI,
+                  control: true,
+                ),
                 onSelected: () => print('Format > Text > Italic'),
               ),
               PlatformMenuItem(
                 label: 'Underline',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyU, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyU,
+                  control: true,
+                ),
                 onSelected: () => print('Format > Text > Underline'),
               ),
               PlatformMenu(
                 label: 'Font Family',
                 menus: <PlatformMenuItem>[
-                  PlatformMenuItem(label: 'Sans Serif', onSelected: () => print('Font: Sans Serif')),
-                  PlatformMenuItem(label: 'Serif', onSelected: () => print('Font: Serif')),
-                  PlatformMenuItem(label: 'Monospace', onSelected: () => print('Font: Monospace')),
+                  PlatformMenuItem(
+                    label: 'Sans Serif',
+                    onSelected: () => print('Font: Sans Serif'),
+                  ),
+                  PlatformMenuItem(
+                    label: 'Serif',
+                    onSelected: () => print('Font: Serif'),
+                  ),
+                  PlatformMenuItem(
+                    label: 'Monospace',
+                    onSelected: () => print('Font: Monospace'),
+                  ),
                 ],
               ),
             ],
@@ -487,9 +629,18 @@ dynamic build(BuildContext context) {
           PlatformMenu(
             label: 'Paragraph',
             menus: <PlatformMenuItem>[
-              PlatformMenuItem(label: 'Align Left', onSelected: () => print('Align Left')),
-              PlatformMenuItem(label: 'Align Center', onSelected: () => print('Align Center')),
-              PlatformMenuItem(label: 'Align Right', onSelected: () => print('Align Right')),
+              PlatformMenuItem(
+                label: 'Align Left',
+                onSelected: () => print('Align Left'),
+              ),
+              PlatformMenuItem(
+                label: 'Align Center',
+                onSelected: () => print('Align Center'),
+              ),
+              PlatformMenuItem(
+                label: 'Align Right',
+                onSelected: () => print('Align Right'),
+              ),
             ],
           ),
           PlatformMenuItem(
@@ -518,7 +669,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 4: Nested Submenus',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -552,7 +707,11 @@ dynamic build(BuildContext context) {
             'Depth: PlatformMenu entries in menus list can be\n'
             'either PlatformMenuItem (leaf) or PlatformMenu (submenu).\n'
             'The OS renders the full hierarchy natively.',
-            style: TextStyle(fontSize: 10.0, color: Colors.deepPurple.shade800, height: 1.4),
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.deepPurple.shade800,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -578,12 +737,18 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'Zoom In',
-            shortcut: const SingleActivator(LogicalKeyboardKey.equal, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.equal,
+              control: true,
+            ),
             onSelected: () => print('Zoom In'),
           ),
           PlatformMenuItem(
             label: 'Zoom Out',
-            shortcut: const SingleActivator(LogicalKeyboardKey.minus, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.minus,
+              control: true,
+            ),
             onSelected: () => print('Zoom Out'),
           ),
           PlatformMenuItemGroup(
@@ -596,10 +761,7 @@ dynamic build(BuildContext context) {
             ],
           ),
           // Disabled item: onSelected is null
-          PlatformMenuItem(
-            label: 'Presentation Mode',
-            onSelected: null,
-          ),
+          PlatformMenuItem(label: 'Presentation Mode', onSelected: null),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
               PlatformMenuItem(
@@ -617,20 +779,85 @@ dynamic build(BuildContext context) {
     ],
     child: Center(child: Text('State demo')),
   );
-  print('Constructed state showcase menu with enabled, disabled, and grouped items');
+  print(
+    'Constructed state showcase menu with enabled, disabled, and grouped items',
+  );
   print('stateMenuBar menus: ${stateMenuBar.menus.length}');
 
   // Visual states display
   final stateItems = [
-    {'label': 'Zoom In', 'state': 'Enabled', 'shortcut': 'Ctrl + =', 'icon': Icons.zoom_in, 'enabled': true, 'grouped': false},
-    {'label': 'Zoom Out', 'state': 'Enabled', 'shortcut': 'Ctrl + -', 'icon': Icons.zoom_out, 'enabled': true, 'grouped': false},
-    {'label': '── separator ──', 'state': 'Group', 'shortcut': '', 'icon': Icons.horizontal_rule, 'enabled': true, 'grouped': true},
-    {'label': 'Full Screen', 'state': 'Enabled (grouped)', 'shortcut': 'F11', 'icon': Icons.fullscreen, 'enabled': true, 'grouped': true},
-    {'label': '── separator ──', 'state': 'Group', 'shortcut': '', 'icon': Icons.horizontal_rule, 'enabled': true, 'grouped': true},
-    {'label': 'Presentation Mode', 'state': 'Disabled', 'shortcut': '', 'icon': Icons.slideshow, 'enabled': false, 'grouped': false},
-    {'label': '── separator ──', 'state': 'Group', 'shortcut': '', 'icon': Icons.horizontal_rule, 'enabled': true, 'grouped': true},
-    {'label': 'Show Sidebar', 'state': 'Enabled (grouped)', 'shortcut': '', 'icon': Icons.vertical_split, 'enabled': true, 'grouped': true},
-    {'label': 'Show Status Bar', 'state': 'Enabled (grouped)', 'shortcut': '', 'icon': Icons.view_stream, 'enabled': true, 'grouped': true},
+    {
+      'label': 'Zoom In',
+      'state': 'Enabled',
+      'shortcut': 'Ctrl + =',
+      'icon': Icons.zoom_in,
+      'enabled': true,
+      'grouped': false,
+    },
+    {
+      'label': 'Zoom Out',
+      'state': 'Enabled',
+      'shortcut': 'Ctrl + -',
+      'icon': Icons.zoom_out,
+      'enabled': true,
+      'grouped': false,
+    },
+    {
+      'label': '── separator ──',
+      'state': 'Group',
+      'shortcut': '',
+      'icon': Icons.horizontal_rule,
+      'enabled': true,
+      'grouped': true,
+    },
+    {
+      'label': 'Full Screen',
+      'state': 'Enabled (grouped)',
+      'shortcut': 'F11',
+      'icon': Icons.fullscreen,
+      'enabled': true,
+      'grouped': true,
+    },
+    {
+      'label': '── separator ──',
+      'state': 'Group',
+      'shortcut': '',
+      'icon': Icons.horizontal_rule,
+      'enabled': true,
+      'grouped': true,
+    },
+    {
+      'label': 'Presentation Mode',
+      'state': 'Disabled',
+      'shortcut': '',
+      'icon': Icons.slideshow,
+      'enabled': false,
+      'grouped': false,
+    },
+    {
+      'label': '── separator ──',
+      'state': 'Group',
+      'shortcut': '',
+      'icon': Icons.horizontal_rule,
+      'enabled': true,
+      'grouped': true,
+    },
+    {
+      'label': 'Show Sidebar',
+      'state': 'Enabled (grouped)',
+      'shortcut': '',
+      'icon': Icons.vertical_split,
+      'enabled': true,
+      'grouped': true,
+    },
+    {
+      'label': 'Show Status Bar',
+      'state': 'Enabled (grouped)',
+      'shortcut': '',
+      'icon': Icons.view_stream,
+      'enabled': true,
+      'grouped': true,
+    },
   ];
 
   final stateCards = <Widget>[];
@@ -642,10 +869,7 @@ dynamic build(BuildContext context) {
       stateCards.add(
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
-          child: Container(
-            height: 1.0,
-            color: Colors.grey.shade300,
-          ),
+          child: Container(height: 1.0, color: Colors.grey.shade300),
         ),
       );
     } else {
@@ -670,7 +894,9 @@ dynamic build(BuildContext context) {
                   item['label'] as String,
                   style: TextStyle(
                     fontSize: 12.0,
-                    color: isEnabled ? Colors.grey.shade800 : Colors.grey.shade400,
+                    color: isEnabled
+                        ? Colors.grey.shade800
+                        : Colors.grey.shade400,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -688,7 +914,9 @@ dynamic build(BuildContext context) {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                 decoration: BoxDecoration(
-                  color: isEnabled ? Colors.green.shade100 : Colors.red.shade100,
+                  color: isEnabled
+                      ? Colors.green.shade100
+                      : Colors.red.shade100,
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Text(
@@ -696,7 +924,9 @@ dynamic build(BuildContext context) {
                   style: TextStyle(
                     fontSize: 8.0,
                     fontWeight: FontWeight.bold,
-                    color: isEnabled ? Colors.green.shade700 : Colors.red.shade700,
+                    color: isEnabled
+                        ? Colors.green.shade700
+                        : Colors.red.shade700,
                   ),
                 ),
               ),
@@ -720,7 +950,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 5: Menu Item States',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -734,9 +968,7 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(8.0),
             border: Border.all(color: Colors.grey.shade200),
           ),
-          child: Column(
-            children: stateCards,
-          ),
+          child: Column(children: stateCards),
         ),
         SizedBox(height: 10.0),
         Row(
@@ -769,12 +1001,18 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'New',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyN, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyN,
+              control: true,
+            ),
             onSelected: () => print('New'),
           ),
           PlatformMenuItem(
             label: 'Open...',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyO, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyO,
+              control: true,
+            ),
             onSelected: () => print('Open'),
           ),
           PlatformMenu(
@@ -789,12 +1027,19 @@ dynamic build(BuildContext context) {
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Save',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyS,
+                  control: true,
+                ),
                 onSelected: () => print('Save'),
               ),
               PlatformMenuItem(
                 label: 'Save As...',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true, shift: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyS,
+                  control: true,
+                  shift: true,
+                ),
                 onSelected: () => print('Save As'),
               ),
             ],
@@ -809,7 +1054,10 @@ dynamic build(BuildContext context) {
           ),
           PlatformMenuItem(
             label: 'Quit',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyQ, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyQ,
+              control: true,
+            ),
             onSelected: () => print('Quit'),
           ),
         ],
@@ -819,41 +1067,63 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'Undo',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyZ,
+              control: true,
+            ),
             onSelected: () => print('Undo'),
           ),
           PlatformMenuItem(
             label: 'Redo',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyZ,
+              control: true,
+              shift: true,
+            ),
             onSelected: () => print('Redo'),
           ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
               PlatformMenuItem(
                 label: 'Cut',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyX, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyX,
+                  control: true,
+                ),
                 onSelected: () => print('Cut'),
               ),
               PlatformMenuItem(
                 label: 'Copy',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyC, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyC,
+                  control: true,
+                ),
                 onSelected: () => print('Copy'),
               ),
               PlatformMenuItem(
                 label: 'Paste',
-                shortcut: const SingleActivator(LogicalKeyboardKey.keyV, control: true),
+                shortcut: const SingleActivator(
+                  LogicalKeyboardKey.keyV,
+                  control: true,
+                ),
                 onSelected: () => print('Paste'),
               ),
             ],
           ),
           PlatformMenuItem(
             label: 'Find...',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyF, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyF,
+              control: true,
+            ),
             onSelected: () => print('Find'),
           ),
           PlatformMenuItem(
             label: 'Replace...',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyH, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyH,
+              control: true,
+            ),
             onSelected: () => print('Replace'),
           ),
         ],
@@ -863,12 +1133,18 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'Zoom In',
-            shortcut: const SingleActivator(LogicalKeyboardKey.equal, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.equal,
+              control: true,
+            ),
             onSelected: () => print('Zoom In'),
           ),
           PlatformMenuItem(
             label: 'Zoom Out',
-            shortcut: const SingleActivator(LogicalKeyboardKey.minus, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.minus,
+              control: true,
+            ),
             onSelected: () => print('Zoom Out'),
           ),
           PlatformMenuItemGroup(
@@ -888,11 +1164,20 @@ dynamic build(BuildContext context) {
       PlatformMenu(
         label: 'Help',
         menus: <PlatformMenuItem>[
-          PlatformMenuItem(label: 'Documentation', onSelected: () => print('Docs')),
-          PlatformMenuItem(label: 'Release Notes', onSelected: () => print('Release Notes')),
+          PlatformMenuItem(
+            label: 'Documentation',
+            onSelected: () => print('Docs'),
+          ),
+          PlatformMenuItem(
+            label: 'Release Notes',
+            onSelected: () => print('Release Notes'),
+          ),
           PlatformMenuItemGroup(
             members: <PlatformMenuItem>[
-              PlatformMenuItem(label: 'About TextEdit', onSelected: () => print('About')),
+              PlatformMenuItem(
+                label: 'About TextEdit',
+                onSelected: () => print('About'),
+              ),
             ],
           ),
         ],
@@ -918,7 +1203,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 6: Full Application Menu',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -941,23 +1230,75 @@ dynamic build(BuildContext context) {
               // Window controls
               Row(
                 children: [
-                  Container(width: 10.0, height: 10.0, decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle)),
+                  Container(
+                    width: 10.0,
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   SizedBox(width: 5.0),
-                  Container(width: 10.0, height: 10.0, decoration: BoxDecoration(color: Colors.amber, shape: BoxShape.circle)),
+                  Container(
+                    width: 10.0,
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                   SizedBox(width: 5.0),
-                  Container(width: 10.0, height: 10.0, decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle)),
+                  Container(
+                    width: 10.0,
+                    height: 10.0,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(width: 20.0),
-              Text('File', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'File',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 14.0),
-              Text('Edit', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'Edit',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 14.0),
-              Text('View', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'View',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               SizedBox(width: 14.0),
-              Text('Help', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Colors.black87)),
+              Text(
+                'Help',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+              ),
               Spacer(),
-              Text('TextEdit', style: TextStyle(fontSize: 12.0, color: Colors.black54)),
+              Text(
+                'TextEdit',
+                style: TextStyle(fontSize: 12.0, color: Colors.black54),
+              ),
             ],
           ),
         ),
@@ -975,18 +1316,43 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('The quick brown fox jumps over the lazy dog.', style: TextStyle(fontSize: 13.0, color: Colors.black87)),
+              Text(
+                'The quick brown fox jumps over the lazy dog.',
+                style: TextStyle(fontSize: 13.0, color: Colors.black87),
+              ),
               SizedBox(height: 6.0),
-              Text('This text is inside the PlatformMenuBar child widget.', style: TextStyle(fontSize: 13.0, color: Colors.black87)),
+              Text(
+                'This text is inside the PlatformMenuBar child widget.',
+                style: TextStyle(fontSize: 13.0, color: Colors.black87),
+              ),
               SizedBox(height: 6.0),
-              Text('The menus above are rendered by the operating system.', style: TextStyle(fontSize: 13.0, color: Colors.black54, fontStyle: FontStyle.italic)),
+              Text(
+                'The menus above are rendered by the operating system.',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.black54,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
               Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('Line 3, Col 1', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500)),
+                  Text(
+                    'Line 3, Col 1',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
                   SizedBox(width: 12.0),
-                  Text('UTF-8', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500)),
+                  Text(
+                    'UTF-8',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -1020,15 +1386,51 @@ dynamic build(BuildContext context) {
   print('=== Section 7: PlatformMenuBar vs MenuBar ===');
 
   final comparisonData = [
-    {'aspect': 'Rendering', 'platform': 'Native OS menu bar', 'flutter': 'Flutter widget in tree'},
-    {'aspect': 'Appearance', 'platform': 'Matches OS look', 'flutter': 'Material Design style'},
-    {'aspect': 'Position', 'platform': 'OS menu bar area', 'flutter': 'Anywhere in layout'},
-    {'aspect': 'Customization', 'platform': 'Limited by OS', 'flutter': 'Fully customizable'},
-    {'aspect': 'Accessibility', 'platform': 'OS-provided a11y', 'flutter': 'Flutter Semantics'},
-    {'aspect': 'Submenus', 'platform': 'PlatformMenu nesting', 'flutter': 'SubmenuButton nesting'},
-    {'aspect': 'Shortcuts', 'platform': 'SingleActivator', 'flutter': 'MenuAcceleratorLabel'},
-    {'aspect': 'Icons', 'platform': 'Not supported', 'flutter': 'leadingIcon / trailingIcon'},
-    {'aspect': 'Use case', 'platform': 'Desktop apps', 'flutter': 'Cross-platform UI'},
+    {
+      'aspect': 'Rendering',
+      'platform': 'Native OS menu bar',
+      'flutter': 'Flutter widget in tree',
+    },
+    {
+      'aspect': 'Appearance',
+      'platform': 'Matches OS look',
+      'flutter': 'Material Design style',
+    },
+    {
+      'aspect': 'Position',
+      'platform': 'OS menu bar area',
+      'flutter': 'Anywhere in layout',
+    },
+    {
+      'aspect': 'Customization',
+      'platform': 'Limited by OS',
+      'flutter': 'Fully customizable',
+    },
+    {
+      'aspect': 'Accessibility',
+      'platform': 'OS-provided a11y',
+      'flutter': 'Flutter Semantics',
+    },
+    {
+      'aspect': 'Submenus',
+      'platform': 'PlatformMenu nesting',
+      'flutter': 'SubmenuButton nesting',
+    },
+    {
+      'aspect': 'Shortcuts',
+      'platform': 'SingleActivator',
+      'flutter': 'MenuAcceleratorLabel',
+    },
+    {
+      'aspect': 'Icons',
+      'platform': 'Not supported',
+      'flutter': 'leadingIcon / trailingIcon',
+    },
+    {
+      'aspect': 'Use case',
+      'platform': 'Desktop apps',
+      'flutter': 'Cross-platform UI',
+    },
   ];
 
   final comparisonRows = <Widget>[];
@@ -1045,7 +1447,11 @@ dynamic build(BuildContext context) {
               width: 90.0,
               child: Text(
                 data['aspect']!,
-                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade800,
+                ),
               ),
             ),
             Expanded(
@@ -1057,7 +1463,10 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   data['platform']!,
-                  style: TextStyle(fontSize: 9.0, color: Colors.indigo.shade700),
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    color: Colors.indigo.shade700,
+                  ),
                 ),
               ),
             ),
@@ -1094,7 +1503,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 7: PlatformMenuBar vs MenuBar',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1113,13 +1526,30 @@ dynamic build(BuildContext context) {
             children: [
               SizedBox(
                 width: 90.0,
-                child: Text('Aspect', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Aspect',
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+                ),
               ),
               Expanded(
-                child: Text('PlatformMenuBar', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.indigo)),
+                child: Text(
+                  'PlatformMenuBar',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('MenuBar', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.teal)),
+                child: Text(
+                  'MenuBar',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1143,13 +1573,20 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4.0),
                     Text(
                       'Use PlatformMenuBar',
-                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo.shade800,
+                      ),
                     ),
                     SizedBox(height: 2.0),
                     Text(
                       'When building native desktop\napps that should match the\nOS look and feel.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 8.0, color: Colors.indigo.shade600),
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        color: Colors.indigo.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -1170,13 +1607,20 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4.0),
                     Text(
                       'Use MenuBar',
-                      style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.teal.shade800),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal.shade800,
+                      ),
                     ),
                     SizedBox(height: 2.0),
                     Text(
                       'When you need custom styling,\ncross-platform consistency,\nor inline menu placement.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 8.0, color: Colors.teal.shade600),
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        color: Colors.teal.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -1218,7 +1662,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'PlatformMenuBar',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1231,7 +1679,11 @@ dynamic build(BuildContext context) {
                 'renders in its native menu bar, providing platform-\n'
                 'consistent application menus for desktop apps.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11.0, color: Colors.white60, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.white60,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1255,7 +1707,11 @@ dynamic build(BuildContext context) {
         Center(
           child: Text(
             'PlatformMenuBar Deep Demo — 7 sections',
-            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.grey.shade500,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -1314,7 +1770,12 @@ Widget _buildDropdownItem(String label, String shortcut, bool disabled) {
   );
 }
 
-Widget _buildTreeNode(String label, int depth, MaterialColor color, bool hasChildren) {
+Widget _buildTreeNode(
+  String label,
+  int depth,
+  MaterialColor color,
+  bool hasChildren,
+) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 24.0, top: 2.0, bottom: 2.0),
     child: Row(
@@ -1357,7 +1818,11 @@ Widget _buildStateLegendChip(String label, MaterialColor color) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color.shade700),
+      style: TextStyle(
+        fontSize: 9.0,
+        fontWeight: FontWeight.bold,
+        color: color.shade700,
+      ),
     ),
   );
 }
@@ -1374,12 +1839,13 @@ Widget _buildMenuCountBadge(String menu, String count, MaterialColor color) {
       children: [
         Text(
           menu,
-          style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
-        Text(
-          count,
-          style: TextStyle(fontSize: 9.0, color: Colors.white70),
-        ),
+        Text(count, style: TextStyle(fontSize: 9.0, color: Colors.white70)),
       ],
     ),
   );

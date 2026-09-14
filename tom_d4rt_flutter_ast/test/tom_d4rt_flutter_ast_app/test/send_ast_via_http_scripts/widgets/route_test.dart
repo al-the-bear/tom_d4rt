@@ -150,9 +150,7 @@ class _PrivateCard extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(18, 16, 18, 14),
             decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: _PrivatePalette.border),
-              ),
+              border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
             ),
             child: Row(
               children: [
@@ -179,10 +177,7 @@ class _PrivateCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(18, 16, 18, 18),
-            child: child,
-          ),
+          Padding(padding: EdgeInsets.fromLTRB(18, 16, 18, 18), child: child),
         ],
       ),
     );
@@ -203,10 +198,7 @@ class _PrivatePill extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withValues(alpha: 0.45)),
       ),
-      child: Text(
-        label,
-        style: _PrivateType.pill.copyWith(color: color),
-      ),
+      child: Text(label, style: _PrivateType.pill.copyWith(color: color)),
     );
   }
 }
@@ -340,13 +332,31 @@ class _PrivateStackOfPagesGraphic extends StatelessWidget {
             bottom: 8,
             child: Row(
               children: [
-                Icon(Icons.arrow_upward, size: 14, color: _PrivatePalette.success),
+                Icon(
+                  Icons.arrow_upward,
+                  size: 14,
+                  color: _PrivatePalette.success,
+                ),
                 SizedBox(width: 4),
-                Text('push', style: _PrivateType.small.copyWith(color: _PrivatePalette.success)),
+                Text(
+                  'push',
+                  style: _PrivateType.small.copyWith(
+                    color: _PrivatePalette.success,
+                  ),
+                ),
                 SizedBox(width: 12),
-                Icon(Icons.arrow_downward, size: 14, color: _PrivatePalette.danger),
+                Icon(
+                  Icons.arrow_downward,
+                  size: 14,
+                  color: _PrivatePalette.danger,
+                ),
                 SizedBox(width: 4),
-                Text('pop', style: _PrivateType.small.copyWith(color: _PrivatePalette.danger)),
+                Text(
+                  'pop',
+                  style: _PrivateType.small.copyWith(
+                    color: _PrivatePalette.danger,
+                  ),
+                ),
               ],
             ),
           ),
@@ -383,7 +393,10 @@ class _PrivateHeroCard extends StatelessWidget {
             children: [
               _PrivatePill(label: 'NAVIGATION', color: _PrivatePalette.accent),
               SizedBox(width: 8),
-              _PrivatePill(label: 'STACK MODEL', color: _PrivatePalette.builder),
+              _PrivatePill(
+                label: 'STACK MODEL',
+                color: _PrivatePalette.builder,
+              ),
               SizedBox(width: 8),
               _PrivatePill(label: 'OVERLAY', color: _PrivatePalette.popup),
             ],
@@ -885,17 +898,13 @@ class _PrivatePageThumb extends StatelessWidget {
                 topLeft: Radius.circular(11),
                 topRight: Radius.circular(11),
               ),
-              border: Border(
-                bottom: BorderSide(color: _PrivatePalette.border),
-              ),
+              border: Border(bottom: BorderSide(color: _PrivatePalette.border)),
             ),
             child: Row(
               children: [
                 Icon(icon, color: color, size: 16),
                 SizedBox(width: 6),
-                Expanded(
-                  child: Text(title, style: _PrivateType.h3),
-                ),
+                Expanded(child: Text(title, style: _PrivateType.h3)),
               ],
             ),
           ),
@@ -965,11 +974,13 @@ class _PrivatePageThumb extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
             child: Row(
               children: [
-                Icon(Icons.animation, size: 13, color: _PrivatePalette.inkMuted),
-                SizedBox(width: 4),
-                Expanded(
-                  child: Text(transition, style: _PrivateType.small),
+                Icon(
+                  Icons.animation,
+                  size: 13,
+                  color: _PrivatePalette.inkMuted,
                 ),
+                SizedBox(width: 4),
+                Expanded(child: Text(transition, style: _PrivateType.small)),
               ],
             ),
           ),
@@ -1069,7 +1080,8 @@ class _PrivatePageRouteGallery extends StatelessWidget {
             Expanded(
               child: _PrivatePageThumb(
                 title: 'MaterialPageRoute',
-                transition: 'Slide-up + fade on Android, slide-from-right on iOS.',
+                transition:
+                    'Slide-up + fade on Android, slide-from-right on iOS.',
                 color: _PrivatePalette.material,
                 icon: Icons.android,
                 overlayHints: [_slideArrow(color: _PrivatePalette.material)],
@@ -1079,7 +1091,8 @@ class _PrivatePageRouteGallery extends StatelessWidget {
             Expanded(
               child: _PrivatePageThumb(
                 title: 'CupertinoPageRoute',
-                transition: 'iOS slide-from-right with swipe-to-go-back gesture.',
+                transition:
+                    'iOS slide-from-right with swipe-to-go-back gesture.',
                 color: _PrivatePalette.cupertino,
                 icon: Icons.phone_iphone,
                 overlayHints: [
@@ -1097,7 +1110,8 @@ class _PrivatePageRouteGallery extends StatelessWidget {
             Expanded(
               child: _PrivatePageThumb(
                 title: 'PageRouteBuilder',
-                transition: 'You bring transitionsBuilder — typical: fade or scale.',
+                transition:
+                    'You bring transitionsBuilder — typical: fade or scale.',
                 color: _PrivatePalette.builder,
                 icon: Icons.build,
                 overlayHints: [_fadeBlur(color: _PrivatePalette.builder)],
@@ -1180,10 +1194,12 @@ class _PrivateModalComparison extends StatelessWidget {
   const _PrivateModalComparison();
 
   Widget _cell(String text, {bool header = false, double width = 0}) {
-    final TextStyle style = header
-        ? _PrivateType.pill
-        : _PrivateType.monoSmall;
-    final Widget content = Text(text, style: style, overflow: TextOverflow.ellipsis);
+    final TextStyle style = header ? _PrivateType.pill : _PrivateType.monoSmall;
+    final Widget content = Text(
+      text,
+      style: style,
+      overflow: TextOverflow.ellipsis,
+    );
     return Container(
       width: width > 0 ? width : null,
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -1301,7 +1317,9 @@ class _PrivateModalComparison extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       rows[i].type,
-                                      style: _PrivateType.h3.copyWith(fontSize: 13),
+                                      style: _PrivateType.h3.copyWith(
+                                        fontSize: 13,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -1317,11 +1335,17 @@ class _PrivateModalComparison extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(16, 0, 12, 8),
                         child: Row(
                           children: [
-                            Icon(Icons.subdirectory_arrow_right,
-                                size: 12, color: _PrivatePalette.inkMuted),
+                            Icon(
+                              Icons.subdirectory_arrow_right,
+                              size: 12,
+                              color: _PrivatePalette.inkMuted,
+                            ),
                             SizedBox(width: 4),
                             Expanded(
-                              child: Text(rows[i].notes, style: _PrivateType.small),
+                              child: Text(
+                                rows[i].notes,
+                                style: _PrivateType.small,
+                              ),
                             ),
                           ],
                         ),
@@ -1368,10 +1392,7 @@ class _PrivateCodeLine extends StatelessWidget {
         ),
         SizedBox(width: 10),
         Expanded(
-          child: Text(
-            code,
-            style: _PrivateType.mono.copyWith(color: color),
-          ),
+          child: Text(code, style: _PrivateType.mono.copyWith(color: color)),
         ),
       ],
     );
@@ -1496,8 +1517,11 @@ class _PrivateCodeListing extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline,
-                  size: 16, color: _PrivatePalette.success),
+              Icon(
+                Icons.lightbulb_outline,
+                size: 16,
+                color: _PrivatePalette.success,
+              ),
               SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1730,44 +1754,80 @@ class _PrivateRouteAwarePanel extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('// Wiring',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFF6F7BA5))),
+                Text(
+                  '// Wiring',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFF6F7BA5),
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text('final RouteObserver<PageRoute> obs = RouteObserver();',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('MaterialApp(navigatorObservers: [obs], ...)',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
+                Text(
+                  'final RouteObserver<PageRoute> obs = RouteObserver();',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  'MaterialApp(navigatorObservers: [obs], ...)',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
                 SizedBox(height: 8),
-                Text('// Inside State<MyScreen> with RouteAware:',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFF6F7BA5))),
-                Text('void didChangeDependencies() {',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('  super.didChangeDependencies();',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('  obs.subscribe(this, ModalRoute.of(context)!);',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFA9B8FF))),
-                Text('}',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('void dispose() {',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('  obs.unsubscribe(this);',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFA9B8FF))),
-                Text('  super.dispose();',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
-                Text('}',
-                    style: _PrivateType.monoSmall
-                        .copyWith(color: Color(0xFFE6E9F2))),
+                Text(
+                  '// Inside State<MyScreen> with RouteAware:',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFF6F7BA5),
+                  ),
+                ),
+                Text(
+                  'void didChangeDependencies() {',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  '  super.didChangeDependencies();',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  '  obs.subscribe(this, ModalRoute.of(context)!);',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFA9B8FF),
+                  ),
+                ),
+                Text(
+                  '}',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  'void dispose() {',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  '  obs.unsubscribe(this);',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFA9B8FF),
+                  ),
+                ),
+                Text(
+                  '  super.dispose();',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
+                Text(
+                  '}',
+                  style: _PrivateType.monoSmall.copyWith(
+                    color: Color(0xFFE6E9F2),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1802,7 +1862,8 @@ class _PrivatePitfallList extends StatelessWidget {
     final List<_PrivatePitfall> pitfalls = [
       _PrivatePitfall(
         title: 'push() returns a Future, it does NOT await on its own',
-        body: 'Navigator.push returns Future<T?> immediately.  If you forget '
+        body:
+            'Navigator.push returns Future<T?> immediately.  If you forget '
             'await, the calling code keeps running and the result-handling '
             'block executes before the user has done anything.',
         icon: Icons.bolt,
@@ -1810,7 +1871,8 @@ class _PrivatePitfallList extends StatelessWidget {
       ),
       _PrivatePitfall(
         title: 'arguments is Object?, not a typed parameter',
-        body: 'RouteSettings.arguments is Object? for backwards compatibility. '
+        body:
+            'RouteSettings.arguments is Object? for backwards compatibility. '
             'Cast at the receiving site, ideally inside a small typed '
             'extractor — never sprinkle "as Map" all over the screen widget.',
         icon: Icons.warning_amber,
@@ -1818,7 +1880,8 @@ class _PrivatePitfallList extends StatelessWidget {
       ),
       _PrivatePitfall(
         title: 'barrierDismissible only matters for modal routes',
-        body: 'Setting barrierDismissible=true on a PageRoute has no effect '
+        body:
+            'Setting barrierDismissible=true on a PageRoute has no effect '
             '— PageRoutes are opaque and have no barrier.  Use it on '
             'PopupRoute / DialogRoute / RawDialogRoute.',
         icon: Icons.shield,
@@ -1826,7 +1889,8 @@ class _PrivatePitfallList extends StatelessWidget {
       ),
       _PrivatePitfall(
         title: 'maintainState=false drops the widget tree under it',
-        body: 'PageRoute.maintainState=false rebuilds when re-shown.  Useful '
+        body:
+            'PageRoute.maintainState=false rebuilds when re-shown.  Useful '
             'for memory but breaks any TextEditingController state held in '
             'the page — keep state outside the page (Bloc/Riverpod/InheritedW).',
         icon: Icons.memory,
@@ -1834,7 +1898,8 @@ class _PrivatePitfallList extends StatelessWidget {
       ),
       _PrivatePitfall(
         title: 'pop with a result of the wrong type silently returns null',
-        body: 'If your route is MaterialPageRoute<bool> but you pop with an '
+        body:
+            'If your route is MaterialPageRoute<bool> but you pop with an '
             'int, the future yields null.  Strongly type the route and use '
             'the same type for pop<T>(value).',
         icon: Icons.error_outline,
@@ -1951,7 +2016,8 @@ dynamic build(BuildContext context) {
             ),
             _PrivateCard(
               title: 'Class hierarchy',
-              subtitle: 'Route → OverlayRoute → TransitionRoute → ModalRoute → PageRoute',
+              subtitle:
+                  'Route → OverlayRoute → TransitionRoute → ModalRoute → PageRoute',
               icon: Icons.account_tree,
               accent: _PrivatePalette.accent,
               child: _PrivateInheritanceDiagram(),
@@ -1977,17 +2043,15 @@ dynamic build(BuildContext context) {
             ),
             _PrivateCard(
               title: 'Route lifecycle',
-              subtitle: 'install · didPush · didChangeNext · didPopNext · didPop · dispose',
+              subtitle:
+                  'install · didPush · didChangeNext · didPopNext · didPop · dispose',
               icon: Icons.timeline,
               accent: _PrivatePalette.success,
               child: _PrivateLifecycleTimeline(),
             ),
 
             // 5. Page-route gallery
-            _PrivateSectionHeader(
-              index: '05',
-              title: 'Page-route gallery',
-            ),
+            _PrivateSectionHeader(index: '05', title: 'Page-route gallery'),
             _PrivateCard(
               title: 'Page routes you actually use',
               subtitle: 'Material · Cupertino · Builder · RawDialog',
@@ -1997,13 +2061,11 @@ dynamic build(BuildContext context) {
             ),
 
             // 6. Modal comparison
-            _PrivateSectionHeader(
-              index: '06',
-              title: 'Modal-route comparison',
-            ),
+            _PrivateSectionHeader(index: '06', title: 'Modal-route comparison'),
             _PrivateCard(
               title: 'Barrier semantics',
-              subtitle: 'PopupRoute · DialogRoute · RawDialogRoute · ModalRoute',
+              subtitle:
+                  'PopupRoute · DialogRoute · RawDialogRoute · ModalRoute',
               icon: Icons.layers,
               accent: _PrivatePalette.popup,
               child: _PrivateModalComparison(),
@@ -2016,7 +2078,8 @@ dynamic build(BuildContext context) {
             ),
             _PrivateCard(
               title: 'Code listing',
-              subtitle: 'Navigator.of(ctx).push(MaterialPageRoute(builder: ...))',
+              subtitle:
+                  'Navigator.of(ctx).push(MaterialPageRoute(builder: ...))',
               icon: Icons.code,
               accent: _PrivatePalette.material,
               child: _PrivateCodeListing(),

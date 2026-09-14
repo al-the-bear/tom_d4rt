@@ -16,8 +16,7 @@ dynamic build(BuildContext context) {
   const sandGold = Color(0xFFF39C12);
 
   // ── Helpers ────────────────────────────────────────────────────────
-  Widget sectionBanner(
-      String title, String subtitle, Color bg, Color fg) {
+  Widget sectionBanner(String title, String subtitle, Color bg, Color fg) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(top: 20, bottom: 8),
@@ -33,16 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -71,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 180,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: deepOcean)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: deepOcean),
+            ),
           ),
         ],
       ),
@@ -94,8 +106,7 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child:
-          Text(text, style: TextStyle(fontSize: 11, color: fg)),
+      child: Text(text, style: TextStyle(fontSize: 11, color: fg)),
     );
   }
 
@@ -108,11 +119,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: fg.withValues(alpha: 0.25)),
       ),
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -176,12 +186,22 @@ dynamic build(BuildContext context) {
   // Section 7 — inheritance
   print('\n--- Inheritance ---');
   print('ListWheelChildBuilderDelegate extends ListWheelChildDelegate');
-  print('Key API: build(), estimatedChildCount, trueIndexOf(), shouldRebuild()');
+  print(
+    'Key API: build(), estimatedChildCount, trueIndexOf(), shouldRebuild()',
+  );
 
   // Section 8 — fruits wheel
   final fruits = [
-    'Apple', 'Banana', 'Cherry', 'Date', 'Elderberry',
-    'Fig', 'Grape', 'Honeydew', 'Kiwi', 'Lemon',
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape',
+    'Honeydew',
+    'Kiwi',
+    'Lemon',
   ];
   print('\n--- Fruit picker wheel (10 items) ---');
   for (int i = 0; i < fruits.length; i++) {
@@ -246,30 +266,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('ListWheelChildBuilderDelegate',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold)),
+              const Text(
+                'ListWheelChildBuilderDelegate',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 6),
-              Text('Lazily builds children for cylindrical wheel scroll views',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9), fontSize: 14)),
+              Text(
+                'Lazily builds children for cylindrical wheel scroll views',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 14,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('ListWheelScrollView', azureWave, Colors.white),
-                tag('Lazy Builder', skyAqua, deepOcean),
-                tag('On-Demand', foamCrest, deepOcean),
-                tag('Performance', seaMist, deepOcean),
-              ]),
+              Wrap(
+                children: [
+                  tag('ListWheelScrollView', azureWave, Colors.white),
+                  tag('Lazy Builder', skyAqua, deepOcean),
+                  tag('On-Demand', foamCrest, deepOcean),
+                  tag('Performance', seaMist, deepOcean),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 · What Is ListWheelChildBuilderDelegate',
-            'A delegate that lazily supplies children for ListWheelScrollView',
-            deepOcean, Colors.white),
+        sectionBanner(
+          '1 · What Is ListWheelChildBuilderDelegate',
+          'A delegate that lazily supplies children for ListWheelScrollView',
+          deepOcean,
+          Colors.white,
+        ),
         noteBox(
           'ListWheelChildBuilderDelegate creates children on-demand using a '
           'builder callback. Unlike ListWheelChildListDelegate which holds '
@@ -280,14 +312,21 @@ dynamic build(BuildContext context) {
           lightSurge,
         ),
         dataRow('Extends', 'ListWheelChildDelegate', midnightTide),
-        dataRow('Key property', 'builder: NullableIndexedWidgetBuilder', azureWave),
+        dataRow(
+          'Key property',
+          'builder: NullableIndexedWidgetBuilder',
+          azureWave,
+        ),
         dataRow('Optional', 'childCount: int?', skyAqua),
         const SizedBox(height: 14),
 
         // ── 3. Bounded builder demo ──────────────────────────────────
-        sectionBanner('2 · Bounded Builder — Month Picker',
-            'Builder with childCount=12, returns null outside range',
-            midnightTide, Colors.white),
+        sectionBanner(
+          '2 · Bounded Builder — Month Picker',
+          'Builder with childCount=12, returns null outside range',
+          midnightTide,
+          Colors.white,
+        ),
         noteBox(
           'When childCount is specified, the framework knows the exact range. '
           'The builder should return null for indices outside [0, childCount). '
@@ -296,7 +335,11 @@ dynamic build(BuildContext context) {
           icyPearl,
         ),
         dataRow('childCount', '${boundedDelegate.childCount}', deepOcean),
-        dataRow('estimatedChildCount', '${boundedDelegate.estimatedChildCount}', midnightTide),
+        dataRow(
+          'estimatedChildCount',
+          '${boundedDelegate.estimatedChildCount}',
+          midnightTide,
+        ),
         dataRow('build(0)', '$child0', azureWave),
         dataRow('build(11)', '$child11', skyAqua),
         dataRow('build(15)', '$childOver', coralAccent),
@@ -318,9 +361,18 @@ dynamic build(BuildContext context) {
               builder: (ctx, index) {
                 if (index < 0 || index >= 12) return null;
                 final months = [
-                  'January', 'February', 'March', 'April',
-                  'May', 'June', 'July', 'August',
-                  'September', 'October', 'November', 'December',
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
                 ];
                 return wheelItem(months[index], icyPearl, deepOcean);
               },
@@ -331,9 +383,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Unbounded builder ─────────────────────────────────────
-        sectionBanner('3 · Unbounded Builder — Infinite Counter',
-            'No childCount specified, theoretically infinite items',
-            azureWave, Colors.white),
+        sectionBanner(
+          '3 · Unbounded Builder — Infinite Counter',
+          'No childCount specified, theoretically infinite items',
+          azureWave,
+          Colors.white,
+        ),
         noteBox(
           'Without childCount, the delegate is unbounded. The builder is called '
           'for any index and never returns null. The framework keeps requesting '
@@ -343,7 +398,11 @@ dynamic build(BuildContext context) {
           icyPearl,
         ),
         dataRow('childCount', '${unboundedDelegate.childCount}', deepOcean),
-        dataRow('estimatedChildCount', '${unboundedDelegate.estimatedChildCount}', midnightTide),
+        dataRow(
+          'estimatedChildCount',
+          '${unboundedDelegate.estimatedChildCount}',
+          midnightTide,
+        ),
         const SizedBox(height: 8),
         Container(
           height: 160,
@@ -360,16 +419,22 @@ dynamic build(BuildContext context) {
               builder: (ctx, index) {
                 return Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: index.isEven ? icyPearl : seaMist,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text('#$index',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: deepOcean)),
+                  child: Text(
+                    '#$index',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: deepOcean,
+                    ),
+                  ),
                 );
               },
             ),
@@ -378,9 +443,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Build method details ──────────────────────────────────
-        sectionBanner('4 · Build Method & Null Contract',
-            'How the builder callback drives child creation',
-            skyAqua, Colors.white),
+        sectionBanner(
+          '4 · Build Method & Null Contract',
+          'How the builder callback drives child creation',
+          skyAqua,
+          Colors.white,
+        ),
         noteBox(
           'The build(context, index) method calls the builder callback. '
           'When the builder returns null, the framework interprets this as '
@@ -400,11 +468,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Build Contract:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: deepOcean)),
+              Text(
+                'Build Contract:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: deepOcean,
+                ),
+              ),
               const SizedBox(height: 6),
               dataRow('Valid index', 'Returns Widget', azureWave),
               dataRow('Out-of-range', 'Returns null', coralAccent),
@@ -417,9 +488,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. trueIndexOf ───────────────────────────────────────────
-        sectionBanner('5 · trueIndexOf — Index Mapping',
-            'For non-looping delegates, returns index unchanged',
-            foamCrest, deepOcean),
+        sectionBanner(
+          '5 · trueIndexOf — Index Mapping',
+          'For non-looping delegates, returns index unchanged',
+          foamCrest,
+          deepOcean,
+        ),
         noteBox(
           'trueIndexOf(index) maps a wheel index to the true child index. '
           'For ListWheelChildBuilderDelegate (non-looping), this is always '
@@ -428,16 +502,35 @@ dynamic build(BuildContext context) {
           foamCrest,
           lightSurge,
         ),
-        dataRow('trueIndexOf(0)', '${boundedDelegate.trueIndexOf(0)}', deepOcean),
-        dataRow('trueIndexOf(5)', '${boundedDelegate.trueIndexOf(5)}', midnightTide),
-        dataRow('trueIndexOf(11)', '${boundedDelegate.trueIndexOf(11)}', azureWave),
-        dataRow('trueIndexOf(99)', '${boundedDelegate.trueIndexOf(99)}', skyAqua),
+        dataRow(
+          'trueIndexOf(0)',
+          '${boundedDelegate.trueIndexOf(0)}',
+          deepOcean,
+        ),
+        dataRow(
+          'trueIndexOf(5)',
+          '${boundedDelegate.trueIndexOf(5)}',
+          midnightTide,
+        ),
+        dataRow(
+          'trueIndexOf(11)',
+          '${boundedDelegate.trueIndexOf(11)}',
+          azureWave,
+        ),
+        dataRow(
+          'trueIndexOf(99)',
+          '${boundedDelegate.trueIndexOf(99)}',
+          skyAqua,
+        ),
         const SizedBox(height: 14),
 
         // ── 7. shouldRebuild ─────────────────────────────────────────
-        sectionBanner('6 · shouldRebuild Behavior',
-            'Always returns true — builder closures are not comparable',
-            midnightTide, Colors.white),
+        sectionBanner(
+          '6 · shouldRebuild Behavior',
+          'Always returns true — builder closures are not comparable',
+          midnightTide,
+          Colors.white,
+        ),
         noteBox(
           'shouldRebuild(oldDelegate) always returns true because Dart cannot '
           'compare function closures for equality. This means the framework '
@@ -446,14 +539,21 @@ dynamic build(BuildContext context) {
           midnightTide,
           icyPearl,
         ),
-        dataRow('shouldRebuild(any)', '${boundedDelegate.shouldRebuild(anotherDelegate)}', deepOcean),
+        dataRow(
+          'shouldRebuild(any)',
+          '${boundedDelegate.shouldRebuild(anotherDelegate)}',
+          deepOcean,
+        ),
         dataRow('Reason', 'Cannot compare closures', azureWave),
         const SizedBox(height: 14),
 
         // ── 8. Fruit picker wheel ────────────────────────────────────
-        sectionBanner('7 · Fruit Picker — Styled Builder Items',
-            'Custom-styled items with emoji icons',
-            deepOcean, Colors.white),
+        sectionBanner(
+          '7 · Fruit Picker — Styled Builder Items',
+          'Custom-styled items with emoji icons',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           height: 200,
           decoration: BoxDecoration(
@@ -472,26 +572,37 @@ dynamic build(BuildContext context) {
                   builder: (ctx, index) {
                     if (index < 0 || index >= fruits.length) return null;
                     final emojis = [
-                      '\u{1F34E}', '\u{1F34C}', '\u{1F352}', '\u{1F351}', '\u{1F347}',
-                      '\u{1F95D}', '\u{1F349}', '\u{1F348}', '\u{1F34A}', '\u{1F34B}',
+                      '\u{1F34E}',
+                      '\u{1F34C}',
+                      '\u{1F352}',
+                      '\u{1F351}',
+                      '\u{1F347}',
+                      '\u{1F95D}',
+                      '\u{1F349}',
+                      '\u{1F348}',
+                      '\u{1F34A}',
+                      '\u{1F34B}',
                     ];
                     return Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [
-                            icyPearl,
-                            seaMist.withValues(alpha: 0.6),
-                          ],
+                          colors: [icyPearl, seaMist.withValues(alpha: 0.6)],
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text('${emojis[index]}  ${fruits[index]}',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: deepOcean)),
+                      child: Text(
+                        '${emojis[index]}  ${fruits[index]}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: deepOcean,
+                        ),
+                      ),
                     );
                   },
                   childCount: fruits.length,
@@ -515,9 +626,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Hour picker ───────────────────────────────────────────
-        sectionBanner('8 · 24-Hour Picker — Large Bounded Builder',
-            'All 24 hours lazily built with AM/PM labels',
-            azureWave, Colors.white),
+        sectionBanner(
+          '8 · 24-Hour Picker — Large Bounded Builder',
+          'All 24 hours lazily built with AM/PM labels',
+          azureWave,
+          Colors.white,
+        ),
         Container(
           height: 180,
           decoration: BoxDecoration(
@@ -537,7 +651,10 @@ dynamic build(BuildContext context) {
                     : (index > 12 ? index - 12 : index);
                 return Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: index < 12
                         ? seaMist.withValues(alpha: 0.5)
@@ -547,24 +664,32 @@ dynamic build(BuildContext context) {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('$hour12:00',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: deepOcean)),
+                      Text(
+                        '$hour12:00',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: deepOcean,
+                        ),
+                      ),
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: index < 12 ? sandGold : midnightTide,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(period,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                        child: Text(
+                          period,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -577,9 +702,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Color-coded score wheel ──────────────────────────────
-        sectionBanner('9 · Score Picker — Conditional Styling',
-            'Colors change based on value: red < 40, gold 40-70, green > 70',
-            skyAqua, Colors.white),
+        sectionBanner(
+          '9 · Score Picker — Conditional Styling',
+          'Colors change based on value: red < 40, gold 40-70, green > 70',
+          skyAqua,
+          Colors.white,
+        ),
         noteBox(
           'The builder callback can apply conditional logic to style items '
           'differently based on their index or computed value. This demonstrates '
@@ -620,7 +748,10 @@ dynamic build(BuildContext context) {
                 }
                 return Container(
                   alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 1),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 1,
+                  ),
                   decoration: BoxDecoration(
                     color: scoreBg,
                     borderRadius: BorderRadius.circular(8),
@@ -628,24 +759,32 @@ dynamic build(BuildContext context) {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('$score',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: scoreFg)),
+                      Text(
+                        '$score',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: scoreFg,
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: scoreFg,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(tier,
-                            style: const TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white)),
+                        child: Text(
+                          tier,
+                          style: const TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -658,9 +797,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Performance notes ────────────────────────────────────
-        sectionBanner('10 · Performance Characteristics',
-            'Why builder delegates are memory-efficient',
-            foamCrest, deepOcean),
+        sectionBanner(
+          '10 · Performance Characteristics',
+          'Why builder delegates are memory-efficient',
+          foamCrest,
+          deepOcean,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -671,18 +813,27 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(children: [
-                Icon(Icons.speed, size: 18, color: deepOcean),
-                const SizedBox(width: 8),
-                Text('Performance Profile',
+              Row(
+                children: [
+                  Icon(Icons.speed, size: 18, color: deepOcean),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Performance Profile',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: deepOcean)),
-              ]),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: deepOcean,
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 10),
               dataRow('Lazy creation', 'Children built on scroll', deepOcean),
-              dataRow('Memory', 'Only visible + buffer in memory', midnightTide),
+              dataRow(
+                'Memory',
+                'Only visible + buffer in memory',
+                midnightTide,
+              ),
               dataRow('Disposal', 'Off-screen children recycled', azureWave),
               dataRow('Best for', '> 20 items, or unbounded lists', skyAqua),
               const SizedBox(height: 8),
@@ -701,9 +852,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Vs ListWheelChildListDelegate ────────────────────────
-        sectionBanner('11 · Builder vs List Delegate Comparison',
-            'When to choose each approach',
-            midnightTide, Colors.white),
+        sectionBanner(
+          '11 · Builder vs List Delegate Comparison',
+          'When to choose each approach',
+          midnightTide,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -723,27 +877,36 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('Aspect',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'Aspect',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('BuilderDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'BuilderDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text('ListDelegate',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11)),
+                    child: Text(
+                      'ListDelegate',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -751,66 +914,102 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(color: lightSurge),
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Creation',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Creation',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Lazy (on demand)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Lazy (on demand)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Eager (all upfront)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Eager (all upfront)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Memory',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Memory',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('O(visible)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'O(visible)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('O(total)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'O(total)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                 ],
               ),
               TableRow(
                 decoration: BoxDecoration(color: lightSurge),
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Infinite',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Infinite',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Yes (null childCount)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Yes (null childCount)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('No (finite list)',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'No (finite list)',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                 ],
               ),
               TableRow(
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Best for',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Best for',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Large / dynamic sets',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Large / dynamic sets',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text('Small fixed sets',
-                          style: TextStyle(fontSize: 11, color: deepOcean))),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Small fixed sets',
+                      style: TextStyle(fontSize: 11, color: deepOcean),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -819,9 +1018,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Null contract visual ─────────────────────────────────
-        sectionBanner('12 · Null Return Contract',
-            'How the framework uses null to detect list boundaries',
-            azureWave, Colors.white),
+        sectionBanner(
+          '12 · Null Return Contract',
+          'How the framework uses null to detect list boundaries',
+          azureWave,
+          Colors.white,
+        ),
         noteBox(
           'When the builder returns null for an index, the framework '
           'stops requesting children in that direction. This is the '
@@ -847,11 +1049,14 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 70,
-                        child: Text('index $i',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: deepOcean)),
+                        child: Text(
+                          'index $i',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: deepOcean,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Icon(
@@ -863,10 +1068,9 @@ dynamic build(BuildContext context) {
                       Text(
                         i >= 0 && i < 12 ? 'Widget returned' : 'null → stop',
                         style: TextStyle(
-                            fontSize: 12,
-                            color: i >= 0 && i < 12
-                                ? deepOcean
-                                : coralAccent),
+                          fontSize: 12,
+                          color: i >= 0 && i < 12 ? deepOcean : coralAccent,
+                        ),
                       ),
                     ],
                   ),
@@ -877,9 +1081,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Real-world patterns ──────────────────────────────────
-        sectionBanner('13 · Real-World Use Patterns',
-            'Common scenarios where builder delegates shine',
-            deepOcean, Colors.white),
+        sectionBanner(
+          '13 · Real-World Use Patterns',
+          'Common scenarios where builder delegates shine',
+          deepOcean,
+          Colors.white,
+        ),
         Wrap(
           spacing: 6,
           runSpacing: 6,
@@ -895,8 +1102,10 @@ dynamic build(BuildContext context) {
               'Temperature Control',
             ])
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: lightSurge,
                   borderRadius: BorderRadius.circular(8),
@@ -907,8 +1116,10 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.settings, size: 14, color: midnightTide),
                     const SizedBox(width: 6),
-                    Text(pattern,
-                        style: TextStyle(fontSize: 12, color: deepOcean)),
+                    Text(
+                      pattern,
+                      style: TextStyle(fontSize: 12, color: deepOcean),
+                    ),
                   ],
                 ),
               ),
@@ -917,9 +1128,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Integration ──────────────────────────────────────────
-        sectionBanner('14 · ListWheelScrollView Integration',
-            'How the delegate plugs into the scroll view',
-            skyAqua, Colors.white),
+        sectionBanner(
+          '14 · ListWheelScrollView Integration',
+          'How the delegate plugs into the scroll view',
+          skyAqua,
+          Colors.white,
+        ),
         noteBox(
           'Use ListWheelScrollView.useDelegate() to pass a builder delegate. '
           'The scroll view creates a ListWheelViewport internally, which '
@@ -939,11 +1153,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Widget Tree:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                      color: deepOcean)),
+              Text(
+                'Widget Tree:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: deepOcean,
+                ),
+              ),
               const SizedBox(height: 6),
               for (final line in [
                 'ListWheelScrollView',
@@ -954,11 +1171,14 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(line,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          color: deepOcean)),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      color: deepOcean,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -966,8 +1186,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Inheritance hierarchy ────────────────────────────────
-        sectionBanner('15 · Inheritance Hierarchy',
-            'Class relationships', foamCrest, deepOcean),
+        sectionBanner(
+          '15 · Inheritance Hierarchy',
+          'Class relationships',
+          foamCrest,
+          deepOcean,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -987,16 +1211,17 @@ dynamic build(BuildContext context) {
               ])
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Text(line,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: line.contains('★')
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: line.contains('★')
-                              ? deepOcean
-                              : midnightTide)),
+                  child: Text(
+                    line,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: line.contains('★')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: line.contains('★') ? deepOcean : midnightTide,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -1004,8 +1229,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 17. Summary dashboard ────────────────────────────────────
-        sectionBanner('16 · Summary',
-            'Key takeaways', deepOcean, Colors.white),
+        sectionBanner('16 · Summary', 'Key takeaways', deepOcean, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1035,15 +1259,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('•  ',
-                          style: TextStyle(
-                              color: sandGold,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '•  ',
+                        style: TextStyle(
+                          color: sandGold,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

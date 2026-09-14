@@ -59,11 +59,7 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(12.0),
                 border: Border.all(color: amber500, width: 2.0),
               ),
-              child: Icon(
-                Icons.crop_din_outlined,
-                size: 36.0,
-                color: amber300,
-              ),
+              child: Icon(Icons.crop_din_outlined, size: 36.0, color: amber300),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -431,7 +427,11 @@ dynamic build(BuildContext context) {
     ['Aspect', 'CircularNotchedRectangle', 'AutomaticNotchedShape'],
     ['Smoothness', 'smooth circular curve', 'rectangular bounding cutout'],
     ['Host shape', 'rectangle only', 'any ShapeBorder'],
-    ['Guest sensitivity', 'uses guest center & radius', 'uses guest bounding rect'],
+    [
+      'Guest sensitivity',
+      'uses guest center & radius',
+      'uses guest bounding rect',
+    ],
     ['BottomAppBar default', 'yes (when shape provided)', 'no'],
     ['Performance', 'cheap path math', 'depends on host ShapeBorder'],
   ];
@@ -477,18 +477,14 @@ dynamic build(BuildContext context) {
           Container(
             padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
             decoration: BoxDecoration(
-              color: i == 0
-                  ? slate900
-                  : (i.isOdd ? slate100 : Colors.white),
+              color: i == 0 ? slate900 : (i.isOdd ? slate100 : Colors.white),
               borderRadius: i == 0
                   ? BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     )
                   : BorderRadius.zero,
-              border: Border(
-                bottom: BorderSide(color: slate300, width: 0.5),
-              ),
+              border: Border(bottom: BorderSide(color: slate300, width: 0.5)),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1078,11 +1074,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               footguns[i]['body']!,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: slate700,
-                height: 1.4,
-              ),
+              style: TextStyle(fontSize: 12.0, color: slate700, height: 1.4),
             ),
           ],
         ),
@@ -1201,10 +1193,7 @@ dynamic build(BuildContext context) {
             slate900,
             teal600,
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: circularGallery,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: circularGallery),
           SizedBox(height: 20.0),
           _sectionHeader(
             '3. AutomaticNotchedShape Gallery',
@@ -1212,10 +1201,7 @@ dynamic build(BuildContext context) {
             slate900,
             amber500,
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: automaticGallery,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: automaticGallery),
           SizedBox(height: 20.0),
           _sectionHeader(
             '4. Comparison',
@@ -1239,10 +1225,7 @@ dynamic build(BuildContext context) {
             slate900,
             amber500,
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: marginCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: marginCards),
           SizedBox(height: 20.0),
           _sectionHeader(
             '7. Custom NotchedShape',
@@ -1252,12 +1235,7 @@ dynamic build(BuildContext context) {
           ),
           customPatternBlock,
           SizedBox(height: 20.0),
-          _sectionHeader(
-            '8. Lifecycle',
-            Icons.timeline,
-            slate900,
-            teal600,
-          ),
+          _sectionHeader('8. Lifecycle', Icons.timeline, slate900, teal600),
           lifecycleBlock,
           SizedBox(height: 20.0),
           _sectionHeader(
@@ -1266,17 +1244,9 @@ dynamic build(BuildContext context) {
             slate900,
             amber500,
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: footgunCards,
-          ),
+          Wrap(alignment: WrapAlignment.center, children: footgunCards),
           SizedBox(height: 20.0),
-          _sectionHeader(
-            '10. Recap',
-            Icons.bookmark,
-            slate900,
-            teal600,
-          ),
+          _sectionHeader('10. Recap', Icons.bookmark, slate900, teal600),
           recapCard,
           SizedBox(height: 24.0),
         ],
@@ -1289,7 +1259,12 @@ dynamic build(BuildContext context) {
 // Top-level helpers (no classes except CustomPainter exception)
 // ============================================================
 
-Widget _sectionHeader(String text, IconData icon, Color textColor, Color accent) {
+Widget _sectionHeader(
+  String text,
+  IconData icon,
+  Color textColor,
+  Color accent,
+) {
   return Container(
     margin: EdgeInsets.only(top: 8.0, bottom: 10.0),
     padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -1371,7 +1346,12 @@ Widget _legendDot(String label, Color color) {
   );
 }
 
-Widget _mockListTile(IconData icon, String title, String subtitle, Color color) {
+Widget _mockListTile(
+  IconData icon,
+  String title,
+  String subtitle,
+  Color color,
+) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 4.0),
     padding: EdgeInsets.all(10.0),
@@ -1405,10 +1385,7 @@ Widget _mockListTile(IconData icon, String title, String subtitle, Color color) 
               ),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Color(0xFF64748B),
-                ),
+                style: TextStyle(fontSize: 11.0, color: Color(0xFF64748B)),
               ),
             ],
           ),
@@ -1463,9 +1440,7 @@ class _NotchPainter extends CustomPainter {
     if (shapeKind == _NotchKind.circular) {
       shape = const CircularNotchedRectangle();
     } else {
-      shape = const AutomaticNotchedShape(
-        RoundedRectangleBorder(),
-      );
+      shape = const AutomaticNotchedShape(RoundedRectangleBorder());
     }
 
     final path = shape.getOuterPath(host, guest);

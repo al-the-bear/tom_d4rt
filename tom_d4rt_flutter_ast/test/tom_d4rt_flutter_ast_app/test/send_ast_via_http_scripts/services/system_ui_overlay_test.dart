@@ -113,9 +113,7 @@ dynamic build(BuildContext context) {
             Container(
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [auroraA, auroraB],
-                ),
+                gradient: const LinearGradient(colors: [auroraA, auroraB]),
                 borderRadius: BorderRadius.circular(16.0),
                 boxShadow: [
                   BoxShadow(
@@ -236,8 +234,7 @@ dynamic build(BuildContext context) {
   print('--- Section 3: Per-value cards ---');
   final perValueIntro = _section(
     title: 'The two enum members, in detail',
-    subtitle:
-        'Read these as independent on/off switches — not as a sequence.',
+    subtitle: 'Read these as independent on/off switches — not as a sequence.',
     accent: orchidB,
     child: Wrap(
       spacing: 22.0,
@@ -304,8 +301,7 @@ dynamic build(BuildContext context) {
   print('--- Section 4: Combination grid ---');
   final combinationGrid = _section(
     title: 'All four configurations',
-    subtitle:
-        'List<SystemUiOverlay> is just a set: 2 members ⇒ 2² = 4 cases.',
+    subtitle: 'List<SystemUiOverlay> is just a set: 2 members ⇒ 2² = 4 cases.',
     accent: sunriseB,
     child: Wrap(
       spacing: 20.0,
@@ -353,8 +349,7 @@ dynamic build(BuildContext context) {
   print('--- Section 5: Pairing with SystemUiMode.manual ---');
   final pairingPanel = _section(
     title: 'Pairs with SystemUiMode.manual',
-    subtitle:
-        'The `overlays:` argument is only honoured when mode == manual.',
+    subtitle: 'The `overlays:` argument is only honoured when mode == manual.',
     accent: limeB,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -514,8 +509,7 @@ dynamic build(BuildContext context) {
   print('--- Section 7: Pitfalls ---');
   final pitfalls = _section(
     title: 'Pitfalls and gotchas',
-    subtitle:
-        'Things that bite teams the first time they ship overlay tweaks.',
+    subtitle: 'Things that bite teams the first time they ship overlay tweaks.',
     accent: cherryA,
     child: Column(
       children: [
@@ -620,30 +614,18 @@ dynamic build(BuildContext context) {
           SizedBox(height: 14.0),
           Text(
             '1.  SystemUiOverlay names *which strip of OS chrome* you mean.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              height: 1.6,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 16.0, height: 1.6),
           ),
           SizedBox(height: 8.0),
           Text(
             '2.  A List<SystemUiOverlay> is a set of *enabled* strips.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              height: 1.6,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 16.0, height: 1.6),
           ),
           SizedBox(height: 8.0),
           Text(
             '3.  That set only matters under SystemUiMode.manual; '
             'all other modes hand the chrome decision to the platform.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              height: 1.6,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 16.0, height: 1.6),
           ),
         ],
       ),
@@ -685,11 +667,7 @@ dynamic build(BuildContext context) {
                 gradient: const LinearGradient(colors: [auroraA, auroraB]),
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: const Icon(
-                Icons.code,
-                color: Colors.white,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.code, color: Colors.white, size: 22.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -1047,10 +1025,7 @@ Widget _anatomyRow({
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.18),
-        ],
+        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
       ),
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: color.withValues(alpha: 0.4), width: 1.0),
@@ -1217,10 +1192,7 @@ Widget _valueCard({
           ),
         ),
         const SizedBox(height: 14.0),
-        Text(
-          definition,
-          style: const TextStyle(fontSize: 13.5, height: 1.55),
-        ),
+        Text(definition, style: const TextStyle(fontSize: 13.5, height: 1.55)),
         const SizedBox(height: 12.0),
         Text(
           'Typical contents',
@@ -1280,10 +1252,7 @@ Widget _platformNote({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(6.0),
@@ -1324,10 +1293,7 @@ Widget _combinationCard({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(18.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.35),
-        width: 1.0,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.18),
@@ -1418,10 +1384,7 @@ Widget _modePairCard({
           ],
         ),
         const SizedBox(height: 8.0),
-        Text(
-          description,
-          style: const TextStyle(fontSize: 12.0, height: 1.5),
-        ),
+        Text(description, style: const TextStyle(fontSize: 12.0, height: 1.5)),
       ],
     ),
   );
@@ -1534,10 +1497,7 @@ Widget _recipeCard({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 6.0,
-                          right: 8.0,
-                        ),
+                        padding: const EdgeInsets.only(top: 6.0, right: 8.0),
                         child: Container(
                           width: 5.0,
                           height: 5.0,
@@ -1550,10 +1510,7 @@ Widget _recipeCard({
                       Expanded(
                         child: Text(
                           n,
-                          style: const TextStyle(
-                            fontSize: 12.5,
-                            height: 1.45,
-                          ),
+                          style: const TextStyle(fontSize: 12.5, height: 1.45),
                         ),
                       ),
                     ],
@@ -1621,10 +1578,7 @@ Widget _pitfallCard({
                 ),
               ),
               const SizedBox(height: 6.0),
-              Text(
-                body,
-                style: const TextStyle(fontSize: 13.0, height: 1.55),
-              ),
+              Text(body, style: const TextStyle(fontSize: 13.0, height: 1.55)),
             ],
           ),
         ),

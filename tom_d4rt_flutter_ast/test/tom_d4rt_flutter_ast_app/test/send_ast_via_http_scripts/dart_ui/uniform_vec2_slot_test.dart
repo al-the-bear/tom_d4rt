@@ -203,13 +203,15 @@ dynamic build(BuildContext context) {
   print('  identityHashCode(slotType) = $slotTypeHash');
   print('  slotType.hashCode          = $slotTypeStdHash');
   print('  slotType.runtimeType       = $slotTypeRtt');
-  sections.add(_buildSection0Anchor(
-    typeStr: slotTypeStr,
-    runtimeTypeStr: slotTypeRtt,
-    identityHash: slotTypeHash,
-    standardHash: slotTypeStdHash,
-    sample: resolutionSlot,
-  ));
+  sections.add(
+    _buildSection0Anchor(
+      typeStr: slotTypeStr,
+      runtimeTypeStr: slotTypeRtt,
+      identityHash: slotTypeHash,
+      standardHash: slotTypeStdHash,
+      sample: resolutionSlot,
+    ),
+  );
   sections.add(const SizedBox(height: 18));
 
   // -------- Section 1: Title banner ----------------------------------------
@@ -241,27 +243,33 @@ dynamic build(BuildContext context) {
   print('  gallery cards count: 8');
   print('  gallery uses Wrap with 12px run/main spacing');
   print('  gallery cards each have a unique gradient');
-  sections.add(_buildSection4UseCaseGallery(<UniformVec2Slot>[
-    resolutionSlot,
-    mouseSlot,
-    uvSlot,
-    scaleSlot,
-    dirSlot,
-  ]));
+  sections.add(
+    _buildSection4UseCaseGallery(<UniformVec2Slot>[
+      resolutionSlot,
+      mouseSlot,
+      uvSlot,
+      scaleSlot,
+      dirSlot,
+    ]),
+  );
   sections.add(const SizedBox(height: 18));
 
   // -------- Section 5: Comparison table ------------------------------------
   print('=== Section 5: comparison table ===');
   print('  comparison columns: Slot, Floats, Bytes, Setter, Use');
-  print('  comparison rows: FloatSlot, Vec2 (current), Vec3, Vec4, SamplerSlot');
+  print(
+    '  comparison rows: FloatSlot, Vec2 (current), Vec3, Vec4, SamplerSlot',
+  );
   print('  comparison header has its own gradient strip');
   sections.add(_buildSection5ComparisonTable());
   sections.add(const SizedBox(height: 18));
 
   // -------- Section 6: Lifecycle flow --------------------------------------
   print('=== Section 6: lifecycle flow ===');
-  print('  lifecycle stages: 6 (host (x,y) -> setFloat x -> setFloat y -> '
-      'pack -> ubo -> shader)');
+  print(
+    '  lifecycle stages: 6 (host (x,y) -> setFloat x -> setFloat y -> '
+    'pack -> ubo -> shader)',
+  );
   print('  lifecycle uses arrow chevrons in a single Row');
   print('  lifecycle stages each carry a sub-caption');
   sections.add(_buildSection6LifecycleFlow());
@@ -292,8 +300,10 @@ dynamic build(BuildContext context) {
   sections.add(_buildSignatureCard(slotTypeStr));
 
   print('==============================================================');
-  print('UniformVec2Slot deep-demo build() finished, sections: '
-      '${sections.length}');
+  print(
+    'UniformVec2Slot deep-demo build() finished, sections: '
+    '${sections.length}',
+  );
   print('==============================================================');
 
   return SingleChildScrollView(
@@ -379,17 +389,15 @@ Widget _buildSection0Anchor({
           'uniform inside a Flutter FragmentProgram. The shim below mirrors '
           'the binding index and the (x, y) pair so the demo can render '
           'the data without compiling a real shader.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 12.5, height: 1.4),
         ),
         const SizedBox(height: 14),
         _buildKeyValueRow('Type literal', typeStr),
         _buildKeyValueRow('runtimeType.toString()', runtimeTypeStr),
         _buildKeyValueRow(
-            'identityHashCode', '0x${identityHash.toRadixString(16)}'),
+          'identityHashCode',
+          '0x${identityHash.toRadixString(16)}',
+        ),
         _buildKeyValueRow('hashCode', '0x${standardHash.toRadixString(16)}'),
         _buildKeyValueRow('sample.toString()', sample.toString()),
         const SizedBox(height: 10),
@@ -532,10 +540,7 @@ Widget _buildSection1TitleBanner() {
               gradient: const RadialGradient(
                 center: Alignment(0.85, -0.6),
                 radius: 1.2,
-                colors: <Color>[
-                  Color(0x66FFFFFF),
-                  Color(0x00000000),
-                ],
+                colors: <Color>[Color(0x66FFFFFF), Color(0x00000000)],
                 stops: <double>[0.0, 1.0],
               ),
             ),
@@ -674,8 +679,10 @@ Widget _buildSection2Anatomy(UniformVec2Slot sample) {
                     const <String>['type tag', 'TYPE_VEC2'],
                     <String>['component x', '${sample.x} (double)'],
                     <String>['component y', '${sample.y} (double)'],
-                    const <String>['setter pair',
-                        'setFloat(i, x); setFloat(i+1, y)'],
+                    const <String>[
+                      'setter pair',
+                      'setFloat(i, x); setFloat(i+1, y)',
+                    ],
                   ],
                   accent: _kNeonCyan,
                 ),
@@ -788,12 +795,8 @@ Widget _buildSlotPairStrip(UniformVec2Slot sample) {
     final bool isX = i == center;
     final bool isY = i == center + 1;
     final bool isPair = isX || isY;
-    final Color cellColor = isX
-        ? _kNeonCyan
-        : (isY ? _kNeonMagenta : _kSlate);
-    final String label = isX
-        ? '.x'
-        : (isY ? '.y' : 'f$i');
+    final Color cellColor = isX ? _kNeonCyan : (isY ? _kNeonMagenta : _kSlate);
+    final String label = isX ? '.x' : (isY ? '.y' : 'f$i');
     cells.add(
       Container(
         width: 30,
@@ -842,10 +845,7 @@ Widget _buildSlotPairStrip(UniformVec2Slot sample) {
         ),
       ),
       const SizedBox(height: 6),
-      Row(
-        mainAxisSize: MainAxisSize.min,
-        children: cells,
-      ),
+      Row(mainAxisSize: MainAxisSize.min, children: cells),
       const SizedBox(height: 4),
       Text(
         'cyan = slot ${sample.slot} (.x)   magenta = slot '
@@ -923,18 +923,10 @@ Widget _buildSection3VisualizationGrid() {
           'Each tile has its width and height bound to the (x, y) components '
           'of a hypothetical vec2 uniform. In a real shader this could feed '
           'a gl_FragCoord scaling factor or a procedural rectangle size.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 12, height: 1.4),
         ),
         const SizedBox(height: 12),
-        Wrap(
-          spacing: 14,
-          runSpacing: 14,
-          children: cells,
-        ),
+        Wrap(spacing: 14, runSpacing: 14, children: cells),
       ],
     ),
   );
@@ -999,8 +991,10 @@ Widget _buildVec2Tile({
 // SECTION 4 -- Use-case gallery
 // =============================================================================
 Widget _buildSection4UseCaseGallery(List<UniformVec2Slot> samples) {
-  print('  _buildSection4UseCaseGallery: composing ${samples.length} cards '
-      'plus 3 extra synthetic vec2 examples');
+  print(
+    '  _buildSection4UseCaseGallery: composing ${samples.length} cards '
+    'plus 3 extra synthetic vec2 examples',
+  );
   final List<Widget> cards = <Widget>[];
   // Render the typed shim instances first.
   final List<List<Color>> grads = const <List<Color>>[
@@ -1014,32 +1008,40 @@ Widget _buildSection4UseCaseGallery(List<UniformVec2Slot> samples) {
     <Color>[_kNeonPink, _kNeonCyan],
   ];
   for (int i = 0; i < samples.length; i++) {
-    cards.add(_buildUseCaseCard(
-      title: samples[i].name,
-      subtitle: samples[i].purpose,
-      sample: '(${samples[i].x}, ${samples[i].y})',
-      gradient: grads[i % grads.length],
-    ));
+    cards.add(
+      _buildUseCaseCard(
+        title: samples[i].name,
+        subtitle: samples[i].purpose,
+        sample: '(${samples[i].x}, ${samples[i].y})',
+        gradient: grads[i % grads.length],
+      ),
+    );
   }
   // Three extra synthetic vec2 examples to round out the gallery.
-  cards.add(_buildUseCaseCard(
-    title: 'u_jitter',
-    subtitle: 'sub-pixel offset (dx, dy)',
-    sample: '(0.005, -0.003)',
-    gradient: grads[5],
-  ));
-  cards.add(_buildUseCaseCard(
-    title: 'u_pivot',
-    subtitle: 'rotation pivot in uv',
-    sample: '(0.5, 0.5)',
-    gradient: grads[6],
-  ));
-  cards.add(_buildUseCaseCard(
-    title: 'u_velocity',
-    subtitle: 'motion-blur direction',
-    sample: '(12.0, 4.5)',
-    gradient: grads[7],
-  ));
+  cards.add(
+    _buildUseCaseCard(
+      title: 'u_jitter',
+      subtitle: 'sub-pixel offset (dx, dy)',
+      sample: '(0.005, -0.003)',
+      gradient: grads[5],
+    ),
+  );
+  cards.add(
+    _buildUseCaseCard(
+      title: 'u_pivot',
+      subtitle: 'rotation pivot in uv',
+      sample: '(0.5, 0.5)',
+      gradient: grads[6],
+    ),
+  );
+  cards.add(
+    _buildUseCaseCard(
+      title: 'u_velocity',
+      subtitle: 'motion-blur direction',
+      sample: '(12.0, 4.5)',
+      gradient: grads[7],
+    ),
+  );
 
   return Container(
     padding: const EdgeInsets.all(18),
@@ -1075,11 +1077,7 @@ Widget _buildSection4UseCaseGallery(List<UniformVec2Slot> samples) {
           ],
         ),
         const SizedBox(height: 12),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: cards,
-        ),
+        Wrap(spacing: 12, runSpacing: 12, children: cards),
       ],
     ),
   );
@@ -1171,28 +1169,28 @@ Widget _buildSection5ComparisonTable() {
       '2',
       '8',
       'setFloat(i, x); setFloat(i+1, y)',
-      'uv / size'
+      'uv / size',
     ],
     <String>[
       'UniformVec3Slot',
       '3',
       '12',
       'setFloat per channel (i..i+2)',
-      'rgb / position'
+      'rgb / position',
     ],
     <String>[
       'UniformVec4Slot',
       '4',
       '16',
       'setFloat per channel (i..i+3)',
-      'rgba / quat'
+      'rgba / quat',
     ],
     <String>[
       'UniformSamplerSlot',
       '-',
       '-',
       'setImageSampler(i, image)',
-      'texture bind'
+      'texture bind',
     ],
   ];
   return Container(
@@ -1233,9 +1231,7 @@ Widget _buildSection5ComparisonTable() {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-            gradient: LinearGradient(
-              colors: <Color>[_kNeonViolet, _kNeonCyan],
-            ),
+            gradient: LinearGradient(colors: <Color>[_kNeonViolet, _kNeonCyan]),
           ),
           child: Row(
             children: const <Widget>[
@@ -1301,8 +1297,9 @@ Widget _buildSection5ComparisonTable() {
         Container(
           decoration: BoxDecoration(
             color: _kCarbon,
-            borderRadius:
-                const BorderRadius.vertical(bottom: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(10),
+            ),
             border: Border.all(color: _kHairline, width: 1),
           ),
           child: Column(
@@ -1346,8 +1343,7 @@ List<Widget> _buildTableRows(List<List<String>> rows) {
                   color: current ? _kAccent : _kBone,
                   fontSize: 12,
                   fontFamily: 'monospace',
-                  fontWeight:
-                      current ? FontWeight.w800 : FontWeight.w600,
+                  fontWeight: current ? FontWeight.w800 : FontWeight.w600,
                 ),
               ),
             ),
@@ -1409,36 +1405,12 @@ List<Widget> _buildTableRows(List<List<String>> rows) {
 Widget _buildSection6LifecycleFlow() {
   print('  _buildSection6LifecycleFlow: composing 6-stage pipeline');
   final List<Map<String, String>> stages = <Map<String, String>>[
-    <String, String>{
-      'label': '(x, y) host',
-      'sub': 'Dart 2x f64',
-      'icon': 'D',
-    },
-    <String, String>{
-      'label': 'setFloat x',
-      'sub': 'slot + 0',
-      'icon': 'X',
-    },
-    <String, String>{
-      'label': 'setFloat y',
-      'sub': 'slot + 1',
-      'icon': 'Y',
-    },
-    <String, String>{
-      'label': 'pack',
-      'sub': '2x narrow f32',
-      'icon': '~',
-    },
-    <String, String>{
-      'label': 'UBO',
-      'sub': '8 bytes',
-      'icon': 'U',
-    },
-    <String, String>{
-      'label': 'shader',
-      'sub': 'uniform vec2',
-      'icon': 'G',
-    },
+    <String, String>{'label': '(x, y) host', 'sub': 'Dart 2x f64', 'icon': 'D'},
+    <String, String>{'label': 'setFloat x', 'sub': 'slot + 0', 'icon': 'X'},
+    <String, String>{'label': 'setFloat y', 'sub': 'slot + 1', 'icon': 'Y'},
+    <String, String>{'label': 'pack', 'sub': '2x narrow f32', 'icon': '~'},
+    <String, String>{'label': 'UBO', 'sub': '8 bytes', 'icon': 'U'},
+    <String, String>{'label': 'shader', 'sub': 'uniform vec2', 'icon': 'G'},
   ];
   final List<Widget> stageWidgets = <Widget>[];
   for (int i = 0; i < stages.length; i++) {
@@ -1500,11 +1472,7 @@ Widget _buildSection6LifecycleFlow() {
           'and packs them adjacent in the uniform buffer. The actual GPU '
           'upload happens when the shader is bound to a Paint and the engine '
           'flushes the next draw.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 11.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 11.5, height: 1.45),
         ),
       ],
     ),
@@ -1762,11 +1730,7 @@ Widget _buildSection7FragCodePanel() {
           'Each uniform vec2 in this shader corresponds to one '
           'UniformVec2Slot on the Dart side. The host code iterates the slot '
           'list and issues two setFloat calls per slot.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 11.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 11.5, height: 1.45),
         ),
       ],
     ),
@@ -1975,11 +1939,7 @@ Widget _buildSection8CheatSheet() {
           'A common pitfall: passing only one of the two floats. The shader '
           'will then read whatever stale value lives in slot+1 — usually '
           'producing flickering or off-by-one offsets.',
-          style: TextStyle(
-            color: _kMist,
-            fontSize: 11.5,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMist, fontSize: 11.5, height: 1.45),
         ),
       ],
     ),
@@ -2037,11 +1997,7 @@ Widget _buildLegendCard() {
           ),
         ),
         const SizedBox(height: 10),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: chips,
-        ),
+        Wrap(spacing: 8, runSpacing: 8, children: chips),
       ],
     ),
   );

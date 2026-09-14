@@ -103,8 +103,10 @@ dynamic build(BuildContext context) {
   // startup so the analyzer sees every helper in this file as live.
   _spellcDocumentSurface();
   debugPrint('Short sample: $_kSampleShort');
-  debugPrint('Decorative accent stroke: '
-      '${const _SpellcInkStroke(height: 8, color: _kGreenInk)}');
+  debugPrint(
+    'Decorative accent stroke: '
+    '${const _SpellcInkStroke(height: 8, color: _kGreenInk)}',
+  );
   return const _SpellcDeskApp();
 }
 
@@ -117,15 +119,16 @@ class _SpellcDeskApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme scheme = ColorScheme.fromSeed(
-      seedColor: _kRedInk,
-      brightness: Brightness.light,
-    ).copyWith(
-      surface: _kPaper,
-      primary: _kRedInk,
-      secondary: _kGreenInk,
-      onSurface: _kBlackInk,
-    );
+    final ColorScheme scheme =
+        ColorScheme.fromSeed(
+          seedColor: _kRedInk,
+          brightness: Brightness.light,
+        ).copyWith(
+          surface: _kPaper,
+          primary: _kRedInk,
+          secondary: _kGreenInk,
+          onSurface: _kBlackInk,
+        );
     final ThemeData theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -150,9 +153,7 @@ class _SpellcDeskApp extends StatelessWidget {
         ),
       ),
       inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: _kRuleLine),
-        ),
+        border: OutlineInputBorder(borderSide: BorderSide(color: _kRuleLine)),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: _kRuleLine),
         ),
@@ -223,9 +224,7 @@ class _SpellcLinedPaperBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _SpellcLinedPaperPainter(),
-    );
+    return CustomPaint(painter: _SpellcLinedPaperPainter());
   }
 }
 
@@ -268,11 +267,7 @@ class _SpellcLinedPaperPainter extends CustomPainter {
     final Paint margin = Paint()
       ..color = _kRedInk.withValues(alpha: 0.35)
       ..strokeWidth = 1.1;
-    canvas.drawLine(
-      const Offset(54, 0),
-      Offset(54, size.height),
-      margin,
-    );
+    canvas.drawLine(const Offset(54, 0), Offset(54, size.height), margin);
 
     // Tiny pinholes in the corners for the notebook-punch look.
     final Paint hole = Paint()..color = _kPaperEdge;
@@ -334,9 +329,7 @@ class _SpellcHeroHeader extends StatelessWidget {
             // Animated hero title: the pen nib traces the class name.
             SizedBox(
               height: 118,
-              child: _SpellcAnimatedInkTitle(
-                text: 'SpellCheckConfiguration',
-              ),
+              child: _SpellcAnimatedInkTitle(text: 'SpellCheckConfiguration'),
             ),
             const SizedBox(height: 12),
             Text(
@@ -477,19 +470,12 @@ class _SpellcPaperCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: _kRuleLine.withValues(alpha: 0.65)),
         boxShadow: const <BoxShadow>[
-          BoxShadow(
-            color: _kShadow,
-            blurRadius: 8,
-            offset: Offset(0, 2),
-          ),
+          BoxShadow(color: _kShadow, blurRadius: 8, offset: Offset(0, 2)),
         ],
       ),
       child: Stack(
         children: <Widget>[
-          Padding(
-            padding: padding,
-            child: child,
-          ),
+          Padding(padding: padding, child: child),
           if (topRuler)
             const Positioned(
               top: 0,
@@ -500,9 +486,7 @@ class _SpellcPaperCard extends StatelessWidget {
             ),
           if (cornerClips)
             const Positioned.fill(
-              child: IgnorePointer(
-                child: _SpellcCornerBracketsOverlay(),
-              ),
+              child: IgnorePointer(child: _SpellcCornerBracketsOverlay()),
             ),
         ],
       ),
@@ -560,9 +544,7 @@ class _SpellcCornerBracketsOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _SpellcCornerBracketsPainter(),
-    );
+    return CustomPaint(painter: _SpellcCornerBracketsPainter());
   }
 }
 
@@ -579,25 +561,49 @@ class _SpellcCornerBracketsPainter extends CustomPainter {
     const double inset = 8.0;
     const double len = 14.0;
     // Top-left
-    canvas.drawLine(const Offset(inset, inset),
-        const Offset(inset + len, inset), p);
-    canvas.drawLine(const Offset(inset, inset),
-        const Offset(inset, inset + len), p);
+    canvas.drawLine(
+      const Offset(inset, inset),
+      const Offset(inset + len, inset),
+      p,
+    );
+    canvas.drawLine(
+      const Offset(inset, inset),
+      const Offset(inset, inset + len),
+      p,
+    );
     // Top-right
-    canvas.drawLine(Offset(size.width - inset, inset),
-        Offset(size.width - inset - len, inset), p);
-    canvas.drawLine(Offset(size.width - inset, inset),
-        Offset(size.width - inset, inset + len), p);
+    canvas.drawLine(
+      Offset(size.width - inset, inset),
+      Offset(size.width - inset - len, inset),
+      p,
+    );
+    canvas.drawLine(
+      Offset(size.width - inset, inset),
+      Offset(size.width - inset, inset + len),
+      p,
+    );
     // Bottom-left
-    canvas.drawLine(Offset(inset, size.height - inset),
-        Offset(inset + len, size.height - inset), p);
-    canvas.drawLine(Offset(inset, size.height - inset),
-        Offset(inset, size.height - inset - len), p);
+    canvas.drawLine(
+      Offset(inset, size.height - inset),
+      Offset(inset + len, size.height - inset),
+      p,
+    );
+    canvas.drawLine(
+      Offset(inset, size.height - inset),
+      Offset(inset, size.height - inset - len),
+      p,
+    );
     // Bottom-right
-    canvas.drawLine(Offset(size.width - inset, size.height - inset),
-        Offset(size.width - inset - len, size.height - inset), p);
-    canvas.drawLine(Offset(size.width - inset, size.height - inset),
-        Offset(size.width - inset, size.height - inset - len), p);
+    canvas.drawLine(
+      Offset(size.width - inset, size.height - inset),
+      Offset(size.width - inset - len, size.height - inset),
+      p,
+    );
+    canvas.drawLine(
+      Offset(size.width - inset, size.height - inset),
+      Offset(size.width - inset, size.height - inset - len),
+      p,
+    );
   }
 
   @override
@@ -631,12 +637,11 @@ class _SpellcAnimatedInkTitleState extends State<_SpellcAnimatedInkTitle>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 8),
-    )..addListener(() {
-        _inkFlowT.value = _controller.value;
-      });
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 8))
+          ..addListener(() {
+            _inkFlowT.value = _controller.value;
+          });
     _controller.repeat();
   }
 
@@ -715,8 +720,7 @@ class _SpellcInkTitlePainter extends CustomPainter {
         text: TextSpan(text: glyph, style: baseStyle),
         textDirection: TextDirection.ltr,
       )..layout();
-      final double glyphProgress =
-          math.max(0.0, math.min(1.0, revealed - i));
+      final double glyphProgress = math.max(0.0, math.min(1.0, revealed - i));
       // Fade each glyph in as it's "drawn" by the pen.
       if (glyphProgress > 0) {
         final Paint glow = Paint()
@@ -773,8 +777,7 @@ class _SpellcInkTitlePainter extends CustomPainter {
       final double off = i * 5.0;
       final double x = tipX - off;
       if (x < startX) break;
-      canvas.drawCircle(
-          Offset(x, baselineY + 6 + (i.isEven ? 1 : -1)), r, dot);
+      canvas.drawCircle(Offset(x, baselineY + 6 + (i.isEven ? 1 : -1)), r, dot);
     }
   }
 
@@ -807,10 +810,7 @@ class _SpellcInkTitlePainter extends CustomPainter {
     canvas.drawCircle(Offset(tip.dx, tip.dy - 18), 1.8, slit);
 
     // Brass cap ring
-    canvas.drawRect(
-      Rect.fromLTWH(tip.dx - 6, tip.dy - 32, 12, 4),
-      highlight,
-    );
+    canvas.drawRect(Rect.fromLTWH(tip.dx - 6, tip.dy - 32, 12, 4), highlight);
 
     // Fresh ink droplet at the tip
     canvas.drawCircle(Offset(tip.dx, tip.dy + 1), 2.2, inkFill);
@@ -895,7 +895,8 @@ class _SpellcFourSpecimensSection extends StatelessWidget {
                     tagline: 'enabled, defaults only',
                     accent: _kBlueInk,
                     config: _cfgDefault,
-                    annotation: 'spellCheckService: ambient platform default\n'
+                    annotation:
+                        'spellCheckService: ambient platform default\n'
                         'misspelledSelectionColor: null → uses platform default\n'
                         'misspelledTextStyle: null → inferred by EditableText\n'
                         'toolbarBuilder: null → platform suggestions toolbar',
@@ -907,7 +908,8 @@ class _SpellcFourSpecimensSection extends StatelessWidget {
                     tagline: 'spell check OFF',
                     accent: _kBlackInk,
                     config: _cfgDisabled,
-                    annotation: 'spellCheckEnabled == false\n'
+                    annotation:
+                        'spellCheckEnabled == false\n'
                         'All field values forced to null by the factory.\n'
                         'copyWith returns another disabled instance.',
                   ),
@@ -918,7 +920,8 @@ class _SpellcFourSpecimensSection extends StatelessWidget {
                     tagline: 'custom misspelledTextStyle (red ink)',
                     accent: _kRedInk,
                     config: _cfgRedInk,
-                    annotation: 'misspelledTextStyle:\n'
+                    annotation:
+                        'misspelledTextStyle:\n'
                         '  color: #BF1926\n'
                         '  decoration: underline (wavy, 2.6)\n'
                         '  decorationColor: #BF1926',
@@ -930,7 +933,8 @@ class _SpellcFourSpecimensSection extends StatelessWidget {
                     tagline: 'underline-only, keeps text color',
                     accent: _kGreenInk,
                     config: _cfgGreenUnder,
-                    annotation: 'misspelledTextStyle:\n'
+                    annotation:
+                        'misspelledTextStyle:\n'
                         '  color: <inherited from TextField>\n'
                         '  decoration: underline (solid, 2.0)\n'
                         '  decorationColor: #4F8A6D',
@@ -1016,9 +1020,7 @@ class _SpellcSpecimenCardState extends State<_SpellcSpecimenCard> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: _kSampleText);
-    debugPrint(
-      'SpellcSpecimen#${widget.index} created: ${widget.subtitle}',
-    );
+    debugPrint('SpellcSpecimen#${widget.index} created: ${widget.subtitle}');
   }
 
   @override
@@ -1167,8 +1169,10 @@ class _SpellcEnabledPip extends StatelessWidget {
 }
 
 class _SpellcAnnotationBlock extends StatelessWidget {
-  const _SpellcAnnotationBlock(
-      {required this.annotation, required this.accent});
+  const _SpellcAnnotationBlock({
+    required this.annotation,
+    required this.accent,
+  });
 
   final String annotation;
   final Color accent;
@@ -1180,9 +1184,7 @@ class _SpellcAnnotationBlock extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.35),
-        border: Border(
-          left: BorderSide(color: accent, width: 3),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 3)),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(4),
           bottomRight: Radius.circular(4),
@@ -1508,12 +1510,7 @@ class _SpellcAnatomyRow extends StatelessWidget {
             label: 'misspelledTextStyle',
             valueWidget: Row(
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                    misspelledStylePreview,
-                    style: preview,
-                  ),
-                ),
+                Expanded(child: Text(misspelledStylePreview, style: preview)),
               ],
             ),
             accent: accent,
@@ -1647,8 +1644,7 @@ class _SpellcProofmarksLegend extends StatelessWidget {
             _SpellcSectionHeading(
               number: 'III',
               title: 'Proofreader\'s marks — visual legend',
-              subtitle:
-                  'Traditional copy-editing symbols rendered in red ink.',
+              subtitle: 'Traditional copy-editing symbols rendered in red ink.',
             ),
             const SizedBox(height: 16),
             AspectRatio(
@@ -1680,9 +1676,7 @@ class _SpellcProofmarksCanvas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _SpellcProofmarksPainter(),
-    );
+    return CustomPaint(painter: _SpellcProofmarksPainter());
   }
 }
 
@@ -1787,16 +1781,28 @@ class _SpellcProofmarksPainter extends CustomPainter {
     }
   }
 
-  void _drawMark(Canvas canvas, int index, Rect r, Paint ink, Paint thin,
-      Paint fill) {
+  void _drawMark(
+    Canvas canvas,
+    int index,
+    Rect r,
+    Paint ink,
+    Paint thin,
+    Paint fill,
+  ) {
     final Offset c = r.center;
     switch (index) {
       case 0:
         // delete: a loop with a tail (like a cursive "delete" mark).
         final Path p = Path();
         p.moveTo(r.left + 6, r.bottom - 2);
-        p.cubicTo(r.left + 2, r.top + 2, r.right - 6, r.top + 2, r.right - 2,
-            r.bottom - 6);
+        p.cubicTo(
+          r.left + 2,
+          r.top + 2,
+          r.right - 6,
+          r.top + 2,
+          r.right - 2,
+          r.bottom - 6,
+        );
         p.lineTo(r.right + 2, r.bottom);
         canvas.drawPath(p, ink);
         break;
@@ -1805,9 +1811,12 @@ class _SpellcProofmarksPainter extends CustomPainter {
         final Path p = Path();
         p.moveTo(r.left + 4, r.bottom - 4);
         p.cubicTo(
-          r.center.dx - 4, r.top + 2,
-          r.center.dx + 4, r.bottom - 2,
-          r.right - 4, r.top + 4,
+          r.center.dx - 4,
+          r.top + 2,
+          r.center.dx + 4,
+          r.bottom - 2,
+          r.right - 4,
+          r.top + 4,
         );
         canvas.drawPath(p, ink);
         break;
@@ -1828,11 +1837,17 @@ class _SpellcProofmarksPainter extends CustomPainter {
         // close-up: two parentheses facing each other.
         canvas.drawArc(
           Rect.fromCircle(center: Offset(c.dx - 6, c.dy), radius: 6),
-          -0.9, 1.8, false, ink,
+          -0.9,
+          1.8,
+          false,
+          ink,
         );
         canvas.drawArc(
           Rect.fromCircle(center: Offset(c.dx + 6, c.dy), radius: 6),
-          math.pi - 0.9, 1.8, false, ink,
+          math.pi - 0.9,
+          1.8,
+          false,
+          ink,
         );
         break;
       case 4:
@@ -2142,8 +2157,9 @@ class _SpellcPlaygroundControls extends StatelessWidget {
               return Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: List<Widget>.generate(_kSwatchPalette.length,
-                    (int i) {
+                children: List<Widget>.generate(_kSwatchPalette.length, (
+                  int i,
+                ) {
                   return _SpellcSwatchChip(
                     color: _kSwatchPalette[i],
                     label: _kSwatchLabels[i],
@@ -2151,7 +2167,8 @@ class _SpellcPlaygroundControls extends StatelessWidget {
                     onTap: () {
                       _playgroundColorIndex.value = i;
                       debugPrint(
-                          'Playground: misspelledSelectionColor -> ${_kSwatchLabels[i]}');
+                        'Playground: misspelledSelectionColor -> ${_kSwatchLabels[i]}',
+                      );
                     },
                   );
                 }),
@@ -2425,63 +2442,64 @@ class _SpellcPlaygroundPreviewState extends State<_SpellcPlaygroundPreview> {
           builder: (BuildContext context, int colorIdx, Widget? _) {
             return ValueListenableBuilder<bool>(
               valueListenable: _playgroundUnderlineOnly,
-              builder:
-                  (BuildContext context, bool underlineOnly, Widget? _) {
+              builder: (BuildContext context, bool underlineOnly, Widget? _) {
                 return ValueListenableBuilder<double>(
                   valueListenable: _playgroundFontSize,
-                  builder:
-                      (BuildContext context, double fs, Widget? _) {
+                  builder: (BuildContext context, double fs, Widget? _) {
                     return ValueListenableBuilder<double>(
                       valueListenable: _playgroundUnderlineThickness,
-                      builder:
-                          (BuildContext context, double th, Widget? _) {
+                      builder: (BuildContext context, double th, Widget? _) {
                         return ValueListenableBuilder<bool>(
                           valueListenable: _playgroundBold,
                           builder:
                               (BuildContext context, bool bold, Widget? _) {
-                            return ValueListenableBuilder<bool>(
-                              valueListenable: _playgroundItalic,
-                              builder: (BuildContext context, bool italic,
-                                  Widget? _) {
-                                final SpellCheckConfiguration cfg =
-                                    _buildConfig(
-                                  enabled: enabled,
-                                  colorIdx: colorIdx,
-                                  underlineOnly: underlineOnly,
-                                  fontSize: fs,
-                                  thickness: th,
-                                  bold: bold,
-                                  italic: italic,
-                                );
-                                return Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    TextField(
-                                      controller: _controller,
-                                      maxLines: 4,
-                                      minLines: 3,
-                                      style: const TextStyle(
-                                        color: _kBlackInk,
-                                        fontSize: 15,
-                                      ),
-                                      spellCheckConfiguration:
-                                          _platformSafeSpellcCfg(cfg),
-                                      decoration: const InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        border: OutlineInputBorder(),
-                                        isDense: true,
-                                        hintText: 'Type something...',
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    _SpellcConfigReadout(cfg: cfg),
-                                  ],
+                                return ValueListenableBuilder<bool>(
+                                  valueListenable: _playgroundItalic,
+                                  builder:
+                                      (
+                                        BuildContext context,
+                                        bool italic,
+                                        Widget? _,
+                                      ) {
+                                        final SpellCheckConfiguration cfg =
+                                            _buildConfig(
+                                              enabled: enabled,
+                                              colorIdx: colorIdx,
+                                              underlineOnly: underlineOnly,
+                                              fontSize: fs,
+                                              thickness: th,
+                                              bold: bold,
+                                              italic: italic,
+                                            );
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            TextField(
+                                              controller: _controller,
+                                              maxLines: 4,
+                                              minLines: 3,
+                                              style: const TextStyle(
+                                                color: _kBlackInk,
+                                                fontSize: 15,
+                                              ),
+                                              spellCheckConfiguration:
+                                                  _platformSafeSpellcCfg(cfg),
+                                              decoration: const InputDecoration(
+                                                filled: true,
+                                                fillColor: Colors.white,
+                                                border: OutlineInputBorder(),
+                                                isDense: true,
+                                                hintText: 'Type something...',
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            _SpellcConfigReadout(cfg: cfg),
+                                          ],
+                                        );
+                                      },
                                 );
                               },
-                            );
-                          },
                         );
                       },
                     );
@@ -2766,7 +2784,9 @@ class _SpellcParamAnnotation extends StatelessWidget {
                 const SizedBox(width: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 2),
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _kBlackInk,
                     borderRadius: BorderRadius.circular(3),
@@ -2859,8 +2879,11 @@ class _SpellcPitfallCard extends StatelessWidget {
                     color: _kRedInk,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Icon(Icons.warning_amber_rounded,
-                      color: Colors.white, size: 24),
+                  child: const Icon(
+                    Icons.warning_amber_rounded,
+                    color: Colors.white,
+                    size: 24,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -2898,11 +2921,7 @@ class _SpellcPitfallCard extends StatelessWidget {
               'inert. No red wavy underline will appear no matter how '
               'elaborate your misspelledTextStyle is, because there is no '
               'service to return the misspelled ranges in the first place.',
-              style: TextStyle(
-                color: _kBlackInk,
-                fontSize: 14,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _kBlackInk, fontSize: 14, height: 1.5),
             ),
             const SizedBox(height: 14),
             Container(
@@ -2917,8 +2936,11 @@ class _SpellcPitfallCard extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: const <Widget>[
-                      Icon(Icons.check_circle_outline,
-                          color: _kGreenInk, size: 18),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: _kGreenInk,
+                        size: 18,
+                      ),
                       SizedBox(width: 8),
                       Text(
                         'Checklist for enabling spell check everywhere',
@@ -2931,19 +2953,29 @@ class _SpellcPitfallCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  _checkItem('Provide a SpellCheckService implementation — '
-                      'either DefaultSpellCheckService (iOS/Android) or a '
-                      'custom one hitting an external API.'),
-                  _checkItem('Pass that service as spellCheckService on your '
-                      'SpellCheckConfiguration.'),
-                  _checkItem('Set a non-null misspelledTextStyle when wiring '
-                      'directly into EditableText — TextField infers one but '
-                      'EditableText asserts on null.'),
-                  _checkItem('Optionally supply a custom '
-                      'spellCheckSuggestionsToolbarBuilder for full UI '
-                      'control.'),
-                  _checkItem('Test on every target platform: the visual '
-                      'behaviour is driven by the service, not the config.'),
+                  _checkItem(
+                    'Provide a SpellCheckService implementation — '
+                    'either DefaultSpellCheckService (iOS/Android) or a '
+                    'custom one hitting an external API.',
+                  ),
+                  _checkItem(
+                    'Pass that service as spellCheckService on your '
+                    'SpellCheckConfiguration.',
+                  ),
+                  _checkItem(
+                    'Set a non-null misspelledTextStyle when wiring '
+                    'directly into EditableText — TextField infers one but '
+                    'EditableText asserts on null.',
+                  ),
+                  _checkItem(
+                    'Optionally supply a custom '
+                    'spellCheckSuggestionsToolbarBuilder for full UI '
+                    'control.',
+                  ),
+                  _checkItem(
+                    'Test on every target platform: the visual '
+                    'behaviour is driven by the service, not the config.',
+                  ),
                 ],
               ),
             ),
@@ -3043,9 +3075,7 @@ class _SpellcInkStroke extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      child: CustomPaint(
-        painter: _SpellcInkStrokePainter(color: color),
-      ),
+      child: CustomPaint(painter: _SpellcInkStrokePainter(color: color)),
     );
   }
 }
@@ -3068,8 +3098,8 @@ class _SpellcInkStrokePainter extends CustomPainter {
     final double step = size.width / segs;
     for (int i = 0; i <= segs; i++) {
       final double x = i * step;
-      final double y = size.height / 2 +
-          math.sin(i * math.pi / 3) * (size.height * 0.35);
+      final double y =
+          size.height / 2 + math.sin(i * math.pi / 3) * (size.height * 0.35);
       if (i == 0) {
         path.moveTo(x, y);
       } else {

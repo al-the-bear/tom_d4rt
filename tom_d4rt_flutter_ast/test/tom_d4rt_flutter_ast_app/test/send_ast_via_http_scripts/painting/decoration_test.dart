@@ -684,34 +684,30 @@ Widget _buildBoxDecorationAnatomy() {
   );
 
   final List<Map<String, Object>> fields = <Map<String, Object>>[
-    {'name': 'color', 'pigment': cCinnabar, 'role': 'flat fill, painted first.'},
+    {
+      'name': 'color',
+      'pigment': cCinnabar,
+      'role': 'flat fill, painted first.',
+    },
     {'name': 'image', 'pigment': cClay, 'role': 'DecorationImage over fill.'},
     {'name': 'border', 'pigment': cCharcoal, 'role': 'outline, painted last.'},
     {
       'name': 'borderRadius',
       'pigment': cIndigoWash,
-      'role': 'rounds rectangles only.'
+      'role': 'rounds rectangles only.',
     },
     {
       'name': 'boxShadow',
       'pigment': cAsh,
-      'role': 'list of shadows under box.'
+      'role': 'list of shadows under box.',
     },
-    {
-      'name': 'gradient',
-      'pigment': cOchre,
-      'role': 'linear / radial / sweep.'
-    },
+    {'name': 'gradient', 'pigment': cOchre, 'role': 'linear / radial / sweep.'},
     {
       'name': 'backgroundBlendMode',
       'pigment': cVerdigris,
-      'role': 'BlendMode for fill layer.'
+      'role': 'BlendMode for fill layer.',
     },
-    {
-      'name': 'shape',
-      'pigment': cSinopia,
-      'role': 'rectangle vs circle.'
-    },
+    {'name': 'shape', 'pigment': cSinopia, 'role': 'rectangle vs circle.'},
   ];
 
   // Build the eight callout tiles.
@@ -809,11 +805,7 @@ Widget _buildBoxDecorationAnatomy() {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: calloutTiles,
-              ),
+              child: Wrap(spacing: 8, runSpacing: 8, children: calloutTiles),
             ),
           ],
         ),
@@ -836,177 +828,196 @@ Widget _buildTwelveSwatches() {
   final List<Widget> tiles = <Widget>[];
 
   // 1. Solid color.
-  tiles.add(_swatchTile(
-    '01 solid color',
-    BoxDecoration(color: cCinnabar),
-  ));
+  tiles.add(_swatchTile('01 solid color', BoxDecoration(color: cCinnabar)));
   // 2. Color + border.
-  tiles.add(_swatchTile(
-    '02 color + border',
-    BoxDecoration(
-      color: cCinnabar,
-      border: Border.all(color: cCharcoal, width: 2),
+  tiles.add(
+    _swatchTile(
+      '02 color + border',
+      BoxDecoration(
+        color: cCinnabar,
+        border: Border.all(color: cCharcoal, width: 2),
+      ),
     ),
-  ));
+  );
   // 3. Rounded corners.
-  tiles.add(_swatchTile(
-    '03 rounded',
-    BoxDecoration(
-      color: cTerracotta,
-      borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: cCharcoal, width: 1),
+  tiles.add(
+    _swatchTile(
+      '03 rounded',
+      BoxDecoration(
+        color: cTerracotta,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: cCharcoal, width: 1),
+      ),
     ),
-  ));
+  );
   // 4. Image.  We use an AssetImage placeholder string; AssetImage cannot
   //    resolve at frozen-frame time but the painting recipe is still valid.
-  tiles.add(_swatchTile(
-    '04 image (asset)',
-    BoxDecoration(
-      color: cClay,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cCharcoal),
-      image: const DecorationImage(
-        image: AssetImage('plaster.png'),
-        fit: BoxFit.cover,
-        opacity: 0.0,
+  tiles.add(
+    _swatchTile(
+      '04 image (asset)',
+      BoxDecoration(
+        color: cClay,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: cCharcoal),
+        image: const DecorationImage(
+          image: AssetImage('plaster.png'),
+          fit: BoxFit.cover,
+          opacity: 0.0,
+        ),
       ),
     ),
-  ));
+  );
   // 5. Linear gradient.
-  tiles.add(_swatchTile(
-    '05 linear gradient',
-    BoxDecoration(
-      gradient: const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: <Color>[cCinnabar, cOchre],
+  tiles.add(
+    _swatchTile(
+      '05 linear gradient',
+      BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[cCinnabar, cOchre],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: cCharcoal),
       ),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cCharcoal),
     ),
-  ));
+  );
   // 6. Radial gradient.
-  tiles.add(_swatchTile(
-    '06 radial gradient',
-    BoxDecoration(
-      gradient: const RadialGradient(
-        center: Alignment.center,
-        radius: 0.8,
-        colors: <Color>[cEgg, cTerracotta, cCinnabar],
+  tiles.add(
+    _swatchTile(
+      '06 radial gradient',
+      BoxDecoration(
+        gradient: const RadialGradient(
+          center: Alignment.center,
+          radius: 0.8,
+          colors: <Color>[cEgg, cTerracotta, cCinnabar],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: cCharcoal),
       ),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cCharcoal),
     ),
-  ));
+  );
   // 7. Sweep gradient.
-  tiles.add(_swatchTile(
-    '07 sweep gradient',
-    BoxDecoration(
-      gradient: const SweepGradient(
-        colors: <Color>[
-          cCinnabar,
-          cOchre,
-          cEgg,
-          cVerdigris,
-          cIndigoWash,
-          cCinnabar,
+  tiles.add(
+    _swatchTile(
+      '07 sweep gradient',
+      BoxDecoration(
+        gradient: const SweepGradient(
+          colors: <Color>[
+            cCinnabar,
+            cOchre,
+            cEgg,
+            cVerdigris,
+            cIndigoWash,
+            cCinnabar,
+          ],
+        ),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: cCharcoal),
+      ),
+    ),
+  );
+  // 8. Shadow ring (single pulsing shadow).
+  tiles.add(
+    _swatchTile(
+      '08 shadow ring',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: cCharcoal),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCinnabar.withValues(alpha: 0.55),
+            blurRadius: 12,
+            spreadRadius: 4,
+            offset: const Offset(0, 0),
+          ),
         ],
       ),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cCharcoal),
     ),
-  ));
-  // 8. Shadow ring (single pulsing shadow).
-  tiles.add(_swatchTile(
-    '08 shadow ring',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: cCharcoal),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCinnabar.withValues(alpha: 0.55),
-          blurRadius: 12,
-          spreadRadius: 4,
-          offset: const Offset(0, 0),
-        ),
-      ],
-    ),
-  ));
+  );
   // 9. Multiple shadows.
-  tiles.add(_swatchTile(
-    '09 multi shadow',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCinnabar.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: const Offset(-4, 4),
-        ),
-        BoxShadow(
-          color: cVerdigris.withValues(alpha: 0.5),
-          blurRadius: 8,
-          offset: const Offset(4, 4),
-        ),
-      ],
+  tiles.add(
+    _swatchTile(
+      '09 multi shadow',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCinnabar.withValues(alpha: 0.5),
+            blurRadius: 8,
+            offset: const Offset(-4, 4),
+          ),
+          BoxShadow(
+            color: cVerdigris.withValues(alpha: 0.5),
+            blurRadius: 8,
+            offset: const Offset(4, 4),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 10. Bordered + gradient + shadow.
-  tiles.add(_swatchTile(
-    '10 border+grad+shadow',
-    BoxDecoration(
-      gradient: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[cOchre, cTerracotta],
-      ),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: cCharcoal, width: 2),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCharcoal.withValues(alpha: 0.4),
-          blurRadius: 10,
-          offset: const Offset(0, 6),
+  tiles.add(
+    _swatchTile(
+      '10 border+grad+shadow',
+      BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[cOchre, cTerracotta],
         ),
-      ],
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: cCharcoal, width: 2),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCharcoal.withValues(alpha: 0.4),
+            blurRadius: 10,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 11. backgroundBlendMode + image.
-  tiles.add(_swatchTile(
-    '11 blendMode + image',
-    BoxDecoration(
-      color: cTerracotta,
-      backgroundBlendMode: BlendMode.multiply,
-      borderRadius: BorderRadius.circular(8),
-      image: const DecorationImage(
-        image: AssetImage('cartoon.png'),
-        fit: BoxFit.cover,
-        opacity: 0.0,
-      ),
-      border: Border.all(color: cCharcoal),
-    ),
-  ));
-  // 12. Fully ornamented.
-  tiles.add(_swatchTile(
-    '12 fully ornamented',
-    BoxDecoration(
-      gradient: const RadialGradient(
-        colors: <Color>[cEgg, cTerracotta, cCinnabar],
-      ),
-      borderRadius: BorderRadius.circular(14),
-      border: Border.all(color: cCharcoal, width: 2),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCinnabar.withValues(alpha: 0.5),
-          blurRadius: 14,
-          spreadRadius: 2,
-          offset: const Offset(0, 6),
+  tiles.add(
+    _swatchTile(
+      '11 blendMode + image',
+      BoxDecoration(
+        color: cTerracotta,
+        backgroundBlendMode: BlendMode.multiply,
+        borderRadius: BorderRadius.circular(8),
+        image: const DecorationImage(
+          image: AssetImage('cartoon.png'),
+          fit: BoxFit.cover,
+          opacity: 0.0,
         ),
-      ],
+        border: Border.all(color: cCharcoal),
+      ),
     ),
-  ));
+  );
+  // 12. Fully ornamented.
+  tiles.add(
+    _swatchTile(
+      '12 fully ornamented',
+      BoxDecoration(
+        gradient: const RadialGradient(
+          colors: <Color>[cEgg, cTerracotta, cCinnabar],
+        ),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: cCharcoal, width: 2),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCinnabar.withValues(alpha: 0.5),
+            blurRadius: 14,
+            spreadRadius: 2,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+    ),
+  );
 
   return Wrap(spacing: 12, runSpacing: 14, children: tiles);
 }
@@ -1078,11 +1089,14 @@ Widget _buildLerpGallery() {
   for (int i = 0; i < ts.length; i++) {
     final double t = ts[i];
     final Decoration? mid = BoxDecoration.lerp(a, b, t);
-    final BoxDecoration deco =
-        (mid is BoxDecoration) ? mid : BoxDecoration(color: cAsh);
-    print(' lerp(a, b, $t) -> ${deco.runtimeType}; '
-        'color=${deco.color}, '
-        'borderRadius=${deco.borderRadius}');
+    final BoxDecoration deco = (mid is BoxDecoration)
+        ? mid
+        : BoxDecoration(color: cAsh);
+    print(
+      ' lerp(a, b, $t) -> ${deco.runtimeType}; '
+      'color=${deco.color}, '
+      'borderRadius=${deco.borderRadius}',
+    );
     tiles.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1153,8 +1167,9 @@ Widget _buildShapeDecorationShowcase() {
     },
     {
       'label': 'StadiumBorder',
-      'shape':
-          const StadiumBorder(side: BorderSide(color: cCharcoal, width: 2)),
+      'shape': const StadiumBorder(
+        side: BorderSide(color: cCharcoal, width: 2),
+      ),
       'color': cTerracotta,
     },
     {
@@ -1208,18 +1223,16 @@ Widget _buildShapeDecorationShowcase() {
         ),
       ],
     );
-    print(' ShapeDecoration[$i] shape=${shape.runtimeType}, '
-        'isComplex=${deco.isComplex}, '
-        'padding=${deco.padding}');
+    print(
+      ' ShapeDecoration[$i] shape=${shape.runtimeType}, '
+      'isComplex=${deco.isComplex}, '
+      'padding=${deco.padding}',
+    );
     tiles.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: 110,
-            height: 80,
-            decoration: deco,
-          ),
+          Container(width: 110, height: 80, decoration: deco),
           const SizedBox(height: 4),
           SizedBox(
             width: 120,
@@ -1320,9 +1333,7 @@ Widget _buildBorderRadiusMatrix() {
       final double r = radii[ri];
       final BoxDecoration deco = BoxDecoration(
         color: cTerracotta,
-        border: w == 0
-            ? null
-            : Border.all(color: cCharcoal, width: w),
+        border: w == 0 ? null : Border.all(color: cCharcoal, width: w),
         borderRadius: BorderRadius.circular(r),
       );
       cells.add(
@@ -1349,10 +1360,7 @@ Widget _buildBorderRadiusMatrix() {
     final List<Widget> rowCells = <Widget>[];
     for (int c = 0; c < 4; c++) {
       rowCells.add(
-        Padding(
-          padding: const EdgeInsets.all(4),
-          child: cells[idx],
-        ),
+        Padding(padding: const EdgeInsets.all(4), child: cells[idx]),
       );
       idx++;
     }
@@ -1411,14 +1419,16 @@ Widget _buildGradientAnatomy() {
     borderRadius: BorderRadius.circular(8),
     border: Border.all(color: cCharcoal),
   );
-  rows.add(_gradientRow(
-    'LinearGradient',
-    "begin: centerLeft\n"
-        "end:   centerRight\n"
-        "colors: [charcoal, cinnabar, ochre, egg]\n"
-        "stops:  [0.0, 0.3, 0.7, 1.0]",
-    linearDeco,
-  ));
+  rows.add(
+    _gradientRow(
+      'LinearGradient',
+      "begin: centerLeft\n"
+          "end:   centerRight\n"
+          "colors: [charcoal, cinnabar, ochre, egg]\n"
+          "stops:  [0.0, 0.3, 0.7, 1.0]",
+      linearDeco,
+    ),
+  );
 
   // Radial with focal point.
   final BoxDecoration radialDeco = BoxDecoration(
@@ -1433,15 +1443,17 @@ Widget _buildGradientAnatomy() {
     borderRadius: BorderRadius.circular(8),
     border: Border.all(color: cCharcoal),
   );
-  rows.add(_gradientRow(
-    'RadialGradient',
-    "center: Alignment.center\n"
-        "radius: 0.9\n"
-        "focal:  Alignment(-0.4, -0.4)\n"
-        "focalRadius: 0.1\n"
-        "colors: [egg, ochre, terracotta, charcoal]",
-    radialDeco,
-  ));
+  rows.add(
+    _gradientRow(
+      'RadialGradient',
+      "center: Alignment.center\n"
+          "radius: 0.9\n"
+          "focal:  Alignment(-0.4, -0.4)\n"
+          "focalRadius: 0.1\n"
+          "colors: [egg, ochre, terracotta, charcoal]",
+      radialDeco,
+    ),
+  );
 
   // Sweep with multiple stops.
   final BoxDecoration sweepDeco = BoxDecoration(
@@ -1462,20 +1474,19 @@ Widget _buildGradientAnatomy() {
     borderRadius: BorderRadius.circular(8),
     border: Border.all(color: cCharcoal),
   );
-  rows.add(_gradientRow(
-    'SweepGradient',
-    "center:   Alignment.center\n"
-        "startAng: 0.0\n"
-        "endAng:   2 * pi\n"
-        "colors: [cin, ochre, egg, verdi, indigo, cin]\n"
-        "stops:  [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]",
-    sweepDeco,
-  ));
-
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: rows,
+  rows.add(
+    _gradientRow(
+      'SweepGradient',
+      "center:   Alignment.center\n"
+          "startAng: 0.0\n"
+          "endAng:   2 * pi\n"
+          "colors: [cin, ochre, egg, verdi, indigo, cin]\n"
+          "stops:  [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]",
+      sweepDeco,
+    ),
   );
+
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows);
 }
 
 Widget _gradientRow(String title, String math, BoxDecoration deco) {
@@ -1540,103 +1551,111 @@ Widget _buildShadowAnatomy() {
   final List<Widget> tiles = <Widget>[];
 
   // 1. offset only.
-  tiles.add(_shadowTile(
-    '01 offset (4, 4)',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: const <BoxShadow>[
-        BoxShadow(
-          color: cCharcoal,
-          offset: Offset(4, 4),
-          blurRadius: 0,
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '01 offset (4, 4)',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: const <BoxShadow>[
+          BoxShadow(color: cCharcoal, offset: Offset(4, 4), blurRadius: 0),
+        ],
+      ),
     ),
-  ));
+  );
   // 2. blur only.
-  tiles.add(_shadowTile(
-    '02 blur 12, offset 0',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCharcoal.withValues(alpha: 0.7),
-          blurRadius: 12,
-          offset: const Offset(0, 0),
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '02 blur 12, offset 0',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCharcoal.withValues(alpha: 0.7),
+            blurRadius: 12,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 3. spreadRadius positive.
-  tiles.add(_shadowTile(
-    '03 spread +6',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCinnabar.withValues(alpha: 0.6),
-          spreadRadius: 6,
-          blurRadius: 4,
-          offset: const Offset(0, 0),
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '03 spread +6',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCinnabar.withValues(alpha: 0.6),
+            spreadRadius: 6,
+            blurRadius: 4,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 4. spreadRadius negative.
-  tiles.add(_shadowTile(
-    '04 spread -3 (tight)',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCharcoal.withValues(alpha: 0.7),
-          spreadRadius: -3,
-          blurRadius: 6,
-          offset: const Offset(0, 4),
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '04 spread -3 (tight)',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCharcoal.withValues(alpha: 0.7),
+            spreadRadius: -3,
+            blurRadius: 6,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 5. coloured glow.
-  tiles.add(_shadowTile(
-    '05 colored glow',
-    BoxDecoration(
-      color: cIndigoWash,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cEgg.withValues(alpha: 0.7),
-          spreadRadius: 2,
-          blurRadius: 14,
-          offset: const Offset(0, 0),
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '05 colored glow',
+      BoxDecoration(
+        color: cIndigoWash,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cEgg.withValues(alpha: 0.7),
+            spreadRadius: 2,
+            blurRadius: 14,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
     ),
-  ));
+  );
   // 6. stacked shadows (front+back).
-  tiles.add(_shadowTile(
-    '06 stacked shadows',
-    BoxDecoration(
-      color: cBone,
-      borderRadius: BorderRadius.circular(8),
-      boxShadow: <BoxShadow>[
-        BoxShadow(
-          color: cCinnabar.withValues(alpha: 0.55),
-          offset: const Offset(-4, 4),
-          blurRadius: 8,
-        ),
-        BoxShadow(
-          color: cVerdigris.withValues(alpha: 0.55),
-          offset: const Offset(4, 4),
-          blurRadius: 8,
-        ),
-      ],
+  tiles.add(
+    _shadowTile(
+      '06 stacked shadows',
+      BoxDecoration(
+        color: cBone,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: cCinnabar.withValues(alpha: 0.55),
+            offset: const Offset(-4, 4),
+            blurRadius: 8,
+          ),
+          BoxShadow(
+            color: cVerdigris.withValues(alpha: 0.55),
+            offset: const Offset(4, 4),
+            blurRadius: 8,
+          ),
+        ],
+      ),
     ),
-  ));
+  );
 
   return Wrap(spacing: 18, runSpacing: 24, children: tiles);
 }
@@ -1705,11 +1724,7 @@ Widget _buildHitTestingDemo() {
   );
   // The circle itself.
   stackChildren.add(
-    Container(
-      width: regionSize,
-      height: regionSize,
-      decoration: circleDeco,
-    ),
+    Container(width: regionSize, height: regionSize, decoration: circleDeco),
   );
   // The 36 grid cells, each a small square coloured by hit/miss.
   for (int r = 0; r < gridN; r++) {
@@ -1868,10 +1883,7 @@ Widget _buildSubtypeTable() {
               fontWeight: FontWeight.w800,
               color: cPlaster,
             )
-          : const TextStyle(
-              fontSize: 11,
-              color: cCharcoal,
-            );
+          : const TextStyle(fontSize: 11, color: cCharcoal);
       // Use real BoxDecorations on the cells too, so we keep counting.
       final BoxDecoration cellDeco = BoxDecoration(
         color: header ? cCinnabar : cBone,
@@ -1971,11 +1983,7 @@ Widget _buildRecipeCards() {
         offset: const Offset(2, 2),
         blurRadius: 4,
       ),
-      BoxShadow(
-        color: cBone,
-        offset: const Offset(-2, -2),
-        blurRadius: 4,
-      ),
+      BoxShadow(color: cBone, offset: const Offset(-2, -2), blurRadius: 4),
     ],
   );
   final String embossedCode = '''BoxDecoration(
@@ -2209,11 +2217,7 @@ Widget _buildClosingEssay() {
           'on the slab; hitTest is the deacon\'s finger checking the '
           'wet patch is yours; getClipPath is the templated stencil; '
           'createBoxPainter is the brush itself, finally meeting the wall.',
-          style: TextStyle(
-            color: cPlaster,
-            fontSize: 12,
-            height: 1.55,
-          ),
+          style: TextStyle(color: cPlaster, fontSize: 12, height: 1.55),
         ),
       ],
     ),

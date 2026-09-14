@@ -125,90 +125,101 @@ dynamic build(BuildContext context) {
               _hero(),
               const SizedBox(height: 28.0),
               _section(
-                  '1. Material menu theming overview',
-                  'Five theme datas drive every menu surface in flutter/material. '
-                      'They live on ThemeData and on dedicated InheritedTheme widgets. '
-                      'This document walks through each, then composes them.'),
+                '1. Material menu theming overview',
+                'Five theme datas drive every menu surface in flutter/material. '
+                    'They live on ThemeData and on dedicated InheritedTheme widgets. '
+                    'This document walks through each, then composes them.',
+              ),
               const SizedBox(height: 14.0),
               _overviewPanel(),
               const SizedBox(height: 28.0),
               _section(
-                  '2. MenuThemeData anatomy',
-                  'MenuThemeData has exactly one constructor parameter: `style`, '
-                      'a nullable MenuStyle. MenuStyle itself is a bag of '
-                      'WidgetStateProperty<T> fields plus a couple of scalars.'),
+                '2. MenuThemeData anatomy',
+                'MenuThemeData has exactly one constructor parameter: `style`, '
+                    'a nullable MenuStyle. MenuStyle itself is a bag of '
+                    'WidgetStateProperty<T> fields plus a couple of scalars.',
+              ),
               const SizedBox(height: 14.0),
               _anatomyTable(),
               const SizedBox(height: 28.0),
               _section(
-                  '3. MenuStyle showcase',
-                  'Six distinct MenuStyle configurations, each previewed alongside '
-                      'a PopupMenuButton<int> that uses it as menuStyle. The render '
-                      'is static; the visual chrome is reproduced by hand.'),
+                '3. MenuStyle showcase',
+                'Six distinct MenuStyle configurations, each previewed alongside '
+                    'a PopupMenuButton<int> that uses it as menuStyle. The render '
+                    'is static; the visual chrome is reproduced by hand.',
+              ),
               const SizedBox(height: 14.0),
               _menuStyleShowcase(),
               const SizedBox(height: 28.0),
               _section(
-                  '4. MenuBarThemeData + MenuBar',
-                  'Wrap a tiny Theme(data: ThemeData(menuBarTheme: ...)) around a '
-                      'MenuBar with three SubmenuButton entries. Below it, the '
-                      'static replica shows the exact rendered chrome.'),
+                '4. MenuBarThemeData + MenuBar',
+                'Wrap a tiny Theme(data: ThemeData(menuBarTheme: ...)) around a '
+                    'MenuBar with three SubmenuButton entries. Below it, the '
+                    'static replica shows the exact rendered chrome.',
+              ),
               const SizedBox(height: 14.0),
               _menuBarThemeShowcase(),
               const SizedBox(height: 28.0),
               _section(
-                  '5. MenuButtonThemeData showcase',
-                  'Wrap a Theme(data: ThemeData(menuButtonTheme: ...)) over four '
-                      'MenuItemButton variants. The theme uniformly styles padding, '
-                      'shape, colors and text style; per-item overrides win.'),
+                '5. MenuButtonThemeData showcase',
+                'Wrap a Theme(data: ThemeData(menuButtonTheme: ...)) over four '
+                    'MenuItemButton variants. The theme uniformly styles padding, '
+                    'shape, colors and text style; per-item overrides win.',
+              ),
               const SizedBox(height: 14.0),
               _menuButtonThemeShowcase(),
               const SizedBox(height: 28.0),
               _section(
-                  '6. SubmenuButton theming showcase',
-                  'SubmenuButton inherits ButtonStyle from MenuButtonTheme in this '
-                      'Flutter channel; later channels expose a dedicated '
-                      'SubmenuButtonThemeData. Both follow the same shape: a '
-                      'single nullable ButtonStyle `style` field.'),
+                '6. SubmenuButton theming showcase',
+                'SubmenuButton inherits ButtonStyle from MenuButtonTheme in this '
+                    'Flutter channel; later channels expose a dedicated '
+                    'SubmenuButtonThemeData. Both follow the same shape: a '
+                    'single nullable ButtonStyle `style` field.',
+              ),
               const SizedBox(height: 14.0),
               _submenuButtonThemeShowcase(),
               const SizedBox(height: 28.0),
               _section(
-                  '7. PopupMenuThemeData showcase',
-                  'PopupMenuThemeData is the legacy popup-menu surface theme: '
-                      'color, shape, elevation, textStyle, labelTextStyle, '
-                      'iconColor, position, mouseCursor and surfaceTintColor.'),
+                '7. PopupMenuThemeData showcase',
+                'PopupMenuThemeData is the legacy popup-menu surface theme: '
+                    'color, shape, elevation, textStyle, labelTextStyle, '
+                    'iconColor, position, mouseCursor and surfaceTintColor.',
+              ),
               const SizedBox(height: 14.0),
               _popupMenuThemeShowcase(),
               const SizedBox(height: 28.0),
               _section(
-                  '8. Theme cascading flow',
-                  'A CustomPainter draws the inheritance chain: ThemeData.menuBarTheme '
-                      'flows into MenuBarTheme.of(context), which the MenuBar widget '
-                      'reads at build time. Same pattern for the four siblings.'),
+                '8. Theme cascading flow',
+                'A CustomPainter draws the inheritance chain: ThemeData.menuBarTheme '
+                    'flows into MenuBarTheme.of(context), which the MenuBar widget '
+                    'reads at build time. Same pattern for the four siblings.',
+              ),
               const SizedBox(height: 14.0),
               _cascadingFlow(),
               const SizedBox(height: 28.0),
               _section(
-                  '9. Comparison table',
-                  'MenuTheme vs MenuBarTheme vs MenuButtonTheme vs SubmenuButtonTheme '
-                      'vs PopupMenuTheme. Each row: theme name, scope, who reads it, '
-                      'underlying data type, and a remark on idiomatic use.'),
+                '9. Comparison table',
+                'MenuTheme vs MenuBarTheme vs MenuButtonTheme vs SubmenuButtonTheme '
+                    'vs PopupMenuTheme. Each row: theme name, scope, who reads it, '
+                    'underlying data type, and a remark on idiomatic use.',
+              ),
               const SizedBox(height: 14.0),
               _comparisonTable(),
               const SizedBox(height: 28.0),
               _section(
-                  '10. Pitfalls',
-                  'Six callouts on subtle behaviour: WidgetStateProperty wrapping, '
-                      'DropdownButtonFormField nesting, Theme.of vs MenuTheme.of, '
-                      'zero padding side effects, override precedence, dispose.'),
+                '10. Pitfalls',
+                'Six callouts on subtle behaviour: WidgetStateProperty wrapping, '
+                    'DropdownButtonFormField nesting, Theme.of vs MenuTheme.of, '
+                    'zero padding side effects, override precedence, dispose.',
+              ),
               const SizedBox(height: 14.0),
               _pitfallsGrid(),
               const SizedBox(height: 28.0),
               _section(
-                  '11. Cheat-sheet',
-                  'Chip groups: theme data types, widget consumers, MenuStyle fields, '
-                      'WidgetStateProperty constructors. Tagline at the bottom.'),
+                '11. Cheat-sheet',
+                'Chip groups: theme data types, widget consumers, MenuStyle fields, '
+                    'WidgetStateProperty constructors. Tagline at the bottom.',
+              ),
               const SizedBox(height: 14.0),
               _cheatSheetFooter(),
               const SizedBox(height: 32.0),
@@ -331,8 +342,11 @@ Widget _hero() {
             const SizedBox(width: 8.0),
             _heroBadge('PopupMenuTheme'),
             const Spacer(),
-            const Icon(Icons.menu_open_rounded,
-                color: Colors.white70, size: 22.0),
+            const Icon(
+              Icons.menu_open_rounded,
+              color: Colors.white70,
+              size: 22.0,
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -463,8 +477,10 @@ Widget _section(String title, String description) {
 
 Widget _card({
   required Widget child,
-  EdgeInsetsGeometry padding =
-      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+  EdgeInsetsGeometry padding = const EdgeInsets.symmetric(
+    horizontal: 16.0,
+    vertical: 16.0,
+  ),
   Color background = _kCard,
 }) {
   return Container(
@@ -586,8 +602,13 @@ Widget _overviewPanel() {
   );
 }
 
-Widget _overviewRow(String widget, String data, String scope, Color accent,
-    Color accentSoft) {
+Widget _overviewRow(
+  String widget,
+  String data,
+  String scope,
+  Color accent,
+  Color accentSoft,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -652,32 +673,71 @@ Widget _anatomyTable() {
         const SizedBox(height: 6.0),
         _anatomyHeader(),
         const SizedBox(height: 6.0),
-        _anatomyRow('backgroundColor', 'WidgetStateProperty<Color?>?',
-            'Surface fill of the menu container.'),
-        _anatomyRow('shadowColor', 'WidgetStateProperty<Color?>?',
-            'Color of the menu drop shadow.'),
-        _anatomyRow('surfaceTintColor', 'WidgetStateProperty<Color?>?',
-            'M3 elevation tint applied on top of background.'),
-        _anatomyRow('elevation', 'WidgetStateProperty<double?>?',
-            'Drop-shadow z-axis depth.'),
-        _anatomyRow('padding', 'WidgetStateProperty<EdgeInsetsGeometry?>?',
-            'Inset between menu border and its children list.'),
-        _anatomyRow('minimumSize', 'WidgetStateProperty<Size?>?',
-            'Lower bound for the menu surface size.'),
-        _anatomyRow('fixedSize', 'WidgetStateProperty<Size?>?',
-            'Locks both axes; null axis means unconstrained.'),
-        _anatomyRow('maximumSize', 'WidgetStateProperty<Size?>?',
-            'Upper bound; menu scrolls if children exceed it.'),
-        _anatomyRow('side', 'WidgetStateProperty<BorderSide?>?',
-            'Border drawn around the menu surface.'),
-        _anatomyRow('shape', 'WidgetStateProperty<OutlinedBorder?>?',
-            'Outline shape, usually RoundedRectangleBorder.'),
-        _anatomyRow('mouseCursor', 'WidgetStateProperty<MouseCursor?>?',
-            'Cursor when hovering the menu container.'),
-        _anatomyRow('visualDensity', 'VisualDensity?',
-            'Scalar density (NOT a WidgetStateProperty).'),
-        _anatomyRow('alignment', 'AlignmentGeometry?',
-            'How the menu aligns to its anchor (NOT a WidgetStateProperty).'),
+        _anatomyRow(
+          'backgroundColor',
+          'WidgetStateProperty<Color?>?',
+          'Surface fill of the menu container.',
+        ),
+        _anatomyRow(
+          'shadowColor',
+          'WidgetStateProperty<Color?>?',
+          'Color of the menu drop shadow.',
+        ),
+        _anatomyRow(
+          'surfaceTintColor',
+          'WidgetStateProperty<Color?>?',
+          'M3 elevation tint applied on top of background.',
+        ),
+        _anatomyRow(
+          'elevation',
+          'WidgetStateProperty<double?>?',
+          'Drop-shadow z-axis depth.',
+        ),
+        _anatomyRow(
+          'padding',
+          'WidgetStateProperty<EdgeInsetsGeometry?>?',
+          'Inset between menu border and its children list.',
+        ),
+        _anatomyRow(
+          'minimumSize',
+          'WidgetStateProperty<Size?>?',
+          'Lower bound for the menu surface size.',
+        ),
+        _anatomyRow(
+          'fixedSize',
+          'WidgetStateProperty<Size?>?',
+          'Locks both axes; null axis means unconstrained.',
+        ),
+        _anatomyRow(
+          'maximumSize',
+          'WidgetStateProperty<Size?>?',
+          'Upper bound; menu scrolls if children exceed it.',
+        ),
+        _anatomyRow(
+          'side',
+          'WidgetStateProperty<BorderSide?>?',
+          'Border drawn around the menu surface.',
+        ),
+        _anatomyRow(
+          'shape',
+          'WidgetStateProperty<OutlinedBorder?>?',
+          'Outline shape, usually RoundedRectangleBorder.',
+        ),
+        _anatomyRow(
+          'mouseCursor',
+          'WidgetStateProperty<MouseCursor?>?',
+          'Cursor when hovering the menu container.',
+        ),
+        _anatomyRow(
+          'visualDensity',
+          'VisualDensity?',
+          'Scalar density (NOT a WidgetStateProperty).',
+        ),
+        _anatomyRow(
+          'alignment',
+          'AlignmentGeometry?',
+          'How the menu aligns to its anchor (NOT a WidgetStateProperty).',
+        ),
         const SizedBox(height: 12.0),
         const Text(
           'Note: MenuBarThemeData and SubmenuButtonThemeData both have only a '
@@ -818,7 +878,8 @@ List<_StyleSpec> _menuStyleSpecs() {
   return <_StyleSpec>[
     const _StyleSpec(
       name: 'classic',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(white),\n'
           '  elevation: WidgetStatePropertyAll(6),\n'
           '  padding: WidgetStatePropertyAll(\n'
@@ -846,7 +907,8 @@ List<_StyleSpec> _menuStyleSpecs() {
     ),
     const _StyleSpec(
       name: 'tinted',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(roseSoft),\n'
           '  elevation: WidgetStatePropertyAll(2),\n'
           '  padding: WidgetStatePropertyAll(\n'
@@ -872,7 +934,8 @@ List<_StyleSpec> _menuStyleSpecs() {
     ),
     const _StyleSpec(
       name: 'compact',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(white),\n'
           '  elevation: WidgetStatePropertyAll(4),\n'
           '  padding: WidgetStatePropertyAll(EdgeInsets.zero),\n'
@@ -897,7 +960,8 @@ List<_StyleSpec> _menuStyleSpecs() {
     ),
     const _StyleSpec(
       name: 'large',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(white),\n'
           '  elevation: WidgetStatePropertyAll(10),\n'
           '  padding: WidgetStatePropertyAll(\n'
@@ -923,7 +987,8 @@ List<_StyleSpec> _menuStyleSpecs() {
     ),
     const _StyleSpec(
       name: 'outlined',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(white),\n'
           '  elevation: WidgetStatePropertyAll(0),\n'
           '  padding: WidgetStatePropertyAll(\n'
@@ -949,7 +1014,8 @@ List<_StyleSpec> _menuStyleSpecs() {
     ),
     const _StyleSpec(
       name: 'dense-pill',
-      code: 'MenuStyle(\n'
+      code:
+          'MenuStyle(\n'
           '  backgroundColor: WidgetStatePropertyAll(amberSoft),\n'
           '  elevation: WidgetStatePropertyAll(3),\n'
           '  padding: WidgetStatePropertyAll(\n'
@@ -992,7 +1058,9 @@ Widget _styleCard(_StyleSpec spec) {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: 4.0),
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: spec.accentSoft,
                   borderRadius: const BorderRadius.all(Radius.circular(6.0)),
@@ -1026,23 +1094,29 @@ Widget _styleCard(_StyleSpec spec) {
                   for (int i = 0; i < spec.items.length; i++)
                     PopupMenuItem<int>(
                       value: i,
-                      child: Text(spec.items[i],
-                          style: const TextStyle(fontSize: 13.0)),
+                      child: Text(
+                        spec.items[i],
+                        style: const TextStyle(fontSize: 13.0),
+                      ),
                     ),
                 ],
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0, vertical: 8.0),
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: spec.accent,
-                    borderRadius:
-                        const BorderRadius.all(Radius.circular(8.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const Icon(Icons.expand_more_rounded,
-                          color: Colors.white, size: 16.0),
+                      const Icon(
+                        Icons.expand_more_rounded,
+                        color: Colors.white,
+                        size: 16.0,
+                      ),
                       const SizedBox(width: 4.0),
                       Text(
                         spec.name,
@@ -1099,7 +1173,9 @@ Widget _styledMenuPreview(_StyleSpec spec) {
           for (final String item in spec.items)
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 6.0),
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
               child: Row(
                 children: <Widget>[
                   Container(
@@ -1178,20 +1254,23 @@ Widget _menuBarThemeShowcase() {
                     menuChildren: <Widget>[
                       MenuItemButton(
                         onPressed: () {},
-                        leadingIcon:
-                            const Icon(Icons.note_add_rounded, size: 16.0),
+                        leadingIcon: const Icon(
+                          Icons.note_add_rounded,
+                          size: 16.0,
+                        ),
                         shortcut: const SingleActivator(
-                            LogicalKeyboardKey.keyN,
-                            control: true),
+                          LogicalKeyboardKey.keyN,
+                          control: true,
+                        ),
                         child: const Text('New'),
                       ),
                       MenuItemButton(
                         onPressed: () {},
-                        leadingIcon:
-                            const Icon(Icons.save_rounded, size: 16.0),
+                        leadingIcon: const Icon(Icons.save_rounded, size: 16.0),
                         shortcut: const SingleActivator(
-                            LogicalKeyboardKey.keyS,
-                            control: true),
+                          LogicalKeyboardKey.keyS,
+                          control: true,
+                        ),
                         child: const Text('Save'),
                       ),
                     ],
@@ -1255,8 +1334,7 @@ Widget _menuButtonThemeShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Four MenuItemButton variants under one theme',
-            style: _kH3),
+        const Text('Four MenuItemButton variants under one theme', style: _kH3),
         const SizedBox(height: 6.0),
         const Text(
           'menuButtonTheme provides a ButtonStyle that applies to every '
@@ -1270,8 +1348,9 @@ Widget _menuButtonThemeShowcase() {
             useMaterial3: true,
             menuButtonTheme: const MenuButtonThemeData(
               style: ButtonStyle(
-                backgroundColor:
-                    WidgetStatePropertyAll<Color>(Colors.transparent),
+                backgroundColor: WidgetStatePropertyAll<Color>(
+                  Colors.transparent,
+                ),
                 foregroundColor: WidgetStatePropertyAll<Color>(_kInk),
                 padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
                   EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
@@ -1303,21 +1382,27 @@ Widget _menuButtonThemeShowcase() {
                 MenuItemButton(
                   onPressed: () {},
                   leadingIcon: const Icon(Icons.edit_rounded, size: 16.0),
-                  trailingIcon: const Text('Ctrl+E',
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.0,
-                          color: _kMuted)),
+                  trailingIcon: const Text(
+                    'Ctrl+E',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11.0,
+                      color: _kMuted,
+                    ),
+                  ),
                   child: const Text('Edit selection'),
                 ),
                 MenuItemButton(
                   onPressed: () {},
                   leadingIcon: const Icon(Icons.copy_rounded, size: 16.0),
-                  trailingIcon: const Text('Ctrl+C',
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11.0,
-                          color: _kMuted)),
+                  trailingIcon: const Text(
+                    'Ctrl+C',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11.0,
+                      color: _kMuted,
+                    ),
+                  ),
                   child: const Text('Copy selection'),
                 ),
                 MenuItemButton(
@@ -1325,16 +1410,24 @@ Widget _menuButtonThemeShowcase() {
                   style: const ButtonStyle(
                     foregroundColor: WidgetStatePropertyAll<Color>(_kRose),
                   ),
-                  leadingIcon: const Icon(Icons.delete_rounded,
-                      size: 16.0, color: _kRose),
+                  leadingIcon: const Icon(
+                    Icons.delete_rounded,
+                    size: 16.0,
+                    color: _kRose,
+                  ),
                   child: const Text('Delete selection'),
                 ),
                 MenuItemButton(
                   onPressed: null, // disabled
-                  leadingIcon: const Icon(Icons.lock_rounded,
-                      size: 16.0, color: _kMuted),
-                  child: const Text('Archive (locked)',
-                      style: TextStyle(color: _kMuted)),
+                  leadingIcon: const Icon(
+                    Icons.lock_rounded,
+                    size: 16.0,
+                    color: _kMuted,
+                  ),
+                  child: const Text(
+                    'Archive (locked)',
+                    style: TextStyle(color: _kMuted),
+                  ),
                 ),
               ],
             ),
@@ -1390,7 +1483,8 @@ Widget _submenuButtonThemeShowcase() {
                     style: ButtonStyle(
                       foregroundColor: WidgetStatePropertyAll<Color>(_kViolet),
                       backgroundColor: WidgetStatePropertyAll<Color>(
-                          _kVioletSoft),
+                        _kVioletSoft,
+                      ),
                       padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
                         EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
                       ),
@@ -1414,7 +1508,10 @@ Widget _submenuButtonThemeShowcase() {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SubmenuButton(
-                        leadingIcon: const Icon(Icons.share_rounded, size: 16.0),
+                        leadingIcon: const Icon(
+                          Icons.share_rounded,
+                          size: 16.0,
+                        ),
                         menuChildren: <Widget>[
                           MenuItemButton(
                             onPressed: () {},
@@ -1481,8 +1578,7 @@ Widget _submenuExpandedPreview() {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _submenuPreviewRow(Icons.share_rounded, 'Share with',
-            isParent: true),
+        _submenuPreviewRow(Icons.share_rounded, 'Share with', isParent: true),
         const Divider(color: _kBorderSoft, height: 1.0),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, top: 6.0),
@@ -1501,8 +1597,11 @@ Widget _submenuExpandedPreview() {
   );
 }
 
-Widget _submenuPreviewRow(IconData icon, String label,
-    {bool isParent = false}) {
+Widget _submenuPreviewRow(
+  IconData icon,
+  String label, {
+  bool isParent = false,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
     child: Row(
@@ -1520,8 +1619,7 @@ Widget _submenuPreviewRow(IconData icon, String label,
           ),
         ),
         if (isParent)
-          const Icon(Icons.chevron_right_rounded,
-              size: 14.0, color: _kMuted),
+          const Icon(Icons.chevron_right_rounded, size: 14.0, color: _kMuted),
       ],
     ),
   );
@@ -1561,14 +1659,16 @@ Widget _popupMenuThemeShowcase() {
                       side: BorderSide(color: _kAccent, width: 1.0),
                     ),
                     textStyle: TextStyle(
-                        fontSize: 13.0,
-                        color: _kInk,
-                        fontWeight: FontWeight.w600),
+                      fontSize: 13.0,
+                      color: _kInk,
+                      fontWeight: FontWeight.w600,
+                    ),
                     labelTextStyle: WidgetStatePropertyAll<TextStyle>(
                       TextStyle(
-                          fontSize: 13.0,
-                          color: _kInk,
-                          fontWeight: FontWeight.w600),
+                        fontSize: 13.0,
+                        color: _kInk,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     iconColor: _kAccent,
                     position: PopupMenuPosition.under,
@@ -1586,32 +1686,47 @@ Widget _popupMenuThemeShowcase() {
                       PopupMenuButton<int>(
                         tooltip: 'Themed popup',
                         onSelected: (int _) {},
-                        itemBuilder: (BuildContext _) =>
-                            <PopupMenuEntry<int>>[
+                        itemBuilder: (BuildContext _) => <PopupMenuEntry<int>>[
                           const PopupMenuItem<int>(
-                              value: 1, child: Text('Rename')),
+                            value: 1,
+                            child: Text('Rename'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 2, child: Text('Move to...')),
+                            value: 2,
+                            child: Text('Move to...'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 3, child: Text('Pin')),
+                            value: 3,
+                            child: Text('Pin'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 4, child: Text('Archive')),
+                            value: 4,
+                            child: Text('Archive'),
+                          ),
                           const PopupMenuItem<int>(
-                              value: 5, child: Text('Delete')),
+                            value: 5,
+                            child: Text('Delete'),
+                          ),
                         ],
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 8.0),
+                            horizontal: 12.0,
+                            vertical: 8.0,
+                          ),
                           decoration: BoxDecoration(
                             color: _kAccent,
                             borderRadius: const BorderRadius.all(
-                                Radius.circular(8.0)),
+                              Radius.circular(8.0),
+                            ),
                           ),
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Icon(Icons.more_vert_rounded,
-                                  color: Colors.white, size: 16.0),
+                              Icon(
+                                Icons.more_vert_rounded,
+                                color: Colors.white,
+                                size: 16.0,
+                              ),
                               SizedBox(width: 6.0),
                               Text(
                                 'Open',
@@ -1686,7 +1801,9 @@ Widget _popupExpandedPreview() {
         ])
           Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 7.0),
+              horizontal: 14.0,
+              vertical: 7.0,
+            ),
             child: Row(
               children: <Widget>[
                 const Icon(Icons.circle, size: 6.0, color: _kAccent),
@@ -1762,15 +1879,31 @@ class _CascadePainter extends CustomPainter {
     canvas.drawRRect(outer, bg);
 
     final List<_Node> nodes = <_Node>[
-      _Node('ThemeData', '.menuBarTheme = MenuBarThemeData(style)', _kAccent,
-          _kAccentSoft),
-      _Node('Theme', 'InheritedWidget over the subtree', _kViolet,
-          _kVioletSoft),
-      _Node('MenuBarTheme', 'InheritedTheme of MenuBarThemeData', _kAmber,
-          _kAmberSoft),
+      _Node(
+        'ThemeData',
+        '.menuBarTheme = MenuBarThemeData(style)',
+        _kAccent,
+        _kAccentSoft,
+      ),
+      _Node(
+        'Theme',
+        'InheritedWidget over the subtree',
+        _kViolet,
+        _kVioletSoft,
+      ),
+      _Node(
+        'MenuBarTheme',
+        'InheritedTheme of MenuBarThemeData',
+        _kAmber,
+        _kAmberSoft,
+      ),
       _Node('MenuBar', 'reads MenuBarTheme.of(context)', _kTeal, _kTealSoft),
-      _Node('SubmenuButton', 'reads MenuTheme.of(context) for popup',
-          _kRose, _kRoseSoft),
+      _Node(
+        'SubmenuButton',
+        'reads MenuTheme.of(context) for popup',
+        _kRose,
+        _kRoseSoft,
+      ),
     ];
 
     const double pad = 18.0;
@@ -1780,7 +1913,11 @@ class _CascadePainter extends CustomPainter {
     for (int i = 0; i < nodes.length; i++) {
       final _Node n = nodes[i];
       final Rect r = Rect.fromLTWH(
-          pad + i * w + 6.0, 28.0, w - 12.0, size.height - 90.0);
+        pad + i * w + 6.0,
+        28.0,
+        w - 12.0,
+        size.height - 90.0,
+      );
       final RRect rr = RRect.fromRectAndRadius(r, const Radius.circular(10.0));
       canvas.drawRRect(rr, Paint()..color = n.soft);
       canvas.drawRRect(
@@ -1803,8 +1940,7 @@ class _CascadePainter extends CustomPainter {
         ),
       );
       tp.layout();
-      tp.paint(canvas,
-          cIdx.translate(-tp.width / 2.0, -tp.height / 2.0));
+      tp.paint(canvas, cIdx.translate(-tp.width / 2.0, -tp.height / 2.0));
 
       // Title
       tp.text = TextSpan(
@@ -1821,21 +1957,15 @@ class _CascadePainter extends CustomPainter {
       // Description
       tp.text = TextSpan(
         text: n.desc,
-        style: const TextStyle(
-          color: _kSubInk,
-          fontSize: 11.0,
-          height: 1.3,
-        ),
+        style: const TextStyle(color: _kSubInk, fontSize: 11.0, height: 1.3),
       );
       tp.layout(maxWidth: r.width - 20.0);
       tp.paint(canvas, Offset(r.left + 10.0, r.top + 46.0));
 
       // Arrow to next node.
       if (i < nodes.length - 1) {
-        final Offset start =
-            Offset(r.right - 4.0, r.top + r.height / 2.0);
-        final Offset end =
-            Offset(r.right + 8.0, r.top + r.height / 2.0);
+        final Offset start = Offset(r.right - 4.0, r.top + r.height / 2.0);
+        final Offset end = Offset(r.right + 8.0, r.top + r.height / 2.0);
         final Paint arrow = Paint()
           ..color = _kMuted
           ..strokeWidth = 1.5
@@ -1853,15 +1983,10 @@ class _CascadePainter extends CustomPainter {
     // Bottom legend.
     tp.text = const TextSpan(
       text: 'lookup direction:  Theme  =>  InheritedTheme  =>  widget',
-      style: TextStyle(
-        color: _kMuted,
-        fontSize: 11.5,
-        fontFamily: 'monospace',
-      ),
+      style: TextStyle(color: _kMuted, fontSize: 11.5, fontFamily: 'monospace'),
     );
     tp.layout(maxWidth: size.width - 36.0);
-    tp.paint(canvas,
-        Offset((size.width - tp.width) / 2.0, size.height - 38.0));
+    tp.paint(canvas, Offset((size.width - tp.width) / 2.0, size.height - 38.0));
 
     // Title row.
     tp.text = const TextSpan(
@@ -1972,8 +2097,14 @@ Widget _comparisonHeader() {
   );
 }
 
-Widget _comparisonRow(String widget, String data, String style, String scope,
-    Color accent, Color accentSoft) {
+Widget _comparisonRow(
+  String widget,
+  String data,
+  String style,
+  String scope,
+  Color accent,
+  Color accentSoft,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3.0),
     child: Container(
@@ -1989,7 +2120,9 @@ Widget _comparisonRow(String widget, String data, String style, String scope,
             width: 170.0,
             child: Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: accentSoft,
                 borderRadius: const BorderRadius.all(Radius.circular(6.0)),
@@ -2189,8 +2322,7 @@ Widget _cheatSheetFooter() {
           'alignment',
         ]),
         const SizedBox(height: 10.0),
-        _chipGroup(
-            'WidgetStateProperty', _kTeal, _kTealSoft, const <String>[
+        _chipGroup('WidgetStateProperty', _kTeal, _kTealSoft, const <String>[
           'WidgetState',
           'WidgetStateProperty',
           'WidgetStatePropertyAll',
@@ -2223,8 +2355,11 @@ Widget _cheatSheetFooter() {
           ),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.menu_book_rounded,
-                  color: _kAccentInk, size: 18.0),
+              const Icon(
+                Icons.menu_book_rounded,
+                color: _kAccentInk,
+                size: 18.0,
+              ),
               const SizedBox(width: 10.0),
               const Expanded(
                 child: Text(
@@ -2245,8 +2380,12 @@ Widget _cheatSheetFooter() {
   );
 }
 
-Widget _chipGroup(String label, Color accent, Color accentSoft,
-    List<String> entries) {
+Widget _chipGroup(
+  String label,
+  Color accent,
+  Color accentSoft,
+  List<String> entries,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
     decoration: BoxDecoration(
@@ -2287,13 +2426,16 @@ Widget _chipGroup(String label, Color accent, Color accentSoft,
             for (final String entry in entries)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 5.0),
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
                 decoration: BoxDecoration(
                   color: accentSoft,
-                  borderRadius:
-                      const BorderRadius.all(Radius.circular(999.0)),
-                  border:
-                      Border.all(color: accent.withOpacity(0.3), width: 1.0),
+                  borderRadius: const BorderRadius.all(Radius.circular(999.0)),
+                  border: Border.all(
+                    color: accent.withOpacity(0.3),
+                    width: 1.0,
+                  ),
                 ),
                 child: Text(
                   entry,

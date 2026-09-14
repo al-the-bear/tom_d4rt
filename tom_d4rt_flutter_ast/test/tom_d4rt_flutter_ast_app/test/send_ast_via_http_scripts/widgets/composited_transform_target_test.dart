@@ -28,27 +28,35 @@ dynamic build(BuildContext context) {
   // ──────────────────────────────────────────────────────────
   // Color palette — coral/navy/cream anchor theme
   // ──────────────────────────────────────────────────────────
-  const cCoral = Color(0xFFE65100);       // deep coral/orange
-  const cNavy = Color(0xFF1A237E);        // deep navy
-  const cCream = Color(0xFFFFF8E1);       // warm cream surface
-  const cTeal = Color(0xFF00796B);        // teal accent
-  const cMagenta = Color(0xFFC2185B);     // magenta highlight
-  const cSlate = Color(0xFF455A64);       // blue-grey slate
-  const cSuccess = Color(0xFF2E7D32);     // green
-  const cSky = Color(0xFF0288D1);         // sky blue
+  const cCoral = Color(0xFFE65100); // deep coral/orange
+  const cNavy = Color(0xFF1A237E); // deep navy
+  const cCream = Color(0xFFFFF8E1); // warm cream surface
+  const cTeal = Color(0xFF00796B); // teal accent
+  const cMagenta = Color(0xFFC2185B); // magenta highlight
+  const cSlate = Color(0xFF455A64); // blue-grey slate
+  const cSuccess = Color(0xFF2E7D32); // green
+  const cSky = Color(0xFF0288D1); // sky blue
 
   // ──────────────────────────────────────────────────────────
   // Helper builders
   // ──────────────────────────────────────────────────────────
 
-  Widget sceneHeader(String title, String subtitle, IconData icon, Color color) {
+  Widget sceneHeader(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(top: 32.0, bottom: 14.0),
       padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.03)],
+          colors: [
+            color.withValues(alpha: 0.15),
+            color.withValues(alpha: 0.03),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -70,9 +78,22 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
                 SizedBox(height: 2.0),
-                Text(subtitle, style: TextStyle(fontSize: 10.5, color: color.withValues(alpha: 0.6))),
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 10.5,
+                    color: color.withValues(alpha: 0.6),
+                  ),
+                ),
               ],
             ),
           ),
@@ -89,9 +110,18 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(left: BorderSide(color: color.withValues(alpha: 0.4), width: 3.0)),
+        border: Border(
+          left: BorderSide(color: color.withValues(alpha: 0.4), width: 3.0),
+        ),
       ),
-      child: Text(text, style: TextStyle(fontSize: 12.0, height: 1.5, color: color.withValues(alpha: 0.85))),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12.0,
+          height: 1.5,
+          color: color.withValues(alpha: 0.85),
+        ),
+      ),
     );
   }
 
@@ -105,7 +135,9 @@ dynamic build(BuildContext context) {
         color: color.withValues(alpha: 0.12),
         shape: BoxShape.circle,
         border: Border.all(color: color, width: 2.5),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.2), blurRadius: 8.0)],
+        boxShadow: [
+          BoxShadow(color: color.withValues(alpha: 0.2), blurRadius: 8.0),
+        ],
       ),
       child: Center(
         child: Column(
@@ -113,7 +145,14 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.my_location, size: size * 0.38, color: color),
             if (label.isNotEmpty)
-              Text(label, style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold, color: color)),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 7.0,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
           ],
         ),
       ),
@@ -127,9 +166,22 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(6.0),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.3), blurRadius: 4.0, offset: Offset(0.0, 2.0))],
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.3),
+            blurRadius: 4.0,
+            offset: Offset(0.0, 2.0),
+          ),
+        ],
       ),
-      child: Text(label, style: TextStyle(fontSize: 10.0, color: Colors.white, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 10.0,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 
@@ -157,8 +209,22 @@ dynamic build(BuildContext context) {
         children: [
           Icon(Icons.my_location, size: 32.0, color: cCoral),
           SizedBox(height: 4.0),
-          Text('TARGET', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cCoral, letterSpacing: 1.0)),
-          Text('(Leader)', style: TextStyle(fontSize: 9.0, color: cCoral.withValues(alpha: 0.6))),
+          Text(
+            'TARGET',
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              color: cCoral,
+              letterSpacing: 1.0,
+            ),
+          ),
+          Text(
+            '(Leader)',
+            style: TextStyle(
+              fontSize: 9.0,
+              color: cCoral.withValues(alpha: 0.6),
+            ),
+          ),
         ],
       ),
     ),
@@ -174,22 +240,39 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cNavy,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [BoxShadow(color: cNavy.withValues(alpha: 0.3), blurRadius: 6.0)],
+        boxShadow: [
+          BoxShadow(color: cNavy.withValues(alpha: 0.3), blurRadius: 6.0),
+        ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.near_me, size: 14.0, color: Colors.white),
           SizedBox(width: 4.0),
-          Text('Follower', style: TextStyle(fontSize: 11.0, color: Colors.white, fontWeight: FontWeight.w600)),
+          Text(
+            'Follower',
+            style: TextStyle(
+              fontSize: 11.0,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
     ),
   );
-  print('  Wired CompositedTransformTarget → LayerLink → CompositedTransformFollower');
+  print(
+    '  Wired CompositedTransformTarget → LayerLink → CompositedTransformFollower',
+  );
 
   // Architecture diagram
-  Widget archBlock(String title, String subtitle, IconData icon, Color bg, Color fg) {
+  Widget archBlock(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color bg,
+    Color fg,
+  ) {
     return Container(
       width: 100.0,
       padding: EdgeInsets.all(10.0),
@@ -202,8 +285,20 @@ dynamic build(BuildContext context) {
         children: [
           Icon(icon, size: 24.0, color: fg),
           SizedBox(height: 4.0),
-          Text(title, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: fg), textAlign: TextAlign.center),
-          Text(subtitle, style: TextStyle(fontSize: 7.5, color: fg.withValues(alpha: 0.6)), textAlign: TextAlign.center),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+              color: fg,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            subtitle,
+            style: TextStyle(fontSize: 7.5, color: fg.withValues(alpha: 0.6)),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -213,9 +308,21 @@ dynamic build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(width: 20.0, height: 2.0, color: color.withValues(alpha: 0.4)),
-        Icon(Icons.arrow_forward, size: 14.0, color: color.withValues(alpha: 0.6)),
-        Container(width: 20.0, height: 2.0, color: color.withValues(alpha: 0.4)),
+        Container(
+          width: 20.0,
+          height: 2.0,
+          color: color.withValues(alpha: 0.4),
+        ),
+        Icon(
+          Icons.arrow_forward,
+          size: 14.0,
+          color: color.withValues(alpha: 0.6),
+        ),
+        Container(
+          width: 20.0,
+          height: 2.0,
+          color: color.withValues(alpha: 0.4),
+        ),
       ],
     );
   }
@@ -248,20 +355,50 @@ dynamic build(BuildContext context) {
           color: Colors.white,
           borderRadius: BorderRadius.circular(14.0),
           border: Border.all(color: cCoral.withValues(alpha: 0.15)),
-          boxShadow: [BoxShadow(color: Colors.grey.withValues(alpha: 0.06), blurRadius: 8.0)],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.06),
+              blurRadius: 8.0,
+            ),
+          ],
         ),
         child: Column(
           children: [
-            Text('Architecture', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cSlate)),
+            Text(
+              'Architecture',
+              style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+                color: cSlate,
+              ),
+            ),
             SizedBox(height: 12.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                archBlock('Target', 'RenderLeaderLayer', Icons.my_location, cCoral.withValues(alpha: 0.08), cCoral),
+                archBlock(
+                  'Target',
+                  'RenderLeaderLayer',
+                  Icons.my_location,
+                  cCoral.withValues(alpha: 0.08),
+                  cCoral,
+                ),
                 arrowConnector(cCoral),
-                archBlock('LayerLink', 'Position wire', Icons.link, cSlate.withValues(alpha: 0.06), cSlate),
+                archBlock(
+                  'LayerLink',
+                  'Position wire',
+                  Icons.link,
+                  cSlate.withValues(alpha: 0.06),
+                  cSlate,
+                ),
                 arrowConnector(cNavy),
-                archBlock('Follower', 'RenderFollowerLayer', Icons.near_me, cNavy.withValues(alpha: 0.08), cNavy),
+                archBlock(
+                  'Follower',
+                  'RenderFollowerLayer',
+                  Icons.near_me,
+                  cNavy.withValues(alpha: 0.08),
+                  cNavy,
+                ),
               ],
             ),
             SizedBox(height: 14.0),
@@ -277,9 +414,28 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Text('Leader Role', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cCoral)),
-                        Text('Publishes position', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
-                        Text('in compositing layer', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
+                        Text(
+                          'Leader Role',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: cCoral,
+                          ),
+                        ),
+                        Text(
+                          'Publishes position',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        Text(
+                          'in compositing layer',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -294,9 +450,28 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Text('Bridge Role', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cSlate)),
-                        Text('Carries position data', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
-                        Text('between layers', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
+                        Text(
+                          'Bridge Role',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: cSlate,
+                          ),
+                        ),
+                        Text(
+                          'Carries position data',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        Text(
+                          'between layers',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -311,9 +486,28 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        Text('Follower Role', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cNavy)),
-                        Text('Reads & aligns to', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
-                        Text('leader position', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
+                        Text(
+                          'Follower Role',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: cNavy,
+                          ),
+                        ),
+                        Text(
+                          'Reads & aligns to',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        Text(
+                          'leader position',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -338,10 +532,19 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Live Pair', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: cSlate)),
+            Text(
+              'Live Pair',
+              style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+                color: cSlate,
+              ),
+            ),
             SizedBox(height: 4.0),
-            Text('A CompositedTransformTarget with a Follower attached via LayerLink',
-                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+            Text(
+              'A CompositedTransformTarget with a Follower attached via LayerLink',
+              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+            ),
             SizedBox(height: 12.0),
             // Must use Stack for the follower to overlay
             SizedBox(
@@ -365,7 +568,11 @@ dynamic build(BuildContext context) {
               child: Text(
                 'The Follower sits to the right of the Target, '
                 'positioned via targetAnchor: topRight, followerAnchor: topLeft, offset: (8, 0).',
-                style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: cCoral),
+                style: TextStyle(
+                  fontSize: 9.5,
+                  fontFamily: 'monospace',
+                  color: cCoral,
+                ),
               ),
             ),
           ],
@@ -386,7 +593,14 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Constructor', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cCoral)),
+            Text(
+              'Constructor',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+                color: cCoral,
+              ),
+            ),
             SizedBox(height: 8.0),
             Container(
               width: double.infinity,
@@ -400,14 +614,23 @@ dynamic build(BuildContext context) {
                 '  link: LayerLink(),  // REQUIRED\n'
                 '  child: Widget,      // the anchor widget\n'
                 ')',
-                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: cCoral.withValues(alpha: 0.9), height: 1.5),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  color: cCoral.withValues(alpha: 0.9),
+                  height: 1.5,
+                ),
               ),
             ),
             SizedBox(height: 8.0),
             Text(
               'Only two parameters: the LayerLink and the child. The simplicity is intentional — '
               'all the logic lives in the compositing layer, not in widget properties.',
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, height: 1.3),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade600,
+                height: 1.3,
+              ),
             ),
           ],
         ),
@@ -438,7 +661,9 @@ dynamic build(BuildContext context) {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: color.withValues(alpha: 0.2)),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.05), blurRadius: 6.0)],
+        boxShadow: [
+          BoxShadow(color: color.withValues(alpha: 0.05), blurRadius: 6.0),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,11 +676,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               SizedBox(width: 8.0),
-              Text(title, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: color)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 4.0),
-          Text(desc, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+          Text(
+            desc,
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+          ),
           SizedBox(height: 10.0),
           content,
         ],
@@ -560,8 +795,14 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8.0)),
-              child: Text('Item A', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                'Item A',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+              ),
             ),
             CompositedTransformTarget(
               link: linkInRow,
@@ -577,15 +818,28 @@ dynamic build(BuildContext context) {
                   children: [
                     Icon(Icons.my_location, size: 14.0, color: cSky),
                     SizedBox(width: 4.0),
-                    Text('Target B', style: TextStyle(fontSize: 11.0, color: cSky, fontWeight: FontWeight.w600)),
+                    Text(
+                      'Target B',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: cSky,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
             Container(
               padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8.0)),
-              child: Text('Item C', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                'Item C',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+              ),
             ),
           ],
         ),
@@ -618,10 +872,30 @@ dynamic build(BuildContext context) {
         color: cNavy,
       ),
 
-      placementCard('Center Aligned', 'Target centered in container, follower below', centerPlacement, cCoral),
-      placementCard('Top-Left Corner', 'Target at (0,0), follower extends rightward', topLeftPlacement, cTeal),
-      placementCard('Bottom-Right Corner', 'Target at bottom-right, follower above', bottomRightPlacement, cMagenta),
-      placementCard('Inline in Row', 'Target is the middle item in a horizontal row', inRowPlacement, cSky),
+      placementCard(
+        'Center Aligned',
+        'Target centered in container, follower below',
+        centerPlacement,
+        cCoral,
+      ),
+      placementCard(
+        'Top-Left Corner',
+        'Target at (0,0), follower extends rightward',
+        topLeftPlacement,
+        cTeal,
+      ),
+      placementCard(
+        'Bottom-Right Corner',
+        'Target at bottom-right, follower above',
+        bottomRightPlacement,
+        cMagenta,
+      ),
+      placementCard(
+        'Inline in Row',
+        'Target is the middle item in a horizontal row',
+        inRowPlacement,
+        cSky,
+      ),
 
       // Placement tip
       Container(
@@ -644,7 +918,11 @@ dynamic build(BuildContext context) {
                 'The Follower does NOT need to be a sibling — it can be anywhere in the '
                 'widget tree as long as it shares the same LayerLink and both are in the '
                 'same Overlay or Stack.',
-                style: TextStyle(fontSize: 10.0, color: cNavy.withValues(alpha: 0.7), height: 1.3),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: cNavy.withValues(alpha: 0.7),
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -669,18 +947,31 @@ dynamic build(BuildContext context) {
       height: 70.0,
       decoration: BoxDecoration(
         gradient: RadialGradient(
-          colors: [cCoral.withValues(alpha: 0.2), cCoral.withValues(alpha: 0.05)],
+          colors: [
+            cCoral.withValues(alpha: 0.2),
+            cCoral.withValues(alpha: 0.05),
+          ],
         ),
         shape: BoxShape.circle,
         border: Border.all(color: cCoral, width: 2.5),
-        boxShadow: [BoxShadow(color: cCoral.withValues(alpha: 0.15), blurRadius: 12.0)],
+        boxShadow: [
+          BoxShadow(color: cCoral.withValues(alpha: 0.15), blurRadius: 12.0),
+        ],
       ),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.my_location, size: 20.0, color: cCoral),
-            Text('HUB', style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: cCoral, letterSpacing: 1.0)),
+            Text(
+              'HUB',
+              style: TextStyle(
+                fontSize: 8.0,
+                fontWeight: FontWeight.bold,
+                color: cCoral,
+                letterSpacing: 1.0,
+              ),
+            ),
           ],
         ),
       ),
@@ -698,19 +989,31 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cTeal,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [BoxShadow(color: cTeal.withValues(alpha: 0.3), blurRadius: 4.0)],
+        boxShadow: [
+          BoxShadow(color: cTeal.withValues(alpha: 0.3), blurRadius: 4.0),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Tooltip', style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.bold)),
-          Text('topCenter', style: TextStyle(fontSize: 7.0, color: Colors.white70)),
+          Text(
+            'Tooltip',
+            style: TextStyle(
+              fontSize: 9.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'topCenter',
+            style: TextStyle(fontSize: 7.0, color: Colors.white70),
+          ),
         ],
       ),
     ),
   );
 
-  // Follower: right 
+  // Follower: right
   final followerRight = CompositedTransformFollower(
     link: sharedLink,
     targetAnchor: Alignment.centerRight,
@@ -721,13 +1024,25 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cNavy,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [BoxShadow(color: cNavy.withValues(alpha: 0.3), blurRadius: 4.0)],
+        boxShadow: [
+          BoxShadow(color: cNavy.withValues(alpha: 0.3), blurRadius: 4.0),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Badge', style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.bold)),
-          Text('centerRight', style: TextStyle(fontSize: 7.0, color: Colors.white70)),
+          Text(
+            'Badge',
+            style: TextStyle(
+              fontSize: 9.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'centerRight',
+            style: TextStyle(fontSize: 7.0, color: Colors.white70),
+          ),
         ],
       ),
     ),
@@ -744,13 +1059,25 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cMagenta,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [BoxShadow(color: cMagenta.withValues(alpha: 0.3), blurRadius: 4.0)],
+        boxShadow: [
+          BoxShadow(color: cMagenta.withValues(alpha: 0.3), blurRadius: 4.0),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Label', style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.bold)),
-          Text('bottomCenter', style: TextStyle(fontSize: 7.0, color: Colors.white70)),
+          Text(
+            'Label',
+            style: TextStyle(
+              fontSize: 9.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'bottomCenter',
+            style: TextStyle(fontSize: 7.0, color: Colors.white70),
+          ),
         ],
       ),
     ),
@@ -767,13 +1094,25 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: cSuccess,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [BoxShadow(color: cSuccess.withValues(alpha: 0.3), blurRadius: 4.0)],
+        boxShadow: [
+          BoxShadow(color: cSuccess.withValues(alpha: 0.3), blurRadius: 4.0),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Menu', style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.bold)),
-          Text('centerLeft', style: TextStyle(fontSize: 7.0, color: Colors.white70)),
+          Text(
+            'Menu',
+            style: TextStyle(
+              fontSize: 9.0,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            'centerLeft',
+            style: TextStyle(fontSize: 7.0, color: Colors.white70),
+          ),
         ],
       ),
     ),
@@ -819,10 +1158,30 @@ dynamic build(BuildContext context) {
               child: Center(child: singleTarget),
             ),
             // All four followers track the same target
-            Positioned(left: 0.0, right: 0.0, top: 50.0, child: Center(child: followerTop)),
-            Positioned(left: 0.0, right: 0.0, top: 50.0, child: Center(child: followerRight)),
-            Positioned(left: 0.0, right: 0.0, top: 50.0, child: Center(child: followerBottom)),
-            Positioned(left: 0.0, right: 0.0, top: 50.0, child: Center(child: followerLeft)),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              top: 50.0,
+              child: Center(child: followerTop),
+            ),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              top: 50.0,
+              child: Center(child: followerRight),
+            ),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              top: 50.0,
+              child: Center(child: followerBottom),
+            ),
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              top: 50.0,
+              child: Center(child: followerLeft),
+            ),
           ],
         ),
       ),
@@ -864,12 +1223,37 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Follower Anchoring Details', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cTeal)),
+            Text(
+              'Follower Anchoring Details',
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.bold,
+                color: cTeal,
+              ),
+            ),
             SizedBox(height: 8.0),
-            _anchorRow('Tooltip', 'topCenter', 'bottomCenter', '(0, -10)', cTeal),
+            _anchorRow(
+              'Tooltip',
+              'topCenter',
+              'bottomCenter',
+              '(0, -10)',
+              cTeal,
+            ),
             _anchorRow('Badge', 'centerRight', 'centerLeft', '(10, 0)', cNavy),
-            _anchorRow('Label', 'bottomCenter', 'topCenter', '(0, 10)', cMagenta),
-            _anchorRow('Menu', 'centerLeft', 'centerRight', '(-10, 0)', cSuccess),
+            _anchorRow(
+              'Label',
+              'bottomCenter',
+              'topCenter',
+              '(0, 10)',
+              cMagenta,
+            ),
+            _anchorRow(
+              'Menu',
+              'centerLeft',
+              'centerRight',
+              '(-10, 0)',
+              cSuccess,
+            ),
           ],
         ),
       ),
@@ -886,7 +1270,14 @@ dynamic build(BuildContext context) {
   final linkC = LayerLink();
   print('  3 independent LayerLinks for 3 separate target-follower pairs');
 
-  Widget independentPair(String name, LayerLink link, Color color, Alignment tAnchor, Alignment fAnchor, Offset offset) {
+  Widget independentPair(
+    String name,
+    LayerLink link,
+    Color color,
+    Alignment tAnchor,
+    Alignment fAnchor,
+    Offset offset,
+  ) {
     return SizedBox(
       width: 110.0,
       height: 110.0,
@@ -906,7 +1297,14 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: color, width: 2.0),
                 ),
                 child: Center(
-                  child: Text(name, style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: color)),
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -924,7 +1322,14 @@ dynamic build(BuildContext context) {
                   color: color,
                   borderRadius: BorderRadius.circular(6.0),
                 ),
-                child: Text('F-$name', style: TextStyle(fontSize: 8.0, color: Colors.white, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'F-$name',
+                  style: TextStyle(
+                    fontSize: 8.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
@@ -963,14 +1368,42 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Text('3 Independent Target-Follower Pairs', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cSlate)),
+            Text(
+              '3 Independent Target-Follower Pairs',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+                color: cSlate,
+              ),
+            ),
             SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                independentPair('A', linkA, cCoral, Alignment.bottomCenter, Alignment.topCenter, Offset(0.0, 6.0)),
-                independentPair('B', linkB, cTeal, Alignment.topCenter, Alignment.bottomCenter, Offset(0.0, -6.0)),
-                independentPair('C', linkC, cNavy, Alignment.centerRight, Alignment.centerLeft, Offset(6.0, 0.0)),
+                independentPair(
+                  'A',
+                  linkA,
+                  cCoral,
+                  Alignment.bottomCenter,
+                  Alignment.topCenter,
+                  Offset(0.0, 6.0),
+                ),
+                independentPair(
+                  'B',
+                  linkB,
+                  cTeal,
+                  Alignment.topCenter,
+                  Alignment.bottomCenter,
+                  Offset(0.0, -6.0),
+                ),
+                independentPair(
+                  'C',
+                  linkC,
+                  cNavy,
+                  Alignment.centerRight,
+                  Alignment.centerLeft,
+                  Offset(6.0, 0.0),
+                ),
               ],
             ),
             SizedBox(height: 10.0),
@@ -1001,7 +1434,14 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Scene 3 vs Scene 4 Comparison', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: cSlate)),
+            Text(
+              'Scene 3 vs Scene 4 Comparison',
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.bold,
+                color: cSlate,
+              ),
+            ),
             SizedBox(height: 8.0),
             Row(
               children: [
@@ -1017,9 +1457,31 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.hub, size: 24.0, color: cTeal),
                         SizedBox(height: 4.0),
-                        Text('1 Target → N Followers', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cTeal), textAlign: TextAlign.center),
-                        Text('Shared LayerLink', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600), textAlign: TextAlign.center),
-                        Text('Hub-and-spoke pattern', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600), textAlign: TextAlign.center),
+                        Text(
+                          '1 Target → N Followers',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: cTeal,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'Shared LayerLink',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'Hub-and-spoke pattern',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),
@@ -1031,15 +1493,39 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: cMagenta.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: cMagenta.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: cMagenta.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       children: [
                         Icon(Icons.device_hub, size: 24.0, color: cMagenta),
                         SizedBox(height: 4.0),
-                        Text('N Targets → N Followers', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: cMagenta), textAlign: TextAlign.center),
-                        Text('Separate LayerLinks', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600), textAlign: TextAlign.center),
-                        Text('Isolated channels', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600), textAlign: TextAlign.center),
+                        Text(
+                          'N Targets → N Followers',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: cMagenta,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'Separate LayerLinks',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          'Isolated channels',
+                          style: TextStyle(
+                            fontSize: 8.0,
+                            color: Colors.grey.shade600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ],
                     ),
                   ),
@@ -1088,7 +1574,14 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.rotate_right, size: 14.0, color: cCoral),
                       SizedBox(width: 4.0),
-                      Text('0.3 rad', style: TextStyle(fontSize: 9.0, color: cCoral, fontWeight: FontWeight.bold)),
+                      Text(
+                        '0.3 rad',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          color: cCoral,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1130,7 +1623,14 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: cTeal, width: 1.5),
                 ),
                 child: Center(
-                  child: Text('1.4×', style: TextStyle(fontSize: 10.0, color: cTeal, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    '1.4×',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: cTeal,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1172,13 +1672,23 @@ dynamic build(BuildContext context) {
               child: CompositedTransformTarget(
                 link: linkPadded,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 6.0,
+                  ),
                   decoration: BoxDecoration(
                     color: cMagenta.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6.0),
                     border: Border.all(color: cMagenta),
                   ),
-                  child: Text('Deep', style: TextStyle(fontSize: 10.0, color: cMagenta, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Deep',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: cMagenta,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1210,7 +1720,12 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [BoxShadow(color: Colors.grey.withValues(alpha: 0.15), blurRadius: 8.0)],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withValues(alpha: 0.15),
+                  blurRadius: 8.0,
+                ),
+              ],
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -1221,16 +1736,28 @@ dynamic build(BuildContext context) {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('John Doe', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold)),
+                    Text(
+                      'John Doe',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     CompositedTransformTarget(
                       link: linkNested,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: cSky.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text('@johndoe', style: TextStyle(fontSize: 10.0, color: cSky)),
+                        child: Text(
+                          '@johndoe',
+                          style: TextStyle(fontSize: 10.0, color: cSky),
+                        ),
                       ),
                     ),
                   ],
@@ -1251,7 +1778,14 @@ dynamic build(BuildContext context) {
                 color: cSky,
                 borderRadius: BorderRadius.circular(6.0),
               ),
-              child: Text('View profile', style: TextStyle(fontSize: 9.0, color: Colors.white, fontWeight: FontWeight.w600)),
+              child: Text(
+                'View profile',
+                style: TextStyle(
+                  fontSize: 9.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ),
@@ -1260,7 +1794,12 @@ dynamic build(BuildContext context) {
   );
   print('  Nested target: @username inside a card, follower tracks the tag');
 
-  Widget transformCard(String name, String description, Widget demo, Color color) {
+  Widget transformCard(
+    String name,
+    String description,
+    Widget demo,
+    Color color,
+  ) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 6.0),
@@ -1273,9 +1812,19 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
           SizedBox(height: 3.0),
-          Text(description, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+          Text(
+            description,
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+          ),
           SizedBox(height: 8.0),
           demo,
         ],
@@ -1302,10 +1851,30 @@ dynamic build(BuildContext context) {
         color: cSlate,
       ),
 
-      transformCard('Rotated Target', 'Target inside Transform.rotate(angle: 0.3 rad). Follower tracks the rotated position.', rotatedDemo, cCoral),
-      transformCard('Scaled Target', 'Target inside Transform.scale(scale: 1.4×). Follower aligns to the enlarged boundary.', scaledDemo, cTeal),
-      transformCard('Deeply Padded Target', 'Target nested 2 levels deep in padding containers. LayerLink pierces through.', paddedDemo, cMagenta),
-      transformCard('Nested in Card', 'Target wraps @username text inside a profile card. Follower attaches to just that element.', nestedDemo, cSky),
+      transformCard(
+        'Rotated Target',
+        'Target inside Transform.rotate(angle: 0.3 rad). Follower tracks the rotated position.',
+        rotatedDemo,
+        cCoral,
+      ),
+      transformCard(
+        'Scaled Target',
+        'Target inside Transform.scale(scale: 1.4×). Follower aligns to the enlarged boundary.',
+        scaledDemo,
+        cTeal,
+      ),
+      transformCard(
+        'Deeply Padded Target',
+        'Target nested 2 levels deep in padding containers. LayerLink pierces through.',
+        paddedDemo,
+        cMagenta,
+      ),
+      transformCard(
+        'Nested in Card',
+        'Target wraps @username text inside a profile card. Follower attaches to just that element.',
+        nestedDemo,
+        cSky,
+      ),
 
       SizedBox(height: 8.0),
       Container(
@@ -1353,7 +1922,10 @@ dynamic build(BuildContext context) {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Select country', style: TextStyle(fontSize: 12.0, color: cSlate)),
+                  Text(
+                    'Select country',
+                    style: TextStyle(fontSize: 12.0, color: cSlate),
+                  ),
                   SizedBox(width: 8.0),
                   Icon(Icons.arrow_drop_down, color: cSlate, size: 20.0),
                 ],
@@ -1374,7 +1946,12 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.12), blurRadius: 12.0)],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.12),
+                    blurRadius: 12.0,
+                  ),
+                ],
                 border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
               ),
               child: Column(
@@ -1404,7 +1981,10 @@ dynamic build(BuildContext context) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Encryption ', style: TextStyle(fontSize: 12.0, color: cSlate)),
+              Text(
+                'Encryption ',
+                style: TextStyle(fontSize: 12.0, color: cSlate),
+              ),
               CompositedTransformTarget(
                 link: linkTooltip,
                 child: Container(
@@ -1431,8 +2011,14 @@ dynamic build(BuildContext context) {
                 color: Colors.grey.shade800,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Text('AES-256 encryption protects\nyour data at rest',
-                  style: TextStyle(fontSize: 10.0, color: Colors.white, height: 1.3)),
+              child: Text(
+                'AES-256 encryption protects\nyour data at rest',
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.white,
+                  height: 1.3,
+                ),
+              ),
             ),
           ),
         ),
@@ -1457,14 +2043,27 @@ dynamic build(BuildContext context) {
                 color: cSuccess.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(12.0),
                 border: Border.all(color: cSuccess, width: 2.0),
-                boxShadow: [BoxShadow(color: cSuccess.withValues(alpha: 0.15), blurRadius: 16.0, spreadRadius: 4.0)],
+                boxShadow: [
+                  BoxShadow(
+                    color: cSuccess.withValues(alpha: 0.15),
+                    blurRadius: 16.0,
+                    spreadRadius: 4.0,
+                  ),
+                ],
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.add_circle_outline, color: cSuccess, size: 22.0),
                   SizedBox(width: 8.0),
-                  Text('New Project', style: TextStyle(fontSize: 12.0, color: cSuccess, fontWeight: FontWeight.bold)),
+                  Text(
+                    'New Project',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: cSuccess,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1482,7 +2081,12 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: cSuccess,
                 borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [BoxShadow(color: cSuccess.withValues(alpha: 0.3), blurRadius: 8.0)],
+                boxShadow: [
+                  BoxShadow(
+                    color: cSuccess.withValues(alpha: 0.3),
+                    blurRadius: 8.0,
+                  ),
+                ],
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -1490,21 +2094,36 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Text('Step 1 of 3', style: TextStyle(fontSize: 9.0, color: Colors.white70)),
+                      Text(
+                        'Step 1 of 3',
+                        style: TextStyle(fontSize: 9.0, color: Colors.white70),
+                      ),
                       Spacer(),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text('Skip', style: TextStyle(fontSize: 8.0, color: Colors.white)),
+                        child: Text(
+                          'Skip',
+                          style: TextStyle(fontSize: 8.0, color: Colors.white),
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 4.0),
-                  Text('Tap here to create your first project!',
-                      style: TextStyle(fontSize: 11.0, color: Colors.white, fontWeight: FontWeight.w600)),
+                  Text(
+                    'Tap here to create your first project!',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1531,10 +2150,20 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: cNavy.withValues(alpha: 0.1),
-                border: Border.all(color: cNavy.withValues(alpha: 0.3), width: 2.0),
+                border: Border.all(
+                  color: cNavy.withValues(alpha: 0.3),
+                  width: 2.0,
+                ),
               ),
               child: Center(
-                child: Text('JD', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: cNavy)),
+                child: Text(
+                  'JD',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: cNavy,
+                  ),
+                ),
               ),
             ),
           ),
@@ -1580,7 +2209,14 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(4.0),
                 border: Border.all(color: cMagenta.withValues(alpha: 0.3)),
               ),
-              child: Text('revenue_q4', style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: cMagenta)),
+              child: Text(
+                'revenue_q4',
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontFamily: 'monospace',
+                  color: cMagenta,
+                ),
+              ),
             ),
           ),
         ),
@@ -1608,8 +2244,18 @@ dynamic build(BuildContext context) {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\$2.4M', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cMagenta)),
-                      Text('+18% YoY', style: TextStyle(fontSize: 9.0, color: cSuccess)),
+                      Text(
+                        '\$2.4M',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: cMagenta,
+                        ),
+                      ),
+                      Text(
+                        '+18% YoY',
+                        style: TextStyle(fontSize: 9.0, color: cSuccess),
+                      ),
                     ],
                   ),
                 ],
@@ -1666,7 +2312,12 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
-                boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10.0)],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 10.0,
+                  ),
+                ],
                 border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
               ),
               child: Column(
@@ -1685,7 +2336,13 @@ dynamic build(BuildContext context) {
   );
   print('  Pattern 6: Autocomplete — suggestion list anchored to search field');
 
-  Widget patternCard(String name, String desc, Widget visual, Color color, String setup) {
+  Widget patternCard(
+    String name,
+    String desc,
+    Widget visual,
+    Color color,
+    String setup,
+  ) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(vertical: 6.0),
@@ -1694,14 +2351,30 @@ dynamic build(BuildContext context) {
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: color.withValues(alpha: 0.2)),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.04), blurRadius: 8.0, offset: Offset(0.0, 3.0))],
+        boxShadow: [
+          BoxShadow(
+            color: color.withValues(alpha: 0.04),
+            blurRadius: 8.0,
+            offset: Offset(0.0, 3.0),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
           SizedBox(height: 3.0),
-          Text(desc, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+          Text(
+            desc,
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+          ),
           SizedBox(height: 10.0),
           visual,
           SizedBox(height: 8.0),
@@ -1711,7 +2384,12 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.03),
               borderRadius: BorderRadius.circular(6.0),
-              border: Border(left: BorderSide(color: color.withValues(alpha: 0.3), width: 2.0)),
+              border: Border(
+                left: BorderSide(
+                  color: color.withValues(alpha: 0.3),
+                  width: 2.0,
+                ),
+              ),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1719,7 +2397,14 @@ dynamic build(BuildContext context) {
                 Icon(Icons.my_location, size: 13.0, color: color),
                 SizedBox(width: 6.0),
                 Expanded(
-                  child: Text(setup, style: TextStyle(fontSize: 9.5, color: color.withValues(alpha: 0.8), height: 1.3)),
+                  child: Text(
+                    setup,
+                    style: TextStyle(
+                      fontSize: 9.5,
+                      color: color.withValues(alpha: 0.8),
+                      height: 1.3,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1752,7 +2437,7 @@ dynamic build(BuildContext context) {
         dropdownPattern,
         cCoral,
         'Target wraps the button. Follower opens below via targetAnchor: bottomLeft. '
-        'This is how DropdownButton, PopupMenuButton, and Autocomplete work internally.',
+            'This is how DropdownButton, PopupMenuButton, and Autocomplete work internally.',
       ),
 
       patternCard(
@@ -1761,7 +2446,7 @@ dynamic build(BuildContext context) {
         tooltipPattern,
         cSky,
         'Target wraps the tiny help icon. Follower appears above via targetAnchor: topCenter. '
-        'The target is small but precisely positioned.',
+            'The target is small but precisely positioned.',
       ),
 
       patternCard(
@@ -1770,7 +2455,7 @@ dynamic build(BuildContext context) {
         coachPattern,
         cSuccess,
         'Target wraps the UI element being spotlighted. The coach mark follower floats '
-        'below with step counter and instructional text.',
+            'below with step counter and instructional text.',
       ),
 
       patternCard(
@@ -1779,7 +2464,7 @@ dynamic build(BuildContext context) {
         badgePattern,
         cNavy,
         'Target wraps the avatar circle. A tiny follower (green dot) anchors at topRight, '
-        'centered on itself, creating the classic status badge offset.',
+            'centered on itself, creating the classic status badge offset.',
       ),
 
       patternCard(
@@ -1788,7 +2473,7 @@ dynamic build(BuildContext context) {
         annotationPattern,
         cMagenta,
         'Target wraps the annotated text span (variable name). Follower presents rich '
-        'data alongside it — used in IDEs, analytics dashboards, and document annotations.',
+            'data alongside it — used in IDEs, analytics dashboards, and document annotations.',
       ),
 
       patternCard(
@@ -1797,7 +2482,7 @@ dynamic build(BuildContext context) {
         autocompletePattern,
         cSky,
         'Target wraps the entire text input. Follower suggestion list matches left edge and '
-        'width via targetAnchor: bottomLeft. This is how Flutter\'s Autocomplete widget works.',
+            'width via targetAnchor: bottomLeft. This is how Flutter\'s Autocomplete widget works.',
       ),
     ],
   );
@@ -1810,7 +2495,9 @@ dynamic build(BuildContext context) {
   print('Scene 2: Target Placement Gallery — 4 layout positions');
   print('Scene 3: One Target, Many Followers — hub-and-spoke pattern');
   print('Scene 4: Multiple Independent Targets — 3 isolated channels');
-  print('Scene 5: Transformed & Nested Targets — rotation, scale, deep nesting');
+  print(
+    'Scene 5: Transformed & Nested Targets — rotation, scale, deep nesting',
+  );
   print('Scene 6: Real-World Anchor Patterns — 6 production patterns');
   print('CompositedTransformTarget Deep Demo completed');
 
@@ -1843,7 +2530,10 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [cCoral.withValues(alpha: 0.12), cNavy.withValues(alpha: 0.06)],
+                  colors: [
+                    cCoral.withValues(alpha: 0.12),
+                    cNavy.withValues(alpha: 0.06),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1861,15 +2551,32 @@ dynamic build(BuildContext context) {
                           color: cCoral.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.my_location, size: 34.0, color: cCoral),
+                        child: Icon(
+                          Icons.my_location,
+                          size: 34.0,
+                          color: cCoral,
+                        ),
                       ),
                       SizedBox(width: 14.0),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('CompositedTransformTarget', style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold, color: cCoral)),
-                            Text('The Anchor Widget', style: TextStyle(fontSize: 12.0, color: cNavy.withValues(alpha: 0.6))),
+                            Text(
+                              'CompositedTransformTarget',
+                              style: TextStyle(
+                                fontSize: 19.0,
+                                fontWeight: FontWeight.bold,
+                                color: cCoral,
+                              ),
+                            ),
+                            Text(
+                              'The Anchor Widget',
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: cNavy.withValues(alpha: 0.6),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1883,17 +2590,33 @@ dynamic build(BuildContext context) {
                     'widgets then read this position to place themselves relative to the target — '
                     'through transforms, scrolling, and complex nesting — without manual coordinate math.\n\n'
                     'If CompositedTransformFollower is the satellite, this widget is the ground station.',
-                    style: TextStyle(fontSize: 12.0, height: 1.5, color: Colors.grey.shade800),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      height: 1.5,
+                      color: Colors.grey.shade800,
+                    ),
                   ),
                   SizedBox(height: 10.0),
                   Wrap(
                     spacing: 6.0,
                     runSpacing: 4.0,
                     children: [
-                      Chip(label: Text('widgets/basic.dart'), backgroundColor: cCoral.withValues(alpha: 0.08)),
-                      Chip(label: Text('RenderLeaderLayer'), backgroundColor: cNavy.withValues(alpha: 0.08)),
-                      Chip(label: Text('LayerLink'), backgroundColor: cTeal.withValues(alpha: 0.08)),
-                      Chip(label: Text('Compositing'), backgroundColor: cSlate.withValues(alpha: 0.08)),
+                      Chip(
+                        label: Text('widgets/basic.dart'),
+                        backgroundColor: cCoral.withValues(alpha: 0.08),
+                      ),
+                      Chip(
+                        label: Text('RenderLeaderLayer'),
+                        backgroundColor: cNavy.withValues(alpha: 0.08),
+                      ),
+                      Chip(
+                        label: Text('LayerLink'),
+                        backgroundColor: cTeal.withValues(alpha: 0.08),
+                      ),
+                      Chip(
+                        label: Text('Compositing'),
+                        backgroundColor: cSlate.withValues(alpha: 0.08),
+                      ),
                     ],
                   ),
                 ],
@@ -1919,13 +2642,22 @@ dynamic build(BuildContext context) {
               ),
               child: Column(
                 children: [
-                  Text('End of CompositedTransformTarget Deep Demo',
-                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: cCoral)),
+                  Text(
+                    'End of CompositedTransformTarget Deep Demo',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: cCoral,
+                    ),
+                  ),
                   SizedBox(height: 4.0),
                   Text(
                     '6 scenes · Architecture diagram · 4 layout placements · 1-to-N followers · '
                     'N independent targets · 4 transform contexts · 6 real-world patterns',
-                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade500,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -1957,7 +2689,13 @@ Widget _legendDot(String label, Color color) {
   );
 }
 
-Widget _anchorRow(String name, String target, String follower, String offset, Color color) {
+Widget _anchorRow(
+  String name,
+  String target,
+  String follower,
+  String offset,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 3.0),
     child: Row(
@@ -1968,11 +2706,25 @@ Widget _anchorRow(String name, String target, String follower, String offset, Co
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 6.0),
-        SizedBox(width: 50.0, child: Text(name, style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color))),
+        SizedBox(
+          width: 50.0,
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 9.0,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
         Expanded(
           child: Text(
             'target: $target → follower: $follower, offset: $offset',
-            style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: Colors.grey.shade600),
+            style: TextStyle(
+              fontSize: 8.0,
+              fontFamily: 'monospace',
+              color: Colors.grey.shade600,
+            ),
           ),
         ),
       ],
@@ -1993,7 +2745,14 @@ Widget _linkLabel(String name, Color color) {
       children: [
         Icon(Icons.link, size: 10.0, color: color),
         SizedBox(width: 3.0),
-        Text(name, style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 8.0,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -2008,11 +2767,14 @@ Widget _dropdownItem(String text, bool selected, Color color) {
     ),
     child: Row(
       children: [
-        Text(text, style: TextStyle(
-          fontSize: 11.0,
-          color: selected ? color : Colors.grey.shade700,
-          fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
-        )),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 11.0,
+            color: selected ? color : Colors.grey.shade700,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
         if (selected) ...[
           Spacer(),
           Icon(Icons.check, size: 14.0, color: color),
@@ -2022,7 +2784,12 @@ Widget _dropdownItem(String text, bool selected, Color color) {
   );
 }
 
-Widget _autoCompleteItem(String text, String type, bool highlighted, Color color) {
+Widget _autoCompleteItem(
+  String text,
+  String type,
+  bool highlighted,
+  Color color,
+) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
@@ -2031,16 +2798,31 @@ Widget _autoCompleteItem(String text, String type, bool highlighted, Color color
     ),
     child: Row(
       children: [
-        Icon(Icons.search, size: 14.0, color: highlighted ? color : Colors.grey.shade400),
+        Icon(
+          Icons.search,
+          size: 14.0,
+          color: highlighted ? color : Colors.grey.shade400,
+        ),
         SizedBox(width: 8.0),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 11.0, color: highlighted ? color : Colors.grey.shade700))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 11.0,
+              color: highlighted ? color : Colors.grey.shade700,
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.0),
           decoration: BoxDecoration(
             color: Colors.grey.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(3.0),
           ),
-          child: Text(type, style: TextStyle(fontSize: 8.0, color: Colors.grey.shade500)),
+          child: Text(
+            type,
+            style: TextStyle(fontSize: 8.0, color: Colors.grey.shade500),
+          ),
         ),
       ],
     ),

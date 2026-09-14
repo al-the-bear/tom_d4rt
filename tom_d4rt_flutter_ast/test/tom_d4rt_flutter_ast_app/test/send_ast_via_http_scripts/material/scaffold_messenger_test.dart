@@ -52,9 +52,7 @@ class _ScaffoldMessengerWrapperState extends State<ScaffoldMessengerWrapper> {
     return ScaffoldMessenger(
       key: messengerKey,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('ScaffoldMessenger Demo'),
-        ),
+        appBar: AppBar(title: Text('ScaffoldMessenger Demo')),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(
@@ -147,9 +145,7 @@ class BasicSnackBarControls extends StatelessWidget {
           onPressed: () {
             _hideCurrentSnackBar(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-          ),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
           child: Text('Hide Current SnackBar'),
         ),
         SizedBox(height: 8),
@@ -157,9 +153,7 @@ class BasicSnackBarControls extends StatelessWidget {
           onPressed: () {
             _clearSnackBars(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           child: Text('Clear All SnackBars'),
         ),
       ],
@@ -168,9 +162,7 @@ class BasicSnackBarControls extends StatelessWidget {
 
   void _showSimpleSnackBar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('This is a simple SnackBar message'),
-      ),
+      SnackBar(content: Text('This is a simple SnackBar message')),
     );
   }
 
@@ -181,9 +173,9 @@ class BasicSnackBarControls extends StatelessWidget {
         action: SnackBarAction(
           label: 'UNDO',
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Action pressed!')),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('Action pressed!')));
           },
         ),
       ),
@@ -276,9 +268,7 @@ class CustomSnackBarControls extends StatelessWidget {
       SnackBar(
         content: Text('Floating SnackBar'),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
@@ -324,10 +314,7 @@ class CustomSnackBarControls extends StatelessWidget {
           'This is a multi-line SnackBar message that demonstrates '
           'how longer content is displayed to the user.',
         ),
-        action: SnackBarAction(
-          label: 'ACTION',
-          onPressed: () {},
-        ),
+        action: SnackBarAction(label: 'ACTION', onPressed: () {}),
       ),
     );
   }
@@ -378,9 +365,7 @@ class MaterialBannerControls extends StatelessWidget {
           onPressed: () {
             _hideCurrentBanner(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.orange,
-          ),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
           child: Text('Hide Current Banner'),
         ),
         SizedBox(height: 8),
@@ -388,9 +373,7 @@ class MaterialBannerControls extends StatelessWidget {
           onPressed: () {
             _clearBanners(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           child: Text('Clear All Banners'),
         ),
       ],
@@ -544,9 +527,7 @@ class _AdvancedMessengerControlsState extends State<AdvancedMessengerControls> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => NestedScaffoldPage(),
-              ),
+              MaterialPageRoute(builder: (context) => NestedScaffoldPage()),
             );
           },
           child: Text('Go to Nested Scaffold Page'),
@@ -578,9 +559,7 @@ class _AdvancedMessengerControlsState extends State<AdvancedMessengerControls> {
     ScaffoldMessenger.of(context)
       ..clearSnackBars()
       ..showSnackBar(
-        SnackBar(
-          content: Text('SnackBar #$snackBarCount (previous removed)'),
-        ),
+        SnackBar(content: Text('SnackBar #$snackBarCount (previous removed)')),
       );
   }
 
@@ -589,10 +568,7 @@ class _AdvancedMessengerControlsState extends State<AdvancedMessengerControls> {
       SnackBar(
         content: Text('This is a persistent SnackBar'),
         duration: Duration(days: 1),
-        action: SnackBarAction(
-          label: 'DISMISS',
-          onPressed: () {},
-        ),
+        action: SnackBarAction(label: 'DISMISS', onPressed: () {}),
       ),
     );
   }
@@ -615,9 +591,7 @@ class NestedScaffoldPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Nested Scaffold'),
-      ),
+      appBar: AppBar(title: Text('Nested Scaffold')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -724,10 +698,7 @@ class SnackBarFactory {
           Icon(Icons.warning, color: Colors.black),
           SizedBox(width: 12),
           Expanded(
-            child: Text(
-              message,
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text(message, style: TextStyle(color: Colors.black)),
           ),
         ],
       ),
@@ -755,20 +726,12 @@ class SnackBarFactory {
 class BannerFactory {
   BannerFactory._();
 
-  static MaterialBanner success(
-    String message,
-    VoidCallback onDismiss,
-  ) {
+  static MaterialBanner success(String message, VoidCallback onDismiss) {
     return MaterialBanner(
       content: Text(message),
       backgroundColor: Colors.green.shade100,
       leading: Icon(Icons.check_circle, color: Colors.green),
-      actions: [
-        TextButton(
-          onPressed: onDismiss,
-          child: Text('OK'),
-        ),
-      ],
+      actions: [TextButton(onPressed: onDismiss, child: Text('OK'))],
     );
   }
 
@@ -782,32 +745,18 @@ class BannerFactory {
       backgroundColor: Colors.red.shade100,
       leading: Icon(Icons.error, color: Colors.red),
       actions: [
-        TextButton(
-          onPressed: onDismiss,
-          child: Text('DISMISS'),
-        ),
-        TextButton(
-          onPressed: onRetry,
-          child: Text('RETRY'),
-        ),
+        TextButton(onPressed: onDismiss, child: Text('DISMISS')),
+        TextButton(onPressed: onRetry, child: Text('RETRY')),
       ],
     );
   }
 
-  static MaterialBanner warning(
-    String message,
-    VoidCallback onDismiss,
-  ) {
+  static MaterialBanner warning(String message, VoidCallback onDismiss) {
     return MaterialBanner(
       content: Text(message),
       backgroundColor: Colors.amber.shade100,
       leading: Icon(Icons.warning, color: Colors.amber.shade800),
-      actions: [
-        TextButton(
-          onPressed: onDismiss,
-          child: Text('UNDERSTOOD'),
-        ),
-      ],
+      actions: [TextButton(onPressed: onDismiss, child: Text('UNDERSTOOD'))],
     );
   }
 }
@@ -840,9 +789,7 @@ class ExtensionDemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Extension Demo'),
-      ),
+      appBar: AppBar(title: Text('Extension Demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -851,9 +798,7 @@ class ExtensionDemoPage extends StatelessWidget {
               onPressed: () {
                 context.showSuccessSnackBar('Operation successful!');
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
               child: Text('Success'),
             ),
             SizedBox(height: 16),
@@ -861,9 +806,7 @@ class ExtensionDemoPage extends StatelessWidget {
               onPressed: () {
                 context.showErrorSnackBar('Something went wrong!');
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
               child: Text('Error'),
             ),
             SizedBox(height: 16),
@@ -871,9 +814,7 @@ class ExtensionDemoPage extends StatelessWidget {
               onPressed: () {
                 context.showWarningSnackBar('Please be careful!');
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
               child: Text('Warning'),
             ),
             SizedBox(height: 16),
@@ -881,9 +822,7 @@ class ExtensionDemoPage extends StatelessWidget {
               onPressed: () {
                 context.showInfoSnackBar('Here is some information.');
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               child: Text('Info'),
             ),
           ],
@@ -910,9 +849,7 @@ class _GlobalMessengerDemoState extends State<GlobalMessengerDemo> {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Global Key Demo'),
-        ),
+        appBar: AppBar(title: Text('Global Key Demo')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -955,9 +892,7 @@ class _ControllerDemoPageState extends State<ControllerDemoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Controller Demo'),
-      ),
+      appBar: AppBar(title: Text('Controller Demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -984,10 +919,7 @@ class _ControllerDemoPageState extends State<ControllerDemoPage> {
       SnackBar(
         content: Text('Tracked SnackBar'),
         duration: Duration(seconds: 5),
-        action: SnackBarAction(
-          label: 'ACTION',
-          onPressed: () {},
-        ),
+        action: SnackBarAction(label: 'ACTION', onPressed: () {}),
       ),
     );
 
@@ -1014,14 +946,12 @@ class BannerControllerDemo extends StatefulWidget {
 class _BannerControllerDemoState extends State<BannerControllerDemo> {
   String bannerStatus = 'No banner shown';
   ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>?
-      bannerController;
+  bannerController;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Banner Controller Demo'),
-      ),
+      appBar: AppBar(title: Text('Banner Controller Demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1083,9 +1013,7 @@ class AnimatedSnackBarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Animated SnackBar'),
-      ),
+      appBar: AppBar(title: Text('Animated SnackBar')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1125,32 +1053,27 @@ class AnimatedSnackBarContent extends StatefulWidget {
 }
 
 class _AnimatedSnackBarContentState extends State<AnimatedSnackBarContent> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.deepPurple,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(Icons.celebration, color: Colors.white),
-            SizedBox(width: 12),
-            Text(
-              'Custom animated content!',
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.deepPurple,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0, 4)),
+        ],
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.celebration, color: Colors.white),
+          SizedBox(width: 12),
+          Text(
+            'Custom animated content!',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -1162,9 +1085,7 @@ class ThemeAwareMessengerDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Theme Aware Demo'),
-      ),
+      appBar: AppBar(title: Text('Theme Aware Demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1215,10 +1136,7 @@ class ThemeAwareMessengerDemo extends StatelessWidget {
           style: TextStyle(color: theme.colorScheme.onSurface),
         ),
         backgroundColor: theme.colorScheme.surface,
-        leading: Icon(
-          Icons.palette,
-          color: theme.colorScheme.primary,
-        ),
+        leading: Icon(Icons.palette, color: theme.colorScheme.primary),
         actions: [
           TextButton(
             onPressed: () {
@@ -1239,9 +1157,7 @@ class DismissDirectionDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dismiss Direction'),
-      ),
+      appBar: AppBar(title: Text('Dismiss Direction')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -1310,9 +1226,7 @@ class WidthConstrainedSnackBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Width Control'),
-      ),
+      appBar: AppBar(title: Text('Width Control')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

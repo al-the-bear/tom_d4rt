@@ -96,12 +96,7 @@ class _Snapshot {
   final Color color;
 }
 
-enum _IndicatorKind {
-  underline,
-  pill,
-  segmented,
-  framed,
-}
+enum _IndicatorKind { underline, pill, segmented, framed }
 
 class _IndicatorPreviewPainter extends CustomPainter {
   _IndicatorPreviewPainter({
@@ -130,7 +125,12 @@ class _IndicatorPreviewPainter extends CustomPainter {
     final double slotWidth = width / 4;
 
     for (int i = 0; i < 4; i++) {
-      final Rect slot = Rect.fromLTWH(left + i * slotWidth, top, slotWidth - 6, 34);
+      final Rect slot = Rect.fromLTWH(
+        left + i * slotWidth,
+        top,
+        slotWidth - 6,
+        34,
+      );
       canvas.drawRRect(
         RRect.fromRectAndRadius(slot, const Radius.circular(8)),
         Paint()..color = const Color(0xFFE4ECF8),
@@ -154,7 +154,9 @@ class _IndicatorPreviewPainter extends CustomPainter {
         canvas.drawRRect(
           RRect.fromRectAndRadius(target, const Radius.circular(999)),
           Paint()
-            ..shader = LinearGradient(colors: <Color>[primary, secondary]).createShader(target),
+            ..shader = LinearGradient(
+              colors: <Color>[primary, secondary],
+            ).createShader(target),
         );
       case _IndicatorKind.segmented:
         canvas.drawRRect(
@@ -256,7 +258,8 @@ dynamic build(BuildContext context) {
       tabAlignment: TabAlignment.center,
       isScrollable: false,
       indicatorSize: TabBarIndicatorSize.label,
-      note: 'Clear active state where strict visual differentiation is required.',
+      note:
+          'Clear active state where strict visual differentiation is required.',
     ),
     const _ThemePreset(
       title: 'Slate RTL Review',
@@ -395,7 +398,10 @@ dynamic build(BuildContext context) {
   }
 
   void addEvent(String title, String detail, Color color) {
-    timeline.insert(0, _TimelineEvent(title: title, detail: detail, color: color));
+    timeline.insert(
+      0,
+      _TimelineEvent(title: title, detail: detail, color: color),
+    );
     if (timeline.length > 36) {
       timeline.removeLast();
     }
@@ -427,8 +433,12 @@ dynamic build(BuildContext context) {
   }
 
   BoxDecoration buildIndicatorDecoration() {
-    final Color edge = highContrast ? primary.withValues(alpha: 1) : primary.withValues(alpha: 0.9);
-    final Color fill = highContrast ? primary.withValues(alpha: 0.3) : primary.withValues(alpha: 0.16);
+    final Color edge = highContrast
+        ? primary.withValues(alpha: 1)
+        : primary.withValues(alpha: 0.9);
+    final Color fill = highContrast
+        ? primary.withValues(alpha: 0.3)
+        : primary.withValues(alpha: 0.16);
 
     switch (indicatorKind) {
       case _IndicatorKind.underline:
@@ -472,7 +482,12 @@ dynamic build(BuildContext context) {
     for (int i = 0; i < tabCount; i++) {
       final String label = 'Tab ${i + 1}';
       if (useIcons) {
-        tabs.add(Tab(icon: Icon(icons[i % icons.length], size: denseMode ? 16 : 18), text: label));
+        tabs.add(
+          Tab(
+            icon: Icon(icons[i % icons.length], size: denseMode ? 16 : 18),
+            text: label,
+          ),
+        );
       } else {
         tabs.add(Tab(text: label));
       }
@@ -496,7 +511,9 @@ dynamic build(BuildContext context) {
     return TabBarThemeData(
       indicator: buildIndicatorDecoration(),
       indicatorSize: indicatorSize,
-      dividerColor: showDivider ? secondary.withValues(alpha: 0.4) : Colors.transparent,
+      dividerColor: showDivider
+          ? secondary.withValues(alpha: 0.4)
+          : Colors.transparent,
       dividerHeight: showDivider ? 1.2 : 0,
       labelColor: baseSelected.color,
       unselectedLabelColor: baseUnselected.color,
@@ -507,7 +524,9 @@ dynamic build(BuildContext context) {
         vertical: verticalPadding,
       ),
       tabAlignment: tabAlignment,
-      overlayColor: WidgetStateProperty.all(primary.withValues(alpha: overlayAlpha.clamp(0.03, 0.5))),
+      overlayColor: WidgetStateProperty.all(
+        primary.withValues(alpha: overlayAlpha.clamp(0.03, 0.5)),
+      ),
       splashFactory: InkRipple.splashFactory,
       indicatorColor: primary,
     );
@@ -552,10 +571,17 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(color: primary, fontSize: 18, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               const SizedBox(height: 2),
-              Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3)),
+              Text(
+                subtitle,
+                style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3),
+              ),
             ],
           ),
         ),
@@ -581,12 +607,19 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Text(
                 metric.label,
-                style: TextStyle(color: metric.color, fontWeight: FontWeight.w700, fontSize: 12),
+                style: TextStyle(
+                  color: metric.color,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 metric.value,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ],
           ),
@@ -618,9 +651,15 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Expanded(
-                child: Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+                child: Text(
+                  label,
+                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
+                ),
               ),
-              Text(valueLabel, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
+              Text(
+                valueLabel,
+                style: TextStyle(color: color, fontWeight: FontWeight.w800),
+              ),
             ],
           ),
           SliderTheme(
@@ -644,7 +683,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget presetCard(_ThemePreset preset, void Function(void Function()) setState) {
+  Widget presetCard(
+    _ThemePreset preset,
+    void Function(void Function()) setState,
+  ) {
     return Container(
       width: 320,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -663,7 +705,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             preset.title,
-            style: TextStyle(color: preset.primary, fontWeight: FontWeight.w800, fontSize: 16),
+            style: TextStyle(
+              color: preset.primary,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
           ),
           const SizedBox(height: 2),
           Text(
@@ -673,7 +719,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             preset.note,
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.34),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.34,
+            ),
           ),
           const SizedBox(height: 10),
           Wrap(
@@ -733,7 +783,9 @@ dynamic build(BuildContext context) {
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: emphasize ? primary.withValues(alpha: 0.44) : const Color(0xFFD5E2F2),
+          color: emphasize
+              ? primary.withValues(alpha: 0.44)
+              : const Color(0xFFD5E2F2),
           width: emphasize ? 1.5 : 1,
         ),
       ),
@@ -742,7 +794,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(color: primary, fontWeight: FontWeight.w800, fontSize: 16),
+            style: TextStyle(
+              color: primary,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
           ),
           const SizedBox(height: 2),
           Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700)),
@@ -761,7 +817,8 @@ dynamic build(BuildContext context) {
                 initialIndex: selected,
                 child: Builder(
                   builder: (BuildContext context) {
-                    final TabController? controller = DefaultTabController.maybeOf(context);
+                    final TabController? controller =
+                        DefaultTabController.maybeOf(context);
                     controller?.addListener(() {
                       if (controller.indexIsChanging) {
                         return;
@@ -771,48 +828,55 @@ dynamic build(BuildContext context) {
                           activeIndex = controller.index;
                           tabChanges += 1;
                         });
-                        addLog('Tab changed to index $activeIndex on board $boardIndex.');
+                        addLog(
+                          'Tab changed to index $activeIndex on board $boardIndex.',
+                        );
                       }
                     });
 
-                    return SingleChildScrollView(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Theme(
-                          data: Theme.of(context).copyWith(
-                            tabBarTheme: theme,
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Theme(
+                            data: Theme.of(
+                              context,
+                            ).copyWith(tabBarTheme: theme),
+                            child: TabBar(
+                              tabs: tabs,
+                              isScrollable: isScrollable,
+                              indicator: theme.indicator,
+                              indicatorSize: theme.indicatorSize,
+                              dividerColor: theme.dividerColor,
+                              dividerHeight: theme.dividerHeight,
+                              labelColor: theme.labelColor,
+                              unselectedLabelColor: theme.unselectedLabelColor,
+                              labelStyle: theme.labelStyle,
+                              unselectedLabelStyle: theme.unselectedLabelStyle,
+                              labelPadding: theme.labelPadding,
+                              tabAlignment: theme.tabAlignment,
+                              overlayColor: theme.overlayColor,
+                              splashFactory: theme.splashFactory,
+                              onTap: (int index) {
+                                setState(() {
+                                  activeIndex = index;
+                                  tabChanges += 1;
+                                });
+                                addEvent(
+                                  'Tab tap',
+                                  'Board $boardIndex selected tab $index',
+                                  primary,
+                                );
+                              },
+                            ),
                           ),
-                          child: TabBar(
-                            tabs: tabs,
-                            isScrollable: isScrollable,
-                            indicator: theme.indicator,
-                            indicatorSize: theme.indicatorSize,
-                            dividerColor: theme.dividerColor,
-                            dividerHeight: theme.dividerHeight,
-                            labelColor: theme.labelColor,
-                            unselectedLabelColor: theme.unselectedLabelColor,
-                            labelStyle: theme.labelStyle,
-                            unselectedLabelStyle: theme.unselectedLabelStyle,
-                            labelPadding: theme.labelPadding,
-                            tabAlignment: theme.tabAlignment,
-                            overlayColor: theme.overlayColor,
-                            splashFactory: theme.splashFactory,
-                            onTap: (int index) {
-                              setState(() {
-                                activeIndex = index;
-                                tabChanges += 1;
-                              });
-                              addEvent('Tab tap', 'Board $boardIndex selected tab $index', primary);
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        SizedBox(
-                          height: compact ? 92 : 120,
-                          child: TabBarView(
-                            children: List<Widget>.generate(
-                              tabs.length,
-                              (int index) {
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            height: compact ? 92 : 120,
+                            child: TabBarView(
+                              children: List<Widget>.generate(tabs.length, (
+                                int index,
+                              ) {
                                 final bool active = index == activeIndex;
                                 return Container(
                                   margin: const EdgeInsets.only(top: 4),
@@ -841,19 +905,21 @@ dynamic build(BuildContext context) {
                                           'Panel ${index + 1}: ${active ? 'active' : 'inactive'} tab style preview.',
                                           style: TextStyle(
                                             color: Colors.blueGrey.shade800,
-                                            fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                                            fontWeight: active
+                                                ? FontWeight.w700
+                                                : FontWeight.w500,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 );
-                              },
+                              }),
                             ),
                           ),
-                        ),
-                      ],
-                    ));
+                        ],
+                      ),
+                    );
                   },
                 ),
               ),
@@ -886,9 +952,22 @@ dynamic build(BuildContext context) {
     final List<Widget> rows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(flex: 2, child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF))),
-          Expanded(flex: 3, child: cell('Effect', header: true, tint: const Color(0xFFF0F6FF))),
-          Expanded(flex: 3, child: cell('Guidance', header: true, tint: const Color(0xFFF0F6FF))),
+          Expanded(
+            flex: 2,
+            child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF)),
+          ),
+          Expanded(
+            flex: 3,
+            child: cell('Effect', header: true, tint: const Color(0xFFF0F6FF)),
+          ),
+          Expanded(
+            flex: 3,
+            child: cell(
+              'Guidance',
+              header: true,
+              tint: const Color(0xFFF0F6FF),
+            ),
+          ),
         ],
       ),
     ];
@@ -897,7 +976,14 @@ dynamic build(BuildContext context) {
       rows.add(
         Row(
           children: <Widget>[
-            Expanded(flex: 2, child: cell(row.topic, tint: const Color(0xFFFBFDFF), header: true)),
+            Expanded(
+              flex: 2,
+              child: cell(
+                row.topic,
+                tint: const Color(0xFFFBFDFF),
+                header: true,
+              ),
+            ),
             Expanded(flex: 3, child: cell(row.effect)),
             Expanded(flex: 3, child: cell(row.guidance)),
           ],
@@ -919,49 +1005,66 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'Timeline empty. Load presets, change controls, and tap tabs to capture theming events.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: timeline.map((event) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: event.color.withValues(alpha: 0.08),
-            border: Border.all(color: event.color.withValues(alpha: 0.3)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 10,
-                height: 10,
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: event.color),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      event.title,
-                      style: TextStyle(color: event.color, fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(event.detail, style: TextStyle(color: Colors.blueGrey.shade800, height: 1.3)),
-                  ],
+    return SingleChildScrollView(
+      child: Column(
+        children: timeline.map((event) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: event.color.withValues(alpha: 0.08),
+              border: Border.all(color: event.color.withValues(alpha: 0.3)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: event.color,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        event.title,
+                        style: TextStyle(
+                          color: event.color,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        event.detail,
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget snapshotPanel() {
@@ -975,40 +1078,57 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'No snapshots captured yet. Use Capture Snapshot to store active theme states.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: snapshots.map((snapshot) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: snapshot.color.withValues(alpha: 0.08),
-            border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Snapshot #${snapshot.id} | tab ${snapshot.activeIndex + 1} | ${snapshot.indicatorKind.name}',
-                style: TextStyle(color: snapshot.color, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                'scrollable ${snapshot.isScrollable ? 'yes' : 'no'}',
-                style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 2),
-              Text(snapshot.note, style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12)),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+    return SingleChildScrollView(
+      child: Column(
+        children: snapshots.map((snapshot) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: snapshot.color.withValues(alpha: 0.08),
+              border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Snapshot #${snapshot.id} | tab ${snapshot.activeIndex + 1} | ${snapshot.indicatorKind.name}',
+                  style: TextStyle(
+                    color: snapshot.color,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  'scrollable ${snapshot.isScrollable ? 'yes' : 'no'}',
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  snapshot.note,
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget consolePanel() {
@@ -1023,7 +1143,10 @@ dynamic build(BuildContext context) {
           ? const Center(
               child: Text(
                 'No logs yet. Interact with tabs and controls to populate diagnostics.',
-                style: TextStyle(color: Color(0xFFB7C9EA), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Color(0xFFB7C9EA),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             )
           : ListView.builder(
@@ -1049,18 +1172,66 @@ dynamic build(BuildContext context) {
     builder: (BuildContext context, void Function(void Function()) setState) {
       final TabBarThemeData theme = composeTheme();
       final List<_MetricCard> metrics = <_MetricCard>[
-        _MetricCard(label: 'Active tab', value: '${activeIndex + 1}/$tabCount', color: primary),
-        _MetricCard(label: 'Indicator', value: indicatorKind.name, color: const Color(0xFF6A1B9A)),
-        _MetricCard(label: 'Tab align', value: tabAlignment.name, color: const Color(0xFF2E7D32)),
-        _MetricCard(label: 'Scrollable', value: isScrollable ? 'yes' : 'no', color: const Color(0xFF00838F)),
-        _MetricCard(label: 'Size mode', value: indicatorSize.name, color: const Color(0xFFE65100)),
-        _MetricCard(label: 'Radius', value: f(radius), color: const Color(0xFF455A64)),
-        _MetricCard(label: 'Weight', value: f(indicatorWeight), color: const Color(0xFF283593)),
-        _MetricCard(label: 'Label scale', value: f(labelScale), color: const Color(0xFFAD1457)),
-        _MetricCard(label: 'Preset loads', value: '$presetLoads', color: const Color(0xFF5D4037)),
-        _MetricCard(label: 'Tab changes', value: '$tabChanges', color: const Color(0xFF1565C0)),
-        _MetricCard(label: 'Style changes', value: '$styleChanges', color: const Color(0xFF827717)),
-        _MetricCard(label: 'Overlay alpha', value: f(overlayAlpha), color: const Color(0xFF37474F)),
+        _MetricCard(
+          label: 'Active tab',
+          value: '${activeIndex + 1}/$tabCount',
+          color: primary,
+        ),
+        _MetricCard(
+          label: 'Indicator',
+          value: indicatorKind.name,
+          color: const Color(0xFF6A1B9A),
+        ),
+        _MetricCard(
+          label: 'Tab align',
+          value: tabAlignment.name,
+          color: const Color(0xFF2E7D32),
+        ),
+        _MetricCard(
+          label: 'Scrollable',
+          value: isScrollable ? 'yes' : 'no',
+          color: const Color(0xFF00838F),
+        ),
+        _MetricCard(
+          label: 'Size mode',
+          value: indicatorSize.name,
+          color: const Color(0xFFE65100),
+        ),
+        _MetricCard(
+          label: 'Radius',
+          value: f(radius),
+          color: const Color(0xFF455A64),
+        ),
+        _MetricCard(
+          label: 'Weight',
+          value: f(indicatorWeight),
+          color: const Color(0xFF283593),
+        ),
+        _MetricCard(
+          label: 'Label scale',
+          value: f(labelScale),
+          color: const Color(0xFFAD1457),
+        ),
+        _MetricCard(
+          label: 'Preset loads',
+          value: '$presetLoads',
+          color: const Color(0xFF5D4037),
+        ),
+        _MetricCard(
+          label: 'Tab changes',
+          value: '$tabChanges',
+          color: const Color(0xFF1565C0),
+        ),
+        _MetricCard(
+          label: 'Style changes',
+          value: '$styleChanges',
+          color: const Color(0xFF827717),
+        ),
+        _MetricCard(
+          label: 'Overlay alpha',
+          value: f(overlayAlpha),
+          color: const Color(0xFF37474F),
+        ),
       ];
 
       return Container(
@@ -1108,7 +1279,10 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Interactive theme studio showing how TabBarThemeData changes tab indicators, typography, spacing, alignment, and interaction feedback across multiple boards.',
-                              style: TextStyle(color: Colors.blueGrey.shade700, height: 1.34),
+                              style: TextStyle(
+                                color: Colors.blueGrey.shade700,
+                                height: 1.34,
+                              ),
                             ),
                           ],
                         ),
@@ -1137,7 +1311,11 @@ dynamic build(BuildContext context) {
               Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(children: presets.map((preset) => presetCard(preset, setState)).toList()),
+            Wrap(
+              children: presets
+                  .map((preset) => presetCard(preset, setState))
+                  .toList(),
+            ),
             const SizedBox(height: 18),
             sectionTitle(
               'Theme Controls',
@@ -1169,7 +1347,9 @@ dynamic build(BuildContext context) {
                               indicatorWeight = value;
                               styleChanges += 1;
                             });
-                            addLog('Indicator weight set to ${f(indicatorWeight)}.');
+                            addLog(
+                              'Indicator weight set to ${f(indicatorWeight)}.',
+                            );
                           },
                           color: primary,
                         ),
@@ -1253,7 +1433,9 @@ dynamic build(BuildContext context) {
                               horizontalPadding = value;
                               styleChanges += 1;
                             });
-                            addLog('Horizontal padding set to ${f(horizontalPadding)}.');
+                            addLog(
+                              'Horizontal padding set to ${f(horizontalPadding)}.',
+                            );
                           },
                           color: const Color(0xFFE65100),
                         ),
@@ -1272,7 +1454,9 @@ dynamic build(BuildContext context) {
                               verticalPadding = value;
                               styleChanges += 1;
                             });
-                            addLog('Vertical padding set to ${f(verticalPadding)}.');
+                            addLog(
+                              'Vertical padding set to ${f(verticalPadding)}.',
+                            );
                           },
                           color: const Color(0xFF455A64),
                         ),
@@ -1309,7 +1493,10 @@ dynamic build(BuildContext context) {
                           min: 0,
                           max: math.max(0, tabCount - 1).toDouble(),
                           divisions: math.max(1, tabCount - 1),
-                          value: activeIndex.toDouble().clamp(0, math.max(0, tabCount - 1).toDouble()),
+                          value: activeIndex.toDouble().clamp(
+                            0,
+                            math.max(0, tabCount - 1).toDouble(),
+                          ),
                           onChanged: (double value) {
                             setState(() {
                               activeIndex = value.round();
@@ -1335,10 +1522,11 @@ dynamic build(BuildContext context) {
                           initialValue: indicatorKind,
                           items: _IndicatorKind.values
                               .map(
-                                (_IndicatorKind value) => DropdownMenuItem<_IndicatorKind>(
-                                  value: value,
-                                  child: Text(value.name),
-                                ),
+                                (_IndicatorKind value) =>
+                                    DropdownMenuItem<_IndicatorKind>(
+                                      value: value,
+                                      child: Text(value.name),
+                                    ),
                               )
                               .toList(),
                           onChanged: (_IndicatorKind? value) {
@@ -1362,10 +1550,11 @@ dynamic build(BuildContext context) {
                           initialValue: tabAlignment,
                           items: TabAlignment.values
                               .map(
-                                (TabAlignment value) => DropdownMenuItem<TabAlignment>(
-                                  value: value,
-                                  child: Text(value.name),
-                                ),
+                                (TabAlignment value) =>
+                                    DropdownMenuItem<TabAlignment>(
+                                      value: value,
+                                      child: Text(value.name),
+                                    ),
                               )
                               .toList(),
                           onChanged: (TabAlignment? value) {
@@ -1393,10 +1582,11 @@ dynamic build(BuildContext context) {
                           initialValue: indicatorSize,
                           items: TabBarIndicatorSize.values
                               .map(
-                                (TabBarIndicatorSize value) => DropdownMenuItem<TabBarIndicatorSize>(
-                                  value: value,
-                                  child: Text(value.name),
-                                ),
+                                (TabBarIndicatorSize value) =>
+                                    DropdownMenuItem<TabBarIndicatorSize>(
+                                      value: value,
+                                      child: Text(value.name),
+                                    ),
                               )
                               .toList(),
                           onChanged: (TabBarIndicatorSize? value) {
@@ -1461,76 +1651,44 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: isScrollable,
-                          title: const Text('Scrollable tabs'),
-                          subtitle: const Text('Enable horizontal scrolling for large sets.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              isScrollable = value;
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'Scrollable mode enabled.' : 'Scrollable mode disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: rtl,
-                          title: const Text('RTL direction'),
-                          subtitle: const Text('Preview right-to-left language layout.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              rtl = value;
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'RTL enabled.' : 'RTL disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showDivider,
-                          title: const Text('Show divider'),
-                          subtitle: const Text('Toggle TabBar divider line.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showDivider = value;
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'Divider enabled.' : 'Divider disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: isScrollable,
+                            title: const Text('Scrollable tabs'),
+                            subtitle: const Text(
+                              'Enable horizontal scrolling for large sets.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                isScrollable = value;
+                                styleChanges += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Scrollable mode enabled.'
+                                    : 'Scrollable mode disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: useIcons,
-                          title: const Text('Icon + text tabs'),
-                          subtitle: const Text('Show icon-assisted labels.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              useIcons = value;
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'Icon tabs enabled.' : 'Icon tabs disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: rtl,
+                            title: const Text('RTL direction'),
+                            subtitle: const Text(
+                              'Preview right-to-left language layout.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                rtl = value;
+                                styleChanges += 1;
+                              });
+                              addLog(value ? 'RTL enabled.' : 'RTL disabled.');
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1541,39 +1699,44 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: denseMode,
-                          title: const Text('Dense mode'),
-                          subtitle: const Text('Compact typography and spacing.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              denseMode = value;
-                              if (denseMode) {
-                                verticalPadding = verticalPadding.clamp(4, 8);
-                              }
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'Dense mode enabled.' : 'Dense mode disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showDivider,
+                            title: const Text('Show divider'),
+                            subtitle: const Text('Toggle TabBar divider line.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showDivider = value;
+                                styleChanges += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Divider enabled.'
+                                    : 'Divider disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: highContrast,
-                          title: const Text('High contrast'),
-                          subtitle: const Text('Boost active readability.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              highContrast = value;
-                              styleChanges += 1;
-                            });
-                            addLog(value ? 'High contrast enabled.' : 'High contrast disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: useIcons,
+                            title: const Text('Icon + text tabs'),
+                            subtitle: const Text('Show icon-assisted labels.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                useIcons = value;
+                                styleChanges += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Icon tabs enabled.'
+                                    : 'Icon tabs disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1584,34 +1747,99 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showThirdBoard,
-                          title: const Text('Show third board'),
-                          subtitle: const Text('Enable compact board comparison.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showThirdBoard = value;
-                            });
-                            addLog(value ? 'Third board shown.' : 'Third board hidden.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: denseMode,
+                            title: const Text('Dense mode'),
+                            subtitle: const Text(
+                              'Compact typography and spacing.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                denseMode = value;
+                                if (denseMode) {
+                                  verticalPadding = verticalPadding.clamp(4, 8);
+                                }
+                                styleChanges += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Dense mode enabled.'
+                                    : 'Dense mode disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showHeatmap,
-                          title: const Text('Show indicator painter'),
-                          subtitle: const Text('Display indicator diagnostics panel.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showHeatmap = value;
-                            });
-                            addLog(value ? 'Indicator painter shown.' : 'Indicator painter hidden.');
-                          },
+                            contentPadding: EdgeInsets.zero,
+                            value: highContrast,
+                            title: const Text('High contrast'),
+                            subtitle: const Text('Boost active readability.'),
+                            onChanged: (bool value) {
+                              setState(() {
+                                highContrast = value;
+                                styleChanges += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'High contrast enabled.'
+                                    : 'High contrast disabled.',
+                              );
+                            },
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showThirdBoard,
+                            title: const Text('Show third board'),
+                            subtitle: const Text(
+                              'Enable compact board comparison.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showThirdBoard = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Third board shown.'
+                                    : 'Third board hidden.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showHeatmap,
+                            title: const Text('Show indicator painter'),
+                            subtitle: const Text(
+                              'Display indicator diagnostics panel.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showHeatmap = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Indicator painter shown.'
+                                    : 'Indicator painter hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1640,9 +1868,12 @@ dynamic build(BuildContext context) {
               title: 'Dense Workspace Board',
               subtitle: 'Compact layout emphasizing information density.',
               theme: theme.copyWith(
-                labelStyle: theme.labelStyle?.copyWith(fontSize: (theme.labelStyle?.fontSize ?? 12) - 1),
-                unselectedLabelStyle: theme.unselectedLabelStyle
-                    ?.copyWith(fontSize: (theme.unselectedLabelStyle?.fontSize ?? 11) - 1),
+                labelStyle: theme.labelStyle?.copyWith(
+                  fontSize: (theme.labelStyle?.fontSize ?? 12) - 1,
+                ),
+                unselectedLabelStyle: theme.unselectedLabelStyle?.copyWith(
+                  fontSize: (theme.unselectedLabelStyle?.fontSize ?? 11) - 1,
+                ),
                 labelPadding: EdgeInsets.symmetric(
                   horizontal: math.max(6, horizontalPadding - 4),
                   vertical: math.max(4, verticalPadding - 2),
@@ -1657,10 +1888,15 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               tabBoard(
                 title: 'Contrast Review Board',
-                subtitle: 'Accessibility-focused board with stronger active state cues.',
+                subtitle:
+                    'Accessibility-focused board with stronger active state cues.',
                 theme: theme.copyWith(
-                  overlayColor: WidgetStateProperty.all(primary.withValues(alpha: 0.2)),
-                  labelStyle: theme.labelStyle?.copyWith(fontWeight: FontWeight.w900),
+                  overlayColor: WidgetStateProperty.all(
+                    primary.withValues(alpha: 0.2),
+                  ),
+                  labelStyle: theme.labelStyle?.copyWith(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 boardIndex: 3,
                 compact: false,
@@ -1764,7 +2000,9 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: guide.color.withValues(alpha: 0.28)),
+                    border: Border.all(
+                      color: guide.color.withValues(alpha: 0.28),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1776,7 +2014,10 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               guide.title,
-                              style: TextStyle(color: guide.color, fontWeight: FontWeight.w800),
+                              style: TextStyle(
+                                color: guide.color,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ],
@@ -1784,7 +2025,11 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 6),
                       Text(
                         guide.body,
-                        style: TextStyle(color: Colors.blueGrey.shade800, height: 1.32, fontSize: 13),
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.32,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
@@ -1859,7 +2104,10 @@ dynamic build(BuildContext context) {
               '${startedAt.hour.toString().padLeft(2, '0')}:'
               '${startedAt.minute.toString().padLeft(2, '0')}:'
               '${startedAt.second.toString().padLeft(2, '0')}.',
-              style: TextStyle(color: Colors.blueGrey.shade600, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                color: Colors.blueGrey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),

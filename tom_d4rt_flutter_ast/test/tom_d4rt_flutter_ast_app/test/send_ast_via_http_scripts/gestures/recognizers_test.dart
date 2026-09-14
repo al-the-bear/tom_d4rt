@@ -217,11 +217,7 @@ dynamic build(BuildContext context) {
             'wrapper that wires a fixed set of recognizers for you. When you '
             'need a recognizer GestureDetector does not expose, drop down to '
             'RawGestureDetector and supply your own GestureRecognizerFactory.',
-            style: TextStyle(
-              fontSize: 13.0,
-              height: 1.45,
-              color: _inkDeep,
-            ),
+            style: TextStyle(fontSize: 13.0, height: 1.45, color: _inkDeep),
           ),
         ),
       ],
@@ -239,7 +235,8 @@ dynamic build(BuildContext context) {
     icon: Icons.touch_app,
     accent: _laurelMid,
     targetLabel: 'TAP HERE',
-    caption: 'A single, decisive contact. The recognizer accepts when the '
+    caption:
+        'A single, decisive contact. The recognizer accepts when the '
         'pointer is released within the tap-slop radius before the long-press '
         'timeout fires.',
     exampleEvents: const <_EventEntry>[
@@ -262,7 +259,8 @@ dynamic build(BuildContext context) {
     icon: Icons.touch_app_outlined,
     accent: _chimeSky,
     targetLabel: 'TAP TWICE',
-    caption: 'Two taps in the same place within kDoubleTapTimeout (300ms by '
+    caption:
+        'Two taps in the same place within kDoubleTapTimeout (300ms by '
         'default). The recognizer holds a brief timer between the first and '
         'second tap to disambiguate from a plain tap.',
     exampleEvents: const <_EventEntry>[
@@ -283,7 +281,8 @@ dynamic build(BuildContext context) {
     icon: Icons.pan_tool_alt,
     accent: _bloodRust,
     targetLabel: 'HOLD',
-    caption: 'A single contact held without movement for kLongPressTimeout '
+    caption:
+        'A single contact held without movement for kLongPressTimeout '
         '(500ms). Once accepted, you can also observe drag-after-press '
         'updates via onLongPressMoveUpdate.',
     exampleEvents: const <_EventEntry>[
@@ -843,21 +842,21 @@ dynamic build(BuildContext context) {
 
   final Map<Type, GestureRecognizerFactory<GestureRecognizer>> customFactories =
       <Type, GestureRecognizerFactory<GestureRecognizer>>{
-    TapGestureRecognizer:
-        GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-      () => TapGestureRecognizer(),
-      (TapGestureRecognizer instance) {
-        instance.onTap = () {
-          debugPrint('RawGestureDetector: custom tap factory fired');
-        };
-        instance.onTapDown = (TapDownDetails details) {
-          debugPrint(
-            'RawGestureDetector: tapDown at ${details.globalPosition}',
-          );
-        };
-      },
-    ),
-  };
+        TapGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+              () => TapGestureRecognizer(),
+              (TapGestureRecognizer instance) {
+                instance.onTap = () {
+                  debugPrint('RawGestureDetector: custom tap factory fired');
+                };
+                instance.onTapDown = (TapDownDetails details) {
+                  debugPrint(
+                    'RawGestureDetector: tapDown at ${details.globalPosition}',
+                  );
+                };
+              },
+            ),
+      };
 
   final Widget rawDetectorDemo = Container(
     margin: const EdgeInsets.only(bottom: 24.0),
@@ -1016,10 +1015,7 @@ dynamic build(BuildContext context) {
               const Positioned(
                 left: 20.0,
                 top: 22.0,
-                child: _ArenaChip(
-                  label: 'Tap',
-                  status: _ArenaStatus.rejected,
-                ),
+                child: _ArenaChip(label: 'Tap', status: _ArenaStatus.rejected),
               ),
               const Positioned(
                 left: 110.0,
@@ -1032,10 +1028,7 @@ dynamic build(BuildContext context) {
               const Positioned(
                 right: 20.0,
                 top: 22.0,
-                child: _ArenaChip(
-                  label: 'Pan',
-                  status: _ArenaStatus.winner,
-                ),
+                child: _ArenaChip(label: 'Pan', status: _ArenaStatus.winner),
               ),
               const Positioned(
                 left: 20.0,
@@ -1056,10 +1049,7 @@ dynamic build(BuildContext context) {
               const Positioned(
                 right: 20.0,
                 bottom: 22.0,
-                child: _ArenaChip(
-                  label: 'Eager',
-                  status: _ArenaStatus.waiting,
-                ),
+                child: _ArenaChip(label: 'Eager', status: _ArenaStatus.waiting),
               ),
               // Middle banner
               Positioned(
@@ -1843,11 +1833,7 @@ Widget _buildStaticDemoCard({
         // Caption
         Text(
           caption,
-          style: const TextStyle(
-            fontSize: 12.0,
-            height: 1.45,
-            color: _inkSoft,
-          ),
+          style: const TextStyle(fontSize: 12.0, height: 1.45, color: _inkSoft),
         ),
         const SizedBox(height: 10.0),
         // Callback list
@@ -2013,12 +1999,12 @@ Widget _buildFingerCountChip(int fingers) {
   final Color tone = fingers == 1
       ? _laurelMid
       : fingers == 2
-          ? _chimeSky
-          : fingers == 3
-              ? _coinGold
-              : fingers == 4
-                  ? _bloodRust
-                  : _archShadow;
+      ? _chimeSky
+      : fingers == 3
+      ? _coinGold
+      : fingers == 4
+      ? _bloodRust
+      : _archShadow;
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
@@ -2060,10 +2046,10 @@ Widget _buildSerialTapStep(int count) {
   final Color tone = count == 1
       ? _laurelMid
       : count == 2
-          ? _chimeSky
-          : count == 3
-              ? _coinGold
-              : _bloodRust;
+      ? _chimeSky
+      : count == 3
+      ? _coinGold
+      : _bloodRust;
   return Column(
     children: <Widget>[
       Container(
@@ -2090,10 +2076,10 @@ Widget _buildSerialTapStep(int count) {
         count == 1
             ? 'single'
             : count == 2
-                ? 'double'
-                : count == 3
-                    ? 'triple'
-                    : 'quad',
+            ? 'double'
+            : count == 3
+            ? 'triple'
+            : 'quad',
         style: const TextStyle(
           fontSize: 11.0,
           fontWeight: FontWeight.bold,
@@ -2122,10 +2108,7 @@ Widget _buildLegendDot(Color color, String label) {
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       const SizedBox(width: 5.0),
-      Text(
-        label,
-        style: const TextStyle(fontSize: 11.5, color: _inkSoft),
-      ),
+      Text(label, style: const TextStyle(fontSize: 11.5, color: _inkSoft)),
     ],
   );
 }

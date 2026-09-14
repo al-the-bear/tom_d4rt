@@ -8,45 +8,63 @@ dynamic build(BuildContext context) {
   // attach listeners or mutate them after construction, so they are
   // compatible with the static-presentation constraints of this script.
   // -------------------------------------------------------------------------
-  final TextEditingController nameController =
-      TextEditingController(text: 'Ada Lovelace');
-  final TextEditingController emailController =
-      TextEditingController(text: 'ada@analytical.engine');
-  final TextEditingController filledController =
-      TextEditingController(text: 'Filled background variant');
-  final TextEditingController searchController =
-      TextEditingController(text: 'render editable');
-  final TextEditingController passwordController =
-      TextEditingController(text: 'super-secret-passphrase');
+  final TextEditingController nameController = TextEditingController(
+    text: 'Ada Lovelace',
+  );
+  final TextEditingController emailController = TextEditingController(
+    text: 'ada@analytical.engine',
+  );
+  final TextEditingController filledController = TextEditingController(
+    text: 'Filled background variant',
+  );
+  final TextEditingController searchController = TextEditingController(
+    text: 'render editable',
+  );
+  final TextEditingController passwordController = TextEditingController(
+    text: 'super-secret-passphrase',
+  );
   final TextEditingController multilineController = TextEditingController(
-    text: 'RenderEditable handles soft-wrapped multi-line content.\n'
+    text:
+        'RenderEditable handles soft-wrapped multi-line content.\n'
         'Each newline produces a new visual run; the render object\n'
         'computes caret metrics line-by-line and paints selection\n'
         'rectangles per visual line, accounting for bidi runs.',
   );
 
-  final TextEditingController anatomyController =
-      TextEditingController(text: 'Hover the arrows');
+  final TextEditingController anatomyController = TextEditingController(
+    text: 'Hover the arrows',
+  );
 
-  final TextEditingController themeRedController =
-      TextEditingController(text: 'Selection painted in red');
-  themeRedController.selection =
-      const TextSelection(baseOffset: 10, extentOffset: 18);
+  final TextEditingController themeRedController = TextEditingController(
+    text: 'Selection painted in red',
+  );
+  themeRedController.selection = const TextSelection(
+    baseOffset: 10,
+    extentOffset: 18,
+  );
 
-  final TextEditingController themeGreenController =
-      TextEditingController(text: 'Selection painted in green');
-  themeGreenController.selection =
-      const TextSelection(baseOffset: 10, extentOffset: 19);
+  final TextEditingController themeGreenController = TextEditingController(
+    text: 'Selection painted in green',
+  );
+  themeGreenController.selection = const TextSelection(
+    baseOffset: 10,
+    extentOffset: 19,
+  );
 
-  final TextEditingController themeBlueController =
-      TextEditingController(text: 'Selection painted in blue');
-  themeBlueController.selection =
-      const TextSelection(baseOffset: 10, extentOffset: 18);
+  final TextEditingController themeBlueController = TextEditingController(
+    text: 'Selection painted in blue',
+  );
+  themeBlueController.selection = const TextSelection(
+    baseOffset: 10,
+    extentOffset: 18,
+  );
 
-  final TextEditingController wideController =
-      TextEditingController(text: 'I expand to fill available row space');
-  final TextEditingController narrowController =
-      TextEditingController(text: 'Fixed 120px');
+  final TextEditingController wideController = TextEditingController(
+    text: 'I expand to fill available row space',
+  );
+  final TextEditingController narrowController = TextEditingController(
+    text: 'Fixed 120px',
+  );
 
   // -------------------------------------------------------------------------
   // Shared decoration helpers (just plain functions returning new instances).
@@ -97,8 +115,7 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Icon(Icons.edit_note,
-                        color: Colors.white, size: 44),
+                    Icon(Icons.edit_note, color: Colors.white, size: 44),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -111,8 +128,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    Icon(Icons.keyboard,
-                        color: Colors.white, size: 36),
+                    Icon(Icons.keyboard, color: Colors.white, size: 36),
                   ],
                 ),
                 SizedBox(height: 16),
@@ -225,7 +241,9 @@ dynamic build(BuildContext context) {
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
-                        vertical: 0, horizontal: 16),
+                      vertical: 0,
+                      horizontal: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -309,35 +327,41 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 18),
                 _AnatomyRow(
-                    icon: Icons.label,
-                    label: 'labelText',
-                    description:
-                        'Floats above the input on focus or when populated.'),
+                  icon: Icons.label,
+                  label: 'labelText',
+                  description:
+                      'Floats above the input on focus or when populated.',
+                ),
                 _AnatomyRow(
-                    icon: Icons.text_snippet,
-                    label: 'hintText',
-                    description:
-                        'Greyed placeholder shown when the editable is empty.'),
+                  icon: Icons.text_snippet,
+                  label: 'hintText',
+                  description:
+                      'Greyed placeholder shown when the editable is empty.',
+                ),
                 _AnatomyRow(
-                    icon: Icons.help_outline,
-                    label: 'helperText',
-                    description:
-                        'Persistent helper line beneath the input border.'),
+                  icon: Icons.help_outline,
+                  label: 'helperText',
+                  description:
+                      'Persistent helper line beneath the input border.',
+                ),
                 _AnatomyRow(
-                    icon: Icons.exposure,
-                    label: 'prefix / prefixIcon',
-                    description:
-                        'Inline content (e.g. @, currency symbol) or icon.'),
+                  icon: Icons.exposure,
+                  label: 'prefix / prefixIcon',
+                  description:
+                      'Inline content (e.g. @, currency symbol) or icon.',
+                ),
                 _AnatomyRow(
-                    icon: Icons.close,
-                    label: 'suffix / suffixIcon',
-                    description:
-                        'Trailing slot for clear buttons, units, or status.'),
+                  icon: Icons.close,
+                  label: 'suffix / suffixIcon',
+                  description:
+                      'Trailing slot for clear buttons, units, or status.',
+                ),
                 _AnatomyRow(
-                    icon: Icons.numbers,
-                    label: 'counterText',
-                    description:
-                        'Bottom-right slot for character counts or limits.'),
+                  icon: Icons.numbers,
+                  label: 'counterText',
+                  description:
+                      'Bottom-right slot for character counts or limits.',
+                ),
               ],
             ),
           ),
@@ -403,8 +427,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: const Row(
                     children: <Widget>[
-                      Icon(Icons.lightbulb_outline,
-                          color: Color(0xFFEF6C00)),
+                      Icon(Icons.lightbulb_outline, color: Color(0xFFEF6C00)),
                       SizedBox(width: 10),
                       Expanded(
                         child: Text(
@@ -520,8 +543,10 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: const Color(0xFFFFF3E0),
                         borderRadius: BorderRadius.circular(12),
-                        border:
-                            Border.all(color: const Color(0xFFFFB74D), width: 2),
+                        border: Border.all(
+                          color: const Color(0xFFFFB74D),
+                          width: 2,
+                        ),
                       ),
                       child: Container(
                         width: 3,
@@ -545,35 +570,40 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 18),
                 _CaretRow(
-                    icon: Icons.height,
-                    name: 'cursorHeight',
-                    description:
-                        'Override caret height (defaults to line height).'),
+                  icon: Icons.height,
+                  name: 'cursorHeight',
+                  description:
+                      'Override caret height (defaults to line height).',
+                ),
                 _CaretRow(
-                    icon: Icons.line_weight,
-                    name: 'cursorWidth',
-                    description:
-                        'Caret stroke width in logical pixels (default 2).'),
+                  icon: Icons.line_weight,
+                  name: 'cursorWidth',
+                  description:
+                      'Caret stroke width in logical pixels (default 2).',
+                ),
                 _CaretRow(
-                    icon: Icons.rounded_corner,
-                    name: 'cursorRadius',
-                    description:
-                        'Corner radius for the caret rectangle (Cupertino-ish).'),
+                  icon: Icons.rounded_corner,
+                  name: 'cursorRadius',
+                  description:
+                      'Corner radius for the caret rectangle (Cupertino-ish).',
+                ),
                 _CaretRow(
-                    icon: Icons.opacity,
-                    name: 'cursorOpacityAnimates',
-                    description:
-                        'Whether the caret blinks via an opacity animation.'),
+                  icon: Icons.opacity,
+                  name: 'cursorOpacityAnimates',
+                  description:
+                      'Whether the caret blinks via an opacity animation.',
+                ),
                 _CaretRow(
-                    icon: Icons.color_lens,
-                    name: 'cursorColor',
-                    description:
-                        'Caret colour, also propagated to drag handle painting.'),
+                  icon: Icons.color_lens,
+                  name: 'cursorColor',
+                  description:
+                      'Caret colour, also propagated to drag handle painting.',
+                ),
                 _CaretRow(
-                    icon: Icons.center_focus_strong,
-                    name: 'showCursor',
-                    description:
-                        'Hide the caret without disabling editing.'),
+                  icon: Icons.center_focus_strong,
+                  name: 'showCursor',
+                  description: 'Hide the caret without disabling editing.',
+                ),
               ],
             ),
           ),
@@ -613,14 +643,13 @@ dynamic build(BuildContext context) {
                       height: 64,
                       decoration: BoxDecoration(
                         gradient: const RadialGradient(
-                          colors: <Color>[
-                            Color(0xFFE0F7FA),
-                            Color(0xFF80DEEA),
-                          ],
+                          colors: <Color>[Color(0xFFE0F7FA), Color(0xFF80DEEA)],
                         ),
                         shape: BoxShape.circle,
-                        border:
-                            Border.all(color: const Color(0xFF00838F), width: 3),
+                        border: Border.all(
+                          color: const Color(0xFF00838F),
+                          width: 3,
+                        ),
                         boxShadow: const <BoxShadow>[
                           BoxShadow(
                             color: Color(0x4400838F),
@@ -629,8 +658,11 @@ dynamic build(BuildContext context) {
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.zoom_in,
-                          size: 36, color: Color(0xFF006064)),
+                      child: const Icon(
+                        Icons.zoom_in,
+                        size: 36,
+                        color: Color(0xFF006064),
+                      ),
                     ),
                     const SizedBox(width: 16),
                     const Expanded(
@@ -646,19 +678,22 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 16),
                 _MagnifierBullet(
-                    label: 'magnifierBuilder',
-                    detail:
-                        'Returns the widget displayed as the magnifier loupe.'),
+                  label: 'magnifierBuilder',
+                  detail:
+                      'Returns the widget displayed as the magnifier loupe.',
+                ),
                 _MagnifierBullet(
-                    label: 'shouldDisplayHandlesInMagnifier',
-                    detail:
-                        'Controls whether selection handles are visible inside '
-                        'the magnifier viewport.'),
+                  label: 'shouldDisplayHandlesInMagnifier',
+                  detail:
+                      'Controls whether selection handles are visible inside '
+                      'the magnifier viewport.',
+                ),
                 _MagnifierBullet(
-                    label: 'TextMagnifierConfiguration.disabled',
-                    detail:
-                        'Singleton that opts a TextField out of magnification '
-                        'entirely.'),
+                  label: 'TextMagnifierConfiguration.disabled',
+                  detail:
+                      'Singleton that opts a TextField out of magnification '
+                      'entirely.',
+                ),
               ],
             ),
           ),
@@ -992,9 +1027,10 @@ class _HeroChip extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.w600),
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ],
       ),
@@ -1166,14 +1202,18 @@ class _SelectionThemed extends StatelessWidget {
               Container(
                 width: 14,
                 height: 14,
-                decoration:
-                    BoxDecoration(color: handle, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  color: handle,
+                  shape: BoxShape.circle,
+                ),
               ),
               const SizedBox(width: 8),
               Text(
                 label,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
@@ -1253,7 +1293,10 @@ class _CompareCard extends StatelessWidget {
           Text(
             caption,
             style: const TextStyle(
-                fontSize: 12.5, fontStyle: FontStyle.italic, height: 1.35),
+              fontSize: 12.5,
+              fontStyle: FontStyle.italic,
+              height: 1.35,
+            ),
           ),
           const SizedBox(height: 10),
           body,
@@ -1296,7 +1339,10 @@ class _CaretRow extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 style: const TextStyle(
-                    color: Colors.black87, fontSize: 13.5, height: 1.35),
+                  color: Colors.black87,
+                  fontSize: 13.5,
+                  height: 1.35,
+                ),
                 children: <InlineSpan>[
                   TextSpan(
                     text: name,
@@ -1331,14 +1377,20 @@ class _MagnifierBullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Icon(Icons.fiber_manual_record,
-              size: 10, color: Color(0xFF006064)),
+          const Icon(
+            Icons.fiber_manual_record,
+            size: 10,
+            color: Color(0xFF006064),
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: RichText(
               text: TextSpan(
                 style: const TextStyle(
-                    color: Colors.black87, fontSize: 13, height: 1.4),
+                  color: Colors.black87,
+                  fontSize: 13,
+                  height: 1.4,
+                ),
                 children: <InlineSpan>[
                   TextSpan(
                     text: label,
@@ -1432,10 +1484,7 @@ class _ApiCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            summary,
-            style: const TextStyle(fontSize: 12.5, height: 1.35),
-          ),
+          Text(summary, style: const TextStyle(fontSize: 12.5, height: 1.35)),
         ],
       ),
     );
@@ -1484,10 +1533,7 @@ class _PitfallTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 3),
-                Text(
-                  body,
-                  style: const TextStyle(fontSize: 13, height: 1.4),
-                ),
+                Text(body, style: const TextStyle(fontSize: 13, height: 1.4)),
               ],
             ),
           ),

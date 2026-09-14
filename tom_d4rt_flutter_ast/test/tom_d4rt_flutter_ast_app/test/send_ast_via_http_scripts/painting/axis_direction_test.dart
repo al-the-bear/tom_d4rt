@@ -187,11 +187,7 @@ class _CompassCardPainter extends CustomPainter {
       ..strokeWidth = 3.5
       ..strokeCap = StrokeCap.round;
     final double shaftLen = half - 6;
-    canvas.drawLine(
-      Offset(-shaftLen + 4, 0),
-      Offset(shaftLen - 6, 0),
-      shaft,
-    );
+    canvas.drawLine(Offset(-shaftLen + 4, 0), Offset(shaftLen - 6, 0), shaft);
 
     final Paint head = Paint()
       ..color = accent
@@ -426,9 +422,11 @@ String _directionLabel(AxisDirection d) {
 // =============================================================================
 dynamic build(BuildContext context) {
   print('=== AxisDirection Deep Demo ===');
-  print('Hand-painted compass cards, four-up ListView grid, flip demo, '
-      'sliver demo, NestedScrollView, scroll-position tracking, '
-      'and use-case recipes for chat/gallery/bookshelf/feed.');
+  print(
+    'Hand-painted compass cards, four-up ListView grid, flip demo, '
+    'sliver demo, NestedScrollView, scroll-position tracking, '
+    'and use-case recipes for chat/gallery/bookshelf/feed.',
+  );
 
   // ===========================================================================
   // SECTION 1 — HERO
@@ -610,12 +608,17 @@ dynamic build(BuildContext context) {
                       spacing: 6,
                       runSpacing: 4,
                       children: [
-                        _kvChip('axis',
-                            axisDirectionToAxis(d).name, _compassInk),
-                        _kvChip('reversed',
-                            axisDirectionIsReversed(d).toString(), _compassInk),
-                        _kvChip('flip',
-                            flipAxisDirection(d).name, _compassInk),
+                        _kvChip(
+                          'axis',
+                          axisDirectionToAxis(d).name,
+                          _compassInk,
+                        ),
+                        _kvChip(
+                          'reversed',
+                          axisDirectionIsReversed(d).toString(),
+                          _compassInk,
+                        ),
+                        _kvChip('flip', flipAxisDirection(d).name, _compassInk),
                       ],
                     ),
                   ],
@@ -742,11 +745,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'Click "Flip" to swap to the opposite AxisDirection. '
                   'Notice that flipping twice always returns the original.',
-                  style: TextStyle(
-                    color: _flipInk,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: _flipInk, fontSize: 12, height: 1.4),
                 ),
                 const SizedBox(height: 12),
                 Row(
@@ -778,10 +777,7 @@ dynamic build(BuildContext context) {
                           Text(
                             'flipped = '
                             '${_directionLabel(flipAxisDirection(current))}',
-                            style: TextStyle(
-                              color: _flipInk,
-                              fontSize: 12,
-                            ),
+                            style: TextStyle(color: _flipInk, fontSize: 12),
                           ),
                           const SizedBox(height: 8),
                           Wrap(
@@ -871,11 +867,7 @@ dynamic build(BuildContext context) {
           'for AxisDirection.right and AxisDirection.down.  This is the '
           'value `ListView.reverse` should be set to when configuring a list '
           'from an AxisDirection.',
-          style: TextStyle(
-            color: _reversedInk,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _reversedInk, fontSize: 12, height: 1.4),
         ),
         const SizedBox(height: 10),
         Column(
@@ -911,8 +903,7 @@ dynamic build(BuildContext context) {
                     'reversed = $rev',
                     style: TextStyle(
                       color: rev ? _reversedAccent : _reversedInk,
-                      fontWeight:
-                          rev ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: rev ? FontWeight.bold : FontWeight.normal,
                       fontFamily: 'monospace',
                       fontSize: 12,
                     ),
@@ -1097,8 +1088,7 @@ dynamic build(BuildContext context) {
                         width: 24,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: _textDirAccent
-                              .withOpacity(0.20 + i * 0.12),
+                          color: _textDirAccent.withOpacity(0.20 + i * 0.12),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: _textDirAccent),
                         ),
@@ -1237,7 +1227,8 @@ dynamic build(BuildContext context) {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: _scrollPosInk.withOpacity(0.5)),
+                          color: _scrollPosInk.withOpacity(0.5),
+                        ),
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: ListView.builder(
@@ -1254,7 +1245,8 @@ dynamic build(BuildContext context) {
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                               color: _scrollPosAccent.withOpacity(
-                                  0.15 + (i % 6) * 0.08),
+                                0.15 + (i % 6) * 0.08,
+                              ),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
@@ -1274,17 +1266,23 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _kvChip('axis',
-                              axisDirectionToAxis(direction).name,
-                              _scrollPosInk),
+                          _kvChip(
+                            'axis',
+                            axisDirectionToAxis(direction).name,
+                            _scrollPosInk,
+                          ),
                           const SizedBox(height: 4),
-                          _kvChip('reversed',
-                              axisDirectionIsReversed(direction).toString(),
-                              _scrollPosInk),
+                          _kvChip(
+                            'reversed',
+                            axisDirectionIsReversed(direction).toString(),
+                            _scrollPosInk,
+                          ),
                           const SizedBox(height: 4),
-                          _kvChip('flip',
-                              flipAxisDirection(direction).name,
-                              _scrollPosInk),
+                          _kvChip(
+                            'flip',
+                            flipAxisDirection(direction).name,
+                            _scrollPosInk,
+                          ),
                           const SizedBox(height: 8),
                           Text(
                             'pixels = ${pixels.toStringAsFixed(1)}',
@@ -1345,31 +1343,28 @@ dynamic build(BuildContext context) {
             ),
           ),
           SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int i) {
-                final bool horizontal =
-                    axisDirectionToAxis(direction) == Axis.horizontal;
-                return Container(
-                  width: horizontal ? 60 : null,
-                  margin: const EdgeInsets.all(4),
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: _sliverAccent.withOpacity(0.12 + (i % 5) * 0.10),
-                    borderRadius: BorderRadius.circular(4),
+            delegate: SliverChildBuilderDelegate((BuildContext context, int i) {
+              final bool horizontal =
+                  axisDirectionToAxis(direction) == Axis.horizontal;
+              return Container(
+                width: horizontal ? 60 : null,
+                margin: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: _sliverAccent.withOpacity(0.12 + (i % 5) * 0.10),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  'sliver $i',
+                  style: TextStyle(
+                    color: _sliverInk,
+                    fontFamily: 'monospace',
+                    fontSize: 10,
                   ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'sliver $i',
-                    style: TextStyle(
-                      color: _sliverInk,
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                    ),
-                  ),
-                );
-              },
-              childCount: 18,
-            ),
+                ),
+              );
+            }, childCount: 18),
           ),
           SliverToBoxAdapter(
             child: Container(
@@ -1581,20 +1576,22 @@ dynamic build(BuildContext context) {
               ),
               clipBehavior: Clip.antiAlias,
               child: ListView.builder(
-                scrollDirection:
-                    axisDirectionToAxis(AxisDirection.up),
+                scrollDirection: axisDirectionToAxis(AxisDirection.up),
                 reverse: axisDirectionIsReversed(AxisDirection.up),
                 itemCount: 30,
                 padding: const EdgeInsets.all(6),
                 itemBuilder: (BuildContext context, int i) {
                   final bool me = i.isOdd;
                   return Align(
-                    alignment:
-                        me ? Alignment.centerRight : Alignment.centerLeft,
+                    alignment: me
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 2),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: me
                             ? _chatAccent.withOpacity(0.85)
@@ -1620,13 +1617,17 @@ dynamic build(BuildContext context) {
                 children: [
                   _kvChip('direction', 'up', _chatInk),
                   const SizedBox(height: 4),
-                  _kvChip('axis',
-                      axisDirectionToAxis(AxisDirection.up).name,
-                      _chatInk),
+                  _kvChip(
+                    'axis',
+                    axisDirectionToAxis(AxisDirection.up).name,
+                    _chatInk,
+                  ),
                   const SizedBox(height: 4),
-                  _kvChip('reversed',
-                      axisDirectionIsReversed(AxisDirection.up).toString(),
-                      _chatInk),
+                  _kvChip(
+                    'reversed',
+                    axisDirectionIsReversed(AxisDirection.up).toString(),
+                    _chatInk,
+                  ),
                 ],
               ),
             ),
@@ -1670,8 +1671,7 @@ dynamic build(BuildContext context) {
         SizedBox(
           height: 110,
           child: ListView.builder(
-            scrollDirection:
-                axisDirectionToAxis(AxisDirection.right),
+            scrollDirection: axisDirectionToAxis(AxisDirection.right),
             reverse: axisDirectionIsReversed(AxisDirection.right),
             itemCount: 16,
             padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -1729,11 +1729,7 @@ dynamic build(BuildContext context) {
         Text(
           'Top-down book or chapter list — the default for most content. '
           'Encoded as AxisDirection.down — vertical + forward.',
-          style: TextStyle(
-            color: _bookshelfInk,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _bookshelfInk, fontSize: 12, height: 1.4),
         ),
         const SizedBox(height: 8),
         Container(
@@ -1745,22 +1741,21 @@ dynamic build(BuildContext context) {
           ),
           clipBehavior: Clip.antiAlias,
           child: ListView.builder(
-            scrollDirection:
-                axisDirectionToAxis(AxisDirection.down),
+            scrollDirection: axisDirectionToAxis(AxisDirection.down),
             reverse: axisDirectionIsReversed(AxisDirection.down),
             itemCount: 24,
             itemBuilder: (BuildContext context, int i) {
               return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Row(
                   children: [
                     Container(
                       width: 24,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: _bookshelfAccent
-                            .withOpacity(0.20 + (i % 5) * 0.10),
+                        color: _bookshelfAccent.withOpacity(
+                          0.20 + (i % 5) * 0.10,
+                        ),
                         borderRadius: BorderRadius.circular(2),
                         border: Border.all(color: _bookshelfAccent),
                       ),
@@ -1851,8 +1846,7 @@ dynamic build(BuildContext context) {
                 );
               }
               return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
@@ -1887,8 +1881,7 @@ dynamic build(BuildContext context) {
     },
     {
       'direction': 'AxisDirection.right',
-      'use_for':
-          'Horizontal LTR carousels: galleries, tabs, story strips.',
+      'use_for': 'Horizontal LTR carousels: galleries, tabs, story strips.',
     },
     {
       'direction': 'AxisDirection.up',
@@ -1932,7 +1925,9 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 150,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 4),
+                    horizontal: 6,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: _decisionAccent.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(4),
@@ -2139,8 +2134,12 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               hero,
-              _sectionHeader('2', 'Compass cards per AxisDirection',
-                  _compassBg, _compassInk),
+              _sectionHeader(
+                '2',
+                'Compass cards per AxisDirection',
+                _compassBg,
+                _compassInk,
+              ),
               _bodyText(
                 'Each card pairs a hand-painted arrow with the matching '
                 'enum value, plus a faint axis line that highlights '
@@ -2152,24 +2151,36 @@ dynamic build(BuildContext context) {
                 'Tip: rotation = right(0), down(+90°), left(180°), up(-90°).',
                 _compassInk,
               ),
-              _sectionHeader('3', 'Four ListViews — one per direction',
-                  _listsBg, _listsInk),
+              _sectionHeader(
+                '3',
+                'Four ListViews — one per direction',
+                _listsBg,
+                _listsInk,
+              ),
               listsSection,
               _footerCaption(
                 'Each preview is a real ListView.builder configured from a '
                 'single AxisDirection via the helpers.',
                 _listsInk,
               ),
-              _sectionHeader('4', 'flipAxisDirection — interactive',
-                  _flipBg, _flipInk),
+              _sectionHeader(
+                '4',
+                'flipAxisDirection — interactive',
+                _flipBg,
+                _flipInk,
+              ),
               flipSection,
               _footerCaption(
                 'flip(flip(x)) == x for every AxisDirection — the helper is '
                 'an involution.',
                 _flipInk,
               ),
-              _sectionHeader('5', 'axisDirectionIsReversed — truth table',
-                  _reversedBg, _reversedInk),
+              _sectionHeader(
+                '5',
+                'axisDirectionIsReversed — truth table',
+                _reversedBg,
+                _reversedInk,
+              ),
               reversedSection,
               _footerCaption(
                 'Reversal is shared between AxisDirection.up and '
@@ -2177,40 +2188,55 @@ dynamic build(BuildContext context) {
                 'reading order.',
                 _reversedInk,
               ),
-              _sectionHeader('6', 'axisDirectionToAxis — projection',
-                  _toAxisBg, _toAxisInk),
+              _sectionHeader(
+                '6',
+                'axisDirectionToAxis — projection',
+                _toAxisBg,
+                _toAxisInk,
+              ),
               toAxisSection,
               _footerCaption(
                 'Use this when you only care about orientation — for '
                 'example when configuring a Flex.',
                 _toAxisInk,
               ),
-              _sectionHeader('7', 'textDirectionToAxisDirection',
-                  _textDirBg, _textDirInk),
+              _sectionHeader(
+                '7',
+                'textDirectionToAxisDirection',
+                _textDirBg,
+                _textDirInk,
+              ),
               textDirSection,
               _footerCaption(
                 'This is how a Directionality ancestor turns into a '
                 'horizontal AxisDirection at layout time.',
                 _textDirInk,
               ),
-              _sectionHeader('8', 'ScrollController + AxisDirection',
-                  _scrollPosBg, _scrollPosInk),
+              _sectionHeader(
+                '8',
+                'ScrollController + AxisDirection',
+                _scrollPosBg,
+                _scrollPosInk,
+              ),
               scrollPosSection,
               _footerCaption(
                 'pixels grow from 0 at the origin edge, regardless of '
                 'whether that edge is visually top or bottom.',
                 _scrollPosInk,
               ),
-              _sectionHeader('9', 'CustomScrollView slivers',
-                  _sliverBg, _sliverInk),
+              _sectionHeader(
+                '9',
+                'CustomScrollView slivers',
+                _sliverBg,
+                _sliverInk,
+              ),
               sliverSection,
               _footerCaption(
                 'Slivers honour the same scrollDirection + reverse pair '
                 'derived from AxisDirection.',
                 _sliverInk,
               ),
-              _sectionHeader('10', 'NestedScrollView',
-                  _nestedBg, _nestedInk),
+              _sectionHeader('10', 'NestedScrollView', _nestedBg, _nestedInk),
               nestedSection,
               _footerCaption(
                 'Outer is fixed AxisDirection.down; inner viewport may be '
@@ -2224,35 +2250,45 @@ dynamic build(BuildContext context) {
                 'with index 0 = latest.',
                 _chatInk,
               ),
-              _sectionHeader('12', 'Recipe: gallery (right)',
-                  _galleryBg, _galleryInk),
+              _sectionHeader(
+                '12',
+                'Recipe: gallery (right)',
+                _galleryBg,
+                _galleryInk,
+              ),
               gallerySection,
               _footerCaption(
                 'AxisDirection.right is the canonical horizontal LTR '
                 'forward viewport.',
                 _galleryInk,
               ),
-              _sectionHeader('13', 'Recipe: bookshelf (down)',
-                  _bookshelfBg, _bookshelfInk),
+              _sectionHeader(
+                '13',
+                'Recipe: bookshelf (down)',
+                _bookshelfBg,
+                _bookshelfInk,
+              ),
               bookshelfSection,
               _footerCaption(
                 'AxisDirection.down is the most common direction — the '
                 'default for vertical ListView.',
                 _bookshelfInk,
               ),
-              _sectionHeader('14', 'Recipe: feed (down + refresh)',
-                  _feedBg, _feedInk),
+              _sectionHeader(
+                '14',
+                'Recipe: feed (down + refresh)',
+                _feedBg,
+                _feedInk,
+              ),
               feedSection,
               _footerCaption(
                 'Refresh affordance lives at the start edge of the '
                 'AxisDirection — visual top for AxisDirection.down.',
                 _feedInk,
               ),
-              _sectionHeader('15', 'Decision card',
-                  _decisionBg, _decisionInk),
+              _sectionHeader('15', 'Decision card', _decisionBg, _decisionInk),
               decisionSection,
-              _sectionHeader('16', 'Reference table',
-                  _refBg, _refInk),
+              _sectionHeader('16', 'Reference table', _refBg, _refInk),
               referenceSection,
             ],
           ),

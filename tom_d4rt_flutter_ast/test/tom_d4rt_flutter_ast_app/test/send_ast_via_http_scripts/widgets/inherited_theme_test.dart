@@ -36,10 +36,12 @@ class _InheritedThemeDeepDemoPage extends StatefulWidget {
   const _InheritedThemeDeepDemoPage();
 
   @override
-  State<_InheritedThemeDeepDemoPage> createState() => _InheritedThemeDeepDemoPageState();
+  State<_InheritedThemeDeepDemoPage> createState() =>
+      _InheritedThemeDeepDemoPageState();
 }
 
-class _InheritedThemeDeepDemoPageState extends State<_InheritedThemeDeepDemoPage> {
+class _InheritedThemeDeepDemoPageState
+    extends State<_InheritedThemeDeepDemoPage> {
   bool _compact = false;
   bool _showGrid = true;
   bool _showLabels = true;
@@ -81,7 +83,10 @@ class _InheritedThemeDeepDemoPageState extends State<_InheritedThemeDeepDemoPage
                 const SizedBox(height: 2),
                 Text(
                   'Root accent: #${_root.accent.toARGB32().toRadixString(16).toUpperCase()} | radius ${_root.cornerRadius.toStringAsFixed(1)} | density ${_root.density.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -103,7 +108,8 @@ class _InheritedThemeDeepDemoPageState extends State<_InheritedThemeDeepDemoPage
                   onShowLabelsChanged: (v) => setState(() => _showLabels = v),
                   onRtlChanged: (v) => setState(() => _rtl = v),
                   onScaleChanged: (v) => setState(() => _scale = v),
-                  onRootRandomize: () => setState(() => _root = _root.randomized()),
+                  onRootRandomize: () =>
+                      setState(() => _root = _root.randomized()),
                   onRootReset: () => setState(
                     () => _root = const PanelThemeData(
                       accent: _cBlue,
@@ -258,7 +264,8 @@ class PanelThemeData {
   }
 
   @override
-  int get hashCode => Object.hash(accent, surface, border, glow, cornerRadius, density);
+  int get hashCode =>
+      Object.hash(accent, surface, border, glow, cornerRadius, density);
 }
 
 class PanelTheme extends InheritedTheme {
@@ -277,7 +284,9 @@ class PanelTheme extends InheritedTheme {
   static PanelThemeData read(BuildContext context) {
     final theme = context.getInheritedWidgetOfExactType<PanelTheme>();
     if (theme == null) {
-      throw FlutterError('PanelTheme.read called with no PanelTheme in context.');
+      throw FlutterError(
+        'PanelTheme.read called with no PanelTheme in context.',
+      );
     }
     return theme.data;
   }
@@ -358,7 +367,11 @@ class _TopDeck extends StatelessWidget {
           children: [
             const Text(
               'InheritedTheme Control Deck',
-              style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28,
+                fontWeight: FontWeight.w800,
+              ),
             ),
             const SizedBox(height: 6),
             const Text(
@@ -372,54 +385,84 @@ class _TopDeck extends StatelessWidget {
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    value: compact,
-                    onChanged: onCompactChanged,
-                    title: const Text('Compact', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                  ),
-                  ),
-                ),
-                Expanded(
-                  child: Material(
-                    type: MaterialType.transparency,
-                    child: SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    value: showGrid,
-                    onChanged: onShowGridChanged,
-                    title: const Text('Guide grid', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                  ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: compact,
+                      onChanged: onCompactChanged,
+                      title: const Text(
+                        'Compact',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    value: showLabels,
-                    onChanged: onShowLabelsChanged,
-                    title: const Text('Labels', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                  ),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: showGrid,
+                      onChanged: onShowGridChanged,
+                      title: const Text(
+                        'Guide grid',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
                   child: Material(
                     type: MaterialType.transparency,
                     child: SwitchListTile(
-                    dense: true,
-                    contentPadding: EdgeInsets.zero,
-                    value: rtl,
-                    onChanged: onRtlChanged,
-                    title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: showLabels,
+                      onChanged: onShowLabelsChanged,
+                      title: const Text(
+                        'Labels',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ),
+                ),
+                Expanded(
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: SwitchListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      value: rtl,
+                      onChanged: onRtlChanged,
+                      title: const Text(
+                        'RTL',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 4),
-            Text('Global scale: ${scale.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+            Text(
+              'Global scale: ${scale.toStringAsFixed(2)}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Slider(
               value: scale,
               min: 0.75,
@@ -434,12 +477,26 @@ class _TopDeck extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: _DeckMetric(label: 'accent', value: '#${root.accent.toARGB32().toRadixString(16).toUpperCase()}'),
+                  child: _DeckMetric(
+                    label: 'accent',
+                    value:
+                        '#${root.accent.toARGB32().toRadixString(16).toUpperCase()}',
+                  ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(child: _DeckMetric(label: 'radius', value: root.cornerRadius.toStringAsFixed(1))),
+                Expanded(
+                  child: _DeckMetric(
+                    label: 'radius',
+                    value: root.cornerRadius.toStringAsFixed(1),
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Expanded(child: _DeckMetric(label: 'density', value: root.density.toStringAsFixed(2))),
+                Expanded(
+                  child: _DeckMetric(
+                    label: 'density',
+                    value: root.density.toStringAsFixed(2),
+                  ),
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Row(
@@ -447,7 +504,9 @@ class _TopDeck extends StatelessWidget {
                       Expanded(
                         child: FilledButton.tonal(
                           onPressed: onRootRandomize,
-                          style: FilledButton.styleFrom(foregroundColor: Colors.white),
+                          style: FilledButton.styleFrom(
+                            foregroundColor: Colors.white,
+                          ),
                           child: const Text('Randomize'),
                         ),
                       ),
@@ -455,7 +514,10 @@ class _TopDeck extends StatelessWidget {
                       Expanded(
                         child: OutlinedButton(
                           onPressed: onRootReset,
-                          style: OutlinedButton.styleFrom(foregroundColor: Colors.white, side: const BorderSide(color: Colors.white70)),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            side: const BorderSide(color: Colors.white70),
+                          ),
                           child: const Text('Reset'),
                         ),
                       ),
@@ -489,9 +551,22 @@ class _DeckMetric extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(color: Colors.white70, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 1),
-          Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         ],
       ),
     );
@@ -520,7 +595,11 @@ class _SceneCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 6)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 6),
+          ),
         ],
       ),
       child: Padding(
@@ -535,16 +614,32 @@ class _SceneCard extends StatelessWidget {
                   radius: 14,
                   backgroundColor: accent,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 18)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: accent,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 18,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF2F4454), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF2F4454),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -592,7 +687,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Fundamental controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamental controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       SegmentedButton<int>(
                         segments: const [
@@ -601,28 +699,29 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           ButtonSegment(value: 2, label: Text('Bars')),
                         ],
                         selected: {_view},
-                        onSelectionChanged: (v) => setState(() => _view = v.first),
+                        onSelectionChanged: (v) =>
+                            setState(() => _view = v.first),
                       ),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _showBounds,
-                        onChanged: (v) => setState(() => _showBounds = v),
-                        title: const Text('Show panel bounds'),
-                      ),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _showBounds,
+                          onChanged: (v) => setState(() => _showBounds = v),
+                          title: const Text('Show panel bounds'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _showLabels,
-                        onChanged: (v) => setState(() => _showLabels = v),
-                        title: const Text('Show role labels'),
-                      ),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _showLabels,
+                          onChanged: (v) => setState(() => _showLabels = v),
+                          title: const Text('Show role labels'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _ThemeInfoTable(data: root),
@@ -634,12 +733,27 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Core principles', style: TextStyle(fontWeight: FontWeight.w800)),
+                            Text(
+                              'Core principles',
+                              style: TextStyle(fontWeight: FontWeight.w800),
+                            ),
                             SizedBox(height: 6),
-                            _BulletText(text: 'InheritedTheme is still an InheritedWidget with notifier-less semantics by default.'),
-                            _BulletText(text: 'wrap() enables theme re-application when subtree is moved.'),
-                            _BulletText(text: 'captureAll() snapshots inherited themes from one context and wraps another child.'),
-                            _BulletText(text: 'Use Theme-like classes for predictable, reusable visual contracts.'),
+                            _BulletText(
+                              text:
+                                  'InheritedTheme is still an InheritedWidget with notifier-less semantics by default.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'wrap() enables theme re-application when subtree is moved.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'captureAll() snapshots inherited themes from one context and wraps another child.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'Use Theme-like classes for predictable, reusable visual contracts.',
+                            ),
                           ],
                         ),
                       ),
@@ -659,7 +773,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                 child: IndexedStack(
                   index: _view,
                   children: [
-                    _ThemeTreePreview(showBounds: _showBounds, showLabels: _showLabels),
+                    _ThemeTreePreview(
+                      showBounds: _showBounds,
+                      showLabels: _showLabels,
+                    ),
                     _ThemeCardsPreview(showBounds: _showBounds),
                     _ThemeBarsPreview(showLabels: _showLabels),
                   ],
@@ -686,7 +803,10 @@ class _ThemeTreePreview extends StatelessWidget {
       decoration: BoxDecoration(
         color: root.surface,
         borderRadius: BorderRadius.circular(root.cornerRadius),
-        border: Border.all(color: showBounds ? root.border : root.border.withValues(alpha: 0.22), width: showBounds ? 2 : 1),
+        border: Border.all(
+          color: showBounds ? root.border : root.border.withValues(alpha: 0.22),
+          width: showBounds ? 2 : 1,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -694,7 +814,13 @@ class _ThemeTreePreview extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (showLabels)
-              Text('Root PanelTheme', style: TextStyle(color: root.accent, fontWeight: FontWeight.w800)),
+              Text(
+                'Root PanelTheme',
+                style: TextStyle(
+                  color: root.accent,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             const SizedBox(height: 8),
             Expanded(
               child: Row(
@@ -745,7 +871,11 @@ class _ThemeTreePreview extends StatelessWidget {
 }
 
 class _MiniThemeNode extends StatelessWidget {
-  const _MiniThemeNode({required this.title, this.data, required this.showLabel});
+  const _MiniThemeNode({
+    required this.title,
+    this.data,
+    required this.showLabel,
+  });
 
   final String title;
   final PanelThemeData? data;
@@ -761,18 +891,37 @@ class _MiniThemeNode extends StatelessWidget {
         borderRadius: BorderRadius.circular(d.cornerRadius),
         border: Border.all(color: d.border),
         boxShadow: [
-          BoxShadow(color: d.glow.withValues(alpha: 0.22), blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: d.glow.withValues(alpha: 0.22),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (showLabel)
-            Text(title, style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 12)),
+            Text(
+              title,
+              style: TextStyle(
+                color: d.accent,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+              ),
+            ),
           const SizedBox(height: 6),
-          _StatPill(label: 'radius', value: d.cornerRadius.toStringAsFixed(1), color: d.accent),
+          _StatPill(
+            label: 'radius',
+            value: d.cornerRadius.toStringAsFixed(1),
+            color: d.accent,
+          ),
           const SizedBox(height: 6),
-          _StatPill(label: 'density', value: d.density.toStringAsFixed(2), color: d.accent),
+          _StatPill(
+            label: 'density',
+            value: d.density.toStringAsFixed(2),
+            color: d.accent,
+          ),
           const Spacer(),
           Container(
             height: 8,
@@ -784,7 +933,10 @@ class _MiniThemeNode extends StatelessWidget {
             child: FractionallySizedBox(
               widthFactor: d.density.clamp(0.0, 1.0),
               child: Container(
-                decoration: BoxDecoration(color: d.accent, borderRadius: BorderRadius.circular(999)),
+                decoration: BoxDecoration(
+                  color: d.accent,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
             ),
           ),
@@ -806,21 +958,20 @@ class _ThemeCardsPreview extends StatelessWidget {
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
       childAspectRatio: 1.05,
-      children: List<Widget>.generate(
-        6,
-        (i) {
-          final d = PanelTheme.of(context);
-          final tone = HSLColor.fromColor(d.accent).withHue((HSLColor.fromColor(d.accent).hue + (i * 14)) % 360).toColor();
-          return PanelTheme(
-            data: d.copyWith(
-              accent: tone,
-              border: tone.withValues(alpha: 0.4),
-              surface: Color.lerp(Colors.white, tone, 0.08)!,
-            ),
-            child: _CardThemeTile(index: i, showBounds: showBounds),
-          );
-        },
-      ),
+      children: List<Widget>.generate(6, (i) {
+        final d = PanelTheme.of(context);
+        final tone = HSLColor.fromColor(d.accent)
+            .withHue((HSLColor.fromColor(d.accent).hue + (i * 14)) % 360)
+            .toColor();
+        return PanelTheme(
+          data: d.copyWith(
+            accent: tone,
+            border: tone.withValues(alpha: 0.4),
+            surface: Color.lerp(Colors.white, tone, 0.08)!,
+          ),
+          child: _CardThemeTile(index: i, showBounds: showBounds),
+        );
+      }),
     );
   }
 }
@@ -844,7 +995,10 @@ class _CardThemeTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tile ${index + 1}', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800)),
+          Text(
+            'Tile ${index + 1}',
+            style: TextStyle(color: d.accent, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: Container(
@@ -859,7 +1013,13 @@ class _CardThemeTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text('density ${d.density.toStringAsFixed(2)}', style: TextStyle(fontSize: 11, color: d.accent.withValues(alpha: 0.85))),
+          Text(
+            'density ${d.density.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: 11,
+              color: d.accent.withValues(alpha: 0.85),
+            ),
+          ),
         ],
       ),
     );
@@ -892,7 +1052,13 @@ class _ThemeBarsPreview extends StatelessWidget {
                   if (showLabels)
                     SizedBox(
                       width: 120,
-                      child: Text('Segment ${i + 1}', style: TextStyle(color: d.accent, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        'Segment ${i + 1}',
+                        style: TextStyle(
+                          color: d.accent,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   Expanded(
                     child: Container(
@@ -974,44 +1140,53 @@ class _LayeredOverridesSceneState extends State<_LayeredOverridesScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Override toggles', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Override toggles',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _enableMiddle,
-                        onChanged: (v) => setState(() => _enableMiddle = v),
-                        title: const Text('Enable middle theme layer'),
-                      ),
-                      ),
-                      Material(
-                        type: MaterialType.transparency,
-                        child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _enableInner,
-                        onChanged: (v) => setState(() => _enableInner = v),
-                        title: const Text('Enable inner theme layer'),
-                      ),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _enableMiddle,
+                          onChanged: (v) => setState(() => _enableMiddle = v),
+                          title: const Text('Enable middle theme layer'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _showBorders,
-                        onChanged: (v) => setState(() => _showBorders = v),
-                        title: const Text('Show layer border emphasis'),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _enableInner,
+                          onChanged: (v) => setState(() => _enableInner = v),
+                          title: const Text('Enable inner theme layer'),
+                        ),
                       ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _showBorders,
+                          onChanged: (v) => setState(() => _showBorders = v),
+                          title: const Text('Show layer border emphasis'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       _ThemeInfoTable(data: root, title: 'Root data'),
                       const SizedBox(height: 8),
-                      _ThemeInfoTable(data: middle, title: 'Middle override data'),
+                      _ThemeInfoTable(
+                        data: middle,
+                        title: 'Middle override data',
+                      ),
                       const SizedBox(height: 8),
-                      _ThemeInfoTable(data: inner, title: 'Inner override data'),
+                      _ThemeInfoTable(
+                        data: inner,
+                        title: 'Inner override data',
+                      ),
                     ],
                   ),
                 ),
@@ -1032,12 +1207,16 @@ class _LayeredOverridesSceneState extends State<_LayeredOverridesScene> {
                   child: _enableMiddle
                       ? _layer(
                           data: middle,
-                          borderColor: _showBorders ? middle.border : Colors.transparent,
+                          borderColor: _showBorders
+                              ? middle.border
+                              : Colors.transparent,
                           label: 'Middle Layer',
                           child: _enableInner
                               ? _layer(
                                   data: inner,
-                                  borderColor: _showBorders ? inner.border : Colors.transparent,
+                                  borderColor: _showBorders
+                                      ? inner.border
+                                      : Colors.transparent,
                                   label: 'Inner Layer',
                                   child: const _LayerProbeGrid(),
                                 )
@@ -1075,7 +1254,13 @@ class _LayeredOverridesSceneState extends State<_LayeredOverridesScene> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: TextStyle(color: d.accent, fontWeight: FontWeight.w800)),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: d.accent,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Expanded(child: child),
               ],
@@ -1097,10 +1282,7 @@ class _LayerProbeGrid extends StatelessWidget {
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
       childAspectRatio: 1.15,
-      children: List<Widget>.generate(
-        6,
-        (i) => _LayerProbeCard(index: i),
-      ),
+      children: List<Widget>.generate(6, (i) => _LayerProbeCard(index: i)),
     );
   }
 }
@@ -1123,14 +1305,27 @@ class _LayerProbeCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Probe ${index + 1}', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 12)),
+          Text(
+            'Probe ${index + 1}',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 6),
           Expanded(
             child: Center(
               child: Icon(Icons.layers_rounded, color: d.accent, size: 26),
             ),
           ),
-          Text('radius ${d.cornerRadius.toStringAsFixed(1)}', style: TextStyle(fontSize: 11, color: d.accent.withValues(alpha: 0.85))),
+          Text(
+            'radius ${d.cornerRadius.toStringAsFixed(1)}',
+            style: TextStyle(
+              fontSize: 11,
+              color: d.accent.withValues(alpha: 0.85),
+            ),
+          ),
         ],
       ),
     );
@@ -1186,37 +1381,42 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('captureAll controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'captureAll controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _preserve,
-                        onChanged: (v) => setState(() => _preserve = v),
-                        title: const Text('Preserve source inherited theme using captureAll'),
-                      ),
-                      ),
-                      Material(
-                        type: MaterialType.transparency,
-                        child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _foreignTint,
-                        onChanged: (v) => setState(() => _foreignTint = v),
-                        title: const Text('Use olive foreign target theme'),
-                      ),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _preserve,
+                          onChanged: (v) => setState(() => _preserve = v),
+                          title: const Text(
+                            'Preserve source inherited theme using captureAll',
+                          ),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        value: _showWire,
-                        onChanged: (v) => setState(() => _showWire = v),
-                        title: const Text('Show transfer wire overlay'),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _foreignTint,
+                          onChanged: (v) => setState(() => _foreignTint = v),
+                          title: const Text('Use olive foreign target theme'),
+                        ),
                       ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          value: _showWire,
+                          onChanged: (v) => setState(() => _showWire = v),
+                          title: const Text('Show transfer wire overlay'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Container(
@@ -1226,12 +1426,27 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('How to read this scene', style: TextStyle(fontWeight: FontWeight.w800)),
+                            Text(
+                              'How to read this scene',
+                              style: TextStyle(fontWeight: FontWeight.w800),
+                            ),
                             SizedBox(height: 6),
-                            _BulletText(text: 'Left side defines source context with a violet local PanelTheme.'),
-                            _BulletText(text: 'Right side is wrapped by a foreign target theme.'),
-                            _BulletText(text: 'Without captureAll, moved child resolves foreign target theme.'),
-                            _BulletText(text: 'With captureAll, moved child keeps source inherited theme.'),
+                            _BulletText(
+                              text:
+                                  'Left side defines source context with a violet local PanelTheme.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'Right side is wrapped by a foreign target theme.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'Without captureAll, moved child resolves foreign target theme.',
+                            ),
+                            _BulletText(
+                              text:
+                                  'With captureAll, moved child keeps source inherited theme.',
+                            ),
                           ],
                         ),
                       ),
@@ -1255,7 +1470,10 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
                       child: Builder(
                         builder: (sourceContext) {
                           final moved = _preserve
-                              ? InheritedTheme.captureAll(sourceContext, const _TransferPayload())
+                              ? InheritedTheme.captureAll(
+                                  sourceContext,
+                                  const _TransferPayload(),
+                                )
                               : const _TransferPayload();
 
                           return Stack(
@@ -1287,9 +1505,7 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
                                   left: 0,
                                   right: 0,
                                   top: 130,
-                                  child: IgnorePointer(
-                                    child: _TransferWire(),
-                                  ),
+                                  child: IgnorePointer(child: _TransferWire()),
                                 ),
                             ],
                           );
@@ -1306,7 +1522,11 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
     );
   }
 
-  Widget _transferZone({required String title, required String note, required Widget child}) {
+  Widget _transferZone({
+    required String title,
+    required String note,
+    required Widget child,
+  }) {
     return Builder(
       builder: (context) {
         final d = PanelTheme.of(context);
@@ -1320,9 +1540,18 @@ class _CaptureAllSceneState extends State<_CaptureAllScene> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(color: d.accent, fontWeight: FontWeight.w800)),
+              Text(
+                title,
+                style: TextStyle(color: d.accent, fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 2),
-              Text(note, style: TextStyle(color: d.accent.withValues(alpha: 0.82), fontSize: 12)),
+              Text(
+                note,
+                style: TextStyle(
+                  color: d.accent.withValues(alpha: 0.82),
+                  fontSize: 12,
+                ),
+              ),
               const SizedBox(height: 8),
               Expanded(child: child),
             ],
@@ -1346,15 +1575,29 @@ class _TransferPayload extends StatelessWidget {
         borderRadius: BorderRadius.circular(d.cornerRadius * 0.8),
         border: Border.all(color: d.accent.withValues(alpha: 0.30)),
         boxShadow: [
-          BoxShadow(color: d.glow.withValues(alpha: 0.30), blurRadius: 10, offset: const Offset(0, 5)),
+          BoxShadow(
+            color: d.glow.withValues(alpha: 0.30),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Moved Child', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 16)),
+          Text(
+            'Moved Child',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
+          ),
           const SizedBox(height: 8),
-          _InfoRow(label: 'accent', value: '#${d.accent.toARGB32().toRadixString(16).toUpperCase()}'),
+          _InfoRow(
+            label: 'accent',
+            value: '#${d.accent.toARGB32().toRadixString(16).toUpperCase()}',
+          ),
           _InfoRow(label: 'radius', value: d.cornerRadius.toStringAsFixed(1)),
           _InfoRow(label: 'density', value: d.density.toStringAsFixed(2)),
           const Spacer(),
@@ -1369,7 +1612,10 @@ class _TransferPayload extends StatelessWidget {
             child: FractionallySizedBox(
               widthFactor: d.density.clamp(0.0, 1.0),
               child: Container(
-                decoration: BoxDecoration(color: d.accent, borderRadius: BorderRadius.circular(999)),
+                decoration: BoxDecoration(
+                  color: d.accent,
+                  borderRadius: BorderRadius.circular(999),
+                ),
               ),
             ),
           ),
@@ -1405,7 +1651,14 @@ class _WirePainter extends CustomPainter {
 
     final path = Path()
       ..moveTo(size.width * 0.28, size.height * 0.5)
-      ..cubicTo(size.width * 0.40, 0, size.width * 0.60, size.height, size.width * 0.72, size.height * 0.5);
+      ..cubicTo(
+        size.width * 0.40,
+        0,
+        size.width * 0.60,
+        size.height,
+        size.width * 0.72,
+        size.height * 0.5,
+      );
     canvas.drawPath(path, p);
 
     final arrow = Paint()..color = const Color(0xAA4E6A80);
@@ -1454,7 +1707,10 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Rebuild controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Rebuild controls',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     FilledButton.tonal(
                       onPressed: () {
@@ -1468,11 +1724,15 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                         Expanded(
                           child: FilledButton.tonal(
                             onPressed: () {
-                              final pageState = context.findAncestorStateOfType<_InheritedThemeDeepDemoPageState>();
+                              final pageState = context
+                                  .findAncestorStateOfType<
+                                    _InheritedThemeDeepDemoPageState
+                                  >();
                               if (pageState != null) {
                                 pageState.setState(() {
                                   pageState._root = pageState._root.copyWith(
-                                    density: (pageState._root.density + 0.05).clamp(0.0, 1.0),
+                                    density: (pageState._root.density + 0.05)
+                                        .clamp(0.0, 1.0),
                                   );
                                 });
                               }
@@ -1484,13 +1744,25 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                         Expanded(
                           child: FilledButton.tonal(
                             onPressed: () {
-                              final pageState = context.findAncestorStateOfType<_InheritedThemeDeepDemoPageState>();
+                              final pageState = context
+                                  .findAncestorStateOfType<
+                                    _InheritedThemeDeepDemoPageState
+                                  >();
                               if (pageState != null) {
                                 pageState.setState(() {
                                   pageState._root = pageState._root.copyWith(
-                                    accent: HSLColor.fromColor(pageState._root.accent)
-                                        .withHue((HSLColor.fromColor(pageState._root.accent).hue + 16) % 360)
-                                        .toColor(),
+                                    accent:
+                                        HSLColor.fromColor(
+                                              pageState._root.accent,
+                                            )
+                                            .withHue(
+                                              (HSLColor.fromColor(
+                                                        pageState._root.accent,
+                                                      ).hue +
+                                                      16) %
+                                                  360,
+                                            )
+                                            .toColor(),
                                   );
                                 });
                               }
@@ -1510,11 +1782,22 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Observation checklist', style: TextStyle(fontWeight: FontWeight.w800)),
+                          Text(
+                            'Observation checklist',
+                            style: TextStyle(fontWeight: FontWeight.w800),
+                          ),
                           SizedBox(height: 6),
-                          _BulletText(text: 'watch cards rebuild on root theme changes.'),
-                          _BulletText(text: 'read-once card updates only when refresh is pressed.'),
-                          _BulletText(text: 'static card only follows parent local setState.'),
+                          _BulletText(
+                            text: 'watch cards rebuild on root theme changes.',
+                          ),
+                          _BulletText(
+                            text:
+                                'read-once card updates only when refresh is pressed.',
+                          ),
+                          _BulletText(
+                            text:
+                                'static card only follows parent local setState.',
+                          ),
                         ],
                       ),
                     ),
@@ -1535,11 +1818,26 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                     Expanded(
                       child: Row(
                         children: [
-                          Expanded(child: _WatchBuildCard(title: 'Watch Card A', tone: _cBlue)),
+                          Expanded(
+                            child: _WatchBuildCard(
+                              title: 'Watch Card A',
+                              tone: _cBlue,
+                            ),
+                          ),
                           SizedBox(width: 8),
-                          Expanded(child: _WatchBuildCard(title: 'Watch Card B', tone: _cTeal)),
+                          Expanded(
+                            child: _WatchBuildCard(
+                              title: 'Watch Card B',
+                              tone: _cTeal,
+                            ),
+                          ),
                           SizedBox(width: 8),
-                          Expanded(child: _ReadBuildCard(title: 'Read Card', tone: _cAmber)),
+                          Expanded(
+                            child: _ReadBuildCard(
+                              title: 'Read Card',
+                              tone: _cAmber,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1547,11 +1845,26 @@ class _RebuildBehaviorSceneState extends State<_RebuildBehaviorScene> {
                     Expanded(
                       child: Row(
                         children: [
-                          Expanded(child: _StaticBuildCard(title: 'Static Card', tone: _cViolet)),
+                          Expanded(
+                            child: _StaticBuildCard(
+                              title: 'Static Card',
+                              tone: _cViolet,
+                            ),
+                          ),
                           SizedBox(width: 8),
-                          Expanded(child: _WatchBuildCard(title: 'Watch Card C', tone: _cRose)),
+                          Expanded(
+                            child: _WatchBuildCard(
+                              title: 'Watch Card C',
+                              tone: _cRose,
+                            ),
+                          ),
                           SizedBox(width: 8),
-                          Expanded(child: _WatchBuildCard(title: 'Watch Card D', tone: _cOlive)),
+                          Expanded(
+                            child: _WatchBuildCard(
+                              title: 'Watch Card D',
+                              tone: _cOlive,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1583,11 +1896,23 @@ class _WatchBuildCard extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('builds: $builds', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+            Text(
+              'builds: $builds',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
-            Text('accent: #${d.accent.toARGB32().toRadixString(16).toUpperCase()}', style: const TextStyle(fontSize: 11)),
-            Text('radius: ${d.cornerRadius.toStringAsFixed(1)}', style: const TextStyle(fontSize: 11)),
-            Text('density: ${d.density.toStringAsFixed(2)}', style: const TextStyle(fontSize: 11)),
+            Text(
+              'accent: #${d.accent.toARGB32().toRadixString(16).toUpperCase()}',
+              style: const TextStyle(fontSize: 11),
+            ),
+            Text(
+              'radius: ${d.cornerRadius.toStringAsFixed(1)}',
+              style: const TextStyle(fontSize: 11),
+            ),
+            Text(
+              'density: ${d.density.toStringAsFixed(2)}',
+              style: const TextStyle(fontSize: 11),
+            ),
             const Spacer(),
             _DensityBar(value: d.density, color: d.accent),
           ],
@@ -1620,7 +1945,10 @@ class _ReadBuildCardState extends State<_ReadBuildCard> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('builds: $builds', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+            Text(
+              'builds: $builds',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
             Text(_snapshot, style: const TextStyle(fontSize: 11, height: 1.3)),
             const Spacer(),
@@ -1628,7 +1956,8 @@ class _ReadBuildCardState extends State<_ReadBuildCard> {
               onPressed: () {
                 final d = PanelTheme.read(context);
                 setState(() {
-                  _snapshot = 'accent=${d.accent.toARGB32().toRadixString(16)}\n'
+                  _snapshot =
+                      'accent=${d.accent.toARGB32().toRadixString(16)}\n'
                       'radius=${d.cornerRadius.toStringAsFixed(1)} density=${d.density.toStringAsFixed(2)}';
                 });
               },
@@ -1657,10 +1986,19 @@ class _StaticBuildCard extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('builds: $builds', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+            Text(
+              'builds: $builds',
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
-            const Text('No inherited dependency.', style: TextStyle(fontSize: 11)),
-            const Text('Rebuild only on parent rebuilds.', style: TextStyle(fontSize: 11)),
+            const Text(
+              'No inherited dependency.',
+              style: TextStyle(fontSize: 11),
+            ),
+            const Text(
+              'Rebuild only on parent rebuilds.',
+              style: TextStyle(fontSize: 11),
+            ),
             const Spacer(),
             Icon(Icons.do_not_disturb_alt_rounded, color: tone, size: 28),
           ],
@@ -1703,9 +2041,19 @@ class _BuildCardShellState extends State<_BuildCardShell> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800)),
+          Text(
+            widget.title,
+            style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 2),
-          Text(widget.mode, style: TextStyle(color: widget.tone.withValues(alpha: 0.82), fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            widget.mode,
+            style: TextStyle(
+              color: widget.tone.withValues(alpha: 0.82),
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 8),
           Expanded(child: widget.builder(context, _builds)),
         ],
@@ -1733,7 +2081,10 @@ class _DensityBar extends StatelessWidget {
       child: FractionallySizedBox(
         widthFactor: value.clamp(0.0, 1.0),
         child: Container(
-          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(999)),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(999),
+          ),
         ),
       ),
     );
@@ -1781,9 +2132,14 @@ class _DynamicTimelineSceneState extends State<_DynamicTimelineScene> {
     final root = PanelTheme.of(context);
 
     final animated = root.copyWith(
-      accent: HSLColor.fromColor(root.accent).withHue((HSLColor.fromColor(root.accent).hue + (_phase * 360)) % 360).toColor(),
+      accent: HSLColor.fromColor(root.accent)
+          .withHue((HSLColor.fromColor(root.accent).hue + (_phase * 360)) % 360)
+          .toColor(),
       cornerRadius: 8 + ((math.sin(_phase * math.pi * 2) + 1) * 7),
-      density: (0.35 + ((math.cos(_phase * math.pi * 2) + 1) * 0.30)).clamp(0.0, 1.0),
+      density: (0.35 + ((math.cos(_phase * math.pi * 2) + 1) * 0.30)).clamp(
+        0.0,
+        1.0,
+      ),
     );
 
     return SizedBox(
@@ -1799,7 +2155,10 @@ class _DynamicTimelineSceneState extends State<_DynamicTimelineScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Dynamic controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Dynamic controls',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     SegmentedButton<int>(
                       segments: const [
@@ -1808,31 +2167,37 @@ class _DynamicTimelineSceneState extends State<_DynamicTimelineScene> {
                         ButtonSegment(value: 2, label: Text('C')),
                       ],
                       selected: {_index},
-                      onSelectionChanged: (v) => setState(() => _index = v.first),
+                      onSelectionChanged: (v) =>
+                          setState(() => _index = v.first),
                     ),
                     const SizedBox(height: 8),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: _running,
-                      onChanged: (v) => setState(() => _running = v),
-                      title: const Text('Run dynamic theme animation'),
-                    ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _running,
+                        onChanged: (v) => setState(() => _running = v),
+                        title: const Text('Run dynamic theme animation'),
+                      ),
                     ),
                     Material(
                       type: MaterialType.transparency,
                       child: SwitchListTile(
-                      dense: true,
-                      contentPadding: EdgeInsets.zero,
-                      value: _freezeViews,
-                      onChanged: (v) => setState(() => _freezeViews = v),
-                      title: const Text('Freeze content animations in panels'),
-                    ),
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        value: _freezeViews,
+                        onChanged: (v) => setState(() => _freezeViews = v),
+                        title: const Text(
+                          'Freeze content animations in panels',
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 8),
-                    _ThemeInfoTable(data: animated, title: 'Animated inherited data'),
+                    _ThemeInfoTable(
+                      data: animated,
+                      title: 'Animated inherited data',
+                    ),
                     const SizedBox(height: 8),
                     _LabeledSlider(
                       label: 'Manual phase',
@@ -1858,9 +2223,18 @@ class _DynamicTimelineSceneState extends State<_DynamicTimelineScene> {
                   child: IndexedStack(
                     index: _index,
                     children: [
-                      _AnimatedThemePanel(name: 'Panel A', freeze: _freezeViews),
-                      _AnimatedThemePanel(name: 'Panel B', freeze: _freezeViews),
-                      _AnimatedThemePanel(name: 'Panel C', freeze: _freezeViews),
+                      _AnimatedThemePanel(
+                        name: 'Panel A',
+                        freeze: _freezeViews,
+                      ),
+                      _AnimatedThemePanel(
+                        name: 'Panel B',
+                        freeze: _freezeViews,
+                      ),
+                      _AnimatedThemePanel(
+                        name: 'Panel C',
+                        freeze: _freezeViews,
+                      ),
                     ],
                   ),
                 ),
@@ -1921,7 +2295,14 @@ class _AnimatedThemePanelState extends State<_AnimatedThemePanel> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.name, style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            widget.name,
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
           _InfoRow(label: 'radius', value: d.cornerRadius.toStringAsFixed(1)),
           _InfoRow(label: 'density', value: d.density.toStringAsFixed(2)),
@@ -1932,18 +2313,15 @@ class _AnimatedThemePanelState extends State<_AnimatedThemePanel> {
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
               childAspectRatio: 1.1,
-              children: List<Widget>.generate(
-                6,
-                (i) {
-                  final factor = (((i + 1) / 6) * 0.7) + (wave * 0.3);
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: d.accent.withValues(alpha: factor.clamp(0.08, 0.95)),
-                      borderRadius: BorderRadius.circular(d.cornerRadius * 0.65),
-                    ),
-                  );
-                },
-              ),
+              children: List<Widget>.generate(6, (i) {
+                final factor = (((i + 1) / 6) * 0.7) + (wave * 0.3);
+                return Container(
+                  decoration: BoxDecoration(
+                    color: d.accent.withValues(alpha: factor.clamp(0.08, 0.95)),
+                    borderRadius: BorderRadius.circular(d.cornerRadius * 0.65),
+                  ),
+                );
+              }),
             ),
           ),
         ],
@@ -1958,7 +2336,8 @@ class _PracticalWorkspaceScene extends StatefulWidget {
   final _DemoConfig config;
 
   @override
-  State<_PracticalWorkspaceScene> createState() => _PracticalWorkspaceSceneState();
+  State<_PracticalWorkspaceScene> createState() =>
+      _PracticalWorkspaceSceneState();
 }
 
 class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
@@ -1999,7 +2378,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
 
     final workspaceTheme = root.copyWith(
       accent: _highContrast ? const Color(0xFFDDEEFF) : _cOlive,
-      surface: _highContrast ? const Color(0xFF1D2832) : const Color(0xFFF8FBF2),
+      surface: _highContrast
+          ? const Color(0xFF1D2832)
+          : const Color(0xFFF8FBF2),
       border: _highContrast ? const Color(0xFF3D4E5E) : const Color(0xFFC4D09E),
       glow: _highContrast ? const Color(0x33263644) : const Color(0x55747C42),
       cornerRadius: root.cornerRadius + 2,
@@ -2067,7 +2448,9 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                             return Container(
                               decoration: BoxDecoration(
                                 color: d.surface,
-                                borderRadius: BorderRadius.circular(d.cornerRadius),
+                                borderRadius: BorderRadius.circular(
+                                  d.cornerRadius,
+                                ),
                                 border: Border.all(color: d.border),
                               ),
                               child: Column(
@@ -2083,8 +2466,13 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
                                               if (_showMeta) _workspaceMeta(fg),
                                               Expanded(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8),
-                                                  child: IndexedStack(index: _index, children: _views),
+                                                  padding: const EdgeInsets.all(
+                                                    8,
+                                                  ),
+                                                  child: IndexedStack(
+                                                    index: _index,
+                                                    children: _views,
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -2123,15 +2511,27 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: d.accent.withValues(alpha: 0.14),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(d.cornerRadius)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(d.cornerRadius),
+        ),
       ),
       child: Row(
         children: [
           Icon(Icons.layers_rounded, color: d.accent),
           const SizedBox(width: 8),
-          Text('Theme Workspace', style: TextStyle(color: fg, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Theme Workspace',
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const Spacer(),
-          Text('shared inherited style contract', style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12)),
+          Text(
+            'shared inherited style contract',
+            style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12),
+          ),
         ],
       ),
     );
@@ -2158,16 +2558,30 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
               margin: const EdgeInsets.all(6),
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
               decoration: BoxDecoration(
-                color: selected ? d.accent.withValues(alpha: 0.24) : Colors.transparent,
+                color: selected
+                    ? d.accent.withValues(alpha: 0.24)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: selected ? d.accent.withValues(alpha: 0.45) : Colors.transparent),
+                border: Border.all(
+                  color: selected
+                      ? d.accent.withValues(alpha: 0.45)
+                      : Colors.transparent,
+                ),
               ),
               child: Column(
                 children: [
-                  Icon(_workspaceIcons[index], color: selected ? d.accent : fg.withValues(alpha: 0.78), size: _compactRail ? 18 : 20),
+                  Icon(
+                    _workspaceIcons[index],
+                    color: selected ? d.accent : fg.withValues(alpha: 0.78),
+                    size: _compactRail ? 18 : 20,
+                  ),
                   if (!_compactRail) ...[
                     const SizedBox(height: 3),
-                    Text(labels[index], style: TextStyle(color: fg, fontSize: 10), textAlign: TextAlign.center),
+                    Text(
+                      labels[index],
+                      style: TextStyle(color: fg, fontSize: 10),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ],
               ),
@@ -2189,9 +2603,15 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
       ),
       child: Row(
         children: [
-          Text('active index: $_index', style: TextStyle(color: fg, fontWeight: FontWeight.w700)),
+          Text(
+            'active index: $_index',
+            style: TextStyle(color: fg, fontWeight: FontWeight.w700),
+          ),
           const Spacer(),
-          Text('radius ${d.cornerRadius.toStringAsFixed(1)}', style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12)),
+          Text(
+            'radius ${d.cornerRadius.toStringAsFixed(1)}',
+            style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12),
+          ),
         ],
       ),
     );
@@ -2208,9 +2628,19 @@ class _PracticalWorkspaceSceneState extends State<_PracticalWorkspaceScene> {
       ),
       child: Row(
         children: [
-          Text('Workspace footer', style: TextStyle(color: fg, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Workspace footer',
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const Spacer(),
-          Text('InheritedTheme-driven shell', style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12)),
+          Text(
+            'InheritedTheme-driven shell',
+            style: TextStyle(color: fg.withValues(alpha: 0.82), fontSize: 12),
+          ),
         ],
       ),
     );
@@ -2242,16 +2672,41 @@ class _WorkspaceMetrics extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Metrics', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Metrics',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
           Expanded(
             child: Row(
               children: [
-                Expanded(child: _MetricCard(title: 'Availability', value: '99.7%', tone: d.accent)),
+                Expanded(
+                  child: _MetricCard(
+                    title: 'Availability',
+                    value: '99.7%',
+                    tone: d.accent,
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Expanded(child: _MetricCard(title: 'Latency', value: '142ms', tone: d.accent)),
+                Expanded(
+                  child: _MetricCard(
+                    title: 'Latency',
+                    value: '142ms',
+                    tone: d.accent,
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Expanded(child: _MetricCard(title: 'Queue', value: '31', tone: d.accent)),
+                Expanded(
+                  child: _MetricCard(
+                    title: 'Queue',
+                    value: '31',
+                    tone: d.accent,
+                  ),
+                ),
               ],
             ),
           ),
@@ -2267,7 +2722,11 @@ class _WorkspaceMetrics extends StatelessWidget {
 }
 
 class _MetricCard extends StatelessWidget {
-  const _MetricCard({required this.title, required this.value, required this.tone});
+  const _MetricCard({
+    required this.title,
+    required this.value,
+    required this.tone,
+  });
 
   final String title;
   final String value;
@@ -2284,9 +2743,23 @@ class _MetricCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            title,
+            style: TextStyle(
+              color: tone,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(value, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            value,
+            style: TextStyle(
+              color: tone,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
         ],
       ),
     );
@@ -2303,7 +2776,10 @@ class _WorkspaceTasks extends StatefulWidget {
 }
 
 class _WorkspaceTasksState extends State<_WorkspaceTasks> {
-  final List<_TaskEntry> _tasks = List<_TaskEntry>.generate(12, (i) => _TaskEntry('Task ${i + 1}', i.isEven && i % 3 == 0));
+  final List<_TaskEntry> _tasks = List<_TaskEntry>.generate(
+    12,
+    (i) => _TaskEntry('Task ${i + 1}', i.isEven && i % 3 == 0),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -2319,7 +2795,14 @@ class _WorkspaceTasksState extends State<_WorkspaceTasks> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Tasks ($done/${_tasks.length})', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Tasks ($done/${_tasks.length})',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
           Expanded(
             child: ListView.builder(
@@ -2329,16 +2812,16 @@ class _WorkspaceTasksState extends State<_WorkspaceTasks> {
                 return Material(
                   type: MaterialType.transparency,
                   child: CheckboxListTile(
-                  dense: true,
-                  value: task.done,
-                  onChanged: (v) {
-                    setState(() => task.done = v ?? false);
-                    widget.onEvent('task ${task.name} -> ${task.done}');
-                  },
-                  title: Text(task.name),
-                  subtitle: Text(task.done ? 'done' : 'pending'),
-                  controlAffinity: ListTileControlAffinity.leading,
-                ),
+                    dense: true,
+                    value: task.done,
+                    onChanged: (v) {
+                      setState(() => task.done = v ?? false);
+                      widget.onEvent('task ${task.name} -> ${task.done}');
+                    },
+                    title: Text(task.name),
+                    subtitle: Text(task.done ? 'done' : 'pending'),
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
                 );
               },
             ),
@@ -2382,7 +2865,14 @@ class _WorkspaceTimelineState extends State<_WorkspaceTimeline> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Timeline', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Timeline',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
           _LabeledSlider(
             label: 'Progress',
@@ -2391,26 +2881,32 @@ class _WorkspaceTimelineState extends State<_WorkspaceTimeline> {
             max: 1,
             onChanged: (v) {
               setState(() => _progress = v);
-              widget.onEvent('timeline progress ${(v * 100).toStringAsFixed(1)}%');
+              widget.onEvent(
+                'timeline progress ${(v * 100).toStringAsFixed(1)}%',
+              );
             },
           ),
           Material(
             type: MaterialType.transparency,
             child: SwitchListTile(
-            dense: true,
-            contentPadding: EdgeInsets.zero,
-            value: _milestones,
-            onChanged: (v) {
-              setState(() => _milestones = v);
-              widget.onEvent('timeline milestones = $v');
-            },
-            title: const Text('Show milestones'),
-          ),
+              dense: true,
+              contentPadding: EdgeInsets.zero,
+              value: _milestones,
+              onChanged: (v) {
+                setState(() => _milestones = v);
+                widget.onEvent('timeline milestones = $v');
+              },
+              title: const Text('Show milestones'),
+            ),
           ),
           const SizedBox(height: 8),
           Expanded(
             child: CustomPaint(
-              painter: _SimpleTimelinePainter(progress: _progress, milestones: _milestones, color: d.accent),
+              painter: _SimpleTimelinePainter(
+                progress: _progress,
+                milestones: _milestones,
+                color: d.accent,
+              ),
               child: const SizedBox.expand(),
             ),
           ),
@@ -2421,7 +2917,11 @@ class _WorkspaceTimelineState extends State<_WorkspaceTimeline> {
 }
 
 class _SimpleTimelinePainter extends CustomPainter {
-  const _SimpleTimelinePainter({required this.progress, required this.milestones, required this.color});
+  const _SimpleTimelinePainter({
+    required this.progress,
+    required this.milestones,
+    required this.color,
+  });
 
   final double progress;
   final bool milestones;
@@ -2440,19 +2940,29 @@ class _SimpleTimelinePainter extends CustomPainter {
 
     final y = size.height * 0.52;
     canvas.drawLine(Offset(20, y), Offset(size.width - 20, y), base);
-    canvas.drawLine(Offset(20, y), Offset(20 + (size.width - 40) * progress, y), fill);
+    canvas.drawLine(
+      Offset(20, y),
+      Offset(20 + (size.width - 40) * progress, y),
+      fill,
+    );
 
     if (milestones) {
       for (int i = 0; i <= 4; i++) {
         final x = 20 + ((size.width - 40) * (i / 4));
-        canvas.drawCircle(Offset(x, y), 6, Paint()..color = i / 4 <= progress ? color : const Color(0xFF9FB0C2));
+        canvas.drawCircle(
+          Offset(x, y),
+          6,
+          Paint()..color = i / 4 <= progress ? color : const Color(0xFF9FB0C2),
+        );
       }
     }
   }
 
   @override
   bool shouldRepaint(covariant _SimpleTimelinePainter oldDelegate) {
-    return oldDelegate.progress != progress || oldDelegate.milestones != milestones || oldDelegate.color != color;
+    return oldDelegate.progress != progress ||
+        oldDelegate.milestones != milestones ||
+        oldDelegate.color != color;
   }
 }
 
@@ -2466,7 +2976,10 @@ class _WorkspaceLogs extends StatefulWidget {
 }
 
 class _WorkspaceLogsState extends State<_WorkspaceLogs> {
-  final List<String> _lines = List<String>.generate(24, (i) => 'line ${i + 1}: module-${(i % 5) + 1} initialized');
+  final List<String> _lines = List<String>.generate(
+    24,
+    (i) => 'line ${i + 1}: module-${(i % 5) + 1} initialized',
+  );
   late final ScrollController _scroll;
 
   @override
@@ -2494,13 +3007,24 @@ class _WorkspaceLogsState extends State<_WorkspaceLogs> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Logs', style: TextStyle(color: d.accent, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Logs',
+            style: TextStyle(
+              color: d.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
               FilledButton.tonal(
                 onPressed: () {
-                  setState(() => _lines.add('line ${_lines.length + 1}: event @ ${_clock()}'));
+                  setState(
+                    () => _lines.add(
+                      'line ${_lines.length + 1}: event @ ${_clock()}',
+                    ),
+                  );
                   widget.onEvent('log appended');
                 },
                 child: const Text('Append log'),
@@ -2535,7 +3059,9 @@ class _WorkspaceLogsState extends State<_WorkspaceLogs> {
                     child: Text(
                       _lines[index],
                       style: TextStyle(
-                        color: index.isEven ? const Color(0xFFB7CBDB) : const Color(0xFF8EB9DE),
+                        color: index.isEven
+                            ? const Color(0xFFB7CBDB)
+                            : const Color(0xFF8EB9DE),
                         fontFamily: 'monospace',
                         fontSize: 12,
                       ),
@@ -2568,10 +3094,23 @@ class _ThemeInfoTable extends StatelessWidget {
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
-          _InfoRow(label: 'accent', value: '#${data.accent.toARGB32().toRadixString(16).toUpperCase()}'),
-          _InfoRow(label: 'surface', value: '#${data.surface.toARGB32().toRadixString(16).toUpperCase()}'),
-          _InfoRow(label: 'border', value: '#${data.border.toARGB32().toRadixString(16).toUpperCase()}'),
-          _InfoRow(label: 'radius', value: data.cornerRadius.toStringAsFixed(1)),
+          _InfoRow(
+            label: 'accent',
+            value: '#${data.accent.toARGB32().toRadixString(16).toUpperCase()}',
+          ),
+          _InfoRow(
+            label: 'surface',
+            value:
+                '#${data.surface.toARGB32().toRadixString(16).toUpperCase()}',
+          ),
+          _InfoRow(
+            label: 'border',
+            value: '#${data.border.toARGB32().toRadixString(16).toUpperCase()}',
+          ),
+          _InfoRow(
+            label: 'radius',
+            value: data.cornerRadius.toStringAsFixed(1),
+          ),
           _InfoRow(label: 'density', value: data.density.toStringAsFixed(2)),
         ],
       ),
@@ -2629,7 +3168,13 @@ class _GridPainter extends CustomPainter {
 }
 
 class _LabeledSlider extends StatelessWidget {
-  const _LabeledSlider({required this.label, required this.value, required this.min, required this.max, required this.onChanged});
+  const _LabeledSlider({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.onChanged,
+  });
 
   final String label;
   final double value;
@@ -2642,7 +3187,10 @@ class _LabeledSlider extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+        Text(
+          '$label: ${value.toStringAsFixed(2)}',
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+        ),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ],
     );
@@ -2661,7 +3209,13 @@ class _InfoRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
-          SizedBox(width: 120, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12))),
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+            ),
+          ),
           Expanded(child: Text(value, style: const TextStyle(fontSize: 12))),
         ],
       ),
@@ -2691,12 +3245,18 @@ class _EventPanel extends StatelessWidget {
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 6),
           if (events.isEmpty)
-            const Text('No interactions yet.', style: TextStyle(color: Color(0xFF607489)))
+            const Text(
+              'No interactions yet.',
+              style: TextStyle(color: Color(0xFF607489)),
+            )
           else
             ...events.map(
               (line) => Padding(
                 padding: const EdgeInsets.only(bottom: 3),
-                child: Text(line, style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
+                child: Text(
+                  line,
+                  style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+                ),
               ),
             ),
         ],
@@ -2706,7 +3266,11 @@ class _EventPanel extends StatelessWidget {
 }
 
 class _StatPill extends StatelessWidget {
-  const _StatPill({required this.label, required this.value, required this.color});
+  const _StatPill({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   final String label;
   final String value;
@@ -2723,9 +3287,23 @@ class _StatPill extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+          Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w700,
+              fontSize: 11,
+            ),
+          ),
           const SizedBox(width: 6),
-          Text(value, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 11)),
+          Text(
+            value,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+            ),
+          ),
         ],
       ),
     );
@@ -2778,7 +3356,14 @@ class _RecapPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: InheritedTheme', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: InheritedTheme',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'InheritedTheme provides reusable inherited appearance contracts with support for subtree re-wrapping and captureAll transfer. It is ideal for structured visual systems where consistent style inheritance and context migration are required.',

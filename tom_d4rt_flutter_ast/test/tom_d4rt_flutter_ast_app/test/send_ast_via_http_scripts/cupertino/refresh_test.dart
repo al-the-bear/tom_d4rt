@@ -32,48 +32,39 @@ const Color kCodeFg = Color(0xFFEDEDED);
 // TYPOGRAPHY HELPERS
 // ===========================================================================
 TextStyle _sectionTitleStyle() => const TextStyle(
-      fontSize: 19.0,
-      fontWeight: FontWeight.w700,
-      color: kTextPrimary,
-      letterSpacing: -0.2,
-    );
+  fontSize: 19.0,
+  fontWeight: FontWeight.w700,
+  color: kTextPrimary,
+  letterSpacing: -0.2,
+);
 
 TextStyle _subTitleStyle() => const TextStyle(
-      fontSize: 15.0,
-      fontWeight: FontWeight.w600,
-      color: kTextPrimary,
-    );
+  fontSize: 15.0,
+  fontWeight: FontWeight.w600,
+  color: kTextPrimary,
+);
 
-TextStyle _bodyStyle() => const TextStyle(
-      fontSize: 14.0,
-      color: kTextPrimary,
-      height: 1.4,
-    );
+TextStyle _bodyStyle() =>
+    const TextStyle(fontSize: 14.0, color: kTextPrimary, height: 1.4);
 
-TextStyle _captionStyle() => const TextStyle(
-      fontSize: 12.0,
-      color: kTextSecondary,
-      height: 1.3,
-    );
+TextStyle _captionStyle() =>
+    const TextStyle(fontSize: 12.0, color: kTextSecondary, height: 1.3);
 
-TextStyle _mutedStyle() => const TextStyle(
-      fontSize: 11.0,
-      color: kTextMuted,
-    );
+TextStyle _mutedStyle() => const TextStyle(fontSize: 11.0, color: kTextMuted);
 
 TextStyle _codeStyle() => const TextStyle(
-      fontFamily: 'Menlo',
-      fontSize: 12.0,
-      color: kCodeFg,
-      height: 1.45,
-    );
+  fontFamily: 'Menlo',
+  fontSize: 12.0,
+  color: kCodeFg,
+  height: 1.45,
+);
 
 TextStyle _badgeStyle() => const TextStyle(
-      fontSize: 11.0,
-      fontWeight: FontWeight.w600,
-      color: kTextPrimary,
-      letterSpacing: 0.4,
-    );
+  fontSize: 11.0,
+  fontWeight: FontWeight.w600,
+  color: kTextPrimary,
+  letterSpacing: 0.4,
+);
 
 // ===========================================================================
 // SMALL BUILDING BLOCKS
@@ -178,10 +169,7 @@ Widget _keyValueRow(String key, String value) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 140.0,
-          child: Text(key, style: _subTitleStyle()),
-        ),
+        SizedBox(width: 140.0, child: Text(key, style: _subTitleStyle())),
         Expanded(child: Text(value, style: _bodyStyle())),
       ],
     ),
@@ -224,8 +212,11 @@ Widget _hero() {
             _hgap(6.0),
             _badge('SLIVER', bg: kAccentSoft, fg: kAccent),
             _hgap(6.0),
-            _badge('REFRESH CONTROL',
-                bg: const Color(0x33FFFFFF), fg: CupertinoColors.white),
+            _badge(
+              'REFRESH CONTROL',
+              bg: const Color(0x33FFFFFF),
+              fg: CupertinoColors.white,
+            ),
           ],
         ),
         _gap(14.0),
@@ -259,10 +250,7 @@ Widget _hero() {
             const Expanded(
               child: Text(
                 'A deep visual tour through state, threshold, and builder.',
-                style: TextStyle(
-                  color: CupertinoColors.white,
-                  fontSize: 13.0,
-                ),
+                style: TextStyle(color: CupertinoColors.white, fontSize: 13.0),
               ),
             ),
           ],
@@ -292,16 +280,26 @@ Widget _concept() {
           style: _bodyStyle(),
         ),
         _gap(10.0),
-        _keyValueRow('Widget',
-            'CupertinoSliverRefreshControl — a sliver, lives in CustomScrollView.slivers.'),
-        _keyValueRow('Trigger',
-            'refreshTriggerPullDistance, default 100.0 logical pixels.'),
-        _keyValueRow('Indicator',
-            'refreshIndicatorExtent, default 60.0 logical pixels.'),
-        _keyValueRow('Callback',
-            'onRefresh: Future<void> Function()? — null disables the control.'),
-        _keyValueRow('Builder',
-            'builder: optional override with full state-machine access.'),
+        _keyValueRow(
+          'Widget',
+          'CupertinoSliverRefreshControl — a sliver, lives in CustomScrollView.slivers.',
+        ),
+        _keyValueRow(
+          'Trigger',
+          'refreshTriggerPullDistance, default 100.0 logical pixels.',
+        ),
+        _keyValueRow(
+          'Indicator',
+          'refreshIndicatorExtent, default 60.0 logical pixels.',
+        ),
+        _keyValueRow(
+          'Callback',
+          'onRefresh: Future<void> Function()? — null disables the control.',
+        ),
+        _keyValueRow(
+          'Builder',
+          'builder: optional override with full state-machine access.',
+        ),
       ],
     ),
   );
@@ -338,8 +336,10 @@ Widget _anatomyDiagram() {
                     Text('0 px', style: _mutedStyle()),
                     Text('40 px', style: _mutedStyle()),
                     Text('80 px', style: _mutedStyle()),
-                    Text('100 px',
-                        style: _mutedStyle().copyWith(color: kAccent)),
+                    Text(
+                      '100 px',
+                      style: _mutedStyle().copyWith(color: kAccent),
+                    ),
                     Text('120 px', style: _mutedStyle()),
                     Text('160 px', style: _mutedStyle()),
                   ],
@@ -361,10 +361,7 @@ Widget _anatomyDiagram() {
                             Expanded(
                               child: Container(color: const Color(0x11007AFF)),
                             ),
-                            Container(
-                              height: 1.0,
-                              color: kAccent,
-                            ),
+                            Container(height: 1.0, color: kAccent),
                             Expanded(
                               flex: 3,
                               child: Container(color: const Color(0x0834C759)),
@@ -375,33 +372,45 @@ Widget _anatomyDiagram() {
                       Positioned(
                         left: 16.0,
                         top: 12.0,
-                        child: Text('inactive band',
-                            style: _captionStyle()
-                                .copyWith(color: kTextSecondary)),
+                        child: Text(
+                          'inactive band',
+                          style: _captionStyle().copyWith(
+                            color: kTextSecondary,
+                          ),
+                        ),
                       ),
                       Positioned(
                         left: 16.0,
                         top: 70.0,
-                        child: Text('drag band',
-                            style: _captionStyle().copyWith(color: kAccent)),
+                        child: Text(
+                          'drag band',
+                          style: _captionStyle().copyWith(color: kAccent),
+                        ),
                       ),
                       const Positioned(
                         left: 12.0,
                         top: 92.0,
-                        child: Icon(CupertinoIcons.arrow_down,
-                            color: kAccent, size: 16.0),
+                        child: Icon(
+                          CupertinoIcons.arrow_down,
+                          color: kAccent,
+                          size: 16.0,
+                        ),
                       ),
                       Positioned(
                         right: 12.0,
                         top: 92.0,
-                        child: Text('THRESHOLD',
-                            style: _badgeStyle().copyWith(color: kAccent)),
+                        child: Text(
+                          'THRESHOLD',
+                          style: _badgeStyle().copyWith(color: kAccent),
+                        ),
                       ),
                       Positioned(
                         left: 16.0,
                         top: 130.0,
-                        child: Text('armed / refresh band',
-                            style: _captionStyle().copyWith(color: kSuccess)),
+                        child: Text(
+                          'armed / refresh band',
+                          style: _captionStyle().copyWith(color: kSuccess),
+                        ),
                       ),
                       const Positioned(
                         right: 24.0,
@@ -417,11 +426,14 @@ Widget _anatomyDiagram() {
         ),
         _gap(10.0),
         _bullet(
-            'Above the threshold the indicator only previews intent — no commit.'),
+          'Above the threshold the indicator only previews intent — no commit.',
+        ),
         _bullet(
-            'Releasing while armed commits the refresh and starts the spinner.'),
+          'Releasing while armed commits the refresh and starts the spinner.',
+        ),
         _bullet(
-            'When the future completes, the indicator retracts past the line.'),
+          'When the future completes, the indicator retracts past the line.',
+        ),
       ],
     ),
   );
@@ -460,8 +472,10 @@ Widget _statePanel({
             ),
             _hgap(6.0),
             Expanded(
-              child: Text(label,
-                  style: _subTitleStyle().copyWith(fontSize: 13.0)),
+              child: Text(
+                label,
+                style: _subTitleStyle().copyWith(fontSize: 13.0),
+              ),
             ),
           ],
         ),
@@ -512,15 +526,19 @@ Widget _stateSequence() {
                 visual: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(CupertinoIcons.arrow_down,
-                        color: kAccent, size: 24.0),
+                    const Icon(
+                      CupertinoIcons.arrow_down,
+                      color: kAccent,
+                      size: 24.0,
+                    ),
                     _gap(4.0),
-                    Text('40 / 100',
-                        style: _captionStyle().copyWith(color: kAccent)),
+                    Text(
+                      '40 / 100',
+                      style: _captionStyle().copyWith(color: kAccent),
+                    ),
                   ],
                 ),
-                caption:
-                    'Drag below threshold; arrow shown, no spinner yet.',
+                caption: 'Drag below threshold; arrow shown, no spinner yet.',
               ),
               _statePanel(
                 label: 'armed',
@@ -528,11 +546,16 @@ Widget _stateSequence() {
                 visual: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(CupertinoIcons.arrow_up,
-                        color: kSuccess, size: 24.0),
+                    const Icon(
+                      CupertinoIcons.arrow_up,
+                      color: kSuccess,
+                      size: 24.0,
+                    ),
                     _gap(4.0),
-                    Text('release →',
-                        style: _captionStyle().copyWith(color: kSuccess)),
+                    Text(
+                      'release →',
+                      style: _captionStyle().copyWith(color: kSuccess),
+                    ),
                   ],
                 ),
                 caption: 'At/past threshold. Release will commit.',
@@ -549,8 +572,11 @@ Widget _stateSequence() {
               _statePanel(
                 label: 'done',
                 tint: kWarning,
-                visual: const Icon(CupertinoIcons.checkmark_alt,
-                    color: kSuccess, size: 26.0),
+                visual: const Icon(
+                  CupertinoIcons.checkmark_alt,
+                  color: kSuccess,
+                  size: 26.0,
+                ),
                 caption: 'Future resolved; control retracts.',
               ),
             ],
@@ -579,8 +605,7 @@ Widget _embeddedReal() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Embedded CupertinoSliverRefreshControl',
-            style: _subTitleStyle()),
+        Text('Embedded CupertinoSliverRefreshControl', style: _subTitleStyle()),
         _gap(6.0),
         Text(
           'Below is an actual CustomScrollView containing the sliver. The '
@@ -625,9 +650,11 @@ Widget _embeddedReal() {
         ),
         _gap(10.0),
         _bullet(
-            'onRefresh: null disables the gesture but the constructor is valid.'),
+          'onRefresh: null disables the gesture but the constructor is valid.',
+        ),
         _bullet(
-            'The sliver participates in scroll physics regardless of mode.'),
+          'The sliver participates in scroll physics regardless of mode.',
+        ),
       ],
     ),
   );
@@ -646,8 +673,10 @@ Widget _inboxItem(String from, String time, String subject) {
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text(from.substring(0, 1),
-              style: _badgeStyle().copyWith(color: kAccent)),
+          child: Text(
+            from.substring(0, 1),
+            style: _badgeStyle().copyWith(color: kAccent),
+          ),
         ),
         _hgap(10.0),
         Expanded(
@@ -678,13 +707,17 @@ Widget _offsetTile(double offset, double trigger) {
     decoration: BoxDecoration(
       color: armed ? const Color(0x1A34C759) : kCard,
       border: Border.all(
-          color: armed ? kSuccess : kHairline, width: armed ? 1.0 : 0.5),
+        color: armed ? kSuccess : kHairline,
+        width: armed ? 1.0 : 0.5,
+      ),
       borderRadius: BorderRadius.circular(10.0),
     ),
     child: Column(
       children: [
-        Text('${offset.toInt()} px',
-            style: _subTitleStyle().copyWith(fontSize: 13.0)),
+        Text(
+          '${offset.toInt()} px',
+          style: _subTitleStyle().copyWith(fontSize: 13.0),
+        ),
         _gap(6.0),
         Container(
           height: 60.0,
@@ -704,9 +737,12 @@ Widget _offsetTile(double offset, double trigger) {
           ),
         ),
         _gap(6.0),
-        Text(armed ? 'armed' : '${(ratio * 100).toInt()}%',
-            style: _captionStyle()
-                .copyWith(color: armed ? kSuccess : kTextSecondary)),
+        Text(
+          armed ? 'armed' : '${(ratio * 100).toInt()}%',
+          style: _captionStyle().copyWith(
+            color: armed ? kSuccess : kTextSecondary,
+          ),
+        ),
       ],
     ),
   );
@@ -775,8 +811,7 @@ Widget _thresholdCard(String label, double trigger, double extent, Color hue) {
                 ),
               ),
               _hgap(6.0),
-              Text(label,
-                  style: _subTitleStyle().copyWith(fontSize: 13.0)),
+              Text(label, style: _subTitleStyle().copyWith(fontSize: 13.0)),
             ],
           ),
           _gap(8.0),
@@ -805,10 +840,7 @@ Widget _thresholdCard(String label, double trigger, double extent, Color hue) {
                     bottom: 70.0 * (extent / trigger).clamp(0.0, 1.0),
                     left: -10.0,
                     right: -10.0,
-                    child: Container(
-                      height: 1.0,
-                      color: hue,
-                    ),
+                    child: Container(height: 1.0, color: hue),
                   ),
                 ],
               ),
@@ -825,10 +857,7 @@ Widget _keyValueRowSmall(String k, String v) {
     padding: const EdgeInsets.symmetric(vertical: 2.0),
     child: Row(
       children: [
-        SizedBox(
-          width: 60.0,
-          child: Text(k, style: _captionStyle()),
-        ),
+        SizedBox(width: 60.0, child: Text(k, style: _captionStyle())),
         Text(v, style: _bodyStyle().copyWith(fontSize: 13.0)),
       ],
     ),
@@ -860,7 +889,9 @@ Widget _thresholds() {
         ),
         _gap(10.0),
         _bullet('Smaller trigger = faster commit, easier accidental refresh.'),
-        _bullet('Larger trigger = deliberate commit, slower perceived response.'),
+        _bullet(
+          'Larger trigger = deliberate commit, slower perceived response.',
+        ),
         _bullet('Indicator extent governs the spinner pocket height.'),
       ],
     ),
@@ -924,7 +955,9 @@ Widget _builderCard() {
                 'Default',
                 'CupertinoActivityIndicator with default tuning.',
                 const CupertinoActivityIndicator(
-                    radius: 14.0, animating: false),
+                  radius: 14.0,
+                  animating: false,
+                ),
               ),
               _builderColumn(
                 'Custom',
@@ -1056,14 +1089,15 @@ Widget _hostsCard() {
                 chipColor: kAccent,
                 body: Row(
                   children: [
-                    const Icon(CupertinoIcons.bars,
-                        color: kAccent, size: 20.0),
+                    const Icon(CupertinoIcons.bars, color: kAccent, size: 20.0),
                     _hgap(8.0),
                     Expanded(
-                        child: Text('Inbox',
-                            style: _subTitleStyle().copyWith(fontSize: 13.0))),
-                    Text('Edit',
-                        style: _bodyStyle().copyWith(color: kAccent)),
+                      child: Text(
+                        'Inbox',
+                        style: _subTitleStyle().copyWith(fontSize: 13.0),
+                      ),
+                    ),
+                    Text('Edit', style: _bodyStyle().copyWith(color: kAccent)),
                   ],
                 ),
               ),
@@ -1076,8 +1110,11 @@ Widget _hostsCard() {
                     const Icon(Icons.menu, color: kSuccess, size: 20.0),
                     _hgap(8.0),
                     Expanded(
-                        child: Text('Inbox',
-                            style: _subTitleStyle().copyWith(fontSize: 13.0))),
+                      child: Text(
+                        'Inbox',
+                        style: _subTitleStyle().copyWith(fontSize: 13.0),
+                      ),
+                    ),
                     const Icon(Icons.more_vert, color: kTextSecondary),
                   ],
                 ),
@@ -1120,10 +1157,7 @@ Widget _tableRow(String k, String l, String r, {bool last = false}) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 110.0,
-          child: Text(k, style: _captionStyle()),
-        ),
+        SizedBox(width: 110.0, child: Text(k, style: _captionStyle())),
         Expanded(child: Text(l, style: _bodyStyle().copyWith(fontSize: 13.0))),
         Expanded(child: Text(r, style: _bodyStyle().copyWith(fontSize: 13.0))),
       ],
@@ -1138,21 +1172,39 @@ Widget _comparisonTable() {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _tableHeader('CupertinoSliverRefreshControl', 'RefreshIndicator'),
-        _tableRow('Type', 'Sliver',
-            'Box widget wrapping a scrollable child'),
+        _tableRow('Type', 'Sliver', 'Box widget wrapping a scrollable child'),
         _tableRow('Host', 'Cupertino / any', 'Material'),
-        _tableRow('Trigger', 'refreshTriggerPullDistance',
-            'Implicit, sensitive to drag delta'),
-        _tableRow('Spinner', 'CupertinoActivityIndicator',
-            'CircularProgressIndicator'),
-        _tableRow('Builder', 'Custom builder callback',
-            'Color, backgroundColor, strokeWidth'),
-        _tableRow('Async', 'Future<void> Function()?',
-            'Future<void> Function()'),
-        _tableRow('Visual', 'iOS pull-down stretch',
-            'Material spinner descends from top'),
-        _tableRow('Pairing', 'CustomScrollView',
-            'ListView / SingleChildScrollView', last: true),
+        _tableRow(
+          'Trigger',
+          'refreshTriggerPullDistance',
+          'Implicit, sensitive to drag delta',
+        ),
+        _tableRow(
+          'Spinner',
+          'CupertinoActivityIndicator',
+          'CircularProgressIndicator',
+        ),
+        _tableRow(
+          'Builder',
+          'Custom builder callback',
+          'Color, backgroundColor, strokeWidth',
+        ),
+        _tableRow(
+          'Async',
+          'Future<void> Function()?',
+          'Future<void> Function()',
+        ),
+        _tableRow(
+          'Visual',
+          'iOS pull-down stretch',
+          'Material spinner descends from top',
+        ),
+        _tableRow(
+          'Pairing',
+          'CustomScrollView',
+          'ListView / SingleChildScrollView',
+          last: true,
+        ),
       ],
     ),
   );
@@ -1241,14 +1293,14 @@ Widget _recipeNews() {
           style: _captionStyle(),
         ),
         _gap(10.0),
-        _newsItem('Markets close mixed after volatile session',
-            'FINANCE', '2 min'),
-        _newsItem('New Cupertino design language teased',
-            'TECH', '11 min'),
-        _newsItem('Coastal storm forces evacuations',
-            'WEATHER', '34 min'),
-        _newsItem('Local team upsets reigning champions',
-            'SPORTS', '1 h'),
+        _newsItem(
+          'Markets close mixed after volatile session',
+          'FINANCE',
+          '2 min',
+        ),
+        _newsItem('New Cupertino design language teased', 'TECH', '11 min'),
+        _newsItem('Coastal storm forces evacuations', 'WEATHER', '34 min'),
+        _newsItem('Local team upsets reigning champions', 'SPORTS', '1 h'),
       ],
     ),
   );
@@ -1315,7 +1367,9 @@ Widget _glossaryRow(String term, String def) {
           width: 140.0,
           child: Text(term, style: _subTitleStyle().copyWith(fontSize: 13.0)),
         ),
-        Expanded(child: Text(def, style: _bodyStyle().copyWith(fontSize: 13.0))),
+        Expanded(
+          child: Text(def, style: _bodyStyle().copyWith(fontSize: 13.0)),
+        ),
       ],
     ),
   );
@@ -1331,30 +1385,54 @@ Widget _glossary() {
           padding: const EdgeInsets.all(12.0),
           child: Text('Glossary', style: _subTitleStyle()),
         ),
-        _glossaryRow('Sliver',
-            'A lazy, scroll-aware widget that participates in CustomScrollView layout.'),
-        _glossaryRow('Trigger distance',
-            'How far the scroll must drag past the leading edge before commit.'),
-        _glossaryRow('Indicator extent',
-            'Visible spinner pocket height while the refresh is in progress.'),
-        _glossaryRow('Mode',
-            'A RefreshIndicatorMode value describing one phase of the gesture.'),
-        _glossaryRow('Inactive',
-            'No drag is occurring; the sliver yields zero layout extent.'),
-        _glossaryRow('Drag',
-            'A pull is underway but the trigger distance is not yet reached.'),
-        _glossaryRow('Armed',
-            'The drag has crossed the trigger; release will commit a refresh.'),
-        _glossaryRow('Refresh',
-            'The onRefresh future is awaited; spinner is visible.'),
-        _glossaryRow('Done',
-            'Future has resolved; the indicator retracts to inactive.'),
-        _glossaryRow('Activity indicator',
-            'The classic iOS rotating-petals spinner.'),
-        _glossaryRow('Overscroll',
-            'Drag past the natural rest point of the scrollable.'),
-        _glossaryRow('Builder',
-            'Custom callback for rendering the indicator visuals per-frame.'),
+        _glossaryRow(
+          'Sliver',
+          'A lazy, scroll-aware widget that participates in CustomScrollView layout.',
+        ),
+        _glossaryRow(
+          'Trigger distance',
+          'How far the scroll must drag past the leading edge before commit.',
+        ),
+        _glossaryRow(
+          'Indicator extent',
+          'Visible spinner pocket height while the refresh is in progress.',
+        ),
+        _glossaryRow(
+          'Mode',
+          'A RefreshIndicatorMode value describing one phase of the gesture.',
+        ),
+        _glossaryRow(
+          'Inactive',
+          'No drag is occurring; the sliver yields zero layout extent.',
+        ),
+        _glossaryRow(
+          'Drag',
+          'A pull is underway but the trigger distance is not yet reached.',
+        ),
+        _glossaryRow(
+          'Armed',
+          'The drag has crossed the trigger; release will commit a refresh.',
+        ),
+        _glossaryRow(
+          'Refresh',
+          'The onRefresh future is awaited; spinner is visible.',
+        ),
+        _glossaryRow(
+          'Done',
+          'Future has resolved; the indicator retracts to inactive.',
+        ),
+        _glossaryRow(
+          'Activity indicator',
+          'The classic iOS rotating-petals spinner.',
+        ),
+        _glossaryRow(
+          'Overscroll',
+          'Drag past the natural rest point of the scrollable.',
+        ),
+        _glossaryRow(
+          'Builder',
+          'Custom callback for rendering the indicator visuals per-frame.',
+        ),
       ],
     ),
   );
@@ -1383,9 +1461,11 @@ Widget _epilogue() {
         _bullet('Always render the control as the first sliver.'),
         _bullet('Keep onRefresh idempotent — users will pull repeatedly.'),
         _bullet(
-            'Disable the control with onRefresh: null while a refresh is queued.'),
+          'Disable the control with onRefresh: null while a refresh is queued.',
+        ),
         _bullet(
-            'Test thresholds on real devices; perceived weight differs per-screen.'),
+          'Test thresholds on real devices; perceived weight differs per-screen.',
+        ),
         _gap(14.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -1395,8 +1475,11 @@ Widget _epilogue() {
           ),
           child: Row(
             children: [
-              const Icon(CupertinoIcons.info_circle_fill,
-                  color: kAccent, size: 20.0),
+              const Icon(
+                CupertinoIcons.info_circle_fill,
+                color: kAccent,
+                size: 20.0,
+              ),
               _hgap(10.0),
               Expanded(
                 child: Text(
@@ -1474,43 +1557,79 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
           children: [
             _hero(),
-            _sectionHeader('01', 'Concept',
-                'The iOS pull-to-refresh paradigm in one paragraph.'),
+            _sectionHeader(
+              '01',
+              'Concept',
+              'The iOS pull-to-refresh paradigm in one paragraph.',
+            ),
             _concept(),
-            _sectionHeader('02', 'Anatomy',
-                'Drag axis, threshold, indicator pocket — labelled.'),
+            _sectionHeader(
+              '02',
+              'Anatomy',
+              'Drag axis, threshold, indicator pocket — labelled.',
+            ),
             _anatomyDiagram(),
-            _sectionHeader('03', 'States',
-                'Five frozen panels of the RefreshIndicatorMode sequence.'),
+            _sectionHeader(
+              '03',
+              'States',
+              'Five frozen panels of the RefreshIndicatorMode sequence.',
+            ),
             _stateSequence(),
-            _sectionHeader('04', 'Embedded',
-                'A real CupertinoSliverRefreshControl living in a scroll view.'),
+            _sectionHeader(
+              '04',
+              'Embedded',
+              'A real CupertinoSliverRefreshControl living in a scroll view.',
+            ),
             _embeddedReal(),
-            _sectionHeader('05', 'Drag spectrum',
-                'Visual progression of drag offset against the trigger.'),
+            _sectionHeader(
+              '05',
+              'Drag spectrum',
+              'Visual progression of drag offset against the trigger.',
+            ),
             _offsetSpectrum(),
-            _sectionHeader('06', 'Thresholds',
-                'Three trigger-distance presets, side by side.'),
+            _sectionHeader(
+              '06',
+              'Thresholds',
+              'Three trigger-distance presets, side by side.',
+            ),
             _thresholds(),
-            _sectionHeader('07', 'Builder',
-                'Default activity indicator vs branded custom visuals.'),
+            _sectionHeader(
+              '07',
+              'Builder',
+              'Default activity indicator vs branded custom visuals.',
+            ),
             _builderCard(),
-            _sectionHeader('08', 'Hosts',
-                'Cupertino scaffold compared with Material scaffold.'),
+            _sectionHeader(
+              '08',
+              'Hosts',
+              'Cupertino scaffold compared with Material scaffold.',
+            ),
             _hostsCard(),
-            _sectionHeader('09', 'Comparison',
-                'CupertinoSliverRefreshControl vs Material RefreshIndicator.'),
+            _sectionHeader(
+              '09',
+              'Comparison',
+              'CupertinoSliverRefreshControl vs Material RefreshIndicator.',
+            ),
             _comparisonTable(),
-            _sectionHeader('10', 'Recipes',
-                'Three real-world UIs that pair well with the control.'),
+            _sectionHeader(
+              '10',
+              'Recipes',
+              'Three real-world UIs that pair well with the control.',
+            ),
             _recipeEmail(),
             _recipeNews(),
             _recipePhotos(),
-            _sectionHeader('11', 'Glossary',
-                'Twelve terms you will run into when wiring this widget.'),
+            _sectionHeader(
+              '11',
+              'Glossary',
+              'Twelve terms you will run into when wiring this widget.',
+            ),
             _glossary(),
-            _sectionHeader('12', 'Epilogue',
-                'Closing notes and idiomatic usage tips.'),
+            _sectionHeader(
+              '12',
+              'Epilogue',
+              'Closing notes and idiomatic usage tips.',
+            ),
             _epilogue(),
             _footer(),
           ],

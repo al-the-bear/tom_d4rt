@@ -36,10 +36,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.fromLTRB(24.0, 28.0, 24.0, 28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _Palette.accent,
-          _Palette.accent2,
-        ],
+        colors: [_Palette.accent, _Palette.accent2],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -198,14 +195,30 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
     child: Row(
       children: [
-        ctorTile('EdgeInsets.all(20)', eAll, _Palette.accent,
-            'EdgeInsets.all(20.0)'),
-        ctorTile('symmetric(h:28, v:10)', eSym, _Palette.accent2,
-            'EdgeInsets.symmetric(horizontal: 28, vertical: 10)'),
-        ctorTile('only(l:4 t:8 r:24 b:32)', eOnly, _Palette.warn,
-            'EdgeInsets.only(left: 4, top: 8, right: 24, bottom: 32)'),
-        ctorTile('fromLTRB(8,16,24,4)', eLtrb, _Palette.ok,
-            'EdgeInsets.fromLTRB(8, 16, 24, 4)'),
+        ctorTile(
+          'EdgeInsets.all(20)',
+          eAll,
+          _Palette.accent,
+          'EdgeInsets.all(20.0)',
+        ),
+        ctorTile(
+          'symmetric(h:28, v:10)',
+          eSym,
+          _Palette.accent2,
+          'EdgeInsets.symmetric(horizontal: 28, vertical: 10)',
+        ),
+        ctorTile(
+          'only(l:4 t:8 r:24 b:32)',
+          eOnly,
+          _Palette.warn,
+          'EdgeInsets.only(left: 4, top: 8, right: 24, bottom: 32)',
+        ),
+        ctorTile(
+          'fromLTRB(8,16,24,4)',
+          eLtrb,
+          _Palette.ok,
+          'EdgeInsets.fromLTRB(8, 16, 24, 4)',
+        ),
         ctorTile('zero', eZero, _Palette.subInk, 'EdgeInsets.zero'),
       ],
     ),
@@ -250,10 +263,7 @@ dynamic build(BuildContext context) {
             height: 200.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  _Palette.stripe,
-                  Colors.white,
-                ],
+                colors: [_Palette.stripe, Colors.white],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -382,10 +392,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          _Palette.stripe,
-        ],
+        colors: [Colors.white, _Palette.stripe],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -439,25 +446,31 @@ dynamic build(BuildContext context) {
   // "deflate" semantics: shrink each side by subtracting insets.
   final deflated = EdgeInsets.all(20.0) - EdgeInsets.all(6.0);
   // EdgeInsets.clamp returns EdgeInsetsGeometry; resolve back to EdgeInsets.
-  final clampedGeom = EdgeInsets.fromLTRB(2.0, 50.0, 100.0, 0.0)
-      .clamp(EdgeInsets.all(5.0), EdgeInsets.all(40.0));
+  final clampedGeom = EdgeInsets.fromLTRB(
+    2.0,
+    50.0,
+    100.0,
+    0.0,
+  ).clamp(EdgeInsets.all(5.0), EdgeInsets.all(40.0));
   final clamped = clampedGeom.resolve(TextDirection.ltr);
 
   print('base=$base  copied=$copied');
   print('inflated=$inflated  deflated=$deflated');
   print('clamped=$clamped');
 
-  Widget transformCard(String name, String desc, EdgeInsets insets, Color tone) {
+  Widget transformCard(
+    String name,
+    String desc,
+    EdgeInsets insets,
+    Color tone,
+  ) {
     return Container(
       width: 230.0,
       margin: EdgeInsets.all(8.0),
       padding: EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            tone.withValues(alpha: 0.12),
-            tone.withValues(alpha: 0.28),
-          ],
+          colors: [tone.withValues(alpha: 0.12), tone.withValues(alpha: 0.28)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -484,10 +497,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            desc,
-            style: TextStyle(fontSize: 11.0, color: _Palette.subInk),
-          ),
+          Text(desc, style: TextStyle(fontSize: 11.0, color: _Palette.subInk)),
           SizedBox(height: 8.0),
           Container(
             color: Colors.white,
@@ -516,15 +526,36 @@ dynamic build(BuildContext context) {
     scrollDirection: Axis.horizontal,
     child: Row(
       children: [
-        transformCard('base = all(10)', 'starting point', base, _Palette.accent),
-        transformCard('copyWith(left:30, bottom:4)',
-            'replace selected sides only', copied, _Palette.accent2),
-        transformCard('base + all(8) // inflate', 'grow each side per inset',
-            inflated, _Palette.warn),
-        transformCard('all(20) - all(6) // deflate',
-            'shrink each side per inset', deflated, _Palette.ok),
-        transformCard('clamp(all(5), all(40))', 'min/max clamp per side',
-            clamped, _Palette.danger),
+        transformCard(
+          'base = all(10)',
+          'starting point',
+          base,
+          _Palette.accent,
+        ),
+        transformCard(
+          'copyWith(left:30, bottom:4)',
+          'replace selected sides only',
+          copied,
+          _Palette.accent2,
+        ),
+        transformCard(
+          'base + all(8) // inflate',
+          'grow each side per inset',
+          inflated,
+          _Palette.warn,
+        ),
+        transformCard(
+          'all(20) - all(6) // deflate',
+          'shrink each side per inset',
+          deflated,
+          _Palette.ok,
+        ),
+        transformCard(
+          'clamp(all(5), all(40))',
+          'min/max clamp per side',
+          clamped,
+          _Palette.danger,
+        ),
       ],
     ),
   );
@@ -609,10 +640,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          _Palette.stripe,
-          Colors.white,
-        ],
+        colors: [_Palette.stripe, Colors.white],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -706,7 +734,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'source',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                    ),
                   ),
                   SizedBox(height: 4.0),
                   Container(
@@ -726,7 +757,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'flipped',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12.0,
+                    ),
                   ),
                   SizedBox(height: 4.0),
                   Container(
@@ -823,7 +857,10 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _Palette.accent.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20.0),
@@ -839,7 +876,10 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(width: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.0,
+                      vertical: 8.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _Palette.accent,
                       borderRadius: BorderRadius.circular(20.0),
@@ -905,8 +945,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'ListTile.contentPadding',
-                  style:
-                      TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'EdgeInsets.symmetric(horizontal: 16) by default',
@@ -1047,10 +1086,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          _Palette.cardB.withValues(alpha: 0.4),
-        ],
+        colors: [Colors.white, _Palette.cardB.withValues(alpha: 0.4)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1342,8 +1378,10 @@ dynamic build(BuildContext context) {
         _cheat('fromLTRB(l,t,r,b)', 'positional, all four sides'),
         _cheat('zero', 'shared singleton — no allocation'),
         _cheat('+ - * / ~/ %', 'per-side arithmetic'),
-        _cheat('copyWith / + / - / clamp',
-            'derive new insets (grow/shrink/copy/clamp)'),
+        _cheat(
+          'copyWith / + / - / clamp',
+          'derive new insets (grow/shrink/copy/clamp)',
+        ),
         _cheat('lerp(a,b,t)', 'linear per side, returns nullable'),
         _cheat('flipped', 'swap left<->right and top<->bottom'),
         _cheat('horizontal / vertical', 'sums per axis'),

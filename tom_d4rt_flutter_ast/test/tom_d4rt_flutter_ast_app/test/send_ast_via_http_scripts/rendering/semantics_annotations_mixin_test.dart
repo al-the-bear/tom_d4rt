@@ -58,9 +58,7 @@ Widget _saSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_saOlive, _saDarkOlive],
-      ),
+      gradient: LinearGradient(colors: [_saOlive, _saDarkOlive]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,8 +122,12 @@ Widget _saCodeBlock(String code) {
   );
 }
 
-Widget _saPropertyRow(String property, String value, IconData icon,
-    {Color iconColor = _saOlive}) {
+Widget _saPropertyRow(
+  String property,
+  String value,
+  IconData icon, {
+  Color iconColor = _saOlive,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
     child: Row(
@@ -199,10 +201,7 @@ Widget _saAnnotatedBox({
           Text(
             hint,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 9,
-              color: color.withValues(alpha: 0.7),
-            ),
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
           ),
         ],
       ),
@@ -296,9 +295,11 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 1 — Overview: What the Mixin Provides
         // ==================================================================
-        _saSectionHeader('1. What SemanticsAnnotationsMixin Provides',
-            subtitle:
-                'The bridge between render objects and the accessibility tree'),
+        _saSectionHeader(
+          '1. What SemanticsAnnotationsMixin Provides',
+          subtitle:
+              'The bridge between render objects and the accessibility tree',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -378,9 +379,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 2 — The Semantics Widget: Surface-Level Annotations
         // ==================================================================
-        _saSectionHeader('2. The Semantics Widget',
-            subtitle:
-                'The widget-layer interface to SemanticsAnnotationsMixin'),
+        _saSectionHeader(
+          '2. The Semantics Widget',
+          subtitle: 'The widget-layer interface to SemanticsAnnotationsMixin',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -400,7 +402,11 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
@@ -462,8 +468,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 3 — Labels, Values, and Hints
         // ==================================================================
-        _saSectionHeader('3. Labels, Values, and Hints',
-            subtitle: 'The three primary text annotations'),
+        _saSectionHeader(
+          '3. Labels, Values, and Hints',
+          subtitle: 'The three primary text annotations',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -496,15 +504,23 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.label, color: _saLime, size: 30),
                       SizedBox(height: 6),
-                      Text('label',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                      Text(
+                        'label',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('Identifies the element',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 10)),
+                      Text(
+                        'Identifies the element',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xCCFFFFFF),
+                          fontSize: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -525,15 +541,23 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.speed, color: Color(0xFFA7FFEB), size: 30),
                       SizedBox(height: 6),
-                      Text('value',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                      Text(
+                        'value',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('Current state',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 10)),
+                      Text(
+                        'Current state',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xCCFFFFFF),
+                          fontSize: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -552,17 +576,29 @@ dynamic build(BuildContext context) {
                   ),
                   child: const Column(
                     children: [
-                      Icon(Icons.lightbulb_outline, color: Color(0xFFFFF9C4), size: 30),
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: Color(0xFFFFF9C4),
+                        size: 30,
+                      ),
                       SizedBox(height: 6),
-                      Text('hint',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
+                      Text(
+                        'hint',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text('Usage guidance',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 10)),
+                      Text(
+                        'Usage guidance',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xCCFFFFFF),
+                          fontSize: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -621,11 +657,14 @@ dynamic build(BuildContext context) {
                             shape: BoxShape.circle,
                           ),
                           child: const Center(
-                            child: Text('75',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: _saOlive)),
+                            child: Text(
+                              '75',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: _saOlive,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -637,7 +676,10 @@ dynamic build(BuildContext context) {
               const Text(
                 'label="Volume"  value="75%"  hint="Swipe to adjust volume"',
                 style: TextStyle(
-                    fontSize: 10, fontFamily: 'monospace', color: _saCharcoal),
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: _saCharcoal,
+                ),
               ),
             ],
           ),
@@ -648,8 +690,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 4 — Semantic Actions
         // ==================================================================
-        _saSectionHeader('4. Semantic Actions',
-            subtitle: 'onTap, onLongPress, onScrollLeft, and more'),
+        _saSectionHeader(
+          '4. Semantic Actions',
+          subtitle: 'onTap, onLongPress, onScrollLeft, and more',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -675,16 +719,23 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             children: [
-              const Text('Semantic Action Palette',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Semantic Action Palette',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -701,7 +752,11 @@ dynamic build(BuildContext context) {
                   _saActionTile('onCut', Icons.content_cut, _saPlum),
                   _saActionTile('onPaste', Icons.content_paste, _saPlum),
                   _saActionTile('onDismiss', Icons.close, _saCoral),
-                  _saActionTile('onMoveCursorFwd', Icons.arrow_forward, _saGold),
+                  _saActionTile(
+                    'onMoveCursorFwd',
+                    Icons.arrow_forward,
+                    _saGold,
+                  ),
                   _saActionTile('onMoveCursorBack', Icons.arrow_back, _saGold),
                 ],
               ),
@@ -722,9 +777,7 @@ dynamic build(BuildContext context) {
             child: Container(
               height: 50,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [_saOlive, _saTeal],
-                ),
+                gradient: const LinearGradient(colors: [_saOlive, _saTeal]),
                 borderRadius: BorderRadius.circular(25),
               ),
               child: const Row(
@@ -732,11 +785,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.shopping_cart, color: Colors.white, size: 20),
                   SizedBox(width: 8),
-                  Text('Add to Cart',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15)),
+                  Text(
+                    'Add to Cart',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -748,8 +804,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 5 — Semantic Flags
         // ==================================================================
-        _saSectionHeader('5. Semantic Flags',
-            subtitle: 'Boolean properties that characterise the node'),
+        _saSectionHeader(
+          '5. Semantic Flags',
+          subtitle: 'Boolean properties that characterise the node',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -775,11 +833,14 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text('Element Type Flags',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saDarkOlive)),
+              const Text(
+                'Element Type Flags',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saDarkOlive,
+                ),
+              ),
               const SizedBox(height: 14),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -796,7 +857,11 @@ dynamic build(BuildContext context) {
                 children: [
                   _saFlagIndicator('isTextField', false, Icons.text_fields),
                   _saFlagIndicator('isEnabled', true, Icons.check_circle),
-                  _saFlagIndicator('isFocused', true, Icons.center_focus_strong),
+                  _saFlagIndicator(
+                    'isFocused',
+                    true,
+                    Icons.center_focus_strong,
+                  ),
                   _saFlagIndicator('isSlider', false, Icons.tune),
                 ],
               ),
@@ -820,11 +885,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.toggle_on, color: _saPlum, size: 22),
                   SizedBox(width: 8),
-                  Text('Toggle Switch with Flags',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          color: _saCharcoal)),
+                  Text(
+                    'Toggle Switch with Flags',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: _saCharcoal,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -833,8 +901,10 @@ dynamic build(BuildContext context) {
                 toggled: true,
                 enabled: true,
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: _saOlive.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(24),
@@ -843,8 +913,10 @@ dynamic build(BuildContext context) {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Dark Mode',
-                          style: TextStyle(fontSize: 13, color: _saCharcoal)),
+                      const Text(
+                        'Dark Mode',
+                        style: TextStyle(fontSize: 13, color: _saCharcoal),
+                      ),
                       const SizedBox(width: 12),
                       Container(
                         width: 48,
@@ -872,7 +944,10 @@ dynamic build(BuildContext context) {
               const Text(
                 'hasToggledState=true, toggled=true, enabled=true',
                 style: TextStyle(
-                    fontSize: 10, fontFamily: 'monospace', color: _saDarkOlive),
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: _saDarkOlive,
+                ),
               ),
             ],
           ),
@@ -883,8 +958,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 6 — Semantic Boundaries & Merging
         // ==================================================================
-        _saSectionHeader('6. Semantic Boundaries & Merging',
-            subtitle: 'isSemanticBoundary and MergeSemantics'),
+        _saSectionHeader(
+          '6. Semantic Boundaries & Merging',
+          subtitle: 'isSemanticBoundary and MergeSemantics',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -907,16 +984,23 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             children: [
-              const Text('Separate vs Merged Semantics',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Separate vs Merged Semantics',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 16),
 
               // Separate
@@ -931,11 +1015,14 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: _saCoral),
                     ),
                     child: const Center(
-                      child: Text('A',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _saCoral)),
+                      child: Text(
+                        'A',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _saCoral,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -948,11 +1035,14 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: _saCoral),
                     ),
                     child: const Center(
-                      child: Text('B',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _saCoral)),
+                      child: Text(
+                        'B',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _saCoral,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -965,11 +1055,14 @@ dynamic build(BuildContext context) {
                       border: Border.all(color: _saCoral),
                     ),
                     child: const Center(
-                      child: Text('C',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                              color: _saCoral)),
+                      child: Text(
+                        'C',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: _saCoral,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -997,11 +1090,14 @@ dynamic build(BuildContext context) {
                         border: Border.all(color: _saOlive),
                       ),
                       child: const Center(
-                        child: Text('A + B + C',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: _saOlive)),
+                        child: Text(
+                          'A + B + C',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: _saOlive,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -1050,8 +1146,11 @@ dynamic build(BuildContext context) {
                           color: _saOlive,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Icon(Icons.directions_run,
-                            color: Colors.white, size: 36),
+                        child: const Icon(
+                          Icons.directions_run,
+                          color: Colors.white,
+                          size: 36,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -1059,18 +1158,26 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Ultra Boost X',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: _saCharcoal)),
-                          Text('\$179.99',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: _saOlive)),
-                          Text('In Stock • Free Shipping',
-                              style: TextStyle(fontSize: 11, color: _saTeal)),
+                          Text(
+                            'Ultra Boost X',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: _saCharcoal,
+                            ),
+                          ),
+                          Text(
+                            '\$179.99',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: _saOlive,
+                            ),
+                          ),
+                          Text(
+                            'In Stock • Free Shipping',
+                            style: TextStyle(fontSize: 11, color: _saTeal),
+                          ),
                         ],
                       ),
                     ),
@@ -1080,7 +1187,10 @@ dynamic build(BuildContext context) {
                 const Text(
                   'Reader: "Running shoes, Ultra Boost X, \$179.99, In Stock"',
                   style: TextStyle(
-                      fontSize: 10, fontFamily: 'monospace', color: _saDarkOlive),
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: _saDarkOlive,
+                  ),
                 ),
               ],
             ),
@@ -1092,8 +1202,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 7 — ExcludeSemantics & BlockSemantics
         // ==================================================================
-        _saSectionHeader('7. ExcludeSemantics & BlockSemantics',
-            subtitle: 'Hiding decorative or redundant content from accessibility'),
+        _saSectionHeader(
+          '7. ExcludeSemantics & BlockSemantics',
+          subtitle: 'Hiding decorative or redundant content from accessibility',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -1119,11 +1231,14 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text('Accessibility Visibility',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Accessibility Visibility',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 14),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1180,8 +1295,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 8 — visitChildrenForSemantics
         // ==================================================================
-        _saSectionHeader('8. visitChildrenForSemantics',
-            subtitle: 'Controlling which children participate in semantics'),
+        _saSectionHeader(
+          '8. visitChildrenForSemantics',
+          subtitle: 'Controlling which children participate in semantics',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -1208,11 +1325,14 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text('Children → Semantics Filter',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saDarkOlive)),
+              const Text(
+                'Children → Semantics Filter',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saDarkOlive,
+                ),
+              ),
               const SizedBox(height: 14),
               Row(
                 children: [
@@ -1220,11 +1340,14 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Column(
                       children: [
-                        const Text('All Children',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: _saCharcoal)),
+                        const Text(
+                          'All Children',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: _saCharcoal,
+                          ),
+                        ),
                         const SizedBox(height: 8),
                         _saChildBox('Title', _saOlive, true),
                         _saChildBox('Divider', Colors.grey, true),
@@ -1241,11 +1364,14 @@ dynamic build(BuildContext context) {
                       children: [
                         SizedBox(height: 20),
                         Icon(Icons.arrow_forward, color: _saGold, size: 28),
-                        Text('Filter',
-                            style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.bold,
-                                color: _saGold)),
+                        Text(
+                          'Filter',
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                            color: _saGold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1253,11 +1379,14 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Column(
                       children: [
-                        const Text('Semantics Tree',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: _saCharcoal)),
+                        const Text(
+                          'Semantics Tree',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: _saCharcoal,
+                          ),
+                        ),
                         const SizedBox(height: 8),
                         _saChildBox('Title', _saOlive, true),
                         _saChildBox('Content', _saTeal, true),
@@ -1288,9 +1417,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 9 — Annotated Region & Custom Semantics
         // ==================================================================
-        _saSectionHeader('9. Annotated Regions & Custom Data',
-            subtitle:
-                'Attaching domain-specific semantics data to the tree'),
+        _saSectionHeader(
+          '9. Annotated Regions & Custom Data',
+          subtitle: 'Attaching domain-specific semantics data to the tree',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -1315,18 +1445,24 @@ dynamic build(BuildContext context) {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [_saSky.withValues(alpha: 0.1), _saPlum.withValues(alpha: 0.1)],
+              colors: [
+                _saSky.withValues(alpha: 0.1),
+                _saPlum.withValues(alpha: 0.1),
+              ],
             ),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: _saSky),
           ),
           child: Column(
             children: [
-              const Text('Email Item with Custom Actions',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Email Item with Custom Actions',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 14),
               Semantics(
                 label: 'Email from John: Meeting tomorrow',
@@ -1341,9 +1477,10 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(8),
                     boxShadow: const [
                       BoxShadow(
-                          color: Color(0x1A000000),
-                          blurRadius: 6,
-                          offset: Offset(0, 2)),
+                        color: Color(0x1A000000),
+                        blurRadius: 6,
+                        offset: Offset(0, 2),
+                      ),
                     ],
                   ),
                   child: Row(
@@ -1356,11 +1493,14 @@ dynamic build(BuildContext context) {
                           borderRadius: BorderRadius.circular(22),
                         ),
                         child: const Center(
-                          child: Text('J',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18)),
+                          child: Text(
+                            'J',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -1368,14 +1508,21 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('John Smith',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13,
-                                    color: _saCharcoal)),
-                            Text('Meeting tomorrow at 3pm',
-                                style: TextStyle(
-                                    fontSize: 12, color: Color(0xFF666666))),
+                            Text(
+                              'John Smith',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: _saCharcoal,
+                              ),
+                            ),
+                            Text(
+                              'Meeting tomorrow at 3pm',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF666666),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1407,9 +1554,11 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 10 — Semantics Tree Structure
         // ==================================================================
-        _saSectionHeader('10. The Assembled Semantics Tree',
-            subtitle:
-                'How annotations combine into a tree accessible to screen readers'),
+        _saSectionHeader(
+          '10. The Assembled Semantics Tree',
+          subtitle:
+              'How annotations combine into a tree accessible to screen readers',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -1436,11 +1585,14 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text('Render Tree → Semantics Tree',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saDarkOlive)),
+              const Text(
+                'Render Tree → Semantics Tree',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saDarkOlive,
+                ),
+              ),
               const SizedBox(height: 16),
 
               // Root
@@ -1495,8 +1647,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 11 — Live Interactive Examples
         // ==================================================================
-        _saSectionHeader('11. Live Annotation Examples',
-            subtitle: 'Realistic widgets with full semantic annotations'),
+        _saSectionHeader(
+          '11. Live Annotation Examples',
+          subtitle: 'Realistic widgets with full semantic annotations',
+        ),
 
         const SizedBox(height: 10),
 
@@ -1508,16 +1662,23 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
-              BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 8,
+                offset: Offset(0, 2),
+              ),
             ],
           ),
           child: Column(
             children: [
-              const Text('Rating Bar',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Rating Bar',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 10),
               Semantics(
                 label: 'Rating',
@@ -1544,7 +1705,10 @@ dynamic build(BuildContext context) {
                 'hint="Swipe up to increase, down to decrease"',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 9, fontFamily: 'monospace', color: _saDarkOlive),
+                  fontSize: 9,
+                  fontFamily: 'monospace',
+                  color: _saDarkOlive,
+                ),
               ),
             ],
           ),
@@ -1560,11 +1724,14 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Text('Download Progress',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saDarkOlive)),
+              const Text(
+                'Download Progress',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saDarkOlive,
+                ),
+              ),
               const SizedBox(height: 10),
               Semantics(
                 label: 'Download progress',
@@ -1596,13 +1763,18 @@ dynamic build(BuildContext context) {
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('32.6 MB / 48.7 MB',
-                            style: TextStyle(fontSize: 11, color: _saCharcoal)),
-                        Text('67%',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: _saOlive)),
+                        Text(
+                          '32.6 MB / 48.7 MB',
+                          style: TextStyle(fontSize: 11, color: _saCharcoal),
+                        ),
+                        Text(
+                          '67%',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: _saOlive,
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -1624,11 +1796,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Task Checklist',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _saCharcoal)),
+              const Text(
+                'Task Checklist',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: _saCharcoal,
+                ),
+              ),
               const SizedBox(height: 10),
               _saCheckboxRow('Review design specs', true),
               _saCheckboxRow('Implement dark mode', true),
@@ -1638,7 +1813,10 @@ dynamic build(BuildContext context) {
               const Text(
                 'Each row: checked=true/false, label="Task name"',
                 style: TextStyle(
-                    fontSize: 9, fontFamily: 'monospace', color: _saDarkOlive),
+                  fontSize: 9,
+                  fontFamily: 'monospace',
+                  color: _saDarkOlive,
+                ),
               ),
             ],
           ),
@@ -1657,19 +1835,24 @@ dynamic build(BuildContext context) {
             children: [
               Semantics(
                 header: true,
-                child: const Text('Settings',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: _saDarkOlive)),
+                child: const Text(
+                  'Settings',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: _saDarkOlive,
+                  ),
+                ),
               ),
               const SizedBox(height: 14),
               _saSettingsItem('Account', Icons.person, 'Manage your profile'),
               _saSettingsItem(
-                  'Notifications', Icons.notifications, 'Alert preferences'),
+                'Notifications',
+                Icons.notifications,
+                'Alert preferences',
+              ),
               _saSettingsItem('Privacy', Icons.lock, 'Data and sharing'),
-              _saSettingsItem(
-                  'Appearance', Icons.palette, 'Theme and display'),
+              _saSettingsItem('Appearance', Icons.palette, 'Theme and display'),
               _saSettingsItem('About', Icons.info, 'Version and licenses'),
             ],
           ),
@@ -1680,9 +1863,10 @@ dynamic build(BuildContext context) {
         // ==================================================================
         // SECTION 12 — Summary
         // ==================================================================
-        _saSectionHeader('12. Summary',
-            subtitle:
-                'SemanticsAnnotationsMixin in the grand scheme'),
+        _saSectionHeader(
+          '12. Summary',
+          subtitle: 'SemanticsAnnotationsMixin in the grand scheme',
+        ),
 
         const SizedBox(height: 10),
         _saInfoCard(
@@ -1765,7 +1949,11 @@ Widget _saActionTile(String label, IconData icon, Color color) {
         Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color),
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
         ),
       ],
     ),
@@ -1785,15 +1973,21 @@ Widget _saFlagIndicator(String label, bool isSet, IconData icon) {
         child: Icon(icon, color: isSet ? Colors.white : Colors.grey, size: 22),
       ),
       const SizedBox(height: 4),
-      Text(label,
-          style: TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.w600,
-              color: isSet ? _saOlive : Colors.grey)),
-      Text(isSet ? 'true' : 'false',
-          style: TextStyle(
-              fontSize: 8,
-              color: isSet ? _saDarkOlive : Colors.grey)),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 9,
+          fontWeight: FontWeight.w600,
+          color: isSet ? _saOlive : Colors.grey,
+        ),
+      ),
+      Text(
+        isSet ? 'true' : 'false',
+        style: TextStyle(
+          fontSize: 8,
+          color: isSet ? _saDarkOlive : Colors.grey,
+        ),
+      ),
     ],
   );
 }
@@ -1803,7 +1997,9 @@ Widget _saVisibilityCard(String label, bool visible, IconData icon) {
     width: 100,
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
-      color: visible ? _saOlive.withValues(alpha: 0.1) : _saCoral.withValues(alpha: 0.08),
+      color: visible
+          ? _saOlive.withValues(alpha: 0.1)
+          : _saCoral.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
         color: visible ? _saOlive : _saCoral.withValues(alpha: 0.3),
@@ -1811,19 +2007,28 @@ Widget _saVisibilityCard(String label, bool visible, IconData icon) {
     ),
     child: Column(
       children: [
-        Icon(icon,
-            color: visible ? _saOlive : _saCoral.withValues(alpha: 0.4), size: 24),
+        Icon(
+          icon,
+          color: visible ? _saOlive : _saCoral.withValues(alpha: 0.4),
+          size: 24,
+        ),
         const SizedBox(height: 4),
-        Text(label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 9,
-                fontWeight: FontWeight.w600,
-                color: visible ? _saOlive : _saCoral.withValues(alpha: 0.5))),
-        Text(visible ? 'Visible' : 'Excluded',
-            style: TextStyle(
-                fontSize: 8,
-                color: visible ? _saDarkOlive : _saCoral.withValues(alpha: 0.5))),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w600,
+            color: visible ? _saOlive : _saCoral.withValues(alpha: 0.5),
+          ),
+        ),
+        Text(
+          visible ? 'Visible' : 'Excluded',
+          style: TextStyle(
+            fontSize: 8,
+            color: visible ? _saDarkOlive : _saCoral.withValues(alpha: 0.5),
+          ),
+        ),
       ],
     ),
   );
@@ -1840,9 +2045,14 @@ Widget _saChildBox(String label, Color color, bool isSmall) {
       border: Border.all(color: color, width: 1),
     ),
     child: Center(
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 9,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
     ),
   );
 }
@@ -1888,8 +2098,14 @@ Widget _saActionChip(String label, IconData icon, Color color) {
       children: [
         Icon(icon, size: 12, color: color),
         const SizedBox(width: 3),
-        Text(label,
-            style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600, color: color)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 8,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
       ],
     ),
   );
@@ -1911,7 +2127,9 @@ Widget _saCheckboxRow(String task, bool checked) {
               color: checked ? _saOlive : Colors.transparent,
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                  color: checked ? _saOlive : Colors.grey, width: 2),
+                color: checked ? _saOlive : Colors.grey,
+                width: 2,
+              ),
             ),
             child: checked
                 ? const Icon(Icons.check, color: Colors.white, size: 16)
@@ -1955,14 +2173,21 @@ Widget _saSettingsItem(String label, IconData icon, String subtitle) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                        color: _saCharcoal)),
-                Text(subtitle,
-                    style:
-                        const TextStyle(fontSize: 11, color: Color(0xFF757575))),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: _saCharcoal,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF757575),
+                  ),
+                ),
               ],
             ),
           ),

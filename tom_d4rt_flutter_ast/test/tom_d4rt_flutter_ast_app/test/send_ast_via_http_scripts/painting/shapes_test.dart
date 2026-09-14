@@ -66,9 +66,7 @@ dynamic build(BuildContext context) {
           height: 96.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [brass, Color(0xFF6E5430)],
-            ),
+            gradient: RadialGradient(colors: [brass, Color(0xFF6E5430)]),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.6),
@@ -448,7 +446,9 @@ dynamic build(BuildContext context) {
   final circleTiles = <Widget>[];
   for (int i = 0; i < circleWidths.length; i = i + 1) {
     final w = circleWidths[i];
-    final shape = CircleBorder(side: BorderSide(color: inkRed, width: w));
+    final shape = CircleBorder(
+      side: BorderSide(color: inkRed, width: w),
+    );
     print('CircleBorder side.width=$w  -> dimensions ${shape.dimensions}');
     circleTiles.add(
       Container(
@@ -461,10 +461,7 @@ dynamic build(BuildContext context) {
               decoration: ShapeDecoration(
                 shape: shape,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    inkRed.withValues(alpha: 0.4),
-                  ],
+                  colors: [Colors.white, inkRed.withValues(alpha: 0.4)],
                 ),
                 shadows: [
                   BoxShadow(
@@ -536,7 +533,9 @@ dynamic build(BuildContext context) {
   final stadiumTiles = <Widget>[];
   for (int i = 0; i < stadiumWidths.length; i = i + 1) {
     final w = stadiumWidths[i];
-    final shape = StadiumBorder(side: BorderSide(color: inkGreen, width: w));
+    final shape = StadiumBorder(
+      side: BorderSide(color: inkGreen, width: w),
+    );
     print('StadiumBorder w=$w');
     stadiumTiles.add(
       Container(
@@ -761,7 +760,9 @@ dynamic build(BuildContext context) {
     final s = ovalSamples[i];
     final w = s['w'] as double;
     final aspect = s['aspect'] as double;
-    final shape = OvalBorder(side: BorderSide(color: inkTeal, width: w));
+    final shape = OvalBorder(
+      side: BorderSide(color: inkTeal, width: w),
+    );
     print('OvalBorder w=$w aspect=$aspect');
     ovalTiles.add(
       Container(
@@ -774,10 +775,7 @@ dynamic build(BuildContext context) {
               decoration: ShapeDecoration(
                 shape: shape,
                 gradient: RadialGradient(
-                  colors: [
-                    Colors.white,
-                    inkTeal.withValues(alpha: 0.35),
-                  ],
+                  colors: [Colors.white, inkTeal.withValues(alpha: 0.35)],
                 ),
                 shadows: [
                   BoxShadow(
@@ -842,9 +840,7 @@ dynamic build(BuildContext context) {
               height: 64.0,
               decoration: ShapeDecoration(
                 shape: shape,
-                gradient: LinearGradient(
-                  colors: [Colors.white, paper],
-                ),
+                gradient: LinearGradient(colors: [Colors.white, paper]),
                 shadows: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.15),
@@ -911,9 +907,11 @@ dynamic build(BuildContext context) {
                 ),
                 shadows: [
                   BoxShadow(
-                    color: Color.lerp(inkBlue, inkRed, t)!.withValues(
-                      alpha: 0.35,
-                    ),
+                    color: Color.lerp(
+                      inkBlue,
+                      inkRed,
+                      t,
+                    )!.withValues(alpha: 0.35),
                     blurRadius: 6.0,
                     offset: Offset(0.0, 3.0),
                   ),
@@ -976,9 +974,11 @@ dynamic build(BuildContext context) {
                 ),
                 shadows: [
                   BoxShadow(
-                    color: Color.lerp(inkOrange, inkPurple, t)!.withValues(
-                      alpha: 0.35,
-                    ),
+                    color: Color.lerp(
+                      inkOrange,
+                      inkPurple,
+                      t,
+                    )!.withValues(alpha: 0.35),
                     blurRadius: 6.0,
                     offset: Offset(0.0, 3.0),
                   ),
@@ -1155,9 +1155,7 @@ dynamic build(BuildContext context) {
     borderRadius: BorderRadius.circular(16.0),
     side: BorderSide(color: inkBlue, width: 2.0),
   );
-  final reSided = baseDie.copyWith(
-    side: BorderSide(color: inkRed, width: 5.0),
-  );
+  final reSided = baseDie.copyWith(side: BorderSide(color: inkRed, width: 5.0));
   final reRounded = baseDie.copyWith(borderRadius: BorderRadius.circular(40.0));
   final reBoth = baseDie.copyWith(
     side: BorderSide(color: inkGreen, width: 4.0),
@@ -1535,10 +1533,7 @@ dynamic build(BuildContext context) {
               width: 1.0,
             ),
           ),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: roundedTiles,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: roundedTiles),
         ),
         SizedBox(height: 24.0),
 
@@ -1556,10 +1551,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: circleTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: circleTiles),
               SizedBox(height: 12.0),
               Text(
                 'eccentricity knob (0.0 = circle, 1.0 = squashed)',
@@ -1570,10 +1562,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8.0),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: eccentricTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: eccentricTiles),
             ],
           ),
         ),
@@ -1593,10 +1582,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: stadiumTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: stadiumTiles),
               stadiumNote,
             ],
           ),
@@ -1615,10 +1601,7 @@ dynamic build(BuildContext context) {
               width: 1.0,
             ),
           ),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: beveledTiles,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: beveledTiles),
         ),
         SizedBox(height: 24.0),
 
@@ -1636,10 +1619,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: continuousTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: continuousTiles),
               squircleNote,
             ],
           ),
@@ -1658,10 +1638,7 @@ dynamic build(BuildContext context) {
               width: 1.0,
             ),
           ),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: ovalTiles,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: ovalTiles),
         ),
         SizedBox(height: 24.0),
 
@@ -1677,10 +1654,7 @@ dynamic build(BuildContext context) {
               width: 1.0,
             ),
           ),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: sideTiles,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: sideTiles),
         ),
         SizedBox(height: 24.0),
 
@@ -1752,10 +1726,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 6.0),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: scaleRectTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: scaleRectTiles),
               SizedBox(height: 14.0),
               Text(
                 'BeveledRectangleBorder.scale(t)',
@@ -1766,10 +1737,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 6.0),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: scaleBevelTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: scaleBevelTiles),
             ],
           ),
         ),
@@ -1846,10 +1814,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8.0),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: materialTiles,
-              ),
+              Wrap(alignment: WrapAlignment.center, children: materialTiles),
             ],
           ),
         ),
@@ -1919,10 +1884,7 @@ Widget _sectionTitle(String title, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.05),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.05)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1968,10 +1930,7 @@ Widget _pathRow(String head, String body, Color color) {
               ),
               Text(
                 body,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.brown.shade900,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.brown.shade900),
               ),
             ],
           ),

@@ -195,8 +195,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree_rounded,
-                color: Colors.teal.shade800, size: 24.0),
+            Icon(
+              Icons.account_tree_rounded,
+              color: Colors.teal.shade800,
+              size: 24.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Anatomy of a Material widget',
@@ -265,27 +268,46 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 14.0),
         // Field table
-        _buildAnatomyField('type',
-            'MaterialType — selects shape & clipping model', Colors.indigo),
         _buildAnatomyField(
-            'elevation', 'double — depth in dp (0 = flat)', Colors.deepOrange),
+          'type',
+          'MaterialType — selects shape & clipping model',
+          Colors.indigo,
+        ),
         _buildAnatomyField(
-            'color', 'Color — surface fill (ignored when transparency)',
-            Colors.pink),
+          'elevation',
+          'double — depth in dp (0 = flat)',
+          Colors.deepOrange,
+        ),
         _buildAnatomyField(
-            'shape', 'ShapeBorder — overrides per-type default shape',
-            Colors.purple),
+          'color',
+          'Color — surface fill (ignored when transparency)',
+          Colors.pink,
+        ),
         _buildAnatomyField(
-            'borderRadius',
-            'BorderRadiusGeometry — only valid for canvas/card/button',
-            Colors.green),
-        _buildAnatomyField('clipBehavior',
-            'Clip — none / hardEdge / antiAlias / antiAliasWithSaveLayer',
-            Colors.brown),
+          'shape',
+          'ShapeBorder — overrides per-type default shape',
+          Colors.purple,
+        ),
         _buildAnatomyField(
-            'shadowColor', 'Color? — color of the dropped shadow', Colors.blue),
-        _buildAnatomyField('child', 'Widget? — what lives on the surface',
-            Colors.teal),
+          'borderRadius',
+          'BorderRadiusGeometry — only valid for canvas/card/button',
+          Colors.green,
+        ),
+        _buildAnatomyField(
+          'clipBehavior',
+          'Clip — none / hardEdge / antiAlias / antiAliasWithSaveLayer',
+          Colors.brown,
+        ),
+        _buildAnatomyField(
+          'shadowColor',
+          'Color? — color of the dropped shadow',
+          Colors.blue,
+        ),
+        _buildAnatomyField(
+          'child',
+          'Widget? — what lives on the surface',
+          Colors.teal,
+        ),
       ],
     ),
   );
@@ -362,21 +384,28 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Daily Standup',
-                style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade800)),
+            Text(
+              'Daily Standup',
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade800,
+              ),
+            ),
             const SizedBox(height: 4.0),
-            Text('09:30 — 09:45',
-                style: TextStyle(
-                    fontSize: 11.0, color: Colors.blue.shade600)),
+            Text(
+              '09:30 — 09:45',
+              style: TextStyle(fontSize: 11.0, color: Colors.blue.shade600),
+            ),
             const Spacer(),
-            Text('type: card',
-                style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600)),
+            Text(
+              'type: card',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10.0,
+                color: Colors.grey.shade600,
+              ),
+            ),
           ],
         ),
       ),
@@ -519,8 +548,10 @@ dynamic build(BuildContext context) {
               fontWeight: FontWeight.w700,
               shadows: const [
                 Shadow(
-                    color: Colors.black45, offset: Offset(0.0, 1.0),
-                    blurRadius: 2.0),
+                  color: Colors.black45,
+                  offset: Offset(0.0, 1.0),
+                  blurRadius: 2.0,
+                ),
               ],
             ),
           ),
@@ -568,8 +599,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows_rounded,
-                color: Colors.grey.shade800, size: 24.0),
+            Icon(
+              Icons.compare_arrows_rounded,
+              color: Colors.grey.shade800,
+              size: 24.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'All five, side by side',
@@ -674,16 +708,21 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Performance',
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade900)),
+                  Text(
+                    'Performance',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade900,
+                    ),
+                  ),
                   const SizedBox(height: 4.0),
                   Text(
                     'Sub-millisecond ink response on every tap.',
                     style: TextStyle(
-                        fontSize: 11.0, color: Colors.blue.shade700),
+                      fontSize: 11.0,
+                      color: Colors.blue.shade700,
+                    ),
                   ),
                 ],
               ),
@@ -692,7 +731,8 @@ dynamic build(BuildContext context) {
         ),
       ),
     ),
-    code: 'Material(\n'
+    code:
+        'Material(\n'
         '  type: MaterialType.card,\n'
         '  elevation: 8.0,\n'
         '  shadowColor: Colors.blue.shade300,\n'
@@ -724,7 +764,8 @@ dynamic build(BuildContext context) {
         ),
       ),
     ),
-    code: 'Material(\n'
+    code:
+        'Material(\n'
         '  type: MaterialType.circle,\n'
         '  color: Colors.pink.shade200,\n'
         '  elevation: 4.0,\n'
@@ -780,7 +821,8 @@ dynamic build(BuildContext context) {
         ),
       ),
     ),
-    code: 'Container(\n'
+    code:
+        'Container(\n'
         '  decoration: BoxDecoration(gradient: ...),\n'
         '  child: Material(\n'
         '    type: MaterialType.transparency,\n'
@@ -821,8 +863,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.layers_clear_rounded,
-                color: Colors.deepOrange.shade800, size: 24.0),
+            Icon(
+              Icons.layers_clear_rounded,
+              color: Colors.deepOrange.shade800,
+              size: 24.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'How MaterialType combines with elevation',
@@ -888,17 +933,13 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border:
-                Border.all(color: Colors.deepOrange.shade200, width: 1.0),
+            border: Border.all(color: Colors.deepOrange.shade200, width: 1.0),
           ),
           child: Text(
             'Note: transparency cannot show elevation — there is no surface '
             'to project a shadow from. Setting elevation > 0 on '
             'MaterialType.transparency is silently a no-op.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.deepOrange.shade900,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.deepOrange.shade900),
           ),
         ),
       ],
@@ -934,8 +975,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade700, size: 24.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 24.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls and asserts you will hit',
@@ -1022,8 +1066,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree_outlined,
-                color: Colors.purple.shade800, size: 24.0),
+            Icon(
+              Icons.account_tree_outlined,
+              color: Colors.purple.shade800,
+              size: 24.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Choosing the right MaterialType',
@@ -1097,8 +1144,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.article_outlined,
-                color: Colors.cyanAccent.shade100, size: 22.0),
+            Icon(
+              Icons.article_outlined,
+              color: Colors.cyanAccent.shade100,
+              size: 22.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'About this demo',
@@ -1241,7 +1291,9 @@ Widget _sectionTitle(String text, MaterialColor accent) {
             Container(width: 5.0, color: accent.shade700),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 14.0, vertical: 10.0),
+                horizontal: 14.0,
+                vertical: 10.0,
+              ),
               child: Text(
                 text,
                 style: TextStyle(
@@ -1285,8 +1337,7 @@ Widget _buildAnatomyField(String name, String description, Color color) {
       children: [
         Container(
           width: 110.0,
-          padding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.14),
             borderRadius: BorderRadius.circular(6.0),
@@ -1405,7 +1456,9 @@ Widget _buildValueCard({
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: accent.shade100,
                 borderRadius: BorderRadius.circular(6.0),
@@ -1488,27 +1541,33 @@ Widget _buildValueCard({
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.check_circle_outline,
-                            color: accent.shade700, size: 16.0),
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: accent.shade700,
+                          size: 16.0,
+                        ),
                         const SizedBox(width: 4.0),
-                        Text('When to use',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: paletteDeep,
-                            )),
+                        Text(
+                          'When to use',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: paletteDeep,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6.0),
                     for (final w in whenToUse)
                       Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('• ',
-                                style: TextStyle(color: accent.shade700)),
+                            Text(
+                              '• ',
+                              style: TextStyle(color: accent.shade700),
+                            ),
                             Expanded(
                               child: Text(
                                 w,
@@ -1540,29 +1599,36 @@ Widget _buildValueCard({
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.error_outline,
-                            color: Colors.red.shade700, size: 16.0),
+                        Icon(
+                          Icons.error_outline,
+                          color: Colors.red.shade700,
+                          size: 16.0,
+                        ),
                         const SizedBox(width: 4.0),
-                        Text('Pitfalls',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red.shade900,
-                            )),
+                        Text(
+                          'Pitfalls',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red.shade900,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6.0),
                     for (final p in pitfalls)
                       Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('! ',
-                                style: TextStyle(
-                                    color: Colors.red.shade700,
-                                    fontWeight: FontWeight.bold)),
+                            Text(
+                              '! ',
+                              style: TextStyle(
+                                color: Colors.red.shade700,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             Expanded(
                               child: Text(
                                 p,
@@ -1683,8 +1749,7 @@ Widget _buildComparisonTile(MaterialType type, MaterialColor accent) {
         materialSample,
         const SizedBox(height: 6.0),
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
           decoration: BoxDecoration(
             color: accent.shade50,
             borderRadius: BorderRadius.circular(4.0),
@@ -1857,48 +1922,51 @@ Widget _buildPitfall(String headline, String body, MaterialColor accent) {
       borderRadius: BorderRadius.circular(9.0),
       child: IntrinsicHeight(
         child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(width: 4.0, color: accent.shade400),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.bug_report_rounded,
-                          color: accent.shade700, size: 16.0),
-                      const SizedBox(width: 6.0),
-                      Expanded(
-                        child: Text(
-                          headline,
-                          style: TextStyle(
-                            fontFamily: 'monospace',
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.bold,
-                            color: accent.shade900,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(width: 4.0, color: accent.shade400),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.bug_report_rounded,
+                          color: accent.shade700,
+                          size: 16.0,
+                        ),
+                        const SizedBox(width: 6.0),
+                        Expanded(
+                          child: Text(
+                            headline,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.bold,
+                              color: accent.shade900,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4.0),
-                  Text(
-                    body,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: Colors.grey.shade800,
-                      height: 1.4,
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 4.0),
+                    Text(
+                      body,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade800,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     ),
   );
@@ -1924,8 +1992,7 @@ Widget _buildDecisionRow(String question, String answer, MaterialColor accent) {
         Icon(Icons.arrow_right_alt, color: accent.shade700, size: 22.0),
         const SizedBox(width: 8.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 12.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: accent.shade100,
             borderRadius: BorderRadius.circular(8.0),

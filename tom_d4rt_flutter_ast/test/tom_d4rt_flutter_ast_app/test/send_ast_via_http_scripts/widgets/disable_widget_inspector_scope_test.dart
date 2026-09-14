@@ -99,9 +99,9 @@ dynamic build(BuildContext context) {
         _wiInfoBox(
           'InheritedWidget Pattern',
           'DisableWidgetInspectorScope is an InheritedWidget, meaning '
-          'descendant widgets can look up whether inspection is disabled '
-          'by calling DisableWidgetInspectorScope.of(context). The scope '
-          'propagates down the widget tree automatically.',
+              'descendant widgets can look up whether inspection is disabled '
+              'by calling DisableWidgetInspectorScope.of(context). The scope '
+              'propagates down the widget tree automatically.',
         ),
         const SizedBox(height: 24),
 
@@ -255,17 +255,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _wiSlate.withValues(alpha: 0.08),
-                _wiGray,
-              ],
+              colors: [_wiSlate.withValues(alpha: 0.08), _wiGray],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _wiSlate.withValues(alpha: 0.25),
-            ),
+            border: Border.all(color: _wiSlate.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,11 +316,7 @@ Widget _wiSection(String title) {
 Widget _wiBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _wiBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _wiBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -378,11 +369,7 @@ Widget _wiInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _wiBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _wiBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -409,11 +396,7 @@ Widget _wiSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _wiBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _wiBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -472,8 +455,11 @@ Widget _buildInspectorComponents() {
           ),
           child: Row(
             children: [
-              Icon(components[i]['icon'] as IconData,
-                  color: components[i]['color'] as Color, size: 22),
+              Icon(
+                components[i]['icon'] as IconData,
+                color: components[i]['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -490,7 +476,10 @@ Widget _buildInspectorComponents() {
                     Text(
                       components[i]['desc'] as String,
                       style: TextStyle(
-                        color: _wiBlack, fontSize: 12, height: 1.3),
+                        color: _wiBlack,
+                        fontSize: 12,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -520,11 +509,13 @@ Widget _buildScopeWorkflow() {
     },
     {
       'step': 'Walk up element tree',
-      'detail': 'For each element, check for DisableWidgetInspectorScope ancestor',
+      'detail':
+          'For each element, check for DisableWidgetInspectorScope ancestor',
     },
     {
       'step': 'Skip disabled subtrees',
-      'detail': 'If scope.disabled is true, skip to next candidate outside scope',
+      'detail':
+          'If scope.disabled is true, skip to next candidate outside scope',
     },
   ];
 
@@ -612,12 +603,14 @@ Widget _buildInspectableComparison() {
                 children: [
                   Icon(Icons.visibility, color: _wiSuccess, size: 18),
                   const SizedBox(width: 6),
-                  Text('Inspectable (default)',
-                      style: TextStyle(
-                        color: _wiSuccess,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    'Inspectable (default)',
+                    style: TextStyle(
+                      color: _wiSuccess,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -657,12 +650,14 @@ Widget _buildInspectableComparison() {
                 children: [
                   Icon(Icons.visibility_off, color: _wiSlate, size: 18),
                   const SizedBox(width: 6),
-                  Text('With Disable Scope',
-                      style: TextStyle(
-                        color: _wiSlate,
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    'With Disable Scope',
+                    style: TextStyle(
+                      color: _wiSlate,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -713,9 +708,7 @@ Widget _buildMiniWidgetTree(List<_TreeItem> items) {
                   fontWeight: item.visible
                       ? FontWeight.normal
                       : FontWeight.w300,
-                  decoration: item.visible
-                      ? null
-                      : TextDecoration.lineThrough,
+                  decoration: item.visible ? null : TextDecoration.lineThrough,
                 ),
               ),
             ],
@@ -729,7 +722,8 @@ Widget _buildUseCases() {
   final cases = <Map<String, dynamic>>[
     {
       'title': 'Framework Internals',
-      'desc': 'Material/Cupertino widget trees have internal wrappers '
+      'desc':
+          'Material/Cupertino widget trees have internal wrappers '
           'that add noise to the inspector. Wrapping them in the '
           'disable scope keeps the tree view focused on user widgets.',
       'icon': Icons.build,
@@ -737,7 +731,8 @@ Widget _buildUseCases() {
     },
     {
       'title': 'Screenshot & Testing Tools',
-      'desc': 'Automated screenshot tools need clean renders without '
+      'desc':
+          'Automated screenshot tools need clean renders without '
           'inspector overlays. The scope ensures captures are clean '
           'even when the inspector is accidentally active.',
       'icon': Icons.screenshot,
@@ -745,7 +740,8 @@ Widget _buildUseCases() {
     },
     {
       'title': 'Custom Widget Libraries',
-      'desc': 'Package authors wrap their internal implementation '
+      'desc':
+          'Package authors wrap their internal implementation '
           'details so consumers only see the public widget API '
           'in the inspector tree.',
       'icon': Icons.library_books,
@@ -753,7 +749,8 @@ Widget _buildUseCases() {
     },
     {
       'title': 'Overlay & Portal Widgets',
-      'desc': 'Overlay entries and portal content use the scope '
+      'desc':
+          'Overlay entries and portal content use the scope '
           'to prevent confusing extra entries in the tree view '
           'that represent positioning scaffolding.',
       'icon': Icons.layers,
@@ -761,7 +758,8 @@ Widget _buildUseCases() {
     },
     {
       'title': 'Theming Infrastructure',
-      'desc': 'Theme containers, DefaultTextStyle wrappers, and '
+      'desc':
+          'Theme containers, DefaultTextStyle wrappers, and '
           'IconTheme providers are often hidden since they are '
           'implicit rather than explicitly placed by developers.',
       'icon': Icons.palette,
@@ -779,13 +777,17 @@ Widget _buildUseCases() {
             color: (cases[i]['color'] as Color).withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (cases[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (cases[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(cases[i]['icon'] as IconData,
-                  color: cases[i]['color'] as Color, size: 22),
+              Icon(
+                cases[i]['icon'] as IconData,
+                color: cases[i]['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -803,7 +805,10 @@ Widget _buildUseCases() {
                     Text(
                       cases[i]['desc'] as String,
                       style: TextStyle(
-                        color: _wiBlack, fontSize: 12, height: 1.4),
+                        color: _wiBlack,
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -832,7 +837,10 @@ Widget _buildTreeFilterDemo() {
         Text(
           'Widget Tree Depth Comparison',
           style: TextStyle(
-            color: _wiSlate, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _wiSlate,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Without scope
@@ -851,9 +859,14 @@ Widget _buildTreeFilterDemo() {
                 children: [
                   Icon(Icons.warning_amber, color: _wiError, size: 16),
                   const SizedBox(width: 6),
-                  Text('Without scope: 14 levels deep',
-                      style: TextStyle(color: _wiError, fontSize: 12,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Without scope: 14 levels deep',
+                    style: TextStyle(
+                      color: _wiError,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
@@ -891,9 +904,14 @@ Widget _buildTreeFilterDemo() {
                 children: [
                   Icon(Icons.check_circle, color: _wiSuccess, size: 16),
                   const SizedBox(width: 6),
-                  Text('With scope: 3 levels deep',
-                      style: TextStyle(color: _wiSuccess, fontSize: 12,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'With scope: 3 levels deep',
+                    style: TextStyle(
+                      color: _wiSuccess,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
@@ -912,8 +930,11 @@ Widget _buildTreeFilterDemo() {
         const SizedBox(height: 10),
         Text(
           '11 internal nodes hidden — developer sees only meaningful widgets',
-          style: TextStyle(color: _wiMuted, fontSize: 11,
-              fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: _wiMuted,
+            fontSize: 11,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -935,7 +956,10 @@ Widget _buildNestedScopes() {
         Text(
           'Nested Scope Priority',
           style: TextStyle(
-            color: _wiSlate, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _wiSlate,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Outer scope
@@ -950,14 +974,24 @@ Widget _buildNestedScopes() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('DisableWidgetInspectorScope(disabled: true)',
-                  style: TextStyle(color: _wiError, fontSize: 11,
-                      fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+              Text(
+                'DisableWidgetInspectorScope(disabled: true)',
+                style: TextStyle(
+                  color: _wiError,
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('\u2022 WidgetA — HIDDEN',
-                  style: TextStyle(color: _wiMuted, fontSize: 12)),
-              Text('\u2022 WidgetB — HIDDEN',
-                  style: TextStyle(color: _wiMuted, fontSize: 12)),
+              Text(
+                '\u2022 WidgetA — HIDDEN',
+                style: TextStyle(color: _wiMuted, fontSize: 12),
+              ),
+              Text(
+                '\u2022 WidgetB — HIDDEN',
+                style: TextStyle(color: _wiMuted, fontSize: 12),
+              ),
               const SizedBox(height: 8),
               // Inner scope re-enables
               Container(
@@ -981,16 +1015,22 @@ Widget _buildNestedScopes() {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    Text('\u2022 WidgetC — VISIBLE (re-enabled)',
-                        style: TextStyle(color: _wiSuccess, fontSize: 12)),
-                    Text('\u2022 WidgetD — VISIBLE (re-enabled)',
-                        style: TextStyle(color: _wiSuccess, fontSize: 12)),
+                    Text(
+                      '\u2022 WidgetC — VISIBLE (re-enabled)',
+                      style: TextStyle(color: _wiSuccess, fontSize: 12),
+                    ),
+                    Text(
+                      '\u2022 WidgetD — VISIBLE (re-enabled)',
+                      style: TextStyle(color: _wiSuccess, fontSize: 12),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 8),
-              Text('\u2022 WidgetE — HIDDEN',
-                  style: TextStyle(color: _wiMuted, fontSize: 12)),
+              Text(
+                '\u2022 WidgetE — HIDDEN',
+                style: TextStyle(color: _wiMuted, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -998,8 +1038,11 @@ Widget _buildNestedScopes() {
         Text(
           'Inner scopes always take precedence — the nearest '
           'ancestor scope determines visibility.',
-          style: TextStyle(color: _wiMuted, fontSize: 11,
-              fontStyle: FontStyle.italic),
+          style: TextStyle(
+            color: _wiMuted,
+            fontSize: 11,
+            fontStyle: FontStyle.italic,
+          ),
         ),
       ],
     ),
@@ -1026,21 +1069,34 @@ Widget _buildDisableVsEnable() {
                   Icon(Icons.visibility_off, color: _wiError, size: 18),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: Text('Disable Scope',
-                        style: TextStyle(color: _wiError, fontSize: 13,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Disable Scope',
+                      style: TextStyle(
+                        color: _wiError,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('\u2022 Hides subtree from inspector',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 Used by framework internals',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 disabled: true prevents inspection',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 Can be overridden by inner scope',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
+              Text(
+                '\u2022 Hides subtree from inspector',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Used by framework internals',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 disabled: true prevents inspection',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Can be overridden by inner scope',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -1062,21 +1118,34 @@ Widget _buildDisableVsEnable() {
                   Icon(Icons.visibility, color: _wiSuccess, size: 18),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: Text('Enable Scope',
-                        style: TextStyle(color: _wiSuccess, fontSize: 13,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Enable Scope',
+                      style: TextStyle(
+                        color: _wiSuccess,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('\u2022 Re-enables inspection in subtree',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 Counterpart to disable scope',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 Opt specific widgets back in',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
-              Text('\u2022 Used inside disabled ancestors',
-                  style: TextStyle(color: _wiBlack, fontSize: 12)),
+              Text(
+                '\u2022 Re-enables inspection in subtree',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Counterpart to disable scope',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Opt specific widgets back in',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Used inside disabled ancestors',
+                style: TextStyle(color: _wiBlack, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -1120,12 +1189,16 @@ Widget _buildBuildModes() {
             color: (modes[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (modes[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (modes[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             children: [
-              Icon(modes[i]['icon'] as IconData,
-                  color: modes[i]['color'] as Color, size: 22),
+              Icon(
+                modes[i]['icon'] as IconData,
+                color: modes[i]['color'] as Color,
+                size: 22,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Row(
@@ -1156,8 +1229,7 @@ Widget _buildBuildModes() {
                           ),
                           Text(
                             modes[i]['scope'] as String,
-                            style: TextStyle(
-                              color: _wiMuted, fontSize: 11),
+                            style: TextStyle(color: _wiMuted, fontSize: 11),
                           ),
                         ],
                       ),
@@ -1211,8 +1283,7 @@ Widget _buildDevToolsIntegration() {
           ),
           child: Row(
             children: [
-              Icon(panels[i]['icon'] as IconData,
-                  color: _wiSlate, size: 20),
+              Icon(panels[i]['icon'] as IconData, color: _wiSlate, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1229,7 +1300,10 @@ Widget _buildDevToolsIntegration() {
                     Text(
                       panels[i]['effect'] as String,
                       style: TextStyle(
-                        color: _wiBlack, fontSize: 12, height: 1.3),
+                        color: _wiBlack,
+                        fontSize: 12,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -1245,12 +1319,27 @@ Widget _buildDevToolsIntegration() {
 
 Widget _buildFrameworkUsers() {
   final users = <Map<String, String>>[
-    {'widget': 'Scaffold', 'reason': 'Hides internal body builder and layout wrappers'},
+    {
+      'widget': 'Scaffold',
+      'reason': 'Hides internal body builder and layout wrappers',
+    },
     {'widget': 'AppBar', 'reason': 'Hides flexible space bar internals'},
-    {'widget': 'Material', 'reason': 'Hides ink splash and shape painting layers'},
-    {'widget': 'Tooltip', 'reason': 'Hides overlay entry and positioning widgets'},
-    {'widget': 'DropdownButton', 'reason': 'Hides internal menu route and popup scaffolding'},
-    {'widget': 'NavigationBar', 'reason': 'Hides animation containers and icon wrappers'},
+    {
+      'widget': 'Material',
+      'reason': 'Hides ink splash and shape painting layers',
+    },
+    {
+      'widget': 'Tooltip',
+      'reason': 'Hides overlay entry and positioning widgets',
+    },
+    {
+      'widget': 'DropdownButton',
+      'reason': 'Hides internal menu route and popup scaffolding',
+    },
+    {
+      'widget': 'NavigationBar',
+      'reason': 'Hides animation containers and icon wrappers',
+    },
   ];
 
   return Container(
@@ -1266,21 +1355,31 @@ Widget _buildFrameworkUsers() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _wiSlate.withValues(alpha: 0.06),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text('Widget', style: TextStyle(
-                  color: _wiSlate, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Widget',
+                  style: TextStyle(
+                    color: _wiSlate,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 5,
-                child: Text('What It Hides', style: TextStyle(
-                  color: _wiSlate, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'What It Hides',
+                  style: TextStyle(
+                    color: _wiSlate,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1296,16 +1395,22 @@ Widget _buildFrameworkUsers() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(user['widget']!,
-                      style: TextStyle(
-                        color: _wiDark, fontSize: 12,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w600)),
+                  child: Text(
+                    user['widget']!,
+                    style: TextStyle(
+                      color: _wiDark,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 5,
-                  child: Text(user['reason']!,
-                      style: TextStyle(color: _wiBlack, fontSize: 12)),
+                  child: Text(
+                    user['reason']!,
+                    style: TextStyle(color: _wiBlack, fontSize: 12),
+                  ),
                 ),
               ],
             ),

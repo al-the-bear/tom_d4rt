@@ -55,12 +55,7 @@ class _FocusTreePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     // Root: FocusScope
-    final Rect scopeRect = Rect.fromLTWH(
-      size.width / 2 - 90,
-      8,
-      180,
-      34,
-    );
+    final Rect scopeRect = Rect.fromLTWH(size.width / 2 - 90, 8, 180, 34);
     final RRect scopeR = RRect.fromRectAndRadius(
       scopeRect,
       const Radius.circular(8),
@@ -89,8 +84,7 @@ class _FocusTreePainter extends CustomPainter {
     // Leaves under group A
     const int leftLeafCount = 3;
     for (int i = 0; i < leftLeafCount; i++) {
-      final Rect leaf =
-          Rect.fromLTWH(20.0 + i * 50.0, 150, 44, 24);
+      final Rect leaf = Rect.fromLTWH(20.0 + i * 50.0, 150, 44, 24);
       canvas.drawRRect(
         RRect.fromRectAndRadius(leaf, const Radius.circular(6)),
         Paint()..color = leafColor,
@@ -102,8 +96,12 @@ class _FocusTreePainter extends CustomPainter {
     // Leaves under group B (numbered out of widget order)
     const List<String> rightLabels = <String>['F4#2', 'F5#1', 'F6#3'];
     for (int i = 0; i < rightLabels.length; i++) {
-      final Rect leaf =
-          Rect.fromLTWH(size.width - 170.0 + i * 50.0, 150, 44, 24);
+      final Rect leaf = Rect.fromLTWH(
+        size.width - 170.0 + i * 50.0,
+        150,
+        44,
+        24,
+      );
       canvas.drawRRect(
         RRect.fromRectAndRadius(leaf, const Radius.circular(6)),
         Paint()..color = leafColor,
@@ -113,12 +111,7 @@ class _FocusTreePainter extends CustomPainter {
     }
 
     // Dashed traversal-policy boundary around group B
-    final Rect boundary = Rect.fromLTWH(
-      size.width - 180,
-      72,
-      170,
-      114,
-    );
+    final Rect boundary = Rect.fromLTWH(size.width - 180, 72, 170, 114);
     _drawDashedRRect(
       canvas,
       RRect.fromRectAndRadius(boundary, const Radius.circular(10)),
@@ -173,10 +166,7 @@ class _FocusTreePainter extends CustomPainter {
     tp.layout(maxWidth: rect.width - 6);
     tp.paint(
       canvas,
-      Offset(
-        rect.center.dx - tp.width / 2,
-        rect.center.dy - tp.height / 2,
-      ),
+      Offset(rect.center.dx - tp.width / 2, rect.center.dy - tp.height / 2),
     );
   }
 
@@ -265,8 +255,7 @@ class _TraversalArrowPainter extends CustomPainter {
       if (aIdx >= fieldRects.length || bIdx >= fieldRects.length) continue;
       final Rect a = fieldRects[aIdx];
       final Rect b = fieldRects[bIdx];
-      final Offset start =
-          Offset(a.center.dx, a.center.dy);
+      final Offset start = Offset(a.center.dx, a.center.dy);
       final Offset end = Offset(b.center.dx, b.center.dy);
       final Path p = Path()
         ..moveTo(start.dx, start.dy)
@@ -412,14 +401,8 @@ class _DirectionalityComparePainter extends CustomPainter {
         final double nextX = ltr
             ? bounds.left + pad + (i + 1) * (cellW + gap)
             : bounds.right - pad - (i + 2) * cellW - (i + 1) * gap + cellW;
-        final Offset a = Offset(
-          ltr ? cell.right : cell.left,
-          cell.center.dy,
-        );
-        final Offset b = Offset(
-          ltr ? nextX : nextX - cellW,
-          cell.center.dy,
-        );
+        final Offset a = Offset(ltr ? cell.right : cell.left, cell.center.dy);
+        final Offset b = Offset(ltr ? nextX : nextX - cellW, cell.center.dy);
         final Paint arrow = Paint()
           ..color = arrowColor
           ..strokeWidth = 1.6
@@ -428,16 +411,8 @@ class _DirectionalityComparePainter extends CustomPainter {
         canvas.drawLine(a, b, arrow);
         // arrowhead
         final double dir = ltr ? 1 : -1;
-        canvas.drawLine(
-          b,
-          Offset(b.dx - 4 * dir, b.dy - 3),
-          arrow,
-        );
-        canvas.drawLine(
-          b,
-          Offset(b.dx - 4 * dir, b.dy + 3),
-          arrow,
-        );
+        canvas.drawLine(b, Offset(b.dx - 4 * dir, b.dy - 3), arrow);
+        canvas.drawLine(b, Offset(b.dx - 4 * dir, b.dy + 3), arrow);
       }
     }
 
@@ -499,14 +474,15 @@ dynamic build(BuildContext context) {
   print('formScope: ${formScope.debugLabel}');
   print('aNode canRequestFocus: ${aNode.canRequestFocus}');
   print('aNode.skipTraversal: ${aNode.skipTraversal}');
-  print('FocusManager.instance present: '
-      '${FocusManager.instance.runtimeType}');
+  print(
+    'FocusManager.instance present: '
+    '${FocusManager.instance.runtimeType}',
+  );
 
   // ─── Policies ────────────────────────────────────────────────────────
   final ReadingOrderTraversalPolicy readingPolicy =
       ReadingOrderTraversalPolicy();
-  final WidgetOrderTraversalPolicy widgetPolicy =
-      WidgetOrderTraversalPolicy();
+  final WidgetOrderTraversalPolicy widgetPolicy = WidgetOrderTraversalPolicy();
   final OrderedTraversalPolicy orderedPolicy = OrderedTraversalPolicy();
   print('readingPolicy: ${readingPolicy.runtimeType}');
   print('widgetPolicy: ${widgetPolicy.runtimeType}');
@@ -518,13 +494,19 @@ dynamic build(BuildContext context) {
   final LexicalFocusOrder lBeta = const LexicalFocusOrder('beta');
   final LexicalFocusOrder lGamma = const LexicalFocusOrder('gamma');
   print('NumericFocusOrder(1).order: ${n1.order}');
-  print('NumericFocusOrder(2) > NumericFocusOrder(1): '
-      '${n2.compareTo(n1) > 0}');
+  print(
+    'NumericFocusOrder(2) > NumericFocusOrder(1): '
+    '${n2.compareTo(n1) > 0}',
+  );
   print('LexicalFocusOrder("alpha").order: ${lAlpha.order}');
-  print('LexicalFocusOrder compare alpha vs beta: '
-      '${lAlpha.compareTo(lBeta)}');
-  print('LexicalFocusOrder compare gamma vs beta: '
-      '${lGamma.compareTo(lBeta)}');
+  print(
+    'LexicalFocusOrder compare alpha vs beta: '
+    '${lAlpha.compareTo(lBeta)}',
+  );
+  print(
+    'LexicalFocusOrder compare gamma vs beta: '
+    '${lGamma.compareTo(lBeta)}',
+  );
 
   // ─── Local widget helpers ───────────────────────────────────────────────
 
@@ -622,10 +604,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget infoCard(String heading, Widget content,
-      {List<Color>? headerGradient, Color? bodyColor}) {
-    final List<Color> gradient =
-        headerGradient ?? <Color>[indigoDeep, indigo];
+  Widget infoCard(
+    String heading,
+    Widget content, {
+    List<Color>? headerGradient,
+    Color? bodyColor,
+  }) {
+    final List<Color> gradient = headerGradient ?? <Color>[indigoDeep, indigo];
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -658,8 +643,9 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
             ),
             child: Text(
               heading,
@@ -722,11 +708,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          color: fg,
-        ),
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: fg),
       ),
     );
   }
@@ -790,8 +772,9 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.18),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
               border: Border(
                 bottom: BorderSide(color: a.withValues(alpha: 0.4)),
               ),
@@ -870,8 +853,13 @@ dynamic build(BuildContext context) {
   }
 
   // A field with a numbered chip in its corner (used for ordered demos).
-  Widget numberedField(int n, String label,
-      {Color? chipBg, Color? chipFg, double w = 130}) {
+  Widget numberedField(
+    int n,
+    String label, {
+    Color? chipBg,
+    Color? chipFg,
+    double w = 130,
+  }) {
     final Color cb = chipBg ?? indigo;
     final Color cf = chipFg ?? Colors.white;
     return Stack(
@@ -1007,8 +995,11 @@ dynamic build(BuildContext context) {
   final Widget intro = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('1', 'What is focus traversal, and why care?',
-          const <Color>[indigoDeep, indigo]),
+      sectionBanner(
+        '1',
+        'What is focus traversal, and why care?',
+        const <Color>[indigoDeep, indigo],
+      ),
       proseBox(
         'Focus traversal is the rule that decides which focusable widget '
         'becomes "next" when the user presses Tab, an arrow key, a screen-'
@@ -1024,15 +1015,20 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('Trigger', 'Tab, Shift+Tab, arrow keys, dpad'),
-            dataRow('Computed by',
-                'FocusTraversalPolicy.findFirstFocusInDirection / next'),
-            dataRow('Scope',
-                'Nearest enclosing FocusTraversalGroup or FocusScope'),
-            dataRow('Inputs',
-                'Geometry, widget tree order, FocusTraversalOrder, '
-                'Directionality'),
-            dataRow('Output',
-                'A FocusNode that becomes the new primaryFocus'),
+            dataRow(
+              'Computed by',
+              'FocusTraversalPolicy.findFirstFocusInDirection / next',
+            ),
+            dataRow(
+              'Scope',
+              'Nearest enclosing FocusTraversalGroup or FocusScope',
+            ),
+            dataRow(
+              'Inputs',
+              'Geometry, widget tree order, FocusTraversalOrder, '
+                  'Directionality',
+            ),
+            dataRow('Output', 'A FocusNode that becomes the new primaryFocus'),
           ],
         ),
       ),
@@ -1052,8 +1048,10 @@ dynamic build(BuildContext context) {
   final Widget anatomy = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('2', 'Anatomy of the focus tree',
-          const <Color>[tealDeep, teal]),
+      sectionBanner('2', 'Anatomy of the focus tree', const <Color>[
+        tealDeep,
+        teal,
+      ]),
       proseBox(
         'Flutter maintains a parallel "focus tree" alongside the widget '
         'tree. Each FocusScope creates a stack-like region where focus can '
@@ -1124,8 +1122,14 @@ dynamic build(BuildContext context) {
           left: readingRects[i].left,
           top: readingRects[i].top,
           child: fieldBox(
-            <String>['First name', 'Last name', 'Email', 'Phone', 'City',
-                'Zip'][i],
+            <String>[
+              'First name',
+              'Last name',
+              'Email',
+              'Phone',
+              'City',
+              'Zip',
+            ][i],
             bg: paper,
             border: tealLight,
           ),
@@ -1153,8 +1157,8 @@ dynamic build(BuildContext context) {
   const Size widgetSize = Size(420, 200);
   const List<Rect> widgetRects = <Rect>[
     // Stored in widget-tree order: column 1 entries come second.
-    Rect.fromLTWH(170, 16, 130, 40),  // tree-index 0 (column 2 row 1)
-    Rect.fromLTWH(20, 16, 130, 40),   // tree-index 1 (column 1 row 1)
+    Rect.fromLTWH(170, 16, 130, 40), // tree-index 0 (column 2 row 1)
+    Rect.fromLTWH(20, 16, 130, 40), // tree-index 1 (column 1 row 1)
     Rect.fromLTWH(170, 80, 130, 40),
     Rect.fromLTWH(20, 80, 130, 40),
     Rect.fromLTWH(170, 144, 130, 40),
@@ -1195,11 +1199,11 @@ dynamic build(BuildContext context) {
   // Renders numbered chips and arrows in the explicit numeric order.
   const Size numericSize = Size(420, 200);
   const List<Rect> numericRects = <Rect>[
-    Rect.fromLTWH(20, 16, 130, 40),   // widget index 0 → N=3
-    Rect.fromLTWH(170, 16, 130, 40),  // widget index 1 → N=1
-    Rect.fromLTWH(20, 80, 130, 40),   // widget index 2 → N=5
-    Rect.fromLTWH(170, 80, 130, 40),  // widget index 3 → N=2
-    Rect.fromLTWH(20, 144, 130, 40),  // widget index 4 → N=6
+    Rect.fromLTWH(20, 16, 130, 40), // widget index 0 → N=3
+    Rect.fromLTWH(170, 16, 130, 40), // widget index 1 → N=1
+    Rect.fromLTWH(20, 80, 130, 40), // widget index 2 → N=5
+    Rect.fromLTWH(170, 80, 130, 40), // widget index 3 → N=2
+    Rect.fromLTWH(20, 144, 130, 40), // widget index 4 → N=6
     Rect.fromLTWH(170, 144, 130, 40), // widget index 5 → N=4
   ];
   // The numeric order assigned to each widget-index:
@@ -1297,8 +1301,7 @@ dynamic build(BuildContext context) {
   final Widget gallery = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('3', 'Policy gallery',
-          const <Color>[tealDeep, indigo]),
+      sectionBanner('3', 'Policy gallery', const <Color>[tealDeep, indigo]),
       proseBox(
         'Each card below wraps the same kind of layout in a different '
         'FocusTraversalPolicy. The numbered chips and arrows are the '
@@ -1380,8 +1383,10 @@ dynamic build(BuildContext context) {
   final Widget numericDetail = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('4', 'NumericFocusOrder up close',
-          const <Color>[Color(0xFF92400E), amber]),
+      sectionBanner('4', 'NumericFocusOrder up close', const <Color>[
+        Color(0xFF92400E),
+        amber,
+      ]),
       proseBox(
         'NumericFocusOrder wraps a double. OrderedTraversalPolicy sorts '
         'siblings by this value (ascending). Equal values are tie-broken by '
@@ -1403,10 +1408,7 @@ dynamic build(BuildContext context) {
                       '${numericVisitOrder[rank - 1]} '
                       '(label "Field '
                       '${String.fromCharCode(65 + numericVisitOrder[rank - 1])}")',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: slateDeep,
-                      ),
+                      style: const TextStyle(fontSize: 12, color: slateDeep),
                     ),
                   ],
                 ),
@@ -1445,8 +1447,10 @@ dynamic build(BuildContext context) {
   final Widget directionality = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('5', 'LTR vs RTL — reading order flips',
-          const <Color>[indigoDeep, teal]),
+      sectionBanner('5', 'LTR vs RTL — reading order flips', const <Color>[
+        indigoDeep,
+        teal,
+      ]),
       proseBox(
         'ReadingOrderTraversalPolicy is sensitive to the ambient '
         'Directionality. In an LTR locale, four siblings are visited 1 → 2 '
@@ -1477,14 +1481,22 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('LTR languages',
-                'English, German, French — Tab goes left → right, top → bottom'),
-            dataRow('RTL languages',
-                'Arabic, Hebrew — Tab goes right → left, top → bottom'),
-            dataRow('Whose responsibility',
-                'ReadingOrderTraversalPolicy reads Directionality.of(context)'),
-            dataRow('Override?',
-                'Wrap a subtree in Directionality(textDirection: ...)'),
+            dataRow(
+              'LTR languages',
+              'English, German, French — Tab goes left → right, top → bottom',
+            ),
+            dataRow(
+              'RTL languages',
+              'Arabic, Hebrew — Tab goes right → left, top → bottom',
+            ),
+            dataRow(
+              'Whose responsibility',
+              'ReadingOrderTraversalPolicy reads Directionality.of(context)',
+            ),
+            dataRow(
+              'Override?',
+              'Wrap a subtree in Directionality(textDirection: ...)',
+            ),
           ],
         ),
         headerGradient: const <Color>[tealDeep, teal],
@@ -1506,8 +1518,7 @@ dynamic build(BuildContext context) {
             order: const NumericFocusOrder(3.0),
             child: Focus(
               focusNode: cNode,
-              child: numberedField(3, 'cNode (tag 3.0)',
-                  chipBg: amber, w: 240),
+              child: numberedField(3, 'cNode (tag 3.0)', chipBg: amber, w: 240),
             ),
           ),
           const SizedBox(height: 8),
@@ -1515,8 +1526,7 @@ dynamic build(BuildContext context) {
             order: const NumericFocusOrder(1.0),
             child: Focus(
               focusNode: aNode,
-              child: numberedField(1, 'aNode (tag 1.0)',
-                  chipBg: amber, w: 240),
+              child: numberedField(1, 'aNode (tag 1.0)', chipBg: amber, w: 240),
             ),
           ),
           const SizedBox(height: 8),
@@ -1524,8 +1534,7 @@ dynamic build(BuildContext context) {
             order: const NumericFocusOrder(2.0),
             child: Focus(
               focusNode: bNode,
-              child: numberedField(2, 'bNode (tag 2.0)',
-                  chipBg: amber, w: 240),
+              child: numberedField(2, 'bNode (tag 2.0)', chipBg: amber, w: 240),
             ),
           ),
         ],
@@ -1536,8 +1545,11 @@ dynamic build(BuildContext context) {
   final Widget realApi = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('6', 'Real FocusTraversalGroup with Focus children',
-          const <Color>[tealDeep, amber]),
+      sectionBanner(
+        '6',
+        'Real FocusTraversalGroup with Focus children',
+        const <Color>[tealDeep, amber],
+      ),
       proseBox(
         'The card below contains a real FocusTraversalGroup with three '
         'Focus widgets attached to actual FocusNodes. Each Focus is wrapped '
@@ -1594,8 +1606,10 @@ dynamic build(BuildContext context) {
   final Widget scopes = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('7', 'FocusScope: where focus parks itself',
-          const <Color>[indigoDeep, sky]),
+      sectionBanner('7', 'FocusScope: where focus parks itself', const <Color>[
+        indigoDeep,
+        sky,
+      ]),
       proseBox(
         'A FocusScope is a "save point" for focus. When the scope becomes '
         'inactive (e.g. when a dialog is dismissed), Flutter remembers which '
@@ -1610,23 +1624,25 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('FocusScopeNode',
-                'A FocusNode subtype that participates as a scope frontier'),
-            dataRow('Created by',
-                'FocusScope widget, or constructed manually like rootScope'),
-            dataRow('Remembers',
-                'lastFocusedNode for round-trip restoration'),
-            dataRow('rootScope debugLabel',
-                rootScope.debugLabel ?? '(none)'),
-            dataRow('formScope debugLabel',
-                formScope.debugLabel ?? '(none)'),
+            dataRow(
+              'FocusScopeNode',
+              'A FocusNode subtype that participates as a scope frontier',
+            ),
+            dataRow(
+              'Created by',
+              'FocusScope widget, or constructed manually like rootScope',
+            ),
+            dataRow('Remembers', 'lastFocusedNode for round-trip restoration'),
+            dataRow('rootScope debugLabel', rootScope.debugLabel ?? '(none)'),
+            dataRow('formScope debugLabel', formScope.debugLabel ?? '(none)'),
             dataRow('aNode debugLabel', aNode.debugLabel ?? '(none)'),
             dataRow('bNode debugLabel', bNode.debugLabel ?? '(none)'),
             dataRow('cNode debugLabel', cNode.debugLabel ?? '(none)'),
-            dataRow('dNode.canRequestFocus',
-                '${dNode.canRequestFocus}'),
-            dataRow('FocusManager type',
-                FocusManager.instance.runtimeType.toString()),
+            dataRow('dNode.canRequestFocus', '${dNode.canRequestFocus}'),
+            dataRow(
+              'FocusManager type',
+              FocusManager.instance.runtimeType.toString(),
+            ),
           ],
         ),
         headerGradient: const <Color>[indigoDeep, indigo],
@@ -1665,8 +1681,10 @@ dynamic build(BuildContext context) {
   final Widget focusableActions = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('8', 'FocusableActionDetector',
-          const <Color>[tealDeep, teal]),
+      sectionBanner('8', 'FocusableActionDetector', const <Color>[
+        tealDeep,
+        teal,
+      ]),
       proseBox(
         'FocusableActionDetector is the bundle widget. It is a Focus, an '
         'Actions, a Shortcuts and a MouseRegion all in one — the canonical '
@@ -1702,17 +1720,17 @@ dynamic build(BuildContext context) {
   final Widget codeSamples = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('9', 'Idiomatic setup',
-          const <Color>[Color(0xFF111827), sky]),
+      sectionBanner('9', 'Idiomatic setup', const <Color>[
+        Color(0xFF111827),
+        sky,
+      ]),
       proseBox(
         'Each policy has a one-line, declarative wiring. The boilerplate is '
         'always the same: a FocusTraversalGroup at the boundary, a policy '
         'instance, and (for OrderedTraversalPolicy) FocusTraversalOrder '
         'children with NumericFocusOrder or LexicalFocusOrder.',
       ),
-      codeSnippetCard(
-        'ReadingOrderTraversalPolicy',
-        '''FocusTraversalGroup(
+      codeSnippetCard('ReadingOrderTraversalPolicy', '''FocusTraversalGroup(
   policy: ReadingOrderTraversalPolicy(),
   child: Column(
     children: <Widget>[
@@ -1721,12 +1739,8 @@ dynamic build(BuildContext context) {
       TextField(),
     ],
   ),
-)''',
-        accent: teal,
-      ),
-      codeSnippetCard(
-        'WidgetOrderTraversalPolicy',
-        '''FocusTraversalGroup(
+)''', accent: teal),
+      codeSnippetCard('WidgetOrderTraversalPolicy', '''FocusTraversalGroup(
   policy: WidgetOrderTraversalPolicy(),
   child: Wrap(
     children: <Widget>[
@@ -1734,9 +1748,7 @@ dynamic build(BuildContext context) {
       TextField(),
     ],
   ),
-)''',
-        accent: indigo,
-      ),
+)''', accent: indigo),
       codeSnippetCard(
         'OrderedTraversalPolicy + NumericFocusOrder',
         '''FocusTraversalGroup(
@@ -1803,8 +1815,9 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.15),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
               border: Border(
                 bottom: BorderSide(color: accent.withValues(alpha: 0.45)),
               ),
@@ -1845,8 +1858,10 @@ dynamic build(BuildContext context) {
   final Widget pitfalls = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('10', 'Pitfalls and gotchas',
-          const <Color>[Color(0xFF881337), rose]),
+      sectionBanner('10', 'Pitfalls and gotchas', const <Color>[
+        Color(0xFF881337),
+        rose,
+      ]),
       proseBox(
         'Focus traversal usually "just works" — until it doesn\'t. The most '
         'common failure modes are listed below. Each one has a single, '
@@ -1855,50 +1870,50 @@ dynamic build(BuildContext context) {
       pitfall(
         'No FocusScope at all',
         'A subtree with focusable children but no enclosing FocusScope (and '
-        'no MaterialApp/CupertinoApp which provide one) cannot stack focus '
-        'state. Tabbing escapes into nothing. Fix: wrap the area in '
-        'FocusScope or rely on the implicit one in MaterialApp.',
+            'no MaterialApp/CupertinoApp which provide one) cannot stack focus '
+            'state. Tabbing escapes into nothing. Fix: wrap the area in '
+            'FocusScope or rely on the implicit one in MaterialApp.',
         rose,
       ),
       pitfall(
         'Mixing policies inside a single group',
         'A FocusTraversalGroup takes one policy. Mixing FocusTraversalOrder '
-        'children with un-tagged children under OrderedTraversalPolicy leads '
-        'to "untagged-first, tagged-by-numeric-order-second" behaviour, '
-        'which surprises everyone. Fix: tag every child, or nest groups.',
+            'children with un-tagged children under OrderedTraversalPolicy leads '
+            'to "untagged-first, tagged-by-numeric-order-second" behaviour, '
+            'which surprises everyone. Fix: tag every child, or nest groups.',
         rose,
       ),
       pitfall(
         'Wrapping a single field in FocusTraversalGroup',
         'A FocusTraversalGroup with one focusable descendant cannot reorder '
-        'anything; it only creates a traversal boundary that traps focus on '
-        'itself. Fix: remove the wrapper, or move the wrapper outward to '
-        'enclose the actual peer fields.',
+            'anything; it only creates a traversal boundary that traps focus on '
+            'itself. Fix: remove the wrapper, or move the wrapper outward to '
+            'enclose the actual peer fields.',
         rose,
       ),
       pitfall(
         'Mismatched NumericFocusOrder scales',
         'NumericFocusOrder(0.0001) and NumericFocusOrder(10000) work, but '
-        'mixing tiny fractions with large integers in one group makes '
-        'maintenance unreasonable. Fix: pick one scale per group — e.g. '
-        '10, 20, 30 (leaving room to insert later).',
+            'mixing tiny fractions with large integers in one group makes '
+            'maintenance unreasonable. Fix: pick one scale per group — e.g. '
+            '10, 20, 30 (leaving room to insert later).',
         rose,
       ),
       pitfall(
         'Forgetting that ReadingOrder is geometry-based',
         'If your "row" is actually four Stack children placed by '
-        'Positioned at the same y, ReadingOrderTraversalPolicy uses their '
-        'horizontal centres — so a 1-pixel difference can flip the order. '
-        'Fix: align rows precisely, or switch to OrderedTraversalPolicy.',
+            'Positioned at the same y, ReadingOrderTraversalPolicy uses their '
+            'horizontal centres — so a 1-pixel difference can flip the order. '
+            'Fix: align rows precisely, or switch to OrderedTraversalPolicy.',
         rose,
       ),
       pitfall(
         'Using FocusNode.skipTraversal without thinking',
         'Setting skipTraversal=true removes a node from Tab navigation but '
-        'keeps it focusable programmatically. Useful for "decorative '
-        'links", confusing if applied to the only field in a group. Fix: '
-        'apply skipTraversal only to nodes that are reachable some other '
-        'way (clicks, swipes).',
+            'keeps it focusable programmatically. Useful for "decorative '
+            'links", confusing if applied to the only field in a group. Fix: '
+            'apply skipTraversal only to nodes that are reachable some other '
+            'way (clicks, swipes).',
         rose,
       ),
     ],
@@ -1946,8 +1961,11 @@ dynamic build(BuildContext context) {
   final Widget summaryTable = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner('11', 'Summary: policy semantics in one line each',
-          const <Color>[indigoDeep, teal]),
+      sectionBanner(
+        '11',
+        'Summary: policy semantics in one line each',
+        const <Color>[indigoDeep, teal],
+      ),
       Container(
         width: double.infinity,
         padding: const EdgeInsets.all(12),
@@ -1968,25 +1986,25 @@ dynamic build(BuildContext context) {
             policyRow(
               'ReadingOrderTraversalPolicy',
               'Geometry-based. Walks rows top-to-bottom; inside each row, '
-              'walks LTR or RTL according to Directionality.',
+                  'walks LTR or RTL according to Directionality.',
               teal,
             ),
             policyRow(
               'WidgetOrderTraversalPolicy',
               'Pure widget-tree order. Geometry is ignored. Useful when '
-              'visual layout differs from logical input order.',
+                  'visual layout differs from logical input order.',
               indigo,
             ),
             policyRow(
               'OrderedTraversalPolicy',
               'Uses FocusTraversalOrder children to define order; falls '
-              'back to widget order for untagged children.',
+                  'back to widget order for untagged children.',
               amber,
             ),
             policyRow(
               'DirectionalFocusTraversalPolicyMixin',
               'Mixin used by all built-in policies to handle arrow-key '
-              'directional movement (vs Tab).',
+                  'directional movement (vs Tab).',
               sky,
             ),
             policyRow(

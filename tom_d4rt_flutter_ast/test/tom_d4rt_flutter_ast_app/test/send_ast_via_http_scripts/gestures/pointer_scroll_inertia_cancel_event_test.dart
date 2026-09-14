@@ -271,12 +271,12 @@ dynamic build(BuildContext context) {
   // readout cards have realistic-looking values.
   const PointerScrollInertiaCancelEvent referenceEvent =
       PointerScrollInertiaCancelEvent(
-    viewId: 0,
-    timeStamp: Duration(milliseconds: 4250),
-    device: 1,
-    position: Offset(184, 232),
-    embedderId: 7,
-  );
+        viewId: 0,
+        timeStamp: Duration(milliseconds: 4250),
+        device: 1,
+        position: Offset(184, 232),
+        embedderId: 7,
+      );
 
   return Scaffold(
     backgroundColor: const Color(0xFFFFFBF2),
@@ -462,10 +462,7 @@ Widget _heroChip({required String label}) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.20),
       borderRadius: const BorderRadius.all(Radius.circular(20)),
-      border: Border.all(
-        color: Colors.white.withValues(alpha: 0.40),
-        width: 1,
-      ),
+      border: Border.all(color: Colors.white.withValues(alpha: 0.40), width: 1),
     ),
     child: Text(
       label,
@@ -492,14 +489,16 @@ Widget _buildTimeline() {
   const List<_TimelinePhase> phases = <_TimelinePhase>[
     _TimelinePhase(
       label: 'Flick',
-      detail: 'Two fingers swipe across the trackpad and lift off. Velocity captured.',
+      detail:
+          'Two fingers swipe across the trackpad and lift off. Velocity captured.',
       tone: Color(0xFFFFB300),
       icon: Icons.swipe,
       cancel: false,
     ),
     _TimelinePhase(
       label: 'Inertia frame 1',
-      detail: 'Platform synthesises PointerScrollEvent with the still-strong delta.',
+      detail:
+          'Platform synthesises PointerScrollEvent with the still-strong delta.',
       tone: Color(0xFFFFA000),
       icon: Icons.fast_forward,
       cancel: false,
@@ -513,14 +512,16 @@ Widget _buildTimeline() {
     ),
     _TimelinePhase(
       label: 'Inertia frame N',
-      detail: 'Continuing decay. Each frame is an additional PointerScrollEvent.',
+      detail:
+          'Continuing decay. Each frame is an additional PointerScrollEvent.',
       tone: Color(0xFFEF6C00),
       icon: Icons.linear_scale,
       cancel: false,
     ),
     _TimelinePhase(
       label: 'CANCEL',
-      detail: 'User puts fingers back on the trackpad. Platform sends '
+      detail:
+          'User puts fingers back on the trackpad. Platform sends '
           'PointerScrollInertiaCancelEvent. Simulation must stop now.',
       tone: Color(0xFFD84315),
       icon: Icons.do_not_touch,
@@ -700,10 +701,7 @@ Widget _timelineConnector({required Color color, required bool nextCancel}) {
     child: Stack(
       alignment: Alignment.center,
       children: [
-        Container(
-          height: 3,
-          color: color.withValues(alpha: 0.55),
-        ),
+        Container(height: 3, color: color.withValues(alpha: 0.55)),
         Positioned(
           right: 2,
           child: Icon(
@@ -1100,7 +1098,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'timeStamp',
       type: 'Duration',
       sample: ref.timeStamp.toString(),
-      prose: 'Engine-supplied monotonic stamp for this event. Useful for '
+      prose:
+          'Engine-supplied monotonic stamp for this event. Useful for '
           'correlating the cancel against the previous PointerScrollEvent.',
       icon: Icons.schedule,
     ),
@@ -1108,7 +1107,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'pointer',
       type: 'int',
       sample: ref.pointer.toString(),
-      prose: 'The synthetic pointer id assigned by Flutter. Signal events '
+      prose:
+          'The synthetic pointer id assigned by Flutter. Signal events '
           'normally inherit pointer 0; what matters is device, not pointer.',
       icon: Icons.fingerprint,
     ),
@@ -1116,7 +1116,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'device',
       type: 'int',
       sample: ref.device.toString(),
-      prose: 'Platform-supplied numeric id for the physical device. '
+      prose:
+          'Platform-supplied numeric id for the physical device. '
           'A multi-trackpad system can produce concurrent cancel signals '
           'with different device ids.',
       icon: Icons.devices_other,
@@ -1125,7 +1126,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'kind',
       type: 'PointerDeviceKind',
       sample: ref.kind.toString(),
-      prose: 'For PointerScrollInertiaCancelEvent the kind is always '
+      prose:
+          'For PointerScrollInertiaCancelEvent the kind is always '
           'PointerDeviceKind.trackpad. This is enforced at construction '
           'time and is the only kind the platform produces.',
       icon: Icons.label_important_outline,
@@ -1134,7 +1136,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'position',
       type: 'Offset',
       sample: ref.position.toString(),
-      prose: 'Pointer position in the global (root view) coordinate space '
+      prose:
+          'Pointer position in the global (root view) coordinate space '
           'at the moment the cancel was issued. Inherited from the last '
           'known position of the trackpad gesture.',
       icon: Icons.location_searching,
@@ -1143,7 +1146,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'localPosition',
       type: 'Offset',
       sample: ref.localPosition.toString(),
-      prose: 'Position translated into the local coordinate space of the '
+      prose:
+          'Position translated into the local coordinate space of the '
           'receiver. For an untransformed event it equals position.',
       icon: Icons.center_focus_strong,
     ),
@@ -1151,7 +1155,8 @@ Widget _buildFieldGrid(PointerScrollInertiaCancelEvent ref) {
       name: 'embedderId',
       type: 'int',
       sample: ref.embedderId.toString(),
-      prose: 'Opaque identifier set by the embedder (e.g. native iPad '
+      prose:
+          'Opaque identifier set by the embedder (e.g. native iPad '
           'host) and propagated unchanged. Useful if the embedder needs '
           'to correlate the cancel with its own state.',
       icon: Icons.qr_code_2,
@@ -1269,9 +1274,7 @@ Widget _fieldCard({required _FieldCard card, required _Palette palette}) {
           decoration: BoxDecoration(
             color: palette.surface,
             borderRadius: const BorderRadius.all(Radius.circular(8)),
-            border: Border.all(
-              color: palette.primary.withValues(alpha: 0.20),
-            ),
+            border: Border.all(color: palette.primary.withValues(alpha: 0.20)),
           ),
           child: Text(
             card.sample,
@@ -1417,8 +1420,7 @@ Widget _buildConstructionSample(PointerScrollInertiaCancelEvent ref) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.tips_and_updates,
-                  color: palette.primary, size: 20),
+              Icon(Icons.tips_and_updates, color: palette.primary, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1535,7 +1537,8 @@ Widget _buildResolverFlow() {
         _flowStep(
           index: 1,
           title: 'Engine dispatch',
-          body: 'The native embedder converts a platform "scroll cancel" '
+          body:
+              'The native embedder converts a platform "scroll cancel" '
               'into a PointerData and hands it to the engine, which '
               'forwards it as a PointerScrollInertiaCancelEvent.',
           icon: Icons.cloud_download_outlined,
@@ -1545,7 +1548,8 @@ Widget _buildResolverFlow() {
         _flowStep(
           index: 2,
           title: 'GestureBinding hit-test',
-          body: 'GestureBinding hit-tests the event\'s position. Each '
+          body:
+              'GestureBinding hit-tests the event\'s position. Each '
               'hit-test entry that wants to react registers itself with '
               'GestureBinding.instance.pointerSignalResolver.register('
               'event, callback).',
@@ -1556,7 +1560,8 @@ Widget _buildResolverFlow() {
         _flowStep(
           index: 3,
           title: 'PointerSignalResolver picks a winner',
-          body: 'For each unique signal event, exactly one registered '
+          body:
+              'For each unique signal event, exactly one registered '
               'callback wins (top of hit-test stack). The other registrants '
               'are silently dropped — there is no "two listeners" mode.',
           icon: Icons.gavel,
@@ -1566,7 +1571,8 @@ Widget _buildResolverFlow() {
         _flowStep(
           index: 4,
           title: 'Scrollable cancels its simulation',
-          body: 'The winning callback (typically inside Scrollable) inspects '
+          body:
+              'The winning callback (typically inside Scrollable) inspects '
               'event.runtimeType, recognises the cancel, and tears down '
               'whatever ballistic simulation is currently running on its '
               'AnimationController.',
@@ -1709,7 +1715,8 @@ Widget _buildUseCases() {
   const List<_UseCaseCard> cases = <_UseCaseCard>[
     _UseCaseCard(
       title: 'Stop a CustomScrollView simulation',
-      scenario: 'A long list is mid-flick when the user taps the trackpad. '
+      scenario:
+          'A long list is mid-flick when the user taps the trackpad. '
           'The list must freeze at its current pixel exactly, not glide '
           'further.',
       handler: 'Position.beginActivity(IdleScrollActivity(this));',
@@ -1718,17 +1725,20 @@ Widget _buildUseCases() {
     ),
     _UseCaseCard(
       title: 'Snap to nearest page',
-      scenario: 'A PageView running a SnappingPageScrollPhysics simulation '
+      scenario:
+          'A PageView running a SnappingPageScrollPhysics simulation '
           'should not just freeze — it should snap to whichever page edge '
           'is closest.',
-      handler: 'controller.animateToPage(estimateClosestPage(),\n'
+      handler:
+          'controller.animateToPage(estimateClosestPage(),\n'
           '  duration: kSnap, curve: Curves.easeOutCubic);',
       tone: Color(0xFFFB8C00),
       icon: Icons.view_carousel_outlined,
     ),
     _UseCaseCard(
       title: 'Abort a parallax animation',
-      scenario: 'A header parallax effect is being driven by the same '
+      scenario:
+          'A header parallax effect is being driven by the same '
           'momentum simulation. The cancel is a hint to abort the parallax '
           'too, so the visual state is consistent.',
       handler: 'parallaxNotifier.value = parallaxNotifier.value;',
@@ -1933,24 +1943,15 @@ Widget _buildComparison() {
             children: [
               Expanded(
                 flex: 4,
-                child: _compareHeader(
-                  text: 'Event',
-                  palette: palette,
-                ),
+                child: _compareHeader(text: 'Event', palette: palette),
               ),
               Expanded(
                 flex: 3,
-                child: _compareHeader(
-                  text: 'Payload',
-                  palette: palette,
-                ),
+                child: _compareHeader(text: 'Payload', palette: palette),
               ),
               Expanded(
                 flex: 4,
-                child: _compareHeader(
-                  text: 'Size / shape',
-                  palette: palette,
-                ),
+                child: _compareHeader(text: 'Size / shape', palette: palette),
               ),
             ],
           ),
@@ -2081,7 +2082,8 @@ Widget _buildCaveats() {
   const List<_CaveatCard> cards = <_CaveatCard>[
     _CaveatCard(
       title: 'Trackpad-only',
-      body: 'PointerScrollInertiaCancelEvent is constrained to '
+      body:
+          'PointerScrollInertiaCancelEvent is constrained to '
           'PointerDeviceKind.trackpad. The wheel of a mouse never cancels '
           'inertia because mouse wheels do not ride a momentum simulation '
           'in the first place.',
@@ -2090,7 +2092,8 @@ Widget _buildCaveats() {
     ),
     _CaveatCard(
       title: 'macOS- and iPadOS-specific in practice',
-      body: 'In practice the only embedders that produce this signal are '
+      body:
+          'In practice the only embedders that produce this signal are '
           'macOS and iPadOS. Linux and Windows do not have first-class '
           'platform-managed trackpad inertia, so they typically do not '
           'emit it.',
@@ -2099,7 +2102,8 @@ Widget _buildCaveats() {
     ),
     _CaveatCard(
       title: 'No-payload semantics',
-      body: 'Treat the *arrival* of the event as the entire signal. There '
+      body:
+          'Treat the *arrival* of the event as the entire signal. There '
           'is no scrollDelta to integrate, no scale to apply. Branching on '
           'runtimeType is the canonical detection idiom.',
       icon: Icons.cancel_presentation,
@@ -2107,7 +2111,8 @@ Widget _buildCaveats() {
     ),
     _CaveatCard(
       title: 'Ordering with the next scroll event',
-      body: 'Expect a fresh PointerScrollEvent to follow shortly after '
+      body:
+          'Expect a fresh PointerScrollEvent to follow shortly after '
           'cancel. Do not block the scrollable from accepting it — your '
           'job is only to stop the simulation, not to ignore further '
           'input.',
@@ -2116,7 +2121,8 @@ Widget _buildCaveats() {
     ),
     _CaveatCard(
       title: 'embedderId propagation',
-      body: 'embedderId is forwarded unchanged from the engine. If the '
+      body:
+          'embedderId is forwarded unchanged from the engine. If the '
           'native side correlates inertia start, frames, and cancel by '
           'embedderId, you should preserve it in any logging or telemetry '
           'you derive from this event.',
@@ -2223,19 +2229,22 @@ Widget _buildFooter() {
   const List<_Takeaway> takeaways = <_Takeaway>[
     _Takeaway(
       headline: 'Tiny event, big consequences',
-      body: 'A single PointerScrollInertiaCancelEvent can save you from a '
+      body:
+          'A single PointerScrollInertiaCancelEvent can save you from a '
           'subtle but maddening "scroll keeps going after I touch" bug.',
       icon: Icons.bolt,
     ),
     _Takeaway(
       headline: 'Switch on type, not on payload',
-      body: 'There is no payload. `event is PointerScrollInertiaCancelEvent` '
+      body:
+          'There is no payload. `event is PointerScrollInertiaCancelEvent` '
           'is the only correct test.',
       icon: Icons.bug_report_outlined,
     ),
     _Takeaway(
       headline: 'Always pair with PointerScrollEvent',
-      body: 'In real apps, the cancel is the bridge between two scroll '
+      body:
+          'In real apps, the cancel is the bridge between two scroll '
           'regimes. Handle both, and treat them as a unit.',
       icon: Icons.link,
     ),
@@ -2290,8 +2299,11 @@ Widget _buildFooter() {
           ),
           child: Row(
             children: [
-              Icon(Icons.local_fire_department,
-                  color: palette.accent, size: 20),
+              Icon(
+                Icons.local_fire_department,
+                color: palette.accent,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(

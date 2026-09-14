@@ -797,11 +797,7 @@ dynamic build(BuildContext context) {
     ),
     child: Text(
       'margin (outside)  decoration  padding (inside)',
-      style: TextStyle(
-        fontSize: 12.0,
-        color: deepInk,
-        fontFamily: 'monospace',
-      ),
+      style: TextStyle(fontSize: 12.0, color: deepInk, fontFamily: 'monospace'),
     ),
   );
 
@@ -916,10 +912,7 @@ dynamic build(BuildContext context) {
         ),
       );
     }).toList();
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: rowCells,
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: rowCells);
   }).toList();
 
   final Widget alignmentMatrix = Container(
@@ -1255,10 +1248,16 @@ dynamic build(BuildContext context) {
 
   final List<Map<String, dynamic>> recapEntries = [
     {'icon': Icons.straighten, 'text': 'sizing: width, height, constraints'},
-    {'icon': Icons.brush, 'text': 'decoration: color, gradient, border, shadow'},
+    {
+      'icon': Icons.brush,
+      'text': 'decoration: color, gradient, border, shadow',
+    },
     {'icon': Icons.layers, 'text': 'foregroundDecoration paints over child'},
     {'icon': Icons.padding, 'text': 'padding inside, margin outside'},
-    {'icon': Icons.center_focus_strong, 'text': 'alignment positions the child'},
+    {
+      'icon': Icons.center_focus_strong,
+      'text': 'alignment positions the child',
+    },
     {'icon': Icons.transform, 'text': 'transform + transformAlignment'},
     {'icon': Icons.cut, 'text': 'clipBehavior controls overflow clipping'},
   ];
@@ -1312,10 +1311,7 @@ dynamic build(BuildContext context) {
     ),
     foregroundDecoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(
-        color: cyanAccent.withValues(alpha: 0.4),
-        width: 1.0,
-      ),
+      border: Border.all(color: cyanAccent.withValues(alpha: 0.4), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1437,13 +1433,16 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           titleBanner,
-          sectionHeader(2, 'Anatomy: margin > decoration > padding > child',
-              Icons.layers, skyAccent),
+          sectionHeader(
+            2,
+            'Anatomy: margin > decoration > padding > child',
+            Icons.layers,
+            skyAccent,
+          ),
           anatomyDiagram,
           sectionHeader(3, 'Sizing variants', Icons.straighten, cyanAccent),
           sizingSection,
-          sectionHeader(
-              4, 'Decoration gallery', Icons.brush, purpleAccent),
+          sectionHeader(4, 'Decoration gallery', Icons.brush, purpleAccent),
           decorationGallery,
           sectionHeader(5, 'Border showcase', Icons.border_all, indigo),
           borderShowcase,
@@ -1452,16 +1451,28 @@ dynamic build(BuildContext context) {
           sectionHeader(7, 'Padding vs margin', Icons.padding, skyAccent),
           paddingMarginSection,
           sectionHeader(
-              8, 'Alignment matrix', Icons.center_focus_strong, indigo),
+            8,
+            'Alignment matrix',
+            Icons.center_focus_strong,
+            indigo,
+          ),
           alignmentMatrix,
           sectionHeader(9, 'Transform demo', Icons.transform, purpleAccent),
           transformSection,
           sectionHeader(
-              10, 'foregroundDecoration', Icons.layers_outlined, cyanAccent),
+            10,
+            'foregroundDecoration',
+            Icons.layers_outlined,
+            cyanAccent,
+          ),
           foregroundCard,
           badgeOverlay,
-          sectionHeader(11, 'Footguns and gotchas',
-              Icons.warning_amber_rounded, magentaAccent),
+          sectionHeader(
+            11,
+            'Footguns and gotchas',
+            Icons.warning_amber_rounded,
+            magentaAccent,
+          ),
           footgunSection,
           sectionHeader(12, 'Recap', Icons.fact_check, skyAccent),
           recapCard,

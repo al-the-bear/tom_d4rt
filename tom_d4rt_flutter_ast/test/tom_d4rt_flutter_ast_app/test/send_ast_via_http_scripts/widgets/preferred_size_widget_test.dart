@@ -181,7 +181,8 @@ dynamic build(BuildContext context) {
       'default': '46.0 dp',
       'icon': Icons.tab,
       'color': Colors.indigo,
-      'detail': 'Tab navigation bar. Reports tab row height. Needs no PreferredSize wrapper.',
+      'detail':
+          'Tab navigation bar. Reports tab row height. Needs no PreferredSize wrapper.',
     },
     {
       'name': 'PreferredSize',
@@ -189,7 +190,8 @@ dynamic build(BuildContext context) {
       'default': 'Any value',
       'icon': Icons.crop_free,
       'color': Colors.teal,
-      'detail': 'Generic wrapper. Reports whatever size you pass in constructor.',
+      'detail':
+          'Generic wrapper. Reports whatever size you pass in constructor.',
     },
     {
       'name': 'CupertinoNavigationBar',
@@ -231,7 +233,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               alignment: Alignment.center,
-              child: Icon(impl['icon'] as IconData, color: color.shade700, size: 22.0),
+              child: Icon(
+                impl['icon'] as IconData,
+                color: color.shade700,
+                size: 22.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -250,7 +256,10 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(width: 6.0),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: color.shade100,
                           borderRadius: BorderRadius.circular(4.0),
@@ -270,7 +279,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 3.0),
                   Text(
                     impl['detail'] as String,
-                    style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                   SizedBox(height: 3.0),
                   Text(
@@ -419,13 +431,21 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 6.0),
               _buildCalcRow('toolbarHeight', '56.0', Colors.teal),
-              _buildCalcRow('+ TabBar.preferredSize.height', '46.0', Colors.orange),
+              _buildCalcRow(
+                '+ TabBar.preferredSize.height',
+                '46.0',
+                Colors.orange,
+              ),
               Container(
                 height: 1.0,
                 margin: EdgeInsets.symmetric(vertical: 4.0),
                 color: Colors.grey.shade300,
               ),
-              _buildCalcRow('= AppBar.preferredSize.height', '102.0', Colors.indigo),
+              _buildCalcRow(
+                '= AppBar.preferredSize.height',
+                '102.0',
+                Colors.indigo,
+              ),
             ],
           ),
         ),
@@ -476,15 +496,37 @@ dynamic build(BuildContext context) {
   );
 
   print('AppBar (simple) preferredSize: ${appBarSimple.preferredSize}');
-  print('AppBar (TabBar bottom) preferredSize: ${appBarWithTabBar.preferredSize}');
-  print('AppBar (PreferredSize 30) preferredSize: ${appBarWithPreferred.preferredSize}');
-  print('AppBar (toolbar 72) preferredSize: ${appBarCustomToolbar.preferredSize}');
+  print(
+    'AppBar (TabBar bottom) preferredSize: ${appBarWithTabBar.preferredSize}',
+  );
+  print(
+    'AppBar (PreferredSize 30) preferredSize: ${appBarWithPreferred.preferredSize}',
+  );
+  print(
+    'AppBar (toolbar 72) preferredSize: ${appBarCustomToolbar.preferredSize}',
+  );
 
   final appBarSizes = [
-    {'label': 'Simple AppBar', 'size': appBarSimple.preferredSize, 'color': Colors.blue},
-    {'label': 'With TabBar bottom', 'size': appBarWithTabBar.preferredSize, 'color': Colors.indigo},
-    {'label': 'With PreferredSize(30)', 'size': appBarWithPreferred.preferredSize, 'color': Colors.teal},
-    {'label': 'Custom toolbar (72)', 'size': appBarCustomToolbar.preferredSize, 'color': Colors.deepPurple},
+    {
+      'label': 'Simple AppBar',
+      'size': appBarSimple.preferredSize,
+      'color': Colors.blue,
+    },
+    {
+      'label': 'With TabBar bottom',
+      'size': appBarWithTabBar.preferredSize,
+      'color': Colors.indigo,
+    },
+    {
+      'label': 'With PreferredSize(30)',
+      'size': appBarWithPreferred.preferredSize,
+      'color': Colors.teal,
+    },
+    {
+      'label': 'Custom toolbar (72)',
+      'size': appBarCustomToolbar.preferredSize,
+      'color': Colors.deepPurple,
+    },
   ];
 
   final sizeCards = <Widget>[];
@@ -736,10 +778,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
         ),
         SizedBox(height: 14.0),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: layoutCards,
-        ),
+        Row(crossAxisAlignment: CrossAxisAlignment.end, children: layoutCards),
       ],
     ),
   );
@@ -795,7 +834,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.green.shade600, size: 28.0),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.green.shade600,
+                      size: 28.0,
+                    ),
                     SizedBox(height: 6.0),
                     Text(
                       'In Scaffold',
@@ -810,7 +853,10 @@ dynamic build(BuildContext context) {
                       'Scaffold reads preferredSize '
                       'and allocates that exact space. '
                       'Preferred = actual size.',
-                      style: TextStyle(fontSize: 9.0, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        color: Colors.grey.shade700,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -828,7 +874,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.warning_amber, color: Colors.red.shade600, size: 28.0),
+                    Icon(
+                      Icons.warning_amber,
+                      color: Colors.red.shade600,
+                      size: 28.0,
+                    ),
                     SizedBox(height: 6.0),
                     Text(
                       'In Custom Layout',
@@ -843,7 +893,10 @@ dynamic build(BuildContext context) {
                       'Other parents may ignore '
                       'preferredSize entirely. The '
                       'widget renders at parent size.',
-                      style: TextStyle(fontSize: 9.0, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        color: Colors.grey.shade700,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -864,7 +917,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -899,7 +956,8 @@ dynamic build(BuildContext context) {
   final codePatterns = [
     {
       'title': 'Pattern 1: Extending StatelessWidget',
-      'code': 'class CustomHeader extends StatelessWidget\n'
+      'code':
+          'class CustomHeader extends StatelessWidget\n'
           '    implements PreferredSizeWidget {\n'
           '  @override\n'
           '  Size get preferredSize => Size.fromHeight(80.0);\n'
@@ -911,7 +969,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Pattern 2: Using PreferredSize Wrapper',
-      'code': 'Scaffold(\n'
+      'code':
+          'Scaffold(\n'
           '  appBar: PreferredSize(\n'
           '    preferredSize: Size.fromHeight(80.0),\n'
           '    child: MyCustomWidget(),\n'
@@ -922,7 +981,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Pattern 3: Dynamic PreferredSize',
-      'code': 'class FlexHeader extends StatefulWidget\n'
+      'code':
+          'class FlexHeader extends StatefulWidget\n'
           '    implements PreferredSizeWidget {\n'
           '  final double height;\n'
           '  FlexHeader({this.height = 60.0});\n'
@@ -986,17 +1046,26 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(11.0)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(11.0),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info_outline, color: Colors.grey.shade500, size: 14.0),
+                  Icon(
+                    Icons.info_outline,
+                    color: Colors.grey.shade500,
+                    size: 14.0,
+                  ),
                   SizedBox(width: 6.0),
                   Expanded(
                     child: Text(
                       pattern['note'] as String,
-                      style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ),
                 ],
@@ -1240,7 +1309,12 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         // Type tree
-        _buildTypeNode('Widget', 'Base class for all Flutter widgets', Colors.grey, 0),
+        _buildTypeNode(
+          'Widget',
+          'Base class for all Flutter widgets',
+          Colors.grey,
+          0,
+        ),
         _buildTypeConnector(1),
         _buildTypeNode(
           'PreferredSizeWidget',
@@ -1367,7 +1441,12 @@ dynamic build(BuildContext context) {
 // Helper Functions
 // ========================================================================
 
-Widget _buildLayoutBlock(String title, String content, MaterialColor color, int depth) {
+Widget _buildLayoutBlock(
+  String title,
+  String content,
+  MaterialColor color,
+  int depth,
+) {
   return Container(
     margin: EdgeInsets.only(left: depth * 12.0),
     padding: EdgeInsets.all(10.0),
@@ -1438,7 +1517,12 @@ Widget _buildCalcRow(String label, String value, MaterialColor color) {
   );
 }
 
-Widget _buildTypeNode(String name, String desc, MaterialColor color, int depth) {
+Widget _buildTypeNode(
+  String name,
+  String desc,
+  MaterialColor color,
+  int depth,
+) {
   return Container(
     margin: EdgeInsets.only(left: depth * 20.0),
     padding: EdgeInsets.all(10.0),

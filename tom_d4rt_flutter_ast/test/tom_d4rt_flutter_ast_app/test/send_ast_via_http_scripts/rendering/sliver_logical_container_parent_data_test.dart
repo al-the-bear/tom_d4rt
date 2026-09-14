@@ -63,17 +63,21 @@ Widget _lcSectionHeader(String title, {String? subtitle}) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         if (subtitle != null)
           Padding(
             padding: const EdgeInsets.only(top: 4),
-            child: Text(subtitle,
-                style:
-                    const TextStyle(color: Color(0xCCFFFFFF), fontSize: 13)),
+            child: Text(
+              subtitle,
+              style: const TextStyle(color: Color(0xCCFFFFFF), fontSize: 13),
+            ),
           ),
       ],
     ),
@@ -85,9 +89,10 @@ Widget _lcExplain(String text) {
     width: double.infinity,
     padding: const EdgeInsets.all(14),
     color: _lcPaleBlue,
-    child: Text(text,
-        style: const TextStyle(
-            fontSize: 13, height: 1.55, color: _lcCharcoal)),
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 13, height: 1.55, color: _lcCharcoal),
+    ),
   );
 }
 
@@ -95,15 +100,21 @@ Widget _lcPill(String label, Color bg, {Color textColor = Colors.white}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     decoration: BoxDecoration(
-        color: bg, borderRadius: BorderRadius.circular(12)),
-    child: Text(label,
-        style: TextStyle(
-            color: textColor, fontSize: 11, fontWeight: FontWeight.w600)),
+      color: bg,
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 11,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
-Widget _lcCard(String title, Widget child,
-    {Color borderColor = _lcNavy}) {
+Widget _lcCard(String title, Widget child, {Color borderColor = _lcNavy}) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -120,14 +131,16 @@ Widget _lcCard(String title, Widget child,
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: borderColor.withValues(alpha: 0.08),
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(9)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
-          child: Text(title,
-              style: TextStyle(
-                  color: borderColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: borderColor,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(14, 8, 14, 14),
@@ -147,12 +160,15 @@ Widget _lcCode(String code) {
       color: const Color(0xFF1E1E1E),
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: Color(0xFFD4D4D4),
-            height: 1.5)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: Color(0xFFD4D4D4),
+        height: 1.5,
+      ),
+    ),
   );
 }
 
@@ -163,15 +179,20 @@ Widget _lcKv(String key, String value, {Color? valueColor}) {
       children: [
         SizedBox(
           width: 170,
-          child: Text(key,
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: _lcCharcoal)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: _lcCharcoal,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12, color: valueColor ?? _lcSlate)),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12, color: valueColor ?? _lcSlate),
+          ),
         ),
       ],
     ),
@@ -187,8 +208,10 @@ Widget _lcDivider() {
 }
 
 Widget _lcInline(String text) {
-  return Text(text,
-      style: const TextStyle(fontSize: 12, height: 1.5, color: _lcCharcoal));
+  return Text(
+    text,
+    style: const TextStyle(fontSize: 12, height: 1.5, color: _lcCharcoal),
+  );
 }
 
 // ============================================================================
@@ -206,47 +229,64 @@ dynamic build(BuildContext context) {
         children: [
           _buildTitleBanner(),
 
-          _lcSectionHeader('1  What Is SliverLogicalContainerParentData?',
-              subtitle: 'Parent data for slivers with logical child ordering'),
+          _lcSectionHeader(
+            '1  What Is SliverLogicalContainerParentData?',
+            subtitle: 'Parent data for slivers with logical child ordering',
+          ),
           _buildWhatIs(),
 
-          _lcSectionHeader('2  Class Hierarchy',
-              subtitle:
-                  'ParentData → SliverPhysical → Container → Logical'),
+          _lcSectionHeader(
+            '2  Class Hierarchy',
+            subtitle: 'ParentData → SliverPhysical → Container → Logical',
+          ),
           _buildHierarchy(),
 
-          _lcSectionHeader('3  Physical vs Logical Children',
-              subtitle: 'Two ways to track the same children'),
+          _lcSectionHeader(
+            '3  Physical vs Logical Children',
+            subtitle: 'Two ways to track the same children',
+          ),
           _buildPhysicalVsLogical(),
 
-          _lcSectionHeader('4  The paintOffset Field',
-              subtitle:
-                  'Inherited from SliverPhysicalParentData'),
+          _lcSectionHeader(
+            '4  The paintOffset Field',
+            subtitle: 'Inherited from SliverPhysicalParentData',
+          ),
           _buildPaintOffset(),
 
-          _lcSectionHeader('5  ContainerParentDataMixin',
-              subtitle: 'The linked-list backbone'),
+          _lcSectionHeader(
+            '5  ContainerParentDataMixin',
+            subtitle: 'The linked-list backbone',
+          ),
           _buildContainerMixin(),
 
-          _lcSectionHeader('6  RenderSliverMultiBoxAdaptor Usage',
-              subtitle: 'The primary consumer of this parent data'),
+          _lcSectionHeader(
+            '6  RenderSliverMultiBoxAdaptor Usage',
+            subtitle: 'The primary consumer of this parent data',
+          ),
           _buildMultiBoxAdaptor(),
 
-          _lcSectionHeader('7  KeepAlive Children',
-              subtitle: 'Logical but not always physical'),
+          _lcSectionHeader(
+            '7  KeepAlive Children',
+            subtitle: 'Logical but not always physical',
+          ),
           _buildKeepAlive(),
 
-          _lcSectionHeader('8  Parent Data Lifecycle',
-              subtitle: 'Setup → layout → paint → detach'),
+          _lcSectionHeader(
+            '8  Parent Data Lifecycle',
+            subtitle: 'Setup → layout → paint → detach',
+          ),
           _buildLifecycle(),
 
-          _lcSectionHeader('9  Child Management Diagram',
-              subtitle: 'How the linked list and index map cooperate'),
+          _lcSectionHeader(
+            '9  Child Management Diagram',
+            subtitle: 'How the linked list and index map cooperate',
+          ),
           _buildManagementDiagram(),
 
           _lcSectionHeader(
-              '10  vs SliverMultiBoxAdaptorParentData',
-              subtitle: 'What the subclass adds'),
+            '10  vs SliverMultiBoxAdaptorParentData',
+            subtitle: 'What the subclass adds',
+          ),
           _buildComparison(),
 
           _buildSummary(),
@@ -287,24 +327,33 @@ Widget _buildTitleBanner() {
                 color: Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(Icons.account_tree,
-                  color: Colors.white, size: 28),
+              child: const Icon(
+                Icons.account_tree,
+                color: Colors.white,
+                size: 28,
+              ),
             ),
             const SizedBox(width: 14),
             const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('SliverLogicalContainer',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  Text('ParentData',
-                      style: TextStyle(
-                          color: Color(0xAAFFFFFF),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'SliverLogicalContainer',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'ParentData',
+                    style: TextStyle(
+                      color: Color(0xAAFFFFFF),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -328,8 +377,7 @@ Widget _buildTitleBanner() {
           '(paintOffset) with container child management (linked list '
           'pointers), forming the base for slivers that track children '
           'both by paint order and by logical index.',
-          style: TextStyle(
-              color: Color(0xCCFFFFFF), fontSize: 13, height: 1.5),
+          style: TextStyle(color: Color(0xCCFFFFFF), fontSize: 13, height: 1.5),
         ),
       ],
     ),
@@ -357,18 +405,21 @@ Widget _buildWhatIs() {
         'so that slivers needing "logical container" semantics can declare '
         'this as their parentData type.',
       ),
-      _lcCard('At a Glance', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcKv('Adds new fields', 'None'),
-          _lcKv('Purpose', 'Type marker for logical child containers'),
-          _lcKv('Extends', 'SliverPhysicalContainerParentData'),
-          _lcKv('Inherits', 'paintOffset, previousSibling, nextSibling'),
-          _lcDivider(),
-          _lcKv('Used by', 'RenderSliverMultiBoxAdaptor'),
-          _lcKv('Subclassed by', 'SliverMultiBoxAdaptorParentData'),
-        ],
-      )),
+      _lcCard(
+        'At a Glance',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcKv('Adds new fields', 'None'),
+            _lcKv('Purpose', 'Type marker for logical child containers'),
+            _lcKv('Extends', 'SliverPhysicalContainerParentData'),
+            _lcKv('Inherits', 'paintOffset, previousSibling, nextSibling'),
+            _lcDivider(),
+            _lcKv('Used by', 'RenderSliverMultiBoxAdaptor'),
+            _lcKv('Subclassed by', 'SliverMultiBoxAdaptorParentData'),
+          ],
+        ),
+      ),
       _lcCode(
         '// The actual class is effectively empty:\n'
         'class SliverLogicalContainerParentData\n'
@@ -394,51 +445,63 @@ Widget _buildHierarchy() {
         'level, below the physical container but above the multi-box '
         'adaptor-specific parent data.',
       ),
-      _lcCard('Full Hierarchy', Column(
-        children: [
-          _lcHierarchyBox('ParentData', 'Base class — empty', _lcSlate, 0),
-          _lcHierarchyArrow(),
-          _lcHierarchyBox('SliverPhysicalParentData',
-              'Adds: Offset paintOffset', _lcTeal, 1),
-          _lcHierarchyArrow(),
-          _lcHierarchyBox(
+      _lcCard(
+        'Full Hierarchy',
+        Column(
+          children: [
+            _lcHierarchyBox('ParentData', 'Base class — empty', _lcSlate, 0),
+            _lcHierarchyArrow(),
+            _lcHierarchyBox(
+              'SliverPhysicalParentData',
+              'Adds: Offset paintOffset',
+              _lcTeal,
+              1,
+            ),
+            _lcHierarchyArrow(),
+            _lcHierarchyBox(
               'SliverPhysicalContainerParentData',
               'Mixes in: ContainerParentDataMixin<RenderBox>',
               _lcIndigo,
-              2),
-          _lcHierarchyArrow(),
-          _lcHierarchyBox(
+              2,
+            ),
+            _lcHierarchyArrow(),
+            _lcHierarchyBox(
               'SliverLogicalContainerParentData',
               'No new fields — type marker',
               _lcNavy,
-              3),
-          _lcHierarchyArrow(),
-          _lcHierarchyBox(
+              3,
+            ),
+            _lcHierarchyArrow(),
+            _lcHierarchyBox(
               'SliverMultiBoxAdaptorParentData',
               'Adds: int index, bool keepAlive',
               _lcCrimson,
-              4),
-        ],
-      )),
-      _lcCard('ContainerParentDataMixin (mixed in at level 2)', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcKv('previousSibling', 'RenderBox? — linked-list prev pointer'),
-          _lcKv('nextSibling', 'RenderBox? — linked-list next pointer'),
-          _lcDivider(),
-          _lcInline(
-            'This mixin provides the double-linked-list infrastructure '
-            'that ContainerRenderObjectMixin uses to iterate children '
-            'in paint order (first → last) and hit-test order (last → first).',
-          ),
-        ],
-      )),
+              4,
+            ),
+          ],
+        ),
+      ),
+      _lcCard(
+        'ContainerParentDataMixin (mixed in at level 2)',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcKv('previousSibling', 'RenderBox? — linked-list prev pointer'),
+            _lcKv('nextSibling', 'RenderBox? — linked-list next pointer'),
+            _lcDivider(),
+            _lcInline(
+              'This mixin provides the double-linked-list infrastructure '
+              'that ContainerRenderObjectMixin uses to iterate children '
+              'in paint order (first → last) and hit-test order (last → first).',
+            ),
+          ],
+        ),
+      ),
     ],
   );
 }
 
-Widget _lcHierarchyBox(
-    String name, String detail, Color color, int depth) {
+Widget _lcHierarchyBox(String name, String detail, Color color, int depth) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 12.0),
     child: Container(
@@ -452,14 +515,18 @@ Widget _lcHierarchyBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name,
-              style: TextStyle(
-                  color: color,
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold)),
-          Text(detail,
-              style: TextStyle(
-                  color: color.withValues(alpha: 0.7), fontSize: 11)),
+          Text(
+            name,
+            style: TextStyle(
+              color: color,
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            detail,
+            style: TextStyle(color: color.withValues(alpha: 0.7), fontSize: 11),
+          ),
         ],
       ),
     ),
@@ -470,8 +537,11 @@ Widget _lcHierarchyArrow() {
   return Column(
     children: [
       Container(width: 2, height: 10, color: _lcNavy.withValues(alpha: 0.3)),
-      Icon(Icons.arrow_drop_down,
-          size: 16, color: _lcNavy.withValues(alpha: 0.5)),
+      Icon(
+        Icons.arrow_drop_down,
+        size: 16,
+        color: _lcNavy.withValues(alpha: 0.5),
+      ),
     ],
   );
 }
@@ -493,59 +563,77 @@ Widget _buildPhysicalVsLogical() {
         'SliverLogicalContainerParentData marks the parent data as '
         'belonging to a sliver that may maintain this distinction.',
       ),
-      _lcCard('Physical Children', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcChildRow('Child A', 'index 0', 'visible', _lcGreen, true),
-          _lcChildRow('Child B', 'index 1', 'visible', _lcGreen, true),
-          _lcChildRow('Child C', 'index 2', 'visible', _lcGreen, true),
-          _lcDivider(),
-          _lcKv('In linked list', 'Yes'),
-          _lcKv('paintOffset', 'Set during layout'),
-          _lcKv('Painted', 'Yes — visited in paint()'),
-          _lcKv('Hit-tested', 'Yes — visited in hitTest()'),
-        ],
-      )),
-      _lcCard('Logical-Only Children (Keep-Alive)', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcChildRow('Child X', 'index 5', 'keep-alive', _lcAmber, false),
-          _lcChildRow('Child Y', 'index 8', 'keep-alive', _lcAmber, false),
-          _lcDivider(),
-          _lcKv('In linked list', 'No — stored in _keepAliveBucket'),
-          _lcKv('paintOffset', 'Not meaningful (off-screen)'),
-          _lcKv('Painted', 'No'),
-          _lcKv('Hit-tested', 'No'),
-          _lcKv('State preserved', 'Yes — that is the purpose'),
-        ],
-      )),
+      _lcCard(
+        'Physical Children',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcChildRow('Child A', 'index 0', 'visible', _lcGreen, true),
+            _lcChildRow('Child B', 'index 1', 'visible', _lcGreen, true),
+            _lcChildRow('Child C', 'index 2', 'visible', _lcGreen, true),
+            _lcDivider(),
+            _lcKv('In linked list', 'Yes'),
+            _lcKv('paintOffset', 'Set during layout'),
+            _lcKv('Painted', 'Yes — visited in paint()'),
+            _lcKv('Hit-tested', 'Yes — visited in hitTest()'),
+          ],
+        ),
+      ),
+      _lcCard(
+        'Logical-Only Children (Keep-Alive)',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcChildRow('Child X', 'index 5', 'keep-alive', _lcAmber, false),
+            _lcChildRow('Child Y', 'index 8', 'keep-alive', _lcAmber, false),
+            _lcDivider(),
+            _lcKv('In linked list', 'No — stored in _keepAliveBucket'),
+            _lcKv('paintOffset', 'Not meaningful (off-screen)'),
+            _lcKv('Painted', 'No'),
+            _lcKv('Hit-tested', 'No'),
+            _lcKv('State preserved', 'Yes — that is the purpose'),
+          ],
+        ),
+      ),
       // Visual: two-column diagram
-      _lcCard('Side-by-Side Diagram', Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: _lcChildGroup('Physical (Linked List)', [
-              _lcMiniChild('A[0]', _lcGreen),
-              _lcMiniChild('B[1]', _lcGreen),
-              _lcMiniChild('C[2]', _lcGreen),
-              _lcMiniChild('D[3]', _lcGreen),
-            ]),
-          ),
-          Container(width: 1, height: 120, color: _lcNavy.withValues(alpha: 0.2)),
-          Expanded(
-            child: _lcChildGroup('Logical Only (Bucket)', [
-              _lcMiniChild('X[5]', _lcAmber),
-              _lcMiniChild('Y[8]', _lcAmber),
-            ]),
-          ),
-        ],
-      )),
+      _lcCard(
+        'Side-by-Side Diagram',
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: _lcChildGroup('Physical (Linked List)', [
+                _lcMiniChild('A[0]', _lcGreen),
+                _lcMiniChild('B[1]', _lcGreen),
+                _lcMiniChild('C[2]', _lcGreen),
+                _lcMiniChild('D[3]', _lcGreen),
+              ]),
+            ),
+            Container(
+              width: 1,
+              height: 120,
+              color: _lcNavy.withValues(alpha: 0.2),
+            ),
+            Expanded(
+              child: _lcChildGroup('Logical Only (Bucket)', [
+                _lcMiniChild('X[5]', _lcAmber),
+                _lcMiniChild('Y[8]', _lcAmber),
+              ]),
+            ),
+          ],
+        ),
+      ),
     ],
   );
 }
 
 Widget _lcChildRow(
-    String name, String index, String status, Color color, bool physical) {
+  String name,
+  String index,
+  String status,
+  Color color,
+  bool physical,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3),
     child: Row(
@@ -564,9 +652,10 @@ Widget _lcChildRow(
           child: Text(
             '$name ($index) — $status',
             style: const TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: _lcCharcoal),
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: _lcCharcoal,
+            ),
           ),
         ),
       ],
@@ -580,11 +669,14 @@ Widget _lcChildGroup(String title, List<Widget> children) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: const TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                color: _lcSlate)),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: _lcSlate,
+          ),
+        ),
         const SizedBox(height: 6),
         ...children,
       ],
@@ -603,9 +695,10 @@ Widget _lcMiniChild(String label, Color color) {
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     alignment: Alignment.center,
-    child: Text(label,
-        style: TextStyle(
-            fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: color),
+    ),
   );
 }
 
@@ -624,36 +717,42 @@ Widget _buildPaintOffset() {
         'the top of the sliver to the top of the child.  paintOffset.dx '
         'is usually 0 (unless the child is indented).',
       ),
-      _lcCard('paintOffset Layout Example', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcPaintOffsetRow('Child A', 0, 60, _lcGreen),
-          _lcPaintOffsetRow('Child B', 60, 80, _lcIndigo),
-          _lcPaintOffsetRow('Child C', 140, 50, _lcTeal),
-          _lcPaintOffsetRow('Child D', 190, 70, _lcCrimson),
-          _lcDivider(),
-          _lcInline(
-            'Each child is painted at sliver_origin + paintOffset.  The '
-            'viewport clips to the visible region.',
-          ),
-        ],
-      )),
-      // Visual: vertical strip with children positioned
-      _lcCard('Visual: Sliver with paintOffsets', Container(
-        height: 200,
-        decoration: BoxDecoration(
-          border: Border.all(color: _lcNavy, width: 2),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        clipBehavior: Clip.hardEdge,
-        child: Stack(
+      _lcCard(
+        'paintOffset Layout Example',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _lcPaintChild(0, 60, 'A  offset=(0,0)', _lcGreen),
-            _lcPaintChild(60, 80, 'B  offset=(0,60)', _lcIndigo),
-            _lcPaintChild(140, 50, 'C  offset=(0,140)', _lcTeal),
+            _lcPaintOffsetRow('Child A', 0, 60, _lcGreen),
+            _lcPaintOffsetRow('Child B', 60, 80, _lcIndigo),
+            _lcPaintOffsetRow('Child C', 140, 50, _lcTeal),
+            _lcPaintOffsetRow('Child D', 190, 70, _lcCrimson),
+            _lcDivider(),
+            _lcInline(
+              'Each child is painted at sliver_origin + paintOffset.  The '
+              'viewport clips to the visible region.',
+            ),
           ],
         ),
-      )),
+      ),
+      // Visual: vertical strip with children positioned
+      _lcCard(
+        'Visual: Sliver with paintOffsets',
+        Container(
+          height: 200,
+          decoration: BoxDecoration(
+            border: Border.all(color: _lcNavy, width: 2),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: Stack(
+            children: [
+              _lcPaintChild(0, 60, 'A  offset=(0,0)', _lcGreen),
+              _lcPaintChild(60, 80, 'B  offset=(0,60)', _lcIndigo),
+              _lcPaintChild(140, 50, 'C  offset=(0,140)', _lcTeal),
+            ],
+          ),
+        ),
+      ),
       _lcCode(
         '// During SliverList.performLayout:\n'
         'childParentData.paintOffset = Offset(0, layoutOffset);\n'
@@ -667,7 +766,12 @@ Widget _buildPaintOffset() {
   );
 }
 
-Widget _lcPaintOffsetRow(String name, double offset, double height, Color color) {
+Widget _lcPaintOffsetRow(
+  String name,
+  double offset,
+  double height,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Row(
@@ -677,18 +781,24 @@ Widget _lcPaintOffsetRow(String name, double offset, double height, Color color)
           height: 22,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           alignment: Alignment.center,
-          child: Text(name.split(' ').last,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            name.split(' ').last,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             '$name: paintOffset=(0, $offset), height=$height',
             style: const TextStyle(
-                fontSize: 11, fontFamily: 'monospace', color: _lcCharcoal),
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: _lcCharcoal,
+            ),
           ),
         ),
       ],
@@ -696,8 +806,7 @@ Widget _lcPaintOffsetRow(String name, double offset, double height, Color color)
   );
 }
 
-Widget _lcPaintChild(
-    double top, double height, String label, Color color) {
+Widget _lcPaintChild(double top, double height, String label, Color color) {
   return Positioned(
     top: top,
     left: 0,
@@ -706,9 +815,14 @@ Widget _lcPaintChild(
       height: height,
       color: color.withValues(alpha: 0.2),
       alignment: Alignment.center,
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+          color: color,
+        ),
+      ),
     ),
   );
 }
@@ -729,22 +843,25 @@ Widget _buildContainerMixin() {
         'The mixin is mixed into SliverPhysicalContainerParentData, '
         'so SliverLogicalContainerParentData inherits it.',
       ),
-      _lcCard('Linked List Structure', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcLinkedListVisual(),
-          _lcDivider(),
-          _lcKv('firstChild', 'Render object stores this'),
-          _lcKv('lastChild', 'Render object stores this'),
-          _lcKv('childCount', 'Render object stores this'),
-          _lcDivider(),
-          _lcInline(
-            'The linked list connects only physical (active) children.  '
-            'Keep-alive children are detached from the list but remain in '
-            'the logical index map.',
-          ),
-        ],
-      )),
+      _lcCard(
+        'Linked List Structure',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcLinkedListVisual(),
+            _lcDivider(),
+            _lcKv('firstChild', 'Render object stores this'),
+            _lcKv('lastChild', 'Render object stores this'),
+            _lcKv('childCount', 'Render object stores this'),
+            _lcDivider(),
+            _lcInline(
+              'The linked list connects only physical (active) children.  '
+              'Keep-alive children are detached from the list but remain in '
+              'the logical index map.',
+            ),
+          ],
+        ),
+      ),
       _lcCode(
         '// Iterating children via the linked list:\n'
         'RenderBox? child = firstChild;\n'
@@ -758,23 +875,35 @@ Widget _buildContainerMixin() {
         '  child = parentData.nextSibling;\n'
         '}',
       ),
-      _lcCard('Operations on the Linked List', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcOperationRow('insert(child)', 'Adds child, sets prev/next pointers',
-              _lcGreen),
-          _lcOperationRow('remove(child)', 'Unlinks child from list, clears pointers',
-              _lcCrimson),
-          _lcOperationRow('move(child, after:)',
-              'Removes then re-inserts at new position', _lcIndigo),
-          _lcDivider(),
-          _lcInline(
-            'These operations are on the render object '
-            '(ContainerRenderObjectMixin), not the parent data.  But they '
-            'modify the parent data linked-list pointers.',
-          ),
-        ],
-      )),
+      _lcCard(
+        'Operations on the Linked List',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcOperationRow(
+              'insert(child)',
+              'Adds child, sets prev/next pointers',
+              _lcGreen,
+            ),
+            _lcOperationRow(
+              'remove(child)',
+              'Unlinks child from list, clears pointers',
+              _lcCrimson,
+            ),
+            _lcOperationRow(
+              'move(child, after:)',
+              'Removes then re-inserts at new position',
+              _lcIndigo,
+            ),
+            _lcDivider(),
+            _lcInline(
+              'These operations are on the render object '
+              '(ContainerRenderObjectMixin), not the parent data.  But they '
+              'modify the parent data linked-list pointers.',
+            ),
+          ],
+        ),
+      ),
     ],
   );
 }
@@ -804,9 +933,10 @@ Widget _lcLinkedNode(String label, Color color) {
       borderRadius: BorderRadius.circular(8),
     ),
     alignment: Alignment.center,
-    child: Text(label,
-        style: TextStyle(
-            color: color, fontSize: 13, fontWeight: FontWeight.bold)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.bold),
+    ),
   );
 }
 
@@ -837,20 +967,23 @@ Widget _lcOperationRow(String name, String desc, Color color) {
         const SizedBox(width: 8),
         Expanded(
           child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: '$name  ',
-                style: TextStyle(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: '$name  ',
+                  style: TextStyle(
                     fontFamily: 'monospace',
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
-                    color: color),
-              ),
-              TextSpan(
-                text: desc,
-                style: const TextStyle(fontSize: 11, color: _lcSlate),
-              ),
-            ]),
+                    color: color,
+                  ),
+                ),
+                TextSpan(
+                  text: desc,
+                  style: const TextStyle(fontSize: 11, color: _lcSlate),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -878,21 +1011,39 @@ Widget _buildMultiBoxAdaptor() {
         'scroll in and out of view.  Keep-alive children are moved to the '
         'bucket when they leave the viewport.',
       ),
-      _lcCard('Dual-Structure Management', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcDualRow('Visible child created',
-              'insert into linked list, set parentData.index', _lcGreen),
-          _lcDualRow('Child scrolls out (no keep-alive)',
-              'remove from linked list, dispose child', _lcCrimson),
-          _lcDualRow('Child scrolls out (keep-alive)',
-              'remove from linked list → store in _keepAliveBucket', _lcAmber),
-          _lcDualRow('Keep-alive scrolls back in',
-              'move from bucket → re-insert into linked list', _lcIndigo),
-          _lcDualRow('Key change / new data',
-              'create new child, old disposed or kept', _lcPurple),
-        ],
-      )),
+      _lcCard(
+        'Dual-Structure Management',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcDualRow(
+              'Visible child created',
+              'insert into linked list, set parentData.index',
+              _lcGreen,
+            ),
+            _lcDualRow(
+              'Child scrolls out (no keep-alive)',
+              'remove from linked list, dispose child',
+              _lcCrimson,
+            ),
+            _lcDualRow(
+              'Child scrolls out (keep-alive)',
+              'remove from linked list → store in _keepAliveBucket',
+              _lcAmber,
+            ),
+            _lcDualRow(
+              'Keep-alive scrolls back in',
+              'move from bucket → re-insert into linked list',
+              _lcIndigo,
+            ),
+            _lcDualRow(
+              'Key change / new data',
+              'create new child, old disposed or kept',
+              _lcPurple,
+            ),
+          ],
+        ),
+      ),
       _lcCode(
         '// Simplified from RenderSliverMultiBoxAdaptor:\n\n'
         '// Insert a new child at the given index:\n'
@@ -937,13 +1088,18 @@ Widget _lcDualRow(String action, String detail, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(action,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(detail,
-                  style: const TextStyle(fontSize: 10, color: _lcSlate)),
+              Text(
+                action,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                detail,
+                style: const TextStyle(fontSize: 10, color: _lcSlate),
+              ),
             ],
           ),
         ),
@@ -970,107 +1126,147 @@ Widget _buildKeepAlive() {
         '  • If keepAlive == false: the child is detached and may be '
         '    disposed, releasing its state.',
       ),
-      _lcCard('KeepAlive Lifecycle', Column(
-        children: [
-          _lcKeepAliveStep(1, 'Child widget calls keepAlive(true)',
-              'Widget mixin sends KeepAliveNotification', _lcGreen),
-          _lcKeepAliveStep(2, 'Notification reaches SliverMultiBoxAdaptor',
-              'Sets parentData.keepAlive = true', _lcIndigo),
-          _lcKeepAliveStep(3, 'Child scrolls off-screen',
-              'Child moved to _keepAliveBucket', _lcAmber),
-          _lcKeepAliveStep(4, 'State preserved in bucket',
-              'RenderBox and parent data still intact', _lcPurple),
-          _lcKeepAliveStep(5, 'Child scrolls back on-screen',
-              'Moved from bucket back to linked list', _lcTeal),
-        ],
-      )),
+      _lcCard(
+        'KeepAlive Lifecycle',
+        Column(
+          children: [
+            _lcKeepAliveStep(
+              1,
+              'Child widget calls keepAlive(true)',
+              'Widget mixin sends KeepAliveNotification',
+              _lcGreen,
+            ),
+            _lcKeepAliveStep(
+              2,
+              'Notification reaches SliverMultiBoxAdaptor',
+              'Sets parentData.keepAlive = true',
+              _lcIndigo,
+            ),
+            _lcKeepAliveStep(
+              3,
+              'Child scrolls off-screen',
+              'Child moved to _keepAliveBucket',
+              _lcAmber,
+            ),
+            _lcKeepAliveStep(
+              4,
+              'State preserved in bucket',
+              'RenderBox and parent data still intact',
+              _lcPurple,
+            ),
+            _lcKeepAliveStep(
+              5,
+              'Child scrolls back on-screen',
+              'Moved from bucket back to linked list',
+              _lcTeal,
+            ),
+          ],
+        ),
+      ),
       // Visual: viewport with keep-alive items
-      _lcCard('Visual: Viewport with Keep-Alive', Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                const Text('Viewport',
+      _lcCard(
+        'Visual: Viewport with Keep-Alive',
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  const Text(
+                    'Viewport',
                     style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: _lcSlate)),
-                const SizedBox(height: 4),
-                Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: _lcNavy, width: 2),
-                    borderRadius: BorderRadius.circular(4),
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: _lcSlate,
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      _lcViewportItem('Item 3', _lcGreen, true),
-                      _lcViewportItem('Item 4', _lcGreen, true),
-                      _lcViewportItem('Item 5', _lcGreen, true),
-                      _lcViewportItem('Item 6', _lcGreen, true),
-                    ],
+                  const SizedBox(height: 4),
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: _lcNavy, width: 2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      children: [
+                        _lcViewportItem('Item 3', _lcGreen, true),
+                        _lcViewportItem('Item 4', _lcGreen, true),
+                        _lcViewportItem('Item 5', _lcGreen, true),
+                        _lcViewportItem('Item 6', _lcGreen, true),
+                      ],
+                    ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text('Visible = Physical children',
-                      style: TextStyle(fontSize: 9, color: _lcSlate)),
-                ),
-              ],
+                  const Padding(
+                    padding: EdgeInsets.only(top: 4),
+                    child: Text(
+                      'Visible = Physical children',
+                      style: TextStyle(fontSize: 9, color: _lcSlate),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              children: [
-                const Text('KeepAlive Bucket',
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                children: [
+                  const Text(
+                    'KeepAlive Bucket',
                     style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: _lcSlate)),
-                const SizedBox(height: 4),
-                Container(
-                  height: 120,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: _lcAmber.withValues(alpha: 0.06),
-                    border: Border.all(
-                        color: _lcAmber.withValues(alpha: 0.4), width: 1.5),
-                    borderRadius: BorderRadius.circular(4),
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: _lcSlate,
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _lcBucketItem('Item 0', _lcAmber),
-                      _lcBucketItem('Item 1', _lcAmber),
-                      _lcBucketItem('Item 2', _lcOrange),
-                      const SizedBox(height: 8),
-                      const Text('State preserved',
+                  const SizedBox(height: 4),
+                  Container(
+                    height: 120,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _lcAmber.withValues(alpha: 0.06),
+                      border: Border.all(
+                        color: _lcAmber.withValues(alpha: 0.4),
+                        width: 1.5,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _lcBucketItem('Item 0', _lcAmber),
+                        _lcBucketItem('Item 1', _lcAmber),
+                        _lcBucketItem('Item 2', _lcOrange),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'State preserved',
                           style: TextStyle(
-                              fontSize: 9,
-                              fontStyle: FontStyle.italic,
-                              color: _lcSlate)),
-                    ],
+                            fontSize: 9,
+                            fontStyle: FontStyle.italic,
+                            color: _lcSlate,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text('Off-screen = Logical only',
-                      style: TextStyle(fontSize: 9, color: _lcSlate)),
-                ),
-              ],
+                  const Padding(
+                    padding: EdgeInsets.only(top: 4),
+                    child: Text(
+                      'Off-screen = Logical only',
+                      style: TextStyle(fontSize: 9, color: _lcSlate),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      )),
+          ],
+        ),
+      ),
     ],
   );
 }
 
-Widget _lcKeepAliveStep(
-    int step, String title, String detail, Color color) {
+Widget _lcKeepAliveStep(int step, String title, String detail, Color color) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1081,24 +1277,32 @@ Widget _lcKeepAliveStep(
           height: 24,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           alignment: Alignment.center,
-          child: Text('$step',
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '$step',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(detail,
-                  style: const TextStyle(fontSize: 10, color: _lcSlate)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                detail,
+                style: const TextStyle(fontSize: 10, color: _lcSlate),
+              ),
             ],
           ),
         ),
@@ -1113,11 +1317,14 @@ Widget _lcViewportItem(String label, Color color, bool visible) {
       width: double.infinity,
       color: color.withValues(alpha: visible ? 0.15 : 0.05),
       alignment: Alignment.center,
-      child: Text(label,
-          style: TextStyle(
-              fontSize: 9,
-              fontWeight: FontWeight.w600,
-              color: visible ? color : _lcSlate)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 9,
+          fontWeight: FontWeight.w600,
+          color: visible ? color : _lcSlate,
+        ),
+      ),
     ),
   );
 }
@@ -1133,9 +1340,10 @@ Widget _lcBucketItem(String label, Color color) {
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
     alignment: Alignment.center,
-    child: Text(label,
-        style: TextStyle(
-            fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color),
+    ),
   );
 }
 
@@ -1157,20 +1365,43 @@ Widget _buildLifecycle() {
         'The parent data object is reused if the same child is '
         're-adopted (e.g. after a keep-alive return).',
       ),
-      _lcCard('Lifecycle Stages', Column(
-        children: [
-          _lcLifecycleStage('Setup', 'setupParentData() creates instance',
-              Icons.build, _lcGreen),
-          _lcLifecycleStage('Layout', 'performLayout() sets paintOffset',
-              Icons.straighten, _lcIndigo),
-          _lcLifecycleStage('Paint', 'paint() reads paintOffset',
-              Icons.brush, _lcTeal),
-          _lcLifecycleStage('Hit Test', 'hitTestChildren() iterates list',
-              Icons.touch_app, _lcAmber),
-          _lcLifecycleStage('Detach', 'detach() clears pointers',
-              Icons.link_off, _lcCrimson),
-        ],
-      )),
+      _lcCard(
+        'Lifecycle Stages',
+        Column(
+          children: [
+            _lcLifecycleStage(
+              'Setup',
+              'setupParentData() creates instance',
+              Icons.build,
+              _lcGreen,
+            ),
+            _lcLifecycleStage(
+              'Layout',
+              'performLayout() sets paintOffset',
+              Icons.straighten,
+              _lcIndigo,
+            ),
+            _lcLifecycleStage(
+              'Paint',
+              'paint() reads paintOffset',
+              Icons.brush,
+              _lcTeal,
+            ),
+            _lcLifecycleStage(
+              'Hit Test',
+              'hitTestChildren() iterates list',
+              Icons.touch_app,
+              _lcAmber,
+            ),
+            _lcLifecycleStage(
+              'Detach',
+              'detach() clears pointers',
+              Icons.link_off,
+              _lcCrimson,
+            ),
+          ],
+        ),
+      ),
       _lcCode(
         '// In RenderSliverMultiBoxAdaptor:\n'
         '@override\n'
@@ -1188,7 +1419,11 @@ Widget _buildLifecycle() {
 }
 
 Widget _lcLifecycleStage(
-    String title, String detail, IconData icon, Color color) {
+  String title,
+  String detail,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1209,13 +1444,18 @@ Widget _lcLifecycleStage(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(detail,
-                  style: const TextStyle(fontSize: 10, color: _lcSlate)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                detail,
+                style: const TextStyle(fontSize: 10, color: _lcSlate),
+              ),
             ],
           ),
         ),
@@ -1236,55 +1476,61 @@ Widget _buildManagementDiagram() {
         'list).  Items 2-3 are keep-alive (in the bucket).  Items 0-1 and '
         '8-9 are not materialised at all.',
       ),
-      _lcCard('Full Management View', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              _lcPill('Not created', _lcSlate),
-              const SizedBox(width: 6),
-              _lcPill('Keep-alive', _lcAmber),
-              const SizedBox(width: 6),
-              _lcPill('Visible', _lcGreen),
-            ],
-          ),
-          const SizedBox(height: 10),
-          _lcManagementRow(0, 'Not created', _lcSlate),
-          _lcManagementRow(1, 'Not created', _lcSlate),
-          _lcManagementRow(2, 'Keep-alive (bucket)', _lcAmber),
-          _lcManagementRow(3, 'Keep-alive (bucket)', _lcAmber),
-          _lcManagementRow(4, 'Visible (linked list)', _lcGreen),
-          _lcManagementRow(5, 'Visible (linked list)', _lcGreen),
-          _lcManagementRow(6, 'Visible (linked list)', _lcGreen),
-          _lcManagementRow(7, 'Visible (linked list)', _lcGreen),
-          _lcManagementRow(8, 'Not created', _lcSlate),
-          _lcManagementRow(9, 'Not created', _lcSlate),
-          _lcDivider(),
-          _lcKv('childCount (physical)', '4 (items 4-7)'),
-          _lcKv('_keepAliveBucket.length', '2 (items 2-3)'),
-          _lcKv('Total logical', '6 (items 2-7)'),
-          _lcKv('Delegate itemCount', '10'),
-        ],
-      )),
-      _lcCard('After Scrolling Down', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcInline(
-            'User scrolls down. Items 4-5 leave viewport, items 8-9 enter.',
-          ),
-          const SizedBox(height: 6),
-          _lcManagementRow(0, 'Not created', _lcSlate),
-          _lcManagementRow(1, 'Not created', _lcSlate),
-          _lcManagementRow(2, 'Disposed (was keep-alive)', _lcBrown),
-          _lcManagementRow(3, 'Disposed (was keep-alive)', _lcBrown),
-          _lcManagementRow(4, 'Keep-alive (was visible)', _lcAmber),
-          _lcManagementRow(5, 'Keep-alive (was visible)', _lcAmber),
-          _lcManagementRow(6, 'Visible', _lcGreen),
-          _lcManagementRow(7, 'Visible', _lcGreen),
-          _lcManagementRow(8, 'Visible (new)', _lcGreen),
-          _lcManagementRow(9, 'Visible (new)', _lcGreen),
-        ],
-      )),
+      _lcCard(
+        'Full Management View',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                _lcPill('Not created', _lcSlate),
+                const SizedBox(width: 6),
+                _lcPill('Keep-alive', _lcAmber),
+                const SizedBox(width: 6),
+                _lcPill('Visible', _lcGreen),
+              ],
+            ),
+            const SizedBox(height: 10),
+            _lcManagementRow(0, 'Not created', _lcSlate),
+            _lcManagementRow(1, 'Not created', _lcSlate),
+            _lcManagementRow(2, 'Keep-alive (bucket)', _lcAmber),
+            _lcManagementRow(3, 'Keep-alive (bucket)', _lcAmber),
+            _lcManagementRow(4, 'Visible (linked list)', _lcGreen),
+            _lcManagementRow(5, 'Visible (linked list)', _lcGreen),
+            _lcManagementRow(6, 'Visible (linked list)', _lcGreen),
+            _lcManagementRow(7, 'Visible (linked list)', _lcGreen),
+            _lcManagementRow(8, 'Not created', _lcSlate),
+            _lcManagementRow(9, 'Not created', _lcSlate),
+            _lcDivider(),
+            _lcKv('childCount (physical)', '4 (items 4-7)'),
+            _lcKv('_keepAliveBucket.length', '2 (items 2-3)'),
+            _lcKv('Total logical', '6 (items 2-7)'),
+            _lcKv('Delegate itemCount', '10'),
+          ],
+        ),
+      ),
+      _lcCard(
+        'After Scrolling Down',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcInline(
+              'User scrolls down. Items 4-5 leave viewport, items 8-9 enter.',
+            ),
+            const SizedBox(height: 6),
+            _lcManagementRow(0, 'Not created', _lcSlate),
+            _lcManagementRow(1, 'Not created', _lcSlate),
+            _lcManagementRow(2, 'Disposed (was keep-alive)', _lcBrown),
+            _lcManagementRow(3, 'Disposed (was keep-alive)', _lcBrown),
+            _lcManagementRow(4, 'Keep-alive (was visible)', _lcAmber),
+            _lcManagementRow(5, 'Keep-alive (was visible)', _lcAmber),
+            _lcManagementRow(6, 'Visible', _lcGreen),
+            _lcManagementRow(7, 'Visible', _lcGreen),
+            _lcManagementRow(8, 'Visible (new)', _lcGreen),
+            _lcManagementRow(9, 'Visible (new)', _lcGreen),
+          ],
+        ),
+      ),
     ],
   );
 }
@@ -1302,16 +1548,18 @@ Widget _lcManagementRow(int index, String status, Color color) {
             borderRadius: BorderRadius.circular(3),
           ),
           alignment: Alignment.center,
-          child: Text('$index',
-              style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: color)),
+          child: Text(
+            '$index',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(status,
-              style: TextStyle(fontSize: 11, color: color)),
+          child: Text(status, style: TextStyle(fontSize: 11, color: color)),
         ),
       ],
     ),
@@ -1334,36 +1582,53 @@ Widget _buildComparison() {
         'need logical container semantics but NOT the index/keepAlive '
         'fields can use SliverLogicalContainerParentData directly.',
       ),
-      _lcCard('Field Comparison', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcCompareRow(
-            'SliverLogicalContainerParentData',
-            ['paintOffset: Offset', 'previousSibling: RenderBox?',
-             'nextSibling: RenderBox?'],
-            _lcNavy,
-          ),
-          _lcDivider(),
-          _lcCompareRow(
-            'SliverMultiBoxAdaptorParentData',
-            ['(all of the above)', 'index: int?', '_keepAlive: bool'],
-            _lcCrimson,
-          ),
-        ],
-      )),
-      _lcCard('When to Use Which?', Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _lcDecisionRow('Custom sliver with fixed children',
-              'SliverLogicalContainerParentData', _lcNavy),
-          _lcDecisionRow('SliverList / SliverGrid (adaptor-based)',
-              'SliverMultiBoxAdaptorParentData', _lcCrimson),
-          _lcDecisionRow('Simple single-child sliver',
-              'SliverPhysicalParentData', _lcTeal),
-          _lcDecisionRow('Sliver without box children',
-              'SliverParentData (no box fields)', _lcSlate),
-        ],
-      )),
+      _lcCard(
+        'Field Comparison',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcCompareRow('SliverLogicalContainerParentData', [
+              'paintOffset: Offset',
+              'previousSibling: RenderBox?',
+              'nextSibling: RenderBox?',
+            ], _lcNavy),
+            _lcDivider(),
+            _lcCompareRow('SliverMultiBoxAdaptorParentData', [
+              '(all of the above)',
+              'index: int?',
+              '_keepAlive: bool',
+            ], _lcCrimson),
+          ],
+        ),
+      ),
+      _lcCard(
+        'When to Use Which?',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _lcDecisionRow(
+              'Custom sliver with fixed children',
+              'SliverLogicalContainerParentData',
+              _lcNavy,
+            ),
+            _lcDecisionRow(
+              'SliverList / SliverGrid (adaptor-based)',
+              'SliverMultiBoxAdaptorParentData',
+              _lcCrimson,
+            ),
+            _lcDecisionRow(
+              'Simple single-child sliver',
+              'SliverPhysicalParentData',
+              _lcTeal,
+            ),
+            _lcDecisionRow(
+              'Sliver without box children',
+              'SliverParentData (no box fields)',
+              _lcSlate,
+            ),
+          ],
+        ),
+      ),
       _lcCode(
         '// SliverMultiBoxAdaptorParentData adds:\n'
         'class SliverMultiBoxAdaptorParentData\n'
@@ -1381,29 +1646,38 @@ Widget _lcCompareRow(String title, List<String> fields, Color color) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(title,
-          style: TextStyle(
-              fontSize: 12, fontWeight: FontWeight.bold, color: color)),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+          color: color,
+        ),
+      ),
       const SizedBox(height: 4),
-      ...fields.map((f) => Padding(
-            padding: const EdgeInsets.only(left: 12, bottom: 2),
-            child: Row(
-              children: [
-                Container(
-                  width: 6,
-                  height: 6,
-                  decoration:
-                      BoxDecoration(color: color, shape: BoxShape.circle),
+      ...fields.map(
+        (f) => Padding(
+          padding: const EdgeInsets.only(left: 12, bottom: 2),
+          child: Row(
+            children: [
+              Container(
+                width: 6,
+                height: 6,
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                f,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: _lcCharcoal,
                 ),
-                const SizedBox(width: 8),
-                Text(f,
-                    style: const TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: _lcCharcoal)),
-              ],
-            ),
-          )),
+              ),
+            ],
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -1415,8 +1689,10 @@ Widget _lcDecisionRow(String scenario, String parentData, Color color) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: Text(scenario,
-              style: const TextStyle(fontSize: 11, color: _lcCharcoal)),
+          child: Text(
+            scenario,
+            style: const TextStyle(fontSize: 11, color: _lcCharcoal),
+          ),
         ),
         const SizedBox(width: 8),
         _lcPill(parentData, color),
@@ -1447,39 +1723,50 @@ Widget _buildSummary() {
           children: [
             Icon(Icons.check_circle, color: Colors.white, size: 20),
             SizedBox(width: 8),
-            Text('Summary',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              'Summary',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14),
         _lcSummaryPoint(
           'SliverLogicalContainerParentData extends '
-          'SliverPhysicalContainerParentData with no new fields.'),
+          'SliverPhysicalContainerParentData with no new fields.',
+        ),
         _lcSummaryPoint(
           'It inherits paintOffset (from SliverPhysicalParentData) and '
-          'previousSibling/nextSibling (from ContainerParentDataMixin).'),
+          'previousSibling/nextSibling (from ContainerParentDataMixin).',
+        ),
         _lcSummaryPoint(
           'The class exists as a type marker distinguishing slivers '
           'that track children logically (by index) from those that '
-          'only track them physically (by linked list).'),
+          'only track them physically (by linked list).',
+        ),
         _lcSummaryPoint(
           'Physical children are in the doubly-linked list and are '
-          'painted and hit-tested during each frame.'),
+          'painted and hit-tested during each frame.',
+        ),
         _lcSummaryPoint(
           'Logical-only children (keep-alive) are stored in a separate '
-          'bucket with their state preserved.'),
+          'bucket with their state preserved.',
+        ),
         _lcSummaryPoint(
           'SliverMultiBoxAdaptorParentData (the subclass) adds index '
-          'and keepAlive fields for SliverList/SliverGrid.'),
+          'and keepAlive fields for SliverList/SliverGrid.',
+        ),
         _lcSummaryPoint(
           'The linked list is maintained by ContainerRenderObjectMixin, '
-          'which calls insert/remove on the parent data pointers.'),
+          'which calls insert/remove on the parent data pointers.',
+        ),
         _lcSummaryPoint(
           'Understanding this hierarchy is key to implementing custom '
-          'slivers that manage multiple box children.'),
+          'slivers that manage multiple box children.',
+        ),
       ],
     ),
   );
@@ -1497,9 +1784,14 @@ Widget _lcSummaryPoint(String text) {
         ),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(text,
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 12, height: 1.5)),
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              height: 1.5,
+            ),
+          ),
         ),
       ],
     ),

@@ -45,15 +45,20 @@ Widget tbInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 140.0,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF8B5E3C))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF8B5E3C),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12.0, color: Color(0xFF5A504A))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF5A504A)),
+          ),
         ),
       ],
     ),
@@ -68,9 +73,14 @@ Widget tbCodeBlock(String code) {
       color: Color(0xFFFFF5ED),
       borderRadius: BorderRadius.circular(6.0),
     ),
-    child: Text(code,
-        style: TextStyle(
-            fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF8B5E3C))),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontSize: 10.0,
+        fontFamily: 'monospace',
+        color: Color(0xFF8B5E3C),
+      ),
+    ),
   );
 }
 
@@ -101,18 +111,22 @@ dynamic build(BuildContext context) {
             Icon(Icons.grid_on, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('TableBorder',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                'TableBorder',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('Border configuration for Table widgets — outer edges and inner dividers',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFFFDCC4))),
+        Text(
+          'Border configuration for Table widgets — outer edges and inner dividers',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFFFDCC4)),
+        ),
         SizedBox(height: 8.0),
         Wrap(
           children: [
@@ -142,15 +156,26 @@ dynamic build(BuildContext context) {
   print('  TableBorder(top, right, bottom, left, hInside, vInside)');
 
   final constructors = <Map<String, dynamic>>[
-    {'label': 'TableBorder.all()', 'color': Color(0xFFB87333),
-     'desc': 'Uniform border on all sides and all dividers',
-     'code': 'TableBorder.all(color: Colors.grey, width: 2.0)'},
-    {'label': 'TableBorder.symmetric()', 'color': Color(0xFFCD8544),
-     'desc': 'Inside dividers and outside edges configured separately',
-     'code': 'TableBorder.symmetric(\n  inside: BorderSide(width: 1),\n  outside: BorderSide(width: 3))'},
-    {'label': 'TableBorder()', 'color': Color(0xFF8B5E3C),
-     'desc': 'Full control over each of 6 border sides',
-     'code': 'TableBorder(\n  top: ..., right: ...,\n  bottom: ..., left: ...,\n  horizontalInside: ...,\n  verticalInside: ...)'},
+    {
+      'label': 'TableBorder.all()',
+      'color': Color(0xFFB87333),
+      'desc': 'Uniform border on all sides and all dividers',
+      'code': 'TableBorder.all(color: Colors.grey, width: 2.0)',
+    },
+    {
+      'label': 'TableBorder.symmetric()',
+      'color': Color(0xFFCD8544),
+      'desc': 'Inside dividers and outside edges configured separately',
+      'code':
+          'TableBorder.symmetric(\n  inside: BorderSide(width: 1),\n  outside: BorderSide(width: 3))',
+    },
+    {
+      'label': 'TableBorder()',
+      'color': Color(0xFF8B5E3C),
+      'desc': 'Full control over each of 6 border sides',
+      'code':
+          'TableBorder(\n  top: ..., right: ...,\n  bottom: ..., left: ...,\n  horizontalInside: ...,\n  verticalInside: ...)',
+    },
   ];
 
   final tbConstructorsSection = Container(
@@ -169,15 +194,19 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border(left: BorderSide(color: c['color'] as Color, width: 4.0)),
+            border: Border(
+              left: BorderSide(color: c['color'] as Color, width: 4.0),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               tbChip(c['label'] as String, c['color'] as Color),
               SizedBox(height: 4.0),
-              Text(c['desc'] as String,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A))),
+              Text(
+                c['desc'] as String,
+                style: TextStyle(fontSize: 11.0, color: Color(0xFF5A504A)),
+              ),
               SizedBox(height: 6.0),
               tbCodeBlock(c['code'] as String),
             ],
@@ -202,9 +231,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('6 configurable border sides',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF8B5E3C))),
+        Text(
+          '6 configurable border sides',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 10.0),
         SizedBox(
           width: double.infinity,
@@ -212,9 +246,11 @@ dynamic build(BuildContext context) {
           child: Stack(
             children: [
               Positioned(
-                left: 20.0, top: 10.0,
+                left: 20.0,
+                top: 10.0,
                 child: Container(
-                  width: 260.0, height: 120.0,
+                  width: 260.0,
+                  height: 120.0,
                   decoration: BoxDecoration(
                     border: Border(
                       top: BorderSide(color: Color(0xFFB87333), width: 3.0),
@@ -228,32 +264,90 @@ dynamic build(BuildContext context) {
                       Expanded(
                         child: Row(
                           children: [
-                            Expanded(child: Container(
-                              decoration: BoxDecoration(border: Border(
-                                right: BorderSide(color: Color(0xFFD4A76A), width: 1.0),
-                                bottom: BorderSide(color: Color(0xFFD4A76A), width: 1.0),
-                              )),
-                              child: Center(child: Text('Cell', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C)))),
-                            )),
-                            Expanded(child: Container(
-                              decoration: BoxDecoration(border: Border(
-                                bottom: BorderSide(color: Color(0xFFD4A76A), width: 1.0),
-                              )),
-                              child: Center(child: Text('Cell', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C)))),
-                            )),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(
+                                      color: Color(0xFFD4A76A),
+                                      width: 1.0,
+                                    ),
+                                    bottom: BorderSide(
+                                      color: Color(0xFFD4A76A),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Cell',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Color(0xFF8B5E3C),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: Color(0xFFD4A76A),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Cell',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Color(0xFF8B5E3C),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       Expanded(
                         child: Row(
                           children: [
-                            Expanded(child: Container(
-                              decoration: BoxDecoration(border: Border(
-                                right: BorderSide(color: Color(0xFFD4A76A), width: 1.0),
-                              )),
-                              child: Center(child: Text('Cell', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C)))),
-                            )),
-                            Expanded(child: Center(child: Text('Cell', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C))))),
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(
+                                      color: Color(0xFFD4A76A),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Cell',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Color(0xFF8B5E3C),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  'Cell',
+                                  style: TextStyle(
+                                    fontSize: 9.0,
+                                    color: Color(0xFF8B5E3C),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -261,14 +355,54 @@ dynamic build(BuildContext context) {
                   ),
                 ),
               ),
-              Positioned(left: 100.0, top: 0.0,
-                child: Text('top', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Color(0xFFB87333)))),
-              Positioned(right: 0.0, top: 55.0,
-                child: Text('right', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Color(0xFFCD8544)))),
-              Positioned(left: 100.0, bottom: 0.0,
-                child: Text('bottom', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Color(0xFFA06030)))),
-              Positioned(left: 0.0, top: 55.0,
-                child: Text('left', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Color(0xFF8B5E3C)))),
+              Positioned(
+                left: 100.0,
+                top: 0.0,
+                child: Text(
+                  'top',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFB87333),
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0.0,
+                top: 55.0,
+                child: Text(
+                  'right',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFCD8544),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 100.0,
+                bottom: 0.0,
+                child: Text(
+                  'bottom',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFA06030),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0.0,
+                top: 55.0,
+                child: Text(
+                  'left',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF8B5E3C),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -296,8 +430,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Uniform borders at different widths',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Uniform borders at different widths',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -305,23 +445,39 @@ dynamic build(BuildContext context) {
             return Column(
               children: [
                 SizedBox(
-                  width: 60.0, height: 40.0,
+                  width: 60.0,
+                  height: 40.0,
                   child: Table(
                     border: TableBorder.all(color: Color(0xFFB87333), width: w),
                     children: [
-                      TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
-                      TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 18.0),
+                          SizedBox(height: 18.0),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 18.0),
+                          SizedBox(height: 18.0),
+                        ],
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text('width: $w', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C))),
+                Text(
+                  'width: $w',
+                  style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C)),
+                ),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 10.0),
-        tbCodeBlock('TableBorder.all(\n  color: Color(0xFFB87333),\n  width: 2.0,\n  style: BorderStyle.solid,\n)'),
+        tbCodeBlock(
+          'TableBorder.all(\n  color: Color(0xFFB87333),\n  width: 2.0,\n  style: BorderStyle.solid,\n)',
+        ),
       ],
     ),
   );
@@ -345,18 +501,36 @@ dynamic build(BuildContext context) {
           children: [
             Column(
               children: [
-                Text('Thin in / thick out', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+                Text(
+                  'Thin in / thick out',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8B5E3C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
                 SizedBox(
-                  width: 120.0, height: 60.0,
+                  width: 120.0,
+                  height: 60.0,
                   child: Table(
                     border: TableBorder.symmetric(
                       inside: BorderSide(color: Color(0xFFD4A76A), width: 0.5),
                       outside: BorderSide(color: Color(0xFF8B5E3C), width: 3.0),
                     ),
                     children: [
-                      TableRow(children: [SizedBox(height: 28.0), SizedBox(height: 28.0)]),
-                      TableRow(children: [SizedBox(height: 28.0), SizedBox(height: 28.0)]),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 28.0),
+                          SizedBox(height: 28.0),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 28.0),
+                          SizedBox(height: 28.0),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -364,18 +538,36 @@ dynamic build(BuildContext context) {
             ),
             Column(
               children: [
-                Text('Thick in / thin out', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+                Text(
+                  'Thick in / thin out',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8B5E3C),
+                  ),
+                ),
                 SizedBox(height: 4.0),
                 SizedBox(
-                  width: 120.0, height: 60.0,
+                  width: 120.0,
+                  height: 60.0,
                   child: Table(
                     border: TableBorder.symmetric(
                       inside: BorderSide(color: Color(0xFFB87333), width: 3.0),
                       outside: BorderSide(color: Color(0xFFD4A76A), width: 0.5),
                     ),
                     children: [
-                      TableRow(children: [SizedBox(height: 28.0), SizedBox(height: 28.0)]),
-                      TableRow(children: [SizedBox(height: 28.0), SizedBox(height: 28.0)]),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 28.0),
+                          SizedBox(height: 28.0),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 28.0),
+                          SizedBox(height: 28.0),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -384,7 +576,9 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 10.0),
-        tbCodeBlock('TableBorder.symmetric(\n  inside: BorderSide(width: 0.5),\n  outside: BorderSide(width: 3.0),\n)'),
+        tbCodeBlock(
+          'TableBorder.symmetric(\n  inside: BorderSide(width: 0.5),\n  outside: BorderSide(width: 3.0),\n)',
+        ),
       ],
     ),
   );
@@ -398,8 +592,16 @@ dynamic build(BuildContext context) {
     {'name': 'right', 'side': borderCustom.right, 'color': Color(0xFFCD8544)},
     {'name': 'bottom', 'side': borderCustom.bottom, 'color': Color(0xFFA06030)},
     {'name': 'left', 'side': borderCustom.left, 'color': Color(0xFF8B5E3C)},
-    {'name': 'hInside', 'side': borderCustom.horizontalInside, 'color': Color(0xFFD4A76A)},
-    {'name': 'vInside', 'side': borderCustom.verticalInside, 'color': Color(0xFFD4A76A)},
+    {
+      'name': 'hInside',
+      'side': borderCustom.horizontalInside,
+      'color': Color(0xFFD4A76A),
+    },
+    {
+      'name': 'vInside',
+      'side': borderCustom.verticalInside,
+      'color': Color(0xFFD4A76A),
+    },
   ];
 
   final tbCustomSection = Container(
@@ -420,13 +622,25 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               SizedBox(
                 width: 70.0,
-                child: Text(si['name'] as String,
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                        fontFamily: 'monospace', color: si['color'] as Color)),
+                child: Text(
+                  si['name'] as String,
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'monospace',
+                    color: si['color'] as Color,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('width: ${side.width}, color: #${side.color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
-                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF5A504A))),
+                child: Text(
+                  'width: ${side.width}, color: #${side.color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}',
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF5A504A),
+                  ),
+                ),
               ),
             ],
           ),
@@ -462,14 +676,39 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   children: [
-                    Text('Uniform', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Color(0xFFB87333))),
-                    Text('isUniform: true', style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF5A504A))),
+                    Text(
+                      'Uniform',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFFB87333),
+                      ),
+                    ),
+                    Text(
+                      'isUniform: true',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF5A504A),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Container(width: 50.0, height: 30.0,
-                      decoration: BoxDecoration(border: Border.all(color: Color(0xFFB87333), width: 2.0))),
+                    Container(
+                      width: 50.0,
+                      height: 30.0,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Color(0xFFB87333),
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -478,19 +717,50 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
                 child: Column(
                   children: [
-                    Text('Non-Uniform', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700, color: Color(0xFF8B5E3C))),
-                    Text('isUniform: false', style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF5A504A))),
+                    Text(
+                      'Non-Uniform',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF8B5E3C),
+                      ),
+                    ),
+                    Text(
+                      'isUniform: false',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF5A504A),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Container(width: 50.0, height: 30.0,
-                      decoration: BoxDecoration(border: Border(
-                        top: BorderSide(color: Color(0xFFB87333), width: 3.0),
-                        right: BorderSide(color: Color(0xFFCD8544), width: 1.0),
-                        bottom: BorderSide(color: Color(0xFFA06030), width: 2.0),
-                        left: BorderSide(color: Color(0xFF8B5E3C), width: 1.0),
-                      ))),
+                    Container(
+                      width: 50.0,
+                      height: 30.0,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: Color(0xFFB87333), width: 3.0),
+                          right: BorderSide(
+                            color: Color(0xFFCD8544),
+                            width: 1.0,
+                          ),
+                          bottom: BorderSide(
+                            color: Color(0xFFA06030),
+                            width: 2.0,
+                          ),
+                          left: BorderSide(
+                            color: Color(0xFF8B5E3C),
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -514,33 +784,119 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Style 1: Classic grid', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+        Text(
+          'Style 1: Classic grid',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 4.0),
         Table(
           border: TableBorder.all(color: Color(0xFFB87333), width: 1.0),
           children: [
             TableRow(
-              decoration: BoxDecoration(color: Color(0xFFB87333).withValues(alpha: 0.1)),
+              decoration: BoxDecoration(
+                color: Color(0xFFB87333).withValues(alpha: 0.1),
+              ),
               children: [
-                Padding(padding: EdgeInsets.all(6.0), child: Text('Header A', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF8B5E3C)))),
-                Padding(padding: EdgeInsets.all(6.0), child: Text('Header B', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF8B5E3C)))),
-                Padding(padding: EdgeInsets.all(6.0), child: Text('Header C', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Color(0xFF8B5E3C)))),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Header A',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF8B5E3C),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Header B',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF8B5E3C),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Header C',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF8B5E3C),
+                    ),
+                  ),
+                ),
               ],
             ),
-            TableRow(children: [
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Row 1', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Data', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Value', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-            ]),
-            TableRow(children: [
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Row 2', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Data', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Value', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-            ]),
+            TableRow(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Row 1',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Data',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Value',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Row 2',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Data',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Value',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         SizedBox(height: 12.0),
-        Text('Style 2: Outer only', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+        Text(
+          'Style 2: Outer only',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 4.0),
         Table(
           border: TableBorder.symmetric(
@@ -548,33 +904,97 @@ dynamic build(BuildContext context) {
             outside: BorderSide(color: Color(0xFF8B5E3C), width: 2.0),
           ),
           children: [
-            TableRow(children: [
-              Padding(padding: EdgeInsets.all(6.0), child: Text('No inner', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('borders', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('here', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-            ]),
+            TableRow(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'No inner',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'borders',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'here',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         SizedBox(height: 12.0),
-        Text('Style 3: Horizontal dividers only', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+        Text(
+          'Style 3: Horizontal dividers only',
+          style: TextStyle(
+            fontSize: 11.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 4.0),
         Table(
           border: TableBorder(
-            top: BorderSide.none, right: BorderSide.none,
+            top: BorderSide.none,
+            right: BorderSide.none,
             bottom: BorderSide(color: Color(0xFFB87333), width: 1.0),
             left: BorderSide.none,
             horizontalInside: BorderSide(color: Color(0xFFD4A76A), width: 1.0),
             verticalInside: BorderSide.none,
           ),
           children: [
-            TableRow(children: [
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Row dividers', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('only', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C)))),
-            ]),
-            TableRow(children: [
-              Padding(padding: EdgeInsets.all(6.0), child: Text('Like a', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-              Padding(padding: EdgeInsets.all(6.0), child: Text('list view', style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)))),
-            ]),
+            TableRow(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Row dividers',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF8B5E3C),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'only',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF8B5E3C),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'Like a',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(6.0),
+                  child: Text(
+                    'list view',
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A)),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -598,8 +1018,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Scale multiplier applied to all border widths',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Scale multiplier applied to all border widths',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -607,23 +1033,46 @@ dynamic build(BuildContext context) {
             return Column(
               children: [
                 SizedBox(
-                  width: 45.0, height: 30.0,
+                  width: 45.0,
+                  height: 30.0,
                   child: Table(
-                    border: TableBorder.all(color: Color(0xFFB87333), width: 2.0).scale(f),
+                    border: TableBorder.all(
+                      color: Color(0xFFB87333),
+                      width: 2.0,
+                    ).scale(f),
                     children: [
-                      TableRow(children: [SizedBox(height: 13.0), SizedBox(height: 13.0)]),
-                      TableRow(children: [SizedBox(height: 13.0), SizedBox(height: 13.0)]),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 13.0),
+                          SizedBox(height: 13.0),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 13.0),
+                          SizedBox(height: 13.0),
+                        ],
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text('${f}x', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+                Text(
+                  '${f}x',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8B5E3C),
+                  ),
+                ),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 8.0),
-        tbCodeBlock('final scaled = border.scale(0.5);\n// All widths multiplied by factor'),
+        tbCodeBlock(
+          'final scaled = border.scale(0.5);\n// All widths multiplied by factor',
+        ),
       ],
     ),
   );
@@ -646,8 +1095,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Smooth transition between two TableBorder configs',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Smooth transition between two TableBorder configs',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -655,23 +1110,43 @@ dynamic build(BuildContext context) {
             return Column(
               children: [
                 SizedBox(
-                  width: 50.0, height: 30.0,
+                  width: 50.0,
+                  height: 30.0,
                   child: Table(
                     border: TableBorder.lerp(lerpA, lerpB, t),
                     children: [
-                      TableRow(children: [SizedBox(height: 13.0), SizedBox(height: 13.0)]),
-                      TableRow(children: [SizedBox(height: 13.0), SizedBox(height: 13.0)]),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 13.0),
+                          SizedBox(height: 13.0),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          SizedBox(height: 13.0),
+                          SizedBox(height: 13.0),
+                        ],
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text('t=$t', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600, color: Color(0xFF8B5E3C))),
+                Text(
+                  't=$t',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8B5E3C),
+                  ),
+                ),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 8.0),
-        tbCodeBlock('TableBorder.lerp(borderA, borderB, t)\n// t: 0.0 = A, 1.0 = B'),
+        tbCodeBlock(
+          'TableBorder.lerp(borderA, borderB, t)\n// t: 0.0 = A, 1.0 = B',
+        ),
       ],
     ),
   );
@@ -699,18 +1174,32 @@ dynamic build(BuildContext context) {
         return Column(
           children: [
             SizedBox(
-              width: 65.0, height: 40.0,
+              width: 65.0,
+              height: 40.0,
               child: Table(
-                border: TableBorder.all(color: cv['color'] as Color, width: 1.5),
+                border: TableBorder.all(
+                  color: cv['color'] as Color,
+                  width: 1.5,
+                ),
                 children: [
-                  TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
-                  TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
+                  TableRow(
+                    children: [SizedBox(height: 18.0), SizedBox(height: 18.0)],
+                  ),
+                  TableRow(
+                    children: [SizedBox(height: 18.0), SizedBox(height: 18.0)],
+                  ),
                 ],
               ),
             ),
             SizedBox(height: 4.0),
-            Text(cv['label'] as String,
-                style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600, color: cv['color'] as Color)),
+            Text(
+              cv['label'] as String,
+              style: TextStyle(
+                fontSize: 9.0,
+                fontWeight: FontWeight.w600,
+                color: cv['color'] as Color,
+              ),
+            ),
           ],
         );
       }).toList(),
@@ -731,8 +1220,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Rounded corner tables',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Rounded corner tables',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -742,27 +1237,44 @@ dynamic build(BuildContext context) {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(r),
                   child: SizedBox(
-                    width: 60.0, height: 40.0,
+                    width: 60.0,
+                    height: 40.0,
                     child: Table(
                       border: TableBorder.all(
-                        color: Color(0xFFB87333), width: 1.5,
+                        color: Color(0xFFB87333),
+                        width: 1.5,
                         borderRadius: BorderRadius.circular(r),
                       ),
                       children: [
-                        TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
-                        TableRow(children: [SizedBox(height: 18.0), SizedBox(height: 18.0)]),
+                        TableRow(
+                          children: [
+                            SizedBox(height: 18.0),
+                            SizedBox(height: 18.0),
+                          ],
+                        ),
+                        TableRow(
+                          children: [
+                            SizedBox(height: 18.0),
+                            SizedBox(height: 18.0),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
                 SizedBox(height: 4.0),
-                Text('r: ${r.toInt()}', style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C))),
+                Text(
+                  'r: ${r.toInt()}',
+                  style: TextStyle(fontSize: 9.0, color: Color(0xFF8B5E3C)),
+                ),
               ],
             );
           }).toList(),
         ),
         SizedBox(height: 8.0),
-        tbCodeBlock('TableBorder.all(\n  borderRadius: BorderRadius.circular(8.0),\n)'),
+        tbCodeBlock(
+          'TableBorder.all(\n  borderRadius: BorderRadius.circular(8.0),\n)',
+        ),
       ],
     ),
   );
@@ -781,13 +1293,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Space occupied by borders in layout',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Space occupied by borders in layout',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Column(
             children: [
               tbInfoRow('top:', '${dims.top}'),
@@ -810,12 +1331,27 @@ dynamic build(BuildContext context) {
   print('  Table(border: tableBorder)');
 
   final usageContexts = <Map<String, dynamic>>[
-    {'widget': 'Table', 'icon': Icons.grid_on, 'color': Color(0xFFB87333),
-     'prop': 'border: TableBorder', 'desc': 'Direct border property on Table widget'},
-    {'widget': 'DataTable', 'icon': Icons.table_chart, 'color': Color(0xFFCD8544),
-     'prop': 'decoration + dividers', 'desc': 'Internal border logic via DataTable theming'},
-    {'widget': 'GridView', 'icon': Icons.grid_view, 'color': Color(0xFF8B5E3C),
-     'prop': 'Custom painting', 'desc': 'Manual border painting in custom rendering'},
+    {
+      'widget': 'Table',
+      'icon': Icons.grid_on,
+      'color': Color(0xFFB87333),
+      'prop': 'border: TableBorder',
+      'desc': 'Direct border property on Table widget',
+    },
+    {
+      'widget': 'DataTable',
+      'icon': Icons.table_chart,
+      'color': Color(0xFFCD8544),
+      'prop': 'decoration + dividers',
+      'desc': 'Internal border logic via DataTable theming',
+    },
+    {
+      'widget': 'GridView',
+      'icon': Icons.grid_view,
+      'color': Color(0xFF8B5E3C),
+      'prop': 'Custom painting',
+      'desc': 'Manual border painting in custom rendering',
+    },
   ];
 
   final tbUsageSection = Container(
@@ -831,21 +1367,45 @@ dynamic build(BuildContext context) {
           width: double.infinity,
           margin: EdgeInsets.only(bottom: 8.0),
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Row(
             children: [
-              Icon(uc['icon'] as IconData, color: uc['color'] as Color, size: 24.0),
+              Icon(
+                uc['icon'] as IconData,
+                color: uc['color'] as Color,
+                size: 24.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(uc['widget'] as String,
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: uc['color'] as Color)),
-                    Text(uc['prop'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF8B5E3C))),
-                    Text(uc['desc'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Color(0xFF5A504A))),
+                    Text(
+                      uc['widget'] as String,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: uc['color'] as Color,
+                      ),
+                    ),
+                    Text(
+                      uc['prop'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF8B5E3C),
+                      ),
+                    ),
+                    Text(
+                      uc['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF5A504A),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -874,13 +1434,22 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Structural equality — compares all 6 sides',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic, color: Color(0xFF8B5E3C))),
+        Text(
+          'Structural equality — compares all 6 sides',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF8B5E3C),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Column(
             children: [
               tbInfoRow('Same config:', '${eq1 == eq2}'),
@@ -912,29 +1481,73 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('TableBorder Dashboard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(
+          'TableBorder Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(children: [
-              Text('3', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFFFFDCC4))),
-              Text('Constructors', style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4))),
-            ]),
-            Column(children: [
-              Text('6', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFFFFDCC4))),
-              Text('Border Sides', style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4))),
-            ]),
-            Column(children: [
-              Text('2', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color(0xFFFFDCC4))),
-              Text('Methods', style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4))),
-            ]),
+            Column(
+              children: [
+                Text(
+                  '3',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFFDCC4),
+                  ),
+                ),
+                Text(
+                  'Constructors',
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  '6',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFFDCC4),
+                  ),
+                ),
+                Text(
+                  'Border Sides',
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4)),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  '2',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFFDCC4),
+                  ),
+                ),
+                Text(
+                  'Methods',
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFFFFDCC4)),
+                ),
+              ],
+            ),
           ],
         ),
         SizedBox(height: 10.0),
         Wrap(
-          spacing: 6.0, runSpacing: 4.0, alignment: WrapAlignment.center,
+          spacing: 6.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.center,
           children: [
             tbChip('all()', Color(0xFFCD8544)),
             tbChip('symmetric()', Color(0xFFB87333)),

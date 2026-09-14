@@ -97,13 +97,16 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
   // sentinel date, and the "no deadline" state survives hot restart just like
   // any real date would.
   // ---------------------------------------------------------------------------
-  final RestorableDateTimeN _taskPresentation =
-      RestorableDateTimeN(DateTime(2026, 4, 26));
-  final RestorableDateTimeN _taskRent =
-      RestorableDateTimeN(DateTime(2026, 5, 3));
+  final RestorableDateTimeN _taskPresentation = RestorableDateTimeN(
+    DateTime(2026, 4, 26),
+  );
+  final RestorableDateTimeN _taskRent = RestorableDateTimeN(
+    DateTime(2026, 5, 3),
+  );
   final RestorableDateTimeN _taskCallMom = RestorableDateTimeN(null);
-  final RestorableDateTimeN _taskGroceries =
-      RestorableDateTimeN(DateTime(2026, 4, 24));
+  final RestorableDateTimeN _taskGroceries = RestorableDateTimeN(
+    DateTime(2026, 4, 24),
+  );
   final RestorableDateTimeN _taskLearnRust = RestorableDateTimeN(null);
 
   // ---------------------------------------------------------------------------
@@ -133,14 +136,17 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
   // tracking an optional reminder time. Mon/Wed/Fri are pre-populated;
   // Tue/Thu/Sat/Sun start as null to showcase the 7-card null/set mix.
   // ---------------------------------------------------------------------------
-  final RestorableDateTimeN _mealMon =
-      RestorableDateTimeN(DateTime(2026, 4, 23, 8, 0));
+  final RestorableDateTimeN _mealMon = RestorableDateTimeN(
+    DateTime(2026, 4, 23, 8, 0),
+  );
   final RestorableDateTimeN _mealTue = RestorableDateTimeN(null);
-  final RestorableDateTimeN _mealWed =
-      RestorableDateTimeN(DateTime(2026, 4, 23, 12, 30));
+  final RestorableDateTimeN _mealWed = RestorableDateTimeN(
+    DateTime(2026, 4, 23, 12, 30),
+  );
   final RestorableDateTimeN _mealThu = RestorableDateTimeN(null);
-  final RestorableDateTimeN _mealFri =
-      RestorableDateTimeN(DateTime(2026, 4, 23, 19, 15));
+  final RestorableDateTimeN _mealFri = RestorableDateTimeN(
+    DateTime(2026, 4, 23, 19, 15),
+  );
   final RestorableDateTimeN _mealSat = RestorableDateTimeN(null);
   final RestorableDateTimeN _mealSun = RestorableDateTimeN(null);
 
@@ -152,8 +158,9 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
   // mutated by this demo; they exist as snapshots of "before" and "after"
   // restoration states the user might observe in the devtools inspector.
   // ---------------------------------------------------------------------------
-  final RestorableDateTimeN _teachingSnapshotSet =
-      RestorableDateTimeN(DateTime(2026, 6, 1, 14, 0));
+  final RestorableDateTimeN _teachingSnapshotSet = RestorableDateTimeN(
+    DateTime(2026, 6, 1, 14, 0),
+  );
   final RestorableDateTimeN _teachingSnapshotNull = RestorableDateTimeN(null);
 
   // ---------------------------------------------------------------------------
@@ -227,8 +234,18 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
 
   String _formatDate(DateTime d) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     final w = weekdays[d.weekday - 1];
@@ -280,12 +297,18 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
 
   Widget _buildTaskListSection(BuildContext context) {
     final tasks = <_TaskRow>[
-      _TaskRow('Finish presentation slides', _taskPresentation.value,
-          Icons.slideshow),
+      _TaskRow(
+        'Finish presentation slides',
+        _taskPresentation.value,
+        Icons.slideshow,
+      ),
       _TaskRow('Pay rent', _taskRent.value, Icons.home_work_outlined),
       _TaskRow('Call mom', _taskCallMom.value, Icons.phone_outlined),
-      _TaskRow('Buy groceries', _taskGroceries.value,
-          Icons.shopping_basket_outlined),
+      _TaskRow(
+        'Buy groceries',
+        _taskGroceries.value,
+        Icons.shopping_basket_outlined,
+      ),
       _TaskRow('Learn Rust', _taskLearnRust.value, Icons.memory_outlined),
     ];
 
@@ -298,14 +321,10 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.teal.shade600,
-                  Colors.teal.shade400,
-                ],
+                colors: [Colors.teal.shade600, Colors.teal.shade400],
               ),
             ),
             child: Row(
@@ -323,7 +342,9 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 4),
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.22),
                     borderRadius: BorderRadius.circular(12),
@@ -360,8 +381,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             : Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: ListTile(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
         leading: CircleAvatar(
           backgroundColor: color.withValues(alpha: 0.15),
           child: Icon(row.icon, color: color, size: 22),
@@ -377,12 +397,13 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: color.withValues(alpha: 0.4)),
+                        border: Border.all(color: color.withValues(alpha: 0.4)),
                       ),
                       child: Text(
                         countdown ?? '',
@@ -405,7 +426,9 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 )
               : Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 4),
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(10),
@@ -413,8 +436,11 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.all_inclusive,
-                          size: 14, color: Colors.grey.shade600),
+                      Icon(
+                        Icons.all_inclusive,
+                        size: 14,
+                        color: Colors.grey.shade600,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         'no deadline',
@@ -465,10 +491,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                   ],
                 )
               : LinearGradient(
-                  colors: [
-                    Colors.grey.shade100,
-                    Colors.grey.shade200,
-                  ],
+                  colors: [Colors.grey.shade100, Colors.grey.shade200],
                 ),
           border: isSet
               ? Border.all(color: Colors.pink.shade200, width: 1.2)
@@ -495,9 +518,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: isSet
-                        ? Colors.pink.shade100
-                        : Colors.grey.shade300,
+                    color: isSet ? Colors.pink.shade100 : Colors.grey.shade300,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -508,10 +529,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 const SizedBox(width: 12),
                 const Text(
                   'Scenario 2 — Optional Birthday Reminder',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                 ),
               ],
             ),
@@ -524,8 +542,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             const SizedBox(height: 14),
             // Teaching line: makes the property's value explicit.
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.6),
                 borderRadius: BorderRadius.circular(10),
@@ -562,8 +579,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
       children: [
         Row(
           children: [
-            Icon(Icons.card_giftcard,
-                size: 36, color: Colors.pink.shade600),
+            Icon(Icons.card_giftcard, size: 36, color: Colors.pink.shade600),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -614,8 +630,11 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 26),
         child: Column(
           children: [
-            Icon(Icons.add_circle_outline,
-                size: 34, color: Colors.grey.shade600),
+            Icon(
+              Icons.add_circle_outline,
+              size: 34,
+              color: Colors.grey.shade600,
+            ),
             const SizedBox(height: 8),
             Text(
               '+ Add optional reminder',
@@ -628,10 +647,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             const SizedBox(height: 4),
             Text(
               'This field is nullable — leaving it empty is perfectly valid.',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
@@ -678,15 +694,13 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 color: isSet ? Colors.blue.shade50 : Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all(
-                  color:
-                      isSet ? Colors.blue.shade300 : Colors.grey.shade300,
+                  color: isSet ? Colors.blue.shade300 : Colors.grey.shade300,
                   width: 1.1,
                 ),
                 boxShadow: isSet
                     ? [
                         BoxShadow(
-                          color: Colors.blue.shade200
-                              .withValues(alpha: 0.4),
+                          color: Colors.blue.shade200.withValues(alpha: 0.4),
                           blurRadius: 14,
                           offset: const Offset(0, 4),
                         ),
@@ -779,7 +793,9 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                   // Restoration bucket peek.
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 8),
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.04),
                       borderRadius: BorderRadius.circular(8),
@@ -836,8 +852,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
           children: [
             Row(
               children: [
-                Icon(Icons.restaurant_menu,
-                    color: Colors.deepPurple.shade700),
+                Icon(Icons.restaurant_menu, color: Colors.deepPurple.shade700),
                 const SizedBox(width: 10),
                 Text(
                   'Scenario 4 — Weekly meal reminders',
@@ -853,18 +868,13 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             Text(
               '7 RestorableDateTimeN fields — one per weekday. '
               'Tuesday, Thursday, Saturday and Sunday start as null.',
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.deepPurple.shade700,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.deepPurple.shade700),
             ),
             const SizedBox(height: 14),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
-                  for (final day in days) _buildMealCard(day),
-                ],
+                children: [for (final day in days) _buildMealCard(day)],
               ),
             ),
           ],
@@ -890,8 +900,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
         boxShadow: isSet
             ? [
                 BoxShadow(
-                  color: Colors.deepPurple.shade100
-                      .withValues(alpha: 0.45),
+                  color: Colors.deepPurple.shade100.withValues(alpha: 0.45),
                   blurRadius: 8,
                   offset: const Offset(0, 3),
                 ),
@@ -957,9 +966,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                         color: isSet
                             ? Colors.deepPurple.shade500
                             : Colors.grey.shade600,
-                        fontStyle: isSet
-                            ? FontStyle.normal
-                            : FontStyle.italic,
+                        fontStyle: isSet ? FontStyle.normal : FontStyle.italic,
                       ),
                     ),
                   ],
@@ -976,11 +983,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                     color: Colors.green.shade500,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 10,
-                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 10),
                 ),
               ),
           ],
@@ -1007,10 +1010,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Colors.indigo.shade50,
-              Colors.cyan.shade50,
-            ],
+            colors: [Colors.indigo.shade50, Colors.cyan.shade50],
           ),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.indigo.shade100),
@@ -1083,11 +1083,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _flowNode(
-            label: 'A',
-            caption: 'null',
-            isNull: true,
-          ),
+          _flowNode(label: 'A', caption: 'null', isNull: true),
           _flowArrow('setState()\npicks date'),
           _flowNode(
             label: 'B',
@@ -1095,17 +1091,9 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             isNull: false,
           ),
           _flowArrow('user clears'),
-          _flowNode(
-            label: 'C',
-            caption: 'null',
-            isNull: true,
-          ),
+          _flowNode(label: 'C', caption: 'null', isNull: true),
           _flowArrow('setState()\nnew date'),
-          _flowNode(
-            label: 'D',
-            caption: 'DateTime(2027,1,1)',
-            isNull: false,
-          ),
+          _flowNode(label: 'D', caption: 'DateTime(2027,1,1)', isNull: false),
         ],
       ),
     );
@@ -1177,8 +1165,11 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Icon(Icons.arrow_forward_rounded,
-              color: Colors.indigo.shade400, size: 28),
+          Icon(
+            Icons.arrow_forward_rounded,
+            color: Colors.indigo.shade400,
+            size: 28,
+          ),
           const SizedBox(height: 4),
           SizedBox(
             width: 80,
@@ -1265,8 +1256,11 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
         children: [
           Row(
             children: [
-              Icon(Icons.inventory_2_outlined,
-                  color: Colors.indigo.shade600, size: 18),
+              Icon(
+                Icons.inventory_2_outlined,
+                color: Colors.indigo.shade600,
+                size: 18,
+              ),
               const SizedBox(width: 8),
               Text(
                 'Restoration bucket — live view',
@@ -1326,8 +1320,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
         color: isNull ? Colors.grey.shade100 : Colors.blue.shade50,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color:
-              isNull ? Colors.grey.shade400 : Colors.blue.shade300,
+          color: isNull ? Colors.grey.shade400 : Colors.blue.shade300,
           width: 1.2,
         ),
       ),
@@ -1339,8 +1332,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
               Icon(
                 isNull ? Icons.circle_outlined : Icons.circle,
                 size: 12,
-                color:
-                    isNull ? Colors.grey.shade500 : Colors.blue.shade600,
+                color: isNull ? Colors.grey.shade500 : Colors.blue.shade600,
               ),
               const SizedBox(width: 6),
               Expanded(
@@ -1416,10 +1408,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Colors.teal.shade700,
-            Colors.cyan.shade700,
-          ],
+          colors: [Colors.teal.shade700, Colors.cyan.shade700],
         ),
         borderRadius: BorderRadius.circular(18),
       ),
@@ -1441,8 +1430,10 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(12),
@@ -1465,11 +1456,7 @@ class _DeadlineTrackerDemoState extends State<DeadlineTrackerDemo>
             'null-versus-set duality from multiple angles: dense task list, '
             'hero form, monochrome session card, weekly row, and lifecycle '
             'flowchart.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13, height: 1.45),
           ),
         ],
       ),
@@ -1501,11 +1488,7 @@ class _MealDay {
 class DottedBorderBox extends StatelessWidget {
   final Widget child;
   final Color color;
-  const DottedBorderBox({
-    super.key,
-    required this.child,
-    required this.color,
-  });
+  const DottedBorderBox({super.key, required this.child, required this.color});
 
   @override
   Widget build(BuildContext context) {

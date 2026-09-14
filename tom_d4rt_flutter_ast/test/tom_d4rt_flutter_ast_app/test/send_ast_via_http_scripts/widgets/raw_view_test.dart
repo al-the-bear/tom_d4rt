@@ -176,10 +176,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -239,8 +236,11 @@ dynamic build(BuildContext context) {
           false,
         ),
         Center(
-          child: Icon(Icons.arrow_downward,
-              color: Colors.grey.shade400, size: 18),
+          child: Icon(
+            Icons.arrow_downward,
+            color: Colors.grey.shade400,
+            size: 18,
+          ),
         ),
         buildHierarchyLayer(
           'RawView',
@@ -251,8 +251,11 @@ dynamic build(BuildContext context) {
           true,
         ),
         Center(
-          child: Icon(Icons.arrow_downward,
-              color: Colors.grey.shade400, size: 18),
+          child: Icon(
+            Icons.arrow_downward,
+            color: Colors.grey.shade400,
+            size: 18,
+          ),
         ),
         buildHierarchyLayer(
           'View',
@@ -265,8 +268,11 @@ dynamic build(BuildContext context) {
         Center(
           child: Padding(
             padding: EdgeInsets.only(left: 20.0),
-            child: Icon(Icons.arrow_downward,
-                color: Colors.grey.shade400, size: 18),
+            child: Icon(
+              Icons.arrow_downward,
+              color: Colors.grey.shade400,
+              size: 18,
+            ),
           ),
         ),
         buildHierarchyLayer(
@@ -280,8 +286,11 @@ dynamic build(BuildContext context) {
         Center(
           child: Padding(
             padding: EdgeInsets.only(left: 40.0),
-            child: Icon(Icons.arrow_downward,
-                color: Colors.grey.shade400, size: 18),
+            child: Icon(
+              Icons.arrow_downward,
+              color: Colors.grey.shade400,
+              size: 18,
+            ),
           ),
         ),
         buildHierarchyLayer(
@@ -382,10 +391,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 2.0),
                 Text(
                   explanation,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -515,10 +521,7 @@ dynamic build(BuildContext context) {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Color(0xFF283593),
-                      width: 2.0,
-                    ),
+                    border: Border.all(color: Color(0xFF283593), width: 2.0),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: GridView.count(
@@ -608,16 +611,14 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Color(0xFFF9A825), size: 18.0),
+              Icon(Icons.info_outline, color: Color(0xFFF9A825), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'This device: ${dpr.toStringAsFixed(1)}x — '
                   'one 10×10 dp square is '
                   '${(10 * dpr).toInt()}×${(10 * dpr).toInt()} physical pixels.',
-                  style:
-                      TextStyle(fontSize: 11.0, color: Color(0xFF795548)),
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF795548)),
                 ),
               ),
             ],
@@ -668,10 +669,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'No keyboard',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
                 SizedBox(height: 6.0),
                 Container(
@@ -680,10 +678,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(
-                      color: Colors.grey.shade800,
-                      width: 2.0,
-                    ),
+                    border: Border.all(color: Colors.grey.shade800, width: 2.0),
                   ),
                   child: Column(
                     children: [
@@ -755,10 +750,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Keyboard open',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
                 SizedBox(height: 6.0),
                 Container(
@@ -767,10 +759,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(14.0),
-                    border: Border.all(
-                      color: Colors.grey.shade800,
-                      width: 2.0,
-                    ),
+                    border: Border.all(color: Colors.grey.shade800, width: 2.0),
                   ),
                   child: Column(
                     children: [
@@ -824,9 +813,11 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.keyboard,
-                                size: 20.0,
-                                color: Color(0xFFC62828)),
+                            Icon(
+                              Icons.keyboard,
+                              size: 20.0,
+                              color: Color(0xFFC62828),
+                            ),
                             Text(
                               'viewInsets.bottom',
                               style: TextStyle(
@@ -1180,10 +1171,7 @@ dynamic build(BuildContext context) {
                 flex: 3,
                 child: Text(
                   'Feature',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.0),
                 ),
               ),
               Expanded(
@@ -1216,10 +1204,7 @@ dynamic build(BuildContext context) {
                 flex: 3,
                 child: Text(
                   'Notes',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0),
                 ),
               ),
             ],
@@ -1498,11 +1483,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1A237E),
-                Color(0xFF283593),
-                Color(0xFF3949AB),
-              ],
+              colors: [Color(0xFF1A237E), Color(0xFF283593), Color(0xFF3949AB)],
             ),
           ),
           child: Column(
@@ -1629,10 +1610,7 @@ Widget _buildRawViewBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12.0, color: color),
-          ),
+          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
         ),
       ],
     ),

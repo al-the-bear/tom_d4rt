@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkGrape)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkGrape)),
     );
   }
 
@@ -75,8 +83,12 @@ dynamic build(BuildContext context) {
   }
 
   // Builds an OverflowBar demo within a narrow container
-  Widget overflowDemo(String label, OverflowBarAlignment alignment,
-      Color accent, double containerWidth) {
+  Widget overflowDemo(
+    String label,
+    OverflowBarAlignment alignment,
+    Color accent,
+    double containerWidth,
+  ) {
     return Container(
       width: containerWidth,
       padding: const EdgeInsets.all(8),
@@ -88,11 +100,14 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
-                  color: accent)),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 10,
+              color: accent,
+            ),
+          ),
           const SizedBox(height: 6),
           OverflowBar(
             spacing: 6,
@@ -105,7 +120,9 @@ dynamic build(BuildContext context) {
                   backgroundColor: accent,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
                   textStyle: const TextStyle(fontSize: 10),
                 ),
                 child: const Text('Cancel'),
@@ -116,7 +133,9 @@ dynamic build(BuildContext context) {
                   backgroundColor: accent.withValues(alpha: 0.7),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
                   textStyle: const TextStyle(fontSize: 10),
                 ),
                 child: const Text('Save Draft'),
@@ -127,7 +146,9 @@ dynamic build(BuildContext context) {
                   backgroundColor: accent.withValues(alpha: 0.4),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 6),
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
                   textStyle: const TextStyle(fontSize: 10),
                 ),
                 child: const Text('Submit'),
@@ -185,40 +206,55 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.align_horizontal_left, size: 28,
-                      color: lightMauve),
+                  Icon(
+                    Icons.align_horizontal_left,
+                    size: 28,
+                    color: lightMauve,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('OverflowBarAlignment',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'OverflowBarAlignment',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('Controls how children are aligned along the '
-                  'cross axis when an OverflowBar overflows from '
-                  'horizontal to vertical layout. Used exclusively '
-                  'by OverflowBar.overflowAlignment.',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'Controls how children are aligned along the '
+                'cross axis when an OverflowBar overflows from '
+                'horizontal to vertical layout. Used exclusively '
+                'by OverflowBar.overflowAlignment.',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                pill('start', plum, Colors.white),
-                pill('end', mauve, Colors.white),
-                pill('center', softPlum, Colors.white),
-                pill('OverflowBar', lightMauve, darkGrape),
-              ]),
+              Wrap(
+                children: [
+                  pill('start', plum, Colors.white),
+                  pill('end', mauve, Colors.white),
+                  pill('center', softPlum, Colors.white),
+                  pill('OverflowBar', lightMauve, darkGrape),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. The three enum values ─────────────────────────────────
-        sectionHeader('1 \u00b7 The Three Enum Values',
-            'start, end, and center', deepPlum, Colors.white),
+        sectionHeader(
+          '1 \u00b7 The Three Enum Values',
+          'start, end, and center',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -229,15 +265,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final val in [
-                ('start', 'Left-aligned in LTR, right-aligned in RTL. '
-                    'The default value. Children hug the start edge.',
-                    Icons.align_horizontal_left, plum),
-                ('end', 'Right-aligned in LTR, left-aligned in RTL. '
-                    'Children hug the end edge. Common for action buttons.',
-                    Icons.align_horizontal_right, mauve),
-                ('center', 'Horizontally centered regardless of '
-                    'TextDirection. Children are equidistant from edges.',
-                    Icons.align_horizontal_center, softPlum),
+                (
+                  'start',
+                  'Left-aligned in LTR, right-aligned in RTL. '
+                      'The default value. Children hug the start edge.',
+                  Icons.align_horizontal_left,
+                  plum,
+                ),
+                (
+                  'end',
+                  'Right-aligned in LTR, left-aligned in RTL. '
+                      'Children hug the end edge. Common for action buttons.',
+                  Icons.align_horizontal_right,
+                  mauve,
+                ),
+                (
+                  'center',
+                  'Horizontally centered regardless of '
+                      'TextDirection. Children are equidistant from edges.',
+                  Icons.align_horizontal_center,
+                  softPlum,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -256,15 +304,19 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(val.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: val.$4)),
+                            Text(
+                              val.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: val.$4,
+                              ),
+                            ),
                             const SizedBox(height: 2),
-                            Text(val.$2,
-                                style: TextStyle(
-                                    fontSize: 12, color: darkGrape)),
+                            Text(
+                              val.$2,
+                              style: TextStyle(fontSize: 12, color: darkGrape),
+                            ),
                           ],
                         ),
                       ),
@@ -277,9 +329,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. OverflowBar mode diagram ──────────────────────────────
-        sectionHeader('2 \u00b7 Normal vs Overflow Mode',
-            'When does OverflowBarAlignment matter?',
-            plum, Colors.white),
+        sectionHeader(
+          '2 \u00b7 Normal vs Overflow Mode',
+          'When does OverflowBarAlignment matter?',
+          plum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -302,16 +357,20 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.view_stream, size: 20, color: accentTeal),
                       const SizedBox(height: 4),
-                      Text('Normal Mode',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: accentTeal)),
+                      Text(
+                        'Normal Mode',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: accentTeal,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Children fit\nhorizontally',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                      Text(
+                        'Children fit\nhorizontally',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                       const SizedBox(height: 4),
                       Container(
                         padding: const EdgeInsets.all(4),
@@ -319,12 +378,15 @@ dynamic build(BuildContext context) {
                           color: accentTeal.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('Uses: alignment\n(MainAxisAlignment)',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 8,
-                                fontFamily: 'monospace',
-                                color: accentTeal)),
+                        child: Text(
+                          'Uses: alignment\n(MainAxisAlignment)',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 8,
+                            fontFamily: 'monospace',
+                            color: accentTeal,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -346,16 +408,20 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.view_column, size: 20, color: plum),
                       const SizedBox(height: 4),
-                      Text('Overflow Mode',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: plum)),
+                      Text(
+                        'Overflow Mode',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: plum,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Children do NOT\nfit horizontally',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                      Text(
+                        'Children do NOT\nfit horizontally',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                       const SizedBox(height: 4),
                       Container(
                         padding: const EdgeInsets.all(4),
@@ -363,12 +429,15 @@ dynamic build(BuildContext context) {
                           color: plum.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('Uses: overflowAlignment\n(OverflowBarAlignment)',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 8,
-                                fontFamily: 'monospace',
-                                color: plum)),
+                        child: Text(
+                          'Uses: overflowAlignment\n(OverflowBarAlignment)',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 8,
+                            fontFamily: 'monospace',
+                            color: plum,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -387,9 +456,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Live demo: start alignment ────────────────────────────
-        sectionHeader('3 \u00b7 Live Demo: Start Alignment',
-            'Children aligned to the start edge',
-            deepPlum, Colors.white),
+        sectionHeader(
+          '3 \u00b7 Live Demo: Start Alignment',
+          'Children aligned to the start edge',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -401,8 +473,12 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               // Narrow container forces overflow
-              overflowDemo('overflowAlignment: start',
-                  OverflowBarAlignment.start, plum, 160),
+              overflowDemo(
+                'overflowAlignment: start',
+                OverflowBarAlignment.start,
+                plum,
+                160,
+              ),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -413,15 +489,14 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.align_horizontal_left,
-                        size: 14, color: plum),
+                    Icon(Icons.align_horizontal_left, size: 14, color: plum),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                          'All buttons align to the left (start) in this '
-                          '160px narrow container.',
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                        'All buttons align to the left (start) in this '
+                        '160px narrow container.',
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                     ),
                   ],
                 ),
@@ -432,9 +507,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Live demo: end alignment ──────────────────────────────
-        sectionHeader('4 \u00b7 Live Demo: End Alignment',
-            'Children aligned to the end edge',
-            plum, Colors.white),
+        sectionHeader(
+          '4 \u00b7 Live Demo: End Alignment',
+          'Children aligned to the end edge',
+          plum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -445,8 +523,12 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              overflowDemo('overflowAlignment: end',
-                  OverflowBarAlignment.end, mauve, 160),
+              overflowDemo(
+                'overflowAlignment: end',
+                OverflowBarAlignment.end,
+                mauve,
+                160,
+              ),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -457,15 +539,14 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.align_horizontal_right,
-                        size: 14, color: mauve),
+                    Icon(Icons.align_horizontal_right, size: 14, color: mauve),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                          'All buttons align to the right (end). Common for '
-                          'dialog actions like OK/Cancel.',
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                        'All buttons align to the right (end). Common for '
+                        'dialog actions like OK/Cancel.',
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                     ),
                   ],
                 ),
@@ -476,9 +557,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Live demo: center alignment ───────────────────────────
-        sectionHeader('5 \u00b7 Live Demo: Center Alignment',
-            'Children horizontally centered',
-            mauve, Colors.white),
+        sectionHeader(
+          '5 \u00b7 Live Demo: Center Alignment',
+          'Children horizontally centered',
+          mauve,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -489,8 +573,12 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              overflowDemo('overflowAlignment: center',
-                  OverflowBarAlignment.center, softPlum, 160),
+              overflowDemo(
+                'overflowAlignment: center',
+                OverflowBarAlignment.center,
+                softPlum,
+                160,
+              ),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -501,15 +589,18 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.align_horizontal_center,
-                        size: 14, color: softPlum),
+                    Icon(
+                      Icons.align_horizontal_center,
+                      size: 14,
+                      color: softPlum,
+                    ),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                          'All buttons are centered. Independent of '
-                          'TextDirection.',
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                        'All buttons are centered. Independent of '
+                        'TextDirection.',
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                     ),
                   ],
                 ),
@@ -520,9 +611,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Side-by-side comparison ───────────────────────────────
-        sectionHeader('6 \u00b7 Side-by-Side Comparison',
-            'All three alignments in narrow containers',
-            deepPlum, Colors.white),
+        sectionHeader(
+          '6 \u00b7 Side-by-Side Comparison',
+          'All three alignments in narrow containers',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -536,11 +630,14 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    Text('start',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: plum)),
+                    Text(
+                      'start',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: plum,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 100,
@@ -551,25 +648,37 @@ dynamic build(BuildContext context) {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: plum,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('A',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'A',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 4),
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: plum.withValues(alpha: 0.7),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('Button B',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'Button B',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -580,11 +689,14 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    Text('end',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: mauve)),
+                    Text(
+                      'end',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: mauve,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 100,
@@ -595,25 +707,37 @@ dynamic build(BuildContext context) {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: mauve,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('A',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'A',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 4),
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: mauve.withValues(alpha: 0.7),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('Button B',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'Button B',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -624,11 +748,14 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    Text('center',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: softPlum)),
+                    Text(
+                      'center',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10,
+                        color: softPlum,
+                      ),
+                    ),
                     const SizedBox(height: 4),
                     SizedBox(
                       width: 100,
@@ -639,25 +766,37 @@ dynamic build(BuildContext context) {
                         children: [
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: softPlum,
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('A',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'A',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 4),
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: softPlum.withValues(alpha: 0.7),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text('Button B',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 9)),
+                            child: const Text(
+                              'Button B',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 9,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -671,9 +810,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. TextDirection impact ──────────────────────────────────
-        sectionHeader('7 \u00b7 TextDirection Impact',
-            'How start and end flip with RTL',
-            plum, Colors.white),
+        sectionHeader(
+          '7 \u00b7 TextDirection Impact',
+          'How start and end flip with RTL',
+          plum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -697,14 +839,20 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.format_textdirection_l_to_r,
-                            size: 16, color: plum),
+                        Icon(
+                          Icons.format_textdirection_l_to_r,
+                          size: 16,
+                          color: plum,
+                        ),
                         const SizedBox(width: 6),
-                        Text('LTR \u2192 start = left, end = right',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: plum)),
+                        Text(
+                          'LTR \u2192 start = left, end = right',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: plum,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -718,27 +866,37 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: plum,
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('OK',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                'OK',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: plum.withValues(alpha: 0.6),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('Cancel',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -760,14 +918,20 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.format_textdirection_r_to_l,
-                            size: 16, color: accentAmber),
+                        Icon(
+                          Icons.format_textdirection_r_to_l,
+                          size: 16,
+                          color: accentAmber,
+                        ),
                         const SizedBox(width: 6),
-                        Text('RTL \u2192 start = right, end = left',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
-                                color: accentAmber)),
+                        Text(
+                          'RTL \u2192 start = right, end = left',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            color: accentAmber,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -781,27 +945,37 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: accentAmber,
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('\u0645\u0648\u0627\u0641\u0642',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                '\u0645\u0648\u0627\u0641\u0642',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: accentAmber.withValues(alpha: 0.6),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('\u0625\u0644\u063a\u0627\u0621',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                '\u0625\u0644\u063a\u0627\u0621',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -822,9 +996,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. OverflowBar anatomy ───────────────────────────────────
-        sectionHeader('8 \u00b7 OverflowBar Constructor Anatomy',
-            'How overflowAlignment fits into the full API',
-            deepPlum, Colors.white),
+        sectionHeader(
+          '8 \u00b7 OverflowBar Constructor Anatomy',
+          'How overflowAlignment fits into the full API',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -836,50 +1013,88 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               for (final param in [
-                ('spacing', 'double', 'Horizontal spacing in normal mode', plum),
-                ('alignment', 'MainAxisAlignment?', 'Alignment in normal mode', mauve),
-                ('overflowSpacing', 'double', 'Vertical spacing in overflow mode', softPlum),
-                ('overflowAlignment', 'OverflowBarAlignment', 'Alignment in overflow mode (THIS)', deepPlum),
-                ('overflowDirection', 'VerticalDirection', 'Top-to-bottom or bottom-to-top in overflow', accentTeal),
-                ('textDirection', 'TextDirection?', 'Affects start/end interpretation', accentAmber),
+                (
+                  'spacing',
+                  'double',
+                  'Horizontal spacing in normal mode',
+                  plum,
+                ),
+                (
+                  'alignment',
+                  'MainAxisAlignment?',
+                  'Alignment in normal mode',
+                  mauve,
+                ),
+                (
+                  'overflowSpacing',
+                  'double',
+                  'Vertical spacing in overflow mode',
+                  softPlum,
+                ),
+                (
+                  'overflowAlignment',
+                  'OverflowBarAlignment',
+                  'Alignment in overflow mode (THIS)',
+                  deepPlum,
+                ),
+                (
+                  'overflowDirection',
+                  'VerticalDirection',
+                  'Top-to-bottom or bottom-to-top in overflow',
+                  accentTeal,
+                ),
+                (
+                  'textDirection',
+                  'TextDirection?',
+                  'Affects start/end interpretation',
+                  accentAmber,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
-                    color: param.$4.withValues(alpha:
-                        param.$1 == 'overflowAlignment' ? 0.10 : 0.04),
+                    color: param.$4.withValues(
+                      alpha: param.$1 == 'overflowAlignment' ? 0.10 : 0.04,
+                    ),
                     borderRadius: BorderRadius.circular(6),
                     border: param.$1 == 'overflowAlignment'
                         ? Border.all(color: param.$4, width: 2)
-                        : Border(
-                            left: BorderSide(
-                                color: param.$4, width: 2)),
+                        : Border(left: BorderSide(color: param.$4, width: 2)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 130,
-                        child: Text(param.$1,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                color: param.$4)),
+                        child: Text(
+                          param.$1,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: param.$4,
+                          ),
+                        ),
                       ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(param.$2,
-                                style: TextStyle(
-                                    fontFamily: 'monospace',
-                                    fontSize: 9,
-                                    color: param.$4.withValues(alpha: 0.7))),
-                            Text(param.$3,
-                                style: TextStyle(
-                                    fontSize: 10, color: darkGrape)),
+                            Text(
+                              param.$2,
+                              style: TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 9,
+                                color: param.$4.withValues(alpha: 0.7),
+                              ),
+                            ),
+                            Text(
+                              param.$3,
+                              style: TextStyle(fontSize: 10, color: darkGrape),
+                            ),
                           ],
                         ),
                       ),
@@ -892,9 +1107,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. overflowDirection interaction ────────────────────────
-        sectionHeader('9 \u00b7 overflowDirection Interaction',
-            'Combining alignment with vertical direction',
-            plum, Colors.white),
+        sectionHeader(
+          '9 \u00b7 overflowDirection Interaction',
+          'Combining alignment with vertical direction',
+          plum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -917,11 +1135,14 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text('down + end',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: plum)),
+                      Text(
+                        'down + end',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: plum,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       SizedBox(
                         width: 80,
@@ -932,25 +1153,37 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: plum,
                                 borderRadius: BorderRadius.circular(3),
                               ),
-                              child: const Text('1st',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 8)),
+                              child: const Text(
+                                '1st',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: plum.withValues(alpha: 0.6),
                                 borderRadius: BorderRadius.circular(3),
                               ),
-                              child: const Text('2nd',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 8)),
+                              child: const Text(
+                                '2nd',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -971,11 +1204,14 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Text('up + end',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: mauve)),
+                      Text(
+                        'up + end',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: mauve,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       SizedBox(
                         width: 80,
@@ -986,25 +1222,37 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: mauve,
                                 borderRadius: BorderRadius.circular(3),
                               ),
-                              child: const Text('1st',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 8)),
+                              child: const Text(
+                                '1st',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 3),
+                                horizontal: 6,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: mauve.withValues(alpha: 0.6),
                                 borderRadius: BorderRadius.circular(3),
                               ),
-                              child: const Text('2nd',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 8)),
+                              child: const Text(
+                                '2nd',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -1026,9 +1274,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Dialog button pattern ────────────────────────────────
-        sectionHeader('10 \u00b7 Dialog Button Pattern',
-            'The most common use case for OverflowBar',
-            mauve, Colors.white),
+        sectionHeader(
+          '10 \u00b7 Dialog Button Pattern',
+          'The most common use case for OverflowBar',
+          mauve,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1056,15 +1307,19 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Delete File?',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: darkGrape)),
+                    Text(
+                      'Delete File?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: darkGrape,
+                      ),
+                    ),
                     const SizedBox(height: 6),
-                    Text('This action cannot be undone.',
-                        style: TextStyle(
-                            fontSize: 11, color: darkGrape)),
+                    Text(
+                      'This action cannot be undone.',
+                      style: TextStyle(fontSize: 11, color: darkGrape),
+                    ),
                     const SizedBox(height: 12),
                     OverflowBar(
                       spacing: 8,
@@ -1074,9 +1329,10 @@ dynamic build(BuildContext context) {
                       children: [
                         TextButton(
                           onPressed: () {},
-                          child: Text('Cancel',
-                              style: TextStyle(
-                                  fontSize: 11, color: plum)),
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(fontSize: 11, color: plum),
+                          ),
                         ),
                         ElevatedButton(
                           onPressed: () {},
@@ -1106,9 +1362,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Width threshold demo ─────────────────────────────────
-        sectionHeader('11 \u00b7 Width Threshold Demo',
-            'Same buttons at different container widths',
-            deepPlum, Colors.white),
+        sectionHeader(
+          '11 \u00b7 Width Threshold Demo',
+          'Same buttons at different container widths',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1125,11 +1384,14 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Width: ${width.toInt()}px',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: deepPlum)),
+                      Text(
+                        'Width: ${width.toInt()}px',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: deepPlum,
+                        ),
+                      ),
                       const SizedBox(height: 3),
                       Container(
                         width: width,
@@ -1138,7 +1400,8 @@ dynamic build(BuildContext context) {
                           color: deepPlum.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                              color: deepPlum.withValues(alpha: 0.3)),
+                            color: deepPlum.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: OverflowBar(
                           spacing: 6,
@@ -1147,31 +1410,43 @@ dynamic build(BuildContext context) {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 5),
+                                horizontal: 12,
+                                vertical: 5,
+                              ),
                               decoration: BoxDecoration(
                                 color: deepPlum,
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('Cancel',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 5),
+                                horizontal: 12,
+                                vertical: 5,
+                              ),
                               decoration: BoxDecoration(
                                 color: plum,
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: const Text('Save',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9)),
+                              child: const Text(
+                                'Save',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                ),
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 5),
+                                horizontal: 12,
+                                vertical: 5,
+                              ),
                               decoration: BoxDecoration(
                                 color: mauve,
                                 borderRadius: BorderRadius.circular(4),
@@ -1197,9 +1472,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Enum properties ──────────────────────────────────────
-        sectionHeader('12 \u00b7 Enum Properties',
-            'Standard Dart enum fields',
-            plum, Colors.white),
+        sectionHeader(
+          '12 \u00b7 Enum Properties',
+          'Standard Dart enum fields',
+          plum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1220,11 +1498,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['Value', 'Index', 'Description'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        h,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -1237,24 +1518,29 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: plum)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: plum,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 10, color: darkGrape)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 10, color: darkGrape),
+                      ),
                     ),
                   ],
                 ),
@@ -1264,8 +1550,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. When to use each ─────────────────────────────────────
-        sectionHeader('13 \u00b7 When to Use Each Value',
-            'Practical guidance', mauve, Colors.white),
+        sectionHeader(
+          '13 \u00b7 When to Use Each Value',
+          'Practical guidance',
+          mauve,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1276,15 +1566,27 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final item in [
-                ('start', 'Forms, data entry dialogs, left-aligned '
-                    'confirmation flows. Natural for LTR reading.',
-                    Icons.align_horizontal_left, plum),
-                ('end', 'Dialog actions, footers, toolbars. Buttons '
-                    'align to the far edge where users expect actions.',
-                    Icons.align_horizontal_right, mauve),
-                ('center', 'Splash screens, empty states, centered '
-                    'CTA buttons. Direction-independent.',
-                    Icons.align_horizontal_center, softPlum),
+                (
+                  'start',
+                  'Forms, data entry dialogs, left-aligned '
+                      'confirmation flows. Natural for LTR reading.',
+                  Icons.align_horizontal_left,
+                  plum,
+                ),
+                (
+                  'end',
+                  'Dialog actions, footers, toolbars. Buttons '
+                      'align to the far edge where users expect actions.',
+                  Icons.align_horizontal_right,
+                  mauve,
+                ),
+                (
+                  'center',
+                  'Splash screens, empty states, centered '
+                      'CTA buttons. Direction-independent.',
+                  Icons.align_horizontal_center,
+                  softPlum,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1292,8 +1594,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: item.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: item.$4, width: 3)),
+                    border: Border(left: BorderSide(color: item.$4, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1304,14 +1605,18 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(item.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: item.$4)),
-                            Text(item.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkGrape)),
+                            Text(
+                              item.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: item.$4,
+                              ),
+                            ),
+                            Text(
+                              item.$2,
+                              style: TextStyle(fontSize: 11, color: darkGrape),
+                            ),
                           ],
                         ),
                       ),
@@ -1324,8 +1629,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Performance ──────────────────────────────────────────
-        sectionHeader('14 \u00b7 Performance Considerations',
-            'Lightweight by design', deepPlum, Colors.white),
+        sectionHeader(
+          '14 \u00b7 Performance Considerations',
+          'Lightweight by design',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1336,25 +1645,38 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final note in [
-                ('Single layout pass', 'OverflowBar measures children '
-                    'once and decides normal or overflow mode in one pass.',
-                    Icons.flash_on, plum),
-                ('No animation', 'The switch between modes is instant. '
-                    'Wrap in AnimatedSize for smooth transitions.',
-                    Icons.animation, mauve),
-                ('No rebuild overhead', 'The enum is checked during layout, '
-                    'not during build. No extra widget rebuilds.',
-                    Icons.memory, accentTeal),
+                (
+                  'Single layout pass',
+                  'OverflowBar measures children '
+                      'once and decides normal or overflow mode in one pass.',
+                  Icons.flash_on,
+                  plum,
+                ),
+                (
+                  'No animation',
+                  'The switch between modes is instant. '
+                      'Wrap in AnimatedSize for smooth transitions.',
+                  Icons.animation,
+                  mauve,
+                ),
+                (
+                  'No rebuild overhead',
+                  'The enum is checked during layout, '
+                      'not during build. No extra widget rebuilds.',
+                  Icons.memory,
+                  accentTeal,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: note.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: note.$4, width: 2)),
+                    border: Border(left: BorderSide(color: note.$4, width: 2)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1363,18 +1685,25 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Expanded(
                         child: RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
                                 text: '${note.$1}: ',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    color: note.$4)),
-                            TextSpan(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: note.$4,
+                                ),
+                              ),
+                              TextSpan(
                                 text: note.$2,
                                 style: TextStyle(
-                                    fontSize: 11, color: darkGrape)),
-                          ]),
+                                  fontSize: 11,
+                                  color: darkGrape,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -1386,8 +1715,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionHeader('15 \u00b7 Summary',
-            'Key takeaways', deepPlum, Colors.white),
+        sectionHeader(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepPlum,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1419,15 +1752,22 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightMauve,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightMauve,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                     ],
                   ),

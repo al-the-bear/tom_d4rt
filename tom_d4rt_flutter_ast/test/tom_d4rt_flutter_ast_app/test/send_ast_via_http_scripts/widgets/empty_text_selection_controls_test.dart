@@ -20,7 +20,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_fields,
       'title': 'Invisible Selection Handles',
-      'body': 'EmptyTextSelectionControls is a TextSelectionControls '
+      'body':
+          'EmptyTextSelectionControls is a TextSelectionControls '
           'implementation that returns zero-size widgets for the '
           'selection handles and toolbar. The text can still be '
           'selected (the selection state exists), but no visual '
@@ -30,7 +31,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility_off,
       'title': 'No-Op Visual Implementation',
-      'body': 'The class overrides buildHandle() to return a zero-size '
+      'body':
+          'The class overrides buildHandle() to return a zero-size '
           'SizedBox, buildToolbar() to return a zero-size SizedBox, '
           'and getHandleSize() to return Size.zero. It\'s a null-object '
           'pattern for text selection visuals.',
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tune,
       'title': 'Selective UI Removal',
-      'body': 'Normally, TextField and SelectableText show platform-'
+      'body':
+          'Normally, TextField and SelectableText show platform-'
           'specific handles (teardrop on Android, loupe on iOS) and '
           'a toolbar (cut/copy/paste). EmptyTextSelectionControls '
           'removes only the visual part — the underlying selection '
@@ -49,7 +52,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'When vs MaterialTextSelectionControls',
-      'body': 'MaterialTextSelectionControls renders Material-style '
+      'body':
+          'MaterialTextSelectionControls renders Material-style '
           'handles (teardrop) and toolbar. CupertinoTextSelectionControls '
           'renders iOS-style handles (circles + loupe). '
           'EmptyTextSelectionControls renders neither. All three '
@@ -70,7 +74,8 @@ dynamic build(BuildContext context) {
       'name': 'Widget buildHandle(context, type, lineHeight, onTap)',
       'kind': 'Method',
       'color': Colors.cyan[600]!,
-      'desc': 'Builds the selection handle widget. Called twice — once '
+      'desc':
+          'Builds the selection handle widget. Called twice — once '
           'for the left handle and once for the right handle. The '
           'type parameter indicates TextSelectionHandleType (left, '
           'right, collapsed). EmptyTextSelectionControls returns '
@@ -80,7 +85,8 @@ dynamic build(BuildContext context) {
       'name': 'Widget buildToolbar(context, globalEditableRegion, ...)',
       'kind': 'Method',
       'color': Colors.pink[400]!,
-      'desc': 'Builds the text selection toolbar (cut/copy/paste/select-all). '
+      'desc':
+          'Builds the text selection toolbar (cut/copy/paste/select-all). '
           'Called when the user taps a selection handle or long-presses. '
           'EmptyTextSelectionControls returns SizedBox.shrink(). No '
           'toolbar appears regardless of selection state.',
@@ -89,7 +95,8 @@ dynamic build(BuildContext context) {
       'name': 'Size getHandleSize(double textLineHeight)',
       'kind': 'Method',
       'color': Colors.cyan[500]!,
-      'desc': 'Returns the size of a selection handle. The framework '
+      'desc':
+          'Returns the size of a selection handle. The framework '
           'uses this to compute handle positioning and hit-test areas. '
           'EmptyTextSelectionControls returns Size.zero, meaning '
           'handles occupy no space and cannot be tapped.',
@@ -98,7 +105,8 @@ dynamic build(BuildContext context) {
       'name': 'Offset getHandleAnchor(type, lineHeight)',
       'kind': 'Method',
       'color': Colors.pink[300]!,
-      'desc': 'Returns the anchor offset for the handle relative to '
+      'desc':
+          'Returns the anchor offset for the handle relative to '
           'the selection endpoint. This positions the handle widget. '
           'EmptyTextSelectionControls returns Offset.zero since there '
           'is no visual widget to position.',
@@ -107,7 +115,8 @@ dynamic build(BuildContext context) {
       'name': 'bool canCut(TextSelectionDelegate)',
       'kind': 'Method',
       'color': Colors.cyan[400]!,
-      'desc': 'Returns whether the Cut action should be available. '
+      'desc':
+          'Returns whether the Cut action should be available. '
           'Even for EmptyTextSelectionControls, this returns true '
           'if there is a selection and the field is editable. The '
           'action exists but the toolbar to invoke it does not.',
@@ -116,7 +125,8 @@ dynamic build(BuildContext context) {
       'name': 'bool canCopy / canPaste / canSelectAll',
       'kind': 'Methods',
       'color': Colors.pink[400]!,
-      'desc': 'Similar to canCut — returns the availability of each '
+      'desc':
+          'Similar to canCut — returns the availability of each '
           'clipboard action. These are inherited from the base class '
           'implementation. The actions themselves remain functional; '
           'only the toolbar UI to trigger them is missing.',
@@ -135,7 +145,8 @@ dynamic build(BuildContext context) {
       'title': 'Custom Editor Overlay',
       'icon': Icons.edit,
       'color': Colors.cyan[600]!,
-      'desc': 'When building a custom code editor or rich text editor, '
+      'desc':
+          'When building a custom code editor or rich text editor, '
           'you often want to provide your own selection handles and '
           'toolbar UI. Use EmptyTextSelectionControls to suppress '
           'the default ones, then overlay your custom widgets.',
@@ -144,7 +155,8 @@ dynamic build(BuildContext context) {
       'title': 'Read-Only Display',
       'icon': Icons.chrome_reader_mode,
       'color': Colors.pink[400]!,
-      'desc': 'For read-only text that should be selectable (for '
+      'desc':
+          'For read-only text that should be selectable (for '
           'copy) but shouldn\'t show handles — e.g., code snippets '
           'where a custom selection UI is desired. Selection works '
           'via gestures but no handles clutter the display.',
@@ -153,7 +165,8 @@ dynamic build(BuildContext context) {
       'title': 'Kiosk / Presentation Mode',
       'icon': Icons.tv,
       'color': Colors.cyan[500]!,
-      'desc': 'In kiosk or presentation contexts, you might want '
+      'desc':
+          'In kiosk or presentation contexts, you might want '
           'text fields to be interactive but not show selection '
           'chrome. EmptyTextSelectionControls hides all handles '
           'while text entry still works normally.',
@@ -162,7 +175,8 @@ dynamic build(BuildContext context) {
       'title': 'Accessibility Override',
       'icon': Icons.accessibility,
       'color': Colors.pink[300]!,
-      'desc': 'Some accessibility scenarios need selection to work '
+      'desc':
+          'Some accessibility scenarios need selection to work '
           'programmatically (through semantics) without visual '
           'handles that might confuse screen readers or switch '
           'access users. Empty controls provide a clean slate.',
@@ -171,7 +185,8 @@ dynamic build(BuildContext context) {
       'title': 'Testing',
       'icon': Icons.science,
       'color': Colors.cyan[400]!,
-      'desc': 'In widget tests, using EmptyTextSelectionControls '
+      'desc':
+          'In widget tests, using EmptyTextSelectionControls '
           'avoids platform-specific handle rendering issues. '
           'Tests can focus on text content and selection state '
           'without dealing with handle positioning or toolbar overlays.',
@@ -180,7 +195,8 @@ dynamic build(BuildContext context) {
       'title': 'Inline Editable Labels',
       'icon': Icons.label,
       'color': Colors.pink[400]!,
-      'desc': 'For labels that can be tapped to edit (inline editing '
+      'desc':
+          'For labels that can be tapped to edit (inline editing '
           'pattern), handles would look out of place. The user taps '
           'the label, types, and taps away. No handles needed. '
           'The cursor still blinks, but handles are hidden.',
@@ -198,7 +214,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'TextField with selectionControls',
       'color': Colors.cyan[600]!,
-      'code': '// Apply to a single TextField:\n'
+      'code':
+          '// Apply to a single TextField:\n'
           '// TextField(\n'
           '//   selectionControls:\n'
           '//       emptyTextSelectionControls,\n'
@@ -206,28 +223,32 @@ dynamic build(BuildContext context) {
           '//     hintText: \'No handles here\',\n'
           '//   ),\n'
           '// )',
-      'note': 'The emptyTextSelectionControls constant is a '
+      'note':
+          'The emptyTextSelectionControls constant is a '
           'pre-built instance. Pass it directly to any text '
           'field or editable widget.',
     },
     {
       'title': 'SelectableText with selectionControls',
       'color': Colors.pink[400]!,
-      'code': '// Apply to selectable read-only text:\n'
+      'code':
+          '// Apply to selectable read-only text:\n'
           '// SelectableText(\n'
           '//   \'Select me, but no handles!\',\n'
           '//   selectionControls:\n'
           '//       emptyTextSelectionControls,\n'
           '//   style: TextStyle(fontSize: 16),\n'
           '// )',
-      'note': 'SelectableText supports text selection by default. '
+      'note':
+          'SelectableText supports text selection by default. '
           'Adding emptyTextSelectionControls hides the visual '
           'handles while keeping selection gestures active.',
     },
     {
       'title': 'Global via Theme (TextSelectionThemeData)',
       'color': Colors.cyan[500]!,
-      'code': '// Apply globally via theme:\n'
+      'code':
+          '// Apply globally via theme:\n'
           '// MaterialApp(\n'
           '//   theme: ThemeData(\n'
           '//     textSelectionTheme:\n'
@@ -238,7 +259,8 @@ dynamic build(BuildContext context) {
           '// )\n'
           '// Note: Theme doesn\'t set controls;\n'
           '// use selectionControls parameter directly.',
-      'note': 'TextSelectionThemeData controls colors (cursor, '
+      'note':
+          'TextSelectionThemeData controls colors (cursor, '
           'selection highlight) but NOT the controls object. '
           'You must set selectionControls per-widget or wrap '
           'in a builder.',
@@ -246,7 +268,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'EditableText (low-level)',
       'color': Colors.pink[300]!,
-      'code': '// On the low-level EditableText:\n'
+      'code':
+          '// On the low-level EditableText:\n'
           '// EditableText(\n'
           '//   controller: _ctrl,\n'
           '//   focusNode: _focus,\n'
@@ -256,7 +279,8 @@ dynamic build(BuildContext context) {
           '//   selectionControls:\n'
           '//       emptyTextSelectionControls,\n'
           '// )',
-      'note': 'EditableText is the lowest-level editable text widget. '
+      'note':
+          'EditableText is the lowest-level editable text widget. '
           'It accepts selectionControls directly. Most apps use '
           'TextField instead, but custom editors use EditableText.',
     },
@@ -320,7 +344,8 @@ dynamic build(BuildContext context) {
       'title': 'Selection Gestures',
       'icon': Icons.gesture,
       'color': Colors.green[500]!,
-      'desc': 'Tap to place cursor, double-tap to select word, '
+      'desc':
+          'Tap to place cursor, double-tap to select word, '
           'long-press to select, triple-tap to select paragraph — '
           'all gestures work. Only the visual handles after selection '
           'are removed.',
@@ -329,7 +354,8 @@ dynamic build(BuildContext context) {
       'title': 'Selection Highlight',
       'icon': Icons.highlight,
       'color': Colors.green[600]!,
-      'desc': 'The text selection highlight (the colored rectangle '
+      'desc':
+          'The text selection highlight (the colored rectangle '
           'behind selected text) still appears. It\'s controlled by '
           'TextSelectionThemeData.selectionColor, not by the '
           'selection controls.',
@@ -338,7 +364,8 @@ dynamic build(BuildContext context) {
       'title': 'Cursor',
       'icon': Icons.text_format,
       'color': Colors.green[500]!,
-      'desc': 'The blinking cursor still appears. Cursor rendering '
+      'desc':
+          'The blinking cursor still appears. Cursor rendering '
           'is handled by EditableText directly, not by '
           'TextSelectionControls. cursor color, width, and blink '
           'rate are unaffected.',
@@ -347,7 +374,8 @@ dynamic build(BuildContext context) {
       'title': 'Keyboard Shortcuts',
       'icon': Icons.keyboard,
       'color': Colors.green[600]!,
-      'desc': 'Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+A and all keyboard '
+      'desc':
+          'Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+A and all keyboard '
           'selection shortcuts continue to work. These are handled '
           'by the text editing actions system, not the toolbar.',
     },
@@ -355,7 +383,8 @@ dynamic build(BuildContext context) {
       'title': 'Semantics and Accessibility',
       'icon': Icons.accessibility_new,
       'color': Colors.green[500]!,
-      'desc': 'Screen reader and accessibility actions (select all, '
+      'desc':
+          'Screen reader and accessibility actions (select all, '
           'copy, paste) still work through the semantics tree. '
           'These actions bypass the toolbar entirely.',
     },
@@ -363,7 +392,8 @@ dynamic build(BuildContext context) {
       'title': 'Selection Changed Callback',
       'icon': Icons.notifications_active,
       'color': Colors.green[600]!,
-      'desc': 'onSelectionChanged callbacks still fire. Your code '
+      'desc':
+          'onSelectionChanged callbacks still fire. Your code '
           'can still react to selection changes. Selection state '
           'is decoupled from selection visuals.',
     },
@@ -380,7 +410,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Constant Instance',
       'color': Colors.cyan[600]!,
-      'desc': 'Flutter provides a const instance: emptyTextSelectionControls. '
+      'desc':
+          'Flutter provides a const instance: emptyTextSelectionControls. '
           'It\'s a top-level constant of type EmptyTextSelectionControls. '
           'No need to construct your own — just reference the constant. '
           'This is the recommended way to use it.',
@@ -388,7 +419,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Zero-Size Trick',
       'color': Colors.pink[400]!,
-      'desc': 'buildHandle() and buildToolbar() return SizedBox.shrink() '
+      'desc':
+          'buildHandle() and buildToolbar() return SizedBox.shrink() '
           '(which is SizedBox(width: 0, height: 0)). This creates a '
           'valid widget that takes no space. The overlay system still '
           'creates the overlay entries, but they\'re invisible.',
@@ -396,7 +428,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Source Location',
       'color': Colors.cyan[500]!,
-      'desc': 'Defined in package:flutter/src/widgets/text_selection.dart. '
+      'desc':
+          'Defined in package:flutter/src/widgets/text_selection.dart. '
           'It\'s in the widgets layer, not material or cupertino. This '
           'means it works with any design system and has no Material '
           'or Cupertino dependencies.',
@@ -404,7 +437,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Extends TextSelectionControls',
       'color': Colors.pink[300]!,
-      'desc': 'EmptyTextSelectionControls extends the base '
+      'desc':
+          'EmptyTextSelectionControls extends the base '
           'TextSelectionControls class. It inherits default '
           'implementations of canCut, canCopy, canPaste, '
           'canSelectAll, and handleCut, handleCopy, etc.',
@@ -422,7 +456,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'TextSelectionControls',
       'color': Colors.cyan[600]!,
-      'desc': 'The base class that defines the interface for building '
+      'desc':
+          'The base class that defines the interface for building '
           'selection handles and toolbar. EmptyTextSelectionControls, '
           'MaterialTextSelectionControls, and CupertinoTextSelectionControls '
           'all implement this interface.',
@@ -430,7 +465,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'SelectionOverlay',
       'color': Colors.pink[400]!,
-      'desc': 'The TextSelectionOverlay manages the overlay entries '
+      'desc':
+          'The TextSelectionOverlay manages the overlay entries '
           'for handles and toolbar. Even with EmptyTextSelectionControls, '
           'the overlay exists — it just contains zero-size widgets. '
           'The overlay lifecycle is unchanged.',
@@ -438,7 +474,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'TextSelectionThemeData',
       'color': Colors.cyan[500]!,
-      'desc': 'Controls selection colors (cursor color, selection '
+      'desc':
+          'Controls selection colors (cursor color, selection '
           'highlight color, handle color). This is separate from '
           'TextSelectionControls. You can use EmptyTextSelectionControls '
           'while still customizing selection colors via the theme.',
@@ -446,7 +483,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'EditableText',
       'color': Colors.pink[300]!,
-      'desc': 'The core editable text widget. Uses TextSelectionControls '
+      'desc':
+          'The core editable text widget. Uses TextSelectionControls '
           'to build its selection overlay. TextField wraps EditableText '
           'with Material styling. SelectableText uses a read-only '
           'EditableText under the hood.',
@@ -454,7 +492,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'SelectionArea',
       'color': Colors.cyan[400]!,
-      'desc': 'Flutter 3.3+ SelectionArea enables selection across '
+      'desc':
+          'Flutter 3.3+ SelectionArea enables selection across '
           'multiple Text widgets. It has its own selection registrar '
           'and doesn\'t use TextSelectionControls. EmptyTextSelectionControls '
           'only affects TextField/EditableText/SelectableText.',
@@ -472,7 +511,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Use the Constant',
-      'body': 'Always use emptyTextSelectionControls (the pre-built '
+      'body':
+          'Always use emptyTextSelectionControls (the pre-built '
           'constant) rather than constructing EmptyTextSelectionControls() '
           'yourself. The constant is efficient and idiomatic. It\'s '
           'imported from material.dart or widgets.dart.',
@@ -481,7 +521,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Combine With Custom Overlay',
-      'body': 'Use EmptyTextSelectionControls to suppress default '
+      'body':
+          'Use EmptyTextSelectionControls to suppress default '
           'handles, then build your own selection UI with '
           'CompositedTransformFollower positioned at selection '
           'endpoints. This gives complete control over selection visuals.',
@@ -490,7 +531,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Clipboard Still Available',
-      'body': 'Even without a toolbar, users can copy text via '
+      'body':
+          'Even without a toolbar, users can copy text via '
           'keyboard shortcuts or accessibility actions. If you want '
           'to prevent copying, you also need to intercept those '
           'channels. EmptyTextSelectionControls only hides the UI.',
@@ -499,7 +541,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Good for Widget Tests',
-      'body': 'In widget tests, using emptyTextSelectionControls '
+      'body':
+          'In widget tests, using emptyTextSelectionControls '
           'avoids platform-dependent handle rendering. Tests become '
           'more stable since they don\'t depend on handle overlay '
           'positioning which can vary by platform.',
@@ -508,7 +551,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Selection Color Still Configurable',
-      'body': 'Removing handles doesn\'t remove the selection highlight. '
+      'body':
+          'Removing handles doesn\'t remove the selection highlight. '
           'Customize it via TextSelectionThemeData.selectionColor in '
           'your theme. You can even make it transparent for fully '
           'invisible selection.',
@@ -517,7 +561,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Mobile UX Consideration',
-      'body': 'On mobile, users expect selection handles for precise '
+      'body':
+          'On mobile, users expect selection handles for precise '
           'selection adjustment. Removing them can make text selection '
           'frustrating. Only use EmptyTextSelectionControls on mobile '
           'if you provide alternative UI for selection adjustment.',
@@ -592,207 +637,253 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _etHead('1', 'What is EmptyTextSelectionControls?'),
           SizedBox(height: 12),
-          ...conceptCards.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: c['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: c['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(c['icon'] as IconData,
-                            color: c['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          c['icon'] as IconData,
+                          color: c['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(c['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            c['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(c['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      c['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 2: Interface ──
           _etHead('2', 'TextSelectionControls Interface'),
           SizedBox(height: 12),
-          ...interfaceMethods.map((im) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: im['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...interfaceMethods.map(
+            (im) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: im['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        _etTag(im['kind'] as String,
-                            im['color'] as Color),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        _etTag(im['kind'] as String, im['color'] as Color),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(im['name'] as String,
-                              style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[800])),
+                          child: Text(
+                            im['name'] as String,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(im['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      im['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 3: Use Cases ──
           _etHead('3', 'Use Cases'),
           SizedBox(height: 12),
-          ...useCases.map((uc) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: uc['color'] as Color, width: 4),
+          ...useCases.map(
+            (uc) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: uc['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(uc['icon'] as IconData,
-                            color: uc['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Text(uc['title'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13)),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(uc['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          uc['icon'] as IconData,
+                          color: uc['color'] as Color,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          uc['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      uc['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 4: How to Apply ──
           _etHead('4', 'How to Apply'),
           SizedBox(height: 12),
-          ...applications.map((a) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: a['color'] as Color, width: 4),
+          ...applications.map(
+            (a) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: a['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(a['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: a['color'] as Color)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(a['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.cyan[200],
-                                height: 1.4)),
-                      ),
-                      SizedBox(height: 6),
-                      Text(a['note'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[600],
-                              fontStyle: FontStyle.italic,
-                              height: 1.3)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      a['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: a['color'] as Color,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        a['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.cyan[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      a['note'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -806,9 +897,10 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
             child: Column(
@@ -825,30 +917,46 @@ dynamic build(BuildContext context) {
                   child: Row(
                     children: [
                       SizedBox(
-                          width: 70,
-                          child: Text('Feature',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold))),
+                        width: 70,
+                        child: Text(
+                          'Feature',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text('Material',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold))),
+                        child: Text(
+                          'Material',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text('Cupertino',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold))),
+                        child: Text(
+                          'Cupertino',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       Expanded(
-                          child: Text('Empty',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold))),
+                        child: Text(
+                          'Empty',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -862,27 +970,43 @@ dynamic build(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                            width: 70,
-                            child: Text(c['feature'] as String,
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey[800]))),
+                          width: 70,
+                          child: Text(
+                            c['feature'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                        ),
                         Expanded(
-                            child: Text(c['material'] as String,
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.blue[700]))),
+                          child: Text(
+                            c['material'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.blue[700],
+                            ),
+                          ),
+                        ),
                         Expanded(
-                            child: Text(c['cupertino'] as String,
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.grey[600]))),
+                          child: Text(
+                            c['cupertino'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ),
                         Expanded(
-                            child: Text(c['empty'] as String,
-                                style: TextStyle(
-                                    fontSize: 8,
-                                    color: Colors.cyan[700]))),
+                          child: Text(
+                            c['empty'] as String,
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: Colors.cyan[700],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -896,123 +1020,148 @@ dynamic build(BuildContext context) {
           // ── Section 6: What Still Works ──
           _etHead('6', 'What Still Works'),
           SizedBox(height: 12),
-          ...stillWorks.map((sw) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.green[50],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: sw['color'] as Color, width: 4),
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(sw['icon'] as IconData,
-                            color: sw['color'] as Color, size: 20),
-                        SizedBox(width: 8),
-                        Text(sw['title'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.green[800])),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(sw['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
+          ...stillWorks.map(
+            (sw) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.green[50],
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: sw['color'] as Color, width: 4),
                   ),
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          sw['icon'] as IconData,
+                          color: sw['color'] as Color,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          sw['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                            color: Colors.green[800],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      sw['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Implementation ──
           _etHead('7', 'Implementation Details'),
           SizedBox(height: 12),
-          ...implDetails.map((d) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: d['color'] as Color, width: 4),
+          ...implDetails.map(
+            (d) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: d['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(d['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 6),
-                      Text(d['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      d['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      d['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Related ──
           _etHead('8', 'Related Concepts'),
           SizedBox(height: 12),
-          ...relatedConcepts.map((r) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: r['color'] as Color, width: 4),
+          ...relatedConcepts.map(
+            (r) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: r['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _etTag(r['name'] as String, r['color'] as Color),
-                      SizedBox(height: 8),
-                      Text(r['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _etTag(r['name'] as String, r['color'] as Color),
+                    SizedBox(height: 8),
+                    Text(
+                      r['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1044,29 +1193,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1105,20 +1266,26 @@ Widget _etHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1134,11 +1301,14 @@ Widget _etTag(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 9,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }

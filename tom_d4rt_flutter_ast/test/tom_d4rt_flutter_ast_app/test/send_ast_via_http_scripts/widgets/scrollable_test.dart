@@ -103,10 +103,9 @@ class _ConceptSection extends StatelessWidget {
       children: [
         Text(
           'What is Scrollable?',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: cs.primary),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(color: cs.primary),
         ),
         const SizedBox(height: 12),
         _buildSCBullet(
@@ -197,10 +196,9 @@ class _ArchitectureSection extends StatelessWidget {
       children: [
         Text(
           'Scroll Architecture',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: cs.primary),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(color: cs.primary),
         ),
         const SizedBox(height: 16),
         // Architecture diagram
@@ -213,36 +211,46 @@ class _ArchitectureSection extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _buildArchBox(cs, 'User Gesture (Drag / Fling / Wheel)',
-                  Colors.orange, true),
+              _buildArchBox(
+                cs,
+                'User Gesture (Drag / Fling / Wheel)',
+                Colors.orange,
+                true,
+              ),
+              _buildArchArrow(cs),
+              _buildArchBox(cs, 'RawGestureDetector', Colors.amber, false),
               _buildArchArrow(cs),
               _buildArchBox(
-                  cs, 'RawGestureDetector', Colors.amber, false),
+                cs,
+                'Scrollable\n(ScrollableState)',
+                Colors.deepPurple,
+                true,
+              ),
               _buildArchArrow(cs),
               _buildArchBox(
-                  cs,
-                  'Scrollable\n(ScrollableState)',
-                  Colors.deepPurple,
-                  true),
+                cs,
+                'ScrollPosition\n(ViewportOffset)',
+                Colors.blue,
+                false,
+              ),
               _buildArchArrow(cs),
               _buildArchBox(
-                  cs, 'ScrollPosition\n(ViewportOffset)', Colors.blue, false),
+                cs,
+                'Viewport\n(RenderViewport)',
+                Colors.green,
+                false,
+              ),
               _buildArchArrow(cs),
-              _buildArchBox(
-                  cs, 'Viewport\n(RenderViewport)', Colors.green, false),
-              _buildArchArrow(cs),
-              _buildArchBox(
-                  cs, 'Slivers\n(RenderSliver)', Colors.teal, false),
+              _buildArchBox(cs, 'Slivers\n(RenderSliver)', Colors.teal, false),
             ],
           ),
         ),
         const SizedBox(height: 20),
         Text(
           'Component Roles',
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         _buildRoleCard(
@@ -421,10 +429,9 @@ class _ScrollPositionSectionState extends State<_ScrollPositionSection> {
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
           child: Text(
             'ScrollPosition Inspector',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: cs.primary),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: cs.primary),
           ),
         ),
         Padding(
@@ -453,19 +460,31 @@ class _ScrollPositionSectionState extends State<_ScrollPositionSection> {
                 Row(
                   children: [
                     Expanded(
-                        child: _posMetric(
-                            cs, 'pixels', _pixels.toStringAsFixed(1))),
+                      child: _posMetric(
+                        cs,
+                        'pixels',
+                        _pixels.toStringAsFixed(1),
+                      ),
+                    ),
                     Expanded(
-                        child: _posMetric(
-                            cs, 'maxExtent', _maxExtent.toStringAsFixed(0))),
+                      child: _posMetric(
+                        cs,
+                        'maxExtent',
+                        _maxExtent.toStringAsFixed(0),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Row(
                   children: [
                     Expanded(
-                        child: _posMetric(
-                            cs, 'viewport', _viewportDim.toStringAsFixed(0))),
+                      child: _posMetric(
+                        cs,
+                        'viewport',
+                        _viewportDim.toStringAsFixed(0),
+                      ),
+                    ),
                     Expanded(child: _posMetric(cs, 'direction', _direction)),
                   ],
                 ),
@@ -576,10 +595,9 @@ class _ScrollControllerSection extends StatelessWidget {
       children: [
         Text(
           'ScrollController Deep Dive',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: cs.primary),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(color: cs.primary),
         ),
         const SizedBox(height: 12),
         _buildSCBullet(
@@ -618,16 +636,23 @@ class _ScrollControllerSection extends StatelessWidget {
         const Divider(height: 28),
         Text(
           'Controller API',
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         _buildAPIRow(cs, 'offset', 'Current scroll offset (double)'),
         _buildAPIRow(cs, 'position', 'The attached ScrollPosition'),
-        _buildAPIRow(cs, 'positions', 'All attached ScrollPositions (Iterable)'),
-        _buildAPIRow(cs, 'hasClients', 'True if any ScrollPosition is attached'),
+        _buildAPIRow(
+          cs,
+          'positions',
+          'All attached ScrollPositions (Iterable)',
+        ),
+        _buildAPIRow(
+          cs,
+          'hasClients',
+          'True if any ScrollPosition is attached',
+        ),
         _buildAPIRow(cs, 'animateTo()', 'Animate to a target offset'),
         _buildAPIRow(cs, 'jumpTo()', 'Jump instantly to a target offset'),
         _buildAPIRow(cs, 'addListener()', 'Register a scroll listener'),
@@ -651,10 +676,7 @@ class _ScrollControllerSection extends StatelessWidget {
                   'Always check hasClients before accessing offset or position. '
                   'If the controller has not been attached to any Scrollable yet '
                   '(e.g., in initState), accessing position will throw.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.amber.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
                 ),
               ),
             ],
@@ -744,10 +766,9 @@ class _ProgrammaticScrollSectionState
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
           child: Text(
             'Programmatic Scrolling',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: cs.primary),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: cs.primary),
           ),
         ),
         Padding(
@@ -770,8 +791,7 @@ class _ProgrammaticScrollSectionState
             runSpacing: 6,
             children: [
               _actionChip(cs, 'Top (animate)', () => _scrollTo(0)),
-              _actionChip(
-                  cs, 'Middle', () => _scrollTo(1200)),
+              _actionChip(cs, 'Middle', () => _scrollTo(1200)),
               _actionChip(
                 cs,
                 'Bottom',
@@ -782,12 +802,7 @@ class _ProgrammaticScrollSectionState
                 'Jump to 800',
                 () => _scrollTo(800, animate: false),
               ),
-              _actionChip(
-                cs,
-                '+300',
-                () =>
-                    _scrollTo(_ctrl.offset + 300),
-              ),
+              _actionChip(cs, '+300', () => _scrollTo(_ctrl.offset + 300)),
               _actionChip(
                 cs,
                 '-300',
@@ -902,10 +917,9 @@ class _MultipleControllersSectionState
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
           child: Text(
             'Linked Scroll Controllers',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: cs.primary),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: cs.primary),
           ),
         ),
         Padding(
@@ -975,8 +989,7 @@ class _MultipleControllersSectionState
           width: double.infinity,
           decoration: BoxDecoration(
             color: accent.withOpacity(0.1),
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
           ),
           child: Text(
             'List $label',
@@ -992,12 +1005,14 @@ class _MultipleControllersSectionState
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: accent.withOpacity(0.2)),
-              borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(10),
+              ),
             ),
             child: ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(10),
+              ),
               child: ListView.builder(
                 controller: ctrl,
                 itemCount: count,
@@ -1063,10 +1078,9 @@ class _EnsureVisibleSectionState extends State<_EnsureVisibleSection> {
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
           child: Text(
             'Scrollable.ensureVisible()',
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall
-                ?.copyWith(color: cs.primary),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: cs.primary),
           ),
         ),
         Padding(
@@ -1130,8 +1144,9 @@ class _EnsureVisibleSectionState extends State<_EnsureVisibleSection> {
                     Text(
                       'Item #$i',
                       style: TextStyle(
-                        fontWeight:
-                            isHighlighted ? FontWeight.bold : FontWeight.w500,
+                        fontWeight: isHighlighted
+                            ? FontWeight.bold
+                            : FontWeight.w500,
                         color: isHighlighted ? cs.primary : cs.onSurface,
                       ),
                     ),
@@ -1148,10 +1163,7 @@ class _EnsureVisibleSectionState extends State<_EnsureVisibleSection> {
                         ),
                         child: Text(
                           'ensureVisible',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: cs.onPrimary,
-                          ),
+                          style: TextStyle(fontSize: 10, color: cs.onPrimary),
                         ),
                       ),
                   ],
@@ -1179,10 +1191,9 @@ class _SummarySection extends StatelessWidget {
       children: [
         Text(
           'Scrollable Summary',
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall
-              ?.copyWith(color: cs.primary),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(color: cs.primary),
         ),
         const SizedBox(height: 16),
         _buildSCBullet(

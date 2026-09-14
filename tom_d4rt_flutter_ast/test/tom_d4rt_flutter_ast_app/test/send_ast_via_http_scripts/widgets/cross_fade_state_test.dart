@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'The Cross-Fade Pattern',
-      'body': 'A cross-fade is a transition where one element fades '
+      'body':
+          'A cross-fade is a transition where one element fades '
           'out while another simultaneously fades in. In Flutter, '
           'AnimatedCrossFade implements this pattern for two child '
           'widgets. CrossFadeState is the enum that tells '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.toggle_on,
       'title': 'Two Values, Two States',
-      'body': 'CrossFadeState has exactly two values: showFirst and '
+      'body':
+          'CrossFadeState has exactly two values: showFirst and '
           'showSecond. These correspond to the firstChild and '
           'secondChild properties of AnimatedCrossFade. When the '
           'crossFadeState property changes, the widget animates '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Implicit Animation',
-      'body': 'AnimatedCrossFade is an implicit animation widget — '
+      'body':
+          'AnimatedCrossFade is an implicit animation widget — '
           'you just change the crossFadeState value and it handles '
           'the transition. No AnimationController needed. The '
           'duration property controls how long the fade takes. '
@@ -48,7 +51,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.height,
       'title': 'Size Transition',
-      'body': 'CrossFadeState doesn\'t just control opacity — it '
+      'body':
+          'CrossFadeState doesn\'t just control opacity — it '
           'also drives a size transition. If the two children have '
           'different sizes, AnimatedCrossFade smoothly animates '
           'the container size between them using a '
@@ -66,15 +70,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -110,7 +115,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'CrossFadeState.showFirst',
       'index': 0,
-      'meaning': 'The firstChild of AnimatedCrossFade is visible. '
+      'meaning':
+          'The firstChild of AnimatedCrossFade is visible. '
           'The secondChild is hidden (opacity 0). When transitioning '
           'TO showFirst, firstChild fades in and secondChild fades out.',
       'icon': Icons.looks_one,
@@ -119,7 +125,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'CrossFadeState.showSecond',
       'index': 1,
-      'meaning': 'The secondChild of AnimatedCrossFade is visible. '
+      'meaning':
+          'The secondChild of AnimatedCrossFade is visible. '
           'The firstChild is hidden (opacity 0). When transitioning '
           'TO showSecond, secondChild fades in and firstChild fades out.',
       'icon': Icons.looks_two,
@@ -134,15 +141,12 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (ev['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (ev['color'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (ev['color'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(ev['icon'] as IconData,
-              color: ev['color'] as Color, size: 36),
+          Icon(ev['icon'] as IconData, color: ev['color'] as Color, size: 36),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -162,7 +166,9 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: (ev['color'] as Color).withOpacity(0.12),
                         borderRadius: BorderRadius.circular(4),
@@ -202,63 +208,72 @@ dynamic build(BuildContext context) {
     {
       'name': 'crossFadeState',
       'type': 'CrossFadeState',
-      'desc': 'The enum value that determines which child is visible. '
+      'desc':
+          'The enum value that determines which child is visible. '
           'Changing this triggers the cross-fade animation.',
       'icon': Icons.swap_horiz,
     },
     {
       'name': 'firstChild',
       'type': 'Widget',
-      'desc': 'The widget shown when crossFadeState is showFirst. '
+      'desc':
+          'The widget shown when crossFadeState is showFirst. '
           'Typically the "default" or "idle" state of the UI.',
       'icon': Icons.looks_one,
     },
     {
       'name': 'secondChild',
       'type': 'Widget',
-      'desc': 'The widget shown when crossFadeState is showSecond. '
+      'desc':
+          'The widget shown when crossFadeState is showSecond. '
           'Typically the "active", "loading", or "alternate" state.',
       'icon': Icons.looks_two,
     },
     {
       'name': 'duration',
       'type': 'Duration',
-      'desc': 'How long the cross-fade animation takes. Applies to '
+      'desc':
+          'How long the cross-fade animation takes. Applies to '
           'both the opacity fade and the size transition.',
       'icon': Icons.timer,
     },
     {
       'name': 'reverseDuration',
       'type': 'Duration?',
-      'desc': 'Optional separate duration for the reverse transition. '
+      'desc':
+          'Optional separate duration for the reverse transition. '
           'If null, duration is used for both directions.',
       'icon': Icons.timer_off,
     },
     {
       'name': 'firstCurve / secondCurve',
       'type': 'Curve',
-      'desc': 'The animation curves for the first and second child '
+      'desc':
+          'The animation curves for the first and second child '
           'opacity transitions. Defaults to Curves.linear.',
       'icon': Icons.show_chart,
     },
     {
       'name': 'sizeCurve',
       'type': 'Curve',
-      'desc': 'The curve for the size animation between the two '
+      'desc':
+          'The curve for the size animation between the two '
           'children\'s dimensions. Defaults to Curves.linear.',
       'icon': Icons.aspect_ratio,
     },
     {
       'name': 'alignment',
       'type': 'AlignmentGeometry',
-      'desc': 'How both children are aligned within the animated '
+      'desc':
+          'How both children are aligned within the animated '
           'container. Defaults to Alignment.topCenter.',
       'icon': Icons.format_align_center,
     },
     {
       'name': 'layoutBuilder',
       'type': 'AnimatedCrossFadeBuilder',
-      'desc': 'Custom builder for laying out the two children '
+      'desc':
+          'Custom builder for laying out the two children '
           'during the transition. Defaults to a Stack layout. '
           'Override for custom transition geometry.',
       'icon': Icons.view_module,
@@ -300,7 +315,9 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.pink[100],
                         borderRadius: BorderRadius.circular(4),
@@ -338,7 +355,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'title': 'State Change Detected',
-      'detail': 'When crossFadeState changes (e.g., showFirst → '
+      'detail':
+          'When crossFadeState changes (e.g., showFirst → '
           'showSecond), AnimatedCrossFade starts its internal '
           'AnimationController in the forward or reverse direction.',
       'icon': Icons.play_arrow,
@@ -346,7 +364,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'title': 'Opacity Animation',
-      'detail': 'The outgoing child\'s opacity animates from 1.0 to '
+      'detail':
+          'The outgoing child\'s opacity animates from 1.0 to '
           '0.0 using its curve. The incoming child\'s opacity '
           'animates from 0.0 to 1.0 using its curve. Both happen '
           'simultaneously over the duration.',
@@ -355,7 +374,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'title': 'Size Animation',
-      'detail': 'If the two children have different sizes, the '
+      'detail':
+          'If the two children have different sizes, the '
           'container smoothly interpolates between them using '
           'sizeCurve. This is done via the layoutBuilder which '
           'positions a Stack of both children.',
@@ -364,7 +384,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'title': 'Layout During Transition',
-      'detail': 'The default layoutBuilder places both children in '
+      'detail':
+          'The default layoutBuilder places both children in '
           'a Stack, using Positioned to keep the outgoing child '
           'from affecting layout. The Stack\'s size transitions '
           'to match the incoming child.',
@@ -373,7 +394,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'title': 'Transition Complete',
-      'detail': 'When the animation finishes, the outgoing child is '
+      'detail':
+          'When the animation finishes, the outgoing child is '
           'fully transparent (opacity 0) and the incoming child '
           'is fully opaque. Both remain in the tree for instant '
           'reverse if the state changes again.',
@@ -512,9 +534,10 @@ dynamic build(BuildContext context) {
                     border: Border.all(color: Colors.pink[200]!),
                   ),
                   child: Center(
-                    child: Text('1',
-                        style:
-                            TextStyle(fontSize: 10, color: Colors.pink[900])),
+                    child: Text(
+                      '1',
+                      style: TextStyle(fontSize: 10, color: Colors.pink[900]),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -533,15 +556,15 @@ dynamic build(BuildContext context) {
                   width: 24,
                   height: 24,
                   decoration: BoxDecoration(
-                    color:
-                        Colors.pink[700]!.withOpacity(s['second'] as double),
+                    color: Colors.pink[700]!.withOpacity(s['second'] as double),
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(color: Colors.pink[200]!),
                   ),
                   child: Center(
-                    child: Text('2',
-                        style:
-                            TextStyle(fontSize: 10, color: Colors.pink[900])),
+                    child: Text(
+                      '2',
+                      style: TextStyle(fontSize: 10, color: Colors.pink[900]),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 6),
@@ -568,7 +591,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Loading / Content Toggle',
       'icon': Icons.hourglass_bottom,
-      'scenario': 'Show a CircularProgressIndicator as firstChild '
+      'scenario':
+          'Show a CircularProgressIndicator as firstChild '
           'while data loads, then cross-fade to the actual content '
           'widget as secondChild. CrossFadeState transitions from '
           'showFirst to showSecond when loading completes.',
@@ -577,7 +601,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Empty State / List',
       'icon': Icons.inbox,
-      'scenario': 'Show an "empty inbox" illustration when there are '
+      'scenario':
+          'Show an "empty inbox" illustration when there are '
           'no items, and cross-fade to the item list when data '
           'arrives. Smoother than an abrupt swap.',
       'color': Colors.pink[700]!,
@@ -585,7 +610,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Icon Toggle Animation',
       'icon': Icons.favorite_border,
-      'scenario': 'Toggle between a heart outline and a filled heart '
+      'scenario':
+          'Toggle between a heart outline and a filled heart '
           'icon with a cross-fade. The transition is subtle and '
           'polished compared to an instant swap.',
       'color': Colors.red[600]!,
@@ -593,7 +619,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Form Validation Feedback',
       'icon': Icons.assignment_turned_in,
-      'scenario': 'Show a "Submit" button as firstChild and a '
+      'scenario':
+          'Show a "Submit" button as firstChild and a '
           '"Processing..." indicator as secondChild. Cross-fade '
           'between them when the user submits the form.',
       'color': Colors.pink[800]!,
@@ -601,7 +628,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Expanded / Collapsed Content',
       'icon': Icons.unfold_more,
-      'scenario': 'Show a summary text as firstChild and detailed '
+      'scenario':
+          'Show a summary text as firstChild and detailed '
           'content as secondChild. The size transition in '
           'AnimatedCrossFade smoothly grows the container '
           'to fit the expanded content.',
@@ -625,15 +653,12 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (p['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (p['color'] as Color).withOpacity(0.25)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(p['icon'] as IconData,
-              color: p['color'] as Color, size: 26),
+          Icon(p['icon'] as IconData, color: p['color'] as Color, size: 26),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -705,9 +730,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (a['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (a['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (a['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -800,7 +823,8 @@ dynamic build(BuildContext context) {
   final tips = <Map<String, dynamic>>[
     {
       'tip': 'Both Children Are Always in the Tree',
-      'body': 'AnimatedCrossFade keeps both firstChild and '
+      'body':
+          'AnimatedCrossFade keeps both firstChild and '
           'secondChild in the widget tree at all times (one at '
           'opacity 0). If a child has side effects (network calls, '
           'timers), they run regardless of CrossFadeState. Use '
@@ -810,7 +834,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Size Transitions Can Clip',
-      'body': 'If the two children have very different sizes, the '
+      'body':
+          'If the two children have very different sizes, the '
           'container animates between those sizes. During the '
           'transition, the larger child may be clipped. Use '
           'clipBehavior or a custom layoutBuilder to control '
@@ -819,7 +844,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Use reverseDuration for Asymmetric Transitions',
-      'body': 'Setting reverseDuration to a different value than '
+      'body':
+          'Setting reverseDuration to a different value than '
           'duration creates an asymmetric feel. For example, '
           'a quick fade-in (200ms) but slower fade-out (400ms) '
           'can feel more polished for loading states.',
@@ -827,7 +853,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Curve Selection Matters',
-      'body': 'The default Curves.linear feels mechanical. Try '
+      'body':
+          'The default Curves.linear feels mechanical. Try '
           'Curves.easeInOut or Curves.easeOut for more natural '
           'transitions. The firstCurve and secondCurve can be '
           'different so the incoming child has a different feel '
@@ -836,7 +863,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Consider AnimatedSwitcher for >2 States',
-      'body': 'CrossFadeState only supports two states. If you '
+      'body':
+          'CrossFadeState only supports two states. If you '
           'have three or more possible views (e.g., loading, '
           'error, success), use AnimatedSwitcher instead. It '
           'accepts any child and cross-fades between changes.',
@@ -885,7 +913,9 @@ dynamic build(BuildContext context) {
                     if (isWarning)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.orange[100],
                           borderRadius: BorderRadius.circular(4),
@@ -973,8 +1003,7 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Icon(Icons.swap_horiz,
-                    color: Colors.white, size: 44),
+                const Icon(Icons.swap_horiz, color: Colors.white, size: 44),
                 const SizedBox(height: 10),
                 const Text(
                   'CrossFadeState',

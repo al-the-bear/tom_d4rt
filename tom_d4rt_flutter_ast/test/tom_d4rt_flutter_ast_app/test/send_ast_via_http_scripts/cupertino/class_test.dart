@@ -138,7 +138,12 @@ Color _contrastingFor(Color c) {
 
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -178,10 +183,7 @@ Widget _sectionHeader(int index, String title, String tagline) {
 Widget _sectionDivider() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 18.0),
-    child: Container(
-      height: 1.0,
-      color: _kHairline,
-    ),
+    child: Container(height: 1.0, color: _kHairline),
   );
 }
 
@@ -189,7 +191,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -210,7 +215,12 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -311,9 +321,21 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatAppScaffold,
     icon: CupertinoIcons.square_stack_3d_up_fill,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoApp', 'Root widget; wires Localizations, MediaQuery, Navigator.', 'root'),
-      _ClassEntry('CupertinoPageScaffold', 'Single-page scaffold with optional navigation bar.', 'page'),
-      _ClassEntry('CupertinoTabScaffold', 'Tabbed shell containing a CupertinoTabBar at the bottom.', 'shell'),
+      _ClassEntry(
+        'CupertinoApp',
+        'Root widget; wires Localizations, MediaQuery, Navigator.',
+        'root',
+      ),
+      _ClassEntry(
+        'CupertinoPageScaffold',
+        'Single-page scaffold with optional navigation bar.',
+        'page',
+      ),
+      _ClassEntry(
+        'CupertinoTabScaffold',
+        'Tabbed shell containing a CupertinoTabBar at the bottom.',
+        'shell',
+      ),
     ],
   ),
   _Category(
@@ -322,10 +344,26 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatNavigation,
     icon: CupertinoIcons.arrow_turn_up_right,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoNavigationBar', 'Static iOS-style top bar with leading/middle/trailing slots.', 'chrome'),
-      _ClassEntry('CupertinoSliverNavigationBar', 'Large-title nav bar that collapses when scrolled.', 'chrome'),
-      _ClassEntry('CupertinoTabBar', 'Bottom bar that lights an active tab among its items.', 'chrome'),
-      _ClassEntry('CupertinoTabView', 'Per-tab Navigator host inside a CupertinoTabScaffold.', 'navigator'),
+      _ClassEntry(
+        'CupertinoNavigationBar',
+        'Static iOS-style top bar with leading/middle/trailing slots.',
+        'chrome',
+      ),
+      _ClassEntry(
+        'CupertinoSliverNavigationBar',
+        'Large-title nav bar that collapses when scrolled.',
+        'chrome',
+      ),
+      _ClassEntry(
+        'CupertinoTabBar',
+        'Bottom bar that lights an active tab among its items.',
+        'chrome',
+      ),
+      _ClassEntry(
+        'CupertinoTabView',
+        'Per-tab Navigator host inside a CupertinoTabScaffold.',
+        'navigator',
+      ),
     ],
   ),
   _Category(
@@ -334,11 +372,31 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatControls,
     icon: CupertinoIcons.slider_horizontal_3,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoButton', 'Filled or borderless tap target with iOS press feedback.', 'tap'),
-      _ClassEntry('CupertinoSwitch', 'Two-state toggle bound to a bool.', 'toggle'),
-      _ClassEntry('CupertinoSlider', 'Continuous numeric scrubber.', 'scrubber'),
-      _ClassEntry('CupertinoSegmentedControl', 'Fixed-width segment row with one active segment.', 'choice'),
-      _ClassEntry('CupertinoSlidingSegmentedControl', 'Animated, pill-shaped segmented control.', 'choice'),
+      _ClassEntry(
+        'CupertinoButton',
+        'Filled or borderless tap target with iOS press feedback.',
+        'tap',
+      ),
+      _ClassEntry(
+        'CupertinoSwitch',
+        'Two-state toggle bound to a bool.',
+        'toggle',
+      ),
+      _ClassEntry(
+        'CupertinoSlider',
+        'Continuous numeric scrubber.',
+        'scrubber',
+      ),
+      _ClassEntry(
+        'CupertinoSegmentedControl',
+        'Fixed-width segment row with one active segment.',
+        'choice',
+      ),
+      _ClassEntry(
+        'CupertinoSlidingSegmentedControl',
+        'Animated, pill-shaped segmented control.',
+        'choice',
+      ),
     ],
   ),
   _Category(
@@ -347,9 +405,21 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatPickers,
     icon: CupertinoIcons.calendar_today,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoPicker', 'Generic wheel picker over a children list.', 'wheel'),
-      _ClassEntry('CupertinoDatePicker', 'Specialised date/time wheel with multiple modes.', 'wheel'),
-      _ClassEntry('CupertinoTimerPicker', 'Hours/minutes/seconds duration wheel.', 'wheel'),
+      _ClassEntry(
+        'CupertinoPicker',
+        'Generic wheel picker over a children list.',
+        'wheel',
+      ),
+      _ClassEntry(
+        'CupertinoDatePicker',
+        'Specialised date/time wheel with multiple modes.',
+        'wheel',
+      ),
+      _ClassEntry(
+        'CupertinoTimerPicker',
+        'Hours/minutes/seconds duration wheel.',
+        'wheel',
+      ),
     ],
   ),
   _Category(
@@ -358,10 +428,26 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatDialogs,
     icon: CupertinoIcons.exclamationmark_bubble,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoAlertDialog', 'Centered confirmation dialog with stacked actions.', 'modal'),
-      _ClassEntry('CupertinoActionSheet', 'Bottom action sheet with destructive/default emphasis.', 'sheet'),
-      _ClassEntry('CupertinoDialogAction', 'Single action button inside a CupertinoAlertDialog.', 'action'),
-      _ClassEntry('CupertinoActionSheetAction', 'Single action button inside a CupertinoActionSheet.', 'action'),
+      _ClassEntry(
+        'CupertinoAlertDialog',
+        'Centered confirmation dialog with stacked actions.',
+        'modal',
+      ),
+      _ClassEntry(
+        'CupertinoActionSheet',
+        'Bottom action sheet with destructive/default emphasis.',
+        'sheet',
+      ),
+      _ClassEntry(
+        'CupertinoDialogAction',
+        'Single action button inside a CupertinoAlertDialog.',
+        'action',
+      ),
+      _ClassEntry(
+        'CupertinoActionSheetAction',
+        'Single action button inside a CupertinoActionSheet.',
+        'action',
+      ),
     ],
   ),
   _Category(
@@ -370,7 +456,11 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatIndicators,
     icon: CupertinoIcons.refresh_thick,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoActivityIndicator', 'Spoked spinner used while content loads.', 'spinner'),
+      _ClassEntry(
+        'CupertinoActivityIndicator',
+        'Spoked spinner used while content loads.',
+        'spinner',
+      ),
     ],
   ),
   _Category(
@@ -379,9 +469,21 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatListsForms,
     icon: CupertinoIcons.list_bullet_below_rectangle,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoListSection', 'Grouped or inset section that wraps CupertinoListTiles.', 'group'),
-      _ClassEntry('CupertinoListTile', 'Single list row with leading/title/subtitle/trailing.', 'row'),
-      _ClassEntry('CupertinoFormSection', 'Grouped form section with a header and rows.', 'group'),
+      _ClassEntry(
+        'CupertinoListSection',
+        'Grouped or inset section that wraps CupertinoListTiles.',
+        'group',
+      ),
+      _ClassEntry(
+        'CupertinoListTile',
+        'Single list row with leading/title/subtitle/trailing.',
+        'row',
+      ),
+      _ClassEntry(
+        'CupertinoFormSection',
+        'Grouped form section with a header and rows.',
+        'group',
+      ),
       _ClassEntry('CupertinoFormRow', 'Single labelled form field row.', 'row'),
     ],
   ),
@@ -391,9 +493,21 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatTextInput,
     icon: CupertinoIcons.textformat,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoTextField', 'Single-line iOS-style text input.', 'input'),
-      _ClassEntry('CupertinoTextFormFieldRow', 'TextField wrapped as a FormField inside a form section.', 'input'),
-      _ClassEntry('CupertinoSearchTextField', 'Magnifier-prefixed search field with clear button.', 'search'),
+      _ClassEntry(
+        'CupertinoTextField',
+        'Single-line iOS-style text input.',
+        'input',
+      ),
+      _ClassEntry(
+        'CupertinoTextFormFieldRow',
+        'TextField wrapped as a FormField inside a form section.',
+        'input',
+      ),
+      _ClassEntry(
+        'CupertinoSearchTextField',
+        'Magnifier-prefixed search field with clear button.',
+        'search',
+      ),
     ],
   ),
   _Category(
@@ -402,10 +516,26 @@ const List<_Category> _kCategories = <_Category>[
     color: _kCatTheming,
     icon: CupertinoIcons.paintbrush,
     classes: <_ClassEntry>[
-      _ClassEntry('CupertinoTheme', 'InheritedWidget that exposes a CupertinoThemeData.', 'theme'),
-      _ClassEntry('CupertinoThemeData', 'Bundle of brightness, primary color, text theme.', 'theme'),
-      _ClassEntry('CupertinoColors', 'Static palette of iOS system colors.', 'palette'),
-      _ClassEntry('CupertinoIcons', 'Static catalog of SF Symbol-style icons.', 'icons'),
+      _ClassEntry(
+        'CupertinoTheme',
+        'InheritedWidget that exposes a CupertinoThemeData.',
+        'theme',
+      ),
+      _ClassEntry(
+        'CupertinoThemeData',
+        'Bundle of brightness, primary color, text theme.',
+        'theme',
+      ),
+      _ClassEntry(
+        'CupertinoColors',
+        'Static palette of iOS system colors.',
+        'palette',
+      ),
+      _ClassEntry(
+        'CupertinoIcons',
+        'Static catalog of SF Symbol-style icons.',
+        'icons',
+      ),
     ],
   ),
 ];
@@ -474,7 +604,10 @@ Widget _categoryIndexTile(_Category cat) {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: cat.color,
                 borderRadius: BorderRadius.circular(999.0),
@@ -493,7 +626,11 @@ Widget _categoryIndexTile(_Category cat) {
         const SizedBox(height: 8.0),
         Text(
           cat.description,
-          style: const TextStyle(fontSize: 11.5, color: _kInkSecondary, height: 1.35),
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: _kInkSecondary,
+            height: 1.35,
+          ),
         ),
       ],
     ),
@@ -528,7 +665,10 @@ class _HierarchyPainter extends CustomPainter {
     for (final _HierArrow a in arrows) {
       final _HierBox from = boxes[a.fromIndex];
       final _HierBox to = boxes[a.toIndex];
-      final Offset start = Offset(from.x + from.width / 2.0, from.y + from.height);
+      final Offset start = Offset(
+        from.x + from.width / 2.0,
+        from.y + from.height,
+      );
       final Offset end = Offset(to.x + to.width / 2.0, to.y);
       if (a.dashed) {
         _drawDashedLine(canvas, start, end, dashedPaint);
@@ -540,7 +680,10 @@ class _HierarchyPainter extends CustomPainter {
 
     for (final _HierBox b in boxes) {
       final Rect rect = Rect.fromLTWH(b.x, b.y, b.width, b.height);
-      final RRect rrect = RRect.fromRectAndRadius(rect, const Radius.circular(8.0));
+      final RRect rrect = RRect.fromRectAndRadius(
+        rect,
+        const Radius.circular(8.0),
+      );
       final Paint fill = Paint()..color = b.color;
       canvas.drawRRect(rrect, fill);
       final Paint border = Paint()
@@ -566,7 +709,10 @@ class _HierarchyPainter extends CustomPainter {
       tp.layout(maxWidth: b.width - 8.0);
       tp.paint(
         canvas,
-        Offset(b.x + (b.width - tp.width) / 2.0, b.y + (b.height - tp.height) / 2.0),
+        Offset(
+          b.x + (b.width - tp.width) / 2.0,
+          b.y + (b.height - tp.height) / 2.0,
+        ),
       );
     }
   }
@@ -655,43 +801,239 @@ Widget _hierarchyDiagramCard() {
   // 3 - leaf widgets.
   const List<_HierBox> boxes = <_HierBox>[
     // 0: CupertinoApp (root)
-    _HierBox(label: 'CupertinoApp', x: 360.0, y: 10.0, width: 160.0, height: 36.0, color: _kCatAppScaffold),
+    _HierBox(
+      label: 'CupertinoApp',
+      x: 360.0,
+      y: 10.0,
+      width: 160.0,
+      height: 36.0,
+      color: _kCatAppScaffold,
+    ),
     // 1-2: shells
-    _HierBox(label: 'CupertinoPageScaffold', x: 130.0, y: 90.0, width: 170.0, height: 36.0, color: _kCatAppScaffold),
-    _HierBox(label: 'CupertinoTabScaffold', x: 580.0, y: 90.0, width: 170.0, height: 36.0, color: _kCatAppScaffold),
+    _HierBox(
+      label: 'CupertinoPageScaffold',
+      x: 130.0,
+      y: 90.0,
+      width: 170.0,
+      height: 36.0,
+      color: _kCatAppScaffold,
+    ),
+    _HierBox(
+      label: 'CupertinoTabScaffold',
+      x: 580.0,
+      y: 90.0,
+      width: 170.0,
+      height: 36.0,
+      color: _kCatAppScaffold,
+    ),
     // 3-6: navigation chrome
-    _HierBox(label: 'CupertinoNavigationBar', x: 20.0, y: 170.0, width: 180.0, height: 36.0, color: _kCatNavigation),
-    _HierBox(label: 'CupertinoSliverNavBar', x: 220.0, y: 170.0, width: 170.0, height: 36.0, color: _kCatNavigation),
-    _HierBox(label: 'CupertinoTabBar', x: 480.0, y: 170.0, width: 150.0, height: 36.0, color: _kCatNavigation),
-    _HierBox(label: 'CupertinoTabView', x: 650.0, y: 170.0, width: 150.0, height: 36.0, color: _kCatNavigation),
+    _HierBox(
+      label: 'CupertinoNavigationBar',
+      x: 20.0,
+      y: 170.0,
+      width: 180.0,
+      height: 36.0,
+      color: _kCatNavigation,
+    ),
+    _HierBox(
+      label: 'CupertinoSliverNavBar',
+      x: 220.0,
+      y: 170.0,
+      width: 170.0,
+      height: 36.0,
+      color: _kCatNavigation,
+    ),
+    _HierBox(
+      label: 'CupertinoTabBar',
+      x: 480.0,
+      y: 170.0,
+      width: 150.0,
+      height: 36.0,
+      color: _kCatNavigation,
+    ),
+    _HierBox(
+      label: 'CupertinoTabView',
+      x: 650.0,
+      y: 170.0,
+      width: 150.0,
+      height: 36.0,
+      color: _kCatNavigation,
+    ),
     // 7-10: controls
-    _HierBox(label: 'CupertinoButton', x: 20.0, y: 260.0, width: 130.0, height: 32.0, color: _kCatControls),
-    _HierBox(label: 'CupertinoSwitch', x: 170.0, y: 260.0, width: 130.0, height: 32.0, color: _kCatControls),
-    _HierBox(label: 'CupertinoSlider', x: 320.0, y: 260.0, width: 130.0, height: 32.0, color: _kCatControls),
-    _HierBox(label: 'CupertinoSegmented', x: 470.0, y: 260.0, width: 150.0, height: 32.0, color: _kCatControls),
+    _HierBox(
+      label: 'CupertinoButton',
+      x: 20.0,
+      y: 260.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatControls,
+    ),
+    _HierBox(
+      label: 'CupertinoSwitch',
+      x: 170.0,
+      y: 260.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatControls,
+    ),
+    _HierBox(
+      label: 'CupertinoSlider',
+      x: 320.0,
+      y: 260.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatControls,
+    ),
+    _HierBox(
+      label: 'CupertinoSegmented',
+      x: 470.0,
+      y: 260.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatControls,
+    ),
     // 11-13: pickers
-    _HierBox(label: 'CupertinoPicker', x: 20.0, y: 320.0, width: 130.0, height: 32.0, color: _kCatPickers),
-    _HierBox(label: 'CupertinoDatePicker', x: 170.0, y: 320.0, width: 150.0, height: 32.0, color: _kCatPickers),
-    _HierBox(label: 'CupertinoTimerPicker', x: 340.0, y: 320.0, width: 150.0, height: 32.0, color: _kCatPickers),
+    _HierBox(
+      label: 'CupertinoPicker',
+      x: 20.0,
+      y: 320.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatPickers,
+    ),
+    _HierBox(
+      label: 'CupertinoDatePicker',
+      x: 170.0,
+      y: 320.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatPickers,
+    ),
+    _HierBox(
+      label: 'CupertinoTimerPicker',
+      x: 340.0,
+      y: 320.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatPickers,
+    ),
     // 14-15: dialogs/sheets
-    _HierBox(label: 'CupertinoAlertDialog', x: 510.0, y: 320.0, width: 150.0, height: 32.0, color: _kCatDialogs),
-    _HierBox(label: 'CupertinoActionSheet', x: 670.0, y: 320.0, width: 150.0, height: 32.0, color: _kCatDialogs),
+    _HierBox(
+      label: 'CupertinoAlertDialog',
+      x: 510.0,
+      y: 320.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatDialogs,
+    ),
+    _HierBox(
+      label: 'CupertinoActionSheet',
+      x: 670.0,
+      y: 320.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatDialogs,
+    ),
     // 16: indicator
-    _HierBox(label: 'CupertinoActivityIndicator', x: 20.0, y: 380.0, width: 200.0, height: 32.0, color: _kCatIndicators),
+    _HierBox(
+      label: 'CupertinoActivityIndicator',
+      x: 20.0,
+      y: 380.0,
+      width: 200.0,
+      height: 32.0,
+      color: _kCatIndicators,
+    ),
     // 17-20: lists/forms
-    _HierBox(label: 'CupertinoListSection', x: 240.0, y: 380.0, width: 150.0, height: 32.0, color: _kCatListsForms),
-    _HierBox(label: 'CupertinoListTile', x: 400.0, y: 380.0, width: 130.0, height: 32.0, color: _kCatListsForms),
-    _HierBox(label: 'CupertinoFormSection', x: 540.0, y: 380.0, width: 150.0, height: 32.0, color: _kCatListsForms),
-    _HierBox(label: 'CupertinoFormRow', x: 700.0, y: 380.0, width: 130.0, height: 32.0, color: _kCatListsForms),
+    _HierBox(
+      label: 'CupertinoListSection',
+      x: 240.0,
+      y: 380.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatListsForms,
+    ),
+    _HierBox(
+      label: 'CupertinoListTile',
+      x: 400.0,
+      y: 380.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatListsForms,
+    ),
+    _HierBox(
+      label: 'CupertinoFormSection',
+      x: 540.0,
+      y: 380.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatListsForms,
+    ),
+    _HierBox(
+      label: 'CupertinoFormRow',
+      x: 700.0,
+      y: 380.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatListsForms,
+    ),
     // 21-23: text input
-    _HierBox(label: 'CupertinoTextField', x: 20.0, y: 440.0, width: 150.0, height: 32.0, color: _kCatTextInput),
-    _HierBox(label: 'CupertinoTextFormFieldRow', x: 185.0, y: 440.0, width: 210.0, height: 32.0, color: _kCatTextInput),
-    _HierBox(label: 'CupertinoSearchTextField', x: 410.0, y: 440.0, width: 200.0, height: 32.0, color: _kCatTextInput),
+    _HierBox(
+      label: 'CupertinoTextField',
+      x: 20.0,
+      y: 440.0,
+      width: 150.0,
+      height: 32.0,
+      color: _kCatTextInput,
+    ),
+    _HierBox(
+      label: 'CupertinoTextFormFieldRow',
+      x: 185.0,
+      y: 440.0,
+      width: 210.0,
+      height: 32.0,
+      color: _kCatTextInput,
+    ),
+    _HierBox(
+      label: 'CupertinoSearchTextField',
+      x: 410.0,
+      y: 440.0,
+      width: 200.0,
+      height: 32.0,
+      color: _kCatTextInput,
+    ),
     // 24-27: theming
-    _HierBox(label: 'CupertinoTheme', x: 30.0, y: 500.0, width: 130.0, height: 32.0, color: _kCatTheming),
-    _HierBox(label: 'CupertinoThemeData', x: 170.0, y: 500.0, width: 160.0, height: 32.0, color: _kCatTheming),
-    _HierBox(label: 'CupertinoColors', x: 340.0, y: 500.0, width: 130.0, height: 32.0, color: _kCatTheming),
-    _HierBox(label: 'CupertinoIcons', x: 480.0, y: 500.0, width: 130.0, height: 32.0, color: _kCatTheming),
+    _HierBox(
+      label: 'CupertinoTheme',
+      x: 30.0,
+      y: 500.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatTheming,
+    ),
+    _HierBox(
+      label: 'CupertinoThemeData',
+      x: 170.0,
+      y: 500.0,
+      width: 160.0,
+      height: 32.0,
+      color: _kCatTheming,
+    ),
+    _HierBox(
+      label: 'CupertinoColors',
+      x: 340.0,
+      y: 500.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatTheming,
+    ),
+    _HierBox(
+      label: 'CupertinoIcons',
+      x: 480.0,
+      y: 500.0,
+      width: 130.0,
+      height: 32.0,
+      color: _kCatTheming,
+    ),
   ];
 
   const List<_HierArrow> arrows = <_HierArrow>[
@@ -728,7 +1070,8 @@ Widget _hierarchyDiagramCard() {
       children: <Widget>[
         _cardTitle(
           'Class hierarchy & composition',
-          subtitle: 'Solid arrows = "is a" / "configures". Dashed = "contains" / "spawns".',
+          subtitle:
+              'Solid arrows = "is a" / "configures". Dashed = "contains" / "spawns".',
         ),
         const SizedBox(height: 14.0),
         Container(
@@ -753,7 +1096,10 @@ Widget _hierarchyDiagramCard() {
           children: <Widget>[
             for (final _Category cat in _kCategories)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: cat.color.withOpacity(0.12),
                   borderRadius: BorderRadius.circular(999.0),
@@ -833,7 +1179,11 @@ Widget _categoryPanel(_Category cat) {
                   color: cat.color,
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: Icon(cat.icon, size: 20.0, color: const Color(0xFFFFFFFF)),
+                child: Icon(
+                  cat.icon,
+                  size: 20.0,
+                  color: const Color(0xFFFFFFFF),
+                ),
               ),
               const SizedBox(width: 12.0),
               Expanded(
@@ -852,13 +1202,19 @@ Widget _categoryPanel(_Category cat) {
                     const SizedBox(height: 2.0),
                     Text(
                       cat.description,
-                      style: const TextStyle(fontSize: 12.0, color: _kInkSecondary),
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: _kInkSecondary,
+                      ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 3.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 9.0,
+                  vertical: 3.0,
+                ),
                 decoration: BoxDecoration(
                   color: cat.color,
                   borderRadius: BorderRadius.circular(999.0),
@@ -899,10 +1255,7 @@ Widget _classTile(_ClassEntry entry, Color accent) {
           width: 6.0,
           height: 6.0,
           margin: const EdgeInsets.only(top: 7.0),
-          decoration: BoxDecoration(
-            color: accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10.0),
         Expanded(
@@ -924,7 +1277,10 @@ Widget _classTile(_ClassEntry entry, Color accent) {
                   ),
                   const SizedBox(width: 8.0),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 1.0,
+                    ),
                     decoration: BoxDecoration(
                       color: accent.withOpacity(0.14),
                       borderRadius: BorderRadius.circular(6.0),
@@ -944,7 +1300,11 @@ Widget _classTile(_ClassEntry entry, Color accent) {
               const SizedBox(height: 2.0),
               Text(
                 entry.oneLiner,
-                style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.35),
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: _kInkSecondary,
+                  height: 1.35,
+                ),
               ),
             ],
           ),
@@ -1004,7 +1364,10 @@ Widget _recipeCard({
                     const SizedBox(height: 2.0),
                     Text(
                       subtitle,
-                      style: const TextStyle(fontSize: 12.0, color: _kInkSecondary),
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        color: _kInkSecondary,
+                      ),
                     ),
                   ],
                 ),
@@ -1044,27 +1407,111 @@ class _PairRow {
 
 Widget _comparisonMatrixCard() {
   const List<_PairRow> rows = <_PairRow>[
-    _PairRow('CupertinoApp', 'MaterialApp', 'Root widget; both register Localizations, Navigator, MediaQuery.'),
-    _PairRow('CupertinoPageScaffold', 'Scaffold', 'Cupertino lacks Drawer/FAB slots by design.'),
-    _PairRow('CupertinoNavigationBar', 'AppBar', 'Static height; iOS preferredSize is ~44 logical pixels.'),
-    _PairRow('CupertinoTabScaffold + CupertinoTabBar', 'BottomNavigationBar + Scaffold', 'iOS tabs each own a Navigator via CupertinoTabView.'),
-    _PairRow('CupertinoButton', 'TextButton / ElevatedButton', 'Cupertino exposes .filled() and a borderless default.'),
-    _PairRow('CupertinoSwitch', 'Switch', 'CupertinoSwitch ignores Material themes by design.'),
-    _PairRow('CupertinoSlider', 'Slider', 'No discrete divisions widget; emulate via onChanged rounding.'),
-    _PairRow('CupertinoSegmentedControl', 'ToggleButtons', 'CupertinoSlidingSegmentedControl is the pill-shaped variant.'),
-    _PairRow('CupertinoAlertDialog', 'AlertDialog', 'Stacked action buttons; CupertinoDialogAction handles destructive.'),
-    _PairRow('CupertinoActionSheet', 'BottomSheet / showModalBottomSheet', 'Bottom sheet with destructive/cancel emphasis.'),
-    _PairRow('CupertinoActivityIndicator', 'CircularProgressIndicator', 'Spoked wheel; no determinate variant.'),
-    _PairRow('CupertinoTextField', 'TextField', 'Defaults differ (border, padding, cursor color).'),
-    _PairRow('CupertinoSearchTextField', 'SearchBar', 'iOS magnifier-prefixed pill with clear button.'),
-    _PairRow('CupertinoListSection', 'ListTile + Card/Material', 'Grouped (.insetGrouped) or plain section header.'),
-    _PairRow('CupertinoFormSection', 'Form + Card', 'Form rows are CupertinoFormRow; no FormField wrapper required.'),
-    _PairRow('CupertinoPicker', 'DropdownButton', 'Picker is a wheel, not a popup menu.'),
-    _PairRow('CupertinoDatePicker', 'showDatePicker', 'Date/time wheel rather than a calendar grid.'),
-    _PairRow('CupertinoTimerPicker', '(no direct equivalent)', 'Hours/minutes/seconds wheel for durations.'),
-    _PairRow('CupertinoTheme / CupertinoThemeData', 'Theme / ThemeData', 'Smaller surface area; brightness + primary + textTheme.'),
-    _PairRow('CupertinoColors / CupertinoDynamicColor', 'Colors / ColorScheme', 'Dynamic colors resolve against context, not theme.'),
-    _PairRow('CupertinoIcons', 'Icons (Material)', 'SF Symbol-style glyphs distinct from Material icons.'),
+    _PairRow(
+      'CupertinoApp',
+      'MaterialApp',
+      'Root widget; both register Localizations, Navigator, MediaQuery.',
+    ),
+    _PairRow(
+      'CupertinoPageScaffold',
+      'Scaffold',
+      'Cupertino lacks Drawer/FAB slots by design.',
+    ),
+    _PairRow(
+      'CupertinoNavigationBar',
+      'AppBar',
+      'Static height; iOS preferredSize is ~44 logical pixels.',
+    ),
+    _PairRow(
+      'CupertinoTabScaffold + CupertinoTabBar',
+      'BottomNavigationBar + Scaffold',
+      'iOS tabs each own a Navigator via CupertinoTabView.',
+    ),
+    _PairRow(
+      'CupertinoButton',
+      'TextButton / ElevatedButton',
+      'Cupertino exposes .filled() and a borderless default.',
+    ),
+    _PairRow(
+      'CupertinoSwitch',
+      'Switch',
+      'CupertinoSwitch ignores Material themes by design.',
+    ),
+    _PairRow(
+      'CupertinoSlider',
+      'Slider',
+      'No discrete divisions widget; emulate via onChanged rounding.',
+    ),
+    _PairRow(
+      'CupertinoSegmentedControl',
+      'ToggleButtons',
+      'CupertinoSlidingSegmentedControl is the pill-shaped variant.',
+    ),
+    _PairRow(
+      'CupertinoAlertDialog',
+      'AlertDialog',
+      'Stacked action buttons; CupertinoDialogAction handles destructive.',
+    ),
+    _PairRow(
+      'CupertinoActionSheet',
+      'BottomSheet / showModalBottomSheet',
+      'Bottom sheet with destructive/cancel emphasis.',
+    ),
+    _PairRow(
+      'CupertinoActivityIndicator',
+      'CircularProgressIndicator',
+      'Spoked wheel; no determinate variant.',
+    ),
+    _PairRow(
+      'CupertinoTextField',
+      'TextField',
+      'Defaults differ (border, padding, cursor color).',
+    ),
+    _PairRow(
+      'CupertinoSearchTextField',
+      'SearchBar',
+      'iOS magnifier-prefixed pill with clear button.',
+    ),
+    _PairRow(
+      'CupertinoListSection',
+      'ListTile + Card/Material',
+      'Grouped (.insetGrouped) or plain section header.',
+    ),
+    _PairRow(
+      'CupertinoFormSection',
+      'Form + Card',
+      'Form rows are CupertinoFormRow; no FormField wrapper required.',
+    ),
+    _PairRow(
+      'CupertinoPicker',
+      'DropdownButton',
+      'Picker is a wheel, not a popup menu.',
+    ),
+    _PairRow(
+      'CupertinoDatePicker',
+      'showDatePicker',
+      'Date/time wheel rather than a calendar grid.',
+    ),
+    _PairRow(
+      'CupertinoTimerPicker',
+      '(no direct equivalent)',
+      'Hours/minutes/seconds wheel for durations.',
+    ),
+    _PairRow(
+      'CupertinoTheme / CupertinoThemeData',
+      'Theme / ThemeData',
+      'Smaller surface area; brightness + primary + textTheme.',
+    ),
+    _PairRow(
+      'CupertinoColors / CupertinoDynamicColor',
+      'Colors / ColorScheme',
+      'Dynamic colors resolve against context, not theme.',
+    ),
+    _PairRow(
+      'CupertinoIcons',
+      'Icons (Material)',
+      'SF Symbol-style glyphs distinct from Material icons.',
+    ),
   ];
 
   return _card(
@@ -1073,7 +1520,8 @@ Widget _comparisonMatrixCard() {
       children: <Widget>[
         _cardTitle(
           'Cupertino vs Material analogues',
-          subtitle: 'Pick the platform pair when designing cross-platform widgets.',
+          subtitle:
+              'Pick the platform pair when designing cross-platform widgets.',
         ),
         const SizedBox(height: 12.0),
         Container(
@@ -1085,20 +1533,55 @@ Widget _comparisonMatrixCard() {
           ),
           child: Row(
             children: const <Widget>[
-              Expanded(flex: 4, child: Text('Cupertino', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: _kInk))),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'Cupertino',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+              ),
               SizedBox(width: 10.0),
-              Expanded(flex: 4, child: Text('Material', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: _kInk))),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'Material',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+              ),
               SizedBox(width: 10.0),
-              Expanded(flex: 6, child: Text('Notes', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: _kInk))),
+              Expanded(
+                flex: 6,
+                child: Text(
+                  'Notes',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: _kInk,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 4.0),
         for (int i = 0; i < rows.length; i++)
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 8.0,
+            ),
             decoration: BoxDecoration(
-              color: i.isEven ? const Color(0xFFFCFCFD) : const Color(0xFFFFFFFF),
+              color: i.isEven
+                  ? const Color(0xFFFCFCFD)
+                  : const Color(0xFFFFFFFF),
               border: const Border(bottom: BorderSide(color: _kHairline)),
             ),
             child: Row(
@@ -1134,7 +1617,11 @@ Widget _comparisonMatrixCard() {
                   flex: 6,
                   child: Text(
                     rows[i].note,
-                    style: const TextStyle(fontSize: 11.5, color: _kInkSecondary, height: 1.35),
+                    style: const TextStyle(
+                      fontSize: 11.5,
+                      color: _kInkSecondary,
+                      height: 1.35,
+                    ),
                   ),
                 ),
               ],
@@ -1150,15 +1637,42 @@ Widget _comparisonMatrixCard() {
 // ===========================================================================
 Widget _namingConventionsCard() {
   const List<List<String>> rules = <List<String>>[
-    <String>['Cupertino prefix', 'Every iOS-styled widget begins with "Cupertino" so it is grep-friendly and never collides with the Material twin.'],
-    <String>['ObjC heritage', 'Names mirror UIKit (UINavigationBar -> CupertinoNavigationBar, UIActivityIndicatorView -> CupertinoActivityIndicator).'],
-    <String>['Singular nouns', 'Widgets are singular (CupertinoButton, not CupertinoButtons). Plural names are reserved for static collections (CupertinoColors, CupertinoIcons).'],
-    <String>['Suffix denotes form', 'Section/Tile/Row/Action suffixes describe layout role; FieldRow indicates "Field wrapped as Row" for forms.'],
-    <String>['*Action subclasses', 'CupertinoDialogAction and CupertinoActionSheetAction are stamped buttons; they only make sense inside their parent.'],
-    <String>['*Data classes', 'Pure-data bundles end in "Data" (CupertinoThemeData). They never extend Widget.'],
-    <String>['Static catalogs', 'CupertinoColors and CupertinoIcons are abstract classes with only static const members.'],
-    <String>['"Sliding" prefix', 'CupertinoSlidingSegmentedControl is the animated pill variant; the older fixed variant keeps the unprefixed name.'],
-    <String>['Picker family', 'Wheel widgets share the "Picker" suffix; CupertinoDatePicker and CupertinoTimerPicker are specialised pickers.'],
+    <String>[
+      'Cupertino prefix',
+      'Every iOS-styled widget begins with "Cupertino" so it is grep-friendly and never collides with the Material twin.',
+    ],
+    <String>[
+      'ObjC heritage',
+      'Names mirror UIKit (UINavigationBar -> CupertinoNavigationBar, UIActivityIndicatorView -> CupertinoActivityIndicator).',
+    ],
+    <String>[
+      'Singular nouns',
+      'Widgets are singular (CupertinoButton, not CupertinoButtons). Plural names are reserved for static collections (CupertinoColors, CupertinoIcons).',
+    ],
+    <String>[
+      'Suffix denotes form',
+      'Section/Tile/Row/Action suffixes describe layout role; FieldRow indicates "Field wrapped as Row" for forms.',
+    ],
+    <String>[
+      '*Action subclasses',
+      'CupertinoDialogAction and CupertinoActionSheetAction are stamped buttons; they only make sense inside their parent.',
+    ],
+    <String>[
+      '*Data classes',
+      'Pure-data bundles end in "Data" (CupertinoThemeData). They never extend Widget.',
+    ],
+    <String>[
+      'Static catalogs',
+      'CupertinoColors and CupertinoIcons are abstract classes with only static const members.',
+    ],
+    <String>[
+      '"Sliding" prefix',
+      'CupertinoSlidingSegmentedControl is the animated pill variant; the older fixed variant keeps the unprefixed name.',
+    ],
+    <String>[
+      'Picker family',
+      'Wheel widgets share the "Picker" suffix; CupertinoDatePicker and CupertinoTimerPicker are specialised pickers.',
+    ],
   ];
 
   return _card(
@@ -1167,7 +1681,8 @@ Widget _namingConventionsCard() {
       children: <Widget>[
         _cardTitle(
           'Naming conventions',
-          subtitle: 'The "Cupertino*" namespace is a thin Dart projection of UIKit.',
+          subtitle:
+              'The "Cupertino*" namespace is a thin Dart projection of UIKit.',
         ),
         const SizedBox(height: 12.0),
         for (final List<String> r in rules)
@@ -1178,7 +1693,10 @@ Widget _namingConventionsCard() {
               children: <Widget>[
                 Container(
                   width: 110.0,
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 4.0,
+                  ),
                   decoration: BoxDecoration(
                     color: _kAccent.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1197,7 +1715,11 @@ Widget _namingConventionsCard() {
                 Expanded(
                   child: Text(
                     r[1],
-                    style: const TextStyle(fontSize: 12.5, color: _kInk, height: 1.4),
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      color: _kInk,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -1294,7 +1816,11 @@ Widget _pitfallsCard() {
                       const SizedBox(height: 4.0),
                       Text(
                         p[1],
-                        style: const TextStyle(fontSize: 12.0, color: _kInkSecondary, height: 1.4),
+                        style: const TextStyle(
+                          fontSize: 12.0,
+                          color: _kInkSecondary,
+                          height: 1.4,
+                        ),
                       ),
                     ],
                   ),
@@ -1330,7 +1856,10 @@ Widget _livePreviewCard() {
           children: <Widget>[
             const CupertinoActivityIndicator(radius: 14.0),
             CupertinoButton(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
               color: _kAccent,
               onPressed: null,
               child: const Text('CupertinoButton'),
@@ -1394,7 +1923,11 @@ Widget _footer() {
           'flutter/cupertino exposes ~30 first-class widgets across 9 categories. '
           'Every Material counterpart has a Cupertino twin except for a few shells '
           '(no Drawer, no FloatingActionButton) and a few indicators.',
-          style: const TextStyle(fontSize: 12.0, color: _kInkTertiary, height: 1.45),
+          style: const TextStyle(
+            fontSize: 12.0,
+            color: _kInkTertiary,
+            height: 1.45,
+          ),
         ),
       ],
     ),
@@ -1421,7 +1954,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFAF52DE)],
+        colors: <Color>[
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+          Color(0xFFAF52DE),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -1437,7 +1974,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(CupertinoIcons.square_grid_2x2_fill, color: Color(0xFFFFFFFF), size: 26.0),
+            Icon(
+              CupertinoIcons.square_grid_2x2_fill,
+              color: Color(0xFFFFFFFF),
+              size: 26.0,
+            ),
             SizedBox(width: 10.0),
             Text(
               'A tour of Cupertino classes',
@@ -1466,7 +2007,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             for (final _Category cat in _kCategories)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0x33FFFFFF),
                   borderRadius: BorderRadius.circular(999.0),
@@ -1557,12 +2101,40 @@ dynamic build(BuildContext context) {
     icon: CupertinoIcons.square_stack_3d_up_fill,
     accent: _kCatAppScaffold,
     lines: const <List<_Tok>>[
-      <_Tok>[_Tok.keyword('return '), _Tok.type('CupertinoApp'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('  home: '), _Tok.type('CupertinoPageScaffold'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('    navigationBar: '), _Tok.type('CupertinoNavigationBar'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('      middle: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Home'"), _Tok.plain('),')],
+      <_Tok>[
+        _Tok.keyword('return '),
+        _Tok.type('CupertinoApp'),
+        _Tok.plain('('),
+      ],
+      <_Tok>[
+        _Tok.plain('  home: '),
+        _Tok.type('CupertinoPageScaffold'),
+        _Tok.plain('('),
+      ],
+      <_Tok>[
+        _Tok.plain('    navigationBar: '),
+        _Tok.type('CupertinoNavigationBar'),
+        _Tok.plain('('),
+      ],
+      <_Tok>[
+        _Tok.plain('      middle: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Home'"),
+        _Tok.plain('),'),
+      ],
       <_Tok>[_Tok.plain('    ),')],
-      <_Tok>[_Tok.plain('    child: '), _Tok.type('SafeArea'), _Tok.plain('(child: '), _Tok.type('Center'), _Tok.plain('(child: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Hello iOS'"), _Tok.plain('))),')],
+      <_Tok>[
+        _Tok.plain('    child: '),
+        _Tok.type('SafeArea'),
+        _Tok.plain('(child: '),
+        _Tok.type('Center'),
+        _Tok.plain('(child: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Hello iOS'"),
+        _Tok.plain('))),'),
+      ],
       <_Tok>[_Tok.plain('  ),')],
       <_Tok>[_Tok.plain(');')],
     ],
@@ -1575,14 +2147,61 @@ dynamic build(BuildContext context) {
     accent: _kCatNavigation,
     lines: const <List<_Tok>>[
       <_Tok>[_Tok.type('CupertinoTabScaffold'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('  tabBar: '), _Tok.type('CupertinoTabBar'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('    items: '), _Tok.keyword('const '), _Tok.plain('<'), _Tok.type('BottomNavigationBarItem'), _Tok.plain('>[')],
-      <_Tok>[_Tok.plain('      '), _Tok.type('BottomNavigationBarItem'), _Tok.plain('(icon: '), _Tok.type('Icon'), _Tok.plain('('), _Tok.accent('CupertinoIcons.home'), _Tok.plain('), label: '), _Tok.string("'Home'"), _Tok.plain('),')],
-      <_Tok>[_Tok.plain('      '), _Tok.type('BottomNavigationBarItem'), _Tok.plain('(icon: '), _Tok.type('Icon'), _Tok.plain('('), _Tok.accent('CupertinoIcons.gear'), _Tok.plain('), label: '), _Tok.string("'Settings'"), _Tok.plain('),')],
+      <_Tok>[
+        _Tok.plain('  tabBar: '),
+        _Tok.type('CupertinoTabBar'),
+        _Tok.plain('('),
+      ],
+      <_Tok>[
+        _Tok.plain('    items: '),
+        _Tok.keyword('const '),
+        _Tok.plain('<'),
+        _Tok.type('BottomNavigationBarItem'),
+        _Tok.plain('>['),
+      ],
+      <_Tok>[
+        _Tok.plain('      '),
+        _Tok.type('BottomNavigationBarItem'),
+        _Tok.plain('(icon: '),
+        _Tok.type('Icon'),
+        _Tok.plain('('),
+        _Tok.accent('CupertinoIcons.home'),
+        _Tok.plain('), label: '),
+        _Tok.string("'Home'"),
+        _Tok.plain('),'),
+      ],
+      <_Tok>[
+        _Tok.plain('      '),
+        _Tok.type('BottomNavigationBarItem'),
+        _Tok.plain('(icon: '),
+        _Tok.type('Icon'),
+        _Tok.plain('('),
+        _Tok.accent('CupertinoIcons.gear'),
+        _Tok.plain('), label: '),
+        _Tok.string("'Settings'"),
+        _Tok.plain('),'),
+      ],
       <_Tok>[_Tok.plain('    ],')],
       <_Tok>[_Tok.plain('  ),')],
-      <_Tok>[_Tok.plain('  tabBuilder: ('), _Tok.type('BuildContext'), _Tok.plain(' c, '), _Tok.type('int'), _Tok.plain(' i) {')],
-      <_Tok>[_Tok.plain('    '), _Tok.keyword('return '), _Tok.type('CupertinoTabView'), _Tok.plain('(builder: (c) => '), _Tok.type('Center'), _Tok.plain('(child: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'tab '"), _Tok.plain(' + i.toString()))),')],
+      <_Tok>[
+        _Tok.plain('  tabBuilder: ('),
+        _Tok.type('BuildContext'),
+        _Tok.plain(' c, '),
+        _Tok.type('int'),
+        _Tok.plain(' i) {'),
+      ],
+      <_Tok>[
+        _Tok.plain('    '),
+        _Tok.keyword('return '),
+        _Tok.type('CupertinoTabView'),
+        _Tok.plain('(builder: (c) => '),
+        _Tok.type('Center'),
+        _Tok.plain('(child: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'tab '"),
+        _Tok.plain(' + i.toString()))),'),
+      ],
       <_Tok>[_Tok.plain('  },')],
       <_Tok>[_Tok.plain(');')],
     ],
@@ -1595,15 +2214,62 @@ dynamic build(BuildContext context) {
     accent: _kCatDialogs,
     lines: const <List<_Tok>>[
       <_Tok>[_Tok.comment('// In a button onPressed:')],
-      <_Tok>[_Tok.type('showCupertinoModalPopup'), _Tok.plain('<'), _Tok.type('void'), _Tok.plain('>(')],
+      <_Tok>[
+        _Tok.type('showCupertinoModalPopup'),
+        _Tok.plain('<'),
+        _Tok.type('void'),
+        _Tok.plain('>('),
+      ],
       <_Tok>[_Tok.plain('  context: context,')],
-      <_Tok>[_Tok.plain('  builder: ('), _Tok.type('BuildContext'), _Tok.plain(' c) => '), _Tok.type('CupertinoActionSheet'), _Tok.plain('(')],
-      <_Tok>[_Tok.plain('    title: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Pick an option'"), _Tok.plain('),')],
-      <_Tok>[_Tok.plain('    actions: <'), _Tok.type('Widget'), _Tok.plain('>[')],
-      <_Tok>[_Tok.plain('      '), _Tok.type('CupertinoActionSheetAction'), _Tok.plain('(onPressed: () {}, child: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Save'"), _Tok.plain('))')],
-      <_Tok>[_Tok.plain('      '), _Tok.type('CupertinoActionSheetAction'), _Tok.plain('(isDestructiveAction: '), _Tok.keyword('true'), _Tok.plain(', onPressed: () {}, child: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Delete'"), _Tok.plain('))')],
+      <_Tok>[
+        _Tok.plain('  builder: ('),
+        _Tok.type('BuildContext'),
+        _Tok.plain(' c) => '),
+        _Tok.type('CupertinoActionSheet'),
+        _Tok.plain('('),
+      ],
+      <_Tok>[
+        _Tok.plain('    title: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Pick an option'"),
+        _Tok.plain('),'),
+      ],
+      <_Tok>[
+        _Tok.plain('    actions: <'),
+        _Tok.type('Widget'),
+        _Tok.plain('>['),
+      ],
+      <_Tok>[
+        _Tok.plain('      '),
+        _Tok.type('CupertinoActionSheetAction'),
+        _Tok.plain('(onPressed: () {}, child: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Save'"),
+        _Tok.plain('))'),
+      ],
+      <_Tok>[
+        _Tok.plain('      '),
+        _Tok.type('CupertinoActionSheetAction'),
+        _Tok.plain('(isDestructiveAction: '),
+        _Tok.keyword('true'),
+        _Tok.plain(', onPressed: () {}, child: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Delete'"),
+        _Tok.plain('))'),
+      ],
       <_Tok>[_Tok.plain('    ],')],
-      <_Tok>[_Tok.plain('    cancelButton: '), _Tok.type('CupertinoActionSheetAction'), _Tok.plain('(onPressed: () {}, child: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Cancel'"), _Tok.plain('))')],
+      <_Tok>[
+        _Tok.plain('    cancelButton: '),
+        _Tok.type('CupertinoActionSheetAction'),
+        _Tok.plain('(onPressed: () {}, child: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Cancel'"),
+        _Tok.plain('))'),
+      ],
       <_Tok>[_Tok.plain('  ),')],
       <_Tok>[_Tok.plain(');')],
     ],
@@ -1616,11 +2282,57 @@ dynamic build(BuildContext context) {
     accent: _kCatListsForms,
     lines: const <List<_Tok>>[
       <_Tok>[_Tok.type('CupertinoListSection'), _Tok.plain('.insetGrouped(')],
-      <_Tok>[_Tok.plain('  header: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Profile'"), _Tok.plain('),')],
-      <_Tok>[_Tok.plain('  children: <'), _Tok.type('Widget'), _Tok.plain('>[')],
-      <_Tok>[_Tok.plain('    '), _Tok.type('CupertinoListTile'), _Tok.plain('(title: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Name'"), _Tok.plain('), additionalInfo: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Alex'"), _Tok.plain(')),')],
-      <_Tok>[_Tok.plain('    '), _Tok.type('CupertinoFormRow'), _Tok.plain('(prefix: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Email'"), _Tok.plain('), child: '), _Tok.type('CupertinoTextField'), _Tok.plain('(placeholder: '), _Tok.string("'name@host'"), _Tok.plain(')),')],
-      <_Tok>[_Tok.plain('    '), _Tok.type('CupertinoFormRow'), _Tok.plain('(prefix: '), _Tok.type('Text'), _Tok.plain('('), _Tok.string("'Notify'"), _Tok.plain('), child: '), _Tok.type('CupertinoSwitch'), _Tok.plain('(value: '), _Tok.keyword('true'), _Tok.plain(', onChanged: (_) {})),')],
+      <_Tok>[
+        _Tok.plain('  header: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Profile'"),
+        _Tok.plain('),'),
+      ],
+      <_Tok>[
+        _Tok.plain('  children: <'),
+        _Tok.type('Widget'),
+        _Tok.plain('>['),
+      ],
+      <_Tok>[
+        _Tok.plain('    '),
+        _Tok.type('CupertinoListTile'),
+        _Tok.plain('(title: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Name'"),
+        _Tok.plain('), additionalInfo: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Alex'"),
+        _Tok.plain(')),'),
+      ],
+      <_Tok>[
+        _Tok.plain('    '),
+        _Tok.type('CupertinoFormRow'),
+        _Tok.plain('(prefix: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Email'"),
+        _Tok.plain('), child: '),
+        _Tok.type('CupertinoTextField'),
+        _Tok.plain('(placeholder: '),
+        _Tok.string("'name@host'"),
+        _Tok.plain(')),'),
+      ],
+      <_Tok>[
+        _Tok.plain('    '),
+        _Tok.type('CupertinoFormRow'),
+        _Tok.plain('(prefix: '),
+        _Tok.type('Text'),
+        _Tok.plain('('),
+        _Tok.string("'Notify'"),
+        _Tok.plain('), child: '),
+        _Tok.type('CupertinoSwitch'),
+        _Tok.plain('(value: '),
+        _Tok.keyword('true'),
+        _Tok.plain(', onChanged: (_) {})),'),
+      ],
       <_Tok>[_Tok.plain('  ],')],
       <_Tok>[_Tok.plain(');')],
     ],
@@ -1714,10 +2426,6 @@ dynamic build(BuildContext context) {
   print('Cupertino class tour deep visual demo build complete');
   return Directionality(
     textDirection: TextDirection.ltr,
-    child: MediaQuery(
-      data: const MediaQueryData(),
-      child: body,
-    ),
+    child: MediaQuery(data: const MediaQueryData(), child: body),
   );
 }
-

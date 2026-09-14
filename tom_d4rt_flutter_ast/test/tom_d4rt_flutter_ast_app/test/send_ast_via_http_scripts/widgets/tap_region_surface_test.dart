@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'What is TapRegionSurface?',
-      'body': 'TapRegionSurface is a SingleChildRenderObjectWidget that '
+      'body':
+          'TapRegionSurface is a SingleChildRenderObjectWidget that '
           'creates a RenderTapRegionSurface. It provides the "surface" '
           'on which TapRegion children register themselves. The surface '
           'intercepts all pointer-down events in its subtree to evaluate '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.widgets,
       'title': 'Automatic in MaterialApp',
-      'body': 'MaterialApp and WidgetsApp insert a TapRegionSurface '
+      'body':
+          'MaterialApp and WidgetsApp insert a TapRegionSurface '
           'near the root of the widget tree. This means you rarely '
           'need to add one yourself — your TapRegion widgets will '
           'find the surface automatically via the render tree.',
@@ -37,7 +39,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Surface vs TapRegion',
-      'body': 'TapRegionSurface is the host; TapRegion is the guest. '
+      'body':
+          'TapRegionSurface is the host; TapRegion is the guest. '
           'The surface collects all registered regions and performs '
           'hit testing. TapRegion defines the callbacks and group '
           'membership. You need at least one surface for TapRegion '
@@ -47,7 +50,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree,
       'title': 'Render Object Architecture',
-      'body': 'Under the hood, RenderTapRegionSurface is a RenderProxyBox '
+      'body':
+          'Under the hood, RenderTapRegionSurface is a RenderProxyBox '
           'that adds a tap-tracking layer. It does not change layout — '
           'it only observes pointer events. TapRegion render objects '
           'walk up the tree to find the nearest surface and register.',
@@ -126,7 +130,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'TapRegionSurface()',
       'type': 'Constructor',
-      'desc': 'Creates a tap region surface widget. Takes a required '
+      'desc':
+          'Creates a tap region surface widget. Takes a required '
           'child parameter and an optional behavior parameter. '
           'The child is the widget subtree that will contain '
           'TapRegion descendants.',
@@ -134,21 +139,24 @@ dynamic build(BuildContext context) {
     {
       'name': 'child',
       'type': 'Widget',
-      'desc': 'The widget below this one in the tree. All TapRegion '
+      'desc':
+          'The widget below this one in the tree. All TapRegion '
           'widgets within this subtree will register with this '
           'surface for tap detection.',
     },
     {
       'name': 'behavior',
       'type': 'HitTestBehavior',
-      'desc': 'How this surface participates in hit testing. Defaults '
+      'desc':
+          'How this surface participates in hit testing. Defaults '
           'to HitTestBehavior.deferToChild. Usually you do not need '
           'to change this.',
     },
     {
       'name': 'RenderTapRegionSurface',
       'type': 'RenderObject',
-      'desc': 'The render object created by TapRegionSurface. It is '
+      'desc':
+          'The render object created by TapRegionSurface. It is '
           'a RenderProxyBox that maintains a set of registered '
           'TapRegion render objects and evaluates pointer events '
           'against their bounds.',
@@ -156,14 +164,16 @@ dynamic build(BuildContext context) {
     {
       'name': 'registerTapRegion()',
       'type': 'Method (internal)',
-      'desc': 'Called automatically when a TapRegion render object is '
+      'desc':
+          'Called automatically when a TapRegion render object is '
           'inserted into the tree. Adds the region to the surface\'s '
           'tracking set. Not part of the public API.',
     },
     {
       'name': 'unregisterTapRegion()',
       'type': 'Method (internal)',
-      'desc': 'Called when a TapRegion render object is removed. Removes '
+      'desc':
+          'Called when a TapRegion render object is removed. Removes '
           'the region from the tracking set. Not public API.',
     },
   ];
@@ -251,11 +261,13 @@ dynamic build(BuildContext context) {
   final placementItems = <Map<String, dynamic>>[
     {
       'title': 'Root Level (Automatic)',
-      'desc': 'MaterialApp and WidgetsApp wrap their content in '
+      'desc':
+          'MaterialApp and WidgetsApp wrap their content in '
           'TapRegionSurface. This is the default — you get a surface '
           'for free. All TapRegion widgets in the app tree register '
           'with this root surface.',
-      'code': '// Already provided by MaterialApp:\n'
+      'code':
+          '// Already provided by MaterialApp:\n'
           'MaterialApp(\n'
           '  home: Scaffold(\n'
           '    body: TapRegion(\n'
@@ -270,11 +282,13 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Surface Scope',
-      'desc': 'Add your own TapRegionSurface to limit the scope of '
+      'desc':
+          'Add your own TapRegionSurface to limit the scope of '
           'tap detection. Regions inside this surface only see taps '
           'within the surface bounds — useful for embedded panels '
           'or modular components.',
-      'code': 'TapRegionSurface(\n'
+      'code':
+          'TapRegionSurface(\n'
           '  child: Column(\n'
           '    children: [\n'
           '      TapRegion(\n'
@@ -293,11 +307,13 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Overlay Entry Surface',
-      'desc': 'Overlay entries live outside the normal widget subtree, '
+      'desc':
+          'Overlay entries live outside the normal widget subtree, '
           'so they may not be descendants of the root surface. If '
           'your overlay needs TapRegion, you may need a second '
           'TapRegionSurface wrapping the overlay content.',
-      'code': '// In an OverlayEntry builder:\n'
+      'code':
+          '// In an OverlayEntry builder:\n'
           'OverlayEntry(\n'
           '  builder: (_) => TapRegionSurface(\n'
           '    child: TapRegion(\n'
@@ -398,7 +414,8 @@ dynamic build(BuildContext context) {
   final multiSurfaceInfo = <Map<String, dynamic>>[
     {
       'title': 'Nested Surfaces',
-      'desc': 'A TapRegion registers with its nearest ancestor surface. '
+      'desc':
+          'A TapRegion registers with its nearest ancestor surface. '
           'If you nest surfaces, inner TapRegions only see the inner '
           'surface. Outer TapRegions only see the outer surface. '
           'They operate independently.',
@@ -406,14 +423,16 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Sibling Surfaces',
-      'desc': 'Two sibling TapRegionSurface widgets create independent '
+      'desc':
+          'Two sibling TapRegionSurface widgets create independent '
           'scopes. A tap in surface A does not affect regions in '
           'surface B — they have separate registries.',
       'color': Colors.blue,
     },
     {
       'title': 'Use Cases for Multiple',
-      'desc': 'Multi-panel apps (e.g. split-view editors) might want '
+      'desc':
+          'Multi-panel apps (e.g. split-view editors) might want '
           'each panel to have its own surface. This way, dismissing '
           'a dropdown in one panel does not interfere with regions '
           'in the other panel.',
@@ -627,7 +646,8 @@ dynamic build(BuildContext context) {
   final behaviorItems = <Map<String, dynamic>>[
     {
       'title': 'HitTestBehavior.deferToChild',
-      'desc': 'The default. The surface only catches pointer events that '
+      'desc':
+          'The default. The surface only catches pointer events that '
           'hit a child widget. Blank areas within the surface bounds '
           'are transparent to hit testing.',
       'icon': Icons.child_care,
@@ -635,7 +655,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'HitTestBehavior.opaque',
-      'desc': 'The surface catches all pointer events within its bounds, '
+      'desc':
+          'The surface catches all pointer events within its bounds, '
           'even in blank areas. Use this if you want tapping empty '
           'space to trigger onTapOutside for all regions.',
       'icon': Icons.square,
@@ -643,7 +664,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'HitTestBehavior.translucent',
-      'desc': 'Like opaque, but the event also passes through to widgets '
+      'desc':
+          'Like opaque, but the event also passes through to widgets '
           'behind the surface. Rarely needed for TapRegionSurface.',
       'icon': Icons.opacity,
       'color': Colors.purple,
@@ -673,11 +695,7 @@ dynamic build(BuildContext context) {
                 color: biColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                bi['icon'] as IconData,
-                color: biColor,
-                size: 22,
-              ),
+              child: Icon(bi['icon'] as IconData, color: biColor, size: 22),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -718,11 +736,13 @@ dynamic build(BuildContext context) {
   final integrationItems = <Map<String, dynamic>>[
     {
       'title': 'TextField Integration',
-      'desc': 'Flutter TextField uses TapRegion internally to detect '
+      'desc':
+          'Flutter TextField uses TapRegion internally to detect '
           'taps outside the text field for unfocusing. The surface '
           'provided by MaterialApp makes this work without any extra '
           'setup from the developer.',
-      'code': '// TextField already uses TapRegion:\n'
+      'code':
+          '// TextField already uses TapRegion:\n'
           '// When you tap outside a focused TextField,\n'
           '// the FocusNode loses focus automatically.\n'
           'TextField(\n'
@@ -734,11 +754,13 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Autocomplete & Search',
-      'desc': 'The Autocomplete widget groups the text field and the '
+      'desc':
+          'The Autocomplete widget groups the text field and the '
           'suggestion list using a shared groupId. Tapping a suggestion '
           'is "inside" the group, so the suggestions stay visible. '
           'Tapping away dismisses them.',
-      'code': '// Autocomplete internally uses:\n'
+      'code':
+          '// Autocomplete internally uses:\n'
           'TapRegion(\n'
           '  groupId: _autocompleteGroup,\n'
           '  child: textField,\n'
@@ -751,10 +773,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'PopupMenuButton',
-      'desc': 'Material popup menus typically use a ModalRoute, but '
+      'desc':
+          'Material popup menus typically use a ModalRoute, but '
           'custom popup implementations can use TapRegionSurface + '
           'TapRegion for a lighter-weight approach without routes.',
-      'code': '// Lightweight popup without routes:\n'
+      'code':
+          '// Lightweight popup without routes:\n'
           'Stack(\n'
           '  children: [\n'
           '    mainContent,\n'
@@ -771,10 +795,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Custom Dropdown',
-      'desc': 'Build a custom dropdown by placing the trigger and the '
+      'desc':
+          'Build a custom dropdown by placing the trigger and the '
           'dropdown panel in the same TapRegion group. Use an Overlay '
           'or Stack to position the panel below the trigger.',
-      'code': '// Trigger and dropdown share groupId:\n'
+      'code':
+          '// Trigger and dropdown share groupId:\n'
           'TapRegion(\n'
           '  groupId: "dropdown_\$id",\n'
           '  child: triggerButton,\n'
@@ -857,7 +883,8 @@ dynamic build(BuildContext context) {
   final debugTopics = <Map<String, dynamic>>[
     {
       'title': 'No Surface in Ancestor Tree',
-      'desc': 'If a TapRegion cannot find a TapRegionSurface ancestor, '
+      'desc':
+          'If a TapRegion cannot find a TapRegionSurface ancestor, '
           'it will assert in debug mode. This typically happens when '
           'using TapRegion outside MaterialApp or in isolated overlay '
           'entries. Fix: wrap in TapRegionSurface.',
@@ -866,7 +893,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'onTapOutside Not Firing',
-      'desc': 'Check that the tap target is within the same surface scope. '
+      'desc':
+          'Check that the tap target is within the same surface scope. '
           'If the tap lands in a different TapRegionSurface subtree, '
           'the region in the original surface is not notified. Also '
           'check that groupId grouping is correct.',
@@ -875,7 +903,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Performance with Many Regions',
-      'desc': 'TapRegionSurface evaluates all registered regions on every '
+      'desc':
+          'TapRegionSurface evaluates all registered regions on every '
           'pointer-down event. With hundreds of regions, this can become '
           'a bottleneck. Use fewer surfaces or reduce the number of '
           'active TapRegion widgets.',
@@ -884,7 +913,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'consumeOutsideTaps Side Effects',
-      'desc': 'When consumeOutsideTaps is true, the event is eaten by '
+      'desc':
+          'When consumeOutsideTaps is true, the event is eaten by '
           'the surface. Other gesture detectors (buttons, sliders) '
           'will not receive the tap. Only use for truly modal cases.',
       'severity': 'warn',
@@ -918,8 +948,10 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: dtColor.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(4),
@@ -969,32 +1001,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.crop_square,
-      'text': 'TapRegionSurface creates a RenderTapRegionSurface that '
+      'text':
+          'TapRegionSurface creates a RenderTapRegionSurface that '
           'hosts all TapRegion registration.',
     },
     {
       'icon': Icons.widgets,
-      'text': 'MaterialApp provides a root surface automatically — you '
+      'text':
+          'MaterialApp provides a root surface automatically — you '
           'rarely need to add your own.',
     },
     {
       'icon': Icons.layers,
-      'text': 'Multiple surfaces create independent scopes; nested vs '
+      'text':
+          'Multiple surfaces create independent scopes; nested vs '
           'sibling surfaces have different isolation behaviors.',
     },
     {
       'icon': Icons.touch_app,
-      'text': 'The surface intercepts pointer-down events and evaluates '
+      'text':
+          'The surface intercepts pointer-down events and evaluates '
           'all registered regions to determine inside/outside.',
     },
     {
       'icon': Icons.settings,
-      'text': 'The behavior property controls hit testing; deferToChild '
+      'text':
+          'The behavior property controls hit testing; deferToChild '
           'is the default and best for most cases.',
     },
     {
       'icon': Icons.build,
-      'text': 'Framework widgets like TextField and Autocomplete use '
+      'text':
+          'Framework widgets like TextField and Autocomplete use '
           'TapRegion internally, relying on the surface.',
     },
   ];

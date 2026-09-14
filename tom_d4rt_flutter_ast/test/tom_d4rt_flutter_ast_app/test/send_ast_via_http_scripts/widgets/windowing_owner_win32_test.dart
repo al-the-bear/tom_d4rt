@@ -73,7 +73,8 @@ class HwndMirror {
   String toString() => '0x${address.toRadixString(16).padLeft(8, '0')}';
 
   @override
-  bool operator ==(Object other) => other is HwndMirror && other.address == address;
+  bool operator ==(Object other) =>
+      other is HwndMirror && other.address == address;
 
   @override
   int get hashCode => address.hashCode;
@@ -91,10 +92,12 @@ class RegularWindowControllerDelegateMirror {
   /// Optional veto predicate. When it returns true, the delegate refuses
   /// to destroy the window (mirrors the standard "unsaved changes" pattern
   /// app authors implement on top of the real delegate).
-  final bool Function(RegularWindowControllerWin32Mirror controller)? shouldVetoClose;
+  final bool Function(RegularWindowControllerWin32Mirror controller)?
+  shouldVetoClose;
 
   final void Function(RegularWindowControllerWin32Mirror controller)? onClose;
-  final void Function(RegularWindowControllerWin32Mirror controller)? onDestroyed;
+  final void Function(RegularWindowControllerWin32Mirror controller)?
+  onDestroyed;
 
   /// Mirror of `_window.dart:123 onWindowCloseRequested`.
   void onWindowCloseRequested(RegularWindowControllerWin32Mirror controller) {
@@ -168,7 +171,8 @@ class EventLogMirror extends ChangeNotifier {
 /// list of windows and an event log so the demo can render the lifecycle
 /// without touching native code.
 class WindowingOwnerWin32Mirror extends WindowingOwnerMirror {
-  WindowingOwnerWin32Mirror({EventLogMirror? log}) : _log = log ?? EventLogMirror() {
+  WindowingOwnerWin32Mirror({EventLogMirror? log})
+    : _log = log ?? EventLogMirror() {
     _log.add('WindowingOwnerWin32 constructed (mirror)');
   }
 
@@ -197,7 +201,8 @@ class WindowingOwnerWin32Mirror extends WindowingOwnerMirror {
       delegate: delegate,
       handle: _allocateHandle(),
       preferredSize: preferredSize ?? const Size(720, 480),
-      preferredConstraints: preferredConstraints ??
+      preferredConstraints:
+          preferredConstraints ??
           const BoxConstraints(minWidth: 320, minHeight: 240),
       title: title ?? 'Regular window',
     );
@@ -237,12 +242,12 @@ class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
     required Size preferredSize,
     required BoxConstraints preferredConstraints,
     required String title,
-  })  : _owner = owner,
-        _delegate = delegate,
-        _title = title,
-        _size = preferredSize,
-        _constraints = preferredConstraints,
-        super.empty();
+  }) : _owner = owner,
+       _delegate = delegate,
+       _title = title,
+       _size = preferredSize,
+       _constraints = preferredConstraints,
+       super.empty();
 
   final WindowingOwnerWin32Mirror _owner;
   final RegularWindowControllerDelegateMirror _delegate;
@@ -304,7 +309,10 @@ class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
   /// Win32-specific helper exposed via the mirror only — handy for sliders.
   void setMinimumSize(Size size) {
     _ensureLive();
-    _constraints = _constraints.copyWith(minWidth: size.width, minHeight: size.height);
+    _constraints = _constraints.copyWith(
+      minWidth: size.width,
+      minHeight: size.height,
+    );
     _owner._log.add('setMinimumSize $handle -> $size');
     _notify();
   }
@@ -312,7 +320,10 @@ class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
   /// Win32-specific helper exposed via the mirror only.
   void setMaximumSize(Size size) {
     _ensureLive();
-    _constraints = _constraints.copyWith(maxWidth: size.width, maxHeight: size.height);
+    _constraints = _constraints.copyWith(
+      maxWidth: size.width,
+      maxHeight: size.height,
+    );
     _owner._log.add('setMaximumSize $handle -> $size');
     _notify();
   }
@@ -357,7 +368,9 @@ class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
     if (maximized) {
       _minimized = false;
     }
-    _owner._log.add('ShowWindow ${maximized ? "SW_MAXIMIZE" : "SW_RESTORE"} $handle');
+    _owner._log.add(
+      'ShowWindow ${maximized ? "SW_MAXIMIZE" : "SW_RESTORE"} $handle',
+    );
     _notify();
   }
 
@@ -368,7 +381,9 @@ class RegularWindowControllerWin32Mirror extends RegularWindowControllerMirror {
     if (minimized) {
       _activated = false;
     }
-    _owner._log.add('ShowWindow ${minimized ? "SW_MINIMIZE" : "SW_RESTORE"} $handle');
+    _owner._log.add(
+      'ShowWindow ${minimized ? "SW_MINIMIZE" : "SW_RESTORE"} $handle',
+    );
     _notify();
   }
 
@@ -645,9 +660,14 @@ class _SectionCard extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[accent.withValues(alpha: 0.92), accent.withValues(alpha: 0.7)],
+                colors: <Color>[
+                  accent.withValues(alpha: 0.92),
+                  accent.withValues(alpha: 0.7),
+                ],
               ),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -657,23 +677,24 @@ class _SectionCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(title,
-                          style: _Type.sectionTitle.copyWith(color: Colors.white)),
+                      Text(
+                        title,
+                        style: _Type.sectionTitle.copyWith(color: Colors.white),
+                      ),
                       const SizedBox(height: 2),
-                      Text(subtitle,
-                          style: _Type.small.copyWith(
-                            color: const Color(0xFFE8EEF5),
-                          )),
+                      Text(
+                        subtitle,
+                        style: _Type.small.copyWith(
+                          color: const Color(0xFFE8EEF5),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(18),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(18), child: child),
         ],
       ),
     );
@@ -713,8 +734,10 @@ class _Pill extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
-      child: Text(label,
-          style: _Type.small.copyWith(color: color, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: _Type.small.copyWith(color: color, fontWeight: FontWeight.w600),
+      ),
     );
   }
 }
@@ -792,7 +815,10 @@ class _CaptionBar extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: active
-              ? const <Color>[_Palette.chromeActiveTop, _Palette.chromeActiveBottom]
+              ? const <Color>[
+                  _Palette.chromeActiveTop,
+                  _Palette.chromeActiveBottom,
+                ]
               : const <Color>[_Palette.chromeInactive, Color(0xFF8F9BA8)],
         ),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(5)),
@@ -820,7 +846,9 @@ class _CaptionBar extends StatelessWidget {
             onTap: () => controller.setMinimized(!controller.isMinimized),
           ),
           _CaptionButton(
-            icon: controller.isMaximized ? Icons.filter_none : Icons.crop_square,
+            icon: controller.isMaximized
+                ? Icons.filter_none
+                : Icons.crop_square,
             onTap: () => controller.setMaximized(!controller.isMaximized),
           ),
           _CaptionButton(
@@ -835,7 +863,11 @@ class _CaptionBar extends StatelessWidget {
 }
 
 class _CaptionButton extends StatefulWidget {
-  const _CaptionButton({required this.icon, required this.onTap, this.danger = false});
+  const _CaptionButton({
+    required this.icon,
+    required this.onTap,
+    this.danger = false,
+  });
   final IconData icon;
   final VoidCallback onTap;
   final bool danger;
@@ -849,8 +881,9 @@ class _CaptionButtonState extends State<_CaptionButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color hoverColor =
-        widget.danger ? _Palette.accentRed : Colors.white.withValues(alpha: 0.18);
+    final Color hoverColor = widget.danger
+        ? _Palette.accentRed
+        : Colors.white.withValues(alpha: 0.18);
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),
       onExit: (_) => setState(() => _hover = false),
@@ -883,15 +916,22 @@ class _MenuStrip extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          for (final String label in const <String>['File', 'Edit', 'View', 'Help'])
+          for (final String label in const <String>[
+            'File',
+            'Edit',
+            'View',
+            'Help',
+          ])
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: Text(label, style: _Type.small),
             ),
           const Spacer(),
-          Text('${controller.contentSize.width.toStringAsFixed(0)} × '
-              '${controller.contentSize.height.toStringAsFixed(0)}',
-              style: _Type.small.copyWith(color: _Palette.textMuted)),
+          Text(
+            '${controller.contentSize.width.toStringAsFixed(0)} × '
+            '${controller.contentSize.height.toStringAsFixed(0)}',
+            style: _Type.small.copyWith(color: _Palette.textMuted),
+          ),
         ],
       ),
     );
@@ -923,10 +963,15 @@ class _StatusBar extends StatelessWidget {
           Text('HWND ${controller.handle}', style: _Type.small),
           const SizedBox(width: 12),
           if (tags.isNotEmpty)
-            Text(tags.join(' · '),
-                style: _Type.small.copyWith(color: _Palette.accentBlue)),
+            Text(
+              tags.join(' · '),
+              style: _Type.small.copyWith(color: _Palette.accentBlue),
+            ),
           const Spacer(),
-          Text('Win32 mirror', style: _Type.small.copyWith(color: _Palette.textMuted)),
+          Text(
+            'Win32 mirror',
+            style: _Type.small.copyWith(color: _Palette.textMuted),
+          ),
         ],
       ),
     );
@@ -938,7 +983,11 @@ class _StatusBar extends StatelessWidget {
 // =============================================================================
 
 class _HeroSection extends StatelessWidget {
-  const _HeroSection({required this.platform, required this.live, required this.owner});
+  const _HeroSection({
+    required this.platform,
+    required this.live,
+    required this.owner,
+  });
   final TargetPlatform platform;
   final bool live;
   final WindowingOwnerWin32Mirror owner;
@@ -979,7 +1028,10 @@ class _HeroSection extends StatelessWidget {
               ),
               const _Pill(label: '@internal', color: _Palette.accentAmber),
               const SizedBox(width: 6),
-              const _Pill(label: 'isWindowingEnabled', color: _Palette.accentTeal),
+              const _Pill(
+                label: 'isWindowingEnabled',
+                color: _Palette.accentTeal,
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -1031,9 +1083,9 @@ class _PlatformBanner extends StatelessWidget {
     final Color tint = live ? _Palette.accentGreen : _Palette.accentAmber;
     final String text = live
         ? 'Running on Windows — `WindowingOwnerWin32` would be the real native '
-            'owner here. The demo still uses the local mirror so it stays self-contained.'
+              'owner here. The demo still uses the local mirror so it stays self-contained.'
         : 'this would only run live on Windows — currently demoing the chrome '
-            'on $_platformName';
+              'on $_platformName';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
@@ -1043,12 +1095,17 @@ class _PlatformBanner extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Icon(live ? Icons.check_circle_outline : Icons.info_outline,
-              size: 18, color: Colors.white),
+          Icon(
+            live ? Icons.check_circle_outline : Icons.info_outline,
+            size: 18,
+            color: Colors.white,
+          ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(text,
-                style: _Type.small.copyWith(color: Colors.white, height: 1.45)),
+            child: Text(
+              text,
+              style: _Type.small.copyWith(color: Colors.white, height: 1.45),
+            ),
           ),
         ],
       ),
@@ -1107,8 +1164,14 @@ abstract class WindowingOwner {                       // _window.dart:905
             spacing: 8,
             runSpacing: 8,
             children: const <Widget>[
-              _Pill(label: 'extends WindowingOwner', color: _Palette.accentBlue),
-              _Pill(label: 'returns RegularWindowControllerWin32', color: _Palette.accentTeal),
+              _Pill(
+                label: 'extends WindowingOwner',
+                color: _Palette.accentBlue,
+              ),
+              _Pill(
+                label: 'returns RegularWindowControllerWin32',
+                color: _Palette.accentTeal,
+              ),
               _Pill(label: 'uses CoTaskMemAlloc', color: _Palette.accentAmber),
               _Pill(label: 'FFI native callbacks', color: _Palette.accentRed),
             ],
@@ -1182,13 +1245,16 @@ class _OwnerInstantiationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final WindowingOwnerWin32Mirror localOwner = owner;
     final WindowingOwnerMirror baseOwner = localOwner;
-    final List<WindowingOwnerWin32Mirror> owners = <WindowingOwnerWin32Mirror>[localOwner];
+    final List<WindowingOwnerWin32Mirror> owners = <WindowingOwnerWin32Mirror>[
+      localOwner,
+    ];
     final Map<String, WindowingOwnerWin32Mirror> registry =
         <String, WindowingOwnerWin32Mirror>{'primary': localOwner};
 
     return _SectionCard(
       title: 'Live owner instantiation',
-      subtitle: 'WindowingOwnerWin32 used as a value, a base type, and a generic argument.',
+      subtitle:
+          'WindowingOwnerWin32 used as a value, a base type, and a generic argument.',
       icon: Icons.power_settings_new,
       accent: _Palette.accentGreen,
       child: Column(
@@ -1232,10 +1298,12 @@ class _ControllerLifecycleSection extends StatefulWidget {
   final WindowingOwnerWin32Mirror owner;
 
   @override
-  State<_ControllerLifecycleSection> createState() => _ControllerLifecycleSectionState();
+  State<_ControllerLifecycleSection> createState() =>
+      _ControllerLifecycleSectionState();
 }
 
-class _ControllerLifecycleSectionState extends State<_ControllerLifecycleSection> {
+class _ControllerLifecycleSectionState
+    extends State<_ControllerLifecycleSection> {
   RegularWindowControllerWin32Mirror? _controller;
 
   @override
@@ -1261,7 +1329,8 @@ class _ControllerLifecycleSectionState extends State<_ControllerLifecycleSection
     final RegularWindowControllerWin32Mirror? c = _controller;
     return _SectionCard(
       title: 'Controller lifecycle',
-      subtitle: 'create → activate → deactivate → destroy on a real mirror controller.',
+      subtitle:
+          'create → activate → deactivate → destroy on a real mirror controller.',
       icon: Icons.refresh,
       accent: _Palette.accentBlue,
       child: Column(
@@ -1306,8 +1375,10 @@ class _ControllerLifecycleSectionState extends State<_ControllerLifecycleSection
                 color: _Palette.panelStroke.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Text('No controller. Press "create" to spawn one.',
-                  style: _Type.small),
+              child: const Text(
+                'No controller. Press "create" to spawn one.',
+                style: _Type.small,
+              ),
             )
           else
             _Win32WindowChrome(
@@ -1334,7 +1405,8 @@ class _ResizePlaygroundSection extends StatefulWidget {
   final RegularWindowControllerWin32Mirror controller;
 
   @override
-  State<_ResizePlaygroundSection> createState() => _ResizePlaygroundSectionState();
+  State<_ResizePlaygroundSection> createState() =>
+      _ResizePlaygroundSectionState();
 }
 
 class _ResizePlaygroundSectionState extends State<_ResizePlaygroundSection> {
@@ -1382,8 +1454,9 @@ class _ResizePlaygroundSectionState extends State<_ResizePlaygroundSection> {
                 value: c.maxWidth.isFinite ? c.maxWidth : 1600,
                 min: 400,
                 max: 2400,
-                onChanged: (double v) =>
-                    widget.controller.setMaximumSize(Size(v, c.maxHeight.isFinite ? c.maxHeight : 1600)),
+                onChanged: (double v) => widget.controller.setMaximumSize(
+                  Size(v, c.maxHeight.isFinite ? c.maxHeight : 1600),
+                ),
               ),
               const SizedBox(height: 8),
               _Win32WindowChrome(
@@ -1430,8 +1503,12 @@ class _SliderRow extends StatelessWidget {
       child: Row(
         children: <Widget>[
           SizedBox(
-              width: 90,
-              child: Text(label, style: _Type.body.copyWith(fontWeight: FontWeight.w500))),
+            width: 90,
+            child: Text(
+              label,
+              style: _Type.body.copyWith(fontWeight: FontWeight.w500),
+            ),
+          ),
           Expanded(
             child: Slider(
               value: clamped,
@@ -1442,8 +1519,11 @@ class _SliderRow extends StatelessWidget {
           ),
           SizedBox(
             width: 70,
-            child: Text(clamped.toStringAsFixed(0),
-                textAlign: TextAlign.right, style: _Type.small),
+            child: Text(
+              clamped.toStringAsFixed(0),
+              textAlign: TextAlign.right,
+              style: _Type.small,
+            ),
           ),
         ],
       ),
@@ -1486,7 +1566,10 @@ class _MaximizeRestoreSection extends StatelessWidget {
                     label: const Text('SW_RESTORE'),
                   ),
                   const SizedBox(width: 14),
-                  Text('isMaximized = ${controller.isMaximized}', style: _Type.body),
+                  Text(
+                    'isMaximized = ${controller.isMaximized}',
+                    style: _Type.body,
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -1558,11 +1641,15 @@ class _MinimizeSection extends StatelessWidget {
                     children: <Widget>[
                       const Icon(Icons.window, color: Colors.white, size: 16),
                       const SizedBox(width: 8),
-                      Text(controller.title,
-                          style: _Type.small.copyWith(color: Colors.white)),
+                      Text(
+                        controller.title,
+                        style: _Type.small.copyWith(color: Colors.white),
+                      ),
                       const Spacer(),
-                      Text('TASKBAR ENTRY',
-                          style: _Type.caption.copyWith(color: Colors.white70)),
+                      Text(
+                        'TASKBAR ENTRY',
+                        style: _Type.caption.copyWith(color: Colors.white70),
+                      ),
                     ],
                   ),
                 )
@@ -1570,8 +1657,10 @@ class _MinimizeSection extends StatelessWidget {
                 _Win32WindowChrome(
                   controller: controller,
                   body: const Center(
-                    child: Text('Press SW_MINIMIZE — I will collapse to the taskbar.',
-                        style: _Type.body),
+                    child: Text(
+                      'Press SW_MINIMIZE — I will collapse to the taskbar.',
+                      style: _Type.body,
+                    ),
                   ),
                 ),
             ],
@@ -1606,15 +1695,24 @@ class _FullscreenSection extends StatelessWidget {
               Row(
                 children: <Widget>[
                   ElevatedButton.icon(
-                    onPressed: () => controller.setFullscreen(!controller.isFullscreen),
-                    icon: Icon(controller.isFullscreen
-                        ? Icons.fullscreen_exit
-                        : Icons.fullscreen),
-                    label:
-                        Text(controller.isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'),
+                    onPressed: () =>
+                        controller.setFullscreen(!controller.isFullscreen),
+                    icon: Icon(
+                      controller.isFullscreen
+                          ? Icons.fullscreen_exit
+                          : Icons.fullscreen,
+                    ),
+                    label: Text(
+                      controller.isFullscreen
+                          ? 'Exit fullscreen'
+                          : 'Enter fullscreen',
+                    ),
                   ),
                   const SizedBox(width: 14),
-                  Text('isFullscreen = ${controller.isFullscreen}', style: _Type.body),
+                  Text(
+                    'isFullscreen = ${controller.isFullscreen}',
+                    style: _Type.body,
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -1698,7 +1796,10 @@ class _CloseDelegateSectionState extends State<_CloseDelegateSection> {
                 onChanged: (bool v) => setState(() => _unsavedChanges = v),
               ),
               const SizedBox(width: 8),
-              const Text('Has unsaved changes (close vetoed)', style: _Type.body),
+              const Text(
+                'Has unsaved changes (close vetoed)',
+                style: _Type.body,
+              ),
               const Spacer(),
               if (c == null)
                 ElevatedButton(onPressed: _spawn, child: const Text('Respawn'))
@@ -1746,7 +1847,8 @@ class _MultiWindowSectionState extends State<_MultiWindowSection> {
 
   void _setLayout(String l) {
     setState(() => _layout = l);
-    final List<RegularWindowControllerWin32Mirror> windows = widget.owner.windows;
+    final List<RegularWindowControllerWin32Mirror> windows =
+        widget.owner.windows;
     for (int i = 0; i < windows.length; i++) {
       final RegularWindowControllerWin32Mirror w = windows[i];
       switch (l) {
@@ -1930,19 +2032,27 @@ class _MiniWindow extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 6),
                   decoration: BoxDecoration(
                     color: a ? _Palette.accentBlue : _Palette.chromeInactive,
-                    borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(3),
+                    ),
                   ),
                   child: Row(
                     children: <Widget>[
                       Expanded(
-                        child: Text(controller.title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: _Type.caption.copyWith(color: Colors.white)),
+                        child: Text(
+                          controller.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: _Type.caption.copyWith(color: Colors.white),
+                        ),
                       ),
                       const Icon(Icons.minimize, size: 10, color: Colors.white),
                       const SizedBox(width: 6),
-                      const Icon(Icons.crop_square, size: 10, color: Colors.white),
+                      const Icon(
+                        Icons.crop_square,
+                        size: 10,
+                        color: Colors.white,
+                      ),
                       const SizedBox(width: 6),
                       const Icon(Icons.close, size: 10, color: Colors.white),
                     ],
@@ -1952,7 +2062,10 @@ class _MiniWindow extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     alignment: Alignment.center,
-                    child: Text('HWND ${controller.handle}', style: _Type.small),
+                    child: Text(
+                      'HWND ${controller.handle}',
+                      style: _Type.small,
+                    ),
                   ),
                 ),
               ],
@@ -1987,8 +2100,10 @@ class _TaskbarStrip extends StatelessWidget {
               for (final RegularWindowControllerWin32Mirror w in owner.windows)
                 _TaskbarEntry(controller: w),
               const Spacer(),
-              Text(TimeOfDay.now().format(context),
-                  style: _Type.caption.copyWith(color: Colors.white70)),
+              Text(
+                TimeOfDay.now().format(context),
+                style: _Type.caption.copyWith(color: Colors.white70),
+              ),
               const SizedBox(width: 6),
             ],
           );
@@ -2145,7 +2260,8 @@ class _RecipeGallerySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SectionCard(
       title: 'Recipe gallery',
-      subtitle: 'Hand-rolled patterns built on the WindowingOwnerWin32 surface.',
+      subtitle:
+          'Hand-rolled patterns built on the WindowingOwnerWin32 surface.',
       icon: Icons.menu_book_outlined,
       accent: _Palette.accentTeal,
       child: Column(
@@ -2163,8 +2279,10 @@ class _RecipeGallerySection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text(r.title,
-                      style: _Type.body.copyWith(fontWeight: FontWeight.w600)),
+                  Text(
+                    r.title,
+                    style: _Type.body.copyWith(fontWeight: FontWeight.w600),
+                  ),
                   const SizedBox(height: 4),
                   Text(r.description, style: _Type.small),
                   const SizedBox(height: 8),
@@ -2239,15 +2357,22 @@ class _PitfallsSection extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Icon(Icons.error_outline,
-                      size: 16, color: _Palette.accentRed),
+                  const Icon(
+                    Icons.error_outline,
+                    size: 16,
+                    color: _Palette.accentRed,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(p[0],
-                            style: _Type.body.copyWith(fontWeight: FontWeight.w600)),
+                        Text(
+                          p[0],
+                          style: _Type.body.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                         const SizedBox(height: 2),
                         Text(p[1], style: _Type.small),
                       ],
@@ -2268,35 +2393,65 @@ class _PitfallsSection extends StatelessWidget {
 
 class _ReferenceTableSection extends StatelessWidget {
   static const List<List<String>> _rows = <List<String>>[
-    <String>['WindowingOwnerWin32()',
-        'allocator = _CallocAllocator()', 'Sets up FFI, registers _onMessage'],
-    <String>['createRegularWindowController(...)',
-        'RegularWindowControllerWin32', 'Owner factory used by RegularWindow'],
-    <String>['createDialogWindowController(...)',
-        'DialogWindowControllerWin32', 'Modal-ish dialog with optional parent'],
-    <String>['_addMessageHandler / _removeMessageHandler',
-        '—', 'Internal pump fan-out'],
-    <String>['controller.setSize(Size)',
-        '—', 'WM_SIZE → notifyListeners()'],
-    <String>['controller.setConstraints(BoxConstraints)',
-        '—', 'Re-applies min/max'],
-    <String>['controller.setMaximized(bool)',
-        '—', 'ShowWindow(SW_MAXIMIZE / SW_RESTORE)'],
-    <String>['controller.setMinimized(bool)',
-        '—', 'ShowWindow(SW_MINIMIZE / SW_RESTORE)'],
-    <String>['controller.setFullscreen(bool, {Display? display})',
-        '—', 'SetFullscreen on requested monitor'],
-    <String>['controller.activate()',
-        '—', 'ShowWindow(SW_RESTORE) + bring to top'],
-    <String>['controller.destroy()',
-        '—', 'DestroyWindow + delegate.onWindowDestroyed'],
+    <String>[
+      'WindowingOwnerWin32()',
+      'allocator = _CallocAllocator()',
+      'Sets up FFI, registers _onMessage',
+    ],
+    <String>[
+      'createRegularWindowController(...)',
+      'RegularWindowControllerWin32',
+      'Owner factory used by RegularWindow',
+    ],
+    <String>[
+      'createDialogWindowController(...)',
+      'DialogWindowControllerWin32',
+      'Modal-ish dialog with optional parent',
+    ],
+    <String>[
+      '_addMessageHandler / _removeMessageHandler',
+      '—',
+      'Internal pump fan-out',
+    ],
+    <String>['controller.setSize(Size)', '—', 'WM_SIZE → notifyListeners()'],
+    <String>[
+      'controller.setConstraints(BoxConstraints)',
+      '—',
+      'Re-applies min/max',
+    ],
+    <String>[
+      'controller.setMaximized(bool)',
+      '—',
+      'ShowWindow(SW_MAXIMIZE / SW_RESTORE)',
+    ],
+    <String>[
+      'controller.setMinimized(bool)',
+      '—',
+      'ShowWindow(SW_MINIMIZE / SW_RESTORE)',
+    ],
+    <String>[
+      'controller.setFullscreen(bool, {Display? display})',
+      '—',
+      'SetFullscreen on requested monitor',
+    ],
+    <String>[
+      'controller.activate()',
+      '—',
+      'ShowWindow(SW_RESTORE) + bring to top',
+    ],
+    <String>[
+      'controller.destroy()',
+      '—',
+      'DestroyWindow + delegate.onWindowDestroyed',
+    ],
   ];
 
   @override
   Widget build(BuildContext context) {
     return _SectionCard(
       title: 'Reference table',
-      subtitle: 'Method · return · effect (cite-by-line in _window_win32.dart).',
+      subtitle:
+          'Method · return · effect (cite-by-line in _window_win32.dart).',
       icon: Icons.table_chart_outlined,
       accent: _Palette.accentBlue,
       child: Column(
@@ -2307,17 +2462,26 @@ class _ReferenceTableSection extends StatelessWidget {
             child: Row(
               children: const <Widget>[
                 Expanded(
-                    flex: 4,
-                    child: Text('member',
-                        style: TextStyle(fontWeight: FontWeight.w700))),
+                  flex: 4,
+                  child: Text(
+                    'member',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
                 Expanded(
-                    flex: 3,
-                    child: Text('returns',
-                        style: TextStyle(fontWeight: FontWeight.w700))),
+                  flex: 3,
+                  child: Text(
+                    'returns',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
                 Expanded(
-                    flex: 5,
-                    child: Text('effect',
-                        style: TextStyle(fontWeight: FontWeight.w700))),
+                  flex: 5,
+                  child: Text(
+                    'effect',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                ),
               ],
             ),
           ),
@@ -2368,9 +2532,11 @@ class _EventLogSection extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text('${log.entries.length} message'
-                      '${log.entries.length == 1 ? '' : 's'}',
-                      style: _Type.body),
+                  Text(
+                    '${log.entries.length} message'
+                    '${log.entries.length == 1 ? '' : 's'}',
+                    style: _Type.body,
+                  ),
                   const Spacer(),
                   TextButton.icon(
                     onPressed: log.clear,
@@ -2394,10 +2560,10 @@ class _EventLogSection extends StatelessWidget {
                     final String entry = tail[tail.length - 1 - i];
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 1),
-                      child: Text(entry,
-                          style: _Type.code.copyWith(
-                            color: _Palette.codeAccent,
-                          )),
+                      child: Text(
+                        entry,
+                        style: _Type.code.copyWith(color: _Palette.codeAccent),
+                      ),
                     );
                   },
                 ),

@@ -30,7 +30,11 @@ Widget _alSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _alLightPurple, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Color(0x1A4527A0), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x1A4527A0),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -42,9 +46,14 @@ Widget _alSection(String title, List<Widget> children) {
             color: _alPurple,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _alWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _alWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -56,17 +65,24 @@ Widget _alSection(String title, List<Widget> children) {
 Widget _alLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _alDarkPurple, fontSize: 13, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _alDarkPurple,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _alBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _alGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _alGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -79,8 +95,10 @@ Widget _alChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(label,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -92,13 +110,20 @@ Widget _alInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 140,
-          child: Text(key,
-              style: const TextStyle(
-                  color: _alDarkPurple, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: _alDarkPurple,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: const TextStyle(color: _alGray, fontSize: 12)),
+          child: Text(
+            value,
+            style: const TextStyle(color: _alGray, fontSize: 12),
+          ),
         ),
       ],
     ),
@@ -176,17 +201,26 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(color: Color(0x404527A0), blurRadius: 12, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x404527A0),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.keyboard_double_arrow_down, size: 52, color: _alWhite),
         const SizedBox(height: 12),
-        const Text('AutocompleteLastOptionIntent',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: _alWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+        const Text(
+          'AutocompleteLastOptionIntent',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _alWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -286,9 +320,12 @@ Widget _buildAutocompleteSystem() {
       ),
       child: Column(
         children: [
-          _buildComponentBox('Autocomplete<T>',
-              'Top-level widget, manages state and keyboard intents',
-              _alPurple, Icons.auto_awesome),
+          _buildComponentBox(
+            'Autocomplete<T>',
+            'Top-level widget, manages state and keyboard intents',
+            _alPurple,
+            Icons.auto_awesome,
+          ),
           const SizedBox(height: 6),
           Row(
             children: [
@@ -296,21 +333,33 @@ Widget _buildAutocompleteSystem() {
               Expanded(
                 child: Column(
                   children: [
-                    _buildComponentBox('fieldViewBuilder',
-                        'The text input field (usually TextField)',
-                        _alMedPurple, Icons.text_fields),
+                    _buildComponentBox(
+                      'fieldViewBuilder',
+                      'The text input field (usually TextField)',
+                      _alMedPurple,
+                      Icons.text_fields,
+                    ),
                     const SizedBox(height: 6),
-                    _buildComponentBox('optionsViewBuilder',
-                        'Dropdown/overlay showing matching options',
-                        _alAccentBlue, Icons.list),
+                    _buildComponentBox(
+                      'optionsViewBuilder',
+                      'Dropdown/overlay showing matching options',
+                      _alAccentBlue,
+                      Icons.list,
+                    ),
                     const SizedBox(height: 6),
-                    _buildComponentBox('optionsBuilder',
-                        'Function that filters options from query text',
-                        _alAccentTeal, Icons.filter_list),
+                    _buildComponentBox(
+                      'optionsBuilder',
+                      'Function that filters options from query text',
+                      _alAccentTeal,
+                      Icons.filter_list,
+                    ),
                     const SizedBox(height: 6),
-                    _buildComponentBox('onSelected',
-                        'Callback when user picks an option',
-                        _alAccentGreen, Icons.check_circle),
+                    _buildComponentBox(
+                      'onSelected',
+                      'Callback when user picks an option',
+                      _alAccentGreen,
+                      Icons.check_circle,
+                    ),
                   ],
                 ),
               ),
@@ -329,7 +378,11 @@ Widget _buildAutocompleteSystem() {
 }
 
 Widget _buildComponentBox(
-    String name, String desc, Color color, IconData icon) {
+  String name,
+  String desc,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -345,11 +398,18 @@ Widget _buildComponentBox(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _alGray, fontSize: 10.5)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(color: _alGray, fontSize: 10.5),
+              ),
             ],
           ),
         ),
@@ -369,17 +429,29 @@ Widget _buildIntentActionArchitecture() {
       'AutocompleteLastOptionIntent is an Intent:',
     ),
     _alDivider(),
-    _buildArchLayer('Shortcuts', 'Maps key combinations to Intents',
-        'Ctrl+End → AutocompleteLastOptionIntent',
-        Icons.keyboard, _alPurple),
+    _buildArchLayer(
+      'Shortcuts',
+      'Maps key combinations to Intents',
+      'Ctrl+End → AutocompleteLastOptionIntent',
+      Icons.keyboard,
+      _alPurple,
+    ),
     _buildArchArrow(),
-    _buildArchLayer('Intents', 'Semantic description of user action',
-        'AutocompleteLastOptionIntent()',
-        Icons.description, _alMedPurple),
+    _buildArchLayer(
+      'Intents',
+      'Semantic description of user action',
+      'AutocompleteLastOptionIntent()',
+      Icons.description,
+      _alMedPurple,
+    ),
     _buildArchArrow(),
-    _buildArchLayer('Actions', 'Handlers that execute the intent',
-        'Autocomplete registers the handler internally',
-        Icons.play_arrow, _alAccentGreen),
+    _buildArchLayer(
+      'Actions',
+      'Handlers that execute the intent',
+      'Autocomplete registers the handler internally',
+      Icons.play_arrow,
+      _alAccentGreen,
+    ),
     _alDivider(),
     _alLabel('Why This Layering?'),
     _alBody(
@@ -392,7 +464,12 @@ Widget _buildIntentActionArchitecture() {
 }
 
 Widget _buildArchLayer(
-    String name, String desc, String example, IconData icon, Color color) {
+  String name,
+  String desc,
+  String example,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -409,11 +486,15 @@ Widget _buildArchLayer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 13, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _alGray, fontSize: 11)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _alGray, fontSize: 11)),
               const SizedBox(height: 3),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -421,9 +502,14 @@ Widget _buildArchLayer(
                   color: color.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Text(example,
-                    style: TextStyle(
-                        color: color, fontSize: 10, fontFamily: 'monospace')),
+                child: Text(
+                  example,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
             ],
           ),
@@ -496,20 +582,35 @@ Widget _buildAllAutocompleteIntents() {
             children: [
               Icon(Icons.vertical_align_top, size: 14, color: _alAccentOrange),
               SizedBox(width: 4),
-              Text('First', style: TextStyle(color: _alAccentOrange, fontSize: 10)),
+              Text(
+                'First',
+                style: TextStyle(color: _alAccentOrange, fontSize: 10),
+              ),
               SizedBox(width: 20),
               Icon(Icons.keyboard_arrow_up, size: 14, color: _alAccentTeal),
               SizedBox(width: 4),
-              Text('Previous', style: TextStyle(color: _alAccentTeal, fontSize: 10)),
+              Text(
+                'Previous',
+                style: TextStyle(color: _alAccentTeal, fontSize: 10),
+              ),
               SizedBox(width: 20),
               Icon(Icons.keyboard_arrow_down, size: 14, color: _alAccentBlue),
               SizedBox(width: 4),
-              Text('Next', style: TextStyle(color: _alAccentBlue, fontSize: 10)),
+              Text(
+                'Next',
+                style: TextStyle(color: _alAccentBlue, fontSize: 10),
+              ),
               SizedBox(width: 20),
               Icon(Icons.vertical_align_bottom, size: 14, color: _alPurple),
               SizedBox(width: 4),
-              Text('Last ★', style: TextStyle(color: _alPurple, fontSize: 10,
-                  fontWeight: FontWeight.w700)),
+              Text(
+                'Last ★',
+                style: TextStyle(
+                  color: _alPurple,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ],
@@ -519,7 +620,12 @@ Widget _buildAllAutocompleteIntents() {
 }
 
 Widget _buildIntentCard(
-    String name, String desc, IconData icon, Color color, bool highlight) {
+  String name,
+  String desc,
+  IconData icon,
+  Color color,
+  bool highlight,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -539,11 +645,15 @@ Widget _buildIntentCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _alGray, fontSize: 11)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _alGray, fontSize: 11)),
             ],
           ),
         ),
@@ -563,9 +673,21 @@ Widget _buildKeyboardNavigation() {
       'Autocomplete widget:',
     ),
     _alDivider(),
-    _buildKeyMapping('↓ Arrow Down', 'AutocompleteNextOptionIntent', _alAccentBlue),
-    _buildKeyMapping('↑ Arrow Up', 'AutocompletePreviousOptionIntent', _alAccentTeal),
-    _buildKeyMapping('Ctrl + Home', 'AutocompleteFirstOptionIntent', _alAccentOrange),
+    _buildKeyMapping(
+      '↓ Arrow Down',
+      'AutocompleteNextOptionIntent',
+      _alAccentBlue,
+    ),
+    _buildKeyMapping(
+      '↑ Arrow Up',
+      'AutocompletePreviousOptionIntent',
+      _alAccentTeal,
+    ),
+    _buildKeyMapping(
+      'Ctrl + Home',
+      'AutocompleteFirstOptionIntent',
+      _alAccentOrange,
+    ),
     _buildKeyMapping('Ctrl + End', 'AutocompleteLastOptionIntent ★', _alPurple),
     _buildKeyMapping('Enter', 'Select highlighted option', _alAccentGreen),
     _buildKeyMapping('Escape', 'Close the options overlay', _alAccentRed),
@@ -582,11 +704,20 @@ Widget _buildKeyboardNavigation() {
             ),
             child: Column(
               children: [
-                const Icon(Icons.desktop_windows, size: 18, color: _alAccentBlue),
+                const Icon(
+                  Icons.desktop_windows,
+                  size: 18,
+                  color: _alAccentBlue,
+                ),
                 const SizedBox(height: 4),
-                const Text('Desktop',
-                    style: TextStyle(color: _alAccentBlue, fontSize: 11,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'Desktop',
+                  style: TextStyle(
+                    color: _alAccentBlue,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _alBody('Full keyboard\nnavigation\nCtrl+Home/End'),
               ],
@@ -605,9 +736,14 @@ Widget _buildKeyboardNavigation() {
               children: [
                 const Icon(Icons.phone_android, size: 18, color: _alAccentTeal),
                 const SizedBox(height: 4),
-                const Text('Mobile',
-                    style: TextStyle(color: _alAccentTeal, fontSize: 11,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'Mobile',
+                  style: TextStyle(
+                    color: _alAccentTeal,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _alBody('Touch-first\nSoft keyboard limited\nScroll to select'),
               ],
@@ -626,9 +762,14 @@ Widget _buildKeyboardNavigation() {
               children: [
                 const Icon(Icons.web, size: 18, color: _alPurple),
                 const SizedBox(height: 4),
-                const Text('Web',
-                    style: TextStyle(color: _alPurple, fontSize: 11,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'Web',
+                  style: TextStyle(
+                    color: _alPurple,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 _alBody('Keyboard +\ntouch support\nBrowser shortcuts'),
               ],
@@ -653,19 +794,29 @@ Widget _buildKeyMapping(String keys, String intent, Color color) {
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: _alLightPurple.withValues(alpha: 0.3)),
           ),
-          child: Text(keys,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: _alDarkPurple, fontSize: 11,
-                  fontWeight: FontWeight.w600, fontFamily: 'monospace')),
+          child: Text(
+            keys,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _alDarkPurple,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         const Icon(Icons.arrow_forward, size: 12, color: _alLightPurple),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(intent,
-              style: TextStyle(
-                  color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+          child: Text(
+            intent,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     ),
@@ -683,18 +834,42 @@ Widget _buildOptionSelectionFlow() {
       'exactly what happens:',
     ),
     _alDivider(),
-    _buildFlowStep(1, 'Key event captured',
-        'Shortcuts widget receives Ctrl+End keystroke', _alPurple),
-    _buildFlowStep(2, 'Intent dispatched',
-        'AutocompleteLastOptionIntent() created', _alMedPurple),
-    _buildFlowStep(3, 'Action invoked',
-        'Autocomplete\'s registered Action receives the intent', _alAccentBlue),
-    _buildFlowStep(4, 'Index updated',
-        'Highlighted option index set to options.length - 1', _alAccentTeal),
-    _buildFlowStep(5, 'UI rebuilt',
-        'optionsViewBuilder called with new highlighted index', _alAccentGreen),
-    _buildFlowStep(6, 'Scroll adjustment',
-        'Options list scrolls to show the last item', _alAccentOrange),
+    _buildFlowStep(
+      1,
+      'Key event captured',
+      'Shortcuts widget receives Ctrl+End keystroke',
+      _alPurple,
+    ),
+    _buildFlowStep(
+      2,
+      'Intent dispatched',
+      'AutocompleteLastOptionIntent() created',
+      _alMedPurple,
+    ),
+    _buildFlowStep(
+      3,
+      'Action invoked',
+      'Autocomplete\'s registered Action receives the intent',
+      _alAccentBlue,
+    ),
+    _buildFlowStep(
+      4,
+      'Index updated',
+      'Highlighted option index set to options.length - 1',
+      _alAccentTeal,
+    ),
+    _buildFlowStep(
+      5,
+      'UI rebuilt',
+      'optionsViewBuilder called with new highlighted index',
+      _alAccentGreen,
+    ),
+    _buildFlowStep(
+      6,
+      'Scroll adjustment',
+      'Options list scrolls to show the last item',
+      _alAccentOrange,
+    ),
     _alDivider(),
     _alLabel('State Tracking'),
     _alInfoRow('_highlightedIndex', 'Current highlighted option (0-based)'),
@@ -714,9 +889,14 @@ Widget _buildFlowStep(int num, String title, String desc, Color color) {
           height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: _alWhite, fontSize: 12, fontWeight: FontWeight.w800)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: _alWhite,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -724,11 +904,15 @@ Widget _buildFlowStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _alGray, fontSize: 11)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _alGray, fontSize: 11)),
             ],
           ),
         ),
@@ -756,9 +940,15 @@ Widget _buildOptionsListAnatomy() {
     _alDivider(),
     _alLabel('Index Semantics'),
     _alInfoRow('index = 0', 'First option (AutocompleteFirstOptionIntent)'),
-    _alInfoRow('index = length-1', 'Last option (AutocompleteLastOptionIntent ★)'),
+    _alInfoRow(
+      'index = length-1',
+      'Last option (AutocompleteLastOptionIntent ★)',
+    ),
     _alInfoRow('index + 1', 'Next option (AutocompleteNextOptionIntent)'),
-    _alInfoRow('index - 1', 'Previous option (AutocompletePreviousOptionIntent)'),
+    _alInfoRow(
+      'index - 1',
+      'Previous option (AutocompletePreviousOptionIntent)',
+    ),
     _alDivider(),
     _alLabel('Wrap-Around Behavior'),
     _alBody(
@@ -771,7 +961,12 @@ Widget _buildOptionsListAnatomy() {
   ]);
 }
 
-Widget _buildOptionItem(int index, String text, bool selected, bool highlighted) {
+Widget _buildOptionItem(
+  int index,
+  String text,
+  bool selected,
+  bool highlighted,
+) {
   final color = highlighted ? _alPurple : (selected ? _alAccentGreen : _alGray);
   return Container(
     margin: const EdgeInsets.only(bottom: 2),
@@ -780,12 +975,10 @@ Widget _buildOptionItem(int index, String text, bool selected, bool highlighted)
       color: highlighted
           ? _alPurple.withValues(alpha: 0.12)
           : selected
-              ? _alAccentGreen.withValues(alpha: 0.08)
-              : _alLavender.withValues(alpha: 0.5),
+          ? _alAccentGreen.withValues(alpha: 0.08)
+          : _alLavender.withValues(alpha: 0.5),
       borderRadius: BorderRadius.circular(6),
-      border: highlighted
-          ? Border.all(color: _alPurple, width: 2)
-          : null,
+      border: highlighted ? Border.all(color: _alPurple, width: 2) : null,
     ),
     child: Row(
       children: [
@@ -797,18 +990,26 @@ Widget _buildOptionItem(int index, String text, bool selected, bool highlighted)
             shape: BoxShape.circle,
           ),
           child: Center(
-            child: Text('$index',
-                style: TextStyle(
-                    color: color, fontSize: 10, fontWeight: FontWeight.w700)),
+            child: Text(
+              '$index',
+              style: TextStyle(
+                color: color,
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: color,
-                  fontSize: 13,
-                  fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: color,
+              fontSize: 13,
+              fontWeight: highlighted ? FontWeight.w700 : FontWeight.w500,
+            ),
+          ),
         ),
         if (highlighted)
           Container(
@@ -817,9 +1018,14 @@ Widget _buildOptionItem(int index, String text, bool selected, bool highlighted)
               color: _alPurple,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text('LAST ★',
-                style: TextStyle(
-                    color: _alWhite, fontSize: 9, fontWeight: FontWeight.w700)),
+            child: const Text(
+              'LAST ★',
+              style: TextStyle(
+                color: _alWhite,
+                fontSize: 9,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
       ],
     ),
@@ -838,18 +1044,48 @@ Widget _buildVisualKeyboardNav() {
     ),
     _alDivider(),
     // Step-by-step navigation
-    _buildNavScenario('Initial State', 'No highlight',
-        [false, false, false, false, false]),
-    _buildNavScenario('↓ Arrow Down', 'Highlight first',
-        [true, false, false, false, false]),
-    _buildNavScenario('↓ Arrow Down', 'Highlight second',
-        [false, true, false, false, false]),
-    _buildNavScenario('Ctrl + End ★', 'Jump to last!',
-        [false, false, false, false, true]),
-    _buildNavScenario('↑ Arrow Up', 'Move up one',
-        [false, false, false, true, false]),
-    _buildNavScenario('Ctrl + Home', 'Jump to first',
-        [true, false, false, false, false]),
+    _buildNavScenario('Initial State', 'No highlight', [
+      false,
+      false,
+      false,
+      false,
+      false,
+    ]),
+    _buildNavScenario('↓ Arrow Down', 'Highlight first', [
+      true,
+      false,
+      false,
+      false,
+      false,
+    ]),
+    _buildNavScenario('↓ Arrow Down', 'Highlight second', [
+      false,
+      true,
+      false,
+      false,
+      false,
+    ]),
+    _buildNavScenario('Ctrl + End ★', 'Jump to last!', [
+      false,
+      false,
+      false,
+      false,
+      true,
+    ]),
+    _buildNavScenario('↑ Arrow Up', 'Move up one', [
+      false,
+      false,
+      false,
+      true,
+      false,
+    ]),
+    _buildNavScenario('Ctrl + Home', 'Jump to first', [
+      true,
+      false,
+      false,
+      false,
+      false,
+    ]),
     _alDivider(),
     _alLabel('Direct Jump vs Sequential'),
     Container(
@@ -863,7 +1099,11 @@ Widget _buildVisualKeyboardNav() {
         children: [
           Row(
             children: [
-              const Icon(Icons.vertical_align_bottom, size: 16, color: _alPurple),
+              const Icon(
+                Icons.vertical_align_bottom,
+                size: 16,
+                color: _alPurple,
+              ),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -892,35 +1132,45 @@ Widget _buildNavScenario(String key, String desc, List<bool> highlights) {
             color: _alDarkPurple.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(key,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  color: _alDarkPurple, fontSize: 10,
-                  fontWeight: FontWeight.w600, fontFamily: 'monospace')),
+          child: Text(
+            key,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: _alDarkPurple,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
         const SizedBox(width: 6),
-        ...highlights.map((h) => Container(
-              width: 20,
-              height: 20,
-              margin: const EdgeInsets.only(right: 3),
-              decoration: BoxDecoration(
-                color: h ? _alPurple : _alLightPurple.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Center(
-                child: Text(
-                  h ? '★' : '·',
-                  style: TextStyle(
-                      color: h ? _alWhite : _alGray,
-                      fontSize: h ? 10 : 8,
-                      fontWeight: FontWeight.w700),
+        ...highlights.map(
+          (h) => Container(
+            width: 20,
+            height: 20,
+            margin: const EdgeInsets.only(right: 3),
+            decoration: BoxDecoration(
+              color: h ? _alPurple : _alLightPurple.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Center(
+              child: Text(
+                h ? '★' : '·',
+                style: TextStyle(
+                  color: h ? _alWhite : _alGray,
+                  fontSize: h ? 10 : 8,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(desc,
-              style: const TextStyle(color: _alGray, fontSize: 10)),
+          child: Text(
+            desc,
+            style: const TextStyle(color: _alGray, fontSize: 10),
+          ),
         ),
       ],
     ),
@@ -938,34 +1188,37 @@ Widget _buildRealWorldExamples() {
       'scenarios:',
     ),
     _alDivider(),
-    _buildExampleCard(
-      'Search Bar',
-      Icons.search,
-      _alAccentBlue,
-      ['flutter widgets', 'flutter animation', 'flutter platform views',
-       'flutter layout', 'flutter testing'],
-      4,
-    ),
-    _buildExampleCard(
-      'Email Autocomplete',
-      Icons.email,
-      _alAccentTeal,
-      ['alice@example.com', 'bob@example.com', 'carol@example.com',
-       'dave@example.com', 'eve@example.com'],
-      4,
-    ),
-    _buildExampleCard(
-      'City Picker',
-      Icons.location_city,
-      _alAccentOrange,
-      ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix'],
-      4,
-    ),
+    _buildExampleCard('Search Bar', Icons.search, _alAccentBlue, [
+      'flutter widgets',
+      'flutter animation',
+      'flutter platform views',
+      'flutter layout',
+      'flutter testing',
+    ], 4),
+    _buildExampleCard('Email Autocomplete', Icons.email, _alAccentTeal, [
+      'alice@example.com',
+      'bob@example.com',
+      'carol@example.com',
+      'dave@example.com',
+      'eve@example.com',
+    ], 4),
+    _buildExampleCard('City Picker', Icons.location_city, _alAccentOrange, [
+      'New York',
+      'Los Angeles',
+      'Chicago',
+      'Houston',
+      'Phoenix',
+    ], 4),
   ]);
 }
 
 Widget _buildExampleCard(
-    String name, IconData icon, Color color, List<String> options, int lastIdx) {
+  String name,
+  IconData icon,
+  Color color,
+  List<String> options,
+  int lastIdx,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     decoration: BoxDecoration(
@@ -982,9 +1235,14 @@ Widget _buildExampleCard(
             children: [
               Icon(icon, size: 18, color: color),
               const SizedBox(width: 8),
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 13, fontWeight: FontWeight.w700)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -1001,8 +1259,10 @@ Widget _buildExampleCard(
             children: [
               Icon(icon, size: 14, color: color),
               const SizedBox(width: 8),
-              const Text('fl...',
-                  style: TextStyle(color: _alGray, fontSize: 12)),
+              const Text(
+                'fl...',
+                style: TextStyle(color: _alGray, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -1024,7 +1284,10 @@ Widget _buildExampleCard(
             children: options.asMap().entries.map((e) {
               final isLast = e.key == lastIdx;
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: isLast ? _alPurple.withValues(alpha: 0.1) : null,
                   border: isLast
@@ -1034,15 +1297,20 @@ Widget _buildExampleCard(
                 ),
                 child: Row(
                   children: [
-                    Text(e.value,
-                        style: TextStyle(
-                            color: isLast ? _alPurple : _alGray,
-                            fontSize: 11,
-                            fontWeight: isLast ? FontWeight.w700 : FontWeight.w400)),
+                    Text(
+                      e.value,
+                      style: TextStyle(
+                        color: isLast ? _alPurple : _alGray,
+                        fontSize: 11,
+                        fontWeight: isLast ? FontWeight.w700 : FontWeight.w400,
+                      ),
+                    ),
                     if (isLast) ...[
                       const Spacer(),
-                      const Text('← Ctrl+End',
-                          style: TextStyle(color: _alPurple, fontSize: 9)),
+                      const Text(
+                        '← Ctrl+End',
+                        style: TextStyle(color: _alPurple, fontSize: 9),
+                      ),
                     ],
                   ],
                 ),
@@ -1085,9 +1353,14 @@ Widget _buildSimulatedDropdown() {
               children: [
                 Icon(Icons.search, size: 16, color: _alWhite),
                 SizedBox(width: 8),
-                Text('Search Demo',
-                    style: TextStyle(color: _alWhite, fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  'Search Demo',
+                  style: TextStyle(
+                    color: _alWhite,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1098,7 +1371,10 @@ Widget _buildSimulatedDropdown() {
               children: [
                 // Search field
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: _alWhite,
                     borderRadius: BorderRadius.circular(8),
@@ -1120,16 +1396,18 @@ Widget _buildSimulatedDropdown() {
                             TextSpan(
                               text: 'Flut',
                               style: TextStyle(
-                                  color: _alDarkPurple,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
+                                color: _alDarkPurple,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                             TextSpan(
                               text: '│',
                               style: TextStyle(
-                                  color: _alPurple,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w900),
+                                color: _alPurple,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
                           ],
                         ),
@@ -1211,11 +1489,14 @@ Widget _buildDropdownItem(String text, bool isLast) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: isLast ? _alPurple : _alDarkPurple,
-                  fontSize: 12,
-                  fontWeight: isLast ? FontWeight.w700 : FontWeight.w400)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: isLast ? _alPurple : _alDarkPurple,
+              fontSize: 12,
+              fontWeight: isLast ? FontWeight.w700 : FontWeight.w400,
+            ),
+          ),
         ),
         if (isLast)
           Container(
@@ -1224,9 +1505,14 @@ Widget _buildDropdownItem(String text, bool isLast) {
               color: _alPurple,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text('LAST',
-                style: TextStyle(
-                    color: _alWhite, fontSize: 8, fontWeight: FontWeight.w700)),
+            child: const Text(
+              'LAST',
+              style: TextStyle(
+                color: _alWhite,
+                fontSize: 8,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
       ],
     ),
@@ -1243,14 +1529,18 @@ Widget _buildKeyLegend(String key, String desc) {
           borderRadius: BorderRadius.circular(3),
           border: Border.all(color: _alLightPurple),
         ),
-        child: Text(key,
-            style: const TextStyle(
-                color: _alDarkPurple, fontSize: 9,
-                fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+        child: Text(
+          key,
+          style: const TextStyle(
+            color: _alDarkPurple,
+            fontSize: 9,
+            fontFamily: 'monospace',
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       const SizedBox(width: 3),
-      Text(desc,
-          style: const TextStyle(color: _alGray, fontSize: 9)),
+      Text(desc, style: const TextStyle(color: _alGray, fontSize: 9)),
     ],
   );
 }

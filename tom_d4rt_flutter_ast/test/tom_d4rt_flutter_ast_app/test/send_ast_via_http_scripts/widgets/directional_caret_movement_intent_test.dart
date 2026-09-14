@@ -102,9 +102,9 @@ dynamic build(BuildContext context) {
         _cmInfoBox(
           'Intent vs Action',
           'The Intent describes the desire ("move caret left"). The Action '
-          'executes it ("update TextEditingValue.selection with offset - 1"). '
-          'DirectionalCaretMovementIntent carries the direction and modifiers; '
-          'the Action reads the current selection and applies the movement.',
+              'executes it ("update TextEditingValue.selection with offset - 1"). '
+              'DirectionalCaretMovementIntent carries the direction and modifiers; '
+              'the Action reads the current selection and applies the movement.',
         ),
         const SizedBox(height: 24),
 
@@ -331,17 +331,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _cmPurple.withValues(alpha: 0.08),
-                _cmLilac,
-              ],
+              colors: [_cmPurple.withValues(alpha: 0.08), _cmLilac],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _cmPurple.withValues(alpha: 0.25),
-            ),
+            border: Border.all(color: _cmPurple.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,13 +356,28 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 14),
-              _cmSummaryRow('Type', 'Intent (extends DirectionalTextEditingIntent)'),
-              _cmSummaryRow('Directions', 'Forward, Backward, Up, Down, Line, Document'),
-              _cmSummaryRow('Selection', 'Collapse or extend via collapseSelection flag'),
-              _cmSummaryRow('Word Stops', 'Unicode word break rules, locale-sensitive'),
+              _cmSummaryRow(
+                'Type',
+                'Intent (extends DirectionalTextEditingIntent)',
+              ),
+              _cmSummaryRow(
+                'Directions',
+                'Forward, Backward, Up, Down, Line, Document',
+              ),
+              _cmSummaryRow(
+                'Selection',
+                'Collapse or extend via collapseSelection flag',
+              ),
+              _cmSummaryRow(
+                'Word Stops',
+                'Unicode word break rules, locale-sensitive',
+              ),
               _cmSummaryRow('Vertical', 'Sticky preferred column across lines'),
               _cmSummaryRow('BiDi', 'Respects paragraph text direction'),
-              _cmSummaryRow('Platforms', 'macOS/Windows/Linux shortcuts differ'),
+              _cmSummaryRow(
+                'Platforms',
+                'macOS/Windows/Linux shortcuts differ',
+              ),
             ],
           ),
         ),
@@ -397,11 +407,7 @@ Widget _cmSection(String title) {
 Widget _cmBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _cmBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _cmBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -472,11 +478,7 @@ Widget _cmInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _cmBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _cmBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -503,11 +505,7 @@ Widget _cmSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _cmBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _cmBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -597,8 +595,11 @@ Widget _buildDirectionGrid() {
             children: [
               Row(
                 children: [
-                  Icon(d['icon'] as IconData,
-                      color: d['color'] as Color, size: 18),
+                  Icon(
+                    d['icon'] as IconData,
+                    color: d['color'] as Color,
+                    size: 18,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -630,7 +631,11 @@ Widget _buildPropertiesTable() {
   final props = <List<String>>[
     ['forward', 'bool', 'true = right/down, false = left/up'],
     ['collapseSelection', 'bool', 'true = collapse, false = extend selection'],
-    ['collapseAtReversal', 'bool', 'Collapse when reversing selection direction'],
+    [
+      'collapseAtReversal',
+      'bool',
+      'Collapse when reversing selection direction',
+    ],
     ['continuesAtWrap', 'bool', 'Continue past soft line wraps'],
   ];
 
@@ -647,26 +652,42 @@ Widget _buildPropertiesTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _cmPurple.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 4,
-                child: Text('Property', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Property',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Text('Type', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Type',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 6,
-                child: Text('Behavior', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Behavior',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -682,19 +703,29 @@ Widget _buildPropertiesTable() {
               children: [
                 Expanded(
                   flex: 4,
-                  child: Text(row[0], style: TextStyle(
-                    color: _cmDarkPurple, fontSize: 12,
-                    fontFamily: 'monospace', fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _cmDarkPurple,
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(row[1], style: TextStyle(
-                    color: _cmMuted, fontSize: 12)),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(color: _cmMuted, fontSize: 12),
+                  ),
                 ),
                 Expanded(
                   flex: 6,
-                  child: Text(row[2], style: TextStyle(
-                    color: _cmBlack, fontSize: 12)),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(color: _cmBlack, fontSize: 12),
+                  ),
                 ),
               ],
             ),
@@ -729,26 +760,42 @@ Widget _buildKeyboardMappingTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _cmPurple.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text('Shortcut', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Shortcut',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Intent Config', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Intent Config',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Result', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Result',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -764,19 +811,32 @@ Widget _buildKeyboardMappingTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(row[0], style: TextStyle(
-                    color: _cmDarkPurple, fontSize: 12,
-                    fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _cmDarkPurple,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(row[1], style: TextStyle(
-                    color: _cmBlack, fontSize: 11, fontFamily: 'monospace')),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(
+                      color: _cmBlack,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(row[2], style: TextStyle(
-                    color: _cmMuted, fontSize: 12)),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(color: _cmMuted, fontSize: 12),
+                  ),
                 ),
               ],
             ),
@@ -826,7 +886,9 @@ Widget _buildSelectionExtensionDiagram() {
                 width: 28,
                 height: 28,
                 decoration: BoxDecoration(
-                  color: (examples[i]['color'] as Color).withValues(alpha: 0.15),
+                  color: (examples[i]['color'] as Color).withValues(
+                    alpha: 0.15,
+                  ),
                   borderRadius: BorderRadius.circular(7),
                 ),
                 child: Center(
@@ -914,14 +976,22 @@ Widget _buildWordBoundaryVisualization() {
           runSpacing: 6,
           children: [
             _cmChip('|The', bg: _cmPurple.withValues(alpha: 0.12)),
-            _cmChip('|quick_brown', bg: _cmAccent.withValues(alpha: 0.12),
-                fg: _cmAccent),
-            _cmChip('|fox', bg: _cmLightPurple.withValues(alpha: 0.12),
-                fg: _cmLightPurple),
-            _cmChip('|.', bg: _cmMuted.withValues(alpha: 0.12),
-                fg: _cmMuted),
-            _cmChip('|jumps|', bg: _cmInfo.withValues(alpha: 0.12),
-                fg: _cmInfo),
+            _cmChip(
+              '|quick_brown',
+              bg: _cmAccent.withValues(alpha: 0.12),
+              fg: _cmAccent,
+            ),
+            _cmChip(
+              '|fox',
+              bg: _cmLightPurple.withValues(alpha: 0.12),
+              fg: _cmLightPurple,
+            ),
+            _cmChip('|.', bg: _cmMuted.withValues(alpha: 0.12), fg: _cmMuted),
+            _cmChip(
+              '|jumps|',
+              bg: _cmInfo.withValues(alpha: 0.12),
+              fg: _cmInfo,
+            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -929,11 +999,7 @@ Widget _buildWordBoundaryVisualization() {
           'Each | marks a word boundary. Ctrl+Left/Right jumps between '
           'these positions. Unicode rules determine what constitutes '
           'a "word" — letters, digits, underscores group together.',
-          style: TextStyle(
-            color: _cmMuted,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _cmMuted, fontSize: 12, height: 1.5),
         ),
       ],
     ),
@@ -959,9 +1025,14 @@ Widget _buildLineBoundaryComparison() {
                 children: [
                   Icon(Icons.wrap_text, color: _cmPurple, size: 16),
                   const SizedBox(width: 6),
-                  Text('Soft Wrap', style: TextStyle(
-                    color: _cmPurple, fontSize: 13,
-                    fontWeight: FontWeight.bold)),
+                  Text(
+                    'Soft Wrap',
+                    style: TextStyle(
+                      color: _cmPurple,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -969,8 +1040,7 @@ Widget _buildLineBoundaryComparison() {
                 'Visual line break caused by container width. '
                 'Home/End moves to visual line boundary. No '
                 'newline character in text.',
-                style: TextStyle(
-                  color: _cmBlack, fontSize: 12, height: 1.4),
+                style: TextStyle(color: _cmBlack, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -992,9 +1062,14 @@ Widget _buildLineBoundaryComparison() {
                 children: [
                   Icon(Icons.keyboard_return, color: _cmAccent, size: 16),
                   const SizedBox(width: 6),
-                  Text('Hard Break', style: TextStyle(
-                    color: _cmAccent, fontSize: 13,
-                    fontWeight: FontWeight.bold)),
+                  Text(
+                    'Hard Break',
+                    style: TextStyle(
+                      color: _cmAccent,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -1002,8 +1077,7 @@ Widget _buildLineBoundaryComparison() {
                 'Explicit newline character. Home/End moves '
                 'to hard line boundary. May span multiple '
                 'visual lines if text wraps.',
-                style: TextStyle(
-                  color: _cmBlack, fontSize: 12, height: 1.4),
+                style: TextStyle(color: _cmBlack, fontSize: 12, height: 1.4),
               ),
             ],
           ),
@@ -1016,9 +1090,17 @@ Widget _buildLineBoundaryComparison() {
 Widget _buildVerticalMovementDiagram() {
   final lines = <Map<String, String>>[
     {'text': 'Short line', 'caret': 'col 5', 'note': 'Start here at col 5'},
-    {'text': 'A much longer line of text....', 'caret': 'col 5', 'note': 'Down: caret at col 5'},
+    {
+      'text': 'A much longer line of text....',
+      'caret': 'col 5',
+      'note': 'Down: caret at col 5',
+    },
     {'text': 'Tiny', 'caret': 'col 4', 'note': 'Down: clamped to col 4 (end)'},
-    {'text': 'Back to medium length', 'caret': 'col 5', 'note': 'Down: returns to preferred col 5'},
+    {
+      'text': 'Back to medium length',
+      'caret': 'col 5',
+      'note': 'Down: returns to preferred col 5',
+    },
   ];
 
   return Container(
@@ -1077,8 +1159,7 @@ Widget _buildVerticalMovementDiagram() {
                     ),
                     Text(
                       lines[i]['note']!,
-                      style: TextStyle(
-                        color: _cmMuted, fontSize: 11),
+                      style: TextStyle(color: _cmMuted, fontSize: 11),
                     ),
                   ],
                 ),
@@ -1094,11 +1175,31 @@ Widget _buildVerticalMovementDiagram() {
 
 Widget _buildBidiDirectionTable() {
   final rows = <List<String>>[
-    ['LTR paragraph', 'forward=true', 'Right', 'Logical forward = visual right'],
-    ['LTR paragraph', 'forward=false', 'Left', 'Logical backward = visual left'],
+    [
+      'LTR paragraph',
+      'forward=true',
+      'Right',
+      'Logical forward = visual right',
+    ],
+    [
+      'LTR paragraph',
+      'forward=false',
+      'Left',
+      'Logical backward = visual left',
+    ],
     ['RTL paragraph', 'forward=true', 'Left', 'Logical forward = visual left'],
-    ['RTL paragraph', 'forward=false', 'Right', 'Logical backward = visual right'],
-    ['Mixed (BiDi)', 'forward=true', 'Varies', 'Depends on current run direction'],
+    [
+      'RTL paragraph',
+      'forward=false',
+      'Right',
+      'Logical backward = visual right',
+    ],
+    [
+      'Mixed (BiDi)',
+      'forward=true',
+      'Varies',
+      'Depends on current run direction',
+    ],
   ];
 
   return Container(
@@ -1114,31 +1215,53 @@ Widget _buildBidiDirectionTable() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: _cmPurple.withValues(alpha: 0.08),
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(9),
-            ),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
           ),
           child: Row(
             children: [
               Expanded(
                 flex: 3,
-                child: Text('Context', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Context',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 3,
-                child: Text('Intent', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Intent',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2,
-                child: Text('Visual', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Visual',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Expanded(
                 flex: 4,
-                child: Text('Explanation', style: TextStyle(
-                  color: _cmPurple, fontSize: 12, fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Explanation',
+                  style: TextStyle(
+                    color: _cmPurple,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1154,24 +1277,43 @@ Widget _buildBidiDirectionTable() {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(row[0], style: TextStyle(
-                    color: _cmDarkPurple, fontSize: 11,
-                    fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[0],
+                    style: TextStyle(
+                      color: _cmDarkPurple,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(row[1], style: TextStyle(
-                    color: _cmBlack, fontSize: 11, fontFamily: 'monospace')),
+                  child: Text(
+                    row[1],
+                    style: TextStyle(
+                      color: _cmBlack,
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Text(row[2], style: TextStyle(
-                    color: _cmAccent, fontSize: 11, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    row[2],
+                    style: TextStyle(
+                      color: _cmAccent,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: Text(row[3], style: TextStyle(
-                    color: _cmMuted, fontSize: 11)),
+                  child: Text(
+                    row[3],
+                    style: TextStyle(color: _cmMuted, fontSize: 11),
+                  ),
                 ),
               ],
             ),
@@ -1329,8 +1471,11 @@ Widget _buildPlatformDifferencesGrid() {
             children: [
               Row(
                 children: [
-                  Icon(p['icon'] as IconData,
-                      color: p['color'] as Color, size: 18),
+                  Icon(
+                    p['icon'] as IconData,
+                    color: p['color'] as Color,
+                    size: 18,
+                  ),
                   const SizedBox(width: 6),
                   Text(
                     p['platform'] as String,
@@ -1354,11 +1499,7 @@ Widget _buildPlatformDifferencesGrid() {
               const SizedBox(height: 4),
               Text(
                 p['notes'] as String,
-                style: TextStyle(
-                  color: _cmMuted,
-                  fontSize: 11,
-                  height: 1.3,
-                ),
+                style: TextStyle(color: _cmMuted, fontSize: 11, height: 1.3),
               ),
             ],
           ),
@@ -1371,27 +1512,32 @@ Widget _buildCustomEditorScenario() {
   final steps = <Map<String, String>>[
     {
       'step': 'Define custom word boundary',
-      'detail': 'Override boundary detection to split on '
+      'detail':
+          'Override boundary detection to split on '
           'camelCase transitions (e.g., "myVariable" → "my" + "Variable")',
     },
     {
       'step': 'Create custom Action',
-      'detail': 'Extend Action<DirectionalCaretMovementIntent> to use '
+      'detail':
+          'Extend Action<DirectionalCaretMovementIntent> to use '
           'the custom boundary finder instead of the default Unicode rules',
     },
     {
       'step': 'Register in Actions widget',
-      'detail': 'Wrap the EditableText with an Actions widget that '
+      'detail':
+          'Wrap the EditableText with an Actions widget that '
           'provides the custom action for DirectionalCaretMovementIntent',
     },
     {
       'step': 'Bind shortcuts',
-      'detail': 'Use Shortcuts widget to map Ctrl+Arrow to the intent '
+      'detail':
+          'Use Shortcuts widget to map Ctrl+Arrow to the intent '
           'with word-boundary movement configuration',
     },
     {
       'step': 'Test BiDi behavior',
-      'detail': 'Verify camelCase splitting works correctly in RTL text '
+      'detail':
+          'Verify camelCase splitting works correctly in RTL text '
           'and mixed-direction content',
     },
   ];

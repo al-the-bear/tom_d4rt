@@ -44,7 +44,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.indigo.shade700, Colors.purple.shade500, Colors.pink.shade400],
+        colors: [
+          Colors.indigo.shade700,
+          Colors.purple.shade500,
+          Colors.pink.shade400,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -228,7 +232,8 @@ dynamic build(BuildContext context) {
       'type': 'GestureDragStartCallback?',
       'payload': 'DragStartDetails',
       'fields': 'globalPosition · localPosition · sourceTimeStamp · kind',
-      'fires': 'Drag is recognised — slop is exceeded or the recognizer wins the arena.',
+      'fires':
+          'Drag is recognised — slop is exceeded or the recognizer wins the arena.',
       'icon': Icons.play_arrow,
       'color': Colors.green,
       'progress': 0.3,
@@ -238,7 +243,8 @@ dynamic build(BuildContext context) {
       'type': 'GestureDragUpdateCallback?',
       'payload': 'DragUpdateDetails',
       'fields': 'delta · primaryDelta · globalPosition · localPosition',
-      'fires': 'Pointer moved while the drag is active; called many times per second.',
+      'fires':
+          'Pointer moved while the drag is active; called many times per second.',
       'icon': Icons.swipe,
       'color': Colors.orange,
       'progress': 0.6,
@@ -248,7 +254,8 @@ dynamic build(BuildContext context) {
       'type': 'GestureDragEndCallback?',
       'payload': 'DragEndDetails',
       'fields': 'velocity · primaryVelocity · globalPosition',
-      'fires': 'Pointer is lifted; carries fling velocity for momentum animations.',
+      'fires':
+          'Pointer is lifted; carries fling velocity for momentum animations.',
       'icon': Icons.flag,
       'color': Colors.deepPurple,
       'progress': 0.95,
@@ -258,7 +265,8 @@ dynamic build(BuildContext context) {
       'type': 'GestureDragCancelCallback?',
       'payload': '() => void',
       'fields': 'no payload',
-      'fires': 'The pointer is cancelled, or the recognizer lost the arena after onDown.',
+      'fires':
+          'The pointer is cancelled, or the recognizer lost the arena after onDown.',
       'icon': Icons.cancel,
       'color': Colors.red,
       'progress': 0.0,
@@ -277,7 +285,11 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.deepPurple.shade50, Colors.indigo.shade50, Colors.blue.shade50],
+        colors: [
+          Colors.deepPurple.shade50,
+          Colors.indigo.shade50,
+          Colors.blue.shade50,
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -424,8 +436,14 @@ dynamic build(BuildContext context) {
                 title: 'dragStartBehavior',
                 color: Colors.orange,
                 rows: const [
-                  ['DragStartBehavior.down', 'onStart fires at the down event position.'],
-                  ['DragStartBehavior.start', 'onStart fires at the position drag was recognised (default).'],
+                  [
+                    'DragStartBehavior.down',
+                    'onStart fires at the down event position.',
+                  ],
+                  [
+                    'DragStartBehavior.start',
+                    'onStart fires at the position drag was recognised (default).',
+                  ],
                 ],
               ),
             ),
@@ -453,7 +471,10 @@ dynamic build(BuildContext context) {
                 color: Colors.amber,
                 rows: const [
                   ['latestPointer', 'Track most recent finger (default).'],
-                  ['averageBoundaryPointers', 'Use the average of the boundary pointers.'],
+                  [
+                    'averageBoundaryPointers',
+                    'Use the average of the boundary pointers.',
+                  ],
                   ['sumAllPointers', 'Sum every active pointer.'],
                 ],
               ),
@@ -503,7 +524,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.restaurant_menu, color: Colors.green.shade800, size: 22.0),
+            Icon(
+              Icons.restaurant_menu,
+              color: Colors.green.shade800,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Recipes',
@@ -768,18 +793,58 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        _refRow('onDown', 'GestureDragDownCallback?', 'Pointer contact, gesture not yet decided.'),
-        _refRow('onStart', 'GestureDragStartCallback?', 'Drag accepted; carries first position.'),
-        _refRow('onUpdate', 'GestureDragUpdateCallback?', 'Movement frame; called many times.'),
-        _refRow('onEnd', 'GestureDragEndCallback?', 'Pointer up; carries velocity.'),
-        _refRow('onCancel', 'GestureDragCancelCallback?', 'Cancel after onDown.'),
-        _refRow('dragStartBehavior', 'DragStartBehavior', 'When onStart fires (down/start).'),
-        _refRow('supportedDevices', 'Set<PointerDeviceKind>?', 'Filter pointer devices.'),
-        _refRow('multitouchDragStrategy', 'MultitouchDragStrategy', 'How multiple fingers combine.'),
+        _refRow(
+          'onDown',
+          'GestureDragDownCallback?',
+          'Pointer contact, gesture not yet decided.',
+        ),
+        _refRow(
+          'onStart',
+          'GestureDragStartCallback?',
+          'Drag accepted; carries first position.',
+        ),
+        _refRow(
+          'onUpdate',
+          'GestureDragUpdateCallback?',
+          'Movement frame; called many times.',
+        ),
+        _refRow(
+          'onEnd',
+          'GestureDragEndCallback?',
+          'Pointer up; carries velocity.',
+        ),
+        _refRow(
+          'onCancel',
+          'GestureDragCancelCallback?',
+          'Cancel after onDown.',
+        ),
+        _refRow(
+          'dragStartBehavior',
+          'DragStartBehavior',
+          'When onStart fires (down/start).',
+        ),
+        _refRow(
+          'supportedDevices',
+          'Set<PointerDeviceKind>?',
+          'Filter pointer devices.',
+        ),
+        _refRow(
+          'multitouchDragStrategy',
+          'MultitouchDragStrategy',
+          'How multiple fingers combine.',
+        ),
         _refRow('minFlingDistance', 'double?', 'Min pixels to count as fling.'),
-        _refRow('minFlingVelocity', 'double?', 'Min velocity (px/s) for fling.'),
+        _refRow(
+          'minFlingVelocity',
+          'double?',
+          'Min velocity (px/s) for fling.',
+        ),
         _refRow('maxFlingVelocity', 'double?', 'Velocity ceiling.'),
-        _refRow('velocityTrackerBuilder', 'GestureVelocityTrackerBuilder', 'Plug a custom tracker.'),
+        _refRow(
+          'velocityTrackerBuilder',
+          'GestureVelocityTrackerBuilder',
+          'Plug a custom tracker.',
+        ),
       ],
     ),
   );
@@ -925,12 +990,18 @@ Widget _heroChip(String label, IconData icon) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [Colors.white.withValues(alpha: 0.25), Colors.white.withValues(alpha: 0.1)],
+        colors: [
+          Colors.white.withValues(alpha: 0.25),
+          Colors.white.withValues(alpha: 0.1),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.6), width: 1.0),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.6),
+        width: 1.0,
+      ),
       boxShadow: [
         BoxShadow(
           color: Colors.white.withValues(alpha: 0.15),
@@ -1421,7 +1492,10 @@ Widget _pitfall(String title, String description) {
               children: [
                 TextSpan(
                   text: '$title  ',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red.shade900),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red.shade900,
+                  ),
                 ),
                 TextSpan(text: description),
               ],

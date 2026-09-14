@@ -54,8 +54,10 @@ class _WindowControllerDemoState extends State<_WindowControllerDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('RegularWindowController',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+        title: Text(
+          'RegularWindowController',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -66,18 +68,17 @@ class _WindowControllerDemoState extends State<_WindowControllerDemo>
           unselectedLabelColor: Colors.white60,
           tabs: [
             Tab(icon: Icon(Icons.school, size: 16), text: 'Theory'),
-            Tab(icon: Icon(Icons.desktop_windows, size: 16), text: 'Operations Lab'),
+            Tab(
+              icon: Icon(Icons.desktop_windows, size: 16),
+              text: 'Operations Lab',
+            ),
             Tab(icon: Icon(Icons.account_tree, size: 16), text: 'Architecture'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _OperationsLabTab(),
-          _ArchitectureTab(),
-        ],
+        children: [_TheoryTab(), _OperationsLabTab(), _ArchitectureTab()],
       ),
     );
   }
@@ -104,7 +105,11 @@ class _TheoryTab extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(14),
             boxShadow: [
-              BoxShadow(color: _kPrimary.withOpacity(0.3), blurRadius: 12, offset: Offset(0, 4)),
+              BoxShadow(
+                color: _kPrimary.withOpacity(0.3),
+                blurRadius: 12,
+                offset: Offset(0, 4),
+              ),
             ],
           ),
           child: Column(
@@ -118,21 +123,30 @@ class _TheoryTab extends StatelessWidget {
                       color: Colors.white.withOpacity(0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(Icons.desktop_windows, color: _kAccent, size: 28),
+                    child: Icon(
+                      Icons.desktop_windows,
+                      color: _kAccent,
+                      size: 28,
+                    ),
                   ),
                   SizedBox(width: 14),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('RegularWindowController',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800)),
+                        Text(
+                          'RegularWindowController',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                         SizedBox(height: 3),
-                        Text('Abstract base class for multi-window management',
-                            style: TextStyle(color: _kAccent, fontSize: 11)),
+                        Text(
+                          'Abstract base class for multi-window management',
+                          style: TextStyle(color: _kAccent, fontSize: 11),
+                        ),
                       ],
                     ),
                   ),
@@ -144,7 +158,11 @@ class _TheoryTab extends StatelessWidget {
                 'platform-specific window controller must implement. It defines '
                 'the fundamental operations for creating, managing, and destroying '
                 'application windows in Flutter\'s multi-window architecture.',
-                style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.5),
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 12,
+                  height: 1.5,
+                ),
               ),
             ],
           ),
@@ -161,17 +179,20 @@ class _TheoryTab extends StatelessWidget {
             children: [
               _InfoRow(
                 label: 'Problem',
-                value: 'Desktop apps need multiple independently-managed windows, '
+                value:
+                    'Desktop apps need multiple independently-managed windows, '
                     'but each OS (macOS, Linux, Windows) has vastly different windowing APIs.',
               ),
               _InfoRow(
                 label: 'Solution',
-                value: 'RegularWindowController defines a portable interface that '
+                value:
+                    'RegularWindowController defines a portable interface that '
                     'abstracts platform-specific window management behind a single contract.',
               ),
               _InfoRow(
                 label: 'Design',
-                value: 'Uses the Controller pattern: each window gets a controller '
+                value:
+                    'Uses the Controller pattern: each window gets a controller '
                     'instance that owns its lifecycle and state. Platform sub-classes '
                     'bridge the abstract API to native calls.',
               ),
@@ -191,7 +212,11 @@ class _TheoryTab extends StatelessWidget {
                       child: Text(
                         'The controller does NOT own the widget tree. It manages the '
                         'native window frame, while Flutter renders content inside it.',
-                        style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.4),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: _kDarkText,
+                          height: 1.4,
+                        ),
                       ),
                     ),
                   ],
@@ -252,11 +277,14 @@ class _TheoryTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Related Types',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700,
-                            color: _kDarkText)),
+                    Text(
+                      'Related Types',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        color: _kDarkText,
+                      ),
+                    ),
                     SizedBox(height: 8),
                     _RelatedType(
                       name: 'RegularWindowControllerDelegate',
@@ -266,13 +294,15 @@ class _TheoryTab extends StatelessWidget {
                     SizedBox(height: 6),
                     _RelatedType(
                       name: 'WindowController',
-                      role: 'Parent abstract interface (if separate from regular)',
+                      role:
+                          'Parent abstract interface (if separate from regular)',
                       color: _kAbstractColor,
                     ),
                     SizedBox(height: 6),
                     _RelatedType(
                       name: 'WidgetsBinding',
-                      role: 'Integrates window controller with Framework binding',
+                      role:
+                          'Integrates window controller with Framework binding',
                       color: _kSystemColor,
                     ),
                   ],
@@ -293,7 +323,8 @@ class _TheoryTab extends StatelessWidget {
               _ResponsibilityCard(
                 number: '1',
                 title: 'Window Creation',
-                description: 'Allocates a native window with initial size, position, '
+                description:
+                    'Allocates a native window with initial size, position, '
                     'and title. Sets up the rendering surface for Flutter content.',
                 icon: Icons.add_box_outlined,
                 color: Color(0xFF1565C0),
@@ -302,7 +333,8 @@ class _TheoryTab extends StatelessWidget {
               _ResponsibilityCard(
                 number: '2',
                 title: 'Geometry Management',
-                description: 'Controls window position (offset), size (width/height), '
+                description:
+                    'Controls window position (offset), size (width/height), '
                     'and constraints (min/max). Responds to user-initiated resize events.',
                 icon: Icons.crop_free,
                 color: Color(0xFF00838F),
@@ -311,7 +343,8 @@ class _TheoryTab extends StatelessWidget {
               _ResponsibilityCard(
                 number: '3',
                 title: 'State Transitions',
-                description: 'Manages window states: normal, minimized, maximized, '
+                description:
+                    'Manages window states: normal, minimized, maximized, '
                     'fullscreen. Notifies delegates of state changes.',
                 icon: Icons.swap_vert,
                 color: Color(0xFF6A1B9A),
@@ -320,7 +353,8 @@ class _TheoryTab extends StatelessWidget {
               _ResponsibilityCard(
                 number: '4',
                 title: 'Lifecycle Ownership',
-                description: 'Drives the full lifecycle: initialization → showing → '
+                description:
+                    'Drives the full lifecycle: initialization → showing → '
                     'hiding → close request → destruction. Coordinates with delegates.',
                 icon: Icons.loop,
                 color: Color(0xFFC62828),
@@ -329,7 +363,8 @@ class _TheoryTab extends StatelessWidget {
               _ResponsibilityCard(
                 number: '5',
                 title: 'Title & Appearance',
-                description: 'Sets window title bar text, icon, and platform-specific '
+                description:
+                    'Sets window title bar text, icon, and platform-specific '
                     'chrome controls (traffic lights, title bar color).',
                 icon: Icons.title,
                 color: Color(0xFF2E7D32),
@@ -350,7 +385,11 @@ class _TheoryTab extends StatelessWidget {
               Text(
                 'These are the key members that every platform controller '
                 'must implement:',
-                style: TextStyle(fontSize: 11, color: Colors.black54, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.black54,
+                  height: 1.4,
+                ),
               ),
               SizedBox(height: 12),
               _ApiMember(
@@ -450,7 +489,11 @@ class _SectionCard extends StatelessWidget {
   final String title;
   final IconData icon;
   final Widget child;
-  const _SectionCard({required this.title, required this.icon, required this.child});
+  const _SectionCard({
+    required this.title,
+    required this.icon,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -459,7 +502,9 @@ class _SectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: _kCardBg,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,9 +520,14 @@ class _SectionCard extends StatelessWidget {
                 child: Icon(icon, color: _kPrimary, size: 16),
               ),
               SizedBox(width: 10),
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -507,14 +557,25 @@ class _InfoRow extends StatelessWidget {
               color: _kPrimary.withOpacity(0.08),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 10, fontWeight: FontWeight.w700, color: _kPrimary)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w700,
+                color: _kPrimary,
+              ),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 11, color: Colors.black87, height: 1.4)),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.black87,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -576,11 +637,15 @@ class _HierarchyNode extends StatelessWidget {
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             color: color,
-                            fontStyle: isAbstract ? FontStyle.italic : FontStyle.normal,
+                            fontStyle: isAbstract
+                                ? FontStyle.italic
+                                : FontStyle.normal,
                           ),
                         ),
-                        Text(subtitle,
-                            style: TextStyle(fontSize: 9, color: Colors.black54)),
+                        Text(
+                          subtitle,
+                          style: TextStyle(fontSize: 9, color: Colors.black54),
+                        ),
                       ],
                     ),
                   ),
@@ -592,7 +657,11 @@ class _HierarchyNode extends StatelessWidget {
                     ),
                     child: Text(
                       isAbstract ? 'abstract' : 'concrete',
-                      style: TextStyle(fontSize: 8, color: color, fontWeight: FontWeight.w600),
+                      style: TextStyle(
+                        fontSize: 8,
+                        color: color,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
@@ -609,18 +678,36 @@ class _RelatedType extends StatelessWidget {
   final String name;
   final String role;
   final Color color;
-  const _RelatedType({required this.name, required this.role, required this.color});
+  const _RelatedType({
+    required this.name,
+    required this.role,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(width: 8, height: 8, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 8,
+          height: 8,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 8),
-        Text(name, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
         SizedBox(width: 6),
         Expanded(
-          child: Text('— $role', style: TextStyle(fontSize: 10, color: Colors.black54)),
+          child: Text(
+            '— $role',
+            style: TextStyle(fontSize: 10, color: Colors.black54),
+          ),
         ),
       ],
     );
@@ -661,8 +748,14 @@ class _ResponsibilityCard extends StatelessWidget {
               color: color.withOpacity(0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(number,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: color)),
+            child: Text(
+              number,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w800,
+                color: color,
+              ),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
@@ -673,14 +766,25 @@ class _ResponsibilityCard extends StatelessWidget {
                   children: [
                     Icon(icon, size: 14, color: color),
                     SizedBox(width: 6),
-                    Text(title,
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: color,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 4),
-                Text(description,
-                    style: TextStyle(fontSize: 11, color: Colors.black87, height: 1.4)),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.black87,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -721,8 +825,14 @@ class _ApiMember extends StatelessWidget {
                 color: _kPrimary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(kind,
-                  style: TextStyle(fontSize: 8, color: _kPrimary, fontWeight: FontWeight.w600)),
+              child: Text(
+                kind,
+                style: TextStyle(
+                  fontSize: 8,
+                  color: _kPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
             SizedBox(width: 8),
             Expanded(
@@ -731,21 +841,31 @@ class _ApiMember extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(name,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: _kDarkText,
-                              fontFamily: 'monospace')),
+                      Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: _kDarkText,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                       SizedBox(width: 6),
-                      Text('→ $type',
-                          style: TextStyle(
-                              fontSize: 10, color: _kConcreteColor, fontFamily: 'monospace')),
+                      Text(
+                        '→ $type',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _kConcreteColor,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 2),
-                  Text(description,
-                      style: TextStyle(fontSize: 10, color: Colors.black54)),
+                  Text(
+                    description,
+                    style: TextStyle(fontSize: 10, color: Colors.black54),
+                  ),
                 ],
               ),
             ),
@@ -771,17 +891,35 @@ class _ComparisonTable extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                  child: Text('Aspect',
-                      style: TextStyle(
-                          fontSize: 10, fontWeight: FontWeight.w700, color: _kPrimary))),
+                child: Text(
+                  'Aspect',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: _kPrimary,
+                  ),
+                ),
+              ),
               Expanded(
-                  child: Text('Controller Layer',
-                      style: TextStyle(
-                          fontSize: 10, fontWeight: FontWeight.w700, color: _kConcreteColor))),
+                child: Text(
+                  'Controller Layer',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: _kConcreteColor,
+                  ),
+                ),
+              ),
               Expanded(
-                  child: Text('Widget Layer',
-                      style: TextStyle(
-                          fontSize: 10, fontWeight: FontWeight.w700, color: _kDelegateColor))),
+                child: Text(
+                  'Widget Layer',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                    color: _kDelegateColor,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -812,14 +950,27 @@ class _CompRow extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-              child: Text(aspect,
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.black87))),
+            child: Text(
+              aspect,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+          ),
           Expanded(
-              child: Text(controller,
-                  style: TextStyle(fontSize: 10, color: _kConcreteColor))),
+            child: Text(
+              controller,
+              style: TextStyle(fontSize: 10, color: _kConcreteColor),
+            ),
+          ),
           Expanded(
-              child: Text(widget,
-                  style: TextStyle(fontSize: 10, color: _kDelegateColor))),
+            child: Text(
+              widget,
+              style: TextStyle(fontSize: 10, color: _kDelegateColor),
+            ),
+          ),
         ],
       ),
     );
@@ -856,10 +1007,10 @@ class _SimulatedWindow {
     double initialWidth = 180,
     double initialHeight = 120,
     this.chrome = _kWindowBorder,
-  })  : width = initialWidth,
-        height = initialHeight,
-        state = _WindowState.normal,
-        hasFocus = true;
+  }) : width = initialWidth,
+       height = initialHeight,
+       state = _WindowState.normal,
+       hasFocus = true;
 
   String get stateLabel {
     switch (state) {
@@ -936,7 +1087,9 @@ class _OperationsLabTabState extends State<_OperationsLabTab> {
       _windows.add(win);
       _focusWindow(id);
     });
-    _log('controller.create("$id") → size=${win.width.toInt()}×${win.height.toInt()}');
+    _log(
+      'controller.create("$id") → size=${win.width.toInt()}×${win.height.toInt()}',
+    );
   }
 
   void _focusWindow(String id) {
@@ -974,7 +1127,9 @@ class _OperationsLabTabState extends State<_OperationsLabTab> {
       w.width = (w.width + dw).clamp(80, 300);
       w.height = (w.height + dh).clamp(60, 200);
     });
-    _log('controller.setSize("${w.id}", ${w.width.toInt()}×${w.height.toInt()})');
+    _log(
+      'controller.setSize("${w.id}", ${w.width.toInt()}×${w.height.toInt()})',
+    );
   }
 
   void _moveSelected(double dx, double dy) {
@@ -1059,8 +1214,14 @@ class _OperationsLabTabState extends State<_OperationsLabTab> {
                 ),
               ],
               Spacer(),
-              Text('Windows: ${_windows.length}',
-                  style: TextStyle(fontSize: 10, color: _kPrimary, fontWeight: FontWeight.w600)),
+              Text(
+                'Windows: ${_windows.length}',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: _kPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ),
@@ -1111,14 +1272,21 @@ class _OperationsLabTabState extends State<_OperationsLabTab> {
                   children: [
                     Icon(Icons.terminal, size: 12, color: _kAccent),
                     SizedBox(width: 6),
-                    Text('Controller Event Log',
-                        style: TextStyle(
-                            color: _kAccent, fontSize: 10, fontWeight: FontWeight.w700)),
+                    Text(
+                      'Controller Event Log',
+                      style: TextStyle(
+                        color: _kAccent,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     Spacer(),
                     GestureDetector(
                       onTap: () => setState(() => _eventLog.clear()),
-                      child: Text('Clear',
-                          style: TextStyle(color: Colors.white38, fontSize: 9)),
+                      child: Text(
+                        'Clear',
+                        style: TextStyle(color: Colors.white38, fontSize: 9),
+                      ),
                     ),
                   ],
                 ),
@@ -1130,9 +1298,10 @@ class _OperationsLabTabState extends State<_OperationsLabTab> {
                   itemBuilder: (_, i) => Text(
                     _eventLog[i],
                     style: TextStyle(
-                        color: i == 0 ? Colors.greenAccent : Colors.white54,
-                        fontSize: 9,
-                        fontFamily: 'monospace'),
+                      color: i == 0 ? Colors.greenAccent : Colors.white54,
+                      fontSize: 9,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
               ),
@@ -1164,9 +1333,7 @@ class _WindowCanvas extends StatelessWidget {
       child: Stack(
         children: [
           // desktop wallpaper pattern
-          Positioned.fill(
-            child: CustomPaint(painter: _DesktopGridPainter()),
-          ),
+          Positioned.fill(child: CustomPaint(painter: _DesktopGridPainter())),
           // taskbar
           Positioned(
             left: 0,
@@ -1180,176 +1347,219 @@ class _WindowCanvas extends StatelessWidget {
                 children: [
                   Icon(Icons.apps, color: Colors.white38, size: 14),
                   SizedBox(width: 8),
-                  ...windows.map((w) => Padding(
-                        padding: EdgeInsets.only(right: 4),
-                        child: GestureDetector(
-                          onTap: () => onSelect(w.id),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: w.id == selectedId
-                                  ? w.chrome.withOpacity(0.3)
-                                  : Colors.white10,
-                              borderRadius: BorderRadius.circular(4),
-                              border: w.hasFocus
-                                  ? Border(
-                                      bottom: BorderSide(
-                                          color: w.chrome, width: 2))
-                                  : null,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: 6,
-                                  height: 6,
-                                  decoration: BoxDecoration(
-                                    color: w.state == _WindowState.destroyed
-                                        ? Colors.red
-                                        : w.state == _WindowState.minimized
-                                            ? Colors.white30
-                                            : w.chrome,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  w.title.length > 10
-                                      ? '${w.title.substring(0, 9)}...'
-                                      : w.title,
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 9),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )),
-                  Spacer(),
-                  Text('Desktop',
-                      style: TextStyle(color: Colors.white24, fontSize: 9)),
-                ],
-              ),
-            ),
-          ),
-          // window frames
-          ...windows.where((w) => w.state != _WindowState.destroyed && w.state != _WindowState.minimized).map((w) {
-            final isMax = w.state == _WindowState.maximized;
-            final isFull = w.state == _WindowState.fullscreen;
-            final left = isMax || isFull ? 0.0 : w.x;
-            final top = isMax || isFull ? 0.0 : w.y;
-            final ww = isFull ? 400.0 : isMax ? 380.0 : w.width;
-            final hh = isFull ? 280.0 : isMax ? 240.0 : w.height;
-
-            return Positioned(
-              left: left,
-              top: top,
-              width: ww,
-              height: hh,
-              child: GestureDetector(
-                onTap: () => onSelect(w.id),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF2D3748),
-                    borderRadius:
-                        isFull ? null : BorderRadius.circular(6),
-                    border: Border.all(
-                      color: w.hasFocus ? w.chrome : Colors.white24,
-                      width: w.hasFocus ? 2 : 1,
-                    ),
-                    boxShadow: w.hasFocus
-                        ? [
-                            BoxShadow(
-                                color: w.chrome.withOpacity(0.3),
-                                blurRadius: 12,
-                                offset: Offset(0, 4))
-                          ]
-                        : [],
-                  ),
-                  child: Column(
-                    children: [
-                      // title bar
-                      Container(
-                        height: 22,
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        decoration: BoxDecoration(
-                          color: w.hasFocus ? w.chrome : Color(0xFF4A5568),
-                          borderRadius: isFull
-                              ? null
-                              : BorderRadius.vertical(
-                                  top: Radius.circular(5)),
-                        ),
-                        child: Row(
-                          children: [
-                            // traffic lights
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  shape: BoxShape.circle),
-                            ),
-                            SizedBox(width: 3),
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  shape: BoxShape.circle),
-                            ),
-                            SizedBox(width: 3),
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle),
-                            ),
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                w.title,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 9,
-                                    fontWeight: FontWeight.w600),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Icon(w.stateIcon,
-                                size: 10, color: Colors.white54),
-                          ],
-                        ),
-                      ),
-                      // content area
-                      Expanded(
+                  ...windows.map(
+                    (w) => Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: GestureDetector(
+                        onTap: () => onSelect(w.id),
                         child: Container(
-                          color: Color(0xFF1A202C),
-                          alignment: Alignment.center,
-                          child: Column(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: w.id == selectedId
+                                ? w.chrome.withOpacity(0.3)
+                                : Colors.white10,
+                            borderRadius: BorderRadius.circular(4),
+                            border: w.hasFocus
+                                ? Border(
+                                    bottom: BorderSide(
+                                      color: w.chrome,
+                                      width: 2,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.desktop_windows,
-                                  color: w.chrome.withOpacity(0.4), size: 24),
-                              SizedBox(height: 4),
-                              Text(w.id,
-                                  style: TextStyle(
-                                      color: Colors.white38, fontSize: 9)),
+                              Container(
+                                width: 6,
+                                height: 6,
+                                decoration: BoxDecoration(
+                                  color: w.state == _WindowState.destroyed
+                                      ? Colors.red
+                                      : w.state == _WindowState.minimized
+                                      ? Colors.white30
+                                      : w.chrome,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 4),
                               Text(
-                                '${ww.toInt()}×${hh.toInt()}',
+                                w.title.length > 10
+                                    ? '${w.title.substring(0, 9)}...'
+                                    : w.title,
                                 style: TextStyle(
-                                    color: Colors.white24, fontSize: 8),
+                                  color: Colors.white70,
+                                  fontSize: 9,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Text(
+                    'Desktop',
+                    style: TextStyle(color: Colors.white24, fontSize: 9),
+                  ),
+                ],
               ),
-            );
-          }),
+            ),
+          ),
+          // window frames
+          ...windows
+              .where(
+                (w) =>
+                    w.state != _WindowState.destroyed &&
+                    w.state != _WindowState.minimized,
+              )
+              .map((w) {
+                final isMax = w.state == _WindowState.maximized;
+                final isFull = w.state == _WindowState.fullscreen;
+                final left = isMax || isFull ? 0.0 : w.x;
+                final top = isMax || isFull ? 0.0 : w.y;
+                final ww = isFull
+                    ? 400.0
+                    : isMax
+                    ? 380.0
+                    : w.width;
+                final hh = isFull
+                    ? 280.0
+                    : isMax
+                    ? 240.0
+                    : w.height;
+
+                return Positioned(
+                  left: left,
+                  top: top,
+                  width: ww,
+                  height: hh,
+                  child: GestureDetector(
+                    onTap: () => onSelect(w.id),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF2D3748),
+                        borderRadius: isFull ? null : BorderRadius.circular(6),
+                        border: Border.all(
+                          color: w.hasFocus ? w.chrome : Colors.white24,
+                          width: w.hasFocus ? 2 : 1,
+                        ),
+                        boxShadow: w.hasFocus
+                            ? [
+                                BoxShadow(
+                                  color: w.chrome.withOpacity(0.3),
+                                  blurRadius: 12,
+                                  offset: Offset(0, 4),
+                                ),
+                              ]
+                            : [],
+                      ),
+                      child: Column(
+                        children: [
+                          // title bar
+                          Container(
+                            height: 22,
+                            padding: EdgeInsets.symmetric(horizontal: 6),
+                            decoration: BoxDecoration(
+                              color: w.hasFocus ? w.chrome : Color(0xFF4A5568),
+                              borderRadius: isFull
+                                  ? null
+                                  : BorderRadius.vertical(
+                                      top: Radius.circular(5),
+                                    ),
+                            ),
+                            child: Row(
+                              children: [
+                                // traffic lights
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                SizedBox(width: 3),
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                SizedBox(width: 3),
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    w.title,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Icon(
+                                  w.stateIcon,
+                                  size: 10,
+                                  color: Colors.white54,
+                                ),
+                              ],
+                            ),
+                          ),
+                          // content area
+                          Expanded(
+                            child: Container(
+                              color: Color(0xFF1A202C),
+                              alignment: Alignment.center,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.desktop_windows,
+                                    color: w.chrome.withOpacity(0.4),
+                                    size: 24,
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    w.id,
+                                    style: TextStyle(
+                                      color: Colors.white38,
+                                      fontSize: 9,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${ww.toInt()}×${hh.toInt()}',
+                                    style: TextStyle(
+                                      color: Colors.white24,
+                                      fontSize: 8,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
         ],
       ),
     );
@@ -1404,8 +1614,14 @@ class _ToolButton extends StatelessWidget {
           children: [
             Icon(icon, size: 12, color: color),
             SizedBox(width: 4),
-            Text(label,
-                style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ],
         ),
       ),
@@ -1439,9 +1655,14 @@ class _InspectorPanel extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.all(10),
         children: [
-          Text('Window Inspector',
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.w700, color: _kPrimary)),
+          Text(
+            'Window Inspector',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 8),
 
           if (selected == null)
@@ -1455,8 +1676,10 @@ class _InspectorPanel extends StatelessWidget {
                 children: [
                   Icon(Icons.touch_app, size: 24, color: _kMuted),
                   SizedBox(height: 6),
-                  Text('Create or select a window',
-                      style: TextStyle(fontSize: 10, color: _kMuted)),
+                  Text(
+                    'Create or select a window',
+                    style: TextStyle(fontSize: 10, color: _kMuted),
+                  ),
                 ],
               ),
             )
@@ -1483,18 +1706,27 @@ class _InspectorPanel extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 6),
-                      Text(selected!.id,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: selected!.chrome)),
+                      Text(
+                        selected!.id,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: selected!.chrome,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 6),
                   _PropRow('Title', selected!.title),
                   _PropRow('State', selected!.stateLabel),
-                  _PropRow('Position', '(${selected!.x.toInt()}, ${selected!.y.toInt()})'),
-                  _PropRow('Size', '${selected!.width.toInt()} × ${selected!.height.toInt()}'),
+                  _PropRow(
+                    'Position',
+                    '(${selected!.x.toInt()}, ${selected!.y.toInt()})',
+                  ),
+                  _PropRow(
+                    'Size',
+                    '${selected!.width.toInt()} × ${selected!.height.toInt()}',
+                  ),
                   _PropRow('Focus', selected!.hasFocus ? 'Yes' : 'No'),
                 ],
               ),
@@ -1503,8 +1735,14 @@ class _InspectorPanel extends StatelessWidget {
             SizedBox(height: 10),
 
             // geometry controls
-            Text('Resize',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kDarkText)),
+            Text(
+              'Resize',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: _kDarkText,
+              ),
+            ),
             SizedBox(height: 4),
             Row(
               children: [
@@ -1520,14 +1758,18 @@ class _InspectorPanel extends StatelessWidget {
 
             SizedBox(height: 10),
 
-            Text('Move',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kDarkText)),
+            Text(
+              'Move',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: _kDarkText,
+              ),
+            ),
             SizedBox(height: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _SmallBtn('↑', () => onMove(0, -15)),
-              ],
+              children: [_SmallBtn('↑', () => onMove(0, -15))],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -1539,68 +1781,77 @@ class _InspectorPanel extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _SmallBtn('↓', () => onMove(0, 15)),
-              ],
+              children: [_SmallBtn('↓', () => onMove(0, 15))],
             ),
 
             SizedBox(height: 10),
 
-            Text('Title',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kDarkText)),
-            SizedBox(height: 4),
-            _TitleEditor(
-              current: selected!.title,
-              onSubmit: onRename,
+            Text(
+              'Title',
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: _kDarkText,
+              ),
             ),
+            SizedBox(height: 4),
+            _TitleEditor(current: selected!.title, onSubmit: onRename),
           ],
 
           SizedBox(height: 14),
 
           // window list
-          Text('All Windows',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kDarkText)),
+          Text(
+            'All Windows',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 6),
-          ...windows.map((w) => GestureDetector(
-                onTap: () => onSelectWindow(w.id),
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 4),
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                  decoration: BoxDecoration(
+          ...windows.map(
+            (w) => GestureDetector(
+              onTap: () => onSelectWindow(w.id),
+              child: Container(
+                margin: EdgeInsets.only(bottom: 4),
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: w.id == selected?.id
+                      ? w.chrome.withOpacity(0.1)
+                      : Colors.grey.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
                     color: w.id == selected?.id
-                        ? w.chrome.withOpacity(0.1)
-                        : Colors.grey.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: w.id == selected?.id
-                          ? w.chrome.withOpacity(0.4)
-                          : Colors.transparent,
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: w.state == _WindowState.destroyed
-                              ? Colors.red
-                              : w.chrome,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          '${w.title} (${w.stateLabel})',
-                          style: TextStyle(fontSize: 9, color: Colors.black87),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
+                        ? w.chrome.withOpacity(0.4)
+                        : Colors.transparent,
                   ),
                 ),
-              )),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: w.state == _WindowState.destroyed
+                            ? Colors.red
+                            : w.chrome,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        '${w.title} (${w.stateLabel})',
+                        style: TextStyle(fontSize: 9, color: Colors.black87),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1620,13 +1871,24 @@ class _PropRow extends StatelessWidget {
         children: [
           SizedBox(
             width: 50,
-            child: Text(label,
-                style: TextStyle(fontSize: 9, color: Colors.black45, fontWeight: FontWeight.w600)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 9,
+                color: Colors.black45,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(
-                    fontSize: 9, color: _kDarkText, fontFamily: 'monospace')),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 9,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -1650,9 +1912,14 @@ class _SmallBtn extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: _kPrimary.withOpacity(0.2)),
         ),
-        child: Text(label,
-            style: TextStyle(
-                fontSize: 10, fontWeight: FontWeight.w700, color: _kPrimary)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: _kPrimary,
+          ),
+        ),
       ),
     );
   }
@@ -1701,7 +1968,9 @@ class _TitleEditorState extends State<_TitleEditor> {
             decoration: InputDecoration(
               isDense: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
           ),
         ),
@@ -1714,8 +1983,14 @@ class _TitleEditorState extends State<_TitleEditor> {
               color: _kAccent,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text('Set',
-                style: TextStyle(fontSize: 9, color: Colors.white, fontWeight: FontWeight.w700)),
+            child: Text(
+              'Set',
+              style: TextStyle(
+                fontSize: 9,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
       ],
@@ -1743,21 +2018,36 @@ class _ArchitectureTab extends StatelessWidget {
               _ArchLayer(
                 label: 'Application',
                 color: _kAccent,
-                items: ['Main Window', 'Settings Window', 'Editor Window', 'Preview Window'],
+                items: [
+                  'Main Window',
+                  'Settings Window',
+                  'Editor Window',
+                  'Preview Window',
+                ],
               ),
               _ArchConnector(),
               // controller layer
               _ArchLayer(
                 label: 'RegularWindowController (per window)',
                 color: _kPrimary,
-                items: ['Lifecycle mgmt', 'Geometry', 'Focus', 'Title / chrome'],
+                items: [
+                  'Lifecycle mgmt',
+                  'Geometry',
+                  'Focus',
+                  'Title / chrome',
+                ],
               ),
               _ArchConnector(),
               // delegate layer
               _ArchLayer(
                 label: 'RegularWindowControllerDelegate',
                 color: _kDelegateColor,
-                items: ['windowShouldClose()', 'windowDidResize()', 'windowDidMove()', 'windowDidBecomeKey()'],
+                items: [
+                  'windowShouldClose()',
+                  'windowDidResize()',
+                  'windowDidMove()',
+                  'windowDidBecomeKey()',
+                ],
               ),
               _ArchConnector(),
               // platform layer
@@ -1789,7 +2079,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 1,
                 title: 'Instantiation',
                 code: 'final ctrl = RegularWindowControllerMacOS();',
-                detail: 'Platform-specific controller is created. No native window '
+                detail:
+                    'Platform-specific controller is created. No native window '
                     'exists yet. The controller is in an uninitialized state.',
                 color: Color(0xFF1565C0),
               ),
@@ -1798,7 +2089,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 2,
                 title: 'Delegate Assignment',
                 code: 'ctrl.delegate = MyWindowDelegate();',
-                detail: 'A delegate is attached to receive lifecycle callbacks. '
+                detail:
+                    'A delegate is attached to receive lifecycle callbacks. '
                     'The delegate pattern decouples window management from business logic.',
                 color: Color(0xFF00838F),
               ),
@@ -1807,7 +2099,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 3,
                 title: 'Window Creation',
                 code: 'ctrl.create(size: Size(800, 600), title: "Editor");',
-                detail: 'The native window is allocated with the specified geometry. '
+                detail:
+                    'The native window is allocated with the specified geometry. '
                     'A Flutter rendering surface is attached to the window.',
                 color: Color(0xFF2E7D32),
               ),
@@ -1816,7 +2109,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 4,
                 title: 'Active Phase',
                 code: 'ctrl.setSize(...) / ctrl.focus() / ctrl.minimize()',
-                detail: 'The window is alive and interactive. The controller mediates '
+                detail:
+                    'The window is alive and interactive. The controller mediates '
                     'all operations between Flutter and the native frame.',
                 color: Color(0xFFEF6C00),
               ),
@@ -1825,7 +2119,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 5,
                 title: 'Close Request',
                 code: 'delegate.windowShouldClose() → true/false',
-                detail: 'User clicks close button. The delegate can veto the close '
+                detail:
+                    'User clicks close button. The delegate can veto the close '
                     '(e.g. unsaved changes dialog). Returns true to allow, false to cancel.',
                 color: Color(0xFFC62828),
               ),
@@ -1834,7 +2129,8 @@ class _ArchitectureTab extends StatelessWidget {
                 step: 6,
                 title: 'Destruction',
                 code: 'ctrl.destroy()',
-                detail: 'The native window is released, rendering surface detached, '
+                detail:
+                    'The native window is released, rendering surface detached, '
                     'and all resources freed. The controller is now invalidated.',
                 color: Color(0xFF37474F),
               ),
@@ -1854,7 +2150,11 @@ class _ArchitectureTab extends StatelessWidget {
               Text(
                 'The controller acts as an event bridge between the native '
                 'window system and the Flutter framework:',
-                style: TextStyle(fontSize: 11, color: Colors.black54, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.black54,
+                  height: 1.4,
+                ),
               ),
               SizedBox(height: 12),
               _EventRoute(
@@ -1916,7 +2216,8 @@ class _ArchitectureTab extends StatelessWidget {
             children: [
               _UsagePattern(
                 title: 'Single-Window Desktop App',
-                description: 'One controller for the main window. Created at startup, '
+                description:
+                    'One controller for the main window. Created at startup, '
                     'destroyed on quit. The simplest pattern — most existing Flutter '
                     'desktop apps use this implicitly.',
                 visual: _SingleWindowVisual(),
@@ -1924,7 +2225,8 @@ class _ArchitectureTab extends StatelessWidget {
               SizedBox(height: 12),
               _UsagePattern(
                 title: 'Multi-Window Document Editor',
-                description: 'One controller per document window. A registry tracks '
+                description:
+                    'One controller per document window. A registry tracks '
                     'all open windows. Close request checks for unsaved changes. '
                     'App quits when last window closes.',
                 visual: _MultiDocVisual(),
@@ -1932,7 +2234,8 @@ class _ArchitectureTab extends StatelessWidget {
               SizedBox(height: 12),
               _UsagePattern(
                 title: 'Inspector / Tool Windows',
-                description: 'A main window with floating tool windows (inspector, '
+                description:
+                    'A main window with floating tool windows (inspector, '
                     'palette, layers). Tool windows share the main window\'s state '
                     'but have independent geometry and lifecycle.',
                 visual: _InspectorWindowVisual(),
@@ -1940,7 +2243,8 @@ class _ArchitectureTab extends StatelessWidget {
               SizedBox(height: 12),
               _UsagePattern(
                 title: 'Detachable Panels',
-                description: 'Panels that can be dragged out of the main window into '
+                description:
+                    'Panels that can be dragged out of the main window into '
                     'their own window. Requires dynamic controller creation and '
                     'widget tree re-parenting.',
                 visual: _DetachableVisual(),
@@ -2021,35 +2325,40 @@ class _ArchitectureTab extends StatelessWidget {
               _PracticeItem(
                 number: '1',
                 title: 'Always set a delegate before showing',
-                detail: 'Without a delegate, close requests cannot be intercepted. '
+                detail:
+                    'Without a delegate, close requests cannot be intercepted. '
                     'This leads to data loss if the user has unsaved changes.',
                 isGood: true,
               ),
               _PracticeItem(
                 number: '2',
                 title: 'Don\'t call destroy() directly',
-                detail: 'Use close() instead, which triggers the delegate\'s '
+                detail:
+                    'Use close() instead, which triggers the delegate\'s '
                     'shouldClose callback. Direct destroy() bypasses confirmation.',
                 isGood: false,
               ),
               _PracticeItem(
                 number: '3',
                 title: 'Track all controllers in a registry',
-                detail: 'A central registry enables "Close All" and "Quit" operations '
+                detail:
+                    'A central registry enables "Close All" and "Quit" operations '
                     'that iterate through all windows orderly.',
                 isGood: true,
               ),
               _PracticeItem(
                 number: '4',
                 title: 'Always check window state before operations',
-                detail: 'Calling setSize on a maximized window may be ignored or cause '
+                detail:
+                    'Calling setSize on a maximized window may be ignored or cause '
                     'unexpected behavior. Restore first, then resize.',
                 isGood: true,
               ),
               _PracticeItem(
                 number: '5',
                 title: 'Test on all target platforms',
-                detail: 'Platform subclasses may have subtle differences in event '
+                detail:
+                    'Platform subclasses may have subtle differences in event '
                     'ordering. What works on macOS may behave differently on Linux.',
                 isGood: true,
               ),
@@ -2069,7 +2378,11 @@ class _ArchLayer extends StatelessWidget {
   final String label;
   final Color color;
   final List<String> items;
-  const _ArchLayer({required this.label, required this.color, required this.items});
+  const _ArchLayer({
+    required this.label,
+    required this.color,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -2082,24 +2395,33 @@ class _ArchLayer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
           SizedBox(height: 6),
           Wrap(
             spacing: 6,
             runSpacing: 4,
             alignment: WrapAlignment.center,
             children: items
-                .map((item) => Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: color.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(item,
-                          style: TextStyle(fontSize: 9, color: color)),
-                    ))
+                .map(
+                  (item) => Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      item,
+                      style: TextStyle(fontSize: 9, color: color),
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -2152,18 +2474,28 @@ class _LifecycleStep extends StatelessWidget {
               color: color,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text('$step',
-                style: TextStyle(
-                    color: Colors.white, fontSize: 12, fontWeight: FontWeight.w800)),
+            child: Text(
+              '$step',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
           SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
                 SizedBox(height: 4),
                 Container(
                   width: double.infinity,
@@ -2172,15 +2504,24 @@ class _LifecycleStep extends StatelessWidget {
                     color: _kCodeBg,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(code,
-                      style: TextStyle(
-                          fontSize: 10,
-                          color: _kDarkText,
-                          fontFamily: 'monospace')),
+                  child: Text(
+                    code,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: _kDarkText,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
                 SizedBox(height: 4),
-                Text(detail,
-                    style: TextStyle(fontSize: 10, color: Colors.black54, height: 1.4)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.black54,
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -2234,23 +2575,33 @@ class _EventRoute extends StatelessWidget {
                     color: color.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(3),
                   ),
-                  child: Text(source,
-                      style: TextStyle(
-                          fontSize: 9, fontWeight: FontWeight.w700, color: color)),
+                  child: Text(
+                    source,
+                    style: TextStyle(
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                 ),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text(path,
-                      style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.black54,
-                          fontFamily: 'monospace')),
+                  child: Text(
+                    path,
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: Colors.black54,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 3),
-            Text('Effect: $effect',
-                style: TextStyle(fontSize: 9, color: Colors.black45)),
+            Text(
+              'Effect: $effect',
+              style: TextStyle(fontSize: 9, color: Colors.black45),
+            ),
           ],
         ),
       ),
@@ -2292,72 +2643,92 @@ class _WindowRegistryVisual extends StatelessWidget {
                 children: [
                   Icon(Icons.inventory, size: 12, color: _kAccent),
                   SizedBox(width: 6),
-                  Text('WindowRegistry',
-                      style: TextStyle(
-                          color: _kAccent,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'monospace')),
+                  Text(
+                    'WindowRegistry',
+                    style: TextStyle(
+                      color: _kAccent,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
                   Spacer(),
-                  Text('${entries.length} windows',
-                      style: TextStyle(color: Colors.white38, fontSize: 9)),
+                  Text(
+                    '${entries.length} windows',
+                    style: TextStyle(color: Colors.white38, fontSize: 9),
+                  ),
                 ],
               ),
               SizedBox(height: 8),
-              ...entries.map((e) => Padding(
-                    padding: EdgeInsets.only(bottom: 4),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.05),
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                            color: e.color.withOpacity(0.4)),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 8,
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: e.isActive ? Colors.greenAccent : Colors.white24,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(e.id,
-                                    style: TextStyle(
-                                        color: e.color,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'monospace')),
-                                Text(e.title,
-                                    style: TextStyle(
-                                        color: Colors.white54, fontSize: 9)),
-                              ],
-                            ),
-                          ),
-                          Text(
-                            e.isActive ? 'active' : 'hidden',
-                            style: TextStyle(
-                              color: e.isActive ? Colors.greenAccent : Colors.white24,
-                              fontSize: 8,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
+              ...entries.map(
+                (e) => Padding(
+                  padding: EdgeInsets.only(bottom: 4),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.05),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: e.color.withOpacity(0.4)),
                     ),
-                  )),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: e.isActive
+                                ? Colors.greenAccent
+                                : Colors.white24,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                e.id,
+                                style: TextStyle(
+                                  color: e.color,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'monospace',
+                                ),
+                              ),
+                              Text(
+                                e.title,
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 9,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          e.isActive ? 'active' : 'hidden',
+                          style: TextStyle(
+                            color: e.isActive
+                                ? Colors.greenAccent
+                                : Colors.white24,
+                            fontSize: 8,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 6),
               Text(
                 '// registry.closeAll() → iterates and calls close() on each',
                 style: TextStyle(
-                    color: Colors.white30, fontSize: 9, fontFamily: 'monospace'),
+                  color: Colors.white30,
+                  fontSize: 9,
+                  fontFamily: 'monospace',
+                ),
               ),
             ],
           ),
@@ -2399,12 +2770,19 @@ class _UsagePattern extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.w700, color: _kDarkText)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 6),
-          Text(description,
-              style: TextStyle(fontSize: 10, color: Colors.black54, height: 1.4)),
+          Text(
+            description,
+            style: TextStyle(fontSize: 10, color: Colors.black54, height: 1.4),
+          ),
           SizedBox(height: 10),
           visual,
         ],
@@ -2440,13 +2818,17 @@ class _SingleWindowVisual extends StatelessWidget {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
                 ),
                 alignment: Alignment.center,
-                child: Text('Main Window',
-                    style: TextStyle(color: Colors.white, fontSize: 8)),
+                child: Text(
+                  'Main Window',
+                  style: TextStyle(color: Colors.white, fontSize: 8),
+                ),
               ),
               Expanded(
                 child: Center(
-                  child: Text('Flutter App',
-                      style: TextStyle(color: Colors.white38, fontSize: 9)),
+                  child: Text(
+                    'Flutter App',
+                    style: TextStyle(color: Colors.white38, fontSize: 9),
+                  ),
                 ),
               ),
             ],
@@ -2506,15 +2888,22 @@ class _InspectorWindowVisual extends StatelessWidget {
                     height: 12,
                     decoration: BoxDecoration(
                       color: _kWindowBorder,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(3),
+                      ),
                     ),
                     alignment: Alignment.center,
-                    child: Text('Editor', style: TextStyle(color: Colors.white, fontSize: 7)),
+                    child: Text(
+                      'Editor',
+                      style: TextStyle(color: Colors.white, fontSize: 7),
+                    ),
                   ),
                   Expanded(
                     child: Center(
-                      child: Text('Canvas',
-                          style: TextStyle(color: Colors.white30, fontSize: 8)),
+                      child: Text(
+                        'Canvas',
+                        style: TextStyle(color: Colors.white30, fontSize: 8),
+                      ),
                     ),
                   ),
                 ],
@@ -2538,12 +2927,16 @@ class _InspectorWindowVisual extends StatelessWidget {
                       Container(
                         height: 10,
                         decoration: BoxDecoration(
-                            color: Color(0xFF6A1B9A),
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(2))),
+                          color: Color(0xFF6A1B9A),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(2),
+                          ),
+                        ),
                         alignment: Alignment.center,
-                        child: Text('Props',
-                            style: TextStyle(color: Colors.white, fontSize: 6)),
+                        child: Text(
+                          'Props',
+                          style: TextStyle(color: Colors.white, fontSize: 6),
+                        ),
                       ),
                     ],
                   ),
@@ -2563,12 +2956,16 @@ class _InspectorWindowVisual extends StatelessWidget {
                       Container(
                         height: 10,
                         decoration: BoxDecoration(
-                            color: Color(0xFF00838F),
-                            borderRadius:
-                                BorderRadius.vertical(top: Radius.circular(2))),
+                          color: Color(0xFF00838F),
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(2),
+                          ),
+                        ),
                         alignment: Alignment.center,
-                        child: Text('Layers',
-                            style: TextStyle(color: Colors.white, fontSize: 6)),
+                        child: Text(
+                          'Layers',
+                          style: TextStyle(color: Colors.white, fontSize: 6),
+                        ),
                       ),
                     ],
                   ),
@@ -2609,32 +3006,53 @@ class _DetachableVisual extends StatelessWidget {
                     height: 12,
                     decoration: BoxDecoration(
                       color: _kWindowBorder,
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(3),
+                      ),
                     ),
                     alignment: Alignment.center,
-                    child: Text('IDE', style: TextStyle(color: Colors.white, fontSize: 7)),
+                    child: Text(
+                      'IDE',
+                      style: TextStyle(color: Colors.white, fontSize: 7),
+                    ),
                   ),
                   Expanded(
                     child: Row(
                       children: [
                         Expanded(
                           child: Center(
-                            child: Text('Code',
-                                style: TextStyle(color: Colors.white30, fontSize: 8)),
+                            child: Text(
+                              'Code',
+                              style: TextStyle(
+                                color: Colors.white30,
+                                fontSize: 8,
+                              ),
+                            ),
                           ),
                         ),
                         Container(
                           width: 30,
                           decoration: BoxDecoration(
-                            border: Border(left: BorderSide(color: Colors.white12)),
+                            border: Border(
+                              left: BorderSide(color: Colors.white12),
+                            ),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Icon(Icons.open_in_new, size: 10, color: Colors.white24),
-                                Text('detached',
-                                    style: TextStyle(color: Colors.white24, fontSize: 6)),
+                                Icon(
+                                  Icons.open_in_new,
+                                  size: 10,
+                                  color: Colors.white24,
+                                ),
+                                Text(
+                                  'detached',
+                                  style: TextStyle(
+                                    color: Colors.white24,
+                                    fontSize: 6,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -2664,16 +3082,22 @@ class _DetachableVisual extends StatelessWidget {
                   height: 12,
                   decoration: BoxDecoration(
                     color: _kAccent,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(3),
+                    ),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Terminal',
-                      style: TextStyle(color: Colors.white, fontSize: 7)),
+                  child: Text(
+                    'Terminal',
+                    style: TextStyle(color: Colors.white, fontSize: 7),
+                  ),
                 ),
                 Expanded(
                   child: Center(
-                    child: Text('\$',
-                        style: TextStyle(color: Colors.white38, fontSize: 12)),
+                    child: Text(
+                      '\$',
+                      style: TextStyle(color: Colors.white38, fontSize: 12),
+                    ),
                   ),
                 ),
               ],
@@ -2710,12 +3134,18 @@ class _MiniWindow extends StatelessWidget {
               borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
             ),
             alignment: Alignment.center,
-            child: Text(title,
-                style: TextStyle(color: Colors.white, fontSize: 7)),
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.white, fontSize: 7),
+            ),
           ),
           Expanded(
             child: Center(
-              child: Icon(Icons.description, size: 12, color: color.withOpacity(0.4)),
+              child: Icon(
+                Icons.description,
+                size: 12,
+                color: color.withOpacity(0.4),
+              ),
             ),
           ),
         ],
@@ -2755,7 +3185,13 @@ class _PlatformRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SizedBox(width: 70, child: Text(feature, style: textStyle.copyWith(fontWeight: FontWeight.w600))),
+          SizedBox(
+            width: 70,
+            child: Text(
+              feature,
+              style: textStyle.copyWith(fontWeight: FontWeight.w600),
+            ),
+          ),
           Expanded(child: Text(macos, style: textStyle)),
           Expanded(child: Text(linux, style: textStyle)),
           Expanded(child: Text(windows, style: textStyle)),
@@ -2813,12 +3249,23 @@ class _PracticeItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: TextStyle(
-                          fontSize: 11, fontWeight: FontWeight.w700, color: color)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
+                  ),
                   SizedBox(height: 3),
-                  Text(detail,
-                      style: TextStyle(fontSize: 10, color: Colors.black54, height: 1.4)),
+                  Text(
+                    detail,
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.black54,
+                      height: 1.4,
+                    ),
+                  ),
                 ],
               ),
             ),

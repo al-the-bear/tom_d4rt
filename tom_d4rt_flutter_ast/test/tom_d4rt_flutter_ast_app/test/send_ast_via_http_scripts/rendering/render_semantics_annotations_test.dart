@@ -17,17 +17,45 @@ class _Pal {
   final Color accent;
   final Color muted;
   final String name;
-  const _Pal(this.name, this.primary, this.secondary, this.surface,
-      this.onSurface, this.accent, this.muted);
+  const _Pal(
+    this.name,
+    this.primary,
+    this.secondary,
+    this.surface,
+    this.onSurface,
+    this.accent,
+    this.muted,
+  );
 }
 
 const _palettes = <_Pal>[
-  _Pal('Deep Purple / Teal', Color(0xFF4527A0), Color(0xFF00897B),
-      Color(0xFFF3E5F5), Color(0xFF1B0036), Color(0xFFE040FB), Color(0xFF9575CD)),
-  _Pal('Warm Amber / Indigo', Color(0xFFFF8F00), Color(0xFF283593),
-      Color(0xFFFFF8E1), Color(0xFF3E2723), Color(0xFFFF6D00), Color(0xFFFFCC80)),
-  _Pal('Forest / Rose', Color(0xFF2E7D32), Color(0xFFAD1457),
-      Color(0xFFE8F5E9), Color(0xFF1B5E20), Color(0xFF69F0AE), Color(0xFFA5D6A7)),
+  _Pal(
+    'Deep Purple / Teal',
+    Color(0xFF4527A0),
+    Color(0xFF00897B),
+    Color(0xFFF3E5F5),
+    Color(0xFF1B0036),
+    Color(0xFFE040FB),
+    Color(0xFF9575CD),
+  ),
+  _Pal(
+    'Warm Amber / Indigo',
+    Color(0xFFFF8F00),
+    Color(0xFF283593),
+    Color(0xFFFFF8E1),
+    Color(0xFF3E2723),
+    Color(0xFFFF6D00),
+    Color(0xFFFFCC80),
+  ),
+  _Pal(
+    'Forest / Rose',
+    Color(0xFF2E7D32),
+    Color(0xFFAD1457),
+    Color(0xFFE8F5E9),
+    Color(0xFF1B5E20),
+    Color(0xFF69F0AE),
+    Color(0xFFA5D6A7),
+  ),
 ];
 
 // ---------------------------------------------------------------------------
@@ -101,11 +129,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             children: [
               Icon(Icons.accessibility_new, color: Colors.white, size: 28),
               const SizedBox(width: 10),
-              Text('Accessibility Annotations Lab',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold)),
+              Text(
+                'Accessibility Annotations Lab',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
@@ -133,27 +164,49 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          Text('Scenario:', style: TextStyle(fontWeight: FontWeight.w600,
-              color: _p.onSurface, fontSize: 13)),
+          Text(
+            'Scenario:',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: _p.onSurface,
+              fontSize: 13,
+            ),
+          ),
           for (var i = 0; i < _scenarioTitles.length; i++)
             ChoiceChip(
-              label: Text('${i + 1}',
-                  style: TextStyle(
-                      color: _scenario == i ? Colors.white : _p.onSurface,
-                      fontSize: 12)),
+              label: Text(
+                '${i + 1}',
+                style: TextStyle(
+                  color: _scenario == i ? Colors.white : _p.onSurface,
+                  fontSize: 12,
+                ),
+              ),
               selected: _scenario == i,
               selectedColor: _p.primary,
               backgroundColor: _p.surface,
-              onSelected: (_) => setState(() { _scenario = i; _log('scenario=$i'); }),
+              onSelected: (_) => setState(() {
+                _scenario = i;
+                _log('scenario=$i');
+              }),
             ),
           const SizedBox(width: 16),
-          Text('Palette:', style: TextStyle(fontWeight: FontWeight.w600,
-              color: _p.onSurface, fontSize: 13)),
+          Text(
+            'Palette:',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: _p.onSurface,
+              fontSize: 13,
+            ),
+          ),
           for (var j = 0; j < _palettes.length; j++)
             GestureDetector(
-              onTap: () => setState(() { _palette = j; _log('palette=$j'); }),
+              onTap: () => setState(() {
+                _palette = j;
+                _log('palette=$j');
+              }),
               child: Container(
-                width: 22, height: 22,
+                width: 22,
+                height: 22,
                 margin: const EdgeInsets.symmetric(horizontal: 2),
                 decoration: BoxDecoration(
                   color: _palettes[j].primary,
@@ -166,14 +219,20 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               ),
             ),
           const SizedBox(width: 10),
-          Row(mainAxisSize: MainAxisSize.min, children: [
-            Text('Verbose', style: TextStyle(fontSize: 12,
-                color: _p.onSurface)),
-            Switch(
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Verbose',
+                style: TextStyle(fontSize: 12, color: _p.onSurface),
+              ),
+              Switch(
                 value: _verbose,
                 activeTrackColor: _p.accent,
-                onChanged: (v) => setState(() => _verbose = v)),
-          ]),
+                onChanged: (v) => setState(() => _verbose = v),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -184,13 +243,20 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   // -----------------------------------------------------------------------
   Widget _buildScenario() {
     switch (_scenario) {
-      case 0: return _buildLabelingFundamentals();
-      case 1: return _buildActionAnnotations();
-      case 2: return _buildContainerMerge();
-      case 3: return _buildLiveRegions();
-      case 4: return _buildPropertiesDashboard();
-      case 5: return _buildVerification();
-      default: return const SizedBox.shrink();
+      case 0:
+        return _buildLabelingFundamentals();
+      case 1:
+        return _buildActionAnnotations();
+      case 2:
+        return _buildContainerMerge();
+      case 3:
+        return _buildLiveRegions();
+      case 4:
+        return _buildPropertiesDashboard();
+      case 5:
+        return _buildVerification();
+      default:
+        return const SizedBox.shrink();
     }
   }
 
@@ -216,12 +282,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Card 1: Simple label
           _labelCard(
             title: 'Simple Label',
-            description: 'Semantics(label: "Play") adds a readable text label '
+            description:
+                'Semantics(label: "Play") adds a readable text label '
                 'that a screen reader will announce.',
             child: Semantics(
               label: 'Play button',
               child: Container(
-                width: 120, height: 80,
+                width: 120,
+                height: 80,
                 decoration: BoxDecoration(
                   color: _p.primary,
                   borderRadius: BorderRadius.circular(12),
@@ -236,38 +304,48 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Card 2: Label + hint
           _labelCard(
             title: 'Label + Hint',
-            description: 'Adding a hint gives the user context about what '
+            description:
+                'Adding a hint gives the user context about what '
                 'will happen when they activate the element.',
             child: Semantics(
               label: 'Submit order',
               hint: 'Double tap to confirm your purchase',
               child: Container(
-                width: 180, height: 60,
+                width: 180,
+                height: 60,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [_p.primary, _p.secondary]),
+                  gradient: LinearGradient(colors: [_p.primary, _p.secondary]),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 alignment: Alignment.center,
-                child: Text('Submit',
-                    style: TextStyle(color: Colors.white, fontSize: 16,
-                        fontWeight: FontWeight.bold)),
+                child: Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-            properties: {'label': 'Submit order',
-                'hint': 'Double tap to confirm your purchase'},
+            properties: {
+              'label': 'Submit order',
+              'hint': 'Double tap to confirm your purchase',
+            },
           ),
           const SizedBox(height: 14),
           // Card 3: Value
           _labelCard(
             title: 'Value Annotation',
-            description: 'Semantics(value: "75%") communicates the current '
+            description:
+                'Semantics(value: "75%") communicates the current '
                 'state of a control, separate from its label.',
             child: Semantics(
               label: 'Volume',
               value: '75 percent',
               child: Container(
-                width: 200, height: 50,
+                width: 200,
+                height: 50,
                 decoration: BoxDecoration(
                   color: _p.surface,
                   borderRadius: BorderRadius.circular(8),
@@ -285,9 +363,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                       ),
                     ),
                     Center(
-                      child: Text('75 %',
-                          style: TextStyle(fontWeight: FontWeight.bold,
-                              fontSize: 16, color: _p.onSurface)),
+                      child: Text(
+                        '75 %',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: _p.onSurface,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -299,13 +382,15 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Card 4: attributedLabel
           _labelCard(
             title: 'Tooltip Annotation',
-            description: 'Semantics(tooltip:) adds a tooltip that assistive '
+            description:
+                'Semantics(tooltip:) adds a tooltip that assistive '
                 'technologies can surface separately from the label.',
             child: Semantics(
               label: 'Settings',
               tooltip: 'Opens the settings panel',
               child: Container(
-                width: 80, height: 80,
+                width: 80,
+                height: 80,
                 decoration: BoxDecoration(
                   color: _p.secondary,
                   shape: BoxShape.circle,
@@ -314,14 +399,17 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 child: Icon(Icons.settings, color: Colors.white, size: 32),
               ),
             ),
-            properties: {'label': 'Settings',
-                'tooltip': 'Opens the settings panel'},
+            properties: {
+              'label': 'Settings',
+              'tooltip': 'Opens the settings panel',
+            },
           ),
           const SizedBox(height: 14),
           // Card 5: Multiple-child grouping with label
           _labelCard(
             title: 'Group Label',
-            description: 'Wrapping a group of widgets in Semantics(label:) '
+            description:
+                'Wrapping a group of widgets in Semantics(label:) '
                 'describes the entire section to assistive tech.',
             child: Semantics(
               label: 'Playback controls',
@@ -355,7 +443,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       label: semantic,
       button: true,
       child: Container(
-        width: 48, height: 48,
+        width: 48,
+        height: 48,
         decoration: BoxDecoration(
           color: _p.primary.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(8),
@@ -378,17 +467,29 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold,
-              fontSize: 15, color: _p.primary)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(description, style: TextStyle(fontSize: 12,
-              color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Center(child: child),
           const SizedBox(height: 10),
@@ -402,16 +503,25 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Semantic properties:',
-                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600,
-                        color: _p.muted)),
+                Text(
+                  'Semantic properties:',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: _p.muted,
+                  ),
+                ),
                 for (final e in properties.entries)
                   Padding(
                     padding: const EdgeInsets.only(top: 2),
-                    child: Text('${e.key}: "${e.value}"',
-                        style: TextStyle(fontSize: 11,
-                            fontFamily: 'monospace',
-                            color: _p.onSurface)),
+                    child: Text(
+                      '${e.key}: "${e.value}"',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: _p.onSurface,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -442,7 +552,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Tap action
           _actionDemo(
             title: 'Tap Action',
-            description: 'Semantics(onTap:) marks the element as tappable. '
+            description:
+                'Semantics(onTap:) marks the element as tappable. '
                 'Screen readers announce "activate" or similar.',
             icon: Icons.touch_app,
             actionName: 'onTap',
@@ -452,7 +563,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Long press
           _actionDemo(
             title: 'Long Press Action',
-            description: 'Semantics(onLongPress:) signals that long-pressing '
+            description:
+                'Semantics(onLongPress:) signals that long-pressing '
                 'performs a secondary action.',
             icon: Icons.pan_tool,
             actionName: 'onLongPress',
@@ -462,7 +574,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Increase / Decrease
           _actionPairDemo(
             title: 'Increase / Decrease',
-            description: 'For sliders and steppers, onIncrease and onDecrease '
+            description:
+                'For sliders and steppers, onIncrease and onDecrease '
                 'let assistive tech adjust values.',
             iconUp: Icons.add_circle_outline,
             iconDown: Icons.remove_circle_outline,
@@ -477,7 +590,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           // Dismiss action
           _actionDemo(
             title: 'Dismiss Action',
-            description: 'Semantics(onDismiss:) enables swipe-to-dismiss '
+            description:
+                'Semantics(onDismiss:) enables swipe-to-dismiss '
                 'in accessibility mode (e.g., notifications).',
             icon: Icons.swipe,
             actionName: 'onDismiss',
@@ -507,8 +621,9 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Row(
         children: [
@@ -517,7 +632,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             button: true,
             onTap: () => _log('$actionName triggered'),
             child: Container(
-              width: 64, height: 64,
+              width: 64,
+              height: 64,
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
@@ -532,22 +648,41 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold,
-                    fontSize: 14, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: color,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text(description, style: TextStyle(fontSize: 12,
-                    color: _p.onSurface.withValues(alpha: 0.7))),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: _p.onSurface.withValues(alpha: 0.7),
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 3),
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(actionName,
-                      style: TextStyle(fontSize: 11, fontFamily: 'monospace',
-                          color: color, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    actionName,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                      color: color,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -569,17 +704,29 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold,
-              fontSize: 14, color: _p.primary)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(description, style: TextStyle(fontSize: 12,
-              color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Semantics(
             label: 'Temperature',
@@ -592,7 +739,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 48, height: 48,
+                  width: 48,
+                  height: 48,
                   decoration: BoxDecoration(
                     color: _p.secondary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
@@ -601,22 +749,32 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                   child: Icon(iconDown, color: _p.secondary, size: 28),
                 ),
                 Container(
-                  width: 100, height: 56,
+                  width: 100,
+                  height: 56,
                   margin: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [_p.primary.withValues(alpha: 0.1),
-                          _p.secondary.withValues(alpha: 0.1)]),
+                      colors: [
+                        _p.primary.withValues(alpha: 0.1),
+                        _p.secondary.withValues(alpha: 0.1),
+                      ],
+                    ),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: _p.primary, width: 1),
                   ),
                   alignment: Alignment.center,
-                  child: Text('22°',
-                      style: TextStyle(fontSize: 24,
-                          fontWeight: FontWeight.bold, color: _p.primary)),
+                  child: Text(
+                    '22°',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: _p.primary,
+                    ),
+                  ),
                 ),
                 Container(
-                  width: 48, height: 48,
+                  width: 48,
+                  height: 48,
                   decoration: BoxDecoration(
                     color: _p.primary.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
@@ -635,10 +793,15 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 color: _p.surface,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text('onIncrease / onDecrease + value + '
-                  'increasedValue / decreasedValue',
-                  style: TextStyle(fontSize: 10, fontFamily: 'monospace',
-                      color: _p.muted)),
+              child: Text(
+                'onIncrease / onDecrease + value + '
+                'increasedValue / decreasedValue',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: _p.muted,
+                ),
+              ),
             ),
           ),
         ],
@@ -653,20 +816,29 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Scroll Actions', style: TextStyle(fontWeight: FontWeight.bold,
-              fontSize: 14, color: _p.primary)),
+          Text(
+            'Scroll Actions',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(
             'Semantics(onScrollLeft:, onScrollRight:, onScrollUp:, '
             'onScrollDown:) enables directional scrolling via accessibility.',
-            style: TextStyle(fontSize: 12,
-                color: _p.onSurface.withValues(alpha: 0.7)),
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
           ),
           const SizedBox(height: 12),
           Semantics(
@@ -695,9 +867,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,
-                        child: Text('${i + 1}',
-                            style: TextStyle(fontWeight: FontWeight.bold,
-                                color: _p.primary, fontSize: 18)),
+                        child: Text(
+                          '${i + 1}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: _p.primary,
+                            fontSize: 18,
+                          ),
+                        ),
                       ),
                     ),
                 ],
@@ -709,9 +886,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.arrow_back, size: 14, color: _p.muted),
-              Text('  onScrollLeft / onScrollRight  ',
-                  style: TextStyle(fontSize: 10, fontFamily: 'monospace',
-                      color: _p.muted)),
+              Text(
+                '  onScrollLeft / onScrollRight  ',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: _p.muted,
+                ),
+              ),
               Icon(Icons.arrow_forward, size: 14, color: _p.muted),
             ],
           ),
@@ -727,28 +909,35 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Custom Semantic Actions',
-              style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: 14, color: _p.primary)),
+          Text(
+            'Custom Semantic Actions',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(
             'CustomSemanticsAction allows defining app-specific actions '
             'beyond the standard set, with custom labels.',
-            style: TextStyle(fontSize: 12,
-                color: _p.onSurface.withValues(alpha: 0.7)),
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
           ),
           const SizedBox(height: 12),
           Semantics(
             label: 'Message card',
             customSemanticsActions: <CustomSemanticsAction, VoidCallback>{
-              const CustomSemanticsAction(label: 'Reply'): () =>
-                  _log('reply'),
+              const CustomSemanticsAction(label: 'Reply'): () => _log('reply'),
               const CustomSemanticsAction(label: 'Forward'): () =>
                   _log('forward'),
               const CustomSemanticsAction(label: 'Archive'): () =>
@@ -770,43 +959,65 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                       CircleAvatar(
                         radius: 18,
                         backgroundColor: _p.secondary,
-                        child: Text('JD',
-                            style: TextStyle(color: Colors.white,
-                                fontSize: 13, fontWeight: FontWeight.bold)),
+                        child: Text(
+                          'JD',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Jane Doe',
-                              style: TextStyle(fontWeight: FontWeight.bold,
-                                  fontSize: 13, color: _p.onSurface)),
-                          Text('2 min ago',
-                              style: TextStyle(fontSize: 10,
-                                  color: _p.muted)),
+                          Text(
+                            'Jane Doe',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: _p.onSurface,
+                            ),
+                          ),
+                          Text(
+                            '2 min ago',
+                            style: TextStyle(fontSize: 10, color: _p.muted),
+                          ),
                         ],
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text('Check out the new accessibility features!',
-                      style: TextStyle(fontSize: 13,
-                          color: _p.onSurface)),
+                  Text(
+                    'Check out the new accessibility features!',
+                    style: TextStyle(fontSize: 13, color: _p.onSurface),
+                  ),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 6,
-                    children: ['Reply', 'Forward', 'Archive'].map((a) =>
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: _p.primary.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(a, style: TextStyle(fontSize: 11,
-                            color: _p.primary, fontWeight: FontWeight.w600)),
-                      ),
-                    ).toList(),
+                    children: ['Reply', 'Forward', 'Archive']
+                        .map(
+                          (a) => Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: _p.primary.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              a,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: _p.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ],
               ),
@@ -814,9 +1025,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           ),
           const SizedBox(height: 6),
           Center(
-            child: Text('customSemanticsActions: {Reply, Forward, Archive}',
-                style: TextStyle(fontSize: 10, fontFamily: 'monospace',
-                    color: _p.muted)),
+            child: Text(
+              'customSemanticsActions: {Reply, Forward, Archive}',
+              style: TextStyle(
+                fontSize: 10,
+                fontFamily: 'monospace',
+                color: _p.muted,
+              ),
+            ),
           ),
         ],
       ),
@@ -872,19 +1088,33 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   Widget _mergeDemo() {
     return _scenarioCard(
       title: 'MergeSemantics',
-      description: 'Merges all child semantics into a single node. '
+      description:
+          'Merges all child semantics into a single node. '
           'Below, the icon and text are read together as one element.',
       child: MergeSemantics(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Semantics(label: 'Warning icon', child:
-              Icon(Icons.warning_amber, color: Color(0xFFE65100), size: 28)),
+            Semantics(
+              label: 'Warning icon',
+              child: Icon(
+                Icons.warning_amber,
+                color: Color(0xFFE65100),
+                size: 28,
+              ),
+            ),
             const SizedBox(width: 8),
-            Semantics(label: 'Battery low', child:
-              Text('Battery low',
-                  style: TextStyle(fontSize: 15,
-                      fontWeight: FontWeight.bold, color: _p.onSurface))),
+            Semantics(
+              label: 'Battery low',
+              child: Text(
+                'Battery low',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: _p.onSurface,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -896,14 +1126,16 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   Widget _excludeDemo() {
     return _scenarioCard(
       title: 'ExcludeSemantics',
-      description: 'Completely removes child widgets from the semantic tree. '
+      description:
+          'Completely removes child widgets from the semantic tree. '
           'Useful for decorative elements that should not be announced.',
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           ExcludeSemantics(
             child: Container(
-              width: 50, height: 50,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 color: _p.muted.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
@@ -913,14 +1145,20 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             ),
           ),
           const SizedBox(width: 12),
-          Text('← decorative (excluded)',
-              style: TextStyle(fontSize: 13, color: _p.muted,
-                  fontStyle: FontStyle.italic)),
+          Text(
+            '← decorative (excluded)',
+            style: TextStyle(
+              fontSize: 13,
+              color: _p.muted,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
           const SizedBox(width: 16),
           Semantics(
             label: 'Important content',
             child: Container(
-              width: 50, height: 50,
+              width: 50,
+              height: 50,
               decoration: BoxDecoration(
                 color: _p.primary,
                 borderRadius: BorderRadius.circular(8),
@@ -930,9 +1168,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             ),
           ),
           const SizedBox(width: 8),
-          Text('← included',
-              style: TextStyle(fontSize: 13, color: _p.primary,
-                  fontWeight: FontWeight.w600)),
+          Text(
+            '← included',
+            style: TextStyle(
+              fontSize: 13,
+              color: _p.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ],
       ),
       badge: 'ExcludeSemantics',
@@ -943,10 +1186,12 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   Widget _blockDemo() {
     return _scenarioCard(
       title: 'BlockSemantics',
-      description: 'Prevents semantics nodes behind (in z-order) this widget '
+      description:
+          'Prevents semantics nodes behind (in z-order) this widget '
           'from being accessible. Commonly used by dialogs and overlays.',
       child: SizedBox(
-        height: 100, width: double.infinity,
+        height: 100,
+        width: double.infinity,
         child: Stack(
           children: [
             Positioned.fill(
@@ -958,27 +1203,42 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 alignment: Alignment.center,
                 child: Semantics(
                   label: 'Background content (blocked)',
-                  child: Text('Background content',
-                      style: TextStyle(color: _p.muted, fontSize: 13)),
+                  child: Text(
+                    'Background content',
+                    style: TextStyle(color: _p.muted, fontSize: 13),
+                  ),
                 ),
               ),
             ),
             Positioned(
-              left: 40, right: 40, top: 20, bottom: 20,
+              left: 40,
+              right: 40,
+              top: 20,
+              bottom: 20,
               child: BlockSemantics(
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [BoxShadow(color: Colors.black26,
-                        blurRadius: 8, offset: Offset(0, 3))],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 8,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
                   alignment: Alignment.center,
                   child: Semantics(
                     label: 'Dialog overlay',
-                    child: Text('Dialog (blocks background)',
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                            color: _p.primary, fontSize: 14)),
+                    child: Text(
+                      'Dialog (blocks background)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: _p.primary,
+                        fontSize: 14,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -994,7 +1254,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   Widget _containerDemo() {
     return _scenarioCard(
       title: 'Semantics Container',
-      description: 'Semantics(container: true) creates a distinct semantic '
+      description:
+          'Semantics(container: true) creates a distinct semantic '
           'node, even without explicit label/hint/value. This groups '
           'children logically.',
       child: Semantics(
@@ -1019,10 +1280,17 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Alex Chen', style: TextStyle(
-                      fontWeight: FontWeight.bold, color: _p.onSurface)),
-                  Text('Software Engineer',
-                      style: TextStyle(fontSize: 12, color: _p.muted)),
+                  Text(
+                    'Alex Chen',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: _p.onSurface,
+                    ),
+                  ),
+                  Text(
+                    'Software Engineer',
+                    style: TextStyle(fontSize: 12, color: _p.muted),
+                  ),
                 ],
               ),
             ],
@@ -1037,7 +1305,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
   Widget _nestedDemo() {
     return _scenarioCard(
       title: 'Nested Semantics',
-      description: 'When Semantics nodes are nested, properties merge '
+      description:
+          'When Semantics nodes are nested, properties merge '
           'following specific rules. Inner nodes can override outer labels.',
       child: Semantics(
         label: 'Outer group',
@@ -1050,34 +1319,42 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Outer: label = "Outer group"',
-                  style: TextStyle(fontSize: 11, color: _p.muted)),
+              Text(
+                'Outer: label = "Outer group"',
+                style: TextStyle(fontSize: 11, color: _p.muted),
+              ),
               const SizedBox(height: 8),
               Semantics(
                 label: 'Inner item A',
                 child: Container(
-                  width: 160, height: 36,
+                  width: 160,
+                  height: 36,
                   decoration: BoxDecoration(
                     color: _p.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Inner A', style: TextStyle(
-                      fontSize: 13, color: _p.primary)),
+                  child: Text(
+                    'Inner A',
+                    style: TextStyle(fontSize: 13, color: _p.primary),
+                  ),
                 ),
               ),
               const SizedBox(height: 6),
               Semantics(
                 label: 'Inner item B',
                 child: Container(
-                  width: 160, height: 36,
+                  width: 160,
+                  height: 36,
                   decoration: BoxDecoration(
                     color: _p.secondary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Inner B', style: TextStyle(
-                      fontSize: 13, color: _p.secondary)),
+                  child: Text(
+                    'Inner B',
+                    style: TextStyle(fontSize: 13, color: _p.secondary),
+                  ),
                 ),
               ),
             ],
@@ -1102,33 +1379,50 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: 14, color: color)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: color,
+                ),
+              ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text(badge, style: TextStyle(fontSize: 10,
-                    fontFamily: 'monospace', color: color,
-                    fontWeight: FontWeight.w600)),
+                child: Text(
+                  badge,
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: color,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(description, style: TextStyle(fontSize: 12,
-              color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Center(child: child),
         ],
@@ -1187,19 +1481,30 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Basic Live Region', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
+          Text(
+            'Basic Live Region',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('When liveRegion is true, content changes are announced '
-              'automatically without user focus.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'When liveRegion is true, content changes are announced '
+            'automatically without user focus.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Semantics(
             liveRegion: true,
@@ -1209,11 +1514,15 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xFF1B5E20).withValues(alpha: 0.1),
-                    Color(0xFF1B5E20).withValues(alpha: 0.05)],
+                  colors: [
+                    Color(0xFF1B5E20).withValues(alpha: 0.1),
+                    Color(0xFF1B5E20).withValues(alpha: 0.05),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Color(0xFF1B5E20).withValues(alpha: 0.3)),
+                border: Border.all(
+                  color: Color(0xFF1B5E20).withValues(alpha: 0.3),
+                ),
               ),
               child: Row(
                 children: [
@@ -1223,27 +1532,42 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ACME Corp',
-                            style: TextStyle(fontWeight: FontWeight.bold,
-                                fontSize: 14, color: _p.onSurface)),
-                        Text('\$142.38  +2.4%',
-                            style: TextStyle(fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF1B5E20))),
+                        Text(
+                          'ACME Corp',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: _p.onSurface,
+                          ),
+                        ),
+                        Text(
+                          '\$142.38  +2.4%',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF1B5E20),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 3),
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF1B5E20).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text('LIVE',
-                        style: TextStyle(fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF1B5E20))),
+                    child: Text(
+                      'LIVE',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1B5E20),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -1267,19 +1591,30 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Notification Ticker', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
+          Text(
+            'Notification Ticker',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Each notification would be announced as it appears, '
-              'thanks to liveRegion: true.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'Each notification would be announced as it appears, '
+            'thanks to liveRegion: true.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           for (var i = 0; i < notifications.length; i++) ...[
             Semantics(
@@ -1288,25 +1623,34 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               child: Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: notifications[i].$3.withValues(alpha: 0.07),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: notifications[i].$3.withValues(alpha: 0.2)),
+                    color: notifications[i].$3.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   children: [
-                    Icon(notifications[i].$2,
-                        color: notifications[i].$3, size: 22),
+                    Icon(
+                      notifications[i].$2,
+                      color: notifications[i].$3,
+                      size: 22,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: Text(notifications[i].$1,
-                          style: TextStyle(fontSize: 13,
-                              color: _p.onSurface)),
+                      child: Text(
+                        notifications[i].$1,
+                        style: TextStyle(fontSize: 13, color: _p.onSurface),
+                      ),
                     ),
-                    Text('${i + 1}s ago',
-                        style: TextStyle(fontSize: 10, color: _p.muted)),
+                    Text(
+                      '${i + 1}s ago',
+                      style: TextStyle(fontSize: 10, color: _p.muted),
+                    ),
                   ],
                 ),
               ),
@@ -1325,26 +1669,38 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Timer (Live Region)', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.secondary)),
+          Text(
+            'Timer (Live Region)',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.secondary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Countdown timers are classic live region candidates — '
-              'the changing value needs announcing.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'Countdown timers are classic live region candidates — '
+            'the changing value needs announcing.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Center(
             child: Semantics(
               liveRegion: true,
               value: '4 minutes 32 seconds remaining',
               child: Container(
-                width: 180, height: 100,
+                width: 180,
+                height: 100,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [_p.secondary, _p.secondary.withValues(alpha: 0.7)],
@@ -1357,14 +1713,19 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('04:32',
-                        style: TextStyle(fontSize: 36,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.white,
-                            fontFamily: 'monospace')),
-                    Text('remaining',
-                        style: TextStyle(fontSize: 12,
-                            color: Colors.white60)),
+                    Text(
+                      '04:32',
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
+                    Text(
+                      'remaining',
+                      style: TextStyle(fontSize: 12, color: Colors.white60),
+                    ),
                   ],
                 ),
               ),
@@ -1388,19 +1749,30 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Status Indicators', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
+          Text(
+            'Status Indicators',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Status changes should be live regions so users know '
-              'when availability changes.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'Status changes should be live regions so users know '
+            'when availability changes.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1414,12 +1786,23 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                     children: [
                       Icon(s.$3, color: s.$2, size: 24),
                       const SizedBox(height: 4),
-                      Text(s.$1, style: TextStyle(fontSize: 11,
+                      Text(
+                        s.$1,
+                        style: TextStyle(
+                          fontSize: 11,
                           color: _p.onSurface,
-                          fontWeight: FontWeight.w600)),
-                      if (s.$4) Text('live',
-                          style: TextStyle(fontSize: 9,
-                              color: s.$2, fontStyle: FontStyle.italic)),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (s.$4)
+                        Text(
+                          'live',
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: s.$2,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -1444,18 +1827,27 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(Icons.history, color: _p.primary, size: 18),
-            const SizedBox(width: 6),
-            Text('Announcement Log', style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
-          ]),
+          Row(
+            children: [
+              Icon(Icons.history, color: _p.primary, size: 18),
+              const SizedBox(width: 6),
+              Text(
+                'Announcement Log',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: _p.primary,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -1470,8 +1862,14 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 for (final e in entries)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Text(e, style: TextStyle(fontSize: 11,
-                        fontFamily: 'monospace', color: _p.onSurface)),
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: _p.onSurface,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -1558,38 +1956,59 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                     : _p.muted.withValues(alpha: 0.3),
                 width: 1,
               ),
-              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.04),
-                  blurRadius: 3, offset: Offset(0, 1))],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
+              ],
             ),
             child: Row(
               children: [
                 Container(
-                  width: 36, height: 36,
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
-                    color: (p.$4 ? _p.primary : _p.muted)
-                        .withValues(alpha: 0.12),
+                    color: (p.$4 ? _p.primary : _p.muted).withValues(
+                      alpha: 0.12,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(p.$2,
-                      color: p.$4 ? _p.primary : _p.muted, size: 18),
+                  child: Icon(
+                    p.$2,
+                    color: p.$4 ? _p.primary : _p.muted,
+                    size: 18,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(p.$1, style: TextStyle(fontSize: 12,
+                      Text(
+                        p.$1,
+                        style: TextStyle(
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'monospace',
-                          color: p.$4 ? _p.primary : _p.muted)),
-                      Text(p.$3, style: TextStyle(fontSize: 9,
-                          color: _p.onSurface.withValues(alpha: 0.6))),
+                          color: p.$4 ? _p.primary : _p.muted,
+                        ),
+                      ),
+                      Text(
+                        p.$3,
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: _p.onSurface.withValues(alpha: 0.6),
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  width: 14, height: 14,
+                  width: 14,
+                  height: 14,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: p.$4
@@ -1597,8 +2016,11 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                         : _p.muted.withValues(alpha: 0.3),
                   ),
                   alignment: Alignment.center,
-                  child: Icon(p.$4 ? Icons.check : Icons.remove,
-                      color: Colors.white, size: 10),
+                  child: Icon(
+                    p.$4 ? Icons.check : Icons.remove,
+                    color: Colors.white,
+                    size: 10,
+                  ),
                 ),
               ],
             ),
@@ -1614,43 +2036,70 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('TextField Semantics', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
+          Text(
+            'TextField Semantics',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('TextFields automatically get textField, multiline, '
-              'readOnly, obscured flags as appropriate.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'TextFields automatically get textField, multiline, '
+            'readOnly, obscured flags as appropriate.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
-                child: _fieldExample('Username', false, false,
-                    Icons.person_outline),
+                child: _fieldExample(
+                  'Username',
+                  false,
+                  false,
+                  Icons.person_outline,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: _fieldExample('Password', true, false,
-                    Icons.lock_outline),
+                child: _fieldExample(
+                  'Password',
+                  true,
+                  false,
+                  Icons.lock_outline,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          _fieldExample('Bio (multiline)', false, true,
-              Icons.text_snippet_outlined),
+          _fieldExample(
+            'Bio (multiline)',
+            false,
+            true,
+            Icons.text_snippet_outlined,
+          ),
         ],
       ),
     );
   }
 
-  Widget _fieldExample(String label, bool obscured, bool multiline,
-      IconData icon) {
+  Widget _fieldExample(
+    String label,
+    bool obscured,
+    bool multiline,
+    IconData icon,
+  ) {
     return Semantics(
       textField: true,
       label: label,
@@ -1670,19 +2119,25 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: TextStyle(fontSize: 12,
-                      color: _p.muted)),
+                  Text(label, style: TextStyle(fontSize: 12, color: _p.muted)),
                   if (obscured)
-                    Text('••••••••', style: TextStyle(fontSize: 14,
-                        color: _p.onSurface))
+                    Text(
+                      '••••••••',
+                      style: TextStyle(fontSize: 14, color: _p.onSurface),
+                    )
                   else if (multiline)
-                    Text('Long text that\nspans multiple lines…',
-                        style: TextStyle(fontSize: 12,
-                            color: _p.onSurface.withValues(alpha: 0.5)))
+                    Text(
+                      'Long text that\nspans multiple lines…',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: _p.onSurface.withValues(alpha: 0.5),
+                      ),
+                    )
                   else
-                    Text('user_name',
-                        style: TextStyle(fontSize: 14,
-                            color: _p.onSurface)),
+                    Text(
+                      'user_name',
+                      style: TextStyle(fontSize: 14, color: _p.onSurface),
+                    ),
                 ],
               ),
             ),
@@ -1699,20 +2154,30 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Image Semantics', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14,
-              color: _p.secondary)),
+          Text(
+            'Image Semantics',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.secondary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Images need a semantic label describing their content. '
-              'Decorative images should be excluded from semantics.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'Images need a semantic label describing their content. '
+            'Decorative images should be excluded from semantics.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Row(
             children: [
@@ -1728,10 +2193,7 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFFFF6F00),
-                          Color(0xFF1A237E),
-                        ],
+                        colors: [Color(0xFFFF6F00), Color(0xFF1A237E)],
                       ),
                     ),
                     child: CustomPaint(
@@ -1740,9 +2202,13 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                         alignment: Alignment.bottomLeft,
                         child: Padding(
                           padding: const EdgeInsets.all(6),
-                          child: Text('Labeled ✓',
-                              style: TextStyle(fontSize: 10,
-                                  color: Colors.white70)),
+                          child: Text(
+                            'Labeled ✓',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white70,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -1765,9 +2231,10 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                       children: [
                         Icon(Icons.texture, color: _p.muted, size: 32),
                         const SizedBox(height: 4),
-                        Text('Decorative (excluded)',
-                            style: TextStyle(fontSize: 10,
-                                color: _p.muted)),
+                        Text(
+                          'Decorative (excluded)',
+                          style: TextStyle(fontSize: 10, color: _p.muted),
+                        ),
                       ],
                     ),
                   ),
@@ -1787,19 +2254,30 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Slider Semantics', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14, color: _p.primary)),
+          Text(
+            'Slider Semantics',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: _p.primary,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Sliders use value, increasedValue, decreasedValue, and '
-              'the slider flag together.',
-              style: TextStyle(fontSize: 12,
-                  color: _p.onSurface.withValues(alpha: 0.7))),
+          Text(
+            'Sliders use value, increasedValue, decreasedValue, and '
+            'the slider flag together.',
+            style: TextStyle(
+              fontSize: 12,
+              color: _p.onSurface.withValues(alpha: 0.7),
+            ),
+          ),
           const SizedBox(height: 12),
           Semantics(
             slider: true,
@@ -1829,7 +2307,8 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(13),
                               gradient: LinearGradient(
-                                  colors: [_p.primary, _p.accent]),
+                                colors: [_p.primary, _p.accent],
+                              ),
                             ),
                           ),
                         ),
@@ -1839,8 +2318,13 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text('60%', style: TextStyle(fontWeight: FontWeight.bold,
-                    color: _p.primary)),
+                Text(
+                  '60%',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: _p.primary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1923,8 +2407,9 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1935,11 +2420,17 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             decoration: BoxDecoration(
               color: _p.primary.withValues(alpha: 0.08),
               borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(10)),
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text('Semantics Properties Reference',
-                style: TextStyle(fontWeight: FontWeight.bold,
-                    fontSize: 14, color: _p.primary)),
+            child: Text(
+              'Semantics Properties Reference',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _p.primary,
+              ),
+            ),
           ),
           // Table header
           Container(
@@ -1949,22 +2440,44 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
             ),
             child: Row(
               children: [
-                SizedBox(width: 130, child: Text('Property',
-                    style: TextStyle(fontWeight: FontWeight.w600,
-                        fontSize: 11, color: _p.muted))),
-                SizedBox(width: 100, child: Text('Type',
-                    style: TextStyle(fontWeight: FontWeight.w600,
-                        fontSize: 11, color: _p.muted))),
-                Expanded(child: Text('Purpose',
-                    style: TextStyle(fontWeight: FontWeight.w600,
-                        fontSize: 11, color: _p.muted))),
+                SizedBox(
+                  width: 130,
+                  child: Text(
+                    'Property',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11,
+                      color: _p.muted,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    'Type',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11,
+                      color: _p.muted,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Purpose',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 11,
+                      color: _p.muted,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           for (var i = 0; i < rows.length; i++)
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
               color: i.isEven
                   ? Colors.transparent
                   : _p.onSurface.withValues(alpha: 0.02),
@@ -1972,23 +2485,32 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
                 children: [
                   SizedBox(
                     width: 130,
-                    child: Text(rows[i].$1,
-                        style: TextStyle(fontSize: 11,
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.w600,
-                            color: _p.primary)),
+                    child: Text(
+                      rows[i].$1,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.w600,
+                        color: _p.primary,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     width: 100,
-                    child: Text(rows[i].$2,
-                        style: TextStyle(fontSize: 10,
-                            fontFamily: 'monospace',
-                            color: _p.muted)),
+                    child: Text(
+                      rows[i].$2,
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontFamily: 'monospace',
+                        color: _p.muted,
+                      ),
+                    ),
                   ),
                   Expanded(
-                    child: Text(rows[i].$3,
-                        style: TextStyle(fontSize: 11,
-                            color: _p.onSurface)),
+                    child: Text(
+                      rows[i].$3,
+                      style: TextStyle(fontSize: 11, color: _p.onSurface),
+                    ),
                   ),
                 ],
               ),
@@ -2020,27 +2542,39 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Verification Checklist', style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 14,
-              color: Color(0xFF2E7D32))),
+          Text(
+            'Verification Checklist',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: Color(0xFF2E7D32),
+            ),
+          ),
           const SizedBox(height: 10),
           for (final c in checks)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 3),
               child: Row(
                 children: [
-                  Icon(c.$2 ? Icons.check_circle : Icons.radio_button_unchecked,
-                      color: c.$2 ? Color(0xFF2E7D32) : _p.muted, size: 18),
+                  Icon(
+                    c.$2 ? Icons.check_circle : Icons.radio_button_unchecked,
+                    color: c.$2 ? Color(0xFF2E7D32) : _p.muted,
+                    size: 18,
+                  ),
                   const SizedBox(width: 8),
-                  Expanded(child: Text(c.$1,
-                      style: TextStyle(fontSize: 12,
-                          color: _p.onSurface))),
+                  Expanded(
+                    child: Text(
+                      c.$1,
+                      style: TextStyle(fontSize: 12, color: _p.onSurface),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -2051,24 +2585,34 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
 
   Widget _faqSection() {
     final faqs = <(String, String)>[
-      ('What is RenderSemanticsAnnotations?',
-       'It is the rendering-layer RenderObject that stores semantic '
-       'annotations (labels, actions, flags) on a node in the render tree. '
-       'The Semantics widget creates it.'),
-      ('When should I use Semantics vs MergeSemantics?',
-       'Use Semantics to annotate individual elements. Use MergeSemantics '
-       'when multiple elements should be read as one (e.g., icon + text).'),
-      ('Are live regions expensive?',
-       'Not performance-wise, but they can be annoying — every change is '
-       'spoken aloud. Only use them for content the user needs to know '
-       'about immediately.'),
-      ('How do custom semantic actions work?',
-       'CustomSemanticsAction creates named actions that appear in the '
-       'accessibility actions menu. Users can activate them via switch '
-       'access or screen reader action lists.'),
-      ('Should every widget have a Semantics wrapper?',
-       'No. Interactive widgets (Button, TextField) add their own semantics. '
-       'CustomPaint, raw Container, and icon-only widgets often need help.'),
+      (
+        'What is RenderSemanticsAnnotations?',
+        'It is the rendering-layer RenderObject that stores semantic '
+            'annotations (labels, actions, flags) on a node in the render tree. '
+            'The Semantics widget creates it.',
+      ),
+      (
+        'When should I use Semantics vs MergeSemantics?',
+        'Use Semantics to annotate individual elements. Use MergeSemantics '
+            'when multiple elements should be read as one (e.g., icon + text).',
+      ),
+      (
+        'Are live regions expensive?',
+        'Not performance-wise, but they can be annoying — every change is '
+            'spoken aloud. Only use them for content the user needs to know '
+            'about immediately.',
+      ),
+      (
+        'How do custom semantic actions work?',
+        'CustomSemanticsAction creates named actions that appear in the '
+            'accessibility actions menu. Users can activate them via switch '
+            'access or screen reader action lists.',
+      ),
+      (
+        'Should every widget have a Semantics wrapper?',
+        'No. Interactive widgets (Button, TextField) add their own semantics. '
+            'CustomPaint, raw Container, and icon-only widgets often need help.',
+      ),
     ];
     return Container(
       width: double.infinity,
@@ -2076,27 +2620,45 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4,
-            offset: Offset(0, 2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(Icons.help_outline, color: _p.primary, size: 18),
-            const SizedBox(width: 6),
-            Text('FAQ', style: TextStyle(fontWeight: FontWeight.bold,
-                fontSize: 14, color: _p.primary)),
-          ]),
+          Row(
+            children: [
+              Icon(Icons.help_outline, color: _p.primary, size: 18),
+              const SizedBox(width: 6),
+              Text(
+                'FAQ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: _p.primary,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 10),
           for (var i = 0; i < faqs.length; i++) ...[
-            Text('Q: ${faqs[i].$1}',
-                style: TextStyle(fontWeight: FontWeight.bold,
-                    fontSize: 12, color: _p.onSurface)),
+            Text(
+              'Q: ${faqs[i].$1}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: _p.onSurface,
+              ),
+            ),
             const SizedBox(height: 3),
-            Text('A: ${faqs[i].$2}',
-                style: TextStyle(fontSize: 12,
-                    color: _p.onSurface.withValues(alpha: 0.8))),
+            Text(
+              'A: ${faqs[i].$2}',
+              style: TextStyle(
+                fontSize: 12,
+                color: _p.onSurface.withValues(alpha: 0.8),
+              ),
+            ),
             if (i < faqs.length - 1) const SizedBox(height: 10),
           ],
         ],
@@ -2126,13 +2688,20 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(Icons.lightbulb_outline, color: _p.accent, size: 18),
-            const SizedBox(width: 6),
-            Text('Best Practices', style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 14,
-                color: _p.primary)),
-          ]),
+          Row(
+            children: [
+              Icon(Icons.lightbulb_outline, color: _p.accent, size: 18),
+              const SizedBox(width: 6),
+              Text(
+                'Best Practices',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: _p.primary,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 10),
           for (var i = 0; i < practices.length; i++)
             Padding(
@@ -2140,12 +2709,20 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${i + 1}. ', style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 12,
-                      color: _p.accent)),
-                  Expanded(child: Text(practices[i],
-                      style: TextStyle(fontSize: 12,
-                          color: _p.onSurface))),
+                  Text(
+                    '${i + 1}. ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: _p.accent,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      practices[i],
+                      style: TextStyle(fontSize: 12, color: _p.onSurface),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -2161,15 +2738,22 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
     return Row(
       children: [
         Container(
-          width: 4, height: 20,
+          width: 4,
+          height: 20,
           decoration: BoxDecoration(
             color: _p.primary,
             borderRadius: BorderRadius.circular(2),
           ),
         ),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(fontSize: 18,
-            fontWeight: FontWeight.bold, color: _p.onSurface)),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: _p.onSurface,
+          ),
+        ),
       ],
     );
   }
@@ -2189,8 +2773,10 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
           Icon(Icons.info_outline, color: _p.secondary, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(text, style: TextStyle(fontSize: 12,
-                color: _p.onSurface, height: 1.4)),
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 12, color: _p.onSurface, height: 1.4),
+            ),
           ),
         ],
       ),
@@ -2208,14 +2794,26 @@ class _SemanticsAnnotationsLabState extends State<_SemanticsAnnotationsLab> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(_scenarioTitles[_scenario],
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600,
-                  color: _p.muted)),
-          Text('Palette: ${_p.name}',
-              style: TextStyle(fontSize: 11, color: _p.muted)),
-          Text('RenderSemanticsAnnotations',
-              style: TextStyle(fontSize: 11, fontFamily: 'monospace',
-                  color: _p.muted)),
+          Text(
+            _scenarioTitles[_scenario],
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: _p.muted,
+            ),
+          ),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(fontSize: 11, color: _p.muted),
+          ),
+          Text(
+            'RenderSemanticsAnnotations',
+            style: TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: _p.muted,
+            ),
+          ),
         ],
       ),
     );

@@ -274,10 +274,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   subtitle,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -361,7 +358,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.crop_landscape, color: Colors.green, size: 26.0),
+                      Icon(
+                        Icons.crop_landscape,
+                        color: Colors.green,
+                        size: 26.0,
+                      ),
                       SizedBox(height: 4.0),
                       Text(
                         'RawView\n_Element',
@@ -399,7 +400,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.dashboard_customize, color: Colors.purple, size: 26.0),
+                      Icon(
+                        Icons.dashboard_customize,
+                        color: Colors.purple,
+                        size: 26.0,
+                      ),
                       SizedBox(height: 4.0),
                       Text(
                         'RenderObjectTo\nWidgetElement',
@@ -478,10 +483,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 2.0),
                 Text(
                   detail,
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -714,10 +716,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 6.0),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade800,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
                 ),
               ],
             ),
@@ -1114,7 +1113,8 @@ dynamic build(BuildContext context) {
           tag: 'engine',
           icon: Icons.monitor,
           color: Colors.grey.shade700,
-          descr: 'The physical view provided by the engine (window or surface).',
+          descr:
+              'The physical view provided by the engine (window or surface).',
         ),
         buildVerticalArrow(Colors.grey.shade500),
         // View widget
@@ -1123,8 +1123,7 @@ dynamic build(BuildContext context) {
           tag: 'Widget',
           icon: Icons.flip_to_front,
           color: Colors.blue.shade700,
-          descr:
-              'Declarative wrapper that binds a FlutterView to a subtree.',
+          descr: 'Declarative wrapper that binds a FlutterView to a subtree.',
         ),
         buildVerticalArrow(Colors.blue.shade400),
         // RawView (internal)
@@ -1166,8 +1165,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline,
-                  color: Colors.green.shade700, size: 18.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.green.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1456,10 +1458,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                  vertical: 4.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(6.0),
@@ -1662,10 +1661,7 @@ Widget _buildSummaryItem(
               SizedBox(height: 2.0),
               Text(
                 desc,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
               ),
             ],
           ),

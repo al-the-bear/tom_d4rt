@@ -16,11 +16,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0D3B66),
-          Color(0xFF1B6CA8),
-          Color(0xFF2BB3C0),
-        ],
+        colors: [Color(0xFF0D3B66), Color(0xFF1B6CA8), Color(0xFF2BB3C0)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -53,11 +49,7 @@ dynamic build(BuildContext context) {
                   width: 1.4,
                 ),
               ),
-              child: Icon(
-                Icons.touch_app,
-                size: 44.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.touch_app, size: 44.0, color: Colors.white),
             ),
             SizedBox(width: 14.0),
             Expanded(
@@ -131,15 +123,15 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFE3F6FB),
-          Color(0xFFEAF7F0),
-        ],
+        colors: [Color(0xFFE3F6FB), Color(0xFFEAF7F0)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(color: Color(0xFF1B6CA8).withValues(alpha: 0.3), width: 1.5),
+      border: Border.all(
+        color: Color(0xFF1B6CA8).withValues(alpha: 0.3),
+        width: 1.5,
+      ),
       boxShadow: [
         BoxShadow(
           color: Color(0xFF1B6CA8).withValues(alpha: 0.12),
@@ -461,7 +453,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.28)],
+            colors: [
+              color.withValues(alpha: 0.12),
+              color.withValues(alpha: 0.28),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -570,7 +565,12 @@ dynamic build(BuildContext context) {
         for (var n = 1; n <= 4; n++)
           _tapCountRow(
             n,
-            <String>['single tap', 'double tap', 'triple tap', 'quadruple tap'][n - 1],
+            <String>[
+              'single tap',
+              'double tap',
+              'triple tap',
+              'quadruple tap',
+            ][n - 1],
             <String>[
               'cursor placement / selection insertion',
               'word selection',
@@ -718,15 +718,20 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _overlayLine('details.globalPosition',
-                        '${mockDetails.globalPosition}'),
-                    _overlayLine('details.localPosition',
-                        '${mockDetails.localPosition}'),
+                    _overlayLine(
+                      'details.globalPosition',
+                      '${mockDetails.globalPosition}',
+                    ),
+                    _overlayLine(
+                      'details.localPosition',
+                      '${mockDetails.localPosition}',
+                    ),
                     _overlayLine('details.kind', mockDetails.kind.name),
-                    _overlayLine('details.consecutiveTapCount',
-                        '${mockDetails.consecutiveTapCount}'),
-                    _overlayLine('runtimeType',
-                        '${mockDetails.runtimeType}'),
+                    _overlayLine(
+                      'details.consecutiveTapCount',
+                      '${mockDetails.consecutiveTapCount}',
+                    ),
+                    _overlayLine('runtimeType', '${mockDetails.runtimeType}'),
                   ],
                 ),
               ),
@@ -817,7 +822,13 @@ dynamic build(BuildContext context) {
         _siblingRow('TapDragDownDetails', 'onTapDown', true, false),
         _siblingRow('TapDragStartDetails', 'onDragStart', true, false),
         _siblingRow('TapDragUpdateDetails', 'onDragUpdate', true, false),
-        _siblingRow('TapDragUpDetails', 'onTapUp', true, false, highlight: true),
+        _siblingRow(
+          'TapDragUpDetails',
+          'onTapUp',
+          true,
+          false,
+          highlight: true,
+        ),
         _siblingRow('TapDragEndDetails', 'onDragEnd', true, true),
       ],
     ),
@@ -861,8 +872,18 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _codeLine('typedef ', 'GestureTapDragUpCallback', Color(0xFFFFC857), Color(0xFF8AC6D1)),
-        _codeLine('  = void Function(', 'TapDragUpDetails details', Color(0xFFE0E0E0), Color(0xFFFFC857)),
+        _codeLine(
+          'typedef ',
+          'GestureTapDragUpCallback',
+          Color(0xFFFFC857),
+          Color(0xFF8AC6D1),
+        ),
+        _codeLine(
+          '  = void Function(',
+          'TapDragUpDetails details',
+          Color(0xFFE0E0E0),
+          Color(0xFFFFC857),
+        ),
         _codeLine(');', '', Color(0xFFE0E0E0), Color(0xFFE0E0E0)),
         SizedBox(height: 12.0),
         Container(
@@ -870,7 +891,10 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Color(0xFF1B2A41),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Color(0xFF2BB3C0).withValues(alpha: 0.4), width: 1.0),
+            border: Border.all(
+              color: Color(0xFF2BB3C0).withValues(alpha: 0.4),
+              width: 1.0,
+            ),
           ),
           child: Text(
             'final recognizer = TapAndPanGestureRecognizer()\n'
@@ -947,21 +971,36 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 14.0),
-        _lifecycleStep(1, 'Pointer down',
-            'Recognizer accepts arena, fires onTapDown(TapDragDownDetails).',
-            Color(0xFF1B6CA8)),
-        _lifecycleStep(2, 'Movement evaluated',
-            'Recognizer measures slop; below kPanSlop -> still a tap.',
-            Color(0xFF2BB3C0)),
-        _lifecycleStep(3, 'Optional onDragStart',
-            'If slop exceeded, fires onDragStart(TapDragStartDetails) instead.',
-            Color(0xFF8AC6D1)),
-        _lifecycleStep(4, 'Pointer up',
-            'For taps, fires onTapUp(TapDragUpDetails) — this class.',
-            Color(0xFFFFC857)),
-        _lifecycleStep(5, 'Counter increments',
-            'consecutiveTapCount carries across rapid follow-up taps.',
-            Color(0xFFE07A5F)),
+        _lifecycleStep(
+          1,
+          'Pointer down',
+          'Recognizer accepts arena, fires onTapDown(TapDragDownDetails).',
+          Color(0xFF1B6CA8),
+        ),
+        _lifecycleStep(
+          2,
+          'Movement evaluated',
+          'Recognizer measures slop; below kPanSlop -> still a tap.',
+          Color(0xFF2BB3C0),
+        ),
+        _lifecycleStep(
+          3,
+          'Optional onDragStart',
+          'If slop exceeded, fires onDragStart(TapDragStartDetails) instead.',
+          Color(0xFF8AC6D1),
+        ),
+        _lifecycleStep(
+          4,
+          'Pointer up',
+          'For taps, fires onTapUp(TapDragUpDetails) — this class.',
+          Color(0xFFFFC857),
+        ),
+        _lifecycleStep(
+          5,
+          'Counter increments',
+          'consecutiveTapCount carries across rapid follow-up taps.',
+          Color(0xFFE07A5F),
+        ),
       ],
     ),
   );
@@ -1045,7 +1084,11 @@ dynamic build(BuildContext context) {
                 color: color,
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Icon(fg['icon'] as IconData, color: Colors.white, size: 20.0),
+              child: Icon(
+                fg['icon'] as IconData,
+                color: Colors.white,
+                size: 20.0,
+              ),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1089,11 +1132,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0D3B66),
-          Color(0xFF1B6CA8),
-          Color(0xFF2BB3C0),
-        ],
+        colors: [Color(0xFF0D3B66), Color(0xFF1B6CA8), Color(0xFF2BB3C0)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1124,11 +1163,19 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _recapBullet('Immutable payload for BaseTapAndDragGestureRecognizer.onTapUp.'),
-        _recapBullet('Five required fields: global / local / kind / count / keys.'),
-        _recapBullet('Distinct from TapDragEndDetails — only emitted when slop was respected.'),
+        _recapBullet(
+          'Immutable payload for BaseTapAndDragGestureRecognizer.onTapUp.',
+        ),
+        _recapBullet(
+          'Five required fields: global / local / kind / count / keys.',
+        ),
+        _recapBullet(
+          'Distinct from TapDragEndDetails — only emitted when slop was respected.',
+        ),
         _recapBullet('consecutiveTapCount drives multi-tap selection rules.'),
-        _recapBullet('keysPressedOnDown captures modifiers from the *down* event.'),
+        _recapBullet(
+          'keysPressedOnDown captures modifiers from the *down* event.',
+        ),
       ],
     ),
   );
@@ -1194,7 +1241,10 @@ Widget _pill(String label, Color color) {
     decoration: BoxDecoration(
       color: color.withValues(alpha: 0.85),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.0),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.5),
+        width: 1.0,
+      ),
     ),
     child: Text(
       label,
@@ -1273,7 +1323,10 @@ Widget _anatomyRow(
                   ),
                   SizedBox(width: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1428,7 +1481,10 @@ Widget _overlayLine(String key, String value) {
         children: <TextSpan>[
           TextSpan(
             text: '$key: ',
-            style: TextStyle(color: Color(0xFF1B6CA8), fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Color(0xFF1B6CA8),
+              fontWeight: FontWeight.bold,
+            ),
           ),
           TextSpan(
             text: value,
@@ -1523,17 +1579,28 @@ Widget _siblingRow(
   );
 }
 
-Widget _codeLine(String prefix, String highlight, Color prefixColor, Color highlightColor) {
+Widget _codeLine(
+  String prefix,
+  String highlight,
+  Color prefixColor,
+  Color highlightColor,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 1.0),
     child: RichText(
       text: TextSpan(
         style: TextStyle(fontFamily: 'monospace', fontSize: 13.0, height: 1.5),
         children: <TextSpan>[
-          TextSpan(text: prefix, style: TextStyle(color: prefixColor)),
+          TextSpan(
+            text: prefix,
+            style: TextStyle(color: prefixColor),
+          ),
           TextSpan(
             text: highlight,
-            style: TextStyle(color: highlightColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: highlightColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
@@ -1620,11 +1687,7 @@ Widget _recapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.45,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.45),
           ),
         ),
       ],

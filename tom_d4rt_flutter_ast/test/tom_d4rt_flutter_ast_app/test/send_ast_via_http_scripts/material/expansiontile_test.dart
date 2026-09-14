@@ -579,11 +579,7 @@ Widget _parameterRow(
           flex: 6,
           child: Text(
             description,
-            style: const TextStyle(
-              fontSize: 12.5,
-              color: _kInk,
-              height: 1.45,
-            ),
+            style: const TextStyle(fontSize: 12.5, color: _kInk, height: 1.45),
           ),
         ),
       ],
@@ -868,50 +864,53 @@ Widget _sideBySideTile({
                 ),
               ),
               child: Material(
-              type: MaterialType.transparency,
-              child: ExpansionTile(
-                key: ValueKey<String>('demo3-$label'),
-                initiallyExpanded: expanded,
-                title: const Text(
-                  'Notifications',
-                  style: TextStyle(fontWeight: FontWeight.w600),
-                ),
-                subtitle: const Text('Frequency, channels, quiet hours'),
-                leading: const Icon(Icons.notifications_active_outlined),
-                tilePadding: const EdgeInsets.symmetric(horizontal: 14.0),
-                childrenPadding: const EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 4.0,
-                ),
-                expandedCrossAxisAlignment: CrossAxisAlignment.start,
-                expandedAlignment: Alignment.centerLeft,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                ),
-                collapsedShape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                ),
-                children: <Widget>[
-                  ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.email_outlined, size: 18.0),
-                    title: const Text('Email digests'),
-                    trailing: Switch(value: true, onChanged: (bool _) {}),
+                type: MaterialType.transparency,
+                child: ExpansionTile(
+                  key: ValueKey<String>('demo3-$label'),
+                  initiallyExpanded: expanded,
+                  title: const Text(
+                    'Notifications',
+                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.push_pin_outlined, size: 18.0),
-                    title: const Text('Push notifications'),
-                    trailing: Switch(value: false, onChanged: (bool _) {}),
+                  subtitle: const Text('Frequency, channels, quiet hours'),
+                  leading: const Icon(Icons.notifications_active_outlined),
+                  tilePadding: const EdgeInsets.symmetric(horizontal: 14.0),
+                  childrenPadding: const EdgeInsets.symmetric(
+                    horizontal: 14.0,
+                    vertical: 4.0,
                   ),
-                  ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.nights_stay_outlined, size: 18.0),
-                    title: const Text('Quiet hours 22:00–07:00'),
-                    trailing: Switch(value: true, onChanged: (bool _) {}),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  expandedAlignment: Alignment.centerLeft,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
-                ],
-              ),
+                  collapsedShape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                  children: <Widget>[
+                    ListTile(
+                      dense: true,
+                      leading: const Icon(Icons.email_outlined, size: 18.0),
+                      title: const Text('Email digests'),
+                      trailing: Switch(value: true, onChanged: (bool _) {}),
+                    ),
+                    ListTile(
+                      dense: true,
+                      leading: const Icon(Icons.push_pin_outlined, size: 18.0),
+                      title: const Text('Push notifications'),
+                      trailing: Switch(value: false, onChanged: (bool _) {}),
+                    ),
+                    ListTile(
+                      dense: true,
+                      leading: const Icon(
+                        Icons.nights_stay_outlined,
+                        size: 18.0,
+                      ),
+                      title: const Text('Quiet hours 22:00–07:00'),
+                      trailing: Switch(value: true, onChanged: (bool _) {}),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -991,37 +990,37 @@ Widget _themedRow({
         ExpansionTileTheme(
           data: themeData,
           child: Material(
-          type: MaterialType.transparency,
-          child: ExpansionTile(
-            key: ValueKey<String>('demo4-$label'),
-            initiallyExpanded: expanded,
-            title: const Text(
-              'Storage usage',
-              style: TextStyle(fontWeight: FontWeight.w600),
+            type: MaterialType.transparency,
+            child: ExpansionTile(
+              key: ValueKey<String>('demo4-$label'),
+              initiallyExpanded: expanded,
+              title: const Text(
+                'Storage usage',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              subtitle: const Text('48.2 GB of 64 GB used'),
+              leading: const Icon(Icons.sd_storage_outlined),
+              children: const <Widget>[
+                ListTile(
+                  dense: true,
+                  leading: Icon(Icons.photo_library_outlined, size: 18.0),
+                  title: Text('Photos & Video'),
+                  trailing: Text('21.4 GB'),
+                ),
+                ListTile(
+                  dense: true,
+                  leading: Icon(Icons.music_note_outlined, size: 18.0),
+                  title: Text('Music'),
+                  trailing: Text('14.2 GB'),
+                ),
+                ListTile(
+                  dense: true,
+                  leading: Icon(Icons.apps_outlined, size: 18.0),
+                  title: Text('Applications'),
+                  trailing: Text('8.6 GB'),
+                ),
+              ],
             ),
-            subtitle: const Text('48.2 GB of 64 GB used'),
-            leading: const Icon(Icons.sd_storage_outlined),
-            children: const <Widget>[
-              ListTile(
-                dense: true,
-                leading: Icon(Icons.photo_library_outlined, size: 18.0),
-                title: Text('Photos & Video'),
-                trailing: Text('21.4 GB'),
-              ),
-              ListTile(
-                dense: true,
-                leading: Icon(Icons.music_note_outlined, size: 18.0),
-                title: Text('Music'),
-                trailing: Text('14.2 GB'),
-              ),
-              ListTile(
-                dense: true,
-                leading: Icon(Icons.apps_outlined, size: 18.0),
-                title: Text('Applications'),
-                trailing: Text('8.6 GB'),
-              ),
-            ],
-          ),
           ),
         ),
       ],
@@ -1069,9 +1068,7 @@ Widget _themingPanel() {
       vertical: 10.0,
     ),
     expandedAlignment: Alignment.centerLeft,
-    shape: const RoundedRectangleBorder(
-      side: BorderSide(color: _kAccentTeal),
-    ),
+    shape: const RoundedRectangleBorder(side: BorderSide(color: _kAccentTeal)),
     collapsedShape: const RoundedRectangleBorder(
       side: BorderSide(color: _kHairline),
     ),
@@ -1181,17 +1178,8 @@ Widget _compareRow(String axis, String tile, String panelList) {
             ),
           ),
         ),
-        Expanded(
-          flex: 5,
-          child: Text(tile, style: _kBodyStyle),
-        ),
-        Expanded(
-          flex: 5,
-          child: Text(
-            panelList,
-            style: _kBodyStyle,
-          ),
-        ),
+        Expanded(flex: 5, child: Text(tile, style: _kBodyStyle)),
+        Expanded(flex: 5, child: Text(panelList, style: _kBodyStyle)),
       ],
     ),
   );
@@ -1205,7 +1193,10 @@ Widget _comparePanel() {
       children: <Widget>[
         const Padding(
           padding: EdgeInsets.fromLTRB(12.0, 6.0, 12.0, 6.0),
-          child: Text('ExpansionTile vs ExpansionPanelList', style: _kPillStyle),
+          child: Text(
+            'ExpansionTile vs ExpansionPanelList',
+            style: _kPillStyle,
+          ),
         ),
         const Padding(
           padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 10.0),
@@ -1400,48 +1391,48 @@ Widget _recipeSettingsGroup() {
       colorScheme: ColorScheme.fromSeed(seedColor: _kAccent),
     ),
     child: Material(
-    type: MaterialType.transparency,
-    child: ExpansionTile(
-      key: const ValueKey<String>('recipe-settings'),
-      initiallyExpanded: true,
-      title: const Text(
-        'Account',
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-      subtitle: const Text('Signed in as alex@example.com'),
-      leading: const Icon(Icons.person_outline),
-      trailing: const Icon(Icons.keyboard_arrow_down),
-      childrenPadding: const EdgeInsets.symmetric(
-        horizontal: 14.0,
-        vertical: 4.0,
-      ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-      ),
-      collapsedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-      ),
-      children: const <Widget>[
-        ListTile(
-          dense: true,
-          leading: Icon(Icons.email_outlined),
-          title: Text('Change email'),
-          trailing: Icon(Icons.chevron_right, size: 18.0),
+      type: MaterialType.transparency,
+      child: ExpansionTile(
+        key: const ValueKey<String>('recipe-settings'),
+        initiallyExpanded: true,
+        title: const Text(
+          'Account',
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
-        ListTile(
-          dense: true,
-          leading: Icon(Icons.lock_outline),
-          title: Text('Change password'),
-          trailing: Icon(Icons.chevron_right, size: 18.0),
+        subtitle: const Text('Signed in as alex@example.com'),
+        leading: const Icon(Icons.person_outline),
+        trailing: const Icon(Icons.keyboard_arrow_down),
+        childrenPadding: const EdgeInsets.symmetric(
+          horizontal: 14.0,
+          vertical: 4.0,
         ),
-        ListTile(
-          dense: true,
-          leading: Icon(Icons.logout),
-          title: Text('Sign out'),
-          trailing: Icon(Icons.chevron_right, size: 18.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
         ),
-      ],
-    ),
+        collapsedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+        ),
+        children: const <Widget>[
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.email_outlined),
+            title: Text('Change email'),
+            trailing: Icon(Icons.chevron_right, size: 18.0),
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.lock_outline),
+            title: Text('Change password'),
+            trailing: Icon(Icons.chevron_right, size: 18.0),
+          ),
+          ListTile(
+            dense: true,
+            leading: Icon(Icons.logout),
+            title: Text('Sign out'),
+            trailing: Icon(Icons.chevron_right, size: 18.0),
+          ),
+        ],
+      ),
     ),
   );
   return _recipeShell(
@@ -1452,7 +1443,8 @@ Widget _recipeSettingsGroup() {
         'initiallyExpanded keeps the most-used group open by default.',
     preview: preview,
     accent: _kAccent,
-    code: 'ExpansionTile(\n'
+    code:
+        'ExpansionTile(\n'
         '  initiallyExpanded: true,\n'
         '  leading: const Icon(Icons.person_outline),\n'
         "  title: const Text('Account'),\n"
@@ -1483,46 +1475,46 @@ Widget _recipeFaqList() {
         Material(
           type: MaterialType.transparency,
           child: ExpansionTile(
-          key: ValueKey<String>('recipe-faq-1'),
-          initiallyExpanded: false,
-          tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
-          title: Text(
-            'How do I reset my password?',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
-              child: Text(
-                'Tap "Sign in", then "Forgot password" on the email screen. '
-                'A one-time reset link will be sent to your verified email.',
-              ),
+            key: ValueKey<String>('recipe-faq-1'),
+            initiallyExpanded: false,
+            tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
+            title: Text(
+              'How do I reset my password?',
+              style: TextStyle(fontWeight: FontWeight.w600),
             ),
-          ],
-        ),
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
+                child: Text(
+                  'Tap "Sign in", then "Forgot password" on the email screen. '
+                  'A one-time reset link will be sent to your verified email.',
+                ),
+              ),
+            ],
+          ),
         ),
         Divider(height: 0.0),
         Material(
           type: MaterialType.transparency,
           child: ExpansionTile(
-          key: ValueKey<String>('recipe-faq-2'),
-          initiallyExpanded: true,
-          tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
-          title: Text(
-            'Can I use the app offline?',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
-              child: Text(
-                'Yes. The most recently opened entries are cached locally. '
-                'New writes are queued and synced as soon as connectivity '
-                'returns.',
-              ),
+            key: ValueKey<String>('recipe-faq-2'),
+            initiallyExpanded: true,
+            tilePadding: EdgeInsets.symmetric(horizontal: 14.0),
+            title: Text(
+              'Can I use the app offline?',
+              style: TextStyle(fontWeight: FontWeight.w600),
             ),
-          ],
-        ),
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
+                child: Text(
+                  'Yes. The most recently opened entries are cached locally. '
+                  'New writes are queued and synced as soon as connectivity '
+                  'returns.',
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -1535,7 +1527,8 @@ Widget _recipeFaqList() {
         'expansion state — no coordination between them.',
     preview: preview,
     accent: _kAccentTeal,
-    code: 'Column(\n'
+    code:
+        'Column(\n'
         '  children: <Widget>[\n'
         '    for (final QuestionAnswer qa in items)\n'
         '      ExpansionTile(\n'
@@ -1561,77 +1554,77 @@ Widget _recipeNestedForm() {
       colorScheme: ColorScheme.fromSeed(seedColor: _kAccentGreen),
     ),
     child: Material(
-    type: MaterialType.transparency,
-    child: ExpansionTile(
-      key: const ValueKey<String>('recipe-form'),
-      initiallyExpanded: true,
-      title: const Text(
-        'Shipping address',
-        style: TextStyle(fontWeight: FontWeight.w600),
-      ),
-      leading: const Icon(Icons.local_shipping_outlined),
-      childrenPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
-      maintainState: true,
-      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        side: BorderSide(color: _kHairline),
-      ),
-      collapsedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        side: BorderSide(color: _kHairline),
-      ),
-      children: <Widget>[
-        TextField(
-          decoration: InputDecoration(
-            labelText: 'Recipient',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            isDense: true,
-          ),
+      type: MaterialType.transparency,
+      child: ExpansionTile(
+        key: const ValueKey<String>('recipe-form'),
+        initiallyExpanded: true,
+        title: const Text(
+          'Shipping address',
+          style: TextStyle(fontWeight: FontWeight.w600),
         ),
-        const SizedBox(height: 8.0),
-        TextField(
-          decoration: InputDecoration(
-            labelText: 'Street',
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            isDense: true,
-          ),
+        leading: const Icon(Icons.local_shipping_outlined),
+        childrenPadding: const EdgeInsets.fromLTRB(14.0, 0.0, 14.0, 14.0),
+        maintainState: true,
+        expandedCrossAxisAlignment: CrossAxisAlignment.start,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          side: BorderSide(color: _kHairline),
         ),
-        const SizedBox(height: 8.0),
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'City',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+        collapsedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          side: BorderSide(color: _kHairline),
+        ),
+        children: <Widget>[
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Recipient',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              isDense: true,
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Street',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              isDense: true,
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'City',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    isDense: true,
                   ),
-                  isDense: true,
                 ),
               ),
-            ),
-            const SizedBox(width: 8.0),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Zip',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Zip',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    isDense: true,
                   ),
-                  isDense: true,
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
-    ),
+            ],
+          ),
+        ],
+      ),
     ),
   );
   return _recipeShell(
@@ -1643,7 +1636,8 @@ Widget _recipeNestedForm() {
         'half-typed input survives collapse.',
     preview: preview,
     accent: _kAccentGreen,
-    code: 'ExpansionTile(\n'
+    code:
+        'ExpansionTile(\n'
         '  initiallyExpanded: true,\n'
         '  maintainState: true,  // keep TextField state alive\n'
         '  leading: const Icon(Icons.local_shipping_outlined),\n'
@@ -1674,35 +1668,35 @@ Widget _recipeController() {
         Material(
           type: MaterialType.transparency,
           child: ExpansionTile(
-          key: const ValueKey<String>('recipe-controller'),
-          controller: controller,
-          initiallyExpanded: true,
-          title: const Text(
-            'Advanced search',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            key: const ValueKey<String>('recipe-controller'),
+            controller: controller,
+            initiallyExpanded: true,
+            title: const Text(
+              'Advanced search',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            leading: const Icon(Icons.tune_outlined),
+            children: const <Widget>[
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.calendar_today_outlined, size: 18.0),
+                title: Text('Date range'),
+                trailing: Text('Last 30 days'),
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.label_outline, size: 18.0),
+                title: Text('Tags'),
+                trailing: Text('billing, urgent'),
+              ),
+              ListTile(
+                dense: true,
+                leading: Icon(Icons.attach_money_outlined, size: 18.0),
+                title: Text('Amount'),
+                trailing: Text('> 100'),
+              ),
+            ],
           ),
-          leading: const Icon(Icons.tune_outlined),
-          children: const <Widget>[
-            ListTile(
-              dense: true,
-              leading: Icon(Icons.calendar_today_outlined, size: 18.0),
-              title: Text('Date range'),
-              trailing: Text('Last 30 days'),
-            ),
-            ListTile(
-              dense: true,
-              leading: Icon(Icons.label_outline, size: 18.0),
-              title: Text('Tags'),
-              trailing: Text('billing, urgent'),
-            ),
-            ListTile(
-              dense: true,
-              leading: Icon(Icons.attach_money_outlined, size: 18.0),
-              title: Text('Amount'),
-              trailing: Text('> 100'),
-            ),
-          ],
-        ),
         ),
         const SizedBox(height: 8.0),
         Row(
@@ -1736,7 +1730,8 @@ Widget _recipeController() {
         'are the three public surface methods.',
     preview: preview,
     accent: _kAccentViolet,
-    code: 'final ExpansionTileController controller =\n'
+    code:
+        'final ExpansionTileController controller =\n'
         '    ExpansionTileController();\n'
         '\n'
         'ExpansionTile(\n'
@@ -1766,39 +1761,39 @@ Widget _recipeControlAffinity() {
         Material(
           type: MaterialType.transparency,
           child: ExpansionTile(
-          key: ValueKey<String>('recipe-affinity-trailing'),
-          initiallyExpanded: false,
-          controlAffinity: ListTileControlAffinity.trailing,
-          leading: Icon(Icons.folder_outlined),
-          title: Text(
-            'controlAffinity: trailing (default)',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            key: ValueKey<String>('recipe-affinity-trailing'),
+            initiallyExpanded: false,
+            controlAffinity: ListTileControlAffinity.trailing,
+            leading: Icon(Icons.folder_outlined),
+            title: Text(
+              'controlAffinity: trailing (default)',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text('Chevron sits on the right, leading is the folder.'),
+            children: <Widget>[
+              ListTile(dense: true, title: Text('drafts/')),
+              ListTile(dense: true, title: Text('archived/')),
+            ],
           ),
-          subtitle: Text('Chevron sits on the right, leading is the folder.'),
-          children: <Widget>[
-            ListTile(dense: true, title: Text('drafts/')),
-            ListTile(dense: true, title: Text('archived/')),
-          ],
-        ),
         ),
         Divider(height: 1.0),
         Material(
           type: MaterialType.transparency,
           child: ExpansionTile(
-          key: ValueKey<String>('recipe-affinity-leading'),
-          initiallyExpanded: true,
-          controlAffinity: ListTileControlAffinity.leading,
-          leading: Icon(Icons.folder_outlined),
-          title: Text(
-            'controlAffinity: leading',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            key: ValueKey<String>('recipe-affinity-leading'),
+            initiallyExpanded: true,
+            controlAffinity: ListTileControlAffinity.leading,
+            leading: Icon(Icons.folder_outlined),
+            title: Text(
+              'controlAffinity: leading',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            subtitle: Text('Chevron jumps to the left, leading is ignored.'),
+            children: <Widget>[
+              ListTile(dense: true, title: Text('drafts/')),
+              ListTile(dense: true, title: Text('archived/')),
+            ],
           ),
-          subtitle: Text('Chevron jumps to the left, leading is ignored.'),
-          children: <Widget>[
-            ListTile(dense: true, title: Text('drafts/')),
-            ListTile(dense: true, title: Text('archived/')),
-          ],
-        ),
         ),
       ],
     ),
@@ -1812,7 +1807,8 @@ Widget _recipeControlAffinity() {
         'be aware: leading is silently dropped in that case.',
     preview: preview,
     accent: _kAccentAmber,
-    code: '// Default — chevron on the right, leading folder icon on the left:\n'
+    code:
+        '// Default — chevron on the right, leading folder icon on the left:\n'
         'ExpansionTile(\n'
         '  controlAffinity: ListTileControlAffinity.trailing,\n'
         '  leading: const Icon(Icons.folder_outlined),\n'
@@ -1846,10 +1842,7 @@ Widget _recipePanelList() {
         isExpanded: stateA[0],
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.payment_outlined, size: 18.0),
@@ -1879,10 +1872,7 @@ Widget _recipePanelList() {
         isExpanded: stateA[1],
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.local_shipping_outlined, size: 18.0),
@@ -1912,10 +1902,7 @@ Widget _recipePanelList() {
         isExpanded: stateA[2],
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.receipt_long_outlined, size: 18.0),
@@ -1957,10 +1944,7 @@ Widget _recipePanelList() {
         canTapOnHeader: true,
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.payment_outlined, size: 18.0),
@@ -1988,10 +1972,7 @@ Widget _recipePanelList() {
         canTapOnHeader: true,
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.local_shipping_outlined, size: 18.0),
@@ -2019,10 +2000,7 @@ Widget _recipePanelList() {
         canTapOnHeader: true,
         backgroundColor: _kCardBg,
         headerBuilder: (BuildContext _, bool isOpen) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 12.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           child: Row(
             children: <Widget>[
               const Icon(Icons.receipt_long_outlined, size: 18.0),
@@ -2087,7 +2065,8 @@ Widget _recipePanelList() {
         'at a time" internally.',
     preview: preview,
     accent: _kAccentRose,
-    code: '// Plain panel list — caller manages booleans:\n'
+    code:
+        '// Plain panel list — caller manages booleans:\n'
         'ExpansionPanelList(\n'
         '  expansionCallback: (int index, bool open) =>\n'
         '      setState(() => state[index] = !open),\n'
@@ -2179,7 +2158,8 @@ Widget _pitfallsList() {
         accent: _kAccentAmber,
         soft: _kAccentAmberSoft,
         title: 'maintainState has a memory cost',
-        body: 'maintainState: true keeps every closed child in the element '
+        body:
+            'maintainState: true keeps every closed child in the element '
             'tree. It is the right call for inputs and scroll positions, '
             'but the wrong call for heavy media or long lists — those should '
             'rebuild on expand to avoid carrying their layout cost when '
@@ -2190,7 +2170,8 @@ Widget _pitfallsList() {
         accent: _kAccentRose,
         soft: _kAccentRoseSoft,
         title: 'Controller lifecycle ≠ widget lifecycle',
-        body: 'ExpansionTileController is a plain Listenable-like handle. It '
+        body:
+            'ExpansionTileController is a plain Listenable-like handle. It '
             'has no dispose() and must outlive the tile it drives; allocate '
             'it in initState of the surrounding StatefulWidget, not inside '
             'build, so a rebuild does not detach the controller mid-flight.',
@@ -2200,7 +2181,8 @@ Widget _pitfallsList() {
         accent: _kAccentBlue,
         soft: _kAccentBlueSoft,
         title: 'Radio + maintainState is moot',
-        body: 'ExpansionPanelList.radio implicitly closes all other panels. '
+        body:
+            'ExpansionPanelList.radio implicitly closes all other panels. '
             'There is no maintainState on ExpansionPanelRadio because closed '
             'panels never render their body — if you need persistence, you '
             'have to push state outwards yourself.',
@@ -2210,7 +2192,8 @@ Widget _pitfallsList() {
         accent: _kAccentTeal,
         soft: _kAccentTealSoft,
         title: 'shape without collapsedShape',
-        body: 'Set both shape and collapsedShape together. If you only set '
+        body:
+            'Set both shape and collapsedShape together. If you only set '
             'shape, the closed tile reverts to the rectangle default and '
             'the corners "snap" in the second half of the open animation.',
       ),
@@ -2219,7 +2202,8 @@ Widget _pitfallsList() {
         accent: _kAccentViolet,
         soft: _kAccentVioletSoft,
         title: 'childrenPadding doubles up',
-        body: 'If you already wrap every child in Padding, do not also set '
+        body:
+            'If you already wrap every child in Padding, do not also set '
             'childrenPadding — the two stack and the indentation looks '
             'inconsistent across rows. Pick one source of truth.',
       ),
@@ -2228,7 +2212,8 @@ Widget _pitfallsList() {
         accent: _kAccentOrange,
         soft: _kAccentAmberSoft,
         title: 'controlAffinity.leading silently drops `leading`',
-        body: 'Switching controlAffinity to leading puts the chevron in the '
+        body:
+            'Switching controlAffinity to leading puts the chevron in the '
             'leading slot of the underlying ListTile. Any widget you passed '
             'to `leading:` will no longer be rendered — move it into the '
             'title row or use controlAffinity.trailing.',

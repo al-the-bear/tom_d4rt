@@ -115,15 +115,21 @@ dynamic build(BuildContext context) {
   // behaviour is inherited from DiagnosticsProperty<Color>. We demonstrate
   // the parent's `ifNull` here using DiagnosticsProperty<Color>, since
   // ColorProperty IS-A DiagnosticsProperty<Color>.
-  final ifNullProp =
-      DiagnosticsProperty<Color>('tint', null, ifNull: '<unset>');
+  final ifNullProp = DiagnosticsProperty<Color>(
+    'tint',
+    null,
+    ifNull: '<unset>',
+  );
   final ifNullProp2 = DiagnosticsProperty<Color>(
     'shadow',
     null,
     ifNull: '(none provided)',
   );
-  final ifNullProp3 =
-      DiagnosticsProperty<Color>('cursor', null, ifNull: 'default');
+  final ifNullProp3 = DiagnosticsProperty<Color>(
+    'cursor',
+    null,
+    ifNull: 'default',
+  );
   print('ifNull tint: name=${ifNullProp.name} value=${ifNullProp.value}');
   print('ifNull shadow: ${ifNullProp2.name}');
   print('ifNull cursor: ${ifNullProp3.name}');
@@ -304,11 +310,7 @@ dynamic build(BuildContext context) {
 
   final levelCards = <Widget>[];
   for (final entry in levels) {
-    final prop = ColorProperty(
-      'tint',
-      Colors.deepPurple,
-      level: entry.level,
-    );
+    final prop = ColorProperty('tint', Colors.deepPurple, level: entry.level);
     print('Level ${entry.level.name}: ${prop.name} -> ${prop.value}');
     levelCards.add(_buildLevelCard(entry, prop));
   }
@@ -412,21 +414,43 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        _buildAnatomyRow('name', '"background"', 'Property name shown in output',
-            Colors.indigo),
-        _buildAnatomyRow('value', 'Color(0xFF42A5F5)',
-            'Concrete color value, may be null', Colors.blue),
-        _buildAnatomyRow('defaultValue', 'Color(0xFFFFFFFF)',
-            'Compared with == to mark as default', Colors.teal),
-        _buildAnatomyRow('ifNull*', '"<unset>"',
-            'Inherited from DiagnosticsProperty — ColorProperty does not '
-                're-expose it; create the parent type when needed.',
-            Colors.amber),
         _buildAnatomyRow(
-            'showName', 'true', 'Print "name: value" or just "value"',
-            Colors.green),
-        _buildAnatomyRow('level', 'DiagnosticLevel.info',
-            'Verbosity / severity classification', Colors.deepPurple),
+          'name',
+          '"background"',
+          'Property name shown in output',
+          Colors.indigo,
+        ),
+        _buildAnatomyRow(
+          'value',
+          'Color(0xFF42A5F5)',
+          'Concrete color value, may be null',
+          Colors.blue,
+        ),
+        _buildAnatomyRow(
+          'defaultValue',
+          'Color(0xFFFFFFFF)',
+          'Compared with == to mark as default',
+          Colors.teal,
+        ),
+        _buildAnatomyRow(
+          'ifNull*',
+          '"<unset>"',
+          'Inherited from DiagnosticsProperty — ColorProperty does not '
+              're-expose it; create the parent type when needed.',
+          Colors.amber,
+        ),
+        _buildAnatomyRow(
+          'showName',
+          'true',
+          'Print "name: value" or just "value"',
+          Colors.green,
+        ),
+        _buildAnatomyRow(
+          'level',
+          'DiagnosticLevel.info',
+          'Verbosity / severity classification',
+          Colors.deepPurple,
+        ),
       ],
     ),
   );
@@ -618,8 +642,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber,
-                color: Colors.deepOrange.shade900, size: 22.0),
+            Icon(
+              Icons.warning_amber,
+              color: Colors.deepOrange.shade900,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Footguns',
@@ -739,8 +766,7 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                Icon(Icons.format_color_fill,
-                    size: 56.0, color: Colors.white),
+                Icon(Icons.format_color_fill, size: 56.0, color: Colors.white),
                 SizedBox(height: 8.0),
                 Text(
                   'ColorProperty Deep Demo',
@@ -881,18 +907,14 @@ class _SwatchEntry {
 // Helpers
 // ============================================================
 
-Widget _buildPropertyCard(
-    ColorProperty prop, String description, Color color) {
+Widget _buildPropertyCard(ColorProperty prop, String description, Color color) {
   return Container(
     width: 180.0,
     margin: EdgeInsets.all(8.0),
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.08),
-          color.withValues(alpha: 0.18),
-        ],
+        colors: [color.withValues(alpha: 0.08), color.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -915,8 +937,7 @@ Widget _buildPropertyCard(
           decoration: BoxDecoration(
             color: prop.value,
             borderRadius: BorderRadius.circular(6.0),
-            border:
-                Border.all(color: Colors.grey.shade400, width: 1.0),
+            border: Border.all(color: Colors.grey.shade400, width: 1.0),
           ),
         ),
         SizedBox(height: 8.0),
@@ -1042,8 +1063,7 @@ Widget _buildDefaultValuePanel(
               decoration: BoxDecoration(
                 color: value,
                 borderRadius: BorderRadius.circular(4.0),
-                border:
-                    Border.all(color: Colors.grey.shade500, width: 1.0),
+                border: Border.all(color: Colors.grey.shade500, width: 1.0),
               ),
             ),
             SizedBox(width: 6.0),
@@ -1055,8 +1075,7 @@ Widget _buildDefaultValuePanel(
               decoration: BoxDecoration(
                 color: defaultValue,
                 borderRadius: BorderRadius.circular(4.0),
-                border:
-                    Border.all(color: Colors.grey.shade500, width: 1.0),
+                border: Border.all(color: Colors.grey.shade500, width: 1.0),
               ),
             ),
           ],
@@ -1204,7 +1223,11 @@ Widget _buildSwatchCell(ColorProperty prop, Color color) {
 }
 
 Widget _buildAnatomyRow(
-    String label, String example, String description, Color color) {
+  String label,
+  String example,
+  String description,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -1216,8 +1239,7 @@ Widget _buildAnatomyRow(
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(6.0),
-            border:
-                Border.all(color: color.withValues(alpha: 0.6), width: 1.0),
+            border: Border.all(color: color.withValues(alpha: 0.6), width: 1.0),
           ),
           child: Text(
             label,
@@ -1339,8 +1361,11 @@ Widget _buildFootgun(String title, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.report_problem,
-            color: Colors.deepOrange.shade700, size: 20.0),
+        Icon(
+          Icons.report_problem,
+          color: Colors.deepOrange.shade700,
+          size: 20.0,
+        ),
         SizedBox(width: 8.0),
         Expanded(
           child: Column(

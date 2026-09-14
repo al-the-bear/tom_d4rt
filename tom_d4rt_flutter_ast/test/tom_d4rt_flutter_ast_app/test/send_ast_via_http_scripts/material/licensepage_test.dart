@@ -28,11 +28,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 36.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurpleDark,
-          deepPurple,
-          indigo,
-        ],
+        colors: [deepPurpleDark, deepPurple, indigo],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -65,11 +61,7 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(
-                Icons.gavel_rounded,
-                color: Colors.white,
-                size: 36.0,
-              ),
+              child: Icon(Icons.gavel_rounded, color: Colors.white, size: 36.0),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -122,10 +114,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(24.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          purpleAccent.withValues(alpha: 0.4),
-        ],
+        colors: [Colors.white, purpleAccent.withValues(alpha: 0.4)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -322,10 +311,7 @@ dynamic build(BuildContext context) {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(11.0),
-            child: SizedBox(
-              height: 600.0,
-              child: realLicensePage,
-            ),
+            child: SizedBox(height: 600.0, child: realLicensePage),
           ),
         ),
       ],
@@ -340,10 +326,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          deepPurple.withValues(alpha: 0.06),
-        ],
+        colors: [Colors.white, deepPurple.withValues(alpha: 0.06)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -423,10 +406,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurpleDark,
-          indigo,
-        ],
+        colors: [deepPurpleDark, indigo],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -500,8 +480,7 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
               decoration: BoxDecoration(
                 color: amberAccent,
                 borderRadius: BorderRadius.circular(8.0),
@@ -549,10 +528,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          tealAccent.withValues(alpha: 0.10),
-        ],
+        colors: [Colors.white, tealAccent.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -600,7 +576,8 @@ dynamic build(BuildContext context) {
           color: pinkAccent,
           name: 'http',
           summary: 'BSD-3-Clause',
-          snippet: 'Copyright 2014 the Dart project authors. All rights '
+          snippet:
+              'Copyright 2014 the Dart project authors. All rights '
               'reserved.',
         ),
       ],
@@ -615,10 +592,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          purpleAccent.withValues(alpha: 0.45),
-          Colors.white,
-        ],
+        colors: [purpleAccent.withValues(alpha: 0.45), Colors.white],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -698,8 +672,7 @@ dynamic build(BuildContext context) {
                             Text(
                               '1.0.0',
                               style: TextStyle(
-                                color: Colors.white
-                                    .withValues(alpha: 0.85),
+                                color: Colors.white.withValues(alpha: 0.85),
                                 fontSize: 11.0,
                               ),
                             ),
@@ -815,10 +788,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFFFF3E0),
-          Color(0xFFFFE0B2),
-        ],
+        colors: [Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -871,11 +841,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          deepPurple,
-          indigo,
-          deepPurpleDark,
-        ],
+        colors: [deepPurple, indigo, deepPurpleDark],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1034,10 +1000,7 @@ Widget _sectionHeading({
             SizedBox(height: 2.0),
             Text(
               subtitle,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 12.5,
-              ),
+              style: TextStyle(color: Colors.black87, fontSize: 12.5),
             ),
           ],
         ),
@@ -1081,8 +1044,7 @@ Widget _fieldCard({
           child: Row(
             children: [
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(6.0),
@@ -1241,13 +1203,7 @@ Widget _mockRow(String name, String count, Color color, bool selected) {
             ),
           ),
         ),
-        Text(
-          count,
-          style: TextStyle(
-            color: Colors.black54,
-            fontSize: 11.0,
-          ),
-        ),
+        Text(count, style: TextStyle(color: Colors.black54, fontSize: 11.0)),
       ],
     ),
   );
@@ -1320,10 +1276,7 @@ Widget _footgun(String title, String body) {
               ),
             ),
             SizedBox(height: 2.0),
-            Text(
-              body,
-              style: TextStyle(fontSize: 12.5, color: Colors.black87),
-            ),
+            Text(body, style: TextStyle(fontSize: 12.5, color: Colors.black87)),
           ],
         ),
       ),
@@ -1342,11 +1295,7 @@ Widget _recapBullet(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.4),
           ),
         ),
       ],

@@ -41,12 +41,10 @@ dynamic build(BuildContext context) {
   print('ep textDirection: ${epTextDir.toString()}');
 
   final EnumProperty<TextDirection?> epTextDirNullDefault =
-      EnumProperty<TextDirection?>(
-        'textDirection',
-        null,
-        defaultValue: null,
-      );
-  print('ep textDirection null/default null: ${epTextDirNullDefault.toString()}');
+      EnumProperty<TextDirection?>('textDirection', null, defaultValue: null);
+  print(
+    'ep textDirection null/default null: ${epTextDirNullDefault.toString()}',
+  );
 
   final EnumProperty<TargetPlatform> epPlatform = EnumProperty<TargetPlatform>(
     'platform',
@@ -247,8 +245,14 @@ dynamic build(BuildContext context) {
           'name=value pair when the property is rendered to a string.\n'
           'Conventionally the same as the field name on your object.',
       examplePairs: [
-        ['EnumProperty<TextDirection>(\'textDirection\', value)', 'textDirection: ltr'],
-        ['EnumProperty<TargetPlatform>(\'platform\', value)', 'platform: android'],
+        [
+          'EnumProperty<TextDirection>(\'textDirection\', value)',
+          'textDirection: ltr',
+        ],
+        [
+          'EnumProperty<TargetPlatform>(\'platform\', value)',
+          'platform: android',
+        ],
         ['EnumProperty<Brightness>(\'brightness\', value)', 'brightness: dark'],
       ],
       tint: Colors.teal,
@@ -279,8 +283,14 @@ dynamic build(BuildContext context) {
           'reports level==fine and is hidden from concise diagnostics dumps.\n'
           'Use kNoDefaultValue to mean "no default" explicitly.',
       examplePairs: [
-        ['defaultValue: TargetPlatform.android (matches)', 'platform: android (hidden in default dump)'],
-        ['defaultValue: TextDirection.ltr (mismatches rtl)', 'textDirection: rtl'],
+        [
+          'defaultValue: TargetPlatform.android (matches)',
+          'platform: android (hidden in default dump)',
+        ],
+        [
+          'defaultValue: TextDirection.ltr (mismatches rtl)',
+          'textDirection: rtl',
+        ],
         ['defaultValue: null  +  value: null', 'textDirection: null (hidden)'],
       ],
       tint: Colors.deepOrange,
@@ -296,7 +306,10 @@ dynamic build(BuildContext context) {
           'are skipped. EnumProperty defaults to DiagnosticLevel.info.',
       examplePairs: [
         ['level: DiagnosticLevel.info  (default)', 'shown in normal dumps'],
-        ['level: DiagnosticLevel.fine', 'shown only with toStringDeep / verbose'],
+        [
+          'level: DiagnosticLevel.fine',
+          'shown only with toStringDeep / verbose',
+        ],
         ['level: DiagnosticLevel.warning', 'highlighted in dumps'],
       ],
       tint: Colors.purple,
@@ -315,14 +328,16 @@ dynamic build(BuildContext context) {
       td,
     );
     print('TextDirection ${td.name}: ${p.toString()}');
-    textDirectionRows.add(_recipeRow(
-      enumLabel: 'TextDirection.${td.name}',
-      printed: p.toString(),
-      accent: td == TextDirection.ltr ? Colors.blue : Colors.deepPurple,
-      icon: td == TextDirection.ltr
-          ? Icons.format_textdirection_l_to_r
-          : Icons.format_textdirection_r_to_l,
-    ));
+    textDirectionRows.add(
+      _recipeRow(
+        enumLabel: 'TextDirection.${td.name}',
+        printed: p.toString(),
+        accent: td == TextDirection.ltr ? Colors.blue : Colors.deepPurple,
+        icon: td == TextDirection.ltr
+            ? Icons.format_textdirection_l_to_r
+            : Icons.format_textdirection_r_to_l,
+      ),
+    );
   }
 
   // ============================================================
@@ -346,12 +361,14 @@ dynamic build(BuildContext context) {
     );
     print('TargetPlatform ${tp.name}: ${p.toString()}');
     final bool isDefault = tp == TargetPlatform.android;
-    targetPlatformRows.add(_recipeRow(
-      enumLabel: 'TargetPlatform.${tp.name}',
-      printed: '${p.toString()}${isDefault ? '   [== defaultValue]' : ''}',
-      accent: isDefault ? Colors.green : Colors.orange,
-      icon: platformIcons[tp] ?? Icons.devices,
-    ));
+    targetPlatformRows.add(
+      _recipeRow(
+        enumLabel: 'TargetPlatform.${tp.name}',
+        printed: '${p.toString()}${isDefault ? '   [== defaultValue]' : ''}',
+        accent: isDefault ? Colors.green : Colors.orange,
+        icon: platformIcons[tp] ?? Icons.devices,
+      ),
+    );
   }
 
   // ============================================================
@@ -365,12 +382,14 @@ dynamic build(BuildContext context) {
       b,
     );
     print('Brightness ${b.name}: ${p.toString()}');
-    brightnessRows.add(_recipeRow(
-      enumLabel: 'Brightness.${b.name}',
-      printed: p.toString(),
-      accent: b == Brightness.light ? Colors.amber.shade700 : Colors.blueGrey,
-      icon: b == Brightness.light ? Icons.light_mode : Icons.dark_mode,
-    ));
+    brightnessRows.add(
+      _recipeRow(
+        enumLabel: 'Brightness.${b.name}',
+        printed: p.toString(),
+        accent: b == Brightness.light ? Colors.amber.shade700 : Colors.blueGrey,
+        icon: b == Brightness.light ? Icons.light_mode : Icons.dark_mode,
+      ),
+    );
   }
 
   // ============================================================
@@ -384,12 +403,14 @@ dynamic build(BuildContext context) {
       dl,
     );
     print('DiagnosticLevel ${dl.name}: ${p.toString()}');
-    diagnosticLevelRows.add(_recipeRow(
-      enumLabel: 'DiagnosticLevel.${dl.name}',
-      printed: p.toString(),
-      accent: _levelTint(dl),
-      icon: _levelIcon(dl),
-    ));
+    diagnosticLevelRows.add(
+      _recipeRow(
+        enumLabel: 'DiagnosticLevel.${dl.name}',
+        printed: p.toString(),
+        accent: _levelTint(dl),
+        icon: _levelIcon(dl),
+      ),
+    );
   }
 
   // ============================================================
@@ -437,25 +458,34 @@ dynamic build(BuildContext context) {
           title: 'Using StringProperty for an enum',
           bad: "StringProperty('axis', Axis.vertical.toString())",
           good: "EnumProperty<Axis>('axis', Axis.vertical)",
-          why: 'StringProperty prints "Axis.vertical"; EnumProperty prints "vertical".',
+          why:
+              'StringProperty prints "Axis.vertical"; EnumProperty prints "vertical".',
         ),
         _pitfallTile(
           title: 'Forgetting a generic on a nullable enum',
           bad: "EnumProperty('dir', maybeNull, defaultValue: null)",
-          good: "EnumProperty<TextDirection?>('dir', maybeNull, defaultValue: null)",
-          why: 'Without an explicit T, T extends Enum? cannot accept dynamic null.',
+          good:
+              "EnumProperty<TextDirection?>('dir', maybeNull, defaultValue: null)",
+          why:
+              'Without an explicit T, T extends Enum? cannot accept dynamic null.',
         ),
         _pitfallTile(
           title: 'defaultValue with a non-matching value',
-          bad: "EnumProperty<Brightness>('b', Brightness.dark, defaultValue: Brightness.light)",
-          good: "EnumProperty<Brightness>('b', Brightness.dark)  // when no meaningful default exists",
-          why: 'Mismatching defaults never hide the property; remove if unintended.',
+          bad:
+              "EnumProperty<Brightness>('b', Brightness.dark, defaultValue: Brightness.light)",
+          good:
+              "EnumProperty<Brightness>('b', Brightness.dark)  // when no meaningful default exists",
+          why:
+              'Mismatching defaults never hide the property; remove if unintended.',
         ),
         _pitfallTile(
           title: 'Setting level: DiagnosticLevel.hidden by hand',
-          bad: "EnumProperty<TextDirection>('d', value, level: DiagnosticLevel.hidden)",
-          good: "EnumProperty<TextDirection>('d', value, defaultValue: TextDirection.ltr)",
-          why: 'Let defaultValue handle hiding; manual hidden defeats diagnostics.',
+          bad:
+              "EnumProperty<TextDirection>('d', value, level: DiagnosticLevel.hidden)",
+          good:
+              "EnumProperty<TextDirection>('d', value, defaultValue: TextDirection.ltr)",
+          why:
+              'Let defaultValue handle hiding; manual hidden defeats diagnostics.',
         ),
       ],
     ),
@@ -588,14 +618,29 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 14.0),
-        _cheatLine('Type', 'EnumProperty<T extends Enum?> extends DiagnosticsProperty<T>'),
+        _cheatLine(
+          'Type',
+          'EnumProperty<T extends Enum?> extends DiagnosticsProperty<T>',
+        ),
         _cheatLine('Library', 'package:flutter/foundation.dart'),
-        _cheatLine('Constructor', 'EnumProperty(name, value, {defaultValue, level})'),
+        _cheatLine(
+          'Constructor',
+          'EnumProperty(name, value, {defaultValue, level})',
+        ),
         _cheatLine('valueToString()', 'value?.name ?? "null"'),
         _cheatLine('Default level', 'DiagnosticLevel.info'),
-        _cheatLine('Hides when', 'value == defaultValue (and defaultValue provided)'),
-        _cheatLine('Use inside', 'Widget.debugFillProperties(DiagnosticPropertiesBuilder)'),
-        _cheatLine('Typical caller', 'properties.add(EnumProperty<MyEnum>("kind", kind));'),
+        _cheatLine(
+          'Hides when',
+          'value == defaultValue (and defaultValue provided)',
+        ),
+        _cheatLine(
+          'Use inside',
+          'Widget.debugFillProperties(DiagnosticPropertiesBuilder)',
+        ),
+        _cheatLine(
+          'Typical caller',
+          'properties.add(EnumProperty<MyEnum>("kind", kind));',
+        ),
         SizedBox(height: 14.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -635,7 +680,8 @@ dynamic build(BuildContext context) {
   // SECTION 11: ASCII footer
   // ============================================================
   print('--- Section 11: ASCII footer ---');
-  final String asciiArt = ''
+  final String asciiArt =
+      ''
       '   _____                       ____                            _\n'
       '  | ____|_ __  _   _ _ __ ___ |  _ \\ _ __ ___  _ __   ___ _ __| |_ _   _\n'
       "  |  _| | '_ \\| | | | '_ ` _ \\| |_) | '__/ _ \\| '_ \\ / _ \\ '__| __| | | |\n"
@@ -697,22 +743,37 @@ dynamic build(BuildContext context) {
               _sectionTitle('2. Constructor parameters', Icons.tune),
               ...paramCards,
               SizedBox(height: 12.0),
-              _sectionTitle('3. TextDirection — debug print recipe', Icons.text_format),
+              _sectionTitle(
+                '3. TextDirection — debug print recipe',
+                Icons.text_format,
+              ),
               _recipePanel(textDirectionRows, Colors.blue),
               SizedBox(height: 12.0),
-              _sectionTitle('4. TargetPlatform — debug print recipe', Icons.devices),
+              _sectionTitle(
+                '4. TargetPlatform — debug print recipe',
+                Icons.devices,
+              ),
               _recipePanel(targetPlatformRows, Colors.orange),
               SizedBox(height: 12.0),
-              _sectionTitle('5. Brightness — debug print recipe', Icons.brightness_6),
+              _sectionTitle(
+                '5. Brightness — debug print recipe',
+                Icons.brightness_6,
+              ),
               _recipePanel(brightnessRows, Colors.amber),
               SizedBox(height: 12.0),
-              _sectionTitle('6. DiagnosticLevel — debug print recipe', Icons.layers),
+              _sectionTitle(
+                '6. DiagnosticLevel — debug print recipe',
+                Icons.layers,
+              ),
               _recipePanel(diagnosticLevelRows, Colors.purple),
               SizedBox(height: 12.0),
               _sectionTitle('7. Pitfalls', Icons.warning_amber),
               pitfalls,
               SizedBox(height: 12.0),
-              _sectionTitle('8. Comparison with sibling properties', Icons.compare_arrows),
+              _sectionTitle(
+                '8. Comparison with sibling properties',
+                Icons.compare_arrows,
+              ),
               comparison,
               SizedBox(height: 12.0),
               _sectionTitle('9. Quick reference', Icons.menu_book),
@@ -743,9 +804,7 @@ Widget _sectionTitle(String label, IconData icon) {
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: Colors.indigo, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: Colors.indigo, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: Colors.indigo.withValues(alpha: 0.08),
@@ -811,10 +870,7 @@ Widget _anatomyRow(String name, String description, Color tint) {
             color: tint,
             shape: BoxShape.circle,
             boxShadow: [
-              BoxShadow(
-                color: tint.withValues(alpha: 0.5),
-                blurRadius: 4.0,
-              ),
+              BoxShadow(color: tint.withValues(alpha: 0.5), blurRadius: 4.0),
             ],
           ),
         ),
@@ -930,10 +986,7 @@ Widget _paramCard({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          tint.withValues(alpha: 0.06),
-          tint.withValues(alpha: 0.18),
-        ],
+        colors: [tint.withValues(alpha: 0.06), tint.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1029,10 +1082,7 @@ Widget _recipePanel(List<Widget> rows, Color tint) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          tint.withValues(alpha: 0.05),
-          tint.withValues(alpha: 0.18),
-        ],
+        colors: [tint.withValues(alpha: 0.05), tint.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1065,9 +1115,7 @@ Widget _recipeRow({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: accent, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),

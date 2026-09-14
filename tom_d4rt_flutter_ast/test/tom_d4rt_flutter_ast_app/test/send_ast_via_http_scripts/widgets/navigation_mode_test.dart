@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkEspresso)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkEspresso)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkEspresso)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: darkEspresso),
+            ),
           ),
         ],
       ),
@@ -149,34 +162,45 @@ dynamic build(BuildContext context) {
                   Icon(Icons.gamepad, size: 28, color: paleCinnamon),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('NavigationMode',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'NavigationMode',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('Enum controlling how navigation and focus work in different input environments',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'Enum controlling how navigation and focus work in different input environments',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Enum', nutmeg, Colors.white),
-                tag('MediaQuery', warmSpice, darkEspresso),
-                tag('Focus Traversal', lightCinnamon, darkEspresso),
-                tag('Accessibility', paleCinnamon, darkEspresso),
-              ]),
+              Wrap(
+                children: [
+                  tag('Enum', nutmeg, Colors.white),
+                  tag('MediaQuery', warmSpice, darkEspresso),
+                  tag('Focus Traversal', lightCinnamon, darkEspresso),
+                  tag('Accessibility', paleCinnamon, darkEspresso),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is NavigationMode',
-            'An enum that describes the app\'s navigation paradigm',
-            deepCinnamon, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is NavigationMode',
+          'An enum that describes the app\'s navigation paradigm',
+          deepCinnamon,
+          Colors.white,
+        ),
         noteBox(
           'NavigationMode is an enum in Flutter\'s MediaQuery system that '
           'describes how the user navigates through the UI. It determines '
@@ -193,9 +217,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. The two values ────────────────────────────────────────
-        sectionBanner('2 \u00b7 The Two Values',
-            'Traditional vs directional navigation',
-            cinnamon, Colors.white),
+        sectionBanner(
+          '2 \u00b7 The Two Values',
+          'Traditional vs directional navigation',
+          cinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -219,24 +246,31 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.mouse, size: 28, color: sageGreen),
                       const SizedBox(height: 6),
-                      Text('traditional',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: 'monospace',
-                              color: sageGreen)),
+                      Text(
+                        'traditional',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'monospace',
+                          color: sageGreen,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('Keyboard + Mouse',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: darkEspresso)),
+                      Text(
+                        'Keyboard + Mouse',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: darkEspresso,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Standard desktop and mobile input. Tab to move focus. '
-                          'Disabled widgets lose focus and cannot be reached.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkEspresso)),
+                      Text(
+                        'Standard desktop and mobile input. Tab to move focus. '
+                        'Disabled widgets lose focus and cannot be reached.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkEspresso),
+                      ),
                     ],
                   ),
                 ),
@@ -255,24 +289,31 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.gamepad, size: 28, color: blueTeal),
                       const SizedBox(height: 6),
-                      Text('directional',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: 'monospace',
-                              color: blueTeal)),
+                      Text(
+                        'directional',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'monospace',
+                          color: blueTeal,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text('TV Remote + Gamepad',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 11,
-                              color: darkEspresso)),
+                      Text(
+                        'TV Remote + Gamepad',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: darkEspresso,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text('Arrow-key navigation for lean-back UIs. Disabled widgets '
-                          'retain focus for traversal continuity.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 10, color: darkEspresso)),
+                      Text(
+                        'Arrow-key navigation for lean-back UIs. Disabled widgets '
+                        'retain focus for traversal continuity.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 10, color: darkEspresso),
+                      ),
                     ],
                   ),
                 ),
@@ -283,9 +324,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Behavior comparison ───────────────────────────────────
-        sectionBanner('3 \u00b7 Behavior Comparison',
-            'How each mode affects focus and navigation',
-            nutmeg, Colors.white),
+        sectionBanner(
+          '3 \u00b7 Behavior Comparison',
+          'How each mode affects focus and navigation',
+          nutmeg,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -306,11 +350,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['Behavior', 'Traditional', 'Directional'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -327,23 +374,28 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: cinnamon)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: cinnamon,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 10, color: sageGreen)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 10, color: sageGreen),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 10, color: blueTeal)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(fontSize: 10, color: blueTeal),
+                      ),
                     ),
                   ],
                 ),
@@ -353,9 +405,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. How to access ─────────────────────────────────────────
-        sectionBanner('4 \u00b7 How To Access NavigationMode',
-            'Reading the current mode from MediaQuery',
-            deepCinnamon, Colors.white),
+        sectionBanner(
+          '4 \u00b7 How To Access NavigationMode',
+          'Reading the current mode from MediaQuery',
+          deepCinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -372,20 +427,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: cinnamon.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: cinnamon.withValues(alpha: 0.3)),
+                  border: Border.all(color: cinnamon.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '// Read the current navigation mode\n'
-                    'final mode = MediaQuery.navigationModeOf(context);\n\n'
-                    '// Check for directional mode\n'
-                    'if (mode == NavigationMode.directional) {\n'
-                    '  // TV/gamepad navigation active\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepCinnamon)),
+                  '// Read the current navigation mode\n'
+                  'final mode = MediaQuery.navigationModeOf(context);\n\n'
+                  '// Check for directional mode\n'
+                  'if (mode == NavigationMode.directional) {\n'
+                  '  // TV/gamepad navigation active\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepCinnamon,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -401,9 +457,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Current value display ─────────────────────────────────
-        sectionBanner('5 \u00b7 Live Value',
-            'Current NavigationMode in this context',
-            cinnamon, Colors.white),
+        sectionBanner(
+          '5 \u00b7 Live Value',
+          'Current NavigationMode in this context',
+          cinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -428,17 +487,21 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('NavigationMode.$mode',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            fontFamily: 'monospace',
-                            color: deepCinnamon)),
-                    Text(mode == NavigationMode.traditional
-                        ? 'Standard keyboard/mouse navigation is active'
-                        : 'Directional TV/gamepad navigation is active',
-                        style: TextStyle(
-                            fontSize: 12, color: darkEspresso)),
+                    Text(
+                      'NavigationMode.$mode',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'monospace',
+                        color: deepCinnamon,
+                      ),
+                    ),
+                    Text(
+                      mode == NavigationMode.traditional
+                          ? 'Standard keyboard/mouse navigation is active'
+                          : 'Directional TV/gamepad navigation is active',
+                      style: TextStyle(fontSize: 12, color: darkEspresso),
+                    ),
                   ],
                 ),
               ),
@@ -448,9 +511,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Disabled widget focus ─────────────────────────────────
-        sectionBanner('6 \u00b7 Disabled Widget Focus Behavior',
-            'The key difference between the two modes',
-            nutmeg, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Disabled Widget Focus Behavior',
+          'The key difference between the two modes',
+          nutmeg,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -468,8 +534,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: sageGreen.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border(
-                      left: BorderSide(color: sageGreen, width: 3)),
+                  border: Border(left: BorderSide(color: sageGreen, width: 3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -478,11 +543,14 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.mouse, size: 18, color: sageGreen),
                         const SizedBox(width: 6),
-                        Text('Traditional Mode',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: sageGreen)),
+                        Text(
+                          'Traditional Mode',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: sageGreen,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -500,9 +568,10 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     const SizedBox(height: 4),
-                    Text('Disabled button cannot receive focus — Tab skips it',
-                        style: TextStyle(
-                            fontSize: 10, color: darkEspresso)),
+                    Text(
+                      'Disabled button cannot receive focus — Tab skips it',
+                      style: TextStyle(fontSize: 10, color: darkEspresso),
+                    ),
                   ],
                 ),
               ),
@@ -513,8 +582,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: blueTeal.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border(
-                      left: BorderSide(color: blueTeal, width: 3)),
+                  border: Border(left: BorderSide(color: blueTeal, width: 3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,19 +591,23 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.gamepad, size: 18, color: blueTeal),
                         const SizedBox(width: 6),
-                        Text('Directional Mode',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: blueTeal)),
+                        Text(
+                          'Directional Mode',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: blueTeal,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Text('Disabled widgets retain focus so arrow navigation '
-                        'maintains spatial continuity. Without this, disabled '
-                        'items would create "holes" in the focus grid.',
-                        style: TextStyle(
-                            fontSize: 11, color: darkEspresso)),
+                    Text(
+                      'Disabled widgets retain focus so arrow navigation '
+                      'maintains spatial continuity. Without this, disabled '
+                      'items would create "holes" in the focus grid.',
+                      style: TextStyle(fontSize: 11, color: darkEspresso),
+                    ),
                   ],
                 ),
               ),
@@ -545,9 +617,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Setting NavigationMode ────────────────────────────────
-        sectionBanner('7 \u00b7 Setting NavigationMode',
-            'How to configure it for your application',
-            deepCinnamon, Colors.white),
+        sectionBanner(
+          '7 \u00b7 Setting NavigationMode',
+          'How to configure it for your application',
+          deepCinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -565,20 +640,23 @@ dynamic build(BuildContext context) {
                   color: deepCinnamon.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                      color: deepCinnamon.withValues(alpha: 0.3)),
+                    color: deepCinnamon.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Text(
-                    '// Wrap your app with MediaQuery override\n'
-                    'MediaQuery(\n'
-                    '  data: MediaQuery.of(context).copyWith(\n'
-                    '    navigationMode: NavigationMode.directional,\n'
-                    '  ),\n'
-                    '  child: MyApp(),\n'
-                    ')',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepCinnamon)),
+                  '// Wrap your app with MediaQuery override\n'
+                  'MediaQuery(\n'
+                  '  data: MediaQuery.of(context).copyWith(\n'
+                  '    navigationMode: NavigationMode.directional,\n'
+                  '  ),\n'
+                  '  child: MyApp(),\n'
+                  ')',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepCinnamon,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -594,9 +672,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. TV navigation grid ────────────────────────────────────
-        sectionBanner('8 \u00b7 TV Navigation Grid Scenario',
-            'How directional mode enables spatial navigation',
-            blueTeal, Colors.white),
+        sectionBanner(
+          '8 \u00b7 TV Navigation Grid Scenario',
+          'How directional mode enables spatial navigation',
+          blueTeal,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -608,11 +689,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Grid of TV menu items — arrow keys to navigate:',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: blueTeal)),
+              Text(
+                'Grid of TV menu items — arrow keys to navigate:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: blueTeal,
+                ),
+              ),
               const SizedBox(height: 8),
               for (var row = 0; row < 3; row++)
                 Padding(
@@ -627,17 +711,22 @@ dynamic build(BuildContext context) {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: (row == 1 && col == 2)
-                                    ? [blueTeal, blueTeal.withValues(alpha: 0.8)]
+                                    ? [
+                                        blueTeal,
+                                        blueTeal.withValues(alpha: 0.8),
+                                      ]
                                     : [
                                         Color.lerp(
-                                                cinnamon,
-                                                nutmeg,
-                                                (row * 4 + col) / 11.0) ??
+                                              cinnamon,
+                                              nutmeg,
+                                              (row * 4 + col) / 11.0,
+                                            ) ??
                                             cinnamon,
                                         Color.lerp(
-                                                nutmeg,
-                                                warmSpice,
-                                                (row * 4 + col) / 11.0) ??
+                                              nutmeg,
+                                              warmSpice,
+                                              (row * 4 + col) / 11.0,
+                                            ) ??
                                             nutmeg,
                                       ],
                               ),
@@ -684,11 +773,12 @@ dynamic build(BuildContext context) {
                                     'Top',
                                   ][row * 4 + col],
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 9,
-                                      fontWeight: (row == 1 && col == 2)
-                                          ? FontWeight.bold
-                                          : FontWeight.normal),
+                                    color: Colors.white,
+                                    fontSize: 9,
+                                    fontWeight: (row == 1 && col == 2)
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                  ),
                                 ),
                               ],
                             ),
@@ -706,9 +796,10 @@ dynamic build(BuildContext context) {
                   Icon(Icons.arrow_back, size: 14, color: blueTeal),
                   Icon(Icons.arrow_forward, size: 14, color: blueTeal),
                   const SizedBox(width: 6),
-                  Text('D-pad navigation',
-                      style: TextStyle(
-                          fontSize: 10, color: darkEspresso)),
+                  Text(
+                    'D-pad navigation',
+                    style: TextStyle(fontSize: 10, color: darkEspresso),
+                  ),
                 ],
               ),
             ],
@@ -724,9 +815,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Platform defaults ────────────────────────────────────
-        sectionBanner('9 \u00b7 Platform Defaults',
-            'Which platforms use which mode',
-            cinnamon, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Platform Defaults',
+          'Which platforms use which mode',
+          cinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -744,16 +838,24 @@ dynamic build(BuildContext context) {
                 ('Linux', Icons.computer, 'traditional', sageGreen),
                 ('Web', Icons.language, 'traditional', sageGreen),
                 ('Android TV', Icons.tv, 'directional', blueTeal),
-                ('tvOS / Apple TV', Icons.connected_tv, 'directional', blueTeal),
+                (
+                  'tvOS / Apple TV',
+                  Icons.connected_tv,
+                  'directional',
+                  blueTeal,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     border: Border(
-                        left: BorderSide(color: platform.$4, width: 3)),
+                      left: BorderSide(color: platform.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -761,17 +863,23 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       SizedBox(
                         width: 100,
-                        child: Text(platform.$1,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: darkEspresso)),
-                      ),
-                      Text(platform.$3,
+                        child: Text(
+                          platform.$1,
                           style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: 'monospace',
-                              color: platform.$4)),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: darkEspresso,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        platform.$3,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontFamily: 'monospace',
+                          color: platform.$4,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -781,9 +889,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Focus traversal details ──────────────────────────────
-        sectionBanner('10 \u00b7 Focus Traversal Details',
-            'How focus moves in each mode',
-            nutmeg, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Focus Traversal Details',
+          'How focus moves in each mode',
+          nutmeg,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -794,18 +905,48 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final detail in [
-                ('Tab key', 'Moves to next focusable node',
-                    'Not typically used', Icons.tab, cinnamon),
-                ('Shift+Tab', 'Moves to previous node',
-                    'Not typically used', Icons.tab, nutmeg),
-                ('Arrow Up', 'Not standard traversal',
-                    'Moves to nearest node above', Icons.arrow_upward, deepCinnamon),
-                ('Arrow Down', 'Not standard traversal',
-                    'Moves to nearest node below', Icons.arrow_downward, warmSpice),
-                ('Arrow Left', 'Not standard traversal',
-                    'Moves to nearest node left', Icons.arrow_back, lightCinnamon),
-                ('Arrow Right', 'Not standard traversal',
-                    'Moves to nearest node right', Icons.arrow_forward, darkEspresso),
+                (
+                  'Tab key',
+                  'Moves to next focusable node',
+                  'Not typically used',
+                  Icons.tab,
+                  cinnamon,
+                ),
+                (
+                  'Shift+Tab',
+                  'Moves to previous node',
+                  'Not typically used',
+                  Icons.tab,
+                  nutmeg,
+                ),
+                (
+                  'Arrow Up',
+                  'Not standard traversal',
+                  'Moves to nearest node above',
+                  Icons.arrow_upward,
+                  deepCinnamon,
+                ),
+                (
+                  'Arrow Down',
+                  'Not standard traversal',
+                  'Moves to nearest node below',
+                  Icons.arrow_downward,
+                  warmSpice,
+                ),
+                (
+                  'Arrow Left',
+                  'Not standard traversal',
+                  'Moves to nearest node left',
+                  Icons.arrow_back,
+                  lightCinnamon,
+                ),
+                (
+                  'Arrow Right',
+                  'Not standard traversal',
+                  'Moves to nearest node right',
+                  Icons.arrow_forward,
+                  darkEspresso,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -813,7 +954,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: detail.$5, width: 3)),
+                      left: BorderSide(color: detail.$5, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -821,24 +963,29 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 6),
                       SizedBox(
                         width: 70,
-                        child: Text(detail.$1,
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold,
-                                color: detail.$5)),
+                        child: Text(
+                          detail.$1,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: detail.$5,
+                          ),
+                        ),
                       ),
                       Expanded(
                         child: Row(
                           children: [
                             Expanded(
-                              child: Text(detail.$2,
-                                  style: TextStyle(
-                                      fontSize: 9, color: sageGreen)),
+                              child: Text(
+                                detail.$2,
+                                style: TextStyle(fontSize: 9, color: sageGreen),
+                              ),
                             ),
                             Expanded(
-                              child: Text(detail.$3,
-                                  style: TextStyle(
-                                      fontSize: 9, color: blueTeal)),
+                              child: Text(
+                                detail.$3,
+                                style: TextStyle(fontSize: 9, color: blueTeal),
+                              ),
                             ),
                           ],
                         ),
@@ -852,9 +999,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. MediaQuery integration ───────────────────────────────
-        sectionBanner('11 \u00b7 MediaQuery Integration',
-            'How NavigationMode fits in MediaQueryData',
-            deepCinnamon, Colors.white),
+        sectionBanner(
+          '11 \u00b7 MediaQuery Integration',
+          'How NavigationMode fits in MediaQueryData',
+          deepCinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -876,7 +1026,9 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: field.$1 == 'navigationMode'
                         ? blueTeal.withValues(alpha: 0.06)
@@ -884,27 +1036,29 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6),
                     border: field.$1 == 'navigationMode'
                         ? Border.all(color: blueTeal, width: 2)
-                        : Border(
-                            left: BorderSide(
-                                color: field.$3, width: 2)),
+                        : Border(left: BorderSide(color: field.$3, width: 2)),
                   ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: 130,
-                        child: Text(field.$1,
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontFamily: 'monospace',
-                                fontWeight: field.$1 == 'navigationMode'
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: field.$3)),
+                        child: Text(
+                          field.$1,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                            fontWeight: field.$1 == 'navigationMode'
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: field.$3,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(field.$2,
-                            style: TextStyle(
-                                fontSize: 11, color: darkEspresso)),
+                        child: Text(
+                          field.$2,
+                          style: TextStyle(fontSize: 11, color: darkEspresso),
+                        ),
                       ),
                     ],
                   ),
@@ -915,9 +1069,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Widgets that check NavigationMode ────────────────────
-        sectionBanner('12 \u00b7 Widgets That Check NavigationMode',
-            'Framework widgets that adapt based on mode',
-            cinnamon, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Widgets That Check NavigationMode',
+          'Framework widgets that adapt based on mode',
+          cinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -928,14 +1085,30 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final widget in [
-                ('Focus', 'Skips disabled nodes in traditional, includes them in directional',
-                    Icons.center_focus_strong, deepCinnamon),
-                ('FocusTraversalGroup', 'Policy adapts traversal order per mode',
-                    Icons.account_tree, cinnamon),
-                ('Actions', 'Some actions only active in specific modes',
-                    Icons.touch_app, nutmeg),
-                ('Shortcuts', 'Arrow key shortcuts enabled in directional mode',
-                    Icons.keyboard, warmSpice),
+                (
+                  'Focus',
+                  'Skips disabled nodes in traditional, includes them in directional',
+                  Icons.center_focus_strong,
+                  deepCinnamon,
+                ),
+                (
+                  'FocusTraversalGroup',
+                  'Policy adapts traversal order per mode',
+                  Icons.account_tree,
+                  cinnamon,
+                ),
+                (
+                  'Actions',
+                  'Some actions only active in specific modes',
+                  Icons.touch_app,
+                  nutmeg,
+                ),
+                (
+                  'Shortcuts',
+                  'Arrow key shortcuts enabled in directional mode',
+                  Icons.keyboard,
+                  warmSpice,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -943,7 +1116,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: widget.$4, width: 3)),
+                      left: BorderSide(color: widget.$4, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -954,15 +1128,22 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    fontFamily: 'monospace',
-                                    color: widget.$4)),
-                            Text(widget.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkEspresso)),
+                            Text(
+                              widget.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontFamily: 'monospace',
+                                color: widget.$4,
+                              ),
+                            ),
+                            Text(
+                              widget.$2,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: darkEspresso,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -975,9 +1156,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Live demo: focus row ─────────────────────────────────
-        sectionBanner('13 \u00b7 Live Demo: Focus Row',
-            'Buttons showing enabled and disabled states',
-            nutmeg, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Live Demo: Focus Row',
+          'Buttons showing enabled and disabled states',
+          nutmeg,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -989,12 +1173,15 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Current mode: ${mode.name}',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: deepCinnamon)),
+              Text(
+                'Current mode: ${mode.name}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  fontFamily: 'monospace',
+                  color: deepCinnamon,
+                ),
+              ),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -1002,8 +1189,7 @@ dynamic build(BuildContext context) {
                 children: [
                   ElevatedButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: sageGreen),
+                    style: ElevatedButton.styleFrom(backgroundColor: sageGreen),
                     child: const Text('Enabled 1'),
                   ),
                   ElevatedButton(
@@ -1012,8 +1198,7 @@ dynamic build(BuildContext context) {
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: cinnamon),
+                    style: ElevatedButton.styleFrom(backgroundColor: cinnamon),
                     child: const Text('Enabled 2'),
                   ),
                   ElevatedButton(
@@ -1022,29 +1207,34 @@ dynamic build(BuildContext context) {
                   ),
                   ElevatedButton(
                     onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: blueTeal),
+                    style: ElevatedButton.styleFrom(backgroundColor: blueTeal),
                     child: const Text('Enabled 3'),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text(mode == NavigationMode.traditional
-                  ? 'In traditional mode: Tab skips disabled buttons'
-                  : 'In directional mode: arrows can reach disabled buttons',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontStyle: FontStyle.italic,
-                      color: darkEspresso)),
+              Text(
+                mode == NavigationMode.traditional
+                    ? 'In traditional mode: Tab skips disabled buttons'
+                    : 'In directional mode: arrows can reach disabled buttons',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontStyle: FontStyle.italic,
+                  color: darkEspresso,
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 15. Enum definition ──────────────────────────────────────
-        sectionBanner('14 \u00b7 Enum Definition',
-            'The complete enum as defined in the SDK',
-            deepCinnamon, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Enum Definition',
+          'The complete enum as defined in the SDK',
+          deepCinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1058,30 +1248,35 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: deepCinnamon.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: deepCinnamon.withValues(alpha: 0.3)),
+              border: Border.all(color: deepCinnamon.withValues(alpha: 0.3)),
             ),
             child: Text(
-                'enum NavigationMode {\n'
-                '  /// Default mode — Tab/mouse navigation.\n'
-                '  /// Disabled widgets cannot receive focus.\n'
-                '  traditional,\n'
-                '\n'
-                '  /// Arrow-key navigation for TV/gamepad.\n'
-                '  /// Disabled widgets retain focus.\n'
-                '  directional,\n'
-                '}',
-                style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: deepCinnamon)),
+              'enum NavigationMode {\n'
+              '  /// Default mode — Tab/mouse navigation.\n'
+              '  /// Disabled widgets cannot receive focus.\n'
+              '  traditional,\n'
+              '\n'
+              '  /// Arrow-key navigation for TV/gamepad.\n'
+              '  /// Disabled widgets retain focus.\n'
+              '  directional,\n'
+              '}',
+              style: TextStyle(
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: deepCinnamon,
+              ),
+            ),
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepCinnamon, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepCinnamon,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1113,15 +1308,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightCinnamon,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightCinnamon,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

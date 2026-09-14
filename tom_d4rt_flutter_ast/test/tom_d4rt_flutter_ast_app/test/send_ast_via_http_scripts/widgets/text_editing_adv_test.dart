@@ -65,8 +65,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('  built outlined field with controller text: '
-      '${outlinedCtrl.text}');
+  print(
+    '  built outlined field with controller text: '
+    '${outlinedCtrl.text}',
+  );
 
   // 1b. UnderlineInputBorder — Material default underline with counter.
   final underlineCtrl = TextEditingController(text: 'Underline default');
@@ -85,8 +87,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('  built underline field with controller text: '
-      '${underlineCtrl.text}');
+  print(
+    '  built underline field with controller text: '
+    '${underlineCtrl.text}',
+  );
 
   // 1c. Filled field with no visible border (border: InputBorder.none).
   final filledCtrl = TextEditingController(text: 'Filled, no border');
@@ -105,13 +109,17 @@ dynamic build(BuildContext context) {
         border: InputBorder.none,
         enabledBorder: InputBorder.none,
         focusedBorder: InputBorder.none,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
       ),
     ),
   );
-  print('  built filled/none-border field with controller text: '
-      '${filledCtrl.text}');
+  print(
+    '  built filled/none-border field with controller text: '
+    '${filledCtrl.text}',
+  );
 
   // 1d. Hardened password-style field with obscuring text, info suffix icon.
   final passwordCtrl = TextEditingController(text: 'secret-1234');
@@ -133,8 +141,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('  built obscured password field with controller text length: '
-      '${passwordCtrl.text.length}');
+  print(
+    '  built obscured password field with controller text length: '
+    '${passwordCtrl.text.length}',
+  );
 
   // 1e. Disabled field — shows that decoration adapts.
   final disabledCtrl = TextEditingController(text: 'Disabled field');
@@ -151,12 +161,15 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('  built disabled field with controller text: '
-      '${disabledCtrl.text}');
+  print(
+    '  built disabled field with controller text: '
+    '${disabledCtrl.text}',
+  );
 
   // 1f. Read-only field with copy suffix icon.
-  final readOnlyCtrl =
-      TextEditingController(text: 'read-only — token-9f02d11c');
+  final readOnlyCtrl = TextEditingController(
+    text: 'read-only — token-9f02d11c',
+  );
   final readOnlyField = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: TextField(
@@ -171,8 +184,10 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  print('  built read-only field with controller text: '
-      '${readOnlyCtrl.text}');
+  print(
+    '  built read-only field with controller text: '
+    '${readOnlyCtrl.text}',
+  );
 
   final section1 = Container(
     margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -726,11 +741,14 @@ dynamic build(BuildContext context) {
   );
 
   final selThemeCtrl1 = TextEditingController(
-      text: 'Blue selection theme — calm primary chrome.');
+    text: 'Blue selection theme — calm primary chrome.',
+  );
   final selThemeCtrl2 = TextEditingController(
-      text: 'Orange selection theme — warm accent chrome.');
+    text: 'Orange selection theme — warm accent chrome.',
+  );
   final selThemeCtrl3 = TextEditingController(
-      text: 'Purple selection theme — bold accent chrome.');
+    text: 'Purple selection theme — bold accent chrome.',
+  );
 
   final blueTheme = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -836,12 +854,18 @@ dynamic build(BuildContext context) {
 
   final magnifierRows = <Widget>[
     _kv('Type', '$TextMagnifierConfiguration'),
-    _kv('shouldDisplayHandlesInMagnifier',
-        'Whether the selection handles render inside the magnifier overlay.'),
-    _kv('magnifierBuilder',
-        'A WidgetBuilder that returns the actual magnifier surface.'),
-    _kv('disabled (static)',
-        'MagnifierConfiguration.disabled — opt-out for the entire subtree.'),
+    _kv(
+      'shouldDisplayHandlesInMagnifier',
+      'Whether the selection handles render inside the magnifier overlay.',
+    ),
+    _kv(
+      'magnifierBuilder',
+      'A WidgetBuilder that returns the actual magnifier surface.',
+    ),
+    _kv(
+      'disabled (static)',
+      'MagnifierConfiguration.disabled — opt-out for the entire subtree.',
+    ),
     _kv('Used by', 'TextField.magnifierConfiguration, EditableText.'),
   ];
 
@@ -1003,35 +1027,57 @@ dynamic build(BuildContext context) {
     _kv('focusNode', 'FocusNode for keyboard focus management.'),
     _kv('style', 'Mandatory TextStyle for glyph rendering.'),
     _kv('cursorColor', 'Solid colour of the blinking caret.'),
-    _kv('backgroundCursorColor',
-        'Colour of the caret when the field is not focused.'),
-    _kv('cursorWidth / cursorHeight / cursorRadius',
-        'Geometry of the caret rectangle.'),
-    _kv('cursorOpacityAnimates',
-        'Whether the cursor fades in/out (true on iOS by default).'),
-    _kv('paintCursorAboveText',
-        'Z-order of the cursor relative to the glyphs.'),
-    _kv('keyboardAppearance',
-        'Brightness.light or Brightness.dark — affects iOS keyboard chrome.'),
-    _kv('autocorrect',
-        'true enables platform-level auto-correction suggestions.'),
-    _kv('enableSuggestions',
-        'true allows the IME to surface completion suggestions.'),
-    _kv('smartDashesType',
-        'SmartDashesType.enabled converts double hyphens to em-dashes (iOS).'),
-    _kv('smartQuotesType',
-        'SmartQuotesType.enabled curls straight quotes to typographic ones.'),
-    _kv('obscureText',
-        'When true, glyphs are replaced by obscuringCharacter.'),
+    _kv(
+      'backgroundCursorColor',
+      'Colour of the caret when the field is not focused.',
+    ),
+    _kv(
+      'cursorWidth / cursorHeight / cursorRadius',
+      'Geometry of the caret rectangle.',
+    ),
+    _kv(
+      'cursorOpacityAnimates',
+      'Whether the cursor fades in/out (true on iOS by default).',
+    ),
+    _kv(
+      'paintCursorAboveText',
+      'Z-order of the cursor relative to the glyphs.',
+    ),
+    _kv(
+      'keyboardAppearance',
+      'Brightness.light or Brightness.dark — affects iOS keyboard chrome.',
+    ),
+    _kv(
+      'autocorrect',
+      'true enables platform-level auto-correction suggestions.',
+    ),
+    _kv(
+      'enableSuggestions',
+      'true allows the IME to surface completion suggestions.',
+    ),
+    _kv(
+      'smartDashesType',
+      'SmartDashesType.enabled converts double hyphens to em-dashes (iOS).',
+    ),
+    _kv(
+      'smartQuotesType',
+      'SmartQuotesType.enabled curls straight quotes to typographic ones.',
+    ),
+    _kv('obscureText', 'When true, glyphs are replaced by obscuringCharacter.'),
     _kv('readOnly', 'When true, content is selectable but not editable.'),
-    _kv('maxLines / minLines / expands',
-        'Sizing model — same semantics as TextField.'),
-    _kv('forceLine',
-        'Forces the editable to use at least one full line of height.'),
-    _kv('scrollPadding',
-        'Padding applied when scrolling the caret into view.'),
-    _kv('enableInteractiveSelection',
-        'Toggles long-press / drag selection gestures.'),
+    _kv(
+      'maxLines / minLines / expands',
+      'Sizing model — same semantics as TextField.',
+    ),
+    _kv(
+      'forceLine',
+      'Forces the editable to use at least one full line of height.',
+    ),
+    _kv('scrollPadding', 'Padding applied when scrolling the caret into view.'),
+    _kv(
+      'enableInteractiveSelection',
+      'Toggles long-press / drag selection gestures.',
+    ),
   ];
 
   final section7 = Container(
@@ -1081,7 +1127,8 @@ dynamic build(BuildContext context) {
   );
 
   final smartCtrl1 = TextEditingController(
-      text: 'Smart dashes ON  -- becomes — on iOS.');
+    text: 'Smart dashes ON  -- becomes — on iOS.',
+  );
   final smartField1 = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: TextField(
@@ -1098,7 +1145,8 @@ dynamic build(BuildContext context) {
   );
 
   final smartCtrl2 = TextEditingController(
-      text: 'Smart dashes OFF -- stays as plain double hyphen.');
+    text: 'Smart dashes OFF -- stays as plain double hyphen.',
+  );
   final smartField2 = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: TextField(
@@ -1131,7 +1179,8 @@ dynamic build(BuildContext context) {
   );
 
   final smartCtrl4 = TextEditingController(
-      text: 'Mixed — dashes enabled, quotes disabled.');
+    text: 'Mixed — dashes enabled, quotes disabled.',
+  );
   final smartField4 = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: TextField(
@@ -1147,8 +1196,9 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  final smartCtrl5 =
-      TextEditingController(text: 'Mixed — dashes disabled, quotes enabled.');
+  final smartCtrl5 = TextEditingController(
+    text: 'Mixed — dashes disabled, quotes enabled.',
+  );
   final smartField5 = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     child: TextField(
@@ -1181,18 +1231,27 @@ dynamic build(BuildContext context) {
   );
 
   final smartTable = <Widget>[
-    _kv('SmartDashesType.enabled',
-        'iOS converts -- to em-dash and --- to en-dash typographically.'),
-    _kv('SmartDashesType.disabled',
-        'Hyphens remain literal — useful for code or identifiers.'),
-    _kv('SmartQuotesType.enabled',
-        'Straight quotes curl to “ ” and ‘ ’ as you type (iOS).'),
-    _kv('SmartQuotesType.disabled',
-        'Quotes stay straight — required for JSON, code, regex.'),
-    _kv('Brightness.light',
-        'iOS keyboard renders in light-on-grey chrome.'),
-    _kv('Brightness.dark',
-        'iOS keyboard renders in dark-mode chrome regardless of OS theme.'),
+    _kv(
+      'SmartDashesType.enabled',
+      'iOS converts -- to em-dash and --- to en-dash typographically.',
+    ),
+    _kv(
+      'SmartDashesType.disabled',
+      'Hyphens remain literal — useful for code or identifiers.',
+    ),
+    _kv(
+      'SmartQuotesType.enabled',
+      'Straight quotes curl to “ ” and ‘ ’ as you type (iOS).',
+    ),
+    _kv(
+      'SmartQuotesType.disabled',
+      'Quotes stay straight — required for JSON, code, regex.',
+    ),
+    _kv('Brightness.light', 'iOS keyboard renders in light-on-grey chrome.'),
+    _kv(
+      'Brightness.dark',
+      'iOS keyboard renders in dark-mode chrome regardless of OS theme.',
+    ),
   ];
 
   final section8 = Container(
@@ -1313,8 +1372,10 @@ dynamic build(BuildContext context) {
         ),
       ),
     );
-    print('  cursor[$i] ${v['label']} '
-        'width=${v['width']} radius=${v['radius']} height=${v['height']}');
+    print(
+      '  cursor[$i] ${v['label']} '
+      'width=${v['width']} radius=${v['radius']} height=${v['height']}',
+    );
   }
 
   final section9 = Container(
@@ -1806,10 +1867,7 @@ Widget _sectionHeader({
                 ),
               ),
               const SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: const TextStyle(fontSize: 13, height: 1.4),
-              ),
+              Text(subtitle, style: const TextStyle(fontSize: 13, height: 1.4)),
             ],
           ),
         ),
@@ -1852,10 +1910,7 @@ Widget _kv(String key, String value) {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            value,
-            style: const TextStyle(fontSize: 12, height: 1.4),
-          ),
+          child: Text(value, style: const TextStyle(fontSize: 12, height: 1.4)),
         ),
       ],
     ),

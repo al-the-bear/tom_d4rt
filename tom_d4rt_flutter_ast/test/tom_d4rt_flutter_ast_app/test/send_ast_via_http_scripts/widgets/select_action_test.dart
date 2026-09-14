@@ -29,8 +29,7 @@ const _kCallbackColor = Color(0xFFC62828);
 
 class _SelectActionDemo extends StatefulWidget {
   @override
-  State<_SelectActionDemo> createState() =>
-      _SelectActionDemoState();
+  State<_SelectActionDemo> createState() => _SelectActionDemoState();
 }
 
 class _SelectActionDemoState extends State<_SelectActionDemo>
@@ -54,8 +53,10 @@ class _SelectActionDemoState extends State<_SelectActionDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('SelectAction',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+        title: Text(
+          'SelectAction',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -73,11 +74,7 @@ class _SelectActionDemoState extends State<_SelectActionDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _WorkshopTab(),
-          _ScenarioTab(),
-        ],
+        children: [_TheoryTab(), _WorkshopTab(), _ScenarioTab()],
       ),
     );
   }
@@ -104,8 +101,7 @@ class _TheoryTab extends StatelessWidget {
                 'It is part of Flutter\'s Intent/Action shortcut system, '
                 'which decouples keyboard shortcuts and UI triggers from '
                 'the actual behaviour they invoke.',
-                style: TextStyle(
-                    color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -134,25 +130,44 @@ class _TheoryTab extends StatelessWidget {
                 'Flutter uses Intents and Actions to separate "what should '
                 'happen" from "how it happens". Shortcuts map key combos '
                 'to Intents; the Actions widget maps Intents to Actions.',
-                style: TextStyle(
-                    color: _kDarkText, fontSize: 12, height: 1.4),
+                style: TextStyle(color: _kDarkText, fontSize: 12, height: 1.4),
               ),
               SizedBox(height: 10),
-              _flowRow(1, 'Shortcut triggers', 'Shortcuts widget maps '
-                  'a key combination to a SelectIntent.',
-                  _kIntentColor, Icons.keyboard),
+              _flowRow(
+                1,
+                'Shortcut triggers',
+                'Shortcuts widget maps '
+                    'a key combination to a SelectIntent.',
+                _kIntentColor,
+                Icons.keyboard,
+              ),
               SizedBox(height: 6),
-              _flowRow(2, 'Intent dispatched', 'The SelectIntent is '
-                  'dispatched to the nearest Actions widget.',
-                  _kSelectColor, Icons.send),
+              _flowRow(
+                2,
+                'Intent dispatched',
+                'The SelectIntent is '
+                    'dispatched to the nearest Actions widget.',
+                _kSelectColor,
+                Icons.send,
+              ),
               SizedBox(height: 6),
-              _flowRow(3, 'Action invoked', 'Actions widget finds the '
-                  'SelectAction mapped to SelectIntent and calls invoke().',
-                  _kActionColor, Icons.play_arrow),
+              _flowRow(
+                3,
+                'Action invoked',
+                'Actions widget finds the '
+                    'SelectAction mapped to SelectIntent and calls invoke().',
+                _kActionColor,
+                Icons.play_arrow,
+              ),
               SizedBox(height: 6),
-              _flowRow(4, 'Callback runs', 'The onSelect callback '
-                  'executes the desired behaviour.',
-                  _kCallbackColor, Icons.check_circle),
+              _flowRow(
+                4,
+                'Callback runs',
+                'The onSelect callback '
+                    'executes the desired behaviour.',
+                _kCallbackColor,
+                Icons.check_circle,
+              ),
             ],
           ),
         ),
@@ -163,25 +178,41 @@ class _TheoryTab extends StatelessWidget {
           'Key Classes',
           Column(
             children: [
-              _classRow('SelectIntent', 'Intent',
-                  'A semantic intent that represents a "select" action. '
-                  'Contains no data — it is a marker intent.',
-                  _kIntentColor, Icons.lightbulb_outline),
+              _classRow(
+                'SelectIntent',
+                'Intent',
+                'A semantic intent that represents a "select" action. '
+                    'Contains no data — it is a marker intent.',
+                _kIntentColor,
+                Icons.lightbulb_outline,
+              ),
               SizedBox(height: 8),
-              _classRow('SelectAction', 'Action<SelectIntent>',
-                  'Handles SelectIntent by invoking a VoidCallback. '
-                  'Register it with the Actions widget.',
-                  _kActionColor, Icons.play_arrow),
+              _classRow(
+                'SelectAction',
+                'Action<SelectIntent>',
+                'Handles SelectIntent by invoking a VoidCallback. '
+                    'Register it with the Actions widget.',
+                _kActionColor,
+                Icons.play_arrow,
+              ),
               SizedBox(height: 8),
-              _classRow('Actions', 'Widget',
-                  'Maps Intent types to Action instances. Searches up '
-                  'the widget tree for handlers.',
-                  _kSelectColor, Icons.account_tree),
+              _classRow(
+                'Actions',
+                'Widget',
+                'Maps Intent types to Action instances. Searches up '
+                    'the widget tree for handlers.',
+                _kSelectColor,
+                Icons.account_tree,
+              ),
               SizedBox(height: 8),
-              _classRow('Shortcuts', 'Widget',
-                  'Maps key combinations to Intent instances. Works '
-                  'together with Actions.',
-                  _kCallbackColor, Icons.keyboard),
+              _classRow(
+                'Shortcuts',
+                'Widget',
+                'Maps key combinations to Intent instances. Works '
+                    'together with Actions.',
+                _kCallbackColor,
+                Icons.keyboard,
+              ),
             ],
           ),
         ),
@@ -226,18 +257,32 @@ class _TheoryTab extends StatelessWidget {
               2: FlexColumnWidth(3),
             },
             children: [
-              _tableRow(['Action', 'Intent', 'Purpose'],
-                  isHeader: true),
-              _tableRow(
-                  ['SelectAction', 'SelectIntent', 'Generic "select" from keyboard']),
-              _tableRow(
-                  ['ActivateAction', 'ActivateIntent', 'Activate focused widget']),
-              _tableRow(
-                  ['DismissAction', 'DismissIntent', 'Dismiss focused overlay']),
-              _tableRow(
-                  ['ScrollAction', 'ScrollIntent', 'Scroll in a direction']),
-              _tableRow(
-                  ['DirectionalFocusAction', 'DirectionalFocusIntent', 'Move focus directionally']),
+              _tableRow(['Action', 'Intent', 'Purpose'], isHeader: true),
+              _tableRow([
+                'SelectAction',
+                'SelectIntent',
+                'Generic "select" from keyboard',
+              ]),
+              _tableRow([
+                'ActivateAction',
+                'ActivateIntent',
+                'Activate focused widget',
+              ]),
+              _tableRow([
+                'DismissAction',
+                'DismissIntent',
+                'Dismiss focused overlay',
+              ]),
+              _tableRow([
+                'ScrollAction',
+                'ScrollIntent',
+                'Scroll in a direction',
+              ]),
+              _tableRow([
+                'DirectionalFocusAction',
+                'DirectionalFocusIntent',
+                'Move focus directionally',
+              ]),
             ],
           ),
         ),
@@ -249,23 +294,33 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(true,
-                  'Use SelectAction for keyboard-driven selection in '
-                  'custom list/grid widgets that are not based on standard '
-                  'Material components.'),
-              _bp(true,
-                  'Pair SelectAction with Focus widgets to ensure the '
-                  'correct scope receives the intent.'),
-              _bp(true,
-                  'Use Actions.invoke(context, SelectIntent()) '
-                  'to programmatically trigger select from code.'),
-              _bp(false,
-                  'Do NOT use SelectAction when a standard widget '
-                  '(ListTile, DropdownButton) already handles selection '
-                  'internally.'),
-              _bp(false,
-                  'Do NOT register Actions at the app root if only a '
-                  'subtree needs them — scope them to the relevant widget.'),
+              _bp(
+                true,
+                'Use SelectAction for keyboard-driven selection in '
+                'custom list/grid widgets that are not based on standard '
+                'Material components.',
+              ),
+              _bp(
+                true,
+                'Pair SelectAction with Focus widgets to ensure the '
+                'correct scope receives the intent.',
+              ),
+              _bp(
+                true,
+                'Use Actions.invoke(context, SelectIntent()) '
+                'to programmatically trigger select from code.',
+              ),
+              _bp(
+                false,
+                'Do NOT use SelectAction when a standard widget '
+                '(ListTile, DropdownButton) already handles selection '
+                'internally.',
+              ),
+              _bp(
+                false,
+                'Do NOT register Actions at the app root if only a '
+                'subtree needs them — scope them to the relevant widget.',
+              ),
             ],
           ),
         ),
@@ -295,17 +350,33 @@ class _WorkshopTabState extends State<_WorkshopTab> {
 
   // Palette for items
   static const List<Color> _itemColors = [
-    Color(0xFF1565C0), Color(0xFF2E7D32), Color(0xFFC62828),
-    Color(0xFF6A1B9A), Color(0xFFEF6C00), Color(0xFF00838F),
-    Color(0xFF4E342E), Color(0xFF37474F), Color(0xFFAD1457),
-    Color(0xFF558B2F), Color(0xFF283593), Color(0xFFBF360C),
+    Color(0xFF1565C0),
+    Color(0xFF2E7D32),
+    Color(0xFFC62828),
+    Color(0xFF6A1B9A),
+    Color(0xFFEF6C00),
+    Color(0xFF00838F),
+    Color(0xFF4E342E),
+    Color(0xFF37474F),
+    Color(0xFFAD1457),
+    Color(0xFF558B2F),
+    Color(0xFF283593),
+    Color(0xFFBF360C),
   ];
 
   static const List<IconData> _itemIcons = [
-    Icons.star, Icons.favorite, Icons.bookmark,
-    Icons.flag, Icons.circle, Icons.diamond,
-    Icons.hexagon, Icons.square, Icons.bolt,
-    Icons.brightness_7, Icons.spa, Icons.auto_awesome,
+    Icons.star,
+    Icons.favorite,
+    Icons.bookmark,
+    Icons.flag,
+    Icons.circle,
+    Icons.diamond,
+    Icons.hexagon,
+    Icons.square,
+    Icons.bolt,
+    Icons.brightness_7,
+    Icons.spa,
+    Icons.auto_awesome,
   ];
 
   void _toggleSelect(int index) {
@@ -320,18 +391,21 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         _selectCount++;
       }
       _events.insert(
-          0,
-          _ActionEvent(
-            id: _eventId,
-            action: wasSelected ? 'Deselected' : 'Selected',
-            target: 'Item ${index + 1}',
-            method: 'SelectAction.invoke()',
-            time: DateTime.now(),
-          ));
+        0,
+        _ActionEvent(
+          id: _eventId,
+          action: wasSelected ? 'Deselected' : 'Selected',
+          target: 'Item ${index + 1}',
+          method: 'SelectAction.invoke()',
+          time: DateTime.now(),
+        ),
+      );
       if (_events.length > 30) _events.removeLast();
     });
-    print('SelectAction: ${wasSelected ? "Deselected" : "Selected"} '
-        'item ${index + 1}');
+    print(
+      'SelectAction: ${wasSelected ? "Deselected" : "Selected"} '
+      'item ${index + 1}',
+    );
   }
 
   void _selectAll() {
@@ -344,14 +418,15 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         }
       }
       _events.insert(
-          0,
-          _ActionEvent(
-            id: _eventId,
-            action: 'Select All',
-            target: 'All items',
-            method: 'Batch invoke()',
-            time: DateTime.now(),
-          ));
+        0,
+        _ActionEvent(
+          id: _eventId,
+          action: 'Select All',
+          target: 'All items',
+          method: 'Batch invoke()',
+          time: DateTime.now(),
+        ),
+      );
       if (_events.length > 30) _events.removeLast();
     });
   }
@@ -363,14 +438,15 @@ class _WorkshopTabState extends State<_WorkshopTab> {
       _selected.clear();
       _deselectCount += count;
       _events.insert(
-          0,
-          _ActionEvent(
-            id: _eventId,
-            action: 'Deselect All',
-            target: '$count items',
-            method: 'Clear selection',
-            time: DateTime.now(),
-          ));
+        0,
+        _ActionEvent(
+          id: _eventId,
+          action: 'Deselect All',
+          target: '$count items',
+          method: 'Clear selection',
+          time: DateTime.now(),
+        ),
+      );
       if (_events.length > 30) _events.removeLast();
     });
   }
@@ -387,21 +463,31 @@ class _WorkshopTabState extends State<_WorkshopTab> {
               // ── Toolbar ──────────────────────────────
               Container(
                 color: _kCardBg,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 child: Row(
                   children: [
-                    Text('Selection Grid',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                            color: _kDarkText)),
+                    Text(
+                      'Selection Grid',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: _kDarkText,
+                      ),
+                    ),
                     Spacer(),
-                    _toolBtn('Select All', Icons.select_all,
-                        _kActionColor, _selectAll),
+                    _toolBtn(
+                      'Select All',
+                      Icons.select_all,
+                      _kActionColor,
+                      _selectAll,
+                    ),
                     SizedBox(width: 6),
-                    _toolBtn('Clear', Icons.deselect,
-                        _kCallbackColor, _deselectAll),
+                    _toolBtn(
+                      'Clear',
+                      Icons.deselect,
+                      _kCallbackColor,
+                      _deselectAll,
+                    ),
                   ],
                 ),
               ),
@@ -410,8 +496,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
               // ── Selection counter ────────────────────
               Container(
                 color: _kPrimary.withOpacity(0.04),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 child: Row(
                   children: [
                     Icon(Icons.check_box, size: 14, color: _kPrimary),
@@ -419,9 +504,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                     Text(
                       '${_selected.length} of $_gridSize selected',
                       style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: _kDarkText),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _kDarkText,
+                      ),
                     ),
                     Spacer(),
                     // Selection bar
@@ -453,8 +539,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 child: Padding(
                   padding: EdgeInsets.all(14),
                   child: GridView.builder(
-                    gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -481,9 +566,13 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                               color: focused
                                   ? _kAccent
                                   : selected
-                                      ? color
-                                      : Colors.grey.shade300,
-                              width: focused ? 2.5 : selected ? 2 : 1,
+                                  ? color
+                                  : Colors.grey.shade300,
+                              width: focused
+                                  ? 2.5
+                                  : selected
+                                  ? 2
+                                  : 1,
                             ),
                             boxShadow: selected
                                 ? [
@@ -496,8 +585,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                 : [],
                           ),
                           child: Column(
-                            mainAxisAlignment:
-                                MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Stack(
                                 alignment: Alignment.topRight,
@@ -506,14 +594,12 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                     width: 40,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      color:
-                                          color.withOpacity(0.12),
+                                      color: color.withOpacity(0.12),
                                       shape: BoxShape.circle,
                                     ),
                                     alignment: Alignment.center,
                                     child: Icon(
-                                      _itemIcons[
-                                          i % _itemIcons.length],
+                                      _itemIcons[i % _itemIcons.length],
                                       color: color,
                                       size: 22,
                                     ),
@@ -526,22 +612,25 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                         color: color,
                                         shape: BoxShape.circle,
                                       ),
-                                      child: Icon(Icons.check,
-                                          size: 10,
-                                          color: Colors.white),
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 10,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                 ],
                               ),
                               SizedBox(height: 6),
-                              Text('Item ${i + 1}',
-                                  style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: selected
-                                          ? FontWeight.w700
-                                          : FontWeight.w500,
-                                      color: selected
-                                          ? color
-                                          : _kDarkText)),
+                              Text(
+                                'Item ${i + 1}',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: selected
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                  color: selected ? color : _kDarkText,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -554,22 +643,23 @@ class _WorkshopTabState extends State<_WorkshopTab> {
               // ── Intent builder section ───────────────
               Container(
                 padding: EdgeInsets.all(12),
-                margin:
-                    EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                margin: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 decoration: BoxDecoration(
                   color: _kCodeBg,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: _kAccent.withOpacity(0.3)),
+                  border: Border.all(color: _kAccent.withOpacity(0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Generated Code',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: _kPrimary)),
+                    Text(
+                      'Generated Code',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11,
+                        color: _kPrimary,
+                      ),
+                    ),
                     SizedBox(height: 6),
                     Text(
                       'Actions(\n'
@@ -581,10 +671,11 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                       '  child: /* ${_selected.length} items selected */\n'
                       ')',
                       style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 11,
-                          color: _kDarkText,
-                          height: 1.5),
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _kDarkText,
+                        height: 1.5,
+                      ),
                     ),
                   ],
                 ),
@@ -599,8 +690,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
           width: 250,
           decoration: BoxDecoration(
             color: _kCardBg,
-            border:
-                Border(left: BorderSide(color: Colors.grey.shade300)),
+            border: Border(left: BorderSide(color: Colors.grey.shade300)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -612,11 +702,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                   children: [
                     Icon(Icons.history, size: 16, color: _kPrimary),
                     SizedBox(width: 6),
-                    Text('Action Log',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                            color: _kDarkText)),
+                    Text(
+                      'Action Log',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: _kDarkText,
+                      ),
+                    ),
                     Spacer(),
                     _miniTag('$_selectCount sel', _kActionColor),
                     SizedBox(width: 4),
@@ -630,8 +723,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                         child: Text(
                           'Tap items to fire\nSelectAction events',
                           textAlign: TextAlign.center,
-                          style:
-                              TextStyle(color: _kMuted, fontSize: 11),
+                          style: TextStyle(color: _kMuted, fontSize: 11),
                         ),
                       )
                     : ListView.builder(
@@ -639,30 +731,24 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                         itemCount: _events.length,
                         itemBuilder: (_, i) {
                           final e = _events[i];
-                          final isSelect =
-                              e.action.startsWith('Select');
+                          final isSelect = e.action.startsWith('Select');
                           return Padding(
                             padding: EdgeInsets.only(bottom: 3),
                             child: Container(
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: isSelect
-                                    ? _kActionColor
-                                        .withOpacity(0.04)
-                                    : _kCallbackColor
-                                        .withOpacity(0.04),
-                                borderRadius:
-                                    BorderRadius.circular(6),
+                                    ? _kActionColor.withOpacity(0.04)
+                                    : _kCallbackColor.withOpacity(0.04),
+                                borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                    color: isSelect
-                                        ? _kActionColor
-                                            .withOpacity(0.12)
-                                        : _kCallbackColor
-                                            .withOpacity(0.12)),
+                                  color: isSelect
+                                      ? _kActionColor.withOpacity(0.12)
+                                      : _kCallbackColor.withOpacity(0.12),
+                                ),
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
@@ -680,10 +766,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                         child: Text(
                                           '${e.action}: ${e.target}',
                                           style: TextStyle(
-                                              fontWeight:
-                                                  FontWeight.w600,
-                                              fontSize: 10,
-                                              color: _kDarkText),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 10,
+                                            color: _kDarkText,
+                                          ),
                                         ),
                                       ),
                                       Text(
@@ -691,17 +777,21 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                                         '${e.time.minute.toString().padLeft(2, '0')}:'
                                         '${e.time.second.toString().padLeft(2, '0')}',
                                         style: TextStyle(
-                                            fontSize: 8,
-                                            color: _kMuted),
+                                          fontSize: 8,
+                                          color: _kMuted,
+                                        ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(height: 2),
-                                  Text(e.method,
-                                      style: TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 9,
-                                          color: _kMuted)),
+                                  Text(
+                                    e.method,
+                                    style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 9,
+                                      color: _kMuted,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -715,8 +805,7 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: _kPrimary.withOpacity(0.04),
-                  border: Border(
-                      top: BorderSide(color: Colors.grey.shade200)),
+                  border: Border(top: BorderSide(color: Colors.grey.shade200)),
                 ),
                 child: Column(
                   children: [
@@ -724,8 +813,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                     SizedBox(height: 2),
                     _statRow('Total deselects', '$_deselectCount'),
                     SizedBox(height: 2),
-                    _statRow('Currently selected',
-                        '${_selected.length}/$_gridSize'),
+                    _statRow(
+                      'Currently selected',
+                      '${_selected.length}/$_gridSize',
+                    ),
                     SizedBox(height: 2),
                     _statRow('Focused', 'Item ${_focusedIndex + 1}'),
                   ],
@@ -739,7 +830,11 @@ class _WorkshopTabState extends State<_WorkshopTab> {
   }
 
   Widget _toolBtn(
-      String label, IconData icon, Color color, VoidCallback onTap) {
+    String label,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -754,11 +849,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
           children: [
             Icon(icon, size: 14, color: color),
             SizedBox(width: 4),
-            Text(label,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ],
         ),
       ),
@@ -772,26 +870,31 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Text(label,
-          style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 9,
-              fontWeight: FontWeight.w600,
-              color: color)),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 9,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
     );
   }
 
   Widget _statRow(String label, String value) {
     return Row(
       children: [
-        Text(label,
-            style: TextStyle(fontSize: 10, color: _kMuted)),
+        Text(label, style: TextStyle(fontSize: 10, color: _kMuted)),
         Spacer(),
-        Text(value,
-            style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: _kDarkText)),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: _kDarkText,
+          ),
+        ),
       ],
     );
   }
@@ -835,7 +938,7 @@ class _ScenarioTabState extends State<_ScenarioTab> {
           Icons.list,
           _kSelectColor,
           'A custom list widget where users navigate with arrow keys '
-          'and select with Enter via SelectAction.',
+              'and select with Enter via SelectAction.',
           _ScenarioCustomList(),
         ),
         SizedBox(height: 14),
@@ -847,7 +950,7 @@ class _ScenarioTabState extends State<_ScenarioTab> {
           Icons.link,
           _kActionColor,
           'SelectAction triggers a chain: select → validate → animate '
-          '→ confirm. Each step provides visual feedback.',
+              '→ confirm. Each step provides visual feedback.',
           _ScenarioActionChain(),
         ),
         SizedBox(height: 14),
@@ -859,7 +962,7 @@ class _ScenarioTabState extends State<_ScenarioTab> {
           Icons.layers,
           _kIntentColor,
           'Different parts of the widget tree register different '
-          'SelectAction handlers, demonstrating scope resolution.',
+              'SelectAction handlers, demonstrating scope resolution.',
           _ScenarioMultiScope(),
         ),
         SizedBox(height: 24),
@@ -867,8 +970,14 @@ class _ScenarioTabState extends State<_ScenarioTab> {
     );
   }
 
-  Widget _scenarioCard(int index, String title, IconData icon,
-      Color color, String desc, Widget child) {
+  Widget _scenarioCard(
+    int index,
+    String title,
+    IconData icon,
+    Color color,
+    String desc,
+    Widget child,
+  ) {
     final active = _activeScenario == index;
     return Container(
       decoration: BoxDecoration(
@@ -887,14 +996,11 @@ class _ScenarioTabState extends State<_ScenarioTab> {
         children: [
           // Header
           GestureDetector(
-            onTap: () => setState(
-                () => _activeScenario = active ? -1 : index),
+            onTap: () => setState(() => _activeScenario = active ? -1 : index),
             child: Container(
               padding: EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: active
-                    ? color.withOpacity(0.06)
-                    : _kCardBg,
+                color: active ? color.withOpacity(0.06) : _kCardBg,
                 borderRadius: active
                     ? BorderRadius.vertical(top: Radius.circular(12))
                     : BorderRadius.circular(12),
@@ -914,26 +1020,29 @@ class _ScenarioTabState extends State<_ScenarioTab> {
                   SizedBox(width: 12),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(title,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: _kDarkText)),
-                        Text(desc,
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: _kMuted,
-                                height: 1.3)),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: _kDarkText,
+                          ),
+                        ),
+                        Text(
+                          desc,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: _kMuted,
+                            height: 1.3,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Icon(
-                    active
-                        ? Icons.expand_less
-                        : Icons.expand_more,
+                    active ? Icons.expand_less : Icons.expand_more,
                     color: _kMuted,
                   ),
                 ],
@@ -942,11 +1051,7 @@ class _ScenarioTabState extends State<_ScenarioTab> {
           ),
           // Content
           if (active)
-            Padding(
-              padding:
-                  EdgeInsets.fromLTRB(14, 0, 14, 14),
-              child: child,
-            ),
+            Padding(padding: EdgeInsets.fromLTRB(14, 0, 14, 14), child: child),
         ],
       ),
     );
@@ -956,16 +1061,19 @@ class _ScenarioTabState extends State<_ScenarioTab> {
 // ── Scenario 1: Custom keyboard list ────────────────────
 class _ScenarioCustomList extends StatefulWidget {
   @override
-  State<_ScenarioCustomList> createState() =>
-      _ScenarioCustomListState();
+  State<_ScenarioCustomList> createState() => _ScenarioCustomListState();
 }
 
 class _ScenarioCustomListState extends State<_ScenarioCustomList> {
   int _focusedIdx = 0;
   final Set<int> _selectedItems = {};
   final List<String> _items = [
-    'Documents', 'Photos', 'Music', 'Videos',
-    'Downloads', 'Desktop',
+    'Documents',
+    'Photos',
+    'Music',
+    'Videos',
+    'Downloads',
+    'Desktop',
   ];
 
   void _selectCurrent() {
@@ -976,8 +1084,10 @@ class _ScenarioCustomListState extends State<_ScenarioCustomList> {
         _selectedItems.add(_focusedIdx);
       }
     });
-    print('Scenario: SelectAction invoked for '
-        '"${_items[_focusedIdx]}"');
+    print(
+      'Scenario: SelectAction invoked for '
+      '"${_items[_focusedIdx]}"',
+    );
   }
 
   @override
@@ -994,14 +1104,16 @@ class _ScenarioCustomListState extends State<_ScenarioCustomList> {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  size: 14, color: Color(0xFFF57F17)),
+              Icon(Icons.info_outline, size: 14, color: Color(0xFFF57F17)),
               SizedBox(width: 6),
-              Text('Tap items to simulate Enter key → SelectAction',
-                  style: TextStyle(
-                      fontSize: 11,
-                      color: _kDarkText,
-                      fontStyle: FontStyle.italic)),
+              Text(
+                'Tap items to simulate Enter key → SelectAction',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: _kDarkText,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
             ],
           ),
         ),
@@ -1015,20 +1127,17 @@ class _ScenarioCustomListState extends State<_ScenarioCustomList> {
               _selectCurrent();
             },
             child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               margin: EdgeInsets.only(bottom: 3),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? _kSelectColor.withOpacity(0.08)
-                    : _kCardBg,
+                color: isSelected ? _kSelectColor.withOpacity(0.08) : _kCardBg,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: isFocused
                       ? _kAccent
                       : isSelected
-                          ? _kSelectColor.withOpacity(0.3)
-                          : Colors.grey.shade200,
+                      ? _kSelectColor.withOpacity(0.3)
+                      : Colors.grey.shade200,
                   width: isFocused ? 2 : 1,
                 ),
               ),
@@ -1039,37 +1148,37 @@ class _ScenarioCustomListState extends State<_ScenarioCustomList> {
                         ? Icons.check_box
                         : Icons.check_box_outline_blank,
                     size: 18,
-                    color: isSelected
-                        ? _kSelectColor
-                        : _kMuted,
+                    color: isSelected ? _kSelectColor : _kMuted,
                   ),
                   SizedBox(width: 10),
-                  Icon(Icons.folder,
-                      size: 18,
-                      color: isSelected
-                          ? _kSelectColor
-                          : Colors.amber.shade700),
+                  Icon(
+                    Icons.folder,
+                    size: 18,
+                    color: isSelected ? _kSelectColor : Colors.amber.shade700,
+                  ),
                   SizedBox(width: 8),
-                  Text(_items[i],
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: isSelected
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                          color: _kDarkText)),
+                  Text(
+                    _items[i],
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: isSelected
+                          ? FontWeight.w700
+                          : FontWeight.w400,
+                      color: _kDarkText,
+                    ),
+                  ),
                   Spacer(),
                   if (isFocused)
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 1),
+                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
                       decoration: BoxDecoration(
                         color: _kAccent.withOpacity(0.15),
-                        borderRadius:
-                            BorderRadius.circular(3),
+                        borderRadius: BorderRadius.circular(3),
                       ),
-                      child: Text('focused',
-                          style: TextStyle(
-                              fontSize: 8, color: _kAccent)),
+                      child: Text(
+                        'focused',
+                        style: TextStyle(fontSize: 8, color: _kAccent),
+                      ),
                     ),
                 ],
               ),
@@ -1084,24 +1193,18 @@ class _ScenarioCustomListState extends State<_ScenarioCustomList> {
 // ── Scenario 2: Action chain with feedback ──────────────
 class _ScenarioActionChain extends StatefulWidget {
   @override
-  State<_ScenarioActionChain> createState() =>
-      _ScenarioActionChainState();
+  State<_ScenarioActionChain> createState() => _ScenarioActionChainState();
 }
 
-class _ScenarioActionChainState
-    extends State<_ScenarioActionChain> {
+class _ScenarioActionChainState extends State<_ScenarioActionChain> {
   int _chainStep = -1;
   bool _completed = false;
 
   static const List<_ChainItem> _steps = [
-    _ChainItem('SelectAction invoked', Icons.play_arrow,
-        Color(0xFF1565C0)),
-    _ChainItem('Validation passed', Icons.verified,
-        Color(0xFF2E7D32)),
-    _ChainItem('Animation triggered', Icons.animation,
-        Color(0xFF6A1B9A)),
-    _ChainItem('Confirmed', Icons.check_circle,
-        Color(0xFFEF6C00)),
+    _ChainItem('SelectAction invoked', Icons.play_arrow, Color(0xFF1565C0)),
+    _ChainItem('Validation passed', Icons.verified, Color(0xFF2E7D32)),
+    _ChainItem('Animation triggered', Icons.animation, Color(0xFF6A1B9A)),
+    _ChainItem('Confirmed', Icons.check_circle, Color(0xFFEF6C00)),
   ];
 
   void _runChain() async {
@@ -1129,12 +1232,9 @@ class _ScenarioActionChainState
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
-            onPressed: _chainStep >= 0 && !_completed
-                ? null
-                : _runChain,
+            onPressed: _chainStep >= 0 && !_completed ? null : _runChain,
             icon: Icon(Icons.play_arrow, size: 16),
-            label: Text(
-                _completed ? 'Run Again' : 'Trigger SelectAction'),
+            label: Text(_completed ? 'Run Again' : 'Trigger SelectAction'),
             style: ElevatedButton.styleFrom(
               backgroundColor: _kPrimary,
               foregroundColor: Colors.white,
@@ -1161,8 +1261,8 @@ class _ScenarioActionChainState
                   color: current
                       ? s.color
                       : reached
-                          ? s.color.withOpacity(0.3)
-                          : Colors.grey.shade300,
+                      ? s.color.withOpacity(0.3)
+                      : Colors.grey.shade300,
                   width: current ? 2 : 1,
                 ),
               ),
@@ -1180,21 +1280,20 @@ class _ScenarioActionChainState
                     alignment: Alignment.center,
                     child: reached
                         ? Icon(s.icon, size: 16, color: s.color)
-                        : Text('${i + 1}',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: _kMuted)),
+                        : Text(
+                            '${i + 1}',
+                            style: TextStyle(fontSize: 11, color: _kMuted),
+                          ),
                   ),
                   SizedBox(width: 10),
-                  Text(s.label,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: reached
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                          color: reached
-                              ? _kDarkText
-                              : _kMuted)),
+                  Text(
+                    s.label,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: reached ? FontWeight.w700 : FontWeight.w400,
+                      color: reached ? _kDarkText : _kMuted,
+                    ),
+                  ),
                   Spacer(),
                   if (reached && !current)
                     Icon(Icons.check, size: 16, color: s.color),
@@ -1204,8 +1303,7 @@ class _ScenarioActionChainState
                       height: 14,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor:
-                            AlwaysStoppedAnimation(s.color),
+                        valueColor: AlwaysStoppedAnimation(s.color),
                       ),
                     ),
                 ],
@@ -1221,19 +1319,20 @@ class _ScenarioActionChainState
               decoration: BoxDecoration(
                 color: _kActionColor.withOpacity(0.06),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                    color: _kActionColor.withOpacity(0.2)),
+                border: Border.all(color: _kActionColor.withOpacity(0.2)),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.celebration,
-                      size: 16, color: _kActionColor),
+                  Icon(Icons.celebration, size: 16, color: _kActionColor),
                   SizedBox(width: 6),
-                  Text('Action chain completed successfully!',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          color: _kActionColor)),
+                  Text(
+                    'Action chain completed successfully!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kActionColor,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1253,8 +1352,7 @@ class _ChainItem {
 // ── Scenario 3: Multi-scope actions ─────────────────────
 class _ScenarioMultiScope extends StatefulWidget {
   @override
-  State<_ScenarioMultiScope> createState() =>
-      _ScenarioMultiScopeState();
+  State<_ScenarioMultiScope> createState() => _ScenarioMultiScopeState();
 }
 
 class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
@@ -1276,17 +1374,17 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline,
-                  size: 14, color: Color(0xFFF57F17)),
+              Icon(Icons.info_outline, size: 14, color: Color(0xFFF57F17)),
               SizedBox(width: 6),
               Expanded(
                 child: Text(
                   'Two scopes register different SelectAction handlers. '
                   'Tapping "Select" in each scope invokes its own handler.',
                   style: TextStyle(
-                      fontSize: 11,
-                      color: _kDarkText,
-                      fontStyle: FontStyle.italic),
+                    fontSize: 11,
+                    color: _kDarkText,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
             ],
@@ -1301,9 +1399,11 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
                 _kSelectColor,
                 Icons.folder,
                 _scopeAMessage,
-                () => setState(() =>
-                    _scopeAMessage = 'File selected at '
-                        '${TimeOfDay.now().format(context)}'),
+                () => setState(
+                  () => _scopeAMessage =
+                      'File selected at '
+                      '${TimeOfDay.now().format(context)}',
+                ),
               ),
             ),
             SizedBox(width: 10),
@@ -1313,9 +1413,11 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
                 _kIntentColor,
                 Icons.person,
                 _scopeBMessage,
-                () => setState(() =>
-                    _scopeBMessage = 'Contact selected at '
-                        '${TimeOfDay.now().format(context)}'),
+                () => setState(
+                  () => _scopeBMessage =
+                      'Contact selected at '
+                      '${TimeOfDay.now().format(context)}',
+                ),
               ),
             ),
           ],
@@ -1326,17 +1428,19 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
           decoration: BoxDecoration(
             color: _kCodeBg,
             borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(color: _kAccent.withOpacity(0.3)),
+            border: Border.all(color: _kAccent.withOpacity(0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Scope Resolution',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 11,
-                      color: _kPrimary)),
+              Text(
+                'Scope Resolution',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11,
+                  color: _kPrimary,
+                ),
+              ),
               SizedBox(height: 6),
               Text(
                 'When Actions.invoke() is called, Flutter walks up the\n'
@@ -1344,10 +1448,11 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
                 'Actions widget that handles SelectIntent. Each subtree\n'
                 'can have its own SelectAction with different behavior.',
                 style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10,
-                    color: _kDarkText,
-                    height: 1.4),
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _kDarkText,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1356,8 +1461,13 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
     );
   }
 
-  Widget _scopePanel(String title, Color color, IconData icon,
-      String message, VoidCallback onSelect) {
+  Widget _scopePanel(
+    String title,
+    Color color,
+    IconData icon,
+    String message,
+    VoidCallback onSelect,
+  ) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -1373,11 +1483,14 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
               Icon(icon, size: 16, color: color),
               SizedBox(width: 6),
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 12,
-                        color: _kDarkText)),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                    color: _kDarkText,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1407,11 +1520,10 @@ class _ScenarioMultiScopeState extends State<_ScenarioMultiScope> {
             child: Text(
               message.isEmpty ? 'No selection yet' : message,
               style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: message.isEmpty
-                      ? FontWeight.w400
-                      : FontWeight.w600,
-                  color: message.isEmpty ? _kMuted : color),
+                fontSize: 10,
+                fontWeight: message.isEmpty ? FontWeight.w400 : FontWeight.w600,
+                color: message.isEmpty ? _kMuted : color,
+              ),
             ),
           ),
         ],
@@ -1453,11 +1565,14 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 15,
-                      color: _kDarkText)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15,
+                  color: _kDarkText,
+                ),
+              ),
             ),
           ],
         ),
@@ -1477,17 +1592,25 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kAccent.withOpacity(0.3)),
     ),
-    child: Text(code,
-        style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: _kDarkText,
-            height: 1.5)),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: _kDarkText,
+        height: 1.5,
+      ),
+    ),
   );
 }
 
-Widget _flowRow(int step, String title, String desc, Color color,
-    IconData icon) {
+Widget _flowRow(
+  int step,
+  String title,
+  String desc,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1505,25 +1628,32 @@ Widget _flowRow(int step, String title, String desc, Color color,
             shape: BoxShape.circle,
           ),
           alignment: Alignment.center,
-          child: Text('$step',
-              style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 11,
-                  color: color)),
+          child: Text(
+            '$step',
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      color: _kDarkText)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 11, color: _kMuted, height: 1.3)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                  color: _kDarkText,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
+              ),
             ],
           ),
         ),
@@ -1533,8 +1663,13 @@ Widget _flowRow(int step, String title, String desc, Color color,
   );
 }
 
-Widget _classRow(String name, String parent, String desc, Color color,
-    IconData icon) {
+Widget _classRow(
+  String name,
+  String parent,
+  String desc,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.all(10),
     decoration: BoxDecoration(
@@ -1560,26 +1695,31 @@ Widget _classRow(String name, String parent, String desc, Color color,
             children: [
               Row(
                 children: [
-                  Text(name,
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                          color: color)),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: color,
+                    ),
+                  ),
                   SizedBox(width: 6),
-                  Text('extends $parent',
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9,
-                          color: _kMuted)),
+                  Text(
+                    'extends $parent',
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 9,
+                      color: _kMuted,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 3),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 11,
-                      color: _kDarkText,
-                      height: 1.3)),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.3),
+              ),
             ],
           ),
         ),
@@ -1596,12 +1736,14 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(c,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight:
-                    isHeader ? FontWeight.w700 : FontWeight.w400,
-                color: isHeader ? _kPrimary : _kDarkText)),
+        child: Text(
+          c,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+            color: isHeader ? _kPrimary : _kDarkText,
+          ),
+        ),
       );
     }).toList(),
   );
@@ -1609,8 +1751,7 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? Color(0xFF2E7D32) : Color(0xFFC62828);
-  final icon =
-      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1619,9 +1760,10 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 12, color: _kDarkText, height: 1.4)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
+          ),
         ),
       ],
     ),

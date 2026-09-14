@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: peach, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: blush),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: cherry.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: cherry.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -119,16 +128,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: cherry)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: cherry,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -139,18 +148,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? coral.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: blush.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: blush.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? cherry : deepCoral)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? cherry : deepCoral,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -167,18 +177,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? cherry : deepCoral,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: coral),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: coral),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -206,13 +221,38 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ltFlow(['User taps camera icon', 'Camera opens',
-                'VisionKit scans', 'Text recognized', 'Inserted in field']),
+            ltFlow([
+              'User taps camera icon',
+              'Camera opens',
+              'VisionKit scans',
+              'Text recognized',
+              'Inserted in field',
+            ]),
             const SizedBox(height: 10),
-            _ltFeatureItem('On-device OCR', 'Text recognition without network', Icons.smartphone, coral),
-            _ltFeatureItem('Camera feed', 'Live camera viewfinder overlay', Icons.camera_alt, salmon),
-            _ltFeatureItem('Auto-insert', 'Recognized text goes to focused field', Icons.text_fields, rose),
-            _ltFeatureItem('Data detection', 'URLs, emails, phone numbers', Icons.link, cherry),
+            _ltFeatureItem(
+              'On-device OCR',
+              'Text recognition without network',
+              Icons.smartphone,
+              coral,
+            ),
+            _ltFeatureItem(
+              'Camera feed',
+              'Live camera viewfinder overlay',
+              Icons.camera_alt,
+              salmon,
+            ),
+            _ltFeatureItem(
+              'Auto-insert',
+              'Recognized text goes to focused field',
+              Icons.text_fields,
+              rose,
+            ),
+            _ltFeatureItem(
+              'Data detection',
+              'URLs, emails, phone numbers',
+              Icons.link,
+              cherry,
+            ),
           ],
         ),
       ),
@@ -237,8 +277,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ltStatusBox('LiveTextInputStatus',
-                'value property holds current status', coral, true),
+            _ltStatusBox(
+              'LiveTextInputStatus',
+              'value property holds current status',
+              coral,
+              true,
+            ),
             const SizedBox(height: 6),
             ltRow(['Status', 'Meaning', 'Show Button?'], isHeader: true),
             ltRow(['enabled', 'Feature available + camera OK', 'Yes']),
@@ -280,7 +324,12 @@ dynamic build(BuildContext context) {
         'Availability Matrix',
         Column(
           children: [
-            ltRow(['Platform', 'Min Version', 'Hardware Req', 'Available'], isHeader: true),
+            ltRow([
+              'Platform',
+              'Min Version',
+              'Hardware Req',
+              'Available',
+            ], isHeader: true),
             ltRow(['iOS', '15.0+', 'A12 Bionic+', 'Yes']),
             ltRow(['iPadOS', '15.0+', 'A12 Bionic+', 'Yes']),
             ltRow(['macOS', '12.0+', 'Apple Silicon', 'Yes']),
@@ -322,16 +371,21 @@ dynamic build(BuildContext context) {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.camera_alt, size: 32, color: coral.withValues(alpha: 0.5)),
-                    const SizedBox(height: 6),
-                    Container(
-                      width: 200,
-                      height: 2,
-                      color: coral,
+                    Icon(
+                      Icons.camera_alt,
+                      size: 32,
+                      color: coral.withValues(alpha: 0.5),
                     ),
                     const SizedBox(height: 6),
-                    Text('Scanning for text...',
-                        style: TextStyle(color: coral.withValues(alpha: 0.8), fontSize: 11)),
+                    Container(width: 200, height: 2, color: coral),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Scanning for text...',
+                      style: TextStyle(
+                        color: coral.withValues(alpha: 0.8),
+                        fontSize: 11,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -380,10 +434,25 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               _ltPipeStep(1, 'Camera captures frame', 'AVFoundation', coral),
-              _ltPipeStep(2, 'Detect text regions', 'VNDetectTextRequest', salmon),
-              _ltPipeStep(3, 'Recognize characters', 'VNRecognizeTextRequest', rose),
+              _ltPipeStep(
+                2,
+                'Detect text regions',
+                'VNDetectTextRequest',
+                salmon,
+              ),
+              _ltPipeStep(
+                3,
+                'Recognize characters',
+                'VNRecognizeTextRequest',
+                rose,
+              ),
               _ltPipeStep(4, 'User selects text', 'Highlight overlay', cherry),
-              _ltPipeStep(5, 'Insert into field', 'TextInputConnection', deepCoral),
+              _ltPipeStep(
+                5,
+                'Insert into field',
+                'TextInputConnection',
+                deepCoral,
+              ),
             ],
           ),
         ),
@@ -409,15 +478,30 @@ dynamic build(BuildContext context) {
         Row(
           children: [
             Expanded(
-              child: _ltButtonDemo('Keyboard toolbar', Icons.camera_alt, 'iOS keyboard bar', coral),
+              child: _ltButtonDemo(
+                'Keyboard toolbar',
+                Icons.camera_alt,
+                'iOS keyboard bar',
+                coral,
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _ltButtonDemo('Context menu', Icons.document_scanner, 'Long-press menu', salmon),
+              child: _ltButtonDemo(
+                'Context menu',
+                Icons.document_scanner,
+                'Long-press menu',
+                salmon,
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: _ltButtonDemo('Custom button', Icons.photo_camera, 'App-provided', cherry),
+              child: _ltButtonDemo(
+                'Custom button',
+                Icons.photo_camera,
+                'App-provided',
+                cherry,
+              ),
             ),
           ],
         ),
@@ -443,7 +527,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             ltRow(['Setting', 'Value', 'Effect'], isHeader: true),
-            ltRow(['enableInteractiveSelection', 'true', 'Camera button shown']),
+            ltRow([
+              'enableInteractiveSelection',
+              'true',
+              'Camera button shown',
+            ]),
             ltRow(['enableInteractiveSelection', 'false', 'No camera button']),
             ltRow(['readOnly', 'true', 'No insertion allowed']),
             ltRow(['readOnly', 'false', 'Text can be inserted']),
@@ -510,12 +598,37 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ltDataType('Phone numbers', Icons.phone, '+1 (555) 123-4567', coral),
-            _ltDataType('Email addresses', Icons.email, 'user@example.com', salmon),
+            _ltDataType(
+              'Phone numbers',
+              Icons.phone,
+              '+1 (555) 123-4567',
+              coral,
+            ),
+            _ltDataType(
+              'Email addresses',
+              Icons.email,
+              'user@example.com',
+              salmon,
+            ),
             _ltDataType('URLs', Icons.link, 'https://flutter.dev', rose),
-            _ltDataType('Addresses', Icons.location_on, '1 Infinite Loop, CA', cherry),
-            _ltDataType('Dates', Icons.calendar_today, 'April 9, 2026', deepCoral),
-            _ltDataType('Tracking numbers', Icons.local_shipping, '1Z999AA12345678', terracotta),
+            _ltDataType(
+              'Addresses',
+              Icons.location_on,
+              '1 Infinite Loop, CA',
+              cherry,
+            ),
+            _ltDataType(
+              'Dates',
+              Icons.calendar_today,
+              'April 9, 2026',
+              deepCoral,
+            ),
+            _ltDataType(
+              'Tracking numbers',
+              Icons.local_shipping,
+              '1Z999AA12345678',
+              terracotta,
+            ),
           ],
         ),
       ),
@@ -570,8 +683,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ltFlow(['TextField', 'EditableText', 'TextInputClient',
-                'TextInputConnection', 'Live Text API']),
+            ltFlow([
+              'TextField',
+              'EditableText',
+              'TextInputClient',
+              'TextInputConnection',
+              'Live Text API',
+            ]),
             const SizedBox(height: 10),
             ltRow(['Widget', 'Live Text Support', 'Notes'], isHeader: true),
             ltRow(['TextField', 'Automatic', 'Material design']),
@@ -602,10 +720,25 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ltPermState('Not determined', 'Will prompt on first use', Icons.help_outline, Colors.grey),
-            _ltPermState('Authorized', 'Camera button visible', Icons.check_circle, const Color(0xFF2E7D32)),
+            _ltPermState(
+              'Not determined',
+              'Will prompt on first use',
+              Icons.help_outline,
+              Colors.grey,
+            ),
+            _ltPermState(
+              'Authorized',
+              'Camera button visible',
+              Icons.check_circle,
+              const Color(0xFF2E7D32),
+            ),
             _ltPermState('Denied', 'Button hidden', Icons.cancel, cherry),
-            _ltPermState('Restricted', 'Parental controls / MDM', Icons.lock, deepCoral),
+            _ltPermState(
+              'Restricted',
+              'Parental controls / MDM',
+              Icons.lock,
+              deepCoral,
+            ),
           ],
         ),
       ),
@@ -632,7 +765,11 @@ dynamic build(BuildContext context) {
             ltRow(['Issue', 'Result', 'Recovery'], isHeader: true),
             ltRow(['No camera permission', 'Button hidden', 'Go to Settings']),
             ltRow(['Poor lighting', 'No text found', 'Improve lighting']),
-            ltRow(['Unsupported script', 'Partial recognition', 'Manual entry']),
+            ltRow([
+              'Unsupported script',
+              'Partial recognition',
+              'Manual entry',
+            ]),
             ltRow(['Device too hot', 'Camera disabled', 'Cool down']),
             ltRow(['Camera in use', 'Can\'t open', 'Close other app']),
           ],
@@ -658,7 +795,12 @@ dynamic build(BuildContext context) {
         'OCR Options Comparison',
         Column(
           children: [
-            ltRow(['Solution', 'Platforms', 'On-device?', 'Free?'], isHeader: true),
+            ltRow([
+              'Solution',
+              'Platforms',
+              'On-device?',
+              'Free?',
+            ], isHeader: true),
             ltRow(['Live Text', 'Apple only', 'Yes', 'Yes']),
             ltRow(['ML Kit', 'Android + iOS', 'Yes', 'Yes']),
             ltRow(['Firebase ML', 'All via cloud', 'No', 'Quota']),
@@ -691,7 +833,11 @@ dynamic build(BuildContext context) {
             ltRow(['Unit', 'Status notifier', 'Mock notifier value']),
             ltRow(['Widget', 'Button visibility', 'Set notifier to enabled']),
             ltRow(['Integration', 'Camera flow', 'Physical device only']),
-            ltRow(['Fallback', 'Unavailable device', 'Set notifier to disabled']),
+            ltRow([
+              'Fallback',
+              'Unavailable device',
+              'Set notifier to disabled',
+            ]),
           ],
         ),
       ),
@@ -754,11 +900,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('LiveText — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'LiveText — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From platform availability through camera integration, '
@@ -790,10 +939,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -816,11 +977,21 @@ Widget _ltFeatureItem(String label, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold, color: color)),
-              Text(desc,
-                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -834,25 +1005,44 @@ Widget _ltStatusBox(String label, String desc, Color color, bool active) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
-      color: active ? color.withValues(alpha: 0.08) : Colors.grey.withValues(alpha: 0.04),
+      color: active
+          ? color.withValues(alpha: 0.08)
+          : Colors.grey.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(6),
       border: Border.all(
-          color: active ? color.withValues(alpha: 0.2) : Colors.grey.withValues(alpha: 0.1)),
+        color: active
+            ? color.withValues(alpha: 0.2)
+            : Colors.grey.withValues(alpha: 0.1),
+      ),
     ),
     child: Row(
       children: [
-        Icon(active ? Icons.check_circle : Icons.cancel,
-            size: 16, color: active ? color : Colors.grey),
+        Icon(
+          active ? Icons.check_circle : Icons.cancel,
+          size: 16,
+          color: active ? color : Colors.grey,
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace', color: color)),
-              Text(desc, style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -891,24 +1081,38 @@ Widget _ltPipeStep(int num, String action, String framework, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 2,
-          child: Text(action,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            action,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Text(framework,
-              style: TextStyle(
-                  fontSize: 9, fontFamily: 'monospace',
-                  color: color.withValues(alpha: 0.7))),
+          child: Text(
+            framework,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.7),
+            ),
+          ),
         ),
       ],
     ),
@@ -927,13 +1131,20 @@ Widget _ltButtonDemo(String label, IconData icon, String desc, Color color) {
       children: [
         Icon(icon, size: 24, color: color),
         const SizedBox(height: 4),
-        Text(label,
-            style: TextStyle(
-                fontSize: 9, fontWeight: FontWeight.bold, color: color),
-            textAlign: TextAlign.center),
-        Text(desc,
-            style: TextStyle(fontSize: 8, color: color.withValues(alpha: 0.6)),
-            textAlign: TextAlign.center),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 8, color: color.withValues(alpha: 0.6)),
+          textAlign: TextAlign.center,
+        ),
       ],
     ),
   );
@@ -948,15 +1159,24 @@ Widget _ltDataType(String label, IconData icon, String example, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(example,
-              style: TextStyle(
-                  fontSize: 10, fontFamily: 'monospace',
-                  color: color.withValues(alpha: 0.7))),
+          child: Text(
+            example,
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.7),
+            ),
+          ),
         ),
       ],
     ),
@@ -971,9 +1191,10 @@ Widget _ltLangChip(String lang, Color color) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: color.withValues(alpha: 0.2)),
     ),
-    child: Text(lang,
-        style: TextStyle(
-            fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+    child: Text(
+      lang,
+      style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: color),
+    ),
   );
 }
 
@@ -986,13 +1207,20 @@ Widget _ltPermState(String state, String desc, IconData icon, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(state,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            state,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),

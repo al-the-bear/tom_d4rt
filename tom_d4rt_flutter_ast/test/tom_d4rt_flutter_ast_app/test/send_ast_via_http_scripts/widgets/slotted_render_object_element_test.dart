@@ -123,17 +123,11 @@ TextStyle _sroeSectionSub() => const TextStyle(
   height: 1.35,
 );
 
-TextStyle _sroeBodyInk() => const TextStyle(
-  fontSize: 13,
-  color: kSroeNavy,
-  height: 1.4,
-);
+TextStyle _sroeBodyInk() =>
+    const TextStyle(fontSize: 13, color: kSroeNavy, height: 1.4);
 
-TextStyle _sroeBodyMuted() => const TextStyle(
-  fontSize: 12,
-  color: kSroeNavyFog,
-  height: 1.35,
-);
+TextStyle _sroeBodyMuted() =>
+    const TextStyle(fontSize: 12, color: kSroeNavyFog, height: 1.35);
 
 TextStyle _sroeMono() => const TextStyle(
   fontFamily: 'monospace',
@@ -176,9 +170,7 @@ dynamic build(BuildContext context) {
         surface: kSroePaper,
         onSurface: kSroeNavy,
       ),
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: kSroeNavy),
-      ),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: kSroeNavy)),
       dividerColor: kSroeCopper.withValues(alpha: 0.35),
     ),
     home: const _SroeRoot(),
@@ -366,9 +358,8 @@ class _SroeHeroState extends State<_SroeHero>
             Positioned.fill(
               child: AnimatedBuilder(
                 animation: _ctrl,
-                builder: (ctx, _) => CustomPaint(
-                  painter: _SroeHeroPainter(_ctrl.value),
-                ),
+                builder: (ctx, _) =>
+                    CustomPaint(painter: _SroeHeroPainter(_ctrl.value)),
               ),
             ),
             Positioned(
@@ -415,7 +406,10 @@ class _SroeHeroTitleBlock extends StatelessWidget {
           ),
         ),
         const SizedBox(height: kSroeGapS),
-        Text('Signal flow — widget → element → render', style: _sroeHeroTitle()),
+        Text(
+          'Signal flow — widget → element → render',
+          style: _sroeHeroTitle(),
+        ),
         const SizedBox(height: 4),
         SizedBox(
           width: 440,
@@ -492,10 +486,7 @@ class _SroeLegendRow extends StatelessWidget {
             color: swatch,
             borderRadius: BorderRadius.circular(2),
             boxShadow: [
-              BoxShadow(
-                color: swatch.withValues(alpha: 0.6),
-                blurRadius: 6,
-              ),
+              BoxShadow(color: swatch.withValues(alpha: 0.6), blurRadius: 6),
             ],
           ),
         ),
@@ -632,10 +623,7 @@ class _SroeHeroPainter extends CustomPainter {
       junctionRect,
       const Radius.circular(kSroeRadiusS),
     );
-    canvas.drawRRect(
-      rr,
-      Paint()..color = kSroeNavy,
-    );
+    canvas.drawRRect(rr, Paint()..color = kSroeNavy);
     canvas.drawRRect(
       rr,
       Paint()
@@ -670,10 +658,7 @@ class _SroeHeroPainter extends CustomPainter {
   }) {
     final rect = Rect.fromCenter(center: center, width: 72, height: 22);
     final rr = RRect.fromRectAndRadius(rect, const Radius.circular(3));
-    canvas.drawRRect(
-      rr,
-      Paint()..color = kSroeNavySoft,
-    );
+    canvas.drawRRect(rr, Paint()..color = kSroeNavySoft);
     canvas.drawRRect(
       rr,
       Paint()
@@ -685,10 +670,7 @@ class _SroeHeroPainter extends CustomPainter {
       canvas,
       label,
       rect.center,
-      style: _sroeTerminalTag().copyWith(
-        color: accent,
-        fontSize: 10,
-      ),
+      style: _sroeTerminalTag().copyWith(color: accent, fontSize: 10),
       align: TextAlign.center,
     );
   }
@@ -750,11 +732,13 @@ class _SroeHeroPainter extends CustomPainter {
 
   Offset _cubicPoint(Offset p0, Offset p1, Offset p2, Offset p3, double t) {
     final u = 1 - t;
-    final x = u * u * u * p0.dx +
+    final x =
+        u * u * u * p0.dx +
         3 * u * u * t * p1.dx +
         3 * u * t * t * p2.dx +
         t * t * t * p3.dx;
-    final y = u * u * u * p0.dy +
+    final y =
+        u * u * u * p0.dy +
         3 * u * u * t * p1.dy +
         3 * u * t * t * p2.dy +
         t * t * t * p3.dy;
@@ -889,10 +873,7 @@ class _SroeLiveWiringState extends State<_SroeLiveWiring> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: kSroeGapS),
-          _SroeLiveToolbar(
-            onNudge: _nudgeAll,
-            onReset: _resetAll,
-          ),
+          _SroeLiveToolbar(onNudge: _nudgeAll, onReset: _resetAll),
           const SizedBox(height: kSroeGapM),
           _SroeLiveSurface(
             slots: _slots,
@@ -938,9 +919,7 @@ class _SroeLiveToolbar extends StatelessWidget {
           decoration: BoxDecoration(
             color: kSroeNavy.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(kSroeRadiusS),
-            border: Border.all(
-              color: kSroeNavy.withValues(alpha: 0.3),
-            ),
+            border: Border.all(color: kSroeNavy.withValues(alpha: 0.3)),
           ),
           child: Text(
             'element-tier · live',
@@ -971,10 +950,7 @@ class _SroeToolbarButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(kSroeRadiusS),
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: kSroeGapM,
-          vertical: 6,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: kSroeGapM, vertical: 6),
         decoration: BoxDecoration(
           color: kSroePaperDeep,
           borderRadius: BorderRadius.circular(kSroeRadiusS),
@@ -1097,8 +1073,9 @@ class _SroeSlottedFrameWidget
   }
 
   @override
-  SlottedContainerRenderObjectMixin<_SroeSlotId, RenderBox>
-      createRenderObject(BuildContext context) {
+  SlottedContainerRenderObjectMixin<_SroeSlotId, RenderBox> createRenderObject(
+    BuildContext context,
+  ) {
     return _SroeFrameRender();
   }
 
@@ -1119,18 +1096,18 @@ class _SroeFrameRender extends RenderBox
 
   @override
   Iterable<RenderBox> get children {
-    return <RenderBox>[
-      ?_header,
-      ?_body,
-      ?_footer,
-    ];
+    return <RenderBox>[?_header, ?_body, ?_footer];
   }
 
   @override
   void performLayout() {
     final w = constraints.maxWidth.isFinite ? constraints.maxWidth : 320.0;
-    final childConstraints =
-        BoxConstraints(minWidth: w, maxWidth: w, minHeight: 0, maxHeight: 96);
+    final childConstraints = BoxConstraints(
+      minWidth: w,
+      maxWidth: w,
+      minHeight: 0,
+      maxHeight: 96,
+    );
     double y = 0;
     for (final ch in <RenderBox?>[_header, _body, _footer]) {
       if (ch == null) continue;
@@ -1262,10 +1239,7 @@ class _SroeLeafBody extends StatelessWidget {
         borderRadius: BorderRadius.circular(kSroeRadiusS),
         border: Border.all(color: accent, width: 1.2),
         boxShadow: [
-          BoxShadow(
-            color: accent.withValues(alpha: 0.45),
-            blurRadius: 10,
-          ),
+          BoxShadow(color: accent.withValues(alpha: 0.45), blurRadius: 10),
         ],
       ),
       child: Row(
@@ -1277,20 +1251,12 @@ class _SroeLeafBody extends StatelessWidget {
               color: accent,
               shape: BoxShape.circle,
               boxShadow: [
-                BoxShadow(
-                  color: accent.withValues(alpha: 0.9),
-                  blurRadius: 6,
-                ),
+                BoxShadow(color: accent.withValues(alpha: 0.9), blurRadius: 6),
               ],
             ),
           ),
           const SizedBox(width: kSroeGapS),
-          Expanded(
-            child: Text(
-              label,
-              style: _sroeSlotLabel(),
-            ),
-          ),
+          Expanded(child: Text(label, style: _sroeSlotLabel())),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
             decoration: BoxDecoration(
@@ -1369,20 +1335,14 @@ class _SroeTallyRow extends StatelessWidget {
         children: [
           Container(
             width: 68,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
             decoration: BoxDecoration(
               color: kSroeCopper.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(3),
               border: Border.all(color: kSroeCopper.withValues(alpha: 0.5)),
             ),
             alignment: Alignment.center,
-            child: Text(
-              slotId.name.toUpperCase(),
-              style: _sroeTerminalTag(),
-            ),
+            child: Text(slotId.name.toUpperCase(), style: _sroeTerminalTag()),
           ),
           const SizedBox(width: kSroeGapS),
           _SroeLeafButton(
@@ -1534,10 +1494,7 @@ class _SroeCounterChip extends StatelessWidget {
         children: [
           Text(
             label,
-            style: _sroeTerminalTag().copyWith(
-              color: color,
-              fontSize: 9,
-            ),
+            style: _sroeTerminalTag().copyWith(color: color, fontSize: 9),
           ),
           const SizedBox(width: 4),
           Text(
@@ -1600,10 +1557,7 @@ class _SroeCard extends StatelessWidget {
                 topRight: Radius.circular(kSroeRadiusL),
               ),
               border: Border(
-                bottom: BorderSide(
-                  color: kSroeCopper,
-                  width: 1.2,
-                ),
+                bottom: BorderSide(color: kSroeCopper, width: 1.2),
               ),
             ),
             child: Column(
@@ -1624,10 +1578,7 @@ class _SroeCard extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(kSroeGapL),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(kSroeGapL), child: child),
         ],
       ),
     );
@@ -1673,10 +1624,7 @@ class _SroeWiringDiagramPainter extends CustomPainter {
 
   void _paintBoard(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    canvas.drawRect(
-      rect,
-      Paint()..color = kSroePaperDeep,
-    );
+    canvas.drawRect(rect, Paint()..color = kSroePaperDeep);
     final grid = Paint()
       ..color = kSroeNavy.withValues(alpha: 0.04)
       ..strokeWidth = 0.5;
@@ -1748,10 +1696,7 @@ class _SroeWiringDiagramPainter extends CustomPainter {
       rect,
       const Radius.circular(kSroeRadiusS),
     );
-    canvas.drawRRect(
-      rr,
-      Paint()..color = Colors.white.withValues(alpha: 0.7),
-    );
+    canvas.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: 0.7));
     canvas.drawRRect(
       rr,
       Paint()
@@ -1774,8 +1719,7 @@ class _SroeWiringDiagramPainter extends CustomPainter {
       spec.title,
       Offset(header.left + 10, header.top + 6),
       style: _sroeTerminalTag().copyWith(
-        color:
-            spec.accent == kSroeBrass ? kSroeNavyDeep : kSroePaper,
+        color: spec.accent == kSroeBrass ? kSroeNavyDeep : kSroePaper,
       ),
     );
     _paintText(
@@ -1794,8 +1738,7 @@ class _SroeWiringDiagramPainter extends CustomPainter {
         style: _sroeMono().copyWith(
           fontSize: 10.5,
           color: item.startsWith('  ') ? kSroeNavyFog : kSroeNavy,
-          fontWeight:
-              item.startsWith('  ') ? FontWeight.w400 : FontWeight.w700,
+          fontWeight: item.startsWith('  ') ? FontWeight.w400 : FontWeight.w700,
         ),
       );
       y += 18;
@@ -1873,8 +1816,14 @@ class _SroeWiringDiagramPainter extends CustomPainter {
     final len = dir.distance == 0 ? 1.0 : dir.distance;
     final ux = dir.dx / len;
     final uy = dir.dy / len;
-    final head1 = Offset(to.dx - ux * headLen - uy * 4, to.dy - uy * headLen + ux * 4);
-    final head2 = Offset(to.dx - ux * headLen + uy * 4, to.dy - uy * headLen - ux * 4);
+    final head1 = Offset(
+      to.dx - ux * headLen - uy * 4,
+      to.dy - uy * headLen + ux * 4,
+    );
+    final head2 = Offset(
+      to.dx - ux * headLen + uy * 4,
+      to.dy - uy * headLen - ux * 4,
+    );
     final headPath = Path()
       ..moveTo(to.dx, to.dy)
       ..lineTo(head1.dx, head1.dy)
@@ -2067,24 +2016,15 @@ class _SroeRawDataTable extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    columns[0],
-                    style: _sroeTerminalTag(),
-                  ),
+                  child: Text(columns[0], style: _sroeTerminalTag()),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Text(
-                    columns[1],
-                    style: _sroeTerminalTag(),
-                  ),
+                  child: Text(columns[1], style: _sroeTerminalTag()),
                 ),
                 Expanded(
                   flex: 8,
-                  child: Text(
-                    columns[2],
-                    style: _sroeTerminalTag(),
-                  ),
+                  child: Text(columns[2], style: _sroeTerminalTag()),
                 ),
               ],
             ),
@@ -2113,17 +2053,11 @@ class _SroeRawDataTable extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text(
-                      rows[i][1],
-                      style: _sroeBodyMuted(),
-                    ),
+                    child: Text(rows[i][1], style: _sroeBodyMuted()),
                   ),
                   Expanded(
                     flex: 8,
-                    child: Text(
-                      rows[i][2],
-                      style: _sroeBodyInk(),
-                    ),
+                    child: Text(rows[i][2], style: _sroeBodyInk()),
                   ),
                 ],
               ),
@@ -2144,8 +2078,7 @@ class _SroeRebuildVsPreserve extends StatefulWidget {
   const _SroeRebuildVsPreserve();
 
   @override
-  State<_SroeRebuildVsPreserve> createState() =>
-      _SroeRebuildVsPreserveState();
+  State<_SroeRebuildVsPreserve> createState() => _SroeRebuildVsPreserveState();
 }
 
 class _SroeRebuildVsPreserveState extends State<_SroeRebuildVsPreserve>
@@ -2156,15 +2089,16 @@ class _SroeRebuildVsPreserveState extends State<_SroeRebuildVsPreserve>
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1600),
-    )..addStatusListener((s) {
-        if (s == AnimationStatus.completed) {
-          setState(() => _tick += 1);
-          _ctrl.forward(from: 0);
-        }
-      });
+    _ctrl =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 1600),
+        )..addStatusListener((s) {
+          if (s == AnimationStatus.completed) {
+            setState(() => _tick += 1);
+            _ctrl.forward(from: 0);
+          }
+        });
     _ctrl.forward();
   }
 
@@ -2357,18 +2291,10 @@ class _SroePanelLeaf extends StatelessWidget {
         borderRadius: BorderRadius.circular(kSroeRadiusS),
         border: Border.all(color: accent, width: 1.4),
         boxShadow: glow
-            ? [
-                BoxShadow(
-                  color: accent.withValues(alpha: 0.6),
-                  blurRadius: 12,
-                ),
-              ]
+            ? [BoxShadow(color: accent.withValues(alpha: 0.6), blurRadius: 12)]
             : const [],
       ),
-      child: Text(
-        label,
-        style: _sroeSlotLabel(),
-      ),
+      child: Text(label, style: _sroeSlotLabel()),
     );
   }
 }
@@ -2427,7 +2353,10 @@ class _SroeQuotedImpl extends StatelessWidget {
         lines: const [
           _SroeCodeLine('  @override'),
           _SroeCodeLine('  void update('),
-          _SroeCodeLine('    covariant SlottedMultiChildRenderObjectWidget<', kind: _SroeSyn.type),
+          _SroeCodeLine(
+            '    covariant SlottedMultiChildRenderObjectWidget<',
+            kind: _SroeSyn.type,
+          ),
           _SroeCodeLine('      SlotType, ChildType', kind: _SroeSyn.type),
           _SroeCodeLine('    > newWidget,', kind: _SroeSyn.type),
           _SroeCodeLine('  ) {'),
@@ -2437,23 +2366,38 @@ class _SroeQuotedImpl extends StatelessWidget {
           _SroeCodeLine('  }'),
           _SroeCodeLine(''),
           _SroeCodeLine('  void _updateChildren() {'),
-          _SroeCodeLine('    final Set<SlotType> seen = <SlotType>{};', kind: _SroeSyn.decl),
+          _SroeCodeLine(
+            '    final Set<SlotType> seen = <SlotType>{};',
+            kind: _SroeSyn.decl,
+          ),
           _SroeCodeLine('    for (final SlotType slot in widget.slots) {'),
           _SroeCodeLine('      seen.add(slot);'),
           _SroeCodeLine('      final Widget? w = widget.childForSlot(slot);'),
           _SroeCodeLine('      final Element? old = _slotToChild[slot];'),
-          _SroeCodeLine('      final Element? next = updateChild(old, w, slot);', kind: _SroeSyn.call),
+          _SroeCodeLine(
+            '      final Element? next = updateChild(old, w, slot);',
+            kind: _SroeSyn.call,
+          ),
           _SroeCodeLine('      if (next != null) {'),
           _SroeCodeLine('        _slotToChild[slot] = next;'),
           _SroeCodeLine('      } else {'),
           _SroeCodeLine('        _slotToChild.remove(slot);'),
           _SroeCodeLine('      }'),
           _SroeCodeLine('    }'),
-          _SroeCodeLine('    // Garbage-collect slots that went away.', kind: _SroeSyn.comment),
+          _SroeCodeLine(
+            '    // Garbage-collect slots that went away.',
+            kind: _SroeSyn.comment,
+          ),
           _SroeCodeLine('    _slotToChild.removeWhere('),
           _SroeCodeLine('      (slot, _) {'),
-          _SroeCodeLine('        final gone = !seen.contains(slot);', kind: _SroeSyn.decl),
-          _SroeCodeLine('        if (gone) deactivateChild(_slotToChild[slot]!);', kind: _SroeSyn.call),
+          _SroeCodeLine(
+            '        final gone = !seen.contains(slot);',
+            kind: _SroeSyn.decl,
+          ),
+          _SroeCodeLine(
+            '        if (gone) deactivateChild(_slotToChild[slot]!);',
+            kind: _SroeSyn.call,
+          ),
           _SroeCodeLine('        return gone;'),
           _SroeCodeLine('      },'),
           _SroeCodeLine('    );'),
@@ -2500,10 +2444,7 @@ class _SroeCodeBlock extends StatelessWidget {
         borderRadius: BorderRadius.circular(kSroeRadiusS),
         border: Border.all(color: kSroeCopper.withValues(alpha: 0.55)),
         boxShadow: [
-          BoxShadow(
-            color: kSroeCopper.withValues(alpha: 0.18),
-            blurRadius: 12,
-          ),
+          BoxShadow(color: kSroeCopper.withValues(alpha: 0.18), blurRadius: 12),
         ],
       ),
       child: Column(
@@ -2602,7 +2543,8 @@ class _SroePitfallCard extends StatelessWidget {
           _SroePitfallRow(
             icon: Icons.warning_amber_rounded,
             tint: kSroeDanger,
-            title: 'You wrote `class MyElement extends SlottedRenderObjectElement`',
+            title:
+                'You wrote `class MyElement extends SlottedRenderObjectElement`',
             body:
                 'The widget already has a built-in createElement() that '
                 'returns a well-tuned element. Overriding it forces you to '
@@ -2740,10 +2682,7 @@ class _SroeFooter extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            '416 / 4',
-            style: _sroeTerminalTag().copyWith(fontSize: 10),
-          ),
+          Text('416 / 4', style: _sroeTerminalTag().copyWith(fontSize: 10)),
         ],
       ),
     );

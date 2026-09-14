@@ -131,10 +131,7 @@ dynamic build(BuildContext context) {
       'label': 'drawOval',
       'desc': 'Ellipse fitted to bounding rect',
     },
-    <String, dynamic>{
-      'label': 'drawLine',
-      'desc': 'Single straight segment',
-    },
+    <String, dynamic>{'label': 'drawLine', 'desc': 'Single straight segment'},
     <String, dynamic>{
       'label': 'drawArc',
       'desc': 'Arc / pie slice from bounds',
@@ -236,12 +233,20 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> gradientRoster = <Map<String, dynamic>>[
     <String, dynamic>{
       'kind': 'linear',
-      'colors': <Color>[Color(0xFF1A237E), Color(0xFF42A5F5), Color(0xFFE3F2FD)],
+      'colors': <Color>[
+        Color(0xFF1A237E),
+        Color(0xFF42A5F5),
+        Color(0xFFE3F2FD),
+      ],
       'caption': 'LinearGradient sunrise sky',
     },
     <String, dynamic>{
       'kind': 'radial',
-      'colors': <Color>[Color(0xFFFFEB3B), Color(0xFFFF6F00), Color(0xFFBF360C)],
+      'colors': <Color>[
+        Color(0xFFFFEB3B),
+        Color(0xFFFF6F00),
+        Color(0xFFBF360C),
+      ],
       'caption': 'RadialGradient solar flare',
     },
     <String, dynamic>{
@@ -361,10 +366,7 @@ dynamic build(BuildContext context) {
       'kind': 'isometric',
       'caption': 'Isometric cube via 3 parallelograms',
     },
-    <String, dynamic>{
-      'kind': 'grid',
-      'caption': 'Perspective grid floor',
-    },
+    <String, dynamic>{'kind': 'grid', 'caption': 'Perspective grid floor'},
     <String, dynamic>{
       'kind': 'truss',
       'caption': 'Triangulated truss structure',
@@ -380,18 +382,12 @@ dynamic build(BuildContext context) {
       'kind': 'mandala',
       'caption': '12-fold rotational symmetry',
     },
-    <String, dynamic>{
-      'kind': 'spirograph',
-      'caption': 'Hypotrochoid curve',
-    },
+    <String, dynamic>{'kind': 'spirograph', 'caption': 'Hypotrochoid curve'},
     <String, dynamic>{
       'kind': 'concentric',
       'caption': 'Concentric ripple rings',
     },
-    <String, dynamic>{
-      'kind': 'starburst',
-      'caption': 'Radial starburst rays',
-    },
+    <String, dynamic>{'kind': 'starburst', 'caption': 'Radial starburst rays'},
   ];
 
   // ===========================================================================
@@ -403,43 +399,43 @@ dynamic build(BuildContext context) {
       'title': 'Recipe: keep paint() pure',
       'body':
           'Avoid allocations and side effects inside paint(). Pre-build Paths '
-              'and Paints in the constructor when possible so each frame is a '
-              'pure replay.',
+          'and Paints in the constructor when possible so each frame is a '
+          'pure replay.',
     },
     <String, String>{
       'title': 'Recipe: shouldRepaint discipline',
       'body':
           'Return true only when fields that affect visuals change. Compare '
-              'field-by-field; never return true unconditionally - it forces '
-              'a repaint every frame.',
+          'field-by-field; never return true unconditionally - it forces '
+          'a repaint every frame.',
     },
     <String, String>{
       'title': 'Recipe: balance save/restore',
       'body':
           'Every save() must be matched with restore(). Use canvas.save() / '
-              'canvas.restore() blocks around any translate/rotate/scale so '
-              'the transform stack stays clean.',
+          'canvas.restore() blocks around any translate/rotate/scale so '
+          'the transform stack stays clean.',
     },
     <String, String>{
       'title': 'Recipe: shader on paint',
       'body':
           'Set paint.shader = LinearGradient(...).createShader(rect) for '
-              'gradient fills. Remember the shader is in canvas-coordinates, '
-              'not paint-local.',
+          'gradient fills. Remember the shader is in canvas-coordinates, '
+          'not paint-local.',
     },
     <String, String>{
       'title': 'Recipe: layered foregroundPainter',
       'body':
           'CustomPaint accepts painter (behind child) AND foregroundPainter '
-              '(in front). Use the foreground for badges, watermarks, focus '
-              'rings drawn over the content.',
+          '(in front). Use the foreground for badges, watermarks, focus '
+          'rings drawn over the content.',
     },
     <String, String>{
       'title': 'Recipe: isComplex + willChange',
       'body':
           'When you mark isComplex: true and willChange: false, Flutter may '
-              'cache the layer as a raster image - great for static, expensive '
-              'paintings. Combine with painter != null.',
+          'cache the layer as a raster image - great for static, expensive '
+          'paintings. Combine with painter != null.',
     },
   ];
 
@@ -812,7 +808,8 @@ Widget _section1Primitives(List<Map<String, dynamic>> roster) {
     accentColor: _studioPrimEnd,
     sectionNumber: '1',
     title: 'Canvas Primitives',
-    subtitle: 'drawRect / drawRRect / drawCircle / drawOval / drawLine / drawArc',
+    subtitle:
+        'drawRect / drawRRect / drawCircle / drawOval / drawLine / drawArc',
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -825,7 +822,8 @@ Widget _section1Primitives(List<Map<String, dynamic>> roster) {
                 height: 140.0,
                 painter: _PrimitiveFocusPainter('rect'),
                 title: 'drawRect',
-                caption: 'Filled axis-aligned rectangle, the workhorse primitive.',
+                caption:
+                    'Filled axis-aligned rectangle, the workhorse primitive.',
                 color: _studioPrimStart,
               ),
             ),
@@ -896,7 +894,7 @@ Widget _section1Primitives(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: pre-build Rects',
     recipeBody:
         'Allocate Rect/RRect/Offset constants outside paint() when possible '
-            '- they are value types but the construction cost adds up.',
+        '- they are value types but the construction cost adds up.',
   );
 }
 
@@ -960,7 +958,7 @@ Widget _section2PaintStyles(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: cascade Paint setup',
     recipeBody:
         'final p = Paint()..color = c..style = PaintingStyle.stroke'
-            '..strokeWidth = 3..strokeCap = StrokeCap.round;',
+        '..strokeWidth = 3..strokeCap = StrokeCap.round;',
   );
 }
 
@@ -1019,7 +1017,7 @@ Widget _section3PathDrawing(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: closed polygon',
     recipeBody:
         'final p = Path()..moveTo(...)..lineTo(...)..lineTo(...)..close(); '
-            'canvas.drawPath(p, paint);',
+        'canvas.drawPath(p, paint);',
   );
 }
 
@@ -1115,7 +1113,7 @@ Widget _section4BezierCurves(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: smooth signature',
     recipeBody:
         'For ink curves, chain cubicTo segments using the previous tangent '
-            'as the first control point. Pair with StrokeCap.round.',
+        'as the first control point. Pair with StrokeCap.round.',
   );
 }
 
@@ -1220,7 +1218,7 @@ Widget _section5GradientShaders(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: shader on Paint',
     recipeBody:
         'paint.shader = LinearGradient(colors: [...]).createShader('
-            'Rect.fromLTWH(0,0,w,h));',
+        'Rect.fromLTWH(0,0,w,h));',
   );
 }
 
@@ -1262,7 +1260,7 @@ Widget _section6BlendModes(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: layer-scoped blend',
     recipeBody:
         'Wrap blended draws in saveLayer(rect, Paint()..blendMode = X) so the '
-            'blend applies only to that sub-tree of geometry.',
+        'blend applies only to that sub-tree of geometry.',
   );
 }
 
@@ -1344,7 +1342,7 @@ Widget _section7Transforms(List<Map<String, String>> script) {
     recipeTitle: 'Recipe: balanced stack',
     recipeBody:
         'canvas.save(); canvas.translate(x, y); canvas.rotate(a); '
-            'draw...; canvas.restore();',
+        'draw...; canvas.restore();',
   );
 }
 
@@ -1404,7 +1402,7 @@ Widget _section8Shadows(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: floating card',
     recipeBody:
         'canvas.drawShadow(path, Color(0xFF000000), elevation, transparentOccluder); '
-            'canvas.drawPath(path, fillPaint);',
+        'canvas.drawPath(path, fillPaint);',
   );
 }
 
@@ -1485,7 +1483,7 @@ Widget _section9Geometry(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: isometric math',
     recipeBody:
         'Iso projection: screen.x = (x - y) * cos(30); screen.y = (x + y) * '
-            'sin(30) - z; - use it for retro-arcade tiles.',
+        'sin(30) - z; - use it for retro-arcade tiles.',
   );
 }
 
@@ -1566,7 +1564,7 @@ Widget _section10Patterns(List<Map<String, dynamic>> roster) {
     recipeTitle: 'Recipe: rotational symmetry',
     recipeBody:
         'for (int i = 0; i < n; i++) { canvas.save(); canvas.rotate(2*pi*i/n); '
-            'drawPetal(...); canvas.restore(); }',
+        'drawPetal(...); canvas.restore(); }',
   );
 }
 
@@ -1621,7 +1619,7 @@ Widget _section11Recipes(List<Map<String, String>> recipes) {
     recipeTitle: 'Recipe: build a cookbook',
     recipeBody:
         'Save your favourite paint() snippets in a personal scratch file. '
-            'CustomPaint productivity scales with muscle-memory recipes.',
+        'CustomPaint productivity scales with muscle-memory recipes.',
   );
 }
 
@@ -1997,10 +1995,7 @@ Widget _comparisonTable({
         ),
         for (int i = 0; i < rows.length; i++)
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
             decoration: BoxDecoration(
               color: i.isEven ? rowColor : Colors.white,
             ),
@@ -2137,8 +2132,8 @@ class _HeroBannerPainter extends CustomPainter {
     final Path wave = Path()..moveTo(0.0, size.height * 0.5);
     for (int i = 0; i < 14; i++) {
       final double x = size.width * i / 14.0;
-      final double y = size.height * 0.5 +
-          math.sin(i * 0.6) * size.height * 0.25;
+      final double y =
+          size.height * 0.5 + math.sin(i * 0.6) * size.height * 0.25;
       wave.lineTo(x, y);
     }
     canvas.drawPath(wave, stroke);
@@ -2202,11 +2197,7 @@ class _PrimitivesPainter extends CustomPainter {
       ..color = _studioPrimStart
       ..strokeWidth = 3.0
       ..strokeCap = StrokeCap.round;
-    canvas.drawLine(
-      Offset(10.0, h - 40.0),
-      Offset(w * 0.45, h - 80.0),
-      p5,
-    );
+    canvas.drawLine(Offset(10.0, h - 40.0), Offset(w * 0.45, h - 80.0), p5);
 
     // drawArc (pie)
     final Paint p6 = Paint()..color = _studioPrimEnd;
@@ -2289,8 +2280,16 @@ class _PrimitiveFocusPainter extends CustomPainter {
         );
         break;
       case 'line':
-        canvas.drawLine(Offset(20.0, cy + 20.0), Offset(size.width - 20.0, cy - 20.0), stroke);
-        canvas.drawLine(Offset(20.0, cy - 20.0), Offset(size.width - 20.0, cy + 20.0), stroke);
+        canvas.drawLine(
+          Offset(20.0, cy + 20.0),
+          Offset(size.width - 20.0, cy - 20.0),
+          stroke,
+        );
+        canvas.drawLine(
+          Offset(20.0, cy - 20.0),
+          Offset(size.width - 20.0, cy + 20.0),
+          stroke,
+        );
         break;
       case 'arc':
         canvas.drawArc(
@@ -2366,11 +2365,7 @@ class _StrokeCapPainter extends CustomPainter {
         ..strokeWidth = 12.0
         ..strokeCap = caps[i];
       final double y = 25.0 + i * 30.0;
-      canvas.drawLine(
-        Offset(30.0, y),
-        Offset(size.width - 30.0, y),
-        p,
-      );
+      canvas.drawLine(Offset(30.0, y), Offset(size.width - 30.0, y), p);
       // baseline ticks
       final Paint tick = Paint()
         ..color = const Color(0x88000000)
@@ -2483,16 +2478,8 @@ class _PathRosterPainter extends CustomPainter {
         break;
       case 'heart':
         path.moveTo(0.0, r * 0.6);
-        path.cubicTo(
-          -r * 1.4, -r * 0.4,
-          -r * 0.6, -r * 1.1,
-          0.0, -r * 0.2,
-        );
-        path.cubicTo(
-          r * 0.6, -r * 1.1,
-          r * 1.4, -r * 0.4,
-          0.0, r * 0.6,
-        );
+        path.cubicTo(-r * 1.4, -r * 0.4, -r * 0.6, -r * 1.1, 0.0, -r * 0.2);
+        path.cubicTo(r * 0.6, -r * 1.1, r * 1.4, -r * 0.4, 0.0, r * 0.6);
         path.close();
         break;
       case 'cog':
@@ -2585,16 +2572,8 @@ class _BezierFocusPainter extends CustomPainter {
         break;
       case 'signature':
         path.moveTo(15.0, h * 0.7);
-        path.cubicTo(
-          w * 0.2, h * 0.1,
-          w * 0.35, h * 1.2,
-          w * 0.5, h * 0.5,
-        );
-        path.cubicTo(
-          w * 0.65, h * -0.2,
-          w * 0.85, h * 1.1,
-          w - 15.0, h * 0.4,
-        );
+        path.cubicTo(w * 0.2, h * 0.1, w * 0.35, h * 1.2, w * 0.5, h * 0.5);
+        path.cubicTo(w * 0.65, h * -0.2, w * 0.85, h * 1.1, w - 15.0, h * 0.4);
         break;
     }
     canvas.drawPath(path, curve);
@@ -2876,7 +2855,12 @@ class _SaveLayerPainter extends CustomPainter {
     final Paint bg = Paint()..color = const Color(0xFFE0F2F1);
     canvas.drawRect(Offset.zero & size, bg);
 
-    final Rect layerRect = Rect.fromLTWH(20.0, 20.0, size.width - 40.0, size.height - 40.0);
+    final Rect layerRect = Rect.fromLTWH(
+      20.0,
+      20.0,
+      size.width - 40.0,
+      size.height - 40.0,
+    );
 
     // Outline of the layer region
     final Paint outline = Paint()
@@ -2899,11 +2883,7 @@ class _SaveLayerPainter extends CustomPainter {
     // Decorations outside the layer
     final Paint dot = Paint()..color = _atelierGold;
     for (int i = 0; i < 6; i++) {
-      canvas.drawCircle(
-        Offset(20.0 + i * 12.0, 10.0),
-        3.0,
-        dot,
-      );
+      canvas.drawCircle(Offset(20.0 + i * 12.0, 10.0), 3.0, dot);
     }
   }
 
@@ -2970,8 +2950,14 @@ class _IsoCubePainter extends CustomPainter {
     final double cy = size.height * 0.55;
     final double s = 35.0;
     // Iso projection vectors
-    final Offset rightVec = Offset(math.cos(-math.pi / 6) * s, math.sin(-math.pi / 6) * s);
-    final Offset leftVec = Offset(math.cos(-math.pi * 5 / 6) * s, math.sin(-math.pi * 5 / 6) * s);
+    final Offset rightVec = Offset(
+      math.cos(-math.pi / 6) * s,
+      math.sin(-math.pi / 6) * s,
+    );
+    final Offset leftVec = Offset(
+      math.cos(-math.pi * 5 / 6) * s,
+      math.sin(-math.pi * 5 / 6) * s,
+    );
     final Offset upVec = const Offset(0.0, -1.0) * s;
 
     final Offset center = Offset(cx, cy);
@@ -3195,7 +3181,8 @@ class _MandalaPainter extends CustomPainter {
       canvas.save();
       canvas.rotate(2 * math.pi * i / petals);
       final Paint petal = Paint()
-        ..color = (i.isEven ? _studioPatternStart : _studioPatternEnd).withOpacity(0.7)
+        ..color = (i.isEven ? _studioPatternStart : _studioPatternEnd)
+            .withOpacity(0.7)
         ..style = PaintingStyle.fill;
       final Path p = Path()
         ..moveTo(0.0, 0.0)
@@ -3324,7 +3311,11 @@ class _StarburstPainter extends CustomPainter {
     final Rect rect = Offset.zero & size;
     final Paint bg = Paint()
       ..shader = const RadialGradient(
-        colors: <Color>[Color(0xFFFFFFFF), Color(0xFFF3E5F5), Color(0xFF6A1B9A)],
+        colors: <Color>[
+          Color(0xFFFFFFFF),
+          Color(0xFFF3E5F5),
+          Color(0xFF6A1B9A),
+        ],
         stops: <double>[0.0, 0.5, 1.0],
       ).createShader(rect);
     canvas.drawRect(rect, bg);
@@ -3339,7 +3330,8 @@ class _StarburstPainter extends CustomPainter {
     for (int i = 0; i < rays; i++) {
       final double a = i * 2 * math.pi / rays;
       final Paint p = Paint()
-        ..color = (i.isEven ? _studioPatternStart : _studioPatternEnd).withOpacity(0.8)
+        ..color = (i.isEven ? _studioPatternStart : _studioPatternEnd)
+            .withOpacity(0.8)
         ..style = PaintingStyle.stroke
         ..strokeWidth = i.isEven ? 2.0 : 1.0
         ..strokeCap = StrokeCap.round;

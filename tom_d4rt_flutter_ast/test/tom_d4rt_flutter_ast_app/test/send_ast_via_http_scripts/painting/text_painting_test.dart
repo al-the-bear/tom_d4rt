@@ -138,7 +138,11 @@ class _ManualHeaderBar extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[Color(0xFF1F2547), Color(0xFF5B3F8A), Color(0xFFE5A23B)],
+          colors: <Color>[
+            Color(0xFF1F2547),
+            Color(0xFF5B3F8A),
+            Color(0xFFE5A23B),
+          ],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -411,17 +415,50 @@ class _HeroWordmarkSection extends StatelessWidget {
                 height: 1.0,
               ),
               children: <InlineSpan>[
-                TextSpan(text: 'T', style: TextStyle(color: Color(0xFFFFE9B8))),
-                TextSpan(text: 'e', style: TextStyle(color: Color(0xFFE85A6B))),
-                TextSpan(text: 'x', style: TextStyle(color: Color(0xFF1F8C8C))),
-                TextSpan(text: 't', style: TextStyle(color: Color(0xFFFFE9B8))),
-                TextSpan(text: 'P', style: TextStyle(color: Color(0xFFE5A23B))),
-                TextSpan(text: 'a', style: TextStyle(color: Color(0xFFFFE9B8))),
-                TextSpan(text: 'i', style: TextStyle(color: Color(0xFFE85A6B))),
-                TextSpan(text: 'n', style: TextStyle(color: Color(0xFF1F8C8C))),
-                TextSpan(text: 't', style: TextStyle(color: Color(0xFFFFE9B8))),
-                TextSpan(text: 'e', style: TextStyle(color: Color(0xFFE5A23B))),
-                TextSpan(text: 'r', style: TextStyle(color: Color(0xFFFFE9B8))),
+                TextSpan(
+                  text: 'T',
+                  style: TextStyle(color: Color(0xFFFFE9B8)),
+                ),
+                TextSpan(
+                  text: 'e',
+                  style: TextStyle(color: Color(0xFFE85A6B)),
+                ),
+                TextSpan(
+                  text: 'x',
+                  style: TextStyle(color: Color(0xFF1F8C8C)),
+                ),
+                TextSpan(
+                  text: 't',
+                  style: TextStyle(color: Color(0xFFFFE9B8)),
+                ),
+                TextSpan(
+                  text: 'P',
+                  style: TextStyle(color: Color(0xFFE5A23B)),
+                ),
+                TextSpan(
+                  text: 'a',
+                  style: TextStyle(color: Color(0xFFFFE9B8)),
+                ),
+                TextSpan(
+                  text: 'i',
+                  style: TextStyle(color: Color(0xFFE85A6B)),
+                ),
+                TextSpan(
+                  text: 'n',
+                  style: TextStyle(color: Color(0xFF1F8C8C)),
+                ),
+                TextSpan(
+                  text: 't',
+                  style: TextStyle(color: Color(0xFFFFE9B8)),
+                ),
+                TextSpan(
+                  text: 'e',
+                  style: TextStyle(color: Color(0xFFE5A23B)),
+                ),
+                TextSpan(
+                  text: 'r',
+                  style: TextStyle(color: Color(0xFFFFE9B8)),
+                ),
               ],
             ),
           ),
@@ -483,7 +520,11 @@ class _HeroWordmarkSection extends StatelessWidget {
             ),
             child: const Text.rich(
               TextSpan(
-                style: TextStyle(color: Colors.white, fontSize: 13, height: 1.5),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  height: 1.5,
+                ),
                 children: <InlineSpan>[
                   TextSpan(text: 'TextPainter '),
                   TextSpan(
@@ -701,9 +742,7 @@ class _AnatomyRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: color, width: 5),
-        ),
+        border: Border(left: BorderSide(color: color, width: 5)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -880,10 +919,7 @@ class _LifecycleCard extends StatelessWidget {
               Container(
                 width: 28,
                 height: 28,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
                 alignment: Alignment.center,
                 child: Text(
                   step,
@@ -992,15 +1028,13 @@ class _MeasurementGallerySection extends StatelessWidget {
               color: _kTeal,
             ),
             align: TextAlign.start,
-            note: 'Letter-spacing pushes the painter width well past glyph sum.',
+            note:
+                'Letter-spacing pushes the painter width well past glyph sum.',
           ),
           SizedBox(height: 12),
           const _MeasurementCard(
             phrase: 'q descender j tail y',
-            style: TextStyle(
-              fontSize: 24,
-              color: _kViolet,
-            ),
+            style: TextStyle(fontSize: 24, color: _kViolet),
             align: TextAlign.start,
             note:
                 'Letters with descenders demonstrate the gap between baseline and descent.',
@@ -1117,8 +1151,9 @@ class _MeasurementPainter extends CustomPainter {
 
     final double textWidth = painter.width;
     final double textHeight = painter.height;
-    final double baseline =
-        painter.computeDistanceToActualBaseline(TextBaseline.alphabetic);
+    final double baseline = painter.computeDistanceToActualBaseline(
+      TextBaseline.alphabetic,
+    );
 
     // Choose an offset based on the alignment field.
     double dx;
@@ -1173,8 +1208,16 @@ class _MeasurementPainter extends CustomPainter {
       ..color = _kAmberDeep
       ..strokeWidth = 1.0;
     final double caliperY = dy + textHeight + 8;
-    canvas.drawLine(Offset(dx, caliperY), Offset(dx + textWidth, caliperY), caliper);
-    canvas.drawLine(Offset(dx, caliperY - 4), Offset(dx, caliperY + 4), caliper);
+    canvas.drawLine(
+      Offset(dx, caliperY),
+      Offset(dx + textWidth, caliperY),
+      caliper,
+    );
+    canvas.drawLine(
+      Offset(dx, caliperY - 4),
+      Offset(dx, caliperY + 4),
+      caliper,
+    );
     canvas.drawLine(
       Offset(dx + textWidth, caliperY - 4),
       Offset(dx + textWidth, caliperY + 4),
@@ -1204,7 +1247,11 @@ class _MeasurementPainter extends CustomPainter {
     final double hx = dx + textWidth + 14;
     canvas.drawLine(Offset(hx, dy), Offset(hx, dy + textHeight), caliper);
     canvas.drawLine(Offset(hx - 4, dy), Offset(hx + 4, dy), caliper);
-    canvas.drawLine(Offset(hx - 4, dy + textHeight), Offset(hx + 4, dy + textHeight), caliper);
+    canvas.drawLine(
+      Offset(hx - 4, dy + textHeight),
+      Offset(hx + 4, dy + textHeight),
+      caliper,
+    );
 
     final TextPainter heightLabel = TextPainter(
       text: TextSpan(
@@ -1218,7 +1265,10 @@ class _MeasurementPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     heightLabel.layout();
-    heightLabel.paint(canvas, Offset(hx + 6, dy + textHeight / 2 - heightLabel.height / 2));
+    heightLabel.paint(
+      canvas,
+      Offset(hx + 6, dy + textHeight / 2 - heightLabel.height / 2),
+    );
     heightLabel.dispose();
 
     // Baseline label.
@@ -1279,11 +1329,7 @@ class _LineMetricsSection extends StatelessWidget {
             child: CustomPaint(
               painter: _LineMetricsPainter(
                 paragraph: paragraph,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: _kInk,
-                  height: 1.5,
-                ),
+                style: const TextStyle(fontSize: 16, color: _kInk, height: 1.5),
               ),
             ),
           ),
@@ -1490,9 +1536,7 @@ class _SpanTreeSection extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: 220,
-            child: CustomPaint(
-              painter: _SpanTreePainter(),
-            ),
+            child: CustomPaint(painter: _SpanTreePainter()),
           ),
           const SizedBox(height: 12),
           Container(
@@ -1505,11 +1549,31 @@ class _SpanTreeSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
-                _SpanRow(color: _kInk, label: 'root', detail: 'TextSpan(style: 18px regular ink)'),
-                _SpanRow(color: _kCoral, label: 'bold', detail: 'TextSpan(style: bold coral)'),
-                _SpanRow(color: _kTeal, label: 'italic', detail: 'TextSpan(style: italic teal)'),
-                _SpanRow(color: _kViolet, label: 'mono', detail: 'TextSpan(style: monospace violet)'),
-                _SpanRow(color: _kAmber, label: 'amber', detail: 'TextSpan(style: amber underline)'),
+                _SpanRow(
+                  color: _kInk,
+                  label: 'root',
+                  detail: 'TextSpan(style: 18px regular ink)',
+                ),
+                _SpanRow(
+                  color: _kCoral,
+                  label: 'bold',
+                  detail: 'TextSpan(style: bold coral)',
+                ),
+                _SpanRow(
+                  color: _kTeal,
+                  label: 'italic',
+                  detail: 'TextSpan(style: italic teal)',
+                ),
+                _SpanRow(
+                  color: _kViolet,
+                  label: 'mono',
+                  detail: 'TextSpan(style: monospace violet)',
+                ),
+                _SpanRow(
+                  color: _kAmber,
+                  label: 'amber',
+                  detail: 'TextSpan(style: amber underline)',
+                ),
               ],
             ),
           ),
@@ -1558,10 +1622,7 @@ class _SpanRow extends StatelessWidget {
           Expanded(
             child: Text(
               detail,
-              style: const TextStyle(
-                color: _kSlate,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: _kSlate, fontSize: 12),
             ),
           ),
         ],
@@ -1577,8 +1638,11 @@ class _SpanTreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Build the rich span manually so we know which substring belongs to
     // which span.
-    const TextStyle baseStyle =
-        TextStyle(fontSize: 18, color: _kInk, height: 1.5);
+    const TextStyle baseStyle = TextStyle(
+      fontSize: 18,
+      color: _kInk,
+      height: 1.5,
+    );
 
     final TextSpan root = TextSpan(
       style: baseStyle,
@@ -1857,12 +1921,10 @@ class _EllipsisCard extends StatelessWidget {
             child: Text(
               text,
               maxLines: maxLines,
-              overflow: ellipsis != null ? TextOverflow.ellipsis : TextOverflow.clip,
-              style: const TextStyle(
-                color: _kInk,
-                fontSize: 12,
-                height: 1.4,
-              ),
+              overflow: ellipsis != null
+                  ? TextOverflow.ellipsis
+                  : TextOverflow.clip,
+              style: const TextStyle(color: _kInk, fontSize: 12, height: 1.4),
             ),
           ),
         ],
@@ -1880,8 +1942,7 @@ class _DirectionAlignMatrixSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String sample =
-        'painters obey direction & alignment together.';
+    const String sample = 'painters obey direction & alignment together.';
 
     return _ParchmentCard(
       child: Column(
@@ -2015,11 +2076,7 @@ class _MatrixCell extends StatelessWidget {
                 sample,
                 textDirection: direction,
                 textAlign: align,
-                style: const TextStyle(
-                  color: _kInk,
-                  fontSize: 13,
-                  height: 1.4,
-                ),
+                style: const TextStyle(color: _kInk, fontSize: 13, height: 1.4),
               ),
             ),
           ),
@@ -2313,9 +2370,7 @@ class _PitfallTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.65),
         borderRadius: BorderRadius.circular(10),
-        border: Border(
-          left: BorderSide(color: color, width: 5),
-        ),
+        border: Border(left: BorderSide(color: color, width: 5)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: color.withValues(alpha: 0.1),
@@ -2490,10 +2545,7 @@ class _EndCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            Color(0xFF1F2547),
-            Color(0xFF105E5E),
-          ],
+          colors: <Color>[Color(0xFF1F2547), Color(0xFF105E5E)],
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: <BoxShadow>[
@@ -2523,8 +2575,11 @@ class _EndCard extends StatelessWidget {
               ),
             ),
             alignment: Alignment.center,
-            child: const Icon(Icons.check_circle_outline,
-                color: Color(0xFFFFE9B8), size: 28),
+            child: const Icon(
+              Icons.check_circle_outline,
+              color: Color(0xFFFFE9B8),
+              size: 28,
+            ),
           ),
           const SizedBox(width: 16),
           const Expanded(

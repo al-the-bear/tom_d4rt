@@ -328,17 +328,13 @@ class _ClipboardSeedRow extends StatelessWidget {
     return Row(
       children: <Widget>[
         CupertinoButton.filled(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
           onPressed: () async {
             // Real services.dart usage — Clipboard + HapticFeedback are
             // only reachable via package:flutter/services.dart.
             await Clipboard.setData(
               const ClipboardData(
-                text:
-                    'Pasted from CupertinoTextSelectionHandleControls demo.',
+                text: 'Pasted from CupertinoTextSelectionHandleControls demo.',
               ),
             );
             await HapticFeedback.selectionClick();
@@ -460,11 +456,7 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SCENARIO 1 — Editable single-line field
               // ============================================================
-              _sectionTitle(
-                1,
-                'Editable single-line field',
-                _palette1Header,
-              ),
+              _sectionTitle(1, 'Editable single-line field', _palette1Header),
               _sectionBody(
                 body: _palette1Body,
                 border: _palette1Border,
@@ -482,9 +474,7 @@ dynamic build(BuildContext context) {
                     focusNode: _focusSingle,
                     selectionControls: cupertinoTextSelectionHandleControls,
                     placeholder: 'Type, then long-press to select…',
-                    placeholderStyle: const TextStyle(
-                      color: Color(0xFF8A8A99),
-                    ),
+                    placeholderStyle: const TextStyle(color: Color(0xFF8A8A99)),
                     style: const TextStyle(
                       fontSize: 16.0,
                       color: Color(0xFF1C1C1C),
@@ -496,10 +486,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: _palette1Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette1Border, width: 1.0),
                     ),
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
@@ -551,10 +538,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: _palette2Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette2Border, width: 1.0),
                     ),
                     keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
@@ -611,18 +595,12 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: _palette3Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette3Border, width: 1.0),
                     ),
                     keyboardType: TextInputType.visiblePassword,
                   ),
                   const SizedBox(height: 12.0),
-                  _fieldLabel(
-                    'Plain text (for contrast)',
-                    _palette3Caption,
-                  ),
+                  _fieldLabel('Plain text (for contrast)', _palette3Caption),
                   CupertinoTextField(
                     controller: _ctrlPasswordContrast,
                     focusNode: _focusPasswordContrast,
@@ -639,10 +617,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: _palette3Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette3Border, width: 1.0),
                     ),
                   ),
                   _interactionTip(
@@ -658,11 +633,7 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SCENARIO 4 — Read-only selectable text
               // ============================================================
-              _sectionTitle(
-                4,
-                'Read-only selectable text',
-                _palette4Header,
-              ),
+              _sectionTitle(4, 'Read-only selectable text', _palette4Header),
               _sectionBody(
                 body: _palette4Body,
                 border: _palette4Border,
@@ -692,10 +663,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: _palette4Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette4Border, width: 1.0),
                     ),
                   ),
                   _interactionTip(
@@ -730,10 +698,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: const Color(0xFFFFFFFF),
                       borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: _palette5Border,
-                        width: 1.0,
-                      ),
+                      border: Border.all(color: _palette5Border, width: 1.0),
                     ),
                     child: CupertinoListSection.insetGrouped(
                       backgroundColor: const Color(0x00000000),
@@ -784,9 +749,7 @@ dynamic build(BuildContext context) {
                               height: 1.35,
                               color: Color(0xFF34344A),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 6.0,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
                             decoration: const BoxDecoration(),
                           ),
                         ),
@@ -931,11 +894,7 @@ dynamic build(BuildContext context) {
               // ============================================================
               // SCENARIO 7 — Build hooks anatomy panel
               // ============================================================
-              _sectionTitle(
-                7,
-                'Build hooks anatomy',
-                _palette7Header,
-              ),
+              _sectionTitle(7, 'Build hooks anatomy', _palette7Header),
               _sectionBody(
                 body: _palette7Body,
                 border: _palette7Border,
@@ -1075,8 +1034,7 @@ dynamic build(BuildContext context) {
                                 ),
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
                                     'Captured metrics',

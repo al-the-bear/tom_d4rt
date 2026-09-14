@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   return ButtonBar(
-    children: <Widget>[
-      TextButton(onPressed: () {}, child: const Text('OK')),
-    ],
+    children: <Widget>[TextButton(onPressed: () {}, child: const Text('OK'))],
   );
 }

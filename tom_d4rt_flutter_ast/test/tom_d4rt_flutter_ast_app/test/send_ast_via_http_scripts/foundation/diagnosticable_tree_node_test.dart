@@ -162,12 +162,14 @@ class _File extends DiagnosticableTree {
     super.debugFillProperties(properties);
     properties.add(StringProperty('name', name));
     properties.add(IntProperty('bytes', bytes));
-    properties.add(FlagProperty(
-      'readOnly',
-      value: readOnly,
-      ifTrue: 'read-only',
-      ifFalse: 'writable',
-    ));
+    properties.add(
+      FlagProperty(
+        'readOnly',
+        value: readOnly,
+        ifTrue: 'read-only',
+        ifFalse: 'writable',
+      ),
+    );
   }
 }
 
@@ -273,9 +275,7 @@ dynamic build(BuildContext context) {
       ),
       _Folder(
         name: 'test',
-        children: <Object>[
-          _File(name: 'all_test.dart', bytes: 720),
-        ],
+        children: <Object>[_File(name: 'all_test.dart', bytes: 720)],
       ),
       _File(name: 'README.md', bytes: 980, readOnly: true),
     ],
@@ -414,7 +414,8 @@ dynamic build(BuildContext context) {
               const _SectionHeader(
                 index: '10',
                 title: 'Glossary',
-                subtitle: 'Ten terms you will see in stack traces and DevTools.',
+                subtitle:
+                    'Ten terms you will see in stack traces and DevTools.',
                 accent: _sky,
               ),
               const SizedBox(height: 14),
@@ -455,7 +456,11 @@ class _HeroCard extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[Color(0xFF1F1147), Color(0xFF4A1FB8), Color(0xFF6938EF)],
+          colors: <Color>[
+            Color(0xFF1F1147),
+            Color(0xFF4A1FB8),
+            Color(0xFF6938EF),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -653,10 +658,7 @@ class _DossierCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Role',
-            style: _label,
-          ),
+          const Text('Role', style: _label),
           const SizedBox(height: 6),
           const Text(
             'DiagnosticableTreeNode is the concrete DiagnosticsNode subtype '
@@ -699,11 +701,26 @@ class _MiniHierarchyDiagram extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
-          _HierarchyRow('DiagnosticsNode', 'abstract base, name + getProperties/Children'),
-          _HierarchyRow('  DiagnosticableNode<T>', 'wraps any Diagnosticable value'),
-          _HierarchyRow('    DiagnosticableTreeNode', 'specialises for DiagnosticableTree'),
-          _HierarchyRow('  DiagnosticsProperty<T>', 'leaf node carrying a value'),
-          _HierarchyRow('    StringProperty / IntProperty / ...', 'typed leaves'),
+          _HierarchyRow(
+            'DiagnosticsNode',
+            'abstract base, name + getProperties/Children',
+          ),
+          _HierarchyRow(
+            '  DiagnosticableNode<T>',
+            'wraps any Diagnosticable value',
+          ),
+          _HierarchyRow(
+            '    DiagnosticableTreeNode',
+            'specialises for DiagnosticableTree',
+          ),
+          _HierarchyRow(
+            '  DiagnosticsProperty<T>',
+            'leaf node carrying a value',
+          ),
+          _HierarchyRow(
+            '    StringProperty / IntProperty / ...',
+            'typed leaves',
+          ),
         ],
       ),
     );
@@ -722,14 +739,8 @@ class _HierarchyRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: Text(cls, style: _monoInk),
-          ),
-          Expanded(
-            flex: 6,
-            child: Text(note, style: _monoSmall),
-          ),
+          Expanded(flex: 5, child: Text(cls, style: _monoInk)),
+          Expanded(flex: 6, child: Text(note, style: _monoSmall)),
         ],
       ),
     );
@@ -751,13 +762,15 @@ class _AnatomyCard extends StatelessWidget {
         children: <Widget>[
           const Text('Constructor', style: _label),
           const SizedBox(height: 6),
-          _CodeBlock(lines: const <String>[
-            'DiagnosticableTreeNode({',
-            '  required String? name,',
-            '  required DiagnosticableTree value,',
-            '  required DiagnosticsTreeStyle? style,',
-            '});',
-          ]),
+          _CodeBlock(
+            lines: const <String>[
+              'DiagnosticableTreeNode({',
+              '  required String? name,',
+              '  required DiagnosticableTree value,',
+              '  required DiagnosticsTreeStyle? style,',
+              '});',
+            ],
+          ),
           const SizedBox(height: 16),
           const Text('Key parameters', style: _label),
           const SizedBox(height: 6),
@@ -774,7 +787,7 @@ class _AnatomyCard extends StatelessWidget {
               _ParamRow(
                 'style',
                 'A DiagnosticsTreeStyle controlling spacing, indentation, and '
-                'visibility of the rendered tree.',
+                    'visibility of the rendered tree.',
               ),
             ],
           ),
@@ -783,11 +796,26 @@ class _AnatomyCard extends StatelessWidget {
           const SizedBox(height: 6),
           Column(
             children: const <Widget>[
-              _ParamRow('getProperties()', 'List<DiagnosticsNode> from debugFillProperties.'),
-              _ParamRow('getChildren()', 'List<DiagnosticsNode> from debugDescribeChildren.'),
-              _ParamRow('toJsonMap(delegate)', 'Serialises into a Map<String, Object?>.'),
-              _ParamRow('toStringDeep()', 'Recursive ASCII tree (the inspector view).'),
-              _ParamRow('toDescription(parentConfiguration)', 'Short headline label.'),
+              _ParamRow(
+                'getProperties()',
+                'List<DiagnosticsNode> from debugFillProperties.',
+              ),
+              _ParamRow(
+                'getChildren()',
+                'List<DiagnosticsNode> from debugDescribeChildren.',
+              ),
+              _ParamRow(
+                'toJsonMap(delegate)',
+                'Serialises into a Map<String, Object?>.',
+              ),
+              _ParamRow(
+                'toStringDeep()',
+                'Recursive ASCII tree (the inspector view).',
+              ),
+              _ParamRow(
+                'toDescription(parentConfiguration)',
+                'Short headline label.',
+              ),
             ],
           ),
         ],
@@ -808,10 +836,7 @@ class _ParamRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 170,
-            child: Text(name, style: _monoInk),
-          ),
+          SizedBox(width: 170, child: Text(name, style: _monoInk)),
           Expanded(child: Text(desc, style: _body)),
         ],
       ),
@@ -834,44 +859,48 @@ class _SampleClassesCard extends StatelessWidget {
         children: <Widget>[
           const Text('_File extends DiagnosticableTree', style: _label),
           const SizedBox(height: 6),
-          _CodeBlock(lines: const <String>[
-            'class _File extends DiagnosticableTree {',
-            '  _File({required this.name, required this.bytes, this.readOnly = false});',
-            '  final String name;',
-            '  final int bytes;',
-            '  final bool readOnly;',
-            '',
-            '  @override',
-            '  void debugFillProperties(DiagnosticPropertiesBuilder p) {',
-            '    super.debugFillProperties(p);',
-            '    p.add(StringProperty(\'name\', name));',
-            '    p.add(IntProperty(\'bytes\', bytes));',
-            '    p.add(FlagProperty(\'readOnly\', value: readOnly,',
-            '        ifTrue: \'read-only\', ifFalse: \'writable\'));',
-            '  }',
-            '}',
-          ]),
+          _CodeBlock(
+            lines: const <String>[
+              'class _File extends DiagnosticableTree {',
+              '  _File({required this.name, required this.bytes, this.readOnly = false});',
+              '  final String name;',
+              '  final int bytes;',
+              '  final bool readOnly;',
+              '',
+              '  @override',
+              '  void debugFillProperties(DiagnosticPropertiesBuilder p) {',
+              '    super.debugFillProperties(p);',
+              '    p.add(StringProperty(\'name\', name));',
+              '    p.add(IntProperty(\'bytes\', bytes));',
+              '    p.add(FlagProperty(\'readOnly\', value: readOnly,',
+              '        ifTrue: \'read-only\', ifFalse: \'writable\'));',
+              '  }',
+              '}',
+            ],
+          ),
           const SizedBox(height: 16),
           const Text('_Folder extends DiagnosticableTree', style: _label),
           const SizedBox(height: 6),
-          _CodeBlock(lines: const <String>[
-            'class _Folder extends DiagnosticableTree {',
-            '  _Folder({required this.name, this.children = const <Object>[]});',
-            '  final String name;',
-            '  final List<Object> children;',
-            '',
-            '  @override',
-            '  List<DiagnosticsNode> debugDescribeChildren() {',
-            '    final out = <DiagnosticsNode>[];',
-            '    for (int i = 0; i < children.length; i++) {',
-            '      final c = children[i];',
-            '      if (c is _File)   out.add(c.toDiagnosticsNode(name: \'file_\$i\'));',
-            '      if (c is _Folder) out.add(c.toDiagnosticsNode(name: \'dir_\$i\'));',
-            '    }',
-            '    return out;',
-            '  }',
-            '}',
-          ]),
+          _CodeBlock(
+            lines: const <String>[
+              'class _Folder extends DiagnosticableTree {',
+              '  _Folder({required this.name, this.children = const <Object>[]});',
+              '  final String name;',
+              '  final List<Object> children;',
+              '',
+              '  @override',
+              '  List<DiagnosticsNode> debugDescribeChildren() {',
+              '    final out = <DiagnosticsNode>[];',
+              '    for (int i = 0; i < children.length; i++) {',
+              '      final c = children[i];',
+              '      if (c is _File)   out.add(c.toDiagnosticsNode(name: \'file_\$i\'));',
+              '      if (c is _Folder) out.add(c.toDiagnosticsNode(name: \'dir_\$i\'));',
+              '    }',
+              '    return out;',
+              '  }',
+              '}',
+            ],
+          ),
         ],
       ),
     );
@@ -951,18 +980,20 @@ class _NodeCard extends StatelessWidget {
             Row(
               children: <Widget>[
                 Icon(
-                  kids.isEmpty ? Icons.description_outlined : Icons.folder_outlined,
+                  kids.isEmpty
+                      ? Icons.description_outlined
+                      : Icons.folder_outlined,
                   size: 16,
                   color: kids.isEmpty ? _amber : _accent,
                 ),
                 const SizedBox(width: 6),
-                Text(
-                  label,
-                  style: _bodyStrong,
-                ),
+                Text(label, style: _bodyStrong),
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _accentTint,
                     borderRadius: BorderRadius.circular(999),
@@ -1047,18 +1078,22 @@ const List<_StyleSample> _styleSamples = <_StyleSample>[
   _StyleSample(
     style: 'dense',
     tint: _accent,
-    summary: 'Minimal padding; one line per node where possible. Default for '
+    summary:
+        'Minimal padding; one line per node where possible. Default for '
         'inline diagnostics in error messages.',
-    snippet: 'Foo#a1b2(name: hi, retries: 3, sticky: false)\n'
+    snippet:
+        'Foo#a1b2(name: hi, retries: 3, sticky: false)\n'
         '\u2502\u2500\u2500 inner: Bar#c0ff(weight: 0.5)\n'
         '\u2514\u2500\u2500 child: Baz#dead(flag: on)',
   ),
   _StyleSample(
     style: 'sparse',
     tint: _sky,
-    summary: 'Blank lines and full property labels. Standard inspector view; '
+    summary:
+        'Blank lines and full property labels. Standard inspector view; '
         'most readable for humans.',
-    snippet: 'Foo#a1b2\n'
+    snippet:
+        'Foo#a1b2\n'
         '   name: hi\n'
         '   retries: 3\n'
         '   sticky: false\n'
@@ -1068,18 +1103,22 @@ const List<_StyleSample> _styleSamples = <_StyleSample>[
   _StyleSample(
     style: 'offstage',
     tint: _amber,
-    summary: 'Reserved for offstage subtrees. Their toStringDeep is included '
+    summary:
+        'Reserved for offstage subtrees. Their toStringDeep is included '
         'but the visual hierarchy is dimmed.',
-    snippet: 'Offstage \u2192 Foo#a1b2\n'
+    snippet:
+        'Offstage \u2192 Foo#a1b2\n'
         '              \u2514\u2500\u2500 inner: Bar#c0ff\n'
         '                     [offstage – not rendered]',
   ),
   _StyleSample(
     style: 'whitespace',
     tint: _mint,
-    summary: 'Plain indentation only; no box-drawing glyphs. Useful when the '
+    summary:
+        'Plain indentation only; no box-drawing glyphs. Useful when the '
         'consumer escapes Unicode (e.g. CSV).',
-    snippet: 'Foo#a1b2\n'
+    snippet:
+        'Foo#a1b2\n'
         '  name: hi\n'
         '  inner: Bar#c0ff\n'
         '    weight: 0.5\n'
@@ -1142,10 +1181,7 @@ class _StyleTile extends StatelessWidget {
                   color: sample.tint,
                   borderRadius: BorderRadius.circular(999),
                 ),
-                child: Text(
-                  sample.style.toUpperCase(),
-                  style: _tag,
-                ),
+                child: Text(sample.style.toUpperCase(), style: _tag),
               ),
             ],
           ),
@@ -1159,9 +1195,7 @@ class _StyleTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: Text(sample.snippet, style: _mono),
-          ),
+          Expanded(child: Text(sample.snippet, style: _mono)),
         ],
       ),
     );
@@ -1200,8 +1234,7 @@ class _JsonViewerCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                for (final String line in lines)
-                  Text(line, style: _mono),
+                for (final String line in lines) Text(line, style: _mono),
               ],
             ),
           ),
@@ -1225,7 +1258,9 @@ class _JsonViewerCard extends StatelessWidget {
     out.add('$pad{');
     out.add('$pad  "name": "${n.name ?? ''}",');
     out.add('$pad  "description": "${n.toDescription()}",');
-    out.add('$pad  "style": "${n.style?.toString().split('.').last ?? 'null'}",');
+    out.add(
+      '$pad  "style": "${n.style?.toString().split('.').last ?? 'null'}",',
+    );
     final List<DiagnosticsNode> props = <DiagnosticsNode>[
       for (final DiagnosticsNode? p in n.getProperties())
         if (p != null) p,
@@ -1280,18 +1315,20 @@ class _PropertyPipelineCard extends StatelessWidget {
             style: _body,
           ),
           const SizedBox(height: 12),
-          _CodeBlock(lines: const <String>[
-            'class _File extends DiagnosticableTree {',
-            '  @override',
-            '  void debugFillProperties(DiagnosticPropertiesBuilder p) {',
-            '    super.debugFillProperties(p);',
-            '    p.add(StringProperty(\'name\', name));',
-            '    p.add(IntProperty(\'bytes\', bytes));',
-            '    p.add(FlagProperty(\'readOnly\', value: readOnly,',
-            '        ifTrue: \'read-only\', ifFalse: \'writable\'));',
-            '  }',
-            '}',
-          ]),
+          _CodeBlock(
+            lines: const <String>[
+              'class _File extends DiagnosticableTree {',
+              '  @override',
+              '  void debugFillProperties(DiagnosticPropertiesBuilder p) {',
+              '    super.debugFillProperties(p);',
+              '    p.add(StringProperty(\'name\', name));',
+              '    p.add(IntProperty(\'bytes\', bytes));',
+              '    p.add(FlagProperty(\'readOnly\', value: readOnly,',
+              '        ifTrue: \'read-only\', ifFalse: \'writable\'));',
+              '  }',
+              '}',
+            ],
+          ),
           const SizedBox(height: 12),
           const _PipelineSteps(),
         ],
@@ -1316,10 +1353,22 @@ class _PipelineSteps extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const <Widget>[
           _Step('1', 'value.toDiagnosticsNode(name: ...)', _accent),
-          _Step('2', 'returns DiagnosticableTreeNode (subclass of DiagnosticsNode)', _accent),
-          _Step('3', 'node.getProperties() calls debugFillProperties via builder', _sky),
+          _Step(
+            '2',
+            'returns DiagnosticableTreeNode (subclass of DiagnosticsNode)',
+            _accent,
+          ),
+          _Step(
+            '3',
+            'node.getProperties() calls debugFillProperties via builder',
+            _sky,
+          ),
           _Step('4', 'node.getChildren() calls debugDescribeChildren', _sky),
-          _Step('5', 'inspector renders style + name + value + children', _mint),
+          _Step(
+            '5',
+            'inspector renders style + name + value + children',
+            _mint,
+          ),
         ],
       ),
     );
@@ -1530,13 +1579,48 @@ class _RecipeTile extends StatelessWidget {
 // =============================================================================
 
 const List<_MatrixRow> _matrixRows = <_MatrixRow>[
-  _MatrixRow('Wraps', 'DiagnosticableTree', 'Any Diagnosticable or none', 'A single typed value'),
-  _MatrixRow('Has children', 'Yes (debugDescribeChildren)', 'Sometimes', 'No (leaf node)'),
-  _MatrixRow('Returns properties', 'Yes (via builder)', 'Sometimes', 'Returns its own value'),
-  _MatrixRow('Typical use', 'Widget / Element / RenderObject', 'Inspector roots, summaries', 'Properties on Diagnosticable'),
-  _MatrixRow('toStringDeep', 'Full recursive tree', 'Recursive if children', 'Single-line value'),
-  _MatrixRow('Created via', 'toDiagnosticsNode()', 'manual construction', 'StringProperty / IntProperty / ...'),
-  _MatrixRow('JSON shape', 'Includes children array', 'Children when present', 'Leaf object'),
+  _MatrixRow(
+    'Wraps',
+    'DiagnosticableTree',
+    'Any Diagnosticable or none',
+    'A single typed value',
+  ),
+  _MatrixRow(
+    'Has children',
+    'Yes (debugDescribeChildren)',
+    'Sometimes',
+    'No (leaf node)',
+  ),
+  _MatrixRow(
+    'Returns properties',
+    'Yes (via builder)',
+    'Sometimes',
+    'Returns its own value',
+  ),
+  _MatrixRow(
+    'Typical use',
+    'Widget / Element / RenderObject',
+    'Inspector roots, summaries',
+    'Properties on Diagnosticable',
+  ),
+  _MatrixRow(
+    'toStringDeep',
+    'Full recursive tree',
+    'Recursive if children',
+    'Single-line value',
+  ),
+  _MatrixRow(
+    'Created via',
+    'toDiagnosticsNode()',
+    'manual construction',
+    'StringProperty / IntProperty / ...',
+  ),
+  _MatrixRow(
+    'JSON shape',
+    'Includes children array',
+    'Children when present',
+    'Leaf object',
+  ),
 ];
 
 class _ComparisonMatrix extends StatelessWidget {
@@ -1551,9 +1635,15 @@ class _ComparisonMatrix extends StatelessWidget {
           Row(
             children: const <Widget>[
               Expanded(flex: 3, child: Text('Trait', style: _label)),
-              Expanded(flex: 4, child: Text('DiagnosticableTreeNode', style: _label)),
+              Expanded(
+                flex: 4,
+                child: Text('DiagnosticableTreeNode', style: _label),
+              ),
               Expanded(flex: 4, child: Text('DiagnosticsNode', style: _label)),
-              Expanded(flex: 4, child: Text('DiagnosticsProperty<T>', style: _label)),
+              Expanded(
+                flex: 4,
+                child: Text('DiagnosticsProperty<T>', style: _label),
+              ),
             ],
           ),
           const SizedBox(height: 6),
@@ -1670,12 +1760,7 @@ class _GlossaryCard extends StatelessWidget {
         children: <Widget>[
           Text(entry.term, style: _monoInk),
           const SizedBox(height: 4),
-          Expanded(
-            child: Text(
-              entry.gloss,
-              style: _monoSmall,
-            ),
-          ),
+          Expanded(child: Text(entry.gloss, style: _monoSmall)),
         ],
       ),
     );

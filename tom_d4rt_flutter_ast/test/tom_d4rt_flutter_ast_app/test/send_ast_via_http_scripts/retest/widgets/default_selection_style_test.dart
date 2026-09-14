@@ -24,17 +24,31 @@ class _DefaultSelectionStyleDemoPage extends StatefulWidget {
   const _DefaultSelectionStyleDemoPage();
 
   @override
-  State<_DefaultSelectionStyleDemoPage> createState() => _DefaultSelectionStyleDemoPageState();
+  State<_DefaultSelectionStyleDemoPage> createState() =>
+      _DefaultSelectionStyleDemoPageState();
 }
 
-class _DefaultSelectionStyleDemoPageState extends State<_DefaultSelectionStyleDemoPage> {
-  final _scene4ControllerA = TextEditingController(text: 'Type here and drag to select words.');
-  final _scene4ControllerB = TextEditingController(text: 'The cursor and selection highlight come from scope.');
-  final _scene4ControllerC = TextEditingController(text: 'DefaultSelectionStyle can vary per module.');
+class _DefaultSelectionStyleDemoPageState
+    extends State<_DefaultSelectionStyleDemoPage> {
+  final _scene4ControllerA = TextEditingController(
+    text: 'Type here and drag to select words.',
+  );
+  final _scene4ControllerB = TextEditingController(
+    text: 'The cursor and selection highlight come from scope.',
+  );
+  final _scene4ControllerC = TextEditingController(
+    text: 'DefaultSelectionStyle can vary per module.',
+  );
 
-  final _scene6ControllerA = TextEditingController(text: 'Operations note draft...');
-  final _scene6ControllerB = TextEditingController(text: 'Creative campaign copy...');
-  final _scene6ControllerC = TextEditingController(text: 'Sustainability summary...');
+  final _scene6ControllerA = TextEditingController(
+    text: 'Operations note draft...',
+  );
+  final _scene6ControllerB = TextEditingController(
+    text: 'Creative campaign copy...',
+  );
+  final _scene6ControllerC = TextEditingController(
+    text: 'Sustainability summary...',
+  );
 
   @override
   void dispose() {
@@ -114,11 +128,7 @@ class _DefaultSelectionStyleDemoPageState extends State<_DefaultSelectionStyleDe
               subtitle:
                   'Parent style defines defaults; nested merge() only overrides selected fields, preserving others automatically.',
               accent: cForest,
-              child: _MergeScene(
-                ocean: cOcean,
-                coral: cCoral,
-                violet: cViolet,
-              ),
+              child: _MergeScene(ocean: cOcean, coral: cCoral, violet: cViolet),
             ),
             const SizedBox(height: 12),
             _SceneFrame(
@@ -260,7 +270,11 @@ class _Pill extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 11, color: color),
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+          color: color,
+        ),
       ),
     );
   }
@@ -312,10 +326,7 @@ class _SceneFrame extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   '$index',
-                  style: TextStyle(
-                    color: accent,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w900),
                 ),
               ),
               const SizedBox(width: 10),
@@ -334,7 +345,11 @@ class _SceneFrame extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.8)),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: accent.withValues(alpha: 0.8),
+            ),
           ),
           const SizedBox(height: 12),
           child,
@@ -368,12 +383,22 @@ class _ConceptScene extends StatelessWidget {
           children: [
             _ReadoutTile(
               label: 'Current cursorColor',
-              value: style.cursorColor?.toARGB32().toRadixString(16).toUpperCase() ?? 'null',
+              value:
+                  style.cursorColor
+                      ?.toARGB32()
+                      .toRadixString(16)
+                      .toUpperCase() ??
+                  'null',
               color: const Color(0xFF105C73),
             ),
             _ReadoutTile(
               label: 'Current selectionColor',
-              value: style.selectionColor?.toARGB32().toRadixString(16).toUpperCase() ?? 'null',
+              value:
+                  style.selectionColor
+                      ?.toARGB32()
+                      .toRadixString(16)
+                      .toUpperCase() ??
+                  'null',
               color: const Color(0xFF2C7A62),
             ),
             _ReadoutTile(
@@ -400,7 +425,11 @@ class _ConceptScene extends StatelessWidget {
             '  mouseCursor: ...,\n'
             '  child: FeatureSubtree(),\n'
             ')',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, height: 1.4),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -409,7 +438,11 @@ class _ConceptScene extends StatelessWidget {
 }
 
 class _ReadoutTile extends StatelessWidget {
-  const _ReadoutTile({required this.label, required this.value, required this.color});
+  const _ReadoutTile({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   final String label;
   final String value;
@@ -429,7 +462,14 @@ class _ReadoutTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 12)),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w800,
+                fontSize: 12,
+              ),
+            ),
             const SizedBox(height: 5),
             SelectableText(
               value,
@@ -497,7 +537,8 @@ class _ScopeZonesScene extends StatelessWidget {
               child: _ZonePanel(
                 title: 'Forest scope',
                 accent: forest,
-                description: 'Local feature module can own its selection theme.',
+                description:
+                    'Local feature module can own its selection theme.',
               ),
             ),
           ],
@@ -528,7 +569,9 @@ class _ZonePanelState extends State<_ZonePanel> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: 'Try selecting text in ${widget.title}.');
+    _controller = TextEditingController(
+      text: 'Try selecting text in ${widget.title}.',
+    );
   }
 
   @override
@@ -553,20 +596,35 @@ class _ZonePanelState extends State<_ZonePanel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title, style: TextStyle(color: widget.accent, fontWeight: FontWeight.w800, fontSize: 14)),
+            Text(
+              widget.title,
+              style: TextStyle(
+                color: widget.accent,
+                fontWeight: FontWeight.w800,
+                fontSize: 14,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(widget.description, style: const TextStyle(fontSize: 11.7, height: 1.35)),
+            Text(
+              widget.description,
+              style: const TextStyle(fontSize: 11.7, height: 1.35),
+            ),
             const SizedBox(height: 8),
             SelectableText(
               'Reusable paragraph: drag-select this sentence to inspect highlight color behavior.',
-              style: TextStyle(fontSize: 12, color: widget.accent.withValues(alpha: 0.9)),
+              style: TextStyle(
+                fontSize: 12,
+                color: widget.accent.withValues(alpha: 0.9),
+              ),
             ),
             const SizedBox(height: 8),
             TextField(
               controller: _controller,
               decoration: InputDecoration(
                 labelText: 'Editable sample',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 isDense: true,
               ),
             ),
@@ -646,10 +704,7 @@ class _MergeScene extends StatelessWidget {
 }
 
 class _MergeProbe extends StatefulWidget {
-  const _MergeProbe({
-    required this.title,
-    required this.accent,
-  });
+  const _MergeProbe({required this.title, required this.accent});
 
   final String title;
   final Color accent;
@@ -688,12 +743,17 @@ class _MergeProbeState extends State<_MergeProbe> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(widget.title, style: TextStyle(fontWeight: FontWeight.w800, color: widget.accent)),
+          Text(
+            widget.title,
+            style: TextStyle(fontWeight: FontWeight.w800, color: widget.accent),
+          ),
           const SizedBox(height: 7),
           TextField(
             controller: _controller,
             decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               isDense: true,
               labelText: 'Try selecting and moving cursor',
             ),
@@ -749,7 +809,8 @@ class _EditingScene extends StatelessWidget {
               child: _EditorCard(
                 accent: ocean,
                 title: 'Operations Draft',
-                description: 'Calm blue selection style for data-heavy workflows.',
+                description:
+                    'Calm blue selection style for data-heavy workflows.',
                 controller: controllerA,
                 sample: const SelectableText(
                   'Operations team note: inspect vessel queue before 17:30 and prioritize critical loads.',
@@ -762,7 +823,8 @@ class _EditingScene extends StatelessWidget {
               child: _EditorCard(
                 accent: coral,
                 title: 'Campaign Draft',
-                description: 'Warm coral style for content and collaboration surfaces.',
+                description:
+                    'Warm coral style for content and collaboration surfaces.',
                 controller: controllerB,
                 sample: const SelectableText(
                   'Creative review checkpoint: align hero statement with launch campaign visuals and CTA.',
@@ -775,7 +837,8 @@ class _EditingScene extends StatelessWidget {
               child: _EditorCard(
                 accent: forest,
                 title: 'Research Draft',
-                description: 'Green style for technical or sustainability contexts.',
+                description:
+                    'Green style for technical or sustainability contexts.',
                 controller: controllerC,
                 sample: const SelectableText(
                   'Research summary: compare model deltas and confirm confidence intervals before publishing.',
@@ -820,9 +883,19 @@ class _EditorCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 14)),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                color: accent,
+                fontSize: 14,
+              ),
+            ),
             const SizedBox(height: 3),
-            Text(description, style: const TextStyle(fontSize: 11.4, height: 1.35)),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 11.4, height: 1.35),
+            ),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -839,7 +912,9 @@ class _EditorCard extends StatelessWidget {
               controller: controller,
               maxLines: 2,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 labelText: 'Editable draft',
               ),
             ),
@@ -939,7 +1014,10 @@ class _MouseCursorCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent)),
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.w800, color: accent),
+            ),
             const SizedBox(height: 6),
             const SelectableText(
               'Hover and select this sentence. In desktop/web, cursor shape should match the scoped mouseCursor default.',
@@ -1093,20 +1171,36 @@ class _FeatureModuleCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent)),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+                color: accent,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(
               keyName,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 10.2, color: accent.withValues(alpha: 0.84)),
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 10.2,
+                color: accent.withValues(alpha: 0.84),
+              ),
             ),
             const SizedBox(height: 8),
-            SelectableText(prompt, style: const TextStyle(fontSize: 12, height: 1.35)),
+            SelectableText(
+              prompt,
+              style: const TextStyle(fontSize: 12, height: 1.35),
+            ),
             const SizedBox(height: 8),
             TextField(
               controller: controller,
               maxLines: 2,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 labelText: 'Module editor',
               ),
             ),
@@ -1147,7 +1241,11 @@ class _RecapPanel extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF304B66)),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF304B66),
+            ),
           ),
           SizedBox(height: 8),
           Text(

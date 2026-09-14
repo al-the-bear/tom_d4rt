@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.table_rows,
       'title': 'What is TableRow?',
-      'body': 'TableRow is not a widget in the traditional sense — it\'s a '
+      'body':
+          'TableRow is not a widget in the traditional sense — it\'s a '
           'data object that groups a list of widgets (cells) into a row. '
           'Table.children is a List<TableRow>, and each TableRow provides '
           'the cells for that row.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_on,
       'title': 'Relationship to Table',
-      'body': 'Every Table requires at least one TableRow. All TableRows '
+      'body':
+          'Every Table requires at least one TableRow. All TableRows '
           'must have the same number of children (matching the column '
           'count). The Table lays out columns first, then positions '
           'each row\'s children within those column widths.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.format_paint,
       'title': 'Row Decoration',
-      'body': 'TableRow.decoration accepts a Decoration (typically Box'
+      'body':
+          'TableRow.decoration accepts a Decoration (typically Box'
           'Decoration) that paints behind all cells in the row. This is '
           'the standard way to add row backgrounds, alternating colors, '
           'or hover highlights.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'TableRow vs Row Widget',
-      'body': 'Row is a layout widget that sizes children with flex. '
+      'body':
+          'Row is a layout widget that sizes children with flex. '
           'TableRow is a data container for Table — it doesn\'t do '
           'layout itself. Table handles column alignment across rows, '
           'which Row cannot do.',
@@ -124,7 +128,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'children',
       'type': 'List<Widget>',
-      'desc': 'The widgets in this row, one per column. Every TableRow '
+      'desc':
+          'The widgets in this row, one per column. Every TableRow '
           'in a Table must have the same number of children. Children '
           'can be plain widgets or wrapped in TableCell for per-cell '
           'vertical alignment.',
@@ -132,7 +137,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'decoration',
       'type': 'Decoration?',
-      'desc': 'A decoration painted behind the row. Typically a '
+      'desc':
+          'A decoration painted behind the row. Typically a '
           'BoxDecoration with a background color. The decoration '
           'covers the full row width and the row\'s computed height.',
     },
@@ -142,27 +148,31 @@ dynamic build(BuildContext context) {
     {
       'name': 'Table.children',
       'type': 'List<TableRow>',
-      'desc': 'The rows of the table. Each element is a TableRow whose '
+      'desc':
+          'The rows of the table. Each element is a TableRow whose '
           'children are the cells. Rows are laid out top to bottom.',
     },
     {
       'name': 'Table.defaultVerticalAlignment',
       'type': 'TableCellVerticalAlignment',
-      'desc': 'Default vertical alignment for cells that do not have '
+      'desc':
+          'Default vertical alignment for cells that do not have '
           'a TableCell wrapper with explicit alignment. Defaults '
           'to top.',
     },
     {
       'name': 'Table.border',
       'type': 'TableBorder?',
-      'desc': 'Draws borders around and between cells. Supports '
+      'desc':
+          'Draws borders around and between cells. Supports '
           'different styles for top, bottom, left, right, horizontal '
           'inside, and vertical inside borders.',
     },
     {
       'name': 'Table.columnWidths',
       'type': 'Map<int, TableColumnWidth>?',
-      'desc': 'Per-column width specifications. The key is the column '
+      'desc':
+          'Per-column width specifications. The key is the column '
           'index. Columns not in the map use defaultColumnWidth.',
     },
   ];
@@ -370,9 +380,7 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: r.isEven
-              ? Colors.amber.withOpacity(0.04)
-              : Colors.transparent,
+          color: r.isEven ? Colors.amber.withOpacity(0.04) : Colors.transparent,
           border: Border(
             bottom: BorderSide(color: Colors.grey.withOpacity(0.12)),
           ),
@@ -439,9 +447,11 @@ dynamic build(BuildContext context) {
   final decoExamples = <Map<String, dynamic>>[
     {
       'title': 'Solid Color Background',
-      'desc': 'The simplest decoration. BoxDecoration with a single color '
+      'desc':
+          'The simplest decoration. BoxDecoration with a single color '
           'paints behind all cells in the row.',
-      'code': 'TableRow(\n'
+      'code':
+          'TableRow(\n'
           '  decoration: BoxDecoration(\n'
           '    color: Colors.amber.withOpacity(0.1),\n'
           '  ),\n'
@@ -452,10 +462,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Gradient Background',
-      'desc': 'Use a LinearGradient in BoxDecoration for a gradient '
+      'desc':
+          'Use a LinearGradient in BoxDecoration for a gradient '
           'that spans the full row width. Horizontal gradients look '
           'best for row decorations.',
-      'code': 'TableRow(\n'
+      'code':
+          'TableRow(\n'
           '  decoration: BoxDecoration(\n'
           '    gradient: LinearGradient(\n'
           '      colors: [Colors.amber.withOpacity(0.15),\n'
@@ -469,9 +481,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Bottom Border Only',
-      'desc': 'Combine a transparent background with a bottom-only border '
+      'desc':
+          'Combine a transparent background with a bottom-only border '
           'in BoxDecoration to create separator lines between rows.',
-      'code': 'TableRow(\n'
+      'code':
+          'TableRow(\n'
           '  decoration: BoxDecoration(\n'
           '    border: Border(\n'
           '      bottom: BorderSide(\n'
@@ -486,10 +500,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Hover / Selected State',
-      'desc': 'Change the row decoration based on state. Use StatefulWidget '
+      'desc':
+          'Change the row decoration based on state. Use StatefulWidget '
           'or ValueNotifier to toggle between normal and highlighted '
           'decorations on hover or selection.',
-      'code': 'TableRow(\n'
+      'code':
+          'TableRow(\n'
           '  decoration: BoxDecoration(\n'
           '    color: isSelected\n'
           '      ? Colors.amber.withOpacity(0.2)\n'
@@ -561,9 +577,7 @@ dynamic build(BuildContext context) {
                   color: de['visual'] as Color,
                   borderRadius: BorderRadius.circular(4),
                   border: de['title'] == 'Bottom Border Only'
-                      ? const Border(
-                          bottom: BorderSide(color: Colors.grey),
-                        )
+                      ? const Border(bottom: BorderSide(color: Colors.grey))
                       : null,
                 ),
                 child: Row(
@@ -632,14 +646,16 @@ dynamic build(BuildContext context) {
   final headerPatterns = <Map<String, dynamic>>[
     {
       'title': 'Styled Header Row',
-      'desc': 'Use a darker background and bold text for the first '
+      'desc':
+          'Use a darker background and bold text for the first '
           'TableRow. This is the most common pattern for table headers.',
       'style': 'bold + dark bg',
       'color': Colors.amber,
     },
     {
       'title': 'Sticky Header',
-      'desc': 'Table does not support sticky headers natively. For '
+      'desc':
+          'Table does not support sticky headers natively. For '
           'scrollable tables, separate the header into its own Table '
           'and place the body Table inside a SingleChildScrollView.',
       'style': 'split layout',
@@ -647,7 +663,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Line Header',
-      'desc': 'Headers with long labels can wrap to multiple lines. '
+      'desc':
+          'Headers with long labels can wrap to multiple lines. '
           'Use TableCellVerticalAlignment.middle for the header row '
           'so multiline headers center nicely.',
       'style': 'wrapping text',
@@ -655,7 +672,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Sortable Headers',
-      'desc': 'Wrap header cells in GestureDetector to detect taps. '
+      'desc':
+          'Wrap header cells in GestureDetector to detect taps. '
           'Show an up/down arrow icon to indicate sort direction. '
           'Rebuild the Table with reordered data.',
       'style': 'tap + icon',
@@ -726,10 +744,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Text(
                           hp['style'] as String,
-                          style: TextStyle(
-                            fontSize: 9,
-                            color: hpColor,
-                          ),
+                          style: TextStyle(fontSize: 9, color: hpColor),
                         ),
                       ),
                     ],
@@ -760,10 +775,12 @@ dynamic build(BuildContext context) {
   final dynamicTopics = <Map<String, dynamic>>[
     {
       'title': 'Building Rows from Data',
-      'desc': 'Map a List of data items to TableRow widgets. Use '
+      'desc':
+          'Map a List of data items to TableRow widgets. Use '
           '.asMap().entries for index-based alternating decoration. '
           'Rebuild the Table when data changes.',
-      'code': 'Table(\n'
+      'code':
+          'Table(\n'
           '  children: data.asMap().entries.map((e) {\n'
           '    return TableRow(\n'
           '      decoration: BoxDecoration(\n'
@@ -780,10 +797,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Adding Rows',
-      'desc': 'Add items to the data list and call setState. The Table '
+      'desc':
+          'Add items to the data list and call setState. The Table '
           'rebuilds with the new rows. No animation by default — '
           'wrap in AnimatedSwitcher for transitions.',
-      'code': 'void addRow(Item item) {\n'
+      'code':
+          'void addRow(Item item) {\n'
           '  setState(() {\n'
           '    data.add(item);\n'
           '  });\n'
@@ -792,10 +811,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Removing Rows',
-      'desc': 'Remove items from the data list. For confirmation, show '
+      'desc':
+          'Remove items from the data list. For confirmation, show '
           'a dialog before removing. For undo, keep removed items '
           'in a separate list temporarily.',
-      'code': 'void removeRow(int index) {\n'
+      'code':
+          'void removeRow(int index) {\n'
           '  setState(() {\n'
           '    data.removeAt(index);\n'
           '  });\n'
@@ -804,10 +825,12 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Row Count Constraint',
-      'desc': 'All rows must have the same number of children. When data '
+      'desc':
+          'All rows must have the same number of children. When data '
           'has variable columns, pad shorter rows with empty SizedBox '
           'widgets to maintain the column count.',
-      'code': 'final maxCols = data\n'
+      'code':
+          'final maxCols = data\n'
           '  .map((r) => r.length)\n'
           '  .reduce(max);\n'
           '// Pad each row to maxCols',
@@ -908,7 +931,8 @@ dynamic build(BuildContext context) {
   final practices = <Map<String, dynamic>>[
     {
       'title': 'Use Table for Small, Fixed Data',
-      'desc': 'Table measures all children to compute row heights and '
+      'desc':
+          'Table measures all children to compute row heights and '
           'column widths. For large datasets (100+ rows), use '
           'DataTable, PaginatedDataTable, or ListView-based layouts.',
       'icon': Icons.speed,
@@ -916,7 +940,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Prefer TableRow.decoration over Cell Wrappers',
-      'desc': 'Row-level decoration is more efficient than wrapping '
+      'desc':
+          'Row-level decoration is more efficient than wrapping '
           'each cell in a Container with a background. The Table '
           'paints the decoration once per row.',
       'icon': Icons.format_paint,
@@ -924,7 +949,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Consistent Column Count',
-      'desc': 'Ensure every TableRow has the same number of children. '
+      'desc':
+          'Ensure every TableRow has the same number of children. '
           'Mismatched counts throw an assertion error in debug mode. '
           'Use helper functions to validate data before building.',
       'icon': Icons.rule,
@@ -932,7 +958,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Use TableBorder for Grid Lines',
-      'desc': 'Table.border paints efficient grid lines between cells. '
+      'desc':
+          'Table.border paints efficient grid lines between cells. '
           'This is faster than adding borders to individual cells '
           'and ensures consistent line widths.',
       'icon': Icons.border_all,
@@ -940,7 +967,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Consider DataTable for Material',
-      'desc': 'DataTable provides sorting, selection, row taps, and '
+      'desc':
+          'DataTable provides sorting, selection, row taps, and '
           'Material styling out of the box. Use plain Table only '
           'when you need fully custom table rendering.',
       'icon': Icons.table_view,
@@ -1012,32 +1040,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.table_rows,
-      'text': 'TableRow groups cells into a row for the Table widget. '
+      'text':
+          'TableRow groups cells into a row for the Table widget. '
           'It holds children and an optional decoration.',
     },
     {
       'icon': Icons.format_paint,
-      'text': 'TableRow.decoration paints behind all cells — use it for '
+      'text':
+          'TableRow.decoration paints behind all cells — use it for '
           'row backgrounds, gradients, and alternating colors.',
     },
     {
       'icon': Icons.rule,
-      'text': 'All TableRows in a Table must have the same number of '
+      'text':
+          'All TableRows in a Table must have the same number of '
           'children (matching the column count).',
     },
     {
       'icon': Icons.compare,
-      'text': 'TableRow is a data object, not a layout widget. Table '
+      'text':
+          'TableRow is a data object, not a layout widget. Table '
           'does the layout; Row is for general horizontal layout.',
     },
     {
       'icon': Icons.speed,
-      'text': 'Table measures all rows upfront. Use DataTable or '
+      'text':
+          'Table measures all rows upfront. Use DataTable or '
           'ListView for large datasets that need scrolling.',
     },
     {
       'icon': Icons.grid_on,
-      'text': 'Combine with TableCell for per-cell alignment and '
+      'text':
+          'Combine with TableCell for per-cell alignment and '
           'Table.border for efficient grid line rendering.',
     },
   ];

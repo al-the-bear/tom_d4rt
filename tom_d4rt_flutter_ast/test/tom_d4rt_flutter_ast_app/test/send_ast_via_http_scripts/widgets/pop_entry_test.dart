@@ -51,7 +51,11 @@ dynamic build(BuildContext context) {
             SizedBox(width: 10.0),
             Text(
               'PopEntry & PopScope',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -74,15 +78,27 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Pop Interception Flow',
-                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 10.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildFlowBox('User presses\nBack', Colors.red, Icons.arrow_back),
+                  _buildFlowBox(
+                    'User presses\nBack',
+                    Colors.red,
+                    Icons.arrow_back,
+                  ),
                   _buildFlowArrow(),
-                  _buildFlowBox('PopEntry\nchecks canPop', Colors.orange, Icons.help_outline),
+                  _buildFlowBox(
+                    'PopEntry\nchecks canPop',
+                    Colors.orange,
+                    Icons.help_outline,
+                  ),
                   _buildFlowArrow(),
                   Column(
                     children: [
@@ -103,7 +119,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   'onPopInvoked is called regardless — canPop determines if the pop actually happens.',
-                  style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.blue.shade700),
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700,
+                  ),
                 ),
               ),
             ],
@@ -126,7 +146,9 @@ dynamic build(BuildContext context) {
   final popScopeBlocking = PopScope(
     canPop: false,
     onPopInvokedWithResult: (didPop, result) {
-      print('Pop attempted. didPop=$didPop (should be false since canPop=false)');
+      print(
+        'Pop attempted. didPop=$didPop (should be false since canPop=false)',
+      );
     },
     child: Container(
       padding: EdgeInsets.all(12.0),
@@ -175,7 +197,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 2: PopScope Widget',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -191,12 +217,22 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text('canPop: false', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.red.shade700)),
+                    child: Text(
+                      'canPop: false',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red.shade700,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 6.0),
                   popScopeBlocking,
@@ -206,7 +242,13 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(Icons.block, size: 14.0, color: Colors.red.shade400),
                       SizedBox(width: 4.0),
-                      Text('Back blocked', style: TextStyle(fontSize: 9.0, color: Colors.red.shade600)),
+                      Text(
+                        'Back blocked',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          color: Colors.red.shade600,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -217,12 +259,22 @@ dynamic build(BuildContext context) {
               child: Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text('canPop: true', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.green.shade700)),
+                    child: Text(
+                      'canPop: true',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 6.0),
                   popScopeAllowing,
@@ -230,9 +282,19 @@ dynamic build(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.check_circle, size: 14.0, color: Colors.green.shade400),
+                      Icon(
+                        Icons.check_circle,
+                        size: 14.0,
+                        color: Colors.green.shade400,
+                      ),
                       SizedBox(width: 4.0),
-                      Text('Back allowed', style: TextStyle(fontSize: 9.0, color: Colors.green.shade600)),
+                      Text(
+                        'Back allowed',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          color: Colors.green.shade600,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -260,7 +322,12 @@ dynamic build(BuildContext context) {
             '  },\n'
             '  child: MyFormPage(),\n'
             ')',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF80DEEA), height: 1.4),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80DEEA),
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -279,7 +346,11 @@ dynamic build(BuildContext context) {
   final formFields = [
     {'label': 'Title', 'value': 'My Draft Post', 'dirty': true},
     {'label': 'Author', 'value': 'Jane Doe', 'dirty': false},
-    {'label': 'Content', 'value': 'Lorem ipsum dolor sit amet...', 'dirty': true},
+    {
+      'label': 'Content',
+      'value': 'Lorem ipsum dolor sit amet...',
+      'dirty': true,
+    },
     {'label': 'Tags', 'value': 'flutter, dart', 'dirty': false},
     {'label': 'Category', 'value': '', 'dirty': false},
   ];
@@ -305,16 +376,26 @@ dynamic build(BuildContext context) {
               width: 70.0,
               child: Text(
                 field['label'] as String,
-                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
             Expanded(
               child: Text(
-                (field['value'] as String).isEmpty ? '(empty)' : field['value'] as String,
+                (field['value'] as String).isEmpty
+                    ? '(empty)'
+                    : field['value'] as String,
                 style: TextStyle(
                   fontSize: 10.0,
-                  color: (field['value'] as String).isEmpty ? Colors.grey.shade400 : Colors.grey.shade700,
-                  fontStyle: (field['value'] as String).isEmpty ? FontStyle.italic : FontStyle.normal,
+                  color: (field['value'] as String).isEmpty
+                      ? Colors.grey.shade400
+                      : Colors.grey.shade700,
+                  fontStyle: (field['value'] as String).isEmpty
+                      ? FontStyle.italic
+                      : FontStyle.normal,
                 ),
               ),
             ),
@@ -325,7 +406,14 @@ dynamic build(BuildContext context) {
                   color: Colors.amber.shade200,
                   borderRadius: BorderRadius.circular(3.0),
                 ),
-                child: Text('modified', style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold, color: Colors.amber.shade800)),
+                child: Text(
+                  'modified',
+                  style: TextStyle(
+                    fontSize: 7.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber.shade800,
+                  ),
+                ),
               ),
           ],
         ),
@@ -353,7 +441,11 @@ dynamic build(BuildContext context) {
         children: [
           Text(
             'Section 3: Unsaved Changes Guard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue.shade800,
+            ),
           ),
           SizedBox(height: 4.0),
           Text(
@@ -370,9 +462,20 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: [
-                Icon(Icons.edit_document, size: 16.0, color: Colors.blue.shade600),
+                Icon(
+                  Icons.edit_document,
+                  size: 16.0,
+                  color: Colors.blue.shade600,
+                ),
                 SizedBox(width: 6.0),
-                Text('Edit Blog Post', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.blue.shade700)),
+                Text(
+                  'Edit Blog Post',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700,
+                  ),
+                ),
                 Spacer(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -383,9 +486,20 @@ dynamic build(BuildContext context) {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.warning, size: 10.0, color: Colors.amber.shade700),
+                      Icon(
+                        Icons.warning,
+                        size: 10.0,
+                        color: Colors.amber.shade700,
+                      ),
                       SizedBox(width: 3.0),
-                      Text('2 unsaved changes', style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: Colors.amber.shade800)),
+                      Text(
+                        '2 unsaved changes',
+                        style: TextStyle(
+                          fontSize: 8.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber.shade800,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -411,7 +525,11 @@ dynamic build(BuildContext context) {
                   child: Text(
                     'PopScope(canPop: false) is active because hasUnsavedChanges == true.\n'
                     'Pressing Back will trigger onPopInvokedWithResult → show confirmation dialog.',
-                    style: TextStyle(fontSize: 9.0, color: Colors.red.shade700, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      color: Colors.red.shade700,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -425,47 +543,92 @@ dynamic build(BuildContext context) {
               color: Colors.white,
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(color: Colors.grey.shade300),
-              boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 8.0, offset: Offset(0, 4))],
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 8.0,
+                  offset: Offset(0, 4),
+                ),
+              ],
             ),
             child: Column(
               children: [
-                Text('Unsaved Changes', style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Colors.grey.shade800)),
+                Text(
+                  'Unsaved Changes',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade800,
+                  ),
+                ),
                 SizedBox(height: 6.0),
                 Text(
                   'You have 2 unsaved changes.\nDo you want to save before leaving?',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.grey.shade600,
+                    height: 1.4,
+                  ),
                 ),
                 SizedBox(height: 10.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: Text('Discard', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700)),
+                      child: Text(
+                        'Discard',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 8.0),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.blue.shade600,
                         borderRadius: BorderRadius.circular(6.0),
                       ),
-                      child: Text('Save & Leave', style: TextStyle(fontSize: 10.0, color: Colors.white, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Save & Leave',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 8.0),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(6.0),
                         border: Border.all(color: Colors.grey.shade300),
                       ),
-                      child: Text('Cancel', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -487,10 +650,30 @@ dynamic build(BuildContext context) {
   print('=== Section 4: Multi-Step Form ===');
 
   final steps = [
-    {'name': 'Personal Info', 'icon': Icons.person, 'color': Colors.blue, 'done': true},
-    {'name': 'Address', 'icon': Icons.location_on, 'color': Colors.green, 'done': true},
-    {'name': 'Payment', 'icon': Icons.credit_card, 'color': Colors.orange, 'done': false},
-    {'name': 'Confirm', 'icon': Icons.check_circle, 'color': Colors.purple, 'done': false},
+    {
+      'name': 'Personal Info',
+      'icon': Icons.person,
+      'color': Colors.blue,
+      'done': true,
+    },
+    {
+      'name': 'Address',
+      'icon': Icons.location_on,
+      'color': Colors.green,
+      'done': true,
+    },
+    {
+      'name': 'Payment',
+      'icon': Icons.credit_card,
+      'color': Colors.orange,
+      'done': false,
+    },
+    {
+      'name': 'Confirm',
+      'icon': Icons.check_circle,
+      'color': Colors.purple,
+      'done': false,
+    },
   ];
 
   final currentStep = 2; // "Payment" step (0-indexed)
@@ -510,17 +693,25 @@ dynamic build(BuildContext context) {
               width: 36.0,
               height: 36.0,
               decoration: BoxDecoration(
-                color: isCurrent ? color.shade100 : (isDone ? color.shade50 : Colors.grey.shade100),
+                color: isCurrent
+                    ? color.shade100
+                    : (isDone ? color.shade50 : Colors.grey.shade100),
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isCurrent ? color.shade400 : (isDone ? color.shade200 : Colors.grey.shade300),
+                  color: isCurrent
+                      ? color.shade400
+                      : (isDone ? color.shade200 : Colors.grey.shade300),
                   width: isCurrent ? 2.0 : 1.0,
                 ),
               ),
               alignment: Alignment.center,
               child: isDone
                   ? Icon(Icons.check, size: 16.0, color: color.shade600)
-                  : Icon(step['icon'] as IconData, size: 16.0, color: isCurrent ? color.shade600 : Colors.grey.shade400),
+                  : Icon(
+                      step['icon'] as IconData,
+                      size: 16.0,
+                      color: isCurrent ? color.shade600 : Colors.grey.shade400,
+                    ),
             ),
             SizedBox(height: 4.0),
             Text(
@@ -529,7 +720,9 @@ dynamic build(BuildContext context) {
               style: TextStyle(
                 fontSize: 8.0,
                 fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
-                color: isCurrent ? color.shade700 : (isDone ? color.shade500 : Colors.grey.shade500),
+                color: isCurrent
+                    ? color.shade700
+                    : (isDone ? color.shade500 : Colors.grey.shade500),
               ),
             ),
           ],
@@ -540,7 +733,10 @@ dynamic build(BuildContext context) {
       stepWidgets.add(
         SizedBox(
           width: 20.0,
-          child: Divider(color: isDone ? color.shade200 : Colors.grey.shade300, thickness: 1.5),
+          child: Divider(
+            color: isDone ? color.shade200 : Colors.grey.shade300,
+            thickness: 1.5,
+          ),
         ),
       );
     }
@@ -559,7 +755,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 4: Multi-Step Form Navigation',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -583,13 +783,27 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.credit_card, size: 18.0, color: Colors.orange.shade600),
+                  Icon(
+                    Icons.credit_card,
+                    size: 18.0,
+                    color: Colors.orange.shade600,
+                  ),
                   SizedBox(width: 6.0),
-                  Text('Step 3: Payment', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
+                  Text(
+                    'Step 3: Payment',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange.shade700,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 8.0),
-              Text('Enter your payment details...', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600)),
+              Text(
+                'Enter your payment details...',
+                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
+              ),
             ],
           ),
         ),
@@ -605,13 +819,35 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('PopScope Behavior:', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.blue.shade700)),
+              Text(
+                'PopScope Behavior:',
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
               SizedBox(height: 4.0),
-              _buildBehaviorRow(Icons.arrow_back, 'Back pressed', 'Go to Step 2 (Address)', Colors.blue),
+              _buildBehaviorRow(
+                Icons.arrow_back,
+                'Back pressed',
+                'Go to Step 2 (Address)',
+                Colors.blue,
+              ),
               SizedBox(height: 3.0),
-              _buildBehaviorRow(Icons.first_page, 'Back on Step 1', 'Pop route (canPop: true)', Colors.green),
+              _buildBehaviorRow(
+                Icons.first_page,
+                'Back on Step 1',
+                'Pop route (canPop: true)',
+                Colors.green,
+              ),
               SizedBox(height: 3.0),
-              _buildBehaviorRow(Icons.navigate_next, 'Next', 'Advance to Step 4 (Confirm)', Colors.orange),
+              _buildBehaviorRow(
+                Icons.navigate_next,
+                'Next',
+                'Advance to Step 4 (Confirm)',
+                Colors.orange,
+              ),
             ],
           ),
         ),
@@ -634,7 +870,12 @@ dynamic build(BuildContext context) {
             '  },\n'
             '  child: StepContent(step: currentStep),\n'
             ')',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF80DEEA), height: 1.4),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80DEEA),
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -689,7 +930,12 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 8.0),
                 Text(
                   'canPop: ${s['canPop']}',
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, fontFamily: 'monospace', color: color.shade800),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                    color: color.shade800,
+                  ),
                 ),
               ],
             ),
@@ -703,23 +949,37 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         'Callback receives: didPop = ${s['didPop']}',
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: color.shade700),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontFamily: 'monospace',
+                          color: color.shade700,
+                        ),
                       ),
                       SizedBox(height: 3.0),
                       Text(
                         s['desc'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey.shade700,
+                        ),
                       ),
                       SizedBox(height: 3.0),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: color.shade100,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Text(
                           'Result: ${s['result']}',
-                          style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color.shade700),
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: color.shade700,
+                          ),
                         ),
                       ),
                     ],
@@ -746,7 +1006,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 5: canPop vs onPopInvokedWithResult',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -771,7 +1035,11 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'Important: Navigator.pop() ignores canPop and always pops.\n'
                   'Only system back gestures and Navigator.maybePop() respect canPop.',
-                  style: TextStyle(fontSize: 9.0, color: Colors.amber.shade800, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    color: Colors.amber.shade800,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -849,25 +1117,49 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(7.0),
               ),
               alignment: Alignment.center,
-              child: Icon(p['icon'] as IconData, color: color.shade700, size: 18.0),
+              child: Icon(
+                p['icon'] as IconData,
+                color: color.shade700,
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 10.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(p['name'] as String, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: color.shade800)),
-                  Text(p['desc'] as String, style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600)),
+                  Text(
+                    p['name'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                      color: color.shade800,
+                    ),
+                  ),
+                  Text(
+                    p['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
                   SizedBox(height: 2.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 5.0,
+                      vertical: 1.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0xFF263238),
                       borderRadius: BorderRadius.circular(3.0),
                     ),
                     child: Text(
                       p['code'] as String,
-                      style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: Color(0xFF80DEEA)),
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        fontFamily: 'monospace',
+                        color: Color(0xFF80DEEA),
+                      ),
                     ),
                   ),
                 ],
@@ -892,7 +1184,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 6: Common Patterns',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -925,7 +1221,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 7: PopScope Properties',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blue.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -938,8 +1238,8 @@ dynamic build(BuildContext context) {
           'bool',
           true,
           'Whether the route should be allowed to pop.\n'
-          'true = normal back behavior. false = back is blocked.\n'
-          'Can change dynamically via setState().',
+              'true = normal back behavior. false = back is blocked.\n'
+              'Can change dynamically via setState().',
           'canPop: !hasUnsavedChanges',
           Icons.lock_open,
           Colors.blue,
@@ -950,8 +1250,8 @@ dynamic build(BuildContext context) {
           'PopInvokedWithResultCallback<T>?',
           false,
           'Called when a pop is attempted. Receives didPop (whether\n'
-          'the pop actually happened) and result (the pop result value).\n'
-          'Called regardless of canPop value.',
+              'the pop actually happened) and result (the pop result value).\n'
+              'Called regardless of canPop value.',
           'onPopInvokedWithResult: (didPop, result) { ... }',
           Icons.notification_important,
           Colors.orange,
@@ -962,7 +1262,7 @@ dynamic build(BuildContext context) {
           'Widget',
           true,
           'The widget subtree that this PopScope protects.\n'
-          'Usually a page body, form, or wizard content.',
+              'Usually a page body, form, or wizard content.',
           'child: MyFormPage()',
           Icons.child_care,
           Colors.green,
@@ -981,9 +1281,20 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.info_outline, size: 16.0, color: Colors.indigo.shade600),
+                  Icon(
+                    Icons.info_outline,
+                    size: 16.0,
+                    color: Colors.indigo.shade600,
+                  ),
                   SizedBox(width: 6.0),
-                  Text('PopEntry Mixin', style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade700)),
+                  Text(
+                    'PopEntry Mixin',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo.shade700,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4.0),
@@ -991,7 +1302,11 @@ dynamic build(BuildContext context) {
                 'PopScope is the widget API. Under the hood it uses the PopEntry\n'
                 'mixin on its State. You rarely need to use PopEntry directly —\n'
                 'PopScope covers almost all use cases.',
-                style: TextStyle(fontSize: 9.0, color: Colors.indigo.shade700, height: 1.4),
+                style: TextStyle(
+                  fontSize: 9.0,
+                  color: Colors.indigo.shade700,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1030,7 +1345,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'PopEntry & PopScope',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1043,7 +1362,11 @@ dynamic build(BuildContext context) {
                 'and onPopInvokedWithResult. Guard routes,\n'
                 'intercept navigation, protect unsaved data.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11.0, color: Colors.white60, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.white60,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1066,7 +1389,11 @@ dynamic build(BuildContext context) {
         Center(
           child: Text(
             'PopEntry & PopScope Deep Demo — 7 sections',
-            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.grey.shade500,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -1092,7 +1419,11 @@ Widget _buildFlowBox(String text, MaterialColor color, IconData icon) {
       children: [
         Icon(icon, size: 14.0, color: color.shade600),
         SizedBox(height: 2.0),
-        Text(text, textAlign: TextAlign.center, style: TextStyle(fontSize: 7.0, color: color.shade700)),
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 7.0, color: color.shade700),
+        ),
       ],
     ),
   );
@@ -1105,24 +1436,47 @@ Widget _buildFlowArrow() {
   );
 }
 
-Widget _buildBehaviorRow(IconData icon, String action, String result, MaterialColor color) {
+Widget _buildBehaviorRow(
+  IconData icon,
+  String action,
+  String result,
+  MaterialColor color,
+) {
   return Row(
     children: [
       Icon(icon, size: 14.0, color: color.shade400),
       SizedBox(width: 6.0),
       SizedBox(
         width: 100.0,
-        child: Text(action, style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600, color: Colors.grey.shade700)),
+        child: Text(
+          action,
+          style: TextStyle(
+            fontSize: 9.0,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey.shade700,
+          ),
+        ),
       ),
       Text('→ ', style: TextStyle(fontSize: 9.0, color: Colors.grey.shade400)),
       Expanded(
-        child: Text(result, style: TextStyle(fontSize: 9.0, color: color.shade700)),
+        child: Text(
+          result,
+          style: TextStyle(fontSize: 9.0, color: color.shade700),
+        ),
       ),
     ],
   );
 }
 
-Widget _buildPropCard(String name, String type, bool required, String desc, String example, IconData icon, MaterialColor color) {
+Widget _buildPropCard(
+  String name,
+  String type,
+  bool required,
+  String desc,
+  String example,
+  IconData icon,
+  MaterialColor color,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1137,7 +1491,14 @@ Widget _buildPropCard(String name, String type, bool required, String desc, Stri
           children: [
             Icon(icon, color: color.shade600, size: 18.0),
             SizedBox(width: 8.0),
-            Text(name, style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: color.shade800)),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 13.0,
+                fontWeight: FontWeight.bold,
+                color: color.shade800,
+              ),
+            ),
             SizedBox(width: 6.0),
             Flexible(
               child: Container(
@@ -1147,7 +1508,14 @@ Widget _buildPropCard(String name, String type, bool required, String desc, Stri
                   borderRadius: BorderRadius.circular(3.0),
                   border: Border.all(color: Colors.grey.shade300),
                 ),
-                child: Text(type, style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: Colors.grey.shade600)),
+                child: Text(
+                  type,
+                  style: TextStyle(
+                    fontSize: 8.0,
+                    fontFamily: 'monospace',
+                    color: Colors.grey.shade600,
+                  ),
+                ),
               ),
             ),
             SizedBox(width: 6.0),
@@ -1159,13 +1527,24 @@ Widget _buildPropCard(String name, String type, bool required, String desc, Stri
               ),
               child: Text(
                 required ? 'required' : 'optional',
-                style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: required ? Colors.red.shade700 : Colors.grey.shade600),
+                style: TextStyle(
+                  fontSize: 8.0,
+                  fontWeight: FontWeight.bold,
+                  color: required ? Colors.red.shade700 : Colors.grey.shade600,
+                ),
               ),
             ),
           ],
         ),
         SizedBox(height: 6.0),
-        Text(desc, style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700, height: 1.4)),
+        Text(
+          desc,
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Colors.grey.shade700,
+            height: 1.4,
+          ),
+        ),
         SizedBox(height: 6.0),
         Container(
           width: double.infinity,
@@ -1174,7 +1553,14 @@ Widget _buildPropCard(String name, String type, bool required, String desc, Stri
             color: Color(0xFF263238),
             borderRadius: BorderRadius.circular(4.0),
           ),
-          child: Text(example, style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF80DEEA))),
+          child: Text(
+            example,
+            style: TextStyle(
+              fontSize: 9.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80DEEA),
+            ),
+          ),
         ),
       ],
     ),

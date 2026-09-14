@@ -5,7 +5,9 @@ mixin _ChangeNotifierShim {
   final List<VoidCallback> _listeners = [];
   void addListener(VoidCallback listener) => _listeners.add(listener);
   void removeListener(VoidCallback listener) => _listeners.remove(listener);
-  void notifyListeners() { for (final l in [..._listeners]) l(); }
+  void notifyListeners() {
+    for (final l in [..._listeners]) l();
+  }
 }
 
 dynamic build(BuildContext context) {
@@ -16,10 +18,12 @@ class _BackButtonListenerDeepDemo extends StatefulWidget {
   const _BackButtonListenerDeepDemo();
 
   @override
-  State<_BackButtonListenerDeepDemo> createState() => _BackButtonListenerDeepDemoState();
+  State<_BackButtonListenerDeepDemo> createState() =>
+      _BackButtonListenerDeepDemoState();
 }
 
-class _BackButtonListenerDeepDemoState extends State<_BackButtonListenerDeepDemo> {
+class _BackButtonListenerDeepDemoState
+    extends State<_BackButtonListenerDeepDemo> {
   final _routerDelegate = _BackLabRouterDelegate();
   final _rootDispatcher = RootBackButtonDispatcher();
 
@@ -32,7 +36,8 @@ class _BackButtonListenerDeepDemoState extends State<_BackButtonListenerDeepDemo
   }
 }
 
-class _BackLabRouterDelegate extends RouterDelegate<Object> with _ChangeNotifierShim {
+class _BackLabRouterDelegate extends RouterDelegate<Object>
+    with _ChangeNotifierShim {
   @override
   Future<void> setNewRoutePath(Object configuration) async {}
 
@@ -177,7 +182,12 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
   }
 
   void _log(String lane, String message, Color tone) {
-    final event = _BackLogEvent(at: DateTime.now(), lane: lane, message: message, tone: tone);
+    final event = _BackLogEvent(
+      at: DateTime.now(),
+      lane: lane,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, event);
       if (_events.length > 120) {
@@ -201,7 +211,11 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
 
   Future<void> _simulateSystemBack(String source) async {
     setState(() => _manualBackRequests += 1);
-    _log(source, 'manual back request sent through WidgetsBinding.handlePopRoute()', _p.accentB);
+    _log(
+      source,
+      'manual back request sent through WidgetsBinding.handlePopRoute()',
+      _p.accentB,
+    );
     final handled = await WidgetsBinding.instance.handlePopRoute();
     _recordOutcome(source, handled, 'handlePopRoute returned $handled');
   }
@@ -220,10 +234,7 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
                 children: <Widget>[
                   Expanded(child: _stageBody()),
                   if (_showTimeline)
-                    SizedBox(
-                      width: 360,
-                      child: _timelinePanel(),
-                    ),
+                    SizedBox(width: 360, child: _timelinePanel()),
                 ],
               ),
             ),
@@ -250,7 +261,11 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.arrow_back_outlined, color: Colors.white, size: 27),
+              const Icon(
+                Icons.arrow_back_outlined,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -263,7 +278,10 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -305,14 +323,32 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Stage',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _stageLabels.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
-          _toggleChip('cheat sheet', _showCheatSheet, (v) => _showCheatSheet = v),
+          _toggleChip(
+            'cheat sheet',
+            _showCheatSheet,
+            (v) => _showCheatSheet = v,
+          ),
           _toggleChip('counters', _showCounters, (v) => _showCounters = v),
           _toggleChip('verbose log', _verboseLogs, (v) => _verboseLogs = v),
           const SizedBox(width: 10),
@@ -349,7 +385,11 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log('palette', 'palette changed to ${_palettes[index].name}', _palettes[index].accentA);
+        _log(
+          'palette',
+          'palette changed to ${_palettes[index].name}',
+          _palettes[index].accentA,
+        );
       },
       child: Container(
         width: 21,
@@ -358,7 +398,9 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -366,14 +408,22 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
     );
   }
 
-  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
+  Widget _toggleChip(
+    String label,
+    bool value,
+    void Function(bool value) assign,
+  ) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -434,7 +484,9 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
     return Container(
       decoration: BoxDecoration(
         color: _p.card,
-        border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.26))),
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.26)),
+        ),
       ),
       child: Column(
         children: <Widget>[
@@ -443,12 +495,21 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Back Event Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Back Event Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Event flow from BackButtonListener callbacks and manual back dispatch requests.',
@@ -459,7 +520,11 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
                   spacing: 6,
                   runSpacing: 6,
                   children: <Widget>[
-                    _metric('manual requests', '$_manualBackRequests', _p.accentB),
+                    _metric(
+                      'manual requests',
+                      '$_manualBackRequests',
+                      _p.accentB,
+                    ),
                     _metric('handled', '$_handledEvents', _p.accentA),
                     _metric('propagated', '$_propagatedEvents', _p.accentC),
                     _metric('events', '${_events.length}', _p.accentA),
@@ -480,7 +545,9 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.26)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.26),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -509,7 +576,14 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.32)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.32,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -530,7 +604,11 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
       ),
       child: Text(
         '$label: $value',
-        style: TextStyle(color: _p.ink, fontSize: 10.1, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.1,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -549,9 +627,19 @@ class _BackButtonLabHomeState extends State<_BackButtonLabHome> {
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_stageLabels[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _stageLabels[_stage.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
-          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(color: _p.muted, fontSize: 11.1),
+          ),
         ],
       ),
     );
@@ -587,16 +675,28 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
 
   Future<bool> _onBackPressed() async {
     if (!_listenerEnabled) {
-      widget.onOutcome('interception', false, 'listener disabled -> pass through');
+      widget.onOutcome(
+        'interception',
+        false,
+        'listener disabled -> pass through',
+      );
       setState(() => _localPropagated += 1);
       return false;
     }
     if (_consumeBack) {
-      widget.onOutcome('interception', true, 'consumeBack=true intercepted in studio');
+      widget.onOutcome(
+        'interception',
+        true,
+        'consumeBack=true intercepted in studio',
+      );
       setState(() => _localHandled += 1);
       return true;
     }
-    widget.onOutcome('interception', false, 'consumeBack=false propagate to router');
+    widget.onOutcome(
+      'interception',
+      false,
+      'consumeBack=false propagate to router',
+    );
     setState(() => _localPropagated += 1);
     return false;
   }
@@ -622,126 +722,161 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
       padding: const EdgeInsets.all(16),
       child: SingleChildScrollView(
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _sectionTitle('Interception Studio'),
-          const SizedBox(height: 8),
-          Text(
-            'Core behavior: BackButtonListener callback returns true to intercept, false to propagate.',
-            style: TextStyle(color: widget.palette.ink, fontSize: 12.3),
-          ),
-          const SizedBox(height: 12),
-          _panel(
-            title: 'Runtime Controls',
-            subtitle: 'Toggle listener participation and interception policy.',
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: <Widget>[
-                FilterChip(
-                  selected: _listenerEnabled,
-                  label: const Text('listener enabled'),
-                  onSelected: (v) {
-                    setState(() => _listenerEnabled = v);
-                    widget.onLog('interception', 'listenerEnabled -> $v', widget.palette.accentB);
-                  },
-                ),
-                FilterChip(
-                  selected: _consumeBack,
-                  label: const Text('consume back'),
-                  onSelected: (v) {
-                    setState(() => _consumeBack = v);
-                    widget.onLog('interception', 'consumeBack -> $v', widget.palette.accentA);
-                  },
-                ),
-                FilledButton.icon(
-                  onPressed: () => widget.onSimulateBack('interception-stage'),
-                  icon: const Icon(Icons.play_arrow, size: 16),
-                  label: const Text('Dispatch Back'),
-                ),
-              ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _sectionTitle('Interception Studio'),
+            const SizedBox(height: 8),
+            Text(
+              'Core behavior: BackButtonListener callback returns true to intercept, false to propagate.',
+              style: TextStyle(color: widget.palette.ink, fontSize: 12.3),
             ),
-          ),
-          const SizedBox(height: 12),
-          BackButtonListener(
-            onBackButtonPressed: _onBackPressed,
-            child: SizedBox(
-              height: 80,
-              child: Row(
+            const SizedBox(height: 12),
+            _panel(
+              title: 'Runtime Controls',
+              subtitle:
+                  'Toggle listener participation and interception policy.',
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
                 children: <Widget>[
-                  Expanded(
-                    child: _panel(
-                      title: 'Visual Gate',
-                      subtitle: 'This entire panel is wrapped by BackButtonListener.',
-                      tint: widget.palette.accentA.withValues(alpha: 0.05),
-                      // Expanded gives the scroll view bounded height inside
-                      // _panel's vertical Column so its content doesn't push
-                      // the panel's Column past the parent SizedBox(168).
-                      child: Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              _signalCard(
-                                title: 'Current Policy',
-                                detail: _listenerEnabled
-                                    ? (_consumeBack ? 'Intercept (returns true)' : 'Propagate (returns false)')
-                                    : 'Listener disabled (always propagate)',
-                                tone: _consumeBack ? widget.palette.accentA : widget.palette.accentC,
-                              ),
-                              const SizedBox(height: 10),
-                              if (widget.showCounters)
-                                Row(
-                                  children: <Widget>[
-                                    _metric('local handled', '$_localHandled', widget.palette.accentA),
-                                    const SizedBox(width: 8),
-                                    _metric('local propagated', '$_localPropagated', widget.palette.accentC),
-                                  ],
-                                ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'How to read this panel:\n'
-                                '1. press Dispatch Back\n'
-                                '2. observe timeline and local counters\n'
-                                '3. switch between consume and propagate to compare outcomes',
-                                style: TextStyle(color: widget.palette.ink, fontSize: 11.2, height: 1.35),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                  FilterChip(
+                    selected: _listenerEnabled,
+                    label: const Text('listener enabled'),
+                    onSelected: (v) {
+                      setState(() => _listenerEnabled = v);
+                      widget.onLog(
+                        'interception',
+                        'listenerEnabled -> $v',
+                        widget.palette.accentB,
+                      );
+                    },
                   ),
-                  if (widget.showCheatSheet) ...<Widget>[
-                    const SizedBox(width: 12),
-                    SizedBox(
-                      width: 320,
+                  FilterChip(
+                    selected: _consumeBack,
+                    label: const Text('consume back'),
+                    onSelected: (v) {
+                      setState(() => _consumeBack = v);
+                      widget.onLog(
+                        'interception',
+                        'consumeBack -> $v',
+                        widget.palette.accentA,
+                      );
+                    },
+                  ),
+                  FilledButton.icon(
+                    onPressed: () =>
+                        widget.onSimulateBack('interception-stage'),
+                    icon: const Icon(Icons.play_arrow, size: 16),
+                    label: const Text('Dispatch Back'),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            BackButtonListener(
+              onBackButtonPressed: _onBackPressed,
+              child: SizedBox(
+                height: 80,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
                       child: _panel(
-                        title: 'Cheat Sheet',
-                        subtitle: 'BackButtonListener essentials.',
+                        title: 'Visual Gate',
+                        subtitle:
+                            'This entire panel is wrapped by BackButtonListener.',
+                        tint: widget.palette.accentA.withValues(alpha: 0.05),
+                        // Expanded gives the scroll view bounded height inside
+                        // _panel's vertical Column so its content doesn't push
+                        // the panel's Column past the parent SizedBox(168).
                         child: Expanded(
                           child: SingleChildScrollView(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                _bullet('Must be in a Router subtree.'),
-                                _bullet('Returning true means "I consumed back".'),
-                                _bullet('Returning false lets event continue upward.'),
-                                _bullet('Useful for custom back policies and temporary guards.'),
-                                _bullet('Keep callback focused and deterministic for predictability.'),
+                                _signalCard(
+                                  title: 'Current Policy',
+                                  detail: _listenerEnabled
+                                      ? (_consumeBack
+                                            ? 'Intercept (returns true)'
+                                            : 'Propagate (returns false)')
+                                      : 'Listener disabled (always propagate)',
+                                  tone: _consumeBack
+                                      ? widget.palette.accentA
+                                      : widget.palette.accentC,
+                                ),
+                                const SizedBox(height: 10),
+                                if (widget.showCounters)
+                                  Row(
+                                    children: <Widget>[
+                                      _metric(
+                                        'local handled',
+                                        '$_localHandled',
+                                        widget.palette.accentA,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      _metric(
+                                        'local propagated',
+                                        '$_localPropagated',
+                                        widget.palette.accentC,
+                                      ),
+                                    ],
+                                  ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  'How to read this panel:\n'
+                                  '1. press Dispatch Back\n'
+                                  '2. observe timeline and local counters\n'
+                                  '3. switch between consume and propagate to compare outcomes',
+                                  style: TextStyle(
+                                    color: widget.palette.ink,
+                                    fontSize: 11.2,
+                                    height: 1.35,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                       ),
                     ),
+                    if (widget.showCheatSheet) ...<Widget>[
+                      const SizedBox(width: 12),
+                      SizedBox(
+                        width: 320,
+                        child: _panel(
+                          title: 'Cheat Sheet',
+                          subtitle: 'BackButtonListener essentials.',
+                          child: Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  _bullet('Must be in a Router subtree.'),
+                                  _bullet(
+                                    'Returning true means "I consumed back".',
+                                  ),
+                                  _bullet(
+                                    'Returning false lets event continue upward.',
+                                  ),
+                                  _bullet(
+                                    'Useful for custom back policies and temporary guards.',
+                                  ),
+                                  _bullet(
+                                    'Keep callback focused and deterministic for predictability.',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
@@ -751,7 +886,14 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
       children: <Widget>[
         Container(width: 4, height: 22, color: widget.palette.accentA),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: widget.palette.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
@@ -773,9 +915,19 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.8)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.8,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 11)),
+          Text(
+            subtitle,
+            style: TextStyle(color: widget.palette.muted, fontSize: 11),
+          ),
           const SizedBox(height: 10),
           child,
         ],
@@ -783,7 +935,11 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
     );
   }
 
-  Widget _signalCard({required String title, required String detail, required Color tone}) {
+  Widget _signalCard({
+    required String title,
+    required String detail,
+    required Color tone,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(10),
@@ -795,9 +951,19 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(detail, style: TextStyle(color: widget.palette.ink, fontSize: 11.2)),
+          Text(
+            detail,
+            style: TextStyle(color: widget.palette.ink, fontSize: 11.2),
+          ),
         ],
       ),
     );
@@ -810,7 +976,14 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
         color: tone.withValues(alpha: 0.13),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text('$label: $value', style: TextStyle(color: widget.palette.ink, fontSize: 10.5, fontWeight: FontWeight.w700)),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: widget.palette.ink,
+          fontSize: 10.5,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -822,7 +995,12 @@ class _InterceptionStudioState extends State<_InterceptionStudio> {
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: widget.palette.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 11.2))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: widget.palette.ink, fontSize: 11.2),
+            ),
+          ),
         ],
       ),
     );
@@ -947,16 +1125,28 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
                       decoration: BoxDecoration(
                         color: widget.palette.accentA.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: widget.palette.accentA.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: widget.palette.accentA.withValues(alpha: 0.3),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text('Parent Zone', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 13)),
+                          Text(
+                            'Parent Zone',
+                            style: TextStyle(
+                              color: widget.palette.ink,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 13,
+                            ),
+                          ),
                           const SizedBox(height: 4),
                           Text(
                             'Parent receives event only when child propagates.',
-                            style: TextStyle(color: widget.palette.muted, fontSize: 11.1),
+                            style: TextStyle(
+                              color: widget.palette.muted,
+                              fontSize: 11.1,
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Expanded(
@@ -966,26 +1156,50 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: widget.palette.accentB.withValues(alpha: 0.1),
+                                  color: widget.palette.accentB.withValues(
+                                    alpha: 0.1,
+                                  ),
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: widget.palette.accentB.withValues(alpha: 0.3)),
+                                  border: Border.all(
+                                    color: widget.palette.accentB.withValues(
+                                      alpha: 0.3,
+                                    ),
+                                  ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text('Child Zone', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12.8)),
+                                    Text(
+                                      'Child Zone',
+                                      style: TextStyle(
+                                        color: widget.palette.ink,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12.8,
+                                      ),
+                                    ),
                                     const SizedBox(height: 4),
                                     Text(
                                       'Child callback executes first and can stop propagation.',
-                                      style: TextStyle(color: widget.palette.muted, fontSize: 10.8),
+                                      style: TextStyle(
+                                        color: widget.palette.muted,
+                                        fontSize: 10.8,
+                                      ),
                                     ),
                                     const Spacer(),
                                     if (widget.showCounters)
                                       Row(
                                         children: <Widget>[
-                                          _chip('parent hits', '$_parentHits', widget.palette.accentA),
+                                          _chip(
+                                            'parent hits',
+                                            '$_parentHits',
+                                            widget.palette.accentA,
+                                          ),
                                           const SizedBox(width: 8),
-                                          _chip('child hits', '$_childHits', widget.palette.accentB),
+                                          _chip(
+                                            'child hits',
+                                            '$_childHits',
+                                            widget.palette.accentB,
+                                          ),
                                         ],
                                       ),
                                   ],
@@ -1009,9 +1223,18 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           _row('Step 1', 'Child listener callback runs first.'),
-                          _row('Step 2', 'If child returns true, parent is not called.'),
-                          _row('Step 3', 'If child returns false, parent decides next.'),
-                          _row('Step 4', 'If parent also returns false, router receives event.'),
+                          _row(
+                            'Step 2',
+                            'If child returns true, parent is not called.',
+                          ),
+                          _row(
+                            'Step 3',
+                            'If child returns false, parent decides next.',
+                          ),
+                          _row(
+                            'Step 4',
+                            'If parent also returns false, router receives event.',
+                          ),
                         ],
                       ),
                     ),
@@ -1030,12 +1253,23 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
       children: <Widget>[
         Container(width: 4, height: 22, color: widget.palette.accentA),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: widget.palette.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -1047,9 +1281,19 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.7)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.7,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 11)),
+          Text(
+            subtitle,
+            style: TextStyle(color: widget.palette.muted, fontSize: 11),
+          ),
           const SizedBox(height: 10),
           child,
         ],
@@ -1060,8 +1304,18 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
   Widget _chip(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: widget.palette.ink, fontSize: 10.4, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: widget.palette.ink,
+          fontSize: 10.4,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1083,7 +1337,12 @@ class _NestedPriorityArenaState extends State<_NestedPriorityArena> {
               ),
             ),
           ),
-          Expanded(child: Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 11.2))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: widget.palette.ink, fontSize: 11.2),
+            ),
+          ),
         ],
       ),
     );
@@ -1150,8 +1409,14 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
           title: const Text('Unsaved draft'),
           content: const Text('Discard draft changes and propagate back?'),
           actions: <Widget>[
-            TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Stay')),
-            FilledButton(onPressed: () => Navigator.of(context).pop(true), child: const Text('Discard')),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Stay'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Discard'),
+            ),
           ],
         );
       },
@@ -1192,7 +1457,8 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
                   Expanded(
                     child: _panel(
                       title: 'Editor Surface',
-                      subtitle: 'Modify fields then dispatch back to test guard behavior.',
+                      subtitle:
+                          'Modify fields then dispatch back to test guard behavior.',
                       tint: widget.palette.accentB.withValues(alpha: 0.05),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1228,13 +1494,18 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
                                     _dirty = false;
                                     _saveCount += 1;
                                   });
-                                  widget.onLog('draft', 'manual save performed', widget.palette.accentA);
+                                  widget.onLog(
+                                    'draft',
+                                    'manual save performed',
+                                    widget.palette.accentA,
+                                  );
                                 },
                                 icon: const Icon(Icons.save_outlined, size: 16),
                                 label: const Text('Save Draft'),
                               ),
                               OutlinedButton.icon(
-                                onPressed: () => widget.onSimulateBack('draft-stage'),
+                                onPressed: () =>
+                                    widget.onSimulateBack('draft-stage'),
                                 icon: const Icon(Icons.replay, size: 16),
                                 label: const Text('Dispatch Back'),
                               ),
@@ -1244,11 +1515,23 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
                           if (widget.showCounters)
                             Row(
                               children: <Widget>[
-                                _chip('dirty', '$_dirty', widget.palette.accentC),
+                                _chip(
+                                  'dirty',
+                                  '$_dirty',
+                                  widget.palette.accentC,
+                                ),
                                 const SizedBox(width: 8),
-                                _chip('saves', '$_saveCount', widget.palette.accentA),
+                                _chip(
+                                  'saves',
+                                  '$_saveCount',
+                                  widget.palette.accentA,
+                                ),
                                 const SizedBox(width: 8),
-                                _chip('guard stays', '$_cancelGuardCount', widget.palette.accentB),
+                                _chip(
+                                  'guard stays',
+                                  '$_cancelGuardCount',
+                                  widget.palette.accentB,
+                                ),
                               ],
                             ),
                         ],
@@ -1265,11 +1548,21 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            _bullet('Use async callback for confirmation dialogs.'),
-                            _bullet('Return true when user stays on current view.'),
-                            _bullet('Return false when user confirms discard or leave.'),
-                            _bullet('Keep dirty-state updates centralized to avoid false prompts.'),
-                            _bullet('Pair with timeline logs for interpreter behavior verification.'),
+                            _bullet(
+                              'Use async callback for confirmation dialogs.',
+                            ),
+                            _bullet(
+                              'Return true when user stays on current view.',
+                            ),
+                            _bullet(
+                              'Return false when user confirms discard or leave.',
+                            ),
+                            _bullet(
+                              'Keep dirty-state updates centralized to avoid false prompts.',
+                            ),
+                            _bullet(
+                              'Pair with timeline logs for interpreter behavior verification.',
+                            ),
                           ],
                         ),
                       ),
@@ -1289,12 +1582,24 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
       children: <Widget>[
         Container(width: 4, height: 22, color: widget.palette.accentA),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: widget.palette.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child, Color? tint}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+    Color? tint,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -1306,9 +1611,19 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.7)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.7,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 11)),
+          Text(
+            subtitle,
+            style: TextStyle(color: widget.palette.muted, fontSize: 11),
+          ),
           const SizedBox(height: 10),
           Expanded(child: child),
         ],
@@ -1319,8 +1634,18 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
   Widget _chip(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: widget.palette.ink, fontSize: 10.4, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: widget.palette.ink,
+          fontSize: 10.4,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1332,7 +1657,12 @@ class _DraftGuardStudioState extends State<_DraftGuardStudio> {
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: widget.palette.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: widget.palette.ink, fontSize: 11.1),
+            ),
+          ),
         ],
       ),
     );
@@ -1354,10 +1684,30 @@ class _DeckEntry {
 }
 
 const _routeDeckEntries = <_DeckEntry>[
-  _DeckEntry(id: 1, title: 'Profile Overlay', tone: Color(0xFF1E88E5), absorbBeforeRelease: 1),
-  _DeckEntry(id: 2, title: 'Payment Overlay', tone: Color(0xFF00897B), absorbBeforeRelease: 2),
-  _DeckEntry(id: 3, title: 'Shipping Overlay', tone: Color(0xFFD98B1C), absorbBeforeRelease: 0),
-  _DeckEntry(id: 4, title: 'Review Overlay', tone: Color(0xFF6C5CE7), absorbBeforeRelease: 1),
+  _DeckEntry(
+    id: 1,
+    title: 'Profile Overlay',
+    tone: Color(0xFF1E88E5),
+    absorbBeforeRelease: 1,
+  ),
+  _DeckEntry(
+    id: 2,
+    title: 'Payment Overlay',
+    tone: Color(0xFF00897B),
+    absorbBeforeRelease: 2,
+  ),
+  _DeckEntry(
+    id: 3,
+    title: 'Shipping Overlay',
+    tone: Color(0xFFD98B1C),
+    absorbBeforeRelease: 0,
+  ),
+  _DeckEntry(
+    id: 4,
+    title: 'Review Overlay',
+    tone: Color(0xFF6C5CE7),
+    absorbBeforeRelease: 1,
+  ),
 ];
 
 class _RouteDeckTheater extends StatefulWidget {
@@ -1419,7 +1769,11 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
       );
       return true;
     }
-    widget.onOutcome('route-deck-inner', false, '${top.title} inner guard released event');
+    widget.onOutcome(
+      'route-deck-inner',
+      false,
+      '${top.title} inner guard released event',
+    );
     return false;
   }
 
@@ -1465,7 +1819,8 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                                   label: Text('Open ${entry.title}'),
                                 ),
                               FilledButton.icon(
-                                onPressed: () => widget.onSimulateBack('route-deck-stage'),
+                                onPressed: () =>
+                                    widget.onSimulateBack('route-deck-stage'),
                                 icon: const Icon(Icons.play_arrow, size: 16),
                                 label: const Text('Dispatch Back'),
                               ),
@@ -1479,12 +1834,23 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: widget.palette.muted.withValues(alpha: 0.25)),
+                                border: Border.all(
+                                  color: widget.palette.muted.withValues(
+                                    alpha: 0.25,
+                                  ),
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text('Active Deck Stack', style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12.1)),
+                                  Text(
+                                    'Active Deck Stack',
+                                    style: TextStyle(
+                                      color: widget.palette.ink,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12.1,
+                                    ),
+                                  ),
                                   const SizedBox(height: 8),
                                   Expanded(
                                     child: _stack.isEmpty
@@ -1492,32 +1858,55 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                                             child: Text(
                                               'No overlays open.\nOpen an entry then dispatch back.',
                                               textAlign: TextAlign.center,
-                                              style: TextStyle(color: widget.palette.muted, fontSize: 11.3),
+                                              style: TextStyle(
+                                                color: widget.palette.muted,
+                                                fontSize: 11.3,
+                                              ),
                                             ),
                                           )
                                         : ListView.builder(
                                             itemCount: _stack.length,
                                             itemBuilder: (context, index) {
                                               final item = _stack[index];
-                                              final isTop = index == _stack.length - 1;
+                                              final isTop =
+                                                  index == _stack.length - 1;
                                               return Container(
-                                                margin: const EdgeInsets.only(bottom: 7),
-                                                padding: const EdgeInsets.all(8),
+                                                margin: const EdgeInsets.only(
+                                                  bottom: 7,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                  8,
+                                                ),
                                                 decoration: BoxDecoration(
-                                                  color: item.tone.withValues(alpha: isTop ? 0.16 : 0.08),
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  border: Border.all(color: item.tone.withValues(alpha: 0.32)),
+                                                  color: item.tone.withValues(
+                                                    alpha: isTop ? 0.16 : 0.08,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  border: Border.all(
+                                                    color: item.tone.withValues(
+                                                      alpha: 0.32,
+                                                    ),
+                                                  ),
                                                 ),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Expanded(
                                                       child: Text(
                                                         '${item.title} (absorb before release: ${item.absorbBeforeRelease})',
-                                                        style: TextStyle(color: widget.palette.ink, fontSize: 11.1),
+                                                        style: TextStyle(
+                                                          color: widget
+                                                              .palette
+                                                              .ink,
+                                                          fontSize: 11.1,
+                                                        ),
                                                       ),
                                                     ),
                                                     if (isTop)
-                                                      const Icon(Icons.expand_less, size: 16),
+                                                      const Icon(
+                                                        Icons.expand_less,
+                                                        size: 16,
+                                                      ),
                                                   ],
                                                 ),
                                               );
@@ -1539,7 +1928,15 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                       title: 'Top Overlay Policy',
                       subtitle: 'Inner BackButtonListener for active entry.',
                       child: top == null
-                          ? Center(child: Text('No active overlay', style: TextStyle(color: widget.palette.muted, fontSize: 11.3)))
+                          ? Center(
+                              child: Text(
+                                'No active overlay',
+                                style: TextStyle(
+                                  color: widget.palette.muted,
+                                  fontSize: 11.3,
+                                ),
+                              ),
+                            )
                           : BackButtonListener(
                               onBackButtonPressed: () => _onInnerBack(top),
                               child: Column(
@@ -1551,16 +1948,30 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                                     decoration: BoxDecoration(
                                       color: top.tone.withValues(alpha: 0.11),
                                       borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(color: top.tone.withValues(alpha: 0.32)),
+                                      border: Border.all(
+                                        color: top.tone.withValues(alpha: 0.32),
+                                      ),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text(top.title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w700, fontSize: 12.2)),
+                                        Text(
+                                          top.title,
+                                          style: TextStyle(
+                                            color: widget.palette.ink,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 12.2,
+                                          ),
+                                        ),
                                         const SizedBox(height: 4),
                                         Text(
                                           'Inner absorbs first ${top.absorbBeforeRelease} back event(s), then propagates to outer listener.',
-                                          style: TextStyle(color: widget.palette.ink, fontSize: 10.9, height: 1.32),
+                                          style: TextStyle(
+                                            color: widget.palette.ink,
+                                            fontSize: 10.9,
+                                            height: 1.32,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -1575,7 +1986,11 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
                                   const SizedBox(height: 10),
                                   Text(
                                     'Tip: this model helps validate layered policies where details intercept first and parent controllers pop stack later.',
-                                    style: TextStyle(color: widget.palette.muted, fontSize: 10.9, height: 1.35),
+                                    style: TextStyle(
+                                      color: widget.palette.muted,
+                                      fontSize: 10.9,
+                                      height: 1.35,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -1596,12 +2011,24 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
       children: <Widget>[
         Container(width: 4, height: 22, color: widget.palette.accentA),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: widget.palette.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child, Color? tint}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+    Color? tint,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -1613,9 +2040,19 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.7)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.7,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 11)),
+          Text(
+            subtitle,
+            style: TextStyle(color: widget.palette.muted, fontSize: 11),
+          ),
           const SizedBox(height: 10),
           Expanded(child: child),
         ],
@@ -1626,8 +2063,18 @@ class _RouteDeckTheaterState extends State<_RouteDeckTheater> {
   Widget _chip(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: widget.palette.ink, fontSize: 10.4, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: widget.palette.ink,
+          fontSize: 10.4,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 }
@@ -1670,17 +2117,29 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
   void _takePriorityA() {
     _childA.takePriority();
     setState(() => _priorityChanges += 1);
-    widget.onLog('dispatcher', 'child A called takePriority()', widget.palette.accentA);
+    widget.onLog(
+      'dispatcher',
+      'child A called takePriority()',
+      widget.palette.accentA,
+    );
   }
 
   void _takePriorityB() {
     _childB.takePriority();
     setState(() => _priorityChanges += 1);
-    widget.onLog('dispatcher', 'child B called takePriority()', widget.palette.accentB);
+    widget.onLog(
+      'dispatcher',
+      'child B called takePriority()',
+      widget.palette.accentB,
+    );
   }
 
   Future<bool> _onBackPressed() async {
-    widget.onOutcome('dispatcher-listener', true, 'dashboard listener consumed for instrumentation');
+    widget.onOutcome(
+      'dispatcher-listener',
+      true,
+      'dashboard listener consumed for instrumentation',
+    );
     return true;
   }
 
@@ -1719,10 +2178,17 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
                             spacing: 8,
                             runSpacing: 8,
                             children: <Widget>[
-                              OutlinedButton(onPressed: _takePriorityA, child: const Text('Child A takePriority')),
-                              OutlinedButton(onPressed: _takePriorityB, child: const Text('Child B takePriority')),
+                              OutlinedButton(
+                                onPressed: _takePriorityA,
+                                child: const Text('Child A takePriority'),
+                              ),
+                              OutlinedButton(
+                                onPressed: _takePriorityB,
+                                child: const Text('Child B takePriority'),
+                              ),
                               FilledButton.icon(
-                                onPressed: () => widget.onSimulateBack('dispatcher-stage'),
+                                onPressed: () =>
+                                    widget.onSimulateBack('dispatcher-stage'),
                                 icon: const Icon(Icons.play_arrow, size: 16),
                                 label: const Text('Dispatch Back'),
                               ),
@@ -1730,12 +2196,20 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
                           ),
                           const SizedBox(height: 10),
                           if (widget.showCounters)
-                            _chip('priority changes', '$_priorityChanges', widget.palette.accentC),
+                            _chip(
+                              'priority changes',
+                              '$_priorityChanges',
+                              widget.palette.accentC,
+                            ),
                           const SizedBox(height: 10),
                           Text(
                             'This panel demonstrates dispatcher construction and priority APIs. '
                             'BackButtonListener still handles intercept logic declaratively in widget zones.',
-                            style: TextStyle(color: widget.palette.muted, fontSize: 11, height: 1.34),
+                            style: TextStyle(
+                              color: widget.palette.muted,
+                              fontSize: 11,
+                              height: 1.34,
+                            ),
                           ),
                         ],
                       ),
@@ -1751,10 +2225,22 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            _row('BackButtonListener', 'Widget-level interception policy in local UI scope.'),
-                            _row('RootBackButtonDispatcher', 'Top-level back dispatch manager for router tree.'),
-                            _row('ChildBackButtonDispatcher', 'Nested router-specific back ownership and priority.'),
-                            _row('Design tip', 'Use listeners for page logic and dispatchers for routing topology.'),
+                            _row(
+                              'BackButtonListener',
+                              'Widget-level interception policy in local UI scope.',
+                            ),
+                            _row(
+                              'RootBackButtonDispatcher',
+                              'Top-level back dispatch manager for router tree.',
+                            ),
+                            _row(
+                              'ChildBackButtonDispatcher',
+                              'Nested router-specific back ownership and priority.',
+                            ),
+                            _row(
+                              'Design tip',
+                              'Use listeners for page logic and dispatchers for routing topology.',
+                            ),
                           ],
                         ),
                       ),
@@ -1774,12 +2260,24 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
       children: <Widget>[
         Container(width: 4, height: 22, color: widget.palette.accentA),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: widget.palette.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child, Color? tint}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+    Color? tint,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -1791,9 +2289,19 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: widget.palette.ink, fontWeight: FontWeight.w800, fontSize: 13.7)),
+          Text(
+            title,
+            style: TextStyle(
+              color: widget.palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.7,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle, style: TextStyle(color: widget.palette.muted, fontSize: 11)),
+          Text(
+            subtitle,
+            style: TextStyle(color: widget.palette.muted, fontSize: 11),
+          ),
           const SizedBox(height: 10),
           Expanded(child: child),
         ],
@@ -1819,7 +2327,12 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
               ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: widget.palette.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: widget.palette.ink, fontSize: 11.1),
+            ),
+          ),
         ],
       ),
     );
@@ -1828,8 +2341,18 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
   Widget _chip(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: widget.palette.ink, fontSize: 10.4, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: widget.palette.ink,
+          fontSize: 10.4,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1851,7 +2374,12 @@ class _DispatcherDashboardState extends State<_DispatcherDashboard> {
               ),
             ),
           ),
-          Expanded(child: Text(text, style: TextStyle(color: widget.palette.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: widget.palette.ink, fontSize: 11.1),
+            ),
+          ),
         ],
       ),
     );
@@ -1874,7 +2402,14 @@ class _CompendiumStage extends StatelessWidget {
             children: <Widget>[
               Container(width: 4, height: 22, color: palette.accentA),
               const SizedBox(width: 8),
-              Text('Verification Compendium', style: TextStyle(color: palette.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+              Text(
+                'Verification Compendium',
+                style: TextStyle(
+                  color: palette.ink,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -1883,12 +2418,30 @@ class _CompendiumStage extends StatelessWidget {
             subtitle: 'Purpose and behavior summary.',
             child: Column(
               children: <Widget>[
-                _matrix('Purpose', 'Intercept back intents in a widget subtree under Router.'),
-                _matrix('Callback type', 'Future<bool> Function() via onBackButtonPressed.'),
-                _matrix('true return', 'Event handled here; do not propagate upward.'),
-                _matrix('false return', 'Event propagates to parent listener/dispatcher/router.'),
-                _matrix('Common use', 'Unsaved form guard, nested route areas, temporary modal policies.'),
-                _matrix('Dependency', 'Requires Router ancestor to connect into back dispatch system.'),
+                _matrix(
+                  'Purpose',
+                  'Intercept back intents in a widget subtree under Router.',
+                ),
+                _matrix(
+                  'Callback type',
+                  'Future<bool> Function() via onBackButtonPressed.',
+                ),
+                _matrix(
+                  'true return',
+                  'Event handled here; do not propagate upward.',
+                ),
+                _matrix(
+                  'false return',
+                  'Event propagates to parent listener/dispatcher/router.',
+                ),
+                _matrix(
+                  'Common use',
+                  'Unsaved form guard, nested route areas, temporary modal policies.',
+                ),
+                _matrix(
+                  'Dependency',
+                  'Requires Router ancestor to connect into back dispatch system.',
+                ),
               ],
             ),
           ),
@@ -1900,23 +2453,28 @@ class _CompendiumStage extends StatelessWidget {
               children: <Widget>[
                 _doDont(
                   good: true,
-                  title: 'Do return true only when you intentionally consume back',
-                  detail: 'Use explicit policy conditions rather than accidental always-true returns.',
+                  title:
+                      'Do return true only when you intentionally consume back',
+                  detail:
+                      'Use explicit policy conditions rather than accidental always-true returns.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do structure nested listeners with clear ownership',
-                  detail: 'Document which zone should intercept first to avoid unpredictable behavior.',
+                  detail:
+                      'Document which zone should intercept first to avoid unpredictable behavior.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont block all back events permanently',
-                  detail: 'Users need an eventual path to exit or navigate back.',
+                  detail:
+                      'Users need an eventual path to exit or navigate back.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont use listener when no Router is present',
-                  detail: 'Back dispatch hooks require router wiring to be meaningful.',
+                  detail:
+                      'Back dispatch hooks require router wiring to be meaningful.',
                 ),
               ],
             ),
@@ -1928,11 +2486,21 @@ class _CompendiumStage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Interception Studio demonstrates true/false callback outcomes.'),
-                _check('Nested Priority Arena demonstrates ordering and bubbling.'),
-                _check('Unsaved Draft Guard demonstrates async dialog-based back decisions.'),
-                _check('Route Deck Theater demonstrates layered listener policies with stack behavior.'),
-                _check('Dispatcher Dashboard contextualizes listener role with dispatcher hierarchy.'),
+                _check(
+                  'Interception Studio demonstrates true/false callback outcomes.',
+                ),
+                _check(
+                  'Nested Priority Arena demonstrates ordering and bubbling.',
+                ),
+                _check(
+                  'Unsaved Draft Guard demonstrates async dialog-based back decisions.',
+                ),
+                _check(
+                  'Route Deck Theater demonstrates layered listener policies with stack behavior.',
+                ),
+                _check(
+                  'Dispatcher Dashboard contextualizes listener role with dispatcher hierarchy.',
+                ),
               ],
             ),
           ),
@@ -1943,13 +2511,19 @@ class _CompendiumStage extends StatelessWidget {
             decoration: BoxDecoration(
               color: palette.accentC.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: palette.accentC.withValues(alpha: 0.32)),
+              border: Border.all(
+                color: palette.accentC.withValues(alpha: 0.32),
+              ),
             ),
             child: Text(
               'BackButtonListener is most effective when treated as an explicit back-policy gate, '
               'not just a generic callback wrapper. In interpreter tests, visual stages and logs '
               'make propagation paths observable and debuggable.',
-              style: TextStyle(color: palette.ink, fontSize: 11.8, height: 1.36),
+              style: TextStyle(
+                color: palette.ink,
+                fontSize: 11.8,
+                height: 1.36,
+              ),
             ),
           ),
         ],
@@ -1957,7 +2531,11 @@ class _CompendiumStage extends StatelessWidget {
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -1969,7 +2547,14 @@ class _CompendiumStage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: palette.ink, fontWeight: FontWeight.w800, fontSize: 13.7)),
+          Text(
+            title,
+            style: TextStyle(
+              color: palette.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.7,
+            ),
+          ),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: palette.muted, fontSize: 11)),
           const SizedBox(height: 10),
@@ -2003,13 +2588,26 @@ class _CompendiumStage extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: palette.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                color: palette.ink,
+                fontSize: 11.2,
+                height: 1.33,
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -2028,9 +2626,23 @@ class _CompendiumStage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: palette.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: palette.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11.9,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: palette.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: palette.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -2047,7 +2659,12 @@ class _CompendiumStage extends StatelessWidget {
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: palette.ink, fontSize: 11.4))),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(color: palette.ink, fontSize: 11.4),
+            ),
+          ),
         ],
       ),
     );

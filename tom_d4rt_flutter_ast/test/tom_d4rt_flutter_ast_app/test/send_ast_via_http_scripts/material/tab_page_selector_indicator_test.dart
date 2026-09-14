@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 24.0),
-              
+
               // Basic states comparison
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -137,9 +137,9 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Simple indicator row
               Container(
                 padding: EdgeInsets.all(16.0),
@@ -254,13 +254,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'The size property controls the indicator diameter:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 20.0),
-              
+
               // Size scale
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -273,9 +270,9 @@ dynamic build(BuildContext context) {
                   _buildSizeDemo(28.0, 'XLarge'),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Context examples
               Container(
                 padding: EdgeInsets.all(12.0),
@@ -363,13 +360,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Customize both fill (backgroundColor) and border (borderColor):',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 20.0),
-              
+
               // Color showcase
               Wrap(
                 spacing: 16.0,
@@ -386,9 +380,9 @@ dynamic build(BuildContext context) {
                   _buildColorDemo('Pink', Colors.pink),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Mixed colors
               Container(
                 padding: EdgeInsets.all(12.0),
@@ -418,7 +412,10 @@ dynamic build(BuildContext context) {
                               size: 20.0,
                             ),
                             SizedBox(height: 4.0),
-                            Text('Pink/Purple', style: TextStyle(fontSize: 10.0)),
+                            Text(
+                              'Pink/Purple',
+                              style: TextStyle(fontSize: 10.0),
+                            ),
                           ],
                         ),
                         Column(
@@ -429,7 +426,10 @@ dynamic build(BuildContext context) {
                               size: 20.0,
                             ),
                             SizedBox(height: 4.0),
-                            Text('Amber/Orange', style: TextStyle(fontSize: 10.0)),
+                            Text(
+                              'Amber/Orange',
+                              style: TextStyle(fontSize: 10.0),
+                            ),
                           ],
                         ),
                         Column(
@@ -451,7 +451,10 @@ dynamic build(BuildContext context) {
                               size: 20.0,
                             ),
                             SizedBox(height: 4.0),
-                            Text('White/Grey', style: TextStyle(fontSize: 10.0)),
+                            Text(
+                              'White/Grey',
+                              style: TextStyle(fontSize: 10.0),
+                            ),
                           ],
                         ),
                       ],
@@ -519,13 +522,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Building custom page indicators by combining multiple dots:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 20.0),
-              
+
               // Different page positions
               _buildIndicatorSet('3 Pages, Position 1', 3, 0, Colors.blue),
               SizedBox(height: 16.0),
@@ -617,7 +617,9 @@ dynamic build(BuildContext context) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.0),
                           child: TabPageSelectorIndicator(
-                            backgroundColor: isSelected ? Colors.grey.shade800 : Colors.transparent,
+                            backgroundColor: isSelected
+                                ? Colors.grey.shade800
+                                : Colors.transparent,
                             borderColor: Colors.grey.shade800,
                             size: 12.0,
                           ),
@@ -627,9 +629,9 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 16.0),
-              
+
               // Dark theme
               Container(
                 width: double.infinity,
@@ -656,7 +658,9 @@ dynamic build(BuildContext context) {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4.0),
                           child: TabPageSelectorIndicator(
-                            backgroundColor: isSelected ? Colors.white : Colors.transparent,
+                            backgroundColor: isSelected
+                                ? Colors.white
+                                : Colors.transparent,
                             borderColor: Colors.white70,
                             size: 12.0,
                           ),
@@ -666,9 +670,9 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 16.0),
-              
+
               // Accent themes
               Row(
                 children: [
@@ -683,7 +687,13 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Ocean', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+                          Text(
+                            'Ocean',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11.0,
+                            ),
+                          ),
                           SizedBox(height: 8.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -692,7 +702,9 @@ dynamic build(BuildContext context) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.0),
                                 child: TabPageSelectorIndicator(
-                                  backgroundColor: isSelected ? Colors.cyan : Colors.transparent,
+                                  backgroundColor: isSelected
+                                      ? Colors.cyan
+                                      : Colors.transparent,
                                   borderColor: Colors.cyan,
                                   size: 10.0,
                                 ),
@@ -715,7 +727,13 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Sunset', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+                          Text(
+                            'Sunset',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11.0,
+                            ),
+                          ),
                           SizedBox(height: 8.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -724,7 +742,9 @@ dynamic build(BuildContext context) {
                               return Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 3.0),
                                 child: TabPageSelectorIndicator(
-                                  backgroundColor: isSelected ? Colors.yellow : Colors.transparent,
+                                  backgroundColor: isSelected
+                                      ? Colors.yellow
+                                      : Colors.transparent,
                                   borderColor: Colors.yellow,
                                   size: 10.0,
                                 ),
@@ -792,15 +812,12 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Discover amazing features',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
         ),
-        
+
         Padding(
           padding: EdgeInsets.all(24.0),
           child: Column(
@@ -830,9 +847,9 @@ dynamic build(BuildContext context) {
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Page indicators
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -841,24 +858,23 @@ dynamic build(BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
                     child: TabPageSelectorIndicator(
-                      backgroundColor: isSelected ? Colors.indigo : Colors.transparent,
+                      backgroundColor: isSelected
+                          ? Colors.indigo
+                          : Colors.transparent,
                       borderColor: Colors.indigo,
                       size: 12.0,
                     ),
                   );
                 }),
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Navigation buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text('Skip'),
-                  ),
+                  TextButton(onPressed: () {}, child: Text('Skip')),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -915,7 +931,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         // Image placeholder
         Container(
           height: 180.0,
@@ -934,16 +950,13 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   'Image 2 of 5',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.0),
                 ),
               ],
             ),
           ),
         ),
-        
+
         // Indicators overlay
         Container(
           padding: EdgeInsets.all(16.0),
@@ -998,13 +1011,17 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        
-        _buildApiRow('backgroundColor', 'Color', 'Fill color (transparent = unselected)'),
+
+        _buildApiRow(
+          'backgroundColor',
+          'Color',
+          'Fill color (transparent = unselected)',
+        ),
         _buildApiRow('borderColor', 'Color', 'Border/outline color'),
         _buildApiRow('size', 'double', 'Diameter of the indicator dot'),
-        
+
         SizedBox(height: 16.0),
-        
+
         Container(
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
@@ -1046,9 +1063,9 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         SizedBox(height: 16.0),
-        
+
         Container(
           padding: EdgeInsets.all(12.0),
           decoration: BoxDecoration(
@@ -1064,10 +1081,7 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'TabPageSelectorIndicator is typically used as a building block for '
                   'custom page indicators. For standard usage, prefer TabPageSelector.',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.blue.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.blue.shade900),
                 ),
               ),
             ],
@@ -1105,7 +1119,9 @@ dynamic build(BuildContext context) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.0),
                     child: TabPageSelectorIndicator(
-                      backgroundColor: index == 2 ? Colors.white : Colors.white38,
+                      backgroundColor: index == 2
+                          ? Colors.white
+                          : Colors.white38,
                       borderColor: Colors.white,
                       size: index == 2 ? 16.0 : 12.0,
                     ),
@@ -1125,18 +1141,12 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Deep Demo',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16.0, color: Colors.white70),
               ),
               SizedBox(height: 8.0),
               Text(
                 'The single dot indicator for page selection',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.white60,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.white60),
               ),
             ],
           ),
@@ -1164,7 +1174,10 @@ dynamic build(BuildContext context) {
         themedCard,
 
         SizedBox(height: 24.0),
-        _buildSectionHeader('Section 6: Onboarding Example', Icons.rocket_launch),
+        _buildSectionHeader(
+          'Section 6: Onboarding Example',
+          Icons.rocket_launch,
+        ),
         onboardingCard,
 
         SizedBox(height: 24.0),
@@ -1364,10 +1377,7 @@ Widget _buildApiRow(String prop, String type, String desc) {
         Expanded(
           child: Text(
             desc,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.grey.shade700,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
           ),
         ),
       ],

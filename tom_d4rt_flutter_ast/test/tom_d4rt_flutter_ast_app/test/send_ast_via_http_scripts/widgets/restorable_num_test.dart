@@ -54,15 +54,10 @@ dynamic build(BuildContext context) {
       cardTheme: CardThemeData(
         color: Colors.white,
         elevation: 1.2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       ),
       textTheme: const TextTheme(
-        titleLarge: TextStyle(
-          color: _kCharcoal,
-          fontWeight: FontWeight.w700,
-        ),
+        titleLarge: TextStyle(color: _kCharcoal, fontWeight: FontWeight.w700),
         bodyMedium: TextStyle(color: _kCharcoal),
       ),
     ),
@@ -223,11 +218,15 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
     debugPrint(
       '[RecipeScalerDemo] initState — seeding restorable kitchen state.',
     );
-    debugPrint('  scaleFactor seed = ${_scaleFactor.value} '
-        '(runtimeType=${_scaleFactor.value.runtimeType})');
+    debugPrint(
+      '  scaleFactor seed = ${_scaleFactor.value} '
+      '(runtimeType=${_scaleFactor.value.runtimeType})',
+    );
     debugPrint('  servings seed = ${_servings.value}');
-    debugPrint('  tipPercent seed = ${_tipPercent.value} '
-        '(runtimeType=${_tipPercent.value.runtimeType})');
+    debugPrint(
+      '  tipPercent seed = ${_tipPercent.value} '
+      '(runtimeType=${_tipPercent.value.runtimeType})',
+    );
     debugPrint('  ovenTempC seed = ${_ovenTempC.value}');
     debugPrint('  subtotalDollars seed = ${_subtotalDollars.value}');
     debugPrint('  unitSelection seed = ${_unitSelection.value}');
@@ -235,8 +234,10 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    debugPrint('[RecipeScalerDemo] restoreState — '
-        'initialRestore=$initialRestore oldBucket=${oldBucket?.restorationId}');
+    debugPrint(
+      '[RecipeScalerDemo] restoreState — '
+      'initialRestore=$initialRestore oldBucket=${oldBucket?.restorationId}',
+    );
     registerForRestoration(_scaleFactor, 'scale_factor');
     registerForRestoration(_servings, 'servings');
     registerForRestoration(_tipPercent, 'tip_percent');
@@ -270,16 +271,20 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
     setState(() {
       _scaleFactor.value = value;
     });
-    debugPrint('[scale] applied preset = $value '
-        '(runtimeType=${value.runtimeType})');
+    debugPrint(
+      '[scale] applied preset = $value '
+      '(runtimeType=${value.runtimeType})',
+    );
   }
 
   void _applyTipPreset(num value) {
     setState(() {
       _tipPercent.value = value;
     });
-    debugPrint('[tip] applied preset = $value '
-        '(runtimeType=${value.runtimeType})');
+    debugPrint(
+      '[tip] applied preset = $value '
+      '(runtimeType=${value.runtimeType})',
+    );
   }
 
   void _bumpServings(int delta) {
@@ -305,8 +310,10 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
     setState(() {
       _subtotalDollars.value = clamped;
     });
-    debugPrint('[subtotal] bumped by $delta → '
-        '${_subtotalDollars.value} (${_subtotalDollars.value.runtimeType})');
+    debugPrint(
+      '[subtotal] bumped by $delta → '
+      '${_subtotalDollars.value} (${_subtotalDollars.value.runtimeType})',
+    );
   }
 
   void _selectUnit(int index) {
@@ -486,10 +493,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
           const SizedBox(width: 6),
           Text(
@@ -633,24 +637,17 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
             const SizedBox(height: 16),
             // Runtime-type chip under the dial.
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 color: typeColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(999),
-                border: Border.all(
-                  color: typeColor.withValues(alpha: 0.4),
-                ),
+                border: Border.all(color: typeColor.withValues(alpha: 0.4)),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    factor is int
-                        ? Icons.tag_outlined
-                        : Icons.pin_outlined,
+                    factor is int ? Icons.tag_outlined : Icons.pin_outlined,
                     size: 16,
                     color: typeColor,
                   ),
@@ -671,7 +668,8 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: _kScalePresets.map((_ScalePreset preset) {
-                final bool active = preset.value == factor &&
+                final bool active =
+                    preset.value == factor &&
                     preset.value.runtimeType == factor.runtimeType;
                 return _presetButton(
                   label: preset.label,
@@ -723,9 +721,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
           color: active ? activeColor : _kCream,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: active
-                ? activeColor
-                : _kCreamDeep.withValues(alpha: 0.9),
+            color: active ? activeColor : _kCreamDeep.withValues(alpha: 0.9),
             width: active ? 2 : 1,
           ),
           boxShadow: active
@@ -845,11 +841,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: <Widget>[
-                  const Icon(
-                    Icons.info_outline,
-                    size: 16,
-                    color: _kMuted,
-                  ),
+                  const Icon(Icons.info_outline, size: 16, color: _kMuted),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -881,9 +873,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
             : Colors.transparent,
         border: Border(
           left: BorderSide(
-            color: crossed
-                ? _kHighlight
-                : Colors.transparent,
+            color: crossed ? _kHighlight : Colors.transparent,
             width: 3,
           ),
         ),
@@ -1016,14 +1006,8 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       _subtotalStepper('-\$1', () => _bumpSubtotal(-1)),
-                      _subtotalStepper(
-                        '-\$0.50',
-                        () => _bumpSubtotal(-0.5),
-                      ),
-                      _subtotalStepper(
-                        '+\$0.50',
-                        () => _bumpSubtotal(0.5),
-                      ),
+                      _subtotalStepper('-\$0.50', () => _bumpSubtotal(-0.5)),
+                      _subtotalStepper('+\$0.50', () => _bumpSubtotal(0.5)),
                       _subtotalStepper('+\$1', () => _bumpSubtotal(1)),
                     ],
                   ),
@@ -1033,18 +1017,12 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
             const SizedBox(height: 16),
             const Text(
               'Tip preset',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: _kCharcoal,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w700, color: _kCharcoal),
             ),
             const SizedBox(height: 8),
             SegmentedButton<num>(
               segments: _kTipPresets.map((_TipPreset p) {
-                return ButtonSegment<num>(
-                  value: p.value,
-                  label: Text(p.label),
-                );
+                return ButtonSegment<num>(value: p.value, label: Text(p.label));
               }).toList(),
               selected: <num>{tipPercent},
               onSelectionChanged: (Set<num> sel) {
@@ -1053,15 +1031,17 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
                 }
               },
               style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.resolveWith<Color?>((states) {
+                backgroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  states,
+                ) {
                   if (states.contains(WidgetState.selected)) {
                     return _kTerracotta;
                   }
                   return _kCream;
                 }),
-                foregroundColor:
-                    WidgetStateProperty.resolveWith<Color?>((states) {
+                foregroundColor: WidgetStateProperty.resolveWith<Color?>((
+                  states,
+                ) {
                   if (states.contains(WidgetState.selected)) {
                     return Colors.white;
                   }
@@ -1259,8 +1239,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
                             Text(
                               _kUnitSystems[i],
                               style: TextStyle(
-                                color:
-                                    active ? Colors.white : _kCharcoal,
+                                color: active ? Colors.white : _kCharcoal,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 12,
                               ),
@@ -1426,7 +1405,8 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
                             style: TextStyle(fontWeight: FontWeight.w800),
                           ),
                           TextSpan(
-                            text: 'RestorableNum<num> serialises the stored '
+                            text:
+                                'RestorableNum<num> serialises the stored '
                                 'primitive. An int round-trips as int, a '
                                 'double as double — restoration never '
                                 'silently widens or narrows your numeric '
@@ -1464,20 +1444,14 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
             flex: 3,
             child: Text(
               'Operation',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: _kCharcoal,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, color: _kCharcoal),
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
               'int',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: _kForest,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, color: _kForest),
             ),
           ),
           Expanded(
@@ -1514,10 +1488,7 @@ class _RecipeScalerDemoState extends State<RecipeScalerDemo>
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              cells[1],
-              style: const TextStyle(color: _kForest),
-            ),
+            child: Text(cells[1], style: const TextStyle(color: _kForest)),
           ),
           Expanded(
             flex: 2,

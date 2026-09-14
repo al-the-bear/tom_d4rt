@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-
 // D4rt bridge workaround: bridged TickerProvider mixins cannot be used as mixin
-mixin _TickerProviderShim<T extends StatefulWidget> on State<T> implements TickerProvider {
+mixin _TickerProviderShim<T extends StatefulWidget> on State<T>
+    implements TickerProvider {
   @override
   Ticker createTicker(TickerCallback onTick) => Ticker(onTick);
 }
@@ -21,10 +21,11 @@ class AnimatedModalBarrierDemo extends StatefulWidget {
   const AnimatedModalBarrierDemo({super.key});
 
   @override
-  State<AnimatedModalBarrierDemo> createState() => _AnimatedModalBarrierDemoState();
+  State<AnimatedModalBarrierDemo> createState() =>
+      _AnimatedModalBarrierDemoState();
 }
 
-class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo> 
+class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     with _TickerProviderShim {
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 1: Basic Modal Barrier Fundamentals
@@ -32,7 +33,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   bool _showBasicBarrier = false;
   late AnimationController _basicController;
   late Animation<Color?> _basicColorAnimation;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: Barrier Color Variations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -49,9 +50,15 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     Colors.white.withValues(alpha: 0.8),
   ];
   final List<String> _colorNames = [
-    'Black 54%', 'Black 87%', 'Blue', 'Red', 'Purple', 'Green', 'White'
+    'Black 54%',
+    'Black 87%',
+    'Blue',
+    'Red',
+    'Purple',
+    'Green',
+    'White',
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: Dismissibility Settings
   // ═══════════════════════════════════════════════════════════════════════════
@@ -59,7 +66,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   late AnimationController _dismissController;
   bool _isDismissible = true;
   int _dismissCount = 0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: Duration and Curve Control
   // ═══════════════════════════════════════════════════════════════════════════
@@ -81,7 +88,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     const MapEntry('bounceIn', Curves.bounceIn),
     const MapEntry('bounceOut', Curves.bounceOut),
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: Semantics Configuration
   // ═══════════════════════════════════════════════════════════════════════════
@@ -89,20 +96,20 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   late AnimationController _semanticsController;
   String _semanticsLabel = 'Close dialog';
   bool _barrierSemanticsDismissible = true;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: Loading Overlay Use Case
   // ═══════════════════════════════════════════════════════════════════════════
   bool _isLoading = false;
   late AnimationController _loadingController;
   double _loadingProgress = 0.0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: Stacked Barriers
   // ═══════════════════════════════════════════════════════════════════════════
   int _barrierStackCount = 0;
   final List<AnimationController> _stackControllers = [];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: Custom Barrier Patterns
   // ═══════════════════════════════════════════════════════════════════════════
@@ -114,7 +121,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     super.initState();
     _initializeControllers();
   }
-  
+
   void _initializeControllers() {
     // Basic controller
     _basicController = AnimationController(
@@ -125,37 +132,37 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
       begin: Colors.transparent,
       end: Colors.black54,
     ).animate(_basicController);
-    
+
     // Color controller
     _colorController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     // Dismiss controller
     _dismissController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     // Duration controller
     _durationController = AnimationController(
       duration: _selectedDuration,
       vsync: this,
     );
-    
+
     // Semantics controller
     _semanticsController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     // Loading controller
     _loadingController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
     );
-    
+
     // Pulsing controller
     _pulsingController = AnimationController(
       duration: const Duration(milliseconds: 1500),
@@ -204,37 +211,37 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
             _buildSectionHeader('1. Basic Modal Barrier Fundamentals'),
             _buildBasicBarrierSection(),
             const SizedBox(height: 32),
-            
+
             // Section 2: Barrier Color Variations
             _buildSectionHeader('2. Barrier Color Variations'),
             _buildColorVariationsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 3: Dismissibility Settings
             _buildSectionHeader('3. Dismissibility Settings'),
             _buildDismissibilitySection(),
             const SizedBox(height: 32),
-            
+
             // Section 4: Duration and Curve Control
             _buildSectionHeader('4. Duration and Curve Control'),
             _buildDurationCurveSection(),
             const SizedBox(height: 32),
-            
+
             // Section 5: Semantics Configuration
             _buildSectionHeader('5. Semantics Configuration'),
             _buildSemanticsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 6: Loading Overlay Use Case
             _buildSectionHeader('6. Loading Overlay Use Case'),
             _buildLoadingOverlaySection(),
             const SizedBox(height: 32),
-            
+
             // Section 7: Stacked Barriers
             _buildSectionHeader('7. Stacked Barriers'),
             _buildStackedBarriersSection(),
             const SizedBox(height: 32),
-            
+
             // Section 8: Custom Barrier Patterns
             _buildSectionHeader('8. Custom Barrier Patterns'),
             _buildCustomPatternsSection(),
@@ -251,9 +258,11 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   Widget _buildBasicBarrierSection() {
     print('=== Section 1: Basic Modal Barrier Fundamentals ===');
     print('Show basic barrier: $_showBasicBarrier');
-    print('AnimatedModalBarrier blocks interaction with animated color transition');
+    print(
+      'AnimatedModalBarrier blocks interaction with animated color transition',
+    );
     print('Commonly used with dialogs, drawers, and overlays');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -267,7 +276,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container with barrier
             Container(
               height: 200,
@@ -284,16 +293,24 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: _showBasicBarrier ? null : () {
-                            print('Background button pressed (barrier not active)');
-                          },
+                          onPressed: _showBasicBarrier
+                              ? null
+                              : () {
+                                  print(
+                                    'Background button pressed (barrier not active)',
+                                  );
+                                },
                           child: const Text('Background Button'),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          _showBasicBarrier ? 'Button blocked by barrier' : 'Button is clickable',
+                          _showBasicBarrier
+                              ? 'Button blocked by barrier'
+                              : 'Button is clickable',
                           style: TextStyle(
-                            color: _showBasicBarrier ? Colors.red : Colors.green,
+                            color: _showBasicBarrier
+                                ? Colors.red
+                                : Colors.green,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -338,7 +355,10 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                           children: [
                             Icon(Icons.info, color: Colors.indigo, size: 32),
                             SizedBox(height: 8),
-                            Text('Dialog Content', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(
+                              'Dialog Content',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Text('Tap barrier to dismiss'),
                           ],
                         ),
@@ -348,7 +368,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -378,7 +398,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     print('Selected color index: $_selectedColorIndex');
     print('Color: ${_colorNames[_selectedColorIndex]}');
     print('Show color barrier: $_showColorBarrier');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -391,9 +411,12 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Color selection chips
-            const Text('Select Barrier Color:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Select Barrier Color:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -424,7 +447,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               }),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -436,13 +459,14 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                 children: [
                   // Checkerboard background to show transparency
                   Positioned.fill(
-                    child: CustomPaint(
-                      painter: _CheckerboardPainter(),
-                    ),
+                    child: CustomPaint(painter: _CheckerboardPainter()),
                   ),
                   // Content
                   const Center(
-                    child: Text('Background Content', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Background Content',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   // Barrier
                   if (_showColorBarrier)
@@ -465,14 +489,16 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
                   _showColorBarrier = true;
                 });
                 _colorController.forward();
-                print('Color barrier shown with: ${_colorNames[_selectedColorIndex]}');
+                print(
+                  'Color barrier shown with: ${_colorNames[_selectedColorIndex]}',
+                );
               },
               icon: const Icon(Icons.palette),
               label: const Text('Show Color Barrier'),
@@ -491,7 +517,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     print('Is dismissible: $_isDismissible');
     print('Dismiss count: $_dismissCount');
     print('Show dismissible barrier: $_showDismissibleBarrier');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -505,12 +531,14 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             SwitchListTile(
               title: const Text('Dismissible'),
-              subtitle: Text(_isDismissible 
-                  ? 'Tap barrier to close' 
-                  : 'Must use close button'),
+              subtitle: Text(
+                _isDismissible
+                    ? 'Tap barrier to close'
+                    : 'Must use close button',
+              ),
               value: _isDismissible,
               onChanged: (value) {
                 setState(() {
@@ -520,9 +548,12 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               },
             ),
             const SizedBox(height: 8),
-            Text('Dismiss count: $_dismissCount', style: TextStyle(color: Colors.grey.shade600)),
+            Text(
+              'Dismiss count: $_dismissCount',
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 180,
@@ -548,17 +579,19 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                         end: Colors.orange.withValues(alpha: 0.5),
                       ).animate(_dismissController),
                       dismissible: _isDismissible,
-                      onDismiss: _isDismissible ? () {
-                        print('Dismissible barrier dismissed by tap');
-                        setState(() {
-                          _dismissCount++;
-                        });
-                        _dismissController.reverse().then((_) {
-                          setState(() {
-                            _showDismissibleBarrier = false;
-                          });
-                        });
-                      } : null,
+                      onDismiss: _isDismissible
+                          ? () {
+                              print('Dismissible barrier dismissed by tap');
+                              setState(() {
+                                _dismissCount++;
+                              });
+                              _dismissController.reverse().then((_) {
+                                setState(() {
+                                  _showDismissibleBarrier = false;
+                                });
+                              });
+                            }
+                          : null,
                     ),
                   if (_showDismissibleBarrier)
                     Center(
@@ -572,8 +605,12 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              _isDismissible ? 'Tap outside to dismiss' : 'Use button to close',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              _isDismissible
+                                  ? 'Tap outside to dismiss'
+                                  : 'Use button to close',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             if (!_isDismissible) ...[
                               const SizedBox(height: 12),
@@ -597,14 +634,16 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
                   _showDismissibleBarrier = true;
                 });
                 _dismissController.forward();
-                print('Dismissible barrier shown (dismissible: $_isDismissible)');
+                print(
+                  'Dismissible barrier shown (dismissible: $_isDismissible)',
+                );
               },
               icon: const Icon(Icons.back_hand),
               label: const Text('Show Barrier'),
@@ -625,9 +664,11 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   Widget _buildDurationCurveSection() {
     print('=== Section 4: Duration and Curve Control ===');
     print('Selected duration: ${_selectedDuration.inMilliseconds}ms');
-    print('Selected curve: ${_curves.firstWhere((c) => c.value == _selectedCurve).key}');
+    print(
+      'Selected curve: ${_curves.firstWhere((c) => c.value == _selectedCurve).key}',
+    );
     print('Show duration barrier: $_showDurationBarrier');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -640,9 +681,12 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Duration selector
-            const Text('Duration:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Duration:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Wrap(
               spacing: 8,
               children: _durations.map((duration) {
@@ -656,14 +700,16 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                         _selectedDuration = duration;
                         _durationController.duration = duration;
                       });
-                      print('Duration changed to: ${duration.inMilliseconds}ms');
+                      print(
+                        'Duration changed to: ${duration.inMilliseconds}ms',
+                      );
                     }
                   },
                 );
               }).toList(),
             ),
             const SizedBox(height: 12),
-            
+
             // Curve selector
             const Text('Curve:', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
@@ -693,7 +739,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -704,17 +750,23 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               child: Stack(
                 children: [
                   const Center(
-                    child: Text('Watch the animation timing', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Watch the animation timing',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   if (_showDurationBarrier)
                     AnimatedModalBarrier(
-                      color: CurvedAnimation(
-                        parent: _durationController,
-                        curve: _selectedCurve,
-                      ).drive(ColorTween(
-                        begin: Colors.transparent,
-                        end: Colors.green.withValues(alpha: 0.6),
-                      )),
+                      color:
+                          CurvedAnimation(
+                            parent: _durationController,
+                            curve: _selectedCurve,
+                          ).drive(
+                            ColorTween(
+                              begin: Colors.transparent,
+                              end: Colors.green.withValues(alpha: 0.6),
+                            ),
+                          ),
                       dismissible: true,
                       onDismiss: () {
                         print('Duration demo barrier dismissed');
@@ -729,7 +781,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -759,7 +811,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     print('Semantics label: $_semanticsLabel');
     print('Semantics dismissible: $_barrierSemanticsDismissible');
     print('Show semantics barrier: $_showSemanticsBarrier');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -772,7 +824,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Semantics label input
             TextField(
               decoration: const InputDecoration(
@@ -789,7 +841,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               },
             ),
             const SizedBox(height: 12),
-            
+
             SwitchListTile(
               title: const Text('Semantics Dismissible'),
               subtitle: const Text('Announce as dismissible to screen readers'),
@@ -802,7 +854,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               },
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 130,
@@ -816,7 +868,11 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.accessibility_new, size: 32, color: Colors.purple),
+                        Icon(
+                          Icons.accessibility_new,
+                          size: 32,
+                          color: Colors.purple,
+                        ),
                         Text('Accessibility Demo'),
                       ],
                     ),
@@ -843,7 +899,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -872,7 +928,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     print('=== Section 6: Loading Overlay Use Case ===');
     print('Is loading: $_isLoading');
     print('Loading progress: ${(_loadingProgress * 100).toStringAsFixed(0)}%');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -885,7 +941,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 200,
@@ -918,9 +974,11 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: _isLoading ? null : () {
-                              _startLoading();
-                            },
+                            onPressed: _isLoading
+                                ? null
+                                : () {
+                                    _startLoading();
+                                  },
                             child: const Text('Submit'),
                           ),
                         ),
@@ -950,7 +1008,9 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                           children: [
                             const CircularProgressIndicator(),
                             const SizedBox(height: 16),
-                            Text('Loading... ${(_loadingProgress * 100).toStringAsFixed(0)}%'),
+                            Text(
+                              'Loading... ${(_loadingProgress * 100).toStringAsFixed(0)}%',
+                            ),
                           ],
                         ),
                       ),
@@ -963,7 +1023,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
       ),
     );
   }
-  
+
   void _startLoading() {
     print('Starting loading simulation');
     setState(() {
@@ -971,17 +1031,19 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
       _loadingProgress = 0.0;
     });
     _loadingController.forward();
-    
+
     // Simulate progress
     Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 100));
       if (!mounted || !_isLoading) return false;
-      
+
       setState(() {
         _loadingProgress += 0.05;
       });
-      print('Loading progress: ${(_loadingProgress * 100).toStringAsFixed(0)}%');
-      
+      print(
+        'Loading progress: ${(_loadingProgress * 100).toStringAsFixed(0)}%',
+      );
+
       if (_loadingProgress >= 1.0) {
         _loadingController.reverse().then((_) {
           setState(() {
@@ -1001,7 +1063,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   Widget _buildStackedBarriersSection() {
     print('=== Section 7: Stacked Barriers ===');
     print('Barrier stack count: $_barrierStackCount');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1014,13 +1076,13 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             Text(
               'Active barriers: $_barrierStackCount',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 180,
@@ -1031,7 +1093,10 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               child: Stack(
                 children: [
                   const Center(
-                    child: Text('Base Content', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Base Content',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   // Render stacked barriers
                   ...List.generate(_barrierStackCount, (index) {
@@ -1040,7 +1105,9 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                       child: Stack(
                         children: [
                           Container(
-                            color: Colors.black.withValues(alpha: opacity.clamp(0.0, 1.0)),
+                            color: Colors.black.withValues(
+                              alpha: opacity.clamp(0.0, 1.0),
+                            ),
                           ),
                           Center(
                             child: Container(
@@ -1062,7 +1129,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 16),
-            
+
             Row(
               children: [
                 ElevatedButton.icon(
@@ -1077,23 +1144,27 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
-                  onPressed: _barrierStackCount > 0 ? () {
-                    setState(() {
-                      _barrierStackCount--;
-                    });
-                    print('Removed barrier layer: $_barrierStackCount');
-                  } : null,
+                  onPressed: _barrierStackCount > 0
+                      ? () {
+                          setState(() {
+                            _barrierStackCount--;
+                          });
+                          print('Removed barrier layer: $_barrierStackCount');
+                        }
+                      : null,
                   icon: const Icon(Icons.remove),
                   label: const Text('Remove Layer'),
                 ),
                 const SizedBox(width: 8),
                 TextButton(
-                  onPressed: _barrierStackCount > 0 ? () {
-                    setState(() {
-                      _barrierStackCount = 0;
-                    });
-                    print('All barriers cleared');
-                  } : null,
+                  onPressed: _barrierStackCount > 0
+                      ? () {
+                          setState(() {
+                            _barrierStackCount = 0;
+                          });
+                          print('All barriers cleared');
+                        }
+                      : null,
                   child: const Text('Clear All'),
                 ),
               ],
@@ -1110,7 +1181,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
   Widget _buildCustomPatternsSection() {
     print('=== Section 8: Custom Barrier Patterns ===');
     print('Show pulsing barrier: $_showPulsingBarrier');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1123,9 +1194,12 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Pulsing barrier demo
-            const Text('Pulsing Barrier Effect', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Pulsing Barrier Effect',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 150,
@@ -1139,7 +1213,11 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.hourglass_empty, size: 32, color: Colors.cyan),
+                        Icon(
+                          Icons.hourglass_empty,
+                          size: 32,
+                          color: Colors.cyan,
+                        ),
                         Text('Processing...'),
                       ],
                     ),
@@ -1150,7 +1228,9 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                       builder: (context, child) {
                         return AnimatedModalBarrier(
                           color: AlwaysStoppedAnimation(
-                            Colors.cyan.withValues(alpha: 0.2 + (_pulsingController.value * 0.3)),
+                            Colors.cyan.withValues(
+                              alpha: 0.2 + (_pulsingController.value * 0.3),
+                            ),
                           ),
                           dismissible: true,
                           onDismiss: () {
@@ -1168,7 +1248,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               ),
             ),
             const SizedBox(height: 12),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -1184,27 +1264,44 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
                 }
               },
               icon: Icon(_showPulsingBarrier ? Icons.stop : Icons.play_arrow),
-              label: Text(_showPulsingBarrier ? 'Stop Pulsing' : 'Start Pulsing'),
+              label: Text(
+                _showPulsingBarrier ? 'Stop Pulsing' : 'Start Pulsing',
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.cyan,
                 foregroundColor: Colors.white,
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Edge cases documentation
-            const Text('Edge Cases:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Edge Cases:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
-            _buildEdgeCaseItem('Null color animation', 'Results in transparent barrier'),
-            _buildEdgeCaseItem('Simultaneous barriers', 'Multiple barriers can overlap'),
-            _buildEdgeCaseItem('Controller disposal', 'Always dispose controllers in dispose()'),
-            _buildEdgeCaseItem('onDismiss with dismissible=false', 'Callback is never called'),
+            _buildEdgeCaseItem(
+              'Null color animation',
+              'Results in transparent barrier',
+            ),
+            _buildEdgeCaseItem(
+              'Simultaneous barriers',
+              'Multiple barriers can overlap',
+            ),
+            _buildEdgeCaseItem(
+              'Controller disposal',
+              'Always dispose controllers in dispose()',
+            ),
+            _buildEdgeCaseItem(
+              'onDismiss with dismissible=false',
+              'Callback is never called',
+            ),
           ],
         ),
       ),
     );
   }
-  
+
   Widget _buildEdgeCaseItem(String title, String description) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
@@ -1217,7 +1314,10 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
               text: TextSpan(
                 style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
                 children: [
-                  TextSpan(text: '$title: ', style: const TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: '$title: ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   TextSpan(text: description),
                 ],
               ),
@@ -1236,7 +1336,7 @@ class _AnimatedModalBarrierDemoState extends State<AnimatedModalBarrierDemo>
     print('════════════════════════════════════════════════════════════');
     print(title);
     print('════════════════════════════════════════════════════════════');
-    
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -1264,7 +1364,7 @@ class _CheckerboardPainter extends CustomPainter {
     const cellSize = 10.0;
     final lightPaint = Paint()..color = Colors.grey.shade200;
     final darkPaint = Paint()..color = Colors.grey.shade300;
-    
+
     for (var y = 0.0; y < size.height; y += cellSize) {
       for (var x = 0.0; x < size.width; x += cellSize) {
         final isLight = ((x ~/ cellSize) + (y ~/ cellSize)) % 2 == 0;
@@ -1275,7 +1375,7 @@ class _CheckerboardPainter extends CustomPainter {
       }
     }
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

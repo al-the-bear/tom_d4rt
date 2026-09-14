@@ -15,11 +15,7 @@ enum _DemoSection {
   compendium,
 }
 
-enum _CanvasStyle {
-  wave,
-  grid,
-  rings,
-}
+enum _CanvasStyle { wave, grid, rings }
 
 class _Palette {
   final String name;
@@ -130,10 +126,12 @@ class _ChildBackButtonDispatcherDeepDemo extends StatefulWidget {
   const _ChildBackButtonDispatcherDeepDemo();
 
   @override
-  State<_ChildBackButtonDispatcherDeepDemo> createState() => _ChildBackButtonDispatcherDeepDemoState();
+  State<_ChildBackButtonDispatcherDeepDemo> createState() =>
+      _ChildBackButtonDispatcherDeepDemoState();
 }
 
-class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDispatcherDeepDemo> {
+class _ChildBackButtonDispatcherDeepDemoState
+    extends State<_ChildBackButtonDispatcherDeepDemo> {
   _DemoSection _section = _DemoSection.primer;
   int _paletteIndex = 0;
   _CanvasStyle _canvasStyle = _CanvasStyle.wave;
@@ -172,11 +170,7 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     'A2': 0,
   };
 
-  final Map<String, int> _routeDepth = <String, int>{
-    'A': 3,
-    'B': 2,
-    'C': 1,
-  };
+  final Map<String, int> _routeDepth = <String, int>{'A': 3, 'B': 2, 'C': 1};
 
   final List<String> _rootPriority = <String>[];
   final List<String> _aPriority = <String>[];
@@ -220,16 +214,40 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     _initializeDispatchers();
     _registerCallbacks();
     _setupInitialPriority();
-    _log('system', 'ChildBackButtonDispatcher deep demo initialized.', _p.accentA);
+    _log(
+      'system',
+      'ChildBackButtonDispatcher deep demo initialized.',
+      _p.accentA,
+    );
   }
 
   void _initializeDispatchers() {
     _root = RootBackButtonDispatcher();
-    _a = _InspectableChildBackButtonDispatcher(_root, id: 'A', onNotified: _onChildNotified);
-    _b = _InspectableChildBackButtonDispatcher(_root, id: 'B', onNotified: _onChildNotified);
-    _c = _InspectableChildBackButtonDispatcher(_root, id: 'C', onNotified: _onChildNotified);
-    _a1 = _InspectableChildBackButtonDispatcher(_a, id: 'A1', onNotified: _onChildNotified);
-    _a2 = _InspectableChildBackButtonDispatcher(_a, id: 'A2', onNotified: _onChildNotified);
+    _a = _InspectableChildBackButtonDispatcher(
+      _root,
+      id: 'A',
+      onNotified: _onChildNotified,
+    );
+    _b = _InspectableChildBackButtonDispatcher(
+      _root,
+      id: 'B',
+      onNotified: _onChildNotified,
+    );
+    _c = _InspectableChildBackButtonDispatcher(
+      _root,
+      id: 'C',
+      onNotified: _onChildNotified,
+    );
+    _a1 = _InspectableChildBackButtonDispatcher(
+      _a,
+      id: 'A1',
+      onNotified: _onChildNotified,
+    );
+    _a2 = _InspectableChildBackButtonDispatcher(
+      _a,
+      id: 'A2',
+      onNotified: _onChildNotified,
+    );
   }
 
   void _registerCallbacks() {
@@ -300,7 +318,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       if (current > 1) {
         _routeDepth[lane] = current - 1;
         handled = true;
-        _log('stack', '$lane popped route, remaining depth ${_routeDepth[lane]}', tone);
+        _log(
+          'stack',
+          '$lane popped route, remaining depth ${_routeDepth[lane]}',
+          tone,
+        );
       } else {
         handled = false;
         _log('stack', '$lane at root route, cannot pop', tone);
@@ -334,7 +356,12 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   }
 
   void _log(String lane, String message, Color tone) {
-    final event = _DispatcherEvent(at: DateTime.now(), lane: lane, message: message, tone: tone);
+    final event = _DispatcherEvent(
+      at: DateTime.now(),
+      lane: lane,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, event);
       if (_events.length > 220) {
@@ -389,7 +416,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
 
   void _takeLanePriority(String lane) {
     if (!_laneCanTakePriority(lane)) {
-      _log('priority', '$lane ignored takePriority because callback is inactive', _laneTone(lane));
+      _log(
+        'priority',
+        '$lane ignored takePriority because callback is inactive',
+        _laneTone(lane),
+      );
       return;
     }
 
@@ -421,7 +452,10 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   void _clearRootPriority() {
     _root.takePriority();
     _rootPriority.clear();
-    _recordMode('priority', 'root.takePriority() cleared root child defer list');
+    _recordMode(
+      'priority',
+      'root.takePriority() cleared root child defer list',
+    );
   }
 
   void _clearAPriority() {
@@ -489,7 +523,13 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         _unhandledDispatches += 1;
       }
     });
-    _log('dispatch-result', handled ? 'Dispatch handled by hierarchy' : 'Dispatch unhandled by hierarchy', handled ? _p.accentB : _p.accentC);
+    _log(
+      'dispatch-result',
+      handled
+          ? 'Dispatch handled by hierarchy'
+          : 'Dispatch unhandled by hierarchy',
+      handled ? _p.accentB : _p.accentC,
+    );
   }
 
   void _adjustRouteDepth(String lane, int delta) {
@@ -513,10 +553,7 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                 children: <Widget>[
                   Expanded(child: _sectionBody()),
                   if (_showTimeline)
-                    SizedBox(
-                      width: 390,
-                      child: _timelinePanel(),
-                    ),
+                    SizedBox(width: 390, child: _timelinePanel()),
                 ],
               ),
             ),
@@ -543,23 +580,38 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.account_tree_outlined, color: Colors.white, size: 27),
+              const Icon(
+                Icons.account_tree_outlined,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
                   'ChildBackButtonDispatcher Deep Demo',
-                  style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: const Text(
                   'Nested Back Dispatch Priority',
-                  style: TextStyle(color: Colors.white, fontSize: 10.2, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.2,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -569,7 +621,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             'ChildBackButtonDispatcher coordinates back-button ownership between nested routers. '
             'This deep demo visualizes callback registration, priority transfer, nested child chains, and '
             'route-stack integration patterns for interpreter-side behavior verification.',
-            style: TextStyle(color: Colors.white.withValues(alpha: 0.95), fontSize: 12.2, height: 1.34),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.95),
+              fontSize: 12.2,
+              height: 1.34,
+            ),
           ),
         ],
       ),
@@ -586,10 +642,24 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Section', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Section',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _sectionTitles.length; i++) _sectionChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
@@ -609,7 +679,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       selectedColor: _p.accentA,
       backgroundColor: Colors.white,
       label: Text('${index + 1}'),
-      labelStyle: TextStyle(color: active ? Colors.white : _p.ink, fontSize: 11, fontWeight: FontWeight.w700),
+      labelStyle: TextStyle(
+        color: active ? Colors.white : _p.ink,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+      ),
       onSelected: (_) {
         setState(() => _section = _DemoSection.values[index]);
         _log('section', 'Switched to ${_sectionTitles[index]}', _p.accentB);
@@ -621,7 +695,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log('palette', 'Palette changed to ${_palettes[index].name}', _palettes[index].accentA);
+        _log(
+          'palette',
+          'Palette changed to ${_palettes[index].name}',
+          _palettes[index].accentA,
+        );
       },
       child: Container(
         width: 21,
@@ -629,20 +707,33 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
-          border: Border.all(color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent, width: 2),
+          border: Border.all(
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
+            width: 2,
+          ),
         ),
       ),
     );
   }
 
-  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
+  Widget _toggleChip(
+    String label,
+    bool value,
+    void Function(bool value) assign,
+  ) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -667,11 +758,21 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   Widget _title(String text) {
     return Text(
       text,
-      style: TextStyle(color: _p.ink, fontSize: 19, fontWeight: FontWeight.w800, letterSpacing: -0.2),
+      style: TextStyle(
+        color: _p.ink,
+        fontSize: 19,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.2,
+      ),
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child, Color? tint}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+    Color? tint,
+  }) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -679,7 +780,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: _p.muted.withValues(alpha: 0.22)),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: _p.shell.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: _p.shell.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Padding(
@@ -687,9 +792,19 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
+            Text(
+              title,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.8,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
+            Text(
+              subtitle,
+              style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33),
+            ),
             const SizedBox(height: 10),
             child,
           ],
@@ -720,7 +835,8 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
               runSpacing: 8,
               children: <Widget>[
                 FilledButton.tonalIcon(
-                  onPressed: () => _simulateBackDispatch(source: 'primer button'),
+                  onPressed: () =>
+                      _simulateBackDispatch(source: 'primer button'),
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Simulate Back Press'),
                 ),
@@ -762,7 +878,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                           Positioned.fill(child: _background(_canvasStyle)),
                           if (_showCrosshair)
                             Positioned.fill(
-                              child: CustomPaint(painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.2))),
+                              child: CustomPaint(
+                                painter: _CrosshairPainter(
+                                  color: _p.ink.withValues(alpha: 0.2),
+                                ),
+                              ),
                             ),
                           Positioned.fill(
                             // Cluster H follow-up: same pattern as
@@ -787,20 +907,30 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                                     const SizedBox(height: 10),
                                     Row(
                                       children: <Widget>[
-                                        Expanded(child: _laneNode(_laneData('A'))),
+                                        Expanded(
+                                          child: _laneNode(_laneData('A')),
+                                        ),
                                         const SizedBox(width: 8),
-                                        Expanded(child: _laneNode(_laneData('B'))),
+                                        Expanded(
+                                          child: _laneNode(_laneData('B')),
+                                        ),
                                         const SizedBox(width: 8),
-                                        Expanded(child: _laneNode(_laneData('C'))),
+                                        Expanded(
+                                          child: _laneNode(_laneData('C')),
+                                        ),
                                       ],
                                     ),
                                     const SizedBox(height: 10),
                                     Row(
                                       children: <Widget>[
                                         const Spacer(),
-                                        Expanded(child: _laneNode(_laneData('A1'))),
+                                        Expanded(
+                                          child: _laneNode(_laneData('A1')),
+                                        ),
                                         const SizedBox(width: 8),
-                                        Expanded(child: _laneNode(_laneData('A2'))),
+                                        Expanded(
+                                          child: _laneNode(_laneData('A2')),
+                                        ),
                                         const Spacer(),
                                       ],
                                     ),
@@ -809,8 +939,20 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                                       spacing: 8,
                                       runSpacing: 8,
                                       children: <Widget>[
-                                        _metric('root order', _rootPriority.isEmpty ? 'none' : _rootPriority.join(' -> '), _p.accentA),
-                                        _metric('A order', _aPriority.isEmpty ? 'none' : _aPriority.join(' -> '), _p.accentB),
+                                        _metric(
+                                          'root order',
+                                          _rootPriority.isEmpty
+                                              ? 'none'
+                                              : _rootPriority.join(' -> '),
+                                          _p.accentA,
+                                        ),
+                                        _metric(
+                                          'A order',
+                                          _aPriority.isEmpty
+                                              ? 'none'
+                                              : _aPriority.join(' -> '),
+                                          _p.accentB,
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -834,10 +976,18 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('ChildBackButtonDispatcher participates only after takePriority/deferTo chain setup.'),
-                        _bullet('Parent asks children in reverse priority order; first true wins.'),
-                        _bullet('If children return false, parent callback decides final result.'),
-                        _bullet('Nested children (A1/A2) can intercept before parent lane A callback.'),
+                        _bullet(
+                          'ChildBackButtonDispatcher participates only after takePriority/deferTo chain setup.',
+                        ),
+                        _bullet(
+                          'Parent asks children in reverse priority order; first true wins.',
+                        ),
+                        _bullet(
+                          'If children return false, parent callback decides final result.',
+                        ),
+                        _bullet(
+                          'Nested children (A1/A2) can intercept before parent lane A callback.',
+                        ),
                       ],
                     ),
                   ),
@@ -874,15 +1024,40 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                FilledButton.tonal(onPressed: () => _takeLanePriority('A'), child: const Text('A takePriority')),
-                FilledButton.tonal(onPressed: () => _takeLanePriority('B'), child: const Text('B takePriority')),
-                FilledButton.tonal(onPressed: () => _takeLanePriority('C'), child: const Text('C takePriority')),
-                FilledButton.tonal(onPressed: _clearRootPriority, child: const Text('root.takePriority() clear')),
-                OutlinedButton(onPressed: () => _forgetChildFromParent(parent: 'root', child: 'A'), child: const Text('root.forget(A)')),
-                OutlinedButton(onPressed: () => _forgetChildFromParent(parent: 'root', child: 'B'), child: const Text('root.forget(B)')),
-                OutlinedButton(onPressed: () => _forgetChildFromParent(parent: 'root', child: 'C'), child: const Text('root.forget(C)')),
+                FilledButton.tonal(
+                  onPressed: () => _takeLanePriority('A'),
+                  child: const Text('A takePriority'),
+                ),
+                FilledButton.tonal(
+                  onPressed: () => _takeLanePriority('B'),
+                  child: const Text('B takePriority'),
+                ),
+                FilledButton.tonal(
+                  onPressed: () => _takeLanePriority('C'),
+                  child: const Text('C takePriority'),
+                ),
+                FilledButton.tonal(
+                  onPressed: _clearRootPriority,
+                  child: const Text('root.takePriority() clear'),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      _forgetChildFromParent(parent: 'root', child: 'A'),
+                  child: const Text('root.forget(A)'),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      _forgetChildFromParent(parent: 'root', child: 'B'),
+                  child: const Text('root.forget(B)'),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      _forgetChildFromParent(parent: 'root', child: 'C'),
+                  child: const Text('root.forget(C)'),
+                ),
                 FilledButton.tonalIcon(
-                  onPressed: () => _simulateBackDispatch(source: 'priority arena'),
+                  onPressed: () =>
+                      _simulateBackDispatch(source: 'priority arena'),
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Dispatch Back'),
                 ),
@@ -897,11 +1072,28 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                FilledButton.tonal(onPressed: () => _takeLanePriority('A1'), child: const Text('A1 takePriority')),
-                FilledButton.tonal(onPressed: () => _takeLanePriority('A2'), child: const Text('A2 takePriority')),
-                FilledButton.tonal(onPressed: _clearAPriority, child: const Text('A.takePriority() clear nested')),
-                OutlinedButton(onPressed: () => _forgetChildFromParent(parent: 'A', child: 'A1'), child: const Text('A.forget(A1)')),
-                OutlinedButton(onPressed: () => _forgetChildFromParent(parent: 'A', child: 'A2'), child: const Text('A.forget(A2)')),
+                FilledButton.tonal(
+                  onPressed: () => _takeLanePriority('A1'),
+                  child: const Text('A1 takePriority'),
+                ),
+                FilledButton.tonal(
+                  onPressed: () => _takeLanePriority('A2'),
+                  child: const Text('A2 takePriority'),
+                ),
+                FilledButton.tonal(
+                  onPressed: _clearAPriority,
+                  child: const Text('A.takePriority() clear nested'),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      _forgetChildFromParent(parent: 'A', child: 'A1'),
+                  child: const Text('A.forget(A1)'),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      _forgetChildFromParent(parent: 'A', child: 'A2'),
+                  child: const Text('A.forget(A2)'),
+                ),
               ],
             ),
           ),
@@ -911,7 +1103,8 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
               Expanded(
                 child: _panel(
                   title: 'Root Defer Queue',
-                  subtitle: 'Rightmost lane is consulted first in parent traversal.',
+                  subtitle:
+                      'Rightmost lane is consulted first in parent traversal.',
                   tint: _p.accentA.withValues(alpha: 0.05),
                   child: _priorityVisual(_rootPriority, lane: 'root'),
                 ),
@@ -942,7 +1135,10 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
         ),
-        child: Text('No deferred children', style: TextStyle(color: _p.muted, fontSize: 11.2)),
+        child: Text(
+          'No deferred children',
+          style: TextStyle(color: _p.muted, fontSize: 11.2),
+        ),
       );
     }
     return Container(
@@ -956,8 +1152,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            lane == 'root' ? 'Traversal: ${list.reversed.join(' -> ')}' : 'Traversal: ${list.reversed.join(' -> ')}',
-            style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.4),
+            lane == 'root'
+                ? 'Traversal: ${list.reversed.join(' -> ')}'
+                : 'Traversal: ${list.reversed.join(' -> ')}',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.4,
+            ),
           ),
           const SizedBox(height: 8),
           Wrap(
@@ -966,13 +1168,25 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             children: list
                 .map(
                   (entry) => Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: _laneTone(entry).withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(999),
-                      border: Border.all(color: _laneTone(entry).withValues(alpha: 0.36)),
+                      border: Border.all(
+                        color: _laneTone(entry).withValues(alpha: 0.36),
+                      ),
                     ),
-                    child: Text(entry, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 10.6)),
+                    child: Text(
+                      entry,
+                      style: TextStyle(
+                        color: _p.ink,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 10.6,
+                      ),
+                    ),
                   ),
                 )
                 .toList(),
@@ -1048,9 +1262,19 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                                   const SizedBox(height: 10),
                                   Row(
                                     children: <Widget>[
-                                      Expanded(child: _cascadeLaneCard('A1', parent: 'A')),
+                                      Expanded(
+                                        child: _cascadeLaneCard(
+                                          'A1',
+                                          parent: 'A',
+                                        ),
+                                      ),
                                       const SizedBox(width: 10),
-                                      Expanded(child: _cascadeLaneCard('A2', parent: 'A')),
+                                      Expanded(
+                                        child: _cascadeLaneCard(
+                                          'A2',
+                                          parent: 'A',
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 12),
@@ -1058,24 +1282,51 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.9),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.9,
+                                      ),
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
+                                      border: Border.all(
+                                        color: _p.muted.withValues(alpha: 0.25),
+                                      ),
                                     ),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text('Cascade quick actions', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.3)),
+                                        Text(
+                                          'Cascade quick actions',
+                                          style: TextStyle(
+                                            color: _p.ink,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 11.3,
+                                          ),
+                                        ),
                                         const SizedBox(height: 8),
                                         Wrap(
                                           spacing: 8,
                                           runSpacing: 8,
                                           children: <Widget>[
-                                            OutlinedButton(onPressed: () => _takeLanePriority('A1'), child: const Text('A1 priority')),
-                                            OutlinedButton(onPressed: () => _takeLanePriority('A2'), child: const Text('A2 priority')),
-                                            OutlinedButton(onPressed: _clearAPriority, child: const Text('clear nested')),
                                             OutlinedButton(
-                                              onPressed: () => _simulateBackDispatch(source: 'cascade quick action'),
+                                              onPressed: () =>
+                                                  _takeLanePriority('A1'),
+                                              child: const Text('A1 priority'),
+                                            ),
+                                            OutlinedButton(
+                                              onPressed: () =>
+                                                  _takeLanePriority('A2'),
+                                              child: const Text('A2 priority'),
+                                            ),
+                                            OutlinedButton(
+                                              onPressed: _clearAPriority,
+                                              child: const Text('clear nested'),
+                                            ),
+                                            OutlinedButton(
+                                              onPressed: () =>
+                                                  _simulateBackDispatch(
+                                                    source:
+                                                        'cascade quick action',
+                                                  ),
                                               child: const Text('dispatch'),
                                             ),
                                           ],
@@ -1103,10 +1354,18 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('A1/A2 are notified by A before A callback executes.'),
-                        _bullet('If the newest nested child returns true, A callback is skipped.'),
-                        _bullet('If all nested children return false, A callback determines result.'),
-                        _bullet('If A also returns false, root continues to other children or fallback.'),
+                        _bullet(
+                          'A1/A2 are notified by A before A callback executes.',
+                        ),
+                        _bullet(
+                          'If the newest nested child returns true, A callback is skipped.',
+                        ),
+                        _bullet(
+                          'If all nested children return false, A callback determines result.',
+                        ),
+                        _bullet(
+                          'If A also returns false, root continues to other children or fallback.',
+                        ),
                       ],
                     ),
                   ),
@@ -1134,7 +1393,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('$lane (parent: $parent)', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11.4)),
+          Text(
+            '$lane (parent: $parent)',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 11.4,
+            ),
+          ),
           const SizedBox(height: 6),
           Wrap(
             spacing: 8,
@@ -1156,7 +1422,10 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
               OutlinedButton(
                 onPressed: () {
                   _laneWillHandle[lane] = !handles;
-                  _recordControl('cascade', '$lane handles toggled -> ${_laneWillHandle[lane]}');
+                  _recordControl(
+                    'cascade',
+                    '$lane handles toggled -> ${_laneWillHandle[lane]}',
+                  );
                 },
                 child: const Text('toggle handle'),
               ),
@@ -1170,8 +1439,18 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   Widget _smallBadge(String text, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text(text, style: TextStyle(color: _p.ink, fontSize: 10, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1200,10 +1479,12 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                   FilterChip(
                     selected: _laneActive[lane] ?? false,
                     label: Text('$lane callback'),
-                    onSelected: (selected) => _setLaneCallbackActive(lane, selected),
+                    onSelected: (selected) =>
+                        _setLaneCallbackActive(lane, selected),
                   ),
                 FilledButton.tonalIcon(
-                  onPressed: () => _simulateBackDispatch(source: 'lifecycle deck'),
+                  onPressed: () =>
+                      _simulateBackDispatch(source: 'lifecycle deck'),
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Dispatch Back'),
                 ),
@@ -1213,11 +1494,13 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
           const SizedBox(height: 12),
           _panel(
             title: 'Lifecycle Monitor',
-            subtitle: 'Registration status, callback hits, and defer-order side effects.',
+            subtitle:
+                'Registration status, callback hits, and defer-order side effects.',
             tint: _p.accentB.withValues(alpha: 0.05),
             child: Column(
               children: <Widget>[
-                for (final lane in <String>['A', 'B', 'C', 'A1', 'A2']) _lifecycleRow(lane),
+                for (final lane in <String>['A', 'B', 'C', 'A1', 'A2'])
+                  _lifecycleRow(lane),
               ],
             ),
           ),
@@ -1244,7 +1527,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         children: <Widget>[
           SizedBox(
             width: 66,
-            child: Text(lane, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.2)),
+            child: Text(
+              lane,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.2,
+              ),
+            ),
           ),
           Expanded(
             child: Wrap(
@@ -1295,7 +1585,8 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                       _recordMode('integration', 'stack mode -> $v');
                     }),
                     FilledButton.tonalIcon(
-                      onPressed: () => _simulateBackDispatch(source: 'integration theater'),
+                      onPressed: () =>
+                          _simulateBackDispatch(source: 'integration theater'),
                       icon: const Icon(Icons.arrow_back),
                       label: const Text('Dispatch Back'),
                     ),
@@ -1328,7 +1619,13 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                   children: <Widget>[
                     Positioned.fill(child: _background(_canvasStyle)),
                     if (_showCrosshair)
-                      Positioned.fill(child: CustomPaint(painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.18)))),
+                      Positioned.fill(
+                        child: CustomPaint(
+                          painter: _CrosshairPainter(
+                            color: _p.ink.withValues(alpha: 0.18),
+                          ),
+                        ),
+                      ),
                     Positioned.fill(
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -1351,19 +1648,42 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                                 decoration: BoxDecoration(
                                   color: Colors.white.withValues(alpha: 0.9),
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                                  border: Border.all(
+                                    color: _p.muted.withValues(alpha: 0.24),
+                                  ),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text('Expected routing sequence', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.4)),
+                                    Text(
+                                      'Expected routing sequence',
+                                      style: TextStyle(
+                                        color: _p.ink,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 11.4,
+                                      ),
+                                    ),
                                     const SizedBox(height: 8),
-                                    _pathLine('Root traversal', _rootPriority.isEmpty ? 'root callback only' : _rootPriority.reversed.join(' -> ')),
-                                    _pathLine('Nested A traversal', _aPriority.isEmpty ? 'A callback only' : _aPriority.reversed.join(' -> ')),
+                                    _pathLine(
+                                      'Root traversal',
+                                      _rootPriority.isEmpty
+                                          ? 'root callback only'
+                                          : _rootPriority.reversed.join(' -> '),
+                                    ),
+                                    _pathLine(
+                                      'Nested A traversal',
+                                      _aPriority.isEmpty
+                                          ? 'A callback only'
+                                          : _aPriority.reversed.join(' -> '),
+                                    ),
                                     const SizedBox(height: 8),
                                     Text(
                                       'When stack mode is on, lane callbacks pop route depth until depth=1, then return false.',
-                                      style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.32),
+                                      style: TextStyle(
+                                        color: _p.muted,
+                                        fontSize: 10.8,
+                                        height: 1.32,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -1393,14 +1713,28 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       ),
       child: Row(
         children: <Widget>[
-          Text('$lane depth', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 10.8)),
+          Text(
+            '$lane depth',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 10.8,
+            ),
+          ),
           const Spacer(),
           IconButton(
             onPressed: () => _adjustRouteDepth(lane, -1),
             icon: const Icon(Icons.remove_circle_outline),
             iconSize: 18,
           ),
-          Text('${_routeDepth[lane]}', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontFamily: 'monospace')),
+          Text(
+            '${_routeDepth[lane]}',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'monospace',
+            ),
+          ),
           IconButton(
             onPressed: () => _adjustRouteDepth(lane, 1),
             icon: const Icon(Icons.add_circle_outline),
@@ -1428,7 +1762,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             children: <Widget>[
               Icon(Icons.layers_outlined, color: tone, size: 18),
               const SizedBox(width: 6),
-              Text('Lane $lane', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11.6)),
+              Text(
+                'Lane $lane',
+                style: TextStyle(
+                  color: _p.ink,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11.6,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
@@ -1468,10 +1809,17 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             width: 132,
             child: Text(
               label,
-              style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.4),
+              style: TextStyle(
+                color: _p.accentA,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 10.4,
+              ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 10.8))),
+          Expanded(
+            child: Text(value, style: TextStyle(color: _p.ink, fontSize: 10.8)),
+          ),
         ],
       ),
     );
@@ -1490,12 +1838,30 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             subtitle: 'Feature and behavior coverage from this demo.',
             child: Column(
               children: <Widget>[
-                _matrix('Core role', 'Participates in nested back dispatch and can claim priority from parent.'),
-                _matrix('Priority rules', 'Latest child to takePriority handles first; fallback continues in reverse order.'),
-                _matrix('Nested chain', 'A can own root priority while A1/A2 arbitrate inside A before A callback.'),
-                _matrix('Lifecycle behavior', 'Removing last callback causes parent.forget for that child dispatcher.'),
-                _matrix('Integration mode', 'Route-depth simulation mirrors nested router pop behavior.'),
-                _matrix('Debug strategy', 'Timeline captures notified order and callback handling decisions.'),
+                _matrix(
+                  'Core role',
+                  'Participates in nested back dispatch and can claim priority from parent.',
+                ),
+                _matrix(
+                  'Priority rules',
+                  'Latest child to takePriority handles first; fallback continues in reverse order.',
+                ),
+                _matrix(
+                  'Nested chain',
+                  'A can own root priority while A1/A2 arbitrate inside A before A callback.',
+                ),
+                _matrix(
+                  'Lifecycle behavior',
+                  'Removing last callback causes parent.forget for that child dispatcher.',
+                ),
+                _matrix(
+                  'Integration mode',
+                  'Route-depth simulation mirrors nested router pop behavior.',
+                ),
+                _matrix(
+                  'Debug strategy',
+                  'Timeline captures notified order and callback handling decisions.',
+                ),
               ],
             ),
           ),
@@ -1508,22 +1874,27 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                 _doDont(
                   good: true,
                   title: 'Do call takePriority on active child dispatchers',
-                  detail: 'Priority methods require callbacks to be registered.',
+                  detail:
+                      'Priority methods require callbacks to be registered.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do keep hierarchy intent explicit in nested routers',
-                  detail: 'Traceability is easier when parent-child ownership is clear.',
+                  detail:
+                      'Traceability is easier when parent-child ownership is clear.',
                 ),
                 _doDont(
                   good: false,
-                  title: 'Dont leave stale child dispatchers after callback removal',
-                  detail: 'Inactive children should not remain in priority assumptions.',
+                  title:
+                      'Dont leave stale child dispatchers after callback removal',
+                  detail:
+                      'Inactive children should not remain in priority assumptions.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont assume root callback runs first',
-                  detail: 'Children with priority are notified before root callback fallback.',
+                  detail:
+                      'Children with priority are notified before root callback fallback.',
                 ),
               ],
             ),
@@ -1560,11 +1931,21 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Multiple visual sections demonstrate dispatcher hierarchy and priority behavior.'),
-                _check('Nested A1/A2 chain scenarios verify parent-notified cascade flow.'),
-                _check('Lifecycle section covers callback activation and automatic forgetting behavior.'),
-                _check('Integration section demonstrates route-stack style pop semantics.'),
-                _check('Instructional content explains practical usage and common pitfalls.'),
+                _check(
+                  'Multiple visual sections demonstrate dispatcher hierarchy and priority behavior.',
+                ),
+                _check(
+                  'Nested A1/A2 chain scenarios verify parent-notified cascade flow.',
+                ),
+                _check(
+                  'Lifecycle section covers callback activation and automatic forgetting behavior.',
+                ),
+                _check(
+                  'Integration section demonstrates route-stack style pop semantics.',
+                ),
+                _check(
+                  'Instructional content explains practical usage and common pitfalls.',
+                ),
               ],
             ),
           ),
@@ -1592,17 +1973,47 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   _LaneCardData _laneData(String id) {
     switch (id) {
       case 'root':
-        return _LaneCardData(id: 'root', title: 'Root Dispatcher', role: 'Final fallback owner', tone: _p.accentC);
+        return _LaneCardData(
+          id: 'root',
+          title: 'Root Dispatcher',
+          role: 'Final fallback owner',
+          tone: _p.accentC,
+        );
       case 'A':
-        return _LaneCardData(id: 'A', title: 'Child A', role: 'Primary nested lane', tone: _p.accentA);
+        return _LaneCardData(
+          id: 'A',
+          title: 'Child A',
+          role: 'Primary nested lane',
+          tone: _p.accentA,
+        );
       case 'B':
-        return _LaneCardData(id: 'B', title: 'Child B', role: 'Sibling lane', tone: _p.accentB);
+        return _LaneCardData(
+          id: 'B',
+          title: 'Child B',
+          role: 'Sibling lane',
+          tone: _p.accentB,
+        );
       case 'C':
-        return _LaneCardData(id: 'C', title: 'Child C', role: 'Sibling lane', tone: _p.accentC);
+        return _LaneCardData(
+          id: 'C',
+          title: 'Child C',
+          role: 'Sibling lane',
+          tone: _p.accentC,
+        );
       case 'A1':
-        return _LaneCardData(id: 'A1', title: 'Child A1', role: 'Nested under A', tone: _p.accentA);
+        return _LaneCardData(
+          id: 'A1',
+          title: 'Child A1',
+          role: 'Nested under A',
+          tone: _p.accentA,
+        );
       case 'A2':
-        return _LaneCardData(id: 'A2', title: 'Child A2', role: 'Nested under A', tone: _p.accentB);
+        return _LaneCardData(
+          id: 'A2',
+          title: 'Child A2',
+          role: 'Nested under A',
+          tone: _p.accentB,
+        );
       default:
         return _LaneCardData(id: id, title: id, role: '-', tone: _p.accentA);
     }
@@ -1625,7 +2036,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(lane.title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11.8)),
+            Text(
+              lane.title,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 11.8,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(lane.role, style: TextStyle(color: _p.muted, fontSize: 10.3)),
             const SizedBox(height: 8),
@@ -1644,7 +2062,11 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     );
   }
 
-  Widget _deviceShell({required String title, required String caption, required Widget child}) {
+  Widget _deviceShell({
+    required String title,
+    required String caption,
+    required Widget child,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1658,14 +2080,25 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: _p.paper,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Row(
               children: <Widget>[
                 Text(title, style: TextStyle(color: _p.muted, fontSize: 10.8)),
                 const Spacer(),
-                Text(caption, style: TextStyle(color: _p.muted, fontFamily: 'monospace', fontSize: 10.3)),
+                Text(
+                  caption,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontFamily: 'monospace',
+                    fontSize: 10.3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1697,8 +2130,18 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
   Widget _metric(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.2,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1718,16 +2161,30 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             width: 148,
             child: Text(
               key,
-              style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.8),
+              style: TextStyle(
+                color: _p.accentA,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 10.8,
+              ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1746,9 +2203,23 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1769,9 +2240,19 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
+          Text(
+            'Q: $q',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.9,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33)),
+          Text(
+            'A: $a',
+            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33),
+          ),
         ],
       ),
     );
@@ -1785,7 +2266,9 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
+          ),
         ],
       ),
     );
@@ -1799,7 +2282,9 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
+          ),
         ],
       ),
     );
@@ -1807,7 +2292,12 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
 
   Widget _timelinePanel() {
     return Container(
-      decoration: BoxDecoration(color: _p.panel, border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.25)))),
+      decoration: BoxDecoration(
+        color: _p.panel,
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.25)),
+        ),
+      ),
       child: Column(
         children: <Widget>[
           Container(
@@ -1815,12 +2305,21 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Dispatch Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Dispatch Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Notification order, callback outcomes, and priority operations.',
@@ -1859,7 +2358,9 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.25)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.25),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1869,17 +2370,33 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
                           Expanded(
                             child: Text(
                               event.lane,
-                              style: TextStyle(color: _p.ink, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.4),
+                              style: TextStyle(
+                                color: _p.ink,
+                                fontFamily: 'monospace',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.4,
+                              ),
                             ),
                           ),
                           Text(
                             _clock(event.at),
-                            style: TextStyle(color: _p.muted, fontFamily: 'monospace', fontSize: 10.1),
+                            style: TextStyle(
+                              color: _p.muted,
+                              fontFamily: 'monospace',
+                              fontSize: 10.1,
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.31,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -1905,7 +2422,14 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_sectionTitles[_section.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _sectionTitles[_section.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           DropdownButton<_CanvasStyle>(
             value: _canvasStyle,
@@ -1923,7 +2447,10 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
             },
           ),
           const SizedBox(width: 10),
-          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(color: _p.muted, fontSize: 11.1),
+          ),
         ],
       ),
     );
@@ -1944,12 +2471,17 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentA.withValues(alpha: 0.24), _p.accentB.withValues(alpha: 0.24)],
+          colors: <Color>[
+            _p.accentA.withValues(alpha: 0.24),
+            _p.accentB.withValues(alpha: 0.24),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
+      child: CustomPaint(
+        painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
+      ),
     );
   }
 
@@ -1957,12 +2489,17 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentB.withValues(alpha: 0.24), _p.accentC.withValues(alpha: 0.24)],
+          colors: <Color>[
+            _p.accentB.withValues(alpha: 0.24),
+            _p.accentC.withValues(alpha: 0.24),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-      child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22))),
+      child: CustomPaint(
+        painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22)),
+      ),
     );
   }
 
@@ -1970,17 +2507,36 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentC.withValues(alpha: 0.24), _p.accentA.withValues(alpha: 0.24)],
+          colors: <Color>[
+            _p.accentC.withValues(alpha: 0.24),
+            _p.accentA.withValues(alpha: 0.24),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned.fill(child: CustomPaint(painter: _StarPainter(color: Colors.white.withValues(alpha: 0.2)))),
-          Positioned(left: 24, top: 24, child: _ring(88, Colors.white.withValues(alpha: 0.16))),
-          Positioned(right: 30, top: 40, child: _ring(68, Colors.white.withValues(alpha: 0.15))),
-          Positioned(left: 110, bottom: 28, child: _ring(110, Colors.white.withValues(alpha: 0.13))),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _StarPainter(color: Colors.white.withValues(alpha: 0.2)),
+            ),
+          ),
+          Positioned(
+            left: 24,
+            top: 24,
+            child: _ring(88, Colors.white.withValues(alpha: 0.16)),
+          ),
+          Positioned(
+            right: 30,
+            top: 40,
+            child: _ring(68, Colors.white.withValues(alpha: 0.15)),
+          ),
+          Positioned(
+            left: 110,
+            bottom: 28,
+            child: _ring(110, Colors.white.withValues(alpha: 0.13)),
+          ),
         ],
       ),
     );
@@ -1990,7 +2546,10 @@ class _ChildBackButtonDispatcherDeepDemoState extends State<_ChildBackButtonDisp
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: color, width: 6)),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: color, width: 6),
+      ),
     );
   }
 }
@@ -2013,7 +2572,8 @@ class _CrosshairPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _CrosshairPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _CrosshairPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _WavePainter extends CustomPainter {
@@ -2040,7 +2600,8 @@ class _WavePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _WavePainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _WavePainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _GridPainter extends CustomPainter {
@@ -2067,7 +2628,8 @@ class _GridPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _GridPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _GridPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _StarPainter extends CustomPainter {
@@ -2087,5 +2649,6 @@ class _StarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _StarPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _StarPainter oldDelegate) =>
+      oldDelegate.color != color;
 }

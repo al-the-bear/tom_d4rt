@@ -102,7 +102,11 @@ dynamic build(BuildContext context) {
           children: [
             _buildConceptChip('Fill Space', Icons.expand, Color(0xFFCE93D8)),
             _buildConceptChip('Non-Scrollable', Icons.block, Color(0xFFEF9A9A)),
-            _buildConceptChip('Last Sliver', Icons.last_page, Color(0xFF80CBC4)),
+            _buildConceptChip(
+              'Last Sliver',
+              Icons.last_page,
+              Color(0xFF80CBC4),
+            ),
           ],
         ),
       ],
@@ -144,43 +148,43 @@ dynamic build(BuildContext context) {
           'Mode 1: hasScrollBody = true',
           'RenderSliverFillRemainingWithScrollable',
           'The child extends beyond the viewport and can scroll '
-          'within its space. Used with scrollable children like '
-          'ListView or SingleChildScrollView.',
+              'within its space. Used with scrollable children like '
+              'ListView or SingleChildScrollView.',
           Color(0xFF1B5E20),
           Icons.swap_vert,
           'SliverFillRemaining(\n'
-          '  hasScrollBody: true, // default\n'
-          '  child: ListView(...),\n'
-          ')',
+              '  hasScrollBody: true, // default\n'
+              '  child: ListView(...),\n'
+              ')',
         ),
         SizedBox(height: 10.0),
         _buildModeCard(
           'Mode 2: hasScrollBody = false (THIS)',
           'RenderSliverFillRemaining',
           'The child is non-scrollable and fills exactly the remaining '
-          'viewport space. If the child\'s intrinsic size exceeds the '
-          'remaining space, the child\'s size wins.',
+              'viewport space. If the child\'s intrinsic size exceeds the '
+              'remaining space, the child\'s size wins.',
           Color(0xFF0D47A1),
           Icons.vertical_align_bottom,
           'SliverFillRemaining(\n'
-          '  hasScrollBody: false,\n'
-          '  child: Center(child: Text("Footer")),\n'
-          ')',
+              '  hasScrollBody: false,\n'
+              '  child: Center(child: Text("Footer")),\n'
+              ')',
         ),
         SizedBox(height: 10.0),
         _buildModeCard(
           'Mode 3: fillOverscroll = true',
           'RenderSliverFillRemainingAndOverscroll',
           'Like Mode 2, but the child also stretches to fill the '
-          'overscroll area when bouncing (iOS-style physics). '
-          'Only effective when hasScrollBody is false.',
+              'overscroll area when bouncing (iOS-style physics). '
+              'Only effective when hasScrollBody is false.',
           Color(0xFFE65100),
           Icons.expand,
           'SliverFillRemaining(\n'
-          '  hasScrollBody: false,\n'
-          '  fillOverscroll: true,\n'
-          '  child: Container(color: Colors.purple),\n'
-          ')',
+              '  hasScrollBody: false,\n'
+              '  fillOverscroll: true,\n'
+              '  child: Container(color: Colors.purple),\n'
+              ')',
         ),
       ],
     ),
@@ -207,7 +211,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Layout Mechanics — performLayout()', Icons.settings_applications),
+        _buildSectionTitle(
+          'Layout Mechanics — performLayout()',
+          Icons.settings_applications,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(16.0),
@@ -232,14 +239,14 @@ dynamic build(BuildContext context) {
                 1,
                 'Calculate remaining space',
                 'extent = viewportMainAxisExtent\n'
-                '       - precedingScrollExtent',
+                    '       - precedingScrollExtent',
                 'viewport is 800px, preceding content is 300px → remaining = 500px',
               ),
               _buildLayoutStep(
                 2,
                 'Measure child intrinsic size',
                 'childExtent = child.getMaxIntrinsicHeight(\n'
-                '                crossAxisExtent)',
+                    '                crossAxisExtent)',
                 'Child wants 200px height intrinsically',
               ),
               _buildLayoutStep(
@@ -252,24 +259,24 @@ dynamic build(BuildContext context) {
                 4,
                 'Layout child with tight constraints',
                 'child.layout(BoxConstraints(\n'
-                '  minHeight: 500, maxHeight: 500,\n'
-                '  minWidth: 0, maxWidth: crossAxisExtent))',
+                    '  minHeight: 500, maxHeight: 500,\n'
+                    '  minWidth: 0, maxWidth: crossAxisExtent))',
                 'Child fills exactly 500px of remaining viewport',
               ),
               _buildLayoutStep(
                 5,
                 'Calculate paint offset for scrolling',
                 'paintedChildSize = calculatePaintOffset(\n'
-                '  from: 0.0, to: extent)',
+                    '  from: 0.0, to: extent)',
                 'Adjusts visibility as user scrolls through content',
               ),
               _buildLayoutStep(
                 6,
                 'Report SliverGeometry',
                 'geometry = SliverGeometry(\n'
-                '  scrollExtent: extent,\n'
-                '  paintExtent: paintedChildSize,\n'
-                '  maxPaintExtent: paintedChildSize)',
+                    '  scrollExtent: extent,\n'
+                    '  paintExtent: paintedChildSize,\n'
+                    '  maxPaintExtent: paintedChildSize)',
                 'Viewport now knows how much space this sliver uses',
               ),
             ],
@@ -328,7 +335,10 @@ dynamic build(BuildContext context) {
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 12.0,
+                    ),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: Color(0xFFE0E0E0)),
@@ -377,7 +387,11 @@ dynamic build(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.check_circle_outline, color: Colors.white, size: 48.0),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.white,
+                        size: 48.0,
+                      ),
                       SizedBox(height: 12.0),
                       Text(
                         'Footer — Fills Remaining Space',
@@ -478,7 +492,11 @@ dynamic build(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.inbox_outlined, size: 64.0, color: Color(0xFFBDBDBD)),
+                      Icon(
+                        Icons.inbox_outlined,
+                        size: 64.0,
+                        color: Color(0xFFBDBDBD),
+                      ),
                       SizedBox(height: 16.0),
                       Text(
                         'No Items Yet',
@@ -491,18 +509,27 @@ dynamic build(BuildContext context) {
                       SizedBox(height: 8.0),
                       Text(
                         'Add some items to get started.',
-                        style: TextStyle(fontSize: 14.0, color: Color(0xFF9E9E9E)),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Color(0xFF9E9E9E),
+                        ),
                       ),
                       SizedBox(height: 20.0),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 10.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Color(0xFF1565C0),
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Text(
                           'Add Item',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
@@ -532,7 +559,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('hasScrollBody = true (Default Mode)', Icons.swap_vert),
+        _buildSectionTitle(
+          'hasScrollBody = true (Default Mode)',
+          Icons.swap_vert,
+        ),
         SizedBox(height: 8.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -578,7 +608,10 @@ dynamic build(BuildContext context) {
                   child: ListView.builder(
                     itemCount: 15,
                     itemBuilder: (context, index) => Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
                       decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(color: Color(0xFFC5CAE9)),
@@ -659,7 +692,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18.0),
+                        Icon(
+                          Icons.check_circle,
+                          color: Color(0xFF2E7D32),
+                          size: 18.0,
+                        ),
                         SizedBox(width: 6.0),
                         Text(
                           'fillOverscroll: true',
@@ -677,7 +714,11 @@ dynamic build(BuildContext context) {
                       'Child stretches into the overscroll area '
                       'when the user pulls beyond the scroll extent. '
                       'Creates a natural background fill effect.',
-                      style: TextStyle(fontSize: 11.0, color: Color(0xFF1B5E20), height: 1.4),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF1B5E20),
+                        height: 1.4,
+                      ),
                     ),
                     SizedBox(height: 8.0),
                     Text(
@@ -706,7 +747,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.cancel, color: Color(0xFFC62828), size: 18.0),
+                        Icon(
+                          Icons.cancel,
+                          color: Color(0xFFC62828),
+                          size: 18.0,
+                        ),
                         SizedBox(width: 6.0),
                         Text(
                           'fillOverscroll: false',
@@ -724,7 +769,11 @@ dynamic build(BuildContext context) {
                       'Child stays at its computed size even during '
                       'overscroll. A gap may appear between the child '
                       'and viewport edge during bounce.',
-                      style: TextStyle(fontSize: 11.0, color: Color(0xFFB71C1C), height: 1.4),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFFB71C1C),
+                        height: 1.4,
+                      ),
                     ),
                     SizedBox(height: 8.0),
                     Text(
@@ -750,7 +799,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'fillOverscroll: true',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 4.0),
                   Container(
@@ -768,7 +820,10 @@ dynamic build(BuildContext context) {
                             height: 60.0,
                             color: Color(0xFF42A5F5),
                             alignment: Alignment.center,
-                            child: Text('Header', style: TextStyle(color: Colors.white)),
+                            child: Text(
+                              'Header',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                         SliverFillRemaining(
@@ -800,7 +855,10 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     'fillOverscroll: false',
-                    style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 4.0),
                   Container(
@@ -818,7 +876,10 @@ dynamic build(BuildContext context) {
                             height: 60.0,
                             color: Color(0xFF42A5F5),
                             alignment: Alignment.center,
-                            child: Text('Header', style: TextStyle(color: Colors.white)),
+                            child: Text(
+                              'Header',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                         SliverFillRemaining(
@@ -869,7 +930,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Intrinsic Size vs Remaining Space', Icons.compare_arrows),
+        _buildSectionTitle(
+          'Intrinsic Size vs Remaining Space',
+          Icons.compare_arrows,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(14.0),
@@ -912,13 +976,19 @@ dynamic build(BuildContext context) {
                         children: [
                           Text(
                             'Remaining > Intrinsic',
-                            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(height: 4.0),
                           Text(
                             'Child fills\nremaining space',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10.0, color: Color(0xFF2E7D32)),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Color(0xFF2E7D32),
+                            ),
                           ),
                         ],
                       ),
@@ -936,13 +1006,19 @@ dynamic build(BuildContext context) {
                         children: [
                           Text(
                             'Intrinsic > Remaining',
-                            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(height: 4.0),
                           Text(
                             'Child uses its\nintrinsic height',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 10.0, color: Color(0xFFC62828)),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Color(0xFFC62828),
+                            ),
                           ),
                         ],
                       ),
@@ -973,7 +1049,10 @@ dynamic build(BuildContext context) {
                     padding: EdgeInsets.only(left: 14.0),
                     child: Text(
                       'Preceding item ${index + 1}',
-                      style: TextStyle(fontSize: 12.0, color: Color(0xFF1565C0)),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Color(0xFF1565C0),
+                      ),
                     ),
                   ),
                   childCount: 8,
@@ -987,7 +1066,11 @@ dynamic build(BuildContext context) {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.info_outline, size: 32.0, color: Color(0xFFF57F17)),
+                      Icon(
+                        Icons.info_outline,
+                        size: 32.0,
+                        color: Color(0xFFF57F17),
+                      ),
                       SizedBox(height: 8.0),
                       Text(
                         'This child has a large intrinsic height.',
@@ -1003,7 +1086,11 @@ dynamic build(BuildContext context) {
                         'the intrinsic height may exceed the remaining space. '
                         'In that case, the child\'s intrinsic height wins '
                         'and the sliver grows beyond what "remains".',
-                        style: TextStyle(fontSize: 11.0, color: Color(0xFF795548), height: 1.4),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Color(0xFF795548),
+                          height: 1.4,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -1054,7 +1141,10 @@ dynamic build(BuildContext context) {
                     color: Color(0xFFE3F2FD),
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 12.0),
-                    child: Text('Loaded content...', style: TextStyle(fontSize: 12.0)),
+                    child: Text(
+                      'Loaded content...',
+                      style: TextStyle(fontSize: 12.0),
+                    ),
                   ),
                 ),
                 SliverFillRemaining(
@@ -1071,7 +1161,10 @@ dynamic build(BuildContext context) {
                         SizedBox(height: 8.0),
                         Text(
                           'Loading more...',
-                          style: TextStyle(fontSize: 11.0, color: Color(0xFF9E9E9E)),
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Color(0xFF9E9E9E),
+                          ),
                         ),
                       ],
                     ),
@@ -1103,7 +1196,10 @@ dynamic build(BuildContext context) {
                     color: Color(0xFFEEEEEE),
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 12.0),
-                    child: Text('Some data loaded...', style: TextStyle(fontSize: 11.0)),
+                    child: Text(
+                      'Some data loaded...',
+                      style: TextStyle(fontSize: 11.0),
+                    ),
                   ),
                 ),
                 SliverFillRemaining(
@@ -1114,11 +1210,18 @@ dynamic build(BuildContext context) {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.cloud_off, size: 30.0, color: Color(0xFFC62828)),
+                          Icon(
+                            Icons.cloud_off,
+                            size: 30.0,
+                            color: Color(0xFFC62828),
+                          ),
                           SizedBox(height: 6.0),
                           Text(
                             'Failed to load remaining data',
-                            style: TextStyle(fontSize: 12.0, color: Color(0xFFC62828)),
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Color(0xFFC62828),
+                            ),
                           ),
                         ],
                       ),
@@ -1150,7 +1253,10 @@ dynamic build(BuildContext context) {
                     height: 30.0,
                     color: Color(0xFF2E7D32),
                     alignment: Alignment.center,
-                    child: Text('App Header', style: TextStyle(color: Colors.white, fontSize: 12.0)),
+                    child: Text(
+                      'App Header',
+                      style: TextStyle(color: Colors.white, fontSize: 12.0),
+                    ),
                   ),
                 ),
                 SliverFillRemaining(
@@ -1163,16 +1269,19 @@ dynamic build(BuildContext context) {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8.0),
                         boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 6.0,
-                          ),
+                          BoxShadow(color: Colors.black12, blurRadius: 6.0),
                         ],
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Sign In', style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold)),
+                          Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 8.0),
                           Container(
                             height: 24.0,
@@ -1189,7 +1298,13 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             alignment: Alignment.center,
-                            child: Text('Login', style: TextStyle(color: Colors.white, fontSize: 11.0)),
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 11.0,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -1221,7 +1336,7 @@ dynamic build(BuildContext context) {
         _buildComparisonRow(
           'RenderSliverFillRemaining',
           'Non-scrollable child sized to fill remaining viewport. '
-          'Child intrinsic height used if larger than remaining space.',
+              'Child intrinsic height used if larger than remaining space.',
           Color(0xFF7B1FA2),
           true,
         ),
@@ -1229,7 +1344,7 @@ dynamic build(BuildContext context) {
         _buildComparisonRow(
           'RenderSliverFillRemainingWithScrollable',
           'Scrollable child gets remaining space as minimum extent. '
-          'Child can grow beyond and scroll. Default mode.',
+              'Child can grow beyond and scroll. Default mode.',
           Color(0xFF1565C0),
           false,
         ),
@@ -1237,7 +1352,7 @@ dynamic build(BuildContext context) {
         _buildComparisonRow(
           'RenderSliverFillRemainingAndOverscroll',
           'Like FillRemaining but also stretches child into overscroll '
-          'area during iOS-style bounce.',
+              'area during iOS-style bounce.',
           Color(0xFFE65100),
           false,
         ),
@@ -1245,7 +1360,7 @@ dynamic build(BuildContext context) {
         _buildComparisonRow(
           'RenderSliverFillViewport',
           'Sizes EACH child to fill the entire viewport extent. '
-          'Used by SliverFillViewport for page-like scrolling.',
+              'Used by SliverFillViewport for page-like scrolling.',
           Color(0xFF2E7D32),
           false,
         ),
@@ -1253,7 +1368,7 @@ dynamic build(BuildContext context) {
         _buildComparisonRow(
           'RenderSliverSingleBoxAdapter',
           'Base class for slivers with a single box child. '
-          'Parent of all Fill variants.',
+              'Parent of all Fill variants.',
           Color(0xFF616161),
           false,
         ),
@@ -1298,8 +1413,16 @@ dynamic build(BuildContext context) {
         ),
         Divider(height: 20.0),
         _buildApiRow('child', 'Widget?', 'The box widget to size and paint'),
-        _buildApiRow('hasScrollBody', 'bool', 'true → scrollable child; false → fixed child'),
-        _buildApiRow('fillOverscroll', 'bool', 'true → stretch into overscroll (iOS). Only when hasScrollBody=false'),
+        _buildApiRow(
+          'hasScrollBody',
+          'bool',
+          'true → scrollable child; false → fixed child',
+        ),
+        _buildApiRow(
+          'fillOverscroll',
+          'bool',
+          'true → stretch into overscroll (iOS). Only when hasScrollBody=false',
+        ),
         Divider(height: 20.0),
         Text(
           'Render Object: RenderSliverFillRemaining',
@@ -1311,19 +1434,51 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 8.0),
         _buildApiRow('child', 'RenderBox?', 'The child render box'),
-        _buildApiRow('performLayout()', 'void', 'Calculates remaining space and lays out child'),
-        _buildApiRow('constraints', 'SliverConstraints', 'Inherited — viewport main/cross axis info'),
-        _buildApiRow('geometry', 'SliverGeometry?', 'Output — scroll extent, paint extent, etc.'),
+        _buildApiRow(
+          'performLayout()',
+          'void',
+          'Calculates remaining space and lays out child',
+        ),
+        _buildApiRow(
+          'constraints',
+          'SliverConstraints',
+          'Inherited — viewport main/cross axis info',
+        ),
+        _buildApiRow(
+          'geometry',
+          'SliverGeometry?',
+          'Output — scroll extent, paint extent, etc.',
+        ),
         Divider(height: 20.0),
         Text(
           'Key SliverConstraints properties used:',
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('viewportMainAxisExtent', 'double', 'Total viewport size in scroll direction'),
-        _buildApiRow('precedingScrollExtent', 'double', 'Total scroll extent before this sliver'),
-        _buildApiRow('crossAxisExtent', 'double', 'Viewport size perpendicular to scroll'),
-        _buildApiRow('scrollOffset', 'double', 'How far this sliver has been scrolled'),
+        _buildApiRow(
+          'viewportMainAxisExtent',
+          'double',
+          'Total viewport size in scroll direction',
+        ),
+        _buildApiRow(
+          'precedingScrollExtent',
+          'double',
+          'Total scroll extent before this sliver',
+        ),
+        _buildApiRow(
+          'crossAxisExtent',
+          'double',
+          'Viewport size perpendicular to scroll',
+        ),
+        _buildApiRow(
+          'scrollOffset',
+          'double',
+          'How far this sliver has been scrolled',
+        ),
       ],
     ),
   );
@@ -1403,7 +1558,11 @@ Widget _buildConceptChip(String label, IconData icon, Color color) {
         SizedBox(width: 4.0),
         Text(
           label,
-          style: TextStyle(fontSize: 11.0, color: color, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     ),
@@ -1456,7 +1615,11 @@ Widget _buildModeCard(
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF424242), height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF424242),
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 8.0),
         Container(
@@ -1602,7 +1765,11 @@ Widget _buildPatternCard(
         SizedBox(height: 6.0),
         Text(
           description,
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF616161), height: 1.3),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF616161),
+            height: 1.3,
+          ),
         ),
         SizedBox(height: 8.0),
         demo,
@@ -1655,7 +1822,11 @@ Widget _buildComparisonRow(
               SizedBox(height: 4.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF616161), height: 1.3),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Color(0xFF616161),
+                  height: 1.3,
+                ),
               ),
             ],
           ),

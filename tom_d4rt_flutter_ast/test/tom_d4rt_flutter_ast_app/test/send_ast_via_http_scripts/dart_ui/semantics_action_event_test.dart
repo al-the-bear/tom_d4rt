@@ -166,71 +166,43 @@ LinearGradient _gradEnumChip() {
 
 List<BoxShadow> _shadowSoft() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x55000000),
-      blurRadius: 18,
-      offset: Offset(0, 6),
-    ),
+    BoxShadow(color: Color(0x55000000), blurRadius: 18, offset: Offset(0, 6)),
   ];
 }
 
 List<BoxShadow> _shadowGlowCyan() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x554FD3FF),
-      blurRadius: 24,
-      offset: Offset(0, 0),
-    ),
+    BoxShadow(color: Color(0x554FD3FF), blurRadius: 24, offset: Offset(0, 0)),
   ];
 }
 
 List<BoxShadow> _shadowGlowMint() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x556CE9C2),
-      blurRadius: 24,
-      offset: Offset(0, 0),
-    ),
+    BoxShadow(color: Color(0x556CE9C2), blurRadius: 24, offset: Offset(0, 0)),
   ];
 }
 
 List<BoxShadow> _shadowGlowAmber() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x55FFC857),
-      blurRadius: 24,
-      offset: Offset(0, 0),
-    ),
+    BoxShadow(color: Color(0x55FFC857), blurRadius: 24, offset: Offset(0, 0)),
   ];
 }
 
 List<BoxShadow> _shadowGlowRose() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x55FF7AA2),
-      blurRadius: 24,
-      offset: Offset(0, 0),
-    ),
+    BoxShadow(color: Color(0x55FF7AA2), blurRadius: 24, offset: Offset(0, 0)),
   ];
 }
 
 List<BoxShadow> _shadowGlowViolet() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x55B48BFF),
-      blurRadius: 24,
-      offset: Offset(0, 0),
-    ),
+    BoxShadow(color: Color(0x55B48BFF), blurRadius: 24, offset: Offset(0, 0)),
   ];
 }
 
 List<BoxShadow> _shadowDeep() {
   return <BoxShadow>[
-    BoxShadow(
-      color: Color(0x99000000),
-      blurRadius: 28,
-      offset: Offset(0, 12),
-    ),
+    BoxShadow(color: Color(0x99000000), blurRadius: 28, offset: Offset(0, 12)),
   ];
 }
 
@@ -335,11 +307,7 @@ Widget _prose(String text) {
     ),
     child: Text(
       text,
-      style: const TextStyle(
-        color: _kInkSoft,
-        fontSize: 14.5,
-        height: 1.55,
-      ),
+      style: const TextStyle(color: _kInkSoft, fontSize: 14.5, height: 1.55),
     ),
   );
 }
@@ -378,10 +346,7 @@ Widget _fieldTag({
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
             Text(
@@ -395,8 +360,7 @@ Widget _fieldTag({
             ),
             const SizedBox(width: 10),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: Color(0x33FFFFFF),
                 borderRadius: BorderRadius.circular(6),
@@ -415,11 +379,7 @@ Widget _fieldTag({
         const SizedBox(height: 8),
         Text(
           description,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.45,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.45),
         ),
       ],
     ),
@@ -490,11 +450,7 @@ Widget _actionChip({
         const SizedBox(height: 10),
         Text(
           intent,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 12.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 12.5, height: 1.4),
         ),
       ],
     ),
@@ -543,10 +499,7 @@ Widget _eventCard({
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 3,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: accent.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(6),
@@ -595,11 +548,7 @@ Widget _eventCard({
         const SizedBox(height: 8),
         Text(
           caption,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.45,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.45),
         ),
       ],
     ),
@@ -668,11 +617,7 @@ Widget _pipelineArrow() {
   return Container(
     width: 24,
     alignment: Alignment.center,
-    child: Icon(
-      Icons.arrow_forward_rounded,
-      color: _kAccentCyan,
-      size: 22,
-    ),
+    child: Icon(Icons.arrow_forward_rounded, color: _kAccentCyan, size: 22),
   );
 }
 
@@ -743,18 +688,11 @@ Widget _recipeCard({
         const SizedBox(height: 10),
         Text(
           why,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.45,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.45),
         ),
         const SizedBox(height: 10),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 8,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
             color: _kPanelBgAlt,
             borderRadius: BorderRadius.circular(10),
@@ -789,10 +727,7 @@ Widget _footgun({
     decoration: BoxDecoration(
       color: Color(0xFF2A1822),
       borderRadius: BorderRadius.circular(14),
-      border: Border.all(
-        color: _kDanger.withValues(alpha: 0.5),
-        width: 1,
-      ),
+      border: Border.all(color: _kDanger.withValues(alpha: 0.5), width: 1),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: _kDanger.withValues(alpha: 0.18),
@@ -1276,9 +1211,7 @@ Widget _eventsTableRow({
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
       color: isHeader ? _kPanelBgAlt : _kPanelBg,
-      border: Border(
-        bottom: BorderSide(color: _kPanelBorder, width: 0.6),
-      ),
+      border: Border(bottom: BorderSide(color: _kPanelBorder, width: 0.6)),
     ),
     child: Row(
       children: <Widget>[
@@ -1291,17 +1224,11 @@ Widget _eventsTableRow({
         ),
         SizedBox(
           width: 80,
-          child: Text(
-            '${event.nodeId}',
-            style: isHeader ? headerStyle : base,
-          ),
+          child: Text('${event.nodeId}', style: isHeader ? headerStyle : base),
         ),
         SizedBox(
           width: 80,
-          child: Text(
-            '${event.viewId}',
-            style: isHeader ? headerStyle : base,
-          ),
+          child: Text('${event.viewId}', style: isHeader ? headerStyle : base),
         ),
         SizedBox(
           width: 220,
@@ -1404,7 +1331,8 @@ Widget _section3Table() {
       _sectionHeader(
         index: 3,
         title: 'Twelve constructed events at a glance',
-        subtitle: 'type / nodeId / viewId / arguments — read off real instances',
+        subtitle:
+            'type / nodeId / viewId / arguments — read off real instances',
         gradient: _gradHeader3(),
         icon: Icons.table_chart_rounded,
       ),
@@ -1429,13 +1357,8 @@ Widget _section3Table() {
           children: <Widget>[
             // synthetic header row — uses literal labels
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
-              decoration: BoxDecoration(
-                gradient: _gradHeader3(),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              decoration: BoxDecoration(gradient: _gradHeader3()),
               child: Row(
                 children: const <Widget>[
                   SizedBox(
@@ -2166,9 +2089,7 @@ Widget _apiRow({
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
     decoration: BoxDecoration(
       color: isHeader ? _kPanelBgAlt : _kPanelBg,
-      border: Border(
-        bottom: BorderSide(color: _kPanelBorder, width: 0.6),
-      ),
+      border: Border(bottom: BorderSide(color: _kPanelBorder, width: 0.6)),
     ),
     child: Row(
       children: <Widget>[
@@ -2219,10 +2140,7 @@ Widget _section9Api() {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(gradient: _gradHeader9()),
               child: const Row(
                 children: <Widget>[
@@ -2267,8 +2185,7 @@ Widget _section9Api() {
             _apiRow(
               left: 'SemanticsActionEvent',
               middle: 'class (data)',
-              right:
-                  'engine→framework value carrying type/nodeId/viewId/args',
+              right: 'engine→framework value carrying type/nodeId/viewId/args',
             ),
             _apiRow(
               left: '.type',
@@ -2385,11 +2302,7 @@ Widget _footer() {
           'pipeline, and calls out the lifecycle and shape pitfalls that '
           'tend to appear when teams begin instrumenting bespoke widgets '
           'for accessibility.',
-          style: TextStyle(
-            color: _kInkSoft,
-            fontSize: 14,
-            height: 1.55,
-          ),
+          style: TextStyle(color: _kInkSoft, fontSize: 14, height: 1.55),
         ),
         const SizedBox(height: 12),
         Wrap(
@@ -2499,9 +2412,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: const Color(0x33FFFFFF),
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: const Color(0x55FFFFFF),
-                          ),
+                          border: Border.all(color: const Color(0x55FFFFFF)),
                         ),
                         child: const Text(
                           'dart:ui',

@@ -207,7 +207,12 @@ Color _contrastingFor(Color c) {
 
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 30.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 30.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -215,10 +220,17 @@ Widget _sectionHeader(int index, String title, String tagline) {
           width: 38.0,
           height: 38.0,
           alignment: Alignment.center,
-          decoration: const BoxDecoration(color: _kAccent, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: _kAccent,
+            shape: BoxShape.circle,
+          ),
           child: Text(
             '$index',
-            style: const TextStyle(color: Color(0xFFFFFFFF), fontSize: 16.0, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         const SizedBox(width: 12.0),
@@ -248,7 +260,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
   Color borderColor = _kHairline,
 }) {
   return Container(
@@ -259,7 +274,11 @@ Widget _card({
       borderRadius: BorderRadius.circular(14.0),
       border: Border.all(color: borderColor),
       boxShadow: const <BoxShadow>[
-        BoxShadow(color: Color(0x0D000000), offset: Offset(0.0, 1.0), blurRadius: 3.0),
+        BoxShadow(
+          color: Color(0x0D000000),
+          offset: Offset(0.0, 1.0),
+          blurRadius: 3.0,
+        ),
       ],
     ),
     child: child,
@@ -302,7 +321,11 @@ Widget _pill(String label, {Color colour = _kAccent}) {
     ),
     child: Text(
       label,
-      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: colour),
+      style: TextStyle(
+        fontSize: 11.0,
+        fontWeight: FontWeight.w600,
+        color: colour,
+      ),
     ),
   );
 }
@@ -338,14 +361,38 @@ Widget _hexLabel(Color c, {Color textColor = _kInkTertiary}) {
 // the demo. They are functions rather than a real parser, because the
 // content of each code block is hand-curated and short.
 
-TextSpan _kw(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeKeyword));
-TextSpan _ty(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeType));
-TextSpan _id(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeText));
-TextSpan _str(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeString));
-TextSpan _num_(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeNumber));
-TextSpan _cmt(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeComment, fontStyle: FontStyle.italic));
-TextSpan _acc(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeAccent));
-TextSpan _pn(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeText));
+TextSpan _kw(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeKeyword),
+);
+TextSpan _ty(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeType),
+);
+TextSpan _id(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeText),
+);
+TextSpan _str(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeString),
+);
+TextSpan _num_(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeNumber),
+);
+TextSpan _cmt(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeComment, fontStyle: FontStyle.italic),
+);
+TextSpan _acc(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeAccent),
+);
+TextSpan _pn(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeText),
+);
 
 Widget _codeBlock(List<List<TextSpan>> lines, {EdgeInsets? padding}) {
   return Container(
@@ -437,7 +484,8 @@ class _AnatomyPainter extends CustomPainter {
     final double radius = math.min(size.width, size.height) * 0.36;
     final List<Offset> targets = <Offset>[];
     for (int i = 0; i < children.length; i++) {
-      final double angle = (-math.pi / 2.0) + (2.0 * math.pi * i / children.length);
+      final double angle =
+          (-math.pi / 2.0) + (2.0 * math.pi * i / children.length);
       final Offset p = Offset(
         center.dx + radius * math.cos(angle),
         center.dy + radius * math.sin(angle),
@@ -496,7 +544,10 @@ class _AnatomyPainter extends CustomPainter {
     )..layout(maxWidth: 160.0);
     centerText.paint(
       canvas,
-      Offset(center.dx - centerText.width / 2.0, center.dy - centerText.height / 2.0 - 8.0),
+      Offset(
+        center.dx - centerText.width / 2.0,
+        center.dy - centerText.height / 2.0 - 8.0,
+      ),
     );
     final TextPainter centerSub = TextPainter(
       textDirection: TextDirection.ltr,
@@ -545,10 +596,7 @@ class _AnatomyPainter extends CustomPainter {
           ),
         ),
       )..layout(maxWidth: 140.0);
-      tp.paint(
-        canvas,
-        Offset(t.dx - tp.width / 2.0, t.dy - tp.height / 2.0),
-      );
+      tp.paint(canvas, Offset(t.dx - tp.width / 2.0, t.dy - tp.height / 2.0));
     }
   }
 
@@ -571,7 +619,9 @@ Widget _anatomyDiagram() {
         SizedBox(
           height: 420.0,
           child: CustomPaint(
-            painter: const _AnatomyPainter(brightnessLabel: 'brightness: null (inherits)'),
+            painter: const _AnatomyPainter(
+              brightnessLabel: 'brightness: null (inherits)',
+            ),
             size: Size.infinite,
           ),
         ),
@@ -611,7 +661,8 @@ Widget _introCard() {
         const SizedBox(height: 10.0),
         _cardTitle(
           'CupertinoTheme is an InheritedWidget',
-          subtitle: 'It exposes a CupertinoThemeData to every descendant via CupertinoTheme.of(context)',
+          subtitle:
+              'It exposes a CupertinoThemeData to every descendant via CupertinoTheme.of(context)',
         ),
         const SizedBox(height: 10.0),
         const Text(
@@ -634,7 +685,11 @@ Widget _introCard() {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(CupertinoIcons.info_circle_fill, color: _kAccent, size: 18.0),
+              const Icon(
+                CupertinoIcons.info_circle_fill,
+                color: _kAccent,
+                size: 18.0,
+              ),
               const SizedBox(width: 8.0),
               const Expanded(
                 child: Text(
@@ -699,14 +754,8 @@ Widget _fieldsTable() {
         const SizedBox(height: 10.0),
         Row(
           children: const <Widget>[
-            SizedBox(
-              width: 170.0,
-              child: Text('field', style: _kCaptionStyle),
-            ),
-            SizedBox(
-              width: 150.0,
-              child: Text('type', style: _kCaptionStyle),
-            ),
+            SizedBox(width: 170.0, child: Text('field', style: _kCaptionStyle)),
+            SizedBox(width: 150.0, child: Text('type', style: _kCaptionStyle)),
             Expanded(child: Text('purpose', style: _kCaptionStyle)),
           ],
         ),
@@ -719,7 +768,10 @@ Widget _fieldsTable() {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(width: 170.0, child: Text(rows[i].name, style: _kFieldNameStyle)),
+                SizedBox(
+                  width: 170.0,
+                  child: Text(rows[i].name, style: _kFieldNameStyle),
+                ),
                 SizedBox(
                   width: 150.0,
                   child: Text(
@@ -732,12 +784,16 @@ Widget _fieldsTable() {
                   ),
                 ),
                 Expanded(
-                  child: Text(rows[i].purpose, style: _kBodyStyle.copyWith(fontSize: 13.0)),
+                  child: Text(
+                    rows[i].purpose,
+                    style: _kBodyStyle.copyWith(fontSize: 13.0),
+                  ),
                 ),
               ],
             ),
           ),
-          if (i != rows.length - 1) Container(height: 1.0, color: _kHairline.withOpacity(0.6)),
+          if (i != rows.length - 1)
+            Container(height: 1.0, color: _kHairline.withOpacity(0.6)),
         ],
       ],
     ),
@@ -764,12 +820,20 @@ Widget _miniNavBar(_ThemeSnapshot s) {
         const SizedBox(width: 4.0),
         Text(
           'Back',
-          style: TextStyle(color: s.primary, fontSize: 15.0, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            color: s.primary,
+            fontSize: 15.0,
+            fontWeight: FontWeight.w400,
+          ),
         ),
         const Spacer(),
         Text(
           'Settings',
-          style: TextStyle(color: s.ink, fontSize: 16.0, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: s.ink,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const Spacer(),
         Icon(CupertinoIcons.ellipsis_circle, color: s.primary, size: 22.0),
@@ -778,7 +842,12 @@ Widget _miniNavBar(_ThemeSnapshot s) {
   );
 }
 
-Widget _miniListItem(_ThemeSnapshot s, IconData icon, String title, String trailing) {
+Widget _miniListItem(
+  _ThemeSnapshot s,
+  IconData icon,
+  String title,
+  String trailing,
+) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 11.0),
     decoration: BoxDecoration(
@@ -790,15 +859,9 @@ Widget _miniListItem(_ThemeSnapshot s, IconData icon, String title, String trail
         Icon(icon, color: s.primary, size: 19.0),
         const SizedBox(width: 10.0),
         Expanded(
-          child: Text(
-            title,
-            style: TextStyle(color: s.ink, fontSize: 14.5),
-          ),
+          child: Text(title, style: TextStyle(color: s.ink, fontSize: 14.5)),
         ),
-        Text(
-          trailing,
-          style: TextStyle(color: s.inkSecondary, fontSize: 13.0),
-        ),
+        Text(trailing, style: TextStyle(color: s.inkSecondary, fontSize: 13.0)),
         const SizedBox(width: 6.0),
         Icon(CupertinoIcons.chevron_right, color: s.inkSecondary, size: 14.0),
       ],
@@ -931,7 +994,8 @@ Widget _brightnessDiptych() {
       children: <Widget>[
         _cardTitle(
           'The same default theme, twice',
-          subtitle: 'CupertinoThemeData(brightness: Brightness.light) vs CupertinoThemeData(brightness: Brightness.dark)',
+          subtitle:
+              'CupertinoThemeData(brightness: Brightness.light) vs CupertinoThemeData(brightness: Brightness.dark)',
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -944,14 +1008,35 @@ Widget _brightnessDiptych() {
         ),
         const SizedBox(height: 12.0),
         _codeBlock(<List<TextSpan>>[
-          <TextSpan>[_kw('const'), _id(' lightTheme '), _id('= '), _ty('CupertinoThemeData'), _id('(')],
+          <TextSpan>[
+            _kw('const'),
+            _id(' lightTheme '),
+            _id('= '),
+            _ty('CupertinoThemeData'),
+            _id('('),
+          ],
           <TextSpan>[_id('  brightness: '), _ty('Brightness'), _id('.light,')],
-          <TextSpan>[_id('  primaryColor: '), _ty('CupertinoColors'), _id('.systemBlue,')],
+          <TextSpan>[
+            _id('  primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemBlue,'),
+          ],
           <TextSpan>[_id(');')],
           <TextSpan>[],
-          <TextSpan>[_kw('const'), _id(' darkTheme '), _id('= '), _ty('CupertinoThemeData'), _id('(')],
+          <TextSpan>[
+            _kw('const'),
+            _id(' darkTheme '),
+            _id('= '),
+            _ty('CupertinoThemeData'),
+            _id('('),
+          ],
           <TextSpan>[_id('  brightness: '), _ty('Brightness'), _id('.dark,')],
-          <TextSpan>[_id('  primaryColor: '), _ty('CupertinoColors'), _id('.systemBlue,  '), _cmt('// resolves to 0A84FF in dark')],
+          <TextSpan>[
+            _id('  primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemBlue,  '),
+            _cmt('// resolves to 0A84FF in dark'),
+          ],
           <TextSpan>[_id(');')],
         ]),
       ],
@@ -991,7 +1076,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w400,
     letterSpacing: -0.41,
     sample: 'The body text for nearly every widget.',
-    usage: 'Default for CupertinoButton labels, plain Text widgets under DefaultTextStyle inherited from theme.',
+    usage:
+        'Default for CupertinoButton labels, plain Text widgets under DefaultTextStyle inherited from theme.',
   ),
   _TextStyleSpec(
     field: 'actionTextStyle',
@@ -999,7 +1085,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w400,
     letterSpacing: -0.41,
     sample: 'Confirm  -  Cancel  -  Delete',
-    usage: 'Tappable actions in CupertinoButton, alert action buttons and other tinted controls. Tinted with primaryColor.',
+    usage:
+        'Tappable actions in CupertinoButton, alert action buttons and other tinted controls. Tinted with primaryColor.',
     colorOverride: _kAccent,
   ),
   _TextStyleSpec(
@@ -1008,7 +1095,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w500,
     letterSpacing: -0.24,
     sample: 'Home  Browse  Profile',
-    usage: 'Labels under CupertinoTabBar icons. Compact, slightly heavier weight than body.',
+    usage:
+        'Labels under CupertinoTabBar icons. Compact, slightly heavier weight than body.',
   ),
   _TextStyleSpec(
     field: 'navTitleTextStyle',
@@ -1016,7 +1104,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w600,
     letterSpacing: -0.41,
     sample: 'Inbox',
-    usage: 'Compact-mode navigation bar title. Heavier weight than body text and aligned to center.',
+    usage:
+        'Compact-mode navigation bar title. Heavier weight than body text and aligned to center.',
   ),
   _TextStyleSpec(
     field: 'navLargeTitleTextStyle',
@@ -1024,7 +1113,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w700,
     letterSpacing: 0.41,
     sample: 'Photos',
-    usage: 'Large-title mode for CupertinoSliverNavigationBar.large. Drops to navTitleTextStyle as the user scrolls.',
+    usage:
+        'Large-title mode for CupertinoSliverNavigationBar.large. Drops to navTitleTextStyle as the user scrolls.',
   ),
   _TextStyleSpec(
     field: 'navActionTextStyle',
@@ -1032,7 +1122,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w400,
     letterSpacing: -0.41,
     sample: 'Edit',
-    usage: 'Trailing/leading actions in CupertinoNavigationBar. Tinted with primaryColor.',
+    usage:
+        'Trailing/leading actions in CupertinoNavigationBar. Tinted with primaryColor.',
     colorOverride: _kAccent,
   ),
   _TextStyleSpec(
@@ -1041,7 +1132,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w400,
     letterSpacing: -0.6,
     sample: '14:30',
-    usage: 'CupertinoPicker rows. Slightly larger than body, balanced for the drum-roll layout.',
+    usage:
+        'CupertinoPicker rows. Slightly larger than body, balanced for the drum-roll layout.',
   ),
   _TextStyleSpec(
     field: 'dateTimePickerTextStyle',
@@ -1049,7 +1141,8 @@ const List<_TextStyleSpec> _kTextStyleSpecs = <_TextStyleSpec>[
     fontWeight: FontWeight.w400,
     letterSpacing: -0.6,
     sample: 'Sun, Nov 12',
-    usage: 'CupertinoDatePicker rows. Same metrics as pickerTextStyle by default; usually customized only to match dense layouts.',
+    usage:
+        'CupertinoDatePicker rows. Same metrics as pickerTextStyle by default; usually customized only to match dense layouts.',
   ),
 ];
 
@@ -1066,7 +1159,9 @@ Widget _textStyleRow(int index, _TextStyleSpec spec) {
     decoration: BoxDecoration(
       border: Border(
         bottom: BorderSide(
-          color: index == _kTextStyleSpecs.length - 1 ? const Color(0x00000000) : _kHairline,
+          color: index == _kTextStyleSpecs.length - 1
+              ? const Color(0x00000000)
+              : _kHairline,
         ),
       ),
     ),
@@ -1078,7 +1173,10 @@ Widget _textStyleRow(int index, _TextStyleSpec spec) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('#${(index + 1).toString().padLeft(2, '0')}', style: _kCaptionStyle),
+              Text(
+                '#${(index + 1).toString().padLeft(2, '0')}',
+                style: _kCaptionStyle,
+              ),
               const SizedBox(height: 2.0),
               Text(spec.field, style: _kFieldNameStyle),
               const SizedBox(height: 4.0),
@@ -1109,7 +1207,10 @@ Widget _textStyleRow(int index, _TextStyleSpec spec) {
               const SizedBox(height: 4.0),
               Text(
                 spec.usage,
-                style: _kBodyStyle.copyWith(fontSize: 12.5, color: _kInkSecondary),
+                style: _kBodyStyle.copyWith(
+                  fontSize: 12.5,
+                  color: _kInkSecondary,
+                ),
               ),
             ],
           ),
@@ -1141,11 +1242,34 @@ Widget _textThemeCatalog() {
           _textStyleRow(i, _kTextStyleSpecs[i]),
         const SizedBox(height: 8.0),
         _codeBlock(<List<TextSpan>>[
-          <TextSpan>[_kw('final'), _ty(' CupertinoThemeData'), _id(' theme = '), _ty('CupertinoThemeData'), _id('(')],
+          <TextSpan>[
+            _kw('final'),
+            _ty(' CupertinoThemeData'),
+            _id(' theme = '),
+            _ty('CupertinoThemeData'),
+            _id('('),
+          ],
           <TextSpan>[_id('  brightness: '), _ty('Brightness'), _id('.light,')],
-          <TextSpan>[_id('  textTheme: '), _ty('CupertinoTextThemeData'), _id('(')],
-          <TextSpan>[_id('    primaryColor: '), _ty('CupertinoColors'), _id('.systemIndigo,')],
-          <TextSpan>[_id('    textStyle: '), _ty('TextStyle'), _id('('), _id('fontSize: '), _num_('16.0'), _id(', height: '), _num_('1.4'), _id('),')],
+          <TextSpan>[
+            _id('  textTheme: '),
+            _ty('CupertinoTextThemeData'),
+            _id('('),
+          ],
+          <TextSpan>[
+            _id('    primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemIndigo,'),
+          ],
+          <TextSpan>[
+            _id('    textStyle: '),
+            _ty('TextStyle'),
+            _id('('),
+            _id('fontSize: '),
+            _num_('16.0'),
+            _id(', height: '),
+            _num_('1.4'),
+            _id('),'),
+          ],
           <TextSpan>[_id('  ),')],
           <TextSpan>[_id(');')],
         ]),
@@ -1254,7 +1378,8 @@ Widget _iconThemeCard() {
         const SizedBox(height: 8.0),
         _cardTitle(
           'Icons inherit the primary tint',
-          subtitle: 'IconTheme.of(context).color == CupertinoTheme.of(context).primaryColor (by default)',
+          subtitle:
+              'IconTheme.of(context).color == CupertinoTheme.of(context).primaryColor (by default)',
         ),
         const SizedBox(height: 10.0),
         const Text(
@@ -1285,10 +1410,36 @@ Widget _iconThemeCard() {
         _codeBlock(<List<TextSpan>>[
           <TextSpan>[_cmt('// Each Icon below is plain - no color argument.')],
           <TextSpan>[_ty('CupertinoTheme'), _id('(')],
-          <TextSpan>[_id('  data: '), _ty('CupertinoThemeData'), _id('(primaryColor: '), _ty('CupertinoColors'), _id('.systemPink),')],
-          <TextSpan>[_id('  child: '), _ty('Row'), _id('(children: <'), _ty('Widget'), _id('>[')],
-          <TextSpan>[_id('    '), _ty('Icon'), _id('('), _ty('CupertinoIcons'), _id('.heart_fill),  '), _cmt('// pink')],
-          <TextSpan>[_id('    '), _ty('Icon'), _id('('), _ty('CupertinoIcons'), _id('.gear),         '), _cmt('// pink')],
+          <TextSpan>[
+            _id('  data: '),
+            _ty('CupertinoThemeData'),
+            _id('(primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemPink),'),
+          ],
+          <TextSpan>[
+            _id('  child: '),
+            _ty('Row'),
+            _id('(children: <'),
+            _ty('Widget'),
+            _id('>['),
+          ],
+          <TextSpan>[
+            _id('    '),
+            _ty('Icon'),
+            _id('('),
+            _ty('CupertinoIcons'),
+            _id('.heart_fill),  '),
+            _cmt('// pink'),
+          ],
+          <TextSpan>[
+            _id('    '),
+            _ty('Icon'),
+            _id('('),
+            _ty('CupertinoIcons'),
+            _id('.gear),         '),
+            _cmt('// pink'),
+          ],
           <TextSpan>[_id('  ]),')],
           <TextSpan>[_id('),')],
         ]),
@@ -1312,14 +1463,14 @@ class _ResolveRow {
 }
 
 const List<_ResolveRow> _kResolveRows = <_ResolveRow>[
-  _ResolveRow('light', 'normal', 'base',     Color(0xFF007AFF)),
+  _ResolveRow('light', 'normal', 'base', Color(0xFF007AFF)),
   _ResolveRow('light', 'normal', 'elevated', Color(0xFF007AFF)),
-  _ResolveRow('light', 'high',   'base',     Color(0xFF0040DD)),
-  _ResolveRow('light', 'high',   'elevated', Color(0xFF0040DD)),
-  _ResolveRow('dark',  'normal', 'base',     Color(0xFF0A84FF)),
-  _ResolveRow('dark',  'normal', 'elevated', Color(0xFF0A84FF)),
-  _ResolveRow('dark',  'high',   'base',     Color(0xFF409CFF)),
-  _ResolveRow('dark',  'high',   'elevated', Color(0xFF409CFF)),
+  _ResolveRow('light', 'high', 'base', Color(0xFF0040DD)),
+  _ResolveRow('light', 'high', 'elevated', Color(0xFF0040DD)),
+  _ResolveRow('dark', 'normal', 'base', Color(0xFF0A84FF)),
+  _ResolveRow('dark', 'normal', 'elevated', Color(0xFF0A84FF)),
+  _ResolveRow('dark', 'high', 'base', Color(0xFF409CFF)),
+  _ResolveRow('dark', 'high', 'elevated', Color(0xFF409CFF)),
 ];
 
 Widget _resolveTableHeader() {
@@ -1345,21 +1496,33 @@ Widget _resolveTableRow(_ResolveRow row) {
           width: 90.0,
           child: Text(
             row.brightness,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5, color: _kInk),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12.5,
+              color: _kInk,
+            ),
           ),
         ),
         SizedBox(
           width: 90.0,
           child: Text(
             row.contrast,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5, color: _kInk),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12.5,
+              color: _kInk,
+            ),
           ),
         ),
         SizedBox(
           width: 90.0,
           child: Text(
             row.elevation,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5, color: _kInk),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12.5,
+              color: _kInk,
+            ),
           ),
         ),
         Expanded(
@@ -1398,7 +1561,8 @@ Widget _dynamicResolveCard() {
         const SizedBox(height: 8.0),
         _cardTitle(
           'Eight variants, one final Color',
-          subtitle: 'resolve(context) consults Brightness, MediaQuery.highContrast and CupertinoUserInterfaceLevel',
+          subtitle:
+              'resolve(context) consults Brightness, MediaQuery.highContrast and CupertinoUserInterfaceLevel',
         ),
         const SizedBox(height: 10.0),
         const Text(
@@ -1411,19 +1575,36 @@ Widget _dynamicResolveCard() {
         ),
         const SizedBox(height: 12.0),
         _codeBlock(<List<TextSpan>>[
-          <TextSpan>[_kw('final'), _ty(' Color'), _id(' tint = '), _ty('CupertinoDynamicColor'), _id('.resolve(')],
+          <TextSpan>[
+            _kw('final'),
+            _ty(' Color'),
+            _id(' tint = '),
+            _ty('CupertinoDynamicColor'),
+            _id('.resolve('),
+          ],
           <TextSpan>[_id('  '), _ty('CupertinoColors'), _id('.systemBlue,')],
           <TextSpan>[_id('  context,')],
           <TextSpan>[_id(');')],
           <TextSpan>[],
           <TextSpan>[_cmt('// Equivalent to:')],
-          <TextSpan>[_cmt('//   Brightness b   = MediaQuery.platformBrightnessOf(context);')],
-          <TextSpan>[_cmt('//   bool       hc  = MediaQuery.highContrastOf(context);')],
-          <TextSpan>[_cmt('//   CupertinoUserInterfaceLevelData lvl = ... (or base);')],
+          <TextSpan>[
+            _cmt(
+              '//   Brightness b   = MediaQuery.platformBrightnessOf(context);',
+            ),
+          ],
+          <TextSpan>[
+            _cmt('//   bool       hc  = MediaQuery.highContrastOf(context);'),
+          ],
+          <TextSpan>[
+            _cmt('//   CupertinoUserInterfaceLevelData lvl = ... (or base);'),
+          ],
           <TextSpan>[_cmt('//   return color.pickFrom(b, hc, lvl);')],
         ]),
         const SizedBox(height: 12.0),
-        Text('Resolution matrix for CupertinoColors.systemBlue', style: _kFieldNameStyle),
+        Text(
+          'Resolution matrix for CupertinoColors.systemBlue',
+          style: _kFieldNameStyle,
+        ),
         const SizedBox(height: 4.0),
         _resolveTableHeader(),
         Container(height: 1.0, color: _kHairline),
@@ -1506,13 +1687,12 @@ Widget _compareRow(_CompareRow row, bool last) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    _pill('Cupertino', colour: _kAccent),
-                  ],
-                ),
+                Row(children: <Widget>[_pill('Cupertino', colour: _kAccent)]),
                 const SizedBox(height: 6.0),
-                Text(row.cupertino, style: _kBodyStyle.copyWith(fontSize: 12.5)),
+                Text(
+                  row.cupertino,
+                  style: _kBodyStyle.copyWith(fontSize: 12.5),
+                ),
               ],
             ),
           ),
@@ -1561,7 +1741,8 @@ Widget _compareMatrix() {
         const SizedBox(height: 8.0),
         _cardTitle(
           'Same subject, different design philosophy',
-          subtitle: 'Six rows highlighting where the two systems intentionally diverge',
+          subtitle:
+              'Six rows highlighting where the two systems intentionally diverge',
         ),
         const SizedBox(height: 6.0),
         for (int i = 0; i < _kCompareRows.length; i++)
@@ -1578,7 +1759,10 @@ Widget _compareMatrix() {
 // screen; the right one is wrapped in a nested CupertinoTheme that
 // changes the primary color and brightness.
 
-Widget _appShell({required _ThemeSnapshot snap, required String overrideLabel}) {
+Widget _appShell({
+  required _ThemeSnapshot snap,
+  required String overrideLabel,
+}) {
   return Container(
     decoration: BoxDecoration(
       color: snap.canvas,
@@ -1635,7 +1819,11 @@ Widget _appShell({required _ThemeSnapshot snap, required String overrideLabel}) 
           ),
           child: Row(
             children: <Widget>[
-              Icon(CupertinoIcons.music_note_list, color: snap.primary, size: 18.0),
+              Icon(
+                CupertinoIcons.music_note_list,
+                color: snap.primary,
+                size: 18.0,
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1643,7 +1831,11 @@ Widget _appShell({required _ThemeSnapshot snap, required String overrideLabel}) 
                   style: TextStyle(fontSize: 14.0, color: snap.ink),
                 ),
               ),
-              Icon(CupertinoIcons.checkmark_alt, color: snap.primary, size: 18.0),
+              Icon(
+                CupertinoIcons.checkmark_alt,
+                color: snap.primary,
+                size: 18.0,
+              ),
             ],
           ),
         ),
@@ -1695,26 +1887,53 @@ Widget _overrideCard() {
         const SizedBox(height: 8.0),
         _cardTitle(
           'Nested CupertinoTheme override',
-          subtitle: 'Wrap any subtree to give it a different palette and brightness',
+          subtitle:
+              'Wrap any subtree to give it a different palette and brightness',
         ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _appShell(snap: _kLightSnapshot, overrideLabel: 'BEFORE - inherited theme')),
+            Expanded(
+              child: _appShell(
+                snap: _kLightSnapshot,
+                overrideLabel: 'BEFORE - inherited theme',
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _appShell(snap: overridden, overrideLabel: 'AFTER - nested override')),
+            Expanded(
+              child: _appShell(
+                snap: overridden,
+                overrideLabel: 'AFTER - nested override',
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12.0),
         _codeBlock(<List<TextSpan>>[
           <TextSpan>[_ty('CupertinoTheme'), _id('(')],
-          <TextSpan>[_id('  data: '), _ty('CupertinoTheme'), _id('.of(context).copyWith(')],
+          <TextSpan>[
+            _id('  data: '),
+            _ty('CupertinoTheme'),
+            _id('.of(context).copyWith('),
+          ],
           <TextSpan>[_id('    brightness: '), _ty('Brightness'), _id('.dark,')],
-          <TextSpan>[_id('    primaryColor: '), _ty('CupertinoColors'), _id('.systemGreen,')],
+          <TextSpan>[
+            _id('    primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemGreen,'),
+          ],
           <TextSpan>[_id('  ),')],
           <TextSpan>[_id('  child: '), _ty('CupertinoPageScaffold'), _id('(')],
-          <TextSpan>[_id('    navigationBar: '), _ty('CupertinoNavigationBar'), _id('(middle: '), _ty('Text'), _id('('), _str('\'New playlist\''), _id(')),')],
+          <TextSpan>[
+            _id('    navigationBar: '),
+            _ty('CupertinoNavigationBar'),
+            _id('(middle: '),
+            _ty('Text'),
+            _id('('),
+            _str('\'New playlist\''),
+            _id(')),'),
+          ],
           <TextSpan>[_id('    child: '), _id('_PlaylistEditor(),')],
           <TextSpan>[_id('  ),')],
           <TextSpan>[_id('),')],
@@ -1811,7 +2030,13 @@ Widget _pitfallCallout(int i, _Pitfall p) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(p.title, style: _kFieldNameStyle.copyWith(fontFamily: null, fontSize: 14.0)),
+              Text(
+                p.title,
+                style: _kFieldNameStyle.copyWith(
+                  fontFamily: null,
+                  fontSize: 14.0,
+                ),
+              ),
               const SizedBox(height: 4.0),
               Text(p.body, style: _kBodyStyle.copyWith(fontSize: 12.5)),
             ],
@@ -1837,7 +2062,8 @@ Widget _pitfallsCard() {
         const SizedBox(height: 8.0),
         _cardTitle('Six places people slip up'),
         const SizedBox(height: 10.0),
-        for (int i = 0; i < _kPitfalls.length; i++) _pitfallCallout(i, _kPitfalls[i]),
+        for (int i = 0; i < _kPitfalls.length; i++)
+          _pitfallCallout(i, _kPitfalls[i]),
       ],
     ),
   );
@@ -1848,25 +2074,36 @@ Widget _cheatsheetCard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            _pill('cheatsheet', colour: _kAccentGreen),
-          ],
-        ),
+        Row(children: <Widget>[_pill('cheatsheet', colour: _kAccentGreen)]),
         const SizedBox(height: 8.0),
         _cardTitle('Theming cheatsheet'),
         const SizedBox(height: 10.0),
         _codeBlock(<List<TextSpan>>[
-          <TextSpan>[_cmt('// Look up the current theme')]
-          ,
-          <TextSpan>[_kw('final'), _ty(' CupertinoThemeData'), _id(' theme = '), _ty('CupertinoTheme'), _id('.of(context);')],
+          <TextSpan>[_cmt('// Look up the current theme')],
+          <TextSpan>[
+            _kw('final'),
+            _ty(' CupertinoThemeData'),
+            _id(' theme = '),
+            _ty('CupertinoTheme'),
+            _id('.of(context);'),
+          ],
           <TextSpan>[],
           <TextSpan>[_cmt('// Resolve a dynamic color')],
-          <TextSpan>[_kw('final'), _ty(' Color'), _id(' tint = '), _ty('CupertinoDynamicColor'), _id('.resolve(theme.primaryColor, context);')],
+          <TextSpan>[
+            _kw('final'),
+            _ty(' Color'),
+            _id(' tint = '),
+            _ty('CupertinoDynamicColor'),
+            _id('.resolve(theme.primaryColor, context);'),
+          ],
           <TextSpan>[],
           <TextSpan>[_cmt('// Override just one field')],
           <TextSpan>[_ty('CupertinoTheme'), _id('(')],
-          <TextSpan>[_id('  data: theme.copyWith(primaryColor: '), _ty('CupertinoColors'), _id('.systemPink),')],
+          <TextSpan>[
+            _id('  data: theme.copyWith(primaryColor: '),
+            _ty('CupertinoColors'),
+            _id('.systemPink),'),
+          ],
           <TextSpan>[_id('  child: child,')],
           <TextSpan>[_id(');')],
           <TextSpan>[],
@@ -1874,7 +2111,13 @@ Widget _cheatsheetCard() {
           <TextSpan>[_ty('CupertinoTheme'), _id('(')],
           <TextSpan>[_id('  data: theme.copyWith(')],
           <TextSpan>[_id('    textTheme: theme.textTheme.copyWith(')],
-          <TextSpan>[_id('      textStyle: '), _ty('TextStyle'), _id('(fontSize: '), _num_('15.5'), _id('),')],
+          <TextSpan>[
+            _id('      textStyle: '),
+            _ty('TextStyle'),
+            _id('(fontSize: '),
+            _num_('15.5'),
+            _id('),'),
+          ],
           <TextSpan>[_id('    ),')],
           <TextSpan>[_id('  ),')],
           <TextSpan>[_id('  child: child,')],
@@ -1906,7 +2149,11 @@ Widget _footerCard() {
           'When iOS gets a new appearance, the same eight CupertinoDynamicColor '
           'slots feed the whole UI. The job of a theme is to declare the few '
           'choices an app actually wants to override - everything else inherits.',
-          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 13.5, height: 1.5),
+          style: TextStyle(
+            color: _kInkOnDarkSecondary,
+            fontSize: 13.5,
+            height: 1.5,
+          ),
         ),
         const SizedBox(height: 10.0),
         Row(
@@ -1942,10 +2189,7 @@ Widget _heroHeader() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF007AFF),
-          Color(0xFF5856D6),
-        ],
+        colors: <Color>[Color(0xFF007AFF), Color(0xFF5856D6)],
       ),
       borderRadius: BorderRadius.circular(16.0),
     ),
@@ -1954,7 +2198,11 @@ Widget _heroHeader() {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(CupertinoIcons.paintbrush_fill, color: Color(0xFFFFFFFF), size: 22.0),
+            Icon(
+              CupertinoIcons.paintbrush_fill,
+              color: Color(0xFFFFFFFF),
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'CUPERTINO THEMING DEEP DIVE',
@@ -2011,30 +2259,62 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _heroHeader(),
-          _sectionHeader(1, 'Anatomy of the theme object', 'How the fields of CupertinoThemeData hang together'),
+          _sectionHeader(
+            1,
+            'Anatomy of the theme object',
+            'How the fields of CupertinoThemeData hang together',
+          ),
           _introCard(),
           _fieldsTable(),
           _anatomyDiagram(),
           _sectionDivider(),
-          _sectionHeader(2, 'Brightness diptych', 'Same defaults, two appearances'),
+          _sectionHeader(
+            2,
+            'Brightness diptych',
+            'Same defaults, two appearances',
+          ),
           _brightnessDiptych(),
           _sectionDivider(),
-          _sectionHeader(3, 'The eight text styles', 'CupertinoTextThemeData in full'),
+          _sectionHeader(
+            3,
+            'The eight text styles',
+            'CupertinoTextThemeData in full',
+          ),
           _textThemeCatalog(),
           _sectionDivider(),
-          _sectionHeader(4, 'Icons follow the primary tint', 'CupertinoIconThemeData derivation'),
+          _sectionHeader(
+            4,
+            'Icons follow the primary tint',
+            'CupertinoIconThemeData derivation',
+          ),
           _iconThemeCard(),
           _sectionDivider(),
-          _sectionHeader(5, 'Resolving CupertinoDynamicColor', 'Eight variants, one flat Color'),
+          _sectionHeader(
+            5,
+            'Resolving CupertinoDynamicColor',
+            'Eight variants, one flat Color',
+          ),
           _dynamicResolveCard(),
           _sectionDivider(),
-          _sectionHeader(6, 'Cupertino vs Material', 'Different choices on the same subject'),
+          _sectionHeader(
+            6,
+            'Cupertino vs Material',
+            'Different choices on the same subject',
+          ),
           _compareMatrix(),
           _sectionDivider(),
-          _sectionHeader(7, 'Worked theme override', 'CupertinoTheme(data: ..., child: ...)'),
+          _sectionHeader(
+            7,
+            'Worked theme override',
+            'CupertinoTheme(data: ..., child: ...)',
+          ),
           _overrideCard(),
           _sectionDivider(),
-          _sectionHeader(8, 'Pitfalls & cheatsheet', 'Six callouts and a quick-reference card'),
+          _sectionHeader(
+            8,
+            'Pitfalls & cheatsheet',
+            'Six callouts and a quick-reference card',
+          ),
           _pitfallsCard(),
           _cheatsheetCard(),
           const SizedBox(height: 10.0),

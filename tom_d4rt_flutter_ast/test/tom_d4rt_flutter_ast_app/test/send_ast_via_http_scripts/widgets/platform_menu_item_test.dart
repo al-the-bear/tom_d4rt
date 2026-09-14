@@ -47,7 +47,11 @@ dynamic build(BuildContext context) {
             SizedBox(width: 10.0),
             Text(
               'PlatformMenuItem',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -70,7 +74,11 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Anatomy of a PlatformMenuItem',
-                style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                ),
               ),
               SizedBox(height: 8.0),
               Container(
@@ -85,18 +93,28 @@ dynamic build(BuildContext context) {
                     Expanded(
                       child: Text(
                         'Save Document',
-                        style: TextStyle(fontSize: 13.0, color: Colors.grey.shade800),
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          color: Colors.grey.shade800,
+                        ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(3.0),
                       ),
                       child: Text(
                         'Ctrl+S',
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ),
                   ],
@@ -108,17 +126,39 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Row(
                       children: [
-                        Icon(Icons.arrow_upward, size: 10.0, color: Colors.cyan.shade600),
+                        Icon(
+                          Icons.arrow_upward,
+                          size: 10.0,
+                          color: Colors.cyan.shade600,
+                        ),
                         SizedBox(width: 2.0),
-                        Text('label', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade700)),
+                        Text(
+                          'label',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.cyan.shade700,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   Row(
                     children: [
-                      Icon(Icons.arrow_upward, size: 10.0, color: Colors.orange.shade600),
+                      Icon(
+                        Icons.arrow_upward,
+                        size: 10.0,
+                        color: Colors.orange.shade600,
+                      ),
                       SizedBox(width: 2.0),
-                      Text('shortcut', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.orange.shade700)),
+                      Text(
+                        'shortcut',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange.shade700,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -126,9 +166,20 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Row(
                 children: [
-                  Icon(Icons.arrow_upward, size: 10.0, color: Colors.green.shade600),
+                  Icon(
+                    Icons.arrow_upward,
+                    size: 10.0,
+                    color: Colors.green.shade600,
+                  ),
                   SizedBox(width: 2.0),
-                  Text('onSelected → callback fires on click', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.green.shade700)),
+                  Text(
+                    'onSelected → callback fires on click',
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green.shade700,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -182,11 +233,36 @@ dynamic build(BuildContext context) {
 
   // Visual showcase of the 5 basic items
   final basicItemData = [
-    {'label': 'Create Project', 'icon': Icons.create_new_folder, 'desc': 'Starts a new project wizard', 'color': Colors.blue},
-    {'label': 'Import Data', 'icon': Icons.file_download, 'desc': 'Import from CSV, JSON, or XML', 'color': Colors.green},
-    {'label': 'Export Report', 'icon': Icons.file_upload, 'desc': 'Generate and download report', 'color': Colors.orange},
-    {'label': 'Clear Cache', 'icon': Icons.cleaning_services, 'desc': 'Remove temporary cached files', 'color': Colors.red},
-    {'label': 'Refresh All', 'icon': Icons.refresh, 'desc': 'Reload all data sources', 'color': Colors.purple},
+    {
+      'label': 'Create Project',
+      'icon': Icons.create_new_folder,
+      'desc': 'Starts a new project wizard',
+      'color': Colors.blue,
+    },
+    {
+      'label': 'Import Data',
+      'icon': Icons.file_download,
+      'desc': 'Import from CSV, JSON, or XML',
+      'color': Colors.green,
+    },
+    {
+      'label': 'Export Report',
+      'icon': Icons.file_upload,
+      'desc': 'Generate and download report',
+      'color': Colors.orange,
+    },
+    {
+      'label': 'Clear Cache',
+      'icon': Icons.cleaning_services,
+      'desc': 'Remove temporary cached files',
+      'color': Colors.red,
+    },
+    {
+      'label': 'Refresh All',
+      'icon': Icons.refresh,
+      'desc': 'Reload all data sources',
+      'color': Colors.purple,
+    },
   ];
 
   final basicVisualCards = <Widget>[];
@@ -211,7 +287,11 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               alignment: Alignment.center,
-              child: Icon(item['icon'] as IconData, color: color.shade700, size: 18.0),
+              child: Icon(
+                item['icon'] as IconData,
+                color: color.shade700,
+                size: 18.0,
+              ),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -220,11 +300,18 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     item['label'] as String,
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: color.shade800),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w600,
+                      color: color.shade800,
+                    ),
                   ),
                   Text(
                     item['desc'] as String,
-                    style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 9.0,
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -237,7 +324,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 'label only',
-                style: TextStyle(fontSize: 8.0, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 8.0,
+                  color: Colors.grey.shade500,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ],
@@ -259,7 +350,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 2: Basic Items with Labels',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -291,19 +386,29 @@ dynamic build(BuildContext context) {
           // Single modifier
           PlatformMenuItem(
             label: 'Save',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyS,
+              control: true,
+            ),
             onSelected: () {},
           ),
           // Shift + modifier
           PlatformMenuItem(
             label: 'Save As',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyS, control: true, shift: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyS,
+              control: true,
+              shift: true,
+            ),
             onSelected: () {},
           ),
           // Alt + modifier
           PlatformMenuItem(
             label: 'Preferences',
-            shortcut: const SingleActivator(LogicalKeyboardKey.comma, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.comma,
+              control: true,
+            ),
             onSelected: () {},
           ),
           // Function key
@@ -315,7 +420,11 @@ dynamic build(BuildContext context) {
           // Triple modifier
           PlatformMenuItem(
             label: 'Developer Tools',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyI, control: true, shift: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyI,
+              control: true,
+              shift: true,
+            ),
             onSelected: () {},
           ),
           // Character activator
@@ -373,7 +482,10 @@ dynamic build(BuildContext context) {
         keyWidgets.add(
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 3.0),
-            child: Text('+', style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500)),
+            child: Text(
+              '+',
+              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
+            ),
           ),
         );
       }
@@ -384,11 +496,22 @@ dynamic build(BuildContext context) {
             color: Colors.white,
             borderRadius: BorderRadius.circular(4.0),
             border: Border.all(color: Colors.grey.shade400),
-            boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 1.0, offset: Offset(0, 1))],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 1.0,
+                offset: Offset(0, 1),
+              ),
+            ],
           ),
           child: Text(
             keys[ki],
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', fontWeight: FontWeight.w600, color: Colors.grey.shade700),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade700,
+            ),
           ),
         ),
       );
@@ -418,7 +541,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     st['desc'] as String,
-                    style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, color: color.shade700),
+                    style: TextStyle(
+                      fontSize: 8.0,
+                      fontWeight: FontWeight.bold,
+                      color: color.shade700,
+                    ),
                   ),
                 ),
               ],
@@ -426,7 +553,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               st['type'] as String,
-              style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: color.shade700),
+              style: TextStyle(
+                fontSize: 9.0,
+                fontFamily: 'monospace',
+                color: color.shade700,
+              ),
             ),
           ],
         ),
@@ -447,7 +578,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 3: Keyboard Shortcuts Deep Dive',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -473,14 +608,21 @@ dynamic build(BuildContext context) {
             '  ),\n'
             '  onSelected: () => saveDocument(),\n'
             ')',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF80DEEA), height: 1.4),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80DEEA),
+              height: 1.4,
+            ),
           ),
         ),
       ],
     ),
   );
 
-  print('Created keyboard shortcut deep dive with ${shortcutTypeCards.length} types');
+  print(
+    'Created keyboard shortcut deep dive with ${shortcutTypeCards.length} types',
+  );
 
   // ============================================================
   // SECTION 4: Enabled vs Disabled Items
@@ -498,27 +640,43 @@ dynamic build(BuildContext context) {
         menus: <PlatformMenuItem>[
           PlatformMenuItem(
             label: 'Undo',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyZ,
+              control: true,
+            ),
             onSelected: null, // Disabled — nothing to undo
           ),
           PlatformMenuItem(
             label: 'Redo',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyZ, control: true, shift: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyZ,
+              control: true,
+              shift: true,
+            ),
             onSelected: null, // Disabled — nothing to redo
           ),
           PlatformMenuItem(
             label: 'Cut',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyX, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyX,
+              control: true,
+            ),
             onSelected: () => print('Cut'), // Enabled
           ),
           PlatformMenuItem(
             label: 'Copy',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyC, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyC,
+              control: true,
+            ),
             onSelected: () => print('Copy'), // Enabled
           ),
           PlatformMenuItem(
             label: 'Paste',
-            shortcut: const SingleActivator(LogicalKeyboardKey.keyV, control: true),
+            shortcut: const SingleActivator(
+              LogicalKeyboardKey.keyV,
+              control: true,
+            ),
             onSelected: () => print('Paste'), // Enabled (clipboard has content)
           ),
           PlatformMenuItem(
@@ -534,12 +692,42 @@ dynamic build(BuildContext context) {
 
   // Visual: Enabled vs Disabled comparison
   final stateItems = [
-    {'label': 'Undo', 'shortcut': 'Ctrl+Z', 'enabled': false, 'reason': 'Nothing to undo'},
-    {'label': 'Redo', 'shortcut': 'Ctrl+Shift+Z', 'enabled': false, 'reason': 'Nothing to redo'},
-    {'label': 'Cut', 'shortcut': 'Ctrl+X', 'enabled': true, 'reason': 'Text is selected'},
-    {'label': 'Copy', 'shortcut': 'Ctrl+C', 'enabled': true, 'reason': 'Text is selected'},
-    {'label': 'Paste', 'shortcut': 'Ctrl+V', 'enabled': true, 'reason': 'Clipboard has content'},
-    {'label': 'Paste Special...', 'shortcut': '', 'enabled': false, 'reason': 'Feature not available'},
+    {
+      'label': 'Undo',
+      'shortcut': 'Ctrl+Z',
+      'enabled': false,
+      'reason': 'Nothing to undo',
+    },
+    {
+      'label': 'Redo',
+      'shortcut': 'Ctrl+Shift+Z',
+      'enabled': false,
+      'reason': 'Nothing to redo',
+    },
+    {
+      'label': 'Cut',
+      'shortcut': 'Ctrl+X',
+      'enabled': true,
+      'reason': 'Text is selected',
+    },
+    {
+      'label': 'Copy',
+      'shortcut': 'Ctrl+C',
+      'enabled': true,
+      'reason': 'Text is selected',
+    },
+    {
+      'label': 'Paste',
+      'shortcut': 'Ctrl+V',
+      'enabled': true,
+      'reason': 'Clipboard has content',
+    },
+    {
+      'label': 'Paste Special...',
+      'shortcut': '',
+      'enabled': false,
+      'reason': 'Feature not available',
+    },
   ];
 
   final stateRows = <Widget>[];
@@ -589,7 +777,9 @@ dynamic build(BuildContext context) {
                   style: TextStyle(
                     fontSize: 9.0,
                     fontFamily: 'monospace',
-                    color: enabled ? Colors.grey.shade600 : Colors.grey.shade400,
+                    color: enabled
+                        ? Colors.grey.shade600
+                        : Colors.grey.shade400,
                   ),
                 ),
               ),
@@ -597,7 +787,11 @@ dynamic build(BuildContext context) {
               width: 120.0,
               child: Text(
                 item['reason'] as String,
-                style: TextStyle(fontSize: 8.0, color: enabled ? Colors.green.shade600 : Colors.red.shade400, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 8.0,
+                  color: enabled ? Colors.green.shade600 : Colors.red.shade400,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ],
@@ -619,7 +813,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 4: Enabled vs Disabled Items',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -644,7 +842,11 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'Disabled items remain visible but cannot be selected.\n'
                   'Use this for context-dependent actions (e.g., Undo when history is empty).',
-                  style: TextStyle(fontSize: 9.0, color: Colors.amber.shade800, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    color: Colors.amber.shade800,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ],
@@ -707,7 +909,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 5: Items in Different Contexts',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.teal.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.teal.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -753,13 +959,28 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('PlatformMenu "File"', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.grey.shade700)),
+              Text(
+                'PlatformMenu "File"',
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                ),
+              ),
               _buildTreeLine('├─ PlatformMenuItem "New"', Colors.blue, 1),
               _buildTreeLine('├─ PlatformMenuItemGroup', Colors.orange, 1),
               _buildTreeLine('│  └─ PlatformMenuItem "Save"', Colors.orange, 2),
               _buildTreeLine('└─ PlatformMenu "Recent"', Colors.purple, 1),
-              _buildTreeLine('   ├─ PlatformMenuItem "file1.txt"', Colors.purple, 2),
-              _buildTreeLine('   └─ PlatformMenuItem "file2.txt"', Colors.purple, 2),
+              _buildTreeLine(
+                '   ├─ PlatformMenuItem "file1.txt"',
+                Colors.purple,
+                2,
+              ),
+              _buildTreeLine(
+                '   └─ PlatformMenuItem "file2.txt"',
+                Colors.purple,
+                2,
+              ),
             ],
           ),
         ),
@@ -779,14 +1000,46 @@ dynamic build(BuildContext context) {
   print('=== Section 6: PlatformMenuItem vs PlatformMenu ===');
 
   final comparisonData = [
-    {'aspect': 'Type', 'menuItem': 'Leaf — clickable action', 'menu': 'Container — opens submenu'},
-    {'aspect': 'Behavior', 'menuItem': 'Fires onSelected callback', 'menu': 'Shows nested menu list'},
-    {'aspect': 'Children', 'menuItem': 'None', 'menu': 'List of PlatformMenuEntry'},
-    {'aspect': 'Visual indicator', 'menuItem': 'None or shortcut text', 'menu': 'Arrow (►) at right'},
-    {'aspect': 'Shortcut', 'menuItem': 'Supports shortcut property', 'menu': 'No shortcut support'},
-    {'aspect': 'onSelected', 'menuItem': 'Callback or null (disabled)', 'menu': 'Not applicable'},
-    {'aspect': 'Label', 'menuItem': 'Action name (e.g., "Save")', 'menu': 'Category (e.g., "File")'},
-    {'aspect': 'Nesting', 'menuItem': 'Cannot contain children', 'menu': 'Can contain menus & items'},
+    {
+      'aspect': 'Type',
+      'menuItem': 'Leaf — clickable action',
+      'menu': 'Container — opens submenu',
+    },
+    {
+      'aspect': 'Behavior',
+      'menuItem': 'Fires onSelected callback',
+      'menu': 'Shows nested menu list',
+    },
+    {
+      'aspect': 'Children',
+      'menuItem': 'None',
+      'menu': 'List of PlatformMenuEntry',
+    },
+    {
+      'aspect': 'Visual indicator',
+      'menuItem': 'None or shortcut text',
+      'menu': 'Arrow (►) at right',
+    },
+    {
+      'aspect': 'Shortcut',
+      'menuItem': 'Supports shortcut property',
+      'menu': 'No shortcut support',
+    },
+    {
+      'aspect': 'onSelected',
+      'menuItem': 'Callback or null (disabled)',
+      'menu': 'Not applicable',
+    },
+    {
+      'aspect': 'Label',
+      'menuItem': 'Action name (e.g., "Save")',
+      'menu': 'Category (e.g., "File")',
+    },
+    {
+      'aspect': 'Nesting',
+      'menuItem': 'Cannot contain children',
+      'menu': 'Can contain menus & items',
+    },
   ];
 
   final comparisonRows = <Widget>[];
@@ -803,7 +1056,11 @@ dynamic build(BuildContext context) {
               width: 80.0,
               child: Text(
                 data['aspect']!,
-                style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
             Expanded(
@@ -829,7 +1086,10 @@ dynamic build(BuildContext context) {
                 ),
                 child: Text(
                   data['menu']!,
-                  style: TextStyle(fontSize: 8.0, color: Colors.deepPurple.shade800),
+                  style: TextStyle(
+                    fontSize: 8.0,
+                    color: Colors.deepPurple.shade800,
+                  ),
                 ),
               ),
             ),
@@ -852,7 +1112,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 6: PlatformMenuItem vs PlatformMenu',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -869,9 +1133,33 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              SizedBox(width: 80.0, child: Text('Aspect', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold))),
-              Expanded(child: Text('PlatformMenuItem', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade700))),
-              Expanded(child: Text('PlatformMenu', style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade700))),
+              SizedBox(
+                width: 80.0,
+                child: Text(
+                  'Aspect',
+                  style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'PlatformMenuItem',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.cyan.shade700,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'PlatformMenu',
+                  style: TextStyle(
+                    fontSize: 9.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple.shade700,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -890,12 +1178,35 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.touch_app, color: Colors.cyan.shade600, size: 24.0),
+                    Icon(
+                      Icons.touch_app,
+                      color: Colors.cyan.shade600,
+                      size: 24.0,
+                    ),
                     SizedBox(height: 4.0),
-                    Text('PlatformMenuItem', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800)),
-                    Text('= Button', style: TextStyle(fontSize: 9.0, color: Colors.cyan.shade600)),
+                    Text(
+                      'PlatformMenuItem',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyan.shade800,
+                      ),
+                    ),
+                    Text(
+                      '= Button',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        color: Colors.cyan.shade600,
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Text('Click → Action', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
+                    Text(
+                      'Click → Action',
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -911,12 +1222,35 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.folder, color: Colors.deepPurple.shade600, size: 24.0),
+                    Icon(
+                      Icons.folder,
+                      color: Colors.deepPurple.shade600,
+                      size: 24.0,
+                    ),
                     SizedBox(height: 4.0),
-                    Text('PlatformMenu', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800)),
-                    Text('= Folder', style: TextStyle(fontSize: 9.0, color: Colors.deepPurple.shade600)),
+                    Text(
+                      'PlatformMenu',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple.shade800,
+                      ),
+                    ),
+                    Text(
+                      '= Folder',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        color: Colors.deepPurple.shade600,
+                      ),
+                    ),
                     SizedBox(height: 4.0),
-                    Text('Hover → Submenu opens', style: TextStyle(fontSize: 8.0, color: Colors.grey.shade600)),
+                    Text(
+                      'Hover → Submenu opens',
+                      style: TextStyle(
+                        fontSize: 8.0,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -941,7 +1275,8 @@ dynamic build(BuildContext context) {
       'name': 'label',
       'type': 'String',
       'required': true,
-      'desc': 'The text displayed for this menu item. This is what\nthe user reads in the native menu.',
+      'desc':
+          'The text displayed for this menu item. This is what\nthe user reads in the native menu.',
       'example': 'label: "Save Document"',
       'icon': Icons.label,
       'color': Colors.blue,
@@ -950,8 +1285,10 @@ dynamic build(BuildContext context) {
       'name': 'shortcut',
       'type': 'MenuSerializableShortcut?',
       'required': false,
-      'desc': 'Keyboard shortcut for this item. Usually SingleActivator\nor CharacterActivator. Shown alongside the label.',
-      'example': 'shortcut: SingleActivator(LogicalKeyboardKey.keyS, control: true)',
+      'desc':
+          'Keyboard shortcut for this item. Usually SingleActivator\nor CharacterActivator. Shown alongside the label.',
+      'example':
+          'shortcut: SingleActivator(LogicalKeyboardKey.keyS, control: true)',
       'icon': Icons.keyboard,
       'color': Colors.orange,
     },
@@ -959,7 +1296,8 @@ dynamic build(BuildContext context) {
       'name': 'onSelected',
       'type': 'VoidCallback?',
       'required': false,
-      'desc': 'Callback invoked when user selects this item.\nIf null, the item appears grayed out (disabled).',
+      'desc':
+          'Callback invoked when user selects this item.\nIf null, the item appears grayed out (disabled).',
       'example': 'onSelected: () => saveDocument()',
       'icon': Icons.play_arrow,
       'color': Colors.green,
@@ -984,11 +1322,19 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(prop['icon'] as IconData, color: color.shade600, size: 18.0),
+                Icon(
+                  prop['icon'] as IconData,
+                  color: color.shade600,
+                  size: 18.0,
+                ),
                 SizedBox(width: 8.0),
                 Text(
                   prop['name'] as String,
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: color.shade800),
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
+                    color: color.shade800,
+                  ),
                 ),
                 SizedBox(width: 6.0),
                 Container(
@@ -1000,14 +1346,20 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     prop['type'] as String,
-                    style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 8.0,
+                      fontFamily: 'monospace',
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ),
                 Spacer(),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.0),
                   decoration: BoxDecoration(
-                    color: required ? Colors.red.shade100 : Colors.grey.shade200,
+                    color: required
+                        ? Colors.red.shade100
+                        : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(3.0),
                   ),
                   child: Text(
@@ -1015,7 +1367,9 @@ dynamic build(BuildContext context) {
                     style: TextStyle(
                       fontSize: 8.0,
                       fontWeight: FontWeight.bold,
-                      color: required ? Colors.red.shade700 : Colors.grey.shade600,
+                      color: required
+                          ? Colors.red.shade700
+                          : Colors.grey.shade600,
                     ),
                   ),
                 ),
@@ -1024,7 +1378,11 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6.0),
             Text(
               prop['desc'] as String,
-              style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700, height: 1.4),
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Colors.grey.shade700,
+                height: 1.4,
+              ),
             ),
             SizedBox(height: 6.0),
             Container(
@@ -1036,7 +1394,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 prop['example'] as String,
-                style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF80DEEA)),
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF80DEEA),
+                ),
               ),
             ),
           ],
@@ -1058,7 +1420,11 @@ dynamic build(BuildContext context) {
       children: [
         Text(
           'Section 7: Property Reference',
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.cyan.shade800),
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade800,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1101,7 +1467,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'PlatformMenuItem',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -1114,7 +1484,11 @@ dynamic build(BuildContext context) {
                 'Each PlatformMenuItem represents one selectable\n'
                 'command with a label, shortcut, and callback.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 11.0, color: Colors.white60, height: 1.4),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Colors.white60,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1137,7 +1511,11 @@ dynamic build(BuildContext context) {
         Center(
           child: Text(
             'PlatformMenuItem Deep Demo — 7 sections',
-            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.grey.shade500,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
         SizedBox(height: 16.0),
@@ -1150,7 +1528,13 @@ dynamic build(BuildContext context) {
 // Helper Functions
 // ========================================================================
 
-Widget _buildContextCard(String title, String code, IconData icon, MaterialColor color, String desc) {
+Widget _buildContextCard(
+  String title,
+  String code,
+  IconData icon,
+  MaterialColor color,
+  String desc,
+) {
   return Container(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1175,10 +1559,27 @@ Widget _buildContextCard(String title, String code, IconData icon, MaterialColor
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: color.shade800)),
-              Text(desc, style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.bold,
+                  color: color.shade800,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(fontSize: 9.0, color: Colors.grey.shade600),
+              ),
               SizedBox(height: 2.0),
-              Text(code, style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: color.shade600)),
+              Text(
+                code,
+                style: TextStyle(
+                  fontSize: 8.0,
+                  fontFamily: 'monospace',
+                  color: color.shade600,
+                ),
+              ),
             ],
           ),
         ),

@@ -97,8 +97,11 @@ dynamic build(BuildContext context) {
                               color: Colors.white.withOpacity(0.12),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(Icons.arrow_drop_down_circle,
-                                color: Colors.white, size: 28),
+                            child: const Icon(
+                              Icons.arrow_drop_down_circle,
+                              color: Colors.white,
+                              size: 28,
+                            ),
                           ),
                           const SizedBox(width: 14),
                           const Expanded(
@@ -123,7 +126,8 @@ dynamic build(BuildContext context) {
                       _heroValueRow(
                         token: '.all',
                         title: 'Close everything',
-                        body: 'All open menus in the tree dismiss. Use for '
+                        body:
+                            'All open menus in the tree dismiss. Use for '
                             'classic dropdowns where activation = final pick.',
                         accent: const Color(0xFF7C9CFF),
                       ),
@@ -131,7 +135,8 @@ dynamic build(BuildContext context) {
                       _heroValueRow(
                         token: '.self',
                         title: 'Close just this menu',
-                        body: 'The dropdown that owns the item closes; '
+                        body:
+                            'The dropdown that owns the item closes; '
                             'sibling submenus stay open. Composable surfaces.',
                         accent: const Color(0xFFFFC857),
                       ),
@@ -139,7 +144,8 @@ dynamic build(BuildContext context) {
                       _heroValueRow(
                         token: '.none',
                         title: 'Close nothing',
-                        body: 'No menus dismiss. Pair with toggle items so '
+                        body:
+                            'No menus dismiss. Pair with toggle items so '
                             'users flip several flags before walking away.',
                         accent: const Color(0xFFFF7C7C),
                       ),
@@ -166,7 +172,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF2E7D32),
                 title: '2. Nested MenuAnchor with the three behaviours',
-                subtitle: 'Open a menu, then pick a deeply-nested item. Watch '
+                subtitle:
+                    'Open a menu, then pick a deeply-nested item. Watch '
                     'which menus stay visible afterwards.',
               ),
               const SizedBox(height: 12),
@@ -198,8 +205,7 @@ dynamic build(BuildContext context) {
                                   background: const Color(0xFFE8F5E9),
                                   accent: const Color(0xFF2E7D32),
                                   closeBehaviorName: 'all',
-                                  onActivate: (item) =>
-                                      onActivate('all', item),
+                                  onActivate: (item) => onActivate('all', item),
                                 ),
                                 _NestedMenuExample(
                                   label: '.self',
@@ -247,7 +253,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF6A1B9A),
                 title: '3. DropdownMenu<T> with closeBehavior',
-                subtitle: 'Three identical DropdownMenu widgets, the only '
+                subtitle:
+                    'Three identical DropdownMenu widgets, the only '
                     'difference is the closeBehavior parameter.',
               ),
               const SizedBox(height: 12),
@@ -280,13 +287,18 @@ dynamic build(BuildContext context) {
                               label: const Text('Fruit (.all)'),
                               dropdownMenuEntries: const [
                                 DropdownMenuEntry(
-                                    value: 'apple', label: 'Apple'),
+                                  value: 'apple',
+                                  label: 'Apple',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'banana', label: 'Banana'),
+                                  value: 'banana',
+                                  label: 'Banana',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'cherry', label: 'Cherry'),
-                                DropdownMenuEntry(
-                                    value: 'date', label: 'Date'),
+                                  value: 'cherry',
+                                  label: 'Cherry',
+                                ),
+                                DropdownMenuEntry(value: 'date', label: 'Date'),
                               ],
                               onSelected: (v) {
                                 setState(() {
@@ -308,13 +320,18 @@ dynamic build(BuildContext context) {
                               label: const Text('Fruit (.self)'),
                               dropdownMenuEntries: const [
                                 DropdownMenuEntry(
-                                    value: 'apple', label: 'Apple'),
+                                  value: 'apple',
+                                  label: 'Apple',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'banana', label: 'Banana'),
+                                  value: 'banana',
+                                  label: 'Banana',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'cherry', label: 'Cherry'),
-                                DropdownMenuEntry(
-                                    value: 'date', label: 'Date'),
+                                  value: 'cherry',
+                                  label: 'Cherry',
+                                ),
+                                DropdownMenuEntry(value: 'date', label: 'Date'),
                               ],
                               onSelected: (v) {
                                 setState(() {
@@ -336,13 +353,18 @@ dynamic build(BuildContext context) {
                               label: const Text('Fruit (.none)'),
                               dropdownMenuEntries: const [
                                 DropdownMenuEntry(
-                                    value: 'apple', label: 'Apple'),
+                                  value: 'apple',
+                                  label: 'Apple',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'banana', label: 'Banana'),
+                                  value: 'banana',
+                                  label: 'Banana',
+                                ),
                                 DropdownMenuEntry(
-                                    value: 'cherry', label: 'Cherry'),
-                                DropdownMenuEntry(
-                                    value: 'date', label: 'Date'),
+                                  value: 'cherry',
+                                  label: 'Cherry',
+                                ),
+                                DropdownMenuEntry(value: 'date', label: 'Date'),
                               ],
                               onSelected: (v) {
                                 setState(() {
@@ -372,7 +394,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF00838F),
                 title: '4. File-menu recipe gallery',
-                subtitle: 'A classic File > Recent > File1 chain rendered '
+                subtitle:
+                    'A classic File > Recent > File1 chain rendered '
                     'three times, one per behaviour.',
               ),
               const SizedBox(height: 12),
@@ -410,12 +433,13 @@ dynamic build(BuildContext context) {
                               ),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 6),
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
-                                  border:
-                                      Border.all(color: Colors.black12),
+                                  border: Border.all(color: Colors.black12),
                                 ),
                                 child: Text('Last opened: $lastFile'),
                               ),
@@ -478,7 +502,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFEF6C00),
                 title: '5. Toggle items - the .none use case',
-                subtitle: 'When every menu item is a toggle, .none keeps the '
+                subtitle:
+                    'When every menu item is a toggle, .none keeps the '
                     'menu open so users can flip several without re-opening.',
               ),
               const SizedBox(height: 12),
@@ -493,7 +518,9 @@ dynamic build(BuildContext context) {
                       onTap: () => onChanged(!value),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 10),
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
                         child: Row(
                           children: [
                             Icon(
@@ -558,7 +585,9 @@ dynamic build(BuildContext context) {
                                           setState(() {
                                             toggleBold = v;
                                             logActivation(
-                                                'toggle.none', 'Bold=$v');
+                                              'toggle.none',
+                                              'Bold=$v',
+                                            );
                                           });
                                         },
                                       ),
@@ -570,7 +599,9 @@ dynamic build(BuildContext context) {
                                           setState(() {
                                             toggleItalic = v;
                                             logActivation(
-                                                'toggle.none', 'Italic=$v');
+                                              'toggle.none',
+                                              'Italic=$v',
+                                            );
                                           });
                                         },
                                       ),
@@ -582,7 +613,9 @@ dynamic build(BuildContext context) {
                                           setState(() {
                                             toggleUnderline = v;
                                             logActivation(
-                                                'toggle.none', 'Underline=$v');
+                                              'toggle.none',
+                                              'Underline=$v',
+                                            );
                                           });
                                         },
                                       ),
@@ -594,7 +627,9 @@ dynamic build(BuildContext context) {
                                           setState(() {
                                             toggleWrap = v;
                                             logActivation(
-                                                'toggle.none', 'Wrap=$v');
+                                              'toggle.none',
+                                              'Wrap=$v',
+                                            );
                                           });
                                         },
                                       ),
@@ -606,7 +641,9 @@ dynamic build(BuildContext context) {
                                           setState(() {
                                             toggleMinimap = v;
                                             logActivation(
-                                                'toggle.none', 'Minimap=$v');
+                                              'toggle.none',
+                                              'Minimap=$v',
+                                            );
                                           });
                                         },
                                       ),
@@ -630,8 +667,7 @@ dynamic build(BuildContext context) {
                               children: [
                                 const Text(
                                   'Live state',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 8),
                                 _kv('bold', toggleBold),
@@ -670,7 +706,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF455A64),
                 title: '6. Side-by-side comparison',
-                subtitle: 'Identical menu tree - three buttons - three '
+                subtitle:
+                    'Identical menu tree - three buttons - three '
                     'closeBehavior values. Pick "Save" in any of them.',
               ),
               const SizedBox(height: 12),
@@ -695,8 +732,7 @@ dynamic build(BuildContext context) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _ComparisonAnchor(
@@ -787,7 +823,9 @@ dynamic build(BuildContext context) {
                         child: Text(
                           'Quick reference',
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                       Container(
@@ -799,8 +837,7 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             const _RefHeaderRow(),
-                            for (final v
-                                in DropdownMenuCloseBehavior.values)
+                            for (final v in DropdownMenuCloseBehavior.values)
                               _RefDataRow(value: v),
                           ],
                         ),
@@ -899,10 +936,7 @@ Widget _heroValueRow({
               const SizedBox(height: 4),
               Text(
                 body,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: Colors.white70, fontSize: 13),
               ),
             ],
           ),
@@ -952,10 +986,7 @@ class _SectionHeader extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  color: Colors.black54,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: Colors.black54, fontSize: 13),
               ),
             ],
           ),
@@ -1034,10 +1065,7 @@ class _NestedMenuExampleState extends State<_NestedMenuExample> {
           const SizedBox(height: 4),
           Text(
             widget.helper,
-            style: TextStyle(
-              color: widget.accent,
-              fontSize: 12,
-            ),
+            style: TextStyle(color: widget.accent, fontSize: 12),
           ),
           const SizedBox(height: 12),
           MenuAnchor(
@@ -1100,7 +1128,9 @@ class _NestedMenuExampleState extends State<_NestedMenuExample> {
                   backgroundColor: widget.accent,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 10),
+                    horizontal: 14,
+                    vertical: 10,
+                  ),
                 ),
                 icon: const Icon(Icons.menu),
                 label: Text('File (.${widget.closeBehaviorName})'),
@@ -1148,10 +1178,7 @@ class _ActivationLogCard extends StatelessWidget {
               SizedBox(width: 6),
               Text(
                 'Last activations',
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -1162,7 +1189,9 @@ class _ActivationLogCard extends StatelessWidget {
               child: Text(
                 '(no activations yet)',
                 style: TextStyle(
-                    color: Colors.black45, fontStyle: FontStyle.italic),
+                  color: Colors.black45,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             )
           else
@@ -1171,10 +1200,7 @@ class _ActivationLogCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 2),
                 child: Text(
                   line,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
                 ),
               ),
             ),
@@ -1226,10 +1252,7 @@ class _DropdownMenuTile extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               description,
-              style: const TextStyle(
-                color: Colors.black54,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.black54, fontSize: 12),
             ),
             const SizedBox(height: 14),
             child,
@@ -1294,10 +1317,7 @@ class _FileMenuMockState extends State<_FileMenuMock> {
             const SizedBox(height: 6),
             Text(
               widget.explanation,
-              style: const TextStyle(
-                color: Colors.black54,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.black54, fontSize: 12),
             ),
             const SizedBox(height: 12),
             MenuAnchor(
@@ -1377,10 +1397,7 @@ Widget _kv(String label, bool value) {
           ),
         ),
         const SizedBox(width: 8),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 13),
-        ),
+        Text(label, style: const TextStyle(fontSize: 13)),
         const Spacer(),
         Text(
           value ? 'on' : 'off',
@@ -1468,10 +1485,7 @@ class _ComparisonAnchorState extends State<_ComparisonAnchor> {
           Text(
             widget.description,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Colors.black54,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Colors.black54, fontSize: 12),
           ),
         ],
       ),
@@ -1490,26 +1504,18 @@ class _RefHeaderRow extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFFCFD8DC),
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
       ),
-      padding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       child: Row(
         children: const [
           SizedBox(
             width: 80,
-            child: Text(
-              'Value',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+            child: Text('Value', style: TextStyle(fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 60,
-            child: Text(
-              'Index',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+            child: Text('Index', style: TextStyle(fontWeight: FontWeight.w700)),
           ),
           SizedBox(
             width: 80,
@@ -1551,12 +1557,9 @@ class _RefDataRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(color: Colors.black12),
-        ),
+        border: Border(top: BorderSide(color: Colors.black12)),
       ),
       child: Row(
         children: [
@@ -1582,17 +1585,12 @@ class _RefDataRow extends StatelessWidget {
             child: Text(
               _isDefault ? 'yes' : 'no',
               style: TextStyle(
-                color: _isDefault
-                    ? const Color(0xFF2E7D32)
-                    : Colors.black45,
-                fontWeight:
-                    _isDefault ? FontWeight.w700 : FontWeight.w400,
+                color: _isDefault ? const Color(0xFF2E7D32) : Colors.black45,
+                fontWeight: _isDefault ? FontWeight.w700 : FontWeight.w400,
               ),
             ),
           ),
-          Expanded(
-            child: Text(_whenToUse),
-          ),
+          Expanded(child: Text(_whenToUse)),
         ],
       ),
     );

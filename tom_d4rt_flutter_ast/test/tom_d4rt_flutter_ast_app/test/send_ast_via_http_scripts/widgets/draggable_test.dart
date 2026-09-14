@@ -83,11 +83,7 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Icon(
-            Icons.touch_app,
-            size: 40.0,
-            color: Colors.orange.shade700,
-          ),
+          Icon(Icons.touch_app, size: 40.0, color: Colors.orange.shade700),
           SizedBox(height: 8.0),
           Text(
             'feedback:',
@@ -133,11 +129,7 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Icon(
-            Icons.adjust,
-            size: 40.0,
-            color: Colors.green.shade700,
-          ),
+          Icon(Icons.adjust, size: 40.0, color: Colors.green.shade700),
           SizedBox(height: 8.0),
           Text(
             'DragTarget<T>',
@@ -212,10 +204,7 @@ dynamic build(BuildContext context) {
         child: Center(
           child: Text(
             'apple',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -231,10 +220,7 @@ dynamic build(BuildContext context) {
       child: Center(
         child: Text(
           'Drag me',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     ),
@@ -304,11 +290,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             basicDraggable,
-            Icon(
-              Icons.east,
-              size: 32.0,
-              color: Colors.grey.shade500,
-            ),
+            Icon(Icons.east, size: 32.0, color: Colors.grey.shade500),
             basicTarget,
           ],
         ),
@@ -465,10 +447,7 @@ dynamic build(BuildContext context) {
           Icon(Icons.task_alt, color: Colors.white),
           Text(
             'Task Map',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           Text(
             'priority: high',
@@ -488,10 +467,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepPurple.shade50,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: Colors.deepPurple.shade400,
-            width: 2.0,
-          ),
+          border: Border.all(color: Colors.deepPurple.shade400, width: 2.0),
         ),
         child: Center(
           child: Column(
@@ -549,10 +525,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'Draggable<int>',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -563,10 +536,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'Draggable<Color>',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -577,10 +547,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'Draggable<Map>',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -591,10 +558,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'DragTarget<int>',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -617,10 +581,7 @@ dynamic build(BuildContext context) {
       child: Container(
         width: 24.0,
         height: 24.0,
-        decoration: BoxDecoration(
-          color: Colors.red,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
       ),
     ),
     child: Container(
@@ -699,9 +660,7 @@ dynamic build(BuildContext context) {
             width: 110.0,
             height: 70.0,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.amber, Colors.orange],
-              ),
+              gradient: LinearGradient(colors: [Colors.amber, Colors.orange]),
               borderRadius: BorderRadius.circular(10.0),
               boxShadow: [
                 BoxShadow(
@@ -830,10 +789,7 @@ dynamic build(BuildContext context) {
                 child: Center(
                   child: Text(
                     'LARGE',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 10.0),
                   ),
                 ),
               ),
@@ -855,10 +811,7 @@ dynamic build(BuildContext context) {
                   child: Center(
                     child: Text(
                       'tilted',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.0,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 10.0),
                     ),
                   ),
                 ),
@@ -877,10 +830,7 @@ dynamic build(BuildContext context) {
                 child: Center(
                   child: Text(
                     'anchored',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 10.0),
                   ),
                 ),
               ),
@@ -909,10 +859,7 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Center(
-          child: Text(
-            'moving',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('moving', style: TextStyle(color: Colors.white)),
         ),
       ),
     ),
@@ -926,10 +873,7 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Center(
-          child: Text(
-            'ghosted',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('ghosted', style: TextStyle(color: Colors.white)),
         ),
       ),
     ),
@@ -941,10 +885,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6.0),
       ),
       child: Center(
-        child: Text(
-          'ghosted',
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Text('ghosted', style: TextStyle(color: Colors.white)),
       ),
     ),
   );
@@ -962,10 +903,7 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Center(
-          child: Text(
-            'flying',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('flying', style: TextStyle(color: Colors.white)),
         ),
       ),
     ),
@@ -978,10 +916,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6.0),
       ),
       child: Center(
-        child: Text(
-          'hidden',
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Text('hidden', style: TextStyle(color: Colors.white)),
       ),
     ),
   );
@@ -999,10 +934,7 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(6.0),
         ),
         child: Center(
-          child: Text(
-            'moving',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('moving', style: TextStyle(color: Colors.white)),
         ),
       ),
     ),
@@ -1012,18 +944,12 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.purple.shade50,
         borderRadius: BorderRadius.circular(6.0),
-        border: Border.all(
-          color: Colors.purple,
-          width: 2.0,
-        ),
+        border: Border.all(color: Colors.purple, width: 2.0),
       ),
       child: Center(
         child: Text(
           'slot',
-          style: TextStyle(
-            color: Colors.purple,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
         ),
       ),
     ),
@@ -1035,10 +961,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6.0),
       ),
       child: Center(
-        child: Text(
-          'card',
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Text('card', style: TextStyle(color: Colors.white)),
       ),
     ),
   );
@@ -1111,10 +1034,7 @@ dynamic build(BuildContext context) {
         child: Center(
           child: Text(
             'long-press!',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -1129,10 +1049,7 @@ dynamic build(BuildContext context) {
       child: Center(
         child: Text(
           'Long-press me',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     ),
@@ -1160,10 +1077,7 @@ dynamic build(BuildContext context) {
         child: Center(
           child: Text(
             'haptic on!',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -1177,10 +1091,7 @@ dynamic build(BuildContext context) {
         border: Border.all(color: Colors.deepOrange, width: 2.0),
       ),
       child: Center(
-        child: Text(
-          'lifted',
-          style: TextStyle(color: Colors.deepOrange),
-        ),
+        child: Text('lifted', style: TextStyle(color: Colors.deepOrange)),
       ),
     ),
     child: Container(
@@ -1193,10 +1104,7 @@ dynamic build(BuildContext context) {
       child: Center(
         child: Text(
           'Haptic LP',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     ),
@@ -1265,9 +1173,7 @@ dynamic build(BuildContext context) {
           color: Colors.purple,
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Center(
-          child: Icon(Icons.swap_horiz, color: Colors.white),
-        ),
+        child: Center(child: Icon(Icons.swap_horiz, color: Colors.white)),
       ),
     ),
     child: Container(
@@ -1308,9 +1214,7 @@ dynamic build(BuildContext context) {
           color: Colors.teal,
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Center(
-          child: Icon(Icons.swap_vert, color: Colors.white),
-        ),
+        child: Center(child: Icon(Icons.swap_vert, color: Colors.white)),
       ),
     ),
     child: Container(
@@ -1350,9 +1254,7 @@ dynamic build(BuildContext context) {
           color: Colors.lightBlue,
           borderRadius: BorderRadius.circular(6.0),
         ),
-        child: Center(
-          child: Icon(Icons.open_with, color: Colors.white),
-        ),
+        child: Center(child: Icon(Icons.open_with, color: Colors.white)),
       ),
     ),
     child: Container(
@@ -1368,10 +1270,7 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.open_with, color: Colors.white, size: 18.0),
             SizedBox(width: 4.0),
-            Text(
-              'free',
-              style: TextStyle(color: Colors.white, fontSize: 12.0),
-            ),
+            Text('free', style: TextStyle(color: Colors.white, fontSize: 12.0)),
           ],
         ),
       ),
@@ -1405,10 +1304,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'Axis.horizontal',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -1418,10 +1314,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'Axis.vertical',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -1431,10 +1324,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 4.0),
                 Text(
                   'axis: null',
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                  ),
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 10.0),
                 ),
               ],
             ),
@@ -1520,7 +1410,9 @@ dynamic build(BuildContext context) {
           print('kanban card "$title" drag started');
         },
         onDragEnd: (details) {
-          print('kanban card "$title" drag end wasAccepted=${details.wasAccepted}');
+          print(
+            'kanban card "$title" drag end wasAccepted=${details.wasAccepted}',
+          );
         },
         feedback: Material(
           elevation: 10.0,
@@ -1533,10 +1425,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(color: colColor.shade400, width: 2.0),
             ),
-            child: Text(
-              title,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ),
         childWhenDragging: Container(
@@ -1546,10 +1435,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: colColor.shade50,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-              color: colColor.shade300,
-              width: 1.0,
-            ),
+            border: Border.all(color: colColor.shade300, width: 1.0),
           ),
         ),
         child: Container(
@@ -1614,18 +1500,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Row(
                 children: [
-                  Icon(
-                    Icons.flag,
-                    size: 11.0,
-                    color: priorityColor,
-                  ),
+                  Icon(Icons.flag, size: 11.0, color: priorityColor),
                   SizedBox(width: 4.0),
                   Text(
                     priority,
-                    style: TextStyle(
-                      fontSize: 10.0,
-                      color: priorityColor,
-                    ),
+                    style: TextStyle(fontSize: 10.0, color: priorityColor),
                   ),
                 ],
               ),
@@ -1647,10 +1526,7 @@ dynamic build(BuildContext context) {
                 ? colColor.shade100
                 : colColor.shade50,
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(
-              color: colColor.shade300,
-              width: 2.0,
-            ),
+            border: Border.all(color: colColor.shade300, width: 2.0),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1689,10 +1565,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
               SizedBox(height: 8.0),
-              Container(
-                height: 1.0,
-                color: colColor.shade200,
-              ),
+              Container(height: 1.0, color: colColor.shade200),
               SizedBox(height: 8.0),
               ...cardWidgets,
               Container(
@@ -1701,18 +1574,12 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(6.0),
-                  border: Border.all(
-                    color: colColor.shade200,
-                    width: 1.0,
-                  ),
+                  border: Border.all(color: colColor.shade200, width: 1.0),
                 ),
                 child: Center(
                   child: Text(
                     '+ drop card here',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: colColor.shade700,
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: colColor.shade700),
                   ),
                 ),
               ),
@@ -2023,10 +1890,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: conceptCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: conceptCards),
         SizedBox(height: 12.0),
         conceptFlow,
         SizedBox(height: 32.0),
@@ -2143,7 +2007,11 @@ Widget _buildFlowNode(IconData icon, String label, Color color) {
 }
 
 // Helper: Build a feedback pair (live draggable + static preview of feedback)
-Widget _buildFeedbackPair(String label, Widget draggable, Widget feedbackPreview) {
+Widget _buildFeedbackPair(
+  String label,
+  Widget draggable,
+  Widget feedbackPreview,
+) {
   return Container(
     width: 130.0,
     padding: EdgeInsets.all(8.0),

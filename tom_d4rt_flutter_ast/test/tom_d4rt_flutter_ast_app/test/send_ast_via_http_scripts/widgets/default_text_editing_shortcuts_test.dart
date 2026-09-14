@@ -289,10 +289,7 @@ Widget _bullet(String text) {
           child: Icon(Icons.circle, size: 6, color: Colors.indigo),
         ),
         Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 14, height: 1.4),
-          ),
+          child: Text(text, style: const TextStyle(fontSize: 14, height: 1.4)),
         ),
       ],
     ),
@@ -407,10 +404,7 @@ Widget _buildIntroSection(BuildContext context) {
             'someone wrapped a subtree with their own Shortcuts widget.',
           ),
           const SizedBox(height: 8),
-          _paragraph(
-            'Where it sits in the tree:',
-            emphasis: true,
-          ),
+          _paragraph('Where it sits in the tree:', emphasis: true),
           _codeBlock(
             'WidgetsApp\n'
             '  └── DefaultTextEditingShortcuts            ← injects bindings\n'
@@ -708,10 +702,7 @@ Widget _buildPlatformCatalogSection(BuildContext context) {
       color: currentColumn ? Colors.indigo.shade50 : null,
       child: Text(
         text,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          fontSize: 11.5,
-        ),
+        style: const TextStyle(fontFamily: 'monospace', fontSize: 11.5),
       ),
     );
   }
@@ -796,10 +787,7 @@ Widget _buildPlatformCatalogSection(BuildContext context) {
             ),
           ),
           const SizedBox(height: 12),
-          _paragraph(
-            'A few divergences are worth noting:',
-            emphasis: true,
-          ),
+          _paragraph('A few divergences are worth noting:', emphasis: true),
           _bullet(
             'On macOS/iOS, line navigation uses Cmd+Left/Right instead of '
             'Home/End. This matches Apple HIG and breaks the "Home means '
@@ -1083,13 +1071,8 @@ Widget _buildCustomShortcutSection(BuildContext context) {
             '  ),\n'
             ')',
           ),
-          _paragraph(
-            'Resolution order:',
-            emphasis: true,
-          ),
-          _bullet(
-            '1. The focused widget receives a key event.',
-          ),
+          _paragraph('Resolution order:', emphasis: true),
+          _bullet('1. The focused widget receives a key event.'),
           _bullet(
             '2. Flutter walks ancestors looking for a Shortcuts widget '
             'whose map includes a matching activator.',
@@ -1172,8 +1155,7 @@ class _CommandPaletteDemo extends StatelessWidget {
           },
           child: Actions(
             actions: <Type, Action<Intent>>{
-              _CommandPaletteIntent:
-                  _OpenCommandPaletteAction(innerContext),
+              _CommandPaletteIntent: _OpenCommandPaletteAction(innerContext),
             },
             child: DefaultTextEditingShortcuts(
               child: TextField(
@@ -1494,7 +1476,8 @@ Widget _buildCheatsheetSection(BuildContext context) {
     _CheatLine(
       platform: TargetPlatform.windows,
       modifier: 'Ctrl',
-      role: 'Primary editing modifier. Works for clipboard, word jumps, '
+      role:
+          'Primary editing modifier. Works for clipboard, word jumps, '
           'line range.',
     ),
     _CheatLine(
@@ -1723,11 +1706,7 @@ class _Pitfall {
   final String detail;
   final IconData icon;
 
-  _Pitfall({
-    required this.title,
-    required this.detail,
-    required this.icon,
-  });
+  _Pitfall({required this.title, required this.detail, required this.icon});
 }
 
 // -----------------------------------------------------------------------------
@@ -1738,8 +1717,7 @@ Widget _buildRecipeGallerySection(BuildContext context) {
   final List<_Recipe> recipes = <_Recipe>[
     _Recipe(
       title: 'Recipe: Command palette (Cmd/Ctrl+K)',
-      summary:
-          'Add a global command palette without breaking text editing.',
+      summary: 'Add a global command palette without breaking text editing.',
       code:
           'Shortcuts(\n'
           '  shortcuts: {\n'
@@ -1856,9 +1834,7 @@ Widget _buildRecipeGallerySection(BuildContext context) {
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-      for (final _Recipe r in recipes) _buildRecipeCard(r),
-    ],
+    children: <Widget>[for (final _Recipe r in recipes) _buildRecipeCard(r)],
   );
 }
 
@@ -1994,8 +1970,7 @@ Widget _buildReferenceTableSection(BuildContext context) {
     const _RefRow(
       type: 'PasteTextIntent',
       kind: 'Intent',
-      summary:
-          'Triggered by Cmd/Ctrl+V. Inserts clipboard text at the caret.',
+      summary: 'Triggered by Cmd/Ctrl+V. Inserts clipboard text at the caret.',
     ),
     const _RefRow(
       type: 'CutTextIntent',
@@ -2122,10 +2097,7 @@ Widget _buildReferenceTableSection(BuildContext context) {
             ),
           ),
           const SizedBox(height: 12),
-          _paragraph(
-            'A reasonable mental model:',
-            emphasis: true,
-          ),
+          _paragraph('A reasonable mental model:', emphasis: true),
           _bullet(
             'Shortcuts widgets define the *triggers* (what key combos '
             'count as which intents).',
@@ -2191,9 +2163,7 @@ Widget _buildFooter(BuildContext context) {
           'Reach for it when you need a deterministic, platform-aware '
           'baseline of editing shortcuts.',
         ),
-        _bullet(
-          'Layer custom Shortcuts above it for app-level commands.',
-        ),
+        _bullet('Layer custom Shortcuts above it for app-level commands.'),
         _bullet(
           'Disable it surgically (DoNothingIntent) — the "modal empty '
           'map" trick is a sledgehammer.',
@@ -2203,10 +2173,7 @@ Widget _buildFooter(BuildContext context) {
           'variants without globally mutating defaultTargetPlatform.',
         ),
         const SizedBox(height: 8),
-        _paragraph(
-          'End of demo.',
-          emphasis: true,
-        ),
+        _paragraph('End of demo.', emphasis: true),
       ],
     ),
   );

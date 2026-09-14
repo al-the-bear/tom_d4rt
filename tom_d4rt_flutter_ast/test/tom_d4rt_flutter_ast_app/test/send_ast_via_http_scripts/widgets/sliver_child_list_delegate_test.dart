@@ -22,19 +22,20 @@ import 'package:flutter/material.dart';
 /// 8. Best practices
 
 // ─── palette ───────────────────────────────────────────────
-const _kBrown      = Color(0xFF795548);
+const _kBrown = Color(0xFF795548);
 const _kBrownLight = Color(0xFFD7CCC8);
-const _kBrownDark  = Color(0xFF3E2723);
-const _kCyan       = Color(0xFF00BCD4);
-const _kCyanLight  = Color(0xFFB2EBF2);
-const _kCyanDark   = Color(0xFF006064);
-const _kSurface    = Color(0xFFFBFBFD);
-const _kDivider    = Color(0xFFE0E0E0);
-const _kTextDark   = Color(0xFF212121);
-const _kTextMuted  = Color(0xFF757575);
+const _kBrownDark = Color(0xFF3E2723);
+const _kCyan = Color(0xFF00BCD4);
+const _kCyanLight = Color(0xFFB2EBF2);
+const _kCyanDark = Color(0xFF006064);
+const _kSurface = Color(0xFFFBFBFD);
+const _kDivider = Color(0xFFE0E0E0);
+const _kTextDark = Color(0xFF212121);
+const _kTextMuted = Color(0xFF757575);
 
 // ─── 1. Overview ───────────────────────────────────────────
-const _kOverview = 'SliverChildListDelegate accepts a pre-built List<Widget> '
+const _kOverview =
+    'SliverChildListDelegate accepts a pre-built List<Widget> '
     'and provides children to slivers by index. Unlike SliverChildBuilderDelegate '
     'which creates children lazily on demand, SliverChildListDelegate has every '
     'widget already instantiated. The sliver framework still only layouts and '
@@ -51,26 +52,49 @@ class _Param {
 }
 
 const _kParams = <_Param>[
-  _Param('children', 'List<Widget>', '(required)',
-      'The list of child widgets. All are created when the delegate is '
-      'constructed. The framework indexes into this list on demand.'),
-  _Param('addAutomaticKeepAlives', 'bool', 'true',
-      'Wraps each child in AutomaticKeepAlive. If a child mixes in '
-      'AutomaticKeepAliveClientMixin and wantKeepAlive returns true, '
-      'the element is kept alive even when scrolled off-screen.'),
-  _Param('addRepaintBoundaries', 'bool', 'true',
-      'Wraps each child in a RepaintBoundary to isolate repaints. '
-      'Disable for very cheap children to save layer overhead.'),
-  _Param('addSemanticIndexes', 'bool', 'true',
-      'Wraps each child in IndexedSemantics. The semanticIndexCallback '
-      'and semanticIndexOffset control the mapping.'),
-  _Param('semanticIndexCallback', 'SemanticIndexCallback',
-      '(_, localIndex) => localIndex',
-      'Maps (widget, localIndex) to a semantic index. Override when '
-      'the list contains non-semantic items like separators.'),
-  _Param('semanticIndexOffset', 'int', '0',
-      'Added to the semanticIndexCallback result. Use when composing '
-      'multiple delegates in a single scroll view.'),
+  _Param(
+    'children',
+    'List<Widget>',
+    '(required)',
+    'The list of child widgets. All are created when the delegate is '
+        'constructed. The framework indexes into this list on demand.',
+  ),
+  _Param(
+    'addAutomaticKeepAlives',
+    'bool',
+    'true',
+    'Wraps each child in AutomaticKeepAlive. If a child mixes in '
+        'AutomaticKeepAliveClientMixin and wantKeepAlive returns true, '
+        'the element is kept alive even when scrolled off-screen.',
+  ),
+  _Param(
+    'addRepaintBoundaries',
+    'bool',
+    'true',
+    'Wraps each child in a RepaintBoundary to isolate repaints. '
+        'Disable for very cheap children to save layer overhead.',
+  ),
+  _Param(
+    'addSemanticIndexes',
+    'bool',
+    'true',
+    'Wraps each child in IndexedSemantics. The semanticIndexCallback '
+        'and semanticIndexOffset control the mapping.',
+  ),
+  _Param(
+    'semanticIndexCallback',
+    'SemanticIndexCallback',
+    '(_, localIndex) => localIndex',
+    'Maps (widget, localIndex) to a semantic index. Override when '
+        'the list contains non-semantic items like separators.',
+  ),
+  _Param(
+    'semanticIndexOffset',
+    'int',
+    '0',
+    'Added to the semanticIndexCallback result. Use when composing '
+        'multiple delegates in a single scroll view.',
+  ),
 ];
 
 // ─── 3. Eager vs Lazy ─────────────────────────────────────
@@ -83,13 +107,29 @@ class _CompRow {
 
 const _kComparison = <_CompRow>[
   _CompRow('Construction', 'All at once (eager)', 'On-demand (lazy)'),
-  _CompRow('Memory footprint', 'O(n) widget objects', 'O(visible) widget objects'),
-  _CompRow('Initial cost', 'Higher — builds all', 'Lower — builds visible only'),
-  _CompRow('Scroll performance', 'No build during scroll', 'Builder called during scroll'),
+  _CompRow(
+    'Memory footprint',
+    'O(n) widget objects',
+    'O(visible) widget objects',
+  ),
+  _CompRow(
+    'Initial cost',
+    'Higher — builds all',
+    'Lower — builds visible only',
+  ),
+  _CompRow(
+    'Scroll performance',
+    'No build during scroll',
+    'Builder called during scroll',
+  ),
   _CompRow('childCount', 'Implicit (list.length)', 'Explicit or null'),
   _CompRow('Ideal list size', '< 50 items', '> 50 items or infinite'),
   _CompRow('Code simplicity', 'Very simple', 'Requires builder function'),
-  _CompRow('State retention', 'All states always alive', 'Depends on KeepAlive'),
+  _CompRow(
+    'State retention',
+    'All states always alive',
+    'Depends on KeepAlive',
+  ),
 ];
 
 // ─── 7. Wrapping notes ────────────────────────────────────
@@ -123,32 +163,32 @@ const _kBestPractices = <_Practice>[
   _Practice(
     'Use for small, known lists only',
     'If you have fewer than 20-30 items and they are all known at build time, '
-    'SliverChildListDelegate is the easier choice. Beyond that, prefer '
-    'SliverChildBuilderDelegate for memory efficiency.',
+        'SliverChildListDelegate is the easier choice. Beyond that, prefer '
+        'SliverChildBuilderDelegate for memory efficiency.',
   ),
   _Practice(
     'Perfect for heterogeneous content',
     'When your scroll view mixes headers, cards, dividers, and special widgets '
-    'that are all different, a plain list is more readable than a builder '
-    'with index-based branching.',
+        'that are all different, a plain list is more readable than a builder '
+        'with index-based branching.',
   ),
   _Practice(
     'Combine with SliverToBoxAdapter for singles',
     'For one-off items (a header, a banner), SliverToBoxAdapter is even '
-    'simpler. Use SliverChildListDelegate when you have 2+ items that '
-    'logically belong together in one sliver.',
+        'simpler. Use SliverChildListDelegate when you have 2+ items that '
+        'logically belong together in one sliver.',
   ),
   _Practice(
     'Disable wrapping for trivial items',
     'If every child is a simple Container or Text, setting both '
-    'addRepaintBoundaries and addAutomaticKeepAlives to false removes '
-    'two wrapper widgets per child, flattening the widget tree.',
+        'addRepaintBoundaries and addAutomaticKeepAlives to false removes '
+        'two wrapper widgets per child, flattening the widget tree.',
   ),
   _Practice(
     'Don\'t use for infinite or paginated lists',
     'SliverChildListDelegate requires a complete list. For data that '
-    'loads incrementally (pagination, infinite scroll), '
-    'SliverChildBuilderDelegate with a null childCount is required.',
+        'loads incrementally (pagination, infinite scroll), '
+        'SliverChildBuilderDelegate with a null childCount is required.',
   ),
 ];
 
@@ -165,9 +205,15 @@ Widget _sectionHeader(String title, IconData icon) {
         Icon(icon, color: Colors.white, size: 22),
         SizedBox(width: 12),
         Expanded(
-          child: Text(title,
-              style: TextStyle(color: Colors.white, fontSize: 16,
-                  fontWeight: FontWeight.w700, letterSpacing: 0.4)),
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.4,
+            ),
+          ),
         ),
       ],
     ),
@@ -182,23 +228,40 @@ Widget _card({required Widget child}) {
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: _kDivider),
-      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04),
-          blurRadius: 6, offset: Offset(0, 2))],
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.04),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
+      ],
     ),
     child: child,
   );
 }
 
 Widget _label(String text) {
-  return Text(text,
-      style: TextStyle(fontSize: 11, color: _kTextMuted,
-          fontWeight: FontWeight.w600, letterSpacing: 0.6));
+  return Text(
+    text,
+    style: TextStyle(
+      fontSize: 11,
+      color: _kTextMuted,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.6,
+    ),
+  );
 }
 
 Widget _mono(String text, {Color? color}) {
-  return Text(text,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 12.5,
-          color: color ?? _kTextDark, height: 1.45));
+  return Text(
+    text,
+    style: TextStyle(
+      fontFamily: 'monospace',
+      fontSize: 12.5,
+      color: color ?? _kTextDark,
+      height: 1.45,
+    ),
+  );
 }
 
 Widget _bullet(String text) {
@@ -207,11 +270,19 @@ Widget _bullet(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(margin: EdgeInsets.only(top: 7), width: 5, height: 5,
-            decoration: BoxDecoration(color: _kBrown, shape: BoxShape.circle)),
+        Container(
+          margin: EdgeInsets.only(top: 7),
+          width: 5,
+          height: 5,
+          decoration: BoxDecoration(color: _kBrown, shape: BoxShape.circle),
+        ),
         SizedBox(width: 10),
-        Expanded(child: Text(text,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
       ],
     ),
   );
@@ -227,7 +298,10 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: _kBrown, brightness: Brightness.light),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: _kBrown,
+        brightness: Brightness.light,
+      ),
       scaffoldBackgroundColor: _kSurface,
     ),
     home: _DemoScaffold(),
@@ -260,9 +334,15 @@ class _DemoScaffoldState extends State<_DemoScaffold> {
         selectedItemColor: _kBrownDark,
         onTap: (i) => setState(() => _tabIndex = i),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.school_outlined), label: 'Theory'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school_outlined),
+            label: 'Theory',
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Eager'),
-          BottomNavigationBarItem(icon: Icon(Icons.dashboard_outlined), label: 'Mixed'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard_outlined),
+            label: 'Mixed',
+          ),
         ],
       ),
     );
@@ -279,10 +359,17 @@ class _TheoryPage extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 40),
       children: [
         // ── Section 1 ──
-        _sectionHeader('1 · What Is SliverChildListDelegate?', Icons.info_outline),
+        _sectionHeader(
+          '1 · What Is SliverChildListDelegate?',
+          Icons.info_outline,
+        ),
         SizedBox(height: 8),
-        _card(child: Text(_kOverview,
-            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4))),
+        _card(
+          child: Text(
+            _kOverview,
+            style: TextStyle(fontSize: 13, color: _kTextDark, height: 1.4),
+          ),
+        ),
         _card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,40 +402,69 @@ class _TheoryPage extends StatelessWidget {
         // ── Section 2 ──
         _sectionHeader('2 · Constructor Parameters', Icons.settings_outlined),
         SizedBox(height: 8),
-        ..._kParams.map((p) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: _kBrownLight, borderRadius: BorderRadius.circular(5)),
-                      child: Text(p.name,
-                          style: TextStyle(fontFamily: 'monospace',
-                              fontWeight: FontWeight.w700, fontSize: 12,
-                              color: _kBrownDark)),
+        ..._kParams.map(
+          (p) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: _kBrownLight,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          p.name,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12,
+                            color: _kBrownDark,
+                          ),
+                        ),
+                      ),
                     ),
+                    SizedBox(width: 8),
+                    Text(
+                      p.defaultValue,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: _kCyanDark,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Text(
+                  p.type,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    color: _kTextMuted,
                   ),
-                  SizedBox(width: 8),
-                  Text(p.defaultValue,
-                      style: TextStyle(fontFamily: 'monospace', fontSize: 11,
-                          color: _kCyanDark, fontWeight: FontWeight.w600)),
-                ],
-              ),
-              SizedBox(height: 4),
-              Text(p.type,
-                  style: TextStyle(fontFamily: 'monospace', fontSize: 11,
-                      color: _kTextMuted)),
-              SizedBox(height: 6),
-              Text(p.description,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-            ],
+                ),
+                SizedBox(height: 6),
+                Text(
+                  p.description,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
 
@@ -371,20 +487,43 @@ class _TheoryPage extends StatelessWidget {
                 border: TableBorder.all(color: _kDivider, width: 0.5),
                 children: [
                   TableRow(
-                    decoration: BoxDecoration(color: _kBrownLight.withOpacity(0.5)),
-                    children: ['Feature', 'ListDelegate', 'BuilderDelegate'].map((h) =>
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Text(h, style: TextStyle(fontWeight: FontWeight.w700,
-                              fontSize: 10.5, color: _kBrownDark)),
-                        )).toList(),
+                    decoration: BoxDecoration(
+                      color: _kBrownLight.withOpacity(0.5),
+                    ),
+                    children: ['Feature', 'ListDelegate', 'BuilderDelegate']
+                        .map(
+                          (h) => Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                              h,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.5,
+                                color: _kBrownDark,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
-                  ..._kComparison.map((r) => TableRow(
-                    children: [r.feature, r.list, r.builder].map((c) => Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Text(c, style: TextStyle(fontSize: 10.5, color: _kTextDark)),
-                    )).toList(),
-                  )),
+                  ..._kComparison.map(
+                    (r) => TableRow(
+                      children: [r.feature, r.list, r.builder]
+                          .map(
+                            (c) => Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Text(
+                                c,
+                                style: TextStyle(
+                                  fontSize: 10.5,
+                                  color: _kTextDark,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -396,56 +535,84 @@ class _TheoryPage extends StatelessWidget {
         // ── Section 7 ──
         _sectionHeader('7 · Wrapping Behavior', Icons.layers_outlined),
         SizedBox(height: 8),
-        ..._kWrappingNotes.entries.map((e) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _kCyanLight, borderRadius: BorderRadius.circular(6)),
-                child: Text(e.key,
-                    style: TextStyle(fontFamily: 'monospace',
-                        fontWeight: FontWeight.w700, fontSize: 12,
-                        color: _kCyanDark)),
-              ),
-              SizedBox(height: 6),
-              Text(e.value,
-                  style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-            ],
+        ..._kWrappingNotes.entries.map(
+          (e) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _kCyanLight,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    e.key,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12,
+                      color: _kCyanDark,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 6),
+                Text(
+                  e.value,
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: _kTextDark,
+                    height: 1.35,
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
 
         SizedBox(height: 12),
 
         // ── Section 8 ──
         _sectionHeader('8 · Best Practices', Icons.lightbulb_outlined),
         SizedBox(height: 8),
-        ..._kBestPractices.map((p) => _card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.check_circle_outline, color: _kCyan, size: 18),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(p.tip,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13,
-                            color: _kBrownDark)),
+        ..._kBestPractices.map(
+          (p) => _card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.check_circle_outline, color: _kCyan, size: 18),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        p.tip,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                          color: _kBrownDark,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Padding(
+                  padding: EdgeInsets.only(left: 26),
+                  child: Text(
+                    p.detail,
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: _kTextDark,
+                      height: 1.35,
+                    ),
                   ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Padding(
-                padding: EdgeInsets.only(left: 26),
-                child: Text(p.detail,
-                    style: TextStyle(fontSize: 12.5, color: _kTextDark, height: 1.35)),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     );
   }
@@ -488,13 +655,25 @@ class _EagerListPageState extends State<_EagerListPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('EAGER LIST — ALL CHILDREN EXIST',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'EAGER LIST — ALL CHILDREN EXIST',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('All $_itemCount widgets are created up front, even those '
-                  'off-screen. Scroll and notice no builder is called.',
-                  style: TextStyle(color: Colors.white70, fontSize: 10.5, height: 1.3)),
+              Text(
+                'All $_itemCount widgets are created up front, even those '
+                'off-screen. Scroll and notice no builder is called.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -508,10 +687,15 @@ class _EagerListPageState extends State<_EagerListPage> {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Text('Count: ', style: TextStyle(color: Colors.white70, fontSize: 11)),
+                  Text(
+                    'Count: ',
+                    style: TextStyle(color: Colors.white70, fontSize: 11),
+                  ),
                   Expanded(
                     child: Slider(
-                      value: _itemCount.toDouble(), min: 5, max: 100,
+                      value: _itemCount.toDouble(),
+                      min: 5,
+                      max: 100,
                       activeColor: _kCyan,
                       onChanged: (v) => setState(() => _itemCount = v.toInt()),
                     ),
@@ -520,11 +704,17 @@ class _EagerListPageState extends State<_EagerListPage> {
               ),
               Row(
                 children: [
-                  _toggleChip('KeepAlive', _keepAlives,
-                      (v) => setState(() => _keepAlives = v)),
+                  _toggleChip(
+                    'KeepAlive',
+                    _keepAlives,
+                    (v) => setState(() => _keepAlives = v),
+                  ),
                   SizedBox(width: 8),
-                  _toggleChip('RepaintBnd', _repaintBoundaries,
-                      (v) => setState(() => _repaintBoundaries = v)),
+                  _toggleChip(
+                    'RepaintBnd',
+                    _repaintBoundaries,
+                    (v) => setState(() => _repaintBoundaries = v),
+                  ),
                 ],
               ),
             ],
@@ -559,11 +749,23 @@ class _EagerListPageState extends State<_EagerListPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: TextStyle(color: Colors.white54, fontSize: 9,
-                fontWeight: FontWeight.w600)),
-            Text(value, style: TextStyle(color: _kCyan,
-                fontFamily: 'monospace', fontSize: 13,
-                fontWeight: FontWeight.w700)),
+            Text(
+              label,
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(
+                color: _kCyan,
+                fontFamily: 'monospace',
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
       ),
@@ -577,20 +779,29 @@ class _EagerListPageState extends State<_EagerListPage> {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
           decoration: BoxDecoration(
-            color: value ? _kCyan.withOpacity(0.25)
+            color: value
+                ? _kCyan.withOpacity(0.25)
                 : Colors.white.withOpacity(0.08),
             borderRadius: BorderRadius.circular(4),
             border: Border.all(color: value ? _kCyan : Colors.white24),
           ),
           child: Row(
             children: [
-              Icon(value ? Icons.check_box : Icons.check_box_outline_blank,
-                  color: value ? _kCyan : Colors.white54, size: 16),
+              Icon(
+                value ? Icons.check_box : Icons.check_box_outline_blank,
+                color: value ? _kCyan : Colors.white54,
+                size: 16,
+              ),
               SizedBox(width: 6),
               Expanded(
-                child: Text(label,
-                    style: TextStyle(color: Colors.white, fontSize: 10.5,
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ],
           ),
@@ -629,13 +840,21 @@ class _TrackedTile extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 32, height: 32,
+            width: 32,
+            height: 32,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.7), shape: BoxShape.circle),
+              color: Colors.white.withOpacity(0.7),
+              shape: BoxShape.circle,
+            ),
             alignment: Alignment.center,
-            child: Text('${index + 1}',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800,
-                    color: _kTextDark)),
+            child: Text(
+              '${index + 1}',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+                color: _kTextDark,
+              ),
+            ),
           ),
           SizedBox(width: 12),
           Expanded(
@@ -643,17 +862,29 @@ class _TrackedTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Eager item ${index + 1} of $total',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13,
-                        color: _kTextDark)),
-                Text('Created at delegate construction time',
-                    style: TextStyle(fontSize: 10, color: _kTextMuted)),
+                Text(
+                  'Eager item ${index + 1} of $total',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                    color: _kTextDark,
+                  ),
+                ),
+                Text(
+                  'Created at delegate construction time',
+                  style: TextStyle(fontSize: 10, color: _kTextMuted),
+                ),
               ],
             ),
           ),
-          Text('$hue°',
-              style: TextStyle(fontFamily: 'monospace', fontSize: 10,
-                  color: _kTextMuted)),
+          Text(
+            '$hue°',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 10,
+              color: _kTextMuted,
+            ),
+          ),
         ],
       ),
     );
@@ -675,14 +906,25 @@ class _MixedContentPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('MIXED CONTENT — HETEROGENEOUS LIST',
-                  style: TextStyle(color: Colors.white70, fontSize: 11,
-                      fontWeight: FontWeight.w700, letterSpacing: 0.6)),
+              Text(
+                'MIXED CONTENT — HETEROGENEOUS LIST',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.6,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('SliverChildListDelegate shines when children are different '
-                  'types — headers, cards, dividers, banners — all in one list.',
-                  style: TextStyle(color: Colors.white70, fontSize: 10.5,
-                      height: 1.3)),
+              Text(
+                'SliverChildListDelegate shines when children are different '
+                'types — headers, cards, dividers, banners — all in one list.',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 10.5,
+                  height: 1.3,
+                ),
+              ),
             ],
           ),
         ),
@@ -693,12 +935,24 @@ class _MixedContentPage extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate([
                   _sectionBanner('Electronics', Icons.devices, _kCyanDark),
-                  _productCard('Wireless Headphones', 'Bluetooth 5.3, ANC',
-                      79.99, _kCyanLight),
-                  _productCard('Mechanical Keyboard', 'Cherry MX Blue, RGB',
-                      149.99, _kCyanLight),
-                  _productCard('USB-C Hub', '7-in-1, 100W PD',
-                      39.99, _kCyanLight),
+                  _productCard(
+                    'Wireless Headphones',
+                    'Bluetooth 5.3, ANC',
+                    79.99,
+                    _kCyanLight,
+                  ),
+                  _productCard(
+                    'Mechanical Keyboard',
+                    'Cherry MX Blue, RGB',
+                    149.99,
+                    _kCyanLight,
+                  ),
+                  _productCard(
+                    'USB-C Hub',
+                    '7-in-1, 100W PD',
+                    39.99,
+                    _kCyanLight,
+                  ),
                   _thinDivider(),
                 ]),
               ),
@@ -706,10 +960,18 @@ class _MixedContentPage extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate([
                   _sectionBanner('Home & Garden', Icons.yard, _kBrownDark),
-                  _productCard('Ceramic Planter', 'Matte white, 8-inch',
-                      24.99, _kBrownLight),
-                  _productCard('LED Grow Light', 'Full spectrum, timer',
-                      34.99, _kBrownLight),
+                  _productCard(
+                    'Ceramic Planter',
+                    'Matte white, 8-inch',
+                    24.99,
+                    _kBrownLight,
+                  ),
+                  _productCard(
+                    'LED Grow Light',
+                    'Full spectrum, timer',
+                    34.99,
+                    _kBrownLight,
+                  ),
                   _thinDivider(),
                 ]),
               ),
@@ -728,9 +990,15 @@ class _MixedContentPage extends StatelessWidget {
                       children: [
                         _label('WHY THIS WORKS WELL'),
                         SizedBox(height: 6),
-                        _bullet('Each sliver section has its own ListDelegate.'),
-                        _bullet('Headers, cards, and dividers are different widget types.'),
-                        _bullet('No builder needed — the list describes itself.'),
+                        _bullet(
+                          'Each sliver section has its own ListDelegate.',
+                        ),
+                        _bullet(
+                          'Headers, cards, and dividers are different widget types.',
+                        ),
+                        _bullet(
+                          'No builder needed — the list describes itself.',
+                        ),
                         _bullet('The total count is small, so eager is fine.'),
                       ],
                     ),
@@ -776,9 +1044,14 @@ Widget _sectionBanner(String title, IconData icon, Color color) {
       children: [
         Icon(icon, color: Colors.white, size: 24),
         SizedBox(width: 12),
-        Text(title,
-            style: TextStyle(color: Colors.white, fontSize: 16,
-                fontWeight: FontWeight.w700)),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     ),
   );
@@ -796,9 +1069,12 @@ Widget _productCard(String name, String desc, double price, Color bg) {
     child: Row(
       children: [
         Container(
-          width: 44, height: 44,
+          width: 44,
+          height: 44,
           decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(8)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
           alignment: Alignment.center,
           child: Icon(Icons.shopping_bag_outlined, color: _kBrown, size: 22),
         ),
@@ -807,17 +1083,27 @@ Widget _productCard(String name, String desc, double price, Color bg) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14,
-                      color: _kTextDark)),
-              Text(desc,
-                  style: TextStyle(fontSize: 11, color: _kTextMuted)),
+              Text(
+                name,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: _kTextDark,
+                ),
+              ),
+              Text(desc, style: TextStyle(fontSize: 11, color: _kTextMuted)),
             ],
           ),
         ),
-        Text('\$${price.toStringAsFixed(2)}',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 14,
-                fontWeight: FontWeight.w700, color: _kCyanDark)),
+        Text(
+          '\$${price.toStringAsFixed(2)}',
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
+            color: _kCyanDark,
+          ),
+        ),
       ],
     ),
   );
@@ -843,11 +1129,16 @@ Widget _statsRow(String label, String value) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label,
-            style: TextStyle(fontSize: 13, color: _kTextDark)),
-        Text(value,
-            style: TextStyle(fontFamily: 'monospace', fontSize: 13,
-                fontWeight: FontWeight.w700, color: _kBrownDark)),
+        Text(label, style: TextStyle(fontSize: 13, color: _kTextDark)),
+        Text(
+          value,
+          style: TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: _kBrownDark,
+          ),
+        ),
       ],
     ),
   );

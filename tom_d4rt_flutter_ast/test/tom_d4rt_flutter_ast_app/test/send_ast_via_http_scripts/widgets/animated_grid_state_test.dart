@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_view,
       'title': 'What is AnimatedGrid?',
-      'body': 'AnimatedGrid is a scrollable 2D grid that animates '
+      'body':
+          'AnimatedGrid is a scrollable 2D grid that animates '
           'items as they are inserted or removed. It is the grid '
           'counterpart of AnimatedList. Items slide, fade, or '
           'scale in/out automatically when the collection changes.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.settings_suggest,
       'title': 'AnimatedGridState',
-      'body': 'AnimatedGridState is the State object behind '
+      'body':
+          'AnimatedGridState is the State object behind '
           'AnimatedGrid. You access it via a GlobalKey to call '
           'insertItem() and removeItem(). These methods trigger '
           'the animation and rebuild the affected grid cells.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Grid vs List',
-      'body': 'AnimatedGrid lays out children in a 2D grid using a '
+      'body':
+          'AnimatedGrid lays out children in a 2D grid using a '
           'SliverGridDelegate, while AnimatedList uses a single '
           'axis. Use AnimatedGrid when your items should wrap '
           'into multiple columns — photo galleries, dashboards, '
@@ -46,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animation Model',
-      'body': 'When you call insertItem(index), AnimatedGrid creates '
+      'body':
+          'When you call insertItem(index), AnimatedGrid creates '
           'an AnimationController for that slot and passes an '
           'Animation<double> (0 → 1) to your itemBuilder. '
           'When you call removeItem(), it plays the reverse '
@@ -126,28 +130,32 @@ dynamic build(BuildContext context) {
   final apiMethods = <Map<String, dynamic>>[
     {
       'method': 'insertItem(int index, {Duration duration})',
-      'description': 'Inserts an item at the given index and starts the '
+      'description':
+          'Inserts an item at the given index and starts the '
           'entrance animation. The duration defaults to 300ms.',
       'icon': Icons.add_box,
       'color': Colors.green,
     },
     {
       'method': 'insertAllItems(int index, int length, {Duration duration})',
-      'description': 'Inserts multiple items starting at index. Each item '
+      'description':
+          'Inserts multiple items starting at index. Each item '
           'animates in sequence with a slight stagger.',
       'icon': Icons.library_add,
       'color': Colors.blue,
     },
     {
       'method': 'removeItem(int index, AnimatedRemovedItemBuilder, {Duration})',
-      'description': 'Removes the item at index. The builder is called with '
+      'description':
+          'Removes the item at index. The builder is called with '
           'the departing animation (1 → 0) so you can fade/shrink it out.',
       'icon': Icons.remove_circle,
       'color': Colors.red,
     },
     {
       'method': 'removeAllItems(AnimatedRemovedItemBuilder, {Duration})',
-      'description': 'Removes all items with the given animation builder. '
+      'description':
+          'Removes all items with the given animation builder. '
           'Useful for clearing the entire grid with a sweep effect.',
       'icon': Icons.delete_sweep,
       'color': Colors.orange,
@@ -185,7 +193,10 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade900,
                       borderRadius: BorderRadius.circular(6),
@@ -291,7 +302,10 @@ dynamic build(BuildContext context) {
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.amber,
                   borderRadius: BorderRadius.circular(8),
@@ -400,35 +414,41 @@ dynamic build(BuildContext context) {
   final insertPatterns = <Map<String, dynamic>>[
     {
       'name': 'Fade In',
-      'description': 'Items appear by fading from transparent to opaque. '
+      'description':
+          'Items appear by fading from transparent to opaque. '
           'Subtle and professional. Use FadeTransition wrapping '
           'your item widget.',
       'icon': Icons.opacity,
       'color': Colors.blue,
-      'code': 'FadeTransition(\n'
+      'code':
+          'FadeTransition(\n'
           '  opacity: animation,\n'
           '  child: itemWidget,\n'
           ')',
     },
     {
       'name': 'Scale Up',
-      'description': 'Items grow from zero to full size. Eye-catching '
+      'description':
+          'Items grow from zero to full size. Eye-catching '
           'for card-based layouts. Use ScaleTransition.',
       'icon': Icons.zoom_in,
       'color': Colors.green,
-      'code': 'ScaleTransition(\n'
+      'code':
+          'ScaleTransition(\n'
           '  scale: animation,\n'
           '  child: itemWidget,\n'
           ')',
     },
     {
       'name': 'Slide + Fade',
-      'description': 'Items slide in from a direction while fading. '
+      'description':
+          'Items slide in from a direction while fading. '
           'Combine SlideTransition with FadeTransition for '
           'a polished effect.',
       'icon': Icons.swipe,
       'color': Colors.orange,
-      'code': 'SlideTransition(\n'
+      'code':
+          'SlideTransition(\n'
           '  position: Tween<Offset>(\n'
           '    begin: Offset(0, 0.3),\n'
           '    end: Offset.zero,\n'
@@ -441,12 +461,14 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Size + Fade',
-      'description': 'Items expand from zero height while fading in. '
+      'description':
+          'Items expand from zero height while fading in. '
           'Good for dense grids. Use SizeTransition with a '
           'vertical or horizontal axis.',
       'icon': Icons.expand,
       'color': Colors.purple,
-      'code': 'SizeTransition(\n'
+      'code':
+          'SizeTransition(\n'
           '  sizeFactor: animation,\n'
           '  child: FadeTransition(\n'
           '    opacity: animation,\n'
@@ -583,21 +605,24 @@ dynamic build(BuildContext context) {
   final removePatterns = <Map<String, dynamic>>[
     {
       'name': 'Shrink & Fade',
-      'description': 'The removed item shrinks to nothing while fading '
+      'description':
+          'The removed item shrinks to nothing while fading '
           'out. The surrounding items smoothly fill the gap.',
       'visual': Colors.red.shade100,
       'icon': Icons.close_fullscreen,
     },
     {
       'name': 'Fly Away',
-      'description': 'The item slides off-screen to the side or bottom. '
+      'description':
+          'The item slides off-screen to the side or bottom. '
           'Creates a dynamic, physical feeling of removal.',
       'visual': Colors.orange.shade100,
       'icon': Icons.flight_takeoff,
     },
     {
       'name': 'Collapse',
-      'description': 'The item collapses its height to zero using '
+      'description':
+          'The item collapses its height to zero using '
           'SizeTransition. Grid reflows smoothly around it.',
       'visual': Colors.purple.shade100,
       'icon': Icons.unfold_less,
@@ -723,7 +748,12 @@ dynamic build(BuildContext context) {
 
   // Show different grid delegate configurations visually
 
-  Widget buildMiniGrid(int crossAxisCount, double aspect, Color color, String label) {
+  Widget buildMiniGrid(
+    int crossAxisCount,
+    double aspect,
+    Color color,
+    String label,
+  ) {
     final cells = <Widget>[];
     for (var i = 0; i < crossAxisCount * 3; i++) {
       cells.add(
@@ -923,9 +953,7 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
           color: i.isEven ? Colors.grey.shade50 : Colors.white,
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
-          ),
+          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
         ),
         child: Row(
           children: [
@@ -952,7 +980,9 @@ dynamic build(BuildContext context) {
                   comp['animated'] as String,
                   style: TextStyle(
                     fontSize: 10,
-                    color: isAnimWinner ? Colors.green.shade700 : Colors.grey.shade600,
+                    color: isAnimWinner
+                        ? Colors.green.shade700
+                        : Colors.grey.shade600,
                   ),
                 ),
               ),
@@ -969,7 +999,9 @@ dynamic build(BuildContext context) {
                   comp['regular'] as String,
                   style: TextStyle(
                     fontSize: 10,
-                    color: isRegWinner ? Colors.green.shade700 : Colors.grey.shade600,
+                    color: isRegWinner
+                        ? Colors.green.shade700
+                        : Colors.grey.shade600,
                   ),
                 ),
               ),
@@ -1030,7 +1062,11 @@ dynamic build(BuildContext context) {
         Text(
           'To call insertItem() / removeItem(), you need a reference '
           'to the AnimatedGridState. The standard pattern is:',
-          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.4,
+            color: Colors.grey.shade700,
+          ),
         ),
         const SizedBox(height: 14),
         Container(
@@ -1073,7 +1109,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.warning_amber_rounded, color: Colors.amber.shade700, size: 20),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.amber.shade700,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -1103,7 +1143,8 @@ dynamic build(BuildContext context) {
   final scenarios = <Map<String, dynamic>>[
     {
       'title': 'Photo Gallery',
-      'description': 'User adds photos from camera or gallery. Each new '
+      'description':
+          'User adds photos from camera or gallery. Each new '
           'photo scales in with a bounce effect. Deleting a photo '
           'shrinks it out and the remaining photos reflow.',
       'icon': Icons.photo_library,
@@ -1112,7 +1153,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dashboard Tiles',
-      'description': 'A configurable dashboard where widgets can be '
+      'description':
+          'A configurable dashboard where widgets can be '
           'added or removed. New tiles slide in from the bottom. '
           'Removing a tile causes it to fly away to the right.',
       'icon': Icons.dashboard_customize,
@@ -1121,7 +1163,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Shopping Cart',
-      'description': 'Products displayed in a grid. Adding to cart '
+      'description':
+          'Products displayed in a grid. Adding to cart '
           'triggers a scale-down animation on the product card. '
           'Removing from cart reverses the effect.',
       'icon': Icons.shopping_cart,
@@ -1130,7 +1173,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Tag / Chip Selection',
-      'description': 'A wrap-like grid of selectable tags. Selected '
+      'description':
+          'A wrap-like grid of selectable tags. Selected '
           'tags animate with a color transition and check mark. '
           'Deselected tags fade their check mark out.',
       'icon': Icons.label,
@@ -1196,7 +1240,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(scenario['icon'] as IconData, size: 18, color: color),
+                      Icon(
+                        scenario['icon'] as IconData,
+                        size: 18,
+                        color: color,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         scenario['title'] as String,
@@ -1264,11 +1312,31 @@ dynamic build(BuildContext context) {
 
   final summaryTiles = <Widget>[];
   final summaryData = [
-    {'label': 'Grid Items', 'value': '${gridItems.length}', 'color': Colors.amber},
-    {'label': 'API Methods', 'value': '${apiMethods.length}', 'color': Colors.green},
-    {'label': 'Insert Patterns', 'value': '${insertPatterns.length}', 'color': Colors.blue},
-    {'label': 'Remove Patterns', 'value': '${removePatterns.length}', 'color': Colors.red},
-    {'label': 'Scenarios', 'value': '${scenarios.length}', 'color': Colors.purple},
+    {
+      'label': 'Grid Items',
+      'value': '${gridItems.length}',
+      'color': Colors.amber,
+    },
+    {
+      'label': 'API Methods',
+      'value': '${apiMethods.length}',
+      'color': Colors.green,
+    },
+    {
+      'label': 'Insert Patterns',
+      'value': '${insertPatterns.length}',
+      'color': Colors.blue,
+    },
+    {
+      'label': 'Remove Patterns',
+      'value': '${removePatterns.length}',
+      'color': Colors.red,
+    },
+    {
+      'label': 'Scenarios',
+      'value': '${scenarios.length}',
+      'color': Colors.purple,
+    },
   ];
 
   for (var item in summaryData) {
@@ -1369,10 +1437,7 @@ dynamic build(BuildContext context) {
                   'State object for AnimatedGrid — animated insertions '
                   'and removals in a scrollable 2D grid.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.amber.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13, color: Colors.amber.shade600),
                 ),
               ],
             ),

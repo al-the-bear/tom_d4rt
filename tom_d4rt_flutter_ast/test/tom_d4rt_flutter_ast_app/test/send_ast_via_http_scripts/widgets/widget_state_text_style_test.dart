@@ -184,8 +184,7 @@ class _WstsHome extends StatefulWidget {
   State<_WstsHome> createState() => _WstsHomeState();
 }
 
-class _WstsHomeState extends State<_WstsHome>
-    with TickerProviderStateMixin {
+class _WstsHomeState extends State<_WstsHome> with TickerProviderStateMixin {
   // --- live specimen state toggles -----------------------------------
   bool _hovered = false;
   bool _pressed = false;
@@ -202,8 +201,7 @@ class _WstsHomeState extends State<_WstsHome>
 
   // --- specimen text -------------------------------------------------
   static const String _kSpecimen = 'Hamburgefontsiv 1234 &?!';
-  static const String _kPangram =
-      'The quick brown fox jumps over the lazy dog';
+  static const String _kPangram = 'The quick brown fox jumps over the lazy dog';
 
   @override
   void initState() {
@@ -413,50 +411,50 @@ class _WstsHomeState extends State<_WstsHome>
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 48),
                 children: <Widget>[
                   const _WstsMasthead(),
-                    const SizedBox(height: 32),
-                    const _WstsDossier(),
-                    const SizedBox(height: 32),
-                    const _WstsAnatomy(),
-                    const SizedBox(height: 32),
-                    _WstsLiveSpecimen(
-                      states: states,
-                      style: resolved,
-                      hovered: _hovered,
-                      pressed: _pressed,
-                      focused: _focused,
-                      selected: _selected,
-                      disabled: _disabled,
-                      error: _error,
-                      dragged: _dragged,
-                      onHovered: _toggleHovered,
-                      onPressed: _togglePressed,
-                      onFocused: _toggleFocused,
-                      onSelected: _toggleSelected,
-                      onDisabled: _toggleDisabled,
-                      onError: _toggleError,
-                      onDragged: _toggleDragged,
-                    ),
-                    const SizedBox(height: 32),
-                    _WstsFactoryDuel(
-                      resolveWithStyle: liveStyle,
-                      mapStyle: liveMapStyle,
-                      states: states,
-                    ),
-                    const SizedBox(height: 32),
-                    _WstsButtonGallery(pulse: _pulseCtrl),
-                    const SizedBox(height: 32),
-                    const _WstsChipShowcase(),
-                    const SizedBox(height: 32),
-                    _WstsSweep(sweep: _sweepCtrl),
-                    const SizedBox(height: 32),
-                    const _WstsRecipes(),
-                    const SizedBox(height: 32),
-                    const _WstsComparison(),
-                    const SizedBox(height: 32),
-                    const _WstsGlossary(),
-                    const SizedBox(height: 24),
-                    const _WstsEpilogue(),
-                  ],
+                  const SizedBox(height: 32),
+                  const _WstsDossier(),
+                  const SizedBox(height: 32),
+                  const _WstsAnatomy(),
+                  const SizedBox(height: 32),
+                  _WstsLiveSpecimen(
+                    states: states,
+                    style: resolved,
+                    hovered: _hovered,
+                    pressed: _pressed,
+                    focused: _focused,
+                    selected: _selected,
+                    disabled: _disabled,
+                    error: _error,
+                    dragged: _dragged,
+                    onHovered: _toggleHovered,
+                    onPressed: _togglePressed,
+                    onFocused: _toggleFocused,
+                    onSelected: _toggleSelected,
+                    onDisabled: _toggleDisabled,
+                    onError: _toggleError,
+                    onDragged: _toggleDragged,
+                  ),
+                  const SizedBox(height: 32),
+                  _WstsFactoryDuel(
+                    resolveWithStyle: liveStyle,
+                    mapStyle: liveMapStyle,
+                    states: states,
+                  ),
+                  const SizedBox(height: 32),
+                  _WstsButtonGallery(pulse: _pulseCtrl),
+                  const SizedBox(height: 32),
+                  const _WstsChipShowcase(),
+                  const SizedBox(height: 32),
+                  _WstsSweep(sweep: _sweepCtrl),
+                  const SizedBox(height: 32),
+                  const _WstsRecipes(),
+                  const SizedBox(height: 32),
+                  const _WstsComparison(),
+                  const SizedBox(height: 32),
+                  const _WstsGlossary(),
+                  const SizedBox(height: 24),
+                  const _WstsEpilogue(),
+                ],
               ),
             ),
           ),
@@ -784,8 +782,7 @@ class _WstsDossier extends StatelessWidget {
           final double w = bc.maxWidth;
           final int cols = w > 860 ? 3 : (w > 560 ? 2 : 1);
           final double gap = 14;
-          final double tileW =
-              (w - (cols - 1) * gap) / cols;
+          final double tileW = (w - (cols - 1) * gap) / cols;
           return Wrap(
             spacing: gap,
             runSpacing: gap,
@@ -982,8 +979,10 @@ class _WstsAnatomy extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 10,
+                  ),
                   decoration: const BoxDecoration(
                     color: _kPaperDeep,
                     border: Border(
@@ -1214,9 +1213,7 @@ class _WstsLiveSpecimen extends StatelessWidget {
           Row(
             children: <Widget>[
               const _WstsFrameCorner(corner: _FrameCorner.topLeft),
-              Expanded(
-                child: Container(height: 1, color: _kPaperGrime),
-              ),
+              Expanded(child: Container(height: 1, color: _kPaperGrime)),
               const _WstsFrameCorner(corner: _FrameCorner.topRight),
             ],
           ),
@@ -1238,9 +1235,7 @@ class _WstsLiveSpecimen extends StatelessWidget {
           Row(
             children: <Widget>[
               const _WstsFrameCorner(corner: _FrameCorner.bottomLeft),
-              Expanded(
-                child: Container(height: 1, color: _kPaperGrime),
-              ),
+              Expanded(child: Container(height: 1, color: _kPaperGrime)),
               const _WstsFrameCorner(corner: _FrameCorner.bottomRight),
             ],
           ),
@@ -1331,8 +1326,8 @@ class _WstsLiveSpecimen extends StatelessWidget {
   }
 
   static String _setString(Set<WidgetState> s) {
-    final List<String> names =
-        s.map((WidgetState e) => e.name).toList()..sort();
+    final List<String> names = s.map((WidgetState e) => e.name).toList()
+      ..sort();
     return '{ ${names.join(', ')} }';
   }
 
@@ -1392,10 +1387,7 @@ class _StateChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
         decoration: BoxDecoration(
           color: on ? _kSaffron : _kIronLight,
-          border: Border.all(
-            color: on ? _kRibbon : _kLead,
-            width: 1.2,
-          ),
+          border: Border.all(color: on ? _kRibbon : _kLead, width: 1.2),
         ),
         child: Text(
           label.toUpperCase(),
@@ -1427,9 +1419,7 @@ class _WstsFrameCorner extends StatelessWidget {
     return SizedBox(
       width: 22,
       height: 22,
-      child: CustomPaint(
-        painter: _WstsFrameCornerPainter(corner: corner),
-      ),
+      child: CustomPaint(painter: _WstsFrameCornerPainter(corner: corner)),
     );
   }
 }
@@ -1508,11 +1498,7 @@ class _WstsFactoryDuel extends StatelessWidget {
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              left,
-              const SizedBox(height: 16),
-              right,
-            ],
+            children: <Widget>[left, const SizedBox(height: 16), right],
           );
         },
       ),
@@ -1845,32 +1831,32 @@ class _WstsChipShowcaseState extends State<_WstsChipShowcase> {
     // surface while feeding the chip a static `TextStyle` it can merge.
     final WidgetStateTextStyle chipLabelMapper =
         WidgetStateTextStyle.fromMap(<WidgetStatesConstraint, TextStyle>{
-      WidgetState.disabled: const TextStyle(
-        color: _kLeadLight,
-        fontSize: 12,
-        fontWeight: FontWeight.w600,
-        fontStyle: FontStyle.italic,
-        decoration: TextDecoration.lineThrough,
-      ),
-      WidgetState.selected: const TextStyle(
-        color: _kInk,
-        fontSize: 13,
-        fontWeight: FontWeight.w900,
-        letterSpacing: 1.2,
-      ),
-      WidgetState.hovered: const TextStyle(
-        color: _kCinnabar,
-        fontSize: 13,
-        fontWeight: FontWeight.w800,
-        letterSpacing: 1.0,
-      ),
-      WidgetState.any: const TextStyle(
-        color: _kBone,
-        fontSize: 12.5,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.6,
-      ),
-    });
+          WidgetState.disabled: const TextStyle(
+            color: _kLeadLight,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
+            decoration: TextDecoration.lineThrough,
+          ),
+          WidgetState.selected: const TextStyle(
+            color: _kInk,
+            fontSize: 13,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1.2,
+          ),
+          WidgetState.hovered: const TextStyle(
+            color: _kCinnabar,
+            fontSize: 13,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 1.0,
+          ),
+          WidgetState.any: const TextStyle(
+            color: _kBone,
+            fontSize: 12.5,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.6,
+          ),
+        });
     final TextStyle chipLabel = chipLabelMapper.resolve(<WidgetState>{});
 
     final ChipThemeData baseChipTheme = ChipTheme.of(context);
@@ -1945,11 +1931,7 @@ class _WstsChipShowcaseState extends State<_WstsChipShowcase> {
                 'the labelStyle is a WidgetStateTextStyle, the label text '
                 'redraws on selection, hover, and disabled — no per-chip '
                 'wiring required.',
-                style: TextStyle(
-                  color: _kPaper,
-                  fontSize: 12.5,
-                  height: 1.45,
-                ),
+                style: TextStyle(color: _kPaper, fontSize: 12.5, height: 1.45),
               ),
             ),
           ],
@@ -1971,26 +1953,11 @@ class _WstsSweep extends StatelessWidget {
   final AnimationController sweep;
 
   static const List<_SweepPhase> _phases = <_SweepPhase>[
-    _SweepPhase(
-      name: 'idle',
-      states: <WidgetState>{},
-    ),
-    _SweepPhase(
-      name: 'hovered',
-      states: <WidgetState>{WidgetState.hovered},
-    ),
-    _SweepPhase(
-      name: 'pressed',
-      states: <WidgetState>{WidgetState.pressed},
-    ),
-    _SweepPhase(
-      name: 'selected',
-      states: <WidgetState>{WidgetState.selected},
-    ),
-    _SweepPhase(
-      name: 'disabled',
-      states: <WidgetState>{WidgetState.disabled},
-    ),
+    _SweepPhase(name: 'idle', states: <WidgetState>{}),
+    _SweepPhase(name: 'hovered', states: <WidgetState>{WidgetState.hovered}),
+    _SweepPhase(name: 'pressed', states: <WidgetState>{WidgetState.pressed}),
+    _SweepPhase(name: 'selected', states: <WidgetState>{WidgetState.selected}),
+    _SweepPhase(name: 'disabled', states: <WidgetState>{WidgetState.disabled}),
   ];
 
   // Sweep style — distinct TextStyles per-phase so interpolation has
@@ -2087,8 +2054,10 @@ class _WstsSweep extends StatelessWidget {
               const SizedBox(height: 16),
               Container(
                 width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 28),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 28,
+                ),
                 decoration: BoxDecoration(
                   color: _kPaper,
                   border: Border.all(color: _kPaperGrime, width: 1),
@@ -2141,8 +2110,8 @@ class _SweepPhaseLamp extends StatelessWidget {
     final Color base = active
         ? Color.lerp(_kSaffron, _kCinnabar, progress) ?? _kSaffron
         : (next
-            ? Color.lerp(_kIronLight, _kSaffron, progress) ?? _kIronLight
-            : _kIronLight);
+              ? Color.lerp(_kIronLight, _kSaffron, progress) ?? _kIronLight
+              : _kIronLight);
     final Color textColor = active || (next && progress > 0.6)
         ? _kInk
         : _kPaperGrime;
@@ -2284,11 +2253,7 @@ class _WstsRecipesState extends State<_WstsRecipes> {
           '  fontFamily: \'monospace\',\n'
           '  fontWeight: FontWeight.w800,\n'
           '),',
-      base: const TextStyle(
-        color: _kInk,
-        fontSize: 18,
-        fontFamily: 'serif',
-      ),
+      base: const TextStyle(color: _kInk, fontSize: 18, fontFamily: 'serif'),
       active: const TextStyle(
         color: _kInk,
         fontSize: 18,
@@ -2408,13 +2373,15 @@ class _RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final WidgetStateTextStyle wss =
-        WidgetStateTextStyle.fromMap(<WidgetStatesConstraint, TextStyle>{
-      recipe.trigger: recipe.active,
-      WidgetState.any: recipe.base,
-    });
-    final Set<WidgetState> states =
-        active ? <WidgetState>{recipe.trigger} : <WidgetState>{};
+    final WidgetStateTextStyle wss = WidgetStateTextStyle.fromMap(
+      <WidgetStatesConstraint, TextStyle>{
+        recipe.trigger: recipe.active,
+        WidgetState.any: recipe.base,
+      },
+    );
+    final Set<WidgetState> states = active
+        ? <WidgetState>{recipe.trigger}
+        : <WidgetState>{};
     final TextStyle resolved = wss.resolve(states);
     return Container(
       padding: const EdgeInsets.all(14),
@@ -2439,10 +2406,7 @@ class _RecipeCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 3,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: active ? _kCinnabar : _kPaperDeep,
                   border: Border.all(
@@ -2485,8 +2449,7 @@ class _RecipeCard extends StatelessWidget {
             onTap: onToggle,
             child: Container(
               width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               decoration: BoxDecoration(
                 color: _kBone,
                 border: Border.all(color: _kPaperGrime, width: 1),
@@ -2581,8 +2544,7 @@ class _WstsComparison extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: const BoxDecoration(
                 color: _kPaperDeep,
                 border: Border(
@@ -2645,8 +2607,10 @@ class _WstsComparison extends StatelessWidget {
             ),
             for (int i = 0; i < _rows.length; i++)
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: i.isEven ? _kPaper : _kBone,
                   border: const Border(
@@ -2941,10 +2905,7 @@ class _WstsFoundryBackdropPainter extends CustomPainter {
       ..shader = ui.Gradient.radial(
         size.center(Offset.zero),
         size.longestSide * 0.75,
-        <Color>[
-          _kSoot,
-          _kInk.withValues(alpha: 0.85),
-        ],
+        <Color>[_kSoot, _kInk.withValues(alpha: 0.85)],
         <double>[0.4, 1.0],
       );
     canvas.drawRect(vRect, vignette);
@@ -2968,11 +2929,7 @@ class _WstsFoundryBackdropPainter extends CustomPainter {
       ..strokeWidth = 2.2
       ..style = PaintingStyle.stroke;
     const double inset = 18;
-    canvas.drawLine(
-      Offset(inset, 0),
-      Offset(inset, size.height),
-      rail,
-    );
+    canvas.drawLine(Offset(inset, 0), Offset(inset, size.height), rail);
     canvas.drawLine(
       Offset(size.width - inset, 0),
       Offset(size.width - inset, size.height),
@@ -3029,8 +2986,7 @@ class _WstsFoundryBackdropPainter extends CustomPainter {
     );
     canvas.drawLine(
       hubR_,
-      hubR_ +
-          Offset(math.cos(-ang) * hubR, math.sin(-ang) * hubR),
+      hubR_ + Offset(math.cos(-ang) * hubR, math.sin(-ang) * hubR),
       hubLine,
     );
 
@@ -3114,10 +3070,7 @@ class _WstsFrameCornerPainter extends CustomPainter {
     }
     canvas.drawLine(v, h1, stroke);
     canvas.drawLine(v, h2, stroke);
-    canvas.drawRect(
-      Rect.fromCenter(center: v, width: 5, height: 5),
-      dot,
-    );
+    canvas.drawRect(Rect.fromCenter(center: v, width: 5, height: 5), dot);
   }
 
   @override
@@ -3143,13 +3096,10 @@ class _PulseStripPainter extends CustomPainter {
       final double d = (t - t.floorToDouble());
       final double e = (1 - d).clamp(0.0, 1.0);
       final double intensity = math.pow(e, 3).toDouble();
-      final Color c = Color.lerp(_kIronLight, _kSaffron, intensity) ??
-          _kIronLight;
+      final Color c =
+          Color.lerp(_kIronLight, _kSaffron, intensity) ?? _kIronLight;
       p.color = c;
-      canvas.drawRect(
-        Rect.fromLTWH(i * segW + 1, 0, segW - 2, size.height),
-        p,
-      );
+      canvas.drawRect(Rect.fromLTWH(i * segW + 1, 0, segW - 2, size.height), p);
     }
   }
 
@@ -3158,4 +3108,3 @@ class _PulseStripPainter extends CustomPainter {
     return old.progress != progress;
   }
 }
-

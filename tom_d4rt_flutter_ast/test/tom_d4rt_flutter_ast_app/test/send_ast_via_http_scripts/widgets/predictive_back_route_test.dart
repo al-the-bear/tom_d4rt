@@ -343,7 +343,9 @@ dynamic build(BuildContext context) {
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: isActive ? Colors.white.withValues(alpha: 0.2) : blueGrey50,
+              color: isActive
+                  ? Colors.white.withValues(alpha: 0.2)
+                  : blueGrey50,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Center(
@@ -374,7 +376,10 @@ dynamic build(BuildContext context) {
                     ),
                     const SizedBox(width: 6),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4,
+                        vertical: 1,
+                      ),
                       decoration: BoxDecoration(
                         color: isActive
                             ? Colors.white.withValues(alpha: 0.2)
@@ -396,7 +401,9 @@ dynamic build(BuildContext context) {
                 Text(
                   desc,
                   style: TextStyle(
-                    color: isActive ? Colors.white.withValues(alpha: 0.85) : blueGrey600,
+                    color: isActive
+                        ? Colors.white.withValues(alpha: 0.85)
+                        : blueGrey600,
                     fontSize: 11,
                   ),
                 ),
@@ -490,7 +497,11 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.home, color: Colors.white.withValues(alpha: 0.7), size: 20),
+                              Icon(
+                                Icons.home,
+                                color: Colors.white.withValues(alpha: 0.7),
+                                size: 20,
+                              ),
                               Text(
                                 'Previous Screen',
                                 style: TextStyle(
@@ -519,10 +530,17 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.article, color: Colors.white, size: 20),
+                              Icon(
+                                Icons.article,
+                                color: Colors.white,
+                                size: 20,
+                              ),
                               Text(
                                 'Current Screen (swiping)',
-                                style: TextStyle(color: Colors.white, fontSize: 10),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
                             ],
                           ),
@@ -615,12 +633,24 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {'level': 0, 'name': 'PredictiveBackRoute (interface)', 'highlight': true},
-                  {'level': 1, 'name': 'TransitionRoute<T> (implements)', 'highlight': false},
+                  {
+                    'level': 0,
+                    'name': 'PredictiveBackRoute (interface)',
+                    'highlight': true,
+                  },
+                  {
+                    'level': 1,
+                    'name': 'TransitionRoute<T> (implements)',
+                    'highlight': false,
+                  },
                   {'level': 2, 'name': 'ModalRoute<T>', 'highlight': false},
                   {'level': 3, 'name': 'PageRoute<T>', 'highlight': false},
                   {'level': 4, 'name': 'MaterialPageRoute', 'highlight': false},
-                  {'level': 4, 'name': 'CupertinoPageRoute', 'highlight': false},
+                  {
+                    'level': 4,
+                    'name': 'CupertinoPageRoute',
+                    'highlight': false,
+                  },
                 ].map((node) {
                   final level = node['level'] as int;
                   final hl = node['highlight'] as bool;
@@ -638,7 +668,10 @@ dynamic build(BuildContext context) {
                             ),
                           ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: hl ? blueGrey800 : Colors.white,
                             borderRadius: BorderRadius.circular(4),
@@ -650,7 +683,9 @@ dynamic build(BuildContext context) {
                             node['name'] as String,
                             style: TextStyle(
                               color: hl ? Colors.white : blueGrey800,
-                              fontWeight: hl ? FontWeight.w700 : FontWeight.w500,
+                              fontWeight: hl
+                                  ? FontWeight.w700
+                                  : FontWeight.w500,
                               fontSize: 11,
                               fontFamily: 'monospace',
                             ),
@@ -698,7 +733,11 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.vertical_align_top, color: blueGrey800, size: 24),
+                            Icon(
+                              Icons.vertical_align_top,
+                              color: blueGrey800,
+                              size: 24,
+                            ),
                             const SizedBox(height: 4),
                             Text(
                               'isCurrent',
@@ -712,7 +751,11 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Is this the topmost route?\nOnly current routes can be swiped back.',
-                              style: TextStyle(color: blueGrey600, fontSize: 11, height: 1.3),
+                              style: TextStyle(
+                                color: blueGrey600,
+                                fontSize: 11,
+                                height: 1.3,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -743,7 +786,11 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Allow back gesture?\nFalse for unsaved forms, root route, etc.',
-                              style: TextStyle(color: blueGrey600, fontSize: 11, height: 1.3),
+                              style: TextStyle(
+                                color: blueGrey600,
+                                fontSize: 11,
+                                height: 1.3,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -780,17 +827,46 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {'platform': 'Android 14+', 'support': 'Full', 'color': Color(0xFF2E7D32), 'icon': Icons.check_circle},
-                  {'platform': 'Android 13', 'support': 'Opt-in', 'color': Color(0xFFF9A825), 'icon': Icons.warning_amber},
-                  {'platform': 'Android <13', 'support': 'None', 'color': Color(0xFFBDBDBD), 'icon': Icons.cancel_outlined},
-                  {'platform': 'iOS', 'support': 'Own gesture', 'color': Color(0xFF1565C0), 'icon': Icons.info_outline},
-                  {'platform': 'Web / Desktop', 'support': 'N/A', 'color': Color(0xFFBDBDBD), 'icon': Icons.cancel_outlined},
+                  {
+                    'platform': 'Android 14+',
+                    'support': 'Full',
+                    'color': Color(0xFF2E7D32),
+                    'icon': Icons.check_circle,
+                  },
+                  {
+                    'platform': 'Android 13',
+                    'support': 'Opt-in',
+                    'color': Color(0xFFF9A825),
+                    'icon': Icons.warning_amber,
+                  },
+                  {
+                    'platform': 'Android <13',
+                    'support': 'None',
+                    'color': Color(0xFFBDBDBD),
+                    'icon': Icons.cancel_outlined,
+                  },
+                  {
+                    'platform': 'iOS',
+                    'support': 'Own gesture',
+                    'color': Color(0xFF1565C0),
+                    'icon': Icons.info_outline,
+                  },
+                  {
+                    'platform': 'Web / Desktop',
+                    'support': 'N/A',
+                    'color': Color(0xFFBDBDBD),
+                    'icon': Icons.cancel_outlined,
+                  },
                 ].map((row) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 3),
                     child: Row(
                       children: [
-                        Icon(row['icon'] as IconData, color: row['color'] as Color, size: 16),
+                        Icon(
+                          row['icon'] as IconData,
+                          color: row['color'] as Color,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
                         SizedBox(
                           width: 100,
@@ -826,7 +902,9 @@ dynamic build(BuildContext context) {
   print('  Live widget built: PredictiveBackRoute demo');
   print('  • Gesture flow with screen transition preview');
   print('  • 4 gesture phases (start/update/commit/cancel)');
-  print('  • Implementation hierarchy (interface → TransitionRoute → PageRoute)');
+  print(
+    '  • Implementation hierarchy (interface → TransitionRoute → PageRoute)',
+  );
   print('  • Gate properties (isCurrent, popGestureEnabled)');
   print('  • Platform support table (5 platforms)');
   print('');
@@ -907,16 +985,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  BlueGr 900  ${blueGrey900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  BlueGr 800  ${blueGrey800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  BlueGr 700  ${blueGrey700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  BlueGr 600  ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  BlueGr 400  ${blueGrey400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  BlueGr 200  ${blueGrey200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  BlueGr 100  ${blueGrey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  BlueGr 50   ${blueGrey50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Grey 100    ${grey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
-  print('  │  Indigo 900  ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
+  print(
+    '  │  BlueGr 900  ${blueGrey900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  BlueGr 800  ${blueGrey800.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  BlueGr 700  ${blueGrey700.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  BlueGr 600  ${blueGrey600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  BlueGr 400  ${blueGrey400.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  BlueGr 200  ${blueGrey200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  BlueGr 100  ${blueGrey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  BlueGr 50   ${blueGrey50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Grey 100    ${grey100.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
+  print(
+    '  │  Indigo 900  ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

@@ -406,16 +406,15 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
   }
 
   MouseCursor _resolveFromMap(Set<WidgetState> states) {
-    final resolver = WidgetStateMouseCursor.fromMap(
-      <WidgetStatesConstraint, MouseCursor>{
-        WidgetState.disabled: SystemMouseCursors.forbidden,
-        WidgetState.dragged: SystemMouseCursors.grabbing,
-        WidgetState.hovered: SystemMouseCursors.grab,
-        WidgetState.error: SystemMouseCursors.help,
-        WidgetState.selected: SystemMouseCursors.cell,
-        WidgetState.any: SystemMouseCursors.basic,
-      },
-    );
+    final resolver =
+        WidgetStateMouseCursor.fromMap(<WidgetStatesConstraint, MouseCursor>{
+          WidgetState.disabled: SystemMouseCursors.forbidden,
+          WidgetState.dragged: SystemMouseCursors.grabbing,
+          WidgetState.hovered: SystemMouseCursors.grab,
+          WidgetState.error: SystemMouseCursors.help,
+          WidgetState.selected: SystemMouseCursors.cell,
+          WidgetState.any: SystemMouseCursors.basic,
+        });
     return resolver.resolve(states);
   }
 
@@ -444,10 +443,7 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
             child: Center(
               child: Text(
                 'WidgetStateMouseCursor',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 13,
-                ),
+                style: TextStyle(fontStyle: FontStyle.italic, fontSize: 13),
               ),
             ),
           ),
@@ -466,10 +462,7 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
             ),
             const _WsmcDossierSection(),
             const SizedBox(height: 32),
-            const _WsmcSectionHeader(
-              number: '2',
-              title: 'Cursor Bestiary',
-            ),
+            const _WsmcSectionHeader(number: '2', title: 'Cursor Bestiary'),
             _WsmcBestiarySection(pulse: _pulseController),
             const SizedBox(height: 32),
             const _WsmcSectionHeader(
@@ -517,10 +510,7 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
               resolve: _resolveWithResolver,
             ),
             const SizedBox(height: 32),
-            const _WsmcSectionHeader(
-              number: '5',
-              title: 'fromMap Playground',
-            ),
+            const _WsmcSectionHeader(number: '5', title: 'fromMap Playground'),
             _WsmcFromMapSection(
               activeStates: _fromMapStates,
               onToggle: _toggleFromMap,
@@ -570,10 +560,7 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
             ),
             const _WsmcCustomCursorSection(),
             const SizedBox(height: 32),
-            const _WsmcSectionHeader(
-              number: '8',
-              title: 'Recipe Cards',
-            ),
+            const _WsmcSectionHeader(number: '8', title: 'Recipe Cards'),
             _WsmcRecipesSection(
               disabledButton: _recipeDisabledButton,
               draggable: _recipeDraggable,
@@ -597,10 +584,7 @@ class _WsmcHomeState extends State<_WsmcHome> with TickerProviderStateMixin {
               },
             ),
             const SizedBox(height: 32),
-            const _WsmcSectionHeader(
-              number: '9',
-              title: 'Comparison Table',
-            ),
+            const _WsmcSectionHeader(number: '9', title: 'Comparison Table'),
             const _WsmcComparisonTable(),
             const SizedBox(height: 32),
             const _WsmcSectionHeader(
@@ -648,12 +632,8 @@ class _WsmcMuseumMarquee extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              CustomPaint(
-                painter: _WsmcVelvetPainter(progress: anim.value),
-              ),
-              CustomPaint(
-                painter: _WsmcBrassFramePainter(),
-              ),
+              CustomPaint(painter: _WsmcVelvetPainter(progress: anim.value)),
+              CustomPaint(painter: _WsmcBrassFramePainter()),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -718,9 +698,7 @@ class _WsmcBrassMedallion extends StatelessWidget {
     return SizedBox(
       width: 92,
       height: 92,
-      child: CustomPaint(
-        painter: _WsmcMedallionPainter(progress: progress),
-      ),
+      child: CustomPaint(painter: _WsmcMedallionPainter(progress: progress)),
     );
   }
 }
@@ -729,10 +707,7 @@ class _WsmcBrassMedallion extends StatelessWidget {
 // SECTION HEADER
 // ═══════════════════════════════════════════════════════════════════════════
 class _WsmcSectionHeader extends StatelessWidget {
-  const _WsmcSectionHeader({
-    required this.number,
-    required this.title,
-  });
+  const _WsmcSectionHeader({required this.number, required this.title});
 
   final String number;
   final String title;
@@ -1210,10 +1185,7 @@ class _WsmcBrassFramePainter extends CustomPainter {
       ..strokeWidth = 1
       ..color = _WsmcPalette.brassLight.withValues(alpha: 0.6);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        outer.deflate(7),
-        const Radius.circular(10),
-      ),
+      RRect.fromRectAndRadius(outer.deflate(7), const Radius.circular(10)),
       hair,
     );
   }
@@ -1296,10 +1268,7 @@ class _WsmcPedestalPainter extends CustomPainter {
     // Velvet case background.
     final Paint bg = Paint()
       ..shader = const LinearGradient(
-        colors: <Color>[
-          _WsmcPalette.velvetDeep,
-          _WsmcPalette.velvetMid,
-        ],
+        colors: <Color>[_WsmcPalette.velvetDeep, _WsmcPalette.velvetMid],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ).createShader(rect);
@@ -1315,20 +1284,23 @@ class _WsmcPedestalPainter extends CustomPainter {
       ..lineTo(size.width * 0.18, pedestalBottomY)
       ..close();
     final Paint brass = Paint()
-      ..shader = const LinearGradient(
-        colors: <Color>[
-          _WsmcPalette.brassLight,
-          _WsmcPalette.brassMid,
-          _WsmcPalette.brassDark,
-        ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ).createShader(Rect.fromLTRB(
-        size.width * 0.18,
-        pedestalTopY,
-        size.width * 0.82,
-        pedestalBottomY,
-      ));
+      ..shader =
+          const LinearGradient(
+            colors: <Color>[
+              _WsmcPalette.brassLight,
+              _WsmcPalette.brassMid,
+              _WsmcPalette.brassDark,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ).createShader(
+            Rect.fromLTRB(
+              size.width * 0.18,
+              pedestalTopY,
+              size.width * 0.82,
+              pedestalBottomY,
+            ),
+          );
     canvas.drawPath(pedestal, brass);
 
     // Pedestal rim highlight.
@@ -1342,15 +1314,18 @@ class _WsmcPedestalPainter extends CustomPainter {
     final double pulse = 0.6 + 0.4 * glow + (hovered ? 0.25 : 0);
     final double clampedPulse = pulse.clamp(0.0, 1.0);
     final Paint spot = Paint()
-      ..shader = RadialGradient(
-        colors: <Color>[
-          _WsmcPalette.copperGlow.withValues(alpha: 0.25 * clampedPulse),
-          Colors.transparent,
-        ],
-      ).createShader(Rect.fromCircle(
-        center: Offset(size.width / 2, size.height * 0.25),
-        radius: size.width * 0.55,
-      ));
+      ..shader =
+          RadialGradient(
+            colors: <Color>[
+              _WsmcPalette.copperGlow.withValues(alpha: 0.25 * clampedPulse),
+              Colors.transparent,
+            ],
+          ).createShader(
+            Rect.fromCircle(
+              center: Offset(size.width / 2, size.height * 0.25),
+              radius: size.width * 0.55,
+            ),
+          );
     canvas.drawRect(rect, spot);
 
     // Hairline border.
@@ -1551,10 +1526,7 @@ class _WsmcHelperCard extends StatelessWidget {
 }
 
 class _WsmcResolvedChipRow extends StatelessWidget {
-  const _WsmcResolvedChipRow({
-    required this.states,
-    required this.resolved,
-  });
+  const _WsmcResolvedChipRow({required this.states, required this.resolved});
 
   final Set<WidgetState> states;
   final MouseCursor resolved;
@@ -1848,10 +1820,7 @@ class _WsmcPlaygroundCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          _WsmcResolvedChipRow(
-            states: activeStates,
-            resolved: cursor,
-          ),
+          _WsmcResolvedChipRow(states: activeStates, resolved: cursor),
         ],
       ),
     );
@@ -1893,15 +1862,17 @@ class _WsmcIntegrationSection extends StatelessWidget {
       if (inkWellHovered) WidgetState.hovered,
       if (inkWellPressed) WidgetState.pressed,
     };
-    final MouseCursor inkCursor =
-        WidgetStateMouseCursor.clickable.resolve(inkStates);
+    final MouseCursor inkCursor = WidgetStateMouseCursor.clickable.resolve(
+      inkStates,
+    );
 
     final Set<WidgetState> btnStates = <WidgetState>{
       if (filledButtonDisabled) WidgetState.disabled,
       if (filledButtonHovered) WidgetState.hovered,
     };
-    final MouseCursor btnCursor =
-        WidgetStateMouseCursor.clickable.resolve(btnStates);
+    final MouseCursor btnCursor = WidgetStateMouseCursor.clickable.resolve(
+      btnStates,
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -2030,9 +2001,7 @@ class _WsmcInkWellDemo extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  pressed
-                      ? 'PRESSED'
-                      : (hovered ? 'HOVERED' : 'Tap me'),
+                  pressed ? 'PRESSED' : (hovered ? 'HOVERED' : 'Tap me'),
                   style: const TextStyle(
                     color: _WsmcPalette.ink,
                     fontWeight: FontWeight.w700,
@@ -2121,8 +2090,9 @@ class _WsmcFilledButtonDemo extends StatelessWidget {
                     }
                     return _WsmcPalette.brassMid;
                   }),
-                  foregroundColor:
-                      WidgetStateProperty.all<Color>(_WsmcPalette.ink),
+                  foregroundColor: WidgetStateProperty.all<Color>(
+                    _WsmcPalette.ink,
+                  ),
                 ),
                 child: Text(hovered ? 'HOVERED' : 'Click me'),
               ),
@@ -2152,17 +2122,17 @@ class _WsmcCustomCursorSectionState extends State<_WsmcCustomCursorSection> {
 
   @override
   Widget build(BuildContext context) {
-    final WidgetStateMouseCursor resolver = WidgetStateMouseCursor.resolveWith(
-      (Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) {
-          return SystemMouseCursors.forbidden;
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return const _WsmcSparkleCursor();
-        }
-        return SystemMouseCursors.basic;
-      },
-    );
+    final WidgetStateMouseCursor resolver = WidgetStateMouseCursor.resolveWith((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.disabled)) {
+        return SystemMouseCursors.forbidden;
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return const _WsmcSparkleCursor();
+      }
+      return SystemMouseCursors.basic;
+    });
     final Set<WidgetState> states = <WidgetState>{
       if (_hovered) WidgetState.hovered,
     };
@@ -2347,9 +2317,7 @@ class _WsmcRecipesSection extends StatelessWidget {
               '`WidgetStateMouseCursor.textable`.',
           active: readOnly,
           onChanged: onReadOnlyChanged,
-          cursor: readOnly
-              ? SystemMouseCursors.text
-              : SystemMouseCursors.basic,
+          cursor: readOnly ? SystemMouseCursors.text : SystemMouseCursors.basic,
           hoverLabel: readOnly ? 'read-only' : 'disabled',
         ),
         const SizedBox(height: 12),
@@ -2361,9 +2329,7 @@ class _WsmcRecipesSection extends StatelessWidget {
               '`SystemMouseCursors.wait` to signal that the UI is blocked.',
           active: loading,
           onChanged: onLoadingChanged,
-          cursor: loading
-              ? SystemMouseCursors.wait
-              : SystemMouseCursors.basic,
+          cursor: loading ? SystemMouseCursors.wait : SystemMouseCursors.basic,
           hoverLabel: loading ? 'loading' : 'ready',
         ),
         const SizedBox(height: 12),
@@ -2520,12 +2486,7 @@ class _WsmcComparisonTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>[
-        'Type',
-        'Kind',
-        'Stateful?',
-        'When to use',
-      ],
+      <String>['Type', 'Kind', 'Stateful?', 'When to use'],
       <String>[
         'WidgetStateMouseCursor',
         'Abstract WidgetStateProperty<MouseCursor?>',
@@ -2583,7 +2544,9 @@ class _WsmcComparisonTable extends StatelessWidget {
           3: FlexColumnWidth(3.2),
         },
         defaultVerticalAlignment: TableCellVerticalAlignment.top,
-        border: TableBorder.all(color: _WsmcPalette.brassDark.withValues(alpha: 0.35)),
+        border: TableBorder.all(
+          color: _WsmcPalette.brassDark.withValues(alpha: 0.35),
+        ),
         children: rows.asMap().entries.map((entry) {
           final int idx = entry.key;
           final List<String> cells = entry.value;
@@ -2593,8 +2556,8 @@ class _WsmcComparisonTable extends StatelessWidget {
               color: isHeader
                   ? _WsmcPalette.brassMid
                   : (idx % 2 == 0
-                      ? _WsmcPalette.parchmentDark.withValues(alpha: 0.5)
-                      : _WsmcPalette.parchment),
+                        ? _WsmcPalette.parchmentDark.withValues(alpha: 0.5)
+                        : _WsmcPalette.parchment),
             ),
             children: cells.map((String text) {
               return Padding(
@@ -2603,8 +2566,7 @@ class _WsmcComparisonTable extends StatelessWidget {
                   text,
                   style: TextStyle(
                     color: _WsmcPalette.ink,
-                    fontWeight:
-                        isHeader ? FontWeight.w900 : FontWeight.w500,
+                    fontWeight: isHeader ? FontWeight.w900 : FontWeight.w500,
                     fontSize: isHeader ? 12 : 11.5,
                     height: 1.35,
                   ),
@@ -2746,10 +2708,7 @@ class _WsmcGlossarySection extends StatelessWidget {
 }
 
 class _WsmcGlossaryEntry {
-  const _WsmcGlossaryEntry({
-    required this.term,
-    required this.definition,
-  });
+  const _WsmcGlossaryEntry({required this.term, required this.definition});
   final String term;
   final String definition;
 }

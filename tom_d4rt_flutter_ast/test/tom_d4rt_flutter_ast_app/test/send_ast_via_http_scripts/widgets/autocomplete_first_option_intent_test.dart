@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_awesome,
       'title': 'Autocomplete in Flutter',
-      'body': 'Flutter\'s Autocomplete and RawAutocomplete widgets '
+      'body':
+          'Flutter\'s Autocomplete and RawAutocomplete widgets '
           'provide type-ahead suggestion capabilities. As the user '
           'types, matching options appear in a dropdown. The whole '
           'system is driven by Intents and Actions for keyboard '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.first_page,
       'title': 'AutocompleteFirstOptionIntent',
-      'body': 'This Intent tells the Autocomplete to highlight the '
+      'body':
+          'This Intent tells the Autocomplete to highlight the '
           'first option in the suggestion list. It is dispatched when '
           'the user presses ArrowDown while no option is selected, or '
           'programmatically to start keyboard navigation through the '
@@ -38,7 +40,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.keyboard,
       'title': 'Why Intent-Driven?',
-      'body': 'By using the Intent/Action system, autocomplete '
+      'body':
+          'By using the Intent/Action system, autocomplete '
           'keyboard navigation is accessible, testable, and '
           'customizable. You can override the action to add logging, '
           'change behavior, or integrate with your own navigation '
@@ -48,7 +51,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.settings_suggest,
       'title': 'Built-in Registration',
-      'body': 'RawAutocomplete automatically registers Actions for all '
+      'body':
+          'RawAutocomplete automatically registers Actions for all '
           'autocomplete intents. You never need to set up this wiring — '
           'just use Autocomplete and keyboard navigation works. Override '
           'only when you need custom behavior.',
@@ -65,15 +69,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -150,9 +155,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.cyan.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: Colors.cyan[700]!, width: 4),
-        ),
+        border: Border(left: BorderSide(color: Colors.cyan[700]!, width: 4)),
       ),
       child: Row(
         children: [
@@ -174,7 +177,9 @@ dynamic build(BuildContext context) {
                 Text(
                   item['value']!,
                   style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 Text(
                   item['detail']!,
@@ -241,8 +246,9 @@ dynamic build(BuildContext context) {
             : (intent['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: (intent['color'] as Color)
-              .withOpacity(isHighlighted ? 0.5 : 0.2),
+          color: (intent['color'] as Color).withOpacity(
+            isHighlighted ? 0.5 : 0.2,
+          ),
           width: isHighlighted ? 2 : 1,
         ),
       ),
@@ -255,8 +261,11 @@ dynamic build(BuildContext context) {
               color: (intent['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(intent['icon'] as IconData,
-                color: intent['color'] as Color, size: 22),
+            child: Icon(
+              intent['icon'] as IconData,
+              color: intent['color'] as Color,
+              size: 22,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -277,7 +286,9 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.cyan,
                           borderRadius: BorderRadius.circular(4),
@@ -302,9 +313,10 @@ dynamic build(BuildContext context) {
                 Text(
                   'Trigger: ${intent['trigger']}',
                   style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey[600],
-                      fontStyle: FontStyle.italic),
+                    fontSize: 11,
+                    color: Colors.grey[600],
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ],
             ),
@@ -322,28 +334,32 @@ dynamic build(BuildContext context) {
   final architectureComponents = <Map<String, dynamic>>[
     {
       'name': 'TextEditingController',
-      'role': 'Holds the user\'s typed text. Notifies the autocomplete '
+      'role':
+          'Holds the user\'s typed text. Notifies the autocomplete '
           'when the input changes so options can be filtered.',
       'icon': Icons.edit,
       'color': Colors.blue,
     },
     {
       'name': 'optionsBuilder',
-      'role': 'A function that receives the TextEditingValue and returns '
+      'role':
+          'A function that receives the TextEditingValue and returns '
           'an Iterable<T> of matching options.',
       'icon': Icons.filter_list,
       'color': Colors.green,
     },
     {
       'name': 'optionsViewBuilder',
-      'role': 'Builds the dropdown UI showing the filtered options. '
+      'role':
+          'Builds the dropdown UI showing the filtered options. '
           'Receives the options list, highlight callback, and selection callback.',
       'icon': Icons.view_list,
       'color': Colors.orange,
     },
     {
       'name': 'Actions Widget (internal)',
-      'role': 'RawAutocomplete wraps its children in an Actions widget '
+      'role':
+          'RawAutocomplete wraps its children in an Actions widget '
           'that registers handlers for all autocomplete intents. This '
           'enables keyboard navigation without extra setup.',
       'icon': Icons.keyboard,
@@ -351,14 +367,16 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Shortcuts Widget (internal)',
-      'role': 'Maps physical keys (ArrowDown, ArrowUp, Enter) to '
+      'role':
+          'Maps physical keys (ArrowDown, ArrowUp, Enter) to '
           'the corresponding autocomplete intents.',
       'icon': Icons.shortcut,
       'color': Colors.red,
     },
     {
       'name': 'FocusNode',
-      'role': 'Tracks focus state. The options dropdown appears when '
+      'role':
+          'Tracks focus state. The options dropdown appears when '
           'focused and disappears when focus is lost.',
       'icon': Icons.center_focus_strong,
       'color': Colors.teal,
@@ -373,10 +391,7 @@ dynamic build(BuildContext context) {
         color: (comp['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(
-            color: comp['color'] as Color,
-            width: 4,
-          ),
+          left: BorderSide(color: comp['color'] as Color, width: 4),
         ),
       ),
       child: Row(
@@ -389,8 +404,11 @@ dynamic build(BuildContext context) {
               color: (comp['color'] as Color).withOpacity(0.12),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(comp['icon'] as IconData,
-                color: comp['color'] as Color, size: 20),
+            child: Icon(
+              comp['icon'] as IconData,
+              color: comp['color'] as Color,
+              size: 20,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -462,34 +480,36 @@ dynamic build(BuildContext context) {
       if (textEditingValue.text.isEmpty) {
         return const Iterable<String>.empty();
       }
-      return sampleFruits.where((fruit) => fruit
-          .toLowerCase()
-          .contains(textEditingValue.text.toLowerCase()));
-    },
-    fieldViewBuilder: (
-      BuildContext context,
-      TextEditingController textEditingController,
-      FocusNode focusNode,
-      VoidCallback onFieldSubmitted,
-    ) {
-      return TextField(
-        controller: textEditingController,
-        focusNode: focusNode,
-        decoration: InputDecoration(
-          labelText: 'Search fruits...',
-          hintText: 'Type to see suggestions',
-          prefixIcon: Icon(Icons.search, color: Colors.cyan[700]),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: Colors.cyan[700]!, width: 2),
-          ),
-        ),
-        onSubmitted: (_) => onFieldSubmitted(),
+      return sampleFruits.where(
+        (fruit) =>
+            fruit.toLowerCase().contains(textEditingValue.text.toLowerCase()),
       );
     },
+    fieldViewBuilder:
+        (
+          BuildContext context,
+          TextEditingController textEditingController,
+          FocusNode focusNode,
+          VoidCallback onFieldSubmitted,
+        ) {
+          return TextField(
+            controller: textEditingController,
+            focusNode: focusNode,
+            decoration: InputDecoration(
+              labelText: 'Search fruits...',
+              hintText: 'Type to see suggestions',
+              prefixIcon: Icon(Icons.search, color: Colors.cyan[700]),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.cyan[700]!, width: 2),
+              ),
+            ),
+            onSubmitted: (_) => onFieldSubmitted(),
+          );
+        },
   );
 
   // ============================================================
@@ -501,7 +521,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'User Types',
-      'detail': 'Text changes trigger optionsBuilder, which returns '
+      'detail':
+          'Text changes trigger optionsBuilder, which returns '
           'matching options. Dropdown appears with suggestions.',
       'key': 'a, b, c...',
       'icon': Icons.keyboard,
@@ -510,7 +531,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'ArrowDown (First Press)',
-      'detail': 'AutocompleteFirstOptionIntent is dispatched. The '
+      'detail':
+          'AutocompleteFirstOptionIntent is dispatched. The '
           'first option in the list becomes highlighted.',
       'key': '↓',
       'icon': Icons.first_page,
@@ -519,7 +541,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'ArrowDown (Subsequent)',
-      'detail': 'AutocompleteNextOptionIntent is dispatched. The '
+      'detail':
+          'AutocompleteNextOptionIntent is dispatched. The '
           'highlight moves to the next option.',
       'key': '↓',
       'icon': Icons.keyboard_arrow_down,
@@ -528,7 +551,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'ArrowUp',
-      'detail': 'AutocompletePreviousOptionIntent is dispatched. '
+      'detail':
+          'AutocompletePreviousOptionIntent is dispatched. '
           'The highlight moves to the previous option.',
       'key': '↑',
       'icon': Icons.keyboard_arrow_up,
@@ -537,7 +561,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'label': 'Enter',
-      'detail': 'AutocompleteHighlightedOptionIntent is dispatched. '
+      'detail':
+          'AutocompleteHighlightedOptionIntent is dispatched. '
           'The currently highlighted option is selected and the text '
           'field is updated with its value.',
       'key': '↵',
@@ -547,7 +572,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'label': 'Escape / Focus Lost',
-      'detail': 'The dropdown closes. No intent is dispatched — '
+      'detail':
+          'The dropdown closes. No intent is dispatched — '
           'this is handled by focus mechanics, not the intent system.',
       'key': 'Esc',
       'icon': Icons.close,
@@ -587,10 +613,7 @@ dynamic build(BuildContext context) {
                 color: (step['color'] as Color).withOpacity(0.08),
                 borderRadius: BorderRadius.circular(8),
                 border: Border(
-                  left: BorderSide(
-                    color: step['color'] as Color,
-                    width: 3,
-                  ),
+                  left: BorderSide(color: step['color'] as Color, width: 3),
                 ),
               ),
               child: Column(
@@ -598,8 +621,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(step['icon'] as IconData,
-                          size: 16, color: step['color'] as Color),
+                      Icon(
+                        step['icon'] as IconData,
+                        size: 16,
+                        color: step['color'] as Color,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         step['label'] as String,
@@ -612,7 +638,9 @@ dynamic build(BuildContext context) {
                       const Spacer(),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 3),
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(4),
@@ -651,9 +679,11 @@ dynamic build(BuildContext context) {
   final overrideExamples = <Map<String, dynamic>>[
     {
       'title': 'Logging / Analytics',
-      'desc': 'Wrap the default action to log when the user starts '
+      'desc':
+          'Wrap the default action to log when the user starts '
           'keyboard navigation through autocomplete options.',
-      'code': 'Actions(\n'
+      'code':
+          'Actions(\n'
           '  actions: {\n'
           '    AutocompleteFirstOptionIntent:\n'
           '      CallbackAction<AutocompleteFirstOptionIntent>(\n'
@@ -671,9 +701,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Skip Disabled Options',
-      'desc': 'Override to skip the first option if it\'s marked as '
+      'desc':
+          'Override to skip the first option if it\'s marked as '
           'disabled, jumping to the next available option instead.',
-      'code': '// Custom action that skips disabled items\n'
+      'code':
+          '// Custom action that skips disabled items\n'
           'CallbackAction<AutocompleteFirstOptionIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    final firstEnabled = options\n'
@@ -687,9 +719,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Haptic Feedback',
-      'desc': 'Add haptic feedback when the user enters keyboard '
+      'desc':
+          'Add haptic feedback when the user enters keyboard '
           'navigation mode on mobile devices.',
-      'code': 'CallbackAction<AutocompleteFirstOptionIntent>(\n'
+      'code':
+          'CallbackAction<AutocompleteFirstOptionIntent>(\n'
           '  onInvoke: (intent) {\n'
           '    HapticFeedback.lightImpact();\n'
           '    // Invoke default behavior\n'
@@ -719,8 +753,11 @@ dynamic build(BuildContext context) {
         children: [
           Row(
             children: [
-              Icon(example['icon'] as IconData,
-                  color: example['color'] as Color, size: 20),
+              Icon(
+                example['icon'] as IconData,
+                color: example['color'] as Color,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text(
                 example['title'] as String,
@@ -765,7 +802,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Let RawAutocomplete handle navigation',
-      'detail': 'Don\'t try to manually manage keyboard navigation. '
+      'detail':
+          'Don\'t try to manually manage keyboard navigation. '
           'RawAutocomplete registers all autocomplete intents '
           'automatically. Just provide optionsBuilder and let it work.',
       'icon': Icons.check_circle,
@@ -774,7 +812,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Use Autocomplete for common cases',
-      'detail': 'The Autocomplete widget wraps RawAutocomplete with '
+      'detail':
+          'The Autocomplete widget wraps RawAutocomplete with '
           'reasonable defaults. Only use RawAutocomplete when you need '
           'full control over the field and options UI.',
       'icon': Icons.check_circle,
@@ -783,7 +822,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Debounce expensive optionsBuilder',
-      'detail': 'If optionsBuilder calls an API, debounce the input. '
+      'detail':
+          'If optionsBuilder calls an API, debounce the input. '
           'The intent system works independently — keyboard navigation '
           'uses the currently displayed options, not fresh fetches.',
       'icon': Icons.check_circle,
@@ -792,7 +832,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Don\'t confuse with ActivateIntent',
-      'detail': 'AutocompleteFirstOptionIntent is specific to Autocomplete '
+      'detail':
+          'AutocompleteFirstOptionIntent is specific to Autocomplete '
           'widgets. ActivateIntent is for generic button/widget activation. '
           'They\'re separate intent hierarchies.',
       'icon': Icons.warning_amber,
@@ -801,7 +842,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Don\'t wrap Autocomplete in competing Actions',
-      'detail': 'If you wrap Autocomplete in an Actions widget that '
+      'detail':
+          'If you wrap Autocomplete in an Actions widget that '
           'handles the same intents, the outer one wins. The autocomplete '
           'keyboard navigation will stop working.',
       'icon': Icons.warning_amber,
@@ -810,7 +852,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Ensure FocusNode is passed correctly',
-      'detail': 'In RawAutocomplete, the focusNode must be attached to '
+      'detail':
+          'In RawAutocomplete, the focusNode must be attached to '
           'the TextField. If it\'s not, keyboard events won\'t reach '
           'the Shortcuts widget and intents won\'t fire.',
       'icon': Icons.error_outline,
@@ -819,7 +862,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Empty options list edge case',
-      'detail': 'When optionsBuilder returns an empty list, '
+      'detail':
+          'When optionsBuilder returns an empty list, '
           'AutocompleteFirstOptionIntent has nothing to highlight. '
           'The action still fires but has no visible effect.',
       'icon': Icons.warning_amber,
@@ -835,17 +879,17 @@ dynamic build(BuildContext context) {
         color: (item['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(
-            color: item['color'] as Color,
-            width: 4,
-          ),
+          left: BorderSide(color: item['color'] as Color, width: 4),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(item['icon'] as IconData,
-              color: item['color'] as Color, size: 20),
+          Icon(
+            item['icon'] as IconData,
+            color: item['color'] as Color,
+            size: 20,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -855,7 +899,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: (item['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -901,12 +947,36 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'label': 'Autocomplete intents', 'value': '${intentFamily.length}', 'icon': Icons.auto_awesome},
-    {'label': 'Architecture components', 'value': '${architectureComponents.length}', 'icon': Icons.architecture},
-    {'label': 'Navigation steps', 'value': '${navSteps.length}', 'icon': Icons.keyboard},
-    {'label': 'Override examples', 'value': '${overrideExamples.length}', 'icon': Icons.build},
-    {'label': 'Patterns & pitfalls', 'value': '${patternsAndPitfalls.length}', 'icon': Icons.lightbulb},
-    {'label': 'Sample fruits', 'value': '${sampleFruits.length}', 'icon': Icons.local_grocery_store},
+    {
+      'label': 'Autocomplete intents',
+      'value': '${intentFamily.length}',
+      'icon': Icons.auto_awesome,
+    },
+    {
+      'label': 'Architecture components',
+      'value': '${architectureComponents.length}',
+      'icon': Icons.architecture,
+    },
+    {
+      'label': 'Navigation steps',
+      'value': '${navSteps.length}',
+      'icon': Icons.keyboard,
+    },
+    {
+      'label': 'Override examples',
+      'value': '${overrideExamples.length}',
+      'icon': Icons.build,
+    },
+    {
+      'label': 'Patterns & pitfalls',
+      'value': '${patternsAndPitfalls.length}',
+      'icon': Icons.lightbulb,
+    },
+    {
+      'label': 'Sample fruits',
+      'value': '${sampleFruits.length}',
+      'icon': Icons.local_grocery_store,
+    },
   ];
 
   final summaryGrid = Wrap(
@@ -1069,11 +1139,19 @@ dynamic build(BuildContext context) {
           ...apiWidgets,
 
           // Section 3
-          acSectionHeader('3', 'Autocomplete Intent Family', Icons.family_restroom),
+          acSectionHeader(
+            '3',
+            'Autocomplete Intent Family',
+            Icons.family_restroom,
+          ),
           ...familyWidgets,
 
           // Section 4
-          acSectionHeader('4', 'RawAutocomplete Architecture', Icons.architecture),
+          acSectionHeader(
+            '4',
+            'RawAutocomplete Architecture',
+            Icons.architecture,
+          ),
           ...archWidgets,
 
           // Section 5

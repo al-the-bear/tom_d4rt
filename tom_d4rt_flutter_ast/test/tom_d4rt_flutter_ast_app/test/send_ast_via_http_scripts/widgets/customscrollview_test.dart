@@ -70,12 +70,7 @@ Widget buildSectionHeader({
               ),
             ),
             const SizedBox(width: 12.0),
-            Expanded(
-              child: Container(
-                height: 1.0,
-                color: kHair,
-              ),
-            ),
+            Expanded(child: Container(height: 1.0, color: kHair)),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -91,11 +86,7 @@ Widget buildSectionHeader({
         const SizedBox(height: 8.0),
         Text(
           blurb,
-          style: const TextStyle(
-            color: kInkSoft,
-            fontSize: 14.0,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: kInkSoft, fontSize: 14.0, height: 1.5),
         ),
       ],
     ),
@@ -202,10 +193,7 @@ Widget buildPropChip(String label, Color accent) {
     decoration: BoxDecoration(
       color: accent.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.30),
-        width: 1.0,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.30), width: 1.0),
     ),
     child: Text(
       label,
@@ -256,10 +244,7 @@ Widget buildListTile(int index, Color accent) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.18),
-        width: 1.0,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.18), width: 1.0),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.06),
@@ -312,10 +297,7 @@ Widget buildListTile(int index, Color accent) {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: accent.withValues(alpha: 0.10 + t * 0.15),
             borderRadius: BorderRadius.circular(8.0),
@@ -375,10 +357,7 @@ Widget buildGridTile(int index, Color accent) {
           right: 8.0,
           top: 8.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6.0,
-              vertical: 2.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.25),
               borderRadius: BorderRadius.circular(6.0),
@@ -464,10 +443,7 @@ Widget buildFixedExtentTile(int index) {
     decoration: BoxDecoration(
       color: base.withValues(alpha: 0.10),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: base.withValues(alpha: 0.35),
-        width: 1.0,
-      ),
+      border: Border.all(color: base.withValues(alpha: 0.35), width: 1.0),
     ),
     child: Row(
       children: <Widget>[
@@ -643,10 +619,7 @@ Widget buildPinnedBanner(String title, IconData icon, Color base) {
         const Spacer(),
         Container(
           margin: const EdgeInsets.only(right: 14.0),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8.0),
@@ -737,10 +710,7 @@ Widget buildSection1Basic() {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: c.withValues(alpha: 0.35),
-            width: 1.0,
-          ),
+          border: Border.all(color: c.withValues(alpha: 0.35), width: 1.0),
         ),
         child: Row(
           children: <Widget>[
@@ -995,8 +965,7 @@ Widget buildSection3GridGallery() {
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             sliver: SliverGrid(
               delegate: SliverChildListDelegate(tilesB),
-              gridDelegate:
-                  const SliverGridDelegateWithMaxCrossAxisExtent(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 160.0,
                 childAspectRatio: 1.1,
               ),
@@ -1078,10 +1047,7 @@ Widget buildSection4MixedSlivers() {
                         SizedBox(height: 4.0),
                         Text(
                           'Adapter sliver at the top.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 11.5,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 11.5),
                         ),
                       ],
                     ),
@@ -1156,11 +1122,7 @@ Widget buildSection5Horizontal() {
       child: CustomScrollView(
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate(cards),
-          ),
-        ],
+        slivers: <Widget>[SliverList(delegate: SliverChildListDelegate(cards))],
       ),
     ),
   );
@@ -1219,8 +1181,7 @@ Widget buildSection7PersistentHeader() {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) =>
-                  buildListTile(index, kCyan),
+              (BuildContext context, int index) => buildListTile(index, kCyan),
               childCount: 4,
             ),
           ),
@@ -1379,12 +1340,7 @@ Widget buildSection8FillRemaining() {
 // ============================================================================
 Widget buildSection9FillViewport() {
   final List<Widget> pages = List<Widget>.generate(4, (int index) {
-    final List<Color> palette = <Color>[
-      kAccent,
-      kMint,
-      kCoral,
-      kViolet,
-    ];
+    final List<Color> palette = <Color>[kAccent, kMint, kCoral, kViolet];
     final Color base = palette[index % palette.length];
     return Container(
       margin: const EdgeInsets.all(10.0),
@@ -1498,10 +1454,7 @@ Widget buildSection10FloatingSnap() {
               background: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: <Color>[
-                      kPink,
-                      kCoral.withValues(alpha: 0.85),
-                    ],
+                    colors: <Color>[kPink, kCoral.withValues(alpha: 0.85)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -1511,8 +1464,7 @@ Widget buildSection10FloatingSnap() {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) =>
-                  buildListTile(index, kPink),
+              (BuildContext context, int index) => buildListTile(index, kPink),
               childCount: 10,
             ),
           ),
@@ -1632,8 +1584,7 @@ Widget buildSection12Controller(ScrollController controller) {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) =>
-                  buildListTile(index, kMint),
+              (BuildContext context, int index) => buildListTile(index, kMint),
               childCount: 10,
             ),
           ),
@@ -1668,10 +1619,7 @@ Widget buildSection13AnchorCenter() {
             Container(
               width: 28.0,
               height: 28.0,
-              decoration: BoxDecoration(
-                color: kViolet,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: kViolet, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   '-${5 - index}',
@@ -1719,10 +1667,7 @@ Widget buildSection13AnchorCenter() {
             Container(
               width: 28.0,
               height: 28.0,
-              decoration: BoxDecoration(
-                color: kAccent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: kAccent, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   '+${index + 1}',
@@ -1801,11 +1746,7 @@ Widget buildSection13AnchorCenter() {
         center: centerKey,
         anchor: 0.5,
         physics: const BouncingScrollPhysics(),
-        slivers: <Widget>[
-          ...upper,
-          centerSliver,
-          ...lower,
-        ],
+        slivers: <Widget>[...upper, centerSliver, ...lower],
       ),
     ),
   );
@@ -1960,10 +1901,7 @@ Widget buildSpecGrid() {
 
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12.0),
-    child: Wrap(
-      alignment: WrapAlignment.center,
-      children: specs,
-    ),
+    child: Wrap(alignment: WrapAlignment.center, children: specs),
   );
 }
 
@@ -2028,70 +1966,61 @@ Widget buildFamilyMap() {
     },
   ];
 
-  final List<Widget> chips = List<Widget>.generate(
-    entries.length,
-    (int index) {
-      final Map<String, dynamic> e = entries[index];
-      final Color c = e['color'] as Color;
-      return Container(
-        width: 240.0,
-        margin: const EdgeInsets.all(6.0),
-        padding: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: c.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: c.withValues(alpha: 0.30),
-            width: 1.0,
+  final List<Widget> chips = List<Widget>.generate(entries.length, (int index) {
+    final Map<String, dynamic> e = entries[index];
+    final Color c = e['color'] as Color;
+    return Container(
+      width: 240.0,
+      margin: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: c.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(color: c.withValues(alpha: 0.30), width: 1.0),
+      ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: c.withValues(alpha: 0.18),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Icon(e['icon'] as IconData, color: c, size: 20.0),
           ),
-        ),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: c.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Icon(e['icon'] as IconData, color: c, size: 20.0),
-            ),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    e['name'] as String,
-                    style: TextStyle(
-                      color: c,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w800,
-                    ),
+          const SizedBox(width: 10.0),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  e['name'] as String,
+                  style: TextStyle(
+                    color: c,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800,
                   ),
-                  const SizedBox(height: 2.0),
-                  Text(
-                    e['note'] as String,
-                    style: TextStyle(
-                      color: kInkSoft.withValues(alpha: 0.85),
-                      fontSize: 10.5,
-                    ),
+                ),
+                const SizedBox(height: 2.0),
+                Text(
+                  e['note'] as String,
+                  style: TextStyle(
+                    color: kInkSoft.withValues(alpha: 0.85),
+                    fontSize: 10.5,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    },
-  );
+          ),
+        ],
+      ),
+    );
+  });
 
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12.0),
-    child: Wrap(
-      alignment: WrapAlignment.center,
-      children: chips,
-    ),
+    child: Wrap(alignment: WrapAlignment.center, children: chips),
   );
 }
 
@@ -2227,10 +2156,7 @@ Widget buildStatStrip() {
       margin: const EdgeInsets.symmetric(horizontal: 3.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            c.withValues(alpha: 0.85),
-            c.withValues(alpha: 0.45),
-          ],
+          colors: <Color>[c.withValues(alpha: 0.85), c.withValues(alpha: 0.45)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -2357,10 +2283,10 @@ dynamic build(BuildContext context) {
       accent: kAccent,
       icon: Icons.start_rounded,
     ),
-    buildPropChipRow(
-      const <String>['SliverToBoxAdapter', 'BouncingScrollPhysics'],
-      kAccent,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverToBoxAdapter',
+      'BouncingScrollPhysics',
+    ], kAccent),
     buildSection1Basic(),
 
     buildSectionHeader(
@@ -2373,16 +2299,13 @@ dynamic build(BuildContext context) {
       accent: kAccentDeep,
       icon: Icons.layers_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverAppBar',
-        'pinned',
-        'stretch',
-        'FlexibleSpaceBar',
-        'StretchMode.zoomBackground',
-      ],
-      kAccentDeep,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverAppBar',
+      'pinned',
+      'stretch',
+      'FlexibleSpaceBar',
+      'StretchMode.zoomBackground',
+    ], kAccentDeep),
     buildSection2PinnedAppBar(),
 
     buildSectionHeader(
@@ -2395,14 +2318,11 @@ dynamic build(BuildContext context) {
       accent: kPink,
       icon: Icons.grid_view_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverGrid.count',
-        'SliverGridDelegateWithMaxCrossAxisExtent',
-        'SliverPadding',
-      ],
-      kPink,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverGrid.count',
+      'SliverGridDelegateWithMaxCrossAxisExtent',
+      'SliverPadding',
+    ], kPink),
     buildSection3GridGallery(),
 
     buildSectionHeader(
@@ -2415,15 +2335,12 @@ dynamic build(BuildContext context) {
       accent: kMint,
       icon: Icons.dashboard_customize_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverToBoxAdapter',
-        'SliverList',
-        'SliverGrid.count',
-        'SliverFixedExtentList',
-      ],
-      kMint,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverToBoxAdapter',
+      'SliverList',
+      'SliverGrid.count',
+      'SliverFixedExtentList',
+    ], kMint),
     buildSection4MixedSlivers(),
 
     buildSectionHeader(
@@ -2436,10 +2353,10 @@ dynamic build(BuildContext context) {
       accent: kCoral,
       icon: Icons.swipe_rounded,
     ),
-    buildPropChipRow(
-      const <String>['scrollDirection: Axis.horizontal', 'SliverList'],
-      kCoral,
-    ),
+    buildPropChipRow(const <String>[
+      'scrollDirection: Axis.horizontal',
+      'SliverList',
+    ], kCoral),
     buildSection5Horizontal(),
 
     buildSectionHeader(
@@ -2452,10 +2369,10 @@ dynamic build(BuildContext context) {
       accent: kViolet,
       icon: Icons.swap_vert_rounded,
     ),
-    buildPropChipRow(
-      const <String>['reverse: true', 'SliverFixedExtentList'],
-      kViolet,
-    ),
+    buildPropChipRow(const <String>[
+      'reverse: true',
+      'SliverFixedExtentList',
+    ], kViolet),
     buildSection6Reverse(),
 
     buildSectionHeader(
@@ -2467,14 +2384,11 @@ dynamic build(BuildContext context) {
       accent: kCyan,
       icon: Icons.bookmark_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverPersistentHeader',
-        'pinned',
-        'custom delegate',
-      ],
-      kCyan,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverPersistentHeader',
+      'pinned',
+      'custom delegate',
+    ], kCyan),
     buildSection7PersistentHeader(),
 
     buildSectionHeader(
@@ -2487,14 +2401,11 @@ dynamic build(BuildContext context) {
       accent: kAmber,
       icon: Icons.aspect_ratio_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverFillRemaining',
-        'hasScrollBody: false',
-        'NeverScrollableScrollPhysics',
-      ],
-      kAmber,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverFillRemaining',
+      'hasScrollBody: false',
+      'NeverScrollableScrollPhysics',
+    ], kAmber),
     buildSection8FillRemaining(),
 
     buildSectionHeader(
@@ -2507,14 +2418,11 @@ dynamic build(BuildContext context) {
       accent: kAccent,
       icon: Icons.fullscreen_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'SliverFillViewport',
-        'viewportFraction',
-        'PageScrollPhysics',
-      ],
-      kAccent,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverFillViewport',
+      'viewportFraction',
+      'PageScrollPhysics',
+    ], kAccent),
     buildSection9FillViewport(),
 
     buildSectionHeader(
@@ -2527,10 +2435,11 @@ dynamic build(BuildContext context) {
       accent: kPink,
       icon: Icons.flight_rounded,
     ),
-    buildPropChipRow(
-      const <String>['floating', 'snap', 'expandedHeight'],
-      kPink,
-    ),
+    buildPropChipRow(const <String>[
+      'floating',
+      'snap',
+      'expandedHeight',
+    ], kPink),
     buildSection10FloatingSnap(),
 
     buildSectionHeader(
@@ -2543,10 +2452,10 @@ dynamic build(BuildContext context) {
       accent: kAccentDeep,
       icon: Icons.format_indent_increase_rounded,
     ),
-    buildPropChipRow(
-      const <String>['SliverPadding', 'EdgeInsets'],
-      kAccentDeep,
-    ),
+    buildPropChipRow(const <String>[
+      'SliverPadding',
+      'EdgeInsets',
+    ], kAccentDeep),
     buildSection11SliverPadding(),
 
     buildSectionHeader(
@@ -2559,15 +2468,12 @@ dynamic build(BuildContext context) {
       accent: kMint,
       icon: Icons.tune_rounded,
     ),
-    buildPropChipRow(
-      const <String>[
-        'controller',
-        'BouncingScrollPhysics',
-        'keyboardDismissBehavior',
-        'dragStartBehavior',
-      ],
-      kMint,
-    ),
+    buildPropChipRow(const <String>[
+      'controller',
+      'BouncingScrollPhysics',
+      'keyboardDismissBehavior',
+      'dragStartBehavior',
+    ], kMint),
     buildSection12Controller(demoController),
 
     buildSectionHeader(
@@ -2580,10 +2486,7 @@ dynamic build(BuildContext context) {
       accent: kPink,
       icon: Icons.center_focus_strong_rounded,
     ),
-    buildPropChipRow(
-      const <String>['anchor: 0.5', 'center: ValueKey'],
-      kPink,
-    ),
+    buildPropChipRow(const <String>['anchor: 0.5', 'center: ValueKey'], kPink),
     buildSection13AnchorCenter(),
 
     buildSectionHeader(
@@ -2596,10 +2499,7 @@ dynamic build(BuildContext context) {
       accent: kAccent,
       icon: Icons.memory_rounded,
     ),
-    buildPropChipRow(
-      const <String>['cacheExtent: 200.0'],
-      kAccent,
-    ),
+    buildPropChipRow(const <String>['cacheExtent: 200.0'], kAccent),
     buildSection14CacheExtent(),
 
     buildSectionHeader(
@@ -2641,10 +2541,7 @@ dynamic build(BuildContext context) {
           SizedBox(width: 10.0),
           Text(
             'CustomScrollView - Deep Demo',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
           ),
         ],
       ),

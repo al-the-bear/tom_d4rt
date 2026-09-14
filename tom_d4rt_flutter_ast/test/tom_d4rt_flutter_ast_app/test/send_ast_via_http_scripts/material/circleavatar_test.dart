@@ -862,11 +862,7 @@ Widget _buildGradientFrames() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          Color(0xFFFF6F00),
-          Color(0xFFD81B60),
-          Color(0xFF6A1B9A),
-        ],
+        colors: [Color(0xFFFF6F00), Color(0xFFD81B60), Color(0xFF6A1B9A)],
       ),
     ),
     _gradientFrame(
@@ -874,11 +870,7 @@ Widget _buildGradientFrames() {
       initials: 'FO',
       avatarColor: const Color(0xFF1A1A1A),
       gradient: const RadialGradient(
-        colors: [
-          Color(0xFFFFEB3B),
-          Color(0xFFFB8C00),
-          Color(0xFFE53935),
-        ],
+        colors: [Color(0xFFFFEB3B), Color(0xFFFB8C00), Color(0xFFE53935)],
         radius: 0.8,
       ),
     ),
@@ -1204,10 +1196,7 @@ Widget _buildForegroundIcons() {
             Text(
               entry['desc'] as String,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 10,
-                color: Color(0xFF757575),
-              ),
+              style: const TextStyle(fontSize: 10, color: Color(0xFF757575)),
             ),
           ],
         ),
@@ -1467,11 +1456,7 @@ Widget _buildFooterNote() {
           'wrapping. Master the radius, foreground/background pair, and the '
           'Stack-with-Positioned overlay pattern, and almost every avatar UI '
           'you will ever need falls out naturally.',
-          style: TextStyle(
-            fontSize: 13,
-            height: 1.5,
-            color: Color(0xFF283593),
-          ),
+          style: TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF283593)),
         ),
       ],
     ),

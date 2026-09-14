@@ -81,18 +81,9 @@ class _SmcrowmApp extends StatelessWidget {
           fontWeight: FontWeight.w700,
           letterSpacing: -0.2,
         ),
-        titleMedium: TextStyle(
-          color: _smcrowmInk,
-          fontWeight: FontWeight.w600,
-        ),
-        bodyMedium: TextStyle(
-          color: _smcrowmInkSoft,
-          height: 1.45,
-        ),
-        bodySmall: TextStyle(
-          color: _smcrowmInkSoft,
-          height: 1.4,
-        ),
+        titleMedium: TextStyle(color: _smcrowmInk, fontWeight: FontWeight.w600),
+        bodyMedium: TextStyle(color: _smcrowmInkSoft, height: 1.45),
+        bodySmall: TextStyle(color: _smcrowmInkSoft, height: 1.4),
         labelLarge: TextStyle(
           color: _smcrowmInk,
           fontWeight: FontWeight.w600,
@@ -318,10 +309,7 @@ class _SmcrowmHeroState extends State<_SmcrowmHero>
                   value: 'Iterable<SlotType>',
                 ),
                 const SizedBox(width: 10),
-                _SmcrowmHeroStat(
-                  label: 'lookup',
-                  value: 'childForSlot(slot)',
-                ),
+                _SmcrowmHeroStat(label: 'lookup', value: 'childForSlot(slot)'),
                 const SizedBox(width: 10),
                 _SmcrowmHeroStat(
                   label: 'element',
@@ -350,9 +338,7 @@ class _SmcrowmHeroStat extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.16),
-          ),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -499,8 +485,7 @@ class _SmcrowmHeroPainter extends CustomPainter {
   }
 
   void _drawPlug(Canvas canvas, Offset c, int idx) {
-    final Paint fill = Paint()
-      ..color = _smcrowmMint.withValues(alpha: 0.85);
+    final Paint fill = Paint()..color = _smcrowmMint.withValues(alpha: 0.85);
     final Paint glow = Paint()
       ..color = _smcrowmMint.withValues(alpha: 0.22)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 10);
@@ -511,14 +496,10 @@ class _SmcrowmHeroPainter extends CustomPainter {
       fill,
     );
     // three prongs
-    final Paint prong = Paint()
-      ..color = _smcrowmPurpleDeep;
+    final Paint prong = Paint()..color = _smcrowmPurpleDeep;
     for (int p = 0; p < 3; p++) {
       final double dy = (p - 1) * 6.0;
-      canvas.drawRect(
-        Rect.fromLTWH(c.dx + 12, c.dy + dy - 1.5, 10, 3),
-        prong,
-      );
+      canvas.drawRect(Rect.fromLTWH(c.dx + 12, c.dy + dy - 1.5, 10, 3), prong);
     }
     _drawPlugLabel(canvas, Offset(c.dx, c.dy - 24), _plugLabel(idx));
   }
@@ -544,10 +525,7 @@ class _SmcrowmHeroPainter extends CustomPainter {
     final Paint hole = Paint()..color = _smcrowmPurpleDeep;
     for (int p = 0; p < 3; p++) {
       final double dy = (p - 1) * 6.0;
-      canvas.drawRect(
-        Rect.fromLTWH(c.dx - 14, c.dy + dy - 1.5, 8, 3),
-        hole,
-      );
+      canvas.drawRect(Rect.fromLTWH(c.dx - 14, c.dy + dy - 1.5, 8, 3), hole);
     }
     _drawPlugLabel(
       canvas,
@@ -593,11 +571,7 @@ class _SmcrowmHeroPainter extends CustomPainter {
   void _drawConnector(Canvas canvas, Offset a, Offset b, int idx) {
     final Path p = Path()
       ..moveTo(a.dx, a.dy)
-      ..cubicTo(
-        a.dx + 80, a.dy,
-        b.dx - 80, b.dy,
-        b.dx, b.dy,
-      );
+      ..cubicTo(a.dx + 80, a.dy, b.dx - 80, b.dy, b.dx, b.dy);
     final Paint stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2.2
@@ -608,12 +582,10 @@ class _SmcrowmHeroPainter extends CustomPainter {
     // pulses
     final ui.PathMetric metric = p.computeMetrics().first;
     for (int pulse = 0; pulse < 3; pulse++) {
-      final double t =
-          (progress + pulse / 3.0 + idx * 0.08).remainder(1.0);
+      final double t = (progress + pulse / 3.0 + idx * 0.08).remainder(1.0);
       final ui.Tangent? tan = metric.getTangentForOffset(t * metric.length);
       if (tan == null) continue;
-      final Paint dot = Paint()
-        ..color = _smcrowmMint.withValues(alpha: 0.9);
+      final Paint dot = Paint()..color = _smcrowmMint.withValues(alpha: 0.9);
       canvas.drawCircle(tan.position, 3.2, dot);
       final Paint aura = Paint()
         ..color = _smcrowmMint.withValues(alpha: 0.25)
@@ -659,7 +631,8 @@ class _SmcrowmIntroStrip extends StatelessWidget {
           Expanded(
             child: _SmcrowmIntroCell(
               head: 'Not a RenderObject mixin',
-              body: 'This mixin is applied to a *Widget*. The matching render-'
+              body:
+                  'This mixin is applied to a *Widget*. The matching render-'
                   'object mixin lives in file 413.',
             ),
           ),
@@ -667,7 +640,8 @@ class _SmcrowmIntroStrip extends StatelessWidget {
           Expanded(
             child: _SmcrowmIntroCell(
               head: 'Slots are named',
-              body: 'Children are identified by a SlotType value — typically '
+              body:
+                  'Children are identified by a SlotType value — typically '
                   'a small enum — not a list index.',
             ),
           ),
@@ -675,7 +649,8 @@ class _SmcrowmIntroStrip extends StatelessWidget {
           Expanded(
             child: _SmcrowmIntroCell(
               head: 'Element walks slots',
-              body: 'The element asks the widget for each slot via '
+              body:
+                  'The element asks the widget for each slot via '
                   'childForSlot(slot) at mount/update time.',
             ),
           ),
@@ -784,25 +759,28 @@ class _SmcrowmContractCard extends StatelessWidget {
             const SizedBox(height: 14),
             const _SmcrowmContractRow(
               member: 'Iterable<SlotType> get slots',
-              explanation: 'Returns the identity of every slot the widget may '
+              explanation:
+                  'Returns the identity of every slot the widget may '
                   'expose, in stable order. The element walks this list to '
                   'build child elements.',
             ),
             const _SmcrowmContractRow(
               member: 'Widget? childForSlot(SlotType slot)',
-              explanation: 'Lookup from slot identity to the widget that '
+              explanation:
+                  'Lookup from slot identity to the widget that '
                   'currently fills it. Returning null means the slot is empty.',
             ),
             const _SmcrowmContractRow(
-              member:
-                  'RenderObject createRenderObject(BuildContext context)',
-              explanation: 'Instantiates the render-object that uses the '
+              member: 'RenderObject createRenderObject(BuildContext context)',
+              explanation:
+                  'Instantiates the render-object that uses the '
                   'paired SlottedContainerRenderObjectMixin (file 413).',
             ),
             const _SmcrowmContractRow(
               member:
                   'void updateRenderObject(BuildContext, covariant RenderObject)',
-              explanation: 'Pushes non-child configuration changes (colors, '
+              explanation:
+                  'Pushes non-child configuration changes (colors, '
                   'padding, layout policy) onto the existing render-object.',
               last: true,
             ),
@@ -902,8 +880,8 @@ enum _BindingSlot { title, content, action }
 ///   * `childForSlot` is a plain switch — no list lookups.
 ///   * `createRenderObject` hands back the working render-object below.
 ///   * `updateRenderObject` pushes colors / padding onto the existing RO.
-class _SmcrowmBindingWidget extends SlottedMultiChildRenderObjectWidget<
-    _BindingSlot, RenderBox> {
+class _SmcrowmBindingWidget
+    extends SlottedMultiChildRenderObjectWidget<_BindingSlot, RenderBox> {
   const _SmcrowmBindingWidget({
     this.title,
     this.content,
@@ -976,10 +954,10 @@ class _SmcrowmBindingRender extends RenderBox
     required double spacing,
     required Color accent,
     required Color surface,
-  })  : _padding = padding,
-        _spacing = spacing,
-        _accent = accent,
-        _surface = surface;
+  }) : _padding = padding,
+       _spacing = spacing,
+       _accent = accent,
+       _surface = surface;
 
   EdgeInsets _padding;
   EdgeInsets get padding => _padding;
@@ -1018,17 +996,15 @@ class _SmcrowmBindingRender extends RenderBox
   RenderBox? get _action => childForSlot(_BindingSlot.action);
 
   @override
-  Iterable<RenderBox> get children => <RenderBox>[
-        ?_title,
-        ?_content,
-        ?_action,
-      ];
+  Iterable<RenderBox> get children => <RenderBox>[?_title, ?_content, ?_action];
 
   @override
   void performLayout() {
     final double maxW = constraints.maxWidth;
-    final double availW =
-        (maxW - _padding.horizontal).clamp(0.0, double.infinity);
+    final double availW = (maxW - _padding.horizontal).clamp(
+      0.0,
+      double.infinity,
+    );
     final BoxConstraints inner = BoxConstraints(maxWidth: availW);
 
     double y = _padding.top;
@@ -1058,10 +1034,9 @@ class _SmcrowmBindingRender extends RenderBox
       y -= _spacing;
     }
 
-    size = constraints.constrain(Size(
-      math.max(width, _padding.horizontal + 80),
-      y + _padding.bottom,
-    ));
+    size = constraints.constrain(
+      Size(math.max(width, _padding.horizontal + 80), y + _padding.bottom),
+    );
   }
 
   void _setOffset(RenderBox child, Offset offset) {
@@ -1136,8 +1111,10 @@ class _SmcrowmBindingRender extends RenderBox
   }
 
   double _measureHeight(double width) {
-    final double innerW =
-        (width - _padding.horizontal).clamp(0.0, double.infinity);
+    final double innerW = (width - _padding.horizontal).clamp(
+      0.0,
+      double.infinity,
+    );
     double h = _padding.vertical;
     int visible = 0;
     for (final RenderBox c in children) {
@@ -1150,8 +1127,10 @@ class _SmcrowmBindingRender extends RenderBox
 
   @override
   Size computeDryLayout(BoxConstraints constraints) {
-    final double innerW =
-        (constraints.maxWidth - _padding.horizontal).clamp(0.0, double.infinity);
+    final double innerW = (constraints.maxWidth - _padding.horizontal).clamp(
+      0.0,
+      double.infinity,
+    );
     double h = _padding.vertical;
     double w = _padding.horizontal;
     int visible = 0;
@@ -1183,7 +1162,8 @@ class _SmcrowmLiveBindings extends StatelessWidget {
           _smcrowmSectionHead(
             kicker: 'SECTION 01',
             title: 'Three live bindings, three shapes',
-            subtitle: 'Same mixin, same slot enum — different widget contents '
+            subtitle:
+                'Same mixin, same slot enum — different widget contents '
                 'wired into each slot.',
           ),
           const SizedBox(height: 12),
@@ -1199,17 +1179,12 @@ class _SmcrowmLiveBindings extends StatelessWidget {
             content: const Text(
               'A short Text in the content slot. Notice how the widget lookup '
               'flows through childForSlot(_BindingSlot.content) — no index.',
-              style: TextStyle(
-                height: 1.5,
-                color: _smcrowmInkSoft,
-              ),
+              style: TextStyle(height: 1.5, color: _smcrowmInkSoft),
             ),
             action: Align(
               alignment: Alignment.centerRight,
               child: FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: _smcrowmPurple,
-                ),
+                style: FilledButton.styleFrom(backgroundColor: _smcrowmPurple),
                 onPressed: () {
                   debugPrint('Smcrowm: action slot A tapped');
                 },
@@ -1239,8 +1214,10 @@ class _SmcrowmLiveBindings extends StatelessWidget {
               children: <Widget>[
                 _smcrowmBullet('Each slot holds a whole widget, not a string.'),
                 _smcrowmBullet('Change `accent` → updateRenderObject runs.'),
-                _smcrowmBullet('Change `title` widget → element visits the '
-                    'title slot only.'),
+                _smcrowmBullet(
+                  'Change `title` widget → element visits the '
+                  'title slot only.',
+                ),
               ],
             ),
             action: Wrap(
@@ -1269,18 +1246,12 @@ class _SmcrowmLiveBindings extends StatelessWidget {
             surface: _smcrowmWarm,
             title: const Text(
               'Minimal: title + content, no action',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                color: _smcrowmInk,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w800, color: _smcrowmInk),
             ),
             content: const Text(
               'When childForSlot(_BindingSlot.action) returns null, the slot '
               'stays empty. The element simply does not mount a child there.',
-              style: TextStyle(
-                color: _smcrowmInkSoft,
-                height: 1.5,
-              ),
+              style: TextStyle(color: _smcrowmInkSoft, height: 1.5),
             ),
           ),
         ],
@@ -1387,16 +1358,15 @@ class _SmcrowmBindingDiagram extends StatelessWidget {
             _smcrowmSectionHead(
               kicker: 'SECTION 02',
               title: 'Binding diagram',
-              subtitle: 'Left: widgets you hand back from childForSlot. '
+              subtitle:
+                  'Left: widgets you hand back from childForSlot. '
                   'Right: render-object slots. Purple arcs = the lookup the '
                   'element performs for every slot in the `slots` iterable.',
             ),
             const SizedBox(height: 14),
             AspectRatio(
               aspectRatio: 1.85,
-              child: CustomPaint(
-                painter: _SmcrowmDiagramPainter(),
-              ),
+              child: CustomPaint(painter: _SmcrowmDiagramPainter()),
             ),
             const SizedBox(height: 12),
             const Text(
@@ -1435,10 +1405,7 @@ class _SmcrowmDiagramPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = _smcrowmWarm;
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(16),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(16)),
       bg,
     );
 
@@ -1466,12 +1433,16 @@ class _SmcrowmDiagramPainter extends CustomPainter {
 
     for (int i = 0; i < rows; i++) {
       final double y = gap * (i + 1) + 10;
-      final Rect lbox =
-          Rect.fromCenter(center: Offset(colLeftX + colLeftW / 2, y),
-              width: colLeftW, height: 42);
-      final Rect rbox =
-          Rect.fromCenter(center: Offset(colRightX + colRightW / 2, y),
-              width: colRightW, height: 42);
+      final Rect lbox = Rect.fromCenter(
+        center: Offset(colLeftX + colLeftW / 2, y),
+        width: colLeftW,
+        height: 42,
+      );
+      final Rect rbox = Rect.fromCenter(
+        center: Offset(colRightX + colRightW / 2, y),
+        width: colRightW,
+        height: 42,
+      );
       _drawWidgetBox(canvas, lbox, _widgetCol[i]);
       _drawSlotBox(canvas, rbox, _slotCol[i]);
 
@@ -1480,11 +1451,7 @@ class _SmcrowmDiagramPainter extends CustomPainter {
       final Offset b = Offset(rbox.left, y);
       final Path p = Path()
         ..moveTo(a.dx, a.dy)
-        ..cubicTo(
-          a.dx + 40, a.dy,
-          b.dx - 40, b.dy,
-          b.dx, b.dy,
-        );
+        ..cubicTo(a.dx + 40, a.dy, b.dx - 40, b.dy, b.dx, b.dy);
       final Paint stroke = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.4
@@ -1500,8 +1467,7 @@ class _SmcrowmDiagramPainter extends CustomPainter {
   }
 
   void _drawHeader(Canvas canvas, Rect rect, String text, Color color) {
-    final Paint p = Paint()
-      ..color = color.withValues(alpha: 0.14);
+    final Paint p = Paint()..color = color.withValues(alpha: 0.14);
     canvas.drawRRect(
       RRect.fromRectAndRadius(rect, const Radius.circular(8)),
       p,
@@ -1539,10 +1505,7 @@ class _SmcrowmDiagramPainter extends CustomPainter {
 
   void _drawSlotBox(Canvas canvas, Rect rect, String label) {
     final RRect rr = RRect.fromRectAndRadius(rect, const Radius.circular(10));
-    canvas.drawRRect(
-      rr,
-      Paint()..color = _smcrowmMint.withValues(alpha: 0.18),
-    );
+    canvas.drawRRect(rr, Paint()..color = _smcrowmMint.withValues(alpha: 0.18));
     canvas.drawRRect(
       rr,
       Paint()
@@ -1631,7 +1594,8 @@ class _SmcrowmTabsPanel extends StatelessWidget {
               _smcrowmSectionHead(
                 kicker: 'SECTION 03',
                 title: 'Four facets of the widget-mixin contract',
-                subtitle: 'Each tab quotes the exact code you would write in '
+                subtitle:
+                    'Each tab quotes the exact code you would write in '
                     'a real project when applying the mixin.',
               ),
               const SizedBox(height: 12),
@@ -1832,7 +1796,8 @@ class _SmcrowmIncorrectVsCorrect extends StatelessWidget {
           _smcrowmSectionHead(
             kicker: 'SECTION 04',
             title: 'Indexed list vs named slots',
-            subtitle: 'The indexed MultiChildRenderObjectWidget on the left '
+            subtitle:
+                'The indexed MultiChildRenderObjectWidget on the left '
                 'looks similar but is NOT equivalent. Named slots are the '
                 'whole point of the mixin.',
           ),
@@ -1856,7 +1821,8 @@ class _SmcrowmIncorrectVsCorrect extends StatelessWidget {
                   label: 'INCORRECT',
                   title: 'MultiChildRenderObjectWidget with indexed lookup',
                   code: _wrongCode,
-                  caption: 'Children are identified by position in the list. '
+                  caption:
+                      'Children are identified by position in the list. '
                       'Reordering or optional slots shift every index. The '
                       'render-object has to translate positions back into '
                       'roles, which is brittle and undocumented.',
@@ -1867,10 +1833,12 @@ class _SmcrowmIncorrectVsCorrect extends StatelessWidget {
                 child: _SmcrowmDiffCard(
                   tone: _SmcrowmDiffTone.correct,
                   label: 'CORRECT',
-                  title: 'SlottedMultiChildRenderObjectWidgetMixin with '
+                  title:
+                      'SlottedMultiChildRenderObjectWidgetMixin with '
                       'named slots',
                   code: _rightCode,
-                  caption: 'Slots are named by the SlotType enum. Optional '
+                  caption:
+                      'Slots are named by the SlotType enum. Optional '
                       'slots return null without shifting anything. '
                       'childForSlot reads like a switch table — no index '
                       'arithmetic at any layer.',
@@ -1970,15 +1938,11 @@ class _SmcrowmDiffCard extends StatelessWidget {
               Container(
                 width: 10,
                 height: 10,
-                decoration: BoxDecoration(
-                  color: bar,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: bar, shape: BoxShape.circle),
               ),
               const SizedBox(width: 8),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: tag.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -2093,7 +2057,8 @@ class _SmcrowmPitfallCard extends StatelessWidget {
             const SizedBox(height: 12),
             _SmcrowmPitfallRow(
               headline: 'Swapping the tiers is silent',
-              detail: 'Applying SlottedContainerRenderObjectMixin to a widget '
+              detail:
+                  'Applying SlottedContainerRenderObjectMixin to a widget '
                   'compiles (the constraints are permissive) but gives you a '
                   'non-functional widget. Likewise, putting '
                   'SlottedMultiChildRenderObjectWidgetMixin on a RenderObject '
@@ -2101,14 +2066,17 @@ class _SmcrowmPitfallCard extends StatelessWidget {
             ),
             _SmcrowmPitfallRow(
               headline: 'Do not touch children in updateRenderObject',
-              detail: 'Children are owned by the element — it calls '
+              detail:
+                  'Children are owned by the element — it calls '
                   'childForSlot(slot) and manages mounts/unmounts itself. '
                   'updateRenderObject should only push non-child configuration '
                   '(colors, padding, layout policy).',
             ),
             _SmcrowmPitfallRow(
-              headline: 'slots must be stable in order, but may change contents',
-              detail: 'Returning a new Iterable order across rebuilds '
+              headline:
+                  'slots must be stable in order, but may change contents',
+              detail:
+                  'Returning a new Iterable order across rebuilds '
                   'confuses the element. Keep `slots` pointing at a constant '
                   'iterable (typically the enum’s values), and let '
                   'childForSlot reflect null for absent children.',
@@ -2201,7 +2169,8 @@ class _SmcrowmClusterMap extends StatelessWidget {
             _smcrowmSectionHead(
               kicker: 'CLUSTER',
               title: 'Where this file sits in the 4-file cluster',
-              subtitle: 'Each file stays on its own tier. This file never '
+              subtitle:
+                  'Each file stays on its own tier. This file never '
                   'strays into the render-object or element tiers — those '
                   'have their own demos in 413 and 416.',
             ),
@@ -2209,26 +2178,30 @@ class _SmcrowmClusterMap extends StatelessWidget {
             const _SmcrowmClusterRow(
               index: '413',
               title: 'SlottedContainerRenderObjectMixin',
-              tagline: 'Render-object tier — mounts/unmounts RenderBox '
+              tagline:
+                  'Render-object tier — mounts/unmounts RenderBox '
                   'children by slot, exposes `children`, `childForSlot`.',
             ),
             _SmcrowmClusterRow(
               index: '414',
               title: 'SlottedMultiChildRenderObjectWidgetMixin',
-              tagline: 'Widget tier — this file. Defines slots + '
+              tagline:
+                  'Widget tier — this file. Defines slots + '
                   'childForSlot, creates and updates the paired RO.',
               highlighted: true,
             ),
             const _SmcrowmClusterRow(
               index: '415',
               title: 'A concrete SlottedMultiChildRenderObjectWidget',
-              tagline: 'Worked example of the widget above applied end-to-'
+              tagline:
+                  'Worked example of the widget above applied end-to-'
                   'end, with example layouts and children.',
             ),
             const _SmcrowmClusterRow(
               index: '416',
               title: 'SlottedRenderObjectElement',
-              tagline: 'Element tier — owns the actual Element children and '
+              tagline:
+                  'Element tier — owns the actual Element children and '
                   'drives childForSlot lookups during update.',
               last: true,
             ),
@@ -2375,9 +2348,7 @@ class _SmcrowmFooter extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _smcrowmMint.withValues(alpha: 0.22),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: _smcrowmMint.withValues(alpha: 0.55),
-                ),
+                border: Border.all(color: _smcrowmMint.withValues(alpha: 0.55)),
               ),
               child: const Icon(Icons.flag_outlined, color: _smcrowmMint),
             ),

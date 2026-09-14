@@ -49,8 +49,7 @@ class FractionalAlignSample {
   final double y;
   final Color tint;
   final String note;
-  const FractionalAlignSample(
-      this.label, this.x, this.y, this.tint, this.note);
+  const FractionalAlignSample(this.label, this.x, this.y, this.tint, this.note);
 }
 
 class FactorSample {
@@ -59,8 +58,13 @@ class FactorSample {
   final double? heightFactor;
   final String description;
   final Color tint;
-  const FactorSample(this.title, this.widthFactor, this.heightFactor,
-      this.description, this.tint);
+  const FactorSample(
+    this.title,
+    this.widthFactor,
+    this.heightFactor,
+    this.description,
+    this.tint,
+  );
 }
 
 class LerpFrame {
@@ -178,7 +182,9 @@ Widget buildHeroHeader() {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 4.0),
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999.0),
@@ -261,11 +267,7 @@ Widget buildIntroParagraph() {
           'fractional coordinate, where (-1, -1) is top-left and (1, 1) is '
           'bottom-right. With widthFactor or heightFactor, Align instead '
           'sizes itself relative to the child.',
-          style: TextStyle(
-            color: kInkSecondary,
-            fontSize: 13.5,
-            height: 1.55,
-          ),
+          style: TextStyle(color: kInkSecondary, fontSize: 13.5, height: 1.55),
         ),
       ],
     ),
@@ -276,8 +278,12 @@ Widget buildIntroParagraph() {
 // Section helpers
 // ---------------------------------------------------------------------------
 
-Widget buildSectionHeader(String number, String title, String subtitle,
-    {Color accent = kAccentBlue}) {
+Widget buildSectionHeader(
+  String number,
+  String title,
+  String subtitle, {
+  Color accent = kAccentBlue,
+}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 16.0),
     child: Row(
@@ -382,23 +388,59 @@ Widget buildAnatomySection() {
                 children: <Widget>[
                   Positioned.fill(child: buildAxisLines()),
                   buildCornerLabel(
-                      Alignment.topLeft, '(-1, -1)', 'topLeft', kAccentBlue),
-                  buildCornerLabel(Alignment.topCenter, '(0, -1)', 'topCenter',
-                      kAccentTeal),
-                  buildCornerLabel(Alignment.topRight, '(1, -1)', 'topRight',
-                      kAccentCoral),
-                  buildCornerLabel(Alignment.centerLeft, '(-1, 0)',
-                      'centerLeft', kAccentAmber),
+                    Alignment.topLeft,
+                    '(-1, -1)',
+                    'topLeft',
+                    kAccentBlue,
+                  ),
                   buildCornerLabel(
-                      Alignment.center, '(0, 0)', 'center', kAccentPlum),
-                  buildCornerLabel(Alignment.centerRight, '(1, 0)',
-                      'centerRight', kAccentRose),
-                  buildCornerLabel(Alignment.bottomLeft, '(-1, 1)',
-                      'bottomLeft', kAccentGrass),
-                  buildCornerLabel(Alignment.bottomCenter, '(0, 1)',
-                      'bottomCenter', kAccentSlate),
-                  buildCornerLabel(Alignment.bottomRight, '(1, 1)',
-                      'bottomRight', kAccentBlue),
+                    Alignment.topCenter,
+                    '(0, -1)',
+                    'topCenter',
+                    kAccentTeal,
+                  ),
+                  buildCornerLabel(
+                    Alignment.topRight,
+                    '(1, -1)',
+                    'topRight',
+                    kAccentCoral,
+                  ),
+                  buildCornerLabel(
+                    Alignment.centerLeft,
+                    '(-1, 0)',
+                    'centerLeft',
+                    kAccentAmber,
+                  ),
+                  buildCornerLabel(
+                    Alignment.center,
+                    '(0, 0)',
+                    'center',
+                    kAccentPlum,
+                  ),
+                  buildCornerLabel(
+                    Alignment.centerRight,
+                    '(1, 0)',
+                    'centerRight',
+                    kAccentRose,
+                  ),
+                  buildCornerLabel(
+                    Alignment.bottomLeft,
+                    '(-1, 1)',
+                    'bottomLeft',
+                    kAccentGrass,
+                  ),
+                  buildCornerLabel(
+                    Alignment.bottomCenter,
+                    '(0, 1)',
+                    'bottomCenter',
+                    kAccentSlate,
+                  ),
+                  buildCornerLabel(
+                    Alignment.bottomRight,
+                    '(1, 1)',
+                    'bottomRight',
+                    kAccentBlue,
+                  ),
                   const Center(
                     child: Padding(
                       padding: EdgeInsets.all(64.0),
@@ -459,7 +501,11 @@ Widget buildAxisLines() {
 }
 
 Widget buildCornerLabel(
-    Alignment alignment, String coords, String name, Color tint) {
+  Alignment alignment,
+  String coords,
+  String name,
+  Color tint,
+) {
   return Align(
     alignment: alignment,
     child: Padding(
@@ -540,11 +586,7 @@ Widget buildNamedConstantsSection() {
             const Text(
               'Each frame is 120×120. The Align widget fills the frame and '
               'positions the 24×24 circle at the named alignment.',
-              style: TextStyle(
-                color: kInkMuted,
-                fontSize: 12.0,
-                height: 1.4,
-              ),
+              style: TextStyle(color: kInkMuted, fontSize: 12.0, height: 1.4),
             ),
           ],
         ),
@@ -642,21 +684,61 @@ Widget buildGridGuides() {
 Widget buildFractionalShowcase() {
   const List<FractionalAlignSample> samples = <FractionalAlignSample>[
     FractionalAlignSample(
-        'A', -0.7, 0.3, kAccentBlue, 'Slightly left, just below middle.'),
+      'A',
+      -0.7,
+      0.3,
+      kAccentBlue,
+      'Slightly left, just below middle.',
+    ),
     FractionalAlignSample(
-        'B', 0.5, -0.5, kAccentTeal, 'Halfway between center and topRight.'),
+      'B',
+      0.5,
+      -0.5,
+      kAccentTeal,
+      'Halfway between center and topRight.',
+    ),
     FractionalAlignSample(
-        'C', 0.0, -1.0, kAccentCoral, 'Same as Alignment.topCenter.'),
+      'C',
+      0.0,
+      -1.0,
+      kAccentCoral,
+      'Same as Alignment.topCenter.',
+    ),
     FractionalAlignSample(
-        'D', 0.85, 0.85, kAccentAmber, 'Almost bottomRight, but inset.'),
-    FractionalAlignSample('E', -0.3, -0.8, kAccentPlum,
-        'Mostly top, a little to the left.'),
-    FractionalAlignSample('F', 0.4, 0.0, kAccentGrass,
-        'Centered vertically, biased right horizontally.'),
+      'D',
+      0.85,
+      0.85,
+      kAccentAmber,
+      'Almost bottomRight, but inset.',
+    ),
     FractionalAlignSample(
-        'G', -1.0, 0.0, kAccentRose, 'Same as Alignment.centerLeft.'),
+      'E',
+      -0.3,
+      -0.8,
+      kAccentPlum,
+      'Mostly top, a little to the left.',
+    ),
     FractionalAlignSample(
-        'H', 0.0, 0.6, kAccentSlate, 'Center horizontally, lower third.'),
+      'F',
+      0.4,
+      0.0,
+      kAccentGrass,
+      'Centered vertically, biased right horizontally.',
+    ),
+    FractionalAlignSample(
+      'G',
+      -1.0,
+      0.0,
+      kAccentRose,
+      'Same as Alignment.centerLeft.',
+    ),
+    FractionalAlignSample(
+      'H',
+      0.0,
+      0.6,
+      kAccentSlate,
+      'Center horizontally, lower third.',
+    ),
   ];
 
   return Column(
@@ -829,14 +911,12 @@ Widget buildFactorShowcase() {
               decoration: BoxDecoration(
                 color: kAccentAmber.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10.0),
-                border:
-                    Border.all(color: kAccentAmber.withValues(alpha: 0.35)),
+                border: Border.all(color: kAccentAmber.withValues(alpha: 0.35)),
               ),
               child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(Icons.info_outline,
-                      color: kAccentAmber, size: 18.0),
+                  Icon(Icons.info_outline, color: kAccentAmber, size: 18.0),
                   SizedBox(width: 10.0),
                   Expanded(
                     child: Text(
@@ -927,11 +1007,7 @@ Widget buildFactorCell(FactorSample sample) {
         const SizedBox(height: 8.0),
         Text(
           sample.description,
-          style: const TextStyle(
-            color: kInkMuted,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: kInkMuted, fontSize: 11.5, height: 1.4),
         ),
       ],
     ),
@@ -1038,7 +1114,9 @@ Widget buildDirectionalFrame({
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 6.0),
+                      horizontal: 10.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: accent,
                       borderRadius: BorderRadius.circular(8.0),
@@ -1060,7 +1138,9 @@ Widget buildDirectionalFrame({
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 6.0),
+                      horizontal: 10.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: accent.withValues(alpha: 0.7),
                       borderRadius: BorderRadius.circular(8.0),
@@ -1134,11 +1214,7 @@ Widget buildLerpStrip() {
             const Text(
               'lerp linearly interpolates each axis. At t = 0.5 the child '
               'lands exactly at center — equivalent to Alignment.center.',
-              style: TextStyle(
-                color: kInkMuted,
-                fontSize: 12.0,
-                height: 1.4,
-              ),
+              style: TextStyle(color: kInkMuted, fontSize: 12.0, height: 1.4),
             ),
           ],
         ),
@@ -1148,8 +1224,11 @@ Widget buildLerpStrip() {
 }
 
 Widget buildLerpCell(LerpFrame frame) {
-  final Alignment? lerped =
-      Alignment.lerp(Alignment.topLeft, Alignment.bottomRight, frame.t);
+  final Alignment? lerped = Alignment.lerp(
+    Alignment.topLeft,
+    Alignment.bottomRight,
+    frame.t,
+  );
   final Alignment alignment = lerped ?? Alignment.center;
   return Column(
     mainAxisSize: MainAxisSize.min,
@@ -1223,89 +1302,87 @@ Widget buildComparisonPanel() {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(child: buildComparisonCard(
-                  title: 'Align',
-                  body: 'Align(alignment: Alignment.topRight, child: ...)',
-                  accent: kAccentBlue,
-                  demo: Container(
-                    height: 120.0,
-                    color: kBgFrame,
-                    child: const Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: _Pill(
-                          color: kAccentBlue,
-                          label: 'child',
+                Expanded(
+                  child: buildComparisonCard(
+                    title: 'Align',
+                    body: 'Align(alignment: Alignment.topRight, child: ...)',
+                    accent: kAccentBlue,
+                    demo: Container(
+                      height: 120.0,
+                      color: kBgFrame,
+                      child: const Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: _Pill(color: kAccentBlue, label: 'child'),
                         ),
                       ),
                     ),
                   ),
-                )),
+                ),
                 const SizedBox(width: 12.0),
-                Expanded(child: buildComparisonCard(
-                  title: 'Center',
-                  body: 'Center(child: ...) — equivalent to '
-                      'Align(alignment: Alignment.center).',
-                  accent: kAccentTeal,
-                  demo: Container(
-                    height: 120.0,
-                    color: kBgFrame,
-                    child: const Center(
-                      child: _Pill(
-                        color: kAccentTeal,
-                        label: 'child',
+                Expanded(
+                  child: buildComparisonCard(
+                    title: 'Center',
+                    body:
+                        'Center(child: ...) — equivalent to '
+                        'Align(alignment: Alignment.center).',
+                    accent: kAccentTeal,
+                    demo: Container(
+                      height: 120.0,
+                      color: kBgFrame,
+                      child: const Center(
+                        child: _Pill(color: kAccentTeal, label: 'child'),
                       ),
                     ),
                   ),
-                )),
+                ),
               ],
             ),
             const SizedBox(height: 12.0),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(child: buildComparisonCard(
-                  title: 'Padding',
-                  body: 'Padding pushes the child by a fixed inset — it '
-                      'cannot center within remaining space.',
-                  accent: kAccentAmber,
-                  demo: Container(
-                    height: 120.0,
-                    color: kBgFrame,
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.only(left: 28.0, top: 28.0),
-                      child: _Pill(
-                        color: kAccentAmber,
-                        label: 'child',
+                Expanded(
+                  child: buildComparisonCard(
+                    title: 'Padding',
+                    body:
+                        'Padding pushes the child by a fixed inset — it '
+                        'cannot center within remaining space.',
+                    accent: kAccentAmber,
+                    demo: Container(
+                      height: 120.0,
+                      color: kBgFrame,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 28.0, top: 28.0),
+                        child: _Pill(color: kAccentAmber, label: 'child'),
                       ),
                     ),
                   ),
-                )),
+                ),
                 const SizedBox(width: 12.0),
-                Expanded(child: buildComparisonCard(
-                  title: 'Stack + Positioned',
-                  body: 'Positioned attaches the child to specific edge '
-                      'offsets within a Stack.',
-                  accent: kAccentPlum,
-                  demo: Container(
-                    height: 120.0,
-                    color: kBgFrame,
-                    child: const Stack(
-                      children: <Widget>[
-                        Positioned(
-                          right: 12.0,
-                          bottom: 12.0,
-                          child: _Pill(
-                            color: kAccentPlum,
-                            label: 'child',
+                Expanded(
+                  child: buildComparisonCard(
+                    title: 'Stack + Positioned',
+                    body:
+                        'Positioned attaches the child to specific edge '
+                        'offsets within a Stack.',
+                    accent: kAccentPlum,
+                    demo: Container(
+                      height: 120.0,
+                      color: kBgFrame,
+                      child: const Stack(
+                        children: <Widget>[
+                          Positioned(
+                            right: 12.0,
+                            bottom: 12.0,
+                            child: _Pill(color: kAccentPlum, label: 'child'),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                )),
+                ),
               ],
             ),
             const SizedBox(height: 14.0),
@@ -1375,18 +1452,11 @@ Widget buildComparisonCard({
           ],
         ),
         const SizedBox(height: 8.0),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: demo,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(8.0), child: demo),
         const SizedBox(height: 8.0),
         Text(
           body,
-          style: const TextStyle(
-            color: kInkMuted,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: kInkMuted, fontSize: 11.5, height: 1.4),
         ),
       ],
     ),
@@ -1449,11 +1519,12 @@ Widget buildCommonPatterns() {
   );
 }
 
-Widget buildPatternCard(
-    {required String title,
-    required String description,
-    required Color accent,
-    required Widget visual}) {
+Widget buildPatternCard({
+  required String title,
+  required String description,
+  required Color accent,
+  required Widget visual,
+}) {
   return Container(
     width: 260.0,
     padding: const EdgeInsets.all(12.0),
@@ -1481,18 +1552,11 @@ Widget buildPatternCard(
           ],
         ),
         const SizedBox(height: 10.0),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: visual,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(10.0), child: visual),
         const SizedBox(height: 10.0),
         Text(
           description,
-          style: const TextStyle(
-            color: kInkMuted,
-            fontSize: 11.5,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: kInkMuted, fontSize: 11.5, height: 1.4),
         ),
       ],
     ),
@@ -1510,8 +1574,11 @@ Widget buildPatternBadgeInCorner() {
       child: Stack(
         children: <Widget>[
           const Center(
-            child: Icon(Icons.notifications_outlined,
-                size: 48.0, color: kAccentSlate),
+            child: Icon(
+              Icons.notifications_outlined,
+              size: 48.0,
+              color: kAccentSlate,
+            ),
           ),
           Align(
             alignment: Alignment.topRight,
@@ -1519,7 +1586,9 @@ Widget buildPatternBadgeInCorner() {
               padding: const EdgeInsets.all(36.0),
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 6.0, vertical: 2.0),
+                  horizontal: 6.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
                   color: kAccentRose,
                   borderRadius: BorderRadius.circular(999.0),
@@ -1643,8 +1712,11 @@ Widget buildPatternLogoTopCenter() {
                       ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: const Icon(Icons.bolt,
-                        size: 20.0, color: Colors.white),
+                    child: const Icon(
+                      Icons.bolt,
+                      size: 20.0,
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   const Text(
@@ -1687,7 +1759,8 @@ Widget buildTipsAndGotchas() {
               icon: Icons.straighten,
               accent: kAccentBlue,
               title: 'Bounded constraints required',
-              body: 'Align needs a parent that gives it a finite size on the '
+              body:
+                  'Align needs a parent that gives it a finite size on the '
                   'axis you care about. Inside an unbounded Column, an '
                   'Align(alignment: centerLeft) won\'t do anything horizontal '
                   'unless you wrap it in something that bounds the width.',
@@ -1697,7 +1770,8 @@ Widget buildTipsAndGotchas() {
               icon: Icons.compress,
               accent: kAccentTeal,
               title: 'widthFactor + tight parent = no effect',
-              body: 'If the parent imposes tight constraints on width, '
+              body:
+                  'If the parent imposes tight constraints on width, '
                   'widthFactor is ignored on that axis — the parent always '
                   'wins when constraints are tight.',
             ),
@@ -1706,7 +1780,8 @@ Widget buildTipsAndGotchas() {
               icon: Icons.swap_horiz,
               accent: kAccentRose,
               title: 'Directional vs absolute',
-              body: 'Prefer AlignmentDirectional.* in i18n-aware UIs so that '
+              body:
+                  'Prefer AlignmentDirectional.* in i18n-aware UIs so that '
                   'start/end flip in RTL. Use Alignment.* when you really '
                   'mean visual left/right regardless of language direction.',
             ),
@@ -1715,7 +1790,8 @@ Widget buildTipsAndGotchas() {
               icon: Icons.layers_outlined,
               accent: kAccentPlum,
               title: 'Stack + Align is idiomatic',
-              body: 'Inside a Stack, Align is often clearer than Positioned '
+              body:
+                  'Inside a Stack, Align is often clearer than Positioned '
                   'when you only need a fractional placement (no specific '
                   'pixel offsets). It also adapts to the Stack size '
                   'automatically.',
@@ -1725,7 +1801,8 @@ Widget buildTipsAndGotchas() {
               icon: Icons.center_focus_strong,
               accent: kAccentAmber,
               title: 'Center is just sugar',
-              body: 'Center is a one-line subclass of Align with '
+              body:
+                  'Center is a one-line subclass of Align with '
                   'Alignment.center as default. Reach for whichever reads '
                   'better in the surrounding code.',
             ),
@@ -1736,11 +1813,12 @@ Widget buildTipsAndGotchas() {
   );
 }
 
-Widget buildTipRow(
-    {required IconData icon,
-    required Color accent,
-    required String title,
-    required String body}) {
+Widget buildTipRow({
+  required IconData icon,
+  required Color accent,
+  required String title,
+  required String body,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10.0),
     child: Row(
@@ -1841,20 +1919,25 @@ Widget buildFooter() {
         ),
         const SizedBox(height: 14.0),
         buildFooterBullet(
-            'Align places one child fractionally inside its parent.'),
+          'Align places one child fractionally inside its parent.',
+        ),
         buildFooterBullet(
-            'Use named constants when possible; reach for Alignment(x, y) '
-            'only when fractional precision matters.'),
+          'Use named constants when possible; reach for Alignment(x, y) '
+          'only when fractional precision matters.',
+        ),
         buildFooterBullet(
-            'widthFactor / heightFactor change Align from a "fill the parent" '
-            'box into a "shrink-wrap the child × N" box.'),
+          'widthFactor / heightFactor change Align from a "fill the parent" '
+          'box into a "shrink-wrap the child × N" box.',
+        ),
         buildFooterBullet(
-            'Use AlignmentDirectional in localized UIs so layouts flip '
-            'correctly in RTL.'),
+          'Use AlignmentDirectional in localized UIs so layouts flip '
+          'correctly in RTL.',
+        ),
         buildFooterBullet(
-            'Combine Align with Stack for badges, FABs, watermarks, and '
-            'overlays — it is almost always cleaner than Positioned for '
-            'fractional placement.'),
+          'Combine Align with Stack for badges, FABs, watermarks, and '
+          'overlays — it is almost always cleaner than Positioned for '
+          'fractional placement.',
+        ),
         const SizedBox(height: 14.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),

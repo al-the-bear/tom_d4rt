@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility,
       'title': 'What Is SliverEnsureSemantics?',
-      'body': 'SliverEnsureSemantics is a sliver wrapper that marks its '
+      'body':
+          'SliverEnsureSemantics is a sliver wrapper that marks its '
           'child sliver as needing semantics. This guarantees the child '
           'always contributes a SemanticsNode to the semantics tree, '
           'which is the data structure screen readers consume.',
@@ -26,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility_off,
       'title': 'Why Slivers Skip Semantics',
-      'body': 'For performance, the framework may skip building '
+      'body':
+          'For performance, the framework may skip building '
           'semantics nodes for slivers that are off-screen or whose '
           'semantics are considered redundant. This is normally fine, '
           'but can cause issues with assistive technologies.',
@@ -34,7 +36,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.hearing,
       'title': 'Screen Reader Impact',
-      'body': 'When semantics are skipped, screen readers (TalkBack, '
+      'body':
+          'When semantics are skipped, screen readers (TalkBack, '
           'VoiceOver) may not announce content correctly. '
           'SliverEnsureSemantics forces the semantics to always be '
           'present, ensuring no content is invisible to assistive tech.',
@@ -42,7 +45,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.shield,
       'title': 'Accessibility Guarantee',
-      'body': 'Use this widget when your sliver contains content that '
+      'body':
+          'Use this widget when your sliver contains content that '
           'MUST be accessible — form fields, navigation items, '
           'critical status messages, or content that users navigate '
           'to via heading or landmark accessibility shortcuts.',
@@ -50,7 +54,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'Performance Trade-off',
-      'body': 'Forcing semantics has a small performance cost since '
+      'body':
+          'Forcing semantics has a small performance cost since '
           'extra SemanticsNode objects are created and maintained. '
           'Use it selectively — only on slivers where accessibility '
           'completeness is more important than micro-optimization.',
@@ -121,12 +126,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 2: Constructor ===');
 
-  Widget buildSESParam(
-    String name,
-    String type,
-    String desc,
-    bool required,
-  ) {
+  Widget buildSESParam(String name, String type, String desc, bool required) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8.0),
       padding: const EdgeInsets.all(12.0),
@@ -289,25 +289,29 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 8.0),
-        ...['Widget', '  └─ ProxyWidget',
-            '      └─ SingleChildRenderObjectWidget',
-            '          └─ SliverEnsureSemantics']
-            .map((line) => Padding(
-              padding: const EdgeInsets.only(bottom: 2.0),
-              child: Text(
-                line,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  fontFamily: 'monospace',
-                  color: line.contains('SliverEnsureSemantics')
-                      ? Colors.deepPurple
-                      : Colors.grey.shade700,
-                  fontWeight: line.contains('SliverEnsureSemantics')
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                ),
+        ...[
+          'Widget',
+          '  └─ ProxyWidget',
+          '      └─ SingleChildRenderObjectWidget',
+          '          └─ SliverEnsureSemantics',
+        ].map(
+          (line) => Padding(
+            padding: const EdgeInsets.only(bottom: 2.0),
+            child: Text(
+              line,
+              style: TextStyle(
+                fontSize: 11.5,
+                fontFamily: 'monospace',
+                color: line.contains('SliverEnsureSemantics')
+                    ? Colors.deepPurple
+                    : Colors.grey.shade700,
+                fontWeight: line.contains('SliverEnsureSemantics')
+                    ? FontWeight.bold
+                    : FontWeight.normal,
               ),
-            )),
+            ),
+          ),
+        ),
         const SizedBox(height: 6.0),
         Text(
           'A SingleChildRenderObjectWidget — it wraps exactly one sliver '
@@ -329,8 +333,13 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Default Behavior ===');
 
   // Visual explanation of default semantics behavior
-  Widget buildSESDiagramRow(String label, String detail, IconData icon, Color color,
-      {bool highlighted = false}) {
+  Widget buildSESDiagramRow(
+    String label,
+    String detail,
+    IconData icon,
+    Color color, {
+    bool highlighted = false,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 6.0),
       padding: const EdgeInsets.all(10.0),
@@ -436,9 +445,14 @@ dynamic build(BuildContext context) {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 2.0,
+                ),
                 decoration: BoxDecoration(
-                  color: (good ? Colors.green : Colors.red).withValues(alpha: 0.1),
+                  color: (good ? Colors.green : Colors.red).withValues(
+                    alpha: 0.1,
+                  ),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Text(
@@ -453,30 +467,32 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 8.0),
-          ...items.map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  good ? Icons.check : Icons.close,
-                  size: 14.0,
-                  color: good ? Colors.green : Colors.red,
-                ),
-                const SizedBox(width: 6.0),
-                Expanded(
-                  child: Text(
-                    item,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: Colors.grey.shade700,
-                      height: 1.3,
+          ...items.map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 4.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    good ? Icons.check : Icons.close,
+                    size: 14.0,
+                    color: good ? Colors.green : Colors.red,
+                  ),
+                  const SizedBox(width: 6.0),
+                  Expanded(
+                    child: Text(
+                      item,
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        color: Colors.grey.shade700,
+                        height: 1.3,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -603,10 +619,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        Container(
-          width: 1.0,
-          color: Colors.grey.shade300,
-        ),
+        Container(width: 1.0, color: Colors.grey.shade300),
         // With wrapper
         Expanded(
           child: Column(
@@ -714,7 +727,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.record_voice_over,
       'title': 'Screen Reader Completeness',
-      'body': 'With SliverEnsureSemantics, all items in a SliverList are '
+      'body':
+          'With SliverEnsureSemantics, all items in a SliverList are '
           'announced by the screen reader — even those far from the '
           'current scroll position. Without it, some items may be skipped.',
       'color': Colors.blue,
@@ -722,7 +736,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.format_list_numbered,
       'title': 'Heading Navigation',
-      'body': 'iOS VoiceOver and Android TalkBack let users navigate by '
+      'body':
+          'iOS VoiceOver and Android TalkBack let users navigate by '
           'headings. If a sliver contains heading semantics and loses its '
           'SemanticsNode when off-screen, that heading becomes invisible '
           'to assistive navigation.',
@@ -731,7 +746,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.touch_app,
       'title': 'Focus Traversal',
-      'body': 'When accessibility focus moves past the visible area, the '
+      'body':
+          'When accessibility focus moves past the visible area, the '
           'framework scrolls to bring the focused element into view. '
           'Ensuring semantics helps this process work reliably for all '
           'child elements.',
@@ -740,7 +756,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.flag,
       'title': 'Semantic Landmarks',
-      'body': 'If your sliver contains elements marked as live regions, '
+      'body':
+          'If your sliver contains elements marked as live regions, '
           'alert dialogs, or important status text, wrapping with '
           'SliverEnsureSemantics prevents those from being pruned.',
       'color': Colors.purple,
@@ -748,7 +765,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.developer_mode,
       'title': 'Testing with SemanticsDebugger',
-      'body': 'Wrap your MaterialApp with SemanticsDebugger to see the '
+      'body':
+          'Wrap your MaterialApp with SemanticsDebugger to see the '
           'semantics tree visually. Compare the tree with and without '
           'SliverEnsureSemantics to see the difference.',
       'color': Colors.indigo,
@@ -777,11 +795,7 @@ dynamic build(BuildContext context) {
                 color: color.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Icon(
-                card['icon'] as IconData,
-                color: color,
-                size: 20.0,
-              ),
+              child: Icon(card['icon'] as IconData, color: color, size: 20.0),
             ),
             const SizedBox(width: 12.0),
             Expanded(
@@ -891,11 +905,11 @@ dynamic build(BuildContext context) {
       'Wrap a SliverList to guarantee all list items are '
           'always available to screen readers.',
       'SliverEnsureSemantics(\n'
-      '  sliver: SliverList.builder(\n'
-      '    itemCount: items.length,\n'
-      '    itemBuilder: (ctx, i) => ListTile(...),\n'
-      '  ),\n'
-      ')',
+          '  sliver: SliverList.builder(\n'
+          '    itemCount: items.length,\n'
+          '    itemBuilder: (ctx, i) => ListTile(...),\n'
+          '  ),\n'
+          ')',
       Icons.list,
       Colors.blue,
     ),
@@ -904,11 +918,11 @@ dynamic build(BuildContext context) {
       'Grids benefit similarly — all grid items are semantically '
           'present even when scrolled far away.',
       'SliverEnsureSemantics(\n'
-      '  sliver: SliverGrid.count(\n'
-      '    crossAxisCount: 2,\n'
-      '    children: gridItems,\n'
-      '  ),\n'
-      ')',
+          '  sliver: SliverGrid.count(\n'
+          '    crossAxisCount: 2,\n'
+          '    children: gridItems,\n'
+          '  ),\n'
+          ')',
       Icons.grid_view,
       Colors.teal,
     ),
@@ -917,13 +931,13 @@ dynamic build(BuildContext context) {
       'Wrap a SliverToBoxAdapter containing a heading or landmark '
           'to ensure it is always accessible.',
       'SliverEnsureSemantics(\n'
-      '  sliver: SliverToBoxAdapter(\n'
-      '    child: Semantics(\n'
-      '      header: true,\n'
-      '      child: Text("Section Title"),\n'
-      '    ),\n'
-      '  ),\n'
-      ')',
+          '  sliver: SliverToBoxAdapter(\n'
+          '    child: Semantics(\n'
+          '      header: true,\n'
+          '      child: Text("Section Title"),\n'
+          '    ),\n'
+          '  ),\n'
+          ')',
       Icons.title,
       Colors.orange,
     ),
@@ -932,14 +946,14 @@ dynamic build(BuildContext context) {
       'In a CustomScrollView, wrap only the slivers that need '
           'guaranteed semantics — no need to wrap everything.',
       'CustomScrollView(\n'
-      '  slivers: [\n'
-      '    sliverAppBar,  // no wrapper needed\n'
-      '    SliverEnsureSemantics(\n'
-      '      sliver: navSliver,  // critical nav\n'
-      '    ),\n'
-      '    contentSliver,  // optional\n'
-      '  ],\n'
-      ')',
+          '  slivers: [\n'
+          '    sliverAppBar,  // no wrapper needed\n'
+          '    SliverEnsureSemantics(\n'
+          '      sliver: navSliver,  // critical nav\n'
+          '    ),\n'
+          '    contentSliver,  // optional\n'
+          '  ],\n'
+          ')',
       Icons.layers,
       Colors.purple,
     ),
@@ -948,8 +962,8 @@ dynamic build(BuildContext context) {
       'Conditionally wrap based on platform or accessibility settings '
           'to optimize performance when not needed.',
       'final sliver = needsSemantics\n'
-      '  ? SliverEnsureSemantics(sliver: mySliver)\n'
-      '  : mySliver;',
+          '  ? SliverEnsureSemantics(sliver: mySliver)\n'
+          '  : mySliver;',
       Icons.toggle_on,
       Colors.deepOrange,
     ),
@@ -987,49 +1001,49 @@ dynamic build(BuildContext context) {
     buildSESBullet(
       Icons.check_circle_outline,
       'SliverEnsureSemantics wraps a single sliver child and forces '
-          'it to always contribute to the semantics tree.',
+      'it to always contribute to the semantics tree.',
       Colors.green,
     ),
     buildSESBullet(
       Icons.check_circle_outline,
       'Without it, slivers may have their semantics dropped when '
-          'off-screen, making content invisible to screen readers.',
+      'off-screen, making content invisible to screen readers.',
       Colors.green,
     ),
     buildSESBullet(
       Icons.check_circle_outline,
       'Essential for slivers containing headings, navigation, '
-          'landmarks, or any accessibility-critical content.',
+      'landmarks, or any accessibility-critical content.',
       Colors.green,
     ),
     buildSESBullet(
       Icons.check_circle_outline,
       'Zero configuration — just wrap any sliver and it ensures '
-          'semantics. No parameters to tune.',
+      'semantics. No parameters to tune.',
       Colors.green,
     ),
     buildSESBullet(
       Icons.warning_amber,
       'Slight performance cost: extra SemanticsNode objects are '
-          'created for off-screen content. Use selectively.',
+      'created for off-screen content. Use selectively.',
       Colors.orange,
     ),
     buildSESBullet(
       Icons.warning_amber,
       'Not a substitute for proper Semantics widgets on child '
-          'elements — those must still declare their roles and labels.',
+      'elements — those must still declare their roles and labels.',
       Colors.orange,
     ),
     buildSESBullet(
       Icons.info_outline,
       'Works with all sliver types: SliverList, SliverGrid, '
-          'SliverToBoxAdapter, SliverFixedExtentList, etc.',
+      'SliverToBoxAdapter, SliverFixedExtentList, etc.',
       Colors.blue,
     ),
     buildSESBullet(
       Icons.info_outline,
       'Use SemanticsDebugger widget to visualize the semantics tree '
-          'and verify your wrapping strategy.',
+      'and verify your wrapping strategy.',
       Colors.blue,
     ),
   ];
@@ -1144,7 +1158,11 @@ dynamic build(BuildContext context) {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.account_tree, color: Colors.deepPurple, size: 18.0),
+                          Icon(
+                            Icons.account_tree,
+                            color: Colors.deepPurple,
+                            size: 18.0,
+                          ),
                           SizedBox(width: 8.0),
                           Text(
                             'How the Semantics Tree Works',
@@ -1190,7 +1208,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.build_circle, color: Colors.deepPurple, size: 28.0),
+                      const Icon(
+                        Icons.build_circle,
+                        color: Colors.deepPurple,
+                        size: 28.0,
+                      ),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Constructor',
@@ -1235,7 +1257,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.tune, color: Colors.deepPurple, size: 28.0),
+                      const Icon(
+                        Icons.tune,
+                        color: Colors.deepPurple,
+                        size: 28.0,
+                      ),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Default Semantics Behavior',
@@ -1291,7 +1317,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.verified, color: Colors.deepPurple, size: 28.0),
+                      const Icon(
+                        Icons.verified,
+                        color: Colors.deepPurple,
+                        size: 28.0,
+                      ),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Forced Semantics in Action',
@@ -1337,7 +1367,11 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.info_outline, size: 16.0, color: Colors.amber),
+                      const Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -1360,23 +1394,27 @@ dynamic build(BuildContext context) {
                 Row(
                   children: [
                     Expanded(
-                      child: _buildMiniTree(
-                        'Without Wrapper',
-                        ['SemanticsNode (root)', '  ├─ Item 1 ✓', '  ├─ Item 2 ✓',
-                         '  ├─ Item 3 ✓', '  ├─ …', '  ├─ Item 10 ⚠',
-                         '  └─ Items 11-15 ✗'],
-                        Colors.red,
-                      ),
+                      child: _buildMiniTree('Without Wrapper', [
+                        'SemanticsNode (root)',
+                        '  ├─ Item 1 ✓',
+                        '  ├─ Item 2 ✓',
+                        '  ├─ Item 3 ✓',
+                        '  ├─ …',
+                        '  ├─ Item 10 ⚠',
+                        '  └─ Items 11-15 ✗',
+                      ], Colors.red),
                     ),
                     const SizedBox(width: 8.0),
                     Expanded(
-                      child: _buildMiniTree(
-                        'With Wrapper',
-                        ['SemanticsNode (root)', '  ├─ Item 1 ✓', '  ├─ Item 2 ✓',
-                         '  ├─ Item 3 ✓', '  ├─ …', '  ├─ Item 10 ✓',
-                         '  └─ Items 11-15 ✓'],
-                        Colors.green,
-                      ),
+                      child: _buildMiniTree('With Wrapper', [
+                        'SemanticsNode (root)',
+                        '  ├─ Item 1 ✓',
+                        '  ├─ Item 2 ✓',
+                        '  ├─ Item 3 ✓',
+                        '  ├─ …',
+                        '  ├─ Item 10 ✓',
+                        '  └─ Items 11-15 ✓',
+                      ], Colors.green),
                     ),
                   ],
                 ),
@@ -1402,7 +1440,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.accessibility_new, color: Colors.deepPurple, size: 28.0),
+                      const Icon(
+                        Icons.accessibility_new,
+                        color: Colors.deepPurple,
+                        size: 28.0,
+                      ),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Accessibility Benefits',
@@ -1446,7 +1488,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.pattern, color: Colors.deepPurple, size: 28.0),
+                      const Icon(
+                        Icons.pattern,
+                        color: Colors.deepPurple,
+                        size: 28.0,
+                      ),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Common Patterns',
@@ -1497,7 +1543,11 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(Icons.check_circle, color: Colors.deepPurple, size: 32.0),
+                      const Icon(
+                        Icons.check_circle,
+                        color: Colors.deepPurple,
+                        size: 32.0,
+                      ),
                       const SizedBox(height: 10.0),
                       const Text(
                         'Summary',
@@ -1543,12 +1593,27 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 10.0),
-                      _buildSESRefItem('Type', 'SingleChildRenderObjectWidget (sliver)'),
+                      _buildSESRefItem(
+                        'Type',
+                        'SingleChildRenderObjectWidget (sliver)',
+                      ),
                       _buildSESRefItem('Key param', 'sliver (single child)'),
-                      _buildSESRefItem('Purpose', 'Force semantics tree inclusion'),
-                      _buildSESRefItem('Effect', 'Child SemanticsNode always present'),
-                      _buildSESRefItem('Use when', 'Accessibility-critical sliver content'),
-                      _buildSESRefItem('Cost', 'Minor (extra SemanticsNode objects)'),
+                      _buildSESRefItem(
+                        'Purpose',
+                        'Force semantics tree inclusion',
+                      ),
+                      _buildSESRefItem(
+                        'Effect',
+                        'Child SemanticsNode always present',
+                      ),
+                      _buildSESRefItem(
+                        'Use when',
+                        'Accessibility-critical sliver content',
+                      ),
+                      _buildSESRefItem(
+                        'Cost',
+                        'Minor (extra SemanticsNode objects)',
+                      ),
                       _buildSESRefItem('Testing', 'SemanticsDebugger widget'),
                     ],
                   ),
@@ -1636,7 +1701,9 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                       style: TextStyle(
                         fontSize: 12.0,
                         fontWeight: FontWeight.bold,
-                        color: _useEnsureSemantics ? Colors.green : Colors.orange,
+                        color: _useEnsureSemantics
+                            ? Colors.green
+                            : Colors.orange,
                       ),
                     ),
                   ),
@@ -1737,8 +1804,9 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                         vertical: 3.0,
                       ),
                       decoration: BoxDecoration(
-                        color: (_useEnsureSemantics ? Colors.green : Colors.orange)
-                            .withValues(alpha: 0.1),
+                        color:
+                            (_useEnsureSemantics ? Colors.green : Colors.orange)
+                                .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                       child: Text(
@@ -1746,7 +1814,9 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                         style: TextStyle(
                           fontSize: 10.0,
                           fontWeight: FontWeight.bold,
-                          color: _useEnsureSemantics ? Colors.green : Colors.orange,
+                          color: _useEnsureSemantics
+                              ? Colors.green
+                              : Colors.orange,
                         ),
                       ),
                     ),
@@ -1805,7 +1875,10 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                     Expanded(
                       child: Text(
                         'Show semantic labels:',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                        ),
                       ),
                     ),
                     Switch(
@@ -1821,7 +1894,10 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
           const SizedBox(height: 12.0),
           // Status bar
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 8.0,
+            ),
             decoration: BoxDecoration(
               color: (_useEnsureSemantics ? Colors.green : Colors.orange)
                   .withValues(alpha: 0.06),
@@ -1843,9 +1919,9 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                   child: Text(
                     _useEnsureSemantics
                         ? 'All $_itemCount items will have semantics nodes — '
-                            'screen readers can announce every item.'
+                              'screen readers can announce every item.'
                         : '$_itemCount items — off-screen items may lose '
-                            'semantics. Screen readers might skip them.',
+                              'semantics. Screen readers might skip them.',
                     style: TextStyle(
                       fontSize: 11.0,
                       color: _useEnsureSemantics
@@ -1868,9 +1944,7 @@ class _SESLiveDemoState extends State<_SESLiveDemo> {
                 ),
               ),
               clipBehavior: Clip.antiAlias,
-              child: CustomScrollView(
-                slivers: [sliverContent],
-              ),
+              child: CustomScrollView(slivers: [sliverContent]),
             ),
           ),
         ],
@@ -1903,15 +1977,17 @@ Widget _buildMiniTree(String title, List<String> lines, Color color) {
           ),
         ),
         const SizedBox(height: 6.0),
-        ...lines.map((line) => Text(
-          line,
-          style: TextStyle(
-            fontSize: 9.5,
-            fontFamily: 'monospace',
-            color: Colors.grey.shade700,
-            height: 1.4,
+        ...lines.map(
+          (line) => Text(
+            line,
+            style: TextStyle(
+              fontSize: 9.5,
+              fontFamily: 'monospace',
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );

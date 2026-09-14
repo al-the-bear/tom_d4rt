@@ -220,7 +220,8 @@ const List<_TwoDSSLandmark> _twoDSSLandmarks = <_TwoDSSLandmark>[
     row: 7,
     name: 'Moonbridge',
     type: _TwoDSSLandmarkType.bridge,
-    lore: 'Single-arch stonework; the keystone is carved with the mason\'s name.',
+    lore:
+        'Single-arch stonework; the keystone is carved with the mason\'s name.',
     glyph: Icons.horizontal_rule,
   ),
   _TwoDSSLandmark(
@@ -260,7 +261,8 @@ const List<_TwoDSSLandmark> _twoDSSLandmarks = <_TwoDSSLandmark>[
     row: 15,
     name: 'Silverleaf Grove',
     type: _TwoDSSLandmarkType.grove,
-    lore: 'Wind-sculpted silver poplars, their bark used for map-making vellum.',
+    lore:
+        'Wind-sculpted silver poplars, their bark used for map-making vellum.',
     glyph: Icons.forest,
   ),
   _TwoDSSLandmark(
@@ -540,11 +542,13 @@ class _TwoDSSHomeState extends State<_TwoDSSHome>
       vReady = false;
     }
     // Only trigger setState if values changed meaningfully (0.5px).
-    final bool horizontalChanged = hPixels != null &&
+    final bool horizontalChanged =
+        hPixels != null &&
         ((hPixels - _liveHorizontalPixels).abs() > 0.5 ||
             hReady != _liveHorizontalReady ||
             (hMax != null && (hMax - _liveHorizontalMax).abs() > 0.5));
-    final bool verticalChanged = vPixels != null &&
+    final bool verticalChanged =
+        vPixels != null &&
         ((vPixels - _liveVerticalPixels).abs() > 0.5 ||
             vReady != _liveVerticalReady ||
             (vMax != null && (vMax - _liveVerticalMax).abs() > 0.5));
@@ -673,15 +677,17 @@ class _TwoDSSHomeState extends State<_TwoDSSHome>
         _tourIndex = i;
       });
       final _TwoDSSTourStop stop = _twoDSSTourStops[i];
-      await _goToLandmark(_landmarkByLabel(stop.label) ??
-          _TwoDSSLandmark(
-            column: stop.column,
-            row: stop.row,
-            name: stop.label,
-            type: _TwoDSSLandmarkType.capital,
-            lore: stop.description,
-            glyph: Icons.flag,
-          ));
+      await _goToLandmark(
+        _landmarkByLabel(stop.label) ??
+            _TwoDSSLandmark(
+              column: stop.column,
+              row: stop.row,
+              name: stop.label,
+              type: _TwoDSSLandmarkType.capital,
+              lore: stop.description,
+              glyph: Icons.flag,
+            ),
+      );
       if (!mounted) {
         return;
       }
@@ -740,95 +746,95 @@ class _TwoDSSHomeState extends State<_TwoDSSHome>
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           children: <Widget>[
-              _TwoDSSPreambleCard(),
-              const SizedBox(height: 24),
-              _TwoDSSAnatomyStrip(),
-              const SizedBox(height: 28),
-              _TwoDSSMapScenario(
-                mapKey: _mapKey,
-                onStep: _step,
-                onHome: _goHome,
-                stepCells: _stepCells,
-                onStepChanged: (double v) {
-                  setState(() {
-                    _stepCells = v;
-                  });
-                },
-                animateSteps: _animateSteps,
-                onAnimateChanged: (bool v) {
-                  setState(() {
-                    _animateSteps = v;
-                  });
-                },
-                curveIndex: _curveIndex,
-                onCurveChanged: (int v) {
-                  setState(() {
-                    _curveIndex = v;
-                  });
-                },
-                durationMs: _animateDurationMs,
-                onDurationChanged: (double v) {
-                  setState(() {
-                    _animateDurationMs = v;
-                  });
-                },
-              ),
-              const SizedBox(height: 28),
-              _TwoDSSAnimateVsJumpScenario(
-                onStep: _step,
-                animateSteps: _animateSteps,
-                onAnimateChanged: (bool v) {
-                  setState(() {
-                    _animateSteps = v;
-                  });
-                },
-                curveIndex: _curveIndex,
-                onCurveChanged: (int v) {
-                  setState(() {
-                    _curveIndex = v;
-                  });
-                },
-              ),
-              const SizedBox(height: 28),
-              _TwoDSSTourScenario(
-                onRunTour: _runTour,
-                tourRunning: _tourRunning,
-                tourIndex: _tourIndex,
-                onJumpToStop: (int i) async {
-                  final _TwoDSSTourStop stop = _twoDSSTourStops[i];
-                  final _TwoDSSLandmark? lm = _landmarkByLabel(stop.label);
-                  if (lm != null) {
-                    await _goToLandmark(lm);
-                  }
-                },
-              ),
-              const SizedBox(height: 28),
-              _TwoDSSMiniMap(
-                horizontalPixels: _liveHorizontalPixels,
-                verticalPixels: _liveVerticalPixels,
-                horizontalMax: _liveHorizontalMax,
-                verticalMax: _liveVerticalMax,
-                ready: _liveHorizontalReady && _liveVerticalReady,
-                lastVisited: _lastVisitedLandmark,
-              ),
-              const SizedBox(height: 28),
-              _TwoDSSDiagnosticsPanel(
-                horizontalPixels: _liveHorizontalPixels,
-                verticalPixels: _liveVerticalPixels,
-                horizontalMax: _liveHorizontalMax,
-                verticalMax: _liveVerticalMax,
-                horizontalReady: _liveHorizontalReady,
-                verticalReady: _liveVerticalReady,
-                stepCells: _stepCells,
-                animateSteps: _animateSteps,
-                curveLabel: _twoDSSCurveOptions[_curveIndex].label,
-                durationMs: _animateDurationMs,
-                lastVisited: _lastVisitedLandmark,
-              ),
-              const SizedBox(height: 28),
-              _TwoDSSEpilogueCard(),
-              const SizedBox(height: 28),
-            ],
+            _TwoDSSPreambleCard(),
+            const SizedBox(height: 24),
+            _TwoDSSAnatomyStrip(),
+            const SizedBox(height: 28),
+            _TwoDSSMapScenario(
+              mapKey: _mapKey,
+              onStep: _step,
+              onHome: _goHome,
+              stepCells: _stepCells,
+              onStepChanged: (double v) {
+                setState(() {
+                  _stepCells = v;
+                });
+              },
+              animateSteps: _animateSteps,
+              onAnimateChanged: (bool v) {
+                setState(() {
+                  _animateSteps = v;
+                });
+              },
+              curveIndex: _curveIndex,
+              onCurveChanged: (int v) {
+                setState(() {
+                  _curveIndex = v;
+                });
+              },
+              durationMs: _animateDurationMs,
+              onDurationChanged: (double v) {
+                setState(() {
+                  _animateDurationMs = v;
+                });
+              },
+            ),
+            const SizedBox(height: 28),
+            _TwoDSSAnimateVsJumpScenario(
+              onStep: _step,
+              animateSteps: _animateSteps,
+              onAnimateChanged: (bool v) {
+                setState(() {
+                  _animateSteps = v;
+                });
+              },
+              curveIndex: _curveIndex,
+              onCurveChanged: (int v) {
+                setState(() {
+                  _curveIndex = v;
+                });
+              },
+            ),
+            const SizedBox(height: 28),
+            _TwoDSSTourScenario(
+              onRunTour: _runTour,
+              tourRunning: _tourRunning,
+              tourIndex: _tourIndex,
+              onJumpToStop: (int i) async {
+                final _TwoDSSTourStop stop = _twoDSSTourStops[i];
+                final _TwoDSSLandmark? lm = _landmarkByLabel(stop.label);
+                if (lm != null) {
+                  await _goToLandmark(lm);
+                }
+              },
+            ),
+            const SizedBox(height: 28),
+            _TwoDSSMiniMap(
+              horizontalPixels: _liveHorizontalPixels,
+              verticalPixels: _liveVerticalPixels,
+              horizontalMax: _liveHorizontalMax,
+              verticalMax: _liveVerticalMax,
+              ready: _liveHorizontalReady && _liveVerticalReady,
+              lastVisited: _lastVisitedLandmark,
+            ),
+            const SizedBox(height: 28),
+            _TwoDSSDiagnosticsPanel(
+              horizontalPixels: _liveHorizontalPixels,
+              verticalPixels: _liveVerticalPixels,
+              horizontalMax: _liveHorizontalMax,
+              verticalMax: _liveVerticalMax,
+              horizontalReady: _liveHorizontalReady,
+              verticalReady: _liveVerticalReady,
+              stepCells: _stepCells,
+              animateSteps: _animateSteps,
+              curveLabel: _twoDSSCurveOptions[_curveIndex].label,
+              durationMs: _animateDurationMs,
+              lastVisited: _lastVisitedLandmark,
+            ),
+            const SizedBox(height: 28),
+            _TwoDSSEpilogueCard(),
+            const SizedBox(height: 28),
+          ],
         ),
       ),
     );
@@ -847,34 +853,34 @@ class _TwoDSSPreambleCard extends StatelessWidget {
         'title': 'State of a 2D Scrollable',
         'body':
             'TwoDimensionalScrollableState is the State object behind a '
-                'TwoDimensionalScrollable widget. Where a regular Scrollable '
-                'manages one ScrollPosition, this one manages two — one per '
-                'axis — and exposes them through `verticalScrollable` and '
-                '`horizontalScrollable` (each a full ScrollableState).',
+            'TwoDimensionalScrollable widget. Where a regular Scrollable '
+            'manages one ScrollPosition, this one manages two — one per '
+            'axis — and exposes them through `verticalScrollable` and '
+            '`horizontalScrollable` (each a full ScrollableState).',
       },
       <String, String>{
         'title': 'Why hold a handle?',
         'body':
             'Attach a GlobalKey<TwoDimensionalScrollableState> to the scrollable '
-                'so imperative code (e.g. a compass-rose control pad) can reach '
-                '`key.currentState?.horizontalScrollable.position` and call '
-                '`animateTo` or `jumpTo` without rebuilding the viewport tree.',
+            'so imperative code (e.g. a compass-rose control pad) can reach '
+            '`key.currentState?.horizontalScrollable.position` and call '
+            '`animateTo` or `jumpTo` without rebuilding the viewport tree.',
       },
       <String, String>{
         'title': 'Two positions, one viewport',
         'body':
             'Even though the two axes are independent scrollables internally, '
-                'they share a single TwoDimensionalViewport. Gesture routing, '
-                'drag decomposition, and keyboard arrow handling are all the '
-                'State\'s responsibility.',
+            'they share a single TwoDimensionalViewport. Gesture routing, '
+            'drag decomposition, and keyboard arrow handling are all the '
+            'State\'s responsibility.',
       },
       <String, String>{
         'title': 'Lifecycle note',
         'body':
             'Reading verticalScrollable / horizontalScrollable too early — '
-                'before the inner keys have mounted — triggers an assertion. '
-                'Guard with a null check on `currentState`, or wait until the '
-                'first frame after `TwoDimensionalScrollable` is in the tree.',
+            'before the inner keys have mounted — triggers an assertion. '
+            'Guard with a null check on `currentState`, or wait until the '
+            'first frame after `TwoDimensionalScrollable` is in the tree.',
       },
     ];
     return _TwoDSSOutlinedCard(
@@ -1092,9 +1098,7 @@ class _TwoDSSOutlinedCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: accent.withValues(alpha: 0.55),
-                  ),
+                  border: Border.all(color: accent.withValues(alpha: 0.55)),
                 ),
                 child: Icon(titleIcon, size: 20, color: accent),
               ),
@@ -1179,7 +1183,7 @@ class _TwoDSSMapScenario extends StatelessWidget {
       title: 'The archipelago — driven by the state\'s inner scrollables',
       subtitle:
           'The compass rose calls `animateTo` / `jumpTo` on '
-              '`verticalScrollable.position` and `horizontalScrollable.position`.',
+          '`verticalScrollable.position` and `horizontalScrollable.position`.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1208,9 +1212,7 @@ class _TwoDSSMapScenario extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: _TwoDSSGridView(
-                        mapKey: mapKey,
-                      ),
+                      child: _TwoDSSGridView(mapKey: mapKey),
                     ),
                   ),
                 ),
@@ -1256,9 +1258,7 @@ class _TwoDSSCompassPad extends StatelessWidget {
       decoration: BoxDecoration(
         color: _twoDSSParchmentDeep,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: _twoDSSBrassDeep.withValues(alpha: 0.55),
-        ),
+        border: Border.all(color: _twoDSSBrassDeep.withValues(alpha: 0.55)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -1274,9 +1274,7 @@ class _TwoDSSCompassPad extends StatelessWidget {
                   alignment: Alignment.center,
                   children: <Widget>[
                     Positioned.fill(
-                      child: CustomPaint(
-                        painter: _TwoDSSCompassRosePainter(),
-                      ),
+                      child: CustomPaint(painter: _TwoDSSCompassRosePainter()),
                     ),
                     _TwoDSSCompassButton(
                       alignment: Alignment.topCenter,
@@ -1448,10 +1446,12 @@ class _TwoDSSCompassRosePainter extends CustomPainter {
       final double a = i * math.pi / 2 - math.pi / 2;
       final Path p = Path();
       final Offset tip = centre + Offset(math.cos(a), math.sin(a)) * r;
-      final Offset leftBase = centre +
+      final Offset leftBase =
+          centre +
           Offset(math.cos(a + math.pi / 2), math.sin(a + math.pi / 2)) *
               (r * 0.18);
-      final Offset rightBase = centre +
+      final Offset rightBase =
+          centre +
           Offset(math.cos(a - math.pi / 2), math.sin(a - math.pi / 2)) *
               (r * 0.18);
       p
@@ -1470,10 +1470,12 @@ class _TwoDSSCompassRosePainter extends CustomPainter {
       final double a = i * math.pi / 2 - math.pi / 4;
       final Path p = Path();
       final Offset tip = centre + Offset(math.cos(a), math.sin(a)) * (r * 0.82);
-      final Offset leftBase = centre +
+      final Offset leftBase =
+          centre +
           Offset(math.cos(a + math.pi / 2), math.sin(a + math.pi / 2)) *
               (r * 0.12);
-      final Offset rightBase = centre +
+      final Offset rightBase =
+          centre +
           Offset(math.cos(a - math.pi / 2), math.sin(a - math.pi / 2)) *
               (r * 0.12);
       p
@@ -1538,7 +1540,7 @@ class _TwoDSSControlPanel extends StatelessWidget {
               child: _TwoDSSLabelledSlider(
                 label:
                     'Step size (cells): ${stepCells.toStringAsFixed(1)}  '
-                        '= ${(stepCells * _twoDSSCellSize).toStringAsFixed(0)}px',
+                    '= ${(stepCells * _twoDSSCellSize).toStringAsFixed(0)}px',
                 value: stepCells,
                 min: 0.5,
                 max: 8.0,
@@ -1549,8 +1551,7 @@ class _TwoDSSControlPanel extends StatelessWidget {
             const SizedBox(width: 14),
             Expanded(
               child: _TwoDSSLabelledSlider(
-                label:
-                    'Animate duration: ${durationMs.round()} ms',
+                label: 'Animate duration: ${durationMs.round()} ms',
                 value: durationMs,
                 min: 100,
                 max: 1600,
@@ -1595,11 +1596,11 @@ class _TwoDSSControlPanel extends StatelessWidget {
                       value: animateSteps,
                       onChanged: onAnimateChanged,
                       activeThumbColor: _twoDSSSeal,
-                      activeTrackColor:
-                          _twoDSSSeal.withValues(alpha: 0.55),
+                      activeTrackColor: _twoDSSSeal.withValues(alpha: 0.55),
                       inactiveThumbColor: _twoDSSInkNavyMid,
-                      inactiveTrackColor:
-                          _twoDSSInkNavyMid.withValues(alpha: 0.35),
+                      inactiveTrackColor: _twoDSSInkNavyMid.withValues(
+                        alpha: 0.35,
+                      ),
                     ),
                     const Text(
                       'Animate',
@@ -1629,11 +1630,7 @@ class _TwoDSSControlPanel extends StatelessWidget {
                 ),
                 child: Row(
                   children: <Widget>[
-                    const Icon(
-                      Icons.tune,
-                      size: 18,
-                      color: _twoDSSInkNavy,
-                    ),
+                    const Icon(Icons.tune, size: 18, color: _twoDSSInkNavy),
                     const SizedBox(width: 8),
                     const Text(
                       'Curve:',
@@ -1655,14 +1652,10 @@ class _TwoDSSControlPanel extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                           items: <DropdownMenuItem<int>>[
-                            for (int i = 0;
-                                i < _twoDSSCurveOptions.length;
-                                i++)
+                            for (int i = 0; i < _twoDSSCurveOptions.length; i++)
                               DropdownMenuItem<int>(
                                 value: i,
-                                child: Text(
-                                  _twoDSSCurveOptions[i].label,
-                                ),
+                                child: Text(_twoDSSCurveOptions[i].label),
                               ),
                           ],
                           onChanged: (int? v) {
@@ -1685,9 +1678,7 @@ class _TwoDSSControlPanel extends StatelessWidget {
           decoration: BoxDecoration(
             color: _twoDSSInkNavy.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: _twoDSSInkNavy.withValues(alpha: 0.2),
-            ),
+            border: Border.all(color: _twoDSSInkNavy.withValues(alpha: 0.2)),
           ),
           child: Text(
             _twoDSSCurveOptions[curveIndex].blurb,
@@ -1768,46 +1759,46 @@ class _TwoDSSGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map<int, _TwoDSSLandmark> byIndex =
-        <int, _TwoDSSLandmark>{};
+    final Map<int, _TwoDSSLandmark> byIndex = <int, _TwoDSSLandmark>{};
     for (final _TwoDSSLandmark lm in _twoDSSLandmarks) {
       byIndex[lm.row * _twoDSSMapColumns + lm.column] = lm;
     }
     final TwoDimensionalChildBuilderDelegate delegate =
         TwoDimensionalChildBuilderDelegate(
-      maxXIndex: _twoDSSMapColumns - 1,
-      maxYIndex: _twoDSSMapRows - 1,
-      builder: (BuildContext _, ChildVicinity v) {
-        final _TwoDSSLandmark? landmark =
-            byIndex[v.yIndex * _twoDSSMapColumns + v.xIndex];
-        return _TwoDSSMapCell(
-          column: v.xIndex,
-          row: v.yIndex,
-          landmark: landmark,
+          maxXIndex: _twoDSSMapColumns - 1,
+          maxYIndex: _twoDSSMapRows - 1,
+          builder: (BuildContext _, ChildVicinity v) {
+            final _TwoDSSLandmark? landmark =
+                byIndex[v.yIndex * _twoDSSMapColumns + v.xIndex];
+            return _TwoDSSMapCell(
+              column: v.xIndex,
+              row: v.yIndex,
+              landmark: landmark,
+            );
+          },
         );
-      },
-    );
     return TwoDimensionalScrollable(
       key: mapKey,
       horizontalDetails: const ScrollableDetails.horizontal(),
       verticalDetails: const ScrollableDetails.vertical(),
       diagonalDragBehavior: DiagonalDragBehavior.free,
       dragStartBehavior: DragStartBehavior.start,
-      viewportBuilder: (
-        BuildContext _,
-        ViewportOffset verticalOffset,
-        ViewportOffset horizontalOffset,
-      ) {
-        return _TwoDSSViewport(
-          verticalOffset: verticalOffset,
-          verticalAxisDirection: AxisDirection.down,
-          horizontalOffset: horizontalOffset,
-          horizontalAxisDirection: AxisDirection.right,
-          mainAxis: Axis.vertical,
-          delegate: delegate,
-          cellSize: _twoDSSCellSize,
-        );
-      },
+      viewportBuilder:
+          (
+            BuildContext _,
+            ViewportOffset verticalOffset,
+            ViewportOffset horizontalOffset,
+          ) {
+            return _TwoDSSViewport(
+              verticalOffset: verticalOffset,
+              verticalAxisDirection: AxisDirection.down,
+              horizontalOffset: horizontalOffset,
+              horizontalAxisDirection: AxisDirection.right,
+              mainAxis: Axis.vertical,
+              delegate: delegate,
+              cellSize: _twoDSSCellSize,
+            );
+          },
     );
   }
 }
@@ -1874,8 +1865,9 @@ class _TwoDSSMapCell extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: _twoDSSColourFor(landmark!.type)
-                            .withValues(alpha: 0.9),
+                        color: _twoDSSColourFor(
+                          landmark!.type,
+                        ).withValues(alpha: 0.9),
                         border: Border.all(
                           color: _twoDSSInkNavy.withValues(alpha: 0.8),
                           width: 1.4,
@@ -1967,8 +1959,8 @@ class _TwoDSSRenderViewport extends RenderTwoDimensionalViewport {
     required super.mainAxis,
     required super.childManager,
     required double cellSize,
-  })  : _cellSize = cellSize,
-        super(delegate: delegate);
+  }) : _cellSize = cellSize,
+       super(delegate: delegate);
 
   double _cellSize;
   double get cellSize => _cellSize;
@@ -1991,17 +1983,13 @@ class _TwoDSSRenderViewport extends RenderTwoDimensionalViewport {
 
     final int maxColumnIndex =
         builderDelegate.maxXIndex ?? _twoDSSMapColumns - 1;
-    final int maxRowIndex =
-        builderDelegate.maxYIndex ?? _twoDSSMapRows - 1;
+    final int maxRowIndex = builderDelegate.maxYIndex ?? _twoDSSMapRows - 1;
 
     final int leadingColumn = math.max(
       (horizontalPixels / _cellSize).floor(),
       0,
     );
-    final int leadingRow = math.max(
-      (verticalPixels / _cellSize).floor(),
-      0,
-    );
+    final int leadingRow = math.max((verticalPixels / _cellSize).floor(), 0);
     final int trailingColumn = math.min(
       ((horizontalPixels + viewportWidth) / _cellSize).ceil(),
       maxColumnIndex,
@@ -2014,18 +2002,21 @@ class _TwoDSSRenderViewport extends RenderTwoDimensionalViewport {
     double xLayoutOffset =
         (leadingColumn * _cellSize) - horizontalOffset.pixels;
     for (int column = leadingColumn; column <= trailingColumn; column++) {
-      double yLayoutOffset =
-          (leadingRow * _cellSize) - verticalOffset.pixels;
+      double yLayoutOffset = (leadingRow * _cellSize) - verticalOffset.pixels;
       for (int row = leadingRow; row <= trailingRow; row++) {
-        final ChildVicinity vicinity =
-            ChildVicinity(xIndex: column, yIndex: row);
+        final ChildVicinity vicinity = ChildVicinity(
+          xIndex: column,
+          yIndex: row,
+        );
         final RenderBox? child = buildOrObtainChildFor(vicinity);
         if (child != null) {
           child.layout(
             constraints.tighten(width: _cellSize, height: _cellSize),
           );
-          parentDataOf(child).layoutOffset =
-              Offset(xLayoutOffset, yLayoutOffset);
+          parentDataOf(child).layoutOffset = Offset(
+            xLayoutOffset,
+            yLayoutOffset,
+          );
         }
         yLayoutOffset += _cellSize;
       }
@@ -2075,8 +2066,8 @@ class _TwoDSSAnimateVsJumpScenario extends StatelessWidget {
       title: 'animateTo vs jumpTo — which position API fits the moment?',
       subtitle:
           'Both live on `ScrollableState.position`. The state wraps two, '
-              'one per axis, so your code calls whichever matches the '
-              'motion you want.',
+          'one per axis, so your code calls whichever matches the '
+          'motion you want.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2140,11 +2131,7 @@ class _TwoDSSAnimateVsJumpScenario extends StatelessWidget {
                   ),
                   child: Row(
                     children: <Widget>[
-                      const Icon(
-                        Icons.tune,
-                        size: 18,
-                        color: _twoDSSInkNavy,
-                      ),
+                      const Icon(Icons.tune, size: 18, color: _twoDSSInkNavy),
                       const SizedBox(width: 8),
                       const Text(
                         'Curve',
@@ -2166,14 +2153,14 @@ class _TwoDSSAnimateVsJumpScenario extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                             items: <DropdownMenuItem<int>>[
-                              for (int i = 0;
-                                  i < _twoDSSCurveOptions.length;
-                                  i++)
+                              for (
+                                int i = 0;
+                                i < _twoDSSCurveOptions.length;
+                                i++
+                              )
                                 DropdownMenuItem<int>(
                                   value: i,
-                                  child: Text(
-                                    _twoDSSCurveOptions[i].label,
-                                  ),
+                                  child: Text(_twoDSSCurveOptions[i].label),
                                 ),
                             ],
                             onChanged: (int? v) {
@@ -2242,9 +2229,7 @@ class _TwoDSSModeCard extends StatelessWidget {
                 : _twoDSSParchmentDeep.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: selected
-                  ? accent
-                  : _twoDSSInkNavy.withValues(alpha: 0.25),
+              color: selected ? accent : _twoDSSInkNavy.withValues(alpha: 0.25),
               width: selected ? 2.0 : 1.0,
             ),
           ),
@@ -2322,16 +2307,11 @@ class _TwoDSSQuickFire extends StatelessWidget {
         backgroundColor: _twoDSSInkNavy,
         foregroundColor: _twoDSSParchment,
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 12.5,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5),
       ),
     );
   }
@@ -2364,8 +2344,8 @@ class _TwoDSSTourScenario extends StatelessWidget {
       title: 'Tour mode — sequenced animateTo calls',
       subtitle:
           'A small Future.forEach over preset (column, row) coordinates, '
-              'each waiting for both inner positions to settle before '
-              'moving on.',
+          'each waiting for both inner positions to settle before '
+          'moving on.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2374,14 +2354,13 @@ class _TwoDSSTourScenario extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: tourRunning ? null : onRunTour,
                 icon: const Icon(Icons.play_circle_fill),
-                label: Text(
-                  tourRunning ? 'Tour running…' : 'Run tour',
-                ),
+                label: Text(tourRunning ? 'Tour running…' : 'Run tour'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _twoDSSMossGreen,
                   foregroundColor: _twoDSSParchment,
-                  disabledBackgroundColor:
-                      _twoDSSMossGreen.withValues(alpha: 0.4),
+                  disabledBackgroundColor: _twoDSSMossGreen.withValues(
+                    alpha: 0.4,
+                  ),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
                     vertical: 14,
@@ -2396,11 +2375,11 @@ class _TwoDSSTourScenario extends StatelessWidget {
                 child: Text(
                   tourRunning
                       ? 'Stop ${tourIndex + 1} of '
-                          '${_twoDSSTourStops.length}: '
-                          '${_twoDSSTourStops[tourIndex].label}'
+                            '${_twoDSSTourStops.length}: '
+                            '${_twoDSSTourStops[tourIndex].label}'
                       : 'Press "Run tour" to animate the viewport through '
-                          'each of the ${_twoDSSTourStops.length} preset '
-                          'coordinates in sequence.',
+                            'each of the ${_twoDSSTourStops.length} preset '
+                            'coordinates in sequence.',
                   style: const TextStyle(
                     color: _twoDSSInkNavy,
                     fontStyle: FontStyle.italic,
@@ -2512,15 +2491,11 @@ class _TwoDSSTourRow extends StatelessWidget {
           ),
           TextButton.icon(
             onPressed: disabled ? null : onJump,
-            icon: const Icon(
-              Icons.arrow_forward_ios,
-              size: 14,
-            ),
+            icon: const Icon(Icons.arrow_forward_ios, size: 14),
             label: const Text('Jump'),
             style: TextButton.styleFrom(
               foregroundColor: _twoDSSSeal,
-              disabledForegroundColor:
-                  _twoDSSSeal.withValues(alpha: 0.35),
+              disabledForegroundColor: _twoDSSSeal.withValues(alpha: 0.35),
               textStyle: const TextStyle(fontWeight: FontWeight.w700),
             ),
           ),
@@ -2561,8 +2536,8 @@ class _TwoDSSMiniMap extends StatelessWidget {
       title: 'Mini-map — where the viewport is looking right now',
       subtitle:
           'Live from `verticalScrollable.position.pixels` and '
-              '`horizontalScrollable.position.pixels`, normalised to the '
-              'full map bounds.',
+          '`horizontalScrollable.position.pixels`, normalised to the '
+          'full map bounds.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2594,15 +2569,9 @@ class _TwoDSSMiniMap extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: <Widget>[
-              _TwoDSSMiniLegend(
-                color: _twoDSSBrass,
-                label: 'Current viewport',
-              ),
+              _TwoDSSMiniLegend(color: _twoDSSBrass, label: 'Current viewport'),
               const SizedBox(width: 14),
-              _TwoDSSMiniLegend(
-                color: _twoDSSSeal,
-                label: 'Capitals / seats',
-              ),
+              _TwoDSSMiniLegend(color: _twoDSSSeal, label: 'Capitals / seats'),
               const SizedBox(width: 14),
               _TwoDSSMiniLegend(
                 color: _twoDSSMossGreen,
@@ -2640,7 +2609,7 @@ class _TwoDSSMiniMap extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           '${lastVisited!.name} — '
-                              '${_twoDSSLabelFor(lastVisited!.type)}',
+                          '${_twoDSSLabelFor(lastVisited!.type)}',
                           style: const TextStyle(
                             color: _twoDSSInkNavy,
                             fontWeight: FontWeight.w700,
@@ -2786,18 +2755,20 @@ class _TwoDSSMiniMapPainter extends CustomPainter {
       return;
     }
     final double viewportW =
-        (size.width * (1.0 - horizontalMax / _totalExtentX()))
-            .clamp(10.0, size.width);
+        (size.width * (1.0 - horizontalMax / _totalExtentX())).clamp(
+          10.0,
+          size.width,
+        );
     final double viewportH =
-        (size.height * (1.0 - verticalMax / _totalExtentY()))
-            .clamp(10.0, size.height);
+        (size.height * (1.0 - verticalMax / _totalExtentY())).clamp(
+          10.0,
+          size.height,
+        );
     // Map pixel offset -> mini-map coordinates.
-    final double x = (horizontalPixels /
-            math.max(1.0, _totalExtentX())) *
-        size.width;
-    final double y = (verticalPixels /
-            math.max(1.0, _totalExtentY())) *
-        size.height;
+    final double x =
+        (horizontalPixels / math.max(1.0, _totalExtentX())) * size.width;
+    final double y =
+        (verticalPixels / math.max(1.0, _totalExtentY())) * size.height;
     final Rect vp = Rect.fromLTWH(x, y, viewportW, viewportH);
     final Paint vpFill = Paint()
       ..color = _twoDSSBrass.withValues(alpha: 0.28)
@@ -2819,8 +2790,7 @@ class _TwoDSSMiniMapPainter extends CustomPainter {
 
   double _totalExtentY() {
     return verticalMax +
-        (_twoDSSMapRows * _twoDSSCellSize) *
-            (verticalMax > 0 ? 0.0 : 1.0) +
+        (_twoDSSMapRows * _twoDSSCellSize) * (verticalMax > 0 ? 0.0 : 1.0) +
         (verticalMax <= 0 ? 1.0 : 0.0);
   }
 
@@ -2874,7 +2844,7 @@ class _TwoDSSDiagnosticsPanel extends StatelessWidget {
       title: 'Diagnostics — reading both inner positions at once',
       subtitle:
           'Each row pulls a value off one of the two inner ScrollableState '
-              'objects the 2D state exposes.',
+          'objects the 2D state exposes.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2899,33 +2869,15 @@ class _TwoDSSDiagnosticsPanel extends StatelessWidget {
               <String>[
                 'stepCells',
                 '${stepCells.toStringAsFixed(1)} '
-                    '(${(stepCells * _twoDSSCellSize).toStringAsFixed(0)} px)'
+                    '(${(stepCells * _twoDSSCellSize).toStringAsFixed(0)} px)',
               ],
-              <String>[
-                'mode',
-                animateSteps ? 'animateTo(...)' : 'jumpTo(...)'
-              ],
+              <String>['mode', animateSteps ? 'animateTo(...)' : 'jumpTo(...)'],
               <String>['curve', curveLabel],
-              <String>[
-                'duration',
-                '${durationMs.round()} ms'
-              ],
-              <String>[
-                'lastVisited',
-                lastVisited?.name ?? '—'
-              ],
-              <String>[
-                'cellSize',
-                '${_twoDSSCellSize.toStringAsFixed(0)} px'
-              ],
-              <String>[
-                'totalCells',
-                '${_twoDSSMapColumns * _twoDSSMapRows}'
-              ],
-              <String>[
-                'boundsReady',
-                '${horizontalReady && verticalReady}'
-              ],
+              <String>['duration', '${durationMs.round()} ms'],
+              <String>['lastVisited', lastVisited?.name ?? '—'],
+              <String>['cellSize', '${_twoDSSCellSize.toStringAsFixed(0)} px'],
+              <String>['totalCells', '${_twoDSSMapColumns * _twoDSSMapRows}'],
+              <String>['boundsReady', '${horizontalReady && verticalReady}'],
             ],
           ),
         ],
@@ -2959,9 +2911,7 @@ class _TwoDSSDiagRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.35),
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2988,7 +2938,7 @@ class _TwoDSSDiagRow extends StatelessWidget {
               const Spacer(),
               Text(
                 'pixels: ${pixels.toStringAsFixed(1)}  /  '
-                    'max: ${max.toStringAsFixed(1)}',
+                'max: ${max.toStringAsFixed(1)}',
                 style: const TextStyle(
                   color: _twoDSSInkNavy,
                   fontFamily: 'monospace',
@@ -3008,10 +2958,7 @@ class _TwoDSSDiagRow extends StatelessWidget {
                 ),
                 FractionallySizedBox(
                   widthFactor: ratio,
-                  child: Container(
-                    height: 10,
-                    color: accent,
-                  ),
+                  child: Container(height: 10, color: accent),
                 ),
               ],
             ),
@@ -3044,16 +2991,11 @@ class _TwoDSSKvGrid extends StatelessWidget {
         for (final List<String> row in entries)
           Container(
             width: 220,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: _twoDSSParchmentDeep.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: _twoDSSInkNavy.withValues(alpha: 0.12),
-              ),
+              border: Border.all(color: _twoDSSInkNavy.withValues(alpha: 0.12)),
             ),
             child: Row(
               children: <Widget>[
@@ -3095,64 +3037,64 @@ class _TwoDSSEpilogueCard extends StatelessWidget {
         'title': 'When the state\'s imperative API fits',
         'body':
             'Reach for verticalScrollable / horizontalScrollable when you '
-                'need to nudge, seek, or animate from outside the viewport '
-                'tree — toolbar buttons, keyboard shortcuts, tour playback, '
-                'deep-linking from URL, or test fixtures.',
+            'need to nudge, seek, or animate from outside the viewport '
+            'tree — toolbar buttons, keyboard shortcuts, tour playback, '
+            'deep-linking from URL, or test fixtures.',
       },
       <String, String>{
         'title': 'When a custom TwoDimensionalViewport fits',
         'body':
             'If the behaviour you need is *inside* the cell layout (custom '
-                'paint order, sticky headers, variable cell sizes, snapping), '
-                'the answer is almost always a bespoke TwoDimensionalViewport '
-                'subclass instead of imperative state calls.',
+            'paint order, sticky headers, variable cell sizes, snapping), '
+            'the answer is almost always a bespoke TwoDimensionalViewport '
+            'subclass instead of imperative state calls.',
       },
       <String, String>{
         'title': 'Guarding the GlobalKey',
         'body':
             'Always check `key.currentState != null` before reading '
-                'verticalScrollable / horizontalScrollable. The getters '
-                'assert that the inner ScrollableState keys have mounted, '
-                'and they have not on the very first frame.',
+            'verticalScrollable / horizontalScrollable. The getters '
+            'assert that the inner ScrollableState keys have mounted, '
+            'and they have not on the very first frame.',
       },
       <String, String>{
         'title': 'Future.wait for both axes',
         'body':
             'animateTo returns a Future. To synchronise the two axes, '
-                'await `Future.wait([h.animateTo(...), v.animateTo(...)])`. '
-                'Do not chain them sequentially for simultaneous motion.',
+            'await `Future.wait([h.animateTo(...), v.animateTo(...)])`. '
+            'Do not chain them sequentially for simultaneous motion.',
       },
       <String, String>{
         'title': 'Respecting physics and bounds',
         'body':
             'Clamp your computed target to `[minScrollExtent, '
-                'maxScrollExtent]`. Otherwise the scrollable will accept '
-                'the target but the physics may snap back, producing a '
-                'jarring rubber-band.',
+            'maxScrollExtent]`. Otherwise the scrollable will accept '
+            'the target but the physics may snap back, producing a '
+            'jarring rubber-band.',
       },
       <String, String>{
         'title': 'No controllers? No problem',
         'body':
             'If the ScrollableDetails omit a controller, the state '
-                'synthesises fallback ones. They are still reachable via '
-                'the inner ScrollableState, so you do not need to wire '
-                'ScrollController fields just to drive the scroll.',
+            'synthesises fallback ones. They are still reachable via '
+            'the inner ScrollableState, so you do not need to wire '
+            'ScrollController fields just to drive the scroll.',
       },
       <String, String>{
         'title': 'Diagonal drag behaviour',
         'body':
             'The diagonalDragBehavior enum (none / weightedEvent / '
-                'weightedContinuous / free) decides how user gestures feed '
-                'both axes. Imperative calls bypass this entirely; they '
-                'always drive exactly the axis you name.',
+            'weightedContinuous / free) decides how user gestures feed '
+            'both axes. Imperative calls bypass this entirely; they '
+            'always drive exactly the axis you name.',
       },
       <String, String>{
         'title': 'Test ergonomics',
         'body':
             'In widget tests, `find.byType(TwoDimensionalScrollable)` and '
-                '`tester.state<TwoDimensionalScrollableState>(finder)` give '
-                'you the same handle that the GlobalKey would — useful for '
-                'verifying imperative scroll effects.',
+            '`tester.state<TwoDimensionalScrollableState>(finder)` give '
+            'you the same handle that the GlobalKey would — useful for '
+            'verifying imperative scroll effects.',
       },
     ];
     return _TwoDSSOutlinedCard(
@@ -3161,7 +3103,7 @@ class _TwoDSSEpilogueCard extends StatelessWidget {
       title: 'Lifecycle notes and when to reach for what',
       subtitle:
           'Summary advice distilled from using this API across map views, '
-              'spreadsheets, and node-editor canvases.',
+          'spreadsheets, and node-editor canvases.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -3181,11 +3123,7 @@ class _TwoDSSEpilogueCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Icon(
-                    Icons.bookmark,
-                    color: _twoDSSBrassDeep,
-                    size: 18,
-                  ),
+                  const Icon(Icons.bookmark, color: _twoDSSBrassDeep, size: 18),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -3224,20 +3162,16 @@ class _TwoDSSEpilogueCard extends StatelessWidget {
             child: const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(
-                  Icons.emoji_objects,
-                  color: _twoDSSBrassBright,
-                  size: 24,
-                ),
+                Icon(Icons.emoji_objects, color: _twoDSSBrassBright, size: 24),
                 SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     'The cartographer\'s rule: if you need to move the '
-                        'map, reach for the state. If you need to change '
-                        'what the map *is*, reach for a custom viewport. '
-                        'TwoDimensionalScrollableState is the grip on an '
-                        'existing map — not the atelier where a new one is '
-                        'drawn.',
+                    'map, reach for the state. If you need to change '
+                    'what the map *is*, reach for a custom viewport. '
+                    'TwoDimensionalScrollableState is the grip on an '
+                    'existing map — not the atelier where a new one is '
+                    'drawn.',
                     style: TextStyle(
                       color: _twoDSSParchment,
                       fontStyle: FontStyle.italic,

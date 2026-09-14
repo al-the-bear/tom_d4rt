@@ -349,10 +349,7 @@ class _LabeledBox extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
               const SizedBox(width: 6),
               Text(
@@ -698,13 +695,15 @@ class _StackedDemoState extends State<_StackedDemo> {
                       ? const Center(child: Text('No events yet'))
                       : ListView(
                           children: _log
-                              .map((e) => Text(
-                                    e,
-                                    style: const TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontSize: 11,
-                                    ),
-                                  ))
+                              .map(
+                                (e) => Text(
+                                  e,
+                                  style: const TextStyle(
+                                    fontFamily: 'monospace',
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                 ),
@@ -894,7 +893,9 @@ class _ToggleableListenerDemoState extends State<_ToggleableListenerDemo> {
           child: SwitchListTile(
             value: _enabled,
             title: const Text('Enable BackButtonListener'),
-            subtitle: Text(_enabled ? 'Listener registered' : 'Listener absent'),
+            subtitle: Text(
+              _enabled ? 'Listener registered' : 'Listener absent',
+            ),
             onChanged: (v) => setState(() => _enabled = v),
           ),
         ),
@@ -904,18 +905,12 @@ class _ToggleableListenerDemoState extends State<_ToggleableListenerDemo> {
           label: const Text('Simulate back'),
         ),
         const SizedBox(height: 8),
-        Text(
-          'Last: $_lastResult',
-          style: const TextStyle(fontSize: 12),
-        ),
+        Text('Last: $_lastResult', style: const TextStyle(fontSize: 12)),
       ],
     );
 
     return _enabled
-        ? BackButtonListener(
-            onBackButtonPressed: _onBack,
-            child: core,
-          )
+        ? BackButtonListener(onBackButtonPressed: _onBack, child: core)
         : core;
   }
 }
@@ -967,10 +962,10 @@ class _PriorityDemoState extends State<_PriorityDemo> {
   }
 
   String _label(_Owner o) => switch (o) {
-        _Owner.a => 'A (outer)',
-        _Owner.b => 'B (middle)',
-        _Owner.c => 'C (inner)',
-      };
+    _Owner.a => 'A (outer)',
+    _Owner.b => 'B (middle)',
+    _Owner.c => 'C (inner)',
+  };
 
   Future<void> _simulate() async {
     _trace.clear();
@@ -1040,13 +1035,15 @@ class _PriorityDemoState extends State<_PriorityDemo> {
                           ? const Center(child: Text('No events yet'))
                           : ListView(
                               children: _trace
-                                  .map((e) => Text(
-                                        e,
-                                        style: const TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 11,
-                                        ),
-                                      ))
+                                  .map(
+                                    (e) => Text(
+                                      e,
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  )
                                   .toList(),
                             ),
                     ),
@@ -1307,7 +1304,8 @@ class _SectionNestedNavigator extends StatelessWidget {
     return const _SectionCard(
       number: '9',
       title: 'Multiple Navigators',
-      subtitle: 'Inner navigator hijacks the back press, falls through if empty',
+      subtitle:
+          'Inner navigator hijacks the back press, falls through if empty',
       accent: Colors.purple,
       child: _NestedNavDemo(),
     );
@@ -1405,10 +1403,7 @@ class _NestedNavDemoState extends State<_NestedNavDemo> {
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            'Last: $_lastResult',
-            style: const TextStyle(fontSize: 12),
-          ),
+          Text('Last: $_lastResult', style: const TextStyle(fontSize: 12)),
           const _Caption(
             'BackButtonListener pops the inner Navigator first; only when the '
             'inner stack is empty does it return false to let the outer route '
@@ -1545,7 +1540,8 @@ class _SectionSystemVsAppBack extends StatelessWidget {
             label: 'iOS edge-swipe back',
             triggers: false,
             color: Colors.orange,
-            note: 'Handled by CupertinoPageRoute interactivity, not dispatcher.',
+            note:
+                'Handled by CupertinoPageRoute interactivity, not dispatcher.',
           ),
           _BackSourceRow(
             icon: Icons.keyboard,
@@ -1604,10 +1600,7 @@ class _BackSourceRow extends StatelessWidget {
                     _Pill(triggers ? 'fires' : 'no', color),
                   ],
                 ),
-                Text(
-                  note,
-                  style: const TextStyle(fontSize: 12, height: 1.35),
-                ),
+                Text(note, style: const TextStyle(fontSize: 12, height: 1.35)),
               ],
             ),
           ),
@@ -1810,8 +1803,7 @@ class _InnerNavHijackRecipeState extends State<_InnerNavHijackRecipe> {
                       backgroundColor: Colors.amber.withOpacity(0.04),
                       body: Center(
                         child: ElevatedButton(
-                          onPressed: () =>
-                              Navigator.of(ctx).pushNamed('/x'),
+                          onPressed: () => Navigator.of(ctx).pushNamed('/x'),
                           child: const Text('Push /x'),
                         ),
                       ),
@@ -1941,8 +1933,7 @@ class _RecipeCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.restaurant_menu,
-                  color: Colors.amber, size: 18),
+              const Icon(Icons.restaurant_menu, color: Colors.amber, size: 18),
               const SizedBox(width: 6),
               Text(
                 title,
@@ -2063,17 +2054,11 @@ class _SectionReferenceTable extends StatelessWidget {
         children: const [
           Expanded(
             flex: 3,
-            child: Text(
-              'API',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text('API', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              'Kind',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            child: Text('Kind', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           Expanded(
             flex: 6,
@@ -2109,10 +2094,7 @@ class _SectionReferenceTable extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              r.kind,
-              style: const TextStyle(fontSize: 12),
-            ),
+            child: Text(r.kind, style: const TextStyle(fontSize: 12)),
           ),
           Expanded(
             flex: 6,
@@ -2172,10 +2154,7 @@ class _Footer extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             'Demo end. Scroll up to revisit any section.',
-            style: TextStyle(
-              fontStyle: FontStyle.italic,
-              fontSize: 12,
-            ),
+            style: TextStyle(fontStyle: FontStyle.italic, fontSize: 12),
           ),
         ],
       ),

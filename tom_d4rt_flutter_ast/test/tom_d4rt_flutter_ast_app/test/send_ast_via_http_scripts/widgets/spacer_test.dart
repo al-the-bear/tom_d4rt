@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.space_bar,
       'title': 'What is Spacer?',
-      'body': 'Spacer is a widget that takes up available space along the '
+      'body':
+          'Spacer is a widget that takes up available space along the '
           'main axis of a Row, Column, or Flex. It does not render any '
           'visual content — it just occupies space to push other widgets '
           'apart. Under the hood it is Expanded(child: SizedBox.shrink()).',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.linear_scale,
       'title': 'Flex Factor',
-      'body': 'Spacer accepts a single parameter: flex (default 1). '
+      'body':
+          'Spacer accepts a single parameter: flex (default 1). '
           'The flex factor works identically to Expanded.flex — it '
           'determines how much of the remaining space this Spacer '
           'claims relative to other flexible children.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'Spacer vs Expanded',
-      'body': 'Expanded wraps a visible child and makes it fill remaining '
+      'body':
+          'Expanded wraps a visible child and makes it fill remaining '
           'space. Spacer wraps nothing — its only purpose is to create '
           'blank space. Use Spacer when you want gaps, Expanded when you '
           'want a widget to grow.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'Spacer vs SizedBox',
-      'body': 'SizedBox creates a fixed-size gap (e.g., 16 pixels). '
+      'body':
+          'SizedBox creates a fixed-size gap (e.g., 16 pixels). '
           'Spacer creates a flexible gap that grows or shrinks with the '
           'available space. Use SizedBox for exact spacing, Spacer for '
           'proportional spacing.',
@@ -124,21 +128,24 @@ dynamic build(BuildContext context) {
     {
       'member': 'Spacer({int flex = 1})',
       'kind': 'Constructor',
-      'desc': 'Creates a spacer with the given flex factor. The flex '
+      'desc':
+          'Creates a spacer with the given flex factor. The flex '
           'determines how much space this spacer claims relative to '
           'other flexible children in the same Flex parent.',
     },
     {
       'member': 'flex',
       'kind': 'Property',
-      'desc': 'The flex factor. Defaults to 1. Higher values claim '
+      'desc':
+          'The flex factor. Defaults to 1. Higher values claim '
           'more of the remaining space. The ratio between flex values '
           'determines the proportional sizes.',
     },
     {
       'member': 'build(context)',
       'kind': 'Method',
-      'desc': 'Returns Expanded(flex: flex, child: const SizedBox.shrink()). '
+      'desc':
+          'Returns Expanded(flex: flex, child: const SizedBox.shrink()). '
           'This is the entire implementation — Spacer is just syntactic '
           'sugar over Expanded with an empty child.',
     },
@@ -195,10 +202,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     row['kind']!,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                   ),
                 ),
               ],
@@ -301,9 +305,7 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(color: Colors.grey.withOpacity(0.15)),
               ),
-              child: Row(
-                children: ex['children'] as List<Widget>,
-              ),
+              child: Row(children: ex['children'] as List<Widget>),
             ),
           ],
         ),
@@ -350,7 +352,14 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text('Header', style: TextStyle(fontSize: 11, color: ceColor, fontWeight: FontWeight.bold)),
+            child: Text(
+              'Header',
+              style: TextStyle(
+                fontSize: 11,
+                color: ceColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           const Spacer(),
           Container(
@@ -359,7 +368,14 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text('Footer', style: TextStyle(fontSize: 11, color: ceColor, fontWeight: FontWeight.bold)),
+            child: Text(
+              'Footer',
+              style: TextStyle(
+                fontSize: 11,
+                color: ceColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       );
@@ -372,16 +388,16 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text('Content Area', style: TextStyle(fontSize: 11, color: ceColor)),
+            child: Text(
+              'Content Area',
+              style: TextStyle(fontSize: 11, color: ceColor),
+            ),
           ),
           const Spacer(),
           Container(
             width: 40,
             height: 40,
-            decoration: BoxDecoration(
-              color: ceColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: ceColor, shape: BoxShape.circle),
             child: const Icon(Icons.add, color: Colors.white, size: 20),
           ),
         ],
@@ -395,7 +411,10 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text('Item 1', style: TextStyle(fontSize: 10, color: ceColor)),
+            child: Text(
+              'Item 1',
+              style: TextStyle(fontSize: 10, color: ceColor),
+            ),
           ),
           const Spacer(),
           Container(
@@ -404,7 +423,10 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text('Item 2', style: TextStyle(fontSize: 10, color: ceColor)),
+            child: Text(
+              'Item 2',
+              style: TextStyle(fontSize: 10, color: ceColor),
+            ),
           ),
           const Spacer(),
           Container(
@@ -413,7 +435,10 @@ dynamic build(BuildContext context) {
               color: ceColor.withOpacity(0.12),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text('Item 3', style: TextStyle(fontSize: 10, color: ceColor)),
+            child: Text(
+              'Item 3',
+              style: TextStyle(fontSize: 10, color: ceColor),
+            ),
           ),
         ],
       );
@@ -440,7 +465,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 4),
-            Text(ce['desc'] as String, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+            Text(
+              ce['desc'] as String,
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 140,
@@ -465,11 +493,26 @@ dynamic build(BuildContext context) {
   print('=== Section 5: Flex Factor ===');
 
   final flexCases = <Map<String, dynamic>>[
-    {'flexValues': [1, 1], 'desc': 'Two Spacers with flex:1 — equal halves'},
-    {'flexValues': [1, 2], 'desc': 'flex:1 and flex:2 — 1/3 and 2/3'},
-    {'flexValues': [1, 1, 1], 'desc': 'Three Spacers flex:1 — equal thirds'},
-    {'flexValues': [1, 3], 'desc': 'flex:1 and flex:3 — 1/4 and 3/4'},
-    {'flexValues': [2, 1, 2], 'desc': 'flex:2, flex:1, flex:2 — 2/5, 1/5, 2/5'},
+    {
+      'flexValues': [1, 1],
+      'desc': 'Two Spacers with flex:1 — equal halves',
+    },
+    {
+      'flexValues': [1, 2],
+      'desc': 'flex:1 and flex:2 — 1/3 and 2/3',
+    },
+    {
+      'flexValues': [1, 1, 1],
+      'desc': 'Three Spacers flex:1 — equal thirds',
+    },
+    {
+      'flexValues': [1, 3],
+      'desc': 'flex:1 and flex:3 — 1/4 and 3/4',
+    },
+    {
+      'flexValues': [2, 1, 2],
+      'desc': 'flex:2, flex:1, flex:2 — 2/5, 1/5, 2/5',
+    },
   ];
 
   final flexColors = [
@@ -639,7 +682,10 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: cdColor.withOpacity(0.08),
                           borderRadius: BorderRadius.circular(4),
@@ -662,7 +708,10 @@ dynamic build(BuildContext context) {
                   ),
                   const SizedBox(height: 6),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: cdColor.withOpacity(0.06),
                       borderRadius: BorderRadius.circular(4),
@@ -778,29 +827,50 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Delete this item?', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              const Text(
+                'Delete this item?',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 6),
-              Text('This action cannot be undone.', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+              Text(
+                'This action cannot be undone.',
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              ),
               const SizedBox(height: 16),
               Row(
                 children: [
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(color: Colors.grey.shade300),
                     ),
-                    child: Text('Cancel', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Text('Delete', style: TextStyle(fontSize: 12, color: Colors.white)),
+                    child: const Text(
+                      'Delete',
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
                   ),
                 ],
               ),
@@ -888,32 +958,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.space_bar,
-      'text': 'Spacer is a stateless widget that creates flexible blank '
+      'text':
+          'Spacer is a stateless widget that creates flexible blank '
           'space in Row, Column, and Flex layouts.',
     },
     {
       'icon': Icons.linear_scale,
-      'text': 'The flex parameter (default 1) controls proportional space '
+      'text':
+          'The flex parameter (default 1) controls proportional space '
           'allocation, just like Expanded.flex.',
     },
     {
       'icon': Icons.code,
-      'text': 'Under the hood, Spacer is Expanded(child: SizedBox.shrink()). '
+      'text':
+          'Under the hood, Spacer is Expanded(child: SizedBox.shrink()). '
           'It is pure syntactic sugar.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text': 'Use Spacer for proportional gaps between children. '
+      'text':
+          'Use Spacer for proportional gaps between children. '
           'Use SizedBox for fixed-pixel gaps.',
     },
     {
       'icon': Icons.dashboard,
-      'text': 'Common patterns: push items to edges, center content, '
+      'text':
+          'Common patterns: push items to edges, center content, '
           'create toolbar layouts, and dialog button alignment.',
     },
     {
       'icon': Icons.accessibility,
-      'text': 'Spacer has no visual or semantic output — it is invisible '
+      'text':
+          'Spacer has no visual or semantic output — it is invisible '
           'to screen readers and hit testing.',
     },
   ];
@@ -1183,11 +1259,7 @@ Widget _tag(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: color),
     ),
   );
 }

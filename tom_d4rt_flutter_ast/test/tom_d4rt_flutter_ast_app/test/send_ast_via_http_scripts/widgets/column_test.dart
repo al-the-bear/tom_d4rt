@@ -237,10 +237,7 @@ Widget _kv(String k, String v) {
     padding: const EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: <Widget>[
-        SizedBox(
-          width: 90.0,
-          child: Text(k, style: _kCaption),
-        ),
+        SizedBox(width: 90.0, child: Text(k, style: _kCaption)),
         Expanded(child: Text(v, style: _kBody)),
       ],
     ),
@@ -902,14 +899,24 @@ Widget _section6VerticalDirection() {
         ),
         Wrap(
           children: <Widget>[
-            cell(VerticalDirection.down, MainAxisAlignment.start, 'down + start'),
+            cell(
+              VerticalDirection.down,
+              MainAxisAlignment.start,
+              'down + start',
+            ),
             cell(VerticalDirection.up, MainAxisAlignment.start, 'up + start'),
             cell(VerticalDirection.down, MainAxisAlignment.end, 'down + end'),
             cell(VerticalDirection.up, MainAxisAlignment.end, 'up + end'),
-            cell(VerticalDirection.down, MainAxisAlignment.spaceBetween,
-                'down + between'),
-            cell(VerticalDirection.up, MainAxisAlignment.spaceBetween,
-                'up + between'),
+            cell(
+              VerticalDirection.down,
+              MainAxisAlignment.spaceBetween,
+              'down + between',
+            ),
+            cell(
+              VerticalDirection.up,
+              MainAxisAlignment.spaceBetween,
+              'up + between',
+            ),
           ],
         ),
         _callout(
@@ -1052,8 +1059,10 @@ Widget _recipeLoginForm() {
       children: <Widget>[
         const Text('Sign in', style: _kTitle),
         const SizedBox(height: 4.0),
-        const Text('Welcome back. Use your email to sign in.',
-            style: _kCaption),
+        const Text(
+          'Welcome back. Use your email to sign in.',
+          style: _kCaption,
+        ),
         const SizedBox(height: 16.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
@@ -1114,7 +1123,9 @@ Widget _recipeLoginForm() {
             for (final String label in <String>['Google', 'GitHub', 'SSO'])
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 6.0),
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   border: Border.all(color: _kBorderSoft),
                   borderRadius: BorderRadius.circular(4.0),
@@ -1140,8 +1151,7 @@ Widget _recipeSidebar() {
       ),
       child: Row(
         children: <Widget>[
-          Icon(icon,
-              size: 16, color: active ? _kAccent : _kMuted),
+          Icon(icon, size: 16, color: active ? _kAccent : _kMuted),
           const SizedBox(width: 10.0),
           Text(
             label,
@@ -1212,9 +1222,7 @@ Widget _recipeSettingsList() {
       decoration: BoxDecoration(
         border: last
             ? null
-            : const Border(
-                bottom: BorderSide(color: _kBorderSoft, width: 0.5),
-              ),
+            : const Border(bottom: BorderSide(color: _kBorderSoft, width: 0.5)),
       ),
       child: Row(
         children: <Widget>[
@@ -1256,10 +1264,19 @@ Widget _recipeSettingsList() {
 
 // --- Recipe 4: Vertical step indicator ---------------------------------------
 Widget _recipeStepper() {
-  Widget step(int n, String label, String detail,
-      {bool done = false, bool active = false, bool last = false}) {
-    final Color dot =
-        done ? _kSuccess : active ? _kAccent : _kBorderSoft;
+  Widget step(
+    int n,
+    String label,
+    String detail, {
+    bool done = false,
+    bool active = false,
+    bool last = false,
+  }) {
+    final Color dot = done
+        ? _kSuccess
+        : active
+        ? _kAccent
+        : _kBorderSoft;
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1270,10 +1287,7 @@ Widget _recipeStepper() {
                 width: 22.0,
                 height: 22.0,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: dot,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: dot, shape: BoxShape.circle),
                 child: done
                     ? const Icon(Icons.check, size: 14, color: Colors.white)
                     : Text(
@@ -1285,10 +1299,7 @@ Widget _recipeStepper() {
                         ),
                       ),
               ),
-              if (!last)
-                Expanded(
-                  child: Container(width: 2.0, color: dot),
-                ),
+              if (!last) Expanded(child: Container(width: 2.0, color: dot)),
             ],
           ),
           const SizedBox(width: 10.0),
@@ -1298,13 +1309,14 @@ Widget _recipeStepper() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(label,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight:
-                            active ? FontWeight.w700 : FontWeight.w600,
-                        color: active ? _kAccent : _kInk,
-                      )),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: active ? FontWeight.w700 : FontWeight.w600,
+                      color: active ? _kAccent : _kInk,
+                    ),
+                  ),
                   const SizedBox(height: 2.0),
                   Text(detail, style: _kCaption),
                 ],
@@ -1328,12 +1340,19 @@ Widget _recipeStepper() {
         const SizedBox(height: 12.0),
         step(1, 'Create account', 'Verified email.', done: true),
         step(2, 'Pick a workspace', 'Joined "tom-agent".', done: true),
-        step(3, 'Invite teammates',
-            'Send invites to collaborators.', active: true),
-        step(4, 'Configure runtime',
-            'Local Docker or hosted.', last: false),
-        step(5, 'Run first quest',
-            'A quest is a multi-step AI task.', last: true),
+        step(
+          3,
+          'Invite teammates',
+          'Send invites to collaborators.',
+          active: true,
+        ),
+        step(4, 'Configure runtime', 'Local Docker or hosted.', last: false),
+        step(
+          5,
+          'Run first quest',
+          'A quest is a multi-step AI task.',
+          last: true,
+        ),
       ],
     ),
   );
@@ -1448,10 +1467,7 @@ Widget _recipeProfile() {
           alignment: Alignment.center,
           child: const Text(
             'Message',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
         ),
       ],
@@ -1512,10 +1528,7 @@ Widget _section10SpacerExpanded() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text(
-          '10. Spacer & Expanded inside a Column',
-          style: _kSubtitle,
-        ),
+        const Text('10. Spacer & Expanded inside a Column', style: _kSubtitle),
         const SizedBox(height: 6.0),
         const Text(
           'flex children consume the leftover main-axis space first. Any '
@@ -1582,13 +1595,19 @@ Widget _section10SpacerExpanded() {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Container(color: _kC1, alignment: Alignment.center,
-                        child: const Text('1', style: _kBody)),
+                    child: Container(
+                      color: _kC1,
+                      alignment: Alignment.center,
+                      child: const Text('1', style: _kBody),
+                    ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Container(color: _kC2, alignment: Alignment.center,
-                        child: const Text('2', style: _kBody)),
+                    child: Container(
+                      color: _kC2,
+                      alignment: Alignment.center,
+                      child: const Text('2', style: _kBody),
+                    ),
                   ),
                 ],
               ),
@@ -1600,18 +1619,27 @@ Widget _section10SpacerExpanded() {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Container(color: _kC1, alignment: Alignment.center,
-                        child: const Text('1', style: _kBody)),
+                    child: Container(
+                      color: _kC1,
+                      alignment: Alignment.center,
+                      child: const Text('1', style: _kBody),
+                    ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Container(color: _kC2, alignment: Alignment.center,
-                        child: const Text('2', style: _kBody)),
+                    child: Container(
+                      color: _kC2,
+                      alignment: Alignment.center,
+                      child: const Text('2', style: _kBody),
+                    ),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Container(color: _kC3, alignment: Alignment.center,
-                        child: const Text('3', style: _kBody)),
+                    child: Container(
+                      color: _kC3,
+                      alignment: Alignment.center,
+                      child: const Text('3', style: _kBody),
+                    ),
                   ),
                 ],
               ),
@@ -1708,11 +1736,7 @@ Widget _section12Comparison() {
           Text('Use when: $when', style: _kCaption),
           Text('Avoid when: $avoid', style: _kCaption),
           const SizedBox(height: 8.0),
-          Container(
-            height: 160.0,
-            decoration: _panelDecoration(),
-            child: demo,
-          ),
+          Container(height: 160.0, decoration: _panelDecoration(), child: demo),
         ],
       ),
     );
@@ -1724,10 +1748,7 @@ Widget _section12Comparison() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text(
-          '12. Comparison: Column vs alternatives',
-          style: _kSubtitle,
-        ),
+        const Text('12. Comparison: Column vs alternatives', style: _kSubtitle),
         const SizedBox(height: 6.0),
         Wrap(
           children: <Widget>[
@@ -1754,8 +1775,11 @@ Widget _section12Comparison() {
                 runSpacing: 4.0,
                 children: <Widget>[
                   for (int i = 0; i < 10; i++)
-                    _kid(<Color>[_kC1, _kC2, _kC3, _kC4, _kC5][i % 5],
-                        width: 40.0, label: '$i'),
+                    _kid(
+                      <Color>[_kC1, _kC2, _kC3, _kC4, _kC5][i % 5],
+                      width: 40.0,
+                      label: '$i',
+                    ),
                 ],
               ),
             ),
@@ -1769,8 +1793,10 @@ Widget _section12Comparison() {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 2.0),
                       child: _kid(
-                          <Color>[_kC1, _kC2, _kC3, _kC4, _kC5][i % 5],
-                          width: double.infinity, label: 'row $i'),
+                        <Color>[_kC1, _kC2, _kC3, _kC4, _kC5][i % 5],
+                        width: double.infinity,
+                        label: 'row $i',
+                      ),
                     ),
                 ],
               ),
@@ -1782,15 +1808,18 @@ Widget _section12Comparison() {
               Stack(
                 children: <Widget>[
                   Positioned(
-                    top: 8.0, left: 8.0,
+                    top: 8.0,
+                    left: 8.0,
                     child: _kid(_kC1, width: 60.0, height: 60.0, label: 'top'),
                   ),
                   Positioned(
-                    top: 40.0, left: 40.0,
+                    top: 40.0,
+                    left: 40.0,
                     child: _kid(_kC2, width: 60.0, height: 60.0, label: 'mid'),
                   ),
                   Positioned(
-                    top: 72.0, left: 72.0,
+                    top: 72.0,
+                    left: 72.0,
                     child: _kid(_kC3, width: 60.0, height: 60.0, label: 'bot'),
                   ),
                 ],
@@ -1814,10 +1843,7 @@ Widget _section13Glossary() {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 150.0,
-            child: Text(t, style: _kLabel),
-          ),
+          SizedBox(width: 150.0, child: Text(t, style: _kLabel)),
           Expanded(child: Text(d, style: _kBody)),
         ],
       ),
@@ -1833,29 +1859,49 @@ Widget _section13Glossary() {
       children: <Widget>[
         const Text('13. Glossary', style: _kSubtitle),
         const SizedBox(height: 8.0),
-        term('Main axis',
-            'For Column: vertical. For Row: horizontal. The axis along which '
-                'children are laid out.'),
-        term('Cross axis',
-            'Perpendicular to the main axis. For Column: horizontal width.'),
-        term('Tight constraints',
-            'A min == max constraint. Forces the child to a specific size.'),
-        term('Loose constraints',
-            'min = 0, max = something. The child can pick any size up to max.'),
-        term('Unbounded constraint',
-            'Max is infinity. The child must size itself; it cannot fill.'),
-        term('Intrinsic size',
-            'A widget\'s preferred natural size, independent of constraints.'),
-        term('Flex factor',
-            'The integer weight passed to Expanded/Flexible. Free space is '
-                'divided in proportion to these weights.'),
-        term('Baseline',
-            'The invisible line on which Latin text "sits". '
-                'CrossAxisAlignment.baseline aligns children to a shared one.'),
-        term('TextDirection',
-            'ltr or rtl. Determines which end is "start" on the cross axis.'),
-        term('VerticalDirection',
-            'down or up. Determines which end is "start" on the main axis.'),
+        term(
+          'Main axis',
+          'For Column: vertical. For Row: horizontal. The axis along which '
+              'children are laid out.',
+        ),
+        term(
+          'Cross axis',
+          'Perpendicular to the main axis. For Column: horizontal width.',
+        ),
+        term(
+          'Tight constraints',
+          'A min == max constraint. Forces the child to a specific size.',
+        ),
+        term(
+          'Loose constraints',
+          'min = 0, max = something. The child can pick any size up to max.',
+        ),
+        term(
+          'Unbounded constraint',
+          'Max is infinity. The child must size itself; it cannot fill.',
+        ),
+        term(
+          'Intrinsic size',
+          'A widget\'s preferred natural size, independent of constraints.',
+        ),
+        term(
+          'Flex factor',
+          'The integer weight passed to Expanded/Flexible. Free space is '
+              'divided in proportion to these weights.',
+        ),
+        term(
+          'Baseline',
+          'The invisible line on which Latin text "sits". '
+              'CrossAxisAlignment.baseline aligns children to a shared one.',
+        ),
+        term(
+          'TextDirection',
+          'ltr or rtl. Determines which end is "start" on the cross axis.',
+        ),
+        term(
+          'VerticalDirection',
+          'down or up. Determines which end is "start" on the main axis.',
+        ),
       ],
     ),
   );
@@ -1888,26 +1934,46 @@ Widget _section14Recap() {
       children: <Widget>[
         const Text('14. Recap — TL;DR cheat sheet', style: _kSubtitle),
         const SizedBox(height: 8.0),
-        bullet('Column = Flex with Axis.vertical. No scroll, no wrap, no '
-            'sizing magic.'),
-        bullet('mainAxisAlignment distributes vertical free space. Has no '
-            'effect when mainAxisSize is min.'),
-        bullet('crossAxisAlignment positions each child horizontally. stretch '
-            'overrides child widths.'),
-        bullet('mainAxisSize: max fills parent height. min hugs children. '
-            'Default is max. Use min inside scroll views.'),
-        bullet('verticalDirection.up reverses what "start" means on the main '
-            'axis without reversing the children list.'),
-        bullet('CrossAxisAlignment.baseline REQUIRES textBaseline. Otherwise '
-            'asserts.'),
-        bullet('Expanded and Spacer eat leftover main-axis space proportionally '
-            'to flex. They require bounded main-axis constraints.'),
-        bullet('When in doubt, wrap your Column in a fixed-height SizedBox to '
-            'remove ambiguity.'),
-        bullet('For long scrolling content, prefer ListView over Column + '
-            'SingleChildScrollView.'),
-        bullet('Bordered Container wrappers (like in this file) are a great '
-            'debugging tool for flex layout boundaries.'),
+        bullet(
+          'Column = Flex with Axis.vertical. No scroll, no wrap, no '
+          'sizing magic.',
+        ),
+        bullet(
+          'mainAxisAlignment distributes vertical free space. Has no '
+          'effect when mainAxisSize is min.',
+        ),
+        bullet(
+          'crossAxisAlignment positions each child horizontally. stretch '
+          'overrides child widths.',
+        ),
+        bullet(
+          'mainAxisSize: max fills parent height. min hugs children. '
+          'Default is max. Use min inside scroll views.',
+        ),
+        bullet(
+          'verticalDirection.up reverses what "start" means on the main '
+          'axis without reversing the children list.',
+        ),
+        bullet(
+          'CrossAxisAlignment.baseline REQUIRES textBaseline. Otherwise '
+          'asserts.',
+        ),
+        bullet(
+          'Expanded and Spacer eat leftover main-axis space proportionally '
+          'to flex. They require bounded main-axis constraints.',
+        ),
+        bullet(
+          'When in doubt, wrap your Column in a fixed-height SizedBox to '
+          'remove ambiguity.',
+        ),
+        bullet(
+          'For long scrolling content, prefer ListView over Column + '
+          'SingleChildScrollView.',
+        ),
+        bullet(
+          'Bordered Container wrappers (like in this file) are a great '
+          'debugging tool for flex layout boundaries.',
+        ),
       ],
     ),
   );
@@ -1940,11 +2006,20 @@ dynamic build(BuildContext context) {
         ),
         _section1Dossier(),
         _section2Anatomy(),
-        _sectionBanner('MainAxisAlignment matrix', '6 alignments × 4 child counts'),
+        _sectionBanner(
+          'MainAxisAlignment matrix',
+          '6 alignments × 4 child counts',
+        ),
         _section3MainAxisMatrix(),
-        _sectionBanner('CrossAxisAlignment matrix', '5 alignments × 3 child width patterns'),
+        _sectionBanner(
+          'CrossAxisAlignment matrix',
+          '5 alignments × 3 child width patterns',
+        ),
         _section4CrossAxisMatrix(),
-        _sectionBanner('Sizing & direction', 'MainAxisSize + VerticalDirection + TextDirection'),
+        _sectionBanner(
+          'Sizing & direction',
+          'MainAxisSize + VerticalDirection + TextDirection',
+        ),
         _section5MainAxisSize(),
         _section6VerticalDirection(),
         _section7TextBaseline(),
@@ -1953,7 +2028,10 @@ dynamic build(BuildContext context) {
         _section9Recipes(),
         _sectionBanner('Flex children', 'Spacer / Expanded inside a Column'),
         _section10SpacerExpanded(),
-        _sectionBanner('Pitfalls & comparisons', 'What to avoid; what to use instead'),
+        _sectionBanner(
+          'Pitfalls & comparisons',
+          'What to avoid; what to use instead',
+        ),
         _section11Pitfalls(),
         _section12Comparison(),
         _sectionBanner('Reference', 'Glossary and recap'),
@@ -1961,17 +2039,12 @@ dynamic build(BuildContext context) {
         _section14Recap(),
         const SizedBox(height: 32.0),
         const Center(
-          child: Text(
-            '— end of Column visual deep demo —',
-            style: _kCaption,
-          ),
+          child: Text('— end of Column visual deep demo —', style: _kCaption),
         ),
         const SizedBox(height: 32.0),
       ],
     ),
   );
 
-  return SingleChildScrollView(
-    child: content,
-  );
+  return SingleChildScrollView(child: content);
 }

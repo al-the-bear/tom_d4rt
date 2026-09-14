@@ -28,10 +28,7 @@ const Color _slateSoft = Color(0xFF7F8AA3);
 // SMALL HELPERS — staff lines, value rules, badges, dots
 // ============================================================================
 Widget _staffLine({double opacity = 0.18}) {
-  return Container(
-    height: 1.0,
-    color: _midnight.withOpacity(opacity),
-  );
+  return Container(height: 1.0, color: _midnight.withOpacity(opacity));
 }
 
 Widget _staff({int lines = 5, double gap = 8.0, double opacity = 0.16}) {
@@ -134,7 +131,12 @@ Widget _sectionTitle(String index, String title, String subtitle) {
   );
 }
 
-Widget _card({required Widget child, Color? bg, Color? border, EdgeInsets? padding}) {
+Widget _card({
+  required Widget child,
+  Color? bg,
+  Color? border,
+  EdgeInsets? padding,
+}) {
   return Container(
     width: double.infinity,
     padding: padding ?? const EdgeInsets.all(18.0),
@@ -154,7 +156,12 @@ Widget _card({required Widget child, Color? bg, Color? border, EdgeInsets? paddi
   );
 }
 
-Widget _progressBar(double t, {Color fill = _gold, Color track = _creamSoft, double height = 10.0}) {
+Widget _progressBar(
+  double t, {
+  Color fill = _gold,
+  Color track = _creamSoft,
+  double height = 10.0,
+}) {
   final double clamped = t.clamp(0.0, 1.0);
   return Container(
     height: height,
@@ -176,7 +183,13 @@ Widget _progressBar(double t, {Color fill = _gold, Color track = _creamSoft, dou
   );
 }
 
-Widget _kv(String key, String value, {Color? keyColor, Color? valueColor, double fontSize = 12.0}) {
+Widget _kv(
+  String key,
+  String value, {
+  Color? keyColor,
+  Color? valueColor,
+  double fontSize = 12.0,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2.0),
     child: Row(
@@ -260,7 +273,12 @@ Widget _noteDot(double t, {Color? color, double size = 12.0}) {
 // ============================================================================
 // CURVE PLOTTING — render a curve as a row of value dots & a bar strip
 // ============================================================================
-Widget _curveStrip(Curve curve, {int steps = 9, Color color = _gold, Color rail = _creamSoft}) {
+Widget _curveStrip(
+  Curve curve, {
+  int steps = 9,
+  Color color = _gold,
+  Color rail = _creamSoft,
+}) {
   final List<double> samples = <double>[];
   for (int i = 0; i < steps; i++) {
     samples.add(curve.transform(i / (steps - 1)));
@@ -282,7 +300,10 @@ Widget _curveStrip(Curve curve, {int steps = 9, Color color = _gold, Color rail 
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(3.0),
-              border: Border.all(color: _midnight.withOpacity(0.45), width: 0.5),
+              border: Border.all(
+                color: _midnight.withOpacity(0.45),
+                width: 0.5,
+              ),
             ),
           ),
       ],
@@ -290,7 +311,12 @@ Widget _curveStrip(Curve curve, {int steps = 9, Color color = _gold, Color rail 
   );
 }
 
-Widget _curveCard(String name, Curve curve, {Color color = _gold, String? note}) {
+Widget _curveCard(
+  String name,
+  Curve curve, {
+  Color color = _gold,
+  String? note,
+}) {
   return Container(
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -388,10 +414,7 @@ Widget _heroHeader() {
                 color: _gold,
                 borderRadius: BorderRadius.circular(14.0),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: _gold.withOpacity(0.45),
-                    blurRadius: 14.0,
-                  ),
+                  BoxShadow(color: _gold.withOpacity(0.45), blurRadius: 14.0),
                 ],
               ),
               child: const Text(
@@ -444,10 +467,7 @@ Widget _heroHeader() {
           child: Column(
             children: <Widget>[
               for (int i = 0; i < 5; i++) ...<Widget>[
-                Container(
-                  height: 1.0,
-                  color: _gold.withOpacity(0.45),
-                ),
+                Container(height: 1.0, color: _gold.withOpacity(0.45)),
                 if (i != 4) const SizedBox(height: 7.0),
               ],
             ],
@@ -458,14 +478,38 @@ Widget _heroHeader() {
           spacing: 8.0,
           runSpacing: 8.0,
           children: <Widget>[
-            _pill('CurvedAnimation', bg: _gold.withOpacity(0.2), fg: _goldLight),
-            _pill('ReverseAnimation', bg: _gold.withOpacity(0.2), fg: _goldLight),
+            _pill(
+              'CurvedAnimation',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
+            _pill(
+              'ReverseAnimation',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
             _pill('ProxyAnimation', bg: _gold.withOpacity(0.2), fg: _goldLight),
-            _pill('AlwaysStoppedAnimation', bg: _gold.withOpacity(0.2), fg: _goldLight),
-            _pill('TrainHoppingAnimation', bg: _gold.withOpacity(0.2), fg: _goldLight),
-            _pill('AnimationMin/Max/Mean', bg: _gold.withOpacity(0.2), fg: _goldLight),
+            _pill(
+              'AlwaysStoppedAnimation',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
+            _pill(
+              'TrainHoppingAnimation',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
+            _pill(
+              'AnimationMin/Max/Mean',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
             _pill('Curves catalog', bg: _gold.withOpacity(0.2), fg: _goldLight),
-            _pill('Interval / Cubic / Threshold', bg: _gold.withOpacity(0.2), fg: _goldLight),
+            _pill(
+              'Interval / Cubic / Threshold',
+              bg: _gold.withOpacity(0.2),
+              fg: _goldLight,
+            ),
           ],
         ),
       ],
@@ -482,8 +526,11 @@ Widget _conceptOverview() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('1', 'The Animation as a soloist',
-            'Animation<T> emits the line — wrappers re-shape the performance.'),
+        _sectionTitle(
+          '1',
+          'The Animation as a soloist',
+          'Animation<T> emits the line — wrappers re-shape the performance.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -507,7 +554,9 @@ Widget _conceptOverview() {
                   const SizedBox(height: 6.0),
                   _bullet('AnimationController drives time 0→1.'),
                   _bullet('Tween<T> projects 0→1 into a typed range.'),
-                  _bullet('Anything Animation<double> is fair game for wrapping.'),
+                  _bullet(
+                    'Anything Animation<double> is fair game for wrapping.',
+                  ),
                 ],
               ),
             ),
@@ -532,7 +581,9 @@ Widget _conceptOverview() {
                   _pill('mix', bg: _gold.withOpacity(0.18), fg: _goldDeep),
                   const SizedBox(height: 6.0),
                   _bullet('AnimationMin / Max / Mean combine two voices.'),
-                  _bullet('TrainHoppingAnimation switches tracks at a crossing.'),
+                  _bullet(
+                    'TrainHoppingAnimation switches tracks at a crossing.',
+                  ),
                   _bullet('AlwaysStoppedAnimation freezes a single note.'),
                 ],
               ),
@@ -548,7 +599,12 @@ Widget _conceptOverview() {
 // SECTION 2 — Wrapper family tree diagram
 // ============================================================================
 Widget _wrapperTree() {
-  Widget node(String label, {Color bg = _midnight, Color fg = _gold, double width = 170.0}) {
+  Widget node(
+    String label, {
+    Color bg = _midnight,
+    Color fg = _gold,
+    double width = 170.0,
+  }) {
     return Container(
       width: width,
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
@@ -570,11 +626,8 @@ Widget _wrapperTree() {
     );
   }
 
-  Widget arm() => Container(
-        width: 1.5,
-        height: 22.0,
-        color: _gold.withOpacity(0.7),
-      );
+  Widget arm() =>
+      Container(width: 1.5, height: 22.0, color: _gold.withOpacity(0.7));
 
   return _card(
     bg: _midnight,
@@ -582,10 +635,20 @@ Widget _wrapperTree() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('2', 'Wrapper family tree',
-            'Animation<double> at the root; every wrapper is a re-voicing.'),
+        _sectionTitle(
+          '2',
+          'Wrapper family tree',
+          'Animation<double> at the root; every wrapper is a re-voicing.',
+        ),
         const SizedBox(height: 14.0),
-        Center(child: node('Animation<double>', bg: _gold, fg: _midnight, width: 220.0)),
+        Center(
+          child: node(
+            'Animation<double>',
+            bg: _gold,
+            fg: _midnight,
+            width: 220.0,
+          ),
+        ),
         Center(child: arm()),
         Container(height: 1.5, color: _gold.withOpacity(0.7)),
         const SizedBox(height: 6.0),
@@ -596,45 +659,27 @@ Widget _wrapperTree() {
           children: <Widget>[
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('CurvedAnimation'),
-              ],
+              children: <Widget>[arm(), node('CurvedAnimation')],
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('ReverseAnimation'),
-              ],
+              children: <Widget>[arm(), node('ReverseAnimation')],
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('ProxyAnimation'),
-              ],
+              children: <Widget>[arm(), node('ProxyAnimation')],
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('AlwaysStoppedAnimation'),
-              ],
+              children: <Widget>[arm(), node('AlwaysStoppedAnimation')],
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('CompoundAnimation'),
-              ],
+              children: <Widget>[arm(), node('CompoundAnimation')],
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                arm(),
-                node('TrainHoppingAnimation'),
-              ],
+              children: <Widget>[arm(), node('TrainHoppingAnimation')],
             ),
           ],
         ),
@@ -680,8 +725,12 @@ Widget _curvedAnimationShowcase() {
   ];
 
   Widget row(String name, Curve curve) {
-    final AlwaysStoppedAnimation<double> parent = const AlwaysStoppedAnimation<double>(parentT);
-    final CurvedAnimation curved = CurvedAnimation(parent: parent, curve: curve);
+    final AlwaysStoppedAnimation<double> parent =
+        const AlwaysStoppedAnimation<double>(parentT);
+    final CurvedAnimation curved = CurvedAnimation(
+      parent: parent,
+      curve: curve,
+    );
     final double shaped = curve.transform(parentT);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -731,8 +780,11 @@ Widget _curvedAnimationShowcase() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('3', 'CurvedAnimation showcase',
-            'Same parent t = $parentT, eight different curves.'),
+        _sectionTitle(
+          '3',
+          'CurvedAnimation showcase',
+          'Same parent t = $parentT, eight different curves.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 10.0),
@@ -757,7 +809,11 @@ Widget _curvedAnimationShowcase() {
             'Tip — CurvedAnimation also accepts reverseCurve. When the parent '
             'runs in reverse the wrapper uses that second curve to bend time on '
             'the way back.',
-            style: TextStyle(fontSize: 11.5, color: _slate, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: _slate,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -797,7 +853,10 @@ Widget _curvesCatalog() {
     const MapEntry<String, Curve>('elasticOut', Curves.elasticOut),
     const MapEntry<String, Curve>('fastOutSlowIn', Curves.fastOutSlowIn),
     const MapEntry<String, Curve>('slowMiddle', Curves.slowMiddle),
-    const MapEntry<String, Curve>('fastLinearToSlowEaseIn', Curves.fastLinearToSlowEaseIn),
+    const MapEntry<String, Curve>(
+      'fastLinearToSlowEaseIn',
+      Curves.fastLinearToSlowEaseIn,
+    ),
   ];
 
   return _card(
@@ -806,8 +865,11 @@ Widget _curvesCatalog() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('4', 'Curves catalog',
-            '28 named choreographies from the standard Curves class.'),
+        _sectionTitle(
+          '4',
+          'Curves catalog',
+          '28 named choreographies from the standard Curves class.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -816,10 +878,7 @@ Widget _curvesCatalog() {
           runSpacing: 10.0,
           children: <Widget>[
             for (final MapEntry<String, Curve> e in catalog)
-              SizedBox(
-                width: 230.0,
-                child: _curveCard(e.key, e.value),
-              ),
+              SizedBox(width: 230.0, child: _curveCard(e.key, e.value)),
           ],
         ),
       ],
@@ -832,30 +891,18 @@ Widget _curvesCatalog() {
 // ============================================================================
 Widget _customCurves() {
   final List<MapEntry<String, Curve>> specimens = <MapEntry<String, Curve>>[
-    const MapEntry<String, Curve>(
-      'Interval(0.3, 0.7)',
-      Interval(0.3, 0.7),
-    ),
+    const MapEntry<String, Curve>('Interval(0.3, 0.7)', Interval(0.3, 0.7)),
     const MapEntry<String, Curve>(
       'Interval(0.0, 0.5, easeOut)',
       Interval(0.0, 0.5, curve: Curves.easeOut),
     ),
-    const MapEntry<String, Curve>(
-      'Threshold(0.5)',
-      Threshold(0.5),
-    ),
+    const MapEntry<String, Curve>('Threshold(0.5)', Threshold(0.5)),
     const MapEntry<String, Curve>(
       'Cubic(0.42, 0.0, 0.58, 1.0)',
       Cubic(0.42, 0.0, 0.58, 1.0),
     ),
-    const MapEntry<String, Curve>(
-      'SawTooth(3)',
-      SawTooth(3),
-    ),
-    const MapEntry<String, Curve>(
-      'ElasticInCurve(0.6)',
-      ElasticInCurve(0.6),
-    ),
+    const MapEntry<String, Curve>('SawTooth(3)', SawTooth(3)),
+    const MapEntry<String, Curve>('ElasticInCurve(0.6)', ElasticInCurve(0.6)),
     const MapEntry<String, Curve>(
       'FlippedCurve(easeIn)',
       FlippedCurve(Curves.easeIn),
@@ -885,8 +932,11 @@ Widget _customCurves() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('5', 'Custom curve specimens',
-            'Build your own choreography with Interval, Threshold, Cubic, SawTooth, Elastic, Flipped.'),
+        _sectionTitle(
+          '5',
+          'Custom curve specimens',
+          'Build your own choreography with Interval, Threshold, Cubic, SawTooth, Elastic, Flipped.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -895,7 +945,10 @@ Widget _customCurves() {
           runSpacing: 12.0,
           children: <Widget>[
             for (final MapEntry<String, Curve> s in specimens)
-              SizedBox(width: 260.0, child: _curveCard(s.key, s.value, color: _wineLight)),
+              SizedBox(
+                width: 260.0,
+                child: _curveCard(s.key, s.value, color: _wineLight),
+              ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -909,12 +962,22 @@ Widget _customCurves() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('Interval clips the parent t to a sub-range, optionally re-curving inside.'),
-              _bullet('Threshold is a step function — 0 below cutoff, 1 above.'),
-              _bullet('Cubic is the cubic bezier you find in CSS easing curves.'),
+              _bullet(
+                'Interval clips the parent t to a sub-range, optionally re-curving inside.',
+              ),
+              _bullet(
+                'Threshold is a step function — 0 below cutoff, 1 above.',
+              ),
+              _bullet(
+                'Cubic is the cubic bezier you find in CSS easing curves.',
+              ),
               _bullet('SawTooth divides 0..1 into n triangular ramps.'),
-              _bullet('ElasticInCurve gives configurable oscillation with a period parameter.'),
-              _bullet('FlippedCurve wraps c into 1 - c.transform(1 - t) — useful for reverseCurve.'),
+              _bullet(
+                'ElasticInCurve gives configurable oscillation with a period parameter.',
+              ),
+              _bullet(
+                'FlippedCurve wraps c into 1 - c.transform(1 - t) — useful for reverseCurve.',
+              ),
             ],
           ),
         ),
@@ -952,51 +1015,104 @@ Widget _reverseAnimationDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('6', 'ReverseAnimation',
-            'reversed.value == 1.0 - parent.value, status mirrored too.'),
+        _sectionTitle(
+          '6',
+          'ReverseAnimation',
+          'reversed.value == 1.0 - parent.value, status mirrored too.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
         Row(
           children: const <Widget>[
-            SizedBox(width: 60.0, child: Text('t', style: TextStyle(fontWeight: FontWeight.w700, color: _midnight, fontSize: 12.0))),
-            Expanded(child: Text('parent', style: TextStyle(fontWeight: FontWeight.w700, color: _midnight, fontSize: 12.0))),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                't',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: _midnight,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'parent',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: _midnight,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
             SizedBox(width: 14.0),
-            Expanded(child: Text('reversed', style: TextStyle(fontWeight: FontWeight.w700, color: _wine, fontSize: 12.0))),
-            SizedBox(width: 70.0, child: Text('sum', style: TextStyle(fontWeight: FontWeight.w700, color: _midnight, fontSize: 12.0), textAlign: TextAlign.right)),
+            Expanded(
+              child: Text(
+                'reversed',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: _wine,
+                  fontSize: 12.0,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 70.0,
+              child: Text(
+                'sum',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: _midnight,
+                  fontSize: 12.0,
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6.0),
         for (final double t in samples) ...<Widget>[
-          Builder(builder: (BuildContext context) {
-            final AlwaysStoppedAnimation<double> parent = AlwaysStoppedAnimation<double>(t);
-            final ReverseAnimation rev = ReverseAnimation(parent);
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 60.0,
-                    child: Text(
-                      t.toStringAsFixed(2),
-                      style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: _midnight),
+          Builder(
+            builder: (BuildContext context) {
+              final AlwaysStoppedAnimation<double> parent =
+                  AlwaysStoppedAnimation<double>(t);
+              final ReverseAnimation rev = ReverseAnimation(parent);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 60.0,
+                      child: Text(
+                        t.toStringAsFixed(2),
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 12.0,
+                          color: _midnight,
+                        ),
+                      ),
                     ),
-                  ),
-                  Expanded(child: _progressBar(parent.value, fill: _gold)),
-                  const SizedBox(width: 14.0),
-                  Expanded(child: _progressBar(rev.value, fill: _wineLight)),
-                  SizedBox(
-                    width: 70.0,
-                    child: Text(
-                      (parent.value + rev.value).toStringAsFixed(2),
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(fontFamily: 'monospace', fontSize: 11.0, color: _slate),
+                    Expanded(child: _progressBar(parent.value, fill: _gold)),
+                    const SizedBox(width: 14.0),
+                    Expanded(child: _progressBar(rev.value, fill: _wineLight)),
+                    SizedBox(
+                      width: 70.0,
+                      child: Text(
+                        (parent.value + rev.value).toStringAsFixed(2),
+                        textAlign: TextAlign.right,
+                        style: const TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 11.0,
+                          color: _slate,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }),
+                  ],
+                ),
+              );
+            },
+          ),
         ],
         const SizedBox(height: 10.0),
         Container(
@@ -1022,13 +1138,21 @@ Widget _reverseAnimationDemo() {
 // SECTION 7 — ProxyAnimation switchboard
 // ============================================================================
 Widget _proxyAnimationDemo() {
-  final AlwaysStoppedAnimation<double> a = const AlwaysStoppedAnimation<double>(0.2);
-  final AlwaysStoppedAnimation<double> b = const AlwaysStoppedAnimation<double>(0.7);
+  final AlwaysStoppedAnimation<double> a = const AlwaysStoppedAnimation<double>(
+    0.2,
+  );
+  final AlwaysStoppedAnimation<double> b = const AlwaysStoppedAnimation<double>(
+    0.7,
+  );
   final ProxyAnimation pNull = ProxyAnimation();
   final ProxyAnimation pa = ProxyAnimation(a);
   final ProxyAnimation pb = ProxyAnimation(b);
 
-  Widget panel(String name, Animation<double> animation, {Color accent = _gold}) {
+  Widget panel(
+    String name,
+    Animation<double> animation, {
+    Color accent = _gold,
+  }) {
     return Container(
       width: 220.0,
       padding: const EdgeInsets.all(12.0),
@@ -1042,7 +1166,11 @@ Widget _proxyAnimationDemo() {
         children: <Widget>[
           Text(
             name,
-            style: const TextStyle(fontWeight: FontWeight.w700, color: _midnight, fontSize: 12.5),
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              color: _midnight,
+              fontSize: 12.5,
+            ),
           ),
           const SizedBox(height: 8.0),
           _progressBar(animation.value, fill: accent),
@@ -1058,8 +1186,11 @@ Widget _proxyAnimationDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('7', 'ProxyAnimation switchboard',
-            'A proxy can have no parent — value is 0.0, status dismissed — and the parent can be hot-swapped.'),
+        _sectionTitle(
+          '7',
+          'ProxyAnimation switchboard',
+          'A proxy can have no parent — value is 0.0, status dismissed — and the parent can be hot-swapped.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1083,9 +1214,15 @@ Widget _proxyAnimationDemo() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('ProxyAnimation() with no parent yields value 0.0 and status dismissed.'),
-              _bullet('Set proxy.parent = otherAnimation to swap, listeners follow automatically.'),
-              _bullet('Useful inside reusable widgets that may receive a parent late.'),
+              _bullet(
+                'ProxyAnimation() with no parent yields value 0.0 and status dismissed.',
+              ),
+              _bullet(
+                'Set proxy.parent = otherAnimation to swap, listeners follow automatically.',
+              ),
+              _bullet(
+                'Useful inside reusable widgets that may receive a parent late.',
+              ),
             ],
           ),
         ),
@@ -1104,8 +1241,11 @@ Widget _alwaysStoppedDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('8', 'AlwaysStoppedAnimation specimens',
-            'A frozen value with status completed (or dismissed for 0).'),
+        _sectionTitle(
+          '8',
+          'AlwaysStoppedAnimation specimens',
+          'A frozen value with status completed (or dismissed for 0).',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1125,14 +1265,32 @@ Widget _alwaysStoppedDemo() {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _pill('t = ${v.toStringAsFixed(2)}', bg: _midnight, fg: _gold),
+                    _pill(
+                      't = ${v.toStringAsFixed(2)}',
+                      bg: _midnight,
+                      fg: _gold,
+                    ),
                     const SizedBox(height: 8.0),
                     _progressBar(v),
                     const SizedBox(height: 8.0),
-                    _kv('value', AlwaysStoppedAnimation<double>(v).value.toStringAsFixed(2)),
-                    _kv('status', AlwaysStoppedAnimation<double>(v).status.name),
-                    _kv('isCompleted', AlwaysStoppedAnimation<double>(v).isCompleted.toString()),
-                    _kv('isDismissed', AlwaysStoppedAnimation<double>(v).isDismissed.toString()),
+                    _kv(
+                      'value',
+                      AlwaysStoppedAnimation<double>(
+                        v,
+                      ).value.toStringAsFixed(2),
+                    ),
+                    _kv(
+                      'status',
+                      AlwaysStoppedAnimation<double>(v).status.name,
+                    ),
+                    _kv(
+                      'isCompleted',
+                      AlwaysStoppedAnimation<double>(v).isCompleted.toString(),
+                    ),
+                    _kv(
+                      'isDismissed',
+                      AlwaysStoppedAnimation<double>(v).isDismissed.toString(),
+                    ),
                   ],
                 ),
               ),
@@ -1150,7 +1308,12 @@ Widget _alwaysStoppedDemo() {
             'AlwaysStoppedAnimation never calls listeners — addListener is a no-op. '
             'Perfect for cases where an API insists on Animation<T> but you only '
             'have a constant.',
-            style: TextStyle(fontSize: 11.5, color: _slate, height: 1.5, fontStyle: FontStyle.italic),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: _slate,
+              height: 1.5,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -1171,8 +1334,12 @@ Widget _compoundFamily() {
   ];
 
   Widget stackedRow(double aVal, double bVal) {
-    final AlwaysStoppedAnimation<double> a = AlwaysStoppedAnimation<double>(aVal);
-    final AlwaysStoppedAnimation<double> b = AlwaysStoppedAnimation<double>(bVal);
+    final AlwaysStoppedAnimation<double> a = AlwaysStoppedAnimation<double>(
+      aVal,
+    );
+    final AlwaysStoppedAnimation<double> b = AlwaysStoppedAnimation<double>(
+      bVal,
+    );
     final AnimationMin<double> min = AnimationMin<double>(a, b);
     final AnimationMax<double> max = AnimationMax<double>(a, b);
     final AnimationMean mean = AnimationMean(left: a, right: b);
@@ -1189,64 +1356,132 @@ Widget _compoundFamily() {
         children: <Widget>[
           Row(
             children: <Widget>[
-              _pill('a=${aVal.toStringAsFixed(2)}', bg: _moss.withOpacity(0.15), fg: _moss),
+              _pill(
+                'a=${aVal.toStringAsFixed(2)}',
+                bg: _moss.withOpacity(0.15),
+                fg: _moss,
+              ),
               const SizedBox(width: 6.0),
-              _pill('b=${bVal.toStringAsFixed(2)}', bg: _wine.withOpacity(0.15), fg: _wine),
+              _pill(
+                'b=${bVal.toStringAsFixed(2)}',
+                bg: _wine.withOpacity(0.15),
+                fg: _wine,
+              ),
             ],
           ),
           const SizedBox(height: 8.0),
           Row(
             children: <Widget>[
-              SizedBox(width: 50.0, child: Text('a', style: const TextStyle(fontSize: 11.0, color: _slate))),
+              SizedBox(
+                width: 50.0,
+                child: Text(
+                  'a',
+                  style: const TextStyle(fontSize: 11.0, color: _slate),
+                ),
+              ),
               Expanded(child: _progressBar(a.value, fill: _mossLight)),
             ],
           ),
           const SizedBox(height: 4.0),
           Row(
             children: <Widget>[
-              SizedBox(width: 50.0, child: Text('b', style: const TextStyle(fontSize: 11.0, color: _slate))),
+              SizedBox(
+                width: 50.0,
+                child: Text(
+                  'b',
+                  style: const TextStyle(fontSize: 11.0, color: _slate),
+                ),
+              ),
               Expanded(child: _progressBar(b.value, fill: _wineLight)),
             ],
           ),
           const SizedBox(height: 8.0),
           Row(
             children: <Widget>[
-              SizedBox(width: 50.0, child: Text('min', style: const TextStyle(fontSize: 11.0, color: _slate, fontWeight: FontWeight.w700))),
+              SizedBox(
+                width: 50.0,
+                child: Text(
+                  'min',
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    color: _slate,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               Expanded(child: _progressBar(min.value, fill: _slate)),
               const SizedBox(width: 6.0),
               SizedBox(
                 width: 50.0,
-                child: Text(min.value.toStringAsFixed(3),
-                    textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _midnight)),
+                child: Text(
+                  min.value.toStringAsFixed(3),
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: _midnight,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 4.0),
           Row(
             children: <Widget>[
-              SizedBox(width: 50.0, child: Text('max', style: const TextStyle(fontSize: 11.0, color: _slate, fontWeight: FontWeight.w700))),
+              SizedBox(
+                width: 50.0,
+                child: Text(
+                  'max',
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    color: _slate,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               Expanded(child: _progressBar(max.value, fill: _gold)),
               const SizedBox(width: 6.0),
               SizedBox(
                 width: 50.0,
-                child: Text(max.value.toStringAsFixed(3),
-                    textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _midnight)),
+                child: Text(
+                  max.value.toStringAsFixed(3),
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: _midnight,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 4.0),
           Row(
             children: <Widget>[
-              SizedBox(width: 50.0, child: Text('mean', style: const TextStyle(fontSize: 11.0, color: _slate, fontWeight: FontWeight.w700))),
+              SizedBox(
+                width: 50.0,
+                child: Text(
+                  'mean',
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    color: _slate,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               Expanded(child: _progressBar(mean.value, fill: _goldDeep)),
               const SizedBox(width: 6.0),
               SizedBox(
                 width: 50.0,
-                child: Text(mean.value.toStringAsFixed(3),
-                    textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _midnight)),
+                child: Text(
+                  mean.value.toStringAsFixed(3),
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: _midnight,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1260,8 +1495,11 @@ Widget _compoundFamily() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('9', 'CompoundAnimation — Min / Max / Mean',
-            'Two voices in, one voice out — no ticker required.'),
+        _sectionTitle(
+          '9',
+          'CompoundAnimation — Min / Max / Mean',
+          'Two voices in, one voice out — no ticker required.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1276,10 +1514,14 @@ Widget _compoundFamily() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _bullet('AnimationMin emits the smaller of two parents at each tick.'),
+              _bullet(
+                'AnimationMin emits the smaller of two parents at each tick.',
+              ),
               _bullet('AnimationMax emits the larger.'),
               _bullet('AnimationMean emits (left + right) / 2.'),
-              _bullet('Subclass CompoundAnimation directly to write your own mixer.'),
+              _bullet(
+                'Subclass CompoundAnimation directly to write your own mixer.',
+              ),
             ],
           ),
         ),
@@ -1308,10 +1550,31 @@ Widget _trainHoppingDiagram() {
             decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           ),
           const SizedBox(width: 10.0),
-          SizedBox(width: 90.0, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, color: _midnight, fontSize: 12.0))),
+          SizedBox(
+            width: 90.0,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                color: _midnight,
+                fontSize: 12.0,
+              ),
+            ),
+          ),
           Expanded(child: _progressBar(t, fill: color)),
           const SizedBox(width: 8.0),
-          SizedBox(width: 50.0, child: Text(t.toStringAsFixed(2), textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _slate))),
+          SizedBox(
+            width: 50.0,
+            child: Text(
+              t.toStringAsFixed(2),
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: _slate,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1321,8 +1584,11 @@ Widget _trainHoppingDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('10', 'TrainHoppingAnimation',
-            'Currently follows Train A, hops to Train B when their values cross.'),
+        _sectionTitle(
+          '10',
+          'TrainHoppingAnimation',
+          'Currently follows Train A, hops to Train B when their values cross.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1352,7 +1618,12 @@ Widget _trainHoppingDiagram() {
                 children: <Widget>[
                   _pill('frame 1', bg: _midnight, fg: _gold),
                   const SizedBox(width: 8.0),
-                  const Expanded(child: Text('output = Train A (0.25)', style: TextStyle(fontSize: 12.0, color: _midnight))),
+                  const Expanded(
+                    child: Text(
+                      'output = Train A (0.25)',
+                      style: TextStyle(fontSize: 12.0, color: _midnight),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -1376,7 +1647,12 @@ Widget _trainHoppingDiagram() {
                 children: <Widget>[
                   _pill('frame 2 — crossing', bg: _goldDeep, fg: _cream),
                   const SizedBox(width: 8.0),
-                  const Expanded(child: Text('hop occurs, onSwitchedTrain fires', style: TextStyle(fontSize: 12.0, color: _midnight))),
+                  const Expanded(
+                    child: Text(
+                      'hop occurs, onSwitchedTrain fires',
+                      style: TextStyle(fontSize: 12.0, color: _midnight),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -1400,7 +1676,12 @@ Widget _trainHoppingDiagram() {
                 children: <Widget>[
                   _pill('frame 3', bg: _midnight, fg: _gold),
                   const SizedBox(width: 8.0),
-                  const Expanded(child: Text('output = Train B (0.85)', style: TextStyle(fontSize: 12.0, color: _midnight))),
+                  const Expanded(
+                    child: Text(
+                      'output = Train B (0.85)',
+                      style: TextStyle(fontSize: 12.0, color: _midnight),
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -1415,7 +1696,12 @@ Widget _trainHoppingDiagram() {
 // SECTION 11 — Recipe cards
 // ============================================================================
 Widget _recipeCards() {
-  Widget recipe(String title, String when, String code, {Color accent = _gold}) {
+  Widget recipe(
+    String title,
+    String when,
+    String code, {
+    Color accent = _gold,
+  }) {
     return Container(
       width: 320.0,
       padding: const EdgeInsets.all(14.0),
@@ -1437,17 +1723,33 @@ Widget _recipeCards() {
                   color: accent,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: const Text('R', style: TextStyle(color: _cream, fontWeight: FontWeight.w800)),
+                child: const Text(
+                  'R',
+                  style: TextStyle(color: _cream, fontWeight: FontWeight.w800),
+                ),
               ),
               const SizedBox(width: 10.0),
               Expanded(
-                child: Text(title,
-                    style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14.0, color: _midnight)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14.0,
+                    color: _midnight,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8.0),
-          Text('When: $when', style: const TextStyle(fontSize: 12.0, color: _slate, fontStyle: FontStyle.italic)),
+          Text(
+            'When: $when',
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: _slate,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
           const SizedBox(height: 8.0),
           Container(
             width: double.infinity,
@@ -1456,13 +1758,15 @@ Widget _recipeCards() {
               color: _midnight,
               borderRadius: BorderRadius.circular(8.0),
             ),
-            child: Text(code,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11.0,
-                  color: _goldLight,
-                  height: 1.45,
-                )),
+            child: Text(
+              code,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 11.0,
+                color: _goldLight,
+                height: 1.45,
+              ),
+            ),
           ),
         ],
       ),
@@ -1474,8 +1778,11 @@ Widget _recipeCards() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('11', 'Recipe cards',
-            'Six everyday patterns that combine these wrappers.'),
+        _sectionTitle(
+          '11',
+          'Recipe cards',
+          'Six everyday patterns that combine these wrappers.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1576,8 +1883,11 @@ Widget _comparisonTable() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('12', 'Comparison table',
-            'Each wrapper vs what it changes vs what it costs at runtime.'),
+        _sectionTitle(
+          '12',
+          'Comparison table',
+          'Each wrapper vs what it changes vs what it costs at runtime.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1589,22 +1899,59 @@ Widget _comparisonTable() {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 10.0,
+                ),
                 decoration: const BoxDecoration(
                   color: _midnight,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(10.0),
+                  ),
                 ),
                 child: Row(
                   children: const <Widget>[
-                    SizedBox(width: 200.0, child: Text('class', style: TextStyle(color: _gold, fontWeight: FontWeight.w700, fontSize: 12.0))),
-                    Expanded(child: Text('what it changes', style: TextStyle(color: _gold, fontWeight: FontWeight.w700, fontSize: 12.0))),
-                    SizedBox(width: 180.0, child: Text('cost per tick', style: TextStyle(color: _gold, fontWeight: FontWeight.w700, fontSize: 12.0))),
+                    SizedBox(
+                      width: 200.0,
+                      child: Text(
+                        'class',
+                        style: TextStyle(
+                          color: _gold,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        'what it changes',
+                        style: TextStyle(
+                          color: _gold,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 180.0,
+                      child: Text(
+                        'cost per tick',
+                        style: TextStyle(
+                          color: _gold,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
               for (int i = 0; i < rows.length; i++)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 10.0,
+                  ),
                   decoration: BoxDecoration(
                     color: i.isEven ? _parchment : _cream,
                   ),
@@ -1613,17 +1960,35 @@ Widget _comparisonTable() {
                     children: <Widget>[
                       SizedBox(
                         width: 200.0,
-                        child: Text(rows[i]['name']!,
-                            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.0, color: _midnight)),
+                        child: Text(
+                          rows[i]['name']!,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12.0,
+                            color: _midnight,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(rows[i]['changes']!,
-                            style: const TextStyle(fontSize: 12.0, color: _midnight, height: 1.45)),
+                        child: Text(
+                          rows[i]['changes']!,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            color: _midnight,
+                            height: 1.45,
+                          ),
+                        ),
                       ),
                       SizedBox(
                         width: 180.0,
-                        child: Text(rows[i]['cost']!,
-                            style: const TextStyle(fontSize: 12.0, color: _slate, fontFamily: 'monospace')),
+                        child: Text(
+                          rows[i]['cost']!,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            color: _slate,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -1658,17 +2023,37 @@ Widget _pitfalls() {
                 width: 22.0,
                 height: 22.0,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(color: accent, borderRadius: BorderRadius.circular(11.0)),
-                child: const Text('!', style: TextStyle(color: _cream, fontWeight: FontWeight.w800)),
+                decoration: BoxDecoration(
+                  color: accent,
+                  borderRadius: BorderRadius.circular(11.0),
+                ),
+                child: const Text(
+                  '!',
+                  style: TextStyle(color: _cream, fontWeight: FontWeight.w800),
+                ),
               ),
               const SizedBox(width: 10.0),
               Expanded(
-                child: Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14.0, color: _midnight)),
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14.0,
+                    color: _midnight,
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 8.0),
-          Text(body, style: const TextStyle(fontSize: 12.5, color: _midnight, height: 1.5)),
+          Text(
+            body,
+            style: const TextStyle(
+              fontSize: 12.5,
+              color: _midnight,
+              height: 1.5,
+            ),
+          ),
         ],
       ),
     );
@@ -1679,44 +2064,47 @@ Widget _pitfalls() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('13', 'Pitfalls and gotchas',
-            'Subtle traps when composing wrappers.'),
+        _sectionTitle(
+          '13',
+          'Pitfalls and gotchas',
+          'Subtle traps when composing wrappers.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
         pitfall(
           'CurvedAnimation needs a parent that travels 0 → 1',
           'Feeding a non-normalized parent (say a Tween<double> that ranges 0 → 200) into '
-          'CurvedAnimation gives nonsense values — the curve formula is only defined on [0, 1].',
+              'CurvedAnimation gives nonsense values — the curve formula is only defined on [0, 1].',
         ),
         pitfall(
           'reverseCurve only kicks in for reverse motion',
           'If you set both curve: easeOut and reverseCurve: easeIn but the controller never '
-          'plays in reverse, reverseCurve is dead weight.',
+              'plays in reverse, reverseCurve is dead weight.',
           accent: _goldDeep,
         ),
         pitfall(
           'ProxyAnimation parent ownership',
           'ProxyAnimation does not dispose its parent — it only listens. Make sure whoever '
-          'created the parent AnimationController disposes it.',
+              'created the parent AnimationController disposes it.',
           accent: _moss,
         ),
         pitfall(
           'AlwaysStoppedAnimation never notifies',
           'If a widget rebuilds based on listener notifications, it will never rebuild from '
-          'an AlwaysStoppedAnimation alone — that\'s by design.',
+              'an AlwaysStoppedAnimation alone — that\'s by design.',
           accent: _slate,
         ),
         pitfall(
           'TrainHoppingAnimation switches once and is then locked',
           'Once it has hopped to next train it follows that one forever. To rotate again you '
-          'need a new TrainHoppingAnimation instance.',
+              'need a new TrainHoppingAnimation instance.',
           accent: _wineLight,
         ),
         pitfall(
           'CompoundAnimation listeners are based on both parents',
           'Because both parents must register listeners, disposing only one leaves the '
-          'compound in a half-broken state.',
+              'compound in a half-broken state.',
           accent: _wine,
         ),
       ],
@@ -1729,26 +2117,71 @@ Widget _pitfalls() {
 // ============================================================================
 Widget _glossary() {
   final List<List<String>> terms = <List<String>>[
-    <String>['Animation<T>', 'A value of type T that changes over time and notifies listeners.'],
-    <String>['AnimationStatus', 'Enum: dismissed, forward, reverse, completed.'],
-    <String>['AnimationController', 'The one Animation<double> with a vsync ticker that drives time.'],
+    <String>[
+      'Animation<T>',
+      'A value of type T that changes over time and notifies listeners.',
+    ],
+    <String>[
+      'AnimationStatus',
+      'Enum: dismissed, forward, reverse, completed.',
+    ],
+    <String>[
+      'AnimationController',
+      'The one Animation<double> with a vsync ticker that drives time.',
+    ],
     <String>['Tween<T>', 'A pair (begin, end) projected by t into a T value.'],
     <String>['Curve', 'A function [0,1] → [0,1] that re-shapes time.'],
     <String>['Curves', 'The catalog of named Curve instances.'],
-    <String>['CurvedAnimation', 'Wraps a parent Animation<double>, exposes curve.transform(parent.value).'],
-    <String>['ReverseAnimation', 'Exposes 1 - parent.value with status mirrored.'],
-    <String>['ProxyAnimation', 'Delegates to a swappable parent, value is 0 with no parent.'],
-    <String>['AlwaysStoppedAnimation', 'A frozen value; listeners are never called.'],
-    <String>['CompoundAnimation', 'Base class for mixing two parents into one Animation<T>.'],
-    <String>['AnimationMin', 'CompoundAnimation that emits the smaller of the two values.'],
-    <String>['AnimationMax', 'CompoundAnimation that emits the larger of the two values.'],
-    <String>['AnimationMean', 'CompoundAnimation that emits (left + right) / 2.'],
-    <String>['Interval', 'Curve that clips to [begin, end] and optionally re-curves inside.'],
-    <String>['Threshold', 'Curve that is 0 below cutoff and 1 above — a step function.'],
-    <String>['Cubic', 'Curve defined by cubic bezier control points like CSS easings.'],
+    <String>[
+      'CurvedAnimation',
+      'Wraps a parent Animation<double>, exposes curve.transform(parent.value).',
+    ],
+    <String>[
+      'ReverseAnimation',
+      'Exposes 1 - parent.value with status mirrored.',
+    ],
+    <String>[
+      'ProxyAnimation',
+      'Delegates to a swappable parent, value is 0 with no parent.',
+    ],
+    <String>[
+      'AlwaysStoppedAnimation',
+      'A frozen value; listeners are never called.',
+    ],
+    <String>[
+      'CompoundAnimation',
+      'Base class for mixing two parents into one Animation<T>.',
+    ],
+    <String>[
+      'AnimationMin',
+      'CompoundAnimation that emits the smaller of the two values.',
+    ],
+    <String>[
+      'AnimationMax',
+      'CompoundAnimation that emits the larger of the two values.',
+    ],
+    <String>[
+      'AnimationMean',
+      'CompoundAnimation that emits (left + right) / 2.',
+    ],
+    <String>[
+      'Interval',
+      'Curve that clips to [begin, end] and optionally re-curves inside.',
+    ],
+    <String>[
+      'Threshold',
+      'Curve that is 0 below cutoff and 1 above — a step function.',
+    ],
+    <String>[
+      'Cubic',
+      'Curve defined by cubic bezier control points like CSS easings.',
+    ],
     <String>['FlippedCurve', 'Wraps a curve c into 1 - c.transform(1 - t).'],
     <String>['SawTooth', 'Curve that produces n triangular ramps over [0,1].'],
-    <String>['TrainHoppingAnimation', 'Tracks parent A, hops to parent B when their values cross.'],
+    <String>[
+      'TrainHoppingAnimation',
+      'Tracks parent A, hops to parent B when their values cross.',
+    ],
   ];
 
   return _card(
@@ -1756,8 +2189,11 @@ Widget _glossary() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _sectionTitle('14', 'Glossary',
-            'Twenty terms from the animation utility vocabulary.'),
+        _sectionTitle(
+          '14',
+          'Glossary',
+          'Twenty terms from the animation utility vocabulary.',
+        ),
         const SizedBox(height: 12.0),
         _goldRule(),
         const SizedBox(height: 12.0),
@@ -1787,8 +2223,14 @@ Widget _glossary() {
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
-                  child: Text(t[1],
-                      style: const TextStyle(fontSize: 12.5, color: _midnight, height: 1.5)),
+                  child: Text(
+                    t[1],
+                    style: const TextStyle(
+                      fontSize: 12.5,
+                      color: _midnight,
+                      height: 1.5,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1822,7 +2264,11 @@ Widget _epilogue() {
             const SizedBox(width: 8.0),
             const Text(
               'Curtain call',
-              style: TextStyle(color: _cream, fontSize: 20.0, fontWeight: FontWeight.w800),
+              style: TextStyle(
+                color: _cream,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ],
         ),
@@ -1835,11 +2281,7 @@ Widget _epilogue() {
           'need to be combined. None of them owns a ticker — every one of them piggy-backs '
           'on the source. Pair them with the right Curve from the catalog, and the '
           'orchestra plays without ever needing a second conductor.',
-          style: TextStyle(
-            color: _cream,
-            fontSize: 13.0,
-            height: 1.6,
-          ),
+          style: TextStyle(color: _cream, fontSize: 13.0, height: 1.6),
         ),
         const SizedBox(height: 16.0),
         Container(
@@ -1854,27 +2296,47 @@ Widget _epilogue() {
             children: <Widget>[
               Text(
                 'curve = Curves.fastOutSlowIn',
-                style: TextStyle(color: _goldLight, fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(
+                  color: _goldLight,
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
                 'parent = AnimationController(...)',
-                style: TextStyle(color: _goldLight, fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(
+                  color: _goldLight,
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
                 'shaped = CurvedAnimation(parent: parent, curve: curve)',
-                style: TextStyle(color: _goldLight, fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(
+                  color: _goldLight,
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
                 'reversed = ReverseAnimation(shaped)',
-                style: TextStyle(color: _goldLight, fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(
+                  color: _goldLight,
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
                 'combined = AnimationMean(left: shaped, right: reversed)',
-                style: TextStyle(color: _goldLight, fontFamily: 'monospace', fontSize: 12.0),
+                style: TextStyle(
+                  color: _goldLight,
+                  fontFamily: 'monospace',
+                  fontSize: 12.0,
+                ),
               ),
             ],
           ),
@@ -1895,17 +2357,21 @@ Widget _mathSanityBar() {
       children: <Widget>[
         const SizedBox(
           width: 180.0,
-          child: Text('sin(π/4) reference',
-              style: TextStyle(fontSize: 11.5, color: _slate)),
+          child: Text(
+            'sin(π/4) reference',
+            style: TextStyle(fontSize: 11.5, color: _slate),
+          ),
         ),
         Expanded(child: _progressBar(sample, fill: _goldDeep)),
         const SizedBox(width: 8.0),
-        Text(sample.toStringAsFixed(3),
-            style: const TextStyle(
-              fontSize: 11.0,
-              color: _slate,
-              fontFamily: 'monospace',
-            )),
+        Text(
+          sample.toStringAsFixed(3),
+          style: const TextStyle(
+            fontSize: 11.0,
+            color: _slate,
+            fontFamily: 'monospace',
+          ),
+        ),
       ],
     ),
   );
@@ -1917,7 +2383,8 @@ Widget _mathSanityBar() {
 dynamic build(BuildContext context) {
   // Pre-instantiate every wrapper kind so the test surface is real even
   // before any widget renders — this is the actual D4rt assertion target.
-  const AlwaysStoppedAnimation<double> probeStopped = AlwaysStoppedAnimation<double>(0.5);
+  const AlwaysStoppedAnimation<double> probeStopped =
+      AlwaysStoppedAnimation<double>(0.5);
   final CurvedAnimation probeCurved = CurvedAnimation(
     parent: probeStopped,
     curve: Curves.easeInOut,
@@ -1925,9 +2392,18 @@ dynamic build(BuildContext context) {
   );
   final ReverseAnimation probeReverse = ReverseAnimation(probeStopped);
   final ProxyAnimation probeProxy = ProxyAnimation(probeStopped);
-  final AnimationMin<double> probeMin = AnimationMin<double>(probeStopped, probeStopped);
-  final AnimationMax<double> probeMax = AnimationMax<double>(probeStopped, probeStopped);
-  final AnimationMean probeMean = AnimationMean(left: probeStopped, right: probeStopped);
+  final AnimationMin<double> probeMin = AnimationMin<double>(
+    probeStopped,
+    probeStopped,
+  );
+  final AnimationMax<double> probeMax = AnimationMax<double>(
+    probeStopped,
+    probeStopped,
+  );
+  final AnimationMean probeMean = AnimationMean(
+    left: probeStopped,
+    right: probeStopped,
+  );
 
   // Touch the values so the analyzer keeps these alive without warnings.
   final List<String> probeReadout = <String>[
@@ -1989,8 +2465,11 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _sectionTitle('15', 'Engineering footer',
-                        'staff motif, math sanity check, live probe readout.'),
+                    _sectionTitle(
+                      '15',
+                      'Engineering footer',
+                      'staff motif, math sanity check, live probe readout.',
+                    ),
                     const SizedBox(height: 12.0),
                     _goldRule(),
                     const SizedBox(height: 12.0),

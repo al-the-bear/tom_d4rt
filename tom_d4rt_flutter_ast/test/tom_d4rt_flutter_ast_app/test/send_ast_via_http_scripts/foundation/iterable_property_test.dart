@@ -25,27 +25,30 @@ dynamic build(BuildContext context) {
   // ============================================================
   // Live IterableProperty instances we will exhibit visually
   // ============================================================
-  final propStrings = IterableProperty<String>(
-    'children',
-    <String>['Header', 'Body', 'Footer'],
-  );
-  final propInts = IterableProperty<int>(
-    'pageBreaks',
-    <int>[1, 14, 27, 42, 55],
-  );
-  final propDoubles = IterableProperty<double>(
-    'weights',
-    <double>[0.125, 0.25, 0.5, 1.0],
-  );
+  final propStrings = IterableProperty<String>('children', <String>[
+    'Header',
+    'Body',
+    'Footer',
+  ]);
+  final propInts = IterableProperty<int>('pageBreaks', <int>[
+    1,
+    14,
+    27,
+    42,
+    55,
+  ]);
+  final propDoubles = IterableProperty<double>('weights', <double>[
+    0.125,
+    0.25,
+    0.5,
+    1.0,
+  ]);
   final propEmpty = IterableProperty<String>(
     'tags',
     <String>[],
     ifEmpty: '<no tags>',
   );
-  final propEmptyNoMessage = IterableProperty<String>(
-    'flags',
-    <String>[],
-  );
+  final propEmptyNoMessage = IterableProperty<String>('flags', <String>[]);
   final propNull = IterableProperty<String>(
     'optionalRoutes',
     null,
@@ -56,36 +59,34 @@ dynamic build(BuildContext context) {
     <int>[600, 1024, 1440],
     defaultValue: <int>[600, 1024, 1440],
   );
-  final propStyledFlat = IterableProperty<String>(
-    'channels',
-    <String>['alpha', 'beta', 'gamma'],
-    style: DiagnosticsTreeStyle.flat,
-  );
-  final propStyledSingleLine = IterableProperty<String>(
-    'segments',
-    <String>['intro', 'verse', 'chorus', 'outro'],
-    style: DiagnosticsTreeStyle.singleLine,
-  );
-  final propHiddenName = IterableProperty<String>(
-    'hidden',
-    <String>['only', 'values'],
-    showName: false,
-  );
-  final propNoSeparator = IterableProperty<String>(
-    'compact',
-    <String>['x', 'y', 'z'],
-    showSeparator: false,
-  );
-  final propFineLevel = IterableProperty<String>(
-    'verboseList',
-    <String>['debug', 'trace'],
-    level: DiagnosticLevel.fine,
-  );
-  final propDebugLevel = IterableProperty<String>(
-    'inspectList',
-    <String>['scan', 'audit'],
-    level: DiagnosticLevel.debug,
-  );
+  final propStyledFlat = IterableProperty<String>('channels', <String>[
+    'alpha',
+    'beta',
+    'gamma',
+  ], style: DiagnosticsTreeStyle.flat);
+  final propStyledSingleLine = IterableProperty<String>('segments', <String>[
+    'intro',
+    'verse',
+    'chorus',
+    'outro',
+  ], style: DiagnosticsTreeStyle.singleLine);
+  final propHiddenName = IterableProperty<String>('hidden', <String>[
+    'only',
+    'values',
+  ], showName: false);
+  final propNoSeparator = IterableProperty<String>('compact', <String>[
+    'x',
+    'y',
+    'z',
+  ], showSeparator: false);
+  final propFineLevel = IterableProperty<String>('verboseList', <String>[
+    'debug',
+    'trace',
+  ], level: DiagnosticLevel.fine);
+  final propDebugLevel = IterableProperty<String>('inspectList', <String>[
+    'scan',
+    'audit',
+  ], level: DiagnosticLevel.debug);
 
   print('children=${propStrings.toString()}');
   print('pageBreaks=${propInts.toString()}');
@@ -106,11 +107,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0F2027),
-          Color(0xFF203A43),
-          Color(0xFF2C5364),
-        ],
+        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -188,8 +185,11 @@ dynamic build(BuildContext context) {
         SizedBox(height: 16.0),
         Row(
           children: [
-            _heroBadge('extends', 'DiagnosticsProperty<Iterable<T>>',
-                Colors.deepPurpleAccent),
+            _heroBadge(
+              'extends',
+              'DiagnosticsProperty<Iterable<T>>',
+              Colors.deepPurpleAccent,
+            ),
             SizedBox(width: 8.0),
             _heroBadge('since', 'Flutter 1.0', Colors.tealAccent),
           ],
@@ -226,8 +226,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree_outlined,
-                color: Colors.amber.shade900, size: 28.0),
+            Icon(
+              Icons.account_tree_outlined,
+              color: Colors.amber.shade900,
+              size: 28.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Anatomy of a Diagnostics Node',
@@ -240,12 +243,24 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        _anatomyRow('name', 'children', 'identifier shown left of separator',
-            Colors.indigo),
-        _anatomyRow('separator', ': ', 'shown when showSeparator is true',
-            Colors.brown),
-        _anatomyRow('value', '[Header, Body, Footer]',
-            'rendered by valueToString()', Colors.green),
+        _anatomyRow(
+          'name',
+          'children',
+          'identifier shown left of separator',
+          Colors.indigo,
+        ),
+        _anatomyRow(
+          'separator',
+          ': ',
+          'shown when showSeparator is true',
+          Colors.brown,
+        ),
+        _anatomyRow(
+          'value',
+          '[Header, Body, Footer]',
+          'rendered by valueToString()',
+          Colors.green,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -394,7 +409,8 @@ dynamic build(BuildContext context) {
   final recipeRows = <Widget>[
     _recipeRow(
       title: 'A simple list of strings',
-      code: "IterableProperty<String>('children', ['Header', 'Body', 'Footer'])",
+      code:
+          "IterableProperty<String>('children', ['Header', 'Body', 'Footer'])",
       output: 'children: ${propStrings.toString()}',
       tone: Colors.indigo,
     ),
@@ -424,31 +440,36 @@ dynamic build(BuildContext context) {
     ),
     _recipeRow(
       title: 'Null value with ifNull placeholder',
-      code: "IterableProperty<String>('optionalRoutes', null, ifNull: '<unbound>')",
+      code:
+          "IterableProperty<String>('optionalRoutes', null, ifNull: '<unbound>')",
       output: 'optionalRoutes: ${propNull.toString()}',
       tone: Colors.blueGrey,
     ),
     _recipeRow(
       title: 'Hidden name (showName: false)',
-      code: "IterableProperty<String>('hidden', ['only', 'values'], showName: false)",
+      code:
+          "IterableProperty<String>('hidden', ['only', 'values'], showName: false)",
       output: propHiddenName.toString(),
       tone: Colors.brown,
     ),
     _recipeRow(
       title: 'No separator (showSeparator: false)',
-      code: "IterableProperty<String>('compact', ['x', 'y', 'z'], showSeparator: false)",
+      code:
+          "IterableProperty<String>('compact', ['x', 'y', 'z'], showSeparator: false)",
       output: propNoSeparator.toString(),
       tone: Colors.cyan,
     ),
     _recipeRow(
       title: 'Style: singleLine collapses children',
-      code: "IterableProperty<String>('segments', ['intro', 'verse', 'chorus', 'outro'], style: DiagnosticsTreeStyle.singleLine)",
+      code:
+          "IterableProperty<String>('segments', ['intro', 'verse', 'chorus', 'outro'], style: DiagnosticsTreeStyle.singleLine)",
       output: 'segments: ${propStyledSingleLine.toString()}',
       tone: Colors.pink,
     ),
     _recipeRow(
       title: 'Level: fine (visible only in verbose mode)',
-      code: "IterableProperty<String>('verboseList', ['debug', 'trace'], level: DiagnosticLevel.fine)",
+      code:
+          "IterableProperty<String>('verboseList', ['debug', 'trace'], level: DiagnosticLevel.fine)",
       output: 'verboseList: ${propFineLevel.toString()}',
       tone: Colors.green,
     ),
@@ -482,8 +503,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade700, size: 28.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 28.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls and Gotchas',
@@ -557,8 +581,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.compare_arrows,
-                color: Colors.green.shade800, size: 28.0),
+            Icon(
+              Icons.compare_arrows,
+              color: Colors.green.shade800,
+              size: 28.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'IterableProperty vs Friends',
@@ -628,10 +655,12 @@ dynamic build(BuildContext context) {
   final snapshotAnim3 = AlwaysStoppedAnimation<double>(0.66);
   final snapshotAnim4 = AlwaysStoppedAnimation<double>(1.0);
   final zeroDuration = Duration.zero;
-  print('snapshot animations created with values: '
-      '${snapshotAnim1.value}, ${snapshotAnim2.value}, '
-      '${snapshotAnim3.value}, ${snapshotAnim4.value} '
-      'over ${zeroDuration.inMilliseconds}ms');
+  print(
+    'snapshot animations created with values: '
+    '${snapshotAnim1.value}, ${snapshotAnim2.value}, '
+    '${snapshotAnim3.value}, ${snapshotAnim4.value} '
+    'over ${zeroDuration.inMilliseconds}ms',
+  );
 
   final snapshot = Container(
     margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -718,8 +747,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book_outlined,
-                color: Colors.deepPurple.shade800, size: 28.0),
+            Icon(
+              Icons.menu_book_outlined,
+              color: Colors.deepPurple.shade800,
+              size: 28.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Quick Reference',
@@ -740,8 +772,10 @@ dynamic build(BuildContext context) {
         _quickRefRow('named', 'defaultValue, ifNull, ifEmpty (default \'[]\')'),
         _quickRefRow('named', 'style, showName, showSeparator, level'),
         _quickRefRow('main override', 'valueToString({parentConfiguration})'),
-        _quickRefRow('level rule',
-            'fine when ifEmpty == null && value.isEmpty'),
+        _quickRefRow(
+          'level rule',
+          'fine when ifEmpty == null && value.isEmpty',
+        ),
         _quickRefRow('json key', "'values' added to toJsonMap when non-null"),
       ],
     ),
@@ -903,10 +937,7 @@ Widget _heroBadge(String label, String value, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.25),
-          color.withValues(alpha: 0.45),
-        ],
+        colors: [color.withValues(alpha: 0.25), color.withValues(alpha: 0.45)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -946,7 +977,12 @@ Widget _heroBadge(String label, String value, Color color) {
   );
 }
 
-Widget _anatomyRow(String label, String token, String description, Color color) {
+Widget _anatomyRow(
+  String label,
+  String token,
+  String description,
+  Color color,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -1014,10 +1050,7 @@ Widget _paramCard({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.06),
-          color.withValues(alpha: 0.16),
-        ],
+        colors: [color.withValues(alpha: 0.06), color.withValues(alpha: 0.16)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1100,8 +1133,7 @@ Widget _paramCard({
             children: [
               Row(
                 children: [
-                  Icon(Icons.code,
-                      color: Colors.cyan.shade300, size: 14.0),
+                  Icon(Icons.code, color: Colors.cyan.shade300, size: 14.0),
                   SizedBox(width: 6.0),
                   Text(
                     'example',
@@ -1125,8 +1157,11 @@ Widget _paramCard({
               SizedBox(height: 8.0),
               Row(
                 children: [
-                  Icon(Icons.print_outlined,
-                      color: Colors.amber.shade300, size: 14.0),
+                  Icon(
+                    Icons.print_outlined,
+                    color: Colors.amber.shade300,
+                    size: 14.0,
+                  ),
                   SizedBox(width: 6.0),
                   Text(
                     'debug-print rendering',
@@ -1233,10 +1268,7 @@ Widget _recipeRow({
           decoration: BoxDecoration(
             color: tone.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-              color: tone.withValues(alpha: 0.25),
-              width: 1.0,
-            ),
+            border: Border.all(color: tone.withValues(alpha: 0.25), width: 1.0),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1267,8 +1299,11 @@ Widget _pitfallEntry(String title, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.report_problem_outlined,
-            color: Colors.red.shade700, size: 18.0),
+        Icon(
+          Icons.report_problem_outlined,
+          color: Colors.red.shade700,
+          size: 18.0,
+        ),
         SizedBox(width: 8.0),
         Expanded(
           child: Column(
@@ -1400,10 +1435,7 @@ Widget _snapshotBar(String label, double value, Color color) {
               height: 70.0 * value,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    color.withValues(alpha: 0.6),
-                    color,
-                  ],
+                  colors: [color.withValues(alpha: 0.6), color],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),

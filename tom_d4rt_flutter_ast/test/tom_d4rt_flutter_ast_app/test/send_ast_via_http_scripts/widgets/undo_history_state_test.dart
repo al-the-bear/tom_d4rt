@@ -200,9 +200,7 @@ class _UhStNotebookRootState extends State<_UhStNotebookRoot> {
                 onStackCap: _setStackCap,
                 onJump: _jumpToChapter,
               ),
-              Expanded(
-                child: _UhStPage(scroll: _scroll),
-              ),
+              Expanded(child: _UhStPage(scroll: _scroll)),
             ],
           ),
         ),
@@ -231,8 +229,8 @@ class _UhStSettings extends InheritedWidget {
   final VoidCallback onRevert;
 
   static _UhStSettings of(BuildContext context) {
-    final _UhStSettings? found =
-        context.dependOnInheritedWidgetOfExactType<_UhStSettings>();
+    final _UhStSettings? found = context
+        .dependOnInheritedWidgetOfExactType<_UhStSettings>();
     assert(found != null, '_UhStSettings missing above this context');
     return found!;
   }
@@ -384,8 +382,7 @@ class _UhStLeatherSpine extends StatelessWidget {
                   activeTrackColor: _UhStPalette.mustard,
                   inactiveTrackColor: _UhStPalette.leatherDeep,
                   thumbColor: _UhStPalette.paper,
-                  overlayColor:
-                      _UhStPalette.mustardSoft.withValues(alpha: 0.3),
+                  overlayColor: _UhStPalette.mustardSoft.withValues(alpha: 0.3),
                 ),
                 child: Slider(
                   min: 4,
@@ -547,15 +544,9 @@ class _UhStLeatherPainter extends CustomPainter {
       ..shader = const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: <Color>[
-          Color(0x00000000),
-          Color(0x66000000),
-        ],
+        colors: <Color>[Color(0x00000000), Color(0x66000000)],
       ).createShader(Rect.fromLTWH(size.width - 28, 0, 28, size.height));
-    canvas.drawRect(
-      Rect.fromLTWH(size.width - 28, 0, 28, size.height),
-      fold,
-    );
+    canvas.drawRect(Rect.fromLTWH(size.width - 28, 0, 28, size.height), fold);
 
     // Gold double stitching along both long edges.
     final Paint stitch = Paint()
@@ -567,11 +558,7 @@ class _UhStLeatherPainter extends CustomPainter {
     for (double x in <double>[7, size.width - 7]) {
       double y = 12;
       while (y < size.height - 12) {
-        canvas.drawLine(
-          Offset(x, y),
-          Offset(x, y + dashLen),
-          stitch,
-        );
+        canvas.drawLine(Offset(x, y), Offset(x, y + dashLen), stitch);
         y += dashLen + gap;
       }
     }
@@ -579,16 +566,10 @@ class _UhStLeatherPainter extends CustomPainter {
     // Horizontal headbands top and bottom.
     final Paint band = Paint()..color = _UhStPalette.mustardDeep;
     canvas.drawRect(Rect.fromLTWH(0, 0, size.width, 6), band);
-    canvas.drawRect(
-      Rect.fromLTWH(0, size.height - 6, size.width, 6),
-      band,
-    );
+    canvas.drawRect(Rect.fromLTWH(0, size.height - 6, size.width, 6), band);
     final Paint bandStripe = Paint()..color = _UhStPalette.mustardSoft;
     for (int i = 0; i < size.width.toInt(); i += 8) {
-      canvas.drawRect(
-        Rect.fromLTWH(i.toDouble(), 1, 4, 4),
-        bandStripe,
-      );
+      canvas.drawRect(Rect.fromLTWH(i.toDouble(), 1, 4, 4), bandStripe);
       canvas.drawRect(
         Rect.fromLTWH(i.toDouble(), size.height - 5, 4, 4),
         bandStripe,
@@ -619,10 +600,7 @@ class _UhStPage extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _UhStPalette.paper,
-            _UhStPalette.paperWarm,
-          ],
+          colors: <Color>[_UhStPalette.paper, _UhStPalette.paperWarm],
         ),
       ),
       child: CustomPaint(
@@ -668,11 +646,7 @@ class _UhStRuledPagePainter extends CustomPainter {
     final Paint margin = Paint()
       ..color = _UhStPalette.sealRed.withValues(alpha: 0.4)
       ..strokeWidth = 1.1;
-    canvas.drawLine(
-      const Offset(44, 0),
-      Offset(44, size.height),
-      margin,
-    );
+    canvas.drawLine(const Offset(44, 0), Offset(44, size.height), margin);
     // Second margin rule to form a double line.
     canvas.drawLine(
       const Offset(47, 0),
@@ -729,11 +703,13 @@ class _UhStCard extends StatelessWidget {
             textBaseline: TextBaseline.alphabetic,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: _UhStPalette.mustard,
-                  border:
-                      Border.all(color: _UhStPalette.navyDeep, width: 1.2),
+                  border: Border.all(color: _UhStPalette.navyDeep, width: 1.2),
                 ),
                 child: Text(
                   numeral,
@@ -809,8 +785,11 @@ class _UhStPreamble extends StatelessWidget {
               _UhStFact('Library', 'package:flutter/widgets.dart'),
               _UhStFact('File', 'src/widgets/undo_history.dart'),
               _UhStFact('Widget', 'UndoHistory<T> extends StatefulWidget'),
-              _UhStFact('State', 'UndoHistoryState<T> extends State<...> '
-                  'with UndoManagerClient'),
+              _UhStFact(
+                'State',
+                'UndoHistoryState<T> extends State<...> '
+                    'with UndoManagerClient',
+              ),
               _UhStFact('Annotation', '@visibleForTesting'),
               _UhStFact('Exposes', 'undo(), redo(), canUndo, canRedo'),
               _UhStFact('Observes', 'ValueNotifier<T> passed as `value`'),
@@ -981,38 +960,40 @@ class _UhStAnatomy extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           const _UhStSectionLabel('Members'),
-          _UhStSignatureTable(rows: const <_UhStSignatureRow>[
-            _UhStSignatureRow(
-              'void undo()',
-              'Pop one entry from the past stack, call widget.onTriggered '
-                  'with the previous value. If a throttled push is still in '
-                  'flight it is cancelled and treated as the "current" entry.',
-            ),
-            _UhStSignatureRow(
-              'void redo()',
-              'Move one entry from the future stack back onto the present. '
-                  'Calls onTriggered. Does nothing if the future stack is '
-                  'empty.',
-            ),
-            _UhStSignatureRow(
-              'bool get canUndo',
-              'True when at least one earlier value is recorded.',
-            ),
-            _UhStSignatureRow(
-              'bool get canRedo',
-              'True when at least one value was un-done since the last commit.',
-            ),
-            _UhStSignatureRow(
-              'void handlePlatformUndo(UndoDirection d)',
-              'UndoManagerClient hook: called from native undo menu on iOS. '
-                  'Forwards to undo() / redo().',
-            ),
-            _UhStSignatureRow(
-              'Widget build(BuildContext c)',
-              'Installs Actions for UndoTextIntent and RedoTextIntent so '
-                  'platform-level keyboard shortcuts are wired up.',
-            ),
-          ]),
+          _UhStSignatureTable(
+            rows: const <_UhStSignatureRow>[
+              _UhStSignatureRow(
+                'void undo()',
+                'Pop one entry from the past stack, call widget.onTriggered '
+                    'with the previous value. If a throttled push is still in '
+                    'flight it is cancelled and treated as the "current" entry.',
+              ),
+              _UhStSignatureRow(
+                'void redo()',
+                'Move one entry from the future stack back onto the present. '
+                    'Calls onTriggered. Does nothing if the future stack is '
+                    'empty.',
+              ),
+              _UhStSignatureRow(
+                'bool get canUndo',
+                'True when at least one earlier value is recorded.',
+              ),
+              _UhStSignatureRow(
+                'bool get canRedo',
+                'True when at least one value was un-done since the last commit.',
+              ),
+              _UhStSignatureRow(
+                'void handlePlatformUndo(UndoDirection d)',
+                'UndoManagerClient hook: called from native undo menu on iOS. '
+                    'Forwards to undo() / redo().',
+              ),
+              _UhStSignatureRow(
+                'Widget build(BuildContext c)',
+                'Installs Actions for UndoTextIntent and RedoTextIntent so '
+                    'platform-level keyboard shortcuts are wired up.',
+              ),
+            ],
+          ),
           const SizedBox(height: 18),
           const _UhStSectionLabel('Lifecycle'),
           const _UhStLifecycleList(),
@@ -1053,11 +1034,7 @@ class _UhStSectionLabel extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 4,
-            height: 18,
-            color: _UhStPalette.navyInk,
-          ),
+          Container(width: 4, height: 18, color: _UhStPalette.navyInk),
           const SizedBox(width: 10),
           Text(
             text.toUpperCase(),
@@ -1145,26 +1122,36 @@ class _UhStLifecycleList extends StatelessWidget {
   const _UhStLifecycleList();
 
   static const List<List<String>> _steps = <List<String>>[
-    <String>['initState',
-        'Build the throttled pusher with a 500 ms cadence, push the initial '
-            'value onto the stack, attach listeners to value, focusNode, and '
-            'the effective controller\'s onUndo / onRedo notifiers.'],
-    <String>['didUpdateWidget',
-        'If widget.value changed, clear the stack and swap listeners. If '
-            'widget.focusNode changed, swap focus listeners. If '
-            'widget.controller changed, detach the old controller, allocate a '
-            'new implicit one if needed.'],
-    <String>['_push (triggered by value change)',
-        'Early-returns if value is unchanged, if an undo/redo is in flight, '
-            'if shouldChangeUndoStack returned false, or if the value '
-            'transformed through undoStackModifier matches the last '
-            'recorded. Otherwise schedules a throttled push.'],
-    <String>['undo / redo',
-        'Pops / un-pops a value and calls widget.onTriggered. Updates '
-            'controller.value and, on iOS, the platform UndoManager state.'],
-    <String>['dispose',
-        'Detach listeners, dispose any implicit controller, cancel the '
-            'pending throttle timer, clear UndoManager.client if this was it.'],
+    <String>[
+      'initState',
+      'Build the throttled pusher with a 500 ms cadence, push the initial '
+          'value onto the stack, attach listeners to value, focusNode, and '
+          'the effective controller\'s onUndo / onRedo notifiers.',
+    ],
+    <String>[
+      'didUpdateWidget',
+      'If widget.value changed, clear the stack and swap listeners. If '
+          'widget.focusNode changed, swap focus listeners. If '
+          'widget.controller changed, detach the old controller, allocate a '
+          'new implicit one if needed.',
+    ],
+    <String>[
+      '_push (triggered by value change)',
+      'Early-returns if value is unchanged, if an undo/redo is in flight, '
+          'if shouldChangeUndoStack returned false, or if the value '
+          'transformed through undoStackModifier matches the last '
+          'recorded. Otherwise schedules a throttled push.',
+    ],
+    <String>[
+      'undo / redo',
+      'Pops / un-pops a value and calls widget.onTriggered. Updates '
+          'controller.value and, on iOS, the platform UndoManager state.',
+    ],
+    <String>[
+      'dispose',
+      'Detach listeners, dispose any implicit controller, cancel the '
+          'pending throttle timer, clear UndoManager.client if this was it.',
+    ],
   ];
 
   @override
@@ -1254,9 +1241,7 @@ class _UhStTypewriterState extends State<_UhStTypewriter> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController(
-      text: 'The field notebook begins.',
-    );
+    _textController = TextEditingController(text: 'The field notebook begins.');
     _focus = FocusNode(debugLabel: 'uhst-typewriter');
     _undoController = UndoHistoryController();
     _undoController.addListener(_onHistoryChanged);
@@ -1287,7 +1272,8 @@ class _UhStTypewriterState extends State<_UhStTypewriter> {
     // In strict mode, only keep commits that end in a word boundary so the
     // user's undo stack does not fill with every keystroke.
     if (settings.strictPredicate) {
-      final bool endsAtBoundary = newValue.text.isEmpty ||
+      final bool endsAtBoundary =
+          newValue.text.isEmpty ||
           newValue.text.endsWith(' ') ||
           newValue.text.endsWith('.') ||
           newValue.text.endsWith(',') ||
@@ -1313,7 +1299,9 @@ class _UhStTypewriterState extends State<_UhStTypewriter> {
     final String insertion = '[$now] ';
     _textController.value = TextEditingValue(
       text: '${cur.text}$insertion',
-      selection: TextSelection.collapsed(offset: cur.text.length + insertion.length),
+      selection: TextSelection.collapsed(
+        offset: cur.text.length + insertion.length,
+      ),
     );
     _focus.requestFocus();
   }
@@ -1745,13 +1733,17 @@ class _UhStSwatchesState extends State<_UhStSwatches> {
                 _UhStToolbarButton(
                   label: 'undo',
                   enabled: _controller.value.canUndo,
-                  onPressed: _controller.value.canUndo ? _controller.undo : null,
+                  onPressed: _controller.value.canUndo
+                      ? _controller.undo
+                      : null,
                 ),
                 const SizedBox(width: 6),
                 _UhStToolbarButton(
                   label: 'redo',
                   enabled: _controller.value.canRedo,
-                  onPressed: _controller.value.canRedo ? _controller.redo : null,
+                  onPressed: _controller.value.canRedo
+                      ? _controller.redo
+                      : null,
                 ),
               ],
             ),
@@ -1787,7 +1779,10 @@ class _UhStSwatchViewer extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: Container(
                 margin: const EdgeInsets.all(10),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 color: _UhStPalette.paper.withValues(alpha: 0.88),
                 child: Text(
                   _hex(colour),
@@ -1866,7 +1861,9 @@ class _UhStSwatchStrip extends StatelessWidget {
               decoration: BoxDecoration(
                 color: c,
                 border: Border.all(
-                  color: selected ? _UhStPalette.mustard : _UhStPalette.navyDeep,
+                  color: selected
+                      ? _UhStPalette.mustard
+                      : _UhStPalette.navyDeep,
                   width: selected ? 3 : 1,
                 ),
               ),
@@ -1982,7 +1979,10 @@ class _UhStStackDiagramState extends State<_UhStStackDiagram> {
             runSpacing: 8,
             children: <Widget>[
               _UhStToolbarButton(
-                  label: 'commit', enabled: true, onPressed: _commit),
+                label: 'commit',
+                enabled: true,
+                onPressed: _commit,
+              ),
               _UhStToolbarButton(
                 label: 'undo',
                 enabled: _past.isNotEmpty,
@@ -1994,7 +1994,10 @@ class _UhStStackDiagramState extends State<_UhStStackDiagram> {
                 onPressed: _future.isNotEmpty ? _redo : null,
               ),
               _UhStToolbarButton(
-                label: 'clear all', enabled: true, onPressed: _clear),
+                label: 'clear all',
+                enabled: true,
+                onPressed: _clear,
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -2043,11 +2046,29 @@ class _UhStStackPainter extends CustomPainter {
     final double bottom = size.height - 12;
     final double usable = bottom - top;
 
-    _drawColumn(canvas, 'PAST', 0, col, top, bottom, usable, past,
-        _UhStPalette.navyInk);
+    _drawColumn(
+      canvas,
+      'PAST',
+      0,
+      col,
+      top,
+      bottom,
+      usable,
+      past,
+      _UhStPalette.navyInk,
+    );
     _drawPresent(canvas, col, col, top, bottom, present);
-    _drawColumn(canvas, 'FUTURE', col * 2, col, top, bottom, usable, future,
-        _UhStPalette.leather);
+    _drawColumn(
+      canvas,
+      'FUTURE',
+      col * 2,
+      col,
+      top,
+      bottom,
+      usable,
+      future,
+      _UhStPalette.leather,
+    );
 
     // Column headers.
     final TextPainter capLabel = TextPainter(
@@ -2103,16 +2124,17 @@ class _UhStStackPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      empty.paint(canvas,
-          Offset(x + (width - empty.width) / 2, top + usable / 2 - 6));
+      empty.paint(
+        canvas,
+        Offset(x + (width - empty.width) / 2, top + usable / 2 - 6),
+      );
       return;
     }
 
     final double slot = (usable / entries.length).clamp(10, 30).toDouble();
     for (int i = 0; i < entries.length; i++) {
       final double y = bottom - (i + 1) * slot;
-      final Rect r =
-          Rect.fromLTWH(x + 10, y + 2, width - 20, slot - 4);
+      final Rect r = Rect.fromLTWH(x + 10, y + 2, width - 20, slot - 4);
       final Paint p = Paint()
         ..color = base.withValues(alpha: 0.08 + 0.08 * (i % 6));
       canvas.drawRect(r, p);
@@ -2138,7 +2160,10 @@ class _UhStStackPainter extends CustomPainter {
           maxLines: 1,
           ellipsis: '..',
         )..layout(maxWidth: r.width - 8);
-        label.paint(canvas, Offset(r.left + 6, r.top + (r.height - label.height) / 2));
+        label.paint(
+          canvas,
+          Offset(r.left + 6, r.top + (r.height - label.height) / 2),
+        );
       }
     }
   }
@@ -2187,8 +2212,10 @@ class _UhStStackPainter extends CustomPainter {
       maxLines: 1,
       ellipsis: '..',
     )..layout(maxWidth: hero.width - 12);
-    tp.paint(canvas,
-        Offset(hero.left + 10, hero.top + (hero.height - tp.height) / 2));
+    tp.paint(
+      canvas,
+      Offset(hero.left + 10, hero.top + (hero.height - tp.height) / 2),
+    );
 
     final Paint arrow = Paint()
       ..color = _UhStPalette.navyInk
@@ -2235,8 +2262,9 @@ class _UhStPredicateGateState extends State<_UhStPredicateGate> {
   late final FocusNode _strictFocus;
   late final UndoHistoryController _openCtrl;
   late final UndoHistoryController _strictCtrl;
-  final TextEditingController _echo =
-      TextEditingController(text: 'Try typing: hello world.\n');
+  final TextEditingController _echo = TextEditingController(
+    text: 'Try typing: hello world.\n',
+  );
   final int _openRejects = 0;
   int _strictRejects = 0;
 
@@ -2282,7 +2310,8 @@ class _UhStPredicateGateState extends State<_UhStPredicateGate> {
 
   bool _strictPredicate(String? oldValue, String newValue) {
     if (oldValue == null) return true;
-    final bool atBoundary = newValue.isEmpty ||
+    final bool atBoundary =
+        newValue.isEmpty ||
         newValue.endsWith(' ') ||
         newValue.endsWith('.') ||
         newValue.endsWith('\n');
@@ -2333,8 +2362,10 @@ class _UhStPredicateGateState extends State<_UhStPredicateGate> {
               _echo.text = v;
               _UhStSettings.of(context).onRevert();
             },
-            child:
-                Focus(focusNode: _strictFocus, child: const SizedBox.shrink()),
+            child: Focus(
+              focusNode: _strictFocus,
+              child: const SizedBox.shrink(),
+            ),
           ),
           const SizedBox(height: 10),
           Row(
@@ -2479,10 +2510,16 @@ class _UhStGatePanel extends StatelessWidget {
           Row(
             children: <Widget>[
               _UhStToolbarButton(
-                  label: 'undo', enabled: canUndo, onPressed: onUndo),
+                label: 'undo',
+                enabled: canUndo,
+                onPressed: onUndo,
+              ),
               const SizedBox(width: 6),
               _UhStToolbarButton(
-                  label: 'redo', enabled: canRedo, onPressed: onRedo),
+                label: 'redo',
+                enabled: canRedo,
+                onPressed: onRedo,
+              ),
             ],
           ),
         ],
@@ -2548,9 +2585,13 @@ class _UhStDualFieldsState extends State<_UhStDualFields> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(child: _UhStDualPanel(title: 'LEFT', bundle: _left)),
+          Expanded(
+            child: _UhStDualPanel(title: 'LEFT', bundle: _left),
+          ),
           const SizedBox(width: 14),
-          Expanded(child: _UhStDualPanel(title: 'RIGHT', bundle: _right)),
+          Expanded(
+            child: _UhStDualPanel(title: 'RIGHT', bundle: _right),
+          ),
         ],
       ),
     );
@@ -2562,10 +2603,10 @@ class _UhStFieldBundle {
     required String initial,
     required String focusLabel,
     required this.onRebuild,
-  })  : text = TextEditingController(text: initial),
-        value = ValueNotifier<String>(initial),
-        focus = FocusNode(debugLabel: focusLabel),
-        controller = UndoHistoryController() {
+  }) : text = TextEditingController(text: initial),
+       value = ValueNotifier<String>(initial),
+       focus = FocusNode(debugLabel: focusLabel),
+       controller = UndoHistoryController() {
     text.addListener(_syncFromText);
     controller.addListener(onRebuild);
   }
@@ -2719,7 +2760,8 @@ class _UhStEpilogue extends StatelessWidget {
         children: <Widget>[
           const _UhStSectionLabel('Recipe 01 — wire an EditableText'),
           _UhStCodeBlock(
-            code: 'final TextEditingController text = TextEditingController();\n'
+            code:
+                'final TextEditingController text = TextEditingController();\n'
                 'final FocusNode focus = FocusNode();\n'
                 'final UndoHistoryController history = UndoHistoryController();\n'
                 '\n'
@@ -2737,7 +2779,8 @@ class _UhStEpilogue extends StatelessWidget {
           const SizedBox(height: 14),
           const _UhStSectionLabel('Recipe 02 — custom data type'),
           _UhStCodeBlock(
-            code: 'final ValueNotifier<AppDoc> doc = ValueNotifier<AppDoc>(AppDoc.empty());\n'
+            code:
+                'final ValueNotifier<AppDoc> doc = ValueNotifier<AppDoc>(AppDoc.empty());\n'
                 'final FocusNode focus = FocusNode();\n'
                 'final UndoHistoryController ctrl = UndoHistoryController();\n'
                 '\n'
@@ -2752,9 +2795,12 @@ class _UhStEpilogue extends StatelessWidget {
                 ')',
           ),
           const SizedBox(height: 14),
-          const _UhStSectionLabel('Recipe 03 — drive a toolbar from the controller'),
+          const _UhStSectionLabel(
+            'Recipe 03 — drive a toolbar from the controller',
+          ),
           _UhStCodeBlock(
-            code: 'ValueListenableBuilder<UndoHistoryValue>(\n'
+            code:
+                'ValueListenableBuilder<UndoHistoryValue>(\n'
                 '  valueListenable: history,\n'
                 '  builder: (context, v, _) => Row(\n'
                 '    children: [\n'
@@ -2773,31 +2819,37 @@ class _UhStEpilogue extends StatelessWidget {
           const SizedBox(height: 14),
           const _UhStSectionLabel('Performance'),
           const _UhStBullet(
-            text: 'The internal push is throttled by 500 ms; a tight typing '
+            text:
+                'The internal push is throttled by 500 ms; a tight typing '
                 'burst generates only a small number of snapshots.',
           ),
           const _UhStBullet(
-            text: 'If T is expensive to copy, use `undoStackModifier` to push '
+            text:
+                'If T is expensive to copy, use `undoStackModifier` to push '
                 'a cheaper representation onto the stack.',
           ),
           const _UhStBullet(
-            text: 'shouldChangeUndoStack runs on every ValueNotifier '
+            text:
+                'shouldChangeUndoStack runs on every ValueNotifier '
                 'notification — keep it cheap.',
           ),
           const SizedBox(height: 14),
           const _UhStSectionLabel('Cautions'),
           const _UhStBullet(
-            text: 'Do not mutate the value during onTriggered; UndoHistory '
+            text:
+                'Do not mutate the value during onTriggered; UndoHistory '
                 'asserts that widget.value.value equals the value it just '
                 'pushed back.',
           ),
           const _UhStBullet(
-            text: 'Changing widget.value identity clears the stack (see '
+            text:
+                'Changing widget.value identity clears the stack (see '
                 'didUpdateWidget). Keep the ValueNotifier stable across '
                 'rebuilds.',
           ),
           const _UhStBullet(
-            text: 'Keep a long-lived reference to the controller, not the '
+            text:
+                'Keep a long-lived reference to the controller, not the '
                 'State. The State is @visibleForTesting.',
           ),
           const SizedBox(height: 18),

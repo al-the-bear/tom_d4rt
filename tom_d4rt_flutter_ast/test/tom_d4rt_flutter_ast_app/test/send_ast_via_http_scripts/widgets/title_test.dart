@@ -16,7 +16,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.title,
       'title': 'What is Title?',
-      'body': 'Title is a widget that sets the application\u0027s title and '
+      'body':
+          'Title is a widget that sets the application\u0027s title and '
           'primary color for the operating system. On Android it sets '
           'the task-switcher label and header color. On the web it '
           'sets document.title (the browser tab text).',
@@ -25,7 +26,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Platform Integration',
-      'body': 'Title communicates with the platform through system channels. '
+      'body':
+          'Title communicates with the platform through system channels. '
           'On Android it calls SystemChrome.setApplicationSwitcherDescription. '
           'On iOS the title appears via accessibility. On web it sets '
           'the HTML document title.',
@@ -34,7 +36,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_awesome,
       'title': 'Built Into MaterialApp',
-      'body': 'MaterialApp and CupertinoApp internally use Title. When you '
+      'body':
+          'MaterialApp and CupertinoApp internally use Title. When you '
           'set MaterialApp(title: "My App"), it wraps the navigator '
           'with a Title widget. You rarely need to use Title directly.',
       'accent': Colors.green,
@@ -42,7 +45,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.palette,
       'title': 'Color Property',
-      'body': 'The color parameter sets the primary swatch used by the OS '
+      'body':
+          'The color parameter sets the primary swatch used by the OS '
           'in the task switcher. On Android, this colors the app\u0027s '
           'header bar in the recent-apps view. It should match your '
           'app\u0027s brand color.',
@@ -121,21 +125,24 @@ dynamic build(BuildContext context) {
     {
       'name': 'title',
       'type': 'String',
-      'desc': 'The application title shown by the OS. On Android it appears '
+      'desc':
+          'The application title shown by the OS. On Android it appears '
           'in the task switcher. On web it becomes the browser tab text. '
           'Must not be null.',
     },
     {
       'name': 'color',
       'type': 'Color',
-      'desc': 'Primary color for the application in the OS UI. On Android '
+      'desc':
+          'Primary color for the application in the OS UI. On Android '
           'this colors the task-switcher header bar. Required parameter. '
           'Typically matches your app\u0027s primary brand color.',
     },
     {
       'name': 'child',
       'type': 'Widget',
-      'desc': 'The widget below this Title in the tree. Title itself has '
+      'desc':
+          'The widget below this Title in the tree. Title itself has '
           'no visual output — it only communicates with the platform. '
           'The child is your actual app content.',
     },
@@ -241,15 +248,17 @@ dynamic build(BuildContext context) {
           '  \u2514\u2500 Title(title: "My App", color: blue)',
           '      \u2514\u2500 Navigator',
           '          \u2514\u2500 Routes...',
-        ].map((line) => Text(
-              line,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                color: Color(0xFFCDD6F4),
-                height: 1.5,
-              ),
-            )),
+        ].map(
+          (line) => Text(
+            line,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFFCDD6F4),
+              height: 1.5,
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -266,16 +275,19 @@ dynamic build(BuildContext context) {
       'color': Colors.green,
       'titleEffect': 'Shows in Recent Apps (task switcher) as the app label',
       'colorEffect': 'Colors the header bar in the task switcher view',
-      'notes': 'Uses SystemChrome.setApplicationSwitcherDescription. '
+      'notes':
+          'Uses SystemChrome.setApplicationSwitcherDescription. '
           'Updated whenever Title rebuilds with new values.',
     },
     {
       'platform': 'iOS',
       'icon': Icons.phone_iphone,
       'color': Colors.grey,
-      'titleEffect': 'Used by assistive technologies (VoiceOver) to announce the app',
+      'titleEffect':
+          'Used by assistive technologies (VoiceOver) to announce the app',
       'colorEffect': 'No visible effect on iOS (no task-switcher header color)',
-      'notes': 'iOS does not have a colored task switcher. The title is '
+      'notes':
+          'iOS does not have a colored task switcher. The title is '
           'primarily for accessibility purposes.',
     },
     {
@@ -283,8 +295,10 @@ dynamic build(BuildContext context) {
       'icon': Icons.web,
       'color': Colors.blue,
       'titleEffect': 'Sets document.title — appears in the browser tab',
-      'colorEffect': 'Sets the theme-color meta tag (colors the browser toolbar on mobile)',
-      'notes': 'Browser tab text updates immediately. On mobile Chrome '
+      'colorEffect':
+          'Sets the theme-color meta tag (colors the browser toolbar on mobile)',
+      'notes':
+          'Browser tab text updates immediately. On mobile Chrome '
           'the address bar can pick up the theme-color.',
     },
     {
@@ -293,7 +307,8 @@ dynamic build(BuildContext context) {
       'color': Colors.purple,
       'titleEffect': 'Sets the window title bar text on some configurations',
       'colorEffect': 'Limited effect — desktop title bars use OS theme colors',
-      'notes': 'Desktop behavior varies. Some implementations use the '
+      'notes':
+          'Desktop behavior varies. Some implementations use the '
           'title for the window title text.',
     },
   ];
@@ -335,9 +350,17 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10),
-              _buildPlatformRow('Title Effect', pd['titleEffect'] as String, pColor),
+              _buildPlatformRow(
+                'Title Effect',
+                pd['titleEffect'] as String,
+                pColor,
+              ),
               const SizedBox(height: 6),
-              _buildPlatformRow('Color Effect', pd['colorEffect'] as String, pColor),
+              _buildPlatformRow(
+                'Color Effect',
+                pd['colorEffect'] as String,
+                pColor,
+              ),
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
@@ -462,9 +485,11 @@ dynamic build(BuildContext context) {
   final compositionItems = <Map<String, dynamic>>[
     {
       'title': 'Inside MaterialApp (auto)',
-      'desc': 'MaterialApp creates a Title widget automatically from the '
+      'desc':
+          'MaterialApp creates a Title widget automatically from the '
           'title and color properties. You do not need to add one.',
-      'code': 'MaterialApp(\n'
+      'code':
+          'MaterialApp(\n'
           '  title: "My App",\n'
           '  color: Colors.blue,\n'
           '  // Title widget is created internally\n'
@@ -475,9 +500,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Standalone Title',
-      'desc': 'Use Title directly when building a custom app shell without '
+      'desc':
+          'Use Title directly when building a custom app shell without '
           'MaterialApp. This is rare but useful for minimal apps.',
-      'code': 'Title(\n'
+      'code':
+          'Title(\n'
           '  title: "Custom Shell",\n'
           '  color: Colors.teal,\n'
           '  child: MyCustomApp(),\n'
@@ -487,9 +514,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Dynamic Title Updates',
-      'desc': 'Rebuilding Title with a new title string updates the OS. '
+      'desc':
+          'Rebuilding Title with a new title string updates the OS. '
           'Useful for showing the current page name in the browser tab.',
-      'code': 'Title(\n'
+      'code':
+          'Title(\n'
           '  title: "\\\$currentPageName - My App",\n'
           '  color: Colors.indigo,\n'
           '  child: Navigator(\n'
@@ -501,9 +530,11 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Nested Titles',
-      'desc': 'If multiple Title widgets exist in the tree, the deepest '
+      'desc':
+          'If multiple Title widgets exist in the tree, the deepest '
           'one wins. Inner routes can override the outer title.',
-      'code': 'Title(title: "App", color: blue,\n'
+      'code':
+          'Title(title: "App", color: blue,\n'
           '  child: Title(\n'
           '    title: "Settings - App",\n'
           '    color: blue,\n'
@@ -608,7 +639,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.record_voice_over,
       'title': 'Screen Reader Announcement',
-      'body': 'The Title widget sets the semantics label for the window. '
+      'body':
+          'The Title widget sets the semantics label for the window. '
           'When a screen reader user switches to the app, the title '
           'is announced. A clear, descriptive title helps users '
           'understand which app they are in.',
@@ -618,7 +650,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.language,
       'title': 'Localized Titles',
-      'body': 'Titles should be localized to match the user\u0027s language. '
+      'body':
+          'Titles should be localized to match the user\u0027s language. '
           'Wrap with Localizations: Title(title: S.of(context).appTitle). '
           'This ensures the task switcher and browser tab show '
           'translated text.',
@@ -628,7 +661,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.contrast,
       'title': 'Color Contrast',
-      'body': 'The color property affects the task-switcher header. Choose '
+      'body':
+          'The color property affects the task-switcher header. Choose '
           'a color with good contrast against the white title text '
           'that the OS renders. Light colors may make text unreadable.',
       'tip': 'Use dark or saturated colors (blue, red, green, not yellow)',
@@ -637,7 +671,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.route,
       'title': 'Route-Based Titles',
-      'body': 'Update the title as the user navigates routes. This helps '
+      'body':
+          'Update the title as the user navigates routes. This helps '
           'screen readers announce the current page. On web, it helps '
           'users identify tabs in the browser.',
       'tip': 'Pattern: "[PageName] - [AppName]" for each route',
@@ -671,7 +706,11 @@ dynamic build(BuildContext context) {
                       color: aiColor.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(ai['icon'] as IconData, color: aiColor, size: 20),
+                    child: Icon(
+                      ai['icon'] as IconData,
+                      color: aiColor,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -698,7 +737,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 8),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: aiColor.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(6),
@@ -737,7 +779,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Static Title',
       'desc': 'Most common: set once and forget. MaterialApp.title handles it.',
-      'code': 'MaterialApp(\n'
+      'code':
+          'MaterialApp(\n'
           '  title: "My Photo Editor",\n'
           '  color: Colors.blue,\n'
           '  home: EditorScreen(),\n'
@@ -747,7 +790,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Page-Aware Title (Web)',
       'desc': 'For web apps, update the browser tab text on each route change.',
-      'code': 'Widget build(BuildContext context) {\n'
+      'code':
+          'Widget build(BuildContext context) {\n'
           '  return Title(\n'
           '    title: "\\\$pageName - My App",\n'
           '    color: Colors.blue,\n'
@@ -759,7 +803,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Document Title (Multi-Window)',
       'desc': 'Desktop apps with multiple windows can set per-window titles.',
-      'code': 'Title(\n'
+      'code':
+          'Title(\n'
           '  title: "Editor - Document.txt",\n'
           '  color: Colors.teal,\n'
           '  child: DocumentEditor(\n'
@@ -771,7 +816,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Notification Count',
       'desc': 'Show unread counts in the browser tab — common SaaS pattern.',
-      'code': 'Title(\n'
+      'code':
+          'Title(\n'
           '  title: unread > 0\n'
           '    ? "(\\\$unread) Messages - App"\n'
           '    : "Messages - App",\n'
@@ -782,8 +828,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Brand Color Theming',
-      'desc': 'Match the Title color to your theme so the task switcher feels branded.',
-      'code': 'Title(\n'
+      'desc':
+          'Match the Title color to your theme so the task switcher feels branded.',
+      'code':
+          'Title(\n'
           '  title: appName,\n'
           '  color: Theme.of(context).primaryColor,\n'
           '  child: child,\n'
@@ -860,32 +908,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.title,
-      'text': 'Title sets the app\u0027s name in the OS task switcher, '
+      'text':
+          'Title sets the app\u0027s name in the OS task switcher, '
           'browser tab, and accessibility announcements.',
     },
     {
       'icon': Icons.palette,
-      'text': 'The color property themes the task-switcher header on Android. '
+      'text':
+          'The color property themes the task-switcher header on Android. '
           'Use a saturated brand color for best visual effect.',
     },
     {
       'icon': Icons.auto_awesome,
-      'text': 'MaterialApp creates Title automatically. Use standalone Title '
+      'text':
+          'MaterialApp creates Title automatically. Use standalone Title '
           'only for custom app shells.',
     },
     {
       'icon': Icons.phone_android,
-      'text': 'Behavior varies by platform: Android shows title+color in task '
+      'text':
+          'Behavior varies by platform: Android shows title+color in task '
           'switcher, web sets browser tab, iOS uses accessibility.',
     },
     {
       'icon': Icons.web,
-      'text': 'On web, dynamic titles help with tab identification and SEO. '
+      'text':
+          'On web, dynamic titles help with tab identification and SEO. '
           'Update per route for best UX.',
     },
     {
       'icon': Icons.record_voice_over,
-      'text': 'Keep titles concise and localized. Screen readers announce the '
+      'text':
+          'Keep titles concise and localized. Screen readers announce the '
           'title when users switch to your app.',
     },
   ];

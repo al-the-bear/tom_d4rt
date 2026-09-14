@@ -536,8 +536,7 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: "Positioned content outside parent",
-    symptom:
-        "Visible tile rendered with negative offsets cannot be tapped.",
+    symptom: "Visible tile rendered with negative offsets cannot be tapped.",
     cause:
         "Hit testing of Positioned children is clipped to the Stack's bounds "
         "even if paint is not. Pointer outside the Stack never reaches it.",
@@ -667,7 +666,8 @@ const List<_ApiEntry> _apiSurface = <_ApiEntry>[
   _ApiEntry(
     symbol: "RenderBox.hitTest",
     kind: "method",
-    signature: "bool hitTest(BoxHitTestResult result, {required Offset position})",
+    signature:
+        "bool hitTest(BoxHitTestResult result, {required Offset position})",
     purpose:
         "Bounds-check + delegate to hitTestSelf and hitTestChildren; appends "
         "a BoxHitTestEntry on accept.",
@@ -699,15 +699,13 @@ const List<_ApiEntry> _apiSurface = <_ApiEntry>[
     symbol: "HitTestBehavior.translucent",
     kind: "enum",
     signature: "HitTestBehavior.translucent",
-    purpose:
-        "Capture hits AND allow siblings below to also be tested.",
+    purpose: "Capture hits AND allow siblings below to also be tested.",
   ),
   _ApiEntry(
     symbol: "HitTestBehavior.deferToChild",
     kind: "enum",
     signature: "HitTestBehavior.deferToChild",
-    purpose:
-        "Only participate when a descendant accepts the hit.",
+    purpose: "Only participate when a descendant accepts the hit.",
   ),
 ];
 
@@ -724,8 +722,7 @@ const List<_ComparisonRow> _absorbVsIgnore = <_ComparisonRow>[
     attribute: "Descendants captured",
     absorb: "no",
     ignore: "no",
-    note:
-        "Both remove their subtree from hit testing.",
+    note: "Both remove their subtree from hit testing.",
   ),
   _ComparisonRow(
     attribute: "Siblings below captured",
@@ -739,8 +736,7 @@ const List<_ComparisonRow> _absorbVsIgnore = <_ComparisonRow>[
     attribute: "Affects layout",
     absorb: "no",
     ignore: "no",
-    note:
-        "Both are pure hit-test modifiers and do not change layout or paint.",
+    note: "Both are pure hit-test modifiers and do not change layout or paint.",
   ),
   _ComparisonRow(
     attribute: "Affects semantics",
@@ -890,11 +886,7 @@ class _SectionFrame extends StatelessWidget {
 }
 
 class _Pill extends StatelessWidget {
-  const _Pill({
-    required this.text,
-    required this.color,
-    this.icon,
-  });
+  const _Pill({required this.text, required this.color, this.icon});
 
   final String text;
   final Color color;
@@ -952,10 +944,7 @@ class _BulletLine extends StatelessWidget {
               color: color,
               shape: BoxShape.circle,
               boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: color.withValues(alpha: 0.6),
-                  blurRadius: 6,
-                ),
+                BoxShadow(color: color.withValues(alpha: 0.6), blurRadius: 6),
               ],
             ),
           ),
@@ -987,11 +976,7 @@ class _Arrow extends StatelessWidget {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            width: 2,
-            height: 22,
-            color: color.withValues(alpha: 0.8),
-          ),
+          Container(width: 2, height: 22, color: color.withValues(alpha: 0.8)),
           Icon(Icons.keyboard_arrow_down_rounded, color: color, size: 22),
         ],
       );
@@ -999,11 +984,7 @@ class _Arrow extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Container(
-          width: 28,
-          height: 2,
-          color: color.withValues(alpha: 0.8),
-        ),
+        Container(width: 28, height: 2, color: color.withValues(alpha: 0.8)),
         Icon(Icons.chevron_right_rounded, color: color, size: 22),
       ],
     );
@@ -1136,7 +1117,11 @@ class _IntroSection extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(Icons.touch_app_rounded, color: Colors.white, size: 32),
+                child: Icon(
+                  Icons.touch_app_rounded,
+                  color: Colors.white,
+                  size: 32,
+                ),
               ),
               SizedBox(width: 16),
               Expanded(
@@ -1173,16 +1158,56 @@ class _IntroSection extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: const <Widget>[
-              _Pill(text: "HitTestable", color: _accentCyan, icon: Icons.hub_outlined),
-              _Pill(text: "HitTestTarget", color: _accentBlue, icon: Icons.adjust_rounded),
-              _Pill(text: "HitTestEntry", color: _accentIndigo, icon: Icons.label_outline),
-              _Pill(text: "HitTestResult", color: _accentViolet, icon: Icons.format_list_bulleted_rounded),
-              _Pill(text: "GestureBinding", color: _accentPink, icon: Icons.pan_tool_alt_outlined),
-              _Pill(text: "RenderObject", color: _accentRose, icon: Icons.account_tree_outlined),
-              _Pill(text: "RenderView", color: _accentAmber, icon: Icons.layers_outlined),
-              _Pill(text: "BoxHitTestEntry", color: _accentLime, icon: Icons.crop_square_rounded),
-              _Pill(text: "Listener", color: _accentEmerald, icon: Icons.sensors_rounded),
-              _Pill(text: "IgnorePointer", color: _accentTeal, icon: Icons.block_rounded),
+              _Pill(
+                text: "HitTestable",
+                color: _accentCyan,
+                icon: Icons.hub_outlined,
+              ),
+              _Pill(
+                text: "HitTestTarget",
+                color: _accentBlue,
+                icon: Icons.adjust_rounded,
+              ),
+              _Pill(
+                text: "HitTestEntry",
+                color: _accentIndigo,
+                icon: Icons.label_outline,
+              ),
+              _Pill(
+                text: "HitTestResult",
+                color: _accentViolet,
+                icon: Icons.format_list_bulleted_rounded,
+              ),
+              _Pill(
+                text: "GestureBinding",
+                color: _accentPink,
+                icon: Icons.pan_tool_alt_outlined,
+              ),
+              _Pill(
+                text: "RenderObject",
+                color: _accentRose,
+                icon: Icons.account_tree_outlined,
+              ),
+              _Pill(
+                text: "RenderView",
+                color: _accentAmber,
+                icon: Icons.layers_outlined,
+              ),
+              _Pill(
+                text: "BoxHitTestEntry",
+                color: _accentLime,
+                icon: Icons.crop_square_rounded,
+              ),
+              _Pill(
+                text: "Listener",
+                color: _accentEmerald,
+                icon: Icons.sensors_rounded,
+              ),
+              _Pill(
+                text: "IgnorePointer",
+                color: _accentTeal,
+                icon: Icons.block_rounded,
+              ),
             ],
           ),
           SizedBox(height: 18),
@@ -1343,10 +1368,7 @@ class _StageDetailCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            stage.tint.withValues(alpha: 0.18),
-            _bgCard,
-          ],
+          colors: <Color>[stage.tint.withValues(alpha: 0.18), _bgCard],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: stage.tint.withValues(alpha: 0.35)),
@@ -1383,11 +1405,7 @@ class _StageDetailCard extends StatelessWidget {
           SizedBox(height: 8),
           Text(
             stage.detail,
-            style: TextStyle(
-              color: _textSecondary,
-              fontSize: 12,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _textSecondary, fontSize: 12, height: 1.45),
           ),
         ],
       ),
@@ -1431,29 +1449,38 @@ class _BehaviorMatrixSection extends StatelessWidget {
           SizedBox(height: 18),
           Row(
             children: <Widget>[
-              Expanded(child: _MockOutcomeCard(
-                title: "Opaque button",
-                behavior: "opaque",
-                outcome: "Tap captured by THIS node. "
-                    "Background and siblings below get nothing.",
-                color: _accentEmerald,
-              )),
+              Expanded(
+                child: _MockOutcomeCard(
+                  title: "Opaque button",
+                  behavior: "opaque",
+                  outcome:
+                      "Tap captured by THIS node. "
+                      "Background and siblings below get nothing.",
+                  color: _accentEmerald,
+                ),
+              ),
               SizedBox(width: 10),
-              Expanded(child: _MockOutcomeCard(
-                title: "Translucent overlay",
-                behavior: "translucent",
-                outcome: "Overlay captures, AND the button below also "
-                    "appears in the HitTestResult.",
-                color: _accentAmber,
-              )),
+              Expanded(
+                child: _MockOutcomeCard(
+                  title: "Translucent overlay",
+                  behavior: "translucent",
+                  outcome:
+                      "Overlay captures, AND the button below also "
+                      "appears in the HitTestResult.",
+                  color: _accentAmber,
+                ),
+              ),
               SizedBox(width: 10),
-              Expanded(child: _MockOutcomeCard(
-                title: "DeferToChild wrapper",
-                behavior: "deferToChild",
-                outcome: "Wrapper participates only where a child "
-                    "actually accepts the hit.",
-                color: _accentRose,
-              )),
+              Expanded(
+                child: _MockOutcomeCard(
+                  title: "DeferToChild wrapper",
+                  behavior: "deferToChild",
+                  outcome:
+                      "Wrapper participates only where a child "
+                      "actually accepts the hit.",
+                  color: _accentRose,
+                ),
+              ),
             ],
           ),
         ],
@@ -1497,7 +1524,12 @@ class _BehaviorMatrixSection extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          _MxCell(text: row.behavior, flex: 2, accent: _accentIndigo, bold: true),
+          _MxCell(
+            text: row.behavior,
+            flex: 2,
+            accent: _accentIndigo,
+            bold: true,
+          ),
           _MxCell(text: row.opaqueArea, flex: 2),
           _MxCell(text: row.transparentArea, flex: 2),
           _MxCell(text: row.childArea, flex: 2),
@@ -1571,10 +1603,7 @@ class _MockOutcomeCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            color.withValues(alpha: 0.22),
-            _bgCard,
-          ],
+          colors: <Color>[color.withValues(alpha: 0.22), _bgCard],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: color.withValues(alpha: 0.4)),
@@ -1595,11 +1624,7 @@ class _MockOutcomeCard extends StatelessWidget {
           SizedBox(height: 6),
           Text(
             outcome,
-            style: TextStyle(
-              color: _textSecondary,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _textSecondary, fontSize: 12, height: 1.4),
           ),
         ],
       ),
@@ -1650,10 +1675,7 @@ class _LayerCaseCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _bgCard,
-            _accentViolet.withValues(alpha: 0.08),
-          ],
+          colors: <Color>[_bgCard, _accentViolet.withValues(alpha: 0.08)],
         ),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: _borderSoft),
@@ -1668,7 +1690,10 @@ class _LayerCaseCard extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    _Pill(text: layerCase.id.toUpperCase(), color: _accentViolet),
+                    _Pill(
+                      text: layerCase.id.toUpperCase(),
+                      color: _accentViolet,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1697,12 +1722,18 @@ class _LayerCaseCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: _accentEmerald.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: _accentEmerald.withValues(alpha: 0.35)),
+                    border: Border.all(
+                      color: _accentEmerald.withValues(alpha: 0.35),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Icon(Icons.check_circle_outline, color: _accentEmerald, size: 16),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: _accentEmerald,
+                        size: 16,
+                      ),
                       SizedBox(width: 8),
                       Expanded(
                         child: Text(
@@ -1722,10 +1753,7 @@ class _LayerCaseCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 16),
-          Expanded(
-            flex: 4,
-            child: _LayerVisual(layers: layerCase.layers),
-          ),
+          Expanded(flex: 4, child: _LayerVisual(layers: layerCase.layers)),
         ],
       ),
     );
@@ -1756,9 +1784,7 @@ class _LayerVisual extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _Arrow(color: _textDim, vertical: true),
-                  ],
+                  children: <Widget>[_Arrow(color: _textDim, vertical: true)],
                 ),
               ),
           ],
@@ -1856,29 +1882,33 @@ class _AbsorbIgnoreSection extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(child: _BarrierPanel(
-                title: "AbsorbPointer",
-                description:
-                    "Acts like a brick wall. The wrapper itself is in the "
-                    "hit-test result; descendants and underlying widgets "
-                    "below are NOT reached.",
-                accent: _accentRose,
-                icon: Icons.shield_rounded,
-                captureSelf: true,
-                captureBelow: false,
-              )),
+              Expanded(
+                child: _BarrierPanel(
+                  title: "AbsorbPointer",
+                  description:
+                      "Acts like a brick wall. The wrapper itself is in the "
+                      "hit-test result; descendants and underlying widgets "
+                      "below are NOT reached.",
+                  accent: _accentRose,
+                  icon: Icons.shield_rounded,
+                  captureSelf: true,
+                  captureBelow: false,
+                ),
+              ),
               SizedBox(width: 12),
-              Expanded(child: _BarrierPanel(
-                title: "IgnorePointer",
-                description:
-                    "Acts like glass. Descendants are invisible to hit "
-                    "testing but widgets BELOW the wrapper can still "
-                    "receive events.",
-                accent: _accentBlue,
-                icon: Icons.visibility_off_rounded,
-                captureSelf: false,
-                captureBelow: true,
-              )),
+              Expanded(
+                child: _BarrierPanel(
+                  title: "IgnorePointer",
+                  description:
+                      "Acts like glass. Descendants are invisible to hit "
+                      "testing but widgets BELOW the wrapper can still "
+                      "receive events.",
+                  accent: _accentBlue,
+                  icon: Icons.visibility_off_rounded,
+                  captureSelf: false,
+                  captureBelow: true,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 18),
@@ -1962,10 +1992,7 @@ class _BarrierPanel extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            accent.withValues(alpha: 0.22),
-            _bgCard,
-          ],
+          colors: <Color>[accent.withValues(alpha: 0.22), _bgCard],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: accent.withValues(alpha: 0.5)),
@@ -1990,11 +2017,7 @@ class _BarrierPanel extends StatelessWidget {
           SizedBox(height: 10),
           Text(
             description,
-            style: TextStyle(
-              color: _textSecondary,
-              fontSize: 12,
-              height: 1.45,
-            ),
+            style: TextStyle(color: _textSecondary, fontSize: 12, height: 1.45),
           ),
           SizedBox(height: 12),
           Row(
@@ -2002,9 +2025,7 @@ class _BarrierPanel extends StatelessWidget {
               _Pill(
                 text: captureSelf ? "self captures" : "self transparent",
                 color: captureSelf ? _accentEmerald : _textDim,
-                icon: captureSelf
-                    ? Icons.check_rounded
-                    : Icons.remove_rounded,
+                icon: captureSelf ? Icons.check_rounded : Icons.remove_rounded,
               ),
               SizedBox(width: 6),
               _Pill(
@@ -2060,7 +2081,9 @@ class _JourneyTraceSection extends StatelessWidget {
                   ],
                 ),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: _accentEmerald.withValues(alpha: 0.4)),
+                border: Border.all(
+                  color: _accentEmerald.withValues(alpha: 0.4),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -2248,7 +2271,11 @@ class _PitfallCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12),
-          _PitfallSection(label: "SYMPTOM", body: pitfall.symptom, color: _warnAmber),
+          _PitfallSection(
+            label: "SYMPTOM",
+            body: pitfall.symptom,
+            color: _warnAmber,
+          ),
           SizedBox(height: 8),
           _PitfallSection(label: "CAUSE", body: pitfall.cause, color: _errRed),
           SizedBox(height: 8),
@@ -2287,11 +2314,7 @@ class _PitfallSection extends StatelessWidget {
         SizedBox(height: 3),
         Text(
           body,
-          style: TextStyle(
-            color: _textSecondary,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: _textSecondary, fontSize: 12, height: 1.4),
         ),
       ],
     );
@@ -2458,16 +2481,15 @@ class _GlossaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final int colonIndex = text.indexOf(":");
     final String term = colonIndex >= 0 ? text.substring(0, colonIndex) : text;
-    final String body = colonIndex >= 0 ? text.substring(colonIndex + 1).trim() : "";
+    final String body = colonIndex >= 0
+        ? text.substring(colonIndex + 1).trim()
+        : "";
     return Container(
       width: 290,
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[
-            _accentTeal.withValues(alpha: 0.16),
-            _bgCard,
-          ],
+          colors: <Color>[_accentTeal.withValues(alpha: 0.16), _bgCard],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _accentTeal.withValues(alpha: 0.35)),
@@ -2487,11 +2509,7 @@ class _GlossaryCard extends StatelessWidget {
           SizedBox(height: 4),
           Text(
             body,
-            style: TextStyle(
-              color: _textSecondary,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _textSecondary, fontSize: 12, height: 1.4),
           ),
         ],
       ),
@@ -2519,53 +2537,63 @@ class _ChecklistSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: const <Widget>[
           _BulletLine(
-            text: "Every interactive surface has a non-null background or "
+            text:
+                "Every interactive surface has a non-null background or "
                 "an explicit HitTestBehavior set.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Stacked overlays use translucent or IgnorePointer so the "
+            text:
+                "Stacked overlays use translucent or IgnorePointer so the "
                 "primary control underneath remains reachable.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Positioned children are sized so their hit region stays "
+            text:
+                "Positioned children are sized so their hit region stays "
                 "inside the parent's bounds.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Choice between Listener and GestureDetector is "
+            text:
+                "Choice between Listener and GestureDetector is "
                 "intentional; both are not stacked on the same node by "
                 "accident.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "AbsorbPointer vs IgnorePointer choice matches the intent "
+            text:
+                "AbsorbPointer vs IgnorePointer choice matches the intent "
                 "(barrier vs invisible).",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Custom RenderObject implementations override hitTestSelf "
+            text:
+                "Custom RenderObject implementations override hitTestSelf "
                 "AND hitTestChildren consistently.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Hit-test order in Stack matches z-order expectations "
+            text:
+                "Hit-test order in Stack matches z-order expectations "
                 "(reverse paint order).",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Semantics are explicitly controlled when using "
+            text:
+                "Semantics are explicitly controlled when using "
                 "AbsorbPointer / IgnorePointer (ignoringSemantics arg).",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Recognizer composition (TapGestureRecognizer etc.) is "
+            text:
+                "Recognizer composition (TapGestureRecognizer etc.) is "
                 "verified in the gesture arena, not assumed.",
             color: _accentLime,
           ),
           _BulletLine(
-            text: "Pointer streams from Listener are bounded; avoid "
+            text:
+                "Pointer streams from Listener are bounded; avoid "
                 "leaking unbounded state inside event handlers.",
             color: _accentLime,
           ),
@@ -2605,7 +2633,11 @@ class _FooterSection extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Icon(Icons.bookmark_added_rounded, color: _accentIndigo, size: 22),
+              Icon(
+                Icons.bookmark_added_rounded,
+                color: _accentIndigo,
+                size: 22,
+              ),
               SizedBox(width: 10),
               Text(
                 "End of atlas",
@@ -2623,11 +2655,7 @@ class _FooterSection extends StatelessWidget {
             "MaterialApp snapshot of the hit-testing pipeline so that "
             "downstream AST tools can serialize, inspect, and replay it "
             "without ever needing to register a pointer event.",
-            style: TextStyle(
-              color: _textSecondary,
-              fontSize: 13,
-              height: 1.55,
-            ),
+            style: TextStyle(color: _textSecondary, fontSize: 13, height: 1.55),
           ),
           SizedBox(height: 12),
           Wrap(
@@ -2637,7 +2665,11 @@ class _FooterSection extends StatelessWidget {
               _Pill(text: "static-snapshot", color: _accentCyan),
               _Pill(text: "no-state", color: _accentBlue),
               _Pill(text: "no-async", color: _accentIndigo),
-              _Pill(text: "analyzer-clean", color: _accentEmerald, icon: Icons.check_rounded),
+              _Pill(
+                text: "analyzer-clean",
+                color: _accentEmerald,
+                icon: Icons.check_rounded,
+              ),
               _Pill(text: "hand-authored", color: _accentAmber),
             ],
           ),
@@ -2705,14 +2737,15 @@ dynamic build(BuildContext context) {
               height: 32,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    _accentCyan,
-                    _accentIndigo,
-                  ],
+                  colors: <Color>[_accentCyan, _accentIndigo],
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(Icons.touch_app_rounded, color: Colors.white, size: 18),
+              child: Icon(
+                Icons.touch_app_rounded,
+                color: Colors.white,
+                size: 18,
+              ),
             ),
             SizedBox(width: 10),
             Text(
@@ -2729,7 +2762,9 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: _accentEmerald.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(color: _accentEmerald.withValues(alpha: 0.5)),
+                border: Border.all(
+                  color: _accentEmerald.withValues(alpha: 0.5),
+                ),
               ),
               child: Text(
                 "STATIC",

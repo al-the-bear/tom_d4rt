@@ -382,7 +382,11 @@ Widget _heroBanner() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF1E1B4B), Color(0xFF4F46E5), Color(0xFF7C3AED)],
+        colors: <Color>[
+          Color(0xFF1E1B4B),
+          Color(0xFF4F46E5),
+          Color(0xFF7C3AED),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -558,8 +562,10 @@ class _PipelinePainter extends CustomPainter {
         ..color = _kStageColours[i].withOpacity(0.6)
         ..strokeWidth = 1.2
         ..style = PaintingStyle.stroke;
-      final RRect rr =
-          RRect.fromRectAndRadius(rect, const Radius.circular(8.0));
+      final RRect rr = RRect.fromRectAndRadius(
+        rect,
+        const Radius.circular(8.0),
+      );
       canvas.drawRRect(rr, fill);
       canvas.drawRRect(rr, border);
 
@@ -668,18 +674,12 @@ class _LegendDot extends StatelessWidget {
         Container(
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(
-            color: colour,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
         ),
         const SizedBox(width: 6.0),
         Text(
           text,
-          style: const TextStyle(
-            fontSize: 11.5,
-            color: _kInkSecondary,
-          ),
+          style: const TextStyle(fontSize: 11.5, color: _kInkSecondary),
         ),
       ],
     );
@@ -717,8 +717,10 @@ Widget _styleComparisonCard() {
               child: Text('ParagraphStyle', style: _kCaptionStyle),
             ),
             Expanded(
-              child:
-                  Text('ui.TextStyle (engine flavour)', style: _kCaptionStyle),
+              child: Text(
+                'ui.TextStyle (engine flavour)',
+                style: _kCaptionStyle,
+              ),
             ),
           ],
         ),
@@ -753,11 +755,7 @@ Widget _styleComparisonCard() {
             'Rule of thumb: anything that influences how lines are *broken* '
             'lives on ParagraphStyle. Anything that influences how individual '
             'glyphs are *painted* lives on TextStyle.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: _kInk,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 12.5, color: _kInk, height: 1.4),
           ),
         ),
       ],
@@ -848,9 +846,7 @@ class _AlignShowcasePainter extends CustomPainter {
         height: 1.35,
       ),
     );
-    b.pushStyle(
-      ui.TextStyle(color: _kInk, fontSize: 12.5),
-    );
+    b.pushStyle(ui.TextStyle(color: _kInk, fontSize: 12.5));
     b.addText(_kSample);
     final ui.Paragraph p = b.build();
     p.layout(ui.ParagraphConstraints(width: width));
@@ -1046,12 +1042,24 @@ class _MetricsPainter extends CustomPainter {
       final double descentLine = baseline + linePx * descentRatio;
       final double lineBottom = lineTop + linePx;
 
-      _dashed(canvas, Offset(leftMargin - 8.0, lineTop),
-          Offset(size.width - 8.0, lineTop), pHeight);
-      _dashed(canvas, Offset(leftMargin - 8.0, baseline),
-          Offset(size.width - 8.0, baseline), pBase);
-      _dashed(canvas, Offset(leftMargin - 8.0, descentLine),
-          Offset(size.width - 8.0, descentLine), pDesc);
+      _dashed(
+        canvas,
+        Offset(leftMargin - 8.0, lineTop),
+        Offset(size.width - 8.0, lineTop),
+        pHeight,
+      );
+      _dashed(
+        canvas,
+        Offset(leftMargin - 8.0, baseline),
+        Offset(size.width - 8.0, baseline),
+        pBase,
+      );
+      _dashed(
+        canvas,
+        Offset(leftMargin - 8.0, descentLine),
+        Offset(size.width - 8.0, descentLine),
+        pDesc,
+      );
 
       final double ascentTop = baseline - linePx * ascentRatio;
       canvas.drawLine(
@@ -1256,7 +1264,8 @@ class _StrutPainter extends CustomPainter {
 
   final bool useStrut;
 
-  static const String _kBody = 'Short.\n'
+  static const String _kBody =
+      'Short.\n'
       'Some longer line with the letter g and a comma,\n'
       'tiny:\n'
       'A LINE WITH ASCENDERS AND DESCENDERS gjqpy\n'
@@ -1684,8 +1693,7 @@ class _CompareRow {
   final String paragraph;
   final String textPainter;
   final String richText;
-  const _CompareRow(
-      this.axis, this.paragraph, this.textPainter, this.richText);
+  const _CompareRow(this.axis, this.paragraph, this.textPainter, this.richText);
 }
 
 const List<_CompareRow> _kCompareRows = <_CompareRow>[
@@ -1764,7 +1772,8 @@ Widget _compareCard() {
             SizedBox(width: 200.0, child: Text('axis', style: _kCaptionStyle)),
             Expanded(child: Text('ui.Paragraph', style: _kCaptionStyle)),
             Expanded(
-                child: Text('painting.TextPainter', style: _kCaptionStyle)),
+              child: Text('painting.TextPainter', style: _kCaptionStyle),
+            ),
             Expanded(child: Text('widgets.RichText', style: _kCaptionStyle)),
           ],
         ),
@@ -1864,10 +1873,7 @@ Widget _cheatSheet() {
         const SizedBox(height: 4.0),
         const Text(
           'Quick reference for the dart:ui paragraph layer.',
-          style: TextStyle(
-            color: _kInkOnDarkSecondary,
-            fontSize: 12.5,
-          ),
+          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 12.5),
         ),
         const SizedBox(height: 14.0),
         _chipGroup('types', const <String>[
@@ -2035,8 +2041,10 @@ Widget _footer() {
 
 dynamic build(BuildContext context) {
   print('dart:ui Paragraph deep visual demo: build() invoked once');
-  print('Sections: hero, pipeline, style table, align, metrics, strut, '
-      'recipes, pitfalls, comparison, cheat-sheet, footer');
+  print(
+    'Sections: hero, pipeline, style table, align, metrics, strut, '
+    'recipes, pitfalls, comparison, cheat-sheet, footer',
+  );
 
   return Container(
     color: _kCanvas,

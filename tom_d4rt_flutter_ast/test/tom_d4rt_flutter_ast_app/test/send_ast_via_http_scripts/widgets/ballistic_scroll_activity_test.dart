@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swipe,
       'title': 'Scroll Activities in Flutter',
-      'body': 'Every Scrollable has a current ScrollActivity that '
+      'body':
+          'Every Scrollable has a current ScrollActivity that '
           'describes what the scroll position is doing right now. '
           'Activities include IdleScrollActivity (at rest), '
           'DragScrollActivity (finger on screen), and '
@@ -31,7 +32,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'The Fling Gesture',
-      'body': 'A fling occurs when the user lifts their finger while '
+      'body':
+          'A fling occurs when the user lifts their finger while '
           'moving. The gesture detector measures the release velocity '
           'in pixels per second. If this velocity exceeds the minimum '
           'fling threshold defined by ScrollPhysics, the framework '
@@ -42,7 +44,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.show_chart,
       'title': 'Ballistic Simulation',
-      'body': 'The word "ballistic" means moving under its own '
+      'body':
+          'The word "ballistic" means moving under its own '
           'momentum — like a thrown ball after leaving your hand. '
           'BallisticScrollActivity runs a Simulation that computes '
           'the scroll position at each frame, applying friction to '
@@ -54,7 +57,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.timer,
       'title': 'Activity Lifecycle',
-      'body': 'When a fling starts, ScrollPhysics.createBallistic'
+      'body':
+          'When a fling starts, ScrollPhysics.createBallistic'
           'Simulation() is called with the current position and '
           'velocity. If it returns a simulation, BallisticScroll'
           'Activity drives it via a Ticker. Each tick updates the '
@@ -75,15 +79,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -120,7 +125,8 @@ dynamic build(BuildContext context) {
       'from': 'Idle',
       'event': 'User touches',
       'to': 'Hold',
-      'detail': 'Finger down on a scrollable creates a hold activity '
+      'detail':
+          'Finger down on a scrollable creates a hold activity '
           'that waits to see if the touch becomes a drag.',
       'color': Colors.grey[600]!,
     },
@@ -128,7 +134,8 @@ dynamic build(BuildContext context) {
       'from': 'Hold',
       'event': 'User drags',
       'to': 'Drag',
-      'detail': 'Movement exceeds touch slop threshold. The scroll '
+      'detail':
+          'Movement exceeds touch slop threshold. The scroll '
           'position now tracks the finger position directly.',
       'color': Colors.blue[600]!,
     },
@@ -136,7 +143,8 @@ dynamic build(BuildContext context) {
       'from': 'Drag',
       'event': 'User flings',
       'to': 'Ballistic',
-      'detail': 'Finger lifts with velocity above minFlingVelocity. '
+      'detail':
+          'Finger lifts with velocity above minFlingVelocity. '
           'A ballistic simulation begins, decelerating the scroll.',
       'color': Colors.blue[800]!,
     },
@@ -144,7 +152,8 @@ dynamic build(BuildContext context) {
       'from': 'Ballistic',
       'event': 'Simulation ends',
       'to': 'Idle',
-      'detail': 'The simulation reports isDone when velocity drops '
+      'detail':
+          'The simulation reports isDone when velocity drops '
           'below tolerance. The scroll comes to rest.',
       'color': Colors.green[700]!,
     },
@@ -152,7 +161,8 @@ dynamic build(BuildContext context) {
       'from': 'Ballistic',
       'event': 'User touches',
       'to': 'Hold',
-      'detail': 'A touch during a fling cancels the ballistic '
+      'detail':
+          'A touch during a fling cancels the ballistic '
           'activity immediately and starts a new hold.',
       'color': Colors.orange[700]!,
     },
@@ -160,7 +170,8 @@ dynamic build(BuildContext context) {
       'from': 'Drag',
       'event': 'User lifts (slow)',
       'to': 'Idle or Ballistic',
-      'detail': 'If release velocity is below minFlingVelocity, '
+      'detail':
+          'If release velocity is below minFlingVelocity, '
           'the scroll may settle to idle. If overscrolled, a '
           'bounce-back simulation starts a ballistic activity.',
       'color': Colors.purple[600]!,
@@ -176,9 +187,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (t['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (t['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (t['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,8 +195,10 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: (t['color'] as Color).withOpacity(0.15),
                   borderRadius: BorderRadius.circular(6),
@@ -203,12 +214,17 @@ dynamic build(BuildContext context) {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(Icons.arrow_forward,
-                    size: 18, color: t['color'] as Color),
+                child: Icon(
+                  Icons.arrow_forward,
+                  size: 18,
+                  color: t['color'] as Color,
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: (t['color'] as Color).withOpacity(0.15),
                   borderRadius: BorderRadius.circular(6),
@@ -258,7 +274,8 @@ dynamic build(BuildContext context) {
       'physics': 'ClampingScrollPhysics',
       'platform': 'Android',
       'icon': Icons.android,
-      'behavior': 'Friction-based deceleration that hard-stops at '
+      'behavior':
+          'Friction-based deceleration that hard-stops at '
           'content boundaries. The scroll position never exceeds '
           'min/max extents. An overscroll glow indicator shows '
           'the excess energy visually.',
@@ -269,7 +286,8 @@ dynamic build(BuildContext context) {
       'physics': 'BouncingScrollPhysics',
       'platform': 'iOS / macOS',
       'icon': Icons.phone_iphone,
-      'behavior': 'Spring-based simulation that allows overscroll '
+      'behavior':
+          'Spring-based simulation that allows overscroll '
           'past boundaries with elastic rubber-banding. When '
           'released while overscrolled, a spring pulls the content '
           'back to the edge with a natural bounce feel.',
@@ -280,7 +298,8 @@ dynamic build(BuildContext context) {
       'physics': 'Various',
       'platform': 'Cross-platform',
       'icon': Icons.settings_ethernet,
-      'behavior': 'Used when the scroll position needs to settle '
+      'behavior':
+          'Used when the scroll position needs to settle '
           'to a specific value (e.g., page snapping, bounce-back '
           'from overscroll). Spring parameters (stiffness, damping) '
           'control how fast and how bouncy the settle is.',
@@ -291,7 +310,8 @@ dynamic build(BuildContext context) {
       'physics': 'Custom',
       'platform': 'Cross-platform',
       'icon': Icons.settings,
-      'behavior': 'Simple friction deceleration without boundary '
+      'behavior':
+          'Simple friction deceleration without boundary '
           'awareness. The velocity decays exponentially based on '
           'the friction coefficient. Used as a building block by '
           'higher-level simulations.',
@@ -308,17 +328,18 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (sim['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (sim['color'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (sim['color'] as Color).withOpacity(0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(sim['icon'] as IconData,
-                  color: sim['color'] as Color, size: 28),
+              Icon(
+                sim['icon'] as IconData,
+                color: sim['color'] as Color,
+                size: 28,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -364,21 +385,24 @@ dynamic build(BuildContext context) {
       'label': 'minFlingVelocity',
       'bouncing': '50 px/s',
       'clamping': '50 px/s',
-      'note': 'Minimum release speed to trigger a fling. Below this, '
+      'note':
+          'Minimum release speed to trigger a fling. Below this, '
           'the scroll settles immediately (no ballistic activity).',
     },
     {
       'label': 'maxFlingVelocity',
       'bouncing': '8000 px/s',
       'clamping': '8000 px/s',
-      'note': 'Maximum velocity capped by the framework. Prevents '
+      'note':
+          'Maximum velocity capped by the framework. Prevents '
           'unreasonably fast scrolling from multi-touch artifacts.',
     },
     {
       'label': 'Tolerance (distance)',
       'bouncing': '±0.1 px',
       'clamping': '±0.1 px',
-      'note': 'When the simulation position is within tolerance of '
+      'note':
+          'When the simulation position is within tolerance of '
           'the target, the simulation reports isDone and the '
           'ballistic activity ends.',
     },
@@ -386,14 +410,16 @@ dynamic build(BuildContext context) {
       'label': 'Tolerance (velocity)',
       'bouncing': '±0.1 px/s',
       'clamping': '±0.1 px/s',
-      'note': 'When simulation velocity drops below this threshold, '
+      'note':
+          'When simulation velocity drops below this threshold, '
           'the deceleration is considered complete.',
     },
     {
       'label': 'Friction coefficient',
       'bouncing': '0.135',
       'clamping': '0.015',
-      'note': 'Controls deceleration rate. Lower friction means '
+      'note':
+          'Controls deceleration rate. Lower friction means '
           'longer coast distance. Clamping uses less friction, '
           'so Android flings travel farther.',
     },
@@ -413,22 +439,32 @@ dynamic build(BuildContext context) {
     child: Row(
       children: const [
         Expanded(
-            flex: 3,
-            child: Text('Parameter',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12))),
+          flex: 3,
+          child: Text(
+            'Parameter',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
+        ),
         Expanded(
-            flex: 2,
-            child: Text('Bouncing',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-                textAlign: TextAlign.center)),
+          flex: 2,
+          child: Text(
+            'Bouncing',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
         Expanded(
-            flex: 2,
-            child: Text('Clamping',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-                textAlign: TextAlign.center)),
+          flex: 2,
+          child: Text(
+            'Clamping',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ],
     ),
   );
@@ -502,7 +538,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Social Media Feed',
       'icon': Icons.dynamic_feed,
-      'scenario': 'A social media timeline where the user flicks '
+      'scenario':
+          'A social media timeline where the user flicks '
           'through posts rapidly. The fling carries the scroll '
           'naturally, and touching the screen catches the scroll '
           'mid-flight for precise positioning.',
@@ -512,7 +549,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Page Snapping Gallery',
       'icon': Icons.photo_library,
-      'scenario': 'An image gallery with PageView. After a fling, '
+      'scenario':
+          'An image gallery with PageView. After a fling, '
           'the ballistic simulation settles to the nearest page '
           'boundary. PageScrollPhysics overrides the simulation '
           'to target discrete page positions.',
@@ -522,7 +560,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'List with Fixed-Extent Items',
       'icon': Icons.list,
-      'scenario': 'A picker or date wheel using FixedExtentScroll'
+      'scenario':
+          'A picker or date wheel using FixedExtentScroll'
           'Physics. The fling decelerates and snaps to the '
           'nearest item center. The ballistic simulation is a '
           'spring targeting the closest snap point.',
@@ -532,7 +571,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Custom Deceleration',
       'icon': Icons.tune,
-      'scenario': 'A map or canvas where scrolling should feel '
+      'scenario':
+          'A map or canvas where scrolling should feel '
           'heavier. Custom ScrollPhysics overrides '
           'createBallisticSimulation to use a higher friction '
           'coefficient, making flings decelerate faster than '
@@ -543,7 +583,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Never-Scrollable Content',
       'icon': Icons.block,
-      'scenario': 'A scroll view that should not fling. '
+      'scenario':
+          'A scroll view that should not fling. '
           'NeverScrollableScrollPhysics returns null from '
           'createBallisticSimulation, so no ballistic activity '
           'is ever created. The scroll only moves programmatically.',
@@ -568,17 +609,14 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (p['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (p['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(p['icon'] as IconData,
-                  color: p['color'] as Color, size: 26),
+              Icon(p['icon'] as IconData, color: p['color'] as Color, size: 26),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -591,8 +629,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: (p['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
@@ -627,7 +664,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Ticker-Driven',
       'icon': Icons.access_time,
-      'detail': 'BallisticScrollActivity creates a Ticker that fires '
+      'detail':
+          'BallisticScrollActivity creates a Ticker that fires '
           'on every animation frame (~60fps). On each tick, it '
           'queries the Simulation for the position and velocity '
           'at the current elapsed time.',
@@ -635,7 +673,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Position Update',
       'icon': Icons.edit_location,
-      'detail': 'Each frame, the activity calls '
+      'detail':
+          'Each frame, the activity calls '
           'ScrollActivityDelegate.setPixels() with the new position '
           'from the simulation. This triggers rebuild of the '
           'scrollable viewport and updates the scroll bar.',
@@ -643,7 +682,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Overscroll Handling',
       'icon': Icons.warning_amber,
-      'detail': 'If setPixels returns a non-zero overscroll (because '
+      'detail':
+          'If setPixels returns a non-zero overscroll (because '
           'the position was clamped at a boundary), the activity '
           'calls applyNewDimensions, which may restart the '
           'simulation to handle the bounce-back.',
@@ -651,7 +691,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Cancellation',
       'icon': Icons.cancel,
-      'detail': 'When the user touches the screen during a fling, '
+      'detail':
+          'When the user touches the screen during a fling, '
           'or when dispose() is called, the Ticker is stopped '
           'and the simulation is abandoned. This is immediate — '
           'no gradual slowdown.',
@@ -659,7 +700,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'Completion',
       'icon': Icons.check_circle,
-      'detail': 'When simulation.isDone(time) returns true, the '
+      'detail':
+          'When simulation.isDone(time) returns true, the '
           'activity calls delegate.goBallistic(0.0) which '
           'transitions to IdleScrollActivity. The scroll position '
           'is now at rest.',
@@ -667,7 +709,8 @@ dynamic build(BuildContext context) {
     {
       'aspect': 'isScrolling Property',
       'icon': Icons.info,
-      'detail': 'BallisticScrollActivity reports isScrolling = true, '
+      'detail':
+          'BallisticScrollActivity reports isScrolling = true, '
           'so ScrollNotification listeners see the scroll as '
           'active. This affects features like hiding/showing '
           'FABs or collapsing app bars during scroll.',
@@ -688,8 +731,7 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(item['icon'] as IconData,
-              color: Colors.blue[700], size: 24),
+          Icon(item['icon'] as IconData, color: Colors.blue[700], size: 24),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -725,7 +767,8 @@ dynamic build(BuildContext context) {
     {
       'tip': 'Don\'t Fight the Physics',
       'icon': Icons.warning,
-      'body': 'Avoid animating the scroll position manually while '
+      'body':
+          'Avoid animating the scroll position manually while '
           'a ballistic activity is running. Instead, cancel the '
           'fling by calling ScrollController.jumpTo() or '
           'animateTo(), which properly transitions the activity.',
@@ -734,7 +777,8 @@ dynamic build(BuildContext context) {
     {
       'tip': 'Use ScrollNotification for Fling Detection',
       'icon': Icons.notifications_active,
-      'body': 'To detect when a fling starts, listen for '
+      'body':
+          'To detect when a fling starts, listen for '
           'ScrollUpdateNotification and check if the drag detail '
           'is null (ballistic) vs non-null (user drag). This '
           'lets you respond differently to flings vs drags.',
@@ -743,7 +787,8 @@ dynamic build(BuildContext context) {
     {
       'tip': 'Respect minFlingVelocity',
       'icon': Icons.speed,
-      'body': 'When creating custom ScrollPhysics, be careful '
+      'body':
+          'When creating custom ScrollPhysics, be careful '
           'with minFlingVelocity. Setting it too low makes the '
           'scroll feel twitchy. Setting it too high makes it '
           'hard to trigger a fling. The default 50 px/s works '
@@ -753,7 +798,8 @@ dynamic build(BuildContext context) {
     {
       'tip': 'Heavy createBallisticSimulation',
       'icon': Icons.memory,
-      'body': 'The createBallisticSimulation method is called on '
+      'body':
+          'The createBallisticSimulation method is called on '
           'the UI thread. If your custom simulation constructor '
           'does heavy computation (complex spring parameters, '
           'path calculations), it can cause a jank frame at '
@@ -763,7 +809,8 @@ dynamic build(BuildContext context) {
     {
       'tip': 'Testing Fling Behavior',
       'icon': Icons.science,
-      'body': 'In widget tests, use tester.fling() to simulate '
+      'body':
+          'In widget tests, use tester.fling() to simulate '
           'a fling gesture. Follow with tester.pumpAndSettle() '
           'to let the ballistic simulation run to completion. '
           'Use tester.pump(duration) to inspect intermediate '
@@ -812,7 +859,9 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.red[100],
                           borderRadius: BorderRadius.circular(4),
@@ -896,10 +945,7 @@ dynamic build(BuildContext context) {
               ),
               Text(
                 '${v['velocity']} px/s → ${v['distance']}',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -920,8 +966,10 @@ dynamic build(BuildContext context) {
     );
   }).toList();
 
-  print('  Built velocity visualization with '
-      '${velocityExamples.length} examples');
+  print(
+    '  Built velocity visualization with '
+    '${velocityExamples.length} examples',
+  );
 
   // ============================================================
   // ASSEMBLE FINAL LAYOUT
@@ -1028,12 +1076,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.blue[200]!),
             ),
-            child: Column(
-              children: [
-                velocityHeader,
-                ...velocityRows,
-              ],
-            ),
+            child: Column(children: [velocityHeader, ...velocityRows]),
           ),
 
           // Section 5: Real-World Patterns

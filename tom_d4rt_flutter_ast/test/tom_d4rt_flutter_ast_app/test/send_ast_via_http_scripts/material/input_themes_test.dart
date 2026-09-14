@@ -122,10 +122,7 @@ dynamic build(BuildContext context) {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(18.0), child: child),
         ],
       ),
     );
@@ -228,11 +225,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: paletteInk,
-          fontSize: 13.0,
-          height: 1.5,
-        ),
+        style: const TextStyle(color: paletteInk, fontSize: 13.0, height: 1.5),
       ),
     );
   }
@@ -618,8 +611,7 @@ dynamic build(BuildContext context) {
 
   final Widget underlinedInputsSection = sectionShell(
     title: 'Underline inputs',
-    subtitle:
-        'UnderlineInputBorder — the classic Material 2 single-line look.',
+    subtitle: 'UnderlineInputBorder — the classic Material 2 single-line look.',
     surface: Colors.white,
     border: paletteOutline,
     titleColor: paletteTeal,
@@ -819,10 +811,7 @@ dynamic build(BuildContext context) {
         const TextField(
           decoration: InputDecoration(
             labelText: 'Distinct floatingLabelStyle',
-            labelStyle: TextStyle(
-              color: paletteInkFaint,
-              fontSize: 14.0,
-            ),
+            labelStyle: TextStyle(color: paletteInkFaint, fontSize: 14.0),
             floatingLabelStyle: TextStyle(
               color: paletteMagenta,
               fontSize: 13.0,
@@ -1360,8 +1349,9 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final List<Widget> iconRows =
-      List<Widget>.generate(iconRecipes.length, (int i) {
+  final List<Widget> iconRows = List<Widget>.generate(iconRecipes.length, (
+    int i,
+  ) {
     final Map<String, dynamic> spec = iconRecipes[i];
     final Color color = spec['color'] as Color;
     final String label = spec['label'] as String;
@@ -2052,8 +2042,10 @@ dynamic build(BuildContext context) {
               labelText: 'Password',
               hintText: '••••••••',
               prefixIcon: Icon(Icons.lock_outline, color: paletteAccent),
-              suffixIcon:
-                  Icon(Icons.visibility_outlined, color: paletteInkSoft),
+              suffixIcon: Icon(
+                Icons.visibility_outlined,
+                color: paletteInkSoft,
+              ),
               helperText: 'At least 12 characters, 1 digit, 1 symbol.',
             ),
           ),
@@ -2121,47 +2113,49 @@ dynamic build(BuildContext context) {
     <String, dynamic>{'name': 'outline', 'color': paletteOutline},
   ];
 
-  final List<Widget> paletteTiles =
-      List<Widget>.generate(paletteEntries.length, (int i) {
-    final Map<String, dynamic> entry = paletteEntries[i];
-    final String name = entry['name'] as String;
-    final Color color = entry['color'] as Color;
-    return Container(
-      width: 150.0,
-      margin: const EdgeInsets.all(5.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: paletteOutlineSoft, width: 1.0),
-      ),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 28.0,
-            height: 28.0,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: paletteOutline, width: 0.8),
-            ),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Text(
-              name,
-              style: const TextStyle(
-                color: paletteInk,
-                fontSize: 12.0,
-                fontWeight: FontWeight.w700,
+  final List<Widget> paletteTiles = List<Widget>.generate(
+    paletteEntries.length,
+    (int i) {
+      final Map<String, dynamic> entry = paletteEntries[i];
+      final String name = entry['name'] as String;
+      final Color color = entry['color'] as Color;
+      return Container(
+        width: 150.0,
+        margin: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: paletteOutlineSoft, width: 1.0),
+        ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              width: 28.0,
+              height: 28.0,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(color: paletteOutline, width: 0.8),
               ),
-              overflow: TextOverflow.ellipsis,
             ),
-          ),
-        ],
-      ),
-    );
-  });
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Text(
+                name,
+                style: const TextStyle(
+                  color: paletteInk,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
 
   final Widget paletteSection = sectionShell(
     title: 'Palette legend',
@@ -2413,10 +2407,7 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(18.0),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: <Color>[
-                  Color(0xFF1C3B7B),
-                  Color(0xFF2E5AAC),
-                ],
+                colors: <Color>[Color(0xFF1C3B7B), Color(0xFF2E5AAC)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),

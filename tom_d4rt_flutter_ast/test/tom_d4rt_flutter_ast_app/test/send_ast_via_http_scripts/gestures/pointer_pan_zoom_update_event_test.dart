@@ -90,7 +90,9 @@ dynamic build(BuildContext context) {
   // them by name rather than by hex value.
   // --------------------------------------------------------------------------
 
-  final Color glacierMilk = Color(0xFFEAF3F7); // page background, very pale blue
+  final Color glacierMilk = Color(
+    0xFFEAF3F7,
+  ); // page background, very pale blue
   final Color glacierIce = Color(0xFFBFD8E2); // cool surface, panels
   final Color glacierShadow = Color(0xFF6E94A6); // mid-blue shadow
   final Color crevasseBlue = Color(0xFF2B5A74); // deep blue ink for headings
@@ -212,14 +214,9 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          glacierIce,
-          frostGold,
-        ],
+        colors: [glacierIce, frostGold],
       ),
-      border: Border(
-        bottom: BorderSide(color: crevasseBlue, width: 3),
-      ),
+      border: Border(bottom: BorderSide(color: crevasseBlue, width: 3)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -396,35 +393,90 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12),
-        _propertyRow(topazAmber, 'pan', 'Offset',
-            'Cumulative pan offset since gesture start.', polarNight),
-        _propertyRow(topazHoney, 'panDelta', 'Offset',
-            'Pan offset since the previous update event.', polarNight),
-        _propertyRow(topazRust, 'scale', 'double',
-            'Current scale factor. 1.0 means no zoom.', polarNight),
-        _propertyRow(frostGold, 'rotation', 'double',
-            'Current rotation in radians. 0.0 means no rotation.',
-            polarNight),
-        _propertyRow(skyTopaz, 'localPan', 'Offset',
-            'Pan in the local coordinate space of the receiving widget.',
-            polarNight),
-        _propertyRow(skyTopaz, 'localPanDelta', 'Offset',
-            'panDelta in the local coordinate space.', polarNight),
-        _propertyRow(crevasseBlue, 'position', 'Offset',
-            'Pointer position in global coordinates.', glacierMilk),
-        _propertyRow(crevasseBlue, 'localPosition', 'Offset',
-            'Pointer position in local coordinates.', glacierMilk),
-        _propertyRow(glacierShadow, 'kind', 'PointerDeviceKind',
-            'Device kind. Always trackpad for these events.', glacierMilk),
-        _propertyRow(moraineGrey, 'device', 'int',
-            'Device identifier so multiple trackpads can be told apart.',
-            glacierMilk),
-        _propertyRow(moraineGrey, 'pointer', 'int',
-            'Pointer identifier; stable across the start/update/end run.',
-            glacierMilk),
-        _propertyRow(lichenGreen, 'timeStamp', 'Duration',
-            'Time since engine start when the OS recorded the event.',
-            glacierMilk),
+        _propertyRow(
+          topazAmber,
+          'pan',
+          'Offset',
+          'Cumulative pan offset since gesture start.',
+          polarNight,
+        ),
+        _propertyRow(
+          topazHoney,
+          'panDelta',
+          'Offset',
+          'Pan offset since the previous update event.',
+          polarNight,
+        ),
+        _propertyRow(
+          topazRust,
+          'scale',
+          'double',
+          'Current scale factor. 1.0 means no zoom.',
+          polarNight,
+        ),
+        _propertyRow(
+          frostGold,
+          'rotation',
+          'double',
+          'Current rotation in radians. 0.0 means no rotation.',
+          polarNight,
+        ),
+        _propertyRow(
+          skyTopaz,
+          'localPan',
+          'Offset',
+          'Pan in the local coordinate space of the receiving widget.',
+          polarNight,
+        ),
+        _propertyRow(
+          skyTopaz,
+          'localPanDelta',
+          'Offset',
+          'panDelta in the local coordinate space.',
+          polarNight,
+        ),
+        _propertyRow(
+          crevasseBlue,
+          'position',
+          'Offset',
+          'Pointer position in global coordinates.',
+          glacierMilk,
+        ),
+        _propertyRow(
+          crevasseBlue,
+          'localPosition',
+          'Offset',
+          'Pointer position in local coordinates.',
+          glacierMilk,
+        ),
+        _propertyRow(
+          glacierShadow,
+          'kind',
+          'PointerDeviceKind',
+          'Device kind. Always trackpad for these events.',
+          glacierMilk,
+        ),
+        _propertyRow(
+          moraineGrey,
+          'device',
+          'int',
+          'Device identifier so multiple trackpads can be told apart.',
+          glacierMilk,
+        ),
+        _propertyRow(
+          moraineGrey,
+          'pointer',
+          'int',
+          'Pointer identifier; stable across the start/update/end run.',
+          glacierMilk,
+        ),
+        _propertyRow(
+          lichenGreen,
+          'timeStamp',
+          'Duration',
+          'Time since engine start when the OS recorded the event.',
+          glacierMilk,
+        ),
       ],
     ),
   );
@@ -437,18 +489,66 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
 
   final List<Widget> galleryCards = [
-    _galleryCard('A — gentle drift', eventA, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
-    _galleryCard('B — slight zoom-in', eventB, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
-    _galleryCard('C — clear pinch-out', eventC, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
-    _galleryCard('D — pinch-in / CCW twist', eventD, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
-    _galleryCard('E — large scale, CW twist', eventE, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
-    _galleryCard('F — finale 2x + 44.6 deg', eventF, glacierMilk, glacierIce,
-        crevasseBlue, polarNight, topazAmber, moraineGrey),
+    _galleryCard(
+      'A — gentle drift',
+      eventA,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
+    _galleryCard(
+      'B — slight zoom-in',
+      eventB,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
+    _galleryCard(
+      'C — clear pinch-out',
+      eventC,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
+    _galleryCard(
+      'D — pinch-in / CCW twist',
+      eventD,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
+    _galleryCard(
+      'E — large scale, CW twist',
+      eventE,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
+    _galleryCard(
+      'F — finale 2x + 44.6 deg',
+      eventF,
+      glacierMilk,
+      glacierIce,
+      crevasseBlue,
+      polarNight,
+      topazAmber,
+      moraineGrey,
+    ),
   ];
 
   final Widget constructionGallery = Container(
@@ -497,18 +597,33 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
 
   final List<Widget> timelineBlocks = [
-    _timelineBlock('down', 'PointerDownEvent\n(touch only)',
-        glacierShadow.withValues(alpha: 0.3), polarNight, false),
-    _timelineBlock('start', 'PointerPanZoomStartEvent', topazHoney, polarNight,
-        true),
+    _timelineBlock(
+      'down',
+      'PointerDownEvent\n(touch only)',
+      glacierShadow.withValues(alpha: 0.3),
+      polarNight,
+      false,
+    ),
+    _timelineBlock(
+      'start',
+      'PointerPanZoomStartEvent',
+      topazHoney,
+      polarNight,
+      true,
+    ),
     _timelineBlock('upd 1', 'A — drift', topazAmber, polarNight, true),
     _timelineBlock('upd 2', 'B — zoom', topazAmber, polarNight, true),
     _timelineBlock('upd 3', 'C — pinch+', topazAmber, polarNight, true),
     _timelineBlock('upd 4', 'D — pinch-', topazAmber, polarNight, true),
     _timelineBlock('upd 5', 'E — twist', topazAmber, polarNight, true),
     _timelineBlock('upd 6', 'F — finale', topazAmber, polarNight, true),
-    _timelineBlock('end', 'PointerPanZoomEndEvent', topazHoney, polarNight,
-        true),
+    _timelineBlock(
+      'end',
+      'PointerPanZoomEndEvent',
+      topazHoney,
+      polarNight,
+      true,
+    ),
   ];
 
   final Widget timelineSection = Container(
@@ -587,12 +702,16 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < samplingRows.length; i++) {
     final row = samplingRows[i];
     final bool isHeader = i == 0;
-    samplingWidgets.add(_samplingRow(
-      row,
-      isHeader,
-      isHeader ? crevasseBlue : (i.isOdd ? glacierMilk : glacierIce.withValues(alpha: 0.35)),
-      isHeader ? glacierMilk : polarNight,
-    ));
+    samplingWidgets.add(
+      _samplingRow(
+        row,
+        isHeader,
+        isHeader
+            ? crevasseBlue
+            : (i.isOdd ? glacierMilk : glacierIce.withValues(alpha: 0.35)),
+        isHeader ? glacierMilk : polarNight,
+      ),
+    );
   }
 
   final Widget samplingTable = Container(
@@ -668,18 +787,42 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12),
-        _matrixRow(['kind', 'down/move/up', 'hover', 'panZoom', 'signal'],
-            true, crevasseBlue, glacierMilk),
-        _matrixRow(['touch', 'YES', 'no', 'no', 'no'], false, glacierMilk,
-            polarNight),
-        _matrixRow(['trackpad', 'click only', 'no', 'YES', 'YES (scroll)'],
-            false, glacierIce.withValues(alpha: 0.35), polarNight),
-        _matrixRow(['mouse', 'YES', 'YES', 'no', 'YES (scroll)'], false,
-            glacierMilk, polarNight),
-        _matrixRow(['stylus', 'YES', 'YES', 'no', 'no'], false,
-            glacierIce.withValues(alpha: 0.35), polarNight),
-        _matrixRow(['unknown', 'maybe', 'maybe', 'no', 'no'], false,
-            glacierMilk, polarNight),
+        _matrixRow(
+          ['kind', 'down/move/up', 'hover', 'panZoom', 'signal'],
+          true,
+          crevasseBlue,
+          glacierMilk,
+        ),
+        _matrixRow(
+          ['touch', 'YES', 'no', 'no', 'no'],
+          false,
+          glacierMilk,
+          polarNight,
+        ),
+        _matrixRow(
+          ['trackpad', 'click only', 'no', 'YES', 'YES (scroll)'],
+          false,
+          glacierIce.withValues(alpha: 0.35),
+          polarNight,
+        ),
+        _matrixRow(
+          ['mouse', 'YES', 'YES', 'no', 'YES (scroll)'],
+          false,
+          glacierMilk,
+          polarNight,
+        ),
+        _matrixRow(
+          ['stylus', 'YES', 'YES', 'no', 'no'],
+          false,
+          glacierIce.withValues(alpha: 0.35),
+          polarNight,
+        ),
+        _matrixRow(
+          ['unknown', 'maybe', 'maybe', 'no', 'no'],
+          false,
+          glacierMilk,
+          polarNight,
+        ),
         SizedBox(height: 10),
         Text(
           'Only trackpads emit PointerPanZoomUpdateEvent. A two-finger drag '
@@ -742,11 +885,14 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 16,
                 top: 16,
-                child: Text('global (0,0)',
-                    style: TextStyle(
-                        color: crevasseBlue,
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold)),
+                child: Text(
+                  'global (0,0)',
+                  style: TextStyle(
+                    color: crevasseBlue,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               Positioned(
                 left: 80,
@@ -763,11 +909,14 @@ dynamic build(BuildContext context) {
                       Positioned(
                         left: 6,
                         top: 4,
-                        child: Text('local (0,0) of receiving widget',
-                            style: TextStyle(
-                                color: topazRust,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          'local (0,0) of receiving widget',
+                          style: TextStyle(
+                            color: topazRust,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       Positioned(
                         left: 110,
@@ -784,11 +933,14 @@ dynamic build(BuildContext context) {
                       Positioned(
                         left: 130,
                         top: 60,
-                        child: Text('pointer',
-                            style: TextStyle(
-                                color: berryRed,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          'pointer',
+                          style: TextStyle(
+                            color: berryRed,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -801,17 +953,28 @@ dynamic build(BuildContext context) {
         Text(
           'Example values for eventF (the finale):',
           style: TextStyle(
-              color: polarNight, fontSize: 12, fontWeight: FontWeight.bold),
+            color: polarNight,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(height: 4),
-        Text('  position      = ${eventF.position}',
-            style: TextStyle(color: polarNight, fontSize: 12)),
-        Text('  localPosition = ${eventF.localPosition}',
-            style: TextStyle(color: polarNight, fontSize: 12)),
-        Text('  pan           = ${eventF.pan}',
-            style: TextStyle(color: polarNight, fontSize: 12)),
-        Text('  localPan      = ${eventF.localPan}',
-            style: TextStyle(color: polarNight, fontSize: 12)),
+        Text(
+          '  position      = ${eventF.position}',
+          style: TextStyle(color: polarNight, fontSize: 12),
+        ),
+        Text(
+          '  localPosition = ${eventF.localPosition}',
+          style: TextStyle(color: polarNight, fontSize: 12),
+        ),
+        Text(
+          '  pan           = ${eventF.pan}',
+          style: TextStyle(color: polarNight, fontSize: 12),
+        ),
+        Text(
+          '  localPan      = ${eventF.localPan}',
+          style: TextStyle(color: polarNight, fontSize: 12),
+        ),
       ],
     ),
   );
@@ -1006,52 +1169,75 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
 
   final List<List<String>> glossary = [
-    ['pan',
-        'Translation component of the gesture. Cumulative since gesture start.'],
+    [
+      'pan',
+      'Translation component of the gesture. Cumulative since gesture start.',
+    ],
     ['panDelta', 'Translation since the previous update event.'],
-    ['scale',
-        'Multiplicative zoom factor. 1.0 means no zoom. 2.0 means doubled.'],
+    [
+      'scale',
+      'Multiplicative zoom factor. 1.0 means no zoom. 2.0 means doubled.',
+    ],
     ['rotation', 'Rotation in radians since the gesture started.'],
-    ['radian',
-        'Angle unit equal to one arc length divided by the radius. ~57.3 deg.'],
-    ['trackpad',
-        'A flat surface that detects multi-finger gestures and reports them '
-            'as single high-level events.'],
-    ['pointer',
-        'Stable identifier shared across the start/update/end sequence of a '
-            'single gesture.'],
-    ['device',
-        'Identifier distinguishing physical devices when more than one is '
-            'connected.'],
-    ['kind',
-        'PointerDeviceKind enum value. trackpad for these events.'],
-    ['localPosition',
-        'Pointer position transformed into the local coordinate space of '
-            'the receiving widget.'],
-    ['Listener',
-        'Low-level Flutter widget that exposes raw pointer event callbacks '
-            'including onPointerPanZoomUpdate.'],
-    ['ScaleGestureRecognizer',
-        'Higher-level gesture recognizer that produces a uniform '
-            'pinch/scale/rotate stream from either touch or trackpad input.'],
-    ['affine transform',
-        'Translation + rotation + scale combined into a single matrix that '
-            'preserves straight lines.'],
-    ['epsilon',
-        'A tiny positive number used to avoid divide-by-zero or false '
-            'equality on floating-point values.'],
+    [
+      'radian',
+      'Angle unit equal to one arc length divided by the radius. ~57.3 deg.',
+    ],
+    [
+      'trackpad',
+      'A flat surface that detects multi-finger gestures and reports them '
+          'as single high-level events.',
+    ],
+    [
+      'pointer',
+      'Stable identifier shared across the start/update/end sequence of a '
+          'single gesture.',
+    ],
+    [
+      'device',
+      'Identifier distinguishing physical devices when more than one is '
+          'connected.',
+    ],
+    ['kind', 'PointerDeviceKind enum value. trackpad for these events.'],
+    [
+      'localPosition',
+      'Pointer position transformed into the local coordinate space of '
+          'the receiving widget.',
+    ],
+    [
+      'Listener',
+      'Low-level Flutter widget that exposes raw pointer event callbacks '
+          'including onPointerPanZoomUpdate.',
+    ],
+    [
+      'ScaleGestureRecognizer',
+      'Higher-level gesture recognizer that produces a uniform '
+          'pinch/scale/rotate stream from either touch or trackpad input.',
+    ],
+    [
+      'affine transform',
+      'Translation + rotation + scale combined into a single matrix that '
+          'preserves straight lines.',
+    ],
+    [
+      'epsilon',
+      'A tiny positive number used to avoid divide-by-zero or false '
+          'equality on floating-point values.',
+    ],
   ];
 
   final List<Widget> glossaryWidgets = [];
   for (int i = 0; i < glossary.length; i++) {
     final pair = glossary[i];
-    glossaryWidgets.add(_glossaryRow(
-      pair[0],
-      pair[1],
-      i.isOdd ? glacierMilk : glacierIce.withValues(alpha: 0.30),
-      crevasseBlue,
-      polarNight,
-    ));
+    glossaryWidgets.add(
+      _glossaryRow(
+        pair[0],
+        pair[1],
+        i.isOdd ? glacierMilk : glacierIce.withValues(alpha: 0.30),
+        crevasseBlue,
+        polarNight,
+      ),
+    );
   }
 
   final Widget glossarySection = Container(
@@ -1104,10 +1290,7 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          crevasseBlue,
-          polarNight,
-        ],
+        colors: [crevasseBlue, polarNight],
       ),
     ),
     child: Column(
@@ -1178,10 +1361,7 @@ dynamic build(BuildContext context) {
 
   print('[done] returning scaffold');
 
-  return Scaffold(
-    backgroundColor: glacierMilk,
-    body: body,
-  );
+  return Scaffold(backgroundColor: glacierMilk, body: body);
 }
 
 // =============================================================================
@@ -1225,10 +1405,7 @@ Widget _bullet(String text, Color textColor, Color dotColor) {
           width: 8,
           height: 8,
           margin: EdgeInsets.only(top: 6, right: 8),
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         Expanded(
           child: Text(
@@ -1241,8 +1418,13 @@ Widget _bullet(String text, Color textColor, Color dotColor) {
   );
 }
 
-Widget _propertyRow(Color swatchColor, String name, String type,
-    String description, Color textColor) {
+Widget _propertyRow(
+  Color swatchColor,
+  String name,
+  String type,
+  String description,
+  Color textColor,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1293,14 +1475,15 @@ Widget _propertyRow(Color swatchColor, String name, String type,
 }
 
 Widget _galleryCard(
-    String title,
-    PointerPanZoomUpdateEvent event,
-    Color cardBg,
-    Color border,
-    Color titleColor,
-    Color textColor,
-    Color accent,
-    Color metaColor) {
+  String title,
+  PointerPanZoomUpdateEvent event,
+  Color cardBg,
+  Color border,
+  Color titleColor,
+  Color textColor,
+  Color accent,
+  Color metaColor,
+) {
   final double rotDeg = event.rotation * 180.0 / 3.141592653589793;
   return Container(
     width: double.infinity,
@@ -1320,10 +1503,7 @@ Widget _galleryCard(
               width: 10,
               height: 10,
               margin: EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             Text(
               title,
@@ -1357,32 +1537,50 @@ Widget _galleryCard(
         Text(
           '  pan       = ${event.pan}',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontFamily: 'monospace'),
+            color: textColor,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
         ),
         Text(
           '  panDelta  = ${event.panDelta}',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontFamily: 'monospace'),
+            color: textColor,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
         ),
         Text(
           '  scale     = ${event.scale.toStringAsFixed(3)}',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontFamily: 'monospace'),
+            color: textColor,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
         ),
         Text(
           '  rotation  = ${event.rotation.toStringAsFixed(3)} rad  (${rotDeg.toStringAsFixed(1)} deg)',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontFamily: 'monospace'),
+            color: textColor,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
         ),
         Text(
           '  position  = ${event.position}',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontFamily: 'monospace'),
+            color: textColor,
+            fontSize: 12,
+            fontFamily: 'monospace',
+          ),
         ),
         Text(
           '  device=${event.device}  pointer=${event.pointer}  kind=${event.kind}  t=${event.timeStamp}',
           style: TextStyle(
-              color: metaColor, fontSize: 11, fontFamily: 'monospace'),
+            color: metaColor,
+            fontSize: 11,
+            fontFamily: 'monospace',
+          ),
         ),
       ],
     ),
@@ -1390,7 +1588,12 @@ Widget _galleryCard(
 }
 
 Widget _timelineBlock(
-    String top, String bottom, Color color, Color textColor, bool emphasis) {
+  String top,
+  String bottom,
+  Color color,
+  Color textColor,
+  bool emphasis,
+) {
   return Container(
     width: 110,
     margin: EdgeInsets.only(right: 6),
@@ -1398,8 +1601,9 @@ Widget _timelineBlock(
     decoration: BoxDecoration(
       color: color,
       border: Border.all(
-          color: Color(0xFF000000).withValues(alpha: 0.25),
-          width: emphasis ? 1.5 : 0.8),
+        color: Color(0xFF000000).withValues(alpha: 0.25),
+        width: emphasis ? 1.5 : 0.8,
+      ),
       borderRadius: BorderRadius.circular(4),
     ),
     child: Column(
@@ -1416,11 +1620,7 @@ Widget _timelineBlock(
         Text(
           bottom,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 10,
-            height: 1.3,
-          ),
+          style: TextStyle(color: textColor, fontSize: 10, height: 1.3),
         ),
       ],
     ),
@@ -1428,7 +1628,11 @@ Widget _timelineBlock(
 }
 
 Widget _samplingRow(
-    List<String> cells, bool isHeader, Color background, Color textColor) {
+  List<String> cells,
+  bool isHeader,
+  Color background,
+  Color textColor,
+) {
   final List<Widget> cellWidgets = [];
   for (int i = 0; i < cells.length; i++) {
     cellWidgets.add(
@@ -1456,7 +1660,11 @@ Widget _samplingRow(
 }
 
 Widget _matrixRow(
-    List<String> cells, bool isHeader, Color background, Color textColor) {
+  List<String> cells,
+  bool isHeader,
+  Color background,
+  Color textColor,
+) {
   final List<Widget> cellWidgets = [];
   for (int i = 0; i < cells.length; i++) {
     cellWidgets.add(
@@ -1483,8 +1691,13 @@ Widget _matrixRow(
   );
 }
 
-Widget _pitfallCard(String title, String body, Color border, Color textColor,
-    Color background) {
+Widget _pitfallCard(
+  String title,
+  String body,
+  Color border,
+  Color textColor,
+  Color background,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.symmetric(vertical: 6),
@@ -1515,7 +1728,11 @@ Widget _pitfallCard(String title, String body, Color border, Color textColor,
 }
 
 Widget _codeCard(
-    String title, List<String> lines, Color textColor, Color background) {
+  String title,
+  List<String> lines,
+  Color textColor,
+  Color background,
+) {
   final List<Widget> lineWidgets = [];
   for (int i = 0; i < lines.length; i++) {
     lineWidgets.add(
@@ -1551,16 +1768,21 @@ Widget _codeCard(
         ),
         SizedBox(height: 8),
         Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: lineWidgets),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: lineWidgets,
+        ),
       ],
     ),
   );
 }
 
 Widget _glossaryRow(
-    String term, String definition, Color background, Color termColor,
-    Color defColor) {
+  String term,
+  String definition,
+  Color background,
+  Color termColor,
+  Color defColor,
+) {
   return Container(
     color: background,
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),

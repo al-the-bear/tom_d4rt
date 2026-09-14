@@ -188,10 +188,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8.0),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 10.0),
                 // Visual timeline showing sample values
@@ -279,7 +276,20 @@ dynamic build(BuildContext context) {
               '0→1→0→1→0...\n'
                   'Forward then backward — smooth loop.',
               // Triangle wave over 2 cycles
-              [0.0, 0.33, 0.66, 1.0, 0.66, 0.33, 0.0, 0.33, 0.66, 1.0, 0.66, 0.33],
+              [
+                0.0,
+                0.33,
+                0.66,
+                1.0,
+                0.66,
+                0.33,
+                0.0,
+                0.33,
+                0.66,
+                1.0,
+                0.66,
+                0.33,
+              ],
               Color(0xFF4CAF50),
               Icons.swap_horiz,
             ),
@@ -307,11 +317,7 @@ dynamic build(BuildContext context) {
   // Show what a rotating widget looks like at different
   // points during one cycle: 0%, 25%, 50%, 75%, 100%.
 
-  Widget buildSnapshot(
-    String label,
-    double fraction,
-    Color color,
-  ) {
+  Widget buildSnapshot(String label, double fraction, Color color) {
     final angle = fraction * 6.28318; // 2*pi
     return Column(
       children: [
@@ -337,11 +343,7 @@ dynamic build(BuildContext context) {
                   ),
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Icon(
-                  Icons.navigation,
-                  color: Colors.white,
-                  size: 20.0,
-                ),
+                child: Icon(Icons.navigation, color: Colors.white, size: 20.0),
               ),
             ),
           ),
@@ -454,10 +456,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 9.0,
-                    color: Colors.grey.shade500,
-                  ),
+                  style: TextStyle(fontSize: 9.0, color: Colors.grey.shade500),
                 ),
               ],
             ),
@@ -519,42 +518,84 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 11.0, color: Colors.grey.shade500),
         ),
         SizedBox(height: 12.0),
-        buildCurveRow(
-          'linear',
-          'Constant speed',
-          [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-          Color(0xFF1976D2),
-        ),
-        buildCurveRow(
-          'easeInOut',
-          'Slow → fast → slow',
-          [0.0, 0.02, 0.1, 0.3, 0.5, 0.7, 0.9, 0.98, 1.0, 0.98, 0.5],
-          Color(0xFF388E3C),
-        ),
-        buildCurveRow(
-          'easeIn',
-          'Starts slow',
-          [0.0, 0.01, 0.04, 0.09, 0.16, 0.25, 0.36, 0.49, 0.64, 0.81, 1.0],
-          Color(0xFFFF9800),
-        ),
-        buildCurveRow(
-          'easeOut',
-          'Ends slow',
-          [0.0, 0.19, 0.36, 0.51, 0.64, 0.75, 0.84, 0.91, 0.96, 0.99, 1.0],
-          Color(0xFFE91E63),
-        ),
-        buildCurveRow(
-          'bounceOut',
-          'Bounces at end',
-          [0.0, 0.5, 0.9, 1.0, 0.8, 1.0, 0.95, 1.0, 0.98, 1.0, 1.0],
-          Color(0xFF7B1FA2),
-        ),
-        buildCurveRow(
-          'elasticIn',
-          'Spring start',
-          [0.0, -0.01, 0.0, 0.02, -0.03, 0.05, 0.15, 0.3, 0.55, 0.8, 1.0],
-          Color(0xFF00897B),
-        ),
+        buildCurveRow('linear', 'Constant speed', [
+          0.0,
+          0.1,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0,
+        ], Color(0xFF1976D2)),
+        buildCurveRow('easeInOut', 'Slow → fast → slow', [
+          0.0,
+          0.02,
+          0.1,
+          0.3,
+          0.5,
+          0.7,
+          0.9,
+          0.98,
+          1.0,
+          0.98,
+          0.5,
+        ], Color(0xFF388E3C)),
+        buildCurveRow('easeIn', 'Starts slow', [
+          0.0,
+          0.01,
+          0.04,
+          0.09,
+          0.16,
+          0.25,
+          0.36,
+          0.49,
+          0.64,
+          0.81,
+          1.0,
+        ], Color(0xFFFF9800)),
+        buildCurveRow('easeOut', 'Ends slow', [
+          0.0,
+          0.19,
+          0.36,
+          0.51,
+          0.64,
+          0.75,
+          0.84,
+          0.91,
+          0.96,
+          0.99,
+          1.0,
+        ], Color(0xFFE91E63)),
+        buildCurveRow('bounceOut', 'Bounces at end', [
+          0.0,
+          0.5,
+          0.9,
+          1.0,
+          0.8,
+          1.0,
+          0.95,
+          1.0,
+          0.98,
+          1.0,
+          1.0,
+        ], Color(0xFF7B1FA2)),
+        buildCurveRow('elasticIn', 'Spring start', [
+          0.0,
+          -0.01,
+          0.0,
+          0.02,
+          -0.03,
+          0.05,
+          0.15,
+          0.3,
+          0.55,
+          0.8,
+          1.0,
+        ], Color(0xFF00897B)),
       ],
     ),
   );
@@ -618,10 +659,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
                 ),
                 SizedBox(height: 10.0),
                 preview,
@@ -849,9 +887,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: color.withValues(alpha: intensity * 0.15),
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(
-          color: color.withValues(alpha: 0.5),
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Row(
         children: [
@@ -1060,12 +1096,7 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 7: Performance tips ===');
 
-  Widget buildTipCard(
-    IconData icon,
-    String title,
-    String tip,
-    Color color,
-  ) {
+  Widget buildTipCard(IconData icon, String title, String tip, Color color) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4.0),
       padding: EdgeInsets.all(12.0),
@@ -1101,10 +1132,7 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 2.0),
                 Text(
                   tip,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -1118,9 +1146,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFFFFF8E1), Color(0xFFFFECB3)]),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFFF57C00)),
     ),
@@ -1269,11 +1295,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF880E4F),
-                Color(0xFFAD1457),
-                Color(0xFFC2185B),
-              ],
+              colors: [Color(0xFF880E4F), Color(0xFFAD1457), Color(0xFFC2185B)],
             ),
           ),
           child: Column(

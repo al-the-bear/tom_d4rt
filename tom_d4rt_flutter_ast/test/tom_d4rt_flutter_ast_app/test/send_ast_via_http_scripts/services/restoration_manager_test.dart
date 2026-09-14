@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: flame, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: ember),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: magma.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: magma.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: magma)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: magma,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -140,18 +149,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? crimson.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: ember.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: ember.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? magma : deepCrimson)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? magma : deepCrimson,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +178,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? magma : deepCrimson,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: crimson),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: crimson),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -206,8 +221,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rgFlow(['Engine data', 'Manager receives', 'Root bucket',
-                'Widget tree', 'State restored']),
+            rgFlow([
+              'Engine data',
+              'Manager receives',
+              'Root bucket',
+              'Widget tree',
+              'State restored',
+            ]),
             const SizedBox(height: 10),
             _rgRoleBadge('Receives', 'Data from engine on launch', magma),
             _rgRoleBadge('Creates', 'Root RestorationBucket', deepCrimson),
@@ -266,10 +286,23 @@ dynamic build(BuildContext context) {
           children: [
             _rgCodeLine('ServicesBinding.instance', magma),
             _rgCodeLine('  .restorationManager', deepCrimson),
-            _rgCodeLine('  .rootBucket  // Future<RestorationBucket?>', crimson),
+            _rgCodeLine(
+              '  .rootBucket  // Future<RestorationBucket?>',
+              crimson,
+            ),
             const SizedBox(height: 8),
-            _rgPropertyRow('rootBucket', 'Future<RestorationBucket?>', 'The top-level bucket', magma),
-            _rgPropertyRow('isReplacing', 'bool', 'True during hot restart', deepCrimson),
+            _rgPropertyRow(
+              'rootBucket',
+              'Future<RestorationBucket?>',
+              'The top-level bucket',
+              magma,
+            ),
+            _rgPropertyRow(
+              'isReplacing',
+              'bool',
+              'True during hot restart',
+              deepCrimson,
+            ),
           ],
         ),
       ),
@@ -293,7 +326,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             rgRow(['Direction', 'Message', 'Data'], isHeader: true),
-            rgRow(['Engine → Flutter', 'Restoration data', 'Map<dynamic, dynamic>']),
+            rgRow([
+              'Engine → Flutter',
+              'Restoration data',
+              'Map<dynamic, dynamic>',
+            ]),
             rgRow(['Flutter → Engine', '"push"', 'Serialized bucket tree']),
             rgRow(['Flutter → Engine', '"get"', 'Request restoration data']),
           ],
@@ -319,15 +356,24 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rgFlow(['Engine restore', 'Channel msg', 'Deserialize',
-                'Root bucket', 'Notify listeners']),
+            rgFlow([
+              'Engine restore',
+              'Channel msg',
+              'Deserialize',
+              'Root bucket',
+              'Notify listeners',
+            ]),
             const SizedBox(height: 10),
             _rgTimelineItem('T0', 'App process starts', magma),
             _rgTimelineItem('T1', 'Binding initializes manager', deepCrimson),
             _rgTimelineItem('T2', 'Engine sends restoration Map', crimson),
             _rgTimelineItem('T3', 'Manager creates root bucket', ruby),
             _rgTimelineItem('T4', 'Listeners notified (bucket ready)', scarlet),
-            _rgTimelineItem('T5', 'Widget tree builds with restored state', coral),
+            _rgTimelineItem(
+              'T5',
+              'Widget tree builds with restored state',
+              coral,
+            ),
           ],
         ),
       ),
@@ -408,10 +454,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _rgMethodCard('addListener', 'VoidCallback', 'Notified when root changes', magma),
-            _rgMethodCard('removeListener', 'VoidCallback', 'Stop listening', deepCrimson),
-            _rgMethodCard('rootBucket', 'Future<Bucket?>', 'The root bucket future', crimson),
-            _rgMethodCard('isReplacing', 'bool getter', 'True during hot restart', ruby),
+            _rgMethodCard(
+              'addListener',
+              'VoidCallback',
+              'Notified when root changes',
+              magma,
+            ),
+            _rgMethodCard(
+              'removeListener',
+              'VoidCallback',
+              'Stop listening',
+              deepCrimson,
+            ),
+            _rgMethodCard(
+              'rootBucket',
+              'Future<Bucket?>',
+              'The root bucket future',
+              crimson,
+            ),
+            _rgMethodCard(
+              'isReplacing',
+              'bool getter',
+              'True during hot restart',
+              ruby,
+            ),
           ],
         ),
       ),
@@ -435,8 +501,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rgFlow(['Manager', 'RootRestorationScope', 'InheritedWidget',
-                'RestorationScope.of()', 'Widget buckets']),
+            rgFlow([
+              'Manager',
+              'RootRestorationScope',
+              'InheritedWidget',
+              'RestorationScope.of()',
+              'Widget buckets',
+            ]),
             const SizedBox(height: 10),
             rgRow(['Layer', 'Widget', 'Role'], isHeader: true),
             rgRow(['1', 'RootRestorationScope', 'Owns root bucket']),
@@ -499,7 +570,11 @@ dynamic build(BuildContext context) {
             rgRow(['TestRestorationManager', 'Mock manager', 'flutter_test']),
             rgRow(['MockRestorationBucket', 'Mock bucket', 'Custom']),
             rgRow(['tester.restoreFrom()', 'Feed data', 'WidgetTester']),
-            rgRow(['tester.getRestorationData()', 'Read state', 'WidgetTester']),
+            rgRow([
+              'tester.getRestorationData()',
+              'Read state',
+              'WidgetTester',
+            ]),
           ],
         ),
       ),
@@ -558,13 +633,55 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _rgLifecyclePhase(1, 'Init', 'Binding creates manager', Icons.power_settings_new, magma),
-            _rgLifecyclePhase(2, 'Listen', 'Register channel handler', Icons.hearing, deepCrimson),
-            _rgLifecyclePhase(3, 'Receive', 'Engine sends data', Icons.download, crimson),
-            _rgLifecyclePhase(4, 'Distribute', 'Create root bucket tree', Icons.account_tree, ruby),
-            _rgLifecyclePhase(5, 'Monitor', 'Watch for value changes', Icons.visibility, scarlet),
-            _rgLifecyclePhase(6, 'Push', 'Send updates to engine', Icons.upload, coral),
-            _rgLifecyclePhase(7, 'Repeat', 'Back to monitor', Icons.refresh, flame),
+            _rgLifecyclePhase(
+              1,
+              'Init',
+              'Binding creates manager',
+              Icons.power_settings_new,
+              magma,
+            ),
+            _rgLifecyclePhase(
+              2,
+              'Listen',
+              'Register channel handler',
+              Icons.hearing,
+              deepCrimson,
+            ),
+            _rgLifecyclePhase(
+              3,
+              'Receive',
+              'Engine sends data',
+              Icons.download,
+              crimson,
+            ),
+            _rgLifecyclePhase(
+              4,
+              'Distribute',
+              'Create root bucket tree',
+              Icons.account_tree,
+              ruby,
+            ),
+            _rgLifecyclePhase(
+              5,
+              'Monitor',
+              'Watch for value changes',
+              Icons.visibility,
+              scarlet,
+            ),
+            _rgLifecyclePhase(
+              6,
+              'Push',
+              'Send updates to engine',
+              Icons.upload,
+              coral,
+            ),
+            _rgLifecyclePhase(
+              7,
+              'Repeat',
+              'Back to monitor',
+              Icons.refresh,
+              flame,
+            ),
           ],
         ),
       ),
@@ -587,7 +704,12 @@ dynamic build(BuildContext context) {
         'Platform Matrix',
         Column(
           children: [
-            rgRow(['Platform', 'Supported', 'Mechanism', 'Trigger'], isHeader: true),
+            rgRow([
+              'Platform',
+              'Supported',
+              'Mechanism',
+              'Trigger',
+            ], isHeader: true),
             rgRow(['Android', 'Yes', 'Bundle', 'Low memory kill']),
             rgRow(['iOS', 'Yes', 'NSUserActivity', 'Background kill']),
             rgRow(['Web', 'No', 'N/A', 'Refresh = full reset']),
@@ -617,12 +739,24 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _rgPitfall('No restorationScopeId', 'Entire subtree has no restoration', magma),
-            _rgPitfall('Data too large', 'Android drops SavedInstanceState', deepCrimson),
+            _rgPitfall(
+              'No restorationScopeId',
+              'Entire subtree has no restoration',
+              magma,
+            ),
+            _rgPitfall(
+              'Data too large',
+              'Android drops SavedInstanceState',
+              deepCrimson,
+            ),
             _rgPitfall('Non-serializable', 'RuntimeError on push', crimson),
             _rgPitfall('Not testing', 'Issues found only in production', ruby),
             _rgPitfall('Web assumptions', 'rootBucket is null on web', scarlet),
-            _rgPitfall('Async race', 'rootBucket is a Future, widget may build before ready', coral),
+            _rgPitfall(
+              'Async race',
+              'rootBucket is a Future, widget may build before ready',
+              coral,
+            ),
           ],
         ),
       ),
@@ -685,11 +819,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('RestorationManager — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'RestorationManager — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'The singleton orchestrator of Flutter state restoration: '
@@ -721,10 +858,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -752,13 +901,20 @@ Widget _rgRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(role,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            role,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -768,12 +924,15 @@ Widget _rgRoleBadge(String role, String desc, Color color) {
 Widget _rgCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }
 
@@ -784,22 +943,32 @@ Widget _rgPropertyRow(String name, String type, String desc, Color color) {
       children: [
         SizedBox(
           width: 90,
-          child: Text(name,
-              style: TextStyle(
-                  fontSize: 9,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.bold,
-                  color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(
           width: 100,
-          child: Text(type,
-              style: TextStyle(
-                  fontSize: 8, fontFamily: 'monospace', color: color.withValues(alpha: 0.7))),
+          child: Text(
+            type,
+            style: TextStyle(
+              fontSize: 8,
+              fontFamily: 'monospace',
+              color: color.withValues(alpha: 0.7),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -819,15 +988,19 @@ Widget _rgTimelineItem(String time, String desc, Color color) {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
-            child: Text(time,
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 8, fontWeight: FontWeight.bold)),
+            child: Text(
+              time,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 8,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(desc, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),
@@ -846,20 +1019,38 @@ Widget _rgMethodCard(String name, String sig, String desc, Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(name,
-            style: TextStyle(
-                fontSize: 10, fontWeight: FontWeight.bold, color: color)),
-        Text(sig,
-            style: TextStyle(
-                fontSize: 8, fontFamily: 'monospace', color: color.withValues(alpha: 0.6))),
-        Text(desc,
-            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8))),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(
+          sig,
+          style: TextStyle(
+            fontSize: 8,
+            fontFamily: 'monospace',
+            color: color.withValues(alpha: 0.6),
+          ),
+        ),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.8)),
+        ),
       ],
     ),
   );
 }
 
-Widget _rgLifecyclePhase(int num, String name, String desc, IconData icon, Color color) {
+Widget _rgLifecyclePhase(
+  int num,
+  String name,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -872,9 +1063,14 @@ Widget _rgLifecyclePhase(int num, String name, String desc, IconData icon, Color
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 6),
@@ -882,13 +1078,20 @@ Widget _rgLifecyclePhase(int num, String name, String desc, IconData icon, Color
         const SizedBox(width: 6),
         SizedBox(
           width: 50,
-          child: Text(name,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+          child: Text(
+            name,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -907,13 +1110,20 @@ Widget _rgPitfall(String issue, String consequence, Color color) {
             text: TextSpan(
               children: [
                 TextSpan(
-                    text: '$issue: ',
-                    style: TextStyle(
-                        fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+                  text: '$issue: ',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
                 TextSpan(
-                    text: consequence,
-                    style: TextStyle(
-                        fontSize: 10, color: color.withValues(alpha: 0.7))),
+                  text: consequence,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: color.withValues(alpha: 0.7),
+                  ),
+                ),
               ],
             ),
           ),

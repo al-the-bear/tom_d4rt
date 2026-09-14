@@ -89,38 +89,62 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _heroIntro(), const SizedBox(height: 28.0),
-          _section1Title(), const SizedBox(height: 12.0), _section1Body(),
-        const SizedBox(height: 36.0),
-        _section2Title(), const SizedBox(height: 12.0), _platformGallery(),
-        const SizedBox(height: 36.0),
-        _section3Title(), const SizedBox(height: 12.0), _defaultVsThemeCard(),
-        const SizedBox(height: 36.0),
-        _section4Title(), const SizedBox(height: 12.0),
-        _liveDetectionCard(
-          detectedPlatform: detectedPlatform,
-          detectedLabel: detectedPlatformLabel,
-          themePlatform: themePlatform,
-          themePlatformLabel: themePlatformLabel,
-          detectionError: detectionError),
-        const SizedBox(height: 36.0),
-        _section5Title(), const SizedBox(height: 12.0), _cupertinoVsMaterialTable(),
-        const SizedBox(height: 36.0),
-        _section6Title(), const SizedBox(height: 12.0), _codeIdiomCards(),
-        const SizedBox(height: 36.0),
-        _section7Title(), const SizedBox(height: 12.0), _osChromeShowcase(),
-        const SizedBox(height: 36.0),
-        _section8Title(), const SizedBox(height: 12.0), _themePlatformOverrides(),
-        const SizedBox(height: 36.0),
-        _section9Title(), const SizedBox(height: 12.0), _pitfallsList(),
-        const SizedBox(height: 36.0),
-        _section10Title(), const SizedBox(height: 12.0), _decisionTree(),
-        const SizedBox(height: 36.0),
-        _section11Title(), const SizedBox(height: 12.0), _cheatSheet(),
-        const SizedBox(height: 32.0), _footerTagline(),
-        const SizedBox(height: 24.0),
-      ],
-    ),
+          _heroIntro(),
+          const SizedBox(height: 28.0),
+          _section1Title(),
+          const SizedBox(height: 12.0),
+          _section1Body(),
+          const SizedBox(height: 36.0),
+          _section2Title(),
+          const SizedBox(height: 12.0),
+          _platformGallery(),
+          const SizedBox(height: 36.0),
+          _section3Title(),
+          const SizedBox(height: 12.0),
+          _defaultVsThemeCard(),
+          const SizedBox(height: 36.0),
+          _section4Title(),
+          const SizedBox(height: 12.0),
+          _liveDetectionCard(
+            detectedPlatform: detectedPlatform,
+            detectedLabel: detectedPlatformLabel,
+            themePlatform: themePlatform,
+            themePlatformLabel: themePlatformLabel,
+            detectionError: detectionError,
+          ),
+          const SizedBox(height: 36.0),
+          _section5Title(),
+          const SizedBox(height: 12.0),
+          _cupertinoVsMaterialTable(),
+          const SizedBox(height: 36.0),
+          _section6Title(),
+          const SizedBox(height: 12.0),
+          _codeIdiomCards(),
+          const SizedBox(height: 36.0),
+          _section7Title(),
+          const SizedBox(height: 12.0),
+          _osChromeShowcase(),
+          const SizedBox(height: 36.0),
+          _section8Title(),
+          const SizedBox(height: 12.0),
+          _themePlatformOverrides(),
+          const SizedBox(height: 36.0),
+          _section9Title(),
+          const SizedBox(height: 12.0),
+          _pitfallsList(),
+          const SizedBox(height: 36.0),
+          _section10Title(),
+          const SizedBox(height: 12.0),
+          _decisionTree(),
+          const SizedBox(height: 36.0),
+          _section11Title(),
+          const SizedBox(height: 12.0),
+          _cheatSheet(),
+          const SizedBox(height: 32.0),
+          _footerTagline(),
+          const SizedBox(height: 24.0),
+        ],
+      ),
     ),
   );
 }
@@ -134,40 +158,65 @@ Widget _heroIntro() {
     padding: const EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF312E81)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight),
+        colors: <Color>[
+          Color(0xFF0F172A),
+          Color(0xFF1E293B),
+          Color(0xFF312E81),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
       borderRadius: BorderRadius.circular(24.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(14.0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[Colors.white24, Colors.white10],
-                begin: Alignment.topCenter, end: Alignment.bottomCenter),
-              shape: BoxShape.circle,
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(14.0),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[Colors.white24, Colors.white10],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.devices_other,
+                size: 48.0,
+                color: Colors.white,
+              ),
             ),
-            child: const Icon(Icons.devices_other, size: 48.0, color: Colors.white),
-          ),
-          const SizedBox(width: 16.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[
-                Text('Platform', style: TextStyle(
-                  fontSize: 36.0, fontWeight: FontWeight.bold,
-                  color: Colors.white, letterSpacing: 1.4)),
-                SizedBox(height: 4.0),
-                Text('TargetPlatform • defaultTargetPlatform • kIsWeb',
-                  style: TextStyle(
-                    fontSize: 13.0, color: Colors.white70, fontFamily: 'monospace')),
-              ],
+            const SizedBox(width: 16.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[
+                  Text(
+                    'Platform',
+                    style: TextStyle(
+                      fontSize: 36.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 1.4,
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    'TargetPlatform • defaultTargetPlatform • kIsWeb',
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: Colors.white70,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
         const SizedBox(height: 18.0),
         Container(
           padding: const EdgeInsets.all(16.0),
@@ -185,13 +234,15 @@ Widget _heroIntro() {
           ),
         ),
         const SizedBox(height: 16.0),
-        Row(children: <Widget>[
-          _heroChip('6 platforms', Icons.grid_view),
-          const SizedBox(width: 8.0),
-          _heroChip('3 layers', Icons.layers),
-          const SizedBox(width: 8.0),
-          _heroChip('1 enum', Icons.list_alt),
-        ]),
+        Row(
+          children: <Widget>[
+            _heroChip('6 platforms', Icons.grid_view),
+            const SizedBox(width: 8.0),
+            _heroChip('3 layers', Icons.layers),
+            const SizedBox(width: 8.0),
+            _heroChip('1 enum', Icons.list_alt),
+          ],
+        ),
       ],
     ),
   );
@@ -203,7 +254,9 @@ Widget _heroChip(String label, IconData icon) {
     decoration: BoxDecoration(
       gradient: const LinearGradient(
         colors: <Color>[Colors.white24, Colors.white12],
-        begin: Alignment.centerLeft, end: Alignment.centerRight),
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ),
       borderRadius: BorderRadius.circular(30.0),
     ),
     child: Row(
@@ -211,8 +264,14 @@ Widget _heroChip(String label, IconData icon) {
       children: <Widget>[
         Icon(icon, color: Colors.white, size: 16.0),
         const SizedBox(width: 6.0),
-        Text(label, style: const TextStyle(
-          color: Colors.white, fontSize: 12.0, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ],
     ),
   );
@@ -221,7 +280,12 @@ Widget _heroChip(String label, IconData icon) {
 // ============================================================
 // Section title helper
 // ============================================================
-Widget _sectionTitle(String number, String title, String subtitle, Color accent) {
+Widget _sectionTitle(
+  String number,
+  String title,
+  String subtitle,
+  Color accent,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 16.0),
     padding: const EdgeInsets.all(16.0),
@@ -230,33 +294,57 @@ Widget _sectionTitle(String number, String title, String subtitle, Color accent)
       borderRadius: BorderRadius.circular(14.0),
       border: Border(left: BorderSide(color: accent, width: 6.0)),
     ),
-    child: Row(children: <Widget>[
-      Container(
-        width: 42.0, height: 42.0,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: accent.withValues(alpha: 0.12), shape: BoxShape.circle),
-        child: Text(number, style: TextStyle(
-          color: accent, fontWeight: FontWeight.bold, fontSize: 18.0)),
-      ),
-      const SizedBox(width: 12.0),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(title, style: const TextStyle(
-              fontSize: 18.0, fontWeight: FontWeight.bold, color: _kInk)),
-            const SizedBox(height: 2.0),
-            Text(subtitle, style: const TextStyle(
-              fontSize: 12.0, color: _kInkMuted)),
-          ],
+    child: Row(
+      children: <Widget>[
+        Container(
+          width: 42.0,
+          height: 42.0,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: accent.withValues(alpha: 0.12),
+            shape: BoxShape.circle,
+          ),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: accent,
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+            ),
+          ),
         ),
-      ),
-    ]),
+        const SizedBox(width: 12.0),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: _kInk,
+                ),
+              ),
+              const SizedBox(height: 2.0),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 12.0, color: _kInkMuted),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
   );
 }
 
-Widget _section1Title() => _sectionTitle('1', 'Why platform detection matters', 'Three layers, one enum, plenty of footguns', _kAccent);
+Widget _section1Title() => _sectionTitle(
+  '1',
+  'Why platform detection matters',
+  'Three layers, one enum, plenty of footguns',
+  _kAccent,
+);
 
 Widget _section1Body() {
   return Container(
@@ -287,14 +375,35 @@ Widget _section1Body() {
         const SizedBox(height: 16.0),
         Row(
           children: <Widget>[
-            Expanded(child: _layerCard('Compile-time', 'kIsWeb, kIsWasm, kDebug/Release/Profile',
-                'Tree-shaken in release builds. Always cheap.', Icons.code, _kSuccess)),
+            Expanded(
+              child: _layerCard(
+                'Compile-time',
+                'kIsWeb, kIsWasm, kDebug/Release/Profile',
+                'Tree-shaken in release builds. Always cheap.',
+                Icons.code,
+                _kSuccess,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _layerCard('Runtime default', 'defaultTargetPlatform',
-                'Static getter. Overridable in tests.', Icons.memory, _kAccent)),
+            Expanded(
+              child: _layerCard(
+                'Runtime default',
+                'defaultTargetPlatform',
+                'Static getter. Overridable in tests.',
+                Icons.memory,
+                _kAccent,
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _layerCard('Theme context', 'Theme.of(context).platform',
-                'What Material widgets actually obey.', Icons.color_lens, _kWarn)),
+            Expanded(
+              child: _layerCard(
+                'Theme context',
+                'Theme.of(context).platform',
+                'What Material widgets actually obey.',
+                Icons.color_lens,
+                _kWarn,
+              ),
+            ),
           ],
         ),
       ],
@@ -302,7 +411,13 @@ Widget _section1Body() {
   );
 }
 
-Widget _layerCard(String layer, String api, String note, IconData icon, Color accent) {
+Widget _layerCard(
+  String layer,
+  String api,
+  String note,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     padding: const EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -315,13 +430,33 @@ Widget _layerCard(String layer, String api, String note, IconData icon, Color ac
       children: <Widget>[
         Icon(icon, color: accent, size: 22.0),
         const SizedBox(height: 6.0),
-        Text(layer,
-            style: TextStyle(
-                fontSize: 12.0, fontWeight: FontWeight.bold, color: accent, letterSpacing: 0.6)),
+        Text(
+          layer,
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.bold,
+            color: accent,
+            letterSpacing: 0.6,
+          ),
+        ),
         const SizedBox(height: 4.0),
-        Text(api, style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInk)),
+        Text(
+          api,
+          style: const TextStyle(
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+            color: _kInk,
+          ),
+        ),
         const SizedBox(height: 6.0),
-        Text(note, style: const TextStyle(fontSize: 10.5, color: _kInkSoft, height: 1.35)),
+        Text(
+          note,
+          style: const TextStyle(
+            fontSize: 10.5,
+            color: _kInkSoft,
+            height: 1.35,
+          ),
+        ),
       ],
     ),
   );
@@ -330,7 +465,12 @@ Widget _layerCard(String layer, String api, String note, IconData icon, Color ac
 // ============================================================
 // SECTION 2: TargetPlatform enum gallery
 // ============================================================
-Widget _section2Title() => _sectionTitle('2', 'TargetPlatform enum gallery', 'Six values, each with its native chrome', _kAccentDeep);
+Widget _section2Title() => _sectionTitle(
+  '2',
+  'TargetPlatform enum gallery',
+  'Six values, each with its native chrome',
+  _kAccentDeep,
+);
 
 Widget _platformGallery() {
   return Container(
@@ -340,34 +480,76 @@ Widget _platformGallery() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _platformCard(TargetPlatform.android, 'Android',
-              _kAndroidGreen, Icons.android,
-              'Material 3 by default', 'Pixel, Samsung, Xiaomi, …')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.android,
+                'Android',
+                _kAndroidGreen,
+                Icons.android,
+                'Material 3 by default',
+                'Pixel, Samsung, Xiaomi, …',
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _platformCard(TargetPlatform.fuchsia, 'Fuchsia',
-              _kFuchsiaPink, Icons.bubble_chart,
-              'Google\'s experimental OS', 'Nest Hub gen-2+')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.fuchsia,
+                'Fuchsia',
+                _kFuchsiaPink,
+                Icons.bubble_chart,
+                'Google\'s experimental OS',
+                'Nest Hub gen-2+',
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _platformCard(TargetPlatform.iOS, 'iOS',
-              _kIosBlue, Icons.phone_iphone,
-              'Cupertino by default', 'iPhone, iPad')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.iOS,
+                'iOS',
+                _kIosBlue,
+                Icons.phone_iphone,
+                'Cupertino by default',
+                'iPhone, iPad',
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _platformCard(TargetPlatform.linux, 'Linux',
-              _kLinuxOrange, Icons.computer,
-              'GTK/Qt host integration', 'Ubuntu, Fedora, Arch')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.linux,
+                'Linux',
+                _kLinuxOrange,
+                Icons.computer,
+                'GTK/Qt host integration',
+                'Ubuntu, Fedora, Arch',
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _platformCard(TargetPlatform.macOS, 'macOS',
-              _kMacSilver, Icons.laptop_mac,
-              'AppKit chrome', 'MacBook, iMac, Mac mini')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.macOS,
+                'macOS',
+                _kMacSilver,
+                Icons.laptop_mac,
+                'AppKit chrome',
+                'MacBook, iMac, Mac mini',
+              ),
+            ),
             const SizedBox(width: 10.0),
-            Expanded(child: _platformCard(TargetPlatform.windows, 'Windows',
-              _kWindowsTeal, Icons.window,
-              'Fluent design hints', 'Surface, Dell, HP')),
+            Expanded(
+              child: _platformCard(
+                TargetPlatform.windows,
+                'Windows',
+                _kWindowsTeal,
+                Icons.window,
+                'Fluent design hints',
+                'Surface, Dell, HP',
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -377,8 +559,14 @@ Widget _platformGallery() {
   );
 }
 
-Widget _platformCard(TargetPlatform platform, String name, Color color, IconData icon,
-    String tagline, String devices) {
+Widget _platformCard(
+  TargetPlatform platform,
+  String name,
+  Color color,
+  IconData icon,
+  String tagline,
+  String devices,
+) {
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -392,17 +580,31 @@ Widget _platformCard(TargetPlatform platform, String name, Color color, IconData
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: <Color>[color, _shade(color, 0.85)],
-              begin: Alignment.topLeft, end: Alignment.bottomRight),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
           ),
-          child: Row(children: <Widget>[
-            Icon(icon, color: Colors.white, size: 18.0),
-            const SizedBox(width: 6.0),
-            Expanded(child: Text(name, style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0))),
-            _mockChromeDots(platform),
-          ]),
+          child: Row(
+            children: <Widget>[
+              Icon(icon, color: Colors.white, size: 18.0),
+              const SizedBox(width: 6.0),
+              Expanded(
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                  ),
+                ),
+              ),
+              _mockChromeDots(platform),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -410,31 +612,59 @@ Widget _platformCard(TargetPlatform platform, String name, Color color, IconData
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: color.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: Text('TargetPlatform.${_enumTail(platform.toString())}',
+                child: Text(
+                  'TargetPlatform.${_enumTail(platform.toString())}',
                   style: TextStyle(
-                    fontSize: 10.5, fontFamily: 'monospace',
-                    color: _shade(color, 0.6), fontWeight: FontWeight.w600)),
+                    fontSize: 10.5,
+                    fontFamily: 'monospace',
+                    color: _shade(color, 0.6),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
               const SizedBox(height: 8.0),
-              Text(tagline, style: const TextStyle(
-                fontSize: 12.0, color: _kInk, fontWeight: FontWeight.w600)),
+              Text(
+                tagline,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: _kInk,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const SizedBox(height: 4.0),
-              Text(devices, style: const TextStyle(fontSize: 11.0, color: _kInkMuted)),
+              Text(
+                devices,
+                style: const TextStyle(fontSize: 11.0, color: _kInkMuted),
+              ),
               const SizedBox(height: 8.0),
-              Row(children: <Widget>[
-                _swatch(color), const SizedBox(width: 4.0),
-                _swatch(_shade(color, 0.7)), const SizedBox(width: 4.0),
-                _swatch(_shade(color, 0.45)), const SizedBox(width: 4.0),
-                _swatch(_shade(color, 1.25)),
-              ]),
+              Row(
+                children: <Widget>[
+                  _swatch(color),
+                  const SizedBox(width: 4.0),
+                  _swatch(_shade(color, 0.7)),
+                  const SizedBox(width: 4.0),
+                  _swatch(_shade(color, 0.45)),
+                  const SizedBox(width: 4.0),
+                  _swatch(_shade(color, 1.25)),
+                ],
+              ),
               const SizedBox(height: 6.0),
-              Text('index: ${platform.index}', style: const TextStyle(
-                fontSize: 10.0, color: _kInkMuted, fontFamily: 'monospace')),
+              Text(
+                'index: ${platform.index}',
+                style: const TextStyle(
+                  fontSize: 10.0,
+                  color: _kInkMuted,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
         ),
@@ -482,17 +712,21 @@ class _ChromeDot extends StatelessWidget {
   const _ChromeDot({required this.color});
   @override
   Widget build(BuildContext context) => Container(
-    width: 8.0, height: 8.0,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle));
+    width: 8.0,
+    height: 8.0,
+    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+  );
 }
 
 Widget _swatch(Color c) {
   return Container(
-    width: 14.0, height: 14.0,
+    width: 14.0,
+    height: 14.0,
     decoration: BoxDecoration(
       color: c,
       borderRadius: BorderRadius.circular(3.0),
-      border: Border.all(color: Colors.black.withValues(alpha: 0.08))),
+      border: Border.all(color: Colors.black.withValues(alpha: 0.08)),
+    ),
   );
 }
 
@@ -508,6 +742,7 @@ Color _shade(Color base, double factor) {
     final double t = (factor - 1.0).clamp(0.0, 2.0);
     return (v + (255 - v) * t).round().clamp(0, 255).toInt();
   }
+
   return Color.fromARGB(255, adjust(r), adjust(g), adjust(b));
 }
 
@@ -547,7 +782,12 @@ Widget _galleryFooter() {
 // ============================================================
 // SECTION 3: defaultTargetPlatform vs Theme.of(context).platform
 // ============================================================
-Widget _section3Title() => _sectionTitle('3', 'defaultTargetPlatform vs Theme.of(context).platform', 'Same enum, different question', _kSuccess);
+Widget _section3Title() => _sectionTitle(
+  '3',
+  'defaultTargetPlatform vs Theme.of(context).platform',
+  'Same enum, different question',
+  _kSuccess,
+);
 
 Widget _defaultVsThemeCard() {
   return Container(
@@ -566,38 +806,44 @@ Widget _defaultVsThemeCard() {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(child: _twinCard(
-            title: 'defaultTargetPlatform',
-            subtitle: 'package:flutter/foundation.dart',
-            question: '"What host OS am I running on?"',
-            color: _kAccent, icon: Icons.memory,
-            bullets: const <String>[
-              'Static, top-level getter.',
-              'Returns one of the six TargetPlatform values.',
-              'Best for: choosing your widget tree shape (e.g. wrap in '
-                'CupertinoApp vs MaterialApp) before a context exists.',
-              'Overridable in tests with debugDefaultTargetPlatformOverride.',
-              'Never returns "web" — pair with kIsWeb if you need to '
-                'distinguish browsers from native.',
-            ],
-          )),
+          Expanded(
+            child: _twinCard(
+              title: 'defaultTargetPlatform',
+              subtitle: 'package:flutter/foundation.dart',
+              question: '"What host OS am I running on?"',
+              color: _kAccent,
+              icon: Icons.memory,
+              bullets: const <String>[
+                'Static, top-level getter.',
+                'Returns one of the six TargetPlatform values.',
+                'Best for: choosing your widget tree shape (e.g. wrap in '
+                    'CupertinoApp vs MaterialApp) before a context exists.',
+                'Overridable in tests with debugDefaultTargetPlatformOverride.',
+                'Never returns "web" — pair with kIsWeb if you need to '
+                    'distinguish browsers from native.',
+              ],
+            ),
+          ),
           const SizedBox(width: 14.0),
-          Expanded(child: _twinCard(
-            title: 'Theme.of(context).platform',
-            subtitle: 'package:flutter/material.dart',
-            question: '"What does the theme want me to look like?"',
-            color: _kWarn, icon: Icons.color_lens,
-            bullets: const <String>[
-              'Read off the ThemeData supplied by the nearest Theme.',
-              'What MaterialApp and its widgets actually obey.',
-              'Best for: adaptive widgets inside Material — '
-                'PageTransitionsTheme, ScrollPhysics, selection handles.',
-              'Falls back to defaultTargetPlatform unless overridden via '
-                'ThemeData(platform: ...).',
-              'Override it to test iOS-flavoured Material on a Linux dev '
-                'machine without restarting.',
-            ],
-          )),
+          Expanded(
+            child: _twinCard(
+              title: 'Theme.of(context).platform',
+              subtitle: 'package:flutter/material.dart',
+              question: '"What does the theme want me to look like?"',
+              color: _kWarn,
+              icon: Icons.color_lens,
+              bullets: const <String>[
+                'Read off the ThemeData supplied by the nearest Theme.',
+                'What MaterialApp and its widgets actually obey.',
+                'Best for: adaptive widgets inside Material — '
+                    'PageTransitionsTheme, ScrollPhysics, selection handles.',
+                'Falls back to defaultTargetPlatform unless overridden via '
+                    'ThemeData(platform: ...).',
+                'Override it to test iOS-flavoured Material on a Linux dev '
+                    'machine without restarting.',
+              ],
+            ),
+          ),
         ],
       ),
     ),
@@ -622,37 +868,59 @@ Widget _twinCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(8.0)),
-            child: Icon(icon, color: color, size: 20.0),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(title, style: const TextStyle(
-                  fontSize: 14.0, fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace', color: _kInk)),
-                Text(subtitle, style: const TextStyle(
-                  fontSize: 10.5, color: _kInkMuted, fontFamily: 'monospace')),
-              ],
+        Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Icon(icon, color: color, size: 20.0),
             ),
-          ),
-        ]),
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'monospace',
+                      color: _kInk,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 10.5,
+                      color: _kInkMuted,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(8.0)),
-          child: Text(question, style: TextStyle(
-            fontSize: 13.0, color: _shade(color, 0.55),
-            fontStyle: FontStyle.italic, fontWeight: FontWeight.w600)),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(
+            question,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: _shade(color, 0.55),
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         const SizedBox(height: 12.0),
         for (final String bullet in bullets) _twinBullet(bullet, color),
@@ -669,12 +937,21 @@ Widget _twinBullet(String text, Color color) {
       children: <Widget>[
         Container(
           margin: const EdgeInsets.only(top: 6.0),
-          width: 6.0, height: 6.0,
+          width: 6.0,
+          height: 6.0,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8.0),
-        Expanded(child: Text(text, style: const TextStyle(
-          fontSize: 12.0, color: _kInkSoft, height: 1.4))),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 12.0,
+              color: _kInkSoft,
+              height: 1.4,
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -683,7 +960,12 @@ Widget _twinBullet(String text, Color color) {
 // ============================================================
 // SECTION 4: Live detection
 // ============================================================
-Widget _section4Title() => _sectionTitle('4', 'Live detection at build time', 'What this very render sees right now', _kDanger);
+Widget _section4Title() => _sectionTitle(
+  '4',
+  'Live detection at build time',
+  'What this very render sees right now',
+  _kDanger,
+);
 
 Widget _liveDetectionCard({
   required TargetPlatform detectedPlatform,
@@ -698,15 +980,23 @@ Widget _liveDetectionCard({
     decoration: BoxDecoration(
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFFF1F2)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight),
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
       borderRadius: BorderRadius.circular(16.0),
       border: Border.all(color: _kDanger.withValues(alpha: 0.25)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Detection snapshot', style: TextStyle(
-          fontSize: 16.0, fontWeight: FontWeight.bold, color: _kInk)),
+        const Text(
+          'Detection snapshot',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: _kInk,
+          ),
+        ),
         const SizedBox(height: 4.0),
         const Text(
           'These badges are computed in this build(BuildContext) call. They '
@@ -716,18 +1006,39 @@ Widget _liveDetectionCard({
         ),
         const SizedBox(height: 14.0),
         Wrap(
-          spacing: 10.0, runSpacing: 10.0,
+          spacing: 10.0,
+          runSpacing: 10.0,
           children: <Widget>[
-            _detectionBadge(label: 'kIsWeb', value: kIsWeb ? 'true' : 'false',
-              accent: kIsWeb ? _kSuccess : _kInkMuted, icon: Icons.public),
-            _detectionBadge(label: 'kIsWasm', value: kIsWasm ? 'true' : 'false',
-              accent: kIsWasm ? _kSuccess : _kInkMuted, icon: Icons.bolt),
-            _detectionBadge(label: 'kDebugMode', value: kDebugMode ? 'true' : 'false',
-              accent: kDebugMode ? _kWarn : _kInkMuted, icon: Icons.bug_report),
-            _detectionBadge(label: 'kReleaseMode', value: kReleaseMode ? 'true' : 'false',
-              accent: kReleaseMode ? _kSuccess : _kInkMuted, icon: Icons.rocket_launch),
-            _detectionBadge(label: 'kProfileMode', value: kProfileMode ? 'true' : 'false',
-              accent: kProfileMode ? _kAccent : _kInkMuted, icon: Icons.speed),
+            _detectionBadge(
+              label: 'kIsWeb',
+              value: kIsWeb ? 'true' : 'false',
+              accent: kIsWeb ? _kSuccess : _kInkMuted,
+              icon: Icons.public,
+            ),
+            _detectionBadge(
+              label: 'kIsWasm',
+              value: kIsWasm ? 'true' : 'false',
+              accent: kIsWasm ? _kSuccess : _kInkMuted,
+              icon: Icons.bolt,
+            ),
+            _detectionBadge(
+              label: 'kDebugMode',
+              value: kDebugMode ? 'true' : 'false',
+              accent: kDebugMode ? _kWarn : _kInkMuted,
+              icon: Icons.bug_report,
+            ),
+            _detectionBadge(
+              label: 'kReleaseMode',
+              value: kReleaseMode ? 'true' : 'false',
+              accent: kReleaseMode ? _kSuccess : _kInkMuted,
+              icon: Icons.rocket_launch,
+            ),
+            _detectionBadge(
+              label: 'kProfileMode',
+              value: kProfileMode ? 'true' : 'false',
+              accent: kProfileMode ? _kAccent : _kInkMuted,
+              icon: Icons.speed,
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -741,23 +1052,40 @@ Widget _liveDetectionCard({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _liveRow(label: 'defaultTargetPlatform', value: detectedLabel,
+              _liveRow(
+                label: 'defaultTargetPlatform',
+                value: detectedLabel,
                 accent: _platformAccent(detectedPlatform),
-                icon: _platformIcon(detectedPlatform)),
+                icon: _platformIcon(detectedPlatform),
+              ),
               const Divider(height: 18.0),
-              _liveRow(label: 'Theme.of(context).platform', value: themePlatformLabel,
+              _liveRow(
+                label: 'Theme.of(context).platform',
+                value: themePlatformLabel,
                 accent: _platformAccent(themePlatform),
-                icon: _platformIcon(themePlatform)),
+                icon: _platformIcon(themePlatform),
+              ),
               if (detectionError.isNotEmpty) ...<Widget>[
                 const Divider(height: 18.0),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Icon(Icons.error_outline, color: _kDanger, size: 16.0),
+                    const Icon(
+                      Icons.error_outline,
+                      color: _kDanger,
+                      size: 16.0,
+                    ),
                     const SizedBox(width: 6.0),
-                    Expanded(child: Text('detection error: $detectionError',
-                      style: const TextStyle(
-                        fontSize: 11.0, color: _kDanger, fontFamily: 'monospace'))),
+                    Expanded(
+                      child: Text(
+                        'detection error: $detectionError',
+                        style: const TextStyle(
+                          fontSize: 11.0,
+                          color: _kDanger,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -787,7 +1115,14 @@ Widget _detectionBadge({
       children: <Widget>[
         Icon(icon, color: accent, size: 14.0),
         const SizedBox(width: 6.0),
-        Text(label, style: const TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: _kInk)),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+            color: _kInk,
+          ),
+        ),
         const SizedBox(width: 6.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
@@ -795,9 +1130,15 @@ Widget _detectionBadge({
             color: accent.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          child: Text(value,
-              style: TextStyle(
-                  fontSize: 11.0, fontWeight: FontWeight.bold, color: accent, fontFamily: 'monospace')),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              color: accent,
+              fontFamily: 'monospace',
+            ),
+          ),
         ),
       ],
     ),
@@ -813,10 +1154,13 @@ Widget _liveRow({
   return Row(
     children: <Widget>[
       Container(
-        width: 36.0, height: 36.0,
+        width: 36.0,
+        height: 36.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: accent.withValues(alpha: 0.12), shape: BoxShape.circle),
+          color: accent.withValues(alpha: 0.12),
+          shape: BoxShape.circle,
+        ),
         child: Icon(icon, color: accent, size: 18.0),
       ),
       const SizedBox(width: 10.0),
@@ -824,11 +1168,23 @@ Widget _liveRow({
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label, style: const TextStyle(
-              fontSize: 11.0, fontFamily: 'monospace', color: _kInkMuted)),
-            Text(value, style: const TextStyle(
-              fontSize: 14.0, fontWeight: FontWeight.w600,
-              color: _kInk, fontFamily: 'monospace')),
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: _kInkMuted,
+              ),
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.w600,
+                color: _kInk,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
       ),
@@ -857,20 +1213,52 @@ IconData _platformIcon(TargetPlatform p) {
 // ============================================================
 // SECTION 5: Cupertino vs Material comparison table
 // ============================================================
-Widget _section5Title() => _sectionTitle('5', 'Cupertino vs Material adaptation', 'How platform-aware widgets choose their behaviour', _kIosBlue);
+Widget _section5Title() => _sectionTitle(
+  '5',
+  'Cupertino vs Material adaptation',
+  'How platform-aware widgets choose their behaviour',
+  _kIosBlue,
+);
 
 Widget _cupertinoVsMaterialTable() {
   const List<List<String>> rows = <List<String>>[
-    <String>['Page push transition', 'MaterialPageRoute (fade-up)',
-        'CupertinoPageRoute (slide-from-right)'],
-    <String>['Back gesture', 'AppBar back button only', 'Interactive edge swipe'],
-    <String>['Scroll physics', 'ClampingScrollPhysics', 'BouncingScrollPhysics'],
-    <String>['Selection handles', 'Material drop handles', 'Cupertino pin handles'],
+    <String>[
+      'Page push transition',
+      'MaterialPageRoute (fade-up)',
+      'CupertinoPageRoute (slide-from-right)',
+    ],
+    <String>[
+      'Back gesture',
+      'AppBar back button only',
+      'Interactive edge swipe',
+    ],
+    <String>[
+      'Scroll physics',
+      'ClampingScrollPhysics',
+      'BouncingScrollPhysics',
+    ],
+    <String>[
+      'Selection handles',
+      'Material drop handles',
+      'Cupertino pin handles',
+    ],
     <String>['Dialog widget', 'AlertDialog', 'CupertinoAlertDialog'],
     <String>['Switch widget', 'Switch (Material 3)', 'CupertinoSwitch'],
-    <String>['Activity indicator', 'CircularProgressIndicator', 'CupertinoActivityIndicator'],
-    <String>['Text selection toolbar', 'Material context menu', 'Cupertino magnifier menu'],
-    <String>['Date picker', 'showDatePicker (calendar)', 'CupertinoDatePicker (wheel)'],
+    <String>[
+      'Activity indicator',
+      'CircularProgressIndicator',
+      'CupertinoActivityIndicator',
+    ],
+    <String>[
+      'Text selection toolbar',
+      'Material context menu',
+      'Cupertino magnifier menu',
+    ],
+    <String>[
+      'Date picker',
+      'showDatePicker (calendar)',
+      'CupertinoDatePicker (wheel)',
+    ],
   ];
 
   return Container(
@@ -885,21 +1273,54 @@ Widget _cupertinoVsMaterialTable() {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
           decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: <Color>[Color(0xFFEFF6FF), Color(0xFFFCE7F3)]),
+            gradient: LinearGradient(
+              colors: <Color>[Color(0xFFEFF6FF), Color(0xFFFCE7F3)],
+            ),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
           ),
-          child: Row(children: const <Widget>[
-            Expanded(flex: 3, child: Text('Concern', style: TextStyle(
-              fontSize: 12.0, fontWeight: FontWeight.bold,
-              color: _kInkSoft, letterSpacing: 0.5))),
-            Expanded(flex: 4, child: Text('Material (Android)', style: TextStyle(
-              fontSize: 12.0, fontWeight: FontWeight.bold,
-              color: _kAndroidGreen, letterSpacing: 0.5))),
-            Expanded(flex: 4, child: Text('Cupertino (iOS)', style: TextStyle(
-              fontSize: 12.0, fontWeight: FontWeight.bold,
-              color: _kIosBlue, letterSpacing: 0.5))),
-          ]),
+          child: Row(
+            children: const <Widget>[
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Concern',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: _kInkSoft,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'Material (Android)',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: _kAndroidGreen,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  'Cupertino (iOS)',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: _kIosBlue,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         for (int i = 0; i < rows.length; i++) _tableRow(rows[i], i.isEven),
       ],
@@ -908,20 +1329,33 @@ Widget _cupertinoVsMaterialTable() {
 }
 
 Widget _tableRow(List<String> cells, bool zebra) {
-  const TextStyle ts = TextStyle(fontSize: 11.5, color: _kInkSoft, fontFamily: 'monospace', height: 1.4);
+  const TextStyle ts = TextStyle(
+    fontSize: 11.5,
+    color: _kInkSoft,
+    fontFamily: 'monospace',
+    height: 1.4,
+  );
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
     decoration: BoxDecoration(
       color: zebra ? Colors.white : const Color(0xFFFAFAFA),
-      border: const Border(bottom: BorderSide(color: Color(0xFFE5E7EB), width: 0.5)),
+      border: const Border(
+        bottom: BorderSide(color: Color(0xFFE5E7EB), width: 0.5),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           flex: 3,
-          child: Text(cells[0],
-              style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: _kInk)),
+          child: Text(
+            cells[0],
+            style: const TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: _kInk,
+            ),
+          ),
         ),
         Expanded(flex: 4, child: Text(cells[1], style: ts)),
         Expanded(flex: 4, child: Text(cells[2], style: ts)),
@@ -933,7 +1367,12 @@ Widget _tableRow(List<String> cells, bool zebra) {
 // ============================================================
 // SECTION 6: Code idiom cards
 // ============================================================
-Widget _section6Title() => _sectionTitle('6', 'Six idioms you will actually type', 'Copy-paste-ready snippets for platform branching', _kAccent);
+Widget _section6Title() => _sectionTitle(
+  '6',
+  'Six idioms you will actually type',
+  'Copy-paste-ready snippets for platform branching',
+  _kAccent,
+);
 
 Widget _codeIdiomCards() {
   return Container(
@@ -1066,28 +1505,56 @@ Widget _codeCard({
           decoration: const BoxDecoration(
             color: Color(0xFF111827),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(14.0), topRight: Radius.circular(14.0)),
-          ),
-          child: Row(children: <Widget>[
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
-              decoration: BoxDecoration(
-                color: _kAccent.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(6.0)),
-              child: Text(number, style: const TextStyle(
-                color: Color(0xFFC7D2FE), fontFamily: 'monospace',
-                fontSize: 11.0, fontWeight: FontWeight.bold)),
+              topLeft: Radius.circular(14.0),
+              topRight: Radius.circular(14.0),
             ),
-            const SizedBox(width: 10.0),
-            Expanded(child: Text(title, style: const TextStyle(
-              color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.w600))),
-            const Icon(Icons.copy, color: Colors.white24, size: 14.0),
-          ]),
+          ),
+          child: Row(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0,
+                  vertical: 3.0,
+                ),
+                decoration: BoxDecoration(
+                  color: _kAccent.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(6.0),
+                ),
+                child: Text(
+                  number,
+                  style: const TextStyle(
+                    color: Color(0xFFC7D2FE),
+                    fontFamily: 'monospace',
+                    fontSize: 11.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const Icon(Icons.copy, color: Colors.white24, size: 14.0),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
-          child: Text(purpose, style: const TextStyle(
-            fontSize: 11.5, color: Color(0xFF93C5FD), fontStyle: FontStyle.italic)),
+          child: Text(
+            purpose,
+            style: const TextStyle(
+              fontSize: 11.5,
+              color: Color(0xFF93C5FD),
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
         Container(
           width: double.infinity,
@@ -1095,11 +1562,19 @@ Widget _codeCard({
           decoration: const BoxDecoration(
             color: Color(0xFF050816),
             borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(14.0), bottomRight: Radius.circular(14.0)),
+              bottomLeft: Radius.circular(14.0),
+              bottomRight: Radius.circular(14.0),
+            ),
           ),
-          child: Text(code, style: const TextStyle(
-            color: Color(0xFFE5E7EB), fontFamily: 'monospace',
-            fontSize: 11.5, height: 1.5)),
+          child: Text(
+            code,
+            style: const TextStyle(
+              color: Color(0xFFE5E7EB),
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              height: 1.5,
+            ),
+          ),
         ),
       ],
     ),
@@ -1109,7 +1584,12 @@ Widget _codeCard({
 // ============================================================
 // SECTION 7: Static OS chrome showcase
 // ============================================================
-Widget _section7Title() => _sectionTitle('7', 'OS chrome showcases', 'Hand-drawn approximations of native top bars', _kMacSilver);
+Widget _section7Title() => _sectionTitle(
+  '7',
+  'OS chrome showcases',
+  'Hand-drawn approximations of native top bars',
+  _kMacSilver,
+);
 
 Widget _osChromeShowcase() {
   return Container(
@@ -1117,77 +1597,110 @@ Widget _osChromeShowcase() {
     child: Column(
       children: <Widget>[
         _chromeFrame(
-          accent: _kIosBlue, radius: 16.0, header: _iosNavBar(),
-          body: Row(children: <Widget>[
-            _iosCell('Account', Icons.person_outline),
-            const SizedBox(width: 8.0),
-            _iosCell('Settings', Icons.settings_outlined),
-            const SizedBox(width: 8.0),
-            _iosCell('About', Icons.info_outline),
-          ]),
+          accent: _kIosBlue,
+          radius: 16.0,
+          header: _iosNavBar(),
+          body: Row(
+            children: <Widget>[
+              _iosCell('Account', Icons.person_outline),
+              const SizedBox(width: 8.0),
+              _iosCell('Settings', Icons.settings_outlined),
+              const SizedBox(width: 8.0),
+              _iosCell('About', Icons.info_outline),
+            ],
+          ),
         ),
         const SizedBox(height: 14.0),
         _chromeFrame(
-          accent: _kAndroidGreen, radius: 16.0, header: _androidTopBar(),
-          body: Row(children: <Widget>[
-            Container(
-              width: 44.0, height: 44.0,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: _kAndroidGreen,
-                borderRadius: BorderRadius.circular(14.0)),
-              child: const Icon(Icons.add, color: Colors.white),
-            ),
-            const SizedBox(width: 8.0),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+          accent: _kAndroidGreen,
+          radius: 16.0,
+          header: _androidTopBar(),
+          body: Row(
+            children: <Widget>[
+              Container(
+                width: 44.0,
+                height: 44.0,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF1F5F9),
-                  borderRadius: BorderRadius.circular(28.0)),
-                child: const Text('Floating action + chip rail',
-                  style: TextStyle(fontSize: 12.0, color: _kInkSoft)),
+                  color: _kAndroidGreen,
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                child: const Icon(Icons.add, color: Colors.white),
               ),
-            ),
-          ]),
-          footer: Row(children: <Widget>[
-            _navItem(Icons.home, 'Home', selected: true),
-            _navItem(Icons.search, 'Search'),
-            _navItem(Icons.notifications_none, 'Alerts'),
-            _navItem(Icons.person_outline, 'Me'),
-          ]),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(28.0),
+                  ),
+                  child: const Text(
+                    'Floating action + chip rail',
+                    style: TextStyle(fontSize: 12.0, color: _kInkSoft),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          footer: Row(
+            children: <Widget>[
+              _navItem(Icons.home, 'Home', selected: true),
+              _navItem(Icons.search, 'Search'),
+              _navItem(Icons.notifications_none, 'Alerts'),
+              _navItem(Icons.person_outline, 'Me'),
+            ],
+          ),
         ),
         const SizedBox(height: 14.0),
         _chromeFrame(
-          accent: _kWindowsTeal, radius: 10.0, header: _windowsTitleBar(),
-          body: Row(children: <Widget>[
-            _winButton('Primary', _kWindowsTeal, true),
-            const SizedBox(width: 8.0),
-            _winButton('Secondary', _kWindowsTeal, false),
-            const Spacer(),
-            const Icon(Icons.info_outline, size: 16.0, color: _kInkMuted),
-          ]),
+          accent: _kWindowsTeal,
+          radius: 10.0,
+          header: _windowsTitleBar(),
+          body: Row(
+            children: <Widget>[
+              _winButton('Primary', _kWindowsTeal, true),
+              const SizedBox(width: 8.0),
+              _winButton('Secondary', _kWindowsTeal, false),
+              const Spacer(),
+              const Icon(Icons.info_outline, size: 16.0, color: _kInkMuted),
+            ],
+          ),
         ),
         const SizedBox(height: 14.0),
         _chromeFrame(
-          accent: _kMacSilver, radius: 10.0, header: _macTitleBar(),
-          body: Row(children: <Widget>[
-            const Icon(Icons.folder, color: Color(0xFF60A5FA), size: 28.0),
-            const SizedBox(width: 10.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[
-                  Text('Projects', style: TextStyle(
-                    fontSize: 13.0, fontWeight: FontWeight.w600)),
-                  SizedBox(height: 2.0),
-                  Text('12 items', style: TextStyle(
-                    fontSize: 11.0, color: _kInkMuted)),
-                ],
+          accent: _kMacSilver,
+          radius: 10.0,
+          header: _macTitleBar(),
+          body: Row(
+            children: <Widget>[
+              const Icon(Icons.folder, color: Color(0xFF60A5FA), size: 28.0),
+              const SizedBox(width: 10.0),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const <Widget>[
+                    Text(
+                      'Projects',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 2.0),
+                    Text(
+                      '12 items',
+                      style: TextStyle(fontSize: 11.0, color: _kInkMuted),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Icon(Icons.chevron_right, color: _kInkMuted),
-          ]),
+              const Icon(Icons.chevron_right, color: _kInkMuted),
+            ],
+          ),
         ),
       ],
     ),
@@ -1203,7 +1716,9 @@ Widget _chromeFrame({
 }) {
   return Container(
     decoration: BoxDecoration(
-      color: Colors.white, borderRadius: BorderRadius.circular(radius)),
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(radius),
+    ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -1211,12 +1726,17 @@ Widget _chromeFrame({
         Padding(padding: const EdgeInsets.all(14.0), child: body),
         if (footer != null)
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 10.0,
+            ),
             decoration: BoxDecoration(
               color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(radius),
-                bottomRight: Radius.circular(radius))),
+                bottomRight: Radius.circular(radius),
+              ),
+            ),
             child: footer,
           ),
       ],
@@ -1229,19 +1749,31 @@ Widget _iosNavBar() {
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
     decoration: BoxDecoration(
       color: const Color(0xFFF9FAFB),
-      border: Border(bottom: BorderSide(color: Colors.black.withValues(alpha: 0.08))),
+      border: Border(
+        bottom: BorderSide(color: Colors.black.withValues(alpha: 0.08)),
+      ),
       borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        topLeft: Radius.circular(16.0),
+        topRight: Radius.circular(16.0),
+      ),
     ),
-    child: Row(children: const <Widget>[
-      Icon(Icons.arrow_back_ios, color: _kIosBlue, size: 18.0),
-      Text(' Back', style: TextStyle(color: _kIosBlue, fontSize: 14.0)),
-      Spacer(),
-      Text('iOS Chrome', style: TextStyle(
-        fontSize: 15.0, fontWeight: FontWeight.w600, color: _kInk)),
-      Spacer(),
-      Icon(Icons.ios_share, color: _kIosBlue, size: 20.0),
-    ]),
+    child: Row(
+      children: const <Widget>[
+        Icon(Icons.arrow_back_ios, color: _kIosBlue, size: 18.0),
+        Text(' Back', style: TextStyle(color: _kIosBlue, fontSize: 14.0)),
+        Spacer(),
+        Text(
+          'iOS Chrome',
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w600,
+            color: _kInk,
+          ),
+        ),
+        Spacer(),
+        Icon(Icons.ios_share, color: _kIosBlue, size: 20.0),
+      ],
+    ),
   );
 }
 
@@ -1253,12 +1785,20 @@ Widget _iosCell(String label, IconData icon) {
         color: _kIosBlue.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Column(children: <Widget>[
-        Icon(icon, color: _kIosBlue, size: 22.0),
-        const SizedBox(height: 4.0),
-        Text(label, style: const TextStyle(
-          fontSize: 11.0, color: _kInk, fontWeight: FontWeight.w600)),
-      ]),
+      child: Column(
+        children: <Widget>[
+          Icon(icon, color: _kIosBlue, size: 22.0),
+          const SizedBox(height: 4.0),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 11.0,
+              color: _kInk,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
@@ -1269,37 +1809,61 @@ Widget _androidTopBar() {
     decoration: const BoxDecoration(
       color: Color(0xFFE7F8EE),
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
+        topLeft: Radius.circular(16.0),
+        topRight: Radius.circular(16.0),
+      ),
     ),
-    child: Row(children: const <Widget>[
-      Icon(Icons.menu, color: _kInk, size: 22.0),
-      SizedBox(width: 12.0),
-      Expanded(child: Text('Android Chrome', style: TextStyle(
-        fontSize: 17.0, fontWeight: FontWeight.w600, color: _kInk))),
-      Icon(Icons.search, color: _kInk, size: 22.0),
-      SizedBox(width: 12.0),
-      Icon(Icons.more_vert, color: _kInk, size: 22.0),
-    ]),
+    child: Row(
+      children: const <Widget>[
+        Icon(Icons.menu, color: _kInk, size: 22.0),
+        SizedBox(width: 12.0),
+        Expanded(
+          child: Text(
+            'Android Chrome',
+            style: TextStyle(
+              fontSize: 17.0,
+              fontWeight: FontWeight.w600,
+              color: _kInk,
+            ),
+          ),
+        ),
+        Icon(Icons.search, color: _kInk, size: 22.0),
+        SizedBox(width: 12.0),
+        Icon(Icons.more_vert, color: _kInk, size: 22.0),
+      ],
+    ),
   );
 }
 
 Widget _navItem(IconData icon, String label, {bool selected = false}) {
   return Expanded(
-    child: Column(children: <Widget>[
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 3.0),
-        decoration: BoxDecoration(
-          color: selected ? _kAndroidGreen.withValues(alpha: 0.22) : Colors.transparent,
-          borderRadius: BorderRadius.circular(20.0),
+    child: Column(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 3.0),
+          decoration: BoxDecoration(
+            color: selected
+                ? _kAndroidGreen.withValues(alpha: 0.22)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Icon(
+            icon,
+            size: 18.0,
+            color: selected ? _shade(_kAndroidGreen, 0.4) : _kInkSoft,
+          ),
         ),
-        child: Icon(icon, size: 18.0,
-          color: selected ? _shade(_kAndroidGreen, 0.4) : _kInkSoft),
-      ),
-      const SizedBox(height: 2.0),
-      Text(label, style: TextStyle(
-        fontSize: 10.0, color: selected ? _kInk : _kInkMuted,
-        fontWeight: selected ? FontWeight.w600 : FontWeight.normal)),
-    ]),
+        const SizedBox(height: 2.0),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10.0,
+            color: selected ? _kInk : _kInkMuted,
+            fontWeight: selected ? FontWeight.w600 : FontWeight.normal,
+          ),
+        ),
+      ],
+    ),
   );
 }
 
@@ -1309,20 +1873,26 @@ Widget _windowsTitleBar() {
     decoration: const BoxDecoration(
       color: Color(0xFFF3F4F6),
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+        topLeft: Radius.circular(10.0),
+        topRight: Radius.circular(10.0),
+      ),
     ),
-    child: Row(children: const <Widget>[
-      Icon(Icons.window, color: _kWindowsTeal, size: 14.0),
-      SizedBox(width: 8.0),
-      Text('Windows Chrome — mock title bar',
-        style: TextStyle(fontSize: 11.5, color: _kInk)),
-      Spacer(),
-      Icon(Icons.minimize, size: 12.0, color: Color(0xFF6B7280)),
-      SizedBox(width: 8.0),
-      Icon(Icons.crop_square, size: 12.0, color: Color(0xFF6B7280)),
-      SizedBox(width: 8.0),
-      Icon(Icons.close, size: 12.0, color: Color(0xFFEF4444)),
-    ]),
+    child: Row(
+      children: const <Widget>[
+        Icon(Icons.window, color: _kWindowsTeal, size: 14.0),
+        SizedBox(width: 8.0),
+        Text(
+          'Windows Chrome — mock title bar',
+          style: TextStyle(fontSize: 11.5, color: _kInk),
+        ),
+        Spacer(),
+        Icon(Icons.minimize, size: 12.0, color: Color(0xFF6B7280)),
+        SizedBox(width: 8.0),
+        Icon(Icons.crop_square, size: 12.0, color: Color(0xFF6B7280)),
+        SizedBox(width: 8.0),
+        Icon(Icons.close, size: 12.0, color: Color(0xFFEF4444)),
+      ],
+    ),
   );
 }
 
@@ -1334,9 +1904,14 @@ Widget _winButton(String label, Color color, bool primary) {
       border: primary ? null : Border.all(color: const Color(0xFFCBD5E1)),
       borderRadius: BorderRadius.circular(3.0),
     ),
-    child: Text(label, style: TextStyle(
-      color: primary ? Colors.white : _kInk, fontSize: 11.5,
-      fontWeight: primary ? FontWeight.w600 : FontWeight.normal)),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: primary ? Colors.white : _kInk,
+        fontSize: 11.5,
+        fontWeight: primary ? FontWeight.w600 : FontWeight.normal,
+      ),
+    ),
   );
 }
 
@@ -1346,27 +1921,46 @@ Widget _macTitleBar() {
     decoration: const BoxDecoration(
       gradient: LinearGradient(
         colors: <Color>[Color(0xFFECECEC), Color(0xFFDADADA)],
-        begin: Alignment.topCenter, end: Alignment.bottomCenter),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+        topLeft: Radius.circular(10.0),
+        topRight: Radius.circular(10.0),
+      ),
     ),
-    child: Row(children: const <Widget>[
-      _ChromeDot(color: Color(0xFFFF5F57)), SizedBox(width: 8.0),
-      _ChromeDot(color: Color(0xFFFEBC2E)), SizedBox(width: 8.0),
-      _ChromeDot(color: Color(0xFF28C840)),
-      Spacer(),
-      Text('macOS Chrome', style: TextStyle(
-        fontSize: 12.0, fontWeight: FontWeight.w600, color: _kInk)),
-      Spacer(),
-      SizedBox(width: 60.0),
-    ]),
+    child: Row(
+      children: const <Widget>[
+        _ChromeDot(color: Color(0xFFFF5F57)),
+        SizedBox(width: 8.0),
+        _ChromeDot(color: Color(0xFFFEBC2E)),
+        SizedBox(width: 8.0),
+        _ChromeDot(color: Color(0xFF28C840)),
+        Spacer(),
+        Text(
+          'macOS Chrome',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w600,
+            color: _kInk,
+          ),
+        ),
+        Spacer(),
+        SizedBox(width: 60.0),
+      ],
+    ),
   );
 }
 
 // ============================================================
 // SECTION 8: Theme.platform overrides
 // ============================================================
-Widget _section8Title() => _sectionTitle('8', 'Theme.platform override examples', 'Force a different platform feel inside MaterialApp', _kFuchsiaPink);
+Widget _section8Title() => _sectionTitle(
+  '8',
+  'Theme.platform override examples',
+  'Force a different platform feel inside MaterialApp',
+  _kFuchsiaPink,
+);
 
 Widget _themePlatformOverrides() {
   return Container(
@@ -1382,9 +1976,10 @@ Widget _themePlatformOverrides() {
   ),
   home: const HomeScreen(),
 );''',
-          explanation: 'Page routes become Cupertino-style slides, scroll physics '
-            'become bouncing, and selection handles become iOS pins. '
-            'Useful for cross-platform screenshots.',
+          explanation:
+              'Page routes become Cupertino-style slides, scroll physics '
+              'become bouncing, and selection handles become iOS pins. '
+              'Useful for cross-platform screenshots.',
           color: _kIosBlue,
         ),
         const SizedBox(height: 12.0),
@@ -1396,21 +1991,24 @@ Widget _themePlatformOverrides() {
     child: HomeScreen(),
   ),
 );''',
-          explanation: 'Inverse trick: an iOS-by-default app shell with Material '
-            'widgets nested inside (e.g. for a richer text input or navigation rail).',
+          explanation:
+              'Inverse trick: an iOS-by-default app shell with Material '
+              'widgets nested inside (e.g. for a richer text input or navigation rail).',
           color: _kFuchsiaPink,
         ),
         const SizedBox(height: 12.0),
         _overrideCard(
           title: 'Per-test override (for golden tests)',
-          code: '''testWidgets('renders the same on every host', (tester) async {
+          code:
+              '''testWidgets('renders the same on every host', (tester) async {
   debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
   await tester.pumpWidget(const MyApp());
   // ... expect calls ...
   debugDefaultTargetPlatformOverride = null;  // reset!
 });''',
-          explanation: 'Always reset the override in tearDown — leaving it set '
-            'pollutes the next test. Pair with addTearDown(...) for safety.',
+          explanation:
+              'Always reset the override in tearDown — leaving it set '
+              'pollutes the next test. Pair with addTearDown(...) for safety.',
           color: _kWarn,
         ),
       ],
@@ -1434,27 +2032,56 @@ Widget _overrideCard({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(children: <Widget>[
-          Container(width: 4.0, height: 18.0, decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(2.0))),
-          const SizedBox(width: 8.0),
-          Expanded(child: Text(title, style: const TextStyle(
-            fontSize: 14.0, fontWeight: FontWeight.bold, color: _kInk))),
-        ]),
+        Row(
+          children: <Widget>[
+            Container(
+              width: 4.0,
+              height: 18.0,
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(2.0),
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: _kInk,
+                ),
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 10.0),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             color: const Color(0xFF0B1021),
-            borderRadius: BorderRadius.circular(8.0)),
-          child: Text(code, style: const TextStyle(
-            color: Color(0xFFE5E7EB), fontFamily: 'monospace',
-            fontSize: 11.5, height: 1.5)),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(
+            code,
+            style: const TextStyle(
+              color: Color(0xFFE5E7EB),
+              fontFamily: 'monospace',
+              fontSize: 11.5,
+              height: 1.5,
+            ),
+          ),
         ),
         const SizedBox(height: 8.0),
-        Text(explanation, style: const TextStyle(
-          fontSize: 12.0, color: _kInkSoft, height: 1.45)),
+        Text(
+          explanation,
+          style: const TextStyle(
+            fontSize: 12.0,
+            color: _kInkSoft,
+            height: 1.45,
+          ),
+        ),
       ],
     ),
   );
@@ -1463,34 +2090,51 @@ Widget _overrideCard({
 // ============================================================
 // SECTION 9: Pitfalls
 // ============================================================
-Widget _section9Title() => _sectionTitle('9', 'Pitfalls and footguns', 'Mistakes the rest of us already made', _kDanger);
+Widget _section9Title() => _sectionTitle(
+  '9',
+  'Pitfalls and footguns',
+  'Mistakes the rest of us already made',
+  _kDanger,
+);
 
 Widget _pitfallsList() {
   const List<List<String>> items = <List<String>>[
-    <String>['Importing dart:io on web',
+    <String>[
+      'Importing dart:io on web',
       'A bare `import \'dart:io\';` will crash dart2js/dart2wasm at compile '
-      'time. Use conditional imports or guard with kIsWeb and route '
-      'native code through a separate file.'],
-    <String>['defaultTargetPlatform in tests differs from production',
+          'time. Use conditional imports or guard with kIsWeb and route '
+          'native code through a separate file.',
+    ],
+    <String>[
+      'defaultTargetPlatform in tests differs from production',
       'Widget tests default to TargetPlatform.android regardless of the '
-      'host. Set `debugDefaultTargetPlatformOverride` (and reset it in '
-      'tearDown) to test platform-adaptive paths explicitly.'],
-    <String>['Platform-keyed asset paths without web fallback',
+          'host. Set `debugDefaultTargetPlatformOverride` (and reset it in '
+          'tearDown) to test platform-adaptive paths explicitly.',
+    ],
+    <String>[
+      'Platform-keyed asset paths without web fallback',
       'Switching on defaultTargetPlatform alone returns one of six values — '
-      'but you may be running on web. Check kIsWeb first, then branch on '
-      'the host platform inside.'],
-    <String>['Layering Cupertino on top of Material on top of Cupertino',
+          'but you may be running on web. Check kIsWeb first, then branch on '
+          'the host platform inside.',
+    ],
+    <String>[
+      'Layering Cupertino on top of Material on top of Cupertino',
       'Nesting CupertinoApp inside MaterialApp inside CupertinoApp leads to '
-      'duplicate Directionality, double scaffolds, and confused selection '
-      'controls. Pick one shell at the root and nest individual widgets.'],
-    <String>['BuildContext-vs-static confusion',
+          'duplicate Directionality, double scaffolds, and confused selection '
+          'controls. Pick one shell at the root and nest individual widgets.',
+    ],
+    <String>[
+      'BuildContext-vs-static confusion',
       'defaultTargetPlatform is global; Theme.of(context).platform is local. '
-      'Adapting a deeply nested widget? Use Theme.of so theme overrides '
-      'are respected.'],
-    <String>['Stale TargetPlatform after orientation/Theme change',
+          'Adapting a deeply nested widget? Use Theme.of so theme overrides '
+          'are respected.',
+    ],
+    <String>[
+      'Stale TargetPlatform after orientation/Theme change',
       'If you read defaultTargetPlatform once at app startup into a static '
-      'variable, hot-reload that toggles the override will not update '
-      'your cached copy. Read it lazily in build(), or via Theme.of.'],
+          'variable, hot-reload that toggles the override will not update '
+          'your cached copy. Read it lazily in build(), or via Theme.of.',
+    ],
   ];
 
   return Container(
@@ -1519,23 +2163,44 @@ Widget _pitfallTile(String number, String title, String body) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          width: 30.0, height: 30.0,
+          width: 30.0,
+          height: 30.0,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: _kDanger.withValues(alpha: 0.15), shape: BoxShape.circle),
-          child: Text(number, style: const TextStyle(
-            color: _kDanger, fontWeight: FontWeight.bold, fontSize: 14.0)),
+            color: _kDanger.withValues(alpha: 0.15),
+            shape: BoxShape.circle,
+          ),
+          child: Text(
+            number,
+            style: const TextStyle(
+              color: _kDanger,
+              fontWeight: FontWeight.bold,
+              fontSize: 14.0,
+            ),
+          ),
         ),
         const SizedBox(width: 12.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: const TextStyle(
-                fontSize: 13.5, fontWeight: FontWeight.bold, color: _kInk)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.bold,
+                  color: _kInk,
+                ),
+              ),
               const SizedBox(height: 4.0),
-              Text(body, style: const TextStyle(
-                fontSize: 12.0, color: _kInkSoft, height: 1.45)),
+              Text(
+                body,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  color: _kInkSoft,
+                  height: 1.45,
+                ),
+              ),
             ],
           ),
         ),
@@ -1547,7 +2212,12 @@ Widget _pitfallTile(String number, String title, String body) {
 // ============================================================
 // SECTION 10: Decision tree
 // ============================================================
-Widget _section10Title() => _sectionTitle('10', 'Decision tree', 'When to use which detector', _kAccentDeep);
+Widget _section10Title() => _sectionTitle(
+  '10',
+  'Decision tree',
+  'When to use which detector',
+  _kAccentDeep,
+);
 
 Widget _decisionTree() {
   return Container(
@@ -1598,9 +2268,15 @@ Widget _legendChip(String text, Color color) {
       borderRadius: BorderRadius.circular(20.0),
       border: Border.all(color: color.withValues(alpha: 0.35)),
     ),
-    child: Text(text, style: TextStyle(
-      fontSize: 10.5, color: color,
-      fontWeight: FontWeight.w600, fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10.5,
+        color: color,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -1621,13 +2297,23 @@ class _DecisionTreePainter extends CustomPainter {
     void node(Offset c, double r, Paint p, String label, String subtitle) {
       canvas.drawCircle(c, r, p);
       final TextPainter tp = TextPainter(
-        text: TextSpan(children: <InlineSpan>[
-          TextSpan(text: label, style: const TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.0)),
-          const TextSpan(text: '\n'),
-          TextSpan(text: subtitle, style: const TextStyle(
-            color: Colors.white70, fontSize: 9.0)),
-        ]),
+        text: TextSpan(
+          children: <InlineSpan>[
+            TextSpan(
+              text: label,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 11.0,
+              ),
+            ),
+            const TextSpan(text: '\n'),
+            TextSpan(
+              text: subtitle,
+              style: const TextStyle(color: Colors.white70, fontSize: 9.0),
+            ),
+          ],
+        ),
         textAlign: TextAlign.center,
         textDirection: ui.TextDirection.ltr,
       );
@@ -1653,9 +2339,15 @@ class _DecisionTreePainter extends CustomPainter {
     void edgeLabel(Offset a, Offset b, String text, Color color) {
       final Offset m = Offset((a.dx + b.dx) / 2.0, (a.dy + b.dy) / 2.0);
       final TextPainter tp = TextPainter(
-        text: TextSpan(text: text, style: TextStyle(
-          color: color, fontSize: 10.0,
-          fontWeight: FontWeight.bold, backgroundColor: Colors.white)),
+        text: TextSpan(
+          text: text,
+          style: TextStyle(
+            color: color,
+            fontSize: 10.0,
+            fontWeight: FontWeight.bold,
+            backgroundColor: Colors.white,
+          ),
+        ),
         textDirection: ui.TextDirection.ltr,
       );
       tp.layout();
@@ -1683,7 +2375,12 @@ class _DecisionTreePainter extends CustomPainter {
 // ============================================================
 // SECTION 11: Cheat sheet footer
 // ============================================================
-Widget _section11Title() => _sectionTitle('11', 'Cheat sheet', 'The whole platform API surface in one card', _kInk);
+Widget _section11Title() => _sectionTitle(
+  '11',
+  'Cheat sheet',
+  'The whole platform API surface in one card',
+  _kInk,
+);
 
 Widget _cheatSheet() {
   return Container(
@@ -1692,18 +2389,27 @@ Widget _cheatSheet() {
     decoration: BoxDecoration(
       gradient: const LinearGradient(
         colors: <Color>[Color(0xFF111827), Color(0xFF1F2937)],
-        begin: Alignment.topLeft, end: Alignment.bottomRight),
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
       borderRadius: BorderRadius.circular(16.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text('Platform API at a glance', style: TextStyle(
-          fontSize: 16.0, fontWeight: FontWeight.bold,
-          color: Colors.white, letterSpacing: 0.5)),
+        const Text(
+          'Platform API at a glance',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            letterSpacing: 0.5,
+          ),
+        ),
         const SizedBox(height: 12.0),
         Wrap(
-          spacing: 8.0, runSpacing: 8.0,
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: <Widget>[
             _cheatChip('TargetPlatform', 'enum (6)', const Color(0xFF60A5FA)),
             _cheatChip('.android', 'index 0', _kAndroidGreen),
@@ -1712,12 +2418,24 @@ Widget _cheatSheet() {
             _cheatChip('.linux', 'index 3', _kLinuxOrange),
             _cheatChip('.macOS', 'index 4', _kMacSilver),
             _cheatChip('.windows', 'index 5', _kWindowsTeal),
-            _cheatChip('defaultTargetPlatform', 'top-level getter', const Color(0xFFA78BFA)),
+            _cheatChip(
+              'defaultTargetPlatform',
+              'top-level getter',
+              const Color(0xFFA78BFA),
+            ),
             _cheatChip('kIsWeb', 'compile-time const', _kSuccess),
             _cheatChip('kIsWasm', 'wasm only', _kSuccess),
             _cheatChip('Theme.of(ctx).platform', 'context-aware', _kWarn),
-            _cheatChip('debugDefaultTargetPlatformOverride', 'test hook', _kDanger),
-            _cheatChip('Platform.operatingSystem', 'dart:io (native)', const Color(0xFFFB923C)),
+            _cheatChip(
+              'debugDefaultTargetPlatformOverride',
+              'test hook',
+              _kDanger,
+            ),
+            _cheatChip(
+              'Platform.operatingSystem',
+              'dart:io (native)',
+              const Color(0xFFFB923C),
+            ),
           ],
         ),
         const SizedBox(height: 14.0),
@@ -1736,8 +2454,11 @@ Widget _cheatSheet() {
             '  • dart:io Platform.* only after a kIsWeb guard (or a conditional import).\n'
             '  • Reset debugDefaultTargetPlatformOverride in test tearDowns.',
             style: TextStyle(
-              color: Colors.white, fontSize: 12.0,
-              fontFamily: 'monospace', height: 1.6),
+              color: Colors.white,
+              fontSize: 12.0,
+              fontFamily: 'monospace',
+              height: 1.6,
+            ),
           ),
         ),
       ],
@@ -1756,9 +2477,15 @@ Widget _cheatChip(String label, String tag, Color color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(label, style: TextStyle(
-          fontSize: 11.0, fontFamily: 'monospace',
-          color: color, fontWeight: FontWeight.w600)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         const SizedBox(width: 6.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.0),
@@ -1766,7 +2493,10 @@ Widget _cheatChip(String label, String tag, Color color) {
             color: Colors.white.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Text(tag, style: const TextStyle(fontSize: 9.5, color: Colors.white70)),
+          child: Text(
+            tag,
+            style: const TextStyle(fontSize: 9.5, color: Colors.white70),
+          ),
         ),
       ],
     ),
@@ -1792,7 +2522,10 @@ Widget _footerTagline() {
             'rendered ${DateTime.fromMillisecondsSinceEpoch(0).year} → today • '
             '${TargetPlatform.values.length} enum values × 3 detection layers',
             style: const TextStyle(
-              fontSize: 11.5, color: _kInkSoft, fontStyle: FontStyle.italic),
+              fontSize: 11.5,
+              color: _kInkSoft,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
         Container(
@@ -1801,9 +2534,15 @@ Widget _footerTagline() {
             color: _kAccent.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: Text('pi=${math.pi.toStringAsFixed(3)}', style: const TextStyle(
-            fontSize: 10.5, color: _kAccentDeep,
-            fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+          child: Text(
+            'pi=${math.pi.toStringAsFixed(3)}',
+            style: const TextStyle(
+              fontSize: 10.5,
+              color: _kAccentDeep,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ],
     ),

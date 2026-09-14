@@ -164,10 +164,7 @@ Widget _bannerCard({required Widget banner, required String caption}) {
       children: <Widget>[
         Container(
           color: const Color(0xFFF9FAFB),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 6.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
           child: Text(
             caption,
             style: const TextStyle(
@@ -229,11 +226,7 @@ Widget _buildHeader() {
                 color: Colors.white.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: const Icon(
-                Icons.flag,
-                color: Colors.white,
-                size: 22.0,
-              ),
+              child: const Icon(Icons.flag, color: Colors.white, size: 22.0),
             ),
             const SizedBox(width: 12.0),
             const Expanded(
@@ -277,9 +270,7 @@ Widget _buildHeader() {
 Widget _buildAnatomy() {
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -317,10 +308,7 @@ Widget _buildAnatomy() {
                     ],
                   ),
                 ),
-                Container(
-                  height: 2.0,
-                  color: const Color(0xFF059669),
-                ),
+                Container(height: 2.0, color: const Color(0xFF059669)),
                 Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: Row(
@@ -386,9 +374,7 @@ Widget _anatomyBox(String label, Color color, double width) {
 
 Widget _buildMinimalSection() {
   final MaterialBanner banner = MaterialBanner(
-    content: const Text(
-      'Your profile picture was successfully updated.',
-    ),
+    content: const Text('Your profile picture was successfully updated.'),
     actions: <Widget>[
       TextButton(
         onPressed: () {
@@ -400,9 +386,7 @@ Widget _buildMinimalSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -413,10 +397,7 @@ Widget _buildMinimalSection() {
             'Minimal banner',
             'The smallest meaningful MaterialBanner: a content message and one action. No leading slot, no theming overrides — this is what most banners reduce to.',
           ),
-          _bannerCard(
-            banner: banner,
-            caption: 'CONTENT + 1 ACTION',
-          ),
+          _bannerCard(banner: banner, caption: 'CONTENT + 1 ACTION'),
           _explanation(
             'Use the minimal shape when the message is short, the action is obvious, and visual chrome would be noise. The single TextButton sits flush right; the divider underneath keeps the banner cleanly separated from page content below.',
           ),
@@ -441,10 +422,7 @@ Widget _buildTwoActionSection() {
         onPressed: () {
           print('Two-action banner — LATER (secondary)');
         },
-        child: const Text(
-          'LATER',
-          style: TextStyle(color: Color(0xFF6B7280)),
-        ),
+        child: const Text('LATER', style: TextStyle(color: Color(0xFF6B7280))),
       ),
       TextButton(
         onPressed: () {
@@ -460,9 +438,7 @@ Widget _buildTwoActionSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -493,9 +469,7 @@ Widget _buildTwoActionSection() {
 Widget _buildOverflowSection() {
   final MaterialBanner inlineBanner = MaterialBanner(
     leading: const Icon(Icons.shuffle, color: Color(0xFF9333EA)),
-    content: const Text(
-      'Three actions inline — only works on wide layouts.',
-    ),
+    content: const Text('Three actions inline — only works on wide layouts.'),
     actions: <Widget>[
       TextButton(
         onPressed: () {
@@ -576,9 +550,7 @@ Widget _buildOverflowSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -591,7 +563,8 @@ Widget _buildOverflowSection() {
           ),
           _bannerCard(
             banner: inlineBanner,
-            caption: 'NO FORCE — actions stay inline, may wrap awkwardly on narrow screens',
+            caption:
+                'NO FORCE — actions stay inline, may wrap awkwardly on narrow screens',
           ),
           _bannerCard(
             banner: forcedBelow,
@@ -617,9 +590,7 @@ Widget _buildOverflowSection() {
 Widget _buildLeadingIconVariantsSection() {
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -635,7 +606,8 @@ Widget _buildLeadingIconVariantsSection() {
               icon: Icons.info_outline,
               color: const Color(0xFF2563EB),
               tintBg: const Color(0xFFEFF6FF),
-              text: 'Daylight saving time begins this Sunday — your clock will move forward one hour automatically.',
+              text:
+                  'Daylight saving time begins this Sunday — your clock will move forward one hour automatically.',
               action: 'GOT IT',
             ),
             caption: 'INFO — blue, tells the user something neutral',
@@ -648,10 +620,12 @@ Widget _buildLeadingIconVariantsSection() {
               icon: Icons.warning_amber_outlined,
               color: const Color(0xFFD97706),
               tintBg: const Color(0xFFFFFBEB),
-              text: 'Your subscription expires in 5 days. Renew now to keep access to cloud sync and premium features.',
+              text:
+                  'Your subscription expires in 5 days. Renew now to keep access to cloud sync and premium features.',
               action: 'RENEW',
             ),
-            caption: 'WARNING — amber, something is degrading and the user should act',
+            caption:
+                'WARNING — amber, something is degrading and the user should act',
           ),
           _explanation(
             'Warnings use amber + Icons.warning_amber_outlined. The amber tone is alarming enough to catch the eye but not so red that users feel scolded for ignoring it.',
@@ -661,7 +635,8 @@ Widget _buildLeadingIconVariantsSection() {
               icon: Icons.error_outline,
               color: const Color(0xFFDC2626),
               tintBg: const Color(0xFFFEF2F2),
-              text: 'Sync failed — your last 3 edits could not be saved to the cloud. Retry or work offline.',
+              text:
+                  'Sync failed — your last 3 edits could not be saved to the cloud. Retry or work offline.',
               action: 'RETRY',
             ),
             caption: 'ERROR — red, something is broken and needs a fix',
@@ -674,7 +649,8 @@ Widget _buildLeadingIconVariantsSection() {
               icon: Icons.check_circle_outline,
               color: const Color(0xFF059669),
               tintBg: const Color(0xFFECFDF5),
-              text: 'Your account has been verified — all premium features are now unlocked across this device.',
+              text:
+                  'Your account has been verified — all premium features are now unlocked across this device.',
               action: 'GREAT',
             ),
             caption: 'SUCCESS — green, confirms a milestone',
@@ -687,7 +663,8 @@ Widget _buildLeadingIconVariantsSection() {
               icon: Icons.system_update_alt,
               color: const Color(0xFF7C3AED),
               tintBg: const Color(0xFFF5F3FF),
-              text: 'Version 4.2.0 is available — includes performance improvements and the new collaborative editor.',
+              text:
+                  'Version 4.2.0 is available — includes performance improvements and the new collaborative editor.',
               action: 'UPDATE',
             ),
             caption: 'UPDATE — violet, announces something new is available',
@@ -733,10 +710,7 @@ MaterialBanner _iconVariantBanner({
 
 Widget _buildRichContentSection() {
   final MaterialBanner banner = MaterialBanner(
-    leading: const Icon(
-      Icons.privacy_tip_outlined,
-      color: Color(0xFF0F766E),
-    ),
+    leading: const Icon(Icons.privacy_tip_outlined, color: Color(0xFF0F766E)),
     backgroundColor: const Color(0xFFF0FDFA),
     content: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -809,9 +783,7 @@ Widget _buildRichContentSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -902,9 +874,7 @@ Widget _buildThemeOverrideSection(BuildContext context) {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -942,9 +912,7 @@ Widget _buildThemeOverrideSection(BuildContext context) {
 Widget _buildRealWorldCatalogSection() {
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -1308,7 +1276,9 @@ Widget _buildPaddingAndDividerSection() {
     leadingPadding: const EdgeInsets.only(right: 28.0),
     leading: const Icon(Icons.expand, color: Color(0xFF059669)),
     dividerColor: const Color(0xFF10B981),
-    content: const Text('Spacious — padding 28x24, divider emerald, ideal for marketing surfaces.'),
+    content: const Text(
+      'Spacious — padding 28x24, divider emerald, ideal for marketing surfaces.',
+    ),
     actions: <Widget>[
       TextButton(
         onPressed: () {
@@ -1320,9 +1290,7 @@ Widget _buildPaddingAndDividerSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -1361,9 +1329,7 @@ Widget _buildPaddingAndDividerSection() {
 Widget _buildBannerVsSnackbarVsDialogSection() {
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -1401,7 +1367,8 @@ Widget _buildBannerVsSnackbarVsDialogSection() {
                       ),
                     ],
                   ),
-                  notes: 'Best for ongoing conditions, consent, multi-action choices.',
+                  notes:
+                      'Best for ongoing conditions, consent, multi-action choices.',
                 ),
               ),
               const SizedBox(width: 12.0),
@@ -1444,7 +1411,8 @@ Widget _buildBannerVsSnackbarVsDialogSection() {
                       ],
                     ),
                   ),
-                  notes: 'Best for short confirmations, undoable actions, ephemeral feedback.',
+                  notes:
+                      'Best for short confirmations, undoable actions, ephemeral feedback.',
                 ),
               ),
               const SizedBox(width: 12.0),
@@ -1510,7 +1478,8 @@ Widget _buildBannerVsSnackbarVsDialogSection() {
                       ],
                     ),
                   ),
-                  notes: 'Best for irreversible actions and forced decisions before continuing.',
+                  notes:
+                      'Best for irreversible actions and forced decisions before continuing.',
                 ),
               ),
             ],
@@ -1617,7 +1586,10 @@ Widget _comparisonRow(String label, String value) {
 
 Widget _buildEdgeCasesSection() {
   final MaterialBanner emptyish = MaterialBanner(
-    leading: const Icon(Icons.do_not_disturb_on_outlined, color: Color(0xFF6B7280)),
+    leading: const Icon(
+      Icons.do_not_disturb_on_outlined,
+      color: Color(0xFF6B7280),
+    ),
     content: const Text(
       'Edge case — at least one action is required, so we render a single no-op DISMISS that simply prints.',
     ),
@@ -1691,9 +1663,7 @@ Widget _buildEdgeCasesSection() {
   );
   return Card(
     elevation: 2.0,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
     child: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(

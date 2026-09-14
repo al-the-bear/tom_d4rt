@@ -35,10 +35,12 @@ class _DisplayFeatureSubScreenDemoPage extends StatefulWidget {
   const _DisplayFeatureSubScreenDemoPage();
 
   @override
-  State<_DisplayFeatureSubScreenDemoPage> createState() => _DisplayFeatureSubScreenDemoPageState();
+  State<_DisplayFeatureSubScreenDemoPage> createState() =>
+      _DisplayFeatureSubScreenDemoPageState();
 }
 
-class _DisplayFeatureSubScreenDemoPageState extends State<_DisplayFeatureSubScreenDemoPage> {
+class _DisplayFeatureSubScreenDemoPageState
+    extends State<_DisplayFeatureSubScreenDemoPage> {
   static const Size _simulatedSize = Size(640, 360);
 
   bool _rtl = false;
@@ -85,7 +87,10 @@ class _DisplayFeatureSubScreenDemoPageState extends State<_DisplayFeatureSubScre
                 _rtl
                     ? 'Directionality: RTL (fallback anchor defaults to top-right)'
                     : 'Directionality: LTR (fallback anchor defaults to top-left)',
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),
@@ -111,8 +116,10 @@ class _DisplayFeatureSubScreenDemoPageState extends State<_DisplayFeatureSubScre
                 onShowGuidesChanged: (v) => setState(() => _showGuides = v),
                 onCompactChanged: (v) => setState(() => _compactCards = v),
                 onFeatureModeChanged: (v) => setState(() => _featureMode = v),
-                onFeaturePositionChanged: (v) => setState(() => _featurePosition = v),
-                onFeatureThicknessChanged: (v) => setState(() => _featureThickness = v),
+                onFeaturePositionChanged: (v) =>
+                    setState(() => _featurePosition = v),
+                onFeatureThicknessChanged: (v) =>
+                    setState(() => _featureThickness = v),
               ),
               const SizedBox(height: 12),
               const _ScenePanel(
@@ -205,7 +212,9 @@ class _DisplayFeatureSubScreenDemoPageState extends State<_DisplayFeatureSubScre
   List<DisplayFeature> _buildDisplayFeatures(Size size, _FeatureMode mode) {
     final p = _featurePosition.clamp(0.1, 0.9);
     final t = _featureThickness.clamp(4.0, 56.0);
-    final halfState = _halfOpened ? DisplayFeatureState.postureHalfOpened : DisplayFeatureState.postureFlat;
+    final halfState = _halfOpened
+        ? DisplayFeatureState.postureHalfOpened
+        : DisplayFeatureState.postureFlat;
 
     switch (mode) {
       case _FeatureMode.none:
@@ -242,7 +251,12 @@ class _DisplayFeatureSubScreenDemoPageState extends State<_DisplayFeatureSubScre
       case _FeatureMode.topCutout:
         return <DisplayFeature>[
           DisplayFeature(
-            bounds: Rect.fromLTWH(size.width * 0.45, 0, size.width * 0.1, size.height * 0.1),
+            bounds: Rect.fromLTWH(
+              size.width * 0.45,
+              0,
+              size.width * 0.1,
+              size.height * 0.1,
+            ),
             type: DisplayFeatureType.cutout,
             state: DisplayFeatureState.unknown,
           ),
@@ -308,12 +322,20 @@ class _HeroControlDeck extends StatelessWidget {
         children: [
           const Text(
             'DisplayFeatureSubScreen Control Deck',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 27),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 27,
+            ),
           ),
           const SizedBox(height: 8),
           const Text(
             'Tune simulated foldable display features and anchor policies, then inspect how sub-screen selection adapts under each scene.',
-            style: TextStyle(color: Color(0xFFF2F8FF), fontSize: 13, height: 1.45),
+            style: TextStyle(
+              color: Color(0xFFF2F8FF),
+              fontSize: 13,
+              height: 1.45,
+            ),
           ),
           const SizedBox(height: 12),
           Row(
@@ -324,7 +346,13 @@ class _HeroControlDeck extends StatelessWidget {
                   onChanged: onRtlChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('RTL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  title: const Text(
+                    'RTL',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -334,7 +362,13 @@ class _HeroControlDeck extends StatelessWidget {
                   onChanged: onUseAnchorChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Use anchorPoint', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  title: const Text(
+                    'Use anchorPoint',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -344,7 +378,13 @@ class _HeroControlDeck extends StatelessWidget {
                   onChanged: onHalfOpenedChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Half-open posture', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  title: const Text(
+                    'Half-open posture',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -354,7 +394,13 @@ class _HeroControlDeck extends StatelessWidget {
                   onChanged: onShowGuidesChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Show guides', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  title: const Text(
+                    'Show guides',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -364,7 +410,13 @@ class _HeroControlDeck extends StatelessWidget {
                   onChanged: onCompactChanged,
                   dense: true,
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Compact cards', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  title: const Text(
+                    'Compact cards',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -385,7 +437,10 @@ class _HeroControlDeck extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             'Feature position: ${featurePosition.toStringAsFixed(2)}',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Slider(
             value: featurePosition,
@@ -398,7 +453,10 @@ class _HeroControlDeck extends StatelessWidget {
           ),
           Text(
             'Feature thickness: ${featureThickness.toStringAsFixed(0)}',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Slider(
             value: featureThickness,
@@ -411,15 +469,26 @@ class _HeroControlDeck extends StatelessWidget {
           ),
           Text(
             'Anchor: (${anchorPoint.dx.toStringAsFixed(1)}, ${anchorPoint.dy.toStringAsFixed(1)})',
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _HeroBadge(label: rtl ? 'Fallback anchor: top-right' : 'Fallback anchor: top-left'),
-              _HeroBadge(label: useAnchorPoint ? 'Explicit anchor active' : 'Directionality fallback active'),
+              _HeroBadge(
+                label: rtl
+                    ? 'Fallback anchor: top-right'
+                    : 'Fallback anchor: top-left',
+              ),
+              _HeroBadge(
+                label: useAnchorPoint
+                    ? 'Explicit anchor active'
+                    : 'Directionality fallback active',
+              ),
               const _HeroBadge(label: 'MediaQuery.removeDisplayFeatures'),
               const _HeroBadge(label: 'avoidBounds + subScreensInBounds'),
               const _HeroBadge(label: 'Nearest sub-screen selection'),
@@ -498,7 +567,11 @@ class _HeroBadge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11),
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
       ),
     );
   }
@@ -548,13 +621,20 @@ class _ScenePanel extends StatelessWidget {
                   color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text('$index', style: TextStyle(color: accent, fontWeight: FontWeight.w900)),
+                child: Text(
+                  '$index',
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w900),
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(color: accent, fontSize: 19, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: accent,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ],
@@ -562,7 +642,11 @@ class _ScenePanel extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.84)),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: accent.withValues(alpha: 0.84),
+            ),
           ),
           const SizedBox(height: 12),
           child,
@@ -672,7 +756,14 @@ class _ConceptCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.2)),
+            Text(
+              title,
+              style: TextStyle(
+                color: accent,
+                fontWeight: FontWeight.w800,
+                fontSize: 13.2,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(line1, style: const TextStyle(fontSize: 11.2, height: 1.35)),
             const SizedBox(height: 3),
@@ -706,8 +797,13 @@ class _AnchorPlaygroundScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final avoidBounds = DisplayFeatureSubScreen.avoidBounds(query).toList();
-    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & query.size, avoidBounds).toList();
-    final effectiveAnchor = useAnchorPoint ? anchorPoint : _fallbackByDirection(Directionality.of(context), query.size);
+    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(
+      Offset.zero & query.size,
+      avoidBounds,
+    ).toList();
+    final effectiveAnchor = useAnchorPoint
+        ? anchorPoint
+        : _fallbackByDirection(Directionality.of(context), query.size);
     final selected = _closestRect(subScreens, effectiveAnchor);
 
     return Column(
@@ -739,7 +835,10 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
-                            border: Border.all(color: const Color(0xFFB8C8D8), width: 1.2),
+                            border: Border.all(
+                              color: const Color(0xFFB8C8D8),
+                              width: 1.2,
+                            ),
                           ),
                         ),
                       ),
@@ -747,7 +846,9 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                         Positioned.fill(
                           child: CustomPaint(
                             painter: _GridPainter(
-                              color: const Color(0xFF7E93A8).withValues(alpha: 0.25),
+                              color: const Color(
+                                0xFF7E93A8,
+                              ).withValues(alpha: 0.25),
                               step: 40,
                             ),
                           ),
@@ -757,8 +858,12 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                           rect: f.bounds,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: const Color(0xFF4E5967).withValues(alpha: 0.58),
-                              border: Border.all(color: Colors.black.withValues(alpha: 0.35)),
+                              color: const Color(
+                                0xFF4E5967,
+                              ).withValues(alpha: 0.58),
+                              border: Border.all(
+                                color: Colors.black.withValues(alpha: 0.35),
+                              ),
                             ),
                           ),
                         ),
@@ -769,7 +874,12 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                             child: IgnorePointer(
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: const Color(0xFF1F4E77).withValues(alpha: 0.45), width: 1.2),
+                                  border: Border.all(
+                                    color: const Color(
+                                      0xFF1F4E77,
+                                    ).withValues(alpha: 0.45),
+                                    width: 1.2,
+                                  ),
                                 ),
                               ),
                             ),
@@ -779,7 +889,10 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                         child: IgnorePointer(
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(color: const Color(0xFFC57C37), width: 2),
+                              border: Border.all(
+                                color: const Color(0xFFC57C37),
+                                width: 2,
+                              ),
                             ),
                           ),
                         ),
@@ -791,7 +904,9 @@ class _AnchorPlaygroundScene extends StatelessWidget {
                           width: 14,
                           height: 14,
                           decoration: BoxDecoration(
-                            color: useAnchorPoint ? const Color(0xFFC57C37) : const Color(0xFF1F4E77),
+                            color: useAnchorPoint
+                                ? const Color(0xFFC57C37)
+                                : const Color(0xFF1F4E77),
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.white, width: 1.5),
                             boxShadow: [
@@ -828,7 +943,8 @@ class _AnchorPlaygroundScene extends StatelessWidget {
           children: [
             _TelemetryCard(
               label: 'Anchor used',
-              value: '(${effectiveAnchor.dx.toStringAsFixed(1)}, ${effectiveAnchor.dy.toStringAsFixed(1)})',
+              value:
+                  '(${effectiveAnchor.dx.toStringAsFixed(1)}, ${effectiveAnchor.dy.toStringAsFixed(1)})',
               accent: const Color(0xFFC57C37),
             ),
             _TelemetryCard(
@@ -876,13 +992,13 @@ class _AnchorPlaygroundScene extends StatelessWidget {
     final dx = point.dx < rect.left
         ? rect.left - point.dx
         : point.dx > rect.right
-            ? point.dx - rect.right
-            : 0.0;
+        ? point.dx - rect.right
+        : 0.0;
     final dy = point.dy < rect.top
         ? rect.top - point.dy
         : point.dy > rect.bottom
-            ? point.dy - rect.bottom
-            : 0.0;
+        ? point.dy - rect.bottom
+        : 0.0;
     return math.sqrt(dx * dx + dy * dy);
   }
 
@@ -914,16 +1030,28 @@ class _PaneDemoOverlay extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.88),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0xFF1F4E77).withValues(alpha: 0.2)),
+          border: Border.all(
+            color: const Color(0xFF1F4E77).withValues(alpha: 0.2),
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF1F4E77), fontSize: 13)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF1F4E77),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(subtitle, style: const TextStyle(fontSize: 11, color: Color(0xFF365C80))),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 11, color: Color(0xFF365C80)),
+              ),
               const SizedBox(height: 6),
               Text(
                 'Child MediaQuery.size: ${local.size.width.toStringAsFixed(0)} x ${local.size.height.toStringAsFixed(0)}',
@@ -934,9 +1062,17 @@ class _PaneDemoOverlay extends StatelessWidget {
                 style: const TextStyle(fontSize: 10.4),
               ),
               const SizedBox(height: 6),
-              _MiniLane(color: const Color(0xFF2A7A71), label: 'Pane-safe chart lane', height: height),
+              _MiniLane(
+                color: const Color(0xFF2A7A71),
+                label: 'Pane-safe chart lane',
+                height: height,
+              ),
               const SizedBox(height: 6),
-              _MiniLane(color: const Color(0xFFC57C37), label: 'Pane-safe controls lane', height: height),
+              _MiniLane(
+                color: const Color(0xFFC57C37),
+                label: 'Pane-safe controls lane',
+                height: height,
+              ),
             ],
           ),
         ),
@@ -946,7 +1082,11 @@ class _PaneDemoOverlay extends StatelessWidget {
 }
 
 class _MiniLane extends StatelessWidget {
-  const _MiniLane({required this.color, required this.label, required this.height});
+  const _MiniLane({
+    required this.color,
+    required this.label,
+    required this.height,
+  });
 
   final Color color;
   final String label;
@@ -966,7 +1106,14 @@ class _MiniLane extends StatelessWidget {
         alignment: AlignmentDirectional.centerStart,
         child: Padding(
           padding: const EdgeInsetsDirectional.only(start: 10),
-          child: Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11.3)),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.3,
+            ),
+          ),
         ),
       ),
     );
@@ -1001,9 +1148,22 @@ class _TelemetryCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: TextStyle(color: accent, fontWeight: FontWeight.w700, fontSize: 11.2)),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: accent,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 11.2,
+                    ),
+                  ),
                   const SizedBox(height: 3),
-                  Text(value, style: TextStyle(color: accent.withValues(alpha: 0.9), fontSize: 10.6)),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      color: accent.withValues(alpha: 0.9),
+                      fontSize: 10.6,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1079,7 +1239,14 @@ class _FallbackCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('$title (${direction.name})', style: const TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  '$title (${direction.name})',
+                  style: const TextStyle(
+                    color: accent,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 const Text(
                   'anchorPoint: null\nDisplayFeatureSubScreen chooses fallback from Directionality.',
@@ -1096,7 +1263,9 @@ class _FallbackCard extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: const Color(0xFFF6FAF8),
-                              border: Border.all(color: accent.withValues(alpha: 0.25)),
+                              border: Border.all(
+                                color: accent.withValues(alpha: 0.25),
+                              ),
                             ),
                           ),
                         ),
@@ -1105,10 +1274,18 @@ class _FallbackCard extends StatelessWidget {
                             rect: Rect.fromLTWH(
                               f.bounds.left * 170 / query.size.height,
                               f.bounds.top * 170 / query.size.height,
-                              math.max(2, f.bounds.width * 170 / query.size.height),
-                              math.max(2, f.bounds.height * 170 / query.size.height),
+                              math.max(
+                                2,
+                                f.bounds.width * 170 / query.size.height,
+                              ),
+                              math.max(
+                                2,
+                                f.bounds.height * 170 / query.size.height,
+                              ),
                             ),
-                            child: ColoredBox(color: Colors.black.withValues(alpha: 0.4)),
+                            child: ColoredBox(
+                              color: Colors.black.withValues(alpha: 0.4),
+                            ),
                           ),
                         DisplayFeatureSubScreen(
                           child: _PaneDemoOverlay(
@@ -1238,11 +1415,14 @@ class _ComparisonCard extends StatelessWidget {
     );
 
     final avoid = DisplayFeatureSubScreen.avoidBounds(query).toList();
-    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & query.size, avoid).toList();
+    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(
+      Offset.zero & query.size,
+      avoid,
+    ).toList();
 
     return SizedBox(
       width: 324, // canvas.width (300) + Container padding (12 × 2) so the
-                  // inner SizedBox fits its declared 300 px without clamping
+      // inner SizedBox fits its declared 300 px without clamping
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -1253,11 +1433,21 @@ class _ComparisonCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(spec.title, style: TextStyle(color: spec.color, fontWeight: FontWeight.w800, fontSize: 13.1)),
+            Text(
+              spec.title,
+              style: TextStyle(
+                color: spec.color,
+                fontWeight: FontWeight.w800,
+                fontSize: 13.1,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(
               'avoidBounds=${avoid.length} | subScreens=${subScreens.length}',
-              style: TextStyle(color: spec.color.withValues(alpha: 0.86), fontSize: 10.2),
+              style: TextStyle(
+                color: spec.color.withValues(alpha: 0.86),
+                fontSize: 10.2,
+              ),
             ),
             const SizedBox(height: 8),
             ClipRRect(
@@ -1273,7 +1463,9 @@ class _ComparisonCard extends StatelessWidget {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: spec.color.withValues(alpha: 0.2)),
+                            border: Border.all(
+                              color: spec.color.withValues(alpha: 0.2),
+                            ),
                           ),
                         ),
                       ),
@@ -1283,7 +1475,9 @@ class _ComparisonCard extends StatelessWidget {
                             rect: rect,
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                border: Border.all(color: spec.color.withValues(alpha: 0.28)),
+                                border: Border.all(
+                                  color: spec.color.withValues(alpha: 0.28),
+                                ),
                               ),
                             ),
                           ),
@@ -1293,7 +1487,9 @@ class _ComparisonCard extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: Colors.black.withValues(alpha: 0.45),
-                              border: Border.all(color: Colors.black.withValues(alpha: 0.65)),
+                              border: Border.all(
+                                color: Colors.black.withValues(alpha: 0.65),
+                              ),
                             ),
                           ),
                         ),
@@ -1304,7 +1500,10 @@ class _ComparisonCard extends StatelessWidget {
                                 math.min(anchorPoint.dy, query.size.height),
                               )
                             : null,
-                        child: _MiniPaneCard(title: spec.title, accent: spec.color),
+                        child: _MiniPaneCard(
+                          title: spec.title,
+                          accent: spec.color,
+                        ),
                       ),
                     ],
                   ),
@@ -1317,8 +1516,14 @@ class _ComparisonCard extends StatelessWidget {
     );
   }
 
-  static List<DisplayFeature> _featuresForMode(_FeatureMode mode, Size size, bool halfOpened) {
-    final posture = halfOpened ? DisplayFeatureState.postureHalfOpened : DisplayFeatureState.postureFlat;
+  static List<DisplayFeature> _featuresForMode(
+    _FeatureMode mode,
+    Size size,
+    bool halfOpened,
+  ) {
+    final posture = halfOpened
+        ? DisplayFeatureState.postureHalfOpened
+        : DisplayFeatureState.postureFlat;
 
     switch (mode) {
       case _FeatureMode.none:
@@ -1387,9 +1592,22 @@ class _MiniPaneCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Selected pane', style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 11.8)),
+              Text(
+                'Selected pane',
+                style: TextStyle(
+                  color: accent,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11.8,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(title, style: TextStyle(color: accent.withValues(alpha: 0.82), fontSize: 10.8)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: accent.withValues(alpha: 0.82),
+                  fontSize: 10.8,
+                ),
+              ),
               const SizedBox(height: 6),
               Text(
                 'size ${local.size.width.toStringAsFixed(0)}x${local.size.height.toStringAsFixed(0)}',
@@ -1421,13 +1639,21 @@ class _ApiInspectionScene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final avoid = DisplayFeatureSubScreen.avoidBounds(query).toList();
-    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(Offset.zero & query.size, avoid).toList();
+    final subScreens = DisplayFeatureSubScreen.subScreensInBounds(
+      Offset.zero & query.size,
+      avoid,
+    ).toList();
 
     final resolvedAnchor = useAnchorPoint
         ? anchorPoint
-        : (Directionality.of(context) == TextDirection.rtl ? Offset(query.size.width, 0) : Offset.zero);
+        : (Directionality.of(context) == TextDirection.rtl
+              ? Offset(query.size.width, 0)
+              : Offset.zero);
 
-    final selected = _AnchorPlaygroundScene._closestRect(subScreens, resolvedAnchor);
+    final selected = _AnchorPlaygroundScene._closestRect(
+      subScreens,
+      resolvedAnchor,
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1504,10 +1730,16 @@ class _RectTableCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 12.9)),
+          Text(
+            title,
+            style: TextStyle(
+              color: accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 12.9,
+            ),
+          ),
           const SizedBox(height: 8),
-          if (rects.isEmpty)
-            const Text('No rectangles'),
+          if (rects.isEmpty) const Text('No rectangles'),
           if (rects.isNotEmpty)
             for (var i = 0; i < rects.length; i++)
               Padding(
@@ -1521,7 +1753,9 @@ class _RectTableCard extends StatelessWidget {
                       color: (highlighted != null && highlighted == rects[i])
                           ? const Color(0xFFC57C37)
                           : accent.withValues(alpha: 0.2),
-                      width: (highlighted != null && highlighted == rects[i]) ? 1.8 : 1,
+                      width: (highlighted != null && highlighted == rects[i])
+                          ? 1.8
+                          : 1,
                     ),
                   ),
                   child: Text(
@@ -1626,7 +1860,14 @@ class _PracticalCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w800, fontSize: 13.1)),
+            Text(
+              title,
+              style: TextStyle(
+                color: accent,
+                fontWeight: FontWeight.w800,
+                fontSize: 13.1,
+              ),
+            ),
             const SizedBox(height: 8),
             child,
           ],
@@ -1671,7 +1912,9 @@ class _PatternPreview extends StatelessWidget {
               for (final f in query.displayFeatures)
                 Positioned.fromRect(
                   rect: f.bounds,
-                  child: ColoredBox(color: Colors.black.withValues(alpha: 0.35)),
+                  child: ColoredBox(
+                    color: Colors.black.withValues(alpha: 0.35),
+                  ),
                 ),
               Positioned(
                 left: anchorPoint.dx - 5,
@@ -1701,12 +1944,33 @@ class _PatternPreview extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 11.8)),
-                          Text(subtitle, style: const TextStyle(fontSize: 10.4, color: Color(0xFF7B7542))),
+                          Text(
+                            title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: accent,
+                              fontSize: 11.8,
+                            ),
+                          ),
+                          Text(
+                            subtitle,
+                            style: const TextStyle(
+                              fontSize: 10.4,
+                              color: Color(0xFF7B7542),
+                            ),
+                          ),
                           const SizedBox(height: 6),
-                          _MiniLane(color: const Color(0xFF2A7A71), label: 'Module A', height: laneHeight),
+                          _MiniLane(
+                            color: const Color(0xFF2A7A71),
+                            label: 'Module A',
+                            height: laneHeight,
+                          ),
                           const SizedBox(height: 6),
-                          _MiniLane(color: const Color(0xFF1F4E77), label: 'Module B', height: laneHeight),
+                          _MiniLane(
+                            color: const Color(0xFF1F4E77),
+                            label: 'Module B',
+                            height: laneHeight,
+                          ),
                         ],
                       ),
                     ),
@@ -1743,7 +2007,11 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: Color(0xFF31495B)),
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+              color: Color(0xFF31495B),
+            ),
           ),
           SizedBox(height: 8),
           Text(

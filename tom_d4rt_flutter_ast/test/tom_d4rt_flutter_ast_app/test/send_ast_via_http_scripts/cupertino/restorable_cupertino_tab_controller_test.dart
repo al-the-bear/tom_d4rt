@@ -218,11 +218,7 @@ LinearGradient _heroGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF0A84FF),
-      Color(0xFF5856D6),
-      Color(0xFFAF52DE),
-    ],
+    colors: <Color>[Color(0xFF0A84FF), Color(0xFF5856D6), Color(0xFFAF52DE)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -231,10 +227,7 @@ LinearGradient _surfaceGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFFF6F7FB),
-      Color(0xFFE9ECF4),
-    ],
+    colors: <Color>[Color(0xFFF6F7FB), Color(0xFFE9ECF4)],
   );
 }
 
@@ -242,10 +235,7 @@ LinearGradient _anatomyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFF6E5),
-      Color(0xFFFFE0B2),
-    ],
+    colors: <Color>[Color(0xFFFFF6E5), Color(0xFFFFE0B2)],
   );
 }
 
@@ -253,10 +243,7 @@ LinearGradient _apiTableGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE0F7FA),
-      Color(0xFFB2EBF2),
-    ],
+    colors: <Color>[Color(0xFFE0F7FA), Color(0xFFB2EBF2)],
   );
 }
 
@@ -264,11 +251,7 @@ LinearGradient _hierarchyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFEDE9FE),
-      Color(0xFFDDD6FE),
-      Color(0xFFC4B5FD),
-    ],
+    colors: <Color>[Color(0xFFEDE9FE), Color(0xFFDDD6FE), Color(0xFFC4B5FD)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -277,10 +260,7 @@ LinearGradient _snippetGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF111827),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF111827)],
   );
 }
 
@@ -288,10 +268,7 @@ LinearGradient _galleryGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFFBEB),
-      Color(0xFFFEF3C7),
-    ],
+    colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFEF3C7)],
   );
 }
 
@@ -299,10 +276,7 @@ LinearGradient _pitfallsGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFEE2E2),
-      Color(0xFFFECACA),
-    ],
+    colors: <Color>[Color(0xFFFEE2E2), Color(0xFFFECACA)],
   );
 }
 
@@ -310,10 +284,7 @@ LinearGradient _footerGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF0F172A),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF0F172A)],
   );
 }
 
@@ -343,13 +314,16 @@ dynamic build(BuildContext context) {
   final CupertinoTabController c1 = CupertinoTabController(initialIndex: 1);
   final CupertinoTabController c2 = CupertinoTabController(initialIndex: 2);
   final CupertinoTabController c3 = CupertinoTabController(initialIndex: 3);
-  print('[rctc-demo]   c0.index=${c0.index} c1.index=${c1.index} '
-      'c2.index=${c2.index} c3.index=${c3.index}');
+  print(
+    '[rctc-demo]   c0.index=${c0.index} c1.index=${c1.index} '
+    'c2.index=${c2.index} c3.index=${c3.index}',
+  );
 
   final RestorableCupertinoTabController r0 =
       RestorableCupertinoTabController();
-  final RestorableCupertinoTabController r2 =
-      RestorableCupertinoTabController(initialIndex: 2);
+  final RestorableCupertinoTabController r2 = RestorableCupertinoTabController(
+    initialIndex: 2,
+  );
   print('[rctc-demo]   r0 hash=${r0.hashCode} r2 hash=${r2.hashCode}');
 
   c0.dispose();
@@ -517,9 +491,7 @@ Widget _buildHeroSection() {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.0,
-                      fontFeatures: <FontFeature>[
-                        FontFeature.tabularFigures(),
-                      ],
+                      fontFeatures: <FontFeature>[FontFeature.tabularFigures()],
                     ),
                   ),
                 ],
@@ -727,10 +699,7 @@ class _LifecyclePainter extends CustomPainter {
         textDirection: TextDirection.ltr,
         text: TextSpan(
           text: subs[i],
-          style: const TextStyle(
-            color: Color(0xFF374151),
-            fontSize: 11.0,
-          ),
+          style: const TextStyle(color: Color(0xFF374151), fontSize: 11.0),
         ),
       )..layout(maxWidth: nodeW);
       sp.paint(canvas, Offset(x + (nodeW - sp.width) / 2.0, y + 44.0));
@@ -1083,10 +1052,7 @@ Widget _apiHeaderRow() {
         topRight: Radius.circular(12.0),
       ),
     ),
-    padding: const EdgeInsets.symmetric(
-      horizontal: _kGapMd,
-      vertical: _kGapSm,
-    ),
+    padding: const EdgeInsets.symmetric(horizontal: _kGapMd, vertical: _kGapSm),
     child: Row(
       children: const <Widget>[
         Expanded(
@@ -1132,10 +1098,7 @@ Widget _apiRow({
         ),
       ),
     ),
-    padding: const EdgeInsets.symmetric(
-      horizontal: _kGapMd,
-      vertical: _kGapMd,
-    ),
+    padding: const EdgeInsets.symmetric(horizontal: _kGapMd, vertical: _kGapMd),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -1149,10 +1112,7 @@ Widget _apiRow({
             decoration: BoxDecoration(
               color: const Color(0xFFF9FAFB),
               borderRadius: BorderRadius.circular(6.0),
-              border: Border.all(
-                color: const Color(0xFFE5E7EB),
-                width: 0.5,
-              ),
+              border: Border.all(color: const Color(0xFFE5E7EB), width: 0.5),
             ),
             child: Text(
               signature,
@@ -1339,11 +1299,7 @@ Widget _hierarchyNode({
 Widget _hierarchyConnector({double indent = 0.0}) {
   return Padding(
     padding: EdgeInsets.only(left: indent + 18.0),
-    child: Container(
-      width: 2.0,
-      height: 16.0,
-      color: const Color(0xFF94A3B8),
-    ),
+    child: Container(width: 2.0, height: 16.0, color: const Color(0xFF94A3B8)),
   );
 }
 
@@ -1403,7 +1359,10 @@ Widget _buildCodeSnippetSection() {
               _CodeLine(0, 'class _MyTabPageState extends State<MyTabPage>'),
               _CodeLine(2, 'with RestorationMixin {'),
               _CodeLine(2, 'final RestorableCupertinoTabController _ctrl ='),
-              _CodeLine(4, 'RestorableCupertinoTabController(initialIndex: 0);'),
+              _CodeLine(
+                4,
+                'RestorableCupertinoTabController(initialIndex: 0);',
+              ),
               _CodeLine(0, ''),
               _CodeLine(2, '@override'),
               _CodeLine(2, "String get restorationId => 'my_tab_page';"),
@@ -1674,9 +1633,7 @@ Widget _disabledTabBar() {
     height: _kTabBarHeight,
     decoration: const BoxDecoration(
       color: Color(0xFFF3F4F6),
-      border: Border(
-        top: BorderSide(color: Color(0xFFE5E7EB), width: 0.5),
-      ),
+      border: Border(top: BorderSide(color: Color(0xFFE5E7EB), width: 0.5)),
     ),
     child: Row(
       children: <Widget>[
@@ -1709,8 +1666,7 @@ Widget _disabledTabBar() {
                       _kPrimaryTabLabels[i],
                       style: TextStyle(
                         fontSize: 10.0,
-                        fontWeight:
-                            i == 0 ? FontWeight.w600 : FontWeight.w500,
+                        fontWeight: i == 0 ? FontWeight.w600 : FontWeight.w500,
                         color: i == 0
                             ? CupertinoColors.activeBlue
                             : const Color(0xFF9CA3AF),
@@ -1732,9 +1688,7 @@ Widget _badgedTabBar() {
     height: _kTabBarHeightTall,
     decoration: const BoxDecoration(
       color: Color(0xFFF3F4F6),
-      border: Border(
-        top: BorderSide(color: Color(0xFFE5E7EB), width: 0.5),
-      ),
+      border: Border(top: BorderSide(color: Color(0xFFE5E7EB), width: 0.5)),
     ),
     child: Row(
       children: <Widget>[
@@ -1777,8 +1731,7 @@ Widget _badgedTabBar() {
                             ),
                             decoration: BoxDecoration(
                               color: CupertinoColors.systemRed,
-                              borderRadius:
-                                  BorderRadius.circular(_kPillRadius),
+                              borderRadius: BorderRadius.circular(_kPillRadius),
                             ),
                             alignment: Alignment.center,
                             child: Text(
@@ -1798,8 +1751,7 @@ Widget _badgedTabBar() {
                     _kPrimaryTabLabels[i],
                     style: TextStyle(
                       fontSize: 10.0,
-                      fontWeight:
-                          i == 1 ? FontWeight.w700 : FontWeight.w500,
+                      fontWeight: i == 1 ? FontWeight.w700 : FontWeight.w500,
                       color: i == 1
                           ? CupertinoColors.systemOrange
                           : const Color(0xFF9CA3AF),
@@ -1959,10 +1911,7 @@ Widget _displayDotsStrip({required int currentIndex}) {
         const SizedBox(height: _kGapSm),
         Text(
           'page $currentIndex of 5',
-          style: const TextStyle(
-            fontSize: 12.0,
-            color: Color(0xFF374151),
-          ),
+          style: const TextStyle(fontSize: 12.0, color: Color(0xFF374151)),
         ),
       ],
     ),
@@ -2011,10 +1960,7 @@ Widget _displayDetailCard({required int currentIndex}) {
                   ),
                   const Text(
                     'detail header',
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: Color(0xFF6B7280),
-                    ),
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF6B7280)),
                   ),
                 ],
               ),
@@ -2105,10 +2051,7 @@ Widget _pitfall({
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          color: const Color(0xFFFCA5A5),
-          width: 1.0,
-        ),
+        border: Border.all(color: const Color(0xFFFCA5A5), width: 1.0),
       ),
       padding: const EdgeInsets.all(_kGapMd),
       child: Row(
@@ -2122,11 +2065,7 @@ Widget _pitfall({
               borderRadius: BorderRadius.circular(8.0),
             ),
             alignment: Alignment.center,
-            child: Icon(
-              icon,
-              color: const Color(0xFFB91C1C),
-              size: 20.0,
-            ),
+            child: Icon(icon, color: const Color(0xFFB91C1C), size: 20.0),
           ),
           const SizedBox(width: _kGapMd),
           Expanded(
@@ -2287,10 +2226,7 @@ Widget _legendSwatch(Color color, String label) {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(4.0),
-          border: Border.all(
-            color: Colors.black.withOpacity(0.08),
-            width: 1.0,
-          ),
+          border: Border.all(color: Colors.black.withOpacity(0.08), width: 1.0),
         ),
       ),
       const SizedBox(width: _kGapXs + 2.0),

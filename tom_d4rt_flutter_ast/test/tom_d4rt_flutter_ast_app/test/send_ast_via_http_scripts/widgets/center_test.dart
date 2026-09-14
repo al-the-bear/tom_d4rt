@@ -15,11 +15,7 @@ enum _Stage {
   compendium,
 }
 
-enum _Backdrop {
-  aurora,
-  grid,
-  orbit,
-}
+enum _Backdrop { aurora, grid, orbit }
 
 class _Palette {
   final String name;
@@ -133,22 +129,59 @@ const _stageNames = <String>[
 ];
 
 const _alignmentPresets = <_AxisPreset>[
-  _AxisPreset(name: 'Center', alignment: Alignment.center, icon: Icons.filter_center_focus),
-  _AxisPreset(name: 'Top Left', alignment: Alignment.topLeft, icon: Icons.north_west),
-  _AxisPreset(name: 'Top', alignment: Alignment.topCenter, icon: Icons.arrow_upward),
-  _AxisPreset(name: 'Top Right', alignment: Alignment.topRight, icon: Icons.north_east),
-  _AxisPreset(name: 'Left', alignment: Alignment.centerLeft, icon: Icons.keyboard_arrow_left),
-  _AxisPreset(name: 'Right', alignment: Alignment.centerRight, icon: Icons.keyboard_arrow_right),
-  _AxisPreset(name: 'Bottom Left', alignment: Alignment.bottomLeft, icon: Icons.south_west),
-  _AxisPreset(name: 'Bottom', alignment: Alignment.bottomCenter, icon: Icons.arrow_downward),
-  _AxisPreset(name: 'Bottom Right', alignment: Alignment.bottomRight, icon: Icons.south_east),
+  _AxisPreset(
+    name: 'Center',
+    alignment: Alignment.center,
+    icon: Icons.filter_center_focus,
+  ),
+  _AxisPreset(
+    name: 'Top Left',
+    alignment: Alignment.topLeft,
+    icon: Icons.north_west,
+  ),
+  _AxisPreset(
+    name: 'Top',
+    alignment: Alignment.topCenter,
+    icon: Icons.arrow_upward,
+  ),
+  _AxisPreset(
+    name: 'Top Right',
+    alignment: Alignment.topRight,
+    icon: Icons.north_east,
+  ),
+  _AxisPreset(
+    name: 'Left',
+    alignment: Alignment.centerLeft,
+    icon: Icons.keyboard_arrow_left,
+  ),
+  _AxisPreset(
+    name: 'Right',
+    alignment: Alignment.centerRight,
+    icon: Icons.keyboard_arrow_right,
+  ),
+  _AxisPreset(
+    name: 'Bottom Left',
+    alignment: Alignment.bottomLeft,
+    icon: Icons.south_west,
+  ),
+  _AxisPreset(
+    name: 'Bottom',
+    alignment: Alignment.bottomCenter,
+    icon: Icons.arrow_downward,
+  ),
+  _AxisPreset(
+    name: 'Bottom Right',
+    alignment: Alignment.bottomRight,
+    icon: Icons.south_east,
+  ),
 ];
 
 class _CenterGeometryAtlasDemo extends StatefulWidget {
   const _CenterGeometryAtlasDemo();
 
   @override
-  State<_CenterGeometryAtlasDemo> createState() => _CenterGeometryAtlasDemoState();
+  State<_CenterGeometryAtlasDemo> createState() =>
+      _CenterGeometryAtlasDemoState();
 }
 
 class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
@@ -185,35 +218,38 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
   _Palette get _p => _palettes[_paletteIndex];
 
   List<_ScenarioCard> get _scenarios => <_ScenarioCard>[
-        _ScenarioCard(
-          id: 'tight',
-          title: 'Tight Box Parent',
-          detail: 'Center receives tight constraints and positions child at midpoint.',
-          icon: Icons.crop_square,
-          tone: _p.accentA,
-        ),
-        _ScenarioCard(
-          id: 'stack',
-          title: 'Stack Overlay Parent',
-          detail: 'Center overlays a single focal child above decorative layers.',
-          icon: Icons.layers_outlined,
-          tone: _p.accentB,
-        ),
-        _ScenarioCard(
-          id: 'column',
-          title: 'Column + Expanded',
-          detail: 'Center fills expanded area and centers child in remaining space.',
-          icon: Icons.view_column,
-          tone: _p.accentC,
-        ),
-        _ScenarioCard(
-          id: 'scroll',
-          title: 'Scrollable Deck',
-          detail: 'Center in cards to isolate focal points in long vertical compositions.',
-          icon: Icons.unfold_more,
-          tone: _p.accentA,
-        ),
-      ];
+    _ScenarioCard(
+      id: 'tight',
+      title: 'Tight Box Parent',
+      detail:
+          'Center receives tight constraints and positions child at midpoint.',
+      icon: Icons.crop_square,
+      tone: _p.accentA,
+    ),
+    _ScenarioCard(
+      id: 'stack',
+      title: 'Stack Overlay Parent',
+      detail: 'Center overlays a single focal child above decorative layers.',
+      icon: Icons.layers_outlined,
+      tone: _p.accentB,
+    ),
+    _ScenarioCard(
+      id: 'column',
+      title: 'Column + Expanded',
+      detail:
+          'Center fills expanded area and centers child in remaining space.',
+      icon: Icons.view_column,
+      tone: _p.accentC,
+    ),
+    _ScenarioCard(
+      id: 'scroll',
+      title: 'Scrollable Deck',
+      detail:
+          'Center in cards to isolate focal points in long vertical compositions.',
+      icon: Icons.unfold_more,
+      tone: _p.accentA,
+    ),
+  ];
 
   @override
   void initState() {
@@ -222,7 +258,12 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
   }
 
   void _log(String lane, String message, Color tone) {
-    final event = _Event(at: DateTime.now(), lane: lane, message: message, tone: tone);
+    final event = _Event(
+      at: DateTime.now(),
+      lane: lane,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, event);
       if (_events.length > 160) {
@@ -257,7 +298,8 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               child: Row(
                 children: <Widget>[
                   Expanded(child: _stageBody()),
-                  if (_showTimeline) SizedBox(width: 370, child: _timelinePanel()),
+                  if (_showTimeline)
+                    SizedBox(width: 370, child: _timelinePanel()),
                 ],
               ),
             ),
@@ -284,23 +326,38 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.center_focus_strong, color: Colors.white, size: 27),
+              const Icon(
+                Icons.center_focus_strong,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
                   'Center Geometry Atlas',
-                  style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: const Text(
                   'Single Child Positioning Widget',
-                  style: TextStyle(color: Colors.white, fontSize: 10.2, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.2,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -309,7 +366,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           Text(
             'Center positions one child at the middle of itself. This deep demo explores geometry behavior, '
             'constraint interactions, widthFactor and heightFactor scaling, and composition patterns in practical UI scenes.',
-            style: TextStyle(color: Colors.white.withValues(alpha: 0.95), fontSize: 12.2, height: 1.34),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.95),
+              fontSize: 12.2,
+              height: 1.34,
+            ),
           ),
         ],
       ),
@@ -326,16 +387,34 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Stage',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _stageNames.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
           _toggleChip('guidance', _showGuidance, (v) => _showGuidance = v),
           _toggleChip('metrics', _showMetrics, (v) => _showMetrics = v),
-          _toggleChip('crosshair', _showAxisCrosshair, (v) => _showAxisCrosshair = v),
+          _toggleChip(
+            'crosshair',
+            _showAxisCrosshair,
+            (v) => _showAxisCrosshair = v,
+          ),
           _toggleChip('verbose', _verbose, (v) => _verbose = v),
         ],
       ),
@@ -349,7 +428,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       selectedColor: _p.accentA,
       backgroundColor: Colors.white,
       label: Text('${index + 1}'),
-      labelStyle: TextStyle(color: active ? Colors.white : _p.ink, fontSize: 11, fontWeight: FontWeight.w700),
+      labelStyle: TextStyle(
+        color: active ? Colors.white : _p.ink,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+      ),
       onSelected: (_) {
         setState(() => _stage = _Stage.values[index]);
         _log('stage', 'Switched to ${_stageNames[index]}', _p.accentB);
@@ -361,7 +444,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log('palette', 'Palette changed to ${_palettes[index].name}', _palettes[index].accentA);
+        _log(
+          'palette',
+          'Palette changed to ${_palettes[index].name}',
+          _palettes[index].accentA,
+        );
       },
       child: Container(
         width: 21,
@@ -369,7 +456,12 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
-          border: Border.all(color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent, width: 2),
+          border: Border.all(
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
+            width: 2,
+          ),
         ),
       ),
     );
@@ -382,7 +474,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       backgroundColor: Colors.white,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       checkmarkColor: _p.accentA,
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -407,11 +503,21 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
   Widget _sectionTitle(String text) {
     return Text(
       text,
-      style: TextStyle(color: _p.ink, fontSize: 19, fontWeight: FontWeight.w800, letterSpacing: -0.2),
+      style: TextStyle(
+        color: _p.ink,
+        fontSize: 19,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.2,
+      ),
     );
   }
 
-  Widget _panel({required String title, required String subtitle, required Widget child, Color? tint}) {
+  Widget _panel({
+    required String title,
+    required String subtitle,
+    required Widget child,
+    Color? tint,
+  }) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -419,7 +525,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: _p.muted.withValues(alpha: 0.22)),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: _p.shell.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: _p.shell.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Padding(
@@ -427,9 +537,19 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
+            Text(
+              title,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.8,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
+            Text(
+              subtitle,
+              style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33),
+            ),
             const SizedBox(height: 10),
             child,
           ],
@@ -466,7 +586,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   tone: _p.accentA,
                   onChanged: (v) {
                     setState(() => _parentWidth = v);
-                    _recordControl('primer', 'Parent width -> ${v.toStringAsFixed(0)}');
+                    _recordControl(
+                      'primer',
+                      'Parent width -> ${v.toStringAsFixed(0)}',
+                    );
                   },
                 ),
                 _slider(
@@ -478,7 +601,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   tone: _p.accentB,
                   onChanged: (v) {
                     setState(() => _parentHeight = v);
-                    _recordControl('primer', 'Parent height -> ${v.toStringAsFixed(0)}');
+                    _recordControl(
+                      'primer',
+                      'Parent height -> ${v.toStringAsFixed(0)}',
+                    );
                   },
                 ),
                 _slider(
@@ -490,7 +616,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   tone: _p.accentC,
                   onChanged: (v) {
                     setState(() => _childSize = v);
-                    _recordControl('primer', 'Child size -> ${v.toStringAsFixed(1)}');
+                    _recordControl(
+                      'primer',
+                      'Child size -> ${v.toStringAsFixed(1)}',
+                    );
                   },
                 ),
               ],
@@ -509,7 +638,8 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     height: 460,
                     child: _deviceFrame(
                       title: 'Center baseline',
-                      caption: '${_parentWidth.toStringAsFixed(0)} x ${_parentHeight.toStringAsFixed(0)}',
+                      caption:
+                          '${_parentWidth.toStringAsFixed(0)} x ${_parentHeight.toStringAsFixed(0)}',
                       child: Center(
                         child: Container(
                           width: _parentWidth,
@@ -517,32 +647,68 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(14),
-                            border: Border.all(color: _p.muted.withValues(alpha: 0.35), width: 2),
+                            border: Border.all(
+                              color: _p.muted.withValues(alpha: 0.35),
+                              width: 2,
+                            ),
                           ),
                           child: Stack(
                             children: <Widget>[
                               Positioned.fill(child: _background(_backdrop)),
-                              if (_showAxisCrosshair) Positioned.fill(child: CustomPaint(painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.24)))),
+                              if (_showAxisCrosshair)
+                                Positioned.fill(
+                                  child: CustomPaint(
+                                    painter: _CrosshairPainter(
+                                      color: _p.ink.withValues(alpha: 0.24),
+                                    ),
+                                  ),
+                                ),
                               Center(
                                 child: GestureDetector(
-                                  onTap: () => _recordTap('primer', 'Tapped centered child'),
+                                  onTap: () => _recordTap(
+                                    'primer',
+                                    'Tapped centered child',
+                                  ),
                                   child: Container(
                                     width: _childSize,
                                     height: _childSize,
                                     decoration: BoxDecoration(
                                       color: _p.accentA.withValues(alpha: 0.25),
                                       borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: _p.accentA.withValues(alpha: 0.55), width: 2),
+                                      border: Border.all(
+                                        color: _p.accentA.withValues(
+                                          alpha: 0.55,
+                                        ),
+                                        width: 2,
+                                      ),
                                       boxShadow: <BoxShadow>[
-                                        BoxShadow(color: _p.accentA.withValues(alpha: 0.18), blurRadius: 12, spreadRadius: 2),
+                                        BoxShadow(
+                                          color: _p.accentA.withValues(
+                                            alpha: 0.18,
+                                          ),
+                                          blurRadius: 12,
+                                          spreadRadius: 2,
+                                        ),
                                       ],
                                     ),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: <Widget>[
-                                        Icon(Icons.center_focus_strong, color: _p.ink, size: 20),
+                                        Icon(
+                                          Icons.center_focus_strong,
+                                          color: _p.ink,
+                                          size: 20,
+                                        ),
                                         const SizedBox(height: 3),
-                                        Text('center', style: TextStyle(color: _p.ink, fontSize: 10.7, fontWeight: FontWeight.w800)),
+                                        Text(
+                                          'center',
+                                          style: TextStyle(
+                                            color: _p.ink,
+                                            fontSize: 10.7,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -566,10 +732,18 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('Center always aligns its child to the exact midpoint of its own box.'),
-                        _bullet('Unlike layout collections, Center handles exactly one child.'),
-                        _bullet('Crosshair overlay reveals geometric midpoint regardless of parent size.'),
-                        _bullet('The child can be any widget; Center only controls position and optional factors.'),
+                        _bullet(
+                          'Center always aligns its child to the exact midpoint of its own box.',
+                        ),
+                        _bullet(
+                          'Unlike layout collections, Center handles exactly one child.',
+                        ),
+                        _bullet(
+                          'Crosshair overlay reveals geometric midpoint regardless of parent size.',
+                        ),
+                        _bullet(
+                          'The child can be any widget; Center only controls position and optional factors.',
+                        ),
                       ],
                     ),
                   ),
@@ -603,7 +777,8 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Alignment Presets (for Align side)',
-            subtitle: 'Center side stays centered; Align side follows selected preset.',
+            subtitle:
+                'Center side stays centered; Align side follows selected preset.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -615,7 +790,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     avatar: Icon(_alignmentPresets[i].icon, size: 16),
                     onSelected: (_) {
                       setState(() => _alignPresetIndex = i);
-                      _recordControl('align', 'Align preset -> ${_alignmentPresets[i].name}');
+                      _recordControl(
+                        'align',
+                        'Align preset -> ${_alignmentPresets[i].name}',
+                      );
                     },
                   ),
               ],
@@ -659,7 +837,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                       child: Center(
                         child: _alignmentBoard(
                           label: 'Align(${preset.name})',
-                          body: Align(alignment: preset.alignment, child: _tokenBox('ALIGN', _p.accentB)),
+                          body: Align(
+                            alignment: preset.alignment,
+                            child: _tokenBox('ALIGN', _p.accentB),
+                          ),
                         ),
                       ),
                     ),
@@ -676,9 +857,15 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _bullet('Use Center when your intent is always midpoint placement.'),
-                  _bullet('Use Align when alignment must vary across edges/corners.'),
-                  _bullet('Center communicates layout intent clearly in UI code and demos.'),
+                  _bullet(
+                    'Use Center when your intent is always midpoint placement.',
+                  ),
+                  _bullet(
+                    'Use Align when alignment must vary across edges/corners.',
+                  ),
+                  _bullet(
+                    'Center communicates layout intent clearly in UI code and demos.',
+                  ),
                 ],
               ),
             ),
@@ -700,14 +887,31 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       child: Stack(
         children: <Widget>[
           Positioned.fill(child: _background(_backdrop)),
-          if (_showAxisCrosshair) Positioned.fill(child: CustomPaint(painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.22)))),
+          if (_showAxisCrosshair)
+            Positioned.fill(
+              child: CustomPaint(
+                painter: _CrosshairPainter(
+                  color: _p.ink.withValues(alpha: 0.22),
+                ),
+              ),
+            ),
           Positioned(
             left: 8,
             top: 8,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.85), borderRadius: BorderRadius.circular(999)),
-              child: Text(label, style: TextStyle(color: _p.ink, fontSize: 10.3, fontWeight: FontWeight.w700)),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.85),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: _p.ink,
+                  fontSize: 10.3,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ),
           Positioned.fill(child: body),
@@ -727,7 +931,16 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: tone.withValues(alpha: 0.6), width: 2),
         ),
-        child: Center(child: Text(text, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11))),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 11,
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -757,11 +970,15 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _toggleChip('widthFactor enabled', _factorWidthEnabled, (v) {
+                    _toggleChip('widthFactor enabled', _factorWidthEnabled, (
+                      v,
+                    ) {
                       _factorWidthEnabled = v;
                       _recordControl('factor', 'widthFactor enabled -> $v');
                     }),
-                    _toggleChip('heightFactor enabled', _factorHeightEnabled, (v) {
+                    _toggleChip('heightFactor enabled', _factorHeightEnabled, (
+                      v,
+                    ) {
                       _factorHeightEnabled = v;
                       _recordControl('factor', 'heightFactor enabled -> $v');
                     }),
@@ -776,7 +993,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   tone: _p.accentA,
                   onChanged: (v) {
                     setState(() => _factorWidth = v);
-                    _recordControl('factor', 'widthFactor -> ${v.toStringAsFixed(2)}');
+                    _recordControl(
+                      'factor',
+                      'widthFactor -> ${v.toStringAsFixed(2)}',
+                    );
                   },
                 ),
                 _slider(
@@ -788,7 +1008,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   tone: _p.accentB,
                   onChanged: (v) {
                     setState(() => _factorHeight = v);
-                    _recordControl('factor', 'heightFactor -> ${v.toStringAsFixed(2)}');
+                    _recordControl(
+                      'factor',
+                      'heightFactor -> ${v.toStringAsFixed(2)}',
+                    );
                   },
                 ),
               ],
@@ -801,13 +1024,15 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               Expanded(
                 child: _panel(
                   title: 'Width/Height Factor Surface',
-                  subtitle: 'Visualized with an explicit debug frame around Center itself.',
+                  subtitle:
+                      'Visualized with an explicit debug frame around Center itself.',
                   tint: _p.accentC.withValues(alpha: 0.05),
                   child: SizedBox(
                     height: 460,
                     child: _deviceFrame(
                       title: 'Factor geometry',
-                      caption: 'w=${widthFactor?.toStringAsFixed(2) ?? 'null'} h=${heightFactor?.toStringAsFixed(2) ?? 'null'}',
+                      caption:
+                          'w=${widthFactor?.toStringAsFixed(2) ?? 'null'} h=${heightFactor?.toStringAsFixed(2) ?? 'null'}',
                       child: LayoutBuilder(
                         builder: (context, constraints) {
                           return Stack(
@@ -819,22 +1044,42 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                                   decoration: BoxDecoration(
                                     color: _p.accentC.withValues(alpha: 0.08),
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: _p.accentC.withValues(alpha: 0.4), width: 2),
+                                    border: Border.all(
+                                      color: _p.accentC.withValues(alpha: 0.4),
+                                      width: 2,
+                                    ),
                                   ),
                                   child: Center(
                                     widthFactor: widthFactor,
                                     heightFactor: heightFactor,
                                     child: GestureDetector(
-                                      onTap: () => _recordTap('factor', 'Tapped factor child'),
+                                      onTap: () => _recordTap(
+                                        'factor',
+                                        'Tapped factor child',
+                                      ),
                                       child: Container(
                                         width: _childSize,
                                         height: _childSize,
                                         decoration: BoxDecoration(
-                                          color: _p.accentA.withValues(alpha: 0.26),
-                                          borderRadius: BorderRadius.circular(12),
-                                          border: Border.all(color: _p.accentA.withValues(alpha: 0.58), width: 2),
+                                          color: _p.accentA.withValues(
+                                            alpha: 0.26,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                          border: Border.all(
+                                            color: _p.accentA.withValues(
+                                              alpha: 0.58,
+                                            ),
+                                            width: 2,
+                                          ),
                                         ),
-                                        child: const Center(child: Icon(Icons.crop_free, size: 22)),
+                                        child: const Center(
+                                          child: Icon(
+                                            Icons.crop_free,
+                                            size: 22,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -865,10 +1110,18 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('When null, factor is ignored and Center expands as allowed by parent.'),
-                        _bullet('When set, Center size on that axis becomes childSize × factor.'),
-                        _bullet('Factor is useful for controlled centering boxes around compact children.'),
-                        _bullet('In tight constraints, factors may be limited by parent bounds.'),
+                        _bullet(
+                          'When null, factor is ignored and Center expands as allowed by parent.',
+                        ),
+                        _bullet(
+                          'When set, Center size on that axis becomes childSize × factor.',
+                        ),
+                        _bullet(
+                          'Factor is useful for controlled centering boxes around compact children.',
+                        ),
+                        _bullet(
+                          'In tight constraints, factors may be limited by parent bounds.',
+                        ),
                       ],
                     ),
                   ),
@@ -899,7 +1152,8 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Scenario Selector',
-            subtitle: 'Each card renders Center inside a different parent layout model.',
+            subtitle:
+                'Each card renders Center inside a different parent layout model.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -912,7 +1166,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     onSelected: (_) {
                       setState(() => _constraintScenario = i);
                       _modeChanges += 1;
-                      _log('constraint', 'Scenario -> ${_scenarios[i].title}', _scenarios[i].tone);
+                      _log(
+                        'constraint',
+                        'Scenario -> ${_scenarios[i].title}',
+                        _scenarios[i].tone,
+                      );
                     },
                   ),
               ],
@@ -947,10 +1205,18 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('Tight constraints: Center fills parent then centers child inside.'),
-                        _bullet('Stack overlays: Center is ideal for focal overlays above layers.'),
-                        _bullet('Expanded columns: Center occupies flexed area and centers once constraints resolve.'),
-                        _bullet('Scrollable cards: Center keeps each card focal content balanced.'),
+                        _bullet(
+                          'Tight constraints: Center fills parent then centers child inside.',
+                        ),
+                        _bullet(
+                          'Stack overlays: Center is ideal for focal overlays above layers.',
+                        ),
+                        _bullet(
+                          'Expanded columns: Center occupies flexed area and centers once constraints resolve.',
+                        ),
+                        _bullet(
+                          'Scrollable cards: Center keeps each card focal content balanced.',
+                        ),
                       ],
                     ),
                   ),
@@ -970,7 +1236,8 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           color: Colors.white,
           child: Center(
             child: GestureDetector(
-              onTap: () => _recordTap('constraint-tight', 'Tapped tight scenario child'),
+              onTap: () =>
+                  _recordTap('constraint-tight', 'Tapped tight scenario child'),
               child: _featureTile('Tight Parent', _p.accentA),
             ),
           ),
@@ -979,11 +1246,20 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         return Stack(
           children: <Widget>[
             Positioned.fill(child: _background(_backdrop)),
-            Positioned(left: 20, top: 20, child: _badgeBubble('Layer A', _p.accentA)),
-            Positioned(right: 24, bottom: 26, child: _badgeBubble('Layer B', _p.accentB)),
+            Positioned(
+              left: 20,
+              top: 20,
+              child: _badgeBubble('Layer A', _p.accentA),
+            ),
+            Positioned(
+              right: 24,
+              bottom: 26,
+              child: _badgeBubble('Layer B', _p.accentB),
+            ),
             Center(
               child: GestureDetector(
-                onTap: () => _recordTap('constraint-stack', 'Tapped stack center tile'),
+                onTap: () =>
+                    _recordTap('constraint-stack', 'Tapped stack center tile'),
                 child: _featureTile('Stack Focus', _p.accentC),
               ),
             ),
@@ -996,14 +1272,20 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               height: 80,
               color: _p.accentA.withValues(alpha: 0.16),
               alignment: Alignment.center,
-              child: Text('Header Region', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700)),
+              child: Text(
+                'Header Region',
+                style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700),
+              ),
             ),
             Expanded(
               child: Container(
                 color: Colors.white,
                 child: Center(
                   child: GestureDetector(
-                    onTap: () => _recordTap('constraint-column', 'Tapped column center tile'),
+                    onTap: () => _recordTap(
+                      'constraint-column',
+                      'Tapped column center tile',
+                    ),
                     child: _featureTile('Expanded Center', _p.accentB),
                   ),
                 ),
@@ -1013,7 +1295,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               height: 66,
               color: _p.accentC.withValues(alpha: 0.16),
               alignment: Alignment.center,
-              child: Text('Footer Region', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700)),
+              child: Text(
+                'Footer Region',
+                style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         );
@@ -1026,21 +1311,37 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               height: 120,
               margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
-                color: index.isEven ? _p.accentA.withValues(alpha: 0.1) : _p.accentB.withValues(alpha: 0.1),
+                color: index.isEven
+                    ? _p.accentA.withValues(alpha: 0.1)
+                    : _p.accentB.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
               ),
               child: Center(
                 child: GestureDetector(
-                  onTap: () => _recordTap('constraint-scroll', 'Tapped card ${index + 1} center'),
+                  onTap: () => _recordTap(
+                    'constraint-scroll',
+                    'Tapped card ${index + 1} center',
+                  ),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(999),
-                      border: Border.all(color: _p.muted.withValues(alpha: 0.28)),
+                      border: Border.all(
+                        color: _p.muted.withValues(alpha: 0.28),
+                      ),
                     ),
-                    child: Text('Card ${index + 1} center', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700)),
+                    child: Text(
+                      'Card ${index + 1} center',
+                      style: TextStyle(
+                        color: _p.ink,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1128,9 +1429,15 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _bullet('Use nested Center for concentric motifs like badges and radial dashboards.'),
-                  _bullet('Prefer simple composition depth; very deep trees can be harder to read.'),
-                  _bullet('Mix colors and subtle scale differences to explain spatial hierarchy.'),
+                  _bullet(
+                    'Use nested Center for concentric motifs like badges and radial dashboards.',
+                  ),
+                  _bullet(
+                    'Prefer simple composition depth; very deep trees can be harder to read.',
+                  ),
+                  _bullet(
+                    'Mix colors and subtle scale differences to explain spatial hierarchy.',
+                  ),
                 ],
               ),
             ),
@@ -1151,9 +1458,14 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             decoration: BoxDecoration(
               color: _p.accentC.withValues(alpha: 0.36),
               shape: BoxShape.circle,
-              border: Border.all(color: _p.accentC.withValues(alpha: 0.7), width: 2),
+              border: Border.all(
+                color: _p.accentC.withValues(alpha: 0.7),
+                width: 2,
+              ),
             ),
-            child: const Center(child: Icon(Icons.radio_button_checked, size: 18)),
+            child: const Center(
+              child: Icon(Icons.radio_button_checked, size: 18),
+            ),
           ),
         ),
       );
@@ -1190,15 +1502,34 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
           const SizedBox(height: 12),
           _panel(
             title: 'Center Coverage Matrix',
-            subtitle: 'What this deep demo verified visually and interactively.',
+            subtitle:
+                'What this deep demo verified visually and interactively.',
             child: Column(
               children: <Widget>[
-                _matrix('Core purpose', 'Center one child inside available parent area.'),
-                _matrix('Comparison', 'Center equals Align at midpoint but without variable alignment.'),
-                _matrix('Factors', 'widthFactor and heightFactor scale Center size relative to child size.'),
-                _matrix('Constraints', 'Parent constraints shape Center box before child positioning occurs.'),
-                _matrix('Composition', 'Center works in Stack, Column, ListView cards, and concentric nesting.'),
-                _matrix('Debug strategy', 'Crosshair overlays and timeline logs make geometric behavior visible.'),
+                _matrix(
+                  'Core purpose',
+                  'Center one child inside available parent area.',
+                ),
+                _matrix(
+                  'Comparison',
+                  'Center equals Align at midpoint but without variable alignment.',
+                ),
+                _matrix(
+                  'Factors',
+                  'widthFactor and heightFactor scale Center size relative to child size.',
+                ),
+                _matrix(
+                  'Constraints',
+                  'Parent constraints shape Center box before child positioning occurs.',
+                ),
+                _matrix(
+                  'Composition',
+                  'Center works in Stack, Column, ListView cards, and concentric nesting.',
+                ),
+                _matrix(
+                  'Debug strategy',
+                  'Crosshair overlays and timeline logs make geometric behavior visible.',
+                ),
               ],
             ),
           ),
@@ -1211,22 +1542,26 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                 _doDont(
                   good: true,
                   title: 'Do use Center when midpoint placement is the intent',
-                  detail: 'This keeps layout declarations explicit and readable.',
+                  detail:
+                      'This keeps layout declarations explicit and readable.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do use widthFactor and heightFactor intentionally',
-                  detail: 'Factors are useful for controlled box sizing around compact widgets.',
+                  detail:
+                      'Factors are useful for controlled box sizing around compact widgets.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont use Center when you need non-midpoint alignment',
-                  detail: 'Switch to Align for top/left/right/corner placement.',
+                  detail:
+                      'Switch to Align for top/left/right/corner placement.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont assume unconstrained parents in all contexts',
-                  detail: 'Always inspect parent constraints when center behavior looks unexpected.',
+                  detail:
+                      'Always inspect parent constraints when center behavior looks unexpected.',
                 ),
               ],
             ),
@@ -1263,11 +1598,21 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Multiple visual stages demonstrate Center in distinct contexts.'),
-                _check('Interactive controls explain geometry and factor behavior.'),
-                _check('Center vs Align comparison clarifies class purpose boundaries.'),
-                _check('Constraint-driven examples show realistic composition usage.'),
-                _check('Instructional compendium provides practical usage guidance.'),
+                _check(
+                  'Multiple visual stages demonstrate Center in distinct contexts.',
+                ),
+                _check(
+                  'Interactive controls explain geometry and factor behavior.',
+                ),
+                _check(
+                  'Center vs Align comparison clarifies class purpose boundaries.',
+                ),
+                _check(
+                  'Constraint-driven examples show realistic composition usage.',
+                ),
+                _check(
+                  'Instructional compendium provides practical usage guidance.',
+                ),
               ],
             ),
           ),
@@ -1292,7 +1637,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     );
   }
 
-  Widget _deviceFrame({required String title, required String caption, required Widget child}) {
+  Widget _deviceFrame({
+    required String title,
+    required String caption,
+    required Widget child,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1306,14 +1655,25 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: _p.paper,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Row(
               children: <Widget>[
                 Text(title, style: TextStyle(color: _p.muted, fontSize: 10.8)),
                 const Spacer(),
-                Text(caption, style: TextStyle(color: _p.muted, fontSize: 10.3, fontFamily: 'monospace')),
+                Text(
+                  caption,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 10.3,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ],
             ),
           ),
@@ -1338,12 +1698,17 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentA.withValues(alpha: 0.24), _p.accentB.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentA.withValues(alpha: 0.24),
+            _p.accentB.withValues(alpha: 0.22),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
+      child: CustomPaint(
+        painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
+      ),
     );
   }
 
@@ -1351,12 +1716,17 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentB.withValues(alpha: 0.22), _p.accentC.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentB.withValues(alpha: 0.22),
+            _p.accentC.withValues(alpha: 0.22),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-      child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.24))),
+      child: CustomPaint(
+        painter: _GridPainter(color: Colors.white.withValues(alpha: 0.24)),
+      ),
     );
   }
 
@@ -1364,14 +1734,23 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentC.withValues(alpha: 0.23), _p.accentA.withValues(alpha: 0.23)],
+          colors: <Color>[
+            _p.accentC.withValues(alpha: 0.23),
+            _p.accentA.withValues(alpha: 0.23),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned.fill(child: CustomPaint(painter: _StarPainter(color: Colors.white.withValues(alpha: 0.18)))),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _StarPainter(
+                color: Colors.white.withValues(alpha: 0.18),
+              ),
+            ),
+          ),
           Positioned(left: 30, top: 40, child: _orbitRing(94)),
           Positioned(right: 34, top: 70, child: _orbitRing(70)),
           Positioned(left: 120, bottom: 28, child: _orbitRing(118)),
@@ -1384,7 +1763,13 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: Colors.white.withValues(alpha: 0.14), width: 6)),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.14),
+          width: 6,
+        ),
+      ),
     );
   }
 
@@ -1401,7 +1786,11 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12),
+          style: TextStyle(
+            color: _p.ink,
+            fontWeight: FontWeight.w800,
+            fontSize: 12,
+          ),
         ),
       ),
     );
@@ -1415,15 +1804,32 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: tone.withValues(alpha: 0.45)),
       ),
-      child: Text(text, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 10.7)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: _p.ink,
+          fontWeight: FontWeight.w700,
+          fontSize: 10.7,
+        ),
+      ),
     );
   }
 
   Widget _measureBadge(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.9), borderRadius: BorderRadius.circular(999)),
-      child: Text(text, style: TextStyle(color: _p.ink, fontSize: 10.1, fontFamily: 'monospace')),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.9),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.1,
+          fontFamily: 'monospace',
+        ),
+      ),
     );
   }
 
@@ -1440,7 +1846,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       children: <Widget>[
         SizedBox(
           width: 160,
-          child: Text('$label: ${value.toStringAsFixed(1)}', style: TextStyle(color: _p.ink, fontSize: 12)),
+          child: Text(
+            '$label: ${value.toStringAsFixed(1)}',
+            style: TextStyle(color: _p.ink, fontSize: 12),
+          ),
         ),
         Expanded(
           child: Slider(
@@ -1467,7 +1876,17 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
   }) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 64, child: Text(label, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.3))),
+        SizedBox(
+          width: 64,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.3,
+            ),
+          ),
+        ),
         Expanded(
           child: Slider(
             value: value,
@@ -1502,8 +1921,18 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
   Widget _metric(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.2,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1515,7 +1944,9 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
+          ),
         ],
       ),
     );
@@ -1537,16 +1968,30 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             width: 150,
             child: Text(
               key,
-              style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.8),
+              style: TextStyle(
+                color: _p.accentA,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 10.8,
+              ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1565,9 +2010,23 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontSize: 12, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1588,9 +2047,19 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Q: $q', style: TextStyle(color: _p.ink, fontSize: 11.9, fontWeight: FontWeight.w700)),
+          Text(
+            'Q: $q',
+            style: TextStyle(
+              color: _p.ink,
+              fontSize: 11.9,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+          Text(
+            'A: $a',
+            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32),
+          ),
         ],
       ),
     );
@@ -1604,7 +2073,9 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
+          ),
         ],
       ),
     );
@@ -1612,7 +2083,12 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
 
   Widget _timelinePanel() {
     return Container(
-      decoration: BoxDecoration(color: _p.panel, border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.25)))),
+      decoration: BoxDecoration(
+        color: _p.panel,
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.25)),
+        ),
+      ),
       child: Column(
         children: <Widget>[
           Container(
@@ -1620,14 +2096,26 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Center Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Center Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Geometry controls, taps, and mode transitions.', style: TextStyle(color: _p.muted, fontSize: 10.7)),
+                Text(
+                  'Geometry controls, taps, and mode transitions.',
+                  style: TextStyle(color: _p.muted, fontSize: 10.7),
+                ),
                 // Cluster H follow-up: same fix as
                 // widgets/callback_shortcuts_test.dart and
                 // widgets/child_back_button_dispatcher_test.dart timeline
@@ -1660,7 +2148,9 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.24)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.24),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1670,17 +2160,33 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
                           Expanded(
                             child: Text(
                               event.lane,
-                              style: TextStyle(color: _p.ink, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.3),
+                              style: TextStyle(
+                                color: _p.ink,
+                                fontFamily: 'monospace',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 10.3,
+                              ),
                             ),
                           ),
                           Text(
                             _clock(event.at),
-                            style: TextStyle(color: _p.muted, fontFamily: 'monospace', fontSize: 10.1),
+                            style: TextStyle(
+                              color: _p.muted,
+                              fontFamily: 'monospace',
+                              fontSize: 10.1,
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.31,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -1706,7 +2212,14 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_stageNames[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _stageNames[_stage.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           DropdownButton<_Backdrop>(
             value: _backdrop,
@@ -1724,7 +2237,10 @@ class _CenterGeometryAtlasDemoState extends State<_CenterGeometryAtlasDemo> {
             },
           ),
           const SizedBox(width: 10),
-          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(color: _p.muted, fontSize: 11.1),
+          ),
         ],
       ),
     );

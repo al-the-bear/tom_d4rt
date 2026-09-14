@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.select_all,
       'title': 'What is TextSelectionOverlay?',
-      'body': 'TextSelectionOverlay is the object that creates and manages '
+      'body':
+          'TextSelectionOverlay is the object that creates and manages '
           'the draggable selection handles and the context toolbar (cut, '
           'copy, paste) when the user selects text. It inserts entries '
           'into the nearest Overlay and positions them relative to the '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.drag_handle,
       'title': 'Selection Handles',
-      'body': 'Two handles appear at the start and end of the selection. '
+      'body':
+          'Two handles appear at the start and end of the selection. '
           'The user drags these to expand or shrink the selection range. '
           'Handle appearance varies by platform — tear-drop on Android, '
           'thin bar with circle on iOS.',
@@ -37,7 +39,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.content_cut,
       'title': 'Context Toolbar',
-      'body': 'The toolbar offers actions like Cut, Copy, Paste, and Select '
+      'body':
+          'The toolbar offers actions like Cut, Copy, Paste, and Select '
           'All. It appears above or below the selection depending on '
           'available space. Each action modifies the clipboard or '
           'selection state.',
@@ -46,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Overlay Integration',
-      'body': 'TextSelectionOverlay uses OverlayEntry to float handles '
+      'body':
+          'TextSelectionOverlay uses OverlayEntry to float handles '
           'and toolbar above all other content. The entries are inserted '
           'when showing and removed when hiding or disposing. This is '
           'managed automatically by EditableText.',
@@ -125,54 +129,62 @@ dynamic build(BuildContext context) {
     {
       'name': 'context',
       'type': 'BuildContext',
-      'desc': 'The build context of the editable text widget. Used to find '
+      'desc':
+          'The build context of the editable text widget. Used to find '
           'the Overlay ancestor for inserting handle and toolbar entries.',
     },
     {
       'name': 'renderObject',
       'type': 'RenderEditable',
-      'desc': 'The render object of the editable text. Provides text '
+      'desc':
+          'The render object of the editable text. Provides text '
           'layout information: line heights, caret positions, and '
           'selection rects needed for handle positioning.',
     },
     {
       'name': 'value',
       'type': 'TextEditingValue',
-      'desc': 'The current editing value with text content and selection. '
+      'desc':
+          'The current editing value with text content and selection. '
           'Updated via the update() method when the selection changes, '
           'which re-positions handles.',
     },
     {
       'name': 'selectionDelegate',
       'type': 'TextSelectionDelegate',
-      'desc': 'Callback interface for text operations: cut, copy, paste, '
+      'desc':
+          'Callback interface for text operations: cut, copy, paste, '
           'select all. The overlay calls these when the user taps '
           'toolbar actions.',
     },
     {
       'name': 'handlesVisible',
       'type': 'bool',
-      'desc': 'Whether the drag handles are currently visible. Changing '
+      'desc':
+          'Whether the drag handles are currently visible. Changing '
           'this does not insert/remove overlay entries — it controls '
           'the paint visibility of already-inserted handles.',
     },
     {
       'name': 'clipboardStatus',
       'type': 'ClipboardStatusNotifier?',
-      'desc': 'Notifier that reports clipboard data availability. The '
+      'desc':
+          'Notifier that reports clipboard data availability. The '
           'toolbar uses this to enable/disable the Paste button.',
     },
     {
       'name': 'startHandleLayerLink',
       'type': 'LayerLink',
-      'desc': 'Connects the start handle overlay to the editable text\'s '
+      'desc':
+          'Connects the start handle overlay to the editable text\'s '
           'compositing layer. Keeps the handle aligned with the text '
           'during layout and scroll.',
     },
     {
       'name': 'endHandleLayerLink',
       'type': 'LayerLink',
-      'desc': 'Same as startHandleLayerLink but for the end selection '
+      'desc':
+          'Same as startHandleLayerLink but for the end selection '
           'handle. Both links ensure handles track text position.',
     },
   ];
@@ -260,7 +272,8 @@ dynamic build(BuildContext context) {
   final handleTypes = <Map<String, dynamic>>[
     {
       'type': 'Left Handle (Start)',
-      'desc': 'Appears at the beginning of the selection. On Android, '
+      'desc':
+          'Appears at the beginning of the selection. On Android, '
           'it is a tear-drop pointing right. On iOS, it is a vertical '
           'bar with a circle at the bottom. Drag leftward to expand '
           'selection start.',
@@ -269,7 +282,8 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'Right Handle (End)',
-      'desc': 'Appears at the end of the selection. On Android, a '
+      'desc':
+          'Appears at the end of the selection. On Android, a '
           'tear-drop pointing left. On iOS, a vertical bar with a '
           'circle at the top. Drag rightward to expand selection end.',
       'visual': 'right',
@@ -277,7 +291,8 @@ dynamic build(BuildContext context) {
     },
     {
       'type': 'Collapsed Handle (Caret)',
-      'desc': 'When the selection is collapsed (no text selected), a '
+      'desc':
+          'When the selection is collapsed (no text selected), a '
           'single handle appears at the caret position. Tapping near '
           'the caret shows this handle. Dragging repositions the caret.',
       'visual': 'collapsed',
@@ -300,10 +315,7 @@ dynamic build(BuildContext context) {
           Container(
             width: 14,
             height: 14,
-            decoration: BoxDecoration(
-              color: htColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: htColor, shape: BoxShape.circle),
           ),
           Container(width: 2, height: 22, color: htColor),
           const SizedBox(width: 4),
@@ -334,10 +346,7 @@ dynamic build(BuildContext context) {
           Container(
             width: 14,
             height: 14,
-            decoration: BoxDecoration(
-              color: htColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: htColor, shape: BoxShape.circle),
           ),
         ],
       );
@@ -345,7 +354,10 @@ dynamic build(BuildContext context) {
       handleVisual = Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('The quick ', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            'The quick ',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -360,7 +372,10 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          Text(' brown fox', style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+          Text(
+            ' brown fox',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          ),
         ],
       );
     }
@@ -420,7 +435,8 @@ dynamic build(BuildContext context) {
     {
       'action': 'Cut',
       'icon': Icons.content_cut,
-      'desc': 'Copies the selected text to the clipboard and deletes it '
+      'desc':
+          'Copies the selected text to the clipboard and deletes it '
           'from the field. Only available when there is a non-empty '
           'selection and the field is not read-only.',
       'shortcut': 'Ctrl+X / Cmd+X',
@@ -429,7 +445,8 @@ dynamic build(BuildContext context) {
     {
       'action': 'Copy',
       'icon': Icons.content_copy,
-      'desc': 'Copies the selected text to the clipboard without removing '
+      'desc':
+          'Copies the selected text to the clipboard without removing '
           'it. Available whenever there is a non-empty selection. The '
           'most common toolbar action.',
       'shortcut': 'Ctrl+C / Cmd+C',
@@ -438,7 +455,8 @@ dynamic build(BuildContext context) {
     {
       'action': 'Paste',
       'icon': Icons.content_paste,
-      'desc': 'Inserts clipboard content at the current cursor position '
+      'desc':
+          'Inserts clipboard content at the current cursor position '
           'or replaces the current selection. Only available when the '
           'clipboard contains text data.',
       'shortcut': 'Ctrl+V / Cmd+V',
@@ -447,7 +465,8 @@ dynamic build(BuildContext context) {
     {
       'action': 'Select All',
       'icon': Icons.select_all,
-      'desc': 'Expands the selection to include all text in the field. '
+      'desc':
+          'Expands the selection to include all text in the field. '
           'The handles move to the beginning and end of the text. '
           'Available when the field has content.',
       'shortcut': 'Ctrl+A / Cmd+A',
@@ -575,7 +594,8 @@ dynamic build(BuildContext context) {
   final visibilityStates = <Map<String, dynamic>>[
     {
       'state': 'Both Visible',
-      'desc': 'Handles and toolbar are both shown. This is the default '
+      'desc':
+          'Handles and toolbar are both shown. This is the default '
           'state after the user makes a selection. The toolbar floats '
           'above (or below) the selection, handles at both ends.',
       'handles': true,
@@ -584,7 +604,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'Handles Only',
-      'desc': 'After scrolling or tapping the text (not the toolbar), '
+      'desc':
+          'After scrolling or tapping the text (not the toolbar), '
           'the toolbar may be hidden while handles remain visible. '
           'Tapping a handle re-shows the toolbar.',
       'handles': true,
@@ -593,7 +614,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'Toolbar Only',
-      'desc': 'During keyboard-driven selection (Shift+arrows), the '
+      'desc':
+          'During keyboard-driven selection (Shift+arrows), the '
           'toolbar may appear without drag handles, since mouse/keyboard '
           'users don\'t need touch handles.',
       'handles': false,
@@ -602,7 +624,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'Both Hidden',
-      'desc': 'When focus is lost or the selection is cleared, both '
+      'desc':
+          'When focus is lost or the selection is cleared, both '
           'handles and toolbar disappear. The overlay entries remain '
           'in the Overlay but are invisible.',
       'handles': false,
@@ -772,7 +795,8 @@ dynamic build(BuildContext context) {
   final positioningItems = <Map<String, dynamic>>[
     {
       'title': 'Toolbar Above Selection',
-      'desc': 'Default: the toolbar appears above the selected text. '
+      'desc':
+          'Default: the toolbar appears above the selected text. '
           'Offset is calculated from the top of the selection rect '
           'minus the toolbar height and padding.',
       'position': 'above',
@@ -780,7 +804,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Toolbar Below Selection',
-      'desc': 'When there is not enough space above (near the top of '
+      'desc':
+          'When there is not enough space above (near the top of '
           'screen), the toolbar shifts below the selection. The '
           'overlay automatically detects available space.',
       'position': 'below',
@@ -788,7 +813,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Handle Tracking via LayerLink',
-      'desc': 'Handles are positioned using CompositedTransformFollower '
+      'desc':
+          'Handles are positioned using CompositedTransformFollower '
           'linked to the RenderEditable\'s compositing layer. This '
           'means handles automatically follow text during scroll, '
           'animation, and layout changes.',
@@ -797,7 +823,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Multi-Line Selection',
-      'desc': 'For multi-line text, the start handle appears at the left '
+      'desc':
+          'For multi-line text, the start handle appears at the left '
           'of the first selected line and the end handle at the right '
           'of the last selected line. The toolbar centers above the '
           'selection midpoint.',
@@ -824,19 +851,22 @@ dynamic build(BuildContext context) {
               color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(4),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
-                  blurRadius: 4,
-                ),
+                BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 4),
               ],
             ),
-            child: const Text('Cut | Copy | Paste', style: TextStyle(fontSize: 9)),
+            child: const Text(
+              'Cut | Copy | Paste',
+              style: TextStyle(fontSize: 9),
+            ),
           ),
           Icon(Icons.arrow_drop_down, size: 16, color: piColor),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
             color: piColor.withOpacity(0.15),
-            child: Text('selected', style: TextStyle(fontSize: 10, color: piColor)),
+            child: Text(
+              'selected',
+              style: TextStyle(fontSize: 10, color: piColor),
+            ),
           ),
         ],
       );
@@ -847,7 +877,10 @@ dynamic build(BuildContext context) {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 3),
             color: piColor.withOpacity(0.15),
-            child: Text('selected', style: TextStyle(fontSize: 10, color: piColor)),
+            child: Text(
+              'selected',
+              style: TextStyle(fontSize: 10, color: piColor),
+            ),
           ),
           Icon(Icons.arrow_drop_down, size: 16, color: piColor),
           Container(
@@ -856,7 +889,10 @@ dynamic build(BuildContext context) {
               color: Colors.grey.shade200,
               borderRadius: BorderRadius.circular(4),
             ),
-            child: const Text('Cut | Copy | Paste', style: TextStyle(fontSize: 9)),
+            child: const Text(
+              'Cut | Copy | Paste',
+              style: TextStyle(fontSize: 9),
+            ),
           ),
         ],
       );
@@ -928,7 +964,8 @@ dynamic build(BuildContext context) {
   final lifecycleSteps = <Map<String, dynamic>>[
     {
       'step': '1. Construction',
-      'desc': 'TextSelectionOverlay is created by EditableTextState when '
+      'desc':
+          'TextSelectionOverlay is created by EditableTextState when '
           'the user begins text selection. The constructor receives '
           'the render object, editing value, and layer links.',
       'icon': Icons.build,
@@ -936,7 +973,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. showHandles()',
-      'desc': 'Inserts handle OverlayEntries into the Overlay. The handles '
+      'desc':
+          'Inserts handle OverlayEntries into the Overlay. The handles '
           'become visible and track the selection endpoints. Called '
           'after the user finishes a selection gesture.',
       'icon': Icons.visibility,
@@ -944,7 +982,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. showToolbar()',
-      'desc': 'Inserts the toolbar OverlayEntry above the handles. The '
+      'desc':
+          'Inserts the toolbar OverlayEntry above the handles. The '
           'toolbar is positioned relative to the selection rect. '
           'Called after selection or on long-press.',
       'icon': Icons.build_circle,
@@ -952,7 +991,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. update()',
-      'desc': 'Called whenever the TextEditingValue changes. Re-positions '
+      'desc':
+          'Called whenever the TextEditingValue changes. Re-positions '
           'handles and toolbar based on new selection range and text '
           'layout. Does not insert/remove entries.',
       'icon': Icons.refresh,
@@ -960,7 +1000,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. hide()',
-      'desc': 'Makes handles and toolbar invisible without removing the '
+      'desc':
+          'Makes handles and toolbar invisible without removing the '
           'overlay entries. Called during scroll or other temporary '
           'interruptions. Re-showing is cheap.',
       'icon': Icons.visibility_off,
@@ -968,7 +1009,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. dispose()',
-      'desc': 'Removes all overlay entries and releases resources. Called '
+      'desc':
+          'Removes all overlay entries and releases resources. Called '
           'when the editable text loses focus, is removed from the '
           'tree, or the overlay is no longer needed.',
       'icon': Icons.delete_outline,
@@ -995,11 +1037,7 @@ dynamic build(BuildContext context) {
                     color: lsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    ls['icon'] as IconData,
-                    color: lsColor,
-                    size: 20,
-                  ),
+                  child: Icon(ls['icon'] as IconData, color: lsColor, size: 20),
                 ),
                 if (i < lifecycleSteps.length - 1)
                   Container(
@@ -1056,32 +1094,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.select_all,
-      'text': 'TextSelectionOverlay manages floating handles and toolbar '
+      'text':
+          'TextSelectionOverlay manages floating handles and toolbar '
           'for editable text selections.',
     },
     {
       'icon': Icons.drag_handle,
-      'text': 'Three handle types: start, end, and collapsed (caret). '
+      'text':
+          'Three handle types: start, end, and collapsed (caret). '
           'Appearance varies by platform.',
     },
     {
       'icon': Icons.content_cut,
-      'text': 'Toolbar provides Cut, Copy, Paste, Select All. Positioned '
+      'text':
+          'Toolbar provides Cut, Copy, Paste, Select All. Positioned '
           'above or below the selection.',
     },
     {
       'icon': Icons.layers,
-      'text': 'Uses OverlayEntry for floating UI and LayerLink for '
+      'text':
+          'Uses OverlayEntry for floating UI and LayerLink for '
           'position synchronization with the text.',
     },
     {
       'icon': Icons.loop,
-      'text': 'Lifecycle: construct -> showHandles -> showToolbar -> '
+      'text':
+          'Lifecycle: construct -> showHandles -> showToolbar -> '
           'update (repeating) -> hide -> dispose.',
     },
     {
       'icon': Icons.auto_awesome,
-      'text': 'Managed automatically by EditableText/TextField. Direct '
+      'text':
+          'Managed automatically by EditableText/TextField. Direct '
           'usage only needed for custom text input widgets.',
     },
   ];
@@ -1108,11 +1152,7 @@ dynamic build(BuildContext context) {
                 color: Colors.teal.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                sp['icon'] as IconData,
-                color: Colors.teal,
-                size: 20,
-              ),
+              child: Icon(sp['icon'] as IconData, color: Colors.teal, size: 20),
             ),
             const SizedBox(width: 12),
             Expanded(

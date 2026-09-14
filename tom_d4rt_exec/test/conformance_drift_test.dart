@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_exec) — exec's suite still mirrors tom_d4rt's, file for file and case for case.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_exec's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 // SCC6: exec's suite is supposed to mirror tom_d4rt's, so that a behavioural
 // divergence between the analyzer-based and the analyzer-free interpreter shows
 // up as a test failure. Nothing enforced the mirror, and a missing file cannot

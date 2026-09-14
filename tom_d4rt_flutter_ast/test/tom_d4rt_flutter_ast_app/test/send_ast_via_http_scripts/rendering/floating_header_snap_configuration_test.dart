@@ -106,8 +106,10 @@ class _ListTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Item ${index + 1}',
-                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Item ${index + 1}',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(
                   'Snap demo content row ${index + 1}',
                   style: const TextStyle(fontSize: 12),
@@ -288,8 +290,7 @@ dynamic build(BuildContext context) {
                       '  Curve curve = Curves.ease,\n'
                       '  Duration duration = const Duration(milliseconds: 300),\n'
                       '})',
-                      style: TextStyle(
-                          fontFamily: 'monospace', fontSize: 12),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12),
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -476,8 +477,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Pinned',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Pinned',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _buildSliverAppBarDemo(
                                 pinned: true,
@@ -496,8 +499,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Floating',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Floating',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _buildSliverAppBarDemo(
                                 pinned: false,
@@ -516,8 +521,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Float+Snap',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Float+Snap',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _buildSliverAppBarDemo(
                                 pinned: false,
@@ -557,8 +564,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Imagine 100ms',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Imagine 100ms',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _miniSnapDemo(
                                 label: 'Fast',
@@ -576,8 +585,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Imagine 1500ms',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Imagine 1500ms',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _miniSnapDemo(
                                 label: 'Slow',
@@ -615,8 +626,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Imagine linear',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Imagine linear',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _miniSnapDemo(
                                 label: 'Linear',
@@ -634,8 +647,10 @@ SliverPersistentHeader(
                       Expanded(
                         child: Column(
                           children: [
-                            const Text('Imagine easeOutBack',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Imagine easeOutBack',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             Expanded(
                               child: _miniSnapDemo(
                                 label: 'EOBack',
@@ -726,7 +741,9 @@ position.animateTo(
                             delegate: SliverChildBuilderDelegate(
                               (context, index) => Card(
                                 margin: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 6),
+                                  horizontal: 8,
+                                  vertical: 6,
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(12),
                                   child: Column(
@@ -736,8 +753,9 @@ position.animateTo(
                                       Text(
                                         'Post ${index + 1}',
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                       const SizedBox(height: 6),
                                       Text(
@@ -750,10 +768,12 @@ position.animateTo(
                                       Container(
                                         height: 60,
                                         decoration: BoxDecoration(
-                                          color:
-                                              recipeFeedColor.withOpacity(0.2),
-                                          borderRadius:
-                                              BorderRadius.circular(6),
+                                          color: recipeFeedColor.withOpacity(
+                                            0.2,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            6,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -798,8 +818,7 @@ position.animateTo(
                         toolbarHeight: 64,
                         title: Container(
                           height: 40,
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -823,15 +842,19 @@ position.animateTo(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) => ListTile(
                             leading: CircleAvatar(
-                              backgroundColor:
-                                  recipeSearchColor.withOpacity(0.2),
+                              backgroundColor: recipeSearchColor.withOpacity(
+                                0.2,
+                              ),
                               child: Text('${index + 1}'),
                             ),
                             title: Text('Result ${index + 1}'),
                             subtitle: const Text(
-                                'Matching item description goes here.'),
-                            trailing:
-                                Icon(Icons.star_border, color: recipeSearchColor),
+                              'Matching item description goes here.',
+                            ),
+                            trailing: Icon(
+                              Icons.star_border,
+                              color: recipeSearchColor,
+                            ),
                           ),
                           childCount: 30,
                         ),
@@ -891,14 +914,17 @@ position.animateTo(
               // SECTION 13: REFERENCE TABLE
               // ===============================================================
               _SectionCard(
-                title: '13. Reference: properties of FloatingHeaderSnapConfiguration',
+                title:
+                    '13. Reference: properties of FloatingHeaderSnapConfiguration',
                 description:
                     'The class is intentionally tiny: two final fields, no '
                     'methods. All variation comes from passing different '
                     'Curve and Duration values.',
                 color: referenceColor,
                 child: Table(
-                  border: TableBorder.all(color: referenceColor.withOpacity(0.3)),
+                  border: TableBorder.all(
+                    color: referenceColor.withOpacity(0.3),
+                  ),
                   columnWidths: const {
                     0: FlexColumnWidth(2),
                     1: FlexColumnWidth(2),
@@ -907,55 +933,68 @@ position.animateTo(
                   children: [
                     TableRow(
                       decoration: BoxDecoration(
-                          color: referenceColor.withOpacity(0.15)),
+                        color: referenceColor.withOpacity(0.15),
+                      ),
                       children: const [
                         Padding(
                           padding: EdgeInsets.all(6),
-                          child: Text('Property',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Property',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(6),
-                          child: Text('Type',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Type',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(6),
-                          child: Text('Default & meaning',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          child: Text(
+                            'Default & meaning',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),
-                    TableRow(children: const [
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text('curve'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text('Curve'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text(
-                            'Curves.ease — applied to the snap-in/out animation.'),
-                      ),
-                    ]),
-                    TableRow(children: const [
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text('duration'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text('Duration'),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(6),
-                        child: Text(
-                            '300ms — wall-clock length of the snap animation.'),
-                      ),
-                    ]),
+                    TableRow(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text('curve'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text('Curve'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text(
+                            'Curves.ease — applied to the snap-in/out animation.',
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text('duration'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text('Duration'),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(6),
+                          child: Text(
+                            '300ms — wall-clock length of the snap animation.',
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -975,24 +1014,29 @@ position.animateTo(
                     Text('• snap only works when floating is true.'),
                     SizedBox(height: 4),
                     Text(
-                        '• Custom delegates that return a non-null '
-                        'snapConfiguration MUST also return a non-null vsync.'),
+                      '• Custom delegates that return a non-null '
+                      'snapConfiguration MUST also return a non-null vsync.',
+                    ),
                     SizedBox(height: 4),
                     Text(
-                        '• Keep the snap duration ≤ 300ms for responsive feel.'),
+                      '• Keep the snap duration ≤ 300ms for responsive feel.',
+                    ),
                     SizedBox(height: 4),
                     Text(
-                        '• Avoid bouncy curves for very long bars; the '
-                        'overshoot can hide content the user is trying to read.'),
+                      '• Avoid bouncy curves for very long bars; the '
+                      'overshoot can hide content the user is trying to read.',
+                    ),
                     SizedBox(height: 4),
                     Text(
-                        '• SliverAppBar(snap: true) implies floating: true; '
-                        'asserting them together is required by the framework.'),
+                      '• SliverAppBar(snap: true) implies floating: true; '
+                      'asserting them together is required by the framework.',
+                    ),
                     SizedBox(height: 4),
                     Text(
-                        '• On a SliverPersistentHeader you set floating: true '
-                        'on the widget, then return a FloatingHeaderSnapConfiguration '
-                        'from the delegate.'),
+                      '• On a SliverPersistentHeader you set floating: true '
+                      'on the widget, then return a FloatingHeaderSnapConfiguration '
+                      'from the delegate.',
+                    ),
                   ],
                 ),
               ),
@@ -1028,10 +1072,7 @@ Widget _decisionRow({
       children: [
         Icon(icon, color: color),
         const SizedBox(width: 8),
-        Expanded(
-          flex: 3,
-          child: Text(label),
-        ),
+        Expanded(flex: 3, child: Text(label)),
         Expanded(
           flex: 2,
           child: Text(

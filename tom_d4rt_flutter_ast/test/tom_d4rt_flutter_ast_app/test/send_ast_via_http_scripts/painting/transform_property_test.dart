@@ -37,7 +37,9 @@ dynamic build(BuildContext context) {
   print('property.value       = ${anatomyProp.value}');
   print('property.showName    = ${anatomyProp.showName}');
   print('property.level       = ${anatomyProp.level}');
-  print('property.isFiltered  = ${anatomyProp.isFiltered(DiagnosticLevel.info)}');
+  print(
+    'property.isFiltered  = ${anatomyProp.isFiltered(DiagnosticLevel.info)}',
+  );
 
   final anatomyHeader = _buildSectionHeader(
     icon: Icons.account_tree_outlined,
@@ -135,12 +137,11 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 3: Translation ===');
   final translationMatrix = Matrix4.translationValues(50.0, 30.0, 0.0);
-  final translationProp = TransformProperty(
-    'translation',
-    translationMatrix,
+  final translationProp = TransformProperty('translation', translationMatrix);
+  print(
+    'translationProp.toDescription() = '
+    '${translationProp.toDescription()}',
   );
-  print('translationProp.toDescription() = '
-      '${translationProp.toDescription()}');
 
   final translationSection = _buildMatrixSection(
     headerIcon: Icons.open_with,
@@ -259,12 +260,11 @@ dynamic build(BuildContext context) {
   final perspectiveMatrix = Matrix4.identity();
   perspectiveMatrix.setEntry(3, 2, 0.001);
   perspectiveMatrix.rotateY(0.45);
-  final perspectiveProp = TransformProperty(
-    'perspective_y',
-    perspectiveMatrix,
+  final perspectiveProp = TransformProperty('perspective_y', perspectiveMatrix);
+  print(
+    'perspectiveProp.toDescription() = '
+    '${perspectiveProp.toDescription()}',
   );
-  print('perspectiveProp.toDescription() = '
-      '${perspectiveProp.toDescription()}');
 
   final skewMatrix = Matrix4.identity();
   skewMatrix.setEntry(0, 1, 0.4);
@@ -345,8 +345,10 @@ dynamic build(BuildContext context) {
   );
   final fullComboProp = TransformProperty('full_combo', fullCombo);
 
-  print('order matters → comparing translate-then-rotate vs '
-      'rotate-then-translate');
+  print(
+    'order matters → comparing translate-then-rotate vs '
+    'rotate-then-translate',
+  );
   print('A: ${translateThenRotateProp.toDescription()}');
   print('B: ${rotateThenTranslateProp.toDescription()}');
   print('combo: ${fullComboProp.toDescription()}');
@@ -433,8 +435,10 @@ dynamic build(BuildContext context) {
       mat,
       level: entry.level,
     );
-    print('level=${entry.label} → property.level=${p.level}, '
-        'isFiltered(info)=${p.isFiltered(DiagnosticLevel.info)}');
+    print(
+      'level=${entry.label} → property.level=${p.level}, '
+      'isFiltered(info)=${p.isFiltered(DiagnosticLevel.info)}',
+    );
     levelCards.add(
       Container(
         width: 180.0,
@@ -510,19 +514,13 @@ dynamic build(BuildContext context) {
   // SECTION 10: showName + ifNull behaviour
   // ============================================================
   print('=== Section 10: showName + ifNull ===');
-  final namedProp = TransformProperty(
-    'transform',
-    Matrix4.rotationZ(0.1),
-  );
+  final namedProp = TransformProperty('transform', Matrix4.rotationZ(0.1));
   final unnamedProp = TransformProperty(
     'transform',
     Matrix4.rotationZ(0.1),
     showName: false,
   );
-  final nullProp = TransformProperty(
-    'maybe_transform',
-    null,
-  );
+  final nullProp = TransformProperty('maybe_transform', null);
   print('namedProp.toString()   = ${namedProp.toString()}');
   print('unnamedProp.toString() = ${unnamedProp.toString()}');
   print('nullProp.toString()    = ${nullProp.toString()}');
@@ -610,8 +608,7 @@ dynamic build(BuildContext context) {
       _buildSectionHeader(
         icon: Icons.lightbulb_outline,
         title: '11. Use cases',
-        subtitle:
-            'Where TransformProperty pays off in real Flutter codebases.',
+        subtitle: 'Where TransformProperty pays off in real Flutter codebases.',
         color: Colors.amber.shade800,
       ),
       SizedBox(height: 12.0),
@@ -706,11 +703,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.grid_4x4,
-                size: 56.0,
-                color: Colors.white,
-              ),
+              Icon(Icons.grid_4x4, size: 56.0, color: Colors.white),
               SizedBox(height: 8.0),
               Text(
                 'TransformProperty',
@@ -859,15 +852,9 @@ Widget _buildMatrixSection({
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 3,
-                  child: _buildMatrixGrid(matrix, color),
-                ),
+                Expanded(flex: 3, child: _buildMatrixGrid(matrix, color)),
                 SizedBox(width: 12.0),
-                Expanded(
-                  flex: 2,
-                  child: _buildVisualPreview(matrix, color),
-                ),
+                Expanded(flex: 2, child: _buildVisualPreview(matrix, color)),
               ],
             ),
             SizedBox(height: 12.0),

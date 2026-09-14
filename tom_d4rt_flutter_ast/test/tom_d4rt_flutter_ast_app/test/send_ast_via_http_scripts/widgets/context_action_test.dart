@@ -187,9 +187,12 @@ class _NavContextAction extends ContextAction<_NavIntent> {
         break;
     }
     final String currentLabel =
-        scope.focusedChild?.debugLabel ?? scope.focusedChild?.toString() ??
-            '<unknown>';
-    _logCenter.add('[nav/$scopeLabel] -> ${intent.direction.name} ($currentLabel)');
+        scope.focusedChild?.debugLabel ??
+        scope.focusedChild?.toString() ??
+        '<unknown>';
+    _logCenter.add(
+      '[nav/$scopeLabel] -> ${intent.direction.name} ($currentLabel)',
+    );
     return null;
   }
 }
@@ -199,7 +202,10 @@ class _NavContextAction extends ContextAction<_NavIntent> {
 // ---------------------------------------------------------------------------
 
 class _ToggleableContextAction extends ContextAction<_ToggleableIntent> {
-  _ToggleableContextAction({required this.enabledNotifier, required this.label});
+  _ToggleableContextAction({
+    required this.enabledNotifier,
+    required this.label,
+  });
   final ValueNotifier<bool> enabledNotifier;
   final String label;
 
@@ -234,10 +240,7 @@ class _ParentToggleableAction extends ContextAction<_ToggleableIntent> {
 // ---------------------------------------------------------------------------
 
 class _BubbleAction extends ContextAction<_BubbleIntent> {
-  _BubbleAction({
-    required this.layer,
-    required this.enabledNotifier,
-  });
+  _BubbleAction({required this.layer, required this.enabledNotifier});
   final String layer;
   final ValueNotifier<bool> enabledNotifier;
 
@@ -399,9 +402,9 @@ class _SectionDivider extends StatelessWidget {
   const _SectionDivider();
   @override
   Widget build(BuildContext context) => const Padding(
-        padding: EdgeInsets.symmetric(vertical: 16),
-        child: Divider(height: 1, thickness: 1),
-      );
+    padding: EdgeInsets.symmetric(vertical: 16),
+    child: Divider(height: 1, thickness: 1),
+  );
 }
 
 class _SectionTitle extends StatelessWidget {
@@ -462,12 +465,9 @@ class _BodyText extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 14, height: 1.4),
-        ),
-      );
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Text(text, style: const TextStyle(fontSize: 14, height: 1.4)),
+  );
 }
 
 class _CodeBlock extends StatelessWidget {
@@ -501,15 +501,15 @@ class _Bullet extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text('•  ', style: TextStyle(fontWeight: FontWeight.bold)),
-            Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
-          ],
-        ),
-      );
+    padding: const EdgeInsets.symmetric(vertical: 2),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Text('•  ', style: TextStyle(fontWeight: FontWeight.bold)),
+        Expanded(child: Text(text, style: const TextStyle(height: 1.35))),
+      ],
+    ),
+  );
 }
 
 // ===========================================================================
@@ -554,9 +554,7 @@ class _SectionIntro extends StatelessWidget {
     // ... do work that depends on theme/focus/scope ...
   }
 }'''),
-        _BodyText(
-          'Inheritance cheat sheet:',
-        ),
+        _BodyText('Inheritance cheat sheet:'),
         _CodeBlock(
           'Action<T extends Intent>\n'
           '   └─ ContextAction<T extends Intent>\n'
@@ -657,10 +655,7 @@ class _ContextLogSubtree extends StatelessWidget {
             // The BuildContext passed to Actions.invoke is the one whose
             // widget will be reported by ContextAction.invoke — that's why
             // we wrap with extra Builder/widgets on purpose below.
-            Actions.invoke(
-              innerCtx,
-              _ContextLogIntent(tag: label),
-            );
+            Actions.invoke(innerCtx, _ContextLogIntent(tag: label));
           },
           icon: const Icon(Icons.touch_app),
           label: Text('Dispatch in $label'),
@@ -711,8 +706,8 @@ class _ContextLogSubtree extends StatelessWidget {
                   wrapInBanner
                       ? 'Dispatched from inside a MaterialBanner subtree.'
                       : wrapInCustomWidget
-                          ? 'Dispatched from inside _MyTaggedHost.'
-                          : 'Dispatched from a vanilla Builder.',
+                      ? 'Dispatched from inside _MyTaggedHost.'
+                      : 'Dispatched from a vanilla Builder.',
                   style: const TextStyle(fontSize: 12, color: Colors.black54),
                 ),
               ],
@@ -729,10 +724,10 @@ class _MyTaggedHost extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.all(4),
-        color: Colors.teal.withOpacity(0.05),
-        child: child,
-      );
+    padding: const EdgeInsets.all(4),
+    color: Colors.teal.withOpacity(0.05),
+    child: child,
+  );
 }
 
 // ===========================================================================
@@ -915,7 +910,8 @@ class _SectionFocusNavigationState extends State<_SectionFocusNavigation> {
                                 Actions.invoke(
                                   rowCtx,
                                   const _NavIntent(
-                                      direction: _NavDirection.previous),
+                                    direction: _NavDirection.previous,
+                                  ),
                                 );
                               },
                               icon: const Icon(Icons.arrow_back),
@@ -927,7 +923,8 @@ class _SectionFocusNavigationState extends State<_SectionFocusNavigation> {
                                 Actions.invoke(
                                   rowCtx,
                                   const _NavIntent(
-                                      direction: _NavDirection.next),
+                                    direction: _NavDirection.next,
+                                  ),
                                 );
                               },
                               icon: const Icon(Icons.arrow_forward),
@@ -995,10 +992,10 @@ class _SectionShortcutsState extends State<_SectionShortcuts> {
                 padding: const EdgeInsets.all(12),
                 child: Shortcuts(
                   shortcuts: const <ShortcutActivator, Intent>{
-                    CharacterActivator('e'):
-                        _ContextLogIntent(tag: 'e-key'),
-                    CharacterActivator(' '):
-                        _ContextLogIntent(tag: 'space-key'),
+                    CharacterActivator('e'): _ContextLogIntent(tag: 'e-key'),
+                    CharacterActivator(' '): _ContextLogIntent(
+                      tag: 'space-key',
+                    ),
                   },
                   child: Actions(
                     actions: <Type, Action<Intent>>{
@@ -1031,12 +1028,14 @@ class _SectionShortcutsState extends State<_SectionShortcuts> {
                               runSpacing: 6,
                               children: _shortcutLog.entries
                                   .take(8)
-                                  .map((String e) => Chip(
-                                        label: Text(
-                                          e,
-                                          style: const TextStyle(fontSize: 11),
-                                        ),
-                                      ))
+                                  .map(
+                                    (String e) => Chip(
+                                      label: Text(
+                                        e,
+                                        style: const TextStyle(fontSize: 11),
+                                      ),
+                                    ),
+                                  )
                                   .toList(),
                             ),
                             const SizedBox(height: 8),
@@ -1112,9 +1111,11 @@ class _SectionToggleableEnabledState extends State<_SectionToggleableEnabled> {
                       children: <Widget>[
                         SwitchListTile(
                           value: enabled,
-                          title: Text(enabled
-                              ? 'Child action: ENABLED'
-                              : 'Child action: DISABLED (parent will handle)'),
+                          title: Text(
+                            enabled
+                                ? 'Child action: ENABLED'
+                                : 'Child action: DISABLED (parent will handle)',
+                          ),
                           onChanged: (bool v) => _enabled.value = v,
                         ),
                         const SizedBox(height: 8),
@@ -1246,8 +1247,9 @@ class _SectionBubbleChainState extends State<_SectionBubbleChain> {
                                   children: <Widget>[
                                     const Text(
                                       'MIDDLE Actions',
-                                      style:
-                                          TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     Actions(
                                       actions: <Type, Action<Intent>>{
@@ -1261,21 +1263,23 @@ class _SectionBubbleChainState extends State<_SectionBubbleChain> {
                                         padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                              color: Colors.deepOrange),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                            color: Colors.deepOrange,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         child: Column(
                                           children: <Widget>[
                                             const Text(
                                               'INNER Actions',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                             const SizedBox(height: 6),
                                             Builder(
-                                              builder:
-                                                  (BuildContext innerCtx) {
+                                              builder: (BuildContext innerCtx) {
                                                 return FilledButton(
                                                   onPressed: () {
                                                     Actions.invoke(
@@ -1284,7 +1288,8 @@ class _SectionBubbleChainState extends State<_SectionBubbleChain> {
                                                     );
                                                   },
                                                   child: const Text(
-                                                      'Dispatch _BubbleIntent'),
+                                                    'Dispatch _BubbleIntent',
+                                                  ),
                                                 );
                                               },
                                             ),
@@ -1318,12 +1323,14 @@ class _SectionBubbleChainState extends State<_SectionBubbleChain> {
                             runSpacing: 6,
                             children: _bubbleLog.entries
                                 .take(10)
-                                .map((String e) => Chip(
-                                      label: Text(
-                                        e,
-                                        style: const TextStyle(fontSize: 11),
-                                      ),
-                                    ))
+                                .map(
+                                  (String e) => Chip(
+                                    label: Text(
+                                      e,
+                                      style: const TextStyle(fontSize: 11),
+                                    ),
+                                  ),
+                                )
                                 .toList(),
                           ),
                           TextButton(
@@ -1381,8 +1388,9 @@ class _SectionDispatcherIntegrationState
                 child: Actions(
                   dispatcher: _dispatcher,
                   actions: <Type, Action<Intent>>{
-                    _ContextLogIntent:
-                        _ContextLogAction(label: 'dispatcher-demo'),
+                    _ContextLogIntent: _ContextLogAction(
+                      label: 'dispatcher-demo',
+                    ),
                     _DispatchTraceIntent: _DispatchTraceContextAction(),
                   },
                   child: Column(
@@ -1428,15 +1436,19 @@ class _SectionDispatcherIntegrationState
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
-                            ..._dispatcherLog.entries.take(10).map(
+                            ..._dispatcherLog.entries
+                                .take(10)
+                                .map(
                                   (String e) => Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 1),
+                                      vertical: 1,
+                                    ),
                                     child: Text(
                                       '› $e',
                                       style: const TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 11.5),
+                                        fontFamily: 'monospace',
+                                        fontSize: 11.5,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -1503,7 +1515,8 @@ class _SectionPlainVsContext extends StatelessWidget {
                               ),
                               const SizedBox(height: 4),
                               const _BodyText(
-                                  'Cannot read Theme — no BuildContext.'),
+                                'Cannot read Theme — no BuildContext.',
+                              ),
                               Builder(
                                 builder: (BuildContext btn) {
                                   return FilledButton(
@@ -1548,7 +1561,8 @@ class _SectionPlainVsContext extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           const _BodyText(
-                              'Reads Theme.of(context).brightness.'),
+                            'Reads Theme.of(context).brightness.',
+                          ),
                           Builder(
                             builder: (BuildContext btn) {
                               return FilledButton(
@@ -1638,10 +1652,14 @@ class _SectionPitfalls extends StatelessWidget {
           (_PitfallEntry e) => Card(
             margin: const EdgeInsets.only(bottom: 8),
             child: ListTile(
-              leading: const Icon(Icons.warning_amber_rounded,
-                  color: Colors.deepOrange),
-              title: Text(e.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              leading: const Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.deepOrange,
+              ),
+              title: Text(
+                e.title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(e.body, style: const TextStyle(height: 1.35)),
@@ -1724,7 +1742,8 @@ class _SectionRecipes extends StatelessWidget {
             'A pass-through ContextAction that simply logs the dispatching '
             'widget tree path, then forwards to a wrapped child action. '
             'Great for diagnosing why an intent did not fire.',
-        code: '''class _LogPassthrough<I extends Intent> extends ContextAction<I> {
+        code:
+            '''class _LogPassthrough<I extends Intent> extends ContextAction<I> {
   _LogPassthrough(this.inner);
   final Action<I> inner;
   @override
@@ -1791,7 +1810,8 @@ class _SectionReferenceTable extends StatelessWidget {
     final List<_RefRow> rows = <_RefRow>[
       const _RefRow(
         api: 'ContextAction<T>',
-        purpose: 'Action variant whose invoke(intent, [ctx]) overload exposes '
+        purpose:
+            'Action variant whose invoke(intent, [ctx]) overload exposes '
             'the dispatching BuildContext.',
       ),
       const _RefRow(
@@ -1847,10 +1867,7 @@ class _SectionReferenceTable extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const _SectionTitle(
-          '12',
-          'Reference — the cast of characters',
-        ),
+        const _SectionTitle('12', 'Reference — the cast of characters'),
         Card(
           child: DataTable(
             columnSpacing: 18,
@@ -1862,13 +1879,15 @@ class _SectionReferenceTable extends StatelessWidget {
                 .map(
                   (_RefRow r) => DataRow(
                     cells: <DataCell>[
-                      DataCell(Text(
-                        r.api,
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
+                      DataCell(
+                        Text(
+                          r.api,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )),
+                      ),
                       DataCell(
                         SizedBox(
                           width: 360,
@@ -1952,9 +1971,9 @@ class _GlobalLogPanel extends StatelessWidget {
                                   e,
                                   style: const TextStyle(fontSize: 11),
                                 ),
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
                               ),
                             )
                             .toList(),

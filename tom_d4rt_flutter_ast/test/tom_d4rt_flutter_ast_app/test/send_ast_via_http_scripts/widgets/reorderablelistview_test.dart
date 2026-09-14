@@ -94,10 +94,7 @@ dynamic build(BuildContext context) {
       elevation: 4,
       title: const Text(
         'ReorderableListView - Mosaic Plum Edition',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.6,
-        ),
+        style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.6),
       ),
     ),
     body: SingleChildScrollView(
@@ -237,18 +234,58 @@ Widget buildPaletteSwatchRow() {
     spacing: 8,
     runSpacing: 8,
     children: <Widget>[
-      buildSwatch('deepPlum', MosaicPlumPalette.deepPlum, MosaicPlumPalette.pearl),
-      buildSwatch('mulberry', MosaicPlumPalette.mulberry, MosaicPlumPalette.pearl),
+      buildSwatch(
+        'deepPlum',
+        MosaicPlumPalette.deepPlum,
+        MosaicPlumPalette.pearl,
+      ),
+      buildSwatch(
+        'mulberry',
+        MosaicPlumPalette.mulberry,
+        MosaicPlumPalette.pearl,
+      ),
       buildSwatch('velvet', MosaicPlumPalette.velvet, MosaicPlumPalette.pearl),
-      buildSwatch('lilacMist', MosaicPlumPalette.lilacMist, MosaicPlumPalette.inkwell),
-      buildSwatch('blushRose', MosaicPlumPalette.blushRose, MosaicPlumPalette.inkwell),
-      buildSwatch('gilded', MosaicPlumPalette.gilded, MosaicPlumPalette.inkwell),
-      buildSwatch('goldLeaf', MosaicPlumPalette.goldLeaf, MosaicPlumPalette.inkwell),
-      buildSwatch('champagne', MosaicPlumPalette.champagne, MosaicPlumPalette.inkwell),
-      buildSwatch('sageGlass', MosaicPlumPalette.sageGlass, MosaicPlumPalette.inkwell),
-      buildSwatch('twilightSlate', MosaicPlumPalette.twilightSlate, MosaicPlumPalette.pearl),
+      buildSwatch(
+        'lilacMist',
+        MosaicPlumPalette.lilacMist,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'blushRose',
+        MosaicPlumPalette.blushRose,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'gilded',
+        MosaicPlumPalette.gilded,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'goldLeaf',
+        MosaicPlumPalette.goldLeaf,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'champagne',
+        MosaicPlumPalette.champagne,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'sageGlass',
+        MosaicPlumPalette.sageGlass,
+        MosaicPlumPalette.inkwell,
+      ),
+      buildSwatch(
+        'twilightSlate',
+        MosaicPlumPalette.twilightSlate,
+        MosaicPlumPalette.pearl,
+      ),
       buildSwatch('garnet', MosaicPlumPalette.garnet, MosaicPlumPalette.pearl),
-      buildSwatch('frostedLavender', MosaicPlumPalette.frostedLavender, MosaicPlumPalette.inkwell),
+      buildSwatch(
+        'frostedLavender',
+        MosaicPlumPalette.frostedLavender,
+        MosaicPlumPalette.inkwell,
+      ),
     ],
   );
 }
@@ -286,10 +323,7 @@ Widget buildAnatomyProseCard() {
     decoration: BoxDecoration(
       color: MosaicPlumPalette.pearl,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: MosaicPlumPalette.lilacMist,
-        width: 1.4,
-      ),
+      border: Border.all(color: MosaicPlumPalette.lilacMist, width: 1.4),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: MosaicPlumPalette.velvet.withValues(alpha: 0.10),
@@ -381,39 +415,76 @@ Widget buildPropertyAnatomyPanel() {
       children: <Widget>[
         buildProseHeading('3. Property Anatomy'),
         const SizedBox(height: 14),
-        buildPropertyRow('children', 'List<Widget> with unique Keys (required).',
-            MosaicPlumPalette.deepPlum),
-        buildPropertyRow('onReorder', '(oldIndex, newIndex) callback (required).',
-            MosaicPlumPalette.mulberry),
-        buildPropertyRow('onReorderStart', 'Fires when a drag starts.',
-            MosaicPlumPalette.velvet),
-        buildPropertyRow('onReorderEnd', 'Fires when a drag finishes.',
-            MosaicPlumPalette.lilacMist),
-        buildPropertyRow('padding', 'EdgeInsets around the list.',
-            MosaicPlumPalette.blushRose),
-        buildPropertyRow('header', 'Optional non-reorderable widget at the top.',
-            MosaicPlumPalette.gilded),
-        buildPropertyRow('footer', 'Optional non-reorderable widget at the bottom.',
-            MosaicPlumPalette.goldLeaf),
-        buildPropertyRow('scrollDirection', 'Axis.vertical (default) or Axis.horizontal.',
-            MosaicPlumPalette.sageGlass),
-        buildPropertyRow('proxyDecorator', 'Wraps the dragged child mid-drag.',
-            MosaicPlumPalette.twilightSlate),
-        buildPropertyRow('buildDefaultDragHandles',
-            'true -> trailing handle on each tile.',
-            MosaicPlumPalette.garnet),
-        buildPropertyRow('dragStartBehavior',
-            'DragStartBehavior.start vs .down.',
-            MosaicPlumPalette.deepPlum),
-        buildPropertyRow('physics',
-            'ScrollPhysics for the inner scroll view.',
-            MosaicPlumPalette.mulberry),
-        buildPropertyRow('shrinkWrap',
-            'Size to children - only inside bounded heights.',
-            MosaicPlumPalette.velvet),
-        buildPropertyRow('reverse',
-            'Render bottom-to-top (rare for reorderable lists).',
-            MosaicPlumPalette.lilacMist),
+        buildPropertyRow(
+          'children',
+          'List<Widget> with unique Keys (required).',
+          MosaicPlumPalette.deepPlum,
+        ),
+        buildPropertyRow(
+          'onReorder',
+          '(oldIndex, newIndex) callback (required).',
+          MosaicPlumPalette.mulberry,
+        ),
+        buildPropertyRow(
+          'onReorderStart',
+          'Fires when a drag starts.',
+          MosaicPlumPalette.velvet,
+        ),
+        buildPropertyRow(
+          'onReorderEnd',
+          'Fires when a drag finishes.',
+          MosaicPlumPalette.lilacMist,
+        ),
+        buildPropertyRow(
+          'padding',
+          'EdgeInsets around the list.',
+          MosaicPlumPalette.blushRose,
+        ),
+        buildPropertyRow(
+          'header',
+          'Optional non-reorderable widget at the top.',
+          MosaicPlumPalette.gilded,
+        ),
+        buildPropertyRow(
+          'footer',
+          'Optional non-reorderable widget at the bottom.',
+          MosaicPlumPalette.goldLeaf,
+        ),
+        buildPropertyRow(
+          'scrollDirection',
+          'Axis.vertical (default) or Axis.horizontal.',
+          MosaicPlumPalette.sageGlass,
+        ),
+        buildPropertyRow(
+          'proxyDecorator',
+          'Wraps the dragged child mid-drag.',
+          MosaicPlumPalette.twilightSlate,
+        ),
+        buildPropertyRow(
+          'buildDefaultDragHandles',
+          'true -> trailing handle on each tile.',
+          MosaicPlumPalette.garnet,
+        ),
+        buildPropertyRow(
+          'dragStartBehavior',
+          'DragStartBehavior.start vs .down.',
+          MosaicPlumPalette.deepPlum,
+        ),
+        buildPropertyRow(
+          'physics',
+          'ScrollPhysics for the inner scroll view.',
+          MosaicPlumPalette.mulberry,
+        ),
+        buildPropertyRow(
+          'shrinkWrap',
+          'Size to children - only inside bounded heights.',
+          MosaicPlumPalette.velvet,
+        ),
+        buildPropertyRow(
+          'reverse',
+          'Render bottom-to-top (rare for reorderable lists).',
+          MosaicPlumPalette.lilacMist,
+        ),
       ],
     ),
   );
@@ -483,18 +554,42 @@ Widget buildGalleryPlaylist() {
           // No-op in d4rt interpreter mode - drag callbacks never fire.
         },
         children: <Widget>[
-          buildPlaylistTile('a', 'Plum Velvet Sunrise', '3:42',
-              MosaicPlumPalette.deepPlum),
-          buildPlaylistTile('b', 'Mulberry Boulevard', '4:18',
-              MosaicPlumPalette.mulberry),
-          buildPlaylistTile('c', 'Lilac Mist Cassette', '2:55',
-              MosaicPlumPalette.velvet),
-          buildPlaylistTile('d', 'Gilded Half-Step', '5:03',
-              MosaicPlumPalette.gilded),
-          buildPlaylistTile('e', 'Garnet Lullaby', '3:09',
-              MosaicPlumPalette.garnet),
-          buildPlaylistTile('f', 'Sage Glass Waltz', '4:44',
-              MosaicPlumPalette.sageGlass),
+          buildPlaylistTile(
+            'a',
+            'Plum Velvet Sunrise',
+            '3:42',
+            MosaicPlumPalette.deepPlum,
+          ),
+          buildPlaylistTile(
+            'b',
+            'Mulberry Boulevard',
+            '4:18',
+            MosaicPlumPalette.mulberry,
+          ),
+          buildPlaylistTile(
+            'c',
+            'Lilac Mist Cassette',
+            '2:55',
+            MosaicPlumPalette.velvet,
+          ),
+          buildPlaylistTile(
+            'd',
+            'Gilded Half-Step',
+            '5:03',
+            MosaicPlumPalette.gilded,
+          ),
+          buildPlaylistTile(
+            'e',
+            'Garnet Lullaby',
+            '3:09',
+            MosaicPlumPalette.garnet,
+          ),
+          buildPlaylistTile(
+            'f',
+            'Sage Glass Waltz',
+            '4:44',
+            MosaicPlumPalette.sageGlass,
+          ),
         ],
       ),
     ),
@@ -552,11 +647,7 @@ Widget buildPlaylistTile(String id, String title, String duration, Color tint) {
             ],
           ),
         ),
-        const Icon(
-          Icons.drag_handle,
-          color: MosaicPlumPalette.pearl,
-          size: 18,
-        ),
+        const Icon(Icons.drag_handle, color: MosaicPlumPalette.pearl, size: 18),
       ],
     ),
   );
@@ -609,10 +700,7 @@ Widget buildTodoTile(int index, String text) {
           width: 22,
           height: 22,
           decoration: BoxDecoration(
-            border: Border.all(
-              color: MosaicPlumPalette.deepPlum,
-              width: 1.4,
-            ),
+            border: Border.all(color: MosaicPlumPalette.deepPlum, width: 1.4),
             borderRadius: BorderRadius.circular(4),
             color: MosaicPlumPalette.pearl,
           ),
@@ -706,11 +794,7 @@ Widget buildColorChip(String id, String label, Color tint) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Icon(
-            Icons.palette,
-            color: MosaicPlumPalette.pearl,
-            size: 28,
-          ),
+          const Icon(Icons.palette, color: MosaicPlumPalette.pearl, size: 28),
           const SizedBox(height: 8),
           Text(
             label,
@@ -771,10 +855,7 @@ Widget buildRecipeStep(int n, String text, String duration) {
     decoration: BoxDecoration(
       color: MosaicPlumPalette.pearl,
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(
-        color: MosaicPlumPalette.blushRose,
-        width: 1.4,
-      ),
+      border: Border.all(color: MosaicPlumPalette.blushRose, width: 1.4),
     ),
     child: Row(
       children: <Widget>[
@@ -839,10 +920,7 @@ Widget buildGalleryFrame({
     decoration: BoxDecoration(
       color: MosaicPlumPalette.pearl,
       borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.65),
-        width: 1.3,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.65), width: 1.3),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: accent.withValues(alpha: 0.20),
@@ -887,10 +965,7 @@ Widget buildGalleryFrame({
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: child,
-        ),
+        Padding(padding: const EdgeInsets.all(8), child: child),
       ],
     ),
   );
@@ -1094,22 +1169,14 @@ Widget buildIndexSemanticsProse() {
           'must subtract one from newIndex before calling insert.',
         ),
         const SizedBox(height: 14),
-        buildDiagramRow(
-          'BEFORE',
-          <String>['A', 'B', 'C', 'D', 'E'],
-          1,
-        ),
+        buildDiagramRow('BEFORE', <String>['A', 'B', 'C', 'D', 'E'], 1),
         const SizedBox(height: 8),
         buildProseParagraph(
           'User drags B (oldIndex=1) past D toward E. Flutter reports '
           'newIndex=4. Naive: insert(4, B) -> [A, C, D, B, E].',
         ),
         const SizedBox(height: 8),
-        buildDiagramRow(
-          'NAIVE',
-          <String>['A', 'C', 'D', 'B', 'E'],
-          3,
-        ),
+        buildDiagramRow('NAIVE', <String>['A', 'C', 'D', 'B', 'E'], 3),
         const SizedBox(height: 8),
         buildProseParagraph(
           'Correct: subtract one -> insert(3, B) -> [A, C, D, B, E]. '
@@ -1178,10 +1245,7 @@ Widget buildDiagramRow(String label, List<String> items, int highlightIndex) {
         ),
       ),
       Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: tiles,
-        ),
+        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: tiles),
       ),
     ],
   );
@@ -1235,10 +1299,7 @@ Widget buildProxyDecoratorShowcase() {
               decoration: BoxDecoration(
                 color: MosaicPlumPalette.gilded.withValues(alpha: 0.30),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: MosaicPlumPalette.gilded,
-                  width: 2,
-                ),
+                border: Border.all(color: MosaicPlumPalette.gilded, width: 2),
               ),
               child: child,
             ),
@@ -1317,23 +1378,55 @@ Widget buildDoAvoidCallouts() {
       children: <Widget>[
         buildProseHeading('9. DO / AVOID'),
         const SizedBox(height: 12),
-        buildCalloutRow(true, 'DO assign a unique Key (ValueKey) to every direct child.'),
-        buildCalloutRow(false, 'AVOID using list indices as keys - they collide after reorder.'),
-        buildCalloutRow(true, 'DO subtract one from newIndex when newIndex > oldIndex.'),
-        buildCalloutRow(false, 'AVOID mutating the children list mid-drag from another thread.'),
-        buildCalloutRow(true, 'DO wrap horizontal usages in a SizedBox with a finite height.'),
-        buildCalloutRow(false, 'AVOID combining shrinkWrap=false with unbounded heights - layout error.'),
-        buildCalloutRow(true, 'DO use ReorderableListView.builder for long virtualized lists.'),
-        buildCalloutRow(false, 'AVOID rebuilding all children with new identities every frame.'),
-        buildCalloutRow(true, 'DO supply a proxyDecorator if the dragged tile needs Material elevation.'),
-        buildCalloutRow(false, 'AVOID nesting another ReorderableListView inside a child tile.'),
+        buildCalloutRow(
+          true,
+          'DO assign a unique Key (ValueKey) to every direct child.',
+        ),
+        buildCalloutRow(
+          false,
+          'AVOID using list indices as keys - they collide after reorder.',
+        ),
+        buildCalloutRow(
+          true,
+          'DO subtract one from newIndex when newIndex > oldIndex.',
+        ),
+        buildCalloutRow(
+          false,
+          'AVOID mutating the children list mid-drag from another thread.',
+        ),
+        buildCalloutRow(
+          true,
+          'DO wrap horizontal usages in a SizedBox with a finite height.',
+        ),
+        buildCalloutRow(
+          false,
+          'AVOID combining shrinkWrap=false with unbounded heights - layout error.',
+        ),
+        buildCalloutRow(
+          true,
+          'DO use ReorderableListView.builder for long virtualized lists.',
+        ),
+        buildCalloutRow(
+          false,
+          'AVOID rebuilding all children with new identities every frame.',
+        ),
+        buildCalloutRow(
+          true,
+          'DO supply a proxyDecorator if the dragged tile needs Material elevation.',
+        ),
+        buildCalloutRow(
+          false,
+          'AVOID nesting another ReorderableListView inside a child tile.',
+        ),
       ],
     ),
   );
 }
 
 Widget buildCalloutRow(bool isDo, String text) {
-  final Color tint = isDo ? MosaicPlumPalette.sageGlass : MosaicPlumPalette.garnet;
+  final Color tint = isDo
+      ? MosaicPlumPalette.sageGlass
+      : MosaicPlumPalette.garnet;
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
@@ -1394,69 +1487,69 @@ Widget buildCodeSnippetCards() {
         buildRecipeCard(
           'Recipe 1 - Minimum viable reorderable list',
           'ReorderableListView(\n'
-          '  onReorder: (oldI, newI) {\n'
-          '    if (newI > oldI) newI -= 1;\n'
-          '    final v = items.removeAt(oldI);\n'
-          '    items.insert(newI, v);\n'
-          '  },\n'
-          '  children: [\n'
-          '    for (final it in items)\n'
-          '      ListTile(key: ValueKey(it.id), title: Text(it.label)),\n'
-          '  ],\n'
-          ');',
+              '  onReorder: (oldI, newI) {\n'
+              '    if (newI > oldI) newI -= 1;\n'
+              '    final v = items.removeAt(oldI);\n'
+              '    items.insert(newI, v);\n'
+              '  },\n'
+              '  children: [\n'
+              '    for (final it in items)\n'
+              '      ListTile(key: ValueKey(it.id), title: Text(it.label)),\n'
+              '  ],\n'
+              ');',
         ),
         const SizedBox(height: 12),
         buildRecipeCard(
           'Recipe 2 - Lazy builder',
           'ReorderableListView.builder(\n'
-          '  itemCount: items.length,\n'
-          '  onReorder: handleReorder,\n'
-          '  itemBuilder: (ctx, i) => ListTile(\n'
-          '    key: ValueKey(items[i].id),\n'
-          '    title: Text(items[i].label),\n'
-          '  ),\n'
-          ');',
+              '  itemCount: items.length,\n'
+              '  onReorder: handleReorder,\n'
+              '  itemBuilder: (ctx, i) => ListTile(\n'
+              '    key: ValueKey(items[i].id),\n'
+              '    title: Text(items[i].label),\n'
+              '  ),\n'
+              ');',
         ),
         const SizedBox(height: 12),
         buildRecipeCard(
           'Recipe 3 - Custom proxyDecorator',
           'ReorderableListView(\n'
-          '  onReorder: handleReorder,\n'
-          '  proxyDecorator: (child, idx, anim) => Material(\n'
-          '    elevation: 8,\n'
-          '    color: Colors.amber.withValues(alpha: 0.3),\n'
-          '    child: child,\n'
-          '  ),\n'
-          '  children: tiles,\n'
-          ');',
+              '  onReorder: handleReorder,\n'
+              '  proxyDecorator: (child, idx, anim) => Material(\n'
+              '    elevation: 8,\n'
+              '    color: Colors.amber.withValues(alpha: 0.3),\n'
+              '    child: child,\n'
+              '  ),\n'
+              '  children: tiles,\n'
+              ');',
         ),
         const SizedBox(height: 12),
         buildRecipeCard(
           'Recipe 4 - Header + footer',
           'ReorderableListView(\n'
-          '  header: Text("PINNED HEADER"),\n'
-          '  footer: Text("PINNED FOOTER"),\n'
-          '  onReorder: handleReorder,\n'
-          '  children: tiles,\n'
-          ');',
+              '  header: Text("PINNED HEADER"),\n'
+              '  footer: Text("PINNED FOOTER"),\n'
+              '  onReorder: handleReorder,\n'
+              '  children: tiles,\n'
+              ');',
         ),
         const SizedBox(height: 12),
         buildRecipeCard(
           'Recipe 5 - Custom drag handles',
           'ReorderableListView(\n'
-          '  buildDefaultDragHandles: false,\n'
-          '  onReorder: handleReorder,\n'
-          '  children: [\n'
-          '    for (int i = 0; i < items.length; i++)\n'
-          '      Row(key: ValueKey(items[i].id), children: [\n'
-          '        Expanded(child: Text(items[i].label)),\n'
-          '        ReorderableDragStartListener(\n'
-          '          index: i,\n'
-          '          child: Icon(Icons.drag_handle),\n'
-          '        ),\n'
-          '      ]),\n'
-          '  ],\n'
-          ');',
+              '  buildDefaultDragHandles: false,\n'
+              '  onReorder: handleReorder,\n'
+              '  children: [\n'
+              '    for (int i = 0; i < items.length; i++)\n'
+              '      Row(key: ValueKey(items[i].id), children: [\n'
+              '        Expanded(child: Text(items[i].label)),\n'
+              '        ReorderableDragStartListener(\n'
+              '          index: i,\n'
+              '          child: Icon(Icons.drag_handle),\n'
+              '        ),\n'
+              '      ]),\n'
+              '  ],\n'
+              ');',
         ),
       ],
     ),
@@ -1508,36 +1601,66 @@ Widget buildGlossary() {
       children: <Widget>[
         buildProseHeading('11. Glossary'),
         const SizedBox(height: 12),
-        buildGlossaryTerm('children',
-            'List of widgets, each requiring a unique Key.'),
-        buildGlossaryTerm('onReorder',
-            'Callback (oldIndex, newIndex) fired when a drag concludes.'),
-        buildGlossaryTerm('oldIndex',
-            'Position of the dragged tile before removal.'),
-        buildGlossaryTerm('newIndex',
-            'Target slot, reported relative to the unmodified list.'),
-        buildGlossaryTerm('proxyDecorator',
-            'Wrapper applied to the floating tile during a drag.'),
-        buildGlossaryTerm('drag handle',
-            'Visual affordance (default trailing icon) the user grabs.'),
-        buildGlossaryTerm('header',
-            'Optional non-reorderable widget pinned above children.'),
-        buildGlossaryTerm('footer',
-            'Optional non-reorderable widget pinned below children.'),
-        buildGlossaryTerm('scrollDirection',
-            'Axis.vertical or Axis.horizontal.'),
-        buildGlossaryTerm('buildDefaultDragHandles',
-            'When true, a trailing handle is auto-added on each tile.'),
-        buildGlossaryTerm('dragStartBehavior',
-            'Whether drags start on touch-down or first move.'),
-        buildGlossaryTerm('shrinkWrap',
-            'Size the list to its content; only safe inside a bounded box.'),
-        buildGlossaryTerm('physics',
-            'ScrollPhysics applied to the inner scroll view.'),
-        buildGlossaryTerm('ValueKey',
-            'Identity key derived from a value (use for unique IDs).'),
-        buildGlossaryTerm('off-by-one',
-            'The newIndex bug that arises if you forget to subtract one.'),
+        buildGlossaryTerm(
+          'children',
+          'List of widgets, each requiring a unique Key.',
+        ),
+        buildGlossaryTerm(
+          'onReorder',
+          'Callback (oldIndex, newIndex) fired when a drag concludes.',
+        ),
+        buildGlossaryTerm(
+          'oldIndex',
+          'Position of the dragged tile before removal.',
+        ),
+        buildGlossaryTerm(
+          'newIndex',
+          'Target slot, reported relative to the unmodified list.',
+        ),
+        buildGlossaryTerm(
+          'proxyDecorator',
+          'Wrapper applied to the floating tile during a drag.',
+        ),
+        buildGlossaryTerm(
+          'drag handle',
+          'Visual affordance (default trailing icon) the user grabs.',
+        ),
+        buildGlossaryTerm(
+          'header',
+          'Optional non-reorderable widget pinned above children.',
+        ),
+        buildGlossaryTerm(
+          'footer',
+          'Optional non-reorderable widget pinned below children.',
+        ),
+        buildGlossaryTerm(
+          'scrollDirection',
+          'Axis.vertical or Axis.horizontal.',
+        ),
+        buildGlossaryTerm(
+          'buildDefaultDragHandles',
+          'When true, a trailing handle is auto-added on each tile.',
+        ),
+        buildGlossaryTerm(
+          'dragStartBehavior',
+          'Whether drags start on touch-down or first move.',
+        ),
+        buildGlossaryTerm(
+          'shrinkWrap',
+          'Size the list to its content; only safe inside a bounded box.',
+        ),
+        buildGlossaryTerm(
+          'physics',
+          'ScrollPhysics applied to the inner scroll view.',
+        ),
+        buildGlossaryTerm(
+          'ValueKey',
+          'Identity key derived from a value (use for unique IDs).',
+        ),
+        buildGlossaryTerm(
+          'off-by-one',
+          'The newIndex bug that arises if you forget to subtract one.',
+        ),
       ],
     ),
   );
@@ -1693,10 +1816,7 @@ Widget buildSectionHeader(String title) {
     decoration: BoxDecoration(
       color: MosaicPlumPalette.deepPlum,
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(
-        color: MosaicPlumPalette.gilded,
-        width: 1.3,
-      ),
+      border: Border.all(color: MosaicPlumPalette.gilded, width: 1.3),
     ),
     child: Text(
       title,

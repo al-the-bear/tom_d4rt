@@ -74,20 +74,20 @@ import 'package:flutter/material.dart';
 // constants so they can be referenced by any helper function below.
 // ---------------------------------------------------------------------------
 
-const Color atlasWalnutShell = Color(0xFF2B1B10);     // Deepest binding leather
-const Color atlasWalnutHide = Color(0xFF4A2E1C);      // Spine ridges
-const Color atlasWalnutBark = Color(0xFF6B4226);      // Worn cover edge
-const Color atlasWalnutLeaf = Color(0xFF8A5A36);      // Endpaper ink
-const Color atlasWalnutTan = Color(0xFFB48458);       // Aged tan strap
-const Color atlasWalnutSand = Color(0xFFD7B48C);      // Map dunes
-const Color atlasWalnutCream = Color(0xFFEFE3CF);     // Parchment cream
-const Color atlasWalnutMist = Color(0xFFF6EEDD);      // Page edge
-const Color atlasWalnutInk = Color(0xFF1B1410);       // Cartographer ink
-const Color atlasWalnutNight = Color(0xFF1F2A44);     // Compass-rose night
-const Color atlasWalnutSea = Color(0xFF2F5468);       // Painted ocean
-const Color atlasWalnutMoss = Color(0xFF4D6B3A);      // Forest stamp
-const Color atlasWalnutEmber = Color(0xFFB45A2A);     // Border ember
-const Color atlasWalnutGold = Color(0xFFD9A441);      // Title gilding
+const Color atlasWalnutShell = Color(0xFF2B1B10); // Deepest binding leather
+const Color atlasWalnutHide = Color(0xFF4A2E1C); // Spine ridges
+const Color atlasWalnutBark = Color(0xFF6B4226); // Worn cover edge
+const Color atlasWalnutLeaf = Color(0xFF8A5A36); // Endpaper ink
+const Color atlasWalnutTan = Color(0xFFB48458); // Aged tan strap
+const Color atlasWalnutSand = Color(0xFFD7B48C); // Map dunes
+const Color atlasWalnutCream = Color(0xFFEFE3CF); // Parchment cream
+const Color atlasWalnutMist = Color(0xFFF6EEDD); // Page edge
+const Color atlasWalnutInk = Color(0xFF1B1410); // Cartographer ink
+const Color atlasWalnutNight = Color(0xFF1F2A44); // Compass-rose night
+const Color atlasWalnutSea = Color(0xFF2F5468); // Painted ocean
+const Color atlasWalnutMoss = Color(0xFF4D6B3A); // Forest stamp
+const Color atlasWalnutEmber = Color(0xFFB45A2A); // Border ember
+const Color atlasWalnutGold = Color(0xFFD9A441); // Title gilding
 
 // ---------------------------------------------------------------------------
 // ENTRY POINT
@@ -152,9 +152,13 @@ dynamic build(BuildContext context) {
     mlOpenAppDrawerTooltip = ml.openAppDrawerTooltip;
     mlSearchFieldLabel = ml.searchFieldLabel;
     print('[atlas-walnut] MaterialLocalizations.okButtonLabel -> $mlOk');
-    print('[atlas-walnut] MaterialLocalizations.cancelButtonLabel -> $mlCancel');
+    print(
+      '[atlas-walnut] MaterialLocalizations.cancelButtonLabel -> $mlCancel',
+    );
     print('[atlas-walnut] MaterialLocalizations.closeButtonLabel -> $mlClose');
-    print('[atlas-walnut] MaterialLocalizations.nextMonthTooltip -> $mlNextMonth');
+    print(
+      '[atlas-walnut] MaterialLocalizations.nextMonthTooltip -> $mlNextMonth',
+    );
   } catch (e) {
     mlOk = 'OK';
     mlCancel = 'Cancel';
@@ -472,8 +476,10 @@ Widget _section4LocaleGallery() {
   print('[atlas-walnut] Locale gallery: ${locales.length} locales constructed');
   for (int i = 0; i < locales.length; i++) {
     final l = locales[i];
-    print('[atlas-walnut]   [$i] ${l.toString()} '
-        'lang=${l.languageCode} country=${l.countryCode ?? '-'}');
+    print(
+      '[atlas-walnut]   [$i] ${l.toString()} '
+      'lang=${l.languageCode} country=${l.countryCode ?? '-'}',
+    );
   }
 
   final List<Widget> cards = <Widget>[];
@@ -484,11 +490,7 @@ Widget _section4LocaleGallery() {
   return _container(
     title: 'Locale gallery',
     subtitle: '${locales.length} `Locale` values, freshly constructed',
-    child: Wrap(
-      spacing: 14.0,
-      runSpacing: 14.0,
-      children: cards,
-    ),
+    child: Wrap(spacing: 14.0, runSpacing: 14.0, children: cards),
   );
 }
 
@@ -786,14 +788,26 @@ Widget _section7DirectionMatrix() {
       spacing: 14.0,
       runSpacing: 14.0,
       children: [
-        _directionCard(const Locale('en', 'US'), TextDirection.ltr,
-            'LTR — Latin script (en_US)'),
-        _directionCard(const Locale('ja', 'JP'), TextDirection.ltr,
-            'LTR — CJK script (ja_JP)'),
-        _directionCard(const Locale('ar', 'SA'), TextDirection.rtl,
-            'RTL — Arabic script (ar_SA)'),
-        _directionCard(const Locale('he', 'IL'), TextDirection.rtl,
-            'RTL — Hebrew script (he_IL)'),
+        _directionCard(
+          const Locale('en', 'US'),
+          TextDirection.ltr,
+          'LTR — Latin script (en_US)',
+        ),
+        _directionCard(
+          const Locale('ja', 'JP'),
+          TextDirection.ltr,
+          'LTR — CJK script (ja_JP)',
+        ),
+        _directionCard(
+          const Locale('ar', 'SA'),
+          TextDirection.rtl,
+          'RTL — Arabic script (ar_SA)',
+        ),
+        _directionCard(
+          const Locale('he', 'IL'),
+          TextDirection.rtl,
+          'RTL — Hebrew script (he_IL)',
+        ),
       ],
     ),
   );
@@ -819,7 +833,9 @@ Widget _directionCard(Locale locale, TextDirection direction, String summary) {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: isRtl ? atlasWalnutEmber : atlasWalnutSea,
                 borderRadius: BorderRadius.circular(6.0),
@@ -856,8 +872,7 @@ Widget _directionCard(Locale locale, TextDirection direction, String summary) {
         ),
         const SizedBox(height: 10.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: atlasWalnutMist,
             borderRadius: BorderRadius.circular(6.0),
@@ -931,8 +946,7 @@ Widget _fallbackLayer({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 10.0, vertical: 6.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(6.0),
@@ -983,8 +997,7 @@ Widget _fallbackArrow(String note) {
     padding: const EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Icon(Icons.arrow_downward,
-            color: atlasWalnutBark, size: 18.0),
+        Icon(Icons.arrow_downward, color: atlasWalnutBark, size: 18.0),
         const SizedBox(width: 8.0),
         Text(
           note,
@@ -1010,21 +1023,35 @@ Widget _section9DoAvoid() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _doRow('DO register every delegate your app uses, including the '
-            'three Global* delegates (Material, Widgets, Cupertino).'),
-        _doRow('DO list every supported locale in `supportedLocales` so '
-            'fallback can find a match.'),
-        _doRow('DO call Localizations.of<T>(context, T) only inside build '
-            'methods or methods called from build, never from constructors.'),
-        _doRow('DO ship a custom delegate when you have app-specific '
-            'strings; do not store them in app state.'),
-        _avoidRow('AVOID hard-coding strings in widget trees — your '
-            'translators have nothing to translate against.'),
-        _avoidRow('AVOID instantiating the Localizations widget yourself '
-            'underneath MaterialApp; it is already there.'),
-        _avoidRow('AVOID assuming en-US semantics when formatting numbers, '
-            'dates, plurals, or RTL layouts — always use locale-aware '
-            'helpers from the localized bundle.'),
+        _doRow(
+          'DO register every delegate your app uses, including the '
+          'three Global* delegates (Material, Widgets, Cupertino).',
+        ),
+        _doRow(
+          'DO list every supported locale in `supportedLocales` so '
+          'fallback can find a match.',
+        ),
+        _doRow(
+          'DO call Localizations.of<T>(context, T) only inside build '
+          'methods or methods called from build, never from constructors.',
+        ),
+        _doRow(
+          'DO ship a custom delegate when you have app-specific '
+          'strings; do not store them in app state.',
+        ),
+        _avoidRow(
+          'AVOID hard-coding strings in widget trees — your '
+          'translators have nothing to translate against.',
+        ),
+        _avoidRow(
+          'AVOID instantiating the Localizations widget yourself '
+          'underneath MaterialApp; it is already there.',
+        ),
+        _avoidRow(
+          'AVOID assuming en-US semantics when formatting numbers, '
+          'dates, plurals, or RTL layouts — always use locale-aware '
+          'helpers from the localized bundle.',
+        ),
       ],
     ),
   );
@@ -1071,8 +1098,7 @@ Widget _avoidRow(String text) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.do_not_disturb_on,
-            color: atlasWalnutEmber, size: 20.0),
+        Icon(Icons.do_not_disturb_on, color: atlasWalnutEmber, size: 20.0),
         const SizedBox(width: 10.0),
         Expanded(
           child: Text(
@@ -1165,7 +1191,11 @@ Widget _section10CodeRecipes() {
   );
 }
 
-Widget _recipe({required String n, required String title, required String code}) {
+Widget _recipe({
+  required String n,
+  required String title,
+  required String code,
+}) {
   return Container(
     margin: const EdgeInsets.only(bottom: 14.0),
     decoration: BoxDecoration(
@@ -1177,8 +1207,7 @@ Widget _recipe({required String n, required String title, required String code})
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 12.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: atlasWalnutNight,
             borderRadius: const BorderRadius.only(
@@ -1253,77 +1282,77 @@ Widget _section11Glossary() {
     [
       'Locale',
       'A language-and-region tag like `en_US` or `de_CH`. May also '
-          'include a script tag (`zh_Hans_CN`).'
+          'include a script tag (`zh_Hans_CN`).',
     ],
     [
       'languageCode',
       'The ISO 639-1 (or 639-2/3) language portion of a Locale, '
-          'always lowercase, e.g. "en", "de".'
+          'always lowercase, e.g. "en", "de".',
     ],
     [
       'countryCode',
       'The ISO 3166-1 region portion of a Locale, always uppercase, '
-          'e.g. "US", "CH".'
+          'e.g. "US", "CH".',
     ],
     [
       'scriptCode',
       'Optional ISO 15924 script tag, e.g. "Hans" (Simplified Chinese) '
-          'or "Hant" (Traditional Chinese).'
+          'or "Hant" (Traditional Chinese).',
     ],
     [
       'LocalizationsDelegate',
       'Object that knows how to load a typed bundle for a given Locale '
-          'and decide which locales it supports.'
+          'and decide which locales it supports.',
     ],
     [
       'MaterialLocalizations',
       'Bundle of Material-specific strings (button labels, tooltips, '
-          'date pickers) accessed via `MaterialLocalizations.of`.'
+          'date pickers) accessed via `MaterialLocalizations.of`.',
     ],
     [
       'WidgetsLocalizations',
       'Bundle of fundamental widget strings (text direction, '
-          'reorderable item labels) used by the widgets layer.'
+          'reorderable item labels) used by the widgets layer.',
     ],
     [
       'CupertinoLocalizations',
       'Cupertino counterpart to MaterialLocalizations; used by '
-          'Cupertino widgets like CupertinoDatePicker.'
+          'Cupertino widgets like CupertinoDatePicker.',
     ],
     [
       'supportedLocales',
       'List of Locales the app advertises it can render. Drives the '
-          'fallback resolution algorithm.'
+          'fallback resolution algorithm.',
     ],
     [
       'localeListResolutionCallback',
       'App-supplied function that picks the active Locale from the '
-          'platform-preferred list.'
+          'platform-preferred list.',
     ],
     [
       'localeResolutionCallback',
       'Older single-locale variant of `localeListResolutionCallback`. '
-          'Prefer the list-based callback.'
+          'Prefer the list-based callback.',
     ],
     [
       'TextDirection',
       'Either `TextDirection.ltr` or `TextDirection.rtl`. Provided by '
-          '`Directionality`, which `Localizations` populates per locale.'
+          '`Directionality`, which `Localizations` populates per locale.',
     ],
     [
       'Directionality',
       'InheritedWidget that publishes the active TextDirection. '
-          'Most apps never set it directly — Localizations does.'
+          'Most apps never set it directly — Localizations does.',
     ],
     [
       'Localizations.localeOf',
       'Static helper that returns the active Locale and registers a '
-          'rebuild dependency on the Localizations ancestor.'
+          'rebuild dependency on the Localizations ancestor.',
     ],
     [
       'Localizations.of',
       'Generic static lookup for typed bundles like '
-          '`MaterialLocalizations` or app-defined `AppL10n`.'
+          '`MaterialLocalizations` or app-defined `AppL10n`.',
     ],
   ];
 
@@ -1490,63 +1519,64 @@ Widget _container({
   );
 }
 
-Widget _proseCard({
-  required String title,
-  required List<String> paragraphs,
-}) {
+Widget _proseCard({required String title, required List<String> paragraphs}) {
   final List<Widget> children = <Widget>[];
-  children.add(Text(
-    title,
-    style: TextStyle(
-      color: atlasWalnutShell,
-      fontSize: 18.0,
-      fontWeight: FontWeight.w800,
+  children.add(
+    Text(
+      title,
+      style: TextStyle(
+        color: atlasWalnutShell,
+        fontSize: 18.0,
+        fontWeight: FontWeight.w800,
+      ),
     ),
-  ));
+  );
   children.add(const SizedBox(height: 12.0));
   for (int i = 0; i < paragraphs.length; i++) {
-    children.add(Container(
-      margin: const EdgeInsets.only(bottom: 10.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: atlasWalnutCream,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(color: atlasWalnutTan.withValues(alpha: 0.4)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 22.0,
-            height: 22.0,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: atlasWalnutNight,
-              borderRadius: BorderRadius.circular(6.0),
-            ),
-            child: Text(
-              '${i + 1}',
-              style: TextStyle(
-                color: atlasWalnutGold,
-                fontSize: 11.0,
-                fontWeight: FontWeight.w800,
+    children.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: atlasWalnutCream,
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: atlasWalnutTan.withValues(alpha: 0.4)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 22.0,
+              height: 22.0,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: atlasWalnutNight,
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              child: Text(
+                '${i + 1}',
+                style: TextStyle(
+                  color: atlasWalnutGold,
+                  fontSize: 11.0,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Text(
-              paragraphs[i],
-              style: TextStyle(
-                color: atlasWalnutShell,
-                fontSize: 13.0,
-                height: 1.55,
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Text(
+                paragraphs[i],
+                style: TextStyle(
+                  color: atlasWalnutShell,
+                  fontSize: 13.0,
+                  height: 1.55,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     width: double.infinity,

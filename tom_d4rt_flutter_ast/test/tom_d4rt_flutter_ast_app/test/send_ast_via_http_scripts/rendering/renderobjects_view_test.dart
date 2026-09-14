@@ -43,11 +43,7 @@ const TextStyle _kSub = TextStyle(
   letterSpacing: 1.6,
 );
 
-const TextStyle _kBody = TextStyle(
-  color: _kInk,
-  fontSize: 14,
-  height: 1.45,
-);
+const TextStyle _kBody = TextStyle(color: _kInk, fontSize: 14, height: 1.45);
 
 const TextStyle _kBodyDim = TextStyle(
   color: _kInkDim,
@@ -67,77 +63,53 @@ const TextStyle _kMono = TextStyle(
 // ---------------------------------------------------------------------------
 
 BoxDecoration _cardA() => BoxDecoration(
-      borderRadius: BorderRadius.circular(18),
-      gradient: const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [_kCardA, _kCardB],
-      ),
-      border: Border.all(color: _kRule, width: 1),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0x66000000),
-          blurRadius: 22,
-          offset: Offset(0, 10),
-        ),
-        BoxShadow(
-          color: Color(0x223A8DFF),
-          blurRadius: 6,
-          offset: Offset(0, 1),
-        ),
-      ],
-    );
+  borderRadius: BorderRadius.circular(18),
+  gradient: const LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [_kCardA, _kCardB],
+  ),
+  border: Border.all(color: _kRule, width: 1),
+  boxShadow: const [
+    BoxShadow(color: Color(0x66000000), blurRadius: 22, offset: Offset(0, 10)),
+    BoxShadow(color: Color(0x223A8DFF), blurRadius: 6, offset: Offset(0, 1)),
+  ],
+);
 
 BoxDecoration _cardB() => BoxDecoration(
-      borderRadius: BorderRadius.circular(18),
-      gradient: const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [_kCardB, _kCardC],
-      ),
-      border: Border.all(color: _kRule, width: 1),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0x55000000),
-          blurRadius: 18,
-          offset: Offset(0, 8),
-        ),
-        BoxShadow(
-          color: Color(0x2226E0D6),
-          blurRadius: 8,
-          offset: Offset(0, 0),
-        ),
-      ],
-    );
+  borderRadius: BorderRadius.circular(18),
+  gradient: const LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [_kCardB, _kCardC],
+  ),
+  border: Border.all(color: _kRule, width: 1),
+  boxShadow: const [
+    BoxShadow(color: Color(0x55000000), blurRadius: 18, offset: Offset(0, 8)),
+    BoxShadow(color: Color(0x2226E0D6), blurRadius: 8, offset: Offset(0, 0)),
+  ],
+);
 
 BoxDecoration _accentGradient(List<Color> c) => BoxDecoration(
-      gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: c,
-      ),
-      borderRadius: BorderRadius.circular(12),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0x44000000),
-          blurRadius: 10,
-          offset: Offset(0, 4),
-        ),
-      ],
-    );
+  gradient: LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: c,
+  ),
+  borderRadius: BorderRadius.circular(12),
+  boxShadow: const [
+    BoxShadow(color: Color(0x44000000), blurRadius: 10, offset: Offset(0, 4)),
+  ],
+);
 
 BoxDecoration _codeDeco() => BoxDecoration(
-      color: const Color(0xFF05080F),
-      borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: const Color(0xFF1F2A44)),
-      boxShadow: const [
-        BoxShadow(
-          color: Color(0x66000000),
-          blurRadius: 8,
-          offset: Offset(0, 2),
-        ),
-      ],
-    );
+  color: const Color(0xFF05080F),
+  borderRadius: BorderRadius.circular(10),
+  border: Border.all(color: const Color(0xFF1F2A44)),
+  boxShadow: const [
+    BoxShadow(color: Color(0x66000000), blurRadius: 8, offset: Offset(0, 2)),
+  ],
+);
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -188,13 +160,15 @@ Widget _chip(String label, Color color) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: color, width: 1),
     ),
-    child: Text(label,
-        style: TextStyle(
-          color: color,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.4,
-        )),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 0.4,
+      ),
+    ),
   );
 }
 
@@ -214,10 +188,7 @@ class _PipelinePainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(14),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(14)),
       paintBg,
     );
 
@@ -324,13 +295,16 @@ class _ViewportStackPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-          Offset.zero & size, const Radius.circular(12)),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
       bg,
     );
 
-    final childRect =
-        Rect.fromLTWH(size.width * 0.55, 14, size.width * 0.35, size.height - 28);
+    final childRect = Rect.fromLTWH(
+      size.width * 0.55,
+      14,
+      size.width * 0.35,
+      size.height - 28,
+    );
     final tall = Paint()
       ..shader = const LinearGradient(
         colors: [_kAccentPurple, _kAccentPink],
@@ -349,9 +323,10 @@ class _ViewportStackPainter extends CustomPainter {
     for (var i = 1; i < 6; i++) {
       final y = childRect.top + i * segH;
       canvas.drawLine(
-          Offset(childRect.left + 4, y),
-          Offset(childRect.right - 4, y),
-          segPaint);
+        Offset(childRect.left + 4, y),
+        Offset(childRect.right - 4, y),
+        segPaint,
+      );
     }
 
     final winRect = Rect.fromLTWH(
@@ -384,14 +359,15 @@ class _ViewportStackPainter extends CustomPainter {
       ..color = _kInkDim
       ..strokeWidth = 1.2;
     final winRight = Offset(winRect.right, winRect.center.dy);
-    final visTop = childRect.top +
-        childRect.height * offsetFrac.clamp(0.0, 0.6);
+    final visTop =
+        childRect.top + childRect.height * offsetFrac.clamp(0.0, 0.6);
     final visBottom = visTop + winRect.height * 0.6;
     canvas.drawLine(winRight, Offset(childRect.left, visTop), connectorPaint);
     canvas.drawLine(
-        Offset(winRect.right, winRect.bottom),
-        Offset(childRect.left, visBottom),
-        connectorPaint);
+      Offset(winRect.right, winRect.bottom),
+      Offset(childRect.left, visBottom),
+      connectorPaint,
+    );
 
     final tp = TextPainter(
       text: const TextSpan(
@@ -408,10 +384,7 @@ class _ViewportStackPainter extends CustomPainter {
     )..layout(maxWidth: winRect.width - 8);
     tp.paint(
       canvas,
-      Offset(
-        winRect.left + (winRect.width - tp.width) / 2,
-        winRect.top + 8,
-      ),
+      Offset(winRect.left + (winRect.width - tp.width) / 2, winRect.top + 8),
     );
 
     final tp2 = TextPainter(
@@ -455,8 +428,7 @@ class _OffsetAxisPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final bg = Paint()..color = const Color(0xFF0B1226);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-          Offset.zero & size, const Radius.circular(10)),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
       bg,
     );
 
@@ -469,11 +441,7 @@ class _OffsetAxisPainter extends CustomPainter {
     final ticks = 10;
     for (var i = 0; i <= ticks; i++) {
       final x = 20 + (size.width - 40) * (i / ticks);
-      canvas.drawLine(
-        Offset(x, yMid - 6),
-        Offset(x, yMid + 6),
-        axis,
-      );
+      canvas.drawLine(Offset(x, yMid - 6), Offset(x, yMid + 6), axis);
       final tp = TextPainter(
         text: TextSpan(
           text: (maxV * i / ticks).toStringAsFixed(0),
@@ -486,10 +454,10 @@ class _OffsetAxisPainter extends CustomPainter {
 
     final cursorX = 20 + (size.width - 40) * (value / maxV).clamp(0.0, 1.0);
     final cursorPaint = Paint()
-      ..shader = const LinearGradient(
-        colors: [_kAccentCyan, _kAccentPurple],
-      ).createShader(Rect.fromCircle(
-          center: Offset(cursorX, yMid), radius: 10));
+      ..shader = const LinearGradient(colors: [_kAccentCyan, _kAccentPurple])
+          .createShader(
+            Rect.fromCircle(center: Offset(cursorX, yMid), radius: 10),
+          );
     canvas.drawCircle(Offset(cursorX, yMid), 8, cursorPaint);
     canvas.drawCircle(
       Offset(cursorX, yMid),
@@ -504,7 +472,10 @@ class _OffsetAxisPainter extends CustomPainter {
       text: TextSpan(
         text: 'pixels = ${value.toStringAsFixed(1)}',
         style: const TextStyle(
-            color: _kInk, fontSize: 11, fontWeight: FontWeight.w600),
+          color: _kInk,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -532,13 +503,11 @@ class _ShiftedBoxPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-          Offset.zero & size, const Radius.circular(12)),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
       bg,
     );
 
-    final parent = Rect.fromLTWH(
-        16, 16, size.width - 32, size.height - 32);
+    final parent = Rect.fromLTWH(16, 16, size.width - 32, size.height - 32);
     final parentPaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = _kAccentBlue
@@ -562,7 +531,11 @@ class _ShiftedBoxPainter extends CustomPainter {
     final childW = innerRect.width * 0.55;
     final childH = innerRect.height * 0.55;
     final childRect = Rect.fromLTWH(
-        innerRect.left, innerRect.top, childW, childH);
+      innerRect.left,
+      innerRect.top,
+      childW,
+      childH,
+    );
     final childPaint = Paint()
       ..shader = const LinearGradient(
         colors: [_kAccentCyan, _kAccentGreen],
@@ -578,9 +551,10 @@ class _ShiftedBoxPainter extends CustomPainter {
       text: const TextSpan(
         text: 'child',
         style: TextStyle(
-            color: Color(0xFF0E1322),
-            fontSize: 12,
-            fontWeight: FontWeight.w700),
+          color: Color(0xFF0E1322),
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -596,9 +570,10 @@ class _ShiftedBoxPainter extends CustomPainter {
       text: const TextSpan(
         text: 'parent (RenderShiftedBox)',
         style: TextStyle(
-            color: _kAccentBlue,
-            fontSize: 11,
-            fontWeight: FontWeight.w600),
+          color: _kAccentBlue,
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -608,9 +583,10 @@ class _ShiftedBoxPainter extends CustomPainter {
       text: const TextSpan(
         text: 'padding insets',
         style: TextStyle(
-            color: _kAccentPurple,
-            fontSize: 10,
-            fontWeight: FontWeight.w600),
+          color: _kAccentPurple,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -632,23 +608,27 @@ Widget _buildPipelineSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('01 // PIPELINE',
-            'Widget Tree -> Element Tree -> Render Tree'),
+        _sectionHeader(
+          '01 // PIPELINE',
+          'Widget Tree -> Element Tree -> Render Tree',
+        ),
         _prose(
-            'Every Flutter app builds three parallel trees. The widget tree '
-            'is the immutable description that you write in build() methods. '
-            'The element tree is the mutable bookkeeping layer; each Element '
-            'wraps a widget instance and tracks its parent/child relations '
-            'and lifecycle. The render tree is where layout, painting, and '
-            'hit-testing actually happen — and its root, attached to the '
-            'FlutterView by the RendererBinding, is the RenderView.'),
+          'Every Flutter app builds three parallel trees. The widget tree '
+          'is the immutable description that you write in build() methods. '
+          'The element tree is the mutable bookkeeping layer; each Element '
+          'wraps a widget instance and tracks its parent/child relations '
+          'and lifecycle. The render tree is where layout, painting, and '
+          'hit-testing actually happen — and its root, attached to the '
+          'FlutterView by the RendererBinding, is the RenderView.',
+        ),
         _prose(
-            'The RenderView is special: it does not measure itself by '
-            'asking a parent for constraints. Instead it is given the '
-            'physical viewConfiguration of the FlutterView (size, devicePixelRatio) '
-            'and forwards a tight BoxConstraints to its single child. From '
-            'there, every subsequent constraint flows down and every size '
-            'flows back up, exactly as a classical box layout works.'),
+          'The RenderView is special: it does not measure itself by '
+          'asking a parent for constraints. Instead it is given the '
+          'physical viewConfiguration of the FlutterView (size, devicePixelRatio) '
+          'and forwards a tight BoxConstraints to its single child. From '
+          'there, every subsequent constraint flows down and every size '
+          'flows back up, exactly as a classical box layout works.',
+        ),
         const SizedBox(height: 14),
         SizedBox(
           height: 180,
@@ -688,19 +668,21 @@ Widget _buildRenderViewSection() {
       children: [
         _sectionHeader('02 // ROOT', 'RenderView — top of the render tree'),
         _prose(
-            'RenderView is the single render object that knows about the '
-            'physical output surface. Conceptually it does three jobs: it '
-            'owns a Layer tree root (TransformLayer / OffsetLayer) into '
-            'which paint operations are composited; it owns the root '
-            'PipelineOwner that schedules layout, paint, and semantics '
-            'phases; and it exposes a tight BoxConstraints to its single '
-            'child equal to the FlutterView size.'),
+          'RenderView is the single render object that knows about the '
+          'physical output surface. Conceptually it does three jobs: it '
+          'owns a Layer tree root (TransformLayer / OffsetLayer) into '
+          'which paint operations are composited; it owns the root '
+          'PipelineOwner that schedules layout, paint, and semantics '
+          'phases; and it exposes a tight BoxConstraints to its single '
+          'child equal to the FlutterView size.',
+        ),
         _prose(
-            'Because RenderView is created by the binding, you almost never '
-            'construct one yourself. Tests, headless renderers, and screenshot '
-            'pipelines may construct a RenderView attached to a custom '
-            'FlutterView, but in app code its existence is invisible — every '
-            'MaterialApp is implicitly hosted by one.'),
+          'Because RenderView is created by the binding, you almost never '
+          'construct one yourself. Tests, headless renderers, and screenshot '
+          'pipelines may construct a RenderView attached to a custom '
+          'FlutterView, but in app code its existence is invisible — every '
+          'MaterialApp is implicitly hosted by one.',
+        ),
         const SizedBox(height: 14),
         Stack(
           children: [
@@ -720,47 +702,65 @@ Widget _buildRenderViewSection() {
               child: Padding(
                 padding: const EdgeInsets.all(14),
                 child: Container(
-                  decoration: _accentGradient(
-                      const [_kAccentAmber, Color(0xFFFF8A65)]),
+                  decoration: _accentGradient(const [
+                    _kAccentAmber,
+                    Color(0xFFFF8A65),
+                  ]),
                   child: Stack(
                     children: [
                       const Padding(
                         padding: EdgeInsets.fromLTRB(10, 6, 0, 0),
-                        child: Text('RenderView',
-                            style: TextStyle(
-                                color: Color(0xFF0E1322),
-                                fontWeight: FontWeight.w800,
-                                fontSize: 13)),
+                        child: Text(
+                          'RenderView',
+                          style: TextStyle(
+                            color: Color(0xFF0E1322),
+                            fontWeight: FontWeight.w800,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                       Positioned.fill(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 28, 20, 20),
                           child: Container(
-                            decoration: _accentGradient(
-                                const [_kAccentPurple, _kAccentBlue]),
+                            decoration: _accentGradient(const [
+                              _kAccentPurple,
+                              _kAccentBlue,
+                            ]),
                             child: Stack(
                               children: [
                                 const Padding(
                                   padding: EdgeInsets.fromLTRB(10, 6, 0, 0),
-                                  child: Text('RenderConstrainedBox',
-                                      style: TextStyle(
-                                          color: _kInk,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 12)),
+                                  child: Text(
+                                    'RenderConstrainedBox',
+                                    style: TextStyle(
+                                      color: _kInk,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                 ),
                                 Positioned.fill(
                                   child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                        20, 28, 20, 20),
+                                      20,
+                                      28,
+                                      20,
+                                      20,
+                                    ),
                                     child: Container(
-                                      decoration: _accentGradient(
-                                          const [_kAccentCyan, _kAccentGreen]),
+                                      decoration: _accentGradient(const [
+                                        _kAccentCyan,
+                                        _kAccentGreen,
+                                      ]),
                                       alignment: Alignment.center,
                                       child: const Text(
-                                          'child render subtree',
-                                          style: TextStyle(
-                                              color: Color(0xFF0E1322),
-                                              fontWeight: FontWeight.w700)),
+                                        'child render subtree',
+                                        style: TextStyle(
+                                          color: Color(0xFF0E1322),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -778,10 +778,11 @@ Widget _buildRenderViewSection() {
         ),
         const SizedBox(height: 12),
         _proseDim(
-            'Each frame, the binding asks the PipelineOwner to flush layout, '
-            'compositing bits, paint, and semantics. The RenderView starts '
-            'these traversals at the top of the tree, and the Layer tree it '
-            'owns is the one ultimately shipped to the GPU compositor.'),
+          'Each frame, the binding asks the PipelineOwner to flush layout, '
+          'compositing bits, paint, and semantics. The RenderView starts '
+          'these traversals at the top of the tree, and the Layer tree it '
+          'owns is the one ultimately shipped to the GPU compositor.',
+        ),
       ],
     ),
   );
@@ -798,16 +799,19 @@ Widget _buildViewportStackSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('03 // VIEWPORT',
-            'RenderViewport — a window onto a tall child'),
+        _sectionHeader(
+          '03 // VIEWPORT',
+          'RenderViewport — a window onto a tall child',
+        ),
         _prose(
-            'A RenderViewport is the render object behind every scrollable '
-            'list. It has a fixed extent in the main axis (determined by '
-            'incoming constraints), but it grants its child slivers an '
-            'infinite scrollExtent. The viewport then paints only the slice '
-            'currently visible, offsetting it by ViewportOffset.pixels. '
-            'Conceptually, it is a fixed window sliding over a tall painted '
-            'world.'),
+          'A RenderViewport is the render object behind every scrollable '
+          'list. It has a fixed extent in the main axis (determined by '
+          'incoming constraints), but it grants its child slivers an '
+          'infinite scrollExtent. The viewport then paints only the slice '
+          'currently visible, offsetting it by ViewportOffset.pixels. '
+          'Conceptually, it is a fixed window sliding over a tall painted '
+          'world.',
+        ),
         const SizedBox(height: 14),
         StatefulBuilder(
           builder: (context, setLocal) {
@@ -816,11 +820,12 @@ Widget _buildViewportStackSection() {
         ),
         const SizedBox(height: 12),
         _proseDim(
-            'The diagram shows the viewport (left) revealing a slice of the '
-            'child (right). The two dotted connectors illustrate the '
-            'mapping from the visible window edges into child-space. Slide '
-            'the offset to see what pixel range the viewport currently '
-            'shows.'),
+          'The diagram shows the viewport (left) revealing a slice of the '
+          'child (right). The two dotted connectors illustrate the '
+          'mapping from the visible window edges into child-space. Slide '
+          'the offset to see what pixel range the viewport currently '
+          'shows.',
+        ),
       ],
     ),
   );
@@ -832,8 +837,7 @@ class _ViewportStackInteractive extends StatefulWidget {
       _ViewportStackInteractiveState();
 }
 
-class _ViewportStackInteractiveState
-    extends State<_ViewportStackInteractive> {
+class _ViewportStackInteractiveState extends State<_ViewportStackInteractive> {
   double frac = 0.2;
 
   @override
@@ -851,8 +855,10 @@ class _ViewportStackInteractiveState
         const SizedBox(height: 8),
         Row(
           children: [
-            const Text('ViewportOffset.fixed →',
-                style: TextStyle(color: _kInkDim, fontSize: 12)),
+            const Text(
+              'ViewportOffset.fixed →',
+              style: TextStyle(color: _kInkDim, fontSize: 12),
+            ),
             Expanded(
               child: Slider(
                 value: frac,
@@ -863,8 +869,10 @@ class _ViewportStackInteractiveState
                 onChanged: (v) => setState(() => frac = v),
               ),
             ),
-            Text('${(frac * 1000).toStringAsFixed(0)} px',
-                style: const TextStyle(color: _kInk, fontSize: 12)),
+            Text(
+              '${(frac * 1000).toStringAsFixed(0)} px',
+              style: const TextStyle(color: _kInk, fontSize: 12),
+            ),
           ],
         ),
       ],
@@ -884,15 +892,18 @@ Widget _buildViewportOffsetSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionHeader(
-            '04 // OFFSET', 'ViewportOffset — the scroll coordinate'),
+          '04 // OFFSET',
+          'ViewportOffset — the scroll coordinate',
+        ),
         _prose(
-            'ViewportOffset is a Listenable whose .pixels value drives the '
-            'main-axis translation of a viewport. A ScrollPosition is the '
-            'most common production implementation: it derives pixels from '
-            'user gestures, ballistic simulations, and programmatic '
-            'animations. For testing and static rendering, '
-            'ViewportOffset.fixed(value) and ViewportOffset.zero() are '
-            'sufficient.'),
+          'ViewportOffset is a Listenable whose .pixels value drives the '
+          'main-axis translation of a viewport. A ScrollPosition is the '
+          'most common production implementation: it derives pixels from '
+          'user gestures, ballistic simulations, and programmatic '
+          'animations. For testing and static rendering, '
+          'ViewportOffset.fixed(value) and ViewportOffset.zero() are '
+          'sufficient.',
+        ),
         const SizedBox(height: 12),
         StatefulBuilder(
           builder: (context, setLocal) {
@@ -950,10 +961,7 @@ class _OffsetExplorerState extends State<_OffsetExplorer> {
           children: [
             _chip('hasPixels=true', _kAccentGreen),
             const SizedBox(width: 6),
-            _chip(
-              'userScrollDirection=idle',
-              _kAccentAmber,
-            ),
+            _chip('userScrollDirection=idle', _kAccentAmber),
             const SizedBox(width: 6),
             _chip('allowImplicitScrolling=false', _kAccentBlue),
           ],
@@ -974,16 +982,19 @@ Widget _buildShiftedBoxSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('05 // SHIFT',
-            'RenderShiftedBox — single-child positioned containers'),
+        _sectionHeader(
+          '05 // SHIFT',
+          'RenderShiftedBox — single-child positioned containers',
+        ),
         _prose(
-            'RenderShiftedBox is the abstract base for render objects that '
-            'lay out a single child and then position it at some offset. '
-            'Concrete subclasses include RenderPadding (insets the child by '
-            'an EdgeInsets), RenderAligned (positions the child using an '
-            'Alignment), RenderConstrainedOverflowBox, RenderBaseline, and '
-            'RenderShiftedBox-derived layout primitives used internally by '
-            'Material widgets.'),
+          'RenderShiftedBox is the abstract base for render objects that '
+          'lay out a single child and then position it at some offset. '
+          'Concrete subclasses include RenderPadding (insets the child by '
+          'an EdgeInsets), RenderAligned (positions the child using an '
+          'Alignment), RenderConstrainedOverflowBox, RenderBaseline, and '
+          'RenderShiftedBox-derived layout primitives used internally by '
+          'Material widgets.',
+        ),
         const SizedBox(height: 14),
         SizedBox(
           height: 200,
@@ -1027,42 +1038,64 @@ Widget _buildProxyBoxSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('06 // PROXY',
-            'RenderProxyBox — transparent single-child wrappers'),
+        _sectionHeader(
+          '06 // PROXY',
+          'RenderProxyBox — transparent single-child wrappers',
+        ),
         _prose(
-            'A RenderProxyBox forwards all layout, hit-testing, and paint '
-            'behavior to its single child. By default it adopts the child\'s '
-            'size and paints the child at the origin — meaning a bare '
-            'RenderProxyBox is logically invisible. Real subclasses override '
-            'one or two methods to add a behavior: opacity, clipping, '
-            'transforms, repaint boundaries, semantics annotations, pointer '
-            'transformers, and so on.'),
+          'A RenderProxyBox forwards all layout, hit-testing, and paint '
+          'behavior to its single child. By default it adopts the child\'s '
+          'size and paints the child at the origin — meaning a bare '
+          'RenderProxyBox is logically invisible. Real subclasses override '
+          'one or two methods to add a behavior: opacity, clipping, '
+          'transforms, repaint boundaries, semantics annotations, pointer '
+          'transformers, and so on.',
+        ),
         const SizedBox(height: 12),
         Wrap(
           spacing: 10,
           runSpacing: 10,
           children: [
-            _proxyTile('RenderOpacity', _kAccentCyan,
-                'multiplies alpha while painting'),
-            _proxyTile('RenderClipRect', _kAccentPurple,
-                'clips child to a rectangle'),
-            _proxyTile('RenderTransform', _kAccentAmber,
-                'applies a Matrix4 in paint'),
-            _proxyTile('RenderRepaintBoundary', _kAccentGreen,
-                'caches the child layer'),
-            _proxyTile('RenderSemanticsAnnotations', _kAccentPink,
-                'adds Semantics info'),
-            _proxyTile('RenderPointerListener', _kAccentBlue,
-                'observes pointer events'),
+            _proxyTile(
+              'RenderOpacity',
+              _kAccentCyan,
+              'multiplies alpha while painting',
+            ),
+            _proxyTile(
+              'RenderClipRect',
+              _kAccentPurple,
+              'clips child to a rectangle',
+            ),
+            _proxyTile(
+              'RenderTransform',
+              _kAccentAmber,
+              'applies a Matrix4 in paint',
+            ),
+            _proxyTile(
+              'RenderRepaintBoundary',
+              _kAccentGreen,
+              'caches the child layer',
+            ),
+            _proxyTile(
+              'RenderSemanticsAnnotations',
+              _kAccentPink,
+              'adds Semantics info',
+            ),
+            _proxyTile(
+              'RenderPointerListener',
+              _kAccentBlue,
+              'observes pointer events',
+            ),
           ],
         ),
         const SizedBox(height: 14),
         _proseDim(
-            'Proxy boxes are the workhorses of the framework. When you see '
-            'a Container with padding, alignment, decoration, foreground '
-            'decoration, transform, clip, and child, you are actually '
-            'looking at a small stack of proxy boxes built around a single '
-            'render leaf.'),
+          'Proxy boxes are the workhorses of the framework. When you see '
+          'a Container with padding, alignment, decoration, foreground '
+          'decoration, transform, clip, and child, you are actually '
+          'looking at a small stack of proxy boxes built around a single '
+          'render leaf.',
+        ),
       ],
     ),
   );
@@ -1084,8 +1117,7 @@ Widget _proxyTile(String title, Color color, String body) {
         border: Border.all(color: color, width: 1),
         boxShadow: [
           BoxShadow(
-            color:
-                Color.fromARGB(60, color.red, color.green, color.blue),
+            color: Color.fromARGB(60, color.red, color.green, color.blue),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -1094,12 +1126,14 @@ Widget _proxyTile(String title, Color color, String body) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.w700,
-                fontSize: 13,
-              )),
+          Text(
+            title,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w700,
+              fontSize: 13,
+            ),
+          ),
           const SizedBox(height: 4),
           Text(body, style: _kBodyDim),
         ],
@@ -1114,10 +1148,10 @@ Widget _proxyTile(String title, Color color, String body) {
 
 Widget _buildDecisionTableSection() {
   TextStyle h() => const TextStyle(
-        color: _kAccentCyan,
-        fontWeight: FontWeight.w700,
-        fontSize: 12,
-      );
+    color: _kAccentCyan,
+    fontWeight: FontWeight.w700,
+    fontSize: 12,
+  );
   TextStyle b() => const TextStyle(color: _kInk, fontSize: 12);
   return Container(
     padding: const EdgeInsets.all(22),
@@ -1125,15 +1159,18 @@ Widget _buildDecisionTableSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('07 // DECIDE',
-            'When to use which scrollable container'),
+        _sectionHeader(
+          '07 // DECIDE',
+          'When to use which scrollable container',
+        ),
         _prose(
-            'Flutter ships several widgets that sit on top of RenderViewport. '
-            'Choosing the right one matters more for performance than for '
-            'features: SingleChildScrollView builds its entire child eagerly, '
-            'while ListView and CustomScrollView lazily build only what is '
-            'inside the cache extent. The table below summarises the '
-            'practical trade-offs.'),
+          'Flutter ships several widgets that sit on top of RenderViewport. '
+          'Choosing the right one matters more for performance than for '
+          'features: SingleChildScrollView builds its entire child eagerly, '
+          'while ListView and CustomScrollView lazily build only what is '
+          'inside the cache extent. The table below summarises the '
+          'practical trade-offs.',
+        ),
         const SizedBox(height: 14),
         Container(
           decoration: BoxDecoration(
@@ -1144,10 +1181,8 @@ Widget _buildDecisionTableSection() {
           child: Theme(
             data: ThemeData.dark(),
             child: DataTable(
-              headingRowColor:
-                  WidgetStateProperty.all(const Color(0xFF1A2238)),
-              dataRowColor:
-                  WidgetStateProperty.all(const Color(0xFF131A33)),
+              headingRowColor: WidgetStateProperty.all(const Color(0xFF1A2238)),
+              dataRowColor: WidgetStateProperty.all(const Color(0xFF131A33)),
               columnSpacing: 18,
               columns: [
                 DataColumn(label: Text('Widget', style: h())),
@@ -1156,45 +1191,66 @@ Widget _buildDecisionTableSection() {
                 DataColumn(label: Text('Best for', style: h())),
               ],
               rows: [
-                DataRow(cells: [
-                  DataCell(Text('SingleChildScrollView', style: b())),
-                  DataCell(Text('RenderShrinkWrappingViewport', style: b())),
-                  DataCell(Text('No', style: b())),
-                  DataCell(
-                      Text('Short content larger than the screen', style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('ListView', style: b())),
-                  DataCell(Text('RenderViewport + RenderSliverList', style: b())),
-                  DataCell(Text('Yes', style: b())),
-                  DataCell(Text('Linear lists of items', style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('GridView', style: b())),
-                  DataCell(Text('RenderViewport + RenderSliverGrid', style: b())),
-                  DataCell(Text('Yes', style: b())),
-                  DataCell(Text('2D grids of fixed-shape items', style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('CustomScrollView', style: b())),
-                  DataCell(Text('RenderViewport', style: b())),
-                  DataCell(Text('Yes', style: b())),
-                  DataCell(Text('Mixed slivers (app bars + lists)', style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('NestedScrollView', style: b())),
-                  DataCell(Text('Outer + inner RenderViewport', style: b())),
-                  DataCell(Text('Yes', style: b())),
-                  DataCell(Text('Collapsing headers over inner scroll',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('PageView', style: b())),
-                  DataCell(Text('RenderViewport (axis = horizontal)',
-                      style: b())),
-                  DataCell(Text('Yes', style: b())),
-                  DataCell(Text('Paged horizontal layouts', style: b())),
-                ]),
+                DataRow(
+                  cells: [
+                    DataCell(Text('SingleChildScrollView', style: b())),
+                    DataCell(Text('RenderShrinkWrappingViewport', style: b())),
+                    DataCell(Text('No', style: b())),
+                    DataCell(
+                      Text('Short content larger than the screen', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('ListView', style: b())),
+                    DataCell(
+                      Text('RenderViewport + RenderSliverList', style: b()),
+                    ),
+                    DataCell(Text('Yes', style: b())),
+                    DataCell(Text('Linear lists of items', style: b())),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('GridView', style: b())),
+                    DataCell(
+                      Text('RenderViewport + RenderSliverGrid', style: b()),
+                    ),
+                    DataCell(Text('Yes', style: b())),
+                    DataCell(Text('2D grids of fixed-shape items', style: b())),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('CustomScrollView', style: b())),
+                    DataCell(Text('RenderViewport', style: b())),
+                    DataCell(Text('Yes', style: b())),
+                    DataCell(
+                      Text('Mixed slivers (app bars + lists)', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('NestedScrollView', style: b())),
+                    DataCell(Text('Outer + inner RenderViewport', style: b())),
+                    DataCell(Text('Yes', style: b())),
+                    DataCell(
+                      Text('Collapsing headers over inner scroll', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('PageView', style: b())),
+                    DataCell(
+                      Text('RenderViewport (axis = horizontal)', style: b()),
+                    ),
+                    DataCell(Text('Yes', style: b())),
+                    DataCell(Text('Paged horizontal layouts', style: b())),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1215,15 +1271,18 @@ Widget _buildLiveViewportSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('08 // LIVE',
-            'A real SingleChildScrollView (rendered to scale)'),
+        _sectionHeader(
+          '08 // LIVE',
+          'A real SingleChildScrollView (rendered to scale)',
+        ),
         _prose(
-            'Below is a real, working SingleChildScrollView. It is bounded '
-            'by a fixed height, and inside it sits a Column that is much '
-            'taller than the viewport. Notice that you can scroll inside '
-            'this region even though the outer page also scrolls — the '
-            'inner Scrollable has its own Scrollable widget and therefore '
-            'its own ViewportOffset.'),
+          'Below is a real, working SingleChildScrollView. It is bounded '
+          'by a fixed height, and inside it sits a Column that is much '
+          'taller than the viewport. Notice that you can scroll inside '
+          'this region even though the outer page also scrolls — the '
+          'inner Scrollable has its own Scrollable widget and therefore '
+          'its own ViewportOffset.',
+        ),
         const SizedBox(height: 14),
         Container(
           height: 220,
@@ -1257,11 +1316,18 @@ Widget _buildLiveViewportSection() {
                       borderRadius: BorderRadius.circular(8),
                       gradient: LinearGradient(
                         colors: [
-                          HSVColor.fromAHSV(1, hue.toDouble(), 0.5, 0.6)
-                              .toColor(),
                           HSVColor.fromAHSV(
-                                  1, (hue + 40) % 360.0, 0.4, 0.45)
-                              .toColor(),
+                            1,
+                            hue.toDouble(),
+                            0.5,
+                            0.6,
+                          ).toColor(),
+                          HSVColor.fromAHSV(
+                            1,
+                            (hue + 40) % 360.0,
+                            0.4,
+                            0.45,
+                          ).toColor(),
                         ],
                       ),
                     ),
@@ -1281,10 +1347,11 @@ Widget _buildLiveViewportSection() {
         ),
         const SizedBox(height: 10),
         _proseDim(
-            'Internally, this widget composes a Scrollable around a '
-            'RenderShrinkWrappingViewport with a single sliver wrapping the '
-            'Column. The Scrollable produces ViewportOffset values that the '
-            'RenderViewport consumes during paint.'),
+          'Internally, this widget composes a Scrollable around a '
+          'RenderShrinkWrappingViewport with a single sliver wrapping the '
+          'Column. The Scrollable produces ViewportOffset values that the '
+          'RenderViewport consumes during paint.',
+        ),
       ],
     ),
   );
@@ -1302,16 +1369,19 @@ Widget _buildSliverDemoSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionHeader(
-            '09 // SLIVERS', 'CustomScrollView — viewport over slivers'),
+          '09 // SLIVERS',
+          'CustomScrollView — viewport over slivers',
+        ),
         _prose(
-            'CustomScrollView is the most general scrollable: it places a '
-            'RenderViewport above a list of slivers, each of which is a '
-            'RenderSliver subclass with its own SliverGeometry and '
-            'SliverConstraints. Slivers do not deal in BoxConstraints '
-            'directly; they speak to each other in terms of scrollOffset, '
-            'remainingPaintExtent, and overlap. A single RenderViewport '
-            'orchestrates them by walking the sliver list with its '
-            'ViewportOffset.'),
+          'CustomScrollView is the most general scrollable: it places a '
+          'RenderViewport above a list of slivers, each of which is a '
+          'RenderSliver subclass with its own SliverGeometry and '
+          'SliverConstraints. Slivers do not deal in BoxConstraints '
+          'directly; they speak to each other in terms of scrollOffset, '
+          'remainingPaintExtent, and overlap. A single RenderViewport '
+          'orchestrates them by walking the sliver list with its '
+          'ViewportOffset.',
+        ),
         const SizedBox(height: 14),
         Container(
           height: 280,
@@ -1334,13 +1404,16 @@ Widget _buildSliverDemoSection() {
                     height: 56,
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.symmetric(horizontal: 14),
-                    decoration: _accentGradient(
-                        const [_kAccentCyan, _kAccentBlue]),
+                    decoration: _accentGradient(const [
+                      _kAccentCyan,
+                      _kAccentBlue,
+                    ]),
                     child: const Text(
                       'SliverToBoxAdapter — a single box sliver',
                       style: TextStyle(
-                          color: Color(0xFF0E1322),
-                          fontWeight: FontWeight.w700),
+                        color: Color(0xFF0E1322),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
@@ -1349,67 +1422,73 @@ Widget _buildSliverDemoSection() {
                   sliver: SliverGrid(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 2.4,
-                      crossAxisSpacing: 6,
-                      mainAxisSpacing: 6,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, i) {
-                        final hue = (i * 30) % 360;
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            gradient: LinearGradient(
-                              colors: [
-                                HSVColor.fromAHSV(
-                                        1, hue.toDouble(), 0.6, 0.7)
-                                    .toColor(),
-                                HSVColor.fromAHSV(
-                                        1, (hue + 30) % 360.0, 0.5, 0.55)
-                                    .toColor(),
-                              ],
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                          child: Text('g$i',
-                              style: const TextStyle(
-                                  color: _kInk,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11)),
-                        );
-                      },
-                      childCount: 12,
-                    ),
-                  ),
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) {
+                          crossAxisCount: 3,
+                          childAspectRatio: 2.4,
+                          crossAxisSpacing: 6,
+                          mainAxisSpacing: 6,
+                        ),
+                    delegate: SliverChildBuilderDelegate((context, i) {
+                      final hue = (i * 30) % 360;
                       return Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 3),
-                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(6),
                           gradient: LinearGradient(
                             colors: [
-                              Color.fromARGB(
-                                  220, 30 + i * 8, 50, 90 + i * 4),
-                              Color.fromARGB(
-                                  220, 60 + i * 4, 80, 120 + i * 2),
+                              HSVColor.fromAHSV(
+                                1,
+                                hue.toDouble(),
+                                0.6,
+                                0.7,
+                              ).toColor(),
+                              HSVColor.fromAHSV(
+                                1,
+                                (hue + 30) % 360.0,
+                                0.5,
+                                0.55,
+                              ).toColor(),
                             ],
                           ),
                         ),
-                        child: Text('SliverList row #$i',
-                            style: const TextStyle(
-                                color: _kInk,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12)),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'g$i',
+                          style: const TextStyle(
+                            color: _kInk,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                          ),
+                        ),
                       );
-                    },
-                    childCount: 16,
+                    }, childCount: 12),
                   ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, i) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 3,
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(220, 30 + i * 8, 50, 90 + i * 4),
+                            Color.fromARGB(220, 60 + i * 4, 80, 120 + i * 2),
+                          ],
+                        ),
+                      ),
+                      child: Text(
+                        'SliverList row #$i',
+                        style: const TextStyle(
+                          color: _kInk,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                        ),
+                      ),
+                    );
+                  }, childCount: 16),
                 ),
               ],
             ),
@@ -1417,12 +1496,13 @@ Widget _buildSliverDemoSection() {
         ),
         const SizedBox(height: 10),
         _proseDim(
-            'Three slivers feed the viewport: a box adapter, a grid, and a '
-            'list. The viewport assigns them sliver constraints in order '
-            'and stacks their painted output along the main axis. Each '
-            'sliver returns a SliverGeometry that tells the viewport how '
-            'much main-axis extent it consumed and how much it contributed '
-            'to the cache extent.'),
+          'Three slivers feed the viewport: a box adapter, a grid, and a '
+          'list. The viewport assigns them sliver constraints in order '
+          'and stacks their painted output along the main axis. Each '
+          'sliver returns a SliverGeometry that tells the viewport how '
+          'much main-axis extent it consumed and how much it contributed '
+          'to the cache extent.',
+        ),
       ],
     ),
   );
@@ -1439,21 +1519,23 @@ Widget _buildBindingCodeSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('10 // BINDING',
-            'How the RendererBinding wires the RenderView'),
+        _sectionHeader(
+          '10 // BINDING',
+          'How the RendererBinding wires the RenderView',
+        ),
         _prose(
-            'You usually never see this code, but it is worth knowing what '
-            'runApp() does under the hood. The widget binding ensures a '
-            'RenderView exists, attaches it to a PipelineOwner, and pumps '
-            'a frame. Schematically it looks like the snippet below — the '
-            'production version is more careful, but the structure is the '
-            'same.'),
+          'You usually never see this code, but it is worth knowing what '
+          'runApp() does under the hood. The widget binding ensures a '
+          'RenderView exists, attaches it to a PipelineOwner, and pumps '
+          'a frame. Schematically it looks like the snippet below — the '
+          'production version is more careful, but the structure is the '
+          'same.',
+        ),
         const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.all(14),
           decoration: _codeDeco(),
-          child: const Text(
-            '''class RendererBinding extends BindingBase {
+          child: const Text('''class RendererBinding extends BindingBase {
   late final PipelineOwner pipelineOwner;
   late final RenderView renderView;
 
@@ -1477,17 +1559,16 @@ Widget _buildBindingCodeSection() {
     renderView.compositeFrame();
     pipelineOwner.flushSemantics();
   }
-}''',
-            style: _kMono,
-          ),
+}''', style: _kMono),
         ),
         const SizedBox(height: 10),
         _proseDim(
-            'Notice that drawFrame() is exactly the classical four-phase '
-            'pipeline: layout → compositing bits → paint → semantics. The '
-            'RenderView coordinates compositing on the GPU thread via '
-            'compositeFrame(), which submits its Layer tree to the '
-            'Flutter engine.'),
+          'Notice that drawFrame() is exactly the classical four-phase '
+          'pipeline: layout → compositing bits → paint → semantics. The '
+          'RenderView coordinates compositing on the GPU thread via '
+          'compositeFrame(), which submits its Layer tree to the '
+          'Flutter engine.',
+        ),
       ],
     ),
   );
@@ -1506,19 +1587,25 @@ Widget _buildPaletteSection() {
         gradient: LinearGradient(colors: grad),
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(60, grad.last.red, grad.last.green,
-                grad.last.blue),
+            color: Color.fromARGB(
+              60,
+              grad.last.red,
+              grad.last.green,
+              grad.last.blue,
+            ),
             blurRadius: 6,
             offset: const Offset(0, 3),
           ),
         ],
       ),
-      child: Text(label,
-          style: const TextStyle(
-            color: Color(0xFF0E1322),
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-          )),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: Color(0xFF0E1322),
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1528,52 +1615,50 @@ Widget _buildPaletteSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader('11 // PALETTE',
-            'Related rendering types you should recognise'),
+        _sectionHeader(
+          '11 // PALETTE',
+          'Related rendering types you should recognise',
+        ),
         _prose(
-            'The rendering library is large, but the view layer is anchored '
-            'by a small cluster of types you should be able to name on '
-            'sight. The palette below groups them by responsibility: roots '
-            'and bindings, viewports and offsets, single-child wrappers, '
-            'and sliver layout.'),
+          'The rendering library is large, but the view layer is anchored '
+          'by a small cluster of types you should be able to name on '
+          'sight. The palette below groups them by responsibility: roots '
+          'and bindings, viewports and offsets, single-child wrappers, '
+          'and sliver layout.',
+        ),
         const SizedBox(height: 14),
         Wrap(
           spacing: 10,
           runSpacing: 10,
           children: [
-            palettePill(
-                'RenderView', const [_kAccentAmber, Color(0xFFFF8A65)]),
-            palettePill('PipelineOwner',
-                const [_kAccentPurple, _kAccentPink]),
-            palettePill('RendererBinding',
-                const [_kAccentBlue, _kAccentCyan]),
-            palettePill('FlutterView',
-                const [_kAccentCyan, _kAccentGreen]),
-            palettePill('RenderViewport',
-                const [_kAccentPurple, _kAccentBlue]),
-            palettePill('RenderShrinkWrappingViewport',
-                const [_kAccentBlue, _kAccentAmber]),
-            palettePill('ViewportOffset',
-                const [_kAccentGreen, _kAccentCyan]),
-            palettePill('ScrollPosition',
-                const [_kAccentPink, _kAccentPurple]),
-            palettePill('RenderProxyBox',
-                const [_kAccentBlue, _kAccentGreen]),
-            palettePill('RenderShiftedBox',
-                const [_kAccentAmber, _kAccentPink]),
-            palettePill('RenderSliver',
-                const [_kAccentCyan, _kAccentAmber]),
-            palettePill('RenderSliverList',
-                const [_kAccentPink, _kAccentCyan]),
+            palettePill('RenderView', const [_kAccentAmber, Color(0xFFFF8A65)]),
+            palettePill('PipelineOwner', const [_kAccentPurple, _kAccentPink]),
+            palettePill('RendererBinding', const [_kAccentBlue, _kAccentCyan]),
+            palettePill('FlutterView', const [_kAccentCyan, _kAccentGreen]),
+            palettePill('RenderViewport', const [_kAccentPurple, _kAccentBlue]),
+            palettePill('RenderShrinkWrappingViewport', const [
+              _kAccentBlue,
+              _kAccentAmber,
+            ]),
+            palettePill('ViewportOffset', const [_kAccentGreen, _kAccentCyan]),
+            palettePill('ScrollPosition', const [_kAccentPink, _kAccentPurple]),
+            palettePill('RenderProxyBox', const [_kAccentBlue, _kAccentGreen]),
+            palettePill('RenderShiftedBox', const [
+              _kAccentAmber,
+              _kAccentPink,
+            ]),
+            palettePill('RenderSliver', const [_kAccentCyan, _kAccentAmber]),
+            palettePill('RenderSliverList', const [_kAccentPink, _kAccentCyan]),
           ],
         ),
         const SizedBox(height: 14),
         _proseDim(
-            'These types form a small, learnable surface area. Once you can '
-            'sketch the relationship between RenderView, PipelineOwner, '
-            'RenderViewport, and ViewportOffset, the rest of the rendering '
-            'library is mostly a collection of specialised proxy and '
-            'shifted boxes.'),
+          'These types form a small, learnable surface area. Once you can '
+          'sketch the relationship between RenderView, PipelineOwner, '
+          'RenderViewport, and ViewportOffset, the rest of the rendering '
+          'library is mostly a collection of specialised proxy and '
+          'shifted boxes.',
+        ),
       ],
     ),
   );
@@ -1585,15 +1670,12 @@ Widget _buildPaletteSection() {
 
 Widget _buildReferenceCard() {
   TextStyle h() => const TextStyle(
-        color: _kAccentAmber,
-        fontWeight: FontWeight.w700,
-        fontSize: 12,
-      );
-  TextStyle b() => const TextStyle(
-        color: _kInk,
-        fontSize: 12,
-        fontFamily: 'monospace',
-      );
+    color: _kAccentAmber,
+    fontWeight: FontWeight.w700,
+    fontSize: 12,
+  );
+  TextStyle b() =>
+      const TextStyle(color: _kInk, fontSize: 12, fontFamily: 'monospace');
 
   return Container(
     padding: const EdgeInsets.all(22),
@@ -1623,10 +1705,11 @@ Widget _buildReferenceCard() {
       children: [
         _sectionHeader('12 // REFERENCE', 'View-layer API summary'),
         _prose(
-            'A compact lookup table for the classes covered in this demo. '
-            'Each row names the symbol, the file it lives in (within the '
-            'Flutter SDK), and the responsibility it carries. Use this as '
-            'a study aid when reading framework sources or test code.'),
+          'A compact lookup table for the classes covered in this demo. '
+          'Each row names the symbol, the file it lives in (within the '
+          'Flutter SDK), and the responsibility it carries. Use this as '
+          'a study aid when reading framework sources or test code.',
+        ),
         const SizedBox(height: 14),
         Container(
           decoration: BoxDecoration(
@@ -1637,10 +1720,8 @@ Widget _buildReferenceCard() {
           child: Theme(
             data: ThemeData.dark(),
             child: DataTable(
-              headingRowColor:
-                  WidgetStateProperty.all(const Color(0xFF1A2238)),
-              dataRowColor:
-                  WidgetStateProperty.all(const Color(0xFF131A33)),
+              headingRowColor: WidgetStateProperty.all(const Color(0xFF1A2238)),
+              dataRowColor: WidgetStateProperty.all(const Color(0xFF131A33)),
               columnSpacing: 14,
               columns: [
                 DataColumn(label: Text('Symbol', style: h())),
@@ -1648,74 +1729,111 @@ Widget _buildReferenceCard() {
                 DataColumn(label: Text('Role', style: h())),
               ],
               rows: [
-                DataRow(cells: [
-                  DataCell(Text('RenderView', style: b())),
-                  DataCell(Text('rendering/view.dart', style: b())),
-                  DataCell(Text('Root render object; owns layer tree',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('PipelineOwner', style: b())),
-                  DataCell(Text('rendering/object.dart', style: b())),
-                  DataCell(
-                      Text('Schedules layout/paint/semantics phases',
-                          style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RendererBinding', style: b())),
-                  DataCell(Text('rendering/binding.dart', style: b())),
-                  DataCell(Text('Hooks the engine to RenderView',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderViewport', style: b())),
-                  DataCell(Text('rendering/viewport.dart', style: b())),
-                  DataCell(Text('Window onto a sliver subtree',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderShrinkWrappingViewport',
-                      style: b())),
-                  DataCell(Text('rendering/viewport.dart', style: b())),
-                  DataCell(
-                      Text('Viewport sized to its sliver content',
-                          style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderAbstractViewport', style: b())),
-                  DataCell(Text('rendering/viewport.dart', style: b())),
-                  DataCell(Text(
-                      'Abstract base for viewport implementations',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('ViewportOffset', style: b())),
-                  DataCell(Text('rendering/viewport_offset.dart',
-                      style: b())),
-                  DataCell(Text('Listenable scroll position abstraction',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderProxyBox', style: b())),
-                  DataCell(Text('rendering/proxy_box.dart', style: b())),
-                  DataCell(Text(
-                      'Forwarding wrapper for single-child overrides',
-                      style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderShiftedBox', style: b())),
-                  DataCell(Text('rendering/shifted_box.dart', style: b())),
-                  DataCell(
-                      Text('Positions one child at an offset',
-                          style: b())),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('RenderSliver', style: b())),
-                  DataCell(Text('rendering/sliver.dart', style: b())),
-                  DataCell(Text(
-                      'Base for sliver-protocol render objects',
-                      style: b())),
-                ]),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderView', style: b())),
+                    DataCell(Text('rendering/view.dart', style: b())),
+                    DataCell(
+                      Text('Root render object; owns layer tree', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('PipelineOwner', style: b())),
+                    DataCell(Text('rendering/object.dart', style: b())),
+                    DataCell(
+                      Text(
+                        'Schedules layout/paint/semantics phases',
+                        style: b(),
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RendererBinding', style: b())),
+                    DataCell(Text('rendering/binding.dart', style: b())),
+                    DataCell(
+                      Text('Hooks the engine to RenderView', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderViewport', style: b())),
+                    DataCell(Text('rendering/viewport.dart', style: b())),
+                    DataCell(Text('Window onto a sliver subtree', style: b())),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderShrinkWrappingViewport', style: b())),
+                    DataCell(Text('rendering/viewport.dart', style: b())),
+                    DataCell(
+                      Text('Viewport sized to its sliver content', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderAbstractViewport', style: b())),
+                    DataCell(Text('rendering/viewport.dart', style: b())),
+                    DataCell(
+                      Text(
+                        'Abstract base for viewport implementations',
+                        style: b(),
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('ViewportOffset', style: b())),
+                    DataCell(
+                      Text('rendering/viewport_offset.dart', style: b()),
+                    ),
+                    DataCell(
+                      Text(
+                        'Listenable scroll position abstraction',
+                        style: b(),
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderProxyBox', style: b())),
+                    DataCell(Text('rendering/proxy_box.dart', style: b())),
+                    DataCell(
+                      Text(
+                        'Forwarding wrapper for single-child overrides',
+                        style: b(),
+                      ),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderShiftedBox', style: b())),
+                    DataCell(Text('rendering/shifted_box.dart', style: b())),
+                    DataCell(
+                      Text('Positions one child at an offset', style: b()),
+                    ),
+                  ],
+                ),
+                DataRow(
+                  cells: [
+                    DataCell(Text('RenderSliver', style: b())),
+                    DataCell(Text('rendering/sliver.dart', style: b())),
+                    DataCell(
+                      Text(
+                        'Base for sliver-protocol render objects',
+                        style: b(),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1752,16 +1870,16 @@ Widget _buildHitTestSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionHeader(
-            '13 // HIT-TEST', 'How the render tree resolves a tap'),
+        _sectionHeader('13 // HIT-TEST', 'How the render tree resolves a tap'),
         _prose(
-            'When a pointer event arrives at the engine, the RendererBinding '
-            'hands it to the GestureBinding, which asks the RenderView to '
-            'perform a hit-test from the root. The RenderView walks down '
-            'the render tree, transforming the pointer position into each '
-            'child\'s coordinate space until it reaches a leaf. Proxy boxes '
-            'usually pass through; shifted boxes adjust by their offset; '
-            'and Viewports translate the y-coordinate by their offset.pixels.'),
+          'When a pointer event arrives at the engine, the RendererBinding '
+          'hands it to the GestureBinding, which asks the RenderView to '
+          'perform a hit-test from the root. The RenderView walks down '
+          'the render tree, transforming the pointer position into each '
+          'child\'s coordinate space until it reaches a leaf. Proxy boxes '
+          'usually pass through; shifted boxes adjust by their offset; '
+          'and Viewports translate the y-coordinate by their offset.pixels.',
+        ),
         const SizedBox(height: 14),
         Container(
           padding: const EdgeInsets.all(14),
@@ -1780,12 +1898,13 @@ Widget _buildHitTestSection() {
         ),
         const SizedBox(height: 12),
         _proseDim(
-            'A viewport\'s hit-test is special: it translates the pointer '
-            'into scroll coordinates using its ViewportOffset before '
-            'asking its children. That is why a tap inside a scrolled '
-            'ListView correctly addresses the row that visually appears '
-            'under the finger, regardless of how far the list has been '
-            'scrolled.'),
+          'A viewport\'s hit-test is special: it translates the pointer '
+          'into scroll coordinates using its ViewportOffset before '
+          'asking its children. That is why a tap inside a scrolled '
+          'ListView correctly addresses the row that visually appears '
+          'under the finger, regardless of how far the list has been '
+          'scrolled.',
+        ),
       ],
     ),
   );
@@ -1850,13 +1969,15 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('FLUTTER RENDERING',
-                        style: TextStyle(
-                          color: _kAccentAmber,
-                          letterSpacing: 2.4,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 12,
-                        )),
+                    const Text(
+                      'FLUTTER RENDERING',
+                      style: TextStyle(
+                        color: _kAccentAmber,
+                        letterSpacing: 2.4,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     const Text(
                       'The View Layer of the Render Tree',

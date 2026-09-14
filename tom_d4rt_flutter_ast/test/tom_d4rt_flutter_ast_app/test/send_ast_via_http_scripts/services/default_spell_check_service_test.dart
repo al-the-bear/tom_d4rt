@@ -267,11 +267,7 @@ dynamic build(BuildContext context) {
           'DefaultSpellCheckService is the concrete implementation Flutter '
           'ships for the platforms where a system spell checker is '
           'available.',
-          style: TextStyle(
-            fontSize: 13.5,
-            color: _kInkBlue,
-            height: 1.45,
-          ),
+          style: TextStyle(fontSize: 13.5, color: _kInkBlue, height: 1.45),
         ),
         const SizedBox(height: 14.0),
         Row(
@@ -534,10 +530,7 @@ dynamic build(BuildContext context) {
           blurRadius: 10.0,
           offset: const Offset(0.0, 4.0),
         ),
-        BoxShadow(
-          color: _kSepia.withValues(alpha: 0.15),
-          blurRadius: 4.0,
-        ),
+        BoxShadow(color: _kSepia.withValues(alpha: 0.15), blurRadius: 4.0),
       ],
     ),
     child: Column(
@@ -751,11 +744,7 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.5, color: _kInkBlue, height: 1.4),
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: marginaliaCards,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: marginaliaCards),
       ],
     ),
   );
@@ -902,12 +891,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 18.0),
-        _hierarchyNode(
-          'SpellCheckService',
-          'abstract contract',
-          _kGilt,
-          true,
-        ),
+        _hierarchyNode('SpellCheckService', 'abstract contract', _kGilt, true),
         _hierarchyConnector(),
         Padding(
           padding: const EdgeInsets.only(left: 24.0),
@@ -963,10 +947,7 @@ dynamic build(BuildContext context) {
           blurRadius: 18.0,
           offset: const Offset(0.0, 8.0),
         ),
-        BoxShadow(
-          color: _kGilt.withValues(alpha: 0.18),
-          blurRadius: 28.0,
-        ),
+        BoxShadow(color: _kGilt.withValues(alpha: 0.18), blurRadius: 28.0),
       ],
     ),
     child: Column(
@@ -989,42 +970,42 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _manualSnippet(
           '// Construct the default service and ask the platform to check '
-              'a sentence.\n'
-              'final SpellCheckService service = DefaultSpellCheckService();\n'
-              'final Future<List<SuggestionSpan>?> request =\n'
-              '    service.fetchSpellCheckSuggestions(\n'
-              '      const Locale(\'en\', \'US\'),\n'
-              '      \'Ths is a tset of the spel cheker.\',\n'
-              '    );',
+          'a sentence.\n'
+          'final SpellCheckService service = DefaultSpellCheckService();\n'
+          'final Future<List<SuggestionSpan>?> request =\n'
+          '    service.fetchSpellCheckSuggestions(\n'
+          '      const Locale(\'en\', \'US\'),\n'
+          '      \'Ths is a tset of the spel cheker.\',\n'
+          '    );',
         ),
         const SizedBox(height: 12.0),
         _manualSnippet(
           '// Inspect a SuggestionSpan returned by the platform.\n'
-              'final SuggestionSpan span = SuggestionSpan(\n'
-              '  const TextRange(start: 9, end: 13),\n'
-              '  const <String>[\'test\', \'taste\', \'tsetse\'],\n'
-              ');\n'
-              'final TextRange r = span.range;\n'
-              'final List<String> words = span.suggestions;',
+          'final SuggestionSpan span = SuggestionSpan(\n'
+          '  const TextRange(start: 9, end: 13),\n'
+          '  const <String>[\'test\', \'taste\', \'tsetse\'],\n'
+          ');\n'
+          'final TextRange r = span.range;\n'
+          'final List<String> words = span.suggestions;',
         ),
         const SizedBox(height: 12.0),
         _manualSnippet(
           '// Slice the original text using TextRange helpers.\n'
-              'const String src = \'The quick brown fox\';\n'
-              'const TextRange r = TextRange(start: 4, end: 9);\n'
-              'final String before = r.textBefore(src); // "The "\n'
-              'final String inside = r.textInside(src); // "quick"\n'
-              'final String after  = r.textAfter(src);  // " brown fox"',
+          'const String src = \'The quick brown fox\';\n'
+          'const TextRange r = TextRange(start: 4, end: 9);\n'
+          'final String before = r.textBefore(src); // "The "\n'
+          'final String inside = r.textInside(src); // "quick"\n'
+          'final String after  = r.textAfter(src);  // " brown fox"',
         ),
         const SizedBox(height: 12.0),
         _manualSnippet(
           '// Wire the service into a Material TextField via\n'
-              '// SpellCheckConfiguration.\n'
-              'TextField(\n'
-              '  spellCheckConfiguration: SpellCheckConfiguration(\n'
-              '    spellCheckService: DefaultSpellCheckService(),\n'
-              '  ),\n'
-              ');',
+          '// SpellCheckConfiguration.\n'
+          'TextField(\n'
+          '  spellCheckConfiguration: SpellCheckConfiguration(\n'
+          '    spellCheckService: DefaultSpellCheckService(),\n'
+          '  ),\n'
+          ');',
         ),
       ],
     ),
@@ -1486,10 +1467,7 @@ Widget _lifecycleStep(
             color: color,
             shape: BoxShape.circle,
             boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: color.withValues(alpha: 0.4),
-                blurRadius: 6.0,
-              ),
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 6.0),
             ],
           ),
           child: Text(
@@ -1536,11 +1514,7 @@ Widget _lifecycleStep(
 Widget _lifecycleConnector() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 18.0),
-    child: Container(
-      width: 2.0,
-      height: 18.0,
-      color: _kSepiaLight,
-    ),
+    child: Container(width: 2.0, height: 18.0, color: _kSepiaLight),
   );
 }
 
@@ -1556,10 +1530,7 @@ Widget _marginaliumCard(_Marginalium m, SuggestionSpan span, int index) {
               ? _kForest.withValues(alpha: 0.15)
               : _kGilt.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: i == 0 ? _kForest : _kGilt,
-            width: 1.0,
-          ),
+          border: Border.all(color: i == 0 ? _kForest : _kGilt, width: 1.0),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -1597,10 +1568,7 @@ Widget _marginaliumCard(_Marginalium m, SuggestionSpan span, int index) {
           blurRadius: 8.0,
           offset: const Offset(0.0, 3.0),
         ),
-        BoxShadow(
-          color: _kProofRed.withValues(alpha: 0.06),
-          blurRadius: 16.0,
-        ),
+        BoxShadow(color: _kProofRed.withValues(alpha: 0.06), blurRadius: 16.0),
       ],
     ),
     child: Column(
@@ -1657,11 +1625,7 @@ Widget _marginaliumCard(_Marginalium m, SuggestionSpan span, int index) {
           ],
         ),
         const SizedBox(height: 4.0),
-        Wrap(
-          spacing: 6.0,
-          runSpacing: 6.0,
-          children: suggestionChips,
-        ),
+        Wrap(spacing: 6.0, runSpacing: 6.0, children: suggestionChips),
         const SizedBox(height: 10.0),
         Container(
           padding: const EdgeInsets.all(6.0),
@@ -1847,11 +1811,7 @@ Widget _hierarchyConnector() {
     padding: const EdgeInsets.only(left: 28.0, top: 4.0, bottom: 4.0),
     child: Row(
       children: <Widget>[
-        Container(
-          width: 2.0,
-          height: 18.0,
-          color: _kGiltLight,
-        ),
+        Container(width: 2.0, height: 18.0, color: _kGiltLight),
         const SizedBox(width: 8.0),
         const Icon(
           Icons.subdirectory_arrow_right,
@@ -1870,10 +1830,7 @@ Widget _manualSnippet(String code) {
     decoration: BoxDecoration(
       color: const Color(0xFF1B232E),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: _kGilt.withValues(alpha: 0.4),
-        width: 0.8,
-      ),
+      border: Border.all(color: _kGilt.withValues(alpha: 0.4), width: 0.8),
     ),
     child: Text(
       code,

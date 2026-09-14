@@ -23,7 +23,10 @@ Widget _sectionTitle(String index, String title, Color color) {
     padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
+        colors: <Color>[
+          color.withValues(alpha: 0.85),
+          color.withValues(alpha: 0.55),
+        ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -250,7 +253,11 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: <Color>[Color(0xFF1A237E), Color(0xFF512DA8), Color(0xFFAD1457)],
+          colors: <Color>[
+            Color(0xFF1A237E),
+            Color(0xFF512DA8),
+            Color(0xFFAD1457),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -309,7 +316,11 @@ dynamic build(BuildContext context) {
               'slot. The match rule is roughly: same runtimeType AND same key. '
               'No key means "match by position". A key means "match by identity '
               'of this widget no matter where it ended up in the list".',
-              style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.5),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13.0,
+                height: 1.5,
+              ),
             ),
           ),
           const SizedBox(height: 12.0),
@@ -331,23 +342,29 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 2: Anatomy of the Key hierarchy
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('2', 'Anatomy of the Key hierarchy', Colors.indigo));
-  sections.add(_narrative(
-    'Key is abstract.  Concrete keys split into two families: LocalKey — only '
-    'unique inside the immediate parent — and GlobalKey — globally unique and '
-    'capable of giving you access to the State/Element/Widget at the other end.',
-  ));
+  sections.add(
+    _sectionTitle('2', 'Anatomy of the Key hierarchy', Colors.indigo),
+  );
+  sections.add(
+    _narrative(
+      'Key is abstract.  Concrete keys split into two families: LocalKey — only '
+      'unique inside the immediate parent — and GlobalKey — globally unique and '
+      'capable of giving you access to the State/Element/Widget at the other end.',
+    ),
+  );
 
   final List<Map<String, Object>> anatomy = <Map<String, Object>>[
     <String, Object>{
       'name': 'Key (abstract)',
-      'desc': 'Root of the hierarchy. Factory `Key(\'x\')` returns a ValueKey<String>.',
+      'desc':
+          'Root of the hierarchy. Factory `Key(\'x\')` returns a ValueKey<String>.',
       'color': Colors.blueGrey,
       'icon': Icons.account_tree,
     },
     <String, Object>{
       'name': 'LocalKey (abstract)',
-      'desc': 'Identifies widgets within a sibling list. Scope = immediate parent.',
+      'desc':
+          'Identifies widgets within a sibling list. Scope = immediate parent.',
       'color': Colors.teal,
       'icon': Icons.folder_special,
     },
@@ -365,13 +382,15 @@ dynamic build(BuildContext context) {
     },
     <String, Object>{
       'name': 'UniqueKey',
-      'desc': 'Equal only to itself. Regenerating it forces fresh Element + State.',
+      'desc':
+          'Equal only to itself. Regenerating it forces fresh Element + State.',
       'color': Colors.amber,
       'icon': Icons.fingerprint,
     },
     <String, Object>{
       'name': 'GlobalKey<T extends State>',
-      'desc': 'Globally unique. Exposes currentState / currentContext / currentWidget.',
+      'desc':
+          'Globally unique. Exposes currentState / currentContext / currentWidget.',
       'color': Colors.deepOrange,
       'icon': Icons.public,
     },
@@ -389,7 +408,8 @@ dynamic build(BuildContext context) {
     },
     <String, Object>{
       'name': 'PageStorageKey<T>',
-      'desc': 'Special LocalKey read by PageStorage to persist scroll positions.',
+      'desc':
+          'Special LocalKey read by PageStorage to persist scroll positions.',
       'color': Colors.purple,
       'icon': Icons.save_alt,
     },
@@ -434,7 +454,10 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 2.0),
                   Text(
                     entry['desc'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade800,
+                    ),
                   ),
                 ],
               ),
@@ -448,15 +471,19 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 3: The classic reorder-list problem
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('3', 'The classic reorder-list problem', Colors.deepPurple));
-  sections.add(_narrative(
-    'Two side-by-side stateful lists hold identical coloured items.  A timer '
-    'swaps positions 0 and 1 every two seconds.  In the LEFT column the items '
-    'have no keys: Flutter matches by position, so the State (the colour you '
-    'see on the chip) stays welded to the slot — colours appear to stay still.  '
-    'In the RIGHT column we attach ValueKey(id): Flutter now matches by key, '
-    'so the State follows the item — colours swap with the items.',
-  ));
+  sections.add(
+    _sectionTitle('3', 'The classic reorder-list problem', Colors.deepPurple),
+  );
+  sections.add(
+    _narrative(
+      'Two side-by-side stateful lists hold identical coloured items.  A timer '
+      'swaps positions 0 and 1 every two seconds.  In the LEFT column the items '
+      'have no keys: Flutter matches by position, so the State (the colour you '
+      'see on the chip) stays welded to the slot — colours appear to stay still.  '
+      'In the RIGHT column we attach ValueKey(id): Flutter now matches by key, '
+      'so the State follows the item — colours swap with the items.',
+    ),
+  );
 
   sections.add(
     StatefulBuilder(
@@ -497,9 +524,15 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    _chip('NO KEYS — match by position', Colors.red, icon: Icons.close),
+                    _chip(
+                      'NO KEYS — match by position',
+                      Colors.red,
+                      icon: Icons.close,
+                    ),
                     const SizedBox(height: 6.0),
-                    ...leftItems.map<Widget>((_FakeItem it) => _fakeListTile(it)),
+                    ...leftItems.map<Widget>(
+                      (_FakeItem it) => _fakeListTile(it),
+                    ),
                     const SizedBox(height: 8.0),
                     Text(
                       'state stays in slot',
@@ -516,10 +549,15 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    _chip('ValueKey(id) — match by identity', Colors.green, icon: Icons.check),
+                    _chip(
+                      'ValueKey(id) — match by identity',
+                      Colors.green,
+                      icon: Icons.check,
+                    ),
                     const SizedBox(height: 6.0),
                     ...rightItems.map<Widget>(
-                      (_FakeItem it) => _fakeListTile(it, key: ValueKey<int>(it.id)),
+                      (_FakeItem it) =>
+                          _fakeListTile(it, key: ValueKey<int>(it.id)),
                     ),
                     const SizedBox(height: 8.0),
                     Text(
@@ -540,12 +578,22 @@ dynamic build(BuildContext context) {
     ),
   );
 
-  sections.add(_codeLine("ListView(children: items.map((i) => Tile(key: ValueKey(i.id), item: i)).toList())"));
+  sections.add(
+    _codeLine(
+      "ListView(children: items.map((i) => Tile(key: ValueKey(i.id), item: i)).toList())",
+    ),
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 4: ValueKey + ObjectKey — equality semantics
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('4', 'ValueKey & ObjectKey — equality semantics', Colors.green));
+  sections.add(
+    _sectionTitle(
+      '4',
+      'ValueKey & ObjectKey — equality semantics',
+      Colors.green,
+    ),
+  );
 
   final ValueKey<int> vkA1 = const ValueKey<int>(42);
   final ValueKey<int> vkA2 = const ValueKey<int>(42);
@@ -560,12 +608,14 @@ dynamic build(BuildContext context) {
   final ObjectKey okAlice2 = ObjectKey(userAlice); // same instance
   final ObjectKey okBob = ObjectKey(userBob);
 
-  sections.add(_narrative(
-    'ValueKey<T> uses operator== on the wrapped value.  Two ValueKey<int>(42) '
-    'instances are equal even though they were constructed separately.  '
-    'ObjectKey uses identical() on the wrapped reference — two ObjectKeys are '
-    'equal only when they wrap the *same* Dart object.',
-  ));
+  sections.add(
+    _narrative(
+      'ValueKey<T> uses operator== on the wrapped value.  Two ValueKey<int>(42) '
+      'instances are equal even though they were constructed separately.  '
+      'ObjectKey uses identical() on the wrapped reference — two ObjectKeys are '
+      'equal only when they wrap the *same* Dart object.',
+    ),
+  );
 
   sections.add(
     Container(
@@ -581,7 +631,10 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             'Live values',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade900),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.green.shade900,
+            ),
           ),
           const SizedBox(height: 8.0),
           Wrap(
@@ -589,9 +642,21 @@ dynamic build(BuildContext context) {
             runSpacing: 8.0,
             children: <Widget>[
               _chip('ValueKey<int>(42)', Colors.green, icon: Icons.numbers),
-              _chip('ValueKey<String>("alice")', Colors.green, icon: Icons.text_fields),
-              _chip('ValueKey<double>(3.14)', Colors.green, icon: Icons.percent),
-              _chip('ValueKey<bool>(true)', Colors.green, icon: Icons.check_box),
+              _chip(
+                'ValueKey<String>("alice")',
+                Colors.green,
+                icon: Icons.text_fields,
+              ),
+              _chip(
+                'ValueKey<double>(3.14)',
+                Colors.green,
+                icon: Icons.percent,
+              ),
+              _chip(
+                'ValueKey<bool>(true)',
+                Colors.green,
+                icon: Icons.check_box,
+              ),
             ],
           ),
           const SizedBox(height: 10.0),
@@ -645,11 +710,23 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Card A', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade900)),
+                Text(
+                  'Card A',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green.shade900,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
-                const Text("ValueKey('alice')", style: TextStyle(fontFamily: 'monospace', fontSize: 11.5)),
+                const Text(
+                  "ValueKey('alice')",
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11.5),
+                ),
                 const SizedBox(height: 6.0),
-                const Text('Will collapse with any other ValueKey wrapping "alice".', style: TextStyle(fontSize: 11.5)),
+                const Text(
+                  'Will collapse with any other ValueKey wrapping "alice".',
+                  style: TextStyle(fontSize: 11.5),
+                ),
               ],
             ),
           ),
@@ -667,11 +744,23 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Card B', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.lime.shade900)),
+                Text(
+                  'Card B',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.lime.shade900,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
-                const Text('ObjectKey(userAlice)', style: TextStyle(fontFamily: 'monospace', fontSize: 11.5)),
+                const Text(
+                  'ObjectKey(userAlice)',
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 11.5),
+                ),
                 const SizedBox(height: 6.0),
-                const Text('Equal only to another ObjectKey wrapping the *same* userAlice instance.', style: TextStyle(fontSize: 11.5)),
+                const Text(
+                  'Equal only to another ObjectKey wrapping the *same* userAlice instance.',
+                  style: TextStyle(fontSize: 11.5),
+                ),
               ],
             ),
           ),
@@ -683,13 +772,17 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 5: UniqueKey — state is always lost
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('5', 'UniqueKey — state is always lost', Colors.amber));
-  sections.add(_narrative(
-    'UniqueKey is equal only to itself.  Re-creating UniqueKey() in build() '
-    'guarantees that the previous Element cannot match the new widget — Flutter '
-    'tears it down and constructs a fresh State.  Useful when you *want* to '
-    'force re-initialisation (think: "reset this form to defaults").',
-  ));
+  sections.add(
+    _sectionTitle('5', 'UniqueKey — state is always lost', Colors.amber),
+  );
+  sections.add(
+    _narrative(
+      'UniqueKey is equal only to itself.  Re-creating UniqueKey() in build() '
+      'guarantees that the previous Element cannot match the new widget — Flutter '
+      'tears it down and constructs a fresh State.  Useful when you *want* to '
+      'force re-initialisation (think: "reset this form to defaults").',
+    ),
+  );
 
   final UniqueKey u1 = UniqueKey();
   final UniqueKey u2 = UniqueKey();
@@ -716,7 +809,10 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 8.0),
               Text(
                 'Counter wrapped in UniqueKey',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.amber.shade900),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber.shade900,
+                ),
               ),
             ],
           ),
@@ -734,7 +830,10 @@ dynamic build(BuildContext context) {
                 const SizedBox(width: 8.0),
                 Text(
                   'each rebuild ➜ fresh UniqueKey ➜ fresh State ➜ counter resets',
-                  style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900),
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    color: Colors.amber.shade900,
+                  ),
                 ),
               ],
             ),
@@ -752,23 +851,37 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 6: GlobalKey deep-dive — currentState + validate()
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('6', 'GlobalKey<FormState> — currentState in action', Colors.deepOrange));
-  sections.add(_narrative(
-    'A GlobalKey is the only key type from which you can reach back into the '
-    'tree.  GlobalKey<FormState> exposes currentState — Flutter populates it '
-    'once the Element has been built — and validate() runs every FormField '
-    'validator.  Below, the form holds a fake email field; a tap on Save '
-    'asks the key to validate.  When the email is empty the error chip lights '
-    'up; the data flow is: key.currentState!.validate() → state.errors[0].',
-  ));
+  sections.add(
+    _sectionTitle(
+      '6',
+      'GlobalKey<FormState> — currentState in action',
+      Colors.deepOrange,
+    ),
+  );
+  sections.add(
+    _narrative(
+      'A GlobalKey is the only key type from which you can reach back into the '
+      'tree.  GlobalKey<FormState> exposes currentState — Flutter populates it '
+      'once the Element has been built — and validate() runs every FormField '
+      'validator.  Below, the form holds a fake email field; a tap on Save '
+      'asks the key to validate.  When the email is empty the error chip lights '
+      'up; the data flow is: key.currentState!.validate() → state.errors[0].',
+    ),
+  );
 
   // We do not actually drive a Form here (the d4rt environment processes a
   // single build snapshot) but we *create* a GlobalKey<FormState> so the key
   // type, constructor, and debug label are exercised exactly like in
   // production code.
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>(debugLabel: 'demoForm');
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'demoScaffold');
-  final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>(debugLabel: 'demoNav');
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>(
+    debugLabel: 'demoForm',
+  );
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(
+    debugLabel: 'demoScaffold',
+  );
+  final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>(
+    debugLabel: 'demoNav',
+  );
 
   sections.add(
     Container(
@@ -796,9 +909,15 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 10.0),
-          _codeLine("final formKey     = GlobalKey<FormState>(debugLabel: 'demoForm');"),
-          _codeLine("final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'demoScaffold');"),
-          _codeLine("final navKey      = GlobalKey<NavigatorState>(debugLabel: 'demoNav');"),
+          _codeLine(
+            "final formKey     = GlobalKey<FormState>(debugLabel: 'demoForm');",
+          ),
+          _codeLine(
+            "final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'demoScaffold');",
+          ),
+          _codeLine(
+            "final navKey      = GlobalKey<NavigatorState>(debugLabel: 'demoNav');",
+          ),
           const SizedBox(height: 6.0),
           Text(
             'formKey runtimeType: ${formKey.runtimeType}',
@@ -829,23 +948,39 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('Fake email field', style: TextStyle(fontSize: 12.0)),
+                  const Text(
+                    'Fake email field',
+                    style: TextStyle(fontSize: 12.0),
+                  ),
                   const SizedBox(height: 4.0),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 8.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(6.0),
                       border: Border.all(color: Colors.grey.shade400),
                     ),
-                    child: const Text('(empty)', style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
+                    child: const Text(
+                      '(empty)',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8.0),
                   Row(
                     children: <Widget>[
                       _chip('Save', Colors.deepOrange, icon: Icons.save),
                       const SizedBox(width: 8.0),
-                      _chip('ERROR: email required', Colors.red, icon: Icons.error),
+                      _chip(
+                        'ERROR: email required',
+                        Colors.red,
+                        icon: Icons.error,
+                      ),
                     ],
                   ),
                 ],
@@ -853,7 +988,9 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 8.0),
-          _codeLine("if (formKey.currentState!.validate()) { formKey.currentState!.save(); }"),
+          _codeLine(
+            "if (formKey.currentState!.validate()) { formKey.currentState!.save(); }",
+          ),
         ],
       ),
     ),
@@ -863,21 +1000,27 @@ dynamic build(BuildContext context) {
   final State<StatefulWidget>? touchState = formKey.currentState;
   final BuildContext? touchCtx = formKey.currentContext;
   final Widget? touchWidget = formKey.currentWidget;
-  debugPrint('GlobalKey pre-mount probe: '
-      'state=$touchState ctx=$touchCtx widget=$touchWidget '
-      'scaffold=${scaffoldKey.currentState} nav=${navKey.currentState}');
+  debugPrint(
+    'GlobalKey pre-mount probe: '
+    'state=$touchState ctx=$touchCtx widget=$touchWidget '
+    'scaffold=${scaffoldKey.currentState} nav=${navKey.currentState}',
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 7: GlobalObjectKey + LabeledGlobalKey
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('7', 'GlobalObjectKey & LabeledGlobalKey', Colors.pink));
-  sections.add(_narrative(
-    'GlobalObjectKey ties a global identity to an arbitrary object — two '
-    'GlobalObjectKeys collide iff they wrap the same object.  LabeledGlobalKey '
-    'is the concrete subtype created by `GlobalKey(debugLabel: ...)`; the label '
-    'is purely for diagnostics.  If two identical GlobalKeys live in the tree '
-    'at the same time Flutter throws — section 9 covers that anti-pattern.',
-  ));
+  sections.add(
+    _sectionTitle('7', 'GlobalObjectKey & LabeledGlobalKey', Colors.pink),
+  );
+  sections.add(
+    _narrative(
+      'GlobalObjectKey ties a global identity to an arbitrary object — two '
+      'GlobalObjectKeys collide iff they wrap the same object.  LabeledGlobalKey '
+      'is the concrete subtype created by `GlobalKey(debugLabel: ...)`; the label '
+      'is purely for diagnostics.  If two identical GlobalKeys live in the tree '
+      'at the same time Flutter throws — section 9 covers that anti-pattern.',
+    ),
+  );
 
   final Object accountAlice = Object();
   final Object accountBob = Object();
@@ -907,20 +1050,41 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             'GlobalObjectKey equality',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink.shade900),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.pink.shade900,
+            ),
           ),
           const SizedBox(height: 4.0),
-          Text('gokAlice1 == gokAlice2 ➜ ${gokAlice1 == gokAlice2}', style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
-          Text('gokAlice1 == gokBob    ➜ ${gokAlice1 == gokBob}', style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
+          Text(
+            'gokAlice1 == gokAlice2 ➜ ${gokAlice1 == gokAlice2}',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+          ),
+          Text(
+            'gokAlice1 == gokBob    ➜ ${gokAlice1 == gokBob}',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+          ),
           const SizedBox(height: 10.0),
           Text(
             'LabeledGlobalKey identity',
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink.shade900),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.pink.shade900,
+            ),
           ),
           const SizedBox(height: 4.0),
-          Text('labA.toString() ➜ $labA', style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
-          Text('labB.toString() ➜ $labB', style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
-          Text('labA == labB    ➜ ${labA == labB}  (different instances ⇒ never equal)', style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
+          Text(
+            'labA.toString() ➜ $labA',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+          ),
+          Text(
+            'labB.toString() ➜ $labB',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+          ),
+          Text(
+            'labA == labB    ➜ ${labA == labB}  (different instances ⇒ never equal)',
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+          ),
         ],
       ),
     ),
@@ -943,9 +1107,19 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(Icons.person, color: Colors.pink.shade700),
-                Text('GlobalObjectKey(accountAlice)', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.pink.shade900, fontSize: 11.5)),
+                Text(
+                  'GlobalObjectKey(accountAlice)',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.pink.shade900,
+                    fontSize: 11.5,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
-                const Text('Collides with any other GOK wrapping the same account.', style: TextStyle(fontSize: 11.0)),
+                const Text(
+                  'Collides with any other GOK wrapping the same account.',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),
@@ -964,9 +1138,19 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Icon(Icons.label, color: Colors.red.shade700),
-                Text('LabeledGlobalKey("panel-A")', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red.shade900, fontSize: 11.5)),
+                Text(
+                  'LabeledGlobalKey("panel-A")',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red.shade900,
+                    fontSize: 11.5,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
-                const Text('Debug-friendly; equality follows reference identity.', style: TextStyle(fontSize: 11.0)),
+                const Text(
+                  'Debug-friendly; equality follows reference identity.',
+                  style: TextStyle(fontSize: 11.0),
+                ),
               ],
             ),
           ),
@@ -978,16 +1162,28 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 8: PageStorageKey — scroll preservation
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('8', 'PageStorageKey — scroll-position memory', Colors.purple));
-  sections.add(_narrative(
-    'PageStorageKey<T> is a LocalKey that PageStorage reads to persist things '
-    'like scroll offsets across rebuilds.  In a TabView, switching tabs '
-    'rebuilds the body — without a PageStorageKey scroll position resets, with '
-    'one it is restored.  Below: two tabs render the same list; only the '
-    'left one carries `PageStorageKey("list1")`.',
-  ));
+  sections.add(
+    _sectionTitle(
+      '8',
+      'PageStorageKey — scroll-position memory',
+      Colors.purple,
+    ),
+  );
+  sections.add(
+    _narrative(
+      'PageStorageKey<T> is a LocalKey that PageStorage reads to persist things '
+      'like scroll offsets across rebuilds.  In a TabView, switching tabs '
+      'rebuilds the body — without a PageStorageKey scroll position resets, with '
+      'one it is restored.  Below: two tabs render the same list; only the '
+      'left one carries `PageStorageKey("list1")`.',
+    ),
+  );
 
-  Widget buildScrollList({Key? key, required Color color, required String title}) {
+  Widget buildScrollList({
+    Key? key,
+    required Color color,
+    required String title,
+  }) {
     return Container(
       margin: const EdgeInsets.all(6.0),
       padding: const EdgeInsets.all(8.0),
@@ -1000,7 +1196,14 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 12.5)),
+          Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: color,
+              fontSize: 12.5,
+            ),
+          ),
           const SizedBox(height: 6.0),
           Expanded(
             child: ListView.builder(
@@ -1009,7 +1212,10 @@ dynamic build(BuildContext context) {
               itemBuilder: (BuildContext lc, int idx) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 2.0),
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 5.0,
+                  ),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(4.0),
@@ -1039,21 +1245,22 @@ dynamic build(BuildContext context) {
           ),
         ),
         Expanded(
-          child: buildScrollList(
-            color: Colors.grey,
-            title: 'without key',
-          ),
+          child: buildScrollList(color: Colors.grey, title: 'without key'),
         ),
       ],
     ),
   );
 
-  sections.add(_codeLine("ListView(key: const PageStorageKey('list1'), children: ...)"));
+  sections.add(
+    _codeLine("ListView(key: const PageStorageKey('list1'), children: ...)"),
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 9: Hot-tip — when NOT to use GlobalKey
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('9', 'When NOT to reach for GlobalKey', Colors.red));
+  sections.add(
+    _sectionTitle('9', 'When NOT to reach for GlobalKey', Colors.red),
+  );
   sections.add(
     Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
@@ -1072,16 +1279,34 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 8.0),
               Text(
                 'Anti-pattern checklist',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red.shade900),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red.shade900,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 6.0),
-          _bullet('Do not create a GlobalKey inside build() — every rebuild yields a new key and the Element is torn down each frame.', Colors.red),
-          _bullet('Do not use GlobalKey just to read another widget\'s value: use a callback, InheritedWidget, ChangeNotifier or Provider instead.', Colors.red),
-          _bullet('Do not move a GlobalKeyed widget between parents in a way that leaves two copies live at the same time — Flutter will assert "Multiple widgets used the same GlobalKey".', Colors.red),
-          _bullet('Do not use GlobalKey across packages or features as a quick "service locator".', Colors.red),
-          _bullet('Prefer ValueKey/ObjectKey for ordinary list reordering; reserve GlobalKey for true cross-tree identity (Form, Navigator, Scaffold).', Colors.red),
+          _bullet(
+            'Do not create a GlobalKey inside build() — every rebuild yields a new key and the Element is torn down each frame.',
+            Colors.red,
+          ),
+          _bullet(
+            'Do not use GlobalKey just to read another widget\'s value: use a callback, InheritedWidget, ChangeNotifier or Provider instead.',
+            Colors.red,
+          ),
+          _bullet(
+            'Do not move a GlobalKeyed widget between parents in a way that leaves two copies live at the same time — Flutter will assert "Multiple widgets used the same GlobalKey".',
+            Colors.red,
+          ),
+          _bullet(
+            'Do not use GlobalKey across packages or features as a quick "service locator".',
+            Colors.red,
+          ),
+          _bullet(
+            'Prefer ValueKey/ObjectKey for ordinary list reordering; reserve GlobalKey for true cross-tree identity (Form, Navigator, Scaffold).',
+            Colors.red,
+          ),
         ],
       ),
     ),
@@ -1090,19 +1315,53 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 10: Hash & equality reference table
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('10', 'Hash & equality reference table', Colors.blueGrey));
+  sections.add(
+    _sectionTitle('10', 'Hash & equality reference table', Colors.blueGrey),
+  );
 
   final List<List<String>> hashRows = <List<String>>[
-    <String>['ValueKey<int>(1)', 'ValueKey<int>(1)', '${const ValueKey<int>(1) == const ValueKey<int>(1)}'],
-    <String>['ValueKey<int>(1)', 'ValueKey<int>(2)', '${const ValueKey<int>(1) == const ValueKey<int>(2)}'],
-    <String>['ValueKey<String>("a")', 'ValueKey<String>("a")', '${const ValueKey<String>('a') == const ValueKey<String>('a')}'],
-    <String>['ObjectKey(userAlice)', 'ObjectKey(userAlice)', '${okAlice1 == okAlice2}'],
-    <String>['ObjectKey(userAlice)', 'ObjectKey(userBob)', '${okAlice1 == okBob}'],
+    <String>[
+      'ValueKey<int>(1)',
+      'ValueKey<int>(1)',
+      '${const ValueKey<int>(1) == const ValueKey<int>(1)}',
+    ],
+    <String>[
+      'ValueKey<int>(1)',
+      'ValueKey<int>(2)',
+      '${const ValueKey<int>(1) == const ValueKey<int>(2)}',
+    ],
+    <String>[
+      'ValueKey<String>("a")',
+      'ValueKey<String>("a")',
+      '${const ValueKey<String>('a') == const ValueKey<String>('a')}',
+    ],
+    <String>[
+      'ObjectKey(userAlice)',
+      'ObjectKey(userAlice)',
+      '${okAlice1 == okAlice2}',
+    ],
+    <String>[
+      'ObjectKey(userAlice)',
+      'ObjectKey(userBob)',
+      '${okAlice1 == okBob}',
+    ],
     <String>['UniqueKey()', 'UniqueKey()', '${u1 == u2}'],
     <String>['UniqueKey() ≡ self', 'self', '${u1 == u1}'],
-    <String>['GlobalObjectKey(a)', 'GlobalObjectKey(a)', '${gokAlice1 == gokAlice2}'],
-    <String>['GlobalObjectKey(a)', 'GlobalObjectKey(b)', '${gokAlice1 == gokBob}'],
-    <String>['LabeledGlobalKey("panel-A")', 'LabeledGlobalKey("panel-A")', '${labA == LabeledGlobalKey<State<StatefulWidget>>('panel-A')}'],
+    <String>[
+      'GlobalObjectKey(a)',
+      'GlobalObjectKey(a)',
+      '${gokAlice1 == gokAlice2}',
+    ],
+    <String>[
+      'GlobalObjectKey(a)',
+      'GlobalObjectKey(b)',
+      '${gokAlice1 == gokBob}',
+    ],
+    <String>[
+      'LabeledGlobalKey("panel-A")',
+      'LabeledGlobalKey("panel-A")',
+      '${labA == LabeledGlobalKey<State<StatefulWidget>>('panel-A')}',
+    ],
   ];
 
   sections.add(
@@ -1118,9 +1377,34 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Expanded(child: Text('A', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey.shade900))),
-              Expanded(child: Text('B', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey.shade900))),
-              SizedBox(width: 70.0, child: Text('a == b', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey.shade900))),
+              Expanded(
+                child: Text(
+                  'A',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'B',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 70.0,
+                child: Text(
+                  'a == b',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blueGrey.shade900,
+                  ),
+                ),
+              ),
             ],
           ),
           const Divider(height: 12.0),
@@ -1129,8 +1413,24 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.symmetric(vertical: 3.0),
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text(row[0], style: const TextStyle(fontFamily: 'monospace', fontSize: 11.5))),
-                  Expanded(child: Text(row[1], style: const TextStyle(fontFamily: 'monospace', fontSize: 11.5))),
+                  Expanded(
+                    child: Text(
+                      row[0],
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11.5,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      row[1],
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11.5,
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     width: 70.0,
                     child: _chip(
@@ -1151,23 +1451,34 @@ dynamic build(BuildContext context) {
   // --------------------------------------------------------------------------
   // SECTION 11: Real-world micro-app: kanban-style 3-column board
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('11', 'Kanban board — keyed vs unkeyed reorder', Colors.cyan));
-  sections.add(_narrative(
-    'Three columns: TODO, DOING, DONE.  Each card represents a task with its '
-    'own colour and tap-count.  The LEFT board uses unkeyed cards: when you '
-    'drag a task across columns the state stays at the old position, leaking '
-    'between unrelated tasks.  The RIGHT board uses ValueKey(task.id): cards '
-    'preserve their identity no matter where they land — exactly what users '
-    'expect from a kanban.',
-  ));
+  sections.add(
+    _sectionTitle('11', 'Kanban board — keyed vs unkeyed reorder', Colors.cyan),
+  );
+  sections.add(
+    _narrative(
+      'Three columns: TODO, DOING, DONE.  Each card represents a task with its '
+      'own colour and tap-count.  The LEFT board uses unkeyed cards: when you '
+      'drag a task across columns the state stays at the old position, leaking '
+      'between unrelated tasks.  The RIGHT board uses ValueKey(task.id): cards '
+      'preserve their identity no matter where they land — exactly what users '
+      'expect from a kanban.',
+    ),
+  );
 
   List<_FakeItem> tasksFor(String column) {
     return demoItems
-        .where((_FakeItem t) => t.label.startsWith(column.substring(0, 1)) || column == 'TODO')
+        .where(
+          (_FakeItem t) =>
+              t.label.startsWith(column.substring(0, 1)) || column == 'TODO',
+        )
         .toList();
   }
 
-  Widget buildBoard({required String name, required bool keyed, required Color accent}) {
+  Widget buildBoard({
+    required String name,
+    required bool keyed,
+    required Color accent,
+  }) {
     Widget col(String title, List<_FakeItem> tasks, Color colColor) {
       return Expanded(
         child: Container(
@@ -1181,10 +1492,18 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: colColor, fontSize: 11.5)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: colColor,
+                  fontSize: 11.5,
+                ),
+              ),
               const SizedBox(height: 4.0),
               ...tasks.map<Widget>(
-                (_FakeItem t) => _fakeListTile(t, key: keyed ? ValueKey<int>(t.id) : null),
+                (_FakeItem t) =>
+                    _fakeListTile(t, key: keyed ? ValueKey<int>(t.id) : null),
               ),
             ],
           ),
@@ -1207,7 +1526,10 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Icon(keyed ? Icons.check_circle : Icons.error, color: accent),
               const SizedBox(width: 6.0),
-              Text(name, style: TextStyle(fontWeight: FontWeight.bold, color: accent)),
+              Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.bold, color: accent),
+              ),
             ],
           ),
           const SizedBox(height: 8.0),
@@ -1215,8 +1537,16 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               col('TODO', tasksFor('TODO').take(2).toList(), Colors.blue),
-              col('DOING', tasksFor('TODO').skip(2).take(1).toList(), Colors.orange),
-              col('DONE', tasksFor('TODO').skip(3).take(1).toList(), Colors.green),
+              col(
+                'DOING',
+                tasksFor('TODO').skip(2).take(1).toList(),
+                Colors.orange,
+              ),
+              col(
+                'DONE',
+                tasksFor('TODO').skip(3).take(1).toList(),
+                Colors.green,
+              ),
             ],
           ),
         ],
@@ -1224,24 +1554,56 @@ dynamic build(BuildContext context) {
     );
   }
 
-  sections.add(buildBoard(name: 'Unkeyed board (broken)', keyed: false, accent: Colors.red));
-  sections.add(buildBoard(name: 'Keyed board (correct)', keyed: true, accent: Colors.green));
+  sections.add(
+    buildBoard(
+      name: 'Unkeyed board (broken)',
+      keyed: false,
+      accent: Colors.red,
+    ),
+  );
+  sections.add(
+    buildBoard(
+      name: 'Keyed board (correct)',
+      keyed: true,
+      accent: Colors.green,
+    ),
+  );
 
   // --------------------------------------------------------------------------
   // SECTION 12: Cheat sheet
   // --------------------------------------------------------------------------
-  sections.add(_sectionTitle('12', 'Cheat sheet — pick the right key', Colors.teal));
+  sections.add(
+    _sectionTitle('12', 'Cheat sheet — pick the right key', Colors.teal),
+  );
 
   final List<List<String>> cheat = <List<String>>[
     <String>['ValueKey<T>', 'Reorderable list rows with a stable scalar id'],
-    <String>['ObjectKey', 'Reorderable list rows whose model has no stable id field'],
+    <String>[
+      'ObjectKey',
+      'Reorderable list rows whose model has no stable id field',
+    ],
     <String>['UniqueKey', 'Forcing a subtree to be torn down and recreated'],
-    <String>['GlobalKey<FormState>', 'Triggering validate/save/reset from outside the form'],
-    <String>['GlobalKey<NavigatorState>', 'Pushing routes from outside the Navigator'],
-    <String>['GlobalKey<ScaffoldState>', 'Opening drawers / showing SnackBars from outside'],
-    <String>['GlobalObjectKey', 'Cross-tree identity tied to a domain object (e.g. logged-in user)'],
+    <String>[
+      'GlobalKey<FormState>',
+      'Triggering validate/save/reset from outside the form',
+    ],
+    <String>[
+      'GlobalKey<NavigatorState>',
+      'Pushing routes from outside the Navigator',
+    ],
+    <String>[
+      'GlobalKey<ScaffoldState>',
+      'Opening drawers / showing SnackBars from outside',
+    ],
+    <String>[
+      'GlobalObjectKey',
+      'Cross-tree identity tied to a domain object (e.g. logged-in user)',
+    ],
     <String>['LabeledGlobalKey', 'GlobalKey with a human-readable debug label'],
-    <String>['PageStorageKey', 'Persisting scroll position across tab/page switches'],
+    <String>[
+      'PageStorageKey',
+      'Persisting scroll position across tab/page switches',
+    ],
   ];
 
   sections.add(
@@ -1261,8 +1623,25 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Expanded(child: Text('Key', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal.shade900))),
-              Expanded(flex: 2, child: Text('Use it when…', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.teal.shade900))),
+              Expanded(
+                child: Text(
+                  'Key',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal.shade900,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Use it when…',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal.shade900,
+                  ),
+                ),
+              ),
             ],
           ),
           const Divider(),
@@ -1275,7 +1654,10 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Text(
                       r[0],
-                      style: const TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12.0,
+                      ),
                     ),
                   ),
                   Expanded(
@@ -1300,7 +1682,9 @@ dynamic build(BuildContext context) {
   debugPrint('ObjectKey(alice)==ObjectKey(alice): ${okAlice1 == okAlice2}');
   debugPrint('ObjectKey(alice)==ObjectKey(bob): ${okAlice1 == okBob}');
   debugPrint('UniqueKey()==UniqueKey(): ${u1 == u2}');
-  debugPrint('GlobalObjectKey(a)==GlobalObjectKey(a): ${gokAlice1 == gokAlice2}');
+  debugPrint(
+    'GlobalObjectKey(a)==GlobalObjectKey(a): ${gokAlice1 == gokAlice2}',
+  );
   debugPrint('GlobalObjectKey(a)==GlobalObjectKey(b): ${gokAlice1 == gokBob}');
 
   // Optional: schedule a tear-down log so a real Timer use is exercised

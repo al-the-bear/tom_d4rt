@@ -73,11 +73,7 @@ Widget _labelChip(String label, Color color) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        fontSize: 10,
-        fontWeight: FontWeight.w600,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color),
     ),
   );
 }
@@ -103,43 +99,84 @@ Widget _miniScaffold({
   bool mini = false;
 
   if (location == FloatingActionButtonLocation.endFloat) {
-    ax = 1.0; ay = 1.0;
+    ax = 1.0;
+    ay = 1.0;
   } else if (location == FloatingActionButtonLocation.centerFloat) {
-    ax = 0.0; ay = 1.0;
+    ax = 0.0;
+    ay = 1.0;
   } else if (location == FloatingActionButtonLocation.startFloat) {
-    ax = -1.0; ay = 1.0;
+    ax = -1.0;
+    ay = 1.0;
   } else if (location == FloatingActionButtonLocation.endDocked) {
-    ax = 1.0; ay = 1.0; docked = true;
+    ax = 1.0;
+    ay = 1.0;
+    docked = true;
   } else if (location == FloatingActionButtonLocation.centerDocked) {
-    ax = 0.0; ay = 1.0; docked = true;
+    ax = 0.0;
+    ay = 1.0;
+    docked = true;
   } else if (location == FloatingActionButtonLocation.startDocked) {
-    ax = -1.0; ay = 1.0; docked = true;
+    ax = -1.0;
+    ay = 1.0;
+    docked = true;
   } else if (location == FloatingActionButtonLocation.endTop) {
-    ax = 1.0; ay = -1.0; top = true;
+    ax = 1.0;
+    ay = -1.0;
+    top = true;
   } else if (location == FloatingActionButtonLocation.centerTop) {
-    ax = 0.0; ay = -1.0; top = true;
+    ax = 0.0;
+    ay = -1.0;
+    top = true;
   } else if (location == FloatingActionButtonLocation.startTop) {
-    ax = -1.0; ay = -1.0; top = true;
+    ax = -1.0;
+    ay = -1.0;
+    top = true;
   } else if (location == FloatingActionButtonLocation.endContained) {
-    ax = 1.0; ay = 1.0; contained = true;
+    ax = 1.0;
+    ay = 1.0;
+    contained = true;
   } else if (location == FloatingActionButtonLocation.miniEndFloat) {
-    ax = 1.0; ay = 1.0; mini = true;
+    ax = 1.0;
+    ay = 1.0;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniCenterFloat) {
-    ax = 0.0; ay = 1.0; mini = true;
+    ax = 0.0;
+    ay = 1.0;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniStartFloat) {
-    ax = -1.0; ay = 1.0; mini = true;
+    ax = -1.0;
+    ay = 1.0;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniEndDocked) {
-    ax = 1.0; ay = 1.0; docked = true; mini = true;
+    ax = 1.0;
+    ay = 1.0;
+    docked = true;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniCenterDocked) {
-    ax = 0.0; ay = 1.0; docked = true; mini = true;
+    ax = 0.0;
+    ay = 1.0;
+    docked = true;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniStartDocked) {
-    ax = -1.0; ay = 1.0; docked = true; mini = true;
+    ax = -1.0;
+    ay = 1.0;
+    docked = true;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniEndTop) {
-    ax = 1.0; ay = -1.0; top = true; mini = true;
+    ax = 1.0;
+    ay = -1.0;
+    top = true;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniCenterTop) {
-    ax = 0.0; ay = -1.0; top = true; mini = true;
+    ax = 0.0;
+    ay = -1.0;
+    top = true;
+    mini = true;
   } else if (location == FloatingActionButtonLocation.miniStartTop) {
-    ax = -1.0; ay = -1.0; top = true; mini = true;
+    ax = -1.0;
+    ay = -1.0;
+    top = true;
+    mini = true;
   }
 
   final double fabSize = mini ? 28 : 38;
@@ -443,10 +480,14 @@ Widget _buildAnimatorCatalog() {
   // Show the canonical scaling and rotation transform values that
   // FloatingActionButtonAnimator.scaling would compute. We use a Tween
   // and .transform(t) — never .animate(...).value.
-  final double scaleValue =
-      Tween<double>(begin: 0.0, end: 1.0).transform(snapshot.value);
-  final double rotateValue =
-      Tween<double>(begin: -0.125, end: 0.0).transform(snapshot.value);
+  final double scaleValue = Tween<double>(
+    begin: 0.0,
+    end: 1.0,
+  ).transform(snapshot.value);
+  final double rotateValue = Tween<double>(
+    begin: -0.125,
+    end: 0.0,
+  ).transform(snapshot.value);
 
   Widget cell(String label, Widget child, String subtitle) {
     return Expanded(
@@ -463,10 +504,7 @@ Widget _buildAnimatorCatalog() {
           children: <Widget>[
             Text(
               label,
-              style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
             Center(child: child),
@@ -643,9 +681,7 @@ Widget _buildSnackBarGallery() {
     backgroundColor: const Color(0xFF1565C0),
     margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
     elevation: 6,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     showCloseIcon: true,
     closeIconColor: Colors.white,
   );
@@ -804,8 +840,8 @@ Widget _buildBehaviorComparison() {
   }
 
   // Messenger reference card (no live messenger used).
-  final ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? noController =
-      null;
+  final ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?
+  noController = null;
 
   Widget messengerReference() {
     return Container(
@@ -929,11 +965,7 @@ Widget _buildMaterialBannerGallery() {
               ),
             ),
           ),
-          Material(
-            elevation: 0,
-            color: Colors.transparent,
-            child: banner,
-          ),
+          Material(elevation: 0, color: Colors.transparent, child: banner),
         ],
       ),
     );
@@ -977,9 +1009,7 @@ Widget _buildMaterialBannerGallery() {
     content: const Text("You're offline. Changes will sync when reconnected."),
     leading: const Icon(Icons.cloud_off, color: Color(0xFF455A64)),
     backgroundColor: const Color(0xFFECEFF1),
-    actions: <Widget>[
-      TextButton(onPressed: () {}, child: const Text('RETRY')),
-    ],
+    actions: <Widget>[TextButton(onPressed: () {}, child: const Text('RETRY'))],
     dividerColor: const Color(0xFF90A4AE),
   );
 
@@ -1018,11 +1048,11 @@ Widget _buildMaterialBannerGallery() {
   // Enumerate the closed-reason values for material banners as well.
   final List<MaterialBannerClosedReason> closedReasons =
       <MaterialBannerClosedReason>[
-    MaterialBannerClosedReason.dismiss,
-    MaterialBannerClosedReason.swipe,
-    MaterialBannerClosedReason.hide,
-    MaterialBannerClosedReason.remove,
-  ];
+        MaterialBannerClosedReason.dismiss,
+        MaterialBannerClosedReason.swipe,
+        MaterialBannerClosedReason.hide,
+        MaterialBannerClosedReason.remove,
+      ];
 
   final List<Widget> reasonChips = <Widget>[];
   for (var i = 0; i < closedReasons.length; i++) {
@@ -1090,10 +1120,7 @@ Widget _buildFabCatalog() {
           const SizedBox(height: 6),
           Text(
             label,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
           ),
           Text(
             detail,
@@ -1221,10 +1248,7 @@ Widget _buildLayoutReference() {
           Expanded(
             child: Text(
               right,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xFF37474F),
-              ),
+              style: const TextStyle(fontSize: 12, color: Color(0xFF37474F)),
             ),
           ),
         ],
@@ -1390,20 +1414,34 @@ Widget _buildLayoutReference() {
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 8),
-            row('FAB + SnackBar fixed',
-                'FAB lifts to clear the SnackBar height.'),
-            row('FAB + SnackBar floating',
-                'SnackBar floats above the FAB; FAB stays put.'),
-            row('FAB + BottomNavigationBar',
-                'endFloat sits above the bar; endDocked overlaps the seam.'),
-            row('FAB + BottomAppBar (notched)',
-                'centerDocked is canonical so the notch lines up.'),
-            row('FAB + persistent bottom sheet',
-                'FAB lifts above the sheet automatically.'),
-            row('FAB + extendBody:true',
-                'Body extends behind the bar; FAB position unaffected.'),
-            row('FAB + extendBodyBehindAppBar:true',
-                '*Top FAB variants overlap the AppBar gradient.'),
+            row(
+              'FAB + SnackBar fixed',
+              'FAB lifts to clear the SnackBar height.',
+            ),
+            row(
+              'FAB + SnackBar floating',
+              'SnackBar floats above the FAB; FAB stays put.',
+            ),
+            row(
+              'FAB + BottomNavigationBar',
+              'endFloat sits above the bar; endDocked overlaps the seam.',
+            ),
+            row(
+              'FAB + BottomAppBar (notched)',
+              'centerDocked is canonical so the notch lines up.',
+            ),
+            row(
+              'FAB + persistent bottom sheet',
+              'FAB lifts above the sheet automatically.',
+            ),
+            row(
+              'FAB + extendBody:true',
+              'Body extends behind the bar; FAB position unaffected.',
+            ),
+            row(
+              'FAB + extendBodyBehindAppBar:true',
+              '*Top FAB variants overlap the AppBar gradient.',
+            ),
           ],
         ),
       ),
@@ -1442,9 +1480,7 @@ Widget _buildThemingSection() {
     disabledActionTextColor: const Color(0xFF90CAF9),
     behavior: SnackBarBehavior.floating,
     elevation: 10,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     showCloseIcon: true,
     closeIconColor: Colors.white,
     insetPadding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
@@ -1468,10 +1504,7 @@ Widget _buildThemingSection() {
 
   final MaterialBannerThemeData bannerTheme = MaterialBannerThemeData(
     backgroundColor: const Color(0xFFFFF8E1),
-    contentTextStyle: const TextStyle(
-      color: Color(0xFF6D4C41),
-      fontSize: 13,
-    ),
+    contentTextStyle: const TextStyle(color: Color(0xFF6D4C41), fontSize: 13),
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     dividerColor: const Color(0xFFD7CCC8),
     elevation: 1,
@@ -1483,8 +1516,7 @@ Widget _buildThemingSection() {
         t.contentTextStyle ?? const TextStyle(color: Colors.white);
     final Color actionColor = t.actionTextColor ?? Colors.amber;
     final BorderRadius radius = t.shape is RoundedRectangleBorder
-        ? ((t.shape as RoundedRectangleBorder).borderRadius
-            as BorderRadius)
+        ? ((t.shape as RoundedRectangleBorder).borderRadius as BorderRadius)
         : BorderRadius.zero;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -1546,14 +1578,8 @@ Widget _buildThemingSection() {
             spacing: 6,
             runSpacing: 4,
             children: <Widget>[
-              _labelChip(
-                'behavior=${t.behavior}',
-                const Color(0xFF1565C0),
-              ),
-              _labelChip(
-                'elevation=${t.elevation}',
-                const Color(0xFF6A1B9A),
-              ),
+              _labelChip('behavior=${t.behavior}', const Color(0xFF1565C0)),
+              _labelChip('elevation=${t.elevation}', const Color(0xFF6A1B9A)),
               _labelChip(
                 'showClose=${t.showCloseIcon}',
                 const Color(0xFF2E7D32),
@@ -1669,14 +1695,19 @@ Widget _buildSummary() {
     <String>['FAB locations (named)', '20 named values'],
     <String>['FAB animators', 'scaling, noAnimation'],
     <String>['SnackBarBehavior', 'fixed, floating'],
-    <String>['SnackBarClosedReason',
-        'action, dismiss, swipe, hide, remove, timeout'],
-    <String>['MaterialBannerClosedReason',
-        'dismiss, swipe, hide, remove'],
-    <String>['Messenger entry points',
-        'showSnackBar, hideCurrentSnackBar, removeCurrentSnackBar, clearSnackBars'],
-    <String>['Banner entry points',
-        'showMaterialBanner, hideCurrentMaterialBanner, removeCurrentMaterialBanner, clearMaterialBanners'],
+    <String>[
+      'SnackBarClosedReason',
+      'action, dismiss, swipe, hide, remove, timeout',
+    ],
+    <String>['MaterialBannerClosedReason', 'dismiss, swipe, hide, remove'],
+    <String>[
+      'Messenger entry points',
+      'showSnackBar, hideCurrentSnackBar, removeCurrentSnackBar, clearSnackBars',
+    ],
+    <String>[
+      'Banner entry points',
+      'showMaterialBanner, hideCurrentMaterialBanner, removeCurrentMaterialBanner, clearMaterialBanners',
+    ],
     <String>['Theming', 'SnackBarThemeData + MaterialBannerThemeData'],
   ];
 
@@ -1821,19 +1852,7 @@ dynamic build(BuildContext context) {
     child: Material(
       color: const Color(0xFFFAFAFA),
       child: ListView(
-        children: <Widget>[
-          header,
-          s1,
-          s2,
-          s3,
-          s4,
-          s5,
-          s6,
-          s7,
-          s8,
-          s9,
-          footer,
-        ],
+        children: <Widget>[header, s1, s2, s3, s4, s5, s6, s7, s8, s9, footer],
       ),
     ),
   );

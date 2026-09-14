@@ -186,50 +186,47 @@ class _ScrollPositionZooHomeState extends State<_ScrollPositionZooHome> {
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 28),
           children: <Widget>[
-              const _HeroHeader(),
-              const SizedBox(height: 28),
-              _SpecimenPlainListView(
-                controller: _plainController,
-                snap: _plainSnap,
-              ),
-              const SizedBox(height: 28),
-              _SpecimenPageView(
-                controller: _pageController,
-                snap: _pageSnap,
-              ),
-              const SizedBox(height: 28),
-              _SpecimenWheel(
-                controller: _wheelController,
-                snap: _wheelSnap,
-                onChanged: (int i) {
-                  setState(() => _wheelSelected = i);
-                },
-                currentSelection: _wheelSelected,
-              ),
-              const SizedBox(height: 28),
-              _RuntimeTypeComparisonTable(
-                plain: _plainSnap,
-                page: _pageSnap,
-                wheel: _wheelSnap,
-              ),
-              const SizedBox(height: 28),
-              const _HierarchyDiagram(),
-              const SizedBox(height: 28),
-              _SharedMetricsPanel(
-                plain: _plainSnap,
-                page: _pageSnap,
-                wheel: _wheelSnap,
-              ),
-              const SizedBox(height: 28),
-              const _TeachingPanel(),
-              const SizedBox(height: 28),
-              const _UseCasesStrip(),
-              const SizedBox(height: 28),
-              const _CodeSnippetsPanel(),
-              const SizedBox(height: 28),
-              const _FooterSummary(),
-              const SizedBox(height: 32),
-            ],
+            const _HeroHeader(),
+            const SizedBox(height: 28),
+            _SpecimenPlainListView(
+              controller: _plainController,
+              snap: _plainSnap,
+            ),
+            const SizedBox(height: 28),
+            _SpecimenPageView(controller: _pageController, snap: _pageSnap),
+            const SizedBox(height: 28),
+            _SpecimenWheel(
+              controller: _wheelController,
+              snap: _wheelSnap,
+              onChanged: (int i) {
+                setState(() => _wheelSelected = i);
+              },
+              currentSelection: _wheelSelected,
+            ),
+            const SizedBox(height: 28),
+            _RuntimeTypeComparisonTable(
+              plain: _plainSnap,
+              page: _pageSnap,
+              wheel: _wheelSnap,
+            ),
+            const SizedBox(height: 28),
+            const _HierarchyDiagram(),
+            const SizedBox(height: 28),
+            _SharedMetricsPanel(
+              plain: _plainSnap,
+              page: _pageSnap,
+              wheel: _wheelSnap,
+            ),
+            const SizedBox(height: 28),
+            const _TeachingPanel(),
+            const SizedBox(height: 28),
+            const _UseCasesStrip(),
+            const SizedBox(height: 28),
+            const _CodeSnippetsPanel(),
+            const SizedBox(height: 28),
+            const _FooterSummary(),
+            const SizedBox(height: 32),
+          ],
         ),
       ),
     );
@@ -309,7 +306,9 @@ class _HeroHeader extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: kSand,
                   borderRadius: BorderRadius.circular(4),
@@ -325,8 +324,11 @@ class _HeroHeader extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.museum_outlined,
-                  color: kSand.withValues(alpha: 0.85), size: 22),
+              Icon(
+                Icons.museum_outlined,
+                color: kSand.withValues(alpha: 0.85),
+                size: 22,
+              ),
             ],
           ),
           const SizedBox(height: 14),
@@ -358,18 +360,16 @@ class _HeroHeader extends StatelessWidget {
               color: kPine.withValues(alpha: 0.7),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: kSand.withValues(alpha: 0.35), width: 1.0),
+                color: kSand.withValues(alpha: 0.35),
+                width: 1.0,
+              ),
             ),
             child: const Text(
               'Each jar holds a living scrollable. Tap, scroll, fling — the '
               'diagnostics below each specimen show you the runtimeType of '
               'controller.position and the extra getters its concrete subtype '
               'brings along.',
-              style: TextStyle(
-                color: kPaper,
-                fontSize: 13,
-                height: 1.45,
-              ),
+              style: TextStyle(color: kPaper, fontSize: 13, height: 1.45),
             ),
           ),
         ],
@@ -475,11 +475,7 @@ class _SpecimenJar extends StatelessWidget {
           Text(
             tagline,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 10.5,
-              color: kInk,
-              height: 1.2,
-            ),
+            style: const TextStyle(fontSize: 10.5, color: kInk, height: 1.2),
           ),
         ],
       ),
@@ -545,11 +541,7 @@ class _SpecimenCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: kPine,
-              fontSize: 13,
-              height: 1.35,
-            ),
+            style: const TextStyle(color: kPine, fontSize: 13, height: 1.35),
           ),
           const SizedBox(height: 14),
           Container(
@@ -558,7 +550,9 @@ class _SpecimenCard extends StatelessWidget {
               color: accent.withValues(alpha: 0.32),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: kBurgundy.withValues(alpha: 0.25), width: 1),
+                color: kBurgundy.withValues(alpha: 0.25),
+                width: 1,
+              ),
             ),
             clipBehavior: Clip.antiAlias,
             child: body,
@@ -633,16 +627,14 @@ class _DiagnosticsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: kPine.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-            color: kPine.withValues(alpha: 0.45), width: 1.0),
+        border: Border.all(color: kPine.withValues(alpha: 0.45), width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.analytics_outlined,
-                  size: 16, color: kBurgundy),
+              const Icon(Icons.analytics_outlined, size: 16, color: kBurgundy),
               const SizedBox(width: 6),
               const Text(
                 'controller.position',
@@ -660,26 +652,30 @@ class _DiagnosticsCard extends StatelessWidget {
           const SizedBox(height: 10),
           _DiagRow(label: 'pixels', value: snap.pixels.toStringAsFixed(2)),
           _DiagRow(
-              label: 'minScrollExtent',
-              value: snap.minScrollExtent.toStringAsFixed(2)),
+            label: 'minScrollExtent',
+            value: snap.minScrollExtent.toStringAsFixed(2),
+          ),
           _DiagRow(
-              label: 'maxScrollExtent',
-              value: snap.maxScrollExtent.toStringAsFixed(2)),
+            label: 'maxScrollExtent',
+            value: snap.maxScrollExtent.toStringAsFixed(2),
+          ),
           _DiagRow(
-              label: 'viewportDimension',
-              value: snap.viewportDimension.toStringAsFixed(2)),
+            label: 'viewportDimension',
+            value: snap.viewportDimension.toStringAsFixed(2),
+          ),
           _DiagRow(
-              label: 'userScrollDirection',
-              value: snap.userScrollDirection),
+            label: 'userScrollDirection',
+            value: snap.userScrollDirection,
+          ),
           _DiagRow(label: 'axisDirection', value: snap.axisDirection),
           _DiagRow(
-              label: 'haveDimensions',
-              value: snap.haveDimensions.toString()),
+            label: 'haveDimensions',
+            value: snap.haveDimensions.toString(),
+          ),
           if (showExtra && snap.extraLabel != null)
             Container(
               margin: const EdgeInsets.only(top: 4),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
                 color: kBurgundy.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(5),
@@ -731,8 +727,7 @@ class _DiagRow extends StatelessWidget {
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 color: highlight ? kBurgundy : kInk,
-                fontWeight:
-                    highlight ? FontWeight.w700 : FontWeight.w500,
+                fontWeight: highlight ? FontWeight.w700 : FontWeight.w500,
               ),
             ),
           ),
@@ -743,8 +738,7 @@ class _DiagRow extends StatelessWidget {
                 fontFamily: 'monospace',
                 fontSize: 11.5,
                 color: highlight ? kBurgundy : kInk,
-                fontWeight:
-                    highlight ? FontWeight.w700 : FontWeight.w400,
+                fontWeight: highlight ? FontWeight.w700 : FontWeight.w400,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -786,10 +780,7 @@ class _RuntimeTypeBadge extends StatelessWidget {
 // Specimen 1 — ScrollPositionWithSingleContext via a plain ListView.
 // =============================================================================
 class _SpecimenPlainListView extends StatelessWidget {
-  const _SpecimenPlainListView({
-    required this.controller,
-    required this.snap,
-  });
+  const _SpecimenPlainListView({required this.controller, required this.snap});
 
   final ScrollController controller;
   final _PositionSnapshot snap;
@@ -879,8 +870,11 @@ class _SpecimenPlainListView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(Icons.drag_handle,
-                    color: kPaper.withValues(alpha: 0.85), size: 18),
+                Icon(
+                  Icons.drag_handle,
+                  color: kPaper.withValues(alpha: 0.85),
+                  size: 18,
+                ),
               ],
             ),
           );
@@ -888,7 +882,8 @@ class _SpecimenPlainListView extends StatelessWidget {
       ),
       diagnostics: _DiagnosticsCard(
         snap: snap,
-        note: 'Because this is a vanilla ScrollController attached to a '
+        note:
+            'Because this is a vanilla ScrollController attached to a '
             'ListView, controller.position resolves to '
             'ScrollPositionWithSingleContext. No subtype-specific getters — '
             'all you can read is the base ScrollMetrics surface.',
@@ -901,10 +896,7 @@ class _SpecimenPlainListView extends StatelessWidget {
 // Specimen 2 — _PagePosition via PageView.
 // =============================================================================
 class _SpecimenPageView extends StatelessWidget {
-  const _SpecimenPageView({
-    required this.controller,
-    required this.snap,
-  });
+  const _SpecimenPageView({required this.controller, required this.snap});
 
   final PageController controller;
   final _PositionSnapshot snap;
@@ -912,42 +904,48 @@ class _SpecimenPageView extends StatelessWidget {
   static const List<_OnboardingPanel> _panels = <_OnboardingPanel>[
     _OnboardingPanel(
       headline: 'Welcome',
-      body: 'A tour of scroll position subtypes, powered by the real '
+      body:
+          'A tour of scroll position subtypes, powered by the real '
           'PageController you see here.',
       icon: Icons.auto_awesome_outlined,
       color: Color(0xFF7C1D2E),
     ),
     _OnboardingPanel(
       headline: 'viewportFraction',
-      body: 'PageController.viewportFraction = 0.86 — neighbouring pages '
+      body:
+          'PageController.viewportFraction = 0.86 — neighbouring pages '
           'peek in on both sides.',
       icon: Icons.crop_free_outlined,
       color: Color(0xFFB08D4A),
     ),
     _OnboardingPanel(
       headline: 'page',
-      body: 'controller.page returns a fractional page index while you '
+      body:
+          'controller.page returns a fractional page index while you '
           'drag; integer when at rest.',
       icon: Icons.numbers_outlined,
       color: Color(0xFF2F4F4F),
     ),
     _OnboardingPanel(
       headline: '_PagePosition',
-      body: 'The runtimeType is library-private, but toString() still '
+      body:
+          'The runtimeType is library-private, but toString() still '
           'yields its name — useful for diagnostics.',
       icon: Icons.layers_outlined,
       color: Color(0xFF4A2C2A),
     ),
     _OnboardingPanel(
       headline: 'Extends SPSC',
-      body: '_PagePosition extends ScrollPositionWithSingleContext, '
+      body:
+          '_PagePosition extends ScrollPositionWithSingleContext, '
           'so you get all base ScrollMetrics plus page-aware math.',
       icon: Icons.account_tree_outlined,
       color: Color(0xFF3B5F5D),
     ),
     _OnboardingPanel(
       headline: 'Swipe on',
-      body: 'Fling this PageView, watch pixels jump by viewport-width '
+      body:
+          'Fling this PageView, watch pixels jump by viewport-width '
           'chunks, and `page` slide between integers.',
       icon: Icons.swipe_outlined,
       color: Color(0xFF8A2B3A),
@@ -1003,7 +1001,9 @@ class _SpecimenPageView extends StatelessWidget {
                       const Spacer(),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 3),
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: kPaper.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(10),
@@ -1050,7 +1050,8 @@ class _SpecimenPageView extends StatelessWidget {
       diagnostics: _DiagnosticsCard(
         snap: snap,
         showExtra: true,
-        note: 'Notice `page` — that getter is not on ScrollPosition. It '
+        note:
+            'Notice `page` — that getter is not on ScrollPosition. It '
             'lives on PageController and is derived from _PagePosition. '
             'pixels grow in viewport-sized steps.',
       ),
@@ -1114,8 +1115,7 @@ class _SpecimenWheel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _SpecimenCard(
-      specimenTag:
-          'SPECIMEN #03 · runtimeType = FixedExtentScrollPosition',
+      specimenTag: 'SPECIMEN #03 · runtimeType = FixedExtentScrollPosition',
       title: '3. FixedExtentScrollPosition',
       subtitle:
           'The snapped-to-item position — used by ListWheelScrollView. '
@@ -1138,13 +1138,10 @@ class _SpecimenWheel extends StatelessWidget {
                   return Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                      color: sel
-                          ? kBurgundy
-                          : kPine.withValues(alpha: 0.18),
+                      color: sel ? kBurgundy : kPine.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color:
-                            sel ? kAccentGold : Colors.transparent,
+                        color: sel ? kAccentGold : Colors.transparent,
                         width: 2,
                       ),
                     ),
@@ -1154,9 +1151,7 @@ class _SpecimenWheel extends StatelessWidget {
                       style: TextStyle(
                         color: sel ? kPaper : kInk,
                         fontSize: 16,
-                        fontWeight: sel
-                            ? FontWeight.w800
-                            : FontWeight.w500,
+                        fontWeight: sel ? FontWeight.w800 : FontWeight.w500,
                       ),
                     ),
                   );
@@ -1172,8 +1167,7 @@ class _SpecimenWheel extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -1200,7 +1194,9 @@ class _SpecimenWheel extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: kBurgundy.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(6),
@@ -1217,11 +1213,7 @@ class _SpecimenWheel extends StatelessWidget {
                   const SizedBox(height: 10),
                   const Text(
                     'pixels snap to\nmultiples of itemExtent = 60',
-                    style: TextStyle(
-                      color: kInk,
-                      fontSize: 11,
-                      height: 1.3,
-                    ),
+                    style: TextStyle(color: kInk, fontSize: 11, height: 1.3),
                   ),
                 ],
               ),
@@ -1232,7 +1224,8 @@ class _SpecimenWheel extends StatelessWidget {
       diagnostics: _DiagnosticsCard(
         snap: snap,
         showExtra: true,
-        note: 'FixedExtentScrollController.selectedItem is derived from '
+        note:
+            'FixedExtentScrollController.selectedItem is derived from '
             'the concrete FixedExtentScrollPosition subtype — it is not on '
             'the base ScrollPosition. pixels divides cleanly by 60.',
       ),
@@ -1268,26 +1261,22 @@ class _RuntimeTypeComparisonTable extends StatelessWidget {
             decoration: BoxDecoration(
               color: kBurgundy,
               borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(8)),
+                top: Radius.circular(8),
+              ),
             ),
-            padding: const EdgeInsets.symmetric(
-                vertical: 10, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Row(
               children: const <Widget>[
+                Expanded(flex: 3, child: _ColHeader(text: 'Scrollable')),
+                Expanded(flex: 3, child: _ColHeader(text: 'Controller')),
                 Expanded(
-                    flex: 3,
-                    child: _ColHeader(text: 'Scrollable')),
+                  flex: 4,
+                  child: _ColHeader(text: 'Position runtimeType'),
+                ),
                 Expanded(
-                    flex: 3,
-                    child: _ColHeader(text: 'Controller')),
-                Expanded(
-                    flex: 4,
-                    child: _ColHeader(
-                        text: 'Position runtimeType')),
-                Expanded(
-                    flex: 4,
-                    child:
-                        _ColHeader(text: 'Notable extra getters')),
+                  flex: 4,
+                  child: _ColHeader(text: 'Notable extra getters'),
+                ),
               ],
             ),
           ),
@@ -1364,9 +1353,7 @@ class _ComparisonRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: even
-            ? kPaper
-            : kSand.withValues(alpha: 0.55),
+        color: even ? kPaper : kSand.withValues(alpha: 0.55),
         borderRadius: isLast
             ? const BorderRadius.vertical(bottom: Radius.circular(8))
             : BorderRadius.zero,
@@ -1407,8 +1394,7 @@ class _ComparisonRow extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 6, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
               decoration: BoxDecoration(
                 color: kInk,
                 borderRadius: BorderRadius.circular(3),
@@ -1502,7 +1488,8 @@ class _HierarchyDiagram extends StatelessWidget {
                           Expanded(
                             child: _HierarchyBox(
                               title: '(used directly)',
-                              subtitle: 'ListView / GridView /\n'
+                              subtitle:
+                                  'ListView / GridView /\n'
                                   'CustomScrollView',
                               badge: 'usage',
                               color: kSand,
@@ -1528,7 +1515,8 @@ class _HierarchyDiagram extends StatelessWidget {
                       const _HierarchyConnector(),
                       _HierarchyBox(
                         title: '(used directly)',
-                        subtitle: 'ListWheelScrollView\n'
+                        subtitle:
+                            'ListWheelScrollView\n'
                             'via FixedExtentScrollController',
                         badge: 'usage',
                         color: kSand,
@@ -1572,9 +1560,7 @@ class _HierarchyBox extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: dashed
-              ? kAccentGold
-              : color.withValues(alpha: 0.0),
+          color: dashed ? kAccentGold : color.withValues(alpha: 0.0),
           width: dashed ? 1.5 : 0,
           style: dashed ? BorderStyle.solid : BorderStyle.none,
         ),
@@ -1604,8 +1590,7 @@ class _HierarchyBox extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 5, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                 decoration: BoxDecoration(
                   color: textColor.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(3),
@@ -1642,13 +1627,7 @@ class _HierarchyConnector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 2,
-        height: 18,
-        color: kAccentGold,
-      ),
-    );
+    return Center(child: Container(width: 2, height: 18, color: kAccentGold));
   }
 }
 
@@ -1685,16 +1664,24 @@ class _SharedMetricsPanel extends StatelessWidget {
           Row(
             children: <Widget>[
               Expanded(
-                  child: _MetricsTile(
-                      title: 'plain', snap: plain, color: kBurgundy)),
+                child: _MetricsTile(
+                  title: 'plain',
+                  snap: plain,
+                  color: kBurgundy,
+                ),
+              ),
               const SizedBox(width: 8),
               Expanded(
-                  child: _MetricsTile(
-                      title: 'page', snap: page, color: kPine)),
+                child: _MetricsTile(title: 'page', snap: page, color: kPine),
+              ),
               const SizedBox(width: 8),
               Expanded(
-                  child: _MetricsTile(
-                      title: 'wheel', snap: wheel, color: kAccentGold)),
+                child: _MetricsTile(
+                  title: 'wheel',
+                  snap: wheel,
+                  color: kAccentGold,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -1836,12 +1823,9 @@ class _ExtraTile extends StatelessWidget {
             : kSand.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: available
-              ? color
-              : kInk.withValues(alpha: 0.3),
+          color: available ? color : kInk.withValues(alpha: 0.3),
           width: 1.2,
-          style:
-              available ? BorderStyle.solid : BorderStyle.solid,
+          style: available ? BorderStyle.solid : BorderStyle.solid,
         ),
       ),
       child: Column(
@@ -2010,12 +1994,9 @@ class _TeachingTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border(
           left: BorderSide(color: color, width: 4),
-          top: BorderSide(
-              color: color.withValues(alpha: 0.2), width: 1),
-          bottom: BorderSide(
-              color: color.withValues(alpha: 0.2), width: 1),
-          right: BorderSide(
-              color: color.withValues(alpha: 0.2), width: 1),
+          top: BorderSide(color: color.withValues(alpha: 0.2), width: 1),
+          bottom: BorderSide(color: color.withValues(alpha: 0.2), width: 1),
+          right: BorderSide(color: color.withValues(alpha: 0.2), width: 1),
         ),
       ),
       child: Row(
@@ -2185,8 +2166,7 @@ class _UseCaseTile extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 6, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
             decoration: BoxDecoration(
               color: kInk,
               borderRadius: BorderRadius.circular(4),
@@ -2293,11 +2273,7 @@ debugPrint(
           ),
           SizedBox(width: 10),
           Expanded(
-            child: _CodeBlock(
-              caption: 'page',
-              code: _pageCode,
-              accent: kPine,
-            ),
+            child: _CodeBlock(caption: 'page', code: _pageCode, accent: kPine),
           ),
           SizedBox(width: 10),
           Expanded(
@@ -2336,12 +2312,12 @@ class _CodeBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
             decoration: BoxDecoration(
               color: accent,
               borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(7)),
+                top: Radius.circular(7),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -2434,7 +2410,9 @@ class _FooterSummary extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: kSand,
                   borderRadius: BorderRadius.circular(4),
@@ -2450,8 +2428,10 @@ class _FooterSummary extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.bookmark_border,
-                  color: kPaper.withValues(alpha: 0.85)),
+              Icon(
+                Icons.bookmark_border,
+                color: kPaper.withValues(alpha: 0.85),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -2482,18 +2462,15 @@ class _FooterSummary extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: <Widget>[
-              _FooterPill(
-                  label: 'pixels', color: kSand, textColor: kBurgundy),
+              _FooterPill(label: 'pixels', color: kSand, textColor: kBurgundy),
+              const SizedBox(width: 8),
+              _FooterPill(label: 'page', color: kAccentGold, textColor: kInk),
               const SizedBox(width: 8),
               _FooterPill(
-                  label: 'page',
-                  color: kAccentGold,
-                  textColor: kInk),
-              const SizedBox(width: 8),
-              _FooterPill(
-                  label: 'selectedItem',
-                  color: kPaper,
-                  textColor: kBurgundy),
+                label: 'selectedItem',
+                color: kPaper,
+                textColor: kBurgundy,
+              ),
             ],
           ),
         ],
@@ -2575,8 +2552,7 @@ class _SectionFrame extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: kInk,
                   borderRadius: BorderRadius.circular(3),
@@ -2593,11 +2569,7 @@ class _SectionFrame extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Container(
-                width: 40,
-                height: 2,
-                color: kAccentGold,
-              ),
+              Container(width: 40, height: 2, color: kAccentGold),
             ],
           ),
           const SizedBox(height: 10),
@@ -2613,11 +2585,7 @@ class _SectionFrame extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: const TextStyle(
-              color: kPine,
-              fontSize: 12.5,
-              height: 1.35,
-            ),
+            style: const TextStyle(color: kPine, fontSize: 12.5, height: 1.35),
           ),
           const SizedBox(height: 14),
           child,

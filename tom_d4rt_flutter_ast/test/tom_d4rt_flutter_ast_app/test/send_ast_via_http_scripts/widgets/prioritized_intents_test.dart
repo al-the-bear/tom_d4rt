@@ -96,10 +96,7 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Constructor:',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.white60,
-                ),
+                style: TextStyle(fontSize: 10.0, color: Colors.white60),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -115,10 +112,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Key property:',
-                style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.white60,
-                ),
+                style: TextStyle(fontSize: 10.0, color: Colors.white60),
               ),
               SizedBox(height: 4.0),
               Text(
@@ -154,8 +148,12 @@ dynamic build(BuildContext context) {
   );
 
   print('  orderedIntents.length: ${undoPriority.orderedIntents.length}');
-  print('  orderedIntents[0].runtimeType: ${undoPriority.orderedIntents[0].runtimeType}');
-  print('  orderedIntents[1].runtimeType: ${undoPriority.orderedIntents[1].runtimeType}');
+  print(
+    '  orderedIntents[0].runtimeType: ${undoPriority.orderedIntents[0].runtimeType}',
+  );
+  print(
+    '  orderedIntents[1].runtimeType: ${undoPriority.orderedIntents[1].runtimeType}',
+  );
 
   final dismissPriority = PrioritizedIntents(
     orderedIntents: [
@@ -164,7 +162,9 @@ dynamic build(BuildContext context) {
     ],
   );
 
-  print('  dismissPriority.orderedIntents.length: ${dismissPriority.orderedIntents.length}');
+  print(
+    '  dismissPriority.orderedIntents.length: ${dismissPriority.orderedIntents.length}',
+  );
 
   final creationSection = Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -227,14 +227,21 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.check_circle, color: Colors.green.shade700, size: 16.0),
+              Icon(
+                Icons.check_circle,
+                color: Colors.green.shade700,
+                size: 16.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'PrioritizedIntents can be const-constructed when all inner '
                   'intents are also const. This is efficient for static '
                   'shortcut mappings defined at compile time.',
-                  style: TextStyle(fontSize: 10.0, color: Colors.green.shade800),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.green.shade800,
+                  ),
                 ),
               ),
             ],
@@ -257,21 +264,24 @@ dynamic build(BuildContext context) {
     {
       'title': 'Undo Chain — Code Editor First',
       'list': ['UndoCodeEdit', 'UndoFormatting', 'UndoGlobal'],
-      'explanation': 'When user presses Ctrl+Z, try undoing code edits first '
+      'explanation':
+          'When user presses Ctrl+Z, try undoing code edits first '
           '(most specific), then formatting changes, then a global undo.',
       'color': Colors.blue,
     },
     {
       'title': 'Undo Chain — Canvas First',
       'list': ['UndoStroke', 'UndoTransform', 'UndoGlobal'],
-      'explanation': 'Same Ctrl+Z, but in a drawing app context. Try undoing '
+      'explanation':
+          'Same Ctrl+Z, but in a drawing app context. Try undoing '
           'the last stroke first, then transforms, then global.',
       'color': Colors.teal,
     },
     {
       'title': 'Escape Chain — Most Specific First',
       'list': ['ClosePopup', 'CloseDrawer', 'DeselectAll', 'NavigateBack'],
-      'explanation': 'Escape should close the most recently opened overlay first, '
+      'explanation':
+          'Escape should close the most recently opened overlay first, '
           'then close drawers, deselect items, and finally navigate back.',
       'color': Colors.orange,
     },
@@ -490,13 +500,33 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         // How the chain works
-        _buildShortcutChainStep(1, 'Key press', 'Ctrl+Z detected by Shortcuts widget', Colors.blue),
+        _buildShortcutChainStep(
+          1,
+          'Key press',
+          'Ctrl+Z detected by Shortcuts widget',
+          Colors.blue,
+        ),
         _buildChainArrow(),
-        _buildShortcutChainStep(2, 'PrioritizedIntents', 'Shortcuts maps to PrioritizedIntents([...3 intents...])', Colors.amber),
+        _buildShortcutChainStep(
+          2,
+          'PrioritizedIntents',
+          'Shortcuts maps to PrioritizedIntents([...3 intents...])',
+          Colors.amber,
+        ),
         _buildChainArrow(),
-        _buildShortcutChainStep(3, 'PrioritizedAction', 'Actions widget dispatches to PrioritizedAction', Colors.deepOrange),
+        _buildShortcutChainStep(
+          3,
+          'PrioritizedAction',
+          'Actions widget dispatches to PrioritizedAction',
+          Colors.deepOrange,
+        ),
         _buildChainArrow(),
-        _buildShortcutChainStep(4, 'First enabled', 'Iterates orderedIntents → invokes first enabled', Colors.green),
+        _buildShortcutChainStep(
+          4,
+          'First enabled',
+          'Iterates orderedIntents → invokes first enabled',
+          Colors.green,
+        ),
       ],
     ),
   );
@@ -538,7 +568,12 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 14.0),
         // Type tree
-        _buildTypeNode('Intent', 'Abstract base class for all intents', Colors.grey, 0),
+        _buildTypeNode(
+          'Intent',
+          'Abstract base class for all intents',
+          Colors.grey,
+          0,
+        ),
         _buildTypeConnector(0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -547,13 +582,33 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Column(
                 children: [
-                  _buildTypeNode('Regular Intents', 'Single-purpose intents', Colors.blue, 1),
+                  _buildTypeNode(
+                    'Regular Intents',
+                    'Single-purpose intents',
+                    Colors.blue,
+                    1,
+                  ),
                   _buildTypeConnector(1),
-                  _buildTypeNode('DismissIntent', 'Dismiss overlay/route', Colors.blue, 2),
+                  _buildTypeNode(
+                    'DismissIntent',
+                    'Dismiss overlay/route',
+                    Colors.blue,
+                    2,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildTypeNode('ScrollIntent', 'Scroll by amount', Colors.blue, 2),
+                  _buildTypeNode(
+                    'ScrollIntent',
+                    'Scroll by amount',
+                    Colors.blue,
+                    2,
+                  ),
                   SizedBox(height: 4.0),
-                  _buildTypeNode('ActivateIntent', 'Activate widget', Colors.blue, 2),
+                  _buildTypeNode(
+                    'ActivateIntent',
+                    'Activate widget',
+                    Colors.blue,
+                    2,
+                  ),
                 ],
               ),
             ),
@@ -567,7 +622,10 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: Colors.deepOrange.shade100,
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Colors.deepOrange.shade400, width: 2.0),
+                      border: Border.all(
+                        color: Colors.deepOrange.shade400,
+                        width: 2.0,
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -581,7 +639,10 @@ dynamic build(BuildContext context) {
                         ),
                         Text(
                           'Wraps List<Intent>',
-                          style: TextStyle(fontSize: 9.0, color: Colors.deepOrange.shade600),
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            color: Colors.deepOrange.shade600,
+                          ),
                         ),
                       ],
                     ),
@@ -604,7 +665,8 @@ dynamic build(BuildContext context) {
                             color: Colors.amber.shade800,
                           ),
                         ),
-                        Text('[Intent, Intent, ...]',
+                        Text(
+                          '[Intent, Intent, ...]',
                           style: TextStyle(
                             fontSize: 9.0,
                             fontFamily: 'monospace',
@@ -631,14 +693,21 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'Key difference: Regular intents describe ONE action to perform. '
                   'PrioritizedIntents describes MULTIPLE possible actions to '
                   'try in priority order.',
-                  style: TextStyle(fontSize: 10.0, color: Colors.amber.shade900),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.amber.shade900,
+                  ),
                 ),
               ),
             ],
@@ -802,7 +871,10 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 8.0),
-            Text('vs', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500)),
+            Text(
+              'vs',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
             SizedBox(width: 8.0),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
@@ -887,7 +959,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Most specific first',
           'Put the most specific handler first in orderedIntents. '
-          'The general fallback should be last.',
+              'The general fallback should be last.',
           true,
           Colors.green,
         ),
@@ -895,7 +967,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Register inner intent actions',
           'Each intent in orderedIntents must have a corresponding '
-          'Action registered in the widget tree, or it is silently skipped.',
+              'Action registered in the widget tree, or it is silently skipped.',
           true,
           Colors.green,
         ),
@@ -903,7 +975,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Use const when possible',
           'const PrioritizedIntents with const inner intents. '
-          'Efficient for static shortcut maps.',
+              'Efficient for static shortcut maps.',
           true,
           Colors.green,
         ),
@@ -912,7 +984,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Empty orderedIntents',
           'An empty list means no intent can ever be resolved. '
-          'PrioritizedAction will never find an enabled handler.',
+              'PrioritizedAction will never find an enabled handler.',
           false,
           Colors.red,
         ),
@@ -920,7 +992,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Forgetting PrioritizedAction registration',
           'PrioritizedIntents without a PrioritizedAction in the '
-          'Actions widget means the shortcut silently does nothing.',
+              'Actions widget means the shortcut silently does nothing.',
           false,
           Colors.red,
         ),
@@ -928,7 +1000,7 @@ dynamic build(BuildContext context) {
         _buildPatternCard(
           'Duplicate intents in list',
           'Adding the same intent type twice wastes lookup cycles. '
-          'Each intent type should appear at most once.',
+              'Each intent type should appear at most once.',
           false,
           Colors.red,
         ),
@@ -1092,7 +1164,12 @@ Widget _buildIntentInstance(
   );
 }
 
-Widget _buildShortcutChainStep(int number, String title, String desc, MaterialColor color) {
+Widget _buildShortcutChainStep(
+  int number,
+  String title,
+  String desc,
+  MaterialColor color,
+) {
   return Container(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1112,7 +1189,11 @@ Widget _buildShortcutChainStep(int number, String title, String desc, MaterialCo
           alignment: Alignment.center,
           child: Text(
             '$number',
-            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(width: 10.0),
@@ -1148,7 +1229,12 @@ Widget _buildChainArrow() {
   );
 }
 
-Widget _buildTypeNode(String name, String desc, MaterialColor color, int depth) {
+Widget _buildTypeNode(
+  String name,
+  String desc,
+  MaterialColor color,
+  int depth,
+) {
   return Container(
     margin: EdgeInsets.only(left: depth * 10.0),
     padding: EdgeInsets.all(6.0),
@@ -1214,7 +1300,11 @@ Widget _buildRegistrationEntry(
           alignment: Alignment.center,
           child: Text(
             number,
-            style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(width: 10.0),

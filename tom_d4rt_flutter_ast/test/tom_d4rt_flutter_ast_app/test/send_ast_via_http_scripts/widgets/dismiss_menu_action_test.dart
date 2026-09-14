@@ -99,8 +99,8 @@ dynamic build(BuildContext context) {
         _dmInfoBox(
           'Menu-Specific Override',
           'Without this action, pressing Escape while a menu is open '
-          'might dismiss the entire dialog or route instead. '
-          'DismissMenuAction intercepts the intent before it propagates.',
+              'might dismiss the entire dialog or route instead. '
+              'DismissMenuAction intercepts the intent before it propagates.',
         ),
         const SizedBox(height: 24),
 
@@ -243,17 +243,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _dmTeal.withValues(alpha: 0.08),
-                _dmMint,
-              ],
+              colors: [_dmTeal.withValues(alpha: 0.08), _dmMint],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: _dmTeal.withValues(alpha: 0.25),
-            ),
+            border: Border.all(color: _dmTeal.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,7 +270,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 14),
               _dmSummaryRow('Type', 'Action<DismissIntent>'),
               _dmSummaryRow('Purpose', 'Close the nearest open menu overlay'),
-              _dmSummaryRow('Registered By', 'PopupMenuButton, DropdownButton, MenuAnchor'),
+              _dmSummaryRow(
+                'Registered By',
+                'PopupMenuButton, DropdownButton, MenuAnchor',
+              ),
               _dmSummaryRow('Trigger', 'Escape key (via DismissIntent)'),
               _dmSummaryRow('Cascading', 'Closes one submenu level at a time'),
               _dmSummaryRow('Return', 'null (no selection made)'),
@@ -309,11 +307,7 @@ Widget _dmSection(String title) {
 Widget _dmBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _dmBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _dmBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -366,11 +360,7 @@ Widget _dmInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _dmBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _dmBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -397,11 +387,7 @@ Widget _dmSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _dmBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _dmBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -449,7 +435,8 @@ Widget _buildRegistrationPoints() {
             color: (points[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (points[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (points[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             children: [
@@ -460,8 +447,11 @@ Widget _buildRegistrationPoints() {
                   color: (points[i]['color'] as Color).withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(points[i]['icon'] as IconData,
-                    color: points[i]['color'] as Color, size: 20),
+                child: Icon(
+                  points[i]['icon'] as IconData,
+                  color: points[i]['color'] as Color,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -480,7 +470,10 @@ Widget _buildRegistrationPoints() {
                     Text(
                       points[i]['where'] as String,
                       style: TextStyle(
-                          color: _dmBlack, fontSize: 12, height: 1.3),
+                        color: _dmBlack,
+                        fontSize: 12,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -509,20 +502,36 @@ Widget _buildActionComparison() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('DismissMenuAction',
-                  style: TextStyle(color: _dmTeal, fontSize: 13,
-                      fontWeight: FontWeight.bold, fontFamily: 'monospace')),
+              Text(
+                'DismissMenuAction',
+                style: TextStyle(
+                  color: _dmTeal,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('\u2022 Menu-specific',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Closes only the menu overlay',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Registered by menu widgets',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Handles cascading levels',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Returns null (no selection)',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
+              Text(
+                '\u2022 Menu-specific',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Closes only the menu overlay',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Registered by menu widgets',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Handles cascading levels',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Returns null (no selection)',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -539,20 +548,36 @@ Widget _buildActionComparison() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('DismissAction',
-                  style: TextStyle(color: _dmInfo, fontSize: 13,
-                      fontWeight: FontWeight.bold, fontFamily: 'monospace')),
+              Text(
+                'DismissAction',
+                style: TextStyle(
+                  color: _dmInfo,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'monospace',
+                ),
+              ),
               const SizedBox(height: 8),
-              Text('\u2022 General-purpose',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Closes any dismissable overlay',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 Registered by app framework',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 No cascade awareness',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
-              Text('\u2022 May pop routes',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
+              Text(
+                '\u2022 General-purpose',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Closes any dismissable overlay',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 Registered by app framework',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 No cascade awareness',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
+              Text(
+                '\u2022 May pop routes',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -609,8 +634,10 @@ Widget _buildResolutionChain() {
                   child: Text(
                     '${i + 1}',
                     style: TextStyle(
-                        color: _dmWhite, fontSize: 12,
-                        fontWeight: FontWeight.bold),
+                      color: _dmWhite,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -650,8 +677,10 @@ Widget _buildResolutionChain() {
                   Text(
                     i == 0 ? '\u2191 bubbles up' : '\u2717 not reached',
                     style: TextStyle(
-                        color: _dmMuted, fontSize: 10,
-                        fontStyle: FontStyle.italic),
+                      color: _dmMuted,
+                      fontSize: 10,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ],
               ),
@@ -666,7 +695,8 @@ Widget _buildMenuTypes() {
   final types = <Map<String, dynamic>>[
     {
       'type': 'PopupMenuButton',
-      'desc': 'Classic right-click or three-dot button menu. Overlay '
+      'desc':
+          'Classic right-click or three-dot button menu. Overlay '
           'created via showMenu(). DismissMenuAction registered in the '
           'route overlay entry.',
       'icon': Icons.more_vert,
@@ -674,21 +704,24 @@ Widget _buildMenuTypes() {
     },
     {
       'type': 'DropdownButton / DropdownMenu',
-      'desc': 'Form-style selection dropdown. Each dropdown creates an '
+      'desc':
+          'Form-style selection dropdown. Each dropdown creates an '
           'overlay route with DismissMenuAction scoped to the dropdown.',
       'icon': Icons.arrow_drop_down_circle,
       'color': _dmAccent,
     },
     {
       'type': 'MenuAnchor / MenuBar',
-      'desc': 'Material 3 menu system supporting cascading submenus. '
+      'desc':
+          'Material 3 menu system supporting cascading submenus. '
           'Each MenuAnchor level independently registers the action.',
       'icon': Icons.menu,
       'color': _dmLight,
     },
     {
       'type': 'CupertinoContextMenu',
-      'desc': 'iOS-style long-press context menu. Uses its own dismiss '
+      'desc':
+          'iOS-style long-press context menu. Uses its own dismiss '
           'mechanism but respects DismissIntent on desktop platforms.',
       'icon': Icons.phone_iphone,
       'color': _dmInfo,
@@ -705,13 +738,17 @@ Widget _buildMenuTypes() {
             color: (types[i]['color'] as Color).withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: (types[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (types[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(types[i]['icon'] as IconData,
-                  color: types[i]['color'] as Color, size: 24),
+              Icon(
+                types[i]['icon'] as IconData,
+                color: types[i]['color'] as Color,
+                size: 24,
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -729,7 +766,10 @@ Widget _buildMenuTypes() {
                     Text(
                       types[i]['desc'] as String,
                       style: TextStyle(
-                          color: _dmBlack, fontSize: 12, height: 1.4),
+                        color: _dmBlack,
+                        fontSize: 12,
+                        height: 1.4,
+                      ),
                     ),
                   ],
                 ),
@@ -758,7 +798,10 @@ Widget _buildCascadingSubmenus() {
         Text(
           'Escape Through Cascade Levels',
           style: TextStyle(
-            color: _dmTeal, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _dmTeal,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Cascade stack
@@ -775,18 +818,26 @@ Widget _buildCascadingSubmenus() {
               ][i],
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: [_dmTeal, _dmAccent, _dmLight][i]
-                    .withValues(alpha: 0.25),
+                color: [
+                  _dmTeal,
+                  _dmAccent,
+                  _dmLight,
+                ][i].withValues(alpha: 0.25),
               ),
             ),
             child: Row(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
-                    color: [_dmTeal, _dmAccent, _dmLight][i]
-                        .withValues(alpha: 0.15),
+                    color: [
+                      _dmTeal,
+                      _dmAccent,
+                      _dmLight,
+                    ][i].withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
@@ -819,7 +870,10 @@ Widget _buildCascadingSubmenus() {
                           'Left, Center, Right, Justify',
                         ][i],
                         style: TextStyle(
-                            color: _dmMuted, fontSize: 11, height: 1.3),
+                          color: _dmMuted,
+                          fontSize: 11,
+                          height: 1.3,
+                        ),
                       ),
                     ],
                   ),
@@ -842,8 +896,11 @@ Widget _buildCascadingSubmenus() {
             'Second Esc: Format submenu closes\n'
             'Third Esc: Root menu closes, focus returns to menu bar',
             style: TextStyle(
-                color: _dmBlack, fontSize: 12, fontFamily: 'monospace',
-                height: 1.5),
+              color: _dmBlack,
+              fontSize: 12,
+              fontFamily: 'monospace',
+              height: 1.5,
+            ),
           ),
         ),
       ],
@@ -870,14 +927,21 @@ Widget _buildReturnValues() {
                 children: [
                   Icon(Icons.touch_app, color: _dmTeal, size: 18),
                   const SizedBox(width: 6),
-                  Text('Item Selected',
-                      style: TextStyle(color: _dmTeal, fontSize: 12,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Item Selected',
+                    style: TextStyle(
+                      color: _dmTeal,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('showMenu() returns the selected value',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
+              Text(
+                'showMenu() returns the selected value',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
               const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.all(6),
@@ -888,7 +952,10 @@ Widget _buildReturnValues() {
                 child: Text(
                   'Future<T?> \u2192 T',
                   style: TextStyle(
-                      color: _dmTeal, fontSize: 11, fontFamily: 'monospace'),
+                    color: _dmTeal,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
             ],
@@ -911,14 +978,21 @@ Widget _buildReturnValues() {
                 children: [
                   Icon(Icons.keyboard, color: _dmWarning, size: 18),
                   const SizedBox(width: 6),
-                  Text('Escape Pressed',
-                      style: TextStyle(color: _dmWarning, fontSize: 12,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    'Escape Pressed',
+                    style: TextStyle(
+                      color: _dmWarning,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('showMenu() returns null (dismissed)',
-                  style: TextStyle(color: _dmBlack, fontSize: 12)),
+              Text(
+                'showMenu() returns null (dismissed)',
+                style: TextStyle(color: _dmBlack, fontSize: 12),
+              ),
               const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.all(6),
@@ -929,8 +1003,10 @@ Widget _buildReturnValues() {
                 child: Text(
                   'Future<T?> \u2192 null',
                   style: TextStyle(
-                      color: _dmWarning, fontSize: 11,
-                      fontFamily: 'monospace'),
+                    color: _dmWarning,
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
             ],
@@ -995,8 +1071,11 @@ Widget _buildFocusBehavior() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(steps[i]['icon'] as IconData,
-                    color: _dmWhite, size: 16),
+                child: Icon(
+                  steps[i]['icon'] as IconData,
+                  color: _dmWhite,
+                  size: 16,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1014,7 +1093,10 @@ Widget _buildFocusBehavior() {
                     Text(
                       steps[i]['focus'] as String,
                       style: TextStyle(
-                          color: _dmBlack, fontSize: 11, height: 1.3),
+                        color: _dmBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -1047,7 +1129,10 @@ Widget _buildCloseAnimation() {
         Text(
           'Animation Timeline',
           style: TextStyle(
-            color: _dmTeal, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _dmTeal,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Timeline bar
@@ -1072,9 +1157,14 @@ Widget _buildCloseAnimation() {
                     ),
                   ),
                   child: Center(
-                    child: Text('Esc',
-                        style: TextStyle(color: _dmError, fontSize: 10,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Esc',
+                      style: TextStyle(
+                        color: _dmError,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1083,8 +1173,10 @@ Widget _buildCloseAnimation() {
                 child: Container(
                   color: _dmTeal.withValues(alpha: 0.12),
                   child: Center(
-                    child: Text('Scale + Fade Out (200ms)',
-                        style: TextStyle(color: _dmTeal, fontSize: 10)),
+                    child: Text(
+                      'Scale + Fade Out (200ms)',
+                      style: TextStyle(color: _dmTeal, fontSize: 10),
+                    ),
                   ),
                 ),
               ),
@@ -1099,9 +1191,14 @@ Widget _buildCloseAnimation() {
                     ),
                   ),
                   child: Center(
-                    child: Text('Remove',
-                        style: TextStyle(color: _dmLight, fontSize: 10,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'Remove',
+                      style: TextStyle(
+                        color: _dmLight,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -1134,12 +1231,16 @@ Widget _dmAnimChip(String label, String value, Color color) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(label,
-            style: TextStyle(color: color, fontSize: 11,
-                fontWeight: FontWeight.bold)),
+        Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(width: 4),
-        Text(value,
-            style: TextStyle(color: _dmBlack, fontSize: 11)),
+        Text(value, style: TextStyle(color: _dmBlack, fontSize: 11)),
       ],
     ),
   );
@@ -1243,7 +1344,10 @@ Widget _buildContextMenuScenario() {
                     Text(
                       steps[i]['detail']!,
                       style: TextStyle(
-                          color: _dmMuted, fontSize: 11, height: 1.3),
+                        color: _dmMuted,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),

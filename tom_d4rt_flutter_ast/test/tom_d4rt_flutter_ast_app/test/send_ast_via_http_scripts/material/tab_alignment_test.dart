@@ -14,10 +14,10 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   // ── colour palette ──────────────────────────────────────────
-  const taPrimary = Color(0xFFC2603B);   // terracotta
-  const taAccent = Color(0xFFD4845A);    // clay
-  const taLight = Color(0xFFFBECE4);     // pale clay
-  const taDark = Color(0xFF8B3A20);      // deep terracotta
+  const taPrimary = Color(0xFFC2603B); // terracotta
+  const taAccent = Color(0xFFD4845A); // clay
+  const taLight = Color(0xFFFBECE4); // pale clay
+  const taDark = Color(0xFF8B3A20); // deep terracotta
   const taSurface = Color(0xFFFFFAF7);
   const taOnSurface = Color(0xFF3E2723);
   const taMuted = Color(0xFF795548);
@@ -27,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'start',
       'title': 'Start',
-      'desc': 'Tabs are aligned to the start edge of the TabBar. '
+      'desc':
+          'Tabs are aligned to the start edge of the TabBar. '
           'Only valid when isScrollable is true. Tabs begin at '
           'the leading edge with no offset.',
       'scrollable': 'Required (isScrollable: true)',
@@ -37,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'startOffset',
       'title': 'Start Offset',
-      'desc': 'Similar to start but adds a leading offset (52dp by '
+      'desc':
+          'Similar to start but adds a leading offset (52dp by '
           'default in Material 3). This gives the first tab a '
           'comfortable inset from the edge.',
       'scrollable': 'Required (isScrollable: true)',
@@ -47,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'fill',
       'title': 'Fill',
-      'desc': 'Tabs expand equally to fill the entire TabBar width. '
+      'desc':
+          'Tabs expand equally to fill the entire TabBar width. '
           'Each tab occupies the same proportion of available space. '
           'Only valid when isScrollable is false.',
       'scrollable': 'Required (isScrollable: false)',
@@ -57,7 +60,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'center',
       'title': 'Center',
-      'desc': 'Tabs are centred within the available space. Tab widths '
+      'desc':
+          'Tabs are centred within the available space. Tab widths '
           'are intrinsic and the group is horizontally centred. Only '
           'valid when isScrollable is true.',
       'scrollable': 'Required (isScrollable: true)',
@@ -90,24 +94,28 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [taPrimary, taDark],
+              gradient: LinearGradient(colors: [taPrimary, taDark]),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: child ??
+            child:
+                child ??
                 Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: children ?? []),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children ?? [],
+                ),
           ),
         ],
       ),
@@ -117,19 +125,24 @@ dynamic build(BuildContext context) {
   Widget taLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: taOnSurface)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: taOnSurface,
+        ),
+      ),
     );
   }
 
   Widget taBody(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: taMuted, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: taMuted, height: 1.5),
+      ),
     );
   }
 
@@ -142,8 +155,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: taAccent.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -188,9 +203,13 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(label,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 taChip(isScrollable ? 'scrollable' : 'fixed'),
               ],
@@ -211,11 +230,14 @@ dynamic build(BuildContext context) {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(10),
-              child: Text(note,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      color: taMuted)),
+              child: Text(
+                note,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  color: taMuted,
+                ),
+              ),
             ),
         ],
       ),
@@ -245,28 +267,33 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('TabAlignment',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  'TabAlignment',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'Controls the horizontal alignment and layout '
                   'strategy of tabs within a TabBar.',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.87),
-                      fontSize: 14,
-                      height: 1.5),
+                    color: Colors.white.withValues(alpha: 0.87),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     taChip('enum', bg: Colors.white.withValues(alpha: 0.2)),
-                    taChip('TabBar',
-                        bg: Colors.white.withValues(alpha: 0.2)),
-                    taChip('Material 3',
-                        bg: Colors.white.withValues(alpha: 0.2)),
+                    taChip('TabBar', bg: Colors.white.withValues(alpha: 0.2)),
+                    taChip(
+                      'Material 3',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
                   ],
                 ),
               ],
@@ -276,29 +303,30 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
 
           // ── 2. Enum Overview ─────────────────────────────────
-          taSection('Enum Overview',
+          taSection(
+            'Enum Overview',
             children: [
               taBody(
                 'TabAlignment is an enum introduced in Flutter 3.14 as '
                 'part of Material 3 TabBar improvements. It specifies '
                 'how tabs are positioned horizontally: packed at start, '
-                'centred, or expanded to fill the full width.'),
+                'centred, or expanded to fill the full width.',
+              ),
               taBody(
                 'The alignment interacts with TabBar.isScrollable: '
                 'some modes require scrollable tabs, others require '
-                'fixed tabs. Mismatching causes an assertion error.'),
+                'fixed tabs. Mismatching causes an assertion error.',
+              ),
               Wrap(
-                children: [
-                  for (final v in TabAlignment.values)
-                    taChip(v.name),
-                ],
+                children: [for (final v in TabAlignment.values) taChip(v.name)],
               ),
             ],
           ),
 
           // ── 3. Individual Value Cards ────────────────────────
           for (final a in taAlignments)
-            taSection(a['title']!,
+            taSection(
+              a['title']!,
               children: [
                 taLabel('Value'),
                 taChip('TabAlignment.${a['value']}'),
@@ -315,11 +343,13 @@ dynamic build(BuildContext context) {
             ),
 
           // ── 4. Live TabBar Demos — Individual ────────────────
-          taSection('Live TabBars — Each Alignment',
+          taSection(
+            'Live TabBars — Each Alignment',
             children: [
               taBody(
                 'Each TabBar below demonstrates a different alignment. '
-                'Notice how tabs occupy space differently:'),
+                'Notice how tabs occupy space differently:',
+              ),
               taTabBarDemo(
                 alignment: TabAlignment.start,
                 label: 'TabAlignment.start',
@@ -348,12 +378,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 5. Side-by-Side Comparison ───────────────────────
-          taSection('Side-by-Side: Scrollable Alignments',
+          taSection(
+            'Side-by-Side: Scrollable Alignments',
             children: [
               taBody(
                 'Comparing the three scrollable alignments with '
                 'identical tabs. The difference is visible at the '
-                'leading edge and overall position:'),
+                'leading edge and overall position:',
+              ),
               for (final pair in [
                 {'alignment': TabAlignment.start, 'name': 'start'},
                 {'alignment': TabAlignment.startOffset, 'name': 'startOffset'},
@@ -365,10 +397,13 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 80,
-                        child: Text(pair['name'] as String,
-                            style: const TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600)),
+                        child: Text(
+                          pair['name'] as String,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                       Expanded(
                         child: DefaultTabController(
@@ -381,8 +416,7 @@ dynamic build(BuildContext context) {
                             ),
                             child: TabBar(
                               isScrollable: true,
-                              tabAlignment:
-                                  pair['alignment'] as TabAlignment,
+                              tabAlignment: pair['alignment'] as TabAlignment,
                               labelColor: taDark,
                               unselectedLabelColor: taMuted,
                               indicatorColor: taPrimary,
@@ -402,12 +436,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 6. Many Tabs Demo ────────────────────────────────
-          taSection('Many Tabs — Scrollable Behaviour',
+          taSection(
+            'Many Tabs — Scrollable Behaviour',
             children: [
               taBody(
                 'With many tabs, scrollable modes show their strength. '
                 'fill mode is not suitable for many tabs as each tab '
-                'becomes very narrow.'),
+                'becomes very narrow.',
+              ),
               taTabBarDemo(
                 alignment: TabAlignment.start,
                 label: '7 tabs — start alignment',
@@ -441,10 +477,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 7. isScrollable Compatibility ────────────────────
-          taSection('isScrollable Compatibility Matrix',
+          taSection(
+            'isScrollable Compatibility Matrix',
             child: Table(
               border: TableBorder.all(
-                  color: taAccent.withValues(alpha: 0.3), width: 1),
+                color: taAccent.withValues(alpha: 0.3),
+                width: 1,
+              ),
               columnWidths: const {
                 0: FlexColumnWidth(2),
                 1: FlexColumnWidth(1.5),
@@ -452,19 +491,20 @@ dynamic build(BuildContext context) {
               },
               children: [
                 TableRow(
-                  decoration:
-                      BoxDecoration(color: taPrimary.withValues(alpha: 0.1)),
+                  decoration: BoxDecoration(
+                    color: taPrimary.withValues(alpha: 0.1),
+                  ),
                   children: [
-                    for (final h in [
-                      'Alignment',
-                      'Scrollable',
-                      'Fixed',
-                    ])
+                    for (final h in ['Alignment', 'Scrollable', 'Fixed'])
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(h,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 11)),
+                        child: Text(
+                          h,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 11,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -478,21 +518,27 @@ dynamic build(BuildContext context) {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(row[0],
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: taDark)),
+                        child: Text(
+                          row[0],
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: taDark,
+                          ),
+                        ),
                       ),
                       for (int i = 1; i < 3; i++)
                         Padding(
                           padding: EdgeInsets.all(8),
-                          child: Text(row[i],
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: row[i].startsWith('✓')
-                                      ? Colors.green.shade700
-                                      : Colors.red.shade600)),
+                          child: Text(
+                            row[i],
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: row[i].startsWith('✓')
+                                  ? Colors.green.shade700
+                                  : Colors.red.shade600,
+                            ),
+                          ),
                         ),
                     ],
                   ),
@@ -501,10 +547,10 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 8. Width Distribution Visualiser ─────────────────
-          taSection('Width Distribution Visualiser',
+          taSection(
+            'Width Distribution Visualiser',
             children: [
-              taBody(
-                'How tab width is allocated across the bar:'),
+              taBody('How tab width is allocated across the bar:'),
               for (final layout in [
                 {
                   'name': 'fill',
@@ -535,9 +581,13 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(layout['name'] as String,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w700)),
+                      Text(
+                        layout['name'] as String,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       Container(
                         width: double.infinity,
@@ -546,58 +596,56 @@ dynamic build(BuildContext context) {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: taAccent.withValues(alpha: 0.3)),
+                            color: taAccent.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: Row(
                           children: [
                             if (layout['name'] == 'center')
+                              Expanded(flex: 23, child: Container()),
+                            for (
+                              int i = 0;
+                              i < (layout['widths'] as List).length;
+                              i++
+                            )
                               Expanded(
-                                flex: 23,
-                                child: Container(),
-                              ),
-                            for (int i = 0;
-                                i < (layout['widths'] as List).length;
-                                i++)
-                              Expanded(
-                                flex: (((layout['widths'] as List)[i]
-                                            as double) *
-                                        100)
-                                    .toInt(),
+                                flex:
+                                    (((layout['widths'] as List)[i] as double) *
+                                            100)
+                                        .toInt(),
                                 child: Container(
                                   margin: const EdgeInsets.all(2),
                                   decoration: BoxDecoration(
                                     color: Color.lerp(
-                                        taPrimary, taAccent, i * 0.3),
+                                      taPrimary,
+                                      taAccent,
+                                      i * 0.3,
+                                    ),
                                     borderRadius: BorderRadius.circular(3),
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    (layout['labels'] as List)[i]
-                                        as String,
+                                    (layout['labels'] as List)[i] as String,
                                     style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600),
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ),
                             if (layout['name'] == 'center')
-                              Expanded(
-                                flex: 23,
-                                child: Container(),
-                              ),
+                              Expanded(flex: 23, child: Container()),
                             if (layout['name'] == 'start')
-                              Expanded(
-                                flex: 46,
-                                child: Container(),
-                              ),
+                              Expanded(flex: 46, child: Container()),
                           ],
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(layout['desc'] as String,
-                          style: TextStyle(
-                              fontSize: 11, color: taMuted)),
+                      Text(
+                        layout['desc'] as String,
+                        style: TextStyle(fontSize: 11, color: taMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -606,7 +654,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 9. Material 2 vs 3 ──────────────────────────────
-          taSection('Material 2 vs Material 3 Defaults',
+          taSection(
+            'Material 2 vs Material 3 Defaults',
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -621,10 +670,13 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Material 2',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 2',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           for (final fact in [
                             'No tabAlignment property',
@@ -634,9 +686,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 3),
-                              child: Text('• $fact',
-                                  style: TextStyle(
-                                      fontSize: 11, color: taMuted)),
+                              child: Text(
+                                '• $fact',
+                                style: TextStyle(fontSize: 11, color: taMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -653,10 +706,13 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Material 3',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 3',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           for (final fact in [
                             'tabAlignment property added',
@@ -666,9 +722,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 3),
-                              child: Text('• $fact',
-                                  style: TextStyle(
-                                      fontSize: 11, color: taMuted)),
+                              child: Text(
+                                '• $fact',
+                                style: TextStyle(fontSize: 11, color: taMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -680,10 +737,10 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 10. TabBar Customisation ─────────────────────────
-          taSection('TabBar Customisation Properties',
+          taSection(
+            'TabBar Customisation Properties',
             children: [
-              taBody(
-                'tabAlignment works alongside these TabBar properties:'),
+              taBody('tabAlignment works alongside these TabBar properties:'),
               for (final prop in [
                 ['tabAlignment', 'Horizontal alignment of tabs'],
                 ['isScrollable', 'Whether tabs can scroll horizontally'],
@@ -712,15 +769,20 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(
                         width: 170,
-                        child: Text(prop[0],
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          prop[0],
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(prop[1],
-                            style: TextStyle(fontSize: 12, color: taMuted)),
+                        child: Text(
+                          prop[1],
+                          style: TextStyle(fontSize: 12, color: taMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -729,11 +791,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 11. Responsive Layout ────────────────────────────
-          taSection('Responsive Layout Guidance',
+          taSection(
+            'Responsive Layout Guidance',
             children: [
               taBody(
                 'The alignment choice should respond to the available '
-                'width and number of tabs:'),
+                'width and number of tabs:',
+              ),
               for (final guide in [
                 {
                   'scenario': 'Narrow screen, few tabs (2-4)',
@@ -748,13 +812,15 @@ dynamic build(BuildContext context) {
                 {
                   'scenario': 'Any width, many tabs (5+)',
                   'recommendation': 'start or startOffset',
-                  'reason': 'Scrollable layout prevents tabs from being '
+                  'reason':
+                      'Scrollable layout prevents tabs from being '
                       'too narrow.',
                 },
                 {
                   'scenario': 'App bar tabs matching title',
                   'recommendation': 'startOffset',
-                  'reason': 'The 52dp offset aligns visually with the '
+                  'reason':
+                      'The 52dp offset aligns visually with the '
                       'AppBar.title default padding.',
                 },
               ])
@@ -769,14 +835,20 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(guide['scenario']!,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w700)),
+                      Text(
+                        guide['scenario']!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       taChip(guide['recommendation']!),
                       const SizedBox(height: 4),
-                      Text(guide['reason']!,
-                          style: TextStyle(fontSize: 11, color: taMuted)),
+                      Text(
+                        guide['reason']!,
+                        style: TextStyle(fontSize: 11, color: taMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -784,7 +856,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 12. Common Pitfalls ──────────────────────────────
-          taSection('Common Pitfalls',
+          taSection(
+            'Common Pitfalls',
             children: [
               for (final pit in [
                 {
@@ -822,28 +895,35 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: const Color(0xFFFBE9E7),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: taPrimary.withValues(alpha: 0.3)),
+                    border: Border.all(color: taPrimary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded,
-                              color: taDark, size: 16),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: taDark,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
-                            child: Text(pit['title']!,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700)),
+                            child: Text(
+                              pit['title']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(pit['detail']!,
-                          style: TextStyle(fontSize: 11, color: taMuted)),
+                      Text(
+                        pit['detail']!,
+                        style: TextStyle(fontSize: 11, color: taMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -851,7 +931,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 13. Decision Guide ───────────────────────────────
-          taSection('Decision Guide',
+          taSection(
+            'Decision Guide',
             children: [
               Container(
                 width: double.infinity,
@@ -876,11 +957,14 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(step,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.w500)),
+                        child: Text(
+                          step,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -889,11 +973,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 14. RTL Considerations ───────────────────────────
-          taSection('RTL (Right-to-Left) Behaviour',
+          taSection(
+            'RTL (Right-to-Left) Behaviour',
             children: [
               taBody(
                 'Tab alignment respects the ambient text direction. '
-                'In RTL layouts:'),
+                'In RTL layouts:',
+              ),
               for (final item in [
                 '"start" aligns to the RIGHT edge (logical start).',
                 '"startOffset" adds the offset from the RIGHT edge.',
@@ -907,13 +993,18 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('→ ',
-                          style: TextStyle(
-                              color: taPrimary,
-                              fontWeight: FontWeight.w700)),
+                      const Text(
+                        '→ ',
+                        style: TextStyle(
+                          color: taPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(item,
-                            style: TextStyle(fontSize: 12, color: taMuted)),
+                        child: Text(
+                          item,
+                          style: TextStyle(fontSize: 12, color: taMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -922,18 +1013,17 @@ dynamic build(BuildContext context) {
               taBody(
                 'Always test TabBar in both LTR and RTL to ensure '
                 'alignment behaves as expected. Use Directionality '
-                'widget to test:'),
+                'widget to test:',
+              ),
             ],
           ),
 
           // ── 15. Related APIs ─────────────────────────────────
-          taSection('Related APIs',
+          taSection(
+            'Related APIs',
             children: [
               for (final api in [
-                {
-                  'name': 'TabBar',
-                  'rel': 'Primary widget using tabAlignment',
-                },
+                {'name': 'TabBar', 'rel': 'Primary widget using tabAlignment'},
                 {
                   'name': 'TabBar.secondary',
                   'rel': 'Secondary tab bar variant (same alignment)',
@@ -962,15 +1052,20 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 190,
-                        child: Text(api['name']!,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: taDark)),
+                        child: Text(
+                          api['name']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: taDark,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(api['rel']!,
-                            style: TextStyle(fontSize: 12, color: taMuted)),
+                        child: Text(
+                          api['rel']!,
+                          style: TextStyle(fontSize: 12, color: taMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -979,7 +1074,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 16. Summary Dashboard ────────────────────────────
-          taSection('Summary Dashboard',
+          taSection(
+            'Summary Dashboard',
             child: Column(
               children: [
                 Row(
@@ -994,13 +1090,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Text(
-                                '${TabAlignment.values.length}',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: taDark)),
-                            const Text('Enum Values',
-                                style: TextStyle(fontSize: 11)),
+                              '${TabAlignment.values.length}',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: taDark,
+                              ),
+                            ),
+                            const Text(
+                              'Enum Values',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1015,13 +1115,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('10',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: taDark)),
-                            const Text('Live TabBars',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '10',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: taDark,
+                              ),
+                            ),
+                            const Text(
+                              'Live TabBars',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1036,13 +1141,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('3',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: taDark)),
-                            const Text('Width Diagrams',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '3',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: taDark,
+                              ),
+                            ),
+                            const Text(
+                              'Width Diagrams',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1062,8 +1172,7 @@ dynamic build(BuildContext context) {
                     'positioning in Material 3. Match the right '
                     'alignment to your tab count, screen width, '
                     'and design intent.',
-                    style: TextStyle(
-                        fontSize: 12, color: taMuted, height: 1.5),
+                    style: TextStyle(fontSize: 12, color: taMuted, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1080,19 +1189,23 @@ dynamic build(BuildContext context) {
             color: taDark,
             child: Column(
               children: [
-                const Text('TabAlignment Deep Demo',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'TabAlignment Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Terracotta/Clay theme  •  Batch 61  •  '
                   '${TabAlignment.values.length} enum values  •  '
                   '10 live TabBars',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 11),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

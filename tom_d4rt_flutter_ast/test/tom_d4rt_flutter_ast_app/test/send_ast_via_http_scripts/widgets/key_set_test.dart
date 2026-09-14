@@ -30,18 +30,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: fg,
-                  letterSpacing: 0.3)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: fg,
+              letterSpacing: 0.3,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: fg.withValues(alpha: 0.75),
-                  fontStyle: FontStyle.italic)),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: fg.withValues(alpha: 0.75),
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
@@ -57,8 +63,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(10),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: border, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: border, height: 1.5),
+      ),
     );
   }
 
@@ -80,17 +88,23 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: accent)),
-          ),
-          Text(value,
+            child: Text(
+              label,
               style: TextStyle(
-                  fontSize: 11,
-                  color: accent.withValues(alpha: 0.8),
-                  fontFamily: 'monospace')),
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: accent,
+              ),
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 11,
+              color: accent.withValues(alpha: 0.8),
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     );
@@ -104,8 +118,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child:
-          Text(text, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -117,18 +133,24 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 140,
-            child: Text(key,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: accent)),
+            child: Text(
+              key,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(val,
-                style: TextStyle(
-                    fontSize: 11,
-                    color: accent.withValues(alpha: 0.8),
-                    fontFamily: 'monospace')),
+            child: Text(
+              val,
+              style: TextStyle(
+                fontSize: 11,
+                color: accent.withValues(alpha: 0.8),
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -148,8 +170,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 3),
-        Text(label,
-            style: const TextStyle(fontSize: 8, color: Colors.black54)),
+        Text(label, style: const TextStyle(fontSize: 8, color: Colors.black54)),
       ],
     );
   }
@@ -170,12 +191,15 @@ dynamic build(BuildContext context) {
           ),
         ],
       ),
-      child: Text(key,
-          style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-              color: fg,
-              fontFamily: 'monospace')),
+      child: Text(
+        key,
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+          color: fg,
+          fontFamily: 'monospace',
+        ),
+      ),
     );
   }
 
@@ -191,19 +215,25 @@ dynamic build(BuildContext context) {
               color: accent.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(combo,
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: accent,
-                    fontFamily: 'monospace')),
+            child: Text(
+              combo,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: accent,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(action,
-                style: TextStyle(
-                    fontSize: 11,
-                    color: accent.withValues(alpha: 0.8))),
+            child: Text(
+              action,
+              style: TextStyle(
+                fontSize: 11,
+                color: accent.withValues(alpha: 0.8),
+              ),
+            ),
           ),
         ],
       ),
@@ -220,14 +250,19 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Text(value,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: fg)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: fg,
+            ),
+          ),
           const SizedBox(height: 2),
-          Text(label,
-              style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7))),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9, color: fg.withValues(alpha: 0.7)),
+          ),
         ],
       ),
     );
@@ -245,17 +280,29 @@ dynamic build(BuildContext context) {
 
   // Section 4 — two-key modifier combos
   final ctrlC = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyC);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyC,
+  );
   final ctrlV = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyV);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyV,
+  );
   final ctrlX = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyX);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyX,
+  );
   final ctrlZ = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyZ);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyZ,
+  );
   final altTab = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.alt, LogicalKeyboardKey.tab);
+    LogicalKeyboardKey.alt,
+    LogicalKeyboardKey.tab,
+  );
   final shiftTab = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.shift, LogicalKeyboardKey.tab);
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.tab,
+  );
   print('\n--- Two-key combos ---');
   print('Ctrl+C keys: ${ctrlC.keys.length}');
   print('Ctrl+V keys: ${ctrlV.keys.length}');
@@ -264,17 +311,20 @@ dynamic build(BuildContext context) {
 
   // Section 5 — triple combos
   final ctrlShiftS = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.shift,
-      LogicalKeyboardKey.keyS);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.keyS,
+  );
   final ctrlShiftN = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.shift,
-      LogicalKeyboardKey.keyN);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.keyN,
+  );
   final ctrlAltDel = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.alt,
-      LogicalKeyboardKey.delete);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.alt,
+    LogicalKeyboardKey.delete,
+  );
   print('\n--- Triple combos ---');
   print('Ctrl+Shift+S keys: ${ctrlShiftS.keys.length}');
   print('Ctrl+Shift+N keys: ${ctrlShiftN.keys.length}');
@@ -282,10 +332,11 @@ dynamic build(BuildContext context) {
 
   // Section 6 — quad combos
   final quadCombo = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.shift,
-      LogicalKeyboardKey.alt,
-      LogicalKeyboardKey.keyF);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.alt,
+    LogicalKeyboardKey.keyF,
+  );
   print('\n--- Quad combo ---');
   print('Ctrl+Shift+Alt+F keys: ${quadCombo.keys.length}');
 
@@ -306,7 +357,9 @@ dynamic build(BuildContext context) {
   // Section 8 — equality
   final copyA = KeySet<LogicalKeyboardKey>(LogicalKeyboardKey.keyA);
   final copyCtrlC = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyC);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyC,
+  );
   print('\n--- Equality ---');
   print('singleA == copyA: ${singleA == copyA}');
   print('ctrlC == copyCtrlC: ${ctrlC == copyCtrlC}');
@@ -331,42 +384,58 @@ dynamic build(BuildContext context) {
   // Section 11 — common shortcuts
   print('\n--- Common shortcuts ---');
   final ctrlA = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyA);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyA,
+  );
   final ctrlS = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyS);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyS,
+  );
   final ctrlF = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.keyF);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyF,
+  );
   print('Select all: Ctrl+A (${ctrlA.keys.length} keys)');
   print('Save: Ctrl+S (${ctrlS.keys.length} keys)');
   print('Find: Ctrl+F (${ctrlF.keys.length} keys)');
 
   // Section 12 — platform shortcuts
   final metaC = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.meta, LogicalKeyboardKey.keyC);
+    LogicalKeyboardKey.meta,
+    LogicalKeyboardKey.keyC,
+  );
   final metaV = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.meta, LogicalKeyboardKey.keyV);
+    LogicalKeyboardKey.meta,
+    LogicalKeyboardKey.keyV,
+  );
   print('\n--- Platform shortcuts ---');
   print('macOS Cmd+C: ${metaC.keys.length} keys');
   print('macOS Cmd+V: ${metaV.keys.length} keys');
 
   // Section 13 — navigation keys
   final ctrlHome = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.home);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.home,
+  );
   final ctrlEnd = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control, LogicalKeyboardKey.end);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.end,
+  );
   print('\n--- Navigation keys ---');
   print('Ctrl+Home: ${ctrlHome.keys.length} keys');
   print('Ctrl+End: ${ctrlEnd.keys.length} keys');
 
   // Section 14 — text editing
   final ctrlShiftLeft = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.shift,
-      LogicalKeyboardKey.arrowLeft);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.arrowLeft,
+  );
   final ctrlShiftRight = KeySet<LogicalKeyboardKey>(
-      LogicalKeyboardKey.control,
-      LogicalKeyboardKey.shift,
-      LogicalKeyboardKey.arrowRight);
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.shift,
+    LogicalKeyboardKey.arrowRight,
+  );
   print('\n--- Text editing ---');
   print('Ctrl+Shift+Left: ${ctrlShiftLeft.keys.length} keys');
   print('Ctrl+Shift+Right: ${ctrlShiftRight.keys.length} keys');
@@ -396,8 +465,12 @@ dynamic build(BuildContext context) {
         ),
 
         // ── 2. Concept overview ──────────────────────────────────────
-        sectionBanner('2 · Concept Overview',
-            'Understanding keyboard key sets', heatherPurple, Colors.white),
+        sectionBanner(
+          '2 · Concept Overview',
+          'Understanding keyboard key sets',
+          heatherPurple,
+          Colors.white,
+        ),
         noteBox(
           'KeySet<T extends KeyboardKey> encapsulates a set of keys that '
           'together form a keyboard shortcut. It supports 1–4 keys in the '
@@ -422,8 +495,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Single key display ────────────────────────────────────
-        sectionBanner('3 · Single-Key Sets',
-            'KeySet with one key', softLavender, deepMauve),
+        sectionBanner(
+          '3 · Single-Key Sets',
+          'KeySet with one key',
+          softLavender,
+          deepMauve,
+        ),
         noteBox(
           'A KeySet can hold a single key. This is useful for shortcuts '
           'that respond to a single key press without modifiers, such as '
@@ -436,9 +513,7 @@ dynamic build(BuildContext context) {
         dataRow('keys', '${singleA.keys}', wisteria),
         dataRow('runtimeType', '${singleA.runtimeType}', amethystHaze),
         const SizedBox(height: 8),
-        Wrap(children: [
-          keyChip('A', deepMauve, Colors.white),
-        ]),
+        Wrap(children: [keyChip('A', deepMauve, Colors.white)]),
         const SizedBox(height: 6),
         noteBox(
           'Single-key sets are used for function key shortcuts (F1-F12), '
@@ -449,8 +524,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. Two-key modifier grid ─────────────────────────────────
-        sectionBanner('4 · Two-Key Modifier Combos',
-            'Modifier + character key pairs', wisteria, Colors.white),
+        sectionBanner(
+          '4 · Two-Key Modifier Combos',
+          'Modifier + character key pairs',
+          wisteria,
+          Colors.white,
+        ),
         noteBox(
           'The most common shortcut pattern is a modifier key combined with '
           'a character key. Ctrl+C for copy, Ctrl+V for paste, Alt+Tab for '
@@ -458,31 +537,61 @@ dynamic build(BuildContext context) {
           deepMauve,
           lavenderBlush,
         ),
-        dataRow('Ctrl+C', '${ctrlC.keys.length} keys → ${ctrlC.keys}', deepMauve),
-        dataRow('Ctrl+V', '${ctrlV.keys.length} keys → ${ctrlV.keys}', heatherPurple),
-        dataRow('Ctrl+X', '${ctrlX.keys.length} keys → ${ctrlX.keys}', wisteria),
-        dataRow('Ctrl+Z', '${ctrlZ.keys.length} keys → ${ctrlZ.keys}', amethystHaze),
-        dataRow('Alt+Tab', '${altTab.keys.length} keys → ${altTab.keys}', dustyMauve),
-        dataRow('Shift+Tab', '${shiftTab.keys.length} keys → ${shiftTab.keys}', grapeLight),
+        dataRow(
+          'Ctrl+C',
+          '${ctrlC.keys.length} keys → ${ctrlC.keys}',
+          deepMauve,
+        ),
+        dataRow(
+          'Ctrl+V',
+          '${ctrlV.keys.length} keys → ${ctrlV.keys}',
+          heatherPurple,
+        ),
+        dataRow(
+          'Ctrl+X',
+          '${ctrlX.keys.length} keys → ${ctrlX.keys}',
+          wisteria,
+        ),
+        dataRow(
+          'Ctrl+Z',
+          '${ctrlZ.keys.length} keys → ${ctrlZ.keys}',
+          amethystHaze,
+        ),
+        dataRow(
+          'Alt+Tab',
+          '${altTab.keys.length} keys → ${altTab.keys}',
+          dustyMauve,
+        ),
+        dataRow(
+          'Shift+Tab',
+          '${shiftTab.keys.length} keys → ${shiftTab.keys}',
+          grapeLight,
+        ),
         const SizedBox(height: 8),
-        Wrap(children: [
-          keyChip('Ctrl', deepMauve, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('C', softLavender, deepMauve),
-          const SizedBox(width: 12),
-          keyChip('Ctrl', deepMauve, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('V', softLavender, deepMauve),
-          const SizedBox(width: 12),
-          keyChip('Alt', heatherPurple, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('Tab', softLavender, deepMauve),
-        ]),
+        Wrap(
+          children: [
+            keyChip('Ctrl', deepMauve, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('C', softLavender, deepMauve),
+            const SizedBox(width: 12),
+            keyChip('Ctrl', deepMauve, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('V', softLavender, deepMauve),
+            const SizedBox(width: 12),
+            keyChip('Alt', heatherPurple, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('Tab', softLavender, deepMauve),
+          ],
+        ),
         const SizedBox(height: 14),
 
         // ── 5. Triple combos ─────────────────────────────────────────
-        sectionBanner('5 · Triple-Key Combinations',
-            'Three keys pressed simultaneously', amethystHaze, Colors.white),
+        sectionBanner(
+          '5 · Triple-Key Combinations',
+          'Three keys pressed simultaneously',
+          amethystHaze,
+          Colors.white,
+        ),
         noteBox(
           'Triple-key combos use two modifiers plus a character key. '
           'Ctrl+Shift+S for "Save As", Ctrl+Alt+Delete for system interrupt — '
@@ -497,18 +606,24 @@ dynamic build(BuildContext context) {
         dataRow('Ctrl+Alt+Del', '${ctrlAltDel.keys.length} keys', dustyMauve),
         dataRow('keys', '${ctrlAltDel.keys}', grapeLight),
         const SizedBox(height: 8),
-        Wrap(children: [
-          keyChip('Ctrl', deepMauve, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('Shift', heatherPurple, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('S', softLavender, deepMauve),
-        ]),
+        Wrap(
+          children: [
+            keyChip('Ctrl', deepMauve, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('Shift', heatherPurple, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('S', softLavender, deepMauve),
+          ],
+        ),
         const SizedBox(height: 14),
 
         // ── 6. Quad combos ───────────────────────────────────────────
-        sectionBanner('6 · Quad-Key Combinations',
-            'Maximum positional constructor capacity', dustyMauve, Colors.white),
+        sectionBanner(
+          '6 · Quad-Key Combinations',
+          'Maximum positional constructor capacity',
+          dustyMauve,
+          Colors.white,
+        ),
         noteBox(
           'The positional constructor accepts up to 4 keys. For combos with '
           'more than 4 keys, use KeySet.fromSet(). Four-key combos are rare '
@@ -519,15 +634,17 @@ dynamic build(BuildContext context) {
         dataRow('Ctrl+Shift+Alt+F', '${quadCombo.keys.length} keys', deepMauve),
         dataRow('keys', '${quadCombo.keys}', heatherPurple),
         const SizedBox(height: 8),
-        Wrap(children: [
-          keyChip('Ctrl', deepMauve, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('Shift', heatherPurple, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('Alt', wisteria, Colors.white),
-          keyChip('+', lilacGray, deepMauve),
-          keyChip('F', softLavender, deepMauve),
-        ]),
+        Wrap(
+          children: [
+            keyChip('Ctrl', deepMauve, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('Shift', heatherPurple, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('Alt', wisteria, Colors.white),
+            keyChip('+', lilacGray, deepMauve),
+            keyChip('F', softLavender, deepMauve),
+          ],
+        ),
         noteBox(
           'Four-key shortcuts are uncommon in standard applications but can '
           'be useful in professional software like IDEs, video editors, and '
@@ -538,8 +655,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. fromSet factory ───────────────────────────────────────
-        sectionBanner('7 · KeySet.fromSet Factory',
-            'Creating key sets from Set<T>', lilacGray, deepMauve),
+        sectionBanner(
+          '7 · KeySet.fromSet Factory',
+          'Creating key sets from Set<T>',
+          lilacGray,
+          deepMauve,
+        ),
         noteBox(
           'KeySet.fromSet() creates a KeySet from a Dart Set. This is useful '
           'when the keys are determined at runtime or when you need more than '
@@ -547,9 +668,17 @@ dynamic build(BuildContext context) {
           deepMauve,
           lavenderBlush,
         ),
-        dataRow('fromSet({meta,V})', '${fromSetCombo.keys.length} keys', deepMauve),
+        dataRow(
+          'fromSet({meta,V})',
+          '${fromSetCombo.keys.length} keys',
+          deepMauve,
+        ),
         dataRow('keys', '${fromSetCombo.keys}', heatherPurple),
-        dataRow('fromSet({ctrl,shift,P})', '${fromSetTriple.keys.length} keys', wisteria),
+        dataRow(
+          'fromSet({ctrl,shift,P})',
+          '${fromSetTriple.keys.length} keys',
+          wisteria,
+        ),
         dataRow('keys', '${fromSetTriple.keys}', amethystHaze),
         noteBox(
           'The fromSet constructor is particularly useful in shortcut '
@@ -561,8 +690,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. Equality checker ──────────────────────────────────────
-        sectionBanner('8 · Equality Behavior',
-            'Value-based equality comparison', softLavender, deepMauve),
+        sectionBanner(
+          '8 · Equality Behavior',
+          'Value-based equality comparison',
+          softLavender,
+          deepMauve,
+        ),
         noteBox(
           'KeySet uses value-based equality. Two KeySets containing the same '
           'keys are equal regardless of construction method or order. This is '
@@ -587,11 +720,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Equality Matrix',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: deepMauve)),
+              Text(
+                'Equality Matrix',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepMauve,
+                ),
+              ),
               const SizedBox(height: 6),
               dataRow('KeySet(A) == KeySet(A)', 'true ✓', deepMauve),
               dataRow('KeySet(A) == KeySet(B)', 'false ✗', heatherPurple),
@@ -603,8 +739,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. HashCode inspector ────────────────────────────────────
-        sectionBanner('9 · HashCode Behavior',
-            'Consistent hashing for map keys', wisteria, Colors.white),
+        sectionBanner(
+          '9 · HashCode Behavior',
+          'Consistent hashing for map keys',
+          wisteria,
+          Colors.white,
+        ),
         noteBox(
           'KeySet overrides hashCode to be consistent with equality. '
           'Equal KeySets produce the same hashCode, making them safe to '
@@ -614,10 +754,18 @@ dynamic build(BuildContext context) {
         ),
         dataRow('singleA.hashCode', '${singleA.hashCode}', deepMauve),
         dataRow('copyA.hashCode', '${copyA.hashCode}', heatherPurple),
-        dataRow('Hashes match', '${singleA.hashCode == copyA.hashCode}', wisteria),
+        dataRow(
+          'Hashes match',
+          '${singleA.hashCode == copyA.hashCode}',
+          wisteria,
+        ),
         dataRow('ctrlC.hashCode', '${ctrlC.hashCode}', amethystHaze),
         dataRow('copyCtrlC.hashCode', '${copyCtrlC.hashCode}', dustyMauve),
-        dataRow('Hashes match', '${ctrlC.hashCode == copyCtrlC.hashCode}', grapeLight),
+        dataRow(
+          'Hashes match',
+          '${ctrlC.hashCode == copyCtrlC.hashCode}',
+          grapeLight,
+        ),
         noteBox(
           'Hash consistency means KeySets can serve as keys in '
           'Map<KeySet, VoidCallback> structures — the foundation of '
@@ -628,8 +776,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Keys access panel ────────────────────────────────────
-        sectionBanner('10 · Keys Getter',
-            'Accessing the underlying key set', amethystHaze, Colors.white),
+        sectionBanner(
+          '10 · Keys Getter',
+          'Accessing the underlying key set',
+          amethystHaze,
+          Colors.white,
+        ),
         noteBox(
           'The keys getter returns a Set<T> containing all keys in the '
           'KeySet. The returned set is used for display and comparison. '
@@ -646,8 +798,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Common shortcuts table ───────────────────────────────
-        sectionBanner('11 · Common Shortcut Patterns',
-            'Standard keyboard shortcuts', deepMauve, Colors.white),
+        sectionBanner(
+          '11 · Common Shortcut Patterns',
+          'Standard keyboard shortcuts',
+          deepMauve,
+          Colors.white,
+        ),
         noteBox(
           'Standard shortcuts follow platform conventions. On Linux/Windows, '
           'Ctrl is the primary modifier. On macOS, Meta (Cmd) takes that role. '
@@ -669,8 +825,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Platform shortcuts grid ──────────────────────────────
-        sectionBanner('12 · Platform-Specific Shortcuts',
-            'macOS Meta vs Linux/Windows Ctrl', softLavender, deepMauve),
+        sectionBanner(
+          '12 · Platform-Specific Shortcuts',
+          'macOS Meta vs Linux/Windows Ctrl',
+          softLavender,
+          deepMauve,
+        ),
         noteBox(
           'Different platforms use different modifier keys. Flutter\'s '
           'shortcut system allows defining platform-specific bindings '
@@ -688,31 +848,57 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Copy Action',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepMauve)),
+              Text(
+                'Copy Action',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepMauve,
+                ),
+              ),
               const SizedBox(height: 6),
-              dataRow('Linux/Windows', 'Ctrl+C (${ctrlC.keys.length} keys)', deepMauve),
-              dataRow('macOS', 'Meta+C (${metaC.keys.length} keys)', heatherPurple),
+              dataRow(
+                'Linux/Windows',
+                'Ctrl+C (${ctrlC.keys.length} keys)',
+                deepMauve,
+              ),
+              dataRow(
+                'macOS',
+                'Meta+C (${metaC.keys.length} keys)',
+                heatherPurple,
+              ),
               const SizedBox(height: 8),
-              Text('Paste Action',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: deepMauve)),
+              Text(
+                'Paste Action',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: deepMauve,
+                ),
+              ),
               const SizedBox(height: 6),
-              dataRow('Linux/Windows', 'Ctrl+V (${ctrlV.keys.length} keys)', wisteria),
-              dataRow('macOS', 'Meta+V (${metaV.keys.length} keys)', amethystHaze),
+              dataRow(
+                'Linux/Windows',
+                'Ctrl+V (${ctrlV.keys.length} keys)',
+                wisteria,
+              ),
+              dataRow(
+                'macOS',
+                'Meta+V (${metaV.keys.length} keys)',
+                amethystHaze,
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 13. Navigation keys panel ────────────────────────────────
-        sectionBanner('13 · Navigation Key Combinations',
-            'Movement and scrolling shortcuts', heatherPurple, Colors.white),
+        sectionBanner(
+          '13 · Navigation Key Combinations',
+          'Movement and scrolling shortcuts',
+          heatherPurple,
+          Colors.white,
+        ),
         noteBox(
           'Navigation shortcuts combine modifiers with arrow keys, Home, '
           'End, Page Up, and Page Down. These are crucial for text editing '
@@ -731,8 +917,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Text editing keys card ───────────────────────────────
-        sectionBanner('14 · Text Editing Shortcuts',
-            'Selection and manipulation combos', dustyMauve, Colors.white),
+        sectionBanner(
+          '14 · Text Editing Shortcuts',
+          'Selection and manipulation combos',
+          dustyMauve,
+          Colors.white,
+        ),
         noteBox(
           'Text editing shortcuts often use three keys: Ctrl+Shift+arrow '
           'for word selection, Ctrl+Shift+Home/End for document selection. '
@@ -746,13 +936,25 @@ dynamic build(BuildContext context) {
         shortcutRow('Ctrl+Shift+N', 'New window', amethystHaze),
         shortcutRow('Ctrl+Shift+F', 'Find in files', dustyMauve),
         shortcutRow('Ctrl+Shift+P', 'Command palette', grapeLight),
-        dataRow('Ctrl+Shift+Left', '${ctrlShiftLeft.keys.length} keys', deepMauve),
-        dataRow('Ctrl+Shift+Right', '${ctrlShiftRight.keys.length} keys', heatherPurple),
+        dataRow(
+          'Ctrl+Shift+Left',
+          '${ctrlShiftLeft.keys.length} keys',
+          deepMauve,
+        ),
+        dataRow(
+          'Ctrl+Shift+Right',
+          '${ctrlShiftRight.keys.length} keys',
+          heatherPurple,
+        ),
         const SizedBox(height: 14),
 
         // ── 15. Comparison matrix ────────────────────────────────────
-        sectionBanner('15 · KeySet Comparison Matrix',
-            'Comparing different key set sizes', lilacGray, deepMauve),
+        sectionBanner(
+          '15 · KeySet Comparison Matrix',
+          'Comparing different key set sizes',
+          lilacGray,
+          deepMauve,
+        ),
         noteBox(
           'KeySets of different sizes are never equal. The comparison is '
           'strictly based on the contained keys — size, identity, and '
@@ -762,14 +964,22 @@ dynamic build(BuildContext context) {
         ),
         ...allSets.asMap().entries.map((entry) {
           final s = entry.value;
-          final colors = [deepMauve, heatherPurple, wisteria, amethystHaze, dustyMauve];
+          final colors = [
+            deepMauve,
+            heatherPurple,
+            wisteria,
+            amethystHaze,
+            dustyMauve,
+          ];
           return Container(
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: colors[entry.key].withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: colors[entry.key].withValues(alpha: 0.2)),
+              border: Border.all(
+                color: colors[entry.key].withValues(alpha: 0.2),
+              ),
             ),
             child: Row(
               children: [
@@ -781,27 +991,36 @@ dynamic build(BuildContext context) {
                     color: colors[entry.key],
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: Text('${entry.key + 1}',
-                      style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white)),
+                  child: Text(
+                    '${entry.key + 1}',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${s.keys.length} key(s)',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: colors[entry.key])),
-                      Text('hashCode: ${s.hashCode}',
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: colors[entry.key].withValues(alpha: 0.7),
-                              fontFamily: 'monospace')),
+                      Text(
+                        '${s.keys.length} key(s)',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: colors[entry.key],
+                        ),
+                      ),
+                      Text(
+                        'hashCode: ${s.hashCode}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: colors[entry.key].withValues(alpha: 0.7),
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -812,8 +1031,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary dashboard ────────────────────────────────────
-        sectionBanner('16 · Summary Dashboard',
-            'KeySet metrics and patterns', deepMauve, Colors.white),
+        sectionBanner(
+          '16 · Summary Dashboard',
+          'KeySet metrics and patterns',
+          deepMauve,
+          Colors.white,
+        ),
         Wrap(
           spacing: 8,
           runSpacing: 8,
@@ -853,11 +1076,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Mauve / Lavender Palette',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: deepMauve)),
+              Text(
+                'Mauve / Lavender Palette',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: deepMauve,
+                ),
+              ),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,

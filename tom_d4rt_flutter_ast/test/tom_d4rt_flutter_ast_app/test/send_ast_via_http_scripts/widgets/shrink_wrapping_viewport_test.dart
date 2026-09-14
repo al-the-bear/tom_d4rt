@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.wrap_text,
       'title': 'Content-Sized Viewport',
-      'body': 'ShrinkWrappingViewport measures the total extent of all its '
+      'body':
+          'ShrinkWrappingViewport measures the total extent of all its '
           'slivers and sizes itself to exactly that height (or width for '
           'horizontal). Unlike Viewport which fills all available space, '
           'ShrinkWrappingViewport only takes what it needs.',
@@ -26,14 +27,16 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_column,
       'title': 'Column-Friendly Scrolling',
-      'body': 'When you need a scrollable region inside a Column without an '
+      'body':
+          'When you need a scrollable region inside a Column without an '
           'explicit height constraint, ShrinkWrappingViewport is the answer. '
           'ListView sets shrinkWrap=true to use this viewport internally.',
     },
     {
       'icon': Icons.speed,
       'title': 'Performance Trade-off',
-      'body': 'Because it must measure all children to know its own size, '
+      'body':
+          'Because it must measure all children to know its own size, '
           'ShrinkWrappingViewport cannot perform lazy loading as efficiently '
           'as a regular Viewport. It lays out every visible sliver to compute '
           'the total main axis extent.',
@@ -41,7 +44,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Low-Level Building Block',
-      'body': 'Most developers use ListView(shrinkWrap: true) which creates '
+      'body':
+          'Most developers use ListView(shrinkWrap: true) which creates '
           'a ShrinkWrappingViewport internally. Direct usage is for custom '
           'scroll views built with CustomScrollView or manual Scrollable '
           'compositions.',
@@ -64,7 +68,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.cyan.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.cyan.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -72,13 +80,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['title'] as String,
-                    style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700,
-                        color: Colors.cyan.shade700),
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.cyan.shade700,
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -98,31 +113,36 @@ dynamic build(BuildContext context) {
     {
       'name': 'offset',
       'type': 'ViewportOffset (required)',
-      'desc': 'The scroll position that controls the offset of slivers within '
+      'desc':
+          'The scroll position that controls the offset of slivers within '
           'the viewport. Typically provided by a ScrollController or Scrollable.',
     },
     {
       'name': 'axisDirection',
       'type': 'AxisDirection',
-      'desc': 'The direction in which slivers are laid out. Defaults to '
+      'desc':
+          'The direction in which slivers are laid out. Defaults to '
           'AxisDirection.down (vertical top-to-bottom).',
     },
     {
       'name': 'crossAxisDirection',
       'type': 'AxisDirection?',
-      'desc': 'The direction perpendicular to the main axis. If not specified, '
+      'desc':
+          'The direction perpendicular to the main axis. If not specified, '
           'inferred from axisDirection and text direction.',
     },
     {
       'name': 'slivers',
       'type': 'List<Widget>',
-      'desc': 'The sliver children that will be laid out. All slivers must '
+      'desc':
+          'The sliver children that will be laid out. All slivers must '
           'have a finite extent — infinite slivers will cause errors.',
     },
     {
       'name': 'clipBehavior',
       'type': 'Clip',
-      'desc': 'Controls clipping of sliver content that overflows the '
+      'desc':
+          'Controls clipping of sliver content that overflows the '
           'viewport bounds. Defaults to Clip.hardEdge.',
     },
   ];
@@ -135,9 +155,7 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
         decoration: BoxDecoration(
-          color: i.isEven
-              ? Colors.cyan.withValues(alpha: 0.03)
-              : Colors.white,
+          color: i.isEven ? Colors.cyan.withValues(alpha: 0.03) : Colors.white,
           border: Border(
             bottom: BorderSide(color: Colors.cyan.withValues(alpha: 0.15)),
           ),
@@ -152,15 +170,21 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     p['name']!,
-                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                        color: Colors.cyan.shade800,
-                        fontFamily: 'monospace'),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.cyan.shade800,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                   const SizedBox(height: 2.0),
                   Text(
                     p['type']!,
-                    style: TextStyle(fontSize: 10.0, color: Colors.cyan.shade400,
-                        fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.cyan.shade400,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ],
               ),
@@ -169,7 +193,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 p['desc']!,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.35,
+                ),
               ),
             ),
           ],
@@ -204,7 +232,11 @@ dynamic build(BuildContext context) {
         alignment: Alignment.center,
         child: Text(
           'Item ${i + 1}',
-          style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: color),
+          style: TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
         ),
       );
     });
@@ -217,16 +249,29 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(8.0),
+              ),
             ),
             child: Column(
               children: [
-                Text(label, style: TextStyle(fontSize: 12.0,
-                    fontWeight: FontWeight.w700, color: color)),
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
                 const SizedBox(height: 2.0),
-                Text(description, style: TextStyle(fontSize: 10.0,
-                    color: color.withValues(alpha: 0.7)),
-                    textAlign: TextAlign.center),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    color: color.withValues(alpha: 0.7),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ),
@@ -234,7 +279,9 @@ dynamic build(BuildContext context) {
             height: containerHeight,
             decoration: BoxDecoration(
               border: Border.all(color: color.withValues(alpha: 0.25)),
-              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(8.0)),
+              borderRadius: const BorderRadius.vertical(
+                bottom: Radius.circular(8.0),
+              ),
               color: Colors.white,
             ),
             padding: const EdgeInsets.all(6.0),
@@ -250,7 +297,10 @@ dynamic build(BuildContext context) {
             shrinkWrap
                 ? 'Height: content-sized\n(${itemCount * 40} px estimate)'
                 : 'Height: fills ${containerHeight.toInt()} px\ncontainer',
-            style: TextStyle(fontSize: 10.0, color: color.withValues(alpha: 0.6)),
+            style: TextStyle(
+              fontSize: 10.0,
+              color: color.withValues(alpha: 0.6),
+            ),
             textAlign: TextAlign.center,
           ),
         ],
@@ -315,8 +365,14 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(4.0),
         ),
         alignment: Alignment.center,
-        child: Text('${j + 1}', style: TextStyle(fontSize: 10.0, color: a['color'] as Color,
-            fontWeight: FontWeight.bold)),
+        child: Text(
+          '${j + 1}',
+          style: TextStyle(
+            fontSize: 10.0,
+            color: a['color'] as Color,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     });
 
@@ -328,7 +384,9 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: (a['color'] as Color).withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(color: (a['color'] as Color).withValues(alpha: 0.2)),
+          border: Border.all(
+            color: (a['color'] as Color).withValues(alpha: 0.2),
+          ),
         ),
         child: Row(
           children: [
@@ -340,12 +398,21 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     a['direction'] as String,
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace', color: a['color'] as Color),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'monospace',
+                      color: a['color'] as Color,
+                    ),
                   ),
                   const SizedBox(height: 2.0),
-                  Text(a['desc'] as String,
-                      style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700)),
+                  Text(
+                    a['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -357,17 +424,13 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: (a['color'] as Color).withValues(alpha: 0.25)),
+                border: Border.all(
+                  color: (a['color'] as Color).withValues(alpha: 0.25),
+                ),
               ),
               child: isVert
-                  ? Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: miniItems,
-                    )
-                  : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: miniItems,
-                    ),
+                  ? Column(mainAxisSize: MainAxisSize.min, children: miniItems)
+                  : Row(mainAxisSize: MainAxisSize.min, children: miniItems),
             ),
           ],
         ),
@@ -430,9 +493,14 @@ dynamic build(BuildContext context) {
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
-              child: Text('${s['step']}',
-                  style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+              child: Text(
+                '${s['step']}',
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
             const SizedBox(width: 10.0),
             Expanded(
@@ -441,12 +509,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(s['icon'] as IconData, size: 16.0,
-                          color: Colors.cyan.shade600),
+                      Icon(
+                        s['icon'] as IconData,
+                        size: 16.0,
+                        color: Colors.cyan.shade600,
+                      ),
                       const SizedBox(width: 6.0),
-                      Text(s['title'] as String,
-                          style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600,
-                              color: Colors.cyan.shade700)),
+                      Text(
+                        s['title'] as String,
+                        style: TextStyle(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.cyan.shade700,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 4.0),
@@ -460,8 +536,12 @@ dynamic build(BuildContext context) {
                     ),
                     child: Text(
                       s['code'] as String,
-                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                          color: Colors.grey.shade800, height: 1.3),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        color: Colors.grey.shade800,
+                        height: 1.3,
+                      ),
                     ),
                   ),
                 ],
@@ -493,8 +573,14 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.menu, color: Colors.white, size: 20.0),
                 SizedBox(width: 8.0),
-                Text('App Header', style: TextStyle(color: Colors.white,
-                    fontSize: 13.0, fontWeight: FontWeight.w600)),
+                Text(
+                  'App Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 Spacer(),
                 Icon(Icons.search, color: Colors.white, size: 20.0),
               ],
@@ -514,12 +600,19 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.cyan.withValues(alpha: 0.08 + (i * 0.06)),
                     borderRadius: BorderRadius.circular(6.0),
-                    border: Border.all(color: Colors.cyan.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.cyan.withValues(alpha: 0.2),
+                    ),
                   ),
                   alignment: Alignment.center,
-                  child: Text('List Item ${i + 1}',
-                      style: TextStyle(fontSize: 11.5,
-                          color: Colors.cyan.shade700, fontWeight: FontWeight.w500)),
+                  child: Text(
+                    'List Item ${i + 1}',
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.cyan.shade700,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 );
               }),
             ),
@@ -532,11 +625,20 @@ dynamic build(BuildContext context) {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.check_circle, color: Colors.cyan.shade600, size: 16.0),
+                Icon(
+                  Icons.check_circle,
+                  color: Colors.cyan.shade600,
+                  size: 16.0,
+                ),
                 const SizedBox(width: 6.0),
-                Text('Footer — always visible below list',
-                    style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade600,
-                        fontStyle: FontStyle.italic)),
+                Text(
+                  'Footer — always visible below list',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: Colors.cyan.shade600,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ],
             ),
           ),
@@ -554,7 +656,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'No Infinite Slivers',
-      'body': 'Every sliver inside a ShrinkWrappingViewport must have a finite '
+      'body':
+          'Every sliver inside a ShrinkWrappingViewport must have a finite '
           'extent. Using SliverFillRemaining or infinite SliverLists will '
           'cause assertion errors.',
       'severity': 'error',
@@ -562,7 +665,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'Performance with Many Items',
-      'body': 'All visible slivers are laid out to compute the total extent. '
+      'body':
+          'All visible slivers are laid out to compute the total extent. '
           'With thousands of children, this eliminates the lazy-loading '
           'advantage of regular Viewports.',
       'severity': 'warning',
@@ -570,7 +674,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers_clear,
       'title': 'No Slivers That Fill Remaining Space',
-      'body': 'SliverFillRemaining is incompatible because it would create a '
+      'body':
+          'SliverFillRemaining is incompatible because it would create a '
           'circular dependency — it needs to know remaining space, but the '
           'viewport size depends on all slivers.',
       'severity': 'error',
@@ -578,7 +683,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Scroll Offset Handling',
-      'body': 'When offset is non-zero, ShrinkWrappingViewport still reports '
+      'body':
+          'When offset is non-zero, ShrinkWrappingViewport still reports '
           'its full intrinsic height. It does not shrink as the user scrolls '
           'past the beginning of the content.',
       'severity': 'info',
@@ -586,7 +692,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Nested Scrolling',
-      'body': 'Using shrinkWrap in nested scroll views disables the inner '
+      'body':
+          'Using shrinkWrap in nested scroll views disables the inner '
           'viewport\'s scroll physics. Always pair with '
           'NeverScrollableScrollPhysics() to prevent conflicts.',
       'severity': 'warning',
@@ -600,8 +707,8 @@ dynamic build(BuildContext context) {
     final Color severityColor = severity == 'error'
         ? Colors.red.shade600
         : severity == 'warning'
-            ? Colors.orange.shade600
-            : Colors.blue.shade600;
+        ? Colors.orange.shade600
+        : Colors.blue.shade600;
     print('  Caveat: ${c['title']} ($severity)');
 
     caveatWidgets.add(
@@ -625,26 +732,44 @@ dynamic build(BuildContext context) {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(c['title'] as String,
-                            style: TextStyle(fontSize: 12.5,
-                                fontWeight: FontWeight.w700, color: severityColor)),
+                        child: Text(
+                          c['title'] as String,
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: severityColor,
+                          ),
+                        ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: severityColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(severity.toUpperCase(),
-                            style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold,
-                                color: severityColor)),
+                        child: Text(
+                          severity.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontWeight: FontWeight.bold,
+                            color: severityColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4.0),
-                  Text(c['body'] as String,
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700,
-                          height: 1.35)),
+                  Text(
+                    c['body'] as String,
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -660,18 +785,42 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'icon': Icons.wrap_text, 'text': 'ShrinkWrappingViewport sizes itself '
-        'to the total extent of its slivers'},
-    {'icon': Icons.view_column, 'text': 'Enables scrollable lists in Column/'
-        'Row without explicit height constraints'},
-    {'icon': Icons.warning, 'text': 'All slivers must have finite extent — '
-        'no SliverFillRemaining allowed'},
-    {'icon': Icons.speed, 'text': 'Less efficient than Viewport for large '
-        'data sets due to measuring all children'},
-    {'icon': Icons.auto_fix_high, 'text': 'ListView(shrinkWrap: true) uses '
-        'ShrinkWrappingViewport internally'},
-    {'icon': Icons.swap_vert, 'text': 'Pair with NeverScrollableScrollPhysics '
-        'when nesting inside another scroll view'},
+    {
+      'icon': Icons.wrap_text,
+      'text':
+          'ShrinkWrappingViewport sizes itself '
+          'to the total extent of its slivers',
+    },
+    {
+      'icon': Icons.view_column,
+      'text':
+          'Enables scrollable lists in Column/'
+          'Row without explicit height constraints',
+    },
+    {
+      'icon': Icons.warning,
+      'text':
+          'All slivers must have finite extent — '
+          'no SliverFillRemaining allowed',
+    },
+    {
+      'icon': Icons.speed,
+      'text':
+          'Less efficient than Viewport for large '
+          'data sets due to measuring all children',
+    },
+    {
+      'icon': Icons.auto_fix_high,
+      'text':
+          'ListView(shrinkWrap: true) uses '
+          'ShrinkWrappingViewport internally',
+    },
+    {
+      'icon': Icons.swap_vert,
+      'text':
+          'Pair with NeverScrollableScrollPhysics '
+          'when nesting inside another scroll view',
+    },
   ];
 
   final summaryBullets = <Widget>[];
@@ -684,11 +833,21 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(s['icon'] as IconData, size: 18.0, color: Colors.cyan.shade600),
+            Icon(
+              s['icon'] as IconData,
+              size: 18.0,
+              color: Colors.cyan.shade600,
+            ),
             const SizedBox(width: 10.0),
             Expanded(
-              child: Text(s['text'] as String,
-                  style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.35)),
+              child: Text(
+                s['text'] as String,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.35,
+                ),
+              ),
             ),
           ],
         ),
@@ -708,8 +867,14 @@ dynamic build(BuildContext context) {
           Icon(icon, size: 16.0, color: color ?? Colors.cyan.shade600),
           const SizedBox(width: 8.0),
           Expanded(
-            child: Text(text,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.3)),
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+                height: 1.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -735,7 +900,10 @@ dynamic build(BuildContext context) {
           indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          labelStyle: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
+          labelStyle: const TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w600,
+          ),
           unselectedLabelStyle: const TextStyle(fontSize: 11.0),
           tabs: const [
             Tab(text: 'Concept'),
@@ -755,10 +923,12 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSWVBullet(Icons.info_outline,
-                  'ShrinkWrappingViewport is a RenderObjectWidget that creates '
-                  'a RenderShrinkWrappingViewport — a viewport whose main axis '
-                  'extent exactly matches its children\'s total extent.'),
+              buildSWVBullet(
+                Icons.info_outline,
+                'ShrinkWrappingViewport is a RenderObjectWidget that creates '
+                'a RenderShrinkWrappingViewport — a viewport whose main axis '
+                'extent exactly matches its children\'s total extent.',
+              ),
               const SizedBox(height: 12.0),
               ...conceptCards,
               const SizedBox(height: 12.0),
@@ -771,16 +941,37 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('When to use', style: TextStyle(fontSize: 13.0,
-                        fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+                    Text(
+                      'When to use',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
-                    buildSWVBullet(Icons.check, 'Short lists embedded in non-scrollable layouts'),
-                    buildSWVBullet(Icons.check, 'Column > ListView > Column patterns'),
-                    buildSWVBullet(Icons.check, 'Dialog/bottom-sheet with scrollable content'),
-                    buildSWVBullet(Icons.close, 'Long lists with hundreds of items (use Expanded + regular Viewport)',
-                        color: Colors.red.shade400),
-                    buildSWVBullet(Icons.close, 'Main app scroll views (performance waste)',
-                        color: Colors.red.shade400),
+                    buildSWVBullet(
+                      Icons.check,
+                      'Short lists embedded in non-scrollable layouts',
+                    ),
+                    buildSWVBullet(
+                      Icons.check,
+                      'Column > ListView > Column patterns',
+                    ),
+                    buildSWVBullet(
+                      Icons.check,
+                      'Dialog/bottom-sheet with scrollable content',
+                    ),
+                    buildSWVBullet(
+                      Icons.close,
+                      'Long lists with hundreds of items (use Expanded + regular Viewport)',
+                      color: Colors.red.shade400,
+                    ),
+                    buildSWVBullet(
+                      Icons.close,
+                      'Main app scroll views (performance waste)',
+                      color: Colors.red.shade400,
+                    ),
                   ],
                 ),
               ),
@@ -807,8 +998,12 @@ dynamic build(BuildContext context) {
                   '  Clip clipBehavior = Clip.hardEdge,\n'
                   '  List<Widget> slivers = const <Widget>[],\n'
                   '})',
-                  style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
-                      color: Colors.grey.shade800, height: 1.4),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontFamily: 'monospace',
+                    color: Colors.grey.shade800,
+                    height: 1.4,
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -819,18 +1014,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.25),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.lightbulb_outline, color: Colors.amber.shade700, size: 18.0),
+                        Icon(
+                          Icons.lightbulb_outline,
+                          color: Colors.amber.shade700,
+                          size: 18.0,
+                        ),
                         const SizedBox(width: 6.0),
-                        Text('Key Difference from Viewport',
-                            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                                color: Colors.amber.shade800)),
+                        Text(
+                          'Key Difference from Viewport',
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.amber.shade800,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -839,7 +1045,11 @@ dynamic build(BuildContext context) {
                       'ShrinkWrappingViewport only takes as much space as its '
                       'slivers need. Both share the same offset, axisDirection, '
                       'and slivers parameters.',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                      ),
                     ),
                   ],
                 ),
@@ -855,24 +1065,43 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Inheritance Chain',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.cyan.shade700)),
+                    Text(
+                      'Inheritance Chain',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
                     ...[
                       'Widget',
                       '  └─ RenderObjectWidget',
                       '      └─ MultiChildRenderObjectWidget',
                       '          └─ ShrinkWrappingViewport',
-                    ].map((line) => Padding(
-                      padding: const EdgeInsets.only(bottom: 2.0),
-                      child: Text(line, style: TextStyle(fontSize: 11.5,
-                          fontFamily: 'monospace', color: Colors.cyan.shade800, height: 1.3)),
-                    )),
+                    ].map(
+                      (line) => Padding(
+                        padding: const EdgeInsets.only(bottom: 2.0),
+                        child: Text(
+                          line,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontFamily: 'monospace',
+                            color: Colors.cyan.shade800,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
-                    Text('Creates: RenderShrinkWrappingViewport',
-                        style: TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic,
-                            color: Colors.cyan.shade600)),
+                    Text(
+                      'Creates: RenderShrinkWrappingViewport',
+                      style: TextStyle(
+                        fontSize: 11.5,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.cyan.shade600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -883,9 +1112,11 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSWVBullet(Icons.compare_arrows,
-                  'Regular Viewport fills all available space. '
-                  'ShrinkWrappingViewport takes only as much as its children need.'),
+              buildSWVBullet(
+                Icons.compare_arrows,
+                'Regular Viewport fills all available space. '
+                'ShrinkWrappingViewport takes only as much as its children need.',
+              ),
               const SizedBox(height: 12.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -914,7 +1145,9 @@ dynamic build(BuildContext context) {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.cyan.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.cyan.withValues(alpha: 0.25),
+                  ),
                 ),
                 clipBehavior: Clip.antiAlias,
                 child: Column(
@@ -924,51 +1157,122 @@ dynamic build(BuildContext context) {
                       color: Colors.cyan.shade600,
                       child: const Row(
                         children: [
-                          Expanded(flex: 2, child: Text('Feature',
-                              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                          Expanded(flex: 3, child: Text('Viewport',
-                              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center)),
-                          Expanded(flex: 3, child: Text('ShrinkWrapping',
-                              style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center)),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Feature',
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              'Viewport',
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              'ShrinkWrapping',
+                              style: TextStyle(
+                                fontSize: 11.5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     ...<Map<String, String>>[
-                      {'feature': 'Sizing', 'viewport': 'Fills parent',
-                          'shrink': 'Fits content'},
-                      {'feature': 'Lazy loading', 'viewport': 'Yes, efficient',
-                          'shrink': 'Limited'},
-                      {'feature': 'Infinite slivers', 'viewport': 'Supported',
-                          'shrink': 'Not allowed'},
-                      {'feature': 'Column friendly', 'viewport': 'Needs Expanded',
-                          'shrink': 'Direct child OK'},
-                      {'feature': 'SliverFillRemaining', 'viewport': 'Supported',
-                          'shrink': 'Incompatible'},
-                      {'feature': 'Memory usage', 'viewport': 'Low (lazy)',
-                          'shrink': 'Higher (measures all)'},
+                      {
+                        'feature': 'Sizing',
+                        'viewport': 'Fills parent',
+                        'shrink': 'Fits content',
+                      },
+                      {
+                        'feature': 'Lazy loading',
+                        'viewport': 'Yes, efficient',
+                        'shrink': 'Limited',
+                      },
+                      {
+                        'feature': 'Infinite slivers',
+                        'viewport': 'Supported',
+                        'shrink': 'Not allowed',
+                      },
+                      {
+                        'feature': 'Column friendly',
+                        'viewport': 'Needs Expanded',
+                        'shrink': 'Direct child OK',
+                      },
+                      {
+                        'feature': 'SliverFillRemaining',
+                        'viewport': 'Supported',
+                        'shrink': 'Incompatible',
+                      },
+                      {
+                        'feature': 'Memory usage',
+                        'viewport': 'Low (lazy)',
+                        'shrink': 'Higher (measures all)',
+                      },
                     ].asMap().entries.map((entry) {
                       final r = entry.value;
                       final isEven = entry.key.isEven;
                       return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-                        color: isEven ? Colors.cyan.withValues(alpha: 0.03) : Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 10.0,
+                        ),
+                        color: isEven
+                            ? Colors.cyan.withValues(alpha: 0.03)
+                            : Colors.white,
                         child: Row(
                           children: [
-                            Expanded(flex: 2, child: Text(r['feature']!,
-                                style: TextStyle(fontSize: 11.0,
-                                    fontWeight: FontWeight.w600, color: Colors.grey.shade800))),
-                            Expanded(flex: 3, child: Text(r['viewport']!,
-                                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-                                textAlign: TextAlign.center)),
-                            Expanded(flex: 3, child: Text(r['shrink']!,
-                                style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade700,
-                                    fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center)),
+                            Expanded(
+                              flex: 2,
+                              child: Text(
+                                r['feature']!,
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey.shade800,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                r['viewport']!,
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  color: Colors.grey.shade600,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                r['shrink']!,
+                                style: TextStyle(
+                                  fontSize: 11.0,
+                                  color: Colors.cyan.shade700,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -982,21 +1286,33 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.green.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Visual explanation',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.green.shade700)),
+                    Text(
+                      'Visual explanation',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
-                    Text('In the left example, the Viewport expands to fill the entire '
-                        '220px container regardless of having only 3 items. In the right '
-                        'example, ShrinkWrappingViewport only takes ~120px for 3 items. '
-                        'The remaining ~100px is available for other widgets in the layout.',
-                        style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700,
-                            height: 1.35)),
+                    Text(
+                      'In the left example, the Viewport expands to fill the entire '
+                      '220px container regardless of having only 3 items. In the right '
+                      'example, ShrinkWrappingViewport only takes ~120px for 3 items. '
+                      'The remaining ~100px is available for other widgets in the layout.',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1007,9 +1323,11 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSWVBullet(Icons.explore,
-                  'ShrinkWrappingViewport supports all four AxisDirection values, '
-                  'allowing vertical or horizontal shrink-wrapped scrolling.'),
+              buildSWVBullet(
+                Icons.explore,
+                'ShrinkWrappingViewport supports all four AxisDirection values, '
+                'allowing vertical or horizontal shrink-wrapped scrolling.',
+              ),
               const SizedBox(height: 12.0),
               ...axisCards,
               const SizedBox(height: 16.0),
@@ -1023,16 +1341,26 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('crossAxisDirection',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            fontFamily: 'monospace', color: Colors.cyan.shade700)),
+                    Text(
+                      'crossAxisDirection',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'monospace',
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
                     Text(
                       'If axisDirection is down or up, crossAxisDirection defaults to '
                       'right (LTR text) or left (RTL text). If axisDirection is right '
                       'or left, crossAxisDirection defaults to down. You can override '
                       'this for RTL layouts.',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                      ),
                     ),
                   ],
                 ),
@@ -1049,45 +1377,85 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Horizontal shrink-wrap use case',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.blue.shade700)),
+                    Text(
+                      'Horizontal shrink-wrap use case',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blue.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
                     SizedBox(
                       height: 60.0,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Tags: ', style: TextStyle(fontSize: 12.0,
-                              color: Colors.blue.shade600, fontWeight: FontWeight.w600)),
+                          Text(
+                            'Tags: ',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.blue.shade600,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           Expanded(
                             child: ListView(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              children: ['Flutter', 'Dart', 'Viewport', 'Layout', 'UI'].map((tag) {
-                                return Container(
-                                  margin: const EdgeInsets.only(right: 6.0),
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue.withValues(alpha: 0.12),
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(tag, style: TextStyle(fontSize: 11.5,
-                                      color: Colors.blue.shade700, fontWeight: FontWeight.w500)),
-                                );
-                              }).toList(),
+                              children:
+                                  [
+                                    'Flutter',
+                                    'Dart',
+                                    'Viewport',
+                                    'Layout',
+                                    'UI',
+                                  ].map((tag) {
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 6.0),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12.0,
+                                        vertical: 6.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue.withValues(
+                                          alpha: 0.12,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          20.0,
+                                        ),
+                                        border: Border.all(
+                                          color: Colors.blue.withValues(
+                                            alpha: 0.3,
+                                          ),
+                                        ),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        tag,
+                                        style: TextStyle(
+                                          fontSize: 11.5,
+                                          color: Colors.blue.shade700,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
                             ),
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 6.0),
-                    Text('Horizontal tags in a Row — shrinkWrap ensures '
-                        'the tags list doesn\'t expand beyond its content.',
-                        style: TextStyle(fontSize: 11.0, color: Colors.blue.shade500,
-                            fontStyle: FontStyle.italic)),
+                    Text(
+                      'Horizontal tags in a Row — shrinkWrap ensures '
+                      'the tags list doesn\'t expand beyond its content.',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.blue.shade500,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1101,18 +1469,31 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSWVBullet(Icons.view_agenda,
-                  'The most common use case: embedding a scrollable list inside '
-                  'a Column with a fixed header and footer.'),
+              buildSWVBullet(
+                Icons.view_agenda,
+                'The most common use case: embedding a scrollable list inside '
+                'a Column with a fixed header and footer.',
+              ),
               const SizedBox(height: 12.0),
-              Text('Building the pattern step-by-step:',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600,
-                      color: Colors.cyan.shade700)),
+              Text(
+                'Building the pattern step-by-step:',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.cyan.shade700,
+                ),
+              ),
               const SizedBox(height: 12.0),
               ...stepWidgets,
               const SizedBox(height: 16.0),
-              Text('Result:', style: TextStyle(fontSize: 13.0,
-                  fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+              Text(
+                'Result:',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.cyan.shade700,
+                ),
+              ),
               const SizedBox(height: 8.0),
               buildNestedColumnDemo(),
               const SizedBox(height: 16.0),
@@ -1121,18 +1502,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.amber.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.amber.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.amber.withValues(alpha: 0.25),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.warning_amber, color: Colors.amber.shade700, size: 18.0),
+                        Icon(
+                          Icons.warning_amber,
+                          color: Colors.amber.shade700,
+                          size: 18.0,
+                        ),
                         const SizedBox(width: 6.0),
-                        Text('Common Mistake',
-                            style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                                color: Colors.amber.shade800)),
+                        Text(
+                          'Common Mistake',
+                          style: TextStyle(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.amber.shade800,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6.0),
@@ -1145,8 +1537,12 @@ dynamic build(BuildContext context) {
                       '  physics: NeverScrollableScrollPhysics(),\n'
                       '  ...\n'
                       ')',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700,
-                          height: 1.35, fontFamily: 'monospace'),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ],
                 ),
@@ -1157,14 +1553,21 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.green.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Alternative: Slivers in CustomScrollView',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.green.shade700)),
+                    Text(
+                      'Alternative: Slivers in CustomScrollView',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 6.0),
                     Text(
                       'Instead of Column + shrinkWrap ListView, consider:\n\n'
@@ -1177,8 +1580,12 @@ dynamic build(BuildContext context) {
                       ')\n\n'
                       'This avoids shrinkWrap entirely and uses a single Viewport '
                       'with full lazy-loading benefits.',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700,
-                          height: 1.35, fontFamily: 'monospace'),
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.grey.shade700,
+                        height: 1.35,
+                        fontFamily: 'monospace',
+                      ),
                     ),
                   ],
                 ),
@@ -1190,9 +1597,11 @@ dynamic build(BuildContext context) {
           ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              buildSWVBullet(Icons.warning,
-                  'Important limitations and gotchas when using '
-                  'ShrinkWrappingViewport.'),
+              buildSWVBullet(
+                Icons.warning,
+                'Important limitations and gotchas when using '
+                'ShrinkWrappingViewport.',
+              ),
               const SizedBox(height: 12.0),
               ...caveatWidgets,
               const SizedBox(height: 16.0),
@@ -1207,15 +1616,28 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Performance impact visualization',
-                        style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700,
-                            color: Colors.cyan.shade700)),
+                    Text(
+                      'Performance impact visualization',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 10.0),
                     // Regular viewport bar
                     Row(
                       children: [
-                        SizedBox(width: 80.0, child: Text('Viewport',
-                            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600))),
+                        SizedBox(
+                          width: 80.0,
+                          child: Text(
+                            'Viewport',
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ),
                         Expanded(
                           child: Stack(
                             children: [
@@ -1235,9 +1657,14 @@ dynamic build(BuildContext context) {
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   alignment: Alignment.center,
-                                  child: const Text('Fast',
-                                      style: TextStyle(fontSize: 9.0, color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
+                                  child: const Text(
+                                    'Fast',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1249,8 +1676,16 @@ dynamic build(BuildContext context) {
                     // ShrinkWrap bar
                     Row(
                       children: [
-                        SizedBox(width: 80.0, child: Text('ShrinkWrap',
-                            style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600))),
+                        SizedBox(
+                          width: 80.0,
+                          child: Text(
+                            'ShrinkWrap',
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ),
                         Expanded(
                           child: Stack(
                             children: [
@@ -1270,9 +1705,14 @@ dynamic build(BuildContext context) {
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   alignment: Alignment.center,
-                                  child: const Text('Measures all slivers',
-                                      style: TextStyle(fontSize: 9.0, color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
+                                  child: const Text(
+                                    'Measures all slivers',
+                                    style: TextStyle(
+                                      fontSize: 9.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -1281,9 +1721,14 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     const SizedBox(height: 8.0),
-                    Text('Layout cost per frame (approximate, relative)',
-                        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500,
-                            fontStyle: FontStyle.italic)),
+                    Text(
+                      'Layout cost per frame (approximate, relative)',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey.shade500,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1306,15 +1751,29 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Icon(Icons.wrap_text, size: 40.0, color: Colors.cyan.shade600),
+                    Icon(
+                      Icons.wrap_text,
+                      size: 40.0,
+                      color: Colors.cyan.shade600,
+                    ),
                     const SizedBox(height: 8.0),
-                    Text('ShrinkWrappingViewport',
-                        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,
-                            color: Colors.cyan.shade800)),
+                    Text(
+                      'ShrinkWrappingViewport',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.cyan.shade800,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
-                    Text('Content-sized scrollable region',
-                        style: TextStyle(fontSize: 12.5, color: Colors.cyan.shade600,
-                            fontStyle: FontStyle.italic)),
+                    Text(
+                      'Content-sized scrollable region',
+                      style: TextStyle(
+                        fontSize: 12.5,
+                        color: Colors.cyan.shade600,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1331,23 +1790,38 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Decision Guide',
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                            color: Colors.cyan.shade700)),
+                    Text(
+                      'Decision Guide',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 8.0),
-                    buildSWVBullet(Icons.check_circle,
-                        'Use ShrinkWrapping when embedding short lists in Columns/Dialogs'),
-                    buildSWVBullet(Icons.check_circle,
-                        'Use ShrinkWrapping for nested scrollable sub-sections'),
-                    buildSWVBullet(Icons.cancel,
-                        'Avoid for primary scroll views with many items',
-                        color: Colors.red.shade400),
-                    buildSWVBullet(Icons.cancel,
-                        'Avoid when slivers need SliverFillRemaining',
-                        color: Colors.red.shade400),
-                    buildSWVBullet(Icons.lightbulb,
-                        'Consider CustomScrollView + Slivers as an alternative',
-                        color: Colors.amber.shade600),
+                    buildSWVBullet(
+                      Icons.check_circle,
+                      'Use ShrinkWrapping when embedding short lists in Columns/Dialogs',
+                    ),
+                    buildSWVBullet(
+                      Icons.check_circle,
+                      'Use ShrinkWrapping for nested scrollable sub-sections',
+                    ),
+                    buildSWVBullet(
+                      Icons.cancel,
+                      'Avoid for primary scroll views with many items',
+                      color: Colors.red.shade400,
+                    ),
+                    buildSWVBullet(
+                      Icons.cancel,
+                      'Avoid when slivers need SliverFillRemaining',
+                      color: Colors.red.shade400,
+                    ),
+                    buildSWVBullet(
+                      Icons.lightbulb,
+                      'Consider CustomScrollView + Slivers as an alternative',
+                      color: Colors.amber.shade600,
+                    ),
                   ],
                 ),
               ),
@@ -1389,14 +1863,25 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Controls', style: TextStyle(fontSize: 13.0,
-                  fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+              Text(
+                'Controls',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.cyan.shade700,
+                ),
+              ),
               const SizedBox(height: 10.0),
               // Item count
               Row(
                 children: [
-                  Text('Items: $_itemCount',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                  Text(
+                    'Items: $_itemCount',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                   const Spacer(),
                   IconButton(
                     icon: const Icon(Icons.remove_circle_outline, size: 22.0),
@@ -1417,8 +1902,13 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
               // Item height
               Row(
                 children: [
-                  Text('Item height: ${_itemHeight.toInt()}px',
-                      style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                  Text(
+                    'Item height: ${_itemHeight.toInt()}px',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
                   Expanded(
                     child: Slider(
                       value: _itemHeight,
@@ -1436,8 +1926,13 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                 children: [
                   Expanded(
                     child: SwitchListTile(
-                      title: Text('shrinkWrap',
-                          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                      title: Text(
+                        'shrinkWrap',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                       value: _useShrinkWrap,
                       activeColor: Colors.cyan.shade600,
                       dense: true,
@@ -1447,8 +1942,13 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                   ),
                   Expanded(
                     child: SwitchListTile(
-                      title: Text('Show border',
-                          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+                      title: Text(
+                        'Show border',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                       value: _showBorder,
                       activeColor: Colors.cyan.shade600,
                       dense: true,
@@ -1480,7 +1980,9 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
             children: [
               Icon(
                 _useShrinkWrap ? Icons.wrap_text : Icons.open_in_full,
-                color: _useShrinkWrap ? Colors.green.shade600 : Colors.orange.shade600,
+                color: _useShrinkWrap
+                    ? Colors.green.shade600
+                    : Colors.orange.shade600,
                 size: 20.0,
               ),
               const SizedBox(width: 8.0),
@@ -1488,10 +1990,14 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                 child: Text(
                   _useShrinkWrap
                       ? 'ShrinkWrapping: viewport height = $_itemCount × ${_itemHeight.toInt()}px + padding ≈ '
-                          '${(_itemCount * (_itemHeight + 4)).toInt()}px'
+                            '${(_itemCount * (_itemHeight + 4)).toInt()}px'
                       : 'Expanding: viewport fills all available space regardless of content',
-                  style: TextStyle(fontSize: 11.5,
-                      color: _useShrinkWrap ? Colors.green.shade700 : Colors.orange.shade700),
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    color: _useShrinkWrap
+                        ? Colors.green.shade700
+                        : Colors.orange.shade700,
+                  ),
                 ),
               ),
             ],
@@ -1499,15 +2005,24 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
         ),
         const SizedBox(height: 12.0),
         // Label
-        Text('Header (fixed)', style: TextStyle(fontSize: 11.0,
-            color: Colors.grey.shade500, fontStyle: FontStyle.italic)),
+        Text(
+          'Header (fixed)',
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.grey.shade500,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         const SizedBox(height: 4.0),
         // The actual demo layout
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             border: _showBorder
-                ? Border.all(color: Colors.cyan.withValues(alpha: 0.4), width: 2.0)
+                ? Border.all(
+                    color: Colors.cyan.withValues(alpha: 0.4),
+                    width: 2.0,
+                  )
                 : null,
           ),
           clipBehavior: Clip.antiAlias,
@@ -1519,9 +2034,14 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(10.0),
                 color: Colors.cyan.shade600,
-                child: const Text('Fixed Header',
-                    style: TextStyle(color: Colors.white, fontSize: 12.0,
-                        fontWeight: FontWeight.w600)),
+                child: const Text(
+                  'Fixed Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
               // Viewport area
               AnimatedContainer(
@@ -1543,28 +2063,45 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.cyan.withValues(alpha: 0.1 + (fraction * 0.2)),
-                            Colors.cyan.withValues(alpha: 0.05 + (fraction * 0.1)),
+                            Colors.cyan.withValues(
+                              alpha: 0.1 + (fraction * 0.2),
+                            ),
+                            Colors.cyan.withValues(
+                              alpha: 0.05 + (fraction * 0.1),
+                            ),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(color: Colors.cyan.withValues(alpha: 0.25)),
+                        border: Border.all(
+                          color: Colors.cyan.withValues(alpha: 0.25),
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.inbox, size: 16.0,
-                              color: Colors.cyan.shade600),
+                          Icon(
+                            Icons.inbox,
+                            size: 16.0,
+                            color: Colors.cyan.shade600,
+                          ),
                           const SizedBox(width: 6.0),
-                          Text('Sliver Item ${i + 1}',
-                              style: TextStyle(fontSize: 12.0,
-                                  color: Colors.cyan.shade700,
-                                  fontWeight: FontWeight.w600)),
+                          Text(
+                            'Sliver Item ${i + 1}',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.cyan.shade700,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           const SizedBox(width: 8.0),
-                          Text('${_itemHeight.toInt()}px',
-                              style: TextStyle(fontSize: 10.0,
-                                  color: Colors.cyan.shade400)),
+                          Text(
+                            '${_itemHeight.toInt()}px',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.cyan.shade400,
+                            ),
+                          ),
                         ],
                       ),
                     );
@@ -1578,12 +2115,19 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
                 color: Colors.cyan.shade50,
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline, size: 14.0,
-                        color: Colors.cyan.shade600),
+                    Icon(
+                      Icons.info_outline,
+                      size: 14.0,
+                      color: Colors.cyan.shade600,
+                    ),
                     const SizedBox(width: 6.0),
-                    Text('Footer — appears right after content',
-                        style: TextStyle(fontSize: 11.0,
-                            color: Colors.cyan.shade600)),
+                    Text(
+                      'Footer — appears right after content',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.cyan.shade600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1591,8 +2135,14 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
           ),
         ),
         const SizedBox(height: 4.0),
-        Text('↑ viewport boundary', style: TextStyle(fontSize: 11.0,
-            color: Colors.grey.shade500, fontStyle: FontStyle.italic)),
+        Text(
+          '↑ viewport boundary',
+          style: TextStyle(
+            fontSize: 11.0,
+            color: Colors.grey.shade500,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
         const SizedBox(height: 16.0),
         // Explanation
         Container(
@@ -1605,15 +2155,27 @@ class _SWVLiveDemoState extends State<_SWVLiveDemo> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('What to observe', style: TextStyle(fontSize: 12.5,
-                  fontWeight: FontWeight.w700, color: Colors.cyan.shade700)),
+              Text(
+                'What to observe',
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.cyan.shade700,
+                ),
+              ),
               const SizedBox(height: 6.0),
-              Text('• Toggle shrinkWrap on/off to see how the viewport height changes\n'
-                  '• Add/remove items — with shrinkWrap, the viewport grows/shrinks\n'
-                  '• Without shrinkWrap, the viewport stays at 250px regardless\n'
-                  '• Adjust item height — shrinkWrap recalculates total extent\n'
-                  '• Notice the footer: with shrinkWrap it hugs the content',
-                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.4)),
+              Text(
+                '• Toggle shrinkWrap on/off to see how the viewport height changes\n'
+                '• Add/remove items — with shrinkWrap, the viewport grows/shrinks\n'
+                '• Without shrinkWrap, the viewport stays at 250px regardless\n'
+                '• Adjust item height — shrinkWrap recalculates total extent\n'
+                '• Notice the footer: with shrinkWrap it hugs the content',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -1647,12 +2209,19 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
         children: [
           Row(
             children: [
-              Text('Animated comparison',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                      color: Colors.cyan.shade700)),
+              Text(
+                'Animated comparison',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.cyan.shade700,
+                ),
+              ),
               const Spacer(),
-              Text('$_compItemCount items',
-                  style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade500)),
+              Text(
+                '$_compItemCount items',
+                style: TextStyle(fontSize: 11.0, color: Colors.cyan.shade500),
+              ),
               const SizedBox(width: 6.0),
               IconButton(
                 icon: const Icon(Icons.remove, size: 18.0),
@@ -1661,7 +2230,10 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
                     ? () => setState(() => _compItemCount--)
                     : null,
                 padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(minWidth: 28.0, minHeight: 28.0),
+                constraints: const BoxConstraints(
+                  minWidth: 28.0,
+                  minHeight: 28.0,
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.add, size: 18.0),
@@ -1670,7 +2242,10 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
                     ? () => setState(() => _compItemCount++)
                     : null,
                 padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(minWidth: 28.0, minHeight: 28.0),
+                constraints: const BoxConstraints(
+                  minWidth: 28.0,
+                  minHeight: 28.0,
+                ),
               ),
             ],
           ),
@@ -1682,8 +2257,14 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('Regular', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w600, color: Colors.grey.shade600)),
+                    Text(
+                      'Regular',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
                     Container(
                       height: 200.0,
@@ -1704,15 +2285,25 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             alignment: Alignment.center,
-                            child: Text('${i + 1}', style: TextStyle(fontSize: 10.0,
-                                color: Colors.grey.shade600)),
+                            child: Text(
+                              '${i + 1}',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.grey.shade600,
+                              ),
+                            ),
                           );
                         }),
                       ),
                     ),
                     const SizedBox(height: 4.0),
-                    Text('Always 200px', style: TextStyle(fontSize: 10.0,
-                        color: Colors.grey.shade500)),
+                    Text(
+                      'Always 200px',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1721,8 +2312,14 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('ShrinkWrap', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w600, color: Colors.cyan.shade700)),
+                    Text(
+                      'ShrinkWrap',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.cyan.shade700,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -1744,15 +2341,25 @@ class _SWVComparisonDemoState extends State<_SWVComparisonDemo> {
                               borderRadius: BorderRadius.circular(4.0),
                             ),
                             alignment: Alignment.center,
-                            child: Text('${i + 1}', style: TextStyle(fontSize: 10.0,
-                                color: Colors.cyan.shade700)),
+                            child: Text(
+                              '${i + 1}',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                color: Colors.cyan.shade700,
+                              ),
+                            ),
                           );
                         }),
                       ),
                     ),
                     const SizedBox(height: 4.0),
-                    Text('~${_compItemCount * 35}px', style: TextStyle(fontSize: 10.0,
-                        color: Colors.cyan.shade500)),
+                    Text(
+                      '~${_compItemCount * 35}px',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.cyan.shade500,
+                      ),
+                    ),
                   ],
                 ),
               ),

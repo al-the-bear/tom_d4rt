@@ -146,11 +146,7 @@ Widget _kvRow(String key, String value, IconData icon, Color color) {
         Expanded(
           child: Text(
             value,
-            style: const TextStyle(
-              fontSize: 12,
-              color: _kInkSoft,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12, color: _kInkSoft, height: 1.4),
           ),
         ),
       ],
@@ -259,16 +255,11 @@ Widget _heroHeader() {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.50),
-                ),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.50)),
               ),
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -304,11 +295,7 @@ Widget _heroHeader() {
           'beneath it remain in the tree and would be announced too. '
           'BlockSemantics tells the walker to drop everything painted before '
           'it — so the overlay is the only thing announced.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 12.5, height: 1.5),
         ),
         _gap(14),
         Wrap(
@@ -393,11 +380,7 @@ Widget _conceptualDiagram() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'Conceptual diagram',
-          Icons.account_tree,
-          _kAccent,
-        ),
+        _sectionTitle('Conceptual diagram', Icons.account_tree, _kAccent),
         _gap(10),
         const Text(
           'The semantics walker traverses children in paint order. When it '
@@ -443,11 +426,7 @@ Widget _conceptualDiagram() {
                   'Mental model: BlockSemantics behaves like a "fresh start" '
                   'marker. Anything before it = invisible to a11y. Anything '
                   'after (or inside) = visible.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kInk,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: _kInk, height: 1.5),
                 ),
               ),
             ],
@@ -461,10 +440,7 @@ Widget _conceptualDiagram() {
 // ---------------------------------------------------------------------------
 // Section 3 — Mock screen-reader narration cards
 // ---------------------------------------------------------------------------
-Widget _narrationItem({
-  required String text,
-  required bool announced,
-}) {
+Widget _narrationItem({required String text, required bool announced}) {
   final Color c = announced ? _kSuccess : _kDanger;
   final IconData icon = announced ? Icons.check_circle : Icons.cancel;
   return Padding(
@@ -481,8 +457,9 @@ Widget _narrationItem({
               fontSize: 12,
               height: 1.4,
               color: announced ? _kInk : _kMuted,
-              decoration:
-                  announced ? TextDecoration.none : TextDecoration.lineThrough,
+              decoration: announced
+                  ? TextDecoration.none
+                  : TextDecoration.lineThrough,
             ),
           ),
         ),
@@ -542,10 +519,7 @@ Widget _narrationCard({
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: _kInkSoft,
-                    ),
+                    style: const TextStyle(fontSize: 11, color: _kInkSoft),
                   ),
                 ],
               ),
@@ -671,11 +645,7 @@ Widget _narrationSection() {
                   'are still painted on screen — they are only hidden from '
                   'assistive technology. Sighted users see them dimmed by '
                   'the modal\'s scrim.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kInk,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: _kInk, height: 1.5),
                 ),
               ),
             ],
@@ -803,11 +773,7 @@ Widget _backgroundFakeForm() {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: _kBorder),
               ),
-              child: const Icon(
-                Icons.help_outline,
-                size: 18,
-                color: _kInkSoft,
-              ),
+              child: const Icon(Icons.help_outline, size: 18, color: _kInkSoft),
             ),
           ],
         ),
@@ -866,10 +832,7 @@ Widget _modalOverlayCard() {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: _kMuted.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(8),
@@ -886,10 +849,7 @@ Widget _modalOverlayCard() {
             ),
             _hgap(10),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [Color(0xFFD32F2F), Color(0xFFB71C1C)],
@@ -926,11 +886,7 @@ Widget _stackDemo() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'Layered Stack demo',
-          Icons.layers,
-          _kTeal,
-        ),
+        _sectionTitle('Layered Stack demo', Icons.layers, _kTeal),
         _gap(10),
         const Text(
           'A Stack with two layers: the busy background, and a centered '
@@ -959,9 +915,7 @@ Widget _stackDemo() {
                 ),
                 // Scrim
                 Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withValues(alpha: 0.35),
-                  ),
+                  child: Container(color: Colors.black.withValues(alpha: 0.35)),
                 ),
                 // Boundary indicator (dashed-style)
                 Positioned(
@@ -1074,11 +1028,7 @@ Widget _comparisonTile({
         _gap(2),
         Text(
           tagline,
-          style: const TextStyle(
-            fontSize: 11,
-            color: _kInkSoft,
-            height: 1.4,
-          ),
+          style: const TextStyle(fontSize: 11, color: _kInkSoft, height: 1.4),
         ),
         _gap(10),
         ...bullets.map(
@@ -1112,10 +1062,7 @@ Widget _comparisonTile({
         ),
         _gap(8),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 4,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(6),
@@ -1215,11 +1162,7 @@ Widget _apiSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'API surface',
-          Icons.code,
-          _kAccentDark,
-        ),
+        _sectionTitle('API surface', Icons.code, _kAccentDark),
         _gap(10),
         _kvRow(
           'blocking',
@@ -1261,11 +1204,7 @@ Widget _apiSection() {
                   'Wording note: "blocks" here means "semantically hides '
                   'previous siblings". It does NOT block input, gestures, or '
                   'painting. Use ModalBarrier or AbsorbPointer for those.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _kInk,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(fontSize: 12, color: _kInk, height: 1.5),
                 ),
               ),
             ],
@@ -1290,10 +1229,7 @@ Widget _useCaseTile({
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.05),
-          color.withValues(alpha: 0.12),
-        ],
+        colors: [color.withValues(alpha: 0.05), color.withValues(alpha: 0.12)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1354,29 +1290,28 @@ Widget _useCaseSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'Common use cases',
-          Icons.task_alt,
-          _kSuccess,
-        ),
+        _sectionTitle('Common use cases', Icons.task_alt, _kSuccess),
         _gap(10),
         _useCaseTile(
           title: 'Modal dialogs',
-          body: 'Wrap the dialog content so the page underneath is not '
+          body:
+              'Wrap the dialog content so the page underneath is not '
               'announced while the dialog is open.',
           icon: Icons.crop_din,
           color: _kAccent,
         ),
         _useCaseTile(
           title: 'Drawer overlays',
-          body: 'When a navigation drawer slides over the page, block the '
+          body:
+              'When a navigation drawer slides over the page, block the '
               'page semantics so the focus stays on drawer items.',
           icon: Icons.menu_open,
           color: _kTeal,
         ),
         _useCaseTile(
           title: 'Route transitions',
-          body: 'During a hero animation or fade-through, the previous '
+          body:
+              'During a hero animation or fade-through, the previous '
               'route\'s semantics can leak. BlockSemantics keeps the new '
               'route announced first.',
           icon: Icons.swap_horiz,
@@ -1384,14 +1319,16 @@ Widget _useCaseSection() {
         ),
         _useCaseTile(
           title: 'Tooltips & popovers',
-          body: 'A tooltip rendered above busy content can obscure semantics '
+          body:
+              'A tooltip rendered above busy content can obscure semantics '
               'until the user dismisses it.',
           icon: Icons.tips_and_updates,
           color: _kWarn,
         ),
         _useCaseTile(
           title: 'Bottom sheets',
-          body: 'Modal bottom sheets in particular benefit from blocking — '
+          body:
+              'Modal bottom sheets in particular benefit from blocking — '
               'screen-reader users should hear sheet content, not the list '
               'behind it.',
           icon: Icons.vertical_align_bottom,
@@ -1458,15 +1395,12 @@ Widget _pitfallSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'Pitfalls',
-          Icons.warning_amber,
-          _kDanger,
-        ),
+        _sectionTitle('Pitfalls', Icons.warning_amber, _kDanger),
         _gap(10),
         _pitfallTile(
           title: 'Scope is local',
-          body: 'BlockSemantics only affects siblings inside the same paint '
+          body:
+              'BlockSemantics only affects siblings inside the same paint '
               'subtree. Placing it deeply inside a small Column will not '
               'block the entire app — only the nodes painted before it in '
               'that Column.',
@@ -1475,7 +1409,8 @@ Widget _pitfallSection() {
         ),
         _pitfallTile(
           title: 'Confusion with Visibility',
-          body: 'Visibility(maintainSemantics: false) hides a SUBTREE from '
+          body:
+              'Visibility(maintainSemantics: false) hides a SUBTREE from '
               'a11y. BlockSemantics hides EARLIER siblings. Different axes '
               'of "hiding".',
           color: _kWarn,
@@ -1483,7 +1418,8 @@ Widget _pitfallSection() {
         ),
         _pitfallTile(
           title: 'Not a substitute for ModalBarrier',
-          body: 'BlockSemantics affects only the semantics tree. To prevent '
+          body:
+              'BlockSemantics affects only the semantics tree. To prevent '
               'taps on the underlying UI, use ModalBarrier or '
               'AbsorbPointer.',
           color: _kViolet,
@@ -1491,7 +1427,8 @@ Widget _pitfallSection() {
         ),
         _pitfallTile(
           title: 'Stacking inside Slivers',
-          body: 'Inside CustomScrollView, "earlier siblings" follow paint '
+          body:
+              'Inside CustomScrollView, "earlier siblings" follow paint '
               'order across slivers. Visualizing this is tricky — prefer to '
               'wrap the overlay at the Stack root.',
           color: _kAccent,
@@ -1499,7 +1436,8 @@ Widget _pitfallSection() {
         ),
         _pitfallTile(
           title: 'Forgotten on dismiss',
-          body: 'If you keep BlockSemantics in the tree after the overlay is '
+          body:
+              'If you keep BlockSemantics in the tree after the overlay is '
               'closed (e.g. via opacity 0), the page underneath stays muted '
               'for assistive tech. Toggle blocking=false or remove the '
               'widget.',
@@ -1549,11 +1487,7 @@ Widget _codeSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'Code-style snippet',
-          Icons.terminal,
-          _kInk,
-        ),
+        _sectionTitle('Code-style snippet', Icons.terminal, _kInk),
         _gap(10),
         const Text(
           'Typical pattern: Stack with three children — page, scrim, and the '
@@ -1590,10 +1524,7 @@ Widget _seeAlsoTile({
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.white,
-          color.withValues(alpha: 0.06),
-        ],
+        colors: [Colors.white, color.withValues(alpha: 0.06)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1654,11 +1585,7 @@ Widget _seeAlsoSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _sectionTitle(
-          'See also',
-          Icons.menu_book,
-          _kAccent,
-        ),
+        _sectionTitle('See also', Icons.menu_book, _kAccent),
         _gap(12),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1666,7 +1593,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'Semantics',
-                description: 'Annotate any subtree with explicit a11y '
+                description:
+                    'Annotate any subtree with explicit a11y '
                     'properties such as label, hint, and role.',
                 icon: Icons.assignment,
                 color: _kAccent,
@@ -1676,7 +1604,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'MergeSemantics',
-                description: 'Merge a subtree of nodes into a single node. '
+                description:
+                    'Merge a subtree of nodes into a single node. '
                     'Useful for icon + label compositions.',
                 icon: Icons.merge_type,
                 color: _kSuccess,
@@ -1691,7 +1620,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'ExcludeSemantics',
-                description: 'Drop a subtree from the a11y tree entirely — '
+                description:
+                    'Drop a subtree from the a11y tree entirely — '
                     'good for purely decorative graphics.',
                 icon: Icons.visibility_off,
                 color: _kViolet,
@@ -1701,7 +1631,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'RouteAware',
-                description: 'Lifecycle hook used together with BlockSemantics '
+                description:
+                    'Lifecycle hook used together with BlockSemantics '
                     'when overlays are tied to navigation events.',
                 icon: Icons.alt_route,
                 color: _kTeal,
@@ -1716,7 +1647,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'ModalBarrier',
-                description: 'Pairs naturally with BlockSemantics: barrier '
+                description:
+                    'Pairs naturally with BlockSemantics: barrier '
                     'absorbs taps; BlockSemantics hides a11y.',
                 icon: Icons.shield,
                 color: _kDanger,
@@ -1726,7 +1658,8 @@ Widget _seeAlsoSection() {
             Expanded(
               child: _seeAlsoTile(
                 name: 'FocusTraversalGroup',
-                description: 'Constrain keyboard focus to the overlay so '
+                description:
+                    'Constrain keyboard focus to the overlay so '
                     'tabbing matches the announced order.',
                 icon: Icons.keyboard_tab,
                 color: _kWarn,

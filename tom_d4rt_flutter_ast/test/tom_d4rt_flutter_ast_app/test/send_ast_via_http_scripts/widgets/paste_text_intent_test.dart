@@ -455,11 +455,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.keyboard,
-                              color: indigo200,
-                              size: 28,
-                            ),
+                            Icon(Icons.keyboard, color: indigo200, size: 28),
                             const SizedBox(height: 4),
                             const Text(
                               'Ctrl+V',
@@ -471,10 +467,7 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'Shortcut',
-                              style: TextStyle(
-                                color: indigo300,
-                                fontSize: 10,
-                              ),
+                              style: TextStyle(color: indigo300, fontSize: 10),
                             ),
                           ],
                         ),
@@ -554,10 +547,7 @@ dynamic build(BuildContext context) {
                             ),
                             Text(
                               'Handler',
-                              style: TextStyle(
-                                color: indigo300,
-                                fontSize: 10,
-                              ),
+                              style: TextStyle(color: indigo300, fontSize: 10),
                             ),
                           ],
                         ),
@@ -723,11 +713,7 @@ dynamic build(BuildContext context) {
                 Text(
                   'When you press Ctrl+V here, a PasteTextIntent '
                   'is dispatched with cause: .keyboard',
-                  style: TextStyle(
-                    color: indigo800,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: indigo800, fontSize: 12, height: 1.4),
                 ),
                 const SizedBox(height: 12),
                 TextField(
@@ -811,10 +797,26 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 10),
                 ...[
-                  {'platform': 'macOS', 'keys': 'Cmd + V', 'icon': Icons.laptop_mac},
-                  {'platform': 'Windows', 'keys': 'Ctrl + V / Shift + Insert', 'icon': Icons.desktop_windows},
-                  {'platform': 'Linux', 'keys': 'Ctrl + V / Shift + Insert', 'icon': Icons.computer},
-                  {'platform': 'Mobile', 'keys': 'Toolbar / Long Press', 'icon': Icons.phone_android},
+                  {
+                    'platform': 'macOS',
+                    'keys': 'Cmd + V',
+                    'icon': Icons.laptop_mac,
+                  },
+                  {
+                    'platform': 'Windows',
+                    'keys': 'Ctrl + V / Shift + Insert',
+                    'icon': Icons.desktop_windows,
+                  },
+                  {
+                    'platform': 'Linux',
+                    'keys': 'Ctrl + V / Shift + Insert',
+                    'icon': Icons.computer,
+                  },
+                  {
+                    'platform': 'Mobile',
+                    'keys': 'Toolbar / Long Press',
+                    'icon': Icons.phone_android,
+                  },
                 ].map((item) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 6),
@@ -891,16 +893,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  Indigo 900 ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Indigo 800 ${indigo800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
-  print('  │  Indigo 600 ${indigo600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Indigo 500 ${indigo500.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Indigo 400 ${indigo400.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Indigo 300 ${indigo300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Indigo 200 ${indigo200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Indigo 100 ${indigo100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Indigo 50  ${indigo50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Near-white ${nearWhite.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print(
+    '  │  Indigo 900 ${indigo900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Indigo 800 ${indigo800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
+  print(
+    '  │  Indigo 600 ${indigo600.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Indigo 500 ${indigo500.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Indigo 400 ${indigo400.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Indigo 300 ${indigo300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Indigo 200 ${indigo200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Indigo 100 ${indigo100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Indigo 50  ${indigo50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Near-white ${nearWhite.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

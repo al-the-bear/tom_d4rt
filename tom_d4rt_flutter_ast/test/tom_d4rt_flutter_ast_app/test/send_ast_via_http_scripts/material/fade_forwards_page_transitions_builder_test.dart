@@ -59,31 +59,31 @@ import 'package:flutter/material.dart';
 // We define more than fifteen colours so each section finds a coherent
 // pair without recoloring on the fly.
 
-const Color kCurtainGarnetDeep    = Color(0xFF4A0A14); // heavy garnet drapery
-const Color kCurtainGarnet        = Color(0xFF7A1426); // primary curtain red
-const Color kCurtainGarnetLight   = Color(0xFFA52A3A); // lit-from-front velvet
-const Color kCurtainGarnetGlow    = Color(0xFFC94A55); // highlight on a fold
-const Color kCurtainPlumShadow    = Color(0xFF2A0913); // backstage shadow
-const Color kAuditoriumBlack      = Color(0xFF120307); // auditorium void
-const Color kAuditoriumDimPlum    = Color(0xFF311520); // mezzanine ambient
-const Color kFootlightGold        = Color(0xFFE8C36A); // warm front lights
-const Color kFootlightAmber       = Color(0xFFC8932E); // amber spill
-const Color kBrassGiltLight       = Color(0xFFD9B36A); // proscenium trim
-const Color kBrassGiltDeep        = Color(0xFF8E6A22); // engraved metal
-const Color kStageBoardOak        = Color(0xFF5C3A22); // wooden boards
-const Color kStageBoardLight      = Color(0xFF7A5638); // sun-warmed plank
-const Color kProgrammeIvory       = Color(0xFFF6EBD2); // playbill paper
-const Color kProgrammeCream       = Color(0xFFEAD9B3); // older programme
-const Color kScrimPaleRose        = Color(0xFFE8C8C5); // gauze scrim
-const Color kScrimDuskRose        = Color(0xFFB87E80); // tinted gauze
-const Color kSpotlightWhite       = Color(0xFFFFF5DC); // hot spotlight core
-const Color kVelvetCordCrimson    = Color(0xFF901427); // tassel cord
-const Color kInkPlaybill          = Color(0xFF1F0A0E); // playbill text
-const Color kInkPlaybillSoft      = Color(0xFF402028); // softer body text
-const Color kInkPlaybillFade      = Color(0xFF6B4E54); // captions
-const Color kRibbonSilver         = Color(0xFFCDC8BF); // award ribbon
-const Color kCueSheetGreen        = Color(0xFF3F5A3A); // SM annotation
-const Color kCueSheetRed          = Color(0xFFB13A2A); // missed-cue red
+const Color kCurtainGarnetDeep = Color(0xFF4A0A14); // heavy garnet drapery
+const Color kCurtainGarnet = Color(0xFF7A1426); // primary curtain red
+const Color kCurtainGarnetLight = Color(0xFFA52A3A); // lit-from-front velvet
+const Color kCurtainGarnetGlow = Color(0xFFC94A55); // highlight on a fold
+const Color kCurtainPlumShadow = Color(0xFF2A0913); // backstage shadow
+const Color kAuditoriumBlack = Color(0xFF120307); // auditorium void
+const Color kAuditoriumDimPlum = Color(0xFF311520); // mezzanine ambient
+const Color kFootlightGold = Color(0xFFE8C36A); // warm front lights
+const Color kFootlightAmber = Color(0xFFC8932E); // amber spill
+const Color kBrassGiltLight = Color(0xFFD9B36A); // proscenium trim
+const Color kBrassGiltDeep = Color(0xFF8E6A22); // engraved metal
+const Color kStageBoardOak = Color(0xFF5C3A22); // wooden boards
+const Color kStageBoardLight = Color(0xFF7A5638); // sun-warmed plank
+const Color kProgrammeIvory = Color(0xFFF6EBD2); // playbill paper
+const Color kProgrammeCream = Color(0xFFEAD9B3); // older programme
+const Color kScrimPaleRose = Color(0xFFE8C8C5); // gauze scrim
+const Color kScrimDuskRose = Color(0xFFB87E80); // tinted gauze
+const Color kSpotlightWhite = Color(0xFFFFF5DC); // hot spotlight core
+const Color kVelvetCordCrimson = Color(0xFF901427); // tassel cord
+const Color kInkPlaybill = Color(0xFF1F0A0E); // playbill text
+const Color kInkPlaybillSoft = Color(0xFF402028); // softer body text
+const Color kInkPlaybillFade = Color(0xFF6B4E54); // captions
+const Color kRibbonSilver = Color(0xFFCDC8BF); // award ribbon
+const Color kCueSheetGreen = Color(0xFF3F5A3A); // SM annotation
+const Color kCueSheetRed = Color(0xFFB13A2A); // missed-cue red
 
 // =============================================================================
 //                              TEXT STYLES
@@ -263,10 +263,7 @@ Widget _cueLine(String cueNumber, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 70,
-          child: Text(cueNumber, style: kStyleCue),
-        ),
+        SizedBox(width: 70, child: Text(cueNumber, style: kStyleCue)),
         Expanded(child: Text(body, style: kStyleBody)),
       ],
     ),
@@ -279,10 +276,7 @@ Widget _cueWarn(String cueNumber, String body) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 70,
-          child: Text(cueNumber, style: kStyleCueWarn),
-        ),
+        SizedBox(width: 70, child: Text(cueNumber, style: kStyleCueWarn)),
         Expanded(child: Text(body, style: kStyleBody)),
       ],
     ),
@@ -321,12 +315,14 @@ Widget _kvRow(String key, String value, {Color? keyColor}) {
       children: [
         SizedBox(
           width: 200,
-          child: Text(key,
-              style: TextStyle(
-                fontSize: 12.5,
-                fontWeight: FontWeight.w700,
-                color: keyColor ?? kCurtainGarnetDeep,
-              )),
+          child: Text(
+            key,
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w700,
+              color: keyColor ?? kCurtainGarnetDeep,
+            ),
+          ),
         ),
         Expanded(child: Text(value, style: kStyleMono)),
       ],
@@ -382,17 +378,23 @@ Widget _swatch(Color c, String name, String role) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: const TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w800,
-                      color: kInkPlaybill)),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                  color: kInkPlaybill,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(role,
-                  style: const TextStyle(
-                      fontSize: 10.5,
-                      color: kInkPlaybillFade,
-                      height: 1.2)),
+              Text(
+                role,
+                style: const TextStyle(
+                  fontSize: 10.5,
+                  color: kInkPlaybillFade,
+                  height: 1.2,
+                ),
+              ),
             ],
           ),
         ),
@@ -409,9 +411,7 @@ Widget _calloutDo(String head, String body) {
     decoration: BoxDecoration(
       color: kFootlightGold.withValues(alpha: 0.22),
       borderRadius: BorderRadius.circular(6),
-      border: const Border(
-        left: BorderSide(width: 4, color: kFootlightAmber),
-      ),
+      border: const Border(left: BorderSide(width: 4, color: kFootlightAmber)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -421,12 +421,15 @@ Widget _calloutDo(String head, String body) {
             _badge('CUE  GO', kCueSheetGreen),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(head,
-                  style: const TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
-                      color: kInkPlaybill,
-                      letterSpacing: 0.4)),
+              child: Text(
+                head,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w800,
+                  color: kInkPlaybill,
+                  letterSpacing: 0.4,
+                ),
+              ),
             ),
           ],
         ),
@@ -445,9 +448,7 @@ Widget _calloutAvoid(String head, String body) {
     decoration: BoxDecoration(
       color: kVelvetCordCrimson.withValues(alpha: 0.18),
       borderRadius: BorderRadius.circular(6),
-      border: const Border(
-        left: BorderSide(width: 4, color: kCurtainGarnet),
-      ),
+      border: const Border(left: BorderSide(width: 4, color: kCurtainGarnet)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -457,12 +458,15 @@ Widget _calloutAvoid(String head, String body) {
             _badge('CUE  HOLD', kCueSheetRed),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(head,
-                  style: const TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
-                      color: kInkPlaybill,
-                      letterSpacing: 0.4)),
+              child: Text(
+                head,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w800,
+                  color: kInkPlaybill,
+                  letterSpacing: 0.4,
+                ),
+              ),
             ),
           ],
         ),
@@ -481,9 +485,7 @@ Widget _calloutNote(String head, String body) {
     decoration: BoxDecoration(
       color: kProgrammeCream.withValues(alpha: 0.55),
       borderRadius: BorderRadius.circular(6),
-      border: const Border(
-        left: BorderSide(width: 4, color: kBrassGiltDeep),
-      ),
+      border: const Border(left: BorderSide(width: 4, color: kBrassGiltDeep)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -493,12 +495,15 @@ Widget _calloutNote(String head, String body) {
             _badge('STAGE NOTE', kBrassGiltDeep),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(head,
-                  style: const TextStyle(
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w800,
-                      color: kInkPlaybill,
-                      letterSpacing: 0.4)),
+              child: Text(
+                head,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w800,
+                  color: kInkPlaybill,
+                  letterSpacing: 0.4,
+                ),
+              ),
             ),
           ],
         ),
@@ -545,13 +550,15 @@ Widget _sectionCard({
                 borderRadius: BorderRadius.circular(3),
                 border: Border.all(color: kBrassGiltDeep),
               ),
-              child: Text(act,
-                  style: const TextStyle(
-                    color: kFootlightGold,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 11,
-                    letterSpacing: 1.4,
-                  )),
+              child: Text(
+                act,
+                style: const TextStyle(
+                  color: kFootlightGold,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11,
+                  letterSpacing: 1.4,
+                ),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(child: Text(title, style: kStyleSection)),
@@ -608,20 +615,28 @@ Widget _pageLogin() {
                 color: kCurtainGarnet,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: const Icon(Icons.lock_outline,
-                  size: 16, color: kFootlightGold),
+              child: const Icon(
+                Icons.lock_outline,
+                size: 16,
+                color: kFootlightGold,
+              ),
             ),
             const SizedBox(width: 8),
-            const Text('Sign in',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                    color: kInkPlaybill)),
+            const Text(
+              'Sign in',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w800,
+                color: kInkPlaybill,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Welcome back to the rehearsal hall.',
-            style: TextStyle(fontSize: 11.5, color: kInkPlaybillFade)),
+        const Text(
+          'Welcome back to the rehearsal hall.',
+          style: TextStyle(fontSize: 11.5, color: kInkPlaybillFade),
+        ),
         const SizedBox(height: 18),
         _mockField(label: 'Email', placeholder: 'sm@theatre.local'),
         const SizedBox(height: 12),
@@ -631,12 +646,14 @@ Widget _pageLogin() {
         const SizedBox(height: 10),
         _mockButton('Use SSO', primary: false),
         const Spacer(),
-        const Text('Forgot password?',
-            style: TextStyle(
-              fontSize: 11,
-              color: kCurtainGarnet,
-              decoration: TextDecoration.underline,
-            )),
+        const Text(
+          'Forgot password?',
+          style: TextStyle(
+            fontSize: 11,
+            color: kCurtainGarnet,
+            decoration: TextDecoration.underline,
+          ),
+        ),
       ],
     ),
   );
@@ -660,14 +677,19 @@ Widget _pageDashboard() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Tonight at the Garnet',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-                color: kInkPlaybill)),
+        const Text(
+          'Tonight at the Garnet',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            color: kInkPlaybill,
+          ),
+        ),
         const SizedBox(height: 2),
-        const Text('Performance metrics, 19:30 curtain',
-            style: TextStyle(fontSize: 10.5, color: kInkPlaybillFade)),
+        const Text(
+          'Performance metrics, 19:30 curtain',
+          style: TextStyle(fontSize: 10.5, color: kInkPlaybillFade),
+        ),
         const SizedBox(height: 10),
         Row(
           children: [
@@ -679,22 +701,28 @@ Widget _pageDashboard() {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Act timing',
-            style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: kCurtainGarnetDeep)),
+        const Text(
+          'Act timing',
+          style: TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w700,
+            color: kCurtainGarnetDeep,
+          ),
+        ),
         const SizedBox(height: 6),
         _barRow('Act I', 0.78, kCurtainGarnet),
         _barRow('Interval', 0.22, kFootlightAmber),
         _barRow('Act II', 0.62, kCurtainGarnetLight),
         _barRow('Curtain Call', 0.10, kBrassGiltDeep),
         const SizedBox(height: 12),
-        const Text('Cue queue',
-            style: TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w700,
-                color: kCurtainGarnetDeep)),
+        const Text(
+          'Cue queue',
+          style: TextStyle(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w700,
+            color: kCurtainGarnetDeep,
+          ),
+        ),
         const SizedBox(height: 4),
         _miniListRow('Q12', 'House to half'),
         _miniListRow('Q13', 'Spot 2 to gauze'),
@@ -722,14 +750,19 @@ Widget _pageSettings() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('House preferences',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-                color: kInkPlaybill)),
+        const Text(
+          'House preferences',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            color: kInkPlaybill,
+          ),
+        ),
         const SizedBox(height: 2),
-        const Text('Per-venue defaults',
-            style: TextStyle(fontSize: 10.5, color: kInkPlaybillFade)),
+        const Text(
+          'Per-venue defaults',
+          style: TextStyle(fontSize: 10.5, color: kInkPlaybillFade),
+        ),
         const SizedBox(height: 12),
         _settingsRow(Icons.brightness_4, 'House lights', 'Auto-dim at -5:00'),
         _settingsRow(Icons.volume_up, 'Pre-show audio', '-12 dB'),
@@ -748,9 +781,10 @@ Widget _pageSettings() {
           child: const Text(
             'Changes apply at next curtain.',
             style: TextStyle(
-                fontSize: 10.5,
-                color: kInkPlaybillSoft,
-                fontStyle: FontStyle.italic),
+              fontSize: 10.5,
+              color: kInkPlaybillSoft,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -762,12 +796,15 @@ Widget _mockField({required String label, required String placeholder}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label,
-          style: const TextStyle(
-              fontSize: 10.5,
-              fontWeight: FontWeight.w700,
-              color: kInkPlaybillFade,
-              letterSpacing: 0.6)),
+      Text(
+        label,
+        style: const TextStyle(
+          fontSize: 10.5,
+          fontWeight: FontWeight.w700,
+          color: kInkPlaybillFade,
+          letterSpacing: 0.6,
+        ),
+      ),
       const SizedBox(height: 3),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -776,8 +813,10 @@ Widget _mockField({required String label, required String placeholder}) {
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: kBrassGiltLight),
         ),
-        child: Text(placeholder,
-            style: const TextStyle(fontSize: 12, color: kInkPlaybill)),
+        child: Text(
+          placeholder,
+          style: const TextStyle(fontSize: 12, color: kInkPlaybill),
+        ),
       ),
     ],
   );
@@ -816,16 +855,22 @@ Widget _miniStat(String label, String value, Color color) {
       ),
       child: Column(
         children: [
-          Text(value,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                  color: color)),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 9.5,
-                  color: kInkPlaybillFade,
-                  letterSpacing: 0.6)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+              color: color,
+            ),
+          ),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 9.5,
+              color: kInkPlaybillFade,
+              letterSpacing: 0.6,
+            ),
+          ),
         ],
       ),
     ),
@@ -839,8 +884,10 @@ Widget _barRow(String label, double frac, Color color) {
       children: [
         SizedBox(
           width: 70,
-          child: Text(label,
-              style: const TextStyle(fontSize: 10.5, color: kInkPlaybill)),
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 10.5, color: kInkPlaybill),
+          ),
         ),
         Expanded(
           child: Container(
@@ -877,15 +924,20 @@ Widget _miniListRow(String tag, String label) {
             color: kCurtainGarnetDeep,
             borderRadius: BorderRadius.circular(2),
           ),
-          child: Text(tag,
-              style: const TextStyle(
-                  fontSize: 9.5,
-                  fontWeight: FontWeight.w800,
-                  color: kFootlightGold)),
+          child: Text(
+            tag,
+            style: const TextStyle(
+              fontSize: 9.5,
+              fontWeight: FontWeight.w800,
+              color: kFootlightGold,
+            ),
+          ),
         ),
         const SizedBox(width: 6),
-        Text(label,
-            style: const TextStyle(fontSize: 10.5, color: kInkPlaybill)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 10.5, color: kInkPlaybill),
+        ),
       ],
     ),
   );
@@ -899,17 +951,23 @@ Widget _settingsRow(IconData icon, String label, String value) {
         Icon(icon, size: 16, color: kCurtainGarnet),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(label,
-              style: const TextStyle(
-                  fontSize: 11.5,
-                  color: kInkPlaybill,
-                  fontWeight: FontWeight.w600)),
-        ),
-        Text(value,
+          child: Text(
+            label,
             style: const TextStyle(
-                fontSize: 10.5,
-                color: kInkPlaybillFade,
-                fontStyle: FontStyle.italic)),
+              fontSize: 11.5,
+              color: kInkPlaybill,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            fontSize: 10.5,
+            color: kInkPlaybillFade,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       ],
     ),
   );
@@ -1006,10 +1064,7 @@ Widget _frozenZoom(BuildContext context, double t, Widget child) {
     child: ClipRect(
       child: Opacity(
         opacity: alpha.clamp(0.0, 1.0).toDouble(),
-        child: Transform.scale(
-          scale: scale,
-          child: child,
-        ),
+        child: Transform.scale(scale: scale, child: child),
       ),
     ),
   );
@@ -1056,10 +1111,7 @@ Widget _frozenCupertino(BuildContext context, double t, Widget child) {
     width: 220,
     height: 380,
     child: ClipRect(
-      child: Transform.translate(
-        offset: Offset(dx, 0.0),
-        child: child,
-      ),
+      child: Transform.translate(offset: Offset(dx, 0.0), child: child),
     ),
   );
 }
@@ -1146,13 +1198,15 @@ Widget _strip({
   // Build the five cards explicitly (no for-in over BridgedInstance).
   final List<Widget> cards = <Widget>[];
   for (int i = 0; i < ts.length; i = i + 1) {
-    cards.add(_frameCard(
-      context: context,
-      t: ts[i],
-      freezer: freezer,
-      child: child,
-      caption: caps[i],
-    ));
+    cards.add(
+      _frameCard(
+        context: context,
+        t: ts[i],
+        freezer: freezer,
+        child: child,
+        caption: caps[i],
+      ),
+    );
   }
 
   return Column(
@@ -1218,7 +1272,12 @@ dynamic build(BuildContext context) {
           _buildAct3Curve(),
           _buildAct4FrozenStripLogin(context, childLogin),
           _buildAct5Comparison(context, childLogin),
-          _buildAct6PageSamples(context, childLogin, childDashboard, childSettings),
+          _buildAct6PageSamples(
+            context,
+            childLogin,
+            childDashboard,
+            childSettings,
+          ),
           _buildAct7Theming(),
           _buildAct8CueSheet(),
           _buildAct9CurtainCall(),
@@ -1279,8 +1338,11 @@ Widget _buildPlaybillHeader() {
               ),
             ],
           ),
-          child: const Icon(Icons.theater_comedy,
-              size: 36, color: kCurtainGarnetDeep),
+          child: const Icon(
+            Icons.theater_comedy,
+            size: 36,
+            color: kCurtainGarnetDeep,
+          ),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -1361,20 +1423,27 @@ Widget _buildAct1Theory() {
           style: kStyleBody,
         ),
         _gap(4),
-        _bullet('A horizontal slide from roughly +30% of the screen width '
-            'to 0, eased out so the page decelerates as it lands.'),
-        _bullet('A cross-fade from alpha 0 to alpha 1 driven by a fast-out, '
-            'slow-in curve, so most of the opacity arrives in the second '
-            'half of the cue.'),
-        _bullet('Simultaneously, the outgoing route fades and slides slightly '
-            'to the left -- a small but legible "stepping aside" gesture.'),
+        _bullet(
+          'A horizontal slide from roughly +30% of the screen width '
+          'to 0, eased out so the page decelerates as it lands.',
+        ),
+        _bullet(
+          'A cross-fade from alpha 0 to alpha 1 driven by a fast-out, '
+          'slow-in curve, so most of the opacity arrives in the second '
+          'half of the cue.',
+        ),
+        _bullet(
+          'Simultaneously, the outgoing route fades and slides slightly '
+          'to the left -- a small but legible "stepping aside" gesture.',
+        ),
         _gap(10),
         _calloutNote(
-            'Names you may see in the source',
-            'In recent versions of Flutter, this builder is also referred '
-            'to as the "M3 default" Android transition. The class itself '
-            'lives in `package:flutter/material.dart` and ships as a const '
-            'subclass of PageTransitionsBuilder.'),
+          'Names you may see in the source',
+          'In recent versions of Flutter, this builder is also referred '
+              'to as the "M3 default" Android transition. The class itself '
+              'lives in `package:flutter/material.dart` and ships as a const '
+              'subclass of PageTransitionsBuilder.',
+        ),
         _gap(4),
         _doubleRule(),
         Text('Where it fits in the bigger picture', style: kStyleSubsection),
@@ -1448,43 +1517,61 @@ Widget _buildAct2Anatomy() {
         _gap(8),
         Text('What each argument is for', style: kStyleSubsection),
         _gap(6),
-        _kvRow('route',
-            'PageRoute? — used by some builders for swipe-to-dismiss; '
-                'FadeForwards may ignore it.'),
-        _kvRow('context',
-            'BuildContext — used to read MediaQuery, Directionality, theme.'),
-        _kvRow('animation',
-            'primary 0.0->1.0 — the new page is becoming visible.'),
-        _kvRow('secondaryAnimation',
-            'secondary 0.0->1.0 — the new page is becoming a *previous* '
-                'page beneath another push; FadeForwards uses this to '
-                'fade-and-slide the old route slightly out of the way.'),
-        _kvRow('child',
-            'Widget — the new page content. The builder must return a '
-                'widget that displays this `child`, possibly wrapped in '
-                'transforms / opacities driven by `animation`.'),
+        _kvRow(
+          'route',
+          'PageRoute? — used by some builders for swipe-to-dismiss; '
+              'FadeForwards may ignore it.',
+        ),
+        _kvRow(
+          'context',
+          'BuildContext — used to read MediaQuery, Directionality, theme.',
+        ),
+        _kvRow(
+          'animation',
+          'primary 0.0->1.0 — the new page is becoming visible.',
+        ),
+        _kvRow(
+          'secondaryAnimation',
+          'secondary 0.0->1.0 — the new page is becoming a *previous* '
+              'page beneath another push; FadeForwards uses this to '
+              'fade-and-slide the old route slightly out of the way.',
+        ),
+        _kvRow(
+          'child',
+          'Widget — the new page content. The builder must return a '
+              'widget that displays this `child`, possibly wrapped in '
+              'transforms / opacities driven by `animation`.',
+        ),
         _gap(10),
         _doubleRule(),
         Text('What the framework does for us', style: kStyleSubsection),
         _gap(6),
-        _bullet('Drives `animation` from 0.0 to 1.0 over the route\'s '
-            'transitionDuration (default ~300ms).'),
-        _bullet('Drives `secondaryAnimation` of the *previous* route from '
-            '0.0 to 1.0 over the same window, so its builder can react.'),
-        _bullet('Reverses both during pop, so a builder that uses ease '
-            'curves naturally feels right "in reverse".'),
+        _bullet(
+          'Drives `animation` from 0.0 to 1.0 over the route\'s '
+          'transitionDuration (default ~300ms).',
+        ),
+        _bullet(
+          'Drives `secondaryAnimation` of the *previous* route from '
+          '0.0 to 1.0 over the same window, so its builder can react.',
+        ),
+        _bullet(
+          'Reverses both during pop, so a builder that uses ease '
+          'curves naturally feels right "in reverse".',
+        ),
         _gap(10),
         _calloutDo(
-            'Use the curves that ship with Material',
-            'Material 3 transitions are tuned with specific curves '
-            '(emphasized, emphasized-decelerate, standard-decelerate). '
-            'FadeForwardsPageTransitionsBuilder applies these for you. '
-            'Do not multiply them with your own curves on top.'),
+          'Use the curves that ship with Material',
+          'Material 3 transitions are tuned with specific curves '
+              '(emphasized, emphasized-decelerate, standard-decelerate). '
+              'FadeForwardsPageTransitionsBuilder applies these for you. '
+              'Do not multiply them with your own curves on top.',
+        ),
         _calloutAvoid(
-            'Reach into private state of the animation',
-            'The `animation` you receive is owned by the route. Do not '
-            'subclass it, write to it, or attach a controller. Treat it '
-            'as a read-only signal.'),
+          'Reach into private state of the animation',
+          'The `animation` you receive is owned by the route. Do not '
+              'subclass it, write to it, or attach a controller. Treat it '
+              'as a read-only signal.',
+        ),
       ],
     ),
   );
@@ -1499,8 +1586,27 @@ Widget _buildAct3Curve() {
   // x-translation vs t. We render the curves as small colored bars per t.
   // No live animation: each bar is a static height computed from t.
   final List<double> ts = <double>[
-    0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5,
-    0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    1.0,
   ];
 
   // Alpha approximation: an emphasized-decelerate-style curve.
@@ -1528,21 +1634,28 @@ Widget _buildAct3Curve() {
   }
   final List<Widget> dxBars = <Widget>[];
   for (int i = 0; i < ts.length; i = i + 1) {
-    dxBars.add(_curveBar(1.0 - dxs[i] / 0.30, kCurtainGarnetLight, kCurtainGarnet));
+    dxBars.add(
+      _curveBar(1.0 - dxs[i] / 0.30, kCurtainGarnetLight, kCurtainGarnet),
+    );
   }
 
   // Tick labels.
   final List<Widget> ticks = <Widget>[];
   for (int i = 0; i < ts.length; i = i + 1) {
-    ticks.add(SizedBox(
-      width: 22,
-      child: Text(
-        ts[i].toStringAsFixed(2),
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-            fontSize: 8, color: kInkPlaybillFade, fontFamily: 'monospace'),
+    ticks.add(
+      SizedBox(
+        width: 22,
+        child: Text(
+          ts[i].toStringAsFixed(2),
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 8,
+            color: kInkPlaybillFade,
+            fontFamily: 'monospace',
+          ),
+        ),
       ),
-    ));
+    );
   }
 
   return _sectionCard(
@@ -1564,11 +1677,14 @@ Widget _buildAct3Curve() {
           children: <Widget>[
             const SizedBox(
               width: 60,
-              child: Text('alpha',
-                  style: TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w800,
-                      color: kBrassGiltDeep)),
+              child: Text(
+                'alpha',
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                  color: kBrassGiltDeep,
+                ),
+              ),
             ),
             Expanded(
               child: SizedBox(
@@ -1586,11 +1702,14 @@ Widget _buildAct3Curve() {
           children: <Widget>[
             const SizedBox(
               width: 60,
-              child: Text('slide',
-                  style: TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w800,
-                      color: kCurtainGarnetDeep)),
+              child: Text(
+                'slide',
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                  color: kCurtainGarnetDeep,
+                ),
+              ),
             ),
             Expanded(
               child: SizedBox(
@@ -1612,12 +1731,13 @@ Widget _buildAct3Curve() {
         ),
         _gap(10),
         _calloutNote(
-            'Reading the chart',
-            'Each vertical bar represents the "amount delivered" of that '
-            'timeline at that t. In the alpha row, taller bars mean closer '
-            'to fully opaque. In the slide row, taller bars mean closer to '
-            'rest position. The curves do not coincide -- alpha catches up '
-            'first, then slide settles.'),
+          'Reading the chart',
+          'Each vertical bar represents the "amount delivered" of that '
+              'timeline at that t. In the alpha row, taller bars mean closer '
+              'to fully opaque. In the slide row, taller bars mean closer to '
+              'rest position. The curves do not coincide -- alpha catches up '
+              'first, then slide settles.',
+        ),
         _gap(4),
         Text(
           'In Flutter, these curves are baked into the builder. You do not '
@@ -1690,17 +1810,19 @@ Widget _buildAct4FrozenStripLogin(BuildContext context, Widget child) {
         ),
         _gap(10),
         _calloutDo(
-            'Use exactly five canonical t values',
-            'Stripping at 0.0, 0.25, 0.5, 0.75, 1.0 mirrors the cadence '
-            'a designer would sketch on a storyboard. It also matches '
-            'the "first, second, third quarter" beats most stage cues '
-            'fall on.'),
+          'Use exactly five canonical t values',
+          'Stripping at 0.0, 0.25, 0.5, 0.75, 1.0 mirrors the cadence '
+              'a designer would sketch on a storyboard. It also matches '
+              'the "first, second, third quarter" beats most stage cues '
+              'fall on.',
+        ),
         _calloutAvoid(
-            'Sample at t > 1.0 or t < 0.0',
-            'Most builders extrapolate gracefully but the result is no '
-            'longer the canonical transition. If you need to debug an '
-            'over-shoot, attach a CurvedAnimation with a Curves.elastic '
-            'parent to a real controller in a non-D4rt environment.'),
+          'Sample at t > 1.0 or t < 0.0',
+          'Most builders extrapolate gracefully but the result is no '
+              'longer the canonical transition. If you need to debug an '
+              'over-shoot, attach a CurvedAnimation with a Curves.elastic '
+              'parent to a real controller in a non-D4rt environment.',
+        ),
       ],
     ),
   );
@@ -1765,13 +1887,14 @@ Widget _buildAct5Comparison(BuildContext context, Widget child) {
         ),
         _gap(10),
         _calloutNote(
-            'Why the rows look different',
-            'Each builder picks different curves and decomposes the '
-            'transition into different layers. FadeForwards combines a '
-            'short slide with a fade. FadeUpwards is a vertical fade-up '
-            'with no horizontal travel. Zoom does a scale with a brief '
-            'opacity dip. OpenUpwards uses a curtain that lifts. '
-            'Cupertino is a parallax slide with no fade.'),
+          'Why the rows look different',
+          'Each builder picks different curves and decomposes the '
+              'transition into different layers. FadeForwards combines a '
+              'short slide with a fade. FadeUpwards is a vertical fade-up '
+              'with no horizontal travel. Zoom does a scale with a brief '
+              'opacity dip. OpenUpwards uses a curtain that lifts. '
+              'Cupertino is a parallax slide with no fade.',
+        ),
       ],
     ),
   );
@@ -1835,17 +1958,19 @@ Widget _buildAct6PageSamples(
         ),
         _gap(10),
         _calloutDo(
-            'Trust the builder with arbitrary content',
-            'Whether the page is a TextField-heavy form or a chart-heavy '
-            'dashboard, the transition envelope is the same. Test a few '
-            'real pages mid-cue to make sure no element crosses the seam '
-            'in a distracting way.'),
+          'Trust the builder with arbitrary content',
+          'Whether the page is a TextField-heavy form or a chart-heavy '
+              'dashboard, the transition envelope is the same. Test a few '
+              'real pages mid-cue to make sure no element crosses the seam '
+              'in a distracting way.',
+        ),
         _calloutAvoid(
-            'Animate the page content concurrently',
-            'If your page itself runs an entrance animation that overlaps '
-            'with the route transition, the user sees two motions stacked '
-            'on top of each other. Either delay the in-page animation '
-            'until the route settles, or skip it on first frame.'),
+          'Animate the page content concurrently',
+          'If your page itself runs an entrance animation that overlaps '
+              'with the route transition, the user sees two motions stacked '
+              'on top of each other. Either delay the in-page animation '
+              'until the route settles, or skip it on first frame.',
+        ),
       ],
     ),
   );
@@ -1871,12 +1996,15 @@ Widget _buildAct7Theming() {
           style: kStyleBody,
         ),
         _gap(10),
-        _kvRow('Material 3 default (Android)',
-            'FadeForwardsPageTransitionsBuilder()'),
-        _kvRow('Material 2 legacy (Android)',
-            'FadeUpwardsPageTransitionsBuilder()'),
-        _kvRow('Android Q+ snapshot',
-            'ZoomPageTransitionsBuilder()'),
+        _kvRow(
+          'Material 3 default (Android)',
+          'FadeForwardsPageTransitionsBuilder()',
+        ),
+        _kvRow(
+          'Material 2 legacy (Android)',
+          'FadeUpwardsPageTransitionsBuilder()',
+        ),
+        _kvRow('Android Q+ snapshot', 'ZoomPageTransitionsBuilder()'),
         _kvRow('iOS / macOS', 'CupertinoPageTransitionsBuilder()'),
         _kvRow('Linux desktop', 'FadeForwardsPageTransitionsBuilder()'),
         _kvRow('Windows / Fuchsia', 'ZoomPageTransitionsBuilder()'),
@@ -1902,17 +2030,19 @@ Widget _buildAct7Theming() {
         ),
         _gap(8),
         _calloutDo(
-            'Pin one builder per platform',
-            'Mixing builders inside the same platform key is not allowed; '
-            'the map is keyed by TargetPlatform, not by route name. If '
-            'you need per-route customization, use PageRouteBuilder with '
-            'a custom transitionsBuilder argument instead.'),
+          'Pin one builder per platform',
+          'Mixing builders inside the same platform key is not allowed; '
+              'the map is keyed by TargetPlatform, not by route name. If '
+              'you need per-route customization, use PageRouteBuilder with '
+              'a custom transitionsBuilder argument instead.',
+        ),
         _calloutAvoid(
-            'Switch builders mid-app-lifetime',
-            'PageTransitionsTheme is read on each push. Changing it at '
-            'runtime via ThemeData rebuilds will affect *future* pushes '
-            'only; routes that are mid-flight keep using whichever builder '
-            'they were started with.'),
+          'Switch builders mid-app-lifetime',
+          'PageTransitionsTheme is read on each push. Changing it at '
+              'runtime via ThemeData rebuilds will affect *future* pushes '
+              'only; routes that are mid-flight keep using whichever builder '
+              'they were started with.',
+        ),
       ],
     ),
   );
@@ -1932,52 +2062,79 @@ Widget _buildAct8CueSheet() {
       children: <Widget>[
         Text('Cue calls', style: kStyleSubsection),
         _gap(6),
-        _cueLine('Q1  GO',
-            'House to half. Ensure transitionDuration is the framework '
-            'default (~300ms); custom durations break the M3 rhythm.'),
-        _cueLine('Q2  GO',
-            'Cross-fade the *outgoing* page using the secondary animation; '
-            'do not let the old page sit at full alpha.'),
-        _cueLine('Q3  GO',
-            'Respect Directionality. RTL locales should slide from the '
-            'left, not the right. The builder reads the BuildContext\'s '
-            'Directionality automatically.'),
-        _cueLine('Q4  GO',
-            'Test on a real device. Frozen-frame previews look identical '
-            'to the live transition, but timing-feel only emerges at full '
-            'speed.'),
+        _cueLine(
+          'Q1  GO',
+          'House to half. Ensure transitionDuration is the framework '
+              'default (~300ms); custom durations break the M3 rhythm.',
+        ),
+        _cueLine(
+          'Q2  GO',
+          'Cross-fade the *outgoing* page using the secondary animation; '
+              'do not let the old page sit at full alpha.',
+        ),
+        _cueLine(
+          'Q3  GO',
+          'Respect Directionality. RTL locales should slide from the '
+              'left, not the right. The builder reads the BuildContext\'s '
+              'Directionality automatically.',
+        ),
+        _cueLine(
+          'Q4  GO',
+          'Test on a real device. Frozen-frame previews look identical '
+              'to the live transition, but timing-feel only emerges at full '
+              'speed.',
+        ),
         _gap(10),
-        _cueWarn('Q5  HOLD',
-            'Do not wrap the result of buildTransitions in another '
-            'AnimatedBuilder driven by the same animation. You will get '
-            'doubled curves.'),
-        _cueWarn('Q6  HOLD',
-            'Do not call buildTransitions from inside a build method '
-            'unless you are dramatising it (as we are here). In production '
-            'code, leave it to the Navigator.'),
-        _cueWarn('Q7  HOLD',
-            'Do not depend on the slide distance being constant. The '
-            'builder may scale the slide based on MediaQuery.size; phones '
-            'and tablets will not match exactly.'),
+        _cueWarn(
+          'Q5  HOLD',
+          'Do not wrap the result of buildTransitions in another '
+              'AnimatedBuilder driven by the same animation. You will get '
+              'doubled curves.',
+        ),
+        _cueWarn(
+          'Q6  HOLD',
+          'Do not call buildTransitions from inside a build method '
+              'unless you are dramatising it (as we are here). In production '
+              'code, leave it to the Navigator.',
+        ),
+        _cueWarn(
+          'Q7  HOLD',
+          'Do not depend on the slide distance being constant. The '
+              'builder may scale the slide based on MediaQuery.size; phones '
+              'and tablets will not match exactly.',
+        ),
         _gap(10),
         _doubleRule(),
-        Text('Glossary for the assistant stage manager', style: kStyleSubsection),
+        Text(
+          'Glossary for the assistant stage manager',
+          style: kStyleSubsection,
+        ),
         _gap(6),
-        _kvRow('proscenium',
-            'the visible "frame" around the stage; analogous to the safe '
-                'area MediaQuery.padding.'),
-        _kvRow('scrim',
-            'a translucent gauze drop; analogous to a faint white overlay '
-                'at low opacity.'),
-        _kvRow('cue',
-            'a numbered command from the stage manager; analogous to '
-                'an animation status callback.'),
-        _kvRow('flush',
-            'when a piece of scenery comes to rest exactly in line; '
-                'analogous to t = 1.0.'),
-        _kvRow('curtain call',
-            'the bow at the end of the show; analogous to the route '
-                'pop animation, played in reverse.'),
+        _kvRow(
+          'proscenium',
+          'the visible "frame" around the stage; analogous to the safe '
+              'area MediaQuery.padding.',
+        ),
+        _kvRow(
+          'scrim',
+          'a translucent gauze drop; analogous to a faint white overlay '
+              'at low opacity.',
+        ),
+        _kvRow(
+          'cue',
+          'a numbered command from the stage manager; analogous to '
+              'an animation status callback.',
+        ),
+        _kvRow(
+          'flush',
+          'when a piece of scenery comes to rest exactly in line; '
+              'analogous to t = 1.0.',
+        ),
+        _kvRow(
+          'curtain call',
+          'the bow at the end of the show; analogous to the route '
+              'pop animation, played in reverse.',
+        ),
       ],
     ),
   );
@@ -2033,11 +2190,12 @@ Widget _buildAct9CurtainCall() {
         ),
         _gap(10),
         _calloutNote(
-            'Theme thanks',
-            'Curtain Garnet wishes to thank: the wardrobe department for '
-            'the velvet cord, the gilders for the proscenium, the lighting '
-            'desk for the footlight gold, and the front-of-house staff for '
-            'the playbill ivory.'),
+          'Theme thanks',
+          'Curtain Garnet wishes to thank: the wardrobe department for '
+              'the velvet cord, the gilders for the proscenium, the lighting '
+              'desk for the footlight gold, and the front-of-house staff for '
+              'the playbill ivory.',
+        ),
       ],
     ),
   );
@@ -2058,8 +2216,7 @@ Widget _buildFooter() {
     ),
     child: Row(
       children: <Widget>[
-        const Icon(Icons.theater_comedy,
-            color: kFootlightGold, size: 28),
+        const Icon(Icons.theater_comedy, color: kFootlightGold, size: 28),
         const SizedBox(width: 12),
         Expanded(
           child: Column(

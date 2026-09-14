@@ -513,8 +513,18 @@ dynamic build(BuildContext context) {
   ];
 
   final familyCards = <Widget>[
-    buildFamilyCard('easeIn family', easeInFamily, Colors.blue, Icons.north_east),
-    buildFamilyCard('easeOut family', easeOutFamily, Colors.green, Icons.south_east),
+    buildFamilyCard(
+      'easeIn family',
+      easeInFamily,
+      Colors.blue,
+      Icons.north_east,
+    ),
+    buildFamilyCard(
+      'easeOut family',
+      easeOutFamily,
+      Colors.green,
+      Icons.south_east,
+    ),
     buildFamilyCard(
       'easeInOut family',
       easeInOutFamily,
@@ -555,7 +565,9 @@ dynamic build(BuildContext context) {
 
   // Threshold
   final threshold = Threshold(0.5);
-  print('Threshold(0.5) f(0.49)=${threshold.transform(0.49)} f(0.5)=${threshold.transform(0.5)}');
+  print(
+    'Threshold(0.5) f(0.49)=${threshold.transform(0.49)} f(0.5)=${threshold.transform(0.5)}',
+  );
 
   // SawTooth
   final sawTooth = SawTooth(3);
@@ -574,15 +586,50 @@ dynamic build(BuildContext context) {
   print('CatmullRomCurve f(0.5)=${catmullRom.transform(0.5)}');
 
   final specialCurveCards = <Widget>[
-    buildCurveGraph('Cubic(0.25,0.1,0.25,1.0)', customCubic, Colors.blue, Icons.timeline),
-    buildCurveGraph('Material Standard', materialStandard, Colors.indigo, Icons.flag),
-    buildCurveGraph('Material Decelerate', materialDecel, Colors.cyan, Icons.airplane_ticket),
-    buildCurveGraph('Material Accelerate', materialAccel, Colors.deepPurple, Icons.rocket_launch),
-    buildCurveGraph('Interval(0.25,0.75)', interval, Colors.teal, Icons.center_focus_strong),
-    buildCurveGraph('Interval(0,0.5,easeOut)', intervalEased, Colors.green, Icons.start),
+    buildCurveGraph(
+      'Cubic(0.25,0.1,0.25,1.0)',
+      customCubic,
+      Colors.blue,
+      Icons.timeline,
+    ),
+    buildCurveGraph(
+      'Material Standard',
+      materialStandard,
+      Colors.indigo,
+      Icons.flag,
+    ),
+    buildCurveGraph(
+      'Material Decelerate',
+      materialDecel,
+      Colors.cyan,
+      Icons.airplane_ticket,
+    ),
+    buildCurveGraph(
+      'Material Accelerate',
+      materialAccel,
+      Colors.deepPurple,
+      Icons.rocket_launch,
+    ),
+    buildCurveGraph(
+      'Interval(0.25,0.75)',
+      interval,
+      Colors.teal,
+      Icons.center_focus_strong,
+    ),
+    buildCurveGraph(
+      'Interval(0,0.5,easeOut)',
+      intervalEased,
+      Colors.green,
+      Icons.start,
+    ),
     buildCurveGraph('Threshold(0.5)', threshold, Colors.brown, Icons.toggle_on),
     buildCurveGraph('SawTooth(3)', sawTooth, Colors.amber, Icons.show_chart),
-    buildCurveGraph('FlippedCurve(easeIn)', flipped, Colors.deepOrange, Icons.flip),
+    buildCurveGraph(
+      'FlippedCurve(easeIn)',
+      flipped,
+      Colors.deepOrange,
+      Icons.flip,
+    ),
     buildCurveGraph('CatmullRomCurve', catmullRom, Colors.pink, Icons.gesture),
   ];
   print('Created ${specialCurveCards.length} special curve cards');
@@ -612,7 +659,9 @@ dynamic build(BuildContext context) {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 0.5),
             child: Align(
-              alignment: isNegative ? Alignment.topCenter : Alignment.bottomCenter,
+              alignment: isNegative
+                  ? Alignment.topCenter
+                  : Alignment.bottomCenter,
               child: Container(
                 height: (clamped.abs() * 100.0).clamp(1.0, 130.0),
                 decoration: BoxDecoration(
@@ -637,7 +686,10 @@ dynamic build(BuildContext context) {
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.05), color.withValues(alpha: 0.15)],
+          colors: [
+            color.withValues(alpha: 0.05),
+            color.withValues(alpha: 0.15),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -679,8 +731,10 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(height: 2.0),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4.0),
@@ -1039,10 +1093,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2
@@ -1056,10 +1107,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: galleryWidgets,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: galleryWidgets),
             SizedBox(height: 32.0),
 
             // Section 3
@@ -1087,10 +1135,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: specialCurveCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: specialCurveCards),
             SizedBox(height: 32.0),
 
             // Section 5

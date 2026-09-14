@@ -185,11 +185,7 @@ Widget _sectionBanner({
               const SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: soft,
-                  fontSize: 12.5,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: soft, fontSize: 12.5, height: 1.4),
               ),
             ],
           ),
@@ -209,10 +205,7 @@ Widget _bullet(String text, Color dotColor) {
           width: 8.0,
           height: 8.0,
           margin: const EdgeInsets.only(top: 6.0, right: 10.0),
-          decoration: BoxDecoration(
-            color: dotColor,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         Expanded(
           child: Text(
@@ -457,16 +450,17 @@ Widget _glossaryEntry({
           ],
         ),
         const SizedBox(height: 6.0),
-        Text(
-          meaning,
-          style: const TextStyle(fontSize: 12.5, height: 1.45),
-        ),
+        Text(meaning, style: const TextStyle(fontSize: 12.5, height: 1.45)),
       ],
     ),
   );
 }
 
-Widget _sectionBody({required Color bg, required Color border, required Widget child}) {
+Widget _sectionBody({
+  required Color bg,
+  required Color border,
+  required Widget child,
+}) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(16.0),
@@ -496,10 +490,16 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------
 
   final Animation<double> opacity00 = const AlwaysStoppedAnimation<double>(0.0);
-  final Animation<double> opacity25 = const AlwaysStoppedAnimation<double>(0.25);
+  final Animation<double> opacity25 = const AlwaysStoppedAnimation<double>(
+    0.25,
+  );
   final Animation<double> opacity50 = const AlwaysStoppedAnimation<double>(0.5);
-  final Animation<double> opacity75 = const AlwaysStoppedAnimation<double>(0.75);
-  final Animation<double> opacity100 = const AlwaysStoppedAnimation<double>(1.0);
+  final Animation<double> opacity75 = const AlwaysStoppedAnimation<double>(
+    0.75,
+  );
+  final Animation<double> opacity100 = const AlwaysStoppedAnimation<double>(
+    1.0,
+  );
 
   print('Built five canonical opacity stops:');
   print('  0.00 — fully transparent (dismissed end)');
@@ -542,8 +542,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.visibility_off,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.visibility_off,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -562,8 +565,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.preview,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.preview,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -582,8 +588,11 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     alignment: Alignment.center,
-                    child: const Icon(Icons.visibility,
-                        color: Colors.white, size: 32.0),
+                    child: const Icon(
+                      Icons.visibility,
+                      color: Colors.white,
+                      size: 32.0,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -629,10 +638,19 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 10.0),
         _bullet('opacity is an Animation<double>, NOT a raw double.', _s1Mid),
-        _bullet('AlwaysStoppedAnimation<double>(t) pins a static frame.', _s1Mid),
-        _bullet('child is rebuilt on every animation tick — keep it cheap.', _s1Mid),
-        _bullet('alwaysIncludeSemantics keeps the subtree readable by '
-            'assistive tech even when opacity == 0.0.', _s1Mid),
+        _bullet(
+          'AlwaysStoppedAnimation<double>(t) pins a static frame.',
+          _s1Mid,
+        ),
+        _bullet(
+          'child is rebuilt on every animation tick — keep it cheap.',
+          _s1Mid,
+        ),
+        _bullet(
+          'alwaysIncludeSemantics keeps the subtree readable by '
+          'assistive tech even when opacity == 0.0.',
+          _s1Mid,
+        ),
       ],
     ),
   );
@@ -880,8 +898,11 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: <Widget>[
-                    const Icon(Icons.rocket_launch,
-                        color: Colors.white, size: 22.0),
+                    const Icon(
+                      Icons.rocket_launch,
+                      color: Colors.white,
+                      size: 22.0,
+                    ),
                     const SizedBox(width: 10.0),
                     Expanded(
                       child: Text(
@@ -1002,7 +1023,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6.0),
                     const Text(
                       'hidden + dropped',
-                      style: TextStyle(fontSize: 11.0, color: Color(0xFF616161)),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF616161),
+                      ),
                     ),
                   ],
                 ),
@@ -1051,7 +1075,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 6.0),
                     const Text(
                       'hidden + announced',
-                      style: TextStyle(fontSize: 11.0, color: Color(0xFF616161)),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF616161),
+                      ),
                     ),
                   ],
                 ),
@@ -1394,12 +1421,20 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14.0),
-        _bullet('SliverFadeTransition.sliver takes a sliver, not a box.', _s7Mid),
-        _bullet('The host CustomScrollView must be bounded by the surrounding '
-            'box (Container with height) when nested inside a scrolling '
-            'parent — otherwise viewport sizing is undefined.', _s7Mid),
-        _bullet('alwaysIncludeSemantics works identically for the sliver flavour.',
-            _s7Mid),
+        _bullet(
+          'SliverFadeTransition.sliver takes a sliver, not a box.',
+          _s7Mid,
+        ),
+        _bullet(
+          'The host CustomScrollView must be bounded by the surrounding '
+          'box (Container with height) when nested inside a scrolling '
+          'parent — otherwise viewport sizing is undefined.',
+          _s7Mid,
+        ),
+        _bullet(
+          'alwaysIncludeSemantics works identically for the sliver flavour.',
+          _s7Mid,
+        ),
       ],
     ),
   );
@@ -1442,8 +1477,11 @@ dynamic build(BuildContext context) {
                     borderRadius: BorderRadius.circular(6.0),
                   ),
                   alignment: Alignment.center,
-                  child: const Icon(Icons.layers,
-                      color: Colors.white, size: 22.0),
+                  child: const Icon(
+                    Icons.layers,
+                    color: Colors.white,
+                    size: 22.0,
+                  ),
                 ),
               ),
             ),
@@ -1451,10 +1489,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 6.0),
           Text(
             '${outer.toStringAsFixed(2)} × ${inner.toStringAsFixed(2)}',
-            style: const TextStyle(
-              fontSize: 10.5,
-              fontFamily: 'monospace',
-            ),
+            style: const TextStyle(fontSize: 10.5, fontFamily: 'monospace'),
           ),
           Text(
             '= ${effective.toStringAsFixed(3)}',
@@ -1729,53 +1764,61 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14.0),
         _glossaryEntry(
           term: 'Animation<double>',
-          meaning: 'A Listenable that exposes a double `value` plus an '
+          meaning:
+              'A Listenable that exposes a double `value` plus an '
               'AnimationStatus. FadeTransition reads `value` on every '
               'notifyListeners() tick.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'AlwaysStoppedAnimation<T>',
-          meaning: 'Animation that never changes value and reports '
+          meaning:
+              'Animation that never changes value and reports '
               'AnimationStatus.forward. Useful for testing, screenshots, '
               'and demos like this one.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'FadeTransition',
-          meaning: 'AnimatedWidget that rebuilds its child wrapped in an '
+          meaning:
+              'AnimatedWidget that rebuilds its child wrapped in an '
               'Opacity layer whose alpha equals opacity.value.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'SliverFadeTransition',
-          meaning: 'Sliver-protocol counterpart of FadeTransition. Wraps a '
+          meaning:
+              'Sliver-protocol counterpart of FadeTransition. Wraps a '
               'sliver and fades it within the scrolling viewport.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'alwaysIncludeSemantics',
-          meaning: 'Boolean flag. When true, the child remains in the '
+          meaning:
+              'Boolean flag. When true, the child remains in the '
               'semantics tree even at opacity 0.0 — critical for status '
               'messages that fade out but must still be announced.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'AnimatedOpacity',
-          meaning: 'Implicit-animation cousin. Takes a raw double + '
+          meaning:
+              'Implicit-animation cousin. Takes a raw double + '
               'Duration; manages an internal controller. Cheap to write, '
               'less flexible than FadeTransition.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'Opacity (widget)',
-          meaning: 'Static alpha layer. No animation, no controller — just '
+          meaning:
+              'Static alpha layer. No animation, no controller — just '
               'renders the child at a fixed opacity.',
           accent: _s10Deep,
         ),
         _glossaryEntry(
           term: 'Composed alpha',
-          meaning: 'When two FadeTransitions are nested, the effective '
+          meaning:
+              'When two FadeTransitions are nested, the effective '
               'alpha is the product of their opacity values.',
           accent: _s10Deep,
         ),
@@ -1817,8 +1860,7 @@ dynamic build(BuildContext context) {
                 color: _heroSoft,
                 borderRadius: BorderRadius.circular(12.0),
               ),
-              child: const Icon(Icons.gradient,
-                  color: _heroDeep, size: 28.0),
+              child: const Icon(Icons.gradient, color: _heroDeep, size: 28.0),
             ),
             const SizedBox(width: 14.0),
             const Expanded(
@@ -1882,8 +1924,11 @@ dynamic build(BuildContext context) {
                 color: _heroMid,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: const Icon(Icons.menu_book,
-                  color: Colors.white, size: 18.0),
+              child: const Icon(
+                Icons.menu_book,
+                color: Colors.white,
+                size: 18.0,
+              ),
             ),
             const SizedBox(width: 10.0),
             const Text(
@@ -1920,13 +1965,22 @@ dynamic build(BuildContext context) {
         _bullet('Section 3 — fade-in narrative storyboard.', _heroMid),
         _bullet('Section 4 — fade-out narrative storyboard.', _heroMid),
         _bullet('Section 5 — alwaysIncludeSemantics, side-by-side.', _heroMid),
-        _bullet('Section 6 — comparison with AnimatedOpacity & Opacity.', _heroMid),
-        _bullet('Section 7 — SliverFadeTransition in a bounded scrollview.',
-            _heroMid),
-        _bullet('Section 8 — nested fades and their multiplied alpha.',
-            _heroMid),
-        _bullet('Section 9 — production recipes (skeleton, hero, hint).',
-            _heroMid),
+        _bullet(
+          'Section 6 — comparison with AnimatedOpacity & Opacity.',
+          _heroMid,
+        ),
+        _bullet(
+          'Section 7 — SliverFadeTransition in a bounded scrollview.',
+          _heroMid,
+        ),
+        _bullet(
+          'Section 8 — nested fades and their multiplied alpha.',
+          _heroMid,
+        ),
+        _bullet(
+          'Section 9 — production recipes (skeleton, hero, hint).',
+          _heroMid,
+        ),
         _bullet('Section 10 — closing glossary.', _heroMid),
       ],
     ),
@@ -2057,7 +2111,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 1,
                 title: 'FADETRANSITION BASICS',
-                subtitle: 'A single widget, three opacity snapshots, '
+                subtitle:
+                    'A single widget, three opacity snapshots, '
                     'one constructor reference.',
                 deep: _s1Deep,
                 mid: _s1Mid,
@@ -2067,7 +2122,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 2,
                 title: 'OPACITY TIMELINE STRIP',
-                subtitle: 'Five canonical stops — the spine of every '
+                subtitle:
+                    'Five canonical stops — the spine of every '
                     'fade narrative in this demo.',
                 deep: _s2Deep,
                 mid: _s2Mid,
@@ -2077,7 +2133,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 3,
                 title: 'FADE-IN NARRATIVE',
-                subtitle: 'Storyboarding a status banner appearing on '
+                subtitle:
+                    'Storyboarding a status banner appearing on '
                     'screen, frame by frame.',
                 deep: _s3Deep,
                 mid: _s3Mid,
@@ -2087,7 +2144,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 4,
                 title: 'FADE-OUT NARRATIVE',
-                subtitle: 'The same five stops in reverse — a hero card '
+                subtitle:
+                    'The same five stops in reverse — a hero card '
                     'retreating from view.',
                 deep: _s4Deep,
                 mid: _s4Mid,
@@ -2097,7 +2155,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 5,
                 title: 'ALWAYS-INCLUDE-SEMANTICS',
-                subtitle: 'The accessibility flag — invisible to eyes, '
+                subtitle:
+                    'The accessibility flag — invisible to eyes, '
                     'audible to screen readers.',
                 deep: _s5Deep,
                 mid: _s5Mid,
@@ -2107,7 +2166,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 6,
                 title: 'COMPARISON: FADE / ANIMATED / OPACITY',
-                subtitle: 'Same pixels, different APIs — pick by who '
+                subtitle:
+                    'Same pixels, different APIs — pick by who '
                     'owns the controller.',
                 deep: _s6Deep,
                 mid: _s6Mid,
@@ -2117,7 +2177,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 7,
                 title: 'SLIVER FADE TRANSITION',
-                subtitle: 'Fading inside a CustomScrollView — same '
+                subtitle:
+                    'Fading inside a CustomScrollView — same '
                     'opacity input, sliver subject.',
                 deep: _s7Deep,
                 mid: _s7Mid,
@@ -2127,7 +2188,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 8,
                 title: 'LAYERED FADES',
-                subtitle: 'Nesting FadeTransitions multiplies their '
+                subtitle:
+                    'Nesting FadeTransitions multiplies their '
                     'alpha. A 3×3 grid proves it.',
                 deep: _s8Deep,
                 mid: _s8Mid,
@@ -2137,7 +2199,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 9,
                 title: 'PRODUCTION RECIPES',
-                subtitle: 'Three real-world patterns where FadeTransition '
+                subtitle:
+                    'Three real-world patterns where FadeTransition '
                     'is the right tool.',
                 deep: _s9Deep,
                 mid: _s9Mid,
@@ -2147,7 +2210,8 @@ dynamic build(BuildContext context) {
               _sectionBanner(
                 index: 10,
                 title: 'GLOSSARY',
-                subtitle: 'Closing reference for every term in the '
+                subtitle:
+                    'Closing reference for every term in the '
                     'flipbook.',
                 deep: _s10Deep,
                 mid: _s10Mid,

@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Animated Route Base',
-      'body': 'TransitionRoute extends OverlayRoute to add forward '
+      'body':
+          'TransitionRoute extends OverlayRoute to add forward '
           'and reverse animations when routes are pushed and popped. '
           'It owns an AnimationController that drives the entrance '
           'and exit transitions.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.play_arrow,
       'title': 'Primary Animation',
-      'body': 'The "animation" property tracks this route\'s own '
+      'body':
+          'The "animation" property tracks this route\'s own '
           'transition: 0.0 when fully dismissed (off-screen) to '
           '1.0 when fully presented. Subclasses use it to build '
           'slide, fade, or scale transitions.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.fast_forward,
       'title': 'Secondary Animation',
-      'body': 'The "secondaryAnimation" tracks transitions of routes '
+      'body':
+          'The "secondaryAnimation" tracks transitions of routes '
           'above this one. When another route pushes on top, this '
           'value drives the covering/uncovering effect on the '
           'route below.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_carousel,
       'title': 'Route Hierarchy Foundation',
-      'body': 'TransitionRoute is the base for ModalRoute → PageRoute '
+      'body':
+          'TransitionRoute is the base for ModalRoute → PageRoute '
           '→ MaterialPageRoute / CupertinoPageRoute. Every page '
           'transition in a Flutter app ultimately flows through '
           'the controller this class creates.',
@@ -63,7 +67,8 @@ dynamic build(BuildContext context) {
   final lifecycle = <Map<String, dynamic>>[
     {
       'phase': 'install()',
-      'description': 'Called by NavigatorState when the route is first '
+      'description':
+          'Called by NavigatorState when the route is first '
           'inserted. Creates the AnimationController via '
           'createAnimationController() and the transition Animation '
           'via createAnimation().',
@@ -72,7 +77,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'didPush()',
-      'description': 'Starts the forward animation. The controller '
+      'description':
+          'Starts the forward animation. The controller '
           'runs from 0.0 → 1.0 over transitionDuration. The route '
           'becomes the current route.',
       'animation': '0.0 → 1.0',
@@ -80,14 +86,16 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'didReplace()',
-      'description': 'When replacing another route, the animation '
+      'description':
+          'When replacing another route, the animation '
           'jumps to 1.0 instantly — no forward transition.',
       'animation': '→ 1.0 (instant)',
       'color': Color(0xFF6A1B9A),
     },
     {
       'phase': 'didPop()',
-      'description': 'Starts the reverse animation. The controller '
+      'description':
+          'Starts the reverse animation. The controller '
           'runs from 1.0 → 0.0 over reverseTransitionDuration. '
           'The route begins exiting.',
       'animation': '1.0 → 0.0',
@@ -95,14 +103,16 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'completed',
-      'description': 'Animation reaches 1.0 (forward) — route is fully '
+      'description':
+          'Animation reaches 1.0 (forward) — route is fully '
           'visible. The transition overlay can be optimized away.',
       'animation': '= 1.0',
       'color': Color(0xFF6A1B9A),
     },
     {
       'phase': 'dismissed',
-      'description': 'Animation reaches 0.0 (reverse) — route is fully '
+      'description':
+          'Animation reaches 0.0 (reverse) — route is fully '
           'off-screen. The route is finalized and removed from '
           'the overlay stack.',
       'animation': '= 0.0',
@@ -110,7 +120,8 @@ dynamic build(BuildContext context) {
     },
     {
       'phase': 'dispose()',
-      'description': 'Animation controller is disposed. All listeners '
+      'description':
+          'Animation controller is disposed. All listeners '
           'are removed. The route is garbage collected.',
       'animation': '—',
       'color': Color(0xFF6A1B9A),
@@ -329,30 +340,35 @@ Widget buildTransitions(
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Slide Transition',
-      'code': 'SlideTransition(\n'
+      'code':
+          'SlideTransition(\n'
           '  position: Tween<Offset>(\n'
           '    begin: Offset(1.0, 0.0),\n'
           '    end: Offset.zero,\n'
           '  ).animate(animation),\n'
           '  child: child,\n'
           ')',
-      'description': 'Slides the new route in from the right. Most '
+      'description':
+          'Slides the new route in from the right. Most '
           'common page transition pattern.',
       'color': Color(0xFF6A1B9A),
     },
     {
       'title': 'Fade Transition',
-      'code': 'FadeTransition(\n'
+      'code':
+          'FadeTransition(\n'
           '  opacity: animation,\n'
           '  child: child,\n'
           ')',
-      'description': 'Cross-fades between old and new route. Subtle, '
+      'description':
+          'Cross-fades between old and new route. Subtle, '
           'works well for tab-like navigation.',
       'color': Color(0xFF00695C),
     },
     {
       'title': 'Scale Transition',
-      'code': 'ScaleTransition(\n'
+      'code':
+          'ScaleTransition(\n'
           '  scale: Tween<double>(\n'
           '    begin: 0.8,\n'
           '    end: 1.0,\n'
@@ -362,13 +378,15 @@ Widget buildTransitions(
           '  )),\n'
           '  child: child,\n'
           ')',
-      'description': 'Scales in from slightly smaller. Used for dialogs '
+      'description':
+          'Scales in from slightly smaller. Used for dialogs '
           'and hero-style reveals.',
       'color': Color(0xFF6A1B9A),
     },
     {
       'title': 'Combined Slide + Fade',
-      'code': 'SlideTransition(\n'
+      'code':
+          'SlideTransition(\n'
           '  position: offsetTween\n'
           '      .animate(animation),\n'
           '  child: FadeTransition(\n'
@@ -376,7 +394,8 @@ Widget buildTransitions(
           '    child: child,\n'
           '  ),\n'
           ')',
-      'description': 'Layered transitions — Material default combines '
+      'description':
+          'Layered transitions — Material default combines '
           'slide from bottom with fade.',
       'color': Color(0xFF00695C),
     },
@@ -392,7 +411,8 @@ Widget buildTransitions(
   final practices = <Map<String, dynamic>>[
     {
       'title': 'Don\'t Override controller Directly',
-      'detail': 'Override createAnimationController() and '
+      'detail':
+          'Override createAnimationController() and '
           'createAnimation() instead. The framework calls these '
           'at the right time during install().',
       'icon': Icons.warning_amber,
@@ -400,7 +420,8 @@ Widget buildTransitions(
     },
     {
       'title': 'Set reverseTransitionDuration',
-      'detail': 'Exit animations can be faster than entrance to '
+      'detail':
+          'Exit animations can be faster than entrance to '
           'feel snappy. 75% of forward duration is a good '
           'starting point.',
       'icon': Icons.speed,
@@ -408,7 +429,8 @@ Widget buildTransitions(
     },
     {
       'title': 'Use secondaryAnimation for Polish',
-      'detail': 'Animate the covered route (parallax offset, slight '
+      'detail':
+          'Animate the covered route (parallax offset, slight '
           'fade) using secondaryAnimation. This gives depth to '
           'the navigation stack.',
       'icon': Icons.layers,
@@ -416,7 +438,8 @@ Widget buildTransitions(
     },
     {
       'title': 'Match Platform Conventions',
-      'detail': 'Use slide-from-right for iOS, bottom-up fade for '
+      'detail':
+          'Use slide-from-right for iOS, bottom-up fade for '
           'Android. PageTransitionsTheme adapts automatically '
           'when using MaterialPageRoute.',
       'icon': Icons.phone_android,
@@ -424,7 +447,8 @@ Widget buildTransitions(
     },
     {
       'title': 'Prefer PageRouteBuilder for Custom Transitions',
-      'detail': 'Rather than subclassing TransitionRoute directly, '
+      'detail':
+          'Rather than subclassing TransitionRoute directly, '
           'use PageRouteBuilder with transitionsBuilder for '
           'one-off custom transitions.',
       'icon': Icons.build,
@@ -458,8 +482,14 @@ Widget buildTransitions(
             children: [
               Icon(Icons.animation, size: 48, color: Colors.white),
               SizedBox(height: 12),
-              Text('TransitionRoute',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text(
+                'TransitionRoute',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
               SizedBox(height: 6),
               Text(
                 'The abstract mixin that gives routes forward and reverse '
@@ -475,42 +505,67 @@ Widget buildTransitions(
         SizedBox(height: 24),
 
         // ---- Section 1: Concept ----
-        _sectionHeader('1. Concept', Icons.lightbulb_outline, Color(0xFF6A1B9A)),
+        _sectionHeader(
+          '1. Concept',
+          Icons.lightbulb_outline,
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 10),
-        ...conceptCards.map((c) => Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (c['accent'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border(left: BorderSide(color: c['accent'] as Color, width: 4)),
-                ),
-                padding: EdgeInsets.all(14),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(c['icon'] as IconData, color: c['accent'] as Color, size: 28),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(c['title'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: c['accent'] as Color)),
-                          SizedBox(height: 4),
-                          Text(c['body'] as String, style: TextStyle(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                  ],
+        ...conceptCards.map(
+          (c) => Padding(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (c['accent'] as Color).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(12),
+                border: Border(
+                  left: BorderSide(color: c['accent'] as Color, width: 4),
                 ),
               ),
-            )),
+              padding: EdgeInsets.all(14),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    c['icon'] as IconData,
+                    color: c['accent'] as Color,
+                    size: 28,
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          c['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: c['accent'] as Color,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          c['body'] as String,
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 2: Animation Lifecycle ----
-        _sectionHeader('2. Animation Lifecycle', Icons.timeline, Color(0xFF00695C)),
+        _sectionHeader(
+          '2. Animation Lifecycle',
+          Icons.timeline,
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 10),
         ...List.generate(lifecycle.length, (i) {
           final ph = lifecycle[i];
@@ -522,7 +577,9 @@ Widget buildTransitions(
                 decoration: BoxDecoration(
                   color: (ph['color'] as Color).withValues(alpha: 0.07),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border(left: BorderSide(color: ph['color'] as Color, width: 4)),
+                  border: Border(
+                    left: BorderSide(color: ph['color'] as Color, width: 4),
+                  ),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -533,25 +590,42 @@ Widget buildTransitions(
                         color: ph['color'] as Color,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(ph['phase'] as String,
-                          style: TextStyle(color: Colors.white, fontFamily: 'monospace',
-                              fontSize: 10, fontWeight: FontWeight.bold)),
+                      child: Text(
+                        ph['phase'] as String,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     SizedBox(width: 10),
                     Expanded(
-                      child: Text(ph['description'] as String,
-                          style: TextStyle(fontSize: 12)),
+                      child: Text(
+                        ph['description'] as String,
+                        style: TextStyle(fontSize: 12),
+                      ),
                     ),
                     if ((ph['animation'] as String) != '—')
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(color: Colors.grey[300]!),
                         ),
-                        child: Text(ph['animation'] as String,
-                            style: TextStyle(fontFamily: 'monospace', fontSize: 10, fontWeight: FontWeight.bold)),
+                        child: Text(
+                          ph['animation'] as String,
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -559,7 +633,11 @@ Widget buildTransitions(
               if (i < lifecycle.length - 1)
                 Padding(
                   padding: EdgeInsets.only(left: 24),
-                  child: Icon(Icons.arrow_downward, size: 14, color: Colors.grey[400]),
+                  child: Icon(
+                    Icons.arrow_downward,
+                    size: 14,
+                    color: Colors.grey[400],
+                  ),
                 ),
             ],
           );
@@ -570,8 +648,10 @@ Widget buildTransitions(
         // ---- Section 3: Controller Creation ----
         _sectionHeader('3. Controller Creation', Icons.code, Color(0xFF6A1B9A)),
         SizedBox(height: 10),
-        Text('How TransitionRoute builds its animation stack:',
-            style: TextStyle(fontSize: 13, color: Colors.grey[700])),
+        Text(
+          'How TransitionRoute builds its animation stack:',
+          style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+        ),
         SizedBox(height: 8),
         Container(
           width: double.infinity,
@@ -580,12 +660,20 @@ Widget buildTransitions(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(creationCode,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFCE93D8))),
+          child: Text(
+            creationCode,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFFCE93D8),
+            ),
+          ),
         ),
         SizedBox(height: 12),
-        Text('Subclass overriding durations and curve:',
-            style: TextStyle(fontSize: 13, color: Colors.grey[700])),
+        Text(
+          'Subclass overriding durations and curve:',
+          style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+        ),
         SizedBox(height: 8),
         Container(
           width: double.infinity,
@@ -594,14 +682,24 @@ Widget buildTransitions(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(overrideCode,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFF80CBC4))),
+          child: Text(
+            overrideCode,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFF80CBC4),
+            ),
+          ),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 4: Duration Configuration ----
-        _sectionHeader('4. Duration Configuration', Icons.timer, Color(0xFF00695C)),
+        _sectionHeader(
+          '4. Duration Configuration',
+          Icons.timer,
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
@@ -616,14 +714,50 @@ Widget buildTransitions(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                 child: Row(
                   children: [
-                    Expanded(flex: 3, child: Text('Route Type',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
-                    Expanded(flex: 2, child: Text('Forward',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
-                    Expanded(flex: 2, child: Text('Reverse',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
-                    Expanded(flex: 2, child: Text('Effect',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11))),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        'Route Type',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        'Forward',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        'Reverse',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Text(
+                        'Effect',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -634,14 +768,43 @@ Widget buildTransitions(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                   child: Row(
                     children: [
-                      Expanded(flex: 3, child: Text(d['route'] as String,
-                          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
-                      Expanded(flex: 2, child: Text(d['forward'] as String,
-                          style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Expanded(flex: 2, child: Text(d['reverse'] as String,
-                          style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      Expanded(flex: 2, child: Text(d['effect'] as String,
-                          style: TextStyle(fontSize: 10))),
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          d['route'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          d['forward'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          d['reverse'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          d['effect'] as String,
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -653,58 +816,104 @@ Widget buildTransitions(
         SizedBox(height: 20),
 
         // ---- Section 5: Secondary Animation ----
-        _sectionHeader('5. Secondary Animation', Icons.layers, Color(0xFF6A1B9A)),
+        _sectionHeader(
+          '5. Secondary Animation',
+          Icons.layers,
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 10),
-        ...secondaryExplanation.map((se) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: (se['color'] as Color).withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border(left: BorderSide(color: se['color'] as Color, width: 3)),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(se['scenario'] as String,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: se['color'] as Color)),
-                    SizedBox(height: 6),
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFEDE7F6),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Text('Route A', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-                        ),
-                        SizedBox(width: 6),
-                        Expanded(child: Text(se['routeA'] as String,
-                            style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFE0F2F1),
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          child: Text('Route B', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
-                        ),
-                        SizedBox(width: 6),
-                        Expanded(child: Text(se['routeB'] as String,
-                            style: TextStyle(fontSize: 11, fontFamily: 'monospace'))),
-                      ],
-                    ),
-                  ],
+        ...secondaryExplanation.map(
+          (se) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: (se['color'] as Color).withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(10),
+                border: Border(
+                  left: BorderSide(color: se['color'] as Color, width: 3),
                 ),
               ),
-            )),
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    se['scenario'] as String,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: se['color'] as Color,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEDE7F6),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Text(
+                          'Route A',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          se['routeA'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE0F2F1),
+                          borderRadius: BorderRadius.circular(3),
+                        ),
+                        child: Text(
+                          'Route B',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          se['routeB'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
         SizedBox(height: 8),
         Container(
           width: double.infinity,
@@ -713,127 +922,190 @@ Widget buildTransitions(
             color: Colors.grey[900],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Text(secondaryUsageCode,
-              style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFB39DDB))),
+          child: Text(
+            secondaryUsageCode,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              color: Color(0xFFB39DDB),
+            ),
+          ),
         ),
 
         SizedBox(height: 20),
 
         // ---- Section 6: Route Hierarchy ----
-        _sectionHeader('6. Route Hierarchy', Icons.account_tree, Color(0xFF00695C)),
+        _sectionHeader(
+          '6. Route Hierarchy',
+          Icons.account_tree,
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 10),
-        ...hierarchy.map((h) => Padding(
-              padding: EdgeInsets.only(left: (h['depth'] as int) * 18.0, bottom: 4),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                decoration: BoxDecoration(
-                  color: (h['color'] as Color).withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border(left: BorderSide(
+        ...hierarchy.map(
+          (h) => Padding(
+            padding: EdgeInsets.only(
+              left: (h['depth'] as int) * 18.0,
+              bottom: 4,
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+              decoration: BoxDecoration(
+                color: (h['color'] as Color).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+                border: Border(
+                  left: BorderSide(
                     color: h['color'] as Color,
                     width: h['class'] == 'TransitionRoute<T>' ? 4 : 2,
-                  )),
-                ),
-                child: Row(
-                  children: [
-                    Text(h['class'] as String,
-                        style: TextStyle(
-                          fontWeight: h['class'] == 'TransitionRoute<T>' ? FontWeight.bold : FontWeight.w600,
-                          fontFamily: 'monospace',
-                          fontSize: h['class'] == 'TransitionRoute<T>' ? 13 : 11,
-                          color: h['color'] as Color,
-                        )),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(h['adds'] as String,
-                          style: TextStyle(fontSize: 10, color: Colors.grey[600])),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            )),
+              child: Row(
+                children: [
+                  Text(
+                    h['class'] as String,
+                    style: TextStyle(
+                      fontWeight: h['class'] == 'TransitionRoute<T>'
+                          ? FontWeight.bold
+                          : FontWeight.w600,
+                      fontFamily: 'monospace',
+                      fontSize: h['class'] == 'TransitionRoute<T>' ? 13 : 11,
+                      color: h['color'] as Color,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      h['adds'] as String,
+                      style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 7: Transition Patterns ----
-        _sectionHeader('7. Transition Patterns', Icons.auto_awesome, Color(0xFF6A1B9A)),
+        _sectionHeader(
+          '7. Transition Patterns',
+          Icons.auto_awesome,
+          Color(0xFF6A1B9A),
+        ),
         SizedBox(height: 10),
-        ...patterns.map((p) => Padding(
-              padding: EdgeInsets.only(bottom: 12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[300]!),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(p['title'] as String,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: p['color'] as Color)),
-                    SizedBox(height: 4),
-                    Text(p['description'] as String,
-                        style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                    SizedBox(height: 8),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[900],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(p['code'] as String,
-                          style: TextStyle(fontFamily: 'monospace', fontSize: 11, color: Color(0xFFCE93D8))),
-                    ),
-                  ],
-                ),
+        ...patterns.map(
+          (p) => Padding(
+            padding: EdgeInsets.only(bottom: 12),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey[300]!),
               ),
-            )),
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    p['title'] as String,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                      color: p['color'] as Color,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    p['description'] as String,
+                    style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      p['code'] as String,
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: Color(0xFFCE93D8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 20),
 
         // ---- Section 8: Best Practices ----
-        _sectionHeader('8. Best Practices', Icons.tips_and_updates, Color(0xFF00695C)),
+        _sectionHeader(
+          '8. Best Practices',
+          Icons.tips_and_updates,
+          Color(0xFF00695C),
+        ),
         SizedBox(height: 10),
-        ...practices.map((p) => Padding(
-              padding: EdgeInsets.only(bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey[200]!),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 34,
-                      height: 34,
-                      decoration: BoxDecoration(
-                        color: (p['color'] as Color).withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(p['icon'] as IconData, color: p['color'] as Color, size: 18),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(p['title'] as String,
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                          SizedBox(height: 3),
-                          Text(p['detail'] as String,
-                              style: TextStyle(fontSize: 12, color: Colors.grey[700])),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+        ...practices.map(
+          (p) => Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.grey[200]!),
               ),
-            )),
+              padding: EdgeInsets.all(12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: (p['color'] as Color).withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(
+                      p['icon'] as IconData,
+                      color: p['color'] as Color,
+                      size: 18,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          p['title'] as String,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          p['detail'] as String,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
 
         SizedBox(height: 24),
 
@@ -881,7 +1153,14 @@ Widget _sectionHeader(String title, IconData icon, Color color) {
     children: [
       Icon(icon, color: color, size: 22),
       SizedBox(width: 8),
-      Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: color)),
+      Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: color,
+        ),
+      ),
     ],
   );
 }

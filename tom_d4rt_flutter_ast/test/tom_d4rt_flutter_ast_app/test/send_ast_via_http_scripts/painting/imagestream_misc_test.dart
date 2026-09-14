@@ -417,10 +417,7 @@ class _AccumulatorPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(12),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
       bg,
     );
 
@@ -477,10 +474,7 @@ class _AccumulatorPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     totalLabel.layout();
-    totalLabel.paint(
-      canvas,
-      Offset(size.width - totalLabel.width - 12, 8),
-    );
+    totalLabel.paint(canvas, Offset(size.width - totalLabel.width - 12, 8));
   }
 
   @override
@@ -506,10 +500,7 @@ class _PlaceholderPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(12),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
       bg,
     );
 
@@ -534,11 +525,7 @@ class _PlaceholderPainter extends CustomPainter {
       ..color = Colors.white12
       ..strokeWidth = 0.8;
     guides.forEach((y, label) {
-      canvas.drawLine(
-        Offset(40, y),
-        Offset(size.width - 40, y),
-        dash,
-      );
+      canvas.drawLine(Offset(40, y), Offset(size.width - 40, y), dash);
       final tp = TextPainter(
         text: TextSpan(
           text: label,
@@ -678,22 +665,25 @@ class _ChunkProgressPainter extends CustomPainter {
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Offset.zero & size,
-        const Radius.circular(12),
-      ),
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(12)),
       bg,
     );
 
-    final barRect = Rect.fromLTWH(20, size.height / 2 - 14, size.width - 40, 28);
+    final barRect = Rect.fromLTWH(
+      20,
+      size.height / 2 - 14,
+      size.width - 40,
+      28,
+    );
     final track = Paint()..color = Colors.white12;
     canvas.drawRRect(
       RRect.fromRectAndRadius(barRect, const Radius.circular(14)),
       track,
     );
 
-    final fraction =
-        total == null ? 0.35 : (loaded / total!).clamp(0.0, 1.0).toDouble();
+    final fraction = total == null
+        ? 0.35
+        : (loaded / total!).clamp(0.0, 1.0).toDouble();
     final fillRect = Rect.fromLTWH(
       barRect.left,
       barRect.top,
@@ -727,7 +717,8 @@ class _ChunkProgressPainter extends CustomPainter {
     final pct = total == null ? '?' : '${(fraction * 100).toStringAsFixed(0)}%';
     final label = TextPainter(
       text: TextSpan(
-        text: 'cumulativeBytesLoaded=$loaded / expectedTotalBytes=${total ?? 'null'}   ($pct)',
+        text:
+            'cumulativeBytesLoaded=$loaded / expectedTotalBytes=${total ?? 'null'}   ($pct)',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 11,
@@ -793,8 +784,7 @@ class _MockThumbPainter extends CustomPainter {
     canvas.drawPath(p, mountain);
 
     // Ground reflection.
-    final ground = Paint()
-      ..color = Colors.black.withOpacity(0.35);
+    final ground = Paint()..color = Colors.black.withOpacity(0.35);
     canvas.drawRect(
       Rect.fromLTRB(0, size.height * 0.85, size.width, size.height),
       ground,
@@ -991,8 +981,14 @@ Widget _buildCompleterSection() {
                 ),
               ),
               const SizedBox(height: 8),
-              _kv('OneFrameImageStreamCompleter', 'static images — one ImageInfo'),
-              _kv('MultiFrameImageStreamCompleter', 'animated — N frames + ticker'),
+              _kv(
+                'OneFrameImageStreamCompleter',
+                'static images — one ImageInfo',
+              ),
+              _kv(
+                'MultiFrameImageStreamCompleter',
+                'animated — N frames + ticker',
+              ),
             ],
           ),
         ),
@@ -1084,10 +1080,7 @@ Widget _buildChunkSection() {
           height: 100,
           width: double.infinity,
           child: CustomPaint(
-            painter: const _ChunkProgressPainter(
-              loaded: 65536,
-              total: 262144,
-            ),
+            painter: const _ChunkProgressPainter(loaded: 65536, total: 262144),
           ),
         ),
         const SizedBox(height: 8),
@@ -1095,10 +1088,7 @@ Widget _buildChunkSection() {
           height: 100,
           width: double.infinity,
           child: CustomPaint(
-            painter: const _ChunkProgressPainter(
-              loaded: 41200,
-              total: null,
-            ),
+            painter: const _ChunkProgressPainter(loaded: 41200, total: null),
           ),
         ),
         _codeBlock(
@@ -1306,9 +1296,7 @@ Widget _decisionRow(List<String> cells, {bool isHeader = false}) {
   );
   return Container(
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Colors.white12, width: 1),
-      ),
+      border: Border(bottom: BorderSide(color: Colors.white12, width: 1)),
     ),
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     child: Row(
@@ -1395,7 +1383,9 @@ Widget _buildInteractiveSection() {
                 onTap: () => innerSet(onTap),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 7),
+                    horizontal: 12,
+                    vertical: 7,
+                  ),
                   margin: const EdgeInsets.only(right: 8, bottom: 8),
                   decoration: BoxDecoration(
                     color: selected
@@ -1403,9 +1393,7 @@ Widget _buildInteractiveSection() {
                         : Colors.black.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: selected
-                          ? _accentMagenta
-                          : Colors.white24,
+                      color: selected ? _accentMagenta : Colors.white24,
                     ),
                   ),
                   child: Text(
@@ -1431,12 +1419,9 @@ Widget _buildInteractiveSection() {
                 ),
                 Wrap(
                   children: [
-                    chip('onImage', wantImage,
-                        () => wantImage = !wantImage),
-                    chip('onChunk', wantChunk,
-                        () => wantChunk = !wantChunk),
-                    chip('onError', wantError,
-                        () => wantError = !wantError),
+                    chip('onImage', wantImage, () => wantImage = !wantImage),
+                    chip('onChunk', wantChunk, () => wantChunk = !wantChunk),
+                    chip('onError', wantError, () => wantError = !wantError),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -1449,10 +1434,8 @@ Widget _buildInteractiveSection() {
                   tint: _accentMagenta,
                 ),
                 _kv('listener.onImage', wantImage ? '_onImage' : 'no-op'),
-                _kv('listener.onChunk',
-                    wantChunk ? '_onChunk' : 'null'),
-                _kv('listener.onError',
-                    wantError ? '_onError' : 'null'),
+                _kv('listener.onChunk', wantChunk ? '_onChunk' : 'null'),
+                _kv('listener.onError', wantError ? '_onError' : 'null'),
               ],
             );
           },

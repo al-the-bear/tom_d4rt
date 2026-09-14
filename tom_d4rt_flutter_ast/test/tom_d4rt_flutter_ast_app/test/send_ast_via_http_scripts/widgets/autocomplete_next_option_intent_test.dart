@@ -31,7 +31,10 @@ Widget _anSection(String title, List<Widget> children) {
       border: Border.all(color: _anLightCoral, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x1AD84315), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x1AD84315),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -43,11 +46,14 @@ Widget _anSection(String title, List<Widget> children) {
             color: _anCoral,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _anWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _anWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -59,19 +65,24 @@ Widget _anSection(String title, List<Widget> children) {
 Widget _anLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _anDarkCoral,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _anDarkCoral,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _anBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _anGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _anGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -85,12 +96,15 @@ Widget _anCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _anLightCoral.withValues(alpha: 0.5)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _anDarkCoral,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _anDarkCoral,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -102,9 +116,10 @@ Widget _anChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -137,8 +152,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('AutocompleteNextOptionIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17)),
+        title: const Text(
+          'AutocompleteNextOptionIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -167,27 +184,48 @@ dynamic build(BuildContext context) {
                       color: _anWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.arrow_downward_rounded,
-                        color: _anWhite, size: 32),
+                    child: const Icon(
+                      Icons.arrow_downward_rounded,
+                      color: _anWhite,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(height: 14),
-                  const Text('AutocompleteNextOptionIntent',
-                      style: TextStyle(
-                          color: _anWhite,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'AutocompleteNextOptionIntent',
+                    style: TextStyle(
+                      color: _anWhite,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
-                  Text('Navigate forward through autocomplete suggestions',
-                      style: TextStyle(
-                          color: _anWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                  Text(
+                    'Navigate forward through autocomplete suggestions',
+                    style: TextStyle(
+                      color: _anWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _anChip('Intent', _anWhite.withValues(alpha: 0.25), _anWhite),
-                      _anChip('Keyboard Nav', _anWhite.withValues(alpha: 0.25), _anWhite),
-                      _anChip('Arrow ↓', _anWhite.withValues(alpha: 0.25), _anWhite),
+                      _anChip(
+                        'Intent',
+                        _anWhite.withValues(alpha: 0.25),
+                        _anWhite,
+                      ),
+                      _anChip(
+                        'Keyboard Nav',
+                        _anWhite.withValues(alpha: 0.25),
+                        _anWhite,
+                      ),
+                      _anChip(
+                        'Arrow ↓',
+                        _anWhite.withValues(alpha: 0.25),
+                        _anWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -235,14 +273,18 @@ dynamic build(BuildContext context) {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Direction',
-                              style: TextStyle(
-                                  color: _anCoral,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11)),
-                          Text('Forward (↓)',
-                              style: TextStyle(
-                                  color: _anDarkCoral, fontSize: 12)),
+                          Text(
+                            'Direction',
+                            style: TextStyle(
+                              color: _anCoral,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
+                          Text(
+                            'Forward (↓)',
+                            style: TextStyle(color: _anDarkCoral, fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -259,14 +301,18 @@ dynamic build(BuildContext context) {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Step size',
-                              style: TextStyle(
-                                  color: _anCoral,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11)),
-                          Text('1 option',
-                              style: TextStyle(
-                                  color: _anDarkCoral, fontSize: 12)),
+                          Text(
+                            'Step size',
+                            style: TextStyle(
+                              color: _anCoral,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
+                          Text(
+                            '1 option',
+                            style: TextStyle(color: _anDarkCoral, fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -283,14 +329,18 @@ dynamic build(BuildContext context) {
                       child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Wraps?',
-                              style: TextStyle(
-                                  color: _anCoral,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11)),
-                          Text('Yes, circular',
-                              style: TextStyle(
-                                  color: _anDarkCoral, fontSize: 12)),
+                          Text(
+                            'Wraps?',
+                            style: TextStyle(
+                              color: _anCoral,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                            ),
+                          ),
+                          Text(
+                            'Yes, circular',
+                            style: TextStyle(color: _anDarkCoral, fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -502,18 +552,38 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _anSummaryRow(Icons.arrow_downward, 'Single-step forward navigation'),
-                    _anSummaryRow(Icons.loop, 'Circular wrap-around at list end'),
-                    _anSummaryRow(Icons.keyboard, 'Mapped to Arrow Down by default'),
-                    _anSummaryRow(Icons.filter_list, 'Resets on filter changes'),
-                    _anSummaryRow(Icons.widgets, 'Auto-wired by Autocomplete<T>'),
-                    _anSummaryRow(Icons.accessible, 'Essential for keyboard accessibility'),
+                    _anSummaryRow(
+                      Icons.arrow_downward,
+                      'Single-step forward navigation',
+                    ),
+                    _anSummaryRow(
+                      Icons.loop,
+                      'Circular wrap-around at list end',
+                    ),
+                    _anSummaryRow(
+                      Icons.keyboard,
+                      'Mapped to Arrow Down by default',
+                    ),
+                    _anSummaryRow(
+                      Icons.filter_list,
+                      'Resets on filter changes',
+                    ),
+                    _anSummaryRow(
+                      Icons.widgets,
+                      'Auto-wired by Autocomplete<T>',
+                    ),
+                    _anSummaryRow(
+                      Icons.accessible,
+                      'Essential for keyboard accessibility',
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 10),
-              _anBody('Part of the six-intent family that enables full '
-                  'keyboard navigation of autocomplete dropdowns.'),
+              _anBody(
+                'Part of the six-intent family that enables full '
+                'keyboard navigation of autocomplete dropdowns.',
+              ),
             ]),
           ],
         ),
@@ -583,25 +653,33 @@ List<Widget> _buildIntentFamilyCards() {
           ),
           child: Row(
             children: [
-              Icon(data['icon'] as IconData,
-                  size: 18,
-                  color: isHighlighted ? _anWhite : _anCoral),
+              Icon(
+                data['icon'] as IconData,
+                size: 18,
+                color: isHighlighted ? _anWhite : _anCoral,
+              ),
               const SizedBox(width: 6),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(data['name'] as String,
-                        style: TextStyle(
-                            color: isHighlighted ? _anWhite : _anDarkCoral,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700)),
-                    Text(data['desc'] as String,
-                        style: TextStyle(
-                            color: isHighlighted
-                                ? _anWhite.withValues(alpha: 0.85)
-                                : _anGray,
-                            fontSize: 9.5)),
+                    Text(
+                      data['name'] as String,
+                      style: TextStyle(
+                        color: isHighlighted ? _anWhite : _anDarkCoral,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      data['desc'] as String,
+                      style: TextStyle(
+                        color: isHighlighted
+                            ? _anWhite.withValues(alpha: 0.85)
+                            : _anGray,
+                        fontSize: 9.5,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -645,7 +723,8 @@ List<Widget> _buildDispatchLayers() {
         color: (data['color'] as Color).withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-            color: (data['color'] as Color).withValues(alpha: 0.3)),
+          color: (data['color'] as Color).withValues(alpha: 0.3),
+        ),
       ),
       child: Row(
         children: [
@@ -656,22 +735,25 @@ List<Widget> _buildDispatchLayers() {
               color: data['color'] as Color,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(data['icon'] as IconData,
-                color: _anWhite, size: 18),
+            child: Icon(data['icon'] as IconData, color: _anWhite, size: 18),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(data['layer'] as String,
-                    style: TextStyle(
-                        color: data['color'] as Color,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13)),
-                Text(data['detail'] as String,
-                    style:
-                        const TextStyle(color: _anGray, fontSize: 11.5)),
+                Text(
+                  data['layer'] as String,
+                  style: TextStyle(
+                    color: data['color'] as Color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
+                Text(
+                  data['detail'] as String,
+                  style: const TextStyle(color: _anGray, fontSize: 11.5),
+                ),
               ],
             ),
           ),
@@ -689,37 +771,37 @@ List<Widget> _buildStepFlow() {
     {
       'num': '1',
       'title': 'Key event received',
-      'desc': 'RawKeyboard dispatches arrow-down to FocusManager'
+      'desc': 'RawKeyboard dispatches arrow-down to FocusManager',
     },
     {
       'num': '2',
       'title': 'Shortcut lookup',
-      'desc': 'SingleActivator(arrowDown) matches → creates Intent'
+      'desc': 'SingleActivator(arrowDown) matches → creates Intent',
     },
     {
       'num': '3',
       'title': 'Intent dispatched',
-      'desc': 'AutocompleteNextOptionIntent() sent to Actions widget'
+      'desc': 'AutocompleteNextOptionIntent() sent to Actions widget',
     },
     {
       'num': '4',
       'title': 'Action invoked',
-      'desc': 'NextOptionAction.invoke() called with the intent'
+      'desc': 'NextOptionAction.invoke() called with the intent',
     },
     {
       'num': '5',
       'title': 'Index computed',
-      'desc': 'newIndex = (current + 1) % options.length'
+      'desc': 'newIndex = (current + 1) % options.length',
     },
     {
       'num': '6',
       'title': 'Notifier updated',
-      'desc': 'AutocompleteHighlightedOption.value = newIndex'
+      'desc': 'AutocompleteHighlightedOption.value = newIndex',
     },
     {
       'num': '7',
       'title': 'Overlay rebuilt',
-      'desc': 'optionsViewBuilder receives new highlighted index'
+      'desc': 'optionsViewBuilder receives new highlighted index',
     },
   ];
   return steps.map((step) {
@@ -736,11 +818,14 @@ List<Widget> _buildStepFlow() {
               borderRadius: BorderRadius.circular(14),
             ),
             alignment: Alignment.center,
-            child: Text(step['num']!,
-                style: const TextStyle(
-                    color: _anWhite,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800)),
+            child: Text(
+              step['num']!,
+              style: const TextStyle(
+                color: _anWhite,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -754,15 +839,19 @@ List<Widget> _buildStepFlow() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(step['title']!,
-                      style: const TextStyle(
-                          color: _anDarkCoral,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700)),
+                  Text(
+                    step['title']!,
+                    style: const TextStyle(
+                      color: _anDarkCoral,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 2),
-                  Text(step['desc']!,
-                      style: const TextStyle(
-                          color: _anGray, fontSize: 11)),
+                  Text(
+                    step['desc']!,
+                    style: const TextStyle(color: _anGray, fontSize: 11),
+                  ),
                 ],
               ),
             ),
@@ -803,34 +892,42 @@ List<Widget> _buildWrapCycleVisual() {
               children: [
                 SizedBox(
                   width: 110,
-                  child: Text(press['label'] as String,
-                      style: TextStyle(
-                          color: toIdx == 0 && press['from'] as int == 4
-                              ? _anAccentAmber
-                              : _anDarkCoral,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600)),
+                  child: Text(
+                    press['label'] as String,
+                    style: TextStyle(
+                      color: toIdx == 0 && press['from'] as int == 4
+                          ? _anAccentAmber
+                          : _anDarkCoral,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-                const Icon(Icons.arrow_right_alt,
-                    size: 16, color: _anCoral),
+                const Icon(Icons.arrow_right_alt, size: 16, color: _anCoral),
                 const SizedBox(width: 6),
                 ...List.generate(options.length, (i) {
                   final isHighlighted = i == toIdx;
                   return Container(
                     margin: const EdgeInsets.only(right: 3),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: isHighlighted ? _anCoral : _anWhite,
                       borderRadius: BorderRadius.circular(4),
                       border: Border.all(
-                          color: isHighlighted ? _anCoral : _anLightCoral),
+                        color: isHighlighted ? _anCoral : _anLightCoral,
+                      ),
                     ),
-                    child: Text(options[i][0],
-                        style: TextStyle(
-                            color: isHighlighted ? _anWhite : _anGray,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      options[i][0],
+                      style: TextStyle(
+                        color: isHighlighted ? _anWhite : _anGray,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   );
                 }),
               ],
@@ -869,34 +966,43 @@ Widget _buildComparisonTable() {
           color: isHeader
               ? _anCoral
               : entry.key.isEven
-                  ? _anCream
-                  : _anWhite,
+              ? _anCream
+              : _anWhite,
           child: Row(
             children: [
               Expanded(
-                  flex: 3,
-                  child: Text(row[0],
-                      style: TextStyle(
-                          color: isHeader ? _anWhite : _anDarkCoral,
-                          fontSize: 11,
-                          fontWeight:
-                              isHeader ? FontWeight.w700 : FontWeight.w500))),
+                flex: 3,
+                child: Text(
+                  row[0],
+                  style: TextStyle(
+                    color: isHeader ? _anWhite : _anDarkCoral,
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w500,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 3,
-                  child: Text(row[1],
-                      style: TextStyle(
-                          color: isHeader ? _anWhite : _anGray,
-                          fontSize: 11,
-                          fontWeight:
-                              isHeader ? FontWeight.w700 : FontWeight.w400))),
+                flex: 3,
+                child: Text(
+                  row[1],
+                  style: TextStyle(
+                    color: isHeader ? _anWhite : _anGray,
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 3,
-                  child: Text(row[2],
-                      style: TextStyle(
-                          color: isHeader ? _anWhite : _anGray,
-                          fontSize: 11,
-                          fontWeight:
-                              isHeader ? FontWeight.w700 : FontWeight.w400))),
+                flex: 3,
+                child: Text(
+                  row[2],
+                  style: TextStyle(
+                    color: isHeader ? _anWhite : _anGray,
+                    fontSize: 11,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -958,21 +1064,28 @@ List<Widget> _buildPlatformBindings() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(p['platform'] as String,
-                    style: const TextStyle(
-                        color: _anDarkCoral,
-                        fontSize: 11.5,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  p['platform'] as String,
+                  style: const TextStyle(
+                    color: _anDarkCoral,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 Row(
                   children: [
-                    Text('Primary: ${p['key']}',
-                        style: const TextStyle(
-                            color: _anGray, fontSize: 10.5)),
+                    Text(
+                      'Primary: ${p['key']}',
+                      style: const TextStyle(color: _anGray, fontSize: 10.5),
+                    ),
                     const SizedBox(width: 12),
-                    Text('Alt: ${p['alt']}',
-                        style: TextStyle(
-                            color: _anGray.withValues(alpha: 0.7),
-                            fontSize: 10.5)),
+                    Text(
+                      'Alt: ${p['alt']}',
+                      style: TextStyle(
+                        color: _anGray.withValues(alpha: 0.7),
+                        fontSize: 10.5,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -1023,36 +1136,42 @@ List<Widget> _buildFilterFlowCards() {
       decoration: BoxDecoration(
         color: (s['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(s['step'] as String,
-              style: TextStyle(
-                  color: s['color'] as Color,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12)),
+          Text(
+            s['step'] as String,
+            style: TextStyle(
+              color: s['color'] as Color,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           const SizedBox(height: 6),
           Wrap(
             spacing: 6,
             children: List.generate(options.length, (i) {
               final isHl = i == hlIdx;
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: isHl ? _anCoral : _anWhite,
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                      color: isHl ? _anCoral : _anLightCoral),
+                  border: Border.all(color: isHl ? _anCoral : _anLightCoral),
                 ),
-                child: Text(options[i],
-                    style: TextStyle(
-                        color: isHl ? _anWhite : _anDarkCoral,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600)),
+                child: Text(
+                  options[i],
+                  style: TextStyle(
+                    color: isHl ? _anWhite : _anDarkCoral,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               );
             }),
           ),
@@ -1067,11 +1186,31 @@ List<Widget> _buildFilterFlowCards() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildSearchSuggestionsDemo() {
   final suggestions = [
-    {'icon': Icons.access_time, 'text': 'flutter autocomplete', 'type': 'Recent'},
-    {'icon': Icons.trending_up, 'text': 'flutter autocomplete widget', 'type': 'Trending'},
-    {'icon': Icons.search, 'text': 'flutter autocomplete example', 'type': 'Suggestion'},
-    {'icon': Icons.search, 'text': 'flutter autocomplete custom', 'type': 'Suggestion'},
-    {'icon': Icons.trending_up, 'text': 'flutter intent system', 'type': 'Trending'},
+    {
+      'icon': Icons.access_time,
+      'text': 'flutter autocomplete',
+      'type': 'Recent',
+    },
+    {
+      'icon': Icons.trending_up,
+      'text': 'flutter autocomplete widget',
+      'type': 'Trending',
+    },
+    {
+      'icon': Icons.search,
+      'text': 'flutter autocomplete example',
+      'type': 'Suggestion',
+    },
+    {
+      'icon': Icons.search,
+      'text': 'flutter autocomplete custom',
+      'type': 'Suggestion',
+    },
+    {
+      'icon': Icons.trending_up,
+      'text': 'flutter intent system',
+      'type': 'Trending',
+    },
   ];
 
   return Container(
@@ -1087,32 +1226,36 @@ Widget _buildSearchSuggestionsDemo() {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
             color: _anCream,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(10)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
           ),
           child: Row(
             children: [
               const Icon(Icons.search, color: _anCoral, size: 20),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text('flutter autocom|',
-                    style: TextStyle(
-                        color: _anDarkCoral,
-                        fontSize: 14,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  'flutter autocom|',
+                  style: TextStyle(
+                    color: _anDarkCoral,
+                    fontSize: 14,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _anCoral.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('↓ x2',
-                    style: TextStyle(
-                        color: _anCoral,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700)),
+                child: const Text(
+                  '↓ x2',
+                  style: TextStyle(
+                    color: _anCoral,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1122,49 +1265,51 @@ Widget _buildSearchSuggestionsDemo() {
           final isHighlighted = entry.key == 2; // After pressing ↓ twice
           final item = entry.value;
           return Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
-              color: isHighlighted
-                  ? _anCoral.withValues(alpha: 0.1)
-                  : _anWhite,
+              color: isHighlighted ? _anCoral.withValues(alpha: 0.1) : _anWhite,
               border: Border(
-                bottom: BorderSide(
-                    color: _anLightCoral.withValues(alpha: 0.3)),
+                bottom: BorderSide(color: _anLightCoral.withValues(alpha: 0.3)),
               ),
             ),
             child: Row(
               children: [
-                Icon(item['icon'] as IconData,
-                    size: 16,
-                    color: isHighlighted ? _anCoral : _anGray),
+                Icon(
+                  item['icon'] as IconData,
+                  size: 16,
+                  color: isHighlighted ? _anCoral : _anGray,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(item['text'] as String,
-                      style: TextStyle(
-                          color:
-                              isHighlighted ? _anDarkCoral : _anGray,
-                          fontSize: 12.5,
-                          fontWeight: isHighlighted
-                              ? FontWeight.w600
-                              : FontWeight.w400)),
+                  child: Text(
+                    item['text'] as String,
+                    style: TextStyle(
+                      color: isHighlighted ? _anDarkCoral : _anGray,
+                      fontSize: 12.5,
+                      fontWeight: isHighlighted
+                          ? FontWeight.w600
+                          : FontWeight.w400,
+                    ),
+                  ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: _anCream,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(item['type'] as String,
-                      style: const TextStyle(
-                          color: _anGray, fontSize: 9)),
+                  child: Text(
+                    item['type'] as String,
+                    style: const TextStyle(color: _anGray, fontSize: 9),
+                  ),
                 ),
                 if (isHighlighted)
                   const Padding(
                     padding: EdgeInsets.only(left: 6),
-                    child: Icon(Icons.arrow_back,
-                        size: 12, color: _anCoral),
+                    child: Icon(Icons.arrow_back, size: 12, color: _anCoral),
                   ),
               ],
             ),
@@ -1210,24 +1355,29 @@ Widget _buildSimulatedDropdown() {
               const Icon(Icons.location_city, color: _anCoral, size: 20),
               const SizedBox(width: 8),
               const Expanded(
-                child: Text('San',
-                    style: TextStyle(
-                        color: _anDarkCoral,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500)),
+                child: Text(
+                  'San',
+                  style: TextStyle(
+                    color: _anDarkCoral,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: _anAccentAmber.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text('7 matches',
-                    style: TextStyle(
-                        color: _anAccentAmber,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w700)),
+                child: const Text(
+                  '7 matches',
+                  style: TextStyle(
+                    color: _anAccentAmber,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1237,41 +1387,40 @@ Widget _buildSimulatedDropdown() {
         ...cities.asMap().entries.map((entry) {
           final isHl = entry.key == highlightedIdx;
           return Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              color: isHl ? _anCoral : _anWhite,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(color: isHl ? _anCoral : _anWhite),
             child: Row(
               children: [
                 Container(
                   width: 22,
                   height: 22,
                   decoration: BoxDecoration(
-                    color: isHl
-                        ? _anWhite.withValues(alpha: 0.25)
-                        : _anCream,
+                    color: isHl ? _anWhite.withValues(alpha: 0.25) : _anCream,
                     borderRadius: BorderRadius.circular(4),
                   ),
                   alignment: Alignment.center,
-                  child: Text('${entry.key}',
-                      style: TextStyle(
-                          color: isHl ? _anWhite : _anGray,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    '${entry.key}',
+                    style: TextStyle(
+                      color: isHl ? _anWhite : _anGray,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(entry.value,
-                      style: TextStyle(
-                          color: isHl ? _anWhite : _anDarkCoral,
-                          fontSize: 13,
-                          fontWeight:
-                              isHl ? FontWeight.w700 : FontWeight.w400)),
+                  child: Text(
+                    entry.value,
+                    style: TextStyle(
+                      color: isHl ? _anWhite : _anDarkCoral,
+                      fontSize: 13,
+                      fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
+                    ),
+                  ),
                 ),
                 if (isHl)
-                  const Icon(Icons.check_circle,
-                      size: 16, color: _anWhite),
+                  const Icon(Icons.check_circle, size: 16, color: _anWhite),
               ],
             ),
           );
@@ -1281,8 +1430,7 @@ Widget _buildSimulatedDropdown() {
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
             color: _anCream,
-            borderRadius:
-                BorderRadius.vertical(bottom: Radius.circular(12)),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1314,21 +1462,24 @@ Widget _anKeyHint(String key, String label) {
           border: Border.all(color: _anLightCoral),
           boxShadow: const [
             BoxShadow(
-                color: Color(0x0FD84315),
-                blurRadius: 2,
-                offset: Offset(0, 1)),
+              color: Color(0x0FD84315),
+              blurRadius: 2,
+              offset: Offset(0, 1),
+            ),
           ],
         ),
-        child: Text(key,
-            style: const TextStyle(
-                color: _anDarkCoral,
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+        child: Text(
+          key,
+          style: const TextStyle(
+            color: _anDarkCoral,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
       ),
       const SizedBox(width: 4),
-      Text(label,
-          style: const TextStyle(color: _anGray, fontSize: 9.5)),
+      Text(label, style: const TextStyle(color: _anGray, fontSize: 9.5)),
     ],
   );
 }
@@ -1399,8 +1550,9 @@ Widget _buildFormField({
       color: _anWhite,
       borderRadius: BorderRadius.circular(8),
       border: Border.all(
-          color: isActive ? _anCoral : _anLightCoral,
-          width: isActive ? 2 : 1),
+        color: isActive ? _anCoral : _anLightCoral,
+        width: isActive ? 2 : 1,
+      ),
     ),
     child: Column(
       children: [
@@ -1408,24 +1560,31 @@ Widget _buildFormField({
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           child: Row(
             children: [
-              Icon(icon,
-                  size: 18, color: isActive ? _anCoral : _anGray),
+              Icon(icon, size: 18, color: isActive ? _anCoral : _anGray),
               const SizedBox(width: 8),
-              Text(label,
-                  style: TextStyle(
-                      color: isActive ? _anCoral : _anGray,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600)),
+              Text(
+                label,
+                style: TextStyle(
+                  color: isActive ? _anCoral : _anGray,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const Spacer(),
-              Text(value.isEmpty ? 'Enter value...' : value,
-                  style: TextStyle(
-                      color: value.isEmpty
-                          ? _anGray.withValues(alpha: 0.5)
-                          : _anDarkCoral,
-                      fontSize: 13)),
+              Text(
+                value.isEmpty ? 'Enter value...' : value,
+                style: TextStyle(
+                  color: value.isEmpty
+                      ? _anGray.withValues(alpha: 0.5)
+                      : _anDarkCoral,
+                  fontSize: 13,
+                ),
+              ),
               if (isActive)
-                const Text('|',
-                    style: TextStyle(color: _anCoral, fontSize: 14)),
+                const Text(
+                  '|',
+                  style: TextStyle(color: _anCoral, fontSize: 14),
+                ),
             ],
           ),
         ),
@@ -1434,21 +1593,21 @@ Widget _buildFormField({
           ...options.asMap().entries.map((entry) {
             final isHl = entry.key == highlightedIdx;
             return Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 14, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               color: isHl ? _anCoral.withValues(alpha: 0.12) : _anWhite,
               child: Row(
                 children: [
-                  Text(entry.value,
-                      style: TextStyle(
-                          color: isHl ? _anCoral : _anDarkCoral,
-                          fontSize: 12,
-                          fontWeight:
-                              isHl ? FontWeight.w700 : FontWeight.w400)),
+                  Text(
+                    entry.value,
+                    style: TextStyle(
+                      color: isHl ? _anCoral : _anDarkCoral,
+                      fontSize: 12,
+                      fontWeight: isHl ? FontWeight.w700 : FontWeight.w400,
+                    ),
+                  ),
                   if (isHl) ...[
                     const Spacer(),
-                    const Icon(Icons.arrow_forward,
-                        size: 12, color: _anCoral),
+                    const Icon(Icons.arrow_forward, size: 12, color: _anCoral),
                   ],
                 ],
               ),
@@ -1471,10 +1630,13 @@ Widget _anSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _anWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _anWhite.withValues(alpha: 0.95),
-                  fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _anWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

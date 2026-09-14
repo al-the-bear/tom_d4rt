@@ -13,7 +13,8 @@ class _PathMetricsDeepDemoPage extends StatefulWidget {
   const _PathMetricsDeepDemoPage();
 
   @override
-  State<_PathMetricsDeepDemoPage> createState() => _PathMetricsDeepDemoPageState();
+  State<_PathMetricsDeepDemoPage> createState() =>
+      _PathMetricsDeepDemoPageState();
 }
 
 class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
@@ -40,11 +41,29 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
   List<ui.PathMetric> _metrics = <ui.PathMetric>[];
   int _selectedMetric = 0;
 
-  static const List<String> _shapeNames = <String>['Rect', 'Oval', 'RRect', 'Triangle', 'Arc'];
+  static const List<String> _shapeNames = <String>[
+    'Rect',
+    'Oval',
+    'RRect',
+    'Triangle',
+    'Arc',
+  ];
   final List<List<Color>> _themes = <List<Color>>[
-    <Color>[const Color(0xFF0F172A), const Color(0xFF1E293B), const Color(0xFF38BDF8)],
-    <Color>[const Color(0xFF3F1D38), const Color(0xFF7B2D5E), const Color(0xFFFB7185)],
-    <Color>[const Color(0xFF064E3B), const Color(0xFF047857), const Color(0xFF34D399)],
+    <Color>[
+      const Color(0xFF0F172A),
+      const Color(0xFF1E293B),
+      const Color(0xFF38BDF8),
+    ],
+    <Color>[
+      const Color(0xFF3F1D38),
+      const Color(0xFF7B2D5E),
+      const Color(0xFFFB7185),
+    ],
+    <Color>[
+      const Color(0xFF064E3B),
+      const Color(0xFF047857),
+      const Color(0xFF34D399),
+    ],
   ];
 
   @override
@@ -81,7 +100,12 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
       } else if (s.type == 1) {
         p.addOval(r);
       } else if (s.type == 2) {
-        p.addRRect(RRect.fromRectAndRadius(r, Radius.circular(s.radius.clamp(2, s.size / 2))));
+        p.addRRect(
+          RRect.fromRectAndRadius(
+            r,
+            Radius.circular(s.radius.clamp(2, s.size / 2)),
+          ),
+        );
       } else if (s.type == 3) {
         p.moveTo(s.x + s.size / 2, s.y);
         p.lineTo(s.x + s.size, s.y + s.size);
@@ -139,8 +163,14 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
 
     final ui.Path p = ui.Path()..addRect(const Rect.fromLTWH(0, 0, 100, 100));
     final ui.PathMetrics m = p.computeMetrics();
-    probe('PathMetrics can be obtained from Path', m.runtimeType.toString().contains('PathMetrics'));
-    probe('iterator is available', m.iterator.runtimeType.toString().contains('Iterator'));
+    probe(
+      'PathMetrics can be obtained from Path',
+      m.runtimeType.toString().contains('PathMetrics'),
+    );
+    probe(
+      'iterator is available',
+      m.iterator.runtimeType.toString().contains('Iterator'),
+    );
 
     int count = 0;
     for (final ui.PathMetric _ in m) {
@@ -161,7 +191,10 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
 
     final ui.PathMetric rm = p.computeMetrics().first;
     probe('rect metric perimeter near 400', (rm.length - 400.0).abs() < 0.01);
-    probe('summary text can be created', '${_passed.length + _failed.length} checks'.endsWith('checks'));
+    probe(
+      'summary text can be created',
+      '${_passed.length + _failed.length} checks'.endsWith('checks'),
+    );
     setState(() {});
   }
 
@@ -173,13 +206,25 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: c),
         borderRadius: BorderRadius.circular(18),
-        boxShadow: <BoxShadow>[BoxShadow(color: c[1].withAlpha(95), blurRadius: 16, offset: const Offset(0, 8))],
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: c[1].withAlpha(95),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('PathMetrics Contour Analytics Studio',
-              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800)),
+          Text(
+            'PathMetrics Contour Analytics Studio',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'PathMetrics exposes an iterable sequence of contour metrics computed from a Path. '
@@ -205,7 +250,10 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(color: accent.withAlpha(36), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(
+              color: accent.withAlpha(36),
+              borderRadius: BorderRadius.circular(8),
+            ),
             child: Icon(icon, color: accent),
           ),
           const SizedBox(width: 10),
@@ -213,7 +261,10 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -235,29 +286,53 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: c.withAlpha(90)),
           ),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-            Icon(i, color: c),
-            const SizedBox(height: 8),
-            Text(t, style: TextStyle(color: c, fontWeight: FontWeight.w700)),
-            const SizedBox(height: 4),
-            Text(d, style: const TextStyle(fontSize: 12)),
-          ]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(i, color: c),
+              const SizedBox(height: 8),
+              Text(
+                t,
+                style: TextStyle(color: c, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 4),
+              Text(d, style: const TextStyle(fontSize: 12)),
+            ],
+          ),
         ),
       );
     }
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(children: <Widget>[
-        card('Iterable API', 'Use for-in, iterator, first, and toList workflows.', Icons.list,
-            const Color(0xFF2563EB)),
-        card('Contour lengths', 'Each contour has independent length and closure state.', Icons.straighten,
-            const Color(0xFF7C3AED)),
-        card('Extraction', 'Extract contour segments for stroke animations.', Icons.content_cut,
-            const Color(0xFF0F766E)),
-        card('Tangents', 'Sample positions and vectors along offsets.', Icons.explore,
-            const Color(0xFFB45309)),
-      ]),
+      child: Row(
+        children: <Widget>[
+          card(
+            'Iterable API',
+            'Use for-in, iterator, first, and toList workflows.',
+            Icons.list,
+            const Color(0xFF2563EB),
+          ),
+          card(
+            'Contour lengths',
+            'Each contour has independent length and closure state.',
+            Icons.straighten,
+            const Color(0xFF7C3AED),
+          ),
+          card(
+            'Extraction',
+            'Extract contour segments for stroke animations.',
+            Icons.content_cut,
+            const Color(0xFF0F766E),
+          ),
+          card(
+            'Tangents',
+            'Sample positions and vectors along offsets.',
+            Icons.explore,
+            const Color(0xFFB45309),
+          ),
+        ],
+      ),
     );
   }
 
@@ -270,107 +345,158 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Path constructor lab', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        DropdownButton<int>(
-          value: _shapeType,
-          isExpanded: true,
-          onChanged: (int? v) {
-            if (v != null) {
-              setState(() => _shapeType = v);
-            }
-          },
-          items: List<DropdownMenuItem<int>>.generate(
-            _shapeNames.length,
-            (int i) => DropdownMenuItem<int>(value: i, child: Text(_shapeNames[i])),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Path constructor lab',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-        ),
-        Text('size: ${_size.toStringAsFixed(1)}'),
-        Slider(value: _size, min: 20, max: 170, divisions: 150, onChanged: (double v) => setState(() => _size = v)),
-        Text('offset x: ${_x.toStringAsFixed(1)}'),
-        Slider(value: _x, min: 0, max: 190, divisions: 190, onChanged: (double v) => setState(() => _x = v)),
-        Text('offset y: ${_y.toStringAsFixed(1)}'),
-        Slider(value: _y, min: 0, max: 190, divisions: 190, onChanged: (double v) => setState(() => _y = v)),
-        Text('rrect radius: ${_radius.toStringAsFixed(1)}'),
-        Slider(value: _radius, min: 2, max: 80, divisions: 78, onChanged: (double v) => setState(() => _radius = v)),
-        Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-          FilterChip(
-            label: const Text('forceClosed'),
-            selected: _forceClosed,
-            onSelected: (bool v) {
-              setState(() => _forceClosed = v);
-              _recompute();
-            },
-          ),
-          FilterChip(label: const Text('show grid'), selected: _showGrid, onSelected: (bool v) => setState(() => _showGrid = v)),
-          FilterChip(
-              label: const Text('show extract'), selected: _showExtract, onSelected: (bool v) => setState(() => _showExtract = v)),
-          FilterChip(
-              label: const Text('show tangents'), selected: _showTangents, onSelected: (bool v) => setState(() => _showTangents = v)),
-          FilterChip(
-            label: const Text('animate'),
-            selected: _animate,
-            onSelected: (bool v) {
-              setState(() => _animate = v);
-              if (_animate) {
-                /* animation removed */
-              } else {
-                /* animation removed */
+          const SizedBox(height: 8),
+          DropdownButton<int>(
+            value: _shapeType,
+            isExpanded: true,
+            onChanged: (int? v) {
+              if (v != null) {
+                setState(() => _shapeType = v);
               }
             },
+            items: List<DropdownMenuItem<int>>.generate(
+              _shapeNames.length,
+              (int i) =>
+                  DropdownMenuItem<int>(value: i, child: Text(_shapeNames[i])),
+            ),
           ),
-        ]),
-        const SizedBox(height: 8),
-        Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-          ElevatedButton.icon(
-            onPressed: () {
-              setState(() {
-                _addShape(_shapeType);
-              });
-            },
-            icon: const Icon(Icons.add),
-            label: const Text('Add Shape'),
+          Text('size: ${_size.toStringAsFixed(1)}'),
+          Slider(
+            value: _size,
+            min: 20,
+            max: 170,
+            divisions: 150,
+            onChanged: (double v) => setState(() => _size = v),
           ),
-          OutlinedButton.icon(
-            onPressed: _shapes.isEmpty
-                ? null
-                : () {
-                    setState(() {
-                      _shapes.removeLast();
-                      _emit('Removed last shape.');
-                      _recompute();
-                    });
-                  },
-            icon: const Icon(Icons.remove_circle_outline),
-            label: const Text('Remove Last'),
+          Text('offset x: ${_x.toStringAsFixed(1)}'),
+          Slider(
+            value: _x,
+            min: 0,
+            max: 190,
+            divisions: 190,
+            onChanged: (double v) => setState(() => _x = v),
           ),
-          OutlinedButton.icon(
-            onPressed: () {
-              setState(() {
-                _shapes.clear();
-                _emit('Cleared path content.');
-                _recompute();
-              });
-            },
-            icon: const Icon(Icons.delete_outline),
-            label: const Text('Clear Path'),
+          Text('offset y: ${_y.toStringAsFixed(1)}'),
+          Slider(
+            value: _y,
+            min: 0,
+            max: 190,
+            divisions: 190,
+            onChanged: (double v) => setState(() => _y = v),
           ),
-          OutlinedButton.icon(
-            onPressed: () {
-              setState(() => _theme = (_theme + 1) % _themes.length);
-            },
-            icon: const Icon(Icons.palette_outlined),
-            label: const Text('Theme'),
+          Text('rrect radius: ${_radius.toStringAsFixed(1)}'),
+          Slider(
+            value: _radius,
+            min: 2,
+            max: 80,
+            divisions: 78,
+            onChanged: (double v) => setState(() => _radius = v),
           ),
-        ]),
-      ]),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              FilterChip(
+                label: const Text('forceClosed'),
+                selected: _forceClosed,
+                onSelected: (bool v) {
+                  setState(() => _forceClosed = v);
+                  _recompute();
+                },
+              ),
+              FilterChip(
+                label: const Text('show grid'),
+                selected: _showGrid,
+                onSelected: (bool v) => setState(() => _showGrid = v),
+              ),
+              FilterChip(
+                label: const Text('show extract'),
+                selected: _showExtract,
+                onSelected: (bool v) => setState(() => _showExtract = v),
+              ),
+              FilterChip(
+                label: const Text('show tangents'),
+                selected: _showTangents,
+                onSelected: (bool v) => setState(() => _showTangents = v),
+              ),
+              FilterChip(
+                label: const Text('animate'),
+                selected: _animate,
+                onSelected: (bool v) {
+                  setState(() => _animate = v);
+                  if (_animate) {
+                    /* animation removed */
+                  } else {
+                    /* animation removed */
+                  }
+                },
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _addShape(_shapeType);
+                  });
+                },
+                icon: const Icon(Icons.add),
+                label: const Text('Add Shape'),
+              ),
+              OutlinedButton.icon(
+                onPressed: _shapes.isEmpty
+                    ? null
+                    : () {
+                        setState(() {
+                          _shapes.removeLast();
+                          _emit('Removed last shape.');
+                          _recompute();
+                        });
+                      },
+                icon: const Icon(Icons.remove_circle_outline),
+                label: const Text('Remove Last'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    _shapes.clear();
+                    _emit('Cleared path content.');
+                    _recompute();
+                  });
+                },
+                icon: const Icon(Icons.delete_outline),
+                label: const Text('Clear Path'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () {
+                  setState(() => _theme = (_theme + 1) % _themes.length);
+                },
+                icon: const Icon(Icons.palette_outlined),
+                label: const Text('Theme'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _canvasPanel() {
     final ui.Path path = _buildPath();
-    final ui.PathMetric? selected = _metrics.isEmpty ? null : _metrics[_selectedMetric];
+    final ui.PathMetric? selected = _metrics.isEmpty
+        ? null
+        : _metrics[_selectedMetric];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.all(12),
@@ -379,42 +505,54 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Path and metric visualization', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          height: 250,
-          child: Builder(
-            builder: (BuildContext context) {
-              return CustomPaint(
-                painter: _PathMetricsPainter(
-                  path: path,
-                  metrics: _metrics,
-                  selectedMetricIndex: _selectedMetric,
-                  showGrid: _showGrid,
-                  showExtract: _showExtract,
-                  showTangents: _showTangents,
-                  extractStart: _extractStart,
-                  extractEnd: _extractEnd,
-                  pulse: _animate ? _animValue : 0,
-                ),
-              );
-            },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Path and metric visualization',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text('Shapes: ${_shapes.length} | Metrics: ${_metrics.length} | forceClosed: $_forceClosed'),
-        const SizedBox(height: 8),
-        if (selected == null)
-          const Text('No selected metric.', style: TextStyle(fontSize: 12.2))
-        else
-          Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-            _pill('contour', '${selected.contourIndex}'),
-            _pill('length', selected.length.toStringAsFixed(2)),
-            _pill('isClosed', '${selected.isClosed}'),
-          ]),
-      ]),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            height: 250,
+            child: Builder(
+              builder: (BuildContext context) {
+                return CustomPaint(
+                  painter: _PathMetricsPainter(
+                    path: path,
+                    metrics: _metrics,
+                    selectedMetricIndex: _selectedMetric,
+                    showGrid: _showGrid,
+                    showExtract: _showExtract,
+                    showTangents: _showTangents,
+                    extractStart: _extractStart,
+                    extractEnd: _extractEnd,
+                    pulse: _animate ? _animValue : 0,
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Shapes: ${_shapes.length} | Metrics: ${_metrics.length} | forceClosed: $_forceClosed',
+          ),
+          const SizedBox(height: 8),
+          if (selected == null)
+            const Text('No selected metric.', style: TextStyle(fontSize: 12.2))
+          else
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: <Widget>[
+                _pill('contour', '${selected.contourIndex}'),
+                _pill('length', selected.length.toStringAsFixed(2)),
+                _pill('isClosed', '${selected.isClosed}'),
+              ],
+            ),
+        ],
+      ),
     );
   }
 
@@ -439,36 +577,67 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Iterable workflow demo', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        Wrap(spacing: 8, runSpacing: 8, children: <Widget>[
-          _pill('isEmpty', '${_buildPath().computeMetrics(forceClosed: _forceClosed).isEmpty}'),
-          _pill('iterator type', _buildPath().computeMetrics().iterator.runtimeType.toString()),
-          _pill('toList length', '${_metrics.length}'),
-          _pill('for-in counted', '${_countViaForIn()}'),
-        ]),
-        const SizedBox(height: 8),
-        if (_metrics.isNotEmpty)
-          Slider(
-            value: _selectedMetric.toDouble(),
-            min: 0,
-            max: (_metrics.length - 1).toDouble(),
-            divisions: _metrics.length - 1,
-            label: 'metric $_selectedMetric',
-            onChanged: (double v) => setState(() => _selectedMetric = v.round()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Iterable workflow demo',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-        Text('Extract start: ${_extractStart.toStringAsFixed(2)}'),
-        Slider(value: _extractStart, min: 0, max: 1, divisions: 100, onChanged: (double v) => setState(() => _extractStart = v)),
-        Text('Extract end: ${_extractEnd.toStringAsFixed(2)}'),
-        Slider(value: _extractEnd, min: 0, max: 1, divisions: 100, onChanged: (double v) => setState(() => _extractEnd = v)),
-      ]),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: <Widget>[
+              _pill(
+                'isEmpty',
+                '${_buildPath().computeMetrics(forceClosed: _forceClosed).isEmpty}',
+              ),
+              _pill(
+                'iterator type',
+                _buildPath().computeMetrics().iterator.runtimeType.toString(),
+              ),
+              _pill('toList length', '${_metrics.length}'),
+              _pill('for-in counted', '${_countViaForIn()}'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          if (_metrics.isNotEmpty)
+            Slider(
+              value: _selectedMetric.toDouble(),
+              min: 0,
+              max: (_metrics.length - 1).toDouble(),
+              divisions: _metrics.length - 1,
+              label: 'metric $_selectedMetric',
+              onChanged: (double v) =>
+                  setState(() => _selectedMetric = v.round()),
+            ),
+          Text('Extract start: ${_extractStart.toStringAsFixed(2)}'),
+          Slider(
+            value: _extractStart,
+            min: 0,
+            max: 1,
+            divisions: 100,
+            onChanged: (double v) => setState(() => _extractStart = v),
+          ),
+          Text('Extract end: ${_extractEnd.toStringAsFixed(2)}'),
+          Slider(
+            value: _extractEnd,
+            min: 0,
+            max: 1,
+            divisions: 100,
+            onChanged: (double v) => setState(() => _extractEnd = v),
+          ),
+        ],
+      ),
     );
   }
 
   int _countViaForIn() {
     int count = 0;
-    for (final ui.PathMetric _ in _buildPath().computeMetrics(forceClosed: _forceClosed)) {
+    for (final ui.PathMetric _ in _buildPath().computeMetrics(
+      forceClosed: _forceClosed,
+    )) {
       count++;
     }
     return count;
@@ -483,17 +652,23 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Metric length histogram', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        SizedBox(
-          width: double.infinity,
-          height: 180,
-          child: CustomPaint(
-            painter: _LengthHistogramPainter(metrics: _metrics),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Metric length histogram',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-        ),
-      ]),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            height: 180,
+            child: CustomPaint(
+              painter: _LengthHistogramPainter(metrics: _metrics),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -508,11 +683,13 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: c.withAlpha(96)),
         ),
-        child: Row(children: <Widget>[
-          Icon(ok ? Icons.check_circle : Icons.cancel, color: c, size: 18),
-          const SizedBox(width: 8),
-          Expanded(child: Text(t, style: const TextStyle(fontSize: 12.2))),
-        ]),
+        child: Row(
+          children: <Widget>[
+            Icon(ok ? Icons.check_circle : Icons.cancel, color: c, size: 18),
+            const SizedBox(width: 8),
+            Expanded(child: Text(t, style: const TextStyle(fontSize: 12.2))),
+          ],
+        ),
       );
     }
 
@@ -524,14 +701,20 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 6),
-        Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
-        const SizedBox(height: 8),
-        ..._passed.map((String s) => line(s, true)),
-        ..._failed.map((String s) => line(s, false)),
-      ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Runtime probe dashboard',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 6),
+          Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
+          const SizedBox(height: 8),
+          ..._passed.map((String s) => line(s, true)),
+          ..._failed.map((String s) => line(s, false)),
+        ],
+      ),
     );
   }
 
@@ -544,28 +727,40 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFD7E1ED)),
       ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-        const Text('Session notes', style: TextStyle(fontWeight: FontWeight.w700)),
-        const SizedBox(height: 8),
-        Container(
-          height: 180,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF8FAFC),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Text(
+            'Session notes',
+            style: TextStyle(fontWeight: FontWeight.w700),
           ),
-          child: ListView.builder(
-            itemCount: _notes.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Text(_notes[index], style: const TextStyle(fontSize: 12)),
-              );
-            },
+          const SizedBox(height: 8),
+          Container(
+            height: 180,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8FAFC),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: const Color(0xFFE2E8F0)),
+            ),
+            child: ListView.builder(
+              itemCount: _notes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    _notes[index],
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 
@@ -597,31 +792,61 @@ class _PathMetricsDeepDemoPageState extends State<_PathMetricsDeepDemoPage> {
         foregroundColor: const Color(0xFF0F172A),
         elevation: 0.7,
       ),
-      body: ListView(children: <Widget>[
-        _header(),
-        _section('1) Concept overview', 'What PathMetrics provides as an iterable contour API.', Icons.menu_book,
-            const Color(0xFF2563EB)),
-        _conceptCards(),
-        _section('2) Constructor lab', 'Build multi-contour paths and recompute metrics.', Icons.architecture,
-            const Color(0xFF7C3AED)),
-        _builderPanel(),
-        _section('3) Visual metrics canvas', 'Inspect contours, selected metric, extraction, and tangents.', Icons.brush,
-            const Color(0xFF0F766E)),
-        _canvasPanel(),
-        _section('4) Iterable operations', 'Use iterator, for-in, toList, and empty checks.', Icons.list,
-            const Color(0xFFB45309)),
-        _metricsPanel(),
-        _section('5) Length distribution', 'Compare contour lengths via chart.', Icons.bar_chart,
-            const Color(0xFFBE123C)),
-        _histogramPanel(),
-        _section('6) Probe checks', 'Validate PathMetrics behavior in runtime.', Icons.fact_check,
-            const Color(0xFF166534)),
-        _probePanel(),
-        _section('7) Notes and summary', 'Operational trace and final guidance.', Icons.notes,
-            const Color(0xFF475569)),
-        _notesPanel(),
-        _summaryPanel(),
-      ]),
+      body: ListView(
+        children: <Widget>[
+          _header(),
+          _section(
+            '1) Concept overview',
+            'What PathMetrics provides as an iterable contour API.',
+            Icons.menu_book,
+            const Color(0xFF2563EB),
+          ),
+          _conceptCards(),
+          _section(
+            '2) Constructor lab',
+            'Build multi-contour paths and recompute metrics.',
+            Icons.architecture,
+            const Color(0xFF7C3AED),
+          ),
+          _builderPanel(),
+          _section(
+            '3) Visual metrics canvas',
+            'Inspect contours, selected metric, extraction, and tangents.',
+            Icons.brush,
+            const Color(0xFF0F766E),
+          ),
+          _canvasPanel(),
+          _section(
+            '4) Iterable operations',
+            'Use iterator, for-in, toList, and empty checks.',
+            Icons.list,
+            const Color(0xFFB45309),
+          ),
+          _metricsPanel(),
+          _section(
+            '5) Length distribution',
+            'Compare contour lengths via chart.',
+            Icons.bar_chart,
+            const Color(0xFFBE123C),
+          ),
+          _histogramPanel(),
+          _section(
+            '6) Probe checks',
+            'Validate PathMetrics behavior in runtime.',
+            Icons.fact_check,
+            const Color(0xFF166534),
+          ),
+          _probePanel(),
+          _section(
+            '7) Notes and summary',
+            'Operational trace and final guidance.',
+            Icons.notes,
+            const Color(0xFF475569),
+          ),
+          _notesPanel(),
+          _summaryPanel(),
+        ],
+      ),
     );
   }
 }
@@ -670,7 +895,10 @@ class _PathMetricsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(24);
-    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
+      bg,
+    );
 
     if (showGrid) {
       final Paint g = Paint()
@@ -701,27 +929,46 @@ class _PathMetricsPainter extends CustomPainter {
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = selected ? 4 : 2
-          ..color = selected ? const Color(0xFF0EA5E9) : const Color(0xFF64748B).withAlpha(120),
+          ..color = selected
+              ? const Color(0xFF0EA5E9)
+              : const Color(0xFF64748B).withAlpha(120),
       );
 
       if (showExtract) {
-        final double s = (extractStart.clamp(0, 1) * m.length).clamp(0, m.length);
+        final double s = (extractStart.clamp(0, 1) * m.length).clamp(
+          0,
+          m.length,
+        );
         final double e = (extractEnd.clamp(0, 1) * m.length).clamp(0, m.length);
         canvas.drawPath(
           m.extractPath(s < e ? s : e, s < e ? e : s),
           Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = selected ? 5 : 3
-            ..color = selected ? const Color(0xFF22C55E) : const Color(0xFFA3E635).withAlpha(120),
+            ..color = selected
+                ? const Color(0xFF22C55E)
+                : const Color(0xFFA3E635).withAlpha(120),
         );
       }
 
       if (showTangents) {
-        final ui.Tangent? t = m.getTangentForOffset((pulse * m.length).clamp(0, m.length));
+        final ui.Tangent? t = m.getTangentForOffset(
+          (pulse * m.length).clamp(0, m.length),
+        );
         if (t != null) {
-          canvas.drawCircle(t.position, 4, Paint()..color = const Color(0xFFFB7185));
+          canvas.drawCircle(
+            t.position,
+            4,
+            Paint()..color = const Color(0xFFFB7185),
+          );
           final Offset end = t.position + t.vector * 12;
-          canvas.drawLine(t.position, end, Paint()..color = const Color(0xFFFB7185)..strokeWidth = 2);
+          canvas.drawLine(
+            t.position,
+            end,
+            Paint()
+              ..color = const Color(0xFFFB7185)
+              ..strokeWidth = 2,
+          );
         }
       }
     }
@@ -749,14 +996,23 @@ class _LengthHistogramPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint bg = Paint()..color = const Color(0xFF0F172A).withAlpha(20);
-    canvas.drawRRect(RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)), bg);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(Offset.zero & size, const Radius.circular(10)),
+      bg,
+    );
 
     if (metrics.isEmpty) {
       final TextPainter t = TextPainter(
-        text: const TextSpan(text: 'No metrics', style: TextStyle(color: Color(0xFF64748B), fontSize: 12.5)),
+        text: const TextSpan(
+          text: 'No metrics',
+          style: TextStyle(color: Color(0xFF64748B), fontSize: 12.5),
+        ),
         textDirection: TextDirection.ltr,
       )..layout();
-      t.paint(canvas, Offset(size.width / 2 - t.width / 2, size.height / 2 - t.height / 2));
+      t.paint(
+        canvas,
+        Offset(size.width / 2 - t.width / 2, size.height / 2 - t.height / 2),
+      );
       return;
     }
 
@@ -770,8 +1026,16 @@ class _LengthHistogramPainter extends CustomPainter {
     final double barW = (size.width - 20) / metrics.length;
     for (int i = 0; i < metrics.length; i++) {
       final ui.PathMetric m = metrics[i];
-      final double h = ((m.length / maxLen) * (size.height - 36)).clamp(2, size.height - 36);
-      final Rect r = Rect.fromLTWH(10 + i * barW + 3, size.height - 12 - h, barW - 6, h);
+      final double h = ((m.length / maxLen) * (size.height - 36)).clamp(
+        2,
+        size.height - 36,
+      );
+      final Rect r = Rect.fromLTWH(
+        10 + i * barW + 3,
+        size.height - 12 - h,
+        barW - 6,
+        h,
+      );
       canvas.drawRRect(
         RRect.fromRectAndRadius(r, const Radius.circular(4)),
         Paint()..color = const Color(0xFF38BDF8).withAlpha(180),

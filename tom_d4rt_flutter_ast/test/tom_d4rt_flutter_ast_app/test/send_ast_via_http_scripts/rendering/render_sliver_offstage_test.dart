@@ -79,8 +79,14 @@ Widget _soSectionTitle(String title, IconData icon) {
 Widget _soBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -106,9 +112,23 @@ Widget _soInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _soTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _soTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _soTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _soTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -123,8 +143,19 @@ Widget _soInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _soCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _soSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _soPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _soSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _soPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -135,7 +166,10 @@ Widget _soSection1Overview() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _soSectionTitle('1 · RenderSliverOffstage Overview', Icons.visibility_off),
+      _soSectionTitle(
+        '1 · RenderSliverOffstage Overview',
+        Icons.visibility_off,
+      ),
       _soInfoCard(
         'What is RenderSliverOffstage?',
         'A sliver render object that removes its child from layout, '
@@ -172,7 +206,11 @@ Widget _soSection1Overview() {
             SizedBox(height: 8),
             Text(
               'Removes child from layout + paint + hit test',
-              style: TextStyle(fontSize: 11, color: _soTextMedium, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11,
+                color: _soTextMedium,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),
@@ -218,7 +256,14 @@ Widget _soSection2OffstageToggle() {
                   children: [
                     Icon(Icons.visibility, size: 28, color: _soGreen),
                     SizedBox(height: 6),
-                    Text('offstage: false', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _soGreen)),
+                    Text(
+                      'offstage: false',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _soGreen,
+                      ),
+                    ),
                     SizedBox(height: 4),
                     Text(
                       'Child is visible\nOccupies scroll space\nReceives events',
@@ -242,7 +287,14 @@ Widget _soSection2OffstageToggle() {
                   children: [
                     Icon(Icons.visibility_off, size: 28, color: _soRed),
                     SizedBox(height: 6),
-                    Text('offstage: true', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _soRed)),
+                    Text(
+                      'offstage: true',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _soRed,
+                      ),
+                    ),
                     SizedBox(height: 4),
                     Text(
                       'Child hidden\nZero scroll extent\nNo events, no paint',
@@ -287,7 +339,14 @@ Widget _soSection3Layout() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Scroll extent comparison', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _soTextDark)),
+            Text(
+              'Scroll extent comparison',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _soTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             // offstage: false
             Container(
@@ -309,7 +368,14 @@ Widget _soSection3Layout() {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             alignment: Alignment.center,
-                            child: Text('scrollExtent: 300px', style: TextStyle(fontSize: 10, color: _soGreen, fontWeight: FontWeight.w600)),
+                            child: Text(
+                              'scrollExtent: 300px',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _soGreen,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -322,26 +388,33 @@ Widget _soSection3Layout() {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                  _soBadge('offstage: true', _soRed, _soOnPrimary),
-                  SizedBox(height: 4),
-                  SizedBox(
-                    height: 30,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 4,
-                          decoration: BoxDecoration(
-                            color: _soRed.withValues(alpha: 0.3),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
+                _soBadge('offstage: true', _soRed, _soOnPrimary),
+                SizedBox(height: 4),
+                SizedBox(
+                  height: 30,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 4,
+                        decoration: BoxDecoration(
+                          color: _soRed.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        SizedBox(width: 6),
-                        Text('scrollExtent: 0px', style: TextStyle(fontSize: 10, color: _soRed, fontWeight: FontWeight.w600)),
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        'scrollExtent: 0px',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _soRed,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -398,17 +471,28 @@ Widget _soSection4Painting() {
                     _soBadge('Visible (onstage)', _soGreen, _soOnPrimary),
                     SizedBox(height: 8),
                     Container(
-                      width: 80, height: 40,
+                      width: 80,
+                      height: 40,
                       decoration: BoxDecoration(
                         color: _soBlue.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: _soBlue),
                       ),
                       alignment: Alignment.center,
-                      child: Text('Painted', style: TextStyle(fontSize: 10, color: _soBlue, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        'Painted',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _soBlue,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 4),
-                    Text('paint() runs', style: TextStyle(fontSize: 9, color: _soGreen)),
+                    Text(
+                      'paint() runs',
+                      style: TextStyle(fontSize: 9, color: _soGreen),
+                    ),
                   ],
                 ),
               ),
@@ -428,16 +512,30 @@ Widget _soSection4Painting() {
                     _soBadge('Hidden (offstage)', _soRed, _soOnPrimary),
                     SizedBox(height: 8),
                     Container(
-                      width: 80, height: 40,
+                      width: 80,
+                      height: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        border: Border.all(color: _soGrey.withValues(alpha: 0.3), style: BorderStyle.solid),
+                        border: Border.all(
+                          color: _soGrey.withValues(alpha: 0.3),
+                          style: BorderStyle.solid,
+                        ),
                       ),
                       alignment: Alignment.center,
-                      child: Text('(nothing)', style: TextStyle(fontSize: 10, color: _soGrey, fontStyle: FontStyle.italic)),
+                      child: Text(
+                        '(nothing)',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _soGrey,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 4),
-                    Text('paint() skipped', style: TextStyle(fontSize: 9, color: _soRed)),
+                    Text(
+                      'paint() skipped',
+                      style: TextStyle(fontSize: 9, color: _soRed),
+                    ),
                   ],
                 ),
               ),
@@ -474,7 +572,14 @@ Widget _soSection5HitTest() {
         ),
         child: Column(
           children: [
-            Text('Event flow with offstage sliver', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _soTextDark)),
+            Text(
+              'Event flow with offstage sliver',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _soTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Row(
               children: [
@@ -489,9 +594,18 @@ Widget _soSection5HitTest() {
                         decoration: BoxDecoration(
                           color: _soGreen.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _soGreen.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _soGreen.withValues(alpha: 0.3),
+                          ),
                         ),
-                        child: Text('Sliver A', style: TextStyle(fontSize: 10, color: _soGreen, fontWeight: FontWeight.w600)),
+                        child: Text(
+                          'Sliver A',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _soGreen,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                       Icon(Icons.arrow_downward, size: 14, color: _soGrey),
                       Container(
@@ -499,27 +613,45 @@ Widget _soSection5HitTest() {
                         decoration: BoxDecoration(
                           color: _soRed.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _soRed.withValues(alpha: 0.3), style: BorderStyle.solid),
+                          border: Border.all(
+                            color: _soRed.withValues(alpha: 0.3),
+                            style: BorderStyle.solid,
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.visibility_off, size: 10, color: _soRed),
                             SizedBox(width: 3),
-                            Text('Offstage', style: TextStyle(fontSize: 10, color: _soRed)),
+                            Text(
+                              'Offstage',
+                              style: TextStyle(fontSize: 10, color: _soRed),
+                            ),
                           ],
                         ),
                       ),
-                      Text('(skipped)', style: TextStyle(fontSize: 8, color: _soRed)),
+                      Text(
+                        '(skipped)',
+                        style: TextStyle(fontSize: 8, color: _soRed),
+                      ),
                       Icon(Icons.arrow_downward, size: 14, color: _soGrey),
                       Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
                           color: _soGreen.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(color: _soGreen.withValues(alpha: 0.3)),
+                          border: Border.all(
+                            color: _soGreen.withValues(alpha: 0.3),
+                          ),
                         ),
-                        child: Text('Sliver C', style: TextStyle(fontSize: 10, color: _soGreen, fontWeight: FontWeight.w600)),
+                        child: Text(
+                          'Sliver C',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _soGreen,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -528,13 +660,27 @@ Widget _soSection5HitTest() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Hit test order:', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _soTextDark)),
+                      Text(
+                        'Hit test order:',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: _soTextDark,
+                        ),
+                      ),
                       SizedBox(height: 6),
                       _soStepText('1. Sliver A → active', _soGreen),
                       _soStepText('2. Offstage → zero size, skip', _soRed),
                       _soStepText('3. Sliver C → active', _soGreen),
                       SizedBox(height: 6),
-                      Text('Offstage sliver occupies\nno space in the scroll view', style: TextStyle(fontSize: 10, color: _soGrey, fontStyle: FontStyle.italic)),
+                      Text(
+                        'Offstage sliver occupies\nno space in the scroll view',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _soGrey,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -552,7 +698,11 @@ Widget _soStepText(String text, Color color) {
     padding: EdgeInsets.symmetric(vertical: 2),
     child: Row(
       children: [
-        Container(width: 6, height: 6, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 6,
+          height: 6,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         SizedBox(width: 6),
         Text(text, style: TextStyle(fontSize: 10, color: _soTextMedium)),
       ],
@@ -565,8 +715,16 @@ Widget _soStepText(String text, Color color) {
 // ---------------------------------------------------------------------------
 Widget _soSection6API() {
   final params = <Map<String, String>>[
-    {'param': 'offstage', 'type': 'bool', 'desc': 'Whether the child is hidden (default: true)'},
-    {'param': 'sliver', 'type': 'Widget', 'desc': 'The child sliver to show or hide'},
+    {
+      'param': 'offstage',
+      'type': 'bool',
+      'desc': 'Whether the child is hidden (default: true)',
+    },
+    {
+      'param': 'sliver',
+      'type': 'Widget',
+      'desc': 'The child sliver to show or hide',
+    },
   ];
 
   return Column(
@@ -591,20 +749,38 @@ Widget _soSection6API() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Constructor parameters', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _soTextDark)),
-            Divider(color: _soDivider, height: 12),
-            ...params.map((p) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                children: [
-                  SizedBox(width: 90, child: _soCode(p['param']!)),
-                  SizedBox(width: 6),
-                  _soBadge(p['type']!, _soAccentLight.withValues(alpha: 0.5), _soPrimary),
-                  SizedBox(width: 6),
-                  Expanded(child: Text(p['desc']!, style: TextStyle(fontSize: 10, color: _soTextMedium))),
-                ],
+            Text(
+              'Constructor parameters',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _soTextDark,
               ),
-            )),
+            ),
+            Divider(color: _soDivider, height: 12),
+            ...params.map(
+              (p) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    SizedBox(width: 90, child: _soCode(p['param']!)),
+                    SizedBox(width: 6),
+                    _soBadge(
+                      p['type']!,
+                      _soAccentLight.withValues(alpha: 0.5),
+                      _soPrimary,
+                    ),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        p['desc']!,
+                        style: TextStyle(fontSize: 10, color: _soTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -640,10 +816,42 @@ Widget _soSection6API() {
 // ---------------------------------------------------------------------------
 Widget _soSection7Comparison() {
   final items = <Map<String, dynamic>>[
-    {'name': 'SliverOffstage', 'layout': 'Zero extent', 'paint': 'Skipped', 'hit': 'Skipped', 'state': 'Preserved', 'icon': Icons.visibility_off, 'color': _soPrimary},
-    {'name': 'SliverOpacity(0.0)', 'layout': 'Normal', 'paint': 'Transparent', 'hit': 'Active', 'state': 'Preserved', 'icon': Icons.opacity, 'color': _soBlue},
-    {'name': 'SliverIgnorePointer', 'layout': 'Normal', 'paint': 'Normal', 'hit': 'Skipped', 'state': 'Preserved', 'icon': Icons.do_not_touch, 'color': _soOrange},
-    {'name': 'Remove from tree', 'layout': 'Gone', 'paint': 'Gone', 'hit': 'Gone', 'state': 'Lost', 'icon': Icons.delete, 'color': _soRed},
+    {
+      'name': 'SliverOffstage',
+      'layout': 'Zero extent',
+      'paint': 'Skipped',
+      'hit': 'Skipped',
+      'state': 'Preserved',
+      'icon': Icons.visibility_off,
+      'color': _soPrimary,
+    },
+    {
+      'name': 'SliverOpacity(0.0)',
+      'layout': 'Normal',
+      'paint': 'Transparent',
+      'hit': 'Active',
+      'state': 'Preserved',
+      'icon': Icons.opacity,
+      'color': _soBlue,
+    },
+    {
+      'name': 'SliverIgnorePointer',
+      'layout': 'Normal',
+      'paint': 'Normal',
+      'hit': 'Skipped',
+      'state': 'Preserved',
+      'icon': Icons.do_not_touch,
+      'color': _soOrange,
+    },
+    {
+      'name': 'Remove from tree',
+      'layout': 'Gone',
+      'paint': 'Gone',
+      'hit': 'Gone',
+      'state': 'Lost',
+      'icon': Icons.delete,
+      'color': _soRed,
+    },
   ];
 
   return Column(
@@ -673,36 +881,117 @@ Widget _soSection7Comparison() {
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Row(
                 children: [
-                  Expanded(flex: 2, child: Text('Widget', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _soGrey))),
-                  Expanded(child: Text('Layout', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _soGrey))),
-                  Expanded(child: Text('Paint', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _soGrey))),
-                  Expanded(child: Text('Hit', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _soGrey))),
-                  Expanded(child: Text('State', style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: _soGrey))),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Widget',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: _soGrey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Layout',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: _soGrey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Paint',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: _soGrey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Hit',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: _soGrey,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'State',
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: _soGrey,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             Divider(color: _soDivider, height: 6),
-            ...items.map((i) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Row(
-                      children: [
-                        Icon(i['icon'] as IconData, size: 12, color: i['color'] as Color),
-                        SizedBox(width: 3),
-                        Expanded(child: Text(i['name'] as String, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: i['color'] as Color))),
-                      ],
+            ...items.map(
+              (i) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Row(
+                        children: [
+                          Icon(
+                            i['icon'] as IconData,
+                            size: 12,
+                            color: i['color'] as Color,
+                          ),
+                          SizedBox(width: 3),
+                          Expanded(
+                            child: Text(
+                              i['name'] as String,
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600,
+                                color: i['color'] as Color,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(child: Text(i['layout'] as String, style: TextStyle(fontSize: 9, color: _soTextMedium))),
-                  Expanded(child: Text(i['paint'] as String, style: TextStyle(fontSize: 9, color: _soTextMedium))),
-                  Expanded(child: Text(i['hit'] as String, style: TextStyle(fontSize: 9, color: _soTextMedium))),
-                  Expanded(child: Text(i['state'] as String, style: TextStyle(fontSize: 9, color: _soTextMedium))),
-                ],
+                    Expanded(
+                      child: Text(
+                        i['layout'] as String,
+                        style: TextStyle(fontSize: 9, color: _soTextMedium),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        i['paint'] as String,
+                        style: TextStyle(fontSize: 9, color: _soTextMedium),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        i['hit'] as String,
+                        style: TextStyle(fontSize: 9, color: _soTextMedium),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        i['state'] as String,
+                        style: TextStyle(fontSize: 9, color: _soTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -737,7 +1026,14 @@ Widget _soSection8Demo() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('CustomScrollView with SliverOffstage', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _soTextDark)),
+            Text(
+              'CustomScrollView with SliverOffstage',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _soTextDark,
+              ),
+            ),
             SizedBox(height: 6),
             SizedBox(
               height: 220,
@@ -751,7 +1047,9 @@ Widget _soSection8Demo() {
                       decoration: BoxDecoration(
                         color: _soGreen.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _soGreen.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: _soGreen.withValues(alpha: 0.3),
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Row(
@@ -759,7 +1057,14 @@ Widget _soSection8Demo() {
                         children: [
                           Icon(Icons.visibility, size: 14, color: _soGreen),
                           SizedBox(width: 4),
-                          Text('Section 1 — Visible', style: TextStyle(fontSize: 11, color: _soGreen, fontWeight: FontWeight.w700)),
+                          Text(
+                            'Section 1 — Visible',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: _soGreen,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -777,7 +1082,10 @@ Widget _soSection8Demo() {
                           border: Border.all(color: _soRed),
                         ),
                         alignment: Alignment.center,
-                        child: Text('Section 2 — OFFSTAGE (you should not see this)', style: TextStyle(fontSize: 11, color: _soRed)),
+                        child: Text(
+                          'Section 2 — OFFSTAGE (you should not see this)',
+                          style: TextStyle(fontSize: 11, color: _soRed),
+                        ),
                       ),
                     ),
                   ),
@@ -789,7 +1097,9 @@ Widget _soSection8Demo() {
                       decoration: BoxDecoration(
                         color: _soGreen.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _soGreen.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: _soGreen.withValues(alpha: 0.3),
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Row(
@@ -797,7 +1107,14 @@ Widget _soSection8Demo() {
                         children: [
                           Icon(Icons.visibility, size: 14, color: _soGreen),
                           SizedBox(width: 4),
-                          Text('Section 3 — Visible (directly after 1)', style: TextStyle(fontSize: 11, color: _soGreen, fontWeight: FontWeight.w700)),
+                          Text(
+                            'Section 3 — Visible (directly after 1)',
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: _soGreen,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -810,17 +1127,24 @@ Widget _soSection8Demo() {
                       decoration: BoxDecoration(
                         color: _soPrimary.withValues(alpha: 0.06),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _soPrimary.withValues(alpha: 0.2)),
+                        border: Border.all(
+                          color: _soPrimary.withValues(alpha: 0.2),
+                        ),
                       ),
                       child: Row(
                         children: [
                           Icon(Icons.info_outline, size: 14, color: _soPrimary),
                           SizedBox(width: 6),
-                          Expanded(child: Text(
-                            'Section 2 exists in the widget tree but is offstage. '
-                            'Sections 1 and 3 are adjacent — no gap where 2 would be.',
-                            style: TextStyle(fontSize: 10, color: _soTextMedium),
-                          )),
+                          Expanded(
+                            child: Text(
+                              'Section 2 exists in the widget tree but is offstage. '
+                              'Sections 1 and 3 are adjacent — no gap where 2 would be.',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _soTextMedium,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -840,12 +1164,44 @@ Widget _soSection8Demo() {
 // ---------------------------------------------------------------------------
 Widget _soSection9UseCases() {
   final useCases = <Map<String, dynamic>>[
-    {'title': 'Conditional sections', 'desc': 'Show/hide sliver sections based on user preferences or feature flags', 'icon': Icons.toggle_on, 'color': _soPrimary},
-    {'title': 'Lazy feature gating', 'desc': 'Keep premium content built but offstage until purchase', 'icon': Icons.lock_open, 'color': _soBlue},
-    {'title': 'A/B testing', 'desc': 'Show different sliver layouts to different user segments', 'icon': Icons.science, 'color': _soTeal},
-    {'title': 'Progressive disclosure', 'desc': 'Reveal sliver sections as user progresses through a flow', 'icon': Icons.unfold_more, 'color': _soOrange},
-    {'title': 'Debug overlays', 'desc': 'Add debug slivers that are offstage in production', 'icon': Icons.bug_report, 'color': _soPurple},
-    {'title': 'Preloading content', 'desc': 'Build expensive slivers offstage before revealing them instantly', 'icon': Icons.speed, 'color': _soAmber},
+    {
+      'title': 'Conditional sections',
+      'desc':
+          'Show/hide sliver sections based on user preferences or feature flags',
+      'icon': Icons.toggle_on,
+      'color': _soPrimary,
+    },
+    {
+      'title': 'Lazy feature gating',
+      'desc': 'Keep premium content built but offstage until purchase',
+      'icon': Icons.lock_open,
+      'color': _soBlue,
+    },
+    {
+      'title': 'A/B testing',
+      'desc': 'Show different sliver layouts to different user segments',
+      'icon': Icons.science,
+      'color': _soTeal,
+    },
+    {
+      'title': 'Progressive disclosure',
+      'desc': 'Reveal sliver sections as user progresses through a flow',
+      'icon': Icons.unfold_more,
+      'color': _soOrange,
+    },
+    {
+      'title': 'Debug overlays',
+      'desc': 'Add debug slivers that are offstage in production',
+      'icon': Icons.bug_report,
+      'color': _soPurple,
+    },
+    {
+      'title': 'Preloading content',
+      'desc':
+          'Build expensive slivers offstage before revealing them instantly',
+      'icon': Icons.speed,
+      'color': _soAmber,
+    },
   ];
 
   return Column(
@@ -860,38 +1216,55 @@ Widget _soSection9UseCases() {
             'want to hide visually but keep layout space, use SliverOpacity instead.',
         Icons.info,
       ),
-      ...useCases.map((u) => Container(
-        margin: EdgeInsets.only(bottom: 6),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border(left: BorderSide(color: u['color'] as Color, width: 3)),
-        ),
-        child: Row(
-          children: [
-            Icon(u['icon'] as IconData, size: 18, color: u['color'] as Color),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(u['title'] as String, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _soTextDark)),
-                  SizedBox(height: 2),
-                  Text(u['desc'] as String, style: TextStyle(fontSize: 11, color: _soTextMedium)),
-                ],
-              ),
+      ...useCases.map(
+        (u) => Container(
+          margin: EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(6),
+            border: Border(
+              left: BorderSide(color: u['color'] as Color, width: 3),
             ),
-          ],
+          ),
+          child: Row(
+            children: [
+              Icon(u['icon'] as IconData, size: 18, color: u['color'] as Color),
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      u['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 12,
+                        color: _soTextDark,
+                      ),
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      u['desc'] as String,
+                      style: TextStyle(fontSize: 11, color: _soTextMedium),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
       SizedBox(height: 12),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_soPrimary.withValues(alpha: 0.08), _soAccent.withValues(alpha: 0.08)],
+            colors: [
+              _soPrimary.withValues(alpha: 0.08),
+              _soAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _soPrimary.withValues(alpha: 0.2)),
@@ -902,7 +1275,11 @@ Widget _soSection9UseCases() {
             SizedBox(height: 8),
             Text(
               'RenderSliverOffstage',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _soTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _soTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -963,7 +1340,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Conditionally removing a sliver from layout, paint, and hit test',
-                style: TextStyle(fontSize: 12, color: _soOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _soOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

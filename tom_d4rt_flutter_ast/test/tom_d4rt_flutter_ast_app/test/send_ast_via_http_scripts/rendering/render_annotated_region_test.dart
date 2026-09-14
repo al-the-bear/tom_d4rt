@@ -21,7 +21,8 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'night',
     name: 'Night Console',
-    description: 'Low-luminance profile suitable for motion and overlay studies.',
+    description:
+        'Low-luminance profile suitable for motion and overlay studies.',
     seed: Color(0xFF1E293B),
     brightness: Brightness.dark,
   ),
@@ -48,7 +49,8 @@ const List<_ScenarioLane> _lanes = <_ScenarioLane>[
   _ScenarioLane(
     id: 'sized',
     title: 'Sized Lab',
-    subtitle: 'sized=true and sized=false behavior under different container bounds.',
+    subtitle:
+        'sized=true and sized=false behavior under different container bounds.',
   ),
   _ScenarioLane(
     id: 'corridor',
@@ -58,7 +60,8 @@ const List<_ScenarioLane> _lanes = <_ScenarioLane>[
   _ScenarioLane(
     id: 'ops',
     title: 'Ops Console',
-    subtitle: 'Metrics, timeline, practical use board, and diagnostic snapshots.',
+    subtitle:
+        'Metrics, timeline, practical use board, and diagnostic snapshots.',
   ),
 ];
 
@@ -73,19 +76,23 @@ const List<_AlignmentPreset> _anchors = <_AlignmentPreset>[
 const List<_FaqItem> _faq = <_FaqItem>[
   _FaqItem(
     question: 'What is RenderAnnotatedRegion for?',
-    answer: 'It attaches typed metadata to painted regions so ancestor systems can query context at a location.',
+    answer:
+        'It attaches typed metadata to painted regions so ancestor systems can query context at a location.',
   ),
   _FaqItem(
     question: 'Where is it commonly used?',
-    answer: 'A common use is SystemUiOverlayStyle via AnnotatedRegion<SystemUiOverlayStyle> near app bars.',
+    answer:
+        'A common use is SystemUiOverlayStyle via AnnotatedRegion<SystemUiOverlayStyle> near app bars.',
   ),
   _FaqItem(
     question: 'Why does overlap matter?',
-    answer: 'When multiple annotations overlap, the effective value depends on which layer is resolved at a given point.',
+    answer:
+        'When multiple annotations overlap, the effective value depends on which layer is resolved at a given point.',
   ),
   _FaqItem(
     question: 'What does the sized flag influence?',
-    answer: 'It controls how the annotation region maps to layout bounds, changing how far the value is considered valid.',
+    answer:
+        'It controls how the annotation region maps to layout bounds, changing how far the value is considered valid.',
   ),
 ];
 
@@ -117,7 +124,11 @@ class _ThemePreset {
 }
 
 class _ScenarioLane {
-  const _ScenarioLane({required this.id, required this.title, required this.subtitle});
+  const _ScenarioLane({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -157,7 +168,12 @@ class _RegionTag {
 }
 
 class _MetricItem {
-  const _MetricItem({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricItem({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -166,7 +182,11 @@ class _MetricItem {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -174,7 +194,12 @@ class _TimelineEvent {
 }
 
 class _OverlayPreset {
-  const _OverlayPreset({required this.label, required this.style, required this.description, required this.surface});
+  const _OverlayPreset({
+    required this.label,
+    required this.style,
+    required this.description,
+    required this.surface,
+  });
 
   final String label;
   final SystemUiOverlayStyle style;
@@ -186,13 +211,15 @@ const List<_OverlayPreset> _overlayPresets = <_OverlayPreset>[
   _OverlayPreset(
     label: 'Light Icons',
     style: SystemUiOverlayStyle.light,
-    description: 'Intended for dark app bar backgrounds where light system icons remain legible.',
+    description:
+        'Intended for dark app bar backgrounds where light system icons remain legible.',
     surface: Color(0xFF0F172A),
   ),
   _OverlayPreset(
     label: 'Dark Icons',
     style: SystemUiOverlayStyle.dark,
-    description: 'Intended for light app bar backgrounds where dark system icons remain legible.',
+    description:
+        'Intended for light app bar backgrounds where dark system icons remain legible.',
     surface: Color(0xFFF8FAFC),
   ),
   _OverlayPreset(
@@ -204,7 +231,8 @@ const List<_OverlayPreset> _overlayPresets = <_OverlayPreset>[
       systemNavigationBarColor: Color(0xFF111827),
       systemNavigationBarIconBrightness: Brightness.light,
     ),
-    description: 'Custom mixed style often used in brand-driven immersive surfaces.',
+    description:
+        'Custom mixed style often used in brand-driven immersive surfaces.',
     surface: Color(0xFF1F2937),
   ),
 ];
@@ -217,10 +245,12 @@ class _RenderAnnotatedRegionAtlas extends StatefulWidget {
   const _RenderAnnotatedRegionAtlas();
 
   @override
-  State<_RenderAnnotatedRegionAtlas> createState() => _RenderAnnotatedRegionAtlasState();
+  State<_RenderAnnotatedRegionAtlas> createState() =>
+      _RenderAnnotatedRegionAtlasState();
 }
 
-class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas> {
+class _RenderAnnotatedRegionAtlasState
+    extends State<_RenderAnnotatedRegionAtlas> {
   final ScrollController _scrollController = ScrollController();
   final ScrollController _corridorController = ScrollController();
 
@@ -306,7 +336,8 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
       id: 'footer',
       title: 'Footer Path',
       category: 'navigation',
-      intent: 'Bottom-surface region often associated with navigation metadata.',
+      intent:
+          'Bottom-surface region often associated with navigation metadata.',
       color: Color(0xFF0EA5E9),
       priority: 5,
     ),
@@ -347,7 +378,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
     _stackResolvedTag = _stackTopTag;
     _corridorTag = _zoneTags[0];
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _pushTimeline('Init', 'RenderAnnotatedRegion annotation atlas initialized.');
+      _pushTimeline(
+        'Init',
+        'RenderAnnotatedRegion annotation atlas initialized.',
+      );
     });
   }
 
@@ -368,11 +402,29 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
   }
 
   void _resolveStackTag() {
-    final Rect topRect = Rect.fromLTWH(230, 60, _topSized ? 170 : 310, _topSized ? 120 : 230);
-    final Rect middleRect = Rect.fromLTWH(150, 90, _middleSized ? 220 : 310, _middleSized ? 150 : 230);
-    final Rect bottomRect = Rect.fromLTWH(80, 130, _bottomSized ? 250 : 310, _bottomSized ? 190 : 230);
+    final Rect topRect = Rect.fromLTWH(
+      230,
+      60,
+      _topSized ? 170 : 310,
+      _topSized ? 120 : 230,
+    );
+    final Rect middleRect = Rect.fromLTWH(
+      150,
+      90,
+      _middleSized ? 220 : 310,
+      _middleSized ? 150 : 230,
+    );
+    final Rect bottomRect = Rect.fromLTWH(
+      80,
+      130,
+      _bottomSized ? 250 : 310,
+      _bottomSized ? 190 : 230,
+    );
 
-    final Offset p = Offset(lerpDouble(50, 360, _stackProbeX) ?? 200, lerpDouble(30, 260, _stackProbeY) ?? 150);
+    final Offset p = Offset(
+      lerpDouble(50, 360, _stackProbeX) ?? 200,
+      lerpDouble(30, 260, _stackProbeY) ?? 150,
+    );
     _RegionTag? resolved;
 
     if (_showTopLayer && topRect.contains(p)) {
@@ -389,41 +441,118 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
     });
 
     if (resolved == null) {
-      _pushTimeline('Stack Probe', 'Probe moved outside active annotation layers.');
+      _pushTimeline(
+        'Stack Probe',
+        'Probe moved outside active annotation layers.',
+      );
     } else {
-      _pushTimeline('Stack Probe', 'Probe resolved ${resolved.title} (${resolved.category}).');
+      _pushTimeline(
+        'Stack Probe',
+        'Probe resolved ${resolved.title} (${resolved.category}).',
+      );
     }
   }
 
   List<_MetricItem> _metrics() {
     return <_MetricItem>[
-      _MetricItem(label: 'Lane', value: _lanes[_laneIndex].title, note: 'Active demonstration lane.', icon: Icons.dashboard_customize),
-      _MetricItem(label: 'Theme', value: _themePresets[_themeIndex].name, note: 'Current visual profile.', icon: Icons.palette_outlined),
-      _MetricItem(label: 'Zone Taps', value: '$_zoneTapCount', note: 'Number of explicit zone selections.', icon: Icons.touch_app_outlined),
-      _MetricItem(label: 'Hover Changes', value: '$_hoverCount', note: 'Hover-triggered zone updates.', icon: Icons.ads_click_outlined),
-      _MetricItem(label: 'Stack Probes', value: '$_stackProbeCount', note: 'Stack precedence probe updates.', icon: Icons.layers_outlined),
-      _MetricItem(label: 'Sized Toggles', value: '$_sizedToggleCount', note: 'sized=true/false toggle count.', icon: Icons.aspect_ratio),
-      _MetricItem(label: 'Overlay Switches', value: '$_overlaySwitchCount', note: 'SystemUiOverlayStyle preset changes.', icon: Icons.phone_android_outlined),
-      _MetricItem(label: 'Corridor Scrolls', value: '$_corridorScrollCount', note: 'Horizontal corridor movement actions.', icon: Icons.swap_horiz_outlined),
-      _MetricItem(label: 'Theme Switches', value: '$_themeSwitchCount', note: 'Visual profile changes.', icon: Icons.color_lens_outlined),
-      _MetricItem(label: 'Active Zone', value: _activeZoneTag?.title ?? 'none', note: 'Last selected zone tag.', icon: Icons.location_on_outlined),
-      _MetricItem(label: 'Stack Result', value: _stackResolvedTag?.title ?? 'none', note: 'Current stack probe resolution.', icon: Icons.filter_center_focus),
-      _MetricItem(label: 'Corridor Tag', value: _corridorTag?.title ?? 'none', note: 'Tag selected from corridor segments.', icon: Icons.view_carousel_outlined),
+      _MetricItem(
+        label: 'Lane',
+        value: _lanes[_laneIndex].title,
+        note: 'Active demonstration lane.',
+        icon: Icons.dashboard_customize,
+      ),
+      _MetricItem(
+        label: 'Theme',
+        value: _themePresets[_themeIndex].name,
+        note: 'Current visual profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricItem(
+        label: 'Zone Taps',
+        value: '$_zoneTapCount',
+        note: 'Number of explicit zone selections.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricItem(
+        label: 'Hover Changes',
+        value: '$_hoverCount',
+        note: 'Hover-triggered zone updates.',
+        icon: Icons.ads_click_outlined,
+      ),
+      _MetricItem(
+        label: 'Stack Probes',
+        value: '$_stackProbeCount',
+        note: 'Stack precedence probe updates.',
+        icon: Icons.layers_outlined,
+      ),
+      _MetricItem(
+        label: 'Sized Toggles',
+        value: '$_sizedToggleCount',
+        note: 'sized=true/false toggle count.',
+        icon: Icons.aspect_ratio,
+      ),
+      _MetricItem(
+        label: 'Overlay Switches',
+        value: '$_overlaySwitchCount',
+        note: 'SystemUiOverlayStyle preset changes.',
+        icon: Icons.phone_android_outlined,
+      ),
+      _MetricItem(
+        label: 'Corridor Scrolls',
+        value: '$_corridorScrollCount',
+        note: 'Horizontal corridor movement actions.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricItem(
+        label: 'Theme Switches',
+        value: '$_themeSwitchCount',
+        note: 'Visual profile changes.',
+        icon: Icons.color_lens_outlined,
+      ),
+      _MetricItem(
+        label: 'Active Zone',
+        value: _activeZoneTag?.title ?? 'none',
+        note: 'Last selected zone tag.',
+        icon: Icons.location_on_outlined,
+      ),
+      _MetricItem(
+        label: 'Stack Result',
+        value: _stackResolvedTag?.title ?? 'none',
+        note: 'Current stack probe resolution.',
+        icon: Icons.filter_center_focus,
+      ),
+      _MetricItem(
+        label: 'Corridor Tag',
+        value: _corridorTag?.title ?? 'none',
+        note: 'Tag selected from corridor segments.',
+        icon: Icons.view_carousel_outlined,
+      ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     final _ThemePreset preset = _themePresets[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: preset.seed, brightness: preset.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: preset.seed,
+      brightness: preset.brightness,
+    );
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: preset.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: preset.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLowest, scheme.surfaceContainerLow],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLowest,
+                scheme.surfaceContainerLow,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -489,12 +618,28 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 Icon(Icons.sell_outlined, color: scheme.primary, size: 26),
                 Text(
                   'RenderAnnotatedRegion Annotation Atlas',
-                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26),
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 26,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_lanes[_laneIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _lanes[_laneIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -518,12 +663,21 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_themePresets.length, (int index) {
+              children: List<Widget>.generate(_themePresets.length, (
+                int index,
+              ) {
                 final _ThemePreset p = _themePresets[index];
                 return ChoiceChip(
                   selected: index == _themeIndex,
@@ -539,9 +693,19 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themePresets[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themePresets[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 24),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -561,7 +725,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               }),
             ),
             const SizedBox(height: 8),
-            Text(_lanes[_laneIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _lanes[_laneIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 24),
             Wrap(
               spacing: 10,
@@ -569,22 +736,26 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               children: <Widget>[
                 CheckboxMenuButton(
                   value: _showGrid,
-                  onChanged: (bool? value) => setState(() => _showGrid = value ?? true),
+                  onChanged: (bool? value) =>
+                      setState(() => _showGrid = value ?? true),
                   child: const Text('Show zone grid'),
                 ),
                 CheckboxMenuButton(
                   value: _showDiagnostics,
-                  onChanged: (bool? value) => setState(() => _showDiagnostics = value ?? true),
+                  onChanged: (bool? value) =>
+                      setState(() => _showDiagnostics = value ?? true),
                   child: const Text('Show diagnostics snapshot'),
                 ),
                 CheckboxMenuButton(
                   value: _showGuide,
-                  onChanged: (bool? value) => setState(() => _showGuide = value ?? true),
+                  onChanged: (bool? value) =>
+                      setState(() => _showGuide = value ?? true),
                   child: const Text('Show guide board'),
                 ),
                 CheckboxMenuButton(
                   value: _showTimeline,
-                  onChanged: (bool? value) => setState(() => _showTimeline = value ?? true),
+                  onChanged: (bool? value) =>
+                      setState(() => _showTimeline = value ?? true),
                   child: const Text('Show timeline board'),
                 ),
               ],
@@ -604,7 +775,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Zone Map', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Zone Map',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Nine annotated regions model a dashboard-style layout. Hover or tap tiles to surface active metadata.',
@@ -617,7 +795,7 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                   child: Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: _anchors.map(( _AlignmentPreset p) {
+                    children: _anchors.map((_AlignmentPreset p) {
                       return ChoiceChip(
                         selected: p.value == _zoneAnchor,
                         label: Text(p.label),
@@ -625,7 +803,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                           setState(() {
                             _zoneAnchor = p.value;
                           });
-                          _pushTimeline('Zone Anchor', 'Changed zone tile alignment to ${p.label}.');
+                          _pushTimeline(
+                            'Zone Anchor',
+                            'Changed zone tile alignment to ${p.label}.',
+                          );
                         },
                       );
                     }).toList(),
@@ -647,8 +828,12 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                         min: 0.7,
                         max: 1.4,
                         divisions: 35,
-                        onChanged: (double value) => setState(() => _zoneScale = value),
-                        onChangeEnd: (double value) => _pushTimeline('Zone Scale', 'Zone scale changed to ${value.toStringAsFixed(2)}.'),
+                        onChanged: (double value) =>
+                            setState(() => _zoneScale = value),
+                        onChangeEnd: (double value) => _pushTimeline(
+                          'Zone Scale',
+                          'Zone scale changed to ${value.toStringAsFixed(2)}.',
+                        ),
                       ),
                     ],
                   ),
@@ -671,7 +856,9 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                     return Wrap(
                       spacing: 12,
                       runSpacing: 12,
-                      children: List<Widget>.generate(_zoneTags.length, (int index) {
+                      children: List<Widget>.generate(_zoneTags.length, (
+                        int index,
+                      ) {
                         final _RegionTag tag = _zoneTags[index];
                         return SizedBox(
                           width: cellWidth,
@@ -711,26 +898,41 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               _activeZoneTag = tag;
               _zoneTapCount += 1;
             });
-            _pushTimeline('Zone Tap', 'Selected ${tag.title} (${tag.category}).');
+            _pushTimeline(
+              'Zone Tap',
+              'Selected ${tag.title} (${tag.category}).',
+            );
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             height: 126,
-            transform: Matrix4.identity()..scaleByDouble(_zoneScale, _zoneScale, 1, 1),
+            transform: Matrix4.identity()
+              ..scaleByDouble(_zoneScale, _zoneScale, 1, 1),
             alignment: _zoneAnchor,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[tag.color.withValues(alpha: 0.90), tag.color.withValues(alpha: 0.55)],
+                colors: <Color>[
+                  tag.color.withValues(alpha: 0.90),
+                  tag.color.withValues(alpha: 0.55),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(14),
               border: Border.all(
-                color: isActive ? scheme.primary : isHover ? scheme.secondary : scheme.outlineVariant,
+                color: isActive
+                    ? scheme.primary
+                    : isHover
+                    ? scheme.secondary
+                    : scheme.outlineVariant,
                 width: isActive ? 2 : 1,
               ),
               boxShadow: <BoxShadow>[
-                BoxShadow(color: tag.color.withValues(alpha: 0.25), blurRadius: 14, offset: const Offset(0, 6)),
+                BoxShadow(
+                  color: tag.color.withValues(alpha: 0.25),
+                  blurRadius: 14,
+                  offset: const Offset(0, 6),
+                ),
               ],
             ),
             child: Padding(
@@ -738,11 +940,27 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(tag.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+                  Text(
+                    tag.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(tag.category, style: const TextStyle(color: Colors.white70, fontSize: 12)),
+                  Text(
+                    tag.category,
+                    style: const TextStyle(color: Colors.white70, fontSize: 12),
+                  ),
                   const Spacer(),
-                  Text('priority ${tag.priority}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                  Text(
+                    'priority ${tag.priority}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -769,13 +987,25 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
             const SizedBox(width: 8),
             Expanded(
               child: tag == null
-                  ? Text('No active tag selected.', style: TextStyle(color: scheme.onSurfaceVariant))
+                  ? Text(
+                      'No active tag selected.',
+                      style: TextStyle(color: scheme.onSurfaceVariant),
+                    )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('${tag.title} (${tag.category})', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                        Text(
+                          '${tag.title} (${tag.category})',
+                          style: TextStyle(
+                            color: scheme.onSurface,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text(tag.intent, style: TextStyle(color: scheme.onSurfaceVariant)),
+                        Text(
+                          tag.intent,
+                          style: TextStyle(color: scheme.onSurfaceVariant),
+                        ),
                       ],
                     ),
             ),
@@ -787,7 +1017,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
 
   Widget _buildStackPrecedenceBoard(ColorScheme scheme) {
     final Size stage = const Size(430, 300);
-    final Offset probe = Offset(lerpDouble(50, 360, _stackProbeX) ?? 200, lerpDouble(30, 260, _stackProbeY) ?? 140);
+    final Offset probe = Offset(
+      lerpDouble(50, 360, _stackProbeX) ?? 200,
+      lerpDouble(30, 260, _stackProbeY) ?? 140,
+    );
 
     return Card(
       elevation: 0,
@@ -797,7 +1030,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Stack Precedence', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Stack Precedence',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Overlapping AnnotatedRegion layers visualize precedence. Probe movement shows which annotation resolves first.',
@@ -822,7 +1062,12 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                           if (_showGrid)
                             Positioned.fill(
                               child: CustomPaint(
-                                painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.20), step: 26),
+                                painter: _GridPainter(
+                                  color: scheme.outlineVariant.withValues(
+                                    alpha: 0.20,
+                                  ),
+                                  step: 26,
+                                ),
                               ),
                             ),
                           if (_showBottomLayer)
@@ -870,7 +1115,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                               decoration: BoxDecoration(
                                 color: scheme.error,
                                 shape: BoxShape.circle,
-                                border: Border.all(color: scheme.onError, width: 2),
+                                border: Border.all(
+                                  color: scheme.onError,
+                                  width: 2,
+                                ),
                               ),
                             ),
                           ),
@@ -907,7 +1155,13 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
     );
   }
 
-  Widget _stackLayer({required _RegionTag tag, required double width, required double height, required bool sized, required ColorScheme scheme}) {
+  Widget _stackLayer({
+    required _RegionTag tag,
+    required double width,
+    required double height,
+    required bool sized,
+    required ColorScheme scheme,
+  }) {
     return AnnotatedRegion<_RegionTag>(
       value: tag,
       sized: sized,
@@ -917,16 +1171,28 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         decoration: BoxDecoration(
           color: tag.color.withValues(alpha: 0.48),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: tag.color.withValues(alpha: 0.88), width: 1.4),
+          border: Border.all(
+            color: tag.color.withValues(alpha: 0.88),
+            width: 1.4,
+          ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(tag.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+              Text(
+                tag.title,
+                style: TextStyle(
+                  color: scheme.onSurface,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text('sized=$sized', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+              Text(
+                'sized=$sized',
+                style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+              ),
             ],
           ),
         ),
@@ -946,7 +1212,13 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Probe and Layer Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Probe and Layer Controls',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Row(
               children: <Widget>[
@@ -980,91 +1252,94 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
             Material(
               type: MaterialType.transparency,
               child: SwitchListTile(
-              value: _showTopLayer,
-              title: const Text('Show Top Layer'),
-              subtitle: const Text('Highest precedence candidate'),
-              onChanged: (bool value) {
-                setState(() => _showTopLayer = value);
-                _resolveStackTag();
-              },
-            ),
-            ),
-            Material(
-              type: MaterialType.transparency,
-              child: SwitchListTile(
-              value: _showMiddleLayer,
-              title: const Text('Show Middle Layer'),
-              subtitle: const Text('Mid precedence candidate'),
-              onChanged: (bool value) {
-                setState(() => _showMiddleLayer = value);
-                _resolveStackTag();
-              },
-            ),
+                value: _showTopLayer,
+                title: const Text('Show Top Layer'),
+                subtitle: const Text('Highest precedence candidate'),
+                onChanged: (bool value) {
+                  setState(() => _showTopLayer = value);
+                  _resolveStackTag();
+                },
+              ),
             ),
             Material(
               type: MaterialType.transparency,
               child: SwitchListTile(
-              value: _showBottomLayer,
-              title: const Text('Show Bottom Layer'),
-              subtitle: const Text('Fallback precedence candidate'),
-              onChanged: (bool value) {
-                setState(() => _showBottomLayer = value);
-                _resolveStackTag();
-              },
+                value: _showMiddleLayer,
+                title: const Text('Show Middle Layer'),
+                subtitle: const Text('Mid precedence candidate'),
+                onChanged: (bool value) {
+                  setState(() => _showMiddleLayer = value);
+                  _resolveStackTag();
+                },
+              ),
             ),
+            Material(
+              type: MaterialType.transparency,
+              child: SwitchListTile(
+                value: _showBottomLayer,
+                title: const Text('Show Bottom Layer'),
+                subtitle: const Text('Fallback precedence candidate'),
+                onChanged: (bool value) {
+                  setState(() => _showBottomLayer = value);
+                  _resolveStackTag();
+                },
+              ),
             ),
             const Divider(height: 22),
             Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-              value: _topSized,
-              title: const Text('Top layer sized=true'),
-              contentPadding: EdgeInsets.zero,
-              onChanged: (bool? value) {
-                setState(() {
-                  _topSized = value ?? true;
-                  _sizedToggleCount += 1;
-                });
-                _resolveStackTag();
-              },
-            ),
-            ),
-            Material(
-              type: MaterialType.transparency,
-              child: CheckboxListTile(
-              value: _middleSized,
-              title: const Text('Middle layer sized=true'),
-              contentPadding: EdgeInsets.zero,
-              onChanged: (bool? value) {
-                setState(() {
-                  _middleSized = value ?? true;
-                  _sizedToggleCount += 1;
-                });
-                _resolveStackTag();
-              },
-            ),
+                value: _topSized,
+                title: const Text('Top layer sized=true'),
+                contentPadding: EdgeInsets.zero,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _topSized = value ?? true;
+                    _sizedToggleCount += 1;
+                  });
+                  _resolveStackTag();
+                },
+              ),
             ),
             Material(
               type: MaterialType.transparency,
               child: CheckboxListTile(
-              value: _bottomSized,
-              title: const Text('Bottom layer sized=true'),
-              contentPadding: EdgeInsets.zero,
-              onChanged: (bool? value) {
-                setState(() {
-                  _bottomSized = value ?? true;
-                  _sizedToggleCount += 1;
-                });
-                _resolveStackTag();
-              },
+                value: _middleSized,
+                title: const Text('Middle layer sized=true'),
+                contentPadding: EdgeInsets.zero,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _middleSized = value ?? true;
+                    _sizedToggleCount += 1;
+                  });
+                  _resolveStackTag();
+                },
+              ),
             ),
+            Material(
+              type: MaterialType.transparency,
+              child: CheckboxListTile(
+                value: _bottomSized,
+                title: const Text('Bottom layer sized=true'),
+                contentPadding: EdgeInsets.zero,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _bottomSized = value ?? true;
+                    _sizedToggleCount += 1;
+                  });
+                  _resolveStackTag();
+                },
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               _stackResolvedTag == null
                   ? 'Resolved Tag: none'
                   : 'Resolved Tag: ${_stackResolvedTag!.title} (${_stackResolvedTag!.category})',
-              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ],
         ),
@@ -1081,7 +1356,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Sized Flag Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Sized Flag Lab',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Compare parallel lanes where annotation widgets use sized=true and sized=false under parent clipping and constrained area differences.',
@@ -1101,14 +1383,27 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 final Widget laneB = _sizedLane(
                   scheme: scheme,
                   title: 'Lane B (sized=false)',
-                  subtitle: 'Annotation region can conceptually outlive strict child bounds.',
+                  subtitle:
+                      'Annotation region can conceptually outlive strict child bounds.',
                   sized: false,
                   tag: _zoneTags[5],
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[laneA, const SizedBox(height: 10), laneB]);
+                  return Column(
+                    children: <Widget>[
+                      laneA,
+                      const SizedBox(height: 10),
+                      laneB,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: laneA), const SizedBox(width: 10), Expanded(child: laneB)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: laneA),
+                    const SizedBox(width: 10),
+                    Expanded(child: laneB),
+                  ],
+                );
               },
             ),
           ],
@@ -1117,7 +1412,13 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
     );
   }
 
-  Widget _sizedLane({required ColorScheme scheme, required String title, required String subtitle, required bool sized, required _RegionTag tag}) {
+  Widget _sizedLane({
+    required ColorScheme scheme,
+    required String title,
+    required String subtitle,
+    required bool sized,
+    required _RegionTag tag,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1129,9 +1430,18 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -1141,7 +1451,12 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 child: Stack(
                   children: <Widget>[
                     Positioned.fill(
-                      child: CustomPaint(painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.20), step: 18)),
+                      child: CustomPaint(
+                        painter: _GridPainter(
+                          color: scheme.outlineVariant.withValues(alpha: 0.20),
+                          step: 18,
+                        ),
+                      ),
                     ),
                     Positioned(
                       left: 30,
@@ -1162,9 +1477,21 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(tag.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                                Text(
+                                  tag.title,
+                                  style: TextStyle(
+                                    color: scheme.onSurface,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                                 const Spacer(),
-                                Text('sized=$sized', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                                Text(
+                                  'sized=$sized',
+                                  style: TextStyle(
+                                    color: scheme.onSurfaceVariant,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -1219,7 +1546,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Scroll Corridor', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Scroll Corridor',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'A horizontal corridor of annotated sections demonstrates metadata context in scroll-heavy compositions.',
@@ -1238,8 +1572,12 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                     min: 0.2,
                     max: 1,
                     divisions: 40,
-                    onChanged: (double value) => setState(() => _corridorDensity = value),
-                    onChangeEnd: (double value) => _pushTimeline('Corridor', 'Density changed to ${value.toStringAsFixed(2)}.'),
+                    onChanged: (double value) =>
+                        setState(() => _corridorDensity = value),
+                    onChangeEnd: (double value) => _pushTimeline(
+                      'Corridor',
+                      'Density changed to ${value.toStringAsFixed(2)}.',
+                    ),
                   ),
                 ),
               ],
@@ -1266,28 +1604,54 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                           setState(() {
                             _corridorTag = tag;
                           });
-                          _pushTimeline('Corridor Tag', 'Selected ${tag.title} in corridor lane.');
+                          _pushTimeline(
+                            'Corridor Tag',
+                            'Selected ${tag.title} in corridor lane.',
+                          );
                         },
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: <Color>[tag.color.withValues(alpha: 0.92), tag.color.withValues(alpha: 0.55)],
+                              colors: <Color>[
+                                tag.color.withValues(alpha: 0.92),
+                                tag.color.withValues(alpha: 0.55),
+                              ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: active ? scheme.primary : Colors.white.withValues(alpha: 0.75), width: active ? 2 : 1),
+                            border: Border.all(
+                              color: active
+                                  ? scheme.primary
+                                  : Colors.white.withValues(alpha: 0.75),
+                              width: active ? 2 : 1,
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(tag.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                                Text(
+                                  tag.title,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
                                 const SizedBox(height: 4),
-                                Text(tag.category, style: const TextStyle(color: Colors.white70)),
+                                Text(
+                                  tag.category,
+                                  style: const TextStyle(color: Colors.white70),
+                                ),
                                 const Spacer(),
-                                Text('priority ${tag.priority}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                                Text(
+                                  'priority ${tag.priority}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -1304,8 +1668,16 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      final double target = (_corridorController.offset - 180).clamp(0, _corridorController.position.maxScrollExtent);
-                      _corridorController.animateTo(target, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
+                      final double target = (_corridorController.offset - 180)
+                          .clamp(
+                            0,
+                            _corridorController.position.maxScrollExtent,
+                          );
+                      _corridorController.animateTo(
+                        target,
+                        duration: const Duration(milliseconds: 320),
+                        curve: Curves.easeOutCubic,
+                      );
                       setState(() => _corridorScrollCount += 1);
                     },
                     icon: const Icon(Icons.arrow_back),
@@ -1316,8 +1688,16 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      final double target = (_corridorController.offset + 180).clamp(0, _corridorController.position.maxScrollExtent);
-                      _corridorController.animateTo(target, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
+                      final double target = (_corridorController.offset + 180)
+                          .clamp(
+                            0,
+                            _corridorController.position.maxScrollExtent,
+                          );
+                      _corridorController.animateTo(
+                        target,
+                        duration: const Duration(milliseconds: 320),
+                        curve: Curves.easeOutCubic,
+                      );
                       setState(() => _corridorScrollCount += 1);
                     },
                     icon: const Icon(Icons.arrow_forward),
@@ -1342,7 +1722,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Practical Use: System Overlay Annotation', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Practical Use: System Overlay Annotation',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'AnnotatedRegion<SystemUiOverlayStyle> is a common practical pattern. This board shows style presets mapped to app-bar-like surfaces.',
@@ -1352,7 +1739,9 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_overlayPresets.length, (int index) {
+              children: List<Widget>.generate(_overlayPresets.length, (
+                int index,
+              ) {
                 final _OverlayPreset p = _overlayPresets[index];
                 return ChoiceChip(
                   selected: _overlayIndex == index,
@@ -1383,10 +1772,18 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                       height: 30,
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.20),
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(14)),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(14),
+                        ),
                       ),
                       child: Center(
-                        child: Text('Status Area', style: TextStyle(color: Colors.white.withValues(alpha: 0.88), fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Status Area',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.88),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -1394,7 +1791,9 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                         child: Text(
                           preset.label,
                           style: TextStyle(
-                            color: preset.label == 'Dark Icons' ? Colors.black87 : Colors.white,
+                            color: preset.label == 'Dark Icons'
+                                ? Colors.black87
+                                : Colors.white,
                             fontSize: 22,
                             fontWeight: FontWeight.w800,
                           ),
@@ -1406,7 +1805,10 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               ),
             ),
             const SizedBox(height: 8),
-            Text(preset.description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              preset.description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1423,17 +1825,24 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics & Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics & Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 900
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1459,15 +1868,44 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(item.icon, size: 18, color: scheme.primary),
+                                Icon(
+                                  item.icon,
+                                  size: 18,
+                                  color: scheme.primary,
+                                ),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(item.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    item.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(item.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              item.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(item.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              item.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1485,7 +1923,9 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
   }
 
   Widget _buildDiagnosticsPanel(ColorScheme scheme) {
-    final String resolved = _stackResolvedTag == null ? 'none' : '${_stackResolvedTag!.id}/${_stackResolvedTag!.priority}';
+    final String resolved = _stackResolvedTag == null
+        ? 'none'
+        : '${_stackResolvedTag!.id}/${_stackResolvedTag!.priority}';
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1501,15 +1941,36 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
               children: <Widget>[
                 Icon(Icons.terminal, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('lane=${_lanes[_laneIndex].id} theme=${_themePresets[_themeIndex].id}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('activeZone=${_activeZoneTag?.id ?? 'none'} hover=${_hoverZoneTag?.id ?? 'none'}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('stackProbe=(${_stackProbeX.toStringAsFixed(2)}, ${_stackProbeY.toStringAsFixed(2)}) resolved=$resolved', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('stackLayers: top($_showTopLayer,$_topSized) mid($_showMiddleLayer,$_middleSized) bottom($_showBottomLayer,$_bottomSized)', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('corridorTag=${_corridorTag?.id ?? 'none'} density=${_corridorDensity.toStringAsFixed(2)} overlay=${_overlayPresets[_overlayIndex].label}', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'lane=${_lanes[_laneIndex].id} theme=${_themePresets[_themeIndex].id}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'activeZone=${_activeZoneTag?.id ?? 'none'} hover=${_hoverZoneTag?.id ?? 'none'}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'stackProbe=(${_stackProbeX.toStringAsFixed(2)}, ${_stackProbeY.toStringAsFixed(2)}) resolved=$resolved',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'stackLayers: top($_showTopLayer,$_topSized) mid($_showMiddleLayer,$_middleSized) bottom($_showBottomLayer,$_bottomSized)',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'corridorTag=${_corridorTag?.id ?? 'none'} density=${_corridorDensity.toStringAsFixed(2)} overlay=${_overlayPresets[_overlayIndex].label}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1525,7 +1986,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and Usage Notes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and Usage Notes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1538,15 +2006,26 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                       child: Icon(Icons.circle, size: 8, color: scheme.primary),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            Text('FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
-            ..._faq.map(( _FaqItem item) {
+            ..._faq.map((_FaqItem item) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1559,9 +2038,18 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        item.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        item.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1584,17 +2072,28 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
-                  onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]),
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
                   icon: const Icon(Icons.clear_all),
                   label: const Text('Clear'),
                 ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological operational record for annotation interactions and controls.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological operational record for annotation interactions and controls.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
@@ -1605,11 +2104,14 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: scheme.outlineVariant),
                 ),
-                child: Text('Timeline is empty. Interact with the atlas controls to generate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                child: Text(
+                  'Timeline is empty. Interact with the atlas controls to generate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
+                children: _timeline.map((_TimelineEvent event) {
                   final String stamp =
                       '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
@@ -1622,13 +2124,25 @@ class _RenderAnnotatedRegionAtlasState extends State<_RenderAnnotatedRegionAtlas
                     child: Material(
                       type: MaterialType.transparency,
                       child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: scheme.primaryContainer,
-                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        leading: CircleAvatar(
+                          backgroundColor: scheme.primaryContainer,
+                          child: Text(
+                            stamp.substring(stamp.length - 2),
+                            style: TextStyle(color: scheme.onPrimaryContainer),
+                          ),
+                        ),
+                        title: Text(
+                          event.title,
+                          style: TextStyle(
+                            color: scheme.onSurface,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '$stamp  |  ${event.message}',
+                          style: TextStyle(color: scheme.onSurfaceVariant),
+                        ),
                       ),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
-                    ),
                     ),
                   );
                 }).toList(),

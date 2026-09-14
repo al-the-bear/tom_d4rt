@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'What Is SliverLayoutBuilder?',
-      'body': 'SliverLayoutBuilder calls a builder function during layout, '
+      'body':
+          'SliverLayoutBuilder calls a builder function during layout, '
           'passing the current SliverConstraints. You return a sliver that '
           'fits those constraints. This lets you make decisions about what '
           'to display based on viewport dimensions, scroll offset, and more.',
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'LayoutBuilder vs SliverLayoutBuilder',
-      'body': 'LayoutBuilder receives BoxConstraints (maxWidth, maxHeight) '
+      'body':
+          'LayoutBuilder receives BoxConstraints (maxWidth, maxHeight) '
           'and returns a box widget. SliverLayoutBuilder receives '
           'SliverConstraints (crossAxisExtent, viewportMainAxisExtent, '
           'scrollOffset, overlap, etc.) and must return a sliver widget.',
@@ -37,7 +39,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_view,
       'title': 'Responsive Slivers',
-      'body': 'Use crossAxisExtent to determine how wide the scroll area is '
+      'body':
+          'Use crossAxisExtent to determine how wide the scroll area is '
           'and adjust column counts, card sizes, or layout modes. Unlike '
           'MediaQuery, this responds to the actual sliver viewport width, '
           'which is correct even inside nested scroll views.',
@@ -46,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Scroll-Aware Content',
-      'body': 'The scrollOffset in SliverConstraints tells you how far this '
+      'body':
+          'The scrollOffset in SliverConstraints tells you how far this '
           'sliver\'s start has been scrolled past. Combined with '
           'viewportMainAxisExtent and remainingPaintExtent, you can build '
           'content that changes as the user scrolls.',
@@ -119,7 +123,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'crossAxisExtent',
       'type': 'double',
-      'desc': 'Width available perpendicular to scroll axis (e.g., viewport width for vertical scroll)',
+      'desc':
+          'Width available perpendicular to scroll axis (e.g., viewport width for vertical scroll)',
     },
     {
       'name': 'viewportMainAxisExtent',
@@ -129,17 +134,20 @@ dynamic build(BuildContext context) {
     {
       'name': 'scrollOffset',
       'type': 'double',
-      'desc': 'How far this sliver\'s leading edge has been scrolled out of view',
+      'desc':
+          'How far this sliver\'s leading edge has been scrolled out of view',
     },
     {
       'name': 'remainingPaintExtent',
       'type': 'double',
-      'desc': 'Remaining pixels of viewport that can be painted by this and later slivers',
+      'desc':
+          'Remaining pixels of viewport that can be painted by this and later slivers',
     },
     {
       'name': 'overlap',
       'type': 'double',
-      'desc': 'Amount of overlap from previous slivers still covering this sliver\'s area',
+      'desc':
+          'Amount of overlap from previous slivers still covering this sliver\'s area',
     },
     {
       'name': 'precedingScrollExtent',
@@ -169,7 +177,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'userScrollDirection',
       'type': 'ScrollDirection',
-      'desc': 'The direction the user is currently scrolling (idle, forward, reverse)',
+      'desc':
+          'The direction the user is currently scrolling (idle, forward, reverse)',
     },
   ];
 
@@ -180,7 +189,9 @@ dynamic build(BuildContext context) {
     propWidgets.add(
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-        color: isEven ? Colors.deepPurple.withValues(alpha: 0.03) : Colors.transparent,
+        color: isEven
+            ? Colors.deepPurple.withValues(alpha: 0.03)
+            : Colors.transparent,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -298,34 +309,31 @@ dynamic build(BuildContext context) {
       ),
       // Some content before the builder to generate scrollOffset
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 3.0,
-              ),
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Text(
-                'Spacer item ${index + 1} — scroll past me',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
-              ),
-            );
-          },
-          childCount: 5,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(6.0),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            child: Text(
+              'Spacer item ${index + 1} — scroll past me',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
+          );
+        }, childCount: 5),
       ),
       // The SliverLayoutBuilder that reveals its constraints
       SliverLayoutBuilder(
         builder: (context, constraints) {
-          print('Constraint explorer — '
-              'crossAxis=${constraints.crossAxisExtent.toStringAsFixed(0)}, '
-              'viewport=${constraints.viewportMainAxisExtent.toStringAsFixed(0)}, '
-              'scroll=${constraints.scrollOffset.toStringAsFixed(1)}');
+          print(
+            'Constraint explorer — '
+            'crossAxis=${constraints.crossAxisExtent.toStringAsFixed(0)}, '
+            'viewport=${constraints.viewportMainAxisExtent.toStringAsFixed(0)}, '
+            'scroll=${constraints.scrollOffset.toStringAsFixed(1)}',
+          );
           return SliverToBoxAdapter(
             child: Container(
               margin: const EdgeInsets.all(14.0),
@@ -413,26 +421,21 @@ dynamic build(BuildContext context) {
       ),
       // More content after to allow scrolling
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 3.0,
-              ),
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Text(
-                'Trailing item ${index + 1}',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
-              ),
-            );
-          },
-          childCount: 10,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.05),
+              borderRadius: BorderRadius.circular(6.0),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            child: Text(
+              'Trailing item ${index + 1}',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
+          );
+        }, childCount: 10),
       ),
     ],
   );
@@ -443,19 +446,46 @@ dynamic build(BuildContext context) {
   print('=== Section 4: Responsive Grid ===');
 
   final productNames = [
-    'Headphones', 'Keyboard', 'Mouse', 'Monitor', 'Webcam',
-    'Microphone', 'Speaker', 'USB Hub', 'Desk Lamp', 'Cable Kit',
-    'Stand', 'Chair',
+    'Headphones',
+    'Keyboard',
+    'Mouse',
+    'Monitor',
+    'Webcam',
+    'Microphone',
+    'Speaker',
+    'USB Hub',
+    'Desk Lamp',
+    'Cable Kit',
+    'Stand',
+    'Chair',
   ];
   final productIcons = [
-    Icons.headphones, Icons.keyboard, Icons.mouse, Icons.monitor,
-    Icons.videocam, Icons.mic, Icons.speaker, Icons.usb, Icons.light,
-    Icons.cable, Icons.desktop_mac, Icons.chair,
+    Icons.headphones,
+    Icons.keyboard,
+    Icons.mouse,
+    Icons.monitor,
+    Icons.videocam,
+    Icons.mic,
+    Icons.speaker,
+    Icons.usb,
+    Icons.light,
+    Icons.cable,
+    Icons.desktop_mac,
+    Icons.chair,
   ];
   final productColors = [
-    Colors.blue, Colors.green, Colors.orange, Colors.purple,
-    Colors.red, Colors.teal, Colors.indigo, Colors.amber,
-    Colors.cyan, Colors.pink, Colors.brown, Colors.deepOrange,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.purple,
+    Colors.red,
+    Colors.teal,
+    Colors.indigo,
+    Colors.amber,
+    Colors.cyan,
+    Colors.pink,
+    Colors.brown,
+    Colors.deepOrange,
   ];
 
   final responsiveGrid = CustomScrollView(
@@ -486,10 +516,7 @@ dynamic build(BuildContext context) {
                 'SliverLayoutBuilder reads crossAxisExtent to choose the '
                 'number of grid columns. Narrow viewports get 2 columns, '
                 'medium get 3, wide get 4.',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -516,55 +543,52 @@ dynamic build(BuildContext context) {
                 mainAxisSpacing: 10.0,
                 childAspectRatio: 0.85,
               ),
-              delegate: SliverChildBuilderDelegate(
-                (context, index) {
-                  final color = productColors[index];
-                  return Container(
-                    decoration: BoxDecoration(
-                      color: color.withValues(alpha: 0.06),
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(color: color.withValues(alpha: 0.15)),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 44.0,
-                          height: 44.0,
-                          decoration: BoxDecoration(
-                            color: color.withValues(alpha: 0.12),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            productIcons[index],
-                            color: color,
-                            size: 22.0,
-                          ),
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final color = productColors[index];
+                return Container(
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: color.withValues(alpha: 0.15)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 44.0,
+                        height: 44.0,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.12),
+                          shape: BoxShape.circle,
                         ),
-                        const SizedBox(height: 8.0),
-                        Text(
-                          productNames[index],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12.0,
-                            color: Colors.grey.shade800,
-                          ),
+                        child: Icon(
+                          productIcons[index],
+                          color: color,
+                          size: 22.0,
                         ),
-                        const SizedBox(height: 2.0),
-                        Text(
-                          '\$${(index + 1) * 29}.99',
-                          style: TextStyle(
-                            fontSize: 11.0,
-                            color: color,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        productNames[index],
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                          color: Colors.grey.shade800,
                         ),
-                      ],
-                    ),
-                  );
-                },
-                childCount: productNames.length,
-              ),
+                      ),
+                      const SizedBox(height: 2.0),
+                      Text(
+                        '\$${(index + 1) * 29}.99',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: color,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }, childCount: productNames.length),
             ),
           );
         },
@@ -651,67 +675,70 @@ dynamic build(BuildContext context) {
         },
       ),
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final messageTypes = [
-              'Design review meeting notes',
-              'Q3 roadmap status update',
-              'Bug fix PR merged: #1234',
-              'New feature spec uploaded',
-              'Sprint retrospective takeaways',
-              'Security audit results ready',
-              'Backend server migration plan',
-              'Customer feedback summary',
-              'Performance benchmark results',
-              'Release notes draft v2.5',
-              'Team lunch poll — vote now',
-              'Onboarding doc revision',
-              'Infrastructure cost analysis',
-              'API deprecation timeline',
-              'Holiday schedule for next month',
-            ];
-            final msgIcons = [
-              Icons.event_note, Icons.map, Icons.bug_report, Icons.note_add,
-              Icons.replay, Icons.security, Icons.cloud, Icons.feedback,
-              Icons.speed, Icons.description, Icons.poll, Icons.person_add,
-              Icons.account_balance, Icons.api, Icons.calendar_today,
-            ];
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 3.0,
-              ),
-              padding: const EdgeInsets.all(12.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    msgIcons[index],
-                    color: Colors.orange.shade400,
-                    size: 20.0,
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final messageTypes = [
+            'Design review meeting notes',
+            'Q3 roadmap status update',
+            'Bug fix PR merged: #1234',
+            'New feature spec uploaded',
+            'Sprint retrospective takeaways',
+            'Security audit results ready',
+            'Backend server migration plan',
+            'Customer feedback summary',
+            'Performance benchmark results',
+            'Release notes draft v2.5',
+            'Team lunch poll — vote now',
+            'Onboarding doc revision',
+            'Infrastructure cost analysis',
+            'API deprecation timeline',
+            'Holiday schedule for next month',
+          ];
+          final msgIcons = [
+            Icons.event_note,
+            Icons.map,
+            Icons.bug_report,
+            Icons.note_add,
+            Icons.replay,
+            Icons.security,
+            Icons.cloud,
+            Icons.feedback,
+            Icons.speed,
+            Icons.description,
+            Icons.poll,
+            Icons.person_add,
+            Icons.account_balance,
+            Icons.api,
+            Icons.calendar_today,
+          ];
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  msgIcons[index],
+                  color: Colors.orange.shade400,
+                  size: 20.0,
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Text(
+                    messageTypes[index],
+                    style: const TextStyle(fontSize: 13.0),
                   ),
-                  const SizedBox(width: 10.0),
-                  Expanded(
-                    child: Text(
-                      messageTypes[index],
-                      style: const TextStyle(fontSize: 13.0),
-                    ),
-                  ),
-                  Text(
-                    '${index + 1}m ago',
-                    style: TextStyle(
-                      fontSize: 10.5,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-          childCount: 15,
-        ),
+                ),
+                Text(
+                  '${index + 1}m ago',
+                  style: TextStyle(fontSize: 10.5, color: Colors.grey.shade400),
+                ),
+              ],
+            ),
+          );
+        }, childCount: 15),
       ),
     ],
   );
@@ -749,10 +776,7 @@ dynamic build(BuildContext context) {
                 'The SliverLayoutBuilder below checks how much space remains '
                 'in the viewport. When there\'s lots of room it shows a full '
                 'card; when space is limited, a compact version.',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -760,35 +784,32 @@ dynamic build(BuildContext context) {
       ),
       // Push the builder down with preceding slivers
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 3.0,
-              ),
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 14.0),
-              child: Text(
-                'Content row ${index + 1}',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
-              ),
-            );
-          },
-          childCount: 8,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
+            height: 50.0,
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(6.0),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 14.0),
+            child: Text(
+              'Content row ${index + 1}',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
+          );
+        }, childCount: 8),
       ),
       SliverLayoutBuilder(
         builder: (context, constraints) {
           final remaining = constraints.remainingPaintExtent;
           final isFull = remaining > 200;
-          print('Remaining paint: ${remaining.toStringAsFixed(0)}, '
-              'showing ${isFull ? "full" : "compact"} card');
+          print(
+            'Remaining paint: ${remaining.toStringAsFixed(0)}, '
+            'showing ${isFull ? "full" : "compact"} card',
+          );
           if (isFull) {
             return SliverToBoxAdapter(
               child: Container(
@@ -865,10 +886,12 @@ dynamic build(BuildContext context) {
           return SliverToBoxAdapter(
             child: Container(
               margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 4.0,
+                horizontal: 14.0,
+                vertical: 4.0,
               ),
               padding: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 10.0,
+                horizontal: 14.0,
+                vertical: 10.0,
               ),
               decoration: BoxDecoration(
                 color: Colors.teal.withValues(alpha: 0.08),
@@ -897,28 +920,23 @@ dynamic build(BuildContext context) {
       ),
       // Trailing content
       SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 14.0, vertical: 3.0,
-              ),
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.04),
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(color: Colors.grey.shade200),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 14.0),
-              child: Text(
-                'Trailing row ${index + 1}',
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
-              ),
-            );
-          },
-          childCount: 10,
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 3.0),
+            height: 50.0,
+            decoration: BoxDecoration(
+              color: Colors.grey.withValues(alpha: 0.04),
+              borderRadius: BorderRadius.circular(6.0),
+              border: Border.all(color: Colors.grey.shade200),
+            ),
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 14.0),
+            child: Text(
+              'Trailing row ${index + 1}',
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade500),
+            ),
+          );
+        }, childCount: 10),
       ),
     ],
   );
@@ -992,10 +1010,7 @@ dynamic build(BuildContext context) {
               Text(
                 'Uses SliverLayoutBuilder to switch between a 2-column '
                 'grid (wide) and a single-column list (narrow) for stats cards.',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
               ),
             ],
           ),
@@ -1004,8 +1019,10 @@ dynamic build(BuildContext context) {
       SliverLayoutBuilder(
         builder: (context, constraints) {
           final wide = constraints.crossAxisExtent >= 400;
-          print('Adaptive: width=${constraints.crossAxisExtent.toStringAsFixed(0)}, '
-              'mode=${wide ? "grid" : "list"}');
+          print(
+            'Adaptive: width=${constraints.crossAxisExtent.toStringAsFixed(0)}, '
+            'mode=${wide ? "grid" : "list"}',
+          );
           if (wide) {
             // Grid layout: 2 columns for stats
             return SliverPadding(
@@ -1017,145 +1034,136 @@ dynamic build(BuildContext context) {
                   mainAxisSpacing: 10.0,
                   childAspectRatio: 1.8,
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final d = dashWidgets[index];
-                    final color = d['color'] as Color;
-                    return Container(
-                      padding: const EdgeInsets.all(14.0),
-                      decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: color.withValues(alpha: 0.15),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(
-                                d['icon'] as IconData,
-                                color: color,
-                                size: 20.0,
-                              ),
-                              const Spacer(),
-                              Icon(
-                                d['trend'] as IconData,
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final d = dashWidgets[index];
+                  final color = d['color'] as Color;
+                  return Container(
+                    padding: const EdgeInsets.all(14.0),
+                    decoration: BoxDecoration(
+                      color: color.withValues(alpha: 0.06),
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(color: color.withValues(alpha: 0.15)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              d['icon'] as IconData,
+                              color: color,
+                              size: 20.0,
+                            ),
+                            const Spacer(),
+                            Icon(
+                              d['trend'] as IconData,
+                              color: (d['change'] as String).startsWith('+')
+                                  ? Colors.green
+                                  : Colors.red,
+                              size: 16.0,
+                            ),
+                            const SizedBox(width: 4.0),
+                            Text(
+                              d['change'] as String,
+                              style: TextStyle(
+                                fontSize: 11.0,
+                                fontWeight: FontWeight.bold,
                                 color: (d['change'] as String).startsWith('+')
                                     ? Colors.green
                                     : Colors.red,
-                                size: 16.0,
                               ),
-                              const SizedBox(width: 4.0),
-                              Text(
-                                d['change'] as String,
-                                style: TextStyle(
-                                  fontSize: 11.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: (d['change'] as String).startsWith('+')
-                                      ? Colors.green
-                                      : Colors.red,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 6.0),
-                          Text(
-                            d['value'] as String,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey.shade800,
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 6.0),
+                        Text(
+                          d['value'] as String,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade800,
                           ),
-                          Text(
-                            d['title'] as String,
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.grey.shade500,
-                            ),
+                        ),
+                        Text(
+                          d['title'] as String,
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey.shade500,
                           ),
-                        ],
-                      ),
-                    );
-                  },
-                  childCount: dashWidgets.length,
-                ),
+                        ),
+                      ],
+                    ),
+                  );
+                }, childCount: dashWidgets.length),
               ),
             );
           }
           // List layout: single column compact cards
           return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                final d = dashWidgets[index];
-                final color = d['color'] as Color;
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 14.0, vertical: 4.0,
-                  ),
-                  padding: const EdgeInsets.all(12.0),
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: color.withValues(alpha: 0.12),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(d['icon'] as IconData, color: color, size: 24.0),
-                      const SizedBox(width: 12.0),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              d['title'] as String,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                color: Colors.grey.shade800,
-                              ),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final d = dashWidgets[index];
+              final color = d['color'] as Color;
+              return Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 14.0,
+                  vertical: 4.0,
+                ),
+                padding: const EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(color: color.withValues(alpha: 0.12)),
+                ),
+                child: Row(
+                  children: [
+                    Icon(d['icon'] as IconData, color: color, size: 24.0),
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            d['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13.0,
+                              color: Colors.grey.shade800,
                             ),
-                            Text(
-                              d['value'] as String,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                                color: color,
-                              ),
+                          ),
+                          Text(
+                            d['value'] as String,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: color,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Icon(
-                        d['trend'] as IconData,
+                    ),
+                    Icon(
+                      d['trend'] as IconData,
+                      color: (d['change'] as String).startsWith('+')
+                          ? Colors.green
+                          : Colors.red,
+                      size: 16.0,
+                    ),
+                    const SizedBox(width: 4.0),
+                    Text(
+                      d['change'] as String,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
                         color: (d['change'] as String).startsWith('+')
                             ? Colors.green
                             : Colors.red,
-                        size: 16.0,
                       ),
-                      const SizedBox(width: 4.0),
-                      Text(
-                        d['change'] as String,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: (d['change'] as String).startsWith('+')
-                              ? Colors.green
-                              : Colors.red,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              childCount: dashWidgets.length,
-            ),
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: dashWidgets.length),
           );
         },
       ),
@@ -1222,12 +1230,14 @@ dynamic build(BuildContext context) {
     },
     {
       'icon': Icons.lightbulb_outline,
-      'text': 'Must return a sliver widget (SliverList, SliverGrid, SliverToBoxAdapter...)',
+      'text':
+          'Must return a sliver widget (SliverList, SliverGrid, SliverToBoxAdapter...)',
       'color': Colors.amber,
     },
     {
       'icon': Icons.warning_amber,
-      'text': 'Builder is called during layout — avoid expensive work inside it',
+      'text':
+          'Builder is called during layout — avoid expensive work inside it',
       'color': Colors.orange,
     },
   ];
@@ -1376,10 +1386,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6.0),
                 Text(
                   'The builder callback receives these constraint values:',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
                 ),
                 const SizedBox(height: 16.0),
                 Container(
@@ -1462,10 +1469,7 @@ Widget _slbConstraintRow(String label, String value, Color color) {
         Container(
           width: 8.0,
           height: 8.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8.0),
         SizedBox(
@@ -1519,10 +1523,7 @@ Widget _slbRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -1580,28 +1581,18 @@ List<Widget> _slbBuildActivityRows() {
               color: color.withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              a['icon'] as IconData,
-              color: color,
-              size: 15.0,
-            ),
+            child: Icon(a['icon'] as IconData, color: color, size: 15.0),
           ),
           const SizedBox(width: 10.0),
           Expanded(
             child: Text(
               a['action'] as String,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
             ),
           ),
           Text(
             a['time'] as String,
-            style: TextStyle(
-              fontSize: 10.5,
-              color: Colors.grey.shade400,
-            ),
+            style: TextStyle(fontSize: 10.5, color: Colors.grey.shade400),
           ),
         ],
       ),

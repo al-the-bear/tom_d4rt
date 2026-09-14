@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility_new,
       'title': 'Semantics Widget',
-      'body': 'Annotates the widget tree with descriptions used by '
+      'body':
+          'Annotates the widget tree with descriptions used by '
           'assistive technologies like screen readers. Each Semantics '
           'widget creates a SemanticsNode in the semantics tree with '
           'labels, flags, and actions.',
@@ -25,21 +26,24 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.merge,
       'title': 'MergeSemantics',
-      'body': 'Combines the semantics of all descendants into a single '
+      'body':
+          'Combines the semantics of all descendants into a single '
           'node. Useful when multiple widgets should be announced '
           'together (e.g., icon + label in a list tile).',
     },
     {
       'icon': Icons.visibility_off,
       'title': 'ExcludeSemantics',
-      'body': 'Removes descendants from the semantics tree entirely. '
+      'body':
+          'Removes descendants from the semantics tree entirely. '
           'Use for decorative elements that add no information for '
           'screen reader users (backgrounds, dividers, ornaments).',
     },
     {
       'icon': Icons.foundation,
       'title': 'Accessibility Foundation',
-      'body': 'These three widgets form the foundation of Flutter '
+      'body':
+          'These three widgets form the foundation of Flutter '
           'accessibility. Most Material widgets use them internally. '
           'You use them directly for custom widgets.',
     },
@@ -61,7 +65,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.blue.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.blue.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -78,7 +86,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -186,48 +198,74 @@ dynamic build(BuildContext context) {
           children: [
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.08),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Text(
                 entry.key,
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ),
-            ...entry.value.map((p) => Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey.shade100)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        p['name'] as String,
-                        style: TextStyle(fontSize: 11.5, fontFamily: 'monospace',
-                            fontWeight: FontWeight.w700, color: color),
-                      ),
-                      const SizedBox(width: 6.0),
-                      Text(
-                        p['type'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                            color: Colors.grey.shade500),
-                      ),
-                    ],
+            ...entry.value.map(
+              (p) => Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 8.0,
+                ),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade100),
                   ),
-                  const SizedBox(height: 2.0),
-                  Text(
-                    p['desc'] as String,
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
-                  ),
-                ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          p['name'] as String,
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w700,
+                            color: color,
+                          ),
+                        ),
+                        const SizedBox(width: 6.0),
+                        Text(
+                          p['type'] as String,
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontFamily: 'monospace',
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 2.0),
+                    Text(
+                      p['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )),
+            ),
           ],
         ),
       ),
@@ -240,22 +278,102 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Flags ===');
 
   final flags = <Map<String, dynamic>>[
-    {'flag': 'button', 'desc': 'Marks as a button element', 'color': Colors.blue, 'icon': Icons.smart_button},
-    {'flag': 'header', 'desc': 'Section heading (h1-h6 equivalent)', 'color': Colors.purple, 'icon': Icons.title},
-    {'flag': 'link', 'desc': 'Hyperlink element', 'color': Colors.teal, 'icon': Icons.link},
-    {'flag': 'image', 'desc': 'Image content', 'color': Colors.green, 'icon': Icons.image},
-    {'flag': 'slider', 'desc': 'Slider/range control', 'color': Colors.orange, 'icon': Icons.tune},
-    {'flag': 'textField', 'desc': 'Text input field', 'color': Colors.indigo, 'icon': Icons.text_fields},
-    {'flag': 'readOnly', 'desc': 'Cannot be modified', 'color': Colors.grey, 'icon': Icons.lock},
-    {'flag': 'enabled', 'desc': 'Currently enabled/interactive', 'color': Colors.green, 'icon': Icons.toggle_on},
-    {'flag': 'focusable', 'desc': 'Can receive keyboard focus', 'color': Colors.blue, 'icon': Icons.center_focus_strong},
-    {'flag': 'focused', 'desc': 'Currently has focus', 'color': Colors.amber, 'icon': Icons.filter_center_focus},
-    {'flag': 'checked', 'desc': 'Checked state (checkbox/radio)', 'color': Colors.green, 'icon': Icons.check_box},
-    {'flag': 'selected', 'desc': 'Currently selected', 'color': Colors.purple, 'icon': Icons.check_circle},
-    {'flag': 'toggled', 'desc': 'Toggle state (switch)', 'color': Colors.teal, 'icon': Icons.toggle_on},
-    {'flag': 'hidden', 'desc': 'Present but hidden from user', 'color': Colors.red, 'icon': Icons.visibility_off},
-    {'flag': 'obscured', 'desc': 'Content is obscured (password)', 'color': Colors.red, 'icon': Icons.password},
-    {'flag': 'liveRegion', 'desc': 'Announces changes automatically', 'color': Colors.orange, 'icon': Icons.campaign},
+    {
+      'flag': 'button',
+      'desc': 'Marks as a button element',
+      'color': Colors.blue,
+      'icon': Icons.smart_button,
+    },
+    {
+      'flag': 'header',
+      'desc': 'Section heading (h1-h6 equivalent)',
+      'color': Colors.purple,
+      'icon': Icons.title,
+    },
+    {
+      'flag': 'link',
+      'desc': 'Hyperlink element',
+      'color': Colors.teal,
+      'icon': Icons.link,
+    },
+    {
+      'flag': 'image',
+      'desc': 'Image content',
+      'color': Colors.green,
+      'icon': Icons.image,
+    },
+    {
+      'flag': 'slider',
+      'desc': 'Slider/range control',
+      'color': Colors.orange,
+      'icon': Icons.tune,
+    },
+    {
+      'flag': 'textField',
+      'desc': 'Text input field',
+      'color': Colors.indigo,
+      'icon': Icons.text_fields,
+    },
+    {
+      'flag': 'readOnly',
+      'desc': 'Cannot be modified',
+      'color': Colors.grey,
+      'icon': Icons.lock,
+    },
+    {
+      'flag': 'enabled',
+      'desc': 'Currently enabled/interactive',
+      'color': Colors.green,
+      'icon': Icons.toggle_on,
+    },
+    {
+      'flag': 'focusable',
+      'desc': 'Can receive keyboard focus',
+      'color': Colors.blue,
+      'icon': Icons.center_focus_strong,
+    },
+    {
+      'flag': 'focused',
+      'desc': 'Currently has focus',
+      'color': Colors.amber,
+      'icon': Icons.filter_center_focus,
+    },
+    {
+      'flag': 'checked',
+      'desc': 'Checked state (checkbox/radio)',
+      'color': Colors.green,
+      'icon': Icons.check_box,
+    },
+    {
+      'flag': 'selected',
+      'desc': 'Currently selected',
+      'color': Colors.purple,
+      'icon': Icons.check_circle,
+    },
+    {
+      'flag': 'toggled',
+      'desc': 'Toggle state (switch)',
+      'color': Colors.teal,
+      'icon': Icons.toggle_on,
+    },
+    {
+      'flag': 'hidden',
+      'desc': 'Present but hidden from user',
+      'color': Colors.red,
+      'icon': Icons.visibility_off,
+    },
+    {
+      'flag': 'obscured',
+      'desc': 'Content is obscured (password)',
+      'color': Colors.red,
+      'icon': Icons.password,
+    },
+    {
+      'flag': 'liveRegion',
+      'desc': 'Announces changes automatically',
+      'color': Colors.orange,
+      'icon': Icons.campaign,
+    },
   ];
 
   final flagRows = <Widget>[];
@@ -269,7 +387,11 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(child: _buildSemFlagChip(left)),
             const SizedBox(width: 8.0),
-            Expanded(child: right != null ? _buildSemFlagChip(right) : const SizedBox.shrink()),
+            Expanded(
+              child: right != null
+                  ? _buildSemFlagChip(right)
+                  : const SizedBox.shrink(),
+            ),
           ],
         ),
       ),
@@ -307,29 +429,37 @@ dynamic build(BuildContext context) {
       'icon': Icons.label,
       'title': 'Always Label Custom Widgets',
       'color': Colors.blue,
-      'good': 'Semantics(\n  label: "Delete item",\n  button: true,\n  child: customDeleteIcon,\n)',
-      'bad': 'GestureDetector(\n  onTap: delete,\n  child: customDeleteIcon,\n  // No semantics!\n)',
+      'good':
+          'Semantics(\n  label: "Delete item",\n  button: true,\n  child: customDeleteIcon,\n)',
+      'bad':
+          'GestureDetector(\n  onTap: delete,\n  child: customDeleteIcon,\n  // No semantics!\n)',
     },
     {
       'icon': Icons.merge,
       'title': 'Merge Related Information',
       'color': Colors.green,
-      'good': 'MergeSemantics(\n  child: Row(children: [\n    Icon(Icons.star),\n    Text("Favorite"),\n  ]),\n)',
-      'bad': '// Icon and text announced\n// separately:\nRow(children: [\n  Icon(Icons.star),\n  Text("Favorite"),\n])',
+      'good':
+          'MergeSemantics(\n  child: Row(children: [\n    Icon(Icons.star),\n    Text("Favorite"),\n  ]),\n)',
+      'bad':
+          '// Icon and text announced\n// separately:\nRow(children: [\n  Icon(Icons.star),\n  Text("Favorite"),\n])',
     },
     {
       'icon': Icons.visibility_off,
       'title': 'Exclude Decorative Elements',
       'color': Colors.orange,
-      'good': 'ExcludeSemantics(\n  child: Image.asset(\n    "decorative_bg.png",\n  ),\n)',
-      'bad': '// Background image clutters\n// screen reader output:\nImage.asset(\n  "decorative_bg.png",\n)',
+      'good':
+          'ExcludeSemantics(\n  child: Image.asset(\n    "decorative_bg.png",\n  ),\n)',
+      'bad':
+          '// Background image clutters\n// screen reader output:\nImage.asset(\n  "decorative_bg.png",\n)',
     },
     {
       'icon': Icons.sort,
       'title': 'Control Reading Order',
       'color': Colors.purple,
-      'good': 'Semantics(\n  sortKey: OrdinalSortKey(1.0),\n  child: importantWidget,\n)',
-      'bad': '// Default order may not\n// be logical for complex\n// layouts or overlays',
+      'good':
+          'Semantics(\n  sortKey: OrdinalSortKey(1.0),\n  child: importantWidget,\n)',
+      'bad':
+          '// Default order may not\n// be logical for complex\n// layouts or overlays',
     },
   ];
 
@@ -350,7 +480,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
@@ -358,7 +490,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(width: 8.0),
                   Text(
                     pr['title'] as String,
-                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                 ],
               ),
@@ -374,10 +510,20 @@ dynamic build(BuildContext context) {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.check_circle, size: 12.0, color: Colors.green),
+                            Icon(
+                              Icons.check_circle,
+                              size: 12.0,
+                              color: Colors.green,
+                            ),
                             const SizedBox(width: 4.0),
-                            Text('Good', style: TextStyle(fontSize: 10.0,
-                                fontWeight: FontWeight.w700, color: Colors.green.shade700)),
+                            Text(
+                              'Good',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.green.shade700,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 4.0),
@@ -387,12 +533,17 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.green.withValues(alpha: 0.04),
                             borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(color: Colors.green.withValues(alpha: 0.15)),
+                            border: Border.all(
+                              color: Colors.green.withValues(alpha: 0.15),
+                            ),
                           ),
                           child: Text(
                             pr['good'] as String,
-                            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                                color: Colors.grey.shade700),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              fontFamily: 'monospace',
+                              color: Colors.grey.shade700,
+                            ),
                           ),
                         ),
                       ],
@@ -407,8 +558,14 @@ dynamic build(BuildContext context) {
                           children: [
                             Icon(Icons.cancel, size: 12.0, color: Colors.red),
                             const SizedBox(width: 4.0),
-                            Text('Bad', style: TextStyle(fontSize: 10.0,
-                                fontWeight: FontWeight.w700, color: Colors.red.shade700)),
+                            Text(
+                              'Bad',
+                              style: TextStyle(
+                                fontSize: 10.0,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.red.shade700,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(height: 4.0),
@@ -418,12 +575,17 @@ dynamic build(BuildContext context) {
                           decoration: BoxDecoration(
                             color: Colors.red.withValues(alpha: 0.04),
                             borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(color: Colors.red.withValues(alpha: 0.15)),
+                            border: Border.all(
+                              color: Colors.red.withValues(alpha: 0.15),
+                            ),
                           ),
                           child: Text(
                             pr['bad'] as String,
-                            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                                color: Colors.grey.shade700),
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              fontFamily: 'monospace',
+                              color: Colors.grey.shade700,
+                            ),
                           ),
                         ),
                       ],
@@ -444,12 +606,32 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.accessibility_new, 'text': 'Semantics annotates widgets for screen readers and assistive tech'},
-    {'icon': Icons.label, 'text': 'Use label, value, hint for text descriptions read aloud'},
-    {'icon': Icons.flag, 'text': '16+ boolean flags mark widgets as buttons, headers, images, etc.'},
-    {'icon': Icons.merge, 'text': 'MergeSemantics combines children into one announcement'},
-    {'icon': Icons.visibility_off, 'text': 'ExcludeSemantics hides decorative elements from readers'},
-    {'icon': Icons.sort, 'text': 'Use sortKey (OrdinalSortKey) to control reading order'},
+    {
+      'icon': Icons.accessibility_new,
+      'text':
+          'Semantics annotates widgets for screen readers and assistive tech',
+    },
+    {
+      'icon': Icons.label,
+      'text': 'Use label, value, hint for text descriptions read aloud',
+    },
+    {
+      'icon': Icons.flag,
+      'text':
+          '16+ boolean flags mark widgets as buttons, headers, images, etc.',
+    },
+    {
+      'icon': Icons.merge,
+      'text': 'MergeSemantics combines children into one announcement',
+    },
+    {
+      'icon': Icons.visibility_off,
+      'text': 'ExcludeSemantics hides decorative elements from readers',
+    },
+    {
+      'icon': Icons.sort,
+      'text': 'Use sortKey (OrdinalSortKey) to control reading order',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -460,12 +642,20 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.blue.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.blue.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -512,9 +702,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('Accessibility Widgets',
-                    'Three core widgets that control how the semantics tree '
-                    'represents your UI to assistive technologies.'),
+                _buildSemBullet(
+                  'Accessibility Widgets',
+                  'Three core widgets that control how the semantics tree '
+                      'represents your UI to assistive technologies.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -526,8 +718,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('Semantics Widget Properties',
-                    'Key parameters organized by category.'),
+                _buildSemBullet(
+                  'Semantics Widget Properties',
+                  'Key parameters organized by category.',
+                ),
                 const SizedBox(height: 14.0),
                 ...propSections,
               ],
@@ -539,8 +733,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('Boolean Semantic Flags',
-                    'Flags that describe the role and state of a widget.'),
+                _buildSemBullet(
+                  'Boolean Semantic Flags',
+                  'Flags that describe the role and state of a widget.',
+                ),
                 const SizedBox(height: 14.0),
                 ...flagRows,
                 const SizedBox(height: 10.0),
@@ -554,7 +750,11 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+                      Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber.shade800,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -562,7 +762,11 @@ dynamic build(BuildContext context) {
                           'onLongPress, onScrollLeft/Right/Up/Down, onCopy, '
                           'onCut, onPaste, onDismiss, and more. These define '
                           'what actions assistive tech can trigger.',
-                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: Colors.amber.shade900,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -577,9 +781,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('MergeSemantics',
-                    'Combines semantic nodes of all descendants into '
-                    'a single announcement.'),
+                _buildSemBullet(
+                  'MergeSemantics',
+                  'Combines semantic nodes of all descendants into '
+                      'a single announcement.',
+                ),
                 const SizedBox(height: 14.0),
                 mergeDemo,
               ],
@@ -591,9 +797,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('ExcludeSemantics',
-                    'Removes widgets from the semantics tree '
-                    'to hide decorative or redundant elements.'),
+                _buildSemBullet(
+                  'ExcludeSemantics',
+                  'Removes widgets from the semantics tree '
+                      'to hide decorative or redundant elements.',
+                ),
                 const SizedBox(height: 14.0),
                 excludeDemo,
               ],
@@ -605,9 +813,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('Interactive Semantics Demo',
-                    'Various semantic annotations applied to widgets. '
-                    'Use the Accessibility Inspector to see the tree.'),
+                _buildSemBullet(
+                  'Interactive Semantics Demo',
+                  'Various semantic annotations applied to widgets. '
+                      'Use the Accessibility Inspector to see the tree.',
+                ),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -619,8 +829,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSemBullet('Accessibility Best Practices',
-                    'Do and do-not patterns for semantic annotations.'),
+                _buildSemBullet(
+                  'Accessibility Best Practices',
+                  'Do and do-not patterns for semantic annotations.',
+                ),
                 const SizedBox(height: 14.0),
                 ...practiceCards,
               ],
@@ -644,7 +856,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.blue.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -674,10 +888,24 @@ Widget _buildSemBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.blue.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.blue.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -706,8 +934,12 @@ Widget _buildSemFlagChip(Map<String, dynamic> flag) {
             children: [
               Text(
                 flag['flag'] as String,
-                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                    fontWeight: FontWeight.w700, color: color),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
               Text(
                 flag['desc'] as String,
@@ -760,9 +992,14 @@ class _SemMergeDemo extends StatelessWidget {
                   children: [
                     Icon(Icons.cancel, size: 14.0, color: Colors.red),
                     const SizedBox(width: 6.0),
-                    Text('Without MergeSemantics',
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                            color: Colors.red.shade700)),
+                    Text(
+                      'Without MergeSemantics',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.red.shade700,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -779,7 +1016,10 @@ class _SemMergeDemo extends StatelessWidget {
                       SizedBox(width: 10.0),
                       Text('Favorite', style: TextStyle(fontSize: 14.0)),
                       Spacer(),
-                      Text('42 items', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                      Text(
+                        '42 items',
+                        style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                      ),
                     ],
                   ),
                 ),
@@ -787,8 +1027,12 @@ class _SemMergeDemo extends StatelessWidget {
                 Text(
                   'Screen reader announces each element separately:\n'
                   '"star icon" ... "Favorite" ... "42 items"',
-                  style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic,
-                      color: Colors.red.shade700, height: 1.3),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.red.shade700,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
@@ -810,9 +1054,14 @@ class _SemMergeDemo extends StatelessWidget {
                   children: [
                     Icon(Icons.check_circle, size: 14.0, color: Colors.green),
                     const SizedBox(width: 6.0),
-                    Text('With MergeSemantics',
-                        style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                            color: Colors.green.shade700)),
+                    Text(
+                      'With MergeSemantics',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -830,7 +1079,10 @@ class _SemMergeDemo extends StatelessWidget {
                         SizedBox(width: 10.0),
                         Text('Favorite', style: TextStyle(fontSize: 14.0)),
                         Spacer(),
-                        Text('42 items', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                        Text(
+                          '42 items',
+                          style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                        ),
                       ],
                     ),
                   ),
@@ -839,8 +1091,12 @@ class _SemMergeDemo extends StatelessWidget {
                 Text(
                   'Screen reader announces as one:\n'
                   '"star icon, Favorite, 42 items"',
-                  style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic,
-                      color: Colors.green.shade700, height: 1.3),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.green.shade700,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
@@ -864,8 +1120,11 @@ class _SemMergeDemo extends StatelessWidget {
               '    ],\n'
               '  ),\n'
               ')',
-              style: TextStyle(fontSize: 10.5, fontFamily: 'monospace',
-                  color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 10.5,
+                fontFamily: 'monospace',
+                color: Colors.grey.shade700,
+              ),
             ),
           ),
         ],
@@ -916,7 +1175,11 @@ class _SemExcludeDemoState extends State<_SemExcludeDemo> {
             'Toggle to see how ExcludeSemantics affects the '
             'semantic tree. When excluding is true, the child '
             'is hidden from screen readers.',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade600,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 14.0),
           // The excluded content
@@ -948,11 +1211,15 @@ class _SemExcludeDemoState extends State<_SemExcludeDemo> {
                       ),
                       const SizedBox(width: 8.0),
                       Text(
-                        _excluding ? 'Hidden from semantics tree' : 'Visible in semantics tree',
+                        _excluding
+                            ? 'Hidden from semantics tree'
+                            : 'Visible in semantics tree',
                         style: TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w700,
-                          color: _excluding ? Colors.red.shade700 : Colors.green.shade700,
+                          color: _excluding
+                              ? Colors.red.shade700
+                              : Colors.green.shade700,
                         ),
                       ),
                     ],
@@ -967,11 +1234,23 @@ class _SemExcludeDemoState extends State<_SemExcludeDemo> {
                   const SizedBox(height: 8.0),
                   Row(
                     children: [
-                      Icon(Icons.palette, size: 30.0, color: Colors.purple.shade300),
+                      Icon(
+                        Icons.palette,
+                        size: 30.0,
+                        color: Colors.purple.shade300,
+                      ),
                       const SizedBox(width: 8.0),
-                      Icon(Icons.brush, size: 30.0, color: Colors.blue.shade300),
+                      Icon(
+                        Icons.brush,
+                        size: 30.0,
+                        color: Colors.blue.shade300,
+                      ),
                       const SizedBox(width: 8.0),
-                      Icon(Icons.auto_fix_high, size: 30.0, color: Colors.amber.shade300),
+                      Icon(
+                        Icons.auto_fix_high,
+                        size: 30.0,
+                        color: Colors.amber.shade300,
+                      ),
                     ],
                   ),
                 ],
@@ -992,23 +1271,38 @@ class _SemExcludeDemoState extends State<_SemExcludeDemo> {
               '  excluding: $_excluding,\n'
               '  child: decorativeContent,\n'
               ')',
-              style: TextStyle(fontSize: 11.0, fontFamily: 'monospace',
-                  color: Colors.grey.shade700),
+              style: TextStyle(
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+                color: Colors.grey.shade700,
+              ),
             ),
           ),
           const SizedBox(height: 10.0),
           Row(
             children: [
               Expanded(
-                child: _excludeUseCase('Decorative images', Icons.image, Colors.purple),
+                child: _excludeUseCase(
+                  'Decorative images',
+                  Icons.image,
+                  Colors.purple,
+                ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: _excludeUseCase('Background art', Icons.wallpaper, Colors.teal),
+                child: _excludeUseCase(
+                  'Background art',
+                  Icons.wallpaper,
+                  Colors.teal,
+                ),
               ),
               const SizedBox(width: 8.0),
               Expanded(
-                child: _excludeUseCase('Redundant text', Icons.text_fields, Colors.orange),
+                child: _excludeUseCase(
+                  'Redundant text',
+                  Icons.text_fields,
+                  Colors.orange,
+                ),
               ),
             ],
           ),
@@ -1029,8 +1323,11 @@ class _SemExcludeDemoState extends State<_SemExcludeDemo> {
         children: [
           Icon(icon, size: 20.0, color: color),
           const SizedBox(height: 4.0),
-          Text(label, style: TextStyle(fontSize: 9.0, color: color),
-              textAlign: TextAlign.center),
+          Text(
+            label,
+            style: TextStyle(fontSize: 9.0, color: color),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -1082,18 +1379,32 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
                 children: [
                   Icon(Icons.title, size: 16.0, color: Colors.blue),
                   const SizedBox(width: 8.0),
-                  Text('Section Header (header: true)',
-                      style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                          color: Colors.blue.shade700)),
+                  Text(
+                    'Section Header (header: true)',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.blue.shade700,
+                    ),
+                  ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.blue.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text('header', style: TextStyle(fontSize: 9.0,
-                        fontFamily: 'monospace', color: Colors.blue.shade700)),
+                    child: Text(
+                      'header',
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontFamily: 'monospace',
+                        color: Colors.blue.shade700,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -1116,23 +1427,39 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
                 decoration: BoxDecoration(
                   color: Colors.green.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.green.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   children: [
                     Icon(Icons.add_circle, size: 20.0, color: Colors.green),
                     const SizedBox(width: 8.0),
-                    Text('Counter: $_counter (button: true)',
-                        style: TextStyle(fontSize: 12.0, color: Colors.green.shade700)),
+                    Text(
+                      'Counter: $_counter (button: true)',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.green.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Text('button', style: TextStyle(fontSize: 9.0,
-                          fontFamily: 'monospace', color: Colors.green.shade700)),
+                      child: Text(
+                        'button',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          fontFamily: 'monospace',
+                          color: Colors.green.shade700,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1155,27 +1482,45 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
                 decoration: BoxDecoration(
                   color: Colors.purple.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(color: Colors.purple.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.purple.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   children: [
                     Icon(
-                      _isChecked ? Icons.check_box : Icons.check_box_outline_blank,
+                      _isChecked
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
                       size: 20.0,
                       color: Colors.purple,
                     ),
                     const SizedBox(width: 8.0),
-                    Text('Enable notifications (checked: $_isChecked)',
-                        style: TextStyle(fontSize: 12.0, color: Colors.purple.shade700)),
+                    Text(
+                      'Enable notifications (checked: $_isChecked)',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.purple.shade700,
+                      ),
+                    ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.purple.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Text('checked', style: TextStyle(fontSize: 9.0,
-                          fontFamily: 'monospace', color: Colors.purple.shade700)),
+                      child: Text(
+                        'checked',
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          fontFamily: 'monospace',
+                          color: Colors.purple.shade700,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1190,7 +1535,10 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
             slider: true,
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.orange.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(8.0),
@@ -1201,17 +1549,31 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
                 children: [
                   Row(
                     children: [
-                      Text('Volume: ${(_sliderValue * 100).round()}% (slider: true)',
-                          style: TextStyle(fontSize: 12.0, color: Colors.orange.shade700)),
+                      Text(
+                        'Volume: ${(_sliderValue * 100).round()}% (slider: true)',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.orange.shade700,
+                        ),
+                      ),
                       const Spacer(),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.orange.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text('slider', style: TextStyle(fontSize: 9.0,
-                            fontFamily: 'monospace', color: Colors.orange.shade700)),
+                        child: Text(
+                          'slider',
+                          style: TextStyle(
+                            fontSize: 9.0,
+                            fontFamily: 'monospace',
+                            color: Colors.orange.shade700,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -1244,8 +1606,13 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
                 children: [
                   Icon(Icons.flutter_dash, size: 32.0, color: Colors.teal),
                   const SizedBox(width: 10.0),
-                  Text('Image element (image: true, label: "App logo icon")',
-                      style: TextStyle(fontSize: 12.0, color: Colors.teal.shade700)),
+                  Text(
+                    'Image element (image: true, label: "App logo icon")',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.teal.shade700,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1264,12 +1631,19 @@ class _SemLiveDemoState extends State<_SemLiveDemo> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.campaign, size: 16.0, color: Colors.amber.shade800),
+                  Icon(
+                    Icons.campaign,
+                    size: 16.0,
+                    color: Colors.amber.shade800,
+                  ),
                   const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
                       'Live region: "$_lastAction" (auto-announced)',
-                      style: TextStyle(fontSize: 11.0, color: Colors.amber.shade900),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Colors.amber.shade900,
+                      ),
                     ),
                   ),
                 ],

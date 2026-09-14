@@ -52,8 +52,10 @@ class _RoutePopDispositionDemoState extends State<_RoutePopDispositionDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('RoutePopDisposition',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+        title: Text(
+          'RoutePopDisposition',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -71,11 +73,7 @@ class _RoutePopDispositionDemoState extends State<_RoutePopDispositionDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _InteractiveTab(),
-          _FlowTab(),
-        ],
+        children: [_TheoryTab(), _InteractiveTab(), _FlowTab()],
       ),
     );
   }
@@ -103,8 +101,7 @@ class _TheoryTab extends StatelessWidget {
                 'the topmost route\'s willPop() method is invoked. The '
                 'returned disposition determines whether the route pops, '
                 'blocks the pop, or lets it bubble up to the next route.',
-                style: TextStyle(
-                    color: _kDarkText, fontSize: 14, height: 1.5),
+                style: TextStyle(color: _kDarkText, fontSize: 14, height: 1.5),
               ),
               SizedBox(height: 12),
               _codeBlock(
@@ -128,7 +125,8 @@ class _TheoryTab extends StatelessWidget {
                 icon: Icons.exit_to_app,
                 name: 'pop',
                 color: _kPopColor,
-                description: 'The route agrees to be popped. The Navigator '
+                description:
+                    'The route agrees to be popped. The Navigator '
                     'removes it from the stack and navigates back to the '
                     'previous route.',
                 useCases: [
@@ -142,7 +140,8 @@ class _TheoryTab extends StatelessWidget {
                 icon: Icons.block,
                 name: 'doNotPop',
                 color: _kDoNotPopColor,
-                description: 'The route refuses to be popped. The Navigator '
+                description:
+                    'The route refuses to be popped. The Navigator '
                     'aborts the pop entirely. The route typically shows a '
                     'dialog warning the user about unsaved changes.',
                 useCases: [
@@ -156,7 +155,8 @@ class _TheoryTab extends StatelessWidget {
                 icon: Icons.bubble_chart,
                 name: 'bubble',
                 color: _kBubbleColor,
-                description: 'The route passes the decision up to its '
+                description:
+                    'The route passes the decision up to its '
                     'parent route or the root Navigator. Useful for nested '
                     'navigators where an inner route delegates pop handling '
                     'to the outer navigator.',
@@ -187,11 +187,14 @@ class _TheoryTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('PopScope (Flutter 3.16+)',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: _kPopColor,
-                            fontSize: 13)),
+                    Text(
+                      'PopScope (Flutter 3.16+)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: _kPopColor,
+                        fontSize: 13,
+                      ),
+                    ),
                     SizedBox(height: 6),
                     _codeBlock(
                       'PopScope(\n'
@@ -213,32 +216,39 @@ class _TheoryTab extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _kDoNotPopColor.withOpacity(0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(color: _kDoNotPopColor.withOpacity(0.2)),
+                  border: Border.all(color: _kDoNotPopColor.withOpacity(0.2)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Text('WillPopScope (Deprecated)',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: _kDoNotPopColor,
-                                fontSize: 13)),
+                        Text(
+                          'WillPopScope (Deprecated)',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: _kDoNotPopColor,
+                            fontSize: 13,
+                          ),
+                        ),
                         SizedBox(width: 6),
                         Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 1,
+                          ),
                           decoration: BoxDecoration(
                             color: _kDoNotPopColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          child: Text('LEGACY',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w700,
-                                  color: _kDoNotPopColor)),
+                          child: Text(
+                            'LEGACY',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                              color: _kDoNotPopColor,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -320,21 +330,31 @@ class _TheoryTab extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _bp(true,
-                  'Prefer PopScope over WillPopScope in Flutter 3.16+ '
-                  'for predictive back gesture support on Android.'),
-              _bp(true,
-                  'Always show clear feedback when blocking a pop — '
-                  'users need to understand why back does not work.'),
-              _bp(true,
-                  'Use "bubble" for nested navigators to delegate pop '
-                  'decisions to the parent when the inner stack is empty.'),
-              _bp(false,
-                  'Do NOT silently block pops without user feedback — '
-                  'this creates a frustrating "stuck screen" experience.'),
-              _bp(false,
-                  'Do NOT use doNotPop as a permanent state — always '
-                  'provide an alternative exit path.'),
+              _bp(
+                true,
+                'Prefer PopScope over WillPopScope in Flutter 3.16+ '
+                'for predictive back gesture support on Android.',
+              ),
+              _bp(
+                true,
+                'Always show clear feedback when blocking a pop — '
+                'users need to understand why back does not work.',
+              ),
+              _bp(
+                true,
+                'Use "bubble" for nested navigators to delegate pop '
+                'decisions to the parent when the inner stack is empty.',
+              ),
+              _bp(
+                false,
+                'Do NOT silently block pops without user feedback — '
+                'this creates a frustrating "stuck screen" experience.',
+              ),
+              _bp(
+                false,
+                'Do NOT use doNotPop as a permanent state — always '
+                'provide an alternative exit path.',
+              ),
             ],
           ),
         ),
@@ -417,8 +437,10 @@ class _InteractiveTabState extends State<_InteractiveTab> {
       if (_events.length > 40) _events.removeLast();
     });
 
-    print('Pop attempt #$_popAttempts: $result (disposition=$disposition, '
-        'unsavedData=$_hasUnsavedData)');
+    print(
+      'Pop attempt #$_popAttempts: $result (disposition=$disposition, '
+      'unsavedData=$_hasUnsavedData)',
+    );
   }
 
   void _simulateAutoDecision() {
@@ -533,7 +555,9 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                         ),
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
+                          horizontal: 10,
+                          vertical: 10,
+                        ),
                         suffixIcon: _hasUnsavedData
                             ? IconButton(
                                 icon: Icon(Icons.clear, size: 18),
@@ -562,11 +586,13 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                               onPressed: _simulatePop,
                               icon: Icon(Icons.arrow_back, size: 16),
                               label: Text(
-                                  'Pop with: ${_selectedDisposition.name}',
-                                  style: TextStyle(fontSize: 12)),
+                                'Pop with: ${_selectedDisposition.name}',
+                                style: TextStyle(fontSize: 12),
+                              ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: _colorForDisposition(
-                                    _selectedDisposition),
+                                  _selectedDisposition,
+                                ),
                                 foregroundColor: Colors.white,
                               ),
                             ),
@@ -583,8 +609,10 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                             child: OutlinedButton.icon(
                               onPressed: _simulateAutoDecision,
                               icon: Icon(Icons.smart_toy, size: 16),
-                              label: Text('Auto-decide from form state',
-                                  style: TextStyle(fontSize: 12)),
+                              label: Text(
+                                'Auto-decide from form state',
+                                style: TextStyle(fontSize: 12),
+                              ),
                               style: OutlinedButton.styleFrom(
                                 foregroundColor: _kPrimary,
                                 side: BorderSide(color: _kPrimary),
@@ -621,17 +649,9 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                 Column(
                   children: [
                     _routeBox('/ (Root)', _kPrimary, 0.3, true),
-                    Container(
-                      width: 2,
-                      height: 12,
-                      color: _kMuted,
-                    ),
+                    Container(width: 2, height: 12, color: _kMuted),
                     _routeBox('/settings', _kPrimary, 0.5, true),
-                    Container(
-                      width: 2,
-                      height: 12,
-                      color: _kMuted,
-                    ),
+                    Container(width: 2, height: 12, color: _kMuted),
                     _routeBox(
                       '/settings/profile (Current)',
                       _colorForDisposition(_selectedDisposition),
@@ -647,22 +667,21 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.info_outline,
-                              size: 14, color: _kPrimary),
+                          Icon(Icons.info_outline, size: 14, color: _kPrimary),
                           SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              _selectedDisposition ==
-                                      RoutePopDisposition.pop
+                              _selectedDisposition == RoutePopDisposition.pop
                                   ? 'The current route will be removed from the stack.'
                                   : _selectedDisposition ==
-                                          RoutePopDisposition.doNotPop
-                                      ? 'The current route blocks the pop. Stack unchanged.'
-                                      : 'The current route delegates — /settings decides.',
+                                        RoutePopDisposition.doNotPop
+                                  ? 'The current route blocks the pop. Stack unchanged.'
+                                  : 'The current route delegates — /settings decides.',
                               style: TextStyle(
-                                  fontSize: 11,
-                                  color: _kDarkText,
-                                  height: 1.3),
+                                fontSize: 11,
+                                color: _kDarkText,
+                                height: 1.3,
+                              ),
                             ),
                           ),
                         ],
@@ -693,11 +712,14 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                   children: [
                     Icon(Icons.history, size: 16, color: _kPrimary),
                     SizedBox(width: 6),
-                    Text('Pop Event Log',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
-                            color: _kDarkText)),
+                    Text(
+                      'Pop Event Log',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: _kDarkText,
+                      ),
+                    ),
                     Spacer(),
                     GestureDetector(
                       onTap: () => setState(() {
@@ -707,8 +729,7 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                         _popsBlocked = 0;
                         _popsBubbled = 0;
                       }),
-                      child: Icon(Icons.delete_sweep,
-                          size: 16, color: _kMuted),
+                      child: Icon(Icons.delete_sweep, size: 16, color: _kMuted),
                     ),
                   ],
                 ),
@@ -719,8 +740,7 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                         child: Text(
                           'Trigger pop attempts\nto see events here',
                           textAlign: TextAlign.center,
-                          style:
-                              TextStyle(color: _kMuted, fontSize: 12),
+                          style: TextStyle(color: _kMuted, fontSize: 12),
                         ),
                       )
                     : ListView.builder(
@@ -734,48 +754,56 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color: e.color.withOpacity(0.05),
-                                borderRadius:
-                                    BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
-                                    color: e.color.withOpacity(0.2)),
+                                  color: e.color.withOpacity(0.2),
+                                ),
                               ),
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 1),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              e.color.withOpacity(0.1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          horizontal: 5,
+                                          vertical: 1,
                                         ),
-                                        child: Text('#${e.attempt}',
-                                            style: TextStyle(
-                                                fontWeight:
-                                                    FontWeight.w700,
-                                                fontSize: 10,
-                                                color: e.color)),
+                                        decoration: BoxDecoration(
+                                          color: e.color.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          '#${e.attempt}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 10,
+                                            color: e.color,
+                                          ),
+                                        ),
                                       ),
                                       SizedBox(width: 6),
                                       Container(
                                         padding: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 1),
+                                          horizontal: 5,
+                                          vertical: 1,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: e.color,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                          borderRadius: BorderRadius.circular(
+                                            4,
+                                          ),
                                         ),
-                                        child: Text(e.result,
-                                            style: TextStyle(
-                                                fontWeight:
-                                                    FontWeight.w700,
-                                                fontSize: 9,
-                                                color: Colors.white)),
+                                        child: Text(
+                                          e.result,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 9,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                       Spacer(),
                                       Text(
@@ -783,8 +811,9 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                                         '${e.time.minute.toString().padLeft(2, '0')}:'
                                         '${e.time.second.toString().padLeft(2, '0')}',
                                         style: TextStyle(
-                                            fontSize: 9,
-                                            color: _kMuted),
+                                          fontSize: 9,
+                                          color: _kMuted,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -794,27 +823,33 @@ class _InteractiveTabState extends State<_InteractiveTab> {
                                       Text(
                                         e.disposition,
                                         style: TextStyle(
-                                            fontFamily: 'monospace',
-                                            fontSize: 10,
-                                            color: _kDarkText),
+                                          fontFamily: 'monospace',
+                                          fontSize: 10,
+                                          color: _kDarkText,
+                                        ),
                                       ),
                                       SizedBox(width: 6),
                                       if (e.hadUnsavedData)
                                         Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                              vertical: 1),
-                                          decoration: BoxDecoration(
-                                            color: _kDoNotPopColor
-                                                .withOpacity(0.08),
-                                            borderRadius:
-                                                BorderRadius.circular(3),
+                                            horizontal: 4,
+                                            vertical: 1,
                                           ),
-                                          child: Text('unsaved',
-                                              style: TextStyle(
-                                                  fontSize: 8,
-                                                  color:
-                                                      _kDoNotPopColor)),
+                                          decoration: BoxDecoration(
+                                            color: _kDoNotPopColor.withOpacity(
+                                              0.08,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              3,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            'unsaved',
+                                            style: TextStyle(
+                                              fontSize: 8,
+                                              color: _kDoNotPopColor,
+                                            ),
+                                          ),
                                         ),
                                     ],
                                   ),
@@ -832,8 +867,13 @@ class _InteractiveTabState extends State<_InteractiveTab> {
     );
   }
 
-  Widget _dispositionButton(RoutePopDisposition disp, String name,
-      IconData icon, Color color, String desc) {
+  Widget _dispositionButton(
+    RoutePopDisposition disp,
+    String name,
+    IconData icon,
+    Color color,
+    String desc,
+  ) {
     final selected = _selectedDisposition == disp;
     return GestureDetector(
       onTap: () => setState(() => _selectedDisposition = disp),
@@ -863,23 +903,30 @@ class _InteractiveTabState extends State<_InteractiveTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
-                          color: color,
-                          fontFamily: 'monospace')),
-                  Text(desc,
-                      style: TextStyle(
-                          fontSize: 11, color: _kMuted, height: 1.3)),
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      color: color,
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                  Text(
+                    desc,
+                    style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
+                  ),
                 ],
               ),
             ),
             if (selected)
               Icon(Icons.radio_button_checked, color: color, size: 22)
             else
-              Icon(Icons.radio_button_off,
-                  color: Colors.grey.shade400, size: 22),
+              Icon(
+                Icons.radio_button_off,
+                color: Colors.grey.shade400,
+                size: 22,
+              ),
           ],
         ),
       ),
@@ -900,17 +947,21 @@ class _InteractiveTabState extends State<_InteractiveTab> {
       ),
       child: Row(
         children: [
-          Icon(Icons.layers,
-              size: 16,
-              color: color.withOpacity(dim ? 0.4 : 1.0)),
+          Icon(
+            Icons.layers,
+            size: 16,
+            color: color.withOpacity(dim ? 0.4 : 1.0),
+          ),
           SizedBox(width: 8),
-          Text(name,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12,
-                fontWeight: dim ? FontWeight.w400 : FontWeight.w700,
-                color: dim ? _kMuted : color,
-              )),
+          Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: dim ? FontWeight.w400 : FontWeight.w700,
+              color: dim ? _kMuted : color,
+            ),
+          ),
         ],
       ),
     );
@@ -937,13 +988,15 @@ class _InteractiveTabState extends State<_InteractiveTab> {
       ),
       child: Column(
         children: [
-          Text(value,
-              style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 16,
-                  color: color)),
-          Text(label,
-              style: TextStyle(fontSize: 10, color: _kMuted)),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+              color: color,
+            ),
+          ),
+          Text(label, style: TextStyle(fontSize: 10, color: _kMuted)),
         ],
       ),
     );
@@ -989,14 +1042,26 @@ class _FlowTabState extends State<_FlowTab> {
           'Choose Disposition for Flow',
           Row(
             children: [
-              _flowOption(RoutePopDisposition.pop, 'pop',
-                  _kPopColor, Icons.exit_to_app),
+              _flowOption(
+                RoutePopDisposition.pop,
+                'pop',
+                _kPopColor,
+                Icons.exit_to_app,
+              ),
               SizedBox(width: 8),
-              _flowOption(RoutePopDisposition.doNotPop, 'doNotPop',
-                  _kDoNotPopColor, Icons.block),
+              _flowOption(
+                RoutePopDisposition.doNotPop,
+                'doNotPop',
+                _kDoNotPopColor,
+                Icons.block,
+              ),
               SizedBox(width: 8),
-              _flowOption(RoutePopDisposition.bubble, 'bubble',
-                  _kBubbleColor, Icons.bubble_chart),
+              _flowOption(
+                RoutePopDisposition.bubble,
+                'bubble',
+                _kBubbleColor,
+                Icons.bubble_chart,
+              ),
             ],
           ),
         ),
@@ -1011,7 +1076,7 @@ class _FlowTabState extends State<_FlowTab> {
                 0,
                 'User Presses Back',
                 'The system back button, gesture, or Navigator.maybePop() '
-                'initiates a pop request.',
+                    'initiates a pop request.',
                 Icons.arrow_back,
                 _kPrimary,
               ),
@@ -1020,7 +1085,7 @@ class _FlowTabState extends State<_FlowTab> {
                 1,
                 'Route.willPop() Called',
                 'The Navigator asks the topmost route whether it consents '
-                'to being popped. The route returns a RoutePopDisposition.',
+                    'to being popped. The route returns a RoutePopDisposition.',
                 Icons.help_outline,
                 _kAccent,
               ),
@@ -1030,17 +1095,17 @@ class _FlowTabState extends State<_FlowTab> {
                 'Disposition: ${_flowDisposition.name}',
                 _flowDisposition == RoutePopDisposition.pop
                     ? 'The route returns pop. Navigator proceeds to remove '
-                        'the route from the stack.'
+                          'the route from the stack.'
                     : _flowDisposition == RoutePopDisposition.doNotPop
-                        ? 'The route returns doNotPop. Navigator aborts — '
-                            'the route stays on the stack.'
-                        : 'The route returns bubble. The pop request is '
-                            'forwarded to the parent route or navigator.',
+                    ? 'The route returns doNotPop. Navigator aborts — '
+                          'the route stays on the stack.'
+                    : 'The route returns bubble. The pop request is '
+                          'forwarded to the parent route or navigator.',
                 _flowDisposition == RoutePopDisposition.pop
                     ? Icons.exit_to_app
                     : _flowDisposition == RoutePopDisposition.doNotPop
-                        ? Icons.block
-                        : Icons.bubble_chart,
+                    ? Icons.block
+                    : Icons.bubble_chart,
                 _colorForDisposition(_flowDisposition),
               ),
               _flowArrow(),
@@ -1050,21 +1115,21 @@ class _FlowTabState extends State<_FlowTab> {
                 _flowDisposition == RoutePopDisposition.pop
                     ? 'Route Removed'
                     : _flowDisposition == RoutePopDisposition.doNotPop
-                        ? 'Pop Cancelled'
-                        : 'Parent Decides',
+                    ? 'Pop Cancelled'
+                    : 'Parent Decides',
                 _flowDisposition == RoutePopDisposition.pop
                     ? 'The route\'s dispose() is called. The previous route '
-                        'becomes visible. Transition animation plays.'
+                          'becomes visible. Transition animation plays.'
                     : _flowDisposition == RoutePopDisposition.doNotPop
-                        ? 'Nothing changes. The route should show user '
-                            'feedback explaining why the pop was blocked.'
-                        : 'The parent route\'s willPop() is now invoked. '
-                            'This allows nested navigators to delegate pops.',
+                    ? 'Nothing changes. The route should show user '
+                          'feedback explaining why the pop was blocked.'
+                    : 'The parent route\'s willPop() is now invoked. '
+                          'This allows nested navigators to delegate pops.',
                 _flowDisposition == RoutePopDisposition.pop
                     ? Icons.check_circle
                     : _flowDisposition == RoutePopDisposition.doNotPop
-                        ? Icons.cancel
-                        : Icons.swap_vert,
+                    ? Icons.cancel
+                    : Icons.swap_vert,
                 _colorForDisposition(_flowDisposition),
               ),
             ],
@@ -1077,11 +1142,14 @@ class _FlowTabState extends State<_FlowTab> {
           'Stack Visualization After Pop',
           Column(
             children: [
-              Text('Navigator Stack',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: _kDarkText)),
+              Text(
+                'Navigator Stack',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _kDarkText,
+                ),
+              ),
               SizedBox(height: 10),
               // Stack frames
               _stackFrame('PageA (Home)', _kPrimary, true),
@@ -1095,23 +1163,21 @@ class _FlowTabState extends State<_FlowTab> {
                   true,
                 ),
               ] else ...[
-                _stackFrame(
-                  'PageC (Detail)',
-                  Colors.grey.shade400,
-                  false,
-                ),
+                _stackFrame('PageC (Detail)', Colors.grey.shade400, false),
               ],
               SizedBox(height: 10),
               Container(
                 padding: EdgeInsets.all(10),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: _colorForDisposition(_flowDisposition)
-                      .withOpacity(0.06),
+                  color: _colorForDisposition(
+                    _flowDisposition,
+                  ).withOpacity(0.06),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: _colorForDisposition(_flowDisposition)
-                        .withOpacity(0.2),
+                    color: _colorForDisposition(
+                      _flowDisposition,
+                    ).withOpacity(0.2),
                   ),
                 ),
                 child: Column(
@@ -1122,27 +1188,23 @@ class _FlowTabState extends State<_FlowTab> {
                         Icon(
                           _flowDisposition == RoutePopDisposition.pop
                               ? Icons.check_circle
-                              : _flowDisposition ==
-                                      RoutePopDisposition.doNotPop
-                                  ? Icons.cancel
-                                  : Icons.swap_vert,
-                          color:
-                              _colorForDisposition(_flowDisposition),
+                              : _flowDisposition == RoutePopDisposition.doNotPop
+                              ? Icons.cancel
+                              : Icons.swap_vert,
+                          color: _colorForDisposition(_flowDisposition),
                           size: 20,
                         ),
                         SizedBox(width: 6),
                         Text(
                           _flowDisposition == RoutePopDisposition.pop
                               ? 'PageC removed — showing PageB'
-                              : _flowDisposition ==
-                                      RoutePopDisposition.doNotPop
-                                  ? 'Stack unchanged — PageC stays'
-                                  : 'Bubbling to parent navigator...',
+                              : _flowDisposition == RoutePopDisposition.doNotPop
+                              ? 'Stack unchanged — PageC stays'
+                              : 'Bubbling to parent navigator...',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 12,
-                            color: _colorForDisposition(
-                                _flowDisposition),
+                            color: _colorForDisposition(_flowDisposition),
                           ),
                         ),
                       ],
@@ -1151,10 +1213,9 @@ class _FlowTabState extends State<_FlowTab> {
                     Text(
                       _flowDisposition == RoutePopDisposition.pop
                           ? 'Stack depth: 2'
-                          : _flowDisposition ==
-                                  RoutePopDisposition.doNotPop
-                              ? 'Stack depth: 3 (unchanged)'
-                              : 'Stack depth: depends on parent',
+                          : _flowDisposition == RoutePopDisposition.doNotPop
+                          ? 'Stack depth: 3 (unchanged)'
+                          : 'Stack depth: depends on parent',
                       style: TextStyle(
                         fontFamily: 'monospace',
                         fontSize: 10,
@@ -1180,8 +1241,7 @@ class _FlowTabState extends State<_FlowTab> {
                 'manages its own route stack. When the inner stack has '
                 'only one route left, the inner route returns "bubble" '
                 'so the outer Navigator handles the pop.',
-                style: TextStyle(
-                    fontSize: 12, color: _kDarkText, height: 1.4),
+                style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
               ),
               SizedBox(height: 10),
               _codeBlock(
@@ -1207,11 +1267,14 @@ class _FlowTabState extends State<_FlowTab> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Outer Navigator',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 11,
-                            color: _kPrimary)),
+                    Text(
+                      'Outer Navigator',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11,
+                        color: _kPrimary,
+                      ),
+                    ),
                     SizedBox(height: 4),
                     Container(
                       margin: EdgeInsets.only(left: 16),
@@ -1220,28 +1283,38 @@ class _FlowTabState extends State<_FlowTab> {
                         color: _kBubbleColor.withOpacity(0.05),
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                            color: _kBubbleColor.withOpacity(0.2)),
+                          color: _kBubbleColor.withOpacity(0.2),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Inner Navigator (Tab)',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 11,
-                                  color: _kBubbleColor)),
+                          Text(
+                            'Inner Navigator (Tab)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 11,
+                              color: _kBubbleColor,
+                            ),
+                          ),
                           SizedBox(height: 4),
                           Row(
                             children: [
                               _miniRoute('TabA', true),
                               SizedBox(width: 4),
-                              Icon(Icons.arrow_forward,
-                                  size: 10, color: _kMuted),
+                              Icon(
+                                Icons.arrow_forward,
+                                size: 10,
+                                color: _kMuted,
+                              ),
                               SizedBox(width: 4),
                               _miniRoute('TabB', true),
                               SizedBox(width: 4),
-                              Icon(Icons.arrow_forward,
-                                  size: 10, color: _kMuted),
+                              Icon(
+                                Icons.arrow_forward,
+                                size: 10,
+                                color: _kMuted,
+                              ),
                               SizedBox(width: 4),
                               _miniRoute('TabC (top)', false),
                             ],
@@ -1250,9 +1323,10 @@ class _FlowTabState extends State<_FlowTab> {
                           Text(
                             'Back → pop TabC. If only TabA left → bubble to outer.',
                             style: TextStyle(
-                                fontSize: 10,
-                                color: _kBubbleColor,
-                                fontStyle: FontStyle.italic),
+                              fontSize: 10,
+                              color: _kBubbleColor,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
                         ],
                       ),
@@ -1268,8 +1342,12 @@ class _FlowTabState extends State<_FlowTab> {
     );
   }
 
-  Widget _flowOption(RoutePopDisposition disp, String label,
-      Color color, IconData icon) {
+  Widget _flowOption(
+    RoutePopDisposition disp,
+    String label,
+    Color color,
+    IconData icon,
+  ) {
     final selected = _flowDisposition == disp;
     return Expanded(
       child: GestureDetector(
@@ -1289,14 +1367,15 @@ class _FlowTabState extends State<_FlowTab> {
             children: [
               Icon(icon, color: color, size: 22),
               SizedBox(height: 4),
-              Text(label,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                    fontWeight:
-                        selected ? FontWeight.w700 : FontWeight.w400,
-                    color: selected ? color : _kMuted,
-                  )),
+              Text(
+                label,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
+                  color: selected ? color : _kMuted,
+                ),
+              ),
             ],
           ),
         ),
@@ -1304,12 +1383,18 @@ class _FlowTabState extends State<_FlowTab> {
     );
   }
 
-  Widget _flowStep(int step, String title, String desc,
-      IconData icon, Color color) {
+  Widget _flowStep(
+    int step,
+    String title,
+    String desc,
+    IconData icon,
+    Color color,
+  ) {
     final highlighted = _highlightedStep == step;
     return GestureDetector(
-      onTap: () => setState(() =>
-          _highlightedStep = _highlightedStep == step ? -1 : step),
+      onTap: () => setState(
+        () => _highlightedStep = _highlightedStep == step ? -1 : step,
+      ),
       child: AnimatedContainer(
         duration: Duration(milliseconds: 250),
         padding: EdgeInsets.all(12),
@@ -1326,7 +1411,7 @@ class _FlowTabState extends State<_FlowTab> {
                     color: color.withOpacity(0.15),
                     blurRadius: 8,
                     offset: Offset(0, 2),
-                  )
+                  ),
                 ]
               : [],
         ),
@@ -1351,33 +1436,40 @@ class _FlowTabState extends State<_FlowTab> {
                     children: [
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 1),
+                          horizontal: 6,
+                          vertical: 1,
+                        ),
                         decoration: BoxDecoration(
                           color: color.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text('Step ${step + 1}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 9,
-                                color: color)),
+                        child: Text(
+                          'Step ${step + 1}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 9,
+                            color: color,
+                          ),
+                        ),
                       ),
                       SizedBox(width: 6),
                       Expanded(
-                        child: Text(title,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 13,
-                                color: _kDarkText)),
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13,
+                            color: _kDarkText,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(height: 4),
-                  Text(desc,
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: _kMuted,
-                          height: 1.3)),
+                  Text(
+                    desc,
+                    style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
+                  ),
                 ],
               ),
             ),
@@ -1391,8 +1483,7 @@ class _FlowTabState extends State<_FlowTab> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4),
       child: Center(
-        child: Icon(Icons.arrow_downward,
-            size: 18, color: _kMuted),
+        child: Icon(Icons.arrow_downward, size: 18, color: _kMuted),
       ),
     );
   }
@@ -1410,26 +1501,32 @@ class _FlowTabState extends State<_FlowTab> {
       ),
       child: Row(
         children: [
-          Icon(Icons.layers,
-              size: 14,
-              color: active ? color : Colors.grey.shade400),
+          Icon(
+            Icons.layers,
+            size: 14,
+            color: active ? color : Colors.grey.shade400,
+          ),
           SizedBox(width: 8),
-          Text(name,
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11,
-                fontWeight: active ? FontWeight.w600 : FontWeight.w400,
-                color: active ? color : Colors.grey.shade400,
-                decoration:
-                    active ? null : TextDecoration.lineThrough,
-              )),
+          Text(
+            name,
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+              color: active ? color : Colors.grey.shade400,
+              decoration: active ? null : TextDecoration.lineThrough,
+            ),
+          ),
           Spacer(),
           if (!active)
-            Text('removed',
-                style: TextStyle(
-                    fontSize: 9,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.grey.shade400)),
+            Text(
+              'removed',
+              style: TextStyle(
+                fontSize: 9,
+                fontStyle: FontStyle.italic,
+                color: Colors.grey.shade400,
+              ),
+            ),
         ],
       ),
     );
@@ -1439,19 +1536,25 @@ class _FlowTabState extends State<_FlowTab> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       decoration: BoxDecoration(
-        color: stacked ? _kPrimary.withOpacity(0.08) : _kBubbleColor.withOpacity(0.1),
+        color: stacked
+            ? _kPrimary.withOpacity(0.08)
+            : _kBubbleColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-          color: stacked ? _kPrimary.withOpacity(0.2) : _kBubbleColor.withOpacity(0.3),
+          color: stacked
+              ? _kPrimary.withOpacity(0.2)
+              : _kBubbleColor.withOpacity(0.3),
         ),
       ),
-      child: Text(name,
-          style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 9,
-            fontWeight: stacked ? FontWeight.w400 : FontWeight.w700,
-            color: stacked ? _kPrimary : _kBubbleColor,
-          )),
+      child: Text(
+        name,
+        style: TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 9,
+          fontWeight: stacked ? FontWeight.w400 : FontWeight.w700,
+          color: stacked ? _kPrimary : _kBubbleColor,
+        ),
+      ),
     );
   }
 
@@ -1500,11 +1603,14 @@ Widget _sectionCard(String title, Widget child) {
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 15,
-                      color: _kDarkText)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15,
+                  color: _kDarkText,
+                ),
+              ),
             ),
           ],
         ),
@@ -1524,12 +1630,15 @@ Widget _codeBlock(String code) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: _kPrimary.withOpacity(0.15)),
     ),
-    child: Text(code,
-        style: TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 12,
-            color: _kDarkText,
-            height: 1.5)),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 12,
+        color: _kDarkText,
+        height: 1.5,
+      ),
+    ),
   );
 }
 
@@ -1561,40 +1670,49 @@ Widget _dispositionCard({
               child: Icon(icon, color: color, size: 20),
             ),
             SizedBox(width: 10),
-            Text(name,
-                style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 16,
-                    color: color,
-                    fontFamily: 'monospace')),
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
-        Text(description,
-            style: TextStyle(
-                fontSize: 12, color: _kDarkText, height: 1.4)),
+        Text(
+          description,
+          style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
+        ),
         SizedBox(height: 8),
-        Text('Use cases:',
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 11,
-                color: color)),
+        Text(
+          'Use cases:',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 11,
+            color: color,
+          ),
+        ),
         SizedBox(height: 4),
-        ...useCases.map((u) => Padding(
-              padding: EdgeInsets.only(bottom: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('  \u2022 ',
-                      style: TextStyle(color: color, fontSize: 11)),
-                  Expanded(
-                    child: Text(u,
-                        style: TextStyle(
-                            fontSize: 11, color: _kMuted, height: 1.3)),
+        ...useCases.map(
+          (u) => Padding(
+            padding: EdgeInsets.only(bottom: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('  \u2022 ', style: TextStyle(color: color, fontSize: 11)),
+                Expanded(
+                  child: Text(
+                    u,
+                    style: TextStyle(fontSize: 11, color: _kMuted, height: 1.3),
                   ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -1608,13 +1726,14 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
     children: cells.map((c) {
       return Padding(
         padding: EdgeInsets.all(8),
-        child: Text(c,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight:
-                  isHeader ? FontWeight.w700 : FontWeight.w400,
-              color: isHeader ? _kPrimary : _kDarkText,
-            )),
+        child: Text(
+          c,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+            color: isHeader ? _kPrimary : _kDarkText,
+          ),
+        ),
       );
     }).toList(),
   );
@@ -1622,8 +1741,7 @@ TableRow _tableRow(List<String> cells, {bool isHeader = false}) {
 
 Widget _bp(bool isGood, String text) {
   final color = isGood ? Color(0xFF2E7D32) : Color(0xFFC62828);
-  final icon =
-      isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
+  final icon = isGood ? Icons.check_circle_outline : Icons.cancel_outlined;
   return Padding(
     padding: EdgeInsets.only(bottom: 6),
     child: Row(
@@ -1632,9 +1750,10 @@ Widget _bp(bool isGood, String text) {
         Icon(icon, color: color, size: 18),
         SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  fontSize: 12, color: _kDarkText, height: 1.4)),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 12, color: _kDarkText, height: 1.4),
+          ),
         ),
       ],
     ),

@@ -81,11 +81,7 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          child: Icon(
-            Icons.crop_free,
-            size: 44.0,
-            color: Colors.white,
-          ),
+          child: Icon(Icons.crop_free, size: 44.0, color: Colors.white),
         ),
         SizedBox(width: 20.0),
         Expanded(
@@ -230,11 +226,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 158.0,
                 top: 95.0,
-                child: Container(
-                  width: 42.0,
-                  height: 1.5,
-                  color: cyanDeep,
-                ),
+                child: Container(width: 42.0, height: 1.5, color: cyanDeep),
               ),
               // label: position
               Positioned(
@@ -250,11 +242,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 270.0,
                 top: 70.0,
-                child: Container(
-                  width: 1.5,
-                  height: 14.0,
-                  color: amberDeep,
-                ),
+                child: Container(width: 1.5, height: 14.0, color: amberDeep),
               ),
               // label: direction
               Positioned(
@@ -270,11 +258,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 270.0,
                 top: 150.0,
-                child: Container(
-                  width: 22.0,
-                  height: 1.5,
-                  color: slateMid,
-                ),
+                child: Container(width: 22.0, height: 1.5, color: slateMid),
               ),
             ],
           ),
@@ -496,11 +480,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               entry['caption'] as String,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: slateSoft,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 11.0, color: slateSoft, height: 1.35),
             ),
           ],
         ),
@@ -1040,10 +1020,7 @@ dynamic build(BuildContext context) {
                 left: voiceHighlight.bounds.left,
                 top: voiceHighlight.bounds.top - 18.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: amberDeep,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1199,11 +1176,7 @@ dynamic build(BuildContext context) {
           'devicePixelRatio is applied. The rect\'s origin is the top-left of one '
           'rendered glyph cluster (or run) inside the editable. The platform '
           'channel translates these into the embedder\'s native screen space.',
-          style: TextStyle(
-            fontSize: 12.5,
-            color: slateMid,
-            height: 1.55,
-          ),
+          style: TextStyle(fontSize: 12.5, color: slateMid, height: 1.55),
         ),
         SizedBox(height: 14.0),
         Container(
@@ -1246,21 +1219,13 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 16.0,
                 top: 22.0,
-                child: Container(
-                  width: 360.0,
-                  height: 1.0,
-                  color: slateSoft,
-                ),
+                child: Container(width: 360.0, height: 1.0, color: slateSoft),
               ),
               // Y axis
               Positioned(
                 left: 16.0,
                 top: 22.0,
-                child: Container(
-                  width: 1.0,
-                  height: 160.0,
-                  color: slateSoft,
-                ),
+                child: Container(width: 1.0, height: 160.0, color: slateSoft),
               ),
               // bounds rect
               Positioned(
@@ -1290,20 +1255,12 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 16.0,
                 top: 90.0,
-                child: Container(
-                  width: 124.0,
-                  height: 1.0,
-                  color: amberMid,
-                ),
+                child: Container(width: 124.0, height: 1.0, color: amberMid),
               ),
               Positioned(
                 left: 140.0,
                 top: 22.0,
-                child: Container(
-                  width: 1.0,
-                  height: 68.0,
-                  color: amberMid,
-                ),
+                child: Container(width: 1.0, height: 68.0, color: amberMid),
               ),
               Positioned(
                 left: 70.0,
@@ -1356,29 +1313,34 @@ dynamic build(BuildContext context) {
   final footguns = <Map<String, String>>[
     {
       'title': 'bounds is screen space',
-      'body': 'bounds is in global / screen pixels — not paragraph-local. '
+      'body':
+          'bounds is in global / screen pixels — not paragraph-local. '
           'Subtract the editable\'s global origin if you need a local rect.',
     },
     {
       'title': 'position is a text offset',
-      'body': 'position is the UTF-16 code-unit offset, not a grapheme cluster '
+      'body':
+          'position is the UTF-16 code-unit offset, not a grapheme cluster '
           'index. A flag emoji ✨ may span 2+ code units; ensure your producer '
           'reports the *first* code unit of the cluster.',
     },
     {
       'title': 'direction matters for affinity',
-      'body': 'TextDirection.rtl flips visual order. The IME relies on direction '
+      'body':
+          'TextDirection.rtl flips visual order. The IME relies on direction '
           'to compute caret affinity at run boundaries — never default to ltr.',
     },
     {
       'title': 'sort by visual order',
-      'body': 'TextInput.setSelectionRects(rects) expects the list to already be '
+      'body':
+          'TextInput.setSelectionRects(rects) expects the list to already be '
           'sorted in visual order (left-to-right on screen, top-to-bottom by '
           'line). Logical-offset order is *not* guaranteed to match.',
     },
     {
       'title': 'equality covers all three',
-      'body': 'SelectionRect == compares bounds, position, AND direction. Two '
+      'body':
+          'SelectionRect == compares bounds, position, AND direction. Two '
           'rects with identical bounds but different direction are NOT equal — '
           'this matters for diffing rect lists between frames.',
     },
@@ -1514,12 +1476,20 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _recapLine('SelectionRect = (Rect bounds, int position, TextDirection direction).'),
+        _recapLine(
+          'SelectionRect = (Rect bounds, int position, TextDirection direction).',
+        ),
         _recapLine('bounds: screen-space rectangle of one rendered glyph/run.'),
-        _recapLine('position: UTF-16 text offset of that run\'s first code unit.'),
+        _recapLine(
+          'position: UTF-16 text offset of that run\'s first code unit.',
+        ),
         _recapLine('direction: visual run direction; affects caret affinity.'),
-        _recapLine('Dispatched as a List via TextInput.setSelectionRects(...).'),
-        _recapLine('Powers magnifier, autofill, voice highlight, selection handles.'),
+        _recapLine(
+          'Dispatched as a List via TextInput.setSelectionRects(...).',
+        ),
+        _recapLine(
+          'Powers magnifier, autofill, voice highlight, selection handles.',
+        ),
         _recapLine('List must be pre-sorted in visual order before dispatch.'),
         _recapLine('Equality includes all three fields — diff carefully.'),
       ],
@@ -1546,7 +1516,10 @@ dynamic build(BuildContext context) {
           _sectionHeader('2. Six Real Instances', cyanDeep),
           Wrap(alignment: WrapAlignment.center, children: instanceCards),
           SizedBox(height: 24.0),
-          _sectionHeader('3. Visual Layout — adjacent rects per character', cyanDeep),
+          _sectionHeader(
+            '3. Visual Layout — adjacent rects per character',
+            cyanDeep,
+          ),
           visualLayout,
           SizedBox(height: 24.0),
           _sectionHeader('4. LTR vs RTL', amberDeep),
@@ -1600,7 +1573,12 @@ Widget _chip(String label, Color bg, Color fg) {
   );
 }
 
-Widget _anatomyLabel(String title, String subtitle, Color color, IconData icon) {
+Widget _anatomyLabel(
+  String title,
+  String subtitle,
+  Color color,
+  IconData icon,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
@@ -1857,9 +1835,7 @@ Widget _tableRow(
   return Container(
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1.0)),
     ),
     child: Row(
       children: [
@@ -1974,11 +1950,7 @@ Widget _recapLine(String line) {
         Expanded(
           child: Text(
             line,
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.45),
           ),
         ),
       ],

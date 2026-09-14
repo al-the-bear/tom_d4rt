@@ -150,10 +150,7 @@ Widget buildBorderSideWidthComparison() {
                   SizedBox(width: 8),
                   Text(
                     w <= 2.0 ? 'Subtle' : (w <= 4.0 ? 'Standard' : 'Bold'),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -253,7 +250,10 @@ Widget buildBorderSideColorShowcase() {
                     labelColor: colors[j],
                     unselectedLabelColor: Colors.grey.shade400,
                     labelStyle: TextStyle(fontSize: 12),
-                    tabs: [Tab(text: 'Tab 1'), Tab(text: 'Tab 2')],
+                    tabs: [
+                      Tab(text: 'Tab 1'),
+                      Tab(text: 'Tab 2'),
+                    ],
                   ),
                 ),
               ],
@@ -395,10 +395,7 @@ Widget buildInsetsDemo() {
               length: 3,
               child: TabBar(
                 indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                    color: Colors.deepPurple,
-                    width: 3.0,
-                  ),
+                  borderSide: BorderSide(color: Colors.deepPurple, width: 3.0),
                   insets: ins,
                 ),
                 labelColor: Colors.deepPurple,
@@ -742,7 +739,11 @@ Widget buildCustomIndicatorDecorations() {
               ),
               labelColor: Colors.green.shade600,
               unselectedLabelColor: Colors.grey.shade500,
-              tabs: [Tab(text: 'News'), Tab(text: 'Sports'), Tab(text: 'Tech')],
+              tabs: [
+                Tab(text: 'News'),
+                Tab(text: 'Sports'),
+                Tab(text: 'Tech'),
+              ],
             ),
           ),
         ],
@@ -1179,10 +1180,7 @@ Widget buildApiSummary() {
               Expanded(
                 child: Text(
                   'UnderlineTabIndicator extends Decoration and can be used anywhere a Decoration is expected.',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.amber.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
                 ),
               ),
             ],

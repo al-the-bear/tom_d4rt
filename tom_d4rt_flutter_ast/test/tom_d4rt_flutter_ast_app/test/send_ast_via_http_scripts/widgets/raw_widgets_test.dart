@@ -114,11 +114,7 @@ dynamic build(BuildContext context) {
   // ------------------------------------------------------------------
   //  Helper: card frame.
   // ------------------------------------------------------------------
-  Widget frame({
-    required String title,
-    required Widget child,
-    Color? accent,
-  }) {
+  Widget frame({required String title, required Widget child, Color? accent}) {
     final Color a = accent ?? tealBright;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6.0),
@@ -230,11 +226,7 @@ dynamic build(BuildContext context) {
             'GestureDetector, InheritedWidget — has a "Raw" sibling that '
             'exposes the underlying machinery without imposing Material '
             'or Cupertino styling. This file tours five of them.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12.5, height: 1.5),
           ),
         ),
       ],
@@ -309,10 +301,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 6.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: slateMid,
               borderRadius: const BorderRadius.only(
@@ -345,10 +334,7 @@ dynamic build(BuildContext context) {
           ),
           SizedBox(height: 140.0, child: scrollbar),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 6.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: paper,
               borderRadius: const BorderRadius.only(
@@ -850,11 +836,7 @@ dynamic build(BuildContext context) {
               );
             }
             return Column(
-              children: <Widget>[
-                left,
-                const SizedBox(height: 12.0),
-                right,
-              ],
+              children: <Widget>[left, const SizedBox(height: 12.0), right],
             );
           },
         ),
@@ -883,9 +865,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: paper,
         borderRadius: BorderRadius.circular(8.0),
-        border: Border(
-          left: BorderSide(color: accent, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 4.0)),
       ),
       child: Row(
         children: <Widget>[
@@ -1111,7 +1091,10 @@ dynamic build(BuildContext context) {
   final Widget rawScrollbarFields = fieldsBlock(
     'RawScrollbar — fields',
     <List<String>>[
-      <String>['controller', 'ScrollController to track. Required if multiple scroll views.'],
+      <String>[
+        'controller',
+        'ScrollController to track. Required if multiple scroll views.',
+      ],
       <String>['thumbVisibility', 'bool — keep thumb visible always.'],
       <String>['trackVisibility', 'bool — show the track behind the thumb.'],
       <String>['thickness', 'double — width of the thumb in logical px.'],
@@ -1122,7 +1105,10 @@ dynamic build(BuildContext context) {
       <String>['mainAxisMargin', 'double — inset along scroll axis.'],
       <String>['crossAxisMargin', 'double — inset across scroll axis.'],
       <String>['interactive', 'bool — can the user drag the thumb?'],
-      <String>['scrollbarOrientation', 'ScrollbarOrientation — left/right/top/bottom.'],
+      <String>[
+        'scrollbarOrientation',
+        'ScrollbarOrientation — left/right/top/bottom.',
+      ],
       <String>['padding', 'EdgeInsets — padding around the scrollbar.'],
     ],
     tealBright,
@@ -1131,24 +1117,32 @@ dynamic build(BuildContext context) {
   final Widget rawGestureFields = fieldsBlock(
     'RawGestureDetector — fields',
     <List<String>>[
-      <String>['gestures', 'Map<Type, GestureRecognizerFactory> — recogniser registry.'],
-      <String>['behavior', 'HitTestBehavior — opaque / translucent / deferToChild.'],
-      <String>['excludeFromSemantics', 'bool — hide the detector from the a11y tree.'],
-      <String>['semantics', 'SemanticsGestureDelegate — custom semantics callbacks.'],
+      <String>[
+        'gestures',
+        'Map<Type, GestureRecognizerFactory> — recogniser registry.',
+      ],
+      <String>[
+        'behavior',
+        'HitTestBehavior — opaque / translucent / deferToChild.',
+      ],
+      <String>[
+        'excludeFromSemantics',
+        'bool — hide the detector from the a11y tree.',
+      ],
+      <String>[
+        'semantics',
+        'SemanticsGestureDelegate — custom semantics callbacks.',
+      ],
       <String>['child', 'Widget — the visual subtree the detector covers.'],
     ],
     amber,
   );
 
-  final Widget popScopeFields = fieldsBlock(
-    'PopScope — fields',
-    <List<String>>[
-      <String>['canPop', 'bool — true → pop normally; false → veto.'],
-      <String>['onPopInvokedWithResult', '(bool didPop, T? result) — observer.'],
-      <String>['child', 'Widget — the route subtree being protected.'],
-    ],
-    danger,
-  );
+  final Widget popScopeFields = fieldsBlock('PopScope — fields', <List<String>>[
+    <String>['canPop', 'bool — true → pop normally; false → veto.'],
+    <String>['onPopInvokedWithResult', '(bool didPop, T? result) — observer.'],
+    <String>['child', 'Widget — the route subtree being protected.'],
+  ], danger);
 
   // ==================================================================
   //  SECTION 8 — edge cases
@@ -1204,36 +1198,36 @@ dynamic build(BuildContext context) {
         edgeCase(
           'thumbVisibility: false without thumbColor',
           'The thumb fades out and may be invisible until you scroll. '
-          'Always pair with a thumbColor for predictability.',
+              'Always pair with a thumbColor for predictability.',
           Icons.visibility_off,
           danger,
         ),
         edgeCase(
           'RawScrollbar without controller',
           'When the inner scrollable has no controller, you must pass '
-          'thumbVisibility: false or supply an explicit controller, '
-          'else PrimaryScrollController is used and conflicts arise.',
+              'thumbVisibility: false or supply an explicit controller, '
+              'else PrimaryScrollController is used and conflicts arise.',
           Icons.warning_amber,
           amber,
         ),
         edgeCase(
           'RawGestureDetector with empty gestures map',
           'It still hit-tests according to behavior, but no recogniser '
-          'wins the arena → callbacks never fire.',
+              'wins the arena → callbacks never fire.',
           Icons.gesture,
           tealBright,
         ),
         edgeCase(
           'WillPopScope inside nested Navigator',
           'Only intercepts the route it is attached to. For root pop '
-          'on Android, attach at MaterialApp.builder level.',
+              'on Android, attach at MaterialApp.builder level.',
           Icons.history,
           slateMid,
         ),
         edgeCase(
           'DefaultAssetBundle.of() before MaterialApp',
           'Returns rootBundle. Tests that need a custom bundle must '
-          'wrap their widget under test in DefaultAssetBundle.',
+              'wrap their widget under test in DefaultAssetBundle.',
           Icons.folder_open,
           amber,
         ),
@@ -1244,12 +1238,7 @@ dynamic build(BuildContext context) {
   // ==================================================================
   //  SECTION 9 — recogniser catalogue
   // ==================================================================
-  Widget recognizerRow(
-    String name,
-    String fires,
-    String wins,
-    Color accent,
-  ) {
+  Widget recognizerRow(String name, String fires, String wins, Color accent) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       padding: const EdgeInsets.all(10.0),
@@ -1377,12 +1366,7 @@ dynamic build(BuildContext context) {
   // ==================================================================
   //  SECTION 10 — decision matrix
   // ==================================================================
-  Widget decisionRow(
-    String situation,
-    String pick,
-    String why,
-    Color tint,
-  ) {
+  Widget decisionRow(String situation, String pick, String why, Color tint) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       padding: const EdgeInsets.all(11.0),
@@ -1604,11 +1588,7 @@ dynamic build(BuildContext context) {
           'hides — custom theming, custom recognisers, predictable '
           'asset resolution in tests. Reach for the polished sibling '
           'when you just want it to look right.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 13.0,
-            height: 1.55,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.55),
         ),
       ],
     ),
@@ -1627,17 +1607,29 @@ dynamic build(BuildContext context) {
       accent: tealBright,
       child: scrollbarGrid,
     ),
-    sectionTitle('2', 'RawGestureDetector', 'recognisers and the gesture arena'),
+    sectionTitle(
+      '2',
+      'RawGestureDetector',
+      'recognisers and the gesture arena',
+    ),
     rawGestureCard,
     sectionTitle('3', 'InheritedNotifier', 'reactive scopes from a Listenable'),
     inheritedNotifierCard,
-    sectionTitle('4', 'WillPopScope vs PopScope', 'navigation veto, then and now'),
+    sectionTitle(
+      '4',
+      'WillPopScope vs PopScope',
+      'navigation veto, then and now',
+    ),
     popCompare,
     sectionTitle('5', 'DefaultAssetBundle', 'inherited asset lookup'),
     assetBundleCard,
     sectionTitle('6', 'Cheat-sheet', 'Raw → polished sibling map'),
     comparisonCard,
-    sectionTitle('7', 'Field reference', 'the constructor parameters that matter'),
+    sectionTitle(
+      '7',
+      'Field reference',
+      'the constructor parameters that matter',
+    ),
     rawScrollbarFields,
     rawGestureFields,
     popScopeFields,

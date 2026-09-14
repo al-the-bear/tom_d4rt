@@ -67,9 +67,7 @@ Widget _rtSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_rtBronze, _rtDarkBronze],
-      ),
+      gradient: LinearGradient(colors: [_rtBronze, _rtDarkBronze]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,11 +242,7 @@ Widget _rtBadge(String label, Color bg, Color fg) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: fg,
-        fontSize: 11,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.bold),
     ),
   );
 }
@@ -348,8 +342,7 @@ dynamic build(BuildContext context) {
         // ================================================================
         _rtSectionHeader(
           '1 · What Is SliverGridRegularTileLayout?',
-          subtitle:
-              'The implementation behind every standard Flutter grid',
+          subtitle: 'The implementation behind every standard Flutter grid',
         ),
         const SizedBox(height: 8),
         _rtParagraph(
@@ -367,10 +360,10 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'One class, every grid',
           'Whether you use GridView.count, GridView.extent, GridView.builder '
-          'with a FixedCrossAxisCount delegate, or a MaxCrossAxisExtent '
-          'delegate, the underlying layout is always a '
-          'SliverGridRegularTileLayout. The only difference is how the '
-          'six parameters are computed.',
+              'with a FixedCrossAxisCount delegate, or a MaxCrossAxisExtent '
+              'delegate, the underlying layout is always a '
+              'SliverGridRegularTileLayout. The only difference is how the '
+              'six parameters are computed.',
           Icons.apps,
           _rtBronze,
         ),
@@ -396,7 +389,7 @@ dynamic build(BuildContext context) {
           'crossAxisCount',
           'int',
           'Number of tiles per row (vertical scroll) or per column '
-          '(horizontal scroll). Determines how indices map to rows and columns.',
+              '(horizontal scroll). Determines how indices map to rows and columns.',
           Icons.view_column,
           _rtBronze,
         ),
@@ -404,7 +397,7 @@ dynamic build(BuildContext context) {
           'mainAxisStride',
           'double',
           'Distance between the leading edges of consecutive rows (along '
-          'the scroll axis). Equals childMainAxisExtent + mainAxisSpacing.',
+              'the scroll axis). Equals childMainAxisExtent + mainAxisSpacing.',
           Icons.straighten,
           _rtTeal,
         ),
@@ -412,7 +405,7 @@ dynamic build(BuildContext context) {
           'crossAxisStride',
           'double',
           'Distance between the leading edges of consecutive columns (on the '
-          'cross axis). Equals childCrossAxisExtent + crossAxisSpacing.',
+              'cross axis). Equals childCrossAxisExtent + crossAxisSpacing.',
           Icons.swap_horiz,
           _rtAmber,
         ),
@@ -420,7 +413,7 @@ dynamic build(BuildContext context) {
           'childMainAxisExtent',
           'double',
           'The tile\'s actual size along the scroll axis. The difference '
-          'between mainAxisStride and childMainAxisExtent is the spacing.',
+              'between mainAxisStride and childMainAxisExtent is the spacing.',
           Icons.height,
           _rtCoral,
         ),
@@ -428,7 +421,7 @@ dynamic build(BuildContext context) {
           'childCrossAxisExtent',
           'double',
           'The tile\'s actual size along the cross axis. The difference '
-          'between crossAxisStride and childCrossAxisExtent is the spacing.',
+              'between crossAxisStride and childCrossAxisExtent is the spacing.',
           Icons.width_normal,
           _rtForest,
         ),
@@ -436,7 +429,7 @@ dynamic build(BuildContext context) {
           'reverseCrossAxis',
           'bool',
           'If true, cross-axis ordering is flipped (right-to-left in a '
-          'vertical grid). Used for RTL text direction support.',
+              'vertical grid). Used for RTL text direction support.',
           Icons.flip,
           _rtPlum,
         ),
@@ -492,7 +485,9 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       'Tile (row 0)',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -552,7 +547,9 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       'Tile (row 1)',
                       style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -605,9 +602,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       'col 0',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   Container(
@@ -626,9 +624,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       'col 1',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   Container(
@@ -647,9 +646,10 @@ dynamic build(BuildContext context) {
                     child: const Text(
                       'col 2',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -670,9 +670,9 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'Formula',
           'mainAxisStride = childMainAxisExtent + mainAxisSpacing\n'
-          'crossAxisStride = childCrossAxisExtent + crossAxisSpacing\n\n'
-          'The layout stores strides and extents separately so it can '
-          'compute both tile sizes and positions in O(1) per tile.',
+              'crossAxisStride = childCrossAxisExtent + crossAxisSpacing\n\n'
+              'The layout stores strides and extents separately so it can '
+              'compute both tile sizes and positions in O(1) per tile.',
           Icons.functions,
           _rtBronze,
         ),
@@ -732,13 +732,17 @@ dynamic build(BuildContext context) {
               _rtLabelValue('row = 7 ~/ 3', '2'),
               _rtLabelValue('col = 7 % 3', '1'),
               _rtLabelValue(
-                  'scrollOffset', '2 × 110 = 220.0', valueColor: _rtTeal),
+                'scrollOffset',
+                '2 × 110 = 220.0',
+                valueColor: _rtTeal,
+              ),
               _rtLabelValue(
-                  'crossAxisOffset', '1 × 92 = 92.0', valueColor: _rtAmber),
-              _rtLabelValue(
-                  'mainAxisExtent', '100.0', valueColor: _rtCoral),
-              _rtLabelValue(
-                  'crossAxisExtent', '80.0', valueColor: _rtForest),
+                'crossAxisOffset',
+                '1 × 92 = 92.0',
+                valueColor: _rtAmber,
+              ),
+              _rtLabelValue('mainAxisExtent', '100.0', valueColor: _rtCoral),
+              _rtLabelValue('crossAxisExtent', '80.0', valueColor: _rtForest),
               const SizedBox(height: 10),
               // Grid with index 7 highlighted
               _rtCaption('Grid showing tile 7 at row 2, col 1:'),
@@ -746,42 +750,73 @@ dynamic build(BuildContext context) {
               // Row 0
               Row(
                 children: [
-                  _rtDiagramTile('0', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '0',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('1', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '1',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('2', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '2',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
               // Row 1
               Row(
                 children: [
-                  _rtDiagramTile('3', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '3',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('4', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '4',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('5', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '5',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                 ],
               ),
               const SizedBox(height: 4),
               // Row 2 (tile 7 highlighted)
               Row(
                 children: [
-                  _rtDiagramTile('6', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '6',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('7 ★', width: 70, height: 42,
-                      color: _rtCoral),
+                  _rtDiagramTile('7 ★', width: 70, height: 42, color: _rtCoral),
                   const SizedBox(width: 4),
-                  _rtDiagramTile('8', width: 70, height: 42,
-                      color: _rtBronze.withValues(alpha: 0.5)),
+                  _rtDiagramTile(
+                    '8',
+                    width: 70,
+                    height: 42,
+                    color: _rtBronze.withValues(alpha: 0.5),
+                  ),
                 ],
               ),
             ],
@@ -851,8 +886,8 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'No trailing spacing',
           'Notice that the formula subtracts the spacing after the last row. '
-          '10 tiles in 3 columns → 4 rows → 110×4 - 10 = 430px, not 440px. '
-          'The grid stops exactly at the bottom of the last tile.',
+              '10 tiles in 3 columns → 4 rows → 110×4 - 10 = 430px, not 440px. '
+              'The grid stops exactly at the bottom of the last tile.',
           Icons.space_bar,
           _rtTeal,
         ),
@@ -892,7 +927,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 10),
+                        vertical: 6,
+                        horizontal: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: _rtBronze.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
@@ -909,28 +946,52 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        _rtDiagramTile('0', width: 38, height: 32,
-                            color: _rtBronze),
+                        _rtDiagramTile(
+                          '0',
+                          width: 38,
+                          height: 32,
+                          color: _rtBronze,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('1', width: 38, height: 32,
-                            color: _rtTeal),
+                        _rtDiagramTile(
+                          '1',
+                          width: 38,
+                          height: 32,
+                          color: _rtTeal,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('2', width: 38, height: 32,
-                            color: _rtAmber,
-                            textColor: _rtCharcoal),
+                        _rtDiagramTile(
+                          '2',
+                          width: 38,
+                          height: 32,
+                          color: _rtAmber,
+                          textColor: _rtCharcoal,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 3),
                     Row(
                       children: [
-                        _rtDiagramTile('3', width: 38, height: 32,
-                            color: _rtCoral),
+                        _rtDiagramTile(
+                          '3',
+                          width: 38,
+                          height: 32,
+                          color: _rtCoral,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('4', width: 38, height: 32,
-                            color: _rtForest),
+                        _rtDiagramTile(
+                          '4',
+                          width: 38,
+                          height: 32,
+                          color: _rtForest,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('5', width: 38, height: 32,
-                            color: _rtSky),
+                        _rtDiagramTile(
+                          '5',
+                          width: 38,
+                          height: 32,
+                          color: _rtSky,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -953,7 +1014,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 10),
+                        vertical: 6,
+                        horizontal: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: _rtPlum.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(6),
@@ -970,28 +1033,52 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        _rtDiagramTile('2', width: 38, height: 32,
-                            color: _rtAmber,
-                            textColor: _rtCharcoal),
+                        _rtDiagramTile(
+                          '2',
+                          width: 38,
+                          height: 32,
+                          color: _rtAmber,
+                          textColor: _rtCharcoal,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('1', width: 38, height: 32,
-                            color: _rtTeal),
+                        _rtDiagramTile(
+                          '1',
+                          width: 38,
+                          height: 32,
+                          color: _rtTeal,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('0', width: 38, height: 32,
-                            color: _rtBronze),
+                        _rtDiagramTile(
+                          '0',
+                          width: 38,
+                          height: 32,
+                          color: _rtBronze,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 3),
                     Row(
                       children: [
-                        _rtDiagramTile('5', width: 38, height: 32,
-                            color: _rtSky),
+                        _rtDiagramTile(
+                          '5',
+                          width: 38,
+                          height: 32,
+                          color: _rtSky,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('4', width: 38, height: 32,
-                            color: _rtForest),
+                        _rtDiagramTile(
+                          '4',
+                          width: 38,
+                          height: 32,
+                          color: _rtForest,
+                        ),
                         const SizedBox(width: 3),
-                        _rtDiagramTile('3', width: 38, height: 32,
-                            color: _rtCoral),
+                        _rtDiagramTile(
+                          '3',
+                          width: 38,
+                          height: 32,
+                          color: _rtCoral,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -1026,8 +1113,7 @@ dynamic build(BuildContext context) {
             textDirection: TextDirection.rtl,
             child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
                 childAspectRatio: 1.2,
                 crossAxisSpacing: 6,
@@ -1037,8 +1123,14 @@ dynamic build(BuildContext context) {
               itemCount: 8,
               itemBuilder: (context, index) {
                 final colors = [
-                  _rtBronze, _rtTeal, _rtAmber, _rtCoral,
-                  _rtForest, _rtSky, _rtPlum, _rtRose,
+                  _rtBronze,
+                  _rtTeal,
+                  _rtAmber,
+                  _rtCoral,
+                  _rtForest,
+                  _rtSky,
+                  _rtPlum,
+                  _rtRose,
                 ];
                 return Container(
                   decoration: BoxDecoration(
@@ -1114,8 +1206,7 @@ dynamic build(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 1.0,
               crossAxisSpacing: 8,
@@ -1191,8 +1282,7 @@ dynamic build(BuildContext context) {
         ),
 
         // Live grid: maxCrossAxisExtent = 100
-        _rtCaption(
-            'maxCrossAxisExtent: 100, ratio 0.8 — taller than wide'),
+        _rtCaption('maxCrossAxisExtent: 100, ratio 0.8 — taller than wide'),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           height: 260,
@@ -1203,8 +1293,7 @@ dynamic build(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 100,
               childAspectRatio: 0.8,
               crossAxisSpacing: 10,
@@ -1226,10 +1315,7 @@ dynamic build(BuildContext context) {
               return Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      _rtBronze.withValues(alpha: 0.8),
-                      _rtDarkBronze,
-                    ],
+                    colors: [_rtBronze.withValues(alpha: 0.8), _rtDarkBronze],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -1258,9 +1344,9 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'Same class, different factory',
           'Both delegates create a SliverGridRegularTileLayout. '
-          'The difference is only in HOW they compute the six properties. '
-          'FixedCrossAxisCount uses a given column count; '
-          'MaxCrossAxisExtent derives it from available space.',
+              'The difference is only in HOW they compute the six properties. '
+              'FixedCrossAxisCount uses a given column count; '
+              'MaxCrossAxisExtent derives it from available space.',
           Icons.compare_arrows,
           _rtAmber,
         ),
@@ -1294,8 +1380,7 @@ dynamic build(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 2.0,
               crossAxisSpacing: 6,
@@ -1309,11 +1394,14 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(5),
               ),
               alignment: Alignment.center,
-              child: Text('2.0',
-                  style: TextStyle(
-                      color: _rtCharcoal.withValues(alpha: 0.8),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
+              child: Text(
+                '2.0',
+                style: TextStyle(
+                  color: _rtCharcoal.withValues(alpha: 0.8),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ),
           ),
         ),
@@ -1332,8 +1420,7 @@ dynamic build(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 1.0,
               crossAxisSpacing: 6,
@@ -1347,11 +1434,14 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(5),
               ),
               alignment: Alignment.center,
-              child: const Text('1.0',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
+              child: const Text(
+                '1.0',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ),
           ),
         ),
@@ -1370,8 +1460,7 @@ dynamic build(BuildContext context) {
           clipBehavior: Clip.antiAlias,
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 0.6,
               crossAxisSpacing: 6,
@@ -1385,11 +1474,14 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(5),
               ),
               alignment: Alignment.center,
-              child: const Text('0.6',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
+              child: const Text(
+                '0.6',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
             ),
           ),
         ),
@@ -1428,8 +1520,7 @@ dynamic build(BuildContext context) {
           child: GridView.builder(
             scrollDirection: Axis.horizontal,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 1.2,
               crossAxisSpacing: 8,
@@ -1477,8 +1568,8 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'Axis interpretation',
           'In a horizontal grid: mainAxis = horizontal (scroll direction), '
-          'crossAxis = vertical. The SliverGridRegularTileLayout does not '
-          'know or care which axis is which — it just computes offsets.',
+              'crossAxis = vertical. The SliverGridRegularTileLayout does not '
+              'know or care which axis is which — it just computes offsets.',
           Icons.rotate_90_degrees_cw,
           _rtSky,
         ),
@@ -1539,8 +1630,7 @@ dynamic build(BuildContext context) {
                 height: 280,
                 child: GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: 1.0,
                     crossAxisSpacing: 2,
@@ -1578,7 +1668,9 @@ dynamic build(BuildContext context) {
                             right: 4,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 4, vertical: 2),
+                                horizontal: 4,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.black45,
                                 borderRadius: BorderRadius.circular(3),
@@ -1586,7 +1678,9 @@ dynamic build(BuildContext context) {
                               child: Text(
                                 'IMG_${1000 + index}',
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 8),
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                ),
                               ),
                             ),
                           ),
@@ -1667,9 +1761,9 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'Uniform = predictable',
           'A non-uniform grid (staggered/masonry) might need O(N) to compute '
-          'positions because each tile\'s height can differ. '
-          'SliverGridRegularTileLayout avoids this entirely because all '
-          'tiles share the same geometry template.',
+              'positions because each tile\'s height can differ. '
+              'SliverGridRegularTileLayout avoids this entirely because all '
+              'tiles share the same geometry template.',
           Icons.speed,
           _rtCoral,
         ),
@@ -1688,37 +1782,37 @@ dynamic build(BuildContext context) {
         _rtInfoCard(
           'Sole built-in implementation',
           'SliverGridRegularTileLayout is the only concrete SliverGridLayout '
-          'in Flutter. Both FixedCrossAxisCount and MaxCrossAxisExtent '
-          'delegates produce it.',
+              'in Flutter. Both FixedCrossAxisCount and MaxCrossAxisExtent '
+              'delegates produce it.',
           Icons.apps,
           _rtBronze,
         ),
         _rtInfoCard(
           'Six properties',
           'crossAxisCount, mainAxisStride, crossAxisStride, '
-          'childMainAxisExtent, childCrossAxisExtent, reverseCrossAxis. '
-          'These six values fully determine the grid.',
+              'childMainAxisExtent, childCrossAxisExtent, reverseCrossAxis. '
+              'These six values fully determine the grid.',
           Icons.format_list_numbered,
           _rtTeal,
         ),
         _rtInfoCard(
           'Stride vs. extent',
           'Stride = extent + spacing. The layout stores both so it can '
-          'compute positions (stride) and sizes (extent) without recalculation.',
+              'compute positions (stride) and sizes (extent) without recalculation.',
           Icons.straighten,
           _rtAmber,
         ),
         _rtInfoCard(
           'O(1) performance',
           'Index-to-position uses integer division and modulo. '
-          'No accumulation, no iteration, no measurement cache needed.',
+              'No accumulation, no iteration, no measurement cache needed.',
           Icons.speed,
           _rtForest,
         ),
         _rtInfoCard(
           'RTL support',
           'reverseCrossAxis flips the cross-axis ordering. The scroll axis '
-          'direction is unaffected. Driven by TextDirection in the delegate.',
+              'direction is unaffected. Driven by TextDirection in the delegate.',
           Icons.flip,
           _rtPlum,
         ),
@@ -1728,8 +1822,7 @@ dynamic build(BuildContext context) {
         // Footer badge
         Center(
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [_rtDarkBronze, _rtBronze],
@@ -1759,7 +1852,12 @@ dynamic build(BuildContext context) {
 
 /// Property info card for section 3.
 Widget _rtPropertyCard(
-    String name, String type, String description, IconData icon, Color accent) {
+  String name,
+  String type,
+  String description,
+  IconData icon,
+  Color accent,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     padding: const EdgeInsets.all(12),
@@ -1810,8 +1908,13 @@ Widget _rtPropertyCard(
 }
 
 /// Computation example row for computeMaxScrollOffset.
-Widget _rtExampleRow(String label, int childCount, int crossAxisCount,
-    double mainAxisStride, double childMainAxisExtent) {
+Widget _rtExampleRow(
+  String label,
+  int childCount,
+  int crossAxisCount,
+  double mainAxisStride,
+  double childMainAxisExtent,
+) {
   final rows = (childCount / crossAxisCount).ceil();
   final maxScroll =
       mainAxisStride * rows - (mainAxisStride - childMainAxisExtent);
@@ -1855,7 +1958,11 @@ Widget _rtExampleRow(String label, int childCount, int crossAxisCount,
 
 /// Performance characteristic row.
 Widget _rtPerformanceRow(
-    String operation, String complexity, String note, Color color) {
+  String operation,
+  String complexity,
+  String note,
+  Color color,
+) {
   return Row(
     children: [
       Container(
@@ -1887,10 +1994,7 @@ Widget _rtPerformanceRow(
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Text(
-              note,
-              style: const TextStyle(color: _rtSlate, fontSize: 11),
-            ),
+            Text(note, style: const TextStyle(color: _rtSlate, fontSize: 11)),
           ],
         ),
       ),

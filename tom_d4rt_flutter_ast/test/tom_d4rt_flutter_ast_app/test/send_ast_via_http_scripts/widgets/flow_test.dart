@@ -74,7 +74,12 @@ class _ComparisonRow {
   final String layoutModel;
   final String repaintCost;
   final String bestFor;
-  const _ComparisonRow(this.widget, this.layoutModel, this.repaintCost, this.bestFor);
+  const _ComparisonRow(
+    this.widget,
+    this.layoutModel,
+    this.repaintCost,
+    this.bestFor,
+  );
 }
 
 class _TipCard {
@@ -118,7 +123,9 @@ const TextStyle _kMono = TextStyle(
 
 dynamic build(BuildContext context) {
   print('[flow_test] === BEGIN deep visual demo of Flutter Flow widget ===');
-  print('[flow_test] interpreter mode: depicting paintChildren output via Stack + Transform');
+  print(
+    '[flow_test] interpreter mode: depicting paintChildren output via Stack + Transform',
+  );
 
   final List<Widget> sections = <Widget>[
     _buildPageHeader(),
@@ -165,7 +172,11 @@ Widget _buildPageHeader() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF111827), Color(0xFF1E293B), Color(0xFF312E81)],
+        colors: <Color>[
+          Color(0xFF111827),
+          Color(0xFF1E293B),
+          Color(0xFF312E81),
+        ],
       ),
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -198,7 +209,11 @@ Widget _buildPageHeader() {
                   ),
                 ],
               ),
-              child: const Icon(Icons.scatter_plot, color: Colors.white, size: 30),
+              child: const Icon(
+                Icons.scatter_plot,
+                color: Colors.white,
+                size: 30,
+              ),
             ),
             const SizedBox(width: 18),
             Expanded(
@@ -258,10 +273,7 @@ Widget _headerPill(String text, Color tint) {
         Container(
           width: 7,
           height: 7,
-          decoration: BoxDecoration(
-            color: tint,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: tint, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8),
         Text(
@@ -314,7 +326,9 @@ Widget _buildAnatomyDiagram() {
                           _kHotPink.withValues(alpha: 0.06),
                         ],
                       ),
-                      border: Border.all(color: _kAccent.withValues(alpha: 0.18)),
+                      border: Border.all(
+                        color: _kAccent.withValues(alpha: 0.18),
+                      ),
                     ),
                   ),
                 ),
@@ -339,23 +353,44 @@ Widget _buildAnatomyDiagram() {
                 Positioned(
                   left: 130,
                   top: 110,
-                  child: _anatomyChild('child #1', Icons.bolt, _kHotPink, 0.92, -0.18),
+                  child: _anatomyChild(
+                    'child #1',
+                    Icons.bolt,
+                    _kHotPink,
+                    0.92,
+                    -0.18,
+                  ),
                 ),
                 Positioned(
                   left: 220,
                   top: 60,
-                  child: _anatomyChild('child #2', Icons.api, _kAmber, 1.04, 0.12),
+                  child: _anatomyChild(
+                    'child #2',
+                    Icons.api,
+                    _kAmber,
+                    1.04,
+                    0.12,
+                  ),
                 ),
                 Positioned(
                   left: 310,
                   top: 130,
-                  child: _anatomyChild('child #3', Icons.auto_awesome, _kEmerald, 0.86, 0.32),
+                  child: _anatomyChild(
+                    'child #3',
+                    Icons.auto_awesome,
+                    _kEmerald,
+                    0.86,
+                    0.32,
+                  ),
                 ),
                 Positioned(
                   right: 22,
                   bottom: 16,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: _kInk,
                       borderRadius: BorderRadius.circular(8),
@@ -400,7 +435,13 @@ Widget _buildAnatomyDiagram() {
   );
 }
 
-Widget _anatomyChild(String name, IconData icon, Color tint, double scale, double rotation) {
+Widget _anatomyChild(
+  String name,
+  IconData icon,
+  Color tint,
+  double scale,
+  double rotation,
+) {
   return Transform.rotate(
     angle: rotation,
     child: Transform.scale(
@@ -518,7 +559,10 @@ Widget _buildRadialMenuSection() {
                 ),
                 Positioned.fill(
                   child: CustomPaint(
-                    painter: _OrbitRingPainter(center: center, radius: radius * t),
+                    painter: _OrbitRingPainter(
+                      center: center,
+                      radius: radius * t,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -550,7 +594,10 @@ Widget _buildRadialMenuSection() {
                   right: 14,
                   top: 14,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: _kInk.withValues(alpha: 0.85),
                       borderRadius: BorderRadius.circular(8),
@@ -629,14 +676,21 @@ class _OrbitRingPainter extends CustomPainter {
       if (i.isOdd) continue;
       final double a0 = (math.pi * 2) * (i / segments);
       final double a1 = (math.pi * 2) * ((i + 1) / segments);
-      final Offset p0 = Offset(center.dx + math.cos(a0) * radius, center.dy + math.sin(a0) * radius);
-      final Offset p1 = Offset(center.dx + math.cos(a1) * radius, center.dy + math.sin(a1) * radius);
+      final Offset p0 = Offset(
+        center.dx + math.cos(a0) * radius,
+        center.dy + math.sin(a0) * radius,
+      );
+      final Offset p1 = Offset(
+        center.dx + math.cos(a1) * radius,
+        center.dy + math.sin(a1) * radius,
+      );
       canvas.drawLine(p0, p1, dashed);
     }
   }
 
   @override
-  bool shouldRepaint(covariant _OrbitRingPainter old) => old.radius != radius || old.center != center;
+  bool shouldRepaint(covariant _OrbitRingPainter old) =>
+      old.radius != radius || old.center != center;
 }
 
 // =====================================================================
@@ -647,11 +701,11 @@ Widget _buildFanOutSection() {
   print('[flow_test] section 3: fan-out cards');
 
   final List<_FanCard> cards = <_FanCard>[
-    _FanCard('Discover',  'curated picks',     _kAccent),
-    _FanCard('Trending',  'hot this week',     _kHotPink),
-    _FanCard('For you',   'tuned to taste',    _kAmber),
-    _FanCard('Friends',   'social activity',   _kEmerald),
-    _FanCard('Saved',     'your library',      _kCobalt),
+    _FanCard('Discover', 'curated picks', _kAccent),
+    _FanCard('Trending', 'hot this week', _kHotPink),
+    _FanCard('For you', 'tuned to taste', _kAmber),
+    _FanCard('Friends', 'social activity', _kEmerald),
+    _FanCard('Saved', 'your library', _kCobalt),
   ];
 
   const double fanRadius = 200;
@@ -780,7 +834,10 @@ Widget _fanCard(_FanCard card) {
           offset: const Offset(0, 10),
         ),
       ],
-      border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.4),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.5),
+        width: 1.4,
+      ),
     ),
     padding: const EdgeInsets.all(14),
     child: Column(
@@ -831,13 +888,13 @@ Widget _buildCascadeSection() {
   print('[flow_test] section 4: staggered cascade tiles');
 
   final List<_CascadeTile> tiles = <_CascadeTile>[
-    _CascadeTile('A', _kAccent,  _kCobalt),
+    _CascadeTile('A', _kAccent, _kCobalt),
     _CascadeTile('B', _kHotPink, _kAmber),
-    _CascadeTile('C', _kAmber,   _kEmerald),
+    _CascadeTile('C', _kAmber, _kEmerald),
     _CascadeTile('D', _kEmerald, _kTeal),
-    _CascadeTile('E', _kTeal,    _kAccent),
-    _CascadeTile('F', _kCobalt,  _kHotPink),
-    _CascadeTile('G', _kSlate,   _kAccent),
+    _CascadeTile('E', _kTeal, _kAccent),
+    _CascadeTile('F', _kCobalt, _kHotPink),
+    _CascadeTile('G', _kSlate, _kAccent),
     _CascadeTile('H', _kHotPink, _kEmerald),
   ];
 
@@ -985,7 +1042,14 @@ Widget _legendDot(Color color, String text) {
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       const SizedBox(width: 6),
-      Text(text, style: const TextStyle(fontSize: 11.5, color: _kSlate, fontFamily: 'monospace')),
+      Text(
+        text,
+        style: const TextStyle(
+          fontSize: 11.5,
+          color: _kSlate,
+          fontFamily: 'monospace',
+        ),
+      ),
     ],
   );
 }
@@ -998,20 +1062,20 @@ Widget _buildHexGridSection() {
   print('[flow_test] section 5: hex tile grid');
 
   final List<_HexCell> cells = <_HexCell>[
-    _HexCell('A1', _kAccent,  0.95),
+    _HexCell('A1', _kAccent, 0.95),
     _HexCell('A2', _kHotPink, 0.85),
-    _HexCell('A3', _kAmber,   0.70),
+    _HexCell('A3', _kAmber, 0.70),
     _HexCell('A4', _kEmerald, 0.55),
-    _HexCell('B1', _kCobalt,  0.92),
-    _HexCell('B2', _kTeal,    0.78),
-    _HexCell('B3', _kAccent,  0.62),
+    _HexCell('B1', _kCobalt, 0.92),
+    _HexCell('B2', _kTeal, 0.78),
+    _HexCell('B3', _kAccent, 0.62),
     _HexCell('B4', _kHotPink, 0.50),
-    _HexCell('C1', _kAmber,   0.88),
+    _HexCell('C1', _kAmber, 0.88),
     _HexCell('C2', _kEmerald, 0.74),
-    _HexCell('C3', _kCobalt,  0.60),
-    _HexCell('C4', _kTeal,    0.45),
-    _HexCell('D1', _kSlate,   0.82),
-    _HexCell('D2', _kAccent,  0.68),
+    _HexCell('C3', _kCobalt, 0.60),
+    _HexCell('C4', _kTeal, 0.45),
+    _HexCell('D1', _kSlate, 0.82),
+    _HexCell('D2', _kAccent, 0.68),
     _HexCell('D3', _kHotPink, 0.54),
   ];
 
@@ -1026,13 +1090,7 @@ Widget _buildHexGridSection() {
     final int col = i % cols;
     final double x = col * colSpacing + (row.isOdd ? colSpacing / 2 : 0) + 24;
     final double y = row * rowSpacing + 24;
-    hexes.add(
-      Positioned(
-        left: x,
-        top: y,
-        child: _hexCell(cells[i], hexSize),
-      ),
-    );
+    hexes.add(Positioned(left: x, top: y, child: _hexCell(cells[i], hexSize)));
   }
 
   return _section(
@@ -1134,10 +1192,10 @@ Widget _buildParallaxSection() {
   print('[flow_test] section 6: parallax depth cards');
 
   final List<_ParallaxLayer> layers = <_ParallaxLayer>[
-    _ParallaxLayer('Background', 0.0, _kCobalt,  Icons.landscape),
+    _ParallaxLayer('Background', 0.0, _kCobalt, Icons.landscape),
     _ParallaxLayer('Mid clouds', 0.25, _kAccent, Icons.cloud),
-    _ParallaxLayer('Mountains',  0.5, _kEmerald, Icons.terrain),
-    _ParallaxLayer('Trees',      0.75, _kAmber,  Icons.park),
+    _ParallaxLayer('Mountains', 0.5, _kEmerald, Icons.terrain),
+    _ParallaxLayer('Trees', 0.75, _kAmber, Icons.park),
     _ParallaxLayer('Foreground', 1.0, _kHotPink, Icons.local_florist),
   ];
 
@@ -1158,10 +1216,7 @@ Widget _buildParallaxSection() {
         top: center.dy + offsetY - (78 * scale) / 2,
         child: Opacity(
           opacity: opacity.clamp(0.0, 1.0),
-          child: Transform.scale(
-            scale: scale,
-            child: _parallaxCard(layer),
-          ),
+          child: Transform.scale(scale: scale, child: _parallaxCard(layer)),
         ),
       ),
     );
@@ -1199,7 +1254,10 @@ Widget _buildParallaxSection() {
                   top: 14,
                   left: 16,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
@@ -1253,10 +1311,7 @@ Widget _parallaxCard(_ParallaxLayer layer) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          layer.tint,
-          layer.tint.withValues(alpha: 0.7),
-        ],
+        colors: <Color>[layer.tint, layer.tint.withValues(alpha: 0.7)],
       ),
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -1357,7 +1412,8 @@ Widget _buildFlowDelegateApiCard() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          for (int i = 0; i < rows.length; i++) _apiRow(rows[i], i, rows.length),
+          for (int i = 0; i < rows.length; i++)
+            _apiRow(rows[i], i, rows.length),
           const SizedBox(height: 18),
           _codeCard(
             title: 'Calling Flow in your widget tree',
@@ -1585,11 +1641,7 @@ Widget _cell(String text) {
     padding: const EdgeInsets.only(right: 8),
     child: Text(
       text,
-      style: const TextStyle(
-        fontSize: 12.5,
-        color: _kSlate,
-        height: 1.4,
-      ),
+      style: const TextStyle(fontSize: 12.5, color: _kSlate, height: 1.4),
     ),
   );
 }
@@ -1605,42 +1657,42 @@ Widget _buildWhenToUseTipCards() {
     _TipCard(
       'Many children, same constraints',
       'If all children share the same BoxConstraints and you only need to vary '
-      'their position/scale/rotation per frame, Flow is the most efficient choice.',
+          'their position/scale/rotation per frame, Flow is the most efficient choice.',
       Icons.dashboard_customize,
       _kAccent,
     ),
     _TipCard(
       'High-frequency animation',
       'Because shouldRepaint=true does NOT trigger relayout, you can drive Flow '
-      'from an AnimationController without paying layout cost every tick.',
+          'from an AnimationController without paying layout cost every tick.',
       Icons.animation,
       _kHotPink,
     ),
     _TipCard(
       'Geometric layouts',
       'Radial menus, fan layouts, hex grids, polar charts — anywhere positions '
-      'are computed from a closed-form expression of (i, n, t).',
+          'are computed from a closed-form expression of (i, n, t).',
       Icons.scatter_plot,
       _kAmber,
     ),
     _TipCard(
       'Avoid for content sizing',
       'If the layout itself depends on children\'s intrinsic sizes (e.g. text '
-      'wrapping decisions), use Wrap or CustomMultiChildLayout instead.',
+          'wrapping decisions), use Wrap or CustomMultiChildLayout instead.',
       Icons.warning_amber_rounded,
       _kEmerald,
     ),
     _TipCard(
       'Use FlowPaintingContext.paintChild(opacity:)',
       'Per-child opacity is built in. No need to wrap each child in an Opacity '
-      'widget — saves a full layer in the engine.',
+          'widget — saves a full layer in the engine.',
       Icons.opacity,
       _kCobalt,
     ),
     _TipCard(
       'Keep paintChildren pure',
       'Treat paintChildren like a render function: read inputs, paint, return. '
-      'Mutating state inside paintChildren leads to subtle frame skips.',
+          'Mutating state inside paintChildren leads to subtle frame skips.',
       Icons.functions,
       _kTeal,
     ),
@@ -1658,10 +1710,7 @@ Widget _buildWhenToUseTipCards() {
       runSpacing: 14,
       children: <Widget>[
         for (int i = 0; i < tips.length; i++)
-          SizedBox(
-            width: 320,
-            child: _tipCard(tips[i], i),
-          ),
+          SizedBox(width: 320, child: _tipCard(tips[i], i)),
       ],
     ),
   );
@@ -1691,10 +1740,7 @@ Widget _tipCard(_TipCard tip, int index) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             gradient: LinearGradient(
-              colors: <Color>[
-                tip.accent,
-                tip.accent.withValues(alpha: 0.7),
-              ],
+              colors: <Color>[tip.accent, tip.accent.withValues(alpha: 0.7)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1709,7 +1755,10 @@ Widget _tipCard(_TipCard tip, int index) {
               Row(
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 7,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: tip.accent.withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(6),
@@ -1822,49 +1871,96 @@ Widget _buildPaintChildrenWalkthrough() {
             ],
           ),
           const SizedBox(height: 16),
-          _codeLine('1', 'class _RadialMenuDelegate extends FlowDelegate {', _kHotPink),
-          _codeLine('2', '  _RadialMenuDelegate({required this.progress, required this.radius})', _kInk),
-          _codeLine('3', '      : super(repaint: progress);  // listen for ticks', _kAmber),
+          _codeLine(
+            '1',
+            'class _RadialMenuDelegate extends FlowDelegate {',
+            _kHotPink,
+          ),
+          _codeLine(
+            '2',
+            '  _RadialMenuDelegate({required this.progress, required this.radius})',
+            _kInk,
+          ),
+          _codeLine(
+            '3',
+            '      : super(repaint: progress);  // listen for ticks',
+            _kAmber,
+          ),
           _codeLine('4', '', _kInk),
           _codeLine('5', '  final Animation<double> progress;', _kInk),
           _codeLine('6', '  final double radius;', _kInk),
           _codeLine('7', '', _kInk),
           _codeLine('8', '  @override', _kEmerald),
-          _codeLine('9', '  void paintChildren(FlowPaintingContext ctx) {', _kAccent),
+          _codeLine(
+            '9',
+            '  void paintChildren(FlowPaintingContext ctx) {',
+            _kAccent,
+          ),
           _codeLine('10', '    final n = ctx.childCount;', _kInk),
           _codeLine('11', '    for (int i = 0; i < n; i++) {', _kInk),
           _codeLine('12', '      final a = (2 * pi / n) * i - pi / 2;', _kInk),
           _codeLine('13', '      final r = radius * progress.value;', _kInk),
-          _codeLine('14', '      final dx = ctx.size.width  / 2 + cos(a) * r;', _kInk),
-          _codeLine('15', '      final dy = ctx.size.height / 2 + sin(a) * r;', _kInk),
-          _codeLine('16', '      final m = Matrix4.identity()..translate(dx, dy);', _kInk),
+          _codeLine(
+            '14',
+            '      final dx = ctx.size.width  / 2 + cos(a) * r;',
+            _kInk,
+          ),
+          _codeLine(
+            '15',
+            '      final dy = ctx.size.height / 2 + sin(a) * r;',
+            _kInk,
+          ),
+          _codeLine(
+            '16',
+            '      final m = Matrix4.identity()..translate(dx, dy);',
+            _kInk,
+          ),
           _codeLine('17', '      ctx.paintChild(i,', _kInk),
           _codeLine('18', '        transform: m,', _kInk),
-          _codeLine('19', '        opacity: progress.value);  // per-child opacity!', _kAmber),
+          _codeLine(
+            '19',
+            '        opacity: progress.value);  // per-child opacity!',
+            _kAmber,
+          ),
           _codeLine('20', '    }', _kInk),
           _codeLine('21', '  }', _kAccent),
           _codeLine('22', '', _kInk),
           _codeLine('23', '  @override', _kEmerald),
-          _codeLine('24', '  bool shouldRepaint(covariant _RadialMenuDelegate old) =>', _kAccent),
-          _codeLine('25', '    old.radius != radius;  // animation ticks come via repaint:', _kInk),
+          _codeLine(
+            '24',
+            '  bool shouldRepaint(covariant _RadialMenuDelegate old) =>',
+            _kAccent,
+          ),
+          _codeLine(
+            '25',
+            '    old.radius != radius;  // animation ticks come via repaint:',
+            _kInk,
+          ),
           _codeLine('26', '', _kInk),
           _codeLine('27', '  @override', _kEmerald),
-          _codeLine('28', '  bool shouldRelayout(covariant _RadialMenuDelegate old) => false;', _kAccent),
+          _codeLine(
+            '28',
+            '  bool shouldRelayout(covariant _RadialMenuDelegate old) => false;',
+            _kAccent,
+          ),
           _codeLine('29', '}', _kHotPink),
           const SizedBox(height: 18),
           _walkthroughCallout(
             label: 'super(repaint: animation)',
-            text: 'Subscribes the delegate to a Listenable. Every tick triggers paint, NOT layout.',
+            text:
+                'Subscribes the delegate to a Listenable. Every tick triggers paint, NOT layout.',
             color: _kAmber,
           ),
           _walkthroughCallout(
             label: 'ctx.paintChild(i, opacity: ...)',
-            text: 'Per-child opacity is part of the API. Using Flow this way avoids one Opacity layer per child.',
+            text:
+                'Per-child opacity is part of the API. Using Flow this way avoids one Opacity layer per child.',
             color: _kEmerald,
           ),
           _walkthroughCallout(
             label: 'shouldRelayout = false',
-            text: 'The whole point of Flow. Children keep their previous Sizes; only paint runs.',
+            text:
+                'The whole point of Flow. Children keep their previous Sizes; only paint runs.',
             color: _kHotPink,
           ),
         ],
@@ -1905,7 +2001,11 @@ Widget _codeLine(String number, String code, Color accent) {
   );
 }
 
-Widget _walkthroughCallout({required String label, required String text, required Color color}) {
+Widget _walkthroughCallout({
+  required String label,
+  required String text,
+  required Color color,
+}) {
   return Container(
     margin: const EdgeInsets.only(top: 10),
     padding: const EdgeInsets.all(12),
@@ -2012,11 +2112,7 @@ Widget _buildFooter() {
           'user subclass of FlowDelegate, so this demo paints the equivalent output '
           'using Stack + Positioned + Transform — the same matrices the real delegate '
           'would emit, just composed declaratively.',
-          style: TextStyle(
-            color: _kSlate,
-            fontSize: 13.5,
-            height: 1.55,
-          ),
+          style: TextStyle(color: _kSlate, fontSize: 13.5, height: 1.55),
         ),
         const SizedBox(height: 18),
         Wrap(
@@ -2092,10 +2188,7 @@ Widget _section({
             ),
             const SizedBox(width: 12),
             Expanded(
-              child: Container(
-                height: 1,
-                color: _kInk.withValues(alpha: 0.1),
-              ),
+              child: Container(height: 1, color: _kInk.withValues(alpha: 0.1)),
             ),
           ],
         ),
@@ -2113,11 +2206,7 @@ Widget _section({
         const SizedBox(height: 8),
         Text(
           summary,
-          style: const TextStyle(
-            color: _kSubtle,
-            fontSize: 13.5,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: _kSubtle, fontSize: 13.5, height: 1.5),
         ),
         const SizedBox(height: 16),
         body,
@@ -2158,19 +2247,28 @@ Widget _codeCard({required String title, required List<String> lines}) {
             Container(
               width: 8,
               height: 8,
-              decoration: const BoxDecoration(color: Color(0xFFFF5F57), shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                color: Color(0xFFFF5F57),
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 5),
             Container(
               width: 8,
               height: 8,
-              decoration: const BoxDecoration(color: Color(0xFFFFBD2E), shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                color: Color(0xFFFFBD2E),
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 5),
             Container(
               width: 8,
               height: 8,
-              decoration: const BoxDecoration(color: Color(0xFF28C840), shape: BoxShape.circle),
+              decoration: const BoxDecoration(
+                color: Color(0xFF28C840),
+                shape: BoxShape.circle,
+              ),
             ),
             const SizedBox(width: 12),
             Text(
@@ -2206,10 +2304,7 @@ Widget _codeCard({required String title, required List<String> lines}) {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(
-                    lines[i].isEmpty ? ' ' : lines[i],
-                    style: _kMono,
-                  ),
+                  child: Text(lines[i].isEmpty ? ' ' : lines[i], style: _kMono),
                 ),
               ],
             ),

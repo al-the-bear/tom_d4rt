@@ -70,8 +70,8 @@ class _RestorableColor extends RestorableProperty<Color> {
   // ordering-fragile (see N2 closure). This is the documented
   // initState-seeding workaround applied at the field declaration.
   _RestorableColor([Color? defaultValue])
-      : _defaultValue = defaultValue ?? const Color(0xFF3F51B5),
-        _value = defaultValue ?? const Color(0xFF3F51B5);
+    : _defaultValue = defaultValue ?? const Color(0xFF3F51B5),
+      _value = defaultValue ?? const Color(0xFF3F51B5);
 
   final Color _defaultValue;
   Color _value;
@@ -133,9 +133,10 @@ class _RestorableStringList extends RestorableProperty<List<String>> {
   // reassigns `_value` from the framework-supplied value, so
   // restoration semantics are preserved.
   _RestorableStringList([List<String>? defaultValue])
-      : _defaultValue =
-            List<String>.unmodifiable(defaultValue ?? const <String>[]),
-        _value = List<String>.from(defaultValue ?? const <String>[]);
+    : _defaultValue = List<String>.unmodifiable(
+        defaultValue ?? const <String>[],
+      ),
+      _value = List<String>.from(defaultValue ?? const <String>[]);
 
   final List<String> _defaultValue;
   List<String> _value;
@@ -204,7 +205,9 @@ class _RestorableStringList extends RestorableProperty<List<String>> {
 // ---------------------------------------------------------------------------
 
 dynamic build(BuildContext context) {
-  debugPrint('[restorable_property_test] build() invoked, launching ThemeColorEditorDemo');
+  debugPrint(
+    '[restorable_property_test] build() invoked, launching ThemeColorEditorDemo',
+  );
   return MaterialApp(
     title: 'RestorableProperty Deep Demo',
     restorationScopeId: 'theme_color_editor_root',
@@ -233,9 +236,15 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
   // Our custom colour properties. Notice how we can pass a default to the
   // constructor — this is a classic ergonomic escape hatch for subclasses
   // whose default value is not a compile-time constant expression.
-  final _RestorableColor _primaryColor = _RestorableColor(const Color(0xFF3F51B5));
-  final _RestorableColor _accentColor = _RestorableColor(const Color(0xFFFF4081));
-  final _RestorableColor _backgroundTint = _RestorableColor(const Color(0xFFFAFAFA));
+  final _RestorableColor _primaryColor = _RestorableColor(
+    const Color(0xFF3F51B5),
+  );
+  final _RestorableColor _accentColor = _RestorableColor(
+    const Color(0xFFFF4081),
+  );
+  final _RestorableColor _backgroundTint = _RestorableColor(
+    const Color(0xFFFAFAFA),
+  );
 
   // The favourite swatches list, also a custom subclass, shows the
   // `List<String>` primitive case.
@@ -250,20 +259,48 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
 
   // Handy preset swatches shown in the 5x5 grid. 25 entries.
   static const List<Color> _presetSwatches = <Color>[
-    Color(0xFFEF5350), Color(0xFFEC407A), Color(0xFFAB47BC), Color(0xFF7E57C2), Color(0xFF5C6BC0),
-    Color(0xFF42A5F5), Color(0xFF29B6F6), Color(0xFF26C6DA), Color(0xFF26A69A), Color(0xFF66BB6A),
-    Color(0xFF9CCC65), Color(0xFFD4E157), Color(0xFFFFEE58), Color(0xFFFFCA28), Color(0xFFFFA726),
-    Color(0xFFFF7043), Color(0xFF8D6E63), Color(0xFFBDBDBD), Color(0xFF78909C), Color(0xFF546E7A),
-    Color(0xFF37474F), Color(0xFF1E88E5), Color(0xFF00897B), Color(0xFF6D4C41), Color(0xFF5E35B1),
+    Color(0xFFEF5350),
+    Color(0xFFEC407A),
+    Color(0xFFAB47BC),
+    Color(0xFF7E57C2),
+    Color(0xFF5C6BC0),
+    Color(0xFF42A5F5),
+    Color(0xFF29B6F6),
+    Color(0xFF26C6DA),
+    Color(0xFF26A69A),
+    Color(0xFF66BB6A),
+    Color(0xFF9CCC65),
+    Color(0xFFD4E157),
+    Color(0xFFFFEE58),
+    Color(0xFFFFCA28),
+    Color(0xFFFFA726),
+    Color(0xFFFF7043),
+    Color(0xFF8D6E63),
+    Color(0xFFBDBDBD),
+    Color(0xFF78909C),
+    Color(0xFF546E7A),
+    Color(0xFF37474F),
+    Color(0xFF1E88E5),
+    Color(0xFF00897B),
+    Color(0xFF6D4C41),
+    Color(0xFF5E35B1),
   ];
 
   @override
   void initState() {
     super.initState();
-    debugPrint('[ThemeColorEditorDemo] initState — custom restorables constructed');
-    debugPrint('[ThemeColorEditorDemo] primary default: ${_primaryColor.createDefaultValue()}');
-    debugPrint('[ThemeColorEditorDemo] accent default : ${_accentColor.createDefaultValue()}');
-    debugPrint('[ThemeColorEditorDemo] favourites default size: ${_favoriteSwatches.createDefaultValue().length}');
+    debugPrint(
+      '[ThemeColorEditorDemo] initState — custom restorables constructed',
+    );
+    debugPrint(
+      '[ThemeColorEditorDemo] primary default: ${_primaryColor.createDefaultValue()}',
+    );
+    debugPrint(
+      '[ThemeColorEditorDemo] accent default : ${_accentColor.createDefaultValue()}',
+    );
+    debugPrint(
+      '[ThemeColorEditorDemo] favourites default size: ${_favoriteSwatches.createDefaultValue().length}',
+    );
   }
 
   @override
@@ -271,7 +308,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    debugPrint('[ThemeColorEditorDemo] restoreState initialRestore=$initialRestore');
+    debugPrint(
+      '[ThemeColorEditorDemo] restoreState initialRestore=$initialRestore',
+    );
     // Every RestorableProperty must be registered with a unique key.
     // The framework uses these keys to store and retrieve each value.
     registerForRestoration(_primaryColor, 'primary_color');
@@ -283,7 +322,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
 
   @override
   void dispose() {
-    debugPrint('[ThemeColorEditorDemo] dispose — releasing restorable properties');
+    debugPrint(
+      '[ThemeColorEditorDemo] dispose — releasing restorable properties',
+    );
     _primaryColor.dispose();
     _accentColor.dispose();
     _backgroundTint.dispose();
@@ -300,7 +341,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
     setState(() {
       _primaryColor.value = tapped;
     });
-    debugPrint('[ThemeColorEditorDemo] primary => ${tapped.toARGB32().toRadixString(16)}');
+    debugPrint(
+      '[ThemeColorEditorDemo] primary => ${tapped.toARGB32().toRadixString(16)}',
+    );
   }
 
   void _cyclePaletteMode() {
@@ -342,7 +385,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
       Color(0xFF69F0AE),
       Color(0xFFB388FF),
     ];
-    final int current = picks.indexWhere((Color c) => c.toARGB32() == _accentColor.value.toARGB32());
+    final int current = picks.indexWhere(
+      (Color c) => c.toARGB32() == _accentColor.value.toARGB32(),
+    );
     final Color next = picks[(current + 1) % picks.length];
     setState(() {
       _accentColor.value = next;
@@ -358,7 +403,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
       Color(0xFFF0FDF4),
       Color(0xFFEEF2FF),
     ];
-    final int current = tints.indexWhere((Color c) => c.toARGB32() == _backgroundTint.value.toARGB32());
+    final int current = tints.indexWhere(
+      (Color c) => c.toARGB32() == _backgroundTint.value.toARGB32(),
+    );
     final Color next = tints[(current + 1) % tints.length];
     setState(() {
       _backgroundTint.value = next;
@@ -406,7 +453,8 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
             const SizedBox(height: 28),
             _buildSectionHeader(
               title: 'Swatch picker',
-              subtitle: 'Tap any swatch to set the primary colour. Starred favourites are remembered across restoration.',
+              subtitle:
+                  'Tap any swatch to set the primary colour. Starred favourites are remembered across restoration.',
               icon: Icons.grid_view_rounded,
             ),
             const SizedBox(height: 12),
@@ -526,7 +574,11 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
                   const SizedBox(height: 6),
                   const Text(
                     'Bodies of text render in a muted slate while headlines and calls-to-action adopt the restored primary colour.',
-                    style: TextStyle(fontSize: 13, color: Color(0xFF475569), height: 1.35),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Color(0xFF475569),
+                      height: 1.35,
+                    ),
                   ),
                   const SizedBox(height: 14),
                   Row(
@@ -829,7 +881,11 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
           width: 30,
           child: Text(
             label,
-            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF475569)),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF475569),
+            ),
           ),
         ),
         Expanded(
@@ -843,7 +899,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
                     child: Container(
                       decoration: BoxDecoration(
                         color: color,
-                        borderRadius: const BorderRadius.horizontal(left: Radius.circular(8)),
+                        borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(8),
+                        ),
                       ),
                     ),
                   ),
@@ -855,7 +913,9 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
                         color: const Color(0xFFE2E8F0),
                         borderRadius: filled == 0
                             ? BorderRadius.circular(8)
-                            : const BorderRadius.horizontal(right: Radius.circular(8)),
+                            : const BorderRadius.horizontal(
+                                right: Radius.circular(8),
+                              ),
                       ),
                     ),
                   ),
@@ -956,10 +1016,7 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
                 gradient: LinearGradient(
-                  colors: <Color>[
-                    primary,
-                    primary.withValues(alpha: 0.0),
-                  ],
+                  colors: <Color>[primary, primary.withValues(alpha: 0.0)],
                 ),
               ),
             ),
@@ -1051,8 +1108,11 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
               if (i < steps.length - 1)
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 40),
-                  child: Icon(Icons.arrow_forward_rounded,
-                      size: 22, color: Color(0xFF94A3B8)),
+                  child: Icon(
+                    Icons.arrow_forward_rounded,
+                    size: 22,
+                    color: Color(0xFF94A3B8),
+                  ),
                 ),
             ],
           ],
@@ -1068,7 +1128,10 @@ class _ThemeColorEditorDemoState extends State<ThemeColorEditorDemo>
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         color: step.color.withValues(alpha: 0.08),
-        border: Border.all(color: step.color.withValues(alpha: 0.5), width: 1.4),
+        border: Border.all(
+          color: step.color.withValues(alpha: 0.5),
+          width: 1.4,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1196,10 +1259,7 @@ class _RestorableColor extends RestorableProperty<Color> {
     return Container(
       width: 11,
       height: 11,
-      decoration: BoxDecoration(
-        color: c,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: c, shape: BoxShape.circle),
     );
   }
 
@@ -1287,7 +1347,10 @@ class _RestorableColor extends RestorableProperty<Color> {
 
   String _hexOf(Color c) {
     final int argb = c.toARGB32();
-    final String hex = (argb & 0xFFFFFF).toRadixString(16).toUpperCase().padLeft(6, '0');
+    final String hex = (argb & 0xFFFFFF)
+        .toRadixString(16)
+        .toUpperCase()
+        .padLeft(6, '0');
     return '#$hex';
   }
 
@@ -1300,7 +1363,8 @@ class _RestorableColor extends RestorableProperty<Color> {
   Color _readableForeground(Color background) {
     // Standard luma weighting — dark colours get white text, light colours
     // get near-black text.
-    final double luma = 0.2126 * background.r + 0.7152 * background.g + 0.0722 * background.b;
+    final double luma =
+        0.2126 * background.r + 0.7152 * background.g + 0.0722 * background.b;
     return luma > 0.55 ? const Color(0xFF0F172A) : Colors.white;
   }
 

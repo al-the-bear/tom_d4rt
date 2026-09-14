@@ -149,18 +149,21 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFF1E88E5),
     dim: Color(0xFFE3F2FD),
     shadow: Color(0xFF0D47A1),
-    usage: 'Detect Ctrl-as-modifier in a shortcut chord. On Windows and Linux '
+    usage:
+        'Detect Ctrl-as-modifier in a shortcut chord. On Windows and Linux '
         'this is the typical "primary" modifier used for save / copy / paste. '
         'Most Flutter shortcut maps fall back to `meta` on macOS so a single '
         'binding works across desktops.',
     example: 'data.isModifierPressed(ModifierKey.controlModifier)',
-    gotcha: 'On macOS users expect Cmd, not Ctrl. Use platform-aware shortcut '
+    gotcha:
+        'On macOS users expect Cmd, not Ctrl. Use platform-aware shortcut '
         'definitions (`SingleActivator(LogicalKeyboardKey.keyS, meta: ...)`) '
         'rather than hard-coding control.',
     physicalCount: 2,
     isLockKey: false,
     isToggle: false,
-    platformNote: 'Mapped to `Ctrl` on Windows / Linux / web; rarely the '
+    platformNote:
+        'Mapped to `Ctrl` on Windows / Linux / web; rarely the '
         'primary modifier on macOS.',
     windowsLabel: 'Ctrl',
     macLabel: 'Control (^)',
@@ -177,18 +180,21 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFFEC407A),
     dim: Color(0xFFFCE4EC),
     shadow: Color(0xFFAD1457),
-    usage: 'Detect Shift-as-modifier when a chord wants to differentiate '
+    usage:
+        'Detect Shift-as-modifier when a chord wants to differentiate '
         'capitalised input or "extend selection" semantics from "move '
         'selection" semantics. Works identically across desktop and most '
         'mobile soft keyboards.',
     example: 'data.isModifierPressed(ModifierKey.shiftModifier)',
-    gotcha: 'On soft keyboards the Shift is often a *latched* state, not a '
+    gotcha:
+        'On soft keyboards the Shift is often a *latched* state, not a '
         'live modifier — you may receive an already-uppercased character '
         'rather than a Shift event.',
     physicalCount: 2,
     isLockKey: false,
     isToggle: false,
-    platformNote: 'Reliably reported on every desktop platform; latched on '
+    platformNote:
+        'Reliably reported on every desktop platform; latched on '
         'mobile soft keyboards.',
     windowsLabel: 'Shift',
     macLabel: 'Shift (⇧)',
@@ -205,18 +211,22 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFFFFA726),
     dim: Color(0xFFFFF3E0),
     shadow: Color(0xFFE65100),
-    usage: 'Detect Alt-as-modifier for menu mnemonics, accessibility shortcuts, '
+    usage:
+        'Detect Alt-as-modifier for menu mnemonics, accessibility shortcuts, '
         'or dead-key composition. Use `KeyboardSide.left` to limit a chord to '
         'left-Alt only — that avoids stomping on AltGr on European layouts.',
-    example: 'data.isModifierPressed(ModifierKey.altModifier, '
+    example:
+        'data.isModifierPressed(ModifierKey.altModifier, '
         'side: KeyboardSide.left)',
-    gotcha: 'Right Alt = AltGr on most non-US layouts and is consumed by the OS '
+    gotcha:
+        'Right Alt = AltGr on most non-US layouts and is consumed by the OS '
         'before Flutter sees it. Always allow a non-Alt fallback shortcut for '
         'AltGr-using locales.',
     physicalCount: 2,
     isLockKey: false,
     isToggle: false,
-    platformNote: 'Right Alt may be re-purposed as AltGr on Linux / Windows '
+    platformNote:
+        'Right Alt may be re-purposed as AltGr on Linux / Windows '
         'for dead-key composition.',
     windowsLabel: 'Alt / AltGr',
     macLabel: 'Option (⌥)',
@@ -233,12 +243,14 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFF7E57C2),
     dim: Color(0xFFEDE7F6),
     shadow: Color(0xFF311B92),
-    usage: 'Detect the OS-owned modifier. On macOS this is the primary '
+    usage:
+        'Detect the OS-owned modifier. On macOS this is the primary '
         'shortcut modifier (Cmd-S, Cmd-C); on Windows / Linux it usually '
         'invokes window-manager features and should be avoided as the primary '
         'binding.',
     example: 'data.isModifierPressed(ModifierKey.metaModifier)',
-    gotcha: 'On Windows and most Linux DEs the OS captures Win-key chords '
+    gotcha:
+        'On Windows and most Linux DEs the OS captures Win-key chords '
         'before Flutter sees them. On macOS Cmd is the *expected* primary '
         'modifier — use it instead of Ctrl.',
     physicalCount: 2,
@@ -260,17 +272,20 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFF26A69A),
     dim: Color(0xFFE0F2F1),
     shadow: Color(0xFF004D40),
-    usage: 'Detect whether caps-lock is currently latched. Often used by '
+    usage:
+        'Detect whether caps-lock is currently latched. Often used by '
         'accessibility overlays to warn the user that they may be typing in '
         'all caps unintentionally (password fields, chat input).',
     example: 'data.isModifierPressed(ModifierKey.capsLockModifier)',
-    gotcha: 'The event semantics are inverted at the edges: you receive a '
+    gotcha:
+        'The event semantics are inverted at the edges: you receive a '
         'key-up while the LED turns ON, and a key-down when it turns OFF. '
         'Always rely on the boolean rather than counting events.',
     physicalCount: 1,
     isLockKey: true,
     isToggle: true,
-    platformNote: 'Reliable everywhere caps-lock exists; ignored on most '
+    platformNote:
+        'Reliable everywhere caps-lock exists; ignored on most '
         'mobile soft keyboards.',
     windowsLabel: 'Caps Lock',
     macLabel: 'Caps Lock (⇪)',
@@ -287,17 +302,20 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFF66BB6A),
     dim: Color(0xFFE8F5E9),
     shadow: Color(0xFF1B5E20),
-    usage: 'Detect whether the keypad is in numeric mode. Useful for data-entry '
+    usage:
+        'Detect whether the keypad is in numeric mode. Useful for data-entry '
         'apps that want to warn the user "Num Lock is OFF" when the keypad '
         'should be producing digits.',
     example: 'data.isModifierPressed(ModifierKey.numLockModifier)',
-    gotcha: 'Laptops without a dedicated numpad still report num-lock — but '
+    gotcha:
+        'Laptops without a dedicated numpad still report num-lock — but '
         'the bound function keys may overlap with Fn-layer remaps. Test on '
         'real hardware before shipping shortcuts behind num-lock.',
     physicalCount: 1,
     isLockKey: true,
     isToggle: true,
-    platformNote: 'Almost always present on physical desktop keyboards; '
+    platformNote:
+        'Almost always present on physical desktop keyboards; '
         'meaningless on tablets and phones.',
     windowsLabel: 'Num Lock',
     macLabel: 'Clear (no LED)',
@@ -314,16 +332,19 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFF8D6E63),
     dim: Color(0xFFEFEBE9),
     shadow: Color(0xFF3E2723),
-    usage: 'Some terminals and spreadsheets still respect scroll-lock to flip '
+    usage:
+        'Some terminals and spreadsheets still respect scroll-lock to flip '
         'between "scroll the viewport" and "move the cursor". If your app '
         'imitates a 1990s spreadsheet, this is your toggle.',
     example: 'data.isModifierPressed(ModifierKey.scrollLockModifier)',
-    gotcha: 'Many modern keyboards omit the key entirely. Treat scroll-lock '
+    gotcha:
+        'Many modern keyboards omit the key entirely. Treat scroll-lock '
         'support as opt-in and always provide an in-app toggle as a fallback.',
     physicalCount: 1,
     isLockKey: true,
     isToggle: true,
-    platformNote: 'Rare on laptops; only consistently present on full-size '
+    platformNote:
+        'Rare on laptops; only consistently present on full-size '
         'desktop keyboards and KVM-style hardware.',
     windowsLabel: 'Scroll Lock',
     macLabel: 'F14 (no LED)',
@@ -340,11 +361,13 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFFAB47BC),
     dim: Color(0xFFF3E5F5),
     shadow: Color(0xFF4A148C),
-    usage: 'Detect vendor Fn-layer chords. Useful for laptop-specific keymaps '
+    usage:
+        'Detect vendor Fn-layer chords. Useful for laptop-specific keymaps '
         '(brightness, media keys) when the vendor actually surfaces the Fn '
         'modifier as a real key event rather than swallowing it.',
     example: 'data.isModifierPressed(ModifierKey.functionModifier)',
-    gotcha: 'Most laptops handle Fn in firmware, so you will simply receive a '
+    gotcha:
+        'Most laptops handle Fn in firmware, so you will simply receive a '
         'remapped keypress (e.g. F5 turning into "brightness down") with NO '
         'Fn modifier set. Cannot be relied upon cross-vendor.',
     physicalCount: 1,
@@ -366,11 +389,13 @@ const List<_ModifierSpec> _specs = <_ModifierSpec>[
     glow: Color(0xFFFF7043),
     dim: Color(0xFFFBE9E7),
     shadow: Color(0xFFBF360C),
-    usage: 'Detect whether the on-screen IME is currently showing the symbol '
+    usage:
+        'Detect whether the on-screen IME is currently showing the symbol '
         'layer. Mostly useful for analytics or IME wrapper widgets that need '
         'to mirror the keyboard layout in their own UI.',
     example: 'data.isModifierPressed(ModifierKey.symbolModifier)',
-    gotcha: 'Desktop keyboards never set this modifier — guard your code with '
+    gotcha:
+        'Desktop keyboards never set this modifier — guard your code with '
         'a platform check or it will appear "always off" to QA.',
     physicalCount: 1,
     isLockKey: false,
@@ -454,10 +479,12 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
     _Key('"'),
   ],
   <_Key>[
-    _Key('L-Shift',
-        modifier: ModifierKey.shiftModifier,
-        side: KeyboardSide.left,
-        flex: 2),
+    _Key(
+      'L-Shift',
+      modifier: ModifierKey.shiftModifier,
+      side: KeyboardSide.left,
+      flex: 2,
+    ),
     _Key('Z'),
     _Key('X'),
     _Key('C'),
@@ -467,37 +494,47 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
     _Key('M'),
     _Key(','),
     _Key('.'),
-    _Key('R-Shift',
-        modifier: ModifierKey.shiftModifier,
-        side: KeyboardSide.right,
-        flex: 2),
+    _Key(
+      'R-Shift',
+      modifier: ModifierKey.shiftModifier,
+      side: KeyboardSide.right,
+      flex: 2,
+    ),
   ],
   <_Key>[
-    _Key('L-Ctrl',
-        modifier: ModifierKey.controlModifier,
-        side: KeyboardSide.left,
-        flex: 2),
+    _Key(
+      'L-Ctrl',
+      modifier: ModifierKey.controlModifier,
+      side: KeyboardSide.left,
+      flex: 2,
+    ),
     _Key('Fn', modifier: ModifierKey.functionModifier),
-    _Key('L-Meta',
-        modifier: ModifierKey.metaModifier,
-        side: KeyboardSide.left),
-    _Key('L-Alt',
-        modifier: ModifierKey.altModifier,
-        side: KeyboardSide.left,
-        flex: 2),
+    _Key('L-Meta', modifier: ModifierKey.metaModifier, side: KeyboardSide.left),
+    _Key(
+      'L-Alt',
+      modifier: ModifierKey.altModifier,
+      side: KeyboardSide.left,
+      flex: 2,
+    ),
     _Key('Space', flex: 6),
-    _Key('R-Alt',
-        modifier: ModifierKey.altModifier,
-        side: KeyboardSide.right,
-        flex: 2),
-    _Key('R-Meta',
-        modifier: ModifierKey.metaModifier,
-        side: KeyboardSide.right),
+    _Key(
+      'R-Alt',
+      modifier: ModifierKey.altModifier,
+      side: KeyboardSide.right,
+      flex: 2,
+    ),
+    _Key(
+      'R-Meta',
+      modifier: ModifierKey.metaModifier,
+      side: KeyboardSide.right,
+    ),
     _Key('Sym', modifier: ModifierKey.symbolModifier),
-    _Key('R-Ctrl',
-        modifier: ModifierKey.controlModifier,
-        side: KeyboardSide.right,
-        flex: 2),
+    _Key(
+      'R-Ctrl',
+      modifier: ModifierKey.controlModifier,
+      side: KeyboardSide.right,
+      flex: 2,
+    ),
   ],
   <_Key>[
     _Key('NumL', modifier: ModifierKey.numLockModifier),
@@ -517,7 +554,11 @@ const List<List<_Key>> _mockKeyboard = <List<_Key>>[
 // ---------------------------------------------------------------------------
 // Helper: shared text-style shortcuts so every section keeps the same rhythm.
 // ---------------------------------------------------------------------------
-TextStyle _hMono(double size, Color color, {FontWeight weight = FontWeight.w600}) {
+TextStyle _hMono(
+  double size,
+  Color color, {
+  FontWeight weight = FontWeight.w600,
+}) {
   return TextStyle(
     fontFamily: 'monospace',
     fontSize: size,
@@ -527,7 +568,11 @@ TextStyle _hMono(double size, Color color, {FontWeight weight = FontWeight.w600}
   );
 }
 
-TextStyle _hSans(double size, Color color, {FontWeight weight = FontWeight.w500}) {
+TextStyle _hSans(
+  double size,
+  Color color, {
+  FontWeight weight = FontWeight.w500,
+}) {
   return TextStyle(
     fontSize: size,
     color: color,
@@ -706,8 +751,10 @@ Widget _valueCard(_ModifierSpec spec) {
           ],
         ),
         const SizedBox(height: 12.0),
-        Text(spec.tagline,
-            style: _hSans(12.5, spec.shadow.withValues(alpha: 0.85))),
+        Text(
+          spec.tagline,
+          style: _hSans(12.5, spec.shadow.withValues(alpha: 0.85)),
+        ),
         const SizedBox(height: 12.0),
         Wrap(
           spacing: 6.0,
@@ -718,7 +765,8 @@ Widget _valueCard(_ModifierSpec spec) {
               Icons.keyboard,
               spec.glow,
             ),
-            if (spec.isLockKey) _miniChip('lock', Icons.lock_outline, spec.glow),
+            if (spec.isLockKey)
+              _miniChip('lock', Icons.lock_outline, spec.glow),
             if (spec.isToggle) _miniChip('toggle', Icons.toggle_on, spec.glow),
             if (!spec.isLockKey && !spec.isToggle)
               _miniChip('momentary', Icons.touch_app, spec.glow),
@@ -735,8 +783,10 @@ Widget _valueCard(_ModifierSpec spec) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('USAGE',
-                  style: _hMono(9.0, spec.shadow, weight: FontWeight.w800)),
+              Text(
+                'USAGE',
+                style: _hMono(9.0, spec.shadow, weight: FontWeight.w800),
+              ),
               const SizedBox(height: 4.0),
               Text(spec.usage, style: _hSans(11.5, spec.shadow)),
             ],
@@ -755,19 +805,29 @@ Widget _valueCard(_ModifierSpec spec) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.warning_amber,
-                  size: 18.0, color: Color(0xFFE65100)),
+              const Icon(
+                Icons.warning_amber,
+                size: 18.0,
+                color: Color(0xFFE65100),
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('GOTCHA',
-                        style: _hMono(9.0, const Color(0xFFBF360C),
-                            weight: FontWeight.w800)),
+                    Text(
+                      'GOTCHA',
+                      style: _hMono(
+                        9.0,
+                        const Color(0xFFBF360C),
+                        weight: FontWeight.w800,
+                      ),
+                    ),
                     const SizedBox(height: 4.0),
-                    Text(spec.gotcha,
-                        style: _hSans(11.5, const Color(0xFF4E342E))),
+                    Text(
+                      spec.gotcha,
+                      style: _hSans(11.5, const Color(0xFF4E342E)),
+                    ),
                   ],
                 ),
               ),
@@ -933,13 +993,21 @@ Widget _pitfall(String title, String body) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            const Icon(Icons.priority_high,
-                size: 16.0, color: Color(0xFFB71C1C)),
+            const Icon(
+              Icons.priority_high,
+              size: 16.0,
+              color: Color(0xFFB71C1C),
+            ),
             const SizedBox(width: 6.0),
             Expanded(
-              child: Text(title,
-                  style: _hSans(12.0, const Color(0xFFB71C1C),
-                      weight: FontWeight.w800)),
+              child: Text(
+                title,
+                style: _hSans(
+                  12.0,
+                  const Color(0xFFB71C1C),
+                  weight: FontWeight.w800,
+                ),
+              ),
             ),
           ],
         ),
@@ -987,8 +1055,10 @@ Widget _recipeCard({
             Icon(Icons.menu_book, size: 18.0, color: accent),
             const SizedBox(width: 8.0),
             Expanded(
-              child: Text(title,
-                  style: _hSans(13.0, accent, weight: FontWeight.w900)),
+              child: Text(
+                title,
+                style: _hSans(13.0, accent, weight: FontWeight.w900),
+              ),
             ),
           ],
         ),
@@ -1022,27 +1092,37 @@ Widget _platformRow(_ModifierSpec spec) {
               Icon(spec.icon, size: 14.0, color: spec.shadow),
               const SizedBox(width: 6.0),
               Expanded(
-                child: Text(spec.shortLabel,
-                    style: _hMono(11.0, spec.shadow, weight: FontWeight.w800)),
+                child: Text(
+                  spec.shortLabel,
+                  style: _hMono(11.0, spec.shadow, weight: FontWeight.w800),
+                ),
               ),
             ],
           ),
         ),
         Expanded(
-          child: Text(spec.windowsLabel,
-              style: _hSans(11.0, const Color(0xFF1565C0))),
+          child: Text(
+            spec.windowsLabel,
+            style: _hSans(11.0, const Color(0xFF1565C0)),
+          ),
         ),
         Expanded(
-          child: Text(spec.macLabel,
-              style: _hSans(11.0, const Color(0xFF6A1B9A))),
+          child: Text(
+            spec.macLabel,
+            style: _hSans(11.0, const Color(0xFF6A1B9A)),
+          ),
         ),
         Expanded(
-          child: Text(spec.linuxLabel,
-              style: _hSans(11.0, const Color(0xFF2E7D32))),
+          child: Text(
+            spec.linuxLabel,
+            style: _hSans(11.0, const Color(0xFF2E7D32)),
+          ),
         ),
         Expanded(
-          child: Text(spec.androidLabel,
-              style: _hSans(11.0, const Color(0xFFE65100))),
+          child: Text(
+            spec.androidLabel,
+            style: _hSans(11.0, const Color(0xFFE65100)),
+          ),
         ),
       ],
     ),
@@ -1064,13 +1144,16 @@ dynamic build(BuildContext context) {
     print('  ModifierKey.${value.name} (index ${value.index})');
   }
   print('Total values: ${ModifierKey.values.length}');
-  assert(ModifierKey.values.length == 9,
-      'ModifierKey is expected to expose 9 values.');
+  assert(
+    ModifierKey.values.length == 9,
+    'ModifierKey is expected to expose 9 values.',
+  );
 
   // Frozen progress used wherever the demo composes through Animation<double>.
   // `Duration.zero` is reused below where the API surface accepts a duration.
-  final Animation<double> staticProgress =
-      const AlwaysStoppedAnimation<double>(1.0);
+  final Animation<double> staticProgress = const AlwaysStoppedAnimation<double>(
+    1.0,
+  );
   const Duration motion = Duration.zero;
   // Reference some `package:flutter/services.dart` types so the explicit
   // import is not flagged: we use `KeyboardSide` in the keyboard layout and
@@ -1125,20 +1208,26 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              child: const Icon(Icons.keyboard_alt,
-                  size: 36.0, color: Colors.white),
+              child: const Icon(
+                Icons.keyboard_alt,
+                size: 36.0,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(width: 16.0),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('package:flutter/services.dart  •  raw_keyboard.dart',
-                      style: _hMono(11.0, Colors.white70)),
+                  Text(
+                    'package:flutter/services.dart  •  raw_keyboard.dart',
+                    style: _hMono(11.0, Colors.white70),
+                  ),
                   const SizedBox(height: 4.0),
-                  Text('ModifierKey',
-                      style: _hSans(30.0, Colors.white,
-                          weight: FontWeight.w900)),
+                  Text(
+                    'ModifierKey',
+                    style: _hSans(30.0, Colors.white, weight: FontWeight.w900),
+                  ),
                   const SizedBox(height: 2.0),
                   Text(
                     'Nine modifier roles addressed by the legacy '
@@ -1150,16 +1239,18 @@ dynamic build(BuildContext context) {
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 6.0),
+                horizontal: 10.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFFEF5350).withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(8.0),
-                border:
-                    Border.all(color: const Color(0xFFEF5350), width: 1.0),
+                border: Border.all(color: const Color(0xFFEF5350), width: 1.0),
               ),
-              child: Text('@deprecated',
-                  style: _hMono(11.0, Colors.white,
-                      weight: FontWeight.w800)),
+              child: Text(
+                '@deprecated',
+                style: _hMono(11.0, Colors.white, weight: FontWeight.w800),
+              ),
             ),
           ],
         ),
@@ -1169,11 +1260,7 @@ dynamic build(BuildContext context) {
           runSpacing: 8.0,
           children: <Widget>[
             for (final _ModifierSpec spec in _specs)
-              _miniChip(
-                'ModifierKey.${spec.label}',
-                spec.icon,
-                spec.glow,
-              ),
+              _miniChip('ModifierKey.${spec.label}', spec.icon, spec.glow),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -1224,9 +1311,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Source signature',
-            style: _hSans(14.0, const Color(0xFF1A237E),
-                weight: FontWeight.w800)),
+        Text(
+          'Source signature',
+          style: _hSans(14.0, const Color(0xFF1A237E), weight: FontWeight.w800),
+        ),
         const SizedBox(height: 10.0),
         _codeBlock(
           '@Deprecated(\n'
@@ -1259,15 +1347,16 @@ dynamic build(BuildContext context) {
             for (final ModifierKey v in ModifierKey.values)
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 6.0),
+                  horizontal: 10.0,
+                  vertical: 6.0,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8.0),
                   border: Border.all(color: const Color(0xFF7986CB)),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color:
-                          const Color(0xFF7986CB).withValues(alpha: 0.4),
+                      color: const Color(0xFF7986CB).withValues(alpha: 0.4),
                       blurRadius: 6.0,
                       offset: const Offset(0.0, 2.0),
                     ),
@@ -1297,7 +1386,9 @@ dynamic build(BuildContext context) {
   // =========================================================================
   final Widget perValueCards = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[for (final _ModifierSpec spec in _specs) _valueCard(spec)],
+    children: <Widget>[
+      for (final _ModifierSpec spec in _specs) _valueCard(spec),
+    ],
   );
 
   // =========================================================================
@@ -1337,8 +1428,7 @@ dynamic build(BuildContext context) {
                   Expanded(
                     child: Text(
                       'ModifierKey.${spec.label}  →  highlighted physical keys',
-                      style: _hSans(13.0, spec.shadow,
-                          weight: FontWeight.w800),
+                      style: _hSans(13.0, spec.shadow, weight: FontWeight.w800),
                     ),
                   ),
                   _miniChip(
@@ -1353,8 +1443,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 10.0),
               _miniKeyboard(spec.key),
               const SizedBox(height: 8.0),
-              Text(spec.tagline,
-                  style: _hSans(11.5, spec.shadow.withValues(alpha: 0.85))),
+              Text(
+                spec.tagline,
+                style: _hSans(11.5, spec.shadow.withValues(alpha: 0.85)),
+              ),
             ],
           ),
         ),
@@ -1386,9 +1478,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Property matrix',
-            style: _hSans(14.0, const Color(0xFFF57F17),
-                weight: FontWeight.w900)),
+        Text(
+          'Property matrix',
+          style: _hSans(14.0, const Color(0xFFF57F17), weight: FontWeight.w900),
+        ),
         const SizedBox(height: 8.0),
         Text(
           'A quick at-a-glance table of the boolean traits that change how the '
@@ -1400,9 +1493,14 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             SizedBox(
               width: 130.0,
-              child: Text('Modifier',
-                  style: _hMono(11.0, const Color(0xFFF57F17),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'Modifier',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFFF57F17),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
             _tableHeader('lock?', const Color(0xFFE65100)),
             _tableHeader('toggle?', const Color(0xFF0277BD)),
@@ -1418,8 +1516,9 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: const Color(0xFFFBC02D)
-                    .withValues(alpha: 0.4)),
+                bottom: BorderSide(
+                  color: const Color(0xFFFBC02D).withValues(alpha: 0.4),
+                ),
               ),
             ),
             child: Row(
@@ -1431,24 +1530,31 @@ dynamic build(BuildContext context) {
                       Icon(spec.icon, size: 14.0, color: spec.shadow),
                       const SizedBox(width: 6.0),
                       Expanded(
-                        child: Text(spec.shortLabel,
-                            style: _hMono(11.0, spec.shadow,
-                                weight: FontWeight.w800)),
+                        child: Text(
+                          spec.shortLabel,
+                          style: _hMono(
+                            11.0,
+                            spec.shadow,
+                            weight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 _matrixCell(yes: spec.isLockKey, color: spec.glow),
                 _matrixCell(yes: spec.isToggle, color: spec.glow),
+                _matrixCell(yes: spec.physicalCount > 1, color: spec.glow),
                 _matrixCell(
-                    yes: spec.physicalCount > 1, color: spec.glow),
+                  yes:
+                      spec.windowsLabel.startsWith('—') == false &&
+                      spec.macLabel.startsWith('—') == false,
+                  color: spec.glow,
+                ),
                 _matrixCell(
-                    yes: spec.windowsLabel.startsWith('—') == false &&
-                        spec.macLabel.startsWith('—') == false,
-                    color: spec.glow),
-                _matrixCell(
-                    yes: spec.androidLabel.startsWith('—') == false,
-                    color: spec.glow),
+                  yes: spec.androidLabel.startsWith('—') == false,
+                  color: spec.glow,
+                ),
               ],
             ),
           ),
@@ -1480,9 +1586,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Platform mapping',
-            style: _hSans(14.0, const Color(0xFF006064),
-                weight: FontWeight.w900)),
+        Text(
+          'Platform mapping',
+          style: _hSans(14.0, const Color(0xFF006064), weight: FontWeight.w900),
+        ),
         const SizedBox(height: 8.0),
         Text(
           'How each ModifierKey appears to the user on the four platforms '
@@ -1495,29 +1602,54 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             SizedBox(
               width: 110.0,
-              child: Text('modifier',
-                  style: _hMono(11.0, const Color(0xFF006064),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'modifier',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFF006064),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
             Expanded(
-              child: Text('Windows',
-                  style: _hMono(11.0, const Color(0xFF1565C0),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'Windows',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFF1565C0),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
             Expanded(
-              child: Text('macOS',
-                  style: _hMono(11.0, const Color(0xFF6A1B9A),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'macOS',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFF6A1B9A),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
             Expanded(
-              child: Text('Linux',
-                  style: _hMono(11.0, const Color(0xFF2E7D32),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'Linux',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFF2E7D32),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
             Expanded(
-              child: Text('Android',
-                  style: _hMono(11.0, const Color(0xFFE65100),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'Android',
+                style: _hMono(
+                  11.0,
+                  const Color(0xFFE65100),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
           ],
         ),
@@ -1533,8 +1665,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Icon(Icons.info_outline,
-                  size: 16.0, color: Color(0xFF006064)),
+              const Icon(
+                Icons.info_outline,
+                size: 16.0,
+                color: Color(0xFF006064),
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1564,7 +1699,8 @@ dynamic build(BuildContext context) {
         subtitle: 'Treat Cmd on macOS and Ctrl elsewhere as the same chord.',
         gradient: const <Color>[Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
         accent: const Color(0xFF1565C0),
-        code: 'final bool isPrimary = data.isModifierPressed(\n'
+        code:
+            'final bool isPrimary = data.isModifierPressed(\n'
             '  Theme.of(context).platform == TargetPlatform.macOS\n'
             '      ? ModifierKey.metaModifier\n'
             '      : ModifierKey.controlModifier,\n'
@@ -1575,7 +1711,8 @@ dynamic build(BuildContext context) {
         subtitle: 'Restrict an Alt-chord to the left-hand key.',
         gradient: const <Color>[Color(0xFFFFF3E0), Color(0xFFFFE0B2)],
         accent: const Color(0xFFE65100),
-        code: 'final bool leftAlt = data.isModifierPressed(\n'
+        code:
+            'final bool leftAlt = data.isModifierPressed(\n'
             '  ModifierKey.altModifier,\n'
             '  side: KeyboardSide.left,\n'
             ');',
@@ -1585,7 +1722,8 @@ dynamic build(BuildContext context) {
         subtitle: 'Warn the user if caps-lock is currently on.',
         gradient: const <Color>[Color(0xFFE0F2F1), Color(0xFFB2DFDB)],
         accent: const Color(0xFF00695C),
-        code: 'final bool capsOn = data.isModifierPressed(\n'
+        code:
+            'final bool capsOn = data.isModifierPressed(\n'
             '  ModifierKey.capsLockModifier,\n'
             ');\n'
             'if (capsOn) showCapsLockBanner();',
@@ -1595,7 +1733,8 @@ dynamic build(BuildContext context) {
         subtitle: 'Iterate ModifierKey.values to build a side-aware map.',
         gradient: const <Color>[Color(0xFFF3E5F5), Color(0xFFE1BEE7)],
         accent: const Color(0xFF6A1B9A),
-        code: 'Map<ModifierKey, KeyboardSide> snap = <ModifierKey, KeyboardSide>{};\n'
+        code:
+            'Map<ModifierKey, KeyboardSide> snap = <ModifierKey, KeyboardSide>{};\n'
             'for (final ModifierKey key in ModifierKey.values) {\n'
             '  if (data.isModifierPressed(key)) {\n'
             '    snap[key] = data.getModifierSide(key) ?? KeyboardSide.any;\n'
@@ -1607,7 +1746,8 @@ dynamic build(BuildContext context) {
         subtitle: 'Replace ModifierKey lookups with HardwareKeyboard.instance.',
         gradient: const <Color>[Color(0xFFE8F5E9), Color(0xFFC8E6C9)],
         accent: const Color(0xFF2E7D32),
-        code: '// Old (deprecated):\n'
+        code:
+            '// Old (deprecated):\n'
             'final bool ctrl = data.isModifierPressed(\n'
             '  ModifierKey.controlModifier,\n'
             ');\n'
@@ -1642,9 +1782,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Pitfalls and traps',
-            style: _hSans(14.0, const Color(0xFFB71C1C),
-                weight: FontWeight.w900)),
+        Text(
+          'Pitfalls and traps',
+          style: _hSans(14.0, const Color(0xFFB71C1C), weight: FontWeight.w900),
+        ),
         const SizedBox(height: 8.0),
         _pitfall(
           'The whole API is deprecated.',
@@ -1721,9 +1862,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Migration timeline',
-            style: _hSans(14.0, const Color(0xFF006064),
-                weight: FontWeight.w900)),
+        Text(
+          'Migration timeline',
+          style: _hSans(14.0, const Color(0xFF006064), weight: FontWeight.w900),
+        ),
         const SizedBox(height: 12.0),
         for (final List<dynamic> step in <List<dynamic>>[
           <dynamic>[
@@ -1775,7 +1917,8 @@ dynamic build(BuildContext context) {
               color: Colors.white.withValues(alpha: 0.85),
               borderRadius: BorderRadius.circular(10.0),
               border: Border.all(
-                  color: (step[3] as Color).withValues(alpha: 0.5)),
+                color: (step[3] as Color).withValues(alpha: 0.5),
+              ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
                   color: (step[3] as Color).withValues(alpha: 0.18),
@@ -1790,7 +1933,9 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 92.0,
                   padding: const EdgeInsets.symmetric(
-                      vertical: 6.0, horizontal: 8.0),
+                    vertical: 6.0,
+                    horizontal: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
@@ -1805,13 +1950,21 @@ dynamic build(BuildContext context) {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Icon(step[4] as IconData,
-                          size: 14.0, color: Colors.white),
+                      Icon(
+                        step[4] as IconData,
+                        size: 14.0,
+                        color: Colors.white,
+                      ),
                       const SizedBox(width: 4.0),
                       Expanded(
-                        child: Text(step[0] as String,
-                            style: _hMono(10.0, Colors.white,
-                                weight: FontWeight.w900)),
+                        child: Text(
+                          step[0] as String,
+                          style: _hMono(
+                            10.0,
+                            Colors.white,
+                            weight: FontWeight.w900,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -1821,12 +1974,19 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(step[1] as String,
-                          style: _hSans(13.0, step[3] as Color,
-                              weight: FontWeight.w800)),
+                      Text(
+                        step[1] as String,
+                        style: _hSans(
+                          13.0,
+                          step[3] as Color,
+                          weight: FontWeight.w800,
+                        ),
+                      ),
                       const SizedBox(height: 4.0),
-                      Text(step[2] as String,
-                          style: _hSans(11.5, const Color(0xFF263238))),
+                      Text(
+                        step[2] as String,
+                        style: _hSans(11.5, const Color(0xFF263238)),
+                      ),
                     ],
                   ),
                 ),
@@ -1861,36 +2021,66 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Quick reference',
-            style: _hSans(14.0, const Color(0xFF33691E),
-                weight: FontWeight.w900)),
+        Text(
+          'Quick reference',
+          style: _hSans(14.0, const Color(0xFF33691E), weight: FontWeight.w900),
+        ),
         const SizedBox(height: 10.0),
         Row(
           children: <Widget>[
             SizedBox(
-                width: 60.0,
-                child: Text('idx',
-                    style: _hMono(10.0, const Color(0xFF33691E),
-                        weight: FontWeight.w900))),
+              width: 60.0,
+              child: Text(
+                'idx',
+                style: _hMono(
+                  10.0,
+                  const Color(0xFF33691E),
+                  weight: FontWeight.w900,
+                ),
+              ),
+            ),
             SizedBox(
-                width: 170.0,
-                child: Text('name',
-                    style: _hMono(10.0, const Color(0xFF33691E),
-                        weight: FontWeight.w900))),
+              width: 170.0,
+              child: Text(
+                'name',
+                style: _hMono(
+                  10.0,
+                  const Color(0xFF33691E),
+                  weight: FontWeight.w900,
+                ),
+              ),
+            ),
             SizedBox(
-                width: 70.0,
-                child: Text('keys',
-                    style: _hMono(10.0, const Color(0xFF33691E),
-                        weight: FontWeight.w900))),
+              width: 70.0,
+              child: Text(
+                'keys',
+                style: _hMono(
+                  10.0,
+                  const Color(0xFF33691E),
+                  weight: FontWeight.w900,
+                ),
+              ),
+            ),
             SizedBox(
-                width: 70.0,
-                child: Text('lock',
-                    style: _hMono(10.0, const Color(0xFF33691E),
-                        weight: FontWeight.w900))),
+              width: 70.0,
+              child: Text(
+                'lock',
+                style: _hMono(
+                  10.0,
+                  const Color(0xFF33691E),
+                  weight: FontWeight.w900,
+                ),
+              ),
+            ),
             Expanded(
-              child: Text('platform note',
-                  style: _hMono(10.0, const Color(0xFF33691E),
-                      weight: FontWeight.w900)),
+              child: Text(
+                'platform note',
+                style: _hMono(
+                  10.0,
+                  const Color(0xFF33691E),
+                  weight: FontWeight.w900,
+                ),
+              ),
             ),
           ],
         ),
@@ -1905,16 +2095,18 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                    color: const Color(0xFF558B2F).withValues(alpha: 0.2)),
+                  color: const Color(0xFF558B2F).withValues(alpha: 0.2),
+                ),
               ),
             ),
             child: Row(
               children: <Widget>[
                 SizedBox(
                   width: 60.0,
-                  child: Text('${spec.key.index}',
-                      style: _hMono(11.0, spec.shadow,
-                          weight: FontWeight.w800)),
+                  child: Text(
+                    '${spec.key.index}',
+                    style: _hMono(11.0, spec.shadow, weight: FontWeight.w800),
+                  ),
                 ),
                 SizedBox(
                   width: 170.0,
@@ -1923,30 +2115,34 @@ dynamic build(BuildContext context) {
                       Icon(spec.icon, size: 12.0, color: spec.shadow),
                       const SizedBox(width: 6.0),
                       Expanded(
-                        child: Text(spec.label,
-                            style: _hMono(11.0, spec.shadow)),
+                        child: Text(
+                          spec.label,
+                          style: _hMono(11.0, spec.shadow),
+                        ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
                   width: 70.0,
-                  child: Text('${spec.physicalCount}',
-                      style: _hMono(11.0, spec.shadow)),
+                  child: Text(
+                    '${spec.physicalCount}',
+                    style: _hMono(11.0, spec.shadow),
+                  ),
                 ),
                 SizedBox(
                   width: 70.0,
                   child: Icon(
                     spec.isLockKey ? Icons.lock : Icons.lock_open,
                     size: 14.0,
-                    color: spec.isLockKey
-                        ? spec.glow
-                        : Colors.grey.shade500,
+                    color: spec.isLockKey ? spec.glow : Colors.grey.shade500,
                   ),
                 ),
                 Expanded(
-                  child: Text(spec.platformNote,
-                      style: _hSans(11.0, const Color(0xFF33691E))),
+                  child: Text(
+                    spec.platformNote,
+                    style: _hSans(11.0, const Color(0xFF33691E)),
+                  ),
                 ),
               ],
             ),
@@ -2034,61 +2230,74 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               hero,
               _sectionTitle(
-                  1, 'Anatomy and signature', Icons.code, const Color(0xFF1A237E)),
+                1,
+                'Anatomy and signature',
+                Icons.code,
+                const Color(0xFF1A237E),
+              ),
               anatomy,
               _sectionTitle(
-                  2,
-                  'Per-value walkthrough',
-                  Icons.list_alt,
-                  const Color(0xFF6A1B9A)),
+                2,
+                'Per-value walkthrough',
+                Icons.list_alt,
+                const Color(0xFF6A1B9A),
+              ),
               perValueCards,
               _sectionTitle(
-                  3,
-                  'Keyboard heat-map',
-                  Icons.keyboard,
-                  const Color(0xFF00838F)),
+                3,
+                'Keyboard heat-map',
+                Icons.keyboard,
+                const Color(0xFF00838F),
+              ),
               heatMap,
               _sectionTitle(
-                  4,
-                  'Property matrix',
-                  Icons.grid_on,
-                  const Color(0xFFF57F17)),
+                4,
+                'Property matrix',
+                Icons.grid_on,
+                const Color(0xFFF57F17),
+              ),
               matrix,
               _sectionTitle(
-                  5,
-                  'Platform mapping',
-                  Icons.public,
-                  const Color(0xFF00838F)),
+                5,
+                'Platform mapping',
+                Icons.public,
+                const Color(0xFF00838F),
+              ),
               platformTable,
               _sectionTitle(
-                  6,
-                  'Recipes',
-                  Icons.menu_book,
-                  const Color(0xFF2E7D32)),
+                6,
+                'Recipes',
+                Icons.menu_book,
+                const Color(0xFF2E7D32),
+              ),
               recipes,
               _sectionTitle(
-                  7,
-                  'Pitfalls and traps',
-                  Icons.warning_amber,
-                  const Color(0xFFB71C1C)),
+                7,
+                'Pitfalls and traps',
+                Icons.warning_amber,
+                const Color(0xFFB71C1C),
+              ),
               pitfalls,
               _sectionTitle(
-                  8,
-                  'Migration timeline',
-                  Icons.timeline,
-                  const Color(0xFF006064)),
+                8,
+                'Migration timeline',
+                Icons.timeline,
+                const Color(0xFF006064),
+              ),
               timeline,
               _sectionTitle(
-                  9,
-                  'Quick reference',
-                  Icons.fact_check,
-                  const Color(0xFF33691E)),
+                9,
+                'Quick reference',
+                Icons.fact_check,
+                const Color(0xFF33691E),
+              ),
               quickRef,
               _sectionTitle(
-                  10,
-                  'ASCII cheat-sheet',
-                  Icons.terminal,
-                  const Color(0xFF7E57C2)),
+                10,
+                'ASCII cheat-sheet',
+                Icons.terminal,
+                const Color(0xFF7E57C2),
+              ),
               asciiFooter,
               const SizedBox(height: 24.0),
               Container(
@@ -2116,8 +2325,11 @@ dynamic build(BuildContext context) {
                 child: Text(
                   'End of ModifierKey deep demo  •  ${ModifierKey.values.length} '
                   'values  •  generated for the d4rt visual regression suite',
-                  style: _hMono(11.0, const Color(0xFF311B92),
-                      weight: FontWeight.w800),
+                  style: _hMono(
+                    11.0,
+                    const Color(0xFF311B92),
+                    weight: FontWeight.w800,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),

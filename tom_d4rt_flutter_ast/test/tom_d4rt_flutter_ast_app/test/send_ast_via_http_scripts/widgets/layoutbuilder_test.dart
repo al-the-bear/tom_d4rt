@@ -90,7 +90,12 @@ const EdgeInsets _kCardPadding = EdgeInsets.all(18.0);
 // ---------------------------------------------------------------------------
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -131,7 +136,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -279,10 +287,7 @@ Widget _bullet(String text, {Color colour = _kAccent}) {
           child: Container(
             width: 6.0,
             height: 6.0,
-            decoration: BoxDecoration(
-              color: colour,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
           ),
         ),
         Expanded(child: Text(text, style: _kBodyStyle)),
@@ -396,43 +401,75 @@ class _PhasePainter extends CustomPainter {
     final TextPainter tp = TextPainter(
       text: const TextSpan(
         text: 'builder() fires here',
-        style: TextStyle(color: _kAccentRed, fontSize: 11.5, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: _kAccentRed,
+          fontSize: 11.5,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(canvas, Offset(markerX - tp.width / 2.0, size.height * 0.55 - 36.0));
+    tp.paint(
+      canvas,
+      Offset(markerX - tp.width / 2.0, size.height * 0.55 - 36.0),
+    );
 
     // Phase labels.
     final TextPainter b = TextPainter(
       text: const TextSpan(
         text: 'build',
-        style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: Color(0xFFFFFFFF),
+          fontSize: 12.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    b.paint(canvas, Offset(8.0 + third * 0.5 - b.width / 2.0, size.height * 0.55 + 2.0));
+    b.paint(
+      canvas,
+      Offset(8.0 + third * 0.5 - b.width / 2.0, size.height * 0.55 + 2.0),
+    );
 
     final TextPainter l = TextPainter(
       text: const TextSpan(
         text: 'layout',
-        style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: Color(0xFFFFFFFF),
+          fontSize: 12.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    l.paint(canvas, Offset(8.0 + third * 1.5 - l.width / 2.0, size.height * 0.55 + 2.0));
+    l.paint(
+      canvas,
+      Offset(8.0 + third * 1.5 - l.width / 2.0, size.height * 0.55 + 2.0),
+    );
 
     final TextPainter p = TextPainter(
       text: const TextSpan(
         text: 'paint',
-        style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 12.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: Color(0xFFFFFFFF),
+          fontSize: 12.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    p.paint(canvas, Offset(8.0 + third * 2.5 - p.width / 2.0, size.height * 0.55 + 2.0));
+    p.paint(
+      canvas,
+      Offset(8.0 + third * 2.5 - p.width / 2.0, size.height * 0.55 + 2.0),
+    );
 
     // Frame arrow on top.
     final double frameY = size.height * 0.20;
-    canvas.drawLine(Offset(12.0, frameY), Offset(size.width - 12.0, frameY), arrowPaint);
+    canvas.drawLine(
+      Offset(12.0, frameY),
+      Offset(size.width - 12.0, frameY),
+      arrowPaint,
+    );
     final Path tip = Path()
       ..moveTo(size.width - 12.0, frameY)
       ..lineTo(size.width - 20.0, frameY - 4.0)
@@ -442,7 +479,11 @@ class _PhasePainter extends CustomPainter {
     final TextPainter f = TextPainter(
       text: const TextSpan(
         text: 'one frame',
-        style: TextStyle(color: _kInkSecondary, fontSize: 11.0, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          color: _kInkSecondary,
+          fontSize: 11.0,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -464,7 +505,12 @@ class _ConstraintsPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final double pad = 30.0;
-    final Rect outer = Rect.fromLTWH(pad, pad, size.width - pad * 2.0, size.height - pad * 2.0);
+    final Rect outer = Rect.fromLTWH(
+      pad,
+      pad,
+      size.width - pad * 2.0,
+      size.height - pad * 2.0,
+    );
     final Paint outerBox = Paint()
       ..color = _kAccent.withOpacity(0.10)
       ..style = PaintingStyle.fill;
@@ -472,8 +518,14 @@ class _ConstraintsPainter extends CustomPainter {
       ..color = _kAccent
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
-    canvas.drawRRect(RRect.fromRectAndRadius(outer, const Radius.circular(8.0)), outerBox);
-    canvas.drawRRect(RRect.fromRectAndRadius(outer, const Radius.circular(8.0)), outerStroke);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(outer, const Radius.circular(8.0)),
+      outerBox,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(outer, const Radius.circular(8.0)),
+      outerStroke,
+    );
 
     // Inner box - "min" envelope.
     final Rect inner = Rect.fromLTWH(
@@ -489,8 +541,14 @@ class _ConstraintsPainter extends CustomPainter {
       ..color = _kAccentOrange
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
-    canvas.drawRRect(RRect.fromRectAndRadius(inner, const Radius.circular(6.0)), innerBox);
-    canvas.drawRRect(RRect.fromRectAndRadius(inner, const Radius.circular(6.0)), innerStroke);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(inner, const Radius.circular(6.0)),
+      innerBox,
+    );
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(inner, const Radius.circular(6.0)),
+      innerStroke,
+    );
 
     // Dimension lines.
     final Paint dim = Paint()
@@ -507,11 +565,18 @@ class _ConstraintsPainter extends CustomPainter {
     final TextPainter mw = TextPainter(
       text: const TextSpan(
         text: 'maxWidth',
-        style: TextStyle(color: _kAccent, fontSize: 11.5, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _kAccent,
+          fontSize: 11.5,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    mw.paint(canvas, Offset(outer.left + outer.width / 2.0 - mw.width / 2.0, outer.top - 26.0));
+    mw.paint(
+      canvas,
+      Offset(outer.left + outer.width / 2.0 - mw.width / 2.0, outer.top - 26.0),
+    );
 
     // minWidth - inner top.
     canvas.drawLine(
@@ -522,11 +587,21 @@ class _ConstraintsPainter extends CustomPainter {
     final TextPainter mnw = TextPainter(
       text: const TextSpan(
         text: 'minWidth',
-        style: TextStyle(color: _kAccentOrange, fontSize: 11.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _kAccentOrange,
+          fontSize: 11.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    mnw.paint(canvas, Offset(inner.left + inner.width / 2.0 - mnw.width / 2.0, inner.top - 20.0));
+    mnw.paint(
+      canvas,
+      Offset(
+        inner.left + inner.width / 2.0 - mnw.width / 2.0,
+        inner.top - 20.0,
+      ),
+    );
 
     // maxHeight - right of outer.
     canvas.drawLine(
@@ -537,12 +612,19 @@ class _ConstraintsPainter extends CustomPainter {
     final TextPainter mh = TextPainter(
       text: const TextSpan(
         text: 'maxHeight',
-        style: TextStyle(color: _kAccent, fontSize: 11.5, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _kAccent,
+          fontSize: 11.5,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
     canvas.save();
-    canvas.translate(outer.right + 26.0, outer.top + outer.height / 2.0 + mh.width / 2.0);
+    canvas.translate(
+      outer.right + 26.0,
+      outer.top + outer.height / 2.0 + mh.width / 2.0,
+    );
     canvas.rotate(-math.pi / 2.0);
     mh.paint(canvas, Offset.zero);
     canvas.restore();
@@ -556,12 +638,19 @@ class _ConstraintsPainter extends CustomPainter {
     final TextPainter mnh = TextPainter(
       text: const TextSpan(
         text: 'minHeight',
-        style: TextStyle(color: _kAccentOrange, fontSize: 11.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _kAccentOrange,
+          fontSize: 11.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
     canvas.save();
-    canvas.translate(inner.left - 22.0, inner.top + inner.height / 2.0 + mnh.width / 2.0);
+    canvas.translate(
+      inner.left - 22.0,
+      inner.top + inner.height / 2.0 + mnh.width / 2.0,
+    );
     canvas.rotate(-math.pi / 2.0);
     mnh.paint(canvas, Offset.zero);
     canvas.restore();
@@ -570,7 +659,11 @@ class _ConstraintsPainter extends CustomPainter {
     final TextPainter centre = TextPainter(
       text: const TextSpan(
         text: 'BoxConstraints',
-        style: TextStyle(color: _kInk, fontSize: 13.0, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _kInk,
+          fontSize: 13.0,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -711,12 +804,14 @@ Widget _aspectBody() {
           border: Border.all(color: tone.withOpacity(0.45)),
         ),
         alignment: Alignment.center,
-        child: Text('HERO',
-            style: TextStyle(
-              color: tone,
-              fontWeight: FontWeight.w700,
-              fontSize: 13.0,
-            )),
+        child: Text(
+          'HERO',
+          style: TextStyle(
+            color: tone,
+            fontWeight: FontWeight.w700,
+            fontSize: 13.0,
+          ),
+        ),
       );
       final Widget side = Container(
         margin: const EdgeInsets.all(4.0),
@@ -726,12 +821,14 @@ Widget _aspectBody() {
           border: Border.all(color: tone.withOpacity(0.30)),
         ),
         alignment: Alignment.center,
-        child: Text('SIDE',
-            style: TextStyle(
-              color: tone,
-              fontWeight: FontWeight.w600,
-              fontSize: 11.5,
-            )),
+        child: Text(
+          'SIDE',
+          style: TextStyle(
+            color: tone,
+            fontWeight: FontWeight.w600,
+            fontSize: 11.5,
+          ),
+        ),
       );
       final Widget inner;
       if (dir == Axis.vertical) {
@@ -799,10 +896,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF007AFF),
-          Color(0xFF5856D6),
-        ],
+        colors: <Color>[Color(0xFF007AFF), Color(0xFF5856D6)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -859,10 +953,10 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: <Widget>[
-            _pill('Responsive',         colour: const Color(0xFFFFFFFF)),
-            _pill('Layout-phase',       colour: const Color(0xFFFFFFFF)),
+            _pill('Responsive', colour: const Color(0xFFFFFFFF)),
+            _pill('Layout-phase', colour: const Color(0xFFFFFFFF)),
             _pill('Parent constraints', colour: const Color(0xFFFFFFFF)),
-            _pill('Slivers too',        colour: const Color(0xFFFFFFFF)),
+            _pill('Slivers too', colour: const Color(0xFFFFFFFF)),
             _pill('Breakpoint-friendly', colour: const Color(0xFFFFFFFF)),
           ],
         ),
@@ -901,7 +995,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Build vs Layout phase',
-              subtitle: 'LayoutBuilder.builder fires during LAYOUT, after constraints are known.',
+              subtitle:
+                  'LayoutBuilder.builder fires during LAYOUT, after constraints are known.',
             ),
           ],
         ),
@@ -947,7 +1042,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'BoxConstraints anatomy',
-              subtitle: 'Four numbers: minWidth, maxWidth, minHeight, maxHeight.',
+              subtitle:
+                  'Four numbers: minWidth, maxWidth, minHeight, maxHeight.',
             ),
           ],
         ),
@@ -1013,10 +1109,7 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text('350dp', style: _kCaptionStyle),
                 const SizedBox(height: 4.0),
-                SizedBox(
-                  width: 350.0,
-                  child: _responsiveBody(),
-                ),
+                SizedBox(width: 350.0, child: _responsiveBody()),
               ],
             ),
             Column(
@@ -1025,10 +1118,7 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text('700dp', style: _kCaptionStyle),
                 const SizedBox(height: 4.0),
-                SizedBox(
-                  width: 700.0,
-                  child: _responsiveBody(),
-                ),
+                SizedBox(width: 700.0, child: _responsiveBody()),
               ],
             ),
             Column(
@@ -1037,10 +1127,7 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 const Text('1100dp', style: _kCaptionStyle),
                 const SizedBox(height: 4.0),
-                SizedBox(
-                  width: 1100.0,
-                  child: _responsiveBody(),
-                ),
+                SizedBox(width: 1100.0, child: _responsiveBody()),
               ],
             ),
           ],
@@ -1069,7 +1156,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Live aspect-ratio branching',
-              subtitle: 'Portrait / square / landscape envelopes at fixed pixel sizes.',
+              subtitle:
+                  'Portrait / square / landscape envelopes at fixed pixel sizes.',
             ),
           ],
         ),
@@ -1144,59 +1232,67 @@ dynamic build(BuildContext context) {
                   final double cross = constraints.crossAxisExtent;
                   if (cross < 360.0) {
                     return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext c, int i) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
-                              color: _kAccent.withOpacity(0.10),
-                              borderRadius: BorderRadius.circular(6.0),
-                              border: Border.all(color: _kAccent.withOpacity(0.30)),
+                      delegate: SliverChildBuilderDelegate((
+                        BuildContext c,
+                        int i,
+                      ) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 4.0,
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          decoration: BoxDecoration(
+                            color: _kAccent.withOpacity(0.10),
+                            borderRadius: BorderRadius.circular(6.0),
+                            border: Border.all(
+                              color: _kAccent.withOpacity(0.30),
                             ),
-                            child: Text(
-                              'list item #${i + 1}  -  cross=${cross.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                fontSize: 12.0,
-                                color: _kAccent,
-                                fontFamily: 'monospace',
-                              ),
+                          ),
+                          child: Text(
+                            'list item #${i + 1}  -  cross=${cross.toStringAsFixed(0)}',
+                            style: const TextStyle(
+                              fontSize: 12.0,
+                              color: _kAccent,
+                              fontFamily: 'monospace',
                             ),
-                          );
-                        },
-                        childCount: 8,
-                      ),
+                          ),
+                        );
+                      }, childCount: 8),
                     );
                   } else {
                     return SliverGrid(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 6.0,
-                        crossAxisSpacing: 6.0,
-                        childAspectRatio: 2.0,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext c, int i) {
-                          return Container(
-                            margin: const EdgeInsets.all(2.0),
-                            decoration: BoxDecoration(
-                              color: _kAccentIndigo.withOpacity(0.12),
-                              borderRadius: BorderRadius.circular(6.0),
-                              border: Border.all(color: _kAccentIndigo.withOpacity(0.30)),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 6.0,
+                            crossAxisSpacing: 6.0,
+                            childAspectRatio: 2.0,
+                          ),
+                      delegate: SliverChildBuilderDelegate((
+                        BuildContext c,
+                        int i,
+                      ) {
+                        return Container(
+                          margin: const EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                            color: _kAccentIndigo.withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(6.0),
+                            border: Border.all(
+                              color: _kAccentIndigo.withOpacity(0.30),
                             ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              'cell ${i + 1}',
-                              style: const TextStyle(
-                                fontSize: 11.5,
-                                color: _kAccentIndigo,
-                                fontFamily: 'monospace',
-                              ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'cell ${i + 1}',
+                            style: const TextStyle(
+                              fontSize: 11.5,
+                              color: _kAccentIndigo,
+                              fontFamily: 'monospace',
                             ),
-                          );
-                        },
-                        childCount: 9,
-                      ),
+                          ),
+                        );
+                      }, childCount: 9),
                     );
                   }
                 },
@@ -1218,7 +1314,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'SliverLayoutBuilder',
-              subtitle: 'Inside a sliver, branch on SliverConstraints.crossAxisExtent.',
+              subtitle:
+                  'Inside a sliver, branch on SliverConstraints.crossAxisExtent.',
             ),
           ],
         ),
@@ -1231,7 +1328,10 @@ dynamic build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('crossAxisExtent < 360 -> SliverList', style: _kCaptionStyle),
+                const Text(
+                  'crossAxisExtent < 360 -> SliverList',
+                  style: _kCaptionStyle,
+                ),
                 const SizedBox(height: 4.0),
                 _sliverDemo(300.0),
               ],
@@ -1240,7 +1340,10 @@ dynamic build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('crossAxisExtent >= 360 -> SliverGrid', style: _kCaptionStyle),
+                const Text(
+                  'crossAxisExtent >= 360 -> SliverGrid',
+                  style: _kCaptionStyle,
+                ),
                 const SizedBox(height: 4.0),
                 _sliverDemo(520.0),
               ],
@@ -1433,7 +1536,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'LayoutBuilder vs MediaQuery vs OrientationBuilder',
-              subtitle: 'Three different ways to react to size - pick the right one for the job.',
+              subtitle:
+                  'Three different ways to react to size - pick the right one for the job.',
             ),
           ],
         ),
@@ -1456,9 +1560,30 @@ dynamic build(BuildContext context) {
               Row(
                 children: <Widget>[
                   Expanded(flex: 3, child: _cell('source')),
-                  Expanded(flex: 4, child: _cell('parent constraints', colour: _kAccent, mono: true)),
-                  Expanded(flex: 4, child: _cell('window / screen', colour: _kAccentIndigo, mono: true)),
-                  Expanded(flex: 4, child: _cell('parent constraints', colour: _kAccentTeal, mono: true)),
+                  Expanded(
+                    flex: 4,
+                    child: _cell(
+                      'parent constraints',
+                      colour: _kAccent,
+                      mono: true,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: _cell(
+                      'window / screen',
+                      colour: _kAccentIndigo,
+                      mono: true,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: _cell(
+                      'parent constraints',
+                      colour: _kAccentTeal,
+                      mono: true,
+                    ),
+                  ),
                 ],
               ),
               Row(
@@ -1489,7 +1614,10 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   Expanded(flex: 3, child: _cell('phase')),
                   Expanded(flex: 4, child: _cell('layout', colour: _kAccent)),
-                  Expanded(flex: 4, child: _cell('build', colour: _kAccentIndigo)),
+                  Expanded(
+                    flex: 4,
+                    child: _cell('build', colour: _kAccentIndigo),
+                  ),
                   Expanded(flex: 4, child: _cell('layout')),
                 ],
               ),
@@ -1511,7 +1639,12 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 9 - PITFALLS
   // -------------------------------------------------------------------------
-  Widget _pitfall(String title, String body, {Color colour = _kAccentRed, IconData icon = Icons.warning_amber}) {
+  Widget _pitfall(
+    String title,
+    String body, {
+    Color colour = _kAccentRed,
+    IconData icon = Icons.warning_amber,
+  }) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       padding: const EdgeInsets.all(12.0),
@@ -1565,51 +1698,51 @@ dynamic build(BuildContext context) {
         _pitfall(
           'Layout rebuild infinite loop',
           'If the widget returned by the builder DEPENDS on its own size (e.g. '
-          'a Column whose height drives a conditional inside the builder), the '
-          'engine can re-enter layout repeatedly. Always make the branching '
-          'depend on the INPUT constraints, never on the OUTPUT size.',
+              'a Column whose height drives a conditional inside the builder), the '
+              'engine can re-enter layout repeatedly. Always make the branching '
+              'depend on the INPUT constraints, never on the OUTPUT size.',
           colour: _kAccentRed,
         ),
         _pitfall(
           'Using context.size inside the builder',
           '`context.size` is null until paint phase. Inside LayoutBuilder.builder '
-          'you already have the constraints - use them. Reaching for findRenderObject() '
-          'or context.size is both wrong and slow.',
+              'you already have the constraints - use them. Reaching for findRenderObject() '
+              'or context.size is both wrong and slow.',
           colour: _kAccentOrange,
           icon: Icons.dangerous,
         ),
         _pitfall(
           'Applying constraints over MediaQuery',
           'MediaQuery is the window or sub-window size; LayoutBuilder is the local '
-          'parent envelope. Branching on MediaQuery for a card that lives in a 300dp '
-          'side rail is wrong - the card thinks it has 1200dp.',
+              'parent envelope. Branching on MediaQuery for a card that lives in a 300dp '
+              'side rail is wrong - the card thinks it has 1200dp.',
           colour: _kAccentIndigo,
           icon: Icons.layers,
         ),
         _pitfall(
           'Unbounded parent (infinity maxWidth/maxHeight)',
           'Inside a Row, a ListView main axis, or a Wrap, the parent can pass '
-          'maxWidth or maxHeight = double.infinity. Branching with `< 600` then '
-          'silently picks the "small" path forever. Always handle the unbounded '
-          'case explicitly.',
+              'maxWidth or maxHeight = double.infinity. Branching with `< 600` then '
+              'silently picks the "small" path forever. Always handle the unbounded '
+              'case explicitly.',
           colour: _kAccentPink,
           icon: Icons.all_inclusive,
         ),
         _pitfall(
           'Sliver constraints are not box constraints',
           'SliverLayoutBuilder gives you SliverConstraints (axisDirection, '
-          'scrollOffset, crossAxisExtent, remainingPaintExtent). They are NOT '
-          'BoxConstraints - you cannot directly compare them to width breakpoints '
-          'without going through crossAxisExtent.',
+              'scrollOffset, crossAxisExtent, remainingPaintExtent). They are NOT '
+              'BoxConstraints - you cannot directly compare them to width breakpoints '
+              'without going through crossAxisExtent.',
           colour: _kAccentTeal,
           icon: Icons.view_stream,
         ),
         _pitfall(
           'Performance cost vs static layout',
           'LayoutBuilder forces an extra layout pass for the subtree (children are '
-          'instantiated only AFTER constraints settle). On long lists, prefer a '
-          'single LayoutBuilder at the top and hoist its constants out, instead of '
-          'wrapping every item.',
+              'instantiated only AFTER constraints settle). On long lists, prefer a '
+              'single LayoutBuilder at the top and hoist its constants out, instead of '
+              'wrapping every item.',
           colour: _kAccent,
           icon: Icons.speed,
         ),
@@ -1620,7 +1753,12 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------------
   // SECTION 10 - BREAKPOINT DESIGN GUIDE
   // -------------------------------------------------------------------------
-  Widget _bpSketch({required Color tone, required int columns, required String label, required String range}) {
+  Widget _bpSketch({
+    required Color tone,
+    required int columns,
+    required String label,
+    required String range,
+  }) {
     final List<Widget> bars = <Widget>[];
     for (int c = 0; c < columns; c++) {
       bars.add(
@@ -1680,21 +1818,37 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Breakpoint design guide',
-              subtitle: 'Three Material-aligned width breakpoints with adjacent column sketches.',
+              subtitle:
+                  'Three Material-aligned width breakpoints with adjacent column sketches.',
             ),
           ],
         ),
         const SizedBox(height: 12.0),
         Wrap(
           children: <Widget>[
-            _bpSketch(tone: _kAccentOrange, columns: 1, label: 'compact',  range: 'maxWidth < 600dp'),
-            _bpSketch(tone: _kAccent,        columns: 2, label: 'medium',   range: '600 <= maxWidth < 900'),
-            _bpSketch(tone: _kAccentIndigo,  columns: 3, label: 'expanded', range: 'maxWidth >= 900dp'),
+            _bpSketch(
+              tone: _kAccentOrange,
+              columns: 1,
+              label: 'compact',
+              range: 'maxWidth < 600dp',
+            ),
+            _bpSketch(
+              tone: _kAccent,
+              columns: 2,
+              label: 'medium',
+              range: '600 <= maxWidth < 900',
+            ),
+            _bpSketch(
+              tone: _kAccentIndigo,
+              columns: 3,
+              label: 'expanded',
+              range: 'maxWidth >= 900dp',
+            ),
           ],
         ),
         const SizedBox(height: 8.0),
-        _kvRow('compact',  '< 600  - one column, full-bleed (phone portrait)'),
-        _kvRow('medium',   '600 - 900 - two columns (tablet / small laptop)'),
+        _kvRow('compact', '< 600  - one column, full-bleed (phone portrait)'),
+        _kvRow('medium', '600 - 900 - two columns (tablet / small laptop)'),
         _kvRow('expanded', '>= 900 - three+ columns (desktop, side rails)'),
         const SizedBox(height: 8.0),
         _bullet(
@@ -1731,7 +1885,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget _chipGroup(String title, List<Widget> chips, IconData icon, Color tone) {
+  Widget _chipGroup(
+    String title,
+    List<Widget> chips,
+    IconData icon,
+    Color tone,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6.0),
       padding: const EdgeInsets.all(10.0),
@@ -1775,7 +1934,8 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 6.0),
             _cardTitle(
               'Cheat sheet',
-              subtitle: 'Classes, constraints, breakpoints and related widgets at a glance.',
+              subtitle:
+                  'Classes, constraints, breakpoints and related widgets at a glance.',
             ),
           ],
         ),
@@ -1839,10 +1999,7 @@ dynamic build(BuildContext context) {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xFF007AFF),
-                Color(0xFF5856D6),
-              ],
+              colors: <Color>[Color(0xFF007AFF), Color(0xFF5856D6)],
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -1869,26 +2026,38 @@ dynamic build(BuildContext context) {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'Build vs Layout',     'When does the builder fire?'),
+    _sectionHeader(2, 'Build vs Layout', 'When does the builder fire?'),
     phaseCard,
-    _sectionHeader(3, 'BoxConstraints',      'minWidth / maxWidth / minHeight / maxHeight'),
+    _sectionHeader(
+      3,
+      'BoxConstraints',
+      'minWidth / maxWidth / minHeight / maxHeight',
+    ),
     constraintsCard,
-    _sectionHeader(4, 'Width breakpoints',   'Same widget at 350 / 700 / 1100 dp'),
+    _sectionHeader(
+      4,
+      'Width breakpoints',
+      'Same widget at 350 / 700 / 1100 dp',
+    ),
     widthGallery,
-    _sectionHeader(5, 'Aspect ratio',        'Portrait / square / landscape'),
+    _sectionHeader(5, 'Aspect ratio', 'Portrait / square / landscape'),
     aspectGallery,
     _sectionHeader(6, 'SliverLayoutBuilder', 'List vs Grid by crossAxisExtent'),
     sliverGallery,
     _sectionDivider(),
-    _sectionHeader(7, 'Code',                'Six idiomatic snippets'),
+    _sectionHeader(7, 'Code', 'Six idiomatic snippets'),
     codeSection,
-    _sectionHeader(8, 'Comparison',          'LayoutBuilder vs MediaQuery vs OrientationBuilder'),
+    _sectionHeader(
+      8,
+      'Comparison',
+      'LayoutBuilder vs MediaQuery vs OrientationBuilder',
+    ),
     comparisonTable,
-    _sectionHeader(9, 'Pitfalls',            'Six things that bite'),
+    _sectionHeader(9, 'Pitfalls', 'Six things that bite'),
     pitfalls,
-    _sectionHeader(10, 'Breakpoint guide',   'Compact / medium / expanded'),
+    _sectionHeader(10, 'Breakpoint guide', 'Compact / medium / expanded'),
     breakpointGuide,
-    _sectionHeader(11, 'Cheat sheet',        'One last glance'),
+    _sectionHeader(11, 'Cheat sheet', 'One last glance'),
     cheatSheet,
     const SizedBox(height: 28.0),
   ];

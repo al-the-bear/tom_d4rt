@@ -37,7 +37,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== RenderAnimatedOpacityMixin Deep Demo ===');
-  print('Subject: rendering/animated_opacity.dart -> RenderAnimatedOpacityMixin<T>');
+  print(
+    'Subject: rendering/animated_opacity.dart -> RenderAnimatedOpacityMixin<T>',
+  );
   print('Surface APIs exercised: AnimatedOpacity, SliverAnimatedOpacity');
   print('Sections: 16 — see overview comment for details.');
 
@@ -135,7 +137,10 @@ class _SectionShell extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[accent.withOpacity(0.85), accent.withOpacity(0.55)],
+                colors: <Color>[
+                  accent.withOpacity(0.85),
+                  accent.withOpacity(0.55),
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -224,7 +229,11 @@ class _Tag extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 11),
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w600,
+          fontSize: 11,
+        ),
       ),
     );
   }
@@ -271,10 +280,18 @@ class _SectionOneHeroIntro extends StatelessWidget {
                 'It owns four duties:',
                 bold: true,
               ),
-              const _Explainer('  1. hold an Animation<double> opacity reference;'),
-              const _Explainer('  2. addListener / removeListener on attach/detach;'),
-              const _Explainer('  3. push an OpacityLayer in paint(), short-circuiting at 0 and 255;'),
-              const _Explainer('  4. honour alwaysIncludeSemantics for transparent subtrees.'),
+              const _Explainer(
+                '  1. hold an Animation<double> opacity reference;',
+              ),
+              const _Explainer(
+                '  2. addListener / removeListener on attach/detach;',
+              ),
+              const _Explainer(
+                '  3. push an OpacityLayer in paint(), short-circuiting at 0 and 255;',
+              ),
+              const _Explainer(
+                '  4. honour alwaysIncludeSemantics for transparent subtrees.',
+              ),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -283,7 +300,10 @@ class _SectionOneHeroIntro extends StatelessWidget {
                   _Tag('Animation<double>', color: Color(0xFF1A237E)),
                   _Tag('OpacityLayer', color: Color(0xFF283593)),
                   _Tag('alwaysIncludeSemantics', color: Color(0xFF303F9F)),
-                  _Tag('addListener / removeListener', color: Color(0xFF3949AB)),
+                  _Tag(
+                    'addListener / removeListener',
+                    color: Color(0xFF3949AB),
+                  ),
                   _Tag('alpha 0 / 255 short-circuit', color: Color(0xFF5C6BC0)),
                 ],
               ),
@@ -333,9 +353,24 @@ class _ArchitectureDiagramPainter extends CustomPainter {
 
     final List<_Node> nodes = <_Node>[
       _Node('Widget\nAnimatedOpacity', const Color(0xFFE8EAF6), 0.05, 0.10),
-      _Node('Element\n_AnimatedOpacityState', const Color(0xFFC5CAE9), 0.05, 0.40),
-      _Node('Render\nRenderAnimatedOpacity', const Color(0xFF9FA8DA), 0.05, 0.70),
-      _Node('Mixin\nRenderAnimatedOpacityMixin<T>', const Color(0xFF7986CB), 0.55, 0.10),
+      _Node(
+        'Element\n_AnimatedOpacityState',
+        const Color(0xFFC5CAE9),
+        0.05,
+        0.40,
+      ),
+      _Node(
+        'Render\nRenderAnimatedOpacity',
+        const Color(0xFF9FA8DA),
+        0.05,
+        0.70,
+      ),
+      _Node(
+        'Mixin\nRenderAnimatedOpacityMixin<T>',
+        const Color(0xFF7986CB),
+        0.55,
+        0.10,
+      ),
       _Node('Listener\nAnimation<double>', const Color(0xFF5C6BC0), 0.55, 0.40),
       _Node('Engine\nOpacityLayer', const Color(0xFF3F51B5), 0.55, 0.70),
     ];
@@ -350,8 +385,14 @@ class _ArchitectureDiagramPainter extends CustomPainter {
       );
       rects.add(rect);
       boxPaint.color = node.color;
-      canvas.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(8)), boxPaint);
-      canvas.drawRRect(RRect.fromRectAndRadius(rect, const Radius.circular(8)), borderPaint);
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(rect, const Radius.circular(8)),
+        boxPaint,
+      );
+      canvas.drawRRect(
+        RRect.fromRectAndRadius(rect, const Radius.circular(8)),
+        borderPaint,
+      );
 
       final TextPainter tp = TextPainter(
         text: TextSpan(
@@ -413,7 +454,8 @@ class _ArchitectureDiagramPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ArchitectureDiagramPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _ArchitectureDiagramPainter oldDelegate) =>
+      false;
 }
 
 class _Node {
@@ -469,7 +511,10 @@ class _SectionTwoBasicAnimatedOpacity extends StatelessWidget {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
-                            colors: <Color>[Color(0xFF00695C), Color(0xFF26A69A)],
+                            colors: <Color>[
+                              Color(0xFF00695C),
+                              Color(0xFF26A69A),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -503,12 +548,30 @@ class _SectionTwoBasicAnimatedOpacity extends StatelessWidget {
                       DropdownButton<Curve>(
                         value: curve,
                         items: const <DropdownMenuItem<Curve>>[
-                          DropdownMenuItem<Curve>(value: Curves.linear, child: Text('linear')),
-                          DropdownMenuItem<Curve>(value: Curves.easeIn, child: Text('easeIn')),
-                          DropdownMenuItem<Curve>(value: Curves.easeOut, child: Text('easeOut')),
-                          DropdownMenuItem<Curve>(value: Curves.easeInOut, child: Text('easeInOut')),
-                          DropdownMenuItem<Curve>(value: Curves.bounceOut, child: Text('bounceOut')),
-                          DropdownMenuItem<Curve>(value: Curves.elasticOut, child: Text('elasticOut')),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.linear,
+                            child: Text('linear'),
+                          ),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.easeIn,
+                            child: Text('easeIn'),
+                          ),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.easeOut,
+                            child: Text('easeOut'),
+                          ),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.easeInOut,
+                            child: Text('easeInOut'),
+                          ),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.bounceOut,
+                            child: Text('bounceOut'),
+                          ),
+                          DropdownMenuItem<Curve>(
+                            value: Curves.elasticOut,
+                            child: Text('elasticOut'),
+                          ),
                         ],
                         onChanged: (Curve? c) {
                           if (c != null) setInner(() => curve = c);
@@ -592,32 +655,36 @@ class _SectionThreeCurveGallery extends StatelessWidget {
                     crossAxisSpacing: 12,
                     childAspectRatio: 1.4,
                     children: curves
-                        .map((_CurveSpec c) => AnimatedOpacity(
-                              opacity: visible ? 1.0 : 0.0,
-                              duration: const Duration(milliseconds: 1200),
-                              curve: c.curve,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: c.color,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  c.label,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                        .map(
+                          (_CurveSpec c) => AnimatedOpacity(
+                            opacity: visible ? 1.0 : 0.0,
+                            duration: const Duration(milliseconds: 1200),
+                            curve: c.curve,
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: c.color,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                c.label,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ))
+                            ),
+                          ),
+                        )
                         .toList(),
                   ),
                   const SizedBox(height: 12),
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () => setInner(() => visible = !visible),
-                      icon: Icon(visible ? Icons.visibility_off : Icons.visibility),
+                      icon: Icon(
+                        visible ? Icons.visibility_off : Icons.visibility,
+                      ),
                       label: Text(visible ? 'Hide all' : 'Show all'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: accent,
@@ -772,8 +839,7 @@ class _SectionFiveAlwaysIncludeSemantics extends StatelessWidget {
                           child: _SemanticsDemoCard(
                             label: 'Default (omit when invisible)',
                             color: Colors.orange.shade400,
-                            description:
-                                'Hidden from a11y when alpha=0',
+                            description: 'Hidden from a11y when alpha=0',
                           ),
                         ),
                       ),
@@ -786,8 +852,7 @@ class _SectionFiveAlwaysIncludeSemantics extends StatelessWidget {
                           child: _SemanticsDemoCard(
                             label: 'alwaysIncludeSemantics: true',
                             color: Colors.deepOrange.shade400,
-                            description:
-                                'Stays in a11y tree even at alpha=0',
+                            description: 'Stays in a11y tree even at alpha=0',
                           ),
                         ),
                       ),
@@ -1002,7 +1067,8 @@ class _SectionSevenSliverAnimatedOpacity extends StatelessWidget {
                     children: <Widget>[
                       Checkbox(
                         value: show,
-                        onChanged: (bool? v) => setInner(() => show = v ?? true),
+                        onChanged: (bool? v) =>
+                            setInner(() => show = v ?? true),
                       ),
                       const Text('Show sliver list'),
                     ],
@@ -1031,8 +1097,9 @@ class _SectionSevenSliverAnimatedOpacity extends StatelessWidget {
                                   child: Text('$i'),
                                 ),
                                 title: Text('Sliver row #$i'),
-                                subtitle:
-                                    const Text('Faded together by SliverAnimatedOpacity'),
+                                subtitle: const Text(
+                                  'Faded together by SliverAnimatedOpacity',
+                                ),
                               ),
                               childCount: 30,
                             ),
@@ -1114,7 +1181,8 @@ class _SectionEightCompositingBenefit extends StatelessWidget {
                             ),
                             Slider(
                               value: leftAlpha,
-                              onChanged: (double v) => setInner(() => leftAlpha = v),
+                              onChanged: (double v) =>
+                                  setInner(() => leftAlpha = v),
                             ),
                             Text('builds: $rebuildsLeft'),
                           ],
@@ -1189,12 +1257,11 @@ class _SectionNineListenerForwardingState
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    )..addListener(() {
-        if (mounted) setState(() => _ticks++);
-      });
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..addListener(() {
+            if (mounted) setState(() => _ticks++);
+          });
   }
 
   @override
@@ -1240,7 +1307,10 @@ class _SectionNineListenerForwardingState
                       ),
                       child: Text(
                         'Animation ticks: $_ticks  (alpha base = ${(0.3 + 0.7 * v).toStringAsFixed(2)})',
-                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
@@ -1318,7 +1388,10 @@ class _SectionTenCrossfade extends StatelessWidget {
                           opacity: showA ? 1.0 : 0.0,
                           duration: const Duration(milliseconds: 700),
                           child: _GradientPanel(
-                            colors: const <Color>[Color(0xFF00838F), Color(0xFF26C6DA)],
+                            colors: const <Color>[
+                              Color(0xFF00838F),
+                              Color(0xFF26C6DA),
+                            ],
                             label: 'A — ocean',
                           ),
                         ),
@@ -1326,7 +1399,10 @@ class _SectionTenCrossfade extends StatelessWidget {
                           opacity: showA ? 0.0 : 1.0,
                           duration: const Duration(milliseconds: 700),
                           child: _GradientPanel(
-                            colors: const <Color>[Color(0xFFFF7043), Color(0xFFFFCA28)],
+                            colors: const <Color>[
+                              Color(0xFFFF7043),
+                              Color(0xFFFFCA28),
+                            ],
                             label: 'B — sunset',
                           ),
                         ),
@@ -1415,7 +1491,9 @@ class _SectionElevenHeroGallery extends StatelessWidget {
                 }
               }
 
-              void resetAll() => setInner(() => shown = List<bool>.filled(specs.length, false));
+              void resetAll() => setInner(
+                () => shown = List<bool>.filled(specs.length, false),
+              );
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1451,7 +1529,11 @@ class _SectionElevenHeroGallery extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Icon(specs[i].icon, color: Colors.white, size: 28),
+                                Icon(
+                                  specs[i].icon,
+                                  color: Colors.white,
+                                  size: 28,
+                                ),
                                 Text(
                                   specs[i].label,
                                   style: const TextStyle(
@@ -1521,63 +1603,70 @@ class _SectionTwelveOpacityScaleCombo extends StatelessWidget {
         builder: (BuildContext context, void Function(void Function()) setState) {
           bool popped = false;
           return StatefulBuilder(
-            builder: (BuildContext context, void Function(void Function()) setInner) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  const _Explainer(
-                    'The render mixin only takes care of opacity. Scale is '
-                    'handled by RenderTransform via AnimatedScale. Stacking '
-                    'AnimatedOpacity outside AnimatedScale (or vice-versa) '
-                    'creates a "pop" effect with negligible cost: the engine '
-                    'sees one OpacityLayer and one TransformLayer.',
-                  ),
-                  const SizedBox(height: 12),
-                  Center(
-                    child: AnimatedOpacity(
-                      opacity: popped ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 350),
-                      child: AnimatedScale(
-                        scale: popped ? 1.0 : 0.4,
-                        duration: const Duration(milliseconds: 450),
-                        curve: Curves.elasticOut,
-                        child: Container(
-                          width: 180,
-                          height: 100,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: accent,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: const <BoxShadow>[
-                              BoxShadow(blurRadius: 12, color: Colors.black26),
-                            ],
-                          ),
-                          child: const Text(
-                            'POP!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontWeight: FontWeight.w900,
+            builder:
+                (
+                  BuildContext context,
+                  void Function(void Function()) setInner,
+                ) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      const _Explainer(
+                        'The render mixin only takes care of opacity. Scale is '
+                        'handled by RenderTransform via AnimatedScale. Stacking '
+                        'AnimatedOpacity outside AnimatedScale (or vice-versa) '
+                        'creates a "pop" effect with negligible cost: the engine '
+                        'sees one OpacityLayer and one TransformLayer.',
+                      ),
+                      const SizedBox(height: 12),
+                      Center(
+                        child: AnimatedOpacity(
+                          opacity: popped ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 350),
+                          child: AnimatedScale(
+                            scale: popped ? 1.0 : 0.4,
+                            duration: const Duration(milliseconds: 450),
+                            curve: Curves.elasticOut,
+                            child: Container(
+                              width: 180,
+                              height: 100,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: accent,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const <BoxShadow>[
+                                  BoxShadow(
+                                    blurRadius: 12,
+                                    color: Colors.black26,
+                                  ),
+                                ],
+                              ),
+                              child: const Text(
+                                'POP!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () => setInner(() => popped = !popped),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: accent,
-                        foregroundColor: Colors.white,
+                      const SizedBox(height: 12),
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () => setInner(() => popped = !popped),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: accent,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: Text(popped ? 'Hide' : 'Pop'),
+                        ),
                       ),
-                      child: Text(popped ? 'Hide' : 'Pop'),
-                    ),
-                  ),
-                ],
-              );
-            },
+                    ],
+                  );
+                },
           );
         },
       ),
@@ -1609,10 +1698,12 @@ class _SectionThirteenPerformanceNote extends StatelessWidget {
               String shortCircuit;
               Color tagColor;
               if (alpha255 == 0) {
-                shortCircuit = 'alpha == 0  ->  paint() returns immediately, child is skipped';
+                shortCircuit =
+                    'alpha == 0  ->  paint() returns immediately, child is skipped';
                 tagColor = Colors.red.shade700;
               } else if (alpha255 == 255) {
-                shortCircuit = 'alpha == 255 ->  paint() calls super.paint(), no OpacityLayer pushed';
+                shortCircuit =
+                    'alpha == 255 ->  paint() calls super.paint(), no OpacityLayer pushed';
                 tagColor = Colors.green.shade700;
               } else {
                 shortCircuit =
@@ -1627,9 +1718,15 @@ class _SectionThirteenPerformanceNote extends StatelessWidget {
                     'RenderAnimatedOpacityMixin maintains an integer _alpha in '
                     '[0..255]. In paint(), it short-circuits both endpoints:',
                   ),
-                  const _Explainer('  alpha == 0   -> draw nothing (skip subtree entirely)'),
-                  const _Explainer('  alpha == 255 -> draw subtree directly without an OpacityLayer'),
-                  const _Explainer('  otherwise    -> pushOpacityLayer with the current alpha'),
+                  const _Explainer(
+                    '  alpha == 0   -> draw nothing (skip subtree entirely)',
+                  ),
+                  const _Explainer(
+                    '  alpha == 255 -> draw subtree directly without an OpacityLayer',
+                  ),
+                  const _Explainer(
+                    '  otherwise    -> pushOpacityLayer with the current alpha',
+                  ),
                   const _Explainer(
                     'The mid-range case is where the engine actually has to '
                     'allocate an offscreen, render the subtree into it, and '
@@ -1642,7 +1739,9 @@ class _SectionThirteenPerformanceNote extends StatelessWidget {
                     value: alpha,
                     onChanged: (double v) => setInner(() => alpha = v),
                   ),
-                  Text('alpha = ${alpha.toStringAsFixed(3)}  ($alpha255 / 255)'),
+                  Text(
+                    'alpha = ${alpha.toStringAsFixed(3)}  ($alpha255 / 255)',
+                  ),
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.all(10),
@@ -1841,36 +1940,46 @@ class _SectionFifteenReferenceTable extends StatelessWidget {
             DataColumn(label: Text('Use case')),
           ],
           rows: const <DataRow>[
-            DataRow(cells: <DataCell>[
-              DataCell(Text('AnimatedOpacity')),
-              DataCell(Text('RenderAnimatedOpacity')),
-              DataCell(Text('RenderAnimatedOpacityMixin<RenderBox>')),
-              DataCell(Text('Implicit box-protocol fade')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('SliverAnimatedOpacity')),
-              DataCell(Text('RenderSliverAnimatedOpacity')),
-              DataCell(Text('RenderAnimatedOpacityMixin<RenderSliver>')),
-              DataCell(Text('Implicit sliver-protocol fade')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('Opacity')),
-              DataCell(Text('RenderOpacity')),
-              DataCell(Text('— (raw)')),
-              DataCell(Text('Static alpha')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('FadeTransition')),
-              DataCell(Text('RenderAnimatedOpacity')),
-              DataCell(Text('RenderAnimatedOpacityMixin<RenderBox>')),
-              DataCell(Text('Explicit-animation fade')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('SliverFadeTransition')),
-              DataCell(Text('RenderSliverAnimatedOpacity')),
-              DataCell(Text('RenderAnimatedOpacityMixin<RenderSliver>')),
-              DataCell(Text('Explicit sliver-protocol fade')),
-            ]),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('AnimatedOpacity')),
+                DataCell(Text('RenderAnimatedOpacity')),
+                DataCell(Text('RenderAnimatedOpacityMixin<RenderBox>')),
+                DataCell(Text('Implicit box-protocol fade')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('SliverAnimatedOpacity')),
+                DataCell(Text('RenderSliverAnimatedOpacity')),
+                DataCell(Text('RenderAnimatedOpacityMixin<RenderSliver>')),
+                DataCell(Text('Implicit sliver-protocol fade')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('Opacity')),
+                DataCell(Text('RenderOpacity')),
+                DataCell(Text('— (raw)')),
+                DataCell(Text('Static alpha')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('FadeTransition')),
+                DataCell(Text('RenderAnimatedOpacity')),
+                DataCell(Text('RenderAnimatedOpacityMixin<RenderBox>')),
+                DataCell(Text('Explicit-animation fade')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('SliverFadeTransition')),
+                DataCell(Text('RenderSliverAnimatedOpacity')),
+                DataCell(Text('RenderAnimatedOpacityMixin<RenderSliver>')),
+                DataCell(Text('Explicit sliver-protocol fade')),
+              ],
+            ),
           ],
         ),
       ),

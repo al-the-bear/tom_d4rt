@@ -85,8 +85,13 @@ const List<IconData> kSectionIcons = <IconData>[
 // function-of-parameters with no captured state.
 // ---------------------------------------------------------------------------
 
-Widget sectionTitle(String index, String title, String subtitle, IconData icon,
-    Color tint) {
+Widget sectionTitle(
+  String index,
+  String title,
+  String subtitle,
+  IconData icon,
+  Color tint,
+) {
   return Container(
     margin: const EdgeInsets.fromLTRB(16, 28, 16, 12),
     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
@@ -118,7 +123,9 @@ Widget sectionTitle(String index, String title, String subtitle, IconData icon,
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 2),
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: tint.withOpacity(0.22),
                       borderRadius: BorderRadius.circular(6),
@@ -188,8 +195,7 @@ Widget infoCard(String heading, String body, Color tint) {
         const SizedBox(height: 6),
         Text(
           body,
-          style: const TextStyle(
-              color: kTextHi, fontSize: 12.5, height: 1.45),
+          style: const TextStyle(color: kTextHi, fontSize: 12.5, height: 1.45),
         ),
       ],
     ),
@@ -386,9 +392,13 @@ Widget buildDefaultListViewSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('01', 'Default ListView constructor',
-          'Eagerly built `children`, ideal for small fixed lists.',
-          kSectionIcons[0], kAccentCyan),
+      sectionTitle(
+        '01',
+        'Default ListView constructor',
+        'Eagerly built `children`, ideal for small fixed lists.',
+        kSectionIcons[0],
+        kAccentCyan,
+      ),
       infoCard(
         'When to use',
         'The default constructor (`ListView(children: [...])`) is the right '
@@ -434,16 +444,31 @@ Widget buildDefaultListViewSection() {
               ),
             ),
             const SizedBox(height: 6),
-            paramRow('padding', 'all(12)',
-                'Insets the entire viewport content — outside the scrollable.'),
-            paramRow('shrinkWrap', 'false',
-                'When false the ListView fills the viewport. true wraps content.'),
-            paramRow('reverse', 'false',
-                'When true index 0 is at the bottom (or right in horizontal).'),
-            paramRow('cacheExtent', '250.0',
-                'Logical pixels of off-screen content to keep mounted.'),
-            paramRow('physics', 'Clamping',
-                'No overscroll glow — used as a Material reference here.'),
+            paramRow(
+              'padding',
+              'all(12)',
+              'Insets the entire viewport content — outside the scrollable.',
+            ),
+            paramRow(
+              'shrinkWrap',
+              'false',
+              'When false the ListView fills the viewport. true wraps content.',
+            ),
+            paramRow(
+              'reverse',
+              'false',
+              'When true index 0 is at the bottom (or right in horizontal).',
+            ),
+            paramRow(
+              'cacheExtent',
+              '250.0',
+              'Logical pixels of off-screen content to keep mounted.',
+            ),
+            paramRow(
+              'physics',
+              'Clamping',
+              'No overscroll glow — used as a Material reference here.',
+            ),
           ],
         ),
       ),
@@ -530,15 +555,13 @@ Widget buildBuilderGallerySection() {
                     Text(
                       'Lazily built at index $index — itemBuilder invoked '
                       'when the slot enters the cacheExtent.',
-                      style:
-                          const TextStyle(color: kTextLo, fontSize: 11.5),
+                      style: const TextStyle(color: kTextLo, fontSize: 11.5),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: tint.withOpacity(0.18),
                   borderRadius: BorderRadius.circular(6),
@@ -583,9 +606,13 @@ Widget buildBuilderGallerySection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('02', 'ListView.builder',
-          'Lazy on-demand construction via `itemBuilder`.',
-          kSectionIcons[1], kAccentLime),
+      sectionTitle(
+        '02',
+        'ListView.builder',
+        'Lazy on-demand construction via `itemBuilder`.',
+        kSectionIcons[1],
+        kAccentLime,
+      ),
       infoCard(
         'Why builder',
         'When the list is long or virtually infinite, `ListView.builder` '
@@ -628,16 +655,31 @@ Widget buildBuilderGallerySection() {
               ),
             ),
             const SizedBox(height: 6),
-            paramRow('itemCount', '18',
-                'Exact known count — pass null for infinite scrolling.'),
-            paramRow('itemBuilder', 'fn(c,i)',
-                'Pure function from index to widget. No setState capture.'),
-            paramRow('cacheExtent', '320.0',
-                'Slightly larger than default for smoother scroll on tall items.'),
-            paramRow('physics', 'Bouncing',
-                'iOS-style overscroll for the demonstration.'),
-            paramRow('addAutomaticKeepAlives', 'false',
-                'Items rebuild after leaving cacheExtent — saves memory.'),
+            paramRow(
+              'itemCount',
+              '18',
+              'Exact known count — pass null for infinite scrolling.',
+            ),
+            paramRow(
+              'itemBuilder',
+              'fn(c,i)',
+              'Pure function from index to widget. No setState capture.',
+            ),
+            paramRow(
+              'cacheExtent',
+              '320.0',
+              'Slightly larger than default for smoother scroll on tall items.',
+            ),
+            paramRow(
+              'physics',
+              'Bouncing',
+              'iOS-style overscroll for the demonstration.',
+            ),
+            paramRow(
+              'addAutomaticKeepAlives',
+              'false',
+              'Items rebuild after leaving cacheExtent — saves memory.',
+            ),
           ],
         ),
       ),
@@ -659,8 +701,7 @@ Widget buildSeparatedSection() {
             const Expanded(child: Divider(color: kDivider, thickness: 1)),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 8),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
               decoration: BoxDecoration(
                 color: kAccentRose.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(20),
@@ -759,9 +800,13 @@ Widget buildSeparatedSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('03', 'ListView.separated',
-          'Two builders: items and the gap widget between them.',
-          kSectionIcons[2], kAccentRose),
+      sectionTitle(
+        '03',
+        'ListView.separated',
+        'Two builders: items and the gap widget between them.',
+        kSectionIcons[2],
+        kAccentRose,
+      ),
       infoCard(
         'Mechanics',
         'Internally a `ListView.separated` produces `2 * itemCount - 1` '
@@ -800,10 +845,7 @@ Widget buildHorizontalStripsSection() {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            tint.withOpacity(0.22),
-            tint.withOpacity(0.06),
-          ],
+          colors: <Color>[tint.withOpacity(0.22), tint.withOpacity(0.06)],
         ),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: tint.withOpacity(0.45)),
@@ -930,9 +972,13 @@ Widget buildHorizontalStripsSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('04', 'Horizontal & reverse',
-          '`scrollDirection: Axis.horizontal` and `reverse: true` flips.',
-          kSectionIcons[6], kAccentAmber),
+      sectionTitle(
+        '04',
+        'Horizontal & reverse',
+        '`scrollDirection: Axis.horizontal` and `reverse: true` flips.',
+        kSectionIcons[6],
+        kAccentAmber,
+      ),
       infoCard(
         'Two axes',
         'A ListView lays out children along the `scrollDirection`. The '
@@ -947,7 +993,10 @@ Widget buildHorizontalStripsSection() {
         child: Text(
           'Forward horizontal (Axis.horizontal, reverse: false)',
           style: TextStyle(
-              color: kTextLo, fontSize: 12, fontWeight: FontWeight.w600),
+            color: kTextLo,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       horizontalRow,
@@ -956,7 +1005,10 @@ Widget buildHorizontalStripsSection() {
         child: Text(
           'Reverse horizontal (Axis.horizontal, reverse: true)',
           style: TextStyle(
-              color: kTextLo, fontSize: 12, fontWeight: FontWeight.w600),
+            color: kTextLo,
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
       reverseRow,
@@ -1012,7 +1064,8 @@ Widget buildSliverFamilySection() {
   // SliverList — variable-height children.
   final Widget sliverList = SliverList(
     delegate: SliverChildBuilderDelegate(
-      (BuildContext c, int index) => sliverItem(index, 'SliverList', kAccentCyan),
+      (BuildContext c, int index) =>
+          sliverItem(index, 'SliverList', kAccentCyan),
       childCount: 6,
       addAutomaticKeepAlives: true,
       addRepaintBoundaries: true,
@@ -1083,8 +1136,7 @@ Widget buildSliverFamilySection() {
         sliverList,
         header('SLIVERFIXEDEXTENTLIST — itemExtent 56', kAccentLime),
         sliverFixed,
-        header('SLIVERPROTOTYPEEXTENTLIST — measured prototype',
-            kAccentRose),
+        header('SLIVERPROTOTYPEEXTENTLIST — measured prototype', kAccentRose),
         sliverProto,
         SliverPadding(
           padding: const EdgeInsets.fromLTRB(12, 12, 12, 18),
@@ -1113,9 +1165,13 @@ Widget buildSliverFamilySection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('05', 'Sliver family inside CustomScrollView',
-          'SliverList, SliverFixedExtentList, SliverPrototypeExtentList.',
-          kSectionIcons[3], kAccentViolet),
+      sectionTitle(
+        '05',
+        'Sliver family inside CustomScrollView',
+        'SliverList, SliverFixedExtentList, SliverPrototypeExtentList.',
+        kSectionIcons[3],
+        kAccentViolet,
+      ),
       infoCard(
         'Three list slivers',
         'SliverList grows children to their natural extent. '
@@ -1136,7 +1192,11 @@ Widget buildSliverFamilySection() {
 // ---------------------------------------------------------------------------
 Widget buildScrollPhysicsSection() {
   Widget physicsCard(
-      String title, String description, Color tint, ScrollPhysics physics) {
+    String title,
+    String description,
+    Color tint,
+    ScrollPhysics physics,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
@@ -1176,7 +1236,10 @@ Widget buildScrollPhysicsSection() {
             child: Text(
               description,
               style: const TextStyle(
-                  color: kTextHi, fontSize: 12.5, height: 1.45),
+                color: kTextHi,
+                fontSize: 12.5,
+                height: 1.45,
+              ),
             ),
           ),
           Container(
@@ -1221,9 +1284,13 @@ Widget buildScrollPhysicsSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('06', 'ScrollPhysics variants',
-          'Bouncing, Clamping, NeverScrollable, AlwaysScrollable, PageScroll.',
-          kSectionIcons[5], kAccentCyan),
+      sectionTitle(
+        '06',
+        'ScrollPhysics variants',
+        'Bouncing, Clamping, NeverScrollable, AlwaysScrollable, PageScroll.',
+        kSectionIcons[5],
+        kAccentCyan,
+      ),
       infoCard(
         'What physics decide',
         'A `ScrollPhysics` object decides how the viewport responds to '
@@ -1347,9 +1414,13 @@ Widget buildListViewCustomSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('07', 'ListView.custom',
-          'Direct `SliverChildDelegate` access for full control.',
-          kSectionIcons[3], kAccentLime),
+      sectionTitle(
+        '07',
+        'ListView.custom',
+        'Direct `SliverChildDelegate` access for full control.',
+        kSectionIcons[3],
+        kAccentLime,
+      ),
       infoCard(
         'When custom helps',
         '`ListView.custom` is the escape hatch when the convenience '
@@ -1402,7 +1473,10 @@ Widget buildKeepAliveReferenceSection() {
                 Text(
                   body,
                   style: const TextStyle(
-                      color: kTextHi, fontSize: 12.2, height: 1.4),
+                    color: kTextHi,
+                    fontSize: 12.2,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -1415,9 +1489,13 @@ Widget buildKeepAliveReferenceSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('08', 'Lifecycle flags & cacheExtent',
-          'AutomaticKeepAliveClientMixin, addRepaintBoundaries, cacheExtent.',
-          kSectionIcons[7], kAccentRose),
+      sectionTitle(
+        '08',
+        'Lifecycle flags & cacheExtent',
+        'AutomaticKeepAliveClientMixin, addRepaintBoundaries, cacheExtent.',
+        kSectionIcons[7],
+        kAccentRose,
+      ),
       Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         padding: const EdgeInsets.all(14),
@@ -1504,22 +1582,46 @@ Widget buildKeepAliveReferenceSection() {
               ),
             ),
             const SizedBox(height: 6),
-            paramRow('padding', 'EdgeInsets',
-                'Inset inside the viewport — affects the scrollable area.'),
-            paramRow('primary', 'bool?',
-                'Auto-true when scrollDirection is vertical and no controller is supplied.'),
-            paramRow('controller', 'ScrollController?',
-                'Supply your own to read offset/extent; mutually exclusive with primary: true.'),
-            paramRow('itemExtent', 'double?',
-                'Constant child extent. Cheaper layout than measuring each child.'),
-            paramRow('prototypeItem', 'Widget?',
-                'Cheap alternative to itemExtent — extent inferred from a single prototype.'),
-            paramRow('clipBehavior', 'Clip.hardEdge',
-                'Default clip mode of the viewport — pass Clip.none to allow overflow.'),
-            paramRow('dragStartBehavior', 'DragStartBehavior.start',
-                'Whether drags begin from down-event or move-event timing.'),
-            paramRow('restorationId', 'String?',
-                'Optional state-restoration key for scroll offset persistence.'),
+            paramRow(
+              'padding',
+              'EdgeInsets',
+              'Inset inside the viewport — affects the scrollable area.',
+            ),
+            paramRow(
+              'primary',
+              'bool?',
+              'Auto-true when scrollDirection is vertical and no controller is supplied.',
+            ),
+            paramRow(
+              'controller',
+              'ScrollController?',
+              'Supply your own to read offset/extent; mutually exclusive with primary: true.',
+            ),
+            paramRow(
+              'itemExtent',
+              'double?',
+              'Constant child extent. Cheaper layout than measuring each child.',
+            ),
+            paramRow(
+              'prototypeItem',
+              'Widget?',
+              'Cheap alternative to itemExtent — extent inferred from a single prototype.',
+            ),
+            paramRow(
+              'clipBehavior',
+              'Clip.hardEdge',
+              'Default clip mode of the viewport — pass Clip.none to allow overflow.',
+            ),
+            paramRow(
+              'dragStartBehavior',
+              'DragStartBehavior.start',
+              'Whether drags begin from down-event or move-event timing.',
+            ),
+            paramRow(
+              'restorationId',
+              'String?',
+              'Optional state-restoration key for scroll offset persistence.',
+            ),
           ],
         ),
       ),
@@ -1600,9 +1702,13 @@ Widget buildItemExtentSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: <Widget>[
-      sectionTitle('09', 'itemExtent vs prototypeItem',
-          'Two ways to skip per-child measurement.',
-          kSectionIcons[4], kAccentCyan),
+      sectionTitle(
+        '09',
+        'itemExtent vs prototypeItem',
+        'Two ways to skip per-child measurement.',
+        kSectionIcons[4],
+        kAccentCyan,
+      ),
       infoCard(
         'Why pre-size matters',
         'Telling the framework that every row has the same extent skips '
@@ -1617,9 +1723,10 @@ Widget buildItemExtentSection() {
         child: Text(
           'itemExtent: 48',
           style: TextStyle(
-              color: kAccentCyan,
-              fontSize: 12,
-              fontWeight: FontWeight.w700),
+            color: kAccentCyan,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       fixedExtentList,
@@ -1628,9 +1735,10 @@ Widget buildItemExtentSection() {
         child: Text(
           'prototypeItem: Container(text)',
           style: TextStyle(
-              color: kAccentViolet,
-              fontSize: 12,
-              fontWeight: FontWeight.w700),
+            color: kAccentViolet,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       prototypeList,
@@ -1667,8 +1775,7 @@ Widget buildSummarySection() {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: tint.withOpacity(0.18),
                   borderRadius: BorderRadius.circular(4),
@@ -1720,40 +1827,108 @@ Widget buildSummarySection() {
           ],
         ),
         const SizedBox(height: 10),
-        bigParam('scrollDirection', 'Axis.vertical', kAccentCyan,
-            'The primary axis the children scroll along.'),
-        bigParam('reverse', 'false', kAccentLime,
-            'When true the first item is at the end of the viewport.'),
-        bigParam('controller', 'ScrollController?', kAccentRose,
-            'Read offsets, attach refresh logic, animate to indexes.'),
-        bigParam('primary', 'true (vertical default)', kAccentAmber,
-            'Controls whether the list is the surface PageView/PullToRefresh attach to.'),
-        bigParam('physics', 'ScrollPhysics?', kAccentViolet,
-            'Bouncing, Clamping, Never, Always, Page, or a custom subclass.'),
-        bigParam('shrinkWrap', 'false', kAccentCyan,
-            'When true the ListView measures its intrinsic extent — slower but useful inside other scrollables.'),
-        bigParam('padding', 'EdgeInsetsGeometry?', kAccentLime,
-            'Insets inside the viewport — does not consume scrollable extent past the edges.'),
-        bigParam('itemExtent', 'double?', kAccentRose,
-            'Constant child extent — skips per-child layout measurement.'),
-        bigParam('prototypeItem', 'Widget?', kAccentAmber,
-            'Use this widget to infer the constant extent of every child.'),
-        bigParam('cacheExtent', 'double?', kAccentViolet,
-            'Logical pixels to mount above/below the viewport.'),
-        bigParam('addAutomaticKeepAlives', 'true', kAccentCyan,
-            'Wraps each child in AutomaticKeepAlive — required for KeepAliveNotification.'),
-        bigParam('addRepaintBoundaries', 'true', kAccentLime,
-            'Wraps each child in a RepaintBoundary so scrolling does not dirty neighbours.'),
-        bigParam('addSemanticIndexes', 'true', kAccentRose,
-            'Annotates each child with IndexedSemantics for assistive tech.'),
-        bigParam('dragStartBehavior', 'DragStartBehavior.start', kAccentAmber,
-            'down-event vs move-event drag start timing.'),
-        bigParam('keyboardDismissBehavior', 'manual / onDrag', kAccentViolet,
-            'Whether scroll gestures dismiss the on-screen keyboard.'),
-        bigParam('restorationId', 'String?', kAccentCyan,
-            'Persists scroll offset across state restoration.'),
-        bigParam('clipBehavior', 'Clip.hardEdge', kAccentLime,
-            'Clip mode of the viewport — Clip.none allows overflow drawings.'),
+        bigParam(
+          'scrollDirection',
+          'Axis.vertical',
+          kAccentCyan,
+          'The primary axis the children scroll along.',
+        ),
+        bigParam(
+          'reverse',
+          'false',
+          kAccentLime,
+          'When true the first item is at the end of the viewport.',
+        ),
+        bigParam(
+          'controller',
+          'ScrollController?',
+          kAccentRose,
+          'Read offsets, attach refresh logic, animate to indexes.',
+        ),
+        bigParam(
+          'primary',
+          'true (vertical default)',
+          kAccentAmber,
+          'Controls whether the list is the surface PageView/PullToRefresh attach to.',
+        ),
+        bigParam(
+          'physics',
+          'ScrollPhysics?',
+          kAccentViolet,
+          'Bouncing, Clamping, Never, Always, Page, or a custom subclass.',
+        ),
+        bigParam(
+          'shrinkWrap',
+          'false',
+          kAccentCyan,
+          'When true the ListView measures its intrinsic extent — slower but useful inside other scrollables.',
+        ),
+        bigParam(
+          'padding',
+          'EdgeInsetsGeometry?',
+          kAccentLime,
+          'Insets inside the viewport — does not consume scrollable extent past the edges.',
+        ),
+        bigParam(
+          'itemExtent',
+          'double?',
+          kAccentRose,
+          'Constant child extent — skips per-child layout measurement.',
+        ),
+        bigParam(
+          'prototypeItem',
+          'Widget?',
+          kAccentAmber,
+          'Use this widget to infer the constant extent of every child.',
+        ),
+        bigParam(
+          'cacheExtent',
+          'double?',
+          kAccentViolet,
+          'Logical pixels to mount above/below the viewport.',
+        ),
+        bigParam(
+          'addAutomaticKeepAlives',
+          'true',
+          kAccentCyan,
+          'Wraps each child in AutomaticKeepAlive — required for KeepAliveNotification.',
+        ),
+        bigParam(
+          'addRepaintBoundaries',
+          'true',
+          kAccentLime,
+          'Wraps each child in a RepaintBoundary so scrolling does not dirty neighbours.',
+        ),
+        bigParam(
+          'addSemanticIndexes',
+          'true',
+          kAccentRose,
+          'Annotates each child with IndexedSemantics for assistive tech.',
+        ),
+        bigParam(
+          'dragStartBehavior',
+          'DragStartBehavior.start',
+          kAccentAmber,
+          'down-event vs move-event drag start timing.',
+        ),
+        bigParam(
+          'keyboardDismissBehavior',
+          'manual / onDrag',
+          kAccentViolet,
+          'Whether scroll gestures dismiss the on-screen keyboard.',
+        ),
+        bigParam(
+          'restorationId',
+          'String?',
+          kAccentCyan,
+          'Persists scroll offset across state restoration.',
+        ),
+        bigParam(
+          'clipBehavior',
+          'Clip.hardEdge',
+          kAccentLime,
+          'Clip mode of the viewport — Clip.none allows overflow drawings.',
+        ),
       ],
     ),
   );
@@ -1771,10 +1946,7 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF0E2440),
-          Color(0xFF1B355A),
-        ],
+        colors: <Color>[Color(0xFF0E2440), Color(0xFF1B355A)],
       ),
     ),
     child: Column(
@@ -1783,8 +1955,7 @@ dynamic build(BuildContext context) {
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: kAccentCyan.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(20),
@@ -1802,8 +1973,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(width: 8),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: kAccentLime.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(20),
@@ -1840,14 +2010,16 @@ dynamic build(BuildContext context) {
         Wrap(
           children: <Widget>[
             for (int i = 0; i < kTopics.length; i++)
-              pill(kTopics[i],
-                  <Color>[
-                    kAccentCyan,
-                    kAccentLime,
-                    kAccentRose,
-                    kAccentAmber,
-                    kAccentViolet,
-                  ][i % 5]),
+              pill(
+                kTopics[i],
+                <Color>[
+                  kAccentCyan,
+                  kAccentLime,
+                  kAccentRose,
+                  kAccentAmber,
+                  kAccentViolet,
+                ][i % 5],
+              ),
           ],
         ),
       ],
@@ -1966,7 +2138,10 @@ class _NoGlowBehavior extends ScrollBehavior {
 
   @override
   Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) {
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) {
     return child;
   }
 }

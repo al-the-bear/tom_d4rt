@@ -264,12 +264,12 @@ dynamic build(BuildContext context) {
   }
 
   Widget arrow() => Container(
-        margin: const EdgeInsets.symmetric(vertical: 1),
-        child: const Text(
-          '|',
-          style: TextStyle(color: cSlate, fontSize: 14, fontFamily: 'monospace'),
-        ),
-      );
+    margin: const EdgeInsets.symmetric(vertical: 1),
+    child: const Text(
+      '|',
+      style: TextStyle(color: cSlate, fontSize: 14, fontFamily: 'monospace'),
+    ),
+  );
 
   final Widget hierarchyDiagram = Container(
     padding: const EdgeInsets.all(14),
@@ -471,17 +471,31 @@ dynamic build(BuildContext context) {
           cAmber,
         ),
         const SizedBox(height: 8),
-        Text('layer.toString -> $layerToString',
-            style: const TextStyle(
-                color: cInkDim, fontFamily: 'monospace', fontSize: 11)),
-        Text('record log -> $pictureRecordLog',
-            style: const TextStyle(
-                color: cInkDim, fontFamily: 'monospace', fontSize: 11)),
         Text(
-            'picture is null? '
-            '${recordedPicture == null}',
-            style: const TextStyle(
-                color: cInkDim, fontFamily: 'monospace', fontSize: 11)),
+          'layer.toString -> $layerToString',
+          style: const TextStyle(
+            color: cInkDim,
+            fontFamily: 'monospace',
+            fontSize: 11,
+          ),
+        ),
+        Text(
+          'record log -> $pictureRecordLog',
+          style: const TextStyle(
+            color: cInkDim,
+            fontFamily: 'monospace',
+            fontSize: 11,
+          ),
+        ),
+        Text(
+          'picture is null? '
+          '${recordedPicture == null}',
+          style: const TextStyle(
+            color: cInkDim,
+            fontFamily: 'monospace',
+            fontSize: 11,
+          ),
+        ),
       ],
     ),
   );
@@ -490,7 +504,12 @@ dynamic build(BuildContext context) {
   // Section 4: Performance hints panel.
   // ---------------------------------------------------------------------------
   Widget hintCard(
-      String name, bool value, String when, String effect, Color accent) {
+    String name,
+    bool value,
+    String when,
+    String effect,
+    Color accent,
+  ) {
     return Container(
       width: 280,
       padding: const EdgeInsets.all(12),
@@ -516,8 +535,7 @@ dynamic build(BuildContext context) {
               ),
               const Spacer(),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(3),
@@ -534,11 +552,15 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 6),
-          Text('when: $when',
-              style: const TextStyle(color: cInk, fontSize: 12)),
+          Text(
+            'when: $when',
+            style: const TextStyle(color: cInk, fontSize: 12),
+          ),
           const SizedBox(height: 3),
-          Text('effect: $effect',
-              style: const TextStyle(color: cInkDim, fontSize: 12)),
+          Text(
+            'effect: $effect',
+            style: const TextStyle(color: cInkDim, fontSize: 12),
+          ),
         ],
       ),
     );
@@ -574,28 +596,35 @@ dynamic build(BuildContext context) {
           flex: 2,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: Text(aspect,
-                style: const TextStyle(
-                    color: cAmber,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              aspect,
+              style: const TextStyle(
+                color: cAmber,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         Expanded(
           flex: 3,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: Text(container,
-                style: const TextStyle(color: cInk, fontSize: 12)),
+            child: Text(
+              container,
+              style: const TextStyle(color: cInk, fontSize: 12),
+            ),
           ),
         ),
         Expanded(
           flex: 3,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-            child: Text(leaf,
-                style: const TextStyle(color: cInk, fontSize: 12)),
+            child: Text(
+              leaf,
+              style: const TextStyle(color: cInk, fontSize: 12),
+            ),
           ),
         ),
       ],
@@ -606,7 +635,11 @@ dynamic build(BuildContext context) {
   final List<List<String>> compareData = <List<String>>[
     <String>['role', 'groups child layers', 'holds drawn pixels'],
     <String>['has children', 'yes (firstChild/lastChild)', 'no — leaf'],
-    <String>['typical', 'OffsetLayer, TransformLayer', 'PictureLayer, TextureLayer'],
+    <String>[
+      'typical',
+      'OffsetLayer, TransformLayer',
+      'PictureLayer, TextureLayer',
+    ],
     <String>['paint output', 'recursive composite', 'embedded ui.Picture'],
     <String>['cull bounds', 'depends on subtree', 'canvasBounds field'],
   ];
@@ -638,26 +671,38 @@ dynamic build(BuildContext context) {
           child: Row(
             children: const [
               Expanded(
-                  flex: 2,
-                  child: Text('aspect',
-                      style: TextStyle(
-                          color: cInkDim,
-                          fontFamily: 'monospace',
-                          fontSize: 11))),
+                flex: 2,
+                child: Text(
+                  'aspect',
+                  style: TextStyle(
+                    color: cInkDim,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 3,
-                  child: Text('ContainerLayer',
-                      style: TextStyle(
-                          color: cTeal,
-                          fontFamily: 'monospace',
-                          fontSize: 11))),
+                flex: 3,
+                child: Text(
+                  'ContainerLayer',
+                  style: TextStyle(
+                    color: cTeal,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 3,
-                  child: Text('PictureLayer (leaf)',
-                      style: TextStyle(
-                          color: cAmber,
-                          fontFamily: 'monospace',
-                          fontSize: 11))),
+                flex: 3,
+                child: Text(
+                  'PictureLayer (leaf)',
+                  style: TextStyle(
+                    color: cAmber,
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -681,22 +726,32 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(name,
-                style: TextStyle(
-                    color: accent,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              name,
+              style: TextStyle(
+                color: accent,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           SizedBox(
             width: 80,
-            child: Text(kind,
-                style: const TextStyle(
-                    color: cInkDim, fontFamily: 'monospace', fontSize: 11)),
+            child: Text(
+              kind,
+              style: const TextStyle(
+                color: cInkDim,
+                fontFamily: 'monospace',
+                fontSize: 11,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(summary,
-                style: const TextStyle(color: cInk, fontSize: 12)),
+            child: Text(
+              summary,
+              style: const TextStyle(color: cInk, fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -704,19 +759,43 @@ dynamic build(BuildContext context) {
   }
 
   final List<List<String>> subclasses = <List<String>>[
-    <String>['ContainerLayer', 'group', 'Generic parent that holds child layers.'],
-    <String>['OffsetLayer', 'group', 'Translates its subtree by an offset; root of a render.'],
+    <String>[
+      'ContainerLayer',
+      'group',
+      'Generic parent that holds child layers.',
+    ],
+    <String>[
+      'OffsetLayer',
+      'group',
+      'Translates its subtree by an offset; root of a render.',
+    ],
     <String>['TransformLayer', 'group', 'Applies a 4x4 matrix to its subtree.'],
     <String>['ClipRectLayer', 'group', 'Clips children to a rectangle.'],
     <String>['ClipRRectLayer', 'group', 'Clips children to a rounded rect.'],
     <String>['ClipPathLayer', 'group', 'Clips children to an arbitrary path.'],
     <String>['OpacityLayer', 'group', 'Applies alpha to child subtree.'],
-    <String>['ShaderMaskLayer', 'group', 'Applies a shader mask over children.'],
-    <String>['BackdropFilterLayer', 'group', 'Applies an image filter to backdrop.'],
-    <String>['PictureLayer', 'leaf', 'Embeds a recorded ui.Picture (this demo).'],
+    <String>[
+      'ShaderMaskLayer',
+      'group',
+      'Applies a shader mask over children.',
+    ],
+    <String>[
+      'BackdropFilterLayer',
+      'group',
+      'Applies an image filter to backdrop.',
+    ],
+    <String>[
+      'PictureLayer',
+      'leaf',
+      'Embeds a recorded ui.Picture (this demo).',
+    ],
     <String>['TextureLayer', 'leaf', 'Embeds a platform texture (e.g. video).'],
     <String>['PlatformViewLayer', 'leaf', 'Embeds a native platform view.'],
-    <String>['PerformanceOverlayLayer', 'leaf', 'Renders the perf overlay HUD.'],
+    <String>[
+      'PerformanceOverlayLayer',
+      'leaf',
+      'Renders the perf overlay HUD.',
+    ],
   ];
   final List<Widget> subRows = <Widget>[];
   for (int i = 0; i < subclasses.length; i++) {
@@ -741,17 +820,19 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(name,
-              style: TextStyle(
-                  color: accent,
-                  fontFamily: 'monospace',
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold)),
+          Text(
+            name,
+            style: TextStyle(
+              color: accent,
+              fontFamily: 'monospace',
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 6),
           snippet(code, accent),
           const SizedBox(height: 4),
-          Text(note,
-              style: const TextStyle(color: cInkDim, fontSize: 11)),
+          Text(note, style: const TextStyle(color: cInkDim, fontSize: 11)),
         ],
       ),
     );
@@ -802,15 +883,20 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  color: accent,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              color: accent,
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(detail,
-              style: const TextStyle(color: cInk, fontSize: 12, height: 1.4)),
+          Text(
+            detail,
+            style: const TextStyle(color: cInk, fontSize: 12, height: 1.4),
+          ),
         ],
       ),
     );
@@ -836,8 +922,9 @@ dynamic build(BuildContext context) {
 
   String hugeBoundsLog;
   try {
-    final PictureLayer huge =
-        PictureLayer(const Rect.fromLTWH(0, 0, 1.0e9, 1.0e9));
+    final PictureLayer huge = PictureLayer(
+      const Rect.fromLTWH(0, 0, 1.0e9, 1.0e9),
+    );
     hugeBoundsLog =
         'Huge bounds accepted: width=${huge.canvasBounds.width.toStringAsExponential(1)}';
   } catch (e) {
@@ -849,9 +936,11 @@ dynamic build(BuildContext context) {
       edge('empty bounds', emptyBoundsLog, cAmber),
       edge('null picture', nullPictureLog, cPlum),
       edge('very large bounds', hugeBoundsLog, cTeal),
-      edge('reassign picture',
-          'Assigning a new ui.Picture replaces the previous one; the old picture is GC-eligible.',
-          cRose),
+      edge(
+        'reassign picture',
+        'Assigning a new ui.Picture replaces the previous one; the old picture is GC-eligible.',
+        cRose,
+      ),
     ],
   );
 
@@ -871,7 +960,10 @@ dynamic build(BuildContext context) {
         const Text(
           'How a PictureLayer enters the tree',
           style: TextStyle(
-              color: cInk, fontSize: 14, fontWeight: FontWeight.w600),
+            color: cInk,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const SizedBox(height: 6),
         const Text(
@@ -914,26 +1006,36 @@ dynamic build(BuildContext context) {
   final List<Widget> inspectorWidgets = <Widget>[];
   for (int i = 0; i < inspectorRows.length; i++) {
     final List<String> ir = inspectorRows[i];
-    inspectorWidgets.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 170,
-            child: Text(ir[0],
+    inspectorWidgets.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 170,
+              child: Text(
+                ir[0],
                 style: const TextStyle(
-                    color: cAmber,
-                    fontFamily: 'monospace',
-                    fontSize: 12)),
-          ),
-          Expanded(
-            child: Text(ir[1],
+                  color: cAmber,
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                ir[1],
                 style: const TextStyle(
-                    color: cInk, fontFamily: 'monospace', fontSize: 12)),
-          ),
-        ],
+                  color: cInk,
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final Widget inspector = Container(
@@ -1021,35 +1123,35 @@ dynamic build(BuildContext context) {
   final List<List<String>> timelineData = <List<String>>[
     <String>[
       'build',
-      'WidgetTree builds Elements; RenderObjects are created or updated.'
+      'WidgetTree builds Elements; RenderObjects are created or updated.',
     ],
     <String>[
       'layout',
-      'RenderObject.performLayout sizes each render box bottom-up.'
+      'RenderObject.performLayout sizes each render box bottom-up.',
     ],
     <String>[
       'paint (record)',
-      'PaintingContext.canvas.drawXxx(...) records into a PictureRecorder.'
+      'PaintingContext.canvas.drawXxx(...) records into a PictureRecorder.',
     ],
     <String>[
       'closeRecorder',
-      'PictureRecorder.endRecording() returns an immutable ui.Picture.'
+      'PictureRecorder.endRecording() returns an immutable ui.Picture.',
     ],
     <String>[
       'wrap in PictureLayer',
-      'Framework constructs PictureLayer(estimatedBounds) and assigns picture.'
+      'Framework constructs PictureLayer(estimatedBounds) and assigns picture.',
     ],
     <String>[
       'append to parent',
-      'PictureLayer is appended to a ContainerLayer (Offset/Transform/...).'
+      'PictureLayer is appended to a ContainerLayer (Offset/Transform/...).',
     ],
     <String>[
       'compositing',
-      'Engine walks the layer tree and rasterizes each PictureLayer.'
+      'Engine walks the layer tree and rasterizes each PictureLayer.',
     ],
     <String>[
       'present',
-      'Composited surface is handed to the platform for display.'
+      'Composited surface is handed to the platform for display.',
     ],
   ];
   final List<Color> timelineAccents = <Color>[
@@ -1064,12 +1166,14 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> timelineWidgets = <Widget>[];
   for (int i = 0; i < timelineData.length; i++) {
-    timelineWidgets.add(timelineStep(
-      i + 1,
-      timelineData[i][0],
-      timelineData[i][1],
-      timelineAccents[i % timelineAccents.length],
-    ));
+    timelineWidgets.add(
+      timelineStep(
+        i + 1,
+        timelineData[i][0],
+        timelineData[i][1],
+        timelineAccents[i % timelineAccents.length],
+      ),
+    );
   }
   final Widget timeline = Column(children: timelineWidgets);
 
@@ -1079,23 +1183,34 @@ dynamic build(BuildContext context) {
   Widget compTriColumn(String title, Color accent, List<String> bullets) {
     final List<Widget> items = <Widget>[];
     for (int i = 0; i < bullets.length; i++) {
-      items.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('-  ',
+      items.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 3),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '-  ',
                 style: TextStyle(
-                    color: accent, fontFamily: 'monospace', fontSize: 12)),
-            Expanded(
-              child: Text(
-                bullets[i],
-                style: const TextStyle(color: cInk, fontSize: 12, height: 1.4),
+                  color: accent,
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Text(
+                  bullets[i],
+                  style: const TextStyle(
+                    color: cInk,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ));
+      );
     }
     return Container(
       width: 290,
@@ -1112,10 +1227,11 @@ dynamic build(BuildContext context) {
           Text(
             title,
             style: TextStyle(
-                color: accent,
-                fontFamily: 'monospace',
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
+              color: accent,
+              fontFamily: 'monospace',
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 6),
           Column(children: items),
@@ -1163,7 +1279,10 @@ dynamic build(BuildContext context) {
         const Text(
           'Raster cache and the hint flags',
           style: TextStyle(
-              color: cInk, fontSize: 14, fontWeight: FontWeight.w600),
+            color: cInk,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const SizedBox(height: 6),
         const Text(
@@ -1222,9 +1341,10 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(desc,
-                style: const TextStyle(
-                    color: cInk, fontSize: 12, height: 1.45)),
+            child: Text(
+              desc,
+              style: const TextStyle(color: cInk, fontSize: 12, height: 1.45),
+            ),
           ),
         ],
       ),
@@ -1234,27 +1354,24 @@ dynamic build(BuildContext context) {
   final List<List<String>> lifeData = <List<String>>[
     <String>[
       'construct',
-      'PictureLayer(canvasBounds) — bounds passed for cull / cache key.'
+      'PictureLayer(canvasBounds) — bounds passed for cull / cache key.',
     ],
     <String>[
       'attach',
-      'Layer.attach is called when the layer joins a live tree (owner != null).'
+      'Layer.attach is called when the layer joins a live tree (owner != null).',
     ],
     <String>[
       'set picture',
-      'layer.picture = recorder.endRecording(); replaces previous picture.'
+      'layer.picture = recorder.endRecording(); replaces previous picture.',
     ],
     <String>[
       'addToScene',
-      'During flushPaint, addToScene(SceneBuilder) emits this picture.'
+      'During flushPaint, addToScene(SceneBuilder) emits this picture.',
     ],
-    <String>[
-      'detach',
-      'When removed, Layer.detach drops the owner reference.'
-    ],
+    <String>['detach', 'When removed, Layer.detach drops the owner reference.'],
     <String>[
       'dispose',
-      'Layer.dispose / picture.dispose release engine-side memory.'
+      'Layer.dispose / picture.dispose release engine-side memory.',
     ],
   ];
   final List<Color> lifeAccents = <Color>[
@@ -1263,12 +1380,17 @@ dynamic build(BuildContext context) {
     cPlum,
     cRose,
     cTeal,
-    cAmber
+    cAmber,
   ];
   final List<Widget> lifeWidgets = <Widget>[];
   for (int i = 0; i < lifeData.length; i++) {
     lifeWidgets.add(
-        lifeRow(lifeData[i][0], lifeData[i][1], lifeAccents[i % lifeAccents.length]));
+      lifeRow(
+        lifeData[i][0],
+        lifeData[i][1],
+        lifeAccents[i % lifeAccents.length],
+      ),
+    );
   }
   final Widget lifecycle = Container(
     padding: const EdgeInsets.all(12),
@@ -1287,84 +1409,94 @@ dynamic build(BuildContext context) {
     <String>[
       'using Canvas after endRecording',
       'After recorder.endRecording(), the Canvas is finalized. Calling drawXxx '
-          'is undefined. Always treat the Canvas as scoped to a single record.'
+          'is undefined. Always treat the Canvas as scoped to a single record.',
     ],
     <String>[
       'forgetting to assign picture',
       'A PictureLayer with picture==null contributes nothing to the scene. '
-          'Make sure to call layer.picture = recorder.endRecording().'
+          'Make sure to call layer.picture = recorder.endRecording().',
     ],
     <String>[
       'wrong canvasBounds',
       'Bounds smaller than the actual draw area cause clipping; far larger '
-          'bounds defeat culling. Match the visible region.'
+          'bounds defeat culling. Match the visible region.',
     ],
     <String>[
       'mutating after attach',
       'Reassigning picture on a layer in a live tree should be followed by '
           'markNeedsAddToScene; the framework handles this, but custom code '
-          'must too.'
+          'must too.',
     ],
     <String>[
       'manual disposal',
       'PictureLayer holds the ui.Picture; dispose the Picture only when the '
-          'layer is no longer used to avoid use-after-free at composite time.'
+          'layer is no longer used to avoid use-after-free at composite time.',
     ],
   ];
   final List<Widget> pitfallWidgets = <Widget>[];
   for (int i = 0; i < pitfallData.length; i++) {
-    pitfallWidgets.add(Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      padding: const EdgeInsets.all(11),
-      decoration: BoxDecoration(
-        color: cPanelAlt,
-        border: Border.all(color: cRose.withValues(alpha: 0.7), width: 1.2),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 22,
-            height: 22,
-            margin: const EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-              color: cRose.withValues(alpha: 0.25),
-              border: Border.all(color: cRose, width: 1.2),
-              borderRadius: BorderRadius.circular(11),
-            ),
-            child: Center(
-              child: Text(
-                '!',
-                style: TextStyle(
-                  color: cRose,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'monospace',
-                  fontSize: 12,
+    pitfallWidgets.add(
+      Container(
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.all(11),
+        decoration: BoxDecoration(
+          color: cPanelAlt,
+          border: Border.all(color: cRose.withValues(alpha: 0.7), width: 1.2),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 22,
+              height: 22,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                color: cRose.withValues(alpha: 0.25),
+                border: Border.all(color: cRose, width: 1.2),
+                borderRadius: BorderRadius.circular(11),
+              ),
+              child: Center(
+                child: Text(
+                  '!',
+                  style: TextStyle(
+                    color: cRose,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'monospace',
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(pitfallData[i][0],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    pitfallData[i][0],
                     style: const TextStyle(
-                        color: cRose,
-                        fontFamily: 'monospace',
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold)),
-                const SizedBox(height: 3),
-                Text(pitfallData[i][1],
+                      color: cRose,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    pitfallData[i][1],
                     style: const TextStyle(
-                        color: cInk, fontSize: 12, height: 1.45)),
-              ],
+                      color: cInk,
+                      fontSize: 12,
+                      height: 1.45,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget pitfalls = Column(children: pitfallWidgets);
 
@@ -1384,7 +1516,10 @@ dynamic build(BuildContext context) {
         const Text(
           'API quick reference',
           style: TextStyle(
-              color: cInk, fontSize: 14, fontWeight: FontWeight.w600),
+            color: cInk,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         const SizedBox(height: 8),
         snippet(
@@ -1415,45 +1550,69 @@ dynamic build(BuildContext context) {
   // ---------------------------------------------------------------------------
   final List<List<String>> glossary = <List<String>>[
     <String>['ui.Picture', 'Immutable recorded sequence of canvas operations.'],
-    <String>['ui.PictureRecorder', 'Factory for ui.Picture; pairs with a Canvas.'],
-    <String>['Canvas', 'Mutable drawing target backed by a recorder or surface.'],
-    <String>['SceneBuilder', 'Builds a Scene from a tree of EngineLayer handles.'],
+    <String>[
+      'ui.PictureRecorder',
+      'Factory for ui.Picture; pairs with a Canvas.',
+    ],
+    <String>[
+      'Canvas',
+      'Mutable drawing target backed by a recorder or surface.',
+    ],
+    <String>[
+      'SceneBuilder',
+      'Builds a Scene from a tree of EngineLayer handles.',
+    ],
     <String>['Scene', 'Engine-side composited frame ready for present.'],
     <String>['Layer', 'Abstract base of all compositing nodes.'],
-    <String>['ContainerLayer', 'Abstract base of layers that have child layers.'],
+    <String>[
+      'ContainerLayer',
+      'Abstract base of layers that have child layers.',
+    ],
     <String>['PaintingContext', 'Helper that wires Canvas, recorders, layers.'],
-    <String>['RepaintBoundary', 'Widget that forces its subtree into its own layer.'],
-    <String>['RenderRepaintBoundary', 'RenderObject form; manages an OffsetLayer.'],
+    <String>[
+      'RepaintBoundary',
+      'Widget that forces its subtree into its own layer.',
+    ],
+    <String>[
+      'RenderRepaintBoundary',
+      'RenderObject form; manages an OffsetLayer.',
+    ],
   ];
   final List<Widget> glossaryWidgets = <Widget>[];
   for (int i = 0; i < glossary.length; i++) {
-    glossaryWidgets.add(Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      decoration: BoxDecoration(
-        color: cPanelAlt,
-        border: Border(left: BorderSide(color: cSlate, width: 3)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 200,
-            child: Text(glossary[i][0],
+    glossaryWidgets.add(
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        margin: const EdgeInsets.symmetric(vertical: 2),
+        decoration: BoxDecoration(
+          color: cPanelAlt,
+          border: Border(left: BorderSide(color: cSlate, width: 3)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 200,
+              child: Text(
+                glossary[i][0],
                 style: const TextStyle(
-                    color: cAmber,
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold)),
-          ),
-          Expanded(
-            child: Text(glossary[i][1],
-                style: const TextStyle(
-                    color: cInk, fontSize: 12, height: 1.45)),
-          ),
-        ],
+                  color: cAmber,
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                glossary[i][1],
+                style: const TextStyle(color: cInk, fontSize: 12, height: 1.45),
+              ),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget glossaryWidget = Container(
     padding: const EdgeInsets.all(12),
@@ -1482,7 +1641,10 @@ dynamic build(BuildContext context) {
         Text(
           'PictureLayer — leaf of the rendering layer tree',
           style: TextStyle(
-              color: cInk, fontSize: 13, fontWeight: FontWeight.w600),
+            color: cInk,
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 4),
         Text(

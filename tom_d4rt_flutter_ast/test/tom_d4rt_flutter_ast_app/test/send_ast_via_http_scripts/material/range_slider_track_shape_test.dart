@@ -2,11 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-enum _TrackFamily {
-  rounded,
-  rectangular,
-  segmentedGlow,
-}
+enum _TrackFamily { rounded, rectangular, segmentedGlow }
 
 class _TrackPreset {
   const _TrackPreset({
@@ -132,12 +128,13 @@ class _SegmentedGlowTrackShape extends RangeSliderTrackShape {
     bool isDiscrete = false,
   }) {
     final double thumbWidth =
-        sliderTheme.rangeThumbShape?.getPreferredSize(isEnabled, isDiscrete).width ??
-            0;
+        sliderTheme.rangeThumbShape
+            ?.getPreferredSize(isEnabled, isDiscrete)
+            .width ??
+        0;
     final double left = offset.dx + thumbWidth / 2;
     final double right = offset.dx + parentBox.size.width - thumbWidth / 2;
-    final double top =
-        offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double top = offset.dy + (parentBox.size.height - trackHeight) / 2;
     return Rect.fromLTRB(left, top, right, top + trackHeight);
   }
 
@@ -164,14 +161,18 @@ class _SegmentedGlowTrackShape extends RangeSliderTrackShape {
     );
 
     final Color activeColor =
-        (sliderTheme.activeTrackColor ?? const Color(0xFF1976D2))
-            .withValues(alpha: isEnabled ? 1 : 0.55);
+        (sliderTheme.activeTrackColor ?? const Color(0xFF1976D2)).withValues(
+          alpha: isEnabled ? 1 : 0.55,
+        );
     final Color inactiveColor =
-        (sliderTheme.inactiveTrackColor ?? const Color(0xFFB0BEC5))
-            .withValues(alpha: isEnabled ? 0.55 : 0.28);
+        (sliderTheme.inactiveTrackColor ?? const Color(0xFFB0BEC5)).withValues(
+          alpha: isEnabled ? 0.55 : 0.28,
+        );
 
-    final RRect outer =
-      RRect.fromRectAndRadius(trackRect, Radius.circular(trackHeight / 2));
+    final RRect outer = RRect.fromRectAndRadius(
+      trackRect,
+      Radius.circular(trackHeight / 2),
+    );
     canvas.drawRRect(
       outer,
       Paint()
@@ -186,8 +187,10 @@ class _SegmentedGlowTrackShape extends RangeSliderTrackShape {
       endThumbCenter.dx,
       trackRect.bottom,
     );
-    final RRect active =
-      RRect.fromRectAndRadius(activeRect, Radius.circular(trackHeight / 2));
+    final RRect active = RRect.fromRectAndRadius(
+      activeRect,
+      Radius.circular(trackHeight / 2),
+    );
     canvas.drawRRect(
       active,
       Paint()
@@ -428,21 +431,21 @@ dynamic build(BuildContext context) {
     ),
   ];
 
-    _TrackFamily selectedFamily = _TrackFamily.rounded;
-    double min = 0;
-    double max = 100;
-    RangeValues values = const RangeValues(20, 70);
-    int divisions = 24;
-    bool enabled = true;
-    bool showMilestones = true;
-    bool showDenseGuide = false;
-    bool darkCanvas = false;
-    bool showThirdPreview = true;
-    double customTrackHeight = 8;
-    int customSegmentCount = 24;
-    int scenarioLoads = 0;
-    final List<String> console = <String>[];
-    final List<_TimelineEntry> timeline = <_TimelineEntry>[];
+  _TrackFamily selectedFamily = _TrackFamily.rounded;
+  double min = 0;
+  double max = 100;
+  RangeValues values = const RangeValues(20, 70);
+  int divisions = 24;
+  bool enabled = true;
+  bool showMilestones = true;
+  bool showDenseGuide = false;
+  bool darkCanvas = false;
+  bool showThirdPreview = true;
+  double customTrackHeight = 8;
+  int customSegmentCount = 24;
+  int scenarioLoads = 0;
+  final List<String> console = <String>[];
+  final List<_TimelineEntry> timeline = <_TimelineEntry>[];
 
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
@@ -477,8 +480,13 @@ dynamic build(BuildContext context) {
         return presets.firstWhere((p) => p.family == selectedFamily);
       }
 
-      SliderThemeData buildTheme(_TrackPreset preset, {bool emphasize = false}) {
-        final double height = emphasize ? customTrackHeight + 1 : customTrackHeight;
+      SliderThemeData buildTheme(
+        _TrackPreset preset, {
+        bool emphasize = false,
+      }) {
+        final double height = emphasize
+            ? customTrackHeight + 1
+            : customTrackHeight;
         final RangeSliderTrackShape shape;
         switch (preset.family) {
           case _TrackFamily.rounded:
@@ -496,7 +504,9 @@ dynamic build(BuildContext context) {
         }
 
         final Color active = preset.primary;
-        final Color inactive = preset.secondary.withValues(alpha: darkCanvas ? 0.45 : 0.72);
+        final Color inactive = preset.secondary.withValues(
+          alpha: darkCanvas ? 0.45 : 0.72,
+        );
 
         return SliderThemeData(
           rangeTrackShape: shape,
@@ -507,7 +517,8 @@ dynamic build(BuildContext context) {
           overlayColor: active.withValues(alpha: 0.14),
           activeTickMarkColor: active.withValues(alpha: 0.85),
           inactiveTickMarkColor: inactive.withValues(alpha: 0.82),
-          rangeValueIndicatorShape: const PaddleRangeSliderValueIndicatorShape(),
+          rangeValueIndicatorShape:
+              const PaddleRangeSliderValueIndicatorShape(),
           showValueIndicator: ShowValueIndicator.onDrag,
         );
       }
@@ -738,7 +749,9 @@ dynamic build(BuildContext context) {
                           setState(() {
                             values = v;
                           });
-                          addLog('Panel "$title" changed to ${fmt(v.start)}-${fmt(v.end)}.');
+                          addLog(
+                            'Panel "$title" changed to ${fmt(v.start)}-${fmt(v.end)}.',
+                          );
                         }
                       : null,
                 ),
@@ -825,10 +838,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 8),
               Text(
                 scenario.subtitle,
-                style: const TextStyle(
-                  color: Color(0xFFE3ECFF),
-                  height: 1.3,
-                ),
+                style: const TextStyle(color: Color(0xFFE3ECFF), height: 1.3),
               ),
               const SizedBox(height: 10),
               Text(
@@ -844,7 +854,10 @@ dynamic build(BuildContext context) {
                 spacing: 8,
                 runSpacing: 8,
                 children: <Widget>[
-                  _pill('Range', '${fmt(scenario.values.start)}-${fmt(scenario.values.end)}${scenario.unit}'),
+                  _pill(
+                    'Range',
+                    '${fmt(scenario.values.start)}-${fmt(scenario.values.end)}${scenario.unit}',
+                  ),
                   _pill('Divisions', '${scenario.divisions}'),
                   _pill('Family', p.title),
                 ],
@@ -859,7 +872,9 @@ dynamic build(BuildContext context) {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white.withValues(alpha: 0.18),
                     foregroundColor: Colors.white,
-                    side: BorderSide(color: Colors.white.withValues(alpha: 0.35)),
+                    side: BorderSide(
+                      color: Colors.white.withValues(alpha: 0.35),
+                    ),
                   ),
                 ),
               ),
@@ -880,7 +895,9 @@ dynamic build(BuildContext context) {
               text,
               style: TextStyle(
                 fontWeight: header ? FontWeight.w800 : FontWeight.w500,
-                color: header ? Colors.blueGrey.shade900 : Colors.blueGrey.shade800,
+                color: header
+                    ? Colors.blueGrey.shade900
+                    : Colors.blueGrey.shade800,
               ),
             ),
           );
@@ -889,10 +906,35 @@ dynamic build(BuildContext context) {
         final List<Widget> rows = <Widget>[
           Row(
             children: <Widget>[
-              Expanded(flex: 2, child: cell('Signal', tint: const Color(0xFFF2F7FF), header: true)),
-              Expanded(child: cell('Rounded', tint: const Color(0xFFF2F7FF), header: true)),
-              Expanded(child: cell('Rectangular', tint: const Color(0xFFF2F7FF), header: true)),
-              Expanded(child: cell('Segmented', tint: const Color(0xFFF2F7FF), header: true)),
+              Expanded(
+                flex: 2,
+                child: cell(
+                  'Signal',
+                  tint: const Color(0xFFF2F7FF),
+                  header: true,
+                ),
+              ),
+              Expanded(
+                child: cell(
+                  'Rounded',
+                  tint: const Color(0xFFF2F7FF),
+                  header: true,
+                ),
+              ),
+              Expanded(
+                child: cell(
+                  'Rectangular',
+                  tint: const Color(0xFFF2F7FF),
+                  header: true,
+                ),
+              ),
+              Expanded(
+                child: cell(
+                  'Segmented',
+                  tint: const Color(0xFFF2F7FF),
+                  header: true,
+                ),
+              ),
             ],
           ),
         ];
@@ -903,7 +945,11 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Expanded(
                   flex: 2,
-                  child: cell(row.caption, tint: const Color(0xFFFBFDFF), header: true),
+                  child: cell(
+                    row.caption,
+                    tint: const Color(0xFFFBFDFF),
+                    header: true,
+                  ),
                 ),
                 Expanded(child: cell(row.rounded)),
                 Expanded(child: cell(row.rectangular)),
@@ -974,56 +1020,60 @@ dynamic build(BuildContext context) {
           );
         }
 
-        return SingleChildScrollView(child: Column(
-          children: timeline.map((entry) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: entry.color.withValues(alpha: 0.35)),
-                color: entry.color.withValues(alpha: 0.08),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    width: 10,
-                    height: 10,
-                    margin: const EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                      color: entry.color,
-                      shape: BoxShape.circle,
-                    ),
+        return SingleChildScrollView(
+          child: Column(
+            children: timeline.map((entry) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: entry.color.withValues(alpha: 0.35),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          entry.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            color: entry.color,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          entry.detail,
-                          style: TextStyle(
-                            color: Colors.blueGrey.shade800,
-                            height: 1.32,
-                          ),
-                        ),
-                      ],
+                  color: entry.color.withValues(alpha: 0.08),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 10,
+                      height: 10,
+                      margin: const EdgeInsets.only(top: 5),
+                      decoration: BoxDecoration(
+                        color: entry.color,
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ));
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            entry.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: entry.color,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            entry.detail,
+                            style: TextStyle(
+                              color: Colors.blueGrey.shade800,
+                              height: 1.32,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
+        );
       }
 
       Widget consolePanel() {
@@ -1090,7 +1140,10 @@ dynamic build(BuildContext context) {
                           color: selected.primary.withValues(alpha: 0.14),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Icon(Icons.linear_scale, color: selected.primary),
+                        child: Icon(
+                          Icons.linear_scale,
+                          color: selected.primary,
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -1126,7 +1179,10 @@ dynamic build(BuildContext context) {
                       _pill('Preset', selected.title),
                       _pill('Family', selectedFamily.name),
                       _pill('Range', '${fmt(min)}..${fmt(max)}'),
-                      _pill('Current', '${fmt(values.start)} -> ${fmt(values.end)}'),
+                      _pill(
+                        'Current',
+                        '${fmt(values.start)} -> ${fmt(values.end)}',
+                      ),
                       _pill('TrackHeight', fmt(customTrackHeight)),
                     ],
                   ),
@@ -1293,7 +1349,9 @@ dynamic build(BuildContext context) {
                             setState(() {
                               customSegmentCount = v.round();
                             });
-                            addLog('Segment count updated to $customSegmentCount.');
+                            addLog(
+                              'Segment count updated to $customSegmentCount.',
+                            );
                           },
                           color: const Color(0xFF2E7D32),
                         ),
@@ -1312,7 +1370,9 @@ dynamic build(BuildContext context) {
                                   setState(() {
                                     values = RangeValues(v, values.end);
                                   });
-                                  addLog('Start adjusted manually to ${fmt(v)}.');
+                                  addLog(
+                                    'Start adjusted manually to ${fmt(v)}.',
+                                  );
                                 }
                               : null,
                           color: const Color(0xFF8E24AA),
@@ -1327,72 +1387,44 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: enabled,
-                          title: const Text('Enable interaction'),
-                          subtitle: const Text('Disables all preview sliders when off.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              enabled = v;
-                            });
-                            addLog(v ? 'Interaction enabled.' : 'Interaction disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showMilestones,
-                          title: const Text('Milestone hints'),
-                          subtitle: const Text('Shows quarter marks in diagnostics panel.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              showMilestones = v;
-                            });
-                            addLog(v ? 'Milestones shown.' : 'Milestones hidden.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: darkCanvas,
-                          title: const Text('Dark preview canvas'),
-                          subtitle: const Text('Simulate dark-themed product surfaces.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              darkCanvas = v;
-                            });
-                            addLog(v ? 'Dark canvas enabled.' : 'Dark canvas disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: enabled,
+                            title: const Text('Enable interaction'),
+                            subtitle: const Text(
+                              'Disables all preview sliders when off.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                enabled = v;
+                              });
+                              addLog(
+                                v
+                                    ? 'Interaction enabled.'
+                                    : 'Interaction disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showDenseGuide,
-                          title: const Text('Dense overlay guide'),
-                          subtitle: const Text('Adds stronger panel borders and quick hints.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              showDenseGuide = v;
-                            });
-                            addLog(v ? 'Dense guide on.' : 'Dense guide off.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showMilestones,
+                            title: const Text('Milestone hints'),
+                            subtitle: const Text(
+                              'Shows quarter marks in diagnostics panel.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                showMilestones = v;
+                              });
+                              addLog(
+                                v ? 'Milestones shown.' : 'Milestones hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1403,17 +1435,71 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showThirdPreview,
-                          title: const Text('Comparison preview'),
-                          subtitle: const Text('Shows an alternate panel for quick A/B checks.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              showThirdPreview = v;
-                            });
-                            addLog(v ? 'Third preview enabled.' : 'Third preview hidden.');
-                          },
+                            contentPadding: EdgeInsets.zero,
+                            value: darkCanvas,
+                            title: const Text('Dark preview canvas'),
+                            subtitle: const Text(
+                              'Simulate dark-themed product surfaces.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                darkCanvas = v;
+                              });
+                              addLog(
+                                v
+                                    ? 'Dark canvas enabled.'
+                                    : 'Dark canvas disabled.',
+                              );
+                            },
+                          ),
                         ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showDenseGuide,
+                            title: const Text('Dense overlay guide'),
+                            subtitle: const Text(
+                              'Adds stronger panel borders and quick hints.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                showDenseGuide = v;
+                              });
+                              addLog(
+                                v ? 'Dense guide on.' : 'Dense guide off.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showThirdPreview,
+                            title: const Text('Comparison preview'),
+                            subtitle: const Text(
+                              'Shows an alternate panel for quick A/B checks.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                showThirdPreview = v;
+                              });
+                              addLog(
+                                v
+                                    ? 'Third preview enabled.'
+                                    : 'Third preview hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1445,10 +1531,11 @@ dynamic build(BuildContext context) {
                   'Same values with higher contrast and emphasized track height to inspect readability in crowded UIs.',
               sliderTheme: buildTheme(selected, emphasize: true).copyWith(
                 activeTrackColor: selected.primary.withValues(alpha: 1),
-                inactiveTrackColor: (darkCanvas
-                        ? const Color(0xFF90A4AE)
-                        : const Color(0xFFB0BEC5))
-                    .withValues(alpha: darkCanvas ? 0.4 : 0.75),
+                inactiveTrackColor:
+                    (darkCanvas
+                            ? const Color(0xFF90A4AE)
+                            : const Color(0xFFB0BEC5))
+                        .withValues(alpha: darkCanvas ? 0.4 : 0.75),
               ),
               gradient: darkCanvas
                   ? <Color>[const Color(0xFF0B0F1A), const Color(0xFF1E293B)]
@@ -1475,9 +1562,7 @@ dynamic build(BuildContext context) {
               icon: Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(
-              children: scenarios.map(scenarioCard).toList(),
-            ),
+            Wrap(children: scenarios.map(scenarioCard).toList()),
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Track Diagnostics Canvas',
@@ -1693,18 +1778,12 @@ Widget _labeledSlider({
             Expanded(
               child: Text(
                 label,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(color: color, fontWeight: FontWeight.w700),
               ),
             ),
             Text(
               valueLabel,
-              style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.w800,
-              ),
+              style: TextStyle(color: color, fontWeight: FontWeight.w800),
             ),
           ],
         ),
@@ -1833,7 +1912,9 @@ class _TrackDiagnosticsPainter extends CustomPainter {
     for (int i = 0; i <= safeDivisions; i++) {
       final double x = track.left + track.width * (i / safeDivisions);
       final bool milestone =
-          showMilestones && safeDivisions >= 4 && i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0;
+          showMilestones &&
+          safeDivisions >= 4 &&
+          i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0;
       final double h = milestone ? 16 : 10;
       final Color c = milestone
           ? preset.primary.withValues(alpha: 0.65)
@@ -1863,7 +1944,8 @@ class _TrackDiagnosticsPainter extends CustomPainter {
 
     final TextPainter topLabel = TextPainter(
       text: TextSpan(
-        text: '${preset.title}  |  family=${family.name}  |  divisions=$divisions  |  height=${trackHeight.toStringAsFixed(1)}',
+        text:
+            '${preset.title}  |  family=${family.name}  |  divisions=$divisions  |  height=${trackHeight.toStringAsFixed(1)}',
         style: const TextStyle(
           color: Color(0xFF294172),
           fontWeight: FontWeight.w700,
@@ -1907,8 +1989,16 @@ class _TrackDiagnosticsPainter extends CustomPainter {
       );
     }
 
-    paintBubble(Offset(sx, track.top), startLabel, preset.primary.withValues(alpha: 0.9));
-    paintBubble(Offset(ex, track.top), endLabel, preset.primary.withValues(alpha: 0.82));
+    paintBubble(
+      Offset(sx, track.top),
+      startLabel,
+      preset.primary.withValues(alpha: 0.9),
+    );
+    paintBubble(
+      Offset(ex, track.top),
+      endLabel,
+      preset.primary.withValues(alpha: 0.82),
+    );
 
     final TextPainter footer = TextPainter(
       text: TextSpan(

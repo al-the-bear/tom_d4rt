@@ -114,9 +114,7 @@ class _VciDispatchPanel extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: _kOliveFelt,
-              border: Border(
-                bottom: BorderSide(color: accent, width: 1.2),
-              ),
+              border: Border(bottom: BorderSide(color: accent, width: 1.2)),
             ),
             child: Row(
               children: <Widget>[
@@ -171,11 +169,7 @@ class _VciDispatchHeading extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 6,
-            height: 26,
-            color: _kOliveFelt,
-          ),
+          Container(width: 6, height: 26, color: _kOliveFelt),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -190,10 +184,7 @@ class _VciDispatchHeading extends StatelessWidget {
           ),
           if (stamp != null)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 4,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 border: Border.all(color: _kRedStamp, width: 1.5),
                 borderRadius: BorderRadius.circular(3),
@@ -219,9 +210,7 @@ class _VciDispatchHeading extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _VciDispatchTelegram extends StatelessWidget {
-  const _VciDispatchTelegram({
-    required this.lines,
-  });
+  const _VciDispatchTelegram({required this.lines});
 
   final List<String> lines;
   static const Color tint = _kTelegramPaper;
@@ -331,10 +320,7 @@ class _VciDispatchEnvelopePainter extends CustomPainter {
     canvas.drawPath(flap, envelopeEdge);
 
     final Paint seal = Paint()..color = sealColor;
-    final Offset sealCenter = Offset(
-      size.width / 2,
-      size.height * 0.55,
-    );
+    final Offset sealCenter = Offset(size.width / 2, size.height * 0.55);
     canvas.drawCircle(sealCenter, size.height * 0.18, seal);
     canvas.drawCircle(
       sealCenter,
@@ -357,10 +343,7 @@ class _VciDispatchEnvelopePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    tp.paint(
-      canvas,
-      sealCenter - Offset(tp.width / 2, tp.height / 2),
-    );
+    tp.paint(canvas, sealCenter - Offset(tp.width / 2, tp.height / 2));
   }
 
   @override
@@ -435,10 +418,7 @@ class _VciDispatchTelegraphKeyPainter extends CustomPainter {
     );
 
     // Knob.
-    final Offset knob = Offset(
-      size.width * 0.52,
-      armY + size.height * 0.04,
-    );
+    final Offset knob = Offset(size.width * 0.52, armY + size.height * 0.04);
     canvas.drawCircle(knob, size.height * 0.13, brass);
     canvas.drawCircle(
       knob,
@@ -458,11 +438,7 @@ class _VciDispatchTelegraphKeyPainter extends CustomPainter {
       for (int i = 0; i < 4; i++) {
         final double dx = size.width * (0.30 + i * 0.12);
         final double dy = armY - 6;
-        canvas.drawLine(
-          Offset(dx, dy),
-          Offset(dx - 3, dy - 5),
-          spark,
-        );
+        canvas.drawLine(Offset(dx, dy), Offset(dx - 3, dy - 5), spark);
       }
     }
   }
@@ -531,10 +507,7 @@ class _VciDispatchEnvelopePill extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _VciDispatchKeyValue extends StatelessWidget {
-  const _VciDispatchKeyValue({
-    required this.label,
-    required this.value,
-  });
+  const _VciDispatchKeyValue({required this.label, required this.value});
 
   final String label;
   final String value;
@@ -715,10 +688,7 @@ class _VciDispatchAnatomy extends StatelessWidget {
                   label: 'Declared in',
                   value: 'package:flutter/src/widgets/actions.dart',
                 ),
-                _VciDispatchKeyValue(
-                  label: 'Extends',
-                  value: 'Intent',
-                ),
+                _VciDispatchKeyValue(label: 'Extends', value: 'Intent'),
                 _VciDispatchKeyValue(
                   label: 'Signature',
                   value: 'const VoidCallbackIntent(this.callback)',
@@ -916,9 +886,7 @@ class _VciDispatchConsoleStateImpl extends State<_VciDispatchConsole> {
   Widget build(BuildContext context) {
     final _VciDispatchConsoleState snap = _snapshot;
     return Actions(
-      actions: <Type, Action<Intent>>{
-        VoidCallbackIntent: VoidCallbackAction(),
-      },
+      actions: <Type, Action<Intent>>{VoidCallbackIntent: VoidCallbackAction()},
       child: Column(
         children: <Widget>[
           _VciDispatchPanel(
@@ -978,9 +946,8 @@ class _VciDispatchConsoleStateImpl extends State<_VciDispatchConsole> {
                 const SizedBox(height: 10),
                 _VciDispatchQueueControls(
                   onClear: _clearQueue,
-                  total: snap.greetingCount +
-                      snap.alarmCount +
-                      snap.refreshCount,
+                  total:
+                      snap.greetingCount + snap.alarmCount + snap.refreshCount,
                 ),
                 const SizedBox(height: 6),
                 if (_scopeBypassed)
@@ -1276,10 +1243,7 @@ class _VciDispatchDropdownFire extends StatelessWidget {
                   value: selectedKind,
                   isDense: true,
                   dropdownColor: _kTelegramPaper,
-                  style: const TextStyle(
-                    color: _kInkBlack,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: _kInkBlack, fontSize: 13),
                   items: const <DropdownMenuItem<String>>[
                     DropdownMenuItem<String>(
                       value: 'greeting',
@@ -1306,10 +1270,7 @@ class _VciDispatchDropdownFire extends StatelessWidget {
             onTap: onFire,
             borderRadius: BorderRadius.circular(4),
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: _kBrass,
                 borderRadius: BorderRadius.circular(4),
@@ -1399,10 +1360,7 @@ class _VciDispatchQueueStrip extends StatelessWidget {
 }
 
 class _VciDispatchQueueControls extends StatelessWidget {
-  const _VciDispatchQueueControls({
-    required this.onClear,
-    required this.total,
-  });
+  const _VciDispatchQueueControls({required this.onClear, required this.total});
 
   final VoidCallback onClear;
   final int total;
@@ -1425,10 +1383,7 @@ class _VciDispatchQueueControls extends StatelessWidget {
           onTap: onClear,
           borderRadius: BorderRadius.circular(4),
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 6,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: _kOliveFelt,
               border: Border.all(color: _kBrass),
@@ -1493,10 +1448,7 @@ class _VciDispatchInspector extends StatelessWidget {
               child: const Text(
                 'Dispatch an envelope to inspect its callback identity '
                 'and Intent hash.',
-                style: TextStyle(
-                  color: _kInkDark,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: _kInkDark, fontSize: 12),
               ),
             )
           else
@@ -1507,8 +1459,7 @@ class _VciDispatchInspector extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 8),
                     child: _VciDispatchInspectorRow(
                       record: snapshot.queue[i],
-                      isLast: snapshot.queue[i].id ==
-                          snapshot.lastDispatchedId,
+                      isLast: snapshot.queue[i].id == snapshot.lastDispatchedId,
                     ),
                   ),
               ],
@@ -1520,10 +1471,7 @@ class _VciDispatchInspector extends StatelessWidget {
 }
 
 class _VciDispatchInspectorRow extends StatelessWidget {
-  const _VciDispatchInspectorRow({
-    required this.record,
-    required this.isLast,
-  });
+  const _VciDispatchInspectorRow({required this.record, required this.isLast});
 
   final _VciDispatchEnvelopeRecord record;
   final bool isLast;
@@ -1581,10 +1529,7 @@ class _VciDispatchInspectorRow extends StatelessWidget {
           ),
           if (isLast)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 6,
-                vertical: 3,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
               decoration: BoxDecoration(
                 color: _kBrassDark,
                 borderRadius: BorderRadius.circular(3),
@@ -1674,8 +1619,7 @@ class _VciDispatchRedispatch extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                for (final MapEntry<int, int> entry
-                    in callbackCounts.entries)
+                for (final MapEntry<int, int> entry in callbackCounts.entries)
                   Container(
                     padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
                     decoration: BoxDecoration(
@@ -1836,13 +1780,12 @@ class _VciDispatchNamedRoutingState extends State<_VciDispatchNamedRouting> {
                     count: i == 0
                         ? _counterA
                         : i == 1
-                            ? _counterB
-                            : _counterC,
+                        ? _counterB
+                        : _counterC,
                     onFire: () {
                       // Build a fresh intent whose callback is the logger.
                       final int which = i + 1;
-                      final VoidCallbackIntent intent =
-                          VoidCallbackIntent(() {
+                      final VoidCallbackIntent intent = VoidCallbackIntent(() {
                         _logAndTick(routes[i].title, which);
                       });
                       // In Channel C we intentionally do not wrap the
@@ -1894,10 +1837,7 @@ class _VciDispatchNamedRoutingState extends State<_VciDispatchNamedRouting> {
                 if (_log.isEmpty)
                   const Text(
                     'No dispatches yet.',
-                    style: TextStyle(
-                      color: _kTelegramPaper,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: _kTelegramPaper, fontSize: 12),
                   )
                 else
                   for (final String line in _log)
@@ -1935,9 +1875,7 @@ class _VciDispatchRouteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Actions(
-      actions: <Type, Action<Intent>>{
-        VoidCallbackIntent: VoidCallbackAction(),
-      },
+      actions: <Type, Action<Intent>>{VoidCallbackIntent: VoidCallbackAction()},
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -2065,28 +2003,34 @@ class _VciDispatchKeyboardState extends State<_VciDispatchKeyboard> {
   Widget build(BuildContext context) {
     final Map<ShortcutActivator, Intent> shortcuts =
         <ShortcutActivator, Intent>{
-      const SingleActivator(LogicalKeyboardKey.digit1, control: true):
-          VoidCallbackIntent(() {
-        setState(() {
-          _ctrl1++;
-        });
-        _flash('Ctrl+1');
-      }),
-      const SingleActivator(LogicalKeyboardKey.digit2, control: true):
-          VoidCallbackIntent(() {
-        setState(() {
-          _ctrl2++;
-        });
-        _flash('Ctrl+2');
-      }),
-      const SingleActivator(LogicalKeyboardKey.digit3, control: true):
-          VoidCallbackIntent(() {
-        setState(() {
-          _ctrl3++;
-        });
-        _flash('Ctrl+3');
-      }),
-    };
+          const SingleActivator(
+            LogicalKeyboardKey.digit1,
+            control: true,
+          ): VoidCallbackIntent(() {
+            setState(() {
+              _ctrl1++;
+            });
+            _flash('Ctrl+1');
+          }),
+          const SingleActivator(
+            LogicalKeyboardKey.digit2,
+            control: true,
+          ): VoidCallbackIntent(() {
+            setState(() {
+              _ctrl2++;
+            });
+            _flash('Ctrl+2');
+          }),
+          const SingleActivator(
+            LogicalKeyboardKey.digit3,
+            control: true,
+          ): VoidCallbackIntent(() {
+            setState(() {
+              _ctrl3++;
+            });
+            _flash('Ctrl+3');
+          }),
+        };
 
     return _VciDispatchPanel(
       title: 'VI · KEYBOARD SHORTCUTS',
@@ -2180,10 +2124,7 @@ class _VciDispatchKeyboardState extends State<_VciDispatchKeyboard> {
 }
 
 class _VciDispatchKeyboardPad extends StatelessWidget {
-  const _VciDispatchKeyboardPad({
-    required this.pressed,
-    required this.onTap,
-  });
+  const _VciDispatchKeyboardPad({required this.pressed, required this.onTap});
 
   final bool pressed;
   final VoidCallback onTap;
@@ -2358,10 +2299,7 @@ class _VciDispatchRecipeRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 4,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: _kOliveFelt,
                 borderRadius: BorderRadius.circular(3),
@@ -2481,10 +2419,7 @@ dynamic build(BuildContext context) {
             SizedBox(width: 8),
             Text(
               'VoidCallbackIntent · Dispatch Desk',
-              style: TextStyle(
-                letterSpacing: 1.2,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(letterSpacing: 1.2, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -2499,30 +2434,15 @@ dynamic build(BuildContext context) {
       body: ListView(
         children: const <Widget>[
           _VciDispatchMasthead(),
-          _VciDispatchHeading(
-            'SECTION I — ANATOMY',
-            stamp: 'SDK',
-          ),
+          _VciDispatchHeading('SECTION I — ANATOMY', stamp: 'SDK'),
           _VciDispatchAnatomy(),
-          _VciDispatchHeading(
-            'SECTION II — CONSOLE',
-            stamp: 'LIVE',
-          ),
+          _VciDispatchHeading('SECTION II — CONSOLE', stamp: 'LIVE'),
           _VciDispatchConsole(),
-          _VciDispatchHeading(
-            'SECTION V — NAMED ROUTING',
-            stamp: 'ROUTE',
-          ),
+          _VciDispatchHeading('SECTION V — NAMED ROUTING', stamp: 'ROUTE'),
           _VciDispatchNamedRouting(),
-          _VciDispatchHeading(
-            'SECTION VI — SHORTCUTS',
-            stamp: 'KEYS',
-          ),
+          _VciDispatchHeading('SECTION VI — SHORTCUTS', stamp: 'KEYS'),
           _VciDispatchKeyboard(),
-          _VciDispatchHeading(
-            'SECTION VII — RECIPES',
-            stamp: 'NOTES',
-          ),
+          _VciDispatchHeading('SECTION VII — RECIPES', stamp: 'NOTES'),
           _VciDispatchEpilogue(),
           _VciDispatchFooter(),
         ],

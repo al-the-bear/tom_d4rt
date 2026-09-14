@@ -74,7 +74,12 @@ var _kCodeBg = Color(0xFF1E1E1E);
 // HELPER WIDGETS - Building Blocks
 // ═══════════════════════════════════════════════════════════════════════════
 
-Widget _buildSectionHeader(String title, IconData icon, Color startColor, Color endColor) {
+Widget _buildSectionHeader(
+  String title,
+  IconData icon,
+  Color startColor,
+  Color endColor,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 16),
@@ -160,16 +165,18 @@ Widget _buildInfoCard(String title, Widget content, {Color? borderColor}) {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: content,
-        ),
+        Padding(padding: EdgeInsets.all(16), child: content),
       ],
     ),
   );
 }
 
-Widget _buildPropertyRow(String label, String value, IconData icon, Color iconColor) {
+Widget _buildPropertyRow(
+  String label,
+  String value,
+  IconData icon,
+  Color iconColor,
+) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -238,7 +245,12 @@ Widget _buildCodeBlock(String code) {
   );
 }
 
-Widget _buildGranularityBadge(String name, String description, Color color, IconData icon) {
+Widget _buildGranularityBadge(
+  String name,
+  String description,
+  Color color,
+  IconData icon,
+) {
   return Container(
     margin: EdgeInsets.only(right: 10, bottom: 10),
     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -266,10 +278,7 @@ Widget _buildGranularityBadge(String name, String description, Color color, Icon
             ),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 10,
-                color: color.withAlpha(180),
-              ),
+              style: TextStyle(fontSize: 10, color: color.withAlpha(180)),
             ),
           ],
         ),
@@ -288,16 +297,18 @@ Widget _buildTagChip(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.bold,
-        color: color,
-      ),
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: color),
     ),
   );
 }
 
-Widget _buildDirectionCard(String direction, String desc, IconData icon, Color color, bool isForward) {
+Widget _buildDirectionCard(
+  String direction,
+  String desc,
+  IconData icon,
+  Color color,
+  bool isForward,
+) {
   return Container(
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -377,7 +388,9 @@ Widget _buildSelectionVisualization(
                       color: (idx >= selectionStart && idx < selectionEnd)
                           ? highlightColor
                           : _kGrey300,
-                      width: (idx >= selectionStart && idx < selectionEnd) ? 2 : 1,
+                      width: (idx >= selectionStart && idx < selectionEnd)
+                          ? 2
+                          : 1,
                     ),
                   ),
                   child: Center(
@@ -462,7 +475,9 @@ Widget _buildWordSelectionVisualization(
                       color: (idx >= selectedWordStart && idx < selectedWordEnd)
                           ? highlightColor
                           : _kGrey300,
-                      width: (idx >= selectedWordStart && idx < selectedWordEnd) ? 2 : 1,
+                      width: (idx >= selectedWordStart && idx < selectedWordEnd)
+                          ? 2
+                          : 1,
                     ),
                   ),
                   child: Text(
@@ -548,7 +563,9 @@ Widget _buildLineSelectionVisualization(
                     color: (idx >= selectedLineStart && idx < selectedLineEnd)
                         ? highlightColor
                         : _kGrey300,
-                    width: (idx >= selectedLineStart && idx < selectedLineEnd) ? 2 : 1,
+                    width: (idx >= selectedLineStart && idx < selectedLineEnd)
+                        ? 2
+                        : 1,
                   ),
                 ),
                 child: Row(
@@ -557,7 +574,8 @@ Widget _buildLineSelectionVisualization(
                       width: 24,
                       height: 24,
                       decoration: BoxDecoration(
-                        color: (idx >= selectedLineStart && idx < selectedLineEnd)
+                        color:
+                            (idx >= selectedLineStart && idx < selectedLineEnd)
                             ? Colors.white.withAlpha(60)
                             : _kGrey200,
                         borderRadius: BorderRadius.circular(4),
@@ -568,7 +586,9 @@ Widget _buildLineSelectionVisualization(
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
-                            color: (idx >= selectedLineStart && idx < selectedLineEnd)
+                            color:
+                                (idx >= selectedLineStart &&
+                                    idx < selectedLineEnd)
                                 ? Colors.white
                                 : _kGrey600,
                           ),
@@ -582,7 +602,9 @@ Widget _buildLineSelectionVisualization(
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          color: (idx >= selectedLineStart && idx < selectedLineEnd)
+                          color:
+                              (idx >= selectedLineStart &&
+                                  idx < selectedLineEnd)
                               ? Colors.white
                               : _kGrey800,
                           fontFamily: 'monospace',
@@ -618,7 +640,12 @@ Widget _buildLineSelectionVisualization(
   );
 }
 
-Widget _buildComparisonGridCell(String granularity, String unit, String shortcut, Color color) {
+Widget _buildComparisonGridCell(
+  String granularity,
+  String unit,
+  String shortcut,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12),
     decoration: BoxDecoration(
@@ -638,10 +665,7 @@ Widget _buildComparisonGridCell(String granularity, String unit, String shortcut
           ),
         ),
         SizedBox(height: 4),
-        Text(
-          'Unit: $unit',
-          style: TextStyle(fontSize: 11, color: _kGrey700),
-        ),
+        Text('Unit: $unit', style: TextStyle(fontSize: 11, color: _kGrey700)),
         SizedBox(height: 2),
         Text(
           shortcut,
@@ -699,11 +723,7 @@ Widget _buildGranularityDetailCard(
               SizedBox(height: 4),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kGrey700,
-                  height: 1.4,
-                ),
+                style: TextStyle(fontSize: 12, color: _kGrey700, height: 1.4),
               ),
               SizedBox(height: 8),
               Container(
@@ -810,8 +830,12 @@ dynamic build(BuildContext context) {
   print('isEnd property determines which boundary moves:');
   print('  - isEnd=true: moves the end boundary');
   print('  - isEnd=false: moves the start boundary');
-  print('Word forward event: forward=${wordForward.forward}, isEnd=${wordForward.isEnd}');
-  print('Word backward event: forward=${wordBackward.forward}, isEnd=${wordBackward.isEnd}');
+  print(
+    'Word forward event: forward=${wordForward.forward}, isEnd=${wordForward.isEnd}',
+  );
+  print(
+    'Word backward event: forward=${wordBackward.forward}, isEnd=${wordBackward.isEnd}',
+  );
 
   // Section 4: Visual Selection Demos
   print('\n[SECTION 4] Visual Selection Demos');
@@ -1035,11 +1059,36 @@ dynamic build(BuildContext context) {
               SizedBox(height: 16),
               Wrap(
                 children: [
-                  _buildGranularityBadge('character', 'Single char', _kBlue500, Icons.text_format),
-                  _buildGranularityBadge('word', 'Whole word', _kGreen500, Icons.short_text),
-                  _buildGranularityBadge('line', 'Full line', _kOrange500, Icons.notes),
-                  _buildGranularityBadge('paragraph', 'Paragraph', _kPurple500, Icons.format_align_left),
-                  _buildGranularityBadge('document', 'Entire doc', _kRed500, Icons.article),
+                  _buildGranularityBadge(
+                    'character',
+                    'Single char',
+                    _kBlue500,
+                    Icons.text_format,
+                  ),
+                  _buildGranularityBadge(
+                    'word',
+                    'Whole word',
+                    _kGreen500,
+                    Icons.short_text,
+                  ),
+                  _buildGranularityBadge(
+                    'line',
+                    'Full line',
+                    _kOrange500,
+                    Icons.notes,
+                  ),
+                  _buildGranularityBadge(
+                    'paragraph',
+                    'Paragraph',
+                    _kPurple500,
+                    Icons.format_align_left,
+                  ),
+                  _buildGranularityBadge(
+                    'document',
+                    'Entire doc',
+                    _kRed500,
+                    Icons.article,
+                  ),
                 ],
               ),
             ],
@@ -1050,7 +1099,7 @@ dynamic build(BuildContext context) {
           _buildGranularityDetailCard(
             'Character Granularity',
             'Extends selection by one character at a time. This is the most precise '
-            'form of selection extension, similar to single arrow key navigation.',
+                'form of selection extension, similar to single arrow key navigation.',
             'Text: "Hello" | Select "H" | Extend -> "He" | Extend -> "Hel"',
             Icons.text_format,
             _kBlue500,
@@ -1062,7 +1111,7 @@ dynamic build(BuildContext context) {
           _buildGranularityDetailCard(
             'Word Granularity',
             'Extends selection by one word at a time. A word is defined as alphanumeric '
-            'characters separated by whitespace or punctuation. Most common granularity.',
+                'characters separated by whitespace or punctuation. Most common granularity.',
             'Text: "Hello World" | Select "Hello" | Extend -> "Hello World"',
             Icons.short_text,
             _kGreen500,
@@ -1074,7 +1123,7 @@ dynamic build(BuildContext context) {
           _buildGranularityDetailCard(
             'Line Granularity',
             'Extends selection to include the entire current line or the next/previous '
-            'line boundary. Useful for selecting complete lines of code or text.',
+                'line boundary. Useful for selecting complete lines of code or text.',
             'Line 1: "First" | Line 2: "Second" | Extend from Line 1 -> Both lines',
             Icons.notes,
             _kOrange500,
@@ -1086,7 +1135,7 @@ dynamic build(BuildContext context) {
           _buildGranularityDetailCard(
             'Document Granularity',
             'Extends selection from current position to document boundary. Forward extends '
-            'to document end, backward extends to document start. Maximum selection scope.',
+                'to document end, backward extends to document start. Maximum selection scope.',
             'Any position -> Extend forward with document -> Select to document end',
             Icons.article,
             _kRed500,
@@ -1205,19 +1254,35 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps',
-                0, 1, 'Initial: "The" selected', _kBlue400, true,
+                0,
+                1,
+                'Initial: "The" selected',
+                _kBlue400,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps',
-                0, 2, 'After forward extend: "The quick"', _kBlue500, true,
+                0,
+                2,
+                'After forward extend: "The quick"',
+                _kBlue500,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps',
-                0, 3, 'Continue forward: "The quick brown"', _kBlue600, true,
+                0,
+                3,
+                'Continue forward: "The quick brown"',
+                _kBlue600,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps',
-                0, 5, 'Full forward: All words selected', _kBlue700, true,
+                0,
+                5,
+                'Full forward: All words selected',
+                _kBlue700,
+                true,
               ),
             ],
           ),
@@ -1235,15 +1300,27 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
                 'Start Middle End',
-                2, 3, 'Initial: "End" selected', _kOrange400, false,
+                2,
+                3,
+                'Initial: "End" selected',
+                _kOrange400,
+                false,
               ),
               _buildWordSelectionVisualization(
                 'Start Middle End',
-                1, 3, 'After backward extend: "Middle End"', _kOrange500, false,
+                1,
+                3,
+                'After backward extend: "Middle End"',
+                _kOrange500,
+                false,
               ),
               _buildWordSelectionVisualization(
                 'Start Middle End',
-                0, 3, 'Full backward: "Start Middle End"', _kOrange600, false,
+                0,
+                3,
+                'Full backward: "Start Middle End"',
+                _kOrange600,
+                false,
               ),
             ],
           ),
@@ -1271,23 +1348,43 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12),
               _buildSelectionVisualization(
                 'Flutter Demo',
-                0, 3, 'Step 1: "Flu" selected', _kBlue400,
-                Icons.arrow_forward, 'character forward', _kGreen500,
+                0,
+                3,
+                'Step 1: "Flu" selected',
+                _kBlue400,
+                Icons.arrow_forward,
+                'character forward',
+                _kGreen500,
               ),
               _buildSelectionVisualization(
                 'Flutter Demo',
-                0, 4, 'Step 2: Extend -> "Flut"', _kBlue500,
-                Icons.arrow_forward, 'character forward', _kGreen500,
+                0,
+                4,
+                'Step 2: Extend -> "Flut"',
+                _kBlue500,
+                Icons.arrow_forward,
+                'character forward',
+                _kGreen500,
               ),
               _buildSelectionVisualization(
                 'Flutter Demo',
-                0, 5, 'Step 3: Extend -> "Flutt"', _kBlue600,
-                Icons.arrow_forward, 'character forward', _kGreen500,
+                0,
+                5,
+                'Step 3: Extend -> "Flutt"',
+                _kBlue600,
+                Icons.arrow_forward,
+                'character forward',
+                _kGreen500,
               ),
               _buildSelectionVisualization(
                 'Flutter Demo',
-                0, 7, 'Step 4: Extend to word boundary "Flutter"', _kBlue700,
-                Icons.arrow_forward, 'character forward', _kGreen500,
+                0,
+                7,
+                'Step 4: Extend to word boundary "Flutter"',
+                _kBlue700,
+                Icons.arrow_forward,
+                'character forward',
+                _kGreen500,
               ),
             ],
           ),
@@ -1304,19 +1401,35 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps over lazy dog',
-                0, 1, 'Initial: "The" selected', _kGreen400, true,
+                0,
+                1,
+                'Initial: "The" selected',
+                _kGreen400,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps over lazy dog',
-                0, 2, 'Word extend: "The quick"', _kGreen500, true,
+                0,
+                2,
+                'Word extend: "The quick"',
+                _kGreen500,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps over lazy dog',
-                0, 4, 'Two more: "The quick brown fox"', _kGreen600, true,
+                0,
+                4,
+                'Two more: "The quick brown fox"',
+                _kGreen600,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'The quick brown fox jumps over lazy dog',
-                0, 8, 'All words selected', _kGreen700, true,
+                0,
+                8,
+                'All words selected',
+                _kGreen700,
+                true,
               ),
             ],
           ),
@@ -1333,16 +1446,43 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 12),
               _buildLineSelectionVisualization(
-                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0, 1, 'Initial: Line 1 selected', _kOrange400, true,
+                [
+                  'First line of code',
+                  'Second line here',
+                  'Third line follows',
+                  'Fourth and final',
+                ],
+                0,
+                1,
+                'Initial: Line 1 selected',
+                _kOrange400,
+                true,
               ),
               _buildLineSelectionVisualization(
-                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0, 2, 'Line extend: Lines 1-2', _kOrange500, true,
+                [
+                  'First line of code',
+                  'Second line here',
+                  'Third line follows',
+                  'Fourth and final',
+                ],
+                0,
+                2,
+                'Line extend: Lines 1-2',
+                _kOrange500,
+                true,
               ),
               _buildLineSelectionVisualization(
-                ['First line of code', 'Second line here', 'Third line follows', 'Fourth and final'],
-                0, 4, 'All lines selected', _kOrange600, true,
+                [
+                  'First line of code',
+                  'Second line here',
+                  'Third line follows',
+                  'Fourth and final',
+                ],
+                0,
+                4,
+                'All lines selected',
+                _kOrange600,
+                true,
               ),
             ],
           ),
@@ -1360,19 +1500,35 @@ dynamic build(BuildContext context) {
               SizedBox(height: 12),
               _buildWordSelectionVisualization(
                 'One Two Three Four Five',
-                2, 3, 'Initial: "Three" selected (middle)', _kPurple400, true,
+                2,
+                3,
+                'Initial: "Three" selected (middle)',
+                _kPurple400,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'One Two Three Four Five',
-                2, 4, 'Forward extend: "Three Four"', _kGreen500, true,
+                2,
+                4,
+                'Forward extend: "Three Four"',
+                _kGreen500,
+                true,
               ),
               _buildWordSelectionVisualization(
                 'One Two Three Four Five',
-                1, 4, 'Backward extend: "Two Three Four"', _kOrange500, false,
+                1,
+                4,
+                'Backward extend: "Two Three Four"',
+                _kOrange500,
+                false,
               ),
               _buildWordSelectionVisualization(
                 'One Two Three Four Five',
-                0, 5, 'Both directions: All selected', _kPurple600, true,
+                0,
+                5,
+                'Both directions: All selected',
+                _kPurple600,
+                true,
               ),
             ],
           ),
@@ -1406,10 +1562,30 @@ dynamic build(BuildContext context) {
                 crossAxisSpacing: 10,
                 childAspectRatio: 2.0,
                 children: [
-                  _buildComparisonGridCell('character', 'Single char', 'Shift+Arrow', _kBlue500),
-                  _buildComparisonGridCell('word', 'Whole word', 'Ctrl+Shift+Arrow', _kGreen500),
-                  _buildComparisonGridCell('line', 'Full line', 'Shift+Up/Down', _kOrange500),
-                  _buildComparisonGridCell('document', 'Entire doc', 'Cmd+Shift+End', _kRed500),
+                  _buildComparisonGridCell(
+                    'character',
+                    'Single char',
+                    'Shift+Arrow',
+                    _kBlue500,
+                  ),
+                  _buildComparisonGridCell(
+                    'word',
+                    'Whole word',
+                    'Ctrl+Shift+Arrow',
+                    _kGreen500,
+                  ),
+                  _buildComparisonGridCell(
+                    'line',
+                    'Full line',
+                    'Shift+Up/Down',
+                    _kOrange500,
+                  ),
+                  _buildComparisonGridCell(
+                    'document',
+                    'Entire doc',
+                    'Cmd+Shift+End',
+                    _kRed500,
+                  ),
                 ],
               ),
             ],
@@ -1611,10 +1787,7 @@ dynamic build(BuildContext context) {
                 'Covered: Selection event overview, TextGranularity values '
                 '(character, word, line, document), forward/backward directions, '
                 'visual selection demos, and granularity comparison grid.',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: _kTeal700,
-                ),
+                style: TextStyle(fontSize: 12, color: _kTeal700),
                 textAlign: TextAlign.center,
               ),
             ],

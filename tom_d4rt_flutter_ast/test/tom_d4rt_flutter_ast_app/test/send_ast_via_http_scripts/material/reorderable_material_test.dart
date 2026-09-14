@@ -263,9 +263,7 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       elevation: 2.0,
       color: tint,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Padding(
         padding: const EdgeInsets.all(14.0),
         child: Column(
@@ -279,10 +277,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 6.0),
-            Text(
-              body,
-              style: const TextStyle(fontSize: 13.5, height: 1.4),
-            ),
+            Text(body, style: const TextStyle(fontSize: 13.5, height: 1.4)),
           ],
         ),
       ),
@@ -318,10 +313,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(
-              purpose,
-              style: const TextStyle(fontSize: 12.5),
-            ),
+            child: Text(purpose, style: const TextStyle(fontSize: 12.5)),
           ),
         ],
       ),
@@ -386,10 +378,7 @@ dynamic build(BuildContext context) {
             color: Colors.deepPurple.shade100,
             child: const Text(
               'Palette · drag to reorder',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
           footer: Container(
@@ -461,9 +450,7 @@ dynamic build(BuildContext context) {
               key: ValueKey<String>('playlist-${playlist[index]}'),
               margin: const EdgeInsets.symmetric(vertical: 4.0),
               decoration: BoxDecoration(
-                color: index.isEven
-                    ? Colors.teal.shade50
-                    : Colors.white,
+                color: index.isEven ? Colors.teal.shade50 : Colors.white,
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(color: Colors.teal.shade100),
               ),
@@ -738,10 +725,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Text(
-                  tasks[i],
-                  style: const TextStyle(fontSize: 14.0),
-                ),
+                child: Text(tasks[i], style: const TextStyle(fontSize: 14.0)),
               ),
             ),
             // Delayed handle: long-press to grab.
@@ -749,10 +733,7 @@ dynamic build(BuildContext context) {
               index: i,
               child: Container(
                 padding: const EdgeInsets.all(14.0),
-                child: Icon(
-                  Icons.touch_app,
-                  color: Colors.amber.shade700,
-                ),
+                child: Icon(Icons.touch_app, color: Colors.amber.shade700),
               ),
             ),
           ],
@@ -836,10 +817,7 @@ dynamic build(BuildContext context) {
             height: 72.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  Colors.cyan.shade400,
-                  Colors.cyan.shade100,
-                ],
+                colors: <Color>[Colors.cyan.shade400, Colors.cyan.shade100],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -967,20 +945,17 @@ dynamic build(BuildContext context) {
             mainAxisSpacing: 6.0,
             crossAxisSpacing: 6.0,
           ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int i) {
-              return Container(
-                color: Colors.cyan.shade100,
-                child: Center(
-                  child: Text(
-                    'g${i + 1}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int i) {
+            return Container(
+              color: Colors.cyan.shade100,
+              child: Center(
+                child: Text(
+                  'g${i + 1}',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              );
-            },
-            childCount: 8,
-          ),
+              ),
+            );
+          }, childCount: 8),
         ),
       ],
     ),
@@ -1143,10 +1118,7 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(vertical: 6.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              Colors.lightGreen.shade100,
-              Colors.green.shade50,
-            ],
+            colors: <Color>[Colors.lightGreen.shade100, Colors.green.shade50],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1269,10 +1241,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'ReorderableListView · key parameters',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               const Divider(),
               paramRow(
@@ -1348,10 +1317,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'Drag-start listeners',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               const Divider(),
               paramRow(
@@ -1392,10 +1358,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               const Text(
                 'SliverReorderableList',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               const Divider(),
               paramRow(
@@ -1403,11 +1366,7 @@ dynamic build(BuildContext context) {
                 'IndexedWidgetBuilder',
                 'Lazily constructs each child by index.',
               ),
-              paramRow(
-                'itemCount',
-                'int',
-                'Number of items in the sliver.',
-              ),
+              paramRow('itemCount', 'int', 'Number of items in the sliver.'),
               paramRow(
                 'onReorder',
                 'ReorderCallback',
@@ -1442,10 +1401,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.indigo.shade700,
-          Colors.deepPurple.shade400,
-        ],
+        colors: <Color>[Colors.indigo.shade700, Colors.deepPurple.shade400],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -16,11 +16,7 @@ enum _DemoStage {
   compendium,
 }
 
-enum _CanvasPattern {
-  wave,
-  grid,
-  orbit,
-}
+enum _CanvasPattern { wave, grid, orbit }
 
 class _Palette {
   final String name;
@@ -168,10 +164,12 @@ class _BottomNavigationBarItemDeepDemo extends StatefulWidget {
   const _BottomNavigationBarItemDeepDemo();
 
   @override
-  State<_BottomNavigationBarItemDeepDemo> createState() => _BottomNavigationBarItemDeepDemoState();
+  State<_BottomNavigationBarItemDeepDemo> createState() =>
+      _BottomNavigationBarItemDeepDemoState();
 }
 
-class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarItemDeepDemo> {
+class _BottomNavigationBarItemDeepDemoState
+    extends State<_BottomNavigationBarItemDeepDemo> {
   _DemoStage _stage = _DemoStage.anatomy;
   final _CanvasPattern _pattern = _CanvasPattern.wave;
   int _paletteIndex = 0;
@@ -222,7 +220,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
   void initState() {
     super.initState();
     _dynamicItems.addAll(_seedDynamicItems(4));
-    _log('system', 'BottomNavigationBarItem deep demo initialized.', _p.accentA);
+    _log(
+      'system',
+      'BottomNavigationBarItem deep demo initialized.',
+      _p.accentA,
+    );
   }
 
   List<_DynamicItem> _seedDynamicItems(int count) {
@@ -250,7 +252,12 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
   }
 
   void _log(String source, String message, Color tone) {
-    final event = _LogEvent(at: DateTime.now(), source: source, message: message, tone: tone);
+    final event = _LogEvent(
+      at: DateTime.now(),
+      source: source,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, event);
       if (_events.length > 120) {
@@ -277,13 +284,17 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     _log('key-deck', message, _p.accentC);
   }
 
-  List<BottomNavigationBarItem> _materialItemsFromSpecs({bool useBackground = true}) {
+  List<BottomNavigationBarItem> _materialItemsFromSpecs({
+    bool useBackground = true,
+  }) {
     return _seedSpecs
         .map(
           (spec) => BottomNavigationBarItem(
             key: ValueKey<String>('spec-${spec.id}'),
             icon: _icon(spec.icon),
-            activeIcon: _useDistinctActiveIcons ? _icon(spec.activeIcon) : _icon(spec.icon),
+            activeIcon: _useDistinctActiveIcons
+                ? _icon(spec.activeIcon)
+                : _icon(spec.icon),
             label: spec.label,
             tooltip: _showTooltips ? spec.tooltip : null,
             backgroundColor: useBackground ? spec.backgroundColor : null,
@@ -297,7 +308,13 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       data,
       size: _iconSize,
       shadows: _showIconOutline
-          ? const <Shadow>[Shadow(blurRadius: 2, color: Colors.black45, offset: Offset(0, 1))]
+          ? const <Shadow>[
+              Shadow(
+                blurRadius: 2,
+                color: Colors.black45,
+                offset: Offset(0, 1),
+              ),
+            ]
           : null,
     );
   }
@@ -316,10 +333,7 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                 children: <Widget>[
                   Expanded(child: _stageBody()),
                   if (_showTimeline)
-                    SizedBox(
-                      width: 360,
-                      child: _timelinePanel(),
-                    ),
+                    SizedBox(width: 360, child: _timelinePanel()),
                 ],
               ),
             ),
@@ -346,7 +360,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.navigation_outlined, color: Colors.white, size: 27),
+              const Icon(
+                Icons.navigation_outlined,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
@@ -359,7 +377,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
@@ -400,10 +421,24 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Stage', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Stage',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _stageTitles.length; i++) _stageChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
@@ -438,7 +473,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log('palette', 'palette changed to ${_palettes[index].name}', _palettes[index].accentA);
+        _log(
+          'palette',
+          'palette changed to ${_palettes[index].name}',
+          _palettes[index].accentA,
+        );
       },
       child: Container(
         width: 21,
@@ -447,7 +486,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -455,14 +496,22 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     );
   }
 
-  Widget _toggleChip(String label, bool value, void Function(bool value) assign) {
+  Widget _toggleChip(
+    String label,
+    bool value,
+    void Function(bool value) assign,
+  ) {
     return FilterChip(
       selected: value,
       selectedColor: _p.accentA.withValues(alpha: 0.19),
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -500,25 +549,42 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
           const SizedBox(height: 12),
           _panel(
             title: 'Item Spec Controls',
-            subtitle: 'Toggle active icon, labels, tooltips, and icon presentation.',
+            subtitle:
+                'Toggle active icon, labels, tooltips, and icon presentation.',
             child: Column(
               children: <Widget>[
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _toggleChip('distinct activeIcon', _useDistinctActiveIcons, (v) {
-                      _useDistinctActiveIcons = v;
-                      _recordSpecChange('anatomy', 'distinct activeIcon -> $v');
-                    }),
-                    _toggleChip('show selected labels', _showSelectedLabels, (v) {
+                    _toggleChip(
+                      'distinct activeIcon',
+                      _useDistinctActiveIcons,
+                      (v) {
+                        _useDistinctActiveIcons = v;
+                        _recordSpecChange(
+                          'anatomy',
+                          'distinct activeIcon -> $v',
+                        );
+                      },
+                    ),
+                    _toggleChip('show selected labels', _showSelectedLabels, (
+                      v,
+                    ) {
                       _showSelectedLabels = v;
                       _recordSpecChange('anatomy', 'showSelectedLabels -> $v');
                     }),
-                    _toggleChip('show unselected labels', _showUnselectedLabels, (v) {
-                      _showUnselectedLabels = v;
-                      _recordSpecChange('anatomy', 'showUnselectedLabels -> $v');
-                    }),
+                    _toggleChip(
+                      'show unselected labels',
+                      _showUnselectedLabels,
+                      (v) {
+                        _showUnselectedLabels = v;
+                        _recordSpecChange(
+                          'anatomy',
+                          'showUnselectedLabels -> $v',
+                        );
+                      },
+                    ),
                     _toggleChip('tooltips', _showTooltips, (v) {
                       _showTooltips = v;
                       _tooltipToggles += 1;
@@ -539,7 +605,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                   color: _p.accentA,
                   onChanged: (v) {
                     setState(() => _iconSize = v);
-                    _recordSpecChange('anatomy', 'icon size -> ${v.toStringAsFixed(1)}');
+                    _recordSpecChange(
+                      'anatomy',
+                      'icon size -> ${v.toStringAsFixed(1)}',
+                    );
                   },
                 ),
                 _slider(
@@ -551,7 +620,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                   color: _p.accentB,
                   onChanged: (v) {
                     setState(() => _fontSize = v);
-                    _recordSpecChange('anatomy', 'font size -> ${v.toStringAsFixed(1)}');
+                    _recordSpecChange(
+                      'anatomy',
+                      'font size -> ${v.toStringAsFixed(1)}',
+                    );
                   },
                 ),
                 _slider(
@@ -573,7 +645,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               Expanded(
                 child: _panel(
                   title: 'Item Field Catalog',
-                  subtitle: 'Each card maps to BottomNavigationBarItem properties.',
+                  subtitle:
+                      'Each card maps to BottomNavigationBarItem properties.',
                   child: Column(
                     children: <Widget>[
                       _itemFieldCard(
@@ -585,31 +658,36 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       _itemFieldCard(
                         icon: Icons.check_circle_outline,
                         title: 'activeIcon',
-                        detail: 'Optional selected-state icon. Falls back to icon if omitted.',
+                        detail:
+                            'Optional selected-state icon. Falls back to icon if omitted.',
                         tone: _p.accentB,
                       ),
                       _itemFieldCard(
                         icon: Icons.label_outline,
                         title: 'label',
-                        detail: 'Text shown under icon in Material and beside icon in Cupertino tab bars.',
+                        detail:
+                            'Text shown under icon in Material and beside icon in Cupertino tab bars.',
                         tone: _p.accentC,
                       ),
                       _itemFieldCard(
                         icon: Icons.info_outline,
                         title: 'tooltip',
-                        detail: 'Hover/long-press helper text in BottomNavigationBar when non-empty.',
+                        detail:
+                            'Hover/long-press helper text in BottomNavigationBar when non-empty.',
                         tone: _p.accentA,
                       ),
                       _itemFieldCard(
                         icon: Icons.palette_outlined,
                         title: 'backgroundColor',
-                        detail: 'Used by shifting type for bar flood animation per selected item.',
+                        detail:
+                            'Used by shifting type for bar flood animation per selected item.',
                         tone: _p.accentB,
                       ),
                       _itemFieldCard(
                         icon: Icons.key_outlined,
                         title: 'key',
-                        detail: 'Preserves item identity across list size/order changes for ink effects.',
+                        detail:
+                            'Preserves item identity across list size/order changes for ink effects.',
                         tone: _p.accentC,
                       ),
                     ],
@@ -634,21 +712,38 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.86),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: _p.muted.withValues(alpha: 0.3)),
+                            border: Border.all(
+                              color: _p.muted.withValues(alpha: 0.3),
+                            ),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              Text('Selected Item', style: TextStyle(color: _p.muted, fontSize: 10.4)),
+                              Text(
+                                'Selected Item',
+                                style: TextStyle(
+                                  color: _p.muted,
+                                  fontSize: 10.4,
+                                ),
+                              ),
                               const SizedBox(height: 6),
                               Text(
                                 _seedSpecs[_anatomyIndex].label,
-                                style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 16),
+                                style: TextStyle(
+                                  color: _p.ink,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                _showTooltips ? _seedSpecs[_anatomyIndex].tooltip : 'Tooltip disabled',
-                                style: TextStyle(color: _p.muted, fontSize: 10.6),
+                                _showTooltips
+                                    ? _seedSpecs[_anatomyIndex].tooltip
+                                    : 'Tooltip disabled',
+                                style: TextStyle(
+                                  color: _p.muted,
+                                  fontSize: 10.6,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -689,8 +784,12 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
   }
 
   Widget _modeLabStage() {
-    final fixedItems = _materialItemsFromSpecs(useBackground: false).take(4).toList();
-    final shiftingItems = _materialItemsFromSpecs(useBackground: true).take(4).toList();
+    final fixedItems = _materialItemsFromSpecs(
+      useBackground: false,
+    ).take(4).toList();
+    final shiftingItems = _materialItemsFromSpecs(
+      useBackground: true,
+    ).take(4).toList();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
@@ -734,7 +833,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               Expanded(
                 child: _panel(
                   title: 'Fixed Type Preview',
-                  subtitle: 'backgroundColor on items does not flood bar in fixed mode.',
+                  subtitle:
+                      'backgroundColor on items does not flood bar in fixed mode.',
                   tint: _p.accentA.withValues(alpha: 0.04),
                   child: _phoneShell(
                     title: 'Fixed mode',
@@ -744,7 +844,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       child: Center(
                         child: _explainCard(
                           title: 'Fixed Behavior',
-                          detail: 'Item background colors are not used as full-bar flood animations.',
+                          detail:
+                              'Item background colors are not used as full-bar flood animations.',
                         ),
                       ),
                     ),
@@ -754,7 +855,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       items: fixedItems,
                       onTap: (value) {
                         setState(() => _fixedIndex = value);
-                        _recordTap('fixed-mode', value, _seedSpecs[value].label);
+                        _recordTap(
+                          'fixed-mode',
+                          value,
+                          _seedSpecs[value].label,
+                        );
                       },
                     ),
                   ),
@@ -764,7 +869,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               Expanded(
                 child: _panel(
                   title: 'Shifting Type Preview',
-                  subtitle: 'Item backgroundColor drives selected flood color in shifting mode.',
+                  subtitle:
+                      'Item backgroundColor drives selected flood color in shifting mode.',
                   tint: _p.accentC.withValues(alpha: 0.05),
                   child: _phoneShell(
                     title: 'Shifting mode',
@@ -774,7 +880,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       child: Center(
                         child: _explainCard(
                           title: 'Shifting Behavior',
-                          detail: 'Selected item backgroundColor floods the bar while icons animate emphasis.',
+                          detail:
+                              'Selected item backgroundColor floods the bar while icons animate emphasis.',
                         ),
                       ),
                     ),
@@ -784,7 +891,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       items: shiftingItems,
                       onTap: (value) {
                         setState(() => _shiftingIndex = value);
-                        _recordTap('shifting-mode', value, _seedSpecs[value].label);
+                        _recordTap(
+                          'shifting-mode',
+                          value,
+                          _seedSpecs[value].label,
+                        );
                       },
                     ),
                   ),
@@ -814,14 +925,20 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
           const SizedBox(height: 12),
           _panel(
             title: 'Theater Controls',
-            subtitle: 'Compare selected and unselected presentations in one place.',
+            subtitle:
+                'Compare selected and unselected presentations in one place.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                _toggleChip('distinct activeIcon', _useDistinctActiveIcons, (v) {
+                _toggleChip('distinct activeIcon', _useDistinctActiveIcons, (
+                  v,
+                ) {
                   _useDistinctActiveIcons = v;
-                  _recordSpecChange('active-theater', 'distinct activeIcon -> $v');
+                  _recordSpecChange(
+                    'active-theater',
+                    'distinct activeIcon -> $v',
+                  );
                 }),
                 _toggleChip('selected labels', _showSelectedLabels, (v) {
                   _showSelectedLabels = v;
@@ -829,7 +946,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                 }),
                 _toggleChip('unselected labels', _showUnselectedLabels, (v) {
                   _showUnselectedLabels = v;
-                  _recordSpecChange('active-theater', 'unselected labels -> $v');
+                  _recordSpecChange(
+                    'active-theater',
+                    'unselected labels -> $v',
+                  );
                 }),
               ],
             ),
@@ -862,7 +982,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                             const SizedBox(height: 8),
                             Text(
                               _seedSpecs[_theaterIndex].label,
-                              style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 18),
+                              style: TextStyle(
+                                color: _p.ink,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 18,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -883,7 +1007,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       items: items,
                       onTap: (value) {
                         setState(() => _theaterIndex = value);
-                        _recordTap('active-theater', value, _seedSpecs[value].label);
+                        _recordTap(
+                          'active-theater',
+                          value,
+                          _seedSpecs[value].label,
+                        );
                       },
                     ),
                   ),
@@ -899,11 +1027,19 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('Pair outlined and filled icon variants when possible.'),
+                        _bullet(
+                          'Pair outlined and filled icon variants when possible.',
+                        ),
                         _bullet('Keep labels concise and task-oriented.'),
-                        _bullet('Show at least selected labels for discoverability.'),
-                        _bullet('Use tooltips for desktop/hover discoverability.'),
-                        _bullet('Avoid unrelated icon swaps across selected state.'),
+                        _bullet(
+                          'Show at least selected labels for discoverability.',
+                        ),
+                        _bullet(
+                          'Use tooltips for desktop/hover discoverability.',
+                        ),
+                        _bullet(
+                          'Avoid unrelated icon swaps across selected state.',
+                        ),
                       ],
                     ),
                   ),
@@ -938,14 +1074,17 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
           const SizedBox(height: 12),
           _panel(
             title: 'Mutation Controls',
-            subtitle: 'Add, remove, rotate, and reset item lists while preserving keyed identity.',
+            subtitle:
+                'Add, remove, rotate, and reset item lists while preserving keyed identity.',
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
                 FilledButton.icon(
                   onPressed: () {
-                    final next = _createDynamicFromSpec(_seedSpecs[_dynamicItems.length % _seedSpecs.length]);
+                    final next = _createDynamicFromSpec(
+                      _seedSpecs[_dynamicItems.length % _seedSpecs.length],
+                    );
                     setState(() => _dynamicItems.add(next));
                     _recordKeyMutation('added ${next.id}');
                   },
@@ -1004,12 +1143,17 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                   tint: _p.accentC.withValues(alpha: 0.05),
                   child: _phoneShell(
                     title: 'Key deck preview',
-                    selectedLabel: _dynamicItems.isEmpty ? 'None' : _dynamicItems[selected].item.label ?? 'item',
+                    selectedLabel: _dynamicItems.isEmpty
+                        ? 'None'
+                        : _dynamicItems[selected].item.label ?? 'item',
                     body: _stageCanvas(
                       label: 'Key deck canvas',
                       child: _dynamicItems.isEmpty
                           ? Center(
-                              child: Text('No items left. Add items to continue.', style: TextStyle(color: _p.muted)),
+                              child: Text(
+                                'No items left. Add items to continue.',
+                                style: TextStyle(color: _p.muted),
+                              ),
                             )
                           : Padding(
                               padding: const EdgeInsets.all(14),
@@ -1018,7 +1162,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                                 children: <Widget>[
                                   Text(
                                     'Current item keys',
-                                    style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12.3),
+                                    style: TextStyle(
+                                      color: _p.ink,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12.3,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   Expanded(
@@ -1028,14 +1176,26 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                                         final item = _dynamicItems[index];
                                         final selectedRow = index == selected;
                                         return Container(
-                                          margin: const EdgeInsets.only(bottom: 6),
+                                          margin: const EdgeInsets.only(
+                                            bottom: 6,
+                                          ),
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
                                             color: selectedRow
-                                                ? _p.accentA.withValues(alpha: 0.16)
-                                                : Colors.white.withValues(alpha: 0.8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
+                                                ? _p.accentA.withValues(
+                                                    alpha: 0.16,
+                                                  )
+                                                : Colors.white.withValues(
+                                                    alpha: 0.8,
+                                                  ),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            border: Border.all(
+                                              color: _p.muted.withValues(
+                                                alpha: 0.25,
+                                              ),
+                                            ),
                                           ),
                                           child: Row(
                                             children: <Widget>[
@@ -1046,12 +1206,18 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                                                     color: _p.ink,
                                                     fontFamily: 'monospace',
                                                     fontSize: 10.4,
-                                                    fontWeight: selectedRow ? FontWeight.w700 : FontWeight.w500,
+                                                    fontWeight: selectedRow
+                                                        ? FontWeight.w700
+                                                        : FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
                                               if (selectedRow)
-                                                Icon(Icons.radio_button_checked, size: 14, color: _p.accentA),
+                                                Icon(
+                                                  Icons.radio_button_checked,
+                                                  size: 14,
+                                                  color: _p.accentA,
+                                                ),
                                             ],
                                           ),
                                         );
@@ -1067,10 +1233,16 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                         : BottomNavigationBar(
                             currentIndex: selected,
                             type: BottomNavigationBarType.fixed,
-                            items: _dynamicItems.map((entry) => entry.item).toList(),
+                            items: _dynamicItems
+                                .map((entry) => entry.item)
+                                .toList(),
                             onTap: (value) {
                               setState(() => _anatomyIndex = value);
-                              _recordTap('key-deck', value, _dynamicItems[value].item.label ?? 'item');
+                              _recordTap(
+                                'key-deck',
+                                value,
+                                _dynamicItems[value].item.label ?? 'item',
+                              );
                             },
                           ),
                   ),
@@ -1086,10 +1258,18 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('Provide stable keys when item order/length changes on tap.'),
-                        _bullet('Stable keys help preserve splash origin and state continuity.'),
-                        _bullet('Avoid using transient random keys each build.'),
-                        _bullet('Tie key identity to stable item IDs from your model layer.'),
+                        _bullet(
+                          'Provide stable keys when item order/length changes on tap.',
+                        ),
+                        _bullet(
+                          'Stable keys help preserve splash origin and state continuity.',
+                        ),
+                        _bullet(
+                          'Avoid using transient random keys each build.',
+                        ),
+                        _bullet(
+                          'Tie key identity to stable item IDs from your model layer.',
+                        ),
                       ],
                     ),
                   ),
@@ -1143,7 +1323,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                       items: bridgeItems,
                       onTap: (value) {
                         setState(() => _bridgeMaterialIndex = value);
-                        _recordTap('bridge-material', value, _seedSpecs[value].label);
+                        _recordTap(
+                          'bridge-material',
+                          value,
+                          _seedSpecs[value].label,
+                        );
                       },
                     ),
                   ),
@@ -1153,7 +1337,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               Expanded(
                 child: _panel(
                   title: 'Cupertino Preview',
-                  subtitle: 'CupertinoTabBar consuming the same BottomNavigationBarItem list.',
+                  subtitle:
+                      'CupertinoTabBar consuming the same BottomNavigationBarItem list.',
                   tint: _p.accentB.withValues(alpha: 0.04),
                   child: SizedBox(
                     height: _phoneHeight,
@@ -1166,7 +1351,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: _p.muted.withValues(alpha: 0.25)),
+                          border: Border.all(
+                            color: _p.muted.withValues(alpha: 0.25),
+                          ),
                         ),
                         child: Column(
                           children: <Widget>[
@@ -1174,11 +1361,18 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                               height: 34,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.25))),
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: _p.muted.withValues(alpha: 0.25),
+                                  ),
+                                ),
                               ),
                               child: Text(
                                 'Cupertino tab shell',
-                                style: TextStyle(color: _p.muted, fontSize: 10.8),
+                                style: TextStyle(
+                                  color: _p.muted,
+                                  fontSize: 10.8,
+                                ),
                               ),
                             ),
                             Expanded(
@@ -1186,8 +1380,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                                 label: 'Cupertino body',
                                 child: Center(
                                   child: _explainCard(
-                                    title: _seedSpecs[_bridgeCupertinoIndex].label,
-                                    detail: 'CupertinoTabBar uses BottomNavigationBarItem icon/label pair.',
+                                    title:
+                                        _seedSpecs[_bridgeCupertinoIndex].label,
+                                    detail:
+                                        'CupertinoTabBar uses BottomNavigationBarItem icon/label pair.',
                                   ),
                                 ),
                               ),
@@ -1197,7 +1393,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                               items: bridgeItems,
                               onTap: (value) {
                                 setState(() => _bridgeCupertinoIndex = value);
-                                _recordTap('bridge-cupertino', value, _seedSpecs[value].label);
+                                _recordTap(
+                                  'bridge-cupertino',
+                                  value,
+                                  _seedSpecs[value].label,
+                                );
                               },
                             ),
                           ],
@@ -1217,10 +1417,18 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  _bullet('Keep item labels reusable across Material and Cupertino contexts.'),
-                  _bullet('Use icon pairs that communicate selected state clearly.'),
-                  _bullet('Platform bars differ visually but share item semantics.'),
-                  _bullet('Build from one item model to keep navigation definitions consistent.'),
+                  _bullet(
+                    'Keep item labels reusable across Material and Cupertino contexts.',
+                  ),
+                  _bullet(
+                    'Use icon pairs that communicate selected state clearly.',
+                  ),
+                  _bullet(
+                    'Platform bars differ visually but share item semantics.',
+                  ),
+                  _bullet(
+                    'Build from one item model to keep navigation definitions consistent.',
+                  ),
                 ],
               ),
             ),
@@ -1244,11 +1452,26 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
             child: Column(
               children: <Widget>[
                 _matrix('icon', 'Base icon for unselected state.'),
-                _matrix('activeIcon', 'Selected-state icon; defaults to icon when omitted.'),
-                _matrix('label', 'Primary text for tab meaning in Material/Cupertino bars.'),
-                _matrix('tooltip', 'Assistive hint shown on hover/long-press for Material bar.'),
-                _matrix('backgroundColor', 'Used by shifting type to flood selected bar background.'),
-                _matrix('key', 'Identity anchor during dynamic item list mutations.'),
+                _matrix(
+                  'activeIcon',
+                  'Selected-state icon; defaults to icon when omitted.',
+                ),
+                _matrix(
+                  'label',
+                  'Primary text for tab meaning in Material/Cupertino bars.',
+                ),
+                _matrix(
+                  'tooltip',
+                  'Assistive hint shown on hover/long-press for Material bar.',
+                ),
+                _matrix(
+                  'backgroundColor',
+                  'Used by shifting type to flood selected bar background.',
+                ),
+                _matrix(
+                  'key',
+                  'Identity anchor during dynamic item list mutations.',
+                ),
               ],
             ),
           ),
@@ -1261,12 +1484,14 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                 _doDont(
                   good: true,
                   title: 'Do pair icon and activeIcon semantically',
-                  detail: 'Outline/filled icon pairs improve selection clarity and accessibility.',
+                  detail:
+                      'Outline/filled icon pairs improve selection clarity and accessibility.',
                 ),
                 _doDont(
                   good: true,
                   title: 'Do keep labels short and stable',
-                  detail: 'Concise labels improve scanability and avoid layout jitter.',
+                  detail:
+                      'Concise labels improve scanability and avoid layout jitter.',
                 ),
                 _doDont(
                   good: false,
@@ -1276,7 +1501,8 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                 _doDont(
                   good: false,
                   title: 'Dont mutate item order without stable keys',
-                  detail: 'Stable keys help preserve splash/ink identity across mutations.',
+                  detail:
+                      'Stable keys help preserve splash/ink identity across mutations.',
                 ),
               ],
             ),
@@ -1313,11 +1539,21 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Anatomy Studio visualizes all core item fields with a live bar.'),
-                _check('Fixed vs Shifting Lab demonstrates backgroundColor behavior differences.'),
-                _check('Active Icon Theater demonstrates activeIcon and label visibility interplay.'),
-                _check('Key Stability Deck demonstrates dynamic list mutation with keyed items.'),
-                _check('Bridge Stage demonstrates shared item definitions in Material and Cupertino bars.'),
+                _check(
+                  'Anatomy Studio visualizes all core item fields with a live bar.',
+                ),
+                _check(
+                  'Fixed vs Shifting Lab demonstrates backgroundColor behavior differences.',
+                ),
+                _check(
+                  'Active Icon Theater demonstrates activeIcon and label visibility interplay.',
+                ),
+                _check(
+                  'Key Stability Deck demonstrates dynamic list mutation with keyed items.',
+                ),
+                _check(
+                  'Bridge Stage demonstrates shared item definitions in Material and Cupertino bars.',
+                ),
               ],
             ),
           ),
@@ -1362,16 +1598,27 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                 color: _p.canvas,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-                border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(18),
+                ),
+                border: Border(
+                  bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+                ),
               ),
               child: Row(
                 children: <Widget>[
-                  Text(title, style: TextStyle(color: _p.muted, fontSize: 10.8)),
+                  Text(
+                    title,
+                    style: TextStyle(color: _p.muted, fontSize: 10.8),
+                  ),
                   const Spacer(),
                   Text(
                     'selected: $selectedLabel',
-                    style: TextStyle(color: _p.muted, fontSize: 10.4, fontFamily: 'monospace'),
+                    style: TextStyle(
+                      color: _p.muted,
+                      fontSize: 10.4,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ],
               ),
@@ -1387,7 +1634,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
   Widget _stageCanvas({required String label, required Widget child}) {
     return Stack(
       children: <Widget>[
-        Positioned.fill(child: _background(pattern: _pattern, label: label)),
+        Positioned.fill(
+          child: _background(pattern: _pattern, label: label),
+        ),
         Positioned.fill(child: child),
       ],
     );
@@ -1408,7 +1657,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentA.withValues(alpha: 0.25), _p.accentB.withValues(alpha: 0.25)],
+          colors: <Color>[
+            _p.accentA.withValues(alpha: 0.25),
+            _p.accentB.withValues(alpha: 0.25),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1416,13 +1668,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       child: Stack(
         children: <Widget>[
           Positioned.fill(
-            child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
+            child: CustomPaint(
+              painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
+            ),
           ),
-          Positioned(
-            left: 8,
-            top: 8,
-            child: _backgroundTag(label),
-          ),
+          Positioned(left: 8, top: 8, child: _backgroundTag(label)),
         ],
       ),
     );
@@ -1432,7 +1682,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentB.withValues(alpha: 0.23), _p.accentC.withValues(alpha: 0.23)],
+          colors: <Color>[
+            _p.accentB.withValues(alpha: 0.23),
+            _p.accentC.withValues(alpha: 0.23),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -1440,13 +1693,13 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       child: Stack(
         children: <Widget>[
           Positioned.fill(
-            child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22))),
+            child: CustomPaint(
+              painter: _GridPainter(
+                color: Colors.white.withValues(alpha: 0.22),
+              ),
+            ),
           ),
-          Positioned(
-            left: 8,
-            top: 8,
-            child: _backgroundTag(label),
-          ),
+          Positioned(left: 8, top: 8, child: _backgroundTag(label)),
         ],
       ),
     );
@@ -1456,21 +1709,32 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentC.withValues(alpha: 0.23), _p.accentA.withValues(alpha: 0.23)],
+          colors: <Color>[
+            _p.accentC.withValues(alpha: 0.23),
+            _p.accentA.withValues(alpha: 0.23),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned(left: 26, top: 26, child: _orb(90, Colors.white.withValues(alpha: 0.18))),
-          Positioned(right: 34, top: 40, child: _orb(70, Colors.white.withValues(alpha: 0.16))),
-          Positioned(left: 130, bottom: 30, child: _orb(110, Colors.white.withValues(alpha: 0.14))),
           Positioned(
-            left: 8,
-            top: 8,
-            child: _backgroundTag(label),
+            left: 26,
+            top: 26,
+            child: _orb(90, Colors.white.withValues(alpha: 0.18)),
           ),
+          Positioned(
+            right: 34,
+            top: 40,
+            child: _orb(70, Colors.white.withValues(alpha: 0.16)),
+          ),
+          Positioned(
+            left: 130,
+            bottom: 30,
+            child: _orb(110, Colors.white.withValues(alpha: 0.14)),
+          ),
+          Positioned(left: 8, top: 8, child: _backgroundTag(label)),
         ],
       ),
     );
@@ -1493,7 +1757,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       ),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.white, fontSize: 9.6, fontWeight: FontWeight.w700),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 9.6,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -1522,7 +1790,14 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.8)),
+          Text(
+            title,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 13.8,
+            ),
+          ),
           const SizedBox(height: 3),
           Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.1)),
           const SizedBox(height: 10),
@@ -1538,10 +1813,20 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
         Container(
           width: 4,
           height: 22,
-          decoration: BoxDecoration(color: _p.accentA, borderRadius: BorderRadius.circular(2)),
+          decoration: BoxDecoration(
+            color: _p.accentA,
+            borderRadius: BorderRadius.circular(2),
+          ),
         ),
         const SizedBox(width: 8),
-        Text(text, style: TextStyle(color: _p.ink, fontSize: 18, fontWeight: FontWeight.w800)),
+        Text(
+          text,
+          style: TextStyle(
+            color: _p.ink,
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ],
     );
   }
@@ -1559,7 +1844,10 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       children: <Widget>[
         SizedBox(
           width: 164,
-          child: Text('$label: ${value.toStringAsFixed(1)}', style: TextStyle(color: _p.ink, fontSize: 12)),
+          child: Text(
+            '$label: ${value.toStringAsFixed(1)}',
+            style: TextStyle(color: _p.ink, fontSize: 12),
+          ),
         ),
         Expanded(
           child: Slider(
@@ -1598,9 +1886,23 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(height: 3),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 10.8,
+                    height: 1.33,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1621,9 +1923,20 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(title, style: TextStyle(color: _p.ink, fontSize: 15, fontWeight: FontWeight.w800)),
+          Text(
+            title,
+            style: TextStyle(
+              color: _p.ink,
+              fontSize: 15,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(detail, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.34), textAlign: TextAlign.center),
+          Text(
+            detail,
+            style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.34),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -1655,7 +1968,11 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       ),
       child: Text(
         '$label: $value',
-        style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700),
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.2,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -1668,7 +1985,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
+          ),
         ],
       ),
     );
@@ -1698,13 +2017,22 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
               ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1723,9 +2051,23 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1746,9 +2088,19 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
+          Text(
+            'Q: $q',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.9,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33)),
+          Text(
+            'A: $a',
+            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33),
+          ),
         ],
       ),
     );
@@ -1762,7 +2114,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
+          ),
         ],
       ),
     );
@@ -1772,7 +2126,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
     return Container(
       decoration: BoxDecoration(
         color: _p.card,
-        border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.25))),
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.25)),
+        ),
       ),
       child: Column(
         children: <Widget>[
@@ -1781,12 +2137,21 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Interaction Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Interaction Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Logs from item selection, mode changes, and dynamic key mutations.',
@@ -1817,7 +2182,9 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.26)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.26),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1846,7 +2213,14 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.31,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -1872,9 +2246,19 @@ class _BottomNavigationBarItemDeepDemoState extends State<_BottomNavigationBarIt
       color: _p.shell.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_stageTitles[_stage.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _stageTitles[_stage.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
-          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(color: _p.muted, fontSize: 11.1),
+          ),
         ],
       ),
     );

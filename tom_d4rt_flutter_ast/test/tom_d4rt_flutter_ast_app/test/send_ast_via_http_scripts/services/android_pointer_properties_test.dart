@@ -479,10 +479,7 @@ class HeroSection extends StatelessWidget {
                       color: kAndroidGreen,
                     ),
                     SizedBox(width: 8),
-                    TagPill(
-                      text: 'platform_views',
-                      color: kAccentStylus,
-                    ),
+                    TagPill(text: 'platform_views', color: kAccentStylus),
                   ],
                 ),
                 const SizedBox(height: 14),
@@ -661,12 +658,7 @@ class HeroPhonePainter extends CustomPainter {
     );
 
     // id / toolType callouts
-    _drawCallout(
-      canvas,
-      Offset(w * 0.20, h * 0.30),
-      'id: 0',
-      kAccentFinger,
-    );
+    _drawCallout(canvas, Offset(w * 0.20, h * 0.30), 'id: 0', kAccentFinger);
     _drawCallout(
       canvas,
       Offset(w * 0.20, h * 0.74),
@@ -688,12 +680,7 @@ class HeroPhonePainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    final r = Rect.fromLTWH(
-      at.dx,
-      at.dy,
-      tp.width + 12,
-      tp.height + 6,
-    );
+    final r = Rect.fromLTWH(at.dx, at.dy, tp.width + 12, tp.height + 6);
     canvas.drawRRect(
       RRect.fromRectAndRadius(r, const Radius.circular(6)),
       Paint()..color = c.withValues(alpha: 0.18),
@@ -929,11 +916,7 @@ class AnatomyField extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             description,
-            style: const TextStyle(
-              fontSize: 13,
-              color: kInkSoft,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 13, color: kInkSoft, height: 1.4),
           ),
           const SizedBox(height: 10),
           Container(
@@ -1069,11 +1052,7 @@ class ToolTypeEnumSection extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             e.description,
-            style: const TextStyle(
-              fontSize: 12,
-              color: kInkSoft,
-              height: 1.4,
-            ),
+            style: const TextStyle(fontSize: 12, color: kInkSoft, height: 1.4),
           ),
         ],
       ),
@@ -1153,11 +1132,7 @@ class SamplePointerCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                toolTypeIcon(p.toolType),
-                color: sample.color,
-                size: 22,
-              ),
+              Icon(toolTypeIcon(p.toolType), color: sample.color, size: 22),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -1169,20 +1144,13 @@ class SamplePointerCard extends StatelessWidget {
                   ),
                 ),
               ),
-              TagPill(
-                text: 'id ${p.id}',
-                color: sample.color,
-              ),
+              TagPill(text: 'id ${p.id}', color: sample.color),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             sample.story,
-            style: const TextStyle(
-              color: kInkSoft,
-              fontSize: 12,
-              height: 1.4,
-            ),
+            style: const TextStyle(color: kInkSoft, fontSize: 12, height: 1.4),
           ),
           const SizedBox(height: 12),
           Row(
@@ -1202,8 +1170,7 @@ class SamplePointerCard extends StatelessWidget {
                   children: [
                     PropertyRow(
                       name: 'toolType',
-                      value:
-                          '${p.toolType} (${toolTypeLabel(p.toolType)})',
+                      value: '${p.toolType} (${toolTypeLabel(p.toolType)})',
                     ),
                     PropertyRow(
                       name: 'x, y',
@@ -1214,10 +1181,7 @@ class SamplePointerCard extends StatelessWidget {
                       name: 'pressure',
                       value: c.pressure.toStringAsFixed(2),
                     ),
-                    PropertyRow(
-                      name: 'size',
-                      value: c.size.toStringAsFixed(2),
-                    ),
+                    PropertyRow(name: 'size', value: c.size.toStringAsFixed(2)),
                     PropertyRow(
                       name: 'touchM',
                       value:
@@ -1230,8 +1194,7 @@ class SamplePointerCard extends StatelessWidget {
                     ),
                     PropertyRow(
                       name: 'orient',
-                      value:
-                          '${c.orientation.toStringAsFixed(2)} rad',
+                      value: '${c.orientation.toStringAsFixed(2)} rad',
                     ),
                   ],
                 ),
@@ -1245,11 +1208,7 @@ class SamplePointerCard extends StatelessWidget {
 }
 
 class PropertyRow extends StatelessWidget {
-  const PropertyRow({
-    super.key,
-    required this.name,
-    required this.value,
-  });
+  const PropertyRow({super.key, required this.name, required this.value});
 
   final String name;
   final String value;
@@ -1316,16 +1275,8 @@ class FingerprintPainter extends CustomPainter {
       ..color = kGridLine
       ..strokeWidth = 0.6;
     for (int i = 1; i < 4; i++) {
-      canvas.drawLine(
-        Offset(0, h * i / 4),
-        Offset(w, h * i / 4),
-        grid,
-      );
-      canvas.drawLine(
-        Offset(w * i / 4, 0),
-        Offset(w * i / 4, h),
-        grid,
-      );
+      canvas.drawLine(Offset(0, h * i / 4), Offset(w, h * i / 4), grid);
+      canvas.drawLine(Offset(w * i / 4, 0), Offset(w * i / 4, h), grid);
     }
 
     // pressure rings — outer to inner
@@ -1350,10 +1301,7 @@ class FingerprintPainter extends CustomPainter {
       width: tMaj * 2,
       height: tMin * 2,
     );
-    canvas.drawOval(
-      touchRect,
-      Paint()..color = color.withValues(alpha: 0.55),
-    );
+    canvas.drawOval(touchRect, Paint()..color = color.withValues(alpha: 0.55));
     canvas.drawOval(
       touchRect,
       Paint()
@@ -1386,15 +1334,7 @@ class OrientationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final samples = <double>[
-      -1.4,
-      -0.8,
-      -0.3,
-      0.0,
-      0.3,
-      0.8,
-      1.4,
-    ];
+    final samples = <double>[-1.4, -0.8, -0.3, 0.0, 0.3, 0.8, 1.4];
     return SectionContainer(
       title: 'Orientation (stylus tilt)',
       subtitle:
@@ -1520,11 +1460,7 @@ class ArrowPainter extends CustomPainter {
     canvas.restore();
 
     // Origin marker
-    canvas.drawCircle(
-      Offset(cx, cy),
-      2.2,
-      Paint()..color = kInkDeep,
-    );
+    canvas.drawCircle(Offset(cx, cy), 2.2, Paint()..color = kInkDeep);
   }
 
   @override
@@ -1587,10 +1523,7 @@ class RelatedTypesSection extends StatelessWidget {
                     children: [
                       TypeBox(
                         title: 'AndroidPointerProperties',
-                        fields: const [
-                          'id: int',
-                          'toolType: int',
-                        ],
+                        fields: const ['id: int', 'toolType: int'],
                         color: kAccentFinger,
                       ),
                       const SizedBox(height: 12),
@@ -1697,26 +1630,22 @@ class CrossPlatformMappingSection extends StatelessWidget {
       const _MappingRow(
         toolType: kToolTypeUnknown,
         flutterKind: 'PointerDeviceKind.unknown',
-        notes:
-            'Defensive fallback — treat as low-confidence input.',
+        notes: 'Defensive fallback — treat as low-confidence input.',
       ),
       const _MappingRow(
         toolType: kToolTypeFinger,
         flutterKind: 'PointerDeviceKind.touch',
-        notes:
-            'The standard finger touch path. Pressure may be reported.',
+        notes: 'The standard finger touch path. Pressure may be reported.',
       ),
       const _MappingRow(
         toolType: kToolTypeStylus,
         flutterKind: 'PointerDeviceKind.stylus',
-        notes:
-            'Stylus path; orientation and tilt forwarded to the framework.',
+        notes: 'Stylus path; orientation and tilt forwarded to the framework.',
       ),
       const _MappingRow(
         toolType: kToolTypeMouse,
         flutterKind: 'PointerDeviceKind.mouse',
-        notes:
-            'Hover events surface as PointerHoverEvent in Flutter.',
+        notes: 'Hover events surface as PointerHoverEvent in Flutter.',
       ),
       const _MappingRow(
         toolType: kToolTypeEraser,
@@ -1829,9 +1758,7 @@ class _MappingTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide(color: kPaperDim),
-        ),
+        border: Border(top: BorderSide(color: kPaperDim)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

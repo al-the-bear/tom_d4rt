@@ -99,7 +99,11 @@ dynamic build(BuildContext context) {
           children: [
             _buildConceptChip('Overlay', Icons.layers, Color(0xFF4DD0E1)),
             _buildConceptChip('Animation', Icons.animation, Color(0xFFA5D6A7)),
-            _buildConceptChip('Positioning', Icons.open_with, Color(0xFFFFCC80)),
+            _buildConceptChip(
+              'Positioning',
+              Icons.open_with,
+              Color(0xFFFFCC80),
+            ),
           ],
         ),
       ],
@@ -130,8 +134,8 @@ dynamic build(BuildContext context) {
           'String?',
           'required',
           'Text read by screen readers (TalkBack, VoiceOver). '
-          'Set to a descriptive string for accessibility, or '
-          'explicitly null if no semantic description is needed.',
+              'Set to a descriptive string for accessibility, or '
+              'explicitly null if no semantic description is needed.',
           Color(0xFFE65100),
           Icons.accessibility,
           'semanticsTooltip: \'Copy to clipboard\'',
@@ -142,21 +146,21 @@ dynamic build(BuildContext context) {
           'TooltipComponentBuilder',
           'required',
           'Callback that builds the tooltip overlay widget. '
-          'Receives BuildContext and Animation<double>. '
-          'The animation goes 0→1 when showing, 1→0 when hiding. '
-          'Used to create FadeTransition, ScaleTransition, etc.',
+              'Receives BuildContext and Animation<double>. '
+              'The animation goes 0→1 when showing, 1→0 when hiding. '
+              'Used to create FadeTransition, ScaleTransition, etc.',
           Color(0xFF1565C0),
           Icons.build,
           'tooltipBuilder: (ctx, animation) {\n'
-          '  return FadeTransition(\n'
-          '    opacity: animation,\n'
-          '    child: Container(\n'
-          '      padding: EdgeInsets.all(8),\n'
-          '      color: Colors.grey,\n'
-          '      child: Text(\'Tooltip!\'),\n'
-          '    ),\n'
-          '  );\n'
-          '}',
+              '  return FadeTransition(\n'
+              '    opacity: animation,\n'
+              '    child: Container(\n'
+              '      padding: EdgeInsets.all(8),\n'
+              '      color: Colors.grey,\n'
+              '      child: Text(\'Tooltip!\'),\n'
+              '    ),\n'
+              '  );\n'
+              '}',
         ),
         SizedBox(height: 10.0),
         _buildParamCard(
@@ -164,7 +168,7 @@ dynamic build(BuildContext context) {
           'Widget',
           'required',
           'The widget that the user interacts with to trigger '
-          'the tooltip. Commonly an Icon, Text, or Button.',
+              'the tooltip. Commonly an Icon, Text, or Button.',
           Color(0xFF2E7D32),
           Icons.child_care,
           'child: Icon(Icons.info)',
@@ -192,7 +196,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('TooltipTriggerMode — Touch Trigger Behavior', Icons.touch_app),
+        _buildSectionTitle(
+          'TooltipTriggerMode — Touch Trigger Behavior',
+          Icons.touch_app,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -208,7 +215,11 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   'Mouse hover always triggers tooltip, regardless of triggerMode.',
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600, color: Color(0xFF00695C)),
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF00695C),
+                  ),
                 ),
               ),
             ],
@@ -297,7 +308,7 @@ dynamic build(BuildContext context) {
                 'hoverDelay',
                 'Duration.zero',
                 'How long pointer must hover before tooltip appears. '
-                'Set to Duration.zero for instant show on hover.',
+                    'Set to Duration.zero for instant show on hover.',
                 Color(0xFF6A1B9A),
                 '0ms',
               ),
@@ -306,7 +317,7 @@ dynamic build(BuildContext context) {
                 'touchDelay',
                 '1500ms',
                 'How long tooltip stays visible after touch release '
-                '(longPress or tap). Does not affect mouse hover.',
+                    '(longPress or tap). Does not affect mouse hover.',
                 Color(0xFF1565C0),
                 '1.5s',
               ),
@@ -315,7 +326,7 @@ dynamic build(BuildContext context) {
                 'dismissDelay',
                 '100ms',
                 'How long after hover stops before tooltip hides. '
-                'Small delay prevents flicker during micro-movements.',
+                    'Small delay prevents flicker during micro-movements.',
                 Color(0xFFE65100),
                 '100ms',
               ),
@@ -336,22 +347,58 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Mouse Hover Timeline',
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF212121),
+                ),
               ),
               SizedBox(height: 10.0),
-              _buildTimelineStep('Mouse enters widget', 'hoverDelay begins', Color(0xFF6A1B9A)),
-              _buildTimelineStep('hoverDelay expires', 'Tooltip SHOWS (animation 0→1)', Color(0xFF2E7D32)),
-              _buildTimelineStep('Mouse leaves widget', 'dismissDelay begins', Color(0xFFE65100)),
-              _buildTimelineStep('dismissDelay expires', 'Tooltip HIDES (animation 1→0)', Color(0xFFC62828)),
+              _buildTimelineStep(
+                'Mouse enters widget',
+                'hoverDelay begins',
+                Color(0xFF6A1B9A),
+              ),
+              _buildTimelineStep(
+                'hoverDelay expires',
+                'Tooltip SHOWS (animation 0→1)',
+                Color(0xFF2E7D32),
+              ),
+              _buildTimelineStep(
+                'Mouse leaves widget',
+                'dismissDelay begins',
+                Color(0xFFE65100),
+              ),
+              _buildTimelineStep(
+                'dismissDelay expires',
+                'Tooltip HIDES (animation 1→0)',
+                Color(0xFFC62828),
+              ),
               SizedBox(height: 12.0),
               Text(
                 'Touch Timeline (longPress mode)',
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF212121),
+                ),
               ),
               SizedBox(height: 10.0),
-              _buildTimelineStep('User long-presses', 'Tooltip SHOWS immediately', Color(0xFF1565C0)),
-              _buildTimelineStep('User releases', 'touchDelay begins', Color(0xFF6A1B9A)),
-              _buildTimelineStep('touchDelay expires', 'Tooltip HIDES (animation 1→0)', Color(0xFFC62828)),
+              _buildTimelineStep(
+                'User long-presses',
+                'Tooltip SHOWS immediately',
+                Color(0xFF1565C0),
+              ),
+              _buildTimelineStep(
+                'User releases',
+                'touchDelay begins',
+                Color(0xFF6A1B9A),
+              ),
+              _buildTimelineStep(
+                'touchDelay expires',
+                'Tooltip HIDES (animation 1→0)',
+                Color(0xFFC62828),
+              ),
             ],
           ),
         ),
@@ -376,7 +423,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('tooltipBuilder — Animation Integration', Icons.animation),
+        _buildSectionTitle(
+          'tooltipBuilder — Animation Integration',
+          Icons.animation,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(14.0),
@@ -403,7 +453,11 @@ dynamic build(BuildContext context) {
                 'entrance/exit transitions for the tooltip content. '
                 'Wrap your tooltip widget in a Transition widget '
                 'that uses this animation.',
-                style: TextStyle(fontSize: 12.0, color: Color(0xFF0D47A1), height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Color(0xFF0D47A1),
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -412,15 +466,19 @@ dynamic build(BuildContext context) {
         // Examples of different animation patterns
         Text(
           'Common Animation Patterns:',
-          style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+          style: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF212121),
+          ),
         ),
         SizedBox(height: 8.0),
         _buildAnimationPatternCard(
           'Fade Transition',
           'FadeTransition(\n'
-          '  opacity: animation,\n'
-          '  child: tooltipContent,\n'
-          ')',
+              '  opacity: animation,\n'
+              '  child: tooltipContent,\n'
+              ')',
           Color(0xFF1565C0),
           'Smoothly fades the tooltip in and out. Most common pattern.',
         ),
@@ -428,9 +486,9 @@ dynamic build(BuildContext context) {
         _buildAnimationPatternCard(
           'Scale Transition',
           'ScaleTransition(\n'
-          '  scale: animation,\n'
-          '  child: tooltipContent,\n'
-          ')',
+              '  scale: animation,\n'
+              '  child: tooltipContent,\n'
+              ')',
           Color(0xFF2E7D32),
           'Tooltip grows from zero to full size. Playful effect.',
         ),
@@ -438,12 +496,12 @@ dynamic build(BuildContext context) {
         _buildAnimationPatternCard(
           'Combined Fade + Scale',
           'FadeTransition(\n'
-          '  opacity: animation,\n'
-          '  child: ScaleTransition(\n'
-          '    scale: animation,\n'
-          '    child: tooltipContent,\n'
-          '  ),\n'
-          ')',
+              '  opacity: animation,\n'
+              '  child: ScaleTransition(\n'
+              '    scale: animation,\n'
+              '    child: tooltipContent,\n'
+              '  ),\n'
+              ')',
           Color(0xFFE65100),
           'Tooltip fades in while scaling up — rich transition.',
         ),
@@ -451,15 +509,15 @@ dynamic build(BuildContext context) {
         _buildAnimationPatternCard(
           'Slide + Fade',
           'SlideTransition(\n'
-          '  position: Tween<Offset>(\n'
-          '    begin: Offset(0, 0.2),\n'
-          '    end: Offset.zero,\n'
-          '  ).animate(animation),\n'
-          '  child: FadeTransition(\n'
-          '    opacity: animation,\n'
-          '    child: tooltipContent,\n'
-          '  ),\n'
-          ')',
+              '  position: Tween<Offset>(\n'
+              '    begin: Offset(0, 0.2),\n'
+              '    end: Offset.zero,\n'
+              '  ).animate(animation),\n'
+              '  child: FadeTransition(\n'
+              '    opacity: animation,\n'
+              '    child: tooltipContent,\n'
+              '  ),\n'
+              ')',
           Color(0xFF6A1B9A),
           'Tooltip slides in from below while fading in.',
         ),
@@ -496,7 +554,11 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Default AnimationStyle:',
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Color(0xFFE65100)),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE65100),
+                ),
               ),
               SizedBox(height: 8.0),
               Container(
@@ -511,7 +573,11 @@ dynamic build(BuildContext context) {
                   '  duration: Duration(milliseconds: 150),\n'
                   '  reverseDuration: Duration(milliseconds: 75),\n'
                   ')',
-                  style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Color(0xFF80CBC4)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF80CBC4),
+                  ),
                 ),
               ),
               SizedBox(height: 10.0),
@@ -567,12 +633,19 @@ dynamic build(BuildContext context) {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.lightbulb_outline, size: 16.0, color: Color(0xFFF57F17)),
+                    Icon(
+                      Icons.lightbulb_outline,
+                      size: 16.0,
+                      color: Color(0xFFF57F17),
+                    ),
                     SizedBox(width: 6.0),
                     Expanded(
                       child: Text(
                         'Use AnimationStyle.noAnimation to disable animation entirely.',
-                        style: TextStyle(fontSize: 11.0, color: Color(0xFFF57F17)),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Color(0xFFF57F17),
+                        ),
                       ),
                     ),
                   ],
@@ -599,7 +672,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Live RawTooltip Examples', Icons.play_circle_outline),
+        _buildSectionTitle(
+          'Live RawTooltip Examples',
+          Icons.play_circle_outline,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -625,7 +701,10 @@ dynamic build(BuildContext context) {
               return FadeTransition(
                 opacity: animation,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Color(0xFF37474F),
                     borderRadius: BorderRadius.circular(6.0),
@@ -658,7 +737,10 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'Long-press me',
-                    style: TextStyle(color: Color(0xFF1565C0), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Color(0xFF1565C0),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -678,7 +760,10 @@ dynamic build(BuildContext context) {
               return ScaleTransition(
                 scale: animation,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Color(0xFFD32F2F),
                     borderRadius: BorderRadius.circular(8.0),
@@ -711,7 +796,10 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'Tap me',
-                    style: TextStyle(color: Color(0xFFC62828), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Color(0xFFC62828),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -809,7 +897,10 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'Tap for status',
-                    style: TextStyle(color: Color(0xFF2E7D32), fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Color(0xFF2E7D32),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -836,7 +927,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('positionDelegate — Custom Positioning', Icons.open_with),
+        _buildSectionTitle(
+          'positionDelegate — Custom Positioning',
+          Icons.open_with,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(14.0),
@@ -850,15 +944,43 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'TooltipPositionContext properties:',
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4A148C),
+                ),
               ),
               SizedBox(height: 10.0),
-              _buildPositionProp('target', 'Offset', 'Center of the trigger widget (global coords)'),
-              _buildPositionProp('targetSize', 'Size', 'Size of the trigger widget'),
-              _buildPositionProp('tooltipSize', 'Size', 'Measured size of the tooltip overlay'),
-              _buildPositionProp('verticalOffset', 'double', 'Configured vertical spacing'),
-              _buildPositionProp('preferBelow', 'bool', 'Whether tooltip prefers below target'),
-              _buildPositionProp('overlaySize', 'Size', 'Size of the overlay container'),
+              _buildPositionProp(
+                'target',
+                'Offset',
+                'Center of the trigger widget (global coords)',
+              ),
+              _buildPositionProp(
+                'targetSize',
+                'Size',
+                'Size of the trigger widget',
+              ),
+              _buildPositionProp(
+                'tooltipSize',
+                'Size',
+                'Measured size of the tooltip overlay',
+              ),
+              _buildPositionProp(
+                'verticalOffset',
+                'double',
+                'Configured vertical spacing',
+              ),
+              _buildPositionProp(
+                'preferBelow',
+                'bool',
+                'Whether tooltip prefers below target',
+              ),
+              _buildPositionProp(
+                'overlaySize',
+                'Size',
+                'Size of the overlay container',
+              ),
             ],
           ),
         ),
@@ -896,7 +1018,7 @@ dynamic build(BuildContext context) {
           'enableTapToDismiss',
           'bool (default: true)',
           'When true, tapping outside the tooltip dismisses it. '
-          'Set to false to keep tooltip visible until timeout or programmatic dismissal.',
+              'Set to false to keep tooltip visible until timeout or programmatic dismissal.',
           Icons.close,
           Color(0xFF1565C0),
         ),
@@ -905,7 +1027,7 @@ dynamic build(BuildContext context) {
           'enableFeedback',
           'bool (default: true)',
           'Enables platform-specific haptic/acoustic feedback when tooltip is triggered. '
-          'On Android: click sound on tap, vibration on long press.',
+              'On Android: click sound on tap, vibration on long press.',
           Icons.vibration,
           Color(0xFF2E7D32),
         ),
@@ -914,7 +1036,7 @@ dynamic build(BuildContext context) {
           'onTriggered',
           'TooltipTriggeredCallback?',
           'Called when tooltip is triggered via tap, long-press, or programmatically '
-          '(ensureTooltipVisible). NOT called on mouse hover.',
+              '(ensureTooltipVisible). NOT called on mouse hover.',
           Icons.notifications_active,
           Color(0xFFE65100),
         ),
@@ -934,7 +1056,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionTitle('Static Method — dismissAllToolTips()', Icons.cancel_outlined),
+        _buildSectionTitle(
+          'Static Method — dismissAllToolTips()',
+          Icons.cancel_outlined,
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(14.0),
@@ -961,7 +1086,11 @@ dynamic build(BuildContext context) {
                 'across the entire application. Returns true if any tooltip '
                 'was dismissed, false otherwise. Useful for coordinating '
                 'tooltip visibility during navigation or modal display.',
-                style: TextStyle(fontSize: 12.0, color: Color(0xFF424242), height: 1.4),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Color(0xFF424242),
+                  height: 1.4,
+                ),
               ),
               SizedBox(height: 10.0),
               Container(
@@ -977,7 +1106,11 @@ dynamic build(BuildContext context) {
                   '  context: context,\n'
                   '  builder: (_) => AlertDialog(...),\n'
                   ');',
-                  style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Color(0xFF80CBC4)),
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF80CBC4),
+                  ),
                 ),
               ),
             ],
@@ -1054,13 +1187,41 @@ dynamic build(BuildContext context) {
                 ],
               ),
               SizedBox(height: 10.0),
-              _buildComparisonFeature('Appearance', 'Custom via tooltipBuilder', 'Material-themed decoration'),
-              _buildComparisonFeature('Animation', 'Full AnimationStyle control', 'Default Material transitions'),
-              _buildComparisonFeature('Positioning', 'Custom positionDelegate', 'Built-in above/below logic'),
-              _buildComparisonFeature('Content', 'Any widget tree', 'Text message (String)'),
-              _buildComparisonFeature('Theming', 'No theme integration', 'Uses TooltipThemeData'),
-              _buildComparisonFeature('Semantics', 'semanticsTooltip property', 'message property'),
-              _buildComparisonFeature('Use case', 'Custom tooltip UIs', 'Standard Material tooltips'),
+              _buildComparisonFeature(
+                'Appearance',
+                'Custom via tooltipBuilder',
+                'Material-themed decoration',
+              ),
+              _buildComparisonFeature(
+                'Animation',
+                'Full AnimationStyle control',
+                'Default Material transitions',
+              ),
+              _buildComparisonFeature(
+                'Positioning',
+                'Custom positionDelegate',
+                'Built-in above/below logic',
+              ),
+              _buildComparisonFeature(
+                'Content',
+                'Any widget tree',
+                'Text message (String)',
+              ),
+              _buildComparisonFeature(
+                'Theming',
+                'No theme integration',
+                'Uses TooltipThemeData',
+              ),
+              _buildComparisonFeature(
+                'Semantics',
+                'semanticsTooltip property',
+                'message property',
+              ),
+              _buildComparisonFeature(
+                'Use case',
+                'Custom tooltip UIs',
+                'Standard Material tooltips',
+              ),
             ],
           ),
         ),
@@ -1097,46 +1258,114 @@ dynamic build(BuildContext context) {
         Divider(height: 16.0),
         Text(
           'Required Parameters',
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('semanticsTooltip', 'String?', 'Accessibility text for screen readers'),
-        _buildApiRow('tooltipBuilder', 'TooltipComponentBuilder', 'Builds tooltip overlay content'),
+        _buildApiRow(
+          'semanticsTooltip',
+          'String?',
+          'Accessibility text for screen readers',
+        ),
+        _buildApiRow(
+          'tooltipBuilder',
+          'TooltipComponentBuilder',
+          'Builds tooltip overlay content',
+        ),
         _buildApiRow('child', 'Widget', 'Trigger widget'),
         Divider(height: 16.0),
         Text(
           'Optional Timing',
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('hoverDelay', 'Duration', 'Delay before hover shows tooltip (0ms)'),
-        _buildApiRow('touchDelay', 'Duration', 'Tooltip visible after touch release (1500ms)'),
-        _buildApiRow('dismissDelay', 'Duration', 'Delay before hover dismisses tooltip (100ms)'),
+        _buildApiRow(
+          'hoverDelay',
+          'Duration',
+          'Delay before hover shows tooltip (0ms)',
+        ),
+        _buildApiRow(
+          'touchDelay',
+          'Duration',
+          'Tooltip visible after touch release (1500ms)',
+        ),
+        _buildApiRow(
+          'dismissDelay',
+          'Duration',
+          'Delay before hover dismisses tooltip (100ms)',
+        ),
         Divider(height: 16.0),
         Text(
           'Optional Behavior',
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('triggerMode', 'TooltipTriggerMode', 'manual / longPress / tap'),
-        _buildApiRow('enableTapToDismiss', 'bool', 'Dismiss on outside tap (true)'),
-        _buildApiRow('enableFeedback', 'bool', 'Haptic/acoustic feedback (true)'),
-        _buildApiRow('onTriggered', 'VoidCallback?', 'Called when tooltip triggers'),
+        _buildApiRow(
+          'triggerMode',
+          'TooltipTriggerMode',
+          'manual / longPress / tap',
+        ),
+        _buildApiRow(
+          'enableTapToDismiss',
+          'bool',
+          'Dismiss on outside tap (true)',
+        ),
+        _buildApiRow(
+          'enableFeedback',
+          'bool',
+          'Haptic/acoustic feedback (true)',
+        ),
+        _buildApiRow(
+          'onTriggered',
+          'VoidCallback?',
+          'Called when tooltip triggers',
+        ),
         Divider(height: 16.0),
         Text(
           'Animation & Positioning',
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('animationStyle', 'AnimationStyle', 'Curve/duration for show/hide'),
-        _buildApiRow('positionDelegate', 'TooltipPositionDelegate?', 'Custom positioning callback'),
+        _buildApiRow(
+          'animationStyle',
+          'AnimationStyle',
+          'Curve/duration for show/hide',
+        ),
+        _buildApiRow(
+          'positionDelegate',
+          'TooltipPositionDelegate?',
+          'Custom positioning callback',
+        ),
         Divider(height: 16.0),
         Text(
           'Static Methods',
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600, color: Color(0xFF424242)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF424242),
+          ),
         ),
         SizedBox(height: 6.0),
-        _buildApiRow('dismissAllToolTips()', 'bool', 'Dismiss all visible tooltips'),
+        _buildApiRow(
+          'dismissAllToolTips()',
+          'bool',
+          'Dismiss all visible tooltips',
+        ),
       ],
     ),
   );
@@ -1218,7 +1447,11 @@ Widget _buildConceptChip(String label, IconData icon, Color color) {
         SizedBox(width: 4.0),
         Text(
           label,
-          style: TextStyle(fontSize: 11.0, color: color, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: color,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     ),
@@ -1266,7 +1499,11 @@ Widget _buildParamCard(
               ),
               child: Text(
                 requirement,
-                style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.bold, color: color),
+                style: TextStyle(
+                  fontSize: 9.0,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
               ),
             ),
           ],
@@ -1274,12 +1511,20 @@ Widget _buildParamCard(
         SizedBox(height: 4.0),
         Text(
           type,
-          style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Color(0xFF757575)),
+          style: TextStyle(
+            fontSize: 11.0,
+            fontFamily: 'monospace',
+            color: Color(0xFF757575),
+          ),
         ),
         SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(fontSize: 12.0, color: Color(0xFF424242), height: 1.4),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Color(0xFF424242),
+            height: 1.4,
+          ),
         ),
         SizedBox(height: 8.0),
         Container(
@@ -1291,7 +1536,11 @@ Widget _buildParamCard(
           ),
           child: Text(
             code,
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF80CBC4)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80CBC4),
+            ),
           ),
         ),
       ],
@@ -1329,12 +1578,20 @@ Widget _buildTriggerCard(
         Text(
           description,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10.0, color: Color(0xFF616161), height: 1.3),
+          style: TextStyle(
+            fontSize: 10.0,
+            color: Color(0xFF616161),
+            height: 1.3,
+          ),
         ),
         SizedBox(height: 6.0),
         Text(
           enumValue,
-          style: TextStyle(fontSize: 8.0, fontFamily: 'monospace', color: color.withValues(alpha: 0.6)),
+          style: TextStyle(
+            fontSize: 8.0,
+            fontFamily: 'monospace',
+            color: color.withValues(alpha: 0.6),
+          ),
         ),
       ],
     ),
@@ -1359,7 +1616,11 @@ Widget _buildTimingRow(
         ),
         child: Text(
           shortValue,
-          style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 10.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
       SizedBox(width: 10.0),
@@ -1393,7 +1654,11 @@ Widget _buildTimingRow(
             SizedBox(height: 4.0),
             Text(
               description,
-              style: TextStyle(fontSize: 11.0, color: Color(0xFF424242), height: 1.3),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Color(0xFF424242),
+                height: 1.3,
+              ),
             ),
           ],
         ),
@@ -1412,10 +1677,7 @@ Widget _buildTimelineStep(String event, String result, Color color) {
           width: 8.0,
           height: 8.0,
           margin: EdgeInsets.only(top: 4.0),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8.0),
         Expanded(
@@ -1465,7 +1727,11 @@ Widget _buildAnimationPatternCard(
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: color),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1482,7 +1748,11 @@ Widget _buildAnimationPatternCard(
           ),
           child: Text(
             code,
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF80CBC4)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF80CBC4),
+            ),
           ),
         ),
       ],
@@ -1490,7 +1760,12 @@ Widget _buildAnimationPatternCard(
   );
 }
 
-Widget _buildAnimConfigItem(String label, String value, String description, Color color) {
+Widget _buildAnimConfigItem(
+  String label,
+  String value,
+  String description,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(8.0),
     decoration: BoxDecoration(
@@ -1513,7 +1788,11 @@ Widget _buildAnimConfigItem(String label, String value, String description, Colo
         SizedBox(height: 2.0),
         Text(
           value,
-          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+          style: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF212121),
+          ),
         ),
         SizedBox(height: 2.0),
         Text(
@@ -1525,7 +1804,11 @@ Widget _buildAnimConfigItem(String label, String value, String description, Colo
   );
 }
 
-Widget _buildLiveExampleWrapper(String title, String description, Widget example) {
+Widget _buildLiveExampleWrapper(
+  String title,
+  String description,
+  Widget example,
+) {
   return Container(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
@@ -1538,7 +1821,11 @@ Widget _buildLiveExampleWrapper(String title, String description, Widget example
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF212121),
+          ),
         ),
         SizedBox(height: 4.0),
         Text(
@@ -1574,7 +1861,11 @@ Widget _buildPositionProp(String name, String type, String description) {
           width: 50.0,
           child: Text(
             type,
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF757575)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF757575),
+            ),
           ),
         ),
         Expanded(
@@ -1588,7 +1879,13 @@ Widget _buildPositionProp(String name, String type, String description) {
   );
 }
 
-Widget _buildBehaviorCard(String name, String type, String description, IconData icon, Color color) {
+Widget _buildBehaviorCard(
+  String name,
+  String type,
+  String description,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1617,12 +1914,20 @@ Widget _buildBehaviorCard(String name, String type, String description, IconData
               SizedBox(height: 2.0),
               Text(
                 type,
-                style: TextStyle(fontSize: 10.0, fontFamily: 'monospace', color: Color(0xFF757575)),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontFamily: 'monospace',
+                  color: Color(0xFF757575),
+                ),
               ),
               SizedBox(height: 6.0),
               Text(
                 description,
-                style: TextStyle(fontSize: 11.0, color: Color(0xFF424242), height: 1.3),
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: Color(0xFF424242),
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -1651,7 +1956,11 @@ Widget _buildCodeSnippetCard(String code) {
   );
 }
 
-Widget _buildComparisonFeature(String feature, String rawTooltip, String tooltip) {
+Widget _buildComparisonFeature(
+  String feature,
+  String rawTooltip,
+  String tooltip,
+) {
   return Padding(
     padding: EdgeInsets.only(bottom: 6.0),
     child: Row(
@@ -1660,7 +1969,11 @@ Widget _buildComparisonFeature(String feature, String rawTooltip, String tooltip
           width: 80.0,
           child: Text(
             feature,
-            style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Color(0xFF424242)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF424242),
+            ),
           ),
         ),
         Expanded(
@@ -1670,7 +1983,10 @@ Widget _buildComparisonFeature(String feature, String rawTooltip, String tooltip
               color: Color(0xFFE0F2F1),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(rawTooltip, style: TextStyle(fontSize: 10.0, color: Color(0xFF006064))),
+            child: Text(
+              rawTooltip,
+              style: TextStyle(fontSize: 10.0, color: Color(0xFF006064)),
+            ),
           ),
         ),
         SizedBox(width: 4.0),
@@ -1681,7 +1997,10 @@ Widget _buildComparisonFeature(String feature, String rawTooltip, String tooltip
               color: Color(0xFFE3F2FD),
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(tooltip, style: TextStyle(fontSize: 10.0, color: Color(0xFF0D47A1))),
+            child: Text(
+              tooltip,
+              style: TextStyle(fontSize: 10.0, color: Color(0xFF0D47A1)),
+            ),
           ),
         ),
       ],
@@ -1711,7 +2030,11 @@ Widget _buildApiRow(String param, String type, String description) {
           width: 80.0,
           child: Text(
             type,
-            style: TextStyle(fontSize: 9.0, fontFamily: 'monospace', color: Color(0xFF757575)),
+            style: TextStyle(
+              fontSize: 9.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF757575),
+            ),
           ),
         ),
         Expanded(

@@ -2,11 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-enum _IndicatorFamily {
-  paddle,
-  roundedRect,
-  rectangular,
-}
+enum _IndicatorFamily { paddle, roundedRect, rectangular }
 
 class _IndicatorPreset {
   const _IndicatorPreset({
@@ -362,7 +358,10 @@ dynamic build(BuildContext context) {
   }
 
   void pushTimeline(String title, String detail, Color color) {
-    timeline.insert(0, _TimelineItem(title: title, detail: detail, color: color));
+    timeline.insert(
+      0,
+      _TimelineItem(title: title, detail: detail, color: color),
+    );
     if (timeline.length > 36) {
       timeline.removeLast();
     }
@@ -387,7 +386,10 @@ dynamic build(BuildContext context) {
     }
   }
 
-  SliderThemeData themeForPreset(_IndicatorPreset preset, {bool emphasize = false}) {
+  SliderThemeData themeForPreset(
+    _IndicatorPreset preset, {
+    bool emphasize = false,
+  }) {
     final double resolvedHeight = emphasize ? trackHeight + 1.2 : trackHeight;
     final Color active = highContrastIndicators
         ? preset.primary.withValues(alpha: 1)
@@ -434,7 +436,8 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget sectionTitle(_IndicatorPreset selected, {
+  Widget sectionTitle(
+    _IndicatorPreset selected, {
     required String title,
     required String subtitle,
     required IconData icon,
@@ -467,10 +470,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: TextStyle(
-                  color: Colors.blueGrey.shade700,
-                  height: 1.3,
-                ),
+                style: TextStyle(color: Colors.blueGrey.shade700, height: 1.3),
               ),
             ],
           ),
@@ -504,18 +504,12 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Text(
                   label,
-                  style: TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
                 ),
               ),
               Text(
                 valueLabel,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(color: color, fontWeight: FontWeight.w800),
               ),
             ],
           ),
@@ -526,7 +520,8 @@ dynamic build(BuildContext context) {
               thumbColor: color,
               overlayColor: color.withValues(alpha: 0.14),
               showValueIndicator: ShowValueIndicator.onDrag,
-              rangeValueIndicatorShape: const PaddleRangeSliderValueIndicatorShape(),
+              rangeValueIndicatorShape:
+                  const PaddleRangeSliderValueIndicatorShape(),
             ),
             child: Slider(
               min: min,
@@ -563,10 +558,23 @@ dynamic build(BuildContext context) {
     final List<Widget> tableRows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(flex: 2, child: cell('Signal', tint: const Color(0xFFF2F7FF), header: true)),
-          Expanded(child: cell('Paddle', tint: const Color(0xFFF2F7FF), header: true)),
-          Expanded(child: cell('Rounded', tint: const Color(0xFFF2F7FF), header: true)),
-          Expanded(child: cell('Rectangular', tint: const Color(0xFFF2F7FF), header: true)),
+          Expanded(
+            flex: 2,
+            child: cell('Signal', tint: const Color(0xFFF2F7FF), header: true),
+          ),
+          Expanded(
+            child: cell('Paddle', tint: const Color(0xFFF2F7FF), header: true),
+          ),
+          Expanded(
+            child: cell('Rounded', tint: const Color(0xFFF2F7FF), header: true),
+          ),
+          Expanded(
+            child: cell(
+              'Rectangular',
+              tint: const Color(0xFFF2F7FF),
+              header: true,
+            ),
+          ),
         ],
       ),
     ];
@@ -575,7 +583,14 @@ dynamic build(BuildContext context) {
       tableRows.add(
         Row(
           children: <Widget>[
-            Expanded(flex: 2, child: cell(row.caption, tint: const Color(0xFFFBFDFF), header: true)),
+            Expanded(
+              flex: 2,
+              child: cell(
+                row.caption,
+                tint: const Color(0xFFFBFDFF),
+                header: true,
+              ),
+            ),
             Expanded(child: cell(row.paddle)),
             Expanded(child: cell(row.rounded)),
             Expanded(child: cell(row.rectangular)),
@@ -606,56 +621,58 @@ dynamic build(BuildContext context) {
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: items.map((item) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: item.color.withValues(alpha: 0.35)),
-            color: item.color.withValues(alpha: 0.08),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 10,
-                height: 10,
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(
-                  color: item.color,
-                  shape: BoxShape.circle,
+    return SingleChildScrollView(
+      child: Column(
+        children: items.map((item) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: item.color.withValues(alpha: 0.35)),
+              color: item.color.withValues(alpha: 0.08),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: BoxDecoration(
+                    color: item.color,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      item.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: item.color,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: item.color,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      item.detail,
-                      style: TextStyle(
-                        color: Colors.blueGrey.shade800,
-                        height: 1.32,
+                      const SizedBox(height: 2),
+                      Text(
+                        item.detail,
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.32,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget consolePanel(List<String> entries) {
@@ -750,10 +767,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             scenario.subtitle,
-            style: const TextStyle(
-              color: Color(0xFFE3ECFF),
-              height: 1.3,
-            ),
+            style: const TextStyle(color: Color(0xFFE3ECFF), height: 1.3),
           ),
           const SizedBox(height: 10),
           Text(
@@ -769,7 +783,10 @@ dynamic build(BuildContext context) {
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              pill('Range', '${fmt(scenario.values.start)}-${fmt(scenario.values.end)}${scenario.unit}'),
+              pill(
+                'Range',
+                '${fmt(scenario.values.start)}-${fmt(scenario.values.end)}${scenario.unit}',
+              ),
               pill('Divisions', '${scenario.divisions}'),
               pill('Style', preset.title),
             ],
@@ -786,7 +803,8 @@ dynamic build(BuildContext context) {
                   values = scenario.values;
                   divisions = scenario.divisions;
                   trackHeight = preset.trackHeight;
-                  darkCanvas = scenario.gradient.first.computeLuminance() < 0.22;
+                  darkCanvas =
+                      scenario.gradient.first.computeLuminance() < 0.22;
                   scenarioLoads += 1;
                 });
                 logMessage('Loaded scenario ${scenario.title}.');
@@ -874,13 +892,17 @@ dynamic build(BuildContext context) {
                       setState(() {
                         values = v;
                       });
-                      logMessage('Panel "$title" values changed to ${fmt(v.start)}-${fmt(v.end)}.');
+                      logMessage(
+                        'Panel "$title" values changed to ${fmt(v.start)}-${fmt(v.end)}.',
+                      );
                     }
                   : null,
               onChangeStart: enabled
                   ? (RangeValues v) {
                       dragStarts += 1;
-                      logMessage('Drag started at ${fmt(v.start)}-${fmt(v.end)} in "$title".');
+                      logMessage(
+                        'Drag started at ${fmt(v.start)}-${fmt(v.end)} in "$title".',
+                      );
                     }
                   : null,
               onChangeEnd: enabled
@@ -891,7 +913,9 @@ dynamic build(BuildContext context) {
                         '$title -> ${fmt(v.start)} to ${fmt(v.end)}',
                         sliderTheme.activeTrackColor ?? const Color(0xFF1565C0),
                       );
-                      logMessage('Drag ended at ${fmt(v.start)}-${fmt(v.end)} in "$title".');
+                      logMessage(
+                        'Drag ended at ${fmt(v.start)}-${fmt(v.end)} in "$title".',
+                      );
                     }
                   : null,
             ),
@@ -940,14 +964,46 @@ dynamic build(BuildContext context) {
       final double discreteStep = (max - min) / safeDivisions;
 
       final List<_QuickMetric> metrics = <_QuickMetric>[
-        _QuickMetric(label: 'Start', value: fmt(values.start), color: selected.primary),
-        _QuickMetric(label: 'End', value: fmt(values.end), color: selected.secondary),
-        _QuickMetric(label: 'Span', value: fmt(span), color: const Color(0xFF6A1B9A)),
-        _QuickMetric(label: 'Divisions', value: '$divisions', color: const Color(0xFF2E7D32)),
-        _QuickMetric(label: 'Step', value: fmt(discreteStep), color: const Color(0xFFE65100)),
-        _QuickMetric(label: 'Scenario loads', value: '$scenarioLoads', color: const Color(0xFF455A64)),
-        _QuickMetric(label: 'Drag starts', value: '$dragStarts', color: const Color(0xFFAD1457)),
-        _QuickMetric(label: 'Drag ends', value: '$dragEnds', color: const Color(0xFF283593)),
+        _QuickMetric(
+          label: 'Start',
+          value: fmt(values.start),
+          color: selected.primary,
+        ),
+        _QuickMetric(
+          label: 'End',
+          value: fmt(values.end),
+          color: selected.secondary,
+        ),
+        _QuickMetric(
+          label: 'Span',
+          value: fmt(span),
+          color: const Color(0xFF6A1B9A),
+        ),
+        _QuickMetric(
+          label: 'Divisions',
+          value: '$divisions',
+          color: const Color(0xFF2E7D32),
+        ),
+        _QuickMetric(
+          label: 'Step',
+          value: fmt(discreteStep),
+          color: const Color(0xFFE65100),
+        ),
+        _QuickMetric(
+          label: 'Scenario loads',
+          value: '$scenarioLoads',
+          color: const Color(0xFF455A64),
+        ),
+        _QuickMetric(
+          label: 'Drag starts',
+          value: '$dragStarts',
+          color: const Color(0xFFAD1457),
+        ),
+        _QuickMetric(
+          label: 'Drag ends',
+          value: '$dragEnds',
+          color: const Color(0xFF283593),
+        ),
       ];
 
       return Container(
@@ -1013,7 +1069,10 @@ dynamic build(BuildContext context) {
                       pill('Preset', selected.title),
                       pill('Family', selectedFamily.name),
                       pill('Range', '${fmt(min)}..${fmt(max)}'),
-                      pill('Current', '${fmt(values.start)} -> ${fmt(values.end)}'),
+                      pill(
+                        'Current',
+                        '${fmt(values.start)} -> ${fmt(values.end)}',
+                      ),
                       pill('Track height', fmt(trackHeight)),
                     ],
                   ),
@@ -1124,11 +1183,16 @@ dynamic build(BuildContext context) {
                     children: metrics.map((metric) {
                       return Container(
                         width: 132,
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
                           color: metric.color.withValues(alpha: 0.1),
-                          border: Border.all(color: metric.color.withValues(alpha: 0.35)),
+                          border: Border.all(
+                            color: metric.color.withValues(alpha: 0.35),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1230,7 +1294,9 @@ dynamic build(BuildContext context) {
                                   setState(() {
                                     values = RangeValues(v, values.end);
                                   });
-                                  logMessage('Start adjusted manually to ${fmt(v)}.');
+                                  logMessage(
+                                    'Start adjusted manually to ${fmt(v)}.',
+                                  );
                                 }
                               : null,
                           color: const Color(0xFF8E24AA),
@@ -1250,7 +1316,9 @@ dynamic build(BuildContext context) {
                                   setState(() {
                                     values = RangeValues(values.start, v);
                                   });
-                                  logMessage('End adjusted manually to ${fmt(v)}.');
+                                  logMessage(
+                                    'End adjusted manually to ${fmt(v)}.',
+                                  );
                                 }
                               : null,
                           color: const Color(0xFFE65100),
@@ -1265,72 +1333,46 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: enabled,
-                          title: const Text('Enable interaction'),
-                          subtitle: const Text('Disables all preview sliders when off.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              enabled = v;
-                            });
-                            logMessage(v ? 'Interaction enabled.' : 'Interaction disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: darkCanvas,
-                          title: const Text('Dark preview canvas'),
-                          subtitle: const Text('Simulate dark-themed product surfaces.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              darkCanvas = v;
-                            });
-                            logMessage(v ? 'Dark canvas enabled.' : 'Dark canvas disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: denseLabels,
-                          title: const Text('Dense label mode'),
-                          subtitle: const Text('Adds stronger panel hints and compact visual rhythm.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              denseLabels = v;
-                            });
-                            logMessage(v ? 'Dense label mode enabled.' : 'Dense label mode disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: enabled,
+                            title: const Text('Enable interaction'),
+                            subtitle: const Text(
+                              'Disables all preview sliders when off.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                enabled = v;
+                              });
+                              logMessage(
+                                v
+                                    ? 'Interaction enabled.'
+                                    : 'Interaction disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showMilestones,
-                          title: const Text('Milestone hints'),
-                          subtitle: const Text('Show quarter markers in diagnostics canvas.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              showMilestones = v;
-                            });
-                            logMessage(v ? 'Milestones shown.' : 'Milestones hidden.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: darkCanvas,
+                            title: const Text('Dark preview canvas'),
+                            subtitle: const Text(
+                              'Simulate dark-themed product surfaces.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                darkCanvas = v;
+                              });
+                              logMessage(
+                                v
+                                    ? 'Dark canvas enabled.'
+                                    : 'Dark canvas disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1341,34 +1383,94 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: highContrastIndicators,
-                          title: const Text('High contrast indicators'),
-                          subtitle: const Text('Boost indicator emphasis for accessibility checks.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              highContrastIndicators = v;
-                            });
-                            logMessage(v ? 'High contrast mode enabled.' : 'High contrast mode disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: denseLabels,
+                            title: const Text('Dense label mode'),
+                            subtitle: const Text(
+                              'Adds stronger panel hints and compact visual rhythm.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                denseLabels = v;
+                              });
+                              logMessage(
+                                v
+                                    ? 'Dense label mode enabled.'
+                                    : 'Dense label mode disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showThirdPreview,
-                          title: const Text('Comparison preview'),
-                          subtitle: const Text('Show a second style baseline for quick A/B reading.'),
-                          onChanged: (bool v) {
-                            setState(() {
-                              showThirdPreview = v;
-                            });
-                            logMessage(v ? 'Comparison preview enabled.' : 'Comparison preview hidden.');
-                          },
+                            contentPadding: EdgeInsets.zero,
+                            value: showMilestones,
+                            title: const Text('Milestone hints'),
+                            subtitle: const Text(
+                              'Show quarter markers in diagnostics canvas.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                showMilestones = v;
+                              });
+                              logMessage(
+                                v ? 'Milestones shown.' : 'Milestones hidden.',
+                              );
+                            },
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: highContrastIndicators,
+                            title: const Text('High contrast indicators'),
+                            subtitle: const Text(
+                              'Boost indicator emphasis for accessibility checks.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                highContrastIndicators = v;
+                              });
+                              logMessage(
+                                v
+                                    ? 'High contrast mode enabled.'
+                                    : 'High contrast mode disabled.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showThirdPreview,
+                            title: const Text('Comparison preview'),
+                            subtitle: const Text(
+                              'Show a second style baseline for quick A/B reading.',
+                            ),
+                            onChanged: (bool v) {
+                              setState(() {
+                                showThirdPreview = v;
+                              });
+                              logMessage(
+                                v
+                                    ? 'Comparison preview enabled.'
+                                    : 'Comparison preview hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1387,7 +1489,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 10),
             previewPanel(
               title: 'Primary Theme Preview',
-              subtitle: 'Current selected indicator family with default styling.',
+              subtitle:
+                  'Current selected indicator family with default styling.',
               sliderTheme: themeForPreset(selected),
               gradient: darkCanvas
                   ? <Color>[const Color(0xFF101820), const Color(0xFF1D2D44)]
@@ -1400,7 +1503,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             previewPanel(
               title: 'High Contrast Preview',
-              subtitle: 'Same values with stronger label contrast for accessibility and low-light conditions.',
+              subtitle:
+                  'Same values with stronger label contrast for accessibility and low-light conditions.',
               sliderTheme: themeForPreset(selected, emphasize: true),
               gradient: darkCanvas
                   ? <Color>[const Color(0xFF0B0F1A), const Color(0xFF1E293B)]
@@ -1414,8 +1518,11 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               previewPanel(
                 title: 'Rounded Baseline Preview',
-                subtitle: 'Reference panel using rounded-rect indicator for comparative reading.',
-                sliderTheme: themeForPreset(presetByFamily(_IndicatorFamily.roundedRect)),
+                subtitle:
+                    'Reference panel using rounded-rect indicator for comparative reading.',
+                sliderTheme: themeForPreset(
+                  presetByFamily(_IndicatorFamily.roundedRect),
+                ),
                 gradient: darkCanvas
                     ? <Color>[const Color(0xFF132A13), const Color(0xFF1B4332)]
                     : <Color>[const Color(0xFFF3FFF7), const Color(0xFFE9FFF0)],
@@ -1436,7 +1543,10 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 10),
             Wrap(
               children: scenarios
-                  .map((scenario) => scenarioCard(scenario, selectedFamily, setState))
+                  .map(
+                    (scenario) =>
+                        scenarioCard(scenario, selectedFamily, setState),
+                  )
                   .toList(),
             ),
             const SizedBox(height: 18),
@@ -1512,7 +1622,9 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: note.color.withValues(alpha: 0.26)),
+                    border: Border.all(
+                      color: note.color.withValues(alpha: 0.26),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1686,7 +1798,12 @@ class _IndicatorDiagnosticsPainter extends CustomPainter {
     );
 
     final double railHeight = trackHeight.clamp(2, 18);
-    final Rect rail = Rect.fromLTWH(24, size.height * 0.62, size.width - 48, railHeight);
+    final Rect rail = Rect.fromLTWH(
+      24,
+      size.height * 0.62,
+      size.width - 48,
+      railHeight,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(rail, const Radius.circular(999)),
       Paint()..color = const Color(0xFFC7D4E7),
@@ -1710,7 +1827,8 @@ class _IndicatorDiagnosticsPainter extends CustomPainter {
     final int safeDivisions = math.max(1, divisions);
     for (int i = 0; i <= safeDivisions; i++) {
       final double x = rail.left + rail.width * (i / safeDivisions);
-      final bool milestone = showMilestones &&
+      final bool milestone =
+          showMilestones &&
           safeDivisions >= 4 &&
           i % (safeDivisions ~/ 4 == 0 ? 1 : safeDivisions ~/ 4) == 0;
       final double h = milestone ? 16 : 9;
@@ -1743,7 +1861,8 @@ class _IndicatorDiagnosticsPainter extends CustomPainter {
     final String familyName = family.name;
     final TextPainter top = TextPainter(
       text: TextSpan(
-        text: '${preset.title} | family=$familyName | divisions=$divisions | rail=${trackHeight.toStringAsFixed(1)}',
+        text:
+            '${preset.title} | family=$familyName | divisions=$divisions | rail=${trackHeight.toStringAsFixed(1)}',
         style: const TextStyle(
           color: Color(0xFF294172),
           fontWeight: FontWeight.w700,
@@ -1798,8 +1917,16 @@ class _IndicatorDiagnosticsPainter extends CustomPainter {
       canvas.drawPath(tail, Paint()..color = color);
     }
 
-    paintBubble(Offset(sx, rail.top), startLabel, preset.primary.withValues(alpha: 0.92));
-    paintBubble(Offset(ex, rail.top), endLabel, preset.primary.withValues(alpha: 0.82));
+    paintBubble(
+      Offset(sx, rail.top),
+      startLabel,
+      preset.primary.withValues(alpha: 0.92),
+    );
+    paintBubble(
+      Offset(ex, rail.top),
+      endLabel,
+      preset.primary.withValues(alpha: 0.82),
+    );
 
     final TextPainter footer = TextPainter(
       text: TextSpan(

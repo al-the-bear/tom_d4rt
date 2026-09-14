@@ -29,7 +29,11 @@ Widget _tvSection(String title, List<Widget> children) {
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: _tvLightGreen, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Color(0x1A1B5E20), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x1A1B5E20),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -41,9 +45,14 @@ Widget _tvSection(String title, List<Widget> children) {
             color: _tvPine,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _tvWhite, fontSize: 15, fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _tvWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -55,17 +64,24 @@ Widget _tvSection(String title, List<Widget> children) {
 Widget _tvLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _tvDarkForest, fontSize: 13, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _tvDarkForest,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _tvBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(color: _tvGray, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _tvGray, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -78,8 +94,10 @@ Widget _tvChip(String label, Color color) {
       borderRadius: BorderRadius.circular(14),
       border: Border.all(color: color.withValues(alpha: 0.5)),
     ),
-    child: Text(label,
-        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      label,
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -91,13 +109,20 @@ Widget _tvInfoRow(String key, String value) {
       children: [
         SizedBox(
           width: 130,
-          child: Text(key,
-              style: const TextStyle(
-                  color: _tvDarkForest, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: _tvDarkForest,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: const TextStyle(color: _tvGray, fontSize: 12)),
+          child: Text(
+            value,
+            style: const TextStyle(color: _tvGray, fontSize: 12),
+          ),
         ),
       ],
     ),
@@ -176,17 +201,26 @@ Widget _buildBanner() {
       ),
       borderRadius: BorderRadius.circular(16),
       boxShadow: const [
-        BoxShadow(color: Color(0x401B5E20), blurRadius: 12, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x401B5E20),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
       ],
     ),
     child: Column(
       children: [
         const Icon(Icons.texture, size: 52, color: _tvWhite),
         const SizedBox(height: 12),
-        const Text('TextureAndroidViewController',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                color: _tvWhite, fontSize: 20, fontWeight: FontWeight.w800)),
+        const Text(
+          'TextureAndroidViewController',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _tvWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
@@ -247,9 +281,21 @@ Widget _buildWhatIsIt() {
         children: [
           _buildHierarchyItem('PlatformViewController', _tvGray, 0),
           _buildHierarchyItem('├── AndroidViewController', _tvMedGreen, 1),
-          _buildHierarchyItem('│   ├── SurfaceAndroidViewController', _tvGray, 2),
-          _buildHierarchyItem('│   ├── TextureAndroidViewController  ★', _tvPine, 2),
-          _buildHierarchyItem('│   └── HybridAndroidViewController', _tvGray, 2),
+          _buildHierarchyItem(
+            '│   ├── SurfaceAndroidViewController',
+            _tvGray,
+            2,
+          ),
+          _buildHierarchyItem(
+            '│   ├── TextureAndroidViewController  ★',
+            _tvPine,
+            2,
+          ),
+          _buildHierarchyItem(
+            '│   └── HybridAndroidViewController',
+            _tvGray,
+            2,
+          ),
           _buildHierarchyItem('└── UiKitViewController', _tvGray, 1),
         ],
       ),
@@ -260,12 +306,15 @@ Widget _buildWhatIsIt() {
 Widget _buildHierarchyItem(String text, Color color, int indent) {
   return Padding(
     padding: EdgeInsets.only(left: indent * 10.0, bottom: 3),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 11.5,
-            fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -299,33 +348,52 @@ Widget _buildVirtualDisplay() {
       ),
       child: Column(
         children: [
-          _buildVDComponent('VirtualDisplay', 'Off-screen display surface',
-              Icons.monitor, _tvPine),
+          _buildVDComponent(
+            'VirtualDisplay',
+            'Off-screen display surface',
+            Icons.monitor,
+            _tvPine,
+          ),
           const SizedBox(height: 6),
           Row(
             children: [
               const SizedBox(width: 20),
-              Expanded(child: _buildVDComponent('Presentation',
+              Expanded(
+                child: _buildVDComponent(
+                  'Presentation',
                   'Window attached to VirtualDisplay',
-                  Icons.window, _tvMedGreen)),
+                  Icons.window,
+                  _tvMedGreen,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
           Row(
             children: [
               const SizedBox(width: 40),
-              Expanded(child: _buildVDComponent('Native View',
+              Expanded(
+                child: _buildVDComponent(
+                  'Native View',
                   'The actual Android view rendering',
-                  Icons.widgets, _tvAccentBlue)),
+                  Icons.widgets,
+                  _tvAccentBlue,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
           Row(
             children: [
               const SizedBox(width: 20),
-              Expanded(child: _buildVDComponent('Surface / SurfaceTexture',
+              Expanded(
+                child: _buildVDComponent(
+                  'Surface / SurfaceTexture',
                   'Receives the rendered pixels',
-                  Icons.image, _tvAccentPurple)),
+                  Icons.image,
+                  _tvAccentPurple,
+                ),
+              ),
             ],
           ),
         ],
@@ -358,11 +426,18 @@ Widget _buildVDComponent(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _tvGray, fontSize: 10.5)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(color: _tvGray, fontSize: 10.5),
+              ),
             ],
           ),
         ),
@@ -390,20 +465,40 @@ Widget _buildSurfaceTexturePipeline() {
       ),
       child: Column(
         children: [
-          _buildPipeNode('Native View renders', 'Draw calls go to Surface',
-              Icons.brush, _tvPine),
+          _buildPipeNode(
+            'Native View renders',
+            'Draw calls go to Surface',
+            Icons.brush,
+            _tvPine,
+          ),
           _buildPipeArrow(),
-          _buildPipeNode('SurfaceTexture captures', 'Pixels stored as GL texture',
-              Icons.image, _tvMedGreen),
+          _buildPipeNode(
+            'SurfaceTexture captures',
+            'Pixels stored as GL texture',
+            Icons.image,
+            _tvMedGreen,
+          ),
           _buildPipeArrow(),
-          _buildPipeNode('updateTexImage()', 'Latest frame made available',
-              Icons.sync, _tvAccentBlue),
+          _buildPipeNode(
+            'updateTexImage()',
+            'Latest frame made available',
+            Icons.sync,
+            _tvAccentBlue,
+          ),
           _buildPipeArrow(),
-          _buildPipeNode('Flutter reads texture', 'GPU copy into Flutter\'s GL context',
-              Icons.copy, _tvAccentOrange),
+          _buildPipeNode(
+            'Flutter reads texture',
+            'GPU copy into Flutter\'s GL context',
+            Icons.copy,
+            _tvAccentOrange,
+          ),
           _buildPipeArrow(),
-          _buildPipeNode('Composited as TextureLayer', 'Appears in Flutter scene graph',
-              Icons.layers, _tvAccentPurple),
+          _buildPipeNode(
+            'Composited as TextureLayer',
+            'Appears in Flutter scene graph',
+            Icons.layers,
+            _tvAccentPurple,
+          ),
         ],
       ),
     ),
@@ -436,11 +531,18 @@ Widget _buildPipeNode(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _tvGray, fontSize: 10.5)),
+              Text(
+                name,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(color: _tvGray, fontSize: 10.5),
+              ),
             ],
           ),
         ),
@@ -469,24 +571,42 @@ Widget _buildCreationFlow() {
       'across Dart and the Android platform:',
     ),
     _tvDivider(),
-    _buildCreationStep(1, 'Register factory',
-        'Android: PlatformViewRegistry.registerViewFactory("type", factory)',
-        _tvPine),
-    _buildCreationStep(2, 'Dart requests view',
-        'PlatformViewsService.initAndroidView(viewType: "type", ...)',
-        _tvMedGreen),
-    _buildCreationStep(3, 'Engine creates VirtualDisplay',
-        'Off-screen display created at requested size',
-        _tvAccentBlue),
-    _buildCreationStep(4, 'Factory creates native view',
-        'View attached to VirtualDisplay\'s Presentation',
-        _tvAccentPurple),
-    _buildCreationStep(5, 'SurfaceTexture allocated',
-        'Texture buffer created, linked to VirtualDisplay\'s Surface',
-        _tvAccentOrange),
-    _buildCreationStep(6, 'Texture ID returned',
-        'Dart receives textureId for TextureLayer compositing',
-        _tvPine),
+    _buildCreationStep(
+      1,
+      'Register factory',
+      'Android: PlatformViewRegistry.registerViewFactory("type", factory)',
+      _tvPine,
+    ),
+    _buildCreationStep(
+      2,
+      'Dart requests view',
+      'PlatformViewsService.initAndroidView(viewType: "type", ...)',
+      _tvMedGreen,
+    ),
+    _buildCreationStep(
+      3,
+      'Engine creates VirtualDisplay',
+      'Off-screen display created at requested size',
+      _tvAccentBlue,
+    ),
+    _buildCreationStep(
+      4,
+      'Factory creates native view',
+      'View attached to VirtualDisplay\'s Presentation',
+      _tvAccentPurple,
+    ),
+    _buildCreationStep(
+      5,
+      'SurfaceTexture allocated',
+      'Texture buffer created, linked to VirtualDisplay\'s Surface',
+      _tvAccentOrange,
+    ),
+    _buildCreationStep(
+      6,
+      'Texture ID returned',
+      'Dart receives textureId for TextureLayer compositing',
+      _tvPine,
+    ),
     _tvDivider(),
     _tvLabel('initAndroidView Parameters'),
     _tvInfoRow('id', 'Unique view ID for platform channel messages'),
@@ -509,9 +629,14 @@ Widget _buildCreationStep(int num, String title, String desc, Color color) {
           height: 28,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: _tvWhite, fontSize: 12, fontWeight: FontWeight.w800)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: _tvWhite,
+                fontSize: 12,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -519,11 +644,15 @@ Widget _buildCreationStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      color: color, fontSize: 12, fontWeight: FontWeight.w700)),
-              Text(desc,
-                  style: const TextStyle(color: _tvGray, fontSize: 11)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(desc, style: const TextStyle(color: _tvGray, fontSize: 11)),
             ],
           ),
         ),
@@ -554,11 +683,19 @@ Widget _buildTextureCompositing() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildSceneItem('Scene', _tvGray, 0),
-          _buildSceneItem('├── PictureLayer (Flutter widgets above)', _tvGray, 1),
+          _buildSceneItem(
+            '├── PictureLayer (Flutter widgets above)',
+            _tvGray,
+            1,
+          ),
           _buildSceneItem('├── TextureLayer (platform view) ★', _tvPine, 1),
           _buildSceneItem('│   textureId: 42', _tvMedGreen, 2),
           _buildSceneItem('│   rect: (0, 200, 400, 500)', _tvMedGreen, 2),
-          _buildSceneItem('└── PictureLayer (Flutter widgets below)', _tvGray, 1),
+          _buildSceneItem(
+            '└── PictureLayer (Flutter widgets below)',
+            _tvGray,
+            1,
+          ),
         ],
       ),
     ),
@@ -584,12 +721,15 @@ Widget _buildTextureCompositing() {
 Widget _buildSceneItem(String text, Color color, int indent) {
   return Padding(
     padding: EdgeInsets.only(left: indent * 12.0, bottom: 3),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 11.5,
-            fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: text.contains('★') ? FontWeight.w700 : FontWeight.w500,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -608,31 +748,67 @@ Widget _buildClippingTransforms() {
     // Clipping demonstrations
     Row(
       children: [
-        Expanded(child: _buildTransformCard('Clip Rect',
-            Icons.crop, _tvPine, _buildClipRectDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Clip Rect',
+            Icons.crop,
+            _tvPine,
+            _buildClipRectDemo(),
+          ),
+        ),
         const SizedBox(width: 8),
-        Expanded(child: _buildTransformCard('Clip RRect',
-            Icons.rounded_corner, _tvMedGreen, _buildClipRRectDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Clip RRect',
+            Icons.rounded_corner,
+            _tvMedGreen,
+            _buildClipRRectDemo(),
+          ),
+        ),
       ],
     ),
     const SizedBox(height: 8),
     Row(
       children: [
-        Expanded(child: _buildTransformCard('Rotation',
-            Icons.rotate_right, _tvAccentBlue, _buildRotateDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Rotation',
+            Icons.rotate_right,
+            _tvAccentBlue,
+            _buildRotateDemo(),
+          ),
+        ),
         const SizedBox(width: 8),
-        Expanded(child: _buildTransformCard('Scale',
-            Icons.zoom_in, _tvAccentPurple, _buildScaleDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Scale',
+            Icons.zoom_in,
+            _tvAccentPurple,
+            _buildScaleDemo(),
+          ),
+        ),
       ],
     ),
     const SizedBox(height: 8),
     Row(
       children: [
-        Expanded(child: _buildTransformCard('Opacity',
-            Icons.opacity, _tvAccentOrange, _buildOpacityDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Opacity',
+            Icons.opacity,
+            _tvAccentOrange,
+            _buildOpacityDemo(),
+          ),
+        ),
         const SizedBox(width: 8),
-        Expanded(child: _buildTransformCard('Stacking',
-            Icons.layers, _tvGray, _buildStackDemo())),
+        Expanded(
+          child: _buildTransformCard(
+            'Stacking',
+            Icons.layers,
+            _tvGray,
+            _buildStackDemo(),
+          ),
+        ),
       ],
     ),
     _tvDivider(),
@@ -663,7 +839,11 @@ Widget _buildClippingTransforms() {
 }
 
 Widget _buildTransformCard(
-    String name, IconData icon, Color color, Widget demo) {
+  String name,
+  IconData icon,
+  Color color,
+  Widget demo,
+) {
   return Container(
     padding: const EdgeInsets.all(8),
     decoration: BoxDecoration(
@@ -677,9 +857,14 @@ Widget _buildTransformCard(
           children: [
             Icon(icon, size: 14, color: color),
             const SizedBox(width: 4),
-            Text(name,
-                style: TextStyle(
-                    color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(
+              name,
+              style: TextStyle(
+                color: color,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -706,7 +891,10 @@ Widget _buildClipRRectDemo() {
     child: Container(
       color: _tvMedGreen.withValues(alpha: 0.2),
       child: const Center(
-        child: Text('Rounded', style: TextStyle(color: _tvMedGreen, fontSize: 10)),
+        child: Text(
+          'Rounded',
+          style: TextStyle(color: _tvMedGreen, fontSize: 10),
+        ),
       ),
     ),
   );
@@ -721,7 +909,10 @@ Widget _buildRotateDemo() {
         height: 30,
         color: _tvAccentBlue.withValues(alpha: 0.2),
         child: const Center(
-          child: Text('15°', style: TextStyle(color: _tvAccentBlue, fontSize: 10)),
+          child: Text(
+            '15°',
+            style: TextStyle(color: _tvAccentBlue, fontSize: 10),
+          ),
         ),
       ),
     ),
@@ -735,7 +926,10 @@ Widget _buildScaleDemo() {
       child: Container(
         color: _tvAccentPurple.withValues(alpha: 0.2),
         child: const Center(
-          child: Text('0.8x', style: TextStyle(color: _tvAccentPurple, fontSize: 10)),
+          child: Text(
+            '0.8x',
+            style: TextStyle(color: _tvAccentPurple, fontSize: 10),
+          ),
         ),
       ),
     ),
@@ -754,7 +948,10 @@ Widget _buildOpacityDemo() {
             height: 30,
             color: _tvAccentOrange,
             child: const Center(
-              child: Text('50%', style: TextStyle(color: _tvWhite, fontSize: 9)),
+              child: Text(
+                '50%',
+                style: TextStyle(color: _tvWhite, fontSize: 9),
+              ),
             ),
           ),
         ),
@@ -792,25 +989,50 @@ Widget _buildPerformanceTradeoffs() {
       'flexibility:',
     ),
     _tvDivider(),
-    _buildTradeoffCard('GPU Copy Overhead', 'Every frame is copied from the '
-        'native SurfaceTexture into Flutter\'s GL context. This copy '
-        'costs time and GPU bandwidth.',
-        Icons.copy, _tvAccentOrange, '✗ Extra cost'),
-    _buildTradeoffCard('Memory Usage', 'Requires a texture buffer large '
-        'enough to hold the full view output. At 1080p with 4 bytes per '
-        'pixel = ~8MB per view.',
-        Icons.memory, _tvAccentRed, '✗ Higher'),
-    _buildTradeoffCard('Compositing Flexibility', 'Full support for '
-        'clipping, transforms, opacity, and layering with Flutter widgets.',
-        Icons.layers, _tvPine, '✓ Full'),
-    _buildTradeoffCard('Latency', 'One extra frame of latency due to '
-        'the texture copy step. Native rendering is one frame ahead of '
-        'Flutter display.',
-        Icons.timer, _tvAccentBlue, '~ Slight'),
-    _buildTradeoffCard('Thread Safety', 'VirtualDisplay rendering happens '
-        'on the platform thread. Heavy native views can compete with '
-        'Flutter\'s platform channel work.',
-        Icons.lan, _tvAccentPurple, '~ Consider'),
+    _buildTradeoffCard(
+      'GPU Copy Overhead',
+      'Every frame is copied from the '
+          'native SurfaceTexture into Flutter\'s GL context. This copy '
+          'costs time and GPU bandwidth.',
+      Icons.copy,
+      _tvAccentOrange,
+      '✗ Extra cost',
+    ),
+    _buildTradeoffCard(
+      'Memory Usage',
+      'Requires a texture buffer large '
+          'enough to hold the full view output. At 1080p with 4 bytes per '
+          'pixel = ~8MB per view.',
+      Icons.memory,
+      _tvAccentRed,
+      '✗ Higher',
+    ),
+    _buildTradeoffCard(
+      'Compositing Flexibility',
+      'Full support for '
+          'clipping, transforms, opacity, and layering with Flutter widgets.',
+      Icons.layers,
+      _tvPine,
+      '✓ Full',
+    ),
+    _buildTradeoffCard(
+      'Latency',
+      'One extra frame of latency due to '
+          'the texture copy step. Native rendering is one frame ahead of '
+          'Flutter display.',
+      Icons.timer,
+      _tvAccentBlue,
+      '~ Slight',
+    ),
+    _buildTradeoffCard(
+      'Thread Safety',
+      'VirtualDisplay rendering happens '
+          'on the platform thread. Heavy native views can compete with '
+          'Flutter\'s platform channel work.',
+      Icons.lan,
+      _tvAccentPurple,
+      '~ Consider',
+    ),
     _tvDivider(),
     _tvLabel('When to Use TextureAndroidViewController'),
     _tvBody(
@@ -824,7 +1046,12 @@ Widget _buildPerformanceTradeoffs() {
 }
 
 Widget _buildTradeoffCard(
-    String metric, String desc, IconData icon, Color color, String rating) {
+  String metric,
+  String desc,
+  IconData icon,
+  Color color,
+  String rating,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6),
     padding: const EdgeInsets.all(10),
@@ -843,26 +1070,37 @@ Widget _buildTradeoffCard(
             children: [
               Row(
                 children: [
-                  Text(metric,
-                      style: TextStyle(
-                          color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+                  Text(
+                    metric,
+                    style: TextStyle(
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(rating,
-                        style: TextStyle(
-                            color: color, fontSize: 10,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      rating,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 3),
-              Text(desc,
-                  style: const TextStyle(color: _tvGray, fontSize: 11)),
+              Text(desc, style: const TextStyle(color: _tvGray, fontSize: 11)),
             ],
           ),
         ),
@@ -883,22 +1121,57 @@ Widget _buildMemoryManagement() {
     ),
     _tvDivider(),
     _tvLabel('Memory Allocations'),
-    _buildMemRow('VirtualDisplay', '~2MB', 'Off-screen display metadata', _tvPine),
-    _buildMemRow('SurfaceTexture', '~8MB @1080p', 'Pixel buffer (RGBA)', _tvMedGreen),
-    _buildMemRow('Native View', 'Variable', 'View hierarchy + rendered content', _tvAccentBlue),
+    _buildMemRow(
+      'VirtualDisplay',
+      '~2MB',
+      'Off-screen display metadata',
+      _tvPine,
+    ),
+    _buildMemRow(
+      'SurfaceTexture',
+      '~8MB @1080p',
+      'Pixel buffer (RGBA)',
+      _tvMedGreen,
+    ),
+    _buildMemRow(
+      'Native View',
+      'Variable',
+      'View hierarchy + rendered content',
+      _tvAccentBlue,
+    ),
     _buildMemRow('Platform Channel', '~1KB', 'Message buffers', _tvGray),
     _tvDivider(),
     _tvLabel('Disposal Sequence'),
-    _buildCreationStep(1, 'dispose() called on controller',
-        'Starts the teardown process', _tvPine),
-    _buildCreationStep(2, 'Native view detached',
-        'View removed from VirtualDisplay presentation', _tvMedGreen),
-    _buildCreationStep(3, 'VirtualDisplay released',
-        'Off-screen display destroyed', _tvAccentBlue),
-    _buildCreationStep(4, 'SurfaceTexture released',
-        'GL texture and buffer freed', _tvAccentOrange),
-    _buildCreationStep(5, 'Texture ID unregistered',
-        'Flutter compositor stops referencing the texture', _tvAccentPurple),
+    _buildCreationStep(
+      1,
+      'dispose() called on controller',
+      'Starts the teardown process',
+      _tvPine,
+    ),
+    _buildCreationStep(
+      2,
+      'Native view detached',
+      'View removed from VirtualDisplay presentation',
+      _tvMedGreen,
+    ),
+    _buildCreationStep(
+      3,
+      'VirtualDisplay released',
+      'Off-screen display destroyed',
+      _tvAccentBlue,
+    ),
+    _buildCreationStep(
+      4,
+      'SurfaceTexture released',
+      'GL texture and buffer freed',
+      _tvAccentOrange,
+    ),
+    _buildCreationStep(
+      5,
+      'Texture ID unregistered',
+      'Flutter compositor stops referencing the texture',
+      _tvAccentPurple,
+    ),
     _tvDivider(),
     _tvLabel('Memory Leak Prevention'),
     _tvBody(
@@ -917,9 +1190,14 @@ Widget _buildMemRow(String label, String size, String note, Color color) {
       children: [
         SizedBox(
           width: 110,
-          child: Text(label,
-              style: TextStyle(
-                  color: color, fontSize: 12, fontWeight: FontWeight.w600)),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Container(
           width: 80,
@@ -928,15 +1206,22 @@ Widget _buildMemRow(String label, String size, String note, Color color) {
             color: color.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(size,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: color, fontSize: 11, fontWeight: FontWeight.w700)),
+          child: Text(
+            size,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: color,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(note,
-              style: const TextStyle(color: _tvGray, fontSize: 10)),
+          child: Text(
+            note,
+            style: const TextStyle(color: _tvGray, fontSize: 10),
+          ),
         ),
       ],
     ),
@@ -967,9 +1252,21 @@ Widget _buildAccessibility() {
           _buildAccessItem('Flutter Semantics Tree', _tvGray, false),
           _buildAccessItem('├── Flutter widget semantics', _tvGray, false),
           _buildAccessItem('├── Platform View Bridge ★', _tvPine, true),
-          _buildAccessItem('│   ├── Native AccessibilityNodeInfo', _tvMedGreen, false),
-          _buildAccessItem('│   ├── TalkBack focus handling', _tvMedGreen, false),
-          _buildAccessItem('│   └── Touch exploration routing', _tvMedGreen, false),
+          _buildAccessItem(
+            '│   ├── Native AccessibilityNodeInfo',
+            _tvMedGreen,
+            false,
+          ),
+          _buildAccessItem(
+            '│   ├── TalkBack focus handling',
+            _tvMedGreen,
+            false,
+          ),
+          _buildAccessItem(
+            '│   └── Touch exploration routing',
+            _tvMedGreen,
+            false,
+          ),
           _buildAccessItem('└── More Flutter semantics', _tvGray, false),
         ],
       ),
@@ -983,7 +1280,10 @@ Widget _buildAccessibility() {
       '• Screen reader announcements need coordination',
     ),
     _tvDivider(),
-    _tvInfoRow('AccessibilityBridge', 'Translates between Flutter and Android a11y'),
+    _tvInfoRow(
+      'AccessibilityBridge',
+      'Translates between Flutter and Android a11y',
+    ),
     _tvInfoRow('AccessibilityDelegate', 'Handles native view\'s a11y events'),
     _tvInfoRow('SemanticsNode', 'Flutter side of platform view semantics'),
   ]);
@@ -992,12 +1292,15 @@ Widget _buildAccessibility() {
 Widget _buildAccessItem(String text, Color color, bool highlight) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 3),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 11.5,
-            fontWeight: highlight ? FontWeight.w700 : FontWeight.w500,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: highlight ? FontWeight.w700 : FontWeight.w500,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }
 
@@ -1043,17 +1346,21 @@ Widget _buildComparisonMatrix() {
 
 Widget _buildMatrixHeader(String text, Color color) {
   return Center(
-    child: Text(text,
-        style: TextStyle(
-            color: color, fontSize: 10, fontWeight: FontWeight.w700)),
+    child: Text(
+      text,
+      style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w700),
+    ),
   );
 }
 
 Widget _buildMatrixRow(
-    String label, String texture, String surface, String hybrid, int alt) {
-  final bg = alt == 1
-      ? _tvPine.withValues(alpha: 0.03)
-      : Colors.transparent;
+  String label,
+  String texture,
+  String surface,
+  String hybrid,
+  int alt,
+) {
+  final bg = alt == 1 ? _tvPine.withValues(alpha: 0.03) : Colors.transparent;
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
     color: bg,
@@ -1061,9 +1368,14 @@ Widget _buildMatrixRow(
       children: [
         SizedBox(
           width: 80,
-          child: Text(label,
-              style: const TextStyle(
-                  color: _tvDarkForest, fontSize: 10, fontWeight: FontWeight.w600)),
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: _tvDarkForest,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(child: _buildMatrixCell(texture, _tvPine)),
         Expanded(child: _buildMatrixCell(surface, _tvAccentBlue)),
@@ -1079,12 +1391,17 @@ Widget _buildMatrixCell(String text, Color color) {
   final cellColor = isGood
       ? _tvPine
       : isBad
-          ? _tvAccentRed
-          : _tvGray;
+      ? _tvAccentRed
+      : _tvGray;
   return Center(
-    child: Text(text,
-        style: TextStyle(
-            color: cellColor, fontSize: 10, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: cellColor,
+        fontSize: 10,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -1115,16 +1432,21 @@ Widget _buildSimulatedView() {
             decoration: BoxDecoration(
               color: _tvPine,
               borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(11)),
+                top: Radius.circular(11),
+              ),
             ),
             child: const Row(
               children: [
                 Icon(Icons.arrow_back, size: 16, color: _tvWhite),
                 SizedBox(width: 8),
-                Text('My App',
-                    style: TextStyle(
-                        color: _tvWhite, fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  'My App',
+                  style: TextStyle(
+                    color: _tvWhite,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1142,8 +1464,10 @@ Widget _buildSimulatedView() {
                       color: _tvWhite,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('Flutter widget above',
-                        style: TextStyle(color: _tvGray, fontSize: 10)),
+                    child: const Text(
+                      'Flutter widget above',
+                      style: TextStyle(color: _tvGray, fontSize: 10),
+                    ),
                   ),
                   const SizedBox(height: 6),
                   // Platform view (clipped in scroll)
@@ -1170,7 +1494,10 @@ Widget _buildSimulatedView() {
                                 ),
                               ),
                               child: CustomPaint(
-                                size: const Size(double.infinity, double.infinity),
+                                size: const Size(
+                                  double.infinity,
+                                  double.infinity,
+                                ),
                                 painter: _SimMapPainter(),
                               ),
                             ),
@@ -1180,23 +1507,32 @@ Widget _buildSimulatedView() {
                               left: 6,
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 6, vertical: 2),
+                                  horizontal: 6,
+                                  vertical: 2,
+                                ),
                                 decoration: BoxDecoration(
                                   color: _tvPine.withValues(alpha: 0.8),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
-                                child: const Text('TextureLayer (MapView)',
-                                    style: TextStyle(
-                                        color: _tvWhite, fontSize: 9,
-                                        fontWeight: FontWeight.w600)),
+                                child: const Text(
+                                  'TextureLayer (MapView)',
+                                  style: TextStyle(
+                                    color: _tvWhite,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ),
                             ),
                             // Pin
                             const Positioned(
                               top: 30,
                               left: 60,
-                              child: Icon(Icons.location_pin, size: 20,
-                                  color: _tvAccentRed),
+                              child: Icon(
+                                Icons.location_pin,
+                                size: 20,
+                                color: _tvAccentRed,
+                              ),
                             ),
                           ],
                         ),
@@ -1211,8 +1547,10 @@ Widget _buildSimulatedView() {
                       color: _tvWhite,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text('Flutter widget below (overlaps clipped view)',
-                        style: TextStyle(color: _tvGray, fontSize: 10)),
+                    child: const Text(
+                      'Flutter widget below (overlaps clipped view)',
+                      style: TextStyle(color: _tvGray, fontSize: 10),
+                    ),
                   ),
                 ],
               ),
@@ -1285,31 +1623,35 @@ class _SimMapPainter extends CustomPainter {
 
     // Horizontal roads
     canvas.drawLine(
-        Offset(0, size.height * 0.3),
-        Offset(size.width, size.height * 0.35),
-        roadPaint);
+      Offset(0, size.height * 0.3),
+      Offset(size.width, size.height * 0.35),
+      roadPaint,
+    );
     canvas.drawLine(
-        Offset(0, size.height * 0.7),
-        Offset(size.width, size.height * 0.65),
-        roadPaint);
+      Offset(0, size.height * 0.7),
+      Offset(size.width, size.height * 0.65),
+      roadPaint,
+    );
 
     // Vertical roads
     canvas.drawLine(
-        Offset(size.width * 0.25, 0),
-        Offset(size.width * 0.3, size.height),
-        roadPaint);
+      Offset(size.width * 0.25, 0),
+      Offset(size.width * 0.3, size.height),
+      roadPaint,
+    );
     canvas.drawLine(
-        Offset(size.width * 0.7, 0),
-        Offset(size.width * 0.65, size.height),
-        roadPaint);
+      Offset(size.width * 0.7, 0),
+      Offset(size.width * 0.65, size.height),
+      roadPaint,
+    );
 
     // Park (green area)
-    final parkPaint = Paint()
-      ..color = _tvMedGreen.withValues(alpha: 0.1);
+    final parkPaint = Paint()..color = _tvMedGreen.withValues(alpha: 0.1);
     canvas.drawCircle(
-        Offset(size.width * 0.5, size.height * 0.5),
-        size.width * 0.15,
-        parkPaint);
+      Offset(size.width * 0.5, size.height * 0.5),
+      size.width * 0.15,
+      parkPaint,
+    );
   }
 
   @override

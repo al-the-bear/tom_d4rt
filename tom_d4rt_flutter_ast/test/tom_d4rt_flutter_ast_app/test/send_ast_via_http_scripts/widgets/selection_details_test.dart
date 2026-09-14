@@ -64,7 +64,8 @@ import 'package:flutter/material.dart';
 // `TextSelectionHandleType` from rendering). The analyzer therefore demands
 // this extra import even though `SelectionDetails` itself is reachable from
 // material.dart.
-import 'package:flutter/rendering.dart' show SelectedContentRange, SelectionStatus;
+import 'package:flutter/rendering.dart'
+    show SelectedContentRange, SelectionStatus;
 
 // -----------------------------------------------------------------------------
 // PALETTE — bare colour constants, no theming side-effects.
@@ -475,10 +476,7 @@ class _SelectionDetailsHomeState extends State<_SelectionDetailsHome> {
                 rangeExplorer: _rangeMirror,
               ),
               const SizedBox(height: 18),
-              _SnapshotHistoryCard(
-                history: _history,
-                onClear: _clearHistory,
-              ),
+              _SnapshotHistoryCard(history: _history, onClear: _clearHistory),
               const SizedBox(height: 18),
               _RangeExplorerCard(
                 notifier: _rangeNotifier,
@@ -780,11 +778,7 @@ class _PrimaryPassage extends StatelessWidget {
         const SizedBox(height: 8),
         const Text(
           _kPassagePrimary,
-          style: TextStyle(
-            color: _kMidnight,
-            fontSize: 14,
-            height: 1.45,
-          ),
+          style: TextStyle(color: _kMidnight, fontSize: 14, height: 1.45),
         ),
       ],
     );
@@ -977,9 +971,7 @@ class _MiniReadout extends StatelessWidget {
           const SizedBox(height: 4),
           _MiniReadoutRow(
             label: 'range',
-            value: r == null
-                ? 'null'
-                : '[${r.startOffset}, ${r.endOffset})',
+            value: r == null ? 'null' : '[${r.startOffset}, ${r.endOffset})',
             valueColor: r == null ? _kSlate : accent,
           ),
           const SizedBox(height: 4),
@@ -1118,7 +1110,12 @@ class _SelectionStatusPainter extends CustomPainter {
           : (mirror.length / 200).clamp(0.0, 1.0);
       final double top = bottom - (normalized * (size.height - 28));
       final Paint barPaint = Paint()..color = c.withValues(alpha: 0.85);
-      final Rect rect = Rect.fromLTRB(left, top.clamp(4, bottom), right, bottom);
+      final Rect rect = Rect.fromLTRB(
+        left,
+        top.clamp(4, bottom),
+        right,
+        bottom,
+      );
       canvas.drawRRect(
         RRect.fromRectAndRadius(rect, const Radius.circular(6)),
         barPaint,
@@ -1169,10 +1166,7 @@ class _LegendRow extends StatelessWidget {
       spacing: 12,
       runSpacing: 8,
       children: <Widget>[
-        _LegendChip(
-          label: 'none',
-          color: _statusColor(SelectionStatus.none),
-        ),
+        _LegendChip(label: 'none', color: _statusColor(SelectionStatus.none)),
         _LegendChip(
           label: 'collapsed',
           color: _statusColor(SelectionStatus.collapsed),
@@ -1225,10 +1219,7 @@ class _LegendChip extends StatelessWidget {
 // =============================================================================
 
 class _SnapshotHistoryCard extends StatelessWidget {
-  const _SnapshotHistoryCard({
-    required this.history,
-    required this.onClear,
-  });
+  const _SnapshotHistoryCard({required this.history, required this.onClear});
 
   final List<SelectionDetailsMirror> history;
   final VoidCallback onClear;
@@ -1383,10 +1374,7 @@ class _SnapshotRow extends StatelessWidget {
 // =============================================================================
 
 class _RangeExplorerCard extends StatelessWidget {
-  const _RangeExplorerCard({
-    required this.notifier,
-    required this.mirror,
-  });
+  const _RangeExplorerCard({required this.notifier, required this.mirror});
 
   final SelectionListenerNotifier notifier;
   final SelectionDetailsMirror mirror;
@@ -1532,9 +1520,7 @@ class _RangeFacts extends StatelessWidget {
       _FactRow(label: 'length', value: '${mirror.length}'),
       _FactRow(
         label: 'collapsed?',
-        value: r == null
-            ? 'n/a'
-            : (r.startOffset == r.endOffset).toString(),
+        value: r == null ? 'n/a' : (r.startOffset == r.endOffset).toString(),
       ),
       _FactRow(label: 'status', value: mirror.status.name),
     ];
@@ -1635,7 +1621,7 @@ class _ComparisonCard extends StatelessWidget {
                       value: mirror.range == null
                           ? 'null'
                           : '[${mirror.range!.startOffset}, '
-                              '${mirror.range!.endOffset})',
+                                '${mirror.range!.endOffset})',
                     ),
                     _FactRow(label: 'status', value: mirror.status.name),
                   ],
@@ -1649,7 +1635,7 @@ class _ComparisonCard extends StatelessWidget {
                       value: mirror.range == null
                           ? 'null'
                           : '[${mirror.range!.startOffset}, '
-                              '${mirror.range!.endOffset})',
+                                '${mirror.range!.endOffset})',
                     ),
                     _FactRow(label: 'status', value: mirror.status.name),
                     _FactRow(
@@ -1671,11 +1657,7 @@ class _ComparisonCard extends StatelessWidget {
                 }
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    left,
-                    const SizedBox(height: 16),
-                    right,
-                  ],
+                  children: <Widget>[left, const SizedBox(height: 16), right],
                 );
               },
             ),
@@ -1771,7 +1753,9 @@ class _ComparisonRow extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: <Widget>[
-              Expanded(child: _MiniReadout(mirror: left, accent: _kForest)),
+              Expanded(
+                child: _MiniReadout(mirror: left, accent: _kForest),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: _MiniReadout(mirror: right, accent: _kVermillion),
@@ -1929,8 +1913,7 @@ class _LadderEntry extends StatelessWidget {
                     style: TextStyle(
                       color: _kMidnight,
                       fontSize: 13,
-                      fontWeight:
-                          highlight ? FontWeight.w900 : FontWeight.w700,
+                      fontWeight: highlight ? FontWeight.w900 : FontWeight.w700,
                       letterSpacing: 0.2,
                     ),
                   ),
@@ -2075,10 +2058,7 @@ class _DebugLine extends StatelessWidget {
 // =============================================================================
 
 class _SelectionDetailsReadout extends StatelessWidget {
-  const _SelectionDetailsReadout({
-    required this.mirror,
-    required this.header,
-  });
+  const _SelectionDetailsReadout({required this.mirror, required this.header});
 
   final SelectionDetailsMirror mirror;
   final String header;
@@ -2139,9 +2119,7 @@ class _SelectionDetailsReadout extends StatelessWidget {
           ),
           _ReadoutRow(
             label: 'mirror.range',
-            value: r == null
-                ? 'null'
-                : '[${r.startOffset}, ${r.endOffset})',
+            value: r == null ? 'null' : '[${r.startOffset}, ${r.endOffset})',
           ),
           _ReadoutRow(label: 'mirror.length', value: '${mirror.length}'),
           _ReadoutRow(
@@ -2210,10 +2188,7 @@ class _ReadoutRow extends StatelessWidget {
 // =============================================================================
 
 class _FooterCard extends StatelessWidget {
-  const _FooterCard({
-    required this.platform,
-    required this.isMobilePlatform,
-  });
+  const _FooterCard({required this.platform, required this.isMobilePlatform});
 
   final TargetPlatform platform;
   final bool isMobilePlatform;
@@ -2277,7 +2252,9 @@ class _FooterCard extends StatelessWidget {
                   foreground: _kForestDeep,
                 ),
                 _Pill(
-                  label: isMobilePlatform ? 'long-press to select' : 'drag to select',
+                  label: isMobilePlatform
+                      ? 'long-press to select'
+                      : 'drag to select',
                   background: Colors.white,
                   foreground: _kForestDeep,
                 ),
@@ -2352,10 +2329,7 @@ class _CardShell extends StatelessWidget {
         color: gradient == null ? (color ?? Colors.white) : null,
         gradient: gradient,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: borderColor ?? _kSlate,
-          width: 1.5,
-        ),
+        border: Border.all(color: borderColor ?? _kSlate, width: 1.5),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.06),
@@ -2364,10 +2338,7 @@ class _CardShell extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: child,
-      ),
+      child: ClipRRect(borderRadius: BorderRadius.circular(20), child: child),
     );
   }
 }
@@ -2586,20 +2557,32 @@ class _ApiSignature extends StatelessWidget {
               text: name,
               style: const TextStyle(color: Colors.white),
             ),
-            const TextSpan(text: ' {\n', style: TextStyle(color: _kSlate)),
+            const TextSpan(
+              text: ' {\n',
+              style: TextStyle(color: _kSlate),
+            ),
             for (final _ApiSignatureMember member in members) ...<InlineSpan>[
-              const TextSpan(text: '  ', style: TextStyle(color: _kSlate)),
+              const TextSpan(
+                text: '  ',
+                style: TextStyle(color: _kSlate),
+              ),
               TextSpan(
                 text: member.signature,
                 style: const TextStyle(color: _kButter),
               ),
-              const TextSpan(text: ';  ', style: TextStyle(color: _kSlate)),
+              const TextSpan(
+                text: ';  ',
+                style: TextStyle(color: _kSlate),
+              ),
               TextSpan(
                 text: '// ${member.comment}\n',
                 style: const TextStyle(color: _kSlate),
               ),
             ],
-            const TextSpan(text: '}', style: TextStyle(color: _kSlate)),
+            const TextSpan(
+              text: '}',
+              style: TextStyle(color: _kSlate),
+            ),
           ],
         ),
       ),
@@ -2644,10 +2627,7 @@ class _EmptyState extends StatelessWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: _kMidnightSoft,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: _kMidnightSoft, fontSize: 12),
           ),
         ],
       ),

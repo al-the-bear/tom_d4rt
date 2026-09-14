@@ -32,7 +32,10 @@ Widget _wmSection(String title, List<Widget> children) {
       border: Border.all(color: _wmLightGreen, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x151B5E20), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x151B5E20),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -44,11 +47,14 @@ Widget _wmSection(String title, List<Widget> children) {
             color: _wmForest,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _wmWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _wmWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -60,20 +66,24 @@ Widget _wmSection(String title, List<Widget> children) {
 Widget _wmLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _wmDarkForest,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _wmDarkForest,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _wmBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(
-            color: _wmDarkText, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _wmDarkText, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -87,12 +97,15 @@ Widget _wmCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _wmLightGreen.withValues(alpha: 0.6)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _wmDarkForest,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _wmDarkForest,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -104,9 +117,10 @@ Widget _wmChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -128,9 +142,14 @@ Widget _wmInfoBox(String text, Color color) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: color.withValues(alpha: 0.3)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color, fontSize: 11.5, fontWeight: FontWeight.w500)),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
   );
 }
 
@@ -155,8 +174,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('DialogWindowControllerMacOS',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+        title: const Text(
+          'DialogWindowControllerMacOS',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -185,28 +206,48 @@ dynamic build(BuildContext context) {
                       color: _wmWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.laptop_mac,
-                        color: _wmWhite, size: 32),
+                    child: const Icon(
+                      Icons.laptop_mac,
+                      color: _wmWhite,
+                      size: 32,
+                    ),
                   ),
                   const SizedBox(height: 14),
-                  const Text('DialogWindowControllerMacOS',
-                      style: TextStyle(
-                          color: _wmWhite,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'DialogWindowControllerMacOS',
+                    style: TextStyle(
+                      color: _wmWhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   Text(
-                      'macOS-specific dialog control via AppKit/Cocoa',
-                      style: TextStyle(
-                          color: _wmWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                    'macOS-specific dialog control via AppKit/Cocoa',
+                    style: TextStyle(
+                      color: _wmWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _wmChip('macOS', _wmWhite.withValues(alpha: 0.25), _wmWhite),
-                      _wmChip('AppKit', _wmWhite.withValues(alpha: 0.25), _wmWhite),
-                      _wmChip('Dialogs', _wmWhite.withValues(alpha: 0.25), _wmWhite),
+                      _wmChip(
+                        'macOS',
+                        _wmWhite.withValues(alpha: 0.25),
+                        _wmWhite,
+                      ),
+                      _wmChip(
+                        'AppKit',
+                        _wmWhite.withValues(alpha: 0.25),
+                        _wmWhite,
+                      ),
+                      _wmChip(
+                        'Dialogs',
+                        _wmWhite.withValues(alpha: 0.25),
+                        _wmWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -395,9 +436,7 @@ dynamic build(BuildContext context) {
             // Section 10: Linux vs. macOS comparison
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             _wmSection('10 · Linux vs. macOS Dialog Comparison', [
-              _wmBody(
-                'Key differences between the two platform controllers:',
-              ),
+              _wmBody('Key differences between the two platform controllers:'),
               _buildLinuxMacComparison(),
             ]),
 
@@ -430,12 +469,30 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _wmSummaryRow(Icons.laptop_mac, 'AppKit/Cocoa native dialog integration'),
-                    _wmSummaryRow(Icons.file_open, 'NSOpenPanel and NSSavePanel support'),
-                    _wmSummaryRow(Icons.warning_amber, 'NSAlert for messages and confirmations'),
-                    _wmSummaryRow(Icons.web_asset, 'Sheets that attach to parent window'),
-                    _wmSummaryRow(Icons.security, 'App Sandbox and security-scoped bookmarks'),
-                    _wmSummaryRow(Icons.devices, 'macOS-only — Linux/Windows use separate controllers'),
+                    _wmSummaryRow(
+                      Icons.laptop_mac,
+                      'AppKit/Cocoa native dialog integration',
+                    ),
+                    _wmSummaryRow(
+                      Icons.file_open,
+                      'NSOpenPanel and NSSavePanel support',
+                    ),
+                    _wmSummaryRow(
+                      Icons.warning_amber,
+                      'NSAlert for messages and confirmations',
+                    ),
+                    _wmSummaryRow(
+                      Icons.web_asset,
+                      'Sheets that attach to parent window',
+                    ),
+                    _wmSummaryRow(
+                      Icons.security,
+                      'App Sandbox and security-scoped bookmarks',
+                    ),
+                    _wmSummaryRow(
+                      Icons.devices,
+                      'macOS-only — Linux/Windows use separate controllers',
+                    ),
                   ],
                 ),
               ),
@@ -452,12 +509,36 @@ dynamic build(BuildContext context) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildMacResponsibilities() {
   final items = <Map<String, dynamic>>[
-    {'icon': Icons.file_open, 'text': 'NSOpenPanel file/folder selection', 'color': _wmAccentBlue},
-    {'icon': Icons.save, 'text': 'NSSavePanel file save dialogs', 'color': _wmAccentCyan},
-    {'icon': Icons.warning_amber, 'text': 'NSAlert message presentation', 'color': _wmAccentAmber},
-    {'icon': Icons.web_asset, 'text': 'Sheet dialog management', 'color': _wmMedForest},
-    {'icon': Icons.security, 'text': 'Security-scoped bookmark handling', 'color': _wmAccentOrange},
-    {'icon': Icons.arrow_back, 'text': 'Result passing to Flutter through channels', 'color': _wmAccentPurple},
+    {
+      'icon': Icons.file_open,
+      'text': 'NSOpenPanel file/folder selection',
+      'color': _wmAccentBlue,
+    },
+    {
+      'icon': Icons.save,
+      'text': 'NSSavePanel file save dialogs',
+      'color': _wmAccentCyan,
+    },
+    {
+      'icon': Icons.warning_amber,
+      'text': 'NSAlert message presentation',
+      'color': _wmAccentAmber,
+    },
+    {
+      'icon': Icons.web_asset,
+      'text': 'Sheet dialog management',
+      'color': _wmMedForest,
+    },
+    {
+      'icon': Icons.security,
+      'text': 'Security-scoped bookmark handling',
+      'color': _wmAccentOrange,
+    },
+    {
+      'icon': Icons.arrow_back,
+      'text': 'Result passing to Flutter through channels',
+      'color': _wmAccentPurple,
+    },
   ];
 
   return Column(
@@ -468,18 +549,27 @@ Widget _buildMacResponsibilities() {
         decoration: BoxDecoration(
           color: (item['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: (item['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (item['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
-            Icon(item['icon'] as IconData, size: 16, color: item['color'] as Color),
+            Icon(
+              item['icon'] as IconData,
+              size: 16,
+              color: item['color'] as Color,
+            ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(item['text'] as String,
-                  style: TextStyle(
-                      color: item['color'] as Color,
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w600)),
+              child: Text(
+                item['text'] as String,
+                style: TextStyle(
+                  color: item['color'] as Color,
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
@@ -493,11 +583,31 @@ Widget _buildMacResponsibilities() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildMacArchitecture() {
   final layers = <Map<String, dynamic>>[
-    {'name': 'Flutter Framework', 'desc': 'showDialog(), FilePicker API', 'color': _wmAccentBlue},
-    {'name': 'Platform Channels', 'desc': 'FlutterMethodChannel for dialog calls', 'color': _wmAccentCyan},
-    {'name': 'macOS Embedder (Swift/ObjC)', 'desc': 'FLEDialogWindowController', 'color': _wmMedForest},
-    {'name': 'AppKit', 'desc': 'NSOpenPanel, NSSavePanel, NSAlert, NSWindow', 'color': _wmAccentOrange},
-    {'name': 'WindowServer / Quartz', 'desc': 'Display compositing and window management', 'color': _wmAccentPurple},
+    {
+      'name': 'Flutter Framework',
+      'desc': 'showDialog(), FilePicker API',
+      'color': _wmAccentBlue,
+    },
+    {
+      'name': 'Platform Channels',
+      'desc': 'FlutterMethodChannel for dialog calls',
+      'color': _wmAccentCyan,
+    },
+    {
+      'name': 'macOS Embedder (Swift/ObjC)',
+      'desc': 'FLEDialogWindowController',
+      'color': _wmMedForest,
+    },
+    {
+      'name': 'AppKit',
+      'desc': 'NSOpenPanel, NSSavePanel, NSAlert, NSWindow',
+      'color': _wmAccentOrange,
+    },
+    {
+      'name': 'WindowServer / Quartz',
+      'desc': 'Display compositing and window management',
+      'color': _wmAccentPurple,
+    },
   ];
 
   return Column(
@@ -511,7 +621,9 @@ Widget _buildMacArchitecture() {
             decoration: BoxDecoration(
               color: (l['color'] as Color).withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: (l['color'] as Color).withValues(alpha: 0.4)),
+              border: Border.all(
+                color: (l['color'] as Color).withValues(alpha: 0.4),
+              ),
             ),
             child: Row(
               children: [
@@ -523,11 +635,14 @@ Widget _buildMacArchitecture() {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Center(
-                    child: Text('${entry.key + 1}',
-                        style: const TextStyle(
-                            color: _wmWhite,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: const TextStyle(
+                        color: _wmWhite,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -535,14 +650,21 @@ Widget _buildMacArchitecture() {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(l['name'] as String,
-                          style: TextStyle(
-                              color: l['color'] as Color,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700)),
-                      Text(l['desc'] as String,
-                          style: const TextStyle(
-                              color: _wmDarkText, fontSize: 10)),
+                      Text(
+                        l['name'] as String,
+                        style: TextStyle(
+                          color: l['color'] as Color,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      Text(
+                        l['desc'] as String,
+                        style: const TextStyle(
+                          color: _wmDarkText,
+                          fontSize: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -550,11 +672,7 @@ Widget _buildMacArchitecture() {
             ),
           ),
           if (entry.key < layers.length - 1)
-            Container(
-              width: 2,
-              height: 12,
-              color: _wmLightGreen,
-            ),
+            Container(width: 2, height: 12, color: _wmLightGreen),
         ],
       );
     }).toList(),
@@ -618,7 +736,9 @@ Widget _buildMacDialogTypes() {
         decoration: BoxDecoration(
           color: (t['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (t['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (t['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -638,22 +758,30 @@ Widget _buildMacDialogTypes() {
                 children: [
                   Row(
                     children: [
-                      Text(t['type'] as String,
-                          style: TextStyle(
-                              color: t['color'] as Color,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700)),
+                      Text(
+                        t['type'] as String,
+                        style: TextStyle(
+                          color: t['color'] as Color,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(width: 8),
-                      _wmChip(t['api'] as String,
-                          (t['color'] as Color).withValues(alpha: 0.1),
-                          t['color'] as Color),
+                      _wmChip(
+                        t['api'] as String,
+                        (t['color'] as Color).withValues(alpha: 0.1),
+                        t['color'] as Color,
+                      ),
                     ],
                   ),
-                  Text(t['detail'] as String,
-                      style: const TextStyle(
-                          fontFamily: 'monospace',
-                          color: _wmDarkText,
-                          fontSize: 9)),
+                  Text(
+                    t['detail'] as String,
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      color: _wmDarkText,
+                      fontSize: 9,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -672,7 +800,8 @@ Widget _buildSheetComparison() {
     {
       'mode': 'Sheet Dialog',
       'desc': 'Slides down from the window title bar',
-      'traits': 'Attached to parent • Animates in/out • '
+      'traits':
+          'Attached to parent • Animates in/out • '
           'macOS-specific UX pattern • Cannot be moved independently',
       'icon': Icons.web_asset,
       'color': _wmAccentBlue,
@@ -680,7 +809,8 @@ Widget _buildSheetComparison() {
     {
       'mode': 'Modal Window',
       'desc': 'Separate floating window over the app',
-      'traits': 'Independent window • Blocks parent • '
+      'traits':
+          'Independent window • Blocks parent • '
           'Can be moved freely • More traditional dialog',
       'icon': Icons.open_in_new,
       'color': _wmAccentOrange,
@@ -688,7 +818,8 @@ Widget _buildSheetComparison() {
     {
       'mode': 'Modeless Window',
       'desc': 'Independent window, parent stays interactive',
-      'traits': 'Non-blocking • Can lose focus to parent • '
+      'traits':
+          'Non-blocking • Can lose focus to parent • '
           'Used for inspectors and tool palettes',
       'icon': Icons.layers,
       'color': _wmMedForest,
@@ -703,7 +834,10 @@ Widget _buildSheetComparison() {
         decoration: BoxDecoration(
           color: (m['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (m['color'] as Color).withValues(alpha: 0.3), width: 1.5),
+          border: Border.all(
+            color: (m['color'] as Color).withValues(alpha: 0.3),
+            width: 1.5,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -720,23 +854,30 @@ Widget _buildSheetComparison() {
                   child: Icon(m['icon'] as IconData, color: _wmWhite, size: 14),
                 ),
                 const SizedBox(width: 8),
-                Text(m['mode'] as String,
-                    style: TextStyle(
-                        color: m['color'] as Color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700)),
+                Text(
+                  m['mode'] as String,
+                  style: TextStyle(
+                    color: m['color'] as Color,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 4),
-            Text(m['desc'] as String,
-                style: const TextStyle(
-                    color: _wmDarkText, fontSize: 11)),
+            Text(
+              m['desc'] as String,
+              style: const TextStyle(color: _wmDarkText, fontSize: 11),
+            ),
             const SizedBox(height: 4),
-            Text(m['traits'] as String,
-                style: TextStyle(
-                    color: (m['color'] as Color).withValues(alpha: 0.8),
-                    fontSize: 10,
-                    height: 1.4)),
+            Text(
+              m['traits'] as String,
+              style: TextStyle(
+                color: (m['color'] as Color).withValues(alpha: 0.8),
+                fontSize: 10,
+                height: 1.4,
+              ),
+            ),
           ],
         ),
       );
@@ -777,7 +918,9 @@ Widget _buildAlertStyles() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -795,15 +938,19 @@ Widget _buildAlertStyles() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(s['style'] as String,
-                      style: TextStyle(
-                          fontFamily: 'monospace',
-                          color: s['color'] as Color,
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.w700)),
-                  Text(s['desc'] as String,
-                      style: const TextStyle(
-                          color: _wmDarkText, fontSize: 10.5)),
+                  Text(
+                    s['style'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      color: s['color'] as Color,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    s['desc'] as String,
+                    style: const TextStyle(color: _wmDarkText, fontSize: 10.5),
+                  ),
                 ],
               ),
             ),
@@ -819,13 +966,41 @@ Widget _buildAlertStyles() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildMacLifecycle() {
   final steps = <Map<String, dynamic>>[
-    {'phase': 'Receive', 'desc': 'MethodChannel call from Flutter', 'color': _wmAccentBlue},
-    {'phase': 'Create', 'desc': 'Instantiate NSOpenPanel/NSAlert', 'color': _wmAccentCyan},
-    {'phase': 'Configure', 'desc': 'Apply filters, title, initial URL', 'color': _wmMedForest},
-    {'phase': 'Present', 'desc': 'beginSheetModal or runModal', 'color': _wmAccentOrange},
-    {'phase': 'RunLoop', 'desc': 'AppKit processes events while dialog is open', 'color': _wmAccentAmber},
-    {'phase': 'Collect', 'desc': 'Extract URLs/button response from panel', 'color': _wmAccentPurple},
-    {'phase': 'Reply', 'desc': 'Send FlutterResult back to Flutter layer', 'color': _wmAccentRed},
+    {
+      'phase': 'Receive',
+      'desc': 'MethodChannel call from Flutter',
+      'color': _wmAccentBlue,
+    },
+    {
+      'phase': 'Create',
+      'desc': 'Instantiate NSOpenPanel/NSAlert',
+      'color': _wmAccentCyan,
+    },
+    {
+      'phase': 'Configure',
+      'desc': 'Apply filters, title, initial URL',
+      'color': _wmMedForest,
+    },
+    {
+      'phase': 'Present',
+      'desc': 'beginSheetModal or runModal',
+      'color': _wmAccentOrange,
+    },
+    {
+      'phase': 'RunLoop',
+      'desc': 'AppKit processes events while dialog is open',
+      'color': _wmAccentAmber,
+    },
+    {
+      'phase': 'Collect',
+      'desc': 'Extract URLs/button response from panel',
+      'color': _wmAccentPurple,
+    },
+    {
+      'phase': 'Reply',
+      'desc': 'Send FlutterResult back to Flutter layer',
+      'color': _wmAccentRed,
+    },
   ];
 
   return Column(
@@ -845,49 +1020,63 @@ Widget _buildMacLifecycle() {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('${entry.key + 1}',
-                        style: const TextStyle(
-                            color: _wmWhite,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      '${entry.key + 1}',
+                      style: const TextStyle(
+                        color: _wmWhite,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
                 if (entry.key < steps.length - 1)
-                  Container(
-                    width: 2,
-                    height: 8,
-                    color: _wmLightGreen,
-                  ),
+                  Container(width: 2, height: 8, color: _wmLightGreen),
               ],
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: (s['color'] as Color).withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+                  border: Border.all(
+                    color: (s['color'] as Color).withValues(alpha: 0.3),
+                  ),
                 ),
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: s['color'] as Color,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(s['phase'] as String,
-                          style: const TextStyle(
-                              color: _wmWhite,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700)),
+                      child: Text(
+                        s['phase'] as String,
+                        style: const TextStyle(
+                          color: _wmWhite,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(s['desc'] as String,
-                          style: const TextStyle(
-                              color: _wmDarkText, fontSize: 10.5)),
+                      child: Text(
+                        s['desc'] as String,
+                        style: const TextStyle(
+                          color: _wmDarkText,
+                          fontSize: 10.5,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -905,12 +1094,36 @@ Widget _buildMacLifecycle() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildSandboxFlow() {
   final steps = <Map<String, dynamic>>[
-    {'icon': Icons.lock, 'label': 'App runs in sandbox — no direct filesystem access', 'color': _wmAccentRed},
-    {'icon': Icons.folder_open, 'label': 'NSOpenPanel grants temporary access to selected files', 'color': _wmAccentBlue},
-    {'icon': Icons.bookmark, 'label': 'Create security-scoped bookmark for persistent access', 'color': _wmMedForest},
-    {'icon': Icons.lock_open, 'label': 'Resolve bookmark later to regain access', 'color': _wmAccentCyan},
-    {'icon': Icons.check_circle, 'label': 'Call startAccessingSecurityScopedResource before reading', 'color': _wmAccentOrange},
-    {'icon': Icons.lock, 'label': 'Call stopAccessingSecurityScopedResource when done', 'color': _wmAccentAmber},
+    {
+      'icon': Icons.lock,
+      'label': 'App runs in sandbox — no direct filesystem access',
+      'color': _wmAccentRed,
+    },
+    {
+      'icon': Icons.folder_open,
+      'label': 'NSOpenPanel grants temporary access to selected files',
+      'color': _wmAccentBlue,
+    },
+    {
+      'icon': Icons.bookmark,
+      'label': 'Create security-scoped bookmark for persistent access',
+      'color': _wmMedForest,
+    },
+    {
+      'icon': Icons.lock_open,
+      'label': 'Resolve bookmark later to regain access',
+      'color': _wmAccentCyan,
+    },
+    {
+      'icon': Icons.check_circle,
+      'label': 'Call startAccessingSecurityScopedResource before reading',
+      'color': _wmAccentOrange,
+    },
+    {
+      'icon': Icons.lock,
+      'label': 'Call stopAccessingSecurityScopedResource when done',
+      'color': _wmAccentAmber,
+    },
   ];
 
   return Column(
@@ -922,7 +1135,9 @@ Widget _buildSandboxFlow() {
         decoration: BoxDecoration(
           color: (s['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -944,20 +1159,26 @@ Widget _buildSandboxFlow() {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Text('${entry.key + 1}',
-                    style: const TextStyle(
-                        color: _wmForest,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700)),
+                child: Text(
+                  '${entry.key + 1}',
+                  style: const TextStyle(
+                    color: _wmForest,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(s['label'] as String,
-                  style: TextStyle(
-                      color: s['color'] as Color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600)),
+              child: Text(
+                s['label'] as String,
+                style: TextStyle(
+                  color: s['color'] as Color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
@@ -978,7 +1199,8 @@ Widget _buildWindowManagement() {
     },
     {
       'feature': 'Title Bar Style',
-      'desc': 'macOS-native title bar with traffic light buttons (close/min/max)',
+      'desc':
+          'macOS-native title bar with traffic light buttons (close/min/max)',
       'color': _wmMedForest,
     },
     {
@@ -993,7 +1215,8 @@ Widget _buildWindowManagement() {
     },
     {
       'feature': 'Restoration',
-      'desc': 'NSWindow restorable property for state preservation across launches',
+      'desc':
+          'NSWindow restorable property for state preservation across launches',
       'color': _wmAccentPurple,
     },
   ];
@@ -1006,7 +1229,9 @@ Widget _buildWindowManagement() {
         decoration: BoxDecoration(
           color: (f['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (f['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (f['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -1016,17 +1241,21 @@ Widget _buildWindowManagement() {
                 color: f['color'] as Color,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(f['feature'] as String,
-                  style: const TextStyle(
-                      color: _wmWhite,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700)),
+              child: Text(
+                f['feature'] as String,
+                style: const TextStyle(
+                  color: _wmWhite,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(f['desc'] as String,
-                  style: const TextStyle(
-                      color: _wmDarkText, fontSize: 10.5)),
+              child: Text(
+                f['desc'] as String,
+                style: const TextStyle(color: _wmDarkText, fontSize: 10.5),
+              ),
             ),
           ],
         ),
@@ -1065,18 +1294,21 @@ Widget _buildLinuxMacComparison() {
           color: isHeader
               ? _wmForest
               : entry.key.isEven
-                  ? _wmIvory
-                  : _wmWhite,
+              ? _wmIvory
+              : _wmWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
-                child: Text(col.value,
-                    style: TextStyle(
-                        color: isHeader ? _wmWhite : _wmDarkText,
-                        fontSize: 10,
-                        fontWeight: isHeader || col.key == 0
-                            ? FontWeight.w700
-                            : FontWeight.w400)),
+                child: Text(
+                  col.value,
+                  style: TextStyle(
+                    color: isHeader ? _wmWhite : _wmDarkText,
+                    fontSize: 10,
+                    fontWeight: isHeader || col.key == 0
+                        ? FontWeight.w700
+                        : FontWeight.w400,
+                  ),
+                ),
               );
             }).toList(),
           ),
@@ -1098,7 +1330,8 @@ Widget _buildExportScenario() {
     },
     {
       'step': 'Controller asks for save directory',
-      'code': 'NSOpenPanel *panel = [NSOpenPanel openPanel];\n'
+      'code':
+          'NSOpenPanel *panel = [NSOpenPanel openPanel];\n'
           '[panel setCanChooseDirectories:YES];\n'
           '[panel setCanChooseFiles:NO];\n'
           '[panel setPrompt:@"Choose Export Folder"];',
@@ -1106,7 +1339,8 @@ Widget _buildExportScenario() {
     },
     {
       'step': 'Sheet slides down from title bar',
-      'code': '[panel beginSheetModalForWindow:self.window\n'
+      'code':
+          '[panel beginSheetModalForWindow:self.window\n'
           '  completionHandler:^(NSModalResponse r) {\n'
           '    if (r == NSModalResponseOK) {\n'
           '      NSURL *dir = [panel URL];\n'
@@ -1117,7 +1351,8 @@ Widget _buildExportScenario() {
     },
     {
       'step': 'User selects folder, sheet closes',
-      'code': '// Security-scoped access\n'
+      'code':
+          '// Security-scoped access\n'
           'BOOL ok = [url startAccessing\n'
           '  SecurityScopedResource];\n'
           '// Write files to directory\n'
@@ -1127,7 +1362,8 @@ Widget _buildExportScenario() {
     },
     {
       'step': 'Flutter receives directory path',
-      'code': 'final dir = await channel.showSavePanel(...);\n'
+      'code':
+          'final dir = await channel.showSavePanel(...);\n'
           'if (dir != null) {\n'
           '  for (final file in filesToExport) {\n'
           '    File("\$dir/\${file.name}")\n'
@@ -1138,7 +1374,8 @@ Widget _buildExportScenario() {
     },
     {
       'step': 'Success notification shown',
-      'code': 'ScaffoldMessenger.of(context).showSnackBar(\n'
+      'code':
+          'ScaffoldMessenger.of(context).showSnackBar(\n'
           '  SnackBar(content: Text(\n'
           '    "Exported \${files.length} files")),\n'
           ');',
@@ -1153,7 +1390,9 @@ Widget _buildExportScenario() {
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: (s['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (s['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -1171,20 +1410,26 @@ Widget _buildExportScenario() {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text('${entry.key + 1}',
-                          style: const TextStyle(
-                              color: _wmWhite,
-                              fontSize: 9,
-                              fontWeight: FontWeight.w700)),
+                      child: Text(
+                        '${entry.key + 1}',
+                        style: const TextStyle(
+                          color: _wmWhite,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Text(s['step'] as String,
-                        style: TextStyle(
-                            color: s['color'] as Color,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w700)),
+                    child: Text(
+                      s['step'] as String,
+                      style: TextStyle(
+                        color: s['color'] as Color,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -1193,12 +1438,15 @@ Widget _buildExportScenario() {
               width: double.infinity,
               padding: const EdgeInsets.all(8),
               color: _wmWhite,
-              child: Text(s['code'] as String,
-                  style: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 10,
-                      color: _wmDarkForest,
-                      height: 1.3)),
+              child: Text(
+                s['code'] as String,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: _wmDarkForest,
+                  height: 1.3,
+                ),
+              ),
             ),
           ],
         ),
@@ -1218,9 +1466,13 @@ Widget _wmSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _wmWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _wmWhite.withValues(alpha: 0.95), fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _wmWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

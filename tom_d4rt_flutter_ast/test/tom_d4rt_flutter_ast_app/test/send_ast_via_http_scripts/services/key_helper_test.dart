@@ -172,11 +172,7 @@ Widget _card({required Widget child, Color? tint}) {
 Widget _prose(String text) {
   return Text(
     text,
-    style: const TextStyle(
-      color: _accIvory,
-      fontSize: 13.5,
-      height: 1.45,
-    ),
+    style: const TextStyle(color: _accIvory, fontSize: 13.5, height: 1.45),
   );
 }
 
@@ -322,11 +318,7 @@ Widget _physicalKeyTile({
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: c),
           ),
-          child: const Icon(
-            Icons.keyboard,
-            color: _accIvory,
-            size: 28,
-          ),
+          child: const Icon(Icons.keyboard, color: _accIvory, size: 28),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -595,8 +587,8 @@ dynamic build(BuildContext context) {
   final String idShiftLeft = LogicalKeyboardKey.shiftLeft.keyId.toString();
   final String idShiftRight = LogicalKeyboardKey.shiftRight.keyId.toString();
   final String idControlLeft = LogicalKeyboardKey.controlLeft.keyId.toString();
-  final String idControlRight =
-      LogicalKeyboardKey.controlRight.keyId.toString();
+  final String idControlRight = LogicalKeyboardKey.controlRight.keyId
+      .toString();
   final String idAltLeft = LogicalKeyboardKey.altLeft.keyId.toString();
   final String idAltRight = LogicalKeyboardKey.altRight.keyId.toString();
   final String idMetaLeft = LogicalKeyboardKey.metaLeft.keyId.toString();
@@ -614,15 +606,15 @@ dynamic build(BuildContext context) {
   final String hidSpace = PhysicalKeyboardKey.space.usbHidUsage.toString();
   final String hidTab = PhysicalKeyboardKey.tab.usbHidUsage.toString();
   final String hidArrowUp = PhysicalKeyboardKey.arrowUp.usbHidUsage.toString();
-  final String hidArrowDown =
-      PhysicalKeyboardKey.arrowDown.usbHidUsage.toString();
-  final String hidShiftLeft =
-      PhysicalKeyboardKey.shiftLeft.usbHidUsage.toString();
-  final String hidControlLeft =
-      PhysicalKeyboardKey.controlLeft.usbHidUsage.toString();
+  final String hidArrowDown = PhysicalKeyboardKey.arrowDown.usbHidUsage
+      .toString();
+  final String hidShiftLeft = PhysicalKeyboardKey.shiftLeft.usbHidUsage
+      .toString();
+  final String hidControlLeft = PhysicalKeyboardKey.controlLeft.usbHidUsage
+      .toString();
   final String hidAltLeft = PhysicalKeyboardKey.altLeft.usbHidUsage.toString();
-  final String hidMetaLeft =
-      PhysicalKeyboardKey.metaLeft.usbHidUsage.toString();
+  final String hidMetaLeft = PhysicalKeyboardKey.metaLeft.usbHidUsage
+      .toString();
 
   final String pdnKeyA = PhysicalKeyboardKey.keyA.debugName ?? '?';
   final String pdnEnter = PhysicalKeyboardKey.enter.debugName ?? '?';
@@ -701,11 +693,7 @@ dynamic build(BuildContext context) {
                   'LogicalKeyboardKey and PhysicalKeyboardKey instances ---'
                   ' the public surface that the internal KeyHelper class '
                   'exists to power on Linux toolkits.',
-                  style: TextStyle(
-                    color: _accSteel,
-                    fontSize: 13,
-                    height: 1.5,
-                  ),
+                  style: TextStyle(color: _accSteel, fontSize: 13, height: 1.5),
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -773,9 +761,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: _bgDeep,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _accAmber.withValues(alpha: 0.5),
-                    ),
+                    border: Border.all(color: _accAmber.withValues(alpha: 0.5)),
                   ),
                   child: const Text(
                     'OS event\n'
@@ -871,13 +857,22 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 _kvRow('logical.keyA.keyId', idKeyA, accent: _accSky),
-                _kvRow('logical.keyA.keyLabel', '"$labelKeyA"',
-                    accent: _accSky),
+                _kvRow(
+                  'logical.keyA.keyLabel',
+                  '"$labelKeyA"',
+                  accent: _accSky,
+                ),
                 _kvRow('logical.keyA.debugName', '"$dnKeyA"', accent: _accSky),
-                _kvRow('physical.keyA.usbHidUsage', hidKeyA,
-                    accent: _accCopper),
-                _kvRow('physical.keyA.debugName', '"$pdnKeyA"',
-                    accent: _accCopper),
+                _kvRow(
+                  'physical.keyA.usbHidUsage',
+                  hidKeyA,
+                  accent: _accCopper,
+                ),
+                _kvRow(
+                  'physical.keyA.debugName',
+                  '"$pdnKeyA"',
+                  accent: _accCopper,
+                ),
               ],
             ),
           ),
@@ -1223,9 +1218,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: _bgDeep,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _accMoss.withValues(alpha: 0.6),
-                    ),
+                    border: Border.all(color: _accMoss.withValues(alpha: 0.6)),
                   ),
                   child: const Text(
                     'shiftLeft  ----+\n'
@@ -1368,9 +1361,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: _bgDeep,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: _accSky.withValues(alpha: 0.55),
-                    ),
+                    border: Border.all(color: _accSky.withValues(alpha: 0.55)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1684,9 +1675,7 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(
               color: _bgPanel,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: _accSteel.withValues(alpha: 0.4),
-              ),
+              border: Border.all(color: _accSteel.withValues(alpha: 0.4)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

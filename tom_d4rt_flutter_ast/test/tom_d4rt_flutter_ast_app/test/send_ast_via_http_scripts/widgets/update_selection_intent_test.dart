@@ -68,10 +68,7 @@ const TextStyle _usiLabMono = TextStyle(
 // Petri-dish glyph painter — purely decorative
 // ───────────────────────────────────────────────────────────────────────────
 class _UsiLabPetriPainter extends CustomPainter {
-  const _UsiLabPetriPainter({
-    required this.seed,
-    required this.tone,
-  });
+  const _UsiLabPetriPainter({required this.seed, required this.tone});
 
   final int seed;
   final Color tone;
@@ -94,10 +91,7 @@ class _UsiLabPetriPainter extends CustomPainter {
     for (int i = 0; i < n; i++) {
       final double t = (seed * 17 + i * 29) % 360 * 3.14159 / 180.0;
       final double radius = (r * 0.65) * (((seed * 7 + i * 11) % 100) / 100.0);
-      final Offset p = Offset(
-        c.dx + radius * _cos(t),
-        c.dy + radius * _sin(t),
-      );
+      final Offset p = Offset(c.dx + radius * _cos(t), c.dy + radius * _sin(t));
       final Paint dot = Paint()
         ..color = (tone ?? const Color(0xFF000000)).withValues(alpha: 0.55)
         ..style = PaintingStyle.fill;
@@ -182,8 +176,7 @@ class _UsiLabRibbonPainter extends CustomPainter {
     final double ob =
         size.width * (fromExtent.clamp(0, totalLength) / safeTotal);
     final double na = size.width * (toBase.clamp(0, totalLength) / safeTotal);
-    final double nb =
-        size.width * (toExtent.clamp(0, totalLength) / safeTotal);
+    final double nb = size.width * (toExtent.clamp(0, totalLength) / safeTotal);
 
     canvas.drawLine(Offset(oa, midY - 6), Offset(ob, midY - 6), oldBand);
     canvas.drawLine(Offset(na, midY + 6), Offset(nb, midY + 6), newBand);
@@ -236,7 +229,9 @@ class _UsiLabBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.14),
-        border: Border.all(color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
+        border: Border.all(
+          color: (tone ?? const Color(0xFF000000)).withValues(alpha: 0.6),
+        ),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -270,7 +265,9 @@ class _UsiLabPanel extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(alpha: 0.18),
+            color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(
+              alpha: 0.18,
+            ),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -282,9 +279,7 @@ class _UsiLabPanel extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(16, 12, 12, 10),
             decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: _usiLabDivider),
-              ),
+              border: Border(bottom: BorderSide(color: _usiLabDivider)),
             ),
             child: Row(
               children: [
@@ -303,11 +298,9 @@ class _UsiLabPanel extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title,
-                          style: _usiLabSerif.copyWith(fontSize: 16)),
+                      Text(title, style: _usiLabSerif.copyWith(fontSize: 16)),
                       const SizedBox(height: 2),
-                      Text(subtitle,
-                          style: _usiLabSans.copyWith(fontSize: 12)),
+                      Text(subtitle, style: _usiLabSans.copyWith(fontSize: 12)),
                     ],
                   ),
                 ),
@@ -315,10 +308,7 @@ class _UsiLabPanel extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(14), child: child),
         ],
       ),
     );
@@ -326,10 +316,7 @@ class _UsiLabPanel extends StatelessWidget {
 }
 
 class _UsiLabKeyValue extends StatelessWidget {
-  const _UsiLabKeyValue({
-    required this.label,
-    required this.value,
-  });
+  const _UsiLabKeyValue({required this.label, required this.value});
 
   final String label;
   final String value;
@@ -344,16 +331,20 @@ class _UsiLabKeyValue extends StatelessWidget {
         children: [
           SizedBox(
             width: 150,
-            child: Text(label,
-                style: _usiLabSans.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: _usiLabSteelDeep,
-                )),
+            child: Text(
+              label,
+              style: _usiLabSans.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: _usiLabSteelDeep,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: _usiLabMono.copyWith(fontSize: 12.5, color: tone)),
+            child: Text(
+              value,
+              style: _usiLabMono.copyWith(fontSize: 12.5, color: tone),
+            ),
           ),
         ],
       ),
@@ -503,13 +494,22 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
       0,
       _UsiLabEvent(
         cause: intent.cause,
-        fromBase: old.baseOffset.clamp(0, intent.currentTextEditingValue.text.length),
-        fromExtent:
-            old.extentOffset.clamp(0, intent.currentTextEditingValue.text.length),
-        toBase: intent.newSelection.baseOffset
-            .clamp(0, intent.currentTextEditingValue.text.length),
-        toExtent: intent.newSelection.extentOffset
-            .clamp(0, intent.currentTextEditingValue.text.length),
+        fromBase: old.baseOffset.clamp(
+          0,
+          intent.currentTextEditingValue.text.length,
+        ),
+        fromExtent: old.extentOffset.clamp(
+          0,
+          intent.currentTextEditingValue.text.length,
+        ),
+        toBase: intent.newSelection.baseOffset.clamp(
+          0,
+          intent.currentTextEditingValue.text.length,
+        ),
+        toExtent: intent.newSelection.extentOffset.clamp(
+          0,
+          intent.currentTextEditingValue.text.length,
+        ),
         textLength: intent.currentTextEditingValue.text.length,
         timestamp: DateTime.now(),
       ),
@@ -529,7 +529,11 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
   void _fireIntent(TextSelection target, SelectionChangedCause cause) {
     final TextSelection old = _controller.selection;
     final TextEditingValue value = _controller.value;
-    final UpdateSelectionIntent intent = UpdateSelectionIntent(value, target, cause);
+    final UpdateSelectionIntent intent = UpdateSelectionIntent(
+      value,
+      target,
+      cause,
+    );
     // Direct controller mutation is fine for demo — we also route through
     // Actions so the instrumented CallbackAction fires.
     Actions.maybeInvoke<UpdateSelectionIntent>(context, intent);
@@ -596,7 +600,11 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: _usiLabPaper,
-        border: Border.all(color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(alpha: 0.45)),
+        border: Border.all(
+          color: (_usiLabSteel ?? const Color(0xFF000000)).withValues(
+            alpha: 0.45,
+          ),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextField(
@@ -607,7 +615,11 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
         style: _usiLabMono.copyWith(fontSize: 14, color: _usiLabInk),
         decoration: InputDecoration(
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: (_usiLabSteelDeep ?? const Color(0xFF000000)).withValues(alpha: 0.6)),
+            borderSide: BorderSide(
+              color: (_usiLabSteelDeep ?? const Color(0xFF000000)).withValues(
+                alpha: 0.6,
+              ),
+            ),
             borderRadius: BorderRadius.circular(6),
           ),
           filled: true,
@@ -615,12 +627,16 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           hintText: 'Type, select, and watch the microscope update…',
           hintStyle: _usiLabSans.copyWith(fontSize: 13),
           labelStyle: _usiLabSans,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10,
+          ),
         ),
         onChanged: (String _) => setState(() {}),
         onTap: () => setState(() {
-          debugPrint('[UsiLab] TextField tap; focusNode=${_focusNode.hasFocus}');
+          debugPrint(
+            '[UsiLab] TextField tap; focusNode=${_focusNode.hasFocus}',
+          );
         }),
       ),
     );
@@ -640,25 +656,32 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
         children: [
           Row(
             children: [
-              Text('Selection Microscope',
-                  style: _usiLabSerif.copyWith(fontSize: 14)),
+              Text(
+                'Selection Microscope',
+                style: _usiLabSerif.copyWith(fontSize: 14),
+              ),
               const Spacer(),
-              _UsiLabBadge(label: 'length=${_controller.text.length}', tone: _usiLabTeal),
+              _UsiLabBadge(
+                label: 'length=${_controller.text.length}',
+                tone: _usiLabTeal,
+              ),
             ],
           ),
           const SizedBox(height: 8),
           _UsiLabKeyValue(label: 'base', value: '${sel.baseOffset}'),
           _UsiLabKeyValue(label: 'extent', value: '${sel.extentOffset}'),
           _UsiLabKeyValue(label: 'affinity', value: sel.affinity.name),
+          _UsiLabKeyValue(label: 'isCollapsed', value: '${sel.isCollapsed}'),
           _UsiLabKeyValue(
-              label: 'isCollapsed', value: '${sel.isCollapsed}'),
+            label: 'isDirectional',
+            value: '${sel.isDirectional}',
+          ),
           _UsiLabKeyValue(
-              label: 'isDirectional', value: '${sel.isDirectional}'),
-          _UsiLabKeyValue(
-              label: 'selected text',
-              value: sel.isValid && !sel.isCollapsed
-                  ? '"${sel.textInside(_controller.text)}"'
-                  : '<collapsed caret>'),
+            label: 'selected text',
+            value: sel.isValid && !sel.isCollapsed
+                ? '"${sel.textInside(_controller.text)}"'
+                : '<collapsed caret>',
+          ),
         ],
       ),
     );
@@ -701,8 +724,10 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text('Selection programmer',
-            style: _usiLabSerif.copyWith(fontSize: 14)),
+        Text(
+          'Selection programmer',
+          style: _usiLabSerif.copyWith(fontSize: 14),
+        ),
         const SizedBox(height: 6),
         Text(
           'Use sliders to precisely set base/extent and fire an intent with '
@@ -728,25 +753,35 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
               });
             }),
             const Spacer(),
-            Text('→ cause: ${_selectedCause.name}',
-                style: _usiLabMono.copyWith(fontSize: 12)),
+            Text(
+              '→ cause: ${_selectedCause.name}',
+              style: _usiLabMono.copyWith(fontSize: 12),
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _sliderRow(String label, double value, int max,
-      ValueChanged<double> onChanged) {
+  Widget _sliderRow(
+    String label,
+    double value,
+    int max,
+    ValueChanged<double> onChanged,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
           SizedBox(
             width: 60,
-            child: Text(label,
-                style: _usiLabSans.copyWith(
-                    fontSize: 12, fontWeight: FontWeight.w700)),
+            child: Text(
+              label,
+              style: _usiLabSans.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Expanded(
             child: SliderTheme(
@@ -754,7 +789,8 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
                 activeTrackColor: _usiLabTealDeep,
                 inactiveTrackColor: _usiLabDivider,
                 thumbColor: _usiLabTeal,
-                overlayColor: (_usiLabTeal ?? const Color(0xFF000000)).withValues(alpha: 0.18),
+                overlayColor: (_usiLabTeal ?? const Color(0xFF000000))
+                    .withValues(alpha: 0.18),
               ),
               child: Slider(
                 value: value.clamp(0, max == 0 ? 1 : max).toDouble(),
@@ -768,9 +804,11 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           ),
           SizedBox(
             width: 40,
-            child: Text(value.toInt().toString(),
-                textAlign: TextAlign.right,
-                style: _usiLabMono.copyWith(fontSize: 12)),
+            child: Text(
+              value.toInt().toString(),
+              textAlign: TextAlign.right,
+              style: _usiLabMono.copyWith(fontSize: 12),
+            ),
           ),
         ],
       ),
@@ -793,7 +831,8 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           spacing: 8,
           runSpacing: 6,
           children: [
-            for (final SelectionChangedCause cause in SelectionChangedCause.values)
+            for (final SelectionChangedCause cause
+                in SelectionChangedCause.values)
               _causeChip(cause),
           ],
         ),
@@ -803,15 +842,16 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
             const Text('Active cause:', style: _usiLabSans),
             const SizedBox(width: 8),
             _UsiLabBadge(
-                label: _selectedCause.name, tone: _causeColor(_selectedCause)),
+              label: _selectedCause.name,
+              tone: _causeColor(_selectedCause),
+            ),
             const Spacer(),
             Row(
               children: [
                 const Text('intercept', style: _usiLabSans),
                 Switch(
                   value: _interceptEnabled,
-                  onChanged: (bool v) =>
-                      setState(() => _interceptEnabled = v),
+                  onChanged: (bool v) => setState(() => _interceptEnabled = v),
                   activeThumbColor: _usiLabTealDeep,
                 ),
                 const SizedBox(width: 8),
@@ -908,9 +948,7 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           )
         else
           Column(
-            children: [
-              for (final _UsiLabEvent ev in _events) _eventRow(ev),
-            ],
+            children: [for (final _UsiLabEvent ev in _events) _eventRow(ev)],
           ),
       ],
     );
@@ -934,8 +972,13 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           const SizedBox(width: 10),
           SizedBox(
             width: 72,
-            child: Text(ts,
-                style: _usiLabMono.copyWith(fontSize: 11, color: _usiLabSteelDeep)),
+            child: Text(
+              ts,
+              style: _usiLabMono.copyWith(
+                fontSize: 11,
+                color: _usiLabSteelDeep,
+              ),
+            ),
           ),
           Expanded(
             child: SizedBox(
@@ -973,7 +1016,9 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(alpha: 0.15),
+              color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(
+                alpha: 0.15,
+              ),
               blurRadius: 4,
               offset: const Offset(0, 1),
             ),
@@ -1033,15 +1078,17 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
   bool _isWordChar(String s, int i) {
     if (i < 0 || i >= s.length) return false;
     final int code = s.codeUnitAt(i);
-    final bool letter = (code >= 0x41 && code <= 0x5A) ||
-        (code >= 0x61 && code <= 0x7A);
+    final bool letter =
+        (code >= 0x41 && code <= 0x5A) || (code >= 0x61 && code <= 0x7A);
     final bool digit = code >= 0x30 && code <= 0x39;
     return letter || digit || code == 0x5F;
   }
 
   void _moveHome() {
-    _fireIntent(const TextSelection.collapsed(offset: 0),
-        SelectionChangedCause.keyboard);
+    _fireIntent(
+      const TextSelection.collapsed(offset: 0),
+      SelectionChangedCause.keyboard,
+    );
   }
 
   void _moveEnd() {
@@ -1096,10 +1143,12 @@ class _UsiLabLaboratoryState extends State<_UsiLabLaboratory> {
 
   void _applyProgrammer() {
     final int len = _controller.text.length;
-    final TextSelection target = _clamp(TextSelection(
-      baseOffset: _baseSlider.toInt().clamp(0, len),
-      extentOffset: _extentSlider.toInt().clamp(0, len),
-    ));
+    final TextSelection target = _clamp(
+      TextSelection(
+        baseOffset: _baseSlider.toInt().clamp(0, len),
+        extentOffset: _extentSlider.toInt().clamp(0, len),
+      ),
+    );
     _fireIntent(target, _selectedCause);
   }
 }
@@ -1135,7 +1184,8 @@ class _UsiLabEpilogue extends StatelessWidget {
       summary:
           'Wrap a subtree in Actions that intercepts UpdateSelectionIntent '
           'and forwards to the default action.',
-      code: 'Actions(\n'
+      code:
+          'Actions(\n'
           '  actions: {\n'
           '    UpdateSelectionIntent: CallbackAction<UpdateSelectionIntent>(\n'
           '      onInvoke: (i) {\n'
@@ -1156,7 +1206,8 @@ class _UsiLabEpilogue extends StatelessWidget {
       summary:
           'Use Action.overridable so your action becomes the primary handler '
           'and can decide whether to consume the intent.',
-      code: 'class _GuardedSelectionAction\n'
+      code:
+          'class _GuardedSelectionAction\n'
           '    extends Action<UpdateSelectionIntent> {\n'
           '  @override\n'
           '  Object? invoke(UpdateSelectionIntent intent) {\n'
@@ -1178,7 +1229,8 @@ class _UsiLabEpilogue extends StatelessWidget {
       summary:
           'Dispatch UpdateSelectionIntent from application code (e.g. a '
           '"go to line" command).',
-      code: 'void goToLine(BuildContext ctx, int offset, int len) {\n'
+      code:
+          'void goToLine(BuildContext ctx, int offset, int len) {\n'
           '  final controller = ctx.read<TextEditingController>();\n'
           '  final intent = UpdateSelectionIntent(\n'
           '    controller.value,\n'
@@ -1197,7 +1249,8 @@ class _UsiLabEpilogue extends StatelessWidget {
       summary:
           'When building custom text editors, branch on '
           'SelectionChangedCause to show toolbar, haptics, or accessibility hints.',
-      code: 'void onSelectionChanged(\n'
+      code:
+          'void onSelectionChanged(\n'
           '    TextSelection sel, SelectionChangedCause? cause) {\n'
           '  switch (cause) {\n'
           '    case SelectionChangedCause.longPress:\n'
@@ -1220,13 +1273,12 @@ class _UsiLabEpilogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return _UsiLabPanel(
       title: 'Epilogue — Recipes',
-      subtitle: 'Patterns for overriding, chaining and dispatching UpdateSelectionIntent',
+      subtitle:
+          'Patterns for overriding, chaining and dispatching UpdateSelectionIntent',
       trailing: const _UsiLabBadge(label: 'advisory', tone: _usiLabAmber),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (final _UsiLabRecipe r in _recipes) _recipeCard(r),
-        ],
+        children: [for (final _UsiLabRecipe r in _recipes) _recipeCard(r)],
       ),
     );
   }
@@ -1236,7 +1288,9 @@ class _UsiLabEpilogue extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
         color: _usiLabPaper,
-        border: Border.all(color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.5)),
+        border: Border.all(
+          color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.5),
+        ),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -1247,7 +1301,11 @@ class _UsiLabEpilogue extends StatelessWidget {
             decoration: BoxDecoration(
               color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.1),
               border: Border(
-                bottom: BorderSide(color: (r.tone ?? const Color(0xFF000000)).withValues(alpha: 0.3)),
+                bottom: BorderSide(
+                  color: (r.tone ?? const Color(0xFF000000)).withValues(
+                    alpha: 0.3,
+                  ),
+                ),
               ),
             ),
             child: Row(
@@ -1279,21 +1337,24 @@ class _UsiLabEpilogue extends StatelessWidget {
                   child: Text(
                     r.code,
                     style: _usiLabMono.copyWith(
-                        fontSize: 12, color: const Color(0xFFE8FFFB)),
+                      fontSize: 12,
+                      color: const Color(0xFFE8FFFB),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.lightbulb_outline,
-                        size: 16, color: r.tone),
+                    Icon(Icons.lightbulb_outline, size: 16, color: r.tone),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
                         r.note,
                         style: _usiLabSans.copyWith(
-                            fontSize: 12, fontStyle: FontStyle.italic),
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
                     ),
                   ],
@@ -1338,20 +1399,35 @@ class _UsiLabCheatSheet extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  flex: 3,
-                  child: Text('gesture',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w700))),
+                flex: 3,
+                child: Text(
+                  'gesture',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 4,
-                  child: Text('effect',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w700))),
+                flex: 4,
+                child: Text(
+                  'effect',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 3,
-                  child: Text('cause',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w700))),
+                flex: 3,
+                child: Text(
+                  'cause',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ],
           ),
           const _UsiLabDivider(),
@@ -1362,13 +1438,17 @@ class _UsiLabCheatSheet extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: Text(row[0],
-                        style: _usiLabMono.copyWith(fontSize: 12)),
+                    child: Text(
+                      row[0],
+                      style: _usiLabMono.copyWith(fontSize: 12),
+                    ),
                   ),
                   Expanded(
                     flex: 4,
-                    child: Text(row[1],
-                        style: _usiLabSans.copyWith(fontSize: 12)),
+                    child: Text(
+                      row[1],
+                      style: _usiLabSans.copyWith(fontSize: 12),
+                    ),
                   ),
                   Expanded(
                     flex: 3,
@@ -1390,30 +1470,41 @@ class _UsiLabFlowDiagram extends StatelessWidget {
   const _UsiLabFlowDiagram();
 
   static const List<_UsiLabFlowStep> _steps = <_UsiLabFlowStep>[
-    _UsiLabFlowStep('user gesture',
-        'tap / keyboard / drag / force press etc.', _usiLabSteelDeep),
-    _UsiLabFlowStep('gesture recognizer',
-        'EditableText selection handlers detect the gesture.', _usiLabTeal),
     _UsiLabFlowStep(
-        'intent construction',
-        'UpdateSelectionIntent(currentValue, newSelection, cause) is built.',
-        _usiLabTealDeep),
+      'user gesture',
+      'tap / keyboard / drag / force press etc.',
+      _usiLabSteelDeep,
+    ),
     _UsiLabFlowStep(
-        'Actions.maybeInvoke',
-        'Walks the ancestor Actions widgets looking for a match on\nUpdateSelectionIntent.',
-        _usiLabViolet),
+      'gesture recognizer',
+      'EditableText selection handlers detect the gesture.',
+      _usiLabTeal,
+    ),
     _UsiLabFlowStep(
-        'first handler wins',
-        'If an overridable action returns non-null, propagation stops; else the\ndefault action runs.',
-        _usiLabAmber),
+      'intent construction',
+      'UpdateSelectionIntent(currentValue, newSelection, cause) is built.',
+      _usiLabTealDeep,
+    ),
     _UsiLabFlowStep(
-        'default UpdateSelectionAction',
-        'EditableTextState._updateSelection mutates the controller\'s\nTextEditingValue and notifies listeners.',
-        _usiLabRose),
+      'Actions.maybeInvoke',
+      'Walks the ancestor Actions widgets looking for a match on\nUpdateSelectionIntent.',
+      _usiLabViolet,
+    ),
     _UsiLabFlowStep(
-        'onSelectionChanged',
-        'Consumers observe the change; UI repaints selection handles.',
-        _usiLabTealDeep),
+      'first handler wins',
+      'If an overridable action returns non-null, propagation stops; else the\ndefault action runs.',
+      _usiLabAmber,
+    ),
+    _UsiLabFlowStep(
+      'default UpdateSelectionAction',
+      'EditableTextState._updateSelection mutates the controller\'s\nTextEditingValue and notifies listeners.',
+      _usiLabRose,
+    ),
+    _UsiLabFlowStep(
+      'onSelectionChanged',
+      'Consumers observe the change; UI repaints selection handles.',
+      _usiLabTealDeep,
+    ),
   ];
 
   @override
@@ -1447,15 +1538,21 @@ class _UsiLabFlowDiagram extends StatelessWidget {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: (step.tone ?? const Color(0xFF000000)).withValues(alpha: 0.4),
+                      color: (step.tone ?? const Color(0xFF000000)).withValues(
+                        alpha: 0.4,
+                      ),
                       blurRadius: 6,
                     ),
                   ],
                 ),
                 alignment: Alignment.center,
-                child: Text('${index + 1}',
-                    style: _usiLabMono.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.w800)),
+                child: Text(
+                  '${index + 1}',
+                  style: _usiLabMono.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
               if (!isLast)
                 Expanded(
@@ -1476,8 +1573,10 @@ class _UsiLabFlowDiagram extends StatelessWidget {
                 children: [
                   Text(step.title, style: _usiLabSerif.copyWith(fontSize: 14)),
                   const SizedBox(height: 3),
-                  Text(step.description,
-                      style: _usiLabSans.copyWith(fontSize: 12.5)),
+                  Text(
+                    step.description,
+                    style: _usiLabSans.copyWith(fontSize: 12.5),
+                  ),
                 ],
               ),
             ),
@@ -1502,38 +1601,67 @@ class _UsiLabGlossary extends StatelessWidget {
   const _UsiLabGlossary();
 
   static const List<List<String>> _terms = <List<String>>[
-    <String>['TextEditingValue',
-        'Immutable triple of {text, selection, composing}. Your controller\'s v.'],
-    <String>['TextSelection',
-        'A selection into TextEditingValue.text using base/extent offsets.'],
-    <String>['base',
-        'The offset where the user started selecting (anchor).'],
-    <String>['extent',
-        'The offset where the selection currently ends (caret).'],
-    <String>['affinity',
-        'upstream/downstream — disambiguates the same visual offset at a line-break.'],
-    <String>['isCollapsed',
-        'A collapsed selection equals a caret: base == extent.'],
-    <String>['Intent',
-        'A small marker class describing what the user wants, with no behaviour.'],
-    <String>['Action<T>',
-        'The behaviour that fires when an Intent of type T is invoked nearby.'],
-    <String>['Actions widget',
-        'Associates Intent types to Action instances for the subtree.'],
-    <String>['Actions.maybeInvoke',
-        'Safely dispatch; returns null if no nearby action matched.'],
-    <String>['Actions.invoke',
-        'Strict dispatch; asserts that an action exists.'],
-    <String>['SelectionChangedCause',
-        'Informational enum describing the origin of the selection change.'],
-    <String>['CallbackAction<T>',
-        'Convenience Action that delegates to an onInvoke callback.'],
-    <String>['Action.overridable',
-        'Construct override-friendly actions that defer to the default.'],
-    <String>['UpdateSelectionAction',
-        'The default handler inside EditableTextState.'],
-    <String>['UpdateSelectionIntent',
-        'Our class: the payload describing a selection mutation.'],
+    <String>[
+      'TextEditingValue',
+      'Immutable triple of {text, selection, composing}. Your controller\'s v.',
+    ],
+    <String>[
+      'TextSelection',
+      'A selection into TextEditingValue.text using base/extent offsets.',
+    ],
+    <String>['base', 'The offset where the user started selecting (anchor).'],
+    <String>[
+      'extent',
+      'The offset where the selection currently ends (caret).',
+    ],
+    <String>[
+      'affinity',
+      'upstream/downstream — disambiguates the same visual offset at a line-break.',
+    ],
+    <String>[
+      'isCollapsed',
+      'A collapsed selection equals a caret: base == extent.',
+    ],
+    <String>[
+      'Intent',
+      'A small marker class describing what the user wants, with no behaviour.',
+    ],
+    <String>[
+      'Action<T>',
+      'The behaviour that fires when an Intent of type T is invoked nearby.',
+    ],
+    <String>[
+      'Actions widget',
+      'Associates Intent types to Action instances for the subtree.',
+    ],
+    <String>[
+      'Actions.maybeInvoke',
+      'Safely dispatch; returns null if no nearby action matched.',
+    ],
+    <String>[
+      'Actions.invoke',
+      'Strict dispatch; asserts that an action exists.',
+    ],
+    <String>[
+      'SelectionChangedCause',
+      'Informational enum describing the origin of the selection change.',
+    ],
+    <String>[
+      'CallbackAction<T>',
+      'Convenience Action that delegates to an onInvoke callback.',
+    ],
+    <String>[
+      'Action.overridable',
+      'Construct override-friendly actions that defer to the default.',
+    ],
+    <String>[
+      'UpdateSelectionAction',
+      'The default handler inside EditableTextState.',
+    ],
+    <String>[
+      'UpdateSelectionIntent',
+      'Our class: the payload describing a selection mutation.',
+    ],
   ];
 
   @override
@@ -1559,9 +1687,13 @@ class _UsiLabGlossary extends StatelessWidget {
         children: [
           SizedBox(
             width: 160,
-            child: Text(term,
-                style: _usiLabMono.copyWith(
-                    fontSize: 12.5, color: _usiLabTealDeep)),
+            child: Text(
+              term,
+              style: _usiLabMono.copyWith(
+                fontSize: 12.5,
+                color: _usiLabTealDeep,
+              ),
+            ),
           ),
           Expanded(
             child: Text(def, style: _usiLabSans.copyWith(fontSize: 12.5)),
@@ -1629,20 +1761,35 @@ class _UsiLabComparison extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                  flex: 4,
-                  child: Text('intent',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w800))),
+                flex: 4,
+                child: Text(
+                  'intent',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 4,
-                  child: Text('fields',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w800))),
+                flex: 4,
+                child: Text(
+                  'fields',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
               Expanded(
-                  flex: 5,
-                  child: Text('notes',
-                      style: _usiLabSans.copyWith(
-                          fontSize: 12, fontWeight: FontWeight.w800))),
+                flex: 5,
+                child: Text(
+                  'notes',
+                  style: _usiLabSans.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
             ],
           ),
           const _UsiLabDivider(),
@@ -1664,13 +1811,11 @@ class _UsiLabComparison extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Text(r.carries,
-                style: _usiLabMono.copyWith(fontSize: 11.5)),
+            child: Text(r.carries, style: _usiLabMono.copyWith(fontSize: 11.5)),
           ),
           Expanded(
             flex: 5,
-            child:
-                Text(r.notes, style: _usiLabSans.copyWith(fontSize: 12)),
+            child: Text(r.notes, style: _usiLabSans.copyWith(fontSize: 12)),
           ),
         ],
       ),
@@ -1709,14 +1854,22 @@ class _UsiLabBanner extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             Colors.white,
-            (_usiLabTealPale ?? const Color(0xFF000000)).withValues(alpha: 0.55),
+            (_usiLabTealPale ?? const Color(0xFF000000)).withValues(
+              alpha: 0.55,
+            ),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(alpha: 0.35)),
+        border: Border.all(
+          color: (_usiLabTealDeep ?? const Color(0xFF000000)).withValues(
+            alpha: 0.35,
+          ),
+        ),
         boxShadow: [
           BoxShadow(
-            color: (_usiLabTeal ?? const Color(0xFF000000)).withValues(alpha: 0.12),
+            color: (_usiLabTeal ?? const Color(0xFF000000)).withValues(
+              alpha: 0.12,
+            ),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -1728,10 +1881,7 @@ class _UsiLabBanner extends StatelessWidget {
             width: 72,
             height: 72,
             child: CustomPaint(
-              painter: _UsiLabPetriPainter(
-                seed: 12345,
-                tone: _usiLabTealDeep,
-              ),
+              painter: _UsiLabPetriPainter(seed: 12345, tone: _usiLabTealDeep),
             ),
           ),
           const SizedBox(width: 16),
@@ -1739,8 +1889,10 @@ class _UsiLabBanner extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('UpdateSelectionIntent — a laboratory',
-                    style: _usiLabSerif.copyWith(fontSize: 22)),
+                Text(
+                  'UpdateSelectionIntent — a laboratory',
+                  style: _usiLabSerif.copyWith(fontSize: 22),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Observe, mutate, chain, and veto text selection intents inside Flutter\'s Actions pipeline.',
@@ -1754,7 +1906,10 @@ class _UsiLabBanner extends StatelessWidget {
                     _UsiLabBadge(label: 'Intent', tone: _usiLabTealDeep),
                     _UsiLabBadge(label: 'Actions', tone: _usiLabViolet),
                     _UsiLabBadge(label: 'EditableText', tone: _usiLabAmber),
-                    _UsiLabBadge(label: 'SelectionChangedCause', tone: _usiLabRose),
+                    _UsiLabBadge(
+                      label: 'SelectionChangedCause',
+                      tone: _usiLabRose,
+                    ),
                   ],
                 ),
               ],
@@ -1788,9 +1943,7 @@ dynamic build(BuildContext context) {
         onSecondary: Colors.white,
         onSurface: _usiLabInk,
       ),
-      textTheme: const TextTheme(
-        bodyMedium: TextStyle(color: _usiLabInk),
-      ),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: _usiLabInk)),
     ),
     home: Scaffold(
       appBar: AppBar(
@@ -1806,7 +1959,10 @@ dynamic build(BuildContext context) {
           Padding(
             padding: EdgeInsets.only(right: 14),
             child: Center(
-              child: _UsiLabBadge(label: 'flutter/widgets', tone: _usiLabTealDeep),
+              child: _UsiLabBadge(
+                label: 'flutter/widgets',
+                tone: _usiLabTealDeep,
+              ),
             ),
           ),
         ],

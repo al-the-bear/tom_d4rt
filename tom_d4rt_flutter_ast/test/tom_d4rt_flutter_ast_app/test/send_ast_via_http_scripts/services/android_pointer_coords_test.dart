@@ -51,11 +51,7 @@ const TextStyle kSubtitle = TextStyle(
   letterSpacing: 0.4,
 );
 
-const TextStyle kBody = TextStyle(
-  fontSize: 13.5,
-  height: 1.45,
-  color: kInkMid,
-);
+const TextStyle kBody = TextStyle(fontSize: 13.5, height: 1.45, color: kInkMid);
 
 const TextStyle kMono = TextStyle(
   fontFamily: "monospace",
@@ -347,11 +343,7 @@ class _IntroSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kInkDeep,
-            kInkMid,
-            kAccentStylusDeep,
-          ],
+          colors: <Color>[kInkDeep, kInkMid, kAccentStylusDeep],
           stops: <double>[0.0, 0.55, 1.0],
         ),
         boxShadow: <BoxShadow>[
@@ -373,7 +365,10 @@ class _IntroSection extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: kAccentStylus.withValues(alpha: 0.22),
                         borderRadius: BorderRadius.circular(8),
@@ -389,23 +384,20 @@ class _IntroSection extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: kPaper.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        "FLUTTER 3.27+",
-                        style: kChip,
-                      ),
+                      child: Text("FLUTTER 3.27+", style: kChip),
                     ),
                   ],
                 ),
                 SizedBox(height: 18),
-                Text(
-                  "Android Pointer Coords",
-                  style: kHeadline,
-                ),
+                Text("Android Pointer Coords", style: kHeadline),
                 SizedBox(height: 6),
                 Text(
                   "From raw MotionEvent samples to Flutter PointerEvent",
@@ -440,10 +432,7 @@ class _IntroSection extends StatelessWidget {
             ),
           ),
           SizedBox(width: 22),
-          Expanded(
-            flex: 5,
-            child: _HeroDiagram(),
-          ),
+          Expanded(flex: 5, child: _HeroDiagram()),
         ],
       ),
     );
@@ -462,10 +451,7 @@ class _HeroStat extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: kPaper.withValues(alpha: 0.08),
-        border: Border.all(
-          color: kPaper.withValues(alpha: 0.18),
-          width: 1,
-        ),
+        border: Border.all(color: kPaper.withValues(alpha: 0.18), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -560,7 +546,10 @@ class _HeroDiagram extends StatelessWidget {
                   color: kAccentStylus.withValues(alpha: 0.85),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text("CONTACT ELLIPSE", style: kChip.copyWith(fontSize: 9)),
+                child: Text(
+                  "CONTACT ELLIPSE",
+                  style: kChip.copyWith(fontSize: 9),
+                ),
               ),
             ),
           ],
@@ -631,10 +620,7 @@ class _ContactEllipse extends StatelessWidget {
               color.withValues(alpha: 0.10),
             ],
           ),
-          border: Border.all(
-            color: color.withValues(alpha: 0.9),
-            width: 1.4,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.9), width: 1.4),
         ),
       ),
     );
@@ -681,7 +667,8 @@ class _PointerAnatomySection extends StatelessWidget {
     return _CardShell(
       eyebrow: "ANATOMY",
       title: "Inside a single PointerCoords sample",
-      blurb: "Every Android MotionEvent carries one PointerCoords per active pointer. These are the 9 numbers in that record (plus the index/id from PointerProperties).",
+      blurb:
+          "Every Android MotionEvent carries one PointerCoords per active pointer. These are the 9 numbers in that record (plus the index/id from PointerProperties).",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -707,10 +694,7 @@ class _AnatomyDiagram extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kPaperDim,
-            kPaper,
-          ],
+          colors: <Color>[kPaperDim, kPaper],
         ),
         border: Border.all(color: kPaperEdge, width: 1),
       ),
@@ -747,10 +731,7 @@ class _AnatomyDiagram extends StatelessWidget {
                           kAccentStylus.withValues(alpha: 0.05),
                         ],
                       ),
-                      border: Border.all(
-                        color: kAccentStylus,
-                        width: 1.6,
-                      ),
+                      border: Border.all(color: kAccentStylus, width: 1.6),
                     ),
                   ),
                 ),
@@ -773,12 +754,18 @@ class _AnatomyDiagram extends StatelessWidget {
                 Positioned(
                   right: 20,
                   top: 30,
-                  child: _AnnotationDot(label: "toolMajor", color: kAccentMouse),
+                  child: _AnnotationDot(
+                    label: "toolMajor",
+                    color: kAccentMouse,
+                  ),
                 ),
                 Positioned(
                   left: 14,
                   bottom: 14,
-                  child: _AnnotationDot(label: "touchMajor", color: kAccentStylus),
+                  child: _AnnotationDot(
+                    label: "touchMajor",
+                    color: kAccentStylus,
+                  ),
                 ),
               ],
             ),
@@ -790,15 +777,35 @@ class _AnatomyDiagram extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _Legend(color: kAccentDanger, label: "(x, y)", desc: "device pixel position"),
+                _Legend(
+                  color: kAccentDanger,
+                  label: "(x, y)",
+                  desc: "device pixel position",
+                ),
                 SizedBox(height: 10),
-                _Legend(color: kAccentStylus, label: "touchMajor/Minor", desc: "skin/stylus contact ellipse"),
+                _Legend(
+                  color: kAccentStylus,
+                  label: "touchMajor/Minor",
+                  desc: "skin/stylus contact ellipse",
+                ),
                 SizedBox(height: 10),
-                _Legend(color: kAccentMouse, label: "toolMajor/Minor", desc: "tool footprint ellipse"),
+                _Legend(
+                  color: kAccentMouse,
+                  label: "toolMajor/Minor",
+                  desc: "tool footprint ellipse",
+                ),
                 SizedBox(height: 10),
-                _Legend(color: kAccentSuccess, label: "orientation", desc: "ellipse rotation in radians"),
+                _Legend(
+                  color: kAccentSuccess,
+                  label: "orientation",
+                  desc: "ellipse rotation in radians",
+                ),
                 SizedBox(height: 10),
-                _Legend(color: kAccentWarn, label: "pressure / size", desc: "force estimate (0..1)"),
+                _Legend(
+                  color: kAccentWarn,
+                  label: "pressure / size",
+                  desc: "force estimate (0..1)",
+                ),
               ],
             ),
           ),
@@ -821,10 +828,7 @@ class _AnnotationDot extends StatelessWidget {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
-          ),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
         ),
         SizedBox(width: 6),
         Container(
@@ -908,7 +912,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0..screenW",
           color: kAccentInfo,
           icon: Icons.swap_horiz_rounded,
-          blurb: "Horizontal coordinate in device pixels, post any orientation transform applied by the windowing layer.",
+          blurb:
+              "Horizontal coordinate in device pixels, post any orientation transform applied by the windowing layer.",
         ),
         _FieldCard(
           name: "y",
@@ -916,7 +921,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0..screenH",
           color: kAccentSuccess,
           icon: Icons.swap_vert_rounded,
-          blurb: "Vertical coordinate. Y grows downward on Android, matching framebuffer convention.",
+          blurb:
+              "Vertical coordinate. Y grows downward on Android, matching framebuffer convention.",
         ),
         _FieldCard(
           name: "pressure",
@@ -924,7 +930,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0.0..1.0",
           color: kAccentWarn,
           icon: Icons.water_drop_rounded,
-          blurb: "Estimated force. For capacitive panels often derived from contact area. 1.0 means \"saturated\".",
+          blurb:
+              "Estimated force. For capacitive panels often derived from contact area. 1.0 means \"saturated\".",
         ),
         _FieldCard(
           name: "size",
@@ -932,7 +939,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0.0..1.0",
           color: kAccentEraser,
           icon: Icons.adjust_rounded,
-          blurb: "Approximate scaled contact size. Less precise than the explicit ellipse fields below.",
+          blurb:
+              "Approximate scaled contact size. Less precise than the explicit ellipse fields below.",
         ),
         _FieldCard(
           name: "orientation",
@@ -940,7 +948,8 @@ class _FieldGrid extends StatelessWidget {
           range: "−π/2..π/2",
           color: kAccentStylus,
           icon: Icons.rotate_right_rounded,
-          blurb: "Rotation of the touch ellipse. 0 means major-axis points along screen +Y.",
+          blurb:
+              "Rotation of the touch ellipse. 0 means major-axis points along screen +Y.",
         ),
         _FieldCard(
           name: "tilt",
@@ -948,7 +957,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0..π/2",
           color: kAccentMouse,
           icon: Icons.architecture_rounded,
-          blurb: "Stylus tilt from the surface normal. 0 = perpendicular, π/2 = parallel to screen.",
+          blurb:
+              "Stylus tilt from the surface normal. 0 = perpendicular, π/2 = parallel to screen.",
         ),
         _FieldCard(
           name: "distance",
@@ -956,7 +966,8 @@ class _FieldGrid extends StatelessWidget {
           range: ">= 0",
           color: kAccentInverted,
           icon: Icons.height_rounded,
-          blurb: "Hover distance for tools that report it. Non-zero distance + zero pressure = hover sample.",
+          blurb:
+              "Hover distance for tools that report it. Non-zero distance + zero pressure = hover sample.",
         ),
         _FieldCard(
           name: "touchMajor",
@@ -964,7 +975,8 @@ class _FieldGrid extends StatelessWidget {
           range: ">= 0",
           color: kAccentStylusDeep,
           icon: Icons.crop_landscape_rounded,
-          blurb: "Long axis of the contact patch ellipse. Pulled from MotionEvent.AXIS_TOUCH_MAJOR.",
+          blurb:
+              "Long axis of the contact patch ellipse. Pulled from MotionEvent.AXIS_TOUCH_MAJOR.",
         ),
         _FieldCard(
           name: "touchMinor",
@@ -972,7 +984,8 @@ class _FieldGrid extends StatelessWidget {
           range: ">= 0",
           color: kAccentStylus,
           icon: Icons.crop_portrait_rounded,
-          blurb: "Short axis of the contact ellipse. Always <= touchMajor by definition.",
+          blurb:
+              "Short axis of the contact ellipse. Always <= touchMajor by definition.",
         ),
         _FieldCard(
           name: "toolMajor",
@@ -980,7 +993,8 @@ class _FieldGrid extends StatelessWidget {
           range: ">= 0",
           color: kAccentMouse,
           icon: Icons.expand_rounded,
-          blurb: "Long axis of the tool footprint. Larger than touchMajor for fat fingers, smaller for styluses.",
+          blurb:
+              "Long axis of the tool footprint. Larger than touchMajor for fat fingers, smaller for styluses.",
         ),
         _FieldCard(
           name: "toolMinor",
@@ -988,7 +1002,8 @@ class _FieldGrid extends StatelessWidget {
           range: ">= 0",
           color: kAccentEraser,
           icon: Icons.compress_rounded,
-          blurb: "Short axis of the tool footprint. Pairs with toolMajor to describe pen vs finger shape.",
+          blurb:
+              "Short axis of the tool footprint. Pairs with toolMajor to describe pen vs finger shape.",
         ),
         _FieldCard(
           name: "toolType",
@@ -996,7 +1011,8 @@ class _FieldGrid extends StatelessWidget {
           range: "0..5",
           color: kAccentFinger,
           icon: Icons.category_rounded,
-          blurb: "Tool family. Lives on AndroidPointerProperties but always travels with coords.",
+          blurb:
+              "Tool family. Lives on AndroidPointerProperties but always travels with coords.",
         ),
       ],
     );
@@ -1035,10 +1051,7 @@ class _FieldCard extends StatelessWidget {
             color.withValues(alpha: 0.18),
           ],
         ),
-        border: Border.all(
-          color: color.withValues(alpha: 0.45),
-          width: 1,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.45), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1160,10 +1173,7 @@ class _CardShell extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 10),
-              Text(
-                eyebrow,
-                style: kLabel.copyWith(color: accent),
-              ),
+              Text(eyebrow, style: kLabel.copyWith(color: accent)),
             ],
           ),
           SizedBox(height: 10),
@@ -1191,38 +1201,104 @@ class _PressureCurvesSection extends StatelessWidget {
       eyebrow: "PRESSURE",
       accent: kAccentWarn,
       title: "Stylus pressure ramps",
-      blurb: "Hand-drawn pressure profiles across the press-down phase of a stylus stroke. Each row is one stroke; the bars are sampled pressure values at successive timesteps. Numbers are mock data.",
+      blurb:
+          "Hand-drawn pressure profiles across the press-down phase of a stylus stroke. Each row is one stroke; the bars are sampled pressure values at successive timesteps. Numbers are mock data.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _PressureRow(
             name: "Soft sketch",
             color: kAccentInfo,
-            curve: <double>[0.05, 0.10, 0.16, 0.20, 0.26, 0.30, 0.32, 0.28, 0.22, 0.14, 0.07, 0.02],
+            curve: <double>[
+              0.05,
+              0.10,
+              0.16,
+              0.20,
+              0.26,
+              0.30,
+              0.32,
+              0.28,
+              0.22,
+              0.14,
+              0.07,
+              0.02,
+            ],
           ),
           SizedBox(height: 12),
           _PressureRow(
             name: "Linear ramp",
             color: kAccentStylus,
-            curve: <double>[0.08, 0.16, 0.24, 0.32, 0.40, 0.48, 0.56, 0.64, 0.72, 0.80, 0.88, 0.96],
+            curve: <double>[
+              0.08,
+              0.16,
+              0.24,
+              0.32,
+              0.40,
+              0.48,
+              0.56,
+              0.64,
+              0.72,
+              0.80,
+              0.88,
+              0.96,
+            ],
           ),
           SizedBox(height: 12),
           _PressureRow(
             name: "Quick stab",
             color: kAccentEraser,
-            curve: <double>[0.10, 0.38, 0.72, 0.94, 0.98, 0.92, 0.70, 0.42, 0.18, 0.08, 0.04, 0.02],
+            curve: <double>[
+              0.10,
+              0.38,
+              0.72,
+              0.94,
+              0.98,
+              0.92,
+              0.70,
+              0.42,
+              0.18,
+              0.08,
+              0.04,
+              0.02,
+            ],
           ),
           SizedBox(height: 12),
           _PressureRow(
             name: "Calligraphy hold",
             color: kAccentSuccess,
-            curve: <double>[0.20, 0.45, 0.62, 0.70, 0.74, 0.76, 0.78, 0.77, 0.74, 0.70, 0.66, 0.60],
+            curve: <double>[
+              0.20,
+              0.45,
+              0.62,
+              0.70,
+              0.74,
+              0.76,
+              0.78,
+              0.77,
+              0.74,
+              0.70,
+              0.66,
+              0.60,
+            ],
           ),
           SizedBox(height: 12),
           _PressureRow(
             name: "Tremor stroke",
             color: kAccentMouse,
-            curve: <double>[0.32, 0.40, 0.34, 0.45, 0.38, 0.50, 0.41, 0.55, 0.44, 0.58, 0.49, 0.60],
+            curve: <double>[
+              0.32,
+              0.40,
+              0.34,
+              0.45,
+              0.38,
+              0.50,
+              0.41,
+              0.55,
+              0.44,
+              0.58,
+              0.49,
+              0.60,
+            ],
           ),
           SizedBox(height: 18),
           _PressureLegend(),
@@ -1247,39 +1323,40 @@ class _PressureRow extends StatelessWidget {
     final List<Widget> bars = <Widget>[];
     for (int i = 0; i < curve.length; i++) {
       final double v = curve[i];
-      bars.add(Expanded(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                height: 60 * v,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: <Color>[
-                      color.withValues(alpha: 0.55),
-                      color,
-                    ],
+      bars.add(
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Container(
+                  height: 60 * v,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(4),
+                    ),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: <Color>[color.withValues(alpha: 0.55), color],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 3),
-              Text(
-                v.toStringAsFixed(2),
-                style: TextStyle(
-                  fontFamily: "monospace",
-                  fontSize: 8.5,
-                  color: kAccentDim,
+                SizedBox(height: 3),
+                Text(
+                  v.toStringAsFixed(2),
+                  style: TextStyle(
+                    fontFamily: "monospace",
+                    fontSize: 8.5,
+                    color: kAccentDim,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ));
+      );
     }
     return Container(
       padding: EdgeInsets.fromLTRB(14, 12, 14, 10),
@@ -1296,10 +1373,7 @@ class _PressureRow extends StatelessWidget {
               Container(
                 width: 8,
                 height: 8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: color,
-                ),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: color),
               ),
               SizedBox(width: 8),
               Text(
@@ -1311,10 +1385,7 @@ class _PressureRow extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 10),
-              Text(
-                curve.length.toString() + " samples",
-                style: kMonoLight,
-              ),
+              Text(curve.length.toString() + " samples", style: kMonoLight),
               Spacer(),
               Text(
                 "max " + _maxOf(curve).toStringAsFixed(2),
@@ -1393,7 +1464,8 @@ class _TiltGeometrySection extends StatelessWidget {
       eyebrow: "TILT GEOMETRY",
       accent: kAccentMouse,
       title: "Stylus tilt — direction and magnitude",
-      blurb: "Tilt is reported as one scalar (the angle off-normal). Orientation tells you which compass direction the pen is leaning toward. These chevrons illustrate eight cardinal tilt directions.",
+      blurb:
+          "Tilt is reported as one scalar (the angle off-normal). Orientation tells you which compass direction the pen is leaning toward. These chevrons illustrate eight cardinal tilt directions.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1419,10 +1491,7 @@ class _TiltCompass extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            kInkDeep,
-            kInkMid,
-          ],
+          colors: <Color>[kInkDeep, kInkMid],
         ),
       ),
       child: Stack(
@@ -1550,13 +1619,37 @@ class _TiltMagnitudeRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Expanded(child: _TiltCell(deg: 0, label: "Perpendicular", desc: "Pen straight up; no tilt component.")),
+        Expanded(
+          child: _TiltCell(
+            deg: 0,
+            label: "Perpendicular",
+            desc: "Pen straight up; no tilt component.",
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: _TiltCell(deg: 15, label: "Comfortable", desc: "Typical handwriting grip; gentle lean.")),
+        Expanded(
+          child: _TiltCell(
+            deg: 15,
+            label: "Comfortable",
+            desc: "Typical handwriting grip; gentle lean.",
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: _TiltCell(deg: 35, label: "Shading", desc: "Side-of-tip stroke for soft shading effects.")),
+        Expanded(
+          child: _TiltCell(
+            deg: 35,
+            label: "Shading",
+            desc: "Side-of-tip stroke for soft shading effects.",
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: _TiltCell(deg: 60, label: "Extreme", desc: "Near-flat; reported but rarely physical.")),
+        Expanded(
+          child: _TiltCell(
+            deg: 60,
+            label: "Extreme",
+            desc: "Near-flat; reported but rarely physical.",
+          ),
+        ),
       ],
     );
   }
@@ -1578,10 +1671,7 @@ class _TiltCell extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kPaperDim,
-            kPaper,
-          ],
+          colors: <Color>[kPaperDim, kPaper],
         ),
         border: Border.all(color: kPaperEdge, width: 1),
       ),
@@ -1596,11 +1686,7 @@ class _TiltCell extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
-                    Container(
-                      width: 38,
-                      height: 2,
-                      color: kAccentGrid,
-                    ),
+                    Container(width: 38, height: 2, color: kAccentGrid),
                     Transform.rotate(
                       angle: -rad,
                       alignment: Alignment.bottomCenter,
@@ -1611,10 +1697,7 @@ class _TiltCell extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
-                            colors: <Color>[
-                              kAccentStylusDeep,
-                              kAccentStylus,
-                            ],
+                            colors: <Color>[kAccentStylusDeep, kAccentStylus],
                           ),
                           borderRadius: BorderRadius.circular(2),
                         ),
@@ -1662,7 +1745,8 @@ class _ToolTypeMatrixSection extends StatelessWidget {
       eyebrow: "TOOL TYPES",
       accent: kAccentFinger,
       title: "What each tool reports — comparison matrix",
-      blurb: "Different input devices populate different fields. A stylus carries tilt; a mouse skips touch ellipse fields entirely. Use this table to know which values to trust.",
+      blurb:
+          "Different input devices populate different fields. A stylus carries tilt; a mouse skips touch ellipse fields entirely. Use this table to know which values to trust.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1737,20 +1821,17 @@ class _Cell {
 // functions sidestep the bug entirely — they go through the regular
 // function-call path and the constructor returns a proper instance.
 _Cell _cellFull(String note) => _Cell(
-      symbol: Icons.check_circle_rounded,
-      note: note,
-      color: kAccentSuccess,
-    );
-_Cell _cellPartial(String note) => _Cell(
-      symbol: Icons.error_rounded,
-      note: note,
-      color: kAccentWarn,
-    );
+  symbol: Icons.check_circle_rounded,
+  note: note,
+  color: kAccentSuccess,
+);
+_Cell _cellPartial(String note) =>
+    _Cell(symbol: Icons.error_rounded, note: note, color: kAccentWarn);
 _Cell _cellNone() => _Cell(
-      symbol: Icons.remove_circle_outline_rounded,
-      note: "—",
-      color: kAccentDim,
-    );
+  symbol: Icons.remove_circle_outline_rounded,
+  note: "—",
+  color: kAccentDim,
+);
 
 class _ToolMatrixHeader extends StatelessWidget {
   const _ToolMatrixHeader();
@@ -1764,20 +1845,35 @@ class _ToolMatrixHeader extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kInkDeep,
-            kInkMid,
-          ],
+          colors: <Color>[kInkDeep, kInkMid],
         ),
       ),
       child: Row(
         children: <Widget>[
-          Expanded(flex: 4, child: Text("Tool", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("Pressure", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("Ellipse", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("Tilt", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("Distance", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("Hover", style: kLabel.copyWith(color: kPaper))),
+          Expanded(
+            flex: 4,
+            child: Text("Tool", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Pressure", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Ellipse", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Tilt", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Distance", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("Hover", style: kLabel.copyWith(color: kPaper)),
+          ),
         ],
       ),
     );
@@ -1894,7 +1990,8 @@ class _EventFlowSection extends StatelessWidget {
       eyebrow: "EVENT JOURNEY",
       accent: kAccentInfo,
       title: "From hardware sample to PointerEvent",
-      blurb: "An Android touch sample crosses many layers before a Flutter widget sees it. Each box is one transformation; arrows show data flow.",
+      blurb:
+          "An Android touch sample crosses many layers before a Flutter widget sees it. Each box is one transformation; arrows show data flow.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -1902,7 +1999,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "1",
             color: kAccentDanger,
             title: "Driver / HAL",
-            blurb: "Touch IC fires interrupt. Linux input driver maps raw values to MotionEvent axes.",
+            blurb:
+                "Touch IC fires interrupt. Linux input driver maps raw values to MotionEvent axes.",
             icon: Icons.developer_board_rounded,
           ),
           _FlowArrow(label: "raw axes"),
@@ -1910,7 +2008,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "2",
             color: kAccentEraser,
             title: "InputDispatcher",
-            blurb: "Native dispatcher batches samples and routes them to the focused window.",
+            blurb:
+                "Native dispatcher batches samples and routes them to the focused window.",
             icon: Icons.alt_route_rounded,
           ),
           _FlowArrow(label: "MotionEvent"),
@@ -1918,7 +2017,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "3",
             color: kAccentWarn,
             title: "FlutterView (JVM)",
-            blurb: "Decodes MotionEvent into a PointerData buffer; bundles toolType, pressure, tilt, ellipse.",
+            blurb:
+                "Decodes MotionEvent into a PointerData buffer; bundles toolType, pressure, tilt, ellipse.",
             icon: Icons.layers_rounded,
           ),
           _FlowArrow(label: "PointerData[]"),
@@ -1926,7 +2026,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "4",
             color: kAccentSuccess,
             title: "Engine (C++)",
-            blurb: "Forwards the packet to the Dart isolate via the platform message channel.",
+            blurb:
+                "Forwards the packet to the Dart isolate via the platform message channel.",
             icon: Icons.memory_rounded,
           ),
           _FlowArrow(label: "ui.PointerDataPacket"),
@@ -1934,7 +2035,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "5",
             color: kAccentStylus,
             title: "PointerEventConverter",
-            blurb: "Normalises units (px → logical px, radians stay), recognises device kind, emits PointerEvents.",
+            blurb:
+                "Normalises units (px → logical px, radians stay), recognises device kind, emits PointerEvents.",
             icon: Icons.transform_rounded,
           ),
           _FlowArrow(label: "PointerEvent"),
@@ -1942,7 +2044,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "6",
             color: kAccentMouse,
             title: "GestureBinding / arena",
-            blurb: "Hit-tests against the render tree; arena resolves which recognizer wins.",
+            blurb:
+                "Hit-tests against the render tree; arena resolves which recognizer wins.",
             icon: Icons.sports_kabaddi_rounded,
           ),
           _FlowArrow(label: "callback"),
@@ -1950,7 +2053,8 @@ class _EventFlowSection extends StatelessWidget {
             step: "7",
             color: kAccentInverted,
             title: "Widget callback",
-            blurb: "onTap / onPanUpdate / Listener.onPointerMove fires with sanitised Flutter units.",
+            blurb:
+                "onTap / onPanUpdate / Listener.onPointerMove fires with sanitised Flutter units.",
             icon: Icons.widgets_rounded,
           ),
         ],
@@ -1996,10 +2100,7 @@ class _FlowStage extends StatelessWidget {
             width: 38,
             height: 38,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
-            ),
+            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
             child: Text(
               step,
               style: TextStyle(
@@ -2050,12 +2151,12 @@ class _FlowArrow extends StatelessWidget {
             alignment: Alignment.center,
             child: Column(
               children: <Widget>[
-                Container(
-                  width: 2,
-                  height: 14,
+                Container(width: 2, height: 14, color: kAccentGrid),
+                Icon(
+                  Icons.arrow_drop_down_rounded,
                   color: kAccentGrid,
+                  size: 22,
                 ),
-                Icon(Icons.arrow_drop_down_rounded, color: kAccentGrid, size: 22),
               ],
             ),
           ),
@@ -2096,7 +2197,8 @@ class _CoordsTableSection extends StatelessWidget {
       eyebrow: "SAMPLE TABLE",
       accent: kAccentStylusDeep,
       title: "Canned PointerCoords samples",
-      blurb: "Six hand-curated samples — one per device class. These values are pre-computed mocks: no live input feeds this table.",
+      blurb:
+          "Six hand-curated samples — one per device class. These values are pre-computed mocks: no live input feeds this table.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2122,21 +2224,39 @@ class _SampleTableHeader extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kAccentStylusDeep,
-            kInkMid,
-          ],
+          colors: <Color>[kAccentStylusDeep, kInkMid],
         ),
       ),
       child: Row(
         children: <Widget>[
-          Expanded(flex: 5, child: Text("LABEL / TOOL", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("X, Y", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 2, child: Text("PRESS", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 2, child: Text("ORIENT", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 2, child: Text("TILT", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 2, child: Text("DIST", style: kLabel.copyWith(color: kPaper))),
-          Expanded(flex: 3, child: Text("ELLIPSE", style: kLabel.copyWith(color: kPaper))),
+          Expanded(
+            flex: 5,
+            child: Text("LABEL / TOOL", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("X, Y", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text("PRESS", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text("ORIENT", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text("TILT", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text("DIST", style: kLabel.copyWith(color: kPaper)),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text("ELLIPSE", style: kLabel.copyWith(color: kPaper)),
+          ),
         ],
       ),
     );
@@ -2208,30 +2328,48 @@ class _SampleTableRow extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Text(
-              "(" + sample.x.toStringAsFixed(1) + ", " + sample.y.toStringAsFixed(1) + ")",
+              "(" +
+                  sample.x.toStringAsFixed(1) +
+                  ", " +
+                  sample.y.toStringAsFixed(1) +
+                  ")",
               style: kMono,
             ),
           ),
           Expanded(
             flex: 2,
-            child: _ValueChip(value: sample.pressure.toStringAsFixed(2), color: kAccentWarn),
+            child: _ValueChip(
+              value: sample.pressure.toStringAsFixed(2),
+              color: kAccentWarn,
+            ),
           ),
           Expanded(
             flex: 2,
-            child: _ValueChip(value: sample.orientation.toStringAsFixed(2), color: kAccentStylus),
+            child: _ValueChip(
+              value: sample.orientation.toStringAsFixed(2),
+              color: kAccentStylus,
+            ),
           ),
           Expanded(
             flex: 2,
-            child: _ValueChip(value: sample.tilt.toStringAsFixed(2), color: kAccentMouse),
+            child: _ValueChip(
+              value: sample.tilt.toStringAsFixed(2),
+              color: kAccentMouse,
+            ),
           ),
           Expanded(
             flex: 2,
-            child: _ValueChip(value: sample.distance.toStringAsFixed(1), color: kAccentInverted),
+            child: _ValueChip(
+              value: sample.distance.toStringAsFixed(1),
+              color: kAccentInverted,
+            ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              sample.touchMajor.toStringAsFixed(1) + " x " + sample.touchMinor.toStringAsFixed(1),
+              sample.touchMajor.toStringAsFixed(1) +
+                  " x " +
+                  sample.touchMinor.toStringAsFixed(1),
               style: kMono,
             ),
           ),
@@ -2281,7 +2419,11 @@ class _SampleTableFootnote extends StatelessWidget {
         Expanded(
           child: Text(
             "Reading row 3: the stylus hover sample has pressure=0 but distance=18 — the canonical sign of a non-contact hover frame.",
-            style: kBody.copyWith(fontSize: 12, color: kInkSoft, fontStyle: FontStyle.italic),
+            style: kBody.copyWith(
+              fontSize: 12,
+              color: kInkSoft,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],
@@ -2302,7 +2444,8 @@ class _OrientationGlyphSection extends StatelessWidget {
       eyebrow: "ORIENTATION GLYPHS",
       accent: kAccentSuccess,
       title: "Ellipse rotation cheat-sheet",
-      blurb: "Orientation is the angle of the touch ellipse's major axis relative to screen +Y. The glyphs below show ellipses at named angles.",
+      blurb:
+          "Orientation is the angle of the touch ellipse's major axis relative to screen +Y. The glyphs below show ellipses at named angles.",
       child: Wrap(
         spacing: 14,
         runSpacing: 14,
@@ -2314,7 +2457,11 @@ class _OrientationGlyphSection extends StatelessWidget {
           _OrientGlyph(angle: 0.785, label: "π/4", note: "diagonal NE"),
           _OrientGlyph(angle: 1.178, label: "3π/8", note: "near horizontal"),
           _OrientGlyph(angle: 1.57, label: "π/2", note: "horizontal"),
-          _OrientGlyph(angle: 2.356, label: "3π/4", note: "diagonal SE-flipped"),
+          _OrientGlyph(
+            angle: 2.356,
+            label: "3π/4",
+            note: "diagonal SE-flipped",
+          ),
         ],
       ),
     );
@@ -2341,10 +2488,7 @@ class _OrientGlyph extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: <Color>[
-            kPaperDim,
-            kPaper,
-          ],
+          colors: <Color>[kPaperDim, kPaper],
         ),
         border: Border.all(color: kPaperEdge, width: 1),
       ),
@@ -2407,7 +2551,8 @@ class _QuirksPanelSection extends StatelessWidget {
       eyebrow: "QUIRKS",
       accent: kAccentDanger,
       title: "Things Android does that surprise people",
-      blurb: "Real-world traps when you read PointerCoords directly. Each card is a gotcha plus what to do about it.",
+      blurb:
+          "Real-world traps when you read PointerCoords directly. Each card is a gotcha plus what to do about it.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2416,7 +2561,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentWarn,
             icon: Icons.warning_amber_rounded,
             title: "Pressure 1.0 is not always physical",
-            body: "Some panels saturate at the moment of finger-down. Treat 1.0 as \"at-least full\" rather than \"exactly full\".",
+            body:
+                "Some panels saturate at the moment of finger-down. Treat 1.0 as \"at-least full\" rather than \"exactly full\".",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2424,7 +2570,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentDanger,
             icon: Icons.error_rounded,
             title: "Y grows down, not up",
-            body: "Coordinates use framebuffer convention. A pointer at y=0 is at the top edge, not the bottom.",
+            body:
+                "Coordinates use framebuffer convention. A pointer at y=0 is at the top edge, not the bottom.",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2432,7 +2579,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentInfo,
             icon: Icons.info_rounded,
             title: "Mouse events skip ellipse fields",
-            body: "TOOL_TYPE_MOUSE leaves touchMajor/Minor and toolMajor/Minor at zero. Don't read them.",
+            body:
+                "TOOL_TYPE_MOUSE leaves touchMajor/Minor and toolMajor/Minor at zero. Don't read them.",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2440,7 +2588,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentWarn,
             icon: Icons.cyclone_rounded,
             title: "Orientation wraps at ±π/2",
-            body: "Some devices clamp orientation to [−π/2, π/2]; an ellipse rotated past that is mirrored, not wrapped.",
+            body:
+                "Some devices clamp orientation to [−π/2, π/2]; an ellipse rotated past that is mirrored, not wrapped.",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2448,7 +2597,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentSuccess,
             icon: Icons.check_circle_rounded,
             title: "Distance is hover height",
-            body: "Distance is non-zero only during hover. While in contact it should drop to exactly 0.",
+            body:
+                "Distance is non-zero only during hover. While in contact it should drop to exactly 0.",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2456,7 +2606,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentEraser,
             icon: Icons.bug_report_rounded,
             title: "Tilt is one scalar, not two",
-            body: "Android reports tilt as a single angle off the surface normal. Use orientation to know the lean direction.",
+            body:
+                "Android reports tilt as a single angle off the surface normal. Use orientation to know the lean direction.",
           ),
           SizedBox(height: 10),
           _QuirkCard(
@@ -2464,7 +2615,8 @@ class _QuirksPanelSection extends StatelessWidget {
             color: kAccentMouse,
             icon: Icons.science_rounded,
             title: "Batched historical samples",
-            body: "MotionEvent.getHistoricalX/Y exposes inter-frame samples. PointerCoords reflects only the latest one in this view.",
+            body:
+                "MotionEvent.getHistoricalX/Y exposes inter-frame samples. PointerCoords reflects only the latest one in this view.",
           ),
         ],
       ),
@@ -2568,7 +2720,8 @@ class _AccessibilitySection extends StatelessWidget {
       eyebrow: "ACCESSIBILITY",
       accent: kAccentInverted,
       title: "Pointer data and assistive input",
-      blurb: "Accessibility services synthesise pointer events too. Designing around the same fields keeps gesture handling robust for switch access, TalkBack explore-by-touch, and external pointing devices.",
+      blurb:
+          "Accessibility services synthesise pointer events too. Designing around the same fields keeps gesture handling robust for switch access, TalkBack explore-by-touch, and external pointing devices.",
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -2576,35 +2729,40 @@ class _AccessibilitySection extends StatelessWidget {
             color: kAccentInfo,
             icon: Icons.accessible_forward_rounded,
             title: "Explore by touch",
-            blurb: "TalkBack drags a virtual finger across the UI. Pressure and ellipse will be defaults; rely on (x, y) only.",
+            blurb:
+                "TalkBack drags a virtual finger across the UI. Pressure and ellipse will be defaults; rely on (x, y) only.",
           ),
           SizedBox(height: 10),
           _A11yRow(
             color: kAccentStylus,
             icon: Icons.switch_access_shortcut_rounded,
             title: "Switch Access",
-            blurb: "Synthesises tap events from external switches. ToolType is FINGER even though no finger touches the screen.",
+            blurb:
+                "Synthesises tap events from external switches. ToolType is FINGER even though no finger touches the screen.",
           ),
           SizedBox(height: 10),
           _A11yRow(
             color: kAccentSuccess,
             icon: Icons.keyboard_rounded,
             title: "Bluetooth keyboard / D-pad",
-            blurb: "Navigation events are not pointer events; they go through the focus system instead. Don't try to fake them.",
+            blurb:
+                "Navigation events are not pointer events; they go through the focus system instead. Don't try to fake them.",
           ),
           SizedBox(height: 10),
           _A11yRow(
             color: kAccentWarn,
             icon: Icons.gesture_rounded,
             title: "Magnification gestures",
-            blurb: "Triple-tap and pan from the magnifier still reach the app as standard PointerEvents — be tolerant of large coordinate jumps.",
+            blurb:
+                "Triple-tap and pan from the magnifier still reach the app as standard PointerEvents — be tolerant of large coordinate jumps.",
           ),
           SizedBox(height: 10),
           _A11yRow(
             color: kAccentMouse,
             icon: Icons.bluetooth_searching_rounded,
             title: "External mouse / trackpad",
-            blurb: "Treat TOOL_TYPE_MOUSE specially: no ellipse, no tilt. Use hover state to drive cursor affordances.",
+            blurb:
+                "Treat TOOL_TYPE_MOUSE specially: no ellipse, no tilt. Use hover state to drive cursor affordances.",
           ),
         ],
       ),
@@ -2693,10 +2851,7 @@ class _FooterSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            kInkDeep,
-            kAccentStylusDeep,
-          ],
+          colors: <Color>[kInkDeep, kAccentStylusDeep],
         ),
       ),
       child: Row(
@@ -2740,7 +2895,10 @@ class _FooterSection extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Text("v1.0", style: kLabel.copyWith(color: kPaper.withValues(alpha: 0.75))),
+              Text(
+                "v1.0",
+                style: kLabel.copyWith(color: kPaper.withValues(alpha: 0.75)),
+              ),
               SizedBox(height: 4),
               Text(
                 "D4rt deep demo",

@@ -13,8 +13,9 @@ final ValueNotifier<String> _enabledEvent = ValueNotifier<String>('(none yet)');
 
 /// Tab 4 — groupId grouping
 final ValueNotifier<String> _groupedEvent = ValueNotifier<String>('(none yet)');
-final ValueNotifier<String> _ungroupedEvent =
-    ValueNotifier<String>('(none yet)');
+final ValueNotifier<String> _ungroupedEvent = ValueNotifier<String>(
+  '(none yet)',
+);
 
 /// Tab 5 — dropdown dismiss
 final ValueNotifier<bool> _dropdownOpen = ValueNotifier<bool>(false);
@@ -26,10 +27,12 @@ final ValueNotifier<String> _consumeLog = ValueNotifier<String>('(none yet)');
 final ValueNotifier<int> _underlyingTaps = ValueNotifier<int>(0);
 
 /// Tab 9 — behavior tab
-final ValueNotifier<HitTestBehavior> _behavior =
-    ValueNotifier<HitTestBehavior>(HitTestBehavior.deferToChild);
-final ValueNotifier<String> _behaviorEvent =
-    ValueNotifier<String>('(none yet)');
+final ValueNotifier<HitTestBehavior> _behavior = ValueNotifier<HitTestBehavior>(
+  HitTestBehavior.deferToChild,
+);
+final ValueNotifier<String> _behaviorEvent = ValueNotifier<String>(
+  '(none yet)',
+);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Entry point
@@ -140,16 +143,16 @@ class _SectionCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: cs.onSurfaceVariant,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
             ),
             const SizedBox(height: 12),
             child,
@@ -173,10 +176,9 @@ class _PropRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color:
-            highlight
-                ? cs.primaryContainer.withValues(alpha: 0.35)
-                : Colors.transparent,
+        color: highlight
+            ? cs.primaryContainer.withValues(alpha: 0.35)
+            : Colors.transparent,
         border: Border(
           bottom: BorderSide(color: cs.outlineVariant, width: 0.5),
         ),
@@ -195,10 +197,7 @@ class _PropRow extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              value,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            child: Text(value, style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -285,25 +284,24 @@ class _TableHeader extends StatelessWidget {
     return Container(
       color: cs.primaryContainer.withValues(alpha: 0.45),
       child: Row(
-        children:
-            cells
-                .map(
-                  (c) => Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 6,
-                      ),
-                      child: Text(
-                        c,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+        children: cells
+            .map(
+              (c) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 6,
+                  ),
+                  child: Text(
+                    c,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
-                .toList(),
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -321,20 +319,19 @@ class _TableRow extends StatelessWidget {
     return Container(
       color: shade ? cs.surfaceContainerHighest.withValues(alpha: 0.3) : null,
       child: Row(
-        children:
-            cells
-                .map(
-                  (c) => Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 5,
-                      ),
-                      child: Text(c, style: Theme.of(context).textTheme.bodySmall),
-                    ),
+        children: cells
+            .map(
+              (c) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 5,
                   ),
-                )
-                .toList(),
+                  child: Text(c, style: Theme.of(context).textTheme.bodySmall),
+                ),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -375,12 +372,11 @@ class _HeroBannerTab extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'TapRegion & RenderTapRegion',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.headlineSmall?.copyWith(
-                          color: cs.onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              color: cs.onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                   ],
@@ -406,8 +402,7 @@ class _HeroBannerTab extends StatelessWidget {
         // Tap-outside dismiss pattern
         _SectionCard(
           title: 'The Tap-Outside Dismiss Pattern',
-          subtitle:
-              'Why TapRegion exists and when to reach for it.',
+          subtitle: 'Why TapRegion exists and when to reach for it.',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -459,8 +454,7 @@ class _HeroBannerTab extends StatelessWidget {
         // Relationship with TapRegionSurface
         _SectionCard(
           title: 'Relationship with TapRegionSurface',
-          subtitle:
-              'TapRegion is useless without a TapRegionSurface ancestor.',
+          subtitle: 'TapRegion is useless without a TapRegionSurface ancestor.',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -487,9 +481,9 @@ class _HeroBannerTab extends StatelessWidget {
                 'Scaffold already wraps its body in a TapRegionSurface, so '
                 'most Material widgets (DropdownMenu, Autocomplete) work '
                 'without manually adding one.',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontStyle: FontStyle.italic,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
               ),
             ],
           ),
@@ -622,21 +616,17 @@ class _BasicTapRegionTab extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           'Tap Region Target',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleSmall?.copyWith(
-                            color: cs.onPrimaryContainer,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
+                              ?.copyWith(
+                                color: cs.onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           '← tap inside here →',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall?.copyWith(
-                            color: cs.onPrimaryContainer,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: cs.onPrimaryContainer),
                         ),
                       ],
                     ),
@@ -662,8 +652,7 @@ class _BasicTapRegionTab extends StatelessWidget {
 
           _SectionCard(
             title: 'How the Callback Fires',
-            subtitle:
-                'The pointer event that arrives at TapRegionSurface.',
+            subtitle: 'The pointer event that arrives at TapRegionSurface.',
             child: Column(
               children: const [
                 _PropRow('Callback', 'Fires when …'),
@@ -790,23 +779,19 @@ class _EnabledToggleTab extends StatelessWidget {
                                   enabled
                                       ? 'Region ACTIVE — tap me'
                                       : 'Region DISABLED — taps ignored',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.titleSmall?.copyWith(
-                                    color: enabled
-                                        ? cs.onPrimaryContainer
-                                        : cs.outline,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(
+                                        color: enabled
+                                            ? cs.onPrimaryContainer
+                                            : cs.outline,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
                         ),
                         const SizedBox(height: 12),
-                        _EventBadge(
-                          notifier: _enabledEvent,
-                          label: 'Event',
-                        ),
+                        _EventBadge(notifier: _enabledEvent, label: 'Event'),
                       ],
                     );
                   },
@@ -833,7 +818,10 @@ class _EnabledToggleTab extends StatelessWidget {
             subtitle: 'RenderTapRegion registers/unregisters on change.',
             child: Column(
               children: const [
-                _PropRow('enabled=true', 'RenderTapRegion registers with surface'),
+                _PropRow(
+                  'enabled=true',
+                  'RenderTapRegion registers with surface',
+                ),
                 _PropRow(
                   'enabled=false',
                   'RenderTapRegion unregisters — zero overhead',
@@ -942,7 +930,10 @@ class _GroupIdTab extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                _EventBadge(notifier: _ungroupedEvent, label: 'Ungrouped event'),
+                _EventBadge(
+                  notifier: _ungroupedEvent,
+                  label: 'Ungrouped event',
+                ),
               ],
             ),
           ),
@@ -972,7 +963,10 @@ class _GroupIdTab extends StatelessWidget {
             subtitle: 'How the surface routes events for grouped regions.',
             child: Column(
               children: const [
-                _PropRow('Same groupId', 'All members fire onTapInside together'),
+                _PropRow(
+                  'Same groupId',
+                  'All members fire onTapInside together',
+                ),
                 _PropRow(
                   'Different groupId',
                   'Each region is independent',
@@ -1081,8 +1075,7 @@ class _DropdownDismissTab extends StatelessWidget {
 
           _SectionCard(
             title: 'Implementation Pattern',
-            subtitle:
-                'Both the input and the overlay share the same groupId.',
+            subtitle: 'Both the input and the overlay share the same groupId.',
             child: _CodeSnippet(
               'const Object _inputGroup = #autocompleteGroup;\n'
               '\n'
@@ -1111,7 +1104,10 @@ class _DropdownDismissTab extends StatelessWidget {
                 'the text field.',
             child: Column(
               children: const [
-                _PropRow('Without groupId', 'Panel tap → onTapOutside on field → closes'),
+                _PropRow(
+                  'Without groupId',
+                  'Panel tap → onTapOutside on field → closes',
+                ),
                 _PropRow(
                   'With same groupId',
                   'Panel tap → inside the group → field stays open',
@@ -1223,34 +1219,33 @@ class _DropdownRegionDemo extends StatelessWidget {
                     ],
                   ),
                   child: Column(
-                    children:
-                        _suggestions
-                            .map(
-                              (s) => InkWell(
-                                onTap: () {
-                                  _dropdownOpen.value = false;
-                                  _dropdownLog.value = 'selected: $s';
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 14,
-                                    vertical: 10,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.circle,
-                                        size: 8,
-                                        color: cs.primary,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Text(s),
-                                    ],
-                                  ),
-                                ),
+                    children: _suggestions
+                        .map(
+                          (s) => InkWell(
+                            onTap: () {
+                              _dropdownOpen.value = false;
+                              _dropdownLog.value = 'selected: $s';
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 10,
                               ),
-                            )
-                            .toList(),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    size: 8,
+                                    color: cs.primary,
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(s),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ),
@@ -1295,9 +1290,7 @@ class _ConsumeOutsideTapsTab extends StatelessWidget {
                   builder: (context, consume, _) {
                     return Row(
                       children: [
-                        const Expanded(
-                          child: Text('consumeOutsideTaps'),
-                        ),
+                        const Expanded(child: Text('consumeOutsideTaps')),
                         Switch(
                           value: consume,
                           onChanged: (v) {
@@ -1335,11 +1328,8 @@ class _ConsumeOutsideTapsTab extends StatelessWidget {
                                 return Text(
                                   'GestureDetector (taps: $taps)',
                                   textAlign: TextAlign.center,
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodyMedium?.copyWith(
-                                    color: cs.onTertiaryContainer,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(color: cs.onTertiaryContainer),
                                 );
                               },
                             ),
@@ -1372,11 +1362,8 @@ class _ConsumeOutsideTapsTab extends StatelessWidget {
                                 ),
                                 child: Text(
                                   'TapRegion (consumeOutsideTaps: $consume)',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodySmall?.copyWith(
-                                    color: cs.onPrimaryContainer,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(color: cs.onPrimaryContainer),
                                 ),
                               ),
                             ),
@@ -1394,11 +1381,13 @@ class _ConsumeOutsideTapsTab extends StatelessWidget {
 
           _SectionCard(
             title: 'consumeOutsideTaps Semantics',
-            subtitle:
-                'What "consume" means in Flutter hit-testing.',
+            subtitle: 'What "consume" means in Flutter hit-testing.',
             child: Column(
               children: const [
-                _PropRow('false (default)', 'Tap continues up the hit-test chain'),
+                _PropRow(
+                  'false (default)',
+                  'Tap continues up the hit-test chain',
+                ),
                 _PropRow(
                   'true',
                   'Tap is consumed — siblings/ancestors do NOT receive it',
@@ -1473,9 +1462,9 @@ class _VsModalBarrierTab extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 'Comparison table',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               Container(
@@ -1485,38 +1474,33 @@ class _VsModalBarrierTab extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    _TableHeader(const [
-                      'Aspect',
-                      'TapRegion',
-                      'ModalBarrier',
-                    ]),
+                    _TableHeader(const ['Aspect', 'TapRegion', 'ModalBarrier']),
+                    const _TableRow(['Blocks siblings', 'No', 'Yes']),
                     const _TableRow([
-                      'Blocks siblings',
+                      'Overlay required',
                       'No',
                       'Yes',
-                    ]),
-                    const _TableRow(
-                      ['Overlay required', 'No', 'Yes'],
-                      shade: true,
-                    ),
+                    ], shade: true),
                     const _TableRow([
                       'Dismiss on outside',
                       'onTapOutside cb',
                       'dismissOnTap: true',
                     ]),
-                    const _TableRow(
-                      ['Use for', 'Popups, dropdowns', 'Dialogs, sheets'],
-                      shade: true,
-                    ),
+                    const _TableRow([
+                      'Use for',
+                      'Popups, dropdowns',
+                      'Dialogs, sheets',
+                    ], shade: true),
                     const _TableRow([
                       'Scrollables',
                       'Compatible',
                       'Interferes',
                     ]),
-                    const _TableRow(
-                      ['Performance', 'Very low', 'Medium (Overlay)'],
-                      shade: true,
-                    ),
+                    const _TableRow([
+                      'Performance',
+                      'Very low',
+                      'Medium (Overlay)',
+                    ], shade: true),
                   ],
                 ),
               ),
@@ -1610,7 +1594,10 @@ class _CompareCard extends StatelessWidget {
                   Icon(Icons.fiber_manual_record, size: 8, color: color),
                   const SizedBox(width: 6),
                   Expanded(
-                    child: Text(p, style: Theme.of(context).textTheme.bodySmall),
+                    child: Text(
+                      p,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 ],
               ),
@@ -1696,9 +1683,7 @@ class _ArchDiagramTab extends StatelessWidget {
           child: SizedBox(
             height: 320,
             child: CustomPaint(
-              painter: _ArchPainter(
-                colors: Theme.of(context).colorScheme,
-              ),
+              painter: _ArchPainter(colors: Theme.of(context).colorScheme),
             ),
           ),
         ),
@@ -1708,7 +1693,10 @@ class _ArchDiagramTab extends StatelessWidget {
           subtitle: 'Step-by-step pointer-down event flow.',
           child: Column(
             children: const [
-              _PropRow('1. Pointer down', 'OS delivers PointerDownEvent to Flutter'),
+              _PropRow(
+                '1. Pointer down',
+                'OS delivers PointerDownEvent to Flutter',
+              ),
               _PropRow(
                 '2. Hit test',
                 'RenderTapRegionSurface receives the event',
@@ -1788,10 +1776,7 @@ class _ArchPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
-    final textStyle = TextStyle(
-      color: colors.onSurface,
-      fontSize: 11,
-    );
+    final textStyle = TextStyle(color: colors.onSurface, fontSize: 11);
 
     final labelStyle = TextStyle(
       color: colors.primary,
@@ -2002,11 +1987,8 @@ class _BehaviorTab extends StatelessWidget {
                             child: Text(
                               'behavior: ${behavior.name}\nTap me or outside',
                               textAlign: TextAlign.center,
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.copyWith(
-                                color: cs.onSecondaryContainer,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(color: cs.onSecondaryContainer),
                             ),
                           ),
                         ),
@@ -2027,7 +2009,10 @@ class _BehaviorTab extends StatelessWidget {
                 'TapRegionSurface routing.',
             child: Column(
               children: const [
-                _PropRow('deferToChild', 'Hit only if a child claims the hit (default)'),
+                _PropRow(
+                  'deferToChild',
+                  'Hit only if a child claims the hit (default)',
+                ),
                 _PropRow(
                   'opaque',
                   'Region claims every hit within its bounds — even transparent areas',
@@ -2161,9 +2146,9 @@ class _UseCasesTab extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 8, left: 4),
           child: Text(
             '6 Real-World Use Cases',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         GridView.builder(
@@ -2274,7 +2259,11 @@ class _ApiCheatSheetTab extends StatelessWidget {
           subtitle: 'All constructor parameters and their roles.',
           child: Column(
             children: const [
-              _PropRow('key', 'Widget identity key (optional)', highlight: false),
+              _PropRow(
+                'key',
+                'Widget identity key (optional)',
+                highlight: false,
+              ),
               _PropRow(
                 'enabled',
                 'bool — register with surface when true (default: true)',
@@ -2315,8 +2304,7 @@ class _ApiCheatSheetTab extends StatelessWidget {
 
         _SectionCard(
           title: 'RenderTapRegion Role',
-          subtitle:
-              'The RenderObject behind TapRegion.',
+          subtitle: 'The RenderObject behind TapRegion.',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -2401,9 +2389,9 @@ class _ApiCheatSheetTab extends StatelessWidget {
             children: [
               Text(
                 'Soft-dismiss overlay',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               _CodeSnippet(
@@ -2415,9 +2403,9 @@ class _ApiCheatSheetTab extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 'Grouped field + panel (autocomplete)',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               _CodeSnippet(
@@ -2429,9 +2417,9 @@ class _ApiCheatSheetTab extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 'Dismiss + block underlying tap',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               _CodeSnippet(
@@ -2444,9 +2432,9 @@ class _ApiCheatSheetTab extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 'Conditionally active region',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
               _CodeSnippet(
@@ -2480,9 +2468,9 @@ class _ApiCheatSheetTab extends StatelessWidget {
                   'Scaffold already provides a TapRegionSurface, so most '
                   'Material widgets (DropdownMenu, Autocomplete, MenuBar) work '
                   'out of the box without adding one manually.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: cs.onPrimaryContainer,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: cs.onPrimaryContainer),
                 ),
               ),
             ],

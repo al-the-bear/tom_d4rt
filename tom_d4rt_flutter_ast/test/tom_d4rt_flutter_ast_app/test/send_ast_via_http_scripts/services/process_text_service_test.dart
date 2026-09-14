@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: rose, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: petal),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: wine.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: wine.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: wine)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: wine,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -140,18 +149,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? ruby.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: rose.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: rose.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? wine : deepRuby)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? wine : deepRuby,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +178,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? wine : deepRuby,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: garnet),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: garnet),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -207,8 +222,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ptFlow(['Select text', 'Query actions', 'Show in toolbar',
-                'User picks', 'Process text']),
+            ptFlow([
+              'Select text',
+              'Query actions',
+              'Show in toolbar',
+              'User picks',
+              'Process text',
+            ]),
             const SizedBox(height: 10),
             _ptRoleBadge('Queries', 'Available PROCESS_TEXT activities', wine),
             _ptRoleBadge('Launches', 'Selected processing action', deepRuby),
@@ -288,7 +308,10 @@ dynamic build(BuildContext context) {
               _ptCodeLine('<activity android:name=".TranslateActivity">', wine),
               _ptCodeLine('  <intent-filter>', deepRuby),
               _ptCodeLine('    <action android:name=', deepRuby),
-              _ptCodeLine('      "android.intent.action.PROCESS_TEXT"/>', deepRuby),
+              _ptCodeLine(
+                '      "android.intent.action.PROCESS_TEXT"/>',
+                deepRuby,
+              ),
               _ptCodeLine('    <category android:name=', ruby),
               _ptCodeLine('      "android.intent.category.DEFAULT"/>', ruby),
               _ptCodeLine('    <data android:mimeType="text/plain"/>', ruby),
@@ -322,8 +345,20 @@ dynamic build(BuildContext context) {
             _ptToolbarItem(1, 'Cut', Icons.content_cut, 'Built-in', wine),
             _ptToolbarItem(2, 'Copy', Icons.content_copy, 'Built-in', deepRuby),
             _ptToolbarItem(3, 'Paste', Icons.content_paste, 'Built-in', ruby),
-            _ptToolbarItem(4, 'Select All', Icons.select_all, 'Built-in', garnet),
-            _ptToolbarItem(5, 'Translate', Icons.translate, 'ProcessText', blush),
+            _ptToolbarItem(
+              4,
+              'Select All',
+              Icons.select_all,
+              'Built-in',
+              garnet,
+            ),
+            _ptToolbarItem(
+              5,
+              'Translate',
+              Icons.translate,
+              'ProcessText',
+              blush,
+            ),
             _ptToolbarItem(6, 'Search', Icons.search, 'ProcessText', coral),
           ],
         ),
@@ -349,8 +384,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ptFlow(['queryTextActions()', 'Platform channel',
-                'PackageManager query', 'List<ProcessTextAction>']),
+            ptFlow([
+              'queryTextActions()',
+              'Platform channel',
+              'PackageManager query',
+              'List<ProcessTextAction>',
+            ]),
             const SizedBox(height: 10),
             ptRow(['Step', 'Layer', 'Action'], isHeader: true),
             ptRow(['1', 'Dart', 'Call queryTextActions()']),
@@ -453,8 +492,16 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ptToolbarSection('Primary Bar', 'Cut, Copy, Paste, Select All', wine),
-            _ptToolbarSection('Overflow ▸', 'Process text actions + more', deepRuby),
+            _ptToolbarSection(
+              'Primary Bar',
+              'Cut, Copy, Paste, Select All',
+              wine,
+            ),
+            _ptToolbarSection(
+              'Overflow ▸',
+              'Process text actions + more',
+              deepRuby,
+            ),
             _ptToolbarSection('Custom', 'App-specific actions', ruby),
           ],
         ),
@@ -510,13 +557,48 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ptLifecycleStep(1, 'User selects text', 'Selection triggers toolbar', wine),
-            _ptLifecycleStep(2, 'Toolbar builds', 'queryTextActions() called', deepRuby),
-            _ptLifecycleStep(3, 'Actions cached', 'Shown as buttons/overflow', ruby),
-            _ptLifecycleStep(4, 'User taps action', 'processTextAction() called', garnet),
-            _ptLifecycleStep(5, 'Android launches intent', 'Activity starts', blush),
-            _ptLifecycleStep(6, 'Activity completes', 'Returns result or null', coral),
-            _ptLifecycleStep(7, 'Flutter handles result', 'Replace or dismiss', wine),
+            _ptLifecycleStep(
+              1,
+              'User selects text',
+              'Selection triggers toolbar',
+              wine,
+            ),
+            _ptLifecycleStep(
+              2,
+              'Toolbar builds',
+              'queryTextActions() called',
+              deepRuby,
+            ),
+            _ptLifecycleStep(
+              3,
+              'Actions cached',
+              'Shown as buttons/overflow',
+              ruby,
+            ),
+            _ptLifecycleStep(
+              4,
+              'User taps action',
+              'processTextAction() called',
+              garnet,
+            ),
+            _ptLifecycleStep(
+              5,
+              'Android launches intent',
+              'Activity starts',
+              blush,
+            ),
+            _ptLifecycleStep(
+              6,
+              'Activity completes',
+              'Returns result or null',
+              coral,
+            ),
+            _ptLifecycleStep(
+              7,
+              'Flutter handles result',
+              'Replace or dismiss',
+              wine,
+            ),
           ],
         ),
       ),
@@ -541,11 +623,31 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ptLifecycleStep(1, 'Create Activity', 'Extends AppCompatActivity', wine),
-            _ptLifecycleStep(2, 'Add intent filter', 'PROCESS_TEXT + DEFAULT', deepRuby),
-            _ptLifecycleStep(3, 'Read incoming text', 'getIntent().getCharSequenceExtra()', ruby),
+            _ptLifecycleStep(
+              1,
+              'Create Activity',
+              'Extends AppCompatActivity',
+              wine,
+            ),
+            _ptLifecycleStep(
+              2,
+              'Add intent filter',
+              'PROCESS_TEXT + DEFAULT',
+              deepRuby,
+            ),
+            _ptLifecycleStep(
+              3,
+              'Read incoming text',
+              'getIntent().getCharSequenceExtra()',
+              ruby,
+            ),
             _ptLifecycleStep(4, 'Process text', 'Your logic here', garnet),
-            _ptLifecycleStep(5, 'Return result', 'setResult(RESULT_OK, intent)', blush),
+            _ptLifecycleStep(
+              5,
+              'Return result',
+              'setResult(RESULT_OK, intent)',
+              blush,
+            ),
           ],
         ),
       ),
@@ -571,9 +673,17 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             ptRow(['Concern', 'Risk', 'Mitigation'], isHeader: true),
-            ptRow(['PII exposure', 'Text sent to 3rd party', 'Disable for passwords']),
+            ptRow([
+              'PII exposure',
+              'Text sent to 3rd party',
+              'Disable for passwords',
+            ]),
             ptRow(['Malicious return', 'Injected content', 'Sanitize result']),
-            ptRow(['Intent spoofing', 'Fake action', 'Android verifies package']),
+            ptRow([
+              'Intent spoofing',
+              'Fake action',
+              'Android verifies package',
+            ]),
             ptRow(['Clipboard leak', 'Text in clipboard', 'Use direct intent']),
           ],
         ),
@@ -722,11 +832,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('ProcessTextService — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'ProcessTextService — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From Android text processing intents through toolbar '
@@ -758,10 +871,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -789,13 +914,20 @@ Widget _ptRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(role,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            role,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -817,9 +949,14 @@ Widget _ptActionChip(String label, IconData icon, Color color) {
         children: [
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 6),
-          Text(label,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.w600, color: color)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ],
       ),
     ),
@@ -829,16 +966,25 @@ Widget _ptActionChip(String label, IconData icon, Color color) {
 Widget _ptCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }
 
-Widget _ptToolbarItem(int num, String label, IconData icon, String source, Color color) {
+Widget _ptToolbarItem(
+  int num,
+  String label,
+  IconData icon,
+  String source,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 4),
     child: Row(
@@ -851,22 +997,33 @@ Widget _ptToolbarItem(int num, String label, IconData icon, String source, Color
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Icon(icon, size: 14, color: color),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 10, fontWeight: FontWeight.w600, color: color)),
-        ),
-        Text(source,
+          child: Text(
+            label,
             style: TextStyle(
-                fontSize: 9, color: color.withValues(alpha: 0.6))),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ),
+        Text(
+          source,
+          style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.6)),
+        ),
       ],
     ),
   );
@@ -884,13 +1041,20 @@ Widget _ptToolbarSection(String name, String desc, Color color) {
     ),
     child: Row(
       children: [
-        Text(name,
-            style: TextStyle(
-                fontSize: 10, fontWeight: FontWeight.bold, color: color)),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -910,9 +1074,14 @@ Widget _ptLifecycleStep(int num, String title, String desc, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -920,12 +1089,21 @@ Widget _ptLifecycleStep(int num, String title, String desc, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),

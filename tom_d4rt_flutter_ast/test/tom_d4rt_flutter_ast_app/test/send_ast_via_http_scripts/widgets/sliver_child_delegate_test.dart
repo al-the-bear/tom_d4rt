@@ -50,8 +50,9 @@ dynamic build(BuildContext context) {
   final ValueNotifier<int> builderBuildCount = ValueNotifier<int>(0);
   final ValueNotifier<int> listBuildCount = ValueNotifier<int>(0);
   final ValueNotifier<int> customBuildCount = ValueNotifier<int>(0);
-  final ValueNotifier<String> customLog =
-      ValueNotifier<String>('custom delegate — log awaiting first build');
+  final ValueNotifier<String> customLog = ValueNotifier<String>(
+    'custom delegate — log awaiting first build',
+  );
 
   debugPrint('Counters initialised: builder, list, custom, log sink');
 
@@ -99,11 +100,7 @@ dynamic build(BuildContext context) {
             height: 3,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: <Color>[
-                  _kForgeOrange,
-                  _kMolten,
-                  _kEmber,
-                ],
+                colors: <Color>[_kForgeOrange, _kMolten, _kEmber],
               ),
             ),
           ),
@@ -172,10 +169,7 @@ class _FoundryBody extends StatelessWidget {
               'build, reports estimatedChildCount, and hooks didFinishLayout.',
         ),
         const SizedBox(height: 12),
-        _CustomDelegateScene(
-          counter: customBuildCount,
-          log: customLog,
-        ),
+        _CustomDelegateScene(counter: customBuildCount, log: customLog),
         const SizedBox(height: 28),
         _SectionHeader(
           index: 4,
@@ -229,11 +223,7 @@ class _FoundryHero extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: <Color>[
-            _kIronGreyDeep,
-            _kIronGrey,
-            _kForgeOrangeDeep,
-          ],
+          colors: <Color>[_kIronGreyDeep, _kIronGrey, _kForgeOrangeDeep],
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -247,11 +237,7 @@ class _FoundryHero extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Stack(
           children: <Widget>[
-            Positioned.fill(
-              child: CustomPaint(
-                painter: _FoundryPainter(),
-              ),
-            ),
+            Positioned.fill(child: CustomPaint(painter: _FoundryPainter())),
             const Positioned(
               left: 20,
               top: 18,
@@ -307,15 +293,18 @@ class _FoundryPainter extends CustomPainter {
 
     // Background furnace glow (radial pool behind the crucible).
     final Paint glow = Paint()
-      ..shader = RadialGradient(
-        colors: <Color>[
-          _kMolten.withValues(alpha: 0.55),
-          _kForgeOrangeDeep.withValues(alpha: 0.0),
-        ],
-      ).createShader(Rect.fromCircle(
-        center: Offset(w * 0.28, h * 0.55),
-        radius: w * 0.35,
-      ));
+      ..shader =
+          RadialGradient(
+            colors: <Color>[
+              _kMolten.withValues(alpha: 0.55),
+              _kForgeOrangeDeep.withValues(alpha: 0.0),
+            ],
+          ).createShader(
+            Rect.fromCircle(
+              center: Offset(w * 0.28, h * 0.55),
+              radius: w * 0.35,
+            ),
+          );
     canvas.drawCircle(Offset(w * 0.28, h * 0.55), w * 0.35, glow);
 
     // Crucible on the left — pouring molten widgets.
@@ -341,10 +330,7 @@ class _FoundryPainter extends CustomPainter {
         end: Alignment.bottomCenter,
         colors: <Color>[_kForgeOrangeLight, _kEmber],
       ).createShader(Rect.fromLTWH(w * 0.12, h * 0.33, w * 0.18, 10));
-    canvas.drawOval(
-      Rect.fromLTWH(w * 0.12, h * 0.33, w * 0.18, 10),
-      molten,
-    );
+    canvas.drawOval(Rect.fromLTWH(w * 0.12, h * 0.33, w * 0.18, 10), molten);
 
     // Pouring stream.
     final Path stream = Path();
@@ -622,10 +608,7 @@ class _BuilderDelegateCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: tint.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: tint.withValues(alpha: 0.45),
-          width: 1,
-        ),
+        border: Border.all(color: tint.withValues(alpha: 0.45), width: 1),
       ),
       child: Row(
         children: <Widget>[
@@ -670,11 +653,7 @@ class _BuilderDelegateCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(
-            Icons.flash_on,
-            color: tint,
-            size: 18,
-          ),
+          Icon(Icons.flash_on, color: tint, size: 18),
         ],
       ),
     );
@@ -812,10 +791,7 @@ class _ListDelegateCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: tint.withValues(alpha: 0.10),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: tint.withValues(alpha: 0.35),
-          width: 1,
-        ),
+        border: Border.all(color: tint.withValues(alpha: 0.35), width: 1),
       ),
       child: Row(
         children: <Widget>[
@@ -852,19 +828,12 @@ class _ListDelegateCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 const Text(
                   'constructed up front by SliverChildListDelegate',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _kIronGreyLight,
-                  ),
+                  style: TextStyle(fontSize: 11, color: _kIronGreyLight),
                 ),
               ],
             ),
           ),
-          const Icon(
-            Icons.anchor,
-            color: _kIronGrey,
-            size: 18,
-          ),
+          const Icon(Icons.anchor, color: _kIronGrey, size: 18),
         ],
       ),
     );
@@ -896,11 +865,7 @@ class _EagerBanner extends StatelessWidget {
             child: Text(
               'The counter already reads 50 on the first frame — every card '
               'was materialised before the viewport laid out a single pixel.',
-              style: TextStyle(
-                fontSize: 11.5,
-                color: _kIronGrey,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 11.5, color: _kIronGrey, height: 1.35),
             ),
           ),
         ],
@@ -914,10 +879,7 @@ class _EagerBanner extends StatelessWidget {
 // ============================================================================
 
 class _CustomDelegateScene extends StatelessWidget {
-  const _CustomDelegateScene({
-    required this.counter,
-    required this.log,
-  });
+  const _CustomDelegateScene({required this.counter, required this.log});
 
   final ValueNotifier<int> counter;
   final ValueNotifier<String> log;
@@ -979,8 +941,10 @@ class _CustomDelegateScene extends StatelessWidget {
             valueListenable: log,
             builder: (BuildContext context, String value, Widget? _) {
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: _kIronGreyDeep,
                   borderRadius: const BorderRadius.only(
@@ -1049,10 +1013,7 @@ class _CustomDelegateCard extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: tint.withValues(alpha: 0.55),
-          width: 1,
-        ),
+        border: Border.all(color: tint.withValues(alpha: 0.55), width: 1),
       ),
       child: Row(
         children: <Widget>[
@@ -1089,19 +1050,12 @@ class _CustomDelegateCard extends StatelessWidget {
                 const SizedBox(height: 2),
                 const Text(
                   'produced by _LoggingChildDelegate.build(context, index)',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _kIronGreyLight,
-                  ),
+                  style: TextStyle(fontSize: 11, color: _kIronGreyLight),
                 ),
               ],
             ),
           ),
-          const Icon(
-            Icons.construction,
-            color: _kEmber,
-            size: 18,
-          ),
+          const Icon(Icons.construction, color: _kEmber, size: 18),
         ],
       ),
     );
@@ -1350,8 +1304,7 @@ class _DecisionTable extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: const BoxDecoration(
               color: _kIronGreyDeep,
               borderRadius: BorderRadius.only(
@@ -1361,39 +1314,22 @@ class _DecisionTable extends StatelessWidget {
             ),
             child: Row(
               children: const <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: _HeaderCell(text: 'Scenario'),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: _HeaderCell(text: 'Recommended'),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: _HeaderCell(text: 'Reason'),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: _HeaderCell(text: 'Gotcha'),
-                ),
+                Expanded(flex: 3, child: _HeaderCell(text: 'Scenario')),
+                Expanded(flex: 2, child: _HeaderCell(text: 'Recommended')),
+                Expanded(flex: 3, child: _HeaderCell(text: 'Reason')),
+                Expanded(flex: 3, child: _HeaderCell(text: 'Gotcha')),
               ],
             ),
           ),
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: i.isEven
-                    ? _kCream.withValues(alpha: 0.5)
-                    : Colors.white,
+                color: i.isEven ? _kCream.withValues(alpha: 0.5) : Colors.white,
                 border: Border(
                   bottom: i == rows.length - 1
                       ? BorderSide.none
-                      : BorderSide(
-                          color: _kIronGrey.withValues(alpha: 0.08),
-                        ),
+                      : BorderSide(color: _kIronGrey.withValues(alpha: 0.08)),
                 ),
               ),
               child: Row(
@@ -1572,8 +1508,7 @@ class _FieldReferenceTable extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: const BoxDecoration(
               color: _kForgeOrangeDeep,
               borderRadius: BorderRadius.only(
@@ -1592,18 +1527,13 @@ class _FieldReferenceTable extends StatelessWidget {
           ),
           for (int i = 0; i < fields.length; i++)
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: i.isEven
-                    ? _kCream.withValues(alpha: 0.4)
-                    : Colors.white,
+                color: i.isEven ? _kCream.withValues(alpha: 0.4) : Colors.white,
                 border: Border(
                   bottom: i == fields.length - 1
                       ? BorderSide.none
-                      : BorderSide(
-                          color: _kIronGrey.withValues(alpha: 0.08),
-                        ),
+                      : BorderSide(color: _kIronGrey.withValues(alpha: 0.08)),
                 ),
               ),
               child: Row(
@@ -1673,8 +1603,7 @@ class _KindBadge extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
             color: bg,
             borderRadius: BorderRadius.circular(999),
@@ -1880,11 +1809,7 @@ class _Footer extends StatelessWidget {
               color: _kForgeOrange,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
-              Icons.verified,
-              color: Colors.white,
-              size: 26,
-            ),
+            child: const Icon(Icons.verified, color: Colors.white, size: 26),
           ),
           const SizedBox(width: 14),
           const Expanded(
@@ -1904,11 +1829,7 @@ class _Footer extends StatelessWidget {
                   'You have seen lazy (builder), eager (list), and hand-forged '
                   '(custom) delegates compared in a single CustomScrollView per '
                   'scene. Pick the strategy that matches your data shape.',
-                  style: TextStyle(
-                    color: _kCream,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: _kCream, fontSize: 12, height: 1.4),
                 ),
               ],
             ),

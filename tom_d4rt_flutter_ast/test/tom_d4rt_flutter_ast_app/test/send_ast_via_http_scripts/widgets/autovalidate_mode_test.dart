@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.verified,
       'title': 'Form Validation in Flutter',
-      'body': 'Flutter forms use validators — functions that return an '
+      'body':
+          'Flutter forms use validators — functions that return an '
           'error string or null. The question is: WHEN should validation '
           'run? On every keystroke? Only when the user submits? Only '
           'after the user has interacted with the field? '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.timer,
       'title': 'Timing Matters for UX',
-      'body': 'Showing errors immediately on an empty form is confusing '
+      'body':
+          'Showing errors immediately on an empty form is confusing '
           '— the user hasn\'t even typed yet. But waiting until submit '
           'means delayed feedback. AutovalidateMode gives you three '
           'strategies to balance between eager and lazy validation.',
@@ -37,7 +39,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tune,
       'title': 'Three Modes',
-      'body': 'disabled: validation only runs when you call validate() '
+      'body':
+          'disabled: validation only runs when you call validate() '
           'manually (e.g., on form submit). always: validates on every '
           'rebuild. onUserInteraction: validates after the user has '
           'first interacted with the field — the best of both worlds.',
@@ -46,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Form-Level & Field-Level',
-      'body': 'AutovalidateMode works at two levels. Form has its own '
+      'body':
+          'AutovalidateMode works at two levels. Form has its own '
           'autovalidateMode affecting all fields. Each FormField/TextFormField '
           'can also have its own mode, overriding the form\'s setting '
           'for that specific field.',
@@ -63,15 +67,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -109,10 +114,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.block,
       'color': Colors.grey[700]!,
       'summary': 'Manual validation only',
-      'behavior': 'Validation runs only when you explicitly call '
+      'behavior':
+          'Validation runs only when you explicitly call '
           'FormState.validate() or FormFieldState.validate(). No '
           'automatic validation on user interaction or rebuild.',
-      'useCase': 'Forms where you want full control, or where validation '
+      'useCase':
+          'Forms where you want full control, or where validation '
           'is expensive (API calls, complex computation).',
     },
     {
@@ -120,10 +127,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.visibility,
       'color': Colors.red[700]!,
       'summary': 'Validate on every rebuild',
-      'behavior': 'The field is validated every time the widget rebuilds. '
+      'behavior':
+          'The field is validated every time the widget rebuilds. '
           'This means errors appear immediately, even before the user '
           'has typed anything. Can be overwhelming for new users.',
-      'useCase': 'Real-time feedback forms, or fields that start with '
+      'useCase':
+          'Real-time feedback forms, or fields that start with '
           'a pre-filled value that might be invalid.',
     },
     {
@@ -131,10 +140,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.touch_app,
       'color': Colors.amber[800]!,
       'summary': 'Validate after first interaction',
-      'behavior': 'Validation starts only after the user has interacted '
+      'behavior':
+          'Validation starts only after the user has interacted '
           'with the field (typed, focused, changed). Before interaction, '
           'no error is shown. After interaction, validates on every change.',
-      'useCase': 'Registration forms, settings pages — friendly UX that '
+      'useCase':
+          'Registration forms, settings pages — friendly UX that '
           'doesn\'t show errors for untouched fields.',
     },
   ];
@@ -163,8 +174,11 @@ dynamic build(BuildContext context) {
                   color: (mode['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(mode['icon'] as IconData,
-                    color: mode['color'] as Color, size: 26),
+                child: Icon(
+                  mode['icon'] as IconData,
+                  color: mode['color'] as Color,
+                  size: 26,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -182,8 +196,7 @@ dynamic build(BuildContext context) {
                     ),
                     Text(
                       mode['summary'] as String,
-                      style: TextStyle(
-                          fontSize: 12, color: Colors.grey[600]),
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -200,9 +213,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Behavior:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12)),
+                const Text(
+                  'Behavior:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
                 const SizedBox(height: 3),
                 Text(
                   mode['behavior'] as String,
@@ -221,9 +235,10 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Best For:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12)),
+                const Text(
+                  'Best For:',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
                 const SizedBox(height: 3),
                 Text(
                   mode['useCase'] as String,
@@ -286,8 +301,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 4),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: accent.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(4),
@@ -315,7 +329,9 @@ dynamic build(BuildContext context) {
                 ),
                 prefixIcon: Icon(Icons.email, color: accent, size: 20),
                 contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                  horizontal: 12,
+                  vertical: 10,
+                ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -342,7 +358,9 @@ dynamic build(BuildContext context) {
                 ),
                 prefixIcon: Icon(Icons.lock, color: accent, size: 20),
                 contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                  horizontal: 12,
+                  vertical: 10,
+                ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -451,35 +469,47 @@ dynamic build(BuildContext context) {
       children: [
         SizedBox(
           width: 80,
-          child: Text('Scenario',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11)),
+          child: Text(
+            'Scenario',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('disabled',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.grey[300],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11)),
+          child: Text(
+            'disabled',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey[300],
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('always',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.red[100],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11)),
+          child: Text(
+            'always',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.red[100],
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('onInteraction',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.amber[100],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 11)),
+          child: Text(
+            'onInteraction',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.amber[100],
+              fontWeight: FontWeight.bold,
+              fontSize: 11,
+            ),
+          ),
         ),
       ],
     ),
@@ -499,26 +529,31 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 80,
-            child: Text(row['scenario']!,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 10)),
+            child: Text(
+              row['scenario']!,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 10),
+            ),
           ),
           Expanded(
-            child: Text(row['disabled']!,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 10, color: Colors.grey[700])),
+            child: Text(
+              row['disabled']!,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+            ),
           ),
           Expanded(
-            child: Text(row['always']!,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 10, color: Colors.red[600])),
+            child: Text(
+              row['always']!,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 10, color: Colors.red[600]),
+            ),
           ),
           Expanded(
-            child: Text(row['onInteraction']!,
-                textAlign: TextAlign.center,
-                style:
-                    TextStyle(fontSize: 10, color: Colors.amber[900])),
+            child: Text(
+              row['onInteraction']!,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 10, color: Colors.amber[900]),
+            ),
           ),
         ],
       ),
@@ -536,7 +571,8 @@ dynamic build(BuildContext context) {
       'mode': 'onUserInteraction',
       'icon': Icons.person_add,
       'color': Colors.amber[800]!,
-      'desc': 'Users fill many fields. Showing errors on untouched '
+      'desc':
+          'Users fill many fields. Showing errors on untouched '
           'fields is overwhelming. onUserInteraction validates only '
           'after the user starts typing in each field.',
       'fields': ['Name', 'Email', 'Password', 'Confirm Password'],
@@ -546,7 +582,8 @@ dynamic build(BuildContext context) {
       'mode': 'disabled',
       'icon': Icons.search,
       'color': Colors.grey[700]!,
-      'desc': 'Search forms rarely need inline validation. Just validate '
+      'desc':
+          'Search forms rarely need inline validation. Just validate '
           'on submit if needed. Disabled mode avoids unnecessary '
           'validation overhead during rapid typing.',
       'fields': ['Search query'],
@@ -556,7 +593,8 @@ dynamic build(BuildContext context) {
       'mode': 'always',
       'icon': Icons.settings,
       'color': Colors.red[600]!,
-      'desc': 'Fields start pre-filled with current settings. If the '
+      'desc':
+          'Fields start pre-filled with current settings. If the '
           'user changes something to an invalid value, show the error '
           'immediately. Always mode catches invalid changes in real time.',
       'fields': ['Max items', 'Timeout (seconds)', 'Custom URL'],
@@ -566,7 +604,8 @@ dynamic build(BuildContext context) {
       'mode': 'onUserInteraction',
       'icon': Icons.payment,
       'color': Colors.green[700]!,
-      'desc': 'Payment forms need careful validation but shouldn\'t scare '
+      'desc':
+          'Payment forms need careful validation but shouldn\'t scare '
           'users with errors before they start. Validate card number '
           'format, expiry, CVV as the user fills each field.',
       'fields': ['Card number', 'Expiry', 'CVV', 'Name on card'],
@@ -576,7 +615,8 @@ dynamic build(BuildContext context) {
       'mode': 'always',
       'icon': Icons.admin_panel_settings,
       'color': Colors.purple[700]!,
-      'desc': 'Admin forms often receive pasted or imported data. '
+      'desc':
+          'Admin forms often receive pasted or imported data. '
           'Always mode ensures every field is validated immediately, '
           'catching issues with pre-filled or pasted values.',
       'fields': ['User ID', 'Role', 'Permissions', 'Expiry date'],
@@ -606,8 +646,11 @@ dynamic build(BuildContext context) {
                   color: (pattern['color'] as Color).withOpacity(0.12),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(pattern['icon'] as IconData,
-                    color: pattern['color'] as Color, size: 20),
+                child: Icon(
+                  pattern['icon'] as IconData,
+                  color: pattern['color'] as Color,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -624,10 +667,11 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
-                        color: (pattern['color'] as Color)
-                            .withOpacity(0.1),
+                        color: (pattern['color'] as Color).withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -653,19 +697,18 @@ dynamic build(BuildContext context) {
           Wrap(
             spacing: 6,
             runSpacing: 4,
-            children:
-                (pattern['fields'] as List<String>).map<Widget>((f) {
+            children: (pattern['fields'] as List<String>).map<Widget>((f) {
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(color: Colors.grey[300]!),
                 ),
-                child: Text(f,
-                    style:
-                        const TextStyle(fontSize: 10, fontFamily: 'monospace')),
+                child: Text(
+                  f,
+                  style: const TextStyle(fontSize: 10, fontFamily: 'monospace'),
+                ),
               );
             }).toList(),
           ),
@@ -734,12 +777,14 @@ dynamic build(BuildContext context) {
               prefixIcon: Container(
                 width: 40,
                 alignment: Alignment.center,
-                child: Text('A',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red[600],
-                      fontSize: 16,
-                    )),
+                child: Text(
+                  'A',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red[600],
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
             validator: (v) =>
@@ -756,18 +801,19 @@ dynamic build(BuildContext context) {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    BorderSide(color: Colors.amber[800]!, width: 2),
+                borderSide: BorderSide(color: Colors.amber[800]!, width: 2),
               ),
               prefixIcon: Container(
                 width: 40,
                 alignment: Alignment.center,
-                child: Text('I',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.amber[800],
-                      fontSize: 16,
-                    )),
+                child: Text(
+                  'I',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[800],
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
             validator: (v) {
@@ -787,18 +833,19 @@ dynamic build(BuildContext context) {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    BorderSide(color: Colors.grey[600]!, width: 2),
+                borderSide: BorderSide(color: Colors.grey[600]!, width: 2),
               ),
               prefixIcon: Container(
                 width: 40,
                 alignment: Alignment.center,
-                child: Text('D',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[600],
-                      fontSize: 16,
-                    )),
+                child: Text(
+                  'D',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600],
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
             validator: (v) =>
@@ -813,21 +860,24 @@ dynamic build(BuildContext context) {
   final precedenceRules = <Map<String, dynamic>>[
     {
       'rule': 'Field-level overrides form-level',
-      'detail': 'When a FormField specifies autovalidateMode, it uses '
+      'detail':
+          'When a FormField specifies autovalidateMode, it uses '
           'that value regardless of the Form\'s setting.',
       'icon': Icons.arrow_upward,
       'color': Colors.amber[800]!,
     },
     {
       'rule': 'Form-level is the default',
-      'detail': 'If a FormField doesn\'t specify autovalidateMode, it '
+      'detail':
+          'If a FormField doesn\'t specify autovalidateMode, it '
           'inherits from the parent Form widget.',
       'icon': Icons.arrow_downward,
       'color': Colors.blue[700]!,
     },
     {
       'rule': 'No Form → disabled',
-      'detail': 'A TextFormField outside of a Form with no explicit '
+      'detail':
+          'A TextFormField outside of a Form with no explicit '
           'autovalidateMode defaults to disabled.',
       'icon': Icons.block,
       'color': Colors.grey[600]!,
@@ -842,17 +892,17 @@ dynamic build(BuildContext context) {
         color: (rule['color'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
         border: Border(
-          left: BorderSide(
-            color: rule['color'] as Color,
-            width: 3,
-          ),
+          left: BorderSide(color: rule['color'] as Color, width: 3),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(rule['icon'] as IconData,
-              color: rule['color'] as Color, size: 18),
+          Icon(
+            rule['icon'] as IconData,
+            color: rule['color'] as Color,
+            size: 18,
+          ),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -989,7 +1039,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Start disabled, switch to onUserInteraction on submit',
-      'detail': 'A popular pattern: set mode to disabled initially. On '
+      'detail':
+          'A popular pattern: set mode to disabled initially. On '
           'first submit, if validation fails, switch to onUserInteraction '
           'so errors update in real time as the user fixes them.',
       'icon': Icons.check_circle,
@@ -998,7 +1049,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Use onUserInteraction for most forms',
-      'detail': 'Best balance between UX and validation feedback. Users '
+      'detail':
+          'Best balance between UX and validation feedback. Users '
           'see errors only after interacting, preventing the jarring '
           'experience of errors on page load.',
       'icon': Icons.check_circle,
@@ -1007,7 +1059,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pattern',
       'title': 'Combine with onChanged for complex validation',
-      'detail': 'For fields that need debounced async validation (e.g., '
+      'detail':
+          'For fields that need debounced async validation (e.g., '
           'username availability), use disabled mode with manual '
           'validation triggered by onChanged + debounce timer.',
       'icon': Icons.check_circle,
@@ -1016,7 +1069,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Don\'t use always for empty forms',
-      'detail': 'always mode validates on first build. For empty '
+      'detail':
+          'always mode validates on first build. For empty '
           'registration forms, this shows "required" errors on every '
           'field before the user has done anything — very poor UX.',
       'icon': Icons.warning_amber,
@@ -1025,7 +1079,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Don\'t forget FormState.validate() with disabled mode',
-      'detail': 'In disabled mode, errors never show unless you '
+      'detail':
+          'In disabled mode, errors never show unless you '
           'explicitly call validate(). If you forget to call it on submit, '
           'the form silently accepts invalid data.',
       'icon': Icons.error_outline,
@@ -1034,7 +1089,8 @@ dynamic build(BuildContext context) {
     {
       'type': 'pitfall',
       'title': 'Expensive validators in always mode',
-      'detail': 'always mode runs validators on every rebuild. If your '
+      'detail':
+          'always mode runs validators on every rebuild. If your '
           'validator makes API calls or heavy computation, use disabled '
           'mode with manual triggering instead.',
       'icon': Icons.warning_amber,
@@ -1050,17 +1106,13 @@ dynamic build(BuildContext context) {
         color: (tip['color'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(10),
         border: Border(
-          left: BorderSide(
-            color: tip['color'] as Color,
-            width: 4,
-          ),
+          left: BorderSide(color: tip['color'] as Color, width: 4),
         ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(tip['icon'] as IconData,
-              color: tip['color'] as Color, size: 20),
+          Icon(tip['icon'] as IconData, color: tip['color'] as Color, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -1070,7 +1122,9 @@ dynamic build(BuildContext context) {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: (tip['color'] as Color).withOpacity(0.15),
                         borderRadius: BorderRadius.circular(4),
@@ -1118,10 +1172,26 @@ dynamic build(BuildContext context) {
   final summaryItems = <Map<String, dynamic>>[
     {'label': 'Validation modes', 'value': '3', 'icon': Icons.tune},
     {'label': 'Live form demos', 'value': '4', 'icon': Icons.web},
-    {'label': 'Comparison scenarios', 'value': '${comparisonData.length}', 'icon': Icons.compare},
-    {'label': 'Real-world patterns', 'value': '${formPatterns.length}', 'icon': Icons.pattern},
-    {'label': 'Timeline events', 'value': '${timelineEvents.length}', 'icon': Icons.timeline},
-    {'label': 'Patterns & pitfalls', 'value': '${tips.length}', 'icon': Icons.lightbulb},
+    {
+      'label': 'Comparison scenarios',
+      'value': '${comparisonData.length}',
+      'icon': Icons.compare,
+    },
+    {
+      'label': 'Real-world patterns',
+      'value': '${formPatterns.length}',
+      'icon': Icons.pattern,
+    },
+    {
+      'label': 'Timeline events',
+      'value': '${timelineEvents.length}',
+      'icon': Icons.timeline,
+    },
+    {
+      'label': 'Patterns & pitfalls',
+      'value': '${tips.length}',
+      'icon': Icons.lightbulb,
+    },
   ];
 
   final summaryGrid = Wrap(
@@ -1310,12 +1380,7 @@ dynamic build(BuildContext context) {
               border: Border.all(color: Colors.amber.withOpacity(0.3)),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(
-              children: [
-                tableHeader,
-                ...tableRows,
-              ],
-            ),
+            child: Column(children: [tableHeader, ...tableRows]),
           ),
 
           // Section 5
@@ -1340,43 +1405,61 @@ dynamic build(BuildContext context) {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   color: Colors.amber.withOpacity(0.1),
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 3,
-                          child: Text('Event',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: Colors.amber[900]))),
+                        flex: 3,
+                        child: Text(
+                          'Event',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            color: Colors.amber[900],
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                          width: 60,
-                          child: Text('disabled',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 9,
-                                  color: Colors.grey[700]))),
+                        width: 60,
+                        child: Text(
+                          'disabled',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ),
                       const SizedBox(width: 4),
                       SizedBox(
-                          width: 60,
-                          child: Text('always',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 9,
-                                  color: Colors.red[700]))),
+                        width: 60,
+                        child: Text(
+                          'always',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                            color: Colors.red[700],
+                          ),
+                        ),
+                      ),
                       const SizedBox(width: 4),
                       SizedBox(
-                          width: 60,
-                          child: Text('onInteract',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 9,
-                                  color: Colors.amber[800]))),
+                        width: 60,
+                        child: Text(
+                          'onInteract',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 9,
+                            color: Colors.amber[800],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

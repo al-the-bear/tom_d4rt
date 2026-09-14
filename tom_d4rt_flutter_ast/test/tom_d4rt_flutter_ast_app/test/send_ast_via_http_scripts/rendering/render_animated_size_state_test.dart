@@ -34,7 +34,9 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== RenderAnimatedSizeState Deep Demo ===');
-  print('Subject: enum RenderAnimatedSizeState (rendering library, Flutter 3.41.6)');
+  print(
+    'Subject: enum RenderAnimatedSizeState (rendering library, Flutter 3.41.6)',
+  );
   print('Values: start, stable, changed, unstable');
   print('Public surface used: AnimatedSize, AnimatedSwitcher, SizeTransition');
 
@@ -46,10 +48,7 @@ dynamic build(BuildContext context) {
   return MaterialApp(
     title: 'RenderAnimatedSizeState Deep Demo',
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      colorSchemeSeed: Colors.indigo,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
     home: Scaffold(
       appBar: AppBar(
         title: const Text('RenderAnimatedSizeState'),
@@ -360,7 +359,9 @@ class _BasicAnimatedSizeBodyState extends State<_BasicAnimatedSizeBody> {
           children: [
             const Text('Current logical state: '),
             Chip(
-              label: Text(_expanded ? 'changed → stable (wide)' : 'stable (narrow)'),
+              label: Text(
+                _expanded ? 'changed → stable (wide)' : 'stable (narrow)',
+              ),
               backgroundColor: _expanded
                   ? const Color(0xFFFFF59D)
                   : const Color(0xFFC8E6C9),
@@ -431,10 +432,7 @@ class _DurationShowcaseBodyState extends State<_DurationShowcaseBody> {
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          children: [
-            for (final ms in _durations)
-              _durationCard(ms, _expanded),
-          ],
+          children: [for (final ms in _durations) _durationCard(ms, _expanded)],
         ),
       ],
     );
@@ -819,7 +817,9 @@ class _StableVsChangedBodyState extends State<_StableVsChangedBody> {
                   const Text('Logical state: '),
                   Chip(
                     label: Text(_logicalState()),
-                    backgroundColor: _stateColor(_logicalState()).withValues(alpha: 0.2),
+                    backgroundColor: _stateColor(
+                      _logicalState(),
+                    ).withValues(alpha: 0.2),
                     side: BorderSide(color: _stateColor(_logicalState())),
                   ),
                 ],
@@ -966,8 +966,9 @@ class _UnstableDemoBodyState extends State<_UnstableDemoBody> {
                   const Text('Predicted state: '),
                   Chip(
                     label: Text(_running ? 'unstable' : 'stable'),
-                    backgroundColor: _stateColor(_running ? 'unstable' : 'stable')
-                        .withValues(alpha: 0.2),
+                    backgroundColor: _stateColor(
+                      _running ? 'unstable' : 'stable',
+                    ).withValues(alpha: 0.2),
                     side: BorderSide(
                       color: _stateColor(_running ? 'unstable' : 'stable'),
                     ),
@@ -1063,8 +1064,7 @@ class _CollapsibleCardBodyState extends State<_CollapsibleCardBody> {
                           _expanded ? Icons.expand_less : Icons.expand_more,
                           color: const Color(0xFF00695C),
                         ),
-                        onPressed: () =>
-                            setState(() => _expanded = !_expanded),
+                        onPressed: () => setState(() => _expanded = !_expanded),
                       ),
                     ],
                   ),
@@ -1245,8 +1245,7 @@ class _ListItemResizeBodyState extends State<_ListItemResizeBody> {
                 ),
               ),
             ),
-            if (i < _items.length - 1)
-              const Divider(height: 1, thickness: 0.5),
+            if (i < _items.length - 1) const Divider(height: 1, thickness: 0.5),
           ],
         ],
       ),
@@ -1457,10 +1456,7 @@ Widget _decisionRow(String name, String when, String how, Color color) {
         ),
         const SizedBox(height: 4),
         Text('Use when: $when'),
-        Text(
-          'How: $how',
-          style: const TextStyle(fontStyle: FontStyle.italic),
-        ),
+        Text('How: $how', style: const TextStyle(fontStyle: FontStyle.italic)),
       ],
     ),
   );
@@ -1634,36 +1630,58 @@ Widget _section14ReferenceTable() {
         columnSpacing: 24,
         headingRowColor: WidgetStateProperty.all(const Color(0xFFCFD8DC)),
         columns: const [
-          DataColumn(label: Text('Value', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(label: Text('index', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(label: Text('Semantic', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(label: Text('Triggered by', style: TextStyle(fontWeight: FontWeight.bold))),
+          DataColumn(
+            label: Text('Value', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          DataColumn(
+            label: Text('index', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          DataColumn(
+            label: Text(
+              'Semantic',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          DataColumn(
+            label: Text(
+              'Triggered by',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
         ],
         rows: [
-          DataRow(cells: [
-            DataCell(_dotLabel('start')),
-            const DataCell(Text('0')),
-            const DataCell(Text('Default; before first child layout')),
-            const DataCell(Text('Construction of RenderAnimatedSize')),
-          ]),
-          DataRow(cells: [
-            DataCell(_dotLabel('stable')),
-            const DataCell(Text('1')),
-            const DataCell(Text('Child size unchanged; no tween in flight')),
-            const DataCell(Text('Tween completes, or first layout settles')),
-          ]),
-          DataRow(cells: [
-            DataCell(_dotLabel('changed')),
-            const DataCell(Text('2')),
-            const DataCell(Text('Tween in flight from previous to new size')),
-            const DataCell(Text('Child reports a different intrinsic size')),
-          ]),
-          DataRow(cells: [
-            DataCell(_dotLabel('unstable')),
-            const DataCell(Text('3')),
-            const DataCell(Text('Animation bypassed; sizes snap')),
-            const DataCell(Text('Child resized too many frames in a row')),
-          ]),
+          DataRow(
+            cells: [
+              DataCell(_dotLabel('start')),
+              const DataCell(Text('0')),
+              const DataCell(Text('Default; before first child layout')),
+              const DataCell(Text('Construction of RenderAnimatedSize')),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(_dotLabel('stable')),
+              const DataCell(Text('1')),
+              const DataCell(Text('Child size unchanged; no tween in flight')),
+              const DataCell(Text('Tween completes, or first layout settles')),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(_dotLabel('changed')),
+              const DataCell(Text('2')),
+              const DataCell(Text('Tween in flight from previous to new size')),
+              const DataCell(Text('Child reports a different intrinsic size')),
+            ],
+          ),
+          DataRow(
+            cells: [
+              DataCell(_dotLabel('unstable')),
+              const DataCell(Text('3')),
+              const DataCell(Text('Animation bypassed; sizes snap')),
+              const DataCell(Text('Child resized too many frames in a row')),
+            ],
+          ),
         ],
       ),
     ),
@@ -1705,8 +1723,12 @@ Widget _section15Footer() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         Text('• Flutter API: AnimatedSize'),
-        Text('• Flutter source: package:flutter/src/rendering/animated_size.dart'),
-        Text('• Flutter source: package:flutter/src/widgets/animated_size.dart'),
+        Text(
+          '• Flutter source: package:flutter/src/rendering/animated_size.dart',
+        ),
+        Text(
+          '• Flutter source: package:flutter/src/widgets/animated_size.dart',
+        ),
         Text('• Cookbook: Animate the size of a widget'),
         Text('• Related: AnimatedSwitcher, AnimatedCrossFade, SizeTransition'),
         SizedBox(height: 8),
@@ -1827,11 +1849,21 @@ class _StateMachineDiagramPainter extends CustomPainter {
     // unstable→stable (recovery).
     _drawArrow(canvas, centers[0], centers[1], const Color(0xFF607D8B));
     _drawArrow(canvas, centers[1], centers[2], const Color(0xFF2E7D32));
-    _drawArrow(canvas, centers[2], centers[1], const Color(0xFFF9A825),
-        offset: const Offset(0, 16));
+    _drawArrow(
+      canvas,
+      centers[2],
+      centers[1],
+      const Color(0xFFF9A825),
+      offset: const Offset(0, 16),
+    );
     _drawArrow(canvas, centers[2], centers[3], const Color(0xFFC62828));
-    _drawArrow(canvas, centers[3], centers[1], const Color(0xFF6A1B9A),
-        offset: const Offset(0, -36));
+    _drawArrow(
+      canvas,
+      centers[3],
+      centers[1],
+      const Color(0xFF6A1B9A),
+      offset: const Offset(0, -36),
+    );
 
     // Nodes.
     for (var i = 0; i < labels.length; i++) {
@@ -1849,8 +1881,13 @@ class _StateMachineDiagramPainter extends CustomPainter {
     }
   }
 
-  void _drawArrow(Canvas canvas, Offset from, Offset to, Color color,
-      {Offset offset = Offset.zero}) {
+  void _drawArrow(
+    Canvas canvas,
+    Offset from,
+    Offset to,
+    Color color, {
+    Offset offset = Offset.zero,
+  }) {
     final paint = Paint()
       ..color = color
       ..strokeWidth = 2
@@ -1881,8 +1918,13 @@ class _StateMachineDiagramPainter extends CustomPainter {
     );
   }
 
-  void _drawText(Canvas canvas, String text, Offset center, Color color,
-      {bool bold = false}) {
+  void _drawText(
+    Canvas canvas,
+    String text,
+    Offset center,
+    Color color, {
+    bool bold = false,
+  }) {
     final tp = TextPainter(
       text: TextSpan(
         text: text,
@@ -1901,7 +1943,8 @@ class _StateMachineDiagramPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _StateMachineDiagramPainter oldDelegate) => false;
+  bool shouldRepaint(covariant _StateMachineDiagramPainter oldDelegate) =>
+      false;
 }
 
 // =============================================================================
@@ -1912,10 +1955,8 @@ class _LiveStateMachinePainter extends CustomPainter {
   final ValueNotifier<int> repaint;
   final String Function() activeState;
 
-  _LiveStateMachinePainter({
-    required this.repaint,
-    required this.activeState,
-  }) : super(repaint: repaint);
+  _LiveStateMachinePainter({required this.repaint, required this.activeState})
+    : super(repaint: repaint);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1992,10 +2033,7 @@ class _LiveStateMachinePainter extends CustomPainter {
       )..layout();
       tp.paint(
         canvas,
-        Offset(
-          centers[i].dx - tp.width / 2,
-          centers[i].dy - tp.height / 2,
-        ),
+        Offset(centers[i].dx - tp.width / 2, centers[i].dy - tp.height / 2),
       );
     }
 

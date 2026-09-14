@@ -74,8 +74,7 @@ dynamic build(BuildContext context) {
       child: SingleChildScrollView(
         child: Container(
           color: _surfaceBg,
-          padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: sections,
@@ -119,11 +118,7 @@ Widget _buildHero() {
             color: Colors.white.withValues(alpha: 0.12),
             border: Border.all(color: _amberHi, width: 3.0),
           ),
-          child: const Icon(
-            Icons.swipe_right_alt,
-            size: 48.0,
-            color: _amberHi,
-          ),
+          child: const Icon(Icons.swipe_right_alt, size: 48.0, color: _amberHi),
         ),
         const SizedBox(width: 22.0),
         Expanded(
@@ -234,24 +229,11 @@ Widget _buildAnatomy() {
           style: TextStyle(fontSize: 13.5, color: _ink, height: 1.45),
         ),
         const SizedBox(height: 18.0),
-        _hierarchyRow(
-          'Object',
-          'Dart root',
-          _gridLine,
-          isFirst: true,
-        ),
+        _hierarchyRow('Object', 'Dart root', _gridLine, isFirst: true),
         _arrowBlock('extends'),
-        _hierarchyRow(
-          'Diagnosticable',
-          'mixin (debug strings)',
-          _gridLine,
-        ),
+        _hierarchyRow('Diagnosticable', 'mixin (debug strings)', _gridLine),
         _arrowBlock('implements'),
-        _hierarchyRow(
-          'PointerEvent',
-          'abstract — defines fields',
-          _oceanMid,
-        ),
+        _hierarchyRow('PointerEvent', 'abstract — defines fields', _oceanMid),
         _arrowBlock('extends'),
         _hierarchyRow(
           '_PointerEventDescription',
@@ -324,10 +306,7 @@ Widget _hierarchyRow(
         Container(
           width: 10.0,
           height: 10.0,
-          decoration: BoxDecoration(
-            color: accent,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
         ),
         const SizedBox(width: 10.0),
         Text(
@@ -343,10 +322,7 @@ Widget _hierarchyRow(
         Expanded(
           child: Text(
             tag,
-            style: const TextStyle(
-              fontSize: 12.0,
-              color: _inkMute,
-            ),
+            style: const TextStyle(fontSize: 12.0, color: _inkMute),
           ),
         ),
         if (isHero)
@@ -556,7 +532,9 @@ Widget _buildFieldGrid() {
   int i = 0;
   while (i < fields.length) {
     final Map<String, String> a = fields[i];
-    final Map<String, String>? b = (i + 1 < fields.length) ? fields[i + 1] : null;
+    final Map<String, String>? b = (i + 1 < fields.length)
+        ? fields[i + 1]
+        : null;
     rows.add(
       Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
@@ -617,8 +595,10 @@ Widget _fieldCard(Map<String, String> f) {
               ),
             ),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 7.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: _oceanSky.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(6.0),
@@ -671,136 +651,146 @@ Widget _buildSampleGallery() {
   // failing the whole build.
   final List<Widget> cards = <Widget>[];
 
-  cards.add(_safeSampleCard(
-    label: 'A — touch, mid-drag',
-    note: 'classic touch drag: kPrimaryButton, pressure ≈ 0.9',
-    builder: () {
-      const PointerMoveEvent e = PointerMoveEvent(
-        timeStamp: Duration(milliseconds: 1450),
-        pointer: 42,
-        kind: PointerDeviceKind.touch,
-        device: 0,
-        position: Offset(132.0, 78.0),
-        delta: Offset(32.0, 28.0),
-        buttons: kPrimaryButton,
-        obscured: false,
-        pressure: 0.91,
-        pressureMin: 0.0,
-        pressureMax: 1.0,
-        size: 0.14,
-        radiusMajor: 9.0,
-        radiusMinor: 7.0,
-        radiusMin: 0.0,
-        radiusMax: 14.0,
-        orientation: 0.05,
-        tilt: 0.0,
-        synthesized: false,
-        embedderId: 0,
-      );
-      return e;
-    },
-  ));
+  cards.add(
+    _safeSampleCard(
+      label: 'A — touch, mid-drag',
+      note: 'classic touch drag: kPrimaryButton, pressure ≈ 0.9',
+      builder: () {
+        const PointerMoveEvent e = PointerMoveEvent(
+          timeStamp: Duration(milliseconds: 1450),
+          pointer: 42,
+          kind: PointerDeviceKind.touch,
+          device: 0,
+          position: Offset(132.0, 78.0),
+          delta: Offset(32.0, 28.0),
+          buttons: kPrimaryButton,
+          obscured: false,
+          pressure: 0.91,
+          pressureMin: 0.0,
+          pressureMax: 1.0,
+          size: 0.14,
+          radiusMajor: 9.0,
+          radiusMinor: 7.0,
+          radiusMin: 0.0,
+          radiusMax: 14.0,
+          orientation: 0.05,
+          tilt: 0.0,
+          synthesized: false,
+          embedderId: 0,
+        );
+        return e;
+      },
+    ),
+  );
 
-  cards.add(_safeSampleCard(
-    label: 'B — mouse drag, secondary button',
-    note: 'right-button drag: kSecondaryMouseButton, pressure constant 1.0',
-    builder: () {
-      const PointerMoveEvent e = PointerMoveEvent(
-        timeStamp: Duration(milliseconds: 2200),
-        pointer: 7,
-        kind: PointerDeviceKind.mouse,
-        device: 0,
-        position: Offset(420.0, 240.0),
-        delta: Offset(-12.0, 4.0),
-        buttons: kSecondaryMouseButton,
-        obscured: false,
-        pressure: 1.0,
-        pressureMin: 1.0,
-        pressureMax: 1.0,
-        synthesized: false,
-        embedderId: 0,
-      );
-      return e;
-    },
-  ));
+  cards.add(
+    _safeSampleCard(
+      label: 'B — mouse drag, secondary button',
+      note: 'right-button drag: kSecondaryMouseButton, pressure constant 1.0',
+      builder: () {
+        const PointerMoveEvent e = PointerMoveEvent(
+          timeStamp: Duration(milliseconds: 2200),
+          pointer: 7,
+          kind: PointerDeviceKind.mouse,
+          device: 0,
+          position: Offset(420.0, 240.0),
+          delta: Offset(-12.0, 4.0),
+          buttons: kSecondaryMouseButton,
+          obscured: false,
+          pressure: 1.0,
+          pressureMin: 1.0,
+          pressureMax: 1.0,
+          synthesized: false,
+          embedderId: 0,
+        );
+        return e;
+      },
+    ),
+  );
 
-  cards.add(_safeSampleCard(
-    label: 'C — stylus, tilted, oriented',
-    note: 'pen with non-zero tilt + orientation; thin radii',
-    builder: () {
-      const PointerMoveEvent e = PointerMoveEvent(
-        timeStamp: Duration(milliseconds: 3100),
-        pointer: 13,
-        kind: PointerDeviceKind.stylus,
-        device: 1,
-        position: Offset(64.0, 312.0),
-        delta: Offset(2.5, -1.25),
-        buttons: kPrimaryButton,
-        obscured: false,
-        pressure: 0.42,
-        pressureMin: 0.0,
-        pressureMax: 1.0,
-        size: 0.04,
-        radiusMajor: 3.5,
-        radiusMinor: 2.5,
-        radiusMin: 0.0,
-        radiusMax: 6.0,
-        orientation: 0.78,
-        tilt: 0.45,
-        synthesized: false,
-        embedderId: 2,
-      );
-      return e;
-    },
-  ));
+  cards.add(
+    _safeSampleCard(
+      label: 'C — stylus, tilted, oriented',
+      note: 'pen with non-zero tilt + orientation; thin radii',
+      builder: () {
+        const PointerMoveEvent e = PointerMoveEvent(
+          timeStamp: Duration(milliseconds: 3100),
+          pointer: 13,
+          kind: PointerDeviceKind.stylus,
+          device: 1,
+          position: Offset(64.0, 312.0),
+          delta: Offset(2.5, -1.25),
+          buttons: kPrimaryButton,
+          obscured: false,
+          pressure: 0.42,
+          pressureMin: 0.0,
+          pressureMax: 1.0,
+          size: 0.04,
+          radiusMajor: 3.5,
+          radiusMinor: 2.5,
+          radiusMin: 0.0,
+          radiusMax: 6.0,
+          orientation: 0.78,
+          tilt: 0.45,
+          synthesized: false,
+          embedderId: 2,
+        );
+        return e;
+      },
+    ),
+  );
 
-  cards.add(_safeSampleCard(
-    label: 'D — synthesized resampled tick',
-    note: 'framework-manufactured sample (synthesized: true)',
-    builder: () {
-      const PointerMoveEvent e = PointerMoveEvent(
-        timeStamp: Duration(milliseconds: 3116),
-        pointer: 13,
-        kind: PointerDeviceKind.stylus,
-        device: 1,
-        position: Offset(66.0, 311.5),
-        delta: Offset(2.0, -0.5),
-        buttons: kPrimaryButton,
-        obscured: false,
-        pressure: 0.43,
-        pressureMin: 0.0,
-        pressureMax: 1.0,
-        synthesized: true,
-        embedderId: 2,
-      );
-      return e;
-    },
-  ));
+  cards.add(
+    _safeSampleCard(
+      label: 'D — synthesized resampled tick',
+      note: 'framework-manufactured sample (synthesized: true)',
+      builder: () {
+        const PointerMoveEvent e = PointerMoveEvent(
+          timeStamp: Duration(milliseconds: 3116),
+          pointer: 13,
+          kind: PointerDeviceKind.stylus,
+          device: 1,
+          position: Offset(66.0, 311.5),
+          delta: Offset(2.0, -0.5),
+          buttons: kPrimaryButton,
+          obscured: false,
+          pressure: 0.43,
+          pressureMin: 0.0,
+          pressureMax: 1.0,
+          synthesized: true,
+          embedderId: 2,
+        );
+        return e;
+      },
+    ),
+  );
 
-  cards.add(_safeSampleCard(
-    label: 'E — trackpad two-button chord',
-    note: 'simultaneous primary + tertiary press during drag',
-    builder: () {
-      // Non-const so any constructor assertion surfaces as a runtime
-      // exception that our try/catch can render as a fallback card.
-      final PointerMoveEvent e = PointerMoveEvent(
-        timeStamp: const Duration(milliseconds: 4040),
-        pointer: 91,
-        kind: PointerDeviceKind.trackpad,
-        device: 3,
-        position: const Offset(540.0, 90.0),
-        delta: const Offset(0.0, 8.0),
-        buttons: kPrimaryButton | kTertiaryButton,
-        obscured: false,
-        pressure: 1.0,
-        pressureMin: 1.0,
-        pressureMax: 1.0,
-        synthesized: false,
-        embedderId: 0,
-      );
-      return e;
-    },
-  ));
+  cards.add(
+    _safeSampleCard(
+      label: 'E — trackpad two-button chord',
+      note: 'simultaneous primary + tertiary press during drag',
+      builder: () {
+        // Non-const so any constructor assertion surfaces as a runtime
+        // exception that our try/catch can render as a fallback card.
+        final PointerMoveEvent e = PointerMoveEvent(
+          timeStamp: const Duration(milliseconds: 4040),
+          pointer: 91,
+          kind: PointerDeviceKind.trackpad,
+          device: 3,
+          position: const Offset(540.0, 90.0),
+          delta: const Offset(0.0, 8.0),
+          buttons: kPrimaryButton | kTertiaryButton,
+          obscured: false,
+          pressure: 1.0,
+          pressureMin: 1.0,
+          pressureMax: 1.0,
+          synthesized: false,
+          embedderId: 0,
+        );
+        return e;
+      },
+    ),
+  );
 
   // Stack the gallery as one card per row so each has full width.
   final List<Widget> children = <Widget>[];
@@ -868,10 +858,7 @@ Widget _fallbackEventCard({
           ],
         ),
         const SizedBox(height: 6.0),
-        Text(
-          note,
-          style: const TextStyle(fontSize: 12.0, color: _inkMute),
-        ),
+        Text(note, style: const TextStyle(fontSize: 12.0, color: _inkMute)),
         const SizedBox(height: 6.0),
         Text(
           error,
@@ -911,8 +898,10 @@ Widget _eventCard({
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 3.0,
+              ),
               decoration: BoxDecoration(
                 color: _amberHi.withValues(alpha: 0.30),
                 borderRadius: BorderRadius.circular(6.0),
@@ -945,14 +934,22 @@ Widget _eventCard({
         _kvRow('localDelta', _fmtOffset(e.localDelta)),
         _kvRow('buttons (bitmask)', '0x${e.buttons.toRadixString(16)}'),
         _kvRow('pressure', e.pressure.toStringAsFixed(2)),
-        _kvRow('pressure range',
-            '[${e.pressureMin.toStringAsFixed(2)}, ${e.pressureMax.toStringAsFixed(2)}]'),
-        _kvRow('radius (major / minor)',
-            '${e.radiusMajor.toStringAsFixed(1)} / ${e.radiusMinor.toStringAsFixed(1)}'),
-        _kvRow('radius range',
-            '[${e.radiusMin.toStringAsFixed(1)}, ${e.radiusMax.toStringAsFixed(1)}]'),
-        _kvRow('orientation / tilt',
-            '${e.orientation.toStringAsFixed(2)} / ${e.tilt.toStringAsFixed(2)}'),
+        _kvRow(
+          'pressure range',
+          '[${e.pressureMin.toStringAsFixed(2)}, ${e.pressureMax.toStringAsFixed(2)}]',
+        ),
+        _kvRow(
+          'radius (major / minor)',
+          '${e.radiusMajor.toStringAsFixed(1)} / ${e.radiusMinor.toStringAsFixed(1)}',
+        ),
+        _kvRow(
+          'radius range',
+          '[${e.radiusMin.toStringAsFixed(1)}, ${e.radiusMax.toStringAsFixed(1)}]',
+        ),
+        _kvRow(
+          'orientation / tilt',
+          '${e.orientation.toStringAsFixed(2)} / ${e.tilt.toStringAsFixed(2)}',
+        ),
         _kvRow('obscured', e.obscured.toString()),
         _kvRow('synthesized', e.synthesized.toString()),
         _kvRow('embedderId', e.embedderId.toString()),
@@ -1112,21 +1109,25 @@ Widget _buildGrid({required double width, required double height}) {
   final List<Widget> lines = <Widget>[];
   final int hCount = (height ~/ 26).toInt();
   for (int i = 0; i < hCount; i = i + 1) {
-    lines.add(Positioned(
-      left: 0.0,
-      right: 0.0,
-      top: (i * 26.0) + 4.0,
-      child: Container(height: 1.0, color: _gridLine),
-    ));
+    lines.add(
+      Positioned(
+        left: 0.0,
+        right: 0.0,
+        top: (i * 26.0) + 4.0,
+        child: Container(height: 1.0, color: _gridLine),
+      ),
+    );
   }
   final int vCount = (width ~/ 40).toInt();
   for (int i = 0; i < vCount; i = i + 1) {
-    lines.add(Positioned(
-      top: 0.0,
-      bottom: 0.0,
-      left: (i * 40.0) + 4.0,
-      child: Container(width: 1.0, color: _gridLine),
-    ));
+    lines.add(
+      Positioned(
+        top: 0.0,
+        bottom: 0.0,
+        left: (i * 40.0) + 4.0,
+        child: Container(width: 1.0, color: _gridLine),
+      ),
+    );
   }
   return Stack(children: lines);
 }
@@ -1408,9 +1409,7 @@ Widget _buildCopyWithShowcase() {
     body = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: _copyWithCard('original', original, _oceanMid),
-        ),
+        Expanded(child: _copyWithCard('original', original, _oceanMid)),
         const SizedBox(width: 10.0),
         Expanded(
           child: _copyWithCard(
@@ -1499,10 +1498,12 @@ Widget _copyWithCard(
           ),
         ),
         const SizedBox(height: 6.0),
-        _miniRow('position', _fmtOffset(e.position),
-            highlight: highlight == 'position'),
-        _miniRow('delta', _fmtOffset(e.delta),
-            highlight: highlight == 'delta'),
+        _miniRow(
+          'position',
+          _fmtOffset(e.position),
+          highlight: highlight == 'position',
+        ),
+        _miniRow('delta', _fmtOffset(e.delta), highlight: highlight == 'delta'),
         _miniRow('pressure', e.pressure.toStringAsFixed(2)),
         _miniRow('pointer', e.pointer.toString()),
         _miniRow('buttons', '0x${e.buttons.toRadixString(16)}'),
@@ -1529,8 +1530,7 @@ Widget _miniRow(String k, String v, {bool highlight = false}) {
         ),
         Expanded(
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 1.0),
             decoration: BoxDecoration(
               color: highlight
                   ? _amberHi.withValues(alpha: 0.40)
@@ -1565,7 +1565,10 @@ Widget _buildTransformedShowcase() {
 
   // Translate by (-50, -30)
   const Offset translatedPos = Offset(110.0, 90.0);
-  const Offset translatedDelta = Offset(8.0, 4.0); // translation does not affect delta
+  const Offset translatedDelta = Offset(
+    8.0,
+    4.0,
+  ); // translation does not affect delta
 
   // Scale by 0.5
   const Offset scaledPos = Offset(80.0, 60.0);
@@ -1742,11 +1745,7 @@ Widget _buildKindMosaic() {
           style: TextStyle(fontSize: 13.0, color: _ink, height: 1.4),
         ),
         const SizedBox(height: 12.0),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: chips,
-        ),
+        Wrap(spacing: 10.0, runSpacing: 10.0, children: chips),
       ],
     ),
   );
@@ -1913,19 +1912,13 @@ Widget _bitVisual(int v) {
         margin: const EdgeInsets.symmetric(horizontal: 1.0),
         decoration: BoxDecoration(
           color: on ? _amberHi : Colors.transparent,
-          border: Border.all(
-            color: on ? _amberLo : _gridLine,
-            width: 1.0,
-          ),
+          border: Border.all(color: on ? _amberLo : _gridLine, width: 1.0),
           borderRadius: BorderRadius.circular(2.0),
         ),
       ),
     );
   }
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: cells,
-  );
+  return Row(mainAxisAlignment: MainAxisAlignment.end, children: cells);
 }
 
 // ============================================================================
@@ -1935,38 +1928,44 @@ Widget _buildPitfalls() {
   final List<Map<String, String>> pitfalls = <Map<String, String>>[
     <String, String>{
       'title': 'synthesized vs original',
-      'body': 'When the framework resamples or replays an event, it sets '
+      'body':
+          'When the framework resamples or replays an event, it sets '
           'synthesized = true and links the source via "original". Treat '
           'synthesized events as informational — they are not driven by a '
           'real engine sample.',
     },
     <String, String>{
       'title': 'pressure is normalised',
-      'body': 'pressure is always in the range [pressureMin, pressureMax], '
+      'body':
+          'pressure is always in the range [pressureMin, pressureMax], '
           'NOT a raw force value. For touch this is conventionally 0.0..1.0; '
           'for mouse it is constant 1.0. Compare with the *Min/*Max bounds '
           'rather than absolute thresholds.',
     },
     <String, String>{
       'title': 'localPosition vs position',
-      'body': 'position is in the global coordinate frame; localPosition is '
+      'body':
+          'position is in the global coordinate frame; localPosition is '
           'in the receiving widget\'s frame, computed by the hit-test '
           'transform. Without a transform they are equal.',
     },
     <String, String>{
       'title': 'delta != position[i] − position[i−1]',
-      'body': 'The engine computes delta on its side and may apply '
+      'body':
+          'The engine computes delta on its side and may apply '
           'micro-corrections (resampling, prediction). Trust the field over '
           'reconstructing it from successive positions.',
     },
     <String, String>{
       'title': 'distance is always 0',
-      'body': 'For PointerMoveEvent the pointer is in contact, so distance '
+      'body':
+          'For PointerMoveEvent the pointer is in contact, so distance '
           'is always 0.0. distanceMax is informational.',
     },
     <String, String>{
       'title': 'PointerHoverEvent is not the same',
-      'body': 'A pointer that is moving but NOT pressed produces '
+      'body':
+          'A pointer that is moving but NOT pressed produces '
           'PointerHoverEvent — a different concrete subclass.',
     },
   ];
@@ -2111,17 +2110,25 @@ Widget _buildFooter() {
         const SizedBox(height: 12.0),
         _footerBullet('the pointer is currently in contact (down == true)'),
         _footerBullet('it is moving (delta is the per-sample displacement)'),
-        _footerBullet('it carries the full per-sample geometry: '
-            'position / localPosition / delta / localDelta / pressure / '
-            'radii / orientation / tilt / buttons'),
-        _footerBullet('synthesized events are framework-manufactured; '
-            'original holds the source event when present'),
-        _footerBullet('copyWith returns a fresh event; transformed pushes '
-            'the local* views through a Matrix4 — global position / delta '
-            'stay invariant'),
-        _footerBullet('to consume it: GestureDetector for high-level '
-            'gestures, Listener for raw events, RawGestureDetector for '
-            'custom recognisers'),
+        _footerBullet(
+          'it carries the full per-sample geometry: '
+          'position / localPosition / delta / localDelta / pressure / '
+          'radii / orientation / tilt / buttons',
+        ),
+        _footerBullet(
+          'synthesized events are framework-manufactured; '
+          'original holds the source event when present',
+        ),
+        _footerBullet(
+          'copyWith returns a fresh event; transformed pushes '
+          'the local* views through a Matrix4 — global position / delta '
+          'stay invariant',
+        ),
+        _footerBullet(
+          'to consume it: GestureDetector for high-level '
+          'gestures, Listener for raw events, RawGestureDetector for '
+          'custom recognisers',
+        ),
         const SizedBox(height: 10.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),

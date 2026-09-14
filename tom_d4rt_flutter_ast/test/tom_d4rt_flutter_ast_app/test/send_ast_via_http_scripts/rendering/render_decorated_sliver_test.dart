@@ -6,7 +6,8 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
   _ThemePreset(
     id: 'coast',
     name: 'Coast Studio',
-    description: 'Balanced profile for sliver grouping and background decoration.',
+    description:
+        'Balanced profile for sliver grouping and background decoration.',
     seed: Color(0xFF0F766E),
     brightness: Brightness.light,
   ),
@@ -27,11 +28,35 @@ const List<_ThemePreset> _themes = <_ThemePreset>[
 ];
 
 const List<_Scenario> _scenarios = <_Scenario>[
-  _Scenario(id: _ScenarioMode.heroBands, title: 'Hero Bands', subtitle: 'DecoratedSliver around hero and intro blocks with layered gradients.'),
-  _Scenario(id: _ScenarioMode.groupedList, title: 'Grouped List', subtitle: 'Section groups wrapped by decorated sliver backgrounds.'),
-  _Scenario(id: _ScenarioMode.mosaic, title: 'Mosaic Grid', subtitle: 'Decorated grid slivers with dynamic shape and contrast controls.'),
-  _Scenario(id: _ScenarioMode.insetStripes, title: 'Inset Stripes', subtitle: 'Padding and inset composition to isolate decorated content lanes.'),
-  _Scenario(id: _ScenarioMode.diagnostics, title: 'Diagnostics', subtitle: 'Pinned diagnostics panel with sliver decoration state snapshots.'),
+  _Scenario(
+    id: _ScenarioMode.heroBands,
+    title: 'Hero Bands',
+    subtitle:
+        'DecoratedSliver around hero and intro blocks with layered gradients.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.groupedList,
+    title: 'Grouped List',
+    subtitle: 'Section groups wrapped by decorated sliver backgrounds.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.mosaic,
+    title: 'Mosaic Grid',
+    subtitle:
+        'Decorated grid slivers with dynamic shape and contrast controls.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.insetStripes,
+    title: 'Inset Stripes',
+    subtitle:
+        'Padding and inset composition to isolate decorated content lanes.',
+  ),
+  _Scenario(
+    id: _ScenarioMode.diagnostics,
+    title: 'Diagnostics',
+    subtitle:
+        'Pinned diagnostics panel with sliver decoration state snapshots.',
+  ),
 ];
 
 const List<String> _guideBullets = <String>[
@@ -50,7 +75,8 @@ const List<String> _guideBullets = <String>[
 const List<_FaqItem> _faqItems = <_FaqItem>[
   _FaqItem(
     question: 'When should I use DecoratedSliver?',
-    answer: 'When a whole sliver section needs background decoration instead of styling each child individually.',
+    answer:
+        'When a whole sliver section needs background decoration instead of styling each child individually.',
   ),
   _FaqItem(
     question: 'Can I decorate grids and lists the same way?',
@@ -58,31 +84,24 @@ const List<_FaqItem> _faqItems = <_FaqItem>[
   ),
   _FaqItem(
     question: 'How do I keep decorated lanes readable?',
-    answer: 'Balance opacity, border contrast, and content padding so text remains clear.',
+    answer:
+        'Balance opacity, border contrast, and content padding so text remains clear.',
   ),
   _FaqItem(
     question: 'Does this replace SliverPadding?',
-    answer: 'No, they work together: padding controls spacing, decoration controls visuals.',
+    answer:
+        'No, they work together: padding controls spacing, decoration controls visuals.',
   ),
   _FaqItem(
     question: 'How can I debug decorated sliver structure?',
-    answer: 'Capture scroll metrics, section toggles, and decoration values in a diagnostics panel.',
+    answer:
+        'Capture scroll metrics, section toggles, and decoration values in a diagnostics panel.',
   ),
 ];
 
-enum _ScenarioMode {
-  heroBands,
-  groupedList,
-  mosaic,
-  insetStripes,
-  diagnostics,
-}
+enum _ScenarioMode { heroBands, groupedList, mosaic, insetStripes, diagnostics }
 
-enum _DecorShape {
-  rounded,
-  stadium,
-  beveled,
-}
+enum _DecorShape { rounded, stadium, beveled }
 
 class _ThemePreset {
   const _ThemePreset({
@@ -101,7 +120,11 @@ class _ThemePreset {
 }
 
 class _Scenario {
-  const _Scenario({required this.id, required this.title, required this.subtitle});
+  const _Scenario({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final _ScenarioMode id;
   final String title;
@@ -116,7 +139,12 @@ class _FaqItem {
 }
 
 class _MetricEntry {
-  const _MetricEntry({required this.label, required this.value, required this.note, required this.icon});
+  const _MetricEntry({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -125,7 +153,11 @@ class _MetricEntry {
 }
 
 class _TimelineEvent {
-  const _TimelineEvent({required this.time, required this.title, required this.message});
+  const _TimelineEvent({
+    required this.time,
+    required this.title,
+    required this.message,
+  });
 
   final DateTime time;
   final String title;
@@ -154,10 +186,13 @@ class _RenderDecoratedSliverStudio extends StatefulWidget {
   const _RenderDecoratedSliverStudio();
 
   @override
-  State<_RenderDecoratedSliverStudio> createState() => _RenderDecoratedSliverStudioState();
+  State<_RenderDecoratedSliverStudio> createState() =>
+      _RenderDecoratedSliverStudioState();
 }
 
-class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStudio> with SingleTickerProviderStateMixin {
+class _RenderDecoratedSliverStudioState
+    extends State<_RenderDecoratedSliverStudio>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scroll = ScrollController();
 
   late final AnimationController _motion = AnimationController(
@@ -320,7 +355,12 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
       _showInsetLane = true;
       _phase = 'reset';
       _timeline = const <_TimelineEvent>[];
-      _snapshot = const _DecorSnapshot(scrollPixels: 0, scenario: 'heroBands', opacity: 0.32, radius: 16);
+      _snapshot = const _DecorSnapshot(
+        scrollPixels: 0,
+        scenario: 'heroBands',
+        opacity: 0.32,
+        radius: 16,
+      );
     });
     _motion.repeat();
     _pushTimeline('Reset', 'DecoratedSliver lab reset to defaults.');
@@ -329,16 +369,27 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
   @override
   Widget build(BuildContext context) {
     final _ThemePreset theme = _themes[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: theme.seed, brightness: theme.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: theme.seed,
+      brightness: theme.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: theme.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: theme.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -392,12 +443,35 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.view_stream_outlined, color: scheme.primary, size: 26),
-                Text('RenderDecoratedSliver Design Lab', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 26)),
+                Icon(
+                  Icons.view_stream_outlined,
+                  color: scheme.primary,
+                  size: 26,
+                ),
+                Text(
+                  'RenderDecoratedSliver Design Lab',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 26,
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                  child: Text(_scenarios[_scenarioIndex].title, style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
+                  child: Text(
+                    _scenarios[_scenarioIndex].title,
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -421,7 +495,14 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -443,9 +524,19 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themes[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themes[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -467,7 +558,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -485,13 +579,27 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Decor Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Decor Controls',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Adjust decorated lane geometry, opacity, spacing, and section visibility.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Adjust decorated lane geometry, opacity, spacing, and section visibility.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             _sliderRow(
               scheme: scheme,
@@ -501,7 +609,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 920,
               divisions: 250,
               onChanged: (double v) => setState(() => _panelHeight = v),
-              onChangeEnd: (double v) => _bumpControl('Stage Height', 'Set stage height to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Stage Height',
+                'Set stage height to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -511,7 +622,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 34,
               divisions: 68,
               onChanged: (double v) => setState(() => _sectionPadding = v),
-              onChangeEnd: (double v) => _bumpControl('Padding', 'Set section padding to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Padding',
+                'Set section padding to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -521,7 +635,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 48,
               divisions: 96,
               onChanged: (double v) => setState(() => _laneRadius = v),
-              onChangeEnd: (double v) => _bumpControl('Radius', 'Set lane radius to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Radius',
+                'Set lane radius to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -531,7 +648,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 6,
               divisions: 60,
               onChanged: (double v) => setState(() => _laneBorder = v),
-              onChangeEnd: (double v) => _bumpControl('Border', 'Set lane border to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Border',
+                'Set lane border to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -541,7 +661,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _laneOpacity = v),
-              onChangeEnd: (double v) => _bumpControl('Opacity', 'Set lane opacity to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Opacity',
+                'Set lane opacity to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -551,7 +674,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _gradientShift = v),
-              onChangeEnd: (double v) => _bumpControl('Gradient', 'Set gradient shift to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Gradient',
+                'Set gradient shift to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -561,7 +687,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _stripeDensity = v),
-              onChangeEnd: (double v) => _bumpControl('Stripes', 'Set stripe density to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Stripes',
+                'Set stripe density to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -571,7 +700,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 26,
               divisions: 52,
               onChanged: (double v) => setState(() => _itemSpacing = v),
-              onChangeEnd: (double v) => _bumpControl('Spacing', 'Set item spacing to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Spacing',
+                'Set item spacing to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -581,14 +713,23 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               max: 2.2,
               divisions: 160,
               onChanged: (double v) => setState(() => _tileAspect = v),
-              onChangeEnd: (double v) => _bumpControl('Aspect', 'Set tile aspect to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bumpControl(
+                'Aspect',
+                'Set tile aspect to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             const SizedBox(height: 8),
-            Text('Decoration Shape', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Decoration Shape',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _DecorShape.values.map(( _DecorShape shape) {
+              children: _DecorShape.values.map((_DecorShape shape) {
                 return ChoiceChip(
                   selected: _shape == shape,
                   label: Text(shape.name),
@@ -598,7 +739,10 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                       _shapeSwitches += 1;
                       _phase = 'shape';
                     });
-                    _pushTimeline('Shape', 'Decoration shape switched to ${shape.name}.');
+                    _pushTimeline(
+                      'Shape',
+                      'Decoration shape switched to ${shape.name}.',
+                    );
                   },
                 );
               }).toList(),
@@ -607,15 +751,51 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animate, onChanged: (bool? v) => _toggle('animate', v), child: const Text('Animate gradients')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _toggle('grid', v), child: const Text('Show stage grid')),
-                CheckboxMenuButton(value: _showHeroLane, onChanged: (bool? v) => _toggle('hero', v), child: const Text('Hero lane')),
-                CheckboxMenuButton(value: _showGroupLane, onChanged: (bool? v) => _toggle('group', v), child: const Text('Grouped list lane')),
-                CheckboxMenuButton(value: _showGridLane, onChanged: (bool? v) => _toggle('gridlane', v), child: const Text('Mosaic lane')),
-                CheckboxMenuButton(value: _showInsetLane, onChanged: (bool? v) => _toggle('inset', v), child: const Text('Inset lane')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _toggle('diagnostics', v), child: const Text('Show diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _toggle('guide', v), child: const Text('Show guide board')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _toggle('timeline', v), child: const Text('Show timeline board')),
+                CheckboxMenuButton(
+                  value: _animate,
+                  onChanged: (bool? v) => _toggle('animate', v),
+                  child: const Text('Animate gradients'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) => _toggle('grid', v),
+                  child: const Text('Show stage grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showHeroLane,
+                  onChanged: (bool? v) => _toggle('hero', v),
+                  child: const Text('Hero lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGroupLane,
+                  onChanged: (bool? v) => _toggle('group', v),
+                  child: const Text('Grouped list lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGridLane,
+                  onChanged: (bool? v) => _toggle('gridlane', v),
+                  child: const Text('Mosaic lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _showInsetLane,
+                  onChanged: (bool? v) => _toggle('inset', v),
+                  child: const Text('Inset lane'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) => _toggle('diagnostics', v),
+                  child: const Text('Show diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) => _toggle('guide', v),
+                  child: const Text('Show guide board'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) => _toggle('timeline', v),
+                  child: const Text('Show timeline board'),
+                ),
               ],
             ),
           ],
@@ -639,11 +819,23 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -660,9 +852,19 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('DecoratedSliver Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'DecoratedSliver Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Scrollable stage with multiple decorated lanes wrapping list and grid slivers.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Scrollable stage with multiple decorated lanes wrapping list and grid slivers.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             SizedBox(
               height: _panelHeight,
@@ -678,22 +880,33 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                     children: <Widget>[
                       if (_showGrid)
                         CustomPaint(
-                          painter: _StageGridPainter(progress: progress, density: _stripeDensity),
+                          painter: _StageGridPainter(
+                            progress: progress,
+                            density: _stripeDensity,
+                          ),
                         ),
                       CustomScrollView(
                         controller: _scroll,
                         slivers: <Widget>[
                           SliverAppBar(
                             pinned: true,
-                            backgroundColor: scheme.surface.withValues(alpha: 0.92),
-                            title: Text('DecoratedSliver Playground • ${_scenarios[_scenarioIndex].title}'),
+                            backgroundColor: scheme.surface.withValues(
+                              alpha: 0.92,
+                            ),
+                            title: Text(
+                              'DecoratedSliver Playground • ${_scenarios[_scenarioIndex].title}',
+                            ),
                             actions: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Center(
                                   child: Text(
                                     'scroll ${_snapshot.scrollPixels.toStringAsFixed(1)}',
-                                    style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700, fontSize: 12),
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -711,60 +924,90 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                             ),
                           if (_showGroupLane)
                             SliverPadding(
-                              padding: EdgeInsets.symmetric(horizontal: _sectionPadding, vertical: _sectionPadding * 0.8),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: _sectionPadding,
+                                vertical: _sectionPadding * 0.8,
+                              ),
                               sliver: DecoratedSliver(
                                 decoration: laneDecor,
                                 sliver: SliverList.builder(
                                   itemCount: 12,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 10, 10, index == 11 ? 12 : _itemSpacing),
-                                      child: _listItem(scheme, index),
-                                    );
-                                  },
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                            10,
+                                            10,
+                                            10,
+                                            index == 11 ? 12 : _itemSpacing,
+                                          ),
+                                          child: _listItem(scheme, index),
+                                        );
+                                      },
                                 ),
                               ),
                             ),
                           if (_showGridLane)
                             SliverPadding(
-                              padding: EdgeInsets.symmetric(horizontal: _sectionPadding, vertical: _sectionPadding * 0.7),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: _sectionPadding,
+                                vertical: _sectionPadding * 0.7,
+                              ),
                               sliver: DecoratedSliver(
                                 decoration: laneDecor,
                                 sliver: SliverPadding(
                                   padding: const EdgeInsets.all(10),
                                   sliver: SliverGrid.builder(
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: _itemSpacing,
-                                      mainAxisSpacing: _itemSpacing,
-                                      childAspectRatio: _tileAspect,
-                                    ),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: _itemSpacing,
+                                          mainAxisSpacing: _itemSpacing,
+                                          childAspectRatio: _tileAspect,
+                                        ),
                                     itemCount: 18,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return _mosaicTile(scheme, index);
-                                    },
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                          return _mosaicTile(scheme, index);
+                                        },
                                   ),
                                 ),
                               ),
                             ),
                           if (_showInsetLane)
                             SliverPadding(
-                              padding: EdgeInsets.fromLTRB(_sectionPadding + 20, _sectionPadding, _sectionPadding + 20, _sectionPadding * 1.6),
+                              padding: EdgeInsets.fromLTRB(
+                                _sectionPadding + 20,
+                                _sectionPadding,
+                                _sectionPadding + 20,
+                                _sectionPadding * 1.6,
+                              ),
                               sliver: DecoratedSliver(
                                 decoration: laneDecor,
                                 sliver: SliverList.builder(
                                   itemCount: 6,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 10, 10, index == 5 ? 12 : 8),
-                                      child: _insetStripeCard(scheme, index),
-                                    );
-                                  },
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: EdgeInsets.fromLTRB(
+                                            10,
+                                            10,
+                                            10,
+                                            index == 5 ? 12 : 8,
+                                          ),
+                                          child: _insetStripeCard(
+                                            scheme,
+                                            index,
+                                          ),
+                                        );
+                                      },
                                 ),
                               ),
                             ),
                           SliverToBoxAdapter(
-                            child: SizedBox(height: 18 + (_sectionPadding * 0.4)),
+                            child: SizedBox(
+                              height: 18 + (_sectionPadding * 0.4),
+                            ),
                           ),
                         ],
                       ),
@@ -782,15 +1025,34 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
   BoxDecoration _laneDecoration(double progress, ColorScheme scheme) {
     final BorderRadius borderRadius = _shapeBorderRadius(_shape, _laneRadius);
     final List<Color> colors = <Color>[
-      Color.lerp(scheme.primary.withValues(alpha: _laneOpacity), scheme.secondary.withValues(alpha: _laneOpacity), (math.sin(progress * math.pi * 2) + 1) / 2)!,
-      Color.lerp(scheme.tertiary.withValues(alpha: _laneOpacity), scheme.primary.withValues(alpha: _laneOpacity), (math.cos(progress * math.pi * 2) + 1) / 2)!,
-      Color.lerp(scheme.secondary.withValues(alpha: _laneOpacity), scheme.tertiary.withValues(alpha: _laneOpacity), (_gradientShift + progress).clamp(0, 1))!,
+      Color.lerp(
+        scheme.primary.withValues(alpha: _laneOpacity),
+        scheme.secondary.withValues(alpha: _laneOpacity),
+        (math.sin(progress * math.pi * 2) + 1) / 2,
+      )!,
+      Color.lerp(
+        scheme.tertiary.withValues(alpha: _laneOpacity),
+        scheme.primary.withValues(alpha: _laneOpacity),
+        (math.cos(progress * math.pi * 2) + 1) / 2,
+      )!,
+      Color.lerp(
+        scheme.secondary.withValues(alpha: _laneOpacity),
+        scheme.tertiary.withValues(alpha: _laneOpacity),
+        (_gradientShift + progress).clamp(0, 1),
+      )!,
     ];
 
     return BoxDecoration(
       borderRadius: borderRadius,
-      border: Border.all(color: scheme.outline.withValues(alpha: 0.70), width: _laneBorder),
-      gradient: LinearGradient(colors: colors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+      border: Border.all(
+        color: scheme.outline.withValues(alpha: 0.70),
+        width: _laneBorder,
+      ),
+      gradient: LinearGradient(
+        colors: colors,
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
     );
   }
 
@@ -822,17 +1084,33 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Hero Decorated Lane', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Hero Decorated Lane',
+            style: TextStyle(
+              color: scheme.onSurface,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           const SizedBox(height: 8),
-          Text('This lane demonstrates how a broad intro section can be visually grouped using DecoratedSliver.', style: TextStyle(color: scheme.onSurfaceVariant)),
+          Text(
+            'This lane demonstrates how a broad intro section can be visually grouped using DecoratedSliver.',
+            style: TextStyle(color: scheme.onSurfaceVariant),
+          ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
               _chip('shape ${_shape.name}', scheme.primary),
-              _chip('opacity ${_laneOpacity.toStringAsFixed(2)}', scheme.secondary),
-              _chip('radius ${_laneRadius.toStringAsFixed(1)}', scheme.tertiary),
+              _chip(
+                'opacity ${_laneOpacity.toStringAsFixed(2)}',
+                scheme.secondary,
+              ),
+              _chip(
+                'radius ${_laneRadius.toStringAsFixed(1)}',
+                scheme.tertiary,
+              ),
             ],
           ),
         ],
@@ -843,8 +1121,19 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
   Widget _chip(String text, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(color: color.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999), border: Border.all(color: color.withValues(alpha: 0.62))),
-      child: Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: color.withValues(alpha: 0.62)),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -862,16 +1151,34 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
             CircleAvatar(
               radius: 16,
               backgroundColor: scheme.primaryContainer,
-              child: Text('${index + 1}', style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w800)),
+              child: Text(
+                '${index + 1}',
+                style: TextStyle(
+                  color: scheme.onPrimaryContainer,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Decorated List Item ${index + 1}', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                  Text(
+                    'Decorated List Item ${index + 1}',
+                    style: TextStyle(
+                      color: scheme.onSurface,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   const SizedBox(height: 3),
-                  Text('Grouped inside a DecoratedSliver to provide lane-level styling.', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                  Text(
+                    'Grouped inside a DecoratedSliver to provide lane-level styling.',
+                    style: TextStyle(
+                      color: scheme.onSurfaceVariant,
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -883,16 +1190,34 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
   }
 
   Widget _mosaicTile(ColorScheme scheme, int index) {
-    final Color a = Color.lerp(scheme.primary, scheme.secondary, (index % 5) / 5)!;
-    final Color b = Color.lerp(scheme.tertiary, scheme.primary, ((index + 2) % 7) / 7)!;
+    final Color a = Color.lerp(
+      scheme.primary,
+      scheme.secondary,
+      (index % 5) / 5,
+    )!;
+    final Color b = Color.lerp(
+      scheme.tertiary,
+      scheme.primary,
+      ((index + 2) % 7) / 7,
+    )!;
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(colors: <Color>[a, b], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        gradient: LinearGradient(
+          colors: <Color>[a, b],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         border: Border.all(color: Colors.black.withValues(alpha: 0.16)),
       ),
       child: Center(
-        child: Text('Tile ${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+        child: Text(
+          'Tile ${index + 1}',
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
       ),
     );
   }
@@ -911,13 +1236,23 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
             Container(
               width: 10,
               decoration: BoxDecoration(
-                color: Color.lerp(scheme.primary, scheme.secondary, (index % 6) / 6),
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                color: Color.lerp(
+                  scheme.primary,
+                  scheme.secondary,
+                  (index % 6) / 6,
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
-              child: Text('Inset lane sample ${index + 1} with lane-level decoration context.', style: TextStyle(color: scheme.onSurfaceVariant)),
+              child: Text(
+                'Inset lane sample ${index + 1} with lane-level decoration context.',
+                style: TextStyle(color: scheme.onSurfaceVariant),
+              ),
             ),
           ],
         ),
@@ -934,9 +1269,19 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Comparison Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Comparison Board',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Contrast DecoratedSliver lane styling with alternatives used in sliver trees.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Contrast DecoratedSliver lane styling with alternatives used in sliver trees.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -951,7 +1296,8 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                 final Widget perItem = _comparisonCard(
                   scheme: scheme,
                   title: 'Per-item Decor',
-                  subtitle: 'Decorating each child separately can be repetitive.',
+                  subtitle:
+                      'Decorating each child separately can be repetitive.',
                   icon: Icons.view_list_outlined,
                   color: const Color(0xFF1D4ED8),
                 );
@@ -963,9 +1309,25 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                   color: const Color(0xFFB45309),
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[decorated, const SizedBox(height: 10), perItem, const SizedBox(height: 10), plain]);
+                  return Column(
+                    children: <Widget>[
+                      decorated,
+                      const SizedBox(height: 10),
+                      perItem,
+                      const SizedBox(height: 10),
+                      plain,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: decorated), const SizedBox(width: 10), Expanded(child: perItem), const SizedBox(width: 10), Expanded(child: plain)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: decorated),
+                    const SizedBox(width: 10),
+                    Expanded(child: perItem),
+                    const SizedBox(width: 10),
+                    Expanded(child: plain),
+                  ],
+                );
               },
             ),
           ],
@@ -974,7 +1336,13 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
     );
   }
 
-  Widget _comparisonCard({required ColorScheme scheme, required String title, required String subtitle, required IconData icon, required Color color}) {
+  Widget _comparisonCard({
+    required ColorScheme scheme,
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color color,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -986,14 +1354,27 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
               height: 96,
-              decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(10), border: Border.all(color: color.withValues(alpha: 0.62))),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: color.withValues(alpha: 0.62)),
+              ),
               child: Center(child: Icon(icon, color: color, size: 34)),
             ),
           ],
@@ -1012,17 +1393,24 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics and Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics and Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1050,13 +1438,38 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.label, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.label,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1075,24 +1488,116 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
 
   List<_MetricEntry> _metrics() {
     return <_MetricEntry>[
-      _MetricEntry(label: 'Scenario', value: _scenarios[_scenarioIndex].title, note: 'Active sliver lane scenario.', icon: Icons.route_outlined),
-      _MetricEntry(label: 'Theme', value: _themes[_themeIndex].name, note: 'Current design profile.', icon: Icons.palette_outlined),
-      _MetricEntry(label: 'Shape', value: _shape.name, note: 'Decoration border shape preset.', icon: Icons.rounded_corner_outlined),
-      _MetricEntry(label: 'Stage Height', value: _panelHeight.toStringAsFixed(0), note: 'Visible custom scroll stage height.', icon: Icons.height_outlined),
-      _MetricEntry(label: 'Padding', value: _sectionPadding.toStringAsFixed(1), note: 'Outer padding around decorated sections.', icon: Icons.padding_outlined),
-      _MetricEntry(label: 'Radius', value: _laneRadius.toStringAsFixed(1), note: 'Decorated lane corner radius.', icon: Icons.circle_outlined),
-      _MetricEntry(label: 'Border', value: _laneBorder.toStringAsFixed(2), note: 'Lane border stroke width.', icon: Icons.border_all_outlined),
-      _MetricEntry(label: 'Opacity', value: _laneOpacity.toStringAsFixed(2), note: 'Background opacity of lane decoration.', icon: Icons.opacity_outlined),
-      _MetricEntry(label: 'Gradient Shift', value: _gradientShift.toStringAsFixed(2), note: 'Color blend bias for gradients.', icon: Icons.gradient_outlined),
-      _MetricEntry(label: 'Stripe Density', value: _stripeDensity.toStringAsFixed(2), note: 'Pattern intensity in stage background.', icon: Icons.texture_outlined),
-      _MetricEntry(label: 'Item Spacing', value: _itemSpacing.toStringAsFixed(1), note: 'List/grid spacing in lanes.', icon: Icons.space_bar_outlined),
-      _MetricEntry(label: 'Tile Aspect', value: _tileAspect.toStringAsFixed(2), note: 'Mosaic grid tile aspect ratio.', icon: Icons.grid_view_outlined),
-      _MetricEntry(label: 'Switches', value: 'theme=$_themeSwitches scenario=$_scenarioSwitches shape=$_shapeSwitches', note: 'Key control switch counts.', icon: Icons.swap_horiz_outlined),
-      _MetricEntry(label: 'Control Edits', value: '$_controlEdits', note: 'Slider and toggle interactions.', icon: Icons.tune_outlined),
-      _MetricEntry(label: 'Scroll Samples', value: '$_scrollSamples', note: 'Captured scroll listener samples.', icon: Icons.timeline_outlined),
-      _MetricEntry(label: 'Scroll Pixels', value: _snapshot.scrollPixels.toStringAsFixed(1), note: 'Current stage scroll offset.', icon: Icons.vertical_align_bottom_outlined),
-      _MetricEntry(label: 'Snapshot', value: '${_snapshot.scenario} / o=${_snapshot.opacity.toStringAsFixed(2)} / r=${_snapshot.radius.toStringAsFixed(1)}', note: 'Last decoration snapshot values.', icon: Icons.camera_outlined),
-      _MetricEntry(label: 'Phase', value: _phase, note: 'Most recent interaction phase.', icon: Icons.flag_outlined),
+      _MetricEntry(
+        label: 'Scenario',
+        value: _scenarios[_scenarioIndex].title,
+        note: 'Active sliver lane scenario.',
+        icon: Icons.route_outlined,
+      ),
+      _MetricEntry(
+        label: 'Theme',
+        value: _themes[_themeIndex].name,
+        note: 'Current design profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricEntry(
+        label: 'Shape',
+        value: _shape.name,
+        note: 'Decoration border shape preset.',
+        icon: Icons.rounded_corner_outlined,
+      ),
+      _MetricEntry(
+        label: 'Stage Height',
+        value: _panelHeight.toStringAsFixed(0),
+        note: 'Visible custom scroll stage height.',
+        icon: Icons.height_outlined,
+      ),
+      _MetricEntry(
+        label: 'Padding',
+        value: _sectionPadding.toStringAsFixed(1),
+        note: 'Outer padding around decorated sections.',
+        icon: Icons.padding_outlined,
+      ),
+      _MetricEntry(
+        label: 'Radius',
+        value: _laneRadius.toStringAsFixed(1),
+        note: 'Decorated lane corner radius.',
+        icon: Icons.circle_outlined,
+      ),
+      _MetricEntry(
+        label: 'Border',
+        value: _laneBorder.toStringAsFixed(2),
+        note: 'Lane border stroke width.',
+        icon: Icons.border_all_outlined,
+      ),
+      _MetricEntry(
+        label: 'Opacity',
+        value: _laneOpacity.toStringAsFixed(2),
+        note: 'Background opacity of lane decoration.',
+        icon: Icons.opacity_outlined,
+      ),
+      _MetricEntry(
+        label: 'Gradient Shift',
+        value: _gradientShift.toStringAsFixed(2),
+        note: 'Color blend bias for gradients.',
+        icon: Icons.gradient_outlined,
+      ),
+      _MetricEntry(
+        label: 'Stripe Density',
+        value: _stripeDensity.toStringAsFixed(2),
+        note: 'Pattern intensity in stage background.',
+        icon: Icons.texture_outlined,
+      ),
+      _MetricEntry(
+        label: 'Item Spacing',
+        value: _itemSpacing.toStringAsFixed(1),
+        note: 'List/grid spacing in lanes.',
+        icon: Icons.space_bar_outlined,
+      ),
+      _MetricEntry(
+        label: 'Tile Aspect',
+        value: _tileAspect.toStringAsFixed(2),
+        note: 'Mosaic grid tile aspect ratio.',
+        icon: Icons.grid_view_outlined,
+      ),
+      _MetricEntry(
+        label: 'Switches',
+        value:
+            'theme=$_themeSwitches scenario=$_scenarioSwitches shape=$_shapeSwitches',
+        note: 'Key control switch counts.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricEntry(
+        label: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Slider and toggle interactions.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricEntry(
+        label: 'Scroll Samples',
+        value: '$_scrollSamples',
+        note: 'Captured scroll listener samples.',
+        icon: Icons.timeline_outlined,
+      ),
+      _MetricEntry(
+        label: 'Scroll Pixels',
+        value: _snapshot.scrollPixels.toStringAsFixed(1),
+        note: 'Current stage scroll offset.',
+        icon: Icons.vertical_align_bottom_outlined,
+      ),
+      _MetricEntry(
+        label: 'Snapshot',
+        value:
+            '${_snapshot.scenario} / o=${_snapshot.opacity.toStringAsFixed(2)} / r=${_snapshot.radius.toStringAsFixed(1)}',
+        note: 'Last decoration snapshot values.',
+        icon: Icons.camera_outlined,
+      ),
+      _MetricEntry(
+        label: 'Phase',
+        value: _phase,
+        note: 'Most recent interaction phase.',
+        icon: Icons.flag_outlined,
+      ),
     ];
   }
 
@@ -1112,16 +1617,40 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id.name} shape=${_shape.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('stage=${_panelHeight.toStringAsFixed(0)} pad=${_sectionPadding.toStringAsFixed(1)} radius=${_laneRadius.toStringAsFixed(1)} border=${_laneBorder.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('opacity=${_laneOpacity.toStringAsFixed(2)} shift=${_gradientShift.toStringAsFixed(2)} stripes=${_stripeDensity.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('spacing=${_itemSpacing.toStringAsFixed(1)} aspect=${_tileAspect.toStringAsFixed(2)} scroll=${_snapshot.scrollPixels.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('lanes hero=$_showHeroLane group=$_showGroupLane grid=$_showGridLane inset=$_showInsetLane', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('switches t=$_themeSwitches s=$_scenarioSwitches sh=$_shapeSwitches edits=$_controlEdits samples=$_scrollSamples', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themes[_themeIndex].id} scenario=${_scenarios[_scenarioIndex].id.name} shape=${_shape.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'stage=${_panelHeight.toStringAsFixed(0)} pad=${_sectionPadding.toStringAsFixed(1)} radius=${_laneRadius.toStringAsFixed(1)} border=${_laneBorder.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'opacity=${_laneOpacity.toStringAsFixed(2)} shift=${_gradientShift.toStringAsFixed(2)} stripes=${_stripeDensity.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'spacing=${_itemSpacing.toStringAsFixed(1)} aspect=${_tileAspect.toStringAsFixed(2)} scroll=${_snapshot.scrollPixels.toStringAsFixed(1)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'lanes hero=$_showHeroLane group=$_showGroupLane grid=$_showGridLane inset=$_showInsetLane',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'switches t=$_themeSwitches s=$_scenarioSwitches sh=$_shapeSwitches edits=$_controlEdits samples=$_scrollSamples',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1137,7 +1666,14 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideBullets.map((String line) {
               return Padding(
@@ -1145,15 +1681,23 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqItems.map(( _FaqItem item) {
+            ..._faqItems.map((_FaqItem item) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1166,9 +1710,18 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        item.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        item.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1191,32 +1744,74 @@ class _RenderDecoratedSliverStudioState extends State<_RenderDecoratedSliverStud
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                TextButton.icon(onPressed: () => setState(() => _timeline = const <_TimelineEvent>[]), icon: const Icon(Icons.clear_all), label: const Text('Clear')),
+                TextButton.icon(
+                  onPressed: () =>
+                      setState(() => _timeline = const <_TimelineEvent>[]),
+                  icon: const Icon(Icons.clear_all),
+                  label: const Text('Clear'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological stream of scenario and decoration control events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological stream of scenario and decoration control events.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
-                child: Text('Timeline is empty. Interact with controls to populate events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Text(
+                  'Timeline is empty. Interact with controls to populate events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEvent event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_TimelineEvent event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
                     child: ListTile(
-                      leading: CircleAvatar(backgroundColor: scheme.primaryContainer, child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer))),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      leading: CircleAvatar(
+                        backgroundColor: scheme.primaryContainer,
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
+                      ),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1244,7 +1839,11 @@ class _StageGridPainter extends CustomPainter {
       ..strokeWidth = 1;
     final double step = (30 - (density * 20)).clamp(8, 30);
     for (double x = -size.height; x < size.width + size.height; x += step) {
-      canvas.drawLine(Offset(x + (progress * 20), 0), Offset(x + size.height + (progress * 20), size.height), stripe);
+      canvas.drawLine(
+        Offset(x + (progress * 20), 0),
+        Offset(x + size.height + (progress * 20), size.height),
+        stripe,
+      );
     }
 
     final Paint grid = Paint()

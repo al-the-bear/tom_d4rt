@@ -17,28 +17,32 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.account_tree_outlined,
       'title': 'InheritedWidget Pattern',
-      'body': 'SelectableRegionSelectionStatusScope is an InheritedWidget '
+      'body':
+          'SelectableRegionSelectionStatusScope is an InheritedWidget '
           'placed in the tree by SelectableRegion. It exposes the current '
           'SelectableRegionSelectionStatus to all descendants.',
     },
     {
       'icon': Icons.search,
       'title': 'Lookup via maybeOf / of',
-      'body': 'Widgets call SelectableRegionSelectionStatusScope.maybeOf(context) '
+      'body':
+          'Widgets call SelectableRegionSelectionStatusScope.maybeOf(context) '
           'to read the current status, or .of(context) which asserts the scope '
           'exists. Returns null when outside a SelectableRegion.',
     },
     {
       'icon': Icons.sync_alt,
       'title': 'Reactive Rebuilds',
-      'body': 'Because it is an InheritedWidget, any dependant widget rebuilds '
+      'body':
+          'Because it is an InheritedWidget, any dependant widget rebuilds '
           'automatically whenever the selection status changes – no manual '
           'subscription needed.',
     },
     {
       'icon': Icons.layers_outlined,
       'title': 'Scoped per Region',
-      'body': 'Each SelectableRegion creates its own scope. Nested or sibling '
+      'body':
+          'Each SelectableRegion creates its own scope. Nested or sibling '
           'regions have independent statuses – one region selecting does not '
           'affect another.',
     },
@@ -55,9 +59,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.indigo.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.indigo.withValues(alpha: 0.2),
-          ),
+          border: Border.all(color: Colors.indigo.withValues(alpha: 0.2)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +122,11 @@ dynamic build(BuildContext context) {
           ),
         ),
         if (children != null) ...[
-          Container(width: 2.0, height: 14.0, color: color.withValues(alpha: 0.4)),
+          Container(
+            width: 2.0,
+            height: 14.0,
+            color: color.withValues(alpha: 0.4),
+          ),
           ...children,
         ],
       ],
@@ -145,22 +151,26 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 12.0),
-        buildTreeNode('SelectableRegion', Colors.deepPurple, children: [
-          buildTreeNode(
-            'SelectableRegionSelectionStatusScope',
-            Colors.indigo,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  buildTreeNode('Text("Hello")', Colors.teal),
-                  const SizedBox(width: 16.0),
-                  buildTreeNode('Text("World")', Colors.teal),
-                ],
-              ),
-            ],
-          ),
-        ]),
+        buildTreeNode(
+          'SelectableRegion',
+          Colors.deepPurple,
+          children: [
+            buildTreeNode(
+              'SelectableRegionSelectionStatusScope',
+              Colors.indigo,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    buildTreeNode('Text("Hello")', Colors.teal),
+                    const SizedBox(width: 16.0),
+                    buildTreeNode('Text("World")', Colors.teal),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
         const SizedBox(height: 10.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -172,7 +182,11 @@ dynamic build(BuildContext context) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+              Icon(
+                Icons.info_outline,
+                size: 16.0,
+                color: Colors.amber.shade800,
+              ),
               const SizedBox(width: 8.0),
               Text(
                 'Scope is injected automatically by SelectableRegion',
@@ -250,7 +264,11 @@ dynamic build(BuildContext context) {
             Text(
               entry['description'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.3),
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.grey.shade700,
+                height: 1.3,
+              ),
             ),
             const SizedBox(height: 10.0),
             // Visual bar showing "fill level"
@@ -291,21 +309,27 @@ dynamic build(BuildContext context) {
 
   final apiMethods = <Map<String, String>>[
     {
-      'signature': 'static SelectableRegionSelectionStatus? maybeOf(BuildContext context)',
+      'signature':
+          'static SelectableRegionSelectionStatus? maybeOf(BuildContext context)',
       'returns': 'SelectableRegionSelectionStatus?',
-      'note': 'Returns null if no scope exists above the context. '
+      'note':
+          'Returns null if no scope exists above the context. '
           'Safe to call anywhere – will not throw.',
     },
     {
-      'signature': 'static SelectableRegionSelectionStatus of(BuildContext context)',
+      'signature':
+          'static SelectableRegionSelectionStatus of(BuildContext context)',
       'returns': 'SelectableRegionSelectionStatus',
-      'note': 'Asserts the scope exists. Throws if called outside a '
+      'note':
+          'Asserts the scope exists. Throws if called outside a '
           'SelectableRegion. Use only when you are certain the scope is present.',
     },
     {
-      'signature': 'bool updateShouldNotify(covariant SelectableRegionSelectionStatusScope old)',
+      'signature':
+          'bool updateShouldNotify(covariant SelectableRegionSelectionStatusScope old)',
       'returns': 'bool',
-      'note': 'Returns true when the status value has changed, '
+      'note':
+          'Returns true when the status value has changed, '
           'causing dependants to rebuild.',
     },
   ];
@@ -329,7 +353,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.blueGrey.shade50,
                 borderRadius: BorderRadius.circular(4.0),
@@ -348,7 +375,10 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6.0,
+                    vertical: 2.0,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.teal.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4.0),
@@ -418,7 +448,11 @@ dynamic build(BuildContext context) {
           'Each SelectionArea creates its own scope. Selecting text in '
           'Region A does not affect Region B – their status values are '
           'completely independent.',
-          style: TextStyle(fontSize: 12.5, color: Colors.grey.shade700, height: 1.35),
+          style: TextStyle(
+            fontSize: 12.5,
+            color: Colors.grey.shade700,
+            height: 1.35,
+          ),
         ),
         const SizedBox(height: 12.0),
         Row(
@@ -427,7 +461,8 @@ dynamic build(BuildContext context) {
               child: _ScopedRegionCard(
                 label: 'Region A',
                 color: Colors.deepPurple,
-                sampleText: 'Flutter makes it easy and fast to build '
+                sampleText:
+                    'Flutter makes it easy and fast to build '
                     'beautiful apps for mobile and beyond. Select '
                     'this text to see the status scope in action.',
               ),
@@ -437,7 +472,8 @@ dynamic build(BuildContext context) {
               child: _ScopedRegionCard(
                 label: 'Region B',
                 color: Colors.teal,
-                sampleText: 'Dart is a client-optimised language for fast '
+                sampleText:
+                    'Dart is a client-optimised language for fast '
                     'apps on any platform. It powers Flutter and can '
                     'be compiled ahead-of-time or JIT.',
               ),
@@ -494,21 +530,50 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(6.0)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(6.0),
+            ),
           ),
           child: const Row(
             children: [
-              Expanded(flex: 2, child: Text('Method', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 3, child: Text('Outside Region', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 3, child: Text('Inside Region', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 2, child: Text('Safe?', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Method',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Outside Region',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Inside Region',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Safe?',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
             ],
           ),
         ),
         ...safetyRows.map((row) {
           final throws = row['throws'] as bool;
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 8.0,
+            ),
             decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
             ),
@@ -531,7 +596,9 @@ dynamic build(BuildContext context) {
                     row['outsideRegion'] as String,
                     style: TextStyle(
                       fontSize: 12.0,
-                      color: throws ? Colors.red.shade700 : Colors.green.shade700,
+                      color: throws
+                          ? Colors.red.shade700
+                          : Colors.green.shade700,
                     ),
                   ),
                 ),
@@ -539,7 +606,10 @@ dynamic build(BuildContext context) {
                   flex: 3,
                   child: Text(
                     row['insideRegion'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.green.shade700),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.green.shade700,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -564,7 +634,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              const Icon(Icons.lightbulb_outline, color: Colors.green, size: 18.0),
+              const Icon(
+                Icons.lightbulb_outline,
+                color: Colors.green,
+                size: 18.0,
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -617,7 +691,9 @@ dynamic build(BuildContext context) {
   final codeDisplayLines = <Widget>[];
   for (var i = 0; i < reactivePatternCode.length; i++) {
     final line = reactivePatternCode[i];
-    final isHighlight = line.contains('maybeOf') || line.contains('SelectableRegionSelectionStatus');
+    final isHighlight =
+        line.contains('maybeOf') ||
+        line.contains('SelectableRegionSelectionStatus');
     codeDisplayLines.add(
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -637,14 +713,18 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 8.0),
           Expanded(
             child: Container(
-              color: isHighlight ? Colors.yellow.withValues(alpha: 0.2) : Colors.transparent,
+              color: isHighlight
+                  ? Colors.yellow.withValues(alpha: 0.2)
+                  : Colors.transparent,
               padding: const EdgeInsets.symmetric(vertical: 1.0),
               child: Text(
                 line,
                 style: TextStyle(
                   fontSize: 11.5,
                   fontFamily: 'monospace',
-                  color: isHighlight ? Colors.deepPurple.shade800 : Colors.grey.shade800,
+                  color: isHighlight
+                      ? Colors.deepPurple.shade800
+                      : Colors.grey.shade800,
                   fontWeight: isHighlight ? FontWeight.w700 : FontWeight.normal,
                 ),
               ),
@@ -692,7 +772,11 @@ dynamic build(BuildContext context) {
             'Highlighted lines show the key interaction: reading the scope '
             'via maybeOf and comparing against status values. The enclosing '
             'AnimatedContainer automatically rebuilds when status changes.',
-            style: TextStyle(fontSize: 11.5, color: Colors.deepPurple.shade700, height: 1.35),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.deepPurple.shade700,
+              height: 1.35,
+            ),
           ),
         ),
       ],
@@ -705,12 +789,32 @@ dynamic build(BuildContext context) {
   print('=== Section 9: updateShouldNotify ===');
 
   final notifyScenarios = <Map<String, dynamic>>[
-    {'from': 'none', 'to': 'selecting', 'notifies': true, 'color': Colors.orange},
-    {'from': 'selecting', 'to': 'selected', 'notifies': true, 'color': Colors.green},
+    {
+      'from': 'none',
+      'to': 'selecting',
+      'notifies': true,
+      'color': Colors.orange,
+    },
+    {
+      'from': 'selecting',
+      'to': 'selected',
+      'notifies': true,
+      'color': Colors.green,
+    },
     {'from': 'selected', 'to': 'none', 'notifies': true, 'color': Colors.grey},
     {'from': 'none', 'to': 'none', 'notifies': false, 'color': Colors.grey},
-    {'from': 'selecting', 'to': 'selecting', 'notifies': false, 'color': Colors.orange},
-    {'from': 'selected', 'to': 'selected', 'notifies': false, 'color': Colors.green},
+    {
+      'from': 'selecting',
+      'to': 'selecting',
+      'notifies': false,
+      'color': Colors.orange,
+    },
+    {
+      'from': 'selected',
+      'to': 'selected',
+      'notifies': false,
+      'color': Colors.green,
+    },
   ];
 
   final notifyRows = <Widget>[];
@@ -721,7 +825,9 @@ dynamic build(BuildContext context) {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-          color: notifies ? Colors.green.withValues(alpha: 0.03) : Colors.transparent,
+          color: notifies
+              ? Colors.green.withValues(alpha: 0.03)
+              : Colors.transparent,
         ),
         child: Row(
           children: [
@@ -730,29 +836,47 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: (s['color'] as Color).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       s['from'] as String,
-                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: s['color'] as Color),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        color: s['color'] as Color,
+                      ),
                     ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Icon(Icons.arrow_forward, size: 14.0, color: Colors.grey),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      size: 14.0,
+                      color: Colors.grey,
+                    ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: (s['color'] as Color).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       s['to'] as String,
-                      style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: s['color'] as Color),
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontFamily: 'monospace',
+                        color: s['color'] as Color,
+                      ),
                     ),
                   ),
                 ],
@@ -763,7 +887,9 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Icon(
-                    notifies ? Icons.notifications_active : Icons.notifications_off,
+                    notifies
+                        ? Icons.notifications_active
+                        : Icons.notifications_off,
                     size: 16.0,
                     color: notifies ? Colors.green : Colors.grey,
                   ),
@@ -772,8 +898,12 @@ dynamic build(BuildContext context) {
                     notifies ? 'Notifies' : 'No change',
                     style: TextStyle(
                       fontSize: 12.0,
-                      color: notifies ? Colors.green.shade700 : Colors.grey.shade600,
-                      fontWeight: notifies ? FontWeight.w600 : FontWeight.normal,
+                      color: notifies
+                          ? Colors.green.shade700
+                          : Colors.grey.shade600,
+                      fontWeight: notifies
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                     ),
                   ),
                 ],
@@ -807,7 +937,11 @@ dynamic build(BuildContext context) {
         Text(
           'Only transitions between different status values trigger rebuild. '
           'Same-to-same transitions are skipped to avoid unnecessary work.',
-          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600, height: 1.3),
+          style: TextStyle(
+            fontSize: 12.0,
+            color: Colors.grey.shade600,
+            height: 1.3,
+          ),
         ),
         const SizedBox(height: 10.0),
         // Header
@@ -815,12 +949,26 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           decoration: BoxDecoration(
             color: Colors.grey.shade100,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(6.0)),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(6.0),
+            ),
           ),
           child: const Row(
             children: [
-              Expanded(flex: 3, child: Text('Transition', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
-              Expanded(flex: 2, child: Text('Result', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700))),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  'Transition',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  'Result',
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700),
+                ),
+              ),
             ],
           ),
         ),
@@ -835,12 +983,30 @@ dynamic build(BuildContext context) {
   print('=== Section 10: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.account_tree, 'text': 'InheritedWidget exposing SelectableRegionSelectionStatus'},
-    {'icon': Icons.construction, 'text': 'Automatically injected by SelectableRegion / SelectionArea'},
-    {'icon': Icons.search, 'text': 'Read via maybeOf(context) (safe) or of(context) (asserting)'},
-    {'icon': Icons.sync, 'text': 'Dependant widgets rebuild only on actual status changes'},
-    {'icon': Icons.layers, 'text': 'Each region maintains an independent scope instance'},
-    {'icon': Icons.palette, 'text': 'Enables reactive UIs that respond to selection lifecycle'},
+    {
+      'icon': Icons.account_tree,
+      'text': 'InheritedWidget exposing SelectableRegionSelectionStatus',
+    },
+    {
+      'icon': Icons.construction,
+      'text': 'Automatically injected by SelectableRegion / SelectionArea',
+    },
+    {
+      'icon': Icons.search,
+      'text': 'Read via maybeOf(context) (safe) or of(context) (asserting)',
+    },
+    {
+      'icon': Icons.sync,
+      'text': 'Dependant widgets rebuild only on actual status changes',
+    },
+    {
+      'icon': Icons.layers,
+      'text': 'Each region maintains an independent scope instance',
+    },
+    {
+      'icon': Icons.palette,
+      'text': 'Enables reactive UIs that respond to selection lifecycle',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -856,7 +1022,11 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -903,10 +1073,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('What is it?',
-                    'An InheritedWidget that carries the current selection status '
-                    'for a SelectableRegion. Descendant widgets depend on it to '
-                    'adapt their appearance during text selection.'),
+                _buildSRSSBullet(
+                  'What is it?',
+                  'An InheritedWidget that carries the current selection status '
+                      'for a SelectableRegion. Descendant widgets depend on it to '
+                      'adapt their appearance during text selection.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -918,11 +1090,13 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('Widget Tree',
-                    'SelectableRegion inserts the scope into the tree so that all '
-                    'descendant widgets can read the current selection status. The '
-                    'diagram below shows how the scope sits between SelectableRegion '
-                    'and its child content.'),
+                _buildSRSSBullet(
+                  'Widget Tree',
+                  'SelectableRegion inserts the scope into the tree so that all '
+                      'descendant widgets can read the current selection status. The '
+                      'diagram below shows how the scope sits between SelectableRegion '
+                      'and its child content.',
+                ),
                 const SizedBox(height: 14.0),
                 treeDiagram,
               ],
@@ -934,14 +1108,13 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('Three Status Values',
-                    'The scope carries one of three status values that represent '
-                    'the lifecycle of a selection gesture.'),
-                const SizedBox(height: 14.0),
-                Wrap(
-                  runSpacing: 10.0,
-                  children: statusCards,
+                _buildSRSSBullet(
+                  'Three Status Values',
+                  'The scope carries one of three status values that represent '
+                      'the lifecycle of a selection gesture.',
                 ),
+                const SizedBox(height: 14.0),
+                Wrap(runSpacing: 10.0, children: statusCards),
                 const SizedBox(height: 16.0),
                 updateShouldNotifyBlock,
               ],
@@ -953,9 +1126,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('API Reference',
-                    'Three key methods form the complete public API of '
-                    'SelectableRegionSelectionStatusScope.'),
+                _buildSRSSBullet(
+                  'API Reference',
+                  'Three key methods form the complete public API of '
+                      'SelectableRegionSelectionStatusScope.',
+                ),
                 const SizedBox(height: 14.0),
                 ...apiCards,
                 const SizedBox(height: 14.0),
@@ -969,9 +1144,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('Live Selection Demo',
-                    'Select the text below. The surrounding decoration reacts '
-                    'to the current selection status through the scope.'),
+                _buildSRSSBullet(
+                  'Live Selection Demo',
+                  'Select the text below. The surrounding decoration reacts '
+                      'to the current selection status through the scope.',
+                ),
                 const SizedBox(height: 14.0),
                 liveRegionDemo,
               ],
@@ -983,9 +1160,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('Independent Scopes',
-                    'Sibling SelectionAreas each have their own scope. Selecting '
-                    'text in one does not affect the other.'),
+                _buildSRSSBullet(
+                  'Independent Scopes',
+                  'Sibling SelectionAreas each have their own scope. Selecting '
+                      'text in one does not affect the other.',
+                ),
                 const SizedBox(height: 14.0),
                 multiScopeDemo,
               ],
@@ -997,9 +1176,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSRSSBullet('Reactive Pattern',
-                    'A complete example of a widget that adapts its appearance '
-                    'based on the selection status scope.'),
+                _buildSRSSBullet(
+                  'Reactive Pattern',
+                  'A complete example of a widget that adapts its appearance '
+                      'based on the selection status scope.',
+                ),
                 const SizedBox(height: 14.0),
                 codeBlock,
               ],
@@ -1023,7 +1204,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.indigo.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.indigo.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1048,9 +1231,7 @@ Widget _buildSRSSBullet(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.indigo.withValues(alpha: 0.04),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Colors.indigo, width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: Colors.indigo, width: 3.0)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1131,7 +1312,8 @@ class _LiveStatusRegionDemoState extends State<_LiveStatusRegionDemo> {
               setState(() {
                 if (value != null && value.plainText.isNotEmpty) {
                   _selectionCount++;
-                  _lastAction = 'Selected: "${value.plainText.length > 40 ? '${value.plainText.substring(0, 40)}...' : value.plainText}"';
+                  _lastAction =
+                      'Selected: "${value.plainText.length > 40 ? '${value.plainText.substring(0, 40)}...' : value.plainText}"';
                 } else {
                   _lastAction = 'Selection cleared';
                 }
@@ -1142,7 +1324,9 @@ class _LiveStatusRegionDemoState extends State<_LiveStatusRegionDemo> {
               decoration: BoxDecoration(
                 color: Colors.indigo.withValues(alpha: 0.03),
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.indigo.withValues(alpha: 0.15)),
+                border: Border.all(
+                  color: Colors.indigo.withValues(alpha: 0.15),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1153,14 +1337,22 @@ class _LiveStatusRegionDemoState extends State<_LiveStatusRegionDemo> {
                     'SelectableRegionSelectionStatusScope is the InheritedWidget '
                     'that makes this work by propagating status changes down the '
                     'widget tree.',
-                    style: TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.black87,
+                    ),
                   ),
                   const SizedBox(height: 10.0),
                   const Text(
                     'Try selecting any part of this text. The selection status '
                     'will update below, showing how the scope communicates '
                     'the current state to dependent widgets.',
-                    style: TextStyle(fontSize: 13.5, height: 1.6, color: Colors.black87),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.black87,
+                    ),
                   ),
                 ],
               ),
@@ -1180,7 +1372,11 @@ class _LiveStatusRegionDemoState extends State<_LiveStatusRegionDemo> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.info_outline, size: 16.0, color: Colors.grey.shade600),
+                    Icon(
+                      Icons.info_outline,
+                      size: 16.0,
+                      color: Colors.grey.shade600,
+                    ),
                     const SizedBox(width: 6.0),
                     Text(
                       'Last action: $_lastAction',

@@ -30,14 +30,24 @@ dynamic build(BuildContext context) {
   );
   print('Loose (0..800 x 0..600): $vcLoose');
   print('  isTight=${vcLoose.isTight}');
-  print('  isSatisfiedBy(400,300)=${vcLoose.isSatisfiedBy(const Size(400.0, 300.0))}');
-  print('  isSatisfiedBy(900,300)=${vcLoose.isSatisfiedBy(const Size(900.0, 300.0))}');
+  print(
+    '  isSatisfiedBy(400,300)=${vcLoose.isSatisfiedBy(const Size(400.0, 300.0))}',
+  );
+  print(
+    '  isSatisfiedBy(900,300)=${vcLoose.isSatisfiedBy(const Size(900.0, 300.0))}',
+  );
 
-  final ui.ViewConstraints vcTight = ui.ViewConstraints.tight(const Size(400.0, 300.0));
+  final ui.ViewConstraints vcTight = ui.ViewConstraints.tight(
+    const Size(400.0, 300.0),
+  );
   print('Tight 400x300: $vcTight');
   print('  isTight=${vcTight.isTight}');
-  print('  isSatisfiedBy(400,300)=${vcTight.isSatisfiedBy(const Size(400.0, 300.0))}');
-  print('  isSatisfiedBy(401,300)=${vcTight.isSatisfiedBy(const Size(401.0, 300.0))}');
+  print(
+    '  isSatisfiedBy(400,300)=${vcTight.isSatisfiedBy(const Size(400.0, 300.0))}',
+  );
+  print(
+    '  isSatisfiedBy(401,300)=${vcTight.isSatisfiedBy(const Size(401.0, 300.0))}',
+  );
 
   final ui.ViewConstraints vcRange = const ui.ViewConstraints(
     minWidth: 200.0,
@@ -65,7 +75,9 @@ dynamic build(BuildContext context) {
     maxHeight: 40.0,
   );
   print('Equality (a==b): ${vcEqualA == vcEqualB}');
-  print('Hash equality (a.hashCode==b.hashCode): ${vcEqualA.hashCode == vcEqualB.hashCode}');
+  print(
+    'Hash equality (a.hashCode==b.hashCode): ${vcEqualA.hashCode == vcEqualB.hashCode}',
+  );
 
   final ui.PlatformDispatcher pd = ui.PlatformDispatcher.instance;
   final ui.FlutterView? implicitView = pd.implicitView;
@@ -92,7 +104,11 @@ dynamic build(BuildContext context) {
   // of them attached to widgets that are actually rendered.
   // ============================================================
   final LinearGradient gradHero = LinearGradient(
-    colors: <Color>[Colors.indigo.shade700, Colors.deepPurple.shade400, Colors.pink.shade300],
+    colors: <Color>[
+      Colors.indigo.shade700,
+      Colors.deepPurple.shade400,
+      Colors.pink.shade300,
+    ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -153,28 +169,60 @@ dynamic build(BuildContext context) {
   );
 
   final List<BoxShadow> shadowSoft = <BoxShadow>[
-    BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 6.0, offset: const Offset(0.0, 2.0)),
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.08),
+      blurRadius: 6.0,
+      offset: const Offset(0.0, 2.0),
+    ),
   ];
   final List<BoxShadow> shadowMedium = <BoxShadow>[
-    BoxShadow(color: Colors.black.withValues(alpha: 0.14), blurRadius: 10.0, offset: const Offset(0.0, 4.0)),
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.14),
+      blurRadius: 10.0,
+      offset: const Offset(0.0, 4.0),
+    ),
   ];
   final List<BoxShadow> shadowStrong = <BoxShadow>[
-    BoxShadow(color: Colors.black.withValues(alpha: 0.22), blurRadius: 18.0, offset: const Offset(0.0, 8.0)),
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.22),
+      blurRadius: 18.0,
+      offset: const Offset(0.0, 8.0),
+    ),
   ];
   final List<BoxShadow> shadowIndigo = <BoxShadow>[
-    BoxShadow(color: Colors.indigo.withValues(alpha: 0.30), blurRadius: 14.0, offset: const Offset(0.0, 6.0)),
+    BoxShadow(
+      color: Colors.indigo.withValues(alpha: 0.30),
+      blurRadius: 14.0,
+      offset: const Offset(0.0, 6.0),
+    ),
   ];
   final List<BoxShadow> shadowTeal = <BoxShadow>[
-    BoxShadow(color: Colors.teal.withValues(alpha: 0.30), blurRadius: 10.0, offset: const Offset(0.0, 4.0)),
+    BoxShadow(
+      color: Colors.teal.withValues(alpha: 0.30),
+      blurRadius: 10.0,
+      offset: const Offset(0.0, 4.0),
+    ),
   ];
   final List<BoxShadow> shadowAmber = <BoxShadow>[
-    BoxShadow(color: Colors.orange.withValues(alpha: 0.35), blurRadius: 12.0, offset: const Offset(0.0, 4.0)),
+    BoxShadow(
+      color: Colors.orange.withValues(alpha: 0.35),
+      blurRadius: 12.0,
+      offset: const Offset(0.0, 4.0),
+    ),
   ];
   final List<BoxShadow> shadowRose = <BoxShadow>[
-    BoxShadow(color: Colors.pink.withValues(alpha: 0.30), blurRadius: 12.0, offset: const Offset(0.0, 6.0)),
+    BoxShadow(
+      color: Colors.pink.withValues(alpha: 0.30),
+      blurRadius: 12.0,
+      offset: const Offset(0.0, 6.0),
+    ),
   ];
   final List<BoxShadow> shadowSlate = <BoxShadow>[
-    BoxShadow(color: Colors.blueGrey.withValues(alpha: 0.30), blurRadius: 10.0, offset: const Offset(0.0, 4.0)),
+    BoxShadow(
+      color: Colors.blueGrey.withValues(alpha: 0.30),
+      blurRadius: 10.0,
+      offset: const Offset(0.0, 4.0),
+    ),
   ];
 
   // ============================================================
@@ -201,7 +249,11 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(18.0),
             boxShadow: shadowIndigo,
           ),
-          child: const Icon(Icons.aspect_ratio, color: Colors.white, size: 48.0),
+          child: const Icon(
+            Icons.aspect_ratio,
+            color: Colors.white,
+            size: 48.0,
+          ),
         ),
         const SizedBox(width: 20.0),
         Expanded(
@@ -220,7 +272,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 4.0),
               Text(
                 'The min/max width & height envelope a FlutterView promises a frame.',
-                style: TextStyle(fontSize: 14.0, color: Colors.white.withValues(alpha: 0.92)),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.white.withValues(alpha: 0.92),
+                ),
               ),
               const SizedBox(height: 10.0),
               Wrap(
@@ -261,7 +316,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text(
           'Anatomy of a ViewConstraints',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.blueGrey.shade900),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.blueGrey.shade900,
+          ),
         ),
         const SizedBox(height: 10.0),
         Text(
@@ -277,7 +336,11 @@ dynamic build(BuildContext context) {
           runSpacing: 10.0,
           children: <Widget>[
             _anatomyLegend('minWidth', Colors.teal, '${vcRange.minWidth}'),
-            _anatomyLegend('maxWidth', Colors.cyan.shade700, '${vcRange.maxWidth}'),
+            _anatomyLegend(
+              'maxWidth',
+              Colors.cyan.shade700,
+              '${vcRange.maxWidth}',
+            ),
             _anatomyLegend('minHeight', Colors.green, '${vcRange.minHeight}'),
             _anatomyLegend('maxHeight', Colors.orange, '${vcRange.maxHeight}'),
             _anatomyLegend('isTight', Colors.purple, '${vcRange.isTight}'),
@@ -388,7 +451,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text(
           'isSatisfiedBy(Size) — green = inside the box, red = outside',
-          style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.bold, color: Colors.grey.shade800),
+          style: TextStyle(
+            fontSize: 14.5,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade800,
+          ),
         ),
         const SizedBox(height: 12.0),
         for (final _ProbedConstraints pc in probedConstraints)
@@ -418,7 +485,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text(
           'Common recipes',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade900),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.indigo.shade900,
+          ),
         ),
         const SizedBox(height: 12.0),
         _recipeCard(
@@ -478,11 +549,19 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded, color: Colors.red.shade700, size: 26.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 8.0),
             Text(
               'Pitfalls',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.red.shade900),
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.red.shade900,
+              ),
             ),
           ],
         ),
@@ -533,16 +612,28 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text(
           'ViewConstraints vs BoxConstraints',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.amber.shade900),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.amber.shade900,
+          ),
         ),
         const SizedBox(height: 12.0),
         _comparisonTable(<List<String>>[
           <String>['Aspect', 'ui.ViewConstraints', 'BoxConstraints'],
           <String>['Library', 'dart:ui', 'rendering / package:flutter'],
-          <String>['Where', 'FlutterView.physicalConstraints', 'RenderBox layout'],
+          <String>[
+            'Where',
+            'FlutterView.physicalConstraints',
+            'RenderBox layout',
+          ],
           <String>['Pixel space', 'physical pixels', 'logical pixels'],
           <String>['isTight', 'yes', 'yes'],
-          <String>['isSatisfiedBy(Size)', 'yes', 'no (uses constrain/normalize)'],
+          <String>[
+            'isSatisfiedBy(Size)',
+            'yes',
+            'no (uses constrain/normalize)',
+          ],
           <String>['operator /', 'yes (scale by 1/factor)', 'no'],
           <String>['copyWith / enforce', 'no', 'yes'],
           <String>['biggest / smallest', 'no', 'yes'],
@@ -573,7 +664,11 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 8.0),
             Text(
               'Live FlutterView.physicalConstraints',
-              style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold, color: Colors.blue.shade900),
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade900,
+              ),
             ),
           ],
         ),
@@ -693,7 +788,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Text(
           'FAQ',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.grey.shade900),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade900,
+          ),
         ),
         const SizedBox(height: 12.0),
         _faqItem(
@@ -741,7 +840,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.terminal, color: Colors.greenAccent.shade100, size: 20.0),
+            Icon(
+              Icons.terminal,
+              color: Colors.greenAccent.shade100,
+              size: 20.0,
+            ),
             const SizedBox(width: 8.0),
             const Text(
               'ASCII anatomy',
@@ -863,7 +966,11 @@ Widget _sectionTitle(String text) {
     padding: const EdgeInsets.only(left: 4.0, bottom: 10.0, top: 4.0),
     child: Text(
       text,
-      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+      style: TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
+        color: Colors.indigo.shade800,
+      ),
     ),
   );
 }
@@ -878,7 +985,11 @@ Widget _heroChip(String label) {
     ),
     child: Text(
       label,
-      style: const TextStyle(color: Colors.white, fontSize: 11.5, fontWeight: FontWeight.w500),
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 11.5,
+        fontWeight: FontWeight.w500,
+      ),
     ),
   );
 }
@@ -902,7 +1013,11 @@ Widget _anatomyDiagram(ui.ViewConstraints vc) {
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: Colors.blueGrey.shade400, width: 1.5),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 6.0, offset: const Offset(0.0, 2.0)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 6.0,
+            offset: const Offset(0.0, 2.0),
+          ),
         ],
       ),
       child: Stack(
@@ -927,7 +1042,8 @@ Widget _anatomyDiagram(ui.ViewConstraints vc) {
             left: 12.0,
             top: 32.0,
             child: Container(
-              width: (diagramWidth - 24.0) * (minWFrac == 0.0 ? 0.18 : minWFrac),
+              width:
+                  (diagramWidth - 24.0) * (minWFrac == 0.0 ? 0.18 : minWFrac),
               height: 6.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -953,7 +1069,11 @@ Widget _anatomyDiagram(ui.ViewConstraints vc) {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.check_circle, color: Colors.indigo.shade400, size: 28.0),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.indigo.shade400,
+                      size: 28.0,
+                    ),
                     const SizedBox(height: 4.0),
                     Text(
                       'isSatisfiedBy = true',
@@ -967,7 +1087,10 @@ Widget _anatomyDiagram(ui.ViewConstraints vc) {
                     Text(
                       'minW=${vc.minWidth}, maxW=${vc.maxWidth}\nminH=${vc.minHeight}, maxH=${vc.maxHeight}',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 10.0, color: Colors.indigo.shade700),
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.indigo.shade700,
+                      ),
                     ),
                   ],
                 ),
@@ -1014,7 +1137,11 @@ Widget _axisTag(String text, Color color) {
     ),
     child: Text(
       text,
-      style: TextStyle(fontSize: 10.0, color: color, fontWeight: FontWeight.w600),
+      style: TextStyle(
+        fontSize: 10.0,
+        color: color,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
@@ -1030,15 +1157,27 @@ Widget _anatomyLegend(String label, Color color, String value) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Container(width: 10.0, height: 10.0, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+        Container(
+          width: 10.0,
+          height: 10.0,
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ),
         const SizedBox(width: 6.0),
         Text(
           '$label: ',
-          style: TextStyle(fontSize: 11.5, color: color, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: color,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         Text(
           value,
-          style: const TextStyle(fontSize: 11.5, fontFamily: 'monospace', color: Colors.black87),
+          style: const TextStyle(
+            fontSize: 11.5,
+            fontFamily: 'monospace',
+            color: Colors.black87,
+          ),
         ),
       ],
     ),
@@ -1072,7 +1211,11 @@ Widget _fieldCard({
             const SizedBox(width: 6.0),
             Text(
               title,
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: accent),
+              style: TextStyle(
+                fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                color: accent,
+              ),
             ),
           ],
         ),
@@ -1096,7 +1239,10 @@ Widget _fieldCard({
         const SizedBox(height: 8.0),
         Text(
           description,
-          style: TextStyle(fontSize: 11.5, color: accent.withValues(alpha: 0.92)),
+          style: TextStyle(
+            fontSize: 11.5,
+            color: accent.withValues(alpha: 0.92),
+          ),
         ),
       ],
     ),
@@ -1120,12 +1266,19 @@ Widget _isSatisfiedRow(_ProbedConstraints pc, List<Size> sizes) {
             const SizedBox(width: 6.0),
             Text(
               pc.label,
-              style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: pc.color),
+              style: TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.bold,
+                color: pc.color,
+              ),
             ),
             const SizedBox(width: 8.0),
             Text(
               'isTight=${pc.constraints.isTight}',
-              style: TextStyle(fontSize: 11.0, color: pc.color.withValues(alpha: 0.8)),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: pc.color.withValues(alpha: 0.8),
+              ),
             ),
           ],
         ),
@@ -1159,14 +1312,24 @@ Widget _sizeChip(Size size, ui.ViewConstraints vc) {
         const SizedBox(width: 4.0),
         Text(
           '${size.width.toStringAsFixed(0)}x${size.height.toStringAsFixed(0)}',
-          style: TextStyle(fontSize: 11.0, color: base, fontFamily: 'monospace'),
+          style: TextStyle(
+            fontSize: 11.0,
+            color: base,
+            fontFamily: 'monospace',
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _recipeCard(String title, String code, String tagline, IconData icon, Color color) {
+Widget _recipeCard(
+  String title,
+  String code,
+  String tagline,
+  IconData icon,
+  Color color,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10.0),
     padding: const EdgeInsets.all(12.0),
@@ -1175,7 +1338,11 @@ Widget _recipeCard(String title, String code, String tagline, IconData icon, Col
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: color.withValues(alpha: 0.35)),
       boxShadow: <BoxShadow>[
-        BoxShadow(color: color.withValues(alpha: 0.18), blurRadius: 8.0, offset: const Offset(0.0, 3.0)),
+        BoxShadow(
+          color: color.withValues(alpha: 0.18),
+          blurRadius: 8.0,
+          offset: const Offset(0.0, 3.0),
+        ),
       ],
     ),
     child: Column(
@@ -1187,7 +1354,11 @@ Widget _recipeCard(String title, String code, String tagline, IconData icon, Col
             const SizedBox(width: 6.0),
             Text(
               title,
-              style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: color),
+              style: TextStyle(
+                fontSize: 13.5,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
           ],
         ),
@@ -1238,12 +1409,20 @@ Widget _pitfallRow(String title, String body) {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Colors.red.shade900),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red.shade900,
+                ),
               ),
               const SizedBox(height: 4.0),
               Text(
                 body,
-                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 11.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
@@ -1265,12 +1444,17 @@ Widget _comparisonTable(List<List<String>> rows) {
         for (int r = 0; r < rows.length; r++)
           Container(
             decoration: BoxDecoration(
-              color: r == 0 ? Colors.amber.shade100 : (r.isOdd ? Colors.amber.shade50 : Colors.white),
+              color: r == 0
+                  ? Colors.amber.shade100
+                  : (r.isOdd ? Colors.amber.shade50 : Colors.white),
               borderRadius: r == 0
                   ? const BorderRadius.vertical(top: Radius.circular(10.0))
                   : BorderRadius.zero,
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 8.0,
+            ),
             child: Row(
               children: <Widget>[
                 for (int c = 0; c < rows[r].length; c++)
@@ -1280,8 +1464,12 @@ Widget _comparisonTable(List<List<String>> rows) {
                       rows[r][c],
                       style: TextStyle(
                         fontSize: 11.5,
-                        fontWeight: r == 0 ? FontWeight.bold : FontWeight.normal,
-                        color: r == 0 ? Colors.amber.shade900 : Colors.grey.shade800,
+                        fontWeight: r == 0
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: r == 0
+                            ? Colors.amber.shade900
+                            : Colors.grey.shade800,
                       ),
                     ),
                   ),
@@ -1302,7 +1490,12 @@ Widget _codeBlock(String code, Color color) {
     ),
     child: Text(
       code,
-      style: TextStyle(fontFamily: 'monospace', fontSize: 11.5, color: color, height: 1.4),
+      style: TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: color,
+        height: 1.4,
+      ),
     ),
   );
 }
@@ -1321,7 +1514,11 @@ Widget _faqItem(String q, String a) {
             Expanded(
               child: Text(
                 q,
-                style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold, color: Colors.indigo.shade800),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo.shade800,
+                ),
               ),
             ),
           ],
@@ -1331,7 +1528,11 @@ Widget _faqItem(String q, String a) {
           padding: const EdgeInsets.only(left: 24.0),
           child: Text(
             a,
-            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800, height: 1.35),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.grey.shade800,
+              height: 1.35,
+            ),
           ),
         ),
       ],

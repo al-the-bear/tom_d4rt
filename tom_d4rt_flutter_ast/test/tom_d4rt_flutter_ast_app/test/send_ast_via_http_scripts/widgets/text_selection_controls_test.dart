@@ -81,11 +81,7 @@ class _TscForgePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          _tscSteel,
-          _tscSteelDark,
-          _tscIron,
-        ],
+        colors: <Color>[_tscSteel, _tscSteelDark, _tscIron],
         stops: const <double>[0.0, 0.6, 1.0],
       ).createShader(full);
     canvas.drawRect(full, bg);
@@ -118,12 +114,19 @@ class _TscForgePainter extends CustomPainter {
       ..lineTo(cx - plinthBotHalf, plinthBotY)
       ..close();
     final Paint plinthPaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[_tscIron, Color(0xFF0E0C09)],
-      ).createShader(Rect.fromLTRB(
-          cx - plinthBotHalf, plinthTopY, cx + plinthBotHalf, plinthBotY));
+      ..shader =
+          LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[_tscIron, Color(0xFF0E0C09)],
+          ).createShader(
+            Rect.fromLTRB(
+              cx - plinthBotHalf,
+              plinthTopY,
+              cx + plinthBotHalf,
+              plinthBotY,
+            ),
+          );
     canvas.drawPath(plinth, plinthPaint);
 
     // Anvil — a classic silhouette rendered with a darker steel
@@ -152,12 +155,12 @@ class _TscForgePainter extends CustomPainter {
     canvas.drawPath(anvil, anvilPaint);
 
     // Cast piece — a glowing copper ingot on the anvil flat.
-    final Rect ingotRect =
-        Rect.fromLTWH(cx - 34, anvilHornY - 10, 68, 14);
+    final Rect ingotRect = Rect.fromLTWH(cx - 34, anvilHornY - 10, 68, 14);
     final RRect ingot = RRect.fromRectAndRadius(
-        ingotRect, const Radius.circular(4));
-    final double glowPulse =
-        0.55 + 0.25 * math.sin(t * math.pi * 2 * 1.3);
+      ingotRect,
+      const Radius.circular(4),
+    );
+    final double glowPulse = 0.55 + 0.25 * math.sin(t * math.pi * 2 * 1.3);
     final Paint glow = Paint()
       ..color = _tscCopperGlow.withValues(alpha: 0.45 * glowPulse)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 18.0);
@@ -181,8 +184,7 @@ class _TscForgePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawPath(hammerHandle, handlePaint);
-    final Rect hammerHeadRect =
-        Rect.fromLTWH(cx + 86, anvilMidY - 10, 22, 20);
+    final Rect hammerHeadRect = Rect.fromLTWH(cx + 86, anvilMidY - 10, 22, 20);
     final Paint hammerHeadPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
@@ -190,8 +192,9 @@ class _TscForgePainter extends CustomPainter {
         colors: <Color>[_tscSteelLight, _tscSteelDark],
       ).createShader(hammerHeadRect);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(hammerHeadRect, const Radius.circular(3)),
-        hammerHeadPaint);
+      RRect.fromRectAndRadius(hammerHeadRect, const Radius.circular(3)),
+      hammerHeadPaint,
+    );
 
     // Sparks — each spark has a per-sparkle phase so that the
     // shower shimmers rather than marching in lockstep.
@@ -219,10 +222,11 @@ class _TscForgePainter extends CustomPainter {
       ..color = _tscIvory.withValues(alpha: 0.14)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2;
-    final Rect plate =
-        Rect.fromLTWH(16, 16, size.width - 32, 34);
+    final Rect plate = Rect.fromLTWH(16, 16, size.width - 32, 34);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(plate, const Radius.circular(6)), plateRim);
+      RRect.fromRectAndRadius(plate, const Radius.circular(6)),
+      plateRim,
+    );
   }
 
   @override
@@ -255,7 +259,10 @@ class _TscCastPiecesPainter extends CustomPainter {
       ..strokeWidth = 1;
     canvas.drawLine(Offset(colW, 10), Offset(colW, size.height - 10), rule);
     canvas.drawLine(
-        Offset(colW * 2, 10), Offset(colW * 2, size.height - 10), rule);
+      Offset(colW * 2, 10),
+      Offset(colW * 2, size.height - 10),
+      rule,
+    );
 
     _drawMaterialTeardrop(canvas, Offset(colW * 0.5, size.height * 0.5));
     _drawCupertinoPill(canvas, Offset(colW * 1.5, size.height * 0.5));
@@ -288,10 +295,8 @@ class _TscCastPiecesPainter extends CustomPainter {
 
   void _drawCupertinoPill(Canvas canvas, Offset c) {
     final Rect rect = Rect.fromCenter(center: c, width: 8, height: 48);
-    final RRect pill =
-        RRect.fromRectAndRadius(rect, const Radius.circular(4));
-    final Paint fill = Paint()
-      ..color = _tscSteel;
+    final RRect pill = RRect.fromRectAndRadius(rect, const Radius.circular(4));
+    final Paint fill = Paint()..color = _tscSteel;
     canvas.drawRRect(pill, fill);
     final Paint knob = Paint()..color = _tscSteelDark;
     canvas.drawCircle(Offset(c.dx, c.dy - 28), 6, knob);
@@ -310,10 +315,16 @@ class _TscCastPiecesPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawLine(
-        Offset(c.dx - 18, c.dy + 24), Offset(c.dx + 14, c.dy - 22), handle);
+      Offset(c.dx - 18, c.dy + 24),
+      Offset(c.dx + 14, c.dy - 22),
+      handle,
+    );
     // Hammer head block.
-    final Rect head =
-        Rect.fromCenter(center: Offset(c.dx + 14, c.dy - 22), width: 28, height: 14);
+    final Rect head = Rect.fromCenter(
+      center: Offset(c.dx + 14, c.dy - 22),
+      width: 28,
+      height: 14,
+    );
     final Paint headPaint = Paint()
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
@@ -321,13 +332,17 @@ class _TscCastPiecesPainter extends CustomPainter {
         colors: <Color>[_tscCopperGlow, _tscCopper],
       ).createShader(head);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(head, const Radius.circular(2)), headPaint);
+      RRect.fromRectAndRadius(head, const Radius.circular(2)),
+      headPaint,
+    );
     final Paint rim = Paint()
       ..color = _tscIron
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.0;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(head, const Radius.circular(2)), rim);
+      RRect.fromRectAndRadius(head, const Radius.circular(2)),
+      rim,
+    );
   }
 
   void _drawAnchorCross(Canvas canvas, Offset c) {
@@ -374,8 +389,7 @@ class _TscFoundryTextSelectionControls extends TextSelectionControls {
   }
 
   @override
-  Offset getHandleAnchor(
-      TextSelectionHandleType type, double textLineHeight) {
+  Offset getHandleAnchor(TextSelectionHandleType type, double textLineHeight) {
     // Anchor offset: the point within the handle widget that the
     // framework aligns with the text selection endpoint.  For a
     // left handle we anchor top-right; for a right handle we
@@ -410,9 +424,7 @@ class _TscFoundryTextSelectionControls extends TextSelectionControls {
       child: SizedBox(
         width: size.width,
         height: size.height,
-        child: CustomPaint(
-          painter: _TscFoundryHandlePainter(type: type),
-        ),
+        child: CustomPaint(painter: _TscFoundryHandlePainter(type: type)),
       ),
     );
   }
@@ -448,22 +460,21 @@ class _TscFoundryTextSelectionControls extends TextSelectionControls {
             elevation: 2,
             borderRadius: BorderRadius.circular(6),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: const <Widget>[
-                  Text('Cut',
-                      style: TextStyle(
-                          color: _tscIvory, fontSize: 12)),
+                  Text('Cut', style: TextStyle(color: _tscIvory, fontSize: 12)),
                   SizedBox(width: 12),
-                  Text('Copy',
-                      style: TextStyle(
-                          color: _tscIvory, fontSize: 12)),
+                  Text(
+                    'Copy',
+                    style: TextStyle(color: _tscIvory, fontSize: 12),
+                  ),
                   SizedBox(width: 12),
-                  Text('Paste',
-                      style: TextStyle(
-                          color: _tscIvory, fontSize: 12)),
+                  Text(
+                    'Paste',
+                    style: TextStyle(color: _tscIvory, fontSize: 12),
+                  ),
                 ],
               ),
             ),
@@ -519,13 +530,17 @@ class _TscFoundryHandlePainter extends CustomPainter {
         colors: <Color>[_tscCopperGlow, _tscCopper],
       ).createShader(head);
     canvas.drawRRect(
-        RRect.fromRectAndRadius(head, const Radius.circular(2)), headPaint);
+      RRect.fromRectAndRadius(head, const Radius.circular(2)),
+      headPaint,
+    );
     final Paint rim = Paint()
       ..color = _tscIron
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.8;
     canvas.drawRRect(
-        RRect.fromRectAndRadius(head, const Radius.circular(2)), rim);
+      RRect.fromRectAndRadius(head, const Radius.circular(2)),
+      rim,
+    );
   }
 
   @override
@@ -575,15 +590,17 @@ class _TscDemoRootState extends State<_TscDemoRoot>
     final math.Random rnd = math.Random(7);
     _sparks = <_TscSpark>[];
     for (int i = 0; i < 28; i++) {
-      _sparks.add(_TscSpark(
-        seed: i,
-        originX: 180 + rnd.nextDouble() * 40,
-        originY: 160,
-        angle: -math.pi / 2 + (rnd.nextDouble() - 0.5) * 1.2,
-        speed: 80 + rnd.nextDouble() * 120,
-        life: 0.6 + rnd.nextDouble() * 0.6,
-        hue: rnd.nextDouble(),
-      ));
+      _sparks.add(
+        _TscSpark(
+          seed: i,
+          originX: 180 + rnd.nextDouble() * 40,
+          originY: 160,
+          angle: -math.pi / 2 + (rnd.nextDouble() - 0.5) * 1.2,
+          speed: 80 + rnd.nextDouble() * 120,
+          life: 0.6 + rnd.nextDouble() * 0.6,
+          hue: rnd.nextDouble(),
+        ),
+      );
     }
 
     _showcaseController = TextEditingController(
@@ -625,8 +642,10 @@ class _TscDemoRootState extends State<_TscDemoRoot>
       baseOffset: 0,
       extentOffset: _showcaseController.text.length,
     );
-    debugPrint('TextSelectionControls demo: Select All triggered '
-        'on showcase field, length=${_showcaseController.text.length}');
+    debugPrint(
+      'TextSelectionControls demo: Select All triggered '
+      'on showcase field, length=${_showcaseController.text.length}',
+    );
     setState(() {});
   }
 
@@ -643,10 +662,7 @@ class _TscDemoRootState extends State<_TscDemoRoot>
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: <Widget>[
-          _TscHeroForge(
-            controller: _sparkController,
-            sparks: _sparks,
-          ),
+          _TscHeroForge(controller: _sparkController, sparks: _sparks),
           const SizedBox(height: 18),
           const _TscSectionTitle(
             index: 1,
@@ -732,10 +748,7 @@ class _TscDemoRootState extends State<_TscDemoRoot>
           ),
           const _TscAnchorMathPanel(),
           const SizedBox(height: 18),
-          const _TscSectionTitle(
-            index: 12,
-            label: 'Footer — foundry marks',
-          ),
+          const _TscSectionTitle(index: 12, label: 'Footer — foundry marks'),
           const _TscFooter(),
           const SizedBox(height: 40),
         ],
@@ -763,10 +776,7 @@ class _TscHeroForge extends StatelessWidget {
           animation: controller,
           builder: (BuildContext context, Widget? child) {
             return CustomPaint(
-              painter: _TscForgePainter(
-                t: controller.value,
-                sparks: sparks,
-              ),
+              painter: _TscForgePainter(t: controller.value, sparks: sparks),
               child: const _TscHeroOverlay(),
             );
           },
@@ -787,13 +797,14 @@ class _TscHeroOverlay extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: _tscIron.withValues(alpha: 0.55),
               borderRadius: BorderRadius.circular(4),
               border: Border.all(
-                  color: _tscCopper.withValues(alpha: 0.6), width: 1),
+                color: _tscCopper.withValues(alpha: 0.6),
+                width: 1,
+              ),
             ),
             child: const Text(
               'SELECTION TOOLBAR FOUNDRY',
@@ -833,8 +844,9 @@ class _TscHeroOverlay extends StatelessWidget {
               _TscHeroChip(label: 'getHandleSize', color: _tscCopper),
               const SizedBox(width: 8),
               _TscHeroChip(
-                  label: 'buildToolbar (deprecated)',
-                  color: _tscIvoryDark),
+                label: 'buildToolbar (deprecated)',
+                color: _tscIvoryDark,
+              ),
             ],
           ),
         ],
@@ -1009,7 +1021,9 @@ class _TscConceptCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: entry.accent.withValues(alpha: 0.4), width: 1.2),
+          color: entry.accent.withValues(alpha: 0.4),
+          width: 1.2,
+        ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: _tscIron.withValues(alpha: 0.05),
@@ -1116,17 +1130,25 @@ class _TscThreeSpecimens extends StatelessWidget {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: columns
-                .map((Widget w) => Expanded(
+                .map(
+                  (Widget w) => Expanded(
                     child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: w)))
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: w,
+                    ),
+                  ),
+                )
                 .toList(),
           );
         }
         return Column(
           children: columns
-              .map((Widget w) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10), child: w))
+              .map(
+                (Widget w) => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: w,
+                ),
+              )
               .toList(),
         );
       },
@@ -1186,10 +1208,7 @@ class _TscSpecimenColumn extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: const TextStyle(color: _tscIron, fontSize: 11),
-          ),
+          Text(subtitle, style: const TextStyle(color: _tscIron, fontSize: 11)),
           const SizedBox(height: 10),
           TextField(
             controller: controller,
@@ -1206,8 +1225,7 @@ class _TscSpecimenColumn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: accent.withValues(alpha: 0.6)),
+                borderSide: BorderSide(color: accent.withValues(alpha: 0.6)),
                 borderRadius: BorderRadius.circular(6),
               ),
               focusedBorder: OutlineInputBorder(
@@ -1217,11 +1235,7 @@ class _TscSpecimenColumn extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          _TscKeyValueRow(
-            k: 'selectionControls',
-            v: label,
-            accent: accent,
-          ),
+          _TscKeyValueRow(k: 'selectionControls', v: label, accent: accent),
         ],
       ),
     );
@@ -1460,17 +1474,15 @@ class _TscMethodDirectory extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          headingRowColor:
-              WidgetStateProperty.all(_tscSteel.withValues(alpha: 0.1)),
+          headingRowColor: WidgetStateProperty.all(
+            _tscSteel.withValues(alpha: 0.1),
+          ),
           headingTextStyle: const TextStyle(
             color: _tscSteelDark,
             fontWeight: FontWeight.w700,
             fontSize: 12.5,
           ),
-          dataTextStyle: const TextStyle(
-            color: _tscIron,
-            fontSize: 12,
-          ),
+          dataTextStyle: const TextStyle(color: _tscIron, fontSize: 12),
           columnSpacing: 18,
           columns: const <DataColumn>[
             DataColumn(label: Text('Method')),
@@ -1499,45 +1511,47 @@ class _TscMethodDirectory extends StatelessWidget {
       default:
         kindColor = _tscIron;
     }
-    return DataRow(cells: <DataCell>[
-      DataCell(Text(
-        e.name,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          fontWeight: FontWeight.w700,
-        ),
-      )),
-      DataCell(Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        decoration: BoxDecoration(
-          color: kindColor.withValues(alpha: 0.14),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          e.kind,
-          style: TextStyle(
-            color: kindColor,
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Text(
+            e.name,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      )),
-      DataCell(SizedBox(
-        width: 320,
-        child: Text(
-          e.sig,
-          style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
+        DataCell(
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: kindColor.withValues(alpha: 0.14),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              e.kind,
+              style: TextStyle(
+                color: kindColor,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
-          softWrap: true,
         ),
-      )),
-      DataCell(SizedBox(
-        width: 380,
-        child: Text(e.duty, softWrap: true),
-      )),
-    ]);
+        DataCell(
+          SizedBox(
+            width: 320,
+            child: Text(
+              e.sig,
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.5),
+              softWrap: true,
+            ),
+          ),
+        ),
+        DataCell(SizedBox(width: 380, child: Text(e.duty, softWrap: true))),
+      ],
+    );
   }
 }
 
@@ -1579,7 +1593,9 @@ class _TscShowcasePanel extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: _tscCopper.withValues(alpha: 0.6), width: 1.2),
+          color: _tscCopper.withValues(alpha: 0.6),
+          width: 1.2,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1606,7 +1622,9 @@ class _TscShowcasePanel extends StatelessWidget {
                   backgroundColor: _tscSteel,
                   foregroundColor: _tscIvory,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   textStyle: const TextStyle(fontSize: 12),
                 ),
               ),
@@ -1618,24 +1636,18 @@ class _TscShowcasePanel extends StatelessWidget {
             focusNode: focusNode,
             selectionControls: foundryControls,
             maxLines: 3,
-            style: const TextStyle(
-              color: _tscIron,
-              fontSize: 14,
-              height: 1.3,
-            ),
+            style: const TextStyle(color: _tscIron, fontSize: 14, height: 1.3),
             decoration: InputDecoration(
               filled: true,
               fillColor: _tscIvory,
               contentPadding: const EdgeInsets.all(12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                    color: _tscSteel.withValues(alpha: 0.6)),
+                borderSide: BorderSide(color: _tscSteel.withValues(alpha: 0.6)),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    const BorderSide(color: _tscCopper, width: 1.5),
+                borderSide: const BorderSide(color: _tscCopper, width: 1.5),
               ),
             ),
           ),
@@ -1660,10 +1672,7 @@ class _TscShowcasePanel extends StatelessWidget {
 // SECTION 11: Migration card — contextMenuBuilder
 // ============================================================
 class _TscMigrationCard extends StatelessWidget {
-  const _TscMigrationCard({
-    required this.controller,
-    required this.focusNode,
-  });
+  const _TscMigrationCard({required this.controller, required this.focusNode});
 
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -1676,7 +1685,9 @@ class _TscMigrationCard extends StatelessWidget {
         color: _tscIvoryDark.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: _tscSteelDark.withValues(alpha: 0.4), width: 1),
+          color: _tscSteelDark.withValues(alpha: 0.4),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1737,13 +1748,13 @@ class _TscMigrationCard extends StatelessWidget {
             maxLines: 2,
             contextMenuBuilder:
                 (BuildContext context, EditableTextState state) {
-              // Live example of the modern pattern.  We reuse the
-              // adaptive toolbar — it picks the right chrome for
-              // the current platform (Material, Cupertino, etc.).
-              return AdaptiveTextSelectionToolbar.editableText(
-                editableTextState: state,
-              );
-            },
+                  // Live example of the modern pattern.  We reuse the
+                  // adaptive toolbar — it picks the right chrome for
+                  // the current platform (Material, Cupertino, etc.).
+                  return AdaptiveTextSelectionToolbar.editableText(
+                    editableTextState: state,
+                  );
+                },
             style: const TextStyle(color: _tscIron, fontSize: 13),
             decoration: InputDecoration(
               filled: true,
@@ -1752,7 +1763,8 @@ class _TscMigrationCard extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
                 borderSide: BorderSide(
-                    color: _tscSteelDark.withValues(alpha: 0.6)),
+                  color: _tscSteelDark.withValues(alpha: 0.6),
+                ),
               ),
             ),
           ),
@@ -1966,7 +1978,10 @@ class _TscTimelineRow extends StatelessWidget {
                 Text(
                   entry.detail,
                   style: const TextStyle(
-                      color: _tscIron, fontSize: 12, height: 1.3),
+                    color: _tscIron,
+                    fontSize: 12,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
@@ -2016,10 +2031,10 @@ class _TscChecklistPanel extends StatelessWidget {
         children: items
             .asMap()
             .entries
-            .map((MapEntry<int, String> e) => _TscChecklistItem(
-                  index: e.key + 1,
-                  text: e.value,
-                ))
+            .map(
+              (MapEntry<int, String> e) =>
+                  _TscChecklistItem(index: e.key + 1, text: e.value),
+            )
             .toList(),
       ),
     );
@@ -2062,7 +2077,10 @@ class _TscChecklistItem extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                  color: _tscIron, fontSize: 12.5, height: 1.4),
+                color: _tscIron,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -2127,8 +2145,9 @@ class _TscComparisonTable extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           columnSpacing: 18,
-          headingRowColor:
-              WidgetStateProperty.all(_tscSteel.withValues(alpha: 0.1)),
+          headingRowColor: WidgetStateProperty.all(
+            _tscSteel.withValues(alpha: 0.1),
+          ),
           columns: const <DataColumn>[
             DataColumn(label: Text('Subclass')),
             DataColumn(label: Text('Handle')),
@@ -2142,25 +2161,32 @@ class _TscComparisonTable extends StatelessWidget {
   }
 
   DataRow _buildRow(_TscComparisonRow r) {
-    return DataRow(cells: <DataCell>[
-      DataCell(Row(children: <Widget>[
-        Container(
-          width: 10,
-          height: 10,
-          decoration:
-              BoxDecoration(color: r.accent, shape: BoxShape.circle),
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(
+          Row(
+            children: <Widget>[
+              Container(
+                width: 10,
+                height: 10,
+                decoration: BoxDecoration(
+                  color: r.accent,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                r.name,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(width: 8),
-        Text(
-          r.name,
-          style: const TextStyle(
-              fontFamily: 'monospace', fontSize: 12),
-        ),
-      ])),
-      DataCell(Text(r.handle)),
-      DataCell(Text(r.toolbar)),
-      DataCell(Text(r.platforms)),
-    ]);
+        DataCell(Text(r.handle)),
+        DataCell(Text(r.toolbar)),
+        DataCell(Text(r.platforms)),
+      ],
+    );
   }
 }
 
@@ -2250,14 +2276,15 @@ class _TscAnchorCaseCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-            color: entry.accent.withValues(alpha: 0.5), width: 1),
+          color: entry.accent.withValues(alpha: 0.5),
+          width: 1,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: entry.accent,
               borderRadius: BorderRadius.circular(4),
@@ -2290,7 +2317,10 @@ class _TscAnchorCaseCard extends StatelessWidget {
                 Text(
                   entry.reason,
                   style: const TextStyle(
-                      color: _tscIron, fontSize: 12, height: 1.4),
+                    color: _tscIron,
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),
@@ -2343,16 +2373,28 @@ class _TscFooter extends StatelessWidget {
           Row(
             children: <Widget>[
               _TscFooterBadge(
-                  label: 'steel', color: _tscSteel, value: '#4A5D73'),
+                label: 'steel',
+                color: _tscSteel,
+                value: '#4A5D73',
+              ),
               const SizedBox(width: 8),
               _TscFooterBadge(
-                  label: 'ivory', color: _tscIvory, value: '#F2EEE3'),
+                label: 'ivory',
+                color: _tscIvory,
+                value: '#F2EEE3',
+              ),
               const SizedBox(width: 8),
               _TscFooterBadge(
-                  label: 'copper', color: _tscCopper, value: '#AD6446'),
+                label: 'copper',
+                color: _tscCopper,
+                value: '#AD6446',
+              ),
               const SizedBox(width: 8),
               _TscFooterBadge(
-                  label: 'iron', color: _tscIvoryDark, value: '#1F1B16'),
+                label: 'iron',
+                color: _tscIvoryDark,
+                value: '#1F1B16',
+              ),
             ],
           ),
         ],
@@ -2391,7 +2433,9 @@ class _TscFooterBadge extends StatelessWidget {
               color: color,
               shape: BoxShape.circle,
               border: Border.all(
-                  color: _tscIvory.withValues(alpha: 0.4), width: 0.5),
+                color: _tscIvory.withValues(alpha: 0.4),
+                width: 0.5,
+              ),
             ),
           ),
           const SizedBox(width: 6),
@@ -2427,9 +2471,11 @@ class _TscFooterBadge extends StatelessWidget {
 // _TscDemoRoot so the entry point is a pure factory.
 
 dynamic build(BuildContext context) {
-  debugPrint('TextSelectionControls Foundry demo building '
-      '— r=${_tscCopper.r}, g=${_tscCopper.g}, '
-      'b=${_tscCopper.b}, a=${_tscCopper.a}');
+  debugPrint(
+    'TextSelectionControls Foundry demo building '
+    '— r=${_tscCopper.r}, g=${_tscCopper.g}, '
+    'b=${_tscCopper.b}, a=${_tscCopper.a}',
+  );
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'TextSelectionControls Foundry',

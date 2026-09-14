@@ -452,7 +452,8 @@ const List<_SiblingFact> _kSiblings = <_SiblingFact>[
       'selection',
       'composing',
     ],
-    example: 'oldText:        "Hi"\n'
+    example:
+        'oldText:        "Hi"\n'
         'textInserted:   "!"\n'
         'insertionOffset: 2\n'
         'selection:       TextSelection.collapsed(offset: 3)',
@@ -463,13 +464,9 @@ const List<_SiblingFact> _kSiblings = <_SiblingFact>[
   _SiblingFact(
     name: 'TextEditingDeltaDeletion',
     tagline: 'A slice of oldText disappears.',
-    fields: <String>[
-      'oldText',
-      'deletedRange',
-      'selection',
-      'composing',
-    ],
-    example: 'oldText:      "Hello!"\n'
+    fields: <String>['oldText', 'deletedRange', 'selection', 'composing'],
+    example:
+        'oldText:      "Hello!"\n'
         'deletedRange: TextRange(start: 5, end: 6)\n'
         'selection:    TextSelection.collapsed(offset: 5)',
     icon: Icons.remove,
@@ -486,7 +483,8 @@ const List<_SiblingFact> _kSiblings = <_SiblingFact>[
       'selection',
       'composing',
     ],
-    example: 'oldText:         "teh"\n'
+    example:
+        'oldText:         "teh"\n'
         'replacementText: "the"\n'
         'replacedRange:   TextRange(start: 0, end: 3)\n'
         'selection:       TextSelection.collapsed(offset: 3)',
@@ -497,12 +495,9 @@ const List<_SiblingFact> _kSiblings = <_SiblingFact>[
   _SiblingFact(
     name: 'TextEditingDeltaNonTextUpdate',
     tagline: 'Selection and/or composing changed; text identical.',
-    fields: <String>[
-      'oldText',
-      'selection',
-      'composing',
-    ],
-    example: 'oldText:   "Hello"\n'
+    fields: <String>['oldText', 'selection', 'composing'],
+    example:
+        'oldText:   "Hello"\n'
         'selection: TextSelection(baseOffset: 0, extentOffset: 5)\n'
         'composing: TextRange.empty',
     icon: Icons.swipe,
@@ -684,8 +679,11 @@ Widget _hero() {
           spacing: 8,
           runSpacing: 6,
           children: [
-            _chip('package:flutter/services.dart',
-                color: _kAccent, icon: Icons.layers),
+            _chip(
+              'package:flutter/services.dart',
+              color: _kAccent,
+              icon: Icons.layers,
+            ),
             _chip('IME delta', color: _kOld, icon: Icons.bolt),
             _chip('apply() is pure', color: _kSel, icon: Icons.functions),
             _chip('opt-in: enableDeltaModel', color: _kCmp, icon: Icons.tune),
@@ -819,8 +817,10 @@ Widget _anatomyConstructor() {
           children: [
             _pill('SIGNATURE', _kAccent),
             SizedBox(width: 8),
-            Text('lib/src/services/text_editing_delta.dart',
-                style: _stMonoSoft),
+            Text(
+              'lib/src/services/text_editing_delta.dart',
+              style: _stMonoSoft,
+            ),
           ],
         ),
         SizedBox(height: 10),
@@ -870,10 +870,7 @@ Widget _anatomyHeaderRow() {
     decoration: BoxDecoration(
       color: _kAccent.withValues(alpha: 0.12),
       border: Border(
-        bottom: BorderSide(
-          color: _kAccent.withValues(alpha: _aMid),
-          width: 1,
-        ),
+        bottom: BorderSide(color: _kAccent.withValues(alpha: _aMid), width: 1),
       ),
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(9),
@@ -1038,7 +1035,9 @@ Widget _sampleCard(_ReplacementSample s, int index) {
                 color: _kNew.withValues(alpha: _aSoft),
                 shape: BoxShape.circle,
                 border: Border.all(
-                    color: _kNew.withValues(alpha: _aStrong), width: 1),
+                  color: _kNew.withValues(alpha: _aStrong),
+                  width: 1,
+                ),
               ),
               child: Icon(s.icon, size: 16, color: _kNew),
             ),
@@ -1191,8 +1190,9 @@ Widget _sampleJsonDump(_ReplacementSample s) {
   final String composingPart = s.composingIsEmpty
       ? '  composing:       TextRange.empty,'
       : '  composing:       TextRange(start: ${s.composingStart}, '
-          'end: ${s.composingEnd}),';
-  final String text = 'TextEditingDeltaReplacement(\n'
+            'end: ${s.composingEnd}),';
+  final String text =
+      'TextEditingDeltaReplacement(\n'
       '  oldText:         "${s.oldText}",\n'
       '  replacementText: "${s.replacementText}",\n'
       '  replacedRange:   TextRange(start: ${s.replacedStart}, '
@@ -1280,9 +1280,8 @@ Widget _rangePillarRow(_ReplacementSample s) {
   for (int i = 0; i < n; i++) {
     final bool inRange = i >= s.replacedStart && i < s.replacedEnd;
     final bool atSel = i == s.selectionBase;
-    final bool inComposing = !s.composingIsEmpty &&
-        i >= s.composingStart &&
-        i < s.composingEnd;
+    final bool inComposing =
+        !s.composingIsEmpty && i >= s.composingStart && i < s.composingEnd;
     Color bg;
     if (inRange && inComposing) {
       bg = Color.lerp(_kOld, _kCmp, 0.5)!.withValues(alpha: _aSoft);
@@ -1389,11 +1388,13 @@ Widget _rangeAxisExplainer() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          _pill('AXIS', _kAccent),
-          SizedBox(width: 8),
-          Text('How to read TextRange', style: _stStrong),
-        ]),
+        Row(
+          children: [
+            _pill('AXIS', _kAccent),
+            SizedBox(width: 8),
+            Text('How to read TextRange', style: _stStrong),
+          ],
+        ),
         SizedBox(height: 6),
         Text(
           '  - start, end are UTF-16 code-unit offsets.\n'
@@ -1430,7 +1431,8 @@ Widget _applyBody() {
       _applyStep(
         index: 1,
         title: 'Input — current TextEditingValue',
-        body: 'TextEditingValue(\n'
+        body:
+            'TextEditingValue(\n'
             '  text:      "Hello, wld",\n'
             '  selection: TextSelection(\n'
             '    baseOffset:  10,\n'
@@ -1444,7 +1446,8 @@ Widget _applyBody() {
       _applyStep(
         index: 2,
         title: 'Delta — TextEditingDeltaReplacement instance',
-        body: 'TextEditingDeltaReplacement(\n'
+        body:
+            'TextEditingDeltaReplacement(\n'
             '  oldText:         "Hello, wld",\n'
             '  replacementText: "world",\n'
             '  replacedRange:   TextRange(start: 7, end: 10),\n'
@@ -1457,7 +1460,8 @@ Widget _applyBody() {
       _applyStep(
         index: 3,
         title: 'Compute — newText via String.replaceRange',
-        body: 'String newText = oldText.replaceRange(\n'
+        body:
+            'String newText = oldText.replaceRange(\n'
             '  replacedRange.start,        // 7\n'
             '  replacedRange.end,          // 10\n'
             '  replacementText,            // "world"\n'
@@ -1469,7 +1473,8 @@ Widget _applyBody() {
       _applyStep(
         index: 4,
         title: 'Output — next TextEditingValue (via copyWith)',
-        body: 'TextEditingValue(\n'
+        body:
+            'TextEditingValue(\n'
             '  text:      "Hello, world",\n'
             '  selection: TextSelection(\n'
             '    baseOffset:  12,\n'
@@ -1524,10 +1529,7 @@ Widget _applyStep({
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(
-                title,
-                style: _stStrong.copyWith(color: accent),
-              ),
+              child: Text(title, style: _stStrong.copyWith(color: accent)),
             ),
           ],
         ),
@@ -1549,14 +1551,18 @@ Widget _applyAssertions() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          _pill('asserts', _kCmp),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text('Debug-mode invariants checked by apply()',
-                style: _stStrong),
-          ),
-        ]),
+        Row(
+          children: [
+            _pill('asserts', _kCmp),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Debug-mode invariants checked by apply()',
+                style: _stStrong,
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 8),
         Text(
           '  - replacedRange must be valid against oldText (start/end '
@@ -1602,16 +1608,14 @@ Widget _siblingsBody() {
 }
 
 Widget _siblingCard(_SiblingFact s) {
-  final Color borderColor =
-      s.isThisOne ? s.color : s.color.withValues(alpha: _aMid);
+  final Color borderColor = s.isThisOne
+      ? s.color
+      : s.color.withValues(alpha: _aMid);
   return Container(
     padding: EdgeInsets.fromLTRB(14, 12, 14, 14),
     decoration: BoxDecoration(
       color: s.isThisOne ? s.color.withValues(alpha: _aFaint) : _kCardDeep,
-      border: Border.all(
-        color: borderColor,
-        width: s.isThisOne ? 1.6 : 1,
-      ),
+      border: Border.all(color: borderColor, width: s.isThisOne ? 1.6 : 1),
       borderRadius: BorderRadius.circular(10),
     ),
     child: Column(
@@ -1659,9 +1663,7 @@ Widget _siblingCard(_SiblingFact s) {
         Wrap(
           spacing: 6,
           runSpacing: 6,
-          children: [
-            for (final String f in s.fields) _chip(f, color: s.color),
-          ],
+          children: [for (final String f in s.fields) _chip(f, color: s.color)],
         ),
         SizedBox(height: 10),
         Container(
@@ -1707,7 +1709,8 @@ Widget _composingBody() {
             child: _composingPanel(
               title: 'Composing.empty',
               hint: 'After autocorrect, suggestion tap, paste',
-              codeBlock: 'composing == TextRange.empty\n'
+              codeBlock:
+                  'composing == TextRange.empty\n'
                   'composing.isValid == false\n'
                   'composing.start  == -1\n'
                   'composing.end    == -1',
@@ -1719,7 +1722,8 @@ Widget _composingBody() {
             child: _composingPanel(
               title: 'Composing live',
               hint: 'Mid-IME (e.g. typing "ni" in pinyin)',
-              codeBlock: 'composing == TextRange(\n'
+              codeBlock:
+                  'composing == TextRange(\n'
                   '  start: 0,\n'
                   '  end:   2,\n'
                   ')\n'
@@ -1751,11 +1755,13 @@ Widget _composingPanel({
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          _pill(title, color),
-          SizedBox(width: 6),
-          Expanded(child: Text(hint, style: _stCaption)),
-        ]),
+        Row(
+          children: [
+            _pill(title, color),
+            SizedBox(width: 6),
+            Expanded(child: Text(hint, style: _stCaption)),
+          ],
+        ),
         SizedBox(height: 8),
         Text(codeBlock, style: _stMono),
       ],
@@ -1774,14 +1780,18 @@ Widget _composingNote() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          _pill('NOTE', _kPink),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text('Don\'t draw composing-underlines from the delta',
-                style: _stStrong.copyWith(color: _kPink)),
-          ),
-        ]),
+        Row(
+          children: [
+            _pill('NOTE', _kPink),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                'Don\'t draw composing-underlines from the delta',
+                style: _stStrong.copyWith(color: _kPink),
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 6),
         Text(
           'Treat the composing field as authoritative state — the '
@@ -1814,7 +1824,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 1,
         title: 'Using value.text instead of delta.oldText',
-        body: 'apply() rebuilds the new text from delta.oldText, not '
+        body:
+            'apply() rebuilds the new text from delta.oldText, not '
             'from value.text.  If you imitate apply() but pull text '
             'from your local TextEditingController, you will lose any '
             'IME-side edits made between deltas.',
@@ -1823,7 +1834,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 2,
         title: 'Treating Replacement as Insertion + Deletion',
-        body: 'A replacement is atomic.  Splitting it into a deletion '
+        body:
+            'A replacement is atomic.  Splitting it into a deletion '
             'followed by an insertion can produce intermediate '
             'invalid TextEditingValues with broken selection or '
             'composing offsets.',
@@ -1832,7 +1844,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 3,
         title: 'Off-by-one on replacedRange.end',
-        body: 'replacedRange is half-open.  oldText.substring('
+        body:
+            'replacedRange is half-open.  oldText.substring('
             'replacedRange.start, replacedRange.end) is correct; '
             'replacedRange.end + 1 is not.  textReplaced is the safest '
             'getter to use.',
@@ -1841,7 +1854,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 4,
         title: 'Forgetting to copyWith composing',
-        body: 'apply() returns value.copyWith(text, selection, '
+        body:
+            'apply() returns value.copyWith(text, selection, '
             'composing).  If your custom reducer omits composing, '
             'IME state will diverge from the platform and you will '
             'see ghost composing underlines.',
@@ -1850,7 +1864,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 5,
         title: 'Mutating shared TextEditingValue objects',
-        body: 'TextEditingValue is immutable.  apply() returns a new '
+        body:
+            'TextEditingValue is immutable.  apply() returns a new '
             'instance; never reach into the existing one.  The '
             'framework relies on identity-or-equality comparisons.',
       ),
@@ -1858,7 +1873,8 @@ Widget _pitfallsBody() {
       _pitfall(
         n: 6,
         title: 'Skipping enableDeltaModel = true',
-        body: 'Replacement deltas are only sent when '
+        body:
+            'Replacement deltas are only sent when '
             'TextInputConfiguration.enableDeltaModel is true.  '
             'Otherwise the platform sends opaque updateEditingValue '
             'calls instead, and you will never see a TextEditingDelta '
@@ -1868,11 +1884,7 @@ Widget _pitfallsBody() {
   );
 }
 
-Widget _pitfall({
-  required int n,
-  required String title,
-  required String body,
-}) {
+Widget _pitfall({required int n, required String title, required String body}) {
   return Container(
     padding: EdgeInsets.fromLTRB(14, 10, 14, 12),
     decoration: BoxDecoration(
@@ -1939,7 +1951,8 @@ Widget _recipeBody() {
       SizedBox(height: 14),
       _recipeBlock(
         title: '1. Configure the input connection',
-        code: 'final TextInputConnection connection = TextInput.attach(\n'
+        code:
+            'final TextInputConnection connection = TextInput.attach(\n'
             '  myDeltaClient,\n'
             '  TextInputConfiguration(\n'
             '    inputType:         TextInputType.text,\n'
@@ -1954,7 +1967,8 @@ Widget _recipeBody() {
       SizedBox(height: 10),
       _recipeBlock(
         title: '2. Implement updateEditingValueWithDeltas',
-        code: 'class _MyDeltaClient implements DeltaTextInputClient {\n'
+        code:
+            'class _MyDeltaClient implements DeltaTextInputClient {\n'
             '  TextEditingValue _value =\n'
             '      const TextEditingValue();\n'
             '\n'
@@ -1973,7 +1987,8 @@ Widget _recipeBody() {
       SizedBox(height: 10),
       _recipeBlock(
         title: '3. Pattern-match on Replacement',
-        code: 'for (final TextEditingDelta d in deltas) {\n'
+        code:
+            'for (final TextEditingDelta d in deltas) {\n'
             '  if (d is TextEditingDeltaReplacement) {\n'
             '    debugPrint(\n'
             '      "replaced \\"\${d.textReplaced}\\" "\n'
@@ -1999,11 +2014,13 @@ Widget _recipeBlock({required String title, required String code}) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          _pill('STEP', _kAccent),
-          SizedBox(width: 8),
-          Expanded(child: Text(title, style: _stStrong)),
-        ]),
+        Row(
+          children: [
+            _pill('STEP', _kAccent),
+            SizedBox(width: 8),
+            Expanded(child: Text(title, style: _stStrong)),
+          ],
+        ),
         SizedBox(height: 8),
         Text(code, style: _stMono),
       ],
@@ -2085,7 +2102,8 @@ Widget _body() {
           _section(
             number: '2',
             title: 'IME journey',
-            subtitle: 'Six worked replacements — autocorrect, suggestions, '
+            subtitle:
+                'Six worked replacements — autocorrect, suggestions, '
                 'paste, spell-check, IME compose, shrink.',
             accent: _kNew,
             body: _journeyBody(),
@@ -2093,7 +2111,8 @@ Widget _body() {
           _section(
             number: '3',
             title: 'TextRange pillars',
-            subtitle: 'Every replacedRange visualised over a code-unit '
+            subtitle:
+                'Every replacedRange visualised over a code-unit '
                 'axis with caret markers and composing overlay.',
             accent: _kOld,
             body: _rangeBody(),
@@ -2101,7 +2120,8 @@ Widget _body() {
           _section(
             number: '4',
             title: 'apply() walkthrough',
-            subtitle: 'Four-step reduction from TextEditingValue + delta '
+            subtitle:
+                'Four-step reduction from TextEditingValue + delta '
                 'to the next TextEditingValue.',
             accent: _kSel,
             body: _applyBody(),
@@ -2109,7 +2129,8 @@ Widget _body() {
           _section(
             number: '5',
             title: 'Sibling delta gallery',
-            subtitle: 'How Replacement compares to Insertion, Deletion, '
+            subtitle:
+                'How Replacement compares to Insertion, Deletion, '
                 'and NonTextUpdate.',
             accent: _kCool,
             body: _siblingsBody(),
@@ -2117,7 +2138,8 @@ Widget _body() {
           _section(
             number: '6',
             title: 'Composing callout',
-            subtitle: 'When composing is empty, when it is live, and how '
+            subtitle:
+                'When composing is empty, when it is live, and how '
                 'replacement deltas interact with it.',
             accent: _kCmp,
             body: _composingBody(),
@@ -2125,7 +2147,8 @@ Widget _body() {
           _section(
             number: '7',
             title: 'Pitfalls',
-            subtitle: 'Six recurring bugs in custom DeltaTextInputClient '
+            subtitle:
+                'Six recurring bugs in custom DeltaTextInputClient '
                 'implementations.',
             accent: _kWarn,
             body: _pitfallsBody(),
@@ -2133,7 +2156,8 @@ Widget _body() {
           _section(
             number: '8',
             title: 'Recipe — receiving deltas',
-            subtitle: 'TextInputConfiguration, DeltaTextInputClient, and '
+            subtitle:
+                'TextInputConfiguration, DeltaTextInputClient, and '
                 'pattern-matching on TextEditingDeltaReplacement.',
             accent: _kPink,
             body: _recipeBody(),

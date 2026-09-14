@@ -99,7 +99,8 @@ class _LockIntent extends Intent {
 
 class _LogEntry {
   final DateTime when;
-  final String activatorKind; // SingleActivator / CharacterActivator / LogicalKeySet
+  final String
+  activatorKind; // SingleActivator / CharacterActivator / LogicalKeySet
   final String pressedSummary; // list of keys + modifiers
   final String intentName; // _SaveIntent / _HelpIntent / _LockIntent
   final Color tint;
@@ -131,11 +132,7 @@ class _ActivatorWorkshopApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: _p.violet,
           brightness: Brightness.dark,
-        ).copyWith(
-          primary: _p.violet,
-          secondary: _p.neon,
-          surface: _p.slate,
-        ),
+        ).copyWith(primary: _p.violet, secondary: _p.neon, surface: _p.slate),
         textTheme: const TextTheme(
           headlineMedium: TextStyle(
             fontSize: 22,
@@ -147,10 +144,7 @@ class _ActivatorWorkshopApp extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: Color(0xFFF8FAFC),
           ),
-          bodyMedium: TextStyle(
-            fontSize: 14,
-            color: Color(0xFFE2E8F0),
-          ),
+          bodyMedium: TextStyle(fontSize: 14, color: Color(0xFFE2E8F0)),
         ),
       ),
       home: const _ActivatorWorkshopScreen(),
@@ -173,7 +167,9 @@ class _ActivatorWorkshopScreen extends StatefulWidget {
 class _ActivatorWorkshopScreenState extends State<_ActivatorWorkshopScreen>
     with TickerProviderStateMixin {
   // Focus node that owns every Shortcuts scope in the page.
-  final FocusNode _shellFocus = FocusNode(debugLabel: 'activator-workshop-shell');
+  final FocusNode _shellFocus = FocusNode(
+    debugLabel: 'activator-workshop-shell',
+  );
 
   // Hero keycap controller — animates the "ring glow" when an activator fires.
   late final AnimationController _heroController;
@@ -449,8 +445,11 @@ class _ActivatorWorkshopScreenState extends State<_ActivatorWorkshopScreen>
                 ),
               ],
             ),
-            child: const Icon(Icons.keyboard_alt_outlined,
-                size: 22, color: Colors.white),
+            child: const Icon(
+              Icons.keyboard_alt_outlined,
+              size: 22,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(width: 14),
           const Text('ShortcutActivator Workshop'),
@@ -525,113 +524,113 @@ class _ActivatorWorkshopScreenState extends State<_ActivatorWorkshopScreen>
         return ListView(
           padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
           children: <Widget>[
-              _SurfacePanel(
-                title: 'ShortcutActivator surface',
-                subtitle:
-                    'The abstract base type used by Flutter\'s Shortcuts widget.',
-                children: const <Widget>[
-                  _InstructionalRow(
-                    icon: Icons.filter_center_focus,
-                    title: 'accepts(KeyEvent, HardwareKeyboardState)',
-                    body:
-                        'Activators evaluate a KeyEvent against the current hardware '
-                        'state and return true when their contract is satisfied.',
-                  ),
-                  _InstructionalRow(
-                    icon: Icons.device_hub_outlined,
-                    title: 'triggers',
-                    body:
-                        'A set of logical keys that the manager subscribes to. Only '
-                        'events for these keys are forwarded — an optimisation.',
-                  ),
-                  _InstructionalRow(
-                    icon: Icons.info_outline,
-                    title: 'debugDescribeKeys()',
-                    body:
-                        'A human-readable summary rendered by the DiagnosticableTree '
-                        'machinery, helpful in Shortcuts.describeKeys inspector output.',
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              _KeycapHero(
-                controller: _heroController,
-                held: _held,
-                useMeta: _useMetaForSave,
-              ),
-              const SizedBox(height: 20),
-              if (wide)
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: _SingleActivatorCard(
-                        useMeta: _useMetaForSave,
-                        fired: _saveFlashing,
-                        counter: _saveCounter,
-                        controller: _saveController,
-                        onManualFire: _onSave,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: _CharacterActivatorCard(
-                        helpVisible: _helpShown,
-                        counter: _helpCounter,
-                        onManualFire: _onHelp,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      flex: 1,
-                      child: _LogicalKeySetCard(
-                        locked: _locked,
-                        counter: _lockCounter,
-                        controller: _lockController,
-                        onManualFire: _onLock,
-                      ),
-                    ),
-                  ],
-                )
-              else
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    _SingleActivatorCard(
+            _SurfacePanel(
+              title: 'ShortcutActivator surface',
+              subtitle:
+                  'The abstract base type used by Flutter\'s Shortcuts widget.',
+              children: const <Widget>[
+                _InstructionalRow(
+                  icon: Icons.filter_center_focus,
+                  title: 'accepts(KeyEvent, HardwareKeyboardState)',
+                  body:
+                      'Activators evaluate a KeyEvent against the current hardware '
+                      'state and return true when their contract is satisfied.',
+                ),
+                _InstructionalRow(
+                  icon: Icons.device_hub_outlined,
+                  title: 'triggers',
+                  body:
+                      'A set of logical keys that the manager subscribes to. Only '
+                      'events for these keys are forwarded — an optimisation.',
+                ),
+                _InstructionalRow(
+                  icon: Icons.info_outline,
+                  title: 'debugDescribeKeys()',
+                  body:
+                      'A human-readable summary rendered by the DiagnosticableTree '
+                      'machinery, helpful in Shortcuts.describeKeys inspector output.',
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            _KeycapHero(
+              controller: _heroController,
+              held: _held,
+              useMeta: _useMetaForSave,
+            ),
+            const SizedBox(height: 20),
+            if (wide)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: _SingleActivatorCard(
                       useMeta: _useMetaForSave,
                       fired: _saveFlashing,
                       counter: _saveCounter,
                       controller: _saveController,
                       onManualFire: _onSave,
                     ),
-                    const SizedBox(height: 16),
-                    _CharacterActivatorCard(
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: _CharacterActivatorCard(
                       helpVisible: _helpShown,
                       counter: _helpCounter,
                       onManualFire: _onHelp,
                     ),
-                    const SizedBox(height: 16),
-                    _LogicalKeySetCard(
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    flex: 1,
+                    child: _LogicalKeySetCard(
                       locked: _locked,
                       counter: _lockCounter,
                       controller: _lockController,
                       onManualFire: _onLock,
                     ),
-                  ],
-                ),
-              const SizedBox(height: 20),
-              const _ComparisonTable(),
-              const SizedBox(height: 20),
-              _ModifierLEDRow(held: _held),
-              const SizedBox(height: 20),
-              const _GotchasPanel(),
-              const SizedBox(height: 20),
-              _ActivationLog(entries: _log),
-              const SizedBox(height: 28),
-              _Footer(logSize: _log.length, helpShown: _helpShown),
-            ],
+                  ),
+                ],
+              )
+            else
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  _SingleActivatorCard(
+                    useMeta: _useMetaForSave,
+                    fired: _saveFlashing,
+                    counter: _saveCounter,
+                    controller: _saveController,
+                    onManualFire: _onSave,
+                  ),
+                  const SizedBox(height: 16),
+                  _CharacterActivatorCard(
+                    helpVisible: _helpShown,
+                    counter: _helpCounter,
+                    onManualFire: _onHelp,
+                  ),
+                  const SizedBox(height: 16),
+                  _LogicalKeySetCard(
+                    locked: _locked,
+                    counter: _lockCounter,
+                    controller: _lockController,
+                    onManualFire: _onLock,
+                  ),
+                ],
+              ),
+            const SizedBox(height: 20),
+            const _ComparisonTable(),
+            const SizedBox(height: 20),
+            _ModifierLEDRow(held: _held),
+            const SizedBox(height: 20),
+            const _GotchasPanel(),
+            const SizedBox(height: 20),
+            _ActivationLog(entries: _log),
+            const SizedBox(height: 28),
+            _Footer(logSize: _log.length, helpShown: _helpShown),
+          ],
         );
       },
     );
@@ -656,8 +655,9 @@ class _KeycapHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryLabel = useMeta ? 'Cmd' : 'Ctrl';
-    final primaryKey =
-        useMeta ? LogicalKeyboardKey.meta : LogicalKeyboardKey.control;
+    final primaryKey = useMeta
+        ? LogicalKeyboardKey.meta
+        : LogicalKeyboardKey.control;
 
     return AnimatedBuilder(
       animation: controller,
@@ -668,10 +668,7 @@ class _KeycapHero extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: <Color>[
-                _p.violetDeep.withValues(alpha: 0.92),
-                _p.slate,
-              ],
+              colors: <Color>[_p.violetDeep.withValues(alpha: 0.92), _p.slate],
             ),
             borderRadius: BorderRadius.circular(18),
             border: Border.all(color: _p.violet.withValues(alpha: 0.6)),
@@ -688,8 +685,7 @@ class _KeycapHero extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  const Icon(Icons.auto_awesome,
-                      color: _palNeonSoft, size: 22),
+                  const Icon(Icons.auto_awesome, color: _palNeonSoft, size: 22),
                   const SizedBox(width: 10),
                   const Text(
                     'Keycap Hero',
@@ -702,10 +698,7 @@ class _KeycapHero extends StatelessWidget {
                   const SizedBox(width: 12),
                   Text(
                     '— pulse fires on every dispatched activator',
-                    style: TextStyle(
-                      color: _p.muted,
-                      fontSize: 13,
-                    ),
+                    style: TextStyle(color: _p.muted, fontSize: 13),
                   ),
                 ],
               ),
@@ -717,7 +710,8 @@ class _KeycapHero extends StatelessWidget {
                     glow: controller.value,
                     primaryLabel: primaryLabel,
                     primaryHeld: held.contains(primaryKey),
-                    shiftHeld: held.contains(LogicalKeyboardKey.shift) ||
+                    shiftHeld:
+                        held.contains(LogicalKeyboardKey.shift) ||
                         held.contains(LogicalKeyboardKey.shiftLeft) ||
                         held.contains(LogicalKeyboardKey.shiftRight),
                     kHeld: held.contains(LogicalKeyboardKey.keyK),
@@ -981,8 +975,11 @@ class _SingleActivatorCard extends StatelessWidget {
                       top: 14,
                       child: Row(
                         children: <Widget>[
-                          const Icon(Icons.description_outlined,
-                              color: _palInk, size: 18),
+                          const Icon(
+                            Icons.description_outlined,
+                            color: _palInk,
+                            size: 18,
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             'untitled.dart',
@@ -1003,8 +1000,11 @@ class _SingleActivatorCard extends StatelessWidget {
                           opacity: (1 - pulse).clamp(0.0, 1.0),
                           child: Row(
                             children: const <Widget>[
-                              Icon(Icons.save_rounded,
-                                  color: _palNeon, size: 20),
+                              Icon(
+                                Icons.save_rounded,
+                                color: _palNeon,
+                                size: 20,
+                              ),
                               SizedBox(width: 6),
                               Text(
                                 'saved!',
@@ -1042,17 +1042,13 @@ class _SingleActivatorCard extends StatelessWidget {
                     label: const Text('Fire manually'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _p.ink,
-                      side: BorderSide(
-                          color: _p.violet.withValues(alpha: 0.6)),
+                      side: BorderSide(color: _p.violet.withValues(alpha: 0.6)),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Text(
                     'or press the combo while this card is in focus.',
-                    style: TextStyle(
-                      color: _p.muted,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: _p.muted, fontSize: 12),
                   ),
                 ],
               ),
@@ -1086,10 +1082,7 @@ class _DocumentPainter extends CustomPainter {
     if (flashStrength > 0) {
       final flashPaint = Paint()
         ..color = _p.neon.withValues(alpha: 0.25 * flashStrength);
-      canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        flashPaint,
-      );
+      canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), flashPaint);
     }
   }
 
@@ -1120,8 +1113,7 @@ class _CharacterActivatorCard extends StatelessWidget {
       accent: _p.neon,
       tag: 'CharacterActivator',
       title: 'Type "?" anywhere',
-      subtitle:
-          'Matches a typed character regardless of physical key layout.',
+      subtitle: 'Matches a typed character regardless of physical key layout.',
       signatureLines: const <String>[
         "CharacterActivator('?')",
         '// optionally: includeRepeats: false,',
@@ -1155,8 +1147,7 @@ class _CharacterActivatorCard extends StatelessWidget {
                   top: 14,
                   child: Row(
                     children: const <Widget>[
-                      Icon(Icons.help_outline,
-                          color: _palNeonSoft, size: 18),
+                      Icon(Icons.help_outline, color: _palNeonSoft, size: 18),
                       SizedBox(width: 6),
                       Text(
                         'Press ? for help',
@@ -1176,10 +1167,7 @@ class _CharacterActivatorCard extends StatelessWidget {
                   child: Text(
                     'CharacterActivator matches the produced character, so '
                     'Shift+/ on US layout, AltGr+ß on DE, etc., all resolve to "?".',
-                    style: TextStyle(
-                      color: _p.muted,
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(color: _p.muted, fontSize: 12),
                   ),
                 ),
                 Positioned(
@@ -1189,12 +1177,15 @@ class _CharacterActivatorCard extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: _p.neon.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(6),
                           border: Border.all(
-                              color: _p.neon.withValues(alpha: 0.5)),
+                            color: _p.neon.withValues(alpha: 0.5),
+                          ),
                         ),
                         child: Text(
                           'Help fires: $counter',
@@ -1210,8 +1201,7 @@ class _CharacterActivatorCard extends StatelessWidget {
                       Text(
                         helpVisible ? 'overlay VISIBLE' : 'overlay hidden',
                         style: TextStyle(
-                          color:
-                              helpVisible ? _p.neon : _p.muted,
+                          color: helpVisible ? _p.neon : _p.muted,
                           fontSize: 11,
                           fontFamily: 'monospace',
                         ),
@@ -1281,11 +1271,11 @@ class _LogicalKeySetCard extends StatelessWidget {
       ],
       guidance: const <String>[
         'LogicalKeySet treats its arguments as a set: the trigger fires when the '
-        'last key completes the set, regardless of order.',
+            'last key completes the set, regardless of order.',
         'Useful for non-conventional combos or when you genuinely want "three '
-        'keys held together" semantics.',
+            'keys held together" semantics.',
         'Prefer SingleActivator when the combo is "modifier + single key" — it '
-        'has nicer OS-integration and repeat handling.',
+            'has nicer OS-integration and repeat handling.',
       ],
       body: AnimatedBuilder(
         animation: controller,
@@ -1320,8 +1310,11 @@ class _LogicalKeySetCard extends StatelessWidget {
                             children: <Widget>[
                               Row(
                                 children: const <Widget>[
-                                  Icon(Icons.dashboard_customize_outlined,
-                                      color: _palInk, size: 18),
+                                  Icon(
+                                    Icons.dashboard_customize_outlined,
+                                    color: _palInk,
+                                    size: 18,
+                                  ),
                                   SizedBox(width: 8),
                                   Text(
                                     'Privileged Panel',
@@ -1362,8 +1355,11 @@ class _LogicalKeySetCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: const Icon(Icons.lock,
-                                color: Colors.white, size: 36),
+                            child: const Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                              size: 36,
+                            ),
                           ),
                         ),
                       ),
@@ -1380,7 +1376,8 @@ class _LogicalKeySetCard extends StatelessWidget {
                     style: OutlinedButton.styleFrom(
                       foregroundColor: _p.ink,
                       side: BorderSide(
-                          color: _p.violetSoft.withValues(alpha: 0.7)),
+                        color: _p.violetSoft.withValues(alpha: 0.7),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1482,8 +1479,7 @@ class _DemoCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: accent.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(6),
@@ -1654,8 +1650,7 @@ class _ComparisonTable extends StatelessWidget {
       const _ComparisonRow(
         scenario: 'Shortcut inside a TextField (cut/copy)',
         single: 'Use SingleActivator + DefaultTextEditingShortcuts',
-        character:
-            'Dangerous — fires while typing that character',
+        character: 'Dangerous — fires while typing that character',
         logicalSet: 'Works but verbose',
         best: 'SingleActivator',
       ),
@@ -1663,8 +1658,7 @@ class _ComparisonTable extends StatelessWidget {
         scenario: 'Keyboard cheat-code: K K K',
         single: 'Cannot express repetition',
         character: 'Not a combo',
-        logicalSet:
-            'No — set does not care about ordering/repetition',
+        logicalSet: 'No — set does not care about ordering/repetition',
         best: 'Custom ShortcutActivator subclass',
       ),
     ];
@@ -1680,8 +1674,7 @@ class _ComparisonTable extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              Icon(Icons.table_chart_outlined,
-                  color: _palViolet, size: 20),
+              Icon(Icons.table_chart_outlined, color: _palViolet, size: 20),
               SizedBox(width: 8),
               Text(
                 'When to choose each subclass',
@@ -1742,21 +1735,35 @@ class _ComparisonHeader extends StatelessWidget {
       child: Row(
         children: const <Widget>[
           _ComparisonCell(
-              text: 'Scenario', width: 240, bold: true, color: _palInk),
+            text: 'Scenario',
+            width: 240,
+            bold: true,
+            color: _palInk,
+          ),
           _ComparisonCell(
-              text: 'SingleActivator', width: 180, bold: true, color: _palInk),
+            text: 'SingleActivator',
+            width: 180,
+            bold: true,
+            color: _palInk,
+          ),
           _ComparisonCell(
-              text: 'CharacterActivator',
-              width: 180,
-              bold: true,
-              color: _palInk),
+            text: 'CharacterActivator',
+            width: 180,
+            bold: true,
+            color: _palInk,
+          ),
           _ComparisonCell(
-              text: 'LogicalKeySet',
-              width: 180,
-              bold: true,
-              color: _palInk),
+            text: 'LogicalKeySet',
+            width: 180,
+            bold: true,
+            color: _palInk,
+          ),
           _ComparisonCell(
-              text: 'Best choice', width: 160, bold: true, color: _palNeon),
+            text: 'Best choice',
+            width: 160,
+            bold: true,
+            color: _palNeon,
+          ),
         ],
       ),
     );
@@ -1803,7 +1810,11 @@ class _ComparisonRowView extends StatelessWidget {
           _ComparisonCell(text: row.character, width: 180),
           _ComparisonCell(text: row.logicalSet, width: 180),
           _ComparisonCell(
-              text: row.best, width: 160, bold: true, color: _palNeon),
+            text: row.best,
+            width: 160,
+            bold: true,
+            color: _palNeon,
+          ),
         ],
       ),
     );
@@ -2070,8 +2081,7 @@ class _ActivationLog extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _p.neon.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(999),
@@ -2099,10 +2109,7 @@ class _ActivationLog extends StatelessWidget {
                     child: Text(
                       'No activations yet. Press Ctrl+S, ?, or Ctrl+Alt+L '
                       '(or click the card buttons) to log one.',
-                      style: TextStyle(
-                        color: _p.muted,
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: _p.muted, fontSize: 12),
                       textAlign: TextAlign.center,
                     ),
                   )
@@ -2253,8 +2260,11 @@ class _HelpCheatsheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: Padding(
                   padding: const EdgeInsets.all(4),
-                  child: Icon(Icons.close,
-                      color: _p.muted.withValues(alpha: 0.9), size: 18),
+                  child: Icon(
+                    Icons.close,
+                    color: _p.muted.withValues(alpha: 0.9),
+                    size: 18,
+                  ),
                 ),
               ),
             ],
@@ -2358,11 +2368,13 @@ class _SurfacePanel extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: _p.violet.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(10),
-                  border:
-                      Border.all(color: _p.violet.withValues(alpha: 0.55)),
+                  border: Border.all(color: _p.violet.withValues(alpha: 0.55)),
                 ),
-                child: const Icon(Icons.architecture_outlined,
-                    color: _palViolet, size: 20),
+                child: const Icon(
+                  Icons.architecture_outlined,
+                  color: _palViolet,
+                  size: 20,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -2519,8 +2531,7 @@ class _GotchasPanel extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              Icon(Icons.warning_amber_rounded,
-                  color: _palNeonSoft, size: 20),
+              Icon(Icons.warning_amber_rounded, color: _palNeonSoft, size: 20),
               SizedBox(width: 8),
               Text(
                 'Gotchas',
@@ -2577,8 +2588,7 @@ class _GotchaRow extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: _p.neon.withValues(alpha: 0.45)),
             ),
-            child: const Icon(Icons.priority_high,
-                color: _palNeon, size: 16),
+            child: const Icon(Icons.priority_high, color: _palNeon, size: 16),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -2631,12 +2641,7 @@ class _Footer extends StatelessWidget {
           decoration: const BoxDecoration(
             color: _palNeon,
             shape: BoxShape.circle,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: _palNeon,
-                blurRadius: 8,
-              ),
-            ],
+            boxShadow: <BoxShadow>[BoxShadow(color: _palNeon, blurRadius: 8)],
           ),
         ),
         const SizedBox(width: 8),

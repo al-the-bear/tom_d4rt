@@ -32,11 +32,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0D47A1),
-          Color(0xFF1565C0),
-          Color(0xFF6A1B9A),
-        ],
+        colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF6A1B9A)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -59,11 +55,7 @@ dynamic build(BuildContext context) {
       children: [
         Opacity(
           opacity: stopFull.value,
-          child: Icon(
-            Icons.accessibility_new,
-            size: 72.0,
-            color: Colors.white,
-          ),
+          child: Icon(Icons.accessibility_new, size: 72.0, color: Colors.white),
         ),
         SizedBox(height: 12.0),
         Text(
@@ -591,12 +583,21 @@ dynamic build(BuildContext context) {
   // ============================================================
   // SECTION 6: Group cards
   // ============================================================
-  final Widget interactivityCards =
-      _buildFlagGroup('Interactivity flags', interactivityFlags, Colors.blue);
-  final Widget stateCards =
-      _buildFlagGroup('State flags', stateFlags, Colors.green);
-  final Widget roleCards =
-      _buildFlagGroup('Role / structure flags', roleFlags, Colors.deepPurple);
+  final Widget interactivityCards = _buildFlagGroup(
+    'Interactivity flags',
+    interactivityFlags,
+    Colors.blue,
+  );
+  final Widget stateCards = _buildFlagGroup(
+    'State flags',
+    stateFlags,
+    Colors.green,
+  );
+  final Widget roleCards = _buildFlagGroup(
+    'Role / structure flags',
+    roleFlags,
+    Colors.deepPurple,
+  );
 
   // ============================================================
   // SECTION 7: Accessibility recipes
@@ -617,7 +618,8 @@ dynamic build(BuildContext context) {
         'isEnabled',
         'isFocusable',
       ],
-      code: 'Semantics(\n'
+      code:
+          'Semantics(\n'
           '  button: true,\n'
           '  toggled: true,\n'
           '  enabled: true,\n'
@@ -637,7 +639,8 @@ dynamic build(BuildContext context) {
         'isCheckStateMixed',
         'isFocusable',
       ],
-      code: 'Semantics(\n'
+      code:
+          'Semantics(\n'
           '  checked: state == true,\n'
           '  mixed: state == null,\n'
           '  child: Checkbox(...),\n'
@@ -656,7 +659,8 @@ dynamic build(BuildContext context) {
         'isInMutuallyExclusiveGroup',
         'isFocusable',
       ],
-      code: 'Semantics(\n'
+      code:
+          'Semantics(\n'
           '  selected: groupValue == value,\n'
           '  inMutuallyExclusiveGroup: true,\n'
           '  child: Radio<T>(...),\n'
@@ -677,7 +681,8 @@ dynamic build(BuildContext context) {
         'isEnabled',
         'isFocusable',
       ],
-      code: 'Semantics(\n'
+      code:
+          'Semantics(\n'
           '  textField: true,\n'
           '  required: true,\n'
           '  child: TextField(...),\n'
@@ -690,10 +695,9 @@ dynamic build(BuildContext context) {
           'Just isHeader is required.',
       icon: Icons.title,
       color: Colors.indigo,
-      flags: const [
-        'isHeader',
-      ],
-      code: 'Semantics(\n'
+      flags: const ['isHeader'],
+      code:
+          'Semantics(\n'
           '  header: true,\n'
           '  child: Text("Settings"),\n'
           ')',
@@ -705,10 +709,9 @@ dynamic build(BuildContext context) {
           'Use isLiveRegion sparingly to avoid noise.',
       icon: Icons.podcasts,
       color: Colors.pink,
-      flags: const [
-        'isLiveRegion',
-      ],
-      code: 'Semantics(\n'
+      flags: const ['isLiveRegion'],
+      code:
+          'Semantics(\n'
           '  liveRegion: true,\n'
           '  child: snackBarMessage,\n'
           ')',
@@ -720,11 +723,9 @@ dynamic build(BuildContext context) {
           'namesRoute provides the spoken name.',
       icon: Icons.layers,
       color: Colors.blueGrey,
-      flags: const [
-        'scopesRoute',
-        'namesRoute',
-      ],
-      code: 'Semantics(\n'
+      flags: const ['scopesRoute', 'namesRoute'],
+      code:
+          'Semantics(\n'
           '  scopesRoute: true,\n'
           '  namesRoute: true,\n'
           '  label: "Profile",\n'
@@ -738,11 +739,9 @@ dynamic build(BuildContext context) {
           'isHidden so the picture is painted but not announced.',
       icon: Icons.hide_image,
       color: Colors.grey,
-      flags: const [
-        'isImage',
-        'isHidden',
-      ],
-      code: 'Semantics(\n'
+      flags: const ['isImage', 'isHidden'],
+      code:
+          'Semantics(\n'
           '  image: true,\n'
           '  excludeSemantics: true,\n'
           '  child: decorativeIcon,\n'
@@ -763,35 +762,40 @@ dynamic build(BuildContext context) {
     ),
     _PitfallSpec(
       bad: 'isToggled without hasToggledState',
-      good: 'Pair hasToggledState with isToggled. Otherwise AT will not '
+      good:
+          'Pair hasToggledState with isToggled. Otherwise AT will not '
           'announce on/off state.',
       icon: Icons.error_outline,
       color: Colors.red,
     ),
     _PitfallSpec(
       bad: 'Using isButton on a non-tappable Text',
-      good: 'Only set isButton when there is an onTap/onPressed handler. '
+      good:
+          'Only set isButton when there is an onTap/onPressed handler. '
           'Otherwise AT will lie to users.',
       icon: Icons.warning_amber,
       color: Colors.amber,
     ),
     _PitfallSpec(
       bad: 'isLiveRegion on every status text',
-      good: 'Reserve liveRegion for actually-changing content. Otherwise it '
+      good:
+          'Reserve liveRegion for actually-changing content. Otherwise it '
           'creates speech spam.',
       icon: Icons.warning_amber,
       color: Colors.amber,
     ),
     _PitfallSpec(
       bad: 'Mixing isChecked with isCheckStateMixed',
-      good: 'They are mutually exclusive. Use one or the other based on '
+      good:
+          'They are mutually exclusive. Use one or the other based on '
           'tri-state value.',
       icon: Icons.cancel_outlined,
       color: Colors.deepOrange,
     ),
     _PitfallSpec(
       bad: 'isHeader on every Text',
-      good: 'Only mark actual section headings; otherwise heading navigation '
+      good:
+          'Only mark actual section headings; otherwise heading navigation '
           'becomes useless.',
       icon: Icons.warning_amber,
       color: Colors.amber,
@@ -810,14 +814,16 @@ dynamic build(BuildContext context) {
     ),
     _PitfallSpec(
       bad: 'isFocused without isFocusable',
-      good: 'Focused implies focusable. Set isFocusable on anything that can '
+      good:
+          'Focused implies focusable. Set isFocusable on anything that can '
           'be focused.',
       icon: Icons.error_outline,
       color: Colors.red,
     ),
     _PitfallSpec(
       bad: 'scopesRoute on inner widgets',
-      good: 'scopesRoute belongs on the route\'s root; nesting routes confuses '
+      good:
+          'scopesRoute belongs on the route\'s root; nesting routes confuses '
           'navigation.',
       icon: Icons.cancel_outlined,
       color: Colors.deepOrange,
@@ -931,8 +937,7 @@ dynamic build(BuildContext context) {
   final List<Widget> quickRefRows = <Widget>[];
   for (int i = 0; i < ui.SemanticsFlag.values.length; i++) {
     final ui.SemanticsFlag flag = ui.SemanticsFlag.values[i];
-    final Color stripe =
-        i.isEven ? Colors.blue.shade50 : Colors.purple.shade50;
+    final Color stripe = i.isEven ? Colors.blue.shade50 : Colors.purple.shade50;
     quickRefRows.add(
       Container(
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -949,10 +954,7 @@ dynamic build(BuildContext context) {
               height: 36.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Colors.indigo.shade300,
-                    Colors.indigo.shade600,
-                  ],
+                  colors: [Colors.indigo.shade300, Colors.indigo.shade600],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1048,11 +1050,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0B0B1F),
-          Color(0xFF1A1A3F),
-          Color(0xFF2C0B4F),
-        ],
+        colors: [Color(0xFF0B0B1F), Color(0xFF1A1A3F), Color(0xFF2C0B4F)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1138,9 +1136,7 @@ dynamic build(BuildContext context) {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(12.0),
-        border: Border(
-          left: BorderSide(color: color, width: 5.0),
-        ),
+        border: Border(left: BorderSide(color: color, width: 5.0)),
       ),
       child: Row(
         children: [
@@ -1202,12 +1198,7 @@ dynamic build(BuildContext context) {
               Colors.blue,
             ),
             interactivityCards,
-            sectionTitle(
-              '3',
-              'State flags',
-              Icons.toggle_on,
-              Colors.green,
-            ),
+            sectionTitle('3', 'State flags', Icons.toggle_on, Colors.green),
             stateCards,
             sectionTitle(
               '4',
@@ -1332,10 +1323,7 @@ Widget _buildBadge(String label, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.55),
-          color.withValues(alpha: 0.85),
-        ],
+        colors: [color.withValues(alpha: 0.55), color.withValues(alpha: 0.85)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1454,11 +1442,7 @@ Widget _buildFlagGroup(String title, List<_FlagSpec> specs, Color accent) {
           ],
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: cards,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: cards),
       ],
     ),
   );
@@ -1478,10 +1462,7 @@ Widget _buildFlagCard(_FlagSpec s) {
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: s.color.withValues(alpha: 0.45),
-        width: 1.4,
-      ),
+      border: Border.all(color: s.color.withValues(alpha: 0.45), width: 1.4),
       boxShadow: [
         BoxShadow(
           color: s.color.withValues(alpha: 0.20),
@@ -1528,8 +1509,10 @@ Widget _buildFlagCard(_FlagSpec s) {
                   ),
                   SizedBox(height: 2.0),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: s.color.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1625,11 +1608,7 @@ Widget _buildRecipesSection(List<_RecipeSpec> recipes) {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: rows,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: rows),
       ],
     ),
   );
@@ -1642,10 +1621,7 @@ Widget _buildRecipeCard(_RecipeSpec r) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: r.color.withValues(alpha: 0.45),
-        width: 1.4,
-      ),
+      border: Border.all(color: r.color.withValues(alpha: 0.45), width: 1.4),
       boxShadow: [
         BoxShadow(
           color: r.color.withValues(alpha: 0.18),
@@ -1664,10 +1640,7 @@ Widget _buildRecipeCard(_RecipeSpec r) {
               height: 36.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    r.color.withValues(alpha: 0.7),
-                    r.color,
-                  ],
+                  colors: [r.color.withValues(alpha: 0.7), r.color],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1705,8 +1678,7 @@ Widget _buildRecipeCard(_RecipeSpec r) {
           children: [
             for (final String f in r.flags)
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: r.color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20.0),
@@ -1773,10 +1745,7 @@ Widget _buildPitfallsSection(List<_PitfallSpec> pitfalls) {
         ),
       ],
     ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: rows,
-    ),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
   );
 }
 
@@ -1787,9 +1756,7 @@ Widget _buildPitfallCard(_PitfallSpec p) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(
-        left: BorderSide(color: p.color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: p.color, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: p.color.withValues(alpha: 0.10),
@@ -1811,7 +1778,9 @@ Widget _buildPitfallCard(_PitfallSpec p) {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 2.0),
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: p.color.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1844,7 +1813,9 @@ Widget _buildPitfallCard(_PitfallSpec p) {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 6.0, vertical: 2.0),
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.withValues(alpha: 0.18),
                       borderRadius: BorderRadius.circular(4.0),
@@ -1938,10 +1909,7 @@ Widget _buildComparisonRow(
           width: 220.0,
           child: Text(
             useCase,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey.shade800,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
             textAlign: TextAlign.center,
           ),
         ),

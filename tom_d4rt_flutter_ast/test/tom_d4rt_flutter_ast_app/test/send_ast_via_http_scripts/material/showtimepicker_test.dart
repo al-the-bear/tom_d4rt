@@ -29,7 +29,13 @@ const Color _hairline = Color(0xFF8B7B5A);
 // ============================================================
 // Tiny helpers — declared up top so the build() body stays linear.
 // ============================================================
-TextStyle _serif(double size, Color color, {FontWeight? weight, double? spacing, FontStyle? italic}) {
+TextStyle _serif(
+  double size,
+  Color color, {
+  FontWeight? weight,
+  double? spacing,
+  FontStyle? italic,
+}) {
   return TextStyle(
     fontSize: size,
     color: color,
@@ -72,12 +78,14 @@ Widget _dot(Color color, double size) {
 Widget _tickRow(int count, Color color) {
   final List<Widget> ticks = <Widget>[];
   for (int i = 0; i < count; i++) {
-    ticks.add(Container(
-      width: 1.5,
-      height: 8.0,
-      margin: EdgeInsets.symmetric(horizontal: 2.0),
-      color: color,
-    ));
+    ticks.add(
+      Container(
+        width: 1.5,
+        height: 8.0,
+        margin: EdgeInsets.symmetric(horizontal: 2.0),
+        color: color,
+      ),
+    );
   }
   return Row(mainAxisSize: MainAxisSize.min, children: ticks);
 }
@@ -106,16 +114,34 @@ Widget _sectionHeader(String index, String title, String subtitle) {
             shape: BoxShape.circle,
             border: Border.all(color: _brassBright, width: 1.5),
           ),
-          child: Text(index, style: _serif(16.0, _midnight, weight: FontWeight.bold)),
+          child: Text(
+            index,
+            style: _serif(16.0, _midnight, weight: FontWeight.bold),
+          ),
         ),
         SizedBox(width: 14.0),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title, style: _serif(18.0, _ivory, weight: FontWeight.bold, spacing: 0.6)),
+              Text(
+                title,
+                style: _serif(
+                  18.0,
+                  _ivory,
+                  weight: FontWeight.bold,
+                  spacing: 0.6,
+                ),
+              ),
               SizedBox(height: 2.0),
-              Text(subtitle, style: _serif(11.5, _ivoryDeep.withValues(alpha: 0.75), italic: FontStyle.italic)),
+              Text(
+                subtitle,
+                style: _serif(
+                  11.5,
+                  _ivoryDeep.withValues(alpha: 0.75),
+                  italic: FontStyle.italic,
+                ),
+              ),
             ],
           ),
         ),
@@ -135,14 +161,16 @@ Widget _paramHeaderCell(String label, double width) {
   );
 }
 
-Widget _paramCell(String text, double width, {bool mono = false, Color? color}) {
+Widget _paramCell(
+  String text,
+  double width, {
+  bool mono = false,
+  Color? color,
+}) {
   final Color c = color ?? _midnight;
   return SizedBox(
     width: width,
-    child: Text(
-      text,
-      style: mono ? _mono(11.0, c) : _serif(11.5, c),
-    ),
+    child: Text(text, style: mono ? _mono(11.0, c) : _serif(11.5, c)),
   );
 }
 
@@ -152,7 +180,9 @@ Widget _paramCell(String text, double width, {bool mono = false, Color? color}) 
 dynamic build(BuildContext context) {
   print('showTimePicker Deep Demo executing');
   print('Theme: horologist atelier — brass, blued steel, ivory, crimson');
-  print('NOTE: showTimePicker is NEVER invoked. Every dialog is a static mock.');
+  print(
+    'NOTE: showTimePicker is NEVER invoked. Every dialog is a static mock.',
+  );
 
   // ============================================================
   // SECTION 1: Hero — atelier nameplate
@@ -219,20 +249,12 @@ dynamic build(BuildContext context) {
             // Hour hand at 10 o'clock-ish.
             Transform.rotate(
               angle: -0.6,
-              child: Container(
-                width: 4.0,
-                height: 28.0,
-                color: _midnight,
-              ),
+              child: Container(width: 4.0, height: 28.0, color: _midnight),
             ),
             // Minute hand at the 2.
             Transform.rotate(
               angle: 0.9,
-              child: Container(
-                width: 2.0,
-                height: 36.0,
-                color: _bluedSteel,
-              ),
+              child: Container(width: 2.0, height: 36.0, color: _bluedSteel),
             ),
             _dot(_crimson, 10.0),
           ],
@@ -248,10 +270,7 @@ dynamic build(BuildContext context) {
           style: _serif(14.0, _brassBright, italic: FontStyle.italic),
         ),
         SizedBox(height: 12.0),
-        Text(
-          'package:flutter/material.dart',
-          style: _mono(11.0, _brassBright),
-        ),
+        Text('package:flutter/material.dart', style: _mono(11.0, _brassBright)),
         SizedBox(height: 4.0),
         Text(
           'Future<TimeOfDay?> showTimePicker({...})',
@@ -269,21 +288,76 @@ dynamic build(BuildContext context) {
 
   final List<List<String>> paramData = <List<String>>[
     <String>['context', 'BuildContext', 'required', 'host for the modal route'],
-    <String>['initialTime', 'TimeOfDay', 'required', 'time selected when opened'],
-    <String>['initialEntryMode', 'TimePickerEntryMode', 'optional', 'dial vs keyboard input'],
+    <String>[
+      'initialTime',
+      'TimeOfDay',
+      'required',
+      'time selected when opened',
+    ],
+    <String>[
+      'initialEntryMode',
+      'TimePickerEntryMode',
+      'optional',
+      'dial vs keyboard input',
+    ],
     <String>['helpText', 'String?', 'optional', 'header instruction text'],
     <String>['cancelText', 'String?', 'optional', 'label for cancel action'],
     <String>['confirmText', 'String?', 'optional', 'label for confirm action'],
-    <String>['errorInvalidText', 'String?', 'optional', 'shown on invalid entry'],
+    <String>[
+      'errorInvalidText',
+      'String?',
+      'optional',
+      'shown on invalid entry',
+    ],
     <String>['hourLabelText', 'String?', 'optional', 'label above hour field'],
-    <String>['minuteLabelText', 'String?', 'optional', 'label above minute field'],
-    <String>['builder', 'TransitionBuilder?', 'optional', 'wrap dialog with theme/locale'],
-    <String>['useRootNavigator', 'bool', 'default true', 'route on root vs nested'],
-    <String>['routeSettings', 'RouteSettings?', 'optional', 'name + args for the route'],
-    <String>['anchorPoint', 'Offset?', 'optional', 'display anchor on multi-screen'],
-    <String>['orientation', 'Orientation?', 'optional', 'force portrait or landscape'],
-    <String>['onEntryModeChanged', 'EntryModeChangeCallback?', 'optional', 'callback when mode toggles'],
-    <String>['barrierDismissible', 'bool', 'default true', 'tap-outside dismiss'],
+    <String>[
+      'minuteLabelText',
+      'String?',
+      'optional',
+      'label above minute field',
+    ],
+    <String>[
+      'builder',
+      'TransitionBuilder?',
+      'optional',
+      'wrap dialog with theme/locale',
+    ],
+    <String>[
+      'useRootNavigator',
+      'bool',
+      'default true',
+      'route on root vs nested',
+    ],
+    <String>[
+      'routeSettings',
+      'RouteSettings?',
+      'optional',
+      'name + args for the route',
+    ],
+    <String>[
+      'anchorPoint',
+      'Offset?',
+      'optional',
+      'display anchor on multi-screen',
+    ],
+    <String>[
+      'orientation',
+      'Orientation?',
+      'optional',
+      'force portrait or landscape',
+    ],
+    <String>[
+      'onEntryModeChanged',
+      'EntryModeChangeCallback?',
+      'optional',
+      'callback when mode toggles',
+    ],
+    <String>[
+      'barrierDismissible',
+      'bool',
+      'default true',
+      'tap-outside dismiss',
+    ],
     <String>['barrierColor', 'Color?', 'optional', 'tint behind dialog'],
     <String>['barrierLabel', 'String?', 'optional', 'a11y label for barrier'],
   ];
@@ -317,7 +391,10 @@ dynamic build(BuildContext context) {
               ? _ivory.withValues(alpha: 0.85)
               : _ivoryDeep.withValues(alpha: 0.65),
           border: Border(
-            bottom: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5),
+            bottom: BorderSide(
+              color: _hairline.withValues(alpha: 0.4),
+              width: 0.5,
+            ),
           ),
         ),
         child: Row(
@@ -340,7 +417,10 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: _brass.withValues(alpha: 0.6), width: 1.0),
     ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: paramRows),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: paramRows,
+    ),
   );
   print('Parameter table rows: ${paramRows.length}');
 
@@ -364,7 +444,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 2.0),
         Text('int   0..23', style: _mono(11.0, _midnight)),
         SizedBox(height: 2.0),
-        Text('always 24h internally', style: _serif(10.5, _patina, italic: FontStyle.italic)),
+        Text(
+          'always 24h internally',
+          style: _serif(10.5, _patina, italic: FontStyle.italic),
+        ),
       ],
     ),
   );
@@ -384,7 +467,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 2.0),
         Text('int   0..59', style: _mono(11.0, _midnight)),
         SizedBox(height: 2.0),
-        Text('no seconds — none', style: _serif(10.5, _patina, italic: FontStyle.italic)),
+        Text(
+          'no seconds — none',
+          style: _serif(10.5, _patina, italic: FontStyle.italic),
+        ),
       ],
     ),
   );
@@ -404,7 +490,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 2.0),
         Text('DayPeriod.am / .pm', style: _mono(11.0, _midnight)),
         SizedBox(height: 2.0),
-        Text('derived from hour', style: _serif(10.5, _patina, italic: FontStyle.italic)),
+        Text(
+          'derived from hour',
+          style: _serif(10.5, _patina, italic: FontStyle.italic),
+        ),
       ],
     ),
   );
@@ -458,13 +547,25 @@ dynamic build(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('// Construct', style: _mono(10.5, _patina)),
-              Text('const TimeOfDay(hour: 9, minute: 41)', style: _mono(11.5, _ivory)),
+              Text(
+                'const TimeOfDay(hour: 9, minute: 41)',
+                style: _mono(11.5, _ivory),
+              ),
               SizedBox(height: 4.0),
               Text('// From a DateTime', style: _mono(10.5, _patina)),
-              Text('TimeOfDay.fromDateTime(DateTime.now())', style: _mono(11.5, _ivory)),
+              Text(
+                'TimeOfDay.fromDateTime(DateTime.now())',
+                style: _mono(11.5, _ivory),
+              ),
               SizedBox(height: 4.0),
-              Text('// Equality is by (hour, minute)', style: _mono(10.5, _patina)),
-              Text('a == b   iff a.hour==b.hour && a.minute==b.minute', style: _mono(11.5, _ivory)),
+              Text(
+                '// Equality is by (hour, minute)',
+                style: _mono(10.5, _patina),
+              ),
+              Text(
+                'a == b   iff a.hour==b.hour && a.minute==b.minute',
+                style: _mono(11.5, _ivory),
+              ),
             ],
           ),
         ),
@@ -534,7 +635,10 @@ dynamic build(BuildContext context) {
               shape: BoxShape.circle,
             ),
             alignment: Alignment.center,
-            child: Text('9', style: _serif(13.0, _ivory, weight: FontWeight.bold)),
+            child: Text(
+              '9',
+              style: _serif(13.0, _ivory, weight: FontWeight.bold),
+            ),
           ),
         ),
         ...hourMarks,
@@ -578,11 +682,15 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('TimePickerEntryMode.dial',
-            style: _mono(12.0, _brassBright, weight: FontWeight.bold)),
+        Text(
+          'TimePickerEntryMode.dial',
+          style: _mono(12.0, _brassBright, weight: FontWeight.bold),
+        ),
         SizedBox(height: 6.0),
-        Text('A 12-position rotor — hours first, then minutes.',
-            style: _serif(11.5, _ivoryDeep, italic: FontStyle.italic)),
+        Text(
+          'A 12-position rotor — hours first, then minutes.',
+          style: _serif(11.5, _ivoryDeep, italic: FontStyle.italic),
+        ),
         SizedBox(height: 14.0),
         Center(child: dialFace),
         SizedBox(height: 14.0),
@@ -613,11 +721,15 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('TimePickerEntryMode.input',
-            style: _mono(12.0, _brassBright, weight: FontWeight.bold)),
+        Text(
+          'TimePickerEntryMode.input',
+          style: _mono(12.0, _brassBright, weight: FontWeight.bold),
+        ),
         SizedBox(height: 6.0),
-        Text('Two pairs of digit fields — keyboard-friendly entry.',
-            style: _serif(11.5, _ivoryDeep, italic: FontStyle.italic)),
+        Text(
+          'Two pairs of digit fields — keyboard-friendly entry.',
+          style: _serif(11.5, _ivoryDeep, italic: FontStyle.italic),
+        ),
         SizedBox(height: 18.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -626,28 +738,35 @@ dynamic build(BuildContext context) {
               children: <Widget>[
                 Text('Hour', style: _mono(10.0, _ivoryDeep)),
                 SizedBox(height: 4.0),
-                Row(children: <Widget>[
-                  _digitBox('0', false),
-                  SizedBox(width: 6.0),
-                  _digitBox('9', true),
-                ]),
+                Row(
+                  children: <Widget>[
+                    _digitBox('0', false),
+                    SizedBox(width: 6.0),
+                    _digitBox('9', true),
+                  ],
+                ),
               ],
             ),
             SizedBox(width: 12.0),
             Padding(
               padding: EdgeInsets.only(top: 18.0),
-              child: Text(':', style: _serif(36.0, _ivory, weight: FontWeight.bold)),
+              child: Text(
+                ':',
+                style: _serif(36.0, _ivory, weight: FontWeight.bold),
+              ),
             ),
             SizedBox(width: 12.0),
             Column(
               children: <Widget>[
                 Text('Minute', style: _mono(10.0, _ivoryDeep)),
                 SizedBox(height: 4.0),
-                Row(children: <Widget>[
-                  _digitBox('4', false),
-                  SizedBox(width: 6.0),
-                  _digitBox('1', false),
-                ]),
+                Row(
+                  children: <Widget>[
+                    _digitBox('4', false),
+                    SizedBox(width: 6.0),
+                    _digitBox('1', false),
+                  ],
+                ),
               ],
             ),
           ],
@@ -663,7 +782,10 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(color: _brass, width: 1.0),
               ),
-              child: Text('AM', style: _mono(11.0, _midnight, weight: FontWeight.bold)),
+              child: Text(
+                'AM',
+                style: _mono(11.0, _midnight, weight: FontWeight.bold),
+              ),
             ),
             SizedBox(width: 8.0),
             Container(
@@ -672,7 +794,10 @@ dynamic build(BuildContext context) {
                 color: _crimson,
                 borderRadius: BorderRadius.circular(20.0),
               ),
-              child: Text('PM', style: _mono(11.0, _ivory, weight: FontWeight.bold)),
+              child: Text(
+                'PM',
+                style: _mono(11.0, _ivory, weight: FontWeight.bold),
+              ),
             ),
           ],
         ),
@@ -753,19 +878,72 @@ dynamic build(BuildContext context) {
           color: _bluedSteel,
           child: Row(
             children: <Widget>[
-              SizedBox(width: 230.0, child: Text('FORMAT', style: _mono(10.5, _ivory, weight: FontWeight.bold))),
-              SizedBox(width: 130.0, child: Text('SHAPE', style: _mono(10.5, _ivory, weight: FontWeight.bold))),
-              SizedBox(width: 170.0, child: Text('SAMPLE', style: _mono(10.5, _ivory, weight: FontWeight.bold))),
-              Expanded(child: Text('LOCALE HINT', style: _mono(10.5, _ivory, weight: FontWeight.bold))),
+              SizedBox(
+                width: 230.0,
+                child: Text(
+                  'FORMAT',
+                  style: _mono(10.5, _ivory, weight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 130.0,
+                child: Text(
+                  'SHAPE',
+                  style: _mono(10.5, _ivory, weight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: 170.0,
+                child: Text(
+                  'SAMPLE',
+                  style: _mono(10.5, _ivory, weight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'LOCALE HINT',
+                  style: _mono(10.5, _ivory, weight: FontWeight.bold),
+                ),
+              ),
             ],
           ),
         ),
-        _formatRow('h_colon_mm_space_a', 'h:mm a', '9:41 AM', 'en_US — the canonical 12h flavor'),
-        _formatRow('HH_colon_mm', 'HH:mm', '09:41', 'fr_FR, de_DE — most 24h locales'),
-        _formatRow('H_colon_mm', 'H:mm', '9:41', 'cs_CZ — 24h, no leading zero'),
-        _formatRow('HH_dot_mm', 'HH.mm', '09.41', 'fi_FI — Finnish dot separator'),
-        _formatRow('frenchCanadian', 'HH \u0027h\u0027 mm', '09 h 41', 'fr_CA — with stuck h-glyph'),
-        _formatRow('a_space_h_colon_mm', 'a h:mm', 'AM 9:41', 'zh_CN — period leading'),
+        _formatRow(
+          'h_colon_mm_space_a',
+          'h:mm a',
+          '9:41 AM',
+          'en_US — the canonical 12h flavor',
+        ),
+        _formatRow(
+          'HH_colon_mm',
+          'HH:mm',
+          '09:41',
+          'fr_FR, de_DE — most 24h locales',
+        ),
+        _formatRow(
+          'H_colon_mm',
+          'H:mm',
+          '9:41',
+          'cs_CZ — 24h, no leading zero',
+        ),
+        _formatRow(
+          'HH_dot_mm',
+          'HH.mm',
+          '09.41',
+          'fi_FI — Finnish dot separator',
+        ),
+        _formatRow(
+          'frenchCanadian',
+          'HH \u0027h\u0027 mm',
+          '09 h 41',
+          'fr_CA — with stuck h-glyph',
+        ),
+        _formatRow(
+          'a_space_h_colon_mm',
+          'a h:mm',
+          'AM 9:41',
+          'zh_CN — period leading',
+        ),
       ],
     ),
   );
@@ -790,8 +968,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('12-hour vs 24-hour — who decides?',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          '12-hour vs 24-hour — who decides?',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 4.0),
         Text(
           'TimeOfDay is always 24h internally. The face you see is decided by '
@@ -819,10 +999,19 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('// Force 24h, regardless of locale', style: _mono(10.5, _patina)),
-              Text('builder: (BuildContext ctx, Widget? child) {', style: _mono(11.0, _ivory)),
+              Text(
+                '// Force 24h, regardless of locale',
+                style: _mono(10.5, _patina),
+              ),
+              Text(
+                'builder: (BuildContext ctx, Widget? child) {',
+                style: _mono(11.0, _ivory),
+              ),
               Text('  return MediaQuery(', style: _mono(11.0, _ivory)),
-              Text('    data: MediaQuery.of(ctx).copyWith(alwaysUse24HourFormat: true),', style: _mono(11.0, _ivory)),
+              Text(
+                '    data: MediaQuery.of(ctx).copyWith(alwaysUse24HourFormat: true),',
+                style: _mono(11.0, _ivory),
+              ),
               Text('    child: child!,', style: _mono(11.0, _ivory)),
               Text('  );', style: _mono(11.0, _ivory)),
               Text('},', style: _mono(11.0, _ivory)),
@@ -867,31 +1056,48 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('SELECT A SCHEDULED TIME',
-                  style: _mono(11.0, _patina, weight: FontWeight.bold)),
+              Text(
+                'SELECT A SCHEDULED TIME',
+                style: _mono(11.0, _patina, weight: FontWeight.bold),
+              ),
               SizedBox(height: 12.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.0,
+                      vertical: 8.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _brass.withValues(alpha: 0.25),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('09', style: _serif(38.0, _midnight, weight: FontWeight.bold)),
+                    child: Text(
+                      '09',
+                      style: _serif(38.0, _midnight, weight: FontWeight.bold),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Text(':', style: _serif(38.0, _midnight, weight: FontWeight.bold)),
+                    child: Text(
+                      ':',
+                      style: _serif(38.0, _midnight, weight: FontWeight.bold),
+                    ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.0,
+                      vertical: 8.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _ivoryDeep,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('41', style: _serif(38.0, _midnight, weight: FontWeight.bold)),
+                    child: Text(
+                      '41',
+                      style: _serif(38.0, _midnight, weight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -900,17 +1106,29 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-                    child: Text('DISMISS', style: _mono(11.0, _bluedSteel, weight: FontWeight.bold)),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
+                    child: Text(
+                      'DISMISS',
+                      style: _mono(11.0, _bluedSteel, weight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(width: 8.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: _crimson,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
-                    child: Text('SCHEDULE', style: _mono(11.0, _ivory, weight: FontWeight.bold)),
+                    child: Text(
+                      'SCHEDULE',
+                      style: _mono(11.0, _ivory, weight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -919,11 +1137,7 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 6.0),
         // Annotation arrows.
-        Row(
-          children: <Widget>[
-            _labeledArrow('helpText', 360.0, _bluedSteel),
-          ],
-        ),
+        Row(children: <Widget>[_labeledArrow('helpText', 360.0, _bluedSteel)]),
         SizedBox(height: 4.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -943,13 +1157,34 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('// what the example above passes', style: _mono(10.5, _patina)),
-              Text('helpText:    \u0027SELECT A SCHEDULED TIME\u0027,', style: _mono(11.0, _ivory)),
-              Text('cancelText:  \u0027DISMISS\u0027,', style: _mono(11.0, _ivory)),
-              Text('confirmText: \u0027SCHEDULE\u0027,', style: _mono(11.0, _ivory)),
-              Text('hourLabelText:   \u0027Hour\u0027,', style: _mono(11.0, _ivory)),
-              Text('minuteLabelText: \u0027Minute\u0027,', style: _mono(11.0, _ivory)),
-              Text('errorInvalidText: \u0027Outside opening hours\u0027,', style: _mono(11.0, _ivory)),
+              Text(
+                '// what the example above passes',
+                style: _mono(10.5, _patina),
+              ),
+              Text(
+                'helpText:    \u0027SELECT A SCHEDULED TIME\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                'cancelText:  \u0027DISMISS\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                'confirmText: \u0027SCHEDULE\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                'hourLabelText:   \u0027Hour\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                'minuteLabelText: \u0027Minute\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                'errorInvalidText: \u0027Outside opening hours\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
             ],
           ),
         ),
@@ -973,8 +1208,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('builder — the spell that re-themes the room',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'builder — the spell that re-themes the room',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 4.0),
         Text(
           'The builder runs once per route build, wrapping the TimePickerDialog. '
@@ -1010,17 +1247,41 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: _midnight, borderRadius: BorderRadius.circular(6.0)),
+          decoration: BoxDecoration(
+            color: _midnight,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('// Recipe: dark dialog over a light app', style: _mono(10.5, _patina)),
-              Text('builder: (BuildContext ctx, Widget? child) => Theme(', style: _mono(11.0, _ivory)),
-              Text('  data: ThemeData.dark().copyWith(', style: _mono(11.0, _ivory)),
-              Text('    timePickerTheme: const TimePickerThemeData(', style: _mono(11.0, _ivory)),
-              Text('      backgroundColor: Color(0xFF1B2233),', style: _mono(11.0, _ivory)),
-              Text('      hourMinuteColor: Color(0xFF334466),', style: _mono(11.0, _ivory)),
-              Text('      dialHandColor: Color(0xFFD4B164),', style: _mono(11.0, _ivory)),
+              Text(
+                '// Recipe: dark dialog over a light app',
+                style: _mono(10.5, _patina),
+              ),
+              Text(
+                'builder: (BuildContext ctx, Widget? child) => Theme(',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '  data: ThemeData.dark().copyWith(',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '    timePickerTheme: const TimePickerThemeData(',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '      backgroundColor: Color(0xFF1B2233),',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '      hourMinuteColor: Color(0xFF334466),',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '      dialHandColor: Color(0xFFD4B164),',
+                style: _mono(11.0, _ivory),
+              ),
               Text('    ),', style: _mono(11.0, _ivory)),
               Text('  ),', style: _mono(11.0, _ivory)),
               Text('  child: child!,', style: _mono(11.0, _ivory)),
@@ -1048,8 +1309,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('orientation — Orientation.portrait | Orientation.landscape',
-            style: _serif(14.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'orientation — Orientation.portrait | Orientation.landscape',
+          style: _serif(14.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 4.0),
         Text(
           'The dialog auto-detects orientation, but you can force it. '
@@ -1089,8 +1352,10 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             Icon(Icons.error_outline, color: _crimson, size: 20.0),
             SizedBox(width: 6.0),
-            Text('errorInvalidText — only visible in input mode',
-                style: _serif(14.0, _midnight, weight: FontWeight.bold)),
+            Text(
+              'errorInvalidText — only visible in input mode',
+              style: _serif(14.0, _midnight, weight: FontWeight.bold),
+            ),
           ],
         ),
         SizedBox(height: 6.0),
@@ -1111,7 +1376,10 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6.0),
                 border: Border.all(color: _crimson, width: 1.0),
               ),
-              child: Text('99', style: _serif(20.0, _crimson, weight: FontWeight.bold)),
+              child: Text(
+                '99',
+                style: _serif(20.0, _crimson, weight: FontWeight.bold),
+              ),
             ),
             SizedBox(width: 6.0),
             Text(':', style: _serif(20.0, _midnight, weight: FontWeight.bold)),
@@ -1123,7 +1391,10 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(6.0),
                 border: Border.all(color: _hairline, width: 1.0),
               ),
-              child: Text('41', style: _serif(20.0, _midnight, weight: FontWeight.bold)),
+              child: Text(
+                '41',
+                style: _serif(20.0, _midnight, weight: FontWeight.bold),
+              ),
             ),
           ],
         ),
@@ -1135,12 +1406,21 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(color: _midnight, borderRadius: BorderRadius.circular(6.0)),
+          decoration: BoxDecoration(
+            color: _midnight,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('errorInvalidText: \u0027Try again — hours run 0..23\u0027,', style: _mono(11.0, _ivory)),
-              Text('// Defaults to MaterialLocalizations.invalidTimeLabel.', style: _mono(10.5, _patina)),
+              Text(
+                'errorInvalidText: \u0027Try again — hours run 0..23\u0027,',
+                style: _mono(11.0, _ivory),
+              ),
+              Text(
+                '// Defaults to MaterialLocalizations.invalidTimeLabel.',
+                style: _mono(10.5, _patina),
+              ),
             ],
           ),
         ),
@@ -1164,8 +1444,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Routing — anchorPoint, useRootNavigator, routeSettings',
-            style: _serif(14.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'Routing — anchorPoint, useRootNavigator, routeSettings',
+          style: _serif(14.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 10.0),
         Wrap(
           spacing: 12.0,
@@ -1235,8 +1517,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('TimePickerThemeData — the wardrobe',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'TimePickerThemeData — the wardrobe',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 4.0),
         Text(
           'Set on Theme.timePickerTheme or via the builder. Each property is nullable; '
@@ -1287,8 +1571,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Pitfalls — the watchmaker\u2019s regrets',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'Pitfalls — the watchmaker\u2019s regrets',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 10.0),
         _pitfallRow(
           'Treating the result as non-null',
@@ -1366,105 +1652,83 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Recipes — small reproducible calls',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'Recipes — small reproducible calls',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 10.0),
-        _recipeBlock(
-          '1. Minimal call — open at noon',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 12, minute: 0),',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '2. Force keyboard entry on opening',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: TimeOfDay.fromDateTime(DateTime.now()),',
-            '  initialEntryMode: TimePickerEntryMode.input,',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '3. Locked dial, custom labels (kiosk)',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 9, minute: 30),',
-            '  initialEntryMode: TimePickerEntryMode.dialOnly,',
-            '  helpText: \u0027Pick your start time\u0027,',
-            '  cancelText: \u0027Back\u0027,',
-            '  confirmText: \u0027Set\u0027,',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '4. Always-24-hour, dark theme',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 21, minute: 41),',
-            '  builder: (BuildContext ctx, Widget? child) => MediaQuery(',
-            '    data: MediaQuery.of(ctx).copyWith(alwaysUse24HourFormat: true),',
-            '    child: Theme(',
-            '      data: ThemeData.dark(),',
-            '      child: child!,',
-            '    ),',
-            '  ),',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '5. Right-to-left override',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 7, minute: 15),',
-            '  builder: (BuildContext ctx, Widget? child) => Directionality(',
-            '    textDirection: TextDirection.rtl,',
-            '    child: child!,',
-            '  ),',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '6. Listen to entry-mode toggles',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 14, minute: 0),',
-            '  onEntryModeChanged: (TimePickerEntryMode mode) {',
-            '    debugPrint(\u0027picker mode is now: \u0024mode\u0027);',
-            '  },',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '7. Multi-screen — pick the right display',
-          <String>[
-            'showTimePicker(',
-            '  context: context,',
-            '  initialTime: const TimeOfDay(hour: 8, minute: 0),',
-            '  anchorPoint: const Offset(1000.0, 0.0),',
-            ');',
-          ],
-        ),
-        _recipeBlock(
-          '8. Validation after the dialog returns',
-          <String>[
-            '// (illustrative; no async in this demo)',
-            '// final picked = await showTimePicker(...);',
-            '// if (picked == null) return;             // cancelled',
-            '// if (picked.hour < 9 || picked.hour >= 17) {',
-            '//   showSnack(\u0027Outside working hours\u0027);',
-            '//   return;',
-            '// }',
-            '// applyTime(picked);',
-          ],
-        ),
+        _recipeBlock('1. Minimal call — open at noon', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 12, minute: 0),',
+          ');',
+        ]),
+        _recipeBlock('2. Force keyboard entry on opening', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: TimeOfDay.fromDateTime(DateTime.now()),',
+          '  initialEntryMode: TimePickerEntryMode.input,',
+          ');',
+        ]),
+        _recipeBlock('3. Locked dial, custom labels (kiosk)', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 9, minute: 30),',
+          '  initialEntryMode: TimePickerEntryMode.dialOnly,',
+          '  helpText: \u0027Pick your start time\u0027,',
+          '  cancelText: \u0027Back\u0027,',
+          '  confirmText: \u0027Set\u0027,',
+          ');',
+        ]),
+        _recipeBlock('4. Always-24-hour, dark theme', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 21, minute: 41),',
+          '  builder: (BuildContext ctx, Widget? child) => MediaQuery(',
+          '    data: MediaQuery.of(ctx).copyWith(alwaysUse24HourFormat: true),',
+          '    child: Theme(',
+          '      data: ThemeData.dark(),',
+          '      child: child!,',
+          '    ),',
+          '  ),',
+          ');',
+        ]),
+        _recipeBlock('5. Right-to-left override', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 7, minute: 15),',
+          '  builder: (BuildContext ctx, Widget? child) => Directionality(',
+          '    textDirection: TextDirection.rtl,',
+          '    child: child!,',
+          '  ),',
+          ');',
+        ]),
+        _recipeBlock('6. Listen to entry-mode toggles', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 14, minute: 0),',
+          '  onEntryModeChanged: (TimePickerEntryMode mode) {',
+          '    debugPrint(\u0027picker mode is now: \u0024mode\u0027);',
+          '  },',
+          ');',
+        ]),
+        _recipeBlock('7. Multi-screen — pick the right display', <String>[
+          'showTimePicker(',
+          '  context: context,',
+          '  initialTime: const TimeOfDay(hour: 8, minute: 0),',
+          '  anchorPoint: const Offset(1000.0, 0.0),',
+          ');',
+        ]),
+        _recipeBlock('8. Validation after the dialog returns', <String>[
+          '// (illustrative; no async in this demo)',
+          '// final picked = await showTimePicker(...);',
+          '// if (picked == null) return;             // cancelled',
+          '// if (picked.hour < 9 || picked.hour >= 17) {',
+          '//   showSnack(\u0027Outside working hours\u0027);',
+          '//   return;',
+          '// }',
+          '// applyTime(picked);',
+        ]),
       ],
     ),
   );
@@ -1485,8 +1749,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('showTimePicker vs TimePickerDialog',
-            style: _serif(15.0, _midnight, weight: FontWeight.bold)),
+        Text(
+          'showTimePicker vs TimePickerDialog',
+          style: _serif(15.0, _midnight, weight: FontWeight.bold),
+        ),
         SizedBox(height: 4.0),
         Text(
           'Two ways to do the same thing — at different layers of the stack.',
@@ -1497,28 +1763,20 @@ dynamic build(BuildContext context) {
           spacing: 14.0,
           runSpacing: 14.0,
           children: <Widget>[
-            _vsColumn(
-              'showTimePicker(...)',
-              <String>[
-                'Top-level async function.',
-                'Pushes a modal route on a Navigator.',
-                'Returns Future<TimeOfDay?>.',
-                'Handles barrier, anchor, and root vs nested routing.',
-                'Default for 95% of apps — start here.',
-              ],
-              _bluedSteel,
-            ),
-            _vsColumn(
-              'TimePickerDialog(...)',
-              <String>[
-                'Underlying StatefulWidget.',
-                'Place inside your own showDialog or custom route.',
-                'Use when you need an unusual transition or non-modal usage.',
-                'Pair with Navigator.pop(context, time) to return the value.',
-                'Same params (initialTime, helpText, ...) plus onEntryModeChanged.',
-              ],
-              _crimson,
-            ),
+            _vsColumn('showTimePicker(...)', <String>[
+              'Top-level async function.',
+              'Pushes a modal route on a Navigator.',
+              'Returns Future<TimeOfDay?>.',
+              'Handles barrier, anchor, and root vs nested routing.',
+              'Default for 95% of apps — start here.',
+            ], _bluedSteel),
+            _vsColumn('TimePickerDialog(...)', <String>[
+              'Underlying StatefulWidget.',
+              'Place inside your own showDialog or custom route.',
+              'Use when you need an unusual transition or non-modal usage.',
+              'Pair with Navigator.pop(context, time) to return the value.',
+              'Same params (initialTime, helpText, ...) plus onEntryModeChanged.',
+            ], _crimson),
           ],
         ),
       ],
@@ -1554,12 +1812,16 @@ dynamic build(BuildContext context) {
                 color: _crimson,
                 borderRadius: BorderRadius.circular(4.0),
               ),
-              child: Text('COLOPHON',
-                  style: _mono(11.0, _ivory, weight: FontWeight.bold)),
+              child: Text(
+                'COLOPHON',
+                style: _mono(11.0, _ivory, weight: FontWeight.bold),
+              ),
             ),
             SizedBox(width: 8.0),
-            Text('horologie · MMXXVI',
-                style: _serif(12.0, _brassBright, italic: FontStyle.italic)),
+            Text(
+              'horologie · MMXXVI',
+              style: _serif(12.0, _brassBright, italic: FontStyle.italic),
+            ),
           ],
         ),
         SizedBox(height: 12.0),
@@ -1576,14 +1838,30 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         Wrap(
           children: <Widget>[
-            _chip('flutter/material', _bluedSteel.withValues(alpha: 0.6), _ivory),
+            _chip(
+              'flutter/material',
+              _bluedSteel.withValues(alpha: 0.6),
+              _ivory,
+            ),
             _chip('TimeOfDay', _bluedSteel.withValues(alpha: 0.6), _ivory),
-            _chip('TimePickerEntryMode', _bluedSteel.withValues(alpha: 0.6), _ivory),
-            _chip('TimePickerThemeData', _bluedSteel.withValues(alpha: 0.6), _ivory),
+            _chip(
+              'TimePickerEntryMode',
+              _bluedSteel.withValues(alpha: 0.6),
+              _ivory,
+            ),
+            _chip(
+              'TimePickerThemeData',
+              _bluedSteel.withValues(alpha: 0.6),
+              _ivory,
+            ),
             _chip('builder', _bluedSteel.withValues(alpha: 0.6), _ivory),
             _chip('orientation', _bluedSteel.withValues(alpha: 0.6), _ivory),
             _chip('anchorPoint', _bluedSteel.withValues(alpha: 0.6), _ivory),
-            _chip('errorInvalidText', _bluedSteel.withValues(alpha: 0.6), _ivory),
+            _chip(
+              'errorInvalidText',
+              _bluedSteel.withValues(alpha: 0.6),
+              _ivory,
+            ),
           ],
         ),
         SizedBox(height: 12.0),
@@ -1605,37 +1883,81 @@ dynamic build(BuildContext context) {
 
   final List<Widget> page = <Widget>[
     hero,
-    _sectionHeader('1', 'Anatomy of the call', 'every parameter, kind, and purpose'),
+    _sectionHeader(
+      '1',
+      'Anatomy of the call',
+      'every parameter, kind, and purpose',
+    ),
     paramTable,
     _sectionHeader('2', 'TimeOfDay', 'the small ledger the dialog returns'),
     todAnatomy,
-    _sectionHeader('3', 'Entry modes — dial pane', 'the round face, hour ring then minute ring'),
+    _sectionHeader(
+      '3',
+      'Entry modes — dial pane',
+      'the round face, hour ring then minute ring',
+    ),
     dialPanel,
-    _sectionHeader('4', 'Entry modes — input pane', 'two pairs of digit fields and the AM/PM pill'),
+    _sectionHeader(
+      '4',
+      'Entry modes — input pane',
+      'two pairs of digit fields and the AM/PM pill',
+    ),
     inputPanel,
     _sectionHeader('5', 'TimePickerEntryMode', 'four members, four moods'),
     modeQuartet,
     _sectionHeader('6', 'TimeOfDayFormat', 'the local rendering shape'),
     formatPanel,
-    _sectionHeader('7', '12-hour vs 24-hour', 'who decides? and how to override'),
+    _sectionHeader(
+      '7',
+      '12-hour vs 24-hour',
+      'who decides? and how to override',
+    ),
     localizationStory,
-    _sectionHeader('8', 'helpText / cancelText / confirmText', 'three strings, one labelled diagram'),
+    _sectionHeader(
+      '8',
+      'helpText / cancelText / confirmText',
+      'three strings, one labelled diagram',
+    ),
     labeledDialogMock,
-    _sectionHeader('9', 'builder', 'wrapping the dialog in Theme/Locale/MediaQuery'),
+    _sectionHeader(
+      '9',
+      'builder',
+      'wrapping the dialog in Theme/Locale/MediaQuery',
+    ),
     builderExplainer,
-    _sectionHeader('10', 'orientation', 'portrait stacks; landscape sets side by side'),
+    _sectionHeader(
+      '10',
+      'orientation',
+      'portrait stacks; landscape sets side by side',
+    ),
     orientationCards,
-    _sectionHeader('11', 'errorInvalidText', 'the only error label the dialog itself shows'),
+    _sectionHeader(
+      '11',
+      'errorInvalidText',
+      'the only error label the dialog itself shows',
+    ),
     errorPavilion,
-    _sectionHeader('12', 'Routing', 'anchorPoint, useRootNavigator, routeSettings, barrier*'),
+    _sectionHeader(
+      '12',
+      'Routing',
+      'anchorPoint, useRootNavigator, routeSettings, barrier*',
+    ),
     routingTrio,
-    _sectionHeader('13', 'TimePickerThemeData', 'the wardrobe and the swatches'),
+    _sectionHeader(
+      '13',
+      'TimePickerThemeData',
+      'the wardrobe and the swatches',
+    ),
     themeWardrobe,
     _sectionHeader('14', 'Pitfalls', 'eight regrets the workshop has seen'),
     pitfalls,
     _sectionHeader('15', 'Recipes', 'short reproducible call samples'),
     recipes,
-    _sectionHeader('16', 'showTimePicker vs TimePickerDialog', 'function or widget?'),
+    _sectionHeader(
+      '16',
+      'showTimePicker vs TimePickerDialog',
+      'function or widget?',
+    ),
     functionVsWidget,
     footer,
   ];
@@ -1690,7 +2012,13 @@ Widget _digitBox(String d, bool selected) {
   );
 }
 
-Widget _modeCard(String name, String description, IconData icon, bool toggle, Color tint) {
+Widget _modeCard(
+  String name,
+  String description,
+  IconData icon,
+  bool toggle,
+  Color tint,
+) {
   return Container(
     width: 260.0,
     padding: EdgeInsets.all(12.0),
@@ -1717,12 +2045,18 @@ Widget _modeCard(String name, String description, IconData icon, bool toggle, Co
             Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
               decoration: BoxDecoration(
-                color: toggle ? _emerald.withValues(alpha: 0.25) : _hairline.withValues(alpha: 0.25),
+                color: toggle
+                    ? _emerald.withValues(alpha: 0.25)
+                    : _hairline.withValues(alpha: 0.25),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
                 toggle ? 'mode toggle SHOWN' : 'mode toggle HIDDEN',
-                style: _mono(9.5, toggle ? _emerald : _shadow, weight: FontWeight.bold),
+                style: _mono(
+                  9.5,
+                  toggle ? _emerald : _shadow,
+                  weight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -1737,13 +2071,18 @@ Widget _formatRow(String name, String shape, String example, String locale) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
     decoration: BoxDecoration(
       color: _ivory,
-      border: Border(bottom: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5)),
+      border: Border(
+        bottom: BorderSide(color: _hairline.withValues(alpha: 0.4), width: 0.5),
+      ),
     ),
     child: Row(
       children: <Widget>[
         SizedBox(
           width: 230.0,
-          child: Text(name, style: _mono(11.0, _midnight, weight: FontWeight.bold)),
+          child: Text(
+            name,
+            style: _mono(11.0, _midnight, weight: FontWeight.bold),
+          ),
         ),
         SizedBox(
           width: 130.0,
@@ -1757,11 +2096,19 @@ Widget _formatRow(String name, String shape, String example, String locale) {
               color: _bluedSteel,
               borderRadius: BorderRadius.circular(4.0),
             ),
-            child: Text(example, style: _mono(12.0, _ivory, weight: FontWeight.bold)),
+            child: Text(
+              example,
+              style: _mono(12.0, _ivory, weight: FontWeight.bold),
+            ),
           ),
         ),
         SizedBox(width: 8.0),
-        Expanded(child: Text(locale, style: _serif(11.0, _patina, italic: FontStyle.italic))),
+        Expanded(
+          child: Text(
+            locale,
+            style: _serif(11.0, _patina, italic: FontStyle.italic),
+          ),
+        ),
       ],
     ),
   );
@@ -1801,7 +2148,10 @@ Widget _labeledArrow(String label, double width, Color color) {
             color: color,
             borderRadius: BorderRadius.circular(3.0),
           ),
-          child: Text(label, style: _mono(9.5, _ivory, weight: FontWeight.bold)),
+          child: Text(
+            label,
+            style: _mono(9.5, _ivory, weight: FontWeight.bold),
+          ),
         ),
       ],
     ),
@@ -1862,7 +2212,10 @@ Widget _oriCard(String label, double w, double h, bool stacked) {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         alignment: Alignment.center,
-                        child: Text('09 : 41', style: _mono(13.0, _ivory, weight: FontWeight.bold)),
+                        child: Text(
+                          '09 : 41',
+                          style: _mono(13.0, _ivory, weight: FontWeight.bold),
+                        ),
                       ),
                       SizedBox(height: 6.0),
                       Expanded(
@@ -1873,7 +2226,11 @@ Widget _oriCard(String label, double w, double h, bool stacked) {
                             border: Border.all(color: _brass, width: 1.0),
                           ),
                           alignment: Alignment.center,
-                          child: Icon(Icons.access_time, color: _bluedSteel, size: 28.0),
+                          child: Icon(
+                            Icons.access_time,
+                            color: _bluedSteel,
+                            size: 28.0,
+                          ),
                         ),
                       ),
                     ],
@@ -1888,7 +2245,10 @@ Widget _oriCard(String label, double w, double h, bool stacked) {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         alignment: Alignment.center,
-                        child: Text('09:41', style: _mono(12.0, _ivory, weight: FontWeight.bold)),
+                        child: Text(
+                          '09:41',
+                          style: _mono(12.0, _ivory, weight: FontWeight.bold),
+                        ),
                       ),
                       SizedBox(width: 6.0),
                       Expanded(
@@ -1899,7 +2259,11 @@ Widget _oriCard(String label, double w, double h, bool stacked) {
                             border: Border.all(color: _brass, width: 1.0),
                           ),
                           alignment: Alignment.center,
-                          child: Icon(Icons.access_time, color: _bluedSteel, size: 28.0),
+                          child: Icon(
+                            Icons.access_time,
+                            color: _bluedSteel,
+                            size: 28.0,
+                          ),
                         ),
                       ),
                     ],
@@ -1949,9 +2313,7 @@ Widget _swatch(String name, Color c) {
           ),
         ),
         SizedBox(width: 6.0),
-        Expanded(
-          child: Text(name, style: _mono(10.5, _midnight)),
-        ),
+        Expanded(child: Text(name, style: _mono(10.5, _midnight))),
       ],
     ),
   );
@@ -1991,7 +2353,14 @@ Widget _pitfallRow(String title, String detail, IconData icon, Color tint) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(title, style: _serif(12.0, _midnight, weight: FontWeight.bold)),
+                          Text(
+                            title,
+                            style: _serif(
+                              12.0,
+                              _midnight,
+                              weight: FontWeight.bold,
+                            ),
+                          ),
                           SizedBox(height: 2.0),
                           Text(detail, style: _serif(11.0, _midnight)),
                         ],
@@ -2037,16 +2406,18 @@ Widget _vsColumn(String title, List<String> rows, Color tint) {
   children.add(Text(title, style: _mono(12.0, tint, weight: FontWeight.bold)));
   children.add(SizedBox(height: 6.0));
   for (final String row in rows) {
-    children.add(Padding(
-      padding: EdgeInsets.symmetric(vertical: 2.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('\u2022 ', style: _serif(12.0, tint, weight: FontWeight.bold)),
-          Expanded(child: Text(row, style: _serif(11.5, _midnight))),
-        ],
+    children.add(
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('\u2022 ', style: _serif(12.0, tint, weight: FontWeight.bold)),
+            Expanded(child: Text(row, style: _serif(11.5, _midnight))),
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     width: 320.0,
@@ -2056,7 +2427,10 @@ Widget _vsColumn(String title, List<String> rows, Color tint) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: tint, width: 1.0),
     ),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children,
+    ),
   );
 }
 

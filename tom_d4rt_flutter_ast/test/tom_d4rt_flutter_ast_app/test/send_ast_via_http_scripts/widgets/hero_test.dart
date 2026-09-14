@@ -109,7 +109,11 @@ Widget _panel({required Widget child, EdgeInsets? padding, Color? tint}) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: Colors.white12, width: 1.0),
       boxShadow: const [
-        BoxShadow(color: Colors.black45, blurRadius: 6.0, offset: Offset(0.0, 3.0)),
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 6.0,
+          offset: Offset(0.0, 3.0),
+        ),
       ],
     ),
     child: child,
@@ -228,7 +232,11 @@ Widget _glyph({
       borderRadius: BorderRadius.circular(radius),
       border: Border.all(color: Colors.white70, width: 1.5),
       boxShadow: const [
-        BoxShadow(color: Colors.black45, blurRadius: 4.0, offset: Offset(0.0, 2.0)),
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 4.0,
+          offset: Offset(0.0, 2.0),
+        ),
       ],
     ),
     // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #113, P3):
@@ -277,15 +285,15 @@ Widget _heroHeader() {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          Color(0xFF1E1B4B),
-          Color(0xFF312E81),
-          Color(0xFF0F766E),
-        ],
+        colors: [Color(0xFF1E1B4B), Color(0xFF312E81), Color(0xFF0F766E)],
       ),
       borderRadius: BorderRadius.circular(16.0),
       boxShadow: const [
-        BoxShadow(color: Colors.black54, blurRadius: 14.0, offset: Offset(0.0, 6.0)),
+        BoxShadow(
+          color: Colors.black54,
+          blurRadius: 14.0,
+          offset: Offset(0.0, 6.0),
+        ),
       ],
     ),
     child: Column(
@@ -322,7 +330,10 @@ Widget _heroHeader() {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 5.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(8.0),
@@ -411,20 +422,41 @@ Widget _conceptOverview() {
               color: _textPrimary,
             ),
             const SizedBox(height: 10.0),
-            _bullet(Icons.check_circle, _accentTeal,
-                'Heroes are matched by tag, not by widget identity.'),
-            _bullet(Icons.check_circle, _accentTeal,
-                'Each route may contain at most one Hero per tag.'),
-            _bullet(Icons.check_circle, _accentTeal,
-                'During a flight the Hero is parented to an Overlay above all routes.'),
-            _bullet(Icons.check_circle, _accentTeal,
-                'Source and destination tiles render placeholders while in flight.'),
-            _bullet(Icons.error_outline, _accentRose,
-                'Hero is NOT for in-route animation — for that use AnimatedSwitcher or AnimatedContainer.'),
-            _bullet(Icons.error_outline, _accentRose,
-                'Hero is NOT a hover effect; it requires a Navigator route change.'),
-            _bullet(Icons.error_outline, _accentRose,
-                'Hero is NOT a fade — its default tween is a rectangle interpolation.'),
+            _bullet(
+              Icons.check_circle,
+              _accentTeal,
+              'Heroes are matched by tag, not by widget identity.',
+            ),
+            _bullet(
+              Icons.check_circle,
+              _accentTeal,
+              'Each route may contain at most one Hero per tag.',
+            ),
+            _bullet(
+              Icons.check_circle,
+              _accentTeal,
+              'During a flight the Hero is parented to an Overlay above all routes.',
+            ),
+            _bullet(
+              Icons.check_circle,
+              _accentTeal,
+              'Source and destination tiles render placeholders while in flight.',
+            ),
+            _bullet(
+              Icons.error_outline,
+              _accentRose,
+              'Hero is NOT for in-route animation — for that use AnimatedSwitcher or AnimatedContainer.',
+            ),
+            _bullet(
+              Icons.error_outline,
+              _accentRose,
+              'Hero is NOT a hover effect; it requires a Navigator route change.',
+            ),
+            _bullet(
+              Icons.error_outline,
+              _accentRose,
+              'Hero is NOT a fade — its default tween is a rectangle interpolation.',
+            ),
           ],
         ),
       ),
@@ -504,14 +536,30 @@ Widget _anatomyDiagram() {
             const Divider(color: Colors.white24),
             Row(
               children: [
-                Expanded(child: _caption('Source rect — the bounds of the origin Hero at the moment push starts.')),
-                Expanded(child: _caption('Destination rect — the bounds of the matching Hero on the new route.')),
+                Expanded(
+                  child: _caption(
+                    'Source rect — the bounds of the origin Hero at the moment push starts.',
+                  ),
+                ),
+                Expanded(
+                  child: _caption(
+                    'Destination rect — the bounds of the matching Hero on the new route.',
+                  ),
+                ),
               ],
             ),
             Row(
               children: [
-                Expanded(child: _caption('Flight path — a Tween<Rect> computed by createRectTween; default is MaterialRectArcTween.')),
-                Expanded(child: _caption('Tag — the identity that pairs source and destination.')),
+                Expanded(
+                  child: _caption(
+                    'Flight path — a Tween<Rect> computed by createRectTween; default is MaterialRectArcTween.',
+                  ),
+                ),
+                Expanded(
+                  child: _caption(
+                    'Tag — the identity that pairs source and destination.',
+                  ),
+                ),
               ],
             ),
           ],
@@ -567,14 +615,26 @@ Widget _tagFamily() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _bullet(Icons.bolt, _flightTrail,
-                      'String tags — the most common; cheap to compare; easy to debug.'),
-                  _bullet(Icons.bolt, _flightTrail,
-                      'Int / enum tags — fine if values are stable across rebuilds.'),
-                  _bullet(Icons.bolt, _flightTrail,
-                      'ValueKey wrapping — disambiguates dynamic ids in lists.'),
-                  _bullet(Icons.warning_amber, _accentRose,
-                      'AVOID tag collisions: two Heroes with the same tag on one route is a runtime error.'),
+                  _bullet(
+                    Icons.bolt,
+                    _flightTrail,
+                    'String tags — the most common; cheap to compare; easy to debug.',
+                  ),
+                  _bullet(
+                    Icons.bolt,
+                    _flightTrail,
+                    'Int / enum tags — fine if values are stable across rebuilds.',
+                  ),
+                  _bullet(
+                    Icons.bolt,
+                    _flightTrail,
+                    'ValueKey wrapping — disambiguates dynamic ids in lists.',
+                  ),
+                  _bullet(
+                    Icons.warning_amber,
+                    _accentRose,
+                    'AVOID tag collisions: two Heroes with the same tag on one route is a runtime error.',
+                  ),
                 ],
               ),
             ),
@@ -588,7 +648,12 @@ Widget _tagFamily() {
 // ============================================================================
 // SECTION 05 — SOURCE + DESTINATION PAIRS
 // ============================================================================
-Widget _sourceDestPair(String label, Color tint, IconData srcIcon, IconData destIcon) {
+Widget _sourceDestPair(
+  String label,
+  Color tint,
+  IconData srcIcon,
+  IconData destIcon,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(10.0),
@@ -599,11 +664,23 @@ Widget _sourceDestPair(String label, Color tint, IconData srcIcon, IconData dest
     ),
     child: Row(
       children: [
-        _glyph(width: 60.0, height: 60.0, color: tint, icon: srcIcon, label: 'A'),
+        _glyph(
+          width: 60.0,
+          height: 60.0,
+          color: tint,
+          icon: srcIcon,
+          label: 'A',
+        ),
         const SizedBox(width: 10.0),
         const Icon(Icons.arrow_forward, color: _flightTrail, size: 22.0),
         const SizedBox(width: 10.0),
-        _glyph(width: 100.0, height: 80.0, color: tint, icon: destIcon, label: 'B'),
+        _glyph(
+          width: 100.0,
+          height: 80.0,
+          color: tint,
+          icon: destIcon,
+          label: 'B',
+        ),
         const SizedBox(width: 14.0),
         Expanded(
           child: Column(
@@ -653,10 +730,30 @@ Widget _sourceDestPairs() {
               color: _textPrimary,
             ),
             const SizedBox(height: 8.0),
-            _sourceDestPair('Photo card → full screen', _accentTeal, Icons.image, Icons.photo),
-            _sourceDestPair('Avatar → profile page', _accentIndigo, Icons.person, Icons.account_circle),
-            _sourceDestPair('Product tile → product page', _accentCopper, Icons.shopping_bag, Icons.storefront),
-            _sourceDestPair('Album cover → album view', _accentRose, Icons.album, Icons.library_music),
+            _sourceDestPair(
+              'Photo card → full screen',
+              _accentTeal,
+              Icons.image,
+              Icons.photo,
+            ),
+            _sourceDestPair(
+              'Avatar → profile page',
+              _accentIndigo,
+              Icons.person,
+              Icons.account_circle,
+            ),
+            _sourceDestPair(
+              'Product tile → product page',
+              _accentCopper,
+              Icons.shopping_bag,
+              Icons.storefront,
+            ),
+            _sourceDestPair(
+              'Album cover → album view',
+              _accentRose,
+              Icons.album,
+              Icons.library_music,
+            ),
           ],
         ),
       ),
@@ -788,7 +885,11 @@ Widget _recipeCard(String title, String desc, IconData icon, Color tint) {
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(color: Colors.white24, width: 1.0),
       boxShadow: const [
-        BoxShadow(color: Colors.black45, blurRadius: 5.0, offset: Offset(0.0, 3.0)),
+        BoxShadow(
+          color: Colors.black45,
+          blurRadius: 5.0,
+          offset: Offset(0.0, 3.0),
+        ),
       ],
     ),
     child: Column(
@@ -837,24 +938,42 @@ Widget _recipes() {
       _panel(
         child: Wrap(
           children: [
-            _recipeCard('Thumbnail → Detail',
-                'Tap a thumbnail in a grid; it flies to the detail screen.',
-                Icons.image, _accentTeal),
-            _recipeCard('Avatar → Profile',
-                'Avatar in app bar expands into the profile header.',
-                Icons.person, _accentIndigo),
-            _recipeCard('FAB → Form',
-                'The floating action button morphs into the new-item form.',
-                Icons.add_circle, _accentCopper),
-            _recipeCard('Card → Modal',
-                'A list card expands upward into a modal sheet.',
-                Icons.credit_card, _accentRose),
-            _recipeCard('Icon → Splash',
-                'A logo icon expands into the splash screen of a feature.',
-                Icons.star, _accentTeal),
-            _recipeCard('Badge → Notification',
-                'A small badge flies into a notification banner.',
-                Icons.notifications, _accentIndigo),
+            _recipeCard(
+              'Thumbnail → Detail',
+              'Tap a thumbnail in a grid; it flies to the detail screen.',
+              Icons.image,
+              _accentTeal,
+            ),
+            _recipeCard(
+              'Avatar → Profile',
+              'Avatar in app bar expands into the profile header.',
+              Icons.person,
+              _accentIndigo,
+            ),
+            _recipeCard(
+              'FAB → Form',
+              'The floating action button morphs into the new-item form.',
+              Icons.add_circle,
+              _accentCopper,
+            ),
+            _recipeCard(
+              'Card → Modal',
+              'A list card expands upward into a modal sheet.',
+              Icons.credit_card,
+              _accentRose,
+            ),
+            _recipeCard(
+              'Icon → Splash',
+              'A logo icon expands into the splash screen of a feature.',
+              Icons.star,
+              _accentTeal,
+            ),
+            _recipeCard(
+              'Badge → Notification',
+              'A small badge flies into a notification banner.',
+              Icons.notifications,
+              _accentIndigo,
+            ),
           ],
         ),
       ),
@@ -869,12 +988,7 @@ Widget _codeQuote() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _sectionBanner(
-        8,
-        'CODE QUOTE',
-        'the canonical Hero pair',
-        _accentIndigo,
-      ),
+      _sectionBanner(8, 'CODE QUOTE', 'the canonical Hero pair', _accentIndigo),
       _panel(
         tint: const Color(0xFF0B0F1E),
         child: Column(
@@ -946,7 +1060,12 @@ Widget _codeQuote() {
 // ============================================================================
 // SECTION 09 — SIDE-BY-SIDE COMPARISON
 // ============================================================================
-Widget _comparisonCol(String title, Color tint, List<String> bullets, IconData icon) {
+Widget _comparisonCol(
+  String title,
+  Color tint,
+  List<String> bullets,
+  IconData icon,
+) {
   return Expanded(
     child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -1013,42 +1132,27 @@ Widget _comparison() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _comparisonCol(
-              'Hero',
-              _accentTeal,
-              [
-                'Cross-route transition',
-                'Default arc rect tween',
-                'Tag-paired source/dest',
-                'Renders in Overlay during flight',
-                'Best for: navigation morphs',
-              ],
-              Icons.flight_takeoff,
-            ),
-            _comparisonCol(
-              'No Hero',
-              Colors.black54,
-              [
-                'Routes change abruptly',
-                'No visual continuity',
-                'User must re-anchor visually',
-                'Cheapest and simplest',
-                'Best for: unrelated screens',
-              ],
-              Icons.cancel,
-            ),
-            _comparisonCol(
-              'FadeTransition',
-              _accentCopper,
-              [
-                'In-route alpha animation',
-                'No geometry interpolation',
-                'No tag concept',
-                'Best for: opacity-only changes',
-                'Cannot bridge routes',
-              ],
-              Icons.opacity,
-            ),
+            _comparisonCol('Hero', _accentTeal, [
+              'Cross-route transition',
+              'Default arc rect tween',
+              'Tag-paired source/dest',
+              'Renders in Overlay during flight',
+              'Best for: navigation morphs',
+            ], Icons.flight_takeoff),
+            _comparisonCol('No Hero', Colors.black54, [
+              'Routes change abruptly',
+              'No visual continuity',
+              'User must re-anchor visually',
+              'Cheapest and simplest',
+              'Best for: unrelated screens',
+            ], Icons.cancel),
+            _comparisonCol('FadeTransition', _accentCopper, [
+              'In-route alpha animation',
+              'No geometry interpolation',
+              'No tag concept',
+              'Best for: opacity-only changes',
+              'Cannot bridge routes',
+            ], Icons.opacity),
           ],
         ),
       ),
@@ -1111,18 +1215,66 @@ Widget _glossary() {
       _panel(
         child: Column(
           children: [
-            _glossaryRow('Hero', 'A widget that participates in a cross-route flight.', _accentTeal),
-            _glossaryRow('tag', 'The Object that pairs two Heroes across routes.', _accentIndigo),
-            _glossaryRow('source rect', 'The bounds of the origin Hero at push start.', _accentCopper),
-            _glossaryRow('destination rect', 'The bounds of the destination Hero at push end.', _accentRose),
-            _glossaryRow('Overlay', 'The Stack above all routes where the flying Hero lives.', _accentTeal),
-            _glossaryRow('createRectTween', 'Callback that builds the Rect interpolation.', _accentIndigo),
-            _glossaryRow('RectArcTween', 'Default tween — a curved path between rects.', _accentCopper),
-            _glossaryRow('RectTween', 'Linear interpolation — straight-line path.', _accentRose),
-            _glossaryRow('flightShuttleBuilder', 'Callback that builds the in-flight widget.', _accentTeal),
-            _glossaryRow('placeholderBuilder', 'What the source/dest renders while flying.', _accentIndigo),
-            _glossaryRow('transitionOnUserGestures', 'Whether iOS swipe-back also flies.', _accentCopper),
-            _glossaryRow('HeroController', 'The NavigatorObserver that drives flights.', _accentRose),
+            _glossaryRow(
+              'Hero',
+              'A widget that participates in a cross-route flight.',
+              _accentTeal,
+            ),
+            _glossaryRow(
+              'tag',
+              'The Object that pairs two Heroes across routes.',
+              _accentIndigo,
+            ),
+            _glossaryRow(
+              'source rect',
+              'The bounds of the origin Hero at push start.',
+              _accentCopper,
+            ),
+            _glossaryRow(
+              'destination rect',
+              'The bounds of the destination Hero at push end.',
+              _accentRose,
+            ),
+            _glossaryRow(
+              'Overlay',
+              'The Stack above all routes where the flying Hero lives.',
+              _accentTeal,
+            ),
+            _glossaryRow(
+              'createRectTween',
+              'Callback that builds the Rect interpolation.',
+              _accentIndigo,
+            ),
+            _glossaryRow(
+              'RectArcTween',
+              'Default tween — a curved path between rects.',
+              _accentCopper,
+            ),
+            _glossaryRow(
+              'RectTween',
+              'Linear interpolation — straight-line path.',
+              _accentRose,
+            ),
+            _glossaryRow(
+              'flightShuttleBuilder',
+              'Callback that builds the in-flight widget.',
+              _accentTeal,
+            ),
+            _glossaryRow(
+              'placeholderBuilder',
+              'What the source/dest renders while flying.',
+              _accentIndigo,
+            ),
+            _glossaryRow(
+              'transitionOnUserGestures',
+              'Whether iOS swipe-back also flies.',
+              _accentCopper,
+            ),
+            _glossaryRow(
+              'HeroController',
+              'The NavigatorObserver that drives flights.',
+              _accentRose,
+            ),
           ],
         ),
       ),
@@ -1172,10 +1324,7 @@ Widget _userGestures() {
                       Text(
                         'fly during swipe-back',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.0,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 10.0),
                       ),
                     ],
                   ),
@@ -1218,10 +1367,7 @@ Widget _userGestures() {
                       Text(
                         'default — only on push/pop',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.0,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 10.0),
                       ),
                     ],
                   ),
@@ -1276,7 +1422,11 @@ Widget _builders() {
                       children: [
                         Row(
                           children: const [
-                            Icon(Icons.crop_square, color: _accentRose, size: 18.0),
+                            Icon(
+                              Icons.crop_square,
+                              color: _accentRose,
+                              size: 18.0,
+                            ),
                             SizedBox(width: 6.0),
                             Text(
                               'placeholderBuilder',
@@ -1356,9 +1506,25 @@ Widget _builders() {
                         const SizedBox(height: 6.0),
                         Row(
                           children: [
-                            _glyph(width: 32.0, height: 32.0, color: _accentTeal, icon: Icons.image, label: ''),
-                            const Icon(Icons.arrow_right_alt, color: _accentSand, size: 20.0),
-                            _glyph(width: 32.0, height: 32.0, color: _accentCopper, icon: Icons.photo, label: ''),
+                            _glyph(
+                              width: 32.0,
+                              height: 32.0,
+                              color: _accentTeal,
+                              icon: Icons.image,
+                              label: '',
+                            ),
+                            const Icon(
+                              Icons.arrow_right_alt,
+                              color: _accentSand,
+                              size: 20.0,
+                            ),
+                            _glyph(
+                              width: 32.0,
+                              height: 32.0,
+                              color: _accentCopper,
+                              icon: Icons.photo,
+                              label: '',
+                            ),
                           ],
                         ),
                       ],
@@ -1399,20 +1565,41 @@ Widget _epilogue() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _bullet(Icons.bookmark, _flightTrail,
-                'Pair Heroes by tag — same value on both routes; unique within each route.'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'Hero only animates across Navigator route changes — not within a route.'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'The default tween is an arc rect; supply createRectTween for a linear path.'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'Use flightShuttleBuilder for custom airborne content (e.g. fade source → dest).'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'Use placeholderBuilder if "empty spot" on source/dest looks wrong.'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'transitionOnUserGestures = true makes iOS swipe-back also fly.'),
-            _bullet(Icons.bookmark, _flightTrail,
-                'A HeroController on the Navigator is required — MaterialApp wires it for you.'),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'Pair Heroes by tag — same value on both routes; unique within each route.',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'Hero only animates across Navigator route changes — not within a route.',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'The default tween is an arc rect; supply createRectTween for a linear path.',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'Use flightShuttleBuilder for custom airborne content (e.g. fade source → dest).',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'Use placeholderBuilder if "empty spot" on source/dest looks wrong.',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'transitionOnUserGestures = true makes iOS swipe-back also fly.',
+            ),
+            _bullet(
+              Icons.bookmark,
+              _flightTrail,
+              'A HeroController on the Navigator is required — MaterialApp wires it for you.',
+            ),
             const SizedBox(height: 10.0),
             Container(
               padding: const EdgeInsets.all(10.0),

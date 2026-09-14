@@ -197,7 +197,8 @@ dynamic build(BuildContext context) {
       composing: TextRange(start: 0, end: 10),
     );
     print(
-        'valueWithSelection constructed; text="${valueWithSelection.text}" composing=${valueWithSelection.composing.start}..${valueWithSelection.composing.end}');
+      'valueWithSelection constructed; text="${valueWithSelection.text}" composing=${valueWithSelection.composing.start}..${valueWithSelection.composing.end}',
+    );
   } catch (e) {
     print('valueWithSelection failed: $e');
   }
@@ -613,14 +614,8 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     child: Row(
       children: const [
-        SizedBox(
-          width: 230,
-          child: Text('Member', style: styleTableHead),
-        ),
-        SizedBox(
-          width: 110,
-          child: Text('Kind', style: styleTableHead),
-        ),
+        SizedBox(width: 230, child: Text('Member', style: styleTableHead)),
+        SizedBox(width: 110, child: Text('Kind', style: styleTableHead)),
         Expanded(child: Text('Description', style: styleTableHead)),
       ],
     ),
@@ -679,10 +674,7 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        apiTableHeader,
-        ...apiTableRows,
-      ],
+      children: [apiTableHeader, ...apiTableRows],
     ),
   );
 
@@ -731,8 +723,12 @@ dynamic build(BuildContext context) {
     }
   }
 
-  Widget inspectorCard(String title, String tagline, TextEditingController? c,
-      Color accent) {
+  Widget inspectorCard(
+    String title,
+    String tagline,
+    TextEditingController? c,
+    Color accent,
+  ) {
     final String t = safeText(c);
     final String preview = t.length > 80 ? '${t.substring(0, 80)}…' : t;
     return Container(
@@ -805,7 +801,9 @@ dynamic build(BuildContext context) {
                 keyValueRow('selection', safeSelectionDesc(c)),
                 keyValueRow('composing', safeComposingDesc(c)),
                 keyValueRow(
-                    'runtimeType', c == null ? '<null>' : 'TextEditingController'),
+                  'runtimeType',
+                  c == null ? '<null>' : 'TextEditingController',
+                ),
               ],
             ),
           ),
@@ -817,30 +815,15 @@ dynamic build(BuildContext context) {
   final Widget inspectorPanel = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
-      inspectorCard(
-        'ctrlEmpty',
-        'default constructor',
-        ctrlEmpty,
-        inkMid,
-      ),
-      inspectorCard(
-        'ctrlGreeting',
-        'short seeded text',
-        ctrlGreeting,
-        inkSoft,
-      ),
+      inspectorCard('ctrlEmpty', 'default constructor', ctrlEmpty, inkMid),
+      inspectorCard('ctrlGreeting', 'short seeded text', ctrlGreeting, inkSoft),
       inspectorCard(
         'ctrlSearch',
         'search-style query',
         ctrlSearch,
         copperMuted,
       ),
-      inspectorCard(
-        'ctrlEmail',
-        'email field',
-        ctrlEmail,
-        violetWash,
-      ),
+      inspectorCard('ctrlEmail', 'email field', ctrlEmail, violetWash),
       inspectorCard(
         'ctrlPassword',
         'masked field source',
@@ -853,36 +836,11 @@ dynamic build(BuildContext context) {
         ctrlMultiline,
         sageHint,
       ),
-      inspectorCard(
-        'ctrlPoem',
-        'verse / wrapping',
-        ctrlPoem,
-        goldLeaf,
-      ),
-      inspectorCard(
-        'ctrlNumeric',
-        'pure digits',
-        ctrlNumeric,
-        copperBright,
-      ),
-      inspectorCard(
-        'ctrlUnicode',
-        'diacritics',
-        ctrlUnicode,
-        inkRule,
-      ),
-      inspectorCard(
-        'ctrlEmoji',
-        'noun-shaped tokens',
-        ctrlEmoji,
-        inkDeep,
-      ),
-      inspectorCard(
-        'ctrlBlank',
-        'explicit empty seed',
-        ctrlBlank,
-        slateText,
-      ),
+      inspectorCard('ctrlPoem', 'verse / wrapping', ctrlPoem, goldLeaf),
+      inspectorCard('ctrlNumeric', 'pure digits', ctrlNumeric, copperBright),
+      inspectorCard('ctrlUnicode', 'diacritics', ctrlUnicode, inkRule),
+      inspectorCard('ctrlEmoji', 'noun-shaped tokens', ctrlEmoji, inkDeep),
+      inspectorCard('ctrlBlank', 'explicit empty seed', ctrlBlank, slateText),
     ],
   );
 
@@ -1051,8 +1009,7 @@ dynamic build(BuildContext context) {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: accent,
                   borderRadius: BorderRadius.circular(3),
@@ -1067,10 +1024,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
-                'base=$base  extent=$extent',
-                style: styleMono,
-              ),
+              Text('base=$base  extent=$extent', style: styleMono),
             ],
           ),
           const SizedBox(height: 8),
@@ -1216,58 +1170,58 @@ dynamic build(BuildContext context) {
       calloutBox(
         'PITFALL 1 — forgetting dispose()',
         'The controller is a ChangeNotifier and holds a list of listeners. '
-        'A leaked controller survives until garbage collection, and any '
-        'closures it captured live with it. Always pair `final c = '
-        'TextEditingController(...)` with `c.dispose()` in your State.',
+            'A leaked controller survives until garbage collection, and any '
+            'closures it captured live with it. Always pair `final c = '
+            'TextEditingController(...)` with `c.dispose()` in your State.',
         crimsonInk,
       ),
       calloutBox(
         'PITFALL 2 — re-creating in build()',
         'If you write `TextEditingController()` inside build(), every '
-        'rebuild constructs a new one and the previous instance leaks. '
-        'Hoist it to State or to a stable scope.',
+            'rebuild constructs a new one and the previous instance leaks. '
+            'Hoist it to State or to a stable scope.',
         copperBright,
       ),
       calloutBox(
         'PITFALL 3 — assigning text and selection separately',
         'Setting controller.text resets selection to collapsed @ -1. If '
-        'you intend "set the text AND keep cursor at end", set '
-        'controller.value = TextEditingValue(text: t, selection: '
-        'TextSelection.collapsed(offset: t.length)).',
+            'you intend "set the text AND keep cursor at end", set '
+            'controller.value = TextEditingValue(text: t, selection: '
+            'TextSelection.collapsed(offset: t.length)).',
         violetWash,
       ),
       calloutBox(
         'PITFALL 4 — out-of-range selection',
         'Programmatically setting selection.baseOffset to a value outside '
-        '[0, text.length] either gets clamped or asserted, depending on '
-        'the framework version. Always validate offsets against '
-        'text.length.',
+            '[0, text.length] either gets clamped or asserted, depending on '
+            'the framework version. Always validate offsets against '
+            'text.length.',
         inkSoft,
       ),
       calloutBox(
         'PITFALL 5 — leaking listeners',
         'addListener without removeListener traps the closure for the '
-        'controller\'s lifetime. If the closure captures a State that '
-        'has been disposed, you can call setState on a dead state. '
-        'Pair every addListener with removeListener — or use a single '
-        'lambda you can pass to both.',
+            'controller\'s lifetime. If the closure captures a State that '
+            'has been disposed, you can call setState on a dead state. '
+            'Pair every addListener with removeListener — or use a single '
+            'lambda you can pass to both.',
         sageHint,
       ),
       calloutBox(
         'PITFALL 6 — assuming text.length == characters',
         'text.length counts UTF-16 code units, not user-perceived '
-        'characters. Combining marks, ZWJ sequences, and surrogate pairs '
-        'each can occupy more than one code unit. For grapheme counting '
-        'use the characters package.',
+            'characters. Combining marks, ZWJ sequences, and surrogate pairs '
+            'each can occupy more than one code unit. For grapheme counting '
+            'use the characters package.',
         goldLeaf,
       ),
       calloutBox(
         'PITFALL 7 — composing range surprises',
         'During IME composition, value.composing is non-empty and the '
-        'underlying text already contains the in-progress glyphs. Reading '
-        '.text mid-composition therefore returns text the user has not '
-        'yet "committed". Filter on composing.isCollapsed if you only '
-        'want committed text.',
+            'underlying text already contains the in-progress glyphs. Reading '
+            '.text mid-composition therefore returns text the user has not '
+            'yet "committed". Filter on composing.isCollapsed if you only '
+            'want committed text.',
         copperMuted,
       ),
     ],
@@ -1303,11 +1257,19 @@ dynamic build(BuildContext context) {
         children: [
           Expanded(child: compareCell('Aspect', head: true, accent: inkDeep)),
           Expanded(
-              child: compareCell('TextEditingController',
-                  head: true, accent: inkMid)),
+            child: compareCell(
+              'TextEditingController',
+              head: true,
+              accent: inkMid,
+            ),
+          ),
           Expanded(
-              child: compareCell('RestorableTextEditingController',
-                  head: true, accent: copperMuted)),
+            child: compareCell(
+              'RestorableTextEditingController',
+              head: true,
+              accent: copperMuted,
+            ),
+          ),
         ],
       ),
       Row(
@@ -1329,7 +1291,8 @@ dynamic build(BuildContext context) {
           Expanded(child: compareCell('Construction shape')),
           Expanded(child: compareCell('TextEditingController(text: t)')),
           Expanded(
-              child: compareCell('RestorableTextEditingController(text: t)')),
+            child: compareCell('RestorableTextEditingController(text: t)'),
+          ),
         ],
       ),
       Row(
@@ -1344,7 +1307,8 @@ dynamic build(BuildContext context) {
           Expanded(child: compareCell('Disposal')),
           Expanded(child: compareCell('controller.dispose()')),
           Expanded(
-              child: compareCell('restorable.dispose() (+ State unregister)')),
+            child: compareCell('restorable.dispose() (+ State unregister)'),
+          ),
         ],
       ),
       Row(
@@ -1359,7 +1323,8 @@ dynamic build(BuildContext context) {
           Expanded(child: compareCell('Common use')),
           Expanded(child: compareCell('Most TextField cases')),
           Expanded(
-              child: compareCell('Forms users expect to survive backgrounding')),
+            child: compareCell('Forms users expect to survive backgrounding'),
+          ),
         ],
       ),
     ],
@@ -1424,10 +1389,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     child: Row(
       children: const [
-        SizedBox(
-          width: 220,
-          child: Text('Term', style: styleTableHead),
-        ),
+        SizedBox(width: 220, child: Text('Term', style: styleTableHead)),
         Expanded(child: Text('Definition', style: styleTableHead)),
       ],
     ),
@@ -1475,10 +1437,7 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        glossaryHeader,
-        ...glossaryRowWidgets,
-      ],
+      children: [glossaryHeader, ...glossaryRowWidgets],
     ),
   );
 
@@ -1667,9 +1626,11 @@ dynamic build(BuildContext context) {
           children: [
             Column(
               children: [
-                flowNode('Yes — use RestorableTextEditingController',
-                    copperMuted,
-                    width: 260),
+                flowNode(
+                  'Yes — use RestorableTextEditingController',
+                  copperMuted,
+                  width: 260,
+                ),
                 flowArrow(),
                 flowNode('Register in restoreState', violetWash, width: 260),
                 flowArrow(),
@@ -1679,8 +1640,7 @@ dynamic build(BuildContext context) {
             const SizedBox(width: 24),
             Column(
               children: [
-                flowNode('No — use TextEditingController', inkSoft,
-                    width: 260),
+                flowNode('No — use TextEditingController', inkSoft, width: 260),
                 flowArrow(),
                 flowNode('Construct in initState', sageHint, width: 260),
                 flowArrow(),
@@ -1767,7 +1727,9 @@ dynamic build(BuildContext context) {
                   ),
                 if (text.isNotEmpty) ...lines,
                 if (multiline && maxLines != null)
-                  SizedBox(height: 14.0 * (maxLines - lines.length).clamp(0, 4)),
+                  SizedBox(
+                    height: 14.0 * (maxLines - lines.length).clamp(0, 4),
+                  ),
               ],
             ),
           ),
@@ -1791,8 +1753,12 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget scenarioPanel(String title, String description, List<Widget> items,
-      Color accent) {
+  Widget scenarioPanel(
+    String title,
+    String description,
+    List<Widget> items,
+    Color accent,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -2436,17 +2402,27 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                sectionHeader('1', 'API surface', 'The bridged members at a glance.'),
+                sectionHeader(
+                  '1',
+                  'API surface',
+                  'The bridged members at a glance.',
+                ),
                 apiTable,
                 ruleHorizontal(),
 
-                sectionHeader('2', 'Value / selection / composing inspector',
-                    'Snapshot reads of every constructed controller.'),
+                sectionHeader(
+                  '2',
+                  'Value / selection / composing inspector',
+                  'Snapshot reads of every constructed controller.',
+                ),
                 inspectorPanel,
                 ruleHorizontal(),
 
-                sectionHeader('3', 'TextEditingValue layout',
-                    'How text, composing, and selection share the same coordinate space.'),
+                sectionHeader(
+                  '3',
+                  'TextEditingValue layout',
+                  'How text, composing, and selection share the same coordinate space.',
+                ),
                 valueDiagram(),
                 const SizedBox(height: 12),
                 const Text(
@@ -2458,48 +2434,75 @@ dynamic build(BuildContext context) {
                 ),
                 ruleHorizontal(),
 
-                sectionHeader('4', 'Selection snapshots',
-                    'Eight visual states of TextSelection over the same text.'),
+                sectionHeader(
+                  '4',
+                  'Selection snapshots',
+                  'Eight visual states of TextSelection over the same text.',
+                ),
                 selectionGallery,
                 ruleHorizontal(),
 
-                sectionHeader('5', 'Lifecycle prose',
-                    'Why controllers want to live in State, not in build().'),
+                sectionHeader(
+                  '5',
+                  'Lifecycle prose',
+                  'Why controllers want to live in State, not in build().',
+                ),
                 lifecycleProse,
                 ruleHorizontal(),
 
-                sectionHeader('6', 'Pitfalls',
-                    'Seven landmines that actually happen.'),
+                sectionHeader(
+                  '6',
+                  'Pitfalls',
+                  'Seven landmines that actually happen.',
+                ),
                 pitfallList,
                 ruleHorizontal(),
 
-                sectionHeader('7', 'Restorable vs non-restorable',
-                    'Choose by whether the value must survive process death.'),
+                sectionHeader(
+                  '7',
+                  'Restorable vs non-restorable',
+                  'Choose by whether the value must survive process death.',
+                ),
                 restorableTable,
                 ruleHorizontal(),
 
-                sectionHeader('8', 'Glossary',
-                    'Vocabulary that appears across the controller surface.'),
+                sectionHeader(
+                  '8',
+                  'Glossary',
+                  'Vocabulary that appears across the controller surface.',
+                ),
                 glossaryTable,
                 ruleHorizontal(),
 
-                sectionHeader('9', 'Palette swatches',
-                    'Cobalt Inkwell — the colours of the atlas.'),
+                sectionHeader(
+                  '9',
+                  'Palette swatches',
+                  'Cobalt Inkwell — the colours of the atlas.',
+                ),
                 paletteRow,
                 ruleHorizontal(),
 
-                sectionHeader('10', 'Code snippet blocks',
-                    'Idiomatic patterns and the ones to avoid.'),
+                sectionHeader(
+                  '10',
+                  'Code snippet blocks',
+                  'Idiomatic patterns and the ones to avoid.',
+                ),
                 codeBlocks,
                 ruleHorizontal(),
 
-                sectionHeader('11', 'Decision flowchart',
-                    'A small map for "which controller do I want?"'),
+                sectionHeader(
+                  '11',
+                  'Decision flowchart',
+                  'A small map for "which controller do I want?"',
+                ),
                 flowchart,
                 ruleHorizontal(),
 
-                sectionHeader('12', 'Scenario panels',
-                    'Six visual scenarios — search, login, multi-line, form grid, filtered, readonly.'),
+                sectionHeader(
+                  '12',
+                  'Scenario panels',
+                  'Six visual scenarios — search, login, multi-line, form grid, filtered, readonly.',
+                ),
                 scenarioSearch,
                 scenarioLogin,
                 scenarioMultiline,
@@ -2508,21 +2511,30 @@ dynamic build(BuildContext context) {
                 scenarioReadonly,
                 ruleHorizontal(),
 
-                sectionHeader('13', 'Best practices',
-                    'Fifteen rules — the short list that prevents most bugs.'),
+                sectionHeader(
+                  '13',
+                  'Best practices',
+                  'Fifteen rules — the short list that prevents most bugs.',
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: bestPracticeRows,
                 ),
                 ruleHorizontal(),
 
-                sectionHeader('14', 'Lifecycle timeline',
-                    'Where each phase touches the controller.'),
+                sectionHeader(
+                  '14',
+                  'Lifecycle timeline',
+                  'Where each phase touches the controller.',
+                ),
                 lifecycleTimeline,
                 ruleHorizontal(),
 
-                sectionHeader('15', 'Anti-pattern gallery',
-                    'Wrong vs right — paired side by side.'),
+                sectionHeader(
+                  '15',
+                  'Anti-pattern gallery',
+                  'Wrong vs right — paired side by side.',
+                ),
                 antiPatternGallery,
                 const SizedBox(height: 16),
               ],

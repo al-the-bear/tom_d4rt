@@ -276,11 +276,19 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10.0),
-              _diagramTile('SliverOverlapAbsorber(handle:_handle)', kIndigoMid, true),
+              _diagramTile(
+                'SliverOverlapAbsorber(handle:_handle)',
+                kIndigoMid,
+                true,
+              ),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.only(left: 24.0),
-                child: _diagramTile('   SliverAppBar(pinned: true)', kIndigoDeep, false),
+                child: _diagramTile(
+                  '   SliverAppBar(pinned: true)',
+                  kIndigoDeep,
+                  false,
+                ),
               ),
             ],
           ),
@@ -288,7 +296,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 10.0),
         Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14.0,
+              vertical: 6.0,
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
@@ -361,7 +372,11 @@ dynamic build(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10.0),
-              _diagramTile('SliverOverlapInjector(handle:_handle)', kAmberDeep, true),
+              _diagramTile(
+                'SliverOverlapInjector(handle:_handle)',
+                kAmberDeep,
+                true,
+              ),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.only(left: 24.0),
@@ -388,11 +403,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Colors.red.shade50,
-          Colors.white,
-          Colors.green.shade50,
-        ],
+        colors: [Colors.red.shade50, Colors.white, Colors.green.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -497,19 +508,96 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 16.0),
         _codeLine([_kw('NestedScrollView'), _pn('('), _na('')]),
-        _codeLine([_pn('  '), _at('headerSliverBuilder'), _pn(': ('), _va('ctx'), _pn(', '), _va('_'), _pn(') => ['), _na('')]),
-        _codeLine([_pn('    '), _kw('SliverOverlapAbsorber'), _pn('('), _na('')]),
-        _codeLine([_pn('      '), _at('handle'), _pn(': '), _kw('NestedScrollView'), _pn('.'), _fn('sliverOverlapAbsorberHandleFor'), _pn('('), _va('ctx'), _pn('),'), _na('')]),
-        _codeLine([_pn('      '), _at('sliver'), _pn(': '), _kw('SliverAppBar'), _pn('('), _at('pinned'), _pn(': '), _kw('true'), _pn(', /* ... */),'), _na('')]),
+        _codeLine([
+          _pn('  '),
+          _at('headerSliverBuilder'),
+          _pn(': ('),
+          _va('ctx'),
+          _pn(', '),
+          _va('_'),
+          _pn(') => ['),
+          _na(''),
+        ]),
+        _codeLine([
+          _pn('    '),
+          _kw('SliverOverlapAbsorber'),
+          _pn('('),
+          _na(''),
+        ]),
+        _codeLine([
+          _pn('      '),
+          _at('handle'),
+          _pn(': '),
+          _kw('NestedScrollView'),
+          _pn('.'),
+          _fn('sliverOverlapAbsorberHandleFor'),
+          _pn('('),
+          _va('ctx'),
+          _pn('),'),
+          _na(''),
+        ]),
+        _codeLine([
+          _pn('      '),
+          _at('sliver'),
+          _pn(': '),
+          _kw('SliverAppBar'),
+          _pn('('),
+          _at('pinned'),
+          _pn(': '),
+          _kw('true'),
+          _pn(', /* ... */),'),
+          _na(''),
+        ]),
         _codeLine([_pn('    ),'), _na('')]),
         _codeLine([_pn('  ],'), _na('')]),
-        _codeLine([_pn('  '), _at('body'), _pn(': '), _kw('Builder'), _pn('('), _na('')]),
-        _codeLine([_pn('    '), _at('builder'), _pn(': ('), _va('ctx'), _pn(') => '), _kw('CustomScrollView'), _pn('('), _na('')]),
+        _codeLine([
+          _pn('  '),
+          _at('body'),
+          _pn(': '),
+          _kw('Builder'),
+          _pn('('),
+          _na(''),
+        ]),
+        _codeLine([
+          _pn('    '),
+          _at('builder'),
+          _pn(': ('),
+          _va('ctx'),
+          _pn(') => '),
+          _kw('CustomScrollView'),
+          _pn('('),
+          _na(''),
+        ]),
         _codeLine([_pn('      '), _at('slivers'), _pn(': ['), _na('')]),
-        _codeLine([_pn('        '), _kw('SliverOverlapInjector'), _pn('('), _na('')]),
-        _codeLine([_pn('          '), _at('handle'), _pn(': '), _kw('NestedScrollView'), _pn('.'), _fn('sliverOverlapAbsorberHandleFor'), _pn('('), _va('ctx'), _pn('),'), _na('')]),
+        _codeLine([
+          _pn('        '),
+          _kw('SliverOverlapInjector'),
+          _pn('('),
+          _na(''),
+        ]),
+        _codeLine([
+          _pn('          '),
+          _at('handle'),
+          _pn(': '),
+          _kw('NestedScrollView'),
+          _pn('.'),
+          _fn('sliverOverlapAbsorberHandleFor'),
+          _pn('('),
+          _va('ctx'),
+          _pn('),'),
+          _na(''),
+        ]),
         _codeLine([_pn('        ),'), _na('')]),
-        _codeLine([_pn('        '), _kw('SliverList'), _pn('('), _at('delegate'), _pn(': '), _kw('SliverChildBuilderDelegate'), _pn('(...)),'), _na('')]),
+        _codeLine([
+          _pn('        '),
+          _kw('SliverList'),
+          _pn('('),
+          _at('delegate'),
+          _pn(': '),
+          _kw('SliverChildBuilderDelegate'),
+          _pn('(...)),'),
+          _na(''),
+        ]),
         _codeLine([_pn('      ],'), _na('')]),
         _codeLine([_pn('    ),'), _na('')]),
         _codeLine([_pn('  ),'), _na('')]),
@@ -642,10 +730,7 @@ dynamic build(BuildContext context) {
                       ),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [
-                            Colors.indigo.shade50,
-                            Colors.amber.shade50,
-                          ],
+                          colors: [Colors.indigo.shade50, Colors.amber.shade50],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -662,9 +747,7 @@ dynamic build(BuildContext context) {
                             width: 28.0,
                             height: 28.0,
                             decoration: BoxDecoration(
-                              color: i.isEven
-                                  ? kIndigoMid
-                                  : kAmberDeep,
+                              color: i.isEven ? kIndigoMid : kAmberDeep,
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                             child: Center(
@@ -743,10 +826,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(
-                    color: kAmberDeep,
-                    width: 3.0,
-                  ),
+                  bottom: BorderSide(color: kAmberDeep, width: 3.0),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -878,10 +958,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _sectionLabel(
-          '9. Comparison',
-          'Injector vs simpler layout approaches',
-        ),
+        _sectionLabel('9. Comparison', 'Injector vs simpler layout approaches'),
         const SizedBox(height: 12.0),
         _tableHeaderRow(),
         _tableRow(
@@ -1023,9 +1100,7 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 14.0),
-        _recapBullet(
-          'Injector mirrors the overlap recorded by the absorber.',
-        ),
+        _recapBullet('Injector mirrors the overlap recorded by the absorber.'),
         _recapBullet(
           'Same SliverOverlapAbsorberHandle MUST be shared by reference.',
         ),
@@ -1221,10 +1296,7 @@ Widget _sectionLabel(String title, String subtitle) {
             const SizedBox(height: 2.0),
             Text(
               subtitle,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -1297,18 +1369,12 @@ Widget _diagramTile(String label, Color color, bool highlighted) {
       gradient: LinearGradient(
         colors: highlighted
             ? [color, color.withValues(alpha: 0.7)]
-            : [
-                color.withValues(alpha: 0.20),
-                color.withValues(alpha: 0.10),
-              ],
+            : [color.withValues(alpha: 0.20), color.withValues(alpha: 0.10)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
       borderRadius: BorderRadius.circular(6.0),
-      border: Border.all(
-        color: color,
-        width: highlighted ? 2.0 : 1.0,
-      ),
+      border: Border.all(color: color, width: highlighted ? 2.0 : 1.0),
     ),
     child: Row(
       children: [
@@ -1408,7 +1474,9 @@ Widget _legendChip(String text, IconData icon) {
 }
 
 Widget _comparisonStack(bool withInjector) {
-  final Color accent = withInjector ? Colors.green.shade700 : Colors.red.shade700;
+  final Color accent = withInjector
+      ? Colors.green.shade700
+      : Colors.red.shade700;
   return Container(
     padding: const EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1512,10 +1580,7 @@ Widget _comparisonStack(bool withInjector) {
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
                       child: Text(
                         'Row #${i + 1}',
-                        style: const TextStyle(
-                          fontSize: 9.0,
-                          color: kInkDark,
-                        ),
+                        style: const TextStyle(fontSize: 9.0, color: kInkDark),
                       ),
                     ),
                   ),
@@ -1815,10 +1880,7 @@ Widget _footgun(String title, String body, IconData icon, Color color) {
     padding: const EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.02),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.02)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1931,15 +1993,27 @@ Widget _codeLine(List<TextSpan> spans) {
   );
 }
 
-TextSpan _kw(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: kCodePink, fontWeight: FontWeight.w600));
-TextSpan _at(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: kCodeAmber));
-TextSpan _va(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: kCodeBlue));
-TextSpan _fn(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: kCodePurple, fontStyle: FontStyle.italic));
-TextSpan _pn(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: Color(0xFFC9D1D9)));
-TextSpan _na(String s) =>
-    TextSpan(text: s, style: const TextStyle(color: kCodeGreen));
+TextSpan _kw(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: kCodePink, fontWeight: FontWeight.w600),
+);
+TextSpan _at(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: kCodeAmber),
+);
+TextSpan _va(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: kCodeBlue),
+);
+TextSpan _fn(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: kCodePurple, fontStyle: FontStyle.italic),
+);
+TextSpan _pn(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: Color(0xFFC9D1D9)),
+);
+TextSpan _na(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: kCodeGreen),
+);

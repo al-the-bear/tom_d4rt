@@ -140,11 +140,7 @@ class _AxisLinePainter extends CustomPainter {
 
     if (axis == Axis.horizontal) {
       final double midY = size.height / 2.0;
-      canvas.drawLine(
-        Offset(8, midY),
-        Offset(size.width - 8, midY),
-        linePaint,
-      );
+      canvas.drawLine(Offset(8, midY), Offset(size.width - 8, midY), linePaint);
       // Arrow head right.
       final Path arrow = Path()
         ..moveTo(size.width - 8, midY)
@@ -721,9 +717,7 @@ Widget _listViewSection() {
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.all(8),
-            children: <Widget>[
-              for (final int n in data) _tile(n, _listAccent),
-            ],
+            children: <Widget>[for (final int n in data) _tile(n, _listAccent)],
           ),
         ),
         const SizedBox(height: 12),
@@ -1020,9 +1014,9 @@ class _StepperInnerState extends State<_StepperInner> {
           ),
           child: Theme(
             data: Theme.of(context).copyWith(
-              colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: _stepperAccent,
-              ),
+              colorScheme: Theme.of(
+                context,
+              ).colorScheme.copyWith(primary: _stepperAccent),
             ),
             child: Stepper(
               type: type,
@@ -1510,10 +1504,7 @@ Widget _flexRow(String widget, String axis, String how) {
             color: _flexAccent.withOpacity(0.15),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            how,
-            style: TextStyle(color: _flexAccent, fontSize: 10),
-          ),
+          child: Text(how, style: TextStyle(color: _flexAccent, fontSize: 10)),
         ),
       ],
     ),
@@ -1679,8 +1670,16 @@ Widget _referenceCardSection() {
               _refRow('CustomScrollView', 'scrollDirection', 'Axis.vertical'),
               _refRow('PageView', 'scrollDirection', 'Axis.horizontal'),
               _refRow('NestedScrollView', 'scrollDirection', 'Axis.vertical'),
-              _refRow('SingleChildScrollView', 'scrollDirection', 'Axis.vertical'),
-              _refRow('ReorderableListView', 'scrollDirection', 'Axis.vertical'),
+              _refRow(
+                'SingleChildScrollView',
+                'scrollDirection',
+                'Axis.vertical',
+              ),
+              _refRow(
+                'ReorderableListView',
+                'scrollDirection',
+                'Axis.vertical',
+              ),
               _refRow('Wrap', 'direction', 'Axis.horizontal'),
               _refRow('Flex', 'direction', '(required)'),
               _refRow('ListBody', 'mainAxis', 'Axis.vertical'),

@@ -331,10 +331,7 @@ List<Widget> _buildFrozenFrames(
           children: [
             // The frozen-frame banner mockup.
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color: color.withOpacity(0.08),
                 borderRadius: const BorderRadius.vertical(
@@ -457,10 +454,7 @@ Widget _liveTriggerPanel({
               backgroundColor: color.withOpacity(0.08),
               leading: CircleAvatar(
                 backgroundColor: color,
-                child: const Icon(
-                  Icons.info_outline,
-                  color: Colors.white,
-                ),
+                child: const Icon(Icons.info_outline, color: Colors.white),
               ),
               content: Text(
                 'Live banner — about to be closed with $label.',
@@ -691,10 +685,7 @@ Widget _actionMappingPanel({
                 backgroundColor: color,
                 child: const Icon(Icons.touch_app, color: Colors.white),
               ),
-              content: Text(
-                message,
-                style: TextStyle(color: color),
-              ),
+              content: Text(message, style: TextStyle(color: color)),
               actions: [
                 TextButton(
                   style: TextButton.styleFrom(foregroundColor: color),
@@ -708,9 +699,7 @@ Widget _actionMappingPanel({
                 TextButton(
                   style: TextButton.styleFrom(foregroundColor: color),
                   onPressed: () {
-                    messenger.hideCurrentMaterialBanner(
-                      reason: primaryReason,
-                    );
+                    messenger.hideCurrentMaterialBanner(reason: primaryReason);
                   },
                   child: Text(primaryLabel),
                 ),
@@ -1224,9 +1213,7 @@ Widget _realisticRecipesPanel({
             ),
           );
           await Future<void>.delayed(const Duration(milliseconds: 350));
-          messenger.hideCurrentMaterialBanner(
-            reason: actions.first.reason,
-          );
+          messenger.hideCurrentMaterialBanner(reason: actions.first.reason);
           final closed = await controller.closed;
           historyLog.value = <_LoggedReason>[
             ...historyLog.value,
@@ -1329,7 +1316,8 @@ Widget _realisticRecipesPanel({
               accent: const Color(0xFF00695C),
               icon: Icons.privacy_tip_outlined,
               title: 'Privacy policy update',
-              message: 'We have updated our privacy policy. Please review '
+              message:
+                  'We have updated our privacy policy. Please review '
                   'and accept the changes to continue using the app.',
               actions: [
                 _RecipeAction('Accept', MaterialBannerClosedReason.dismiss),
@@ -1341,15 +1329,13 @@ Widget _realisticRecipesPanel({
               accent: const Color(0xFF5D4037),
               icon: Icons.signal_wifi_off,
               title: 'You are offline',
-              message: 'Changes will be saved locally and synced once your '
+              message:
+                  'Changes will be saved locally and synced once your '
                   'connection is restored.',
               actions: [
                 _RecipeAction('Retry', MaterialBannerClosedReason.dismiss),
-                _RecipeAction('Hide',  MaterialBannerClosedReason.hide),
-                _RecipeAction(
-                  'Replace',
-                  MaterialBannerClosedReason.remove,
-                ),
+                _RecipeAction('Hide', MaterialBannerClosedReason.hide),
+                _RecipeAction('Replace', MaterialBannerClosedReason.remove),
               ],
             ),
             recipeCard(
@@ -1357,17 +1343,12 @@ Widget _realisticRecipesPanel({
               accent: const Color(0xFF1565C0),
               icon: Icons.system_update_alt,
               title: 'A new version is available',
-              message: 'Version 2.4.0 brings performance improvements and '
+              message:
+                  'Version 2.4.0 brings performance improvements and '
                   'bug fixes. Update now to get the latest features.',
               actions: [
-                _RecipeAction(
-                  'Update',
-                  MaterialBannerClosedReason.dismiss,
-                ),
-                _RecipeAction(
-                  'Skip',
-                  MaterialBannerClosedReason.hide,
-                ),
+                _RecipeAction('Update', MaterialBannerClosedReason.dismiss),
+                _RecipeAction('Skip', MaterialBannerClosedReason.hide),
               ],
             ),
           ],
@@ -1498,9 +1479,7 @@ Widget _referenceRow(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
     decoration: BoxDecoration(
       color: r.index.isEven ? Colors.white : const Color(0xFFF5F7FA),
-      border: const Border(
-        bottom: BorderSide(color: Color(0xFFCFD8DC)),
-      ),
+      border: const Border(bottom: BorderSide(color: Color(0xFFCFD8DC))),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,

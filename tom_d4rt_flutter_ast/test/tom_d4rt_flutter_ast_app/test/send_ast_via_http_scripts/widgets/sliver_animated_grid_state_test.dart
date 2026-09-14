@@ -185,8 +185,12 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
   // insert at index 0.
   void _handleAddOne() {
     if (_cards.length >= _kMaxCards) {
-      _pushLog('addOne (skipped — max reached)', -1, _cards.length,
-          note: 'Cap is $_kMaxCards.');
+      _pushLog(
+        'addOne (skipped — max reached)',
+        -1,
+        _cards.length,
+        note: 'Cap is $_kMaxCards.',
+      );
       return;
     }
     final int insertAt = _cards.isEmpty
@@ -196,12 +200,13 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
     setState(() {
       _cards.insert(insertAt, card);
     });
-    _gridKey.currentState?.insertItem(
+    _gridKey.currentState?.insertItem(insertAt, duration: _currentDuration);
+    _pushLog(
+      'insertItem',
       insertAt,
-      duration: _currentDuration,
+      _cards.length,
+      note: 'Added ${card.label} (${_colourName(card.colour)}).',
     );
-    _pushLog('insertItem', insertAt, _cards.length,
-        note: 'Added ${card.label} (${_colourName(card.colour)}).');
   }
 
   // Remove a card at a random position. The builder passed to removeItem
@@ -209,8 +214,12 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
   // is on, otherwise a plain fade.
   void _handleRemoveOne() {
     if (_cards.isEmpty) {
-      _pushLog('removeOne (skipped — empty)', -1, 0,
-          note: 'Grid already empty.');
+      _pushLog(
+        'removeOne (skipped — empty)',
+        -1,
+        0,
+        note: 'Grid already empty.',
+      );
       return;
     }
     final int removeAt = _rng.nextInt(_cards.length);
@@ -224,8 +233,12 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
       builder,
       duration: _currentDuration,
     );
-    _pushLog('removeItem', removeAt, _cards.length,
-        note: 'Removed ${removed.label}.');
+    _pushLog(
+      'removeItem',
+      removeAt,
+      _cards.length,
+      note: 'Removed ${removed.label}.',
+    );
   }
 
   // Add three cards in a single call. We prefer `insertAllItems` over a
@@ -252,8 +265,12 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
       toAdd,
       duration: _currentDuration,
     );
-    _pushLog('insertAllItems', insertAt, _cards.length,
-        note: 'Added $toAdd cards starting at $insertAt.');
+    _pushLog(
+      'insertAllItems',
+      insertAt,
+      _cards.length,
+      note: 'Added $toAdd cards starting at $insertAt.',
+    );
   }
 
   // Remove three cards starting at a random valid window.
@@ -282,8 +299,12 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
         duration: _currentDuration,
       );
     }
-    _pushLog('removeItem x $toRemove', removeAt, _cards.length,
-        note: 'Removed $toRemove cards starting at $removeAt.');
+    _pushLog(
+      'removeItem x $toRemove',
+      removeAt,
+      _cards.length,
+      note: 'Removed $toRemove cards starting at $removeAt.',
+    );
   }
 
   // Reset the grid to the initial seeded state. We flush every live model
@@ -300,14 +321,18 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
     final snapshot = List<_DeckCardModel>.from(_cards);
     _cards.clear();
     setState(() {});
-    _gridKey.currentState?.removeAllItems(
-      (BuildContext context, Animation<double> animation) {
-        return _SlidingRemovedCard(animation: animation, snapshot: snapshot);
-      },
-      duration: _currentDuration,
+    _gridKey.currentState?.removeAllItems((
+      BuildContext context,
+      Animation<double> animation,
+    ) {
+      return _SlidingRemovedCard(animation: animation, snapshot: snapshot);
+    }, duration: _currentDuration);
+    _pushLog(
+      'removeAllItems',
+      -1,
+      0,
+      note: 'Cleared ${snapshot.length} cards.',
     );
-    _pushLog('removeAllItems', -1, 0,
-        note: 'Cleared ${snapshot.length} cards.');
 
     // Re-seed after the removal animation window. The grid state accepts
     // insertItem calls immediately because `removeAllItems` marks items as
@@ -317,10 +342,17 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
       _cards.add(card);
     }
     setState(() {});
-    _gridKey.currentState
-        ?.insertAllItems(0, _kInitialCardCount, duration: _currentDuration);
-    _pushLog('insertAllItems (reset)', 0, _cards.length,
-        note: 'Re-seeded with $_kInitialCardCount cards.');
+    _gridKey.currentState?.insertAllItems(
+      0,
+      _kInitialCardCount,
+      duration: _currentDuration,
+    );
+    _pushLog(
+      'insertAllItems (reset)',
+      0,
+      _cards.length,
+      note: 'Re-seeded with $_kInitialCardCount cards.',
+    );
   }
 
   // The `AnimatedRemovedItemBuilder` for the fancy mode — fade + scale down +
@@ -604,19 +636,16 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
       sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (BuildContext context, int index) {
-            if (index >= _log.length) {
-              return null;
-            }
-            return _LifecycleLogTile(
-              entry: _log[index],
-              isFirst: index == 0,
-              isLast: index == _log.length - 1,
-            );
-          },
-          childCount: _log.length,
-        ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          if (index >= _log.length) {
+            return null;
+          }
+          return _LifecycleLogTile(
+            entry: _log[index],
+            isFirst: index == 0,
+            isLast: index == _log.length - 1,
+          );
+        }, childCount: _log.length),
       ),
     );
   }
@@ -637,11 +666,7 @@ class _CommandDeckPageState extends State<_CommandDeckPage>
       return const SizedBox.shrink();
     }
     final card = _cards[index];
-    return _IncomingCard(
-      animation: animation,
-      card: card,
-      index: index,
-    );
+    return _IncomingCard(animation: animation, card: card, index: index);
   }
 }
 
@@ -767,9 +792,7 @@ class _ApiMethodBadgeRow extends StatelessWidget {
     return Wrap(
       spacing: 10,
       runSpacing: 10,
-      children: <Widget>[
-        for (final m in _methods) _ApiMethodBadge(spec: m),
-      ],
+      children: <Widget>[for (final m in _methods) _ApiMethodBadge(spec: m)],
     );
   }
 }
@@ -938,14 +961,25 @@ class _CommandDeckBadgePainter extends CustomPainter {
     // Four tick marks on the corners to evoke a grid.
     const double tick = 4.5;
     canvas.drawLine(
-        Offset(r.left + 4, r.top + 4), Offset(r.left + 4 + tick, r.top + 4),
-        strokePaint);
-    canvas.drawLine(Offset(r.right - 4, r.top + 4),
-        Offset(r.right - 4 - tick, r.top + 4), strokePaint);
-    canvas.drawLine(Offset(r.left + 4, r.bottom - 4),
-        Offset(r.left + 4 + tick, r.bottom - 4), strokePaint);
-    canvas.drawLine(Offset(r.right - 4, r.bottom - 4),
-        Offset(r.right - 4 - tick, r.bottom - 4), strokePaint);
+      Offset(r.left + 4, r.top + 4),
+      Offset(r.left + 4 + tick, r.top + 4),
+      strokePaint,
+    );
+    canvas.drawLine(
+      Offset(r.right - 4, r.top + 4),
+      Offset(r.right - 4 - tick, r.top + 4),
+      strokePaint,
+    );
+    canvas.drawLine(
+      Offset(r.left + 4, r.bottom - 4),
+      Offset(r.left + 4 + tick, r.bottom - 4),
+      strokePaint,
+    );
+    canvas.drawLine(
+      Offset(r.right - 4, r.bottom - 4),
+      Offset(r.right - 4 - tick, r.bottom - 4),
+      strokePaint,
+    );
 
     // Centre dot.
     canvas.drawCircle(r.center, 3.4, Paint()..color = _kCream);
@@ -1161,9 +1195,7 @@ class _ControlButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: primary ? _kPeachWarm : _kBorder,
-            ),
+            border: Border.all(color: primary ? _kPeachWarm : _kBorder),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -1230,7 +1262,9 @@ class _DurationSlider extends StatelessWidget {
               const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 4),
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: _kTealDeeper,
                   borderRadius: BorderRadius.circular(999),
@@ -1278,8 +1312,11 @@ class _DurationSlider extends StatelessWidget {
           const Divider(color: _kBorder, height: 24),
           Row(
             children: <Widget>[
-              const Icon(Icons.auto_awesome_rounded,
-                  color: _kPeachWarm, size: 20),
+              const Icon(
+                Icons.auto_awesome_rounded,
+                color: _kPeachWarm,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               const Expanded(
                 child: Text(
@@ -1337,10 +1374,7 @@ class _IncomingCard extends StatelessWidget {
 }
 
 class _FancyRemovedCard extends StatelessWidget {
-  const _FancyRemovedCard({
-    required this.animation,
-    required this.snapshot,
-  });
+  const _FancyRemovedCard({required this.animation, required this.snapshot});
 
   final Animation<double> animation;
   final _DeckCardModel snapshot;
@@ -1366,10 +1400,7 @@ class _FancyRemovedCard extends StatelessWidget {
 }
 
 class _PlainRemovedCard extends StatelessWidget {
-  const _PlainRemovedCard({
-    required this.animation,
-    required this.snapshot,
-  });
+  const _PlainRemovedCard({required this.animation, required this.snapshot});
 
   final Animation<double> animation;
   final _DeckCardModel snapshot;
@@ -1386,10 +1417,7 @@ class _PlainRemovedCard extends StatelessWidget {
 // Builder shared by the `removeAllItems` path. Slides the card off to the
 // right while fading, so a bulk clear looks distinct from a single remove.
 class _SlidingRemovedCard extends StatelessWidget {
-  const _SlidingRemovedCard({
-    required this.animation,
-    required this.snapshot,
-  });
+  const _SlidingRemovedCard({required this.animation, required this.snapshot});
 
   final Animation<double> animation;
   final List<_DeckCardModel> snapshot;
@@ -1440,10 +1468,7 @@ class _CardSurface extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         gradient: LinearGradient(
-          colors: <Color>[
-            base,
-            Color.lerp(base, _kInk, 0.28) ?? base,
-          ],
+          colors: <Color>[base, Color.lerp(base, _kInk, 0.28) ?? base],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -1468,8 +1493,7 @@ class _CardSurface extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: foreground.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(6),
@@ -1558,8 +1582,7 @@ class _GridFooterCard extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.info_outline_rounded,
-                  color: _kTeal, size: 18),
+              const Icon(Icons.info_outline_rounded, color: _kTeal, size: 18),
               const SizedBox(width: 6),
               const Text(
                 'Current state',
@@ -1571,8 +1594,7 @@ class _GridFooterCard extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: _kPeach,
                   borderRadius: BorderRadius.circular(999),
@@ -1754,8 +1776,7 @@ class _ComparisonTable extends StatelessWidget {
           const _ComparisonHeader(),
           for (int i = 0; i < _rows.length; i++) ...<Widget>[
             if (i > 0)
-              Divider(
-                  height: 1, color: _kBorder.withValues(alpha: 0.8)),
+              Divider(height: 1, color: _kBorder.withValues(alpha: 0.8)),
             _ComparisonBodyRow(row: _rows[i]),
           ],
         ],
@@ -1900,7 +1921,7 @@ class _FieldReferenceTable extends StatelessWidget {
     _FieldSpec(
       signature:
           'void removeItem(int index, AnimatedRemovedItemBuilder builder, '
-              '{Duration duration})',
+          '{Duration duration})',
       returns: 'void',
       notes:
           'Marks the item outgoing. The builder drives the widget while the '
@@ -1909,7 +1930,7 @@ class _FieldReferenceTable extends StatelessWidget {
     _FieldSpec(
       signature:
           'void removeAllItems(AnimatedRemovedItemBuilder builder, '
-              '{Duration duration})',
+          '{Duration duration})',
       returns: 'void',
       notes:
           'Bulk variant that cascades removal across every surviving entry '
@@ -1994,8 +2015,7 @@ class _FieldRow extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: _kPeach,
                   borderRadius: BorderRadius.circular(6),
@@ -2073,10 +2093,7 @@ class _LifecycleLogTile extends StatelessWidget {
         ? _kPeach.withValues(alpha: 0.85)
         : _kBorder;
     return Container(
-      margin: EdgeInsets.only(
-        top: isFirst ? 4 : 0,
-        bottom: isLast ? 18 : 8,
-      ),
+      margin: EdgeInsets.only(top: isFirst ? 4 : 0, bottom: isLast ? 18 : 8),
       decoration: BoxDecoration(
         color: _kCream,
         borderRadius: BorderRadius.circular(12),
@@ -2113,8 +2130,7 @@ class _LifecycleLogTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    if (entry.index >= 0)
-                      _LogChip(label: 'idx=${entry.index}'),
+                    if (entry.index >= 0) _LogChip(label: 'idx=${entry.index}'),
                     const SizedBox(width: 6),
                     _LogChip(label: 'total=${entry.total}'),
                     const Spacer(),
@@ -2246,8 +2262,7 @@ const List<String> _kGlyphs = <String>[
 
 String _formatClock(DateTime t, {bool withMillis = false}) {
   String two(int n) => n.toString().padLeft(2, '0');
-  final base =
-      '${two(t.hour)}:${two(t.minute)}:${two(t.second)}';
+  final base = '${two(t.hour)}:${two(t.minute)}:${two(t.second)}';
   if (!withMillis) return base;
   final ms = t.millisecond.toString().padLeft(3, '0');
   return '$base.$ms';

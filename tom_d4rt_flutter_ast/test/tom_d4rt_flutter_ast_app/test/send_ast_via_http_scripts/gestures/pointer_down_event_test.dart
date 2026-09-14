@@ -186,22 +186,102 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        _buildAnatomyRow(Icons.access_time, 'timeStamp', 'when the engine dispatched the event', Colors.indigo),
-        _buildAnatomyRow(Icons.fingerprint, 'pointer', 'unique identifier per finger / stylus / cursor', Colors.purple),
-        _buildAnatomyRow(Icons.devices, 'kind', 'PointerDeviceKind: touch, mouse, stylus, ...', Colors.blue),
-        _buildAnatomyRow(Icons.usb, 'device', 'physical device id from the embedder', Colors.teal),
-        _buildAnatomyRow(Icons.place, 'position', 'global coordinates in logical pixels', Colors.green),
-        _buildAnatomyRow(Icons.location_searching, 'localPosition', 'coordinates inside the receiving widget', Colors.lightGreen),
-        _buildAnatomyRow(Icons.mouse, 'buttons', 'bitmask of pressed buttons / contact bits', Colors.orange),
-        _buildAnatomyRow(Icons.visibility_off, 'obscured', 'true if the pointer was over an obscured area', Colors.brown),
-        _buildAnatomyRow(Icons.compress, 'pressure', 'normalized pressure in [pressureMin, pressureMax]', Colors.red),
-        _buildAnatomyRow(Icons.swap_vert, 'distance / distanceMax', 'down == 0.0; max for hover-capable devices', Colors.pink),
-        _buildAnatomyRow(Icons.crop_square, 'size', 'normalized contact area in [0, 1]', Colors.deepOrange),
-        _buildAnatomyRow(Icons.radio_button_checked, 'radiusMajor / Minor', 'ellipse axes of contact patch', Colors.amber),
-        _buildAnatomyRow(Icons.rotate_right, 'orientation', 'angle of the major axis (radians)', Colors.lime),
-        _buildAnatomyRow(Icons.architecture, 'tilt', 'stylus tilt off the screen normal (radians)', Colors.deepPurple),
-        _buildAnatomyRow(Icons.code, 'embedderId / viewId', 'engine-side identifiers', Colors.grey),
-        _buildAnatomyRow(Icons.transform, 'transform', 'matrix mapping global → local coords', Colors.blueGrey),
+        _buildAnatomyRow(
+          Icons.access_time,
+          'timeStamp',
+          'when the engine dispatched the event',
+          Colors.indigo,
+        ),
+        _buildAnatomyRow(
+          Icons.fingerprint,
+          'pointer',
+          'unique identifier per finger / stylus / cursor',
+          Colors.purple,
+        ),
+        _buildAnatomyRow(
+          Icons.devices,
+          'kind',
+          'PointerDeviceKind: touch, mouse, stylus, ...',
+          Colors.blue,
+        ),
+        _buildAnatomyRow(
+          Icons.usb,
+          'device',
+          'physical device id from the embedder',
+          Colors.teal,
+        ),
+        _buildAnatomyRow(
+          Icons.place,
+          'position',
+          'global coordinates in logical pixels',
+          Colors.green,
+        ),
+        _buildAnatomyRow(
+          Icons.location_searching,
+          'localPosition',
+          'coordinates inside the receiving widget',
+          Colors.lightGreen,
+        ),
+        _buildAnatomyRow(
+          Icons.mouse,
+          'buttons',
+          'bitmask of pressed buttons / contact bits',
+          Colors.orange,
+        ),
+        _buildAnatomyRow(
+          Icons.visibility_off,
+          'obscured',
+          'true if the pointer was over an obscured area',
+          Colors.brown,
+        ),
+        _buildAnatomyRow(
+          Icons.compress,
+          'pressure',
+          'normalized pressure in [pressureMin, pressureMax]',
+          Colors.red,
+        ),
+        _buildAnatomyRow(
+          Icons.swap_vert,
+          'distance / distanceMax',
+          'down == 0.0; max for hover-capable devices',
+          Colors.pink,
+        ),
+        _buildAnatomyRow(
+          Icons.crop_square,
+          'size',
+          'normalized contact area in [0, 1]',
+          Colors.deepOrange,
+        ),
+        _buildAnatomyRow(
+          Icons.radio_button_checked,
+          'radiusMajor / Minor',
+          'ellipse axes of contact patch',
+          Colors.amber,
+        ),
+        _buildAnatomyRow(
+          Icons.rotate_right,
+          'orientation',
+          'angle of the major axis (radians)',
+          Colors.lime,
+        ),
+        _buildAnatomyRow(
+          Icons.architecture,
+          'tilt',
+          'stylus tilt off the screen normal (radians)',
+          Colors.deepPurple,
+        ),
+        _buildAnatomyRow(
+          Icons.code,
+          'embedderId / viewId',
+          'engine-side identifiers',
+          Colors.grey,
+        ),
+        _buildAnatomyRow(
+          Icons.transform,
+          'transform',
+          'matrix mapping global → local coords',
+          Colors.blueGrey,
+        ),
       ],
     ),
   );
@@ -246,7 +326,8 @@ dynamic build(BuildContext context) {
       label: 'position',
       icon: Icons.place,
       color: Colors.green,
-      value: '(${eventTouch.position.dx.toStringAsFixed(1)}, ${eventTouch.position.dy.toStringAsFixed(1)})',
+      value:
+          '(${eventTouch.position.dx.toStringAsFixed(1)}, ${eventTouch.position.dy.toStringAsFixed(1)})',
       meaning: 'Global coordinate of the contact in logical pixels.',
       typeText: 'Offset',
     ),
@@ -254,7 +335,8 @@ dynamic build(BuildContext context) {
       label: 'localPosition',
       icon: Icons.location_searching,
       color: Colors.lightGreen,
-      value: '(${eventTouch.localPosition.dx.toStringAsFixed(1)}, ${eventTouch.localPosition.dy.toStringAsFixed(1)})',
+      value:
+          '(${eventTouch.localPosition.dx.toStringAsFixed(1)}, ${eventTouch.localPosition.dy.toStringAsFixed(1)})',
       meaning: 'Same as position when no transform is set.',
       typeText: 'Offset',
     ),
@@ -263,7 +345,8 @@ dynamic build(BuildContext context) {
       icon: Icons.mouse,
       color: Colors.orange,
       value: '0x${eventTouch.buttons.toRadixString(16)}',
-      meaning: 'Bitmask of pressed buttons (kPrimaryButton, kSecondaryButton ...).',
+      meaning:
+          'Bitmask of pressed buttons (kPrimaryButton, kSecondaryButton ...).',
       typeText: 'int',
     ),
     _buildFieldCard(
@@ -406,7 +489,8 @@ dynamic build(BuildContext context) {
     bodyText:
         'Listener exposes raw pointer events without arena negotiation.\n'
         'Use it for low-level hit-testing or custom gesture systems.',
-    code: '// Listener gives you the raw PointerDownEvent.\n'
+    code:
+        '// Listener gives you the raw PointerDownEvent.\n'
         'Listener(\n'
         '  onPointerDown: (PointerDownEvent ev) {\n'
         '    debugPrint(\'down @ \${ev.position}\');\n'
@@ -426,7 +510,8 @@ dynamic build(BuildContext context) {
     bodyText:
         'Wire a custom recognizer to a PointerDownEvent. The recognizer is\n'
         'fed via addPointer(event) inside a RawGestureDetector.',
-    code: 'final recognizer = TapGestureRecognizer()\n'
+    code:
+        'final recognizer = TapGestureRecognizer()\n'
         '  ..onTap = () => debugPrint(\'tap!\');\n\n'
         'RawGestureDetector(\n'
         '  gestures: <Type, GestureRecognizerFactory>{\n'
@@ -470,7 +555,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded, color: Colors.red.shade700, size: 28.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 28.0,
+            ),
             SizedBox(width: 10.0),
             Text(
               'Common Pitfalls',
@@ -544,17 +633,37 @@ dynamic build(BuildContext context) {
         SizedBox(height: 12.0),
         Row(
           children: [
-            _buildComparisonChip('PointerDownEvent', 'down=true,\ndistance=0', Icons.touch_app, Colors.green),
+            _buildComparisonChip(
+              'PointerDownEvent',
+              'down=true,\ndistance=0',
+              Icons.touch_app,
+              Colors.green,
+            ),
             SizedBox(width: 8.0),
-            _buildComparisonChip('PointerMoveEvent', 'while down,\ndelta != 0', Icons.swipe, Colors.blue),
+            _buildComparisonChip(
+              'PointerMoveEvent',
+              'while down,\ndelta != 0',
+              Icons.swipe,
+              Colors.blue,
+            ),
           ],
         ),
         SizedBox(height: 8.0),
         Row(
           children: [
-            _buildComparisonChip('PointerUpEvent', 'down=false,\ncontact end', Icons.upload, Colors.orange),
+            _buildComparisonChip(
+              'PointerUpEvent',
+              'down=false,\ncontact end',
+              Icons.upload,
+              Colors.orange,
+            ),
             SizedBox(width: 8.0),
-            _buildComparisonChip('PointerCancelEvent', 'aborted by\nsystem', Icons.cancel, Colors.red),
+            _buildComparisonChip(
+              'PointerCancelEvent',
+              'aborted by\nsystem',
+              Icons.cancel,
+              Colors.red,
+            ),
           ],
         ),
       ],
@@ -585,13 +694,7 @@ dynamic build(BuildContext context) {
   );
 
   final matrixRows = <Widget>[
-    _buildMatrixRow(
-      'touch',
-      'kPrimaryButton (1)',
-      '0..1',
-      'no',
-      Colors.green,
-    ),
+    _buildMatrixRow('touch', 'kPrimaryButton (1)', '0..1', 'no', Colors.green),
     _buildMatrixRow(
       'mouse',
       'kPrimary | kSecondary | kMiddle',
@@ -613,20 +716,8 @@ dynamic build(BuildContext context) {
       'yes',
       Colors.deepPurple,
     ),
-    _buildMatrixRow(
-      'trackpad',
-      '— (PointerPanZoom*)',
-      '—',
-      'yes',
-      Colors.grey,
-    ),
-    _buildMatrixRow(
-      'unknown',
-      'varies',
-      'varies',
-      'maybe',
-      Colors.brown,
-    ),
+    _buildMatrixRow('trackpad', '— (PointerPanZoom*)', '—', 'yes', Colors.grey),
+    _buildMatrixRow('unknown', 'varies', 'varies', 'maybe', Colors.brown),
   ];
 
   final kindButtonsMatrix = Container(
@@ -800,11 +891,7 @@ dynamic build(BuildContext context) {
             anatomyDiagram,
             SizedBox(height: 16.0),
             _buildSectionTitle('2. Per-field cards', Icons.dashboard_customize),
-            Wrap(
-              spacing: 10.0,
-              runSpacing: 10.0,
-              children: fieldCards,
-            ),
+            Wrap(spacing: 10.0, runSpacing: 10.0, children: fieldCards),
             SizedBox(height: 16.0),
             _buildSectionTitle('3. Listener recipe', Icons.headset_mic),
             listenerRecipe,
@@ -913,10 +1000,7 @@ Widget _buildFieldCard({
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.22),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.22)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1093,7 +1177,12 @@ Widget _buildPitfallRow(String text) {
   );
 }
 
-Widget _buildComparisonChip(String title, String desc, IconData icon, Color color) {
+Widget _buildComparisonChip(
+  String title,
+  String desc,
+  IconData icon,
+  Color color,
+) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(10.0),
@@ -1157,7 +1246,13 @@ Widget _buildHeaderCell(String text, double width) {
   );
 }
 
-Widget _buildMatrixRow(String kind, String buttons, String pressure, String hover, Color color) {
+Widget _buildMatrixRow(
+  String kind,
+  String buttons,
+  String pressure,
+  String hover,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
     decoration: BoxDecoration(
@@ -1262,7 +1357,10 @@ Widget _buildSampleCard({
         _kv('kind', event.kind.name),
         _kv('pointer', '${event.pointer}'),
         _kv('device', '${event.device}'),
-        _kv('position', '(${event.position.dx.toStringAsFixed(1)}, ${event.position.dy.toStringAsFixed(1)})'),
+        _kv(
+          'position',
+          '(${event.position.dx.toStringAsFixed(1)}, ${event.position.dy.toStringAsFixed(1)})',
+        ),
         _kv('buttons', '0x${event.buttons.toRadixString(16)}'),
         _kv('pressure', event.pressure.toStringAsFixed(2)),
         _kv('size', event.size.toStringAsFixed(2)),

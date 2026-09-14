@@ -140,16 +140,16 @@ class _SectionCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: cs.onSurfaceVariant,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
             ),
             const SizedBox(height: 12),
             child,
@@ -173,10 +173,9 @@ class _PropRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color:
-            highlight
-                ? cs.primaryContainer.withValues(alpha: 0.35)
-                : Colors.transparent,
+        color: highlight
+            ? cs.primaryContainer.withValues(alpha: 0.35)
+            : Colors.transparent,
         border: Border(
           bottom: BorderSide(color: cs.outlineVariant, width: 0.5),
         ),
@@ -195,10 +194,7 @@ class _PropRow extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              value,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            child: Text(value, style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -252,12 +248,9 @@ class _SelectionChip extends StatelessWidget {
       duration: const Duration(milliseconds: 250),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color:
-            selected ? cs.primaryContainer : cs.surfaceContainerHighest,
+        color: selected ? cs.primaryContainer : cs.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: selected ? cs.primary : cs.outlineVariant,
-        ),
+        border: Border.all(color: selected ? cs.primary : cs.outlineVariant),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -271,10 +264,8 @@ class _SelectionChip extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color:
-                  selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
-              fontWeight:
-                  selected ? FontWeight.bold : FontWeight.normal,
+              color: selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,
+              fontWeight: selected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
         ],
@@ -342,10 +333,12 @@ class _RadioVisual extends StatelessWidget {
     final bool interactive = state.isInteractive;
     final cs = Theme.of(context).colorScheme;
 
-    final Color effectiveRing =
-        interactive ? ringColor : cs.onSurface.withValues(alpha: 0.38);
-    final Color effectiveDot =
-        interactive ? dotColor : cs.onSurface.withValues(alpha: 0.38);
+    final Color effectiveRing = interactive
+        ? ringColor
+        : cs.onSurface.withValues(alpha: 0.38);
+    final Color effectiveDot = interactive
+        ? dotColor
+        : cs.onSurface.withValues(alpha: 0.38);
 
     final double reactionOpacity =
         state.reaction.value * 0.20 + state.reactionHoverFade.value * 0.08;
@@ -410,7 +403,9 @@ class _DefaultRadioVisual extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     return _RadioVisual(
       state: state,
-      ringColor: state.value == true ? cs.primary : cs.onSurface.withValues(alpha: 0.6),
+      ringColor: state.value == true
+          ? cs.primary
+          : cs.onSurface.withValues(alpha: 0.6),
       dotColor: cs.primary,
       splashRadius: 20.0,
     );
@@ -507,7 +502,11 @@ class _HeroBannerTab extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.radio_button_checked, size: 44, color: cs.primary),
+                    Icon(
+                      Icons.radio_button_checked,
+                      size: 44,
+                      color: cs.primary,
+                    ),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Column(
@@ -626,14 +625,14 @@ class _HeroBannerTab extends StatelessWidget {
                 _PropRow('overlayColor', 'WidgetStateProperty<Color?>?'),
                 _PropRow('splashRadius', 'double?'),
                 _PropRow('visualDensity', 'VisualDensity?'),
-                _PropRow(
-                  'materialTapTargetSize',
-                  'MaterialTapTargetSize?',
-                ),
+                _PropRow('materialTapTargetSize', 'MaterialTapTargetSize?'),
                 _PropRow('activeColor', 'Color? (deprecated convenience)'),
                 _PropRow('hoverColor / focusColor', 'Color? shortcuts'),
                 _PropRow('backgroundColor', 'WidgetStateProperty<Color?>?'),
-                _PropRow('side / innerRadius', 'BorderSide / WidgetStateProperty<double?>?'),
+                _PropRow(
+                  'side / innerRadius',
+                  'BorderSide / WidgetStateProperty<double?>?',
+                ),
               ],
             ),
           ),
@@ -713,10 +712,7 @@ class _HierarchyDiagram extends StatelessWidget {
                   Chip(
                     label: const Text('primitive'),
                     backgroundColor: cs.primary,
-                    labelStyle: TextStyle(
-                      color: cs.onPrimary,
-                      fontSize: 10,
-                    ),
+                    labelStyle: TextStyle(color: cs.onPrimary, fontSize: 10),
                   ),
               ],
             ),
@@ -831,14 +827,12 @@ class _BasicGroupTab extends StatelessWidget {
                         ),
                       const SizedBox(height: 12),
                       _SelectionChip(
-                        label:
-                            picked == null
-                                ? 'Nothing selected yet'
-                                : 'Selected: $picked',
-                        icon:
-                            picked == null
-                                ? Icons.help_outline
-                                : Icons.check_circle_outline,
+                        label: picked == null
+                            ? 'Nothing selected yet'
+                            : 'Selected: $picked',
+                        icon: picked == null
+                            ? Icons.help_outline
+                            : Icons.check_circle_outline,
                         selected: picked != null,
                       ),
                     ],
@@ -911,10 +905,7 @@ class _BasicRadioRow extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          _GroupedRawRadio<String>(
-            value: option,
-            focusNode: fn,
-          ),
+          _GroupedRawRadio<String>(value: option, focusNode: fn),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -923,22 +914,20 @@ class _BasicRadioRow extends StatelessWidget {
                 Text(
                   option,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight:
-                        selected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: selected ? FontWeight.bold : FontWeight.normal,
                     color: selected ? cs.primary : cs.onSurface,
                   ),
                 ),
                 Text(
                   subtitle,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: cs.onSurfaceVariant,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                 ),
               ],
             ),
           ),
-          if (selected)
-            Icon(Icons.check, size: 16, color: cs.primary),
+          if (selected) Icon(Icons.check, size: 16, color: cs.primary),
         ],
       ),
     );
@@ -966,14 +955,8 @@ class _NullGroupValueDemo extends StatelessWidget {
               onChanged: (_) {},
               child: Row(
                 children: [
-                  _GroupedRawRadio<int>(
-                    value: 1,
-                    focusNode: FocusNode(),
-                  ),
-                  _GroupedRawRadio<int>(
-                    value: 2,
-                    focusNode: FocusNode(),
-                  ),
+                  _GroupedRawRadio<int>(value: 1, focusNode: FocusNode()),
+                  _GroupedRawRadio<int>(value: 2, focusNode: FocusNode()),
                 ],
               ),
             ),
@@ -986,10 +969,7 @@ class _NullGroupValueDemo extends StatelessWidget {
               ),
               child: Text(
                 'none selected',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: cs.onErrorContainer,
-                ),
+                style: TextStyle(fontSize: 10, color: cs.onErrorContainer),
               ),
             ),
           ],
@@ -1006,14 +986,8 @@ class _NullGroupValueDemo extends StatelessWidget {
               onChanged: (_) {},
               child: Row(
                 children: [
-                  _GroupedRawRadio<int>(
-                    value: 1,
-                    focusNode: FocusNode(),
-                  ),
-                  _GroupedRawRadio<int>(
-                    value: 2,
-                    focusNode: FocusNode(),
-                  ),
+                  _GroupedRawRadio<int>(value: 1, focusNode: FocusNode()),
+                  _GroupedRawRadio<int>(value: 2, focusNode: FocusNode()),
                 ],
               ),
             ),
@@ -1026,10 +1000,7 @@ class _NullGroupValueDemo extends StatelessWidget {
               ),
               child: Text(
                 'first selected',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: cs.onPrimaryContainer,
-                ),
+                style: TextStyle(fontSize: 10, color: cs.onPrimaryContainer),
               ),
             ),
           ],
@@ -1073,16 +1044,14 @@ class _ToggleableTab extends StatelessWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            toggleEnabled
-                                ? cs.primaryContainer.withValues(alpha: 0.4)
-                                : cs.errorContainer.withValues(alpha: 0.4),
+                        color: toggleEnabled
+                            ? cs.primaryContainer.withValues(alpha: 0.4)
+                            : cs.errorContainer.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color:
-                              toggleEnabled
-                                  ? cs.primary.withValues(alpha: 0.4)
-                                  : cs.error.withValues(alpha: 0.4),
+                          color: toggleEnabled
+                              ? cs.primary.withValues(alpha: 0.4)
+                              : cs.error.withValues(alpha: 0.4),
                         ),
                       ),
                       child: Row(
@@ -1092,13 +1061,11 @@ class _ToggleableTab extends StatelessWidget {
                             toggleEnabled
                                 ? 'toggleable: true'
                                 : 'toggleable: false',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.titleSmall?.copyWith(
-                              fontFamily: 'monospace',
-                              color:
-                                  toggleEnabled ? cs.primary : cs.error,
-                            ),
+                            style: Theme.of(context).textTheme.titleSmall
+                                ?.copyWith(
+                                  fontFamily: 'monospace',
+                                  color: toggleEnabled ? cs.primary : cs.error,
+                                ),
                           ),
                           Switch(
                             value: toggleEnabled,
@@ -1133,26 +1100,23 @@ class _ToggleableTab extends StatelessWidget {
                                 ),
                               const SizedBox(height: 10),
                               _SelectionChip(
-                                label:
-                                    picked == null
-                                        ? 'Nothing selected'
-                                        : 'Selected: $picked',
-                                icon:
-                                    picked == null
-                                        ? Icons.radio_button_unchecked
-                                        : Icons.radio_button_checked,
+                                label: picked == null
+                                    ? 'Nothing selected'
+                                    : 'Selected: $picked',
+                                icon: picked == null
+                                    ? Icons.radio_button_unchecked
+                                    : Icons.radio_button_checked,
                                 selected: picked != null,
                               ),
                               if (toggleable && picked != null) ...[
                                 const SizedBox(height: 6),
                                 Text(
                                   'Tap "$picked" again to deselect',
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.bodySmall?.copyWith(
-                                    color: cs.primary,
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(
+                                        color: cs.primary,
+                                        fontStyle: FontStyle.italic,
+                                      ),
                                 ),
                               ],
                             ],
@@ -1199,12 +1163,8 @@ class _ToggleableTab extends StatelessWidget {
                 _BulletPoint(
                   'Optional single-select filters (none = show all)',
                 ),
-                _BulletPoint(
-                  'Radio acting as toggle button (value vs null)',
-                ),
-                _BulletPoint(
-                  'Form fields where "no preference" is valid',
-                ),
+                _BulletPoint('Radio acting as toggle button (value vs null)'),
+                _BulletPoint('Form fields where "no preference" is valid'),
                 _BulletPoint(
                   'Avoid in required-choice forms — null breaks validation',
                 ),
@@ -1261,10 +1221,7 @@ class _ToggleableRadioRow extends StatelessWidget {
               ),
               child: Text(
                 toggleable ? 'tap to deselect' : 'selected',
-                style: TextStyle(
-                  fontSize: 10,
-                  color: cs.onPrimaryContainer,
-                ),
+                style: TextStyle(fontSize: 10, color: cs.onPrimaryContainer),
               ),
             ),
         ],
@@ -1330,12 +1287,24 @@ class _ColorsTab extends StatelessWidget {
             subtitle: 'Available inside builder callback',
             child: Column(
               children: const [
-                _PropRow('state.value', 'bool? — true=selected, false=unselected'),
+                _PropRow(
+                  'state.value',
+                  'bool? — true=selected, false=unselected',
+                ),
                 _PropRow('state.isInteractive', 'bool — false when disabled'),
-                _PropRow('state.position', 'CurvedAnimation 0→1 (select transition)'),
+                _PropRow(
+                  'state.position',
+                  'CurvedAnimation 0→1 (select transition)',
+                ),
                 _PropRow('state.reaction', 'CurvedAnimation 0→1 (ink ripple)'),
-                _PropRow('state.reactionHoverFade', 'CurvedAnimation (hover overlay)'),
-                _PropRow('state.reactionFocusFade', 'CurvedAnimation (focus overlay)'),
+                _PropRow(
+                  'state.reactionHoverFade',
+                  'CurvedAnimation (hover overlay)',
+                ),
+                _PropRow(
+                  'state.reactionFocusFade',
+                  'CurvedAnimation (focus overlay)',
+                ),
               ],
             ),
           ),
@@ -1351,8 +1320,18 @@ class _ColorBuilderShowcase extends StatelessWidget {
   static final List<(String, String, Color, Color)> _profiles = [
     ('Indigo / Pink', 'ring=indigo, dot=pink', Colors.indigo, Colors.pink),
     ('Teal / Amber', 'ring=teal, dot=amber', Colors.teal, Colors.amber),
-    ('Red / Orange', 'ring=red.800, dot=orange', Colors.red.shade800, Colors.orange),
-    ('Purple accent', 'ring=deepPurple, dot=purple.200', Colors.deepPurple, Colors.purple.shade200),
+    (
+      'Red / Orange',
+      'ring=red.800, dot=orange',
+      Colors.red.shade800,
+      Colors.orange,
+    ),
+    (
+      'Purple accent',
+      'ring=deepPurple, dot=purple.200',
+      Colors.deepPurple,
+      Colors.purple.shade200,
+    ),
   ];
 
   @override
@@ -1370,16 +1349,14 @@ class _ColorBuilderShowcase extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color:
-                        picked == i
-                            ? cs.primaryContainer.withValues(alpha: 0.25)
-                            : Colors.transparent,
+                    color: picked == i
+                        ? cs.primaryContainer.withValues(alpha: 0.25)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                      color:
-                          picked == i
-                              ? cs.primary.withValues(alpha: 0.4)
-                              : Colors.transparent,
+                      color: picked == i
+                          ? cs.primary.withValues(alpha: 0.4)
+                          : Colors.transparent,
                     ),
                   ),
                   child: Row(
@@ -1397,9 +1374,7 @@ class _ColorBuilderShowcase extends StatelessWidget {
                           children: [
                             Text(
                               _profiles[i].$1,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
+                              style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                             Text(
@@ -1618,12 +1593,11 @@ class _DensityMatrixTab extends StatelessWidget {
                       for (int r = 0; r < _densityLabels.length; r++)
                         TableRow(
                           decoration: BoxDecoration(
-                            color:
-                                r.isEven
-                                    ? cs.surfaceContainerHighest.withValues(
-                                      alpha: 0.18,
-                                    )
-                                    : Colors.transparent,
+                            color: r.isEven
+                                ? cs.surfaceContainerHighest.withValues(
+                                    alpha: 0.18,
+                                  )
+                                : Colors.transparent,
                           ),
                           children: [
                             Padding(
@@ -1742,9 +1716,9 @@ class _TH extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(
+          context,
+        ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -1787,13 +1761,12 @@ class _SplashPlaygroundTab extends StatelessWidget {
                       ),
                       child: Text(
                         'splashRadius: ${radius.toStringAsFixed(1)}',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium?.copyWith(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                          color: cs.onPrimaryContainer,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.bold,
+                              color: cs.onPrimaryContainer,
+                            ),
                       ),
                     ),
                     const SizedBox(height: 14),
@@ -1816,8 +1789,9 @@ class _SplashPlaygroundTab extends StatelessWidget {
                           ),
                           Text(
                             '20 (default)',
-                            style: Theme.of(context).textTheme.labelSmall
-                                ?.copyWith(color: cs.primary),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelSmall?.copyWith(color: cs.primary),
                           ),
                           Text(
                             '40',
@@ -1920,7 +1894,11 @@ class _SplashPlaygroundTab extends StatelessWidget {
               children: const [
                 _PropRow('0', 'Remove ripple entirely (strict / kiosk design)'),
                 _PropRow('< 14', 'Dense list rows with many radios'),
-                _PropRow('20', 'Default — recommended for touch screens', highlight: true),
+                _PropRow(
+                  '20',
+                  'Default — recommended for touch screens',
+                  highlight: true,
+                ),
                 _PropRow('> 24', 'Accessibility-focused, large touch target'),
                 _PropRow('> 36', 'Decorative / hero call-to-action only'),
               ],
@@ -2069,10 +2047,9 @@ class _PlanCard extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       decoration: BoxDecoration(
-        color:
-            selected
-                ? plan.color.withValues(alpha: 0.08)
-                : cs.surfaceContainerHighest.withValues(alpha: 0.4),
+        color: selected
+            ? plan.color.withValues(alpha: 0.08)
+            : cs.surfaceContainerHighest.withValues(alpha: 0.4),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: selected ? plan.color : cs.outlineVariant,
@@ -2158,10 +2135,9 @@ class _PlanCard extends StatelessWidget {
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color:
-                          selected
-                              ? plan.color.withValues(alpha: 0.15)
-                              : cs.surfaceContainerHighest,
+                      color: selected
+                          ? plan.color.withValues(alpha: 0.15)
+                          : cs.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Row(
@@ -2170,18 +2146,14 @@ class _PlanCard extends StatelessWidget {
                         Icon(
                           Icons.check,
                           size: 10,
-                          color:
-                              selected ? plan.color : cs.onSurfaceVariant,
+                          color: selected ? plan.color : cs.onSurfaceVariant,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           f,
                           style: TextStyle(
                             fontSize: 11,
-                            color:
-                                selected
-                                    ? plan.color
-                                    : cs.onSurfaceVariant,
+                            color: selected ? plan.color : cs.onSurfaceVariant,
                           ),
                         ),
                       ],
@@ -2277,14 +2249,12 @@ class _KeyboardNavigationTab extends StatelessWidget {
                         ),
                       const SizedBox(height: 12),
                       _SelectionChip(
-                        label:
-                            picked == null
-                                ? 'Tab to focus · arrows to navigate · Space to select'
-                                : 'Selected: ${_items[picked]}',
-                        icon:
-                            picked == null
-                                ? Icons.keyboard_outlined
-                                : Icons.check_circle_outline,
+                        label: picked == null
+                            ? 'Tab to focus · arrows to navigate · Space to select'
+                            : 'Selected: ${_items[picked]}',
+                        icon: picked == null
+                            ? Icons.keyboard_outlined
+                            : Icons.check_circle_outline,
                         selected: picked != null,
                       ),
                     ],
@@ -2312,14 +2282,12 @@ class _KeyboardNavigationTab extends StatelessWidget {
                 ),
                 _KeyShortcutRow(
                   key_: 'Arrow Down / Right',
-                  action:
-                      'Move selection to next radio (wraps to first).',
+                  action: 'Move selection to next radio (wraps to first).',
                   icon: Icons.arrow_downward,
                 ),
                 _KeyShortcutRow(
                   key_: 'Arrow Up / Left',
-                  action:
-                      'Move selection to previous radio (wraps to last).',
+                  action: 'Move selection to previous radio (wraps to last).',
                   icon: Icons.arrow_upward,
                 ),
               ],
@@ -2333,12 +2301,27 @@ class _KeyboardNavigationTab extends StatelessWidget {
               children: [
                 Column(
                   children: const [
-                    _PropRow('focusNode', 'Required — pass a FocusNode instance'),
-                    _PropRow('autofocus', 'bool — request focus on first frame'),
-                    _PropRow('node.hasFocus', 'true when this radio is focused'),
-                    _PropRow('node.requestFocus()', 'Set focus programmatically'),
+                    _PropRow(
+                      'focusNode',
+                      'Required — pass a FocusNode instance',
+                    ),
+                    _PropRow(
+                      'autofocus',
+                      'bool — request focus on first frame',
+                    ),
+                    _PropRow(
+                      'node.hasFocus',
+                      'true when this radio is focused',
+                    ),
+                    _PropRow(
+                      'node.requestFocus()',
+                      'Set focus programmatically',
+                    ),
                     _PropRow('node.unfocus()', 'Remove focus'),
-                    _PropRow('node.dispose()', 'Must call in StatefulWidget.dispose()'),
+                    _PropRow(
+                      'node.dispose()',
+                      'Must call in StatefulWidget.dispose()',
+                    ),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -2486,10 +2469,7 @@ class _KeyShortcutRow extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              action,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
+            child: Text(action, style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),
@@ -2513,8 +2493,7 @@ class _ComparisonTab extends StatelessWidget {
         children: [
           _SectionCard(
             title: 'Widget Comparison Table',
-            subtitle:
-                'RawRadio · Radio · RadioListTile · Switch · Checkbox',
+            subtitle: 'RawRadio · Radio · RadioListTile · Switch · Checkbox',
             child: const _ComparisonTable(),
           ),
           _SectionCard(
@@ -2529,7 +2508,10 @@ class _ComparisonTab extends StatelessWidget {
               children: const [
                 _PropRow('groupValue', 'T? — currently selected value'),
                 _PropRow('onChanged', 'ValueChanged<T?> — selection callback'),
-                _PropRow('child', 'Widget — subtree containing RawRadio widgets'),
+                _PropRow(
+                  'child',
+                  'Widget — subtree containing RawRadio widgets',
+                ),
                 _PropRow(
                   'RadioGroup.maybeOf<T>(ctx)',
                   'Returns RadioGroupRegistry<T>? from context',
@@ -2567,13 +2549,27 @@ class _ComparisonTable extends StatelessWidget {
     const rows = <List<String>>[
       ['Type param', 'T', 'T', 'T', 'bool', 'bool?'],
       ['Label', 'none', 'none', 'built-in', 'none', 'none'],
-      ['Group state', 'RadioGroup', 'RadioGroup', 'RadioGroup', 'external', 'external'],
+      [
+        'Group state',
+        'RadioGroup',
+        'RadioGroup',
+        'RadioGroup',
+        'external',
+        'external',
+      ],
       ['Toggleable', 'param', 'param', 'param', 'always', 'tristate'],
       ['Visual', 'builder fn', 'painter', 'painter', 'thumb', 'painter'],
       ['Theme colors', 'manual', 'auto', 'auto', 'auto', 'auto'],
       ['splashRadius', 'builder ctrl', 'param', 'theme', 'fixed', 'fixed'],
       ['FocusNode', 'required', 'optional', 'optional', 'optional', 'optional'],
-      ['Keyboard nav', 'RadioGroup', 'RadioGroup', 'RadioGroup', 'manual', 'manual'],
+      [
+        'Keyboard nav',
+        'RadioGroup',
+        'RadioGroup',
+        'RadioGroup',
+        'manual',
+        'manual',
+      ],
       ['Use case', 'custom UI', 'forms', 'list rows', 'on/off', 'multi'],
     ];
 
@@ -2594,10 +2590,7 @@ class _ComparisonTable extends StatelessWidget {
             5: FlexColumnWidth(),
           },
           border: TableBorder(
-            horizontalInside: BorderSide(
-              color: cs.outlineVariant,
-              width: 0.5,
-            ),
+            horizontalInside: BorderSide(color: cs.outlineVariant, width: 0.5),
           ),
           children: [
             TableRow(
@@ -2624,10 +2617,9 @@ class _ComparisonTable extends StatelessWidget {
             for (int r = 0; r < rows.length; r++)
               TableRow(
                 decoration: BoxDecoration(
-                  color:
-                      r.isEven
-                          ? cs.surfaceContainerHighest.withValues(alpha: 0.18)
-                          : Colors.transparent,
+                  color: r.isEven
+                      ? cs.surfaceContainerHighest.withValues(alpha: 0.18)
+                      : Colors.transparent,
                 ),
                 children: [
                   for (int c = 0; c < rows[r].length; c++)
@@ -2641,8 +2633,9 @@ class _ComparisonTable extends StatelessWidget {
                         textAlign: c == 0 ? TextAlign.left : TextAlign.center,
                         style: tt.bodySmall?.copyWith(
                           fontFamily: c == 0 ? null : 'monospace',
-                          fontWeight:
-                              c == 1 ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: c == 1
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                           color: c == 1 ? cs.primary : cs.onSurface,
                         ),
                       ),
@@ -2664,12 +2657,7 @@ class _ApiCheatSheet extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final tt = Theme.of(context).textTheme;
     const params = <(String, String, String, bool)>[
-      (
-        'value',
-        'T',
-        'The value this radio represents.',
-        true,
-      ),
+      ('value', 'T', 'The value this radio represents.', true),
       (
         'mouseCursor',
         'WidgetStateProperty\n<MouseCursor>',
@@ -2690,12 +2678,7 @@ class _ApiCheatSheet extends StatelessWidget {
         'Non-nullable. Must be disposed by caller.',
         true,
       ),
-      (
-        'autofocus',
-        'bool',
-        'Request focus on the first frame.',
-        true,
-      ),
+      ('autofocus', 'bool', 'Request focus on the first frame.', true),
       (
         'groupRegistry',
         'RadioGroupRegistry<T>?',
@@ -2727,15 +2710,11 @@ class _ApiCheatSheet extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color:
-                    required_
-                        ? cs.primaryContainer.withValues(alpha: 0.18)
-                        : Colors.transparent,
+                color: required_
+                    ? cs.primaryContainer.withValues(alpha: 0.18)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: cs.outlineVariant,
-                  width: 0.5,
-                ),
+                border: Border.all(color: cs.outlineVariant, width: 0.5),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -2768,10 +2747,7 @@ class _ApiCheatSheet extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          desc,
-                          style: tt.bodySmall?.copyWith(height: 1.4),
-                        ),
+                        Text(desc, style: tt.bodySmall?.copyWith(height: 1.4)),
                         if (required_) ...[
                           const SizedBox(height: 3),
                           Container(
@@ -2815,32 +2791,32 @@ class _CommonMistakes extends StatelessWidget {
       (
         'Null groupRegistry with enabled: true',
         'If groupRegistry is null (no RadioGroup in tree) and enabled is '
-        'true, RawRadio throws an assertion error.',
+            'true, RawRadio throws an assertion error.',
         'Always set enabled = (groupRegistry != null).',
       ),
       (
         'Forgetting FocusNode',
         'FocusNode is required (non-nullable). Creating a new FocusNode '
-        'inside build() leaks it because it is never disposed.',
+            'inside build() leaks it because it is never disposed.',
         'Declare FocusNode at widget scope (StatefulWidget) or file scope '
-        'for demos. Call dispose() in StatefulWidget.dispose().',
+            'for demos. Call dispose() in StatefulWidget.dispose().',
       ),
       (
         'Using Color.withOpacity()',
         'withOpacity() is deprecated. It produces a Color in the sRGB '
-        'color space and ignores the source color space.',
+            'color space and ignores the source color space.',
         'Use Color.withValues(alpha: x) instead.',
       ),
       (
         'Skipping RadioGroup',
         'RawRadio has no groupValue or onChanged of its own. Without a '
-        'RadioGroup parent, registry is null and the radio is disabled.',
+            'RadioGroup parent, registry is null and the radio is disabled.',
         'Always wrap RawRadio widgets in a RadioGroup<T>.',
       ),
       (
         'Inline FocusNode in build()',
         'Creating FocusNode() inside a build method means a new node on '
-        'every rebuild — the old one leaks.',
+            'every rebuild — the old one leaks.',
         'Store FocusNode in a StatefulWidget or as a file-scope variable.',
       ),
     ];
@@ -2870,8 +2846,7 @@ class _CommonMistakes extends StatelessWidget {
                     Expanded(
                       child: Text(
                         title,
-                        style: Theme.of(context).textTheme.bodyMedium
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: cs.error,
                         ),
@@ -2880,10 +2855,7 @@ class _CommonMistakes extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  problem,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                Text(problem, style: Theme.of(context).textTheme.bodySmall),
                 const SizedBox(height: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

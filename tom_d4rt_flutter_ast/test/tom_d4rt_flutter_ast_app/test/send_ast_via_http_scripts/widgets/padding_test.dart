@@ -731,10 +731,12 @@ Widget _buildAllExplainer() {
 
 Widget _buildAllCard(double inset) {
   // Pick a hue band based on inset size: small => mint, large => amber.
-  final Color accent =
-      inset <= 8.0 ? _mint500 : (inset <= 24.0 ? _mint600 : _amber600);
-  final Color accentLight =
-      inset <= 8.0 ? _mint100 : (inset <= 24.0 ? _mint200 : _amber200);
+  final Color accent = inset <= 8.0
+      ? _mint500
+      : (inset <= 24.0 ? _mint600 : _amber600);
+  final Color accentLight = inset <= 8.0
+      ? _mint100
+      : (inset <= 24.0 ? _mint200 : _amber200);
 
   return Container(
     width: 168.0,
@@ -982,7 +984,10 @@ Widget _buildSymmetricCard({
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [accent.withValues(alpha: 0.18), accent.withValues(alpha: 0.08)],
+              colors: [
+                accent.withValues(alpha: 0.18),
+                accent.withValues(alpha: 0.08),
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -1354,7 +1359,8 @@ Widget _buildPaddingVsContainer() {
                     ),
                   ),
                 ),
-                code: 'Padding(\n'
+                code:
+                    'Padding(\n'
                     '  padding: EdgeInsets.all(20),\n'
                     '  child: ...,\n'
                     ')',
@@ -1389,7 +1395,8 @@ Widget _buildPaddingVsContainer() {
                     ),
                   ),
                 ),
-                code: 'Container(\n'
+                code:
+                    'Container(\n'
                     '  padding: EdgeInsets.all(20),\n'
                     '  child: ...,\n'
                     ')',
@@ -1564,11 +1571,7 @@ Widget _buildSearchBarMock() {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 8.0),
-                    child: Icon(
-                      Icons.tune,
-                      color: _slate500,
-                      size: 18.0,
-                    ),
+                    child: Icon(Icons.tune, color: _slate500, size: 18.0),
                   ),
                 ],
               ),
@@ -1638,11 +1641,7 @@ Widget _buildArticleCardMock() {
             child: Text(
               'Padding is the simplest way to push pixels around. It wraps a '
               'single child and inflates its layout by the configured insets.',
-              style: TextStyle(
-                fontSize: 13.0,
-                color: _slate600,
-                height: 1.45,
-              ),
+              style: TextStyle(fontSize: 13.0, color: _slate600, height: 1.45),
             ),
           ),
           // Actions row
@@ -1868,8 +1867,7 @@ Widget _buildLayoutImpact() {
     children: [
       _buildLayoutMiniCard(
         title: 'Padding inside Column',
-        description:
-            'Each child grows vertically by top + bottom padding.',
+        description: 'Each child grows vertically by top + bottom padding.',
         accent: _mint600,
         demo: Container(
           height: 100.0,
@@ -1895,8 +1893,7 @@ Widget _buildLayoutImpact() {
       SizedBox(height: 12.0),
       _buildLayoutMiniCard(
         title: 'Padding inside Row',
-        description:
-            'Each child grows horizontally by left + right padding.',
+        description: 'Each child grows horizontally by left + right padding.',
         accent: _amber600,
         demo: Container(
           height: 70.0,
@@ -1926,8 +1923,7 @@ Widget _buildLayoutImpact() {
       SizedBox(height: 12.0),
       _buildLayoutMiniCard(
         title: 'Padding inside Stack',
-        description:
-            'Padding works as any other widget in a Stack child slot.',
+        description: 'Padding works as any other widget in a Stack child slot.',
         accent: _indigo500,
         demo: Container(
           height: 110.0,

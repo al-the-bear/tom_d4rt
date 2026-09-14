@@ -57,9 +57,7 @@ Widget _heSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_heForest, _heDarkGreen],
-      ),
+      gradient: LinearGradient(colors: [_heForest, _heDarkGreen]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,7 +193,11 @@ Widget _heInfoCard(String title, String body, Color accent) {
       borderRadius: BorderRadius.circular(10),
       border: Border(left: BorderSide(color: accent, width: 4)),
       boxShadow: const [
-        BoxShadow(color: Color(0x14000000), blurRadius: 6, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Color(0x14000000),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -417,10 +419,10 @@ dynamic build(BuildContext context) {
           'mainAxisPosition',
           'double',
           'Distance in pixels from the sliver\'s zero scroll offset to the '
-          'point where the hit occurred, measured along the main (scroll) axis. '
-          'In a vertical list this is the Y distance from the top edge of the '
-          'sliver to the pointer position. In a horizontal list it is the X '
-          'distance from the leading edge.',
+              'point where the hit occurred, measured along the main (scroll) axis. '
+              'In a vertical list this is the Y distance from the top edge of the '
+              'sliver to the pointer position. In a horizontal list it is the X '
+              'distance from the leading edge.',
           'entry.mainAxisPosition  // e.g. 142.5',
           _heForest,
           Icons.swap_vert_rounded,
@@ -499,11 +501,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 40,
                 top: 140,
-                child: Container(
-                  width: 80,
-                  height: 3,
-                  color: _heCoral,
-                ),
+                child: Container(width: 80, height: 3, color: _heCoral),
               ),
               Positioned(
                 left: 130,
@@ -555,10 +553,10 @@ dynamic build(BuildContext context) {
           'crossAxisPosition',
           'double',
           'Distance in pixels from the sliver\'s zero cross-axis offset to '
-          'the pointer position, measured perpendicular to the scroll axis. '
-          'In a vertical list this is the X distance; in a horizontal list '
-          'the Y distance. This is essential for slivers that lay out '
-          'multiple children across the cross axis, such as SliverGrid.',
+              'the pointer position, measured perpendicular to the scroll axis. '
+              'In a vertical list this is the X distance; in a horizontal list '
+              'the Y distance. This is essential for slivers that lay out '
+              'multiple children across the cross axis, such as SliverGrid.',
           'entry.crossAxisPosition  // e.g. 200.0',
           _heTeal,
           Icons.swap_horiz_rounded,
@@ -597,9 +595,7 @@ dynamic build(BuildContext context) {
                 child: Container(
                   height: 70,
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [_heMint, _heTeal],
-                    ),
+                    gradient: const LinearGradient(colors: [_heMint, _heTeal]),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: const Center(
@@ -632,11 +628,7 @@ dynamic build(BuildContext context) {
               Positioned(
                 left: 180,
                 top: 40,
-                child: Container(
-                  width: 3,
-                  height: 70,
-                  color: _heIndigo,
-                ),
+                child: Container(width: 3, height: 70, color: _heIndigo),
               ),
               Positioned(
                 left: 150,
@@ -819,20 +811,27 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _heHierarchyBox('HitTestEntry<T>', _heSlate,
-                  'target: T, transform: Matrix4'),
+              _heHierarchyBox(
+                'HitTestEntry<T>',
+                _heSlate,
+                'target: T, transform: Matrix4',
+              ),
               _heHierarchyArrow(),
-              _heHierarchyBox('HitTestEntry<RenderSliver>', _heTeal,
-                  'target: RenderSliver'),
+              _heHierarchyBox(
+                'HitTestEntry<RenderSliver>',
+                _heTeal,
+                'target: RenderSliver',
+              ),
               _heHierarchyArrow(),
-              _heHierarchyBox('SliverHitTestEntry', _heForest,
-                  '+ mainAxisPosition: double\n+ crossAxisPosition: double'),
+              _heHierarchyBox(
+                'SliverHitTestEntry',
+                _heForest,
+                '+ mainAxisPosition: double\n+ crossAxisPosition: double',
+              ),
             ],
           ),
         ),
-        _heCaption(
-          'SliverHitTestEntry is a concrete class — not abstract.',
-        ),
+        _heCaption('SliverHitTestEntry is a concrete class — not abstract.'),
 
         _heDivider(),
 
@@ -871,7 +870,11 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.crop_square, color: _heIndigo, size: 18),
+                          const Icon(
+                            Icons.crop_square,
+                            color: _heIndigo,
+                            size: 18,
+                          ),
                           const SizedBox(width: 6),
                           const Text(
                             'BoxHitTestEntry',
@@ -913,7 +916,11 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.view_list, color: _heForest, size: 18),
+                          const Icon(
+                            Icons.view_list,
+                            color: _heForest,
+                            size: 18,
+                          ),
                           const SizedBox(width: 6),
                           const Text(
                             'SliverHitTestEntry',
@@ -1089,24 +1096,45 @@ dynamic build(BuildContext context) {
         ),
 
         // Flow diagram
-        _hePipelineStep('1', 'PointerDownEvent', 'Global position (dx, dy)',
-            _heSky, Icons.touch_app),
-        _hePipelineArrow(),
-        _hePipelineStep('2', 'RenderView.hitTest', 'Walk render tree',
-            _heSlate, Icons.account_tree),
-        _hePipelineArrow(),
-        _hePipelineStep('3', 'RenderSliver.hitTest',
-            'Convert to sliver coordinates', _heForest, Icons.transform),
+        _hePipelineStep(
+          '1',
+          'PointerDownEvent',
+          'Global position (dx, dy)',
+          _heSky,
+          Icons.touch_app,
+        ),
         _hePipelineArrow(),
         _hePipelineStep(
-            '4',
-            'SliverHitTestEntry created',
-            'mainAxisPosition + crossAxisPosition',
-            _heCoral,
-            Icons.add_circle_outline),
+          '2',
+          'RenderView.hitTest',
+          'Walk render tree',
+          _heSlate,
+          Icons.account_tree,
+        ),
         _hePipelineArrow(),
-        _hePipelineStep('5', 'Added to HitTestResult',
-            'Entry joins the result path', _hePlum, Icons.playlist_add_check),
+        _hePipelineStep(
+          '3',
+          'RenderSliver.hitTest',
+          'Convert to sliver coordinates',
+          _heForest,
+          Icons.transform,
+        ),
+        _hePipelineArrow(),
+        _hePipelineStep(
+          '4',
+          'SliverHitTestEntry created',
+          'mainAxisPosition + crossAxisPosition',
+          _heCoral,
+          Icons.add_circle_outline,
+        ),
+        _hePipelineArrow(),
+        _hePipelineStep(
+          '5',
+          'Added to HitTestResult',
+          'Entry joins the result path',
+          _hePlum,
+          Icons.playlist_add_check,
+        ),
 
         _heDivider(),
 
@@ -1231,7 +1259,11 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.swap_vert, color: _heForest, size: 16),
+                          const Icon(
+                            Icons.swap_vert,
+                            color: _heForest,
+                            size: 16,
+                          ),
                           const SizedBox(width: 4),
                           const Text(
                             'Vertical scroll',
@@ -1244,8 +1276,16 @@ dynamic build(BuildContext context) {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      _heLabelValue('mainAxis', 'Y offset', valueColor: _heForest),
-                      _heLabelValue('crossAxis', 'X offset', valueColor: _heIndigo),
+                      _heLabelValue(
+                        'mainAxis',
+                        'Y offset',
+                        valueColor: _heForest,
+                      ),
+                      _heLabelValue(
+                        'crossAxis',
+                        'X offset',
+                        valueColor: _heIndigo,
+                      ),
                       const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
@@ -1258,7 +1298,11 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.arrow_downward, color: _heForest, size: 20),
+                              Icon(
+                                Icons.arrow_downward,
+                                color: _heForest,
+                                size: 20,
+                              ),
                               Text(
                                 'Scrolls ↓',
                                 style: TextStyle(
@@ -1305,7 +1349,11 @@ dynamic build(BuildContext context) {
                       ),
                       const SizedBox(height: 8),
                       _heLabelValue('mainAxis', 'X offset', valueColor: _heSky),
-                      _heLabelValue('crossAxis', 'Y offset', valueColor: _hePlum),
+                      _heLabelValue(
+                        'crossAxis',
+                        'Y offset',
+                        valueColor: _hePlum,
+                      ),
                       const SizedBox(height: 12),
                       Container(
                         width: double.infinity,
@@ -1318,7 +1366,11 @@ dynamic build(BuildContext context) {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.arrow_forward, color: _heSky, size: 20),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: _heSky,
+                                size: 20,
+                              ),
                               Text(
                                 'Scrolls →',
                                 style: TextStyle(
@@ -1359,36 +1411,36 @@ dynamic build(BuildContext context) {
         _heInfoCard(
           'Zero offset hit',
           'mainAxisPosition = 0.0, crossAxisPosition = 0.0 — the very '
-          'top-left corner (vertical scroll) or leading edge of the sliver. '
-          'This is a valid hit on the first pixel.',
+              'top-left corner (vertical scroll) or leading edge of the sliver. '
+              'This is a valid hit on the first pixel.',
           _heForest,
         ),
         _heInfoCard(
           'Hit at paintExtent boundary',
           'mainAxisPosition equals the sliver\'s paintExtent. This is '
-          'technically just outside the visible region and should not '
-          'normally produce a hit — but the entry itself allows it.',
+              'technically just outside the visible region and should not '
+              'normally produce a hit — but the entry itself allows it.',
           _heAmber,
         ),
         _heInfoCard(
           'Negative values',
           'A hit with mainAxisPosition < 0 means the pointer is before the '
-          'sliver\'s scroll offset — possible during overscroll in '
-          'BouncingScrollPhysics.',
+              'sliver\'s scroll offset — possible during overscroll in '
+              'BouncingScrollPhysics.',
           _heCoral,
         ),
         _heInfoCard(
           'Very large crossAxisPosition',
           'crossAxisPosition >= sliver cross-axis extent. This can happen '
-          'if padding or margins push the sliver\'s size smaller than the '
-          'viewport. The entry is still valid; the sliver\'s hitTest method '
-          'handles the check.',
+              'if padding or margins push the sliver\'s size smaller than the '
+              'viewport. The entry is still valid; the sliver\'s hitTest method '
+              'handles the check.',
           _hePlum,
         ),
         _heInfoCard(
           'Fractional pixel values',
           'Both positions are doubles, so sub-pixel values like 142.37 are '
-          'perfectly normal on high-DPI screens. No rounding is performed.',
+              'perfectly normal on high-DPI screens. No rounding is performed.',
           _heSky,
         ),
 
@@ -1428,7 +1480,9 @@ dynamic build(BuildContext context) {
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: isHit ? _heCoral.withValues(alpha: 0.15) : Colors.white,
+                  color: isHit
+                      ? _heCoral.withValues(alpha: 0.15)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(8),
                   border: isHit
                       ? Border.all(color: _heCoral, width: 2)
@@ -1647,14 +1701,17 @@ Widget _heHierarchyBox(String name, Color color, String fields) {
 Widget _heHierarchyArrow() {
   return const Padding(
     padding: EdgeInsets.symmetric(vertical: 4),
-    child: Center(
-      child: Icon(Icons.arrow_downward, color: _heSlate, size: 20),
-    ),
+    child: Center(child: Icon(Icons.arrow_downward, color: _heSlate, size: 20)),
   );
 }
 
 Widget _hePipelineStep(
-    String step, String title, String detail, Color color, IconData icon) {
+  String step,
+  String title,
+  String detail,
+  Color color,
+  IconData icon,
+) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
     padding: const EdgeInsets.all(12),
@@ -1700,10 +1757,7 @@ Widget _hePipelineStep(
               ),
               Text(
                 detail,
-                style: const TextStyle(
-                  color: _heCharcoal,
-                  fontSize: 11,
-                ),
+                style: const TextStyle(color: _heCharcoal, fontSize: 11),
               ),
             ],
           ),

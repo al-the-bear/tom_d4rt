@@ -53,8 +53,10 @@ class _RedoTextIntentDemoState extends State<_RedoTextIntentDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('RedoTextIntent',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15)),
+        title: Text(
+          'RedoTextIntent',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -72,11 +74,7 @@ class _RedoTextIntentDemoState extends State<_RedoTextIntentDemo>
       ),
       body: TabBarView(
         controller: _tabCtrl,
-        children: [
-          _TheoryTab(),
-          _WorkshopTab(),
-          _UndoRedoLabTab(),
-        ],
+        children: [_TheoryTab(), _WorkshopTab(), _UndoRedoLabTab()],
       ),
     );
   }
@@ -137,14 +135,19 @@ class _TheoryTab extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('RedoTextIntent',
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700,
-                            color: _kDarkText)),
+                    Text(
+                      'RedoTextIntent',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: _kDarkText,
+                      ),
+                    ),
                     SizedBox(height: 3),
-                    Text('Restores previously undone text edits',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                    Text(
+                      'Restores previously undone text edits',
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    ),
                   ],
                 ),
               ),
@@ -167,7 +170,10 @@ class _TheoryTab extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12),
-          _labelBadge('Part of Flutter\'s Intent / Action system', _kIntentColor),
+          _labelBadge(
+            'Part of Flutter\'s Intent / Action system',
+            _kIntentColor,
+          ),
           SizedBox(height: 6),
           _labelBadge('Works with UndoHistoryController', _kActionColor),
           SizedBox(height: 6),
@@ -188,15 +194,27 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Class Hierarchy',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary)),
+          Text(
+            'Class Hierarchy',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 12),
-          _hierarchyRow('Intent', 0, _kIntentColor, 'Base class for all intents'),
           _hierarchyRow(
-              'RedoTextIntent', 1, _kRedoColor, 'Redo text edit intent'),
+            'Intent',
+            0,
+            _kIntentColor,
+            'Base class for all intents',
+          ),
+          _hierarchyRow(
+            'RedoTextIntent',
+            1,
+            _kRedoColor,
+            'Redo text edit intent',
+          ),
           SizedBox(height: 14),
           Container(
             padding: EdgeInsets.all(10),
@@ -207,20 +225,24 @@ class _TheoryTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Constructor:',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText)),
+                Text(
+                  'Constructor:',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: _kDarkText,
+                  ),
+                ),
                 SizedBox(height: 4),
                 Text(
                   'const RedoTextIntent(\n'
                   '  SelectionChangedCause cause\n'
                   ')',
                   style: TextStyle(
-                      fontSize: 11.5,
-                      fontFamily: 'monospace',
-                      color: _kDarkText),
+                    fontSize: 11.5,
+                    fontFamily: 'monospace',
+                    color: _kDarkText,
+                  ),
                 ),
               ],
             ),
@@ -229,7 +251,11 @@ class _TheoryTab extends StatelessWidget {
           Text(
             'The intent is immutable (const) and carries a single property: '
             'the SelectionChangedCause that describes what triggered the redo.',
-            style: TextStyle(fontSize: 11.5, color: Colors.grey[700], height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.grey[700],
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -257,44 +283,54 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('SelectionChangedCause Values',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary)),
+          Text(
+            'SelectionChangedCause Values',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 4),
-          Text('Describes what triggered the redo action',
-              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+          Text(
+            'Describes what triggered the redo action',
+            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+          ),
           SizedBox(height: 12),
-          ...causes.entries.map((e) => Padding(
-                padding: EdgeInsets.only(bottom: 6),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 90,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                      decoration: BoxDecoration(
-                        color: _kAccent.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(4),
+          ...causes.entries.map(
+            (e) => Padding(
+              padding: EdgeInsets.only(bottom: 6),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 90,
+                    padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: _kAccent.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      e.key,
+                      style: TextStyle(
+                        fontSize: 10.5,
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.w600,
+                        color: _kDarkText,
                       ),
-                      child: Text(e.key,
-                          style: TextStyle(
-                              fontSize: 10.5,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.w600,
-                              color: _kDarkText)),
                     ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(e.value,
-                          style: TextStyle(
-                              fontSize: 11.5, color: Colors.grey[700])),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      e.value,
+                      style: TextStyle(fontSize: 11.5, color: Colors.grey[700]),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -315,18 +351,20 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.keyboard, color: _kPrimary, size: 20),
               SizedBox(width: 8),
-              Text('Platform Keyboard Shortcuts',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: _kPrimary)),
+              Text(
+                'Platform Keyboard Shortcuts',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
           _shortcutRow('Windows / Linux', 'Ctrl + Y', Icons.desktop_windows),
           SizedBox(height: 8),
-          _shortcutRow(
-              'macOS (primary)', 'Cmd + Shift + Z', Icons.laptop_mac),
+          _shortcutRow('macOS (primary)', 'Cmd + Shift + Z', Icons.laptop_mac),
           SizedBox(height: 8),
           _shortcutRow('macOS (alt)', 'Cmd + Y', Icons.laptop_mac),
           SizedBox(height: 12),
@@ -345,7 +383,11 @@ class _TheoryTab extends StatelessWidget {
                     'The intent itself is platform-agnostic. The Shortcuts '
                     'widget maps platform-specific key combinations to the '
                     'RedoTextIntent.',
-                    style: TextStyle(fontSize: 11, color: _kDarkText, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: _kDarkText,
+                      height: 1.4,
+                    ),
                   ),
                 ),
               ],
@@ -363,8 +405,10 @@ class _TheoryTab extends StatelessWidget {
         SizedBox(width: 8),
         SizedBox(
           width: 110,
-          child: Text(platform,
-              style: TextStyle(fontSize: 11.5, color: Colors.grey[700])),
+          child: Text(
+            platform,
+            style: TextStyle(fontSize: 11.5, color: Colors.grey[700]),
+          ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -373,12 +417,15 @@ class _TheoryTab extends StatelessWidget {
             border: Border.all(color: _kRedoColor.withOpacity(0.3)),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(keys,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600,
-                  color: _kRedoColor)),
+          child: Text(
+            keys,
+            style: TextStyle(
+              fontSize: 11,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+              color: _kRedoColor,
+            ),
+          ),
         ),
       ],
     );
@@ -433,62 +480,81 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Related Text Intents Family',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary)),
+          Text(
+            'Related Text Intents Family',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 4),
-          Text('All intents that modify or act on text',
-              style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+          Text(
+            'All intents that modify or act on text',
+            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+          ),
           SizedBox(height: 12),
-          ...intents.map((i) => Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: (i['color'] as Color).withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Icon(i['icon'] as IconData,
-                          size: 16, color: i['color'] as Color),
+          ...intents.map(
+            (i) => Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Row(
+                children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: (i['color'] as Color).withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(i['name'] as String,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: i['color'] as Color)),
-                          Text(i['desc'] as String,
-                              style: TextStyle(
-                                  fontSize: 11, color: Colors.grey[600])),
-                        ],
-                      ),
+                    child: Icon(
+                      i['icon'] as IconData,
+                      size: 16,
+                      color: i['color'] as Color,
                     ),
-                    if (i['name'] == 'RedoTextIntent')
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: _kAccent.withOpacity(0.25),
-                          borderRadius: BorderRadius.circular(4),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          i['name'] as String,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: i['color'] as Color,
+                          ),
                         ),
-                        child: Text('THIS',
-                            style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700,
-                                color: _kRedoColor)),
+                        Text(
+                          i['desc'] as String,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (i['name'] == 'RedoTextIntent')
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: _kAccent.withOpacity(0.25),
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                  ],
-                ),
-              )),
+                      child: Text(
+                        'THIS',
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700,
+                          color: _kRedoColor,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -505,29 +571,56 @@ class _TheoryTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Intent ➜ Action Flow',
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary)),
+          Text(
+            'Intent ➜ Action Flow',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 12),
-          _flowStep(1, 'User presses Ctrl+Y / Cmd+Shift+Z',
-              Icons.keyboard, Colors.grey[700]!),
+          _flowStep(
+            1,
+            'User presses Ctrl+Y / Cmd+Shift+Z',
+            Icons.keyboard,
+            Colors.grey[700]!,
+          ),
           _flowArrow(),
-          _flowStep(2, 'Shortcuts widget matches key binding',
-              Icons.route, _kUndoColor),
+          _flowStep(
+            2,
+            'Shortcuts widget matches key binding',
+            Icons.route,
+            _kUndoColor,
+          ),
           _flowArrow(),
-          _flowStep(3, 'Creates RedoTextIntent(cause: keyboard)',
-              Icons.flash_on, _kRedoColor),
+          _flowStep(
+            3,
+            'Creates RedoTextIntent(cause: keyboard)',
+            Icons.flash_on,
+            _kRedoColor,
+          ),
           _flowArrow(),
-          _flowStep(4, 'Actions widget finds matching Action',
-              Icons.search, _kActionColor),
+          _flowStep(
+            4,
+            'Actions widget finds matching Action',
+            Icons.search,
+            _kActionColor,
+          ),
           _flowArrow(),
-          _flowStep(5, 'Action invokes redo on UndoHistoryController',
-              Icons.history, _kIntentColor),
+          _flowStep(
+            5,
+            'Action invokes redo on UndoHistoryController',
+            Icons.history,
+            _kIntentColor,
+          ),
           _flowArrow(),
-          _flowStep(6, 'TextField state updates with restored text',
-              Icons.check_circle_outline, _kPrimary),
+          _flowStep(
+            6,
+            'TextField state updates with restored text',
+            Icons.check_circle_outline,
+            _kPrimary,
+          ),
         ],
       ),
     );
@@ -544,19 +637,21 @@ class _TheoryTab extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: Center(
-            child: Text('$num',
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: color)),
+            child: Text(
+              '$num',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10),
         Icon(icon, size: 18, color: color),
         SizedBox(width: 8),
         Expanded(
-          child: Text(label,
-              style: TextStyle(fontSize: 12, color: _kDarkText)),
+          child: Text(label, style: TextStyle(fontSize: 12, color: _kDarkText)),
         ),
       ],
     );
@@ -569,8 +664,7 @@ class _TheoryTab extends StatelessWidget {
     );
   }
 
-  Widget _hierarchyRow(
-      String name, int depth, Color color, String desc) {
+  Widget _hierarchyRow(String name, int depth, Color color, String desc) {
     return Padding(
       padding: EdgeInsets.only(left: depth * 24.0, bottom: 6),
       child: Row(
@@ -584,15 +678,17 @@ class _TheoryTab extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8),
-          Text(name,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'monospace',
-                  color: color)),
+          Text(
+            name,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'monospace',
+              color: color,
+            ),
+          ),
           SizedBox(width: 8),
-          Text(desc,
-              style: TextStyle(fontSize: 11, color: Colors.grey[500])),
+          Text(desc, style: TextStyle(fontSize: 11, color: Colors.grey[500])),
         ],
       ),
     );
@@ -607,9 +703,10 @@ Widget _labelBadge(String text, Color color) {
       borderRadius: BorderRadius.circular(4),
       border: Border.all(color: color.withOpacity(0.25)),
     ),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 11, fontWeight: FontWeight.w500, color: color)),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: color),
+    ),
   );
 }
 
@@ -725,11 +822,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 child: Icon(Icons.edit, size: 16, color: _kPrimary),
               ),
               SizedBox(width: 8),
-              Text('Text Field with Undo History',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Text Field with Undo History',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 4),
@@ -788,9 +888,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 child: Text(
                   'undoController param',
                   style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: _kDarkText),
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: _kDarkText,
+                  ),
                 ),
               ),
             ],
@@ -822,11 +923,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 child: Icon(Icons.text_fields, size: 16, color: _kRedoColor),
               ),
               SizedBox(width: 8),
-              Text('Multi-line with Undo Tracking',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Multi-line with Undo Tracking',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 4),
@@ -886,9 +990,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                 child: Text(
                   'maxLines: 4',
                   style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: _kDarkText),
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: _kDarkText,
+                  ),
                 ),
               ),
             ],
@@ -918,15 +1023,16 @@ class _WorkshopTabState extends State<_WorkshopTab> {
         ),
         child: Row(
           children: [
-            Icon(icon,
-                size: 16,
-                color: enabled ? color : Colors.grey[400]),
+            Icon(icon, size: 16, color: enabled ? color : Colors.grey[400]),
             SizedBox(width: 4),
-            Text(label,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: enabled ? color : Colors.grey[400])),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: enabled ? color : Colors.grey[400],
+              ),
+            ),
           ],
         ),
       ),
@@ -944,11 +1050,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Undo/Redo State Monitor',
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kDarkText)),
+          Text(
+            'Undo/Redo State Monitor',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 12),
           Row(
             children: [
@@ -967,11 +1076,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('UndoHistoryValue properties:',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _kDarkText)),
+                Text(
+                  'UndoHistoryValue properties:',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: _kDarkText,
+                  ),
+                ),
                 SizedBox(height: 4),
                 Text(
                   '• canUndo → whether undo stack has entries\n'
@@ -979,7 +1091,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                   '• The UndoHistoryController exposes these\n'
                   '  as onUndo and onRedo listeners',
                   style: TextStyle(
-                      fontSize: 11, color: Colors.grey[700], height: 1.5),
+                    fontSize: 11,
+                    color: Colors.grey[700],
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -998,11 +1113,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
       ),
       child: Column(
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: _kDarkText)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -1036,10 +1154,13 @@ class _WorkshopTabState extends State<_WorkshopTab> {
               : null,
         ),
         SizedBox(height: 3),
-        Text(label,
-            style: TextStyle(
-                fontSize: 9,
-                color: active ? color : Colors.grey[500])),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            color: active ? color : Colors.grey[500],
+          ),
+        ),
       ],
     );
   }
@@ -1059,11 +1180,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
             children: [
               Icon(Icons.list_alt, size: 18, color: _kPrimary),
               SizedBox(width: 8),
-              Text('Edit Activity Log',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Edit Activity Log',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
               Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _editLog.clear()),
@@ -1073,9 +1197,10 @@ class _WorkshopTabState extends State<_WorkshopTab> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text('Clear',
-                      style:
-                          TextStyle(fontSize: 10, color: Colors.grey[600])),
+                  child: Text(
+                    'Clear',
+                    style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                  ),
                 ),
               ),
             ],
@@ -1085,11 +1210,14 @@ class _WorkshopTabState extends State<_WorkshopTab> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Center(
-                child: Text('Type in the fields above to see activity',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.grey[500])),
+                child: Text(
+                  'Type in the fields above to see activity',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey[500],
+                  ),
+                ),
               ),
             )
           else
@@ -1164,11 +1292,13 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
   @override
   void initState() {
     super.initState();
-    _timeline.add(_EditSnapshot(
-      id: _snapshotCounter++,
-      text: _labController.text,
-      kind: _EditKind.initial,
-    ));
+    _timeline.add(
+      _EditSnapshot(
+        id: _snapshotCounter++,
+        text: _labController.text,
+        kind: _EditKind.initial,
+      ),
+    );
     _labController.addListener(_onTextChanged);
   }
 
@@ -1177,11 +1307,13 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
     final current = _labController.text;
     if (_timeline.isEmpty || _timeline.last.text != current) {
       setState(() {
-        _timeline.add(_EditSnapshot(
-          id: _snapshotCounter++,
-          text: current,
-          kind: _EditKind.edit,
-        ));
+        _timeline.add(
+          _EditSnapshot(
+            id: _snapshotCounter++,
+            text: current,
+            kind: _EditKind.edit,
+          ),
+        );
         if (_timeline.length > 25) _timeline.removeAt(0);
       });
     }
@@ -1190,11 +1322,13 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
   void _performUndo() {
     _labUndoCtrl.undo();
     setState(() {
-      _timeline.add(_EditSnapshot(
-        id: _snapshotCounter++,
-        text: _labController.text,
-        kind: _EditKind.undo,
-      ));
+      _timeline.add(
+        _EditSnapshot(
+          id: _snapshotCounter++,
+          text: _labController.text,
+          kind: _EditKind.undo,
+        ),
+      );
     });
     print('Lab: undo performed → "${_labController.text}"');
   }
@@ -1202,11 +1336,13 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
   void _performRedo() {
     _labUndoCtrl.redo();
     setState(() {
-      _timeline.add(_EditSnapshot(
-        id: _snapshotCounter++,
-        text: _labController.text,
-        kind: _EditKind.redo,
-      ));
+      _timeline.add(
+        _EditSnapshot(
+          id: _snapshotCounter++,
+          text: _labController.text,
+          kind: _EditKind.redo,
+        ),
+      );
     });
     print('Lab: redo performed → "${_labController.text}"');
   }
@@ -1256,11 +1392,14 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
             children: [
               Icon(Icons.science, size: 20, color: _kPrimary),
               SizedBox(width: 8),
-              Text('Undo / Redo Lab',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Undo / Redo Lab',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 4),
@@ -1302,9 +1441,10 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
                 child: Text(
                   '"${_labController.text}"',
                   style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'monospace',
-                      color: _kDarkText),
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: _kDarkText,
+                  ),
                 ),
               ),
               SizedBox(width: 16),
@@ -1317,7 +1457,11 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
   }
 
   Widget _labButton(
-      IconData icon, String label, Color color, VoidCallback onTap) {
+    IconData icon,
+    String label,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -1331,11 +1475,14 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
           children: [
             Icon(icon, size: 18, color: color),
             SizedBox(width: 6),
-            Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: color)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ],
         ),
       ),
@@ -1357,14 +1504,19 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
             children: [
               Icon(Icons.timeline, size: 18, color: _kPrimary),
               SizedBox(width: 8),
-              Text('Edit Timeline',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Edit Timeline',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
               Spacer(),
-              Text('${_timeline.length} entries',
-                  style: TextStyle(fontSize: 10, color: Colors.grey[500])),
+              Text(
+                '${_timeline.length} entries',
+                style: TextStyle(fontSize: 10, color: Colors.grey[500]),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -1404,8 +1556,7 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
                   ),
                   SizedBox(width: 8),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
                     decoration: BoxDecoration(
                       color: dotColor.withOpacity(0.08),
                       borderRadius: BorderRadius.circular(3),
@@ -1413,9 +1564,10 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
                     child: Text(
                       snap.kind.name.toUpperCase(),
                       style: TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700,
-                          color: dotColor),
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
+                        color: dotColor,
+                      ),
                     ),
                   ),
                   SizedBox(width: 8),
@@ -1423,15 +1575,17 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
                     child: Text(
                       '"${snap.text}"',
                       style: TextStyle(
-                          fontSize: 11,
-                          fontFamily: 'monospace',
-                          color: _kDarkText),
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                        color: _kDarkText,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Text('#${snap.id}',
-                      style:
-                          TextStyle(fontSize: 9, color: Colors.grey[400])),
+                  Text(
+                    '#${snap.id}',
+                    style: TextStyle(fontSize: 9, color: Colors.grey[400]),
+                  ),
                 ],
               ),
             );
@@ -1452,11 +1606,14 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Actions & Shortcuts Integration',
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: _kPrimary)),
+          Text(
+            'Actions & Shortcuts Integration',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.all(10),
@@ -1478,10 +1635,11 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
               '  child: TextField(...),\n'
               ')',
               style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: _kDarkText,
-                  height: 1.5),
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: _kDarkText,
+                height: 1.5,
+              ),
             ),
           ),
           SizedBox(height: 12),
@@ -1507,10 +1665,11 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
               '  ),\n'
               ')',
               style: TextStyle(
-                  fontSize: 11,
-                  fontFamily: 'monospace',
-                  color: _kDarkText,
-                  height: 1.5),
+                fontSize: 11,
+                fontFamily: 'monospace',
+                color: _kDarkText,
+                height: 1.5,
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -1518,7 +1677,11 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
             'The Shortcuts widget maps key combinations to intents. '
             'The Actions widget maps intents to callbacks. '
             'RedoTextIntent fits naturally into this system.',
-            style: TextStyle(fontSize: 11.5, color: Colors.grey[700], height: 1.4),
+            style: TextStyle(
+              fontSize: 11.5,
+              color: Colors.grey[700],
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -1540,17 +1703,21 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
             children: [
               Icon(Icons.tune, size: 18, color: _kRedoColor),
               SizedBox(width: 8),
-              Text('Custom Redo Behaviors',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kDarkText)),
+              Text(
+                'Custom Redo Behaviors',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
           _customBehaviorItem(
             title: 'Confirmation before redo',
-            desc: 'Show a dialog before applying redo to prevent accidental restores',
+            desc:
+                'Show a dialog before applying redo to prevent accidental restores',
             icon: Icons.warning_amber,
             color: _kRedoColor,
           ),
@@ -1603,15 +1770,23 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: _kDarkText)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText,
+                ),
+              ),
               SizedBox(height: 2),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 11, color: Colors.grey[600], height: 1.3)),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Colors.grey[600],
+                  height: 1.3,
+                ),
+              ),
             ],
           ),
         ),
@@ -1623,27 +1798,32 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
     final practices = <Map<String, String>>[
       {
         'title': 'Always pair UndoTextIntent and RedoTextIntent',
-        'detail': 'Users expect both undo and redo to be available. '
+        'detail':
+            'Users expect both undo and redo to be available. '
             'If you customize one, customize the other.',
       },
       {
         'title': 'Use UndoHistoryController for state tracking',
-        'detail': 'The controller provides canUndo and canRedo properties '
+        'detail':
+            'The controller provides canUndo and canRedo properties '
             'to enable/disable UI buttons appropriately.',
       },
       {
         'title': 'Preserve SelectionChangedCause fidelity',
-        'detail': 'When creating RedoTextIntent manually, use the correct '
+        'detail':
+            'When creating RedoTextIntent manually, use the correct '
             'cause (keyboard vs toolbar) for analytics and accessibility.',
       },
       {
         'title': 'Test on all platforms',
-        'detail': 'Redo shortcuts differ across platforms. Ensure your '
+        'detail':
+            'Redo shortcuts differ across platforms. Ensure your '
             'custom bindings do not conflict with system shortcuts.',
       },
       {
         'title': 'Consider undo grouping',
-        'detail': 'Rapid edits may create many small undo entries. '
+        'detail':
+            'Rapid edits may create many small undo entries. '
             'Group related edits for a better user experience.',
       },
     ];
@@ -1662,56 +1842,70 @@ class _UndoRedoLabTabState extends State<_UndoRedoLabTab> {
             children: [
               Icon(Icons.school, size: 18, color: _kPrimary),
               SizedBox(width: 8),
-              Text('Best Practices',
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: _kPrimary)),
+              Text(
+                'Best Practices',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: _kPrimary,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
-          ...practices.asMap().entries.map((e) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        color: _kAccent.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Center(
-                        child: Text('${e.key + 1}',
-                            style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                                color: _kDarkText)),
+          ...practices.asMap().entries.map(
+            (e) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: _kAccent.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${e.key + 1}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: _kDarkText,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(e.value['title']!,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: _kDarkText)),
-                          SizedBox(height: 2),
-                          Text(e.value['detail']!,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey[600],
-                                  height: 1.4)),
-                        ],
-                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          e.value['title']!,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _kDarkText,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          e.value['detail']!,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[600],
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

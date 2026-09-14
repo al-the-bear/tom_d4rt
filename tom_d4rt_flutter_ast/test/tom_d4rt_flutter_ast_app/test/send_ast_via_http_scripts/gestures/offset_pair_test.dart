@@ -173,8 +173,12 @@ dynamic build(BuildContext context) {
   print('[OffsetPair demo] === Compass Mahogany field manual ===');
   print('[OffsetPair demo] Constructed 12 sample OffsetPair instances.');
   print('[OffsetPair demo] zero = $zeroPair');
-  print('[OffsetPair demo] centerCard.global = ($centerGlobalDx, $centerGlobalDy)');
-  print('[OffsetPair demo] centerCard.local  = ($centerLocalDx, $centerLocalDy)');
+  print(
+    '[OffsetPair demo] centerCard.global = ($centerGlobalDx, $centerGlobalDy)',
+  );
+  print(
+    '[OffsetPair demo] centerCard.local  = ($centerLocalDx, $centerLocalDy)',
+  );
   print('[OffsetPair demo] sumExample (center + delta) = $sumExample');
   print('[OffsetPair demo] diffExample (center - header) = $diffExample');
   print('[OffsetPair demo] chained ((header + delta) - tinyShift) = $chained');
@@ -392,10 +396,7 @@ Widget _swatch(String label, Color color) {
           ),
         ),
         const SizedBox(height: 2),
-        Text(
-          label,
-          style: const TextStyle(color: cParchment, fontSize: 9),
-        ),
+        Text(label, style: const TextStyle(color: cParchment, fontSize: 9)),
       ],
     ),
   );
@@ -467,16 +468,36 @@ Widget _buildSection3PropertyAnatomy() {
     title: '3 · Property Anatomy',
     accent: cMossGreen,
     children: [
-      _propRow('local', 'Offset', 'Position relative to the recognizer\'s frame.'),
-      _propRow('global', 'Offset', 'Position relative to the FlutterView origin.'),
-      _propRow('zero', 'OffsetPair (static const)',
-          'Both components are Offset.zero; safe accumulator seed.'),
-      _propRow('operator +', 'OffsetPair → OffsetPair',
-          'Componentwise addition: (l1+l2, g1+g2).'),
-      _propRow('operator -', 'OffsetPair → OffsetPair',
-          'Componentwise subtraction: (l1-l2, g1-g2).'),
-      _propRow('toString', 'String',
-          'Renders as OffsetPair(local: …, global: …) for debugging.'),
+      _propRow(
+        'local',
+        'Offset',
+        'Position relative to the recognizer\'s frame.',
+      ),
+      _propRow(
+        'global',
+        'Offset',
+        'Position relative to the FlutterView origin.',
+      ),
+      _propRow(
+        'zero',
+        'OffsetPair (static const)',
+        'Both components are Offset.zero; safe accumulator seed.',
+      ),
+      _propRow(
+        'operator +',
+        'OffsetPair → OffsetPair',
+        'Componentwise addition: (l1+l2, g1+g2).',
+      ),
+      _propRow(
+        'operator -',
+        'OffsetPair → OffsetPair',
+        'Componentwise subtraction: (l1-l2, g1-g2).',
+      ),
+      _propRow(
+        'toString',
+        'String',
+        'Renders as OffsetPair(local: …, global: …) for debugging.',
+      ),
     ],
   );
 }
@@ -536,7 +557,11 @@ Widget _buildSection4ConstructionGallery(List<OffsetPair> pairs) {
         'Twelve OffsetPair instances. Each card pulls .global.dx, .global.dy, '
         '.local.dx, .local.dy, and toString() through real reads — they are '
         'not mocked up strings.',
-        style: TextStyle(fontSize: 12, color: cShadow, fontStyle: FontStyle.italic),
+        style: TextStyle(
+          fontSize: 12,
+          color: cShadow,
+          fontStyle: FontStyle.italic,
+        ),
       ),
       const SizedBox(height: 12),
       Wrap(
@@ -642,7 +667,11 @@ Widget _buildSection5Operators({
       const Text(
         'Subtracting two pairs is exactly how a recognizer derives a frame '
         'delta: this-frame minus last-frame, both spaces in one step.',
-        style: TextStyle(fontSize: 11, color: cShadow, fontStyle: FontStyle.italic),
+        style: TextStyle(
+          fontSize: 11,
+          color: cShadow,
+          fontStyle: FontStyle.italic,
+        ),
       ),
       const SizedBox(height: 12),
       _opRow('header + delta - tiny (chained)', chained),
@@ -659,7 +688,11 @@ Widget _buildSection5Operators({
           children: [
             const Text(
               'Identity check with OffsetPair.zero:',
-              style: TextStyle(fontWeight: FontWeight.bold, color: cMossGreen, fontSize: 12),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: cMossGreen,
+                fontSize: 12,
+              ),
             ),
             const SizedBox(height: 4),
             _opRow('zero', zero),
@@ -742,32 +775,38 @@ Widget _buildSection6CoordinateDiagram(OffsetPair p) {
               const Positioned(
                 left: 4,
                 top: 4,
-                child: Text('GLOBAL (0,0)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: cMahoganyDeep,
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Text(
+                  'GLOBAL (0,0)',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: cMahoganyDeep,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const Positioned(
                 right: 4,
                 top: 4,
-                child: Text('+x',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: cMahoganyDeep,
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Text(
+                  '+x',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: cMahoganyDeep,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const Positioned(
                 left: 4,
                 bottom: 4,
-                child: Text('+y',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: cMahoganyDeep,
-                      fontWeight: FontWeight.bold,
-                    )),
+                child: Text(
+                  '+y',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: cMahoganyDeep,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               // the inner widget rectangle
               Positioned(
@@ -785,12 +824,14 @@ Widget _buildSection6CoordinateDiagram(OffsetPair p) {
                       Positioned(
                         left: 4,
                         top: 4,
-                        child: Text('LOCAL (0,0)',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: cInkBlue,
-                              fontWeight: FontWeight.bold,
-                            )),
+                        child: Text(
+                          'LOCAL (0,0)',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: cInkBlue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -843,7 +884,11 @@ Widget _buildSection6CoordinateDiagram(OffsetPair p) {
         'Imagine the red dot is the user\'s finger. The OffsetPair the '
         'recognizer hands to your callback is exactly what the diagram '
         'depicts: same pointer, two frames, one immutable record.',
-        style: TextStyle(fontSize: 11, color: cShadow, fontStyle: FontStyle.italic),
+        style: TextStyle(
+          fontSize: 11,
+          color: cShadow,
+          fontStyle: FontStyle.italic,
+        ),
       ),
     ],
   );
@@ -892,33 +937,39 @@ Widget _buildSection7DragTrace() {
       deltaStr =
           '(${delta.local.dx.toStringAsFixed(1)}, ${delta.local.dy.toStringAsFixed(1)})';
     }
-    rows.add(TableRow(
-      decoration: BoxDecoration(
-        color: i.isEven ? cBone : cParchment,
+    rows.add(
+      TableRow(
+        decoration: BoxDecoration(color: i.isEven ? cBone : cParchment),
+        children: [
+          _bCell('${i + 1}'),
+          _bCell(
+            '(${p.global.dx.toStringAsFixed(0)}, ${p.global.dy.toStringAsFixed(0)})',
+          ),
+          _bCell(
+            '(${p.local.dx.toStringAsFixed(0)}, ${p.local.dy.toStringAsFixed(0)})',
+          ),
+          _bCell(deltaStr),
+        ],
       ),
-      children: [
-        _bCell('${i + 1}'),
-        _bCell(
-            '(${p.global.dx.toStringAsFixed(0)}, ${p.global.dy.toStringAsFixed(0)})'),
-        _bCell(
-            '(${p.local.dx.toStringAsFixed(0)}, ${p.local.dy.toStringAsFixed(0)})'),
-        _bCell(deltaStr),
-      ],
-    ));
+    );
   }
   // Footer row — total displacement using +/- operators.
   final OffsetPair total = frames.last - frames.first;
-  rows.add(TableRow(
-    decoration: BoxDecoration(color: cCompassGold.withValues(alpha: 0.35)),
-    children: [
-      _bCell('Σ'),
-      _bCell(
-          '(${total.global.dx.toStringAsFixed(1)}, ${total.global.dy.toStringAsFixed(1)})'),
-      _bCell(
-          '(${total.local.dx.toStringAsFixed(1)}, ${total.local.dy.toStringAsFixed(1)})'),
-      _bCell('total'),
-    ],
-  ));
+  rows.add(
+    TableRow(
+      decoration: BoxDecoration(color: cCompassGold.withValues(alpha: 0.35)),
+      children: [
+        _bCell('Σ'),
+        _bCell(
+          '(${total.global.dx.toStringAsFixed(1)}, ${total.global.dy.toStringAsFixed(1)})',
+        ),
+        _bCell(
+          '(${total.local.dx.toStringAsFixed(1)}, ${total.local.dy.toStringAsFixed(1)})',
+        ),
+        _bCell('total'),
+      ],
+    ),
+  );
   return _sectionCard(
     title: '7 · Drag-Detail Trace (10 synthetic frames)',
     accent: cMahoganyMid,
@@ -944,28 +995,28 @@ Widget _buildSection7DragTrace() {
 }
 
 Widget _hCell(String t) => Padding(
-      padding: const EdgeInsets.all(6),
-      child: Text(
-        t,
-        style: const TextStyle(
-          color: cCompassGold,
-          fontWeight: FontWeight.bold,
-          fontSize: 11,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(6),
+  child: Text(
+    t,
+    style: const TextStyle(
+      color: cCompassGold,
+      fontWeight: FontWeight.bold,
+      fontSize: 11,
+    ),
+  ),
+);
 
 Widget _bCell(String t) => Padding(
-      padding: const EdgeInsets.all(6),
-      child: Text(
-        t,
-        style: const TextStyle(
-          fontFamily: 'monospace',
-          color: cShadow,
-          fontSize: 11,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(6),
+  child: Text(
+    t,
+    style: const TextStyle(
+      fontFamily: 'monospace',
+      color: cShadow,
+      fontSize: 11,
+    ),
+  ),
+);
 
 // =============================================================================
 //  SECTION 8 — Drag-pair visualization
@@ -1015,9 +1066,7 @@ Widget _buildSection8DragVisualization() {
                     width: 10,
                     height: 10,
                     decoration: BoxDecoration(
-                      color: cRustRed.withValues(
-                        alpha: 0.25 + (i * 0.075),
-                      ),
+                      color: cRustRed.withValues(alpha: 0.25 + (i * 0.075)),
                       shape: BoxShape.circle,
                       border: Border.all(color: cMahoganyDeep, width: 0.5),
                     ),
@@ -1072,7 +1121,10 @@ Widget _buildSection9Comparison() {
     accent: cInkBlue,
     children: [
       Table(
-        border: TableBorder.all(color: cInkBlue.withValues(alpha: 0.5), width: 0.6),
+        border: TableBorder.all(
+          color: cInkBlue.withValues(alpha: 0.5),
+          width: 0.6,
+        ),
         columnWidths: const {
           0: FixedColumnWidth(140),
           1: FlexColumnWidth(),
@@ -1112,16 +1164,16 @@ TableRow _cmp(String aspect, String off, String pair) {
 }
 
 Widget _hCellAlt(String t) => Padding(
-      padding: const EdgeInsets.all(6),
-      child: Text(
-        t,
-        style: const TextStyle(
-          color: cParchment,
-          fontWeight: FontWeight.bold,
-          fontSize: 11,
-        ),
-      ),
-    );
+  padding: const EdgeInsets.all(6),
+  child: Text(
+    t,
+    style: const TextStyle(
+      color: cParchment,
+      fontWeight: FontWeight.bold,
+      fontSize: 11,
+    ),
+  ),
+);
 
 // =============================================================================
 //  SECTION 10 — DO / AVOID callouts
@@ -1131,22 +1183,46 @@ Widget _buildSection10DoAvoid() {
     title: '10 · DO and AVOID',
     accent: cMossGreen,
     children: [
-      _doRow(true, 'DO',
-          'Use OffsetPair.local when computing positions inside your widget — that\'s the whole reason the framework converts global → local for you.'),
-      _doRow(true, 'DO',
-          'Use OffsetPair.global when handing coordinates to OS-level APIs, Overlays in absolute coordinates, or platform views.'),
-      _doRow(true, 'DO',
-          'Use OffsetPair.zero as the seed when accumulating drag deltas across multiple frames — it is a true additive identity.'),
-      _doRow(false, 'AVOID',
-          'Comparing OffsetPair.global from one widget against OffsetPair.local from another. Different frames, different meanings.'),
-      _doRow(false, 'AVOID',
-          'Subtracting OffsetPairs that came from different gesture recognizers tracking different pointer ids.'),
-      _doRow(false, 'AVOID',
-          'Storing an OffsetPair across a layout change without invalidating it — the local component depends on the recognizer\'s box, which may have moved or resized.'),
-      _doRow(false, 'AVOID',
-          'Assuming that .local + parentTransformOffset == .global. The transform may be non-translation (rotation, scale).'),
-      _doRow(false, 'AVOID',
-          'Mutating an OffsetPair — it is const-friendly; build a new one with the operators instead.'),
+      _doRow(
+        true,
+        'DO',
+        'Use OffsetPair.local when computing positions inside your widget — that\'s the whole reason the framework converts global → local for you.',
+      ),
+      _doRow(
+        true,
+        'DO',
+        'Use OffsetPair.global when handing coordinates to OS-level APIs, Overlays in absolute coordinates, or platform views.',
+      ),
+      _doRow(
+        true,
+        'DO',
+        'Use OffsetPair.zero as the seed when accumulating drag deltas across multiple frames — it is a true additive identity.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Comparing OffsetPair.global from one widget against OffsetPair.local from another. Different frames, different meanings.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Subtracting OffsetPairs that came from different gesture recognizers tracking different pointer ids.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Storing an OffsetPair across a layout change without invalidating it — the local component depends on the recognizer\'s box, which may have moved or resized.',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Assuming that .local + parentTransformOffset == .global. The transform may be non-translation (rotation, scale).',
+      ),
+      _doRow(
+        false,
+        'AVOID',
+        'Mutating an OffsetPair — it is const-friendly; build a new one with the operators instead.',
+      ),
     ],
   );
 }
@@ -1176,8 +1252,10 @@ Widget _doRow(bool good, String tag, String text) {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: const TextStyle(fontSize: 12, color: cShadow, height: 1.4)),
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 12, color: cShadow, height: 1.4),
+          ),
         ),
       ],
     ),
@@ -1302,7 +1380,10 @@ Widget _buildSection12Glossary() {
     ['Frame', 'A single PointerMoveEvent or its position snapshot.'],
     ['Delta', 'Difference between two consecutive frames\' positions.'],
     ['Identity element', 'A value x where x + e == x (here, OffsetPair.zero).'],
-    ['Immutable', 'Once constructed, never modified — operators return new ones.'],
+    [
+      'Immutable',
+      'Once constructed, never modified — operators return new ones.',
+    ],
     ['Transform', 'The 4x4 matrix mapping global → local for a render box.'],
     ['Componentwise', 'An operation applied to each component independently.'],
   ];
@@ -1348,9 +1429,7 @@ Widget _buildSection13Recap() {
     width: double.infinity,
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        colors: [cMahoganyDeep, cShadow],
-      ),
+      gradient: const LinearGradient(colors: [cMahoganyDeep, cShadow]),
       borderRadius: BorderRadius.circular(12),
       border: Border.all(color: cCompassGold, width: 1.5),
     ),

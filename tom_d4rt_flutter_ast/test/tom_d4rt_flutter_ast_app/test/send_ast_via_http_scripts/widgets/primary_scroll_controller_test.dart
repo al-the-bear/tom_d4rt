@@ -225,7 +225,8 @@ dynamic build(BuildContext context) {
                       Icons.vertical_align_center,
                       Colors.teal.shade200,
                       () {
-                        final maxScroll = controllerForButtons.position.maxScrollExtent;
+                        final maxScroll =
+                            controllerForButtons.position.maxScrollExtent;
                         controllerForButtons.animateTo(
                           maxScroll / 2,
                           duration: Duration(milliseconds: 500),
@@ -253,15 +254,14 @@ dynamic build(BuildContext context) {
                 child: ListView.builder(
                   itemCount: 40,
                   itemBuilder: (context, index) {
-                    final isHighlight = index == 0 || index == 19 || index == 39;
+                    final isHighlight =
+                        index == 0 || index == 19 || index == 39;
                     return Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 16.0,
                         vertical: 10.0,
                       ),
-                      color: isHighlight
-                          ? Colors.teal.shade50
-                          : Colors.white,
+                      color: isHighlight ? Colors.teal.shade50 : Colors.white,
                       child: Row(
                         children: [
                           if (isHighlight)
@@ -428,7 +428,11 @@ dynamic build(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.check_circle, size: 14.0, color: Colors.green.shade700),
+                  Icon(
+                    Icons.check_circle,
+                    size: 14.0,
+                    color: Colors.green.shade700,
+                  ),
                   SizedBox(width: 4.0),
                   Text(
                     'Vertical = primary',
@@ -628,8 +632,12 @@ dynamic build(BuildContext context) {
                     itemCount: 12,
                     itemBuilder: (context, index) {
                       final colors = [
-                        Colors.deepPurple, Colors.indigo, Colors.blue,
-                        Colors.teal, Colors.green, Colors.amber,
+                        Colors.deepPurple,
+                        Colors.indigo,
+                        Colors.blue,
+                        Colors.teal,
+                        Colors.green,
+                        Colors.amber,
                       ];
                       final c = colors[index % colors.length];
                       return Container(
@@ -662,53 +670,45 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 10.0,
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.deepPurple.shade100),
                 ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 28.0,
+                    height: 28.0,
+                    decoration: BoxDecoration(
                       color: Colors.deepPurple.shade100,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${index + 1}',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple.shade700,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 28.0,
-                      height: 28.0,
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple.shade100,
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                          fontSize: 11.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple.shade700,
-                        ),
-                      ),
+                  SizedBox(width: 12.0),
+                  Text(
+                    'Outer sliver item ${index + 1}',
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: Colors.grey.shade700,
                     ),
-                    SizedBox(width: 12.0),
-                    Text(
-                      'Outer sliver item ${index + 1}',
-                      style: TextStyle(
-                        fontSize: 13.0,
-                        color: Colors.grey.shade700,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            childCount: 20,
-          ),
+                  ),
+                ],
+              ),
+            );
+          }, childCount: 20),
         ),
       ],
     ),
@@ -802,25 +802,16 @@ dynamic build(BuildContext context) {
           itemCount: 30,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 12.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               decoration: BoxDecoration(
-                color: index % 2 == 0
-                    ? Colors.white
-                    : Colors.green.shade50,
+                color: index % 2 == 0 ? Colors.white : Colors.green.shade50,
                 border: Border(
                   bottom: BorderSide(color: Colors.green.shade100),
                 ),
               ),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.circle,
-                    size: 8.0,
-                    color: Colors.green.shade400,
-                  ),
+                  Icon(Icons.circle, size: 8.0, color: Colors.green.shade400),
                   SizedBox(width: 12.0),
                   Text(
                     'Auto-primary item ${index + 1}',
@@ -1169,7 +1160,12 @@ Widget _buildRuleRow(String num, String text, MaterialColor color, bool check) {
   );
 }
 
-Widget _buildApiCard(String title, String desc, MaterialColor color, IconData icon) {
+Widget _buildApiCard(
+  String title,
+  String desc,
+  MaterialColor color,
+  IconData icon,
+) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(10.0),
@@ -1194,10 +1190,7 @@ Widget _buildApiCard(String title, String desc, MaterialColor color, IconData ic
           Text(
             desc,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 8.0,
-              color: color.shade600,
-            ),
+            style: TextStyle(fontSize: 8.0, color: color.shade600),
           ),
         ],
       ),

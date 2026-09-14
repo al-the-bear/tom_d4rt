@@ -51,11 +51,7 @@ Widget buildSliderCard({
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -222,11 +218,7 @@ Widget buildRangeSliderCard({
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 6,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -286,11 +278,7 @@ Widget buildDivisionSliderCard({
       color: Colors.white,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 4,
-          offset: Offset(0, 2),
-        ),
+        BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
       ],
     ),
     child: Column(
@@ -328,11 +316,7 @@ Widget buildDivisionSliderCard({
             inactiveTickMarkColor: color.withAlpha(80),
             trackHeight: 6,
           ),
-          child: Slider(
-            value: value,
-            divisions: divisions,
-            onChanged: (v) {},
-          ),
+          child: Slider(value: value, divisions: divisions, onChanged: (v) {}),
         ),
         SizedBox(height: 4),
       ],
@@ -386,10 +370,7 @@ Widget buildTrackHeightComparison() {
                       thumbColor: Colors.indigo,
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6),
                     ),
-                    child: Slider(
-                      value: 0.6,
-                      onChanged: (v) {},
-                    ),
+                    child: Slider(value: 0.6, onChanged: (v) {}),
                   ),
                 ),
               ],
@@ -403,7 +384,9 @@ Widget buildTrackHeightComparison() {
 
 dynamic build(BuildContext context) {
   debugPrint('=== BaseSliderTrackShape Deep Demo ===');
-  debugPrint('Demonstrating slider track shapes, colors, heights, and configurations');
+  debugPrint(
+    'Demonstrating slider track shapes, colors, heights, and configurations',
+  );
 
   return SingleChildScrollView(
     child: Column(
@@ -441,7 +424,9 @@ dynamic build(BuildContext context) {
 
         // Section 1: Basic Track Colors
         buildSectionTitle('1. Basic Track Color Variations'),
-        buildDescription('Different active and inactive track color combinations'),
+        buildDescription(
+          'Different active and inactive track color combinations',
+        ),
 
         buildSliderCard(
           label: 'Blue Active / Grey Inactive',
@@ -481,12 +466,16 @@ dynamic build(BuildContext context) {
 
         // Section 2: Track Height Variations
         buildSectionTitle('2. Track Height Variations'),
-        buildDescription('Same slider with different track heights from 2px to 24px'),
+        buildDescription(
+          'Same slider with different track heights from 2px to 24px',
+        ),
         buildTrackHeightComparison(),
 
         // Section 3: Thumb Position Extremes
         buildSectionTitle('3. Thumb Position Extremes'),
-        buildDescription('Slider values at various positions (0%, 25%, 50%, 75%, 100%)'),
+        buildDescription(
+          'Slider values at various positions (0%, 25%, 50%, 75%, 100%)',
+        ),
 
         buildSliderCard(
           label: 'Position: 0% (minimum)',
@@ -531,7 +520,9 @@ dynamic build(BuildContext context) {
 
         // Section 4: Track Visualizations
         buildSectionTitle('4. Track Color Visualizations'),
-        buildDescription('Side-by-side track color representations without slider interactivity'),
+        buildDescription(
+          'Side-by-side track color representations without slider interactivity',
+        ),
 
         buildTrackVisualization(
           activeColor: Colors.blue,
@@ -612,7 +603,9 @@ dynamic build(BuildContext context) {
 
         // Section 7: Discrete sliders with divisions
         buildSectionTitle('7. Discrete Sliders with Divisions'),
-        buildDescription('Tick marks appear on the track when divisions are set'),
+        buildDescription(
+          'Tick marks appear on the track when divisions are set',
+        ),
 
         buildDivisionSliderCard(
           label: '5 divisions',
@@ -641,7 +634,9 @@ dynamic build(BuildContext context) {
 
         // Section 8: Range Sliders
         buildSectionTitle('8. Range Slider Track Shapes'),
-        buildDescription('RangeSlider uses RoundedRectRangeSliderTrackShape by default'),
+        buildDescription(
+          'RangeSlider uses RoundedRectRangeSliderTrackShape by default',
+        ),
 
         buildRangeSliderCard(
           label: 'Narrow Range (0.3 - 0.5)',

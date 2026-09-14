@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.aspect_ratio,
       'title': 'BoxConstraints Recap',
-      'body': 'BoxConstraints define the min and max width and height '
+      'body':
+          'BoxConstraints define the min and max width and height '
           'that a widget may occupy. They flow down the widget tree: '
           'parent passes constraints to child, child picks a size '
           'within those bounds. Every RenderBox receives constraints '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Why Animate Constraints?',
-      'body': 'BoxConstraintsTween lets you smoothly transition from '
+      'body':
+          'BoxConstraintsTween lets you smoothly transition from '
           'one set of min/max extents to another. This is useful '
           'for expandable panels, morphing containers, responsive '
           'layout transitions, and animated resize effects where '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'Four Values Interpolated',
-      'body': 'BoxConstraintsTween interpolates four doubles in '
+      'body':
+          'BoxConstraintsTween interpolates four doubles in '
           'parallel: minWidth, maxWidth, minHeight, maxHeight. '
           'At t=0.0 you get the begin constraints; at t=1.0 '
           'the end constraints; at t=0.5 each value is halfway '
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'Tight vs Loose Constraints',
-      'body': 'Tight constraints force an exact size (min == max). '
+      'body':
+          'Tight constraints force an exact size (min == max). '
           'Loose constraints allow a range (min < max, with min '
           'often 0). BoxConstraintsTween can animate between tight '
           'and loose, or between two different tight values — the '
@@ -68,15 +72,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.07),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -112,7 +117,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'BoxConstraintsTween({begin, end})',
       'type': 'Constructor',
-      'desc': 'Creates a tween between two BoxConstraints values. '
+      'desc':
+          'Creates a tween between two BoxConstraints values. '
           'Both are optional and nullable. If begin is null, '
           'interpolation starts from unconstrained.',
       'icon': Icons.build,
@@ -120,7 +126,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'begin',
       'type': 'BoxConstraints?',
-      'desc': 'The constraints at t=0.0. Defines the starting '
+      'desc':
+          'The constraints at t=0.0. Defines the starting '
           'bounds for minWidth, maxWidth, minHeight, maxHeight.',
       'icon': Icons.first_page,
     },
@@ -133,7 +140,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'lerp(double t)',
       'type': 'BoxConstraints?',
-      'desc': 'Returns the interpolated BoxConstraints at progress t. '
+      'desc':
+          'Returns the interpolated BoxConstraints at progress t. '
           'Delegates to BoxConstraints.lerp(begin, end, t) which '
           'interpolates each of the four values independently.',
       'icon': Icons.trending_flat,
@@ -141,14 +149,16 @@ dynamic build(BuildContext context) {
     {
       'name': 'transform(double t)',
       'type': 'BoxConstraints?',
-      'desc': 'Inherited from Tween. Called by the animation '
+      'desc':
+          'Inherited from Tween. Called by the animation '
           'framework each frame. Equivalent to lerp(t).',
       'icon': Icons.transform,
     },
     {
       'name': 'animate(Animation<double>)',
       'type': 'Animation<BoxConstraints?>',
-      'desc': 'Creates a driven animation from an AnimationController '
+      'desc':
+          'Creates a driven animation from an AnimationController '
           'or CurvedAnimation whose value is the tweened constraints.',
       'icon': Icons.play_circle,
     },
@@ -189,7 +199,9 @@ dynamic build(BuildContext context) {
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 2),
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.purple[100],
                         borderRadius: BorderRadius.circular(4),
@@ -260,8 +272,7 @@ dynamic build(BuildContext context) {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Color.lerp(
-                  Colors.purple[200], Colors.deepPurple[600], t)!,
+              color: Color.lerp(Colors.purple[200], Colors.deepPurple[600], t)!,
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(
@@ -325,7 +336,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Tight',
       'formula': 'minWidth == maxWidth && minHeight == maxHeight',
-      'desc': 'Forces exactly one size. The child has no choice. '
+      'desc':
+          'Forces exactly one size. The child has no choice. '
           'Created by BoxConstraints.tight(Size) or '
           'BoxConstraints.tightFor(width, height).',
       'example': 'BoxConstraints.tight(Size(100, 100))',
@@ -334,7 +346,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Loose',
       'formula': 'minWidth == 0 && minHeight == 0',
-      'desc': 'Allows any size from zero up to the max. The child '
+      'desc':
+          'Allows any size from zero up to the max. The child '
           'can be as small as it wants. Created by '
           'BoxConstraints.loose(Size).',
       'example': 'BoxConstraints.loose(Size(200, 200))',
@@ -343,7 +356,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Bounded',
       'formula': 'maxWidth < infinity && maxHeight < infinity',
-      'desc': 'Has finite upper bounds. Most real constraints are '
+      'desc':
+          'Has finite upper bounds. Most real constraints are '
           'bounded — the screen or parent container provides '
           'a maximum.',
       'example': 'BoxConstraints(maxWidth: 300, maxHeight: 400)',
@@ -352,7 +366,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Unbounded',
       'formula': 'maxWidth == infinity or maxHeight == infinity',
-      'desc': 'Has no upper bound in one or both axes. Occurs '
+      'desc':
+          'Has no upper bound in one or both axes. Occurs '
           'inside scrollable widgets where the scroll direction '
           'is unbounded.',
       'example': 'BoxConstraints(maxHeight: double.infinity)',
@@ -361,7 +376,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Expanding',
       'formula': 'tight at infinity',
-      'desc': 'Forces the child to be as large as possible. '
+      'desc':
+          'Forces the child to be as large as possible. '
           'Created by BoxConstraints.expand(). Common in '
           'positioned overlays and full-screen widgets.',
       'example': 'BoxConstraints.expand()',
@@ -378,9 +394,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (cat['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (cat['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (cat['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -397,8 +411,7 @@ dynamic build(BuildContext context) {
               ),
               const Spacer(),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: (cat['color'] as Color).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -450,7 +463,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Expandable Panel',
       'icon': Icons.expand,
-      'desc': 'Animate constraints from a collapsed height (tight '
+      'desc':
+          'Animate constraints from a collapsed height (tight '
           '48px) to an expanded height (tight 300px). The panel '
           'content reveals as the maxHeight grows.',
       'begin': 'tight(width: ∞, height: 48)',
@@ -460,7 +474,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Responsive Resize',
       'icon': Icons.devices,
-      'desc': 'Animate from phone-sized constraints to tablet-sized '
+      'desc':
+          'Animate from phone-sized constraints to tablet-sized '
           'constraints. Content reflows as the max width changes.',
       'begin': 'maxWidth: 360',
       'end': 'maxWidth: 720',
@@ -469,7 +484,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Thumbnail to Full',
       'icon': Icons.photo_size_select_large,
-      'desc': 'Animate from thumbnail-sized tight constraints to '
+      'desc':
+          'Animate from thumbnail-sized tight constraints to '
           'full-size tight constraints — a zoom effect without '
           'scaling (the content re-renders at the new size).',
       'begin': 'tight(80 × 80)',
@@ -479,7 +495,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Tight to Loose',
       'icon': Icons.open_with,
-      'desc': 'Animate from a tight constraint (fixed size) to a '
+      'desc':
+          'Animate from a tight constraint (fixed size) to a '
           'loose constraint (flexible). The child transitions '
           'from forced size to choosing its own intrinsic size.',
       'begin': 'tight(200 × 150)',
@@ -504,17 +521,14 @@ dynamic build(BuildContext context) {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (s['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (s['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(s['icon'] as IconData,
-                  color: s['color'] as Color, size: 26),
+              Icon(s['icon'] as IconData, color: s['color'] as Color, size: 26),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
@@ -556,9 +570,11 @@ dynamic build(BuildContext context) {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: Icon(Icons.arrow_forward,
-                    size: 16,
-                    color: (s['color'] as Color).withOpacity(0.5)),
+                child: Icon(
+                  Icons.arrow_forward,
+                  size: 16,
+                  color: (s['color'] as Color).withOpacity(0.5),
+                ),
               ),
               Expanded(
                 child: Container(
@@ -595,35 +611,40 @@ dynamic build(BuildContext context) {
       'level': 'Screen',
       'constraint': 'tight(360 × 640)',
       'icon': Icons.phone_android,
-      'note': 'The screen imposes tight constraints matching '
+      'note':
+          'The screen imposes tight constraints matching '
           'the device size.',
     },
     {
       'level': 'Scaffold body',
       'constraint': 'tight(360 × 580)',
       'icon': Icons.web,
-      'note': 'AppBar consumes 60px, so the remaining height '
+      'note':
+          'AppBar consumes 60px, so the remaining height '
           'is passed as tight constraints.',
     },
     {
       'level': 'Padding(16)',
       'constraint': 'tight(328 × 548)',
       'icon': Icons.space_bar,
-      'note': 'Padding subtracts 32px from width and height, '
+      'note':
+          'Padding subtracts 32px from width and height, '
           'passing tighter constraints inward.',
     },
     {
       'level': 'ConstrainedBox (animated)',
       'constraint': 'animating between two values',
       'icon': Icons.animation,
-      'note': 'BoxConstraintsTween drives ConstrainedBox, which '
+      'note':
+          'BoxConstraintsTween drives ConstrainedBox, which '
           'applies the interpolated constraints to its child.',
     },
     {
       'level': 'Child widget',
       'constraint': 'picks size within bounds',
       'icon': Icons.check_box,
-      'note': 'The child sizes itself within the animated '
+      'note':
+          'The child sizes itself within the animated '
           'constraints. As they change, the child adapts.',
     },
   ];
@@ -642,21 +663,23 @@ dynamic build(BuildContext context) {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: Color.lerp(Colors.purple[200],
-                    Colors.deepPurple[700], i / 4.0)!,
+                color: Color.lerp(
+                  Colors.purple[200],
+                  Colors.deepPurple[700],
+                  i / 4.0,
+                )!,
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: Icon(p['icon'] as IconData,
-                    size: 16, color: Colors.white),
+                child: Icon(
+                  p['icon'] as IconData,
+                  size: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
             if (i < propagation.length - 1)
-              Container(
-                width: 2,
-                height: 40,
-                color: Colors.purple[200],
-              ),
+              Container(width: 2, height: 40, color: Colors.purple[200]),
           ],
         ),
         const SizedBox(width: 12),
@@ -718,21 +741,24 @@ dynamic build(BuildContext context) {
     {
       'name': 'SizeTween',
       'what': 'Interpolates Size (width, height)',
-      'diff': 'Size has no min/max — it is a single value. '
+      'diff':
+          'Size has no min/max — it is a single value. '
           'BoxConstraintsTween handles the full min/max range.',
       'color': Colors.purple[600]!,
     },
     {
       'name': 'RectTween',
       'what': 'Interpolates Rect (position + size)',
-      'diff': 'Rect includes position (left, top). Constraints '
+      'diff':
+          'Rect includes position (left, top). Constraints '
           'are position-agnostic — only about size limits.',
       'color': Colors.deepPurple[600]!,
     },
     {
       'name': 'AnimatedContainer',
       'what': 'Implicitly animates BoxDecoration, constraints, etc.',
-      'diff': 'AnimatedContainer handles constraints animation '
+      'diff':
+          'AnimatedContainer handles constraints animation '
           'internally. BoxConstraintsTween is for explicit '
           'animation with AnimationController.',
       'color': Colors.purple[500]!,
@@ -740,7 +766,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'ConstrainedBox',
       'what': 'Applies additional constraints to child',
-      'diff': 'ConstrainedBox is the static widget. Pair it with '
+      'diff':
+          'ConstrainedBox is the static widget. Pair it with '
           'BoxConstraintsTween for manual animation, or use '
           'AnimatedContainer for implicit animation.',
       'color': Colors.deepPurple[500]!,
@@ -756,9 +783,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (r['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: (r['color'] as Color).withOpacity(0.25),
-        ),
+        border: Border.all(color: (r['color'] as Color).withOpacity(0.25)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -797,7 +822,8 @@ dynamic build(BuildContext context) {
   final tips = <Map<String, dynamic>>[
     {
       'tip': 'Maintain min ≤ max Invariant',
-      'body': 'During interpolation, if begin has min > end\'s max '
+      'body':
+          'During interpolation, if begin has min > end\'s max '
           'at some t value, the result can violate min ≤ max. '
           'Always design begin and end so that the interpolation '
           'path stays valid at every t.',
@@ -805,7 +831,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Use with ConstrainedBox',
-      'body': 'Wrap a child in ConstrainedBox and drive its '
+      'body':
+          'Wrap a child in ConstrainedBox and drive its '
           'constraints property with a BoxConstraintsTween. '
           'The child will re-layout each frame as the constraints '
           'change, producing a smooth resize.',
@@ -813,7 +840,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Unbounded Axes',
-      'body': 'Avoid tweening to or from infinite constraints. '
+      'body':
+          'Avoid tweening to or from infinite constraints. '
           'Lerping between 100 and infinity produces huge values '
           'mid-animation that can cause layout overflow. Always '
           'use finite values in both begin and end.',
@@ -821,7 +849,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Performance: Layout Cost',
-      'body': 'Animating constraints triggers relayout every frame. '
+      'body':
+          'Animating constraints triggers relayout every frame. '
           'Keep the subtree under the animated ConstrainedBox '
           'lightweight. Complex children (long lists, deep trees) '
           'will cause jank during constraint animation.',
@@ -829,7 +858,8 @@ dynamic build(BuildContext context) {
     },
     {
       'tip': 'Prefer AnimatedContainer for Simple Cases',
-      'body': 'If you just need a container to smoothly resize, '
+      'body':
+          'If you just need a container to smoothly resize, '
           'AnimatedContainer is simpler — it internally handles '
           'the tween. BoxConstraintsTween is for when you need '
           'explicit control over the animation curve and timing.',
@@ -878,7 +908,9 @@ dynamic build(BuildContext context) {
                     if (isWarning)
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.orange[100],
                           borderRadius: BorderRadius.circular(4),
@@ -966,8 +998,7 @@ dynamic build(BuildContext context) {
             ),
             child: Column(
               children: [
-                const Icon(Icons.aspect_ratio,
-                    color: Colors.white, size: 44),
+                const Icon(Icons.aspect_ratio, color: Colors.white, size: 44),
                 const SizedBox(height: 10),
                 const Text(
                   'BoxConstraintsTween',
@@ -1022,9 +1053,7 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.purple[200]!),
             ),
-            child: Column(
-              children: propWidgets,
-            ),
+            child: Column(children: propWidgets),
           ),
 
           // Section 7: Related Tweens

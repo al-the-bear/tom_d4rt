@@ -76,11 +76,7 @@ dynamic build(BuildContext context) {
             'No competition. No waiting. No rejection.\n'
             'Pointer arrives -> arena resolved -> done.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.white,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
           ),
         ),
       ],
@@ -348,10 +344,7 @@ dynamic build(BuildContext context) {
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.6),
-            width: 1.4,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.6), width: 1.4),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.2),
@@ -831,10 +824,7 @@ dynamic build(BuildContext context) {
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.6),
-            width: 1.4,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.6), width: 1.4),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -942,12 +932,7 @@ dynamic build(BuildContext context) {
       'tap': 'no',
       'pan': 'no',
     },
-    {
-      'scenario': 'Long-press menu',
-      'eager': 'NO',
-      'tap': 'no',
-      'pan': 'no',
-    },
+    {'scenario': 'Long-press menu', 'eager': 'NO', 'tap': 'no', 'pan': 'no'},
     {
       'scenario': 'Gesture combiner / arena tie-break',
       'eager': 'YES',
@@ -1069,10 +1054,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 recapItems[i],
-                style: TextStyle(
-                  fontSize: 12.5,
-                  color: Colors.brown.shade900,
-                ),
+                style: TextStyle(fontSize: 12.5, color: Colors.brown.shade900),
               ),
             ),
           ],
@@ -1181,19 +1163,22 @@ dynamic build(BuildContext context) {
           _buildSectionLabel('4. Lifecycle States', Colors.deepOrange),
           lifecycleSection,
           SizedBox(height: 24.0),
-          _buildSectionLabel('5. Use Case 1 - Steal from greedy parent',
-              Colors.red),
+          _buildSectionLabel(
+            '5. Use Case 1 - Steal from greedy parent',
+            Colors.red,
+          ),
           useCase1,
           SizedBox(height: 24.0),
-          _buildSectionLabel('6. Use Case 2 - Prevent ancestor dismissal',
-              Colors.deepOrange),
+          _buildSectionLabel(
+            '6. Use Case 2 - Prevent ancestor dismissal',
+            Colors.deepOrange,
+          ),
           useCase2,
           SizedBox(height: 24.0),
           _buildSectionLabel('7. Arena Timelines', Colors.brown),
           timelines,
           SizedBox(height: 24.0),
-          _buildSectionLabel('8. RawGestureDetector Integration',
-              Colors.amber),
+          _buildSectionLabel('8. RawGestureDetector Integration', Colors.amber),
           integrationCode,
           SizedBox(height: 24.0),
           _buildSectionLabel('9. Footguns', Colors.red),
@@ -1331,10 +1316,7 @@ Widget _buildScenarioBox(
         Text(
           detail,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10.0,
-            color: Colors.brown.shade700,
-          ),
+          style: TextStyle(fontSize: 10.0, color: Colors.brown.shade700),
         ),
       ],
     ),
@@ -1446,10 +1428,7 @@ Widget _buildDecisionScenario(String text, double width) {
       padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
         text,
-        style: TextStyle(
-          fontSize: 11.5,
-          color: Colors.brown.shade900,
-        ),
+        style: TextStyle(fontSize: 11.5, color: Colors.brown.shade900),
       ),
     ),
   );

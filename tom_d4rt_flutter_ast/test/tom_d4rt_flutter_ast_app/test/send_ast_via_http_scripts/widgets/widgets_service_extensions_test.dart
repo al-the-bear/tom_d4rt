@@ -223,11 +223,15 @@ Widget _buildHeader(WidgetsBinding binding) {
 Widget _buildBindingRuntimePanel(WidgetsBinding binding) {
   final List<_MetricRow> rows = <_MetricRow>[
     _MetricRow('renderViews', binding.renderViews.length.toString()),
-    _MetricRow('platform views',
-        binding.platformDispatcher.views.length.toString()),
+    _MetricRow(
+      'platform views',
+      binding.platformDispatcher.views.length.toString(),
+    ),
     _MetricRow('frames enabled', binding.framesEnabled.toString()),
-    _MetricRow('lifecycle state',
-        binding.lifecycleState?.name ?? 'not reported here'),
+    _MetricRow(
+      'lifecycle state',
+      binding.lifecycleState?.name ?? 'not reported here',
+    ),
     _MetricRow('extensions catalog size', _extensionEntries.length.toString()),
   ];
 
@@ -266,11 +270,12 @@ Widget _buildFilterAndCatalog({
   required ValueNotifier<bool> showDebugOnly,
   required ValueNotifier<bool> highlightPerfCategory,
 }) {
-  final List<String> categories = _extensionEntries
-      .map((_ServiceExtensionEntry entry) => entry.category)
-      .toSet()
-      .toList()
-    ..sort();
+  final List<String> categories =
+      _extensionEntries
+          .map((_ServiceExtensionEntry entry) => entry.category)
+          .toSet()
+          .toList()
+        ..sort();
 
   return Card(
     child: Padding(
@@ -279,76 +284,87 @@ Widget _buildFilterAndCatalog({
         first: selectedCategory,
         second: showDebugOnly,
         third: highlightPerfCategory,
-        builder: (BuildContext context, int categoryIndex, bool debugOnly,
-            bool highlightPerf) {
-          if (categoryIndex >= categories.length) {
-            selectedCategory.value = 0;
-            return const SizedBox.shrink();
-          }
-
-          final String activeCategory = categories[categoryIndex];
-          final List<_ServiceExtensionEntry> filtered = _extensionEntries.where(
-            (_ServiceExtensionEntry entry) {
-              if (entry.category != activeCategory) {
-                return false;
+        builder:
+            (
+              BuildContext context,
+              int categoryIndex,
+              bool debugOnly,
+              bool highlightPerf,
+            ) {
+              if (categoryIndex >= categories.length) {
+                selectedCategory.value = 0;
+                return const SizedBox.shrink();
               }
-              if (debugOnly && !entry.defaultEnabledInDebug) {
-                return false;
-              }
-              return true;
-            },
-          ).toList();
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Text(
-                'Extension Catalog Explorer',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
+              final String activeCategory = categories[categoryIndex];
+              final List<_ServiceExtensionEntry> filtered = _extensionEntries
+                  .where((_ServiceExtensionEntry entry) {
+                    if (entry.category != activeCategory) {
+                      return false;
+                    }
+                    if (debugOnly && !entry.defaultEnabledInDebug) {
+                      return false;
+                    }
+                    return true;
+                  })
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  for (int i = 0; i < categories.length; i++)
-                    ChoiceChip(
-                      selected: i == categoryIndex,
-                      label: Text(categories[i]),
-                      onSelected: (_) => selectedCategory.value = i,
-                    ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              SwitchListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Show only debug-enabled-by-default entries'),
-                value: debugOnly,
-                onChanged: (bool next) => showDebugOnly.value = next,
-              ),
-              SwitchListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Highlight performance category in overview'),
-                value: highlightPerf,
-                onChanged: (bool next) => highlightPerfCategory.value = next,
-              ),
-              const SizedBox(height: 8),
-              if (filtered.isEmpty)
-                const Text('No entries available for selected filters.')
-              else
-                for (final _ServiceExtensionEntry entry in filtered)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: _ExtensionCard(
-                      entry: entry,
-                      emphasize: highlightPerf && entry.category == 'Performance',
-                    ),
+                  const Text(
+                    'Extension Catalog Explorer',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
                   ),
-            ],
-          );
-        },
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: <Widget>[
+                      for (int i = 0; i < categories.length; i++)
+                        ChoiceChip(
+                          selected: i == categoryIndex,
+                          label: Text(categories[i]),
+                          onSelected: (_) => selectedCategory.value = i,
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  SwitchListTile(
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Show only debug-enabled-by-default entries',
+                    ),
+                    value: debugOnly,
+                    onChanged: (bool next) => showDebugOnly.value = next,
+                  ),
+                  SwitchListTile(
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Highlight performance category in overview',
+                    ),
+                    value: highlightPerf,
+                    onChanged: (bool next) =>
+                        highlightPerfCategory.value = next,
+                  ),
+                  const SizedBox(height: 8),
+                  if (filtered.isEmpty)
+                    const Text('No entries available for selected filters.')
+                  else
+                    for (final _ServiceExtensionEntry entry in filtered)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: _ExtensionCard(
+                          entry: entry,
+                          emphasize:
+                              highlightPerf && entry.category == 'Performance',
+                        ),
+                      ),
+                ],
+              );
+            },
       ),
     ),
   );
@@ -466,8 +482,10 @@ Widget _buildCategoryHeatmap({
     counts[entry.category] = (counts[entry.category] ?? 0) + 1;
   }
   final List<MapEntry<String, int>> sorted = counts.entries.toList()
-    ..sort((MapEntry<String, int> a, MapEntry<String, int> b) =>
-        a.key.compareTo(b.key));
+    ..sort(
+      (MapEntry<String, int> a, MapEntry<String, int> b) =>
+          a.key.compareTo(b.key),
+    );
 
   return Card(
     child: Padding(
@@ -496,7 +514,9 @@ Widget _buildCategoryHeatmap({
                           child: LinearProgressIndicator(
                             minHeight: 12,
                             value: sorted[i].value / _extensionEntries.length,
-                            color: (highlightPerf && sorted[i].key == 'Performance')
+                            color:
+                                (highlightPerf &&
+                                    sorted[i].key == 'Performance')
                                 ? const Color(0xFFCA6A00)
                                 : const Color(0xFF0A7F86),
                             backgroundColor: const Color(0xFFE2ECEE),
@@ -595,7 +615,11 @@ Widget _buildCommandPipeline() {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Icon(steps[i].icon, color: steps[i].color, size: 18),
+                            Icon(
+                              steps[i].icon,
+                              color: steps[i].color,
+                              size: 18,
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Column(
@@ -603,8 +627,9 @@ Widget _buildCommandPipeline() {
                                 children: <Widget>[
                                   Text(
                                     steps[i].title,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w700),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                   const SizedBox(height: 2),
                                   Text(steps[i].description),
@@ -629,17 +654,20 @@ Widget _buildReleaseNotesPanel() {
   const List<_SnippetInfo> snippets = <_SnippetInfo>[
     _SnippetInfo(
       title: 'CLI vm_service call',
-      snippet: 'flutter attach --debug-uri <uri>\n# issue ext call through tooling bridge',
+      snippet:
+          'flutter attach --debug-uri <uri>\n# issue ext call through tooling bridge',
       note: 'Use when running headless diagnostics in CI debug jobs.',
     ),
     _SnippetInfo(
       title: 'Programmatic extension callback',
-      snippet: 'registerBoolServiceExtension(\n  name: "showPerformanceOverlay",\n  getter: () async => value,\n  setter: (v) async => setState(v),\n);',
+      snippet:
+          'registerBoolServiceExtension(\n  name: "showPerformanceOverlay",\n  getter: () async => value,\n  setter: (v) async => setState(v),\n);',
       note: 'Pattern for custom debug toggles in app-level diagnostics.',
     ),
     _SnippetInfo(
       title: 'Failure triage hint',
-      snippet: 'if extension is missing:\n  check build mode\n  verify attach mode\n  confirm asserts',
+      snippet:
+          'if extension is missing:\n  check build mode\n  verify attach mode\n  confirm asserts',
       note: 'Most extension availability issues originate from mode mismatch.',
     ),
   ];
@@ -749,7 +777,9 @@ class _ExtensionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = emphasize ? const Color(0xFFCA6A00) : const Color(0xFF0A6D74);
+    final Color accent = emphasize
+        ? const Color(0xFFCA6A00)
+        : const Color(0xFF0A6D74);
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),

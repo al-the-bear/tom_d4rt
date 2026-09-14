@@ -9,8 +9,14 @@ import 'package:flutter/material.dart';
 // HELPER BUILDERS - top-level functions only (no Stateless/Stateful subclasses).
 // -----------------------------------------------------------------------------
 
-Widget _sectionHeader(String number, String title, String subtitle,
-    Color background, Color border, Color accent) {
+Widget _sectionHeader(
+  String number,
+  String title,
+  String subtitle,
+  Color background,
+  Color border,
+  Color accent,
+) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(16.0),
@@ -65,10 +71,7 @@ Widget _sectionHeader(String number, String title, String subtitle,
               SizedBox(height: 4.0),
               Text(
                 subtitle,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Color(0xFF555555),
-                ),
+                style: TextStyle(fontSize: 12.0, color: Color(0xFF555555)),
               ),
             ],
           ),
@@ -132,8 +135,12 @@ Widget _fieldCard(Widget field, Color tint) {
   );
 }
 
-Widget _recipeCard(String title, String description, Color accent,
-    List<Widget> fields) {
+Widget _recipeCard(
+  String title,
+  String description,
+  Color accent,
+  List<Widget> fields,
+) {
   return Container(
     width: double.infinity,
     margin: EdgeInsets.only(bottom: 12.0),
@@ -340,10 +347,7 @@ Widget _glossaryEntry(String term, String definition, Color tint) {
               children: [
                 TextSpan(
                   text: '$term — ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: tint,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: tint),
                 ),
                 TextSpan(text: definition),
               ],
@@ -385,10 +389,7 @@ Widget _heroChip(String label) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: Color(0xFFFFFFFF),
-        fontSize: 10.0,
-      ),
+      style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 10.0),
     ),
   );
 }
@@ -1059,9 +1060,7 @@ dynamic build(BuildContext context) {
     value: 'amber',
     decoration: InputDecoration(
       labelText: 'Color palette',
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12.0),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0)),
       prefixIcon: Icon(Icons.palette, color: s8Accent),
     ),
     items: [
@@ -1247,7 +1246,11 @@ dynamic build(BuildContext context) {
       labelText: 'disabledBorder',
       border: OutlineInputBorder(),
       disabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: s10Accent, width: 1.0, style: BorderStyle.solid),
+        borderSide: BorderSide(
+          color: s10Accent,
+          width: 1.0,
+          style: BorderStyle.solid,
+        ),
         borderRadius: BorderRadius.circular(8.0),
       ),
       prefixIcon: Icon(Icons.no_encryption_gmailerrorred, color: s10Accent),
@@ -1381,7 +1384,10 @@ dynamic build(BuildContext context) {
             prefixIcon: Icon(Icons.flag, color: s11Accent),
           ),
           items: [
-            DropdownMenuItem<String>(value: 'uk', child: Text('United Kingdom')),
+            DropdownMenuItem<String>(
+              value: 'uk',
+              child: Text('United Kingdom'),
+            ),
             DropdownMenuItem<String>(value: 'us', child: Text('United States')),
             DropdownMenuItem<String>(value: 'fr', child: Text('France')),
           ],
@@ -1493,7 +1499,9 @@ dynamic build(BuildContext context) {
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 4.0),
+                      horizontal: 10.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0x33FFFFFF),
                       borderRadius: BorderRadius.circular(20.0),
@@ -1574,8 +1582,11 @@ dynamic build(BuildContext context) {
                             color: Color(0xFF5E35B1),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          child: Icon(Icons.menu_book,
-                              color: Color(0xFFFFFFFF), size: 20.0),
+                          child: Icon(
+                            Icons.menu_book,
+                            color: Color(0xFFFFFFFF),
+                            size: 20.0,
+                          ),
                         ),
                         SizedBox(width: 12.0),
                         Text(
@@ -1627,31 +1638,40 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('1', 'Form primitives',
-                      'Form, FormState, GlobalKey, autovalidate axis',
-                      s1Bg, s1Border, s1Accent),
+                  _sectionHeader(
+                    '1',
+                    'Form primitives',
+                    'Form, FormState, GlobalKey, autovalidate axis',
+                    s1Bg,
+                    s1Border,
+                    s1Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s1Border, [
                     _captionLabel('AUTOVALIDATEMODE.DISABLED', s1Accent),
                     _fieldCard(primitiveFormDisabled, s1Border),
                     _captionLabel('AUTOVALIDATEMODE.ALWAYS', s1Accent),
                     _fieldCard(primitiveFormAlways, s1Border),
-                    _captionLabel('AUTOVALIDATEMODE.ONUSERINTERACTION', s1Accent),
+                    _captionLabel(
+                      'AUTOVALIDATEMODE.ONUSERINTERACTION',
+                      s1Accent,
+                    ),
                     _fieldCard(primitiveFormOnUser, s1Border),
                     _captionLabel('AUTOVALIDATEMODE.ONUNFOCUS', s1Accent),
                     _fieldCard(primitiveFormOnUnfocus, s1Border),
                     _codeQuote(
-                        'RECIPE: declaring a Form with a state key',
-                        'final formKey = GlobalKey<FormState>();\n'
-                            'Form(\n'
-                            '  key: formKey,\n'
-                            '  autovalidateMode: AutovalidateMode.onUserInteraction,\n'
-                            '  child: Column(children: [\n'
-                            '    TextFormField(...),\n'
-                            '    TextFormField(...),\n'
-                            '  ]),\n'
-                            ');\n'
-                            '// later: formKey.currentState!.validate();',
-                        s1Accent),
+                      'RECIPE: declaring a Form with a state key',
+                      'final formKey = GlobalKey<FormState>();\n'
+                          'Form(\n'
+                          '  key: formKey,\n'
+                          '  autovalidateMode: AutovalidateMode.onUserInteraction,\n'
+                          '  child: Column(children: [\n'
+                          '    TextFormField(...),\n'
+                          '    TextFormField(...),\n'
+                          '  ]),\n'
+                          ');\n'
+                          '// later: formKey.currentState!.validate();',
+                      s1Accent,
+                    ),
                   ]),
                 ],
               ),
@@ -1666,14 +1686,21 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('2', 'TextFormField spectrum',
-                      'Single-line, multi-line, expanding, obscured, typed',
-                      s2Bg, s2Border, s2Accent),
+                  _sectionHeader(
+                    '2',
+                    'TextFormField spectrum',
+                    'Single-line, multi-line, expanding, obscured, typed',
+                    s2Bg,
+                    s2Border,
+                    s2Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s2Border, [
                     _captionLabel('SINGLE-LINE (maxLines: 1)', s2Accent),
                     _fieldCard(spectrumSingleLine, s2Border),
-                    _captionLabel('MULTI-LINE (maxLines: 4, minLines: 2)',
-                        s2Accent),
+                    _captionLabel(
+                      'MULTI-LINE (maxLines: 4, minLines: 2)',
+                      s2Accent,
+                    ),
                     _fieldCard(spectrumMultiLine, s2Border),
                     _captionLabel('AUTO-GROWING (maxLines: null)', s2Accent),
                     _fieldCard(spectrumExpands, s2Border),
@@ -1681,8 +1708,10 @@ dynamic build(BuildContext context) {
                     _fieldCard(spectrumObscured, s2Border),
                     _captionLabel('NUMERIC (keyboardType: number)', s2Accent),
                     _fieldCard(spectrumNumeric, s2Border),
-                    _captionLabel('EMAIL (keyboardType: emailAddress)',
-                        s2Accent),
+                    _captionLabel(
+                      'EMAIL (keyboardType: emailAddress)',
+                      s2Accent,
+                    ),
                     _fieldCard(spectrumEmail, s2Border),
                   ]),
                 ],
@@ -1698,9 +1727,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('3', 'InputDecoration workshop',
-                      'label / hint / helper / counter / floating behavior',
-                      s3Bg, s3Border, s3Accent),
+                  _sectionHeader(
+                    '3',
+                    'InputDecoration workshop',
+                    'label / hint / helper / counter / floating behavior',
+                    s3Bg,
+                    s3Border,
+                    s3Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s3Border, [
                     _captionLabel('LABEL ONLY', s3Accent),
                     _fieldCard(decoLabel, s3Border),
@@ -1708,8 +1742,10 @@ dynamic build(BuildContext context) {
                     _fieldCard(decoLabelHint, s3Border),
                     _captionLabel('LABEL + HINT + HELPER', s3Accent),
                     _fieldCard(decoLabelHintHelper, s3Border),
-                    _captionLabel('FULL STACK (styled, filled, counter)',
-                        s3Accent),
+                    _captionLabel(
+                      'FULL STACK (styled, filled, counter)',
+                      s3Accent,
+                    ),
                     _fieldCard(decoFullStack, s3Border),
                     _captionLabel('FLOATING ALWAYS / CENTER', s3Accent),
                     _fieldCard(decoFloatingAlwaysCenter, s3Border),
@@ -1731,9 +1767,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('4', 'InputBorder variants',
-                      'OutlineInputBorder, UnderlineInputBorder, none, custom',
-                      s4Bg, s4Border, s4Accent),
+                  _sectionHeader(
+                    '4',
+                    'InputBorder variants',
+                    'OutlineInputBorder, UnderlineInputBorder, none, custom',
+                    s4Bg,
+                    s4Border,
+                    s4Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s4Border, [
                     _captionLabel('OUTLINE (DEFAULT)', s4Accent),
                     _fieldCard(borderOutline, s4Border),
@@ -1763,9 +1804,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('5', 'Prefix / suffix iconography',
-                      'prefixIcon, suffixIcon, prefixText, prefix widget',
-                      s5Bg, s5Border, s5Accent),
+                  _sectionHeader(
+                    '5',
+                    'Prefix / suffix iconography',
+                    'prefixIcon, suffixIcon, prefixText, prefix widget',
+                    s5Bg,
+                    s5Border,
+                    s5Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s5Border, [
                     _captionLabel('PREFIX ICON', s5Accent),
                     _fieldCard(iconPrefix, s5Border),
@@ -1793,9 +1839,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('6', 'helper / error / counter text',
-                      'Static helper, forced error, character counters',
-                      s6Bg, s6Border, s6Accent),
+                  _sectionHeader(
+                    '6',
+                    'helper / error / counter text',
+                    'Static helper, forced error, character counters',
+                    s6Bg,
+                    s6Border,
+                    s6Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s6Border, [
                     _captionLabel('HELPER ONLY', s6Accent),
                     _fieldCard(helperOnly, s6Border),
@@ -1823,9 +1874,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('7', 'AutovalidateMode patterns',
-                      'disabled / always / onUserInteraction / onUnfocus',
-                      s7Bg, s7Border, s7Accent),
+                  _sectionHeader(
+                    '7',
+                    'AutovalidateMode patterns',
+                    'disabled / always / onUserInteraction / onUnfocus',
+                    s7Bg,
+                    s7Border,
+                    s7Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s7Border, [
                     _captionLabel('DISABLED', s7Accent),
                     _fieldCard(avDisabled, s7Border),
@@ -1855,14 +1911,30 @@ dynamic build(BuildContext context) {
                             ),
                           ),
                           SizedBox(height: 8.0),
-                          _comparisonRow('disabled', 'manual validate()',
-                              'no auto check', s7Accent),
-                          _comparisonRow('always', 'rebuild = revalidate',
-                              'errors persist', s7Accent),
-                          _comparisonRow('onUserInteraction', 'waits for edit',
-                              'no flash on load', s7Accent),
-                          _comparisonRow('onUnfocus', 'after focus leaves',
-                              'gentle UX', s7Accent),
+                          _comparisonRow(
+                            'disabled',
+                            'manual validate()',
+                            'no auto check',
+                            s7Accent,
+                          ),
+                          _comparisonRow(
+                            'always',
+                            'rebuild = revalidate',
+                            'errors persist',
+                            s7Accent,
+                          ),
+                          _comparisonRow(
+                            'onUserInteraction',
+                            'waits for edit',
+                            'no flash on load',
+                            s7Accent,
+                          ),
+                          _comparisonRow(
+                            'onUnfocus',
+                            'after focus leaves',
+                            'gentle UX',
+                            s7Accent,
+                          ),
                         ],
                       ),
                     ),
@@ -1880,9 +1952,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('8', 'DropdownButtonFormField',
-                      'Single-select picker as a first-class FormField',
-                      s8Bg, s8Border, s8Accent),
+                  _sectionHeader(
+                    '8',
+                    'DropdownButtonFormField',
+                    'Single-select picker as a first-class FormField',
+                    s8Bg,
+                    s8Border,
+                    s8Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s8Border, [
                     _captionLabel('BASIC', s8Accent),
                     _fieldCard(dropdownBasic, s8Border),
@@ -1892,8 +1969,10 @@ dynamic build(BuildContext context) {
                     _fieldCard(dropdownValidated, s8Border),
                     _captionLabel('DISABLED', s8Accent),
                     _fieldCard(dropdownDisabled, s8Border),
-                    _captionLabel('THEMED (dropdownColor, iconEnabledColor)',
-                        s8Accent),
+                    _captionLabel(
+                      'THEMED (dropdownColor, iconEnabledColor)',
+                      s8Accent,
+                    ),
                     _fieldCard(dropdownColored, s8Border),
                   ]),
                 ],
@@ -1909,9 +1988,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('9', 'Validator showcases',
-                      'Required, length, email, range, pattern, combined',
-                      s9Bg, s9Border, s9Accent),
+                  _sectionHeader(
+                    '9',
+                    'Validator showcases',
+                    'Required, length, email, range, pattern, combined',
+                    s9Bg,
+                    s9Border,
+                    s9Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s9Border, [
                     _captionLabel('REQUIRED (empty -> error)', s9Accent),
                     _fieldCard(validatorRequired, s9Border),
@@ -1928,14 +2012,15 @@ dynamic build(BuildContext context) {
                     _captionLabel('COMBINED RULES', s9Accent),
                     _fieldCard(validatorCombined, s9Border),
                     _codeQuote(
-                        'RECIPE: composing validator rules',
-                        'String? validator(String? v) {\n'
-                            "  if (v == null || v.isEmpty) return 'Required';\n"
-                            "  if (v.length < 3) return 'Min 3 chars';\n"
-                            "  if (v.length > 20) return 'Max 20 chars';\n"
-                            '  return null; // valid\n'
-                            '}',
-                        s9Accent),
+                      'RECIPE: composing validator rules',
+                      'String? validator(String? v) {\n'
+                          "  if (v == null || v.isEmpty) return 'Required';\n"
+                          "  if (v.length < 3) return 'Min 3 chars';\n"
+                          "  if (v.length > 20) return 'Max 20 chars';\n"
+                          '  return null; // valid\n'
+                          '}',
+                      s9Accent,
+                    ),
                   ]),
                 ],
               ),
@@ -1950,9 +2035,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('10', 'Disabled / read-only states',
-                      'enabled, readOnly, disabledBorder, filled snapshots',
-                      s10Bg, s10Border, s10Accent),
+                  _sectionHeader(
+                    '10',
+                    'Disabled / read-only states',
+                    'enabled, readOnly, disabledBorder, filled snapshots',
+                    s10Bg,
+                    s10Border,
+                    s10Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s10Border, [
                     _captionLabel('ENABLED', s10Accent),
                     _fieldCard(stateEnabled, s10Border),
@@ -1998,9 +2088,14 @@ dynamic build(BuildContext context) {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  _sectionHeader('11', 'Composed form layouts',
-                      'Sign-up, address, checkout - real-world recipes',
-                      s11Bg, s11Border, s11Accent),
+                  _sectionHeader(
+                    '11',
+                    'Composed form layouts',
+                    'Sign-up, address, checkout - real-world recipes',
+                    s11Bg,
+                    s11Border,
+                    s11Accent,
+                  ),
                   _sectionBody(Color(0xFFFFFFFF), s11Border, [
                     _recipeCard(
                       'Sign-up form',
@@ -2052,8 +2147,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.compare_arrows,
-                            color: Color(0xFF6A1B9A), size: 22.0),
+                        Icon(
+                          Icons.compare_arrows,
+                          color: Color(0xFF6A1B9A),
+                          size: 22.0,
+                        ),
                         SizedBox(width: 10.0),
                         Text(
                           'InputBorder variants - at a glance',
@@ -2066,22 +2164,54 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     SizedBox(height: 10.0),
-                    _comparisonRow('OutlineInputBorder', 'rounded box',
-                        'classic Material', Color(0xFF6A1B9A)),
-                    _comparisonRow('UnderlineInputBorder', 'single bottom line',
-                        'low chrome', Color(0xFF6A1B9A)),
-                    _comparisonRow('InputBorder.none', 'no chrome',
-                        'pair w/ filled', Color(0xFF6A1B9A)),
-                    _comparisonRow('errorBorder', 'red outline',
-                        'when error active', Color(0xFF6A1B9A)),
-                    _comparisonRow('focusedBorder', 'colored outline',
-                        'when field has focus', Color(0xFF6A1B9A)),
-                    _comparisonRow('disabledBorder', 'muted outline',
-                        'when enabled: false', Color(0xFF6A1B9A)),
-                    _comparisonRow('enabledBorder', 'default outline',
-                        'when idle + enabled', Color(0xFF6A1B9A)),
-                    _comparisonRow('focusedErrorBorder', 'red focused',
-                        'error + focused combo', Color(0xFF6A1B9A)),
+                    _comparisonRow(
+                      'OutlineInputBorder',
+                      'rounded box',
+                      'classic Material',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'UnderlineInputBorder',
+                      'single bottom line',
+                      'low chrome',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'InputBorder.none',
+                      'no chrome',
+                      'pair w/ filled',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'errorBorder',
+                      'red outline',
+                      'when error active',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'focusedBorder',
+                      'colored outline',
+                      'when field has focus',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'disabledBorder',
+                      'muted outline',
+                      'when enabled: false',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'enabledBorder',
+                      'default outline',
+                      'when idle + enabled',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _comparisonRow(
+                      'focusedErrorBorder',
+                      'red focused',
+                      'error + focused combo',
+                      Color(0xFF6A1B9A),
+                    ),
                   ],
                 ),
               ),
@@ -2107,8 +2237,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.local_library,
-                            color: Color(0xFFF57F17), size: 22.0),
+                        Icon(
+                          Icons.local_library,
+                          color: Color(0xFFF57F17),
+                          size: 22.0,
+                        ),
                         SizedBox(width: 10.0),
                         Text(
                           'Glossary',
@@ -2121,54 +2254,86 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     SizedBox(height: 8.0),
-                    _glossaryEntry('Form',
-                        'Container widget that groups FormFields and exposes a FormState via GlobalKey.',
-                        Color(0xFF3949AB)),
-                    _glossaryEntry('FormField<T>',
-                        'Generic base class for fields that participate in Form lifecycle (validate / save / reset).',
-                        Color(0xFF00796B)),
-                    _glossaryEntry('FormState',
-                        'Companion State object: validate(), save(), reset(), and listens to onChanged.',
-                        Color(0xFFE65100)),
-                    _glossaryEntry('TextFormField',
-                        'Concrete FormField wrapping a TextField with validator / onSaved hooks.',
-                        Color(0xFFC2185B)),
-                    _glossaryEntry('DropdownButtonFormField',
-                        'FormField variant for single-select pickers; pairs with InputDecoration.',
-                        Color(0xFF2E7D32)),
-                    _glossaryEntry('InputDecoration',
-                        'Description of the visual shell around a field: labels, hints, borders, icons.',
-                        Color(0xFF0277BD)),
-                    _glossaryEntry('InputBorder',
-                        'Abstract border type; OutlineInputBorder and UnderlineInputBorder are the main subclasses.',
-                        Color(0xFF7B1FA2)),
-                    _glossaryEntry('OutlineInputBorder',
-                        'Rounded rectangular border drawn around the entire field.',
-                        Color(0xFF455A64)),
-                    _glossaryEntry('UnderlineInputBorder',
-                        'Single line below the field; classic Material 2 style.',
-                        Color(0xFF5D4037)),
-                    _glossaryEntry('AutovalidateMode',
-                        'Enum: disabled / always / onUserInteraction / onUnfocus.',
-                        Color(0xFF512DA8)),
-                    _glossaryEntry('validator',
-                        'Function (T?) -> String? that returns an error message or null when valid.',
-                        Color(0xFFFF8F00)),
-                    _glossaryEntry('onSaved',
-                        'Callback invoked when FormState.save() runs - typically copies value to a model.',
-                        Color(0xFF00838F)),
-                    _glossaryEntry('initialValue',
-                        'Seed value for the field; visible until the user edits or onReset() fires.',
-                        Color(0xFF827717)),
-                    _glossaryEntry('helperText',
-                        'Supportive text under the field; collapses to errorText when invalid.',
-                        Color(0xFFC62828)),
-                    _glossaryEntry('counterText',
-                        'Bottom-right indicator; auto-populates when maxLength is set.',
-                        Color(0xFF6A1B9A)),
-                    _glossaryEntry('FloatingLabelBehavior',
-                        'Enum: auto / always / never - controls when the label floats above.',
-                        Color(0xFF1A237E)),
+                    _glossaryEntry(
+                      'Form',
+                      'Container widget that groups FormFields and exposes a FormState via GlobalKey.',
+                      Color(0xFF3949AB),
+                    ),
+                    _glossaryEntry(
+                      'FormField<T>',
+                      'Generic base class for fields that participate in Form lifecycle (validate / save / reset).',
+                      Color(0xFF00796B),
+                    ),
+                    _glossaryEntry(
+                      'FormState',
+                      'Companion State object: validate(), save(), reset(), and listens to onChanged.',
+                      Color(0xFFE65100),
+                    ),
+                    _glossaryEntry(
+                      'TextFormField',
+                      'Concrete FormField wrapping a TextField with validator / onSaved hooks.',
+                      Color(0xFFC2185B),
+                    ),
+                    _glossaryEntry(
+                      'DropdownButtonFormField',
+                      'FormField variant for single-select pickers; pairs with InputDecoration.',
+                      Color(0xFF2E7D32),
+                    ),
+                    _glossaryEntry(
+                      'InputDecoration',
+                      'Description of the visual shell around a field: labels, hints, borders, icons.',
+                      Color(0xFF0277BD),
+                    ),
+                    _glossaryEntry(
+                      'InputBorder',
+                      'Abstract border type; OutlineInputBorder and UnderlineInputBorder are the main subclasses.',
+                      Color(0xFF7B1FA2),
+                    ),
+                    _glossaryEntry(
+                      'OutlineInputBorder',
+                      'Rounded rectangular border drawn around the entire field.',
+                      Color(0xFF455A64),
+                    ),
+                    _glossaryEntry(
+                      'UnderlineInputBorder',
+                      'Single line below the field; classic Material 2 style.',
+                      Color(0xFF5D4037),
+                    ),
+                    _glossaryEntry(
+                      'AutovalidateMode',
+                      'Enum: disabled / always / onUserInteraction / onUnfocus.',
+                      Color(0xFF512DA8),
+                    ),
+                    _glossaryEntry(
+                      'validator',
+                      'Function (T?) -> String? that returns an error message or null when valid.',
+                      Color(0xFFFF8F00),
+                    ),
+                    _glossaryEntry(
+                      'onSaved',
+                      'Callback invoked when FormState.save() runs - typically copies value to a model.',
+                      Color(0xFF00838F),
+                    ),
+                    _glossaryEntry(
+                      'initialValue',
+                      'Seed value for the field; visible until the user edits or onReset() fires.',
+                      Color(0xFF827717),
+                    ),
+                    _glossaryEntry(
+                      'helperText',
+                      'Supportive text under the field; collapses to errorText when invalid.',
+                      Color(0xFFC62828),
+                    ),
+                    _glossaryEntry(
+                      'counterText',
+                      'Bottom-right indicator; auto-populates when maxLength is set.',
+                      Color(0xFF6A1B9A),
+                    ),
+                    _glossaryEntry(
+                      'FloatingLabelBehavior',
+                      'Enum: auto / always / never - controls when the label floats above.',
+                      Color(0xFF1A237E),
+                    ),
                   ],
                 ),
               ),
@@ -2200,8 +2365,7 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.flag,
-                          color: Color(0xFFFFFFFF), size: 22.0),
+                      Icon(Icons.flag, color: Color(0xFFFFFFFF), size: 22.0),
                       SizedBox(width: 10.0),
                       Text(
                         'Closing notes',
@@ -2230,7 +2394,9 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 14.0),
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 6.0),
+                      horizontal: 10.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Color(0x33FFFFFF),
                       borderRadius: BorderRadius.circular(20.0),

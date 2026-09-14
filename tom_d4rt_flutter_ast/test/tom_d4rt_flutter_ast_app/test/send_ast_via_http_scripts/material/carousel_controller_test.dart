@@ -225,11 +225,7 @@ Widget _buildPaletteStrip() {
   for (int i = 0; i < kPalette.length; i++) {
     swatches.add(_buildSwatch(kPalette[i], kPaletteNames[i]));
   }
-  return Wrap(
-    spacing: 6,
-    runSpacing: 6,
-    children: swatches,
-  );
+  return Wrap(spacing: 6, runSpacing: 6, children: swatches);
 }
 
 Widget _buildSwatch(Color color, String name) {
@@ -472,10 +468,7 @@ Widget _galleryRow(CarouselController controller, String label, Color tone) {
             Container(
               width: 12,
               height: 12,
-              decoration: BoxDecoration(
-                color: tone,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: tone, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
             Text(
@@ -675,10 +668,7 @@ Widget _buildVisibleBudgetDiagram() {
               const SizedBox(width: 6),
               Expanded(flex: 2, child: _budgetBox('2 -- next', kCarnivalCoral)),
               const SizedBox(width: 6),
-              Expanded(
-                flex: 1,
-                child: _budgetBox('1 -- edge', kCarnivalTeal),
-              ),
+              Expanded(flex: 1, child: _budgetBox('1 -- edge', kCarnivalTeal)),
             ],
           ),
         ),
@@ -727,7 +717,7 @@ Widget _buildConstructorArguments() {
           domain: 'CarouselView()',
           summary:
               'Fixed pixel extent for every carousel child.  Mutually '
-                  'exclusive with flexWeights.  Use when items are uniform.',
+              'exclusive with flexWeights.  Use when items are uniform.',
           tone: kCitrineCore,
         ),
         _argCard(
@@ -735,8 +725,8 @@ Widget _buildConstructorArguments() {
           domain: 'CarouselView.weighted()',
           summary:
               'List<int> describing the visible item budget.  The first '
-                  'weight is the focused item; later weights are the trailing '
-                  'preview items.',
+              'weight is the focused item; later weights are the trailing '
+              'preview items.',
           tone: kCarnivalRose,
         ),
         _argCard(
@@ -744,8 +734,8 @@ Widget _buildConstructorArguments() {
           domain: 'all CarouselView constructors',
           summary:
               'When true, the carousel snaps to the nearest item on scroll '
-                  'end.  Combine with controller.animateToItem for nicely '
-                  'aligned programmatic transitions.',
+              'end.  Combine with controller.animateToItem for nicely '
+              'aligned programmatic transitions.',
           tone: kCarnivalTeal,
         ),
         _argCard(
@@ -753,7 +743,7 @@ Widget _buildConstructorArguments() {
           domain: 'all CarouselView constructors',
           summary:
               'Reverses the scroll direction.  initialItem still refers to '
-                  'the same logical index; only the geometry flips.',
+              'the same logical index; only the geometry flips.',
           tone: kCarnivalPlum,
         ),
         _argCard(
@@ -761,8 +751,8 @@ Widget _buildConstructorArguments() {
           domain: 'all CarouselView constructors',
           summary:
               'Axis.horizontal (default) or Axis.vertical.  The controller '
-                  'API is unchanged; pixel offsets simply move along the '
-                  'chosen axis.',
+              'API is unchanged; pixel offsets simply move along the '
+              'chosen axis.',
           tone: kCitrineDeep,
         ),
         _argCard(
@@ -770,7 +760,7 @@ Widget _buildConstructorArguments() {
           domain: 'CarouselView()',
           summary:
               'Minimum extent an item shrinks to as it leaves the viewport.  '
-                  'Smaller values produce a more dramatic "fold" effect.',
+              'Smaller values produce a more dramatic "fold" effect.',
           tone: kCarnivalCoral,
         ),
       ],
@@ -852,51 +842,51 @@ Widget _buildDoAvoidCallouts() {
         _calloutRow(
           good:
               'DO construct one CarouselController per CarouselView and store '
-                  'it on the State.',
+              'it on the State.',
           bad:
               'AVOID sharing a single CarouselController across multiple '
-                  'CarouselView widgets -- ScrollControllers can attach to '
-                  'one position only.',
+              'CarouselView widgets -- ScrollControllers can attach to '
+              'one position only.',
         ),
         _calloutRow(
           good:
               'DO read controller.initialItem before attach if you need to '
-                  'echo the planned starting index in your UI.',
+              'echo the planned starting index in your UI.',
           bad:
               'AVOID reading controller.offset or controller.position before '
-                  'the carousel has mounted -- both throw StateError.',
+              'the carousel has mounted -- both throw StateError.',
         ),
         _calloutRow(
           good:
               'DO call animateToItem(index) for programmatic navigation.  '
-                  'It accepts duration and curve overrides.',
+              'It accepts duration and curve overrides.',
           bad:
               'AVOID calling animateTo with hand-computed pixel offsets -- '
-                  'snapping logic may fight you.',
+              'snapping logic may fight you.',
         ),
         _calloutRow(
           good:
               'DO dispose() the controller from State.dispose() when you no '
-                  'longer need it.',
+              'longer need it.',
           bad:
               'AVOID forgetting to dispose() -- it leaks the listener '
-                  'subscription on every rebuild.',
+              'subscription on every rebuild.',
         ),
         _calloutRow(
           good:
               'DO use itemSnapping: true when the carousel represents discrete '
-                  'pages (e.g. a photo gallery).',
+              'pages (e.g. a photo gallery).',
           bad:
               'AVOID itemSnapping with continuous content like a tickertape; '
-                  'it produces choppy interactions.',
+              'it produces choppy interactions.',
         ),
         _calloutRow(
           good:
               'DO use Axis.vertical for tall columns of cards on phones; the '
-                  'controller API is identical.',
+              'controller API is identical.',
           bad:
               'AVOID switching scrollDirection at runtime; the position has '
-                  'to recompute every offset.',
+              'to recompute every offset.',
         ),
       ],
     ),
@@ -1215,11 +1205,7 @@ Widget _buildRecapFooter() {
           'animateToItem / jumpToItem, and lives one-per-CarouselView.  Wire '
           'it up in initState, dispose it in dispose, and let the snapshot '
           'demo above remind you of the visual contract.',
-          style: TextStyle(
-            fontSize: 13,
-            height: 1.4,
-            color: kCarnivalCream,
-          ),
+          style: TextStyle(fontSize: 13, height: 1.4, color: kCarnivalCream),
         ),
         const SizedBox(height: 12),
         Wrap(
@@ -1288,10 +1274,7 @@ Widget _card({
             Container(
               width: 10,
               height: 10,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             const SizedBox(width: 8),
             Text(
@@ -1316,11 +1299,7 @@ Widget _para(String text) {
     padding: const EdgeInsets.only(bottom: 8),
     child: Text(
       text,
-      style: const TextStyle(
-        fontSize: 13,
-        height: 1.5,
-        color: kCarnivalNight,
-      ),
+      style: const TextStyle(fontSize: 13, height: 1.5, color: kCarnivalNight),
     ),
   );
 }

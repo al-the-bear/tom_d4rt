@@ -173,19 +173,13 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  body,
-                  style: Theme.of(innerCtx).textTheme.bodySmall,
-                ),
+                Text(body, style: Theme.of(innerCtx).textTheme.bodySmall),
                 const SizedBox(height: 8),
                 Row(
                   children: [
                     FilledButton(onPressed: () {}, child: const Text('Go')),
                     const SizedBox(width: 8),
-                    OutlinedButton(
-                      onPressed: () {},
-                      child: const Text('More'),
-                    ),
+                    OutlinedButton(onPressed: () {}, child: const Text('More')),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -242,10 +236,7 @@ dynamic build(BuildContext context) {
           for (final m in ThemeMode.values)
             Container(
               margin: const EdgeInsets.only(bottom: 6),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -258,10 +249,7 @@ dynamic build(BuildContext context) {
                     backgroundColor: slateAccent,
                     child: Text(
                       '${m.index}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -275,14 +263,11 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const Spacer(),
-                  Text(
-                    switch (m) {
-                      ThemeMode.system => 'follow OS',
-                      ThemeMode.light => 'force light',
-                      ThemeMode.dark => 'force dark',
-                    },
-                    style: TextStyle(fontSize: 12, color: slateMuted),
-                  ),
+                  Text(switch (m) {
+                    ThemeMode.system => 'follow OS',
+                    ThemeMode.light => 'force light',
+                    ThemeMode.dark => 'force dark',
+                  }, style: TextStyle(fontSize: 12, color: slateMuted)),
                 ],
               ),
             ),
@@ -297,8 +282,10 @@ dynamic build(BuildContext context) {
   // the user sees exactly what each value renders.
   // ===========================================================================
 
-  ThemeData makeLightTheme(Color seed) =>
-      ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: seed), useMaterial3: true);
+  ThemeData makeLightTheme(Color seed) => ThemeData(
+    colorScheme: ColorScheme.fromSeed(seedColor: seed),
+    useMaterial3: true,
+  );
   ThemeData makeDarkTheme(Color seed) => ThemeData(
     colorScheme: ColorScheme.fromSeed(
       seedColor: seed,
@@ -630,25 +617,19 @@ dynamic build(BuildContext context) {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        switch (m) {
-                          ThemeMode.system => 'theme',
-                          ThemeMode.light => 'theme',
-                          ThemeMode.dark => 'darkTheme',
-                        },
-                        style: TextStyle(color: purpleInk),
-                      ),
+                      child: Text(switch (m) {
+                        ThemeMode.system => 'theme',
+                        ThemeMode.light => 'theme',
+                        ThemeMode.dark => 'darkTheme',
+                      }, style: TextStyle(color: purpleInk)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(
-                        switch (m) {
-                          ThemeMode.system => 'darkTheme',
-                          ThemeMode.light => 'theme',
-                          ThemeMode.dark => 'darkTheme',
-                        },
-                        style: TextStyle(color: purpleInk),
-                      ),
+                      child: Text(switch (m) {
+                        ThemeMode.system => 'darkTheme',
+                        ThemeMode.light => 'theme',
+                        ThemeMode.dark => 'darkTheme',
+                      }, style: TextStyle(color: purpleInk)),
                     ),
                   ],
                 ),
@@ -885,14 +866,11 @@ dynamic build(BuildContext context) {
                       value: m,
                       groupValue: mode,
                       activeColor: cyanAccent,
-                      title: Text(
-                        switch (m) {
-                          ThemeMode.system => 'Match system',
-                          ThemeMode.light => 'Always light',
-                          ThemeMode.dark => 'Always dark',
-                        },
-                        style: TextStyle(color: cyanLightInk),
-                      ),
+                      title: Text(switch (m) {
+                        ThemeMode.system => 'Match system',
+                        ThemeMode.light => 'Always light',
+                        ThemeMode.dark => 'Always dark',
+                      }, style: TextStyle(color: cyanLightInk)),
                       subtitle: Text(
                         'ThemeMode.${m.name}',
                         style: TextStyle(
@@ -965,9 +943,7 @@ dynamic build(BuildContext context) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(2),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
       ),
     ),
   );
@@ -986,9 +962,7 @@ dynamic build(BuildContext context) {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),
     ),
   );
@@ -1335,10 +1309,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'Use ThemeMode.system when:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: sandInk,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: sandInk),
                 ),
                 Text(
                   '  • You ship both light and dark themes\n'
@@ -1350,10 +1321,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 12),
                 Text(
                   'Use ThemeMode.light when:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: sandInk,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: sandInk),
                 ),
                 Text(
                   '  • Your app is content-heavy print work (recipes, docs)\n'
@@ -1364,10 +1332,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 12),
                 Text(
                   'Use ThemeMode.dark when:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: sandInk,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: sandInk),
                 ),
                 Text(
                   '  • Media playback / video / map / camera-style apps\n'
@@ -1460,10 +1425,7 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: Text(
                             t,
-                            style: TextStyle(
-                              color: coralInk,
-                              fontSize: 12,
-                            ),
+                            style: TextStyle(color: coralInk, fontSize: 12),
                           ),
                         ),
                       ],

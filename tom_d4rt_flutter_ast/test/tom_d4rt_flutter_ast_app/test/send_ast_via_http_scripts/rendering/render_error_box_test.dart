@@ -110,11 +110,7 @@ dynamic build(BuildContext context) {
           child: Text(
             'The classic magenta error screen. Painted by the framework when '
             'a build/layout/paint phase throws and ErrorWidget kicks in.',
-            style: TextStyle(
-              color: textWhite,
-              fontSize: 13.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: textWhite, fontSize: 13.0, height: 1.4),
           ),
         ),
       ],
@@ -597,10 +593,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFFFF8E1),
-          Color(0xFFFFE0B2),
-        ],
+        colors: [Color(0xFFFFF8E1), Color(0xFFFFE0B2)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -652,11 +645,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(
-                Icons.sentiment_dissatisfied,
-                color: textWhite,
-                size: 48.0,
-              ),
+              Icon(Icons.sentiment_dissatisfied, color: textWhite, size: 48.0),
               SizedBox(height: 8.0),
               Text(
                 'Something went wrong',
@@ -676,10 +665,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 14.0,
-                  vertical: 6.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 6.0),
                 decoration: BoxDecoration(
                   color: textWhite.withValues(alpha: 0.20),
                   borderRadius: BorderRadius.circular(20.0),
@@ -843,10 +829,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF263238),
-          Color(0xFF37474F),
-        ],
+        colors: [Color(0xFF263238), Color(0xFF37474F)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -916,26 +899,26 @@ dynamic build(BuildContext context) {
       'title': 'Mutating backgroundColor at runtime',
       'body':
           'Setting RenderErrorBox.backgroundColor after a RenderErrorBox '
-              'has already painted does not repaint existing instances. '
-              'Set it before runApp().',
+          'has already painted does not repaint existing instances. '
+          'Set it before runApp().',
     },
     {
       'title': 'ErrorWidget.builder is global',
       'body':
           'Overriding ErrorWidget.builder affects every error screen in '
-              'the app. Keep it as the last resort, not as a normal path.',
+          'the app. Keep it as the last resort, not as a normal path.',
     },
     {
       'title': 'Hides the real stack trace',
       'body':
           'A pretty replacement widget can hide diagnostic info. Always '
-              'forward FlutterErrorDetails to your crash reporter first.',
+          'forward FlutterErrorDetails to your crash reporter first.',
     },
     {
       'title': 'Custom widget can throw too',
       'body':
           'If your replacement ErrorWidget itself throws, the framework '
-              'falls back to the original RenderErrorBox.',
+          'falls back to the original RenderErrorBox.',
     },
   ];
 
@@ -948,10 +931,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFFFFEBEE),
-              Color(0xFFFFCDD2),
-            ],
+            colors: [Color(0xFFFFEBEE), Color(0xFFFFCDD2)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1134,10 +1114,7 @@ Widget _label(String title, String body, Color color) {
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.25),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.25)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1195,11 +1172,7 @@ Widget _flow(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.0,
-              height: 1.35,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 12.0, height: 1.35),
           ),
         ),
       ],
@@ -1287,11 +1260,7 @@ Widget _recap(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.35,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.35),
           ),
         ),
       ],

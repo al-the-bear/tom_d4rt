@@ -88,11 +88,7 @@ dynamic build(BuildContext context) {
             'returns the child widget. It exists to intercept updates '
             'and notify dependents when the proxy widget changes, '
             'powering InheritedWidget and ParentDataWidget.',
-            style: TextStyle(
-              fontSize: 14.0,
-              color: mint100,
-              height: 1.5,
-            ),
+            style: TextStyle(fontSize: 14.0, color: mint100, height: 1.5),
           ),
         ],
       ),
@@ -165,7 +161,11 @@ dynamic build(BuildContext context) {
               SizedBox(width: 8.0),
               Text(
                 'ProxyElement.build()',
-                style: TextStyle(fontSize: 14.0, color: mint300, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: mint300,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -228,10 +228,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: isProxy ? jade600.withValues(alpha: 0.1) : Colors.grey.shade50,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: lineColor,
-            width: isProxy ? 2.5 : 1.5,
-          ),
+          border: Border.all(color: lineColor, width: isProxy ? 2.5 : 1.5),
         ),
         child: Row(
           children: [
@@ -304,7 +301,11 @@ dynamic build(BuildContext context) {
         children: [
           Text(
             'ProxyElement.update()',
-            style: TextStyle(fontSize: 14.0, color: mint300, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 14.0,
+              color: mint300,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 10.0),
           Text(
@@ -349,7 +350,11 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i < updateSteps.length; i++) {
     final step = updateSteps[i];
-    final stepColor = Color.lerp(jade800, mint400, i / (updateSteps.length - 1))!;
+    final stepColor = Color.lerp(
+      jade800,
+      mint400,
+      i / (updateSteps.length - 1),
+    )!;
 
     updateCards.add(
       Container(
@@ -381,7 +386,11 @@ dynamic build(BuildContext context) {
                     child: Center(
                       child: Text(
                         '${i + 1}',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13.0),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
                       ),
                     ),
                   ),
@@ -477,9 +486,11 @@ dynamic build(BuildContext context) {
   final implementations = <Map<String, String>>[
     {
       'subclass': 'InheritedElement',
-      'notification': 'Walks dependent elements and marks them as needing rebuild',
+      'notification':
+          'Walks dependent elements and marks them as needing rebuild',
       'trigger': 'updateShouldNotify(oldWidget) returns true',
-      'effect': 'Descendants that called dependOnInheritedWidgetOfExactType rebuild',
+      'effect':
+          'Descendants that called dependOnInheritedWidgetOfExactType rebuild',
     },
     {
       'subclass': 'ParentDataElement',
@@ -555,7 +566,10 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'Effect: ${impl['effect']!}',
-                    style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ),
               ],
@@ -566,7 +580,9 @@ dynamic build(BuildContext context) {
     );
   }
 
-  print('Created notifyClients() with ${implementations.length} implementations');
+  print(
+    'Created notifyClients() with ${implementations.length} implementations',
+  );
 
   // ============================================================
   // SECTION 5: Element Class Hierarchy
@@ -574,14 +590,49 @@ dynamic build(BuildContext context) {
   print('=== Section 5: Element Hierarchy ===');
 
   final hierarchyNodes = <Map<String, dynamic>>[
-    {'name': 'Element', 'depth': 0, 'color': Colors.grey.shade700, 'abstract': true},
-    {'name': 'ComponentElement', 'depth': 1, 'color': Colors.blueGrey, 'abstract': true},
-    {'name': 'StatelessElement', 'depth': 2, 'color': Colors.blue.shade600, 'abstract': false},
-    {'name': 'StatefulElement', 'depth': 2, 'color': Colors.purple.shade600, 'abstract': false},
+    {
+      'name': 'Element',
+      'depth': 0,
+      'color': Colors.grey.shade700,
+      'abstract': true,
+    },
+    {
+      'name': 'ComponentElement',
+      'depth': 1,
+      'color': Colors.blueGrey,
+      'abstract': true,
+    },
+    {
+      'name': 'StatelessElement',
+      'depth': 2,
+      'color': Colors.blue.shade600,
+      'abstract': false,
+    },
+    {
+      'name': 'StatefulElement',
+      'depth': 2,
+      'color': Colors.purple.shade600,
+      'abstract': false,
+    },
     {'name': 'ProxyElement', 'depth': 2, 'color': jade600, 'abstract': true},
-    {'name': 'InheritedElement', 'depth': 3, 'color': jade500, 'abstract': false},
-    {'name': 'ParentDataElement', 'depth': 3, 'color': mint400, 'abstract': false},
-    {'name': 'RenderObjectElement', 'depth': 1, 'color': Colors.orange.shade700, 'abstract': true},
+    {
+      'name': 'InheritedElement',
+      'depth': 3,
+      'color': jade500,
+      'abstract': false,
+    },
+    {
+      'name': 'ParentDataElement',
+      'depth': 3,
+      'color': mint400,
+      'abstract': false,
+    },
+    {
+      'name': 'RenderObjectElement',
+      'depth': 1,
+      'color': Colors.orange.shade700,
+      'abstract': true,
+    },
   ];
 
   final hierarchyWidgets = <Widget>[];
@@ -594,17 +645,27 @@ dynamic build(BuildContext context) {
 
     hierarchyWidgets.add(
       Container(
-        margin: EdgeInsets.only(left: 12.0 + depth * 28.0, right: 12.0, top: 3.0, bottom: 3.0),
+        margin: EdgeInsets.only(
+          left: 12.0 + depth * 28.0,
+          right: 12.0,
+          top: 3.0,
+          bottom: 3.0,
+        ),
         padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         decoration: BoxDecoration(
-          color: isProxy ? nodeColor.withValues(alpha: 0.15) : nodeColor.withValues(alpha: 0.06),
+          color: isProxy
+              ? nodeColor.withValues(alpha: 0.15)
+              : nodeColor.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            color: nodeColor,
-            width: isProxy ? 3.0 : 1.5,
-          ),
+          border: Border.all(color: nodeColor, width: isProxy ? 3.0 : 1.5),
           boxShadow: isProxy
-              ? [BoxShadow(color: nodeColor.withValues(alpha: 0.25), blurRadius: 6.0, offset: Offset(0, 3))]
+              ? [
+                  BoxShadow(
+                    color: nodeColor.withValues(alpha: 0.25),
+                    blurRadius: 6.0,
+                    offset: Offset(0, 3),
+                  ),
+                ]
               : [],
         ),
         child: Row(
@@ -710,15 +771,27 @@ dynamic build(BuildContext context) {
         child: Column(
           children: [
             if (i > 0)
-              Container(height: 12.0, width: 2.0, color: jade500.withValues(alpha: 0.4)),
+              Container(
+                height: 12.0,
+                width: 2.0,
+                color: jade500.withValues(alpha: 0.4),
+              ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
               decoration: BoxDecoration(
-                color: Color.lerp(jade700, mint300, i / (depFlow.length - 1))!.withValues(alpha: 0.12),
+                color: Color.lerp(
+                  jade700,
+                  mint300,
+                  i / (depFlow.length - 1),
+                )!.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(8.0),
                 border: Border.all(
-                  color: Color.lerp(jade700, mint400, i / (depFlow.length - 1))!,
+                  color: Color.lerp(
+                    jade700,
+                    mint400,
+                    i / (depFlow.length - 1),
+                  )!,
                   width: 1.5,
                 ),
               ),
@@ -826,7 +899,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 example['widget']!,
-                style: TextStyle(fontSize: 10.5, color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 10.5,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             SizedBox(width: 8.0),
@@ -842,7 +919,11 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     example['data']!,
-                    style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: Colors.grey.shade600),
+                    style: TextStyle(
+                      fontSize: 9.5,
+                      fontFamily: 'monospace',
+                      color: Colors.grey.shade600,
+                    ),
                   ),
                 ],
               ),
@@ -863,23 +944,28 @@ dynamic build(BuildContext context) {
   final lifecycleStages = <Map<String, String>>[
     {
       'stage': 'mount()',
-      'detail': 'Element is inserted into the tree. ProxyElement is inflated from ProxyWidget.',
+      'detail':
+          'Element is inserted into the tree. ProxyElement is inflated from ProxyWidget.',
     },
     {
       'stage': 'build()',
-      'detail': 'Returns widget.child — the pass-through. No new widgets created.',
+      'detail':
+          'Returns widget.child — the pass-through. No new widgets created.',
     },
     {
       'stage': 'update(newWidget)',
-      'detail': 'Parent rebuilds with new ProxyWidget. Triggers updated() then rebuild.',
+      'detail':
+          'Parent rebuilds with new ProxyWidget. Triggers updated() then rebuild.',
     },
     {
       'stage': 'updated(oldWidget)',
-      'detail': 'Calls notifyClients(oldWidget). Subclass handles notification.',
+      'detail':
+          'Calls notifyClients(oldWidget). Subclass handles notification.',
     },
     {
       'stage': 'deactivate()',
-      'detail': 'Element removed from tree temporarily. Dependencies cleaned up.',
+      'detail':
+          'Element removed from tree temporarily. Dependencies cleaned up.',
     },
     {
       'stage': 'unmount()',
@@ -891,7 +977,11 @@ dynamic build(BuildContext context) {
 
   for (var i = 0; i < lifecycleStages.length; i++) {
     final stage = lifecycleStages[i];
-    final stageColor = Color.lerp(jade900, mint300, i / (lifecycleStages.length - 1))!;
+    final stageColor = Color.lerp(
+      jade900,
+      mint300,
+      i / (lifecycleStages.length - 1),
+    )!;
 
     lifecycleWidgets.add(
       Container(
@@ -899,7 +989,11 @@ dynamic build(BuildContext context) {
         child: Column(
           children: [
             if (i > 0)
-              Icon(Icons.arrow_downward, size: 16.0, color: stageColor.withValues(alpha: 0.5)),
+              Icon(
+                Icons.arrow_downward,
+                size: 16.0,
+                color: stageColor.withValues(alpha: 0.5),
+              ),
             Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
@@ -910,7 +1004,10 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: stageColor,
                       borderRadius: BorderRadius.circular(6.0),
@@ -979,7 +1076,12 @@ dynamic build(BuildContext context) {
           ...nodes.map((node) {
             final isProxy = node['isProxy'] == true;
             return Container(
-              margin: EdgeInsets.only(left: (node['depth'] as int) * 8.0, top: 2.0, bottom: 2.0, right: 2.0),
+              margin: EdgeInsets.only(
+                left: (node['depth'] as int) * 8.0,
+                top: 2.0,
+                bottom: 2.0,
+                right: 2.0,
+              ),
               padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: isProxy
@@ -1128,16 +1230,18 @@ dynamic build(BuildContext context) {
       Container(
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
-        decoration: BoxDecoration(
-          color: i.isEven ? mint50 : Colors.white,
-        ),
+        decoration: BoxDecoration(color: i.isEven ? mint50 : Colors.white),
         child: Row(
           children: [
             SizedBox(
               width: 90.0,
               child: Text(
                 row['aspect']!,
-                style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: jade900),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.bold,
+                  color: jade900,
+                ),
               ),
             ),
             Expanded(
@@ -1206,12 +1310,30 @@ dynamic build(BuildContext context) {
 
   // Dependency registration flow
   final depSteps = <Map<String, String>>[
-    {'label': 'Widget calls Theme.of(context)', 'note': 'context.dependOnInheritedWidgetOfExactType<Theme>()'},
-    {'label': 'Framework registers dependency', 'note': 'InheritedElement._dependents.add(element)'},
-    {'label': 'Theme widget rebuilt with new data', 'note': 'Parent triggers update with new ThemeData'},
-    {'label': 'ProxyElement.update() called', 'note': 'updated(oldWidget) → notifyClients()'},
-    {'label': 'All dependents marked dirty', 'note': 'Each dependent element.markNeedsBuild()'},
-    {'label': 'Dependents rebuild next frame', 'note': 'Widgets read new theme data via Theme.of()'},
+    {
+      'label': 'Widget calls Theme.of(context)',
+      'note': 'context.dependOnInheritedWidgetOfExactType<Theme>()',
+    },
+    {
+      'label': 'Framework registers dependency',
+      'note': 'InheritedElement._dependents.add(element)',
+    },
+    {
+      'label': 'Theme widget rebuilt with new data',
+      'note': 'Parent triggers update with new ThemeData',
+    },
+    {
+      'label': 'ProxyElement.update() called',
+      'note': 'updated(oldWidget) → notifyClients()',
+    },
+    {
+      'label': 'All dependents marked dirty',
+      'note': 'Each dependent element.markNeedsBuild()',
+    },
+    {
+      'label': 'Dependents rebuild next frame',
+      'note': 'Widgets read new theme data via Theme.of()',
+    },
   ];
 
   for (var i = 0; i < depSteps.length; i++) {
@@ -1232,11 +1354,19 @@ dynamic build(BuildContext context) {
           children: [
             Text(
               '${i + 1}. ${step['label']!}',
-              style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600, color: jade900),
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+                color: jade900,
+              ),
             ),
             Text(
               step['note']!,
-              style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: jade700),
+              style: TextStyle(
+                fontSize: 9.5,
+                fontFamily: 'monospace',
+                color: jade700,
+              ),
             ),
           ],
         ),
@@ -1318,14 +1448,21 @@ dynamic build(BuildContext context) {
                   ),
                   SizedBox(height: 4.0),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       scenario['calls'] as String,
-                      style: TextStyle(fontSize: 9.5, fontFamily: 'monospace', color: jade800),
+                      style: TextStyle(
+                        fontSize: 9.5,
+                        fontFamily: 'monospace',
+                        color: jade800,
+                      ),
                     ),
                   ),
                 ],
@@ -1387,7 +1524,8 @@ dynamic build(BuildContext context) {
   final perfPoints = <Map<String, String>>[
     {
       'point': 'Zero build cost',
-      'detail': 'build() returns widget.child — one field access, no allocation',
+      'detail':
+          'build() returns widget.child — one field access, no allocation',
     },
     {
       'point': 'Targeted notifications',
@@ -1395,11 +1533,13 @@ dynamic build(BuildContext context) {
     },
     {
       'point': 'No render object',
-      'detail': 'ProxyElements do not participate in the render tree — zero layout cost',
+      'detail':
+          'ProxyElements do not participate in the render tree — zero layout cost',
     },
     {
       'point': 'updateShouldNotify gate',
-      'detail': 'InheritedElement skips notification when data has not actually changed',
+      'detail':
+          'InheritedElement skips notification when data has not actually changed',
     },
   ];
 
@@ -1431,7 +1571,11 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     point['detail']!,
-                    style: TextStyle(fontSize: 11.0, color: jade700, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: jade700,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -1501,7 +1645,11 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            Icon(example['icon'] as IconData, size: 28.0, color: example['color'] as Color),
+            Icon(
+              example['icon'] as IconData,
+              size: 28.0,
+              color: example['color'] as Color,
+            ),
             SizedBox(height: 8.0),
             Text(
               example['name'] as String,
@@ -1542,14 +1690,34 @@ dynamic build(BuildContext context) {
   print('=== Section 15: Integration Summary ===');
 
   final summaryEntries = <Map<String, String>>[
-    {'key': 'Class', 'value': 'abstract class ProxyElement extends ComponentElement'},
+    {
+      'key': 'Class',
+      'value': 'abstract class ProxyElement extends ComponentElement',
+    },
     {'key': 'Constructor', 'value': 'ProxyElement(ProxyWidget widget)'},
-    {'key': 'build()', 'value': 'Returns (widget as ProxyWidget).child directly'},
-    {'key': 'update()', 'value': 'Swaps widget, calls updated(), forces rebuild'},
-    {'key': 'notifyClients()', 'value': 'Abstract — subclasses decide notification strategy'},
-    {'key': 'Subclasses', 'value': 'InheritedElement (data sharing) and ParentDataElement (layout config)'},
+    {
+      'key': 'build()',
+      'value': 'Returns (widget as ProxyWidget).child directly',
+    },
+    {
+      'key': 'update()',
+      'value': 'Swaps widget, calls updated(), forces rebuild',
+    },
+    {
+      'key': 'notifyClients()',
+      'value': 'Abstract — subclasses decide notification strategy',
+    },
+    {
+      'key': 'Subclasses',
+      'value':
+          'InheritedElement (data sharing) and ParentDataElement (layout config)',
+    },
     {'key': 'Render tree', 'value': 'No RenderObject — zero layout overhead'},
-    {'key': 'Pattern', 'value': 'Proxy pattern: transparent layer adding metadata without modifying child'},
+    {
+      'key': 'Pattern',
+      'value':
+          'Proxy pattern: transparent layer adding metadata without modifying child',
+    },
   ];
 
   final summaryRows = <Widget>[];
@@ -1625,7 +1793,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('update() — Notification Chain', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                  Text(
+                    'update() — Notification Chain',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: jade900,
+                    ),
+                  ),
                   SizedBox(height: 8.0),
                   ...updateCards,
                 ],
@@ -1643,7 +1818,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('Element Class Hierarchy', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                    child: Text(
+                      'Element Class Hierarchy',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: jade900,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   ...hierarchyWidgets,
@@ -1669,7 +1851,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Element Lifecycle', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                  Text(
+                    'Element Lifecycle',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: jade900,
+                    ),
+                  ),
                   SizedBox(height: 8.0),
                   ...lifecycleWidgets,
                 ],
@@ -1682,11 +1871,21 @@ dynamic build(BuildContext context) {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Text('Widget → Element → Render Trees', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                  child: Text(
+                    'Widget → Element → Render Trees',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: jade900,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Text('ProxyElement exists in element tree but NOT in render tree', style: TextStyle(fontSize: 11.0, color: jade600)),
+                  child: Text(
+                    'ProxyElement exists in element tree but NOT in render tree',
+                    style: TextStyle(fontSize: 11.0, color: jade600),
+                  ),
                 ),
                 threeTreesRow,
               ],
@@ -1706,7 +1905,14 @@ dynamic build(BuildContext context) {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('When ProxyElement Rebuilds', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                    child: Text(
+                      'When ProxyElement Rebuilds',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: jade900,
+                      ),
+                    ),
                   ),
                   SizedBox(height: 8.0),
                   ...rebuildCards,
@@ -1722,7 +1928,14 @@ dynamic build(BuildContext context) {
               margin: EdgeInsets.all(12.0),
               child: Column(
                 children: [
-                  Text('Real-World Usage', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: jade900)),
+                  Text(
+                    'Real-World Usage',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: jade900,
+                    ),
+                  ),
                   SizedBox(height: 12.0),
                   Wrap(
                     spacing: 10.0,
@@ -1754,7 +1967,14 @@ dynamic build(BuildContext context) {
                         topRight: Radius.circular(11.0),
                       ),
                     ),
-                    child: Text('Quick Reference Summary', style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white)),
+                    child: Text(
+                      'Quick Reference Summary',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   ...summaryRows,
                 ],

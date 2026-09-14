@@ -7,28 +7,32 @@ const List<_Profile> _profiles = [
   _Profile(
     id: 'atlas',
     name: 'Atlas Desk',
-    description: 'Balanced profile for studying layout transitions after font-change signals.',
+    description:
+        'Balanced profile for studying layout transitions after font-change signals.',
     seed: Color(0xFF0EA5E9),
     brightness: Brightness.light,
   ),
   _Profile(
     id: 'nocturne',
     name: 'Nocturne Ops',
-    description: 'Dark diagnostics profile for detailed relayout tracking and timeline review.',
+    description:
+        'Dark diagnostics profile for detailed relayout tracking and timeline review.',
     seed: Color(0xFF0F172A),
     brightness: Brightness.dark,
   ),
   _Profile(
     id: 'copper',
     name: 'Copper Lab',
-    description: 'Warm profile focused on typography experiments and signal choreography.',
+    description:
+        'Warm profile focused on typography experiments and signal choreography.',
     seed: Color(0xFFB45309),
     brightness: Brightness.light,
   ),
   _Profile(
     id: 'orchid',
     name: 'Orchid Systems',
-    description: 'Training profile for instructional walkthroughs around mixin behavior.',
+    description:
+        'Training profile for instructional walkthroughs around mixin behavior.',
     seed: Color(0xFF7C3AED),
     brightness: Brightness.dark,
   ),
@@ -38,27 +42,32 @@ const List<_Scenario> _scenarios = [
   _Scenario(
     id: 'gallery',
     title: 'Mixin Gallery',
-    subtitle: 'Understand where RelayoutWhenSystemFontsChangeMixin fits in render-layer architecture.',
+    subtitle:
+        'Understand where RelayoutWhenSystemFontsChangeMixin fits in render-layer architecture.',
   ),
   _Scenario(
     id: 'layout',
     title: 'Layout Lab',
-    subtitle: 'Visualize host size and paint changes under typography pressure and constraints.',
+    subtitle:
+        'Visualize host size and paint changes under typography pressure and constraints.',
   ),
   _Scenario(
     id: 'signal',
     title: 'Signal Simulator',
-    subtitle: 'Send synthetic system-font change signals and observe relayout wave effects.',
+    subtitle:
+        'Send synthetic system-font change signals and observe relayout wave effects.',
   ),
   _Scenario(
     id: 'integrated',
     title: 'Integrated Cockpit',
-    subtitle: 'Combine controls, hosts, metrics, and notes into a realistic observability dashboard.',
+    subtitle:
+        'Combine controls, hosts, metrics, and notes into a realistic observability dashboard.',
   ),
   _Scenario(
     id: 'guide',
     title: 'Guide + Timeline',
-    subtitle: 'Instructive notes, FAQ, and chronological events for practical usage understanding.',
+    subtitle:
+        'Instructive notes, FAQ, and chronological events for practical usage understanding.',
   ),
 ];
 
@@ -68,35 +77,40 @@ const List<_TileBlueprint> _blueprints = [
     role: 'content',
     emphasis: 0.42,
     density: 0.52,
-    note: 'Main text-like host with clear area to observe relayout after font-change events.',
+    note:
+        'Main text-like host with clear area to observe relayout after font-change events.',
   ),
   _TileBlueprint(
     title: 'Compact Metadata Strip',
     role: 'meta',
     emphasis: 0.22,
     density: 0.84,
-    note: 'Dense auxiliary strip often sensitive to typography metrics and spacing adjustments.',
+    note:
+        'Dense auxiliary strip often sensitive to typography metrics and spacing adjustments.',
   ),
   _TileBlueprint(
     title: 'Prominent Banner',
     role: 'banner',
     emphasis: 0.88,
     density: 0.33,
-    note: 'Large decorative host where font-size and baseline shifts become visually obvious.',
+    note:
+        'Large decorative host where font-size and baseline shifts become visually obvious.',
   ),
   _TileBlueprint(
     title: 'Telemetry Badge Group',
     role: 'badge',
     emphasis: 0.58,
     density: 0.66,
-    note: 'Intermediate cluster that balances readability and compactness under relayout.',
+    note:
+        'Intermediate cluster that balances readability and compactness under relayout.',
   ),
   _TileBlueprint(
     title: 'Inline Label Rail',
     role: 'label',
     emphasis: 0.31,
     density: 0.72,
-    note: 'Side rail style host useful for seeing horizontal contraction/expansion behavior.',
+    note:
+        'Side rail style host useful for seeing horizontal contraction/expansion behavior.',
   ),
 ];
 
@@ -127,19 +141,23 @@ const List<String> _bestPractices = [
 const List<_Faq> _faq = [
   _Faq(
     question: 'When should I add RelayoutWhenSystemFontsChangeMixin?',
-    answer: 'Use it when your render object dimensions depend on typography metrics affected by system font changes.',
+    answer:
+        'Use it when your render object dimensions depend on typography metrics affected by system font changes.',
   ),
   _Faq(
     question: 'Is this only for text render objects?',
-    answer: 'No. Any render object with font-influenced layout logic can benefit from this relayout trigger behavior.',
+    answer:
+        'No. Any render object with font-influenced layout logic can benefit from this relayout trigger behavior.',
   ),
   _Faq(
     question: 'What does this demo verify most strongly?',
-    answer: 'That font-change signals propagate into observable relayout activity in custom render hosts.',
+    answer:
+        'That font-change signals propagate into observable relayout activity in custom render hosts.',
   ),
   _Faq(
     question: 'Why focus on visuals over assertions?',
-    answer: 'Interpreter bridge tests prioritize interaction confidence and runtime behavior understanding.',
+    answer:
+        'Interpreter bridge tests prioritize interaction confidence and runtime behavior understanding.',
   ),
 ];
 
@@ -160,7 +178,11 @@ class _Profile {
 }
 
 class _Scenario {
-  const _Scenario({required this.id, required this.title, required this.subtitle});
+  const _Scenario({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -191,7 +213,12 @@ class _Faq {
 }
 
 class _Metric {
-  const _Metric({required this.label, required this.value, required this.note, required this.icon});
+  const _Metric({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -207,10 +234,12 @@ class _RelayoutWhenSystemFontsChangeMixinStudio extends StatefulWidget {
   const _RelayoutWhenSystemFontsChangeMixinStudio();
 
   @override
-  State<_RelayoutWhenSystemFontsChangeMixinStudio> createState() => _RelayoutWhenSystemFontsChangeMixinStudioState();
+  State<_RelayoutWhenSystemFontsChangeMixinStudio> createState() =>
+      _RelayoutWhenSystemFontsChangeMixinStudioState();
 }
 
-class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhenSystemFontsChangeMixinStudio> {
+class _RelayoutWhenSystemFontsChangeMixinStudioState
+    extends State<_RelayoutWhenSystemFontsChangeMixinStudio> {
   int _profileIndex = 0;
   int _scenarioIndex = 0;
   int _boardIndex = 0;
@@ -310,29 +339,66 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
     final bursts = _signalToggle[0]
         ? 1
         : _signalToggle[1]
-            ? 2
-            : _signalToggle[2]
-                ? 3
-                : 5;
+        ? 2
+        : _signalToggle[2]
+        ? 3
+        : 5;
     for (var i = 0; i < bursts; i++) {
       _triggerSystemFontSignal(_primaryHostKey, 'primary');
       _triggerSystemFontSignal(_secondaryHostKey, 'secondary');
     }
     setState(() {
       _tick += 1;
-      _log('Signal burst complete: bursts=$bursts across primary and secondary hosts.');
+      _log(
+        'Signal burst complete: bursts=$bursts across primary and secondary hosts.',
+      );
     });
   }
 
   List<_Metric> _metrics() {
     return [
-      _Metric(label: 'Signals', value: '$_signalCount', note: 'systemFontsDidChange callbacks', icon: Icons.wifi_tethering),
-      _Metric(label: 'Layouts', value: '$_layoutCount', note: 'performLayout invocations', icon: Icons.grid_view),
-      _Metric(label: 'Paints', value: '$_paintCount', note: 'paint invocations', icon: Icons.brush),
-      _Metric(label: 'Pointers', value: '$_pointerCount', note: 'host pointer events', icon: Icons.touch_app),
-      _Metric(label: 'Overlay taps', value: '$_overlayTapCount', note: 'flutter overlay interactions', icon: Icons.layers),
-      _Metric(label: 'Host taps', value: '$_hostTapCount', note: 'host action chip interactions', icon: Icons.ads_click),
-      _Metric(label: 'Tick', value: '$_tick', note: 'state progression marker', icon: Icons.timeline),
+      _Metric(
+        label: 'Signals',
+        value: '$_signalCount',
+        note: 'systemFontsDidChange callbacks',
+        icon: Icons.wifi_tethering,
+      ),
+      _Metric(
+        label: 'Layouts',
+        value: '$_layoutCount',
+        note: 'performLayout invocations',
+        icon: Icons.grid_view,
+      ),
+      _Metric(
+        label: 'Paints',
+        value: '$_paintCount',
+        note: 'paint invocations',
+        icon: Icons.brush,
+      ),
+      _Metric(
+        label: 'Pointers',
+        value: '$_pointerCount',
+        note: 'host pointer events',
+        icon: Icons.touch_app,
+      ),
+      _Metric(
+        label: 'Overlay taps',
+        value: '$_overlayTapCount',
+        note: 'flutter overlay interactions',
+        icon: Icons.layers,
+      ),
+      _Metric(
+        label: 'Host taps',
+        value: '$_hostTapCount',
+        note: 'host action chip interactions',
+        icon: Icons.ads_click,
+      ),
+      _Metric(
+        label: 'Tick',
+        value: '$_tick',
+        note: 'state progression marker',
+        icon: Icons.timeline,
+      ),
     ];
   }
 
@@ -340,12 +406,17 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
   Widget build(BuildContext context) {
     final profile = _profiles[_profileIndex];
     final scenario = _scenarios[_scenarioIndex];
-    final scheme = ColorScheme.fromSeed(seedColor: profile.seed, brightness: profile.brightness);
+    final scheme = ColorScheme.fromSeed(
+      seedColor: profile.seed,
+      brightness: profile.brightness,
+    );
 
     final theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      visualDensity: _compactCards ? VisualDensity.compact : VisualDensity.standard,
+      visualDensity: _compactCards
+          ? VisualDensity.compact
+          : VisualDensity.standard,
     );
 
     return Theme(
@@ -368,13 +439,19 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                         gradient: LinearGradient(
                           colors: [
                             theme.colorScheme.surface,
-                            theme.colorScheme.surfaceContainerHighest.withAlpha(150),
+                            theme.colorScheme.surfaceContainerHighest.withAlpha(
+                              150,
+                            ),
                             theme.colorScheme.surface,
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
-                        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+                        border: Border.all(
+                          color: theme.colorScheme.outlineVariant.withAlpha(
+                            130,
+                          ),
+                        ),
                       ),
                       child: _board(theme, scenario, _metrics()),
                     ),
@@ -403,7 +480,9 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(140),
+        ),
       ),
       child: Row(
         children: [
@@ -413,10 +492,16 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: theme.colorScheme.surface,
-              border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withAlpha(130),
+              ),
             ),
             child: CustomPaint(
-              painter: _GlyphPainter(a: profile.seed, b: theme.colorScheme.tertiary, tick: _tick),
+              painter: _GlyphPainter(
+                a: profile.seed,
+                b: theme.colorScheme.tertiary,
+                tick: _tick,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -424,11 +509,19 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('RelayoutWhenSystemFontsChangeMixin Observatory', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+                Text(
+                  'RelayoutWhenSystemFontsChangeMixin Observatory',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'profile: ${profile.name}  scenario: ${scenario.title}  density: ${_density.toStringAsFixed(2)}',
-                  style: TextStyle(fontWeight: FontWeight.w700, color: theme.colorScheme.onSurface.withAlpha(176)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: theme.colorScheme.onSurface.withAlpha(176),
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(profile.description),
@@ -456,15 +549,24 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Observatory Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            Text(
+              'Observatory Controls',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             const SizedBox(height: 4),
-            const Text('Tune host geometry, typography pressure, signal bursts, and diagnostics visibility.'),
+            const Text(
+              'Tune host geometry, typography pressure, signal bursts, and diagnostics visibility.',
+            ),
             const SizedBox(height: 10),
             _dropdownCard(
               label: 'Profile',
@@ -648,12 +750,16 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                 runSpacing: 8,
                 children: [
                   FilledButton.icon(
-                    onPressed: () => _triggerSystemFontSignal(_primaryHostKey, 'primary'),
+                    onPressed: () =>
+                        _triggerSystemFontSignal(_primaryHostKey, 'primary'),
                     icon: const Icon(Icons.send),
                     label: const Text('Signal primary'),
                   ),
                   OutlinedButton.icon(
-                    onPressed: () => _triggerSystemFontSignal(_secondaryHostKey, 'secondary'),
+                    onPressed: () => _triggerSystemFontSignal(
+                      _secondaryHostKey,
+                      'secondary',
+                    ),
                     icon: const Icon(Icons.send_to_mobile),
                     label: const Text('Signal secondary'),
                   ),
@@ -692,9 +798,13 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
           const SizedBox(height: 6),
           DropdownButtonFormField<int>(
             initialValue: value,
-            decoration: const InputDecoration(border: OutlineInputBorder(), isDense: true),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
             items: [
-              for (var i = 0; i < options.length; i++) DropdownMenuItem<int>(value: i, child: Text(options[i])),
+              for (var i = 0; i < options.length; i++)
+                DropdownMenuItem<int>(value: i, child: Text(options[i])),
             ],
             onChanged: (v) {
               if (v != null) {
@@ -726,11 +836,22 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
         children: [
           Row(
             children: [
-              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700))),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
               Switch(value: value, onChanged: onChanged),
             ],
           ),
-          Text(subtitle, style: TextStyle(color: Colors.black.withAlpha(168), fontSize: 12.5)),
+          Text(
+            subtitle,
+            style: TextStyle(
+              color: Colors.black.withAlpha(168),
+              fontSize: 12.5,
+            ),
+          ),
         ],
       ),
     );
@@ -754,7 +875,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(
+            '$label: ${value.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
           Slider(value: value, min: min, max: max, onChanged: onChanged),
         ],
       ),
@@ -801,11 +925,18 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(bp.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+                            Text(
+                              bp.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             const SizedBox(height: 4),
                             Text('role: ${bp.role}'),
                             const SizedBox(height: 4),
-                            Text('emphasis: ${bp.emphasis.toStringAsFixed(2)} • density: ${bp.density.toStringAsFixed(2)}'),
+                            Text(
+                              'emphasis: ${bp.emphasis.toStringAsFixed(2)} • density: ${bp.density.toStringAsFixed(2)}',
+                            ),
                             const SizedBox(height: 8),
                             Text(bp.note),
                             const SizedBox(height: 8),
@@ -894,17 +1025,36 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(theme, 'Keep constraints explicit and audit host sizes after each synthetic font-change signal.'),
-                _bullet(theme, 'Surface layout counters to verify signal bursts do not create accidental layout storms.'),
-                _bullet(theme, 'Use clip and corner radius intentionally so geometric changes remain legible.'),
-                _bullet(theme, 'Provide visual markers for baseline-like rows to detect subtle spacing shifts.'),
-                _bullet(theme, 'Treat relayout as a first-class event in custom render object architecture docs.'),
+                _bullet(
+                  theme,
+                  'Keep constraints explicit and audit host sizes after each synthetic font-change signal.',
+                ),
+                _bullet(
+                  theme,
+                  'Surface layout counters to verify signal bursts do not create accidental layout storms.',
+                ),
+                _bullet(
+                  theme,
+                  'Use clip and corner radius intentionally so geometric changes remain legible.',
+                ),
+                _bullet(
+                  theme,
+                  'Provide visual markers for baseline-like rows to detect subtle spacing shifts.',
+                ),
+                _bullet(
+                  theme,
+                  'Treat relayout as a first-class event in custom render object architecture docs.',
+                ),
               ],
             ),
           ),
           if (_showDiagnostics) ...[
             const SizedBox(height: 10),
-            _snapshot(theme, _secondaryHostKey, 'Secondary host render snapshot'),
+            _snapshot(
+              theme,
+              _secondaryHostKey,
+              'Secondary host render snapshot',
+            ),
           ],
         ],
       ),
@@ -976,17 +1126,20 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
               runSpacing: 8,
               children: [
                 FilledButton.icon(
-                  onPressed: () => _triggerSystemFontSignal(_primaryHostKey, 'matrix-a'),
+                  onPressed: () =>
+                      _triggerSystemFontSignal(_primaryHostKey, 'matrix-a'),
                   icon: const Icon(Icons.radio_button_checked),
                   label: const Text('Signal A'),
                 ),
                 OutlinedButton.icon(
-                  onPressed: () => _triggerSystemFontSignal(_secondaryHostKey, 'matrix-b'),
+                  onPressed: () =>
+                      _triggerSystemFontSignal(_secondaryHostKey, 'matrix-b'),
                   icon: const Icon(Icons.radio_button_checked),
                   label: const Text('Signal B'),
                 ),
                 OutlinedButton.icon(
-                  onPressed: () => _triggerSystemFontSignal(_matrixHostKey, 'matrix-c'),
+                  onPressed: () =>
+                      _triggerSystemFontSignal(_matrixHostKey, 'matrix-c'),
                   icon: const Icon(Icons.radio_button_checked),
                   label: const Text('Signal C'),
                 ),
@@ -1007,7 +1160,11 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
     );
   }
 
-  Widget _integratedBoard(ThemeData theme, _Scenario scenario, List<_Metric> metrics) {
+  Widget _integratedBoard(
+    ThemeData theme,
+    _Scenario scenario,
+    List<_Metric> metrics,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -1042,12 +1199,18 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                       label: const Text('Run burst'),
                     ),
                     OutlinedButton.icon(
-                      onPressed: () => _triggerSystemFontSignal(_primaryHostKey, 'integrated-primary'),
+                      onPressed: () => _triggerSystemFontSignal(
+                        _primaryHostKey,
+                        'integrated-primary',
+                      ),
                       icon: const Icon(Icons.send),
                       label: const Text('Signal main'),
                     ),
                     OutlinedButton.icon(
-                      onPressed: () => _triggerSystemFontSignal(_secondaryHostKey, 'integrated-secondary'),
+                      onPressed: () => _triggerSystemFontSignal(
+                        _secondaryHostKey,
+                        'integrated-secondary',
+                      ),
                       icon: const Icon(Icons.send_to_mobile),
                       label: const Text('Signal compact'),
                     ),
@@ -1078,11 +1241,23 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                               children: [
                                 Icon(metric.icon),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(metric.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    metric.label,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Text(metric.value, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
+                            Text(
+                              metric.value,
+                              style: theme.textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                             const SizedBox(height: 4),
                             Text(metric.note),
                           ],
@@ -1098,7 +1273,11 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
     );
   }
 
-  Widget _guideBoard(ThemeData theme, _Scenario scenario, List<_Metric> metrics) {
+  Widget _guideBoard(
+    ThemeData theme,
+    _Scenario scenario,
+    List<_Metric> metrics,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -1144,7 +1323,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(item.question, style: const TextStyle(fontWeight: FontWeight.w700)),
+                          Text(
+                            item.question,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
                           const SizedBox(height: 2),
                           Text(item.answer),
                         ],
@@ -1163,15 +1345,26 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('entries: ${_timeline.length} • tick: $_tick • signals: $_signalCount', style: const TextStyle(fontWeight: FontWeight.w700)),
+                  Text(
+                    'entries: ${_timeline.length} • tick: $_tick • signals: $_signalCount',
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(height: 8),
                   if (_timeline.isEmpty)
-                    const Text('No events yet. Trigger host signals or change controls to populate timeline.')
+                    const Text(
+                      'No events yet. Trigger host signals or change controls to populate timeline.',
+                    )
                   else
                     for (final line in _timeline)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+                        child: Text(
+                          line,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
+                        ),
                       ),
                 ],
               ),
@@ -1192,7 +1385,14 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                         children: [
                           Icon(metric.icon, size: 18),
                           const SizedBox(width: 8),
-                          Expanded(child: Text(metric.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                          Expanded(
+                            child: Text(
+                              metric.label,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                           Text(metric.value),
                         ],
                       ),
@@ -1229,7 +1429,9 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
               const Spacer(),
-              Text('d:${density.toStringAsFixed(2)} e:${emphasis.toStringAsFixed(2)}'),
+              Text(
+                'd:${density.toStringAsFixed(2)} e:${emphasis.toStringAsFixed(2)}',
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -1266,8 +1468,16 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                         child: Container(
                           alignment: Alignment.topLeft,
                           padding: const EdgeInsets.all(8),
-                          color: Colors.lightBlue.withAlpha((_overlayOpacity * 255).toInt()),
-                          child: const Text('Flutter overlay', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                          color: Colors.lightBlue.withAlpha(
+                            (_overlayOpacity * 255).toInt(),
+                          ),
+                          child: const Text(
+                            'Flutter overlay',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -1275,7 +1485,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
                       Positioned.fill(
                         child: IgnorePointer(
                           child: CustomPaint(
-                            painter: _GridPainter(color: Colors.white.withAlpha(70), step: 20),
+                            painter: _GridPainter(
+                              color: Colors.white.withAlpha(70),
+                              step: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -1325,8 +1538,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
       if (ro is RenderObject) 'depth: ${ro.depth}',
       if (ro is RenderObject) 'needsLayout: ${ro.debugNeedsLayout}',
       if (ro is RenderObject) 'needsPaint: ${ro.debugNeedsPaint}',
-      if (ro is _FontRelayoutRenderBox) 'density: ${ro.density.toStringAsFixed(2)}',
-      if (ro is _FontRelayoutRenderBox) 'emphasis: ${ro.emphasis.toStringAsFixed(2)}',
+      if (ro is _FontRelayoutRenderBox)
+        'density: ${ro.density.toStringAsFixed(2)}',
+      if (ro is _FontRelayoutRenderBox)
+        'emphasis: ${ro.emphasis.toStringAsFixed(2)}',
       if (ro is _FontRelayoutRenderBox) 'signalMark: ${ro.signalMark}',
     ];
 
@@ -1346,7 +1561,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
           for (final line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
-              child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+              child: Text(
+                line,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+              ),
             ),
         ],
       ),
@@ -1360,9 +1578,20 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 19,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(176))),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withAlpha(176),
+                ),
+              ),
             ],
           ),
         ),
@@ -1372,7 +1601,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             color: theme.colorScheme.primaryContainer.withAlpha(168),
             borderRadius: BorderRadius.circular(999),
           ),
-          child: Text(chip, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+          child: Text(
+            chip,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+          ),
         ),
       ],
     );
@@ -1385,14 +1617,19 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: theme.colorScheme.surface.withAlpha(194),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
-          Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180))),
+          Text(
+            subtitle,
+            style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180)),
+          ),
           const SizedBox(height: 8),
           child,
         ],
@@ -1408,7 +1645,14 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withAlpha(130)),
       ),
-      child: Text(text, style: TextStyle(color: color, fontSize: 11.8, fontWeight: FontWeight.w700)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontSize: 11.8,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1422,7 +1666,10 @@ class _RelayoutWhenSystemFontsChangeMixinStudioState extends State<_RelayoutWhen
             margin: const EdgeInsets.only(top: 7, right: 8),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: theme.colorScheme.primary, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(child: Text(text)),
         ],
@@ -1482,7 +1729,10 @@ class _RelayoutHostWidget extends LeafRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, _FontRelayoutRenderBox renderObject) {
+  void updateRenderObject(
+    BuildContext context,
+    _FontRelayoutRenderBox renderObject,
+  ) {
     renderObject
       ..hueShift = hueShift
       ..density = density
@@ -1494,7 +1744,8 @@ class _RelayoutHostWidget extends LeafRenderObjectWidget {
   }
 }
 
-class _FontRelayoutRenderBox extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
+class _FontRelayoutRenderBox extends RenderBox
+    with RelayoutWhenSystemFontsChangeMixin {
   _FontRelayoutRenderBox({
     required double hueShift,
     required double density,
@@ -1503,9 +1754,9 @@ class _FontRelayoutRenderBox extends RenderBox with RelayoutWhenSystemFontsChang
     required this.onLayout,
     required this.onPaint,
     required this.onPointer,
-  })  : _hueShift = hueShift,
-        _density = density,
-        _emphasis = emphasis;
+  }) : _hueShift = hueShift,
+       _density = density,
+       _emphasis = emphasis;
 
   VoidCallback onSignal;
   VoidCallback onLayout;
@@ -1581,7 +1832,12 @@ class _FontRelayoutRenderBox extends RenderBox with RelayoutWhenSystemFontsChang
     final rect = offset & size;
 
     final base = HSVColor.fromAHSV(1, 360 * hueShift, 0.55, 0.86).toColor();
-    final accent = HSVColor.fromAHSV(1, (360 * hueShift + 58) % 360, 0.62, 0.92).toColor();
+    final accent = HSVColor.fromAHSV(
+      1,
+      (360 * hueShift + 58) % 360,
+      0.62,
+      0.92,
+    ).toColor();
 
     final bgPaint = Paint()
       ..shader = LinearGradient(
@@ -1599,7 +1855,10 @@ class _FontRelayoutRenderBox extends RenderBox with RelayoutWhenSystemFontsChang
       ..strokeWidth = 1.5
       ..color = Colors.white.withAlpha(150);
 
-    final rrect = RRect.fromRectAndRadius(rect.deflate(1), const Radius.circular(12));
+    final rrect = RRect.fromRectAndRadius(
+      rect.deflate(1),
+      const Radius.circular(12),
+    );
     canvas.drawRRect(rrect, bgPaint);
     canvas.drawRRect(rrect, borderPaint);
 
@@ -1647,11 +1906,7 @@ class _MiniLabel extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16),
-          const SizedBox(width: 5),
-          Text(text),
-        ],
+        children: [Icon(icon, size: 16), const SizedBox(width: 5), Text(text)],
       ),
     );
   }
@@ -1673,7 +1928,10 @@ class _GlyphPainter extends CustomPainter {
       final y = 8 + i * 8.0;
       p.color = Color.lerp(a, b, i / 5)?.withAlpha(220) ?? a;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, w, 5.2), const Radius.circular(4)),
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(8, y, w, 5.2),
+          const Radius.circular(4),
+        ),
         p,
       );
     }
@@ -1712,7 +1970,11 @@ class _GridPainter extends CustomPainter {
 }
 
 class _NoisePainter extends CustomPainter {
-  _NoisePainter({required this.color, required this.amplitude, required this.tick});
+  _NoisePainter({
+    required this.color,
+    required this.amplitude,
+    required this.tick,
+  });
 
   final Color color;
   final double amplitude;
@@ -1742,6 +2004,8 @@ class _NoisePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _NoisePainter oldDelegate) {
-    return oldDelegate.color != color || oldDelegate.amplitude != amplitude || oldDelegate.tick != tick;
+    return oldDelegate.color != color ||
+        oldDelegate.amplitude != amplitude ||
+        oldDelegate.tick != tick;
   }
 }

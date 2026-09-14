@@ -138,8 +138,16 @@ dynamic build(BuildContext context) {
   // ===== Section 2: method-by-method breakdown =====
   final List<List<String>> methodRows = <List<String>>[
     <String>['dateOnly(dt)', 'strip h/m/s/ms', '$epochOnly'],
-    <String>['isSameDay(a,b)', 'a/b same calendar day', '$sameDayA / $sameDayB'],
-    <String>['isSameMonth(a,b)', 'a/b same month+year', '$sameMonthA / $sameMonthB'],
+    <String>[
+      'isSameDay(a,b)',
+      'a/b same calendar day',
+      '$sameDayA / $sameDayB',
+    ],
+    <String>[
+      'isSameMonth(a,b)',
+      'a/b same month+year',
+      '$sameMonthA / $sameMonthB',
+    ],
     <String>['monthDelta(a,b)', 'months from Sep23 -> Feb24', '$delta'],
     <String>['addMonthsToMonthDate', 'epoch month + 1', '$nextMonth'],
     <String>['addDaysToDate', 'epoch + 10 days', '$plus10Days'],
@@ -301,7 +309,10 @@ dynamic build(BuildContext context) {
             Row(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: cAccent,
                     borderRadius: BorderRadius.circular(4),
@@ -370,12 +381,7 @@ dynamic build(BuildContext context) {
           cInk,
           cBlush,
         ),
-        _kv(
-          'duration.toString',
-          rangeDuration.toString(),
-          cInk,
-          cBlush,
-        ),
+        _kv('duration.toString', rangeDuration.toString(), cInk, cBlush),
       ],
     ),
   );
@@ -392,12 +398,20 @@ dynamic build(BuildContext context) {
     <String>['year', 'year-list mode'],
   ];
   final List<Widget> entryWidgets = <Widget>[];
-  for (int i = 0; i < DatePickerEntryMode.values.length && i < entryRows.length; i++) {
+  for (
+    int i = 0;
+    i < DatePickerEntryMode.values.length && i < entryRows.length;
+    i++
+  ) {
     final DatePickerEntryMode v = DatePickerEntryMode.values[i];
     entryWidgets.add(_enumRow(v.name, entryRows[i][1], cAccent));
   }
   final List<Widget> modeWidgets = <Widget>[];
-  for (int i = 0; i < DatePickerMode.values.length && i < modeRows.length; i++) {
+  for (
+    int i = 0;
+    i < DatePickerMode.values.length && i < modeRows.length;
+    i++
+  ) {
     final DatePickerMode v = DatePickerMode.values[i];
     modeWidgets.add(_enumRow(v.name, modeRows[i][1], cTeal));
   }
@@ -428,9 +442,21 @@ dynamic build(BuildContext context) {
   // ===== Section 6: CalendarDatePicker static gallery =====
   final List<Widget> calPickerCards = <Widget>[];
   final List<List<DateTime>> pickerCfg = <List<DateTime>>[
-    <DateTime>[DateTime(2024, 2, 29), DateTime(2024, 1, 1), DateTime(2024, 12, 31)],
-    <DateTime>[DateTime(2024, 6, 15), DateTime(2024, 1, 1), DateTime(2025, 12, 31)],
-    <DateTime>[DateTime(2025, 1, 1), DateTime(2024, 1, 1), DateTime(2025, 12, 31)],
+    <DateTime>[
+      DateTime(2024, 2, 29),
+      DateTime(2024, 1, 1),
+      DateTime(2024, 12, 31),
+    ],
+    <DateTime>[
+      DateTime(2024, 6, 15),
+      DateTime(2024, 1, 1),
+      DateTime(2025, 12, 31),
+    ],
+    <DateTime>[
+      DateTime(2025, 1, 1),
+      DateTime(2024, 1, 1),
+      DateTime(2025, 12, 31),
+    ],
   ];
   for (int i = 0; i < pickerCfg.length; i++) {
     final DateTime initial = pickerCfg[i][0];
@@ -576,10 +602,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(width: 6),
             Expanded(
-              child: Text(
-                cmpRows[i][1],
-                style: const TextStyle(fontSize: 10),
-              ),
+              child: Text(cmpRows[i][1], style: const TextStyle(fontSize: 10)),
             ),
           ],
         ),
@@ -623,7 +646,13 @@ dynamic build(BuildContext context) {
   // For a fixed month, show how many of each weekday occur.
   final List<int> weekdayCounts = <int>[0, 0, 0, 0, 0, 0, 0];
   const List<String> weekdayNames = <String>[
-    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
   ];
   final int distYear = 2024;
   final int distMonth = 3;
@@ -713,7 +742,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         const Text(
           'count of each weekday in the month',
-          style: TextStyle(fontSize: 11, color: cMid, fontStyle: FontStyle.italic),
+          style: TextStyle(
+            fontSize: 11,
+            color: cMid,
+            fontStyle: FontStyle.italic,
+          ),
         ),
         const SizedBox(height: 6),
         Column(children: wdRows),
@@ -837,10 +870,7 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(width: 6),
             Expanded(
-              child: Text(
-                sigRows[i][1],
-                style: const TextStyle(fontSize: 10),
-              ),
+              child: Text(sigRows[i][1], style: const TextStyle(fontSize: 10)),
             ),
           ],
         ),
@@ -859,8 +889,18 @@ dynamic build(BuildContext context) {
   // weekday on which the 1st falls (Sun=0 by convention used here).
   final List<Widget> moyRows = <Widget>[];
   const List<String> monthNames = <String>[
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
   for (int m = 1; m <= 12; m++) {
     int dim = 30;
@@ -875,8 +915,8 @@ dynamic build(BuildContext context) {
     final Color tone = (m % 3 == 0)
         ? cMint
         : (m % 3 == 1)
-            ? cSand
-            : cBlush;
+        ? cSand
+        : cBlush;
     moyRows.add(
       Container(
         margin: const EdgeInsets.only(bottom: 3),
@@ -924,10 +964,7 @@ dynamic build(BuildContext context) {
             if (tag.isNotEmpty)
               Text(
                 tag,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Colors.red,
-                ),
+                style: const TextStyle(fontSize: 10, color: Colors.red),
               ),
           ],
         ),
@@ -944,7 +981,16 @@ dynamic build(BuildContext context) {
   // ===== Section 15: leap-year detection across decades =====
   // DateUtils.getDaysInMonth implicitly encodes leap-year logic.
   final List<int> leapYears = <int>[
-    1900, 1904, 1996, 2000, 2001, 2004, 2024, 2025, 2100, 2400,
+    1900,
+    1904,
+    1996,
+    2000,
+    2001,
+    2004,
+    2024,
+    2025,
+    2100,
+    2400,
   ];
   final List<Widget> leapRows = <Widget>[];
   for (int i = 0; i < leapYears.length; i++) {
@@ -1100,20 +1146,14 @@ dynamic build(BuildContext context) {
               width: 92,
               child: Text(
                 '${s.year}-${s.month.toString().padLeft(2, "0")}-${s.day.toString().padLeft(2, "0")}',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 9.5,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.5),
               ),
             ),
             SizedBox(
               width: 84,
               child: Text(
                 c,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 9.5,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.5),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -1121,20 +1161,14 @@ dynamic build(BuildContext context) {
               width: 110,
               child: Text(
                 m,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 9.5,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.5),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Expanded(
               child: Text(
                 f,
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 9.5,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 9.5),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -1147,7 +1181,10 @@ dynamic build(BuildContext context) {
     'Section 16 // format matrix',
     cBlush,
     cPaper,
-    Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: matrixRows),
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: matrixRows,
+    ),
   );
 
   // ===== Section 17: DateTimeRange.toString + helpers =====
@@ -1182,10 +1219,7 @@ dynamic build(BuildContext context) {
             ),
             Text(
               'duration ${d.inDays}d (${d.inHours}h, ${d.inMinutes}m)',
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 10,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
             ),
           ],
         ),
@@ -1217,8 +1251,8 @@ dynamic build(BuildContext context) {
     final Color tone = zero
         ? cInk
         : negative
-            ? cBlush
-            : cTeal;
+        ? cBlush
+        : cTeal;
     deltaRows.add(
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 2),
@@ -1246,10 +1280,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 'June 2024 + $d months -> ${result.year}-${result.month.toString().padLeft(2, "0")}$marker',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
               ),
             ),
           ],
@@ -1267,7 +1298,13 @@ dynamic build(BuildContext context) {
   // ===== Section 19: addDaysToDate sweep with weekday tags =====
   final List<int> daySweeps = <int>[-30, -14, -7, -1, 0, 1, 7, 14, 30, 60, 90];
   const List<String> wdShort = <String>[
-    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
   ];
   final DateTime dayAnchor = DateTime(2024, 6, 15);
   final List<Widget> dayRows = <Widget>[];
@@ -1306,10 +1343,7 @@ dynamic build(BuildContext context) {
               width: 100,
               child: Text(
                 '${res.year}-${res.month.toString().padLeft(2, "0")}-${res.day.toString().padLeft(2, "0")}',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 10,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 10),
               ),
             ),
             Container(
@@ -1556,12 +1590,7 @@ Widget _enumRow(String name, String desc, Color tone) {
           ),
         ),
         const SizedBox(width: 6),
-        Expanded(
-          child: Text(
-            desc,
-            style: const TextStyle(fontSize: 10),
-          ),
-        ),
+        Expanded(child: Text(desc, style: const TextStyle(fontSize: 10))),
       ],
     ),
   );

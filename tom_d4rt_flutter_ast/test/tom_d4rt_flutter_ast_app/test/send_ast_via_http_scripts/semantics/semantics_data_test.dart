@@ -19,7 +19,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'Semantics',
       'role': 'Single widget node',
-      'desc': 'Annotates the subtree with semantic metadata for assistive tech.',
+      'desc':
+          'Annotates the subtree with semantic metadata for assistive tech.',
       'glyph': 'SEM',
       'family': 'core',
     },
@@ -113,7 +114,8 @@ dynamic build(BuildContext context) {
     {
       'text': 'Helvetica',
       'attr': 'LocaleStringAttribute(en-US)',
-      'desc': 'Helps screen readers select the correct pronunciation dictionary.',
+      'desc':
+          'Helps screen readers select the correct pronunciation dictionary.',
     },
     {
       'text': 'ABC-123',
@@ -123,7 +125,8 @@ dynamic build(BuildContext context) {
     {
       'text': 'NASA',
       'attr': 'SpellOutStringAttribute',
-      'desc': 'Force per-letter playback for acronyms that would otherwise be read as words.',
+      'desc':
+          'Force per-letter playback for acronyms that would otherwise be read as words.',
     },
     {
       'text': 'Bonjour le monde',
@@ -137,42 +140,150 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final booleanFlagGroup = <Map<String, dynamic>>[
-    {'name': 'hasCheckedState', 'flag': SemanticsFlag.hasCheckedState, 'desc': 'Node can carry a checked/unchecked state.'},
-    {'name': 'isChecked', 'flag': SemanticsFlag.isChecked, 'desc': 'The node is currently checked.'},
-    {'name': 'isCheckStateMixed', 'flag': SemanticsFlag.isCheckStateMixed, 'desc': 'Tri-state checkbox in the mixed state.'},
-    {'name': 'hasToggledState', 'flag': SemanticsFlag.hasToggledState, 'desc': 'Node can carry a toggled on/off state (switch).'},
-    {'name': 'isToggled', 'flag': SemanticsFlag.isToggled, 'desc': 'The switch is currently on.'},
-    {'name': 'hasSelectedState', 'flag': SemanticsFlag.hasSelectedState, 'desc': 'Node participates in a selection group.'},
-    {'name': 'isSelected', 'flag': SemanticsFlag.isSelected, 'desc': 'The node is currently selected.'},
-    {'name': 'hasEnabledState', 'flag': SemanticsFlag.hasEnabledState, 'desc': 'Node can be enabled or disabled.'},
-    {'name': 'isEnabled', 'flag': SemanticsFlag.isEnabled, 'desc': 'The control is currently enabled.'},
+    {
+      'name': 'hasCheckedState',
+      'flag': SemanticsFlag.hasCheckedState,
+      'desc': 'Node can carry a checked/unchecked state.',
+    },
+    {
+      'name': 'isChecked',
+      'flag': SemanticsFlag.isChecked,
+      'desc': 'The node is currently checked.',
+    },
+    {
+      'name': 'isCheckStateMixed',
+      'flag': SemanticsFlag.isCheckStateMixed,
+      'desc': 'Tri-state checkbox in the mixed state.',
+    },
+    {
+      'name': 'hasToggledState',
+      'flag': SemanticsFlag.hasToggledState,
+      'desc': 'Node can carry a toggled on/off state (switch).',
+    },
+    {
+      'name': 'isToggled',
+      'flag': SemanticsFlag.isToggled,
+      'desc': 'The switch is currently on.',
+    },
+    {
+      'name': 'hasSelectedState',
+      'flag': SemanticsFlag.hasSelectedState,
+      'desc': 'Node participates in a selection group.',
+    },
+    {
+      'name': 'isSelected',
+      'flag': SemanticsFlag.isSelected,
+      'desc': 'The node is currently selected.',
+    },
+    {
+      'name': 'hasEnabledState',
+      'flag': SemanticsFlag.hasEnabledState,
+      'desc': 'Node can be enabled or disabled.',
+    },
+    {
+      'name': 'isEnabled',
+      'flag': SemanticsFlag.isEnabled,
+      'desc': 'The control is currently enabled.',
+    },
   ];
 
   final roleFlagGroup = <Map<String, dynamic>>[
-    {'name': 'isButton', 'flag': SemanticsFlag.isButton, 'desc': 'Reported as a button (announces "button" suffix).'},
-    {'name': 'isLink', 'flag': SemanticsFlag.isLink, 'desc': 'Reported as a navigable link.'},
-    {'name': 'isImage', 'flag': SemanticsFlag.isImage, 'desc': 'Reported as an image (label becomes alt text).'},
-    {'name': 'isHeader', 'flag': SemanticsFlag.isHeader, 'desc': 'Reported as a section header (jump-target for readers).'},
-    {'name': 'isTextField', 'flag': SemanticsFlag.isTextField, 'desc': 'Reported as a text input field.'},
-    {'name': 'isReadOnly', 'flag': SemanticsFlag.isReadOnly, 'desc': 'The text field is read-only.'},
-    {'name': 'isSlider', 'flag': SemanticsFlag.isSlider, 'desc': 'Reported as a slider (announces value).'},
-    {'name': 'isKeyboardKey', 'flag': SemanticsFlag.isKeyboardKey, 'desc': 'Reported as an individual on-screen keyboard key.'},
+    {
+      'name': 'isButton',
+      'flag': SemanticsFlag.isButton,
+      'desc': 'Reported as a button (announces "button" suffix).',
+    },
+    {
+      'name': 'isLink',
+      'flag': SemanticsFlag.isLink,
+      'desc': 'Reported as a navigable link.',
+    },
+    {
+      'name': 'isImage',
+      'flag': SemanticsFlag.isImage,
+      'desc': 'Reported as an image (label becomes alt text).',
+    },
+    {
+      'name': 'isHeader',
+      'flag': SemanticsFlag.isHeader,
+      'desc': 'Reported as a section header (jump-target for readers).',
+    },
+    {
+      'name': 'isTextField',
+      'flag': SemanticsFlag.isTextField,
+      'desc': 'Reported as a text input field.',
+    },
+    {
+      'name': 'isReadOnly',
+      'flag': SemanticsFlag.isReadOnly,
+      'desc': 'The text field is read-only.',
+    },
+    {
+      'name': 'isSlider',
+      'flag': SemanticsFlag.isSlider,
+      'desc': 'Reported as a slider (announces value).',
+    },
+    {
+      'name': 'isKeyboardKey',
+      'flag': SemanticsFlag.isKeyboardKey,
+      'desc': 'Reported as an individual on-screen keyboard key.',
+    },
   ];
 
   final visibilityFlagGroup = <Map<String, dynamic>>[
-    {'name': 'isHidden', 'flag': SemanticsFlag.isHidden, 'desc': 'Currently off-screen; kept in tree but skipped.'},
-    {'name': 'isObscured', 'flag': SemanticsFlag.isObscured, 'desc': 'Text is masked (password field).'},
-    {'name': 'isMultiline', 'flag': SemanticsFlag.isMultiline, 'desc': 'Text field accepts multiple lines.'},
-    {'name': 'namesRoute', 'flag': SemanticsFlag.namesRoute, 'desc': 'This node provides the name for its enclosing route.'},
-    {'name': 'scopesRoute', 'flag': SemanticsFlag.scopesRoute, 'desc': 'Acts as a route scope (dialog, page).'},
-    {'name': 'isFocusable', 'flag': SemanticsFlag.isFocusable, 'desc': 'Node can receive accessibility focus.'},
-    {'name': 'isFocused', 'flag': SemanticsFlag.isFocused, 'desc': 'Node currently has accessibility focus.'},
+    {
+      'name': 'isHidden',
+      'flag': SemanticsFlag.isHidden,
+      'desc': 'Currently off-screen; kept in tree but skipped.',
+    },
+    {
+      'name': 'isObscured',
+      'flag': SemanticsFlag.isObscured,
+      'desc': 'Text is masked (password field).',
+    },
+    {
+      'name': 'isMultiline',
+      'flag': SemanticsFlag.isMultiline,
+      'desc': 'Text field accepts multiple lines.',
+    },
+    {
+      'name': 'namesRoute',
+      'flag': SemanticsFlag.namesRoute,
+      'desc': 'This node provides the name for its enclosing route.',
+    },
+    {
+      'name': 'scopesRoute',
+      'flag': SemanticsFlag.scopesRoute,
+      'desc': 'Acts as a route scope (dialog, page).',
+    },
+    {
+      'name': 'isFocusable',
+      'flag': SemanticsFlag.isFocusable,
+      'desc': 'Node can receive accessibility focus.',
+    },
+    {
+      'name': 'isFocused',
+      'flag': SemanticsFlag.isFocused,
+      'desc': 'Node currently has accessibility focus.',
+    },
   ];
 
   final liveFlagGroup = <Map<String, dynamic>>[
-    {'name': 'isLiveRegion', 'flag': SemanticsFlag.isLiveRegion, 'desc': 'Changes are announced automatically when content changes.'},
-    {'name': 'hasImplicitScrolling', 'flag': SemanticsFlag.hasImplicitScrolling, 'desc': 'Subtree scrolls implicitly when focus moves outside.'},
-    {'name': 'isInMutuallyExclusiveGroup', 'flag': SemanticsFlag.isInMutuallyExclusiveGroup, 'desc': 'Radio-style group; selecting one deselects others.'},
+    {
+      'name': 'isLiveRegion',
+      'flag': SemanticsFlag.isLiveRegion,
+      'desc': 'Changes are announced automatically when content changes.',
+    },
+    {
+      'name': 'hasImplicitScrolling',
+      'flag': SemanticsFlag.hasImplicitScrolling,
+      'desc': 'Subtree scrolls implicitly when focus moves outside.',
+    },
+    {
+      'name': 'isInMutuallyExclusiveGroup',
+      'flag': SemanticsFlag.isInMutuallyExclusiveGroup,
+      'desc': 'Radio-style group; selecting one deselects others.',
+    },
   ];
 
   // ============================================================================
@@ -180,39 +291,135 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final touchActions = <Map<String, dynamic>>[
-    {'name': 'tap', 'action': SemanticsAction.tap, 'desc': 'Default activation (button press).'},
-    {'name': 'longPress', 'action': SemanticsAction.longPress, 'desc': 'Sustained touch / context menu trigger.'},
-    {'name': 'didGainAccessibilityFocus', 'action': SemanticsAction.didGainAccessibilityFocus, 'desc': 'Reader cursor entered this node.'},
-    {'name': 'didLoseAccessibilityFocus', 'action': SemanticsAction.didLoseAccessibilityFocus, 'desc': 'Reader cursor left this node.'},
-    {'name': 'dismiss', 'action': SemanticsAction.dismiss, 'desc': 'Dismiss this element (close dialog, snackbar).'},
+    {
+      'name': 'tap',
+      'action': SemanticsAction.tap,
+      'desc': 'Default activation (button press).',
+    },
+    {
+      'name': 'longPress',
+      'action': SemanticsAction.longPress,
+      'desc': 'Sustained touch / context menu trigger.',
+    },
+    {
+      'name': 'didGainAccessibilityFocus',
+      'action': SemanticsAction.didGainAccessibilityFocus,
+      'desc': 'Reader cursor entered this node.',
+    },
+    {
+      'name': 'didLoseAccessibilityFocus',
+      'action': SemanticsAction.didLoseAccessibilityFocus,
+      'desc': 'Reader cursor left this node.',
+    },
+    {
+      'name': 'dismiss',
+      'action': SemanticsAction.dismiss,
+      'desc': 'Dismiss this element (close dialog, snackbar).',
+    },
   ];
 
   final scrollActions = <Map<String, dynamic>>[
-    {'name': 'scrollLeft', 'action': SemanticsAction.scrollLeft, 'desc': 'Scroll content one page to the left.'},
-    {'name': 'scrollRight', 'action': SemanticsAction.scrollRight, 'desc': 'Scroll content one page to the right.'},
-    {'name': 'scrollUp', 'action': SemanticsAction.scrollUp, 'desc': 'Scroll content one page up.'},
-    {'name': 'scrollDown', 'action': SemanticsAction.scrollDown, 'desc': 'Scroll content one page down.'},
-    {'name': 'scrollToOffset', 'action': SemanticsAction.scrollToOffset, 'desc': 'Programmatic scroll to a specific offset (a11y reader).'},
+    {
+      'name': 'scrollLeft',
+      'action': SemanticsAction.scrollLeft,
+      'desc': 'Scroll content one page to the left.',
+    },
+    {
+      'name': 'scrollRight',
+      'action': SemanticsAction.scrollRight,
+      'desc': 'Scroll content one page to the right.',
+    },
+    {
+      'name': 'scrollUp',
+      'action': SemanticsAction.scrollUp,
+      'desc': 'Scroll content one page up.',
+    },
+    {
+      'name': 'scrollDown',
+      'action': SemanticsAction.scrollDown,
+      'desc': 'Scroll content one page down.',
+    },
+    {
+      'name': 'scrollToOffset',
+      'action': SemanticsAction.scrollToOffset,
+      'desc': 'Programmatic scroll to a specific offset (a11y reader).',
+    },
   ];
 
   final adjustActions = <Map<String, dynamic>>[
-    {'name': 'increase', 'action': SemanticsAction.increase, 'desc': 'Step value up (slider, stepper).'},
-    {'name': 'decrease', 'action': SemanticsAction.decrease, 'desc': 'Step value down (slider, stepper).'},
-    {'name': 'setText', 'action': SemanticsAction.setText, 'desc': 'Replace the text contents of a field.'},
-    {'name': 'setSelection', 'action': SemanticsAction.setSelection, 'desc': 'Set the current text selection range.'},
-    {'name': 'copy', 'action': SemanticsAction.copy, 'desc': 'Copy current selection to clipboard.'},
-    {'name': 'cut', 'action': SemanticsAction.cut, 'desc': 'Cut current selection to clipboard.'},
-    {'name': 'paste', 'action': SemanticsAction.paste, 'desc': 'Paste clipboard contents at caret.'},
+    {
+      'name': 'increase',
+      'action': SemanticsAction.increase,
+      'desc': 'Step value up (slider, stepper).',
+    },
+    {
+      'name': 'decrease',
+      'action': SemanticsAction.decrease,
+      'desc': 'Step value down (slider, stepper).',
+    },
+    {
+      'name': 'setText',
+      'action': SemanticsAction.setText,
+      'desc': 'Replace the text contents of a field.',
+    },
+    {
+      'name': 'setSelection',
+      'action': SemanticsAction.setSelection,
+      'desc': 'Set the current text selection range.',
+    },
+    {
+      'name': 'copy',
+      'action': SemanticsAction.copy,
+      'desc': 'Copy current selection to clipboard.',
+    },
+    {
+      'name': 'cut',
+      'action': SemanticsAction.cut,
+      'desc': 'Cut current selection to clipboard.',
+    },
+    {
+      'name': 'paste',
+      'action': SemanticsAction.paste,
+      'desc': 'Paste clipboard contents at caret.',
+    },
   ];
 
   final navActions = <Map<String, dynamic>>[
-    {'name': 'moveCursorForwardByCharacter', 'action': SemanticsAction.moveCursorForwardByCharacter, 'desc': 'Caret one char forward.'},
-    {'name': 'moveCursorBackwardByCharacter', 'action': SemanticsAction.moveCursorBackwardByCharacter, 'desc': 'Caret one char backward.'},
-    {'name': 'moveCursorForwardByWord', 'action': SemanticsAction.moveCursorForwardByWord, 'desc': 'Caret one word forward.'},
-    {'name': 'moveCursorBackwardByWord', 'action': SemanticsAction.moveCursorBackwardByWord, 'desc': 'Caret one word backward.'},
-    {'name': 'showOnScreen', 'action': SemanticsAction.showOnScreen, 'desc': 'Scroll the node into the visible viewport.'},
-    {'name': 'customAction', 'action': SemanticsAction.customAction, 'desc': 'User-provided named action exposed to readers.'},
-    {'name': 'focus', 'action': SemanticsAction.focus, 'desc': 'Move accessibility focus to this node.'},
+    {
+      'name': 'moveCursorForwardByCharacter',
+      'action': SemanticsAction.moveCursorForwardByCharacter,
+      'desc': 'Caret one char forward.',
+    },
+    {
+      'name': 'moveCursorBackwardByCharacter',
+      'action': SemanticsAction.moveCursorBackwardByCharacter,
+      'desc': 'Caret one char backward.',
+    },
+    {
+      'name': 'moveCursorForwardByWord',
+      'action': SemanticsAction.moveCursorForwardByWord,
+      'desc': 'Caret one word forward.',
+    },
+    {
+      'name': 'moveCursorBackwardByWord',
+      'action': SemanticsAction.moveCursorBackwardByWord,
+      'desc': 'Caret one word backward.',
+    },
+    {
+      'name': 'showOnScreen',
+      'action': SemanticsAction.showOnScreen,
+      'desc': 'Scroll the node into the visible viewport.',
+    },
+    {
+      'name': 'customAction',
+      'action': SemanticsAction.customAction,
+      'desc': 'User-provided named action exposed to readers.',
+    },
+    {
+      'name': 'focus',
+      'action': SemanticsAction.focus,
+      'desc': 'Move accessibility focus to this node.',
+    },
   ];
 
   // ============================================================================
@@ -300,9 +507,7 @@ dynamic build(BuildContext context) {
     onLongPressHint: 'Show options',
   );
 
-  final hintOverridesTapOnly = SemanticsHintOverrides(
-    onTapHint: 'Submit form',
-  );
+  final hintOverridesTapOnly = SemanticsHintOverrides(onTapHint: 'Submit form');
 
   final hintOverridesEmpty = SemanticsHintOverrides();
 
@@ -333,42 +538,50 @@ dynamic build(BuildContext context) {
   final recipeCards = <Map<String, dynamic>>[
     {
       'title': 'Labeled button',
-      'code': 'Semantics(\n  label: "Save",\n  button: true,\n  enabled: true,\n  onTap: () => save(),\n  child: child,\n)',
+      'code':
+          'Semantics(\n  label: "Save",\n  button: true,\n  enabled: true,\n  onTap: () => save(),\n  child: child,\n)',
       'family': 'role',
     },
     {
       'title': 'Image with alt text',
-      'code': 'Semantics(\n  label: "User avatar",\n  image: true,\n  excludeSemantics: true,\n  child: Image(...),\n)',
+      'code':
+          'Semantics(\n  label: "User avatar",\n  image: true,\n  excludeSemantics: true,\n  child: Image(...),\n)',
       'family': 'role',
     },
     {
       'title': 'Header for jump nav',
-      'code': 'Semantics(\n  header: true,\n  label: "Section A",\n  sortKey: OrdinalSortKey(1.0),\n  child: child,\n)',
+      'code':
+          'Semantics(\n  header: true,\n  label: "Section A",\n  sortKey: OrdinalSortKey(1.0),\n  child: child,\n)',
       'family': 'role',
     },
     {
       'title': 'Toggle / switch',
-      'code': 'Semantics(\n  label: "Wi-Fi",\n  toggled: enabled,\n  onTap: () => toggle(),\n  child: child,\n)',
+      'code':
+          'Semantics(\n  label: "Wi-Fi",\n  toggled: enabled,\n  onTap: () => toggle(),\n  child: child,\n)',
       'family': 'state',
     },
     {
       'title': 'Slider with values',
-      'code': 'Semantics(\n  label: "Volume",\n  slider: true,\n  value: "65 percent",\n  increasedValue: "66 percent",\n  decreasedValue: "64 percent",\n  onIncrease: bump,\n  onDecrease: drop,\n  child: child,\n)',
+      'code':
+          'Semantics(\n  label: "Volume",\n  slider: true,\n  value: "65 percent",\n  increasedValue: "66 percent",\n  decreasedValue: "64 percent",\n  onIncrease: bump,\n  onDecrease: drop,\n  child: child,\n)',
       'family': 'state',
     },
     {
       'title': 'Read-only password field',
-      'code': 'Semantics(\n  textField: true,\n  readOnly: true,\n  obscured: true,\n  label: "Password",\n  child: child,\n)',
+      'code':
+          'Semantics(\n  textField: true,\n  readOnly: true,\n  obscured: true,\n  label: "Password",\n  child: child,\n)',
       'family': 'role',
     },
     {
       'title': 'Live status region',
-      'code': 'Semantics(\n  liveRegion: true,\n  label: "Saved at 12:04",\n  child: child,\n)',
+      'code':
+          'Semantics(\n  liveRegion: true,\n  label: "Saved at 12:04",\n  child: child,\n)',
       'family': 'live',
     },
     {
       'title': 'Merged compound widget',
-      'code': 'MergeSemantics(\n  child: Row(children: [Icon(...), Text("Inbox")]),\n)',
+      'code':
+          'MergeSemantics(\n  child: Row(children: [Icon(...), Text("Inbox")]),\n)',
       'family': 'tree',
     },
     {
@@ -469,16 +682,48 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final glossary = <Map<String, String>>[
-    {'term': 'Semantics', 'def': 'Widget annotating a subtree with accessibility metadata.'},
-    {'term': 'SemanticsFlag', 'def': 'Enum identifying boolean states/roles on a SemanticsNode.'},
-    {'term': 'SemanticsAction', 'def': 'Enum identifying interaction the OS can request on a node.'},
-    {'term': 'SemanticsNode', 'def': 'Internal accessibility tree node produced from widget annotations.'},
-    {'term': 'SemanticsTag', 'def': 'Named tag attached to a node for selective lookup.'},
-    {'term': 'SortKey', 'def': 'Custom ordering used by readers to traverse nodes.'},
-    {'term': 'OrdinalSortKey', 'def': 'SortKey based on a numeric order with optional name group.'},
-    {'term': 'AttributedString', 'def': 'String paired with locale / spell-out annotations.'},
-    {'term': 'liveRegion', 'def': 'Marks a node whose changes should be auto-announced.'},
-    {'term': 'a11y tree', 'def': 'Accessibility tree built from Semantics widgets and reported to the OS.'},
+    {
+      'term': 'Semantics',
+      'def': 'Widget annotating a subtree with accessibility metadata.',
+    },
+    {
+      'term': 'SemanticsFlag',
+      'def': 'Enum identifying boolean states/roles on a SemanticsNode.',
+    },
+    {
+      'term': 'SemanticsAction',
+      'def': 'Enum identifying interaction the OS can request on a node.',
+    },
+    {
+      'term': 'SemanticsNode',
+      'def':
+          'Internal accessibility tree node produced from widget annotations.',
+    },
+    {
+      'term': 'SemanticsTag',
+      'def': 'Named tag attached to a node for selective lookup.',
+    },
+    {
+      'term': 'SortKey',
+      'def': 'Custom ordering used by readers to traverse nodes.',
+    },
+    {
+      'term': 'OrdinalSortKey',
+      'def': 'SortKey based on a numeric order with optional name group.',
+    },
+    {
+      'term': 'AttributedString',
+      'def': 'String paired with locale / spell-out annotations.',
+    },
+    {
+      'term': 'liveRegion',
+      'def': 'Marks a node whose changes should be auto-announced.',
+    },
+    {
+      'term': 'a11y tree',
+      'def':
+          'Accessibility tree built from Semantics widgets and reported to the OS.',
+    },
   ];
 
   // ============================================================================
@@ -486,7 +731,10 @@ dynamic build(BuildContext context) {
   // ============================================================================
 
   final atlasMetrics = <Map<String, String>>[
-    {'metric': 'Primitive widgets covered', 'value': '${primitiveCards.length}'},
+    {
+      'metric': 'Primitive widgets covered',
+      'value': '${primitiveCards.length}',
+    },
     {'metric': 'Labels & hints variants', 'value': '${labelExamples.length}'},
     {'metric': 'Boolean/state flags', 'value': '${booleanFlagGroup.length}'},
     {'metric': 'Role flags', 'value': '${roleFlagGroup.length}'},
@@ -502,11 +750,13 @@ dynamic build(BuildContext context) {
     {'metric': 'Glossary entries', 'value': '${glossary.length}'},
   ];
 
-  final totalFlagCount = booleanFlagGroup.length +
+  final totalFlagCount =
+      booleanFlagGroup.length +
       roleFlagGroup.length +
       visibilityFlagGroup.length +
       liveFlagGroup.length;
-  final totalActionCount = touchActions.length +
+  final totalActionCount =
+      touchActions.length +
       scrollActions.length +
       adjustActions.length +
       navActions.length;
@@ -725,8 +975,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       children: [
@@ -741,9 +990,7 @@ dynamic build(BuildContext context) {
                                             ),
                                           ),
                                         ),
-                                        _familyBadge(
-                                          card['family'] as String,
-                                        ),
+                                        _familyBadge(card['family'] as String),
                                       ],
                                     ),
                                     SizedBox(height: 4.0),
@@ -822,8 +1069,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       'visual: ${ex['visual']}',
@@ -894,8 +1140,7 @@ dynamic build(BuildContext context) {
                                     ),
                                     decoration: BoxDecoration(
                                       color: Color(0xFF00838F),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Text(
                                       attr['attr'] as String,
@@ -934,8 +1179,14 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 10.0),
                     _kvCard('Live AttributedString objects', [
                       _kv('attrHello', '"${attrHello.string}"'),
-                      _kv('attrSpell', '"${attrSpell.string}" (#${attrSpell.attributes.length} attr)'),
-                      _kv('attrLocale', '"${attrLocale.string}" (#${attrLocale.attributes.length} attr)'),
+                      _kv(
+                        'attrSpell',
+                        '"${attrSpell.string}" (#${attrSpell.attributes.length} attr)',
+                      ),
+                      _kv(
+                        'attrLocale',
+                        '"${attrLocale.string}" (#${attrLocale.attributes.length} attr)',
+                      ),
                       _kv('attrConcat', '"${attrConcat.string}"'),
                     ]),
                   ],
@@ -1165,10 +1416,12 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _compRow(
-                      ['widget', 'subtree', 'siblings', 'announced'],
-                      header: true,
-                    ),
+                    _compRow([
+                      'widget',
+                      'subtree',
+                      'siblings',
+                      'announced',
+                    ], header: true),
                     for (final row in compositionMatrix)
                       _compRow([
                         row['widget']!,
@@ -1227,14 +1480,16 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFFFCDD2),
                       title: 'merge example',
-                      code: 'MergeSemantics(child: Row(children: [Icon(Icons.star), Text("Favorite")]))',
+                      code:
+                          'MergeSemantics(child: Row(children: [Icon(Icons.star), Text("Favorite")]))',
                       codeColor: Color(0xFFB71C1C),
                     ),
                     SizedBox(height: 8.0),
                     _recipeCard(
                       bg: Color(0xFFFFE0B2),
                       title: 'block example',
-                      code: 'Stack(children: [Background(), BlockSemantics(child: Dialog())])',
+                      code:
+                          'Stack(children: [Background(), BlockSemantics(child: Dialog())])',
                       codeColor: Color(0xFFE65100),
                     ),
                     SizedBox(height: 8.0),
@@ -1300,8 +1555,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       a['desc'] as String,
@@ -1330,7 +1584,8 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFDCEDC8),
                       title: 'live region',
-                      code: 'Semantics(\n  liveRegion: true,\n  label: "Connection restored",\n  child: child,\n)',
+                      code:
+                          'Semantics(\n  liveRegion: true,\n  label: "Connection restored",\n  child: child,\n)',
                       codeColor: Color(0xFF33691E),
                     ),
                     SizedBox(height: 8.0),
@@ -1417,8 +1672,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       row['label'] as String,
@@ -1452,16 +1706,26 @@ dynamic build(BuildContext context) {
                       ),
                     SizedBox(height: 10.0),
                     _kvCard('OrdinalSortKey live objects', [
-                      _kv('ordinalA', 'order=${ordinalA.order}, name=${ordinalA.name}'),
-                      _kv('ordinalB', 'order=${ordinalB.order}, name=${ordinalB.name}'),
-                      _kv('ordinalC', 'order=${ordinalC.order}, name=${ordinalC.name}'),
+                      _kv(
+                        'ordinalA',
+                        'order=${ordinalA.order}, name=${ordinalA.name}',
+                      ),
+                      _kv(
+                        'ordinalB',
+                        'order=${ordinalB.order}, name=${ordinalB.name}',
+                      ),
+                      _kv(
+                        'ordinalC',
+                        'order=${ordinalC.order}, name=${ordinalC.name}',
+                      ),
                       _kv('compareTo(A,B)', '$ordinalCmp'),
                     ]),
                     SizedBox(height: 8.0),
                     _recipeCard(
                       bg: Color(0xFFC5CAE9),
                       title: 'sortKey usage',
-                      code: 'Semantics(\n  sortKey: OrdinalSortKey(1.0, name: "form-group"),\n  label: "Email",\n  child: child,\n)',
+                      code:
+                          'Semantics(\n  sortKey: OrdinalSortKey(1.0, name: "form-group"),\n  label: "Email",\n  child: child,\n)',
                       codeColor: Color(0xFF1A237E),
                     ),
                   ],
@@ -1495,10 +1759,22 @@ dynamic build(BuildContext context) {
                         Expanded(
                           child: _kvCard('Hint overrides', [
                             _kv('full.tap', '"${hintOverridesFull.onTapHint}"'),
-                            _kv('full.long', '"${hintOverridesFull.onLongPressHint}"'),
-                            _kv('full.isNotEmpty', '${hintOverridesFull.isNotEmpty}'),
-                            _kv('tapOnly.tap', '"${hintOverridesTapOnly.onTapHint}"'),
-                            _kv('empty.isNotEmpty', '${hintOverridesEmpty.isNotEmpty}'),
+                            _kv(
+                              'full.long',
+                              '"${hintOverridesFull.onLongPressHint}"',
+                            ),
+                            _kv(
+                              'full.isNotEmpty',
+                              '${hintOverridesFull.isNotEmpty}',
+                            ),
+                            _kv(
+                              'tapOnly.tap',
+                              '"${hintOverridesTapOnly.onTapHint}"',
+                            ),
+                            _kv(
+                              'empty.isNotEmpty',
+                              '${hintOverridesEmpty.isNotEmpty}',
+                            ),
                           ]),
                         ),
                       ],
@@ -1507,14 +1783,16 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFB2DFDB),
                       title: 'tag attach',
-                      code: 'Semantics(\n  tagForChildren: SemanticsTag("button-tag"),\n  child: child,\n)',
+                      code:
+                          'Semantics(\n  tagForChildren: SemanticsTag("button-tag"),\n  child: child,\n)',
                       codeColor: Color(0xFF00695C),
                     ),
                     SizedBox(height: 8.0),
                     _recipeCard(
                       bg: Color(0xFFB2DFDB),
                       title: 'hint override',
-                      code: 'Semantics(\n  onTap: doSomething,\n  hintOverrides: SemanticsHintOverrides(\n    onTapHint: "Activate button",\n    onLongPressHint: "Show options",\n  ),\n  child: child,\n)',
+                      code:
+                          'Semantics(\n  onTap: doSomething,\n  hintOverrides: SemanticsHintOverrides(\n    onTapHint: "Activate button",\n    onLongPressHint: "Show options",\n  ),\n  child: child,\n)',
                       codeColor: Color(0xFF00695C),
                     ),
                   ],
@@ -1558,8 +1836,7 @@ dynamic build(BuildContext context) {
                                     height: 28.0,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFFF8F00),
-                                      borderRadius:
-                                          BorderRadius.circular(14.0),
+                                      borderRadius: BorderRadius.circular(14.0),
                                     ),
                                     child: Center(
                                       child: Text(
@@ -1590,8 +1867,7 @@ dynamic build(BuildContext context) {
                                     ),
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEF6C00),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Text(
                                       field['role'] as String,
@@ -1607,7 +1883,10 @@ dynamic build(BuildContext context) {
                               SizedBox(height: 6.0),
                               _kv('value', '${field['value']}'),
                               _kv('hint', '${field['hint']}'),
-                              _kv('sortKey', 'OrdinalSortKey(${field['sortOrder']})'),
+                              _kv(
+                                'sortKey',
+                                'OrdinalSortKey(${field['sortOrder']})',
+                              ),
                             ],
                           ),
                         ),
@@ -1616,7 +1895,8 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFFFECB3),
                       title: 'form field recipe',
-                      code: 'Semantics(\n  textField: true,\n  label: "Email",\n  hint: "Enter the email used for sign-in.",\n  sortKey: OrdinalSortKey(1.0),\n  child: TextField(...),\n)',
+                      code:
+                          'Semantics(\n  textField: true,\n  label: "Email",\n  hint: "Enter the email used for sign-in.",\n  sortKey: OrdinalSortKey(1.0),\n  child: TextField(...),\n)',
                       codeColor: Color(0xFFE65100),
                     ),
                   ],
@@ -1670,8 +1950,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       item['title'] as String,
@@ -1717,7 +1996,8 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFB3E5FC),
                       title: 'IndexedSemantics',
-                      code: 'IndexedSemantics(\n  index: i,\n  child: ListTile(...),\n)',
+                      code:
+                          'IndexedSemantics(\n  index: i,\n  child: ListTile(...),\n)',
                       codeColor: Color(0xFF01579B),
                     ),
                   ],
@@ -1772,8 +2052,7 @@ dynamic build(BuildContext context) {
                               SizedBox(width: 12.0),
                               Expanded(
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       scope['desc'] as String,
@@ -1854,7 +2133,8 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFF8BBD0),
                       title: 'dialog recipe',
-                      code: 'Semantics(\n  scopesRoute: true,\n  namesRoute: true,\n  explicitChildNodes: true,\n  label: "Delete project",\n  child: dialogBody,\n)',
+                      code:
+                          'Semantics(\n  scopesRoute: true,\n  namesRoute: true,\n  explicitChildNodes: true,\n  label: "Delete project",\n  child: dialogBody,\n)',
                       codeColor: Color(0xFF880E4F),
                     ),
                   ],
@@ -1969,8 +2249,7 @@ dynamic build(BuildContext context) {
                           height: 96.0,
                           decoration: BoxDecoration(
                             color: Color(0xFFBBDEFB),
-                            borderRadius:
-                                BorderRadius.circular(ringRadius),
+                            borderRadius: BorderRadius.circular(ringRadius),
                             border: Border.all(
                               color: ringGlowColor,
                               width: 4.0,
@@ -2001,7 +2280,10 @@ dynamic build(BuildContext context) {
                             children: [
                               _kv('animation.value', '${focusGlow.value}'),
                               _kv('alpha (0-255)', '$focusGlowAlpha'),
-                              _kv('ring radius', '${ringRadius.toStringAsFixed(2)}'),
+                              _kv(
+                                'ring radius',
+                                '${ringRadius.toStringAsFixed(2)}',
+                              ),
                               _kv('arc (rad)', '${pi2.toStringAsFixed(3)}'),
                               _kv('tick duration', '${tickDurationMs}ms'),
                             ],
@@ -2013,7 +2295,8 @@ dynamic build(BuildContext context) {
                     _recipeCard(
                       bg: Color(0xFFBBDEFB),
                       title: 'focus glow recipe',
-                      code: 'final t = AlwaysStoppedAnimation<double>(0.7);\nfinal alpha = (t.value * 255).round() & 0xFF;\nfinal glow = Color.fromARGB(alpha, 26, 35, 126);',
+                      code:
+                          'final t = AlwaysStoppedAnimation<double>(0.7);\nfinal alpha = (t.value * 255).round() & 0xFF;\nfinal glow = Color.fromARGB(alpha, 26, 35, 126);',
                       codeColor: Color(0xFF0D47A1),
                     ),
                   ],
@@ -2150,10 +2433,7 @@ dynamic build(BuildContext context) {
                     _summaryItem('Flags catalogued', '$totalFlagCount'),
                     _summaryItem('Actions catalogued', '$totalActionCount'),
                     _summaryItem('Composed recipes', '${recipeCards.length}'),
-                    _summaryItem(
-                      'Worked examples',
-                      'form / list / dialog',
-                    ),
+                    _summaryItem('Worked examples', 'form / list / dialog'),
                     SizedBox(height: 10.0),
                     Container(
                       padding: EdgeInsets.symmetric(
@@ -2297,9 +2577,15 @@ Widget _legendCard() {
           ],
         ),
         SizedBox(height: 12.0),
-        _bulletLine('1. Primitives    — Semantics, MergeSemantics, BlockSemantics, ExcludeSemantics, IndexedSemantics'),
-        _bulletLine('2. Vocabulary    — label, hint, value, increasedValue, decreasedValue, tooltip'),
-        _bulletLine('3. Flag taxonomy — boolean states, roles, visibility, live'),
+        _bulletLine(
+          '1. Primitives    — Semantics, MergeSemantics, BlockSemantics, ExcludeSemantics, IndexedSemantics',
+        ),
+        _bulletLine(
+          '2. Vocabulary    — label, hint, value, increasedValue, decreasedValue, tooltip',
+        ),
+        _bulletLine(
+          '3. Flag taxonomy — boolean states, roles, visibility, live',
+        ),
         _bulletLine('4. Action catalogue — touch, scroll, adjust, navigation'),
         _bulletLine('5. Tree composition — merge / block / exclude matrix'),
         _bulletLine('6. Live regions  — polite vs assertive announcements'),
@@ -2669,10 +2955,7 @@ Widget _flagRow(String name, String desc, int index, Color tone) {
             flex: 4,
             child: Text(
               desc,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Color(0xFF263238),
-              ),
+              style: TextStyle(fontSize: 11.0, color: Color(0xFF263238)),
             ),
           ),
         ],
@@ -2727,10 +3010,7 @@ Widget _actionRow(String name, String desc, int index, Color tone, Color bg) {
             flex: 4,
             child: Text(
               desc,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Color(0xFF263238),
-              ),
+              style: TextStyle(fontSize: 11.0, color: Color(0xFF263238)),
             ),
           ),
         ],

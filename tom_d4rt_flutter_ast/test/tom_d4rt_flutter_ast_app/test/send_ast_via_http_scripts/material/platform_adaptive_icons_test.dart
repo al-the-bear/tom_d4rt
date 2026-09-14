@@ -102,9 +102,7 @@ Widget buildAdaptiveIconDisplay(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: iconColor.withAlpha(60)),
           ),
-          child: Center(
-            child: Icon(adaptiveIcon, size: 32, color: iconColor),
-          ),
+          child: Center(child: Icon(adaptiveIcon, size: 32, color: iconColor)),
         ),
         SizedBox(width: 14),
         Expanded(
@@ -375,9 +373,7 @@ Widget buildColoredIconGrid(IconData icon, String label) {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: currentColor.withAlpha(80)),
         ),
-        child: Center(
-          child: Icon(icon, size: 26, color: currentColor),
-        ),
+        child: Center(child: Icon(icon, size: 26, color: currentColor)),
       ),
     );
   }
@@ -401,10 +397,7 @@ Widget buildColoredIconGrid(IconData icon, String label) {
           ),
         ),
         SizedBox(height: 10),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: colorItems,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: colorItems),
       ],
     ),
   );
@@ -440,9 +433,7 @@ Widget buildThemedIconCard(
             color: primaryColor.withAlpha(30),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Center(
-            child: Icon(icon, size: 36, color: primaryColor),
-          ),
+          child: Center(child: Icon(icon, size: 36, color: primaryColor)),
         ),
         SizedBox(height: 10),
         Text(
@@ -492,9 +483,7 @@ Widget buildIconUsageExample(
               ),
             ],
           ),
-          child: Center(
-            child: Icon(icon, size: 30, color: Colors.white),
-          ),
+          child: Center(child: Icon(icon, size: 30, color: Colors.white)),
         ),
         SizedBox(width: 16),
         Expanded(
@@ -728,11 +717,7 @@ Widget buildIconStateCard(
   );
 }
 
-Widget buildIconButtonExample(
-  IconData icon,
-  String label,
-  Color buttonColor,
-) {
+Widget buildIconButtonExample(IconData icon, String label, Color buttonColor) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 6),
     padding: EdgeInsets.all(12),
@@ -840,7 +825,9 @@ Widget buildSemanticIconExplanation(
 
 dynamic build(BuildContext context) {
   print('PlatformAdaptiveIcons deep demo test executing');
-  print('Testing platform-adaptive icons: arrow_back, flip_camera, more, share');
+  print(
+    'Testing platform-adaptive icons: arrow_back, flip_camera, more, share',
+  );
 
   return Scaffold(
     appBar: AppBar(
@@ -881,10 +868,7 @@ dynamic build(BuildContext context) {
             'Benefit',
             'Single codebase with native-feeling icons per platform',
           ),
-          buildInfoCard(
-            'Available',
-            'arrow_back, flip_camera, more, share',
-          ),
+          buildInfoCard('Available', 'arrow_back, flip_camera, more, share'),
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             padding: EdgeInsets.all(14),
@@ -900,7 +884,10 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'Icons.adaptive automatically selects the appropriate icon variant based on the current platform.',
-                    style: TextStyle(fontSize: 13, color: Colors.amber.shade900),
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.amber.shade900,
+                    ),
                   ),
                 ),
               ],
@@ -1140,10 +1127,7 @@ dynamic build(BuildContext context) {
             Icons.adaptive.flip_camera,
             'Flip Camera Color Palette',
           ),
-          buildColoredIconGrid(
-            Icons.adaptive.more,
-            'More Icon Color Palette',
-          ),
+          buildColoredIconGrid(Icons.adaptive.more, 'More Icon Color Palette'),
           buildColoredIconGrid(
             Icons.adaptive.share,
             'Share Icon Color Palette',
@@ -1350,7 +1334,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 14),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 22),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 22,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1363,7 +1351,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 22),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 22,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1376,7 +1368,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 22),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 22,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -1389,7 +1385,11 @@ dynamic build(BuildContext context) {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Icon(Icons.check_circle, color: Colors.greenAccent, size: 22),
+                    Icon(
+                      Icons.check_circle,
+                      color: Colors.greenAccent,
+                      size: 22,
+                    ),
                     SizedBox(width: 10),
                     Expanded(
                       child: Text(

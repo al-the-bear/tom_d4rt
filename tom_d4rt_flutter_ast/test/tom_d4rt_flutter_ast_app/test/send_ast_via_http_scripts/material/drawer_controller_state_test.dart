@@ -115,7 +115,9 @@ dynamic build(BuildContext context) {
   print('=== DrawerControllerState Deep Demo ===');
   print('Section 1: hero card explaining DrawerControllerState');
   print('Section 2: default drawer using Scaffold.of(context).openDrawer()');
-  print('Section 3: custom DrawerController + GlobalKey<DrawerControllerState>');
+  print(
+    'Section 3: custom DrawerController + GlobalKey<DrawerControllerState>',
+  );
   print('Section 4: end drawer variant (alignment: DrawerAlignment.end)');
   print('Section 5: drawer width sweep (200 / 280 / 360)');
   print('Section 6: drag start behavior comparison (start vs down)');
@@ -285,10 +287,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '2. Default drawer driven via Scaffold.of(context).openDrawer()',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -366,8 +365,10 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 2 -> '
-                                              'Scaffold.of(context).openDrawer()');
+                                          print(
+                                            'Section 2 -> '
+                                            'Scaffold.of(context).openDrawer()',
+                                          );
                                           Scaffold.of(innerCtx).openDrawer();
                                         },
                                       ),
@@ -375,8 +376,10 @@ dynamic build(BuildContext context) {
                                         icon: const Icon(Icons.close),
                                         label: const Text('Close'),
                                         onPressed: () {
-                                          print('Section 2 -> '
-                                              'Scaffold.of(context).closeDrawer()');
+                                          print(
+                                            'Section 2 -> '
+                                            'Scaffold.of(context).closeDrawer()',
+                                          );
                                           Navigator.of(innerCtx).maybePop();
                                         },
                                       ),
@@ -416,10 +419,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '3. Custom DrawerController + GlobalKey<DrawerControllerState>',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -474,16 +474,20 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 3 -> '
-                                              'leftDrawerKey.currentState.open()');
+                                          print(
+                                            'Section 3 -> '
+                                            'leftDrawerKey.currentState.open()',
+                                          );
                                           leftDrawerKey.currentState?.open();
                                         },
                                         child: const Text('Open'),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
-                                          print('Section 3 -> '
-                                              'leftDrawerKey.currentState.close()');
+                                          print(
+                                            'Section 3 -> '
+                                            'leftDrawerKey.currentState.close()',
+                                          );
                                           leftDrawerKey.currentState?.close();
                                         },
                                         child: const Text('Close'),
@@ -569,10 +573,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '4. End drawer variant (alignment: DrawerAlignment.end)',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -627,16 +628,20 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 4 -> '
-                                              'rightDrawerKey.currentState.open()');
+                                          print(
+                                            'Section 4 -> '
+                                            'rightDrawerKey.currentState.open()',
+                                          );
                                           rightDrawerKey.currentState?.open();
                                         },
                                         child: const Text('Open'),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
-                                          print('Section 4 -> '
-                                              'rightDrawerKey.currentState.close()');
+                                          print(
+                                            'Section 4 -> '
+                                            'rightDrawerKey.currentState.close()',
+                                          );
                                           rightDrawerKey.currentState?.close();
                                         },
                                         child: const Text('Close'),
@@ -725,10 +730,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '5. Drawer width sweep (200 / 280 / 360)',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -787,10 +789,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '6. DragStartBehavior comparison (start vs down)',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -824,7 +823,8 @@ dynamic build(BuildContext context) {
                             bg: sec6Bg,
                             accent: sec6Accent,
                             title: 'DragStartBehavior.start',
-                            note: 'Drag recogniser fires after the slop '
+                            note:
+                                'Drag recogniser fires after the slop '
                                 'distance is exceeded.',
                             keyRef: dragStartKey,
                             behavior: DragStartBehavior.start,
@@ -843,7 +843,8 @@ dynamic build(BuildContext context) {
                             bg: sec6Bg,
                             accent: sec6Accent,
                             title: 'DragStartBehavior.down',
-                            note: 'Drag recogniser fires immediately on '
+                            note:
+                                'Drag recogniser fires immediately on '
                                 'pointer-down.',
                             keyRef: dragDownKey,
                             behavior: DragStartBehavior.down,
@@ -863,10 +864,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '7. Locked drawer (drawerBarrierDismissible: false)',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -921,20 +919,25 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 7 -> '
-                                              'lockedKey.currentState.open()');
+                                          print(
+                                            'Section 7 -> '
+                                            'lockedKey.currentState.open()',
+                                          );
                                           lockedKey.currentState?.open();
                                         },
                                         child: const Text('Open (locked)'),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
-                                          print('Section 7 -> '
-                                              'lockedKey.currentState.close()');
+                                          print(
+                                            'Section 7 -> '
+                                            'lockedKey.currentState.close()',
+                                          );
                                           lockedKey.currentState?.close();
                                         },
                                         child: const Text(
-                                            'Close (only escape)'),
+                                          'Close (only escape)',
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -1003,10 +1006,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '8. Multi-drawer recipe (leading + trailing)',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -1061,16 +1061,20 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 8 -> '
-                                              'multiLeftKey.open()');
+                                          print(
+                                            'Section 8 -> '
+                                            'multiLeftKey.open()',
+                                          );
                                           multiLeftKey.currentState?.open();
                                         },
                                         child: const Text('Open Left'),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
-                                          print('Section 8 -> '
-                                              'multiLeftKey.close()');
+                                          print(
+                                            'Section 8 -> '
+                                            'multiLeftKey.close()',
+                                          );
                                           multiLeftKey.currentState?.close();
                                         },
                                         child: const Text('Close Left'),
@@ -1081,16 +1085,20 @@ dynamic build(BuildContext context) {
                                           foregroundColor: Colors.white,
                                         ),
                                         onPressed: () {
-                                          print('Section 8 -> '
-                                              'multiRightKey.open()');
+                                          print(
+                                            'Section 8 -> '
+                                            'multiRightKey.open()',
+                                          );
                                           multiRightKey.currentState?.open();
                                         },
                                         child: const Text('Open Right'),
                                       ),
                                       OutlinedButton(
                                         onPressed: () {
-                                          print('Section 8 -> '
-                                              'multiRightKey.close()');
+                                          print(
+                                            'Section 8 -> '
+                                            'multiRightKey.close()',
+                                          );
                                           multiRightKey.currentState?.close();
                                         },
                                         child: const Text('Close Right'),
@@ -1183,10 +1191,7 @@ dynamic build(BuildContext context) {
               // ================================================================
               const Text(
                 '9. DrawerControllerState reference card',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6.0),
               const Text(
@@ -1265,80 +1270,47 @@ dynamic build(BuildContext context) {
                     SizedBox(height: 4.0),
                     Text(
                       '  final key = GlobalKey<DrawerControllerState>();',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  DrawerController(key: key, child: Drawer(...))',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  key.currentState?.open();',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  key.currentState?.close();',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  // shadow the open state externally:',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  final openNotifier = ValueNotifier<bool>(false);',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  DrawerController(',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '    key: key,',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '    drawerCallback: (o) => openNotifier.value = o,',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '    child: Drawer(...),',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                     Text(
                       '  );',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
                     ),
                   ],
                 ),
@@ -1518,10 +1490,7 @@ Widget _dragBehaviorTile({
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  note,
-                  style: const TextStyle(fontSize: 12.0),
-                ),
+                Text(note, style: const TextStyle(fontSize: 12.0)),
                 const SizedBox(height: 10.0),
                 Wrap(
                   spacing: 6.0,
@@ -1602,10 +1571,7 @@ Widget _dragBehaviorTile({
                         ),
                       ),
                       const SizedBox(height: 6.0),
-                      Text(
-                        note,
-                        style: const TextStyle(fontSize: 12.0),
-                      ),
+                      Text(note, style: const TextStyle(fontSize: 12.0)),
                     ],
                   ),
                 ),

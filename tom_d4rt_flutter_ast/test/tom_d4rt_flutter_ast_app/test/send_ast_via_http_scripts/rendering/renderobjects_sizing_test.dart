@@ -567,18 +567,26 @@ class _ConstraintsFlowPainter extends CustomPainter {
       ..color = _kAccentTeal.withOpacity(0.08)
       ..style = PaintingStyle.fill;
 
-    final Rect outer =
-        Rect.fromLTWH(20.0, 16.0, size.width - 40.0, size.height - 32.0);
+    final Rect outer = Rect.fromLTWH(
+      20.0,
+      16.0,
+      size.width - 40.0,
+      size.height - 32.0,
+    );
     final Rect inner = Rect.fromLTWH(
       outer.left + 60.0,
       outer.top + 60.0,
       outer.width - 120.0,
       outer.height - 120.0,
     );
-    final RRect outerRr =
-        RRect.fromRectAndRadius(outer, const Radius.circular(14.0));
-    final RRect innerRr =
-        RRect.fromRectAndRadius(inner, const Radius.circular(10.0));
+    final RRect outerRr = RRect.fromRectAndRadius(
+      outer,
+      const Radius.circular(14.0),
+    );
+    final RRect innerRr = RRect.fromRectAndRadius(
+      inner,
+      const Radius.circular(10.0),
+    );
     canvas.drawRRect(outerRr, outerFill);
     canvas.drawRRect(outerRr, outerStroke);
     canvas.drawRRect(innerRr, innerFill);
@@ -589,8 +597,12 @@ class _ConstraintsFlowPainter extends CustomPainter {
       fontWeight: FontWeight.w600,
       color: _kInk,
     );
-    _label(canvas, 'Parent RenderBox',
-        Offset(outer.left + 12.0, outer.top + 8.0), labelStyle);
+    _label(
+      canvas,
+      'Parent RenderBox',
+      Offset(outer.left + 12.0, outer.top + 8.0),
+      labelStyle,
+    );
     _label(
       canvas,
       'Child RenderBox',
@@ -603,15 +615,24 @@ class _ConstraintsFlowPainter extends CustomPainter {
       ..color = _kArrowDown
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
-    _arrow(canvas, downPaint,
-        Offset(outer.left + outer.width * 0.30, outer.top + 30.0),
-        Offset(inner.left + inner.width * 0.30, inner.top - 4.0));
-    _arrow(canvas, downPaint,
-        Offset(outer.left + outer.width * 0.50, outer.top + 30.0),
-        Offset(inner.left + inner.width * 0.50, inner.top - 4.0));
-    _arrow(canvas, downPaint,
-        Offset(outer.left + outer.width * 0.70, outer.top + 30.0),
-        Offset(inner.left + inner.width * 0.70, inner.top - 4.0));
+    _arrow(
+      canvas,
+      downPaint,
+      Offset(outer.left + outer.width * 0.30, outer.top + 30.0),
+      Offset(inner.left + inner.width * 0.30, inner.top - 4.0),
+    );
+    _arrow(
+      canvas,
+      downPaint,
+      Offset(outer.left + outer.width * 0.50, outer.top + 30.0),
+      Offset(inner.left + inner.width * 0.50, inner.top - 4.0),
+    );
+    _arrow(
+      canvas,
+      downPaint,
+      Offset(outer.left + outer.width * 0.70, outer.top + 30.0),
+      Offset(inner.left + inner.width * 0.70, inner.top - 4.0),
+    );
     _label(
       canvas,
       'BoxConstraints',
@@ -628,15 +649,24 @@ class _ConstraintsFlowPainter extends CustomPainter {
       ..color = _kArrowUp
       ..strokeWidth = 2.0
       ..style = PaintingStyle.stroke;
-    _arrow(canvas, upPaint,
-        Offset(inner.left + inner.width * 0.30, inner.bottom + 4.0),
-        Offset(outer.left + outer.width * 0.30, outer.bottom - 24.0));
-    _arrow(canvas, upPaint,
-        Offset(inner.left + inner.width * 0.50, inner.bottom + 4.0),
-        Offset(outer.left + outer.width * 0.50, outer.bottom - 24.0));
-    _arrow(canvas, upPaint,
-        Offset(inner.left + inner.width * 0.70, inner.bottom + 4.0),
-        Offset(outer.left + outer.width * 0.70, outer.bottom - 24.0));
+    _arrow(
+      canvas,
+      upPaint,
+      Offset(inner.left + inner.width * 0.30, inner.bottom + 4.0),
+      Offset(outer.left + outer.width * 0.30, outer.bottom - 24.0),
+    );
+    _arrow(
+      canvas,
+      upPaint,
+      Offset(inner.left + inner.width * 0.50, inner.bottom + 4.0),
+      Offset(outer.left + outer.width * 0.50, outer.bottom - 24.0),
+    );
+    _arrow(
+      canvas,
+      upPaint,
+      Offset(inner.left + inner.width * 0.70, inner.bottom + 4.0),
+      Offset(outer.left + outer.width * 0.70, outer.bottom - 24.0),
+    );
     _label(
       canvas,
       'Size',
@@ -751,12 +781,7 @@ Widget _flowDiagramSection() {
 // the aspect ratio so the eye can compare instantly.
 // ===========================================================================
 
-Widget _aspectCard(
-  String label,
-  double ratio,
-  Color colour,
-  String narrative,
-) {
+Widget _aspectCard(String label, double ratio, Color colour, String narrative) {
   return _card(
     margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
     padding: const EdgeInsets.all(14.0),
@@ -767,7 +792,9 @@ Widget _aspectCard(
           children: <Widget>[
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 2.0),
+                horizontal: 8.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: colour.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(6.0),
@@ -883,10 +910,7 @@ Widget _aspectRatioSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _cardTitle(
-              'Pitfall: unbounded width',
-              titleColor: _kAccentRose,
-            ),
+            _cardTitle('Pitfall: unbounded width', titleColor: _kAccentRose),
             const SizedBox(height: 8.0),
             const Text(
               'If the incoming BoxConstraints has maxWidth = double.infinity '
@@ -964,10 +988,7 @@ Widget _constraintRow(
           ),
         ),
         const SizedBox(width: 12.0),
-        Expanded(
-          flex: 3,
-          child: Text(description, style: _kBodySoftStyle),
-        ),
+        Expanded(flex: 3, child: Text(description, style: _kBodySoftStyle)),
         const SizedBox(width: 12.0),
         Expanded(flex: 2, child: visual),
       ],
@@ -1040,10 +1061,14 @@ Widget _constrainedRenderRow() {
         ),
         const SizedBox(height: 10.0),
         _kvRow('RenderConstrainedBox', 'tighten(c) before passing down'),
-        _kvRow('RenderLimitedBox',
-            'only applies max if incoming max is infinite'),
-        _kvRow('RenderUnconstrainedBox',
-            'drops constraints entirely (use carefully)'),
+        _kvRow(
+          'RenderLimitedBox',
+          'only applies max if incoming max is infinite',
+        ),
+        _kvRow(
+          'RenderUnconstrainedBox',
+          'drops constraints entirely (use carefully)',
+        ),
         const SizedBox(height: 10.0),
         Row(
           children: <Widget>[
@@ -1147,8 +1172,7 @@ Widget _overflowSampleGrid() {
                   margin: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     color: _kAccentBlue.withOpacity(0.06),
-                    border:
-                        Border.all(color: _kAccentBlue.withOpacity(0.5)),
+                    border: Border.all(color: _kAccentBlue.withOpacity(0.5)),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   padding: const EdgeInsets.all(10.0),
@@ -1182,7 +1206,9 @@ Widget _overflowSampleGrid() {
                               decoration: BoxDecoration(
                                 color: _kAccentBlue.withOpacity(0.18),
                                 border: Border.all(
-                                    color: _kAccentBlue, width: 1.2),
+                                  color: _kAccentBlue,
+                                  width: 1.2,
+                                ),
                                 borderRadius: BorderRadius.circular(6.0),
                               ),
                               alignment: Alignment.center,
@@ -1208,8 +1234,7 @@ Widget _overflowSampleGrid() {
                   margin: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     color: _kAccentTeal.withOpacity(0.06),
-                    border:
-                        Border.all(color: _kAccentTeal.withOpacity(0.5)),
+                    border: Border.all(color: _kAccentTeal.withOpacity(0.5)),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   padding: const EdgeInsets.all(10.0),
@@ -1265,8 +1290,7 @@ Widget _overflowSampleGrid() {
                   margin: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(
                     color: _kAccentRose.withOpacity(0.06),
-                    border:
-                        Border.all(color: _kAccentRose.withOpacity(0.5)),
+                    border: Border.all(color: _kAccentRose.withOpacity(0.5)),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   padding: const EdgeInsets.all(10.0),
@@ -1538,22 +1562,28 @@ Widget _baselineSection() {
               Baseline(
                 baseline: 40.0,
                 baselineType: TextBaseline.alphabetic,
-                child: Text('Hello',
-                    style: TextStyle(fontSize: 26.0, color: _kInk)),
+                child: Text(
+                  'Hello',
+                  style: TextStyle(fontSize: 26.0, color: _kInk),
+                ),
               ),
               SizedBox(width: 12.0),
               Baseline(
                 baseline: 40.0,
                 baselineType: TextBaseline.alphabetic,
-                child: Text('World',
-                    style: TextStyle(fontSize: 18.0, color: _kAccent)),
+                child: Text(
+                  'World',
+                  style: TextStyle(fontSize: 18.0, color: _kAccent),
+                ),
               ),
               SizedBox(width: 12.0),
               Baseline(
                 baseline: 40.0,
                 baselineType: TextBaseline.alphabetic,
-                child: Text('again',
-                    style: TextStyle(fontSize: 12.0, color: _kAccentRose)),
+                child: Text(
+                  'again',
+                  style: TextStyle(fontSize: 12.0, color: _kAccentRose),
+                ),
               ),
             ],
           ),
@@ -1605,8 +1635,9 @@ Widget _matrixCell(
           letterSpacing: header ? 0.4 : 0.0,
           fontFamily: header ? null : 'monospace',
         ),
-        textAlign:
-            align == Alignment.center ? TextAlign.center : TextAlign.left,
+        textAlign: align == Alignment.center
+            ? TextAlign.center
+            : TextAlign.left,
       ),
     ),
   );
@@ -1648,124 +1679,279 @@ Widget _matrixSection() {
           child: Column(
             children: <Widget>[
               _matrixRow(<Widget>[
-                _matrixCell('Render object',
-                    header: true, flex: 3, align: Alignment.centerLeft),
-                _matrixCell('Owns constraints',
-                    header: true, flex: 2, align: Alignment.center),
-                _matrixCell('Owns size',
-                    header: true, flex: 2, align: Alignment.center),
-                _matrixCell('Can overflow parent',
-                    header: true, flex: 2, align: Alignment.center),
-                _matrixCell('Typical use',
-                    header: true, flex: 4, align: Alignment.centerLeft),
+                _matrixCell(
+                  'Render object',
+                  header: true,
+                  flex: 3,
+                  align: Alignment.centerLeft,
+                ),
+                _matrixCell(
+                  'Owns constraints',
+                  header: true,
+                  flex: 2,
+                  align: Alignment.center,
+                ),
+                _matrixCell(
+                  'Owns size',
+                  header: true,
+                  flex: 2,
+                  align: Alignment.center,
+                ),
+                _matrixCell(
+                  'Can overflow parent',
+                  header: true,
+                  flex: 2,
+                  align: Alignment.center,
+                ),
+                _matrixCell(
+                  'Typical use',
+                  header: true,
+                  flex: 4,
+                  align: Alignment.centerLeft,
+                ),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderConstrainedBox',
-                    flex: 3, colour: _kAccentBlue),
-                _matrixCell('YES',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
-                _matrixCell('via child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell(
+                  'RenderConstrainedBox',
+                  flex: 3,
+                  colour: _kAccentBlue,
+                ),
+                _matrixCell(
+                  'YES',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
+                _matrixCell(
+                  'via child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('clamp width, set min, etc.', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderLimitedBox',
-                    flex: 3, colour: _kAccentAmber),
-                _matrixCell('only if unbounded',
-                    flex: 2, align: Alignment.center, colour: _kAccentAmber),
-                _matrixCell('via child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell('RenderLimitedBox', flex: 3, colour: _kAccentAmber),
+                _matrixCell(
+                  'only if unbounded',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentAmber,
+                ),
+                _matrixCell(
+                  'via child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('cap unbounded scroll/list parents', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderUnconstrainedBox',
-                    flex: 3, colour: _kAccentRose),
-                _matrixCell('drops them',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
-                _matrixCell('via child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('YES',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
+                _matrixCell(
+                  'RenderUnconstrainedBox',
+                  flex: 3,
+                  colour: _kAccentRose,
+                ),
+                _matrixCell(
+                  'drops them',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
+                _matrixCell(
+                  'via child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'YES',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
                 _matrixCell('let child be its natural size', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderAspectRatio',
-                    flex: 3, colour: _kAccentViolet),
-                _matrixCell('derives',
-                    flex: 2, align: Alignment.center, colour: _kAccentBlue),
-                _matrixCell('derives',
-                    flex: 2, align: Alignment.center, colour: _kAccentBlue),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell(
+                  'RenderAspectRatio',
+                  flex: 3,
+                  colour: _kAccentViolet,
+                ),
+                _matrixCell(
+                  'derives',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentBlue,
+                ),
+                _matrixCell(
+                  'derives',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentBlue,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('lock width/height to a fixed ratio', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderConstrainedOverflowBox',
-                    flex: 3, colour: _kAccentBlue),
-                _matrixCell('rewrites',
-                    flex: 2, align: Alignment.center, colour: _kAccentBlue),
-                _matrixCell('from parent',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('YES',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
+                _matrixCell(
+                  'RenderConstrainedOverflowBox',
+                  flex: 3,
+                  colour: _kAccentBlue,
+                ),
+                _matrixCell(
+                  'rewrites',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentBlue,
+                ),
+                _matrixCell(
+                  'from parent',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'YES',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
                 _matrixCell('bleed background outside a card', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderSizedOverflowBox',
-                    flex: 3, colour: _kAccentTeal),
-                _matrixCell('loose from size',
-                    flex: 2, align: Alignment.center, colour: _kAccentTeal),
-                _matrixCell('fixed Size',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
-                _matrixCell('YES',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
+                _matrixCell(
+                  'RenderSizedOverflowBox',
+                  flex: 3,
+                  colour: _kAccentTeal,
+                ),
+                _matrixCell(
+                  'loose from size',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentTeal,
+                ),
+                _matrixCell(
+                  'fixed Size',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
+                _matrixCell(
+                  'YES',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
                 _matrixCell('report fixed size while child overflows', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderFractionallySizedOverflowBox',
-                    flex: 3, colour: _kAccentRose),
-                _matrixCell('parent.max * factor',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
-                _matrixCell('from child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('YES',
-                    flex: 2, align: Alignment.center, colour: _kAccentGreen),
+                _matrixCell(
+                  'RenderFractionallySizedOverflowBox',
+                  flex: 3,
+                  colour: _kAccentRose,
+                ),
+                _matrixCell(
+                  'parent.max * factor',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
+                _matrixCell(
+                  'from child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'YES',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentGreen,
+                ),
                 _matrixCell('% sizing inside dialogs and modals', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderIntrinsicHeight',
-                    flex: 3, colour: _kAccent),
-                _matrixCell('tightens height',
-                    flex: 2, align: Alignment.center, colour: _kAccent),
-                _matrixCell('from child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell('RenderIntrinsicHeight', flex: 3, colour: _kAccent),
+                _matrixCell(
+                  'tightens height',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccent,
+                ),
+                _matrixCell(
+                  'from child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('match siblings to tallest row', flex: 4),
               ]),
               _matrixRow(<Widget>[
-                _matrixCell('RenderIntrinsicWidth',
-                    flex: 3, colour: _kAccent),
-                _matrixCell('tightens width',
-                    flex: 2, align: Alignment.center, colour: _kAccent),
-                _matrixCell('from child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell('RenderIntrinsicWidth', flex: 3, colour: _kAccent),
+                _matrixCell(
+                  'tightens width',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccent,
+                ),
+                _matrixCell(
+                  'from child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('match siblings to widest cell', flex: 4),
               ]),
               _matrixRow(<Widget>[
                 _matrixCell('RenderBaseline', flex: 3, colour: _kAccentTeal),
-                _matrixCell('passthrough',
-                    flex: 2, align: Alignment.center, colour: _kAccentTeal),
-                _matrixCell('from child',
-                    flex: 2, align: Alignment.center, colour: _kInkSecondary),
-                _matrixCell('no',
-                    flex: 2, align: Alignment.center, colour: _kAccentRose),
+                _matrixCell(
+                  'passthrough',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentTeal,
+                ),
+                _matrixCell(
+                  'from child',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kInkSecondary,
+                ),
+                _matrixCell(
+                  'no',
+                  flex: 2,
+                  align: Alignment.center,
+                  colour: _kAccentRose,
+                ),
                 _matrixCell('typographic alignment across siblings', flex: 4),
               ]),
             ],
@@ -2015,10 +2201,7 @@ Widget _cheatSheetFooter() {
         const SizedBox(height: 4.0),
         const Text(
           'A compact map of the rendering layer\'s sizing surface.',
-          style: TextStyle(
-            color: _kInkOnDarkSecondary,
-            fontSize: 12.5,
-          ),
+          style: TextStyle(color: _kInkOnDarkSecondary, fontSize: 12.5),
         ),
         const SizedBox(height: 12.0),
         _chipGroup('Constraint shapes', const <String>[
@@ -2084,10 +2267,11 @@ dynamic build(BuildContext context) {
 
   // BoxConstraints samples that the demo references in text but does not
   // bind into the tree. They illustrate the constructor surface.
-  const BoxConstraints tight =
-      BoxConstraints.tightFor(width: 120.0, height: 40.0);
-  const BoxConstraints loose =
-      BoxConstraints(maxWidth: 200.0, maxHeight: 60.0);
+  const BoxConstraints tight = BoxConstraints.tightFor(
+    width: 120.0,
+    height: 40.0,
+  );
+  const BoxConstraints loose = BoxConstraints(maxWidth: 200.0, maxHeight: 60.0);
   const BoxConstraints expand = BoxConstraints.expand();
   print('tight.isTight=${tight.isTight}');
   print('loose.maxWidth=${loose.maxWidth}');
@@ -2103,70 +2287,103 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           // Section 1
           _heroBanner(),
-          _sectionHeader(1, 'The box layout contract',
-              'Constraints flow down, sizes flow up. That is the whole protocol.'),
+          _sectionHeader(
+            1,
+            'The box layout contract',
+            'Constraints flow down, sizes flow up. That is the whole protocol.',
+          ),
           _heroIntroCard(),
           _sectionDivider(),
 
           // Section 2
-          _sectionHeader(2, 'Constraints flow diagram',
-              'Blue arrows: constraints down. Teal arrows: size up.'),
+          _sectionHeader(
+            2,
+            'Constraints flow diagram',
+            'Blue arrows: constraints down. Teal arrows: size up.',
+          ),
           _flowDiagramSection(),
           _sectionDivider(),
 
           // Section 3
-          _sectionHeader(3, 'AspectRatio gallery',
-              '16:9, 4:3, 1:1 and 9:16 - the four ratios you will meet most.'),
+          _sectionHeader(
+            3,
+            'AspectRatio gallery',
+            '16:9, 4:3, 1:1 and 9:16 - the four ratios you will meet most.',
+          ),
           _aspectRatioSection(),
           _sectionDivider(),
 
           // Section 4
-          _sectionHeader(4, 'Constraint primitives',
-              'BoxConstraints constructors and the render objects behind them.'),
+          _sectionHeader(
+            4,
+            'Constraint primitives',
+            'BoxConstraints constructors and the render objects behind them.',
+          ),
           _constraintsTourSection(),
           _constrainedRenderRow(),
           _sectionDivider(),
 
           // Section 5
-          _sectionHeader(5, 'The OverflowBox family',
-              'Three render objects that let a child grow past its parent.'),
+          _sectionHeader(
+            5,
+            'The OverflowBox family',
+            'Three render objects that let a child grow past its parent.',
+          ),
           _overflowSampleGrid(),
           _fractionalGrid(),
           _sectionDivider(),
 
           // Section 6
-          _sectionHeader(6, 'Intrinsic worked example',
-              'Before/after for IntrinsicHeight and IntrinsicWidth.'),
+          _sectionHeader(
+            6,
+            'Intrinsic worked example',
+            'Before/after for IntrinsicHeight and IntrinsicWidth.',
+          ),
           _intrinsicSection(),
           _sectionDivider(),
 
           // Section 7
-          _sectionHeader(7, 'RenderBaseline',
-              'Align children by typographic baseline.'),
+          _sectionHeader(
+            7,
+            'RenderBaseline',
+            'Align children by typographic baseline.',
+          ),
           _baselineSection(),
           _sectionDivider(),
 
           // Section 8
-          _sectionHeader(8, 'Sizing comparison matrix',
-              'Eleven render objects on four axes.'),
+          _sectionHeader(
+            8,
+            'Sizing comparison matrix',
+            'Eleven render objects on four axes.',
+          ),
           _matrixSection(),
           _sectionDivider(),
 
           // Section 9
-          _sectionHeader(9, 'Recipe cards',
-              'Six idiomatic snippets to copy-paste with confidence.'),
+          _sectionHeader(
+            9,
+            'Recipe cards',
+            'Six idiomatic snippets to copy-paste with confidence.',
+          ),
           _recipesSection(),
           _sectionDivider(),
 
           // Section 10
-          _sectionHeader(10, 'Pitfalls',
-              'Six callouts about loose/tight, unbounded, intrinsics and more.'),
+          _sectionHeader(
+            10,
+            'Pitfalls',
+            'Six callouts about loose/tight, unbounded, intrinsics and more.',
+          ),
           _pitfallsSection(),
           _sectionDivider(),
 
           // Section 11
-          _sectionHeader(11, 'Cheat-sheet',
-              'A compact map of the rendering layer\'s sizing surface.'),
+          _sectionHeader(
+            11,
+            'Cheat-sheet',
+            'A compact map of the rendering layer\'s sizing surface.',
+          ),
           _cheatSheetFooter(),
         ],
       ),

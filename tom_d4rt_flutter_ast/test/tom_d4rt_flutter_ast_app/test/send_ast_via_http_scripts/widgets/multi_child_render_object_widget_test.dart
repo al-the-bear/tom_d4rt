@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (subtitle.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(subtitle,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                subtitle,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkWalnut)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkWalnut)),
     );
   }
 
@@ -70,15 +78,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 170,
-            child: Text(label,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 13, color: darkWalnut)),
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 13, color: darkWalnut),
+            ),
           ),
         ],
       ),
@@ -106,11 +119,7 @@ dynamic build(BuildContext context) {
   print('with multiple child render objects');
 
   final exampleRow = Row(
-    children: [
-      const Text('A'),
-      const Text('B'),
-      const Text('C'),
-    ],
+    children: [const Text('A'), const Text('B'), const Text('C')],
   );
   print('\n--- Row children count ---');
   print('Row has ${exampleRow.children.length} children');
@@ -153,35 +162,46 @@ dynamic build(BuildContext context) {
                   Icon(Icons.widgets, size: 28, color: paleBrass),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('MultiChildRenderObject\nWidget',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            height: 1.2)),
+                    child: Text(
+                      'MultiChildRenderObject\nWidget',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        height: 1.2,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('Abstract base for widgets that configure RenderObjects holding multiple children',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'Abstract base for widgets that configure RenderObjects holding multiple children',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('Abstract Class', polishedBrass, Colors.white),
-                tag('RenderObjectWidget', lightBrass, darkWalnut),
-                tag('children: List<Widget>', paleBrass, darkWalnut),
-                tag('ContainerMixin', antiqueGold, Colors.white),
-              ]),
+              Wrap(
+                children: [
+                  tag('Abstract Class', polishedBrass, Colors.white),
+                  tag('RenderObjectWidget', lightBrass, darkWalnut),
+                  tag('children: List<Widget>', paleBrass, darkWalnut),
+                  tag('ContainerMixin', antiqueGold, Colors.white),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. What is it ────────────────────────────────────────────
-        sectionBanner('1 \u00b7 What Is MultiChildRenderObjectWidget',
-            'The abstract base for multi-child layout widgets',
-            deepBrass, Colors.white),
+        sectionBanner(
+          '1 \u00b7 What Is MultiChildRenderObjectWidget',
+          'The abstract base for multi-child layout widgets',
+          deepBrass,
+          Colors.white,
+        ),
         noteBox(
           'MultiChildRenderObjectWidget is an abstract class that provides '
           'a foundation for widgets that have multiple child widgets. It holds '
@@ -200,9 +220,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Where it sits in the hierarchy ────────────────────────
-        sectionBanner('2 \u00b7 Widget Hierarchy',
-            'Inheritance path to MultiChildRenderObjectWidget',
-            warmBrass, Colors.white),
+        sectionBanner(
+          '2 \u00b7 Widget Hierarchy',
+          'Inheritance path to MultiChildRenderObjectWidget',
+          warmBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -217,20 +240,34 @@ dynamic build(BuildContext context) {
                 ('Widget', 0, Colors.grey),
                 ('\u2514\u2500 RenderObjectWidget', 1, darkWalnut),
                 ('    \u2514\u2500 LeafRenderObjectWidget', 2, mossGreen),
-                ('    \u2514\u2500 SingleChildRenderObjectWidget', 2, mossGreen),
-                ('    \u2514\u2500 MultiChildRenderObjectWidget', 2, antiqueGold),
+                (
+                  '    \u2514\u2500 SingleChildRenderObjectWidget',
+                  2,
+                  mossGreen,
+                ),
+                (
+                  '    \u2514\u2500 MultiChildRenderObjectWidget',
+                  2,
+                  antiqueGold,
+                ),
               ])
                 Padding(
                   padding: EdgeInsets.only(
-                      left: level.$2 * 4.0, top: 3, bottom: 3),
-                  child: Text(level.$1,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
-                          fontWeight: level.$1.contains('MultiChild')
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: level.$3)),
+                    left: level.$2 * 4.0,
+                    top: 3,
+                    bottom: 3,
+                  ),
+                  child: Text(
+                    level.$1,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'monospace',
+                      fontWeight: level.$1.contains('MultiChild')
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                      color: level.$3,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -245,9 +282,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. The three RenderObjectWidget variants ─────────────────
-        sectionBanner('3 \u00b7 RenderObjectWidget Variants',
-            'Comparing the three child-count specializations',
-            antiqueGold, Colors.white),
+        sectionBanner(
+          '3 \u00b7 RenderObjectWidget Variants',
+          'Comparing the three child-count specializations',
+          antiqueGold,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -268,46 +308,68 @@ dynamic build(BuildContext context) {
                   for (final h in ['Widget Type', 'Children', 'Examples'])
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(h,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10)),
+                      child: Text(
+                        h,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
                     ),
                 ],
               ),
               for (final row in [
-                ('LeafRenderObjectWidget', 'None',
-                    'SizedBox, ColoredBox, RichText', mossGreen),
-                ('SingleChildRenderObjectWidget', 'One (child)',
-                    'Opacity, DecoratedBox, Padding', warmBrass),
-                ('MultiChildRenderObjectWidget', 'Many (children)',
-                    'Column, Row, Stack, Wrap', antiqueGold),
+                (
+                  'LeafRenderObjectWidget',
+                  'None',
+                  'SizedBox, ColoredBox, RichText',
+                  mossGreen,
+                ),
+                (
+                  'SingleChildRenderObjectWidget',
+                  'One (child)',
+                  'Opacity, DecoratedBox, Padding',
+                  warmBrass,
+                ),
+                (
+                  'MultiChildRenderObjectWidget',
+                  'Many (children)',
+                  'Column, Row, Stack, Wrap',
+                  antiqueGold,
+                ),
               ])
                 TableRow(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                              color: row.$4)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.bold,
+                          color: row.$4,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 10, color: darkWalnut)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(fontSize: 10, color: darkWalnut),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'monospace',
-                              color: darkWalnut)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: 'monospace',
+                          color: darkWalnut,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -317,9 +379,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. Concrete children property ────────────────────────────
-        sectionBanner('4 \u00b7 The children Property',
-            'How children are stored and passed',
-            deepBrass, Colors.white),
+        sectionBanner(
+          '4 \u00b7 The children Property',
+          'How children are stored and passed',
+          deepBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -339,15 +404,17 @@ dynamic build(BuildContext context) {
                   border: Border.all(color: warmBrass.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'final List<Widget> children;\n\n'
-                    'MultiChildRenderObjectWidget({\n'
-                    '  super.key,\n'
-                    '  this.children = const <Widget>[],\n'
-                    '})',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepBrass)),
+                  'final List<Widget> children;\n\n'
+                  'MultiChildRenderObjectWidget({\n'
+                  '  super.key,\n'
+                  '  this.children = const <Widget>[],\n'
+                  '})',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepBrass,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -364,9 +431,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. createElement() ───────────────────────────────────────
-        sectionBanner('5 \u00b7 createElement() Method',
-            'How the widget becomes an element',
-            warmBrass, Colors.white),
+        sectionBanner(
+          '5 \u00b7 createElement() Method',
+          'How the widget becomes an element',
+          warmBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -383,18 +453,19 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: antiqueGold.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: antiqueGold.withValues(alpha: 0.3)),
+                  border: Border.all(color: antiqueGold.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '@override\n'
-                    'MultiChildRenderObjectElement createElement() {\n'
-                    '  return MultiChildRenderObjectElement(this);\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepBrass)),
+                  '@override\n'
+                  'MultiChildRenderObjectElement createElement() {\n'
+                  '  return MultiChildRenderObjectElement(this);\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepBrass,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               noteBox(
@@ -411,9 +482,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 7. Abstract methods subclasses must implement ────────────
-        sectionBanner('6 \u00b7 Abstract Methods',
-            'What subclasses must implement',
-            antiqueGold, Colors.white),
+        sectionBanner(
+          '6 \u00b7 Abstract Methods',
+          'What subclasses must implement',
+          antiqueGold,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -424,14 +498,20 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final method in [
-                ('createRenderObject(BuildContext context)',
-                    'Creates the underlying RenderObject. Must return an object with '
-                    'ContainerRenderObjectMixin so the element can manage children.',
-                    polishedBrass, Icons.add_box),
-                ('updateRenderObject(BuildContext context, RenderObject ro)',
-                    'Called when the widget rebuilds with new configuration. Applies '
-                    'property changes to the existing render object without recreation.',
-                    warmBrass, Icons.update),
+                (
+                  'createRenderObject(BuildContext context)',
+                  'Creates the underlying RenderObject. Must return an object with '
+                      'ContainerRenderObjectMixin so the element can manage children.',
+                  polishedBrass,
+                  Icons.add_box,
+                ),
+                (
+                  'updateRenderObject(BuildContext context, RenderObject ro)',
+                  'Called when the widget rebuilds with new configuration. Applies '
+                      'property changes to the existing render object without recreation.',
+                  warmBrass,
+                  Icons.update,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 4),
@@ -440,7 +520,8 @@ dynamic build(BuildContext context) {
                     color: method.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: method.$3, width: 3)),
+                      left: BorderSide(color: method.$3, width: 3),
+                    ),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,16 +532,20 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(method.$1,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    fontFamily: 'monospace',
-                                    color: deepBrass)),
+                            Text(
+                              method.$1,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                fontFamily: 'monospace',
+                                color: deepBrass,
+                              ),
+                            ),
                             const SizedBox(height: 2),
-                            Text(method.$2,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkWalnut)),
+                            Text(
+                              method.$2,
+                              style: TextStyle(fontSize: 11, color: darkWalnut),
+                            ),
                           ],
                         ),
                       ),
@@ -480,9 +565,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. ContainerRenderObjectMixin requirement ────────────────
-        sectionBanner('7 \u00b7 ContainerRenderObjectMixin',
-            'Why the render object needs this mixin',
-            deepBrass, Colors.white),
+        sectionBanner(
+          '7 \u00b7 ContainerRenderObjectMixin',
+          'Why the render object needs this mixin',
+          deepBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -507,18 +595,22 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.list, size: 22, color: warmBrass),
                           const SizedBox(height: 4),
-                          Text('ContainerRenderObjectMixin',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  fontFamily: 'monospace',
-                                  color: warmBrass)),
+                          Text(
+                            'ContainerRenderObjectMixin',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: warmBrass,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Provides linked list\nof child RenderObjects',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkWalnut)),
+                          Text(
+                            'Provides linked list\nof child RenderObjects',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkWalnut),
+                          ),
                         ],
                       ),
                     ),
@@ -538,18 +630,22 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.data_object, size: 22, color: antiqueGold),
                           const SizedBox(height: 4),
-                          Text('ContainerParentDataMixin',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  fontFamily: 'monospace',
-                                  color: antiqueGold)),
+                          Text(
+                            'ContainerParentDataMixin',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              fontFamily: 'monospace',
+                              color: antiqueGold,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Extends ParentData\nwith sibling pointers',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 10, color: darkWalnut)),
+                          Text(
+                            'Extends ParentData\nwith sibling pointers',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 10, color: darkWalnut),
+                          ),
                         ],
                       ),
                     ),
@@ -571,9 +667,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. Live demo: Row layout ─────────────────────────────────
-        sectionBanner('8 \u00b7 Live Demo: Row With Flex',
-            'A Row using MultiChildRenderObjectWidget for horizontal layout',
-            polishedBrass, Colors.white),
+        sectionBanner(
+          '8 \u00b7 Live Demo: Row With Flex',
+          'A Row using MultiChildRenderObjectWidget for horizontal layout',
+          polishedBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -585,11 +684,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Row is a MultiChildRenderObjectWidget:',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: warmBrass)),
+              Text(
+                'Row is a MultiChildRenderObjectWidget:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: warmBrass,
+                ),
+              ),
               const SizedBox(height: 8),
               Row(
                 children: [
@@ -612,30 +714,39 @@ dynamic build(BuildContext context) {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,
-                        child: Text('Child $i',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          'Child $i',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                 ],
               ),
               const SizedBox(height: 8),
-              Text('Row \u2192 createRenderObject() \u2192 RenderFlex(direction: Axis.horizontal)',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: darkWalnut)),
+              Text(
+                'Row \u2192 createRenderObject() \u2192 RenderFlex(direction: Axis.horizontal)',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: darkWalnut,
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 10. Live demo: Column layout ─────────────────────────────
-        sectionBanner('9 \u00b7 Live Demo: Column Layout',
-            'Column — the vertical counterpart',
-            warmBrass, Colors.white),
+        sectionBanner(
+          '9 \u00b7 Live Demo: Column Layout',
+          'Column — the vertical counterpart',
+          warmBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -665,11 +776,14 @@ dynamic build(BuildContext context) {
                   ),
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text('Vertical child $i',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Vertical child $i',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -684,9 +798,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Widget-to-RenderObject mapping ───────────────────────
-        sectionBanner('10 \u00b7 Widget \u2192 RenderObject Mapping',
-            'Which render object each subclass creates',
-            antiqueGold, Colors.white),
+        sectionBanner(
+          '10 \u00b7 Widget \u2192 RenderObject Mapping',
+          'Which render object each subclass creates',
+          antiqueGold,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -697,20 +814,55 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final mapping in [
-                ('Column', 'RenderFlex', 'Axis.vertical', Icons.view_agenda,
-                    deepBrass),
-                ('Row', 'RenderFlex', 'Axis.horizontal', Icons.view_column,
-                    warmBrass),
-                ('Stack', 'RenderStack', 'overlapping', Icons.layers,
-                    antiqueGold),
-                ('Wrap', 'RenderWrap', 'flowing', Icons.wrap_text,
-                    polishedBrass),
-                ('Flex', 'RenderFlex', 'configurable axis', Icons.view_stream,
-                    mossGreen),
-                ('ListBody', 'RenderListBody', 'sequential', Icons.list,
-                    berryRed),
-                ('CustomMultiChildLayout', 'RenderCustomMultiChildLayout',
-                    'delegate-based', Icons.dashboard, darkWalnut),
+                (
+                  'Column',
+                  'RenderFlex',
+                  'Axis.vertical',
+                  Icons.view_agenda,
+                  deepBrass,
+                ),
+                (
+                  'Row',
+                  'RenderFlex',
+                  'Axis.horizontal',
+                  Icons.view_column,
+                  warmBrass,
+                ),
+                (
+                  'Stack',
+                  'RenderStack',
+                  'overlapping',
+                  Icons.layers,
+                  antiqueGold,
+                ),
+                (
+                  'Wrap',
+                  'RenderWrap',
+                  'flowing',
+                  Icons.wrap_text,
+                  polishedBrass,
+                ),
+                (
+                  'Flex',
+                  'RenderFlex',
+                  'configurable axis',
+                  Icons.view_stream,
+                  mossGreen,
+                ),
+                (
+                  'ListBody',
+                  'RenderListBody',
+                  'sequential',
+                  Icons.list,
+                  berryRed,
+                ),
+                (
+                  'CustomMultiChildLayout',
+                  'RenderCustomMultiChildLayout',
+                  'delegate-based',
+                  Icons.dashboard,
+                  darkWalnut,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -718,7 +870,8 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border(
-                        left: BorderSide(color: mapping.$5, width: 3)),
+                      left: BorderSide(color: mapping.$5, width: 3),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -726,12 +879,15 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       SizedBox(
                         width: 70,
-                        child: Text(mapping.$1,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                                fontFamily: 'monospace',
-                                color: mapping.$5)),
+                        child: Text(
+                          mapping.$1,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: mapping.$5,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 4),
                       Icon(Icons.arrow_forward, size: 12, color: darkWalnut),
@@ -740,15 +896,19 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(mapping.$2,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontFamily: 'monospace',
-                                    fontWeight: FontWeight.bold,
-                                    color: darkWalnut)),
-                            Text(mapping.$3,
-                                style: TextStyle(
-                                    fontSize: 9, color: darkWalnut)),
+                            Text(
+                              mapping.$2,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'monospace',
+                                fontWeight: FontWeight.bold,
+                                color: darkWalnut,
+                              ),
+                            ),
+                            Text(
+                              mapping.$3,
+                              style: TextStyle(fontSize: 9, color: darkWalnut),
+                            ),
                           ],
                         ),
                       ),
@@ -761,9 +921,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. Live demo: Stack with positioned children ────────────
-        sectionBanner('11 \u00b7 Live Demo: Stack With Positioned',
-            'Stack positioning children via Positioned widgets',
-            deepBrass, Colors.white),
+        sectionBanner(
+          '11 \u00b7 Live Demo: Stack With Positioned',
+          'Stack positioning children via Positioned widgets',
+          deepBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           height: 150,
@@ -786,11 +949,14 @@ dynamic build(BuildContext context) {
                     border: Border.all(color: deepBrass),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Back',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: deepBrass)),
+                  child: Text(
+                    'Back',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: deepBrass,
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -805,11 +971,14 @@ dynamic build(BuildContext context) {
                     border: Border.all(color: antiqueGold),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Middle',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: antiqueGold)),
+                  child: Text(
+                    'Middle',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: antiqueGold,
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -824,11 +993,14 @@ dynamic build(BuildContext context) {
                     border: Border.all(color: polishedBrass),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Front',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: warmBrass)),
+                  child: Text(
+                    'Front',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: warmBrass,
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -842,9 +1014,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Children immutability ────────────────────────────────
-        sectionBanner('12 \u00b7 Children List Immutability',
-            'Why children should never be mutated in-place',
-            berryRed, Colors.white),
+        sectionBanner(
+          '12 \u00b7 Children List Immutability',
+          'Why children should never be mutated in-place',
+          berryRed,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -868,18 +1043,24 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.dangerous, size: 22, color: berryRed),
                           const SizedBox(height: 4),
-                          Text('WRONG',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: berryRed,
-                                  fontSize: 12)),
+                          Text(
+                            'WRONG',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: berryRed,
+                              fontSize: 12,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('children.add(w)\nchildren.removeAt(0)\nchildren[0] = x',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 10,
-                                  color: berryRed)),
+                          Text(
+                            'children.add(w)\nchildren.removeAt(0)\nchildren[0] = x',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                              color: berryRed,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -897,18 +1078,24 @@ dynamic build(BuildContext context) {
                         children: [
                           Icon(Icons.check_circle, size: 22, color: mossGreen),
                           const SizedBox(height: 4),
-                          Text('CORRECT',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: mossGreen,
-                                  fontSize: 12)),
+                          Text(
+                            'CORRECT',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: mossGreen,
+                              fontSize: 12,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Return new widget\nwith new list\nin build()',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 10,
-                                  color: mossGreen)),
+                          Text(
+                            'Return new widget\nwith new list\nin build()',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 10,
+                              color: mossGreen,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -930,9 +1117,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Live demo: Wrap ──────────────────────────────────────
-        sectionBanner('13 \u00b7 Live Demo: Wrap Layout',
-            'Wrap — flowing multi-child layout',
-            polishedBrass, Colors.white),
+        sectionBanner(
+          '13 \u00b7 Live Demo: Wrap Layout',
+          'Wrap — flowing multi-child layout',
+          polishedBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -954,18 +1144,20 @@ dynamic build(BuildContext context) {
                       colors: [
                         Color.lerp(deepBrass, antiqueGold, i / 9.0) ??
                             deepBrass,
-                        Color.lerp(warmBrass, lightBrass, i / 9.0) ??
-                            warmBrass,
+                        Color.lerp(warmBrass, lightBrass, i / 9.0) ?? warmBrass,
                       ],
                     ),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   alignment: Alignment.center,
-                  child: Text('Chip $i',
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    'Chip $i',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -973,9 +1165,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Custom subclass pattern ──────────────────────────────
-        sectionBanner('14 \u00b7 Custom Subclass Pattern',
-            'How to create your own MultiChildRenderObjectWidget',
-            warmBrass, Colors.white),
+        sectionBanner(
+          '14 \u00b7 Custom Subclass Pattern',
+          'How to create your own MultiChildRenderObjectWidget',
+          warmBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -986,16 +1181,36 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final step in [
-                (1, 'Define RenderObject', 'Create a RenderBox that mixes in ContainerRenderObjectMixin and ContainerParentDataMixin-based parent data',
-                    deepBrass),
-                (2, 'Create Widget', 'Extend MultiChildRenderObjectWidget and implement createRenderObject/updateRenderObject',
-                    warmBrass),
-                (3, 'Handle ParentData', 'Create ParentDataWidget if children need positioning data (like Positioned for Stack)',
-                    antiqueGold),
-                (4, 'Implement Layout', 'Override performLayout() in your RenderObject to lay out children using the child linked list',
-                    polishedBrass),
-                (5, 'Implement Paint', 'Override paint() to draw children in order, possibly with custom compositing',
-                    lightBrass),
+                (
+                  1,
+                  'Define RenderObject',
+                  'Create a RenderBox that mixes in ContainerRenderObjectMixin and ContainerParentDataMixin-based parent data',
+                  deepBrass,
+                ),
+                (
+                  2,
+                  'Create Widget',
+                  'Extend MultiChildRenderObjectWidget and implement createRenderObject/updateRenderObject',
+                  warmBrass,
+                ),
+                (
+                  3,
+                  'Handle ParentData',
+                  'Create ParentDataWidget if children need positioning data (like Positioned for Stack)',
+                  antiqueGold,
+                ),
+                (
+                  4,
+                  'Implement Layout',
+                  'Override performLayout() in your RenderObject to lay out children using the child linked list',
+                  polishedBrass,
+                ),
+                (
+                  5,
+                  'Implement Paint',
+                  'Override paint() to draw children in order, possibly with custom compositing',
+                  lightBrass,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -1003,8 +1218,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: step.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: step.$4, width: 3)),
+                    border: Border(left: BorderSide(color: step.$4, width: 3)),
                   ),
                   child: Row(
                     children: [
@@ -1016,25 +1230,32 @@ dynamic build(BuildContext context) {
                           color: step.$4,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: Text('${step.$1}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          '${step.$1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(step.$2,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: darkWalnut)),
-                            Text(step.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkWalnut)),
+                            Text(
+                              step.$2,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: darkWalnut,
+                              ),
+                            ),
+                            Text(
+                              step.$3,
+                              style: TextStyle(fontSize: 11, color: darkWalnut),
+                            ),
                           ],
                         ),
                       ),
@@ -1047,8 +1268,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        sectionBanner('15 \u00b7 Summary',
-            'Key takeaways', deepBrass, Colors.white),
+        sectionBanner(
+          '15 \u00b7 Summary',
+          'Key takeaways',
+          deepBrass,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1080,15 +1305,19 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightBrass,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightBrass,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ],
                   ),

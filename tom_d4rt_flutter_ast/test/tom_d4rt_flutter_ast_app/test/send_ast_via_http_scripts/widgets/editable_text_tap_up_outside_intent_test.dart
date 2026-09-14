@@ -54,8 +54,7 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.back_hand_outlined,
-                      color: _tuSage, size: 36),
+                  Icon(Icons.back_hand_outlined, color: _tuSage, size: 36),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Text(
@@ -103,9 +102,9 @@ dynamic build(BuildContext context) {
         _tuInfoBox(
           'Why Pointer Up Matters',
           'A pointer down outside a text field could be the start of '
-          'a scroll gesture. Only when the pointer lifts without '
-          'significant movement can we be certain it was a tap. This '
-          'prevents accidental keyboard dismissal during scrolling.',
+              'a scroll gesture. Only when the pointer lifts without '
+              'significant movement can we be certain it was a tap. This '
+              'prevents accidental keyboard dismissal during scrolling.',
         ),
         const SizedBox(height: 24),
 
@@ -121,18 +120,14 @@ dynamic build(BuildContext context) {
 
         // ── 3. Gesture Disambiguation ──
         _tuSection('3. Gesture Disambiguation'),
-        _tuBody(
-          'The pointer-up timing enables reliable gesture detection:',
-        ),
+        _tuBody('The pointer-up timing enables reliable gesture detection:'),
         const SizedBox(height: 12),
         _buildGestureDisambiguation(),
         const SizedBox(height: 24),
 
         // ── 4. Intent Properties ──
         _tuSection('4. Intent Properties'),
-        _tuBody(
-          'The intent carries specific data about the completed tap:',
-        ),
+        _tuBody('The intent carries specific data about the completed tap:'),
         const SizedBox(height: 12),
         _buildIntentProperties(),
         const SizedBox(height: 24),
@@ -210,18 +205,14 @@ dynamic build(BuildContext context) {
 
         // ── 10. Custom Action Patterns ──
         _tuSection('10. Custom Action Patterns'),
-        _tuBody(
-          'Advanced patterns for handling the tap-up-outside intent:',
-        ),
+        _tuBody('Advanced patterns for handling the tap-up-outside intent:'),
         const SizedBox(height: 12),
         _buildCustomPatterns(),
         const SizedBox(height: 24),
 
         // ── 11. Combined Strategy ──
         _tuSection('11. Combined Tap + TapUp Strategy'),
-        _tuBody(
-          'Using both intents together for maximum control:',
-        ),
+        _tuBody('Using both intents together for maximum control:'),
         const SizedBox(height: 12),
         _tuCodeBlock(
           '// Combined strategy:\n'
@@ -271,16 +262,12 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                _tuEmerald.withValues(alpha: 0.06),
-                _tuSage,
-              ],
+              colors: [_tuEmerald.withValues(alpha: 0.06), _tuSage],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-                color: _tuEmerald.withValues(alpha: 0.25)),
+            border: Border.all(color: _tuEmerald.withValues(alpha: 0.25)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,8 +290,7 @@ dynamic build(BuildContext context) {
               _tuSummaryRow('Type', 'Intent (pointer up lifecycle)'),
               _tuSummaryRow('Trigger', 'Pointer up outside EditableText'),
               _tuSummaryRow('Key Benefit', 'Distinguishes tap from drag'),
-              _tuSummaryRow('Default Action',
-                  'Unfocus + dismiss keyboard'),
+              _tuSummaryRow('Default Action', 'Unfocus + dismiss keyboard'),
               _tuSummaryRow('Sibling', 'EditableTextTapOutsideIntent'),
               _tuSummaryRow('Carries', 'FocusNode, PointerUpEvent'),
               _tuSummaryRow('Best For', 'Scroll-safe keyboard dismiss'),
@@ -337,11 +323,7 @@ Widget _tuSection(String title) {
 Widget _tuBody(String text) {
   return Text(
     text,
-    style: TextStyle(
-      color: _tuBlack,
-      fontSize: 15,
-      height: 1.6,
-    ),
+    style: TextStyle(color: _tuBlack, fontSize: 15, height: 1.6),
   );
 }
 
@@ -396,11 +378,7 @@ Widget _tuInfoBox(String title, String content) {
         const SizedBox(height: 8),
         Text(
           content,
-          style: TextStyle(
-            color: _tuBlack,
-            fontSize: 14,
-            height: 1.5,
-          ),
+          style: TextStyle(color: _tuBlack, fontSize: 14, height: 1.5),
         ),
       ],
     ),
@@ -427,11 +405,7 @@ Widget _tuSummaryRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: _tuBlack,
-              fontSize: 13,
-              height: 1.4,
-            ),
+            style: TextStyle(color: _tuBlack, fontSize: 13, height: 1.4),
           ),
         ),
       ],
@@ -456,7 +430,10 @@ Widget _buildTimingComparison() {
         Text(
           'Gesture Timeline',
           style: TextStyle(
-            color: _tuEmerald, fontSize: 14, fontWeight: FontWeight.bold),
+            color: _tuEmerald,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 14),
         // Timeline visualization
@@ -472,16 +449,22 @@ Widget _buildTimingComparison() {
                     color: _tuError,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.touch_app,
-                      color: _tuWhite, size: 20),
+                  child: Icon(Icons.touch_app, color: _tuWhite, size: 20),
                 ),
                 const SizedBox(height: 4),
-                Text('DOWN',
-                    style: TextStyle(color: _tuError, fontSize: 9,
-                        fontWeight: FontWeight.bold)),
-                Text('TapOutside\nfires here',
-                    style: TextStyle(color: _tuError, fontSize: 8),
-                    textAlign: TextAlign.center),
+                Text(
+                  'DOWN',
+                  style: TextStyle(
+                    color: _tuError,
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'TapOutside\nfires here',
+                  style: TextStyle(color: _tuError, fontSize: 8),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
             // Timeline line
@@ -499,8 +482,10 @@ Widget _buildTimingComparison() {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text('Gesture duration (hold / move)',
-                      style: TextStyle(color: _tuMuted, fontSize: 9)),
+                  Text(
+                    'Gesture duration (hold / move)',
+                    style: TextStyle(color: _tuMuted, fontSize: 9),
+                  ),
                 ],
               ),
             ),
@@ -514,16 +499,22 @@ Widget _buildTimingComparison() {
                     color: _tuSuccess,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.back_hand,
-                      color: _tuWhite, size: 20),
+                  child: Icon(Icons.back_hand, color: _tuWhite, size: 20),
                 ),
                 const SizedBox(height: 4),
-                Text('UP',
-                    style: TextStyle(color: _tuSuccess, fontSize: 9,
-                        fontWeight: FontWeight.bold)),
-                Text('TapUpOutside\nfires here',
-                    style: TextStyle(color: _tuSuccess, fontSize: 8),
-                    textAlign: TextAlign.center),
+                Text(
+                  'UP',
+                  style: TextStyle(
+                    color: _tuSuccess,
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'TapUpOutside\nfires here',
+                  style: TextStyle(color: _tuSuccess, fontSize: 8),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ],
@@ -583,26 +574,46 @@ Widget _buildGestureDisambiguation() {
           children: [
             SizedBox(
               width: 80,
-              child: Text('Gesture',
-                  style: TextStyle(color: _tuEmerald, fontSize: 11,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                'Gesture',
+                style: TextStyle(
+                  color: _tuEmerald,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             SizedBox(
               width: 50,
-              child: Text('Down',
-                  style: TextStyle(color: _tuError, fontSize: 11,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                'Down',
+                style: TextStyle(
+                  color: _tuError,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             SizedBox(
               width: 50,
-              child: Text('Up',
-                  style: TextStyle(color: _tuSuccess, fontSize: 11,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                'Up',
+                style: TextStyle(
+                  color: _tuSuccess,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             Expanded(
-              child: Text('Movement',
-                  style: TextStyle(color: _tuEmerald, fontSize: 11,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                'Movement',
+                style: TextStyle(
+                  color: _tuEmerald,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -621,8 +632,11 @@ Widget _buildGestureDisambiguation() {
                 // ellipsis triggers only for the longest label.
                 child: Row(
                   children: [
-                    Icon(gestures[i]['icon'] as IconData,
-                        color: gestures[i]['color'] as Color, size: 14),
+                    Icon(
+                      gestures[i]['icon'] as IconData,
+                      color: gestures[i]['color'] as Color,
+                      size: 14,
+                    ),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
@@ -643,27 +657,32 @@ Widget _buildGestureDisambiguation() {
                 width: 50,
                 child: Icon(
                   (gestures[i]['downFires'] as bool)
-                      ? Icons.check : Icons.close,
+                      ? Icons.check
+                      : Icons.close,
                   color: (gestures[i]['downFires'] as bool)
-                      ? _tuSuccess : _tuError,
+                      ? _tuSuccess
+                      : _tuError,
                   size: 14,
                 ),
               ),
               SizedBox(
                 width: 50,
                 child: Icon(
-                  (gestures[i]['upFires'] as bool)
-                      ? Icons.check : Icons.close,
+                  (gestures[i]['upFires'] as bool) ? Icons.check : Icons.close,
                   color: (gestures[i]['upFires'] as bool)
-                      ? _tuSuccess : _tuError,
+                      ? _tuSuccess
+                      : _tuError,
                   size: 14,
                 ),
               ),
               Expanded(
                 child: Text(
                   gestures[i]['movement'] as String,
-                  style: TextStyle(color: _tuBlack, fontSize: 10,
-                      fontFamily: 'monospace'),
+                  style: TextStyle(
+                    color: _tuBlack,
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                  ),
                 ),
               ),
             ],
@@ -680,14 +699,16 @@ Widget _buildIntentProperties() {
     {
       'prop': 'focusNode',
       'type': 'FocusNode',
-      'desc': 'The EditableText focus node that was focused when the '
+      'desc':
+          'The EditableText focus node that was focused when the '
           'tap up occurred. Used for programmatic unfocus.',
       'color': _tuEmerald,
     },
     {
       'prop': 'pointerUpEvent',
       'type': 'PointerUpEvent',
-      'desc': 'The raw pointer up event with position, device info, '
+      'desc':
+          'The raw pointer up event with position, device info, '
           'and timestamp of the release.',
       'color': _tuAccent,
     },
@@ -708,8 +729,7 @@ Widget _buildIntentProperties() {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: (props[i]['color'] as Color).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(6),
@@ -726,8 +746,7 @@ Widget _buildIntentProperties() {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                 decoration: BoxDecoration(
                   color: _tuBlack.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(4),
@@ -815,8 +834,11 @@ Widget _buildGestureLifecycle() {
                   color: steps[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(steps[i]['icon'] as IconData,
-                    color: _tuWhite, size: 14),
+                child: Icon(
+                  steps[i]['icon'] as IconData,
+                  color: _tuWhite,
+                  size: 14,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -834,7 +856,10 @@ Widget _buildGestureLifecycle() {
                     Text(
                       steps[i]['detail'] as String,
                       style: TextStyle(
-                          color: _tuBlack, fontSize: 11, height: 1.3),
+                        color: _tuBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -844,8 +869,7 @@ Widget _buildGestureLifecycle() {
           if (i < steps.length - 1)
             Padding(
               padding: const EdgeInsets.only(left: 13),
-              child: Container(
-                  width: 2, height: 8, color: _tuDivider),
+              child: Container(width: 2, height: 8, color: _tuDivider),
             ),
         ],
       ],
@@ -874,10 +898,15 @@ Widget _buildDecisionTree() {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: _tuEmerald.withValues(alpha: 0.3)),
           ),
-          child: Text('Pointer down outside EditableText',
-              style: TextStyle(color: _tuEmerald, fontSize: 12,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center),
+          child: Text(
+            'Pointer down outside EditableText',
+            style: TextStyle(
+              color: _tuEmerald,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ),
         const SizedBox(height: 4),
         // Branch
@@ -886,29 +915,27 @@ Widget _buildDecisionTree() {
             Expanded(
               child: Column(
                 children: [
-                  Container(
-                    height: 20,
-                    width: 2,
-                    color: _tuDivider,
-                  ),
+                  Container(height: 20, width: 2, color: _tuDivider),
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
                       color: _tuSuccess.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(
-                          color: _tuSuccess.withValues(alpha: 0.2)),
+                        color: _tuSuccess.withValues(alpha: 0.2),
+                      ),
                     ),
-                    child: Text('Movement < slop?',
-                        style: TextStyle(color: _tuSuccess, fontSize: 10,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center),
+                    child: Text(
+                      'Movement < slop?',
+                      style: TextStyle(
+                        color: _tuSuccess,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Container(
-                    height: 10,
-                    width: 2,
-                    color: _tuDivider,
-                  ),
+                  Container(height: 10, width: 2, color: _tuDivider),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(8),
@@ -919,11 +946,18 @@ Widget _buildDecisionTree() {
                     child: Column(
                       children: [
                         Icon(Icons.check, color: _tuSuccess, size: 16),
-                        Text('TAP confirmed',
-                            style: TextStyle(color: _tuSuccess, fontSize: 10,
-                                fontWeight: FontWeight.bold)),
-                        Text('TapUpOutsideIntent fires',
-                            style: TextStyle(color: _tuBlack, fontSize: 9)),
+                        Text(
+                          'TAP confirmed',
+                          style: TextStyle(
+                            color: _tuSuccess,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'TapUpOutsideIntent fires',
+                          style: TextStyle(color: _tuBlack, fontSize: 9),
+                        ),
                       ],
                     ),
                   ),
@@ -934,29 +968,27 @@ Widget _buildDecisionTree() {
             Expanded(
               child: Column(
                 children: [
-                  Container(
-                    height: 20,
-                    width: 2,
-                    color: _tuDivider,
-                  ),
+                  Container(height: 20, width: 2, color: _tuDivider),
                   Container(
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
                       color: _tuError.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
                       border: Border.all(
-                          color: _tuError.withValues(alpha: 0.2)),
+                        color: _tuError.withValues(alpha: 0.2),
+                      ),
                     ),
-                    child: Text('Movement > slop?',
-                        style: TextStyle(color: _tuError, fontSize: 10,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center),
+                    child: Text(
+                      'Movement > slop?',
+                      style: TextStyle(
+                        color: _tuError,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Container(
-                    height: 10,
-                    width: 2,
-                    color: _tuDivider,
-                  ),
+                  Container(height: 10, width: 2, color: _tuDivider),
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(8),
@@ -967,11 +999,18 @@ Widget _buildDecisionTree() {
                     child: Column(
                       children: [
                         Icon(Icons.close, color: _tuError, size: 16),
-                        Text('DRAG detected',
-                            style: TextStyle(color: _tuError, fontSize: 10,
-                                fontWeight: FontWeight.bold)),
-                        Text('TapUpOutsideIntent skipped',
-                            style: TextStyle(color: _tuBlack, fontSize: 9)),
+                        Text(
+                          'DRAG detected',
+                          style: TextStyle(
+                            color: _tuError,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'TapUpOutsideIntent skipped',
+                          style: TextStyle(color: _tuBlack, fontSize: 9),
+                        ),
                       ],
                     ),
                   ),
@@ -1029,15 +1068,19 @@ Widget _buildPlatformThresholds() {
             color: (p['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (p['color'] as Color).withValues(alpha: 0.2)),
+              color: (p['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(p['icon'] as IconData,
-                      color: p['color'] as Color, size: 16),
+                  Icon(
+                    p['icon'] as IconData,
+                    color: p['color'] as Color,
+                    size: 16,
+                  ),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1053,8 +1096,7 @@ Widget _buildPlatformThresholds() {
               ),
               const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: (p['color'] as Color).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4),
@@ -1119,12 +1161,16 @@ Widget _buildFormIntegration() {
             color: (scenarios[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (scenarios[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (scenarios[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Row(
             children: [
-              Icon(scenarios[i]['icon'] as IconData,
-                  color: scenarios[i]['color'] as Color, size: 20),
+              Icon(
+                scenarios[i]['icon'] as IconData,
+                color: scenarios[i]['color'] as Color,
+                size: 20,
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -1141,7 +1187,10 @@ Widget _buildFormIntegration() {
                     Text(
                       scenarios[i]['desc'] as String,
                       style: TextStyle(
-                          color: _tuBlack, fontSize: 11, height: 1.3),
+                        color: _tuBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),
@@ -1159,28 +1208,32 @@ Widget _buildCustomPatterns() {
   final patterns = <Map<String, dynamic>>[
     {
       'pattern': 'Coordinate Check',
-      'desc': 'Use pointerUpEvent position to determine context-aware '
+      'desc':
+          'Use pointerUpEvent position to determine context-aware '
           'behavior based on where the tap landed.',
       'code': 'final pos = intent.pointerUpEvent.position;',
       'color': _tuEmerald,
     },
     {
       'pattern': 'Debounced Unfocus',
-      'desc': 'Add a small delay before unfocusing to allow toolbar '
+      'desc':
+          'Add a small delay before unfocusing to allow toolbar '
           'buttons to process their taps first.',
       'code': 'Timer(ms100, () => node.unfocus());',
       'color': _tuAccent,
     },
     {
       'pattern': 'Conditional by Field',
-      'desc': 'Different behavior depending on which text field was '
+      'desc':
+          'Different behavior depending on which text field was '
           'focused (e.g. search vs compose).',
       'code': 'if (node.debugLabel == "search") ...',
       'color': _tuLight,
     },
     {
       'pattern': 'Analytics Hook',
-      'desc': 'Track when users tap outside fields for UX analytics '
+      'desc':
+          'Track when users tap outside fields for UX analytics '
           'without changing any behavior.',
       'code': 'analytics.track("unfocus_tap_up");',
       'color': _tuInfo,
@@ -1197,7 +1250,8 @@ Widget _buildCustomPatterns() {
             color: (patterns[i]['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: (patterns[i]['color'] as Color).withValues(alpha: 0.2)),
+              color: (patterns[i]['color'] as Color).withValues(alpha: 0.2),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1213,13 +1267,11 @@ Widget _buildCustomPatterns() {
               const SizedBox(height: 2),
               Text(
                 patterns[i]['desc'] as String,
-                style: TextStyle(
-                    color: _tuBlack, fontSize: 11, height: 1.3),
+                style: TextStyle(color: _tuBlack, fontSize: 11, height: 1.3),
               ),
               const SizedBox(height: 4),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
                   color: _tuBlack.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(4),
@@ -1246,28 +1298,32 @@ Widget _buildAccessibility() {
   final items = <Map<String, dynamic>>[
     {
       'feature': 'Screen Reader',
-      'behavior': 'Announce "text field unfocused" when tap-up triggers '
+      'behavior':
+          'Announce "text field unfocused" when tap-up triggers '
           'unfocus. Custom actions should maintain this announcement.',
       'icon': Icons.hearing,
       'color': _tuEmerald,
     },
     {
       'feature': 'Switch Control',
-      'behavior': 'Switch control taps are always confirmed taps (no drag '
+      'behavior':
+          'Switch control taps are always confirmed taps (no drag '
           'possible). TapUpOutside fires reliably.',
       'icon': Icons.toggle_on,
       'color': _tuAccent,
     },
     {
       'feature': 'Voice Control',
-      'behavior': 'Voice-triggered taps generate synthetic pointer events. '
+      'behavior':
+          'Voice-triggered taps generate synthetic pointer events. '
           'The tap-up intent fires normally.',
       'icon': Icons.mic,
       'color': _tuLight,
     },
     {
       'feature': 'Large Text / Zoom',
-      'behavior': 'Zoomed interfaces may shift tap positions. Use logical '
+      'behavior':
+          'Zoomed interfaces may shift tap positions. Use logical '
           'coordinates from pointerUpEvent, not physical pixels.',
       'icon': Icons.zoom_in,
       'color': _tuInfo,
@@ -1295,8 +1351,11 @@ Widget _buildAccessibility() {
                   color: items[i]['color'] as Color,
                   borderRadius: BorderRadius.circular(7),
                 ),
-                child: Icon(items[i]['icon'] as IconData,
-                    color: _tuWhite, size: 14),
+                child: Icon(
+                  items[i]['icon'] as IconData,
+                  color: _tuWhite,
+                  size: 14,
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1314,7 +1373,10 @@ Widget _buildAccessibility() {
                     Text(
                       items[i]['behavior'] as String,
                       style: TextStyle(
-                          color: _tuBlack, fontSize: 11, height: 1.3),
+                        color: _tuBlack,
+                        fontSize: 11,
+                        height: 1.3,
+                      ),
                     ),
                   ],
                 ),

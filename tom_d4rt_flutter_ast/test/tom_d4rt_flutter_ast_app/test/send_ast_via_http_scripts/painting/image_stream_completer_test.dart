@@ -74,16 +74,8 @@ Widget buildImageStreamCompleterBaseClassSection() {
   print('ImageStreamCompleter is abstract base for streaming images');
 
   List<Map<String, String>> baseClassInfo = [
-    {
-      'name': 'Class Type',
-      'value': 'Abstract Base Class',
-      'icon': 'class',
-    },
-    {
-      'name': 'Package',
-      'value': 'flutter/painting.dart',
-      'icon': 'package',
-    },
+    {'name': 'Class Type', 'value': 'Abstract Base Class', 'icon': 'class'},
+    {'name': 'Package', 'value': 'flutter/painting.dart', 'icon': 'package'},
     {
       'name': 'Purpose',
       'value': 'Manages async image loading and notification',
@@ -131,10 +123,7 @@ Widget buildImageStreamCompleterBaseClassSection() {
                 children: [
                   Text(
                     info['name'] ?? '',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
                   ),
                   SizedBox(height: 2),
                   Text(
@@ -220,18 +209,12 @@ Widget buildImageStreamCompleterBaseClassSection() {
                   SizedBox(height: 4),
                   Text(
                     subclassDescriptions[s],
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                   ),
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right,
-              color: Colors.deepPurple.shade400,
-            ),
+            Icon(Icons.chevron_right, color: Colors.deepPurple.shade400),
           ],
         ),
       ),
@@ -317,11 +300,7 @@ Widget buildAddRemoveListenerSection() {
           children: [
             Row(
               children: [
-                Icon(
-                  method['icon'] as IconData,
-                  color: methodColor,
-                  size: 24,
-                ),
+                Icon(method['icon'] as IconData, color: methodColor, size: 24),
                 SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -361,11 +340,7 @@ Widget buildAddRemoveListenerSection() {
     'Called when an error occurs during loading',
   ];
 
-  List<Color> callbackColors = [
-    Colors.blue,
-    Colors.orange,
-    Colors.red,
-  ];
+  List<Color> callbackColors = [Colors.blue, Colors.orange, Colors.red];
 
   List<IconData> callbackIcons = [
     Icons.image,
@@ -394,11 +369,7 @@ Widget buildAddRemoveListenerSection() {
                 color: callbackColors[c].withAlpha(30),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                callbackIcons[c],
-                color: callbackColors[c],
-                size: 20,
-              ),
+              child: Icon(callbackIcons[c], color: callbackColors[c], size: 20),
             ),
             SizedBox(width: 12),
             Expanded(
@@ -544,11 +515,7 @@ Widget buildSetImageSection() {
                   ),
                 ),
                 if (!isLast)
-                  Container(
-                    width: 2,
-                    height: 30,
-                    color: Colors.blue.shade200,
-                  ),
+                  Container(width: 2, height: 30, color: Colors.blue.shade200),
               ],
             ),
             SizedBox(width: 12),
@@ -777,11 +744,7 @@ Widget buildReportErrorSection() {
                 color: errorColor.withAlpha(40),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                Icons.error_outline,
-                color: errorColor,
-                size: 26,
-              ),
+              child: Icon(Icons.error_outline, color: errorColor, size: 26),
             ),
             SizedBox(width: 14),
             Expanded(
@@ -905,10 +868,7 @@ Widget buildReportErrorSection() {
                 child: Text(
                   'Always handle errors in ImageStreamListener.onError '
                   'to prevent unhandled exceptions and show fallback UI',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.amber.shade900,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.amber.shade900),
                 ),
               ),
             ],
@@ -965,8 +925,8 @@ Widget buildReportImageChunkEventSection() {
     Color progressColor = progress < 30
         ? Colors.orange
         : progress < 70
-            ? Colors.blue
-            : Colors.green;
+        ? Colors.blue
+        : Colors.green;
 
     stageCards.add(
       Container(
@@ -1113,7 +1073,9 @@ Widget buildReportImageChunkEventSection() {
                           Text(
                             'Bytes received',
                             style: TextStyle(
-                                fontSize: 11, color: Colors.grey.shade600),
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
                           ),
                         ],
                       ),
@@ -1143,7 +1105,9 @@ Widget buildReportImageChunkEventSection() {
                           Text(
                             'Total size (nullable)',
                             style: TextStyle(
-                                fontSize: 11, color: Colors.grey.shade600),
+                              fontSize: 11,
+                              color: Colors.grey.shade600,
+                            ),
                           ),
                         ],
                       ),
@@ -1343,10 +1307,7 @@ Widget buildKeepAliveObtainKeySection() {
             SizedBox(height: 4),
             Text(
               step['state'] ?? '',
-              style: TextStyle(
-                fontSize: 11,
-                color: Colors.teal.shade600,
-              ),
+              style: TextStyle(fontSize: 11, color: Colors.teal.shade600),
             ),
           ],
         ),
@@ -1452,7 +1413,8 @@ Widget buildUsageExamplesSection() {
   List<Map<String, String>> usageExamples = [
     {
       'title': 'Basic Image Loading with Listener',
-      'code': 'final ImageStream stream = imageProvider.resolve(config);\n'
+      'code':
+          'final ImageStream stream = imageProvider.resolve(config);\n'
           'stream.addListener(\n'
           '  ImageStreamListener(\n'
           '    (ImageInfo info, bool sync) {\n'
@@ -1466,7 +1428,8 @@ Widget buildUsageExamplesSection() {
     },
     {
       'title': 'Progress Tracking During Download',
-      'code': 'stream.addListener(\n'
+      'code':
+          'stream.addListener(\n'
           '  ImageStreamListener(\n'
           '    (info, sync) => handleImage(info),\n'
           '    onChunk: (ImageChunkEvent event) {\n'
@@ -1479,7 +1442,8 @@ Widget buildUsageExamplesSection() {
     },
     {
       'title': 'Custom ImageProvider with Completer',
-      'code': 'class MyImageProvider extends ImageProvider<MyKey> {\n'
+      'code':
+          'class MyImageProvider extends ImageProvider<MyKey> {\n'
           '  ImageStreamCompleter loadImage(MyKey key, decode) {\n'
           '    return OneFrameImageStreamCompleter(\n'
           '      loadBytes().then((bytes) {\n'
@@ -1570,7 +1534,11 @@ Widget buildUsageExamplesSection() {
       children: [
         Row(
           children: [
-            Icon(Icons.integration_instructions, color: Colors.purple, size: 28),
+            Icon(
+              Icons.integration_instructions,
+              color: Colors.purple,
+              size: 28,
+            ),
             SizedBox(width: 10),
             Text(
               'Usage Examples',
@@ -1650,11 +1618,7 @@ Widget buildBestPracticesSection() {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              practice['icon'] as IconData,
-              color: practiceColor,
-              size: 22,
-            ),
+            Icon(practice['icon'] as IconData, color: practiceColor, size: 22),
             SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1876,10 +1840,7 @@ dynamic build(BuildContext context) {
               Text(
                 'Explored base class, listeners, image delivery, errors, progress, and caching',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
               ),
             ],
           ),

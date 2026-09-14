@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.grid_view,
       'title': 'Animated Grid in Slivers',
-      'body': 'SliverAnimatedGrid combines SliverGrid with automatic '
+      'body':
+          'SliverAnimatedGrid combines SliverGrid with automatic '
           'animation when items are inserted or removed. Each item can '
           'have a custom entry and exit transition, providing smooth '
           'visual updates to grid content.',
@@ -25,7 +26,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.animation,
       'title': 'Per-Item Transitions',
-      'body': 'The itemBuilder receives an Animation<double> that drives '
+      'body':
+          'The itemBuilder receives an Animation<double> that drives '
           'the item\'s entry transition. When removing, you provide a '
           'separate builder with its own animation for the exit. This '
           'allows fade-in/out, scale, slide, or custom transitions.',
@@ -33,7 +35,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_quilt,
       'title': 'CustomScrollView Integration',
-      'body': 'As a Sliver widget, SliverAnimatedGrid works inside '
+      'body':
+          'As a Sliver widget, SliverAnimatedGrid works inside '
           'CustomScrollView alongside other slivers (SliverAppBar, '
           'SliverList, SliverToBoxAdapter). Ideal for mixed-sliver '
           'layouts where one section is an animated grid.',
@@ -41,7 +44,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.key,
       'title': 'Programmatic Control',
-      'body': 'Use a GlobalKey<SliverAnimatedGridState> to access '
+      'body':
+          'Use a GlobalKey<SliverAnimatedGridState> to access '
           'insertItem(), removeItem(), and insertAllItems() methods. '
           'These methods trigger the animations and update the grid.',
     },
@@ -58,9 +62,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.teal.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.teal.withValues(alpha: 0.12),
-          ),
+          border: Border.all(color: Colors.teal.withValues(alpha: 0.12)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,10 +144,7 @@ dynamic build(BuildContext context) {
                 'A sliver that animates grid items as they are inserted '
                 'or removed, with per-item entry and exit transitions.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13.5,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 13.5, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -170,7 +169,11 @@ dynamic build(BuildContext context) {
               _buildSAGTreeNode('├─ SliverAppBar', 1, Colors.indigo),
               _buildSAGTreeNode('├─ SliverAnimatedGrid', 1, Colors.teal),
               _buildSAGTreeNode('│  ├─ gridDelegate', 2, Colors.orange),
-              _buildSAGTreeNode('│  ├─ itemBuilder (with Animation)', 2, Colors.green),
+              _buildSAGTreeNode(
+                '│  ├─ itemBuilder (with Animation)',
+                2,
+                Colors.green,
+              ),
               _buildSAGTreeNode('│  └─ initialItemCount', 2, Colors.purple),
               _buildSAGTreeNode('└─ SliverToBoxAdapter', 1, Colors.grey),
             ],
@@ -190,7 +193,8 @@ dynamic build(BuildContext context) {
       'name': 'gridDelegate',
       'type': 'SliverGridDelegate',
       'required': 'Yes',
-      'desc': 'Controls the layout of children in the grid. Use '
+      'desc':
+          'Controls the layout of children in the grid. Use '
           'SliverGridDelegateWithFixedCrossAxisCount for a fixed number '
           'of columns, or SliverGridDelegateWithMaxCrossAxisExtent for '
           'adaptive column widths.',
@@ -199,7 +203,8 @@ dynamic build(BuildContext context) {
       'name': 'itemBuilder',
       'type': 'AnimatedItemBuilder',
       'required': 'Yes',
-      'desc': 'Builder called for each item, receiving (context, index, '
+      'desc':
+          'Builder called for each item, receiving (context, index, '
           'animation). The Animation<double> drives the entry transition '
           '— use it with FadeTransition, ScaleTransition, etc.',
     },
@@ -207,14 +212,16 @@ dynamic build(BuildContext context) {
       'name': 'initialItemCount',
       'type': 'int',
       'required': 'No',
-      'desc': 'Number of items initially in the grid. Defaults to 0. '
+      'desc':
+          'Number of items initially in the grid. Defaults to 0. '
           'These items appear immediately without animation.',
     },
     {
       'name': 'findChildIndexCallback',
       'type': 'ChildIndexGetter?',
       'required': 'No',
-      'desc': 'Callback to find the index of a child based on its key. '
+      'desc':
+          'Callback to find the index of a child based on its key. '
           'Helps preserve state when items are reordered.',
     },
   ];
@@ -393,7 +400,8 @@ dynamic build(BuildContext context) {
   final insertTransitions = <Map<String, dynamic>>[
     {
       'name': 'FadeTransition',
-      'desc': 'Items fade in from transparent to opaque. The most subtle '
+      'desc':
+          'Items fade in from transparent to opaque. The most subtle '
           'insertion animation. Works well for content-heavy grids.',
       'icon': Icons.gradient,
       'color': Colors.blue,
@@ -401,7 +409,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'ScaleTransition',
-      'desc': 'Items grow from a point. Creates a "pop" effect that draws '
+      'desc':
+          'Items grow from a point. Creates a "pop" effect that draws '
           'attention to newly inserted items.',
       'icon': Icons.zoom_in,
       'color': Colors.orange,
@@ -409,7 +418,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'SlideTransition',
-      'desc': 'Items slide in from a direction. Good for sequential insertion '
+      'desc':
+          'Items slide in from a direction. Good for sequential insertion '
           'where items appear to flow in from an edge.',
       'icon': Icons.arrow_forward,
       'color': Colors.green,
@@ -417,7 +427,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Combined (Fade + Scale)',
-      'desc': 'Combining multiple transitions creates a richer effect. '
+      'desc':
+          'Combining multiple transitions creates a richer effect. '
           'Items fade in while growing, a polished entry animation.',
       'icon': Icons.auto_awesome,
       'color': Colors.purple,
@@ -500,8 +511,9 @@ dynamic build(BuildContext context) {
                                       height: 30.0,
                                       decoration: BoxDecoration(
                                         color: clr.withValues(alpha: 0.4),
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
+                                        borderRadius: BorderRadius.circular(
+                                          4.0,
+                                        ),
                                       ),
                                     ),
                                   )
@@ -609,7 +621,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSAGSectionHeader('Remove Transitions', Icons.remove_circle_outline),
+        buildSAGSectionHeader(
+          'Remove Transitions',
+          Icons.remove_circle_outline,
+        ),
         const SizedBox(height: 8.0),
         Text(
           'Removal uses a separate builder. When removeItem() is called, '
@@ -645,30 +660,30 @@ dynamic build(BuildContext context) {
                 1,
                 'Call removeItem(index, builder)',
                 'You call removeItem on SliverAnimatedGridState, '
-                'passing the index and a builder that describes how '
-                'the item should look while being removed.',
+                    'passing the index and a builder that describes how '
+                    'the item should look while being removed.',
                 Colors.red,
               ),
               _buildSAGRemovalStep(
                 2,
                 'Item removed from data model',
                 'Your data model (list) has the item removed. The '
-                'remaining items shift. The grid updates accordingly.',
+                    'remaining items shift. The grid updates accordingly.',
                 Colors.orange,
               ),
               _buildSAGRemovalStep(
                 3,
                 'Removal builder animates',
                 'The removal builder receives Animation<double> counting '
-                'down from 1.0 to 0.0. Use FadeTransition, ScaleTransition, '
-                'etc. to animate the exit.',
+                    'down from 1.0 to 0.0. Use FadeTransition, ScaleTransition, '
+                    'etc. to animate the exit.',
                 Colors.amber,
               ),
               _buildSAGRemovalStep(
                 4,
                 'Item fully hidden, removed from tree',
                 'When the animation completes, the removed item\'s widget '
-                'is disposed and removed from the widget tree entirely.',
+                    'is disposed and removed from the widget tree entirely.',
                 Colors.green,
               ),
             ],
@@ -992,22 +1007,26 @@ dynamic build(BuildContext context) {
   final stateKeyMethods = <Map<String, String>>[
     {
       'method': 'insertItem(int index, {Duration duration})',
-      'desc': 'Inserts a single item at the given index. Triggers the '
+      'desc':
+          'Inserts a single item at the given index. Triggers the '
           'itemBuilder for the new item with an entry animation.',
     },
     {
       'method': 'insertAllItems(int index, int length, {Duration duration})',
-      'desc': 'Inserts multiple items starting at the given index. More '
+      'desc':
+          'Inserts multiple items starting at the given index. More '
           'efficient than calling insertItem multiple times.',
     },
     {
       'method': 'removeItem(int index, AnimatedRemovedItemBuilder, {Duration})',
-      'desc': 'Removes the item at the given index. The builder receives '
+      'desc':
+          'Removes the item at the given index. The builder receives '
           'an animation for the exit transition.',
     },
     {
       'method': 'removeAllItems(AnimatedRemovedItemBuilder, {Duration})',
-      'desc': 'Removes all items with the provided removal builder. '
+      'desc':
+          'Removes all items with the provided removal builder. '
           'Each item gets its own exit animation.',
     },
   ];
@@ -1180,32 +1199,38 @@ dynamic build(BuildContext context) {
   final summaryItems = <Map<String, dynamic>>[
     {
       'icon': Icons.grid_view,
-      'text': 'SliverAnimatedGrid is the sliver variant of AnimatedGrid — '
+      'text':
+          'SliverAnimatedGrid is the sliver variant of AnimatedGrid — '
           'use it inside CustomScrollView for animated grid sections.',
     },
     {
       'icon': Icons.animation,
-      'text': 'Each item gets an Animation<double> in its builder, enabling '
+      'text':
+          'Each item gets an Animation<double> in its builder, enabling '
           'FadeTransition, ScaleTransition, SlideTransition, or custom combos.',
     },
     {
       'icon': Icons.remove_circle_outline,
-      'text': 'Removal requires a separate builder — the removed item continues '
+      'text':
+          'Removal requires a separate builder — the removed item continues '
           'to display during the exit animation before being disposed.',
     },
     {
       'icon': Icons.vpn_key,
-      'text': 'Use GlobalKey<SliverAnimatedGridState> for insertItem(), '
+      'text':
+          'Use GlobalKey<SliverAnimatedGridState> for insertItem(), '
           'removeItem(), insertAllItems(), and removeAllItems().',
     },
     {
       'icon': Icons.dashboard,
-      'text': 'Works with any SliverGridDelegate — fixed cross-axis count '
+      'text':
+          'Works with any SliverGridDelegate — fixed cross-axis count '
           'or max cross-axis extent. Choose based on your layout needs.',
     },
     {
       'icon': Icons.sync,
-      'text': 'Always keep your data model synchronized with grid operations. '
+      'text':
+          'Always keep your data model synchronized with grid operations. '
           'Insert into the list first, then call insertItem() on the state.',
     },
   ];
@@ -1455,12 +1480,7 @@ Widget _buildSAGTreeNode(String label, int depth, Color color) {
   );
 }
 
-Widget _buildSAGRemovalStep(
-  int step,
-  String title,
-  String desc,
-  Color color,
-) {
+Widget _buildSAGRemovalStep(int step, String title, String desc, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10.0),
     child: Row(
@@ -1538,8 +1558,8 @@ Widget _buildSAGMiniGrid(
             color: isHighlight
                 ? highlightColor
                 : (labels[i].isEmpty
-                    ? Colors.transparent
-                    : Colors.teal.withValues(alpha: 0.15)),
+                      ? Colors.transparent
+                      : Colors.teal.withValues(alpha: 0.15)),
             borderRadius: BorderRadius.circular(3.0),
             border: labels[i].isNotEmpty
                 ? Border.all(
@@ -1565,11 +1585,7 @@ Widget _buildSAGMiniGrid(
   );
 }
 
-Widget _buildSAGMiniGridVisual(
-  int columns,
-  Color color,
-  String label,
-) {
+Widget _buildSAGMiniGridVisual(int columns, Color color, String label) {
   return Container(
     margin: const EdgeInsets.only(bottom: 6.0),
     padding: const EdgeInsets.all(8.0),
@@ -1788,11 +1804,7 @@ class _SAGLiveDemoState extends State<_SAGLiveDemo> {
 
   void _addItem() {
     final color = _colors[_nextId % _colors.length];
-    final item = _SAGItem(
-      id: _nextId,
-      label: 'Item $_nextId',
-      color: color,
-    );
+    final item = _SAGItem(id: _nextId, label: 'Item $_nextId', color: color);
     _nextId++;
     final insertIndex = _items.length;
     _items.add(item);

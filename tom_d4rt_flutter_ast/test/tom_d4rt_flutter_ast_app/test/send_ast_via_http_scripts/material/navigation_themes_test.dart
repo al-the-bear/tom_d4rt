@@ -57,7 +57,13 @@ const Color _sec8Surface = Color(0xFFDDF1F5);
 Widget _gap(double h) => SizedBox(height: h);
 Widget _wgap(double w) => SizedBox(width: w);
 
-Widget _label(String text, {Color color = _atelierInk, double size = 12.0, FontWeight weight = FontWeight.w600, double letter = 0.4}) {
+Widget _label(
+  String text, {
+  Color color = _atelierInk,
+  double size = 12.0,
+  FontWeight weight = FontWeight.w600,
+  double letter = 0.4,
+}) {
   return Text(
     text,
     style: TextStyle(
@@ -81,7 +87,12 @@ Widget _heading(String text, {Color color = _atelierInk, double size = 22.0}) {
   );
 }
 
-Widget _body(String text, {Color color = _atelierSubtle, double size = 13.0, double height = 1.45}) {
+Widget _body(
+  String text, {
+  Color color = _atelierSubtle,
+  double size = 13.0,
+  double height = 1.45,
+}) {
   return Text(
     text,
     style: TextStyle(
@@ -109,7 +120,13 @@ Widget _swatch(Color c, String name) {
           ),
         ),
         _gap(6.0),
-        _label(name, size: 10.5, weight: FontWeight.w700, letter: 0.6, color: _atelierSlate),
+        _label(
+          name,
+          size: 10.5,
+          weight: FontWeight.w700,
+          letter: 0.6,
+          color: _atelierSlate,
+        ),
       ],
     ),
   );
@@ -157,7 +174,10 @@ Widget _sectionBanner({
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.18),
             borderRadius: BorderRadius.circular(14.0),
-            border: Border.all(color: Colors.white.withOpacity(0.45), width: 1.2),
+            border: Border.all(
+              color: Colors.white.withOpacity(0.45),
+              width: 1.2,
+            ),
           ),
           alignment: Alignment.center,
           child: Text(
@@ -219,12 +239,11 @@ Widget _recipeCard({
               margin: const EdgeInsets.only(top: 6.0, right: 10.0),
               width: 6.0,
               height: 6.0,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
-            Expanded(child: _body(b, color: _atelierSlate, size: 12.5, height: 1.5)),
+            Expanded(
+              child: _body(b, color: _atelierSlate, size: 12.5, height: 1.5),
+            ),
           ],
         ),
       ),
@@ -251,7 +270,11 @@ Widget _recipeCard({
                 borderRadius: BorderRadius.circular(8.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.menu_book_rounded, size: 16.0, color: Colors.white),
+              child: const Icon(
+                Icons.menu_book_rounded,
+                size: 16.0,
+                color: Colors.white,
+              ),
             ),
             _wgap(10.0),
             _heading('Recipe — $title', size: 14.5, color: _atelierInk),
@@ -272,15 +295,30 @@ Widget _kvTable(String caption, List<List<String>> rows, Color accent) {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-          child: _label('Property', size: 11.5, weight: FontWeight.w800, color: _atelierInk),
+          child: _label(
+            'Property',
+            size: 11.5,
+            weight: FontWeight.w800,
+            color: _atelierInk,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-          child: _label('Value', size: 11.5, weight: FontWeight.w800, color: _atelierInk),
+          child: _label(
+            'Value',
+            size: 11.5,
+            weight: FontWeight.w800,
+            color: _atelierInk,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-          child: _label('Effect', size: 11.5, weight: FontWeight.w800, color: _atelierInk),
+          child: _label(
+            'Effect',
+            size: 11.5,
+            weight: FontWeight.w800,
+            color: _atelierInk,
+          ),
         ),
       ],
     ),
@@ -294,16 +332,42 @@ Widget _kvTable(String caption, List<List<String>> rows, Color accent) {
         ),
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
-            child: Text(r[0], style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: _atelierInk)),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 7.0,
+            ),
+            child: Text(
+              r[0],
+              style: const TextStyle(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w600,
+                color: _atelierInk,
+              ),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
-            child: Text(r[1], style: const TextStyle(fontSize: 11.5, color: _atelierSlate)),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 7.0,
+            ),
+            child: Text(
+              r[1],
+              style: const TextStyle(fontSize: 11.5, color: _atelierSlate),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 7.0),
-            child: Text(r[2], style: const TextStyle(fontSize: 11.5, color: _atelierSubtle, height: 1.35)),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 7.0,
+            ),
+            child: Text(
+              r[2],
+              style: const TextStyle(
+                fontSize: 11.5,
+                color: _atelierSubtle,
+                height: 1.35,
+              ),
+            ),
           ),
         ],
       ),
@@ -322,7 +386,13 @@ Widget _kvTable(String caption, List<List<String>> rows, Color accent) {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           color: _atelierSlate,
-          child: _label(caption, color: Colors.white, size: 12.0, weight: FontWeight.w700, letter: 0.6),
+          child: _label(
+            caption,
+            color: Colors.white,
+            size: 12.0,
+            weight: FontWeight.w700,
+            letter: 0.6,
+          ),
         ),
         Table(
           columnWidths: const <int, TableColumnWidth>{
@@ -398,10 +468,17 @@ Widget _hero() {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.18),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.2),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.4),
+                  width: 1.2,
+                ),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.dashboard_customize_rounded, size: 22.0, color: Colors.white),
+              child: const Icon(
+                Icons.dashboard_customize_rounded,
+                size: 22.0,
+                color: Colors.white,
+              ),
             ),
             _wgap(14.0),
             const Text(
@@ -516,11 +593,32 @@ Widget _overview() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: _overviewCard('Resolve', 'Leaf reads Theme.of(context).navigationBarTheme.', _sec1Primary, Icons.search_rounded)),
+            Expanded(
+              child: _overviewCard(
+                'Resolve',
+                'Leaf reads Theme.of(context).navigationBarTheme.',
+                _sec1Primary,
+                Icons.search_rounded,
+              ),
+            ),
             _wgap(12.0),
-            Expanded(child: _overviewCard('Compose', 'Wrap subtrees with *Theme(data: …) widgets.', _sec3Primary, Icons.layers_rounded)),
+            Expanded(
+              child: _overviewCard(
+                'Compose',
+                'Wrap subtrees with *Theme(data: …) widgets.',
+                _sec3Primary,
+                Icons.layers_rounded,
+              ),
+            ),
             _wgap(12.0),
-            Expanded(child: _overviewCard('Override', 'Use copyWith to derive per-section variants.', _sec5Primary, Icons.tune_rounded)),
+            Expanded(
+              child: _overviewCard(
+                'Override',
+                'Use copyWith to derive per-section variants.',
+                _sec5Primary,
+                Icons.tune_rounded,
+              ),
+            ),
           ],
         ),
       ],
@@ -543,7 +641,13 @@ Widget _overviewCard(String title, String body, Color color, IconData icon) {
           children: <Widget>[
             Icon(icon, size: 18.0, color: color),
             _wgap(8.0),
-            _label(title, color: color, size: 12.5, weight: FontWeight.w800, letter: 0.4),
+            _label(
+              title,
+              color: color,
+              size: 12.5,
+              weight: FontWeight.w800,
+              letter: 0.4,
+            ),
           ],
         ),
         _gap(6.0),
@@ -569,7 +673,11 @@ Widget _section1(BuildContext context) {
       borderRadius: BorderRadius.circular(18.0),
     ),
     labelTextStyle: WidgetStateProperty.all(
-      const TextStyle(fontSize: 11.5, color: _sec1Primary, fontWeight: FontWeight.w700),
+      const TextStyle(
+        fontSize: 11.5,
+        color: _sec1Primary,
+        fontWeight: FontWeight.w700,
+      ),
     ),
     iconTheme: WidgetStateProperty.all(
       const IconThemeData(size: 22.0, color: _sec1Primary),
@@ -616,7 +724,8 @@ Widget _section1(BuildContext context) {
   return _section(
     number: 1,
     title: 'NavigationBarTheme — Bottom Pill Indicator',
-    subtitle: 'Indigo M3 navigation bar with a soft pill indicator and conditional labels.',
+    subtitle:
+        'Indigo M3 navigation bar with a soft pill indicator and conditional labels.',
     primary: _sec1Primary,
     accent: _sec1Accent,
     surface: _sec1Surface,
@@ -645,18 +754,38 @@ Widget _section1(BuildContext context) {
           'Wrapping it in a child-scoped Theme keeps the rest of the app on its '
           'default palette.',
         ),
-        _kvTable(
-          'NavigationBarThemeData — resolved tokens',
-          <List<String>>[
-            <String>['backgroundColor', '0x${navBarTheme.backgroundColor!.value.toRadixString(16)}', 'Surface tone behind destinations'],
-            <String>['elevation', '${navBarTheme.elevation}', 'Z-depth for surface tint blending'],
-            <String>['height', '${navBarTheme.height}', 'Overall bar height in logical pixels'],
-            <String>['indicatorColor', 'primary @ 22%', 'Pill fill behind selected destination'],
-            <String>['labelBehavior', 'onlyShowSelected', 'Hide labels except for the focused tab'],
-            <String>['derived.elevation', '${derived.elevation}', 'copyWith preserves untouched tokens'],
+        _kvTable('NavigationBarThemeData — resolved tokens', <List<String>>[
+          <String>[
+            'backgroundColor',
+            '0x${navBarTheme.backgroundColor!.value.toRadixString(16)}',
+            'Surface tone behind destinations',
           ],
-          _sec1Primary,
-        ),
+          <String>[
+            'elevation',
+            '${navBarTheme.elevation}',
+            'Z-depth for surface tint blending',
+          ],
+          <String>[
+            'height',
+            '${navBarTheme.height}',
+            'Overall bar height in logical pixels',
+          ],
+          <String>[
+            'indicatorColor',
+            'primary @ 22%',
+            'Pill fill behind selected destination',
+          ],
+          <String>[
+            'labelBehavior',
+            'onlyShowSelected',
+            'Hide labels except for the focused tab',
+          ],
+          <String>[
+            'derived.elevation',
+            '${derived.elevation}',
+            'copyWith preserves untouched tokens',
+          ],
+        ], _sec1Primary),
         _recipeCard(
           title: 'Indigo Nav Bar',
           accent: _sec1Primary,
@@ -750,8 +879,11 @@ Widget _section2(BuildContext context) {
                 children: <Widget>[
                   _heading('Saved (12)', size: 16.0, color: _sec2Primary),
                   _gap(10.0),
-                  _body('A focused workspace pane that adopts the rail palette without dragging '
-                      'global theming into other features.', size: 12.5),
+                  _body(
+                    'A focused workspace pane that adopts the rail palette without dragging '
+                    'global theming into other features.',
+                    size: 12.5,
+                  ),
                 ],
               ),
             ),
@@ -764,7 +896,8 @@ Widget _section2(BuildContext context) {
   return _section(
     number: 2,
     title: 'NavigationRailTheme — Rose Side Pillar',
-    subtitle: 'Vertical rail with always-visible labels and a soft rose indicator pill.',
+    subtitle:
+        'Vertical rail with always-visible labels and a soft rose indicator pill.',
     primary: _sec2Primary,
     accent: _sec2Accent,
     surface: _sec2Surface,
@@ -793,18 +926,34 @@ Widget _section2(BuildContext context) {
           'so it pairs well with split-pane layouts where the rail must feel distinct '
           'from the body.',
         ),
-        _kvTable(
-          'NavigationRailThemeData — resolved tokens',
-          <List<String>>[
-            <String>['groupAlignment', '${railTheme.groupAlignment}', 'Vertical anchor for destinations (-1=top, 1=bottom)'],
-            <String>['labelType', railTheme.labelType.toString(), 'Visibility policy for destination labels'],
-            <String>['useIndicator', '${railTheme.useIndicator}', 'Toggle M3 selection pill'],
-            <String>['minWidth', '${railTheme.minWidth}', 'Collapsed rail width'],
-            <String>['minExtendedWidth', '${railTheme.minExtendedWidth}', 'Width when extended:true is set'],
-            <String>['dense.labelType', railDense.labelType.toString(), 'copyWith variant for narrow viewports'],
+        _kvTable('NavigationRailThemeData — resolved tokens', <List<String>>[
+          <String>[
+            'groupAlignment',
+            '${railTheme.groupAlignment}',
+            'Vertical anchor for destinations (-1=top, 1=bottom)',
           ],
-          _sec2Primary,
-        ),
+          <String>[
+            'labelType',
+            railTheme.labelType.toString(),
+            'Visibility policy for destination labels',
+          ],
+          <String>[
+            'useIndicator',
+            '${railTheme.useIndicator}',
+            'Toggle M3 selection pill',
+          ],
+          <String>['minWidth', '${railTheme.minWidth}', 'Collapsed rail width'],
+          <String>[
+            'minExtendedWidth',
+            '${railTheme.minExtendedWidth}',
+            'Width when extended:true is set',
+          ],
+          <String>[
+            'dense.labelType',
+            railDense.labelType.toString(),
+            'copyWith variant for narrow viewports',
+          ],
+        ], _sec2Primary),
         _recipeCard(
           title: 'Rose Side Rail',
           accent: _sec2Primary,
@@ -848,7 +997,9 @@ Widget _section3(BuildContext context) {
       height: 340.0,
       decoration: BoxDecoration(
         color: drawerTheme.backgroundColor,
-        borderRadius: const BorderRadius.horizontal(right: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.horizontal(
+          right: Radius.circular(20.0),
+        ),
         border: Border.all(color: _atelierLine, width: 1.0),
         boxShadow: <BoxShadow>[
           BoxShadow(
@@ -872,7 +1023,11 @@ Widget _section3(BuildContext context) {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 alignment: Alignment.center,
-                child: const Icon(Icons.eco_rounded, color: Colors.white, size: 20.0),
+                child: const Icon(
+                  Icons.eco_rounded,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
               ),
               _wgap(10.0),
               Column(
@@ -896,7 +1051,11 @@ Widget _section3(BuildContext context) {
               color: _sec3Surface,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: _body('Drawer width ${drawerTheme.width}, elevation ${drawerTheme.elevation}.', size: 11.5, color: _sec3Primary),
+            child: _body(
+              'Drawer width ${drawerTheme.width}, elevation ${drawerTheme.elevation}.',
+              size: 11.5,
+              color: _sec3Primary,
+            ),
           ),
         ],
       ),
@@ -906,7 +1065,8 @@ Widget _section3(BuildContext context) {
   return _section(
     number: 3,
     title: 'NavigationDrawerTheme — Teal Side Sheet',
-    subtitle: 'Modal drawer panel themed via DrawerThemeData, with hand-built rows for static preview.',
+    subtitle:
+        'Modal drawer panel themed via DrawerThemeData, with hand-built rows for static preview.',
     primary: _sec3Primary,
     accent: _sec3Accent,
     surface: _sec3Surface,
@@ -945,29 +1105,58 @@ Widget _section3(BuildContext context) {
                       size: 12.5,
                     ),
                     _gap(12.0),
-                    _label('width: ${drawerTheme.width}  •  elevation: ${drawerTheme.elevation}', color: _sec3Primary),
+                    _label(
+                      'width: ${drawerTheme.width}  •  elevation: ${drawerTheme.elevation}',
+                      color: _sec3Primary,
+                    ),
                     _gap(6.0),
-                    _label('shape: RoundedRectangleBorder(right: 20)', color: _sec3Primary),
+                    _label(
+                      'shape: RoundedRectangleBorder(right: 20)',
+                      color: _sec3Primary,
+                    ),
                     _gap(6.0),
-                    _label('copyWith.width: ${drawerWide.width}', color: _sec3Primary),
+                    _label(
+                      'copyWith.width: ${drawerWide.width}',
+                      color: _sec3Primary,
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
-        _kvTable(
-          'DrawerThemeData — resolved tokens',
-          <List<String>>[
-            <String>['backgroundColor', 'white', 'Surface fill of the drawer panel'],
-            <String>['elevation', '${drawerTheme.elevation}', 'Material elevation for shadow + tint'],
-            <String>['shadowColor', 'ink @ 18%', 'Cast shadow against page surface'],
-            <String>['surfaceTintColor', 'teal mist', 'M3 tonal overlay on elevation'],
-            <String>['width', '${drawerTheme.width}', 'Horizontal extent in logical pixels'],
-            <String>['wide.width', '${drawerWide.width}', 'Override for desktop breakpoint'],
+        _kvTable('DrawerThemeData — resolved tokens', <List<String>>[
+          <String>[
+            'backgroundColor',
+            'white',
+            'Surface fill of the drawer panel',
           ],
-          _sec3Primary,
-        ),
+          <String>[
+            'elevation',
+            '${drawerTheme.elevation}',
+            'Material elevation for shadow + tint',
+          ],
+          <String>[
+            'shadowColor',
+            'ink @ 18%',
+            'Cast shadow against page surface',
+          ],
+          <String>[
+            'surfaceTintColor',
+            'teal mist',
+            'M3 tonal overlay on elevation',
+          ],
+          <String>[
+            'width',
+            '${drawerTheme.width}',
+            'Horizontal extent in logical pixels',
+          ],
+          <String>[
+            'wide.width',
+            '${drawerWide.width}',
+            'Override for desktop breakpoint',
+          ],
+        ], _sec3Primary),
         _recipeCard(
           title: 'Teal Side Sheet',
           accent: _sec3Primary,
@@ -1021,8 +1210,16 @@ Widget _section4(BuildContext context) {
     unselectedItemColor: _atelierSubtle,
     selectedIconTheme: const IconThemeData(size: 24.0, color: _sec4Primary),
     unselectedIconTheme: const IconThemeData(size: 22.0, color: _atelierSubtle),
-    selectedLabelStyle: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w800, color: _sec4Primary),
-    unselectedLabelStyle: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: _atelierSubtle),
+    selectedLabelStyle: const TextStyle(
+      fontSize: 12.0,
+      fontWeight: FontWeight.w800,
+      color: _sec4Primary,
+    ),
+    unselectedLabelStyle: const TextStyle(
+      fontSize: 11.5,
+      fontWeight: FontWeight.w500,
+      color: _atelierSubtle,
+    ),
     showSelectedLabels: true,
     showUnselectedLabels: true,
     landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
@@ -1040,11 +1237,31 @@ Widget _section4(BuildContext context) {
       currentIndex: 2,
       onTap: (int _) {},
       items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home_rounded), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.explore_outlined), activeIcon: Icon(Icons.explore_rounded), label: 'Explore'),
-        BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), activeIcon: Icon(Icons.add_circle_rounded), label: 'Create'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications_none_rounded), activeIcon: Icon(Icons.notifications_rounded), label: 'Alerts'),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline_rounded), activeIcon: Icon(Icons.person_rounded), label: 'Profile'),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home_outlined),
+          activeIcon: Icon(Icons.home_rounded),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.explore_outlined),
+          activeIcon: Icon(Icons.explore_rounded),
+          label: 'Explore',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.add_circle_outline),
+          activeIcon: Icon(Icons.add_circle_rounded),
+          label: 'Create',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.notifications_none_rounded),
+          activeIcon: Icon(Icons.notifications_rounded),
+          label: 'Alerts',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person_outline_rounded),
+          activeIcon: Icon(Icons.person_rounded),
+          label: 'Profile',
+        ),
       ],
     ),
   );
@@ -1052,7 +1269,8 @@ Widget _section4(BuildContext context) {
   return _section(
     number: 4,
     title: 'BottomNavigationBarTheme — Amber Fixed Bar',
-    subtitle: 'Classic M2 bottom bar with fixed type, labels and selected/unselected token pairs.',
+    subtitle:
+        'Classic M2 bottom bar with fixed type, labels and selected/unselected token pairs.',
     primary: _sec4Primary,
     accent: _sec4Accent,
     surface: _sec4Surface,
@@ -1083,13 +1301,41 @@ Widget _section4(BuildContext context) {
         _kvTable(
           'BottomNavigationBarThemeData — resolved tokens',
           <List<String>>[
-            <String>['type', bottomTheme.type.toString(), 'fixed vs shifting affects layout'],
-            <String>['selectedItemColor', 'amber primary', 'Foreground for selected icon/label'],
-            <String>['unselectedItemColor', 'subtle slate', 'Foreground for inactive entries'],
-            <String>['showSelectedLabels', '${bottomTheme.showSelectedLabels}', 'Toggle label rendering for selected'],
-            <String>['showUnselectedLabels', '${bottomTheme.showUnselectedLabels}', 'Toggle label rendering for unselected'],
-            <String>['landscapeLayout', bottomTheme.landscapeLayout.toString(), 'Centered vs linear layout in landscape'],
-            <String>['shifting.type', shifting.type.toString(), 'Derived theme for shifting variant'],
+            <String>[
+              'type',
+              bottomTheme.type.toString(),
+              'fixed vs shifting affects layout',
+            ],
+            <String>[
+              'selectedItemColor',
+              'amber primary',
+              'Foreground for selected icon/label',
+            ],
+            <String>[
+              'unselectedItemColor',
+              'subtle slate',
+              'Foreground for inactive entries',
+            ],
+            <String>[
+              'showSelectedLabels',
+              '${bottomTheme.showSelectedLabels}',
+              'Toggle label rendering for selected',
+            ],
+            <String>[
+              'showUnselectedLabels',
+              '${bottomTheme.showUnselectedLabels}',
+              'Toggle label rendering for unselected',
+            ],
+            <String>[
+              'landscapeLayout',
+              bottomTheme.landscapeLayout.toString(),
+              'Centered vs linear layout in landscape',
+            ],
+            <String>[
+              'shifting.type',
+              shifting.type.toString(),
+              'Derived theme for shifting variant',
+            ],
           ],
           _sec4Primary,
         ),
@@ -1118,8 +1364,15 @@ Widget _section5(BuildContext context) {
     indicatorSize: TabBarIndicatorSize.label,
     labelColor: _sec5Primary,
     unselectedLabelColor: _atelierSubtle,
-    labelStyle: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w800, letterSpacing: 0.3),
-    unselectedLabelStyle: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500),
+    labelStyle: const TextStyle(
+      fontSize: 13.0,
+      fontWeight: FontWeight.w800,
+      letterSpacing: 0.3,
+    ),
+    unselectedLabelStyle: const TextStyle(
+      fontSize: 12.5,
+      fontWeight: FontWeight.w500,
+    ),
     overlayColor: WidgetStateProperty.all(_sec5Primary.withOpacity(0.08)),
     splashFactory: NoSplash.splashFactory,
     dividerColor: _atelierLine,
@@ -1157,10 +1410,42 @@ Widget _section5(BuildContext context) {
                 alignment: Alignment.topLeft,
                 child: const TabBarView(
                   children: <Widget>[
-                    Center(child: Text('Overview pane', style: TextStyle(color: _sec5Primary, fontWeight: FontWeight.w700))),
-                    Center(child: Text('Surfaces pane', style: TextStyle(color: _sec5Primary, fontWeight: FontWeight.w700))),
-                    Center(child: Text('Motion pane', style: TextStyle(color: _sec5Primary, fontWeight: FontWeight.w700))),
-                    Center(child: Text('Tokens pane', style: TextStyle(color: _sec5Primary, fontWeight: FontWeight.w700))),
+                    Center(
+                      child: Text(
+                        'Overview pane',
+                        style: TextStyle(
+                          color: _sec5Primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Surfaces pane',
+                        style: TextStyle(
+                          color: _sec5Primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Motion pane',
+                        style: TextStyle(
+                          color: _sec5Primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        'Tokens pane',
+                        style: TextStyle(
+                          color: _sec5Primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1174,7 +1459,8 @@ Widget _section5(BuildContext context) {
   return _section(
     number: 5,
     title: 'TabBarTheme — Cobalt Label Underline',
-    subtitle: 'Underline indicator sized to the label, with deferred splash for cleaner motion snapshots.',
+    subtitle:
+        'Underline indicator sized to the label, with deferred splash for cleaner motion snapshots.',
     primary: _sec5Primary,
     accent: _sec5Accent,
     surface: _sec5Surface,
@@ -1202,18 +1488,34 @@ Widget _section5(BuildContext context) {
           'TabBarTheme centralises indicator, label and overlay styling so that nested '
           'DefaultTabController surfaces stay consistent across feature panels.',
         ),
-        _kvTable(
-          'TabBarTheme — resolved tokens',
-          <List<String>>[
-            <String>['indicatorColor', 'cobalt primary', 'Underline colour beneath active label'],
-            <String>['indicatorSize', tabTheme.indicatorSize.toString(), 'label vs tab width'],
-            <String>['labelColor', 'cobalt primary', 'Active label foreground'],
-            <String>['unselectedLabelColor', 'subtle', 'Inactive label foreground'],
-            <String>['dividerColor', 'atelier line', 'Bottom divider beneath tabs'],
-            <String>['filled.indicatorSize', tabFilled.indicatorSize.toString(), 'Variant for chip-style tabs'],
+        _kvTable('TabBarTheme — resolved tokens', <List<String>>[
+          <String>[
+            'indicatorColor',
+            'cobalt primary',
+            'Underline colour beneath active label',
           ],
-          _sec5Primary,
-        ),
+          <String>[
+            'indicatorSize',
+            tabTheme.indicatorSize.toString(),
+            'label vs tab width',
+          ],
+          <String>['labelColor', 'cobalt primary', 'Active label foreground'],
+          <String>[
+            'unselectedLabelColor',
+            'subtle',
+            'Inactive label foreground',
+          ],
+          <String>[
+            'dividerColor',
+            'atelier line',
+            'Bottom divider beneath tabs',
+          ],
+          <String>[
+            'filled.indicatorSize',
+            tabFilled.indicatorSize.toString(),
+            'Variant for chip-style tabs',
+          ],
+        ], _sec5Primary),
         _recipeCard(
           title: 'Cobalt TabBar',
           accent: _sec5Primary,
@@ -1258,7 +1560,11 @@ Widget _section6(BuildContext context) {
     backgroundColor: Colors.white,
     foregroundColor: _sec6Primary,
     iconTheme: const IconThemeData(color: _sec6Primary, size: 22.0),
-    titleTextStyle: const TextStyle(color: _sec6Primary, fontSize: 18.0, fontWeight: FontWeight.w800),
+    titleTextStyle: const TextStyle(
+      color: _sec6Primary,
+      fontSize: 18.0,
+      fontWeight: FontWeight.w800,
+    ),
   );
 
   final Widget bar1 = Theme(
@@ -1290,7 +1596,8 @@ Widget _section6(BuildContext context) {
   return _section(
     number: 6,
     title: 'AppBarTheme — Violet Headers',
-    subtitle: 'Solid violet header paired with a derived light-mode header via copyWith.',
+    subtitle:
+        'Solid violet header paired with a derived light-mode header via copyWith.',
     primary: _sec6Primary,
     accent: _sec6Accent,
     surface: _sec6Surface,
@@ -1310,30 +1617,48 @@ Widget _section6(BuildContext context) {
             border: Border.all(color: _atelierLine, width: 1.0),
           ),
           clipBehavior: Clip.antiAlias,
-          child: Column(children: <Widget>[
-            SizedBox(height: 64.0, child: bar1),
-            const SizedBox(height: 12.0),
-            SizedBox(height: 64.0, child: bar2),
-          ]),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 64.0, child: bar1),
+              const SizedBox(height: 12.0),
+              SizedBox(height: 64.0, child: bar2),
+            ],
+          ),
         ),
         _gap(10.0),
         _body(
           'AppBarTheme controls colour, elevation, title typography and icon themes in one '
           'place. copyWith makes it trivial to derive a light mode bar from a dark one.',
         ),
-        _kvTable(
-          'AppBarTheme — resolved tokens',
-          <List<String>>[
-            <String>['backgroundColor', 'violet primary', 'Solid bar surface'],
-            <String>['foregroundColor', 'white', 'Title + icon foreground'],
-            <String>['elevation', '${appBarTheme.elevation}', 'Resting elevation when not scrolled'],
-            <String>['scrolledUnderElevation', '${appBarTheme.scrolledUnderElevation}', 'Elevation once content scrolls underneath'],
-            <String>['centerTitle', '${appBarTheme.centerTitle}', 'Title alignment'],
-            <String>['toolbarHeight', '${appBarTheme.toolbarHeight}', 'Vertical extent in logical pixels'],
-            <String>['light.background', 'white', 'Derived light variant via copyWith'],
+        _kvTable('AppBarTheme — resolved tokens', <List<String>>[
+          <String>['backgroundColor', 'violet primary', 'Solid bar surface'],
+          <String>['foregroundColor', 'white', 'Title + icon foreground'],
+          <String>[
+            'elevation',
+            '${appBarTheme.elevation}',
+            'Resting elevation when not scrolled',
           ],
-          _sec6Primary,
-        ),
+          <String>[
+            'scrolledUnderElevation',
+            '${appBarTheme.scrolledUnderElevation}',
+            'Elevation once content scrolls underneath',
+          ],
+          <String>[
+            'centerTitle',
+            '${appBarTheme.centerTitle}',
+            'Title alignment',
+          ],
+          <String>[
+            'toolbarHeight',
+            '${appBarTheme.toolbarHeight}',
+            'Vertical extent in logical pixels',
+          ],
+          <String>[
+            'light.background',
+            'white',
+            'Derived light variant via copyWith',
+          ],
+        ], _sec6Primary),
         _recipeCard(
           title: 'Violet Headers',
           accent: _sec6Primary,
@@ -1358,9 +1683,15 @@ Widget _section7(BuildContext context) {
     backgroundColor: _atelierPaper,
     indicatorColor: _sec7Primary.withOpacity(0.16),
     labelTextStyle: WidgetStateProperty.all(
-      const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: _sec7Primary),
+      const TextStyle(
+        fontSize: 11.5,
+        fontWeight: FontWeight.w700,
+        color: _sec7Primary,
+      ),
     ),
-    iconTheme: WidgetStateProperty.all(const IconThemeData(color: _sec7Primary, size: 22.0)),
+    iconTheme: WidgetStateProperty.all(
+      const IconThemeData(color: _sec7Primary, size: 22.0),
+    ),
     height: 70.0,
   );
 
@@ -1368,9 +1699,15 @@ Widget _section7(BuildContext context) {
     backgroundColor: _atelierInk,
     indicatorColor: Colors.white.withOpacity(0.18),
     labelTextStyle: WidgetStateProperty.all(
-      const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: Colors.white),
+      const TextStyle(
+        fontSize: 11.5,
+        fontWeight: FontWeight.w700,
+        color: Colors.white,
+      ),
     ),
-    iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white, size: 22.0)),
+    iconTheme: WidgetStateProperty.all(
+      const IconThemeData(color: Colors.white, size: 22.0),
+    ),
     height: 70.0,
   );
 
@@ -1382,8 +1719,14 @@ Widget _section7(BuildContext context) {
         onDestinationSelected: (int _) {},
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.bolt_rounded), label: 'Pulse'),
-          NavigationDestination(icon: Icon(Icons.show_chart_rounded), label: 'Charts'),
-          NavigationDestination(icon: Icon(Icons.settings_rounded), label: 'Setup'),
+          NavigationDestination(
+            icon: Icon(Icons.show_chart_rounded),
+            label: 'Charts',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_rounded),
+            label: 'Setup',
+          ),
         ],
       ),
     );
@@ -1392,7 +1735,8 @@ Widget _section7(BuildContext context) {
   return _section(
     number: 7,
     title: 'Light vs Dark Palette Variants',
-    subtitle: 'Same NavigationBar surface adapted to graphite light and ink dark palettes.',
+    subtitle:
+        'Same NavigationBar surface adapted to graphite light and ink dark palettes.',
     primary: _sec7Primary,
     accent: _sec7Accent,
     surface: _sec7Surface,
@@ -1416,15 +1760,25 @@ Widget _section7(BuildContext context) {
                   border: Border.all(color: _atelierLine, width: 1.0),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Column(children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
-                    width: double.infinity,
-                    color: _atelierMist,
-                    child: _label('LIGHT MODE', color: _sec7Primary, size: 11.0, letter: 1.4),
-                  ),
-                  SizedBox(height: 76.0, child: barWith(light)),
-                ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14.0,
+                        vertical: 10.0,
+                      ),
+                      width: double.infinity,
+                      color: _atelierMist,
+                      child: _label(
+                        'LIGHT MODE',
+                        color: _sec7Primary,
+                        size: 11.0,
+                        letter: 1.4,
+                      ),
+                    ),
+                    SizedBox(height: 76.0, child: barWith(light)),
+                  ],
+                ),
               ),
             ),
             _wgap(14.0),
@@ -1436,31 +1790,61 @@ Widget _section7(BuildContext context) {
                   border: Border.all(color: _atelierLine, width: 1.0),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Column(children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
-                    width: double.infinity,
-                    color: _atelierSlate,
-                    child: _label('DARK MODE', color: Colors.white, size: 11.0, letter: 1.4),
-                  ),
-                  SizedBox(height: 76.0, child: barWith(dark)),
-                ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14.0,
+                        vertical: 10.0,
+                      ),
+                      width: double.infinity,
+                      color: _atelierSlate,
+                      child: _label(
+                        'DARK MODE',
+                        color: Colors.white,
+                        size: 11.0,
+                        letter: 1.4,
+                      ),
+                    ),
+                    SizedBox(height: 76.0, child: barWith(dark)),
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        _kvTable(
-          'Light vs Dark — paired tokens',
-          <List<String>>[
-            <String>['backgroundColor', 'paper / ink', 'Surface fill across mode flip'],
-            <String>['indicatorColor', 'primary @ 16% / white @ 18%', 'Pill stays subtle in both modes'],
-            <String>['label colour', 'graphite / white', 'Maintains AA contrast against surface'],
-            <String>['icon colour', 'graphite / white', 'Foreground for icons follows label'],
-            <String>['height', '${light.height} / ${dark.height}', 'Geometry is mode-independent'],
-            <String>['copyWith strategy', 'derive dark from light', 'Avoid duplicated property bags'],
+        _kvTable('Light vs Dark — paired tokens', <List<String>>[
+          <String>[
+            'backgroundColor',
+            'paper / ink',
+            'Surface fill across mode flip',
           ],
-          _sec7Primary,
-        ),
+          <String>[
+            'indicatorColor',
+            'primary @ 16% / white @ 18%',
+            'Pill stays subtle in both modes',
+          ],
+          <String>[
+            'label colour',
+            'graphite / white',
+            'Maintains AA contrast against surface',
+          ],
+          <String>[
+            'icon colour',
+            'graphite / white',
+            'Foreground for icons follows label',
+          ],
+          <String>[
+            'height',
+            '${light.height} / ${dark.height}',
+            'Geometry is mode-independent',
+          ],
+          <String>[
+            'copyWith strategy',
+            'derive dark from light',
+            'Avoid duplicated property bags',
+          ],
+        ], _sec7Primary),
         _recipeCard(
           title: 'Mode-aware Nav',
           accent: _sec7Primary,
@@ -1485,11 +1869,15 @@ Widget _section8(BuildContext context) {
     return NavigationBarThemeData(
       backgroundColor: surface,
       indicatorColor: primary.withOpacity(0.22),
-      indicatorShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+      indicatorShape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
       labelTextStyle: WidgetStateProperty.all(
         TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: primary),
       ),
-      iconTheme: WidgetStateProperty.all(IconThemeData(color: primary, size: 22.0)),
+      iconTheme: WidgetStateProperty.all(
+        IconThemeData(color: primary, size: 22.0),
+      ),
       height: 70.0,
     );
   }
@@ -1507,11 +1895,19 @@ Widget _section8(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 9.0,
+            ),
             color: primary,
             child: Text(
               name,
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 12.0, letterSpacing: 0.4),
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.0,
+                letterSpacing: 0.4,
+              ),
             ),
           ),
           SizedBox(
@@ -1522,9 +1918,18 @@ Widget _section8(BuildContext context) {
                 selectedIndex: 1,
                 onDestinationSelected: (int _) {},
                 destinations: const <Widget>[
-                  NavigationDestination(icon: Icon(Icons.home_rounded), label: 'A'),
-                  NavigationDestination(icon: Icon(Icons.star_rounded), label: 'B'),
-                  NavigationDestination(icon: Icon(Icons.flag_rounded), label: 'C'),
+                  NavigationDestination(
+                    icon: Icon(Icons.home_rounded),
+                    label: 'A',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.star_rounded),
+                    label: 'B',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.flag_rounded),
+                    label: 'C',
+                  ),
                 ],
               ),
             ),
@@ -1537,7 +1942,8 @@ Widget _section8(BuildContext context) {
   return _section(
     number: 8,
     title: 'Comparison Grid — Same Nav, Four Themes',
-    subtitle: 'Identical NavigationBar geometry, four palettes layered side by side.',
+    subtitle:
+        'Identical NavigationBar geometry, four palettes layered side by side.',
     primary: _sec8Primary,
     accent: _sec8Accent,
     surface: _sec8Surface,
@@ -1566,18 +1972,34 @@ Widget _section8(BuildContext context) {
             Expanded(child: tile('Amber', _sec4Primary, _sec4Surface)),
           ],
         ),
-        _kvTable(
-          'Comparison axes',
-          <List<String>>[
-            <String>['Geometry', 'identical', 'Same height, indicator radius, destination count'],
-            <String>['Surface', 'sec*Surface', 'Pastel fill scoped per palette'],
-            <String>['Primary', 'sec*Primary', 'Drives indicator opacity + foreground'],
-            <String>['Label style', 'WidgetStateProperty.all', 'Single style across all tabs for snapshot stability'],
-            <String>['Icon size', '22.0', 'Held constant to highlight palette deltas'],
-            <String>['Indicator shape', 'RR(16)', 'Stable pill radius across variants'],
+        _kvTable('Comparison axes', <List<String>>[
+          <String>[
+            'Geometry',
+            'identical',
+            'Same height, indicator radius, destination count',
           ],
-          _sec8Primary,
-        ),
+          <String>['Surface', 'sec*Surface', 'Pastel fill scoped per palette'],
+          <String>[
+            'Primary',
+            'sec*Primary',
+            'Drives indicator opacity + foreground',
+          ],
+          <String>[
+            'Label style',
+            'WidgetStateProperty.all',
+            'Single style across all tabs for snapshot stability',
+          ],
+          <String>[
+            'Icon size',
+            '22.0',
+            'Held constant to highlight palette deltas',
+          ],
+          <String>[
+            'Indicator shape',
+            'RR(16)',
+            'Stable pill radius across variants',
+          ],
+        ], _sec8Primary),
         _recipeCard(
           title: 'Palette Swap Workflow',
           accent: _sec8Primary,
@@ -1599,14 +2021,38 @@ Widget _section8(BuildContext context) {
 
 Widget _glossary() {
   final List<List<String>> entries = <List<String>>[
-    <String>['NavigationBarTheme', 'Inherited M3 bottom bar styling — pill indicator, labels, icons.'],
-    <String>['NavigationRailTheme', 'Inherited vertical rail styling — selected/unselected pairs, extended width.'],
-    <String>['NavigationDrawerTheme', 'Inherited modal side sheet styling — backgroundColor, width, shape.'],
-    <String>['BottomNavigationBarTheme', 'Legacy M2 bottom bar styling — fixed vs shifting, label visibility.'],
-    <String>['TabBarTheme', 'TabBar styling — indicator, label colour, overlay, divider.'],
-    <String>['AppBarTheme', 'Top app bar styling — colour, title typography, elevation under scroll.'],
-    <String>['WidgetStateProperty', 'Resolves a value per WidgetState set (selected, hovered, …).'],
-    <String>['Theme.copyWith', 'Derive a variant theme from a base by overriding selected slots.'],
+    <String>[
+      'NavigationBarTheme',
+      'Inherited M3 bottom bar styling — pill indicator, labels, icons.',
+    ],
+    <String>[
+      'NavigationRailTheme',
+      'Inherited vertical rail styling — selected/unselected pairs, extended width.',
+    ],
+    <String>[
+      'NavigationDrawerTheme',
+      'Inherited modal side sheet styling — backgroundColor, width, shape.',
+    ],
+    <String>[
+      'BottomNavigationBarTheme',
+      'Legacy M2 bottom bar styling — fixed vs shifting, label visibility.',
+    ],
+    <String>[
+      'TabBarTheme',
+      'TabBar styling — indicator, label colour, overlay, divider.',
+    ],
+    <String>[
+      'AppBarTheme',
+      'Top app bar styling — colour, title typography, elevation under scroll.',
+    ],
+    <String>[
+      'WidgetStateProperty',
+      'Resolves a value per WidgetState set (selected, hovered, …).',
+    ],
+    <String>[
+      'Theme.copyWith',
+      'Derive a variant theme from a base by overriding selected slots.',
+    ],
   ];
   final List<Widget> rows = <Widget>[];
   for (final List<String> e in entries) {
@@ -1618,7 +2064,12 @@ Widget _glossary() {
           children: <Widget>[
             SizedBox(
               width: 200.0,
-              child: _label(e[0], size: 12.0, color: _atelierInk, weight: FontWeight.w800),
+              child: _label(
+                e[0],
+                size: 12.0,
+                color: _atelierInk,
+                weight: FontWeight.w800,
+              ),
             ),
             Expanded(child: _body(e[1], size: 12.0)),
           ],
@@ -1639,7 +2090,10 @@ Widget _glossary() {
       children: <Widget>[
         _heading('Glossary', size: 18.0),
         _gap(6.0),
-        _body('Quick reference for the navigation theming family used across the atelier.', size: 12.5),
+        _body(
+          'Quick reference for the navigation theming family used across the atelier.',
+          size: 12.5,
+        ),
         _gap(10.0),
         ...rows,
       ],
@@ -1670,22 +2124,39 @@ Widget _epilogue() {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.16),
                 borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(color: Colors.white.withOpacity(0.4), width: 1.0),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.4),
+                  width: 1.0,
+                ),
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20.0),
+              child: const Icon(
+                Icons.check_circle_rounded,
+                color: Colors.white,
+                size: 20.0,
+              ),
             ),
             _wgap(12.0),
             const Text(
               'ATELIER COMPLETE',
-              style: TextStyle(color: Colors.white, fontSize: 11.5, fontWeight: FontWeight.w800, letterSpacing: 2.4),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 11.5,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 2.4,
+              ),
             ),
           ],
         ),
         _gap(14.0),
         const Text(
           'Eight palettes, six theming surfaces, one consistent recipe.',
-          style: TextStyle(color: Colors.white, fontSize: 22.0, fontWeight: FontWeight.w900, height: 1.2),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22.0,
+            fontWeight: FontWeight.w900,
+            height: 1.2,
+          ),
         ),
         _gap(8.0),
         Text(
@@ -1693,7 +2164,11 @@ Widget _epilogue() {
           'install it with a *Theme widget (or ThemeData slot), then let the leaf widgets '
           'resolve it through Theme.of. Compose palette and geometry independently to keep '
           'variants cheap and visually consistent.',
-          style: TextStyle(color: Colors.white.withOpacity(0.9), fontSize: 13.0, height: 1.55),
+          style: TextStyle(
+            color: Colors.white.withOpacity(0.9),
+            fontSize: 13.0,
+            height: 1.55,
+          ),
         ),
       ],
     ),

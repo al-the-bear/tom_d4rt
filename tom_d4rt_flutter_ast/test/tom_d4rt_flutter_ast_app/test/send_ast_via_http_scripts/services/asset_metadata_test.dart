@@ -87,10 +87,7 @@ Widget _gapW(double width) {
 }
 
 Widget _divider({Color color = _parchmentEdge, double thickness = 1}) {
-  return Container(
-    height: thickness,
-    color: color,
-  );
+  return Container(height: thickness, color: color);
 }
 
 Widget _pill({
@@ -117,10 +114,7 @@ Widget _pill({
   );
 }
 
-Widget _chip({
-  required String label,
-  required Color color,
-}) {
+Widget _chip({required String label, required Color color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
@@ -130,11 +124,7 @@ Widget _chip({
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: color,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -440,7 +430,8 @@ class _Pitfall {
 const List<_Pitfall> _pitfalls = <_Pitfall>[
   _Pitfall(
     title: 'Stale AssetManifest',
-    body: 'Adding a file under assets/2.0x/ but forgetting hot restart leaves '
+    body:
+        'Adding a file under assets/2.0x/ but forgetting hot restart leaves '
         'the manifest cached. AssetMetadata for the new variant will be '
         'missing and AssetImage will silently fall back to main.',
     icon: Icons.refresh,
@@ -448,7 +439,8 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: 'Missing variant on high-DPR device',
-    body: 'If only the 1.0 main asset exists, a 3x device upscales it. '
+    body:
+        'If only the 1.0 main asset exists, a 3x device upscales it. '
         'AssetImage picks the best available, but visual fidelity drops. '
         'Always ship at least 2x for icons used on phones.',
     icon: Icons.broken_image_outlined,
@@ -456,7 +448,8 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: 'Wrong folder name format',
-    body: 'Variant folders MUST match the regex /^[0-9]+(\\.[0-9]+)?x\$/ — '
+    body:
+        'Variant folders MUST match the regex /^[0-9]+(\\.[0-9]+)?x\$/ — '
         'e.g. 2.0x, 1.5x, 3x. A folder named "@2x/" or "x2/" is treated as '
         'a regular path; AssetMetadata for it gets DPR null.',
     icon: Icons.text_fields,
@@ -464,7 +457,8 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: 'Non-image variants',
-    body: 'Variant resolution is enabled for all asset types, but only '
+    body:
+        'Variant resolution is enabled for all asset types, but only '
         'images (and a few others) are typically authored at multiple DPRs. '
         'A 2.0x/config.json is technically valid yet semantically meaningless.',
     icon: Icons.help_outline,
@@ -472,7 +466,8 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: 'main flag misread',
-    body: 'A common mental bug: assuming main=true means "the chosen one '
+    body:
+        'A common mental bug: assuming main=true means "the chosen one '
         'for this device". It does not. main=true means "this entry was '
         'declared in pubspec.yaml" — independent of DPR selection.',
     icon: Icons.flag_outlined,
@@ -480,7 +475,8 @@ const List<_Pitfall> _pitfalls = <_Pitfall>[
   ),
   _Pitfall(
     title: 'Per-bundle resolution',
-    body: 'AssetMetadata is interpreted by an AssetBundle; different '
+    body:
+        'AssetMetadata is interpreted by an AssetBundle; different '
         'bundles (rootBundle, NetworkAssetBundle, custom) may surface '
         'different sets of variants. Don\'t assume the manifest is global.',
     icon: Icons.layers_outlined,
@@ -501,12 +497,14 @@ class _Glossary {
 const List<_Glossary> _glossary = <_Glossary>[
   _Glossary(
     term: 'AssetBundle',
-    definition: 'Abstract source of byte data for assets; rootBundle is the '
+    definition:
+        'Abstract source of byte data for assets; rootBundle is the '
         'app-wide default, backed by the platform asset reader.',
   ),
   _Glossary(
     term: 'AssetManifest',
-    definition: 'Index of every asset (and its variants) declared in '
+    definition:
+        'Index of every asset (and its variants) declared in '
         'pubspec.yaml. Built at compile time, served by the bundle.',
   ),
   _Glossary(
@@ -515,7 +513,8 @@ const List<_Glossary> _glossary = <_Glossary>[
   ),
   _Glossary(
     term: 'AssetImage',
-    definition: 'ImageProvider that resolves a logical asset key into the '
+    definition:
+        'ImageProvider that resolves a logical asset key into the '
         'best variant for the current devicePixelRatio.',
   ),
   _Glossary(
@@ -524,12 +523,14 @@ const List<_Glossary> _glossary = <_Glossary>[
   ),
   _Glossary(
     term: 'main asset',
-    definition: 'The asset entry literally listed in pubspec.yaml; '
+    definition:
+        'The asset entry literally listed in pubspec.yaml; '
         'discovered variants are non-main siblings.',
   ),
   _Glossary(
     term: 'variant',
-    definition: 'A DPR-tagged copy of a main asset, sitting in an N.Nx '
+    definition:
+        'A DPR-tagged copy of a main asset, sitting in an N.Nx '
         'subfolder next to the main file.',
   ),
 ];
@@ -559,39 +560,72 @@ dynamic build(BuildContext context) {
               _heroBanner(),
               _gap(12),
               _tableOfContents(),
-              _sectionTitle('1', 'What is AssetMetadata?',
-                  subtitle:
-                      'A tiny value type with a giant role in asset routing.'),
+              _sectionTitle(
+                '1',
+                'What is AssetMetadata?',
+                subtitle:
+                    'A tiny value type with a giant role in asset routing.',
+              ),
               _whatIsCard(),
-              _sectionTitle('2', 'Anatomy of the fields',
-                  subtitle: 'Three fields, three responsibilities.'),
+              _sectionTitle(
+                '2',
+                'Anatomy of the fields',
+                subtitle: 'Three fields, three responsibilities.',
+              ),
               _anatomyCard(),
-              _sectionTitle('3', 'Sample records as cards',
-                  subtitle: 'Concrete examples of AssetMetadata instances.'),
+              _sectionTitle(
+                '3',
+                'Sample records as cards',
+                subtitle: 'Concrete examples of AssetMetadata instances.',
+              ),
               _samplesGrid(),
-              _sectionTitle('4', 'targetDevicePixelRatio resolution',
-                  subtitle: 'Which variant gets picked for each device DPR.'),
+              _sectionTitle(
+                '4',
+                'targetDevicePixelRatio resolution',
+                subtitle: 'Which variant gets picked for each device DPR.',
+              ),
               _dprTable(),
-              _sectionTitle('5', 'AssetManifest tree',
-                  subtitle: 'The on-disk layout that produces the manifest.'),
+              _sectionTitle(
+                '5',
+                'AssetManifest tree',
+                subtitle: 'The on-disk layout that produces the manifest.',
+              ),
               _manifestTreeCard(),
-              _sectionTitle('6', 'Variant resolution algorithm',
-                  subtitle: 'How AssetImage chooses among AssetMetadata rows.'),
+              _sectionTitle(
+                '6',
+                'Variant resolution algorithm',
+                subtitle: 'How AssetImage chooses among AssetMetadata rows.',
+              ),
               _algorithmCard(),
-              _sectionTitle('7', 'Relationship to AssetImage / AssetBundle',
-                  subtitle: 'Where AssetMetadata sits in the pipeline.'),
+              _sectionTitle(
+                '7',
+                'Relationship to AssetImage / AssetBundle',
+                subtitle: 'Where AssetMetadata sits in the pipeline.',
+              ),
               _relationshipCard(),
-              _sectionTitle('8', 'The `main` flag',
-                  subtitle: 'Bundled vs supplemental; declaration vs choice.'),
+              _sectionTitle(
+                '8',
+                'The `main` flag',
+                subtitle: 'Bundled vs supplemental; declaration vs choice.',
+              ),
               _mainFlagCard(),
-              _sectionTitle('9', 'Pitfalls and gotchas',
-                  subtitle: 'Sharp corners worth memorising.'),
+              _sectionTitle(
+                '9',
+                'Pitfalls and gotchas',
+                subtitle: 'Sharp corners worth memorising.',
+              ),
               _pitfallsList(),
-              _sectionTitle('10', 'Glossary',
-                  subtitle: 'Terms used throughout this demo.'),
+              _sectionTitle(
+                '10',
+                'Glossary',
+                subtitle: 'Terms used throughout this demo.',
+              ),
               _glossaryList(),
-              _sectionTitle('11', 'Mental model summary',
-                  subtitle: 'One picture worth a thousand bytes.'),
+              _sectionTitle(
+                '11',
+                'Mental model summary',
+                subtitle: 'One picture worth a thousand bytes.',
+              ),
               _mentalModelCard(),
               _gap(40),
               _footer(),
@@ -614,11 +648,7 @@ Widget _heroBanner() {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          _inkPrimary,
-          Color(0xFF243447),
-          _accentTeal,
-        ],
+        colors: <Color>[_inkPrimary, Color(0xFF243447), _accentTeal],
       ),
       borderRadius: BorderRadius.circular(20),
       boxShadow: <BoxShadow>[
@@ -677,9 +707,7 @@ Widget _heroBanner() {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.16),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.16)),
           ),
           child: _codeLine(<_Tok>[
             _tkKey('class '),
@@ -731,8 +759,7 @@ Widget _tableOfContents() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.menu_book_outlined,
-                size: 18, color: _accentTeal),
+            Icon(Icons.menu_book_outlined, size: 18, color: _accentTeal),
             _gapW(8),
             Text(
               'Contents',
@@ -829,32 +856,36 @@ Widget _whatIsCard() {
           children: <Widget>[
             Expanded(
               child: _miniFact(
-                  icon: Icons.fingerprint,
-                  color: _badgeBlue,
-                  title: 'Identity',
-                  body:
-                      'The `key` is the canonical asset path — the same string '
-                      'you would pass to AssetImage("…")'),
+                icon: Icons.fingerprint,
+                color: _badgeBlue,
+                title: 'Identity',
+                body:
+                    'The `key` is the canonical asset path — the same string '
+                    'you would pass to AssetImage("…")',
+              ),
             ),
             _gapW(12),
             Expanded(
               child: _miniFact(
-                  icon: Icons.zoom_in,
-                  color: _accentAmber,
-                  title: 'DPR target',
-                  body:
-                      '`targetDevicePixelRatio` (nullable double) tells the '
-                      'resolver which screen density this file is sharpest at.'),
+                icon: Icons.zoom_in,
+                color: _accentAmber,
+                title: 'DPR target',
+                body:
+                    '`targetDevicePixelRatio` (nullable double) tells the '
+                    'resolver which screen density this file is sharpest at.',
+              ),
             ),
             _gapW(12),
             Expanded(
               child: _miniFact(
-                  icon: Icons.flag,
-                  color: _accentForest,
-                  title: 'Origin',
-                  body: '`main` is true if the file appears literally in '
-                      'pubspec.yaml; false if it is an auto-discovered '
-                      'sibling variant.'),
+                icon: Icons.flag,
+                color: _accentForest,
+                title: 'Origin',
+                body:
+                    '`main` is true if the file appears literally in '
+                    'pubspec.yaml; false if it is an auto-discovered '
+                    'sibling variant.',
+              ),
             ),
           ],
         ),
@@ -954,7 +985,8 @@ Widget _anatomyCard() {
             '3.0     // 3x variant',
             '1.5     // some Android devices',
           ],
-          note: 'Nullable. When null, the asset has no advertised DPR — '
+          note:
+              'Nullable. When null, the asset has no advertised DPR — '
               'it is treated as the "default" representation. Otherwise it '
               'represents the DPR at which this file matches 1 logical px '
               '= 1 device px.',
@@ -971,7 +1003,8 @@ Widget _anatomyCard() {
             'true    // listed in pubspec.yaml',
             'false   // auto-discovered variant',
           ],
-          note: 'Tells you whether the asset entry was declared by the '
+          note:
+              'Tells you whether the asset entry was declared by the '
               'developer or discovered by the build. Useful when you want '
               'to enumerate "all top-level assets" without including their '
               '2x/3x duplicates.',
@@ -1147,11 +1180,12 @@ Widget _sampleCard(_DemoAssetMetadata m) {
         _kv('key', '"${m.key}"', _accentTeal),
         _gap(4),
         _kv(
-            'targetDevicePixelRatio',
-            m.targetDevicePixelRatio == null
-                ? 'null'
-                : m.targetDevicePixelRatio!.toString(),
-            _accentAmber),
+          'targetDevicePixelRatio',
+          m.targetDevicePixelRatio == null
+              ? 'null'
+              : m.targetDevicePixelRatio!.toString(),
+          _accentAmber,
+        ),
         _gap(4),
         _kv('main', m.main.toString(), _accentForest),
       ],
@@ -1331,8 +1365,7 @@ Widget _manifestTreeCard() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.account_tree_outlined,
-                color: _accentTeal, size: 18),
+            Icon(Icons.account_tree_outlined, color: _accentTeal, size: 18),
             _gapW(8),
             Text(
               'On-disk asset layout (project root)',
@@ -1418,7 +1451,9 @@ Widget _treeLine(_TreeNode node, int depth) {
           ),
         ),
         Icon(
-          node.isFile ? Icons.insert_drive_file_outlined : Icons.folder_outlined,
+          node.isFile
+              ? Icons.insert_drive_file_outlined
+              : Icons.folder_outlined,
           size: 14,
           color: node.accent,
         ),
@@ -1462,10 +1497,7 @@ Widget _legendDot(Color c, String label) {
         Container(
           width: 8,
           height: 8,
-          decoration: BoxDecoration(
-            color: c,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: c, shape: BoxShape.circle),
         ),
         _gapW(6),
         Text(
@@ -1536,7 +1568,9 @@ Widget _algorithmCard() {
                 _tk('candidates = rows.where((r) =>'),
               ]),
               _codeLine(<_Tok>[
-                _tk('      r.key == assetKey || _isVariantOf(r.key, assetKey));'),
+                _tk(
+                  '      r.key == assetKey || _isVariantOf(r.key, assetKey));',
+                ),
               ]),
               _codeLine(<_Tok>[
                 _tk('  '),
@@ -1548,7 +1582,9 @@ Widget _algorithmCard() {
               ]),
               _codeLine(<_Tok>[
                 _tk('  '),
-                _tkCom('// Sort: prefer rows with non-null targetDPR >= deviceDpr.'),
+                _tkCom(
+                  '// Sort: prefer rows with non-null targetDPR >= deviceDpr.',
+                ),
               ]),
               _codeLine(<_Tok>[
                 _tk('  candidates.sort((a, b) => _scoreFor(deviceDpr, a)'),
@@ -1570,7 +1606,9 @@ Widget _algorithmCard() {
                 _tkCom('// targetDevicePixelRatio is >= deviceDpr; falls back'),
               ]),
               _codeLine(<_Tok>[
-                _tkCom('// to the largest available variant if none qualifies.'),
+                _tkCom(
+                  '// to the largest available variant if none qualifies.',
+                ),
               ]),
               _codeLine(<_Tok>[
                 _Tok('double', _codeNum),
@@ -1797,8 +1835,7 @@ Widget _arrowDown() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6),
     child: Center(
-      child: Icon(Icons.arrow_downward,
-          color: _inkMuted, size: 18),
+      child: Icon(Icons.arrow_downward, color: _inkMuted, size: 18),
     ),
   );
 }
@@ -1902,37 +1939,39 @@ Widget _mainFlagPanel({
           ),
         ),
         _gap(10),
-        ...bullets.map<Widget>((String b) => Padding(
-              padding: EdgeInsets.only(bottom: 6),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 5),
-                    child: Container(
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
-                      ),
+        ...bullets.map<Widget>(
+          (String b) => Padding(
+            padding: EdgeInsets.only(bottom: 6),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 5),
+                  child: Container(
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
                     ),
                   ),
-                  _gapW(8),
-                  Expanded(
-                    child: Text(
-                      b,
-                      style: TextStyle(
-                        color: _inkSecondary,
-                        fontSize: 12.5,
-                        height: 1.5,
-                        fontWeight: FontWeight.w500,
-                      ),
+                ),
+                _gapW(8),
+                Expanded(
+                  child: Text(
+                    b,
+                    style: TextStyle(
+                      color: _inkSecondary,
+                      fontSize: 12.5,
+                      height: 1.5,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          ),
+        ),
         _gap(6),
         Container(
           padding: EdgeInsets.all(10),
@@ -1943,15 +1982,17 @@ Widget _mainFlagPanel({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: code
-                .map<Widget>((String l) => Text(
-                      l,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        color: _codeFg,
-                        fontSize: 11.5,
-                        height: 1.5,
-                      ),
-                    ))
+                .map<Widget>(
+                  (String l) => Text(
+                    l,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      color: _codeFg,
+                      fontSize: 11.5,
+                      height: 1.5,
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ),
@@ -2046,10 +2087,12 @@ Widget _glossaryList() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _glossary
-          .expand<Widget>((_Glossary g) => <Widget>[
-                _glossaryRow(g),
-                if (g != _glossary.last) _divider(),
-              ])
+          .expand<Widget>(
+            (_Glossary g) => <Widget>[
+              _glossaryRow(g),
+              if (g != _glossary.last) _divider(),
+            ],
+          )
           .toList(),
     ),
   );
@@ -2148,19 +2191,13 @@ Widget _mentalModelCard() {
           spacing: 10,
           runSpacing: 10,
           children: <Widget>[
-            _pill(
-              label: 'KEY  →  identity',
-              background: _accentTeal,
-            ),
+            _pill(label: 'KEY  →  identity', background: _accentTeal),
             _pill(
               label: 'targetDevicePixelRatio  →  acuity',
               background: _accentAmber,
               foreground: _inkPrimary,
             ),
-            _pill(
-              label: 'main  →  provenance',
-              background: _accentForest,
-            ),
+            _pill(label: 'main  →  provenance', background: _accentForest),
           ],
         ),
       ],

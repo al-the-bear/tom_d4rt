@@ -132,19 +132,16 @@ dynamic build(BuildContext context) {
 
   // The classic three-cell label row used in field tour sections.
   List<Widget> threeLabels() => const [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text('ALPHA'),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text('BETA'),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Text('GAMMA'),
-        ),
-      ];
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      child: Text('ALPHA'),
+    ),
+    Padding(padding: EdgeInsets.symmetric(horizontal: 12), child: Text('BETA')),
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      child: Text('GAMMA'),
+    ),
+  ];
 
   // A horizontally-stretched section card with a coloured tint.
   Widget sectionCard({
@@ -174,10 +171,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 13, height: 1.4),
-          ),
+          Text(description, style: const TextStyle(fontSize: 13, height: 1.4)),
           const SizedBox(height: 12),
           ...body,
         ],
@@ -186,7 +180,11 @@ dynamic build(BuildContext context) {
   }
 
   // Small label-and-widget row used inside cards.
-  Widget labelledRow(String label, Widget child, {Color accent = Colors.black}) {
+  Widget labelledRow(
+    String label,
+    Widget child, {
+    Color accent = Colors.black,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
@@ -298,8 +296,11 @@ dynamic build(BuildContext context) {
   // the *children* (the labels) under three states: unselected (color),
   // selected (selectedColor), disabled (disabledColor).
   // ===========================================================================
-  Widget colorRow(String label, ToggleButtonsThemeData data,
-      {bool disabled = false}) {
+  Widget colorRow(
+    String label,
+    ToggleButtonsThemeData data, {
+    bool disabled = false,
+  }) {
     return labelledRow(
       label,
       themed(
@@ -334,10 +335,7 @@ dynamic build(BuildContext context) {
           'and disabledColor for any cell that has no callback at all.',
       body: [
         colorRow('default', base),
-        colorRow(
-          'red unselected',
-          base.copyWith(color: Colors.red.shade700),
-        ),
+        colorRow('red unselected', base.copyWith(color: Colors.red.shade700)),
         colorRow(
           'amber selected',
           base.copyWith(selectedColor: Colors.amber.shade100),
@@ -372,7 +370,8 @@ dynamic build(BuildContext context) {
     return sectionCard(
       background: fillBg,
       accent: fillAccent,
-      title: '3. fillColor / focusColor / highlightColor / hoverColor / splashColor',
+      title:
+          '3. fillColor / focusColor / highlightColor / hoverColor / splashColor',
       description:
           'fillColor paints the background of the currently-selected cell. '
           'focusColor / highlightColor / hoverColor / splashColor are all '
@@ -624,9 +623,18 @@ dynamic build(BuildContext context) {
             ),
             isSelected: const [false, true, false],
             children: const [
-              Padding(padding: EdgeInsets.all(8), child: Icon(Icons.format_align_left)),
-              Padding(padding: EdgeInsets.all(8), child: Icon(Icons.format_align_center)),
-              Padding(padding: EdgeInsets.all(8), child: Icon(Icons.format_align_right)),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.format_align_left),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.format_align_center),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Icon(Icons.format_align_right),
+              ),
             ],
           ),
           accent: constraintsAccent,
@@ -872,41 +880,51 @@ dynamic build(BuildContext context) {
           'restating the entire field list. Variants below: red fill, pill, '
           'thick amber selected border, italic with bigger constraints.',
       body: [
-        labelledRow('base',
-            themed(
-              data: base,
-              isSelected: const [false, true, false],
-              children: threeLabels(),
-            ),
-            accent: copyAccent),
-        labelledRow('variantA',
-            themed(
-              data: variantA,
-              isSelected: const [false, true, false],
-              children: threeLabels(),
-            ),
-            accent: copyAccent),
-        labelledRow('variantB',
-            themed(
-              data: variantB,
-              isSelected: const [false, true, false],
-              children: threeLabels(),
-            ),
-            accent: copyAccent),
-        labelledRow('variantC',
-            themed(
-              data: variantC,
-              isSelected: const [false, true, false],
-              children: threeLabels(),
-            ),
-            accent: copyAccent),
-        labelledRow('variantD',
-            themed(
-              data: variantD,
-              isSelected: const [false, true, false],
-              children: threeLabels(),
-            ),
-            accent: copyAccent),
+        labelledRow(
+          'base',
+          themed(
+            data: base,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: copyAccent,
+        ),
+        labelledRow(
+          'variantA',
+          themed(
+            data: variantA,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: copyAccent,
+        ),
+        labelledRow(
+          'variantB',
+          themed(
+            data: variantB,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: copyAccent,
+        ),
+        labelledRow(
+          'variantC',
+          themed(
+            data: variantC,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: copyAccent,
+        ),
+        labelledRow(
+          'variantD',
+          themed(
+            data: variantD,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: copyAccent,
+        ),
         const SizedBox(height: 8),
         const Text(
           'Notice how every variant retains the base color, selectedColor, '
@@ -1050,10 +1068,7 @@ dynamic build(BuildContext context) {
               for (final line in lines)
                 Text(
                   line,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
                 ),
             ],
           ),
@@ -1099,76 +1114,80 @@ dynamic build(BuildContext context) {
       ),
       child: Theme(
         data: ThemeData(toggleButtonsTheme: demo),
-        child: Builder(builder: (ctx) {
-          final resolved = Theme.of(ctx).toggleButtonsTheme;
-          final lines = <Widget>[];
-          void addLine(String name, Object? value) {
-            lines.add(Text(
-              '${name.padRight(22)} = $value',
-              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-            ));
-          }
+        child: Builder(
+          builder: (ctx) {
+            final resolved = Theme.of(ctx).toggleButtonsTheme;
+            final lines = <Widget>[];
+            void addLine(String name, Object? value) {
+              lines.add(
+                Text(
+                  '${name.padRight(22)} = $value',
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+                ),
+              );
+            }
 
-          addLine('color', resolved.color);
-          addLine('selectedColor', resolved.selectedColor);
-          addLine('disabledColor', resolved.disabledColor);
-          addLine('fillColor', resolved.fillColor);
-          addLine('focusColor', resolved.focusColor);
-          addLine('highlightColor', resolved.highlightColor);
-          addLine('hoverColor', resolved.hoverColor);
-          addLine('splashColor', resolved.splashColor);
-          addLine('textStyle', resolved.textStyle);
-          addLine('constraints', resolved.constraints);
-          addLine('borderColor', resolved.borderColor);
-          addLine('selectedBorderColor', resolved.selectedBorderColor);
-          addLine('disabledBorderColor', resolved.disabledBorderColor);
-          addLine('borderRadius', resolved.borderRadius);
-          addLine('borderWidth', resolved.borderWidth);
+            addLine('color', resolved.color);
+            addLine('selectedColor', resolved.selectedColor);
+            addLine('disabledColor', resolved.disabledColor);
+            addLine('fillColor', resolved.fillColor);
+            addLine('focusColor', resolved.focusColor);
+            addLine('highlightColor', resolved.highlightColor);
+            addLine('hoverColor', resolved.hoverColor);
+            addLine('splashColor', resolved.splashColor);
+            addLine('textStyle', resolved.textStyle);
+            addLine('constraints', resolved.constraints);
+            addLine('borderColor', resolved.borderColor);
+            addLine('selectedBorderColor', resolved.selectedBorderColor);
+            addLine('disabledBorderColor', resolved.disabledBorderColor);
+            addLine('borderRadius', resolved.borderRadius);
+            addLine('borderWidth', resolved.borderWidth);
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                '11. Theme.of read-back card',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: readbackAccent,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  '11. Theme.of read-back card',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: readbackAccent,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Below are every field of the surrounding '
-                'ToggleButtonsThemeData, read back through '
-                'Theme.of(context).toggleButtonsTheme inside a Builder. The '
-                'live ToggleButtons at the bottom is rendered inside the '
-                'same context and inherits exactly these values.',
-                style: TextStyle(fontSize: 13, height: 1.4),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: readbackAccent.withOpacity(0.25)),
+                const SizedBox(height: 6),
+                const Text(
+                  'Below are every field of the surrounding '
+                  'ToggleButtonsThemeData, read back through '
+                  'Theme.of(context).toggleButtonsTheme inside a Builder. The '
+                  'live ToggleButtons at the bottom is rendered inside the '
+                  'same context and inherits exactly these values.',
+                  style: TextStyle(fontSize: 13, height: 1.4),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: lines,
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: readbackAccent.withOpacity(0.25)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: lines,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 14),
-              Center(
-                child: ToggleButtons(
-                  isSelected: const [false, true, false],
-                  onPressed: (_) {},
-                  children: threeLabels(),
+                const SizedBox(height: 14),
+                Center(
+                  child: ToggleButtons(
+                    isSelected: const [false, true, false],
+                    onPressed: (_) {},
+                    children: threeLabels(),
+                  ),
                 ),
-              ),
-            ],
-          );
-        }),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
@@ -1181,68 +1200,59 @@ dynamic build(BuildContext context) {
   // in its own subcard with a real live ToggleButtons.
   // ===========================================================================
   ToggleButtonsThemeData pillPreset() => ToggleButtonsThemeData(
-        color: Colors.deepPurple.shade700,
-        selectedColor: Colors.white,
-        fillColor: Colors.deepPurple.shade400,
-        borderColor: Colors.deepPurple.shade200,
-        selectedBorderColor: Colors.deepPurple.shade700,
-        borderRadius: BorderRadius.circular(999),
-        borderWidth: 1.5,
-        constraints: const BoxConstraints(minWidth: 90, minHeight: 36),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.6,
-        ),
-      );
+    color: Colors.deepPurple.shade700,
+    selectedColor: Colors.white,
+    fillColor: Colors.deepPurple.shade400,
+    borderColor: Colors.deepPurple.shade200,
+    selectedBorderColor: Colors.deepPurple.shade700,
+    borderRadius: BorderRadius.circular(999),
+    borderWidth: 1.5,
+    constraints: const BoxConstraints(minWidth: 90, minHeight: 36),
+    textStyle: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 0.6),
+  );
 
   ToggleButtonsThemeData tabPreset() => ToggleButtonsThemeData(
-        color: Colors.grey.shade700,
-        selectedColor: Colors.indigo.shade800,
-        fillColor: Colors.indigo.shade50,
-        borderColor: Colors.transparent,
-        selectedBorderColor: Colors.transparent,
-        borderRadius: BorderRadius.circular(0),
-        borderWidth: 0,
-        constraints: const BoxConstraints(minWidth: 100, minHeight: 44),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 14,
-        ),
-      );
+    color: Colors.grey.shade700,
+    selectedColor: Colors.indigo.shade800,
+    fillColor: Colors.indigo.shade50,
+    borderColor: Colors.transparent,
+    selectedBorderColor: Colors.transparent,
+    borderRadius: BorderRadius.circular(0),
+    borderWidth: 0,
+    constraints: const BoxConstraints(minWidth: 100, minHeight: 44),
+    textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+  );
 
   ToggleButtonsThemeData chipPreset() => ToggleButtonsThemeData(
-        color: Colors.teal.shade700,
-        selectedColor: Colors.white,
-        fillColor: Colors.teal.shade500,
-        borderColor: Colors.teal.shade200,
-        selectedBorderColor: Colors.teal.shade700,
-        borderRadius: BorderRadius.circular(16),
-        borderWidth: 1,
-        constraints: const BoxConstraints(minWidth: 70, minHeight: 30),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 12,
-        ),
-      );
+    color: Colors.teal.shade700,
+    selectedColor: Colors.white,
+    fillColor: Colors.teal.shade500,
+    borderColor: Colors.teal.shade200,
+    selectedBorderColor: Colors.teal.shade700,
+    borderRadius: BorderRadius.circular(16),
+    borderWidth: 1,
+    constraints: const BoxConstraints(minWidth: 70, minHeight: 30),
+    textStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+  );
 
   ToggleButtonsThemeData outlinedPreset() => ToggleButtonsThemeData(
-        color: Colors.brown.shade700,
-        selectedColor: Colors.brown.shade900,
-        fillColor: Colors.brown.shade50,
-        borderColor: Colors.brown.shade400,
-        selectedBorderColor: Colors.brown.shade800,
-        borderRadius: BorderRadius.circular(4),
-        borderWidth: 2,
-        constraints: const BoxConstraints(minWidth: 96, minHeight: 40),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.4,
-        ),
-      );
+    color: Colors.brown.shade700,
+    selectedColor: Colors.brown.shade900,
+    fillColor: Colors.brown.shade50,
+    borderColor: Colors.brown.shade400,
+    selectedBorderColor: Colors.brown.shade800,
+    borderRadius: BorderRadius.circular(4),
+    borderWidth: 2,
+    constraints: const BoxConstraints(minWidth: 96, minHeight: 40),
+    textStyle: const TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.4),
+  );
 
   Widget buildPresetsCard() {
     Widget presetTile(
-        String label, String description, ToggleButtonsThemeData data) {
+      String label,
+      String description,
+      ToggleButtonsThemeData data,
+    ) {
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
@@ -1484,10 +1494,42 @@ dynamic build(BuildContext context) {
           'subtly different gesture footprint, and each is just a copyWith '
           'away from the solid base.',
       body: [
-        labelledRow('solid', themed(data: solid, isSelected: const [false, true, false], children: threeLabels()), accent: borderlessAccent),
-        labelledRow('transparent', themed(data: transparent, isSelected: const [false, true, false], children: threeLabels()), accent: borderlessAccent),
-        labelledRow('borderWidth=0', themed(data: zeroWidth, isSelected: const [false, true, false], children: threeLabels()), accent: borderlessAccent),
-        labelledRow('translucent', themed(data: translucent, isSelected: const [false, true, false], children: threeLabels()), accent: borderlessAccent),
+        labelledRow(
+          'solid',
+          themed(
+            data: solid,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: borderlessAccent,
+        ),
+        labelledRow(
+          'transparent',
+          themed(
+            data: transparent,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: borderlessAccent,
+        ),
+        labelledRow(
+          'borderWidth=0',
+          themed(
+            data: zeroWidth,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: borderlessAccent,
+        ),
+        labelledRow(
+          'translucent',
+          themed(
+            data: translucent,
+            isSelected: const [false, true, false],
+            children: threeLabels(),
+          ),
+          accent: borderlessAccent,
+        ),
       ],
     );
   }
@@ -1513,9 +1555,7 @@ dynamic build(BuildContext context) {
             children: [
               TextSpan(
                 text: '$head: ',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.w700),
               ),
               TextSpan(text: body),
             ],
@@ -1527,7 +1567,8 @@ dynamic build(BuildContext context) {
     return sectionCard(
       background: decisionBg,
       accent: decisionAccent,
-      title: '16. Decision guide - ToggleButtonsThemeData vs SegmentedButton.styleFrom',
+      title:
+          '16. Decision guide - ToggleButtonsThemeData vs SegmentedButton.styleFrom',
       description:
           'Both APIs solve roughly the same problem - styling a multi-cell '
           'selector - but they differ in scope, defaults, and Material '
@@ -1639,12 +1680,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Expanded(
-            child: Text(
-              meaning,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ),
+          Expanded(child: Text(meaning, style: const TextStyle(fontSize: 12))),
         ],
       ),
     );
@@ -1671,36 +1707,77 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 8),
-          refRow('color', 'Color?',
-              'Foreground colour for unselected cells.'),
-          refRow('selectedColor', 'Color?',
-              'Foreground colour for selected cells (rendered against fillColor).'),
-          refRow('disabledColor', 'Color?',
-              'Foreground colour for cells whose ToggleButtons has onPressed: null.'),
-          refRow('fillColor', 'Color?',
-              'Background colour for the currently-selected cell.'),
-          refRow('focusColor', 'Color?',
-              'Reaction colour while a cell holds keyboard focus.'),
-          refRow('highlightColor', 'Color?',
-              'Long-press highlight colour on touch devices.'),
-          refRow('hoverColor', 'Color?',
-              'Reaction colour while a mouse cursor sits over a cell.'),
-          refRow('splashColor', 'Color?',
-              'Ink-ripple colour while a press is in flight.'),
-          refRow('textStyle', 'TextStyle?',
-              'TextStyle merged into the DefaultTextStyle inside each cell.'),
-          refRow('constraints', 'BoxConstraints?',
-              'Size envelope (min/max width/height) applied to every cell.'),
-          refRow('borderColor', 'Color?',
-              'Border colour for unselected cells.'),
-          refRow('selectedBorderColor', 'Color?',
-              'Border colour for selected cells.'),
-          refRow('disabledBorderColor', 'Color?',
-              'Border colour when the bar has onPressed: null.'),
-          refRow('borderRadius', 'BorderRadius?',
-              'Rounding of the outermost bar corners (cell seams stay sharp).'),
-          refRow('borderWidth', 'double?',
-              'Thickness in logical pixels of every border edge.'),
+          refRow('color', 'Color?', 'Foreground colour for unselected cells.'),
+          refRow(
+            'selectedColor',
+            'Color?',
+            'Foreground colour for selected cells (rendered against fillColor).',
+          ),
+          refRow(
+            'disabledColor',
+            'Color?',
+            'Foreground colour for cells whose ToggleButtons has onPressed: null.',
+          ),
+          refRow(
+            'fillColor',
+            'Color?',
+            'Background colour for the currently-selected cell.',
+          ),
+          refRow(
+            'focusColor',
+            'Color?',
+            'Reaction colour while a cell holds keyboard focus.',
+          ),
+          refRow(
+            'highlightColor',
+            'Color?',
+            'Long-press highlight colour on touch devices.',
+          ),
+          refRow(
+            'hoverColor',
+            'Color?',
+            'Reaction colour while a mouse cursor sits over a cell.',
+          ),
+          refRow(
+            'splashColor',
+            'Color?',
+            'Ink-ripple colour while a press is in flight.',
+          ),
+          refRow(
+            'textStyle',
+            'TextStyle?',
+            'TextStyle merged into the DefaultTextStyle inside each cell.',
+          ),
+          refRow(
+            'constraints',
+            'BoxConstraints?',
+            'Size envelope (min/max width/height) applied to every cell.',
+          ),
+          refRow(
+            'borderColor',
+            'Color?',
+            'Border colour for unselected cells.',
+          ),
+          refRow(
+            'selectedBorderColor',
+            'Color?',
+            'Border colour for selected cells.',
+          ),
+          refRow(
+            'disabledBorderColor',
+            'Color?',
+            'Border colour when the bar has onPressed: null.',
+          ),
+          refRow(
+            'borderRadius',
+            'BorderRadius?',
+            'Rounding of the outermost bar corners (cell seams stay sharp).',
+          ),
+          refRow(
+            'borderWidth',
+            'double?',
+            'Thickness in logical pixels of every border edge.',
+          ),
           const SizedBox(height: 12),
           const Text(
             'Resolution sequence inside ToggleButtons:',
@@ -1726,7 +1803,11 @@ dynamic build(BuildContext context) {
             'border-width, border-radius and constraints fields.\n'
             '  operator==       - structural equality across all fields.\n'
             '  hashCode         - consistent with operator==; cached.',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 12, height: 1.4),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 12),
           const Text(
@@ -1838,7 +1919,11 @@ class _LerpSliderBodyState extends State<_LerpSliderBody> {
 
   @override
   Widget build(BuildContext context) {
-    final lerped = ToggleButtonsThemeData.lerp(widget.themeA, widget.themeB, t)!;
+    final lerped = ToggleButtonsThemeData.lerp(
+      widget.themeA,
+      widget.themeB,
+      t,
+    )!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -2001,24 +2086,15 @@ class _MultiSelectBodyState extends State<_MultiSelectBody> {
             children: [
               Text(
                 'selection list  = $selection',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
               Text(
                 'selected names  = $selectedNames',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
               Text(
                 'count selected  = ${selectedNames.length}',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
             ],
           ),

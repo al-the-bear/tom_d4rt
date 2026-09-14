@@ -38,11 +38,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0F2027),
-          Color(0xFF203A43),
-          Color(0xFF2C5364),
-        ],
+        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -105,10 +101,7 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'How your Flutter app shares the screen with system chrome',
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.white70,
-                    ),
+                    style: TextStyle(fontSize: 13.0, color: Colors.white70),
                   ),
                 ],
               ),
@@ -128,8 +121,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  size: 16.0, color: Colors.cyanAccent),
+              Icon(Icons.info_outline, size: 16.0, color: Colors.cyanAccent),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -151,8 +143,7 @@ dynamic build(BuildContext context) {
           children: [
             for (final mode in SystemUiMode.values)
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20.0),
@@ -247,10 +238,7 @@ dynamic build(BuildContext context) {
                   height: 150.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF1565C0),
-                        Color(0xFF0D47A1),
-                      ],
+                      colors: [Color(0xFF1565C0), Color(0xFF0D47A1)],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                     ),
@@ -334,115 +322,125 @@ dynamic build(BuildContext context) {
 
   final modeCards = <Widget>[];
 
-  modeCards.add(_buildModeCard(
-    mode: SystemUiMode.leanBack,
-    title: 'leanBack',
-    accent: Color(0xFF7E57C2),
-    secondary: Color(0xFFB39DDB),
-    icon: Icons.weekend,
-    behaviour:
-        'Hides both status bar and navigation bar. ANY tap anywhere on '
-        'the screen restores them; you cannot dismiss them again without '
-        'switching modes.',
-    gesture:
-        'Single tap (anywhere) -> chrome returns. The first tap is consumed '
-        'by the system, so your app does not receive that touch event.',
-    useCase:
-        'Passive viewing where the user is not expected to interact much: '
-        'kiosk slideshows, ambient dashboards, idle screensavers.',
-    statusVisible: false,
-    navVisible: false,
-    chromeStripe: 'TAP ANYWHERE -> CHROME REAPPEARS',
-  ));
+  modeCards.add(
+    _buildModeCard(
+      mode: SystemUiMode.leanBack,
+      title: 'leanBack',
+      accent: Color(0xFF7E57C2),
+      secondary: Color(0xFFB39DDB),
+      icon: Icons.weekend,
+      behaviour:
+          'Hides both status bar and navigation bar. ANY tap anywhere on '
+          'the screen restores them; you cannot dismiss them again without '
+          'switching modes.',
+      gesture:
+          'Single tap (anywhere) -> chrome returns. The first tap is consumed '
+          'by the system, so your app does not receive that touch event.',
+      useCase:
+          'Passive viewing where the user is not expected to interact much: '
+          'kiosk slideshows, ambient dashboards, idle screensavers.',
+      statusVisible: false,
+      navVisible: false,
+      chromeStripe: 'TAP ANYWHERE -> CHROME REAPPEARS',
+    ),
+  );
 
-  modeCards.add(_buildModeCard(
-    mode: SystemUiMode.immersive,
-    title: 'immersive',
-    accent: Color(0xFF26A69A),
-    secondary: Color(0xFF80CBC4),
-    icon: Icons.fullscreen,
-    behaviour:
-        'Hides status and nav bars. To reveal them again the user must '
-        'swipe from a screen edge. The chrome stays visible until the '
-        'user taps somewhere else or after a short timeout.',
-    gesture:
-        'Swipe from top edge -> status bar. Swipe from bottom edge -> '
-        'navigation bar. The first interaction reveals chrome but does '
-        'not pass to the app.',
-    useCase:
-        'Reading apps, comic viewers, photo galleries: cases where the '
-        'user benefits from full screen but occasionally needs system '
-        'controls.',
-    statusVisible: false,
-    navVisible: false,
-    chromeStripe: 'SWIPE FROM EDGE -> CHROME PEEKS IN',
-  ));
+  modeCards.add(
+    _buildModeCard(
+      mode: SystemUiMode.immersive,
+      title: 'immersive',
+      accent: Color(0xFF26A69A),
+      secondary: Color(0xFF80CBC4),
+      icon: Icons.fullscreen,
+      behaviour:
+          'Hides status and nav bars. To reveal them again the user must '
+          'swipe from a screen edge. The chrome stays visible until the '
+          'user taps somewhere else or after a short timeout.',
+      gesture:
+          'Swipe from top edge -> status bar. Swipe from bottom edge -> '
+          'navigation bar. The first interaction reveals chrome but does '
+          'not pass to the app.',
+      useCase:
+          'Reading apps, comic viewers, photo galleries: cases where the '
+          'user benefits from full screen but occasionally needs system '
+          'controls.',
+      statusVisible: false,
+      navVisible: false,
+      chromeStripe: 'SWIPE FROM EDGE -> CHROME PEEKS IN',
+    ),
+  );
 
-  modeCards.add(_buildModeCard(
-    mode: SystemUiMode.immersiveSticky,
-    title: 'immersiveSticky',
-    accent: Color(0xFFEF5350),
-    secondary: Color(0xFFFFAB91),
-    icon: Icons.layers_clear,
-    behaviour:
-        'Like immersive, but a swipe-from-edge briefly shows a '
-        'semi-transparent overlay that fades back automatically. The '
-        'app keeps receiving touch events the whole time.',
-    gesture:
-        'Swipe from edge -> chrome flashes in semi-transparently, then '
-        'auto-hides. Useful when input must not be interrupted by an '
-        'accidental edge swipe.',
-    useCase:
-        'Games, drawing apps, video editors: anything where the user '
-        'is constantly touching near the edges and you do not want the '
-        'system bars to steal focus.',
-    statusVisible: false,
-    navVisible: false,
-    chromeStripe: 'SWIPE -> CHROME PEEKS, THEN AUTO-HIDES',
-  ));
+  modeCards.add(
+    _buildModeCard(
+      mode: SystemUiMode.immersiveSticky,
+      title: 'immersiveSticky',
+      accent: Color(0xFFEF5350),
+      secondary: Color(0xFFFFAB91),
+      icon: Icons.layers_clear,
+      behaviour:
+          'Like immersive, but a swipe-from-edge briefly shows a '
+          'semi-transparent overlay that fades back automatically. The '
+          'app keeps receiving touch events the whole time.',
+      gesture:
+          'Swipe from edge -> chrome flashes in semi-transparently, then '
+          'auto-hides. Useful when input must not be interrupted by an '
+          'accidental edge swipe.',
+      useCase:
+          'Games, drawing apps, video editors: anything where the user '
+          'is constantly touching near the edges and you do not want the '
+          'system bars to steal focus.',
+      statusVisible: false,
+      navVisible: false,
+      chromeStripe: 'SWIPE -> CHROME PEEKS, THEN AUTO-HIDES',
+    ),
+  );
 
-  modeCards.add(_buildModeCard(
-    mode: SystemUiMode.edgeToEdge,
-    title: 'edgeToEdge',
-    accent: Color(0xFF42A5F5),
-    secondary: Color(0xFF90CAF9),
-    icon: Icons.aspect_ratio,
-    behaviour:
-        'Status bar AND nav bar remain visible but become transparent '
-        '(or translucent), and your app draws underneath them. You are '
-        'responsible for using SafeArea / MediaQuery padding so content '
-        'is not occluded.',
-    gesture:
-        'Normal system gestures still work. Critically, Android 15+ '
-        'enforces edgeToEdge by default for apps targeting SDK 35.',
-    useCase:
-        'Modern Material 3 / iOS-style designs, hero images that bleed '
-        'to the edges, immersive map screens with translucent app bars.',
-    statusVisible: true,
-    navVisible: true,
-    chromeStripe: 'CHROME TRANSPARENT -- APP DRAWS UNDER',
-  ));
+  modeCards.add(
+    _buildModeCard(
+      mode: SystemUiMode.edgeToEdge,
+      title: 'edgeToEdge',
+      accent: Color(0xFF42A5F5),
+      secondary: Color(0xFF90CAF9),
+      icon: Icons.aspect_ratio,
+      behaviour:
+          'Status bar AND nav bar remain visible but become transparent '
+          '(or translucent), and your app draws underneath them. You are '
+          'responsible for using SafeArea / MediaQuery padding so content '
+          'is not occluded.',
+      gesture:
+          'Normal system gestures still work. Critically, Android 15+ '
+          'enforces edgeToEdge by default for apps targeting SDK 35.',
+      useCase:
+          'Modern Material 3 / iOS-style designs, hero images that bleed '
+          'to the edges, immersive map screens with translucent app bars.',
+      statusVisible: true,
+      navVisible: true,
+      chromeStripe: 'CHROME TRANSPARENT -- APP DRAWS UNDER',
+    ),
+  );
 
-  modeCards.add(_buildModeCard(
-    mode: SystemUiMode.manual,
-    title: 'manual',
-    accent: Color(0xFFFFB300),
-    secondary: Color(0xFFFFE082),
-    icon: Icons.tune,
-    behaviour:
-        'Caller specifies precisely which overlays should be visible '
-        'via the `overlays` parameter (a List<SystemUiOverlay>). Useful '
-        'when you want, for example, only the status bar visible.',
-    gesture:
-        'No automatic show/hide. The user can still pull down the system '
-        'shade as the OS allows.',
-    useCase:
-        'Specialised dashboards or media controls where you want fine '
-        'control: hide nav bar but keep clock visible during a video.',
-    statusVisible: true,
-    navVisible: false,
-    chromeStripe: 'EXACTLY THE OVERLAYS YOU LISTED',
-  ));
+  modeCards.add(
+    _buildModeCard(
+      mode: SystemUiMode.manual,
+      title: 'manual',
+      accent: Color(0xFFFFB300),
+      secondary: Color(0xFFFFE082),
+      icon: Icons.tune,
+      behaviour:
+          'Caller specifies precisely which overlays should be visible '
+          'via the `overlays` parameter (a List<SystemUiOverlay>). Useful '
+          'when you want, for example, only the status bar visible.',
+      gesture:
+          'No automatic show/hide. The user can still pull down the system '
+          'shade as the OS allows.',
+      useCase:
+          'Specialised dashboards or media controls where you want fine '
+          'control: hide nav bar but keep clock visible during a video.',
+      statusVisible: true,
+      navVisible: false,
+      chromeStripe: 'EXACTLY THE OVERLAYS YOU LISTED',
+    ),
+  );
 
   // ============================================================
   // SECTION 4: Side-by-side comparison panel
@@ -497,16 +495,38 @@ dynamic build(BuildContext context) {
           runSpacing: 16.0,
           alignment: WrapAlignment.center,
           children: [
-            _miniFrame('leanBack', Color(0xFF7E57C2),
-                statusVisible: false, navVisible: false),
-            _miniFrame('immersive', Color(0xFF26A69A),
-                statusVisible: false, navVisible: false),
-            _miniFrame('immersiveSticky', Color(0xFFEF5350),
-                statusVisible: false, navVisible: false, sticky: true),
-            _miniFrame('edgeToEdge', Color(0xFF42A5F5),
-                statusVisible: true, navVisible: true, transparent: true),
-            _miniFrame('manual', Color(0xFFFFB300),
-                statusVisible: true, navVisible: false),
+            _miniFrame(
+              'leanBack',
+              Color(0xFF7E57C2),
+              statusVisible: false,
+              navVisible: false,
+            ),
+            _miniFrame(
+              'immersive',
+              Color(0xFF26A69A),
+              statusVisible: false,
+              navVisible: false,
+            ),
+            _miniFrame(
+              'immersiveSticky',
+              Color(0xFFEF5350),
+              statusVisible: false,
+              navVisible: false,
+              sticky: true,
+            ),
+            _miniFrame(
+              'edgeToEdge',
+              Color(0xFF42A5F5),
+              statusVisible: true,
+              navVisible: true,
+              transparent: true,
+            ),
+            _miniFrame(
+              'manual',
+              Color(0xFFFFB300),
+              statusVisible: true,
+              navVisible: false,
+            ),
           ],
         ),
         SizedBox(height: 12.0),
@@ -663,31 +683,31 @@ dynamic build(BuildContext context) {
         _calloutPoint(
           'Always wrap interactive content in SafeArea',
           'Without it your buttons can land under the camera notch or '
-          'behind the gesture pill. SafeArea consults MediaQuery and '
-          'applies padding equal to the unsafe insets.',
+              'behind the gesture pill. SafeArea consults MediaQuery and '
+              'applies padding equal to the unsafe insets.',
           Icons.shield,
           Colors.pink.shade700,
         ),
         _calloutPoint(
           'Notch / cutout handling',
           'Use MediaQuery.of(context).padding.top to align AppBars '
-          'manually if you cannot use SafeArea. iOS Dynamic Island and '
-          'Android camera holes are reported here.',
+              'manually if you cannot use SafeArea. iOS Dynamic Island and '
+              'Android camera holes are reported here.',
           Icons.electrical_services,
           Colors.pink.shade700,
         ),
         _calloutPoint(
           'Background colour matters',
           'A transparent status bar shows whatever your app draws under '
-          'it, including gradients. Pick colours that contrast with '
-          'system icons to stay readable.',
+              'it, including gradients. Pick colours that contrast with '
+              'system icons to stay readable.',
           Icons.format_color_fill,
           Colors.pink.shade700,
         ),
         _calloutPoint(
           'Android 15+ default',
           'Apps targeting Android SDK 35+ are forced edge-to-edge '
-          'whether you opt in or not. Plan SafeArea coverage.',
+              'whether you opt in or not. Plan SafeArea coverage.',
           Icons.android,
           Colors.pink.shade700,
         ),
@@ -740,31 +760,31 @@ dynamic build(BuildContext context) {
         _pitfallRow(
           'leanBack steals first tap',
           'Users may tap a button that does nothing because the tap '
-          'was consumed re-showing system chrome. Avoid leanBack on '
-          'highly-interactive screens.',
+              'was consumed re-showing system chrome. Avoid leanBack on '
+              'highly-interactive screens.',
         ),
         _pitfallRow(
           'iOS does not honour leanBack / immersive',
           'These modes are no-ops on iOS. Use a layout-driven approach '
-          '(prefersStatusBarHidden) for cross-platform full-screen.',
+              '(prefersStatusBarHidden) for cross-platform full-screen.',
         ),
         _pitfallRow(
           'manual without overlays = both hidden',
           'Calling setEnabledSystemUIMode(SystemUiMode.manual) with an '
-          'empty overlay list is the same as immersive. Always pass '
-          'overlays explicitly when using manual.',
+              'empty overlay list is the same as immersive. Always pass '
+              'overlays explicitly when using manual.',
         ),
         _pitfallRow(
           'Forgetting to restore on exit',
           'Always restore SystemUiMode.edgeToEdge (or your default) '
-          'when leaving an immersive screen, otherwise other parts of '
-          'the app inherit the immersive state.',
+              'when leaving an immersive screen, otherwise other parts of '
+              'the app inherit the immersive state.',
         ),
         _pitfallRow(
           'Letterboxing on edgeToEdge',
           'If you do not paint behind the chrome (e.g. solid colour '
-          'AppBar), edgeToEdge looks the same as opaque chrome -- '
-          'extend Scaffold.body under the AppBar with extendBodyBehindAppBar.',
+              'AppBar), edgeToEdge looks the same as opaque chrome -- '
+              'extend Scaffold.body under the AppBar with extendBodyBehindAppBar.',
         ),
       ],
     ),
@@ -825,8 +845,13 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4.0),
         _matrixRow('leanBack', false, false, 'tap anywhere', 'no'),
         _matrixRow('immersive', false, false, 'edge swipe', 'partial'),
-        _matrixRow('immersiveSticky', false, false, 'edge swipe peek',
-            'partial'),
+        _matrixRow(
+          'immersiveSticky',
+          false,
+          false,
+          'edge swipe peek',
+          'partial',
+        ),
         _matrixRow('edgeToEdge', true, true, 'always visible', 'yes'),
         _matrixRow('manual', true, false, 'developer-driven', 'yes'),
       ],
@@ -904,26 +929,43 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         hero,
-        _sectionHeader('1. Anatomy of system UI', Icons.architecture,
-            Colors.orange.shade800),
+        _sectionHeader(
+          '1. Anatomy of system UI',
+          Icons.architecture,
+          Colors.orange.shade800,
+        ),
         anatomy,
-        _sectionHeader('2. Per-value catalogue', Icons.collections_bookmark,
-            Colors.deepPurple.shade700),
+        _sectionHeader(
+          '2. Per-value catalogue',
+          Icons.collections_bookmark,
+          Colors.deepPurple.shade700,
+        ),
         ...modeCards,
-        _sectionHeader('3. Side-by-side comparison', Icons.compare,
-            Colors.blue.shade800),
+        _sectionHeader(
+          '3. Side-by-side comparison',
+          Icons.compare,
+          Colors.blue.shade800,
+        ),
         comparison,
-        _sectionHeader('4. Recipes', Icons.menu_book,
-            Colors.green.shade800),
+        _sectionHeader('4. Recipes', Icons.menu_book, Colors.green.shade800),
         recipes,
-        _sectionHeader('5. Edge-to-edge guidance', Icons.warning,
-            Colors.pink.shade800),
+        _sectionHeader(
+          '5. Edge-to-edge guidance',
+          Icons.warning,
+          Colors.pink.shade800,
+        ),
         edgeGuidance,
-        _sectionHeader('6. Pitfalls', Icons.report_problem,
-            Colors.red.shade800),
+        _sectionHeader(
+          '6. Pitfalls',
+          Icons.report_problem,
+          Colors.red.shade800,
+        ),
         pitfalls,
-        _sectionHeader('7. Behaviour matrix', Icons.grid_on,
-            Colors.deepPurple.shade800),
+        _sectionHeader(
+          '7. Behaviour matrix',
+          Icons.grid_on,
+          Colors.deepPurple.shade800,
+        ),
         matrix,
         footer,
       ],
@@ -982,10 +1024,7 @@ Widget _labelledZone(
             detail,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.right,
-            style: TextStyle(
-              color: Colors.white60,
-              fontSize: 9.0,
-            ),
+            style: TextStyle(color: Colors.white60, fontSize: 9.0),
           ),
         ),
       ],
@@ -993,12 +1032,7 @@ Widget _labelledZone(
   );
 }
 
-Widget _bulletLine(
-  String label,
-  String body,
-  IconData icon,
-  Color colour,
-) {
+Widget _bulletLine(String label, String body, IconData icon, Color colour) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
@@ -1020,10 +1054,7 @@ Widget _bulletLine(
         Expanded(
           child: Text(
             body,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.brown.shade900,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.brown.shade900),
           ),
         ),
       ],
@@ -1117,8 +1148,7 @@ Widget _buildModeCard({
               ),
             ),
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.85),
                 borderRadius: BorderRadius.circular(20.0),
@@ -1128,8 +1158,8 @@ Widget _buildModeCard({
                 statusVisible && navVisible
                     ? 'CHROME ON'
                     : (!statusVisible && !navVisible
-                        ? 'CHROME OFF'
-                        : 'PARTIAL'),
+                          ? 'CHROME OFF'
+                          : 'PARTIAL'),
                 style: TextStyle(
                   color: accent,
                   fontWeight: FontWeight.bold,
@@ -1165,12 +1195,7 @@ Widget _buildModeCard({
                     accent,
                   ),
                   SizedBox(height: 8.0),
-                  _infoBlock(
-                    'Gestures',
-                    gesture,
-                    Icons.swipe,
-                    accent,
-                  ),
+                  _infoBlock('Gestures', gesture, Icons.swipe, accent),
                   SizedBox(height: 8.0),
                   _infoBlock(
                     'Recommended use',
@@ -1354,9 +1379,7 @@ Widget _chromeStrip({
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.18),
-        border: Border(
-          bottom: BorderSide(color: Colors.white24, width: 1.0),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.white24, width: 1.0)),
       ),
       alignment: Alignment.center,
       child: Text(
@@ -1396,12 +1419,7 @@ Widget _chromeStrip({
   );
 }
 
-Widget _infoBlock(
-  String title,
-  String body,
-  IconData icon,
-  Color accent,
-) {
+Widget _infoBlock(String title, String body, IconData icon, Color accent) {
   return Container(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1430,11 +1448,7 @@ Widget _infoBlock(
         SizedBox(height: 4.0),
         Text(
           body,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.black87,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.black87, height: 1.35),
         ),
       ],
     ),
@@ -1564,12 +1578,7 @@ Widget _recipeCard({
   );
 }
 
-Widget _calloutPoint(
-  String title,
-  String body,
-  IconData icon,
-  Color colour,
-) {
+Widget _calloutPoint(String title, String body, IconData icon, Color colour) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 6.0),
     child: Row(
@@ -1599,10 +1608,7 @@ Widget _calloutPoint(
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.black87,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.black87),
               ),
             ],
           ),
@@ -1635,10 +1641,7 @@ Widget _pitfallRow(String title, String body) {
               SizedBox(height: 2.0),
               Text(
                 body,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.red.shade900,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.red.shade900),
               ),
             ],
           ),

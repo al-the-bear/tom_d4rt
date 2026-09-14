@@ -15,11 +15,7 @@ enum _DemoSection {
   compendium,
 }
 
-enum _BackdropStyle {
-  nebula,
-  draftingGrid,
-  ringField,
-}
+enum _BackdropStyle { nebula, draftingGrid, ringField }
 
 class _Palette {
   final String name;
@@ -124,10 +120,12 @@ class _CheckedModeBannerDeepDemo extends StatefulWidget {
   const _CheckedModeBannerDeepDemo();
 
   @override
-  State<_CheckedModeBannerDeepDemo> createState() => _CheckedModeBannerDeepDemoState();
+  State<_CheckedModeBannerDeepDemo> createState() =>
+      _CheckedModeBannerDeepDemoState();
 }
 
-class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> {
+class _CheckedModeBannerDeepDemoState
+    extends State<_CheckedModeBannerDeepDemo> {
   _DemoSection _section = _DemoSection.primer;
   int _paletteIndex = 0;
   _BackdropStyle _backdropStyle = _BackdropStyle.nebula;
@@ -159,35 +157,35 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   _Palette get _p => _palettes[_paletteIndex];
 
   List<_SampleScenario> get _scenarios => <_SampleScenario>[
-        _SampleScenario(
-          id: 'dashboard',
-          title: 'Dashboard Hero',
-          purpose: 'Show debug ribbon over data-rich UI shell.',
-          icon: Icons.dashboard_customize_outlined,
-          tone: _p.accentA,
-        ),
-        _SampleScenario(
-          id: 'media',
-          title: 'Media Preview',
-          purpose: 'Ensure overlay remains visible over visual-heavy content.',
-          icon: Icons.perm_media_outlined,
-          tone: _p.accentB,
-        ),
-        _SampleScenario(
-          id: 'settings',
-          title: 'Settings Stack',
-          purpose: 'Observe ribbon in form-like and list-driven screens.',
-          icon: Icons.settings_suggest,
-          tone: _p.accentC,
-        ),
-        _SampleScenario(
-          id: 'map',
-          title: 'Map Overlay',
-          purpose: 'Ribbon above layered overlays and markers.',
-          icon: Icons.map_outlined,
-          tone: _p.accentA,
-        ),
-      ];
+    _SampleScenario(
+      id: 'dashboard',
+      title: 'Dashboard Hero',
+      purpose: 'Show debug ribbon over data-rich UI shell.',
+      icon: Icons.dashboard_customize_outlined,
+      tone: _p.accentA,
+    ),
+    _SampleScenario(
+      id: 'media',
+      title: 'Media Preview',
+      purpose: 'Ensure overlay remains visible over visual-heavy content.',
+      icon: Icons.perm_media_outlined,
+      tone: _p.accentB,
+    ),
+    _SampleScenario(
+      id: 'settings',
+      title: 'Settings Stack',
+      purpose: 'Observe ribbon in form-like and list-driven screens.',
+      icon: Icons.settings_suggest,
+      tone: _p.accentC,
+    ),
+    _SampleScenario(
+      id: 'map',
+      title: 'Map Overlay',
+      purpose: 'Ribbon above layered overlays and markers.',
+      icon: Icons.map_outlined,
+      tone: _p.accentA,
+    ),
+  ];
 
   @override
   void initState() {
@@ -196,7 +194,12 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   }
 
   void _log(String lane, String message, Color tone) {
-    final event = _LogEvent(at: DateTime.now(), lane: lane, message: message, tone: tone);
+    final event = _LogEvent(
+      at: DateTime.now(),
+      lane: lane,
+      message: message,
+      tone: tone,
+    );
     setState(() {
       _events.insert(0, event);
       if (_events.length > 160) {
@@ -244,10 +247,7 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                 children: <Widget>[
                   Expanded(child: _sectionBody()),
                   if (_showTimeline)
-                    SizedBox(
-                      width: 380,
-                      child: _timelinePane(),
-                    ),
+                    SizedBox(width: 380, child: _timelinePane()),
                 ],
               ),
             ),
@@ -274,23 +274,38 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Icon(Icons.verified_outlined, color: Colors.white, size: 27),
+              const Icon(
+                Icons.verified_outlined,
+                color: Colors.white,
+                size: 27,
+              ),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
                   'CheckedModeBanner Deep Demo',
-                  style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 21,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.18),
                   borderRadius: BorderRadius.circular(999),
                 ),
                 child: const Text(
                   'Debug Ribbon Wrapper',
-                  style: TextStyle(color: Colors.white, fontSize: 10.2, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10.2,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],
@@ -300,7 +315,11 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             'CheckedModeBanner wraps a child and shows a DEBUG banner in debug mode. '
             'This demo explores wrapper behavior, runtime toggles, explicit Banner comparisons, and integration patterns '
             'for interpreter-side visual validation.',
-            style: TextStyle(color: Colors.white.withValues(alpha: 0.95), fontSize: 12.2, height: 1.35),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.95),
+              fontSize: 12.2,
+              height: 1.35,
+            ),
           ),
         ],
       ),
@@ -317,10 +336,24 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         runSpacing: 8,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: <Widget>[
-          Text('Section', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Section',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _sectionLabels.length; i++) _sectionChip(i),
           const SizedBox(width: 10),
-          Text('Palette', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+          Text(
+            'Palette',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+            ),
+          ),
           for (var i = 0; i < _palettes.length; i++) _paletteDot(i),
           const SizedBox(width: 10),
           _toggleChip('timeline', _showTimeline, (v) => _showTimeline = v),
@@ -340,7 +373,11 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       selectedColor: _p.accentA,
       backgroundColor: Colors.white,
       label: Text('${index + 1}'),
-      labelStyle: TextStyle(color: selected ? Colors.white : _p.ink, fontSize: 11, fontWeight: FontWeight.w700),
+      labelStyle: TextStyle(
+        color: selected ? Colors.white : _p.ink,
+        fontSize: 11,
+        fontWeight: FontWeight.w700,
+      ),
       onSelected: (_) {
         setState(() => _section = _DemoSection.values[index]);
         _log('section', 'Switched to ${_sectionLabels[index]}', _p.accentB);
@@ -352,7 +389,11 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return GestureDetector(
       onTap: () {
         setState(() => _paletteIndex = index);
-        _log('palette', 'Palette changed to ${_palettes[index].name}', _palettes[index].accentA);
+        _log(
+          'palette',
+          'Palette changed to ${_palettes[index].name}',
+          _palettes[index].accentA,
+        );
       },
       child: Container(
         width: 21,
@@ -361,7 +402,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
           shape: BoxShape.circle,
           color: _palettes[index].accentA,
           border: Border.all(
-            color: _paletteIndex == index ? _palettes[index].accentC : Colors.transparent,
+            color: _paletteIndex == index
+                ? _palettes[index].accentC
+                : Colors.transparent,
             width: 2,
           ),
         ),
@@ -376,7 +419,11 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       backgroundColor: Colors.white,
       checkmarkColor: _p.accentA,
       label: Text(label),
-      labelStyle: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11),
+      labelStyle: TextStyle(
+        color: _p.ink,
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+      ),
       onSelected: (selected) => setState(() => assign(selected)),
     );
   }
@@ -401,7 +448,12 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   Widget _title(String text) {
     return Text(
       text,
-      style: TextStyle(color: _p.ink, fontSize: 19, fontWeight: FontWeight.w800, letterSpacing: -0.2),
+      style: TextStyle(
+        color: _p.ink,
+        fontSize: 19,
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.2,
+      ),
     );
   }
 
@@ -418,7 +470,11 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: _p.muted.withValues(alpha: 0.22)),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: _p.frame.withValues(alpha: 0.05), blurRadius: 8, offset: const Offset(0, 4)),
+          BoxShadow(
+            color: _p.frame.withValues(alpha: 0.05),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Padding(
@@ -426,9 +482,19 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
+            Text(
+              title,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w800,
+                fontSize: 12.8,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33)),
+            Text(
+              subtitle,
+              style: TextStyle(color: _p.muted, fontSize: 10.8, height: 1.33),
+            ),
             const SizedBox(height: 10),
             child,
           ],
@@ -460,12 +526,16 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _toggleChip('debug wrapper enabled', _debugWrapperEnabled, (v) {
+                    _toggleChip('debug wrapper enabled', _debugWrapperEnabled, (
+                      v,
+                    ) {
                       _debugWrapperEnabled = v;
                       _bannerToggleCount += 1;
                       _recordMode('primer', 'debug wrapper enabled -> $v');
                     }),
-                    _toggleChip('simulate release bypass', _simulateRelease, (v) {
+                    _toggleChip('simulate release bypass', _simulateRelease, (
+                      v,
+                    ) {
                       _simulateRelease = v;
                       _bannerToggleCount += 1;
                       _recordMode('primer', 'simulate release bypass -> $v');
@@ -481,7 +551,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   color: _p.accentA,
                   onChanged: (v) {
                     setState(() => _viewportWidth = v);
-                    _recordControl('primer', 'viewport width -> ${v.toStringAsFixed(0)}');
+                    _recordControl(
+                      'primer',
+                      'viewport width -> ${v.toStringAsFixed(0)}',
+                    );
                   },
                 ),
                 _slider(
@@ -493,7 +566,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   color: _p.accentB,
                   onChanged: (v) {
                     setState(() => _viewportHeight = v);
-                    _recordControl('primer', 'viewport height -> ${v.toStringAsFixed(0)}');
+                    _recordControl(
+                      'primer',
+                      'viewport height -> ${v.toStringAsFixed(0)}',
+                    );
                   },
                 ),
               ],
@@ -519,10 +595,14 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                           height: _viewportHeight,
                           child: _wrapWithDebug(
                             child: GestureDetector(
-                              onTap: () => _recordTap('primer', 'Tapped baseline preview'),
+                              onTap: () => _recordTap(
+                                'primer',
+                                'Tapped baseline preview',
+                              ),
                               child: _surfaceCard(
                                 title: 'Preview App Surface',
-                                subtitle: 'Baseline child wrapped by CheckedModeBanner',
+                                subtitle:
+                                    'Baseline child wrapped by CheckedModeBanner',
                                 icon: Icons.phone_iphone,
                                 tone: _p.accentA,
                               ),
@@ -544,10 +624,16 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _bullet('CheckedModeBanner only accepts child and wraps it.'),
-                        _bullet('In debug mode it inserts a DEBUG Banner at topEnd.'),
+                        _bullet(
+                          'CheckedModeBanner only accepts child and wraps it.',
+                        ),
+                        _bullet(
+                          'In debug mode it inserts a DEBUG Banner at topEnd.',
+                        ),
                         _bullet('In release mode it renders only child.'),
-                        _bullet('Use it for unmistakable debug visual state in app shells.'),
+                        _bullet(
+                          'Use it for unmistakable debug visual state in app shells.',
+                        ),
                       ],
                     ),
                   ),
@@ -601,7 +687,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                     color: _p.accentB,
                     onChanged: (v) {
                       setState(() => _cardSpacing = v);
-                      _recordControl('gallery', 'card spacing -> ${v.toStringAsFixed(1)}');
+                      _recordControl(
+                        'gallery',
+                        'card spacing -> ${v.toStringAsFixed(1)}',
+                      );
                     },
                   ),
                 ),
@@ -612,7 +701,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
           LayoutBuilder(
             builder: (context, constraints) {
               final columns = constraints.maxWidth > 1050 ? 2 : 1;
-              final cardWidth = columns == 2 ? (constraints.maxWidth - _cardSpacing) / 2 : constraints.maxWidth;
+              final cardWidth = columns == 2
+                  ? (constraints.maxWidth - _cardSpacing) / 2
+                  : constraints.maxWidth;
               return Wrap(
                 spacing: _cardSpacing,
                 runSpacing: _cardSpacing,
@@ -629,7 +720,8 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                             child: _wrapMaybeBanner(
                               enabled: _showInnerBannerInCards,
                               child: GestureDetector(
-                                onTap: () => _recordScenarioHit(scenario, 'tap'),
+                                onTap: () =>
+                                    _recordScenarioHit(scenario, 'tap'),
                                 child: _scenarioSurface(scenario),
                               ),
                             ),
@@ -669,15 +761,21 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   spacing: 8,
                   runSpacing: 8,
                   children: <Widget>[
-                    _toggleChip('debug wrapper enabled', _debugWrapperEnabled, (v) {
+                    _toggleChip('debug wrapper enabled', _debugWrapperEnabled, (
+                      v,
+                    ) {
                       _debugWrapperEnabled = v;
                       _bannerToggleCount += 1;
                       _recordMode('runtime', 'debug wrapper enabled -> $v');
                     }),
-                    _toggleChip('raw banner counterpart', _showRawBannerCounterpart, (v) {
-                      _showRawBannerCounterpart = v;
-                      _recordMode('runtime', 'raw counterpart -> $v');
-                    }),
+                    _toggleChip(
+                      'raw banner counterpart',
+                      _showRawBannerCounterpart,
+                      (v) {
+                        _showRawBannerCounterpart = v;
+                        _recordMode('runtime', 'raw counterpart -> $v');
+                      },
+                    ),
                   ],
                 ),
                 _slider(
@@ -689,7 +787,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   color: _p.accentC,
                   onChanged: (v) {
                     setState(() => _previewScale = v);
-                    _recordControl('runtime', 'preview scale -> ${v.toStringAsFixed(2)}');
+                    _recordControl(
+                      'runtime',
+                      'preview scale -> ${v.toStringAsFixed(2)}',
+                    );
                   },
                 ),
               ],
@@ -717,7 +818,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                             height: 270,
                             child: _wrapWithDebug(
                               child: GestureDetector(
-                                onTap: () => _recordTap('runtime', 'Tapped runtime primary preview'),
+                                onTap: () => _recordTap(
+                                  'runtime',
+                                  'Tapped runtime primary preview',
+                                ),
                                 child: _surfaceCard(
                                   title: 'Operational Console',
                                   subtitle: 'Runtime wrapper toggle target',
@@ -756,10 +860,14 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                                 location: BannerLocation.topEnd,
                                 textDirection: TextDirection.ltr,
                                 child: GestureDetector(
-                                  onTap: () => _recordTap('runtime', 'Tapped runtime counterpart preview'),
+                                  onTap: () => _recordTap(
+                                    'runtime',
+                                    'Tapped runtime counterpart preview',
+                                  ),
                                   child: _surfaceCard(
                                     title: 'Manual Banner Replica',
-                                    subtitle: 'Direct Banner for side-by-side behavior visibility',
+                                    subtitle:
+                                        'Direct Banner for side-by-side behavior visibility',
                                     icon: Icons.flag_circle_outlined,
                                     tone: _p.accentB,
                                   ),
@@ -800,14 +908,35 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
               Expanded(
                 child: _panel(
                   title: 'Behavior Matrix',
-                  subtitle: 'CheckedModeBanner and explicit Banner trait comparison.',
+                  subtitle:
+                      'CheckedModeBanner and explicit Banner trait comparison.',
                   child: Column(
                     children: <Widget>[
-                      _matrixRow('API surface', 'CheckedModeBanner: child only', 'Banner: message/location/style configuration'),
-                      _matrixRow('Debug semantics', 'Built for debug-mode marker', 'Usable in any mode when rendered'),
-                      _matrixRow('Intent clarity', 'Strong signal: app is debug shell', 'General ribbon/badge presentation'),
-                      _matrixRow('Custom text', 'Not configurable', 'Fully customizable message and style'),
-                      _matrixRow('Use case', 'Top-level app debug marker', 'Product-level labels, QA tags, custom overlays'),
+                      _matrixRow(
+                        'API surface',
+                        'CheckedModeBanner: child only',
+                        'Banner: message/location/style configuration',
+                      ),
+                      _matrixRow(
+                        'Debug semantics',
+                        'Built for debug-mode marker',
+                        'Usable in any mode when rendered',
+                      ),
+                      _matrixRow(
+                        'Intent clarity',
+                        'Strong signal: app is debug shell',
+                        'General ribbon/badge presentation',
+                      ),
+                      _matrixRow(
+                        'Custom text',
+                        'Not configurable',
+                        'Fully customizable message and style',
+                      ),
+                      _matrixRow(
+                        'Use case',
+                        'Top-level app debug marker',
+                        'Product-level labels, QA tags, custom overlays',
+                      ),
                     ],
                   ),
                 ),
@@ -820,11 +949,21 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _bullet('Prefer CheckedModeBanner for app-level debug marker consistency.'),
-                      _bullet('Use explicit Banner when message or position must be customized.'),
-                      _bullet('Avoid stacking many banners; visual noise quickly reduces clarity.'),
-                      _bullet('When simulating release visuals, bypass wrapper with dedicated switch.'),
-                      _bullet('Record runtime toggles in timeline for easy interpreter verification.'),
+                      _bullet(
+                        'Prefer CheckedModeBanner for app-level debug marker consistency.',
+                      ),
+                      _bullet(
+                        'Use explicit Banner when message or position must be customized.',
+                      ),
+                      _bullet(
+                        'Avoid stacking many banners; visual noise quickly reduces clarity.',
+                      ),
+                      _bullet(
+                        'When simulating release visuals, bypass wrapper with dedicated switch.',
+                      ),
+                      _bullet(
+                        'Record runtime toggles in timeline for easy interpreter verification.',
+                      ),
                     ],
                   ),
                 ),
@@ -913,13 +1052,16 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
           const SizedBox(height: 12),
           _panel(
             title: 'App Shell Integration Preview',
-            subtitle: 'Representative shell with navigation rail, main pane, and status cards.',
+            subtitle:
+                'Representative shell with navigation rail, main pane, and status cards.',
             tint: _p.accentA.withValues(alpha: 0.05),
             child: SizedBox(
               height: 560,
               child: _deviceShell(
                 title: 'integrated shell',
-                badge: _debugWrapperEnabled ? 'debug ribbon active' : 'debug ribbon inactive',
+                badge: _debugWrapperEnabled
+                    ? 'debug ribbon active'
+                    : 'debug ribbon inactive',
                 child: _wrapWithDebug(
                   child: Stack(
                     children: <Widget>[
@@ -927,7 +1069,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                       if (_showCrosshair)
                         Positioned.fill(
                           child: CustomPaint(
-                            painter: _CrosshairPainter(color: _p.ink.withValues(alpha: 0.18)),
+                            painter: _CrosshairPainter(
+                              color: _p.ink.withValues(alpha: 0.18),
+                            ),
                           ),
                         ),
                       Positioned.fill(
@@ -939,12 +1083,17 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.88),
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                                border: Border.all(
+                                  color: _p.muted.withValues(alpha: 0.24),
+                                ),
                               ),
                               child: Column(
                                 children: <Widget>[
                                   const SizedBox(height: 10),
-                                  Icon(Icons.memory_outlined, color: _p.accentA),
+                                  Icon(
+                                    Icons.memory_outlined,
+                                    color: _p.accentA,
+                                  ),
                                   const SizedBox(height: 8),
                                   _railItem('Overview', true),
                                   _railItem('Build', false),
@@ -958,29 +1107,50 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                             ),
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 10, 10, 10),
+                                padding: const EdgeInsets.fromLTRB(
+                                  0,
+                                  10,
+                                  10,
+                                  10,
+                                ),
                                 child: Column(
                                   children: <Widget>[
                                     Container(
                                       height: 78,
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(alpha: 0.88),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.88,
+                                        ),
                                         borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                                        border: Border.all(
+                                          color: _p.muted.withValues(
+                                            alpha: 0.24,
+                                          ),
+                                        ),
                                       ),
                                       child: Row(
                                         children: <Widget>[
                                           const SizedBox(width: 12),
-                                          Icon(Icons.analytics_outlined, color: _p.accentB),
+                                          Icon(
+                                            Icons.analytics_outlined,
+                                            color: _p.accentB,
+                                          ),
                                           const SizedBox(width: 8),
                                           Expanded(
                                             child: Text(
                                               'Debug Integration Dashboard',
-                                              style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13),
+                                              style: TextStyle(
+                                                color: _p.ink,
+                                                fontWeight: FontWeight.w800,
+                                                fontSize: 13,
+                                              ),
                                             ),
                                           ),
                                           FilledButton.tonal(
-                                            onPressed: () => _recordTap('integration', 'Tapped refresh action'),
+                                            onPressed: () => _recordTap(
+                                              'integration',
+                                              'Tapped refresh action',
+                                            ),
                                             child: const Text('Refresh'),
                                           ),
                                           const SizedBox(width: 10),
@@ -992,15 +1162,30 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                                       child: Row(
                                         children: <Widget>[
                                           Expanded(
-                                            child: _infoCard('Pipelines', '4 active', Icons.alt_route, _p.accentA),
+                                            child: _infoCard(
+                                              'Pipelines',
+                                              '4 active',
+                                              Icons.alt_route,
+                                              _p.accentA,
+                                            ),
                                           ),
                                           const SizedBox(width: 10),
                                           Expanded(
-                                            child: _infoCard('Warnings', '2 pending', Icons.warning_amber_rounded, _p.accentC),
+                                            child: _infoCard(
+                                              'Warnings',
+                                              '2 pending',
+                                              Icons.warning_amber_rounded,
+                                              _p.accentC,
+                                            ),
                                           ),
                                           const SizedBox(width: 10),
                                           Expanded(
-                                            child: _infoCard('Latency', '92 ms', Icons.speed_outlined, _p.accentB),
+                                            child: _infoCard(
+                                              'Latency',
+                                              '92 ms',
+                                              Icons.speed_outlined,
+                                              _p.accentB,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -1009,17 +1194,39 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                                     Container(
                                       height: 180,
                                       decoration: BoxDecoration(
-                                        color: Colors.white.withValues(alpha: 0.88),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.88,
+                                        ),
                                         borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(color: _p.muted.withValues(alpha: 0.24)),
+                                        border: Border.all(
+                                          color: _p.muted.withValues(
+                                            alpha: 0.24,
+                                          ),
+                                        ),
                                       ),
                                       child: ListView(
                                         padding: const EdgeInsets.all(10),
                                         children: <Widget>[
-                                          _logRow('Worker-1', 'Compile cycle complete', _p.accentA),
-                                          _logRow('Worker-2', 'Cache restored', _p.accentB),
-                                          _logRow('Worker-3', 'Warning budget exceeded', _p.accentC),
-                                          _logRow('Worker-1', 'Publish artifact prepared', _p.accentA),
+                                          _logRow(
+                                            'Worker-1',
+                                            'Compile cycle complete',
+                                            _p.accentA,
+                                          ),
+                                          _logRow(
+                                            'Worker-2',
+                                            'Cache restored',
+                                            _p.accentB,
+                                          ),
+                                          _logRow(
+                                            'Worker-3',
+                                            'Warning budget exceeded',
+                                            _p.accentC,
+                                          ),
+                                          _logRow(
+                                            'Worker-1',
+                                            'Publish artifact prepared',
+                                            _p.accentA,
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -1054,12 +1261,30 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             subtitle: 'Coverage summary from this demo.',
             child: Column(
               children: <Widget>[
-                _matrix('Core behavior', 'Wraps child and injects DEBUG Banner in debug mode.'),
-                _matrix('Constructor scope', 'Single child parameter; no custom message or location configuration.'),
-                _matrix('Release behavior', 'Renders child only when debug assertions are absent.'),
-                _matrix('Visual use cases', 'Dashboard, media, settings, map overlays, integrated shell layouts.'),
-                _matrix('Runtime toggles', 'Wrapper switching, release simulation, preview scaling, timeline logs.'),
-                _matrix('Bridge understanding', 'Side-by-side with explicit Banner clarifies internal implementation.'),
+                _matrix(
+                  'Core behavior',
+                  'Wraps child and injects DEBUG Banner in debug mode.',
+                ),
+                _matrix(
+                  'Constructor scope',
+                  'Single child parameter; no custom message or location configuration.',
+                ),
+                _matrix(
+                  'Release behavior',
+                  'Renders child only when debug assertions are absent.',
+                ),
+                _matrix(
+                  'Visual use cases',
+                  'Dashboard, media, settings, map overlays, integrated shell layouts.',
+                ),
+                _matrix(
+                  'Runtime toggles',
+                  'Wrapper switching, release simulation, preview scaling, timeline logs.',
+                ),
+                _matrix(
+                  'Bridge understanding',
+                  'Side-by-side with explicit Banner clarifies internal implementation.',
+                ),
               ],
             ),
           ),
@@ -1071,23 +1296,29 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
               children: <Widget>[
                 _doDont(
                   good: true,
-                  title: 'Do keep CheckedModeBanner for global debug shell visibility',
-                  detail: 'It quickly communicates environment state to engineers and testers.',
+                  title:
+                      'Do keep CheckedModeBanner for global debug shell visibility',
+                  detail:
+                      'It quickly communicates environment state to engineers and testers.',
                 ),
                 _doDont(
                   good: true,
-                  title: 'Do compare debug and release-like views during QA walkthroughs',
-                  detail: 'A simple bypass toggle helps validate screenshot and visual acceptance flows.',
+                  title:
+                      'Do compare debug and release-like views during QA walkthroughs',
+                  detail:
+                      'A simple bypass toggle helps validate screenshot and visual acceptance flows.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont rely on CheckedModeBanner for custom labels',
-                  detail: 'Use explicit Banner when text or placement must be customized.',
+                  detail:
+                      'Use explicit Banner when text or placement must be customized.',
                 ),
                 _doDont(
                   good: false,
                   title: 'Dont stack multiple debug ribbons without intent',
-                  detail: 'Overlapping ribbons reduce readability and confuse triage sessions.',
+                  detail:
+                      'Overlapping ribbons reduce readability and confuse triage sessions.',
                 ),
               ],
             ),
@@ -1124,11 +1355,21 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _check('Multiple visual sections demonstrate CheckedModeBanner usage across varied content.'),
-                _check('Runtime toggles expose wrapper on/off and release-like behavior paths.'),
-                _check('Internals section explains implementation via explicit Banner comparison.'),
-                _check('Integration stage demonstrates app-shell-level composition behavior.'),
-                _check('Instructional content explains when to use CheckedModeBanner vs Banner.'),
+                _check(
+                  'Multiple visual sections demonstrate CheckedModeBanner usage across varied content.',
+                ),
+                _check(
+                  'Runtime toggles expose wrapper on/off and release-like behavior paths.',
+                ),
+                _check(
+                  'Internals section explains implementation via explicit Banner comparison.',
+                ),
+                _check(
+                  'Integration stage demonstrates app-shell-level composition behavior.',
+                ),
+                _check(
+                  'Instructional content explains when to use CheckedModeBanner vs Banner.',
+                ),
               ],
             ),
           ),
@@ -1182,14 +1423,22 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                 height: 56,
                 decoration: BoxDecoration(
                   color: scenario.tone.withValues(alpha: 0.13),
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(12),
+                  ),
                 ),
                 child: Row(
                   children: <Widget>[
                     const SizedBox(width: 10),
                     Icon(scenario.icon, color: scenario.tone),
                     const SizedBox(width: 8),
-                    Text('Dashboard Hero', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800)),
+                    Text(
+                      'Dashboard Hero',
+                      style: TextStyle(
+                        color: _p.ink,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1226,9 +1475,15 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: scenario.tone.withValues(alpha: 0.34)),
+                  border: Border.all(
+                    color: scenario.tone.withValues(alpha: 0.34),
+                  ),
                 ),
-                child: Icon(Icons.play_circle_fill_rounded, color: scenario.tone, size: 44),
+                child: Icon(
+                  Icons.play_circle_fill_rounded,
+                  color: scenario.tone,
+                  size: 44,
+                ),
               ),
             ),
           ],
@@ -1247,7 +1502,13 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         return Stack(
           children: <Widget>[
             Positioned.fill(child: _background(_BackdropStyle.draftingGrid)),
-            Positioned.fill(child: CustomPaint(painter: _RoutePainter(color: scenario.tone.withValues(alpha: 0.68)))),
+            Positioned.fill(
+              child: CustomPaint(
+                painter: _RoutePainter(
+                  color: scenario.tone.withValues(alpha: 0.68),
+                ),
+              ),
+            ),
             Positioned(left: 24, top: 32, child: _mapPin(scenario.tone)),
             Positioned(right: 38, top: 70, child: _mapPin(_p.accentB)),
             Positioned(left: 90, bottom: 48, child: _mapPin(_p.accentC)),
@@ -1262,7 +1523,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return Container(
       width: 26,
       height: 26,
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.8), shape: BoxShape.circle),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.8),
+        shape: BoxShape.circle,
+      ),
     );
   }
 
@@ -1274,7 +1538,14 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: tone.withValues(alpha: 0.35)),
       ),
-      child: Text(text, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 10.4)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: _p.ink,
+          fontWeight: FontWeight.w700,
+          fontSize: 10.4,
+        ),
+      ),
     );
   }
 
@@ -1291,7 +1562,14 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         children: <Widget>[
           Text(label, style: TextStyle(color: _p.muted, fontSize: 10.2)),
           const SizedBox(height: 4),
-          Text(value, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 16)),
+          Text(
+            value,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
+          ),
         ],
       ),
     );
@@ -1308,8 +1586,20 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       ),
       child: Row(
         children: <Widget>[
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.2))),
-          Icon(enabled ? Icons.toggle_on : Icons.toggle_off, color: enabled ? tone : _p.muted),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: _p.ink,
+                fontWeight: FontWeight.w700,
+                fontSize: 11.2,
+              ),
+            ),
+          ),
+          Icon(
+            enabled ? Icons.toggle_on : Icons.toggle_off,
+            color: enabled ? tone : _p.muted,
+          ),
         ],
       ),
     );
@@ -1341,12 +1631,26 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                       Icon(icon, color: tone),
                       const SizedBox(width: 8),
                       Expanded(
-                        child: Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 12.8)),
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                            color: _p.ink,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 12.8,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Text(subtitle, style: TextStyle(color: _p.muted, fontSize: 11.2, height: 1.3)),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: _p.muted,
+                      fontSize: 11.2,
+                      height: 1.3,
+                    ),
+                  ),
                   const Spacer(),
                   Row(
                     children: <Widget>[
@@ -1367,12 +1671,26 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   Widget _tinyTag(String text, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text(text, style: TextStyle(color: _p.ink, fontSize: 9.7, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 9.7,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
-  Widget _deviceShell({required String title, required String badge, required Widget child}) {
+  Widget _deviceShell({
+    required String title,
+    required String badge,
+    required Widget child,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1386,14 +1704,25 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: _p.paper,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Row(
               children: <Widget>[
                 Text(title, style: TextStyle(color: _p.muted, fontSize: 10.8)),
                 const Spacer(),
-                Text(badge, style: TextStyle(color: _p.muted, fontSize: 10.2, fontFamily: 'monospace')),
+                Text(
+                  badge,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 10.2,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ],
             ),
           ),
@@ -1413,12 +1742,20 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       ),
       child: Row(
         children: <Widget>[
-          Icon(active ? Icons.radio_button_checked : Icons.radio_button_unchecked, size: 12, color: active ? _p.accentA : _p.muted),
+          Icon(
+            active ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+            size: 12,
+            color: active ? _p.accentA : _p.muted,
+          ),
           const SizedBox(width: 6),
           Expanded(
             child: Text(
               label,
-              style: TextStyle(color: active ? _p.ink : _p.muted, fontSize: 10.4, fontWeight: active ? FontWeight.w700 : FontWeight.w500),
+              style: TextStyle(
+                color: active ? _p.ink : _p.muted,
+                fontSize: 10.4,
+                fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+              ),
             ),
           ),
         ],
@@ -1441,7 +1778,14 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
           const Spacer(),
           Text(title, style: TextStyle(color: _p.muted, fontSize: 10.6)),
           const SizedBox(height: 4),
-          Text(value, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 14)),
+          Text(
+            value,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 14,
+            ),
+          ),
         ],
       ),
     );
@@ -1458,9 +1802,19 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       ),
       child: Row(
         children: <Widget>[
-          Text(lane, style: TextStyle(color: _p.ink, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.2)),
+          Text(
+            lane,
+            style: TextStyle(
+              color: _p.ink,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
+              fontSize: 10.2,
+            ),
+          ),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 10.8))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 10.8)),
+          ),
         ],
       ),
     );
@@ -1478,11 +1832,24 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(topic, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 11.4)),
+          Text(
+            topic,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w800,
+              fontSize: 11.4,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('CheckedModeBanner: $checkedMode', style: TextStyle(color: _p.muted, fontSize: 10.7)),
+          Text(
+            'CheckedModeBanner: $checkedMode',
+            style: TextStyle(color: _p.muted, fontSize: 10.7),
+          ),
           const SizedBox(height: 2),
-          Text('Banner: $banner', style: TextStyle(color: _p.muted, fontSize: 10.7)),
+          Text(
+            'Banner: $banner',
+            style: TextStyle(color: _p.muted, fontSize: 10.7),
+          ),
         ],
       ),
     );
@@ -1500,12 +1867,24 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.3)),
+          Text(
+            title,
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.3,
+            ),
+          ),
           const SizedBox(height: 6),
           for (final line in lines)
             Text(
               line,
-              style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontSize: 10.4, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: _p.accentA,
+                fontFamily: 'monospace',
+                fontSize: 10.4,
+                fontWeight: FontWeight.w700,
+              ),
             ),
         ],
       ),
@@ -1523,7 +1902,13 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   }) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 170, child: Text('$label: ${value.toStringAsFixed(1)}', style: TextStyle(color: _p.ink, fontSize: 12))),
+        SizedBox(
+          width: 170,
+          child: Text(
+            '$label: ${value.toStringAsFixed(1)}',
+            style: TextStyle(color: _p.ink, fontSize: 12),
+          ),
+        ),
         Expanded(
           child: Slider(
             value: value,
@@ -1549,7 +1934,17 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   }) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 86, child: Text(label, style: TextStyle(color: _p.ink, fontSize: 11.2, fontWeight: FontWeight.w700))),
+        SizedBox(
+          width: 86,
+          child: Text(
+            label,
+            style: TextStyle(
+              color: _p.ink,
+              fontSize: 11.2,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
         Expanded(
           child: Slider(
             value: value,
@@ -1585,8 +1980,18 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
   Widget _metric(String label, String value, Color tone) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: tone.withValues(alpha: 0.14), borderRadius: BorderRadius.circular(999)),
-      child: Text('$label: $value', style: TextStyle(color: _p.ink, fontSize: 10.2, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: tone.withValues(alpha: 0.14),
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        '$label: $value',
+        style: TextStyle(
+          color: _p.ink,
+          fontSize: 10.2,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 
@@ -1606,16 +2011,30 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             width: 150,
             child: Text(
               key,
-              style: TextStyle(color: _p.accentA, fontFamily: 'monospace', fontWeight: FontWeight.w700, fontSize: 10.8),
+              style: TextStyle(
+                color: _p.accentA,
+                fontFamily: 'monospace',
+                fontWeight: FontWeight.w700,
+                fontSize: 10.8,
+              ),
             ),
           ),
-          Expanded(child: Text(value, style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33))),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(color: _p.ink, fontSize: 11.2, height: 1.33),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _doDont({required bool good, required String title, required String detail}) {
+  Widget _doDont({
+    required bool good,
+    required String title,
+    required String detail,
+  }) {
     final tone = good ? const Color(0xFF2E7D32) : const Color(0xFFC62828);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
@@ -1634,9 +2053,23 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 12)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(detail, style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.32)),
+                Text(
+                  detail,
+                  style: TextStyle(
+                    color: _p.muted,
+                    fontSize: 11.1,
+                    height: 1.32,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1657,9 +2090,19 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Q: $q', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w700, fontSize: 11.9)),
+          Text(
+            'Q: $q',
+            style: TextStyle(
+              color: _p.ink,
+              fontWeight: FontWeight.w700,
+              fontSize: 11.9,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('A: $a', style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33)),
+          Text(
+            'A: $a',
+            style: TextStyle(color: _p.muted, fontSize: 11.1, height: 1.33),
+          ),
         ],
       ),
     );
@@ -1673,7 +2116,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         children: <Widget>[
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 17),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.3)),
+          ),
         ],
       ),
     );
@@ -1687,7 +2132,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
         children: <Widget>[
           Icon(Icons.chevron_right, size: 16, color: _p.accentA),
           const SizedBox(width: 4),
-          Expanded(child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1))),
+          Expanded(
+            child: Text(text, style: TextStyle(color: _p.ink, fontSize: 11.1)),
+          ),
         ],
       ),
     );
@@ -1695,7 +2142,12 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
 
   Widget _timelinePane() {
     return Container(
-      decoration: BoxDecoration(color: _p.panel, border: Border(left: BorderSide(color: _p.muted.withValues(alpha: 0.24)))),
+      decoration: BoxDecoration(
+        color: _p.panel,
+        border: Border(
+          left: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+        ),
+      ),
       child: Column(
         children: <Widget>[
           Container(
@@ -1703,14 +2155,26 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
             decoration: BoxDecoration(
               color: _p.accentA.withValues(alpha: 0.08),
-              border: Border(bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24))),
+              border: Border(
+                bottom: BorderSide(color: _p.muted.withValues(alpha: 0.24)),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Ribbon Timeline', style: TextStyle(color: _p.ink, fontWeight: FontWeight.w800, fontSize: 13.2)),
+                Text(
+                  'Ribbon Timeline',
+                  style: TextStyle(
+                    color: _p.ink,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 13.2,
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text('Wrapper toggles, scenario interactions, and section transitions.', style: TextStyle(color: _p.muted, fontSize: 10.7)),
+                Text(
+                  'Wrapper toggles, scenario interactions, and section transitions.',
+                  style: TextStyle(color: _p.muted, fontSize: 10.7),
+                ),
                 // Cluster H follow-up: same fix as
                 // widgets/callback_shortcuts_test.dart,
                 // widgets/child_back_button_dispatcher_test.dart and
@@ -1743,7 +2207,9 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                   decoration: BoxDecoration(
                     color: event.tone.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: event.tone.withValues(alpha: 0.25)),
+                    border: Border.all(
+                      color: event.tone.withValues(alpha: 0.25),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1763,12 +2229,23 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
                           ),
                           Text(
                             _clock(event.at),
-                            style: TextStyle(color: _p.muted, fontFamily: 'monospace', fontSize: 10.1),
+                            style: TextStyle(
+                              color: _p.muted,
+                              fontFamily: 'monospace',
+                              fontSize: 10.1,
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(event.message, style: TextStyle(color: _p.ink, fontSize: 11.1, height: 1.31)),
+                      Text(
+                        event.message,
+                        style: TextStyle(
+                          color: _p.ink,
+                          fontSize: 11.1,
+                          height: 1.31,
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -1794,15 +2271,31 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
       color: _p.frame.withValues(alpha: 0.07),
       child: Row(
         children: <Widget>[
-          Text(_sectionLabels[_section.index], style: TextStyle(color: _p.muted, fontSize: 11, fontWeight: FontWeight.w700)),
+          Text(
+            _sectionLabels[_section.index],
+            style: TextStyle(
+              color: _p.muted,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
           DropdownButton<_BackdropStyle>(
             value: _backdropStyle,
             borderRadius: BorderRadius.circular(10),
             items: const <DropdownMenuItem<_BackdropStyle>>[
-              DropdownMenuItem(value: _BackdropStyle.nebula, child: Text('Nebula')),
-              DropdownMenuItem(value: _BackdropStyle.draftingGrid, child: Text('Grid')),
-              DropdownMenuItem(value: _BackdropStyle.ringField, child: Text('Ring field')),
+              DropdownMenuItem(
+                value: _BackdropStyle.nebula,
+                child: Text('Nebula'),
+              ),
+              DropdownMenuItem(
+                value: _BackdropStyle.draftingGrid,
+                child: Text('Grid'),
+              ),
+              DropdownMenuItem(
+                value: _BackdropStyle.ringField,
+                child: Text('Ring field'),
+              ),
             ],
             onChanged: (value) {
               if (value != null) {
@@ -1812,7 +2305,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
             },
           ),
           const SizedBox(width: 10),
-          Text('Palette: ${_p.name}', style: TextStyle(color: _p.muted, fontSize: 11.1)),
+          Text(
+            'Palette: ${_p.name}',
+            style: TextStyle(color: _p.muted, fontSize: 11.1),
+          ),
         ],
       ),
     );
@@ -1833,12 +2329,17 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentA.withValues(alpha: 0.22), _p.accentB.withValues(alpha: 0.22)],
+          colors: <Color>[
+            _p.accentA.withValues(alpha: 0.22),
+            _p.accentB.withValues(alpha: 0.22),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: CustomPaint(painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2))),
+      child: CustomPaint(
+        painter: _WavePainter(color: Colors.white.withValues(alpha: 0.2)),
+      ),
     );
   }
 
@@ -1846,12 +2347,17 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentB.withValues(alpha: 0.24), _p.accentC.withValues(alpha: 0.24)],
+          colors: <Color>[
+            _p.accentB.withValues(alpha: 0.24),
+            _p.accentC.withValues(alpha: 0.24),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-      child: CustomPaint(painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22))),
+      child: CustomPaint(
+        painter: _GridPainter(color: Colors.white.withValues(alpha: 0.22)),
+      ),
     );
   }
 
@@ -1859,17 +2365,36 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: <Color>[_p.accentC.withValues(alpha: 0.24), _p.accentA.withValues(alpha: 0.24)],
+          colors: <Color>[
+            _p.accentC.withValues(alpha: 0.24),
+            _p.accentA.withValues(alpha: 0.24),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
       ),
       child: Stack(
         children: <Widget>[
-          Positioned.fill(child: CustomPaint(painter: _StarPainter(color: Colors.white.withValues(alpha: 0.2)))),
-          Positioned(left: 24, top: 24, child: _ring(88, Colors.white.withValues(alpha: 0.16))),
-          Positioned(right: 30, top: 40, child: _ring(68, Colors.white.withValues(alpha: 0.15))),
-          Positioned(left: 110, bottom: 28, child: _ring(110, Colors.white.withValues(alpha: 0.13))),
+          Positioned.fill(
+            child: CustomPaint(
+              painter: _StarPainter(color: Colors.white.withValues(alpha: 0.2)),
+            ),
+          ),
+          Positioned(
+            left: 24,
+            top: 24,
+            child: _ring(88, Colors.white.withValues(alpha: 0.16)),
+          ),
+          Positioned(
+            right: 30,
+            top: 40,
+            child: _ring(68, Colors.white.withValues(alpha: 0.15)),
+          ),
+          Positioned(
+            left: 110,
+            bottom: 28,
+            child: _ring(110, Colors.white.withValues(alpha: 0.13)),
+          ),
         ],
       ),
     );
@@ -1879,7 +2404,10 @@ class _CheckedModeBannerDeepDemoState extends State<_CheckedModeBannerDeepDemo> 
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: color, width: 6)),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: color, width: 6),
+      ),
     );
   }
 }
@@ -1902,7 +2430,8 @@ class _CrosshairPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _CrosshairPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _CrosshairPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _RoutePainter extends CustomPainter {
@@ -1940,7 +2469,8 @@ class _RoutePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _RoutePainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _RoutePainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _WavePainter extends CustomPainter {
@@ -1968,7 +2498,8 @@ class _WavePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _WavePainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _WavePainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _GridPainter extends CustomPainter {
@@ -1996,7 +2527,8 @@ class _GridPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _GridPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _GridPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class _StarPainter extends CustomPainter {
@@ -2016,5 +2548,6 @@ class _StarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _StarPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _StarPainter oldDelegate) =>
+      oldDelegate.color != color;
 }

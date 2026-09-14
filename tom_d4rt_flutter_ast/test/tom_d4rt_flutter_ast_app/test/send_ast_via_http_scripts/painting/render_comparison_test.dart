@@ -45,15 +45,20 @@ Widget rcInfoRow(String label, String value) {
       children: [
         SizedBox(
           width: 120.0,
-          child: Text(label,
-              style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF455A64))),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF455A64),
+            ),
+          ),
         ),
         Expanded(
-          child: Text(value,
-              style: TextStyle(fontSize: 12.0, color: Color(0xFF546E7A))),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF546E7A)),
+          ),
         ),
       ],
     ),
@@ -98,7 +103,9 @@ dynamic build(BuildContext context) {
   // ── Section 1: Title ─────────────────────────────────────────
   print('\n[1] RenderComparison Overview');
   print('  Enum describing severity of difference between two objects');
-  print('  4 values ordered by severity: identical → metadata → paint → layout');
+  print(
+    '  4 values ordered by severity: identical → metadata → paint → layout',
+  );
   print('  Key use: TextPainter.compareTo, ShapeBorder.compareTo');
 
   final rcTitleSection = Container(
@@ -120,18 +127,22 @@ dynamic build(BuildContext context) {
             Icon(Icons.compare_arrows, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
             Expanded(
-              child: Text('RenderComparison',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              child: Text(
+                'RenderComparison',
+                style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
         SizedBox(height: 8.0),
-        Text('Describes the severity of the difference between two rendering objects',
-            style: TextStyle(fontSize: 13.0, color: Color(0xFFBBDEFB))),
+        Text(
+          'Describes the severity of the difference between two rendering objects',
+          style: TextStyle(fontSize: 13.0, color: Color(0xFFBBDEFB)),
+        ),
         SizedBox(height: 6.0),
         Row(
           children: [
@@ -152,18 +163,38 @@ dynamic build(BuildContext context) {
   }
 
   final rcValueData = <Map<String, dynamic>>[
-    {'value': RenderComparison.identical, 'label': 'identical',
-     'icon': Icons.check_circle, 'color': Color(0xFF4CAF50),
-     'desc': 'No difference at all', 'action': 'None'},
-    {'value': RenderComparison.metadata, 'label': 'metadata',
-     'icon': Icons.info_outline, 'color': Color(0xFFFFC107),
-     'desc': 'Different metadata, no visual change', 'action': 'Check semantics'},
-    {'value': RenderComparison.paint, 'label': 'paint',
-     'icon': Icons.format_paint, 'color': Color(0xFFFF9800),
-     'desc': 'Visual appearance changed', 'action': 'markNeedsPaint()'},
-    {'value': RenderComparison.layout, 'label': 'layout',
-     'icon': Icons.space_dashboard, 'color': Color(0xFFF44336),
-     'desc': 'Size and position changed', 'action': 'markNeedsLayout()'},
+    {
+      'value': RenderComparison.identical,
+      'label': 'identical',
+      'icon': Icons.check_circle,
+      'color': Color(0xFF4CAF50),
+      'desc': 'No difference at all',
+      'action': 'None',
+    },
+    {
+      'value': RenderComparison.metadata,
+      'label': 'metadata',
+      'icon': Icons.info_outline,
+      'color': Color(0xFFFFC107),
+      'desc': 'Different metadata, no visual change',
+      'action': 'Check semantics',
+    },
+    {
+      'value': RenderComparison.paint,
+      'label': 'paint',
+      'icon': Icons.format_paint,
+      'color': Color(0xFFFF9800),
+      'desc': 'Visual appearance changed',
+      'action': 'markNeedsPaint()',
+    },
+    {
+      'value': RenderComparison.layout,
+      'label': 'layout',
+      'icon': Icons.space_dashboard,
+      'color': Color(0xFFF44336),
+      'desc': 'Size and position changed',
+      'action': 'markNeedsLayout()',
+    },
   ];
 
   final rcFourValues = Container(
@@ -182,31 +213,58 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: (d['color'] as Color).withValues(alpha: 0.3)),
+            border: Border.all(
+              color: (d['color'] as Color).withValues(alpha: 0.3),
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(d['icon'] as IconData, color: d['color'] as Color, size: 24.0),
+              Icon(
+                d['icon'] as IconData,
+                color: d['color'] as Color,
+                size: 24.0,
+              ),
               SizedBox(width: 10.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(d['label'] as String,
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                            color: Color(0xFF283593))),
+                    Text(
+                      d['label'] as String,
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF283593),
+                      ),
+                    ),
                     SizedBox(height: 2.0),
-                    Text(d['desc'] as String,
-                        style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A))),
+                    Text(
+                      d['desc'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF546E7A),
+                      ),
+                    ),
                     SizedBox(height: 4.0),
                     Row(
                       children: [
-                        Text('Action: ', style: TextStyle(fontSize: 10.0,
-                            fontWeight: FontWeight.w600, color: Color(0xFF455A64))),
-                        Text(d['action'] as String,
-                            style: TextStyle(fontSize: 10.0, color: d['color'] as Color,
-                                fontWeight: FontWeight.w600)),
+                        Text(
+                          'Action: ',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF455A64),
+                          ),
+                        ),
+                        Text(
+                          d['action'] as String,
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            color: d['color'] as Color,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 4.0),
@@ -236,9 +294,14 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('Severity increases left to right',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF455A64))),
+        Text(
+          'Severity increases left to right',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF455A64),
+          ),
+        ),
         SizedBox(height: 12.0),
         Row(
           children: [
@@ -251,10 +314,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text('identical', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('0', style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(
+                      'identical',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      '0',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -269,10 +344,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text('metadata', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('1', style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(
+                      'metadata',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      '1',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -287,10 +374,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text('paint', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('2', style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(
+                      'paint',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      '2',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -305,10 +404,22 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    Text('layout', style: TextStyle(fontSize: 11.0,
-                        fontWeight: FontWeight.w700, color: Colors.white)),
-                    Text('3', style: TextStyle(fontSize: 18.0,
-                        fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(
+                      'layout',
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      '3',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -319,10 +430,22 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('← Low impact', style: TextStyle(fontSize: 10.0,
-                color: Color(0xFF4CAF50), fontWeight: FontWeight.w600)),
-            Text('High impact →', style: TextStyle(fontSize: 10.0,
-                color: Color(0xFFF44336), fontWeight: FontWeight.w600)),
+            Text(
+              '← Low impact',
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Color(0xFF4CAF50),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              'High impact →',
+              style: TextStyle(
+                fontSize: 10.0,
+                color: Color(0xFFF44336),
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ],
@@ -350,14 +473,21 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Index values enable severity comparison',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF455A64))),
+        Text(
+          'Index values enable severity comparison',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF455A64),
+          ),
+        ),
         SizedBox(height: 8.0),
         ...RenderComparison.values.map((v) {
           final severityColors = [
-            Color(0xFF4CAF50), Color(0xFFFFC107),
-            Color(0xFFFF9800), Color(0xFFF44336),
+            Color(0xFF4CAF50),
+            Color(0xFFFFC107),
+            Color(0xFFFF9800),
+            Color(0xFFF44336),
           ];
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 3.0),
@@ -371,15 +501,25 @@ dynamic build(BuildContext context) {
                     shape: BoxShape.circle,
                   ),
                   child: Center(
-                    child: Text('${v.index}',
-                        style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.bold,
-                            color: Colors.white)),
+                    child: Text(
+                      '${v.index}',
+                      style: TextStyle(
+                        fontSize: 13.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 10.0),
-                Text(v.name,
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
-                        color: Color(0xFF283593))),
+                Text(
+                  v.name,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF283593),
+                  ),
+                ),
                 SizedBox(width: 8.0),
                 Expanded(child: rcSeverityBar(v)),
               ],
@@ -398,8 +538,11 @@ dynamic build(BuildContext context) {
             'if (result.index >= RenderComparison.paint.index) {\n'
             '  markNeedsPaint();\n'
             '}',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                color: Color(0xFF283593)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF283593),
+            ),
           ),
         ),
       ],
@@ -414,18 +557,34 @@ dynamic build(BuildContext context) {
   print('  layout    → markNeedsLayout (resize + repaint)');
 
   final decisionData = <Map<String, dynamic>>[
-    {'level': 'identical', 'decision': 'Do nothing',
-     'icon': Icons.check, 'color': Color(0xFF4CAF50),
-     'detail': 'Objects are indistinguishable, no work needed'},
-    {'level': 'metadata', 'decision': 'Update semantics',
-     'icon': Icons.description, 'color': Color(0xFFFFC107),
-     'detail': 'Accessibility labels or debug info changed, not visible'},
-    {'level': 'paint', 'decision': 'Repaint only',
-     'icon': Icons.format_paint, 'color': Color(0xFFFF9800),
-     'detail': 'Visual change (color, style) but same dimensions'},
-    {'level': 'layout', 'decision': 'Full relayout',
-     'icon': Icons.space_dashboard, 'color': Color(0xFFF44336),
-     'detail': 'Size or position changed, triggers paint cascade'},
+    {
+      'level': 'identical',
+      'decision': 'Do nothing',
+      'icon': Icons.check,
+      'color': Color(0xFF4CAF50),
+      'detail': 'Objects are indistinguishable, no work needed',
+    },
+    {
+      'level': 'metadata',
+      'decision': 'Update semantics',
+      'icon': Icons.description,
+      'color': Color(0xFFFFC107),
+      'detail': 'Accessibility labels or debug info changed, not visible',
+    },
+    {
+      'level': 'paint',
+      'decision': 'Repaint only',
+      'icon': Icons.format_paint,
+      'color': Color(0xFFFF9800),
+      'detail': 'Visual change (color, style) but same dimensions',
+    },
+    {
+      'level': 'layout',
+      'decision': 'Full relayout',
+      'icon': Icons.space_dashboard,
+      'color': Color(0xFFF44336),
+      'detail': 'Size or position changed, triggers paint cascade',
+    },
   ];
 
   final rcDecisionSection = Container(
@@ -450,7 +609,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(d['icon'] as IconData, color: d['color'] as Color, size: 20.0),
+              Icon(
+                d['icon'] as IconData,
+                color: d['color'] as Color,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
@@ -458,19 +621,39 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Text(d['level'] as String,
-                            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                                color: Color(0xFF283593))),
-                        Text('  →  ', style: TextStyle(fontSize: 12.0,
-                            color: Color(0xFF9E9E9E))),
-                        Text(d['decision'] as String,
-                            style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w600,
-                                color: d['color'] as Color)),
+                        Text(
+                          d['level'] as String,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF283593),
+                          ),
+                        ),
+                        Text(
+                          '  →  ',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Color(0xFF9E9E9E),
+                          ),
+                        ),
+                        Text(
+                          d['decision'] as String,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.w600,
+                            color: d['color'] as Color,
+                          ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 2.0),
-                    Text(d['detail'] as String,
-                        style: TextStyle(fontSize: 10.0, color: Color(0xFF78909C))),
+                    Text(
+                      d['detail'] as String,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Color(0xFF78909C),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -490,11 +673,27 @@ dynamic build(BuildContext context) {
 
   final textStyleChanges = <Map<String, dynamic>>[
     {'change': 'Same style', 'result': 'identical', 'color': Color(0xFF4CAF50)},
-    {'change': 'Semantics label', 'result': 'metadata', 'color': Color(0xFFFFC107)},
-    {'change': 'Color / decoration', 'result': 'paint', 'color': Color(0xFFFF9800)},
-    {'change': 'Font size / weight', 'result': 'layout', 'color': Color(0xFFF44336)},
+    {
+      'change': 'Semantics label',
+      'result': 'metadata',
+      'color': Color(0xFFFFC107),
+    },
+    {
+      'change': 'Color / decoration',
+      'result': 'paint',
+      'color': Color(0xFFFF9800),
+    },
+    {
+      'change': 'Font size / weight',
+      'result': 'layout',
+      'color': Color(0xFFF44336),
+    },
     {'change': 'Font family', 'result': 'layout', 'color': Color(0xFFF44336)},
-    {'change': 'Letter spacing', 'result': 'layout', 'color': Color(0xFFF44336)},
+    {
+      'change': 'Letter spacing',
+      'result': 'layout',
+      'color': Color(0xFFF44336),
+    },
   ];
 
   final rcTextPainterSection = Container(
@@ -507,33 +706,58 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('TextStyle property changes mapped to comparison levels',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF455A64))),
+        Text(
+          'TextStyle property changes mapped to comparison levels',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF455A64),
+          ),
+        ),
         SizedBox(height: 8.0),
         Row(
           children: [
-            SizedBox(width: 130.0,
-                child: Text('Property Change', style: TextStyle(
-                    fontWeight: FontWeight.w700, fontSize: 11.0,
-                    color: Color(0xFF283593)))),
-            Expanded(child: Text('Result', style: TextStyle(
-                fontWeight: FontWeight.w700, fontSize: 11.0,
-                color: Color(0xFF283593)))),
+            SizedBox(
+              width: 130.0,
+              child: Text(
+                'Property Change',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF283593),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Result',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 11.0,
+                  color: Color(0xFF283593),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFF9FA8DA)),
-        ...textStyleChanges.map((c) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 130.0,
-                  child: Text(c['change'] as String,
-                      style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A)))),
-              rcChip(c['result'] as String, c['color'] as Color),
-            ],
+        ...textStyleChanges.map(
+          (c) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 130.0,
+                  child: Text(
+                    c['change'] as String,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A)),
+                  ),
+                ),
+                rcChip(c['result'] as String, c['color'] as Color),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -546,14 +770,34 @@ dynamic build(BuildContext context) {
   print('  layout: O(n²) — relayout + repaint cascade');
 
   final perfData = <Map<String, dynamic>>[
-    {'level': 'identical', 'cost': 'Zero', 'perf': '0%', 'color': Color(0xFF4CAF50),
-     'detail': 'No render work, fastest possible outcome'},
-    {'level': 'metadata', 'cost': 'Minimal', 'perf': '5%', 'color': Color(0xFFFFC107),
-     'detail': 'Only semantics tree updated, no visual work'},
-    {'level': 'paint', 'cost': 'Moderate', 'perf': '40%', 'color': Color(0xFFFF9800),
-     'detail': 'Repaint affected render objects, skip layout'},
-    {'level': 'layout', 'cost': 'High', 'perf': '100%', 'color': Color(0xFFF44336),
-     'detail': 'Full layout pass, then paint pass, most expensive'},
+    {
+      'level': 'identical',
+      'cost': 'Zero',
+      'perf': '0%',
+      'color': Color(0xFF4CAF50),
+      'detail': 'No render work, fastest possible outcome',
+    },
+    {
+      'level': 'metadata',
+      'cost': 'Minimal',
+      'perf': '5%',
+      'color': Color(0xFFFFC107),
+      'detail': 'Only semantics tree updated, no visual work',
+    },
+    {
+      'level': 'paint',
+      'cost': 'Moderate',
+      'perf': '40%',
+      'color': Color(0xFFFF9800),
+      'detail': 'Repaint affected render objects, skip layout',
+    },
+    {
+      'level': 'layout',
+      'cost': 'High',
+      'perf': '100%',
+      'color': Color(0xFFF44336),
+      'detail': 'Full layout pass, then paint pass, most expensive',
+    },
   ];
 
   final rcPerfSection = Container(
@@ -580,9 +824,14 @@ dynamic build(BuildContext context) {
                 children: [
                   rcChip(p['level'] as String, p['color'] as Color),
                   SizedBox(width: 6.0),
-                  Text('Cost: ${p['cost']}',
-                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600,
-                          color: Color(0xFF455A64))),
+                  Text(
+                    'Cost: ${p['cost']}',
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF455A64),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 6.0),
@@ -595,8 +844,9 @@ dynamic build(BuildContext context) {
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: FractionallySizedBox(
-                  widthFactor: double.parse((p['perf'] as String)
-                      .replaceAll('%', '')) / 100.0,
+                  widthFactor:
+                      double.parse((p['perf'] as String).replaceAll('%', '')) /
+                      100.0,
                   alignment: Alignment.centerLeft,
                   child: Container(
                     decoration: BoxDecoration(
@@ -607,8 +857,10 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 4.0),
-              Text(p['detail'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF78909C))),
+              Text(
+                p['detail'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF78909C)),
+              ),
             ],
           ),
         );
@@ -625,14 +877,34 @@ dynamic build(BuildContext context) {
   print('  layout    | Yes     | Yes      | Yes       | High');
 
   final rcCompData = <Map<String, dynamic>>[
-    {'level': 'identical', 'repaint': false, 'relayout': false,
-     'semantics': false, 'cost': 'None'},
-    {'level': 'metadata', 'repaint': false, 'relayout': false,
-     'semantics': true, 'cost': 'Low'},
-    {'level': 'paint', 'repaint': true, 'relayout': false,
-     'semantics': true, 'cost': 'Medium'},
-    {'level': 'layout', 'repaint': true, 'relayout': true,
-     'semantics': true, 'cost': 'High'},
+    {
+      'level': 'identical',
+      'repaint': false,
+      'relayout': false,
+      'semantics': false,
+      'cost': 'None',
+    },
+    {
+      'level': 'metadata',
+      'repaint': false,
+      'relayout': false,
+      'semantics': true,
+      'cost': 'Low',
+    },
+    {
+      'level': 'paint',
+      'repaint': true,
+      'relayout': false,
+      'semantics': true,
+      'cost': 'Medium',
+    },
+    {
+      'level': 'layout',
+      'repaint': true,
+      'relayout': true,
+      'semantics': true,
+      'cost': 'High',
+    },
   ];
 
   final rcCompTable = Container(
@@ -646,48 +918,124 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            SizedBox(width: 65.0, child: Text('Level',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF283593)))),
-            SizedBox(width: 55.0, child: Text('Repaint',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF283593)), textAlign: TextAlign.center)),
-            SizedBox(width: 55.0, child: Text('Relayout',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF283593)), textAlign: TextAlign.center)),
-            SizedBox(width: 60.0, child: Text('Semantics',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF283593)), textAlign: TextAlign.center)),
-            Expanded(child: Text('Cost',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 10.0,
-                    color: Color(0xFF283593)))),
+            SizedBox(
+              width: 65.0,
+              child: Text(
+                'Level',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF283593),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 55.0,
+              child: Text(
+                'Repaint',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF283593),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              width: 55.0,
+              child: Text(
+                'Relayout',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF283593),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              width: 60.0,
+              child: Text(
+                'Semantics',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF283593),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Cost',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 10.0,
+                  color: Color(0xFF283593),
+                ),
+              ),
+            ),
           ],
         ),
         Divider(color: Color(0xFF9FA8DA)),
-        ...rcCompData.map((r) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 65.0, child: Text(r['level'] as String,
-                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w600,
-                      color: Color(0xFF3949AB)))),
-              SizedBox(width: 55.0, child: Icon(
-                (r['repaint'] as bool) ? Icons.check_circle : Icons.cancel,
-                color: (r['repaint'] as bool) ? Color(0xFFFF9800) : Color(0xFFBDBDBD),
-                size: 16.0)),
-              SizedBox(width: 55.0, child: Icon(
-                (r['relayout'] as bool) ? Icons.check_circle : Icons.cancel,
-                color: (r['relayout'] as bool) ? Color(0xFFF44336) : Color(0xFFBDBDBD),
-                size: 16.0)),
-              SizedBox(width: 60.0, child: Icon(
-                (r['semantics'] as bool) ? Icons.check_circle : Icons.cancel,
-                color: (r['semantics'] as bool) ? Color(0xFFFFC107) : Color(0xFFBDBDBD),
-                size: 16.0)),
-              Expanded(child: Text(r['cost'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF546E7A)))),
-            ],
+        ...rcCompData.map(
+          (r) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 65.0,
+                  child: Text(
+                    r['level'] as String,
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF3949AB),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 55.0,
+                  child: Icon(
+                    (r['repaint'] as bool) ? Icons.check_circle : Icons.cancel,
+                    color: (r['repaint'] as bool)
+                        ? Color(0xFFFF9800)
+                        : Color(0xFFBDBDBD),
+                    size: 16.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 55.0,
+                  child: Icon(
+                    (r['relayout'] as bool) ? Icons.check_circle : Icons.cancel,
+                    color: (r['relayout'] as bool)
+                        ? Color(0xFFF44336)
+                        : Color(0xFFBDBDBD),
+                    size: 16.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 60.0,
+                  child: Icon(
+                    (r['semantics'] as bool)
+                        ? Icons.check_circle
+                        : Icons.cancel,
+                    color: (r['semantics'] as bool)
+                        ? Color(0xFFFFC107)
+                        : Color(0xFFBDBDBD),
+                    size: 16.0,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    r['cost'] as String,
+                    style: TextStyle(fontSize: 10.0, color: Color(0xFF546E7A)),
+                  ),
+                ),
+              ],
+            ),
           ),
-        )),
+        ),
       ],
     ),
   );
@@ -700,24 +1048,48 @@ dynamic build(BuildContext context) {
   print('  No change: identical');
 
   final rcUseCases = <Map<String, dynamic>>[
-    {'title': 'Theme Color Switch', 'icon': Icons.palette,
-     'level': 'paint', 'color': Color(0xFFFF9800),
-     'desc': 'Changing text color or decoration color triggers repaint'},
-    {'title': 'Font Size Change', 'icon': Icons.format_size,
-     'level': 'layout', 'color': Color(0xFFF44336),
-     'desc': 'Larger/smaller text changes layout constraints'},
-    {'title': 'Tooltip Update', 'icon': Icons.chat_bubble_outline,
-     'level': 'metadata', 'color': Color(0xFFFFC107),
-     'desc': 'Accessibility text changed, no visual impact'},
-    {'title': 'AnimationController', 'icon': Icons.animation,
-     'level': 'paint', 'color': Color(0xFFFF9800),
-     'desc': 'Opacity or transform animation only needs repaint'},
-    {'title': 'Widget Rebuild', 'icon': Icons.refresh,
-     'level': 'identical', 'color': Color(0xFF4CAF50),
-     'desc': 'Const widget rebuild detects no change at all'},
-    {'title': 'Text Direction', 'icon': Icons.swap_horiz,
-     'level': 'layout', 'color': Color(0xFFF44336),
-     'desc': 'RTL → LTR changes entire text layout flow'},
+    {
+      'title': 'Theme Color Switch',
+      'icon': Icons.palette,
+      'level': 'paint',
+      'color': Color(0xFFFF9800),
+      'desc': 'Changing text color or decoration color triggers repaint',
+    },
+    {
+      'title': 'Font Size Change',
+      'icon': Icons.format_size,
+      'level': 'layout',
+      'color': Color(0xFFF44336),
+      'desc': 'Larger/smaller text changes layout constraints',
+    },
+    {
+      'title': 'Tooltip Update',
+      'icon': Icons.chat_bubble_outline,
+      'level': 'metadata',
+      'color': Color(0xFFFFC107),
+      'desc': 'Accessibility text changed, no visual impact',
+    },
+    {
+      'title': 'AnimationController',
+      'icon': Icons.animation,
+      'level': 'paint',
+      'color': Color(0xFFFF9800),
+      'desc': 'Opacity or transform animation only needs repaint',
+    },
+    {
+      'title': 'Widget Rebuild',
+      'icon': Icons.refresh,
+      'level': 'identical',
+      'color': Color(0xFF4CAF50),
+      'desc': 'Const widget rebuild detects no change at all',
+    },
+    {
+      'title': 'Text Direction',
+      'icon': Icons.swap_horiz,
+      'level': 'layout',
+      'color': Color(0xFFF44336),
+      'desc': 'RTL → LTR changes entire text layout flow',
+    },
   ];
 
   final rcUseCaseSection = Container(
@@ -744,18 +1116,31 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(uc['icon'] as IconData, color: Color(0xFF3949AB), size: 16.0),
+                  Icon(
+                    uc['icon'] as IconData,
+                    color: Color(0xFF3949AB),
+                    size: 16.0,
+                  ),
                   SizedBox(width: 4.0),
-                  Expanded(child: Text(uc['title'] as String,
-                      style: TextStyle(fontSize: 11.0, fontWeight: FontWeight.w700,
-                          color: Color(0xFF283593)))),
+                  Expanded(
+                    child: Text(
+                      uc['title'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF283593),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 4.0),
               rcChip(uc['level'] as String, uc['color'] as Color),
               SizedBox(height: 4.0),
-              Text(uc['desc'] as String,
-                  style: TextStyle(fontSize: 10.0, color: Color(0xFF546E7A))),
+              Text(
+                uc['desc'] as String,
+                style: TextStyle(fontSize: 10.0, color: Color(0xFF546E7A)),
+              ),
             ],
           ),
         );
@@ -775,7 +1160,11 @@ dynamic build(BuildContext context) {
     {'prop': 'Color change', 'result': 'paint', 'color': Color(0xFFFF9800)},
     {'prop': 'Style change', 'result': 'paint', 'color': Color(0xFFFF9800)},
     {'prop': 'Width change', 'result': 'layout', 'color': Color(0xFFF44336)},
-    {'prop': 'StrokeAlign change', 'result': 'layout', 'color': Color(0xFFF44336)},
+    {
+      'prop': 'StrokeAlign change',
+      'result': 'layout',
+      'color': Color(0xFFF44336),
+    },
   ];
 
   final rcBorderSection = Container(
@@ -788,20 +1177,32 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('BorderSide property changes and their comparison level',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF455A64))),
-        SizedBox(height: 8.0),
-        ...borderChanges.map((c) => Padding(
-          padding: EdgeInsets.symmetric(vertical: 3.0),
-          child: Row(
-            children: [
-              SizedBox(width: 120.0, child: Text(c['prop'] as String,
-                  style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A)))),
-              rcChip(c['result'] as String, c['color'] as Color),
-            ],
+        Text(
+          'BorderSide property changes and their comparison level',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF455A64),
           ),
-        )),
+        ),
+        SizedBox(height: 8.0),
+        ...borderChanges.map(
+          (c) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 3.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 120.0,
+                  child: Text(
+                    c['prop'] as String,
+                    style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A)),
+                  ),
+                ),
+                rcChip(c['result'] as String, c['color'] as Color),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -830,9 +1231,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Dart 3 Switch Expression',
-            style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                color: Color(0xFF283593))),
+        Text(
+          'Dart 3 Switch Expression',
+          style: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF283593),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -851,8 +1257,11 @@ dynamic build(BuildContext context) {
             '  RenderComparison.layout    =>\n'
             '    markNeedsLayout(),\n'
             '}',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                color: Color(0xFF283593)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF283593),
+            ),
           ),
         ),
         SizedBox(height: 8.0),
@@ -868,8 +1277,10 @@ dynamic build(BuildContext context) {
             child: Row(
               children: [
                 Icon(Icons.arrow_right, color: Color(0xFF3949AB), size: 16.0),
-                Text('${v.name} → $desc',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A))),
+                Text(
+                  '${v.name} → $desc',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A)),
+                ),
               ],
             ),
           );
@@ -896,9 +1307,14 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Taking the maximum severity across multiple comparisons',
-            style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic,
-                color: Color(0xFF455A64))),
+        Text(
+          'Taking the maximum severity across multiple comparisons',
+          style: TextStyle(
+            fontSize: 12.0,
+            fontStyle: FontStyle.italic,
+            color: Color(0xFF455A64),
+          ),
+        ),
         SizedBox(height: 8.0),
         Container(
           width: double.infinity,
@@ -914,8 +1330,11 @@ dynamic build(BuildContext context) {
             'result = _maxComparison(result,\n'
             '    border.compareTo(other.border));\n'
             '// result is the worst-case severity',
-            style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                color: Color(0xFF283593)),
+            style: TextStyle(
+              fontSize: 10.0,
+              fontFamily: 'monospace',
+              color: Color(0xFF283593),
+            ),
           ),
         ),
         SizedBox(height: 8.0),
@@ -935,8 +1354,12 @@ dynamic build(BuildContext context) {
 
   // ── Section 13: Equality & Hashing ───────────────────────────
   print('\n[13] Equality & Hashing');
-  print('  identical == identical: ${RenderComparison.identical == RenderComparison.identical}');
-  print('  identical == layout: ${RenderComparison.identical == RenderComparison.layout}');
+  print(
+    '  identical == identical: ${RenderComparison.identical == RenderComparison.identical}',
+  );
+  print(
+    '  identical == layout: ${RenderComparison.identical == RenderComparison.layout}',
+  );
 
   final rcEqualitySection = Container(
     padding: EdgeInsets.all(12.0),
@@ -948,16 +1371,23 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        rcInfoRow('identical == identical:',
-            '${RenderComparison.identical == RenderComparison.identical}'),
-        rcInfoRow('identical == layout:',
-            '${RenderComparison.identical == RenderComparison.layout}'),
-        rcInfoRow('paint == paint:',
-            '${RenderComparison.paint == RenderComparison.paint}'),
-        rcInfoRow('hashCode identical:',
-            '${RenderComparison.identical.hashCode}'),
-        rcInfoRow('hashCode layout:',
-            '${RenderComparison.layout.hashCode}'),
+        rcInfoRow(
+          'identical == identical:',
+          '${RenderComparison.identical == RenderComparison.identical}',
+        ),
+        rcInfoRow(
+          'identical == layout:',
+          '${RenderComparison.identical == RenderComparison.layout}',
+        ),
+        rcInfoRow(
+          'paint == paint:',
+          '${RenderComparison.paint == RenderComparison.paint}',
+        ),
+        rcInfoRow(
+          'hashCode identical:',
+          '${RenderComparison.identical.hashCode}',
+        ),
+        rcInfoRow('hashCode layout:', '${RenderComparison.layout.hashCode}'),
         SizedBox(height: 6.0),
         Divider(color: Color(0xFF9FA8DA)),
         SizedBox(height: 4.0),
@@ -979,28 +1409,37 @@ dynamic build(BuildContext context) {
   print('  Pattern 3: Conditional rebuild');
 
   final rcPatterns = <Map<String, String>>[
-    {'title': 'RenderObject Update Pattern',
-     'code': 'void update(TextStyle newStyle) {\n'
-         '  final cmp = _style.compareTo(newStyle);\n'
-         '  _style = newStyle;\n'
-         '  if (cmp.index >= RenderComparison\n'
-         '      .layout.index)\n'
-         '    markNeedsLayout();\n'
-         '  else if (cmp.index >= RenderComparison\n'
-         '      .paint.index)\n'
-         '    markNeedsPaint();\n'
-         '}'},
-    {'title': 'Severity Accumulator',
-     'code': 'var worst = RenderComparison.identical;\n'
-         'for (final prop in properties) {\n'
-         '  final cmp = prop.compare(other);\n'
-         '  if (cmp.index > worst.index)\n'
-         '    worst = cmp;\n'
-         '}'},
-    {'title': 'Guard Clause',
-     'code': 'final cmp = oldText.compareTo(newText);\n'
-         'if (cmp == RenderComparison.identical)\n'
-         '  return; // nothing to do'},
+    {
+      'title': 'RenderObject Update Pattern',
+      'code':
+          'void update(TextStyle newStyle) {\n'
+          '  final cmp = _style.compareTo(newStyle);\n'
+          '  _style = newStyle;\n'
+          '  if (cmp.index >= RenderComparison\n'
+          '      .layout.index)\n'
+          '    markNeedsLayout();\n'
+          '  else if (cmp.index >= RenderComparison\n'
+          '      .paint.index)\n'
+          '    markNeedsPaint();\n'
+          '}',
+    },
+    {
+      'title': 'Severity Accumulator',
+      'code':
+          'var worst = RenderComparison.identical;\n'
+          'for (final prop in properties) {\n'
+          '  final cmp = prop.compare(other);\n'
+          '  if (cmp.index > worst.index)\n'
+          '    worst = cmp;\n'
+          '}',
+    },
+    {
+      'title': 'Guard Clause',
+      'code':
+          'final cmp = oldText.compareTo(newText);\n'
+          'if (cmp == RenderComparison.identical)\n'
+          '  return; // nothing to do',
+    },
   ];
 
   final rcPatternsSection = Container(
@@ -1023,9 +1462,14 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(p['title']!,
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                      color: Color(0xFF3949AB))),
+              Text(
+                p['title']!,
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF3949AB),
+                ),
+              ),
               SizedBox(height: 6.0),
               Container(
                 width: double.infinity,
@@ -1034,9 +1478,14 @@ dynamic build(BuildContext context) {
                   color: Color(0xFFE8EAF6),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
-                child: Text(p['code']!,
-                    style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                        color: Color(0xFF283593))),
+                child: Text(
+                  p['code']!,
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontFamily: 'monospace',
+                    color: Color(0xFF283593),
+                  ),
+                ),
               ),
             ],
           ),
@@ -1053,14 +1502,33 @@ dynamic build(BuildContext context) {
   print('  layout: Structural changes (size, spacing, alignment)');
 
   final rcWhenData = <Map<String, dynamic>>[
-    {'level': 'identical', 'icon': Icons.check_circle, 'color': Color(0xFF4CAF50),
-     'when': 'Early return optimization, no-op detection, const widget rebuilds'},
-    {'level': 'metadata', 'icon': Icons.info_outline, 'color': Color(0xFFFFC107),
-     'when': 'Accessibility label changes, debug info, tooltip text updates'},
-    {'level': 'paint', 'icon': Icons.format_paint, 'color': Color(0xFFFF9800),
-     'when': 'Color changes, opacity animation, decoration style, text decoration'},
-    {'level': 'layout', 'icon': Icons.space_dashboard, 'color': Color(0xFFF44336),
-     'when': 'Font size, padding, alignment, constraints, text direction changes'},
+    {
+      'level': 'identical',
+      'icon': Icons.check_circle,
+      'color': Color(0xFF4CAF50),
+      'when':
+          'Early return optimization, no-op detection, const widget rebuilds',
+    },
+    {
+      'level': 'metadata',
+      'icon': Icons.info_outline,
+      'color': Color(0xFFFFC107),
+      'when': 'Accessibility label changes, debug info, tooltip text updates',
+    },
+    {
+      'level': 'paint',
+      'icon': Icons.format_paint,
+      'color': Color(0xFFFF9800),
+      'when':
+          'Color changes, opacity animation, decoration style, text decoration',
+    },
+    {
+      'level': 'layout',
+      'icon': Icons.space_dashboard,
+      'color': Color(0xFFF44336),
+      'when':
+          'Font size, padding, alignment, constraints, text direction changes',
+    },
   ];
 
   final rcWhenSection = Container(
@@ -1077,17 +1545,31 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(w['icon'] as IconData, color: w['color'] as Color, size: 20.0),
+              Icon(
+                w['icon'] as IconData,
+                color: w['color'] as Color,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(w['level'] as String,
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                            color: w['color'] as Color)),
-                    Text(w['when'] as String,
-                        style: TextStyle(fontSize: 11.0, color: Color(0xFF546E7A))),
+                    Text(
+                      w['level'] as String,
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w700,
+                        color: w['color'] as Color,
+                      ),
+                    ),
+                    Text(
+                      w['when'] as String,
+                      style: TextStyle(
+                        fontSize: 11.0,
+                        color: Color(0xFF546E7A),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1118,33 +1600,50 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       children: [
-        Text('RenderComparison Dashboard',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold,
-                color: Colors.white)),
+        Text(
+          'RenderComparison Dashboard',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
               children: [
-                Text('${RenderComparison.values.length}',
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold,
-                        color: Color(0xFFBBDEFB))),
-                Text('Levels', style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA))),
+                Text(
+                  '${RenderComparison.values.length}',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFBBDEFB),
+                  ),
+                ),
+                Text(
+                  'Levels',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.trending_up, color: Color(0xFFBBDEFB), size: 28.0),
-                Text('Ordered severity',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA))),
+                Text(
+                  'Ordered severity',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA)),
+                ),
               ],
             ),
             Column(
               children: [
                 Icon(Icons.speed, color: Color(0xFFBBDEFB), size: 28.0),
-                Text('Performance tool',
-                    style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA))),
+                Text(
+                  'Performance tool',
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF9FA8DA)),
+                ),
               ],
             ),
           ],
@@ -1232,8 +1731,13 @@ Widget _rcMaxExample(String aName, String bName, String result) {
       color: Color(0xFFE8EAF6),
       borderRadius: BorderRadius.circular(6.0),
     ),
-    child: Text('max($aName, $bName) = $result',
-        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-            color: Color(0xFF283593))),
+    child: Text(
+      'max($aName, $bName) = $result',
+      style: TextStyle(
+        fontSize: 10.0,
+        fontFamily: 'monospace',
+        color: Color(0xFF283593),
+      ),
+    ),
   );
 }

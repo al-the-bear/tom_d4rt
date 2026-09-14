@@ -55,21 +55,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: silverMist, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -86,11 +92,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: ashGray.withValues(alpha: 0.5)),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: graphite.withValues(alpha: 0.85),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: graphite.withValues(alpha: 0.85),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -101,23 +110,26 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: silverMist.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(6),
-        border: Border(
-          left: BorderSide(color: slate, width: 3),
-        ),
+        border: Border(left: BorderSide(color: slate, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: darkSlate,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: darkSlate,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: pencilLead)),
+            child: Text(
+              detail,
+              style: TextStyle(fontSize: 12, color: pencilLead),
+            ),
           ),
         ],
       ),
@@ -131,8 +143,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -165,16 +179,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: darkSlate)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: darkSlate,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -194,11 +208,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((cell) {
           return Expanded(
-            child: Text(cell,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? darkSlate : pencilLead)),
+            child: Text(
+              cell,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? darkSlate : pencilLead,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -215,16 +232,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? darkSlate : slate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: Icon(Icons.arrow_forward, size: 14, color: graphite),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: Icon(Icons.arrow_forward, size: 14, color: graphite),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -276,10 +300,22 @@ dynamic build(BuildContext context) {
           children: [
             slTableRow(['Source', 'Example', 'Scope'], isHeader: true),
             slTableRow(['Semantics(label:)', '"Submit button"', 'Single node']),
-            slTableRow(['TextSpan.semanticsLabel', '"dollar sign 5"', 'Inline text']),
+            slTableRow([
+              'TextSpan.semanticsLabel',
+              '"dollar sign 5"',
+              'Inline text',
+            ]),
             slTableRow(['Tooltip', '"Copy to clipboard"', 'Wrapping widget']),
-            slTableRow(['Image.semanticLabel', '"Company logo"', 'Image widget']),
-            slTableRow(['MergeSemantics', 'Combines children', 'Subtree merge']),
+            slTableRow([
+              'Image.semanticLabel',
+              '"Company logo"',
+              'Image widget',
+            ]),
+            slTableRow([
+              'MergeSemantics',
+              'Combines children',
+              'Subtree merge',
+            ]),
           ],
         ),
       ),
@@ -300,7 +336,11 @@ dynamic build(BuildContext context) {
                       color: darkSlate,
                       borderRadius: BorderRadius.circular(28),
                     ),
-                    child: const Icon(Icons.favorite, color: Colors.white, size: 28),
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -357,8 +397,10 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(8),
             ),
             child: const Center(
-              child: Text('Graphite #383838',
-                  style: TextStyle(color: Colors.white, fontSize: 13)),
+              child: Text(
+                'Graphite #383838',
+                style: TextStyle(color: Colors.white, fontSize: 13),
+              ),
             ),
           ),
         ),
@@ -382,8 +424,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 12),
                     Icon(Icons.search, color: slate, size: 20),
                     const SizedBox(width: 8),
-                    Text('Search...',
-                        style: TextStyle(color: ashGray, fontSize: 14)),
+                    Text(
+                      'Search...',
+                      style: TextStyle(color: ashGray, fontSize: 14),
+                    ),
                   ],
                 ),
               ),
@@ -402,9 +446,13 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: const Center(
-                        child: Text('Cancel',
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.w600)),
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -421,9 +469,13 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: const Center(
-                        child: Text('Confirm',
-                            style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.w600)),
+                        child: Text(
+                          'Confirm',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -491,11 +543,14 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text('70%',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: charcoal)),
+                  Text(
+                    '70%',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: charcoal,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
@@ -510,17 +565,23 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Screen reader announces:',
-                        style: TextStyle(
-                            fontSize: 11,
-                            color: ironGray,
-                            fontStyle: FontStyle.italic)),
+                    Text(
+                      'Screen reader announces:',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: ironGray,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('"Volume, 70%, slider, double tap to adjust"',
-                        style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: darkSlate)),
+                    Text(
+                      '"Volume, 70%, slider, double tap to adjust"',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: darkSlate,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -535,7 +596,11 @@ dynamic build(BuildContext context) {
             slTableRow(['Property', 'Purpose', 'Announced'], isHeader: true),
             slTableRow(['label', 'Identity', 'First — "Volume"']),
             slTableRow(['value', 'Current state', 'Second — "70%"']),
-            slTableRow(['hint', 'Interaction guide', 'Last — "double tap to adjust"']),
+            slTableRow([
+              'hint',
+              'Interaction guide',
+              'Last — "double tap to adjust"',
+            ]),
           ],
         ),
       ),
@@ -560,8 +625,10 @@ dynamic build(BuildContext context) {
                   children: [
                     const Icon(Icons.dark_mode, color: Colors.white, size: 22),
                     const SizedBox(width: 10),
-                    const Text('Dark Mode',
-                        style: TextStyle(color: Colors.white, fontSize: 14)),
+                    const Text(
+                      'Dark Mode',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
                   ],
                 ),
                 Container(
@@ -624,21 +691,28 @@ dynamic build(BuildContext context) {
                       text: '\$',
                       semanticsLabel: '',
                       style: TextStyle(
-                          fontSize: 22, color: slate, fontWeight: FontWeight.w300),
+                        fontSize: 22,
+                        color: slate,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                     TextSpan(
                       text: '49',
                       semanticsLabel: '49 dollars',
                       style: TextStyle(
-                          fontSize: 36,
-                          color: darkSlate,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 36,
+                        color: darkSlate,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     TextSpan(
                       text: '.99',
                       semanticsLabel: 'and 99 cents',
                       style: TextStyle(
-                          fontSize: 18, color: ironGray, fontWeight: FontWeight.w300),
+                        fontSize: 18,
+                        color: ironGray,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ],
                 ),
@@ -660,9 +734,14 @@ dynamic build(BuildContext context) {
                     children: [
                       slChip('Visual', darkSlate, Colors.white),
                       const SizedBox(width: 8),
-                      Text('\$49.99',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w600, color: charcoal)),
+                      Text(
+                        '\$49.99',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: charcoal,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -670,12 +749,15 @@ dynamic build(BuildContext context) {
                     children: [
                       slChip('Spoken', slate, Colors.white),
                       const SizedBox(width: 8),
-                      Text('"49 dollars and 99 cents"',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: charcoal,
-                              fontStyle: FontStyle.italic)),
+                      Text(
+                        '"49 dollars and 99 cents"',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: charcoal,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -713,7 +795,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       slCodeNote('semanticsLabel:', 'Overrides the spoken text for this span'),
-      slCodeNote('Empty string ""', 'Suppresses announcement of that span entirely'),
+      slCodeNote(
+        'Empty string ""',
+        'Suppresses announcement of that span entirely',
+      ),
     ],
   );
 
@@ -749,16 +834,21 @@ dynamic build(BuildContext context) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Label: "Welcome to the café, enjoy your croissant"',
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontFamily: 'monospace',
-                          color: charcoal)),
+                  Text(
+                    'Label: "Welcome to the café, enjoy your croissant"',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'monospace',
+                      color: charcoal,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Text('Ranges:  ',
-                          style: TextStyle(fontSize: 12, color: ironGray)),
+                      Text(
+                        'Ranges:  ',
+                        style: TextStyle(fontSize: 12, color: ironGray),
+                      ),
                       slChip('café → fr', darkSlate, Colors.white),
                       const SizedBox(width: 6),
                       slChip('croissant → fr', slate, Colors.white),
@@ -768,10 +858,14 @@ dynamic build(BuildContext context) {
               ),
             ),
             const SizedBox(height: 10),
-            slCodeNote('LocaleStringAttribute',
-                'Tells the TTS engine to switch voice for that range'),
-            slCodeNote('SpellOutStringAttribute',
-                'Forces letter-by-letter reading (e.g., abbreviations)'),
+            slCodeNote(
+              'LocaleStringAttribute',
+              'Tells the TTS engine to switch voice for that range',
+            ),
+            slCodeNote(
+              'SpellOutStringAttribute',
+              'Forces letter-by-letter reading (e.g., abbreviations)',
+            ),
           ],
         ),
       ),
@@ -781,7 +875,9 @@ dynamic build(BuildContext context) {
           attributedLabel: AttributedString(
             'Serial: ABC123',
             attributes: <StringAttribute>[
-              ui.SpellOutStringAttribute(range: const TextRange(start: 8, end: 14)),
+              ui.SpellOutStringAttribute(
+                range: const TextRange(start: 8, end: 14),
+              ),
             ],
           ),
           child: Container(
@@ -797,15 +893,20 @@ dynamic build(BuildContext context) {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Serial Number',
-                        style: TextStyle(color: Colors.white70, fontSize: 11)),
-                    const Text('ABC123',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'monospace',
-                            letterSpacing: 3)),
+                    const Text(
+                      'Serial Number',
+                      style: TextStyle(color: Colors.white70, fontSize: 11),
+                    ),
+                    const Text(
+                      'ABC123',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'monospace',
+                        letterSpacing: 3,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -823,7 +924,10 @@ dynamic build(BuildContext context) {
         child: Text(
           'Screen reader: "Serial: A, B, C, 1, 2, 3" (spells out each character)',
           style: TextStyle(
-              fontSize: 12, fontStyle: FontStyle.italic, color: ironGray),
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+            color: ironGray,
+          ),
         ),
       ),
     ],
@@ -864,24 +968,28 @@ dynamic build(BuildContext context) {
                       text: 'prod-west-2',
                       semanticsLabel: 'production west 2',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: darkSlate,
-                          fontFamily: 'monospace'),
+                        fontWeight: FontWeight.bold,
+                        color: darkSlate,
+                        fontFamily: 'monospace',
+                      ),
                     ),
                     const TextSpan(text: ' has been '),
                     TextSpan(
                       text: 'UP',
                       semanticsLabel: 'running',
                       style: TextStyle(
-                          color: const Color(0xFF2E7D32),
-                          fontWeight: FontWeight.bold),
+                        color: const Color(0xFF2E7D32),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const TextSpan(text: ' for '),
                     TextSpan(
                       text: '14d 7h',
                       semanticsLabel: '14 days and 7 hours',
                       style: TextStyle(
-                          fontWeight: FontWeight.w600, color: darkSlate),
+                        fontWeight: FontWeight.w600,
+                        color: darkSlate,
+                      ),
                     ),
                   ],
                 ),
@@ -897,16 +1005,19 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Composed label:',
-                        style: TextStyle(fontSize: 11, color: ironGray)),
+                    Text(
+                      'Composed label:',
+                      style: TextStyle(fontSize: 11, color: ironGray),
+                    ),
                     const SizedBox(height: 3),
                     Text(
                       '"Server production west 2 has been running for 14 days and 7 hours"',
                       style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: darkSlate,
-                          fontStyle: FontStyle.italic),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: darkSlate,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ],
                 ),
@@ -919,14 +1030,25 @@ dynamic build(BuildContext context) {
         'Span-by-Span Breakdown',
         Column(
           children: [
-            slTableRow(['Visual Text', 'semanticsLabel', 'Announced As'],
-                isHeader: true),
-            slTableRow(['"Server "', '(none)', '"Server "'], ),
-            slTableRow(['"prod-west-2"', '"production west 2"', '"production west 2"']),
+            slTableRow([
+              'Visual Text',
+              'semanticsLabel',
+              'Announced As',
+            ], isHeader: true),
+            slTableRow(['"Server "', '(none)', '"Server "']),
+            slTableRow([
+              '"prod-west-2"',
+              '"production west 2"',
+              '"production west 2"',
+            ]),
             slTableRow(['" has been "', '(none)', '" has been "']),
             slTableRow(['"UP"', '"running"', '"running"']),
             slTableRow(['" for "', '(none)', '" for "']),
-            slTableRow(['"14d 7h"', '"14 days and 7 hours"', '"14 days and 7 hours"']),
+            slTableRow([
+              '"14d 7h"',
+              '"14 days and 7 hours"',
+              '"14 days and 7 hours"',
+            ]),
           ],
         ),
       ),
@@ -971,7 +1093,11 @@ dynamic build(BuildContext context) {
                         color: slate,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Icon(Icons.person, color: Colors.white, size: 22),
+                      child: const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 22,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -981,16 +1107,21 @@ dynamic build(BuildContext context) {
                       children: [
                         Semantics(
                           label: 'Jane Doe',
-                          child: Text('Jane Doe',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: charcoal,
-                                  fontSize: 14)),
+                          child: Text(
+                            'Jane Doe',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: charcoal,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                         Semantics(
                           label: 'Online 5 minutes ago',
-                          child: Text('Online 5 min ago',
-                              style: TextStyle(fontSize: 12, color: ironGray)),
+                          child: Text(
+                            'Online 5 min ago',
+                            style: TextStyle(fontSize: 12, color: ironGray),
+                          ),
                         ),
                       ],
                     ),
@@ -1026,7 +1157,11 @@ dynamic build(BuildContext context) {
                           color: darkSlate,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Icon(Icons.person, color: Colors.white, size: 22),
+                        child: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 22,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -1034,13 +1169,18 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Jane Doe',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: charcoal,
-                                  fontSize: 14)),
-                          Text('Online 5 min ago',
-                              style: TextStyle(fontSize: 12, color: ironGray)),
+                          Text(
+                            'Jane Doe',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: charcoal,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Text(
+                            'Online 5 min ago',
+                            style: TextStyle(fontSize: 12, color: ironGray),
+                          ),
                         ],
                       ),
                     ),
@@ -1059,9 +1199,17 @@ dynamic build(BuildContext context) {
           children: [
             slTableRow(['Scenario', 'Strategy', 'Why'], isHeader: true),
             slTableRow(['List item card', 'Merge', 'One logical entity']),
-            slTableRow(['Form fields', 'Separate', 'Each needs individual focus']),
+            slTableRow([
+              'Form fields',
+              'Separate',
+              'Each needs individual focus',
+            ]),
             slTableRow(['Nav bar item', 'Merge', 'Icon + label = one tab']),
-            slTableRow(['Mixed buttons', 'Separate', 'Each has its own action']),
+            slTableRow([
+              'Mixed buttons',
+              'Separate',
+              'Each has its own action',
+            ]),
           ],
         ),
       ),
@@ -1090,8 +1238,18 @@ dynamic build(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _slTooltipButton(Icons.content_copy, 'Copy', darkSlate, silverMist),
-            _slTooltipButton(Icons.content_paste, 'Paste', charcoal, silverMist),
-            _slTooltipButton(Icons.delete_outline, 'Delete', ironGray, silverMist),
+            _slTooltipButton(
+              Icons.content_paste,
+              'Paste',
+              charcoal,
+              silverMist,
+            ),
+            _slTooltipButton(
+              Icons.delete_outline,
+              'Delete',
+              ironGray,
+              silverMist,
+            ),
             _slTooltipButton(Icons.share, 'Share', slate, silverMist),
           ],
         ),
@@ -1100,17 +1258,29 @@ dynamic build(BuildContext context) {
         'Tooltip vs Semantics Label',
         Column(
           children: [
-            slTableRow(['Property', 'When Announced', 'Visual Effect'], isHeader: true),
+            slTableRow([
+              'Property',
+              'When Announced',
+              'Visual Effect',
+            ], isHeader: true),
             slTableRow(['Semantics(label:)', 'On focus', 'None']),
-            slTableRow(['Tooltip(message:)', 'On focus + long-press', 'Popup shown']),
+            slTableRow([
+              'Tooltip(message:)',
+              'On focus + long-press',
+              'Popup shown',
+            ]),
             slTableRow(['Both combined', 'Both announced', 'Popup + label']),
           ],
         ),
       ),
-      slCodeNote('Tooltip(message:)',
-          'Shows popup visually AND adds to semantic tree'),
-      slCodeNote('excludeFromSemantics:',
-          'Set true on Tooltip to suppress its semantic contribution'),
+      slCodeNote(
+        'Tooltip(message:)',
+        'Shows popup visually AND adds to semantic tree',
+      ),
+      slCodeNote(
+        'excludeFromSemantics:',
+        'Set true on Tooltip to suppress its semantic contribution',
+      ),
     ],
   );
 
@@ -1134,12 +1304,24 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _slLabeledImage(Icons.landscape, 'Mountain landscape photo',
-                darkSlate, 'Landscape'),
-            _slLabeledImage(Icons.portrait, 'Portrait of a person',
-                charcoal, 'Portrait'),
-            _slLabeledImage(Icons.pets, 'Photo of a pet dog',
-                ironGray, 'Pet photo'),
+            _slLabeledImage(
+              Icons.landscape,
+              'Mountain landscape photo',
+              darkSlate,
+              'Landscape',
+            ),
+            _slLabeledImage(
+              Icons.portrait,
+              'Portrait of a person',
+              charcoal,
+              'Portrait',
+            ),
+            _slLabeledImage(
+              Icons.pets,
+              'Photo of a pet dog',
+              ironGray,
+              'Pet photo',
+            ),
           ],
         ),
       ),
@@ -1159,12 +1341,15 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
-                        child: Text('ACME',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 4)),
+                        child: Text(
+                          'ACME',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 4,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -1184,9 +1369,10 @@ dynamic build(BuildContext context) {
                           children: [
                             Icon(Icons.texture, color: ashGray, size: 24),
                             const SizedBox(height: 4),
-                            Text('Decorative',
-                                style: TextStyle(
-                                    fontSize: 10, color: ironGray)),
+                            Text(
+                              'Decorative',
+                              style: TextStyle(fontSize: 10, color: ironGray),
+                            ),
                           ],
                         ),
                       ),
@@ -1198,16 +1384,27 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 8),
             Row(
               children: [
-                Expanded(child: slChip('Informative: labeled', darkSlate, Colors.white)),
+                Expanded(
+                  child: slChip(
+                    'Informative: labeled',
+                    darkSlate,
+                    Colors.white,
+                  ),
+                ),
                 const SizedBox(width: 8),
-                Expanded(child: slChip('Decorative: excluded', ashGray, charcoal)),
+                Expanded(
+                  child: slChip('Decorative: excluded', ashGray, charcoal),
+                ),
               ],
             ),
           ],
         ),
       ),
       slCodeNote('Image.semanticLabel:', 'Direct label on Image widget'),
-      slCodeNote('ExcludeSemantics', 'Removes decorative images from a11y tree'),
+      slCodeNote(
+        'ExcludeSemantics',
+        'Removes decorative images from a11y tree',
+      ),
     ],
   );
 
@@ -1248,11 +1445,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Description',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: darkSlate)),
+                            Text(
+                              'Description',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: darkSlate,
+                              ),
+                            ),
                             slChip('Sort: 2', slate, Colors.white),
                           ],
                         ),
@@ -1275,11 +1475,14 @@ dynamic build(BuildContext context) {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Title',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: Colors.white)),
+                            const Text(
+                              'Title',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
+                            ),
                             slChip('Sort: 1', silverMist, darkSlate),
                           ],
                         ),
@@ -1307,10 +1510,13 @@ dynamic build(BuildContext context) {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Buy Now',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
+                            const Text(
+                              'Buy Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             const SizedBox(width: 4),
                             slChip('Sort: 3', silverMist, darkSlate),
                           ],
@@ -1327,8 +1533,10 @@ dynamic build(BuildContext context) {
         ),
       ),
       slCodeNote('OrdinalSortKey(n)', 'Lower values are traversed first'),
-      slCodeNote('OrdinalSortKey(n, name:)',
-          'Optional group name for scoped ordering'),
+      slCodeNote(
+        'OrdinalSortKey(n, name:)',
+        'Optional group name for scoped ordering',
+      ),
     ],
   );
 
@@ -1363,8 +1571,10 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
-                        child: Text('Included',
-                            style: TextStyle(color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          'Included',
+                          style: TextStyle(color: Colors.white, fontSize: 13),
+                        ),
                       ),
                     ),
                   ),
@@ -1384,11 +1594,15 @@ dynamic build(BuildContext context) {
                         color: ashGray.withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: ashGray, style: BorderStyle.solid),
+                          color: ashGray,
+                          style: BorderStyle.solid,
+                        ),
                       ),
                       child: Center(
-                        child: Text('Excluded',
-                            style: TextStyle(color: ironGray, fontSize: 13)),
+                        child: Text(
+                          'Excluded',
+                          style: TextStyle(color: ironGray, fontSize: 13),
+                        ),
                       ),
                     ),
                   ),
@@ -1415,10 +1629,14 @@ dynamic build(BuildContext context) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Background Content',
-                      style: TextStyle(fontSize: 14, color: ashGray)),
-                  Text('(blocked by dialog overlay)',
-                      style: TextStyle(fontSize: 11, color: ashGray)),
+                  Text(
+                    'Background Content',
+                    style: TextStyle(fontSize: 14, color: ashGray),
+                  ),
+                  Text(
+                    '(blocked by dialog overlay)',
+                    style: TextStyle(fontSize: 11, color: ashGray),
+                  ),
                 ],
               ),
             ),
@@ -1440,14 +1658,19 @@ dynamic build(BuildContext context) {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Confirmation',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: charcoal)),
+                          Text(
+                            'Confirmation',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: charcoal,
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text('Only this dialog is in the a11y tree',
-                              style: TextStyle(fontSize: 12, color: ironGray)),
+                          Text(
+                            'Only this dialog is in the a11y tree',
+                            style: TextStyle(fontSize: 12, color: ironGray),
+                          ),
                         ],
                       ),
                     ),
@@ -1534,11 +1757,14 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(18),
                       ),
                       child: const Center(
-                        child: Text('JS',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12)),
+                        child: Text(
+                          'JS',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -1546,13 +1772,18 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('John Smith',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: charcoal)),
-                          Text('Meeting tomorrow at 10am',
-                              style: TextStyle(fontSize: 12, color: ironGray)),
+                          Text(
+                            'John Smith',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: charcoal,
+                            ),
+                          ),
+                          Text(
+                            'Meeting tomorrow at 10am',
+                            style: TextStyle(fontSize: 12, color: ironGray),
+                          ),
                         ],
                       ),
                     ),
@@ -1569,20 +1800,27 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 6),
-                Text('Custom actions available via a11y menu',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontStyle: FontStyle.italic,
-                        color: ironGray)),
+                Text(
+                  'Custom actions available via a11y menu',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontStyle: FontStyle.italic,
+                    color: ironGray,
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
-      slCodeNote('CustomSemanticsAction(label:)',
-          'Each action gets a readable label for the a11y menu'),
-      slCodeNote('customSemanticsActions:',
-          'Map<CustomSemanticsAction, VoidCallback> on Semantics'),
+      slCodeNote(
+        'CustomSemanticsAction(label:)',
+        'Each action gets a readable label for the a11y menu',
+      ),
+      slCodeNote(
+        'customSemanticsActions:',
+        'Map<CustomSemanticsAction, VoidCallback> on Semantics',
+      ),
     ],
   );
 
@@ -1609,13 +1847,21 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Expanded(
-                  child: _slFlagDemo('button: true', Icons.touch_app,
-                      'Announces as button', darkSlate),
+                  child: _slFlagDemo(
+                    'button: true',
+                    Icons.touch_app,
+                    'Announces as button',
+                    darkSlate,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _slFlagDemo('link: true', Icons.link,
-                      'Announces as link', charcoal),
+                  child: _slFlagDemo(
+                    'link: true',
+                    Icons.link,
+                    'Announces as link',
+                    charcoal,
+                  ),
                 ),
               ],
             ),
@@ -1623,13 +1869,21 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Expanded(
-                  child: _slFlagDemo('header: true', Icons.title,
-                      'Announces as heading', slate),
+                  child: _slFlagDemo(
+                    'header: true',
+                    Icons.title,
+                    'Announces as heading',
+                    slate,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _slFlagDemo('image: true', Icons.image,
-                      'Announces as image', ironGray),
+                  child: _slFlagDemo(
+                    'image: true',
+                    Icons.image,
+                    'Announces as image',
+                    ironGray,
+                  ),
                 ),
               ],
             ),
@@ -1637,13 +1891,21 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Expanded(
-                  child: _slFlagDemo('slider: true', Icons.tune,
-                      'Announces as slider', pencilLead),
+                  child: _slFlagDemo(
+                    'slider: true',
+                    Icons.tune,
+                    'Announces as slider',
+                    pencilLead,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: _slFlagDemo('textField: true', Icons.edit,
-                      'Announces as text field', graphite),
+                  child: _slFlagDemo(
+                    'textField: true',
+                    Icons.edit,
+                    'Announces as text field',
+                    graphite,
+                  ),
                 ),
               ],
             ),
@@ -1654,14 +1916,21 @@ dynamic build(BuildContext context) {
         'State Flags',
         Column(
           children: [
-            slTableRow(['Flag', 'Effect on Announcement', 'Example'],
-                isHeader: true),
+            slTableRow([
+              'Flag',
+              'Effect on Announcement',
+              'Example',
+            ], isHeader: true),
             slTableRow(['checked: true', '"checked"', 'Checkbox']),
             slTableRow(['selected: true', '"selected"', 'List item']),
             slTableRow(['toggled: true', '"on"', 'Switch']),
             slTableRow(['enabled: false', '"disabled"', 'Grayed out button']),
             slTableRow(['focused: true', '"focused"', 'Active field']),
-            slTableRow(['hidden: true', 'Skipped by reader', 'Off-screen item']),
+            slTableRow([
+              'hidden: true',
+              'Skipped by reader',
+              'Off-screen item',
+            ]),
           ],
         ),
       ),
@@ -1702,10 +1971,16 @@ dynamic build(BuildContext context) {
                 child: Row(
                   children: [
                     const SizedBox(width: 12),
-                    const Icon(Icons.arrow_forward, color: Colors.white, size: 18),
+                    const Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                      size: 18,
+                    ),
                     const SizedBox(width: 8),
-                    const Text('English label (LTR)',
-                        style: TextStyle(color: Colors.white, fontSize: 13)),
+                    const Text(
+                      'English label (LTR)',
+                      style: TextStyle(color: Colors.white, fontSize: 13),
+                    ),
                     const Spacer(),
                     slChip('textDirection.ltr', silverMist, darkSlate),
                     const SizedBox(width: 8),
@@ -1728,8 +2003,10 @@ dynamic build(BuildContext context) {
                     const SizedBox(width: 8),
                     slChip('textDirection.rtl', silverMist, charcoal),
                     const Spacer(),
-                    const Text('RTL label direction',
-                        style: TextStyle(color: Colors.white, fontSize: 13)),
+                    const Text(
+                      'RTL label direction',
+                      style: TextStyle(color: Colors.white, fontSize: 13),
+                    ),
                     const SizedBox(width: 8),
                     const Icon(Icons.arrow_back, color: Colors.white, size: 18),
                     const SizedBox(width: 12),
@@ -1740,8 +2017,14 @@ dynamic build(BuildContext context) {
           ],
         ),
       ),
-      slCodeNote('textDirection:', 'Controls announcement direction for the label'),
-      slCodeNote('Important:', 'Inherited from ambient Directionality if not set'),
+      slCodeNote(
+        'textDirection:',
+        'Controls announcement direction for the label',
+      ),
+      slCodeNote(
+        'Important:',
+        'Inherited from ambient Directionality if not set',
+      ),
     ],
   );
 
@@ -1765,14 +2048,22 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            slCodeNote('find.bySemanticsLabel()',
-                'Locates widget by its semantic label string or RegExp'),
-            slCodeNote('tester.getSemantics()',
-                'Gets SemanticsNode for a finder result'),
-            slCodeNote('SemanticsFlag',
-                'Enum for checking specific flags on a node'),
-            slCodeNote('SemanticsAction',
-                'Enum for checking available actions on a node'),
+            slCodeNote(
+              'find.bySemanticsLabel()',
+              'Locates widget by its semantic label string or RegExp',
+            ),
+            slCodeNote(
+              'tester.getSemantics()',
+              'Gets SemanticsNode for a finder result',
+            ),
+            slCodeNote(
+              'SemanticsFlag',
+              'Enum for checking specific flags on a node',
+            ),
+            slCodeNote(
+              'SemanticsAction',
+              'Enum for checking available actions on a node',
+            ),
           ],
         ),
       ),
@@ -1780,16 +2071,31 @@ dynamic build(BuildContext context) {
         'Common Label Mistakes to Test For',
         Column(
           children: [
-            _slMistakeRow(Icons.warning, 'Missing labels on interactive elements',
-                'Every button/link needs a label'),
-            _slMistakeRow(Icons.warning, 'Redundant labels',
-                '"Button button" when button: true + label: "Button"'),
-            _slMistakeRow(Icons.warning, 'Labels that describe appearance',
-                '"Red circle" instead of "Error indicator"'),
-            _slMistakeRow(Icons.warning, 'Labels with technical jargon',
-                '"onClick handler" instead of "Submit form"'),
-            _slMistakeRow(Icons.check_circle, 'Good: functional description',
-                '"Search for products" on search icon'),
+            _slMistakeRow(
+              Icons.warning,
+              'Missing labels on interactive elements',
+              'Every button/link needs a label',
+            ),
+            _slMistakeRow(
+              Icons.warning,
+              'Redundant labels',
+              '"Button button" when button: true + label: "Button"',
+            ),
+            _slMistakeRow(
+              Icons.warning,
+              'Labels that describe appearance',
+              '"Red circle" instead of "Error indicator"',
+            ),
+            _slMistakeRow(
+              Icons.warning,
+              'Labels with technical jargon',
+              '"onClick handler" instead of "Submit form"',
+            ),
+            _slMistakeRow(
+              Icons.check_circle,
+              'Good: functional description',
+              '"Search for products" on search icon',
+            ),
           ],
         ),
       ),
@@ -1811,9 +2117,17 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             slTableRow(['Feature', 'Section', 'Key Takeaway'], isHeader: true),
-            slTableRow(['Semantics(label:)', 'S02', 'Basic label on any widget']),
+            slTableRow([
+              'Semantics(label:)',
+              'S02',
+              'Basic label on any widget',
+            ]),
             slTableRow(['label + value + hint', 'S03', 'Complete trifecta']),
-            slTableRow(['TextSpan.semanticsLabel', 'S04', 'Inline text override']),
+            slTableRow([
+              'TextSpan.semanticsLabel',
+              'S04',
+              'Inline text override',
+            ]),
             slTableRow(['AttributedString', 'S05', 'Locale & spell-out']),
             slTableRow(['RichText composition', 'S06', 'Auto-concatenation']),
             slTableRow(['MergeSemantics', 'S07', 'Combine children']),
@@ -1856,18 +2170,20 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('Semantic Label Building — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'Semantic Label Building — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'Labels are the bridge between visual UI and spoken accessibility. '
               'This demo covered every mechanism Flutter provides for creating, '
               'composing, ordering, and filtering semantic labels.',
-              style: TextStyle(
-                  color: silverMist, fontSize: 12, height: 1.4),
+              style: TextStyle(color: silverMist, fontSize: 12, height: 1.4),
               textAlign: TextAlign.center,
             ),
           ],
@@ -1931,16 +2247,18 @@ Widget _slTooltipButton(IconData icon, String tip, Color bg, Color fg) {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: fg, size: 22),
-        ],
+        children: [Icon(icon, color: fg, size: 22)],
       ),
     ),
   );
 }
 
 Widget _slLabeledImage(
-    IconData icon, String accessLabel, Color bg, String displayLabel) {
+  IconData icon,
+  String accessLabel,
+  Color bg,
+  String displayLabel,
+) {
   return Semantics(
     label: accessLabel,
     image: true,
@@ -1956,8 +2274,7 @@ Widget _slLabeledImage(
           child: Icon(icon, color: Colors.white, size: 32),
         ),
         const SizedBox(height: 4),
-        Text(displayLabel,
-            style: TextStyle(fontSize: 11, color: bg)),
+        Text(displayLabel, style: TextStyle(fontSize: 11, color: bg)),
       ],
     ),
   );
@@ -1975,16 +2292,21 @@ Widget _slFlagDemo(String flag, IconData icon, String desc, Color color) {
       children: [
         Icon(icon, color: color, size: 24),
         const SizedBox(height: 6),
-        Text(flag,
-            style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'monospace',
-                color: color)),
+        Text(
+          flag,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'monospace',
+            color: color,
+          ),
+        ),
         const SizedBox(height: 3),
-        Text(desc,
-            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
-            textAlign: TextAlign.center),
+        Text(
+          desc,
+          style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          textAlign: TextAlign.center,
+        ),
       ],
     ),
   );
@@ -1997,21 +2319,26 @@ Widget _slMistakeRow(IconData icon, String title, String detail) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon,
-            size: 18,
-            color: icon == Icons.check_circle
-                ? const Color(0xFF2E7D32)
-                : const Color(0xFFE65100)),
+        Icon(
+          icon,
+          size: 18,
+          color: icon == Icons.check_circle
+              ? const Color(0xFF2E7D32)
+              : const Color(0xFFE65100),
+        ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600)),
-              Text(detail,
-                  style: TextStyle(fontSize: 11, color: ironGray)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(detail, style: TextStyle(fontSize: 11, color: ironGray)),
             ],
           ),
         ),

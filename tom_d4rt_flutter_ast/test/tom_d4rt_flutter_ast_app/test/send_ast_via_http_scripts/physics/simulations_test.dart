@@ -264,7 +264,9 @@ dynamic build(BuildContext context) {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(4.0)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(4.0),
+                  ),
                 ),
               ),
               SizedBox(height: 4.0),
@@ -412,9 +414,7 @@ dynamic build(BuildContext context) {
     for (final t in times) {
       final x = sim.x(t);
       final dx = sim.dx(t);
-      print(
-        '  t=$t: x=${x.toStringAsFixed(3)}, dx=${dx.toStringAsFixed(3)}',
-      );
+      print('  t=$t: x=${x.toStringAsFixed(3)}, dx=${dx.toStringAsFixed(3)}');
       samples.add({'t': t, 'x': x, 'dx': dx});
     }
 
@@ -730,10 +730,7 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                 ),
-                Container(
-                  height: 1.0,
-                  color: Colors.grey.shade400,
-                ),
+                Container(height: 1.0, color: Colors.grey.shade400),
               ],
             ),
           ),
@@ -858,8 +855,10 @@ dynamic build(BuildContext context) {
     damping: 10.0,
   );
   final directSim = SpringSimulation(directSpring, 0.0, 1.0, 0.0);
-  print('SpringDescription direct: mass=${directSpring.mass}, '
-      'stiffness=${directSpring.stiffness}, damping=${directSpring.damping}');
+  print(
+    'SpringDescription direct: mass=${directSpring.mass}, '
+    'stiffness=${directSpring.stiffness}, damping=${directSpring.damping}',
+  );
   for (final t in <double>[0.0, 0.25, 0.5, 1.0, 2.0]) {
     print('  direct t=$t: x=${directSim.x(t).toStringAsFixed(4)}');
   }
@@ -1209,7 +1208,9 @@ dynamic build(BuildContext context) {
                 style: TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 11.0,
-                  color: diff >= 0 ? Colors.green.shade800 : Colors.red.shade800,
+                  color: diff >= 0
+                      ? Colors.green.shade800
+                      : Colors.red.shade800,
                 ),
               ),
             ),
@@ -1278,7 +1279,9 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Icon(
-                    tightDone ? Icons.check_circle : Icons.radio_button_unchecked,
+                    tightDone
+                        ? Icons.check_circle
+                        : Icons.radio_button_unchecked,
                     color: tightDone ? Colors.green : Colors.grey,
                     size: 16.0,
                   ),
@@ -1294,7 +1297,9 @@ dynamic build(BuildContext context) {
               child: Row(
                 children: [
                   Icon(
-                    looseDone ? Icons.check_circle : Icons.radio_button_unchecked,
+                    looseDone
+                        ? Icons.check_circle
+                        : Icons.radio_button_unchecked,
                     color: looseDone ? Colors.green : Colors.grey,
                     size: 16.0,
                   ),
@@ -1720,10 +1725,7 @@ Widget _buildSummaryItem(
               SizedBox(height: 2.0),
               Text(
                 desc,
-                style: TextStyle(
-                  fontSize: 11.5,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade800),
               ),
             ],
           ),

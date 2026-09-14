@@ -109,16 +109,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: ccOnGray)),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: ccOnGray,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: ccOnGray.withValues(alpha: 0.85))),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: ccOnGray.withValues(alpha: 0.85),
+            ),
+          ),
         ],
       ),
     );
@@ -148,16 +154,22 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(heading,
-                    style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: ccOnGray)),
+                Text(
+                  heading,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: ccOnGray,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(tagline,
-                    style: TextStyle(
-                        fontSize: 11,
-                        color: ccOnGray.withValues(alpha: 0.85))),
+                Text(
+                  tagline,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: ccOnGray.withValues(alpha: 0.85),
+                  ),
+                ),
               ],
             ),
           ),
@@ -184,9 +196,14 @@ dynamic build(BuildContext context) {
             child: Icon(Icons.circle, size: 6, color: ccAppleGray),
           ),
           Expanded(
-            child: Text(text,
-                style: const TextStyle(
-                    fontSize: 12, color: ccTextDark, height: 1.45)),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 12,
+                color: ccTextDark,
+                height: 1.45,
+              ),
+            ),
           ),
         ],
       ),
@@ -196,9 +213,10 @@ dynamic build(BuildContext context) {
   Widget ccParagraph(String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 12, color: ccTextDark, height: 1.45)),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12, color: ccTextDark, height: 1.45),
+      ),
     );
   }
 
@@ -214,13 +232,23 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(text,
-              style: const TextStyle(
-                  fontSize: 12, color: ccTextDark, height: 1.4)),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 12,
+              color: ccTextDark,
+              height: 1.4,
+            ),
+          ),
         ],
       ),
     );
@@ -232,10 +260,11 @@ dynamic build(BuildContext context) {
       child: Text(
         text,
         style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: ccDarkGray,
-            letterSpacing: 0.3),
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: ccDarkGray,
+          letterSpacing: 0.3,
+        ),
       ),
     );
   }
@@ -263,9 +292,10 @@ dynamic build(BuildContext context) {
 
   // 05 — copy-only iOS system menu.
   Widget ccCopyOnlyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
     ];
     if (ccIsIOS) {
@@ -284,9 +314,10 @@ dynamic build(BuildContext context) {
 
   // 06 — full iOS system menu.
   Widget ccFullMenuBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
       const IOSSystemContextMenuItemPaste(),
       const IOSSystemContextMenuItemCut(),
@@ -310,14 +341,14 @@ dynamic build(BuildContext context) {
   // 07 — conditional copy: only show the copy item when there's a non-empty
   // selection in the EditableTextState.
   Widget ccConditionalCopyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
     final TextSelection ccSelection =
         editableTextState.textEditingValue.selection;
-    final bool ccHasSelection =
-        ccSelection.isValid && !ccSelection.isCollapsed;
+    final bool ccHasSelection = ccSelection.isValid && !ccSelection.isCollapsed;
 
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[];
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[];
     if (ccHasSelection) {
       ccItems.add(const IOSSystemContextMenuItemCopy());
       ccItems.add(const IOSSystemContextMenuItemLookUp());
@@ -338,9 +369,10 @@ dynamic build(BuildContext context) {
 
   // 08 — multi-line TextField builder (still iOS items).
   Widget ccMultilineBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
       const IOSSystemContextMenuItemCut(),
       const IOSSystemContextMenuItemPaste(),
@@ -364,9 +396,10 @@ dynamic build(BuildContext context) {
   // SelectableText we use the contextMenuBuilder that takes
   // (BuildContext, SelectableRegionState)).  We construct items either way.
   Widget ccSelectableCopyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
       const IOSSystemContextMenuItemSelectAll(),
       const IOSSystemContextMenuItemLookUp(),
@@ -387,7 +420,9 @@ dynamic build(BuildContext context) {
 
   // 10 — password field: paste/select-all only, NEVER copy.
   Widget ccPasswordHidesCopyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
     // Notice: we still demonstrate that the copy item is constructable, but
     // we do NOT include it for the secure field.
     // Construct it once outside the items list to prove the constructor runs:
@@ -395,8 +430,7 @@ dynamic build(BuildContext context) {
         const IOSSystemContextMenuItemCopy();
     assert(ccUnused.title == null); // title is platform-supplied
 
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemPaste(),
       const IOSSystemContextMenuItemSelectAll(),
     ];
@@ -413,9 +447,10 @@ dynamic build(BuildContext context) {
 
   // 11a — read-only copy (recipe gallery item 1).
   Widget ccReadOnlyCopyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
       const IOSSystemContextMenuItemSelectAll(),
       const IOSSystemContextMenuItemLookUp(),
@@ -435,9 +470,10 @@ dynamic build(BuildContext context) {
   // copy item but conceptually a wrapper above could intercept the copied
   // text and reformat it before placing it on the clipboard.
   Widget ccFormattedCopyBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
-    final List<IOSSystemContextMenuItem> ccItems =
-        <IOSSystemContextMenuItem>[
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
+    final List<IOSSystemContextMenuItem> ccItems = <IOSSystemContextMenuItem>[
       const IOSSystemContextMenuItemCopy(),
       const IOSSystemContextMenuItemPaste(),
       const IOSSystemContextMenuItemShare(),
@@ -459,13 +495,15 @@ dynamic build(BuildContext context) {
   // sealed base class).
   const List<IOSSystemContextMenuItem> ccSharedConstItems =
       <IOSSystemContextMenuItem>[
-    IOSSystemContextMenuItemCopy(),
-    IOSSystemContextMenuItemPaste(),
-    IOSSystemContextMenuItemSelectAll(),
-  ];
+        IOSSystemContextMenuItemCopy(),
+        IOSSystemContextMenuItemPaste(),
+        IOSSystemContextMenuItemSelectAll(),
+      ];
 
   Widget ccSharedItemsBuilder(
-      BuildContext ctx, EditableTextState editableTextState) {
+    BuildContext ctx,
+    EditableTextState editableTextState,
+  ) {
     if (ccIsIOS) {
       return SystemContextMenu.editableText(
         editableTextState: editableTextState,
@@ -478,28 +516,38 @@ dynamic build(BuildContext context) {
   }
 
   // ─── controllers (so the textfields show meaningful sample text) ──────────
-  final TextEditingController ccCopyOnlyController =
-      TextEditingController(text: 'Long-press here, then tap Copy.');
+  final TextEditingController ccCopyOnlyController = TextEditingController(
+    text: 'Long-press here, then tap Copy.',
+  );
   final TextEditingController ccFullMenuController = TextEditingController(
-      text:
-          'A full system menu offers Copy, Paste, Cut, Select All, Look Up, and Share.');
-  final TextEditingController ccConditionalController =
-      TextEditingController(text: 'Select part of this line and watch.');
+    text:
+        'A full system menu offers Copy, Paste, Cut, Select All, Look Up, and Share.',
+  );
+  final TextEditingController ccConditionalController = TextEditingController(
+    text: 'Select part of this line and watch.',
+  );
   final TextEditingController ccMultilineController = TextEditingController(
-      text:
-          'Multiline\nfields\nstill render\niOS system menu items via\nIOSSystemContextMenuItemCopy.');
-  final TextEditingController ccPasswordController =
-      TextEditingController(text: 'hunter2-secret-pass');
+    text:
+        'Multiline\nfields\nstill render\niOS system menu items via\nIOSSystemContextMenuItemCopy.',
+  );
+  final TextEditingController ccPasswordController = TextEditingController(
+    text: 'hunter2-secret-pass',
+  );
   final TextEditingController ccReadOnlyController = TextEditingController(
-      text: 'Recipe: 240g flour, 120ml water, 4g salt, 2g yeast.');
+    text: 'Recipe: 240g flour, 120ml water, 4g salt, 2g yeast.',
+  );
   final TextEditingController ccFormattedController = TextEditingController(
-      text: '   Trim me   →   I am rich text content   ');
-  final TextEditingController ccSharedAController =
-      TextEditingController(text: 'Field A — shares const items.');
-  final TextEditingController ccSharedBController =
-      TextEditingController(text: 'Field B — shares the same const items.');
+    text: '   Trim me   →   I am rich text content   ',
+  );
+  final TextEditingController ccSharedAController = TextEditingController(
+    text: 'Field A — shares const items.',
+  );
+  final TextEditingController ccSharedBController = TextEditingController(
+    text: 'Field B — shares the same const items.',
+  );
   final TextEditingController ccPlainController = TextEditingController(
-      text: 'Plain TextField with default toolbar — no custom builder.');
+    text: 'Plain TextField with default toolbar — no custom builder.',
+  );
 
   // ─── reference table data ─────────────────────────────────────────────────
   final List<Map<String, String>> ccItemReference = <Map<String, String>>[
@@ -564,20 +612,28 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(entry['name'] ?? '',
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: ccDarkGray,
-                  fontFamily: 'monospace')),
+          Text(
+            entry['name'] ?? '',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: ccDarkGray,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(height: 4),
-          Text('Role: ${entry['role'] ?? ''}',
-              style: const TextStyle(fontSize: 11, color: ccTextDark)),
+          Text(
+            'Role: ${entry['role'] ?? ''}',
+            style: const TextStyle(fontSize: 11, color: ccTextDark),
+          ),
           const SizedBox(height: 2),
-          Text('Visibility: ${entry['shows'] ?? ''}',
-              style: TextStyle(
-                  fontSize: 11,
-                  color: ccTextDark.withValues(alpha: 0.78))),
+          Text(
+            'Visibility: ${entry['shows'] ?? ''}',
+            style: TextStyle(
+              fontSize: 11,
+              color: ccTextDark.withValues(alpha: 0.78),
+            ),
+          ),
         ],
       ),
     );
@@ -588,13 +644,14 @@ dynamic build(BuildContext context) {
     return InputDecoration(
       labelText: label,
       hintText: hint,
-      prefixIcon: icon == null ? null : Icon(icon, size: 18, color: ccAppleGray),
+      prefixIcon: icon == null
+          ? null
+          : Icon(icon, size: 18, color: ccAppleGray),
       filled: true,
       fillColor: ccOnGray,
       labelStyle: const TextStyle(fontSize: 12, color: ccDarkGray),
       hintStyle: const TextStyle(fontSize: 11, color: ccMuted),
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: ccCardBorder),
@@ -642,11 +699,12 @@ dynamic build(BuildContext context) {
                 'The Apple Gray / Silver palette used throughout this demo.',
                 <Widget>[
                   ccParagraph(
-                      'This demo uses an Apple-inspired neutral palette: a deep '
-                      'gray (#636366), iOS silver (#F2F2F7), iOS accent blue '
-                      '(#007AFF), pure white surfaces, and small chips for status '
-                      'indicators. The helpers below are pure layout — they do '
-                      'not touch the iOS platform channel at all.'),
+                    'This demo uses an Apple-inspired neutral palette: a deep '
+                    'gray (#636366), iOS silver (#F2F2F7), iOS accent blue '
+                    '(#007AFF), pure white surfaces, and small chips for status '
+                    'indicators. The helpers below are pure layout — they do '
+                    'not touch the iOS platform channel at all.',
+                  ),
                   ccDivider(),
                   Wrap(
                     children: <Widget>[
@@ -676,9 +734,10 @@ dynamic build(BuildContext context) {
                           : ccDanger.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                          color: ccIsIOS
-                              ? ccSuccess.withValues(alpha: 0.55)
-                              : ccDanger.withValues(alpha: 0.55)),
+                        color: ccIsIOS
+                            ? ccSuccess.withValues(alpha: 0.55)
+                            : ccDanger.withValues(alpha: 0.55),
+                      ),
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -698,7 +757,7 @@ dynamic build(BuildContext context) {
                                 ccIsIOS
                                     ? 'Running on iOS — full SystemContextMenu visible.'
                                     : 'This system menu item only renders on '
-                                        'iOS — running on $ccPlatformName.',
+                                          'iOS — running on $ccPlatformName.',
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
@@ -709,19 +768,20 @@ dynamic build(BuildContext context) {
                               Text(
                                 ccIsIOS
                                     ? 'Long-press inside any TextField below to '
-                                        'see the iOS system context menu.'
+                                          'see the iOS system context menu.'
                                     : 'Every TextField below still has a '
-                                        'contextMenuBuilder that constructs '
-                                        'IOSSystemContextMenuItemCopy and '
-                                        'companions, so the class is exercised '
-                                        'by the AST interpreter. Visually you '
-                                        'will see the AdaptiveTextSelectionToolbar '
-                                        'fallback, which is the correct '
-                                        'platform-appropriate toolbar.',
+                                          'contextMenuBuilder that constructs '
+                                          'IOSSystemContextMenuItemCopy and '
+                                          'companions, so the class is exercised '
+                                          'by the AST interpreter. Visually you '
+                                          'will see the AdaptiveTextSelectionToolbar '
+                                          'fallback, which is the correct '
+                                          'platform-appropriate toolbar.',
                                 style: const TextStyle(
-                                    fontSize: 12,
-                                    color: ccTextDark,
-                                    height: 1.45),
+                                  fontSize: 12,
+                                  color: ccTextDark,
+                                  height: 1.45,
+                                ),
                               ),
                             ],
                           ),
@@ -738,27 +798,32 @@ dynamic build(BuildContext context) {
                 'How the pieces fit together at the widget-tree and platform-channel layers.',
                 <Widget>[
                   ccBullet(
-                      'SystemContextMenu is a StatefulWidget whose only job is to '
-                      'tell the iOS engine, via SystemContextMenuController, to '
-                      'show a native menu anchored to a Rect.'),
+                    'SystemContextMenu is a StatefulWidget whose only job is to '
+                    'tell the iOS engine, via SystemContextMenuController, to '
+                    'show a native menu anchored to a Rect.',
+                  ),
                   ccBullet(
-                      'It is not used directly — instead Flutter exposes the '
-                      'factory SystemContextMenu.editableText(editableTextState: …, '
-                      'items: …), which computes the anchor from the EditableText '
-                      'render box.'),
+                    'It is not used directly — instead Flutter exposes the '
+                    'factory SystemContextMenu.editableText(editableTextState: …, '
+                    'items: …), which computes the anchor from the EditableText '
+                    'render box.',
+                  ),
                   ccBullet(
-                      'IOSSystemContextMenuItem is a sealed base class. There are '
-                      'concrete subclasses for Copy, Cut, Paste, SelectAll, '
-                      'LookUp, SearchWeb, Share, LiveText and Custom.'),
+                    'IOSSystemContextMenuItem is a sealed base class. There are '
+                    'concrete subclasses for Copy, Cut, Paste, SelectAll, '
+                    'LookUp, SearchWeb, Share, LiveText and Custom.',
+                  ),
                   ccBullet(
-                      'IOSSystemContextMenuItemCopy is the simplest of all: it has '
-                      'no parameters, the title is supplied by iOS, and it '
-                      'forwards through getData() to IOSSystemContextMenuItemDataCopy().'),
+                    'IOSSystemContextMenuItemCopy is the simplest of all: it has '
+                    'no parameters, the title is supplied by iOS, and it '
+                    'forwards through getData() to IOSSystemContextMenuItemDataCopy().',
+                  ),
                   ccBullet(
-                      'On non-iOS platforms SystemContextMenu.isSupported(context) '
-                      'returns false and the build method asserts. That is why we '
-                      'guard the SystemContextMenu.editableText(...) construction '
-                      'with Theme.of(context).platform == TargetPlatform.iOS.'),
+                    'On non-iOS platforms SystemContextMenu.isSupported(context) '
+                    'returns false and the build method asserts. That is why we '
+                    'guard the SystemContextMenu.editableText(...) construction '
+                    'with Theme.of(context).platform == TargetPlatform.iOS.',
+                  ),
                   ccCallout(
                     'Constructor signature',
                     'const IOSSystemContextMenuItemCopy(); — no parameters, '
@@ -779,8 +844,10 @@ dynamic build(BuildContext context) {
                   TextField(
                     controller: ccPlainController,
                     decoration: ccDeco(
-                        'Plain TextField', 'No contextMenuBuilder',
-                        icon: Icons.edit_note),
+                      'Plain TextField',
+                      'No contextMenuBuilder',
+                      icon: Icons.edit_note,
+                    ),
                   ),
                   ccCallout(
                     'No iOS items here',
@@ -798,17 +865,19 @@ dynamic build(BuildContext context) {
                 'A TextField whose contextMenuBuilder returns a SystemContextMenu '
                     'with exactly one item: IOSSystemContextMenuItemCopy().',
                 <Widget>[
+                  ccBullet('On iOS, long-press shows ONLY a Copy button.'),
                   ccBullet(
-                      'On iOS, long-press shows ONLY a Copy button.'),
-                  ccBullet(
-                      'On other platforms the constructor still runs but the '
-                      'visible toolbar is the AdaptiveTextSelectionToolbar.'),
+                    'On other platforms the constructor still runs but the '
+                    'visible toolbar is the AdaptiveTextSelectionToolbar.',
+                  ),
                   ccLabel('Copy-only field'),
                   TextField(
                     controller: ccCopyOnlyController,
                     decoration: ccDeco(
-                        'Copy-only', 'Long-press to test',
-                        icon: Icons.copy),
+                      'Copy-only',
+                      'Long-press to test',
+                      icon: Icons.copy,
+                    ),
                     contextMenuBuilder: ccCopyOnlyBuilder,
                   ),
                   ccCallout(
@@ -828,16 +897,20 @@ dynamic build(BuildContext context) {
                 'Copy + Paste + Cut + Select All + Look Up + Share.',
                 <Widget>[
                   ccBullet(
-                      'IOSSystemContextMenuItemCopy() pairs naturally with '
-                      'Cut, Paste, SelectAll, LookUp and Share.'),
+                    'IOSSystemContextMenuItemCopy() pairs naturally with '
+                    'Cut, Paste, SelectAll, LookUp and Share.',
+                  ),
                   ccBullet(
-                      'Order in the items list dictates display order on iOS.'),
+                    'Order in the items list dictates display order on iOS.',
+                  ),
                   ccLabel('Full system menu field'),
                   TextField(
                     controller: ccFullMenuController,
                     decoration: ccDeco(
-                        'Full menu', 'Long-press to test',
-                        icon: Icons.menu_open),
+                      'Full menu',
+                      'Long-press to test',
+                      icon: Icons.menu_open,
+                    ),
                     contextMenuBuilder: ccFullMenuBuilder,
                   ),
                 ],
@@ -850,18 +923,22 @@ dynamic build(BuildContext context) {
                     'is non-empty.',
                 <Widget>[
                   ccBullet(
-                      'editableTextState.textEditingValue.selection lets the '
-                      'builder inspect the live caret/selection.'),
+                    'editableTextState.textEditingValue.selection lets the '
+                    'builder inspect the live caret/selection.',
+                  ),
                   ccBullet(
-                      'When the user has not selected anything, returning Copy '
-                      'would be misleading — iOS itself filters it out, but '
-                      'doing it explicitly documents intent.'),
+                    'When the user has not selected anything, returning Copy '
+                    'would be misleading — iOS itself filters it out, but '
+                    'doing it explicitly documents intent.',
+                  ),
                   ccLabel('Conditional copy field'),
                   TextField(
                     controller: ccConditionalController,
                     decoration: ccDeco(
-                        'Conditional copy', 'Try with and without selection',
-                        icon: Icons.rule),
+                      'Conditional copy',
+                      'Try with and without selection',
+                      icon: Icons.rule,
+                    ),
                     contextMenuBuilder: ccConditionalCopyBuilder,
                   ),
                 ],
@@ -874,8 +951,9 @@ dynamic build(BuildContext context) {
                     'because EditableTextState handles the anchor math.',
                 <Widget>[
                   ccBullet(
-                      'maxLines: 5 — long content is fine; the SystemContextMenu '
-                      'still anchors to the selection rect.'),
+                    'maxLines: 5 — long content is fine; the SystemContextMenu '
+                    'still anchors to the selection rect.',
+                  ),
                   ccLabel('Multi-line field'),
                   TextField(
                     controller: ccMultilineController,
@@ -883,8 +961,10 @@ dynamic build(BuildContext context) {
                     maxLines: 5,
                     keyboardType: TextInputType.multiline,
                     decoration: ccDeco(
-                        'Multi-line', 'Press and hold to test',
-                        icon: Icons.subject),
+                      'Multi-line',
+                      'Press and hold to test',
+                      icon: Icons.subject,
+                    ),
                     contextMenuBuilder: ccMultilineBuilder,
                   ),
                 ],
@@ -897,12 +977,14 @@ dynamic build(BuildContext context) {
                     'from IOSSystemContextMenuItemCopy.',
                 <Widget>[
                   ccBullet(
-                      'SelectableText.contextMenuBuilder is invoked with '
-                      '(BuildContext, EditableTextState).'),
+                    'SelectableText.contextMenuBuilder is invoked with '
+                    '(BuildContext, EditableTextState).',
+                  ),
                   ccBullet(
-                      'For a read-only field, SystemContextMenu.isSupportedByField '
-                      'will refuse, but the Copy item itself is still '
-                      'meaningful when surfaced through the Adaptive toolbar.'),
+                    'For a read-only field, SystemContextMenu.isSupportedByField '
+                    'will refuse, but the Copy item itself is still '
+                    'meaningful when surfaced through the Adaptive toolbar.',
+                  ),
                   ccLabel('Selectable text'),
                   Container(
                     width: double.infinity,
@@ -916,9 +998,10 @@ dynamic build(BuildContext context) {
                       'SelectableText with custom contextMenuBuilder. '
                       'Long-press to select a word, then tap the toolbar to copy.',
                       style: const TextStyle(
-                          fontSize: 13,
-                          color: ccTextDark,
-                          height: 1.45),
+                        fontSize: 13,
+                        color: ccTextDark,
+                        height: 1.45,
+                      ),
                       contextMenuBuilder: ccSelectableCopyBuilder,
                     ),
                   ),
@@ -931,19 +1014,23 @@ dynamic build(BuildContext context) {
                 'A secure field that explicitly omits IOSSystemContextMenuItemCopy.',
                 <Widget>[
                   ccBullet(
-                      'Even on iOS, exposing Copy on a password field is a '
-                      'security issue.'),
+                    'Even on iOS, exposing Copy on a password field is a '
+                    'security issue.',
+                  ),
                   ccBullet(
-                      'The builder demonstrates that you can still construct '
-                      'IOSSystemContextMenuItemCopy() (the constructor is run) '
-                      'without putting it in the items list.'),
+                    'The builder demonstrates that you can still construct '
+                    'IOSSystemContextMenuItemCopy() (the constructor is run) '
+                    'without putting it in the items list.',
+                  ),
                   ccLabel('Password field'),
                   TextField(
                     controller: ccPasswordController,
                     obscureText: true,
                     decoration: ccDeco(
-                        'Password', 'Copy is intentionally hidden',
-                        icon: Icons.lock_outline),
+                      'Password',
+                      'Copy is intentionally hidden',
+                      icon: Icons.lock_outline,
+                    ),
                     contextMenuBuilder: ccPasswordHidesCopyBuilder,
                   ),
                   ccCallout(
@@ -967,27 +1054,33 @@ dynamic build(BuildContext context) {
                     controller: ccReadOnlyController,
                     readOnly: true,
                     decoration: ccDeco(
-                        'Recipe (read-only)', 'Long-press to copy',
-                        icon: Icons.menu_book),
+                      'Recipe (read-only)',
+                      'Long-press to copy',
+                      icon: Icons.menu_book,
+                    ),
                     contextMenuBuilder: ccReadOnlyCopyBuilder,
                   ),
                   const SizedBox(height: 6),
                   ccBullet(
-                      'Read-only fields cannot use the iOS native menu (no '
-                      'TextInputConnection) but the AST interpreter still '
-                      'constructs the items.'),
+                    'Read-only fields cannot use the iOS native menu (no '
+                    'TextInputConnection) but the AST interpreter still '
+                    'constructs the items.',
+                  ),
                   ccDivider(),
                   ccLabel('11b · Formatted copy field'),
                   TextField(
                     controller: ccFormattedController,
                     decoration: ccDeco(
-                        'Formatted', 'Trim/format text on copy',
-                        icon: Icons.format_quote),
+                      'Formatted',
+                      'Trim/format text on copy',
+                      icon: Icons.format_quote,
+                    ),
                     contextMenuBuilder: ccFormattedCopyBuilder,
                   ),
                   ccBullet(
-                      'In a real app the surrounding widget would intercept '
-                      'the copy command and post-process the clipboard text.'),
+                    'In a real app the surrounding widget would intercept '
+                    'the copy command and post-process the clipboard text.',
+                  ),
                 ],
               ),
 
@@ -998,18 +1091,22 @@ dynamic build(BuildContext context) {
                     'same `const` item list can be shared across multiple fields.',
                 <Widget>[
                   ccBullet(
-                      'Equality is defined by the sealed base class on title — '
-                      'two `const IOSSystemContextMenuItemCopy()` values are '
-                      'identical().'),
+                    'Equality is defined by the sealed base class on title — '
+                    'two `const IOSSystemContextMenuItemCopy()` values are '
+                    'identical().',
+                  ),
                   ccBullet(
-                      'Sharing the const list saves allocations when the same '
-                      'menu is used many times.'),
+                    'Sharing the const list saves allocations when the same '
+                    'menu is used many times.',
+                  ),
                   ccLabel('Field A — shared const items'),
                   TextField(
                     controller: ccSharedAController,
                     decoration: ccDeco(
-                        'Field A', 'Reuses ccSharedConstItems',
-                        icon: Icons.looks_one),
+                      'Field A',
+                      'Reuses ccSharedConstItems',
+                      icon: Icons.looks_one,
+                    ),
                     contextMenuBuilder: ccSharedItemsBuilder,
                   ),
                   const SizedBox(height: 8),
@@ -1017,8 +1114,10 @@ dynamic build(BuildContext context) {
                   TextField(
                     controller: ccSharedBController,
                     decoration: ccDeco(
-                        'Field B', 'Reuses ccSharedConstItems',
-                        icon: Icons.looks_two),
+                      'Field B',
+                      'Reuses ccSharedConstItems',
+                      icon: Icons.looks_two,
+                    ),
                     contextMenuBuilder: ccSharedItemsBuilder,
                   ),
                   ccCallout(
@@ -1038,27 +1137,32 @@ dynamic build(BuildContext context) {
                     'context menu.',
                 <Widget>[
                   ccBullet(
-                      'Pitfall 1 — Forgetting the iOS guard. Calling '
-                      'SystemContextMenu.editableText(...) on Android or '
-                      'desktop will assert at build() time.'),
+                    'Pitfall 1 — Forgetting the iOS guard. Calling '
+                    'SystemContextMenu.editableText(...) on Android or '
+                    'desktop will assert at build() time.',
+                  ),
                   ccBullet(
-                      'Pitfall 2 — Using it on a read-only field. '
-                      'SystemContextMenu.isSupportedByField returns false, so '
-                      'the iOS system menu cannot be presented; fall back to '
-                      'AdaptiveTextSelectionToolbar.'),
+                    'Pitfall 2 — Using it on a read-only field. '
+                    'SystemContextMenu.isSupportedByField returns false, so '
+                    'the iOS system menu cannot be presented; fall back to '
+                    'AdaptiveTextSelectionToolbar.',
+                  ),
                   ccBullet(
-                      'Pitfall 3 — Including a non-supported item by mistake. '
-                      'For example IOSSystemContextMenuItemLiveText only '
-                      'appears when iOS reports Live Text input is available; '
-                      'including it has no harmful effect, just no UI.'),
+                    'Pitfall 3 — Including a non-supported item by mistake. '
+                    'For example IOSSystemContextMenuItemLiveText only '
+                    'appears when iOS reports Live Text input is available; '
+                    'including it has no harmful effect, just no UI.',
+                  ),
                   ccBullet(
-                      'Pitfall 4 — Custom items on iOS < 16. '
-                      'IOSSystemContextMenuItemCustom only invokes its '
-                      'onPressed on iOS 16 and later. Always feature-detect.'),
+                    'Pitfall 4 — Custom items on iOS < 16. '
+                    'IOSSystemContextMenuItemCustom only invokes its '
+                    'onPressed on iOS 16 and later. Always feature-detect.',
+                  ),
                   ccBullet(
-                      'Pitfall 5 — Returning an empty items list. The menu is '
-                      'simply not shown. This is fine, but log it in debug '
-                      'builds so you understand why nothing pops up.'),
+                    'Pitfall 5 — Returning an empty items list. The menu is '
+                    'simply not shown. This is fine, but log it in debug '
+                    'builds so you understand why nothing pops up.',
+                  ),
                   ccCallout(
                     'Always test on a real device',
                     'The iOS Simulator faithfully reproduces the system menu, '
@@ -1096,8 +1200,9 @@ dynamic build(BuildContext context) {
                   '$ccPlatformName',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 11,
-                      color: ccTextDark.withValues(alpha: 0.6)),
+                    fontSize: 11,
+                    color: ccTextDark.withValues(alpha: 0.6),
+                  ),
                 ),
               ),
               const SizedBox(height: 24),

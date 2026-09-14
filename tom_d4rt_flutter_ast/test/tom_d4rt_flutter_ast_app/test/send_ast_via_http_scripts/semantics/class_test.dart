@@ -39,16 +39,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white)),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
           const SizedBox(height: 3),
-          Text(subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white.withValues(alpha: 0.85))),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white.withValues(alpha: 0.85),
+            ),
+          ),
         ],
       ),
     );
@@ -84,8 +90,10 @@ dynamic build(BuildContext context) {
             decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
           Expanded(
-            child: Text(text,
-                style: const TextStyle(fontSize: 12.5, color: nightSky)),
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 12.5, color: nightSky),
+            ),
           ),
         ],
       ),
@@ -109,6 +117,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
+
   Widget smFlowBox(String label, Color color, IconData icon) {
     return Expanded(
       child: Container(
@@ -122,25 +131,27 @@ dynamic build(BuildContext context) {
           children: [
             Icon(icon, size: 24, color: color),
             const SizedBox(height: 4),
-            Text(label,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    color: color),
-                textAlign: TextAlign.center),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
     );
   }
+
   Widget smArrow() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 6),
       child: Icon(Icons.arrow_forward, size: 18, color: dusk),
     );
   }
-
-
 
   // ─────────────────────────────────────────────
   // Section 1: What is Semantics?
@@ -150,8 +161,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm01 — What is the Semantics Widget?',
-            'The bridge between visual UI and accessibility services'),
+        smHeader(
+          'sm01 — What is the Semantics Widget?',
+          'The bridge between visual UI and accessibility services',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -180,7 +193,11 @@ dynamic build(BuildContext context) {
             children: [
               smFlowBox('Widget\nTree', dusk, Icons.widgets),
               smArrow(),
-              smFlowBox('Semantics\nAnnotations', amethyst, Icons.accessibility_new),
+              smFlowBox(
+                'Semantics\nAnnotations',
+                amethyst,
+                Icons.accessibility_new,
+              ),
               smArrow(),
               smFlowBox('Platform\nA11Y API', plumWine, Icons.phone_android),
             ],
@@ -198,16 +215,21 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm02 — Core Parameters: label, value, hint',
-            'The three text properties of a Semantics node'),
+        smHeader(
+          'sm02 — Core Parameters: label, value, hint',
+          'The three text properties of a Semantics node',
+        ),
         const SizedBox(height: 10),
         // Label demo
         smCard([
-          const Text('label — what this element is:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'label — what this element is:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 6),
           Semantics(
             label: 'Search',
@@ -222,27 +244,35 @@ dynamic build(BuildContext context) {
                 children: [
                   Icon(Icons.search, color: dusk, size: 22),
                   SizedBox(width: 8),
-                  Text('Search',
-                      style: TextStyle(fontSize: 14, color: nightSky)),
+                  Text(
+                    'Search',
+                    style: TextStyle(fontSize: 14, color: nightSky),
+                  ),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 4),
-          Text('Screen reader: "Search"',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: dusk.withValues(alpha: 0.8))),
+          Text(
+            'Screen reader: "Search"',
+            style: TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: dusk.withValues(alpha: 0.8),
+            ),
+          ),
         ]),
         const SizedBox(height: 6),
         // Value demo
         smCard([
-          const Text('value — the current value:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'value — the current value:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 6),
           Semantics(
             label: 'Volume',
@@ -258,11 +288,14 @@ dynamic build(BuildContext context) {
                 children: [
                   const Icon(Icons.volume_up, color: amethyst, size: 22),
                   const SizedBox(width: 8),
-                  const Text('75%',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: nightSky)),
+                  const Text(
+                    '75%',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: nightSky,
+                    ),
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: ClipRRect(
@@ -272,8 +305,9 @@ dynamic build(BuildContext context) {
                         child: LinearProgressIndicator(
                           value: 0.75,
                           backgroundColor: moonlight,
-                          valueColor:
-                              const AlwaysStoppedAnimation<Color>(amethyst),
+                          valueColor: const AlwaysStoppedAnimation<Color>(
+                            amethyst,
+                          ),
                         ),
                       ),
                     ),
@@ -283,20 +317,26 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(height: 4),
-          Text('Screen reader: "Volume, 75 percent"',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: dusk.withValues(alpha: 0.8))),
+          Text(
+            'Screen reader: "Volume, 75 percent"',
+            style: TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: dusk.withValues(alpha: 0.8),
+            ),
+          ),
         ]),
         const SizedBox(height: 6),
         // Hint demo
         smCard([
-          const Text('hint — how to interact:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'hint — how to interact:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 6),
           Semantics(
             label: 'Send message',
@@ -308,19 +348,25 @@ dynamic build(BuildContext context) {
                 color: plumWine,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text('Send',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Send',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(height: 4),
-          Text('Screen reader: "Send message, button, Double tap to send"',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: dusk.withValues(alpha: 0.8))),
+          Text(
+            'Screen reader: "Send message, button, Double tap to send"',
+            style: TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: dusk.withValues(alpha: 0.8),
+            ),
+          ),
         ]),
       ],
     );
@@ -332,19 +378,51 @@ dynamic build(BuildContext context) {
   print('sm03 Role flags: button, link, header, image, etc.');
   Widget sm03RoleFlags() {
     final roles = [
-      {'flag': 'button', 'icon': Icons.smart_button, 'desc': 'Activatable button', 'color': dusk},
-      {'flag': 'link', 'icon': Icons.link, 'desc': 'Navigational hyperlink', 'color': amethyst},
-      {'flag': 'header', 'icon': Icons.title, 'desc': 'Section heading', 'color': plumWine},
-      {'flag': 'image', 'icon': Icons.image, 'desc': 'Decorative/content image', 'color': deepIndigo},
-      {'flag': 'textField', 'icon': Icons.text_fields, 'desc': 'Text input field', 'color': twilight},
-      {'flag': 'slider', 'icon': Icons.tune, 'desc': 'Value slider control', 'color': Color(0xFF7A5FA0)},
+      {
+        'flag': 'button',
+        'icon': Icons.smart_button,
+        'desc': 'Activatable button',
+        'color': dusk,
+      },
+      {
+        'flag': 'link',
+        'icon': Icons.link,
+        'desc': 'Navigational hyperlink',
+        'color': amethyst,
+      },
+      {
+        'flag': 'header',
+        'icon': Icons.title,
+        'desc': 'Section heading',
+        'color': plumWine,
+      },
+      {
+        'flag': 'image',
+        'icon': Icons.image,
+        'desc': 'Decorative/content image',
+        'color': deepIndigo,
+      },
+      {
+        'flag': 'textField',
+        'icon': Icons.text_fields,
+        'desc': 'Text input field',
+        'color': twilight,
+      },
+      {
+        'flag': 'slider',
+        'icon': Icons.tune,
+        'desc': 'Value slider control',
+        'color': Color(0xFF7A5FA0),
+      },
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm03 — Role Flags',
-            'Boolean flags that tell the platform what type of control this is'),
+        smHeader(
+          'sm03 — Role Flags',
+          'Boolean flags that tell the platform what type of control this is',
+        ),
         const SizedBox(height: 10),
         smCard([
           Wrap(
@@ -368,15 +446,22 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(r['flag'] as String,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: color)),
-                          Text(r['desc'] as String,
-                              style: const TextStyle(
-                                  fontSize: 10.5, color: nightSky)),
+                          Text(
+                            r['flag'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'monospace',
+                              color: color,
+                            ),
+                          ),
+                          Text(
+                            r['desc'] as String,
+                            style: const TextStyle(
+                              fontSize: 10.5,
+                              color: nightSky,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -386,11 +471,11 @@ dynamic build(BuildContext context) {
             }).toList(),
           ),
           const SizedBox(height: 10),
-          smBullet(
-              'Set these on Semantics widget or SemanticsProperties'),
+          smBullet('Set these on Semantics widget or SemanticsProperties'),
           smBullet('Platform maps them to native accessibility roles'),
           smBullet(
-              'Example: button: true → iOS VoiceOver says "button" after label'),
+            'Example: button: true → iOS VoiceOver says "button" after label',
+          ),
         ]),
       ],
     );
@@ -404,16 +489,21 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm04 — State Flags',
-            'Boolean state indicators for interactive controls'),
+        smHeader(
+          'sm04 — State Flags',
+          'Boolean state indicators for interactive controls',
+        ),
         const SizedBox(height: 10),
         // Live checked examples
         smCard([
-          const Text('checked state:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'checked state:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -433,9 +523,10 @@ dynamic build(BuildContext context) {
                         Icon(Icons.check_box, color: Colors.green, size: 20),
                         SizedBox(width: 6),
                         Expanded(
-                          child: Text('Notifications ON',
-                              style:
-                                  TextStyle(fontSize: 12, color: nightSky)),
+                          child: Text(
+                            'Notifications ON',
+                            style: TextStyle(fontSize: 12, color: nightSky),
+                          ),
                         ),
                       ],
                     ),
@@ -456,13 +547,17 @@ dynamic build(BuildContext context) {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.check_box_outline_blank,
-                            color: Colors.grey.shade600, size: 20),
+                        Icon(
+                          Icons.check_box_outline_blank,
+                          color: Colors.grey.shade600,
+                          size: 20,
+                        ),
                         const SizedBox(width: 6),
                         const Expanded(
-                          child: Text('Sound OFF',
-                              style:
-                                  TextStyle(fontSize: 12, color: nightSky)),
+                          child: Text(
+                            'Sound OFF',
+                            style: TextStyle(fontSize: 12, color: nightSky),
+                          ),
                         ),
                       ],
                     ),
@@ -475,18 +570,25 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         // Selected vs not selected
         smCard([
-          const Text('selected state:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'selected state:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
               for (final item in [
                 {'label': 'Home', 'selected': true, 'icon': Icons.home},
                 {'label': 'Profile', 'selected': false, 'icon': Icons.person},
-                {'label': 'Settings', 'selected': false, 'icon': Icons.settings},
+                {
+                  'label': 'Settings',
+                  'selected': false,
+                  'icon': Icons.settings,
+                },
               ])
                 Expanded(
                   child: Semantics(
@@ -501,28 +603,34 @@ dynamic build(BuildContext context) {
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(6),
                         border: Border.all(
-                            color: (item['selected'] as bool)
-                                ? dusk
-                                : Colors.grey.shade300,
-                            width: (item['selected'] as bool) ? 2 : 1),
+                          color: (item['selected'] as bool)
+                              ? dusk
+                              : Colors.grey.shade300,
+                          width: (item['selected'] as bool) ? 2 : 1,
+                        ),
                       ),
                       child: Column(
                         children: [
-                          Icon(item['icon'] as IconData,
-                              size: 22,
+                          Icon(
+                            item['icon'] as IconData,
+                            size: 22,
+                            color: (item['selected'] as bool)
+                                ? dusk
+                                : Colors.grey,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            item['label'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: (item['selected'] as bool)
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                               color: (item['selected'] as bool)
                                   ? dusk
-                                  : Colors.grey),
-                          const SizedBox(height: 4),
-                          Text(item['label'] as String,
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: (item['selected'] as bool)
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: (item['selected'] as bool)
-                                      ? dusk
-                                      : Colors.grey)),
+                                  : Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -534,11 +642,14 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         // Enabled / disabled
         smCard([
-          const Text('enabled state:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'enabled state:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -554,11 +665,14 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
-                      child: Text('Enabled',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Enabled',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -576,11 +690,14 @@ dynamic build(BuildContext context) {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
-                      child: Text('Disabled',
-                          style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Disabled',
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -599,13 +716,33 @@ dynamic build(BuildContext context) {
   Widget sm05Actions() {
     final actions = [
       {'name': 'onTap', 'icon': Icons.touch_app, 'desc': 'Single tap/activate'},
-      {'name': 'onLongPress', 'icon': Icons.pan_tool, 'desc': 'Long press action'},
+      {
+        'name': 'onLongPress',
+        'icon': Icons.pan_tool,
+        'desc': 'Long press action',
+      },
       {'name': 'onScrollLeft', 'icon': Icons.arrow_back, 'desc': 'Scroll left'},
-      {'name': 'onScrollRight', 'icon': Icons.arrow_forward, 'desc': 'Scroll right'},
+      {
+        'name': 'onScrollRight',
+        'icon': Icons.arrow_forward,
+        'desc': 'Scroll right',
+      },
       {'name': 'onScrollUp', 'icon': Icons.arrow_upward, 'desc': 'Scroll up'},
-      {'name': 'onScrollDown', 'icon': Icons.arrow_downward, 'desc': 'Scroll down'},
-      {'name': 'onIncrease', 'icon': Icons.add_circle, 'desc': 'Increase value'},
-      {'name': 'onDecrease', 'icon': Icons.remove_circle, 'desc': 'Decrease value'},
+      {
+        'name': 'onScrollDown',
+        'icon': Icons.arrow_downward,
+        'desc': 'Scroll down',
+      },
+      {
+        'name': 'onIncrease',
+        'icon': Icons.add_circle,
+        'desc': 'Increase value',
+      },
+      {
+        'name': 'onDecrease',
+        'icon': Icons.remove_circle,
+        'desc': 'Decrease value',
+      },
       {'name': 'onCopy', 'icon': Icons.content_copy, 'desc': 'Copy content'},
       {'name': 'onCut', 'icon': Icons.content_cut, 'desc': 'Cut content'},
       {'name': 'onPaste', 'icon': Icons.content_paste, 'desc': 'Paste content'},
@@ -615,8 +752,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm05 — Semantic Actions',
-            'Callbacks exposed to accessibility services'),
+        smHeader(
+          'sm05 — Semantic Actions',
+          'Callbacks exposed to accessibility services',
+        ),
         const SizedBox(height: 10),
         smCard([
           Wrap(
@@ -639,16 +778,22 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(a['name'] as String,
-                              style: const TextStyle(
-                                  fontSize: 10.5,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'monospace',
-                                  color: nightSky)),
-                          Text(a['desc'] as String,
-                              style: TextStyle(
-                                  fontSize: 9.5,
-                                  color: nightSky.withValues(alpha: 0.7))),
+                          Text(
+                            a['name'] as String,
+                            style: const TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'monospace',
+                              color: nightSky,
+                            ),
+                          ),
+                          Text(
+                            a['desc'] as String,
+                            style: TextStyle(
+                              fontSize: 9.5,
+                              color: nightSky.withValues(alpha: 0.7),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -660,7 +805,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 10),
           smBullet('Actions register callbacks with the semantics engine'),
           smBullet(
-              'Platform triggers them via VoiceOver gestures, TalkBack, etc.'),
+            'Platform triggers them via VoiceOver gestures, TalkBack, etc.',
+          ),
         ]),
       ],
     );
@@ -674,8 +820,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm06 — Semantics.fromProperties()',
-            'Alt constructor using SemanticsProperties object'),
+        smHeader(
+          'sm06 — Semantics.fromProperties()',
+          'Alt constructor using SemanticsProperties object',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -694,54 +842,78 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Semantics.fromProperties(',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text('  properties: SemanticsProperties(',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text('    label: "Username",',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text('    textField: true,',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text('    hint: "Enter username",',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text('  ),',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text('  child: myTextField,',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text(')',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
+                Text(
+                  'Semantics.fromProperties(',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  properties: SemanticsProperties(',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '    label: "Username",',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '    textField: true,',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '    hint: "Enter username",',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  ),',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  child: myTextField,',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  ')',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
               ],
             ),
           ),
           const SizedBox(height: 8),
           smBullet(
-              'Useful when you build properties dynamically or share them'),
-          smBullet(
-              'Identical behavior to the named constructor parameters'),
+            'Useful when you build properties dynamically or share them',
+          ),
+          smBullet('Identical behavior to the named constructor parameters'),
         ]),
       ],
     );
@@ -755,8 +927,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm07 — The container Property',
-            'Controlling whether Semantics creates its own node or merges'),
+        smHeader(
+          'sm07 — The container Property',
+          'Controlling whether Semantics creates its own node or merges',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -780,12 +954,15 @@ dynamic build(BuildContext context) {
                     children: [
                       const Icon(Icons.crop_square, size: 28, color: dusk),
                       const SizedBox(height: 4),
-                      const Text('container: true',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              color: dusk)),
+                      const Text(
+                        'container: true',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'monospace',
+                          color: dusk,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       const Text(
                         'Own SemanticsNode\nSeparate focus target',
@@ -809,12 +986,15 @@ dynamic build(BuildContext context) {
                     children: [
                       const Icon(Icons.merge, size: 28, color: amethyst),
                       const SizedBox(height: 4),
-                      const Text('container: false',
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'monospace',
-                              color: amethyst)),
+                      const Text(
+                        'container: false',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'monospace',
+                          color: amethyst,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       const Text(
                         'Merges into parent\nCombined announcement',
@@ -840,15 +1020,20 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm08 — MergeSemantics Widget',
-            'Force child semantics nodes to merge into one'),
+        smHeader(
+          'sm08 — MergeSemantics Widget',
+          'Force child semantics nodes to merge into one',
+        ),
         const SizedBox(height: 10),
         smCard([
-          const Text('Without MergeSemantics (two stops):',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'Without MergeSemantics (two stops):',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.all(10),
@@ -862,43 +1047,50 @@ dynamic build(BuildContext context) {
               children: [
                 Semantics(
                   label: 'Star icon',
-                  child:
-                      const Icon(Icons.star, color: starGold, size: 24),
+                  child: const Icon(Icons.star, color: starGold, size: 24),
                 ),
                 const SizedBox(height: 4),
                 Semantics(
                   label: '4.5 stars',
-                  child: const Text('4.5',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: nightSky)),
+                  child: const Text(
+                    '4.5',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: nightSky,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 4),
-          const Text('Screen reader: stop 1: "Star icon", stop 2: "4.5 stars"',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: twilight)),
+          const Text(
+            'Screen reader: stop 1: "Star icon", stop 2: "4.5 stars"',
+            style: TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: twilight,
+            ),
+          ),
         ]),
         const SizedBox(height: 8),
         smCard([
-          const Text('With MergeSemantics (one stop):',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'With MergeSemantics (one stop):',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 6),
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.green.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(6),
-              border:
-                  Border.all(color: Colors.green.withValues(alpha: 0.3)),
+              border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
             ),
             child: MergeSemantics(
               child: Row(
@@ -906,17 +1098,19 @@ dynamic build(BuildContext context) {
                 children: [
                   Semantics(
                     label: 'Rating star',
-                    child: const Icon(Icons.star,
-                        color: starGold, size: 24),
+                    child: const Icon(Icons.star, color: starGold, size: 24),
                   ),
                   const SizedBox(width: 6),
                   Semantics(
                     label: '4.5 out of 5',
-                    child: const Text('4.5',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: nightSky)),
+                    child: const Text(
+                      '4.5',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: nightSky,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -924,11 +1118,13 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 4),
           const Text(
-              'Screen reader: "Rating star, 4.5 out of 5" (single stop)',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontStyle: FontStyle.italic,
-                  color: twilight)),
+            'Screen reader: "Rating star, 4.5 out of 5" (single stop)',
+            style: TextStyle(
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              color: twilight,
+            ),
+          ),
         ]),
       ],
     );
@@ -942,8 +1138,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm09 — ExcludeSemantics',
-            'Removing widgets from the accessibility tree'),
+        smHeader(
+          'sm09 — ExcludeSemantics',
+          'Removing widgets from the accessibility tree',
+        ),
         const SizedBox(height: 10),
         smCard([
           Row(
@@ -952,11 +1150,14 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    const Text('Visible but excluded:',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: nightSky)),
+                    const Text(
+                      'Visible but excluded:',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: nightSky,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     ExcludeSemantics(
                       child: Container(
@@ -968,23 +1169,32 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.image,
-                                size: 36, color: Colors.grey.shade400),
+                            Icon(
+                              Icons.image,
+                              size: 36,
+                              color: Colors.grey.shade400,
+                            ),
                             const SizedBox(height: 4),
-                            const Text('Decorative image',
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey)),
+                            const Text(
+                              'Decorative image',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text('No A11Y node',
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.grey)),
+                    const Text(
+                      'No A11Y node',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -992,11 +1202,14 @@ dynamic build(BuildContext context) {
               Expanded(
                 child: Column(
                   children: [
-                    const Text('Included in tree:',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: nightSky)),
+                    const Text(
+                      'Included in tree:',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: nightSky,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     Semantics(
                       label: 'User avatar, Alice Johnson',
@@ -1010,22 +1223,25 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Icon(Icons.person,
-                                size: 36, color: amethyst),
+                            Icon(Icons.person, size: 36, color: amethyst),
                             const SizedBox(height: 4),
-                            const Text('User avatar',
-                                style: TextStyle(
-                                    fontSize: 11, color: nightSky)),
+                            const Text(
+                              'User avatar',
+                              style: TextStyle(fontSize: 11, color: nightSky),
+                            ),
                           ],
                         ),
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text('Has A11Y node',
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontStyle: FontStyle.italic,
-                            color: amethyst)),
+                    const Text(
+                      'Has A11Y node',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontStyle: FontStyle.italic,
+                        color: amethyst,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1033,9 +1249,9 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8),
           smBullet(
-              'Use ExcludeSemantics for decorative elements with no meaning'),
-          smBullet(
-              'Keep Semantics for images that convey information'),
+            'Use ExcludeSemantics for decorative elements with no meaning',
+          ),
+          smBullet('Keep Semantics for images that convey information'),
         ]),
       ],
     );
@@ -1049,8 +1265,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm10 — Semantic Sort Keys',
-            'Controlling the focus order for accessibility navigation'),
+        smHeader(
+          'sm10 — Semantic Sort Keys',
+          'Controlling the focus order for accessibility navigation',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -1078,7 +1296,9 @@ dynamic build(BuildContext context) {
                         color: (item['color'] as Color).withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
-                            color: (item['color'] as Color), width: 2),
+                          color: (item['color'] as Color),
+                          width: 2,
+                        ),
                       ),
                       child: Column(
                         children: [
@@ -1090,19 +1310,25 @@ dynamic build(BuildContext context) {
                               shape: BoxShape.circle,
                             ),
                             child: Center(
-                              child: Text('${item['order']}',
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white)),
+                              child: Text(
+                                '${item['order']}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 6),
-                          Text(item['label'] as String,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: item['color'] as Color)),
+                          Text(
+                            item['label'] as String,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: item['color'] as Color,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1111,13 +1337,18 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Visual order: Third | First | Second',
-              style: TextStyle(fontSize: 11.5, color: nightSky)),
-          Text('A11Y focus order: First → Second → Third',
-              style: TextStyle(
-                  fontSize: 11.5,
-                  fontWeight: FontWeight.bold,
-                  color: dusk.withValues(alpha: 0.9))),
+          const Text(
+            'Visual order: Third | First | Second',
+            style: TextStyle(fontSize: 11.5, color: nightSky),
+          ),
+          Text(
+            'A11Y focus order: First → Second → Third',
+            style: TextStyle(
+              fontSize: 11.5,
+              fontWeight: FontWeight.bold,
+              color: dusk.withValues(alpha: 0.9),
+            ),
+          ),
         ]),
       ],
     );
@@ -1131,8 +1362,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm11 — Custom Semantic Actions',
-            'CustomSemanticsAction for domain-specific operations'),
+        smHeader(
+          'sm11 — Custom Semantic Actions',
+          'CustomSemanticsAction for domain-specific operations',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -1151,26 +1384,38 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('customSemanticsActions: {',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text('  CustomSemanticsAction(label: "Archive"): () => ...,',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text('  CustomSemanticsAction(label: "Pin"): () => ...,',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text('}',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
+                Text(
+                  'customSemanticsActions: {',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  CustomSemanticsAction(label: "Archive"): () => ...,',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  CustomSemanticsAction(label: "Pin"): () => ...,',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1187,27 +1432,34 @@ dynamic build(BuildContext context) {
                 {'label': 'Report', 'icon': Icons.flag, 'color': deepIndigo},
               ])
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color:
-                        (act['color'] as Color).withValues(alpha: 0.1),
+                    color: (act['color'] as Color).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                        color: (act['color'] as Color)
-                            .withValues(alpha: 0.4)),
+                      color: (act['color'] as Color).withValues(alpha: 0.4),
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(act['icon'] as IconData,
-                          size: 16, color: act['color'] as Color),
+                      Icon(
+                        act['icon'] as IconData,
+                        size: 16,
+                        color: act['color'] as Color,
+                      ),
                       const SizedBox(width: 6),
-                      Text(act['label'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: act['color'] as Color)),
+                      Text(
+                        act['label'] as String,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: act['color'] as Color,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1226,15 +1478,20 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm12 — Text Direction & Attributed Strings',
-            'RTL support and rich accessibility labels'),
+        smHeader(
+          'sm12 — Text Direction & Attributed Strings',
+          'RTL support and rich accessibility labels',
+        ),
         const SizedBox(height: 10),
         smCard([
-          const Text('textDirection on Semantics:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'textDirection on Semantics:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -1251,11 +1508,16 @@ dynamic build(BuildContext context) {
                     ),
                     child: const Row(
                       children: [
-                        Icon(Icons.format_textdirection_l_to_r,
-                            size: 18, color: dusk),
+                        Icon(
+                          Icons.format_textdirection_l_to_r,
+                          size: 18,
+                          color: dusk,
+                        ),
                         SizedBox(width: 6),
-                        Text('LTR: Hello',
-                            style: TextStyle(fontSize: 13, color: nightSky)),
+                        Text(
+                          'LTR: Hello',
+                          style: TextStyle(fontSize: 13, color: nightSky),
+                        ),
                       ],
                     ),
                   ),
@@ -1271,18 +1533,23 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: plumWine.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(6),
-                      border:
-                          Border.all(color: plumWine.withValues(alpha: 0.3)),
+                      border: Border.all(
+                        color: plumWine.withValues(alpha: 0.3),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        const Text('مرحبا :RTL',
-                            style:
-                                TextStyle(fontSize: 13, color: nightSky)),
+                        const Text(
+                          'مرحبا :RTL',
+                          style: TextStyle(fontSize: 13, color: nightSky),
+                        ),
                         const SizedBox(width: 6),
-                        const Icon(Icons.format_textdirection_r_to_l,
-                            size: 18, color: plumWine),
+                        const Icon(
+                          Icons.format_textdirection_r_to_l,
+                          size: 18,
+                          color: plumWine,
+                        ),
                       ],
                     ),
                   ),
@@ -1292,9 +1559,11 @@ dynamic build(BuildContext context) {
           ),
           const SizedBox(height: 8),
           smBullet(
-              'textDirection tells the platform how to render and read the label'),
+            'textDirection tells the platform how to render and read the label',
+          ),
           smBullet(
-              'AttributedString allows styling parts of a label differently'),
+            'AttributedString allows styling parts of a label differently',
+          ),
         ]),
       ],
     );
@@ -1308,8 +1577,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm13 — Tooltip Semantics',
-            'How tooltips expose information to accessibility'),
+        smHeader(
+          'sm13 — Tooltip Semantics',
+          'How tooltips expose information to accessibility',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -1334,20 +1605,25 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        const Icon(Icons.settings,
-                            size: 28, color: twilight),
+                        const Icon(Icons.settings, size: 28, color: twilight),
                         const SizedBox(height: 6),
-                        const Text('Settings',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: nightSky)),
+                        const Text(
+                          'Settings',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: nightSky,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text('tooltip: "Open application settings"',
-                            style: TextStyle(
-                                fontSize: 9.5,
-                                fontStyle: FontStyle.italic,
-                                color: nightSky.withValues(alpha: 0.6))),
+                        Text(
+                          'tooltip: "Open application settings"',
+                          style: TextStyle(
+                            fontSize: 9.5,
+                            fontStyle: FontStyle.italic,
+                            color: nightSky.withValues(alpha: 0.6),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1368,20 +1644,25 @@ dynamic build(BuildContext context) {
                     ),
                     child: Column(
                       children: [
-                        const Icon(Icons.refresh,
-                            size: 28, color: amethyst),
+                        const Icon(Icons.refresh, size: 28, color: amethyst),
                         const SizedBox(height: 6),
-                        const Text('Refresh',
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: nightSky)),
+                        const Text(
+                          'Refresh',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: nightSky,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text('tooltip: "Refresh the data feed"',
-                            style: TextStyle(
-                                fontSize: 9.5,
-                                fontStyle: FontStyle.italic,
-                                color: nightSky.withValues(alpha: 0.6))),
+                        Text(
+                          'tooltip: "Refresh the data feed"',
+                          style: TextStyle(
+                            fontSize: 9.5,
+                            fontStyle: FontStyle.italic,
+                            color: nightSky.withValues(alpha: 0.6),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -1402,16 +1683,21 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm14 — Live Widget Gallery',
-            'Widgets with various Semantics annotations'),
+        smHeader(
+          'sm14 — Live Widget Gallery',
+          'Widgets with various Semantics annotations',
+        ),
         const SizedBox(height: 10),
         // Switch-like control
         smCard([
-          const Text('Toggle with semantics:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'Toggle with semantics:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Semantics(
             toggled: true,
@@ -1428,11 +1714,14 @@ dynamic build(BuildContext context) {
                 children: [
                   const Icon(Icons.dark_mode, size: 18, color: starGold),
                   const SizedBox(width: 8),
-                  const Text('Dark Mode ON',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold)),
+                  const Text(
+                    'Dark Mode ON',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(width: 8),
                   Container(
                     width: 14,
@@ -1450,11 +1739,14 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 6),
         // Card with multiple annotations
         smCard([
-          const Text('Card with mixed semantics:',
-              style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.bold,
-                  color: nightSky)),
+          const Text(
+            'Card with mixed semantics:',
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.bold,
+              color: nightSky,
+            ),
+          ),
           const SizedBox(height: 8),
           Container(
             padding: const EdgeInsets.all(12),
@@ -1476,20 +1768,26 @@ dynamic build(BuildContext context) {
                 Semantics(
                   header: true,
                   label: 'Product name: Widget Pro',
-                  child: const Text('Widget Pro',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: nightSky)),
+                  child: const Text(
+                    'Widget Pro',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: nightSky,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Semantics(
                   label: 'Price: 29 dollars and 99 cents',
-                  child: const Text('\$29.99',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: plumWine,
-                          fontWeight: FontWeight.w600)),
+                  child: const Text(
+                    '\$29.99',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: plumWine,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Semantics(
@@ -1503,8 +1801,10 @@ dynamic build(BuildContext context) {
                           color: starGold,
                         ),
                       const SizedBox(width: 4),
-                      const Text('4.7',
-                          style: TextStyle(fontSize: 12, color: nightSky)),
+                      const Text(
+                        '4.7',
+                        style: TextStyle(fontSize: 12, color: nightSky),
+                      ),
                     ],
                   ),
                 ),
@@ -1514,16 +1814,21 @@ dynamic build(BuildContext context) {
                   label: 'Add to cart',
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 8),
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
                     decoration: BoxDecoration(
                       color: dusk,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: const Text('Add to Cart',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold)),
+                    child: const Text(
+                      'Add to Cart',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -1542,8 +1847,10 @@ dynamic build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm15 — SemanticsDebugger',
-            'Visual overlay for debugging the semantics tree'),
+        smHeader(
+          'sm15 — SemanticsDebugger',
+          'Visual overlay for debugging the semantics tree',
+        ),
         const SizedBox(height: 10),
         smCard([
           const Text(
@@ -1562,21 +1869,30 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('SemanticsDebugger(',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
-                Text('  child: MaterialApp(...),',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: amethyst.withValues(alpha: 0.9))),
-                Text(')',
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'monospace',
-                        color: dusk.withValues(alpha: 0.9))),
+                Text(
+                  'SemanticsDebugger(',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  '  child: MaterialApp(...),',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: amethyst.withValues(alpha: 0.9),
+                  ),
+                ),
+                Text(
+                  ')',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'monospace',
+                    color: dusk.withValues(alpha: 0.9),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1588,44 +1904,58 @@ dynamic build(BuildContext context) {
               color: Colors.yellow.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: Colors.yellow.shade700.withValues(alpha: 0.4)),
+                color: Colors.yellow.shade700.withValues(alpha: 0.4),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('┌─ [Scaffold]',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Colors.yellow.shade800)),
-                Text('│  ┌─ [AppBar] "My App"',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Colors.yellow.shade800)),
-                Text('│  ├─ [Button] "Save" (tap)',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Colors.yellow.shade800)),
-                Text('│  └─ [TextField] "Enter name" (editable)',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Colors.yellow.shade800)),
-                Text('└──',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: Colors.yellow.shade800)),
+                Text(
+                  '┌─ [Scaffold]',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
+                Text(
+                  '│  ┌─ [AppBar] "My App"',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
+                Text(
+                  '│  ├─ [Button] "Save" (tap)',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
+                Text(
+                  '│  └─ [TextField] "Enter name" (editable)',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
+                Text(
+                  '└──',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: Colors.yellow.shade800,
+                  ),
+                ),
               ],
             ),
           ),
           const SizedBox(height: 8),
-          smBullet(
-              'Invaluable during development to verify accessibility'),
-          smBullet(
-              'Shows which nodes are focusable, actions available, etc.'),
+          smBullet('Invaluable during development to verify accessibility'),
+          smBullet('Shows which nodes are focusable, actions available, etc.'),
         ]),
       ],
     );
@@ -1637,78 +1967,114 @@ dynamic build(BuildContext context) {
   print('sm16 Summary dashboard');
   Widget sm16Dashboard() {
     final stats = [
-      {'label': 'Text Props', 'value': '3', 'sub': 'label / value / hint', 'color': dusk},
-      {'label': 'Role Flags', 'value': '6+', 'sub': 'button, link, header...', 'color': amethyst},
-      {'label': 'State Flags', 'value': '8+', 'sub': 'checked, selected...', 'color': plumWine},
-      {'label': 'Actions', 'value': '12+', 'sub': 'tap, scroll, copy...', 'color': twilight},
+      {
+        'label': 'Text Props',
+        'value': '3',
+        'sub': 'label / value / hint',
+        'color': dusk,
+      },
+      {
+        'label': 'Role Flags',
+        'value': '6+',
+        'sub': 'button, link, header...',
+        'color': amethyst,
+      },
+      {
+        'label': 'State Flags',
+        'value': '8+',
+        'sub': 'checked, selected...',
+        'color': plumWine,
+      },
+      {
+        'label': 'Actions',
+        'value': '12+',
+        'sub': 'tap, scroll, copy...',
+        'color': twilight,
+      },
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        smHeader('sm16 — Summary Dashboard',
-            'The Semantics widget at a glance'),
+        smHeader(
+          'sm16 — Summary Dashboard',
+          'The Semantics widget at a glance',
+        ),
         const SizedBox(height: 10),
         Wrap(
           spacing: 8,
           runSpacing: 8,
           children: stats
-              .map((s) => Container(
-                    width: 170,
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          (s['color'] as Color).withValues(alpha: 0.15),
-                          (s['color'] as Color).withValues(alpha: 0.05),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                          color:
-                              (s['color'] as Color).withValues(alpha: 0.3)),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(s['value'] as String,
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: s['color'] as Color)),
-                        Text(s['label'] as String,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: nightSky)),
-                        const SizedBox(height: 2),
-                        Text(s['sub'] as String,
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: nightSky.withValues(alpha: 0.7)),
-                            textAlign: TextAlign.center),
+              .map(
+                (s) => Container(
+                  width: 170,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        (s['color'] as Color).withValues(alpha: 0.15),
+                        (s['color'] as Color).withValues(alpha: 0.05),
                       ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                  ))
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: (s['color'] as Color).withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        s['value'] as String,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: s['color'] as Color,
+                        ),
+                      ),
+                      Text(
+                        s['label'] as String,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: nightSky,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        s['sub'] as String,
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: nightSky.withValues(alpha: 0.7),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              )
               .toList(),
         ),
         const SizedBox(height: 12),
         smCard([
           smBullet(
-              'Semantics is the primary widget for accessibility annotations'),
+            'Semantics is the primary widget for accessibility annotations',
+          ),
           smBullet(
-              'Labels, values, and hints describe the widget to screen readers'),
+            'Labels, values, and hints describe the widget to screen readers',
+          ),
           smBullet(
-              'Role flags (button, header, etc.) map to platform A11Y roles'),
+            'Role flags (button, header, etc.) map to platform A11Y roles',
+          ),
           smBullet(
-              'Actions expose interactive capabilities via accessibility services'),
+            'Actions expose interactive capabilities via accessibility services',
+          ),
           smBullet(
-              'MergeSemantics and ExcludeSemantics control tree structure'),
-          smBullet(
-              'OrdinalSortKey customizes navigation order'),
-          smBullet(
-              'container: true/false controls node creation vs merging'),
+            'MergeSemantics and ExcludeSemantics control tree structure',
+          ),
+          smBullet('OrdinalSortKey customizes navigation order'),
+          smBullet('container: true/false controls node creation vs merging'),
         ]),
       ],
     );

@@ -319,26 +319,14 @@ class _PrivateHeroCard extends StatelessWidget {
                   spacing: 10.0,
                   runSpacing: 10.0,
                   children: <Widget>[
-                    _PrivateChip(
-                      label: 'CompoundAnimation<T>',
-                      color: _kBlue,
-                    ),
-                    _PrivateChip(
-                      label: 'CurvedAnimation',
-                      color: _kPink,
-                    ),
-                    _PrivateChip(
-                      label: 'ReverseAnimation',
-                      color: _kGreen,
-                    ),
+                    _PrivateChip(label: 'CompoundAnimation<T>', color: _kBlue),
+                    _PrivateChip(label: 'CurvedAnimation', color: _kPink),
+                    _PrivateChip(label: 'ReverseAnimation', color: _kGreen),
                     _PrivateChip(
                       label: 'TrainHoppingAnimation',
                       color: _kPurple,
                     ),
-                    _PrivateChip(
-                      label: 'ProxyAnimation',
-                      color: _kSlate,
-                    ),
+                    _PrivateChip(label: 'ProxyAnimation', color: _kSlate),
                     _PrivateChip(
                       label: 'Animatable<T>.animate()',
                       color: _kAccent,
@@ -360,9 +348,7 @@ class _PrivateHeroCard extends StatelessWidget {
                   border: Border.all(color: _kCardBorder),
                 ),
                 padding: const EdgeInsets.all(14.0),
-                child: CustomPaint(
-                  painter: _PrivateHeroPlotPainter(),
-                ),
+                child: CustomPaint(painter: _PrivateHeroPlotPainter()),
               ),
             ),
           ),
@@ -449,10 +435,7 @@ class _PrivateHeroPlotPainter extends CustomPainter {
       _kAccent,
       12.0,
     );
-    labelMax.paint(
-      canvas,
-      Offset(10.0, 6.0 + labelA.height * 2.0 + 4.0),
-    );
+    labelMax.paint(canvas, Offset(10.0, 6.0 + labelA.height * 2.0 + 4.0));
   }
 
   @override
@@ -488,11 +471,7 @@ class _PrivateAnatomyCard extends StatelessWidget {
             'machinery of CompoundAnimation<T> and only overrides one thing: '
             'the value getter. It returns whichever of `first.value` or '
             '`next.value` compares larger via Comparable.compareTo.',
-            style: TextStyle(
-              color: _kSubInk,
-              fontSize: 14.0,
-              height: 1.55,
-            ),
+            style: TextStyle(color: _kSubInk, fontSize: 14.0, height: 1.55),
           ),
           const SizedBox(height: 22.0),
           Container(
@@ -522,7 +501,8 @@ class _PrivateAnatomyCard extends StatelessWidget {
               Expanded(
                 child: _PrivateAnatomyTile(
                   title: 'first',
-                  body: 'The first source `Animation<T>`. Listeners are '
+                  body:
+                      'The first source `Animation<T>`. Listeners are '
                       'forwarded automatically by CompoundAnimation.',
                   color: _kBlue,
                 ),
@@ -531,7 +511,8 @@ class _PrivateAnatomyCard extends StatelessWidget {
               Expanded(
                 child: _PrivateAnatomyTile(
                   title: 'next',
-                  body: 'The second source `Animation<T>`. Status is taken '
+                  body:
+                      'The second source `Animation<T>`. Status is taken '
                       'from whichever child most recently changed status.',
                   color: _kPink,
                 ),
@@ -540,7 +521,8 @@ class _PrivateAnatomyCard extends StatelessWidget {
               Expanded(
                 child: _PrivateAnatomyTile(
                   title: 'value',
-                  body: 'Per-tick maximum of `first.value` and `next.value` '
+                  body:
+                      'Per-tick maximum of `first.value` and `next.value` '
                       'using Comparable.compareTo.',
                   color: _kGold,
                 ),
@@ -628,9 +610,7 @@ class _PrivateDualCurveCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.0),
                 border: Border.all(color: _kCardBorder),
               ),
-              child: CustomPaint(
-                painter: _PrivateDualCurvePainter(),
-              ),
+              child: CustomPaint(painter: _PrivateDualCurvePainter()),
             ),
           ),
           const SizedBox(height: 14.0),
@@ -654,10 +634,12 @@ class _PrivateDualCurvePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _PrivatePlotting.drawAxes(canvas, size);
     final List<double> ts = _PrivateSamples.linspace(0.0, 1.0, 200);
-    final List<double> a =
-        ts.map((double t) => _PrivateCurves.easeOutCubic(t)).toList();
-    final List<double> b =
-        ts.map((double t) => _PrivateCurves.slowFastSlow(t)).toList();
+    final List<double> a = ts
+        .map((double t) => _PrivateCurves.easeOutCubic(t))
+        .toList();
+    final List<double> b = ts
+        .map((double t) => _PrivateCurves.slowFastSlow(t))
+        .toList();
 
     _PrivatePlotting.drawPath(canvas, size, ts, a, _kBlue, 2.6);
     _PrivatePlotting.drawPath(canvas, size, ts, b, _kPink, 2.6);
@@ -730,9 +712,7 @@ class _PrivateEnvelopeCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.0),
                 border: Border.all(color: _kCardBorder),
               ),
-              child: CustomPaint(
-                painter: _PrivateEnvelopePainter(),
-              ),
+              child: CustomPaint(painter: _PrivateEnvelopePainter()),
             ),
           ),
           const SizedBox(height: 14.0),
@@ -760,10 +740,12 @@ class _PrivateEnvelopePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _PrivatePlotting.drawAxes(canvas, size);
     final List<double> ts = _PrivateSamples.linspace(0.0, 1.0, 240);
-    final List<double> a =
-        ts.map((double t) => _PrivateCurves.easeOutCubic(t)).toList();
-    final List<double> b =
-        ts.map((double t) => _PrivateCurves.slowFastSlow(t)).toList();
+    final List<double> a = ts
+        .map((double t) => _PrivateCurves.easeOutCubic(t))
+        .toList();
+    final List<double> b = ts
+        .map((double t) => _PrivateCurves.slowFastSlow(t))
+        .toList();
     final List<double> mx = <double>[
       for (int i = 0; i < ts.length; i++) a[i] > b[i] ? a[i] : b[i],
     ];
@@ -791,12 +773,7 @@ class _PrivateComparisonTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<List<String>> rows = <List<String>>[
-      <String>[
-        'Class',
-        'Extends',
-        'value semantics',
-        'Listener model',
-      ],
+      <String>['Class', 'Extends', 'value semantics', 'Listener model'],
       <String>[
         'CompoundAnimation<T>',
         'Animation<T>',
@@ -855,9 +832,7 @@ class _PrivateTableRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: isHeader ? _kInk : Colors.transparent,
         border: Border(
-          bottom: BorderSide(
-            color: isLast ? Colors.transparent : _kCardBorder,
-          ),
+          bottom: BorderSide(color: isLast ? Colors.transparent : _kCardBorder),
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 14.0),
@@ -875,8 +850,7 @@ class _PrivateTableRow extends StatelessWidget {
                     fontFamily: i <= 1 ? 'monospace' : null,
                     color: isHeader ? _kBg : _kInk,
                     fontSize: isHeader ? 12.5 : 13.5,
-                    fontWeight:
-                        isHeader ? FontWeight.w800 : FontWeight.w500,
+                    fontWeight: isHeader ? FontWeight.w800 : FontWeight.w500,
                     letterSpacing: isHeader ? 0.6 : 0.0,
                     height: 1.45,
                   ),
@@ -1010,11 +984,7 @@ class _PrivateTreeArrow extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Center(
-        child: Container(
-          width: 2.0,
-          height: 22.0,
-          color: _kCardBorder,
-        ),
+        child: Container(width: 2.0, height: 22.0, color: _kCardBorder),
       ),
     );
   }
@@ -1107,10 +1077,7 @@ class _PrivateChainBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
-          vertical: 14.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.10),
           borderRadius: BorderRadius.circular(10.0),
@@ -1168,11 +1135,7 @@ class _PrivateChainArrow extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4.0),
-          Container(
-            width: 24.0,
-            height: 2.0,
-            color: _kAccent,
-          ),
+          Container(width: 24.0, height: 2.0, color: _kAccent),
         ],
       ),
     );
@@ -1269,9 +1232,7 @@ class _PrivateCurveTile extends StatelessWidget {
             const SizedBox(height: 8.0),
             AspectRatio(
               aspectRatio: 1.4,
-              child: CustomPaint(
-                painter: _PrivateCurveTilePainter(spec: spec),
-              ),
+              child: CustomPaint(painter: _PrivateCurveTilePainter(spec: spec)),
             ),
           ],
         ),
@@ -1326,9 +1287,7 @@ class _PrivateReverseCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.0),
                 border: Border.all(color: _kCardBorder),
               ),
-              child: CustomPaint(
-                painter: _PrivateReversePainter(),
-              ),
+              child: CustomPaint(painter: _PrivateReversePainter()),
             ),
           ),
           const SizedBox(height: 12.0),
@@ -1352,8 +1311,9 @@ class _PrivateReversePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _PrivatePlotting.drawAxes(canvas, size);
     final List<double> ts = _PrivateSamples.linspace(0.0, 1.0, 200);
-    final List<double> a =
-        ts.map((double t) => _PrivateCurves.easeInOutCubic(t)).toList();
+    final List<double> a = ts
+        .map((double t) => _PrivateCurves.easeInOutCubic(t))
+        .toList();
     final List<double> r = a.map((double y) => 1.0 - y).toList();
     _PrivatePlotting.drawPath(canvas, size, ts, a, _kBlue, 2.4);
     _PrivatePlotting.drawPath(canvas, size, ts, r, _kPink, 2.4);
@@ -1392,9 +1352,7 @@ class _PrivateTrainHoppingCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.0),
                 border: Border.all(color: _kCardBorder),
               ),
-              child: CustomPaint(
-                painter: _PrivateTrainHoppingPainter(),
-              ),
+              child: CustomPaint(painter: _PrivateTrainHoppingPainter()),
             ),
           ),
           const SizedBox(height: 12.0),
@@ -1420,10 +1378,12 @@ class _PrivateTrainHoppingPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _PrivatePlotting.drawAxes(canvas, size);
     final List<double> ts = _PrivateSamples.linspace(0.0, 1.0, 200);
-    final List<double> trainA =
-        ts.map((double t) => _PrivateCurves.linear(t)).toList();
-    final List<double> trainB =
-        ts.map((double t) => 1.0 - _PrivateCurves.easeInQuad(t)).toList();
+    final List<double> trainA = ts
+        .map((double t) => _PrivateCurves.linear(t))
+        .toList();
+    final List<double> trainB = ts
+        .map((double t) => 1.0 - _PrivateCurves.easeInQuad(t))
+        .toList();
 
     _PrivatePlotting.drawPath(canvas, size, ts, trainA, _kBlue, 2.4);
     _PrivatePlotting.drawPath(canvas, size, ts, trainB, _kPink, 2.4);
@@ -1445,11 +1405,7 @@ class _PrivateTrainHoppingPainter extends CustomPainter {
       ..strokeWidth = 3.0;
     canvas.drawCircle(Offset(cx, cy), 9.0, hop);
 
-    final TextPainter tp = _PrivatePlotting.textPainter(
-      'hop!',
-      _kAccent,
-      12.0,
-    );
+    final TextPainter tp = _PrivatePlotting.textPainter('hop!', _kAccent, 12.0);
     tp.paint(canvas, Offset(cx + 12.0, cy - 18.0));
   }
 
@@ -1585,29 +1541,34 @@ class _PrivatePitfallsCard extends StatelessWidget {
     final List<_PrivatePitfall> pitfalls = <_PrivatePitfall>[
       _PrivatePitfall(
         title: 'Add listeners — they are not implicit.',
-        body: 'CompoundAnimation forwards listeners to its children only '
+        body:
+            'CompoundAnimation forwards listeners to its children only '
             'after at least one listener is added to the compound itself. '
             'Without listeners it stays detached.',
       ),
       _PrivatePitfall(
         title: 'Always dispose the source controllers, not the compound.',
-        body: 'AnimationMax / AnimationMin do not own their sources. Dispose '
+        body:
+            'AnimationMax / AnimationMin do not own their sources. Dispose '
             'the AnimationControllers; the compound has no `dispose` method.',
       ),
       _PrivatePitfall(
         title: 'You cannot set value directly on a CompoundAnimation.',
-        body: 'The value is derived. To force a particular outcome, set the '
+        body:
+            'The value is derived. To force a particular outcome, set the '
             'underlying controllers (e.g. c1.value = 0.7).',
       ),
       _PrivatePitfall(
         title: 'T must be Comparable.',
-        body: 'AnimationMax<T> is constrained by T extends Comparable. '
+        body:
+            'AnimationMax<T> is constrained by T extends Comparable. '
             'For doubles and ints this is automatic; for custom types you '
             'must implement Comparable<T> yourself.',
       ),
       _PrivatePitfall(
         title: 'Status is whichever child changed status last.',
-        body: 'CompoundAnimation reports the most recent status from either '
+        body:
+            'CompoundAnimation reports the most recent status from either '
             'child. Plan around that — it is rarely what you want for both '
             'children animating in opposite directions.',
       ),
@@ -1720,10 +1681,7 @@ class _PrivateFooter extends StatelessWidget {
           Container(
             width: 10.0,
             height: 10.0,
-            decoration: BoxDecoration(
-              color: _kGold,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: _kGold, shape: BoxShape.circle),
           ),
           const SizedBox(width: 12.0),
           const Expanded(
@@ -1874,11 +1832,7 @@ class _PrivateMath {
     final double t5 = t3 * t2;
     final double t7 = t5 * t2;
     final double t9 = t7 * t2;
-    return t -
-        t3 / 6.0 +
-        t5 / 120.0 -
-        t7 / 5040.0 +
-        t9 / 362880.0;
+    return t - t3 / 6.0 + t5 / 120.0 - t7 / 5040.0 + t9 / 362880.0;
   }
 
   static double cos(double x) {

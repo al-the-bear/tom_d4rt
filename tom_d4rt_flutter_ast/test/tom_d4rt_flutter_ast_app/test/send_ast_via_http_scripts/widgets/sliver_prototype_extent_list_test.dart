@@ -20,7 +20,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'What Is SliverPrototypeExtentList?',
-      'body': 'SliverPrototypeExtentList is a sliver that displays a list '
+      'body':
+          'SliverPrototypeExtentList is a sliver that displays a list '
           'of children, all constrained to have the same extent in the main '
           'axis. That extent is determined by laying out a single "prototype" '
           'widget — you provide one representative child and the framework '
@@ -30,7 +31,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.speed,
       'title': 'Performance Advantage',
-      'body': 'Because every child has the same extent, the sliver can '
+      'body':
+          'Because every child has the same extent, the sliver can '
           'calculate which children are visible without measuring each one. '
           'This is the same optimization as SliverFixedExtentList, but '
           'instead of guessing a pixel value, you provide a real widget '
@@ -40,7 +42,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'Prototype vs Fixed Extent',
-      'body': 'SliverFixedExtentList(itemExtent: 72) hardcodes the height. '
+      'body':
+          'SliverFixedExtentList(itemExtent: 72) hardcodes the height. '
           'If your items have dynamic content (fonts, padding, themes), '
           'a hardcoded value may be wrong. SliverPrototypeExtentList lets '
           'the framework measure a representative widget to get the '
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.widgets,
       'title': 'When To Use',
-      'body': 'Use SliverPrototypeExtentList when all items should have '
+      'body':
+          'Use SliverPrototypeExtentList when all items should have '
           'the same height (or width in a horizontal list), but that height '
           'depends on theme, text scale, or other runtime factors. If the '
           'height is truly constant, SliverFixedExtentList is slightly '
@@ -130,7 +134,8 @@ dynamic build(BuildContext context) {
     {
       'param': 'prototypeItem',
       'type': 'Widget',
-      'desc': 'Required. A widget that will be laid out once to determine '
+      'desc':
+          'Required. A widget that will be laid out once to determine '
           'the extent (height in a vertical list, width in a horizontal list) '
           'of every child. It is not visible in the list — it is measured '
           'offscreen.',
@@ -138,7 +143,8 @@ dynamic build(BuildContext context) {
     {
       'param': 'delegate',
       'type': 'SliverChildDelegate',
-      'desc': 'Required. Provides the actual children for the list. '
+      'desc':
+          'Required. Provides the actual children for the list. '
           'Typically a SliverChildBuilderDelegate or SliverChildListDelegate. '
           'Each child is constrained to the prototype extent.',
     },
@@ -249,50 +255,47 @@ dynamic build(BuildContext context) {
             subtitle: const Text('This measures the height'),
             trailing: const Icon(Icons.chevron_right),
           ),
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              final names = [
-                'Alice',
-                'Bob',
-                'Charlie',
-                'Diana',
-                'Eve',
-                'Frank',
-                'Grace',
-                'Hector',
-                'Ivy',
-                'Jack',
-                'Karen',
-                'Leo',
-                'Mona',
-                'Nick',
-                'Olivia',
-              ];
-              final departments = [
-                'Engineering',
-                'Design',
-                'Marketing',
-                'Sales',
-                'Support',
-              ];
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.deepOrange.shade100,
-                  child: Text(
-                    names[index % names.length][0],
-                    style: const TextStyle(
-                      color: Colors.deepOrange,
-                      fontWeight: FontWeight.bold,
-                    ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            final names = [
+              'Alice',
+              'Bob',
+              'Charlie',
+              'Diana',
+              'Eve',
+              'Frank',
+              'Grace',
+              'Hector',
+              'Ivy',
+              'Jack',
+              'Karen',
+              'Leo',
+              'Mona',
+              'Nick',
+              'Olivia',
+            ];
+            final departments = [
+              'Engineering',
+              'Design',
+              'Marketing',
+              'Sales',
+              'Support',
+            ];
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.deepOrange.shade100,
+                child: Text(
+                  names[index % names.length][0],
+                  style: const TextStyle(
+                    color: Colors.deepOrange,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                title: Text(names[index % names.length]),
-                subtitle: Text(departments[index % departments.length]),
-                trailing: const Icon(Icons.chevron_right),
-              );
-            },
-            childCount: 30,
-          ),
+              ),
+              title: Text(names[index % names.length]),
+              subtitle: Text(departments[index % departments.length]),
+              trailing: const Icon(Icons.chevron_right),
+            );
+          }, childCount: 30),
         ),
       ],
     ),
@@ -345,21 +348,65 @@ dynamic build(BuildContext context) {
   );
 
   final songs = <Map<String, String>>[
-    {'title': 'Bohemian Rhapsody', 'artist': 'Queen', 'album': 'A Night at the Opera'},
-    {'title': 'Hotel California', 'artist': 'Eagles', 'album': 'Hotel California'},
-    {'title': 'Stairway to Heaven', 'artist': 'Led Zeppelin', 'album': 'Led Zeppelin IV'},
+    {
+      'title': 'Bohemian Rhapsody',
+      'artist': 'Queen',
+      'album': 'A Night at the Opera',
+    },
+    {
+      'title': 'Hotel California',
+      'artist': 'Eagles',
+      'album': 'Hotel California',
+    },
+    {
+      'title': 'Stairway to Heaven',
+      'artist': 'Led Zeppelin',
+      'album': 'Led Zeppelin IV',
+    },
     {'title': 'Imagine', 'artist': 'John Lennon', 'album': 'Imagine'},
     {'title': 'Purple Rain', 'artist': 'Prince', 'album': 'Purple Rain'},
-    {'title': 'Smells Like Teen Spirit', 'artist': 'Nirvana', 'album': 'Nevermind'},
-    {'title': 'Like a Rolling Stone', 'artist': 'Bob Dylan', 'album': 'Highway 61'},
-    {'title': 'Respect', 'artist': 'Aretha Franklin', 'album': 'I Never Loved a Man'},
-    {'title': 'What\'s Going On', 'artist': 'Marvin Gaye', 'album': 'What\'s Going On'},
+    {
+      'title': 'Smells Like Teen Spirit',
+      'artist': 'Nirvana',
+      'album': 'Nevermind',
+    },
+    {
+      'title': 'Like a Rolling Stone',
+      'artist': 'Bob Dylan',
+      'album': 'Highway 61',
+    },
+    {
+      'title': 'Respect',
+      'artist': 'Aretha Franklin',
+      'album': 'I Never Loved a Man',
+    },
+    {
+      'title': 'What\'s Going On',
+      'artist': 'Marvin Gaye',
+      'album': 'What\'s Going On',
+    },
     {'title': 'Billie Jean', 'artist': 'Michael Jackson', 'album': 'Thriller'},
     {'title': 'Hey Jude', 'artist': 'The Beatles', 'album': 'Single'},
-    {'title': 'Born to Run', 'artist': 'Bruce Springsteen', 'album': 'Born to Run'},
-    {'title': 'Kashmir', 'artist': 'Led Zeppelin', 'album': 'Physical Graffiti'},
-    {'title': 'Superstition', 'artist': 'Stevie Wonder', 'album': 'Talking Book'},
-    {'title': 'Waterloo Sunset', 'artist': 'The Kinks', 'album': 'Something Else'},
+    {
+      'title': 'Born to Run',
+      'artist': 'Bruce Springsteen',
+      'album': 'Born to Run',
+    },
+    {
+      'title': 'Kashmir',
+      'artist': 'Led Zeppelin',
+      'album': 'Physical Graffiti',
+    },
+    {
+      'title': 'Superstition',
+      'artist': 'Stevie Wonder',
+      'album': 'Talking Book',
+    },
+    {
+      'title': 'Waterloo Sunset',
+      'artist': 'The Kinks',
+      'album': 'Something Else',
+    },
   ];
 
   final songIcons = [
@@ -393,68 +440,59 @@ dynamic build(BuildContext context) {
         ),
         SliverPrototypeExtentList(
           prototypeItem: cardPrototype,
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              final song = songs[index % songs.length];
-              return Card(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 5,
-                ),
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 48,
-                        height: 48,
-                        decoration: BoxDecoration(
-                          color: Colors.deepOrange.shade100,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(
-                          songIcons[index % songIcons.length],
-                          color: Colors.deepOrange,
-                        ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            final song = songs[index % songs.length];
+            return Card(
+              margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+              elevation: 1,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(14),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 48,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange.shade100,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              song['title']!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(height: 3),
-                            Text(
-                              '${song['artist']} — ${song['album']}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Icon(
-                        Icons.play_arrow,
+                      child: Icon(
+                        songIcons[index % songIcons.length],
                         color: Colors.deepOrange,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            song['title']!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 3),
+                          Text(
+                            '${song['artist']} — ${song['album']}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.play_arrow, color: Colors.deepOrange),
+                  ],
                 ),
-              );
-            },
-            childCount: 30,
-          ),
+              ),
+            );
+          }, childCount: 30),
         ),
       ],
     ),
@@ -469,31 +507,19 @@ dynamic build(BuildContext context) {
 
   // Even though content differs, all items get the same height
   final variableItems = <Map<String, dynamic>>[
-    {
-      'title': 'Short name',
-      'icon': Icons.text_fields,
-      'color': Colors.blue,
-    },
+    {'title': 'Short name', 'icon': Icons.text_fields, 'color': Colors.blue},
     {
       'title': 'A much longer product name that wraps',
       'icon': Icons.text_increase,
       'color': Colors.green,
     },
-    {
-      'title': 'Medium text',
-      'icon': Icons.text_format,
-      'color': Colors.orange,
-    },
+    {'title': 'Medium text', 'icon': Icons.text_format, 'color': Colors.orange},
     {
       'title': 'A very verbose item name designed to test truncation limits',
       'icon': Icons.text_snippet,
       'color': Colors.purple,
     },
-    {
-      'title': 'Tiny',
-      'icon': Icons.short_text,
-      'color': Colors.red,
-    },
+    {'title': 'Tiny', 'icon': Icons.short_text, 'color': Colors.red},
   ];
 
   final variableContentNote = Container(
@@ -580,67 +606,61 @@ dynamic build(BuildContext context) {
         ),
         SliverPrototypeExtentList(
           prototypeItem: variableProto,
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              final item = variableItems[index % variableItems.length];
-              final iColor = item['color'] as Color;
-              return Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 4,
-                ),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: iColor.withOpacity(0.06),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: iColor.withOpacity(0.2)),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: iColor.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        item['icon'] as IconData,
-                        color: iColor,
-                        size: 20,
-                      ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            final item = variableItems[index % variableItems.length];
+            final iColor = item['color'] as Color;
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: iColor.withOpacity(0.06),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: iColor.withOpacity(0.2)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: iColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item['title'] as String,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            'All items same height from prototype',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey.shade500,
-                            ),
-                          ),
-                        ],
-                      ),
+                    child: Icon(
+                      item['icon'] as IconData,
+                      color: iColor,
+                      size: 20,
                     ),
-                  ],
-                ),
-              );
-            },
-            childCount: 20,
-          ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item['title'] as String,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'All items same height from prototype',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey.shade500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }, childCount: 20),
         ),
       ],
     ),
@@ -751,7 +771,8 @@ dynamic build(BuildContext context) {
   final perfNotes = <Map<String, dynamic>>[
     {
       'title': 'O(1) Child Lookup',
-      'body': 'Because every child has the same extent, the sliver can '
+      'body':
+          'Because every child has the same extent, the sliver can '
           'calculate which child is at a given scroll offset using simple '
           'division: index = offset / prototypeExtent. No need to measure '
           'or iterate through children.',
@@ -760,7 +781,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Scroll-to-Index Precision',
-      'body': 'Jumping to a specific index is exact: '
+      'body':
+          'Jumping to a specific index is exact: '
           'scrollOffset = index * prototypeExtent. There is no accumulation '
           'error from varying child heights.',
       'icon': Icons.gps_fixed,
@@ -768,7 +790,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Single Measurement Cost',
-      'body': 'The prototype widget is laid out exactly once during the '
+      'body':
+          'The prototype widget is laid out exactly once during the '
           'first build. Its extent is cached and reused. Changing the '
           'prototype triggers a single re-measurement.',
       'icon': Icons.looks_one,
@@ -776,7 +799,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Responsive to Text Scale',
-      'body': 'If the user changes the system text scale, the prototype '
+      'body':
+          'If the user changes the system text scale, the prototype '
           'is measured at the new scale and all items adjust automatically. '
           'A hardcoded itemExtent would not adapt.',
       'icon': Icons.text_increase,
@@ -784,7 +808,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Memory Efficiency',
-      'body': 'Like SliverFixedExtentList, children outside the viewport '
+      'body':
+          'Like SliverFixedExtentList, children outside the viewport '
           'are not built. The sliver knows exactly which indices are visible '
           'without building off-screen children.',
       'icon': Icons.memory,
@@ -856,32 +881,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.straighten,
-      'text': 'SliverPrototypeExtentList uses a single prototype widget '
+      'text':
+          'SliverPrototypeExtentList uses a single prototype widget '
           'to determine the extent of every child in the list.',
     },
     {
       'icon': Icons.speed,
-      'text': 'Same O(1) child lookup performance as SliverFixedExtentList, '
+      'text':
+          'Same O(1) child lookup performance as SliverFixedExtentList, '
           'but the extent adapts to theme, text scale, and padding.',
     },
     {
       'icon': Icons.widgets,
-      'text': 'The prototype is measured once and cached. It is not visible '
+      'text':
+          'The prototype is measured once and cached. It is not visible '
           'in the list — it only serves as a measurement reference.',
     },
     {
       'icon': Icons.compare,
-      'text': 'Choose SliverList for varying heights, SliverFixedExtentList '
+      'text':
+          'Choose SliverList for varying heights, SliverFixedExtentList '
           'for known constant heights, prototype for uniform but dynamic.',
     },
     {
       'icon': Icons.text_increase,
-      'text': 'Automatically adapts when system text scale changes, unlike '
+      'text':
+          'Automatically adapts when system text scale changes, unlike '
           'a hardcoded itemExtent value.',
     },
     {
       'icon': Icons.flash_on,
-      'text': 'Enables precise scroll-to-index and efficient viewport '
+      'text':
+          'Enables precise scroll-to-index and efficient viewport '
           'culling because every child has identical extent.',
     },
   ];

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
-  final ValueNotifier<_LinuxBackend> backend =
-      ValueNotifier<_LinuxBackend>(_LinuxBackend.wayland);
-  final ValueNotifier<_LinuxWindowRole> role =
-      ValueNotifier<_LinuxWindowRole>(_LinuxWindowRole.toplevel);
+  final ValueNotifier<_LinuxBackend> backend = ValueNotifier<_LinuxBackend>(
+    _LinuxBackend.wayland,
+  );
+  final ValueNotifier<_LinuxWindowRole> role = ValueNotifier<_LinuxWindowRole>(
+    _LinuxWindowRole.toplevel,
+  );
   final ValueNotifier<bool> clientSideDecorations = ValueNotifier<bool>(true);
   final ValueNotifier<bool> fractionalScale = ValueNotifier<bool>(true);
   final ValueNotifier<double> width = ValueNotifier<double>(720);
@@ -72,17 +74,9 @@ dynamic build(BuildContext context) {
   );
 }
 
-enum _LinuxBackend {
-  wayland,
-  x11,
-}
+enum _LinuxBackend { wayland, x11 }
 
-enum _LinuxWindowRole {
-  toplevel,
-  popup,
-  layerSurface,
-  utility,
-}
+enum _LinuxWindowRole { toplevel, popup, layerSurface, utility }
 
 class _LinuxHero extends StatelessWidget {
   const _LinuxHero();
@@ -151,106 +145,130 @@ class _BackendControlPanel extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child: ValueListenableBuilder8<_LinuxBackend, _LinuxWindowRole, bool,
-            bool, double, double, double, double>(
-          first: backend,
-          second: role,
-          third: clientSideDecorations,
-          fourth: fractionalScale,
-          fifth: width,
-          sixth: height,
-          seventh: posX,
-          eighth: posY,
-          builder: (BuildContext context, _LinuxBackend backendValue,
-              _LinuxWindowRole roleValue, bool csd, bool scaleEnabled,
-              double w, double h, double x, double y) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Linux Backend Control Panel',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                ),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: <Widget>[
-                    for (final _LinuxBackend value in _LinuxBackend.values)
-                      ChoiceChip(
-                        selected: value == backendValue,
-                        label: Text(value.name),
-                        onSelected: (_) => backend.value = value,
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: <Widget>[
-                    for (final _LinuxWindowRole value in _LinuxWindowRole.values)
-                      FilterChip(
-                        selected: value == roleValue,
-                        label: Text(value.name),
-                        onSelected: (_) => role.value = value,
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                SwitchListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Client-side decorations'),
-                  subtitle: const Text(
-                    'Header bars managed in Flutter rather than compositor frame.',
-                  ),
-                  value: csd,
-                  onChanged: (bool v) => clientSideDecorations.value = v,
-                ),
-                SwitchListTile(
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Fractional scale negotiation'),
-                  subtitle: const Text(
-                    'Enable scale factors such as 1.25x on high-DPI monitors.',
-                  ),
-                  value: scaleEnabled,
-                  onChanged: (bool v) => fractionalScale.value = v,
-                ),
-                const SizedBox(height: 6),
-                Text('Window width: ${w.toStringAsFixed(0)}'),
-                Slider(
-                  min: 220,
-                  max: 1100,
-                  value: w,
-                  onChanged: (double v) => width.value = v,
-                ),
-                Text('Window height: ${h.toStringAsFixed(0)}'),
-                Slider(
-                  min: 180,
-                  max: 760,
-                  value: h,
-                  onChanged: (double v) => height.value = v,
-                ),
-                Text('Position X: ${x.toStringAsFixed(0)}'),
-                Slider(
-                  min: 0,
-                  max: 560,
-                  value: x,
-                  onChanged: (double v) => posX.value = v,
-                ),
-                Text('Position Y: ${y.toStringAsFixed(0)}'),
-                Slider(
-                  min: 0,
-                  max: 320,
-                  value: y,
-                  onChanged: (double v) => posY.value = v,
-                ),
-              ],
-            );
-          },
-        ),
+        child:
+            ValueListenableBuilder8<
+              _LinuxBackend,
+              _LinuxWindowRole,
+              bool,
+              bool,
+              double,
+              double,
+              double,
+              double
+            >(
+              first: backend,
+              second: role,
+              third: clientSideDecorations,
+              fourth: fractionalScale,
+              fifth: width,
+              sixth: height,
+              seventh: posX,
+              eighth: posY,
+              builder:
+                  (
+                    BuildContext context,
+                    _LinuxBackend backendValue,
+                    _LinuxWindowRole roleValue,
+                    bool csd,
+                    bool scaleEnabled,
+                    double w,
+                    double h,
+                    double x,
+                    double y,
+                  ) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Linux Backend Control Panel',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: <Widget>[
+                            for (final _LinuxBackend value
+                                in _LinuxBackend.values)
+                              ChoiceChip(
+                                selected: value == backendValue,
+                                label: Text(value.name),
+                                onSelected: (_) => backend.value = value,
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: <Widget>[
+                            for (final _LinuxWindowRole value
+                                in _LinuxWindowRole.values)
+                              FilterChip(
+                                selected: value == roleValue,
+                                label: Text(value.name),
+                                onSelected: (_) => role.value = value,
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Client-side decorations'),
+                          subtitle: const Text(
+                            'Header bars managed in Flutter rather than compositor frame.',
+                          ),
+                          value: csd,
+                          onChanged: (bool v) =>
+                              clientSideDecorations.value = v,
+                        ),
+                        SwitchListTile(
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Fractional scale negotiation'),
+                          subtitle: const Text(
+                            'Enable scale factors such as 1.25x on high-DPI monitors.',
+                          ),
+                          value: scaleEnabled,
+                          onChanged: (bool v) => fractionalScale.value = v,
+                        ),
+                        const SizedBox(height: 6),
+                        Text('Window width: ${w.toStringAsFixed(0)}'),
+                        Slider(
+                          min: 220,
+                          max: 1100,
+                          value: w,
+                          onChanged: (double v) => width.value = v,
+                        ),
+                        Text('Window height: ${h.toStringAsFixed(0)}'),
+                        Slider(
+                          min: 180,
+                          max: 760,
+                          value: h,
+                          onChanged: (double v) => height.value = v,
+                        ),
+                        Text('Position X: ${x.toStringAsFixed(0)}'),
+                        Slider(
+                          min: 0,
+                          max: 560,
+                          value: x,
+                          onChanged: (double v) => posX.value = v,
+                        ),
+                        Text('Position Y: ${y.toStringAsFixed(0)}'),
+                        Slider(
+                          min: 0,
+                          max: 320,
+                          value: y,
+                          onChanged: (double v) => posY.value = v,
+                        ),
+                      ],
+                    );
+                  },
+            ),
       ),
     );
   }
@@ -270,56 +288,95 @@ class _LinuxFeatureMatrix extends StatelessWidget {
         child: ValueListenableBuilder2<_LinuxBackend, _LinuxWindowRole>(
           first: backend,
           second: role,
-          builder: (BuildContext context, _LinuxBackend currentBackend,
-              _LinuxWindowRole currentRole) {
-            final List<_FeatureCell> rows = _featureRows(currentBackend, currentRole);
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Protocol Feature Matrix',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                ),
-                const SizedBox(height: 10),
-                for (final _FeatureCell row in rows)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(width: 180, child: Text(row.feature)),
-                        Expanded(child: Text(row.support)),
-                        Chip(label: Text(row.impact)),
-                      ],
+          builder:
+              (
+                BuildContext context,
+                _LinuxBackend currentBackend,
+                _LinuxWindowRole currentRole,
+              ) {
+                final List<_FeatureCell> rows = _featureRows(
+                  currentBackend,
+                  currentRole,
+                );
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      'Protocol Feature Matrix',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 17,
+                      ),
                     ),
-                  ),
-              ],
-            );
-          },
+                    const SizedBox(height: 10),
+                    for (final _FeatureCell row in rows)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(width: 180, child: Text(row.feature)),
+                            Expanded(child: Text(row.support)),
+                            Chip(label: Text(row.impact)),
+                          ],
+                        ),
+                      ),
+                  ],
+                );
+              },
         ),
       ),
     );
   }
 }
 
-List<_FeatureCell> _featureRows(
-  _LinuxBackend backend,
-  _LinuxWindowRole role,
-) {
+List<_FeatureCell> _featureRows(_LinuxBackend backend, _LinuxWindowRole role) {
   if (backend == _LinuxBackend.wayland) {
     return <_FeatureCell>[
-      const _FeatureCell('Global coordinates', 'Restricted by compositor', 'secure'),
-      const _FeatureCell('Popup positioning', 'xdg_positioner + constraints', 'precise'),
-      const _FeatureCell('Layer surfaces', 'wlroots layer-shell capable', 'dock/panel'),
+      const _FeatureCell(
+        'Global coordinates',
+        'Restricted by compositor',
+        'secure',
+      ),
+      const _FeatureCell(
+        'Popup positioning',
+        'xdg_positioner + constraints',
+        'precise',
+      ),
+      const _FeatureCell(
+        'Layer surfaces',
+        'wlroots layer-shell capable',
+        'dock/panel',
+      ),
       _FeatureCell('Role semantics', role.name, 'role-bound'),
-      const _FeatureCell('Decorations', 'server-side or CSD negotiation', 'mixed'),
+      const _FeatureCell(
+        'Decorations',
+        'server-side or CSD negotiation',
+        'mixed',
+      ),
     ];
   }
   return <_FeatureCell>[
-    const _FeatureCell('Global coordinates', 'Direct screen coordinates available', 'legacy'),
-    const _FeatureCell('Popup positioning', '_NET_WM hints + WM policy', 'variable'),
-    const _FeatureCell('Layer surfaces', 'No direct layer-shell equivalent', 'limited'),
+    const _FeatureCell(
+      'Global coordinates',
+      'Direct screen coordinates available',
+      'legacy',
+    ),
+    const _FeatureCell(
+      'Popup positioning',
+      '_NET_WM hints + WM policy',
+      'variable',
+    ),
+    const _FeatureCell(
+      'Layer surfaces',
+      'No direct layer-shell equivalent',
+      'limited',
+    ),
     _FeatureCell('Role semantics', role.name, 'wm-hints'),
-    const _FeatureCell('Decorations', 'WM driven or custom CSD frame', 'traditional'),
+    const _FeatureCell(
+      'Decorations',
+      'WM driven or custom CSD frame',
+      'traditional',
+    ),
   ];
 }
 
@@ -349,64 +406,88 @@ class _CompositorSimulation extends StatelessWidget {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(18),
-        child: ValueListenableBuilder8<_LinuxBackend, _LinuxWindowRole, bool,
-            bool, double, double, double, double>(
-          first: backend,
-          second: role,
-          third: clientSideDecorations,
-          fourth: fractionalScale,
-          fifth: width,
-          sixth: height,
-          seventh: posX,
-          eighth: posY,
-          builder: (BuildContext context, _LinuxBackend backendValue,
-              _LinuxWindowRole roleValue, bool csd, bool scaleEnabled,
-              double w, double h, double x, double y) {
-            final _LinuxPlacementResult result = _simulateLinuxPlacement(
-              backend: backendValue,
-              role: roleValue,
-              clientDecorations: csd,
-              fractionalScale: scaleEnabled,
-              window: Rect.fromLTWH(x, y, w, h),
-            );
+        child:
+            ValueListenableBuilder8<
+              _LinuxBackend,
+              _LinuxWindowRole,
+              bool,
+              bool,
+              double,
+              double,
+              double,
+              double
+            >(
+              first: backend,
+              second: role,
+              third: clientSideDecorations,
+              fourth: fractionalScale,
+              fifth: width,
+              sixth: height,
+              seventh: posX,
+              eighth: posY,
+              builder:
+                  (
+                    BuildContext context,
+                    _LinuxBackend backendValue,
+                    _LinuxWindowRole roleValue,
+                    bool csd,
+                    bool scaleEnabled,
+                    double w,
+                    double h,
+                    double x,
+                    double y,
+                  ) {
+                    final _LinuxPlacementResult result =
+                        _simulateLinuxPlacement(
+                          backend: backendValue,
+                          role: roleValue,
+                          clientDecorations: csd,
+                          fractionalScale: scaleEnabled,
+                          window: Rect.fromLTWH(x, y, w, h),
+                        );
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Compositor Placement Simulation',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
-                ),
-                const SizedBox(height: 10),
-                AspectRatio(
-                  aspectRatio: 960 / 540,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFD0DEE6)),
-                    ),
-                    child: CustomPaint(
-                      painter: _LinuxCompositorPainter(
-                        initialRect: Rect.fromLTWH(x, y, w, h),
-                        adjustedRect: result.adjusted,
-                        backend: backendValue,
-                        role: roleValue,
-                      ),
-                      child: const SizedBox.expand(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Resolution steps: ${result.steps.join(' -> ')}',
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 4),
-                Text(result.commentary),
-              ],
-            );
-          },
-        ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Compositor Placement Simulation',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        AspectRatio(
+                          aspectRatio: 960 / 540,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: const Color(0xFFD0DEE6),
+                              ),
+                            ),
+                            child: CustomPaint(
+                              painter: _LinuxCompositorPainter(
+                                initialRect: Rect.fromLTWH(x, y, w, h),
+                                adjustedRect: result.adjusted,
+                                backend: backendValue,
+                                role: roleValue,
+                              ),
+                              child: const SizedBox.expand(),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Resolution steps: ${result.steps.join(' -> ')}',
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(result.commentary),
+                      ],
+                    );
+                  },
+            ),
       ),
     );
   }
@@ -453,9 +534,20 @@ _LinuxPlacementResult _simulateLinuxPlacement({
     steps.add('fractional_scale');
   }
 
-  final double clampedLeft = adjusted.left.clamp(0, display.width - adjusted.width);
-  final double clampedTop = adjusted.top.clamp(0, display.height - adjusted.height);
-  adjusted = Rect.fromLTWH(clampedLeft, clampedTop, adjusted.width, adjusted.height);
+  final double clampedLeft = adjusted.left.clamp(
+    0,
+    display.width - adjusted.width,
+  );
+  final double clampedTop = adjusted.top.clamp(
+    0,
+    display.height - adjusted.height,
+  );
+  adjusted = Rect.fromLTWH(
+    clampedLeft,
+    clampedTop,
+    adjusted.width,
+    adjusted.height,
+  );
   steps.add('compositor_clamp');
 
   return _LinuxPlacementResult(
@@ -482,16 +574,40 @@ class _ProtocolTimeline extends StatelessWidget {
           builder: (BuildContext context, _LinuxBackend value, Widget? child) {
             final List<_TimelineStep> steps = value == _LinuxBackend.wayland
                 ? const <_TimelineStep>[
-                    _TimelineStep('Create surface', 'wl_compositor.create_surface'),
-                    _TimelineStep('Assign role', 'xdg_toplevel or xdg_popup bind'),
-                    _TimelineStep('Configure ack', 'client acknowledges configure serial'),
-                    _TimelineStep('Commit buffer', 'wl_surface.commit for frame update'),
+                    _TimelineStep(
+                      'Create surface',
+                      'wl_compositor.create_surface',
+                    ),
+                    _TimelineStep(
+                      'Assign role',
+                      'xdg_toplevel or xdg_popup bind',
+                    ),
+                    _TimelineStep(
+                      'Configure ack',
+                      'client acknowledges configure serial',
+                    ),
+                    _TimelineStep(
+                      'Commit buffer',
+                      'wl_surface.commit for frame update',
+                    ),
                   ]
                 : const <_TimelineStep>[
-                    _TimelineStep('Create X window', 'XCreateWindow + visual params'),
-                    _TimelineStep('Set WM hints', '_NET_WM_WINDOW_TYPE and states'),
-                    _TimelineStep('Map window', 'XMapWindow exposes to manager'),
-                    _TimelineStep('Process ConfigureNotify', 'WM geometry responses'),
+                    _TimelineStep(
+                      'Create X window',
+                      'XCreateWindow + visual params',
+                    ),
+                    _TimelineStep(
+                      'Set WM hints',
+                      '_NET_WM_WINDOW_TYPE and states',
+                    ),
+                    _TimelineStep(
+                      'Map window',
+                      'XMapWindow exposes to manager',
+                    ),
+                    _TimelineStep(
+                      'Process ConfigureNotify',
+                      'WM geometry responses',
+                    ),
                   ];
 
             return Column(
@@ -513,7 +629,10 @@ class _ProtocolTimeline extends StatelessWidget {
                           backgroundColor: const Color(0xFF0D6471),
                           child: Text(
                             '${i + 1}',
-                            style: const TextStyle(color: Colors.white, fontSize: 12),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -521,7 +640,9 @@ class _ProtocolTimeline extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: const Color(0xFFD3DFE5)),
+                              border: Border.all(
+                                color: const Color(0xFFD3DFE5),
+                              ),
                               color: const Color(0xFFF8FBFD),
                             ),
                             child: Padding(
@@ -531,8 +652,9 @@ class _ProtocolTimeline extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     steps[i].title,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.w700),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                   const SizedBox(height: 3),
                                   Text(steps[i].detail),
@@ -572,13 +694,15 @@ class _LinuxRecipes extends StatelessWidget {
                       title: 'Wayland popup constraints',
                       code:
                           'xdg_positioner\n  ..set_anchor(anchor)\n  ..set_constraint_adjustment(flags);',
-                      note: 'Preferred for context menus and anchored tooltips.',
+                      note:
+                          'Preferred for context menus and anchored tooltips.',
                     ),
                     _RecipeSnippet(
                       title: 'Layer-shell panel setup',
                       code:
                           'zwlr_layer_surface_v1\n  ..set_layer(top)\n  ..set_anchor(top | left | right);',
-                      note: 'Useful for desktop bars and always-on-top overlays.',
+                      note:
+                          'Useful for desktop bars and always-on-top overlays.',
                     ),
                   ]
                 : const <_RecipeSnippet>[
@@ -614,7 +738,9 @@ class _LinuxRecipes extends StatelessWidget {
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: const Color(0xFFD6E1E6)),
+                              border: Border.all(
+                                color: const Color(0xFFD6E1E6),
+                              ),
                               color: const Color(0xFFF8FBFD),
                             ),
                             child: Padding(
@@ -726,11 +852,11 @@ class _LinuxCompositorPainter extends CustomPainter {
     final double sy = size.height / 540;
 
     Rect map(Rect rect) => Rect.fromLTWH(
-          rect.left * sx,
-          rect.top * sy,
-          rect.width * sx,
-          rect.height * sy,
-        );
+      rect.left * sx,
+      rect.top * sy,
+      rect.width * sx,
+      rect.height * sy,
+    );
 
     final Paint monitorA = Paint()
       ..color = const Color(0xFFECF3F8)
@@ -739,7 +865,12 @@ class _LinuxCompositorPainter extends CustomPainter {
       ..color = const Color(0xFFEAF0F4)
       ..style = PaintingStyle.fill;
 
-    final Rect leftMonitor = Rect.fromLTWH(0, 0, size.width * 0.54, size.height);
+    final Rect leftMonitor = Rect.fromLTWH(
+      0,
+      0,
+      size.width * 0.54,
+      size.height,
+    );
     final Rect rightMonitor = Rect.fromLTWH(
       size.width * 0.54,
       0,
@@ -907,8 +1038,18 @@ class ValueListenableBuilder8<A, B, C, D, E, F, G, H> extends StatelessWidget {
   final ValueNotifier<F> sixth;
   final ValueNotifier<G> seventh;
   final ValueNotifier<H> eighth;
-  final Widget Function(BuildContext context, A a, B b, C c, D d, E e, F f,
-      G g, H h) builder;
+  final Widget Function(
+    BuildContext context,
+    A a,
+    B b,
+    C c,
+    D d,
+    E e,
+    F f,
+    G g,
+    H h,
+  )
+  builder;
 
   @override
   Widget build(BuildContext context) {
@@ -937,18 +1078,18 @@ class ValueListenableBuilder8<A, B, C, D, E, F, G, H> extends StatelessWidget {
                                   valueListenable: eighth,
                                   builder:
                                       (BuildContext context, H h, Widget? l3) {
-                                    return builder(
-                                      context,
-                                      a,
-                                      b,
-                                      c,
-                                      d,
-                                      e,
-                                      f,
-                                      g,
-                                      h,
-                                    );
-                                  },
+                                        return builder(
+                                          context,
+                                          a,
+                                          b,
+                                          c,
+                                          d,
+                                          e,
+                                          f,
+                                          g,
+                                          h,
+                                        );
+                                      },
                                 );
                               },
                             );

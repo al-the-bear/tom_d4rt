@@ -196,17 +196,31 @@ dynamic build(BuildContext context) {
   //   "severl"  → 19..25
   //   "flaged"  → 49..55
   final List<SuggestionSpan> paragraphSpans = <SuggestionSpan>[
-    SuggestionSpan(const TextRange(start: 0, end: 3),
-        const <String>['This', 'Thus', 'The']),
-    SuggestionSpan(const TextRange(start: 10, end: 18),
-        const <String>['sentence', 'sentience', 'instance']),
-    SuggestionSpan(const TextRange(start: 19, end: 25),
-        const <String>['several', 'severe', 'sever']),
-    SuggestionSpan(const TextRange(start: 49, end: 55),
-        const <String>['flagged', 'flagger', 'fledged']),
+    SuggestionSpan(const TextRange(start: 0, end: 3), const <String>[
+      'This',
+      'Thus',
+      'The',
+    ]),
+    SuggestionSpan(const TextRange(start: 10, end: 18), const <String>[
+      'sentence',
+      'sentience',
+      'instance',
+    ]),
+    SuggestionSpan(const TextRange(start: 19, end: 25), const <String>[
+      'several',
+      'severe',
+      'sever',
+    ]),
+    SuggestionSpan(const TextRange(start: 49, end: 55), const <String>[
+      'flagged',
+      'flagger',
+      'fledged',
+    ]),
   ];
-  final SpellCheckResults paragraphResults =
-      SpellCheckResults(paragraph, paragraphSpans);
+  final SpellCheckResults paragraphResults = SpellCheckResults(
+    paragraph,
+    paragraphSpans,
+  );
 
   // ─── Sample card data: three suggestion spans ───
   final SuggestionSpan sampleSpanA = SuggestionSpan(
@@ -265,7 +279,9 @@ dynamic build(BuildContext context) {
   print('default enabled: ${defaultConfig.spellCheckEnabled}');
   print('disabled flag: ${disabledConfig.spellCheckEnabled}');
   print('custom service flag: ${customServiceConfig.spellCheckEnabled}');
-  print('toolbar builder set: ${toolbarConfig.spellCheckSuggestionsToolbarBuilder != null}');
+  print(
+    'toolbar builder set: ${toolbarConfig.spellCheckSuggestionsToolbarBuilder != null}',
+  );
 
   // ─── Local widget helpers ───────────────────────────────────────────────
 
@@ -363,10 +379,13 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget infoCard(String heading, Widget content,
-      {List<Color>? headerGradient, Color? bodyColor}) {
-    final List<Color> gradient =
-        headerGradient ?? <Color>[amberDeep, amber];
+  Widget infoCard(
+    String heading,
+    Widget content, {
+    List<Color>? headerGradient,
+    Color? bodyColor,
+  }) {
+    final List<Color> gradient = headerGradient ?? <Color>[amberDeep, amber];
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
@@ -399,8 +418,9 @@ dynamic build(BuildContext context) {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
             ),
             child: Text(
               heading,
@@ -436,10 +456,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(fontSize: 12, color: slate),
-            ),
+            child: Text(value, style: TextStyle(fontSize: 12, color: slate)),
           ),
         ],
       ),
@@ -463,11 +480,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          color: fg,
-        ),
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: fg),
       ),
     );
   }
@@ -501,8 +514,9 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 14),
             decoration: BoxDecoration(
               color: a.withValues(alpha: 0.20),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -628,11 +642,10 @@ dynamic build(BuildContext context) {
   final Widget section1 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '01',
-        'Spell-Check in package:flutter/services',
-        <Color>[amberDeep, rose],
-      ),
+      sectionBanner('01', 'Spell-Check in package:flutter/services', <Color>[
+        amberDeep,
+        rose,
+      ]),
       proseBox(
         'Flutter exposes spell-checking through four cooperating types in '
         '`package:flutter/services.dart`. `SuggestionSpan` is the smallest '
@@ -652,9 +665,14 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             dataRow('SuggestionSpan', 'TextRange + List<String> suggestions'),
             dataRow('SpellCheckResults', 'spellCheckedText + spans list'),
-            dataRow('SpellCheckService', 'abstract; fetchSpellCheckSuggestions'),
-            dataRow('DefaultSpellCheckService',
-                'Platform-channel-backed concrete impl'),
+            dataRow(
+              'SpellCheckService',
+              'abstract; fetchSpellCheckSuggestions',
+            ),
+            dataRow(
+              'DefaultSpellCheckService',
+              'Platform-channel-backed concrete impl',
+            ),
             dataRow('SpellCheckConfiguration', 'Wires it into EditableText'),
           ],
         ),
@@ -670,11 +688,10 @@ dynamic build(BuildContext context) {
   final Widget section2 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '02',
-        'Worked Example — Misspelled Paragraph',
-        <Color>[rose, amberDeep],
-      ),
+      sectionBanner('02', 'Worked Example — Misspelled Paragraph', <Color>[
+        rose,
+        amberDeep,
+      ]),
       proseBox(
         'The card below renders a deliberately misspelled paragraph with '
         'wavy red underlines drawn by `_SquigglyTextPainter`. Each underline '
@@ -715,9 +732,11 @@ dynamic build(BuildContext context) {
                     spacing: 8,
                     runSpacing: 6,
                     children: <Widget>[
-                      for (int i = 0;
-                          i < paragraphResults.suggestionSpans.length;
-                          i++)
+                      for (
+                        int i = 0;
+                        i < paragraphResults.suggestionSpans.length;
+                        i++
+                      )
                         GestureDetector(
                           onTap: () {
                             set2(() {
@@ -728,8 +747,7 @@ dynamic build(BuildContext context) {
                           },
                           child: chipTag(
                             paragraph.substring(
-                              paragraphResults
-                                  .suggestionSpans[i].range.start,
+                              paragraphResults.suggestionSpans[i].range.start,
                               paragraphResults.suggestionSpans[i].range.end,
                             ),
                             highlighted == i ? roseDeep : roseLight,
@@ -763,13 +781,15 @@ dynamic build(BuildContext context) {
                             spacing: 6,
                             runSpacing: 6,
                             children: <Widget>[
-                              for (int j = 0;
-                                  j <
-                                      paragraphResults
-                                          .suggestionSpans[pickedSpan!]
-                                          .suggestions
-                                          .length;
-                                  j++)
+                              for (
+                                int j = 0;
+                                j <
+                                    paragraphResults
+                                        .suggestionSpans[pickedSpan!]
+                                        .suggestions
+                                        .length;
+                                j++
+                              )
                                 GestureDetector(
                                   onTap: () => set2(() {
                                     pickedSuggestion = j;
@@ -820,11 +840,10 @@ dynamic build(BuildContext context) {
   final Widget section3 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '03',
-        'Sample SpellCheckResults Card',
-        <Color>[sky, slateDeep],
-      ),
+      sectionBanner('03', 'Sample SpellCheckResults Card', <Color>[
+        sky,
+        slateDeep,
+      ]),
       proseBox(
         'A `SpellCheckResults` instance carries the exact text the spell '
         'engine examined plus a list of `SuggestionSpan`s. Below, the sample '
@@ -840,8 +859,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('spellCheckedText', '"${sampleResults.spellCheckedText}"'),
-            dataRow('suggestionSpans.length',
-                '${sampleResults.suggestionSpans.length}'),
+            dataRow(
+              'suggestionSpans.length',
+              '${sampleResults.suggestionSpans.length}',
+            ),
             dataRow('runtimeType', '${sampleResults.runtimeType}'),
           ],
         ),
@@ -888,11 +909,10 @@ dynamic build(BuildContext context) {
   final Widget section4 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '04',
-        'TextRange ↔ SuggestionSpan Anatomy',
-        <Color>[slate, sky],
-      ),
+      sectionBanner('04', 'TextRange ↔ SuggestionSpan Anatomy', <Color>[
+        slate,
+        sky,
+      ]),
       proseBox(
         '`SuggestionSpan` is essentially a `TextRange` plus suggestions. The '
         '`TextRange` uses UTF-16 code-unit offsets matching `String.substring` '
@@ -955,27 +975,36 @@ dynamic build(BuildContext context) {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.all(6),
-                        child: Text('start',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: amberDeep)),
+                        child: Text(
+                          'start',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: amberDeep,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(6),
-                        child: Text('end',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: amberDeep)),
+                        child: Text(
+                          'end',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: amberDeep,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(6),
-                        child: Text('substring',
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: amberDeep)),
+                        child: Text(
+                          'substring',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: amberDeep,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -984,26 +1013,33 @@ dynamic build(BuildContext context) {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(6),
-                          child: Text('${s.range.start}',
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            '${s.range.start}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(6),
-                          child: Text('${s.range.end}',
-                              style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            '${s.range.end}',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(6),
                           child: Text(
                             '"${sampleResults.spellCheckedText.substring(s.range.start, s.range.end)}"',
                             style: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                color: roseDeep),
+                              fontSize: 12,
+                              fontFamily: 'monospace',
+                              color: roseDeep,
+                            ),
                           ),
                         ),
                       ],
@@ -1025,11 +1061,10 @@ dynamic build(BuildContext context) {
   final Widget section5 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '05',
-        'SpellCheckConfiguration Constructors',
-        <Color>[amber, rose],
-      ),
+      sectionBanner('05', 'SpellCheckConfiguration Constructors', <Color>[
+        amber,
+        rose,
+      ]),
       proseBox(
         '`SpellCheckConfiguration` is the value object that `EditableText`, '
         '`TextField`, and `CupertinoTextField` consume. The default constructor '
@@ -1045,19 +1080,25 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('spellCheckEnabled',
-                '${defaultConfig.spellCheckEnabled}'),
-            dataRow('service',
-                '${defaultConfig.spellCheckService.runtimeType}'),
-            dataRow('decoration',
-                '${defaultConfig.misspelledTextStyle?.decoration}'),
-            dataRow('decorationStyle',
-                '${defaultConfig.misspelledTextStyle?.decorationStyle}'),
-            dataRow('toolbar', defaultConfig
-                        .spellCheckSuggestionsToolbarBuilder ==
-                    null
-                ? 'platform default'
-                : 'custom'),
+            dataRow('spellCheckEnabled', '${defaultConfig.spellCheckEnabled}'),
+            dataRow(
+              'service',
+              '${defaultConfig.spellCheckService.runtimeType}',
+            ),
+            dataRow(
+              'decoration',
+              '${defaultConfig.misspelledTextStyle?.decoration}',
+            ),
+            dataRow(
+              'decorationStyle',
+              '${defaultConfig.misspelledTextStyle?.decorationStyle}',
+            ),
+            dataRow(
+              'toolbar',
+              defaultConfig.spellCheckSuggestionsToolbarBuilder == null
+                  ? 'platform default'
+                  : 'custom',
+            ),
           ],
         ),
         headerGradient: <Color>[amberDeep, rose],
@@ -1067,16 +1108,15 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('spellCheckEnabled',
-                '${disabledConfig.spellCheckEnabled}'),
+            dataRow('spellCheckEnabled', '${disabledConfig.spellCheckEnabled}'),
             dataRow('service', '${disabledConfig.spellCheckService}'),
-            dataRow('toolbar', disabledConfig
-                        .spellCheckSuggestionsToolbarBuilder ==
-                    null
-                ? 'n/a (disabled)'
-                : 'set'),
-            dataRow('use case',
-                'Tests, kiosks, locked-down UI, secure entry'),
+            dataRow(
+              'toolbar',
+              disabledConfig.spellCheckSuggestionsToolbarBuilder == null
+                  ? 'n/a (disabled)'
+                  : 'set',
+            ),
+            dataRow('use case', 'Tests, kiosks, locked-down UI, secure entry'),
           ],
         ),
         headerGradient: <Color>[slate, slateDeep],
@@ -1086,16 +1126,26 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('spellCheckEnabled',
-                '${customServiceConfig.spellCheckEnabled}'),
-            dataRow('service',
-                '${customServiceConfig.spellCheckService.runtimeType}'),
-            dataRow('decoration',
-                '${customServiceConfig.misspelledTextStyle?.decoration}'),
-            dataRow('decorationStyle',
-                '${customServiceConfig.misspelledTextStyle?.decorationStyle}'),
             dataRow(
-                'note', 'In real code substitute your own SpellCheckService'),
+              'spellCheckEnabled',
+              '${customServiceConfig.spellCheckEnabled}',
+            ),
+            dataRow(
+              'service',
+              '${customServiceConfig.spellCheckService.runtimeType}',
+            ),
+            dataRow(
+              'decoration',
+              '${customServiceConfig.misspelledTextStyle?.decoration}',
+            ),
+            dataRow(
+              'decorationStyle',
+              '${customServiceConfig.misspelledTextStyle?.decorationStyle}',
+            ),
+            dataRow(
+              'note',
+              'In real code substitute your own SpellCheckService',
+            ),
           ],
         ),
         headerGradient: <Color>[amber, amberDeep],
@@ -1105,19 +1155,22 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('spellCheckEnabled',
-                '${toolbarConfig.spellCheckEnabled}'),
-            dataRow('decoration',
-                '${toolbarConfig.misspelledTextStyle?.decoration}'),
-            dataRow('decorationColor',
-                '${toolbarConfig.misspelledTextStyle?.decorationColor}'),
+            dataRow('spellCheckEnabled', '${toolbarConfig.spellCheckEnabled}'),
             dataRow(
-                'toolbar',
-                toolbarConfig.spellCheckSuggestionsToolbarBuilder != null
-                    ? 'present'
-                    : 'absent'),
+              'decoration',
+              '${toolbarConfig.misspelledTextStyle?.decoration}',
+            ),
             dataRow(
-                'returns', 'A no-op SizedBox.shrink() for demo purposes'),
+              'decorationColor',
+              '${toolbarConfig.misspelledTextStyle?.decorationColor}',
+            ),
+            dataRow(
+              'toolbar',
+              toolbarConfig.spellCheckSuggestionsToolbarBuilder != null
+                  ? 'present'
+                  : 'absent',
+            ),
+            dataRow('returns', 'A no-op SizedBox.shrink() for demo purposes'),
           ],
         ),
         headerGradient: <Color>[sky, slate],
@@ -1184,8 +1237,7 @@ dynamic build(BuildContext context) {
             dataRow('method', 'SpellCheck.initiateSpellCheck'),
             dataRow('payload', '[localeTag, text]'),
             dataRow('return', 'List of {startIndex, endIndex, suggestions}'),
-            dataRow('coverage',
-                'Android & iOS today; web/desktop are no-ops'),
+            dataRow('coverage', 'Android & iOS today; web/desktop are no-ops'),
           ],
         ),
         headerGradient: <Color>[sky, slateDeep],
@@ -1201,11 +1253,10 @@ dynamic build(BuildContext context) {
   final Widget section7 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '07',
-        'Decision Matrix — Which Configuration?',
-        <Color>[amberDeep, slateDeep],
-      ),
+      sectionBanner('07', 'Decision Matrix — Which Configuration?', <Color>[
+        amberDeep,
+        slateDeep,
+      ]),
       proseBox(
         'When you build a text-entry surface, pick the configuration whose '
         'trade-offs match your context. The table below summarises the '
@@ -1218,8 +1269,7 @@ dynamic build(BuildContext context) {
       infoCard(
         'Configurations side-by-side',
         DataTable(
-          headingRowColor:
-              WidgetStateProperty.all(amberLight),
+          headingRowColor: WidgetStateProperty.all(amberLight),
           columnSpacing: 18,
           headingTextStyle: TextStyle(
             fontSize: 11,
@@ -1234,30 +1284,38 @@ dynamic build(BuildContext context) {
             DataColumn(label: Text('use when')),
           ],
           rows: const <DataRow>[
-            DataRow(cells: <DataCell>[
-              DataCell(Text('default')),
-              DataCell(Text('wavy red')),
-              DataCell(Text('platform')),
-              DataCell(Text('most apps')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('disabled')),
-              DataCell(Text('none')),
-              DataCell(Text('none')),
-              DataCell(Text('tests, secure entry')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('customService')),
-              DataCell(Text('dashed amber')),
-              DataCell(Text('platform')),
-              DataCell(Text('custom dictionaries')),
-            ]),
-            DataRow(cells: <DataCell>[
-              DataCell(Text('toolbarBuilder')),
-              DataCell(Text('wavy sky')),
-              DataCell(Text('custom')),
-              DataCell(Text('branded UI')),
-            ]),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('default')),
+                DataCell(Text('wavy red')),
+                DataCell(Text('platform')),
+                DataCell(Text('most apps')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('disabled')),
+                DataCell(Text('none')),
+                DataCell(Text('none')),
+                DataCell(Text('tests, secure entry')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('customService')),
+                DataCell(Text('dashed amber')),
+                DataCell(Text('platform')),
+                DataCell(Text('custom dictionaries')),
+              ],
+            ),
+            DataRow(
+              cells: <DataCell>[
+                DataCell(Text('toolbarBuilder')),
+                DataCell(Text('wavy sky')),
+                DataCell(Text('custom')),
+                DataCell(Text('branded UI')),
+              ],
+            ),
           ],
         ),
         headerGradient: <Color>[amber, rose],
@@ -1290,28 +1348,28 @@ dynamic build(BuildContext context) {
       codeSnippetCard(
         'spell_check_setup.dart',
         '// Default — platform service, wavy red underline.\n'
-        'final defaultConfig = SpellCheckConfiguration(\n'
-        '  spellCheckService: DefaultSpellCheckService(),\n'
-        '  misspelledTextStyle: TextStyle(\n'
-        '    decoration: TextDecoration.underline,\n'
-        '    decorationColor: Colors.red,\n'
-        '    decorationStyle: TextDecorationStyle.wavy,\n'
-        '  ),\n'
-        ');\n'
-        '\n'
-        '// Disabled — no spell-check at all.\n'
-        'const disabledConfig = SpellCheckConfiguration.disabled();\n'
-        '\n'
-        '// Custom toolbar builder — branded suggestion UI.\n'
-        'final toolbarConfig = SpellCheckConfiguration(\n'
-        '  spellCheckService: DefaultSpellCheckService(),\n'
-        '  spellCheckSuggestionsToolbarBuilder: (ctx, state) =>\n'
-        '      MyBrandedToolbar(state: state),\n'
-        ');\n'
-        '\n'
-        'TextField(\n'
-        '  spellCheckConfiguration: defaultConfig,\n'
-        ');\n',
+            'final defaultConfig = SpellCheckConfiguration(\n'
+            '  spellCheckService: DefaultSpellCheckService(),\n'
+            '  misspelledTextStyle: TextStyle(\n'
+            '    decoration: TextDecoration.underline,\n'
+            '    decorationColor: Colors.red,\n'
+            '    decorationStyle: TextDecorationStyle.wavy,\n'
+            '  ),\n'
+            ');\n'
+            '\n'
+            '// Disabled — no spell-check at all.\n'
+            'const disabledConfig = SpellCheckConfiguration.disabled();\n'
+            '\n'
+            '// Custom toolbar builder — branded suggestion UI.\n'
+            'final toolbarConfig = SpellCheckConfiguration(\n'
+            '  spellCheckService: DefaultSpellCheckService(),\n'
+            '  spellCheckSuggestionsToolbarBuilder: (ctx, state) =>\n'
+            '      MyBrandedToolbar(state: state),\n'
+            ');\n'
+            '\n'
+            'TextField(\n'
+            '  spellCheckConfiguration: defaultConfig,\n'
+            ');\n',
         accent: sky,
       ),
     ],
@@ -1332,11 +1390,10 @@ dynamic build(BuildContext context) {
   final Widget section9 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '09',
-        'Suggestion Palette — All Candidates',
-        <Color>[rose, sky],
-      ),
+      sectionBanner('09', 'Suggestion Palette — All Candidates', <Color>[
+        rose,
+        sky,
+      ]),
       proseBox(
         'The wrap below dumps every suggestion this script produced — both '
         'from the paragraph and the small sample. A real toolbar would not '
@@ -1370,21 +1427,26 @@ dynamic build(BuildContext context) {
   // ───────────────────────────────────────────────────────────────────────
   print('[Section 10] Edge cases');
 
-  final SpellCheckResults emptyResults =
-      const SpellCheckResults('correct text', <SuggestionSpan>[]);
-  final SuggestionSpan emptySuggestionsSpan =
-      const SuggestionSpan(TextRange(start: 0, end: 4), <String>[]);
-  final SuggestionSpan singleSuggestionSpan =
-      const SuggestionSpan(TextRange(start: 5, end: 9), <String>['ok']);
+  final SpellCheckResults emptyResults = const SpellCheckResults(
+    'correct text',
+    <SuggestionSpan>[],
+  );
+  final SuggestionSpan emptySuggestionsSpan = const SuggestionSpan(
+    TextRange(start: 0, end: 4),
+    <String>[],
+  );
+  final SuggestionSpan singleSuggestionSpan = const SuggestionSpan(
+    TextRange(start: 5, end: 9),
+    <String>['ok'],
+  );
 
   final Widget section10 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '10',
-        'Edge Cases & Degenerate Spans',
-        <Color>[slate, rose],
-      ),
+      sectionBanner('10', 'Edge Cases & Degenerate Spans', <Color>[
+        slate,
+        rose,
+      ]),
       proseBox(
         'Spell-check data has several edge cases worth representing in the '
         'corpus. An empty `SpellCheckResults` (no spans) means the engine '
@@ -1413,8 +1475,10 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('range', '${emptySuggestionsSpan.range}'),
-            dataRow('suggestions',
-                '${emptySuggestionsSpan.suggestions.length}'),
+            dataRow(
+              'suggestions',
+              '${emptySuggestionsSpan.suggestions.length}',
+            ),
             dataRow('meaning', 'Misspelling without proposed correction'),
           ],
         ),
@@ -1426,8 +1490,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             dataRow('range', '${singleSuggestionSpan.range}'),
-            dataRow('suggestions',
-                singleSuggestionSpan.suggestions.join(', ')),
+            dataRow('suggestions', singleSuggestionSpan.suggestions.join(', ')),
             dataRow('meaning', 'High-confidence single replacement'),
           ],
         ),
@@ -1444,11 +1507,10 @@ dynamic build(BuildContext context) {
   final Widget section11 = Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      sectionBanner(
-        '11',
-        'Glossary — Quick Reference',
-        <Color>[amberDeep, slate],
-      ),
+      sectionBanner('11', 'Glossary — Quick Reference', <Color>[
+        amberDeep,
+        slate,
+      ]),
       proseBox(
         'A glossary keyed off of the types this file exercises. Use these '
         'definitions when reading other tests in this corpus that touch '
@@ -1463,17 +1525,24 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            dataRow('SuggestionSpan',
-                'TextRange + ranked list of replacements'),
+            dataRow(
+              'SuggestionSpan',
+              'TextRange + ranked list of replacements',
+            ),
             dataRow('TextRange', 'UTF-16 [start, end) over the text'),
-            dataRow('SpellCheckResults',
-                'Original text plus suggestion spans'),
-            dataRow('SpellCheckService',
-                'fetchSpellCheckSuggestions(locale, text)'),
-            dataRow('DefaultSpellCheckService',
-                'Platform-channel implementation'),
-            dataRow('SpellCheckConfiguration',
-                'Plug-in value object on EditableText'),
+            dataRow('SpellCheckResults', 'Original text plus suggestion spans'),
+            dataRow(
+              'SpellCheckService',
+              'fetchSpellCheckSuggestions(locale, text)',
+            ),
+            dataRow(
+              'DefaultSpellCheckService',
+              'Platform-channel implementation',
+            ),
+            dataRow(
+              'SpellCheckConfiguration',
+              'Plug-in value object on EditableText',
+            ),
           ],
         ),
         headerGradient: <Color>[amberDeep, rose],

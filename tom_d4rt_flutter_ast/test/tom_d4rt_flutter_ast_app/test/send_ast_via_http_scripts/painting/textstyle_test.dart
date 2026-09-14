@@ -387,11 +387,7 @@ class TextStyleDemoApp extends StatelessWidget {
     print('named fontSize: ${namedStyle.fontSize}');
     print('inherited.inherit: ${inheritedStyle.inherit}');
 
-    return Wrap(
-      spacing: 12.0,
-      runSpacing: 12.0,
-      children: cards,
-    );
+    return Wrap(spacing: 12.0, runSpacing: 12.0, children: cards);
   }
 
   Widget _constructorCard({
@@ -429,8 +425,7 @@ class TextStyleDemoApp extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
             decoration: BoxDecoration(
               color: onColor.withOpacity(0.08),
               borderRadius: BorderRadius.circular(6.0),
@@ -489,7 +484,10 @@ class TextStyleDemoApp extends StatelessWidget {
       final w = weights[i];
       final t = i / (weights.length - 1);
       final bg = Color.lerp(
-          scheme.primaryContainer, scheme.tertiaryContainer, t)!;
+        scheme.primaryContainer,
+        scheme.tertiaryContainer,
+        t,
+      )!;
       tiles.add(
         Container(
           width: 120.0,
@@ -698,11 +696,7 @@ class TextStyleDemoApp extends StatelessWidget {
         ),
       );
     }
-    return Wrap(
-      spacing: 10.0,
-      runSpacing: 10.0,
-      children: tiles,
-    );
+    return Wrap(spacing: 10.0, runSpacing: 10.0, children: tiles);
   }
 
   Color _readableOn(Color c) {
@@ -798,7 +792,9 @@ class TextStyleDemoApp extends StatelessWidget {
       title: 'letterSpacing',
       subtitle: 'space added between each glyph (logical px)',
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: rows),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: rows,
+      ),
     );
   }
 
@@ -842,7 +838,9 @@ class TextStyleDemoApp extends StatelessWidget {
       title: 'wordSpacing',
       subtitle: 'extra space inserted at each word boundary',
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: rows),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: rows,
+      ),
     );
   }
 
@@ -960,24 +958,60 @@ class TextStyleDemoApp extends StatelessWidget {
   // ============================================================
   Widget _buildDecorationGrid(ColorScheme scheme) {
     final decorations = <_DecorationCase>[
-      _DecorationCase('underline solid', TextDecoration.underline,
-          TextDecorationStyle.solid, scheme.primary),
-      _DecorationCase('underline dashed', TextDecoration.underline,
-          TextDecorationStyle.dashed, scheme.tertiary),
-      _DecorationCase('underline dotted', TextDecoration.underline,
-          TextDecorationStyle.dotted, scheme.secondary),
-      _DecorationCase('underline double', TextDecoration.underline,
-          TextDecorationStyle.double, scheme.error),
-      _DecorationCase('underline wavy', TextDecoration.underline,
-          TextDecorationStyle.wavy, scheme.primary),
-      _DecorationCase('overline solid', TextDecoration.overline,
-          TextDecorationStyle.solid, scheme.tertiary),
-      _DecorationCase('overline wavy', TextDecoration.overline,
-          TextDecorationStyle.wavy, scheme.secondary),
-      _DecorationCase('lineThrough solid', TextDecoration.lineThrough,
-          TextDecorationStyle.solid, scheme.error),
-      _DecorationCase('lineThrough dashed', TextDecoration.lineThrough,
-          TextDecorationStyle.dashed, scheme.primary),
+      _DecorationCase(
+        'underline solid',
+        TextDecoration.underline,
+        TextDecorationStyle.solid,
+        scheme.primary,
+      ),
+      _DecorationCase(
+        'underline dashed',
+        TextDecoration.underline,
+        TextDecorationStyle.dashed,
+        scheme.tertiary,
+      ),
+      _DecorationCase(
+        'underline dotted',
+        TextDecoration.underline,
+        TextDecorationStyle.dotted,
+        scheme.secondary,
+      ),
+      _DecorationCase(
+        'underline double',
+        TextDecoration.underline,
+        TextDecorationStyle.double,
+        scheme.error,
+      ),
+      _DecorationCase(
+        'underline wavy',
+        TextDecoration.underline,
+        TextDecorationStyle.wavy,
+        scheme.primary,
+      ),
+      _DecorationCase(
+        'overline solid',
+        TextDecoration.overline,
+        TextDecorationStyle.solid,
+        scheme.tertiary,
+      ),
+      _DecorationCase(
+        'overline wavy',
+        TextDecoration.overline,
+        TextDecorationStyle.wavy,
+        scheme.secondary,
+      ),
+      _DecorationCase(
+        'lineThrough solid',
+        TextDecoration.lineThrough,
+        TextDecorationStyle.solid,
+        scheme.error,
+      ),
+      _DecorationCase(
+        'lineThrough dashed',
+        TextDecoration.lineThrough,
+        TextDecorationStyle.dashed,
+        scheme.primary,
+      ),
       _DecorationCase(
         'combined',
         TextDecoration.combine(<TextDecoration>[
@@ -1040,15 +1074,13 @@ class TextStyleDemoApp extends StatelessWidget {
       _ShadowCase(
         label: 'single soft',
         shadows: const [
-          Shadow(
-              blurRadius: 6.0, color: Colors.black54, offset: Offset(2, 2)),
+          Shadow(blurRadius: 6.0, color: Colors.black54, offset: Offset(2, 2)),
         ],
       ),
       _ShadowCase(
         label: 'sharp drop',
         shadows: const [
-          Shadow(
-              blurRadius: 0.0, color: Colors.black87, offset: Offset(3, 3)),
+          Shadow(blurRadius: 0.0, color: Colors.black87, offset: Offset(3, 3)),
         ],
       ),
       _ShadowCase(
@@ -1078,8 +1110,7 @@ class TextStyleDemoApp extends StatelessWidget {
           for (var i = 1; i <= 6; i++)
             Shadow(
               blurRadius: 0.0,
-              color: Colors.grey
-                  .withOpacity((0.18 * (7 - i)).clamp(0.0, 1.0)),
+              color: Colors.grey.withOpacity((0.18 * (7 - i)).clamp(0.0, 1.0)),
               offset: Offset(i.toDouble(), i.toDouble()),
             ),
         ],
@@ -1209,7 +1240,9 @@ class TextStyleDemoApp extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 3.0),
+                      horizontal: 8.0,
+                      vertical: 3.0,
+                    ),
                     decoration: BoxDecoration(
                       color: scheme.primaryContainer,
                       borderRadius: BorderRadius.circular(4.0),
@@ -1284,8 +1317,9 @@ class TextStyleDemoApp extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: scheme.primaryContainer.withOpacity(0.35),
                         borderRadius: BorderRadius.circular(6.0),
-                        border:
-                            Border.all(color: scheme.primary.withOpacity(0.4)),
+                        border: Border.all(
+                          color: scheme.primary.withOpacity(0.4),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1330,10 +1364,14 @@ class TextStyleDemoApp extends StatelessWidget {
       color: scheme.onSurface,
       debugLabel: 'base',
     );
-    final bolded =
-        base.copyWith(fontWeight: FontWeight.w800, debugLabel: 'bold');
-    final coloured =
-        base.copyWith(color: scheme.primary, debugLabel: 'colored');
+    final bolded = base.copyWith(
+      fontWeight: FontWeight.w800,
+      debugLabel: 'bold',
+    );
+    final coloured = base.copyWith(
+      color: scheme.primary,
+      debugLabel: 'colored',
+    );
     final big = base.copyWith(fontSize: 26.0, debugLabel: 'big');
     final all = base.copyWith(
       fontSize: 22.0,
@@ -1374,10 +1412,7 @@ class TextStyleDemoApp extends StatelessWidget {
             width: 170.0,
             child: Text(
               label,
-              style: const TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.5,
-              ),
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 11.5),
             ),
           ),
           const SizedBox(width: 8.0),
@@ -1481,9 +1516,7 @@ class TextStyleDemoApp extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                child: Text('Lerping styles', style: mid),
-              ),
+              Expanded(child: Text('Lerping styles', style: mid)),
             ],
           ),
         ),
@@ -1511,8 +1544,7 @@ class TextStyleDemoApp extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.swap_horiz,
-              color: scheme.onTertiaryContainer, size: 28.0),
+          Icon(Icons.swap_horiz, color: scheme.onTertiaryContainer, size: 28.0),
           const SizedBox(width: 10.0),
           Expanded(
             child: Column(
@@ -1550,56 +1582,80 @@ class TextStyleDemoApp extends StatelessWidget {
   Widget _buildGlossary(ColorScheme scheme) {
     final entries = <_GlossaryEntry>[
       const _GlossaryEntry(
-          'fontFamily',
-          'Name of the typeface to use. Falls back to fontFamilyFallback.'),
+        'fontFamily',
+        'Name of the typeface to use. Falls back to fontFamilyFallback.',
+      ),
       const _GlossaryEntry(
-          'fontFamilyFallback',
-          'Ordered list of typefaces tried when fontFamily lacks a glyph.'),
+        'fontFamilyFallback',
+        'Ordered list of typefaces tried when fontFamily lacks a glyph.',
+      ),
       const _GlossaryEntry(
-          'package', 'Asset package name to scope fontFamily lookup.'),
+        'package',
+        'Asset package name to scope fontFamily lookup.',
+      ),
       const _GlossaryEntry(
-          'fontWeight', 'Stroke thickness as one of FontWeight.w100..w900.'),
+        'fontWeight',
+        'Stroke thickness as one of FontWeight.w100..w900.',
+      ),
       const _GlossaryEntry('fontStyle', 'Normal or italic.'),
       const _GlossaryEntry('fontSize', 'Glyph height in logical pixels.'),
       const _GlossaryEntry(
-          'color / backgroundColor',
-          'Solid foreground / background fill. Mutually exclusive with '
-              'foreground/background Paints.'),
+        'color / backgroundColor',
+        'Solid foreground / background fill. Mutually exclusive with '
+            'foreground/background Paints.',
+      ),
       const _GlossaryEntry(
-          'foreground / background',
-          'Paint objects for advanced fills (gradients, strokes).'),
+        'foreground / background',
+        'Paint objects for advanced fills (gradients, strokes).',
+      ),
       const _GlossaryEntry(
-          'letterSpacing', 'Extra space between glyphs in logical px.'),
+        'letterSpacing',
+        'Extra space between glyphs in logical px.',
+      ),
       const _GlossaryEntry(
-          'wordSpacing', 'Extra space inserted at word boundaries.'),
+        'wordSpacing',
+        'Extra space inserted at word boundaries.',
+      ),
       const _GlossaryEntry(
-          'height', 'Multiplier on fontSize defining the line box height.'),
+        'height',
+        'Multiplier on fontSize defining the line box height.',
+      ),
       const _GlossaryEntry(
-          'leadingDistribution',
-          'How surplus leading is split above vs below the line.'),
+        'leadingDistribution',
+        'How surplus leading is split above vs below the line.',
+      ),
       const _GlossaryEntry(
-          'textBaseline',
-          'Which baseline to align glyphs to (alphabetic or ideographic).'),
+        'textBaseline',
+        'Which baseline to align glyphs to (alphabetic or ideographic).',
+      ),
       const _GlossaryEntry(
-          'decoration',
-          'underline, overline, lineThrough, or combinations.'),
+        'decoration',
+        'underline, overline, lineThrough, or combinations.',
+      ),
       const _GlossaryEntry(
-          'decorationColor / decorationStyle / decorationThickness',
-          'Fine-grained control over the decoration line.'),
+        'decorationColor / decorationStyle / decorationThickness',
+        'Fine-grained control over the decoration line.',
+      ),
       const _GlossaryEntry(
-          'shadows', 'List of Shadow objects painted beneath the text.'),
+        'shadows',
+        'List of Shadow objects painted beneath the text.',
+      ),
       const _GlossaryEntry(
-          'fontFeatures',
-          'OpenType feature overrides (tnum, smcp, ss01, ...).'),
+        'fontFeatures',
+        'OpenType feature overrides (tnum, smcp, ss01, ...).',
+      ),
       const _GlossaryEntry(
-          'fontVariations',
-          'Variable font axis values (wght, wdth, ...).'),
+        'fontVariations',
+        'Variable font axis values (wght, wdth, ...).',
+      ),
       const _GlossaryEntry(
-          'debugLabel',
-          'Free-form label used only by toString and toDiagnostic output.'),
+        'debugLabel',
+        'Free-form label used only by toString and toDiagnostic output.',
+      ),
       const _GlossaryEntry(
-          'inherit',
-          'When true (default) missing fields cascade from DefaultTextStyle.'),
+        'inherit',
+        'When true (default) missing fields cascade from DefaultTextStyle.',
+      ),
     ];
     final rows = <Widget>[];
     for (final e in entries) {
@@ -1642,7 +1698,9 @@ class TextStyleDemoApp extends StatelessWidget {
       title: 'Glossary',
       subtitle: 'every field that TextStyle exposes',
       child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, children: rows),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: rows,
+      ),
     );
   }
 
@@ -1672,7 +1730,8 @@ class TextStyleDemoApp extends StatelessWidget {
       ),
       _Recipe(
         title: 'Caption',
-        code: 'TextStyle(fontSize: 11, letterSpacing: 0.6, '
+        code:
+            'TextStyle(fontSize: 11, letterSpacing: 0.6, '
             'fontWeight: FontWeight.w500)',
         sample: Text(
           'FIGURE 1 - DEEP DEMO',
@@ -1694,7 +1753,8 @@ class TextStyleDemoApp extends StatelessWidget {
       ),
       _Recipe(
         title: 'Warning',
-        code: 'TextStyle(color: scheme.error, fontWeight: w700, '
+        code:
+            'TextStyle(color: scheme.error, fontWeight: w700, '
             'decoration: underline)',
         sample: Text(
           'Quota exceeded - retry later.',
@@ -1741,13 +1801,15 @@ class TextStyleDemoApp extends StatelessWidget {
             color: Color(0xFF555555),
             shadows: [
               Shadow(
-                  color: Colors.white,
-                  blurRadius: 1.0,
-                  offset: Offset(0, -1)),
+                color: Colors.white,
+                blurRadius: 1.0,
+                offset: Offset(0, -1),
+              ),
               Shadow(
-                  color: Colors.black54,
-                  blurRadius: 2.0,
-                  offset: Offset(0, 1)),
+                color: Colors.black54,
+                blurRadius: 2.0,
+                offset: Offset(0, 1),
+              ),
             ],
           ),
         ),

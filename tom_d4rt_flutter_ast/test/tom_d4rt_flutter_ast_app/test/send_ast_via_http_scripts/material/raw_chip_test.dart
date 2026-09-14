@@ -70,7 +70,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 20.0),
-              
+
               // Basic chip examples
               Text(
                 'Basic Variants:',
@@ -81,20 +81,22 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 12.0),
-              
+
               Wrap(
                 spacing: 12.0,
                 runSpacing: 12.0,
                 children: [
                   // Label only
-                  RawChip(
-                    label: Text('Label Only'),
-                  ),
+                  RawChip(label: Text('Label Only')),
                   // With avatar
                   RawChip(
                     avatar: CircleAvatar(
                       backgroundColor: Colors.deepPurple.shade100,
-                      child: Icon(Icons.person, size: 16.0, color: Colors.deepPurple),
+                      child: Icon(
+                        Icons.person,
+                        size: 16.0,
+                        color: Colors.deepPurple,
+                      ),
                     ),
                     label: Text('With Avatar'),
                   ),
@@ -109,7 +111,13 @@ dynamic build(BuildContext context) {
                   RawChip(
                     avatar: CircleAvatar(
                       backgroundColor: Colors.green.shade100,
-                      child: Text('JD', style: TextStyle(fontSize: 10.0, color: Colors.green.shade700)),
+                      child: Text(
+                        'JD',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.green.shade700,
+                        ),
+                      ),
                     ),
                     label: Text('Full Chip'),
                     onDeleted: () {
@@ -118,9 +126,9 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 24.0),
-              
+
               // Chip anatomy diagram
               Container(
                 padding: EdgeInsets.all(16.0),
@@ -144,11 +152,16 @@ dynamic build(BuildContext context) {
                       children: [
                         // Visual anatomy
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12.0,
+                            vertical: 8.0,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16.0),
-                            border: Border.all(color: Colors.deepPurple.shade300),
+                            border: Border.all(
+                              color: Colors.deepPurple.shade300,
+                            ),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -158,16 +171,29 @@ dynamic build(BuildContext context) {
                                 decoration: BoxDecoration(
                                   color: Colors.blue.shade100,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.blue, width: 2.0),
+                                  border: Border.all(
+                                    color: Colors.blue,
+                                    width: 2.0,
+                                  ),
                                 ),
-                                child: Icon(Icons.face, size: 18.0, color: Colors.blue),
+                                child: Icon(
+                                  Icons.face,
+                                  size: 18.0,
+                                  color: Colors.blue,
+                                ),
                               ),
                               SizedBox(width: 8.0),
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 4.0,
+                                  vertical: 2.0,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.green.shade100,
-                                  border: Border.all(color: Colors.green, width: 2.0),
+                                  border: Border.all(
+                                    color: Colors.green,
+                                    width: 2.0,
+                                  ),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Text(
@@ -184,9 +210,16 @@ dynamic build(BuildContext context) {
                                 decoration: BoxDecoration(
                                   color: Colors.red.shade100,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.red, width: 2.0),
+                                  border: Border.all(
+                                    color: Colors.red,
+                                    width: 2.0,
+                                  ),
                                 ),
-                                child: Icon(Icons.close, size: 14.0, color: Colors.red),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 14.0,
+                                  color: Colors.red,
+                                ),
                               ),
                             ],
                           ),
@@ -269,13 +302,10 @@ dynamic build(BuildContext context) {
               Text(
                 'RawChip can display selection states using the selected property '
                 'and respond to taps with showCheckmark for visual feedback:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Unselected vs Selected
               Row(
                 children: [
@@ -343,16 +373,13 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 20.0),
-              
+
               // Selection variations
               Text(
                 'Selection Variations:',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13.0,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
               ),
               SizedBox(height: 12.0),
               Wrap(
@@ -447,13 +474,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'The avatar property accepts any widget, allowing for rich visual customization:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Different avatar types
               Wrap(
                 spacing: 12.0,
@@ -465,12 +489,16 @@ dynamic build(BuildContext context) {
                       backgroundColor: Colors.blue.shade100,
                       child: Text(
                         'AB',
-                        style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, color: Colors.blue.shade700),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
                       ),
                     ),
                     label: Text('Text Initials'),
                   ),
-                  
+
                   // Icon avatar
                   RawChip(
                     avatar: CircleAvatar(
@@ -479,7 +507,7 @@ dynamic build(BuildContext context) {
                     ),
                     label: Text('Icon Avatar'),
                   ),
-                  
+
                   // Emoji avatar
                   RawChip(
                     avatar: CircleAvatar(
@@ -488,19 +516,23 @@ dynamic build(BuildContext context) {
                     ),
                     label: Text('Emoji'),
                   ),
-                  
+
                   // Number badge
                   RawChip(
                     avatar: CircleAvatar(
                       backgroundColor: Colors.red,
                       child: Text(
                         '5',
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     label: Text('Count Badge'),
                   ),
-                  
+
                   // Gradient avatar
                   RawChip(
                     avatar: Container(
@@ -512,18 +544,26 @@ dynamic build(BuildContext context) {
                           colors: [Colors.purple, Colors.pink],
                         ),
                       ),
-                      child: Icon(Icons.favorite, size: 14.0, color: Colors.white),
+                      child: Icon(
+                        Icons.favorite,
+                        size: 14.0,
+                        color: Colors.white,
+                      ),
                     ),
                     label: Text('Gradient'),
                   ),
-                  
+
                   // Status indicator
                   RawChip(
                     avatar: Stack(
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.grey.shade200,
-                          child: Icon(Icons.person, size: 16.0, color: Colors.grey),
+                          child: Icon(
+                            Icons.person,
+                            size: 16.0,
+                            color: Colors.grey,
+                          ),
                         ),
                         Positioned(
                           right: 0,
@@ -534,7 +574,10 @@ dynamic build(BuildContext context) {
                             decoration: BoxDecoration(
                               color: Colors.green,
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 1.5),
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 1.5,
+                              ),
                             ),
                           ),
                         ),
@@ -606,32 +649,30 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'RawChip offers extensive color customization:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Color variants
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildColorRow('backgroundColor', [
-                    RawChip(
-                      label: Text('Default'),
-                    ),
+                    RawChip(label: Text('Default')),
                     RawChip(
                       label: Text('Custom'),
                       backgroundColor: Colors.amber.shade100,
                     ),
                     RawChip(
-                      label: Text('Vibrant', style: TextStyle(color: Colors.white)),
+                      label: Text(
+                        'Vibrant',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       backgroundColor: Colors.deepPurple,
                     ),
                   ]),
                   SizedBox(height: 16.0),
-                  
+
                   _buildColorRow('selectedColor', [
                     RawChip(
                       label: Text('Blue'),
@@ -653,12 +694,9 @@ dynamic build(BuildContext context) {
                     ),
                   ]),
                   SizedBox(height: 16.0),
-                  
+
                   _buildColorRow('disabledColor', [
-                    RawChip(
-                      label: Text('Disabled'),
-                      isEnabled: false,
-                    ),
+                    RawChip(label: Text('Disabled'), isEnabled: false),
                     RawChip(
                       label: Text('Custom'),
                       isEnabled: false,
@@ -666,12 +704,9 @@ dynamic build(BuildContext context) {
                     ),
                   ]),
                   SizedBox(height: 16.0),
-                  
+
                   _buildColorRow('deleteIconColor', [
-                    RawChip(
-                      label: Text('Default'),
-                      onDeleted: () {},
-                    ),
+                    RawChip(label: Text('Default'), onDeleted: () {}),
                     RawChip(
                       label: Text('Red'),
                       deleteIconColor: Colors.red,
@@ -745,13 +780,10 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'The shape property accepts OutlinedBorder for custom chip shapes:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               Wrap(
                 spacing: 12.0,
                 runSpacing: 12.0,
@@ -762,7 +794,7 @@ dynamic build(BuildContext context) {
                     shape: StadiumBorder(),
                     backgroundColor: Colors.indigo.shade50,
                   ),
-                  
+
                   // Rounded rectangle
                   RawChip(
                     label: Text('Rounded'),
@@ -771,7 +803,7 @@ dynamic build(BuildContext context) {
                     ),
                     backgroundColor: Colors.green.shade50,
                   ),
-                  
+
                   // Beveled
                   RawChip(
                     label: Text('Beveled'),
@@ -780,7 +812,7 @@ dynamic build(BuildContext context) {
                     ),
                     backgroundColor: Colors.orange.shade50,
                   ),
-                  
+
                   // Border with stroke
                   RawChip(
                     label: Text('Outlined'),
@@ -789,7 +821,7 @@ dynamic build(BuildContext context) {
                     ),
                     backgroundColor: Colors.white,
                   ),
-                  
+
                   // Dashed-look border
                   RawChip(
                     label: Text('Stroked'),
@@ -799,7 +831,7 @@ dynamic build(BuildContext context) {
                     ),
                     backgroundColor: Colors.teal.shade50,
                   ),
-                  
+
                   // Circular/pill with small radius
                   RawChip(
                     label: Text('Pill'),
@@ -870,15 +902,15 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 'Control chip density with padding and materialTapTargetSize:',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
-              
+
               // Different padding
-              Text('labelPadding variations:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
+              Text(
+                'labelPadding variations:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+              ),
               SizedBox(height: 8.0),
               Wrap(
                 spacing: 12.0,
@@ -900,11 +932,14 @@ dynamic build(BuildContext context) {
                   ),
                 ],
               ),
-              
+
               SizedBox(height: 20.0),
-              
+
               // Tap target size
-              Text('materialTapTargetSize:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0)),
+              Text(
+                'materialTapTargetSize:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+              ),
               SizedBox(height: 8.0),
               Row(
                 children: [
@@ -917,7 +952,13 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('padded', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                          Text(
+                            'padded',
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                           SizedBox(height: 8.0),
                           RawChip(
                             label: Text('Tap Area'),
@@ -938,11 +979,18 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('shrinkWrap', style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                          Text(
+                            'shrinkWrap',
+                            style: TextStyle(
+                              fontSize: 11.0,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                           SizedBox(height: 8.0),
                           RawChip(
                             label: Text('Tap Area'),
-                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
                             backgroundColor: Colors.cyan.shade100,
                           ),
                         ],
@@ -1022,10 +1070,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Select your areas of expertise',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.grey.shade400,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade400),
               ),
             ],
           ),
@@ -1084,10 +1129,7 @@ dynamic build(BuildContext context) {
             children: [
               Text(
                 '3 selected',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 13.0,
-                ),
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 13.0),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -1216,9 +1258,15 @@ dynamic build(BuildContext context) {
                     }),
                     // Add more chip
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12.0,
+                        vertical: 6.0,
+                      ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300, style: BorderStyle.solid),
+                        border: Border.all(
+                          color: Colors.grey.shade300,
+                          style: BorderStyle.solid,
+                        ),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: Row(
@@ -1256,14 +1304,26 @@ dynamic build(BuildContext context) {
     {'prop': 'label', 'type': 'Widget', 'desc': 'Primary content of the chip'},
     {'prop': 'avatar', 'type': 'Widget?', 'desc': 'Leading circular widget'},
     {'prop': 'selected', 'type': 'bool', 'desc': 'Selection state'},
-    {'prop': 'onSelected', 'type': 'ValueChanged<bool>?', 'desc': 'Selection callback'},
+    {
+      'prop': 'onSelected',
+      'type': 'ValueChanged<bool>?',
+      'desc': 'Selection callback',
+    },
     {'prop': 'onDeleted', 'type': 'VoidCallback?', 'desc': 'Delete callback'},
     {'prop': 'onPressed', 'type': 'VoidCallback?', 'desc': 'Tap callback'},
-    {'prop': 'backgroundColor', 'type': 'Color?', 'desc': 'Background fill color'},
+    {
+      'prop': 'backgroundColor',
+      'type': 'Color?',
+      'desc': 'Background fill color',
+    },
     {'prop': 'selectedColor', 'type': 'Color?', 'desc': 'Fill when selected'},
     {'prop': 'disabledColor', 'type': 'Color?', 'desc': 'Fill when disabled'},
     {'prop': 'shape', 'type': 'OutlinedBorder?', 'desc': 'Border shape'},
-    {'prop': 'showCheckmark', 'type': 'bool', 'desc': 'Show checkmark when selected'},
+    {
+      'prop': 'showCheckmark',
+      'type': 'bool',
+      'desc': 'Show checkmark when selected',
+    },
     {'prop': 'isEnabled', 'type': 'bool', 'desc': 'Enable/disable interaction'},
   ];
 
@@ -1293,52 +1353,54 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 16.0),
-        ...apiItems.map((item) => Container(
-          margin: EdgeInsets.symmetric(vertical: 3.0),
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(color: Colors.blueGrey.shade100),
+        ...apiItems.map(
+          (item) => Container(
+            margin: EdgeInsets.symmetric(vertical: 3.0),
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: Colors.blueGrey.shade100),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 100.0,
+                  child: Text(
+                    item['prop'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue.shade700,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 90.0,
+                  child: Text(
+                    item['type'] as String,
+                    style: TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 10.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    item['desc'] as String,
+                    style: TextStyle(
+                      fontSize: 11.0,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 100.0,
-                child: Text(
-                  item['prop'] as String,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade700,
-                  ),
-                ),
-              ),
-              Container(
-                width: 90.0,
-                child: Text(
-                  item['type'] as String,
-                  style: TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  item['desc'] as String,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )),
+        ),
         SizedBox(height: 16.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -1422,10 +1484,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'The foundational chip widget for Material Design',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1449,7 +1508,10 @@ dynamic build(BuildContext context) {
         colorsCard,
 
         SizedBox(height: 24.0),
-        _buildSectionHeader('Section 5: Shape Customization', Icons.rounded_corner),
+        _buildSectionHeader(
+          'Section 5: Shape Customization',
+          Icons.rounded_corner,
+        ),
         shapesCard,
 
         SizedBox(height: 24.0),
@@ -1540,11 +1602,7 @@ Widget _buildColorRow(String propertyName, List<Widget> chips) {
         ),
       ),
       SizedBox(height: 8.0),
-      Wrap(
-        spacing: 10.0,
-        runSpacing: 8.0,
-        children: chips,
-      ),
+      Wrap(spacing: 10.0, runSpacing: 8.0, children: chips),
     ],
   );
 }

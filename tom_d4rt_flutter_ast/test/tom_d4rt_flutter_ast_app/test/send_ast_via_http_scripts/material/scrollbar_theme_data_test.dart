@@ -209,7 +209,11 @@ Widget buildScrollbarInListView() {
   );
 }
 
-Widget buildThicknessVariation(String label, double thickness, MaterialColor color) {
+Widget buildThicknessVariation(
+  String label,
+  double thickness,
+  MaterialColor color,
+) {
   print('Building thickness variation: $label');
   final scrollCtrl = ScrollController();
   return Container(
@@ -289,7 +293,11 @@ Widget buildThicknessVariationsSection() {
   );
 }
 
-Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor color) {
+Widget buildThumbVisibilityDemo(
+  String label,
+  bool alwaysVisible,
+  MaterialColor color,
+) {
   print('Building thumb visibility demo: $label');
   final scrollCtrl = ScrollController();
   return Container(
@@ -313,7 +321,9 @@ Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor 
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: alwaysVisible ? Colors.green.shade100 : Colors.grey.shade200,
+                color: alwaysVisible
+                    ? Colors.green.shade100
+                    : Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -322,7 +332,9 @@ Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor 
                   Icon(
                     alwaysVisible ? Icons.visibility : Icons.visibility_off,
                     size: 14,
-                    color: alwaysVisible ? Colors.green.shade700 : Colors.grey.shade600,
+                    color: alwaysVisible
+                        ? Colors.green.shade700
+                        : Colors.grey.shade600,
                   ),
                   SizedBox(width: 4),
                   Text(
@@ -330,7 +342,9 @@ Widget buildThumbVisibilityDemo(String label, bool alwaysVisible, MaterialColor 
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
-                      color: alwaysVisible ? Colors.green.shade700 : Colors.grey.shade600,
+                      color: alwaysVisible
+                          ? Colors.green.shade700
+                          : Colors.grey.shade600,
                     ),
                   ),
                 ],
@@ -452,14 +466,30 @@ Widget buildRadiusVariationsSection() {
   return Column(
     children: [
       buildRadiusVariation('No Radius (Square)', Radius.zero, Colors.red),
-      buildRadiusVariation('Small Radius (4px)', Radius.circular(4), Colors.amber),
-      buildRadiusVariation('Medium Radius (8px)', Radius.circular(8), Colors.lime),
-      buildRadiusVariation('Full Rounded (16px)', Radius.circular(16), Colors.pink),
+      buildRadiusVariation(
+        'Small Radius (4px)',
+        Radius.circular(4),
+        Colors.amber,
+      ),
+      buildRadiusVariation(
+        'Medium Radius (8px)',
+        Radius.circular(8),
+        Colors.lime,
+      ),
+      buildRadiusVariation(
+        'Full Rounded (16px)',
+        Radius.circular(16),
+        Colors.pink,
+      ),
     ],
   );
 }
 
-Widget buildTrackVisibilityDemo(String label, bool showTrack, MaterialColor color) {
+Widget buildTrackVisibilityDemo(
+  String label,
+  bool showTrack,
+  MaterialColor color,
+) {
   print('Building track visibility demo: $label');
   final scrollCtrl = ScrollController();
   return Container(
@@ -492,7 +522,9 @@ Widget buildTrackVisibilityDemo(String label, bool showTrack, MaterialColor colo
                   Icon(
                     showTrack ? Icons.visibility : Icons.visibility_off,
                     size: 14,
-                    color: showTrack ? Colors.blue.shade700 : Colors.grey.shade600,
+                    color: showTrack
+                        ? Colors.blue.shade700
+                        : Colors.grey.shade600,
                   ),
                   SizedBox(width: 4),
                   Text(
@@ -500,7 +532,9 @@ Widget buildTrackVisibilityDemo(String label, bool showTrack, MaterialColor colo
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
-                      color: showTrack ? Colors.blue.shade700 : Colors.grey.shade600,
+                      color: showTrack
+                          ? Colors.blue.shade700
+                          : Colors.grey.shade600,
                     ),
                   ),
                 ],
@@ -554,7 +588,11 @@ Widget buildTrackVisibilitySection() {
   );
 }
 
-Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColor color) {
+Widget buildInteractivePropertyDemo(
+  String label,
+  bool interactive,
+  MaterialColor color,
+) {
   print('Building interactive property demo: $label');
   final scrollCtrl = ScrollController();
   return Container(
@@ -578,7 +616,9 @@ Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColo
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: interactive ? Colors.green.shade100 : Colors.red.shade100,
+                color: interactive
+                    ? Colors.green.shade100
+                    : Colors.red.shade100,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -587,7 +627,9 @@ Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColo
                   Icon(
                     interactive ? Icons.touch_app : Icons.block,
                     size: 14,
-                    color: interactive ? Colors.green.shade700 : Colors.red.shade700,
+                    color: interactive
+                        ? Colors.green.shade700
+                        : Colors.red.shade700,
                   ),
                   SizedBox(width: 4),
                   Text(
@@ -595,7 +637,9 @@ Widget buildInteractivePropertyDemo(String label, bool interactive, MaterialColo
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
-                      color: interactive ? Colors.green.shade700 : Colors.red.shade700,
+                      color: interactive
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
                     ),
                   ),
                 ],
@@ -646,7 +690,11 @@ Widget buildInteractivePropertySection() {
   return Column(
     children: [
       buildInteractivePropertyDemo('Interactive Scrollbar', true, Colors.teal),
-      buildInteractivePropertyDemo('Non-Interactive Scrollbar', false, Colors.grey),
+      buildInteractivePropertyDemo(
+        'Non-Interactive Scrollbar',
+        false,
+        Colors.grey,
+      ),
     ],
   );
 }
@@ -732,10 +780,7 @@ Widget _buildColorSwatch(String label, Color color) {
         ),
       ),
       SizedBox(width: 4),
-      Text(
-        label,
-        style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
-      ),
+      Text(label, style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
     ],
   );
 }
@@ -918,7 +963,12 @@ Widget buildScrollbarPropertiesGrid() {
 Widget buildCrossAxisMarginDemo() {
   print('Building cross axis margin demo');
   List<double> margins = [0.0, 4.0, 8.0, 16.0];
-  List<MaterialColor> colors = [Colors.red, Colors.green, Colors.blue, Colors.purple];
+  List<MaterialColor> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.purple,
+  ];
 
   List<Widget> items = [];
   int i = 0;
@@ -1015,7 +1065,12 @@ Widget buildCrossAxisMarginDemo() {
 Widget buildMainAxisMarginDemo() {
   print('Building main axis margin demo');
   List<double> margins = [0.0, 8.0, 16.0, 32.0];
-  List<MaterialColor> colors = [Colors.orange, Colors.cyan, Colors.indigo, Colors.lime];
+  List<MaterialColor> colors = [
+    Colors.orange,
+    Colors.cyan,
+    Colors.indigo,
+    Colors.lime,
+  ];
 
   List<Widget> items = [];
   int i = 0;
@@ -1112,7 +1167,12 @@ Widget buildMainAxisMarginDemo() {
 Widget buildMinThumbLengthDemo() {
   print('Building min thumb length demo');
   List<double> minLengths = [18.0, 36.0, 60.0, 100.0];
-  List<MaterialColor> colors = [Colors.pink, Colors.teal, Colors.amber, Colors.deepPurple];
+  List<MaterialColor> colors = [
+    Colors.pink,
+    Colors.teal,
+    Colors.amber,
+    Colors.deepPurple,
+  ];
 
   List<Widget> items = [];
   int i = 0;
@@ -1251,9 +1311,7 @@ Widget buildHorizontalScrollbarDemo() {
               child: SingleChildScrollView(
                 controller: scrollCtrl,
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _buildHorizontalItems(20),
-                ),
+                child: Row(children: _buildHorizontalItems(20)),
               ),
             ),
           ),
@@ -1358,8 +1416,12 @@ Widget buildNestedScrollbarsDemo() {
                     ),
                     child: ScrollbarTheme(
                       data: ScrollbarThemeData(
-                        thumbColor: WidgetStateProperty.all(Colors.cyan.shade600),
-                        trackColor: WidgetStateProperty.all(Colors.cyan.shade100),
+                        thumbColor: WidgetStateProperty.all(
+                          Colors.cyan.shade600,
+                        ),
+                        trackColor: WidgetStateProperty.all(
+                          Colors.cyan.shade100,
+                        ),
                         thickness: WidgetStateProperty.all(6.0),
                         radius: Radius.circular(3),
                       ),

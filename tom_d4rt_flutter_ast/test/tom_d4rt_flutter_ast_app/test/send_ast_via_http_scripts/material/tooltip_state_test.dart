@@ -128,26 +128,30 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 18),
                       _heroBullet(
                         token: 'GlobalKey<TooltipState>',
-                        body: 'Attach to a Tooltip via its `key` parameter to '
+                        body:
+                            'Attach to a Tooltip via its `key` parameter to '
                             'capture the live State.',
                       ),
                       const SizedBox(height: 10),
                       _heroBullet(
                         token: 'ensureTooltipVisible()',
-                        body: 'Shows the tooltip if it is not already visible. '
+                        body:
+                            'Shows the tooltip if it is not already visible. '
                             'Returns true when newly shown, false otherwise.',
                       ),
                       const SizedBox(height: 10),
                       _heroBullet(
                         token: 'onTriggered callback',
-                        body: 'Fires every time the tooltip becomes visible '
+                        body:
+                            'Fires every time the tooltip becomes visible '
                             '(user gesture or programmatic). Great for '
                             'analytics or activity logs.',
                       ),
                       const SizedBox(height: 10),
                       _heroBullet(
                         token: 'TooltipTheme / TooltipVisibility',
-                        body: 'Theme an entire subtree, or disable tooltips '
+                        body:
+                            'Theme an entire subtree, or disable tooltips '
                             'in a subtree with TooltipVisibility(visible: false).',
                       ),
                     ],
@@ -168,7 +172,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF2E7D32),
                 title: '2. Basic Tooltip - hover / long-press defaults',
-                subtitle: 'Three garden-variety tooltips. Hover on desktop, '
+                subtitle:
+                    'Three garden-variety tooltips. Hover on desktop, '
                     'long-press on mobile. Nothing special - this is the '
                     '"99% of cases" baseline.',
               ),
@@ -212,7 +217,8 @@ dynamic build(BuildContext context) {
                                 'Use sparingly - the label should already be '
                                 'self-explanatory.',
                             child: Tooltip(
-                              message: 'Sends the form to the server. '
+                              message:
+                                  'Sends the form to the server. '
                                   'You will receive an email confirmation.',
                               onTriggered: () => logActivation('basic.filled'),
                               child: FilledButton.icon(
@@ -265,7 +271,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF6A1B9A),
                 title: '3. Programmatic show via GlobalKey<TooltipState>',
-                subtitle: 'Click the "Show tip" buttons. Each one calls '
+                subtitle:
+                    'Click the "Show tip" buttons. Each one calls '
                     'ensureTooltipVisible() on its sibling Tooltip - this is '
                     'the central use case for TooltipState.',
               ),
@@ -332,7 +339,8 @@ dynamic build(BuildContext context) {
                             count: countAlpha,
                             tooltip: Tooltip(
                               key: keyAlpha,
-                              message: 'Mark this item as a favourite. '
+                              message:
+                                  'Mark this item as a favourite. '
                                   'Favourites appear at the top of your list.',
                               onTriggered: () => logActivation('alpha.fired'),
                               child: const Icon(
@@ -379,7 +387,8 @@ dynamic build(BuildContext context) {
                             count: countGamma,
                             tooltip: Tooltip(
                               key: keyGamma,
-                              message: 'Connection latency to the API '
+                              message:
+                                  'Connection latency to the API '
                                   'gateway in milliseconds.',
                               onTriggered: () => logActivation('gamma.fired'),
                               child: Container(
@@ -447,7 +456,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFEF6C00),
                 title: '4. triggerMode - tap / longPress / manual',
-                subtitle: 'Pick a mode and try interacting with the chip. '
+                subtitle:
+                    'Pick a mode and try interacting with the chip. '
                     'In manual mode only the side button can open the '
                     'tooltip - that is exactly what TooltipState is for.',
               ),
@@ -531,13 +541,13 @@ dynamic build(BuildContext context) {
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: const Color(0xFFEF6C00),
                                   side: const BorderSide(
-                                      color: Color(0xFFEF6C00)),
+                                    color: Color(0xFFEF6C00),
+                                  ),
                                 ),
                                 icon: const Icon(Icons.visibility),
                                 label: const Text('ensureTooltipVisible()'),
                                 onPressed: () {
-                                  modeKey.currentState
-                                      ?.ensureTooltipVisible();
+                                  modeKey.currentState?.ensureTooltipVisible();
                                   logActivation('mode.button');
                                 },
                               ),
@@ -579,7 +589,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF00838F),
                 title: '5. waitDuration & showDuration',
-                subtitle: 'Slide to tune the appearance and disappearance '
+                subtitle:
+                    'Slide to tune the appearance and disappearance '
                     'delays. waitDuration only applies on hover. '
                     'showDuration applies to all trigger modes.',
               ),
@@ -629,12 +640,15 @@ dynamic build(BuildContext context) {
                             children: [
                               Tooltip(
                                 key: durKey,
-                                message: 'Wait ${waitMs.toInt()} ms, then '
+                                message:
+                                    'Wait ${waitMs.toInt()} ms, then '
                                     'stay for ${showMs.toInt()} ms.',
-                                waitDuration:
-                                    Duration(milliseconds: waitMs.toInt()),
-                                showDuration:
-                                    Duration(milliseconds: showMs.toInt()),
+                                waitDuration: Duration(
+                                  milliseconds: waitMs.toInt(),
+                                ),
+                                showDuration: Duration(
+                                  milliseconds: showMs.toInt(),
+                                ),
                                 onTriggered: () =>
                                     logActivation('duration.hover'),
                                 child: Container(
@@ -685,7 +699,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF455A64),
                 title: '6. preferBelow / verticalOffset / padding',
-                subtitle: 'Geometry knobs. preferBelow chooses orientation, '
+                subtitle:
+                    'Geometry knobs. preferBelow chooses orientation, '
                     'verticalOffset is the distance from the child, padding '
                     'inflates the tooltip body.',
               ),
@@ -712,9 +727,7 @@ dynamic build(BuildContext context) {
                             children: [
                               const Text(
                                 'preferBelow',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                               const SizedBox(width: 12),
                               Switch(
@@ -753,8 +766,7 @@ dynamic build(BuildContext context) {
                             accent: const Color(0xFF455A64),
                             unit: 'px',
                             onChanged: (v) => setState(() => pad = v),
-                            description:
-                                'Inner padding of the tooltip itself.',
+                            description: 'Inner padding of the tooltip itself.',
                           ),
                           const SizedBox(height: 16),
                           SizedBox(
@@ -767,8 +779,7 @@ dynamic build(BuildContext context) {
                                 preferBelow: preferBelow,
                                 verticalOffset: offset,
                                 padding: EdgeInsets.all(pad),
-                                onTriggered: () =>
-                                    logActivation('geometry'),
+                                onTriggered: () => logActivation('geometry'),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 24,
@@ -796,12 +807,13 @@ dynamic build(BuildContext context) {
                                 foregroundColor: Colors.white,
                               ),
                               onPressed: () {
-                                geomKey.currentState
-                                    ?.ensureTooltipVisible();
+                                geomKey.currentState?.ensureTooltipVisible();
                                 logActivation('geometry.button');
                               },
                               icon: const Icon(Icons.center_focus_strong),
-                              label: const Text('Show tooltip programmatically'),
+                              label: const Text(
+                                'Show tooltip programmatically',
+                              ),
                             ),
                           ),
                         ],
@@ -824,7 +836,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFC2185B),
                 title: '7. richMessage - mixed-style content',
-                subtitle: 'Use richMessage instead of message when the body '
+                subtitle:
+                    'Use richMessage instead of message when the body '
                     'needs bold, colour, or monospaced spans.',
               ),
               const SizedBox(height: 12),
@@ -878,7 +891,8 @@ dynamic build(BuildContext context) {
                                     ),
                                     const TextSpan(text: '. '),
                                     const TextSpan(
-                                      text: 'May lock the database '
+                                      text:
+                                          'May lock the database '
                                           'briefly.',
                                       style: TextStyle(
                                         color: Color(0xFFFFB300),
@@ -910,11 +924,11 @@ dynamic build(BuildContext context) {
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: const Color(0xFFC2185B),
                                   side: const BorderSide(
-                                      color: Color(0xFFC2185B)),
+                                    color: Color(0xFFC2185B),
+                                  ),
                                 ),
                                 onPressed: () {
-                                  richKey.currentState
-                                      ?.ensureTooltipVisible();
+                                  richKey.currentState?.ensureTooltipVisible();
                                   logActivation('rich.button');
                                 },
                                 child: const Text('Show rich tooltip'),
@@ -940,7 +954,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF1B5E20),
                 title: '8. TooltipTheme - subtree-wide styling',
-                subtitle: 'Wrap a subtree in TooltipTheme to override '
+                subtitle:
+                    'Wrap a subtree in TooltipTheme to override '
                     'decoration, textStyle, enableTapToDismiss, etc. for '
                     'every Tooltip inside it.',
               ),
@@ -982,10 +997,8 @@ dynamic build(BuildContext context) {
                             horizontal: 14,
                             vertical: 10,
                           ),
-                          waitDuration:
-                              const Duration(milliseconds: 100),
-                          showDuration:
-                              const Duration(milliseconds: 2500),
+                          waitDuration: const Duration(milliseconds: 100),
+                          showDuration: const Duration(milliseconds: 2500),
                           excludeFromSemantics: false,
                           preferBelow: true,
                         ),
@@ -1013,8 +1026,7 @@ dynamic build(BuildContext context) {
                             ),
                             Tooltip(
                               message: 'deploy(--prod)',
-                              onTriggered: () =>
-                                  logActivation('themed.deploy'),
+                              onTriggered: () => logActivation('themed.deploy'),
                               child: _ThemedChip(
                                 icon: Icons.cloud_upload,
                                 label: 'Deploy',
@@ -1050,7 +1062,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF7B1FA2),
                 title: '9. TooltipVisibility - mute a subtree',
-                subtitle: 'Two identical rows. The second row is wrapped in '
+                subtitle:
+                    'Two identical rows. The second row is wrapped in '
                     'TooltipVisibility(visible: false) so its tooltips never '
                     'appear, even on hover.',
               ),
@@ -1079,8 +1092,7 @@ dynamic build(BuildContext context) {
                       ),
                       Tooltip(
                         message: 'Move to trash',
-                        onTriggered: () =>
-                            logActivation('vis.$banner.trash'),
+                        onTriggered: () => logActivation('vis.$banner.trash'),
                         child: _PillIcon(
                           icon: Icons.delete,
                           label: 'Delete',
@@ -1121,10 +1133,7 @@ dynamic build(BuildContext context) {
                           const SizedBox(height: 8),
                           tooltipsOn
                               ? inner
-                              : TooltipVisibility(
-                                  visible: false,
-                                  child: inner,
-                                ),
+                              : TooltipVisibility(visible: false, child: inner),
                         ],
                       ),
                     );
@@ -1141,10 +1150,12 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          row(true, const Color(0xFF7B1FA2),
-                              'Tooltips ENABLED'),
-                          row(false, const Color(0xFFAD1457),
-                              'Tooltips MUTED'),
+                          row(
+                            true,
+                            const Color(0xFF7B1FA2),
+                            'Tooltips ENABLED',
+                          ),
+                          row(false, const Color(0xFFAD1457), 'Tooltips MUTED'),
                           const SizedBox(height: 8),
                           const Text(
                             'TooltipVisibility is great for screenshot tools, '
@@ -1175,7 +1186,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF263238),
                 title: '10. Activation log (onTriggered callback)',
-                subtitle: 'Every Tooltip in the demo pushes an entry here '
+                subtitle:
+                    'Every Tooltip in the demo pushes an entry here '
                     'via its onTriggered callback - both real gestures and '
                     'programmatic ensureTooltipVisible() calls fire it.',
               ),
@@ -1223,9 +1235,7 @@ dynamic build(BuildContext context) {
                             ),
                             child: log.isEmpty
                                 ? const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 12,
-                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 12),
                                     child: Text(
                                       '(no activations yet - hover or '
                                       'click a tooltip above)',
@@ -1274,7 +1284,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF1565C0),
                 title: '11. Recipe - focus-triggered help icons',
-                subtitle: 'Tab through the fields. The help tooltip beside '
+                subtitle:
+                    'Tab through the fields. The help tooltip beside '
                     'the active field opens automatically via '
                     'ensureTooltipVisible() called from a FocusNode listener.',
               ),
@@ -1297,7 +1308,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFF00695C),
                 title: '12. Recipe - truncated cell + full-value tooltip',
-                subtitle: 'Common spreadsheet pattern. Hover the truncated '
+                subtitle:
+                    'Common spreadsheet pattern. Hover the truncated '
                     'URL to see the whole thing; the peek button calls '
                     'ensureTooltipVisible() on the row\'s key.',
               ),
@@ -1319,7 +1331,8 @@ dynamic build(BuildContext context) {
               _SectionHeader(
                 accent: const Color(0xFFAD1457),
                 title: '13. When to use Tooltip vs Snackbar vs Banner',
-                subtitle: 'Three different transient surfaces. Pick by '
+                subtitle:
+                    'Three different transient surfaces. Pick by '
                     'urgency and semantics, not by visual preference.',
               ),
               const SizedBox(height: 12),
@@ -1337,7 +1350,8 @@ dynamic build(BuildContext context) {
                         accent: const Color(0xFFAD1457),
                         title: 'Tooltip',
                         when: 'On-demand context for a single widget.',
-                        why: 'Triggered by user gesture (hover/long-press/'
+                        why:
+                            'Triggered by user gesture (hover/long-press/'
                             'tap). Disappears on its own. No interaction.',
                       ),
                       const SizedBox(height: 10),
@@ -1345,16 +1359,19 @@ dynamic build(BuildContext context) {
                         accent: const Color(0xFF6A1B9A),
                         title: 'SnackBar',
                         when: 'Confirm an action just took effect.',
-                        why: 'Bottom strip with optional action button. '
+                        why:
+                            'Bottom strip with optional action button. '
                             'Self-dismissing. One at a time.',
                       ),
                       const SizedBox(height: 10),
                       _DecisionRow(
                         accent: const Color(0xFFEF6C00),
                         title: 'MaterialBanner',
-                        when: 'Persistent, important message that needs a '
+                        when:
+                            'Persistent, important message that needs a '
                             'response.',
-                        why: 'Sticks until the user dismisses it. Used for '
+                        why:
+                            'Sticks until the user dismisses it. Used for '
                             'errors, sign-in prompts, capability nags.',
                       ),
                       const SizedBox(height: 14),
@@ -1371,10 +1388,7 @@ dynamic build(BuildContext context) {
                           'Tooltips are read by screen readers via the '
                           'wrapped child\'s Semantics, so they double as '
                           'accessibility labels for icon-only buttons.',
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 13,
-                          ),
+                          style: TextStyle(color: Colors.black54, fontSize: 13),
                         ),
                       ),
                     ],
@@ -1441,13 +1455,15 @@ dynamic build(BuildContext context) {
                             _RefRow(
                               name: 'showDuration',
                               defaultValue: '~1.5 s',
-                              note: 'How long the tooltip lingers after the '
+                              note:
+                                  'How long the tooltip lingers after the '
                                   'gesture ends.',
                             ),
                             _RefRow(
                               name: 'preferBelow',
                               defaultValue: 'true',
-                              note: 'Show the tooltip below the child by '
+                              note:
+                                  'Show the tooltip below the child by '
                                   'default.',
                             ),
                             _RefRow(
@@ -1464,19 +1480,22 @@ dynamic build(BuildContext context) {
                             _RefRow(
                               name: 'enableTapToDismiss',
                               defaultValue: 'true',
-                              note: 'Whether tapping anywhere dismisses the '
+                              note:
+                                  'Whether tapping anywhere dismisses the '
                                   'tooltip.',
                             ),
                             _RefRow(
                               name: 'excludeFromSemantics',
                               defaultValue: 'false',
-                              note: 'Set true to opt out of screen-reader '
+                              note:
+                                  'Set true to opt out of screen-reader '
                                   'announcement.',
                             ),
                             _RefRow(
                               name: 'onTriggered',
                               defaultValue: 'null',
-                              note: 'Callback fired every time the tooltip '
+                              note:
+                                  'Callback fired every time the tooltip '
                                   'is shown.',
                             ),
                           ],
@@ -1567,10 +1586,7 @@ Widget _heroBullet({required String token, required String body}) {
       Expanded(
         child: Text(
           body,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 13,
-          ),
+          style: const TextStyle(color: Colors.white70, fontSize: 13),
         ),
       ),
     ],
@@ -1617,10 +1633,7 @@ class _SectionHeader extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  color: Colors.black54,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: Colors.black54, fontSize: 13),
               ),
             ],
           ),
@@ -1670,10 +1683,7 @@ class _BasicTooltipTile extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               description,
-              style: const TextStyle(
-                color: Colors.black54,
-                fontSize: 12,
-              ),
+              style: const TextStyle(color: Colors.black54, fontSize: 12),
             ),
             const SizedBox(height: 14),
             Center(child: child),
@@ -1729,10 +1739,7 @@ class _ProgrammaticRow extends StatelessWidget {
             children: [
               Text(
                 description,
-                style: const TextStyle(
-                  color: Colors.black54,
-                  fontSize: 13,
-                ),
+                style: const TextStyle(color: Colors.black54, fontSize: 13),
               ),
               const SizedBox(height: 10),
               Row(
@@ -1827,10 +1834,7 @@ class _DurationSlider extends StatelessWidget {
               ),
               child: Text(
                 '${valueMs.toInt()} $unit',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
               ),
             ),
           ],
@@ -1844,10 +1848,7 @@ class _DurationSlider extends StatelessWidget {
         ),
         Text(
           description,
-          style: const TextStyle(
-            color: Colors.black54,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.black54, fontSize: 12),
         ),
       ],
     );
@@ -1922,10 +1923,7 @@ class _PillIcon extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: TextStyle(
-              color: accent,
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(color: accent, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -1938,10 +1936,7 @@ class _PillIcon extends StatelessWidget {
 // FocusNodes and GlobalKey<TooltipState> instances.
 // ---------------------------------------------------------------------------
 class _FocusHelpRecipe extends StatefulWidget {
-  const _FocusHelpRecipe({
-    required this.accent,
-    required this.onTrigger,
-  });
+  const _FocusHelpRecipe({required this.accent, required this.onTrigger});
 
   final Color accent;
   final ValueChanged<String> onTrigger;
@@ -2036,11 +2031,7 @@ class _FocusHelpRecipeState extends State<_FocusHelpRecipe> {
             triggerMode: TooltipTriggerMode.tap,
             preferBelow: false,
             onTriggered: () => widget.onTrigger('$label-tip'),
-            child: Icon(
-              Icons.help_outline,
-              color: widget.accent,
-              size: 22,
-            ),
+            child: Icon(Icons.help_outline, color: widget.accent, size: 22),
           ),
         ],
       ),
@@ -2052,9 +2043,7 @@ class _FocusHelpRecipeState extends State<_FocusHelpRecipe> {
     return Card(
       elevation: 2,
       color: const Color(0xFFE3F2FD),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -2114,10 +2103,7 @@ class _FocusHelpRecipeState extends State<_FocusHelpRecipe> {
                 'Why programmatic? Hover does not exist on touch devices, so '
                 'a help icon driven by FocusNode + ensureTooltipVisible() is '
                 'an accessible way to surface field guidance.',
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ),
           ],
@@ -2132,10 +2118,7 @@ class _FocusHelpRecipeState extends State<_FocusHelpRecipe> {
 // key so we can demonstrate one-row-at-a-time programmatic open.
 // ---------------------------------------------------------------------------
 class _TruncationRecipe extends StatefulWidget {
-  const _TruncationRecipe({
-    required this.accent,
-    required this.onTrigger,
-  });
+  const _TruncationRecipe({required this.accent, required this.onTrigger});
 
   final Color accent;
   final ValueChanged<String> onTrigger;
@@ -2148,17 +2131,20 @@ class _TruncationRecipeState extends State<_TruncationRecipe> {
   static const _rows = <_TableRow>[
     _TableRow(
       id: 'evt-001',
-      url: 'https://api.example.com/v1/events/8a91c5fb-2e3f-4c2a-bd2f-feed/'
+      url:
+          'https://api.example.com/v1/events/8a91c5fb-2e3f-4c2a-bd2f-feed/'
           'verbose-payload?since=2026-04-01T00:00:00Z&limit=500',
     ),
     _TableRow(
       id: 'evt-002',
-      url: 'https://billing.example.com/invoices/2026/april/'
+      url:
+          'https://billing.example.com/invoices/2026/april/'
           'org-12345/cycle-renewal/full-text-summary.pdf',
     ),
     _TableRow(
       id: 'evt-003',
-      url: 'https://logs.example.com/search?q=error&from=2026-04-29T00:00:00Z'
+      url:
+          'https://logs.example.com/search?q=error&from=2026-04-29T00:00:00Z'
           '&to=2026-05-02T00:00:00Z&service=tooltip-state-demo',
     ),
   ];
@@ -2168,9 +2154,7 @@ class _TruncationRecipeState extends State<_TruncationRecipe> {
   @override
   void initState() {
     super.initState();
-    _keys = {
-      for (final row in _rows) row.id: GlobalKey<TooltipState>(),
-    };
+    _keys = {for (final row in _rows) row.id: GlobalKey<TooltipState>()};
   }
 
   @override
@@ -2178,9 +2162,7 @@ class _TruncationRecipeState extends State<_TruncationRecipe> {
     return Card(
       elevation: 2,
       color: const Color(0xFFE0F2F1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -2249,8 +2231,7 @@ class _TruncationRecipeState extends State<_TruncationRecipe> {
                       ],
                     ),
                   ),
-                  for (final row in _rows)
-                    _row(row, _keys[row.id]!),
+                  for (final row in _rows) _row(row, _keys[row.id]!),
                 ],
               ),
             ),
@@ -2309,10 +2290,7 @@ class _TruncationRecipeState extends State<_TruncationRecipe> {
             width: 90,
             child: Center(
               child: IconButton(
-                icon: Icon(
-                  Icons.zoom_in,
-                  color: widget.accent,
-                ),
+                icon: Icon(Icons.zoom_in, color: widget.accent),
                 tooltip: 'Show full URL',
                 onPressed: () {
                   key.currentState?.ensureTooltipVisible();
@@ -2393,10 +2371,7 @@ class _DecisionRow extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   why,
-                  style: const TextStyle(
-                    color: Colors.black54,
-                    fontSize: 13,
-                  ),
+                  style: const TextStyle(color: Colors.black54, fontSize: 13),
                 ),
               ],
             ),
@@ -2438,10 +2413,7 @@ class _RefHeader extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(
-              'Note',
-              style: TextStyle(fontWeight: FontWeight.w700),
-            ),
+            child: Text('Note', style: TextStyle(fontWeight: FontWeight.w700)),
           ),
         ],
       ),
@@ -2465,9 +2437,7 @@ class _RefRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(color: Colors.black12),
-        ),
+        border: Border(top: BorderSide(color: Colors.black12)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

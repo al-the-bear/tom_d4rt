@@ -440,11 +440,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 4),
                 Text(
                   purpose,
-                  style: TextStyle(
-                    color: brown700,
-                    fontSize: 12,
-                    height: 1.3,
-                  ),
+                  style: TextStyle(color: brown700, fontSize: 12, height: 1.3),
                 ),
               ],
             ),
@@ -497,13 +493,41 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 12),
                 ...[
-                  {'step': '1', 'label': 'PlatformViewLink mounted', 'detail': 'initState() fires'},
-                  {'step': '2', 'label': 'ID allocated', 'detail': 'platformViewsRegistry.getNextPlatformViewId()'},
-                  {'step': '3', 'label': 'Params created', 'detail': 'PlatformViewCreationParams._(id, viewType, ...)'},
-                  {'step': '4', 'label': 'Callback invoked', 'detail': 'onCreatePlatformView(params) → controller'},
-                  {'step': '5', 'label': 'Native view created', 'detail': 'controller.create() → platform side'},
-                  {'step': '6', 'label': 'Notify ready', 'detail': 'onPlatformViewCreated(id) → setState'},
-                  {'step': '7', 'label': 'Surface rendered', 'detail': 'surfaceFactory(ctx, controller) → widget'},
+                  {
+                    'step': '1',
+                    'label': 'PlatformViewLink mounted',
+                    'detail': 'initState() fires',
+                  },
+                  {
+                    'step': '2',
+                    'label': 'ID allocated',
+                    'detail': 'platformViewsRegistry.getNextPlatformViewId()',
+                  },
+                  {
+                    'step': '3',
+                    'label': 'Params created',
+                    'detail': 'PlatformViewCreationParams._(id, viewType, ...)',
+                  },
+                  {
+                    'step': '4',
+                    'label': 'Callback invoked',
+                    'detail': 'onCreatePlatformView(params) → controller',
+                  },
+                  {
+                    'step': '5',
+                    'label': 'Native view created',
+                    'detail': 'controller.create() → platform side',
+                  },
+                  {
+                    'step': '6',
+                    'label': 'Notify ready',
+                    'detail': 'onPlatformViewCreated(id) → setState',
+                  },
+                  {
+                    'step': '7',
+                    'label': 'Surface rendered',
+                    'detail': 'surfaceFactory(ctx, controller) → widget',
+                  },
                 ].map((item) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 6),
@@ -574,7 +598,8 @@ dynamic build(BuildContext context) {
           buildPropertyCard(
             name: 'id',
             type: 'int',
-            purpose: 'Unique view ID from platformViewsRegistry. Sequential, never reused.',
+            purpose:
+                'Unique view ID from platformViewsRegistry. Sequential, never reused.',
             icon: Icons.fingerprint,
             cardColor: Colors.white,
             iconBg: brown700,
@@ -582,7 +607,8 @@ dynamic build(BuildContext context) {
           buildPropertyCard(
             name: 'viewType',
             type: 'String',
-            purpose: 'Identifies the native view factory registered on the platform side.',
+            purpose:
+                'Identifies the native view factory registered on the platform side.',
             icon: Icons.label,
             cardColor: Colors.white,
             iconBg: brown500,
@@ -590,7 +616,8 @@ dynamic build(BuildContext context) {
           buildPropertyCard(
             name: 'onPlatformViewCreated',
             type: 'void Function(int)',
-            purpose: 'Call when native view is ready. Triggers PlatformViewLink to show the surface.',
+            purpose:
+                'Call when native view is ready. Triggers PlatformViewLink to show the surface.',
             icon: Icons.check_circle,
             cardColor: orange50,
             iconBg: orange800,
@@ -598,7 +625,8 @@ dynamic build(BuildContext context) {
           buildPropertyCard(
             name: 'onFocusChanged',
             type: 'ValueChanged<bool>',
-            purpose: 'Forward focus gain/loss from native view to Flutter focus tree.',
+            purpose:
+                'Forward focus gain/loss from native view to Flutter focus tree.',
             icon: Icons.center_focus_strong,
             cardColor: orange50,
             iconBg: orange800,
@@ -628,11 +656,31 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(height: 8),
                 ...[
-                  {'platform': 'Android (VD)', 'controller': 'AndroidViewController', 'icon': Icons.phone_android},
-                  {'platform': 'Android (HC)', 'controller': 'SurfaceAndroidViewController', 'icon': Icons.phone_android},
-                  {'platform': 'iOS', 'controller': 'UiKitViewController', 'icon': Icons.phone_iphone},
-                  {'platform': 'macOS', 'controller': 'AppKitViewController', 'icon': Icons.laptop_mac},
-                  {'platform': 'Web', 'controller': 'HtmlElementView (no params)', 'icon': Icons.language},
+                  {
+                    'platform': 'Android (VD)',
+                    'controller': 'AndroidViewController',
+                    'icon': Icons.phone_android,
+                  },
+                  {
+                    'platform': 'Android (HC)',
+                    'controller': 'SurfaceAndroidViewController',
+                    'icon': Icons.phone_android,
+                  },
+                  {
+                    'platform': 'iOS',
+                    'controller': 'UiKitViewController',
+                    'icon': Icons.phone_iphone,
+                  },
+                  {
+                    'platform': 'macOS',
+                    'controller': 'AppKitViewController',
+                    'icon': Icons.laptop_mac,
+                  },
+                  {
+                    'platform': 'Web',
+                    'controller': 'HtmlElementView (no params)',
+                    'icon': Icons.language,
+                  },
                 ].map((p) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 4),
@@ -770,16 +818,36 @@ dynamic build(BuildContext context) {
 
   print('  Demo colors used:');
   print('  ┌──────────────────────────────────────────────────────┐');
-  print('  │  Brown 900  ${brown900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep');
-  print('  │  Brown 800  ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark');
-  print('  │  Brown 700  ${brown700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary');
-  print('  │  Brown 500  ${brown500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary');
-  print('  │  Orange 800 ${orange800.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm');
-  print('  │  Orange 300 ${orange300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent');
-  print('  │  Brown 200  ${brown200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted');
-  print('  │  Orange 100 ${orange100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight');
-  print('  │  Orange 50  ${orange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface');
-  print('  │  Brown 50   ${brown50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light');
+  print(
+    '  │  Brown 900  ${brown900.toARGB32().toRadixString(16).padLeft(8, "0")}  Deep',
+  );
+  print(
+    '  │  Brown 800  ${brown800.toARGB32().toRadixString(16).padLeft(8, "0")}  Dark',
+  );
+  print(
+    '  │  Brown 700  ${brown700.toARGB32().toRadixString(16).padLeft(8, "0")}  Primary',
+  );
+  print(
+    '  │  Brown 500  ${brown500.toARGB32().toRadixString(16).padLeft(8, "0")}  Secondary',
+  );
+  print(
+    '  │  Orange 800 ${orange800.toARGB32().toRadixString(16).padLeft(8, "0")}  Warm',
+  );
+  print(
+    '  │  Orange 300 ${orange300.toARGB32().toRadixString(16).padLeft(8, "0")}  Accent',
+  );
+  print(
+    '  │  Brown 200  ${brown200.toARGB32().toRadixString(16).padLeft(8, "0")}  Muted',
+  );
+  print(
+    '  │  Orange 100 ${orange100.toARGB32().toRadixString(16).padLeft(8, "0")}  Highlight',
+  );
+  print(
+    '  │  Orange 50  ${orange50.toARGB32().toRadixString(16).padLeft(8, "0")}  Surface',
+  );
+  print(
+    '  │  Brown 50   ${brown50.toARGB32().toRadixString(16).padLeft(8, "0")}  Light',
+  );
   print('  └──────────────────────────────────────────────────────┘');
   print('');
 

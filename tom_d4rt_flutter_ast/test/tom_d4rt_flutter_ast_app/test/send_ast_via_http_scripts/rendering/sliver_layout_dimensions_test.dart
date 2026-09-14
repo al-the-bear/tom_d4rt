@@ -40,8 +40,9 @@ class _DimsHeaderDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     final double range = (maxHeight - minHeight);
-    final double progress =
-        range <= 0.0 ? 0.0 : (shrinkOffset / range).clamp(0.0, 1.0);
+    final double progress = range <= 0.0
+        ? 0.0
+        : (shrinkOffset / range).clamp(0.0, 1.0);
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -128,10 +129,7 @@ Widget _sectionTitle(String title, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.06),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.06)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -206,11 +204,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF283593),
-          Color(0xFF3949AB),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF283593), Color(0xFF3949AB)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -280,11 +274,7 @@ dynamic build(BuildContext context) {
           '(scrollOffset, precedingScrollExtent, viewportMainAxisExtent, '
           'crossAxisExtent) describe where the header sits inside the viewport '
           'and how big the surrounding viewport currently is.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.0,
-            height: 1.45,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.45),
         ),
         SizedBox(height: 14.0),
         Wrap(
@@ -308,77 +298,89 @@ dynamic build(BuildContext context) {
 
   final List<Widget> fieldCards = <Widget>[];
 
-  fieldCards.add(_fieldCard(
-    title: 'scrollOffset',
-    subtitle: 'How far the user has scrolled past this header',
-    color: Color(0xFF00897B),
-    icon: Icons.swap_vert,
-    example: '0.0 ........ 320.0 (when scrolled 320px past the header)',
-    diagram: 'viewport top  +---------------+\n'
-        '              |  header(0px)  |   scrollOffset = 0\n'
-        '              +---------------+\n'
-        '   (scroll v)\n'
-        'viewport top  +---------------+\n'
-        '              |  header(120px)|   scrollOffset = 120\n'
-        '              +---------------+',
-    narrative:
-        'scrollOffset is the distance from the leading edge of the '
-        'sliver to the leading edge of the viewport. When pinned, this '
-        'grows past minExtent and the delegate uses it to collapse '
-        'visuals (shrink title, hide secondary content).',
-  ));
+  fieldCards.add(
+    _fieldCard(
+      title: 'scrollOffset',
+      subtitle: 'How far the user has scrolled past this header',
+      color: Color(0xFF00897B),
+      icon: Icons.swap_vert,
+      example: '0.0 ........ 320.0 (when scrolled 320px past the header)',
+      diagram:
+          'viewport top  +---------------+\n'
+          '              |  header(0px)  |   scrollOffset = 0\n'
+          '              +---------------+\n'
+          '   (scroll v)\n'
+          'viewport top  +---------------+\n'
+          '              |  header(120px)|   scrollOffset = 120\n'
+          '              +---------------+',
+      narrative:
+          'scrollOffset is the distance from the leading edge of the '
+          'sliver to the leading edge of the viewport. When pinned, this '
+          'grows past minExtent and the delegate uses it to collapse '
+          'visuals (shrink title, hide secondary content).',
+    ),
+  );
 
-  fieldCards.add(_fieldCard(
-    title: 'precedingScrollExtent',
-    subtitle: 'Total scroll length of slivers before this one',
-    color: Color(0xFFE65100),
-    icon: Icons.linear_scale,
-    example: 'Header at index 3 with two 200px slivers before -> 400.0',
-    diagram: 'slivers in scroll order:\n'
-        '[ A=200px ][ B=200px ][ HEADER ][ C=... ][ D=... ]\n'
-        '+--------- 400.0 ---------+\n'
-        'precedingScrollExtent = 400.0',
-    narrative:
-        'precedingScrollExtent answers the question: how much scroll '
-        'must the user produce before the header could possibly come '
-        'into view? Useful for sticky table-of-contents and global '
-        'progress indicators.',
-  ));
+  fieldCards.add(
+    _fieldCard(
+      title: 'precedingScrollExtent',
+      subtitle: 'Total scroll length of slivers before this one',
+      color: Color(0xFFE65100),
+      icon: Icons.linear_scale,
+      example: 'Header at index 3 with two 200px slivers before -> 400.0',
+      diagram:
+          'slivers in scroll order:\n'
+          '[ A=200px ][ B=200px ][ HEADER ][ C=... ][ D=... ]\n'
+          '+--------- 400.0 ---------+\n'
+          'precedingScrollExtent = 400.0',
+      narrative:
+          'precedingScrollExtent answers the question: how much scroll '
+          'must the user produce before the header could possibly come '
+          'into view? Useful for sticky table-of-contents and global '
+          'progress indicators.',
+    ),
+  );
 
-  fieldCards.add(_fieldCard(
-    title: 'viewportMainAxisExtent',
-    subtitle: 'Live size of the surrounding viewport on the main axis',
-    color: Color(0xFF6A1B9A),
-    icon: Icons.height,
-    example: 'On a phone in portrait: 812.0; rotated to landscape: 375.0',
-    diagram: '+------------ viewport ------------+\n'
-        '|                                  |  height = 812\n'
-        '|   ...slivers scroll inside...    |\n'
-        '|                                  |\n'
-        '+----------------------------------+\n'
-        'viewportMainAxisExtent = 812.0',
-    narrative:
-        'Lets a delegate decide when to switch to compact layouts. '
-        'Headers may render extra metadata only when the viewport is '
-        'tall enough to comfortably fit the expanded form.',
-  ));
+  fieldCards.add(
+    _fieldCard(
+      title: 'viewportMainAxisExtent',
+      subtitle: 'Live size of the surrounding viewport on the main axis',
+      color: Color(0xFF6A1B9A),
+      icon: Icons.height,
+      example: 'On a phone in portrait: 812.0; rotated to landscape: 375.0',
+      diagram:
+          '+------------ viewport ------------+\n'
+          '|                                  |  height = 812\n'
+          '|   ...slivers scroll inside...    |\n'
+          '|                                  |\n'
+          '+----------------------------------+\n'
+          'viewportMainAxisExtent = 812.0',
+      narrative:
+          'Lets a delegate decide when to switch to compact layouts. '
+          'Headers may render extra metadata only when the viewport is '
+          'tall enough to comfortably fit the expanded form.',
+    ),
+  );
 
-  fieldCards.add(_fieldCard(
-    title: 'crossAxisExtent',
-    subtitle: 'Width perpendicular to the scroll direction',
-    color: Color(0xFFC2185B),
-    icon: Icons.aspect_ratio,
-    example: 'Phone width 375.0; tablet split-view width 720.0',
-    diagram: 'horizontal range available to the header\n'
-        '+--------------------------------------+  crossAxisExtent\n'
-        '|<-- header content area (width) ----->|\n'
-        '+--------------------------------------+',
-    narrative:
-        'crossAxisExtent describes the cross-direction. For a vertical '
-        'CustomScrollView this is the width. The delegate uses it to '
-        'select responsive layouts (single column vs multi column) '
-        'without a separate MediaQuery lookup.',
-  ));
+  fieldCards.add(
+    _fieldCard(
+      title: 'crossAxisExtent',
+      subtitle: 'Width perpendicular to the scroll direction',
+      color: Color(0xFFC2185B),
+      icon: Icons.aspect_ratio,
+      example: 'Phone width 375.0; tablet split-view width 720.0',
+      diagram:
+          'horizontal range available to the header\n'
+          '+--------------------------------------+  crossAxisExtent\n'
+          '|<-- header content area (width) ----->|\n'
+          '+--------------------------------------+',
+      narrative:
+          'crossAxisExtent describes the cross-direction. For a vertical '
+          'CustomScrollView this is the width. The delegate uses it to '
+          'select responsive layouts (single column vs multi column) '
+          'without a separate MediaQuery lookup.',
+    ),
+  );
 
   final Widget fieldGrid = Wrap(
     spacing: 12.0,
@@ -421,23 +423,38 @@ dynamic build(BuildContext context) {
           ),
           SliverList(
             delegate: SliverChildListDelegate(<Widget>[
-              _scrollItem('Item 0 - scroll me to see shrinkOffset grow',
-                  Color(0xFFE1BEE7)),
-              _scrollItem('Item 1 - header collapses from 110->60',
-                  Color(0xFFCE93D8)),
-              _scrollItem('Item 2 - once shrinkOffset=range, header is min',
-                  Color(0xFFBA68C8)),
-              _scrollItem('Item 3 - pinned headers stay fully visible',
-                  Color(0xFFAB47BC)),
               _scrollItem(
-                  'Item 4 - overlapsContent flips when content scrolls under',
-                  Color(0xFF9C27B0)),
-              _scrollItem('Item 5 - try a longer scroll to see clamping',
-                  Color(0xFF8E24AA)),
-              _scrollItem('Item 6 - delegate.build() runs every layout pass',
-                  Color(0xFF7B1FA2)),
-              _scrollItem('Item 7 - that is by design and very cheap',
-                  Color(0xFF6A1B9A)),
+                'Item 0 - scroll me to see shrinkOffset grow',
+                Color(0xFFE1BEE7),
+              ),
+              _scrollItem(
+                'Item 1 - header collapses from 110->60',
+                Color(0xFFCE93D8),
+              ),
+              _scrollItem(
+                'Item 2 - once shrinkOffset=range, header is min',
+                Color(0xFFBA68C8),
+              ),
+              _scrollItem(
+                'Item 3 - pinned headers stay fully visible',
+                Color(0xFFAB47BC),
+              ),
+              _scrollItem(
+                'Item 4 - overlapsContent flips when content scrolls under',
+                Color(0xFF9C27B0),
+              ),
+              _scrollItem(
+                'Item 5 - try a longer scroll to see clamping',
+                Color(0xFF8E24AA),
+              ),
+              _scrollItem(
+                'Item 6 - delegate.build() runs every layout pass',
+                Color(0xFF7B1FA2),
+              ),
+              _scrollItem(
+                'Item 7 - that is by design and very cheap',
+                Color(0xFF6A1B9A),
+              ),
             ]),
           ),
         ],
@@ -556,10 +573,9 @@ dynamic build(BuildContext context) {
           children: [
             Expanded(child: _compareHeader('Field', Color(0xFF263238))),
             Expanded(
-                child: _compareHeader(
-                    'LayoutDimensions', Color(0xFF1565C0))),
-            Expanded(
-                child: _compareHeader('Constraints', Color(0xFFAD1457))),
+              child: _compareHeader('LayoutDimensions', Color(0xFF1565C0)),
+            ),
+            Expanded(child: _compareHeader('Constraints', Color(0xFFAD1457))),
           ],
         ),
         Divider(),
@@ -733,26 +749,28 @@ dynamic build(BuildContext context) {
             final double w = constraints.maxWidth;
             final List<Widget> ticks = <Widget>[];
             for (int i = 0; i < 11; i++) {
-              ticks.add(Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      height: i % 5 == 0 ? 14.0 : 8.0,
-                      width: 2.0,
-                      color: Color(0xFFC2185B),
-                    ),
-                    SizedBox(height: 2.0),
-                    Text(
-                      (w * i / 10.0).toStringAsFixed(0),
-                      style: TextStyle(
-                        fontSize: 9.0,
-                        color: Color(0xFF880E4F),
-                        fontFamily: 'monospace',
+              ticks.add(
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: i % 5 == 0 ? 14.0 : 8.0,
+                        width: 2.0,
+                        color: Color(0xFFC2185B),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 2.0),
+                      Text(
+                        (w * i / 10.0).toStringAsFixed(0),
+                        style: TextStyle(
+                          fontSize: 9.0,
+                          color: Color(0xFF880E4F),
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ));
+              );
             }
             return Column(
               children: [
@@ -760,10 +778,7 @@ dynamic build(BuildContext context) {
                   height: 22.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFE91E63),
-                        Color(0xFFAD1457),
-                      ],
+                      colors: [Color(0xFFE91E63), Color(0xFFAD1457)],
                     ),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
@@ -890,8 +905,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Color(0xFFB71C1C), size: 24.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Color(0xFFB71C1C),
+              size: 24.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls and debugging',
@@ -964,8 +982,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.menu_book_outlined,
-                color: Color(0xFF0D47A1), size: 24.0),
+            Icon(
+              Icons.menu_book_outlined,
+              color: Color(0xFF0D47A1),
+              size: 24.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'See also',
@@ -979,17 +1000,35 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 12.0),
         _seeAlsoRow(
-            Icons.layers, 'SliverConstraints', 'low-level layout protocol'),
-        _seeAlsoRow(Icons.view_agenda, 'SliverPersistentHeader',
-            'widget that uses the delegate'),
-        _seeAlsoRow(Icons.person_pin_circle_outlined,
-            'SliverPersistentHeaderDelegate', 'subclass to customize'),
-        _seeAlsoRow(Icons.dashboard_customize_outlined, 'SliverAppBar',
-            'high-level flexible header'),
-        _seeAlsoRow(Icons.swap_vert, 'CustomScrollView',
-            'composes any sliver into a scrollable area'),
-        _seeAlsoRow(Icons.straighten, 'RenderViewport',
-            'where dimensions are computed'),
+          Icons.layers,
+          'SliverConstraints',
+          'low-level layout protocol',
+        ),
+        _seeAlsoRow(
+          Icons.view_agenda,
+          'SliverPersistentHeader',
+          'widget that uses the delegate',
+        ),
+        _seeAlsoRow(
+          Icons.person_pin_circle_outlined,
+          'SliverPersistentHeaderDelegate',
+          'subclass to customize',
+        ),
+        _seeAlsoRow(
+          Icons.dashboard_customize_outlined,
+          'SliverAppBar',
+          'high-level flexible header',
+        ),
+        _seeAlsoRow(
+          Icons.swap_vert,
+          'CustomScrollView',
+          'composes any sliver into a scrollable area',
+        ),
+        _seeAlsoRow(
+          Icons.straighten,
+          'RenderViewport',
+          'where dimensions are computed',
+        ),
       ],
     ),
   );
@@ -1011,37 +1050,60 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           hero,
-          _sectionTitle('1. The four fields up close',
-              Icons.list_alt_outlined, Color(0xFF1A237E)),
+          _sectionTitle(
+            '1. The four fields up close',
+            Icons.list_alt_outlined,
+            Color(0xFF1A237E),
+          ),
           fieldGrid,
-          _sectionTitle('2. Live persistent header', Icons.bolt,
-              Color(0xFF6A1B9A)),
+          _sectionTitle(
+            '2. Live persistent header',
+            Icons.bolt,
+            Color(0xFF6A1B9A),
+          ),
           liveDemo,
-          _sectionTitle('3. Lifecycle of a layout pass', Icons.timeline,
-              Color(0xFF00838F)),
+          _sectionTitle(
+            '3. Lifecycle of a layout pass',
+            Icons.timeline,
+            Color(0xFF00838F),
+          ),
           lifecycle,
-          _sectionTitle('4. SliverLayoutDimensions vs SliverConstraints',
-              Icons.compare_arrows, Color(0xFF455A64)),
+          _sectionTitle(
+            '4. SliverLayoutDimensions vs SliverConstraints',
+            Icons.compare_arrows,
+            Color(0xFF455A64),
+          ),
           comparison,
           _sectionTitle(
-              '5. Pinned vs floating', Icons.compare, Color(0xFFEF6C00)),
+            '5. Pinned vs floating',
+            Icons.compare,
+            Color(0xFFEF6C00),
+          ),
           pinnedFloating,
-          _sectionTitle('6. Cross-axis extent visualised',
-              Icons.straighten, Color(0xFFC2185B)),
+          _sectionTitle(
+            '6. Cross-axis extent visualised',
+            Icons.straighten,
+            Color(0xFFC2185B),
+          ),
           crossAxisRuler,
           _sectionTitle(
-              '7. API surface reference', Icons.code, Color(0xFF263238)),
+            '7. API surface reference',
+            Icons.code,
+            Color(0xFF263238),
+          ),
           apiSurface,
-          _sectionTitle('8. Pitfalls and debugging',
-              Icons.warning_amber_rounded, Color(0xFFB71C1C)),
+          _sectionTitle(
+            '8. Pitfalls and debugging',
+            Icons.warning_amber_rounded,
+            Color(0xFFB71C1C),
+          ),
           pitfalls,
           _sectionTitle('9. See also', Icons.link, Color(0xFF0D47A1)),
           seeAlso,
           SizedBox(height: 32.0),
           Center(
             child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 22.0, vertical: 14.0),
+              padding: EdgeInsets.symmetric(horizontal: 22.0, vertical: 14.0),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFF1A237E), Color(0xFF3949AB)],
@@ -1122,10 +1184,7 @@ Widget _fieldCard({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.15),
-          color.withValues(alpha: 0.05),
-        ],
+        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1212,10 +1271,7 @@ Widget _fieldCard({
           ),
         ),
         SizedBox(height: 10.0),
-        Text(
-          narrative,
-          style: TextStyle(fontSize: 12.5, height: 1.4),
-        ),
+        Text(narrative, style: TextStyle(fontSize: 12.5, height: 1.4)),
       ],
     ),
   );
@@ -1255,8 +1311,7 @@ Widget _scrollItem(String text, Color color) {
   );
 }
 
-Widget _lifecycleStep(
-    String title, String body, IconData icon, Color color) {
+Widget _lifecycleStep(String title, String body, IconData icon, Color color) {
   return Container(
     padding: EdgeInsets.all(12.0),
     decoration: BoxDecoration(
@@ -1296,10 +1351,7 @@ Widget _lifecycleStep(
                 ),
               ),
               SizedBox(height: 3.0),
-              Text(
-                body,
-                style: TextStyle(fontSize: 12.0, height: 1.35),
-              ),
+              Text(body, style: TextStyle(fontSize: 12.0, height: 1.35)),
             ],
           ),
         ),
@@ -1312,11 +1364,7 @@ Widget _lifecycleArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Center(
-      child: Icon(
-        Icons.arrow_downward,
-        color: Color(0xFF00838F),
-        size: 22.0,
-      ),
+      child: Icon(Icons.arrow_downward, color: Color(0xFF00838F), size: 22.0),
     ),
   );
 }
@@ -1324,11 +1372,7 @@ Widget _lifecycleArrow() {
 Widget _compareHeader(String label, Color color) {
   return Text(
     label,
-    style: TextStyle(
-      fontWeight: FontWeight.bold,
-      color: color,
-      fontSize: 12.0,
-    ),
+    style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 12.0),
   );
 }
 
@@ -1340,10 +1384,7 @@ Widget _compareRow(String field, bool inDims, bool inConstraints) {
         Expanded(
           child: Text(
             field,
-            style: TextStyle(
-              fontFamily: 'monospace',
-              fontSize: 12.0,
-            ),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
           ),
         ),
         Expanded(
@@ -1387,10 +1428,7 @@ Widget _apiRow(String signature, String body, IconData icon, Color color) {
                 ),
               ),
               SizedBox(height: 2.0),
-              Text(
-                body,
-                style: TextStyle(fontSize: 12.0, height: 1.35),
-              ),
+              Text(body, style: TextStyle(fontSize: 12.0, height: 1.35)),
             ],
           ),
         ),
@@ -1406,17 +1444,14 @@ Widget _pitfallRow(String title, String body) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.7),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: Color(0xFFB71C1C), width: 3.0),
-      ),
+      border: Border(left: BorderSide(color: Color(0xFFB71C1C), width: 3.0)),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Icon(Icons.error_outline,
-                color: Color(0xFFB71C1C), size: 16.0),
+            Icon(Icons.error_outline, color: Color(0xFFB71C1C), size: 16.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1454,12 +1489,7 @@ Widget _seeAlsoRow(IconData icon, String name, String desc) {
           ),
         ),
         SizedBox(width: 8.0),
-        Expanded(
-          child: Text(
-            '- $desc',
-            style: TextStyle(fontSize: 12.5),
-          ),
-        ),
+        Expanded(child: Text('- $desc', style: TextStyle(fontSize: 12.5))),
       ],
     ),
   );

@@ -413,7 +413,12 @@ Widget buildGradientSection() {
 
 Widget buildErrorColorSection() {
   print('Building errorColor section');
-  List<String> errorLabels = ['Default Red', 'Orange Error', 'Deep Red', 'Pink Alert'];
+  List<String> errorLabels = [
+    'Default Red',
+    'Orange Error',
+    'Deep Red',
+    'Pink Alert',
+  ];
   List<Color> errorColors = [
     Colors.red,
     Colors.orange.shade700,
@@ -555,7 +560,10 @@ Widget buildConnectorColorSection() {
               child: Center(
                 child: Text(
                   '${cn + 1}',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -579,7 +587,10 @@ Widget buildConnectorColorSection() {
               child: Center(
                 child: Text(
                   '${cn + 2}',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -632,7 +643,12 @@ Widget buildConnectorColorSection() {
 
 Widget buildConnectorThicknessSection() {
   print('Building connectorThickness section');
-  List<String> thicknessLabels = ['Thin (1px)', 'Normal (2px)', 'Medium (4px)', 'Bold (6px)'];
+  List<String> thicknessLabels = [
+    'Thin (1px)',
+    'Normal (2px)',
+    'Medium (4px)',
+    'Bold (6px)',
+  ];
   List<double> thicknesses = [1.0, 2.0, 4.0, 6.0];
 
   List<Widget> thicknessRows = [];
@@ -734,7 +750,13 @@ Widget buildConnectorThicknessSection() {
 
 Widget buildIndexStyleSection() {
   print('Building indexStyle section');
-  List<String> styleNames = ['Default', 'Bold', 'Large', 'Italic', 'Custom Font'];
+  List<String> styleNames = [
+    'Default',
+    'Bold',
+    'Large',
+    'Italic',
+    'Custom Font',
+  ];
   List<TextStyle> indexStyles = [
     TextStyle(fontSize: 14, color: Colors.white),
     TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: Colors.white),
@@ -771,9 +793,7 @@ Widget buildIndexStyleSection() {
                 color: bgColors[s],
                 shape: BoxShape.circle,
               ),
-              child: Center(
-                child: Text('${s + 1}', style: indexStyles[s]),
-              ),
+              child: Center(child: Text('${s + 1}', style: indexStyles[s])),
             ),
             SizedBox(width: 16),
             Expanded(
@@ -907,7 +927,9 @@ Widget buildBorderSection() {
             ),
             Icon(
               Icons.check_circle_outline,
-              color: circleColors[b] == Colors.blue ? Colors.blue : Colors.grey.shade400,
+              color: circleColors[b] == Colors.blue
+                  ? Colors.blue
+                  : Colors.grey.shade400,
               size: 28,
             ),
           ],
@@ -1092,7 +1114,10 @@ Widget buildStepperWithStepStyle() {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
                       ),
                       child: Text('Continue'),
                     ),
@@ -1183,10 +1208,7 @@ Widget buildStepStyleComparison() {
                 children: [
                   Text(
                     featureNames[f],
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 2),
                   Text(

@@ -152,18 +152,9 @@ dynamic build(BuildContext context) {
   // SECTION 1: DOSSIER DATA
   // =========================================================================
   final dossier = <Map<String, String>>[
-    {
-      'field': 'Type',
-      'value': 'class RouteObserver<R extends Route<dynamic>>',
-    },
-    {
-      'field': 'Library',
-      'value': 'package:flutter/widgets.dart',
-    },
-    {
-      'field': 'Extends',
-      'value': 'NavigatorObserver',
-    },
+    {'field': 'Type', 'value': 'class RouteObserver<R extends Route<dynamic>>'},
+    {'field': 'Library', 'value': 'package:flutter/widgets.dart'},
+    {'field': 'Extends', 'value': 'NavigatorObserver'},
     {
       'field': 'Generic R',
       'value': 'The Route subtype to track (e.g. PageRoute, ModalRoute)',
@@ -172,14 +163,8 @@ dynamic build(BuildContext context) {
       'field': 'Primary Job',
       'value': 'Notify RouteAware listeners about routes of type R',
     },
-    {
-      'field': 'Subscribe',
-      'value': 'subscribe(RouteAware aware, R route)',
-    },
-    {
-      'field': 'Unsubscribe',
-      'value': 'unsubscribe(RouteAware aware)',
-    },
+    {'field': 'Subscribe', 'value': 'subscribe(RouteAware aware, R route)'},
+    {'field': 'Unsubscribe', 'value': 'unsubscribe(RouteAware aware)'},
     {
       'field': 'Wired Via',
       'value': 'MaterialApp.navigatorObservers / Navigator.observers',
@@ -188,10 +173,7 @@ dynamic build(BuildContext context) {
       'field': 'Common Use',
       'value': 'Analytics, route-aware widgets, refresh-on-return',
     },
-    {
-      'field': 'Pairs With',
-      'value': 'RouteAware mixin on State subclasses',
-    },
+    {'field': 'Pairs With', 'value': 'RouteAware mixin on State subclasses'},
   ];
 
   // =========================================================================
@@ -208,8 +190,7 @@ dynamic build(BuildContext context) {
     {
       'symbol': 'didPop(Route route, Route? previous)',
       'origin': 'NavigatorObserver',
-      'role':
-          'Navigator popped `route`; `previous` is now on top.',
+      'role': 'Navigator popped `route`; `previous` is now on top.',
     },
     {
       'symbol': 'didReplace({Route? newRoute, Route? oldRoute})',
@@ -233,14 +214,12 @@ dynamic build(BuildContext context) {
     {
       'symbol': 'unsubscribe(RouteAware aware)',
       'origin': 'RouteObserver',
-      'role':
-          'Detach an aware from every route it was attached to.',
+      'role': 'Detach an aware from every route it was attached to.',
     },
     {
       'symbol': 'didPush()',
       'origin': 'RouteAware',
-      'role':
-          'My subscribed route just became visible because it was pushed.',
+      'role': 'My subscribed route just became visible because it was pushed.',
     },
     {
       'symbol': 'didPopNext()',
@@ -251,14 +230,12 @@ dynamic build(BuildContext context) {
     {
       'symbol': 'didPushNext()',
       'origin': 'RouteAware',
-      'role':
-          'A new route was pushed on top of mine — I am now obscured.',
+      'role': 'A new route was pushed on top of mine — I am now obscured.',
     },
     {
       'symbol': 'didPop()',
       'origin': 'RouteAware',
-      'role':
-          'My subscribed route was popped — I am leaving the stack.',
+      'role': 'My subscribed route was popped — I am leaving the stack.',
     },
   ];
 
@@ -508,8 +485,7 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Filter to a specific route subtype',
-      'when':
-          'You only care about full pages, not dialogs/snackbars/popups',
+      'when': 'You only care about full pages, not dialogs/snackbars/popups',
       'how':
           'Use RouteObserver<PageRoute<dynamic>>; dialogs and bottom sheets '
           'are skipped automatically.',
@@ -571,8 +547,7 @@ dynamic build(BuildContext context) {
   final glossary = <Map<String, String>>[
     {
       'term': 'Route',
-      'def':
-          'An abstraction representing a screen or overlay in a Navigator.',
+      'def': 'An abstraction representing a screen or overlay in a Navigator.',
     },
     {
       'term': 'ModalRoute',
@@ -635,8 +610,7 @@ dynamic build(BuildContext context) {
     },
     {
       'term': 'Stack snapshot',
-      'def':
-          'Conceptual list of currently-mounted routes from bottom to top.',
+      'def': 'Conceptual list of currently-mounted routes from bottom to top.',
     },
   ];
 
@@ -658,7 +632,9 @@ dynamic build(BuildContext context) {
 
   print('Observer simulated ${callLog.length} RouteAware callbacks');
   print('Stack snapshots: ${stackSnapshots.length}');
-  print('Final stack: ${stackSnapshots.isNotEmpty ? stackSnapshots.last : <String>[]}');
+  print(
+    'Final stack: ${stackSnapshots.isNotEmpty ? stackSnapshots.last : <String>[]}',
+  );
 
   // =========================================================================
   // BUILD WIDGET TREE
@@ -707,7 +683,10 @@ dynamic build(BuildContext context) {
                   children: [
                     _pill('NavigatorObserver subclass', Color(0xFF5C6BC0)),
                     _pill('RouteAware fan-out', Color(0xFF7E57C2)),
-                    _pill('Generic R extends Route<dynamic>', Color(0xFF26A69A)),
+                    _pill(
+                      'Generic R extends Route<dynamic>',
+                      Color(0xFF26A69A),
+                    ),
                     _pill('subscribe / unsubscribe', Color(0xFFEF6C00)),
                   ],
                 ),
@@ -819,8 +798,8 @@ dynamic build(BuildContext context) {
                                   color: entry['origin'] == 'RouteAware'
                                       ? Color(0xFF7B1FA2)
                                       : entry['origin'] == 'RouteObserver'
-                                          ? Color(0xFF1565C0)
-                                          : Color(0xFF2E7D32),
+                                      ? Color(0xFF1565C0)
+                                      : Color(0xFF2E7D32),
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Text(
@@ -854,8 +833,10 @@ dynamic build(BuildContext context) {
           // ============================================================
           // SECTION 3: SYNTHETIC ROUTES + STACK MODEL
           // ============================================================
-          _sectionHeader('3. Synthetic Routes & Stack Snapshots',
-              Color(0xFF4E342E)),
+          _sectionHeader(
+            '3. Synthetic Routes & Stack Snapshots',
+            Color(0xFF4E342E),
+          ),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(16.0),
@@ -916,14 +897,21 @@ dynamic build(BuildContext context) {
                               style: TextStyle(fontSize: 12.0),
                             ),
                           ),
-                          _flag('opaque', card['opaque'] as bool,
-                              Color(0xFF6D4C41)),
-                          _flag('maintainState',
-                              card['maintainState'] as bool,
-                              Color(0xFF8D6E63)),
-                          _flag('fullscreenDialog',
-                              card['fullscreenDialog'] as bool,
-                              Color(0xFFA1887F)),
+                          _flag(
+                            'opaque',
+                            card['opaque'] as bool,
+                            Color(0xFF6D4C41),
+                          ),
+                          _flag(
+                            'maintainState',
+                            card['maintainState'] as bool,
+                            Color(0xFF8D6E63),
+                          ),
+                          _flag(
+                            'fullscreenDialog',
+                            card['fullscreenDialog'] as bool,
+                            Color(0xFFA1887F),
+                          ),
                         ],
                       ),
                     ),
@@ -1195,8 +1183,10 @@ dynamic build(BuildContext context) {
           // ============================================================
           // SECTION 6: MULTIPLE SUBSCRIBERS
           // ============================================================
-          _sectionHeader('6. Multiple Subscribers per Route',
-              Color(0xFF0D47A1)),
+          _sectionHeader(
+            '6. Multiple Subscribers per Route',
+            Color(0xFF0D47A1),
+          ),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(16.0),
@@ -1309,8 +1299,7 @@ dynamic build(BuildContext context) {
           // ============================================================
           // SECTION 7: GENERIC PARAM SHOWCASE
           // ============================================================
-          _sectionHeader('7. Generic Parameter Showcase',
-              Color(0xFF1B5E20)),
+          _sectionHeader('7. Generic Parameter Showcase', Color(0xFF1B5E20)),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(16.0),
@@ -1499,10 +1488,7 @@ dynamic build(BuildContext context) {
                               Expanded(
                                 child: Text(
                                   recipes[i]['when']!,
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    height: 1.4,
-                                  ),
+                                  style: TextStyle(fontSize: 12.0, height: 1.4),
                                 ),
                               ),
                             ],
@@ -1525,10 +1511,7 @@ dynamic build(BuildContext context) {
                               Expanded(
                                 child: Text(
                                   recipes[i]['how']!,
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    height: 1.4,
-                                  ),
+                                  style: TextStyle(fontSize: 12.0, height: 1.4),
                                 ),
                               ),
                             ],
@@ -1545,8 +1528,11 @@ dynamic build(BuildContext context) {
           // ============================================================
           // SECTION 9: COMPARISON TABLE
           // ============================================================
-          _sectionHeader('9. RouteObserver vs NavigatorObserver vs '
-              'onGenerateRoute', Color(0xFF263238)),
+          _sectionHeader(
+            '9. RouteObserver vs NavigatorObserver vs '
+            'onGenerateRoute',
+            Color(0xFF263238),
+          ),
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(12.0),
@@ -1558,10 +1544,7 @@ dynamic build(BuildContext context) {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 6.0,
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 6.0),
                   decoration: BoxDecoration(
                     color: Color(0xFF455A64),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1621,9 +1604,7 @@ dynamic build(BuildContext context) {
                     margin: EdgeInsets.symmetric(vertical: 2.0),
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: i.isEven
-                          ? Color(0xFFFFFFFF)
-                          : Color(0xFFCFD8DC),
+                      color: i.isEven ? Color(0xFFFFFFFF) : Color(0xFFCFD8DC),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Row(
@@ -1930,10 +1911,7 @@ Widget _timelinePill(
             Container(
               width: 22.0,
               height: 22.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Center(
                 child: Text(
                   index,

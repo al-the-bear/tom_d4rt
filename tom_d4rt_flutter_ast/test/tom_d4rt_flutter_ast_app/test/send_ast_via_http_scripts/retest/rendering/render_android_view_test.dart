@@ -7,7 +7,8 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'oxide',
     name: 'Oxide Console',
-    description: 'Industrial dashboard look for platform-view lifecycle studies.',
+    description:
+        'Industrial dashboard look for platform-view lifecycle studies.',
     seed: Color(0xFF0369A1),
     brightness: Brightness.light,
   ),
@@ -21,7 +22,8 @@ const List<_ThemePreset> _themePresets = <_ThemePreset>[
   _ThemePreset(
     id: 'graphite',
     name: 'Graphite Night',
-    description: 'Dark review profile for inspecting overlays and hit-test layers.',
+    description:
+        'Dark review profile for inspecting overlays and hit-test layers.',
     seed: Color(0xFF334155),
     brightness: Brightness.dark,
   ),
@@ -38,12 +40,14 @@ const List<_Scenario> _scenarios = <_Scenario>[
   _Scenario(
     id: 'runtime-host',
     title: 'Runtime Host',
-    subtitle: 'Live host area showing Android-specific and non-Android behavior.',
+    subtitle:
+        'Live host area showing Android-specific and non-Android behavior.',
   ),
   _Scenario(
     id: 'hit-test',
     title: 'Hit Test Matrix',
-    subtitle: 'Compare opaque, translucent, and transparent platform hit policies.',
+    subtitle:
+        'Compare opaque, translucent, and transparent platform hit policies.',
   ),
   _Scenario(
     id: 'clip-showcase',
@@ -61,7 +65,8 @@ const List<_ViewTypePreset> _viewTypePresets = <_ViewTypePreset>[
   _ViewTypePreset(
     viewType: 'demo/native-map',
     label: 'Native Map Surface',
-    note: 'Typical geospatial integration where AndroidView hosts a map SDK surface.',
+    note:
+        'Typical geospatial integration where AndroidView hosts a map SDK surface.',
   ),
   _ViewTypePreset(
     viewType: 'demo/native-web',
@@ -76,7 +81,8 @@ const List<_ViewTypePreset> _viewTypePresets = <_ViewTypePreset>[
   _ViewTypePreset(
     viewType: 'demo/native-ad',
     label: 'Native Ad Surface',
-    note: 'Embedded ad unit where platform SDK controls rendering and gestures.',
+    note:
+        'Embedded ad unit where platform SDK controls rendering and gestures.',
   ),
 ];
 
@@ -140,7 +146,11 @@ class _ThemePreset {
 }
 
 class _Scenario {
-  const _Scenario({required this.id, required this.title, required this.subtitle});
+  const _Scenario({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -200,7 +210,8 @@ class _RenderAndroidViewStudio extends StatefulWidget {
   const _RenderAndroidViewStudio();
 
   @override
-  State<_RenderAndroidViewStudio> createState() => _RenderAndroidViewStudioState();
+  State<_RenderAndroidViewStudio> createState() =>
+      _RenderAndroidViewStudioState();
 }
 
 class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
@@ -210,7 +221,8 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
   int _scenarioIndex = 0;
   int _viewPresetIndex = 0;
 
-  PlatformViewHitTestBehavior _hitTestBehavior = PlatformViewHitTestBehavior.opaque;
+  PlatformViewHitTestBehavior _hitTestBehavior =
+      PlatformViewHitTestBehavior.opaque;
   Clip _clipBehavior = Clip.hardEdge;
 
   bool _enableTap = true;
@@ -266,7 +278,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
       _platformCreatedCount += 1;
       _lastPlatformId = '$id';
     });
-    _addTimeline('PlatformViewCreated', 'Android platform view id=$id for viewType=$_viewType');
+    _addTimeline(
+      'PlatformViewCreated',
+      'Android platform view id=$id for viewType=$_viewType',
+    );
   }
 
   void _applyHitTestBehavior(PlatformViewHitTestBehavior behavior) {
@@ -323,24 +338,34 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
   }
 
   Set<Factory<OneSequenceGestureRecognizer>> _gestureRecognizers() {
-    final Set<Factory<OneSequenceGestureRecognizer>> recognizers = <Factory<OneSequenceGestureRecognizer>>{};
+    final Set<Factory<OneSequenceGestureRecognizer>> recognizers =
+        <Factory<OneSequenceGestureRecognizer>>{};
     if (_enableTap) {
-      recognizers.add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()));
+      recognizers.add(
+        Factory<TapGestureRecognizer>(() => TapGestureRecognizer()),
+      );
     }
     if (_enablePan) {
-      recognizers.add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()));
+      recognizers.add(
+        Factory<PanGestureRecognizer>(() => PanGestureRecognizer()),
+      );
     }
     if (_enableScale) {
-      recognizers.add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()));
+      recognizers.add(
+        Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()),
+      );
     }
     if (_enableLongPress) {
-      recognizers.add(Factory<LongPressGestureRecognizer>(() => LongPressGestureRecognizer()));
+      recognizers.add(
+        Factory<LongPressGestureRecognizer>(() => LongPressGestureRecognizer()),
+      );
     }
     return recognizers;
   }
 
   List<_Metric> _buildMetrics(ColorScheme scheme) {
-    final Set<Factory<OneSequenceGestureRecognizer>> recognizers = _gestureRecognizers();
+    final Set<Factory<OneSequenceGestureRecognizer>> recognizers =
+        _gestureRecognizers();
     return <_Metric>[
       _Metric(
         label: 'Platform Runtime',
@@ -359,7 +384,8 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
       _Metric(
         label: 'Hit Test',
         value: _hitTestBehavior.name,
-        note: 'Controls whether platform view absorbs, shares, or ignores hits.',
+        note:
+            'Controls whether platform view absorbs, shares, or ignores hits.',
         icon: Icons.ads_click_outlined,
       ),
       _Metric(
@@ -519,7 +545,11 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               runSpacing: 8,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: <Widget>[
-                Icon(Icons.view_in_ar_outlined, color: scheme.primary, size: 24),
+                Icon(
+                  Icons.view_in_ar_outlined,
+                  color: scheme.primary,
+                  size: 24,
+                ),
                 Text(
                   'RenderAndroidView Platform Studio',
                   style: TextStyle(
@@ -529,14 +559,20 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: scheme.primaryContainer,
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
                     _isAndroidRuntime ? 'Android Runtime' : 'Simulator Runtime',
-                    style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
@@ -561,12 +597,21 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_themePresets.length, (int index) {
+              children: List<Widget>.generate(_themePresets.length, (
+                int index,
+              ) {
                 final _ThemePreset option = _themePresets[index];
                 return ChoiceChip(
                   selected: index == _themeIndex,
@@ -581,9 +626,19 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               }),
             ),
             const SizedBox(height: 10),
-            Text(_themePresets[_themeIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themePresets[_themeIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 14),
-            Text('Scenarios', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenarios',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8,
@@ -603,7 +658,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_scenarios[_scenarioIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _scenarios[_scenarioIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -646,7 +704,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Runtime Host', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Runtime Host',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 OutlinedButton.icon(
                   onPressed: _resetConsole,
@@ -666,7 +731,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                 setState(() {
                   _outsideTapCount += 1;
                 });
-                _addTimeline('OuterTap', 'Tap captured by outer Flutter host layer.');
+                _addTimeline(
+                  'OuterTap',
+                  'Tap captured by outer Flutter host layer.',
+                );
               },
               child: Container(
                 padding: const EdgeInsets.all(14),
@@ -691,7 +759,11 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                         if (_showGrid)
                           Positioned.fill(
                             child: CustomPaint(
-                              painter: _GridPainter(color: scheme.outlineVariant.withValues(alpha: 0.26)),
+                              painter: _GridPainter(
+                                color: scheme.outlineVariant.withValues(
+                                  alpha: 0.26,
+                                ),
+                              ),
                             ),
                           ),
                         Positioned.fill(child: _buildRuntimeSurface(scheme)),
@@ -700,7 +772,9 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                           left: 10,
                           child: _buildStatusChip(
                             scheme,
-                            _isAndroidRuntime ? 'Android runtime active' : 'Simulator runtime active',
+                            _isAndroidRuntime
+                                ? 'Android runtime active'
+                                : 'Simulator runtime active',
                             Icons.memory_outlined,
                           ),
                         ),
@@ -749,7 +823,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                     setState(() {
                       _showGrid = !_showGrid;
                     });
-                    _addTimeline('Grid', _showGrid ? 'Grid enabled.' : 'Grid disabled.');
+                    _addTimeline(
+                      'Grid',
+                      _showGrid ? 'Grid enabled.' : 'Grid disabled.',
+                    );
                   },
                   icon: const Icon(Icons.grid_on),
                   label: Text(_showGrid ? 'Hide Grid' : 'Show Grid'),
@@ -776,7 +853,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
           children: <Widget>[
             Icon(icon, size: 14, color: scheme.primary),
             const SizedBox(width: 6),
-            Text(text, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12, fontWeight: FontWeight.w600)),
+            Text(
+              text,
+              style: TextStyle(
+                color: scheme.onSurfaceVariant,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
@@ -786,7 +870,9 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
   Widget _buildRuntimeSurface(ColorScheme scheme) {
     if (_isAndroidRuntime) {
       return AndroidView(
-        key: ValueKey<String>('android-view-$_viewType-${_hitTestBehavior.name}-${_clipBehavior.name}'),
+        key: ValueKey<String>(
+          'android-view-$_viewType-${_hitTestBehavior.name}-${_clipBehavior.name}',
+        ),
         viewType: _viewType,
         hitTestBehavior: _hitTestBehavior,
         clipBehavior: _clipBehavior,
@@ -810,7 +896,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[scheme.primaryContainer, scheme.secondaryContainer],
+                  colors: <Color>[
+                    scheme.primaryContainer,
+                    scheme.secondaryContainer,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -823,11 +912,18 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon(Icons.phone_android, color: scheme.onPrimaryContainer, size: 30),
+                    Icon(
+                      Icons.phone_android,
+                      color: scheme.onPrimaryContainer,
+                      size: 30,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       'AndroidView simulator lane',
-                      style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                        color: scheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -839,7 +935,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                     Text(
                       'Running on ${defaultTargetPlatform.name}, so RenderAndroidView is explained visually via simulator path.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: scheme.onPrimaryContainer.withValues(alpha: 0.9), fontSize: 12),
+                      style: TextStyle(
+                        color: scheme.onPrimaryContainer.withValues(alpha: 0.9),
+                        fontSize: 12,
+                      ),
                     ),
                   ],
                 ),
@@ -860,19 +959,34 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('Control Deck', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Control Deck',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Tune host size, hit-test policy, clip mode, and gesture registry passed to AndroidView.',
               style: TextStyle(color: scheme.onSurfaceVariant),
             ),
             const SizedBox(height: 14),
-            Text('viewType Presets', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'viewType Presets',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: List<Widget>.generate(_viewTypePresets.length, (int index) {
+              children: List<Widget>.generate(_viewTypePresets.length, (
+                int index,
+              ) {
                 final _ViewTypePreset preset = _viewTypePresets[index];
                 return ChoiceChip(
                   selected: index == _viewPresetIndex,
@@ -887,7 +1001,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               }),
             ),
             const SizedBox(height: 8),
-            Text(_viewTypePresets[_viewPresetIndex].note, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _viewTypePresets[_viewPresetIndex].note,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 24),
             _sliderRow(
               scheme: scheme,
@@ -897,7 +1014,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               max: 640,
               divisions: 80,
               onChanged: (double value) => setState(() => _hostWidth = value),
-              onChangeEnd: (_) => _addTimeline('Host Width', 'Changed to ${_hostWidth.toStringAsFixed(0)}.'),
+              onChangeEnd: (_) => _addTimeline(
+                'Host Width',
+                'Changed to ${_hostWidth.toStringAsFixed(0)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -907,7 +1027,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               max: 420,
               divisions: 65,
               onChanged: (double value) => setState(() => _hostHeight = value),
-              onChangeEnd: (_) => _addTimeline('Host Height', 'Changed to ${_hostHeight.toStringAsFixed(0)}.'),
+              onChangeEnd: (_) => _addTimeline(
+                'Host Height',
+                'Changed to ${_hostHeight.toStringAsFixed(0)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -916,8 +1039,12 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               min: 0,
               max: 42,
               divisions: 42,
-              onChanged: (double value) => setState(() => _borderRadius = value),
-              onChangeEnd: (_) => _addTimeline('Border Radius', 'Changed to ${_borderRadius.toStringAsFixed(0)}.'),
+              onChanged: (double value) =>
+                  setState(() => _borderRadius = value),
+              onChangeEnd: (_) => _addTimeline(
+                'Border Radius',
+                'Changed to ${_borderRadius.toStringAsFixed(0)}.',
+              ),
             ),
             _sliderRow(
               scheme: scheme,
@@ -926,11 +1053,21 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               min: 0,
               max: 0.6,
               divisions: 30,
-              onChanged: (double value) => setState(() => _overlayOpacity = value),
-              onChangeEnd: (_) => _addTimeline('Overlay', 'Changed to ${_overlayOpacity.toStringAsFixed(2)}.'),
+              onChanged: (double value) =>
+                  setState(() => _overlayOpacity = value),
+              onChangeEnd: (_) => _addTimeline(
+                'Overlay',
+                'Changed to ${_overlayOpacity.toStringAsFixed(2)}.',
+              ),
             ),
             const Divider(height: 24),
-            Text('Hit-Test Behavior', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Hit-Test Behavior',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             SegmentedButton<PlatformViewHitTestBehavior>(
               segments: const <ButtonSegment<PlatformViewHitTestBehavior>>[
@@ -953,14 +1090,29 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               },
             ),
             const SizedBox(height: 10),
-            Text('Clip Behavior', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Clip Behavior',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             SegmentedButton<Clip>(
               segments: const <ButtonSegment<Clip>>[
                 ButtonSegment<Clip>(value: Clip.none, label: Text('None')),
-                ButtonSegment<Clip>(value: Clip.hardEdge, label: Text('HardEdge')),
-                ButtonSegment<Clip>(value: Clip.antiAlias, label: Text('AntiAlias')),
-                ButtonSegment<Clip>(value: Clip.antiAliasWithSaveLayer, label: Text('SaveLayer')),
+                ButtonSegment<Clip>(
+                  value: Clip.hardEdge,
+                  label: Text('HardEdge'),
+                ),
+                ButtonSegment<Clip>(
+                  value: Clip.antiAlias,
+                  label: Text('AntiAlias'),
+                ),
+                ButtonSegment<Clip>(
+                  value: Clip.antiAliasWithSaveLayer,
+                  label: Text('SaveLayer'),
+                ),
               ],
               selected: <Clip>{_clipBehavior},
               onSelectionChanged: (Set<Clip> values) {
@@ -968,7 +1120,13 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               },
             ),
             const Divider(height: 24),
-            Text('Gesture Registry', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Gesture Registry',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _enableTap,
@@ -978,7 +1136,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   _enableTap = value ?? false;
                   _gestureSwitchCount += 1;
                 });
-                _addTimeline('Gesture Registry', 'Tap recognizer ${_enableTap ? 'enabled' : 'disabled'}.');
+                _addTimeline(
+                  'Gesture Registry',
+                  'Tap recognizer ${_enableTap ? 'enabled' : 'disabled'}.',
+                );
               },
             ),
             CheckboxListTile(
@@ -990,7 +1151,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   _enablePan = value ?? false;
                   _gestureSwitchCount += 1;
                 });
-                _addTimeline('Gesture Registry', 'Pan recognizer ${_enablePan ? 'enabled' : 'disabled'}.');
+                _addTimeline(
+                  'Gesture Registry',
+                  'Pan recognizer ${_enablePan ? 'enabled' : 'disabled'}.',
+                );
               },
             ),
             CheckboxListTile(
@@ -1002,7 +1166,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   _enableScale = value ?? false;
                   _gestureSwitchCount += 1;
                 });
-                _addTimeline('Gesture Registry', 'Scale recognizer ${_enableScale ? 'enabled' : 'disabled'}.');
+                _addTimeline(
+                  'Gesture Registry',
+                  'Scale recognizer ${_enableScale ? 'enabled' : 'disabled'}.',
+                );
               },
             ),
             CheckboxListTile(
@@ -1014,7 +1181,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   _enableLongPress = value ?? false;
                   _gestureSwitchCount += 1;
                 });
-                _addTimeline('Gesture Registry', 'Long-press recognizer ${_enableLongPress ? 'enabled' : 'disabled'}.');
+                _addTimeline(
+                  'Gesture Registry',
+                  'Long-press recognizer ${_enableLongPress ? 'enabled' : 'disabled'}.',
+                );
               },
             ),
             const Divider(height: 24),
@@ -1022,19 +1192,22 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               contentPadding: EdgeInsets.zero,
               value: _showDiagnostics,
               title: const Text('Show diagnostics board'),
-              onChanged: (bool? value) => setState(() => _showDiagnostics = value ?? true),
+              onChanged: (bool? value) =>
+                  setState(() => _showDiagnostics = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showGuide,
               title: const Text('Show guide board'),
-              onChanged: (bool? value) => setState(() => _showGuide = value ?? true),
+              onChanged: (bool? value) =>
+                  setState(() => _showGuide = value ?? true),
             ),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               value: _showTimeline,
               title: const Text('Show timeline board'),
-              onChanged: (bool? value) => setState(() => _showTimeline = value ?? true),
+              onChanged: (bool? value) =>
+                  setState(() => _showTimeline = value ?? true),
             ),
           ],
         ),
@@ -1060,7 +1233,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
             Expanded(
               child: Text(label, style: TextStyle(color: scheme.onSurface)),
             ),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
         Slider(
@@ -1076,11 +1252,12 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
   }
 
   Widget _buildHitTestMatrix(ColorScheme scheme) {
-    final List<PlatformViewHitTestBehavior> modes = <PlatformViewHitTestBehavior>[
-      PlatformViewHitTestBehavior.opaque,
-      PlatformViewHitTestBehavior.translucent,
-      PlatformViewHitTestBehavior.transparent,
-    ];
+    final List<PlatformViewHitTestBehavior> modes =
+        <PlatformViewHitTestBehavior>[
+          PlatformViewHitTestBehavior.opaque,
+          PlatformViewHitTestBehavior.translucent,
+          PlatformViewHitTestBehavior.transparent,
+        ];
     return Card(
       elevation: 0,
       color: scheme.surfaceContainer,
@@ -1089,7 +1266,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Hit Test Matrix', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Hit Test Matrix',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Visual comparison of hit-test behavior policies used by RenderAndroidView hosts.',
@@ -1127,19 +1311,29 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
     );
   }
 
-  Widget _buildHitTestCard(ColorScheme scheme, PlatformViewHitTestBehavior behavior) {
+  Widget _buildHitTestCard(
+    ColorScheme scheme,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     final bool selected = behavior == _hitTestBehavior;
     final String narrative = switch (behavior) {
-      PlatformViewHitTestBehavior.opaque => 'Platform view consumes gestures in its area.',
-      PlatformViewHitTestBehavior.translucent => 'Platform and Flutter layers may both participate.',
-      PlatformViewHitTestBehavior.transparent => 'Flutter layers behind can receive gestures directly.',
+      PlatformViewHitTestBehavior.opaque =>
+        'Platform view consumes gestures in its area.',
+      PlatformViewHitTestBehavior.translucent =>
+        'Platform and Flutter layers may both participate.',
+      PlatformViewHitTestBehavior.transparent =>
+        'Flutter layers behind can receive gestures directly.',
       _ => 'Unknown', // D4RT-LIMITATION: enum exhaustiveness
     };
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: selected ? scheme.primaryContainer.withValues(alpha: 0.32) : scheme.surfaceContainerHighest,
+        color: selected
+            ? scheme.primaryContainer.withValues(alpha: 0.32)
+            : scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: selected ? scheme.primary : scheme.outlineVariant),
+        border: Border.all(
+          color: selected ? scheme.primary : scheme.outlineVariant,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -1149,7 +1343,9 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
             Row(
               children: <Widget>[
                 Icon(
-                  selected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+                  selected
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked,
                   color: selected ? scheme.primary : scheme.onSurfaceVariant,
                   size: 18,
                 ),
@@ -1157,7 +1353,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                 Expanded(
                   child: Text(
                     behavior.name,
-                    style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: scheme.onSurface,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
@@ -1178,7 +1377,10 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                     child: Center(
                       child: Text(
                         'Flutter Layer',
-                        style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                          color: scheme.onSurfaceVariant,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
@@ -1191,12 +1393,17 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                       decoration: BoxDecoration(
                         color: scheme.primaryContainer.withValues(alpha: 0.7),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: scheme.primary.withValues(alpha: 0.6)),
+                        border: Border.all(
+                          color: scheme.primary.withValues(alpha: 0.6),
+                        ),
                       ),
                       child: Center(
                         child: Text(
                           'Platform Surface',
-                          style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            color: scheme.onPrimaryContainer,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -1233,7 +1440,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Clip Showcase', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Clip Showcase',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             Text(
               'Compare clip policies used when framing platform-view content inside decorative shells.',
@@ -1249,16 +1463,28 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   width: 280,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: selected ? scheme.secondaryContainer.withValues(alpha: 0.38) : scheme.surfaceContainerHighest,
+                      color: selected
+                          ? scheme.secondaryContainer.withValues(alpha: 0.38)
+                          : scheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: selected ? scheme.secondary : scheme.outlineVariant),
+                      border: Border.all(
+                        color: selected
+                            ? scheme.secondary
+                            : scheme.outlineVariant,
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(clip.name, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                          Text(
+                            clip.name,
+                            style: TextStyle(
+                              color: scheme.onSurface,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           ClipRRect(
                             clipBehavior: clip,
@@ -1271,17 +1497,32 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                                   Positioned(
                                     left: -14,
                                     top: -10,
-                                    child: Container(width: 72, height: 72, color: scheme.primary.withValues(alpha: 0.7)),
+                                    child: Container(
+                                      width: 72,
+                                      height: 72,
+                                      color: scheme.primary.withValues(
+                                        alpha: 0.7,
+                                      ),
+                                    ),
                                   ),
                                   Positioned(
                                     right: -18,
                                     bottom: -10,
-                                    child: Container(width: 80, height: 80, color: scheme.tertiary.withValues(alpha: 0.7)),
+                                    child: Container(
+                                      width: 80,
+                                      height: 80,
+                                      color: scheme.tertiary.withValues(
+                                        alpha: 0.7,
+                                      ),
+                                    ),
                                   ),
                                   Center(
                                     child: Text(
                                       'Surface Frame',
-                                      style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700),
+                                      style: TextStyle(
+                                        color: scheme.onSurface,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -1293,7 +1534,9 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                             width: double.infinity,
                             child: OutlinedButton(
                               onPressed: () => _applyClipBehavior(clip),
-                              child: Text(selected ? 'Active' : 'Use ${clip.name}'),
+                              child: Text(
+                                selected ? 'Active' : 'Use ${clip.name}',
+                              ),
                             ),
                           ),
                         ],
@@ -1319,17 +1562,24 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Metrics & Diagnostics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Metrics & Diagnostics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1355,12 +1605,19 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(metric.icon, color: scheme.primary, size: 18),
+                                Icon(
+                                  metric.icon,
+                                  color: scheme.primary,
+                                  size: 18,
+                                ),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
                                     metric.label,
-                                    style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700),
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -1370,14 +1627,21 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                               metric.value,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15),
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               metric.note,
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
                             ),
                           ],
                         ),
@@ -1396,7 +1660,8 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
   }
 
   Widget _buildDiagnosticsPanel(ColorScheme scheme) {
-    final Set<Factory<OneSequenceGestureRecognizer>> recognizers = _gestureRecognizers();
+    final Set<Factory<OneSequenceGestureRecognizer>> recognizers =
+        _gestureRecognizers();
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerLow,
@@ -1412,18 +1677,45 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Operational Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Operational Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),
-            Text('Runtime: ${_isAndroidRuntime ? 'Android' : defaultTargetPlatform.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('viewType: $_viewType', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('hitTestBehavior: ${_hitTestBehavior.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('clipBehavior: ${_clipBehavior.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('gestureRecognizers: ${recognizers.length}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('lastPlatformId: $_lastPlatformId', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Runtime: ${_isAndroidRuntime ? 'Android' : defaultTargetPlatform.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'viewType: $_viewType',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'hitTestBehavior: ${_hitTestBehavior.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'clipBehavior: ${_clipBehavior.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'gestureRecognizers: ${recognizers.length}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'lastPlatformId: $_lastPlatformId',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 8),
-            Text('Last message: $_lastMessage', style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              'Last message: $_lastMessage',
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
           ],
         ),
       ),
@@ -1439,7 +1731,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             ..._introBullets.map((String text) {
               return Padding(
@@ -1452,13 +1751,24 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                       child: Icon(Icons.circle, color: scheme.primary, size: 8),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(text, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 24),
-            Text('Best Practices', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Best Practices',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._bestPractices.map((String text) {
               return Padding(
@@ -1468,18 +1778,33 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
-                      child: Icon(Icons.check_circle_outline, color: scheme.secondary, size: 14),
+                      child: Icon(
+                        Icons.check_circle_outline,
+                        color: scheme.secondary,
+                        size: 14,
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(text, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 24),
-            Text('FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 8),
-            ..._faq.map(( _FaqItem item) {
+            ..._faq.map((_FaqItem item) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: DecoratedBox(
@@ -1493,9 +1818,18 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(item.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                        Text(
+                          item.question,
+                          style: TextStyle(
+                            color: scheme.onSurface,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                         const SizedBox(height: 6),
-                        Text(item.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                        Text(
+                          item.answer,
+                          style: TextStyle(color: scheme.onSurfaceVariant),
+                        ),
                       ],
                     ),
                   ),
@@ -1519,7 +1853,14 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Lifecycle Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Lifecycle Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
                 TextButton.icon(
                   onPressed: () {
@@ -1555,7 +1896,7 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
               )
             else
               Column(
-                children: _timeline.map(( _TimelineEntry entry) {
+                children: _timeline.map((_TimelineEntry entry) {
                   final String stamp =
                       '${entry.time.hour.toString().padLeft(2, '0')}:${entry.time.minute.toString().padLeft(2, '0')}:${entry.time.second.toString().padLeft(2, '0')}';
                   return Container(
@@ -1568,10 +1909,22 @@ class _RenderAndroidViewStudioState extends State<_RenderAndroidViewStudio> {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: scheme.primaryContainer,
-                        child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer)),
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
                       ),
-                      title: Text(entry.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${entry.message}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      title: Text(
+                        entry.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${entry.message}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1606,8 +1959,16 @@ class _GridPainter extends CustomPainter {
     final Paint center = Paint()
       ..color = color.withValues(alpha: 0.8)
       ..strokeWidth = 1.8;
-    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), center);
-    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), center);
+    canvas.drawLine(
+      Offset(size.width / 2, 0),
+      Offset(size.width / 2, size.height),
+      center,
+    );
+    canvas.drawLine(
+      Offset(0, size.height / 2),
+      Offset(size.width, size.height / 2),
+      center,
+    );
   }
 
   @override

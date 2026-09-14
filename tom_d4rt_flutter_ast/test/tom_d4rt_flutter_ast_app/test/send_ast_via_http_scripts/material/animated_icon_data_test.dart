@@ -403,7 +403,9 @@ Widget buildStartEndCompare(
 
 dynamic build(BuildContext context) {
   debugPrint('=== AnimatedIconData Test Script ===');
-  debugPrint('Testing AnimatedIconData with different icons and progress values');
+  debugPrint(
+    'Testing AnimatedIconData with different icons and progress values',
+  );
 
   debugPrint('Available AnimatedIcons:');
   debugPrint('  - menu_arrow, menu_close, menu_home');

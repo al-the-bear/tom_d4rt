@@ -309,10 +309,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.4), width: 1.5),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -487,10 +484,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.4),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.4), width: 1.5),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.1),
@@ -508,17 +502,12 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 10.0),
                 Text(
                   '${i + 1}. ${entry['title']}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: color,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: color),
                 ),
               ],
             ),
             SizedBox(height: 12.0),
-            TextField(
-              decoration: entry['decoration'] as InputDecoration,
-            ),
+            TextField(decoration: entry['decoration'] as InputDecoration),
           ],
         ),
       ),
@@ -564,10 +553,7 @@ dynamic build(BuildContext context) {
       'title': 'prefix Text (\$)',
       'decoration': InputDecoration(
         labelText: 'Amount',
-        prefix: Text(
-          '\$ ',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        prefix: Text('\$ ', style: TextStyle(fontWeight: FontWeight.bold)),
         border: OutlineInputBorder(),
       ),
       'color': Colors.teal,
@@ -576,10 +562,7 @@ dynamic build(BuildContext context) {
       'title': 'suffix Text (kg)',
       'decoration': InputDecoration(
         labelText: 'Weight',
-        suffix: Text(
-          ' kg',
-          style: TextStyle(color: Colors.grey),
-        ),
+        suffix: Text(' kg', style: TextStyle(color: Colors.grey)),
         border: OutlineInputBorder(),
       ),
       'color': Colors.cyan,
@@ -616,10 +599,7 @@ dynamic build(BuildContext context) {
       'decoration': InputDecoration(
         labelText: 'Tight prefix',
         prefixIcon: Icon(Icons.tag, size: 18.0),
-        prefixIconConstraints: BoxConstraints(
-          minWidth: 32.0,
-          minHeight: 32.0,
-        ),
+        prefixIconConstraints: BoxConstraints(minWidth: 32.0, minHeight: 32.0),
         border: OutlineInputBorder(),
       ),
       'color': Colors.brown,
@@ -637,10 +617,7 @@ dynamic build(BuildContext context) {
           ),
           child: Text(
             '+49',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.brown,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.brown),
           ),
         ),
         border: OutlineInputBorder(),
@@ -668,19 +645,13 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.5),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(6.0),
@@ -695,9 +666,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(height: 10.0),
-            TextField(
-              decoration: entry['decoration'] as InputDecoration,
-            ),
+            TextField(decoration: entry['decoration'] as InputDecoration),
           ],
         ),
       ),
@@ -716,10 +685,7 @@ dynamic build(BuildContext context) {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.indigo.shade50,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 16.0,
-          vertical: 14.0,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.0),
           borderSide: BorderSide(color: Colors.indigo.shade200),
@@ -797,10 +763,7 @@ dynamic build(BuildContext context) {
   final signupTheme = Theme(
     data: Theme.of(context).copyWith(
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 14.0,
-          vertical: 12.0,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
         border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.teal.shade300),
         ),
@@ -868,10 +831,7 @@ dynamic build(BuildContext context) {
         filled: true,
         fillColor: Colors.grey.shade100,
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 12.0,
-          vertical: 10.0,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide.none,
@@ -934,10 +894,7 @@ dynamic build(BuildContext context) {
         filled: true,
         fillColor: Colors.white,
         isDense: true,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 18.0,
-          vertical: 12.0,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28.0),
           borderSide: BorderSide(color: Colors.deepPurple.shade100),
@@ -992,10 +949,7 @@ dynamic build(BuildContext context) {
       ),
       SizedBox(height: 10.0),
       TextField(
-        decoration: InputDecoration(
-          labelText: 'Name',
-          hintText: 'untyped',
-        ),
+        decoration: InputDecoration(labelText: 'Name', hintText: 'untyped'),
       ),
       SizedBox(height: 10.0),
       TextField(
@@ -1020,10 +974,7 @@ dynamic build(BuildContext context) {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.deepOrange.shade50,
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 14.0,
-          vertical: 12.0,
-        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(color: Colors.deepOrange.shade200),
@@ -1065,10 +1016,7 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 10.0),
         TextField(
-          decoration: InputDecoration(
-            labelText: 'Name',
-            hintText: 'typed',
-          ),
+          decoration: InputDecoration(labelText: 'Name', hintText: 'typed'),
         ),
         SizedBox(height: 10.0),
         TextField(
@@ -1551,12 +1499,7 @@ dynamic build(BuildContext context) {
 }
 
 // Helper: Wrap a themed form block in a labelled card
-Widget _formCard(
-  String title,
-  IconData icon,
-  Color color,
-  Widget child,
-) {
+Widget _formCard(String title, IconData icon, Color color, Widget child) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
     padding: EdgeInsets.all(16.0),
@@ -1606,12 +1549,7 @@ Widget _formCard(
 }
 
 // Helper: Build a summary row item
-Widget _summaryRow(
-  IconData icon,
-  String title,
-  String desc,
-  Color color,
-) {
+Widget _summaryRow(IconData icon, String title, String desc, Color color) {
   return Container(
     padding: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
@@ -1637,17 +1575,11 @@ Widget _summaryRow(
             children: [
               Text(
                 title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: color),
               ),
               Text(
                 desc,
-                style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
               ),
             ],
           ),

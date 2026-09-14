@@ -161,10 +161,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   role,
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -237,18 +234,14 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Color(0xFFF9A825), size: 18.0),
+              Icon(Icons.info_outline, color: Color(0xFFF9A825), size: 18.0),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
                   'ScrollConfiguration.of(context) returns the '
                   'nearest ScrollBehavior. You can also call '
                   'behavior.copyWith() to modify just specific aspects.',
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Color(0xFF795548),
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Color(0xFF795548)),
                 ),
               ),
             ],
@@ -337,18 +330,13 @@ dynamic build(BuildContext context) {
                       vertical: 2.0,
                     ),
                     decoration: BoxDecoration(
-                      color: color.withValues(
-                        alpha: 0.05 + (i % 3) * 0.05,
-                      ),
+                      color: color.withValues(alpha: 0.05 + (i % 3) * 0.05),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Center(
                       child: Text(
                         'Item $i',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: color,
-                        ),
+                        style: TextStyle(fontSize: 10.0, color: color),
                       ),
                     ),
                   );
@@ -527,9 +515,7 @@ dynamic build(BuildContext context) {
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(6.0),
-                      border: Border.all(
-                        color: color.withValues(alpha: 0.2),
-                      ),
+                      border: Border.all(color: color.withValues(alpha: 0.2)),
                     ),
                     child: Center(
                       child: Text(
@@ -659,9 +645,7 @@ dynamic build(BuildContext context) {
             alignment: Alignment.center,
             child: Icon(
               enabledDefault ? Icons.check_circle : Icons.cancel,
-              color: enabledDefault
-                  ? Color(0xFF2E7D32)
-                  : Colors.grey.shade400,
+              color: enabledDefault ? Color(0xFF2E7D32) : Colors.grey.shade400,
               size: 18.0,
             ),
           ),
@@ -671,9 +655,7 @@ dynamic build(BuildContext context) {
             alignment: Alignment.center,
             child: Icon(
               enabledCustom ? Icons.check_circle : Icons.cancel,
-              color: enabledCustom
-                  ? Color(0xFF1565C0)
-                  : Colors.grey.shade400,
+              color: enabledCustom ? Color(0xFF1565C0) : Colors.grey.shade400,
               size: 18.0,
             ),
           ),
@@ -695,8 +677,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.touch_app,
-                color: Color(0xFF6A1B9A), size: 24.0),
+            Icon(Icons.touch_app, color: Color(0xFF6A1B9A), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Drag Devices',
@@ -769,20 +750,8 @@ dynamic build(BuildContext context) {
           true,
           true,
         ),
-        buildDeviceRow(
-          'Mouse',
-          Icons.mouse,
-          Color(0xFF1565C0),
-          false,
-          true,
-        ),
-        buildDeviceRow(
-          'Stylus',
-          Icons.edit,
-          Color(0xFFE65100),
-          false,
-          true,
-        ),
+        buildDeviceRow('Mouse', Icons.mouse, Color(0xFF1565C0), false, true),
+        buildDeviceRow('Stylus', Icons.edit, Color(0xFFE65100), false, true),
         buildDeviceRow(
           'Trackpad',
           Icons.touch_app,
@@ -829,9 +798,7 @@ dynamic build(BuildContext context) {
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)],
-      ),
+      gradient: LinearGradient(colors: [Color(0xFFE3F2FD), Color(0xFFBBDEFB)]),
       borderRadius: BorderRadius.circular(12.0),
       border: Border.all(color: Color(0xFF1565C0)),
     ),
@@ -840,8 +807,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.play_circle,
-                color: Color(0xFF1565C0), size: 24.0),
+            Icon(Icons.play_circle, color: Color(0xFF1565C0), size: 24.0),
             SizedBox(width: 8.0),
             Text(
               'Live ScrollConfiguration',
@@ -891,8 +857,12 @@ dynamic build(BuildContext context) {
                         width: 20.0,
                         height: 20.0,
                         decoration: BoxDecoration(
-                          color: HSLColor.fromAHSL(1.0, hue, 0.6, 0.5)
-                              .toColor(),
+                          color: HSLColor.fromAHSL(
+                            1.0,
+                            hue,
+                            0.6,
+                            0.5,
+                          ).toColor(),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
@@ -911,8 +881,12 @@ dynamic build(BuildContext context) {
                         'Bouncing item ${i + 1} — no scrollbar',
                         style: TextStyle(
                           fontSize: 11.0,
-                          color: HSLColor.fromAHSL(1.0, hue, 0.6, 0.3)
-                              .toColor(),
+                          color: HSLColor.fromAHSL(
+                            1.0,
+                            hue,
+                            0.6,
+                            0.3,
+                          ).toColor(),
                         ),
                       ),
                     ],
@@ -941,9 +915,7 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.symmetric(vertical: 3.0),
       padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.grey.shade200),
-        ),
+        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
       ),
       child: Row(
         children: [
@@ -969,10 +941,7 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 defaultVal,
-                style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.grey.shade500,
-                ),
+                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
               ),
             ),
           ),
@@ -1072,18 +1041,8 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        buildCopyWithField(
-          'scrollbars',
-          'true',
-          'false',
-          Color(0xFF1565C0),
-        ),
-        buildCopyWithField(
-          'overscroll',
-          'true',
-          'false',
-          Color(0xFF2E7D32),
-        ),
+        buildCopyWithField('scrollbars', 'true', 'false', Color(0xFF1565C0)),
+        buildCopyWithField('overscroll', 'true', 'false', Color(0xFF2E7D32)),
         buildCopyWithField(
           'physics',
           'platform-based',
@@ -1192,11 +1151,7 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.all(20.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF1B5E20),
-                Color(0xFF2E7D32),
-                Color(0xFF388E3C),
-              ],
+              colors: [Color(0xFF1B5E20), Color(0xFF2E7D32), Color(0xFF388E3C)],
             ),
           ),
           child: Column(
@@ -1313,10 +1268,7 @@ Widget _buildScrollConfigBullet(String text, Color color) {
         ),
         SizedBox(width: 8.0),
         Expanded(
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 12.0, color: color),
-          ),
+          child: Text(text, style: TextStyle(fontSize: 12.0, color: color)),
         ),
       ],
     ),

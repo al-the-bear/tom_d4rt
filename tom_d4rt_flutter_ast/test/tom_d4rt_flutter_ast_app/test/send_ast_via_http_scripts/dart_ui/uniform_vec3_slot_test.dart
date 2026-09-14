@@ -135,7 +135,8 @@ class VGuideRoot extends StatelessWidget {
         VSectionTitle(
           index: '02',
           title: 'Anatomy',
-          subtitle: 'Program  ->  shader.setVec3(slot, x, y, z)  ->  GPU uniform memory.',
+          subtitle:
+              'Program  ->  shader.setVec3(slot, x, y, z)  ->  GPU uniform memory.',
         ),
         SizedBox(height: 14),
         VAnatomyDiagram(),
@@ -143,7 +144,8 @@ class VGuideRoot extends StatelessWidget {
         VSectionTitle(
           index: '03',
           title: 'Vec3 as RGB Colour',
-          subtitle: 'Eight sample vec3 values rendered as their colour interpretation.',
+          subtitle:
+              'Eight sample vec3 values rendered as their colour interpretation.',
         ),
         SizedBox(height: 14),
         VColourGrid(),
@@ -151,7 +153,8 @@ class VGuideRoot extends StatelessWidget {
         VSectionTitle(
           index: '04',
           title: 'Vec3 as 3D Position',
-          subtitle: 'Four samples plotted in a conceptual (x, y) plane with z as halo.',
+          subtitle:
+              'Four samples plotted in a conceptual (x, y) plane with z as halo.',
         ),
         SizedBox(height: 14),
         VPositionGrid(),
@@ -159,7 +162,8 @@ class VGuideRoot extends StatelessWidget {
         VSectionTitle(
           index: '05',
           title: 'Use Cases',
-          subtitle: 'Six common ways a fragment shader interprets a vec3 uniform.',
+          subtitle:
+              'Six common ways a fragment shader interprets a vec3 uniform.',
         ),
         SizedBox(height: 14),
         VUseCaseGrid(),
@@ -226,11 +230,7 @@ class VHeroBanner extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF0E7490),
-            Color(0xFF312E81),
-            Color(0xFF581C87),
-          ],
+          colors: [Color(0xFF0E7490), Color(0xFF312E81), Color(0xFF581C87)],
         ),
         border: Border.all(color: VPalette.borderStrong),
         boxShadow: [
@@ -654,9 +654,7 @@ class VSlotChip extends StatelessWidget {
             : VPalette.surfaceCard,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: highlight
-              ? colour
-              : VPalette.border,
+          color: highlight ? colour : VPalette.border,
           width: highlight ? 1.4 : 1,
         ),
         boxShadow: highlight
@@ -675,10 +673,7 @@ class VSlotChip extends StatelessWidget {
           Container(
             width: 8,
             height: 8,
-            decoration: BoxDecoration(
-              color: colour,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
           ),
           const SizedBox(width: 8),
           Column(
@@ -739,8 +734,10 @@ class VAnatomyDiagram extends StatelessWidget {
                   badge: 'A',
                   badgeColor: VPalette.cyan,
                   title: 'FragmentProgram',
-                  subtitle: 'Compiled .frag asset.\nExposes named uniform slots.',
-                  body: 'final program = await ui.FragmentProgram\n'
+                  subtitle:
+                      'Compiled .frag asset.\nExposes named uniform slots.',
+                  body:
+                      'final program = await ui.FragmentProgram\n'
                       '    .fromAsset(\'shaders/tint.frag\');',
                 ),
               ),
@@ -751,8 +748,10 @@ class VAnatomyDiagram extends StatelessWidget {
                   badge: 'B',
                   badgeColor: VPalette.indigo,
                   title: 'shader.setVec3',
-                  subtitle: 'Application code stamps\nthree floats into the slot.',
-                  body: 'final shader = program.fragmentShader();\n'
+                  subtitle:
+                      'Application code stamps\nthree floats into the slot.',
+                  body:
+                      'final shader = program.fragmentShader();\n'
                       'shader.setVec3(slot, 0.20, 0.40, 0.80);',
                 ),
               ),
@@ -924,23 +923,11 @@ class VAnatomySideStrip extends StatelessWidget {
           SizedBox(height: 10),
           Row(
             children: [
-              VLayoutCell(
-                offset: '+ 0',
-                comp: 'x',
-                colour: VPalette.cyan,
-              ),
+              VLayoutCell(offset: '+ 0', comp: 'x', colour: VPalette.cyan),
               SizedBox(width: 6),
-              VLayoutCell(
-                offset: '+ 4',
-                comp: 'y',
-                colour: VPalette.indigo,
-              ),
+              VLayoutCell(offset: '+ 4', comp: 'y', colour: VPalette.indigo),
               SizedBox(width: 6),
-              VLayoutCell(
-                offset: '+ 8',
-                comp: 'z',
-                colour: VPalette.purple,
-              ),
+              VLayoutCell(offset: '+ 8', comp: 'z', colour: VPalette.purple),
               SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -1319,10 +1306,7 @@ class VPositionPanel extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             hint,
-            style: const TextStyle(
-              color: VPalette.textLo,
-              fontSize: 10.5,
-            ),
+            style: const TextStyle(color: VPalette.textLo, fontSize: 10.5),
           ),
         ],
       ),
@@ -1387,7 +1371,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.palette_outlined,
                   title: 'as RGB colour',
                   example: 'vec3(0.96, 0.42, 0.13)',
-                  prose: 'Tinting, sky colour, gradient stops. The fragment '
+                  prose:
+                      'Tinting, sky colour, gradient stops. The fragment '
                       'shader writes  fragColour = vec4(uTint, 1.0);  '
                       'directly.',
                 ),
@@ -1399,7 +1384,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.threed_rotation_outlined,
                   title: 'as XYZ position',
                   example: 'vec3(2.5, 1.0, -3.4)',
-                  prose: 'Camera position, light position, model anchor in '
+                  prose:
+                      'Camera position, light position, model anchor in '
                       'world-space. Treat as a point, not a direction.',
                 ),
               ),
@@ -1410,7 +1396,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.flash_on_outlined,
                   title: 'as light direction',
                   example: 'normalize(vec3(.4, .8, .4))',
-                  prose: 'Often pre-normalised on the host. Treat as a unit '
+                  prose:
+                      'Often pre-normalised on the host. Treat as a unit '
                       'vector pointing AT the light from the surface.',
                 ),
               ),
@@ -1428,7 +1415,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.aspect_ratio_outlined,
                   title: 'as scale factor',
                   example: 'vec3(1.0, 1.5, 1.0)',
-                  prose: 'Anisotropic scaling on the three axes. A vec3(1,1,1) '
+                  prose:
+                      'Anisotropic scaling on the three axes. A vec3(1,1,1) '
                       'is identity scale.',
                 ),
               ),
@@ -1439,7 +1427,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.tune_outlined,
                   title: 'as HSL',
                   example: 'vec3(0.55, 0.80, 0.50)',
-                  prose: 'Some shaders pick HSL over RGB because hue tweaks are '
+                  prose:
+                      'Some shaders pick HSL over RGB because hue tweaks are '
                       'cheaper. Same three slots, different semantic.',
                 ),
               ),
@@ -1450,7 +1439,8 @@ class VUseCaseGrid extends StatelessWidget {
                   icon: Icons.crop_free_outlined,
                   title: 'as bbox half-extent',
                   example: 'vec3(64, 32, 16)',
-                  prose: 'Useful for AABB tests inside the shader. Three slots '
+                  prose:
+                      'Useful for AABB tests inside the shader. Three slots '
                       'cover all three axes without a vec4 padding penalty.',
                 ),
               ),
@@ -1571,36 +1561,44 @@ class VApiSurface extends StatelessWidget {
         children: [
           VApiBlock(
             label: '1   load',
-            code: '// in async setup before first frame:\n'
+            code:
+                '// in async setup before first frame:\n'
                 'final program = await ui.FragmentProgram\n'
                 '    .fromAsset(\'shaders/tint.frag\');',
-            note: 'fromAsset is async.  In sandboxed scripts we cannot await, '
+            note:
+                'fromAsset is async.  In sandboxed scripts we cannot await, '
                 'so the demo only describes the call.',
           ),
           SizedBox(height: 10),
           VApiBlock(
             label: '2   handle',
-            code: '// once per draw, cheap:\n'
+            code:
+                '// once per draw, cheap:\n'
                 'final shader = program.fragmentShader();',
-            note: 'fragmentShader() returns a fresh FragmentShader you bind '
+            note:
+                'fragmentShader() returns a fresh FragmentShader you bind '
                 'to a Paint via paint.shader = shader.',
           ),
           SizedBox(height: 10),
           VApiBlock(
             label: '3   bind via per-float',
-            code: '// canonical, works on every Flutter SDK\n'
+            code:
+                '// canonical, works on every Flutter SDK\n'
                 'shader.setFloat(0, 0.20);  // x\n'
                 'shader.setFloat(1, 0.40);  // y\n'
                 'shader.setFloat(2, 0.80);  // z',
-            note: 'setFloat takes a flat scalar index. A vec3 occupies three '
+            note:
+                'setFloat takes a flat scalar index. A vec3 occupies three '
                 'consecutive scalar slots starting at the base index.',
           ),
           SizedBox(height: 10),
           VApiBlock(
             label: '4   bind via setVec3',
-            code: '// shorter, when the SDK exposes typed setters\n'
+            code:
+                '// shorter, when the SDK exposes typed setters\n'
                 'shader.setVec3(slot, 0.20, 0.40, 0.80);',
-            note: 'setVec3 is an ergonomic wrapper. Internally it still '
+            note:
+                'setVec3 is an ergonomic wrapper. Internally it still '
                 'writes three float32 cells. Not present on every SDK '
                 'version.',
           ),
@@ -1720,9 +1718,15 @@ class VMemoryStrip extends StatelessWidget {
           SizedBox(height: 14),
           Row(
             children: [
-              VMemLegend(colour: VPalette.cyan, label: 'vec3 slot 0  -  setVec3(0, x, y, z)'),
+              VMemLegend(
+                colour: VPalette.cyan,
+                label: 'vec3 slot 0  -  setVec3(0, x, y, z)',
+              ),
               SizedBox(width: 18),
-              VMemLegend(colour: VPalette.purple, label: 'vec3 slot 1  -  setVec3(3, x, y, z)'),
+              VMemLegend(
+                colour: VPalette.purple,
+                label: 'vec3 slot 1  -  setVec3(3, x, y, z)',
+              ),
               SizedBox(width: 18),
               VMemLegend(colour: VPalette.textLo, label: 'free / next uniform'),
             ],
@@ -1763,9 +1767,7 @@ class VMemCell extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 2),
         height: 64,
         decoration: BoxDecoration(
-          color: faded
-              ? VPalette.surface
-              : colour.withValues(alpha: 0.18),
+          color: faded ? VPalette.surface : colour.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
             color: faded ? VPalette.border : colour,
@@ -2007,7 +2009,8 @@ class VCaveatsGrid extends StatelessWidget {
                   accent: VPalette.amber,
                   icon: Icons.warning_amber_outlined,
                   title: 'std140 padding',
-                  body: 'In std140 layouts, a vec3 is *aligned* to 16 bytes. '
+                  body:
+                      'In std140 layouts, a vec3 is *aligned* to 16 bytes. '
                       'It still consumes 12 bytes of payload, but the next '
                       'uniform may be pushed to the next 16-byte boundary.',
                 ),
@@ -2018,7 +2021,8 @@ class VCaveatsGrid extends StatelessWidget {
                   accent: VPalette.rose,
                   icon: Icons.compress_outlined,
                   title: 'std430 packing',
-                  body: 'In std430 layouts (storage buffers), a vec3 is packed '
+                  body:
+                      'In std430 layouts (storage buffers), a vec3 is packed '
                       'tighter. Mixing std140 and std430 across host / device '
                       'is the source of most "uniforms look corrupted" bugs.',
                 ),
@@ -2036,7 +2040,8 @@ class VCaveatsGrid extends StatelessWidget {
                   accent: VPalette.teal,
                   icon: Icons.speed_outlined,
                   title: 'update cost',
-                  body: 'Each setFloat / setVec3 call rewrites the host-side '
+                  body:
+                      'Each setFloat / setVec3 call rewrites the host-side '
                       'uniform image. The device upload happens at the next '
                       'draw, not on every setter call.',
                 ),
@@ -2047,7 +2052,8 @@ class VCaveatsGrid extends StatelessWidget {
                   accent: VPalette.purple,
                   icon: Icons.public_outlined,
                   title: 'GPU portability',
-                  body: 'Some mobile GPUs reject vec3 in old driver paths and '
+                  body:
+                      'Some mobile GPUs reject vec3 in old driver paths and '
                       'silently widen to vec4. If you see a black 4th channel, '
                       'check for an implicit padding pass.',
                 ),
@@ -2152,22 +2158,26 @@ class VFooterCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           VFooterBullet(
-            text: 'A UniformVec3Slot is just an *index* into the uniform '
+            text:
+                'A UniformVec3Slot is just an *index* into the uniform '
                 'buffer. The semantic of the three floats is whatever your '
                 '.frag file says it is.',
           ),
           VFooterBullet(
-            text: 'On every Flutter SDK you can write the slot using three '
+            text:
+                'On every Flutter SDK you can write the slot using three '
                 'setFloat calls. setVec3 is sugar that some SDK versions '
                 'expose on top.',
           ),
           VFooterBullet(
-            text: 'Bytes are packed contiguously at the slot offset, but '
+            text:
+                'Bytes are packed contiguously at the slot offset, but '
                 'std140 may pad the *next* uniform to keep alignment. This '
                 'is invisible on the host but visible on the device.',
           ),
           VFooterBullet(
-            text: 'No real shader is compiled here. This file is a static '
+            text:
+                'No real shader is compiled here. This file is a static '
                 'visual field guide that runs entirely inside the AST '
                 'sandbox.',
           ),

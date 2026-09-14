@@ -164,10 +164,7 @@ dynamic build(BuildContext context) {
               ),
               const _DnRecipeGallery(),
               const SizedBox(height: 24),
-              const _DnSectionHeader(
-                index: 9,
-                title: 'Common pitfalls',
-              ),
+              const _DnSectionHeader(index: 9, title: 'Common pitfalls'),
               const _DnPitfallsTable(),
               const SizedBox(height: 24),
               const _DnSectionHeader(
@@ -309,10 +306,7 @@ class _DnPanel extends StatelessWidget {
         children: <Widget>[
           if (title != null)
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
                 color: borderColor,
                 borderRadius: const BorderRadius.only(
@@ -328,10 +322,7 @@ class _DnPanel extends StatelessWidget {
                 ),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(14), child: child),
         ],
       ),
     );
@@ -472,10 +463,7 @@ class _DnAnatomySection extends StatelessWidget {
                         color: _dnMuted,
                       ),
                       _DnAnatomyArrow(),
-                      _DnAnatomyLayer(
-                        label: 'FocusManager',
-                        color: _dnInfo,
-                      ),
+                      _DnAnatomyLayer(label: 'FocusManager', color: _dnInfo),
                       _DnAnatomyArrow(),
                       _DnAnatomyLayer(
                         label: 'Shortcuts (binding lookup)',
@@ -859,10 +847,7 @@ class _DnReadoutTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: const TextStyle(
-              color: _dnDark,
-              fontFamily: 'monospace',
-            ),
+            style: const TextStyle(color: _dnDark, fontFamily: 'monospace'),
           ),
         ],
       ),
@@ -1033,18 +1018,18 @@ class _DnPropZone extends StatelessWidget {
               actions: <Type, Action<Intent>>{
                 DoNothingAndStopPropagationIntent:
                     CallbackAction<DoNothingAndStopPropagationIntent>(
-                  onInvoke: (_) {
-                    onSwallow?.call();
-                    _dnLog.add(
-                      _DnLogEntry(
-                        scope: 'INNER',
-                        label: 'F1 swallowed by stop-propagation intent',
-                        swallowed: true,
-                      ),
-                    );
-                    return null;
-                  },
-                ),
+                      onInvoke: (_) {
+                        onSwallow?.call();
+                        _dnLog.add(
+                          _DnLogEntry(
+                            scope: 'INNER',
+                            label: 'F1 swallowed by stop-propagation intent',
+                            swallowed: true,
+                          ),
+                        );
+                        return null;
+                      },
+                    ),
               },
               child: Focus(
                 child: Builder(
@@ -1181,17 +1166,17 @@ class _DnTabSwallowSectionState extends State<_DnTabSwallowSection> {
                       actions: <Type, Action<Intent>>{
                         DoNothingAndStopPropagationIntent:
                             CallbackAction<DoNothingAndStopPropagationIntent>(
-                          onInvoke: (_) {
-                            _dnLog.add(
-                              _DnLogEntry(
-                                scope: 'TEXTFIELD',
-                                label: 'Tab swallowed in right field',
-                                swallowed: true,
-                              ),
-                            );
-                            return null;
-                          },
-                        ),
+                              onInvoke: (_) {
+                                _dnLog.add(
+                                  _DnLogEntry(
+                                    scope: 'TEXTFIELD',
+                                    label: 'Tab swallowed in right field',
+                                    swallowed: true,
+                                  ),
+                                );
+                                return null;
+                              },
+                            ),
                       },
                       child: TextField(
                         controller: _swallowCtl,
@@ -1291,10 +1276,11 @@ class _DnPlatformSectionState extends State<_DnPlatformSection> {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform platform = Theme.of(context).platform;
-    final bool isApple = platform == TargetPlatform.macOS ||
-        platform == TargetPlatform.iOS;
-    final LogicalKeyboardKey modifier =
-        isApple ? LogicalKeyboardKey.meta : LogicalKeyboardKey.control;
+    final bool isApple =
+        platform == TargetPlatform.macOS || platform == TargetPlatform.iOS;
+    final LogicalKeyboardKey modifier = isApple
+        ? LogicalKeyboardKey.meta
+        : LogicalKeyboardKey.control;
     final String modifierLabel = isApple ? 'Cmd' : 'Ctrl';
 
     return _DnPanel(
@@ -1307,8 +1293,10 @@ class _DnPlatformSectionState extends State<_DnPlatformSection> {
           Row(
             children: <Widget>[
               Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _dnIndigo,
                   borderRadius: BorderRadius.circular(6),
@@ -1344,18 +1332,18 @@ class _DnPlatformSectionState extends State<_DnPlatformSection> {
               actions: <Type, Action<Intent>>{
                 DoNothingAndStopPropagationIntent:
                     CallbackAction<DoNothingAndStopPropagationIntent>(
-                  onInvoke: (_) {
-                    setState(() => _swallows++);
-                    _dnLog.add(
-                      _DnLogEntry(
-                        scope: 'PLATFORM',
-                        label: '$modifierLabel+P swallowed',
-                        swallowed: true,
-                      ),
-                    );
-                    return null;
-                  },
-                ),
+                      onInvoke: (_) {
+                        setState(() => _swallows++);
+                        _dnLog.add(
+                          _DnLogEntry(
+                            scope: 'PLATFORM',
+                            label: '$modifierLabel+P swallowed',
+                            swallowed: true,
+                          ),
+                        );
+                        return null;
+                      },
+                    ),
               },
               child: Focus(
                 child: Builder(
@@ -1474,7 +1462,10 @@ class _DnNestedFocusSectionState extends State<_DnNestedFocusSection> {
               children: <Widget>[
                 const Text(
                   'Layer 0 (top, listens for Esc → bumps highest)',
-                  style: TextStyle(color: _dnIndigo, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: _dnIndigo,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 // Middle layer: layer 1, swallows Esc.
@@ -1487,18 +1478,20 @@ class _DnNestedFocusSectionState extends State<_DnNestedFocusSection> {
                     actions: <Type, Action<Intent>>{
                       DoNothingAndStopPropagationIntent:
                           CallbackAction<DoNothingAndStopPropagationIntent>(
-                        onInvoke: (_) {
-                          setState(() => _highest = 'Layer 1 (MIDDLE) — swallowed');
-                          _dnLog.add(
-                            _DnLogEntry(
-                              scope: 'L1',
-                              label: 'Esc swallowed in middle layer',
-                              swallowed: true,
-                            ),
-                          );
-                          return null;
-                        },
-                      ),
+                            onInvoke: (_) {
+                              setState(
+                                () => _highest = 'Layer 1 (MIDDLE) — swallowed',
+                              );
+                              _dnLog.add(
+                                _DnLogEntry(
+                                  scope: 'L1',
+                                  label: 'Esc swallowed in middle layer',
+                                  swallowed: true,
+                                ),
+                              );
+                              return null;
+                            },
+                          ),
                     },
                     child: Container(
                       margin: const EdgeInsets.only(top: 4),
@@ -1921,8 +1914,7 @@ class _DnPitfallsTable extends StatelessWidget {
             'press; add a Focus/FocusScope wrapper.',
       ),
       _DnPitfall(
-        symptom:
-            'Cmd shortcut works on macOS but not on Linux/Windows',
+        symptom: 'Cmd shortcut works on macOS but not on Linux/Windows',
         cause:
             'The binding hard-codes LogicalKeyboardKey.meta (Cmd) only; '
             'Ctrl-based platforms see no match.',
@@ -2040,10 +2032,7 @@ class _DnPitfallRow extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              pitfall.cause,
-              style: const TextStyle(color: _dnDark),
-            ),
+            child: Text(pitfall.cause, style: const TextStyle(color: _dnDark)),
           ),
           Expanded(
             flex: 4,
@@ -2228,10 +2217,7 @@ class _DnRefRowView extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: _DnKeyChip(row.kind),
-          ),
+          Expanded(flex: 2, child: _DnKeyChip(row.kind)),
           Expanded(
             flex: 6,
             child: Text(
@@ -2278,27 +2264,32 @@ class _DnSummary extends StatelessWidget {
           ),
           SizedBox(height: 10),
           _DnBullet(
-              text:
-                  'DoNothingAndStopPropagationIntent is the canonical way '
-                  'to make a key combination inert WITHOUT letting outer '
-                  'shortcuts or the platform see it.'),
+            text:
+                'DoNothingAndStopPropagationIntent is the canonical way '
+                'to make a key combination inert WITHOUT letting outer '
+                'shortcuts or the platform see it.',
+          ),
           _DnBullet(
-              text:
-                  'Bind it the same way as any other Intent inside a '
-                  'Shortcuts widget — no extra setup needed.'),
+            text:
+                'Bind it the same way as any other Intent inside a '
+                'Shortcuts widget — no extra setup needed.',
+          ),
           _DnBullet(
-              text:
-                  'Wrap a CallbackAction around the same Intent type if '
-                  'you want to LOG the swallow without changing its '
-                  '"do-nothing-and-stop" behavior.'),
+            text:
+                'Wrap a CallbackAction around the same Intent type if '
+                'you want to LOG the swallow without changing its '
+                '"do-nothing-and-stop" behavior.',
+          ),
           _DnBullet(
-              text:
-                  'Use Theme.of(context).platform for Cmd vs Ctrl. Never '
-                  'reach for dart:io inside widget code.'),
+            text:
+                'Use Theme.of(context).platform for Cmd vs Ctrl. Never '
+                'reach for dart:io inside widget code.',
+          ),
           _DnBullet(
-              text:
-                  'Always remember: focus location at the moment of the '
-                  'press determines which Shortcuts node owns the lookup.'),
+            text:
+                'Always remember: focus location at the moment of the '
+                'press determines which Shortcuts node owns the lookup.',
+          ),
         ],
       ),
     );

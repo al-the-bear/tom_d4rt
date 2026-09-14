@@ -227,11 +227,11 @@ abstract class _RegularWindowControllerBase extends RegularWindowController {
     BoxConstraints? preferredConstraints,
     String? title,
     required RegularWindowControllerDelegate delegate,
-  })  : _size = _initialSize(preferredSize, preferredConstraints),
-        _constraints = preferredConstraints ?? const BoxConstraints(),
-        _title = title ?? 'Untitled Window',
-        _delegate = delegate,
-        super.empty();
+  }) : _size = _initialSize(preferredSize, preferredConstraints),
+       _constraints = preferredConstraints ?? const BoxConstraints(),
+       _title = title ?? 'Untitled Window',
+       _delegate = delegate,
+       super.empty();
 
   static Size _initialSize(Size? preferred, BoxConstraints? c) {
     if (preferred != null) {
@@ -539,7 +539,10 @@ class _RegularWindowControllerHomeState
       );
       _orchestrated.add(c);
     }
-    _logAction('init', 'Orchestrated ${_orchestrated.length} secondary windows');
+    _logAction(
+      'init',
+      'Orchestrated ${_orchestrated.length} secondary windows',
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _exercisePostFrame();
@@ -551,8 +554,7 @@ class _RegularWindowControllerHomeState
     // method of the abstract API. Visible result lands in the event log.
     final RegularWindowController scratch = _makeRegularWindowController(
       preferredSize: const Size(800, 600),
-      preferredConstraints:
-          const BoxConstraints(minWidth: 320, minHeight: 240),
+      preferredConstraints: const BoxConstraints(minWidth: 320, minHeight: 240),
       title: 'Scratch Window',
     );
     scratch.setTitle('Scratch (renamed)');
@@ -702,17 +704,19 @@ class _PlatformBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color bg = isDesktop ? Colors.green.shade50 : Colors.amber.shade50;
-    final Color border =
-        isDesktop ? Colors.green.shade400 : Colors.amber.shade700;
-    final IconData icon =
-        isDesktop ? Icons.desktop_windows : Icons.phone_android;
+    final Color border = isDesktop
+        ? Colors.green.shade400
+        : Colors.amber.shade700;
+    final IconData icon = isDesktop
+        ? Icons.desktop_windows
+        : Icons.phone_android;
     final String text = isDesktop
         ? 'Desktop platform detected. RegularWindowController calls below '
-            'represent the live, cross-platform-dispatched API.'
+              'represent the live, cross-platform-dispatched API.'
         : 'Mobile platform detected. The real SDK class is desktop-only '
-            '(Win32 / macOS / Linux). The demo still exercises the abstract '
-            'API in compiled code via a faithful local mirror so the '
-            'interpreter coverage is real on every platform.';
+              '(Win32 / macOS / Linux). The demo still exercises the abstract '
+              'API in compiled code via a faithful local mirror so the '
+              'interpreter coverage is real on every platform.';
     return Container(
       decoration: BoxDecoration(
         color: bg,
@@ -805,8 +809,14 @@ class _SectionAnatomy extends StatelessWidget {
 
   List<MapEntry<String, String>> _anatomyRows() {
     return <MapEntry<String, String>>[
-      const MapEntry('contentSize', 'Size of the drawable area (excludes chrome).'),
-      const MapEntry('title', 'Current window title (may differ from request).'),
+      const MapEntry(
+        'contentSize',
+        'Size of the drawable area (excludes chrome).',
+      ),
+      const MapEntry(
+        'title',
+        'Current window title (may differ from request).',
+      ),
       const MapEntry('isActivated', 'Window has input focus.'),
       const MapEntry('isMaximized', 'Window occupies the work area.'),
       const MapEntry('isMinimized', 'Window is iconified / hidden.'),
@@ -911,8 +921,7 @@ class _SectionPlatformDispatch extends StatelessWidget {
       TargetPlatform.linux => '_RegularWindowControllerLinux',
       TargetPlatform.android ||
       TargetPlatform.iOS ||
-      TargetPlatform.fuchsia =>
-        '_RegularWindowControllerMobileStub',
+      TargetPlatform.fuchsia => '_RegularWindowControllerMobileStub',
     };
     probe.destroy();
     return Padding(
@@ -1009,15 +1018,15 @@ class _Cell extends StatelessWidget {
   final bool bold;
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(6),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-            fontSize: 12,
-          ),
-        ),
-      );
+    padding: const EdgeInsets.all(6),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+        fontSize: 12,
+      ),
+    ),
+  );
 }
 
 // ---------------------------------------------------------------------
@@ -1360,13 +1369,13 @@ class _StateChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Chip chip(String label, bool active, Color color) => Chip(
-          label: Text(label),
-          backgroundColor: active ? color : Colors.grey.shade300,
-          labelStyle: TextStyle(
-            color: active ? Colors.white : Colors.black54,
-            fontWeight: FontWeight.bold,
-          ),
-        );
+      label: Text(label),
+      backgroundColor: active ? color : Colors.grey.shade300,
+      labelStyle: TextStyle(
+        color: active ? Colors.white : Colors.black54,
+        fontWeight: FontWeight.bold,
+      ),
+    );
     return Wrap(
       spacing: 6,
       children: <Widget>[
@@ -1522,8 +1531,9 @@ class _SectionConfirmCloseState extends State<_SectionConfirmClose> {
                 onPressed: b.isDestroyed
                     ? null
                     : () {
-                        widget.delegate
-                            .onWindowCloseRequested(widget.controller);
+                        widget.delegate.onWindowCloseRequested(
+                          widget.controller,
+                        );
                         widget.onAction(
                           'close-attempt',
                           'count=${widget.delegate.closeRequests}, '
@@ -1559,7 +1569,8 @@ class _SectionCapability extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TargetPlatform p = controller.platform;
-    final bool desktop = p == TargetPlatform.windows ||
+    final bool desktop =
+        p == TargetPlatform.windows ||
         p == TargetPlatform.macOS ||
         p == TargetPlatform.linux;
     return _Section(
@@ -1598,12 +1609,8 @@ class _SectionCapability extends StatelessWidget {
     );
   }
 
-  TableRow _capRow(String name, bool ok) => TableRow(
-        children: <Widget>[
-          _Cell(name),
-          _Cell(ok ? 'YES' : 'no'),
-        ],
-      );
+  TableRow _capRow(String name, bool ok) =>
+      TableRow(children: <Widget>[_Cell(name), _Cell(ok ? 'YES' : 'no')]);
 }
 
 // ---------------------------------------------------------------------
@@ -1718,10 +1725,8 @@ class _SectionMultiWindowState extends State<_SectionMultiWindow> {
             runSpacing: 8,
             children: widget.controllers
                 .map(
-                  (RegularWindowController c) => SizedBox(
-                    width: 280,
-                    child: _WindowChrome(controller: c),
-                  ),
+                  (RegularWindowController c) =>
+                      SizedBox(width: 280, child: _WindowChrome(controller: c)),
                 )
                 .toList(),
           ),
@@ -1820,8 +1825,7 @@ class _SectionRecipes extends StatelessWidget {
           ),
           _Recipe(
             title: 'Recipe E: Minimize swarm and re-activate',
-            body:
-                'Minimize five windows, then activate them in reverse order.',
+            body: 'Minimize five windows, then activate them in reverse order.',
             run: () {
               final List<RegularWindowController> swarm =
                   <RegularWindowController>[];
@@ -1852,11 +1856,7 @@ class _SectionRecipes extends StatelessWidget {
 }
 
 class _Recipe extends StatelessWidget {
-  const _Recipe({
-    required this.title,
-    required this.body,
-    required this.run,
-  });
+  const _Recipe({required this.title, required this.body, required this.run});
   final String title;
   final String body;
   final VoidCallback run;
@@ -1946,10 +1946,7 @@ class _SectionPitfalls extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 3),
                 child: RichText(
                   text: TextSpan(
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 13,
-                    ),
+                    style: const TextStyle(color: Colors.black87, fontSize: 13),
                     children: <TextSpan>[
                       TextSpan(
                         text: '${e.key}: ',
@@ -2052,13 +2049,8 @@ class _SectionReferenceTable extends StatelessWidget {
     );
   }
 
-  TableRow _ref(String name, String kind, String desc) => TableRow(
-        children: <Widget>[
-          _Cell(name),
-          _Cell(kind),
-          _Cell(desc),
-        ],
-      );
+  TableRow _ref(String name, String kind, String desc) =>
+      TableRow(children: <Widget>[_Cell(name), _Cell(kind), _Cell(desc)]);
 }
 
 // ---------------------------------------------------------------------
@@ -2310,13 +2302,13 @@ class _WindowChromePainter extends CustomPainter {
     final Rect windowRect = isFullscreen
         ? Offset.zero & size
         : isMaximized
-            ? Rect.fromLTWH(4, 4, size.width - 8, size.height - 8)
-            : Rect.fromLTWH(
-                size.width * 0.1,
-                size.height * 0.1,
-                size.width * 0.8,
-                size.height * 0.8,
-              );
+        ? Rect.fromLTWH(4, 4, size.width - 8, size.height - 8)
+        : Rect.fromLTWH(
+            size.width * 0.1,
+            size.height * 0.1,
+            size.width * 0.8,
+            size.height * 0.8,
+          );
 
     final Paint shadow = Paint()
       ..color = Colors.black.withValues(alpha: 0.25)
@@ -2353,8 +2345,9 @@ class _WindowChromePainter extends CustomPainter {
       titleBarHeight,
     );
     final Paint titleFill = Paint()
-      ..color = _platformAccent(platform)
-          .withValues(alpha: isActivated ? 1.0 : 0.4);
+      ..color = _platformAccent(
+        platform,
+      ).withValues(alpha: isActivated ? 1.0 : 0.4);
     canvas.drawRRect(
       RRect.fromRectAndCorners(
         titleBar,
@@ -2374,10 +2367,7 @@ class _WindowChromePainter extends CustomPainter {
           fontSize: 11,
           fontWeight: FontWeight.bold,
           shadows: <Shadow>[
-            Shadow(
-              color: Colors.black.withValues(alpha: 0.4),
-              blurRadius: 2,
-            ),
+            Shadow(color: Colors.black.withValues(alpha: 0.4), blurRadius: 2),
           ],
         ),
       ),
@@ -2442,11 +2432,7 @@ class _WindowChromePainter extends CustomPainter {
       ];
       double cx = bar.left + 10;
       for (final Color c in colors) {
-        canvas.drawCircle(
-          Offset(cx, bar.center.dy),
-          5,
-          Paint()..color = c,
-        );
+        canvas.drawCircle(Offset(cx, bar.center.dy), 5, Paint()..color = c);
         cx += 14;
       }
     } else {
@@ -2455,8 +2441,8 @@ class _WindowChromePainter extends CustomPainter {
         final IconData icon = i == 0
             ? Icons.close
             : i == 1
-                ? Icons.crop_square
-                : Icons.minimize;
+            ? Icons.crop_square
+            : Icons.minimize;
         final TextPainter ip = TextPainter(
           text: TextSpan(
             text: String.fromCharCode(icon.codePoint),
@@ -2534,10 +2520,7 @@ class _WindowChromePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     tp.layout(maxWidth: size.width);
-    tp.paint(
-      canvas,
-      Offset((size.width - tp.width) / 2, size.height * 0.5),
-    );
+    tp.paint(canvas, Offset((size.width - tp.width) / 2, size.height * 0.5));
   }
 
   @override

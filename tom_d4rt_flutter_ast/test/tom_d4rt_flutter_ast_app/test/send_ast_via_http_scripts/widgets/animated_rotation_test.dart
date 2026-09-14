@@ -21,13 +21,13 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
   // SECTION 1: Basic Rotation Fundamentals
   // ═══════════════════════════════════════════════════════════════════════════
   double _basicTurns = 0.0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 2: Turn Values and Directions
   // ═══════════════════════════════════════════════════════════════════════════
   double _directionTurns = 0.0;
   int _rotationCount = 0;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 3: Duration Control
   // ═══════════════════════════════════════════════════════════════════════════
@@ -40,7 +40,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     const Duration(milliseconds: 1000),
     const Duration(milliseconds: 2000),
   ];
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 4: Curve Variations
   // ═══════════════════════════════════════════════════════════════════════════
@@ -58,7 +58,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     const MapEntry('fastOutSlowIn', Curves.fastOutSlowIn),
   ];
   int _curveIndex = 3;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 5: Alignment and Transform Origin
   // ═══════════════════════════════════════════════════════════════════════════
@@ -76,19 +76,25 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     Alignment.bottomRight,
   ];
   final List<String> _alignmentNames = [
-    'topLeft', 'topCenter', 'topRight',
-    'centerLeft', 'center', 'centerRight',
-    'bottomLeft', 'bottomCenter', 'bottomRight',
+    'topLeft',
+    'topCenter',
+    'topRight',
+    'centerLeft',
+    'center',
+    'centerRight',
+    'bottomLeft',
+    'bottomCenter',
+    'bottomRight',
   ];
   int _alignmentIndex = 4;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 6: Filter Quality
   // ═══════════════════════════════════════════════════════════════════════════
   double _qualityTurns = 0.0;
   FilterQuality _filterQuality = FilterQuality.low;
   final List<FilterQuality> _filterQualities = FilterQuality.values;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 7: Practical Use Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -97,7 +103,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
   bool _isExpanded = false;
   int _compassDirection = 0;
   bool _isMenuOpen = false;
-  
+
   // ═══════════════════════════════════════════════════════════════════════════
   // SECTION 8: Combined Animations and Edge Cases
   // ═══════════════════════════════════════════════════════════════════════════
@@ -123,37 +129,37 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
             _buildSectionHeader('1. Basic Rotation Fundamentals'),
             _buildBasicRotationSection(),
             const SizedBox(height: 32),
-            
+
             // Section 2: Turn Values and Directions
             _buildSectionHeader('2. Turn Values and Directions'),
             _buildDirectionsSection(),
             const SizedBox(height: 32),
-            
+
             // Section 3: Duration Control
             _buildSectionHeader('3. Duration Control'),
             _buildDurationSection(),
             const SizedBox(height: 32),
-            
+
             // Section 4: Curve Variations
             _buildSectionHeader('4. Curve Variations'),
             _buildCurvesSection(),
             const SizedBox(height: 32),
-            
+
             // Section 5: Alignment and Transform Origin
             _buildSectionHeader('5. Alignment and Transform Origin'),
             _buildAlignmentSection(),
             const SizedBox(height: 32),
-            
+
             // Section 6: Filter Quality
             _buildSectionHeader('6. Filter Quality'),
             _buildFilterQualitySection(),
             const SizedBox(height: 32),
-            
+
             // Section 7: Practical Use Cases
             _buildSectionHeader('7. Practical Use Cases'),
             _buildPracticalUseCasesSection(),
             const SizedBox(height: 32),
-            
+
             // Section 8: Combined Animations and Edge Cases
             _buildSectionHeader('8. Combined Animations and Edge Cases'),
             _buildCombinedAnimationsSection(),
@@ -172,7 +178,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Current turns: $_basicTurns');
     print('Degrees: ${(_basicTurns * 360).toStringAsFixed(1)}°');
     print('1 turn = 360 degrees = full rotation');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -186,7 +192,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 200,
@@ -216,7 +222,13 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.arrow_upward, color: Colors.white, size: 32),
-                        Text('UP', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        Text(
+                          'UP',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -224,14 +236,14 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Turn value display
             Text(
               'Turns: ${_basicTurns.toStringAsFixed(2)} (${(_basicTurns * 360).toStringAsFixed(0)}°)',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 8),
-            
+
             // Control buttons
             Wrap(
               spacing: 8,
@@ -298,7 +310,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Direction turns: $_directionTurns');
     print('Rotation count: $_rotationCount');
     print('Positive turns = clockwise, negative = counter-clockwise');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -312,7 +324,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 180,
@@ -332,20 +344,27 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                       color: Colors.orange,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.navigation, color: Colors.white, size: 40),
+                    child: const Icon(
+                      Icons.navigation,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Rotation counter
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'Turns: ${_directionTurns.toStringAsFixed(2)}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Text(
@@ -355,14 +374,17 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Direction controls
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
-                    const Text('Counter-Clockwise', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Counter-Clockwise',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -372,11 +394,15 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                               _directionTurns -= 1;
                               _rotationCount--;
                             });
-                            print('Rotate -1 turn (CCW), total: $_directionTurns');
+                            print(
+                              'Rotate -1 turn (CCW), total: $_directionTurns',
+                            );
                           },
                           icon: const Icon(Icons.rotate_left),
                           label: const Text('-1'),
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade400),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade400,
+                          ),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
@@ -384,9 +410,13 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                             setState(() {
                               _directionTurns -= 0.25;
                             });
-                            print('Rotate -0.25 turns (CCW), total: $_directionTurns');
+                            print(
+                              'Rotate -0.25 turns (CCW), total: $_directionTurns',
+                            );
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade200),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade200,
+                          ),
                           child: const Text('-90°'),
                         ),
                       ],
@@ -405,7 +435,10 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                 ),
                 Column(
                   children: [
-                    const Text('Clockwise', style: TextStyle(fontWeight: FontWeight.bold)),
+                    const Text(
+                      'Clockwise',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -414,9 +447,13 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                             setState(() {
                               _directionTurns += 0.25;
                             });
-                            print('Rotate +0.25 turns (CW), total: $_directionTurns');
+                            print(
+                              'Rotate +0.25 turns (CW), total: $_directionTurns',
+                            );
                           },
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade200),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green.shade200,
+                          ),
                           child: const Text('+90°'),
                         ),
                         const SizedBox(width: 8),
@@ -426,11 +463,15 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                               _directionTurns += 1;
                               _rotationCount++;
                             });
-                            print('Rotate +1 turn (CW), total: $_directionTurns');
+                            print(
+                              'Rotate +1 turn (CW), total: $_directionTurns',
+                            );
                           },
                           icon: const Icon(Icons.rotate_right),
                           label: const Text('+1'),
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade400),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green.shade400,
+                          ),
                         ),
                       ],
                     ),
@@ -451,7 +492,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('=== Section 3: Duration Control ===');
     print('Selected duration: ${_selectedDuration.inMilliseconds}ms');
     print('Duration turns: $_durationTurns');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -465,7 +506,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -487,7 +528,11 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                     child: Center(
                       child: Text(
                         '${_selectedDuration.inMilliseconds}ms',
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                   ),
@@ -495,9 +540,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Duration selector
-            const Text('Duration:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Duration:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -511,14 +559,16 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                       setState(() {
                         _selectedDuration = duration;
                       });
-                      print('Duration changed to: ${duration.inMilliseconds}ms');
+                      print(
+                        'Duration changed to: ${duration.inMilliseconds}ms',
+                      );
                     }
                   },
                 );
               }).toList(),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -546,7 +596,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('=== Section 4: Curve Variations ===');
     print('Selected curve: ${_curves[_curveIndex].key}');
     print('Curve turns: $_curveTurns');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -560,7 +610,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container
             Container(
               height: 150,
@@ -580,13 +630,17 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                       color: Colors.cyan,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.refresh, color: Colors.white, size: 30),
+                    child: const Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Curve selector
             const Text('Curve:', style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(
@@ -616,7 +670,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -645,7 +699,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Alignment index: $_alignmentIndex');
     print('Alignment: ${_alignmentNames[_alignmentIndex]}');
     print('Align turns: $_alignTurns');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -659,7 +713,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo container with origin indicator
             Container(
               height: 200,
@@ -670,11 +724,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               child: Stack(
                 children: [
                   // Grid lines for reference
-                  Positioned.fill(
-                    child: CustomPaint(
-                      painter: _GridPainter(),
-                    ),
-                  ),
+                  Positioned.fill(child: CustomPaint(painter: _GridPainter())),
                   Center(
                     child: AnimatedRotation(
                       turns: _alignTurns,
@@ -690,7 +740,11 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                               color: Colors.indigo,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: const Icon(Icons.crop_rotate, color: Colors.white, size: 32),
+                            child: const Icon(
+                              Icons.crop_rotate,
+                              color: Colors.white,
+                              size: 32,
+                            ),
                           ),
                           // Pivot point indicator
                           Positioned(
@@ -702,7 +756,10 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 shape: BoxShape.circle,
-                                border: Border.all(color: Colors.white, width: 2),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
                               ),
                             ),
                           ),
@@ -714,9 +771,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Alignment selector grid
-            const Text('Pivot Point:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Pivot Point:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             GridView.builder(
               shrinkWrap: true,
@@ -732,7 +792,9 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                 final isSelected = _alignmentIndex == index;
                 return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isSelected ? Colors.indigo : Colors.grey.shade300,
+                    backgroundColor: isSelected
+                        ? Colors.indigo
+                        : Colors.grey.shade300,
                     foregroundColor: isSelected ? Colors.white : Colors.black87,
                     padding: EdgeInsets.zero,
                   ),
@@ -743,18 +805,23 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                     });
                     print('Alignment changed to: ${_alignmentNames[index]}');
                   },
-                  child: Text(_alignmentNames[index], style: const TextStyle(fontSize: 9)),
+                  child: Text(
+                    _alignmentNames[index],
+                    style: const TextStyle(fontSize: 9),
+                  ),
                 );
               },
             ),
             const SizedBox(height: 12),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
                   _alignTurns += 0.5;
                 });
-                print('Alignment demo: +0.5 turns from ${_alignmentNames[_alignmentIndex]}');
+                print(
+                  'Alignment demo: +0.5 turns from ${_alignmentNames[_alignmentIndex]}',
+                );
               },
               icon: const Icon(Icons.rotate_right),
               label: const Text('Rotate 180°'),
@@ -777,7 +844,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Filter quality: $_filterQuality');
     print('Quality turns: $_qualityTurns');
     print('Higher quality = smoother edges but more processing');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -791,7 +858,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Demo with image
             Container(
               height: 150,
@@ -831,9 +898,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Quality selector
-            const Text('Filter Quality:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Filter Quality:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             Wrap(
               spacing: 8,
               children: _filterQualities.map((quality) {
@@ -853,13 +923,13 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               }).toList(),
             ),
             const SizedBox(height: 12),
-            
+
             Text(
               'Current: ${_filterQuality.name}',
               style: TextStyle(color: Colors.grey.shade600),
             ),
             const SizedBox(height: 12),
-            
+
             ElevatedButton.icon(
               onPressed: () {
                 setState(() {
@@ -885,7 +955,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Is expanded: $_isExpanded');
     print('Compass direction: $_compassDirection');
     print('Is menu open: $_isMenuOpen');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -898,9 +968,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 1: Loading Indicator
-            const Text('1. Continuous Loading Spinner', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '1. Continuous Loading Spinner',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -923,7 +996,11 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                           });
                         }
                       },
-                      child: const Icon(Icons.sync, color: Colors.blue, size: 32),
+                      child: const Icon(
+                        Icons.sync,
+                        color: Colors.blue,
+                        size: 32,
+                      ),
                     ),
                   ),
                 ),
@@ -936,16 +1013,21 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                         _loadingTurns += 1;
                       }
                     });
-                    print('Loading spinner: ${_isLoading ? 'started' : 'stopped'}');
+                    print(
+                      'Loading spinner: ${_isLoading ? 'started' : 'stopped'}',
+                    );
                   },
                   child: Text(_isLoading ? 'Stop' : 'Start'),
                 ),
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 2: Expand/Collapse Arrow
-            const Text('2. Expand/Collapse Indicator', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '2. Expand/Collapse Indicator',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             InkWell(
               onTap: () {
@@ -970,15 +1052,21 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                     const SizedBox(width: 8),
                     Text(_isExpanded ? 'Click to collapse' : 'Click to expand'),
                     const Spacer(),
-                    Text(_isExpanded ? 'Expanded' : 'Collapsed', style: TextStyle(color: Colors.grey.shade600)),
+                    Text(
+                      _isExpanded ? 'Expanded' : 'Collapsed',
+                      style: TextStyle(color: Colors.grey.shade600),
+                    ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 3: Compass Direction
-            const Text('3. Compass/Direction Indicator', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '3. Compass/Direction Indicator',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -995,7 +1083,11 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                       turns: _compassDirection * 0.25,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeOut,
-                      child: const Icon(Icons.navigation, color: Colors.amber, size: 40),
+                      child: const Icon(
+                        Icons.navigation,
+                        color: Colors.amber,
+                        size: 40,
+                      ),
                     ),
                   ),
                 ),
@@ -1005,12 +1097,17 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                   children: [
                     Text(
                       ['North', 'East', 'South', 'West'][_compassDirection % 4],
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 4,
-                      children: ['N', 'E', 'S', 'W'].asMap().entries.map((entry) {
+                      children: ['N', 'E', 'S', 'W'].asMap().entries.map((
+                        entry,
+                      ) {
                         return ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -1031,9 +1128,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // Use Case 4: Menu Toggle
-            const Text('4. Hamburger Menu Toggle', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              '4. Hamburger Menu Toggle',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -1082,7 +1182,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('Combined scale: $_combinedScale');
     print('Combined opacity: $_combinedOpacity');
     print('Multi-rotation count: $_multiRotationCount');
-    
+
     return Card(
       elevation: 4,
       child: Padding(
@@ -1095,9 +1195,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               style: TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 16),
-            
+
             // Combined animations demo
-            const Text('Rotation + Scale + Opacity', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Rotation + Scale + Opacity',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Container(
               height: 150,
@@ -1126,7 +1229,11 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                           color: Colors.deepPurple,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.star, color: Colors.white, size: 30),
+                        child: const Icon(
+                          Icons.star,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -1134,7 +1241,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ),
             ),
             const SizedBox(height: 8),
-            
+
             // Control sliders
             Row(
               children: [
@@ -1194,9 +1301,12 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               ],
             ),
             const SizedBox(height: 24),
-            
+
             // Multi-turn demo
-            const Text('Multiple Full Rotations', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Multiple Full Rotations',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -1210,7 +1320,10 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                   child: Center(
                     child: AnimatedRotation(
                       turns: _multiRotationCount.toDouble(),
-                      duration: Duration(milliseconds: 500 * _multiRotationCount.abs().clamp(1, 10)),
+                      duration: Duration(
+                        milliseconds:
+                            500 * _multiRotationCount.abs().clamp(1, 10),
+                      ),
                       curve: Curves.easeInOut,
                       child: Container(
                         width: 40,
@@ -1219,35 +1332,53 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
                           color: Colors.teal,
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.autorenew, color: Colors.white, size: 24),
+                        child: const Icon(
+                          Icons.autorenew,
+                          color: Colors.white,
+                          size: 24,
+                        ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 16),
-                Text('Turns: $_multiRotationCount', style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  'Turns: $_multiRotationCount',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
                       _multiRotationCount += 3;
                     });
-                    print('Multi-rotation: +3 turns, total: $_multiRotationCount');
+                    print(
+                      'Multi-rotation: +3 turns, total: $_multiRotationCount',
+                    );
                   },
                   child: const Text('+3 Turns'),
                 ),
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Edge cases
-            const Text('Edge Cases:', style: TextStyle(fontWeight: FontWeight.bold)),
+            const Text(
+              'Edge Cases:',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
-            _buildEdgeCaseItem('Very large turn values', 'Animation interpolates through all rotations'),
+            _buildEdgeCaseItem(
+              'Very large turn values',
+              'Animation interpolates through all rotations',
+            ),
             _buildEdgeCaseItem('Negative turns', 'Rotates counter-clockwise'),
             _buildEdgeCaseItem('0 duration', 'Instant rotation, no animation'),
             _buildEdgeCaseItem('Same turns value', 'No animation triggered'),
-            _buildEdgeCaseItem('Fractional turns', '0.125 = 45°, 0.25 = 90°, 0.5 = 180°'),
+            _buildEdgeCaseItem(
+              'Fractional turns',
+              '0.125 = 45°, 0.25 = 90°, 0.5 = 180°',
+            ),
           ],
         ),
       ),
@@ -1266,7 +1397,10 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
               text: TextSpan(
                 style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
                 children: [
-                  TextSpan(text: '$title: ', style: const TextStyle(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: '$title: ',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   TextSpan(text: description),
                 ],
               ),
@@ -1285,7 +1419,7 @@ class _AnimatedRotationDemoState extends State<AnimatedRotationDemo> {
     print('════════════════════════════════════════════════════════════');
     print(title);
     print('════════════════════════════════════════════════════════════');
-    
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -1313,7 +1447,7 @@ class _GridPainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.grey.shade300
       ..strokeWidth = 1;
-    
+
     // Center lines
     canvas.drawLine(
       Offset(size.width / 2, 0),
@@ -1326,7 +1460,7 @@ class _GridPainter extends CustomPainter {
       paint,
     );
   }
-  
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

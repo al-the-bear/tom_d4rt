@@ -53,10 +53,7 @@ dynamic build(BuildContext context) {
           Text(
             'A thin horizontal line\nthat separates content',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.blueGrey.shade700,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.blueGrey.shade700),
           ),
         ],
       ),
@@ -101,10 +98,7 @@ dynamic build(BuildContext context) {
           Text(
             'height = total vertical box\nthickness = visible stroke',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.orange.shade800,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.orange.shade800),
           ),
           SizedBox(height: 10.0),
           Container(
@@ -157,10 +151,7 @@ dynamic build(BuildContext context) {
           Text(
             'Inset the line from the\nleading and trailing edges',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.teal.shade800,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.teal.shade800),
           ),
           SizedBox(height: 8.0),
           Divider(
@@ -198,8 +189,7 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Icon(Icons.design_services,
-              size: 48.0, color: Colors.deepPurple),
+          Icon(Icons.design_services, size: 48.0, color: Colors.deepPurple),
           SizedBox(height: 12.0),
           Text(
             'Material Guideline',
@@ -213,10 +203,7 @@ dynamic build(BuildContext context) {
           Text(
             'Use sparingly; whitespace\noften separates better',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 11.0,
-              color: Colors.deepPurple.shade800,
-            ),
+            style: TextStyle(fontSize: 11.0, color: Colors.deepPurple.shade800),
           ),
         ],
       ),
@@ -268,8 +255,7 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: color.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(4.0),
@@ -541,10 +527,7 @@ dynamic build(BuildContext context) {
               children: [
                 Text(
                   'These three dividers share one theme:',
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
                 ),
                 Divider(),
                 Text('Item A'),
@@ -719,8 +702,7 @@ dynamic build(BuildContext context) {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(14.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(14.0)),
           ),
           child: Row(
             children: [
@@ -741,8 +723,10 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  print('Created settings panel with ${settingsItems.length} rows '
-      'separated by Dividers');
+  print(
+    'Created settings panel with ${settingsItems.length} rows '
+    'separated by Dividers',
+  );
 
   // ============================================================
   // SECTION 6: Recipe steps list — Divider with custom color/thickness
@@ -841,7 +825,9 @@ dynamic build(BuildContext context) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 2.0),
+                          horizontal: 8.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.deepOrange.shade50,
                           borderRadius: BorderRadius.circular(10.0),
@@ -901,8 +887,7 @@ dynamic build(BuildContext context) {
             gradient: LinearGradient(
               colors: [Colors.deepOrange.shade400, Colors.red.shade500],
             ),
-            borderRadius:
-                BorderRadius.vertical(top: Radius.circular(14.0)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(14.0)),
           ),
           child: Row(
             children: [
@@ -978,10 +963,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 2.0),
             Text(
               s['label'] as String,
-              style: TextStyle(
-                fontSize: 11.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -1031,34 +1013,26 @@ dynamic build(BuildContext context) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-              icon: Icon(Icons.format_bold), onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.format_italic), onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.format_underline), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_bold), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_italic), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_underline), onPressed: () {}),
           VerticalDivider(
             indent: 12.0,
             endIndent: 12.0,
             thickness: 1.5,
             color: Colors.blueGrey.shade300,
           ),
-          IconButton(
-              icon: Icon(Icons.format_align_left), onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.format_align_center), onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.format_align_right), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_align_left), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_align_center), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_align_right), onPressed: () {}),
           VerticalDivider(
             indent: 12.0,
             endIndent: 12.0,
             thickness: 1.5,
             color: Colors.blueGrey.shade300,
           ),
-          IconButton(
-              icon: Icon(Icons.format_list_bulleted), onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.format_list_numbered), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_list_bulleted), onPressed: () {}),
+          IconButton(icon: Icon(Icons.format_list_numbered), onPressed: () {}),
         ],
       ),
     ),
@@ -1084,8 +1058,9 @@ dynamic build(BuildContext context) {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius:
-                  BorderRadius.horizontal(left: Radius.circular(12.0)),
+              borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(12.0),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1127,15 +1102,15 @@ dynamic build(BuildContext context) {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius:
-                  BorderRadius.horizontal(right: Radius.circular(12.0)),
+              borderRadius: BorderRadius.horizontal(
+                right: Radius.circular(12.0),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.show_chart,
-                    color: Colors.deepPurple, size: 32.0),
+                Icon(Icons.show_chart, color: Colors.deepPurple, size: 32.0),
                 SizedBox(height: 6.0),
                 Text(
                   'Trends',
@@ -1393,8 +1368,7 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              Icon(Icons.horizontal_rule,
-                  size: 60.0, color: Colors.white),
+              Icon(Icons.horizontal_rule, size: 60.0, color: Colors.white),
               SizedBox(height: 8.0),
               Text(
                 'Divider Widget',

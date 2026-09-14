@@ -400,8 +400,7 @@ class _SignatureParameterGridSection extends StatelessWidget {
                 name: 'color',
                 type: 'Color?',
                 required: false,
-                description:
-                    'Background color of the popup card surface.',
+                description: 'Background color of the popup card surface.',
                 icon: Icons.palette,
                 accent: Color(0xFF14B8A6),
               ),
@@ -475,10 +474,7 @@ class _ParamCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: accent.withValues(alpha: 0.35),
-            width: 1.2,
-          ),
+          border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.2),
           boxShadow: <BoxShadow>[
             BoxShadow(
               color: accent.withValues(alpha: 0.12),
@@ -516,7 +512,9 @@ class _ParamCard extends StatelessWidget {
                 if (required)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFDC2626),
                       borderRadius: BorderRadius.circular(4),
@@ -533,7 +531,9 @@ class _ParamCard extends StatelessWidget {
                 else
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF94A3B8),
                       borderRadius: BorderRadius.circular(4),
@@ -601,10 +601,7 @@ class _RelativeRectAnatomySection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.5,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.5),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.05),
@@ -652,7 +649,9 @@ class _RelativeRectAnatomySection extends StatelessWidget {
                   top: 8,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF6D28D9),
                       borderRadius: BorderRadius.circular(6),
@@ -729,8 +728,9 @@ class _RelativeRectAnatomySection extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: 'monospace',
                               fontSize: 9.5,
-                              color: const Color(0xFF4C1D95)
-                                  .withValues(alpha: 0.85),
+                              color: const Color(
+                                0xFF4C1D95,
+                              ).withValues(alpha: 0.85),
                             ),
                           ),
                         ],
@@ -749,8 +749,7 @@ class _RelativeRectAnatomySection extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color:
-                              Colors.black.withValues(alpha: 0.25),
+                          color: Colors.black.withValues(alpha: 0.25),
                           blurRadius: 12,
                           offset: const Offset(0, 6),
                         ),
@@ -761,8 +760,7 @@ class _RelativeRectAnatomySection extends StatelessWidget {
                       children: const <Widget>[
                         _DemoMenuRow(label: 'Cut', icon: Icons.content_cut),
                         _DemoMenuRow(label: 'Copy', icon: Icons.content_copy),
-                        _DemoMenuRow(
-                            label: 'Paste', icon: Icons.content_paste),
+                        _DemoMenuRow(label: 'Paste', icon: Icons.content_paste),
                       ],
                     ),
                   ),
@@ -782,7 +780,9 @@ class _RelativeRectAnatomySection extends StatelessWidget {
                   bottom: 100,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 2),
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF6D28D9),
                       borderRadius: BorderRadius.circular(4),
@@ -835,18 +835,13 @@ class _InsetLabel extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(
-          color: const Color(0xFF7C3AED),
-          width: 1,
-        ),
+        border: Border.all(color: const Color(0xFF7C3AED), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Icon(
-            axis == 'horizontal'
-                ? Icons.swap_horiz
-                : Icons.swap_vert,
+            axis == 'horizontal' ? Icons.swap_horiz : Icons.swap_vert,
             size: 12,
             color: const Color(0xFF6D28D9),
           ),
@@ -919,10 +914,7 @@ class _SectionTitle extends StatelessWidget {
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: color.withValues(alpha: 0.4),
-              width: 1,
-            ),
+            border: Border.all(color: color.withValues(alpha: 0.4), width: 1),
           ),
           child: Icon(icon, color: color, size: 22),
         ),
@@ -935,7 +927,9 @@ class _SectionTitle extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 7, vertical: 2),
+                      horizontal: 7,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(4),
@@ -1095,7 +1089,9 @@ class _RenderedMenuPreviewSection extends StatelessWidget {
                   top: 25,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF1E40AF),
                       borderRadius: BorderRadius.circular(6),
@@ -1118,12 +1114,10 @@ class _RenderedMenuPreviewSection extends StatelessWidget {
                     color: Colors.white,
                     elevation: 8,
                     borderRadius: BorderRadius.circular(8),
-                    shadowColor: const Color(0xFF0F172A)
-                        .withValues(alpha: 0.4),
+                    shadowColor: const Color(0xFF0F172A).withValues(alpha: 0.4),
                     child: Container(
                       width: 220,
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(
@@ -1173,8 +1167,7 @@ class _RenderedMenuPreviewSection extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: const Color(0xFF0EA5E9)
-                            .withValues(alpha: 0.4),
+                        color: const Color(0xFF0EA5E9).withValues(alpha: 0.4),
                         width: 1,
                       ),
                     ),
@@ -1262,10 +1255,7 @@ class _PreviewDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Container(
-        height: 1,
-        color: const Color(0xFFE2E8F0),
-      ),
+      child: Container(height: 1, color: const Color(0xFFE2E8F0)),
     );
   }
 }
@@ -1326,10 +1316,7 @@ class _MenuItemGallerySection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.5,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1408,17 +1395,13 @@ class _GalleryCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xFFFAFAFA),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: const Color(0xFFE2E8F0),
-            width: 1,
-          ),
+          border: Border.all(color: const Color(0xFFE2E8F0), width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: const BoxDecoration(
                 color: Color(0xFFEC4899),
                 borderRadius: BorderRadius.only(
@@ -1521,11 +1504,10 @@ class _GalleryLeadingIcon extends _GalleryPreview {
         children: <Widget>[
           Icon(Icons.edit, size: 18, color: Color(0xFF0F172A)),
           SizedBox(width: 8),
-          Text('Edit',
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xFF0F172A),
-              )),
+          Text(
+            'Edit',
+            style: TextStyle(fontSize: 13, color: Color(0xFF0F172A)),
+          ),
         ],
       ),
     );
@@ -1543,11 +1525,10 @@ class _GalleryChecked extends _GalleryPreview {
         children: <Widget>[
           Icon(Icons.check, size: 18, color: Color(0xFF059669)),
           SizedBox(width: 8),
-          Text('Show grid',
-              style: TextStyle(
-                fontSize: 13,
-                color: Color(0xFF0F172A),
-              )),
+          Text(
+            'Show grid',
+            style: TextStyle(fontSize: 13, color: Color(0xFF0F172A)),
+          ),
         ],
       ),
     );
@@ -1564,13 +1545,17 @@ class _GalleryDivider extends _GalleryPreview {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const Text('Item A',
-              style: TextStyle(fontSize: 12.5, color: Color(0xFF0F172A))),
+          const Text(
+            'Item A',
+            style: TextStyle(fontSize: 12.5, color: Color(0xFF0F172A)),
+          ),
           const SizedBox(height: 6),
           Container(height: 1, color: const Color(0xFFCBD5E1)),
           const SizedBox(height: 6),
-          const Text('Item B',
-              style: TextStyle(fontSize: 12.5, color: Color(0xFF0F172A))),
+          const Text(
+            'Item B',
+            style: TextStyle(fontSize: 12.5, color: Color(0xFF0F172A)),
+          ),
         ],
       ),
     );
@@ -1586,10 +1571,7 @@ class _GalleryDisabled extends _GalleryPreview {
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       child: Text(
         'Cannot tap',
-        style: TextStyle(
-          fontSize: 13,
-          color: Color(0xFF94A3B8),
-        ),
+        style: TextStyle(fontSize: 13, color: Color(0xFF94A3B8)),
       ),
     );
   }
@@ -1605,17 +1587,19 @@ class _GallerySubtitle extends _GalleryPreview {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Main label',
-              style: TextStyle(
-                  fontSize: 13,
-                  color: Color(0xFF0F172A),
-                  fontWeight: FontWeight.w500)),
+          Text(
+            'Main label',
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF0F172A),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           SizedBox(height: 2),
-          Text('subtitle text',
-              style: TextStyle(
-                fontSize: 11,
-                color: Color(0xFF64748B),
-              )),
+          Text(
+            'subtitle text',
+            style: TextStyle(fontSize: 11, color: Color(0xFF64748B)),
+          ),
         ],
       ),
     );
@@ -1757,18 +1741,18 @@ class _AnimSnapshot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> stoppedScale = AlwaysStoppedAnimation<double>(scale);
-    final Animation<double> stoppedOpacity =
-        AlwaysStoppedAnimation<double>(opacity);
+    final Animation<double> stoppedScale = AlwaysStoppedAnimation<double>(
+      scale,
+    );
+    final Animation<double> stoppedOpacity = AlwaysStoppedAnimation<double>(
+      opacity,
+    );
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: color.withValues(alpha: 0.4),
-          width: 1.2,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.4), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1776,8 +1760,7 @@ class _AnimSnapshot extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(4),
@@ -1819,8 +1802,7 @@ class _AnimSnapshot extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
-                          color:
-                              Colors.black.withValues(alpha: 0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -1866,10 +1848,7 @@ class _MiniRow extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             text,
-            style: const TextStyle(
-              fontSize: 11,
-              color: Color(0xFF0F172A),
-            ),
+            style: const TextStyle(fontSize: 11, color: Color(0xFF0F172A)),
           ),
         ],
       ),
@@ -1953,10 +1932,7 @@ class _ShowMenuVsPopupMenuButtonSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.5,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.5),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: const Color(0xFF0F172A).withValues(alpha: 0.04),
@@ -2023,8 +1999,7 @@ class _ShowMenuVsPopupMenuButtonSection extends StatelessWidget {
           ),
           _CompareRow(
             aspect: 'Best for',
-            showMenuDoc:
-                'Context menus, right-click menus, programmatic show.',
+            showMenuDoc: 'Context menus, right-click menus, programmatic show.',
             popupMenuButtonDoc: 'Standard "kebab" / overflow buttons.',
             even: false,
           ),
@@ -2102,14 +2077,9 @@ class _CompareRow extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: even
-            ? const Color(0xFFF8FAFC)
-            : Colors.white,
+        color: even ? const Color(0xFFF8FAFC) : Colors.white,
         border: const Border(
-          bottom: BorderSide(
-            color: Color(0xFFE2E8F0),
-            width: 0.7,
-          ),
+          bottom: BorderSide(color: Color(0xFFE2E8F0), width: 0.7),
         ),
       ),
       child: Row(
@@ -2169,10 +2139,7 @@ class _CommonPatternsSection extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFE2E8F0),
-          width: 1.5,
-        ),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2203,11 +2170,7 @@ class _CommonPatternsSection extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Icon(
-                    Icons.code,
-                    color: Colors.white,
-                    size: 22,
-                  ),
+                  child: const Icon(Icons.code, color: Colors.white, size: 22),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -2367,17 +2330,13 @@ class _PatternBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFFAFAFA),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: color.withValues(alpha: 0.3),
-          width: 1.2,
-        ),
+        border: Border.all(color: color.withValues(alpha: 0.3), width: 1.2),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 14, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: color.withValues(alpha: 0.12),
               borderRadius: const BorderRadius.only(
@@ -2581,8 +2540,7 @@ class _PitfallCard extends StatelessWidget {
           Row(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 7, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                 decoration: BoxDecoration(
                   color: severityColor,
                   borderRadius: BorderRadius.circular(4),
@@ -2615,8 +2573,7 @@ class _PitfallCard extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: 56,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFEE2E2),
                   borderRadius: BorderRadius.circular(4),
@@ -2649,8 +2606,7 @@ class _PitfallCard extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: 56,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: const Color(0xFFDCFCE7),
                   borderRadius: BorderRadius.circular(4),
@@ -2742,8 +2698,7 @@ class _FooterReferencesSection extends StatelessWidget {
           const SizedBox(height: 14),
           const _RefRow(
             label: 'API docs',
-            value:
-                'api.flutter.dev/flutter/material/showMenu.html',
+            value: 'api.flutter.dev/flutter/material/showMenu.html',
             icon: Icons.public,
           ),
           const _RefRow(
@@ -2763,8 +2718,7 @@ class _FooterReferencesSection extends StatelessWidget {
           ),
           const _RefRow(
             label: 'Tests',
-            value:
-                'packages/flutter/test/material/popup_menu_test.dart',
+            value: 'packages/flutter/test/material/popup_menu_test.dart',
             icon: Icons.bug_report,
           ),
           const SizedBox(height: 14),
@@ -2810,11 +2764,7 @@ class _RefRow extends StatelessWidget {
   final String value;
   final IconData icon;
 
-  const _RefRow({
-    required this.label,
-    required this.value,
-    required this.icon,
-  });
+  const _RefRow({required this.label, required this.value, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -2823,11 +2773,7 @@ class _RefRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Icon(
-            icon,
-            size: 16,
-            color: Colors.white.withValues(alpha: 0.75),
-          ),
+          Icon(icon, size: 16, color: Colors.white.withValues(alpha: 0.75)),
           const SizedBox(width: 10),
           SizedBox(
             width: 84,

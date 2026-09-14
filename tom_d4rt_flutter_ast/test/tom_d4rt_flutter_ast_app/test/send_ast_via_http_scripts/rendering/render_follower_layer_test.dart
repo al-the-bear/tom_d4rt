@@ -77,10 +77,7 @@ const Color kAccentAmber = Color(0xFFD97706);
 // ---------------------------------------------------------------------------
 
 class ChipEntry {
-  const ChipEntry({
-    required this.label,
-    required this.icon,
-  });
+  const ChipEntry({required this.label, required this.icon});
 
   final String label;
   final IconData icon;
@@ -340,8 +337,7 @@ const List<RealWorldCase> kRealWorldCases = <RealWorldCase>[
         '(follower) lives in an overlay so it can render above neighbouring '
         'tiles. Because both share a LayerLink, the badge tracks the avatar '
         'across scroll, animations, and reordering.',
-    takeaway:
-        'Decorations can live in an overlay and still hug their anchor.',
+    takeaway: 'Decorations can live in an overlay and still hug their anchor.',
     icon: Icons.notifications_active_outlined,
     accent: kAccentPurple,
     paper: kPaperViolet,
@@ -520,11 +516,7 @@ const List<CodeLine> kApiCodeLines = <CodeLine>[
     indent: 0,
     comment: true,
   ),
-  CodeLine(
-    text: '//   RenderFollowerLayer(',
-    indent: 0,
-    comment: true,
-  ),
+  CodeLine(text: '//   RenderFollowerLayer(', indent: 0, comment: true),
   CodeLine(
     text: '//     link: link, showWhenUnlinked: true,',
     indent: 0,
@@ -535,11 +527,7 @@ const List<CodeLine> kApiCodeLines = <CodeLine>[
     indent: 0,
     comment: true,
   ),
-  CodeLine(
-    text: '//   )',
-    indent: 0,
-    comment: true,
-  ),
+  CodeLine(text: '//   )', indent: 0, comment: true),
 ];
 
 // ---------------------------------------------------------------------------
@@ -629,11 +617,7 @@ Widget buildHero() {
               width: 1.5,
             ),
           ),
-          child: const Icon(
-            Icons.link,
-            color: Colors.white,
-            size: 32,
-          ),
+          child: const Icon(Icons.link, color: Colors.white, size: 32),
         ),
         const SizedBox(width: 24),
         Expanded(
@@ -678,8 +662,7 @@ Widget buildHero() {
                 spacing: 10,
                 runSpacing: 10,
                 children: <Widget>[
-                  for (final ChipEntry chip in kHeroChips)
-                    buildHeroChip(chip),
+                  for (final ChipEntry chip in kHeroChips) buildHeroChip(chip),
                 ],
               ),
             ],
@@ -751,8 +734,7 @@ Widget buildConceptDiagram() {
           Expanded(
             child: buildDiagramBox(
               title: 'LeaderLayer',
-              subtitle:
-                  'CompositedTransformTarget\nrecords rect + transform',
+              subtitle: 'CompositedTransformTarget\nrecords rect + transform',
               icon: Icons.flag_outlined,
               accent: kAccentIndigo,
               paper: kPaperIris,
@@ -763,8 +745,7 @@ Widget buildConceptDiagram() {
           Expanded(
             child: buildDiagramBox(
               title: 'LayerLink',
-              subtitle:
-                  'A small mutable handle\nshared by both ends',
+              subtitle: 'A small mutable handle\nshared by both ends',
               icon: Icons.link,
               accent: kAccentViolet,
               paper: kPaperLilac,
@@ -775,8 +756,7 @@ Widget buildConceptDiagram() {
           Expanded(
             child: buildDiagramBox(
               title: 'FollowerLayer',
-              subtitle:
-                  'CompositedTransformFollower\napplies anchors + offset',
+              subtitle: 'CompositedTransformFollower\napplies anchors + offset',
               icon: Icons.center_focus_strong_outlined,
               accent: kAccentPurple,
               paper: kPaperViolet,
@@ -1017,10 +997,7 @@ Widget buildDropdownVariant({
                   top: 80,
                   child: CompositedTransformTarget(
                     link: link,
-                    child: buildAnchorButton(
-                      label: 'Anchor',
-                      accent: accent,
-                    ),
+                    child: buildAnchorButton(label: 'Anchor', accent: accent),
                   ),
                 ),
                 // D4RT-SCRIPT-WORKAROUND (framework_error_fix_plan #72,
@@ -1043,11 +1020,7 @@ Widget buildDropdownVariant({
                     followerAnchor: followerAnchor,
                     offset: followerOffset,
                     child: buildFollowerPanel(
-                      lines: const <String>[
-                        'Edit',
-                        'Duplicate',
-                        'Delete',
-                      ],
+                      lines: const <String>['Edit', 'Duplicate', 'Delete'],
                       accent: accent,
                     ),
                   ),
@@ -1090,11 +1063,7 @@ Widget buildAnchorButton({required String label, required Color accent}) {
             ),
           ),
         ),
-        const Icon(
-          Icons.arrow_drop_down,
-          color: Colors.white,
-          size: 22,
-        ),
+        const Icon(Icons.arrow_drop_down, color: Colors.white, size: 22),
       ],
     ),
   );
@@ -1124,15 +1093,10 @@ Widget buildFollowerPanel({
       children: <Widget>[
         for (final String line in lines)
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
               children: <Widget>[
-                Icon(
-                  Icons.chevron_right,
-                  color: accent,
-                  size: 16,
-                ),
+                Icon(Icons.chevron_right, color: accent, size: 16),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -1186,11 +1150,7 @@ Widget buildTooltipAnchorDemo() {
             'Hover semantics: in a real app the tooltip would only paint '
             'while the target is hovered or focused. Here both are always '
             'visible to make the layer relationship obvious.',
-            style: TextStyle(
-              color: kInkMuted,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: TextStyle(color: kInkMuted, fontSize: 12.5, height: 1.5),
           ),
           const SizedBox(height: 18),
           SizedBox(
@@ -1211,8 +1171,7 @@ Widget buildTooltipAnchorDemo() {
                         borderRadius: BorderRadius.circular(40),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                            color:
-                                kAccentPurple.withValues(alpha: 0.36),
+                            color: kAccentPurple.withValues(alpha: 0.36),
                             blurRadius: 20,
                             offset: const Offset(0, 8),
                           ),
@@ -1254,10 +1213,7 @@ Widget buildTooltipAnchorDemo() {
   );
 }
 
-Widget buildTooltipBubble({
-  required String message,
-  required Color accent,
-}) {
+Widget buildTooltipBubble({required String message, required Color accent}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -1352,8 +1308,7 @@ Widget buildAnchorMatrixCell(AnchorMatrixCell cell) {
         Row(
           children: <Widget>[
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: cell.accent.withValues(alpha: 0.16),
                 borderRadius: BorderRadius.circular(999),
@@ -1370,13 +1325,11 @@ Widget buildAnchorMatrixCell(AnchorMatrixCell cell) {
             ),
             const SizedBox(width: 6),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: cell.accent.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(999),
-                border:
-                    Border.all(color: cell.accent.withValues(alpha: 0.32)),
+                border: Border.all(color: cell.accent.withValues(alpha: 0.32)),
               ),
               child: Text(
                 'F:${cell.followerLabel}',
@@ -1392,9 +1345,7 @@ Widget buildAnchorMatrixCell(AnchorMatrixCell cell) {
         ),
         const SizedBox(height: 8),
         Expanded(
-          child: ClipRect(
-            child: buildMatrixVisual(cell: cell),
-          ),
+          child: ClipRect(child: buildMatrixVisual(cell: cell)),
         ),
       ],
     ),
@@ -1484,8 +1435,7 @@ Widget buildOffsetShowcase() {
       spacing: 16,
       runSpacing: 16,
       children: <Widget>[
-        for (final OffsetEntry entry in kOffsetEntries)
-          buildOffsetCard(entry),
+        for (final OffsetEntry entry in kOffsetEntries) buildOffsetCard(entry),
       ],
     ),
   );
@@ -1513,8 +1463,7 @@ Widget buildOffsetCard(OffsetEntry entry) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: entry.accent.withValues(alpha: 0.16),
               borderRadius: BorderRadius.circular(999),
@@ -1626,13 +1575,9 @@ Widget buildShowWhenUnlinkedDemo() {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: buildShowWhenUnlinkedLinked(),
-        ),
+        Expanded(child: buildShowWhenUnlinkedLinked()),
         const SizedBox(width: 18),
-        Expanded(
-          child: buildShowWhenUnlinkedDetached(),
-        ),
+        Expanded(child: buildShowWhenUnlinkedDetached()),
       ],
     ),
   );
@@ -1674,11 +1619,7 @@ Widget buildShowWhenUnlinkedLinked() {
         const Text(
           'The follower tracks normally; showWhenUnlinked has no visible '
           'effect because the leader is in the tree.',
-          style: TextStyle(
-            color: kInkMuted,
-            fontSize: 12,
-            height: 1.45,
-          ),
+          style: TextStyle(color: kInkMuted, fontSize: 12, height: 1.45),
         ),
         const SizedBox(height: 14),
         SizedBox(
@@ -1774,11 +1715,7 @@ Widget buildShowWhenUnlinkedDetached() {
         const Text(
           'showWhenUnlinked: true paints the follower at unlinkedOffset; '
           'showWhenUnlinked: false hides it entirely.',
-          style: TextStyle(
-            color: kInkMuted,
-            fontSize: 12,
-            height: 1.45,
-          ),
+          style: TextStyle(color: kInkMuted, fontSize: 12, height: 1.45),
         ),
         const SizedBox(height: 14),
         SizedBox(
@@ -1995,8 +1932,9 @@ Widget buildComparisonColumn(ComparisonColumn column) {
               decoration: BoxDecoration(
                 color: column.accent.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(10),
-                border:
-                    Border.all(color: column.accent.withValues(alpha: 0.45)),
+                border: Border.all(
+                  color: column.accent.withValues(alpha: 0.45),
+                ),
               ),
               child: Icon(column.icon, color: column.accent, size: 18),
             ),
@@ -2041,8 +1979,11 @@ Widget buildComparisonColumn(ComparisonColumn column) {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.check_circle_outline,
-                    color: column.accent, size: 14),
+                Icon(
+                  Icons.check_circle_outline,
+                  color: column.accent,
+                  size: 14,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -2151,11 +2092,7 @@ Widget buildAutocompletePatternCard() {
                 followerAnchor: Alignment.topLeft,
                 offset: const Offset(0, 6),
                 child: buildFollowerPanel(
-                  lines: const <String>[
-                    'cherry',
-                    'chestnut',
-                    'cheetah',
-                  ],
+                  lines: const <String>['cherry', 'chestnut', 'cheetah'],
                   accent: kAccentIndigo,
                 ),
               ),
@@ -2213,11 +2150,7 @@ Widget buildAnchoredPopoverPatternCard() {
                 followerAnchor: Alignment.topRight,
                 offset: const Offset(0, 6),
                 child: buildFollowerPanel(
-                  lines: const <String>[
-                    'Open',
-                    'Rename',
-                    'Archive',
-                  ],
+                  lines: const <String>['Open', 'Rename', 'Archive'],
                   accent: kAccentViolet,
                 ),
               ),
@@ -2414,8 +2347,7 @@ Widget buildPatternCardShell({
               decoration: BoxDecoration(
                 color: meta.accent.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(10),
-                border:
-                    Border.all(color: meta.accent.withValues(alpha: 0.45)),
+                border: Border.all(color: meta.accent.withValues(alpha: 0.45)),
               ),
               child: Icon(meta.icon, color: meta.accent, size: 18),
             ),
@@ -2446,16 +2378,11 @@ Widget buildPatternCardShell({
         const SizedBox(height: 12),
         Text(
           meta.scenario,
-          style: const TextStyle(
-            color: kInkMid,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: kInkMid, fontSize: 12.5, height: 1.5),
         ),
         const SizedBox(height: 10),
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             color: meta.accent.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(999),
@@ -2496,8 +2423,7 @@ Widget buildCaveats() {
       mainAxisSpacing: 16,
       childAspectRatio: 1.6,
       children: <Widget>[
-        for (final CaveatEntry caveat in kCaveats)
-          buildCaveatCard(caveat),
+        for (final CaveatEntry caveat in kCaveats) buildCaveatCard(caveat),
       ],
     ),
   );
@@ -2553,11 +2479,7 @@ Widget buildCaveatCard(CaveatEntry caveat) {
         Expanded(
           child: Text(
             caveat.detail,
-            style: const TextStyle(
-              color: kInkMid,
-              fontSize: 12.5,
-              height: 1.5,
-            ),
+            style: const TextStyle(color: kInkMid, fontSize: 12.5, height: 1.5),
           ),
         ),
       ],
@@ -2731,11 +2653,7 @@ class _Section extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           subtitle,
-          style: const TextStyle(
-            color: kInkMuted,
-            fontSize: 13.5,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: kInkMuted, fontSize: 13.5, height: 1.5),
         ),
         const SizedBox(height: 16),
         child,

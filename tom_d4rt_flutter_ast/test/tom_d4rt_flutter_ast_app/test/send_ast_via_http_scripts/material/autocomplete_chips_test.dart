@@ -53,10 +53,26 @@ dynamic build(BuildContext context) {
   // Local data: authors, tags, suggestion strings
   // ---------------------------------------------------------------------------
   final List<String> fruitOptions = <String>[
-    'apple', 'apricot', 'avocado', 'banana', 'blueberry',
-    'cherry', 'clementine', 'date', 'elderberry', 'fig',
-    'grape', 'grapefruit', 'honeydew', 'kiwi', 'lemon',
-    'lime', 'mango', 'nectarine', 'orange', 'peach',
+    'apple',
+    'apricot',
+    'avocado',
+    'banana',
+    'blueberry',
+    'cherry',
+    'clementine',
+    'date',
+    'elderberry',
+    'fig',
+    'grape',
+    'grapefruit',
+    'honeydew',
+    'kiwi',
+    'lemon',
+    'lime',
+    'mango',
+    'nectarine',
+    'orange',
+    'peach',
   ];
 
   final List<Author> authorOptions = <Author>[
@@ -147,10 +163,8 @@ dynamic build(BuildContext context) {
         shrinkWrap: true,
         children: options
             .map<Widget>(
-              (String o) => ListTile(
-                title: Text(o),
-                onTap: () => onSelected(o),
-              ),
+              (String o) =>
+                  ListTile(title: Text(o), onTap: () => onSelected(o)),
             )
             .toList(),
       ),
@@ -216,9 +230,15 @@ dynamic build(BuildContext context) {
     optionsViewBuilder: basicOptionsViewBuilder,
   );
 
-  print('Autocomplete<String> instance: ${basicStringAutocomplete.runtimeType}');
-  print('Autocomplete<Author> instance: ${typedAuthorAutocomplete.runtimeType}');
-  print('RawAutocomplete<String> instance: ${rawStringAutocomplete.runtimeType}');
+  print(
+    'Autocomplete<String> instance: ${basicStringAutocomplete.runtimeType}',
+  );
+  print(
+    'Autocomplete<Author> instance: ${typedAuthorAutocomplete.runtimeType}',
+  );
+  print(
+    'RawAutocomplete<String> instance: ${rawStringAutocomplete.runtimeType}',
+  );
   print('Prolific authors (predicate count): $prolificCount');
 
   // ---------------------------------------------------------------------------
@@ -256,7 +276,10 @@ dynamic build(BuildContext context) {
               _verticalGap(16.0),
               _buildAutocompleteSpecimen1(basicStringAutocomplete),
               _verticalGap(20.0),
-              _buildAutocompleteSpecimen2(typedAuthorAutocomplete, authorOptions),
+              _buildAutocompleteSpecimen2(
+                typedAuthorAutocomplete,
+                authorOptions,
+              ),
               _verticalGap(20.0),
               _buildAutocompleteSpecimen3(authorOptions),
               _verticalGap(28.0),
@@ -336,7 +359,11 @@ Widget _catalogCard({
       color: tint,
       border: Border.all(color: kInkBlack, width: 1.2),
       boxShadow: [
-        BoxShadow(color: kPaperShadow, offset: Offset(2.0, 2.0), blurRadius: 0.0),
+        BoxShadow(
+          color: kPaperShadow,
+          offset: Offset(2.0, 2.0),
+          blurRadius: 0.0,
+        ),
       ],
     ),
     child: Column(
@@ -344,9 +371,7 @@ Widget _catalogCard({
       children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-          decoration: BoxDecoration(
-            color: kInkBlack,
-          ),
+          decoration: BoxDecoration(color: kInkBlack),
           child: Row(
             children: <Widget>[
               Text(
@@ -373,14 +398,8 @@ Widget _catalogCard({
             ],
           ),
         ),
-        Container(
-          height: 1.0,
-          color: kInkBlack,
-        ),
-        Padding(
-          padding: EdgeInsets.all(14.0),
-          child: body,
-        ),
+        Container(height: 1.0, color: kInkBlack),
+        Padding(padding: EdgeInsets.all(14.0), child: body),
       ],
     ),
   );
@@ -500,9 +519,7 @@ Widget _buildHeroHeader() {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: kInkRed,
-              ),
+              decoration: BoxDecoration(color: kInkRed),
               child: Icon(Icons.local_library, color: kCardCream, size: 28.0),
             ),
             SizedBox(width: 14.0),
@@ -589,12 +606,18 @@ Widget _buildConceptOverview() {
           ),
         ),
         SizedBox(height: 10.0),
-        _bullet('Autocomplete<T> turns a TextField into a typed picker. '
-            'You give it an optionsBuilder; it gives you back the chosen T.'),
-        _bullet('Chips are the visible tokens. A finished selection lives '
-            'in a Wrap of InputChips with deleteIcons.'),
-        _bullet('Glue: when Autocomplete.onSelected fires, append a chip to '
-            'the chip list and clear the controller.'),
+        _bullet(
+          'Autocomplete<T> turns a TextField into a typed picker. '
+          'You give it an optionsBuilder; it gives you back the chosen T.',
+        ),
+        _bullet(
+          'Chips are the visible tokens. A finished selection lives '
+          'in a Wrap of InputChips with deleteIcons.',
+        ),
+        _bullet(
+          'Glue: when Autocomplete.onSelected fires, append a chip to '
+          'the chip list and clear the controller.',
+        ),
         SizedBox(height: 12.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -640,17 +663,17 @@ Widget _miniPill(String label, Color bg, Color fg) {
 }
 
 Widget _arrow() => Padding(
-      padding: EdgeInsets.symmetric(horizontal: 6.0),
-      child: Text(
-        '→',
-        style: TextStyle(
-          color: kInkBlack,
-          fontFamily: 'monospace',
-          fontSize: 14.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
+  padding: EdgeInsets.symmetric(horizontal: 6.0),
+  child: Text(
+    '→',
+    style: TextStyle(
+      color: kInkBlack,
+      fontFamily: 'monospace',
+      fontSize: 14.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+);
 
 // =============================================================================
 // SECTION 3 - AUTOCOMPLETE<T> ANATOMY
@@ -664,9 +687,18 @@ Widget _buildAutocompleteAnatomyCard() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _labelRow('optionsBuilder', 'Iterable<T> Function(TextEditingValue)'),
-        _labelRow('displayStringForOption', 'String Function(T)  // default toString'),
-        _labelRow('fieldViewBuilder', 'Widget Function(ctx, ctrl, focus, submit)'),
-        _labelRow('optionsViewBuilder', 'Widget Function(ctx, onSelected, options)'),
+        _labelRow(
+          'displayStringForOption',
+          'String Function(T)  // default toString',
+        ),
+        _labelRow(
+          'fieldViewBuilder',
+          'Widget Function(ctx, ctrl, focus, submit)',
+        ),
+        _labelRow(
+          'optionsViewBuilder',
+          'Widget Function(ctx, onSelected, options)',
+        ),
         _labelRow('onSelected', 'void Function(T)'),
         _labelRow('initialValue', 'TextEditingValue?'),
         _labelRow('optionsMaxHeight', 'double  // default 200.0'),
@@ -723,13 +755,19 @@ Widget _buildRawAutocompleteAnatomyCard() {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _bullet('Same parameter surface as Autocomplete<T>, but every builder '
-            'must be supplied explicitly.'),
-        _bullet('Use the raw form when you need an alternate overlay (no '
-            'Material elevation, custom positioning) or a custom field decoration '
-            'system.'),
-        _bullet('RawAutocomplete returns whatever fieldViewBuilder returns; '
-            'it does not impose Material chrome.'),
+        _bullet(
+          'Same parameter surface as Autocomplete<T>, but every builder '
+          'must be supplied explicitly.',
+        ),
+        _bullet(
+          'Use the raw form when you need an alternate overlay (no '
+          'Material elevation, custom positioning) or a custom field decoration '
+          'system.',
+        ),
+        _bullet(
+          'RawAutocomplete returns whatever fieldViewBuilder returns; '
+          'it does not impose Material chrome.',
+        ),
         SizedBox(height: 10.0),
         Row(
           children: <Widget>[
@@ -869,8 +907,10 @@ Widget _buildAutocompleteSpecimen1(Autocomplete<String> ac) {
                   ),
                   filled: true,
                   fillColor: kCardCream,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 8.0,
+                  ),
                 ),
                 style: TextStyle(
                   color: kInkBlack,
@@ -922,9 +962,14 @@ Widget _buildAutocompleteSpecimen2(
             children: <Widget>[
               for (final Author a in authors.take(4))
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(color: kRule, width: 0.5)),
+                    border: Border(
+                      bottom: BorderSide(color: kRule, width: 0.5),
+                    ),
                   ),
                   child: Row(
                     children: <Widget>[
@@ -1007,8 +1052,10 @@ Widget _buildAutocompleteSpecimen3(List<Author> authors) {
               for (int i = 0; i < authors.length && i < 6; i++)
                 Container(
                   margin: EdgeInsets.only(bottom: 4.0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.0,
+                    vertical: 8.0,
+                  ),
                   decoration: BoxDecoration(
                     color: i.isEven ? kCardCream : Color(0xFFEDDFB8),
                     border: Border.all(color: kRule, width: 0.6),
@@ -1029,7 +1076,9 @@ Widget _buildAutocompleteSpecimen3(List<Author> authors) {
                       ),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 6.0, vertical: 2.0),
+                          horizontal: 6.0,
+                          vertical: 2.0,
+                        ),
                         decoration: BoxDecoration(
                           color: kForest,
                           borderRadius: BorderRadius.circular(2.0),
@@ -1068,8 +1117,7 @@ Widget _buildChipVariantsGallery() {
       chip: Chip(
         avatar: CircleAvatar(
           backgroundColor: kForest,
-          child: Text('C',
-              style: TextStyle(color: kCardCream, fontSize: 12.0)),
+          child: Text('C', style: TextStyle(color: kCardCream, fontSize: 12.0)),
         ),
         label: Text('plain chip'),
         backgroundColor: kCardCream,
@@ -1114,7 +1162,8 @@ Widget _buildChipVariantsGallery() {
     _ChipVariantSpec(
       shelf: '8E',
       name: 'ActionChip',
-      summary: 'Triggers an action when tapped. Always tappable, never selected.',
+      summary:
+          'Triggers an action when tapped. Always tappable, never selected.',
       chip: ActionChip(
         avatar: Icon(Icons.flash_on, size: 16.0, color: kInkRed),
         label: Text('act now'),
@@ -1230,8 +1279,7 @@ Widget _buildChipAnatomyCard() {
                 backgroundColor: kCardCream,
                 side: BorderSide(color: kInkBlack, width: 1.0),
                 elevation: 1.5,
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4.0),
@@ -1486,22 +1534,19 @@ Widget _buildActionChipShowcase() {
           children: <Widget>[
             ActionChip(
               avatar: Icon(Icons.refresh, size: 16.0, color: kInkBlack),
-              label: Text('reload',
-                  style: TextStyle(fontFamily: 'monospace')),
+              label: Text('reload', style: TextStyle(fontFamily: 'monospace')),
               onPressed: () {},
               backgroundColor: kCardCream,
             ),
             ActionChip(
               avatar: Icon(Icons.save, size: 16.0, color: kForest),
-              label: Text('save',
-                  style: TextStyle(fontFamily: 'monospace')),
+              label: Text('save', style: TextStyle(fontFamily: 'monospace')),
               onPressed: () {},
               backgroundColor: kCardCream,
             ),
             ActionChip(
               avatar: Icon(Icons.delete_forever, size: 16.0, color: kInkRed),
-              label: Text('purge',
-                  style: TextStyle(fontFamily: 'monospace')),
+              label: Text('purge', style: TextStyle(fontFamily: 'monospace')),
               onPressed: () {},
               backgroundColor: kCardCream,
             ),
@@ -1548,8 +1593,10 @@ Widget _buildInputChipDeleteShowcase() {
             for (final String t in tags)
               InputChip(
                 avatar: Icon(Icons.tag, size: 14.0, color: kInkRed),
-                label: Text(t,
-                    style: TextStyle(fontFamily: 'monospace', fontSize: 12.0)),
+                label: Text(
+                  t,
+                  style: TextStyle(fontFamily: 'monospace', fontSize: 12.0),
+                ),
                 onDeleted: () {},
                 deleteIcon: Icon(Icons.close, size: 16.0),
                 backgroundColor: kCardCream,
@@ -1630,8 +1677,10 @@ Widget _buildCompositeTagInputMockup(List<Tag> preselected) {
                     borderSide: BorderSide(color: kInkBlack, width: 1.0),
                   ),
                   prefixIcon: Icon(Icons.add, color: kInkBlack, size: 18.0),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 8.0,
+                  ),
                   filled: true,
                   fillColor: kCardCream,
                 ),
@@ -1767,9 +1816,7 @@ Widget _recipeCard(_Recipe r) {
     decoration: BoxDecoration(
       color: kCardCream,
       border: Border.all(color: kInkBlack, width: 1.2),
-      boxShadow: [
-        BoxShadow(color: kPaperShadow, offset: Offset(2.0, 2.0)),
-      ],
+      boxShadow: [BoxShadow(color: kPaperShadow, offset: Offset(2.0, 2.0))],
     ),
     padding: EdgeInsets.all(14.0),
     child: Column(
@@ -1809,9 +1856,7 @@ Widget _recipeCard(_Recipe r) {
         SizedBox(height: 10.0),
         Container(
           padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: kInkBlack,
-          ),
+          decoration: BoxDecoration(color: kInkBlack),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -1874,8 +1919,7 @@ Widget _buildComparisonTable() {
         children: <Widget>[
           for (int i = 0; i < rows.length; i++)
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: i == 0 ? kInkBlack : (i.isEven ? kKraft : kCardCream),
                 border: Border(
@@ -1896,8 +1940,9 @@ Widget _buildComparisonTable() {
                           color: i == 0 ? kKraft : kInkBlack,
                           fontFamily: 'monospace',
                           fontSize: 11.5,
-                          fontWeight:
-                              i == 0 ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: i == 0
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
@@ -1925,32 +1970,32 @@ Widget _buildPitfallsSection() {
         _pitfall(
           'PERF',
           'optionsBuilder runs on every keystroke. If your option list is '
-          'large or expensive to filter, debounce or precompute an index.',
+              'large or expensive to filter, debounce or precompute an index.',
         ),
         _pitfall(
           'REQUIRED',
           'displayStringForOption is required (effectively) whenever T is '
-          'not String — without it, you get T.toString() in the field.',
+              'not String — without it, you get T.toString() in the field.',
         ),
         _pitfall(
           'SEMANTICS',
           'FilterChip is multi-select; ChoiceChip is single-select. Don\'t '
-          'use FilterChip for radio behaviour or ChoiceChip for checklists.',
+              'use FilterChip for radio behaviour or ChoiceChip for checklists.',
         ),
         _pitfall(
           'SIZING',
           'deleteIcon size is fixed by the chip; if you supply an oversized '
-          'Icon, the chip will not grow gracefully.',
+              'Icon, the chip will not grow gracefully.',
         ),
         _pitfall(
           'AVATAR',
           'Avatars are constrained to a square slot. Use a CircleAvatar or '
-          'a small Icon — large widgets get clipped.',
+              'a small Icon — large widgets get clipped.',
         ),
         _pitfall(
           'FOCUS',
           'If you pass your own focusNode/textEditingController to '
-          'Autocomplete, you own its lifecycle. dispose them in your widget.',
+              'Autocomplete, you own its lifecycle. dispose them in your widget.',
         ),
       ],
     ),
@@ -2002,41 +2047,77 @@ Widget _pitfall(String tag, String body) {
 
 Widget _buildGlossary() {
   final List<List<String>> terms = <List<String>>[
-    <String>['Autocomplete<T>', 'Typed Material widget combining a TextField '
-        'with an overlay of options.'],
-    <String>['RawAutocomplete<T>', 'Same surface as Autocomplete but without '
-        'Material defaults — all builders explicit.'],
-    <String>['AutocompletePredicate<T>',
-        'bool Function(T) — filter callback used to test individual options.'],
-    <String>['AutocompleteFieldViewBuilder',
-        'Widget Function(ctx, ctrl, focus, submit) — builds the text input.'],
-    <String>['AutocompleteOptionsViewBuilder<T>',
-        'Widget Function(ctx, onSelected, options) — builds the overlay list.'],
-    <String>['AutocompleteOnSelected<T>',
-        'void Function(T) — called when the user picks an option.'],
-    <String>['Chip',
-        'Material base chip with label, optional avatar, optional delete.'],
-    <String>['InputChip',
-        'Chip representing a user-supplied token; supports selected + delete.'],
-    <String>['FilterChip',
-        'Multi-select chip; selected reflects a boolean filter state.'],
-    <String>['ChoiceChip',
-        'Single-select chip; one of a small set is selected.'],
-    <String>['ActionChip',
-        'Tappable verb chip that triggers an action; never selected.'],
-    <String>['RawChip',
-        'Low-level chip; all behaviours configured by the caller.'],
-    <String>['ChipTheme',
-        'InheritedWidget that propagates ChipThemeData to descendants.'],
-    <String>['ChipThemeData',
-        'The bag of defaults: colors, label style, shape, side, padding.'],
-    <String>['ChipAttributes',
-        'Mixin of common slots (label, avatar, padding, shape, etc.).'],
-    <String>['DeletableChipAttributes',
-        'Mixin of delete-related slots (deleteIcon, onDeleted, tooltips).'],
-    <String>['SelectableChipAttributes',
-        'Mixin of selection-related slots (selected, onSelected, '
-        'selectedColor).'],
+    <String>[
+      'Autocomplete<T>',
+      'Typed Material widget combining a TextField '
+          'with an overlay of options.',
+    ],
+    <String>[
+      'RawAutocomplete<T>',
+      'Same surface as Autocomplete but without '
+          'Material defaults — all builders explicit.',
+    ],
+    <String>[
+      'AutocompletePredicate<T>',
+      'bool Function(T) — filter callback used to test individual options.',
+    ],
+    <String>[
+      'AutocompleteFieldViewBuilder',
+      'Widget Function(ctx, ctrl, focus, submit) — builds the text input.',
+    ],
+    <String>[
+      'AutocompleteOptionsViewBuilder<T>',
+      'Widget Function(ctx, onSelected, options) — builds the overlay list.',
+    ],
+    <String>[
+      'AutocompleteOnSelected<T>',
+      'void Function(T) — called when the user picks an option.',
+    ],
+    <String>[
+      'Chip',
+      'Material base chip with label, optional avatar, optional delete.',
+    ],
+    <String>[
+      'InputChip',
+      'Chip representing a user-supplied token; supports selected + delete.',
+    ],
+    <String>[
+      'FilterChip',
+      'Multi-select chip; selected reflects a boolean filter state.',
+    ],
+    <String>[
+      'ChoiceChip',
+      'Single-select chip; one of a small set is selected.',
+    ],
+    <String>[
+      'ActionChip',
+      'Tappable verb chip that triggers an action; never selected.',
+    ],
+    <String>[
+      'RawChip',
+      'Low-level chip; all behaviours configured by the caller.',
+    ],
+    <String>[
+      'ChipTheme',
+      'InheritedWidget that propagates ChipThemeData to descendants.',
+    ],
+    <String>[
+      'ChipThemeData',
+      'The bag of defaults: colors, label style, shape, side, padding.',
+    ],
+    <String>[
+      'ChipAttributes',
+      'Mixin of common slots (label, avatar, padding, shape, etc.).',
+    ],
+    <String>[
+      'DeletableChipAttributes',
+      'Mixin of delete-related slots (deleteIcon, onDeleted, tooltips).',
+    ],
+    <String>[
+      'SelectableChipAttributes',
+      'Mixin of selection-related slots (selected, onSelected, '
+          'selectedColor).',
+    ],
   ];
 
   return _catalogCard(
@@ -2131,10 +2212,7 @@ Widget _buildEpilogue() {
         _epilogueLine('InputChip', 'each finished, deletable tag card'),
         _epilogueLine('ChipTheme', 'the house style of the entire library'),
         SizedBox(height: 12.0),
-        Container(
-          height: 1.0,
-          color: kKraftDark,
-        ),
+        Container(height: 1.0, color: kKraftDark),
         SizedBox(height: 10.0),
         Text(
           'Pick Autocomplete unless you have a reason to drop to '

@@ -293,7 +293,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           const SizedBox(height: 12),
           _card(
             title: 'Compare Item Count',
-            subtitle: 'Adjust sliver content size and observe measured heights.',
+            subtitle:
+                'Adjust sliver content size and observe measured heights.',
             child: Column(
               children: [
                 Row(
@@ -369,7 +370,10 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                       child: CustomScrollView(
                         slivers: [
                           SliverToBoxAdapter(
-                            child: _sliverBanner('Header (fixed sliver box)', _p.secondary),
+                            child: _sliverBanner(
+                              'Header (fixed sliver box)',
+                              _p.secondary,
+                            ),
                           ),
                           SliverList.builder(
                             itemCount: _compareItemCount,
@@ -394,7 +398,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
               Expanded(
                 child: _card(
                   title: 'Shrink-Wrap Viewport',
-                  subtitle: 'Uses only sliver extents; ideal for nested sections.',
+                  subtitle:
+                      'Uses only sliver extents; ideal for nested sections.',
                   tint: _p.primary.withValues(alpha: 0.05),
                   child: _SizeReporter(
                     onSize: (s) {
@@ -415,7 +420,10 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                         physics: const NeverScrollableScrollPhysics(),
                         slivers: [
                           SliverToBoxAdapter(
-                            child: _sliverBanner('Header (same content)', _p.primary),
+                            child: _sliverBanner(
+                              'Header (same content)',
+                              _p.primary,
+                            ),
                           ),
                           SliverList.builder(
                             itemCount: _compareItemCount,
@@ -455,7 +463,9 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                 ),
                 const SizedBox(height: 8),
                 _bullet('Use shrinkWrap for short, embedded scroll sections.'),
-                _bullet('Avoid it for large lists when performance is critical.'),
+                _bullet(
+                  'Avoid it for large lists when performance is critical.',
+                ),
                 _bullet('Prefer one primary scrollable when possible.'),
               ],
             ),
@@ -510,7 +520,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           const SizedBox(height: 12),
           _card(
             title: 'Parent Article Feed With Embedded Collections',
-            subtitle: 'Each group below is a shrink-wrapped embedded scroll view.',
+            subtitle:
+                'Each group below is a shrink-wrapped embedded scroll view.',
             tint: _p.primary.withValues(alpha: 0.04),
             child: Container(
               decoration: BoxDecoration(
@@ -531,7 +542,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           const SizedBox(height: 12),
           _card(
             title: 'ListView Variant (Also Uses ShrinkWrappingViewport)',
-            subtitle: 'ListView with shrinkWrap:true is another practical path.',
+            subtitle:
+                'ListView with shrinkWrap:true is another practical path.',
             tint: _p.secondary.withValues(alpha: 0.04),
             child: Column(
               children: [
@@ -604,7 +616,9 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: hue.withValues(alpha: 0.15),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(9)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(9),
+              ),
             ),
             child: Text(
               title,
@@ -625,7 +639,10 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                   child: Text(
                     'This sliver section is embedded in a larger feed. '
                     'Its viewport wraps to content height.',
-                    style: TextStyle(fontSize: 11, color: _p.ink.withValues(alpha: 0.8)),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: _p.ink.withValues(alpha: 0.8),
+                    ),
                   ),
                 ),
                 SliverList.builder(
@@ -769,33 +786,34 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                   ),
                   if (_showGridInGallery)
                     SliverPadding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       sliver: SliverGrid(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          childAspectRatio: 1.2,
-                        ),
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            final c = index.isEven
-                                ? _p.primary.withValues(alpha: 0.16)
-                                : _p.secondary.withValues(alpha: 0.16);
-                            return Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: c,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Grid ${index + 1}',
-                                style: TextStyle(fontSize: 11, color: _p.ink),
-                              ),
-                            );
-                          },
-                          childCount: 6,
-                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 8,
+                              mainAxisSpacing: 8,
+                              childAspectRatio: 1.2,
+                            ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          final c = index.isEven
+                              ? _p.primary.withValues(alpha: 0.16)
+                              : _p.secondary.withValues(alpha: 0.16);
+                          return Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: c,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'Grid ${index + 1}',
+                              style: TextStyle(fontSize: 11, color: _p.ink),
+                            ),
+                          );
+                        }, childCount: 6),
                       ),
                     ),
                   SliverList.builder(
@@ -843,7 +861,9 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                 _bullet('SliverGrid contributes row-based geometry.'),
                 _bullet('SliverPadding changes viewport extent by insets.'),
                 _bullet('SliverList contributes item extents cumulatively.'),
-                _bullet('Optional slivers still impact total size when enabled.'),
+                _bullet(
+                  'Optional slivers still impact total size when enabled.',
+                ),
               ],
             ),
           ),
@@ -938,10 +958,18 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet('Dialogs usually use maxHeight constraints and shrinkWrap lists.'),
-                _bullet('Bottom sheets can cap height, then allow internal scrolling if needed.'),
-                _bullet('Use NeverScrollableScrollPhysics for tiny sections inside larger scrollers.'),
-                _bullet('When content can exceed cap, enable inner scrolling intentionally.'),
+                _bullet(
+                  'Dialogs usually use maxHeight constraints and shrinkWrap lists.',
+                ),
+                _bullet(
+                  'Bottom sheets can cap height, then allow internal scrolling if needed.',
+                ),
+                _bullet(
+                  'Use NeverScrollableScrollPhysics for tiny sections inside larger scrollers.',
+                ),
+                _bullet(
+                  'When content can exceed cap, enable inner scrolling intentionally.',
+                ),
               ],
             ),
           ),
@@ -998,15 +1026,21 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.symmetric(vertical: 4),
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 9,
+                        ),
                         decoration: BoxDecoration(
                           color: _p.primary.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.check_circle_outline,
-                                color: _p.primary, size: 18),
+                            Icon(
+                              Icons.check_circle_outline,
+                              color: _p.primary,
+                              size: 18,
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
@@ -1090,7 +1124,10 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                   const SizedBox(width: 6),
                   Text(
                     'Choose extras',
-                    style: TextStyle(fontWeight: FontWeight.w700, color: _p.ink),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: _p.ink,
+                    ),
                   ),
                 ],
               ),
@@ -1297,7 +1334,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           const SizedBox(height: 12),
           _card(
             title: 'API Snapshot',
-            subtitle: 'How RenderShrinkWrappingViewport is reached from widgets.',
+            subtitle:
+                'How RenderShrinkWrappingViewport is reached from widgets.',
             child: Column(
               children: [
                 _apiRow(
@@ -1327,7 +1365,8 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                 _decisionRow(
                   scenario: 'Short embedded list inside article',
                   choice: 'Use shrinkWrap',
-                  reason: 'Natural height integration with surrounding content.',
+                  reason:
+                      'Natural height integration with surrounding content.',
                   good: true,
                 ),
                 _decisionRow(
@@ -1358,9 +1397,13 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _check('Demonstrated normal vs shrink-wrap sizing differences.'),
+                _check(
+                  'Demonstrated normal vs shrink-wrap sizing differences.',
+                ),
                 _check('Included nested scroll integration patterns.'),
-                _check('Covered multiple sliver types in one shrink-wrapped viewport.'),
+                _check(
+                  'Covered multiple sliver types in one shrink-wrapped viewport.',
+                ),
                 _check('Showed dialog and bottom sheet constrained usage.'),
                 _check('Validated dynamic growth and re-layout behavior.'),
                 _check('Provided guidance on performance and trade-offs.'),
@@ -1376,23 +1419,27 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
               children: [
                 _qa(
                   q: 'Why does shrinkWrap often need NeverScrollableScrollPhysics?',
-                  a: 'In nested contexts, you usually want the parent scrollable '
+                  a:
+                      'In nested contexts, you usually want the parent scrollable '
                       'to own gestures. Inner sections become content-sized blocks '
                       'instead of independent scroll regions.',
                 ),
                 _qa(
                   q: 'Does ListView(shrinkWrap: true) use the same render concept?',
-                  a: 'Yes. The underlying viewport behavior maps to '
+                  a:
+                      'Yes. The underlying viewport behavior maps to '
                       'RenderShrinkWrappingViewport when shrink wrapping is active.',
                 ),
                 _qa(
                   q: 'Can I use shrinkWrap everywhere for convenience?',
-                  a: 'Technically yes, but not recommended. For long primary '
+                  a:
+                      'Technically yes, but not recommended. For long primary '
                       'lists it can hurt performance due to extra layout work.',
                 ),
                 _qa(
                   q: 'How do I cap growth in overlays?',
-                  a: 'Wrap with constraints (for example maxHeight), then decide '
+                  a:
+                      'Wrap with constraints (for example maxHeight), then decide '
                       'if inner scrolling should be enabled or disabled.',
                 ),
               ],
@@ -1491,10 +1538,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
             ),
           ),
           const SizedBox(height: 3),
-          Text(
-            subtitle,
-            style: TextStyle(fontSize: 11.5, color: _p.muted),
-          ),
+          Text(subtitle, style: TextStyle(fontSize: 11.5, color: _p.muted)),
           const SizedBox(height: 10),
           child,
         ],
@@ -1519,10 +1563,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           Icon(icon, size: 18, color: _p.ink),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 12, color: _p.ink),
-            ),
+            child: Text(label, style: TextStyle(fontSize: 12, color: _p.ink)),
           ),
         ],
       ),
@@ -1567,10 +1608,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           Icon(Icons.article, color: color, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 12, color: _p.ink),
-            ),
+            child: Text(text, style: TextStyle(fontSize: 12, color: _p.ink)),
           ),
         ],
       ),
@@ -1662,10 +1700,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            '$label: ',
-            style: TextStyle(fontSize: 11, color: _p.ink),
-          ),
+          Text('$label: ', style: TextStyle(fontSize: 11, color: _p.ink)),
           Text(
             value,
             style: TextStyle(
@@ -1720,10 +1755,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  note,
-                  style: TextStyle(fontSize: 11.5, color: _p.muted),
-                ),
+                Text(note, style: TextStyle(fontSize: 11.5, color: _p.muted)),
               ],
             ),
           ),
@@ -1774,10 +1806,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  reason,
-                  style: TextStyle(fontSize: 11.5, color: _p.muted),
-                ),
+                Text(reason, style: TextStyle(fontSize: 11.5, color: _p.muted)),
               ],
             ),
           ),
@@ -1795,10 +1824,7 @@ class _ShrinkWrapWorkshopState extends State<_ShrinkWrapWorkshop> {
           const Icon(Icons.check_circle, color: Color(0xFF2E7D32), size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: 12, color: _p.ink),
-            ),
+            child: Text(text, style: TextStyle(fontSize: 12, color: _p.ink)),
           ),
         ],
       ),
@@ -1840,7 +1866,7 @@ class _SizeReporter extends SingleChildRenderObjectWidget {
   final ValueChanged<Size> onSize;
 
   const _SizeReporter({required this.onSize, required Widget child})
-      : super(child: child);
+    : super(child: child);
 
   @override
   RenderObject createRenderObject(BuildContext context) {
@@ -1849,7 +1875,9 @@ class _SizeReporter extends SingleChildRenderObjectWidget {
 
   @override
   void updateRenderObject(
-      BuildContext context, covariant _SizeReporterRenderObject renderObject) {
+    BuildContext context,
+    covariant _SizeReporterRenderObject renderObject,
+  ) {
     renderObject.onSize = onSize;
   }
 }

@@ -71,11 +71,7 @@ dynamic build(BuildContext context) {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.format_indent_increase,
-              size: 56.0,
-              color: Colors.white,
-            ),
+            Icon(Icons.format_indent_increase, size: 56.0, color: Colors.white),
             SizedBox(width: 12.0),
             Icon(Icons.timelapse, size: 56.0, color: Colors.white),
           ],
@@ -317,9 +313,7 @@ dynamic build(BuildContext context) {
             ),
             Container(
               height: 130.0,
-              decoration: BoxDecoration(
-                color: mint100.withValues(alpha: 0.3),
-              ),
+              decoration: BoxDecoration(color: mint100.withValues(alpha: 0.3)),
               child: ap,
             ),
           ],
@@ -1016,18 +1010,11 @@ dynamic build(BuildContext context) {
             alignment: Alignment.centerLeft,
             child: Row(
               children: [
-                Icon(
-                  Icons.check_circle,
-                  size: 16.0,
-                  color: mint200,
-                ),
+                Icon(Icons.check_circle, size: 16.0, color: mint200),
                 SizedBox(width: 8.0),
                 Text(
                   'Saved',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.0,
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
                 ),
               ],
             ),
@@ -1164,10 +1151,7 @@ dynamic build(BuildContext context) {
           _sectionHeader('4. Curve showcase', mint900),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: curveCards,
-            ),
+            child: Wrap(alignment: WrapAlignment.center, children: curveCards),
           ),
           SizedBox(height: 16.0),
           _sectionHeader('5. Duration spectrum', mint900),

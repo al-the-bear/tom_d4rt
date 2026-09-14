@@ -178,10 +178,7 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 14.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(10.0),
@@ -560,7 +557,8 @@ dynamic build(BuildContext context) {
           subtitle: 'binary, compact',
           bytes: stdCallBytes,
           accent: const Color(0xFF3949AB),
-          extra: 'success ${stdSuccessBytes.length}B  '
+          extra:
+              'success ${stdSuccessBytes.length}B  '
               'error ${stdErrorBytes.length}B',
         ),
       ),
@@ -634,9 +632,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             const _ExchangeArrow(label: 'encode'),
-            Expanded(
-              child: _HexPanel(bytes: outboundBytes, showAscii: false),
-            ),
+            Expanded(child: _HexPanel(bytes: outboundBytes, showAscii: false)),
             const _ExchangeArrow(label: 'IPC'),
             Expanded(
               child: _ExchangeBox(
@@ -659,9 +655,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             const _ExchangeArrow(label: 'decode'),
-            Expanded(
-              child: _HexPanel(bytes: inboundBytes, showAscii: false),
-            ),
+            Expanded(child: _HexPanel(bytes: inboundBytes, showAscii: false)),
             const _ExchangeArrow(label: 'IPC'),
             Expanded(
               child: _ExchangeBox(
@@ -972,10 +966,7 @@ Widget _buildCheatRow(_CheatRow r) {
     decoration: BoxDecoration(
       color: r.accent.withValues(alpha: 0.08),
       borderRadius: BorderRadius.circular(8.0),
-      border: Border.all(
-        color: r.accent.withValues(alpha: 0.5),
-        width: 1.0,
-      ),
+      border: Border.all(color: r.accent.withValues(alpha: 0.5), width: 1.0),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -996,10 +987,7 @@ Widget _buildCheatRow(_CheatRow r) {
             children: [
               Text(
                 r.codec,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: r.accent,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: r.accent),
               ),
               Text(
                 r.useCase,
@@ -1015,18 +1003,12 @@ Widget _buildCheatRow(_CheatRow r) {
           flex: 4,
           child: Text(
             r.carries,
-            style: const TextStyle(
-              fontSize: 11.0,
-              color: Color(0xFF424242),
-            ),
+            style: const TextStyle(fontSize: 11.0, color: Color(0xFF424242)),
           ),
         ),
         const SizedBox(width: 6.0),
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 6.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: r.accent.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(4.0),
@@ -1086,9 +1068,7 @@ class _SectionHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: accent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: accent, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: accent, width: 4.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1269,10 +1249,7 @@ class _RoundTripCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: accent,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: accent),
                 ),
                 const SizedBox(height: 3.0),
                 Text(
@@ -1313,10 +1290,7 @@ class _RoundTripCard extends StatelessWidget {
               children: [
                 const Text(
                   'decoded',
-                  style: TextStyle(
-                    fontSize: 10.0,
-                    color: Color(0xFF616161),
-                  ),
+                  style: TextStyle(fontSize: 10.0, color: Color(0xFF616161)),
                 ),
                 const SizedBox(height: 2.0),
                 Text(
@@ -1360,10 +1334,7 @@ class _JsonCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: accent.withValues(alpha: 0.35),
-          width: 1.0,
-        ),
+        border: Border.all(color: accent.withValues(alpha: 0.35), width: 1.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1500,10 +1471,7 @@ class _BarRow extends StatelessWidget {
       children: [
         SizedBox(
           width: 32.0,
-          child: Text(
-            caption,
-            style: TextStyle(fontSize: 10.0, color: color),
-          ),
+          child: Text(caption, style: TextStyle(fontSize: 10.0, color: color)),
         ),
         Expanded(
           child: Stack(
@@ -1739,10 +1707,7 @@ class _EnvelopeRow extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: accent,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, color: accent),
               ),
               const SizedBox(width: 8.0),
               _StatChip(
@@ -1809,11 +1774,7 @@ class _MethodSidePanel extends StatelessWidget {
             style: const TextStyle(fontSize: 10.0, color: Color(0xFF616161)),
           ),
           const SizedBox(height: 6.0),
-          _StatChip(
-            label: 'bytes',
-            value: '${bytes.length}',
-            color: accent,
-          ),
+          _StatChip(label: 'bytes', value: '${bytes.length}', color: accent),
           const SizedBox(height: 6.0),
           _HexPanel(bytes: bytes, showAscii: true),
           const SizedBox(height: 6.0),
@@ -1910,15 +1871,10 @@ class _HexPanel extends StatelessWidget {
     for (var i = 0; i < shown; i++) {
       final b = bytes[i];
       final isAscii = b >= 0x20 && b < 0x7f;
-      final color = isAscii
-          ? const Color(0xFF1565C0)
-          : const Color(0xFF455A64);
+      final color = isAscii ? const Color(0xFF1565C0) : const Color(0xFF455A64);
       chips.add(
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 4.0,
-            vertical: 2.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
           decoration: BoxDecoration(
             color: color.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(4.0),
@@ -1938,10 +1894,7 @@ class _HexPanel extends StatelessWidget {
     if (bytes.length > maxBytes) {
       chips.add(
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 4.0,
-            vertical: 2.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
           decoration: BoxDecoration(
             color: const Color(0xFF9E9E9E).withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(4.0),

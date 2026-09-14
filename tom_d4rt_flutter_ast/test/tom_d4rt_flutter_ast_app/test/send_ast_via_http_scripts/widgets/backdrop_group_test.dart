@@ -36,8 +36,10 @@ import 'package:flutter/material.dart';
 
 dynamic build(BuildContext context) {
   print('=== BackdropGroup Deep Demo (Harness-Safe) ===');
-  print('Renders ~12 sections demonstrating grouped vs ungrouped backdrop'
-      ' filters, glassmorphism, animated blur, and recipe galleries.');
+  print(
+    'Renders ~12 sections demonstrating grouped vs ungrouped backdrop'
+    ' filters, glassmorphism, animated blur, and recipe galleries.',
+  );
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -369,8 +371,16 @@ class _GlassmorphismWall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cards = <_GlassCardData>[
-      const _GlassCardData('Aurora', 'Northern lights gradient', Icons.auto_awesome),
-      const _GlassCardData('Crimson', 'Sunset over the desert', Icons.wb_twilight),
+      const _GlassCardData(
+        'Aurora',
+        'Northern lights gradient',
+        Icons.auto_awesome,
+      ),
+      const _GlassCardData(
+        'Crimson',
+        'Sunset over the desert',
+        Icons.wb_twilight,
+      ),
       const _GlassCardData('Lagoon', 'Tropical waters', Icons.water),
       const _GlassCardData('Nebula', 'Cosmic dust clouds', Icons.public),
       const _GlassCardData('Forest', 'Mossy underbrush', Icons.park),
@@ -452,10 +462,7 @@ class _GlassCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.18),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: Colors.white.withOpacity(0.4),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.white.withOpacity(0.4), width: 1),
           ),
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -540,10 +547,7 @@ class _Blob extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(
-          colors: <Color>[
-            color.withOpacity(0.85),
-            color.withOpacity(0.0),
-          ],
+          colors: <Color>[color.withOpacity(0.85), color.withOpacity(0.0)],
         ),
       ),
     );
@@ -578,8 +582,8 @@ class _LiveBackdropGroup extends StatelessWidget {
                   children: <Widget>[
                     for (var i = 0; i < 28; i++)
                       Text(
-                        ['Flutter', 'Backdrop', 'Group', 'Shared', 'Sample'][
-                            i % 5],
+                        ['Flutter', 'Backdrop', 'Group', 'Shared', 'Sample'][i %
+                            5],
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.85),
                           fontSize: 18,
@@ -685,9 +689,10 @@ class _AnimatedBlurSectionState extends State<_AnimatedBlurSection>
     duration: const Duration(seconds: 3),
   )..repeat(reverse: true);
 
-  late final Animation<double> _sigma = Tween<double>(begin: 2, end: 22)
-      .chain(CurveTween(curve: Curves.easeInOutCubic))
-      .animate(_controller);
+  late final Animation<double> _sigma = Tween<double>(
+    begin: 2,
+    end: 22,
+  ).chain(CurveTween(curve: Curves.easeInOutCubic)).animate(_controller);
 
   @override
   void dispose() {
@@ -1257,10 +1262,7 @@ class _FrostedNotification extends StatelessWidget {
                         const Spacer(),
                         const Text(
                           'now',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                          ),
+                          style: TextStyle(color: Colors.white70, fontSize: 11),
                         ),
                       ],
                     ),
@@ -1276,10 +1278,7 @@ class _FrostedNotification extends StatelessWidget {
                       body,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ],
                 ),
@@ -1321,8 +1320,7 @@ class _FloatingActionSheet extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 1.5),
                           child: Container(
-                            height: 30.0 +
-                                (i * 11) % 180,
+                            height: 30.0 + (i * 11) % 180,
                             decoration: BoxDecoration(
                               color: Colors
                                   .primaries[i % Colors.primaries.length]
@@ -1352,7 +1350,8 @@ class _FloatingActionSheet extends StatelessWidget {
                         color: Colors.white.withOpacity(0.18),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                            color: Colors.white.withOpacity(0.4)),
+                          color: Colors.white.withOpacity(0.4),
+                        ),
                       ),
                       child: Column(
                         children: <Widget>[
@@ -1361,16 +1360,14 @@ class _FloatingActionSheet extends StatelessWidget {
                               _SheetAction(icon: Icons.share, label: 'Share'),
                               _SheetAction(icon: Icons.edit, label: 'Edit'),
                               _SheetAction(icon: Icons.copy, label: 'Copy'),
-                              _SheetAction(
-                                  icon: Icons.delete, label: 'Delete'),
+                              _SheetAction(icon: Icons.delete, label: 'Delete'),
                             ],
                           ),
                           const SizedBox(height: 10),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: BackdropFilter.grouped(
-                              filter: ui.ImageFilter.blur(
-                                  sigmaX: 6, sigmaY: 6),
+                              filter: ui.ImageFilter.blur(sigmaX: 6, sigmaY: 6),
                               child: Container(
                                 padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
@@ -1486,16 +1483,14 @@ class _FilterTypeRow extends StatelessWidget {
                     Expanded(
                       child: _FilterTypeTile(
                         label: 'dilate (3,3)',
-                        filter: ui.ImageFilter.dilate(
-                            radiusX: 3, radiusY: 3),
+                        filter: ui.ImageFilter.dilate(radiusX: 3, radiusY: 3),
                       ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: _FilterTypeTile(
                         label: 'erode (3,3)',
-                        filter:
-                            ui.ImageFilter.erode(radiusX: 3, radiusY: 3),
+                        filter: ui.ImageFilter.erode(radiusX: 3, radiusY: 3),
                       ),
                     ),
                   ],
@@ -1558,7 +1553,8 @@ class _PitfallsSection extends StatelessWidget {
         icon: Icons.bolt,
         color: Colors.orange,
         title: 'BackdropFilter is expensive — group when possible.',
-        body: 'Each non-grouped BackdropFilter triggers a saveLayer +'
+        body:
+            'Each non-grouped BackdropFilter triggers a saveLayer +'
             ' offscreen sample. Wrap siblings in BackdropGroup and use'
             ' BackdropFilter.grouped to share one sample.',
       ),
@@ -1566,7 +1562,8 @@ class _PitfallsSection extends StatelessWidget {
         icon: Icons.timeline,
         color: Colors.red,
         title: 'ImageFilter.blur radius affects performance.',
-        body: 'Larger sigma → larger kernel → slower convolution. Prefer'
+        body:
+            'Larger sigma → larger kernel → slower convolution. Prefer'
             ' modest sigmas (~10-20) and rely on color tints for the'
             ' "frosted" look.',
       ),
@@ -1574,7 +1571,8 @@ class _PitfallsSection extends StatelessWidget {
         icon: Icons.format_paint,
         color: Colors.blueGrey,
         title: 'Don\'t blur over solid colors.',
-        body: 'A blurred sample of a solid color is still a solid color.'
+        body:
+            'A blurred sample of a solid color is still a solid color.'
             ' If the input is uniform, skip the BackdropFilter entirely'
             ' and just paint a translucent color.',
       ),
@@ -1582,22 +1580,22 @@ class _PitfallsSection extends StatelessWidget {
         icon: Icons.layers,
         color: Colors.deepPurple,
         title: 'BackdropFilter requires saveLayer.',
-        body: 'saveLayer round-trips through the GPU. Heavy on mobile'
+        body:
+            'saveLayer round-trips through the GPU. Heavy on mobile'
             ' impellers, especially when the layer covers a large area.',
       ),
       const _PitfallData(
         icon: Icons.add_chart,
         color: Colors.teal,
         title: 'Stacking many BackdropFilters multiplies cost — group!',
-        body: 'A wall of 12 ungrouped filters means 12 saveLayers. The same'
+        body:
+            'A wall of 12 ungrouped filters means 12 saveLayers. The same'
             ' wall under one BackdropGroup samples once and the engine'
             ' applies each filter to the shared input.',
       ),
     ];
     return Column(
-      children: <Widget>[
-        for (final p in items) _PitfallCard(data: p),
-      ],
+      children: <Widget>[for (final p in items) _PitfallCard(data: p)],
     );
   }
 }
@@ -1724,10 +1722,10 @@ class _RecipeModalSheet extends StatelessWidget {
                       child: BackdropGroup(
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(16)),
+                            top: Radius.circular(16),
+                          ),
                           child: BackdropFilter.grouped(
-                            filter: ui.ImageFilter.blur(
-                                sigmaX: 18, sigmaY: 18),
+                            filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                             child: Container(
                               // Bumped from 110 → 140 to absorb the
                               // ~25px bottom overflow caused by the inner
@@ -1738,7 +1736,8 @@ class _RecipeModalSheet extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.20),
                                 border: Border.all(
-                                    color: Colors.white.withOpacity(0.4)),
+                                  color: Colors.white.withOpacity(0.4),
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1746,16 +1745,18 @@ class _RecipeModalSheet extends StatelessWidget {
                                   const Text(
                                     'Modal Sheet',
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   const SizedBox(height: 4),
                                   const Text(
                                     'Slides up from the bottom over the page.'
                                     ' Frosted glass keeps context visible.',
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12),
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   const Spacer(),
                                   Row(
@@ -1812,12 +1813,11 @@ class _RecipeNavbar extends StatelessWidget {
                       children: <Widget>[
                         for (var i = 0; i < 8; i++)
                           Container(
-                            margin:
-                                const EdgeInsets.symmetric(vertical: 4),
+                            margin: const EdgeInsets.symmetric(vertical: 4),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.primaries[
-                                  i % Colors.primaries.length]
+                              color: Colors
+                                  .primaries[i % Colors.primaries.length]
                                   .withOpacity(0.85),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -1835,19 +1835,20 @@ class _RecipeNavbar extends StatelessWidget {
                       child: BackdropGroup(
                         child: ClipRRect(
                           child: BackdropFilter.grouped(
-                            filter: ui.ImageFilter.blur(
-                                sigmaX: 14, sigmaY: 14),
+                            filter: ui.ImageFilter.blur(sigmaX: 14, sigmaY: 14),
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12),
+                                horizontal: 12,
+                              ),
                               alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.55),
                                 border: Border(
-                                    bottom: BorderSide(
-                                        color:
-                                            Colors.white.withOpacity(0.6))),
+                                  bottom: BorderSide(
+                                    color: Colors.white.withOpacity(0.6),
+                                  ),
+                                ),
                               ),
                               child: Row(
                                 children: const <Widget>[
@@ -1933,17 +1934,19 @@ class _RecipeSearchOverlay extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: BackdropFilter.grouped(
-                            filter: ui.ImageFilter.blur(
-                                sigmaX: 22, sigmaY: 22),
+                            filter: ui.ImageFilter.blur(sigmaX: 22, sigmaY: 22),
                             child: Container(
                               width: 240,
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 10),
+                                horizontal: 12,
+                                vertical: 10,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.30),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                    color: Colors.white.withOpacity(0.5)),
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
                               ),
                               child: Row(
                                 children: const <Widget>[
@@ -1952,8 +1955,9 @@ class _RecipeSearchOverlay extends StatelessWidget {
                                   Text(
                                     'Search…',
                                     style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16),
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -2005,8 +2009,8 @@ class _RecipeAlertDialog extends StatelessWidget {
                             Container(
                               width: 36,
                               height: 28,
-                              color: Colors.primaries[
-                                  i % Colors.primaries.length],
+                              color:
+                                  Colors.primaries[i % Colors.primaries.length],
                             ),
                         ],
                       ),
@@ -2016,8 +2020,7 @@ class _RecipeAlertDialog extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
                           child: BackdropFilter.grouped(
-                            filter: ui.ImageFilter.blur(
-                                sigmaX: 18, sigmaY: 18),
+                            filter: ui.ImageFilter.blur(sigmaX: 18, sigmaY: 18),
                             child: Container(
                               width: 260,
                               padding: const EdgeInsets.all(16),
@@ -2025,7 +2028,8 @@ class _RecipeAlertDialog extends StatelessWidget {
                                 color: Colors.white.withOpacity(0.25),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(
-                                    color: Colors.white.withOpacity(0.5)),
+                                  color: Colors.white.withOpacity(0.5),
+                                ),
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,

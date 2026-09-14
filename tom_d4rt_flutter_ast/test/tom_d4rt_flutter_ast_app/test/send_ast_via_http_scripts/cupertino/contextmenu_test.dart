@@ -397,8 +397,10 @@ Widget _titleBanner() {
                   const SizedBox(height: 2.0),
                   Text('CupertinoContextMenu', style: _titleStyle()),
                   const SizedBox(height: 2.0),
-                  Text('iOS long-press popover, deep field guide',
-                      style: _subtitleStyle()),
+                  Text(
+                    'iOS long-press popover, deep field guide',
+                    style: _subtitleStyle(),
+                  ),
                 ],
               ),
             ),
@@ -445,9 +447,14 @@ Widget _sectionHeader(String number, String title, String subtitle) {
             borderRadius: BorderRadius.circular(6.0),
             border: Border.all(color: _kAmber, width: 0.8),
           ),
-          child: Text(number,
-              style: const TextStyle(
-                  color: _kAmber, fontWeight: FontWeight.w700, fontSize: 14.0)),
+          child: Text(
+            number,
+            style: const TextStyle(
+              color: _kAmber,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.0,
+            ),
+          ),
         ),
         const SizedBox(width: 10.0),
         Expanded(
@@ -495,7 +502,11 @@ Widget _dossierSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('02', 'Dossier', 'A field guide to the iOS long-press popover'),
+      _sectionHeader(
+        '02',
+        'Dossier',
+        'A field guide to the iOS long-press popover',
+      ),
       _proseBlock(
         'The CupertinoContextMenu is the Flutter realisation of one of iOS\'s most '
         'recognisable gestures: the long-press lift. When the user holds a finger '
@@ -609,7 +620,12 @@ Widget _openPopoverMock() {
   );
 }
 
-Widget _mockActionRow(String label, IconData icon, bool isDefault, bool isDestructive) {
+Widget _mockActionRow(
+  String label,
+  IconData icon,
+  bool isDefault,
+  bool isDestructive,
+) {
   final Color textColor = isDestructive ? _kDanger : _kInk;
   final FontWeight weight = isDefault ? FontWeight.w700 : FontWeight.w500;
   return Padding(
@@ -617,9 +633,14 @@ Widget _mockActionRow(String label, IconData icon, bool isDefault, bool isDestru
     child: Row(
       children: <Widget>[
         Expanded(
-          child: Text(label,
-              style: TextStyle(
-                  color: textColor, fontWeight: weight, fontSize: 14.5)),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: textColor,
+              fontWeight: weight,
+              fontSize: 14.5,
+            ),
+          ),
         ),
         Icon(icon, color: textColor, size: 18.0),
       ],
@@ -642,7 +663,9 @@ Widget _anatomyCallout(String label, String description) {
           height: 8.0,
           margin: const EdgeInsets.only(top: 5.0, right: 8.0),
           decoration: const BoxDecoration(
-              color: _kAmber, shape: BoxShape.circle),
+            color: _kAmber,
+            shape: BoxShape.circle,
+          ),
         ),
         Expanded(
           child: RichText(
@@ -664,8 +687,11 @@ Widget _anatomySection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('03', 'Anatomy (open state)',
-          'The ceremonial popover: subject, stack, and frame'),
+      _sectionHeader(
+        '03',
+        'Anatomy (open state)',
+        'The ceremonial popover: subject, stack, and frame',
+      ),
       _proseBlock(
         'Below is a hand-painted mock of the open ceremonial popover. The '
         'CupertinoContextMenu builds this entire scene by itself: there is '
@@ -685,13 +711,34 @@ Widget _anatomySection() {
           children: <Widget>[
             Text('Callouts', style: _labelStyle()),
             const SizedBox(height: 6.0),
-            _anatomyCallout('background', 'a deep smoked overlay (~70% black) dims the rest of the page; declarative, no widget needed.'),
-            _anatomyCallout('subject', 'your `child` widget, lifted bodily out of the page with a 12-pt corner radius and a soft drop shadow.'),
-            _anatomyCallout('stack', 'the actions list, drawn as a frosted glass card with hairline dividers between rows.'),
-            _anatomyCallout('row label', 'a single line of text, left-aligned, with a font weight that flips to bold when isDefaultAction is true.'),
-            _anatomyCallout('trailing icon', 'optional IconData drawn at the right edge of the row; aligns to a 16-pt safe inset.'),
-            _anatomyCallout('destructive colour', 'when isDestructiveAction is true the label and icon turn iOS systemRed.'),
-            _anatomyCallout('haptic pulse', 'fires once on open when enableHapticFeedback is true; controlled at the menu level, not per-action.'),
+            _anatomyCallout(
+              'background',
+              'a deep smoked overlay (~70% black) dims the rest of the page; declarative, no widget needed.',
+            ),
+            _anatomyCallout(
+              'subject',
+              'your `child` widget, lifted bodily out of the page with a 12-pt corner radius and a soft drop shadow.',
+            ),
+            _anatomyCallout(
+              'stack',
+              'the actions list, drawn as a frosted glass card with hairline dividers between rows.',
+            ),
+            _anatomyCallout(
+              'row label',
+              'a single line of text, left-aligned, with a font weight that flips to bold when isDefaultAction is true.',
+            ),
+            _anatomyCallout(
+              'trailing icon',
+              'optional IconData drawn at the right edge of the row; aligns to a 16-pt safe inset.',
+            ),
+            _anatomyCallout(
+              'destructive colour',
+              'when isDestructiveAction is true the label and icon turn iOS systemRed.',
+            ),
+            _anatomyCallout(
+              'haptic pulse',
+              'fires once on open when enableHapticFeedback is true; controlled at the menu level, not per-action.',
+            ),
           ],
         ),
       ),
@@ -736,8 +783,11 @@ Widget _closedAnatomy() {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: const Center(
-                      child: Icon(CupertinoIcons.photo,
-                          color: _kInk, size: 28.0),
+                      child: Icon(
+                        CupertinoIcons.photo,
+                        color: _kInk,
+                        size: 28.0,
+                      ),
                     ),
                   ),
                 ],
@@ -748,8 +798,10 @@ Widget _closedAnatomy() {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('with CupertinoContextMenu wrapper',
-                      style: _captionStyle()),
+                  Text(
+                    'with CupertinoContextMenu wrapper',
+                    style: _captionStyle(),
+                  ),
                   const SizedBox(height: 6.0),
                   Container(
                     width: double.infinity,
@@ -759,8 +811,11 @@ Widget _closedAnatomy() {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: const Center(
-                      child: Icon(CupertinoIcons.photo,
-                          color: _kInk, size: 28.0),
+                      child: Icon(
+                        CupertinoIcons.photo,
+                        color: _kInk,
+                        size: 28.0,
+                      ),
                     ),
                   ),
                 ],
@@ -783,8 +838,11 @@ Widget _closedSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('04', 'Anatomy (closed state)',
-          'The dormant wrapper renders only the child'),
+      _sectionHeader(
+        '04',
+        'Anatomy (closed state)',
+        'The dormant wrapper renders only the child',
+      ),
       _closedAnatomy(),
     ],
   );
@@ -918,7 +976,9 @@ Widget _recipeListTile() {
             width: 36.0,
             height: 36.0,
             decoration: const BoxDecoration(
-                color: _kAmber, shape: BoxShape.circle),
+              color: _kAmber,
+              shape: BoxShape.circle,
+            ),
             child: const Center(
               child: Icon(CupertinoIcons.envelope, color: _kInk, size: 18.0),
             ),
@@ -928,14 +988,18 @@ Widget _recipeListTile() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text('Solveig Roth',
-                    style: TextStyle(
-                        color: _kInk, fontWeight: FontWeight.w600)),
+                const Text(
+                  'Solveig Roth',
+                  style: TextStyle(color: _kInk, fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(height: 2.0),
-                Text('Re: tomorrow\'s harbour walk',
-                    style: TextStyle(
-                        color: _kInk.withValues(alpha: 0.65),
-                        fontSize: 12.0)),
+                Text(
+                  'Re: tomorrow\'s harbour walk',
+                  style: TextStyle(
+                    color: _kInk.withValues(alpha: 0.65),
+                    fontSize: 12.0,
+                  ),
+                ),
               ],
             ),
           ),
@@ -994,12 +1058,12 @@ Widget _recipeBuilderCard() {
             colors: <Color>[_kInk, _kSmoke, _kCharcoal],
           ),
           borderRadius: BorderRadius.circular(
-              CupertinoContextMenu.kOpenBorderRadius),
+            CupertinoContextMenu.kOpenBorderRadius,
+          ),
           border: Border.all(color: _kAmber, width: 1.0),
         ),
         child: const Center(
-          child: Icon(CupertinoIcons.music_note,
-              color: _kAmber, size: 36.0),
+          child: Icon(CupertinoIcons.music_note, color: _kAmber, size: 36.0),
         ),
       );
     },
@@ -1082,8 +1146,11 @@ Widget _recipeGallerySection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('05', 'Recipe gallery',
-          'Five canonical CupertinoContextMenu shapes'),
+      _sectionHeader(
+        '05',
+        'Recipe gallery',
+        'Five canonical CupertinoContextMenu shapes',
+      ),
       _proseBlock(
         'Each card below contains a REAL CupertinoContextMenu in its closed '
         'state. On a touch device a long-press will open the ceremonial '
@@ -1093,33 +1160,33 @@ Widget _recipeGallerySection() {
       _recipeCard(
         'Image with edit / share / delete',
         'The classic Photos-app gesture. Three actions, the last one '
-        'destructive (red, with a trash glyph). No default action.',
+            'destructive (red, with a trash glyph). No default action.',
         _recipeImage(),
       ),
       _recipeCard(
         'List-tile with reply / copy / select-all / forward',
         'A four-action menu for an email row. Reply is the default action '
-        '(bold). Trailing icons match iOS Mail.',
+            '(bold). Trailing icons match iOS Mail.',
         _recipeListTile(),
       ),
       _recipeCard(
         'Media card with .builder factory and previewBuilder',
         'Uses CupertinoContextMenu.builder so the card can morph through '
-        'the animation. enableHapticFeedback is on; a strong tap pulse fires '
-        'when the menu opens.',
+            'the animation. enableHapticFeedback is on; a strong tap pulse fires '
+            'when the menu opens.',
         _recipeBuilderCard(),
       ),
       _recipeCard(
         'Text paragraph with system actions',
         'A bare wrap of a Text widget exposes the iOS system trio: Copy, '
-        'Look Up, Translate. Useful in reading apps.',
+            'Look Up, Translate. Useful in reading apps.',
         _recipeText(),
       ),
       _recipeCard(
         'Thumbnail with destructive-only actions',
         'A trash bin thumbnail with two destructive rows. Apple\'s HIG '
-        'normally discourages all-red menus, but for a trash-management view '
-        'it can be appropriate.',
+            'normally discourages all-red menus, but for a trash-management view '
+            'it can be appropriate.',
         _recipeThumbDanger(),
       ),
     ],
@@ -1135,8 +1202,7 @@ Widget _matrixHeaderRow() {
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       color: _kAmber.withValues(alpha: 0.18),
-      borderRadius:
-          const BorderRadius.vertical(top: Radius.circular(8.0)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1148,8 +1214,7 @@ Widget _matrixHeaderRow() {
   );
 }
 
-Widget _matrixRow(
-    String variant, String props, Widget visual, bool last) {
+Widget _matrixRow(String variant, String props, Widget visual, bool last) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
     decoration: BoxDecoration(
@@ -1157,7 +1222,10 @@ Widget _matrixRow(
           ? null
           : Border(
               bottom: BorderSide(
-                  color: _kHairline.withValues(alpha: 0.4), width: 0.6)),
+                color: _kHairline.withValues(alpha: 0.4),
+                width: 0.6,
+              ),
+            ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -1171,8 +1239,13 @@ Widget _matrixRow(
 }
 
 // Each "visual" is a hand-drawn mock of how the action row should look.
-Widget _drawnAction(String label, IconData? icon,
-    {bool defaultAction = false, bool destructive = false, bool disabled = false}) {
+Widget _drawnAction(
+  String label,
+  IconData? icon, {
+  bool defaultAction = false,
+  bool destructive = false,
+  bool disabled = false,
+}) {
   Color color;
   if (destructive) {
     color = _kDanger;
@@ -1191,8 +1264,10 @@ Widget _drawnAction(String label, IconData? icon,
     child: Row(
       children: <Widget>[
         Expanded(
-          child: Text(label,
-              style: TextStyle(color: color, fontSize: 12.0, fontWeight: weight)),
+          child: Text(
+            label,
+            style: TextStyle(color: color, fontSize: 12.0, fontWeight: weight),
+          ),
         ),
         if (icon != null) ...<Widget>[
           const SizedBox(width: 4.0),
@@ -1207,8 +1282,11 @@ Widget _actionMatrixSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('06', 'CupertinoContextMenuAction matrix',
-          'Every legal property combination at a glance'),
+      _sectionHeader(
+        '06',
+        'CupertinoContextMenuAction matrix',
+        'Every legal property combination at a glance',
+      ),
       _proseBlock(
         'The CupertinoContextMenuAction has five public knobs: child, '
         'onPressed, isDefaultAction, isDestructiveAction, and trailingIcon. '
@@ -1239,8 +1317,11 @@ Widget _actionMatrixSection() {
             _matrixRow(
               'Default action',
               'isDefaultAction: true',
-              _drawnAction('Reply', CupertinoIcons.arrowshape_turn_up_right,
-                  defaultAction: true),
+              _drawnAction(
+                'Reply',
+                CupertinoIcons.arrowshape_turn_up_right,
+                defaultAction: true,
+              ),
               false,
             ),
             _matrixRow(
@@ -1295,8 +1376,11 @@ Widget _liveSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('07', 'Live instances',
-          'Real wrappers in the dormant state, ready for long-press'),
+      _sectionHeader(
+        '07',
+        'Live instances',
+        'Real wrappers in the dormant state, ready for long-press',
+      ),
       _proseBlock(
         'Below are five live CupertinoContextMenu instances mounted into the '
         'page. Each is wrapped in the surrounding CupertinoApp + '
@@ -1313,8 +1397,10 @@ Widget _liveSection() {
             const SizedBox(height: 10.0),
             _liveBox(_recipeImage()),
             const SizedBox(height: 18.0),
-            Text('2 . list-tile with reply/copy/select-all/forward',
-                style: _labelStyle()),
+            Text(
+              '2 . list-tile with reply/copy/select-all/forward',
+              style: _labelStyle(),
+            ),
             const SizedBox(height: 10.0),
             _liveBox(_recipeListTile()),
             const SizedBox(height: 18.0),
@@ -1358,8 +1444,11 @@ Widget _comparisonRow(String aspect, String cupertino, String material) {
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       border: Border(
-          bottom: BorderSide(
-              color: _kHairline.withValues(alpha: 0.4), width: 0.5)),
+        bottom: BorderSide(
+          color: _kHairline.withValues(alpha: 0.4),
+          width: 0.5,
+        ),
+      ),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1376,8 +1465,11 @@ Widget _comparisonSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('08', 'CupertinoContextMenu vs PopupMenuButton',
-          'Different gestures, different mental models'),
+      _sectionHeader(
+        '08',
+        'CupertinoContextMenu vs PopupMenuButton',
+        'Different gestures, different mental models',
+      ),
       _proseBlock(
         'PopupMenuButton is Material\'s anchored drop-down: a tap on a button '
         'opens a small inline list near the anchor. CupertinoContextMenu is '
@@ -1394,40 +1486,114 @@ Widget _comparisonSection() {
         child: Column(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 8.0,
+              ),
               decoration: BoxDecoration(
                 color: _kAmber.withValues(alpha: 0.18),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(8.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(8.0),
+                ),
               ),
               child: Row(
                 children: <Widget>[
-                  Expanded(flex: 4, child: Text('Aspect', style: _labelStyle())),
-                  Expanded(flex: 5, child: Text('CupertinoContextMenu', style: _labelStyle())),
-                  Expanded(flex: 5, child: Text('PopupMenuButton', style: _labelStyle())),
+                  Expanded(
+                    flex: 4,
+                    child: Text('Aspect', style: _labelStyle()),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text('CupertinoContextMenu', style: _labelStyle()),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text('PopupMenuButton', style: _labelStyle()),
+                  ),
                 ],
               ),
             ),
-            _comparisonRow('gesture', 'long-press (~500ms) on the wrapped child', 'single tap on the anchor button'),
-            _comparisonRow('overlay', 'full-screen dimmed scrim, subject lifted bodily', 'small floating card anchored to the button'),
-            _comparisonRow('subject', 'the wrapped child appears in the overlay', 'only the menu items appear; no "subject"'),
-            _comparisonRow('haptic', 'optional via enableHapticFeedback', 'no built-in haptic'),
-            _comparisonRow('action API', 'CupertinoContextMenuAction with default/destructive flags', 'PopupMenuItem with value + child'),
-            _comparisonRow('result delivery', 'each action has its own onPressed callback', 'a single onSelected callback receives the chosen value'),
-            _comparisonRow('typical home', 'photos, files, messages, media cards', 'overflow ":" buttons, toolbars, list-item actions'),
-            _comparisonRow('animation', 'multi-phase lift + dim + bloom', 'simple slide-in scale'),
-            _comparisonRow('default action visual', 'bold label', 'no native equivalent'),
-            _comparisonRow('destructive visual', 'iOS systemRed label and icon', 'must be styled manually'),
+            _comparisonRow(
+              'gesture',
+              'long-press (~500ms) on the wrapped child',
+              'single tap on the anchor button',
+            ),
+            _comparisonRow(
+              'overlay',
+              'full-screen dimmed scrim, subject lifted bodily',
+              'small floating card anchored to the button',
+            ),
+            _comparisonRow(
+              'subject',
+              'the wrapped child appears in the overlay',
+              'only the menu items appear; no "subject"',
+            ),
+            _comparisonRow(
+              'haptic',
+              'optional via enableHapticFeedback',
+              'no built-in haptic',
+            ),
+            _comparisonRow(
+              'action API',
+              'CupertinoContextMenuAction with default/destructive flags',
+              'PopupMenuItem with value + child',
+            ),
+            _comparisonRow(
+              'result delivery',
+              'each action has its own onPressed callback',
+              'a single onSelected callback receives the chosen value',
+            ),
+            _comparisonRow(
+              'typical home',
+              'photos, files, messages, media cards',
+              'overflow ":" buttons, toolbars, list-item actions',
+            ),
+            _comparisonRow(
+              'animation',
+              'multi-phase lift + dim + bloom',
+              'simple slide-in scale',
+            ),
+            _comparisonRow(
+              'default action visual',
+              'bold label',
+              'no native equivalent',
+            ),
+            _comparisonRow(
+              'destructive visual',
+              'iOS systemRed label and icon',
+              'must be styled manually',
+            ),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 8.0,
+              ),
               decoration: const BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(8.0)),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(8.0),
+                ),
               ),
               child: Row(
                 children: <Widget>[
-                  Expanded(flex: 4, child: Text('use when', style: _labelStyle())),
-                  Expanded(flex: 5, child: Text('the target is a meaningful subject (photo, file) and the user might naturally long-press it', style: _bodyStyle())),
-                  Expanded(flex: 5, child: Text('the target is an anonymous overflow button and you want a quick anchored drop-down', style: _bodyStyle())),
+                  Expanded(
+                    flex: 4,
+                    child: Text('use when', style: _labelStyle()),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text(
+                      'the target is a meaningful subject (photo, file) and the user might naturally long-press it',
+                      style: _bodyStyle(),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Text(
+                      'the target is an anonymous overflow button and you want a quick anchored drop-down',
+                      style: _bodyStyle(),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1460,11 +1626,14 @@ Widget _pitfall(String title, String description, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(title,
-                  style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13.5)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13.5,
+                ),
+              ),
               const SizedBox(height: 4.0),
               Text(description, style: _bodyStyle()),
             ],
@@ -1479,86 +1648,89 @@ Widget _pitfallsSection() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader('09', 'Common pitfalls',
-          'Mistakes that catch newcomers to CupertinoContextMenu'),
+      _sectionHeader(
+        '09',
+        'Common pitfalls',
+        'Mistakes that catch newcomers to CupertinoContextMenu',
+      ),
       _pitfall(
         'must live in a Cupertino-aware context',
         'CupertinoContextMenu uses Cupertino ancestors (CupertinoTheme, '
-        'MediaQuery, Localizations) when it opens. Mounting it under a bare '
-        'WidgetsApp with no CupertinoApp or MaterialApp wrapper will fail at '
-        'open time. Always wrap your tree in CupertinoApp or MaterialApp '
-        '(both provide the required ancestors).',
+            'MediaQuery, Localizations) when it opens. Mounting it under a bare '
+            'WidgetsApp with no CupertinoApp or MaterialApp wrapper will fail at '
+            'open time. Always wrap your tree in CupertinoApp or MaterialApp '
+            '(both provide the required ancestors).',
         CupertinoIcons.exclamationmark_triangle,
         _kAmber,
       ),
       _pitfall(
         'hero animation requirement',
         'The opening animation uses a hero-style flight: the framework needs '
-        'an Overlay above the wrapped child. CupertinoApp and MaterialApp '
-        'both install Navigator with an Overlay, so this is automatic in '
-        'normal apps. If you mount a CupertinoContextMenu inside a custom '
-        'host that lacks an Overlay (rare), the open animation will throw.',
+            'an Overlay above the wrapped child. CupertinoApp and MaterialApp '
+            'both install Navigator with an Overlay, so this is automatic in '
+            'normal apps. If you mount a CupertinoContextMenu inside a custom '
+            'host that lacks an Overlay (rare), the open animation will throw.',
         CupertinoIcons.flame,
         _kHoney,
       ),
       _pitfall(
         'do not overstack actions',
         'iOS HIG suggests 3-5 actions, 6 absolute max. More than that '
-        'creates a wall of text that defeats the gesture\'s purpose as an '
-        'accelerator. If you have more, split into sub-menus or move the '
-        'rare actions out of the context menu entirely.',
+            'creates a wall of text that defeats the gesture\'s purpose as an '
+            'accelerator. If you have more, split into sub-menus or move the '
+            'rare actions out of the context menu entirely.',
         CupertinoIcons.layers_alt,
         _kAmber,
       ),
       _pitfall(
         'context menu must NOT be the only path',
         'The context menu is a SECONDARY accelerator. Every action exposed '
-        'here must also be reachable through a primary, visible control. '
-        'If the only way to delete a photo is to long-press it, novice users '
-        'will be stranded. Always pair with a visible button or swipe action.',
+            'here must also be reachable through a primary, visible control. '
+            'If the only way to delete a photo is to long-press it, novice users '
+            'will be stranded. Always pair with a visible button or swipe action.',
         CupertinoIcons.eye_slash,
         _kHoney,
       ),
       _pitfall(
         'destructive colour is a contract',
         'iOS systemRed on an action row is a visual contract: this row will '
-        'do something the user cannot undo with a single tap. Reserve '
-        'isDestructiveAction for Delete, Erase, Discard, and Sign Out. Do '
-        'NOT use it for routine "cancel" rows.',
+            'do something the user cannot undo with a single tap. Reserve '
+            'isDestructiveAction for Delete, Erase, Discard, and Sign Out. Do '
+            'NOT use it for routine "cancel" rows.',
         CupertinoIcons.flag,
         _kDanger,
       ),
       _pitfall(
         'one default action at most',
         'isDefaultAction renders the row in BOLD. Having two bold rows in '
-        'the same menu defeats its purpose --- the user cannot tell which '
-        'one is primary. Either pick one default or none.',
+            'the same menu defeats its purpose --- the user cannot tell which '
+            'one is primary. Either pick one default or none.',
         CupertinoIcons.star,
         _kAmber,
       ),
       _pitfall(
         'do not animate the child yourself',
         'The framework already drives the lift / dim / bloom animation. '
-        'Wrapping your child in an extra AnimatedContainer or rebuilt '
-        'AnimationController will fight the framework\'s tween and produce '
-        'a stuttering open. Use CupertinoContextMenu.builder if you need '
-        'access to the framework\'s own animation.',
+            'Wrapping your child in an extra AnimatedContainer or rebuilt '
+            'AnimationController will fight the framework\'s tween and produce '
+            'a stuttering open. Use CupertinoContextMenu.builder if you need '
+            'access to the framework\'s own animation.',
         CupertinoIcons.gear,
         _kHoney,
       ),
       _pitfall(
         'do not nest CupertinoContextMenu inside CupertinoContextMenu',
         'A long-press inside an already-open menu has no defined behaviour. '
-        'Keep the gesture flat: the wrapped child should be a leaf widget '
-        'with no further long-press handlers.',
+            'Keep the gesture flat: the wrapped child should be a leaf widget '
+            'with no further long-press handlers.',
         CupertinoIcons.nosign,
         _kDanger,
       ),
       _pitfall(
         'enableHapticFeedback only fires on iOS',
         'On Android and desktop the haptic call is a no-op. Setting the '
-        'flag is safe cross-platform, but do not design your UX around '
-        'the haptic; treat it as a bonus on iOS only.',
+            'flag is safe cross-platform, but do not design your UX around '
+            'the haptic; treat it as a bonus on iOS only.',
         CupertinoIcons.waveform,
         _kAmber,
       ),
@@ -1578,8 +1750,8 @@ Widget _glossaryEntry(String term, String definition) {
       color: _kSmoke,
       borderRadius: BorderRadius.circular(6.0),
       border: Border(
-          left: BorderSide(
-              color: _kAmber.withValues(alpha: 0.7), width: 3.0)),
+        left: BorderSide(color: _kAmber.withValues(alpha: 0.7), width: 3.0),
+      ),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1597,46 +1769,76 @@ Widget _glossarySection() {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       _sectionHeader('10', 'Glossary', 'Marginalia from the field guide'),
-      _glossaryEntry('long-press',
-          'a touch held in place for >=~500ms without significant motion. The '
-          'iOS pattern that triggers CupertinoContextMenu.'),
-      _glossaryEntry('subject',
-          'the wrapped child widget that the menu lifts into the popover.'),
-      _glossaryEntry('stack',
-          'the vertical list of action rows beneath the lifted subject.'),
-      _glossaryEntry('default action',
-          'an action drawn in bold; signals the primary choice in the menu.'),
-      _glossaryEntry('destructive action',
-          'an action drawn in iOS systemRed; signals an irreversible choice.'),
-      _glossaryEntry('trailing icon',
-          'an IconData drawn at the right edge of an action row, aligned to '
-          'a 16-pt safe inset.'),
-      _glossaryEntry('frosted glass',
-          'the iOS visual material used for the action stack: a translucent '
-          'card that blurs whatever is behind it.'),
-      _glossaryEntry('scrim',
-          'the dimmed full-screen overlay behind the lifted subject; '
-          'typically ~70% black.'),
-      _glossaryEntry('hairline',
-          'a 0.5 to 1.0 logical-pixel divider, the iOS standard separator.'),
-      _glossaryEntry('hero animation',
-          'a flight animation that moves a widget from its origin position '
-          'to a destination position via an Overlay; used by the framework '
-          'to lift the subject into the popover.'),
-      _glossaryEntry('builder factory',
-          'the CupertinoContextMenu.builder constructor, which exposes the '
-          'open animation so the child can morph as the menu opens.'),
-      _glossaryEntry('animationOpensAt',
-          'the fraction (~0.75) of the open animation at which the menu is '
-          'considered fully open and can accept taps.'),
-      _glossaryEntry('kOpenBorderRadius',
-          'the fixed corner radius of the lifted subject while open (~12.0).'),
-      _glossaryEntry('haptic',
-          'a tactile vibration; HapticFeedback.heavyImpact on iOS when '
-          'enableHapticFeedback is true.'),
-      _glossaryEntry('overflow menu',
-          'a Material idiom (the three-dot button) which is the closest '
-          'kin to CupertinoContextMenu, though gesture and visuals differ.'),
+      _glossaryEntry(
+        'long-press',
+        'a touch held in place for >=~500ms without significant motion. The '
+            'iOS pattern that triggers CupertinoContextMenu.',
+      ),
+      _glossaryEntry(
+        'subject',
+        'the wrapped child widget that the menu lifts into the popover.',
+      ),
+      _glossaryEntry(
+        'stack',
+        'the vertical list of action rows beneath the lifted subject.',
+      ),
+      _glossaryEntry(
+        'default action',
+        'an action drawn in bold; signals the primary choice in the menu.',
+      ),
+      _glossaryEntry(
+        'destructive action',
+        'an action drawn in iOS systemRed; signals an irreversible choice.',
+      ),
+      _glossaryEntry(
+        'trailing icon',
+        'an IconData drawn at the right edge of an action row, aligned to '
+            'a 16-pt safe inset.',
+      ),
+      _glossaryEntry(
+        'frosted glass',
+        'the iOS visual material used for the action stack: a translucent '
+            'card that blurs whatever is behind it.',
+      ),
+      _glossaryEntry(
+        'scrim',
+        'the dimmed full-screen overlay behind the lifted subject; '
+            'typically ~70% black.',
+      ),
+      _glossaryEntry(
+        'hairline',
+        'a 0.5 to 1.0 logical-pixel divider, the iOS standard separator.',
+      ),
+      _glossaryEntry(
+        'hero animation',
+        'a flight animation that moves a widget from its origin position '
+            'to a destination position via an Overlay; used by the framework '
+            'to lift the subject into the popover.',
+      ),
+      _glossaryEntry(
+        'builder factory',
+        'the CupertinoContextMenu.builder constructor, which exposes the '
+            'open animation so the child can morph as the menu opens.',
+      ),
+      _glossaryEntry(
+        'animationOpensAt',
+        'the fraction (~0.75) of the open animation at which the menu is '
+            'considered fully open and can accept taps.',
+      ),
+      _glossaryEntry(
+        'kOpenBorderRadius',
+        'the fixed corner radius of the lifted subject while open (~12.0).',
+      ),
+      _glossaryEntry(
+        'haptic',
+        'a tactile vibration; HapticFeedback.heavyImpact on iOS when '
+            'enableHapticFeedback is true.',
+      ),
+      _glossaryEntry(
+        'overflow menu',
+        'a Material idiom (the three-dot button) which is the closest '
+            'kin to CupertinoContextMenu, though gesture and visuals differ.',
+      ),
     ],
   );
 }
@@ -1655,8 +1857,10 @@ Widget _recapBullet(String head, String body) {
           width: 6.0,
           height: 6.0,
           margin: const EdgeInsets.only(top: 7.0, right: 8.0),
-          decoration:
-              const BoxDecoration(color: _kAmber, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: _kAmber,
+            shape: BoxShape.circle,
+          ),
         ),
         Expanded(
           child: RichText(
@@ -1685,34 +1889,54 @@ Widget _recapSection() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _recapBullet('gesture',
-                'long-press a wrapped child to summon the ceremonial popover.'),
-            _recapBullet('subject',
-                'the wrapped child is lifted bodily; corner radius and shadow '
-                'are framework-owned.'),
-            _recapBullet('actions',
-                'a list of CupertinoContextMenuAction. Three to five is the '
-                'sweet spot.'),
-            _recapBullet('default',
-                'isDefaultAction: true draws the row in bold. At most one '
-                'per menu.'),
-            _recapBullet('destructive',
-                'isDestructiveAction: true draws the row in iOS systemRed. '
-                'Reserve for irreversible actions.'),
-            _recapBullet('trailing icon',
-                'optional IconData on the right edge; iOS strongly prefers '
-                'every row to have one.'),
-            _recapBullet('haptic',
-                'enableHapticFeedback fires a heavy impact on open. iOS only.'),
-            _recapBullet('builder factory',
-                'CupertinoContextMenu.builder receives the open Animation '
-                'and can morph the child as it lifts.'),
-            _recapBullet('contract',
-                'the context menu is a SECONDARY accelerator; never the only '
-                'path to a command.'),
-            _recapBullet('ancestor',
-                'must live under CupertinoApp or MaterialApp; needs Overlay '
-                'and Cupertino theme.'),
+            _recapBullet(
+              'gesture',
+              'long-press a wrapped child to summon the ceremonial popover.',
+            ),
+            _recapBullet(
+              'subject',
+              'the wrapped child is lifted bodily; corner radius and shadow '
+                  'are framework-owned.',
+            ),
+            _recapBullet(
+              'actions',
+              'a list of CupertinoContextMenuAction. Three to five is the '
+                  'sweet spot.',
+            ),
+            _recapBullet(
+              'default',
+              'isDefaultAction: true draws the row in bold. At most one '
+                  'per menu.',
+            ),
+            _recapBullet(
+              'destructive',
+              'isDestructiveAction: true draws the row in iOS systemRed. '
+                  'Reserve for irreversible actions.',
+            ),
+            _recapBullet(
+              'trailing icon',
+              'optional IconData on the right edge; iOS strongly prefers '
+                  'every row to have one.',
+            ),
+            _recapBullet(
+              'haptic',
+              'enableHapticFeedback fires a heavy impact on open. iOS only.',
+            ),
+            _recapBullet(
+              'builder factory',
+              'CupertinoContextMenu.builder receives the open Animation '
+                  'and can morph the child as it lifts.',
+            ),
+            _recapBullet(
+              'contract',
+              'the context menu is a SECONDARY accelerator; never the only '
+                  'path to a command.',
+            ),
+            _recapBullet(
+              'ancestor',
+              'must live under CupertinoApp or MaterialApp; needs Overlay '
+                  'and Cupertino theme.',
+            ),
           ],
         ),
       ),
@@ -1722,7 +1946,10 @@ Widget _recapSection() {
         decoration: BoxDecoration(
           color: _kAmber.withValues(alpha: 0.10),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: _kAmber.withValues(alpha: 0.55), width: 0.8),
+          border: Border.all(
+            color: _kAmber.withValues(alpha: 0.55),
+            width: 0.8,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1771,9 +1998,7 @@ dynamic build(BuildContext context) {
   _printSummary();
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData.dark().copyWith(
-      scaffoldBackgroundColor: _kObsidian,
-    ),
+    theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: _kObsidian),
     home: CupertinoTheme(
       data: const CupertinoThemeData(
         brightness: Brightness.dark,
@@ -1785,8 +2010,10 @@ dynamic build(BuildContext context) {
         backgroundColor: _kObsidian,
         navigationBar: const CupertinoNavigationBar(
           backgroundColor: _kCharcoal,
-          middle: Text('CupertinoContextMenu',
-              style: TextStyle(color: _kAmber)),
+          middle: Text(
+            'CupertinoContextMenu',
+            style: TextStyle(color: _kAmber),
+          ),
         ),
         child: SafeArea(
           child: SingleChildScrollView(
@@ -1807,8 +2034,10 @@ dynamic build(BuildContext context) {
                 _recapSection(),
                 const SizedBox(height: 32.0),
                 Center(
-                  child: Text('— end of obsidian amber dossier —',
-                      style: _captionStyle()),
+                  child: Text(
+                    '— end of obsidian amber dossier —',
+                    style: _captionStyle(),
+                  ),
                 ),
                 const SizedBox(height: 32.0),
               ],

@@ -80,17 +80,9 @@ dynamic build(BuildContext context) {
       ),
       scaffoldBackgroundColor: _slate50,
       textTheme: const TextTheme(
-        headlineSmall: TextStyle(
-          fontWeight: FontWeight.w700,
-          color: _slate900,
-        ),
-        titleMedium: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: _slate700,
-        ),
-        bodyMedium: TextStyle(
-          color: _slate700,
-        ),
+        headlineSmall: TextStyle(fontWeight: FontWeight.w700, color: _slate900),
+        titleMedium: TextStyle(fontWeight: FontWeight.w600, color: _slate700),
+        bodyMedium: TextStyle(color: _slate700),
       ),
     ),
     home: const ContactFormDemo(),
@@ -170,8 +162,10 @@ class _ContactFormDemoState extends State<ContactFormDemo>
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    debugPrint('[demo] restoreState: registering four text controllers '
-        'and one int; initialRestore=$initialRestore.');
+    debugPrint(
+      '[demo] restoreState: registering four text controllers '
+      'and one int; initialRestore=$initialRestore.',
+    );
     // Each registerForRestoration call hands the property a unique
     // restoration ID. The first time a given ID is seen by the framework,
     // RestorableTextEditingController.createDefaultValue() is used to
@@ -186,8 +180,10 @@ class _ContactFormDemoState extends State<ContactFormDemo>
 
   @override
   void dispose() {
-    debugPrint('[demo] dispose: detaching listeners and disposing '
-        'controllers + focus nodes.');
+    debugPrint(
+      '[demo] dispose: detaching listeners and disposing '
+      'controllers + focus nodes.',
+    );
     // Detach the listeners we attached in initState. The
     // RestorableTextEditingController itself will dispose the wrapped
     // TextEditingController when we call .dispose() on it, but we still
@@ -417,7 +413,8 @@ class _ContactFormDemoState extends State<ContactFormDemo>
         children: <Widget>[
           _buildSectionHeader(
             title: 'Contact fields',
-            subtitle: 'Four RestorableTextEditingController instances, '
+            subtitle:
+                'Four RestorableTextEditingController instances, '
                 'each a live RestorableListenable.',
           ),
           const SizedBox(height: 18),
@@ -520,9 +517,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
                 maxLines: multiline ? 4 : 1,
                 decoration: InputDecoration(
                   hintText: hint,
-                  hintStyle: TextStyle(
-                    color: _slate500.withValues(alpha: 0.7),
-                  ),
+                  hintStyle: TextStyle(color: _slate500.withValues(alpha: 0.7)),
                   filled: true,
                   fillColor: _slate50,
                   contentPadding: const EdgeInsets.symmetric(
@@ -632,9 +627,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
               _buildPreviewGradientHeader(),
               Padding(
                 padding: const EdgeInsets.all(20),
-                child: narrow
-                    ? _buildPreviewNarrow()
-                    : _buildPreviewWide(),
+                child: narrow ? _buildPreviewNarrow() : _buildPreviewWide(),
               ),
             ],
           ),
@@ -691,9 +684,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
 
   Widget _buildMonogramCircle() {
     final String raw = _fullName.value.text.trim();
-    final String letter = raw.isEmpty
-        ? '?'
-        : raw.substring(0, 1).toUpperCase();
+    final String letter = raw.isEmpty ? '?' : raw.substring(0, 1).toUpperCase();
     return Container(
       width: 76,
       height: 76,
@@ -801,7 +792,8 @@ class _ContactFormDemoState extends State<ContactFormDemo>
         children: <Widget>[
           _buildSectionHeader(
             title: 'Live validation',
-            subtitle: 'Each chip recomputes on every RestorableListenable '
+            subtitle:
+                'Each chip recomputes on every RestorableListenable '
                 'notification — no manual wiring required.',
           ),
           const SizedBox(height: 14),
@@ -809,14 +801,8 @@ class _ContactFormDemoState extends State<ContactFormDemo>
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              _buildValidationChip(
-                label: 'name required',
-                ok: _nameHasValue,
-              ),
-              _buildValidationChip(
-                label: 'email has @',
-                ok: _emailHasAt,
-              ),
+              _buildValidationChip(label: 'name required', ok: _nameHasValue),
+              _buildValidationChip(label: 'email has @', ok: _emailHasAt),
               _buildValidationChip(
                 label: 'phone digits only',
                 ok: _phoneIsDigitsOnly,
@@ -954,15 +940,9 @@ class _ContactFormDemoState extends State<ContactFormDemo>
     return TableRow(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 6,
-            vertical: 8,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 4,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
               color: _slate900,
               borderRadius: BorderRadius.circular(6),
@@ -979,10 +959,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 8,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
           child: Text(
             body,
             style: const TextStyle(
@@ -1089,11 +1066,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
         const SizedBox(height: 4),
         Text(
           subtitle,
-          style: const TextStyle(
-            fontSize: 12,
-            color: _slate500,
-            height: 1.4,
-          ),
+          style: const TextStyle(fontSize: 12, color: _slate500, height: 1.4),
         ),
       ],
     );
@@ -1104,9 +1077,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Row(
         children: <Widget>[
-          const Expanded(
-            child: Divider(color: _slate300, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: _slate300, thickness: 1)),
           const SizedBox(width: 12),
           Container(
             width: 8,
@@ -1117,9 +1088,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
             ),
           ),
           const SizedBox(width: 12),
-          const Expanded(
-            child: Divider(color: _slate300, thickness: 1),
-          ),
+          const Expanded(child: Divider(color: _slate300, thickness: 1)),
         ],
       ),
     );
@@ -1138,10 +1107,7 @@ class _ContactFormDemoState extends State<ContactFormDemo>
         elevation: 0,
         title: const Text(
           'RestorableListenable',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-            letterSpacing: -0.3,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: -0.3),
         ),
         actions: <Widget>[
           Padding(
@@ -1197,21 +1163,14 @@ class _ContactFormDemoState extends State<ContactFormDemo>
   Widget _buildFooterCredit() {
     // A quiet closing note, dark on pale, to end the demo.
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: _slate100,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: <Widget>[
-          const Icon(
-            Icons.bookmark_border,
-            size: 16,
-            color: _slate500,
-          ),
+          const Icon(Icons.bookmark_border, size: 16, color: _slate500),
           const SizedBox(width: 8),
           Expanded(
             child: Text(

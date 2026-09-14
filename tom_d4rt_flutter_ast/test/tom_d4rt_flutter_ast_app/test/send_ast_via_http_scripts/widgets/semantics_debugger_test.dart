@@ -17,7 +17,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.bug_report,
       'title': 'Semantics Visualization Tool',
-      'body': 'SemanticsDebugger renders the semantics tree as a visual '
+      'body':
+          'SemanticsDebugger renders the semantics tree as a visual '
           'overlay on top of your app. Each semantic node is drawn as a '
           'colored rectangle with its label, making the invisible '
           'accessibility tree visible for debugging.',
@@ -25,21 +26,24 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.accessibility,
       'title': 'Accessibility Debugging',
-      'body': 'Shows exactly what assistive technologies (screen readers, '
+      'body':
+          'Shows exactly what assistive technologies (screen readers, '
           'switch access) see in your app. If a widget has no semantic '
           'node, it will not appear in the debugger overlay.',
     },
     {
       'icon': Icons.layers,
       'title': 'Transparent Overlay',
-      'body': 'The debugger draws semi-transparent rectangles over the '
+      'body':
+          'The debugger draws semi-transparent rectangles over the '
           'normal UI. You can still see the widget underneath but with '
           'semantic boundaries and labels superimposed.',
     },
     {
       'icon': Icons.toggle_on,
       'title': 'Toggle at Runtime',
-      'body': 'Wrap your app in SemanticsDebugger and toggle it on/off '
+      'body':
+          'Wrap your app in SemanticsDebugger and toggle it on/off '
           'with a boolean flag. Useful during development to quickly '
           'verify semantic annotations are correct.',
     },
@@ -61,7 +65,11 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(p['icon'] as IconData, color: Colors.teal.shade700, size: 26.0),
+            Icon(
+              p['icon'] as IconData,
+              color: Colors.teal.shade700,
+              size: 26.0,
+            ),
             const SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -78,7 +86,11 @@ dynamic build(BuildContext context) {
                   const SizedBox(height: 4.0),
                   Text(
                     p['body'] as String,
-                    style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.4),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      height: 1.4,
+                    ),
                   ),
                 ],
               ),
@@ -99,7 +111,8 @@ dynamic build(BuildContext context) {
       'step': '1',
       'title': 'Semantics Tree Collection',
       'color': Colors.blue,
-      'desc': 'SemanticsDebugger attaches a PipelineOwner listener to '
+      'desc':
+          'SemanticsDebugger attaches a PipelineOwner listener to '
           'the semantics pipeline. When the semantics tree updates, '
           'it receives the latest SemanticsNode tree.',
     },
@@ -107,7 +120,8 @@ dynamic build(BuildContext context) {
       'step': '2',
       'title': 'Node Traversal',
       'color': Colors.purple,
-      'desc': 'Walks the SemanticsNode tree recursively. Each node has '
+      'desc':
+          'Walks the SemanticsNode tree recursively. Each node has '
           'a rect (position/size), label, actions, and flags. The '
           'debugger collects all this information.',
     },
@@ -115,7 +129,8 @@ dynamic build(BuildContext context) {
       'step': '3',
       'title': 'Overlay Painting',
       'color': Colors.green,
-      'desc': 'A custom painter draws colored rectangles for each node. '
+      'desc':
+          'A custom painter draws colored rectangles for each node. '
           'Labels are rendered as text. Different colors indicate '
           'different semantic properties (actions, labels, etc.).',
     },
@@ -123,7 +138,8 @@ dynamic build(BuildContext context) {
       'step': '4',
       'title': 'Gesture Translation',
       'color': Colors.orange,
-      'desc': 'Taps and gestures on the overlay are translated into '
+      'desc':
+          'Taps and gestures on the overlay are translated into '
           'semantic actions. Tapping triggers the semantic tap action '
           'on the node at that position.',
     },
@@ -150,7 +166,11 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   hs['step'] as String,
-                  style: const TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -161,12 +181,20 @@ dynamic build(BuildContext context) {
                 children: [
                   Text(
                     hs['title'] as String,
-                    style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     hs['desc'] as String,
-                    style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade700,
+                      height: 1.35,
+                    ),
                   ),
                 ],
               ),
@@ -193,7 +221,8 @@ dynamic build(BuildContext context) {
       'name': 'labelStyle',
       'type': 'TextStyle',
       'required': false,
-      'desc': 'Style for the label text drawn on each semantic node. '
+      'desc':
+          'Style for the label text drawn on each semantic node. '
           'Defaults to a small font. Customize to change visibility.',
     },
   ];
@@ -213,10 +242,15 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               margin: const EdgeInsets.only(right: 8.0),
               decoration: BoxDecoration(
-                color: isReq ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                color: isReq
+                    ? Colors.red.withValues(alpha: 0.1)
+                    : Colors.grey.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(
@@ -236,21 +270,32 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         cp['name'] as String,
-                        style: TextStyle(fontSize: 12.0, fontFamily: 'monospace',
-                            fontWeight: FontWeight.w700, color: Colors.teal.shade700),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontFamily: 'monospace',
+                          fontWeight: FontWeight.w700,
+                          color: Colors.teal.shade700,
+                        ),
                       ),
                       const SizedBox(width: 6.0),
                       Text(
                         cp['type'] as String,
-                        style: TextStyle(fontSize: 10.0, fontFamily: 'monospace',
-                            color: Colors.grey.shade500),
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade500,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     cp['desc'] as String,
-                    style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade600,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -278,14 +323,16 @@ dynamic build(BuildContext context) {
       'visual': 'Colored Rectangle',
       'meaning': 'Bounds of a semantic node',
       'color': Colors.blue,
-      'detail': 'Each rectangle shows the exact area an assistive '
+      'detail':
+          'Each rectangle shows the exact area an assistive '
           'technology considers as a single interactive element.',
     },
     {
       'visual': 'Text Label Inside',
       'meaning': 'Semantic label / value',
       'color': Colors.green,
-      'detail': 'The text shown inside the rectangle is what a screen '
+      'detail':
+          'The text shown inside the rectangle is what a screen '
           'reader would announce. Missing labels mean the element '
           'is invisible to assistive tech.',
     },
@@ -293,21 +340,24 @@ dynamic build(BuildContext context) {
       'visual': 'Thick Border',
       'meaning': 'Has semantic actions',
       'color': Colors.orange,
-      'detail': 'Thicker borders indicate the node has actions like tap, '
+      'detail':
+          'Thicker borders indicate the node has actions like tap, '
           'long press, scroll. These are the interactive elements.',
     },
     {
       'visual': 'Nested Rectangles',
       'meaning': 'Semantic tree hierarchy',
       'color': Colors.purple,
-      'detail': 'Nested rectangles show the parent-child relationship. '
+      'detail':
+          'Nested rectangles show the parent-child relationship. '
           'MergeSemantics collapses multiple nodes into one.',
     },
     {
       'visual': 'No Rectangle',
       'meaning': 'Not in semantics tree',
       'color': Colors.red,
-      'detail': 'Widgets without any semantic annotation have no rectangle. '
+      'detail':
+          'Widgets without any semantic annotation have no rectangle. '
           'They are invisible to screen readers.',
     },
   ];
@@ -344,19 +394,30 @@ dynamic build(BuildContext context) {
                     children: [
                       Text(
                         ip['visual'] as String,
-                        style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color),
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
+                          color: color,
+                        ),
                       ),
                       const SizedBox(width: 6.0),
                       Text(
                         '= ${ip['meaning']}',
-                        style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4.0),
                   Text(
                     ip['detail'] as String,
-                    style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700, height: 1.3),
+                    style: TextStyle(
+                      fontSize: 11.5,
+                      color: Colors.grey.shade700,
+                      height: 1.3,
+                    ),
                   ),
                 ],
               ),
@@ -420,24 +481,37 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
                   Text(
                     ct['tool'] as String,
-                    style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                   const Spacer(),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: Text(
                       ct['type'] as String,
-                      style: TextStyle(fontSize: 9.0, fontWeight: FontWeight.w600, color: color),
+                      style: TextStyle(
+                        fontSize: 9.0,
+                        fontWeight: FontWeight.w600,
+                        color: color,
+                      ),
                     ),
                   ),
                 ],
@@ -452,8 +526,21 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Pros', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Colors.green.shade700)),
-                        Text(ct['pros'] as String, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                        Text(
+                          'Pros',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.green.shade700,
+                          ),
+                        ),
+                        Text(
+                          ct['pros'] as String,
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -462,8 +549,21 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Cons', style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w700, color: Colors.red.shade700)),
-                        Text(ct['cons'] as String, style: TextStyle(fontSize: 11.0, color: Colors.grey.shade600)),
+                        Text(
+                          'Cons',
+                          style: TextStyle(
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
+                        Text(
+                          ct['cons'] as String,
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -486,10 +586,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.search,
       'title': 'Finding Missing Labels',
       'color': Colors.blue,
-      'body': 'Quickly spot buttons and icons that lack semantic labels. '
+      'body':
+          'Quickly spot buttons and icons that lack semantic labels. '
           'Elements without rectangles in the debugger are invisible '
           'to screen readers.',
-      'code': '// Missing semantic label:\n'
+      'code':
+          '// Missing semantic label:\n'
           'IconButton(\n'
           '  icon: Icon(Icons.share),\n'
           '  onPressed: share,\n'
@@ -505,10 +607,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.merge,
       'title': 'Verifying MergeSemantics',
       'color': Colors.green,
-      'body': 'Check that related elements are properly merged into a '
+      'body':
+          'Check that related elements are properly merged into a '
           'single semantic node. Without MergeSemantics, each child '
           'appears as a separate node.',
-      'code': '// Before (3 separate nodes):\n'
+      'code':
+          '// Before (3 separate nodes):\n'
           'Row(children: [\n'
           '  icon, Text("label"), badge\n'
           '])\n\n'
@@ -523,10 +627,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.visibility_off,
       'title': 'Checking ExcludeSemantics',
       'color': Colors.orange,
-      'body': 'Verify that decorative elements are properly excluded from '
+      'body':
+          'Verify that decorative elements are properly excluded from '
           'the semantics tree. Background images and ornaments should '
           'not clutter screen reader output.',
-      'code': 'ExcludeSemantics(\n'
+      'code':
+          'ExcludeSemantics(\n'
           '  child: DecorativeImage(...),\n'
           ')\n'
           '// No rectangle in debugger\n'
@@ -536,10 +642,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.touch_app,
       'title': 'Testing Tap Targets',
       'color': Colors.purple,
-      'body': 'Verify that tap targets are large enough and properly labeled. '
+      'body':
+          'Verify that tap targets are large enough and properly labeled. '
           'Small semantic rectangles indicate hard-to-reach targets for '
           'users with motor impairments.',
-      'code': '// Minimum tap target size:\n'
+      'code':
+          '// Minimum tap target size:\n'
           'Semantics(\n'
           '  button: true,\n'
           '  label: "Submit",\n'
@@ -568,7 +676,9 @@ dynamic build(BuildContext context) {
               padding: const EdgeInsets.all(12.0),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.06),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(9.0)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(9.0),
+                ),
               ),
               child: Row(
                 children: [
@@ -576,16 +686,27 @@ dynamic build(BuildContext context) {
                   const SizedBox(width: 8.0),
                   Text(
                     uc['title'] as String,
-                    style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: color),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      color: color,
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12.0,
+                vertical: 8.0,
+              ),
               child: Text(
                 uc['body'] as String,
-                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.grey.shade700,
+                  height: 1.35,
+                ),
               ),
             ),
             Container(
@@ -599,7 +720,11 @@ dynamic build(BuildContext context) {
               ),
               child: Text(
                 uc['code'] as String,
-                style: TextStyle(fontSize: 10.5, fontFamily: 'monospace', color: Colors.grey.shade700),
+                style: TextStyle(
+                  fontSize: 10.5,
+                  fontFamily: 'monospace',
+                  color: Colors.grey.shade700,
+                ),
               ),
             ),
           ],
@@ -614,12 +739,31 @@ dynamic build(BuildContext context) {
   print('=== Section 8: Summary ===');
 
   final summaryPoints = <Map<String, dynamic>>[
-    {'icon': Icons.bug_report, 'text': 'SemanticsDebugger overlays the semantics tree on your widget UI'},
-    {'icon': Icons.accessibility, 'text': 'Shows what assistive technologies see: labels, actions, boundaries'},
-    {'icon': Icons.toggle_on, 'text': 'Wrap app in SemanticsDebugger and toggle with a boolean flag'},
-    {'icon': Icons.search, 'text': 'Use to find missing labels, wrong merge, and tiny tap targets'},
-    {'icon': Icons.touch_app, 'text': 'Taps on overlay translate to semantic actions on nodes'},
-    {'icon': Icons.compare, 'text': 'Complements DevTools inspector and platform accessibility tools'},
+    {
+      'icon': Icons.bug_report,
+      'text': 'SemanticsDebugger overlays the semantics tree on your widget UI',
+    },
+    {
+      'icon': Icons.accessibility,
+      'text':
+          'Shows what assistive technologies see: labels, actions, boundaries',
+    },
+    {
+      'icon': Icons.toggle_on,
+      'text': 'Wrap app in SemanticsDebugger and toggle with a boolean flag',
+    },
+    {
+      'icon': Icons.search,
+      'text': 'Use to find missing labels, wrong merge, and tiny tap targets',
+    },
+    {
+      'icon': Icons.touch_app,
+      'text': 'Taps on overlay translate to semantic actions on nodes',
+    },
+    {
+      'icon': Icons.compare,
+      'text': 'Complements DevTools inspector and platform accessibility tools',
+    },
   ];
 
   final summaryItems = <Widget>[];
@@ -630,12 +774,20 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(sp['icon'] as IconData, size: 16.0, color: Colors.teal.shade700),
+            Icon(
+              sp['icon'] as IconData,
+              size: 16.0,
+              color: Colors.teal.shade700,
+            ),
             const SizedBox(width: 8.0),
             Expanded(
               child: Text(
                 sp['text'] as String,
-                style: TextStyle(fontSize: 12.5, color: Colors.grey.shade800, height: 1.3),
+                style: TextStyle(
+                  fontSize: 12.5,
+                  color: Colors.grey.shade800,
+                  height: 1.3,
+                ),
               ),
             ),
           ],
@@ -682,10 +834,12 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('What is SemanticsDebugger?',
-                    'A widget that visualizes the semantics tree as a '
-                    'colored overlay on your app, showing what screen '
-                    'readers and assistive technologies see.'),
+                _buildSDBullet(
+                  'What is SemanticsDebugger?',
+                  'A widget that visualizes the semantics tree as a '
+                      'colored overlay on your app, showing what screen '
+                      'readers and assistive technologies see.',
+                ),
                 const SizedBox(height: 14.0),
                 ...conceptCards,
               ],
@@ -697,9 +851,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('Under the Hood',
-                    'How SemanticsDebugger collects and renders '
-                    'the semantic tree information.'),
+                _buildSDBullet(
+                  'Under the Hood',
+                  'How SemanticsDebugger collects and renders '
+                      'the semantic tree information.',
+                ),
                 const SizedBox(height: 14.0),
                 ...howWidgets,
                 const SizedBox(height: 10.0),
@@ -713,7 +869,11 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 16.0, color: Colors.amber.shade800),
+                      Icon(
+                        Icons.info_outline,
+                        size: 16.0,
+                        color: Colors.amber.shade800,
+                      ),
                       const SizedBox(width: 8.0),
                       Expanded(
                         child: Text(
@@ -722,7 +882,11 @@ dynamic build(BuildContext context) {
                           'tapping on a button in the debugger overlay will '
                           'trigger the semantic tap action, not the gesture '
                           'detector. This lets you test the semantic layer.',
-                          style: TextStyle(fontSize: 11.5, color: Colors.amber.shade900, height: 1.35),
+                          style: TextStyle(
+                            fontSize: 11.5,
+                            color: Colors.amber.shade900,
+                            height: 1.35,
+                          ),
                         ),
                       ),
                     ],
@@ -737,9 +901,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('Constructor Parameters',
-                    'SemanticsDebugger has a minimal API – just a child '
-                    'and an optional label style.'),
+                _buildSDBullet(
+                  'Constructor Parameters',
+                  'SemanticsDebugger has a minimal API – just a child '
+                      'and an optional label style.',
+                ),
                 const SizedBox(height: 14.0),
                 ...ctorCards,
                 const SizedBox(height: 14.0),
@@ -753,9 +919,14 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Minimal Usage',
-                          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                              color: Colors.teal.shade700)),
+                      Text(
+                        'Minimal Usage',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.teal.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 8.0),
                       Text(
                         'SemanticsDebugger(\n'
@@ -763,12 +934,21 @@ dynamic build(BuildContext context) {
                         '    home: MyHomePage(),\n'
                         '  ),\n'
                         ')',
-                        style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade700),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade700,
+                        ),
                       ),
                       const SizedBox(height: 10.0),
-                      Text('Toggle Pattern',
-                          style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.w700,
-                              color: Colors.teal.shade700)),
+                      Text(
+                        'Toggle Pattern',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.teal.shade700,
+                        ),
+                      ),
                       const SizedBox(height: 8.0),
                       Text(
                         'if (showSemanticsDebugger)\n'
@@ -777,7 +957,11 @@ dynamic build(BuildContext context) {
                         '  )\n'
                         'else\n'
                         '  app',
-                        style: TextStyle(fontSize: 11.0, fontFamily: 'monospace', color: Colors.grey.shade700),
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          fontFamily: 'monospace',
+                          color: Colors.grey.shade700,
+                        ),
                       ),
                     ],
                   ),
@@ -791,9 +975,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('Interactive SemanticsDebugger',
-                    'Toggle the debugger overlay to see the semantics tree '
-                    'drawn over the sample widgets.'),
+                _buildSDBullet(
+                  'Interactive SemanticsDebugger',
+                  'Toggle the debugger overlay to see the semantics tree '
+                      'drawn over the sample widgets.',
+                ),
                 const SizedBox(height: 14.0),
                 liveDemo,
               ],
@@ -805,9 +991,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('Reading the Overlay',
-                    'Understanding what each visual element in the '
-                    'debugger overlay means.'),
+                _buildSDBullet(
+                  'Reading the Overlay',
+                  'Understanding what each visual element in the '
+                      'debugger overlay means.',
+                ),
                 const SizedBox(height: 14.0),
                 ...interpCards,
               ],
@@ -819,9 +1007,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('Accessibility Debug Tools',
-                    'Comparison of different tools for debugging '
-                    'accessibility in Flutter apps.'),
+                _buildSDBullet(
+                  'Accessibility Debug Tools',
+                  'Comparison of different tools for debugging '
+                      'accessibility in Flutter apps.',
+                ),
                 const SizedBox(height: 14.0),
                 ...compCards,
               ],
@@ -833,9 +1023,11 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildSDBullet('When to Use SemanticsDebugger',
-                    'Common debugging scenarios where the visual '
-                    'overlay is most helpful.'),
+                _buildSDBullet(
+                  'When to Use SemanticsDebugger',
+                  'Common debugging scenarios where the visual '
+                      'overlay is most helpful.',
+                ),
                 const SizedBox(height: 14.0),
                 ...useCaseCards,
               ],
@@ -859,7 +1051,9 @@ dynamic build(BuildContext context) {
                       ],
                     ),
                     borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(color: Colors.teal.withValues(alpha: 0.2)),
+                    border: Border.all(
+                      color: Colors.teal.withValues(alpha: 0.2),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -889,10 +1083,24 @@ Widget _buildSDBullet(String title, String body) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, color: Colors.teal.shade700)),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.teal.shade700,
+          ),
+        ),
         if (body.isNotEmpty) ...[
           const SizedBox(height: 4.0),
-          Text(body, style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700, height: 1.4)),
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade700,
+              height: 1.4,
+            ),
+          ),
         ],
       ],
     ),
@@ -929,9 +1137,14 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
             children: [
               Icon(Icons.bug_report, color: Colors.teal.shade700, size: 20.0),
               const SizedBox(width: 8.0),
-              Text('SemanticsDebugger',
-                  style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700,
-                      color: Colors.teal.shade700)),
+              Text(
+                'SemanticsDebugger',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.teal.shade700,
+                ),
+              ),
               const Spacer(),
               Switch(
                 value: _showDebugger,
@@ -952,9 +1165,7 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
         height: 440.0,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: SemanticsDebugger(
-            child: sampleContent,
-          ),
+          child: SemanticsDebugger(child: sampleContent),
         ),
       );
     }
@@ -981,10 +1192,14 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
           child: Text(
             _showDebugger
                 ? 'Debugger is ON. You should see colored rectangles '
-                  'overlaid on each semantic node below.'
+                      'overlaid on each semantic node below.'
                 : 'Debugger is OFF. Toggle the switch above to see '
-                  'the semantics overlay.',
-            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700, height: 1.35),
+                      'the semantics overlay.',
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.grey.shade700,
+              height: 1.35,
+            ),
           ),
         ),
         const SizedBox(height: 14.0),
@@ -994,8 +1209,11 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
           header: true,
           child: Text(
             'Welcome to the App',
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700,
-                color: Colors.grey.shade800),
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.grey.shade800,
+            ),
           ),
         ),
         const SizedBox(height: 10.0),
@@ -1004,7 +1222,11 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
           child: Text(
             'This sample UI demonstrates how SemanticsDebugger shows '
             'the semantic tree overlay.',
-            style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600, height: 1.4),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: Colors.grey.shade600,
+              height: 1.4,
+            ),
           ),
         ),
         const SizedBox(height: 12.0),
@@ -1027,9 +1249,7 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
                 onPressed: () => setState(() => _tapCount = 0),
                 icon: const Icon(Icons.refresh, size: 16.0),
                 label: const Text('Reset'),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.teal,
-                ),
+                style: OutlinedButton.styleFrom(foregroundColor: Colors.teal),
               ),
             ),
           ],
@@ -1047,8 +1267,10 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
               ),
             ),
             const SizedBox(width: 6.0),
-            const Text('Accept terms and conditions',
-                style: TextStyle(fontSize: 13.0)),
+            const Text(
+              'Accept terms and conditions',
+              style: TextStyle(fontSize: 13.0),
+            ),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -1073,8 +1295,11 @@ class _SDLiveDemoState extends State<_SDLiveDemo> {
             ),
             child: Text(
               'This decorative element is excluded from semantics',
-              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade400,
-                  fontStyle: FontStyle.italic),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: Colors.grey.shade400,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ),
         ),

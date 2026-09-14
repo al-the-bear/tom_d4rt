@@ -102,10 +102,7 @@ dynamic build(BuildContext context) {
     children: <InlineSpan>[
       TextSpan(
         text: 'beautiful ',
-        style: TextStyle(
-          color: pink.shade400,
-          fontStyle: FontStyle.italic,
-        ),
+        style: TextStyle(color: pink.shade400, fontStyle: FontStyle.italic),
       ),
       TextSpan(
         text: 'world',
@@ -150,10 +147,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Text.rich(
-          anatomyTextSpan,
-          style: TextStyle(fontSize: 18.0),
-        ),
+        Text.rich(anatomyTextSpan, style: TextStyle(fontSize: 18.0)),
         SizedBox(height: 16.0),
         Container(
           padding: EdgeInsets.all(12.0),
@@ -165,14 +159,30 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _treeLine('TextSpan(root)', 0, indigo.shade800,
-                  'text="Hello ", style=indigo/16/bold'),
-              _treeLine('├── TextSpan', 1, pink.shade500,
-                  'text="beautiful ", italic, pink'),
-              _treeLine('├── TextSpan', 1, violet.shade700,
-                  'text="world", bold + underline'),
-              _treeLine('└── TextSpan', 1, slate.shade700,
-                  'text="!" (inherits root style)'),
+              _treeLine(
+                'TextSpan(root)',
+                0,
+                indigo.shade800,
+                'text="Hello ", style=indigo/16/bold',
+              ),
+              _treeLine(
+                '├── TextSpan',
+                1,
+                pink.shade500,
+                'text="beautiful ", italic, pink',
+              ),
+              _treeLine(
+                '├── TextSpan',
+                1,
+                violet.shade700,
+                'text="world", bold + underline',
+              ),
+              _treeLine(
+                '└── TextSpan',
+                1,
+                slate.shade700,
+                'text="!" (inherits root style)',
+              ),
             ],
           ),
         ),
@@ -192,26 +202,17 @@ dynamic build(BuildContext context) {
       TextSpan(text: 'A '),
       TextSpan(
         text: 'TextSpan',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: indigo.shade700,
-        ),
+        style: TextStyle(fontWeight: FontWeight.bold, color: indigo.shade700),
       ),
       TextSpan(text: ' is a piece of '),
       TextSpan(
         text: 'styled',
-        style: TextStyle(
-          fontStyle: FontStyle.italic,
-          color: pink.shade500,
-        ),
+        style: TextStyle(fontStyle: FontStyle.italic, color: pink.shade500),
       ),
       TextSpan(text: ' text. It can mix '),
       TextSpan(
         text: 'colors',
-        style: TextStyle(
-          color: Colors.white,
-          backgroundColor: violet.shade400,
-        ),
+        style: TextStyle(color: Colors.white, backgroundColor: violet.shade400),
       ),
       TextSpan(text: ', '),
       TextSpan(
@@ -221,10 +222,7 @@ dynamic build(BuildContext context) {
       TextSpan(text: ', '),
       TextSpan(
         text: 'fonts',
-        style: TextStyle(
-          fontFamily: 'monospace',
-          color: teal.shade700,
-        ),
+        style: TextStyle(fontFamily: 'monospace', color: teal.shade700),
       ),
       TextSpan(text: ', and '),
       TextSpan(
@@ -249,8 +247,10 @@ dynamic build(BuildContext context) {
       children: [
         Text.rich(basicsSpan),
         SizedBox(height: 14.0),
-        _captionRow('Single shaping pass — all glyphs share one Paragraph.',
-            indigo.shade700),
+        _captionRow(
+          'Single shaping pass — all glyphs share one Paragraph.',
+          indigo.shade700,
+        ),
       ],
     ),
   );
@@ -326,10 +326,7 @@ dynamic build(BuildContext context) {
 
   final level3A = TextSpan(
     text: 'deeply ',
-    style: TextStyle(
-      color: pink.shade600,
-      fontWeight: FontWeight.bold,
-    ),
+    style: TextStyle(color: pink.shade600, fontWeight: FontWeight.bold),
   );
   final level3B = TextSpan(
     text: 'nested',
@@ -383,18 +380,42 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _treeLine('Level 1: TextSpan("Look — ")', 0,
-                  indigo.shade800, 'root, indigo bold'),
-              _treeLine('├── Level 2: TextSpan("this is ")', 1,
-                  violet.shade600, 'italic, violet'),
-              _treeLine('│     ├── Level 3: TextSpan("deeply ")', 2,
-                  pink.shade500, 'bold, pink'),
-              _treeLine('│     └── Level 3: TextSpan("nested")', 2,
-                  amber.shade800, 'underline, amber'),
-              _treeLine('├── Level 2: TextSpan(" content ")', 1,
-                  teal.shade700, 'teal'),
-              _treeLine('└── Level 2: TextSpan("in a tree.")', 1,
-                  slate.shade800, 'inherits root color'),
+              _treeLine(
+                'Level 1: TextSpan("Look — ")',
+                0,
+                indigo.shade800,
+                'root, indigo bold',
+              ),
+              _treeLine(
+                '├── Level 2: TextSpan("this is ")',
+                1,
+                violet.shade600,
+                'italic, violet',
+              ),
+              _treeLine(
+                '│     ├── Level 3: TextSpan("deeply ")',
+                2,
+                pink.shade500,
+                'bold, pink',
+              ),
+              _treeLine(
+                '│     └── Level 3: TextSpan("nested")',
+                2,
+                amber.shade800,
+                'underline, amber',
+              ),
+              _treeLine(
+                '├── Level 2: TextSpan(" content ")',
+                1,
+                teal.shade700,
+                'teal',
+              ),
+              _treeLine(
+                '└── Level 2: TextSpan("in a tree.")',
+                1,
+                slate.shade800,
+                'inherits root color',
+              ),
             ],
           ),
         ),
@@ -545,26 +566,10 @@ dynamic build(BuildContext context) {
   print('=== Section 8: computeToPlainText ===');
 
   final plainTextRows = <Widget>[
-    _plainTextRow(
-      'Anatomy span',
-      anatomyTextSpan.toPlainText(),
-      indigo,
-    ),
-    _plainTextRow(
-      'Basics span',
-      basicsSpan.toPlainText(),
-      violet,
-    ),
-    _plainTextRow(
-      'Nested 3-level',
-      level1Root.toPlainText(),
-      pink,
-    ),
-    _plainTextRow(
-      'Inheritance',
-      inheritanceSpan.toPlainText(),
-      amber,
-    ),
+    _plainTextRow('Anatomy span', anatomyTextSpan.toPlainText(), indigo),
+    _plainTextRow('Basics span', basicsSpan.toPlainText(), violet),
+    _plainTextRow('Nested 3-level', level1Root.toPlainText(), pink),
+    _plainTextRow('Inheritance', inheritanceSpan.toPlainText(), amber),
   ];
 
   final plainTextCard = _gradientCard(
@@ -597,10 +602,7 @@ dynamic build(BuildContext context) {
       TextSpan(text: 'Total: '),
       TextSpan(
         text: '\$1,299.00',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: violet.shade700,
-        ),
+        style: TextStyle(fontWeight: FontWeight.bold, color: violet.shade700),
         semanticsLabel: 'one thousand two hundred ninety-nine US dollars',
       ),
       TextSpan(text: ' billed monthly.'),
@@ -617,7 +619,8 @@ dynamic build(BuildContext context) {
           color: indigo.shade700,
           decoration: TextDecoration.underline,
         ),
-        semanticsLabel: 'Call sales: four one five five five five zero one one seven',
+        semanticsLabel:
+            'Call sales: four one five five five five zero one one seven',
       ),
       TextSpan(text: ' for sales.'),
     ],
@@ -762,10 +765,22 @@ dynamic build(BuildContext context) {
     style: TextStyle(fontSize: 18.0, color: slate.shade900, height: 1.6),
     children: <InlineSpan>[
       TextSpan(text: 'Reactions: '),
-      TextSpan(text: '👍 12 ', style: TextStyle(color: indigo.shade700)),
-      TextSpan(text: '🎉 7 ', style: TextStyle(color: violet.shade600)),
-      TextSpan(text: '❤️ 4 ', style: TextStyle(color: pink.shade500)),
-      TextSpan(text: '🚀 2 ', style: TextStyle(color: amber.shade800)),
+      TextSpan(
+        text: '👍 12 ',
+        style: TextStyle(color: indigo.shade700),
+      ),
+      TextSpan(
+        text: '🎉 7 ',
+        style: TextStyle(color: violet.shade600),
+      ),
+      TextSpan(
+        text: '❤️ 4 ',
+        style: TextStyle(color: pink.shade500),
+      ),
+      TextSpan(
+        text: '🚀 2 ',
+        style: TextStyle(color: amber.shade800),
+      ),
       WidgetSpan(
         alignment: ui.PlaceholderAlignment.middle,
         child: _inlineButton('react', Icons.add, teal),
@@ -802,11 +817,35 @@ dynamic build(BuildContext context) {
     _compRow('Concrete?', 'yes', 'yes', 'no (abstract)', indigo),
     _compRow('Holds text?', 'yes (text)', 'no', 'no', violet),
     _compRow('Holds Widget?', 'no', 'yes (child)', 'no (interface)', pink),
-    _compRow('Has children?', 'yes (List<InlineSpan>)', 'inherits', 'n/a', amber),
+    _compRow(
+      'Has children?',
+      'yes (List<InlineSpan>)',
+      'inherits',
+      'n/a',
+      amber,
+    ),
     _compRow('Has style?', 'yes', 'yes (text fallback)', 'yes', teal),
-    _compRow('Has alignment?', 'no', 'PlaceholderAlignment', 'PlaceholderAlignment', indigo),
-    _compRow('In single shaping pass?', 'yes', 'yes (placeholder)', 'yes', violet),
-    _compRow('Use case', 'styled runs', 'inline widgets', 'base for placeholders', slate),
+    _compRow(
+      'Has alignment?',
+      'no',
+      'PlaceholderAlignment',
+      'PlaceholderAlignment',
+      indigo,
+    ),
+    _compRow(
+      'In single shaping pass?',
+      'yes',
+      'yes (placeholder)',
+      'yes',
+      violet,
+    ),
+    _compRow(
+      'Use case',
+      'styled runs',
+      'inline widgets',
+      'base for placeholders',
+      slate,
+    ),
   ];
 
   final comparisonCard = _gradientCard(
@@ -832,7 +871,8 @@ dynamic build(BuildContext context) {
 
   final footgun1 = _footgunBlock(
     title: 'Mixing text and children carelessly',
-    body: 'TextSpan(text: "Hello", children: [TextSpan(text: "World")]) '
+    body:
+        'TextSpan(text: "Hello", children: [TextSpan(text: "World")]) '
         'renders "HelloWorld". The text is the FIRST run, then children. '
         'Forgetting the order makes layouts that look right by accident.',
     color: pink,
@@ -840,7 +880,8 @@ dynamic build(BuildContext context) {
   );
   final footgun2 = _footgunBlock(
     title: 'GestureRecognizer leaks',
-    body: 'Every TapGestureRecognizer attached via TextSpan(recognizer:) '
+    body:
+        'Every TapGestureRecognizer attached via TextSpan(recognizer:) '
         'must be disposed. Leaking them is the #1 cause of memory growth '
         'in chat / notification feeds.',
     color: amber,
@@ -848,7 +889,8 @@ dynamic build(BuildContext context) {
   );
   final footgun3 = _footgunBlock(
     title: 'Semantics with nested groups',
-    body: 'semanticsLabel applies to a leaf TextSpan only. Wrapping a '
+    body:
+        'semanticsLabel applies to a leaf TextSpan only. Wrapping a '
         'parent does NOT override children. Either label leaves '
         'individually, or wrap the whole RichText with Semantics(...).',
     color: indigo,
@@ -856,7 +898,8 @@ dynamic build(BuildContext context) {
   );
   final footgun4 = _footgunBlock(
     title: 'Performance on huge spans',
-    body: 'Building 10k+ children rebuilds the whole Paragraph on every '
+    body:
+        'Building 10k+ children rebuilds the whole Paragraph on every '
         'frame. Cache the root TextSpan, paginate, or render to a '
         'TextPainter offscreen for static content.',
     color: violet,
@@ -1240,9 +1283,7 @@ Widget _semanticsHint(String text, MaterialColor color) {
     decoration: BoxDecoration(
       color: color.shade50,
       borderRadius: BorderRadius.circular(8.0),
-      border: Border(
-        left: BorderSide(color: color.shade400, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color.shade400, width: 4.0)),
     ),
     child: Row(
       children: <Widget>[
@@ -1413,9 +1454,7 @@ Widget _compRow(
   return Container(
     padding: EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(
-      border: Border(
-        bottom: BorderSide(color: color.shade100, width: 1.0),
-      ),
+      border: Border(bottom: BorderSide(color: color.shade100, width: 1.0)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1462,9 +1501,7 @@ Widget _footgunBlock({
     decoration: BoxDecoration(
       color: color.shade50,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: color.shade500, width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: color.shade500, width: 5.0)),
       boxShadow: <BoxShadow>[
         BoxShadow(
           color: color.withValues(alpha: 0.12),
@@ -1518,11 +1555,7 @@ Widget _recapLine(String text) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 13.0, height: 1.4),
           ),
         ),
       ],

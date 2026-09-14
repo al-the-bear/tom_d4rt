@@ -65,8 +65,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Icon(Icons.water_drop_outlined,
-                  size: 36.0, color: Colors.white),
+              child: Icon(
+                Icons.water_drop_outlined,
+                size: 36.0,
+                color: Colors.white,
+              ),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -143,18 +146,24 @@ dynamic build(BuildContext context) {
         children: [
           Icon(icon, color: Colors.white, size: 28.0),
           SizedBox(height: 6.0),
-          Text(label,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white)),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 13.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
           SizedBox(height: 4.0),
-          Text(sub,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 10.0,
-                  color: Colors.white.withValues(alpha: 0.9))),
+          Text(
+            sub,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 10.0,
+              color: Colors.white.withValues(alpha: 0.9),
+            ),
+          ),
         ],
       ),
     );
@@ -196,11 +205,14 @@ dynamic build(BuildContext context) {
             color: tealDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('2. Anatomy',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '2. Anatomy',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -214,14 +226,26 @@ dynamic build(BuildContext context) {
           children: [
             anatomyBox('Stream<T>', 'event source', cyanDeep, Icons.water),
             anatomyArrow(),
-            anatomyBox('AsyncSnapshot<T>', 'value + state', tealMid,
-                Icons.bookmark_outline),
-            anatomyArrow(),
-            anatomyBox('builder fn', '(ctx, snap) =>', cyanMid,
-                Icons.functions),
+            anatomyBox(
+              'AsyncSnapshot<T>',
+              'value + state',
+              tealMid,
+              Icons.bookmark_outline,
+            ),
             anatomyArrow(),
             anatomyBox(
-                'Widget tree', 'rendered output', tealSoft, Icons.widgets),
+              'builder fn',
+              '(ctx, snap) =>',
+              cyanMid,
+              Icons.functions,
+            ),
+            anatomyArrow(),
+            anatomyBox(
+              'Widget tree',
+              'rendered output',
+              tealSoft,
+              Icons.widgets,
+            ),
           ],
         ),
       ],
@@ -234,7 +258,12 @@ dynamic build(BuildContext context) {
   print('=== Section 3: AsyncSnapshot fields ===');
 
   Widget snapshotFieldRow(
-      String name, String type, String desc, IconData icon, Color c) {
+    String name,
+    String type,
+    String desc,
+    IconData icon,
+    Color c,
+  ) {
     return Container(
       margin: EdgeInsets.only(bottom: 8.0),
       padding: EdgeInsets.all(12.0),
@@ -267,33 +296,44 @@ dynamic build(BuildContext context) {
               children: [
                 Row(
                   children: [
-                    Text(name,
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: slateInk,
-                            fontFamily: 'monospace')),
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: slateInk,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                     SizedBox(width: 8.0),
                     Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 6.0, vertical: 2.0),
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: c.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: Text(type,
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              color: c,
-                              fontFamily: 'monospace')),
+                      child: Text(
+                        type,
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: c,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(height: 4.0),
-                Text(desc,
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        color: slateInk.withValues(alpha: 0.75))),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: slateInk.withValues(alpha: 0.75),
+                  ),
+                ),
               ],
             ),
           ),
@@ -331,11 +371,14 @@ dynamic build(BuildContext context) {
             color: tealMid,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('3. AsyncSnapshot fields',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '3. AsyncSnapshot fields',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -344,18 +387,48 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 13.0, color: slateInk),
         ),
         SizedBox(height: 14.0),
-        snapshotFieldRow('connectionState', 'ConnectionState',
-            'lifecycle: none / waiting / active / done', Icons.timeline, tealDeep),
-        snapshotFieldRow('data', 'T?', 'latest emitted value, or null',
-            Icons.data_object, cyanMid),
-        snapshotFieldRow('error', 'Object?',
-            'last error emitted, if any', Icons.error_outline, redErr),
-        snapshotFieldRow('stackTrace', 'StackTrace?',
-            'stack for the error, when supplied', Icons.layers, amberWarn),
-        snapshotFieldRow('hasData', 'bool',
-            'true when data is non-null', Icons.check_circle_outline, greenOk),
-        snapshotFieldRow('hasError', 'bool',
-            'true when error is non-null', Icons.report_gmailerrorred, redErr),
+        snapshotFieldRow(
+          'connectionState',
+          'ConnectionState',
+          'lifecycle: none / waiting / active / done',
+          Icons.timeline,
+          tealDeep,
+        ),
+        snapshotFieldRow(
+          'data',
+          'T?',
+          'latest emitted value, or null',
+          Icons.data_object,
+          cyanMid,
+        ),
+        snapshotFieldRow(
+          'error',
+          'Object?',
+          'last error emitted, if any',
+          Icons.error_outline,
+          redErr,
+        ),
+        snapshotFieldRow(
+          'stackTrace',
+          'StackTrace?',
+          'stack for the error, when supplied',
+          Icons.layers,
+          amberWarn,
+        ),
+        snapshotFieldRow(
+          'hasData',
+          'bool',
+          'true when data is non-null',
+          Icons.check_circle_outline,
+          greenOk,
+        ),
+        snapshotFieldRow(
+          'hasError',
+          'bool',
+          'true when error is non-null',
+          Icons.report_gmailerrorred,
+          redErr,
+        ),
       ],
     ),
   );
@@ -397,84 +470,107 @@ dynamic build(BuildContext context) {
   ];
 
   final connRows = <Widget>[];
-  connRows.add(Container(
-    padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-    decoration: BoxDecoration(
-      color: cyanDeep,
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(10.0),
-        topRight: Radius.circular(10.0),
-      ),
-    ),
-    child: Row(
-      children: [
-        SizedBox(
-            width: 110.0,
-            child: Text('state',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0))),
-        Expanded(
-            child: Text('description',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0))),
-        SizedBox(
-            width: 220.0,
-            child: Text('example',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0))),
-      ],
-    ),
-  ));
-
-  for (final s in connStates) {
-    final c = s['color'] as Color;
-    connRows.add(Container(
+  connRows.add(
+    Container(
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
       decoration: BoxDecoration(
-        color: c.withValues(alpha: 0.08),
-        border: Border(
-          bottom: BorderSide(
-              color: c.withValues(alpha: 0.25), width: 1.0),
+        color: cyanDeep,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
         ),
       ),
       child: Row(
         children: [
           SizedBox(
             width: 110.0,
-            child: Row(
-              children: [
-                Icon(s['icon'] as IconData, color: c, size: 16.0),
-                SizedBox(width: 6.0),
-                Text(s['name'] as String,
-                    style: TextStyle(
-                        color: c,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'monospace',
-                        fontSize: 13.0)),
-              ],
+            child: Text(
+              'state',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+              ),
             ),
           ),
           Expanded(
-            child: Text(s['desc'] as String,
-                style: TextStyle(fontSize: 12.0, color: slateInk)),
+            child: Text(
+              'description',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+              ),
+            ),
           ),
           SizedBox(
             width: 220.0,
-            child: Text(s['example'] as String,
-                style: TextStyle(
-                    fontSize: 11.0,
-                    color: slateInk.withValues(alpha: 0.7),
-                    fontFamily: 'monospace')),
+            child: Text(
+              'example',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12.0,
+              ),
+            ),
           ),
         ],
       ),
-    ));
+    ),
+  );
+
+  for (final s in connStates) {
+    final c = s['color'] as Color;
+    connRows.add(
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
+        decoration: BoxDecoration(
+          color: c.withValues(alpha: 0.08),
+          border: Border(
+            bottom: BorderSide(color: c.withValues(alpha: 0.25), width: 1.0),
+          ),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 110.0,
+              child: Row(
+                children: [
+                  Icon(s['icon'] as IconData, color: c, size: 16.0),
+                  SizedBox(width: 6.0),
+                  Text(
+                    s['name'] as String,
+                    style: TextStyle(
+                      color: c,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'monospace',
+                      fontSize: 13.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Text(
+                s['desc'] as String,
+                style: TextStyle(fontSize: 12.0, color: slateInk),
+              ),
+            ),
+            SizedBox(
+              width: 220.0,
+              child: Text(
+                s['example'] as String,
+                style: TextStyle(
+                  fontSize: 11.0,
+                  color: slateInk.withValues(alpha: 0.7),
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   final connStateTable = Container(
@@ -506,11 +602,14 @@ dynamic build(BuildContext context) {
             color: cyanDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('4. ConnectionState lifecycle',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '4. ConnectionState lifecycle',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -557,7 +656,9 @@ dynamic build(BuildContext context) {
         ),
         borderRadius: BorderRadius.circular(14.0),
         border: Border.all(
-            color: stateColor.withValues(alpha: 0.55), width: 1.4),
+          color: stateColor.withValues(alpha: 0.55),
+          width: 1.4,
+        ),
         boxShadow: [
           BoxShadow(
             color: stateColor.withValues(alpha: 0.25),
@@ -581,12 +682,15 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(width: 8.0),
               Expanded(
-                child: Text('snapshot in $stateLabel',
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                        color: stateColor,
-                        fontFamily: 'monospace')),
+                child: Text(
+                  'snapshot in $stateLabel',
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold,
+                    color: stateColor,
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ),
             ],
           ),
@@ -597,43 +701,60 @@ dynamic build(BuildContext context) {
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(
-                  color: stateColor.withValues(alpha: 0.3), width: 1.0),
+                color: stateColor.withValues(alpha: 0.3),
+                width: 1.0,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('data: $dataText',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: slateInk,
-                        fontFamily: 'monospace')),
+                Text(
+                  'data: $dataText',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: slateInk,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 3.0),
-                Text('error: $errorText',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: slateInk.withValues(alpha: 0.8),
-                        fontFamily: 'monospace')),
+                Text(
+                  'error: $errorText',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: slateInk.withValues(alpha: 0.8),
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 3.0),
-                Text('hasData: $hasDataText',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: slateInk.withValues(alpha: 0.8),
-                        fontFamily: 'monospace')),
+                Text(
+                  'hasData: $hasDataText',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: slateInk.withValues(alpha: 0.8),
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 3.0),
-                Text('hasError: $hasErrorText',
-                    style: TextStyle(
-                        fontSize: 11.0,
-                        color: slateInk.withValues(alpha: 0.8),
-                        fontFamily: 'monospace')),
+                Text(
+                  'hasError: $hasErrorText',
+                  style: TextStyle(
+                    fontSize: 11.0,
+                    color: slateInk.withValues(alpha: 0.8),
+                    fontFamily: 'monospace',
+                  ),
+                ),
               ],
             ),
           ),
           SizedBox(height: 10.0),
-          Text(synopsis,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: slateInk.withValues(alpha: 0.75),
-                  fontStyle: FontStyle.italic)),
+          Text(
+            synopsis,
+            style: TextStyle(
+              fontSize: 11.0,
+              color: slateInk.withValues(alpha: 0.75),
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ],
       ),
     );
@@ -731,11 +852,14 @@ dynamic build(BuildContext context) {
             color: cyanMid,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('5. Mocked snapshot states',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '5. Mocked snapshot states',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -795,31 +919,43 @@ dynamic build(BuildContext context) {
               children: [
                 Icon(Icons.water_drop, color: Colors.white, size: 20.0),
                 SizedBox(width: 8.0),
-                Text('current value',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0)),
+                Text(
+                  'current value',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 10.0),
-            Text('$value',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 42.0,
-                    fontWeight: FontWeight.bold)),
+            Text(
+              '$value',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 42.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             SizedBox(height: 6.0),
-            Text('connectionState: $stateName',
-                style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    fontSize: 11.0,
-                    fontFamily: 'monospace')),
+            Text(
+              'connectionState: $stateName',
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.85),
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+              ),
+            ),
             SizedBox(height: 4.0),
-            Text('hasData: ${snap.hasData}, hasError: ${snap.hasError}',
-                style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    fontSize: 11.0,
-                    fontFamily: 'monospace')),
+            Text(
+              'hasData: ${snap.hasData}, hasError: ${snap.hasError}',
+              style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.85),
+                fontSize: 11.0,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
       );
@@ -855,11 +991,14 @@ dynamic build(BuildContext context) {
             color: tealDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('6. Live StreamBuilder<int>',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '6. Live StreamBuilder<int>',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -902,29 +1041,37 @@ dynamic build(BuildContext context) {
 
   final codeRows = <Widget>[];
   for (int i = 0; i < codeLines.length; i++) {
-    codeRows.add(Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 28.0,
-          child: Text('${i + 1}',
+    codeRows.add(
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 28.0,
+            child: Text(
+              '${i + 1}',
               textAlign: TextAlign.right,
               style: TextStyle(
-                  fontSize: 11.0,
-                  color: codeInk.withValues(alpha: 0.5),
-                  fontFamily: 'monospace')),
-        ),
-        SizedBox(width: 10.0),
-        Expanded(
-          child: Text(codeLines[i],
+                fontSize: 11.0,
+                color: codeInk.withValues(alpha: 0.5),
+                fontFamily: 'monospace',
+              ),
+            ),
+          ),
+          SizedBox(width: 10.0),
+          Expanded(
+            child: Text(
+              codeLines[i],
               style: TextStyle(
-                  fontSize: 12.0,
-                  color: codeInk,
-                  fontFamily: 'monospace',
-                  height: 1.4)),
-        ),
-      ],
-    ));
+                fontSize: 12.0,
+                color: codeInk,
+                fontFamily: 'monospace',
+                height: 1.4,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   final builderSkeleton = Container(
@@ -956,11 +1103,14 @@ dynamic build(BuildContext context) {
             color: tealDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('7. Builder skeleton',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '7. Builder skeleton',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -996,8 +1146,12 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 8: vs FutureBuilder ===');
 
-  Widget compareCell(String text, Color c,
-      {bool header = false, double width = 120.0}) {
+  Widget compareCell(
+    String text,
+    Color c, {
+    bool header = false,
+    double width = 120.0,
+  }) {
     return SizedBox(
       width: width,
       child: Container(
@@ -1006,16 +1160,21 @@ dynamic build(BuildContext context) {
           color: header ? c : c.withValues(alpha: 0.08),
           border: Border(
             right: BorderSide(
-                color: cyanDeep.withValues(alpha: 0.2), width: 1.0),
+              color: cyanDeep.withValues(alpha: 0.2),
+              width: 1.0,
+            ),
           ),
         ),
-        child: Text(text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: header ? 12.0 : 11.0,
-                color: header ? Colors.white : slateInk,
-                fontWeight: header ? FontWeight.bold : FontWeight.normal,
-                fontFamily: header ? null : 'monospace')),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: header ? 12.0 : 11.0,
+            color: header ? Colors.white : slateInk,
+            fontWeight: header ? FontWeight.bold : FontWeight.normal,
+            fontFamily: header ? null : 'monospace',
+          ),
+        ),
       ),
     );
   }
@@ -1031,17 +1190,25 @@ dynamic build(BuildContext context) {
   ];
 
   final compareWidgets = <Widget>[];
-  compareWidgets.add(Row(children: [
-    compareCell('feature', cyanDeep, header: true, width: 160.0),
-    compareCell('StreamBuilder', tealDeep, header: true, width: 200.0),
-    compareCell('FutureBuilder', cyanMid, header: true, width: 200.0),
-  ]));
+  compareWidgets.add(
+    Row(
+      children: [
+        compareCell('feature', cyanDeep, header: true, width: 160.0),
+        compareCell('StreamBuilder', tealDeep, header: true, width: 200.0),
+        compareCell('FutureBuilder', cyanMid, header: true, width: 200.0),
+      ],
+    ),
+  );
   for (final r in compareRows) {
-    compareWidgets.add(Row(children: [
-      compareCell(r[0], cyanDeep, width: 160.0),
-      compareCell(r[1], tealDeep, width: 200.0),
-      compareCell(r[2], cyanMid, width: 200.0),
-    ]));
+    compareWidgets.add(
+      Row(
+        children: [
+          compareCell(r[0], cyanDeep, width: 160.0),
+          compareCell(r[1], tealDeep, width: 200.0),
+          compareCell(r[2], cyanMid, width: 200.0),
+        ],
+      ),
+    );
   }
 
   final compareSection = Container(
@@ -1073,11 +1240,14 @@ dynamic build(BuildContext context) {
             color: cyanDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('8. StreamBuilder vs FutureBuilder',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '8. StreamBuilder vs FutureBuilder',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1130,20 +1300,26 @@ dynamic build(BuildContext context) {
               Icon(icon, color: Colors.white, size: 22.0),
               SizedBox(width: 8.0),
               Expanded(
-                child: Text(title,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0)),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                  ),
+                ),
               ),
             ],
           ),
           SizedBox(height: 8.0),
-          Text(body,
-              style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.95),
-                  fontSize: 11.5,
-                  height: 1.35)),
+          Text(
+            body,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.95),
+              fontSize: 11.5,
+              height: 1.35,
+            ),
+          ),
         ],
       ),
     );
@@ -1178,11 +1354,14 @@ dynamic build(BuildContext context) {
             color: tealMid,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('9. Use cases',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '9. Use cases',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1193,18 +1372,30 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         Wrap(
           children: <Widget>[
-            useCaseCard('Realtime price ticker',
-                'Render last bid/ask as new ticks arrive on a market feed.',
-                Icons.show_chart, cyanDeep),
-            useCaseCard('Chat messages',
-                'Append new messages to the list as they stream from the server.',
-                Icons.chat_bubble_outline, tealMid),
-            useCaseCard('Sensor feed',
-                'Visualise gyroscope/accel readings without manual setState.',
-                Icons.sensors, cyanMid),
-            useCaseCard('Websocket status',
-                'Map socket state events to a coloured connection badge.',
-                Icons.wifi_tethering, tealDeep),
+            useCaseCard(
+              'Realtime price ticker',
+              'Render last bid/ask as new ticks arrive on a market feed.',
+              Icons.show_chart,
+              cyanDeep,
+            ),
+            useCaseCard(
+              'Chat messages',
+              'Append new messages to the list as they stream from the server.',
+              Icons.chat_bubble_outline,
+              tealMid,
+            ),
+            useCaseCard(
+              'Sensor feed',
+              'Visualise gyroscope/accel readings without manual setState.',
+              Icons.sensors,
+              cyanMid,
+            ),
+            useCaseCard(
+              'Websocket status',
+              'Map socket state events to a coloured connection badge.',
+              Icons.wifi_tethering,
+              tealDeep,
+            ),
           ],
         ),
       ],
@@ -1223,9 +1414,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: redErr.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(10.0),
-        border: Border(
-          left: BorderSide(color: redErr, width: 4.0),
-        ),
+        border: Border(left: BorderSide(color: redErr, width: 4.0)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1236,17 +1425,23 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.bold,
-                        color: redErr)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
+                    color: redErr,
+                  ),
+                ),
                 SizedBox(height: 4.0),
-                Text(body,
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        color: slateInk.withValues(alpha: 0.8),
-                        height: 1.35)),
+                Text(
+                  body,
+                  style: TextStyle(
+                    fontSize: 12.0,
+                    color: slateInk.withValues(alpha: 0.8),
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1284,11 +1479,14 @@ dynamic build(BuildContext context) {
             color: redErr,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('10. Footguns',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '10. Footguns',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1331,8 +1529,12 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 11: Decision matrix ===');
 
-  Widget decisionCell(String text, Color c,
-      {bool header = false, double width = 130.0}) {
+  Widget decisionCell(
+    String text,
+    Color c, {
+    bool header = false,
+    double width = 130.0,
+  }) {
     return SizedBox(
       width: width,
       child: Container(
@@ -1341,17 +1543,24 @@ dynamic build(BuildContext context) {
           color: header ? c : c.withValues(alpha: 0.08),
           border: Border(
             right: BorderSide(
-                color: cyanDeep.withValues(alpha: 0.2), width: 1.0),
+              color: cyanDeep.withValues(alpha: 0.2),
+              width: 1.0,
+            ),
             bottom: BorderSide(
-                color: cyanDeep.withValues(alpha: 0.2), width: 1.0),
+              color: cyanDeep.withValues(alpha: 0.2),
+              width: 1.0,
+            ),
           ),
         ),
-        child: Text(text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: header ? 12.0 : 11.0,
-                color: header ? Colors.white : slateInk,
-                fontWeight: header ? FontWeight.bold : FontWeight.normal)),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: header ? 12.0 : 11.0,
+            color: header ? Colors.white : slateInk,
+            fontWeight: header ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
       ),
     );
   }
@@ -1367,19 +1576,27 @@ dynamic build(BuildContext context) {
   ];
 
   final decisionWidgets = <Widget>[];
-  decisionWidgets.add(Row(children: [
-    decisionCell('scenario', cyanDeep, header: true, width: 200.0),
-    decisionCell('Stream', tealDeep, header: true),
-    decisionCell('ChangeNotifier', tealMid, header: true),
-    decisionCell('ValueListenable', cyanMid, header: true),
-  ]));
+  decisionWidgets.add(
+    Row(
+      children: [
+        decisionCell('scenario', cyanDeep, header: true, width: 200.0),
+        decisionCell('Stream', tealDeep, header: true),
+        decisionCell('ChangeNotifier', tealMid, header: true),
+        decisionCell('ValueListenable', cyanMid, header: true),
+      ],
+    ),
+  );
   for (final row in decisionRows) {
-    decisionWidgets.add(Row(children: [
-      decisionCell(row[0], cyanDeep, width: 200.0),
-      decisionCell(row[1], tealDeep),
-      decisionCell(row[2], tealMid),
-      decisionCell(row[3], cyanMid),
-    ]));
+    decisionWidgets.add(
+      Row(
+        children: [
+          decisionCell(row[0], cyanDeep, width: 200.0),
+          decisionCell(row[1], tealDeep),
+          decisionCell(row[2], tealMid),
+          decisionCell(row[3], cyanMid),
+        ],
+      ),
+    );
   }
 
   final decisionMatrix = Container(
@@ -1411,11 +1628,14 @@ dynamic build(BuildContext context) {
             color: cyanDeep,
             borderRadius: BorderRadius.circular(12.0),
           ),
-          child: Text('11. Decision matrix',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
+          child: Text(
+            '11. Decision matrix',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         SizedBox(height: 10.0),
         Text(
@@ -1449,11 +1669,14 @@ dynamic build(BuildContext context) {
           Icon(icon, color: Colors.white, size: 18.0),
           SizedBox(width: 10.0),
           Expanded(
-            child: Text(text,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.5,
-                    height: 1.4)),
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12.5,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -1491,37 +1714,46 @@ dynamic build(BuildContext context) {
           children: [
             Icon(Icons.summarize_outlined, color: Colors.white, size: 28.0),
             SizedBox(width: 10.0),
-            Text('12. Recap',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0)),
+            Text(
+              '12. Recap',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 14.0),
         recapBullet(
-            'StreamBuilder<T> rebuilds when its Stream emits an event.',
-            Icons.water_drop),
+          'StreamBuilder<T> rebuilds when its Stream emits an event.',
+          Icons.water_drop,
+        ),
         recapBullet(
-            'AsyncSnapshot<T> carries data, error, and connectionState.',
-            Icons.bookmark_outline),
+          'AsyncSnapshot<T> carries data, error, and connectionState.',
+          Icons.bookmark_outline,
+        ),
         recapBullet(
-            'Lifecycle: none -> waiting -> active -> done. Provide initialData '
-                'to avoid the waiting flicker.',
-            Icons.timeline),
+          'Lifecycle: none -> waiting -> active -> done. Provide initialData '
+          'to avoid the waiting flicker.',
+          Icons.timeline,
+        ),
         recapBullet(
-            'Always branch on hasError before reading data; switch on '
-                'connectionState for the rest.',
-            Icons.alt_route),
+          'Always branch on hasError before reading data; switch on '
+          'connectionState for the rest.',
+          Icons.alt_route,
+        ),
         recapBullet(
-            'Keep the stream reference stable across rebuilds to avoid '
-                'subscription churn.',
-            Icons.lock_outline),
+          'Keep the stream reference stable across rebuilds to avoid '
+          'subscription churn.',
+          Icons.lock_outline,
+        ),
         recapBullet(
-            'Reach for Stream when the source is multi-shot, broadcast, or '
-                'externally produced; ChangeNotifier and ValueListenable cover '
-                'simpler local cases.',
-            Icons.compare_arrows),
+          'Reach for Stream when the source is multi-shot, broadcast, or '
+          'externally produced; ChangeNotifier and ValueListenable cover '
+          'simpler local cases.',
+          Icons.compare_arrows,
+        ),
       ],
     ),
   );

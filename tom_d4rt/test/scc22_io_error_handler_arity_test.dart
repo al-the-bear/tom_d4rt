@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt) — both stdlib trees' dart:io error-handler adapters accept the arities the SDK does.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 // SCC22 — the nine `dart:io` error-handler sites SCB9 fixed had no test.
 //
 // SCB9 routed 15 adapters through `errorHandlerArgs` so that a script's error

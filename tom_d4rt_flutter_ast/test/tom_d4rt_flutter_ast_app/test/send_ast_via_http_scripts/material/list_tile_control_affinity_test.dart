@@ -19,8 +19,12 @@ dynamic build(BuildContext context) {
   ];
 
   print('ListTileControlAffinity.leading: ${ListTileControlAffinity.leading}');
-  print('ListTileControlAffinity.trailing: ${ListTileControlAffinity.trailing}');
-  print('ListTileControlAffinity.platform: ${ListTileControlAffinity.platform}');
+  print(
+    'ListTileControlAffinity.trailing: ${ListTileControlAffinity.trailing}',
+  );
+  print(
+    'ListTileControlAffinity.platform: ${ListTileControlAffinity.platform}',
+  );
   print('Total enum values: ${affinities.length}');
 
   for (final affinity in affinities) {
@@ -31,21 +35,24 @@ dynamic build(BuildContext context) {
   final affinityDescriptions = {
     ListTileControlAffinity.leading: {
       'title': 'Leading',
-      'description': 'Control appears at the start of the tile (left in LTR). Common for quick selection interfaces.',
+      'description':
+          'Control appears at the start of the tile (left in LTR). Common for quick selection interfaces.',
       'icon': Icons.first_page,
       'color': Colors.blue,
       'controlPosition': 'Start',
     },
     ListTileControlAffinity.trailing: {
       'title': 'Trailing',
-      'description': 'Control appears at the end of the tile (right in LTR). This is the default position.',
+      'description':
+          'Control appears at the end of the tile (right in LTR). This is the default position.',
       'icon': Icons.last_page,
       'color': Colors.green,
       'controlPosition': 'End',
     },
     ListTileControlAffinity.platform: {
       'title': 'Platform',
-      'description': 'Uses platform conventions. iOS: trailing, Android: leading. Adapts automatically.',
+      'description':
+          'Uses platform conventions. iOS: trailing, Android: leading. Adapts automatically.',
       'icon': Icons.devices,
       'color': Colors.purple,
       'controlPosition': 'Varies',
@@ -62,7 +69,10 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.12), color.withValues(alpha: 0.04)],
+            colors: [
+              color.withValues(alpha: 0.12),
+              color.withValues(alpha: 0.04),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -101,7 +111,11 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    child: Icon(data['icon'] as IconData, color: color, size: 24.0),
+                    child: Icon(
+                      data['icon'] as IconData,
+                      color: color,
+                      size: 24.0,
+                    ),
                   ),
                   SizedBox(width: 12.0),
                   Expanded(
@@ -156,24 +170,41 @@ dynamic build(BuildContext context) {
                           ? [
                               Icon(Icons.check_box, color: color, size: 20.0),
                               SizedBox(width: 12.0),
-                              Expanded(child: Text('List item text', style: TextStyle(fontSize: 12.0))),
+                              Expanded(
+                                child: Text(
+                                  'List item text',
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              ),
                             ]
                           : affinity == ListTileControlAffinity.trailing
-                              ? [
-                                  Expanded(child: Text('List item text', style: TextStyle(fontSize: 12.0))),
-                                  SizedBox(width: 12.0),
-                                  Icon(Icons.check_box, color: color, size: 20.0),
-                                ]
-                              : [
-                                  Icon(Icons.help_outline, color: Colors.grey, size: 16.0),
-                                  SizedBox(width: 8.0),
-                                  Expanded(
-                                    child: Text(
-                                      'Position varies by platform',
-                                      style: TextStyle(fontSize: 11.0, fontStyle: FontStyle.italic),
-                                    ),
+                          ? [
+                              Expanded(
+                                child: Text(
+                                  'List item text',
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              ),
+                              SizedBox(width: 12.0),
+                              Icon(Icons.check_box, color: color, size: 20.0),
+                            ]
+                          : [
+                              Icon(
+                                Icons.help_outline,
+                                color: Colors.grey,
+                                size: 16.0,
+                              ),
+                              SizedBox(width: 8.0),
+                              Expanded(
+                                child: Text(
+                                  'Position varies by platform',
+                                  style: TextStyle(
+                                    fontSize: 11.0,
+                                    fontStyle: FontStyle.italic,
                                   ),
-                                ],
+                                ),
+                              ),
+                            ],
                     ),
                   ),
                 ],
@@ -193,12 +224,27 @@ dynamic build(BuildContext context) {
 
   final checkboxExamples = <Widget>[];
   final checkboxItems = [
-    {'title': 'Enable notifications', 'subtitle': 'Receive push notifications', 'icon': Icons.notifications},
-    {'title': 'Dark mode', 'subtitle': 'Use dark theme', 'icon': Icons.dark_mode},
-    {'title': 'Auto-update', 'subtitle': 'Download updates automatically', 'icon': Icons.system_update},
+    {
+      'title': 'Enable notifications',
+      'subtitle': 'Receive push notifications',
+      'icon': Icons.notifications,
+    },
+    {
+      'title': 'Dark mode',
+      'subtitle': 'Use dark theme',
+      'icon': Icons.dark_mode,
+    },
+    {
+      'title': 'Auto-update',
+      'subtitle': 'Download updates automatically',
+      'icon': Icons.system_update,
+    },
   ];
 
-  for (final affinity in [ListTileControlAffinity.leading, ListTileControlAffinity.trailing]) {
+  for (final affinity in [
+    ListTileControlAffinity.leading,
+    ListTileControlAffinity.trailing,
+  ]) {
     final isLeading = affinity == ListTileControlAffinity.leading;
     final color = isLeading ? Colors.blue : Colors.green;
     print('CheckboxListTile: ${affinity.name}');
@@ -210,14 +256,14 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: CheckboxListTile(
-          value: i == 0,
-          onChanged: (value) {},
-          title: Text(item['title'] as String),
-          subtitle: Text(item['subtitle'] as String),
-          secondary: Icon(item['icon'] as IconData, color: color),
-          controlAffinity: affinity,
-          activeColor: color,
-        ),
+            value: i == 0,
+            onChanged: (value) {},
+            title: Text(item['title'] as String),
+            subtitle: Text(item['subtitle'] as String),
+            secondary: Icon(item['icon'] as IconData, color: color),
+            controlAffinity: affinity,
+            activeColor: color,
+          ),
         ),
       );
     }
@@ -254,14 +300,14 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'CheckboxListTile',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   Spacer(),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(12.0),
@@ -293,12 +339,23 @@ dynamic build(BuildContext context) {
 
   final switchExamples = <Widget>[];
   final switchItems = [
-    {'title': 'Wi-Fi', 'subtitle': 'Connected to HomeNetwork', 'icon': Icons.wifi},
+    {
+      'title': 'Wi-Fi',
+      'subtitle': 'Connected to HomeNetwork',
+      'icon': Icons.wifi,
+    },
     {'title': 'Bluetooth', 'subtitle': 'Available', 'icon': Icons.bluetooth},
-    {'title': 'Airplane Mode', 'subtitle': 'All connections disabled', 'icon': Icons.airplanemode_active},
+    {
+      'title': 'Airplane Mode',
+      'subtitle': 'All connections disabled',
+      'icon': Icons.airplanemode_active,
+    },
   ];
 
-  for (final affinity in [ListTileControlAffinity.leading, ListTileControlAffinity.trailing]) {
+  for (final affinity in [
+    ListTileControlAffinity.leading,
+    ListTileControlAffinity.trailing,
+  ]) {
     final isLeading = affinity == ListTileControlAffinity.leading;
     final color = isLeading ? Colors.teal : Colors.orange;
     print('SwitchListTile: ${affinity.name}');
@@ -310,14 +367,14 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: SwitchListTile(
-          value: i < 2,
-          onChanged: (value) {},
-          title: Text(item['title'] as String),
-          subtitle: Text(item['subtitle'] as String),
-          secondary: Icon(item['icon'] as IconData, color: color),
-          controlAffinity: affinity,
-          activeColor: color,
-        ),
+            value: i < 2,
+            onChanged: (value) {},
+            title: Text(item['title'] as String),
+            subtitle: Text(item['subtitle'] as String),
+            secondary: Icon(item['icon'] as IconData, color: color),
+            controlAffinity: affinity,
+            activeColor: color,
+          ),
         ),
       );
     }
@@ -354,14 +411,14 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'SwitchListTile',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   Spacer(),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(12.0),
@@ -393,12 +450,27 @@ dynamic build(BuildContext context) {
 
   final radioExamples = <Widget>[];
   final radioItems = [
-    {'title': 'Light Theme', 'subtitle': 'Bright and clean', 'icon': Icons.light_mode},
-    {'title': 'Dark Theme', 'subtitle': 'Easy on the eyes', 'icon': Icons.dark_mode},
-    {'title': 'System Default', 'subtitle': 'Follow system settings', 'icon': Icons.settings_suggest},
+    {
+      'title': 'Light Theme',
+      'subtitle': 'Bright and clean',
+      'icon': Icons.light_mode,
+    },
+    {
+      'title': 'Dark Theme',
+      'subtitle': 'Easy on the eyes',
+      'icon': Icons.dark_mode,
+    },
+    {
+      'title': 'System Default',
+      'subtitle': 'Follow system settings',
+      'icon': Icons.settings_suggest,
+    },
   ];
 
-  for (final affinity in [ListTileControlAffinity.leading, ListTileControlAffinity.trailing]) {
+  for (final affinity in [
+    ListTileControlAffinity.leading,
+    ListTileControlAffinity.trailing,
+  ]) {
     final isLeading = affinity == ListTileControlAffinity.leading;
     final color = isLeading ? Colors.indigo : Colors.pink;
     print('RadioListTile: ${affinity.name}');
@@ -410,15 +482,15 @@ dynamic build(BuildContext context) {
         Material(
           type: MaterialType.transparency,
           child: RadioListTile<int>(
-          value: i,
-          groupValue: 1,
-          onChanged: (value) {},
-          title: Text(item['title'] as String),
-          subtitle: Text(item['subtitle'] as String),
-          secondary: Icon(item['icon'] as IconData, color: color),
-          controlAffinity: affinity,
-          activeColor: color,
-        ),
+            value: i,
+            groupValue: 1,
+            onChanged: (value) {},
+            title: Text(item['title'] as String),
+            subtitle: Text(item['subtitle'] as String),
+            secondary: Icon(item['icon'] as IconData, color: color),
+            controlAffinity: affinity,
+            activeColor: color,
+          ),
         ),
       );
     }
@@ -455,14 +527,14 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Text(
                     'RadioListTile',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: color,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: color),
                   ),
                   Spacer(),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: color,
                       borderRadius: BorderRadius.circular(12.0),
@@ -525,10 +597,7 @@ dynamic build(BuildContext context) {
         Text(
           'When using ListTileControlAffinity.platform, the control position '
           'adapts based on platform design guidelines.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20.0),
         // Android convention
@@ -577,8 +646,17 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Setting option', style: TextStyle(fontWeight: FontWeight.w500)),
-                          Text('Checkbox at leading', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                          Text(
+                            'Setting option',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            'Checkbox at leading',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -642,8 +720,17 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Setting option', style: TextStyle(fontWeight: FontWeight.w500)),
-                          Text('Switch at trailing', style: TextStyle(fontSize: 12.0, color: Colors.grey)),
+                          Text(
+                            'Setting option',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            'Switch at trailing',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -690,142 +777,142 @@ dynamic build(BuildContext context) {
     child: Material(
       type: MaterialType.transparency,
       child: Column(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blueGrey.shade700, Colors.blueGrey.shade900],
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(Icons.settings, color: Colors.white, size: 28.0),
-              SizedBox(width: 12.0),
-              Text(
-                'App Settings',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+        children: [
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blueGrey.shade700, Colors.blueGrey.shade900],
               ),
-            ],
-          ),
-        ),
-        // Group: Appearance
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          width: double.infinity,
-          color: Colors.grey.shade100,
-          child: Text(
-            'APPEARANCE',
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade600,
-              letterSpacing: 1.0,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.settings, color: Colors.white, size: 28.0),
+                SizedBox(width: 12.0),
+                Text(
+                  'App Settings',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Dark Mode'),
-          subtitle: Text('Use dark theme'),
-          secondary: Icon(Icons.dark_mode, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        Divider(height: 1.0),
-        SwitchListTile(
-          value: false,
-          onChanged: (v) {},
-          title: Text('Reduce Animations'),
-          subtitle: Text('Minimize visual motion'),
-          secondary: Icon(Icons.animation, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        // Group: Notifications
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          width: double.infinity,
-          color: Colors.grey.shade100,
-          child: Text(
-            'NOTIFICATIONS',
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade600,
-              letterSpacing: 1.0,
+          // Group: Appearance
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            width: double.infinity,
+            color: Colors.grey.shade100,
+            child: Text(
+              'APPEARANCE',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+                letterSpacing: 1.0,
+              ),
             ),
           ),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Push Notifications'),
-          subtitle: Text('Receive alerts'),
-          secondary: Icon(Icons.notifications, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        Divider(height: 1.0),
-        SwitchListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Email Notifications'),
-          subtitle: Text('Weekly updates'),
-          secondary: Icon(Icons.email, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        Divider(height: 1.0),
-        SwitchListTile(
-          value: false,
-          onChanged: (v) {},
-          title: Text('Sound'),
-          subtitle: Text('Play notification sounds'),
-          secondary: Icon(Icons.volume_up, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        // Group: Privacy
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          width: double.infinity,
-          color: Colors.grey.shade100,
-          child: Text(
-            'PRIVACY',
-            style: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade600,
-              letterSpacing: 1.0,
+          SwitchListTile(
+            value: true,
+            onChanged: (v) {},
+            title: Text('Dark Mode'),
+            subtitle: Text('Use dark theme'),
+            secondary: Icon(Icons.dark_mode, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          Divider(height: 1.0),
+          SwitchListTile(
+            value: false,
+            onChanged: (v) {},
+            title: Text('Reduce Animations'),
+            subtitle: Text('Minimize visual motion'),
+            secondary: Icon(Icons.animation, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          // Group: Notifications
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            width: double.infinity,
+            color: Colors.grey.shade100,
+            child: Text(
+              'NOTIFICATIONS',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+                letterSpacing: 1.0,
+              ),
             ),
           ),
-        ),
-        CheckboxListTile(
-          value: true,
-          onChanged: (v) {},
-          title: Text('Analytics'),
-          subtitle: Text('Help improve the app'),
-          secondary: Icon(Icons.analytics, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        Divider(height: 1.0),
-        CheckboxListTile(
-          value: false,
-          onChanged: (v) {},
-          title: Text('Personalized Ads'),
-          subtitle: Text('Show relevant advertisements'),
-          secondary: Icon(Icons.ads_click, color: Colors.blueGrey),
-          controlAffinity: ListTileControlAffinity.trailing,
-        ),
-        SizedBox(height: 8.0),
-      ],
-    ),
+          SwitchListTile(
+            value: true,
+            onChanged: (v) {},
+            title: Text('Push Notifications'),
+            subtitle: Text('Receive alerts'),
+            secondary: Icon(Icons.notifications, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          Divider(height: 1.0),
+          SwitchListTile(
+            value: true,
+            onChanged: (v) {},
+            title: Text('Email Notifications'),
+            subtitle: Text('Weekly updates'),
+            secondary: Icon(Icons.email, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          Divider(height: 1.0),
+          SwitchListTile(
+            value: false,
+            onChanged: (v) {},
+            title: Text('Sound'),
+            subtitle: Text('Play notification sounds'),
+            secondary: Icon(Icons.volume_up, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          // Group: Privacy
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            width: double.infinity,
+            color: Colors.grey.shade100,
+            child: Text(
+              'PRIVACY',
+              style: TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade600,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ),
+          CheckboxListTile(
+            value: true,
+            onChanged: (v) {},
+            title: Text('Analytics'),
+            subtitle: Text('Help improve the app'),
+            secondary: Icon(Icons.analytics, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          Divider(height: 1.0),
+          CheckboxListTile(
+            value: false,
+            onChanged: (v) {},
+            title: Text('Personalized Ads'),
+            subtitle: Text('Show relevant advertisements'),
+            secondary: Icon(Icons.ads_click, color: Colors.blueGrey),
+            controlAffinity: ListTileControlAffinity.trailing,
+          ),
+          SizedBox(height: 8.0),
+        ],
+      ),
     ),
   );
   print('Created settings example');
@@ -960,7 +1047,8 @@ dynamic build(BuildContext context) {
     },
     {
       'signature': 'ListTileControlAffinity.platform',
-      'description': 'Uses platform-specific conventions (iOS: trailing, Android: leading)',
+      'description':
+          'Uses platform-specific conventions (iOS: trailing, Android: leading)',
       'icon': Icons.devices,
     },
     {
@@ -1097,7 +1185,11 @@ dynamic build(BuildContext context) {
                   SizedBox(width: 8.0),
                   Icon(Icons.toggle_on, size: 40.0, color: Colors.white),
                   SizedBox(width: 8.0),
-                  Icon(Icons.radio_button_checked, size: 32.0, color: Colors.white),
+                  Icon(
+                    Icons.radio_button_checked,
+                    size: 32.0,
+                    color: Colors.white,
+                  ),
                 ],
               ),
               SizedBox(height: 16.0),
@@ -1113,10 +1205,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Control positioning in selection list tiles',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1125,34 +1214,25 @@ dynamic build(BuildContext context) {
         // Section 1: Overview
         SizedBox(height: 24.0),
         _buildSectionHeader('Section 1: Enum Overview', Icons.info_outline),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: overviewCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: overviewCards),
 
         // Section 2: CheckboxListTile
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 2: CheckboxListTile', Icons.check_box),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: checkboxExamples,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: checkboxExamples),
 
         // Section 3: SwitchListTile
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 3: SwitchListTile', Icons.toggle_on),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: switchExamples,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: switchExamples),
 
         // Section 4: RadioListTile
         SizedBox(height: 32.0),
-        _buildSectionHeader('Section 4: RadioListTile', Icons.radio_button_checked),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: radioExamples,
+        _buildSectionHeader(
+          'Section 4: RadioListTile',
+          Icons.radio_button_checked,
         ),
+        Wrap(alignment: WrapAlignment.center, children: radioExamples),
 
         // Section 5: Platform Behavior
         SizedBox(height: 32.0),
@@ -1209,10 +1289,7 @@ Widget _buildProperty(String label, String value) {
     children: [
       Text(
         '$label: ',
-        style: TextStyle(
-          fontSize: 10.0,
-          color: Colors.grey.shade500,
-        ),
+        style: TextStyle(fontSize: 10.0, color: Colors.grey.shade500),
       ),
       Text(
         value,

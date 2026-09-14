@@ -14,11 +14,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF311B92),
-          Color(0xFF4A148C),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -158,10 +154,7 @@ dynamic build(BuildContext context) {
             Text(
               node['sub'] as String,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 9.0,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 9.0, color: Colors.grey.shade700),
             ),
           ],
         ),
@@ -245,7 +238,8 @@ dynamic build(BuildContext context) {
         'Wraps a subtree and converts hardware key events into Intent objects '
         'using a LogicalKeySet -> Intent table. The matching Intent is then '
         'dispatched up the widget tree, where Actions can pick it up.',
-    code: 'Shortcuts(\n'
+    code:
+        'Shortcuts(\n'
         '  shortcuts: <LogicalKeySet, Intent>{\n'
         '    LogicalKeySet(\n'
         '      LogicalKeyboardKey.meta,\n'
@@ -272,7 +266,8 @@ dynamic build(BuildContext context) {
         'Wraps a subtree and provides a map from Intent type to Action<T>. '
         'When an Intent bubbles up through the tree, the nearest Actions '
         'widget that can handle it invokes the matching Action.',
-    code: 'Actions(\n'
+    code:
+        'Actions(\n'
         '  actions: <Type, Action<Intent>>{\n'
         '    SaveIntent: CallbackAction<SaveIntent>(\n'
         '      onInvoke: (intent) => save(),\n'
@@ -299,7 +294,8 @@ dynamic build(BuildContext context) {
         'implementation. Common built-ins: ActivateIntent (Enter/Space), '
         'DismissIntent (Escape), DirectionalFocusIntent (arrow keys), '
         'NextFocusIntent (Tab). Custom intents are just subclasses.',
-    code: 'class SaveIntent extends Intent {\n'
+    code:
+        'class SaveIntent extends Intent {\n'
         '  const SaveIntent();\n'
         '}\n\n'
         'class CopyIntent extends Intent {\n'
@@ -324,7 +320,8 @@ dynamic build(BuildContext context) {
         'A concrete handler for a specific Intent type. Override invoke() to '
         'execute the work, isEnabled() to gate availability, and consumesKey() '
         'to control whether the platform key event is swallowed.',
-    code: 'class SaveAction extends Action<SaveIntent> {\n'
+    code:
+        'class SaveAction extends Action<SaveIntent> {\n'
         '  @override\n'
         '  Object? invoke(SaveIntent intent) {\n'
         '    document.save();\n'
@@ -767,10 +764,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.start,
-          children: builtInCards,
-        ),
+        Wrap(alignment: WrapAlignment.start, children: builtInCards),
       ],
     ),
   );
@@ -868,19 +862,14 @@ dynamic build(BuildContext context) {
       Container(
         padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
         decoration: BoxDecoration(
-          color: i.isEven
-              ? Colors.grey.shade100
-              : Colors.white,
+          color: i.isEven ? Colors.grey.shade100 : Colors.white,
           border: Border(
             bottom: BorderSide(color: Colors.grey.shade300, width: 0.5),
           ),
         ),
         child: Row(
           children: [
-            SizedBox(
-              width: 200.0,
-              child: Row(children: keyChips),
-            ),
+            SizedBox(width: 200.0, child: Row(children: keyChips)),
             SizedBox(
               width: 220.0,
               child: Text(
@@ -896,10 +885,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 s['description'] as String,
-                style: TextStyle(
-                  fontSize: 12.0,
-                  color: Colors.grey.shade800,
-                ),
+                style: TextStyle(fontSize: 12.0, color: Colors.grey.shade800),
               ),
             ),
           ],
@@ -983,35 +969,35 @@ dynamic build(BuildContext context) {
       'title': 'Forgot the Focus widget',
       'detail':
           'Shortcuts only fire if there is a focused widget in the subtree. '
-              'Wrap with Focus(autofocus: true, ...) or use FocusableActionDetector.',
+          'Wrap with Focus(autofocus: true, ...) or use FocusableActionDetector.',
       'icon': Icons.report_problem,
     },
     {
       'title': 'Action returns true/false from invoke',
       'detail':
           'invoke() returns Object?, not bool. Returning false does not '
-              'prevent propagation. Use isEnabled() or Action.overridable instead.',
+          'prevent propagation. Use isEnabled() or Action.overridable instead.',
       'icon': Icons.error_outline,
     },
     {
       'title': 'Wrong key on macOS vs others',
       'detail':
           'LogicalKeyboardKey.meta is Cmd on macOS but the Windows key on PC. '
-              'Use SingleActivator or platform-specific tables for portability.',
+          'Use SingleActivator or platform-specific tables for portability.',
       'icon': Icons.devices,
     },
     {
       'title': 'consumesKey hides the event',
       'detail':
           'If consumesKey returns true, the platform never sees the key. '
-              'For Tab/Esc passthrough, return false (see DoNothingAction(consumesKey: false)).',
+          'For Tab/Esc passthrough, return false (see DoNothingAction(consumesKey: false)).',
       'icon': Icons.visibility_off,
     },
     {
       'title': 'Intent identity vs Type lookup',
       'detail':
           'Actions matches by Intent type, not by instance. Always register '
-              'against the exact runtimeType you dispatch.',
+          'against the exact runtimeType you dispatch.',
       'icon': Icons.fingerprint,
     },
   ];
@@ -1043,11 +1029,7 @@ dynamic build(BuildContext context) {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              p['icon'] as IconData,
-              color: Colors.red.shade600,
-              size: 24.0,
-            ),
+            Icon(p['icon'] as IconData, color: Colors.red.shade600, size: 24.0),
             SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -1155,8 +1137,10 @@ dynamic build(BuildContext context) {
         _buildRefRow('Action<T>', 'Implements invoke(T intent)'),
         _buildRefRow('CallbackAction<T>', 'Action wrapping a function'),
         _buildRefRow('DoNothingAction', 'Explicitly no-op (block defaults)'),
-        _buildRefRow('FocusableActionDetector',
-            'Composite: Focus + Shortcuts + Actions + MouseRegion'),
+        _buildRefRow(
+          'FocusableActionDetector',
+          'Composite: Focus + Shortcuts + Actions + MouseRegion',
+        ),
         _buildRefRow('LogicalKeySet', 'Set of logical keys (chord)'),
         _buildRefRow('SingleActivator', 'Modern, platform-aware single combo'),
         _buildRefRow('Actions.invoke', 'Programmatic dispatch from code'),
@@ -1530,10 +1514,7 @@ Widget _buildRecipeStep({
         Expanded(
           child: Text(
             title,
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.grey.shade900,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.grey.shade900),
           ),
         ),
       ],

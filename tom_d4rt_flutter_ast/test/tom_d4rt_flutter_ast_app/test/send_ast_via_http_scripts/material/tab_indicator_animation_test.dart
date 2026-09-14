@@ -15,10 +15,10 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   // ── colour palette ──────────────────────────────────────────
-  const tiPrimary = Color(0xFF7B2D6E);   // mulberry
-  const tiAccent = Color(0xFFA05497);     // soft plum
-  const tiLight = Color(0xFFF6EBF4);      // pale mulberry
-  const tiDark = Color(0xFF4A1942);       // deep mulberry
+  const tiPrimary = Color(0xFF7B2D6E); // mulberry
+  const tiAccent = Color(0xFFA05497); // soft plum
+  const tiLight = Color(0xFFF6EBF4); // pale mulberry
+  const tiDark = Color(0xFF4A1942); // deep mulberry
   const tiSurface = Color(0xFFFDF8FC);
   const tiOnSurface = Color(0xFF301A2D);
   const tiMuted = Color(0xFF7B5E78);
@@ -28,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'linear',
       'title': 'Linear',
-      'desc': 'The selection indicator moves at a constant speed '
+      'desc':
+          'The selection indicator moves at a constant speed '
           'from the current tab to the target tab. Both leading '
           'and trailing edges move at the same rate, producing a '
           'sliding rectangle motion.',
@@ -40,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'value': 'elastic',
       'title': 'Elastic',
-      'desc': 'The indicator stretches and contracts as it moves. '
+      'desc':
+          'The indicator stretches and contracts as it moves. '
           'The leading edge begins first and accelerates, while '
           'the trailing edge follows with a spring-like deceleration. '
           'This creates a rubber-band effect.',
@@ -75,24 +77,28 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [tiPrimary, tiDark],
+              gradient: LinearGradient(colors: [tiPrimary, tiDark]),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: child ??
+            child:
+                child ??
                 Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: children ?? []),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children ?? [],
+                ),
           ),
         ],
       ),
@@ -102,19 +108,24 @@ dynamic build(BuildContext context) {
   Widget tiLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: tiOnSurface)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: tiOnSurface,
+        ),
+      ),
     );
   }
 
   Widget tiBody(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: tiMuted, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: tiMuted, height: 1.5),
+      ),
     );
   }
 
@@ -127,8 +138,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: tiAccent.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -172,9 +185,13 @@ dynamic build(BuildContext context) {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(label,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.w700)),
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
                 tiChip(animation.name),
               ],
@@ -194,11 +211,14 @@ dynamic build(BuildContext context) {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(10),
-              child: Text(note,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      color: tiMuted)),
+              child: Text(
+                note,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  color: tiMuted,
+                ),
+              ),
             ),
         ],
       ),
@@ -213,9 +233,10 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 80,
-            child: Text(label,
-                style: const TextStyle(
-                    fontSize: 11, fontWeight: FontWeight.w600)),
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+            ),
           ),
           Expanded(
             child: Container(
@@ -239,8 +260,10 @@ dynamic build(BuildContext context) {
           const SizedBox(width: 8),
           SizedBox(
             width: 45,
-            child: Text('${(fraction * 100).toInt()}%',
-                style: TextStyle(fontSize: 11, color: tiMuted)),
+            child: Text(
+              '${(fraction * 100).toInt()}%',
+              style: TextStyle(fontSize: 11, color: tiMuted),
+            ),
           ),
         ],
       ),
@@ -270,28 +293,33 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('TabIndicatorAnimation',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  'TabIndicatorAnimation',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'Determines the motion style of the tab selection '
                   'indicator as it transitions between tabs.',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.87),
-                      fontSize: 14,
-                      height: 1.5),
+                    color: Colors.white.withValues(alpha: 0.87),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     tiChip('enum', bg: Colors.white.withValues(alpha: 0.2)),
-                    tiChip('TabBar',
-                        bg: Colors.white.withValues(alpha: 0.2)),
-                    tiChip('animation',
-                        bg: Colors.white.withValues(alpha: 0.2)),
+                    tiChip('TabBar', bg: Colors.white.withValues(alpha: 0.2)),
+                    tiChip(
+                      'animation',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
                   ],
                 ),
               ],
@@ -301,21 +329,23 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
 
           // ── 2. Enum Overview ─────────────────────────────────
-          tiSection('Enum Overview',
+          tiSection(
+            'Enum Overview',
             children: [
               tiBody(
                 'TabIndicatorAnimation was introduced in Flutter 3.22 '
                 'to give developers control over the indicator motion '
                 'style. Material 3 defaults to elastic, while Material 2 '
-                'used a simpler linear slide.'),
+                'used a simpler linear slide.',
+              ),
               tiBody(
                 'The enum affects ONLY how the indicator rectangle '
                 'transitions between positions — it does not change the '
-                'indicator shape, colour, or thickness.'),
+                'indicator shape, colour, or thickness.',
+              ),
               Wrap(
                 children: [
-                  for (final v in TabIndicatorAnimation.values)
-                    tiChip(v.name),
+                  for (final v in TabIndicatorAnimation.values) tiChip(v.name),
                 ],
               ),
             ],
@@ -323,7 +353,8 @@ dynamic build(BuildContext context) {
 
           // ── 3. Individual Value Cards ────────────────────────
           for (final a in tiAnimations)
-            tiSection(a['title']!,
+            tiSection(
+              a['title']!,
               children: [
                 tiLabel('Value'),
                 tiChip('TabIndicatorAnimation.${a['value']}'),
@@ -342,11 +373,13 @@ dynamic build(BuildContext context) {
             ),
 
           // ── 4. Live TabBar Demos — Individual ────────────────
-          tiSection('Live TabBars — Each Animation',
+          tiSection(
+            'Live TabBars — Each Animation',
             children: [
               tiBody(
                 'Tap between tabs to observe the indicator motion. '
-                'Linear slides uniformly; elastic stretches and snaps.'),
+                'Linear slides uniformly; elastic stretches and snaps.',
+              ),
               tiTabBarDemo(
                 animation: TabIndicatorAnimation.linear,
                 label: 'Linear Animation',
@@ -355,17 +388,20 @@ dynamic build(BuildContext context) {
               tiTabBarDemo(
                 animation: TabIndicatorAnimation.elastic,
                 label: 'Elastic Animation',
-                note: 'Indicator stretches, then the trailing edge snaps into place.',
+                note:
+                    'Indicator stretches, then the trailing edge snaps into place.',
               ),
             ],
           ),
 
           // ── 5. Side-by-Side Comparison ───────────────────────
-          tiSection('Side-by-Side: Linear vs Elastic',
+          tiSection(
+            'Side-by-Side: Linear vs Elastic',
             children: [
               tiBody(
                 'Both TabBars have the same tabs. Tap tabs in each '
-                'to compare the motion directly:'),
+                'to compare the motion directly:',
+              ),
               for (final anim in [
                 TabIndicatorAnimation.linear,
                 TabIndicatorAnimation.elastic,
@@ -388,9 +424,13 @@ dynamic build(BuildContext context) {
                             ),
                           ),
                           const SizedBox(width: 8),
-                          Text(anim.name,
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.w700)),
+                          Text(
+                            anim.name,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 4),
@@ -423,10 +463,10 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 6. Motion Phase Diagram ──────────────────────────
-          tiSection('Motion Phase Breakdown',
+          tiSection(
+            'Motion Phase Breakdown',
             children: [
-              tiBody(
-                'How each animation mode behaves across the transition:'),
+              tiBody('How each animation mode behaves across the transition:'),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
@@ -437,9 +477,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Linear',
-                        style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.w700)),
+                    const Text(
+                      'Linear',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     for (final phase in [
                       'Start → 25%:  L●────────R  (both edges move equally)',
@@ -449,9 +493,13 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 3),
-                        child: Text(phase,
-                            style: const TextStyle(
-                                fontSize: 11, fontFamily: 'monospace')),
+                        child: Text(
+                          phase,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -467,9 +515,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Elastic',
-                        style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.w700)),
+                    const Text(
+                      'Elastic',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     for (final phase in [
                       'Start → 25%:  L●────R     (leading accelerates)',
@@ -479,9 +531,13 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 3),
-                        child: Text(phase,
-                            style: const TextStyle(
-                                fontSize: 11, fontFamily: 'monospace')),
+                        child: Text(
+                          phase,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -490,16 +546,20 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 7. Animation Timing Analysis ─────────────────────
-          tiSection('Animation Timing Analysis',
+          tiSection(
+            'Animation Timing Analysis',
             children: [
               tiBody(
                 'Animation characteristics at different transition '
-                'distances (number of tabs between source and target):'),
+                'distances (number of tabs between source and target):',
+              ),
               SizedBox(
                 width: double.infinity,
                 child: Table(
                   border: TableBorder.all(
-                      color: tiAccent.withValues(alpha: 0.3), width: 1),
+                    color: tiAccent.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
                   columnWidths: const {
                     0: FlexColumnWidth(2),
                     1: FlexColumnWidth(1.5),
@@ -508,33 +568,25 @@ dynamic build(BuildContext context) {
                   children: [
                     TableRow(
                       decoration: BoxDecoration(
-                          color: tiPrimary.withValues(alpha: 0.1)),
+                        color: tiPrimary.withValues(alpha: 0.1),
+                      ),
                       children: [
-                        for (final h in [
-                          'Distance',
-                          'Linear',
-                          'Elastic',
-                        ])
+                        for (final h in ['Distance', 'Linear', 'Elastic'])
                           Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text(h,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 11)),
+                            child: Text(
+                              h,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 11,
+                              ),
+                            ),
                           ),
                       ],
                     ),
                     for (final row in [
-                      [
-                        'Adjacent (1 tab)',
-                        'Smooth slide',
-                        'Subtle stretch',
-                      ],
-                      [
-                        'Short (2 tabs)',
-                        'Steady glide',
-                        'Noticeable stretch',
-                      ],
+                      ['Adjacent (1 tab)', 'Smooth slide', 'Subtle stretch'],
+                      ['Short (2 tabs)', 'Steady glide', 'Noticeable stretch'],
                       [
                         'Medium (3 tabs)',
                         'Even motion',
@@ -551,9 +603,10 @@ dynamic build(BuildContext context) {
                           for (final cell in row)
                             Padding(
                               padding: EdgeInsets.all(8),
-                              child: Text(cell,
-                                  style: TextStyle(
-                                      fontSize: 11, color: tiMuted)),
+                              child: Text(
+                                cell,
+                                style: TextStyle(fontSize: 11, color: tiMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -564,11 +617,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 8. Spring Physics Explanation ─────────────────────
-          tiSection('Elastic Spring Physics',
+          tiSection(
+            'Elastic Spring Physics',
             children: [
               tiBody(
                 'The elastic animation uses separate spring simulations '
-                'for the leading and trailing edges of the indicator:'),
+                'for the leading and trailing edges of the indicator:',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
@@ -589,14 +644,18 @@ dynamic build(BuildContext context) {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('→ ',
-                              style: TextStyle(
-                                  color: tiPrimary,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            '→ ',
+                            style: TextStyle(
+                              color: tiPrimary,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           Expanded(
-                            child: Text(item,
-                                style: TextStyle(
-                                    fontSize: 12, color: tiMuted)),
+                            child: Text(
+                              item,
+                              style: TextStyle(fontSize: 12, color: tiMuted),
+                            ),
                           ),
                         ],
                       ),
@@ -609,28 +668,33 @@ dynamic build(BuildContext context) {
               tiBody(
                 'This asymmetry between edges is what creates the '
                 'characteristic "stretching" look. The indicator '
-                'temporarily becomes wider than its resting width.'),
+                'temporarily becomes wider than its resting width.',
+              ),
             ],
           ),
 
           // ── 9. Energy Visualiser ─────────────────────────────
-          tiSection('Motion Energy Visualiser',
+          tiSection(
+            'Motion Energy Visualiser',
             children: [
               tiBody(
                 'Relative "motion energy" across the animation timeline '
-                '(higher = more movement at that point):'),
-              const Text('Linear',
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w700)),
+                '(higher = more movement at that point):',
+              ),
+              const Text(
+                'Linear',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 4),
               tiCurveBar('0-25%', 0.50, tiAccent),
               tiCurveBar('25-50%', 0.50, tiAccent),
               tiCurveBar('50-75%', 0.50, tiAccent),
               tiCurveBar('75-100%', 0.50, tiAccent),
               tiDivider(),
-              const Text('Elastic',
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w700)),
+              const Text(
+                'Elastic',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 4),
               tiCurveBar('0-25%', 0.80, tiPrimary),
               tiCurveBar('25-50%', 0.95, tiPrimary),
@@ -639,12 +703,14 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 6),
               tiBody(
                 'Linear has uniform energy. Elastic front-loads energy '
-                '(fast start) and tapers off (trailing snaps to rest).'),
+                '(fast start) and tapers off (trailing snaps to rest).',
+              ),
             ],
           ),
 
           // ── 10. Material 2 vs 3 Defaults ────────────────────
-          tiSection('Material 2 vs Material 3 Defaults',
+          tiSection(
+            'Material 2 vs Material 3 Defaults',
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -659,10 +725,13 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Material 2',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 2',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           for (final fact in [
                             'No indicatorAnimation property',
@@ -672,9 +741,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 3),
-                              child: Text('• $fact',
-                                  style: TextStyle(
-                                      fontSize: 11, color: tiMuted)),
+                              child: Text(
+                                '• $fact',
+                                style: TextStyle(fontSize: 11, color: tiMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -691,10 +761,13 @@ dynamic build(BuildContext context) {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Material 3',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 3',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           for (final fact in [
                             'indicatorAnimation added',
@@ -704,9 +777,10 @@ dynamic build(BuildContext context) {
                           ])
                             Padding(
                               padding: const EdgeInsets.only(bottom: 3),
-                              child: Text('• $fact',
-                                  style: TextStyle(
-                                      fontSize: 11, color: tiMuted)),
+                              child: Text(
+                                '• $fact',
+                                style: TextStyle(fontSize: 11, color: tiMuted),
+                              ),
                             ),
                         ],
                       ),
@@ -718,54 +792,44 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 11. Many Tabs Demo ───────────────────────────────
-          tiSection('Long-Distance Transitions',
+          tiSection(
+            'Long-Distance Transitions',
             children: [
               tiBody(
                 'With many tabs, elastic stretch becomes very '
                 'pronounced. Tap the first and last tab to see a '
-                'full-width stretch:'),
+                'full-width stretch:',
+              ),
               tiTabBarDemo(
                 animation: TabIndicatorAnimation.elastic,
                 label: '7 tabs — elastic animation',
-                tabs: [
-                  'Mon',
-                  'Tue',
-                  'Wed',
-                  'Thu',
-                  'Fri',
-                  'Sat',
-                  'Sun',
-                ],
-                note: 'Tap Mon then Sun: the indicator stretches across the '
+                tabs: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                note:
+                    'Tap Mon then Sun: the indicator stretches across the '
                     'entire bar before snapping to the target.',
               ),
               tiTabBarDemo(
                 animation: TabIndicatorAnimation.linear,
                 label: '7 tabs — linear animation',
-                tabs: [
-                  'Mon',
-                  'Tue',
-                  'Wed',
-                  'Thu',
-                  'Fri',
-                  'Sat',
-                  'Sun',
-                ],
+                tabs: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 note: 'Same tabs with linear: steady glide, no stretching.',
               ),
             ],
           ),
 
           // ── 12. Indicator Size Interaction ───────────────────
-          tiSection('Interaction with indicatorSize',
+          tiSection(
+            'Interaction with indicatorSize',
             children: [
               tiBody(
                 'TabBarIndicatorSize (.tab vs .label) changes the '
-                'indicator width — the animation still applies:'),
+                'indicator width — the animation still applies:',
+              ),
               for (final combo in [
                 {
                   'label': 'elastic + indicatorSize: tab',
-                  'desc': 'Full-width indicator stretches across entire tab width.',
+                  'desc':
+                      'Full-width indicator stretches across entire tab width.',
                 },
                 {
                   'label': 'elastic + indicatorSize: label',
@@ -791,12 +855,18 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(combo['label']!,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w700)),
+                      Text(
+                        combo['label']!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(combo['desc']!,
-                          style: TextStyle(fontSize: 11, color: tiMuted)),
+                      Text(
+                        combo['desc']!,
+                        style: TextStyle(fontSize: 11, color: tiMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -804,7 +874,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 13. UX Recommendations ───────────────────────────
-          tiSection('UX Recommendations',
+          tiSection(
+            'UX Recommendations',
             children: [
               for (final rec in [
                 {
@@ -820,7 +891,8 @@ dynamic build(BuildContext context) {
                 {
                   'scenario': 'Accessibility-focused apps',
                   'recommendation': 'linear',
-                  'reason': 'Simpler motion is easier to follow for users '
+                  'reason':
+                      'Simpler motion is easier to follow for users '
                       'with vestibular sensitivities.',
                 },
                 {
@@ -831,7 +903,8 @@ dynamic build(BuildContext context) {
                 {
                   'scenario': 'Custom branded motion',
                   'recommendation': 'Either — override with custom indicator',
-                  'reason': 'For unique branding, create a custom '
+                  'reason':
+                      'For unique branding, create a custom '
                       'Decoration instead.',
                 },
               ])
@@ -846,14 +919,20 @@ dynamic build(BuildContext context) {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(rec['scenario']!,
-                          style: const TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w700)),
+                      Text(
+                        rec['scenario']!,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 4),
                       tiChip(rec['recommendation']!),
                       const SizedBox(height: 4),
-                      Text(rec['reason']!,
-                          style: TextStyle(fontSize: 11, color: tiMuted)),
+                      Text(
+                        rec['reason']!,
+                        style: TextStyle(fontSize: 11, color: tiMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -861,7 +940,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 14. Common Pitfalls ──────────────────────────────
-          tiSection('Common Pitfalls',
+          tiSection(
+            'Common Pitfalls',
             children: [
               for (final pit in [
                 {
@@ -900,28 +980,35 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: const Color(0xFFF3E5F5),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: tiPrimary.withValues(alpha: 0.3)),
+                    border: Border.all(color: tiPrimary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded,
-                              color: tiDark, size: 16),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: tiDark,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
-                            child: Text(pit['title']!,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700)),
+                            child: Text(
+                              pit['title']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(pit['detail']!,
-                          style: TextStyle(fontSize: 11, color: tiMuted)),
+                      Text(
+                        pit['detail']!,
+                        style: TextStyle(fontSize: 11, color: tiMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -929,7 +1016,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 15. Related APIs ─────────────────────────────────
-          tiSection('Related APIs',
+          tiSection(
+            'Related APIs',
             children: [
               for (final api in [
                 {
@@ -968,15 +1056,20 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 210,
-                        child: Text(api['name']!,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: tiDark)),
+                        child: Text(
+                          api['name']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: tiDark,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(api['rel']!,
-                            style: TextStyle(fontSize: 12, color: tiMuted)),
+                        child: Text(
+                          api['rel']!,
+                          style: TextStyle(fontSize: 12, color: tiMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -985,7 +1078,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 16. Summary Dashboard ────────────────────────────
-          tiSection('Summary Dashboard',
+          tiSection(
+            'Summary Dashboard',
             child: Column(
               children: [
                 Row(
@@ -1000,13 +1094,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Text(
-                                '${TabIndicatorAnimation.values.length}',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: tiDark)),
-                            const Text('Enum Values',
-                                style: TextStyle(fontSize: 11)),
+                              '${TabIndicatorAnimation.values.length}',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: tiDark,
+                              ),
+                            ),
+                            const Text(
+                              'Enum Values',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1021,13 +1119,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('6',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: tiDark)),
-                            const Text('Live TabBars',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '6',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: tiDark,
+                              ),
+                            ),
+                            const Text(
+                              'Live TabBars',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1042,13 +1145,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('16',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: tiDark)),
-                            const Text('Sections',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '16',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: tiDark,
+                              ),
+                            ),
+                            const Text(
+                              'Sections',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1068,8 +1176,7 @@ dynamic build(BuildContext context) {
                     'simple linear slide and an organic elastic stretch '
                     'for the tab selection indicator. Match the style '
                     'to your app personality and user needs.',
-                    style: TextStyle(
-                        fontSize: 12, color: tiMuted, height: 1.5),
+                    style: TextStyle(fontSize: 12, color: tiMuted, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1086,19 +1193,23 @@ dynamic build(BuildContext context) {
             color: tiDark,
             child: Column(
               children: [
-                const Text('TabIndicatorAnimation Deep Demo',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'TabIndicatorAnimation Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Mulberry/Plum theme  •  Batch 61  •  '
                   '${TabIndicatorAnimation.values.length} enum values  •  '
                   '6 live TabBars',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 11),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

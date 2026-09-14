@@ -15,16 +15,15 @@ import 'package:flutter/material.dart';
 // ── top-level ValueNotifiers (stateless rule: no StatefulWidget) ──────────
 
 /// Simulated window state driven by the window-chrome section.
-final ValueNotifier<_WindowState> _windowState =
-    ValueNotifier<_WindowState>(_WindowState.normal);
+final ValueNotifier<_WindowState> _windowState = ValueNotifier<_WindowState>(
+  _WindowState.normal,
+);
 
 /// Which platform delegate card is highlighted.
-final ValueNotifier<String> _selectedPlatform =
-    ValueNotifier<String>('macOS');
+final ValueNotifier<String> _selectedPlatform = ValueNotifier<String>('macOS');
 
 /// Whether the simulated "close dialog" is visible.
-final ValueNotifier<bool> _closeDialogVisible =
-    ValueNotifier<bool>(false);
+final ValueNotifier<bool> _closeDialogVisible = ValueNotifier<bool>(false);
 
 /// Simulated lifecycle event log.
 final ValueNotifier<List<_LifecycleEvent>> _lifecycleLog =
@@ -405,21 +404,13 @@ class _HeroTab extends StatelessWidget {
                       'Experimental API',
                       cs.onPrimary,
                     ),
-                    _HeroBadge(
-                      Icons.lock_outlined,
-                      '@internal',
-                      cs.onPrimary,
-                    ),
+                    _HeroBadge(Icons.lock_outlined, '@internal', cs.onPrimary),
                     _HeroBadge(
                       Icons.desktop_mac_outlined,
                       'Desktop only',
                       cs.onPrimary,
                     ),
-                    _HeroBadge(
-                      Icons.hub_outlined,
-                      'mixin class',
-                      cs.onPrimary,
-                    ),
+                    _HeroBadge(Icons.hub_outlined, 'mixin class', cs.onPrimary),
                   ],
                 ),
               ],
@@ -427,8 +418,10 @@ class _HeroTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // ── What is it ────────────────────────────────────────────────
-          _SectionTitle('What is RegularWindowControllerDelegate?',
-              icon: Icons.help_outline_rounded),
+          _SectionTitle(
+            'What is RegularWindowControllerDelegate?',
+            icon: Icons.help_outline_rounded,
+          ),
           const SizedBox(height: 12),
           Text(
             'RegularWindowControllerDelegate is a mixin class that lives inside '
@@ -483,8 +476,10 @@ class _HeroTab extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    const Icon(Icons.warning_amber_rounded,
-                        color: Colors.orange),
+                    const Icon(
+                      Icons.warning_amber_rounded,
+                      color: Colors.orange,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Experimental API — Not Production Ready',
@@ -557,8 +552,11 @@ class _FactsGrid extends StatelessWidget {
       _Fact('Status', 'Experimental / @internal', Icons.science_outlined),
       _Fact('Channel', 'main only', Icons.merge_type_outlined),
       _Fact('Platforms', 'macOS, Linux, Windows', Icons.devices_outlined),
-      _Fact('Methods', '2 (onWindowCloseRequested, onWindowDestroyed)',
-          Icons.functions_outlined),
+      _Fact(
+        'Methods',
+        '2 (onWindowCloseRequested, onWindowDestroyed)',
+        Icons.functions_outlined,
+      ),
       _Fact('Default close', 'controller.destroy()', Icons.close_rounded),
     ];
     return GridView.builder(
@@ -647,8 +645,10 @@ class _ArchitectureTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _SectionTitle('Architecture Diagram',
-              icon: Icons.account_tree_outlined),
+          _SectionTitle(
+            'Architecture Diagram',
+            icon: Icons.account_tree_outlined,
+          ),
           const SizedBox(height: 8),
           Text(
             'How RegularWindowControllerDelegate fits into the Flutter '
@@ -754,31 +754,42 @@ class _ArchDiagramPainter extends CustomPainter {
     const double gap = 24.0;
 
     final List<_DiagramLayer> layers = <_DiagramLayer>[
-      _DiagramLayer('Flutter App', 'Your Dart code + widgets',
-          const Color(0xFF1A6B4A), false),
-      _DiagramLayer('RegularWindow Widget',
-          'StatelessWidget wrapping the FlutterView', const Color(0xFF2E7D9C),
-          false),
       _DiagramLayer(
-          'RegularWindowController',
-          'abstract class extending BaseWindowController',
-          const Color(0xFF5B3E8D),
-          false),
+        'Flutter App',
+        'Your Dart code + widgets',
+        const Color(0xFF1A6B4A),
+        false,
+      ),
       _DiagramLayer(
-          'RegularWindowControllerDelegate ← YOU',
-          'mixin class — override lifecycle callbacks',
-          const Color(0xFFB8401A),
-          true),
+        'RegularWindow Widget',
+        'StatelessWidget wrapping the FlutterView',
+        const Color(0xFF2E7D9C),
+        false,
+      ),
       _DiagramLayer(
-          'WindowingOwner',
-          'WidgetsBinding.instance.windowingOwner factory',
-          const Color(0xFF395A7F),
-          false),
+        'RegularWindowController',
+        'abstract class extending BaseWindowController',
+        const Color(0xFF5B3E8D),
+        false,
+      ),
       _DiagramLayer(
-          'Platform Implementation',
-          'Linux (Wayland/X11)  •  macOS (Cocoa)  •  Windows (Win32)',
-          const Color(0xFF2F4F2F),
-          false),
+        'RegularWindowControllerDelegate ← YOU',
+        'mixin class — override lifecycle callbacks',
+        const Color(0xFFB8401A),
+        true,
+      ),
+      _DiagramLayer(
+        'WindowingOwner',
+        'WidgetsBinding.instance.windowingOwner factory',
+        const Color(0xFF395A7F),
+        false,
+      ),
+      _DiagramLayer(
+        'Platform Implementation',
+        'Linux (Wayland/X11)  •  macOS (Cocoa)  •  Windows (Win32)',
+        const Color(0xFF2F4F2F),
+        false,
+      ),
     ];
 
     double y = 28.0;
@@ -791,8 +802,10 @@ class _ArchDiagramPainter extends CustomPainter {
 
     for (int i = 0; i < layers.length; i++) {
       final layer = layers[i];
-      final rect =
-          RRect.fromRectAndRadius(Rect.fromLTWH(x, y, boxW, boxH), const Radius.circular(10));
+      final rect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(x, y, boxW, boxH),
+        const Radius.circular(10),
+      );
 
       // Box fill
       final Paint fillPaint = Paint()
@@ -827,10 +840,7 @@ class _ArchDiagramPainter extends CustomPainter {
       final subPainter = TextPainter(
         text: TextSpan(
           text: layer.subtitle,
-          style: const TextStyle(
-            fontSize: 10,
-            color: Colors.white70,
-          ),
+          style: const TextStyle(fontSize: 10, color: Colors.white70),
         ),
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: boxW - 16);
@@ -842,7 +852,10 @@ class _ArchDiagramPainter extends CustomPainter {
         final double arrowY0 = y + boxH;
         final double arrowY1 = y + boxH + gap;
         canvas.drawLine(
-            Offset(arrowX, arrowY0), Offset(arrowX, arrowY1 - 8), arrowPaint);
+          Offset(arrowX, arrowY0),
+          Offset(arrowX, arrowY1 - 8),
+          arrowPaint,
+        );
         // arrowhead
         final Paint arrowHead = Paint()
           ..color = cs.onSurface.withAlpha(120)
@@ -865,7 +878,11 @@ class _ArchDiagramPainter extends CustomPainter {
 
 class _DiagramLayer {
   const _DiagramLayer(
-      this.title, this.subtitle, this.color, this.isHighlighted);
+    this.title,
+    this.subtitle,
+    this.color,
+    this.isHighlighted,
+  );
   final String title;
   final String subtitle;
   final Color color;
@@ -900,8 +917,7 @@ class _ArchLegend extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Text(item.label,
-                    style: const TextStyle(fontSize: 12)),
+                Text(item.label, style: const TextStyle(fontSize: 12)),
               ],
             ),
           )
@@ -945,14 +961,18 @@ class _DelegatePatternTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Decision flow
-          _SectionTitle('Decision Flow on Close Request',
-              icon: Icons.alt_route_outlined),
+          _SectionTitle(
+            'Decision Flow on Close Request',
+            icon: Icons.alt_route_outlined,
+          ),
           const SizedBox(height: 12),
           _DecisionFlow(),
           const SizedBox(height: 24),
           // Two-method contract
-          _SectionTitle('The Two-Method Contract',
-              icon: Icons.handshake_outlined),
+          _SectionTitle(
+            'The Two-Method Contract',
+            icon: Icons.handshake_outlined,
+          ),
           const SizedBox(height: 12),
           _MethodContractCard(
             methodName: 'onWindowCloseRequested',
@@ -1000,8 +1020,10 @@ class _DelegatePatternTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // mixin class vs extends
-          _SectionTitle('mixin class — Not extends',
-              icon: Icons.merge_outlined),
+          _SectionTitle(
+            'mixin class — Not extends',
+            icon: Icons.merge_outlined,
+          ),
           const SizedBox(height: 12),
           _HighlightBox(
             color: cs.primary,
@@ -1067,23 +1089,42 @@ class _DecisionFlow extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     const steps = <_FlowStep>[
-      _FlowStep('User clicks ×', 'OS close button or cmd+W', Icons.mouse_outlined,
-          Color(0xFF455A64)),
-      _FlowStep('Platform fires event',
-          'Win32/Cocoa/Wayland window event', Icons.send_outlined,
-          Color(0xFF00695C)),
-      _FlowStep('Controller receives event',
-          'RegularWindowControllerLinux/MacOS/Win32',
-          Icons.settings_input_component_outlined, Color(0xFF4527A0)),
-      _FlowStep('Delegate.onWindowCloseRequested() called',
-          'Your policy code runs here', Icons.call_outlined,
-          Color(0xFFB71C1C)),
-      _FlowStep('controller.destroy() (if allowed)',
-          'Platform destroys native window', Icons.delete_outlined,
-          Color(0xFF1565C0)),
-      _FlowStep('Delegate.onWindowDestroyed() called',
-          'Cleanup — remove from window list', Icons.done_all_outlined,
-          Color(0xFF2E7D32)),
+      _FlowStep(
+        'User clicks ×',
+        'OS close button or cmd+W',
+        Icons.mouse_outlined,
+        Color(0xFF455A64),
+      ),
+      _FlowStep(
+        'Platform fires event',
+        'Win32/Cocoa/Wayland window event',
+        Icons.send_outlined,
+        Color(0xFF00695C),
+      ),
+      _FlowStep(
+        'Controller receives event',
+        'RegularWindowControllerLinux/MacOS/Win32',
+        Icons.settings_input_component_outlined,
+        Color(0xFF4527A0),
+      ),
+      _FlowStep(
+        'Delegate.onWindowCloseRequested() called',
+        'Your policy code runs here',
+        Icons.call_outlined,
+        Color(0xFFB71C1C),
+      ),
+      _FlowStep(
+        'controller.destroy() (if allowed)',
+        'Platform destroys native window',
+        Icons.delete_outlined,
+        Color(0xFF1565C0),
+      ),
+      _FlowStep(
+        'Delegate.onWindowDestroyed() called',
+        'Cleanup — remove from window list',
+        Icons.done_all_outlined,
+        Color(0xFF2E7D32),
+      ),
     ];
     return Column(
       children: <Widget>[
@@ -1194,8 +1235,9 @@ class _MethodContractCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: color.withAlpha(40),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
+              ),
             ),
             child: Row(
               children: <Widget>[
@@ -1227,9 +1269,10 @@ class _MethodContractCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text(description,
-                    style:
-                        const TextStyle(fontSize: 13, height: 1.6)),
+                Text(
+                  description,
+                  style: const TextStyle(fontSize: 13, height: 1.6),
+                ),
                 const SizedBox(height: 12),
                 _CodeBlock(example),
               ],
@@ -1255,8 +1298,10 @@ class _SimulatedWindowTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _SectionTitle('Simulated Window Chrome',
-              icon: Icons.desktop_windows_outlined),
+          _SectionTitle(
+            'Simulated Window Chrome',
+            icon: Icons.desktop_windows_outlined,
+          ),
           const SizedBox(height: 8),
           Text(
             'The buttons below simulate the window state transitions that '
@@ -1273,14 +1318,18 @@ class _SimulatedWindowTab extends StatelessWidget {
           _SimulatedWindowFrame(),
           const SizedBox(height: 20),
           // State info
-          _SectionTitle('Current Controller State',
-              icon: Icons.info_outline_rounded),
+          _SectionTitle(
+            'Current Controller State',
+            icon: Icons.info_outline_rounded,
+          ),
           const SizedBox(height: 12),
           _WindowStateInfo(),
           const SizedBox(height: 20),
           // Controller API used
-          _SectionTitle('Controller Methods Invoked',
-              icon: Icons.functions_outlined),
+          _SectionTitle(
+            'Controller Methods Invoked',
+            icon: Icons.functions_outlined,
+          ),
           const SizedBox(height: 12),
           _CodeBlock(
             '// All of these are methods on RegularWindowController:\n'
@@ -1298,8 +1347,10 @@ class _SimulatedWindowTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Close dialog simulation
-          _SectionTitle('Delegate Close Guard Demo',
-              icon: Icons.shield_outlined),
+          _SectionTitle(
+            'Delegate Close Guard Demo',
+            icon: Icons.shield_outlined,
+          ),
           const SizedBox(height: 12),
           _CloseGuardDemo(),
           const SizedBox(height: 40),
@@ -1334,25 +1385,24 @@ class _SimulatedWindowFrame extends StatelessWidget {
               // Title bar
               Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 10),
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: state == _WindowState.closed
                       ? Colors.grey.shade700
                       : cs.primary,
                   borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(10)),
+                    top: Radius.circular(10),
+                  ),
                 ),
                 child: Row(
                   children: <Widget>[
                     // macOS-style traffic lights
-                    _TrafficLight(
-                      Colors.red.shade400,
-                      () {
-                        _addLifecycleEvent(
-                            'onWindowCloseRequested', Colors.red);
-                        _closeDialogVisible.value = true;
-                      },
-                    ),
+                    _TrafficLight(Colors.red.shade400, () {
+                      _addLifecycleEvent('onWindowCloseRequested', Colors.red);
+                      _closeDialogVisible.value = true;
+                    }),
                     const SizedBox(width: 6),
                     _TrafficLight(Colors.orange.shade400, () {
                       _windowState.value = _WindowState.minimized;
@@ -1360,15 +1410,15 @@ class _SimulatedWindowFrame extends StatelessWidget {
                     }),
                     const SizedBox(width: 6),
                     _TrafficLight(Colors.green.shade400, () {
-                      _windowState.value =
-                          state == _WindowState.maximized
-                              ? _WindowState.normal
-                              : _WindowState.maximized;
+                      _windowState.value = state == _WindowState.maximized
+                          ? _WindowState.normal
+                          : _WindowState.maximized;
                       _addLifecycleEvent(
-                          state == _WindowState.maximized
-                              ? 'setMaximized(false)'
-                              : 'setMaximized(true)',
-                          Colors.green);
+                        state == _WindowState.maximized
+                            ? 'setMaximized(false)'
+                            : 'setMaximized(true)',
+                        Colors.green,
+                      );
                     }),
                     const SizedBox(width: 16),
                     Expanded(
@@ -1397,43 +1447,52 @@ class _SimulatedWindowFrame extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Icon(Icons.minimize_rounded,
-                                size: 40,
-                                color: cs.onSurface.withAlpha(120)),
+                            Icon(
+                              Icons.minimize_rounded,
+                              size: 40,
+                              color: cs.onSurface.withAlpha(120),
+                            ),
                             const SizedBox(height: 8),
-                            Text('Window minimized',
-                                style: TextStyle(
-                                    color: cs.onSurface.withAlpha(120))),
+                            Text(
+                              'Window minimized',
+                              style: TextStyle(
+                                color: cs.onSurface.withAlpha(120),
+                              ),
+                            ),
                           ],
                         ),
                       )
                     : state == _WindowState.closed
-                        ? Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Icon(Icons.close_rounded,
-                                    size: 40, color: Colors.red.shade300),
-                                const SizedBox(height: 8),
-                                const Text(
-                                  'Window destroyed\ndestroy() called',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                const SizedBox(height: 16),
-                                FilledButton.tonal(
-                                  onPressed: () {
-                                    _windowState.value = _WindowState.normal;
-                                    _addLifecycleEvent(
-                                        'activate() — window recreated',
-                                        Colors.green);
-                                  },
-                                  child: const Text('Recreate Window'),
-                                ),
-                              ],
+                    ? Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Icon(
+                              Icons.close_rounded,
+                              size: 40,
+                              color: Colors.red.shade300,
                             ),
-                          )
-                        : _WindowContentDemo(state: state),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Window destroyed\ndestroy() called',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            const SizedBox(height: 16),
+                            FilledButton.tonal(
+                              onPressed: () {
+                                _windowState.value = _WindowState.normal;
+                                _addLifecycleEvent(
+                                  'activate() — window recreated',
+                                  Colors.green,
+                                );
+                              },
+                              child: const Text('Recreate Window'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : _WindowContentDemo(state: state),
               ),
             ],
           ),
@@ -1496,18 +1555,12 @@ class _WindowContentDemo extends StatelessWidget {
       children: <Widget>[
         Text(
           'Window Content Area',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: cs.onSurface,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, color: cs.onSurface),
         ),
         const SizedBox(height: 8),
         Text(
           'State: ${state.name.toUpperCase()}',
-          style: TextStyle(
-            color: cs.primary,
-            fontFamily: 'monospace',
-          ),
+          style: TextStyle(color: cs.primary, fontFamily: 'monospace'),
         ),
         const SizedBox(height: 12),
         Row(
@@ -1552,10 +1605,12 @@ class _WindowStateInfo extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _StateRow('isActivated',
-                  state == _WindowState.normal ||
-                      state == _WindowState.maximized ||
-                      state == _WindowState.fullscreen),
+              _StateRow(
+                'isActivated',
+                state == _WindowState.normal ||
+                    state == _WindowState.maximized ||
+                    state == _WindowState.fullscreen,
+              ),
               _StateRow('isMaximized', state == _WindowState.maximized),
               _StateRow('isMinimized', state == _WindowState.minimized),
               _StateRow('isFullscreen', state == _WindowState.fullscreen),
@@ -1581,13 +1636,11 @@ class _StateRow extends StatelessWidget {
         children: <Widget>[
           Text(
             name,
-            style: const TextStyle(
-                fontFamily: 'monospace', fontSize: 13),
+            style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
           ),
           const Spacer(),
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
             decoration: BoxDecoration(
               color: value
                   ? Colors.green.withAlpha(40)
@@ -1658,13 +1711,17 @@ class _CloseGuardDemo extends StatelessWidget {
                             _closeDialogVisible.value = false;
                             _windowState.value = _WindowState.closed;
                             _addLifecycleEvent(
-                                'controller.destroy() confirmed',
-                                Colors.red);
+                              'controller.destroy() confirmed',
+                              Colors.red,
+                            );
                             _addLifecycleEvent(
-                                'onWindowDestroyed()', Colors.deepPurple);
+                              'onWindowDestroyed()',
+                              Colors.deepPurple,
+                            );
                           },
                           style: FilledButton.styleFrom(
-                              backgroundColor: cs.error),
+                            backgroundColor: cs.error,
+                          ),
                           child: const Text('Confirm Close'),
                         ),
                         const SizedBox(width: 12),
@@ -1672,8 +1729,9 @@ class _CloseGuardDemo extends StatelessWidget {
                           onPressed: () {
                             _closeDialogVisible.value = false;
                             _addLifecycleEvent(
-                                'Close cancelled by delegate',
-                                Colors.green);
+                              'Close cancelled by delegate',
+                              Colors.green,
+                            );
                           },
                           child: const Text('Cancel'),
                         ),
@@ -1699,10 +1757,11 @@ class _CloseGuardDemo extends StatelessWidget {
                       onPressed: () {
                         _closeDialogVisible.value = true;
                         _addLifecycleEvent(
-                            'onWindowCloseRequested', Colors.red);
+                          'onWindowCloseRequested',
+                          Colors.red,
+                        );
                       },
-                      child:
-                          const Text('Simulate Close Request'),
+                      child: const Text('Simulate Close Request'),
                     ),
                   ],
                 ),
@@ -1862,8 +1921,10 @@ class _PlatformsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _SectionTitle('Platform-Specific Delegates',
-              icon: Icons.dns_outlined),
+          _SectionTitle(
+            'Platform-Specific Delegates',
+            icon: Icons.dns_outlined,
+          ),
           const SizedBox(height: 12),
           const Text(
             'Each desktop platform has its own RegularWindowController '
@@ -1903,8 +1964,10 @@ class _PlatformsTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Common interface
-          _SectionTitle('Common Interface Across Platforms',
-              icon: Icons.compare_outlined),
+          _SectionTitle(
+            'Common Interface Across Platforms',
+            icon: Icons.compare_outlined,
+          ),
           const SizedBox(height: 12),
           _CodeBlock(
             '// These abstract methods are common to all three platforms:\n'
@@ -2061,8 +2124,10 @@ class _LifecycleTab extends StatelessWidget {
           const SizedBox(height: 20),
           _LifecycleTimeline(),
           const SizedBox(height: 24),
-          _SectionTitle('State Transition Diagram (CustomPainter)',
-              icon: Icons.account_tree_outlined),
+          _SectionTitle(
+            'State Transition Diagram (CustomPainter)',
+            icon: Icons.account_tree_outlined,
+          ),
           const SizedBox(height: 12),
           Container(
             width: double.infinity,
@@ -2078,8 +2143,10 @@ class _LifecycleTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          _SectionTitle('ChangeNotifier Integration',
-              icon: Icons.notifications_outlined),
+          _SectionTitle(
+            'ChangeNotifier Integration',
+            icon: Icons.notifications_outlined,
+          ),
           const SizedBox(height: 12),
           Text(
             'BaseWindowController extends ChangeNotifier. This means '
@@ -2273,12 +2340,13 @@ class _TimelineTile extends StatelessWidget {
                     const SizedBox(height: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.red.withAlpha(30),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                            color: Colors.red.withAlpha(80)),
+                        border: Border.all(color: Colors.red.withAlpha(80)),
                       ),
                       child: Text(
                         '← ${event.delegateCall}',
@@ -2364,13 +2432,15 @@ class _StateDiagramPainter extends CustomPainter {
         text: TextSpan(
           text: n.label,
           style: const TextStyle(
-              color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.center,
       )..layout(maxWidth: 56);
-      tp.paint(
-          canvas, pos - Offset(tp.width / 2, tp.height / 2));
+      tp.paint(canvas, pos - Offset(tp.width / 2, tp.height / 2));
     }
   }
 
@@ -2414,8 +2484,10 @@ class _ComparisonTab extends StatelessWidget {
           // Main comparison table
           _ComparisonTable(),
           const SizedBox(height: 24),
-          _SectionTitle('vs SingletonFlutterWindow',
-              icon: Icons.compare_outlined),
+          _SectionTitle(
+            'vs SingletonFlutterWindow',
+            icon: Icons.compare_outlined,
+          ),
           const SizedBox(height: 12),
           _ComparisonCard(
             left: _ComparisonSide(
@@ -2444,8 +2516,10 @@ class _ComparisonTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          _SectionTitle('vs platform_window (community package)',
-              icon: Icons.compare_outlined),
+          _SectionTitle(
+            'vs platform_window (community package)',
+            icon: Icons.compare_outlined,
+          ),
           const SizedBox(height: 12),
           _ComparisonCard(
             left: _ComparisonSide(
@@ -2474,8 +2548,10 @@ class _ComparisonTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          _SectionTitle('vs DialogWindowController',
-              icon: Icons.layers_outlined),
+          _SectionTitle(
+            'vs DialogWindowController',
+            icon: Icons.layers_outlined,
+          ),
           const SizedBox(height: 12),
           _HighlightBox(
             color: cs.secondary,
@@ -2533,14 +2609,13 @@ class _ComparisonTable extends StatelessWidget {
                 color: i == 0
                     ? cs.primaryContainer.withAlpha(80)
                     : i.isOdd
-                        ? cs.surfaceContainerHighest.withAlpha(60)
-                        : null,
+                    ? cs.surfaceContainerHighest.withAlpha(60)
+                    : null,
                 borderRadius: i == 0
                     ? const BorderRadius.vertical(top: Radius.circular(10))
                     : i == rows.length - 1
-                        ? const BorderRadius.vertical(
-                            bottom: Radius.circular(10))
-                        : null,
+                    ? const BorderRadius.vertical(bottom: Radius.circular(10))
+                    : null,
               ),
               child: Row(
                 children: <Widget>[
@@ -2548,12 +2623,13 @@ class _ComparisonTable extends StatelessWidget {
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
                         decoration: j < rows[i].length - 1
                             ? BoxDecoration(
                                 border: Border(
-                                  right: BorderSide(
-                                      color: cs.outlineVariant),
+                                  right: BorderSide(color: cs.outlineVariant),
                                 ),
                               )
                             : null,
@@ -2581,8 +2657,11 @@ class _ComparisonTable extends StatelessWidget {
 }
 
 class _ComparisonSide {
-  const _ComparisonSide(
-      {required this.label, required this.color, required this.points});
+  const _ComparisonSide({
+    required this.label,
+    required this.color,
+    required this.points,
+  });
   final String label;
   final Color color;
   final List<String> points;
@@ -2639,8 +2718,7 @@ class _SideCard extends StatelessWidget {
                 children: <Widget>[
                   Text('• ', style: TextStyle(color: side.color)),
                   Expanded(
-                    child:
-                        Text(p, style: const TextStyle(fontSize: 12)),
+                    child: Text(p, style: const TextStyle(fontSize: 12)),
                   ),
                 ],
               ),
@@ -2751,15 +2829,13 @@ class _UseCasesTab extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _cases.length,
-            gridDelegate:
-                const SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 360,
               mainAxisExtent: 280,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
             ),
-            itemBuilder: (context, i) =>
-                _UseCaseTile(useCase: _cases[i]),
+            itemBuilder: (context, i) => _UseCaseTile(useCase: _cases[i]),
           ),
           const SizedBox(height: 40),
         ],
@@ -2792,8 +2868,7 @@ class _UseCaseTile extends StatelessWidget {
                   color: useCase.color.withAlpha(40),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(useCase.icon,
-                    color: useCase.color, size: 20),
+                child: Icon(useCase.icon, color: useCase.color, size: 20),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -2928,8 +3003,7 @@ class _PitfallsTab extends StatelessWidget {
     ),
     _ApiMethod(
       signature: 'void onWindowDestroyed()',
-      description:
-          'Window was destroyed. Override to clean up app state.',
+      description: 'Window was destroyed. Override to clean up app state.',
       isDelegate: true,
     ),
   ];
@@ -3064,8 +3138,7 @@ class _PitfallsTab extends StatelessWidget {
             children: <Widget>[
               _InfoChip('Controller methods', color: cs.primaryContainer),
               const SizedBox(width: 8),
-              _InfoChip('Delegate methods',
-                  color: Colors.red.shade100),
+              _InfoChip('Delegate methods', color: Colors.red.shade100),
             ],
           ),
           const SizedBox(height: 12),
@@ -3087,8 +3160,7 @@ class _PitfallsTab extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           // Full minimal example
-          _SectionTitle('Minimal Working Example',
-              icon: Icons.code_rounded),
+          _SectionTitle('Minimal Working Example', icon: Icons.code_rounded),
           const SizedBox(height: 12),
           _CodeBlock(
             '// ignore_for_file: invalid_use_of_internal_member\n'
@@ -3221,20 +3293,18 @@ class _ApiMethodRow extends StatelessWidget {
         color: method.isDelegate
             ? Colors.red.withAlpha(15)
             : isFirst || !isFirst
-                ? null
-                : null,
+            ? null
+            : null,
         borderRadius: isLast
             ? const BorderRadius.vertical(bottom: Radius.circular(12))
             : isFirst
-                ? const BorderRadius.vertical(top: Radius.circular(12))
-                : null,
+            ? const BorderRadius.vertical(top: Radius.circular(12))
+            : null,
         border: isLast
             ? null
-            : Border(
-                bottom: BorderSide(color: cs.outlineVariant)),
+            : Border(bottom: BorderSide(color: cs.outlineVariant)),
       ),
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -3256,9 +3326,7 @@ class _ApiMethodRow extends StatelessWidget {
                 fontFamily: 'monospace',
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: method.isDelegate
-                    ? Colors.red.shade700
-                    : cs.primary,
+                color: method.isDelegate ? Colors.red.shade700 : cs.primary,
               ),
             ),
           ),

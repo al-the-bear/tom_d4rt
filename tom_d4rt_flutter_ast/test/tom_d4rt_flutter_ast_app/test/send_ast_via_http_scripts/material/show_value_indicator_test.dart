@@ -15,10 +15,10 @@ dynamic build(BuildContext context) {
   print('=' * 60);
 
   // ── colour palette ──────────────────────────────────────────
-  const svPrimary = Color(0xFFFF8C00);   // tangerine
-  const svAccent = Color(0xFFFFAB40);    // apricot
-  const svLight = Color(0xFFFFF3E0);     // light apricot
-  const svDark = Color(0xFFE65100);      // deep tangerine
+  const svPrimary = Color(0xFFFF8C00); // tangerine
+  const svAccent = Color(0xFFFFAB40); // apricot
+  const svLight = Color(0xFFFFF3E0); // light apricot
+  const svDark = Color(0xFFE65100); // deep tangerine
   const svSurface = Color(0xFFFFFBF5);
   const svOnSurface = Color(0xFF3E2723);
   const svMuted = Color(0xFF8D6E63);
@@ -27,14 +27,16 @@ dynamic build(BuildContext context) {
   final List<Map<String, String>> svEnumData = [
     {
       'value': 'onlyForDiscrete',
-      'desc': 'Shows the value indicator only when the slider has '
+      'desc':
+          'Shows the value indicator only when the slider has '
           'discrete divisions. The default in Material 2.',
       'when': 'Slider has divisions != null',
       'icon': '⬡',
     },
     {
       'value': 'onlyForContinuous',
-      'desc': 'Shows the value indicator only for continuous '
+      'desc':
+          'Shows the value indicator only for continuous '
           'sliders (no divisions). Useful when continuous '
           'precision matters more.',
       'when': 'Slider has divisions == null',
@@ -42,7 +44,8 @@ dynamic build(BuildContext context) {
     },
     {
       'value': 'onDrag',
-      'desc': 'Shows the value indicator while the user is '
+      'desc':
+          'Shows the value indicator while the user is '
           'actively dragging the slider thumb, regardless of '
           'whether the slider is discrete or continuous.',
       'when': 'Any slider interaction (drag)',
@@ -50,7 +53,8 @@ dynamic build(BuildContext context) {
     },
     {
       'value': 'never',
-      'desc': 'Never shows the value indicator. The user only sees '
+      'desc':
+          'Never shows the value indicator. The user only sees '
           'the thumb position without numeric feedback.',
       'when': 'Indicator permanently hidden',
       'icon': '○',
@@ -81,24 +85,28 @@ dynamic build(BuildContext context) {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [svPrimary, svAccent],
+              gradient: LinearGradient(colors: [svPrimary, svAccent]),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
               ),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(14)),
             ),
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: child ?? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children ?? [],
-            ),
+            child:
+                child ??
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: children ?? [],
+                ),
           ),
         ],
       ),
@@ -108,19 +116,24 @@ dynamic build(BuildContext context) {
   Widget svLabel(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: svOnSurface)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: svOnSurface,
+        ),
+      ),
     );
   }
 
   Widget svBody(String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Text(text,
-          style: TextStyle(fontSize: 12, color: svMuted, height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: svMuted, height: 1.5),
+      ),
     );
   }
 
@@ -133,8 +146,10 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: svAccent.withValues(alpha: 0.4)),
       ),
-      child: Text(label,
-          style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+      ),
     );
   }
 
@@ -176,9 +191,13 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(label,
-                    style: const TextStyle(
-                        fontSize: 13, fontWeight: FontWeight.w700)),
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
@@ -208,11 +227,14 @@ dynamic build(BuildContext context) {
           if (note != null)
             Padding(
               padding: const EdgeInsets.only(top: 4),
-              child: Text(note,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontStyle: FontStyle.italic,
-                      color: svMuted)),
+              child: Text(
+                note,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                  color: svMuted,
+                ),
+              ),
             ),
         ],
       ),
@@ -242,28 +264,33 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('ShowValueIndicator',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  'ShowValueIndicator',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
                 Text(
                   'Controls when the slider value-indicator '
                   'bubble is displayed during interaction.',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.87),
-                      fontSize: 14,
-                      height: 1.5),
+                    color: Colors.white.withValues(alpha: 0.87),
+                    fontSize: 14,
+                    height: 1.5,
+                  ),
                 ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     svChip('enum', bg: Colors.white.withValues(alpha: 0.2)),
-                    svChip('SliderThemeData',
-                        bg: Colors.white.withValues(alpha: 0.2)),
-                    svChip('Material',
-                        bg: Colors.white.withValues(alpha: 0.2)),
+                    svChip(
+                      'SliderThemeData',
+                      bg: Colors.white.withValues(alpha: 0.2),
+                    ),
+                    svChip('Material', bg: Colors.white.withValues(alpha: 0.2)),
                   ],
                 ),
               ],
@@ -273,21 +300,23 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12),
 
           // ── 2. Enum Overview ─────────────────────────────────
-          svSection('Enum Overview',
+          svSection(
+            'Enum Overview',
             children: [
               svBody(
                 'ShowValueIndicator is an enum that determines when '
                 'the tooltip-like value indicator is shown on a Slider. '
                 'It is specified through SliderThemeData.showValueIndicator '
-                'and affects both Slider and RangeSlider widgets.'),
+                'and affects both Slider and RangeSlider widgets.',
+              ),
               svBody(
                 'The four values correspond to different levels of '
                 'indicator visibility based on whether the slider is '
-                'discrete (has divisions) or continuous.'),
+                'discrete (has divisions) or continuous.',
+              ),
               Wrap(
                 children: [
-                  for (final v in ShowValueIndicator.values)
-                    svChip(v.name),
+                  for (final v in ShowValueIndicator.values) svChip(v.name),
                 ],
               ),
             ],
@@ -295,27 +324,32 @@ dynamic build(BuildContext context) {
 
           // ── 3. Individual Value Cards ────────────────────────
           for (final item in svEnumData)
-            svSection('${item['icon']}  ${item['value']}',
+            svSection(
+              '${item['icon']}  ${item['value']}',
               children: [
                 svLabel('Description'),
                 svBody(item['desc']!),
                 svLabel('Visible When'),
                 svBody(item['when']!),
                 svLabel('Index'),
-                svBody(ShowValueIndicator.values
-                    .firstWhere((v) => v.name == item['value'])
-                    .index
-                    .toString()),
+                svBody(
+                  ShowValueIndicator.values
+                      .firstWhere((v) => v.name == item['value'])
+                      .index
+                      .toString(),
+                ),
               ],
             ),
 
           // ── 4. Live Slider Demos (Discrete) ──────────────────
-          svSection('Live Demos — Discrete Slider (10 divisions)',
+          svSection(
+            'Live Demos — Discrete Slider (10 divisions)',
             children: [
               svBody(
                 'Each slider below is themed with a different '
                 'ShowValueIndicator mode. Discrete sliders have a '
-                'fixed number of positions (divisions). Try interacting:'),
+                'fixed number of positions (divisions). Try interacting:',
+              ),
               svSliderDemo(
                 label: 'onlyForDiscrete — indicator SHOWN',
                 mode: ShowValueIndicator.onlyForDiscrete,
@@ -348,12 +382,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 5. Live Slider Demos (Continuous) ────────────────
-          svSection('Live Demos — Continuous Slider (no divisions)',
+          svSection(
+            'Live Demos — Continuous Slider (no divisions)',
             children: [
               svBody(
                 'Same four modes but on continuous sliders. '
                 'Notice how the visibility behaviour inverts for '
-                'onlyForDiscrete / onlyForContinuous:'),
+                'onlyForDiscrete / onlyForContinuous:',
+              ),
               svSliderDemo(
                 label: 'onlyForDiscrete — indicator HIDDEN',
                 mode: ShowValueIndicator.onlyForDiscrete,
@@ -382,10 +418,13 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 6. Comparison Table ──────────────────────────────
-          svSection('Visibility Matrix',
+          svSection(
+            'Visibility Matrix',
             child: Table(
               border: TableBorder.all(
-                  color: svAccent.withValues(alpha: 0.3), width: 1),
+                color: svAccent.withValues(alpha: 0.3),
+                width: 1,
+              ),
               columnWidths: const {
                 0: FlexColumnWidth(2),
                 1: FlexColumnWidth(1.5),
@@ -393,25 +432,39 @@ dynamic build(BuildContext context) {
               },
               children: [
                 TableRow(
-                  decoration: BoxDecoration(color: svPrimary.withValues(alpha: 0.1)),
+                  decoration: BoxDecoration(
+                    color: svPrimary.withValues(alpha: 0.1),
+                  ),
                   children: [
                     Padding(
                       padding: EdgeInsets.all(8),
-                      child: Text('Mode',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 12)),
+                      child: Text(
+                        'Mode',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
-                      child: Text('Discrete',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 12)),
+                      child: Text(
+                        'Discrete',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8),
-                      child: Text('Continuous',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 12)),
+                      child: Text(
+                        'Continuous',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -425,29 +478,38 @@ dynamic build(BuildContext context) {
                     children: [
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(row[0],
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: svDark)),
+                        child: Text(
+                          row[0],
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: svDark,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(row[1],
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: row[1].startsWith('✓')
-                                    ? Colors.green.shade700
-                                    : Colors.red.shade600)),
+                        child: Text(
+                          row[1],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: row[1].startsWith('✓')
+                                ? Colors.green.shade700
+                                : Colors.red.shade600,
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8),
-                        child: Text(row[2],
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: row[2].startsWith('✓')
-                                    ? Colors.green.shade700
-                                    : Colors.red.shade600)),
+                        child: Text(
+                          row[2],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: row[2].startsWith('✓')
+                                ? Colors.green.shade700
+                                : Colors.red.shade600,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -456,13 +518,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 7. Usage Patterns ────────────────────────────────
-          svSection('Usage Patterns',
+          svSection(
+            'Usage Patterns',
             children: [
               svLabel('Pattern 1: Form Slider with Precision Feedback'),
               svBody(
                 'For a form slider where users need exact values '
                 '(e.g., age selector), use "onDrag" so the indicator '
-                'appears on both continuous and discrete variants.'),
+                'appears on both continuous and discrete variants.',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -474,9 +538,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Age Selector — onDrag',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'Age Selector — onDrag',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
@@ -485,7 +553,9 @@ dynamic build(BuildContext context) {
                         thumbColor: svDark,
                         valueIndicatorColor: svDark,
                         valueIndicatorTextStyle: const TextStyle(
-                          color: Colors.white, fontSize: 11),
+                          color: Colors.white,
+                          fontSize: 11,
+                        ),
                       ),
                       child: Slider(
                         value: 28,
@@ -504,7 +574,8 @@ dynamic build(BuildContext context) {
               svBody(
                 'For a simple volume slider where position is '
                 'sufficient feedback, use "never" to reduce visual '
-                'clutter.'),
+                'clutter.',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -520,9 +591,13 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.volume_down, color: svMuted, size: 20),
                         const SizedBox(width: 4),
-                        const Text('Volume — never',
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w600)),
+                        const Text(
+                          'Volume — never',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -532,10 +607,7 @@ dynamic build(BuildContext context) {
                         activeTrackColor: svAccent,
                         thumbColor: svPrimary,
                       ),
-                      child: Slider(
-                        value: 0.65,
-                        onChanged: (_) {},
-                      ),
+                      child: Slider(value: 0.65, onChanged: (_) {}),
                     ),
                   ],
                 ),
@@ -546,7 +618,8 @@ dynamic build(BuildContext context) {
                 'For a step selector (1-5 stars), use onlyForDiscrete '
                 'so the value indicator only appears for that stepped '
                 'slider and stays hidden for any other continuous '
-                'slider on the same page.'),
+                'slider on the same page.',
+              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
@@ -561,21 +634,26 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.star, color: svPrimary, size: 18),
                         const SizedBox(width: 4),
-                        const Text('Rating — onlyForDiscrete',
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w600)),
+                        const Text(
+                          'Rating — onlyForDiscrete',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
-                        showValueIndicator:
-                            ShowValueIndicator.onlyForDiscrete,
+                        showValueIndicator: ShowValueIndicator.onlyForDiscrete,
                         activeTrackColor: svPrimary,
                         thumbColor: svDark,
                         valueIndicatorColor: svDark,
                         valueIndicatorTextStyle: const TextStyle(
-                          color: Colors.white, fontSize: 11),
+                          color: Colors.white,
+                          fontSize: 11,
+                        ),
                       ),
                       child: Slider(
                         value: 3,
@@ -593,12 +671,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 8. SliderThemeData Integration ───────────────────
-          svSection('SliderThemeData Integration',
+          svSection(
+            'SliderThemeData Integration',
             children: [
               svBody(
                 'ShowValueIndicator is one property in SliderThemeData. '
                 'It works together with other properties to customise '
-                'the entire slider appearance:'),
+                'the entire slider appearance:',
+              ),
               for (final prop in [
                 ['showValueIndicator', 'When to show the bubble'],
                 ['valueIndicatorColor', 'Bubble background colour'],
@@ -625,15 +705,20 @@ dynamic build(BuildContext context) {
                       ),
                       SizedBox(
                         width: 180,
-                        child: Text(prop[0],
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'monospace')),
+                        child: Text(
+                          prop[0],
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(prop[1],
-                            style: TextStyle(fontSize: 12, color: svMuted)),
+                        child: Text(
+                          prop[1],
+                          style: TextStyle(fontSize: 12, color: svMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -642,13 +727,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 9. Material 2 vs Material 3 ──────────────────────
-          svSection('Material 2 vs Material 3 Defaults',
+          svSection(
+            'Material 2 vs Material 3 Defaults',
             children: [
               svBody(
                 'In Material 2, the default is onlyForDiscrete. '
                 'In Material 3 the indicator behaviour remains the same '
                 'but styling changes: the indicator uses a rounded '
-                'rect shape instead of the paddle shape.'),
+                'rect shape instead of the paddle shape.',
+              ),
               Row(
                 children: [
                   Expanded(
@@ -660,13 +747,18 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          const Text('Material 2',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 2',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
-                          const Text('Paddle shape',
-                              style: TextStyle(fontSize: 11)),
+                          const Text(
+                            'Paddle shape',
+                            style: TextStyle(fontSize: 11),
+                          ),
                           const SizedBox(height: 4),
                           Container(
                             width: 40,
@@ -680,9 +772,13 @@ dynamic build(BuildContext context) {
                               ),
                             ),
                             alignment: Alignment.center,
-                            child: const Text('42',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10)),
+                            child: const Text(
+                              '42',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -698,13 +794,18 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          const Text('Material 3',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700)),
+                          const Text(
+                            'Material 3',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           const SizedBox(height: 6),
-                          const Text('Rounded rect',
-                              style: TextStyle(fontSize: 11)),
+                          const Text(
+                            'Rounded rect',
+                            style: TextStyle(fontSize: 11),
+                          ),
                           const SizedBox(height: 4),
                           Container(
                             width: 44,
@@ -714,9 +815,13 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             alignment: Alignment.center,
-                            child: const Text('42',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 10)),
+                            child: const Text(
+                              '42',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -728,13 +833,15 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 10. Accessibility ────────────────────────────────
-          svSection('Accessibility Considerations',
+          svSection(
+            'Accessibility Considerations',
             children: [
               svBody(
                 'The value indicator primarily provides visual feedback. '
                 'Screen readers announce slider values via semantics '
                 'regardless of indicator visibility, so hiding the '
-                'indicator does NOT remove accessibility information.'),
+                'indicator does NOT remove accessibility information.',
+              ),
               for (final tip in [
                 'Always provide a semanticFormatterCallback for '
                     'meaningful spoken labels.',
@@ -749,12 +856,18 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('→ ',
-                          style: TextStyle(
-                              color: svPrimary, fontWeight: FontWeight.w700)),
+                      const Text(
+                        '→ ',
+                        style: TextStyle(
+                          color: svPrimary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(tip,
-                            style: TextStyle(fontSize: 12, color: svMuted)),
+                        child: Text(
+                          tip,
+                          style: TextStyle(fontSize: 12, color: svMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -763,7 +876,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 11. Common Pitfalls ──────────────────────────────
-          svSection('Common Pitfalls',
+          svSection(
+            'Common Pitfalls',
             children: [
               for (final pitfall in [
                 {
@@ -801,28 +915,35 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFF8E1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        color: svPrimary.withValues(alpha: 0.3)),
+                    border: Border.all(color: svPrimary.withValues(alpha: 0.3)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.warning_amber_rounded,
-                              color: svDark, size: 16),
+                          Icon(
+                            Icons.warning_amber_rounded,
+                            color: svDark,
+                            size: 16,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
-                            child: Text(pitfall['title']!,
-                                style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700)),
+                            child: Text(
+                              pitfall['title']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Text(pitfall['detail']!,
-                          style: TextStyle(fontSize: 11, color: svMuted)),
+                      Text(
+                        pitfall['detail']!,
+                        style: TextStyle(fontSize: 11, color: svMuted),
+                      ),
                     ],
                   ),
                 ),
@@ -830,10 +951,10 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 12. Decision Guide ───────────────────────────────
-          svSection('Decision Guide',
+          svSection(
+            'Decision Guide',
             children: [
-              svBody(
-                'Use this flowchart to pick the right mode:'),
+              svBody('Use this flowchart to pick the right mode:'),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
@@ -855,11 +976,14 @@ dynamic build(BuildContext context) {
                     ])
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(step,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'monospace',
-                                fontWeight: FontWeight.w500)),
+                        child: Text(
+                          step,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -868,12 +992,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 13. RangeSlider Demo ─────────────────────────────
-          svSection('RangeSlider with ShowValueIndicator',
+          svSection(
+            'RangeSlider with ShowValueIndicator',
             children: [
               svBody(
                 'ShowValueIndicator applies identically to '
                 'RangeSlider. Both start and end thumbs show '
-                'the indicator based on the same mode:'),
+                'the indicator based on the same mode:',
+              ),
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
@@ -883,9 +1009,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('RangeSlider — onDrag mode',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'RangeSlider — onDrag mode',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
@@ -895,15 +1025,16 @@ dynamic build(BuildContext context) {
                         thumbColor: svDark,
                         valueIndicatorColor: svDark,
                         valueIndicatorTextStyle: const TextStyle(
-                          color: Colors.white, fontSize: 11),
+                          color: Colors.white,
+                          fontSize: 11,
+                        ),
                       ),
                       child: RangeSlider(
                         values: const RangeValues(20, 80),
                         min: 0,
                         max: 100,
                         divisions: 20,
-                        labels:
-                            const RangeLabels('20', '80'),
+                        labels: const RangeLabels('20', '80'),
                         onChanged: (_) {},
                       ),
                     ),
@@ -920,9 +1051,13 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('RangeSlider — never mode',
-                        style: TextStyle(
-                            fontSize: 12, fontWeight: FontWeight.w600)),
+                    const Text(
+                      'RangeSlider — never mode',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     SliderTheme(
                       data: SliderThemeData(
@@ -939,11 +1074,14 @@ dynamic build(BuildContext context) {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text('No bubbles — track position only.',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontStyle: FontStyle.italic,
-                            color: svMuted)),
+                    Text(
+                      'No bubbles — track position only.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontStyle: FontStyle.italic,
+                        color: svMuted,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -951,12 +1089,14 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 14. Performance Notes ────────────────────────────
-          svSection('Performance Notes',
+          svSection(
+            'Performance Notes',
             children: [
               svBody(
                 'The value indicator is painted as an overlay during '
                 'user interaction. Performance impact is negligible '
-                'but worth understanding:'),
+                'but worth understanding:',
+              ),
               for (final note in [
                 'Indicator rendering happens only during active gestures.',
                 '"never" avoids even creating the overlay painter — '
@@ -971,15 +1111,23 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('• ',
-                          style: TextStyle(
-                              color: svDark,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12)),
+                      const Text(
+                        '• ',
+                        style: TextStyle(
+                          color: svDark,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(note,
-                            style: TextStyle(
-                                fontSize: 12, color: svMuted, height: 1.4)),
+                        child: Text(
+                          note,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: svMuted,
+                            height: 1.4,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -988,7 +1136,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 15. Related APIs ─────────────────────────────────
-          svSection('Related APIs',
+          svSection(
+            'Related APIs',
             children: [
               for (final api in [
                 {
@@ -1023,15 +1172,20 @@ dynamic build(BuildContext context) {
                     children: [
                       SizedBox(
                         width: 200,
-                        child: Text(api['name']!,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: svDark)),
+                        child: Text(
+                          api['name']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: svDark,
+                          ),
+                        ),
                       ),
                       Expanded(
-                        child: Text(api['rel']!,
-                            style: TextStyle(fontSize: 12, color: svMuted)),
+                        child: Text(
+                          api['rel']!,
+                          style: TextStyle(fontSize: 12, color: svMuted),
+                        ),
                       ),
                     ],
                   ),
@@ -1040,7 +1194,8 @@ dynamic build(BuildContext context) {
           ),
 
           // ── 16. Summary Dashboard ────────────────────────────
-          svSection('Summary Dashboard',
+          svSection(
+            'Summary Dashboard',
             child: Column(
               children: [
                 Row(
@@ -1055,13 +1210,17 @@ dynamic build(BuildContext context) {
                         child: Column(
                           children: [
                             Text(
-                                '${ShowValueIndicator.values.length}',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: svDark)),
-                            const Text('Enum Values',
-                                style: TextStyle(fontSize: 11)),
+                              '${ShowValueIndicator.values.length}',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: svDark,
+                              ),
+                            ),
+                            const Text(
+                              'Enum Values',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1076,13 +1235,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('8',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: svDark)),
-                            const Text('Live Sliders',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '8',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: svDark,
+                              ),
+                            ),
+                            const Text(
+                              'Live Sliders',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1097,13 +1261,18 @@ dynamic build(BuildContext context) {
                         ),
                         child: Column(
                           children: [
-                            Text('2',
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w800,
-                                    color: svDark)),
-                            const Text('Range Sliders',
-                                style: TextStyle(fontSize: 11)),
+                            Text(
+                              '2',
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w800,
+                                color: svDark,
+                              ),
+                            ),
+                            const Text(
+                              'Range Sliders',
+                              style: TextStyle(fontSize: 11),
+                            ),
                           ],
                         ),
                       ),
@@ -1123,8 +1292,7 @@ dynamic build(BuildContext context) {
                     'over the value bubble on Slider and RangeSlider. '
                     'Choose the right mode to balance visual feedback '
                     'with interface clarity.',
-                    style: TextStyle(
-                        fontSize: 12, color: svMuted, height: 1.5),
+                    style: TextStyle(fontSize: 12, color: svMuted, height: 1.5),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -1141,19 +1309,23 @@ dynamic build(BuildContext context) {
             color: svDark,
             child: Column(
               children: [
-                const Text('ShowValueIndicator Deep Demo',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
+                const Text(
+                  'ShowValueIndicator Deep Demo',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'Tangerine/Apricot theme  •  Batch 61  •  '
                   '${ShowValueIndicator.values.length} enum values  •  '
                   '10 live sliders',
                   style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 11),
+                    color: Colors.white.withValues(alpha: 0.7),
+                    fontSize: 11,
+                  ),
                 ),
               ],
             ),

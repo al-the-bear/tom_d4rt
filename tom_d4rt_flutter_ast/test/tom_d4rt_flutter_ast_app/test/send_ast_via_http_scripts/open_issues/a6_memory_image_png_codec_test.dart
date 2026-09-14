@@ -25,10 +25,6 @@ final Uint8List _onePixelPng = Uint8List.fromList(<int>[
 
 dynamic build(BuildContext context) {
   return Center(
-    child: Image(
-      image: MemoryImage(_onePixelPng),
-      width: 1,
-      height: 1,
-    ),
+    child: Image(image: MemoryImage(_onePixelPng), width: 1, height: 1),
   );
 }

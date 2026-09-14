@@ -40,7 +40,8 @@ const List<_ShapeScenario> _shapeScenarios = <_ShapeScenario>[
   _ShapeScenario(
     id: _ShapeScenarioMode.ticketBoard,
     title: 'Ticket Board',
-    description: 'Notched ticket-style shapes with explicit clipping boundaries.',
+    description:
+        'Notched ticket-style shapes with explicit clipping boundaries.',
   ),
   _ShapeScenario(
     id: _ShapeScenarioMode.orbitBlob,
@@ -55,7 +56,8 @@ const List<_ShapeScenario> _shapeScenarios = <_ShapeScenario>[
   _ShapeScenario(
     id: _ShapeScenarioMode.compare,
     title: 'Compare',
-    description: 'RenderPhysicalShape compared with ClipPath and PhysicalModel.',
+    description:
+        'RenderPhysicalShape compared with ClipPath and PhysicalModel.',
   ),
 ];
 
@@ -75,23 +77,28 @@ const List<String> _guideLines = <String>[
 const List<_FaqCard> _faqCards = <_FaqCard>[
   _FaqCard(
     question: 'When should I choose PhysicalShape?',
-    answer: 'When you need non-rectangular clipping plus elevation shadows from a single render primitive.',
+    answer:
+        'When you need non-rectangular clipping plus elevation shadows from a single render primitive.',
   ),
   _FaqCard(
     question: 'What if my shape is just rounded rectangle?',
-    answer: 'PhysicalModel is usually enough for standard geometric cases with border radius.',
+    answer:
+        'PhysicalModel is usually enough for standard geometric cases with border radius.',
   ),
   _FaqCard(
     question: 'Can I animate custom shape paths?',
-    answer: 'Yes, but keep transitions smooth and preserve interaction targets during animation.',
+    answer:
+        'Yes, but keep transitions smooth and preserve interaction targets during animation.',
   ),
   _FaqCard(
     question: 'How does clipBehavior impact visuals?',
-    answer: 'It changes edge anti-aliasing and whether child paint can escape the shape boundary.',
+    answer:
+        'It changes edge anti-aliasing and whether child paint can escape the shape boundary.',
   ),
   _FaqCard(
     question: 'How do I debug contour bugs?',
-    answer: 'Add path overlays and snapshots to compare expected and painted geometry frame-by-frame.',
+    answer:
+        'Add path overlays and snapshots to compare expected and painted geometry frame-by-frame.',
   ),
 ];
 
@@ -104,13 +111,7 @@ enum _ShapeScenarioMode {
   compare,
 }
 
-enum _ShapeFamily {
-  bevel,
-  wave,
-  ticket,
-  blob,
-  star,
-}
+enum _ShapeFamily { bevel, wave, ticket, blob, star }
 
 class _ThemeProfile {
   const _ThemeProfile({
@@ -129,7 +130,11 @@ class _ThemeProfile {
 }
 
 class _ShapeScenario {
-  const _ShapeScenario({required this.id, required this.title, required this.description});
+  const _ShapeScenario({
+    required this.id,
+    required this.title,
+    required this.description,
+  });
 
   final _ShapeScenarioMode id;
   final String title;
@@ -144,7 +149,12 @@ class _FaqCard {
 }
 
 class _MetricCard {
-  const _MetricCard({required this.title, required this.value, required this.note, required this.icon});
+  const _MetricCard({
+    required this.title,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String title;
   final String value;
@@ -153,7 +163,11 @@ class _MetricCard {
 }
 
 class _EventLine {
-  const _EventLine({required this.time, required this.title, required this.note});
+  const _EventLine({
+    required this.time,
+    required this.title,
+    required this.note,
+  });
 
   final DateTime time;
   final String title;
@@ -182,10 +196,12 @@ class _RenderPhysicalShapeStudio extends StatefulWidget {
   const _RenderPhysicalShapeStudio();
 
   @override
-  State<_RenderPhysicalShapeStudio> createState() => _RenderPhysicalShapeStudioState();
+  State<_RenderPhysicalShapeStudio> createState() =>
+      _RenderPhysicalShapeStudioState();
 }
 
-class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> with SingleTickerProviderStateMixin {
+class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 9800),
@@ -336,7 +352,12 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
       _showLabels = true;
       _phase = 'reset';
       _timeline = const <_EventLine>[];
-      _snapshot = const _SnapshotState(scenario: 'bevelDeck', family: 'wave', elevation: 9, clip: 'antiAlias');
+      _snapshot = const _SnapshotState(
+        scenario: 'bevelDeck',
+        family: 'wave',
+        elevation: 9,
+        clip: 'antiAlias',
+      );
     });
     _controller.repeat();
     _pushEvent('Reset', 'Studio reset to defaults.');
@@ -345,16 +366,27 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
   @override
   Widget build(BuildContext context) {
     final _ThemeProfile profile = _themeProfiles[_themeIndex];
-    final ColorScheme scheme = ColorScheme.fromSeed(seedColor: profile.seed, brightness: profile.brightness);
+    final ColorScheme scheme = ColorScheme.fromSeed(
+      seedColor: profile.seed,
+      brightness: profile.brightness,
+    );
 
     return Theme(
-      data: ThemeData(useMaterial3: true, colorScheme: scheme, brightness: profile.brightness),
+      data: ThemeData(
+        useMaterial3: true,
+        colorScheme: scheme,
+        brightness: profile.brightness,
+      ),
       child: Scaffold(
         backgroundColor: scheme.surface,
         body: DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[scheme.surface, scheme.surfaceContainerLow, scheme.surfaceContainer],
+              colors: <Color>[
+                scheme.surface,
+                scheme.surfaceContainerLow,
+                scheme.surfaceContainer,
+              ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -411,14 +443,27 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                 Icon(Icons.polyline_outlined, color: scheme.primary, size: 27),
                 Text(
                   'RenderPhysicalShape Contour and Elevation Studio',
-                  style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 25),
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 25,
+                  ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(color: scheme.primaryContainer, borderRadius: BorderRadius.circular(999)),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
                   child: Text(
                     _shapeScenarios[_scenarioIndex].title,
-                    style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: scheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
@@ -443,7 +488,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Theme Profiles', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Theme Profiles',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -465,9 +517,19 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               }),
             ),
             const SizedBox(height: 8),
-            Text(_themeProfiles[_themeIndex].subtitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _themeProfiles[_themeIndex].subtitle,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const Divider(height: 22),
-            Text('Scenario Lanes', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 16)),
+            Text(
+              'Scenario Lanes',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
             const SizedBox(height: 8),
             Wrap(
               spacing: 8,
@@ -489,7 +551,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               }),
             ),
             const SizedBox(height: 8),
-            Text(_shapeScenarios[_scenarioIndex].description, style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              _shapeScenarios[_scenarioIndex].description,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -507,13 +572,27 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Shape Controls', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Shape Controls',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                OutlinedButton.icon(onPressed: _reset, icon: const Icon(Icons.restart_alt), label: const Text('Reset')),
+                OutlinedButton.icon(
+                  onPressed: _reset,
+                  icon: const Icon(Icons.restart_alt),
+                  label: const Text('Reset'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Tune clip paths, elevation, contour parameters, and visual diagnostics.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Tune clip paths, elevation, contour parameters, and visual diagnostics.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 8),
             _slider(
               scheme: scheme,
@@ -523,7 +602,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 960,
               divisions: 270,
               onChanged: (double v) => setState(() => _stageHeight = v),
-              onChangeEnd: (double v) => _bump('Stage', 'Set stage height to ${v.toStringAsFixed(0)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Stage',
+                'Set stage height to ${v.toStringAsFixed(0)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -533,7 +615,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 30,
               divisions: 150,
               onChanged: (double v) => setState(() => _baseElevation = v),
-              onChangeEnd: (double v) => _bump('Elevation', 'Set base elevation to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Elevation',
+                'Set base elevation to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -543,7 +628,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 40,
               divisions: 200,
               onChanged: (double v) => setState(() => _elevationSpread = v),
-              onChangeEnd: (double v) => _bump('Spread', 'Set elevation spread to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Spread',
+                'Set elevation spread to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -553,7 +641,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 72,
               divisions: 144,
               onChanged: (double v) => setState(() => _corner = v),
-              onChangeEnd: (double v) => _bump('Corner', 'Set corner radius to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Corner',
+                'Set corner radius to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -563,7 +654,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 64,
               divisions: 128,
               onChanged: (double v) => setState(() => _notch = v),
-              onChangeEnd: (double v) => _bump('Notch', 'Set notch size to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) =>
+                  _bump('Notch', 'Set notch size to ${v.toStringAsFixed(1)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -573,7 +665,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 40,
               divisions: 160,
               onChanged: (double v) => setState(() => _waveAmplitude = v),
-              onChangeEnd: (double v) => _bump('Wave', 'Set wave amplitude to ${v.toStringAsFixed(1)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Wave',
+                'Set wave amplitude to ${v.toStringAsFixed(1)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -583,7 +678,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _blobNoise = v),
-              onChangeEnd: (double v) => _bump('Blob', 'Set blob noise to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) =>
+                  _bump('Blob', 'Set blob noise to ${v.toStringAsFixed(2)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -593,7 +689,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _starSharpness = v),
-              onChangeEnd: (double v) => _bump('Star', 'Set star sharpness to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Star',
+                'Set star sharpness to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -603,7 +702,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _shadowAlpha = v),
-              onChangeEnd: (double v) => _bump('Shadow', 'Set shadow alpha to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Shadow',
+                'Set shadow alpha to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -613,7 +715,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1,
               divisions: 80,
               onChanged: (double v) => setState(() => _surfaceAlpha = v),
-              onChangeEnd: (double v) => _bump('Surface', 'Set surface alpha to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) => _bump(
+                'Surface',
+                'Set surface alpha to ${v.toStringAsFixed(2)}.',
+              ),
             ),
             _slider(
               scheme: scheme,
@@ -623,7 +728,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1.4,
               divisions: 80,
               onChanged: (double v) => setState(() => _shapeScale = v),
-              onChangeEnd: (double v) => _bump('Scale', 'Set shape scale to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) =>
+                  _bump('Scale', 'Set shape scale to ${v.toStringAsFixed(2)}.'),
             ),
             _slider(
               scheme: scheme,
@@ -633,14 +739,21 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               max: 1,
               divisions: 100,
               onChanged: (double v) => setState(() => _drift = v),
-              onChangeEnd: (double v) => _bump('Drift', 'Set drift to ${v.toStringAsFixed(2)}.'),
+              onChangeEnd: (double v) =>
+                  _bump('Drift', 'Set drift to ${v.toStringAsFixed(2)}.'),
             ),
             const SizedBox(height: 8),
-            Text('Shape Family', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Shape Family',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: _ShapeFamily.values.map(( _ShapeFamily family) {
+              children: _ShapeFamily.values.map((_ShapeFamily family) {
                 return ChoiceChip(
                   selected: _family == family,
                   label: Text(family.name),
@@ -650,13 +763,22 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                       _familyChanges += 1;
                       _phase = 'family';
                     });
-                    _pushEvent('Family', 'Shape family switched to ${family.name}.');
+                    _pushEvent(
+                      'Family',
+                      'Shape family switched to ${family.name}.',
+                    );
                   },
                 );
               }).toList(),
             ),
             const SizedBox(height: 8),
-            Text('Clip Behavior', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              'Clip Behavior',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             Wrap(
               spacing: 8,
               runSpacing: 8,
@@ -679,14 +801,46 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                CheckboxMenuButton(value: _animate, onChanged: (bool? v) => _toggle('animate', v), child: const Text('Animate shapes')),
-                CheckboxMenuButton(value: _showGrid, onChanged: (bool? v) => _toggle('grid', v), child: const Text('Show stage grid')),
-                CheckboxMenuButton(value: _showContours, onChanged: (bool? v) => _toggle('contours', v), child: const Text('Show contour overlay')),
-                CheckboxMenuButton(value: _showOverflowProbe, onChanged: (bool? v) => _toggle('overflow', v), child: const Text('Show overflow probe')),
-                CheckboxMenuButton(value: _showLabels, onChanged: (bool? v) => _toggle('labels', v), child: const Text('Show labels')),
-                CheckboxMenuButton(value: _showDiagnostics, onChanged: (bool? v) => _toggle('diagnostics', v), child: const Text('Show diagnostics')),
-                CheckboxMenuButton(value: _showGuide, onChanged: (bool? v) => _toggle('guide', v), child: const Text('Show guide')),
-                CheckboxMenuButton(value: _showTimeline, onChanged: (bool? v) => _toggle('timeline', v), child: const Text('Show timeline')),
+                CheckboxMenuButton(
+                  value: _animate,
+                  onChanged: (bool? v) => _toggle('animate', v),
+                  child: const Text('Animate shapes'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGrid,
+                  onChanged: (bool? v) => _toggle('grid', v),
+                  child: const Text('Show stage grid'),
+                ),
+                CheckboxMenuButton(
+                  value: _showContours,
+                  onChanged: (bool? v) => _toggle('contours', v),
+                  child: const Text('Show contour overlay'),
+                ),
+                CheckboxMenuButton(
+                  value: _showOverflowProbe,
+                  onChanged: (bool? v) => _toggle('overflow', v),
+                  child: const Text('Show overflow probe'),
+                ),
+                CheckboxMenuButton(
+                  value: _showLabels,
+                  onChanged: (bool? v) => _toggle('labels', v),
+                  child: const Text('Show labels'),
+                ),
+                CheckboxMenuButton(
+                  value: _showDiagnostics,
+                  onChanged: (bool? v) => _toggle('diagnostics', v),
+                  child: const Text('Show diagnostics'),
+                ),
+                CheckboxMenuButton(
+                  value: _showGuide,
+                  onChanged: (bool? v) => _toggle('guide', v),
+                  child: const Text('Show guide'),
+                ),
+                CheckboxMenuButton(
+                  value: _showTimeline,
+                  onChanged: (bool? v) => _toggle('timeline', v),
+                  child: const Text('Show timeline'),
+                ),
               ],
             ),
           ],
@@ -710,11 +864,23 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: Text(label, style: TextStyle(color: scheme.onSurface))),
-            Text(value.toStringAsFixed(2), style: TextStyle(color: scheme.onSurfaceVariant)),
+            Expanded(
+              child: Text(label, style: TextStyle(color: scheme.onSurface)),
+            ),
+            Text(
+              value.toStringAsFixed(2),
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
-        Slider(value: value, min: min, max: max, divisions: divisions, onChanged: onChanged, onChangeEnd: onChangeEnd),
+        Slider(
+          value: value,
+          min: min,
+          max: max,
+          divisions: divisions,
+          onChanged: onChanged,
+          onChangeEnd: onChangeEnd,
+        ),
       ],
     );
   }
@@ -736,9 +902,19 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Physical Shape Stage', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Physical Shape Stage',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('Each lane uses PhysicalShape with custom clippers and elevation dynamics.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Each lane uses PhysicalShape with custom clippers and elevation dynamics.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             GestureDetector(
               onTap: () {
@@ -746,7 +922,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                   _stageTaps += 1;
                   _phase = 'stage-tap';
                 });
-                _pushEvent('Stage Tap', 'Stage tapped for interaction checkpoint.');
+                _pushEvent(
+                  'Stage Tap',
+                  'Stage tapped for interaction checkpoint.',
+                );
               },
               child: SizedBox(
                 height: _stageHeight,
@@ -762,7 +941,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                       children: <Widget>[
                         if (_showGrid)
                           CustomPaint(
-                            painter: _ShapeGridPainter(progress: t, drift: _drift),
+                            painter: _ShapeGridPainter(
+                              progress: t,
+                              drift: _drift,
+                            ),
                           ),
                         _buildScenarioLane(scheme, t),
                       ],
@@ -836,7 +1018,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               elevation: _baseElevation + _elevationSpread * 0.7,
               colorA: scheme.primary,
               colorB: scheme.secondary,
-              clipper: _WaveClipper(amplitude: _waveAmplitude * (0.6 + drift * 0.7), phase: t * math.pi * 2),
+              clipper: _WaveClipper(
+                amplitude: _waveAmplitude * (0.6 + drift * 0.7),
+                phase: t * math.pi * 2,
+              ),
               label: 'Wave Header',
               subtitle: 'animated wave clipper',
             ),
@@ -848,7 +1033,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               elevation: _baseElevation + _elevationSpread * 0.2,
               colorA: scheme.tertiary,
               colorB: scheme.primary,
-              clipper: _WaveClipper(amplitude: _waveAmplitude * 0.7, phase: (1 - t) * math.pi * 2),
+              clipper: _WaveClipper(
+                amplitude: _waveAmplitude * 0.7,
+                phase: (1 - t) * math.pi * 2,
+              ),
               label: 'Wave Detail',
               subtitle: 'phase-inverted contour',
             ),
@@ -874,7 +1062,11 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
             height: 118,
             elevation: e,
             colorA: Color.lerp(scheme.primary, scheme.secondary, (i % 4) / 4)!,
-            colorB: Color.lerp(scheme.tertiary, scheme.primary, ((i + 1) % 5) / 5)!,
+            colorB: Color.lerp(
+              scheme.tertiary,
+              scheme.primary,
+              ((i + 1) % 5) / 5,
+            )!,
             clipper: _TicketClipper(notch: _notch * (0.8 + ((i % 2) * 0.35))),
             label: 'Ticket ${i + 1}',
             subtitle: 'notch ${_notch.toStringAsFixed(1)}',
@@ -892,7 +1084,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
       final double radius = 150 + (i * 36);
       final double x = 470 + math.cos(angle) * radius;
       final double y = 270 + math.sin(angle) * (radius * 0.58);
-      final double e = _baseElevation + _elevationSpread * (0.2 + ((i % 5) / 5));
+      final double e =
+          _baseElevation + _elevationSpread * (0.2 + ((i % 5) / 5));
       blobs.add(
         Positioned(
           left: x,
@@ -904,7 +1097,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
             elevation: e,
             colorA: Color.lerp(scheme.primary, scheme.secondary, i / 7)!,
             colorB: Color.lerp(scheme.tertiary, scheme.primary, i / 7)!,
-            clipper: _BlobClipper(noise: _blobNoise * (0.7 + i / 12), phase: angle),
+            clipper: _BlobClipper(
+              noise: _blobNoise * (0.7 + i / 12),
+              phase: angle,
+            ),
             label: 'Blob ${i + 1}',
             subtitle: 'e ${e.toStringAsFixed(1)}',
           ),
@@ -941,7 +1137,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                 morph: local,
               ),
               label: 'Morph ${(index + 1)}',
-              subtitle: 'morph ${local.toStringAsFixed(2)} elevation ${e.toStringAsFixed(2)}',
+              subtitle:
+                  'morph ${local.toStringAsFixed(2)} elevation ${e.toStringAsFixed(2)}',
             ),
           );
         }),
@@ -965,7 +1162,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Render Primitive Comparison', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 22)),
+          Text(
+            'Render Primitive Comparison',
+            style: TextStyle(
+              color: scheme.onSurface,
+              fontWeight: FontWeight.w800,
+              fontSize: 22,
+            ),
+          ),
           const SizedBox(height: 8),
           Text(
             'Three equivalent-looking surfaces rendered through different primitives to explain trade-offs.',
@@ -998,10 +1202,20 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                     child: Container(
                       height: 210,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: <Color>[scheme.secondary, scheme.tertiary], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                        gradient: LinearGradient(
+                          colors: <Color>[scheme.secondary, scheme.tertiary],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                       ),
                       child: const Center(
-                        child: Text('Material + ClipPath', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                        child: Text(
+                          'Material + ClipPath',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -1014,7 +1228,11 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                   child: Container(
                     height: 210,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: <Color>[scheme.tertiary, scheme.primary], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                      gradient: LinearGradient(
+                        colors: <Color>[scheme.tertiary, scheme.primary],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
                       boxShadow: <BoxShadow>[
                         BoxShadow(
                           color: scheme.shadow.withValues(alpha: _shadowAlpha),
@@ -1024,7 +1242,13 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                       ],
                     ),
                     child: const Center(
-                      child: Text('ClipPath + DecoratedBox', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                      child: Text(
+                        'ClipPath + DecoratedBox',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -1038,8 +1262,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
             children: <Widget>[
               _chip('family ${_family.name}', scheme.primary),
               _chip('clip ${_clipBehavior.name}', scheme.secondary),
-              _chip('elevation ${elevation.toStringAsFixed(2)}', scheme.tertiary),
-              _chip('surface alpha ${_surfaceAlpha.toStringAsFixed(2)}', scheme.primary),
+              _chip(
+                'elevation ${elevation.toStringAsFixed(2)}',
+                scheme.tertiary,
+              ),
+              _chip(
+                'surface alpha ${_surfaceAlpha.toStringAsFixed(2)}',
+                scheme.primary,
+              ),
             ],
           ),
         ],
@@ -1055,7 +1285,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
-      child: Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 
@@ -1084,7 +1321,10 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: <Color>[colorA.withValues(alpha: _surfaceAlpha), colorB.withValues(alpha: _surfaceAlpha)],
+                  colors: <Color>[
+                    colorA.withValues(alpha: _surfaceAlpha),
+                    colorB.withValues(alpha: _surfaceAlpha),
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -1096,9 +1336,22 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                            Text(
+                              label,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                             const Spacer(),
-                            Text(subtitle, style: const TextStyle(color: Colors.white70, fontWeight: FontWeight.w700, fontSize: 12)),
+                            Text(
+                              subtitle,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -1112,8 +1365,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               top: -8,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(999)),
-                child: const Text('probe', style: TextStyle(color: Colors.white, fontSize: 10)),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(999),
+                ),
+                child: const Text(
+                  'probe',
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                ),
               ),
             ),
           if (_showContours)
@@ -1145,9 +1404,19 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Usage Guidance Board', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Usage Guidance Board',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
-            Text('How RenderPhysicalShape compares with nearby options in design and behavior.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'How RenderPhysicalShape compares with nearby options in design and behavior.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 12),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
@@ -1155,7 +1424,8 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                 final Widget a = _compareCard(
                   scheme: scheme,
                   title: 'RenderPhysicalShape',
-                  note: 'Best for arbitrary path clipping with elevation and shadow.',
+                  note:
+                      'Best for arbitrary path clipping with elevation and shadow.',
                   icon: Icons.polyline,
                   color: const Color(0xFF0F766E),
                 );
@@ -1169,14 +1439,31 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                 final Widget c = _compareCard(
                   scheme: scheme,
                   title: 'ClipPath + Decorated',
-                  note: 'Manual route when you need custom paint pipeline control.',
+                  note:
+                      'Manual route when you need custom paint pipeline control.',
                   icon: Icons.edit_road,
                   color: const Color(0xFFB45309),
                 );
                 if (narrow) {
-                  return Column(children: <Widget>[a, const SizedBox(height: 10), b, const SizedBox(height: 10), c]);
+                  return Column(
+                    children: <Widget>[
+                      a,
+                      const SizedBox(height: 10),
+                      b,
+                      const SizedBox(height: 10),
+                      c,
+                    ],
+                  );
                 }
-                return Row(children: <Widget>[Expanded(child: a), const SizedBox(width: 10), Expanded(child: b), const SizedBox(width: 10), Expanded(child: c)]);
+                return Row(
+                  children: <Widget>[
+                    Expanded(child: a),
+                    const SizedBox(width: 10),
+                    Expanded(child: b),
+                    const SizedBox(width: 10),
+                    Expanded(child: c),
+                  ],
+                );
               },
             ),
           ],
@@ -1185,7 +1472,13 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
     );
   }
 
-  Widget _compareCard({required ColorScheme scheme, required String title, required String note, required IconData icon, required Color color}) {
+  Widget _compareCard({
+    required ColorScheme scheme,
+    required String title,
+    required String note,
+    required IconData icon,
+    required Color color,
+  }) {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: scheme.surfaceContainerHighest,
@@ -1197,9 +1490,18 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 6),
-            Text(note, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+            Text(
+              note,
+              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
+            ),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -1227,17 +1529,24 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Diagnostics and Metrics', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Diagnostics and Metrics',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 10),
             LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 final int columns = constraints.maxWidth > 1180
                     ? 4
                     : constraints.maxWidth > 860
-                        ? 3
-                        : constraints.maxWidth > 560
-                            ? 2
-                            : 1;
+                    ? 3
+                    : constraints.maxWidth > 560
+                    ? 2
+                    : 1;
                 return GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -1265,13 +1574,38 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                               children: <Widget>[
                                 Icon(m.icon, size: 18, color: scheme.primary),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(m.title, style: TextStyle(color: scheme.onSurfaceVariant, fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    m.title,
+                                    style: TextStyle(
+                                      color: scheme.onSurfaceVariant,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const Spacer(),
-                            Text(m.value, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w800, fontSize: 15)),
+                            Text(
+                              m.value,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurface,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(m.note, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12)),
+                            Text(
+                              m.note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: scheme.onSurfaceVariant,
+                                fontSize: 12,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -1290,26 +1624,129 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
 
   List<_MetricCard> _metrics() {
     return <_MetricCard>[
-      _MetricCard(title: 'Scenario', value: _shapeScenarios[_scenarioIndex].title, note: 'Active demo lane.', icon: Icons.route_outlined),
-      _MetricCard(title: 'Theme', value: _themeProfiles[_themeIndex].name, note: 'Current color profile.', icon: Icons.palette_outlined),
-      _MetricCard(title: 'Family', value: _family.name, note: 'Primary contour family.', icon: Icons.category_outlined),
-      _MetricCard(title: 'Clip', value: _clipBehavior.name, note: 'Current clipping behavior.', icon: Icons.content_cut_outlined),
-      _MetricCard(title: 'Stage Height', value: _stageHeight.toStringAsFixed(0), note: 'Canvas height for the stage.', icon: Icons.height_outlined),
-      _MetricCard(title: 'Elevation', value: '${_baseElevation.toStringAsFixed(1)} + ${_elevationSpread.toStringAsFixed(1)}', note: 'Base and spread across surfaces.', icon: Icons.vertical_align_top_outlined),
-      _MetricCard(title: 'Corner', value: _corner.toStringAsFixed(1), note: 'Corner parameter for bevel/morph shapes.', icon: Icons.rounded_corner_outlined),
-      _MetricCard(title: 'Notch', value: _notch.toStringAsFixed(1), note: 'Ticket notch size.', icon: Icons.cut_outlined),
-      _MetricCard(title: 'Wave Amplitude', value: _waveAmplitude.toStringAsFixed(1), note: 'Wave contour height.', icon: Icons.waves_outlined),
-      _MetricCard(title: 'Blob Noise', value: _blobNoise.toStringAsFixed(2), note: 'Organic contour variation.', icon: Icons.bubble_chart_outlined),
-      _MetricCard(title: 'Star Sharpness', value: _starSharpness.toStringAsFixed(2), note: 'Inner radius ratio for star.', icon: Icons.star_outline),
-      _MetricCard(title: 'Shadow Alpha', value: _shadowAlpha.toStringAsFixed(2), note: 'Shadow intensity.', icon: Icons.dark_mode_outlined),
-      _MetricCard(title: 'Surface Alpha', value: _surfaceAlpha.toStringAsFixed(2), note: 'Surface opacity.', icon: Icons.opacity_outlined),
-      _MetricCard(title: 'Shape Scale', value: _shapeScale.toStringAsFixed(2), note: 'Global lane scaling.', icon: Icons.aspect_ratio_outlined),
-      _MetricCard(title: 'Drift', value: _drift.toStringAsFixed(2), note: 'Grid/pattern drift factor.', icon: Icons.air_outlined),
-      _MetricCard(title: 'Changes', value: 'theme=$_themeChanges scenario=$_scenarioChanges family=$_familyChanges clip=$_clipChanges', note: 'Mode switch counters.', icon: Icons.swap_horiz_outlined),
-      _MetricCard(title: 'Control Edits', value: '$_controlEdits', note: 'Slider and toggle edit count.', icon: Icons.tune_outlined),
-      _MetricCard(title: 'Stage Taps', value: '$_stageTaps', note: 'Interactions on the stage area.', icon: Icons.touch_app_outlined),
-      _MetricCard(title: 'Snapshot', value: '${_snapshot.scenario} ${_snapshot.family} e=${_snapshot.elevation.toStringAsFixed(1)} ${_snapshot.clip}', note: 'Current snapshot line.', icon: Icons.camera_outlined),
-      _MetricCard(title: 'Phase', value: _phase, note: 'Latest interaction phase.', icon: Icons.flag_outlined),
+      _MetricCard(
+        title: 'Scenario',
+        value: _shapeScenarios[_scenarioIndex].title,
+        note: 'Active demo lane.',
+        icon: Icons.route_outlined,
+      ),
+      _MetricCard(
+        title: 'Theme',
+        value: _themeProfiles[_themeIndex].name,
+        note: 'Current color profile.',
+        icon: Icons.palette_outlined,
+      ),
+      _MetricCard(
+        title: 'Family',
+        value: _family.name,
+        note: 'Primary contour family.',
+        icon: Icons.category_outlined,
+      ),
+      _MetricCard(
+        title: 'Clip',
+        value: _clipBehavior.name,
+        note: 'Current clipping behavior.',
+        icon: Icons.content_cut_outlined,
+      ),
+      _MetricCard(
+        title: 'Stage Height',
+        value: _stageHeight.toStringAsFixed(0),
+        note: 'Canvas height for the stage.',
+        icon: Icons.height_outlined,
+      ),
+      _MetricCard(
+        title: 'Elevation',
+        value:
+            '${_baseElevation.toStringAsFixed(1)} + ${_elevationSpread.toStringAsFixed(1)}',
+        note: 'Base and spread across surfaces.',
+        icon: Icons.vertical_align_top_outlined,
+      ),
+      _MetricCard(
+        title: 'Corner',
+        value: _corner.toStringAsFixed(1),
+        note: 'Corner parameter for bevel/morph shapes.',
+        icon: Icons.rounded_corner_outlined,
+      ),
+      _MetricCard(
+        title: 'Notch',
+        value: _notch.toStringAsFixed(1),
+        note: 'Ticket notch size.',
+        icon: Icons.cut_outlined,
+      ),
+      _MetricCard(
+        title: 'Wave Amplitude',
+        value: _waveAmplitude.toStringAsFixed(1),
+        note: 'Wave contour height.',
+        icon: Icons.waves_outlined,
+      ),
+      _MetricCard(
+        title: 'Blob Noise',
+        value: _blobNoise.toStringAsFixed(2),
+        note: 'Organic contour variation.',
+        icon: Icons.bubble_chart_outlined,
+      ),
+      _MetricCard(
+        title: 'Star Sharpness',
+        value: _starSharpness.toStringAsFixed(2),
+        note: 'Inner radius ratio for star.',
+        icon: Icons.star_outline,
+      ),
+      _MetricCard(
+        title: 'Shadow Alpha',
+        value: _shadowAlpha.toStringAsFixed(2),
+        note: 'Shadow intensity.',
+        icon: Icons.dark_mode_outlined,
+      ),
+      _MetricCard(
+        title: 'Surface Alpha',
+        value: _surfaceAlpha.toStringAsFixed(2),
+        note: 'Surface opacity.',
+        icon: Icons.opacity_outlined,
+      ),
+      _MetricCard(
+        title: 'Shape Scale',
+        value: _shapeScale.toStringAsFixed(2),
+        note: 'Global lane scaling.',
+        icon: Icons.aspect_ratio_outlined,
+      ),
+      _MetricCard(
+        title: 'Drift',
+        value: _drift.toStringAsFixed(2),
+        note: 'Grid/pattern drift factor.',
+        icon: Icons.air_outlined,
+      ),
+      _MetricCard(
+        title: 'Changes',
+        value:
+            'theme=$_themeChanges scenario=$_scenarioChanges family=$_familyChanges clip=$_clipChanges',
+        note: 'Mode switch counters.',
+        icon: Icons.swap_horiz_outlined,
+      ),
+      _MetricCard(
+        title: 'Control Edits',
+        value: '$_controlEdits',
+        note: 'Slider and toggle edit count.',
+        icon: Icons.tune_outlined,
+      ),
+      _MetricCard(
+        title: 'Stage Taps',
+        value: '$_stageTaps',
+        note: 'Interactions on the stage area.',
+        icon: Icons.touch_app_outlined,
+      ),
+      _MetricCard(
+        title: 'Snapshot',
+        value:
+            '${_snapshot.scenario} ${_snapshot.family} e=${_snapshot.elevation.toStringAsFixed(1)} ${_snapshot.clip}',
+        note: 'Current snapshot line.',
+        icon: Icons.camera_outlined,
+      ),
+      _MetricCard(
+        title: 'Phase',
+        value: _phase,
+        note: 'Latest interaction phase.',
+        icon: Icons.flag_outlined,
+      ),
     ];
   }
 
@@ -1329,16 +1766,40 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
               children: <Widget>[
                 Icon(Icons.terminal_outlined, color: scheme.primary),
                 const SizedBox(width: 8),
-                Text('Console Snapshot', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                Text(
+                  'Console Snapshot',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('theme=${_themeProfiles[_themeIndex].id} scenario=${_shapeScenarios[_scenarioIndex].id.name} family=${_family.name} clip=${_clipBehavior.name}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('stage=${_stageHeight.toStringAsFixed(0)} baseElevation=${_baseElevation.toStringAsFixed(1)} spread=${_elevationSpread.toStringAsFixed(1)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('corner=${_corner.toStringAsFixed(1)} notch=${_notch.toStringAsFixed(1)} wave=${_waveAmplitude.toStringAsFixed(1)} blob=${_blobNoise.toStringAsFixed(2)} star=${_starSharpness.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('shadow=${_shadowAlpha.toStringAsFixed(2)} surface=${_surfaceAlpha.toStringAsFixed(2)} scale=${_shapeScale.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('flags animate=$_animate grid=$_showGrid contours=$_showContours overflow=$_showOverflowProbe labels=$_showLabels', style: TextStyle(color: scheme.onSurfaceVariant)),
-            Text('changes theme=$_themeChanges scenario=$_scenarioChanges family=$_familyChanges clip=$_clipChanges controls=$_controlEdits taps=$_stageTaps', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'theme=${_themeProfiles[_themeIndex].id} scenario=${_shapeScenarios[_scenarioIndex].id.name} family=${_family.name} clip=${_clipBehavior.name}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'stage=${_stageHeight.toStringAsFixed(0)} baseElevation=${_baseElevation.toStringAsFixed(1)} spread=${_elevationSpread.toStringAsFixed(1)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'corner=${_corner.toStringAsFixed(1)} notch=${_notch.toStringAsFixed(1)} wave=${_waveAmplitude.toStringAsFixed(1)} blob=${_blobNoise.toStringAsFixed(2)} star=${_starSharpness.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'shadow=${_shadowAlpha.toStringAsFixed(2)} surface=${_surfaceAlpha.toStringAsFixed(2)} scale=${_shapeScale.toStringAsFixed(2)} drift=${_drift.toStringAsFixed(2)}',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'flags animate=$_animate grid=$_showGrid contours=$_showContours overflow=$_showOverflowProbe labels=$_showLabels',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+            Text(
+              'changes theme=$_themeChanges scenario=$_scenarioChanges family=$_familyChanges clip=$_clipChanges controls=$_controlEdits taps=$_stageTaps',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
           ],
         ),
       ),
@@ -1354,7 +1815,14 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Guide and FAQ', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+            Text(
+              'Guide and FAQ',
+              style: TextStyle(
+                color: scheme.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(height: 8),
             ..._guideLines.map((String line) {
               return Padding(
@@ -1362,15 +1830,23 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(padding: const EdgeInsets.only(top: 4), child: Icon(Icons.circle, size: 8, color: scheme.primary)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Icon(Icons.circle, size: 8, color: scheme.primary),
+                    ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: TextStyle(color: scheme.onSurfaceVariant))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
+                    ),
                   ],
                 ),
               );
             }),
             const Divider(height: 22),
-            ..._faqCards.map(( _FaqCard faq) {
+            ..._faqCards.map((_FaqCard faq) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
@@ -1383,9 +1859,18 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(faq.question, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
+                      Text(
+                        faq.question,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       const SizedBox(height: 6),
-                      Text(faq.answer, style: TextStyle(color: scheme.onSurfaceVariant)),
+                      Text(
+                        faq.answer,
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ],
                   ),
                 ),
@@ -1408,32 +1893,74 @@ class _RenderPhysicalShapeStudioState extends State<_RenderPhysicalShapeStudio> 
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('Timeline', style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text(
+                  'Timeline',
+                  style: TextStyle(
+                    color: scheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18,
+                  ),
+                ),
                 const Spacer(),
-                TextButton.icon(onPressed: () => setState(() => _timeline = const <_EventLine>[]), icon: const Icon(Icons.clear_all), label: const Text('Clear')),
+                TextButton.icon(
+                  onPressed: () =>
+                      setState(() => _timeline = const <_EventLine>[]),
+                  icon: const Icon(Icons.clear_all),
+                  label: const Text('Clear'),
+                ),
               ],
             ),
             const SizedBox(height: 8),
-            Text('Chronological log of contour, clip, and depth interactions.', style: TextStyle(color: scheme.onSurfaceVariant)),
+            Text(
+              'Chronological log of contour, clip, and depth interactions.',
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
             const SizedBox(height: 10),
             if (_timeline.isEmpty)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
-                child: Text('Timeline is empty. Interact with controls to create events.', style: TextStyle(color: scheme.onSurfaceVariant)),
+                decoration: BoxDecoration(
+                  color: scheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scheme.outlineVariant),
+                ),
+                child: Text(
+                  'Timeline is empty. Interact with controls to create events.',
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
               )
             else
               Column(
-                children: _timeline.map(( _EventLine event) {
-                  final String stamp = '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
+                children: _timeline.map((_EventLine event) {
+                  final String stamp =
+                      '${event.time.hour.toString().padLeft(2, '0')}:${event.time.minute.toString().padLeft(2, '0')}:${event.time.second.toString().padLeft(2, '0')}';
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(color: scheme.surfaceContainerHighest, borderRadius: BorderRadius.circular(12), border: Border.all(color: scheme.outlineVariant)),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
                     child: ListTile(
-                      leading: CircleAvatar(backgroundColor: scheme.primaryContainer, child: Text(stamp.substring(stamp.length - 2), style: TextStyle(color: scheme.onPrimaryContainer))),
-                      title: Text(event.title, style: TextStyle(color: scheme.onSurface, fontWeight: FontWeight.w700)),
-                      subtitle: Text('$stamp  |  ${event.note}', style: TextStyle(color: scheme.onSurfaceVariant)),
+                      leading: CircleAvatar(
+                        backgroundColor: scheme.primaryContainer,
+                        child: Text(
+                          stamp.substring(stamp.length - 2),
+                          style: TextStyle(color: scheme.onPrimaryContainer),
+                        ),
+                      ),
+                      title: Text(
+                        event.title,
+                        style: TextStyle(
+                          color: scheme.onSurface,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      subtitle: Text(
+                        '$stamp  |  ${event.note}',
+                        style: TextStyle(color: scheme.onSurfaceVariant),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -1456,16 +1983,27 @@ class _ShapeGridPainter extends CustomPainter {
     final Paint bg = Paint()
       ..shader = LinearGradient(
         colors: <Color>[
-          Color.lerp(const Color(0xFF0EA5E9), const Color(0xFF14B8A6), (math.sin(progress * math.pi * 2) + 1) / 2)!,
+          Color.lerp(
+            const Color(0xFF0EA5E9),
+            const Color(0xFF14B8A6),
+            (math.sin(progress * math.pi * 2) + 1) / 2,
+          )!,
           Color.lerp(const Color(0xFF3B82F6), const Color(0xFF8B5CF6), drift)!,
-          Color.lerp(const Color(0xFFF59E0B), const Color(0xFFEF4444), (math.cos(progress * math.pi * 2) + 1) / 2)!,
+          Color.lerp(
+            const Color(0xFFF59E0B),
+            const Color(0xFFEF4444),
+            (math.cos(progress * math.pi * 2) + 1) / 2,
+          )!,
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ).createShader(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, bg);
 
-    canvas.drawRect(Offset.zero & size, Paint()..color = Colors.black.withValues(alpha: 0.2));
+    canvas.drawRect(
+      Offset.zero & size,
+      Paint()..color = Colors.black.withValues(alpha: 0.2),
+    );
 
     final Paint grid = Paint()
       ..color = Colors.white.withValues(alpha: 0.13)
@@ -1530,7 +2068,8 @@ class _BevelClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(covariant _BevelClipper oldClipper) => oldClipper.corner != corner;
+  bool shouldReclip(covariant _BevelClipper oldClipper) =>
+      oldClipper.corner != corner;
 }
 
 class _WaveClipper extends CustomClipper<Path> {
@@ -1543,7 +2082,9 @@ class _WaveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final Path path = Path()..moveTo(0, 0);
     for (double x = 0; x <= size.width; x += 8) {
-      final double y = amplitude * math.sin((x / size.width) * math.pi * 2 + phase) + amplitude;
+      final double y =
+          amplitude * math.sin((x / size.width) * math.pi * 2 + phase) +
+          amplitude;
       path.lineTo(x, y);
     }
     path
@@ -1571,17 +2112,26 @@ class _TicketClipper extends CustomClipper<Path> {
       ..moveTo(0, 0)
       ..lineTo(size.width, 0)
       ..lineTo(size.width, size.height / 2 - n)
-      ..arcToPoint(Offset(size.width, size.height / 2 + n), radius: Radius.circular(n), clockwise: false)
+      ..arcToPoint(
+        Offset(size.width, size.height / 2 + n),
+        radius: Radius.circular(n),
+        clockwise: false,
+      )
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..lineTo(0, size.height / 2 + n)
-      ..arcToPoint(Offset(0, size.height / 2 - n), radius: Radius.circular(n), clockwise: false)
+      ..arcToPoint(
+        Offset(0, size.height / 2 - n),
+        radius: Radius.circular(n),
+        clockwise: false,
+      )
       ..close();
     return path;
   }
 
   @override
-  bool shouldReclip(covariant _TicketClipper oldClipper) => oldClipper.notch != notch;
+  bool shouldReclip(covariant _TicketClipper oldClipper) =>
+      oldClipper.notch != notch;
 }
 
 class _BlobClipper extends CustomClipper<Path> {
@@ -1601,7 +2151,10 @@ class _BlobClipper extends CustomClipper<Path> {
       final double a = (i / 60) * math.pi * 2;
       final double nx = 1 + noise * 0.4 * math.sin((a * 3) + phase);
       final double ny = 1 + noise * 0.35 * math.cos((a * 4) - phase);
-      final Offset p = Offset(center.dx + math.cos(a) * rx * nx, center.dy + math.sin(a) * ry * ny);
+      final Offset p = Offset(
+        center.dx + math.cos(a) * rx * nx,
+        center.dy + math.sin(a) * ry * ny,
+      );
       if (i == 0) {
         path.moveTo(p.dx, p.dy);
       } else {
@@ -1641,13 +2194,21 @@ class _MorphClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     switch (family) {
       case _ShapeFamily.bevel:
-        return _BevelClipper(corner: corner * (0.7 + morph * 0.5)).getClip(size);
+        return _BevelClipper(
+          corner: corner * (0.7 + morph * 0.5),
+        ).getClip(size);
       case _ShapeFamily.wave:
-        return _WaveClipper(amplitude: waveAmplitude * (0.6 + morph * 0.7), phase: morph * math.pi * 2).getClip(size);
+        return _WaveClipper(
+          amplitude: waveAmplitude * (0.6 + morph * 0.7),
+          phase: morph * math.pi * 2,
+        ).getClip(size);
       case _ShapeFamily.ticket:
         return _TicketClipper(notch: notch * (0.5 + morph * 0.7)).getClip(size);
       case _ShapeFamily.blob:
-        return _BlobClipper(noise: blobNoise * (0.7 + morph * 0.6), phase: morph * math.pi * 2).getClip(size);
+        return _BlobClipper(
+          noise: blobNoise * (0.7 + morph * 0.6),
+          phase: morph * math.pi * 2,
+        ).getClip(size);
       case _ShapeFamily.star:
         return _starPath(size, starSharpness * (0.7 + morph * 0.5));
     }
@@ -1662,7 +2223,10 @@ class _MorphClipper extends CustomClipper<Path> {
       final bool isOuter = i.isEven;
       final double radius = isOuter ? outer : inner;
       final double angle = -math.pi / 2 + (i * math.pi / 5);
-      final Offset p = Offset(center.dx + math.cos(angle) * radius, center.dy + math.sin(angle) * radius);
+      final Offset p = Offset(
+        center.dx + math.cos(angle) * radius,
+        center.dy + math.sin(angle) * radius,
+      );
       if (i == 0) {
         path.moveTo(p.dx, p.dy);
       } else {

@@ -156,8 +156,12 @@ dynamic build(BuildContext context) {
   for (int i = 0; i < weightLadder.length; i++) {
     print('  w${(i + 1) * 100} -> ${weightLadder[i]}');
   }
-  print('  ui.FontWeight.normal == w400: ${ui.FontWeight.normal == ui.FontWeight.w400}');
-  print('  ui.FontWeight.bold   == w700: ${ui.FontWeight.bold == ui.FontWeight.w700}');
+  print(
+    '  ui.FontWeight.normal == w400: ${ui.FontWeight.normal == ui.FontWeight.w400}',
+  );
+  print(
+    '  ui.FontWeight.bold   == w700: ${ui.FontWeight.bold == ui.FontWeight.w700}',
+  );
 
   print('-- ui.FontStyle values --');
   print('  ui.FontStyle.normal : ${ui.FontStyle.normal}');
@@ -394,11 +398,7 @@ Widget _paragraphCard({
         const SizedBox(height: _kGapXs),
         Text(
           body,
-          style: const TextStyle(
-            color: _kInkBody,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: const TextStyle(color: _kInkBody, fontSize: 12.5, height: 1.5),
         ),
       ],
     ),
@@ -462,10 +462,7 @@ Widget _keyValueRow(String key, String value, {Color? valueColor}) {
 Widget _divider() {
   return const Padding(
     padding: EdgeInsets.symmetric(vertical: _kGapMd),
-    child: SizedBox(
-      height: 1.0,
-      child: ColoredBox(color: _kBorder),
-    ),
+    child: SizedBox(height: 1.0, child: ColoredBox(color: _kBorder)),
   );
 }
 
@@ -1706,7 +1703,8 @@ Widget _buildCheatSheet() {
         ),
         _cheatRow(
           situation: 'You are writing a `CustomPainter` that draws a label.',
-          choice: 'EITHER TextPainter(text: TextSpan(...)) OR '
+          choice:
+              'EITHER TextPainter(text: TextSpan(...)) OR '
               'ui.ParagraphBuilder + ui.TextStyle.',
           rationale:
               'TextPainter is easier and uses painting.TextStyle. '
@@ -1911,11 +1909,7 @@ class _StrutDemoPainter extends CustomPainter {
     for (int i = 0; i < metrics.length; i++) {
       final ui.LineMetrics lm = metrics[i];
       final double top = lm.baseline - lm.ascent;
-      canvas.drawLine(
-        Offset(0.0, top),
-        Offset(size.width, top),
-        guide,
-      );
+      canvas.drawLine(Offset(0.0, top), Offset(size.width, top), guide);
       // baseline as dashed-ish (we just draw a slightly bolder line)
       final Paint baseline = Paint()
         ..color = _kAccentPink.withOpacity(0.6)
@@ -1982,27 +1976,25 @@ class _LineMetricsPainter extends CustomPainter {
       );
 
       // Build a tiny annotation paragraph for this line.
-      final ui.ParagraphBuilder pb = ui.ParagraphBuilder(
-        ui.ParagraphStyle(
-          textAlign: TextAlign.left,
-          textDirection: TextDirection.ltr,
-          fontSize: 10.0,
-        ),
-      )
-        ..pushStyle(ui.TextStyle(color: _kInkMuted, fontSize: 10.0))
-        ..addText(
-          'line ${lm.lineNumber}  '
-          'ascent=${lm.ascent.toStringAsFixed(1)}  '
-          'descent=${lm.descent.toStringAsFixed(1)}  '
-          'width=${lm.width.toStringAsFixed(0)}  '
-          'hardBreak=${lm.hardBreak}',
-        );
+      final ui.ParagraphBuilder pb =
+          ui.ParagraphBuilder(
+              ui.ParagraphStyle(
+                textAlign: TextAlign.left,
+                textDirection: TextDirection.ltr,
+                fontSize: 10.0,
+              ),
+            )
+            ..pushStyle(ui.TextStyle(color: _kInkMuted, fontSize: 10.0))
+            ..addText(
+              'line ${lm.lineNumber}  '
+              'ascent=${lm.ascent.toStringAsFixed(1)}  '
+              'descent=${lm.descent.toStringAsFixed(1)}  '
+              'width=${lm.width.toStringAsFixed(0)}  '
+              'hardBreak=${lm.hardBreak}',
+            );
       final ui.Paragraph annotation = pb.build()
         ..layout(const ui.ParagraphConstraints(width: 360.0));
-      canvas.drawParagraph(
-        annotation,
-        Offset(lineBox.right + 8.0, top - 2.0),
-      );
+      canvas.drawParagraph(annotation, Offset(lineBox.right + 8.0, top - 2.0));
     }
   }
 
@@ -2037,45 +2029,47 @@ class _MultiRunParagraphPainter extends CustomPainter {
     pb.addText(runs[0]);
     pb.pop();
     // run 1: BOLD red
-    pb.pushStyle(ui.TextStyle(
-      color: _kAccentRed,
-      fontSize: 16.0,
-      fontWeight: ui.FontWeight.w800,
-    ));
+    pb.pushStyle(
+      ui.TextStyle(
+        color: _kAccentRed,
+        fontSize: 16.0,
+        fontWeight: ui.FontWeight.w800,
+      ),
+    );
     pb.addText(runs[1]);
     pb.pop();
     // run 2: italic indigo
-    pb.pushStyle(ui.TextStyle(
-      color: _kAccentIndigo,
-      fontSize: 16.0,
-      fontStyle: ui.FontStyle.italic,
-    ));
+    pb.pushStyle(
+      ui.TextStyle(
+        color: _kAccentIndigo,
+        fontSize: 16.0,
+        fontStyle: ui.FontStyle.italic,
+      ),
+    );
     pb.addText(runs[2]);
     pb.pop();
     // run 3: wide green
-    pb.pushStyle(ui.TextStyle(
-      color: _kAccentGreen,
-      fontSize: 16.0,
-      letterSpacing: 2.0,
-    ));
+    pb.pushStyle(
+      ui.TextStyle(color: _kAccentGreen, fontSize: 16.0, letterSpacing: 2.0),
+    );
     pb.addText(runs[3]);
     pb.pop();
     // run 4: tight blue
-    pb.pushStyle(ui.TextStyle(
-      color: _kAccentBlue,
-      fontSize: 16.0,
-      letterSpacing: -1.0,
-    ));
+    pb.pushStyle(
+      ui.TextStyle(color: _kAccentBlue, fontSize: 16.0, letterSpacing: -1.0),
+    );
     pb.addText(runs[4]);
     pb.pop();
     // run 5: amber + underline
-    pb.pushStyle(ui.TextStyle(
-      color: _kAccentAmber,
-      fontSize: 16.0,
-      decoration: ui.TextDecoration.underline,
-      decorationColor: _kAccentAmber,
-      decorationStyle: ui.TextDecorationStyle.solid,
-    ));
+    pb.pushStyle(
+      ui.TextStyle(
+        color: _kAccentAmber,
+        fontSize: 16.0,
+        decoration: ui.TextDecoration.underline,
+        decorationColor: _kAccentAmber,
+        decorationStyle: ui.TextDecorationStyle.solid,
+      ),
+    );
     pb.addText(runs[5]);
     pb.pop();
 
@@ -2099,23 +2093,24 @@ class _MultiRunParagraphPainter extends CustomPainter {
 class _PlaceholderParagraphPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(
-      ui.ParagraphStyle(
-        textAlign: TextAlign.left,
-        textDirection: TextDirection.ltr,
-        fontSize: 16.0,
-      ),
-    )
-      ..pushStyle(ui.TextStyle(color: _kInkDark, fontSize: 16.0))
-      ..addText('A widget can sit ')
-      ..addPlaceholder(
-        28.0,
-        18.0,
-        ui.PlaceholderAlignment.middle,
-        baseline: ui.TextBaseline.alphabetic,
-      )
-      ..addText(' inside running text.')
-      ..pop();
+    final ui.ParagraphBuilder pb =
+        ui.ParagraphBuilder(
+            ui.ParagraphStyle(
+              textAlign: TextAlign.left,
+              textDirection: TextDirection.ltr,
+              fontSize: 16.0,
+            ),
+          )
+          ..pushStyle(ui.TextStyle(color: _kInkDark, fontSize: 16.0))
+          ..addText('A widget can sit ')
+          ..addPlaceholder(
+            28.0,
+            18.0,
+            ui.PlaceholderAlignment.middle,
+            baseline: ui.TextBaseline.alphabetic,
+          )
+          ..addText(' inside running text.')
+          ..pop();
 
     final ui.Paragraph paragraph = pb.build()
       ..layout(ui.ParagraphConstraints(width: size.width));
@@ -2166,22 +2161,25 @@ class _DecorationCellPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final ui.ParagraphBuilder pb = ui.ParagraphBuilder(
-      ui.ParagraphStyle(
-        textAlign: TextAlign.center,
-        textDirection: TextDirection.ltr,
-        fontSize: 14.0,
-      ),
-    )
-      ..pushStyle(ui.TextStyle(
-        color: _kInkDark,
-        fontSize: 14.0,
-        decoration: decoration,
-        decorationColor: _kAccentRed,
-        decorationStyle: decorationStyle,
-        decorationThickness: 1.4,
-      ))
-      ..addText('AaBbCc');
+    final ui.ParagraphBuilder pb =
+        ui.ParagraphBuilder(
+            ui.ParagraphStyle(
+              textAlign: TextAlign.center,
+              textDirection: TextDirection.ltr,
+              fontSize: 14.0,
+            ),
+          )
+          ..pushStyle(
+            ui.TextStyle(
+              color: _kInkDark,
+              fontSize: 14.0,
+              decoration: decoration,
+              decorationColor: _kAccentRed,
+              decorationStyle: decorationStyle,
+              decorationThickness: 1.4,
+            ),
+          )
+          ..addText('AaBbCc');
     final ui.Paragraph paragraph = pb.build()
       ..layout(ui.ParagraphConstraints(width: size.width));
     canvas.drawParagraph(paragraph, Offset.zero);

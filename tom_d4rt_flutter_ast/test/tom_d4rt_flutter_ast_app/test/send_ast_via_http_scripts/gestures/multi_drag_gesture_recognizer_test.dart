@@ -28,21 +28,25 @@ dynamic build(BuildContext context) {
   print('=== Section 0: Subclass instantiation sweep ===');
 
   final immediateProbe = ImmediateMultiDragGestureRecognizer();
-  print('ImmediateMultiDragGestureRecognizer: ${immediateProbe.debugDescription}');
+  print(
+    'ImmediateMultiDragGestureRecognizer: ${immediateProbe.debugDescription}',
+  );
   immediateProbe.dispose();
 
-  final delayedProbe = DelayedMultiDragGestureRecognizer(
-    delay: kPressTimeout,
-  );
+  final delayedProbe = DelayedMultiDragGestureRecognizer(delay: kPressTimeout);
   print('DelayedMultiDragGestureRecognizer: ${delayedProbe.debugDescription}');
   delayedProbe.dispose();
 
   final horizontalProbe = HorizontalMultiDragGestureRecognizer();
-  print('HorizontalMultiDragGestureRecognizer: ${horizontalProbe.debugDescription}');
+  print(
+    'HorizontalMultiDragGestureRecognizer: ${horizontalProbe.debugDescription}',
+  );
   horizontalProbe.dispose();
 
   final verticalProbe = VerticalMultiDragGestureRecognizer();
-  print('VerticalMultiDragGestureRecognizer: ${verticalProbe.debugDescription}');
+  print(
+    'VerticalMultiDragGestureRecognizer: ${verticalProbe.debugDescription}',
+  );
   verticalProbe.dispose();
 
   // ============================================================
@@ -54,11 +58,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0F2027),
-          Color(0xFF203A43),
-          Color(0xFF2C5364),
-        ],
+        colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -117,7 +117,10 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 4.0),
                   Text(
                     'abstract base for recognizing multiple simultaneous drags',
-                    style: TextStyle(fontSize: 13.5, color: Colors.cyan.shade100),
+                    style: TextStyle(
+                      fontSize: 13.5,
+                      color: Colors.cyan.shade100,
+                    ),
                   ),
                 ],
               ),
@@ -540,7 +543,8 @@ dynamic build(BuildContext context) {
       'short': 'Delayed',
       'icon': Icons.timer,
       'tone': Colors.orange,
-      'wins': 'after the configured delay (default kPressTimeout = 100ms) elapses with the pointer down',
+      'wins':
+          'after the configured delay (default kPressTimeout = 100ms) elapses with the pointer down',
       'use':
           'Long-press-then-drag interactions: ReorderableListView, Trello-like cards, drag handles.',
       'avoid':
@@ -617,7 +621,11 @@ dynamic build(BuildContext context) {
                       ),
                     ],
                   ),
-                  child: Icon(s['icon'] as IconData, color: Colors.white, size: 22.0),
+                  child: Icon(
+                    s['icon'] as IconData,
+                    color: Colors.white,
+                    size: 22.0,
+                  ),
                 ),
                 SizedBox(width: 12.0),
                 Expanded(
@@ -646,11 +654,26 @@ dynamic build(BuildContext context) {
               ],
             ),
             SizedBox(height: 12.0),
-            _kvLine('Wins arena', s['wins'] as String, Icons.emoji_events, tone),
+            _kvLine(
+              'Wins arena',
+              s['wins'] as String,
+              Icons.emoji_events,
+              tone,
+            ),
             SizedBox(height: 6.0),
-            _kvLine('Use for', s['use'] as String, Icons.thumb_up, Colors.green.shade700),
+            _kvLine(
+              'Use for',
+              s['use'] as String,
+              Icons.thumb_up,
+              Colors.green.shade700,
+            ),
             SizedBox(height: 6.0),
-            _kvLine('Watch out', s['avoid'] as String, Icons.warning_amber, Colors.red.shade700),
+            _kvLine(
+              'Watch out',
+              s['avoid'] as String,
+              Icons.warning_amber,
+              Colors.red.shade700,
+            ),
             SizedBox(height: 12.0),
             // Mini progress visualization for "how far the pointer travels
             // before this recognizer claims victory" — purely illustrative.
@@ -811,7 +834,10 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10.0),
-                border: Border.all(color: tone.withValues(alpha: 0.5), width: 1.0),
+                border: Border.all(
+                  color: tone.withValues(alpha: 0.5),
+                  width: 1.0,
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.06),
@@ -1124,10 +1150,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: pitfallCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: pitfallCards),
       ],
     ),
   );
@@ -1231,22 +1254,46 @@ dynamic build(BuildContext context) {
           children: [
             hero,
             SizedBox(height: 22.0),
-            _sectionLabel('1. Anatomy of the abstract base', Icons.architecture, Colors.indigo),
+            _sectionLabel(
+              '1. Anatomy of the abstract base',
+              Icons.architecture,
+              Colors.indigo,
+            ),
             anatomySection,
             SizedBox(height: 22.0),
-            _sectionLabel('2. Subclass tree', Icons.account_tree, Colors.deepPurple),
+            _sectionLabel(
+              '2. Subclass tree',
+              Icons.account_tree,
+              Colors.deepPurple,
+            ),
             subclassTree,
             SizedBox(height: 22.0),
-            _sectionLabel('3. Multi-pointer trajectory diagram', Icons.gesture, Colors.pink),
+            _sectionLabel(
+              '3. Multi-pointer trajectory diagram',
+              Icons.gesture,
+              Colors.pink,
+            ),
             trajectoryDiagram,
             SizedBox(height: 22.0),
-            _sectionLabel('4. Per-subclass cards', Icons.style, Colors.blueGrey),
+            _sectionLabel(
+              '4. Per-subclass cards',
+              Icons.style,
+              Colors.blueGrey,
+            ),
             ...subclassCards,
             SizedBox(height: 22.0),
-            _sectionLabel('5. Lifecycle timeline', Icons.access_time, Colors.deepOrange),
+            _sectionLabel(
+              '5. Lifecycle timeline',
+              Icons.access_time,
+              Colors.deepOrange,
+            ),
             lifecycleSection,
             SizedBox(height: 22.0),
-            _sectionLabel('6. Recipes (onStart returning a Drag)', Icons.restaurant_menu, Colors.green),
+            _sectionLabel(
+              '6. Recipes (onStart returning a Drag)',
+              Icons.restaurant_menu,
+              Colors.green,
+            ),
             ...recipeBlocks,
             SizedBox(height: 22.0),
             _sectionLabel('7. Pitfalls', Icons.report_problem, Colors.red),
@@ -1371,10 +1418,7 @@ Widget _legendDot(String label, Color color) {
           shape: BoxShape.circle,
           color: color,
           boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.7),
-              blurRadius: 6.0,
-            ),
+            BoxShadow(color: color.withValues(alpha: 0.7), blurRadius: 6.0),
           ],
         ),
       ),
@@ -1403,10 +1447,7 @@ Widget _recipeCard({
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          tone.withValues(alpha: 0.10),
-          tone.withValues(alpha: 0.02),
-        ],
+        colors: [tone.withValues(alpha: 0.10), tone.withValues(alpha: 0.02)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1477,7 +1518,8 @@ Widget _recipeCard({
 // ----------------------------------------------------------------
 
 class _MultiDragTrajectoryPainter extends CustomPainter {
-  _MultiDragTrajectoryPainter({required this.progress}) : super(repaint: progress);
+  _MultiDragTrajectoryPainter({required this.progress})
+    : super(repaint: progress);
 
   final Animation<double> progress;
 

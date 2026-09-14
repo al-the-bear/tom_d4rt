@@ -14,7 +14,8 @@ class _ImageSamplerSlotDeepDemo extends StatefulWidget {
   const _ImageSamplerSlotDeepDemo();
 
   @override
-  State<_ImageSamplerSlotDeepDemo> createState() => _ImageSamplerSlotDeepDemoState();
+  State<_ImageSamplerSlotDeepDemo> createState() =>
+      _ImageSamplerSlotDeepDemoState();
 }
 
 class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
@@ -44,9 +45,21 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
   final List<String> _notes = <String>[];
 
   final List<List<Color>> _palettes = <List<Color>>[
-    <Color>[const Color(0xFF0B132B), const Color(0xFF1C2541), const Color(0xFF5BC0BE)],
-    <Color>[const Color(0xFF111827), const Color(0xFF374151), const Color(0xFF9CA3AF)],
-    <Color>[const Color(0xFF1E3A8A), const Color(0xFF1D4ED8), const Color(0xFF60A5FA)],
+    <Color>[
+      const Color(0xFF0B132B),
+      const Color(0xFF1C2541),
+      const Color(0xFF5BC0BE),
+    ],
+    <Color>[
+      const Color(0xFF111827),
+      const Color(0xFF374151),
+      const Color(0xFF9CA3AF),
+    ],
+    <Color>[
+      const Color(0xFF1E3A8A),
+      const Color(0xFF1D4ED8),
+      const Color(0xFF60A5FA),
+    ],
   ];
 
   @override
@@ -85,29 +98,43 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     await Future<void>.delayed(Duration.zero);
     try {
       final Type t = ui.FragmentProgram;
-      _record('FragmentProgram type accessible', t.toString().contains('FragmentProgram'));
+      _record(
+        'FragmentProgram type accessible',
+        t.toString().contains('FragmentProgram'),
+      );
     } catch (e) {
       _record('FragmentProgram type accessible', false, note: e.toString());
     }
     try {
       final Type t = ui.FragmentShader;
-      _record('FragmentShader type accessible', t.toString().contains('FragmentShader'));
+      _record(
+        'FragmentShader type accessible',
+        t.toString().contains('FragmentShader'),
+      );
     } catch (e) {
       _record('FragmentShader type accessible', false, note: e.toString());
     }
 
     try {
       final String samplerName = 'ImageSamplerSlot';
-      _record('ImageSamplerSlot symbol is known', samplerName.contains('SamplerSlot'));
+      _record(
+        'ImageSamplerSlot symbol is known',
+        samplerName.contains('SamplerSlot'),
+      );
     } catch (e) {
       _record('ImageSamplerSlot symbol is known', false, note: e.toString());
     }
 
     try {
-      final bool slotIndexesValid = _slot0Source >= 0 && _slot1Source >= 0 && _slot2Source >= 0;
+      final bool slotIndexesValid =
+          _slot0Source >= 0 && _slot1Source >= 0 && _slot2Source >= 0;
       _record('Sampler slot routing indexes are valid', slotIndexesValid);
     } catch (e) {
-      _record('Sampler slot routing indexes are valid', false, note: e.toString());
+      _record(
+        'Sampler slot routing indexes are valid',
+        false,
+        note: e.toString(),
+      );
     }
 
     if (mounted) {
@@ -132,7 +159,12 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     return _sourceNames[source.clamp(0, _sourceNames.length - 1)];
   }
 
-  Widget _sectionTitle(String title, String subtitle, IconData icon, Color accent) {
+  Widget _sectionTitle(
+    String title,
+    String subtitle,
+    IconData icon,
+    Color accent,
+  ) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 8),
       padding: const EdgeInsets.all(12),
@@ -156,7 +188,10 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: TextStyle(color: accent, fontWeight: FontWeight.w700)),
+                Text(
+                  title,
+                  style: TextStyle(color: accent, fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(height: 2),
                 Text(subtitle, style: const TextStyle(fontSize: 12.2)),
               ],
@@ -176,7 +211,11 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
         gradient: LinearGradient(colors: p),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: p[1].withAlpha(95), blurRadius: 16, offset: const Offset(0, 8)),
+          BoxShadow(
+            color: p[1].withAlpha(95),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
         ],
       ),
       child: const Column(
@@ -184,7 +223,11 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
         children: <Widget>[
           Text(
             'ImageSamplerSlot',
-            style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+            ),
           ),
           SizedBox(height: 8),
           Text(
@@ -213,7 +256,10 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
           children: <Widget>[
             Icon(icon, color: color),
             const SizedBox(height: 8),
-            Text(title, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: TextStyle(color: color, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(height: 4),
             Text(desc, style: const TextStyle(fontSize: 11.8)),
           ],
@@ -270,14 +316,24 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.3)),
+            Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12.3,
+              ),
+            ),
             const SizedBox(height: 6),
             Container(
               height: 110,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 gradient: LinearGradient(
-                  colors: <Color>[base.withAlpha(220), base.withAlpha(120), Colors.black12],
+                  colors: <Color>[
+                    base.withAlpha(220),
+                    base.withAlpha(120),
+                    Colors.black12,
+                  ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -301,9 +357,18 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
         children: <Widget>[
-          _textureTile(_slot0Source, 'Slot 0 source: ${_sourceLabel(_slot0Source)}'),
-          _textureTile(_slot1Source, 'Slot 1 source: ${_sourceLabel(_slot1Source)}'),
-          _textureTile(_slot2Source, 'Slot 2 source: ${_sourceLabel(_slot2Source)}'),
+          _textureTile(
+            _slot0Source,
+            'Slot 0 source: ${_sourceLabel(_slot0Source)}',
+          ),
+          _textureTile(
+            _slot1Source,
+            'Slot 1 source: ${_sourceLabel(_slot1Source)}',
+          ),
+          _textureTile(
+            _slot2Source,
+            'Slot 2 source: ${_sourceLabel(_slot2Source)}',
+          ),
         ],
       ),
     );
@@ -322,7 +387,13 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.2)),
+            Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12.2,
+              ),
+            ),
             const SizedBox(height: 6),
             DropdownButton<int>(
               value: value,
@@ -354,9 +425,21 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              _sourceSelector('Sampler slot 0', _slot0Source, (int v) => setState(() => _slot0Source = v)),
-              _sourceSelector('Sampler slot 1', _slot1Source, (int v) => setState(() => _slot1Source = v)),
-              _sourceSelector('Sampler slot 2', _slot2Source, (int v) => setState(() => _slot2Source = v)),
+              _sourceSelector(
+                'Sampler slot 0',
+                _slot0Source,
+                (int v) => setState(() => _slot0Source = v),
+              ),
+              _sourceSelector(
+                'Sampler slot 1',
+                _slot1Source,
+                (int v) => setState(() => _slot1Source = v),
+              ),
+              _sourceSelector(
+                'Sampler slot 2',
+                _slot2Source,
+                (int v) => setState(() => _slot2Source = v),
+              ),
             ],
           ),
           Container(
@@ -463,7 +546,8 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     final Color c2 = _sourceColor(_slot2Source);
     final List<Color> p = _palettes[_paletteIndex];
 
-    final Color blended = Color.lerp(Color.lerp(c0, c1, _blendWeight), c2, 0.35) ?? c0;
+    final Color blended =
+        Color.lerp(Color.lerp(c0, c1, _blendWeight), c2, 0.35) ?? c0;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -476,8 +560,10 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Composite preview (sampler-slot blend simulation)',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Composite preview (sampler-slot blend simulation)',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -511,7 +597,12 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
     );
   }
 
-  Widget _useCaseCard(String title, String desc, IconData icon, List<Color> colors) {
+  Widget _useCaseCard(
+    String title,
+    String desc,
+    IconData icon,
+    List<Color> colors,
+  ) {
     return Expanded(
       child: Container(
         margin: const EdgeInsets.all(6),
@@ -525,10 +616,18 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
           children: <Widget>[
             Icon(icon, color: Colors.white),
             const SizedBox(height: 8),
-            Text(title,
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(desc, style: const TextStyle(color: Colors.white, fontSize: 12)),
+            Text(
+              desc,
+              style: const TextStyle(color: Colors.white, fontSize: 12),
+            ),
           ],
         ),
       ),
@@ -595,7 +694,10 @@ class _ImageSamplerSlotDeepDemoState extends State<_ImageSamplerSlotDeepDemo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Runtime probe dashboard', style: TextStyle(fontWeight: FontWeight.w700)),
+          const Text(
+            'Runtime probe dashboard',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           const SizedBox(height: 6),
           Text('Passed: ${_passed.length}, Failed: ${_failed.length}'),
           const SizedBox(height: 8),

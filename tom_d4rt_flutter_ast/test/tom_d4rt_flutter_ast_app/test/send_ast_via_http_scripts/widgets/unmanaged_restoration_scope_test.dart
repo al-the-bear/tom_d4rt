@@ -150,10 +150,7 @@ dynamic build(BuildContext context) {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[
-              accent.withOpacity(0.14),
-              accent.withOpacity(0.03),
-            ],
+            colors: <Color>[accent.withOpacity(0.14), accent.withOpacity(0.03)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -228,8 +225,7 @@ dynamic build(BuildContext context) {
     <String, String>{
       'name': 'child',
       'type': 'Widget',
-      'desc':
-          'The subtree that can access the bucket via RestorationScope.of.',
+      'desc': 'The subtree that can access the bucket via RestorationScope.of.',
     },
     <String, String>{
       'name': 'updateShouldNotify(old)',
@@ -373,11 +369,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.bolt,
-                    color: Colors.amber.shade800,
-                    size: 22,
-                  ),
+                  Icon(Icons.bolt, color: Colors.amber.shade800, size: 22),
                   const SizedBox(width: 8),
                   Text(
                     'Live UnmanagedRestorationScope (alpha)',
@@ -450,11 +442,7 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.lock,
-                    color: Colors.red.shade700,
-                    size: 22,
-                  ),
+                  Icon(Icons.lock, color: Colors.red.shade700, size: 22),
                   const SizedBox(width: 8),
                   Text(
                     'UnmanagedRestorationScope(bucket: null)',
@@ -549,18 +537,12 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 6),
                 Text(
                   'Bucket id: $injectedId',
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontSize: 11,
-                  ),
+                  style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'debugOwner: ${bucket.debugOwner}',
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 10, color: Colors.grey.shade700),
                 ),
               ],
             ),
@@ -652,10 +634,7 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 4),
               Text(
                 'RestorationScope.of -> $outerId',
-                style: const TextStyle(
-                  fontFamily: 'monospace',
-                  fontSize: 11,
-                ),
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
               ),
               const SizedBox(height: 12),
               UnmanagedRestorationScope(
@@ -664,7 +643,7 @@ dynamic build(BuildContext context) {
                   builder: (BuildContext inner) {
                     final String innerId =
                         RestorationScope.maybeOf(inner)?.restorationId ??
-                            '<none>';
+                        '<none>';
                     print('Nested inner sees: $innerId');
                     return Container(
                       padding: const EdgeInsets.all(12),
@@ -962,19 +941,13 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 cr['managed']!,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
               ),
             ),
             Expanded(
               child: Text(
                 cr['unmanaged']!,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
               ),
             ),
           ],
@@ -1052,11 +1025,7 @@ dynamic build(BuildContext context) {
                     color: fsColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    fs['icon'] as IconData,
-                    color: fsColor,
-                    size: 18,
-                  ),
+                  child: Icon(fs['icon'] as IconData, color: fsColor, size: 18),
                 ),
                 if (i < flowSteps.length - 1)
                   Container(
@@ -1113,8 +1082,7 @@ dynamic build(BuildContext context) {
   final List<Map<String, dynamic>> restorableTypes = <Map<String, dynamic>>[
     <String, dynamic>{
       'type': 'RestorableInt',
-      'desc':
-          'Stores an integer. Common for counters, indices, selected tabs.',
+      'desc': 'Stores an integer. Common for counters, indices, selected tabs.',
       'example': 'Counter: 42 -> saved -> restored as 42',
       'color': Colors.amber,
     },
@@ -1144,8 +1112,7 @@ dynamic build(BuildContext context) {
     },
     <String, dynamic>{
       'type': 'RestorableDateTime',
-      'desc':
-          'Stores a DateTime. Used for date pickers, scheduled dates.',
+      'desc': 'Stores a DateTime. Used for date pickers, scheduled dates.',
       'example': 'Date: 2026-04-07 -> saved -> restored as 2026-04-07',
       'color': Colors.purple,
     },
@@ -1193,10 +1160,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 3,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
               decoration: BoxDecoration(
                 color: rtColor.withOpacity(0.12),
                 borderRadius: BorderRadius.circular(6),
@@ -1329,11 +1293,7 @@ dynamic build(BuildContext context) {
                   color: ucColor.withOpacity(0.12),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  uc['icon'] as IconData,
-                  color: ucColor,
-                  size: 22,
-                ),
+                child: Icon(uc['icon'] as IconData, color: ucColor, size: 22),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -1385,8 +1345,9 @@ dynamic build(BuildContext context) {
       bucket: bucket,
       child: Builder(
         builder: (BuildContext panelContext) {
-          final RestorationBucket? injected =
-              RestorationScope.maybeOf(panelContext);
+          final RestorationBucket? injected = RestorationScope.maybeOf(
+            panelContext,
+          );
           final String injectedId = injected?.restorationId ?? '<none>';
           print('Panel "$title" sees: $injectedId');
           return Container(
@@ -1823,8 +1784,7 @@ class _MyState extends State<MyRestorableWidget>
     },
     <String, dynamic>{
       'icon': Icons.toggle_off,
-      'text':
-          'Passing null disables restoration for the entire subtree.',
+      'text': 'Passing null disables restoration for the entire subtree.',
     },
     <String, dynamic>{
       'icon': Icons.swap_horiz,
@@ -1843,8 +1803,7 @@ class _MyState extends State<MyRestorableWidget>
   final List<Widget> summaryWidgets = <Widget>[];
   for (int i = 0; i < summaryPoints.length; i++) {
     final Map<String, dynamic> sp = summaryPoints[i];
-    final String snippet =
-        (sp['text'] as String).substring(0, 40);
+    final String snippet = (sp['text'] as String).substring(0, 40);
     print('Summary ${i + 1}: $snippet...');
     summaryWidgets.add(
       Container(
@@ -1898,8 +1857,9 @@ class _MyState extends State<MyRestorableWidget>
     bucket: bucketAlpha,
     child: Builder(
       builder: (BuildContext bannerContext) {
-        final RestorationBucket? injected =
-            RestorationScope.maybeOf(bannerContext);
+        final RestorationBucket? injected = RestorationScope.maybeOf(
+          bannerContext,
+        );
         final String injectedId = injected?.restorationId ?? '<none>';
         print('Final banner sees: $injectedId');
         return Container(
@@ -1922,11 +1882,7 @@ class _MyState extends State<MyRestorableWidget>
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(
-                    Icons.flag,
-                    color: Colors.amber.shade900,
-                    size: 26,
-                  ),
+                  Icon(Icons.flag, color: Colors.amber.shade900, size: 26),
                   const SizedBox(width: 10),
                   Text(
                     'You reached the end',
@@ -1987,9 +1943,7 @@ class _MyState extends State<MyRestorableWidget>
       decoration: BoxDecoration(
         color: color.withOpacity(0.12),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: color, width: 4),
-        ),
+        border: Border(left: BorderSide(color: color, width: 4)),
       ),
       child: Row(
         children: <Widget>[
@@ -2011,10 +1965,7 @@ class _MyState extends State<MyRestorableWidget>
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'UnmanagedRestorationScope Deep Demo',
-    theme: ThemeData(
-      colorSchemeSeed: Colors.amber,
-      useMaterial3: true,
-    ),
+    theme: ThemeData(colorSchemeSeed: Colors.amber, useMaterial3: true),
     home: Scaffold(
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
@@ -2094,11 +2045,7 @@ class _MyState extends State<MyRestorableWidget>
               ),
               liveAlphaSection,
 
-              sectionHeader(
-                '4. Null-bucket subtree',
-                Icons.lock,
-                Colors.red,
-              ),
+              sectionHeader('4. Null-bucket subtree', Icons.lock, Colors.red),
               nullBucketSection,
 
               sectionHeader(
@@ -2130,11 +2077,7 @@ class _MyState extends State<MyRestorableWidget>
               tableHeader,
               ...tableRows,
 
-              sectionHeader(
-                '9. Lifecycle flow',
-                Icons.sync,
-                Colors.purple,
-              ),
+              sectionHeader('9. Lifecycle flow', Icons.sync, Colors.purple),
               ...flowWidgets,
 
               sectionHeader(
@@ -2144,11 +2087,7 @@ class _MyState extends State<MyRestorableWidget>
               ),
               ...regWidgets,
 
-              sectionHeader(
-                '11. Use cases',
-                Icons.lightbulb,
-                Colors.orange,
-              ),
+              sectionHeader('11. Use cases', Icons.lightbulb, Colors.orange),
               ...useCaseWidgets,
 
               sectionHeader(
@@ -2158,32 +2097,16 @@ class _MyState extends State<MyRestorableWidget>
               ),
               panelGrid,
 
-              sectionHeader(
-                '13. Code sample',
-                Icons.code,
-                Colors.blueGrey,
-              ),
+              sectionHeader('13. Code sample', Icons.code, Colors.blueGrey),
               codeSampleSection,
 
-              sectionHeader(
-                '14. Pitfalls',
-                Icons.warning,
-                Colors.red,
-              ),
+              sectionHeader('14. Pitfalls', Icons.warning, Colors.red),
               ...pitfallWidgets,
 
-              sectionHeader(
-                '15. Platform notes',
-                Icons.devices,
-                Colors.cyan,
-              ),
+              sectionHeader('15. Platform notes', Icons.devices, Colors.cyan),
               platformSection,
 
-              sectionHeader(
-                '16. Summary',
-                Icons.summarize,
-                Colors.amber,
-              ),
+              sectionHeader('16. Summary', Icons.summarize, Colors.amber),
               ...summaryWidgets,
 
               sectionHeader(

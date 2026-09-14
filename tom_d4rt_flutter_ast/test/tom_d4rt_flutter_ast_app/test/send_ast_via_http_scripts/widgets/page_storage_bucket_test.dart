@@ -33,10 +33,12 @@ class _PageStorageBucketDeepDemoPage extends StatefulWidget {
   const _PageStorageBucketDeepDemoPage();
 
   @override
-  State<_PageStorageBucketDeepDemoPage> createState() => _PageStorageBucketDeepDemoPageState();
+  State<_PageStorageBucketDeepDemoPage> createState() =>
+      _PageStorageBucketDeepDemoPageState();
 }
 
-class _PageStorageBucketDeepDemoPageState extends State<_PageStorageBucketDeepDemoPage> {
+class _PageStorageBucketDeepDemoPageState
+    extends State<_PageStorageBucketDeepDemoPage> {
   bool _compact = false;
   bool _guides = true;
   bool _notes = true;
@@ -183,7 +185,12 @@ class _GlobalDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF1F3551), Color(0xFF326EA7), Color(0xFF2D876A), Color(0xFF5D58B2)],
+          colors: [
+            Color(0xFF1F3551),
+            Color(0xFF326EA7),
+            Color(0xFF2D876A),
+            Color(0xFF5D58B2),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -193,7 +200,11 @@ class _GlobalDeck extends StatelessWidget {
         children: [
           const Text(
             'PageStorageBucket Control Deck',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 30),
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 30,
+            ),
           ),
           const SizedBox(height: 8),
           const Text(
@@ -236,7 +247,11 @@ class _GlobalDeck extends StatelessWidget {
 }
 
 class _DeckSwitch extends StatelessWidget {
-  const _DeckSwitch({required this.title, required this.value, required this.onChanged});
+  const _DeckSwitch({
+    required this.title,
+    required this.value,
+    required this.onChanged,
+  });
 
   final String title;
   final bool value;
@@ -247,8 +262,18 @@ class _DeckSwitch extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Switch(value: value, onChanged: onChanged, activeThumbColor: Colors.white),
-        Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+        Switch(
+          value: value,
+          onChanged: onChanged,
+          activeThumbColor: Colors.white,
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     );
   }
@@ -295,16 +320,32 @@ class _SceneShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: tone,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 19,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4F61), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF3A4F61),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -333,7 +374,8 @@ class _BucketFundamentalsScene extends StatefulWidget {
   final bool denseCards;
 
   @override
-  State<_BucketFundamentalsScene> createState() => _BucketFundamentalsSceneState();
+  State<_BucketFundamentalsScene> createState() =>
+      _BucketFundamentalsSceneState();
 }
 
 class _BucketFundamentalsSceneState extends State<_BucketFundamentalsScene> {
@@ -383,16 +425,28 @@ class _BucketFundamentalsSceneState extends State<_BucketFundamentalsScene> {
                           FilledButton.tonal(
                             onPressed: () {
                               setState(() => _mounted = !_mounted);
-                              _push(_mounted ? 'mounted demo subtree' : 'unmounted demo subtree');
+                              _push(
+                                _mounted
+                                    ? 'mounted demo subtree'
+                                    : 'unmounted demo subtree',
+                              );
                             },
-                            child: Text(_mounted ? 'Unmount subtree' : 'Mount subtree'),
+                            child: Text(
+                              _mounted ? 'Unmount subtree' : 'Mount subtree',
+                            ),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
-                              setState(() => _showDetailBand = !_showDetailBand);
+                              setState(
+                                () => _showDetailBand = !_showDetailBand,
+                              );
                               _push('detail band = $_showDetailBand');
                             },
-                            child: Text(_showDetailBand ? 'Hide detail band' : 'Show detail band'),
+                            child: Text(
+                              _showDetailBand
+                                  ? 'Hide detail band'
+                                  : 'Show detail band',
+                            ),
                           ),
                           FilledButton.tonal(
                             onPressed: _resetBucket,
@@ -401,12 +455,14 @@ class _BucketFundamentalsSceneState extends State<_BucketFundamentalsScene> {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      _FactTable(rows: [
-                        _FactRow('active panel', '$_panelIndex'),
-                        _FactRow('subtree mounted', '$_mounted'),
-                        _FactRow('detail band', '$_showDetailBand'),
-                        _FactRow('events', '${_events.length}'),
-                      ]),
+                      _FactTable(
+                        rows: [
+                          _FactRow('active panel', '$_panelIndex'),
+                          _FactRow('subtree mounted', '$_mounted'),
+                          _FactRow('detail band', '$_showDetailBand'),
+                          _FactRow('events', '${_events.length}'),
+                        ],
+                      ),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _InstructionCard(
@@ -445,13 +501,18 @@ class _BucketFundamentalsSceneState extends State<_BucketFundamentalsScene> {
                               bucket: _bucket,
                               child: Column(
                                 children: [
-                                  if (_showDetailBand) _FundamentalsDetailBand(panelIndex: _panelIndex),
+                                  if (_showDetailBand)
+                                    _FundamentalsDetailBand(
+                                      panelIndex: _panelIndex,
+                                    ),
                                   const SizedBox(height: 8),
                                   Expanded(
                                     child: IndexedStack(
                                       index: _panelIndex,
                                       children: [
-                                        _FundamentalsCatalogPane(denseCards: widget.denseCards),
+                                        _FundamentalsCatalogPane(
+                                          denseCards: widget.denseCards,
+                                        ),
                                         const _FundamentalsTimelinePane(),
                                         const _FundamentalsChecklistPane(),
                                       ],
@@ -501,8 +562,10 @@ class _FundamentalsDetailBand extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = switch (panelIndex) {
       0 => 'Catalog panel: preserving a long scrollable visual list.',
-      1 => 'Timeline panel: preserving scroll through reverse-chronology cards.',
-      _ => 'Checklist panel: preserving switch states and list position together.',
+      1 =>
+        'Timeline panel: preserving scroll through reverse-chronology cards.',
+      _ =>
+        'Checklist panel: preserving switch states and list position together.',
     };
 
     return Container(
@@ -517,7 +580,12 @@ class _FundamentalsDetailBand extends StatelessWidget {
         children: [
           const Icon(Icons.info_outline, color: _blue),
           const SizedBox(width: 8),
-          Expanded(child: Text(text, style: const TextStyle(color: _blue, fontWeight: FontWeight.w700))),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(color: _blue, fontWeight: FontWeight.w700),
+            ),
+          ),
         ],
       ),
     );
@@ -539,8 +607,8 @@ class _FundamentalsCatalogPane extends StatelessWidget {
         final tone = index % 3 == 0
             ? _blue
             : index % 3 == 1
-                ? _jade
-                : _amber;
+            ? _jade
+            : _amber;
         return Container(
           margin: const EdgeInsets.only(bottom: 8),
           padding: EdgeInsets.all(denseCards ? 10 : 14),
@@ -552,7 +620,10 @@ class _FundamentalsCatalogPane extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Catalog tile ${index + 1}', style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+              Text(
+                'Catalog tile ${index + 1}',
+                style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 4),
               Text(
                 'PageStorageKey keeps this list\'s scroll position. Move to another panel, unmount the subtree, then remount to confirm restoration.',
@@ -591,9 +662,18 @@ class _FundamentalsTimelinePane extends StatelessWidget {
               Container(
                 width: 34,
                 height: 34,
-                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(8),
+                ),
                 alignment: Alignment.center,
-                child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                child: Text(
+                  '${index + 1}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
               const SizedBox(width: 10),
               const Expanded(
@@ -614,10 +694,12 @@ class _FundamentalsChecklistPane extends StatefulWidget {
   const _FundamentalsChecklistPane();
 
   @override
-  State<_FundamentalsChecklistPane> createState() => _FundamentalsChecklistPaneState();
+  State<_FundamentalsChecklistPane> createState() =>
+      _FundamentalsChecklistPaneState();
 }
 
-class _FundamentalsChecklistPaneState extends State<_FundamentalsChecklistPane> {
+class _FundamentalsChecklistPaneState
+    extends State<_FundamentalsChecklistPane> {
   final List<bool> _checks = List<bool>.filled(18, false);
 
   @override
@@ -657,7 +739,11 @@ class _FundamentalsChecklistPaneState extends State<_FundamentalsChecklistPane> 
 }
 
 class _ReadWriteConsoleScene extends StatefulWidget {
-  const _ReadWriteConsoleScene({required this.compact, required this.guides, required this.notes});
+  const _ReadWriteConsoleScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -763,13 +849,24 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            _FactTable(rows: [
-                              _FactRow('loaded', '$_loaded'),
-                              _FactRow('title length', '${_titleController.text.length}'),
-                              _FactRow('notes length', '${_notesController.text.length}'),
-                              _FactRow('priority', _priority.toStringAsFixed(2)),
-                              _FactRow('pinned', '$_pinned'),
-                            ]),
+                            _FactTable(
+                              rows: [
+                                _FactRow('loaded', '$_loaded'),
+                                _FactRow(
+                                  'title length',
+                                  '${_titleController.text.length}',
+                                ),
+                                _FactRow(
+                                  'notes length',
+                                  '${_notesController.text.length}',
+                                ),
+                                _FactRow(
+                                  'priority',
+                                  _priority.toStringAsFixed(2),
+                                ),
+                                _FactRow('pinned', '$_pinned'),
+                              ],
+                            ),
                             const SizedBox(height: 10),
                             if (widget.notes)
                               _InstructionCard(
@@ -783,7 +880,10 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                             const SizedBox(height: 10),
                             const _SectionTitle('Console timeline'),
                             const SizedBox(height: 6),
-                            SizedBox(height: 220, child: _EventLog(lines: _events)),
+                            SizedBox(
+                              height: 220,
+                              child: _EventLog(lines: _events),
+                            ),
                           ],
                         ),
                       );
@@ -815,7 +915,9 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                               decoration: BoxDecoration(
                                 color: _jade.withValues(alpha: 0.08),
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: _jade.withValues(alpha: 0.24)),
+                                border: Border.all(
+                                  color: _jade.withValues(alpha: 0.24),
+                                ),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -827,16 +929,27 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                                       const Expanded(
                                         child: Text(
                                           'Draft Preview',
-                                          style: TextStyle(color: _jade, fontWeight: FontWeight.w800),
+                                          style: TextStyle(
+                                            color: _jade,
+                                            fontWeight: FontWeight.w800,
+                                          ),
                                         ),
                                       ),
-                                      _ToneChip(tone: _jade, label: _loaded ? 'loaded' : 'live'),
+                                      _ToneChip(
+                                        tone: _jade,
+                                        label: _loaded ? 'loaded' : 'live',
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
-                                    _titleController.text.isEmpty ? 'Untitled' : _titleController.text,
-                                    style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                                    _titleController.text.isEmpty
+                                        ? 'Untitled'
+                                        : _titleController.text,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
@@ -865,7 +978,9 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: const Color(0xFFD5E0EB)),
+                                border: Border.all(
+                                  color: const Color(0xFFD5E0EB),
+                                ),
                               ),
                               child: ListView(
                                 key: const PageStorageKey('rw_help_scroll'),
@@ -888,7 +1003,8 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
                                   ),
                                   _HelpLine(
                                     title: 'Guideline',
-                                    body: 'Use namespaced identifiers in larger modules to avoid key collisions.',
+                                    body:
+                                        'Use namespaced identifiers in larger modules to avoid key collisions.',
                                   ),
                                 ],
                               ),
@@ -919,7 +1035,10 @@ class _ReadWriteConsoleSceneState extends State<_ReadWriteConsoleScene> {
   void _load(BuildContext context) {
     final loadedTitle = _bucket.readState(context, identifier: 'rw.title');
     final loadedNotes = _bucket.readState(context, identifier: 'rw.notes');
-    final loadedPriority = _bucket.readState(context, identifier: 'rw.priority');
+    final loadedPriority = _bucket.readState(
+      context,
+      identifier: 'rw.priority',
+    );
     final loadedPinned = _bucket.readState(context, identifier: 'rw.pinned');
 
     setState(() {
@@ -979,7 +1098,10 @@ class _HelpLine extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: _ink)),
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.w800, color: _ink),
+            ),
             const SizedBox(height: 4),
             Text(body, style: const TextStyle(height: 1.3)),
           ],
@@ -990,17 +1112,23 @@ class _HelpLine extends StatelessWidget {
 }
 
 class _MultiBucketIsolationScene extends StatefulWidget {
-  const _MultiBucketIsolationScene({required this.compact, required this.guides, required this.notes});
+  const _MultiBucketIsolationScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
   final bool notes;
 
   @override
-  State<_MultiBucketIsolationScene> createState() => _MultiBucketIsolationSceneState();
+  State<_MultiBucketIsolationScene> createState() =>
+      _MultiBucketIsolationSceneState();
 }
 
-class _MultiBucketIsolationSceneState extends State<_MultiBucketIsolationScene> {
+class _MultiBucketIsolationSceneState
+    extends State<_MultiBucketIsolationScene> {
   final PageStorageBucket _bucketA = PageStorageBucket();
   final PageStorageBucket _bucketB = PageStorageBucket();
   final List<String> _events = <String>[];
@@ -1046,14 +1174,28 @@ class _MultiBucketIsolationSceneState extends State<_MultiBucketIsolationScene> 
                         children: [
                           FilledButton.tonal(
                             onPressed: () {
-                              setState(() => _mountWorkspace = !_mountWorkspace);
-                              _push(_mountWorkspace ? 'mounted active workspace' : 'unmounted active workspace');
+                              setState(
+                                () => _mountWorkspace = !_mountWorkspace,
+                              );
+                              _push(
+                                _mountWorkspace
+                                    ? 'mounted active workspace'
+                                    : 'unmounted active workspace',
+                              );
                             },
-                            child: Text(_mountWorkspace ? 'Unmount active workspace' : 'Mount active workspace'),
+                            child: Text(
+                              _mountWorkspace
+                                  ? 'Unmount active workspace'
+                                  : 'Mount active workspace',
+                            ),
                           ),
                           FilledButton.tonal(
                             onPressed: () {
-                              setState(() => _activeWorkspace = _activeWorkspace == 'A' ? 'B' : 'A');
+                              setState(
+                                () => _activeWorkspace = _activeWorkspace == 'A'
+                                    ? 'B'
+                                    : 'A',
+                              );
                               _push('quick toggle workspace');
                             },
                             child: const Text('Quick toggle A/B'),
@@ -1061,12 +1203,14 @@ class _MultiBucketIsolationSceneState extends State<_MultiBucketIsolationScene> 
                         ],
                       ),
                       const SizedBox(height: 10),
-                      _FactTable(rows: [
-                        _FactRow('active workspace', _activeWorkspace),
-                        _FactRow('mounted', '$_mountWorkspace'),
-                        _FactRow('bucket A hash', '${_bucketA.hashCode}'),
-                        _FactRow('bucket B hash', '${_bucketB.hashCode}'),
-                      ]),
+                      _FactTable(
+                        rows: [
+                          _FactRow('active workspace', _activeWorkspace),
+                          _FactRow('mounted', '$_mountWorkspace'),
+                          _FactRow('bucket A hash', '${_bucketA.hashCode}'),
+                          _FactRow('bucket B hash', '${_bucketB.hashCode}'),
+                        ],
+                      ),
                       const SizedBox(height: 10),
                       if (widget.notes)
                         _InstructionCard(
@@ -1103,7 +1247,9 @@ class _MultiBucketIsolationSceneState extends State<_MultiBucketIsolationScene> 
                       child: _mountWorkspace
                           ? _WorkspaceSurface(
                               workspaceId: _activeWorkspace,
-                              bucket: _activeWorkspace == 'A' ? _bucketA : _bucketB,
+                              bucket: _activeWorkspace == 'A'
+                                  ? _bucketA
+                                  : _bucketB,
                             )
                           : const _UnmountedHint(
                               tone: _amber,
@@ -1160,13 +1306,18 @@ class _WorkspaceSurfaceState extends State<_WorkspaceSurface> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: tone.withValues(alpha: 0.14),
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(10),
+                ),
               ),
               child: Row(
                 children: [
                   Icon(Icons.workspaces, color: tone),
                   const SizedBox(width: 8),
-                  Text('Workspace ${widget.workspaceId}', style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+                  Text(
+                    'Workspace ${widget.workspaceId}',
+                    style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+                  ),
                   const Spacer(),
                   Switch(
                     value: _showInsight,
@@ -1202,9 +1353,18 @@ class _WorkspaceSurfaceState extends State<_WorkspaceSurface> {
                         Container(
                           width: 26,
                           height: 26,
-                          decoration: BoxDecoration(color: tone, borderRadius: BorderRadius.circular(6)),
+                          decoration: BoxDecoration(
+                            color: tone,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                           alignment: Alignment.center,
-                          child: Text('${index + 1}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                          child: Text(
+                            '${index + 1}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -1227,17 +1387,23 @@ class _WorkspaceSurfaceState extends State<_WorkspaceSurface> {
 }
 
 class _RouteLikePersistenceScene extends StatefulWidget {
-  const _RouteLikePersistenceScene({required this.compact, required this.guides, required this.notes});
+  const _RouteLikePersistenceScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
   final bool notes;
 
   @override
-  State<_RouteLikePersistenceScene> createState() => _RouteLikePersistenceSceneState();
+  State<_RouteLikePersistenceScene> createState() =>
+      _RouteLikePersistenceSceneState();
 }
 
-class _RouteLikePersistenceSceneState extends State<_RouteLikePersistenceScene> {
+class _RouteLikePersistenceSceneState
+    extends State<_RouteLikePersistenceScene> {
   final PageStorageBucket _bucket = PageStorageBucket();
   final List<String> _events = <String>[];
   int _routeIndex = 0;
@@ -1284,25 +1450,30 @@ class _RouteLikePersistenceSceneState extends State<_RouteLikePersistenceScene> 
                               runSpacing: 8,
                               children: [
                                 FilledButton.tonal(
-                                  onPressed: () => _saveRouteLabel(innerContext),
+                                  onPressed: () =>
+                                      _saveRouteLabel(innerContext),
                                   child: const Text('write route label'),
                                 ),
                                 FilledButton.tonal(
-                                  onPressed: () => _readRouteLabel(innerContext),
+                                  onPressed: () =>
+                                      _readRouteLabel(innerContext),
                                   child: const Text('read route label'),
                                 ),
                                 FilledButton.tonal(
-                                  onPressed: () => _clearRouteLabel(innerContext),
+                                  onPressed: () =>
+                                      _clearRouteLabel(innerContext),
                                   child: const Text('clear route label'),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 10),
-                            _FactTable(rows: [
-                              _FactRow('active route', '$_routeIndex'),
-                              _FactRow('bucket hash', '${_bucket.hashCode}'),
-                              _FactRow('events', '${_events.length}'),
-                            ]),
+                            _FactTable(
+                              rows: [
+                                _FactRow('active route', '$_routeIndex'),
+                                _FactRow('bucket hash', '${_bucket.hashCode}'),
+                                _FactRow('events', '${_events.length}'),
+                              ],
+                            ),
                             const SizedBox(height: 10),
                             if (widget.notes)
                               _InstructionCard(
@@ -1316,7 +1487,10 @@ class _RouteLikePersistenceSceneState extends State<_RouteLikePersistenceScene> 
                             const SizedBox(height: 10),
                             const _SectionTitle('Route timeline'),
                             const SizedBox(height: 6),
-                            SizedBox(height: 220, child: _EventLog(lines: _events)),
+                            SizedBox(
+                              height: 220,
+                              child: _EventLog(lines: _events),
+                            ),
                           ],
                         ),
                       );
@@ -1359,12 +1533,19 @@ class _RouteLikePersistenceSceneState extends State<_RouteLikePersistenceScene> 
   }
 
   void _saveRouteLabel(BuildContext context) {
-    _bucket.writeState(context, 'Route-${_routeIndex + 1}-label', identifier: 'route.label.$_routeIndex');
+    _bucket.writeState(
+      context,
+      'Route-${_routeIndex + 1}-label',
+      identifier: 'route.label.$_routeIndex',
+    );
     _push('saved route label for route $_routeIndex');
   }
 
   void _readRouteLabel(BuildContext context) {
-    final value = _bucket.readState(context, identifier: 'route.label.$_routeIndex');
+    final value = _bucket.readState(
+      context,
+      identifier: 'route.label.$_routeIndex',
+    );
     _push('loaded route label for route $_routeIndex => $value');
   }
 
@@ -1411,8 +1592,8 @@ class _RoutePaneState extends State<_RoutePane> {
     final tone = widget.routeIndex == 0
         ? _rose
         : widget.routeIndex == 1
-            ? _amber
-            : _indigo;
+        ? _amber
+        : _indigo;
     final routeName = switch (widget.routeIndex) {
       0 => 'Route A',
       1 => 'Route B',
@@ -1432,13 +1613,18 @@ class _RoutePaneState extends State<_RoutePane> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: tone.withValues(alpha: 0.16),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
             child: Row(
               children: [
                 Icon(Icons.route, color: tone),
                 const SizedBox(width: 8),
-                Text(routeName, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+                Text(
+                  routeName,
+                  style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+                ),
               ],
             ),
           ),
@@ -1504,7 +1690,9 @@ class _RoutePaneState extends State<_RoutePane> {
                           decoration: BoxDecoration(
                             color: tone.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: tone.withValues(alpha: 0.24)),
+                            border: Border.all(
+                              color: tone.withValues(alpha: 0.24),
+                            ),
                           ),
                           child: Text(
                             '$routeName section ${index + 1} | list scroll is persisted via PageStorageKey.',
@@ -1525,7 +1713,11 @@ class _RoutePaneState extends State<_RoutePane> {
 }
 
 class _PracticalModulesScene extends StatefulWidget {
-  const _PracticalModulesScene({required this.compact, required this.guides, required this.notes});
+  const _PracticalModulesScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -1604,11 +1796,13 @@ class _PracticalModulesSceneState extends State<_PracticalModulesScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    _FactTable(rows: [
-                      _FactRow('bucket hash', '${_bucket.hashCode}'),
-                      _FactRow('event count', '${_events.length}'),
-                      _FactRow('time', _clock()),
-                    ]),
+                    _FactTable(
+                      rows: [
+                        _FactRow('bucket hash', '${_bucket.hashCode}'),
+                        _FactRow('event count', '${_events.length}'),
+                        _FactRow('time', _clock()),
+                      ],
+                    ),
                     const SizedBox(height: 8),
                     const _SectionTitle('Module timeline'),
                     const SizedBox(height: 6),
@@ -1643,7 +1837,15 @@ class _FilterModule extends StatefulWidget {
 
 class _FilterModuleState extends State<_FilterModule> {
   final Set<String> _selected = <String>{};
-  static const _tags = ['Bug', 'Feature', 'Urgent', 'UX', 'Infra', 'Docs', 'Release'];
+  static const _tags = [
+    'Bug',
+    'Feature',
+    'Urgent',
+    'UX',
+    'Infra',
+    'Docs',
+    'Release',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -1664,7 +1866,13 @@ class _FilterModuleState extends State<_FilterModule> {
                   const Icon(Icons.filter_alt_outlined, color: _blue, size: 20),
                   const SizedBox(width: 6),
                   const Expanded(
-                    child: Text('Filter Module', style: TextStyle(color: _blue, fontWeight: FontWeight.w800)),
+                    child: Text(
+                      'Filter Module',
+                      style: TextStyle(
+                        color: _blue,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ),
                   _ToneChip(tone: _blue, label: '${_selected.length} tags'),
                 ],
@@ -1697,14 +1905,21 @@ class _FilterModuleState extends State<_FilterModule> {
                 children: [
                   FilledButton.tonal(
                     onPressed: () {
-                      widget.bucket.writeState(innerContext, _selected.toList(), identifier: 'module.filters.tags');
+                      widget.bucket.writeState(
+                        innerContext,
+                        _selected.toList(),
+                        identifier: 'module.filters.tags',
+                      );
                       widget.onEvent('saved ${_selected.length} tags');
                     },
                     child: const Text('Save filters'),
                   ),
                   FilledButton.tonal(
                     onPressed: () {
-                      final loaded = widget.bucket.readState(innerContext, identifier: 'module.filters.tags');
+                      final loaded = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.filters.tags',
+                      );
                       if (loaded is List) {
                         setState(() {
                           _selected
@@ -1730,7 +1945,9 @@ class _FilterModuleState extends State<_FilterModule> {
                       decoration: BoxDecoration(
                         color: _blue.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _blue.withValues(alpha: 0.22)),
+                        border: Border.all(
+                          color: _blue.withValues(alpha: 0.22),
+                        ),
                       ),
                       child: Text('Filtered row ${index + 1}'),
                     );
@@ -1782,10 +1999,20 @@ class _DraftModuleState extends State<_DraftModule> {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.sticky_note_2_outlined, color: _jade, size: 20),
+                  const Icon(
+                    Icons.sticky_note_2_outlined,
+                    color: _jade,
+                    size: 20,
+                  ),
                   const SizedBox(width: 6),
                   const Expanded(
-                    child: Text('Draft Module', style: TextStyle(color: _jade, fontWeight: FontWeight.w800)),
+                    child: Text(
+                      'Draft Module',
+                      style: TextStyle(
+                        color: _jade,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ),
                   _ToneChip(tone: _jade, label: '2 fields'),
                 ],
@@ -1794,13 +2021,19 @@ class _DraftModuleState extends State<_DraftModule> {
               TextField(
                 key: const PageStorageKey('draft_field_a_key'),
                 controller: _controllerA,
-                decoration: const InputDecoration(labelText: 'Draft A', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Draft A',
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(height: 8),
               TextField(
                 key: const PageStorageKey('draft_field_b_key'),
                 controller: _controllerB,
-                decoration: const InputDecoration(labelText: 'Draft B', border: OutlineInputBorder()),
+                decoration: const InputDecoration(
+                  labelText: 'Draft B',
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(height: 8),
               Wrap(
@@ -1809,16 +2042,30 @@ class _DraftModuleState extends State<_DraftModule> {
                 children: [
                   FilledButton.tonal(
                     onPressed: () {
-                      widget.bucket.writeState(innerContext, _controllerA.text, identifier: 'module.draft.a');
-                      widget.bucket.writeState(innerContext, _controllerB.text, identifier: 'module.draft.b');
+                      widget.bucket.writeState(
+                        innerContext,
+                        _controllerA.text,
+                        identifier: 'module.draft.a',
+                      );
+                      widget.bucket.writeState(
+                        innerContext,
+                        _controllerB.text,
+                        identifier: 'module.draft.b',
+                      );
                       widget.onEvent('saved drafts');
                     },
                     child: const Text('Save drafts'),
                   ),
                   FilledButton.tonal(
                     onPressed: () {
-                      final a = widget.bucket.readState(innerContext, identifier: 'module.draft.a');
-                      final b = widget.bucket.readState(innerContext, identifier: 'module.draft.b');
+                      final a = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.draft.a',
+                      );
+                      final b = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.draft.b',
+                      );
                       setState(() {
                         _controllerA.text = a is String ? a : '';
                         _controllerB.text = b is String ? b : '';
@@ -1841,7 +2088,9 @@ class _DraftModuleState extends State<_DraftModule> {
                       decoration: BoxDecoration(
                         color: _jade.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: _jade.withValues(alpha: 0.22)),
+                        border: Border.all(
+                          color: _jade.withValues(alpha: 0.22),
+                        ),
                       ),
                       child: Text('Draft context row ${index + 1}'),
                     );
@@ -1890,7 +2139,13 @@ class _ProgressModuleState extends State<_ProgressModule> {
                   const Icon(Icons.timeline, color: _indigo, size: 20),
                   const SizedBox(width: 6),
                   const Expanded(
-                    child: Text('Progress Module', style: TextStyle(color: _indigo, fontWeight: FontWeight.w800)),
+                    child: Text(
+                      'Progress Module',
+                      style: TextStyle(
+                        color: _indigo,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
                   ),
                   _ToneChip(tone: _indigo, label: '3 tracks'),
                 ],
@@ -1918,18 +2173,39 @@ class _ProgressModuleState extends State<_ProgressModule> {
                 children: [
                   FilledButton.tonal(
                     onPressed: () {
-                      widget.bucket.writeState(innerContext, _analysis, identifier: 'module.progress.analysis');
-                      widget.bucket.writeState(innerContext, _implementation, identifier: 'module.progress.implementation');
-                      widget.bucket.writeState(innerContext, _validation, identifier: 'module.progress.validation');
+                      widget.bucket.writeState(
+                        innerContext,
+                        _analysis,
+                        identifier: 'module.progress.analysis',
+                      );
+                      widget.bucket.writeState(
+                        innerContext,
+                        _implementation,
+                        identifier: 'module.progress.implementation',
+                      );
+                      widget.bucket.writeState(
+                        innerContext,
+                        _validation,
+                        identifier: 'module.progress.validation',
+                      );
                       widget.onEvent('saved progress tracks');
                     },
                     child: const Text('Save progress'),
                   ),
                   FilledButton.tonal(
                     onPressed: () {
-                      final a = widget.bucket.readState(innerContext, identifier: 'module.progress.analysis');
-                      final i = widget.bucket.readState(innerContext, identifier: 'module.progress.implementation');
-                      final v = widget.bucket.readState(innerContext, identifier: 'module.progress.validation');
+                      final a = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.progress.analysis',
+                      );
+                      final i = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.progress.implementation',
+                      );
+                      final v = widget.bucket.readState(
+                        innerContext,
+                        identifier: 'module.progress.validation',
+                      );
                       setState(() {
                         _analysis = a is double ? a : _analysis;
                         _implementation = i is double ? i : _implementation;
@@ -1946,9 +2222,21 @@ class _ProgressModuleState extends State<_ProgressModule> {
                 child: ListView(
                   key: const PageStorageKey('module_progress_scroll'),
                   children: [
-                    _ProgressTile(label: 'Analysis lane', value: _analysis, color: _indigo),
-                    _ProgressTile(label: 'Implementation lane', value: _implementation, color: _jade),
-                    _ProgressTile(label: 'Validation lane', value: _validation, color: _amber),
+                    _ProgressTile(
+                      label: 'Analysis lane',
+                      value: _analysis,
+                      color: _indigo,
+                    ),
+                    _ProgressTile(
+                      label: 'Implementation lane',
+                      value: _implementation,
+                      color: _jade,
+                    ),
+                    _ProgressTile(
+                      label: 'Validation lane',
+                      value: _validation,
+                      color: _amber,
+                    ),
                     const SizedBox(height: 8),
                     const Text(
                       'This module combines explicit bucket persistence and key-based list scroll persistence.',
@@ -1966,7 +2254,11 @@ class _ProgressModuleState extends State<_ProgressModule> {
 }
 
 class _ProgressTrack extends StatelessWidget {
-  const _ProgressTrack({required this.label, required this.value, required this.onChanged});
+  const _ProgressTrack({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
 
   final String label;
   final double value;
@@ -1985,7 +2277,11 @@ class _ProgressTrack extends StatelessWidget {
 }
 
 class _ProgressTile extends StatelessWidget {
-  const _ProgressTile({required this.label, required this.value, required this.color});
+  const _ProgressTile({
+    required this.label,
+    required this.value,
+    required this.color,
+  });
 
   final String label;
   final double value;
@@ -2004,7 +2300,10 @@ class _ProgressTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
+          Text(
+            label,
+            style: TextStyle(color: color, fontWeight: FontWeight.w800),
+          ),
           const SizedBox(height: 6),
           LinearProgressIndicator(
             value: value,
@@ -2018,7 +2317,11 @@ class _ProgressTile extends StatelessWidget {
 }
 
 class _UnmountedHint extends StatelessWidget {
-  const _UnmountedHint({required this.tone, required this.title, required this.description});
+  const _UnmountedHint({
+    required this.tone,
+    required this.title,
+    required this.description,
+  });
 
   final Color tone;
   final String title;
@@ -2040,9 +2343,20 @@ class _UnmountedHint extends StatelessWidget {
           children: [
             Icon(Icons.layers_clear, size: 34, color: tone),
             const SizedBox(height: 8),
-            Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 20)),
+            Text(
+              title,
+              style: TextStyle(
+                color: tone,
+                fontWeight: FontWeight.w800,
+                fontSize: 20,
+              ),
+            ),
             const SizedBox(height: 6),
-            Text(description, textAlign: TextAlign.center, style: const TextStyle(height: 1.35)),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: const TextStyle(height: 1.35),
+            ),
           ],
         ),
       ),
@@ -2141,9 +2455,20 @@ class _FactTable extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 150,
-                      child: Text(row.label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        row.label,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
-                    Expanded(child: Text(row.value, style: const TextStyle(fontSize: 12))),
+                    Expanded(
+                      child: Text(
+                        row.value,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -2180,13 +2505,20 @@ class _InstructionCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.circle, size: 7, color: Color(0xFFBFE3FF)),
+                      child: Icon(
+                        Icons.circle,
+                        size: 7,
+                        color: Color(0xFFBFE3FF),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         line,
-                        style: const TextStyle(color: Color(0xFFEAF6FF), height: 1.35),
+                        style: const TextStyle(
+                          color: Color(0xFFEAF6FF),
+                          height: 1.35,
+                        ),
                       ),
                     ),
                   ],
@@ -2214,7 +2546,10 @@ class _EventLog extends StatelessWidget {
         border: Border.all(color: const Color(0xFFCFDEEC)),
       ),
       child: lines.isEmpty
-          ? const Text('No events yet.', style: TextStyle(color: Color(0xFF62798D)))
+          ? const Text(
+              'No events yet.',
+              style: TextStyle(color: Color(0xFF62798D)),
+            )
           : ListView.builder(
               key: const PageStorageKey('event_log_scroll'),
               itemCount: lines.length,
@@ -2223,7 +2558,10 @@ class _EventLog extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Text(
                     lines[index],
-                    style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
                   ),
                 );
               },
@@ -2246,7 +2584,14 @@ class _ToneChip extends StatelessWidget {
         color: tone.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: tone,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 }
@@ -2265,7 +2610,14 @@ class _RecapCard extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: PageStorageBucket', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: PageStorageBucket',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'PageStorageBucket provides in-memory page-scoped persistence. Use it with PageStorage + PageStorageKey to '

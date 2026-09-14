@@ -250,15 +250,9 @@ dynamic build(BuildContext context) {
     LogicalKeyboardKey.shift,
     LogicalKeyboardKey.keyS,
   );
-  final altF4 = LogicalKeySet(
-    LogicalKeyboardKey.alt,
-    LogicalKeyboardKey.f4,
-  );
+  final altF4 = LogicalKeySet(LogicalKeyboardKey.alt, LogicalKeyboardKey.f4);
 
-  final saveActivator = SingleActivator(
-    LogicalKeyboardKey.keyS,
-    control: true,
-  );
+  final saveActivator = SingleActivator(LogicalKeyboardKey.keyS, control: true);
   final saveAsActivator = SingleActivator(
     LogicalKeyboardKey.keyS,
     control: true,
@@ -342,14 +336,12 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'ScrollIntent.down',
-      'instance':
-          ScrollIntent(direction: AxisDirection.down).toString(),
+      'instance': ScrollIntent(direction: AxisDirection.down).toString(),
       'purpose': 'Request a scroll in the given direction.',
     },
     {
       'name': 'ScrollIntent.up',
-      'instance':
-          ScrollIntent(direction: AxisDirection.up).toString(),
+      'instance': ScrollIntent(direction: AxisDirection.up).toString(),
       'purpose': 'Request an upward scroll.',
     },
   ];
@@ -480,10 +472,12 @@ dynamic build(BuildContext context) {
     shortcuts: <ShortcutActivator, Intent>{
       SingleActivator(LogicalKeyboardKey.escape): DismissIntent(),
       SingleActivator(LogicalKeyboardKey.enter): ActivateIntent(),
-      SingleActivator(LogicalKeyboardKey.arrowDown):
-          ScrollIntent(direction: AxisDirection.down),
-      SingleActivator(LogicalKeyboardKey.arrowUp):
-          ScrollIntent(direction: AxisDirection.up),
+      SingleActivator(LogicalKeyboardKey.arrowDown): ScrollIntent(
+        direction: AxisDirection.down,
+      ),
+      SingleActivator(LogicalKeyboardKey.arrowUp): ScrollIntent(
+        direction: AxisDirection.up,
+      ),
     },
     child: Actions(
       actions: <Type, Action<Intent>>{
@@ -548,10 +542,7 @@ dynamic build(BuildContext context) {
                         ),
                         child: Text(
                           '⌨',
-                          style: TextStyle(
-                            color: kText,
-                            fontSize: 28.0,
-                          ),
+                          style: TextStyle(color: kText, fontSize: 28.0),
                         ),
                       ),
                       SizedBox(width: 14.0),
@@ -765,8 +756,7 @@ dynamic build(BuildContext context) {
                             Expanded(
                               flex: 3,
                               child: Text(
-                                (pk['key'] as PhysicalKeyboardKey)
-                                    .debugName
+                                (pk['key'] as PhysicalKeyboardKey).debugName
                                     .toString(),
                                 style: TextStyle(
                                   color: kTextMuted,
@@ -824,8 +814,7 @@ dynamic build(BuildContext context) {
                             SizedBox(width: 12.0),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [
@@ -847,8 +836,9 @@ dynamic build(BuildContext context) {
                                         decoration: BoxDecoration(
                                           color: (ev['color'] as Color)
                                               .withOpacity(0.25),
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
+                                          borderRadius: BorderRadius.circular(
+                                            4.0,
+                                          ),
                                         ),
                                         child: Text(
                                           (ev['concrete'] as bool)
@@ -955,10 +945,10 @@ dynamic build(BuildContext context) {
                                       vertical: 2.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: (t['color'] as Color)
-                                          .withOpacity(0.25),
-                                      borderRadius:
-                                          BorderRadius.circular(4.0),
+                                      color: (t['color'] as Color).withOpacity(
+                                        0.25,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Text(
                                       'emit: ${t['emit']}',
@@ -1028,8 +1018,7 @@ dynamic build(BuildContext context) {
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                           child: Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 row['field']!,
@@ -1080,10 +1069,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: _thCell('Aspect', kAccent7),
-                        ),
+                        Expanded(flex: 2, child: _thCell('Aspect', kAccent7)),
                         Expanded(
                           flex: 3,
                           child: _thCell('Modern (KeyEvent)', kAccent6),
@@ -1162,9 +1148,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: kCardBg,
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: kAccent8.withOpacity(0.35),
-                          ),
+                          border: Border.all(color: kAccent8.withOpacity(0.35)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1195,10 +1179,7 @@ dynamic build(BuildContext context) {
                                 _modChip('shift', a['shift'] as bool),
                                 _modChip('alt', a['alt'] as bool),
                                 _modChip('meta', a['meta'] as bool),
-                                _modChip(
-                                  'repeats',
-                                  a['repeats'] as bool,
-                                ),
+                                _modChip('repeats', a['repeats'] as bool),
                               ],
                             ),
                           ],
@@ -1328,8 +1309,7 @@ dynamic build(BuildContext context) {
                               height: 44.0,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: (r['color'] as Color)
-                                    .withOpacity(0.25),
+                                color: (r['color'] as Color).withOpacity(0.25),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Text(
@@ -1344,8 +1324,7 @@ dynamic build(BuildContext context) {
                             SizedBox(width: 12.0),
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'KeyEventResult.${r['name']}',
@@ -1457,9 +1436,7 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: kCardBg2,
                           borderRadius: BorderRadius.circular(10.0),
-                          border: Border.all(
-                            color: kAccent7.withOpacity(0.35),
-                          ),
+                          border: Border.all(color: kAccent7.withOpacity(0.35)),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1559,12 +1536,21 @@ dynamic build(BuildContext context) {
                               ],
                             ),
                             SizedBox(height: 8.0),
-                            _recipeRow('Activator', r['activator'] as String,
-                                kAccent5),
                             _recipeRow(
-                                'Intent', r['intent'] as String, kAccent8),
+                              'Activator',
+                              r['activator'] as String,
+                              kAccent5,
+                            ),
                             _recipeRow(
-                                'Action', r['action'] as String, kAccent6),
+                              'Intent',
+                              r['intent'] as String,
+                              kAccent8,
+                            ),
+                            _recipeRow(
+                              'Action',
+                              r['action'] as String,
+                              kAccent6,
+                            ),
                           ],
                         ),
                       ),
@@ -1622,10 +1608,7 @@ dynamic build(BuildContext context) {
                         alignment: Alignment.center,
                         child: Text(
                           '⌨  KeyboardListener target  ⌨',
-                          style: TextStyle(
-                            color: kTextMuted,
-                            fontSize: 12.0,
-                          ),
+                          style: TextStyle(color: kTextMuted, fontSize: 12.0),
                         ),
                       ),
                     ),
@@ -1702,31 +1685,47 @@ dynamic build(BuildContext context) {
                 ),
                 child: Column(
                   children: [
-                    _gloss('PhysicalKeyboardKey',
-                        'Hardware-location identifier (USB HID usage). '
-                        'Same key, same code, regardless of layout.'),
-                    _gloss('LogicalKeyboardKey',
-                        'What the OS / layout says the key means. '
-                        'Affected by Shift, AltGr, and locale keymaps.'),
-                    _gloss('HardwareKeyboard',
-                        'Singleton tracker of currently pressed keys '
-                        'and lock-mode state.'),
-                    _gloss('KeyEvent',
-                        'Modern, unified base class for key Down / Up / '
-                        'Repeat events. Replaces RawKeyEvent.'),
-                    _gloss('Synthesized event',
-                        'An event the framework manufactures (e.g. '
-                        'when focus is lost while a key is held).'),
-                    _gloss('ShortcutActivator',
-                        'Anything that can decide whether a KeyEvent '
-                        'should fire a shortcut (SingleActivator, '
-                        'CharacterActivator, LogicalKeySet).'),
-                    _gloss('Intent',
-                        'A typed, semantic description of what the user '
-                        'wants to do. Decoupled from its action.'),
-                    _gloss('Action<T extends Intent>',
-                        'A handler that knows how to perform an Intent '
-                        'of type T.'),
+                    _gloss(
+                      'PhysicalKeyboardKey',
+                      'Hardware-location identifier (USB HID usage). '
+                          'Same key, same code, regardless of layout.',
+                    ),
+                    _gloss(
+                      'LogicalKeyboardKey',
+                      'What the OS / layout says the key means. '
+                          'Affected by Shift, AltGr, and locale keymaps.',
+                    ),
+                    _gloss(
+                      'HardwareKeyboard',
+                      'Singleton tracker of currently pressed keys '
+                          'and lock-mode state.',
+                    ),
+                    _gloss(
+                      'KeyEvent',
+                      'Modern, unified base class for key Down / Up / '
+                          'Repeat events. Replaces RawKeyEvent.',
+                    ),
+                    _gloss(
+                      'Synthesized event',
+                      'An event the framework manufactures (e.g. '
+                          'when focus is lost while a key is held).',
+                    ),
+                    _gloss(
+                      'ShortcutActivator',
+                      'Anything that can decide whether a KeyEvent '
+                          'should fire a shortcut (SingleActivator, '
+                          'CharacterActivator, LogicalKeySet).',
+                    ),
+                    _gloss(
+                      'Intent',
+                      'A typed, semantic description of what the user '
+                          'wants to do. Decoupled from its action.',
+                    ),
+                    _gloss(
+                      'Action<T extends Intent>',
+                      'A handler that knows how to perform an Intent '
+                          'of type T.',
+                    ),
                   ],
                 ),
               ),
@@ -1822,10 +1821,7 @@ dynamic build(BuildContext context) {
               child: Center(
                 child: Text(
                   'Deep Demo · Keystroke Timeline Lab · package:flutter/services',
-                  style: TextStyle(
-                    color: Color(0xFF7B8597),
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(color: Color(0xFF7B8597), fontSize: 11.0),
                 ),
               ),
             ),
@@ -1908,10 +1904,7 @@ Widget _sectionBanner(int n, String title, String subtitle, Color color) {
                 SizedBox(height: 2.0),
                 Text(
                   subtitle,
-                  style: TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 11.0,
-                  ),
+                  style: TextStyle(color: Color(0xFFFFFFFF), fontSize: 11.0),
                 ),
               ],
             ),
@@ -1923,7 +1916,10 @@ Widget _sectionBanner(int n, String title, String subtitle, Color color) {
 }
 
 Widget _keyGroupCard(
-    String title, List<Map<String, dynamic>> entries, Color color) {
+  String title,
+  List<Map<String, dynamic>> entries,
+  Color color,
+) {
   return Container(
     width: double.infinity,
     padding: EdgeInsets.all(12.0),
@@ -2190,11 +2186,7 @@ Widget _arrow() {
 Widget _thCell(String label, Color color) {
   return Text(
     label,
-    style: TextStyle(
-      color: color,
-      fontWeight: FontWeight.bold,
-      fontSize: 12.0,
-    ),
+    style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 12.0),
   );
 }
 
@@ -2264,10 +2256,7 @@ Widget _archStep(String n, String title, String desc, Color color) {
               SizedBox(height: 2.0),
               Text(
                 desc,
-                style: TextStyle(
-                  color: Color(0xFFA0AAB8),
-                  fontSize: 11.0,
-                ),
+                style: TextStyle(color: Color(0xFFA0AAB8), fontSize: 11.0),
               ),
             ],
           ),
@@ -2368,10 +2357,7 @@ Widget _summaryRow(String label, String status) {
         Expanded(
           child: Text(
             label,
-            style: TextStyle(
-              color: Color(0xFFE6EAF2),
-              fontSize: 12.0,
-            ),
+            style: TextStyle(color: Color(0xFFE6EAF2), fontSize: 12.0),
           ),
         ),
         Container(

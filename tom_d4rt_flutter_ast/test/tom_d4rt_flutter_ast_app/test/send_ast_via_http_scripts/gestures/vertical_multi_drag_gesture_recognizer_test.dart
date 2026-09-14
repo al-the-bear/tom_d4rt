@@ -203,11 +203,7 @@ Widget _prose(String text) {
     padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
     child: Text(
       text,
-      style: TextStyle(
-        color: _inkSoft,
-        fontSize: 13.5,
-        height: 1.55,
-      ),
+      style: TextStyle(color: _inkSoft, fontSize: 13.5, height: 1.55),
     ),
   );
 }
@@ -328,11 +324,7 @@ Widget _bullet(String text, Color dot) {
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              color: _inkSoft,
-              fontSize: 13,
-              height: 1.5,
-            ),
+            style: TextStyle(color: _inkSoft, fontSize: 13, height: 1.5),
           ),
         ),
       ],
@@ -359,11 +351,7 @@ Widget _section(Widget header, List<Widget> body) {
     padding: EdgeInsets.only(bottom: 28),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        header,
-        SizedBox(height: 14),
-        ...body,
-      ],
+      children: <Widget>[header, SizedBox(height: 14), ...body],
     ),
   );
 }
@@ -372,7 +360,12 @@ Widget _section(Widget header, List<Widget> body) {
 // SECTION 1 — Anatomy diagram (PointerDown → arena → onStart → Drag)
 // =====================================================================
 
-Widget _anatomyNode(String title, String subtitle, LinearGradient g, IconData icon) {
+Widget _anatomyNode(
+  String title,
+  String subtitle,
+  LinearGradient g,
+  IconData icon,
+) {
   return Container(
     width: 160,
     padding: EdgeInsets.all(14),
@@ -422,17 +415,47 @@ Widget _section1() {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _anatomyNode('PointerDown', 'A finger touches the screen at (x, y).', _headerGradA, Icons.touch_app_rounded),
+          _anatomyNode(
+            'PointerDown',
+            'A finger touches the screen at (x, y).',
+            _headerGradA,
+            Icons.touch_app_rounded,
+          ),
           _arrow(_accent),
-          _anatomyNode('Gesture arena', 'All candidate recognizers register interest for this pointer.', _headerGradF, Icons.sports_kabaddi_rounded),
+          _anatomyNode(
+            'Gesture arena',
+            'All candidate recognizers register interest for this pointer.',
+            _headerGradF,
+            Icons.sports_kabaddi_rounded,
+          ),
           _arrow(_accent),
-          _anatomyNode('Slop crossed', 'Vertical motion > kTouchSlop ⇒ recognizer claims the pointer.', _headerGradC, Icons.linear_scale_rounded),
+          _anatomyNode(
+            'Slop crossed',
+            'Vertical motion > kTouchSlop ⇒ recognizer claims the pointer.',
+            _headerGradC,
+            Icons.linear_scale_rounded,
+          ),
           _arrow(_accent3),
-          _anatomyNode('onStart(Offset)', 'You return a fresh `Drag` for THIS pointer (per-finger state).', _headerGradB, Icons.start_rounded),
+          _anatomyNode(
+            'onStart(Offset)',
+            'You return a fresh `Drag` for THIS pointer (per-finger state).',
+            _headerGradB,
+            Icons.start_rounded,
+          ),
           _arrow(_accent2),
-          _anatomyNode('Drag.update', 'Per-pointer DragUpdateDetails stream until lift.', _headerGradE, Icons.swap_vert_rounded),
+          _anatomyNode(
+            'Drag.update',
+            'Per-pointer DragUpdateDetails stream until lift.',
+            _headerGradE,
+            Icons.swap_vert_rounded,
+          ),
           _arrow(_good),
-          _anatomyNode('Drag.end / cancel', 'Pointer lifts ⇒ end(DragEndDetails); arena loss ⇒ cancel().', _headerGradD, Icons.flag_rounded),
+          _anatomyNode(
+            'Drag.end / cancel',
+            'Pointer lifts ⇒ end(DragEndDetails); arena loss ⇒ cancel().',
+            _headerGradD,
+            Icons.flag_rounded,
+          ),
         ],
       ),
     ),
@@ -443,10 +466,22 @@ Widget _section1() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _proseStrong('Per-pointer lifecycle'),
-        _bullet('Each `PointerDownEvent` opens a fresh arena entry, independent from any other finger already on screen.', _accent),
-        _bullet('VerticalMultiDragGestureRecognizer waits until the pointer drifts vertically beyond the slop before declaring victory.', _accent2),
-        _bullet('The win-handler invokes your `onStart(Offset globalPosition)` callback, which MUST return a `Drag` (or `null` to decline).', _accent3),
-        _bullet('That `Drag` is the per-finger state holder; it receives `update`, then either `end` or `cancel`, and is then discarded.', _good),
+        _bullet(
+          'Each `PointerDownEvent` opens a fresh arena entry, independent from any other finger already on screen.',
+          _accent,
+        ),
+        _bullet(
+          'VerticalMultiDragGestureRecognizer waits until the pointer drifts vertically beyond the slop before declaring victory.',
+          _accent2,
+        ),
+        _bullet(
+          'The win-handler invokes your `onStart(Offset globalPosition)` callback, which MUST return a `Drag` (or `null` to decline).',
+          _accent3,
+        ),
+        _bullet(
+          'That `Drag` is the per-finger state holder; it receives `update`, then either `end` or `cancel`, and is then discarded.',
+          _good,
+        ),
       ],
     ),
   );
@@ -520,7 +555,11 @@ Widget _trace({
             child: Center(
               child: Text(
                 'S',
-                style: TextStyle(color: _bg, fontSize: 9, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: _bg,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -539,7 +578,11 @@ Widget _trace({
             child: Center(
               child: Text(
                 'E',
-                style: TextStyle(color: _bg, fontSize: 9, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: _bg,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
@@ -552,16 +595,17 @@ Widget _trace({
             children: <Widget>[
               Text(
                 pointerId,
-                style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               Text(
                 'Δdy ${dy.toStringAsFixed(0)}',
                 style: TextStyle(color: _inkSoft, fontSize: 10),
               ),
-              Text(
-                label,
-                style: TextStyle(color: _inkMuted, fontSize: 9),
-              ),
+              Text(label, style: TextStyle(color: _inkMuted, fontSize: 9)),
             ],
           ),
         ),
@@ -582,12 +626,54 @@ Widget _section2() {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: <Widget>[
-          _trace(label: 'down', pointerId: '#1', startDy: 30, currentDy: 170, grad: _traceGradA, dot: _accent),
-          _trace(label: 'up', pointerId: '#2', startDy: 160, currentDy: 50, grad: _traceGradB, dot: _accent2),
-          _trace(label: 'down (slow)', pointerId: '#3', startDy: 60, currentDy: 110, grad: _traceGradC, dot: _accent3),
-          _trace(label: 'down (fast)', pointerId: '#4', startDy: 20, currentDy: 200, grad: _traceGradA, dot: _accent),
-          _trace(label: 'up (slow)', pointerId: '#5', startDy: 180, currentDy: 130, grad: _traceGradB, dot: _accent2),
-          _trace(label: 'down', pointerId: '#6', startDy: 90, currentDy: 195, grad: _traceGradC, dot: _accent3),
+          _trace(
+            label: 'down',
+            pointerId: '#1',
+            startDy: 30,
+            currentDy: 170,
+            grad: _traceGradA,
+            dot: _accent,
+          ),
+          _trace(
+            label: 'up',
+            pointerId: '#2',
+            startDy: 160,
+            currentDy: 50,
+            grad: _traceGradB,
+            dot: _accent2,
+          ),
+          _trace(
+            label: 'down (slow)',
+            pointerId: '#3',
+            startDy: 60,
+            currentDy: 110,
+            grad: _traceGradC,
+            dot: _accent3,
+          ),
+          _trace(
+            label: 'down (fast)',
+            pointerId: '#4',
+            startDy: 20,
+            currentDy: 200,
+            grad: _traceGradA,
+            dot: _accent,
+          ),
+          _trace(
+            label: 'up (slow)',
+            pointerId: '#5',
+            startDy: 180,
+            currentDy: 130,
+            grad: _traceGradB,
+            dot: _accent2,
+          ),
+          _trace(
+            label: 'down',
+            pointerId: '#6',
+            startDy: 90,
+            currentDy: 195,
+            grad: _traceGradC,
+            dot: _accent3,
+          ),
         ],
       ),
     ),
@@ -598,10 +684,22 @@ Widget _section2() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _proseStrong('How to read these traces'),
-        _bullet('Each vertical bar is ONE pointer\'s journey from touch-down (S) to current/release (E).', _accent),
-        _bullet('Pointers #1, #4, and #6 dragged downward; #2 and #5 dragged upward; #3 barely crossed the slop.', _accent2),
-        _bullet('A horizontal motion (across the screen) does NOT affect this recognizer until vertical slop is crossed.', _accent3),
-        _bullet('All six fingers can be active concurrently — each receives its own `Drag` from `onStart`.', _good),
+        _bullet(
+          'Each vertical bar is ONE pointer\'s journey from touch-down (S) to current/release (E).',
+          _accent,
+        ),
+        _bullet(
+          'Pointers #1, #4, and #6 dragged downward; #2 and #5 dragged upward; #3 barely crossed the slop.',
+          _accent2,
+        ),
+        _bullet(
+          'A horizontal motion (across the screen) does NOT affect this recognizer until vertical slop is crossed.',
+          _accent3,
+        ),
+        _bullet(
+          'All six fingers can be active concurrently — each receives its own `Drag` from `onStart`.',
+          _good,
+        ),
       ],
     ),
   );
@@ -686,7 +784,11 @@ Widget _slopBar({
           child: Center(
             child: Text(
               label,
-              style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: _ink,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
@@ -711,17 +813,44 @@ Widget _section3() {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              _slopBar(label: 'kTouchSlop', topSlop: 50, bottomSlop: 50, height: 200, tint: _accent),
-              _slopBar(label: 'kPanSlop', topSlop: 35, bottomSlop: 35, height: 200, tint: _accent2),
-              _slopBar(label: 'effective y-slop', topSlop: 30, bottomSlop: 30, height: 200, tint: _accent3),
+              _slopBar(
+                label: 'kTouchSlop',
+                topSlop: 50,
+                bottomSlop: 50,
+                height: 200,
+                tint: _accent,
+              ),
+              _slopBar(
+                label: 'kPanSlop',
+                topSlop: 35,
+                bottomSlop: 35,
+                height: 200,
+                tint: _accent2,
+              ),
+              _slopBar(
+                label: 'effective y-slop',
+                topSlop: 30,
+                bottomSlop: 30,
+                height: 200,
+                tint: _accent3,
+              ),
             ],
           ),
         ),
         SizedBox(height: 14),
         _proseStrong('Reading the bar'),
-        _bullet('The shaded zones at top and bottom mark the "no-yet-vertical" region; pointers staying inside it never claim the arena.', _accent),
-        _bullet('Once the pointer\'s |Δy| exceeds the slop, the recognizer accepts the pointer and `onStart` fires.', _accent2),
-        _bullet('The recognizer respects `gestureSettings.touchSlop` if provided — useful for stylus or mouse with custom slop.', _accent3),
+        _bullet(
+          'The shaded zones at top and bottom mark the "no-yet-vertical" region; pointers staying inside it never claim the arena.',
+          _accent,
+        ),
+        _bullet(
+          'Once the pointer\'s |Δy| exceeds the slop, the recognizer accepts the pointer and `onStart` fires.',
+          _accent2,
+        ),
+        _bullet(
+          'The recognizer respects `gestureSettings.touchSlop` if provided — useful for stylus or mouse with custom slop.',
+          _accent3,
+        ),
       ],
     ),
   );
@@ -771,13 +900,21 @@ Widget _compareCard({
           ),
           child: Text(
             tag,
-            style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: _ink,
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
         SizedBox(height: 10),
         Text(
           title,
-          style: TextStyle(color: _ink, fontSize: 16, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            color: _ink,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         SizedBox(height: 12),
         ...List<Widget>.generate(bullets.length, (int i) {
@@ -812,27 +949,45 @@ Widget _section4() {
       left: 40,
       top: 10,
       bottom: 10,
-      child: Container(width: 4, decoration: BoxDecoration(color: _accent, borderRadius: BorderRadius.circular(2))),
+      child: Container(
+        width: 4,
+        decoration: BoxDecoration(
+          color: _accent,
+          borderRadius: BorderRadius.circular(2),
+        ),
+      ),
     ),
     Positioned(
       left: 24,
       top: 4,
       child: Container(
-        width: 22, height: 22,
-        decoration: BoxDecoration(color: _accent, shape: BoxShape.circle, boxShadow: _shadowGlowA),
+        width: 22,
+        height: 22,
+        decoration: BoxDecoration(
+          color: _accent,
+          shape: BoxShape.circle,
+          boxShadow: _shadowGlowA,
+        ),
       ),
     ),
     Positioned(
       left: 100,
       top: 10,
       bottom: 10,
-      child: Container(width: 4, decoration: BoxDecoration(color: _inkMuted, borderRadius: BorderRadius.circular(2))),
+      child: Container(
+        width: 4,
+        decoration: BoxDecoration(
+          color: _inkMuted,
+          borderRadius: BorderRadius.circular(2),
+        ),
+      ),
     ),
     Positioned(
       left: 86,
       top: 4,
       child: Container(
-        width: 22, height: 22,
+        width: 22,
+        height: 22,
         decoration: BoxDecoration(color: _inkMuted, shape: BoxShape.circle),
       ),
     ),
@@ -841,7 +996,12 @@ Widget _section4() {
       top: 30,
       child: Text(
         '#2 ignored\n(only #1 wins)',
-        style: TextStyle(color: _bad, fontSize: 11, fontWeight: FontWeight.w700, height: 1.3),
+        style: TextStyle(
+          color: _bad,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          height: 1.3,
+        ),
       ),
     ),
   ];
@@ -851,29 +1011,79 @@ Widget _section4() {
       left: 30,
       top: 10,
       bottom: 10,
-      child: Container(width: 4, decoration: BoxDecoration(gradient: _traceGradA)),
+      child: Container(
+        width: 4,
+        decoration: BoxDecoration(gradient: _traceGradA),
+      ),
     ),
-    Positioned(left: 14, top: 4, child: Container(width: 22, height: 22, decoration: BoxDecoration(color: _accent, shape: BoxShape.circle, boxShadow: _shadowGlowA))),
+    Positioned(
+      left: 14,
+      top: 4,
+      child: Container(
+        width: 22,
+        height: 22,
+        decoration: BoxDecoration(
+          color: _accent,
+          shape: BoxShape.circle,
+          boxShadow: _shadowGlowA,
+        ),
+      ),
+    ),
     Positioned(
       left: 100,
       top: 10,
       bottom: 10,
-      child: Container(width: 4, decoration: BoxDecoration(gradient: _traceGradB)),
+      child: Container(
+        width: 4,
+        decoration: BoxDecoration(gradient: _traceGradB),
+      ),
     ),
-    Positioned(left: 86, top: 4, child: Container(width: 22, height: 22, decoration: BoxDecoration(color: _accent2, shape: BoxShape.circle, boxShadow: _shadowGlowB))),
+    Positioned(
+      left: 86,
+      top: 4,
+      child: Container(
+        width: 22,
+        height: 22,
+        decoration: BoxDecoration(
+          color: _accent2,
+          shape: BoxShape.circle,
+          boxShadow: _shadowGlowB,
+        ),
+      ),
+    ),
     Positioned(
       left: 170,
       top: 10,
       bottom: 10,
-      child: Container(width: 4, decoration: BoxDecoration(gradient: _traceGradC)),
+      child: Container(
+        width: 4,
+        decoration: BoxDecoration(gradient: _traceGradC),
+      ),
     ),
-    Positioned(left: 154, top: 4, child: Container(width: 22, height: 22, decoration: BoxDecoration(color: _accent3, shape: BoxShape.circle, boxShadow: _shadowGlowC))),
+    Positioned(
+      left: 154,
+      top: 4,
+      child: Container(
+        width: 22,
+        height: 22,
+        decoration: BoxDecoration(
+          color: _accent3,
+          shape: BoxShape.circle,
+          boxShadow: _shadowGlowC,
+        ),
+      ),
+    ),
     Positioned(
       right: 12,
       top: 30,
       child: Text(
         '#1 #2 #3 all\nactive in parallel',
-        style: TextStyle(color: _good, fontSize: 11, fontWeight: FontWeight.w700, height: 1.3),
+        style: TextStyle(
+          color: _good,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+          height: 1.3,
+        ),
       ),
     ),
   ];
@@ -959,7 +1169,10 @@ Widget _timelineStep({
                 color: color,
                 shape: BoxShape.circle,
                 boxShadow: <BoxShadow>[
-                  BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 14),
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.5),
+                    blurRadius: 14,
+                  ),
                 ],
               ),
               child: Icon(icon, color: _bg, size: 20),
@@ -983,12 +1196,20 @@ Widget _timelineStep({
               children: <Widget>[
                 Text(
                   label,
-                  style: TextStyle(color: _ink, fontSize: 14, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 SizedBox(height: 4),
                 Text(
                   body,
-                  style: TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5),
+                  style: TextStyle(
+                    color: _inkSoft,
+                    fontSize: 12.5,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
@@ -1012,38 +1233,44 @@ Widget _section5() {
       children: <Widget>[
         _timelineStep(
           label: 't0  PointerDownEvent',
-          body: 'The finger lands on the hit-tested area. The arena begins; the recognizer registers itself for THIS pointer.',
+          body:
+              'The finger lands on the hit-tested area. The arena begins; the recognizer registers itself for THIS pointer.',
           color: _accent,
           icon: Icons.touch_app_rounded,
         ),
         _timelineStep(
           label: 't1  Slop crossed (vertical)',
-          body: 'The pointer has moved more than `kTouchSlop` along y. The recognizer claims the pointer and sweeps it.',
+          body:
+              'The pointer has moved more than `kTouchSlop` along y. The recognizer claims the pointer and sweeps it.',
           color: _accent3,
           icon: Icons.trending_up_rounded,
         ),
         _timelineStep(
           label: 't2  onStart(Offset globalPosition)',
-          body: 'You return a brand new `Drag` instance dedicated to this finger. State (initial position, accumulated dy) lives inside that Drag.',
+          body:
+              'You return a brand new `Drag` instance dedicated to this finger. State (initial position, accumulated dy) lives inside that Drag.',
           color: _accent2,
           icon: Icons.start_rounded,
         ),
         _timelineStep(
           label: 't3..tN  drag.update(DragUpdateDetails)',
-          body: 'For every pointer-move that survives slop, the Drag receives DragUpdateDetails(delta, primaryDelta, globalPosition, sourceTimeStamp).',
+          body:
+              'For every pointer-move that survives slop, the Drag receives DragUpdateDetails(delta, primaryDelta, globalPosition, sourceTimeStamp).',
           color: _good,
           icon: Icons.swap_vert_rounded,
         ),
         _timelineStep(
           label: 't_end  drag.end(DragEndDetails)',
-          body: 'PointerUp arrives ⇒ end is called with the velocity tracker\'s primaryVelocity (vertical px/s). Use this for fling animations.',
+          body:
+              'PointerUp arrives ⇒ end is called with the velocity tracker\'s primaryVelocity (vertical px/s). Use this for fling animations.',
           color: _accent4,
           icon: Icons.flag_rounded,
         ),
         _timelineStep(
           last: true,
           label: 't_cancel  drag.cancel()',
-          body: 'Alternative terminus: the recognizer lost the arena (e.g. an outer scroll won), or the engine cancelled the pointer. State must be rolled back.',
+          body:
+              'Alternative terminus: the recognizer lost the arena (e.g. an outer scroll won), or the engine cancelled the pointer. State must be rolled back.',
           color: _bad,
           icon: Icons.cancel_rounded,
         ),
@@ -1083,37 +1310,78 @@ Widget _recipeIllustration1() {
           left: 24,
           top: 10,
           bottom: 10,
-          child: Container(width: 6, decoration: BoxDecoration(color: Color(0x33FFFFFF), borderRadius: BorderRadius.circular(3))),
+          child: Container(
+            width: 6,
+            decoration: BoxDecoration(
+              color: Color(0x33FFFFFF),
+              borderRadius: BorderRadius.circular(3),
+            ),
+          ),
         ),
         Positioned(
-          left: 20, top: 30,
+          left: 20,
+          top: 30,
           child: Container(
-            width: 14, height: 14,
-            decoration: BoxDecoration(color: _accent, shape: BoxShape.circle, boxShadow: _shadowGlowA),
+            width: 14,
+            height: 14,
+            decoration: BoxDecoration(
+              color: _accent,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowA,
+            ),
           ),
         ),
         Positioned(
           right: 24,
           top: 10,
           bottom: 10,
-          child: Container(width: 6, decoration: BoxDecoration(color: Color(0x33FFFFFF), borderRadius: BorderRadius.circular(3))),
+          child: Container(
+            width: 6,
+            decoration: BoxDecoration(
+              color: Color(0x33FFFFFF),
+              borderRadius: BorderRadius.circular(3),
+            ),
+          ),
         ),
         Positioned(
-          right: 20, top: 80,
+          right: 20,
+          top: 80,
           child: Container(
-            width: 14, height: 14,
-            decoration: BoxDecoration(color: _accent2, shape: BoxShape.circle, boxShadow: _shadowGlowB),
+            width: 14,
+            height: 14,
+            decoration: BoxDecoration(
+              color: _accent2,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowB,
+            ),
           ),
         ),
         Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text('Rate L: 0.72', style: TextStyle(color: _accent, fontSize: 13, fontWeight: FontWeight.w800)),
+              Text(
+                'Rate L: 0.72',
+                style: TextStyle(
+                  color: _accent,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               SizedBox(height: 4),
-              Text('Rate R: 0.31', style: TextStyle(color: _accent2, fontSize: 13, fontWeight: FontWeight.w800)),
+              Text(
+                'Rate R: 0.31',
+                style: TextStyle(
+                  color: _accent2,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               SizedBox(height: 6),
-              Text('two fingers, two Drags', style: TextStyle(color: _inkMuted, fontSize: 10)),
+              Text(
+                'two fingers, two Drags',
+                style: TextStyle(color: _inkMuted, fontSize: 10),
+              ),
             ],
           ),
         ),
@@ -1135,16 +1403,63 @@ Widget _recipeIllustration2() {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: 30, right: 30, top: 60,
+          left: 30,
+          right: 30,
+          top: 60,
           child: Container(height: 2, color: Color(0x44FFFFFF)),
         ),
-        Positioned(left: 30, top: 30, child: Container(width: 16, height: 16, decoration: BoxDecoration(color: _accent, shape: BoxShape.circle, boxShadow: _shadowGlowA))),
-        Positioned(left: 30 + 90, top: 80, child: Container(width: 16, height: 16, decoration: BoxDecoration(color: _accent2, shape: BoxShape.circle, boxShadow: _shadowGlowB))),
-        Positioned(right: 30, top: 50, child: Container(width: 16, height: 16, decoration: BoxDecoration(color: _accent3, shape: BoxShape.circle, boxShadow: _shadowGlowC))),
         Positioned(
-          left: 0, right: 0, bottom: 8,
+          left: 30,
+          top: 30,
+          child: Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: _accent,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowA,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 30 + 90,
+          top: 80,
+          child: Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: _accent2,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowB,
+            ),
+          ),
+        ),
+        Positioned(
+          right: 30,
+          top: 50,
+          child: Container(
+            width: 16,
+            height: 16,
+            decoration: BoxDecoration(
+              color: _accent3,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowC,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 8,
           child: Center(
-            child: Text('chord: C / E♭ / G  (3 thumbs)', style: TextStyle(color: _ink, fontSize: 12, fontWeight: FontWeight.w700)),
+            child: Text(
+              'chord: C / E♭ / G  (3 thumbs)',
+              style: TextStyle(
+                color: _ink,
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
       ],
@@ -1168,12 +1483,46 @@ Widget _recipeIllustration3() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Container(height: 18, margin: EdgeInsets.only(bottom: 4), decoration: BoxDecoration(gradient: _headerGradC, borderRadius: BorderRadius.circular(4))),
-        Container(height: 22, margin: EdgeInsets.only(bottom: 4), decoration: BoxDecoration(gradient: _headerGradB, borderRadius: BorderRadius.circular(4))),
-        Container(height: 30, margin: EdgeInsets.only(bottom: 4), decoration: BoxDecoration(gradient: _headerGradA, borderRadius: BorderRadius.circular(4))),
-        Container(height: 38, decoration: BoxDecoration(gradient: _headerGradE, borderRadius: BorderRadius.circular(4))),
+        Container(
+          height: 18,
+          margin: EdgeInsets.only(bottom: 4),
+          decoration: BoxDecoration(
+            gradient: _headerGradC,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        Container(
+          height: 22,
+          margin: EdgeInsets.only(bottom: 4),
+          decoration: BoxDecoration(
+            gradient: _headerGradB,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        Container(
+          height: 30,
+          margin: EdgeInsets.only(bottom: 4),
+          decoration: BoxDecoration(
+            gradient: _headerGradA,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        Container(
+          height: 38,
+          decoration: BoxDecoration(
+            gradient: _headerGradE,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
         SizedBox(height: 4),
-        Text('3-finger pull → shelves expand', style: TextStyle(color: _accent3, fontSize: 11, fontWeight: FontWeight.w700)),
+        Text(
+          '3-finger pull → shelves expand',
+          style: TextStyle(
+            color: _accent3,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     ),
   );
@@ -1192,10 +1541,14 @@ Widget _recipeIllustration4() {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: 0, right: 0, top: 0, bottom: 0,
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
           child: Center(
             child: Container(
-              width: 64, height: 64,
+              width: 64,
+              height: 64,
               decoration: BoxDecoration(
                 gradient: _headerGradD,
                 borderRadius: BorderRadius.circular(12),
@@ -1204,12 +1557,45 @@ Widget _recipeIllustration4() {
             ),
           ),
         ),
-        Positioned(left: 16, top: 12, child: Container(width: 14, height: 14, decoration: BoxDecoration(color: _accent, shape: BoxShape.circle, boxShadow: _shadowGlowA))),
-        Positioned(right: 16, bottom: 12, child: Container(width: 14, height: 14, decoration: BoxDecoration(color: _accent2, shape: BoxShape.circle, boxShadow: _shadowGlowB))),
         Positioned(
-          left: 0, right: 0, bottom: 6,
+          left: 16,
+          top: 12,
+          child: Container(
+            width: 14,
+            height: 14,
+            decoration: BoxDecoration(
+              color: _accent,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowA,
+            ),
+          ),
+        ),
+        Positioned(
+          right: 16,
+          bottom: 12,
+          child: Container(
+            width: 14,
+            height: 14,
+            decoration: BoxDecoration(
+              color: _accent2,
+              shape: BoxShape.circle,
+              boxShadow: _shadowGlowB,
+            ),
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 6,
           child: Center(
-            child: Text('two fingers move apart vertically → zoom', style: TextStyle(color: _accent4, fontSize: 11, fontWeight: FontWeight.w700)),
+            child: Text(
+              'two fingers move apart vertically → zoom',
+              style: TextStyle(
+                color: _accent4,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ),
         ),
       ],
@@ -1247,13 +1633,29 @@ Widget _recipeCard({
                   gradient: grad,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(useCase,
-                    style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w800)),
+                child: Text(
+                  useCase,
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
               SizedBox(height: 10),
-              Text(title, style: TextStyle(color: _ink, fontSize: 16, fontWeight: FontWeight.w800)),
+              Text(
+                title,
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
               SizedBox(height: 8),
-              Text(detail, style: TextStyle(color: _inkSoft, fontSize: 13, height: 1.5)),
+              Text(
+                detail,
+                style: TextStyle(color: _inkSoft, fontSize: 13, height: 1.5),
+              ),
             ],
           ),
         ),
@@ -1335,9 +1737,14 @@ Widget _arenaParticipant({
     decoration: BoxDecoration(
       color: winner ? color.withValues(alpha: 0.18) : _panelDeep,
       borderRadius: BorderRadius.circular(12),
-      border: Border.all(color: winner ? color : Color(0x33FFFFFF), width: winner ? 2 : 1),
+      border: Border.all(
+        color: winner ? color : Color(0x33FFFFFF),
+        width: winner ? 2 : 1,
+      ),
       boxShadow: winner
-          ? <BoxShadow>[BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 18)]
+          ? <BoxShadow>[
+              BoxShadow(color: color.withValues(alpha: 0.4), blurRadius: 18),
+            ]
           : _shadowChip,
     ),
     child: Column(
@@ -1346,14 +1753,19 @@ Widget _arenaParticipant({
         Row(
           children: <Widget>[
             Container(
-              width: 10, height: 10,
+              width: 10,
+              height: 10,
               decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8),
             Expanded(
               child: Text(
                 name,
-                style: TextStyle(color: _ink, fontSize: 13, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                ),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -1364,7 +1776,14 @@ Widget _arenaParticipant({
                   gradient: _badgeGood,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text('WIN', style: TextStyle(color: _ink, fontSize: 9, fontWeight: FontWeight.w800)),
+                child: Text(
+                  'WIN',
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
           ],
         ),
@@ -1398,7 +1817,11 @@ Widget _section7() {
       children: <Widget>[
         Text(
           'Pointer #7  —  arena participants',
-          style: TextStyle(color: _ink, fontSize: 14, fontWeight: FontWeight.w800),
+          style: TextStyle(
+            color: _ink,
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+          ),
         ),
         SizedBox(height: 12),
         Wrap(
@@ -1417,7 +1840,8 @@ Widget _section7() {
             ),
             _arenaParticipant(
               name: 'VerticalDragRecognizer',
-              stance: 'Eligible, but is single-pointer; would conflict with multi.',
+              stance:
+                  'Eligible, but is single-pointer; would conflict with multi.',
               color: _accent,
               winner: false,
             ),
@@ -1447,7 +1871,12 @@ Widget _section7() {
             'Once VerticalMultiDrag SWEEPS the pointer it claims exclusive ownership: '
             'all other candidates receive `rejectGesture(pointer)`. The Drag\'s update '
             'stream begins; remaining motion flows only into your callback.',
-            style: TextStyle(color: _good, fontSize: 12.5, height: 1.5, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              color: _good,
+              fontSize: 12.5,
+              height: 1.5,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ],
@@ -1495,17 +1924,35 @@ Widget _footgunCard({
           children: <Widget>[
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(gradient: _badgeBad, borderRadius: BorderRadius.circular(8)),
-              child: Text('FOOTGUN',
-                  style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w800)),
+              decoration: BoxDecoration(
+                gradient: _badgeBad,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'FOOTGUN',
+                style: TextStyle(
+                  color: _ink,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
             SizedBox(width: 10),
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                decoration: BoxDecoration(gradient: grad, borderRadius: BorderRadius.circular(8)),
-                child: Text(title,
-                    style: TextStyle(color: _ink, fontSize: 13, fontWeight: FontWeight.w800)),
+                decoration: BoxDecoration(
+                  gradient: grad,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: _ink,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
             ),
           ],
@@ -1519,15 +1966,41 @@ Widget _footgunCard({
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Mistake',
-                      style: TextStyle(color: _bad, fontSize: 11, fontWeight: FontWeight.w800)),
+                  Text(
+                    'Mistake',
+                    style: TextStyle(
+                      color: _bad,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   SizedBox(height: 4),
-                  Text(mistake, style: TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5)),
+                  Text(
+                    mistake,
+                    style: TextStyle(
+                      color: _inkSoft,
+                      fontSize: 12.5,
+                      height: 1.5,
+                    ),
+                  ),
                   SizedBox(height: 10),
-                  Text('Fix',
-                      style: TextStyle(color: _good, fontSize: 11, fontWeight: FontWeight.w800)),
+                  Text(
+                    'Fix',
+                    style: TextStyle(
+                      color: _good,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   SizedBox(height: 4),
-                  Text(fix, style: TextStyle(color: _inkSoft, fontSize: 12.5, height: 1.5)),
+                  Text(
+                    fix,
+                    style: TextStyle(
+                      color: _inkSoft,
+                      fontSize: 12.5,
+                      height: 1.5,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1556,12 +2029,21 @@ Widget _footVisual1() {
           children: <Widget>[
             Icon(Icons.cancel_rounded, color: _bad, size: 14),
             SizedBox(width: 6),
-            Text('onStart returned null', style: TextStyle(color: _bad, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(
+              'onStart returned null',
+              style: TextStyle(
+                color: _bad,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 6),
-        Text('finger stays alive but dangles\nno per-pointer state created',
-            style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4)),
+        Text(
+          'finger stays alive but dangles\nno per-pointer state created',
+          style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4),
+        ),
         SizedBox(height: 8),
         Container(height: 4, color: _bad),
       ],
@@ -1585,12 +2067,21 @@ Widget _footVisual2() {
           children: <Widget>[
             Icon(Icons.warning_rounded, color: _accent3, size: 14),
             SizedBox(width: 6),
-            Text('Drag escapes scope', style: TextStyle(color: _accent3, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(
+              'Drag escapes scope',
+              style: TextStyle(
+                color: _accent3,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 6),
-        Text('Drag survives recognizer disposal\n→ leaks; updates routed nowhere',
-            style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4)),
+        Text(
+          'Drag survives recognizer disposal\n→ leaks; updates routed nowhere',
+          style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1608,31 +2099,64 @@ Widget _footVisual3() {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: 8, top: 12,
+          left: 8,
+          top: 12,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(color: _accent, borderRadius: BorderRadius.circular(4)),
-            child: Text('VertDrag', style: TextStyle(color: _bg, fontSize: 9, fontWeight: FontWeight.w800)),
+            decoration: BoxDecoration(
+              color: _accent,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              'VertDrag',
+              style: TextStyle(
+                color: _bg,
+                fontSize: 9,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         Positioned(
-          right: 8, top: 12,
+          right: 8,
+          top: 12,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(color: _accent2, borderRadius: BorderRadius.circular(4)),
-            child: Text('VertMulti', style: TextStyle(color: _bg, fontSize: 9, fontWeight: FontWeight.w800)),
+            decoration: BoxDecoration(
+              color: _accent2,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              'VertMulti',
+              style: TextStyle(
+                color: _bg,
+                fontSize: 9,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
         Positioned(
-          left: 0, right: 0, top: 50,
+          left: 0,
+          right: 0,
+          top: 50,
           child: Center(
             child: Icon(Icons.flash_on_rounded, color: _bad, size: 28),
           ),
         ),
         Positioned(
-          left: 0, right: 0, bottom: 6,
+          left: 0,
+          right: 0,
+          bottom: 6,
           child: Center(
-            child: Text('arena conflict', style: TextStyle(color: _bad, fontSize: 11, fontWeight: FontWeight.w800)),
+            child: Text(
+              'arena conflict',
+              style: TextStyle(
+                color: _bad,
+                fontSize: 11,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
           ),
         ),
       ],
@@ -1656,13 +2180,23 @@ Widget _footVisual4() {
           children: <Widget>[
             Icon(Icons.timeline_rounded, color: _accent4, size: 14),
             SizedBox(width: 6),
-            Text('horizontal phase', style: TextStyle(color: _accent4, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(
+              'horizontal phase',
+              style: TextStyle(
+                color: _accent4,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 6),
         Container(height: 3, color: _accent),
         SizedBox(height: 4),
-        Text('finger drifted x first → arena\nmay reject before vertical slop', style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4)),
+        Text(
+          'finger drifted x first → arena\nmay reject before vertical slop',
+          style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1684,12 +2218,21 @@ Widget _footVisual5() {
           children: <Widget>[
             Icon(Icons.dynamic_form_rounded, color: _accent2, size: 14),
             SizedBox(width: 6),
-            Text('shared mutable state', style: TextStyle(color: _accent2, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(
+              'shared mutable state',
+              style: TextStyle(
+                color: _accent2,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 6),
-        Text('two Drags writing one variable\n→ jitter & lost updates',
-            style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4)),
+        Text(
+          'two Drags writing one variable\n→ jitter & lost updates',
+          style: TextStyle(color: _inkSoft, fontSize: 10, height: 1.4),
+        ),
       ],
     ),
   );
@@ -1779,14 +2322,23 @@ Widget _apiRow(String name, String type, String description) {
           width: 130,
           child: Text(
             name,
-            style: TextStyle(color: _accent, fontSize: 12.5, fontWeight: FontWeight.w800, fontFamily: 'monospace'),
+            style: TextStyle(
+              color: _accent,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w800,
+              fontFamily: 'monospace',
+            ),
           ),
         ),
         SizedBox(
           width: 160,
           child: Text(
             type,
-            style: TextStyle(color: _accent2, fontSize: 11.5, fontFamily: 'monospace'),
+            style: TextStyle(
+              color: _accent2,
+              fontSize: 11.5,
+              fontFamily: 'monospace',
+            ),
           ),
         ),
         Expanded(
@@ -1811,7 +2363,8 @@ Widget _section9() {
   // its presence in the bridge. We do NOT drive it with pointer events.
   String constructed = 'unknown';
   try {
-    VerticalMultiDragGestureRecognizer probe = VerticalMultiDragGestureRecognizer();
+    VerticalMultiDragGestureRecognizer probe =
+        VerticalMultiDragGestureRecognizer();
     constructed = 'Constructed ✓  (kind=${probe.runtimeType})';
   } catch (_) {
     constructed = 'Construction skipped';
@@ -1821,24 +2374,51 @@ Widget _section9() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _apiRow('onStart', 'Drag? Function(Offset position)',
-            'Called once per pointer once vertical slop is crossed. Return a fresh Drag for that pointer or null to decline.'),
-        _apiRow('gestureSettings', 'DeviceGestureSettings?',
-            'Per-device override for slop and other thresholds. Honoured by the underlying MultiDragPointerState.'),
-        _apiRow('supportedDevices', 'Set<PointerDeviceKind>?',
-            'Restrict to touch only, or include stylus/mouse. Default: all device kinds that produce Down/Up events.'),
-        _apiRow('debugDescription', 'String',
-            'Returns "vertical multidrag" — used by Flutter\'s gesture debugger.'),
-        _apiRow('addAllowedPointer', 'void Function(PointerDownEvent)',
-            'Internal: called by the framework when a hit-tested pointer is allowed. Sets up per-pointer state.'),
-        _apiRow('createNewPointerState', 'MultiDragPointerState',
-            'Internal hook overridden by the vertical variant to enforce y-axis slop.'),
-        _apiRow('Drag.update', 'void Function(DragUpdateDetails)',
-            'Per-pointer update stream. delta and primaryDelta are vertical only post-slop.'),
-        _apiRow('Drag.end', 'void Function(DragEndDetails)',
-            'Per-pointer terminal callback when the user lifts. primaryVelocity is the vertical fling velocity.'),
-        _apiRow('Drag.cancel', 'void Function()',
-            'Per-pointer terminal callback when arena loss or engine cancel occurs. Roll back per-pointer state.'),
+        _apiRow(
+          'onStart',
+          'Drag? Function(Offset position)',
+          'Called once per pointer once vertical slop is crossed. Return a fresh Drag for that pointer or null to decline.',
+        ),
+        _apiRow(
+          'gestureSettings',
+          'DeviceGestureSettings?',
+          'Per-device override for slop and other thresholds. Honoured by the underlying MultiDragPointerState.',
+        ),
+        _apiRow(
+          'supportedDevices',
+          'Set<PointerDeviceKind>?',
+          'Restrict to touch only, or include stylus/mouse. Default: all device kinds that produce Down/Up events.',
+        ),
+        _apiRow(
+          'debugDescription',
+          'String',
+          'Returns "vertical multidrag" — used by Flutter\'s gesture debugger.',
+        ),
+        _apiRow(
+          'addAllowedPointer',
+          'void Function(PointerDownEvent)',
+          'Internal: called by the framework when a hit-tested pointer is allowed. Sets up per-pointer state.',
+        ),
+        _apiRow(
+          'createNewPointerState',
+          'MultiDragPointerState',
+          'Internal hook overridden by the vertical variant to enforce y-axis slop.',
+        ),
+        _apiRow(
+          'Drag.update',
+          'void Function(DragUpdateDetails)',
+          'Per-pointer update stream. delta and primaryDelta are vertical only post-slop.',
+        ),
+        _apiRow(
+          'Drag.end',
+          'void Function(DragEndDetails)',
+          'Per-pointer terminal callback when the user lifts. primaryVelocity is the vertical fling velocity.',
+        ),
+        _apiRow(
+          'Drag.cancel',
+          'void Function()',
+          'Per-pointer terminal callback when arena loss or engine cancel occurs. Roll back per-pointer state.',
+        ),
       ],
     ),
   );
@@ -1851,13 +2431,28 @@ Widget _section9() {
         Expanded(
           child: Text(
             constructed,
-            style: TextStyle(color: _ink, fontSize: 13, fontWeight: FontWeight.w700, fontFamily: 'monospace'),
+            style: TextStyle(
+              color: _ink,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'monospace',
+            ),
           ),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(gradient: _badgeGood, borderRadius: BorderRadius.circular(8)),
-          child: Text('BRIDGED', style: TextStyle(color: _ink, fontSize: 11, fontWeight: FontWeight.w800)),
+          decoration: BoxDecoration(
+            gradient: _badgeGood,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            'BRIDGED',
+            style: TextStyle(
+              color: _ink,
+              fontSize: 11,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
         ),
       ],
     ),
@@ -1893,20 +2488,44 @@ Widget _section10() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _proseStrong('Step 1 — Is concurrency real?'),
-        _bullet('If only ONE finger ever drives the value, use VerticalDragGestureRecognizer instead.', _accent),
-        _bullet('If TWO or more fingers each control distinct values concurrently, continue.', _good),
+        _bullet(
+          'If only ONE finger ever drives the value, use VerticalDragGestureRecognizer instead.',
+          _accent,
+        ),
+        _bullet(
+          'If TWO or more fingers each control distinct values concurrently, continue.',
+          _good,
+        ),
         SizedBox(height: 12),
         _proseStrong('Step 2 — Is the axis truly vertical?'),
-        _bullet('If users may drag in any direction, prefer ImmediateMultiDragGestureRecognizer or PanGestureRecognizer.', _accent2),
-        _bullet('If you want vertical-only with slop, you are in the right place.', _good),
+        _bullet(
+          'If users may drag in any direction, prefer ImmediateMultiDragGestureRecognizer or PanGestureRecognizer.',
+          _accent2,
+        ),
+        _bullet(
+          'If you want vertical-only with slop, you are in the right place.',
+          _good,
+        ),
         SizedBox(height: 12),
         _proseStrong('Step 3 — Per-pointer state ownership'),
-        _bullet('Design your Drag implementation as the SOLE owner of per-pointer state. Map<int, T> is also fine but more error-prone.', _accent3),
-        _bullet('Always implement update, end, cancel — never leave any of them empty unless you really mean it.', _good),
+        _bullet(
+          'Design your Drag implementation as the SOLE owner of per-pointer state. Map<int, T> is also fine but more error-prone.',
+          _accent3,
+        ),
+        _bullet(
+          'Always implement update, end, cancel — never leave any of them empty unless you really mean it.',
+          _good,
+        ),
         SizedBox(height: 12),
         _proseStrong('Step 4 — Test under arena pressure'),
-        _bullet('Wrap the gesture region inside a Scrollable to ensure your multi-drag wins the arena correctly.', _accent4),
-        _bullet('Test with 3+ simultaneous fingers; many bugs only appear when two pointers cross the slop in the same frame.', _good),
+        _bullet(
+          'Wrap the gesture region inside a Scrollable to ensure your multi-drag wins the arena correctly.',
+          _accent4,
+        ),
+        _bullet(
+          'Test with 3+ simultaneous fingers; many bugs only appear when two pointers cross the slop in the same frame.',
+          _good,
+        ),
       ],
     ),
   );
@@ -1965,7 +2584,10 @@ dynamic build(BuildContext context) {
                   Row(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: Color(0x33FFFFFF),
                           borderRadius: BorderRadius.circular(8),
@@ -1991,7 +2613,12 @@ dynamic build(BuildContext context) {
                   SizedBox(height: 14),
                   Text(
                     'A recognizer that accepts MULTIPLE simultaneous vertical drags.',
-                    style: TextStyle(color: _ink, fontSize: 18, fontWeight: FontWeight.w800, height: 1.3),
+                    style: TextStyle(
+                      color: _ink,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                      height: 1.3,
+                    ),
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -2025,7 +2652,11 @@ dynamic build(BuildContext context) {
                 children: <Widget>[
                   Text(
                     'End of demonstration',
-                    style: TextStyle(color: _ink, fontSize: 14, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                      color: _ink,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                   SizedBox(height: 6),
                   Text(

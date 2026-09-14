@@ -17,11 +17,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1A237E),
-          Color(0xFF311B92),
-          Color(0xFF4A148C),
-        ],
+        colors: [Color(0xFF1A237E), Color(0xFF311B92), Color(0xFF4A148C)],
         stops: [0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -430,19 +426,11 @@ dynamic build(BuildContext context) {
   print('pIfNull.toDescription()=${pIfNull.toDescription()}');
 
   // ifEmpty (empty string)
-  final pIfEmpty = DiagnosticsProperty<String>(
-    'tag',
-    '',
-    ifEmpty: '<empty>',
-  );
+  final pIfEmpty = DiagnosticsProperty<String>('tag', '', ifEmpty: '<empty>');
   print('pIfEmpty.toDescription()=${pIfEmpty.toDescription()}');
 
   // showName=false
-  final pHiddenName = DiagnosticsProperty<int>(
-    'order',
-    3,
-    showName: false,
-  );
+  final pHiddenName = DiagnosticsProperty<int>('order', 3, showName: false);
   print('pHiddenName.showName=${pHiddenName.showName}');
 
   // tooltip
@@ -481,9 +469,7 @@ dynamic build(BuildContext context) {
     null,
     missingIfNull: true,
   );
-  print(
-    'pMissing.level=${pMissing.level.name} ifNull=${pMissing.ifNull}',
-  );
+  print('pMissing.level=${pMissing.level.name} ifNull=${pMissing.ifNull}');
 
   // hidden level
   final pHidden = DiagnosticsProperty<int>(
@@ -508,9 +494,7 @@ dynamic build(BuildContext context) {
   );
   // Touch value to materialise the exception capture path.
   final lazyVal = pLazyThrows.value;
-  print(
-    'pLazyThrows.value=$lazyVal exception=${pLazyThrows.exception}',
-  );
+  print('pLazyThrows.value=$lazyVal exception=${pLazyThrows.exception}');
 
   final liveCards = <Widget>[
     _liveCard(
@@ -609,19 +593,17 @@ dynamic build(BuildContext context) {
   final pDouble = DiagnosticsProperty<double>('opacity', 0.85);
   final pBool = DiagnosticsProperty<bool>('enabled', true);
   final pColor = DiagnosticsProperty<Color>('seedColor', Colors.indigo);
-  final pDuration =
-      DiagnosticsProperty<Duration>('timeout', Duration(seconds: 30));
-  final pList =
-      DiagnosticsProperty<List<int>>('ids', <int>[1, 2, 3, 4, 5]);
-  final pMap = DiagnosticsProperty<Map<String, int>>(
-    'counts',
-    <String, int>{'a': 1, 'b': 2},
+  final pDuration = DiagnosticsProperty<Duration>(
+    'timeout',
+    Duration(seconds: 30),
   );
+  final pList = DiagnosticsProperty<List<int>>('ids', <int>[1, 2, 3, 4, 5]);
+  final pMap = DiagnosticsProperty<Map<String, int>>('counts', <String, int>{
+    'a': 1,
+    'b': 2,
+  });
   final pNullableNull = DiagnosticsProperty<String>('subtitle', null);
-  final pEdge = DiagnosticsProperty<EdgeInsets>(
-    'padding',
-    EdgeInsets.all(8.0),
-  );
+  final pEdge = DiagnosticsProperty<EdgeInsets>('padding', EdgeInsets.all(8.0));
   final pAlignment = DiagnosticsProperty<Alignment>(
     'alignment',
     Alignment.centerLeft,
@@ -647,20 +629,15 @@ dynamic build(BuildContext context) {
     _recipeRow('Color', pColor, Colors.pink, Icons.palette),
     _recipeRow('Duration', pDuration, Colors.orange, Icons.timer),
     _recipeRow('List<int>', pList, Colors.teal, Icons.list),
-    _recipeRow(
-      'Map<String,int>',
-      pMap,
-      Colors.cyan,
-      Icons.account_tree,
-    ),
-    _recipeRow(
-      'String? (null)',
-      pNullableNull,
-      Colors.grey,
-      Icons.block,
-    ),
+    _recipeRow('Map<String,int>', pMap, Colors.cyan, Icons.account_tree),
+    _recipeRow('String? (null)', pNullableNull, Colors.grey, Icons.block),
     _recipeRow('EdgeInsets', pEdge, Colors.brown, Icons.crop_square),
-    _recipeRow('Alignment', pAlignment, Colors.amber, Icons.align_horizontal_left),
+    _recipeRow(
+      'Alignment',
+      pAlignment,
+      Colors.amber,
+      Icons.align_horizontal_left,
+    ),
   ];
 
   final recipeSection = Container(
@@ -770,11 +747,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(
-              Icons.linear_scale,
-              color: Colors.orange.shade700,
-              size: 22.0,
-            ),
+            Icon(Icons.linear_scale, color: Colors.orange.shade700, size: 22.0),
             SizedBox(width: 8.0),
             Text(
               'Level Promotion / Demotion Matrix',
@@ -806,10 +779,7 @@ dynamic build(BuildContext context) {
             padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(
-                  color: Colors.orange.shade100,
-                  width: 1.0,
-                ),
+                bottom: BorderSide(color: Colors.orange.shade100, width: 1.0),
               ),
             ),
             child: Row(
@@ -844,10 +814,7 @@ dynamic build(BuildContext context) {
     ifFalse: 'hidden',
   );
   final pIterableSub = IterableProperty<int>('ids', <int>[1, 2, 3]);
-  final pEnumSub = EnumProperty<TextDirection>(
-    'direction',
-    TextDirection.ltr,
-  );
+  final pEnumSub = EnumProperty<TextDirection>('direction', TextDirection.ltr);
 
   print('pBase=${pBase.toString()}');
   print('pStrSub=${pStrSub.toString()}');
@@ -1006,17 +973,12 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.08),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.08)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12.0),
-          border: Border(
-            left: BorderSide(color: color, width: 4.0),
-          ),
+          border: Border(left: BorderSide(color: color, width: 4.0)),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.15),
@@ -1108,10 +1070,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF0D1117),
-          Color(0xFF161B22),
-        ],
+        colors: [Color(0xFF0D1117), Color(0xFF161B22)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1203,18 +1162,9 @@ dynamic build(BuildContext context) {
       'q': 'Hide an uninteresting default?',
       'a': 'Pass defaultValue: thatDefault.',
     },
-    {
-      'q': 'Mark a required null as warning?',
-      'a': 'Set missingIfNull: true.',
-    },
-    {
-      'q': 'Show a custom string for null?',
-      'a': 'Set ifNull: "<unset>".',
-    },
-    {
-      'q': 'Show a custom string for empty?',
-      'a': 'Set ifEmpty: "<empty>".',
-    },
+    {'q': 'Mark a required null as warning?', 'a': 'Set missingIfNull: true.'},
+    {'q': 'Show a custom string for null?', 'a': 'Set ifNull: "<unset>".'},
+    {'q': 'Show a custom string for empty?', 'a': 'Set ifEmpty: "<empty>".'},
     {
       'q': 'Defer expensive value lookup?',
       'a': 'Use DiagnosticsProperty<T>.lazy(name, () => compute()).',
@@ -1318,7 +1268,8 @@ dynamic build(BuildContext context) {
     defaultValue: 'Untitled',
     level: DiagnosticLevel.info,
   );
-  final jsonText = '{\n'
+  final jsonText =
+      '{\n'
       '  "name": "${jsonProp.name}",\n'
       '  "value": "${jsonProp.value}",\n'
       '  "description": "${jsonProp.toDescription()}",\n'
@@ -1335,10 +1286,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1B1F3A),
-          Color(0xFF2C2F5A),
-        ],
+        colors: [Color(0xFF1B1F3A), Color(0xFF2C2F5A)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1399,10 +1347,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF101418),
-          Color(0xFF1B2026),
-        ],
+        colors: [Color(0xFF101418), Color(0xFF1B2026)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1437,11 +1382,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF263238),
-          Color(0xFF37474F),
-          Color(0xFF455A64),
-        ],
+        colors: [Color(0xFF263238), Color(0xFF37474F), Color(0xFF455A64)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1477,11 +1418,7 @@ dynamic build(BuildContext context) {
           'Every DiagnosticsProperty you add becomes part of the inspector,\n'
           'toStringDeep dumps, and DevTools — invest in good labels.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 12.0,
-            height: 1.4,
-          ),
+          style: TextStyle(color: Colors.white70, fontSize: 12.0, height: 1.4),
         ),
         SizedBox(height: 12.0),
         Row(
@@ -1500,19 +1437,15 @@ dynamic build(BuildContext context) {
 
   // Drive a couple more API calls so the test exercises behavioural aspects.
   print('--- behaviour walkthrough ---');
-  print('pNameValue.isFiltered(info)=${pNameValue.isFiltered(DiagnosticLevel.info)}');
   print(
-    'pHidden.isFiltered(info)=${pHidden.isFiltered(DiagnosticLevel.info)}',
+    'pNameValue.isFiltered(info)=${pNameValue.isFiltered(DiagnosticLevel.info)}',
   );
+  print('pHidden.isFiltered(info)=${pHidden.isFiltered(DiagnosticLevel.info)}');
   print(
     'pDefaultEqual.isFiltered(info)=${pDefaultEqual.isFiltered(DiagnosticLevel.info)}',
   );
-  print(
-    'pMissing.toDescription()=${pMissing.toDescription()}',
-  );
-  print(
-    'pTooltip.toDescription()=${pTooltip.toDescription()}',
-  );
+  print('pMissing.toDescription()=${pMissing.toDescription()}');
+  print('pTooltip.toDescription()=${pTooltip.toDescription()}');
   print('DiagnosticsProperty<T> Deep Demo completed successfully');
 
   // ============================================================
@@ -1528,11 +1461,12 @@ dynamic build(BuildContext context) {
         _sectionTitle('1. Anatomy', Icons.api, Colors.indigo),
         anatomySection,
         SizedBox(height: 8.0),
-        _sectionTitle('2. Per-parameter live cards', Icons.science, Colors.deepPurple),
-        Wrap(
-          alignment: WrapAlignment.start,
-          children: liveCards,
+        _sectionTitle(
+          '2. Per-parameter live cards',
+          Icons.science,
+          Colors.deepPurple,
         ),
+        Wrap(alignment: WrapAlignment.start, children: liveCards),
         SizedBox(height: 8.0),
         _sectionTitle('3. Type recipes', Icons.category, Colors.teal),
         recipeSection,
@@ -1540,7 +1474,11 @@ dynamic build(BuildContext context) {
         _sectionTitle('4. Levels', Icons.linear_scale, Colors.orange),
         levelTable,
         SizedBox(height: 8.0),
-        _sectionTitle('5. Sub-property comparison', Icons.compare_arrows, Colors.deepPurple),
+        _sectionTitle(
+          '5. Sub-property comparison',
+          Icons.compare_arrows,
+          Colors.deepPurple,
+        ),
         comparisonSection,
         SizedBox(height: 8.0),
         _sectionTitle('6. Pitfalls', Icons.warning, Colors.red),
@@ -1578,17 +1516,12 @@ Widget _sectionTitle(String text, IconData icon, Color color) {
     padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.15),
-          color.withValues(alpha: 0.05),
-        ],
+        colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: color, width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 5.0)),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.18),
@@ -1666,10 +1599,7 @@ Widget _liveCard(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.06),
-          color.withValues(alpha: 0.18),
-        ],
+        colors: [color.withValues(alpha: 0.06), color.withValues(alpha: 0.18)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1763,9 +1693,7 @@ Widget _recipeRow(
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.12),
@@ -1901,12 +1829,7 @@ Color _levelColor(DiagnosticLevel level) {
   }
 }
 
-Widget _compareRow(
-  String label,
-  String rendered,
-  String note,
-  Color color,
-) {
+Widget _compareRow(String label, String rendered, String note, Color color) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: 5.0),
     padding: EdgeInsets.all(10.0),
@@ -1997,10 +1920,7 @@ Widget _footerBadge(String text, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.6),
-          color.withValues(alpha: 0.3),
-        ],
+        colors: [color.withValues(alpha: 0.6), color.withValues(alpha: 0.3)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

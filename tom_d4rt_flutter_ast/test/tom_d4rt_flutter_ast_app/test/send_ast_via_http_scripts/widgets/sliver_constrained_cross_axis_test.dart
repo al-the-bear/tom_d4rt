@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.width_normal,
       'title': 'What Is SliverConstrainedCrossAxis?',
-      'body': 'SliverConstrainedCrossAxis is a sliver that applies a '
+      'body':
+          'SliverConstrainedCrossAxis is a sliver that applies a '
           'maximum cross-axis extent to its child sliver. In a vertical '
           'CustomScrollView, this means limiting how wide the child '
           'content can be. The child sliver is centered within the '
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.straighten,
       'title': 'maxExtent Parameter',
-      'body': 'The single key parameter is maxExtent — the maximum '
+      'body':
+          'The single key parameter is maxExtent — the maximum '
           'cross-axis size (in logical pixels) allowed for the child '
           'sliver. If the viewport is wider, the child is constrained '
           'and centered. If the viewport is narrower, the child uses '
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.center_focus_strong,
       'title': 'Centering Behavior',
-      'body': 'When maxExtent constrains the child to be narrower than '
+      'body':
+          'When maxExtent constrains the child to be narrower than '
           'the viewport, the child is positioned at the center of the '
           'cross axis. This provides a natural centered-content layout '
           'without requiring explicit alignment wrappers.',
@@ -44,7 +47,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.devices,
       'title': 'Responsive Design',
-      'body': 'SliverConstrainedCrossAxis is essential for responsive '
+      'body':
+          'SliverConstrainedCrossAxis is essential for responsive '
           'scrollable layouts. On wide screens (tablets, desktops), it '
           'prevents content from stretching uncomfortably wide. On '
           'narrow screens (phones), it has no effect — content uses '
@@ -53,7 +57,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.text_format,
       'title': 'Readability',
-      'body': 'Typography best practices recommend 45-75 characters per '
+      'body':
+          'Typography best practices recommend 45-75 characters per '
           'line for readability. SliverConstrainedCrossAxis lets you '
           'enforce a maximum content width to maintain comfortable '
           'reading line lengths without hardcoding layout sizes.',
@@ -71,9 +76,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.brown.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.brown.withValues(alpha: 0.12),
-          ),
+          border: Border.all(color: Colors.brown.withValues(alpha: 0.12)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,10 +148,7 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: isRequired
                   ? Colors.red.withValues(alpha: 0.1)
@@ -295,11 +295,7 @@ dynamic build(BuildContext context) {
   print('=== Section 3: Width Limiting ===');
 
   // Build side-by-side comparison: unconstrained vs constrained
-  Widget buildSCCAWidthDemo(
-    String label,
-    double? maxExtent,
-    Color childColor,
-  ) {
+  Widget buildSCCAWidthDemo(String label, double? maxExtent, Color childColor) {
     final sliverContent = SliverToBoxAdapter(
       child: Container(
         height: 80.0,
@@ -368,11 +364,7 @@ dynamic build(BuildContext context) {
   }
 
   final widthDemos = [
-    buildSCCAWidthDemo(
-      'A) No Constraint — Full Width',
-      null,
-      Colors.blue,
-    ),
+    buildSCCAWidthDemo('A) No Constraint — Full Width', null, Colors.blue),
     const SizedBox(height: 14.0),
     buildSCCAWidthDemo(
       'B) maxExtent: 300px — Narrow Column',
@@ -386,11 +378,7 @@ dynamic build(BuildContext context) {
       Colors.orange,
     ),
     const SizedBox(height: 14.0),
-    buildSCCAWidthDemo(
-      'D) maxExtent: 150px — Minimal',
-      150.0,
-      Colors.purple,
-    ),
+    buildSCCAWidthDemo('D) maxExtent: 150px — Minimal', 150.0, Colors.purple),
   ];
 
   print('Width limiting demos built (4 variations)');
@@ -424,7 +412,8 @@ dynamic build(BuildContext context) {
       'maxExtent': 600,
       'icon': Icons.desktop_windows,
       'color': Colors.indigo,
-      'note': 'maxExtent 600 << viewport 1200 → content centered in 600px column',
+      'note':
+          'maxExtent 600 << viewport 1200 → content centered in 600px column',
     },
     {
       'device': 'Widescreen (1920px)',
@@ -527,12 +516,14 @@ dynamic build(BuildContext context) {
                       widthFactor: ratio,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: (scenario['color'] as Color)
-                              .withValues(alpha: 0.2),
+                          color: (scenario['color'] as Color).withValues(
+                            alpha: 0.2,
+                          ),
                           borderRadius: BorderRadius.circular(4.0),
                           border: Border.all(
-                            color: (scenario['color'] as Color)
-                                .withValues(alpha: 0.5),
+                            color: (scenario['color'] as Color).withValues(
+                              alpha: 0.5,
+                            ),
                           ),
                         ),
                         child: Center(
@@ -622,9 +613,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.blue.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(8.0),
-                  border: Border.all(
-                    color: Colors.blue.withValues(alpha: 0.2),
-                  ),
+                  border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
                 ),
                 child: Column(
                   children: [
@@ -724,9 +713,7 @@ dynamic build(BuildContext context) {
               decoration: BoxDecoration(
                 color: Colors.green.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: Colors.green.withValues(alpha: 0.2),
-                ),
+                border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
               ),
               child: Column(
                 children: [
@@ -788,7 +775,8 @@ dynamic build(BuildContext context) {
     },
     {
       'label': 'Content',
-      'desc': 'SliverConstrainedCrossAxis(maxExtent: 280) → SliverList with 2 items',
+      'desc':
+          'SliverConstrainedCrossAxis(maxExtent: 280) → SliverList with 2 items',
       'color': Colors.blue,
     },
     {
@@ -838,10 +826,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 ann['desc'] as String,
-                style: TextStyle(
-                  fontSize: 10.5,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 10.5, color: Colors.grey.shade600),
               ),
             ),
           ],
@@ -861,46 +846,56 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.article_outlined,
       'title': 'Content Readability',
-      'body': 'Blog posts, articles, documentation — limit the line length '
+      'body':
+          'Blog posts, articles, documentation — limit the line length '
           'to 600-800px for comfortable reading on wide screens while '
           'allowing full width on phones.',
-      'codeHint': 'SliverConstrainedCrossAxis(maxExtent: 700, sliver: articles)',
+      'codeHint':
+          'SliverConstrainedCrossAxis(maxExtent: 700, sliver: articles)',
       'color': Colors.blue,
     },
     {
       'icon': Icons.assignment,
       'title': 'Form Layouts',
-      'body': 'Forms feel awkward when stretched across a full desktop '
+      'body':
+          'Forms feel awkward when stretched across a full desktop '
           'viewport. Constrain form slivers to 500-600px for a natural, '
           'focused input experience.',
-      'codeHint': 'SliverConstrainedCrossAxis(maxExtent: 500, sliver: formSliver)',
+      'codeHint':
+          'SliverConstrainedCrossAxis(maxExtent: 500, sliver: formSliver)',
       'color': Colors.green,
     },
     {
       'icon': Icons.dashboard,
       'title': 'Dashboard Cards',
-      'body': 'In a scrollable dashboard, some card sections should be '
+      'body':
+          'In a scrollable dashboard, some card sections should be '
           'narrow while others span the full viewport. Mix constrained '
           'and unconstrained slivers freely.',
-      'codeHint': 'SliverConstrainedCrossAxis(maxExtent: 400, sliver: cardGrid)',
+      'codeHint':
+          'SliverConstrainedCrossAxis(maxExtent: 400, sliver: cardGrid)',
       'color': Colors.deepOrange,
     },
     {
       'icon': Icons.chat_bubble_outline,
       'title': 'Chat Messages',
-      'body': 'On a tablet, chat messages look odd spanning the full width. '
+      'body':
+          'On a tablet, chat messages look odd spanning the full width. '
           'Constrain the message list to a phone-like width while keeping '
           'the top bar and input full-width.',
-      'codeHint': 'SliverConstrainedCrossAxis(maxExtent: 420, sliver: messages)',
+      'codeHint':
+          'SliverConstrainedCrossAxis(maxExtent: 420, sliver: messages)',
       'color': Colors.purple,
     },
     {
       'icon': Icons.settings,
       'title': 'Settings Pages',
-      'body': 'Settings lists with switches and toggles are cleaner when '
+      'body':
+          'Settings lists with switches and toggles are cleaner when '
           'constrained. The user does not need to scan across a wide '
           'screen to read labels and tap controls.',
-      'codeHint': 'SliverConstrainedCrossAxis(maxExtent: 550, sliver: settings)',
+      'codeHint':
+          'SliverConstrainedCrossAxis(maxExtent: 550, sliver: settings)',
       'color': Colors.teal,
     },
   ];
@@ -1026,51 +1021,51 @@ dynamic build(BuildContext context) {
     buildSCCABullet(
       Icons.check_circle_outline,
       'SliverConstrainedCrossAxis limits the cross-axis extent of '
-          'its child sliver to a maximum value.',
+      'its child sliver to a maximum value.',
       Colors.green,
     ),
     buildSCCABullet(
       Icons.check_circle_outline,
       'The child is centered when constrained to a width narrower '
-          'than the viewport.',
+      'than the viewport.',
       Colors.green,
     ),
     buildSCCABullet(
       Icons.check_circle_outline,
       'Has no effect when the viewport is already narrower than '
-          'maxExtent — the child uses full viewport width naturally.',
+      'maxExtent — the child uses full viewport width naturally.',
       Colors.green,
     ),
     buildSCCABullet(
       Icons.check_circle_outline,
       'Mix constrained and unconstrained slivers in the same '
-          'CustomScrollView for flexible responsive layouts.',
+      'CustomScrollView for flexible responsive layouts.',
       Colors.green,
     ),
     buildSCCABullet(
       Icons.check_circle_outline,
       'Ideal for readability (limiting line length), forms, '
-          'settings pages, and any content that looks best in a '
-          'narrow centered column.',
+      'settings pages, and any content that looks best in a '
+      'narrow centered column.',
       Colors.green,
     ),
     buildSCCABullet(
       Icons.warning_amber,
       'Only constrains the cross axis — has no effect on the main '
-          'axis (scroll direction). For main axis limiting, use '
-          'SliverToBoxAdapter with SizedBox.',
+      'axis (scroll direction). For main axis limiting, use '
+      'SliverToBoxAdapter with SizedBox.',
       Colors.orange,
     ),
     buildSCCABullet(
       Icons.warning_amber,
       'Works only with sliver children. To constrain a box widget, '
-          'wrap it in SliverToBoxAdapter first, then constrain.',
+      'wrap it in SliverToBoxAdapter first, then constrain.',
       Colors.orange,
     ),
     buildSCCABullet(
       Icons.info_outline,
       'Combine with LayoutBuilder or MediaQuery for truly adaptive '
-          'maxExtent values that change at breakpoints.',
+      'maxExtent values that change at breakpoints.',
       Colors.blue,
     ),
   ];
@@ -1651,11 +1646,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Column(
                     children: [
-                      const Icon(
-                        Icons.layers,
-                        color: Colors.brown,
-                        size: 28.0,
-                      ),
+                      const Icon(Icons.layers, color: Colors.brown, size: 28.0),
                       const SizedBox(height: 8.0),
                       const Text(
                         'Nesting: Mixed-Width Slivers',
@@ -1856,7 +1847,11 @@ dynamic build(BuildContext context) {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.do_not_disturb, color: Colors.red, size: 20.0),
+                          Icon(
+                            Icons.do_not_disturb,
+                            color: Colors.red,
+                            size: 20.0,
+                          ),
                           SizedBox(width: 8.0),
                           Text(
                             'When NOT to Use',
@@ -2032,12 +2027,18 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                       const SizedBox(height: 10.0),
-                      _buildRefRow('Type', 'SingleChildRenderObjectWidget (sliver)'),
+                      _buildRefRow(
+                        'Type',
+                        'SingleChildRenderObjectWidget (sliver)',
+                      ),
                       _buildRefRow('Key param', 'maxExtent (required, double)'),
                       _buildRefRow('Child', 'A sliver widget'),
                       _buildRefRow('Centering', 'Automatic when constrained'),
                       _buildRefRow('Main axis', 'Unaffected'),
-                      _buildRefRow('Render object', 'RenderSliverConstrainedCrossAxis'),
+                      _buildRefRow(
+                        'Render object',
+                        'RenderSliverConstrainedCrossAxis',
+                      ),
                       _buildRefRow('Common use', 'Readable content columns'),
                       _buildRefRow('Since', 'Flutter 3.7'),
                     ],
@@ -2059,7 +2060,11 @@ dynamic build(BuildContext context) {
                     children: [
                       const Row(
                         children: [
-                          Icon(Icons.fork_right, color: Colors.teal, size: 20.0),
+                          Icon(
+                            Icons.fork_right,
+                            color: Colors.teal,
+                            size: 20.0,
+                          ),
                           SizedBox(width: 8.0),
                           Text(
                             'Decision Flow',
@@ -2149,8 +2154,10 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
 
   @override
   Widget build(BuildContext context) {
-    print('Live demo build: maxExtent=$_maxExtent, items=$_itemCount, '
-        'grid=$_useGrid, border=$_showBorder');
+    print(
+      'Live demo build: maxExtent=$_maxExtent, items=$_itemCount, '
+      'grid=$_useGrid, border=$_showBorder',
+    );
 
     // Build the child sliver based on mode
     Widget childSliver;
@@ -2162,100 +2169,83 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
           crossAxisSpacing: 6.0,
           childAspectRatio: 1.5,
         ),
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final hue = (index * 37.0) % 360.0;
-            final itemColor = HSVColor.fromAHSV(1.0, hue, 0.4, 0.9).toColor();
-            return Container(
-              decoration: BoxDecoration(
-                color: itemColor.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(6.0),
-                border: Border.all(
-                  color: itemColor.withValues(alpha: 0.5),
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.grid_view,
-                      color: itemColor,
-                      size: 18.0,
-                    ),
-                    const SizedBox(height: 2.0),
-                    Text(
-                      'Grid ${index + 1}',
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.bold,
-                        color: itemColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-          childCount: _itemCount,
-        ),
-      );
-    } else {
-      childSliver = SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            final hue = (index * 43.0) % 360.0;
-            final itemColor = HSVColor.fromAHSV(1.0, hue, 0.35, 0.85).toColor();
-            return Container(
-              margin: const EdgeInsets.only(bottom: 6.0),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14.0,
-                vertical: 10.0,
-              ),
-              decoration: BoxDecoration(
-                color: itemColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(
-                  color: itemColor.withValues(alpha: 0.3),
-                ),
-              ),
-              child: Row(
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final hue = (index * 37.0) % 360.0;
+          final itemColor = HSVColor.fromAHSV(1.0, hue, 0.4, 0.9).toColor();
+          return Container(
+            decoration: BoxDecoration(
+              color: itemColor.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(6.0),
+              border: Border.all(color: itemColor.withValues(alpha: 0.5)),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    width: 28.0,
-                    height: 28.0,
-                    decoration: BoxDecoration(
-                      color: itemColor.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '${index + 1}',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                          color: itemColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10.0),
-                  Expanded(
-                    child: Text(
-                      'List item ${index + 1} — constrained to '
-                      '${_maxExtent.toInt()}px max',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: itemColor,
-                      ),
+                  Icon(Icons.grid_view, color: itemColor, size: 18.0),
+                  const SizedBox(height: 2.0),
+                  Text(
+                    'Grid ${index + 1}',
+                    style: TextStyle(
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.bold,
+                      color: itemColor,
                     ),
                   ),
                 ],
               ),
-            );
-          },
-          childCount: _itemCount,
-        ),
+            ),
+          );
+        }, childCount: _itemCount),
+      );
+    } else {
+      childSliver = SliverList(
+        delegate: SliverChildBuilderDelegate((context, index) {
+          final hue = (index * 43.0) % 360.0;
+          final itemColor = HSVColor.fromAHSV(1.0, hue, 0.35, 0.85).toColor();
+          return Container(
+            margin: const EdgeInsets.only(bottom: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14.0,
+              vertical: 10.0,
+            ),
+            decoration: BoxDecoration(
+              color: itemColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(color: itemColor.withValues(alpha: 0.3)),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 28.0,
+                  height: 28.0,
+                  decoration: BoxDecoration(
+                    color: itemColor.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(6.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${index + 1}',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: itemColor,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Text(
+                    'List item ${index + 1} — constrained to '
+                    '${_maxExtent.toInt()}px max',
+                    style: TextStyle(fontSize: 12.0, color: itemColor),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }, childCount: _itemCount),
       );
     }
 
@@ -2270,9 +2260,7 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
             decoration: BoxDecoration(
               color: Colors.brown.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(
-                color: Colors.brown.withValues(alpha: 0.12),
-              ),
+              border: Border.all(color: Colors.brown.withValues(alpha: 0.12)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -2395,15 +2383,11 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
                             vertical: 8.0,
                           ),
                           decoration: BoxDecoration(
-                            color: (_useGrid
-                                    ? Colors.teal
-                                    : Colors.grey)
+                            color: (_useGrid ? Colors.teal : Colors.grey)
                                 .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6.0),
                             border: Border.all(
-                              color: (_useGrid
-                                      ? Colors.teal
-                                      : Colors.grey)
+                              color: (_useGrid ? Colors.teal : Colors.grey)
                                   .withValues(alpha: 0.3),
                             ),
                           ),
@@ -2411,9 +2395,7 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
-                                _useGrid
-                                    ? Icons.grid_view
-                                    : Icons.list,
+                                _useGrid ? Icons.grid_view : Icons.list,
                                 size: 16.0,
                                 color: _useGrid
                                     ? Colors.teal
@@ -2439,8 +2421,7 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
                     // Show border toggle
                     Expanded(
                       child: InkWell(
-                        onTap: () =>
-                            setState(() => _showBorder = !_showBorder),
+                        onTap: () => setState(() => _showBorder = !_showBorder),
                         borderRadius: BorderRadius.circular(6.0),
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -2448,15 +2429,11 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
                             vertical: 8.0,
                           ),
                           decoration: BoxDecoration(
-                            color: (_showBorder
-                                    ? Colors.indigo
-                                    : Colors.grey)
+                            color: (_showBorder ? Colors.indigo : Colors.grey)
                                 .withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6.0),
                             border: Border.all(
-                              color: (_showBorder
-                                      ? Colors.indigo
-                                      : Colors.grey)
+                              color: (_showBorder ? Colors.indigo : Colors.grey)
                                   .withValues(alpha: 0.3),
                             ),
                           ),
@@ -2474,9 +2451,7 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
                               ),
                               const SizedBox(width: 6.0),
                               Text(
-                                _showBorder
-                                    ? 'Border On'
-                                    : 'Border Off',
+                                _showBorder ? 'Border On' : 'Border Off',
                                 style: TextStyle(
                                   fontSize: 11.5,
                                   fontWeight: FontWeight.bold,
@@ -2502,9 +2477,7 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 border: _showBorder
-                    ? Border.all(
-                        color: Colors.brown.withValues(alpha: 0.2),
-                      )
+                    ? Border.all(color: Colors.brown.withValues(alpha: 0.2))
                     : null,
               ),
               clipBehavior: Clip.antiAlias,
@@ -2560,17 +2533,11 @@ class _SCCALiveDemoState extends State<_SCCALiveDemo> {
             decoration: BoxDecoration(
               color: Colors.amber.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(
-                color: Colors.amber.withValues(alpha: 0.15),
-              ),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.15)),
             ),
             child: Row(
               children: [
-                const Icon(
-                  Icons.info_outline,
-                  size: 16.0,
-                  color: Colors.amber,
-                ),
+                const Icon(Icons.info_outline, size: 16.0, color: Colors.amber),
                 const SizedBox(width: 8.0),
                 Expanded(
                   child: Text(
@@ -2626,55 +2593,46 @@ List<Widget> _buildBreakpointRows() {
     {'device': 'Wide', 'width': '>1600px', 'max': '800-1000px'},
   ];
 
-  return rows
-      .asMap()
-      .entries
-      .map((entry) {
-        final row = entry.value;
-        final isEven = entry.key % 2 == 0;
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          color: isEven
-              ? Colors.brown.withValues(alpha: 0.02)
-              : Colors.transparent,
-          child: Row(
-            children: [
-              SizedBox(
-                width: 80.0,
-                child: Text(
-                  row['device']!,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade700,
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 70.0,
-                child: Text(
-                  row['width']!,
-                  style: TextStyle(
-                    fontSize: 10.5,
-                    fontFamily: 'monospace',
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Text(
-                  row['max']!,
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.brown.shade600,
-                  ),
-                ),
-              ),
-            ],
+  return rows.asMap().entries.map((entry) {
+    final row = entry.value;
+    final isEven = entry.key % 2 == 0;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      color: isEven ? Colors.brown.withValues(alpha: 0.02) : Colors.transparent,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 80.0,
+            child: Text(
+              row['device']!,
+              style: TextStyle(fontSize: 11.0, color: Colors.grey.shade700),
+            ),
           ),
-        );
-      })
-      .toList();
+          SizedBox(
+            width: 70.0,
+            child: Text(
+              row['width']!,
+              style: TextStyle(
+                fontSize: 10.5,
+                fontFamily: 'monospace',
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              row['max']!,
+              style: TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.brown.shade600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }).toList();
 }
 
 Widget _buildNestingTip(String title, String body, Color color) {
@@ -2775,8 +2733,7 @@ Widget _buildComparisonRow(
             widget,
             style: TextStyle(
               fontSize: 10.5,
-              fontWeight:
-                  isHighlighted ? FontWeight.bold : FontWeight.normal,
+              fontWeight: isHighlighted ? FontWeight.bold : FontWeight.normal,
               color: isHighlighted ? Colors.brown : Colors.grey.shade700,
             ),
           ),
@@ -2785,30 +2742,21 @@ Widget _buildComparisonRow(
           flex: 1,
           child: Text(
             type,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
           ),
         ),
         Expanded(
           flex: 2,
           child: Text(
             constraint,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
           ),
         ),
         Expanded(
           flex: 2,
           child: Text(
             behavior,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -2836,10 +2784,7 @@ Widget _buildRefRow(String label, String value) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 11.5, color: Colors.grey.shade600),
           ),
         ),
       ],

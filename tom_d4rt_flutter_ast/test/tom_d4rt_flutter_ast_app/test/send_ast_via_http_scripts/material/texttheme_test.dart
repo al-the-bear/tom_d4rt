@@ -84,18 +84,30 @@ dynamic build(BuildContext context) {
   // ---- Inspect the current Theme.of(context) typography baseline ---------
   final ThemeData incoming = Theme.of(context);
   final TextTheme inheritedText = incoming.textTheme;
-  print('[texttheme_test] inherited textTheme.bodyMedium.fontSize='
-      '${inheritedText.bodyMedium?.fontSize}');
-  print('[texttheme_test] inherited textTheme.titleLarge.fontWeight='
-      '${inheritedText.titleLarge?.fontWeight}');
-  print('[texttheme_test] inherited textTheme.displayLarge.fontSize='
-      '${inheritedText.displayLarge?.fontSize}');
+  print(
+    '[texttheme_test] inherited textTheme.bodyMedium.fontSize='
+    '${inheritedText.bodyMedium?.fontSize}',
+  );
+  print(
+    '[texttheme_test] inherited textTheme.titleLarge.fontWeight='
+    '${inheritedText.titleLarge?.fontWeight}',
+  );
+  print(
+    '[texttheme_test] inherited textTheme.displayLarge.fontSize='
+    '${inheritedText.displayLarge?.fontSize}',
+  );
 
   // ---- Build an explicit Material 3 TextTheme with all 15 named entries --
   final TextTheme galleryTheme = _buildMaterial3TextTheme();
-  print('[texttheme_test] galleryTheme displayLarge=${galleryTheme.displayLarge?.fontSize}');
-  print('[texttheme_test] galleryTheme bodyMedium=${galleryTheme.bodyMedium?.fontSize}');
-  print('[texttheme_test] galleryTheme labelSmall=${galleryTheme.labelSmall?.fontSize}');
+  print(
+    '[texttheme_test] galleryTheme displayLarge=${galleryTheme.displayLarge?.fontSize}',
+  );
+  print(
+    '[texttheme_test] galleryTheme bodyMedium=${galleryTheme.bodyMedium?.fontSize}',
+  );
+  print(
+    '[texttheme_test] galleryTheme labelSmall=${galleryTheme.labelSmall?.fontSize}',
+  );
 
   // ---- Demonstrate TextTheme.copyWith on a single role -------------------
   final TextTheme tweakedTheme = galleryTheme.copyWith(
@@ -105,7 +117,9 @@ dynamic build(BuildContext context) {
       letterSpacing: 0.15,
     ),
   );
-  print('[texttheme_test] tweakedTheme bodyLarge color=${tweakedTheme.bodyLarge?.color}');
+  print(
+    '[texttheme_test] tweakedTheme bodyLarge color=${tweakedTheme.bodyLarge?.color}',
+  );
 
   // ---- Demonstrate TextTheme.apply (bulk recolor / size factor) ----------
   final TextTheme appliedTheme = galleryTheme.apply(
@@ -113,16 +127,24 @@ dynamic build(BuildContext context) {
     bodyColor: _kInk,
     displayColor: _kInk,
   );
-  print('[texttheme_test] appliedTheme displayMedium color=${appliedTheme.displayMedium?.color}');
+  print(
+    '[texttheme_test] appliedTheme displayMedium color=${appliedTheme.displayMedium?.color}',
+  );
 
   // ---- Demonstrate TextTheme.merge -------------------------------------
   final TextTheme partial = const TextTheme(
     bodyMedium: TextStyle(letterSpacing: 0.5),
-    labelLarge: TextStyle(fontFeatures: <FontFeature>[FontFeature.tabularFigures()]),
+    labelLarge: TextStyle(
+      fontFeatures: <FontFeature>[FontFeature.tabularFigures()],
+    ),
   );
   final TextTheme mergedTheme = appliedTheme.merge(partial);
-  print('[texttheme_test] mergedTheme bodyMedium letterSpacing=${mergedTheme.bodyMedium?.letterSpacing}');
-  print('[texttheme_test] mergedTheme labelLarge features=${mergedTheme.labelLarge?.fontFeatures?.length}');
+  print(
+    '[texttheme_test] mergedTheme bodyMedium letterSpacing=${mergedTheme.bodyMedium?.letterSpacing}',
+  );
+  print(
+    '[texttheme_test] mergedTheme labelLarge features=${mergedTheme.labelLarge?.fontFeatures?.length}',
+  );
 
   // ---- Section assembly -------------------------------------------------
   print('[texttheme_test] section A: TextTheme gallery (15 named styles)');
@@ -179,10 +201,7 @@ dynamic build(BuildContext context) {
         elevation: 0,
         title: const Text(
           'TextTheme Deep Visual Demo',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.2,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.2),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(34),
@@ -469,7 +488,8 @@ Widget _buildGallerySection(TextTheme tt) {
 
   return _sectionShell(
     title: 'A. Complete TextTheme gallery',
-    subtitle: 'All 15 named styles rendered at their natural size with role tags '
+    subtitle:
+        'All 15 named styles rendered at their natural size with role tags '
         'and size / weight callouts.',
     accent: _kRoleDisplay,
     body: Column(
@@ -525,10 +545,7 @@ Widget _galleryCard(_Sample sample) {
             const Spacer(),
             Text(
               _styleSpecOf(style),
-              style: const TextStyle(
-                color: _kInkSoft,
-                fontSize: 11,
-              ),
+              style: const TextStyle(color: _kInkSoft, fontSize: 11),
             ),
           ],
         ),
@@ -620,19 +637,35 @@ Widget _buildTypographyComparisonSection() {
 
   // Also surface a few Typography preset objects so we lean on the actual
   // Flutter API and not just literals.
-  final Typography typo = Typography.material2021(platform: TargetPlatform.android);
-  final Typography typoOld = Typography.material2018(platform: TargetPlatform.android);
-  final Typography typoIos = Typography.material2021(platform: TargetPlatform.iOS);
-  final Typography typoLinux = Typography.material2021(platform: TargetPlatform.linux);
+  final Typography typo = Typography.material2021(
+    platform: TargetPlatform.android,
+  );
+  final Typography typoOld = Typography.material2018(
+    platform: TargetPlatform.android,
+  );
+  final Typography typoIos = Typography.material2021(
+    platform: TargetPlatform.iOS,
+  );
+  final Typography typoLinux = Typography.material2021(
+    platform: TargetPlatform.linux,
+  );
 
-  print('[texttheme_test] Typography.material2021 black.bodyMedium='
-      '${typo.black.bodyMedium?.fontSize}');
-  print('[texttheme_test] Typography.material2018 black.bodyMedium='
-      '${typoOld.black.bodyMedium?.fontSize}');
-  print('[texttheme_test] Typography.material2021 iOS black.titleLarge='
-      '${typoIos.black.titleLarge?.fontSize}');
-  print('[texttheme_test] Typography.material2021 linux black.titleLarge='
-      '${typoLinux.black.titleLarge?.fontSize}');
+  print(
+    '[texttheme_test] Typography.material2021 black.bodyMedium='
+    '${typo.black.bodyMedium?.fontSize}',
+  );
+  print(
+    '[texttheme_test] Typography.material2018 black.bodyMedium='
+    '${typoOld.black.bodyMedium?.fontSize}',
+  );
+  print(
+    '[texttheme_test] Typography.material2021 iOS black.titleLarge='
+    '${typoIos.black.titleLarge?.fontSize}',
+  );
+  print(
+    '[texttheme_test] Typography.material2021 linux black.titleLarge='
+    '${typoLinux.black.titleLarge?.fontSize}',
+  );
 
   final List<TextStyle?> liveSizes = <TextStyle?>[
     typo.black.displayLarge,
@@ -652,13 +685,16 @@ Widget _buildTypographyComparisonSection() {
   final List<Widget> liveChips = <Widget>[];
   for (int i = 0; i < liveLabels.length; i++) {
     final TextStyle? s = liveSizes[i];
-    final String size = s?.fontSize == null ? '?' : s!.fontSize!.toStringAsFixed(0);
+    final String size = s?.fontSize == null
+        ? '?'
+        : s!.fontSize!.toStringAsFixed(0);
     liveChips.add(_pill('${liveLabels[i]} ${size}sp', _kAccentSoft, _kAccent));
   }
 
   return _sectionShell(
     title: 'B. Typography preset comparison',
-    subtitle: 'Material 2018 (legacy) vs Material 2021 (M3) named-style sizing. '
+    subtitle:
+        'Material 2018 (legacy) vs Material 2021 (M3) named-style sizing. '
         'Both presets ship through the Typography class.',
     accent: _kRoleHeadline,
     body: Column(
@@ -806,14 +842,20 @@ Widget _buildMergeRecipeSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'C. TextStyle.merge / copyWith / apply',
-    subtitle: 'Three independent recipes for layering style attributes. '
+    subtitle:
+        'Three independent recipes for layering style attributes. '
         'merge picks non-null fields from the argument, copyWith only changes '
         'the explicitly named fields, and apply transforms numeric attributes.',
     accent: _kRoleTitle,
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        _recipeCard('base', 'titleLarge starting point', base, 'Quartz Headline'),
+        _recipeCard(
+          'base',
+          'titleLarge starting point',
+          base,
+          'Quartz Headline',
+        ),
         const SizedBox(height: 10),
         _recipeCard(
           'partial',
@@ -847,7 +889,12 @@ Widget _buildMergeRecipeSection(TextTheme tt) {
   );
 }
 
-Widget _recipeCard(String label, String description, TextStyle style, String sample) {
+Widget _recipeCard(
+  String label,
+  String description,
+  TextStyle style,
+  String sample,
+) {
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -965,7 +1012,8 @@ Widget _buildWeightLadderSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'D. FontWeight ladder',
-    subtitle: 'Nine canonical weights w100 to w900. FontWeight.normal == w400, '
+    subtitle:
+        'Nine canonical weights w100 to w900. FontWeight.normal == w400, '
         'FontWeight.bold == w700.',
     accent: _kRoleBody,
     body: Container(
@@ -987,7 +1035,8 @@ Widget _buildItalicSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'E. FontStyle.italic vs FontStyle.normal',
-    subtitle: 'FontStyle is an independent axis from FontWeight. It applies a '
+    subtitle:
+        'FontStyle is an independent axis from FontWeight. It applies a '
         'true italic glyph variant where the font provides one.',
     accent: _kRoleLabel,
     body: Container(
@@ -1165,7 +1214,8 @@ Widget _buildFeatureSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'F. FontFeature OpenType samples',
-    subtitle: 'OpenType feature tags exposed via dart:ui FontFeature. Most '
+    subtitle:
+        'OpenType feature tags exposed via dart:ui FontFeature. Most '
         'tags require font support to produce a visible difference.',
     accent: _kRoleHeadline,
     body: Column(
@@ -1314,7 +1364,8 @@ Widget _buildVariationSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'G. FontVariation axes',
-    subtitle: 'Variable fonts expose continuous axes via four-character tags. '
+    subtitle:
+        'Variable fonts expose continuous axes via four-character tags. '
         'wght, wdth, opsz, slnt are the canonical registered axes.',
     accent: _kRoleDisplay,
     body: Container(
@@ -1334,7 +1385,8 @@ Widget _buildVariationSection(TextTheme tt) {
 Widget _buildContextThemeSection(TextTheme tt) {
   return _sectionShell(
     title: 'H. Theme.of(context).textTheme and DefaultTextStyle',
-    subtitle: 'Three layered ways the framework resolves the actual TextStyle '
+    subtitle:
+        'Three layered ways the framework resolves the actual TextStyle '
         'applied to a Text widget.',
     accent: _kRoleTitle,
     body: Column(
@@ -1343,7 +1395,7 @@ Widget _buildContextThemeSection(TextTheme tt) {
         _layerCard(
           '1. ThemeData.textTheme',
           'Set at MaterialApp construction. Defines all 15 roles workspace-wide. '
-          'Components read this through Theme.of(context).textTheme.',
+              'Components read this through Theme.of(context).textTheme.',
           tt.bodyMedium,
         ),
         const SizedBox(height: 10),
@@ -1356,52 +1408,55 @@ Widget _buildContextThemeSection(TextTheme tt) {
         _layerCard(
           '3. DefaultTextStyle.merge(style: TextStyle(...))',
           'Direct style overlay - merges into the inherited default for child '
-          'Text widgets without going through ThemeData.',
+              'Text widgets without going through ThemeData.',
           tt.bodyMedium,
         ),
         const SizedBox(height: 14),
         // Live nested Theme demonstration.
-        Builder(builder: (BuildContext outerContext) {
-        return Theme(
-          data: Theme.of(outerContext).copyWith(
-            textTheme: tt.copyWith(
-              titleLarge: tt.titleLarge?.copyWith(
-                color: _kRoleHeadline,
-                fontStyle: FontStyle.italic,
+        Builder(
+          builder: (BuildContext outerContext) {
+            return Theme(
+              data: Theme.of(outerContext).copyWith(
+                textTheme: tt.copyWith(
+                  titleLarge: tt.titleLarge?.copyWith(
+                    color: _kRoleHeadline,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
               ),
-            ),
-          ),
-          child: Builder(
-            builder: (BuildContext nestedContext) {
-              final TextStyle? nestedTitle =
-                  Theme.of(nestedContext).textTheme.titleLarge;
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: _kHairline),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      'Nested Theme override',
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 11,
-                        color: _kInkSoft,
-                      ),
+              child: Builder(
+                builder: (BuildContext nestedContext) {
+                  final TextStyle? nestedTitle = Theme.of(
+                    nestedContext,
+                  ).textTheme.titleLarge;
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: _kHairline),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const SizedBox(height: 6),
-                    Text('Resolved titleLarge', style: nestedTitle),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
-        }),
+                    padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const Text(
+                          'Nested Theme override',
+                          style: TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: _kInkSoft,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text('Resolved titleLarge', style: nestedTitle),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
         const SizedBox(height: 10),
         DefaultTextStyle(
           style: TextStyle(
@@ -1429,7 +1484,9 @@ Widget _buildContextThemeSection(TextTheme tt) {
                   ),
                 ),
                 SizedBox(height: 6),
-                Text('All raw Text widgets in this subtree inherit this style.'),
+                Text(
+                  'All raw Text widgets in this subtree inherit this style.',
+                ),
                 SizedBox(height: 2),
                 Text('Including nested rows like this one.'),
               ],
@@ -1492,7 +1549,8 @@ Widget _buildInheritSection(TextTheme tt) {
 
   return _sectionShell(
     title: 'I. TextStyle.inherit explained',
-    subtitle: 'inherit:true merges with the ambient DefaultTextStyle, '
+    subtitle:
+        'inherit:true merges with the ambient DefaultTextStyle, '
         'inherit:false fully replaces it.',
     accent: _kRoleBody,
     body: DefaultTextStyle(
@@ -1583,11 +1641,7 @@ Widget _sectionShell({
         const SizedBox(height: 6),
         Text(
           subtitle,
-          style: const TextStyle(
-            color: _kInkSoft,
-            fontSize: 13,
-            height: 1.4,
-          ),
+          style: const TextStyle(color: _kInkSoft, fontSize: 13, height: 1.4),
         ),
         const SizedBox(height: 16),
         body,

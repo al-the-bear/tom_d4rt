@@ -84,17 +84,25 @@ dynamic build(BuildContext context) {
   ];
 
   print('CupertinoFocusHalo gallery executing');
-  print('  scenario 1 nodes: filled=${btnFilledNode.debugLabel}, '
-      'tinted=${btnTintedNode.debugLabel}, plain=${btnPlainNode.debugLabel}, '
-      'extra=${btnExtraNode.debugLabel}');
-  print('  scenario 2 nodes: default=${fieldDefaultNode.debugLabel}, '
-      'custom=${fieldCustomNode.debugLabel}, animated=${fieldAnimatedNode.debugLabel}');
+  print(
+    '  scenario 1 nodes: filled=${btnFilledNode.debugLabel}, '
+    'tinted=${btnTintedNode.debugLabel}, plain=${btnPlainNode.debugLabel}, '
+    'extra=${btnExtraNode.debugLabel}',
+  );
+  print(
+    '  scenario 2 nodes: default=${fieldDefaultNode.debugLabel}, '
+    'custom=${fieldCustomNode.debugLabel}, animated=${fieldAnimatedNode.debugLabel}',
+  );
   print('  scenario 3 node:  segmented=${segmentNode.debugLabel}');
-  print('  scenario 4 nodes: '
-      's1=${switch1Node.debugLabel}, s2=${switch2Node.debugLabel}, '
-      's3=${switch3Node.debugLabel}, s4=${switch4Node.debugLabel}');
-  print('  scenario 5 nodes: diy=${diyNode.debugLabel}, '
-      'compare=${diyCompareNode.debugLabel}');
+  print(
+    '  scenario 4 nodes: '
+    's1=${switch1Node.debugLabel}, s2=${switch2Node.debugLabel}, '
+    's3=${switch3Node.debugLabel}, s4=${switch4Node.debugLabel}',
+  );
+  print(
+    '  scenario 5 nodes: diy=${diyNode.debugLabel}, '
+    'compare=${diyCompareNode.debugLabel}',
+  );
   print('  scenario 6 nodes: ${matrixNodes.map((n) => n.debugLabel).toList()}');
   print('  total focus nodes registered: 17');
 
@@ -205,7 +213,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEFF7FF),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFB6D4FB), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFB6D4FB),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,7 +437,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF6EE),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFFFCFA8), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFFFCFA8),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -597,7 +611,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEEFBEF),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFA8E0AC), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFA8E0AC),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -728,7 +745,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFF6EFFF),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFCDB7F2), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFCDB7F2),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -861,7 +881,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFEFFBFB),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFA0DEDB), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFA0DEDB),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -900,7 +923,9 @@ dynamic build(BuildContext context) {
                                 builder: (ctx, _) {
                                   final focused = diyNode.hasFocus;
                                   return Container(
-                                    padding: EdgeInsets.all(focused ? 4.0 : 0.0),
+                                    padding: EdgeInsets.all(
+                                      focused ? 4.0 : 0.0,
+                                    ),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color: focused
@@ -919,8 +944,9 @@ dynamic build(BuildContext context) {
                                           height: 56.0,
                                           decoration: BoxDecoration(
                                             color: const Color(0xFF30B0C7),
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
+                                            borderRadius: BorderRadius.circular(
+                                              10.0,
+                                            ),
                                           ),
                                           child: const Center(
                                             child: Text(
@@ -1025,7 +1051,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF1F4),
                   borderRadius: BorderRadius.circular(14.0),
-                  border: Border.all(color: const Color(0xFFF6BBC8), width: 1.0),
+                  border: Border.all(
+                    color: const Color(0xFFF6BBC8),
+                    width: 1.0,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1058,8 +1087,8 @@ dynamic build(BuildContext context) {
                                     matrixCells[row * 2]['radius'] as double,
                                 caption:
                                     matrixCells[row * 2]['caption'] as String,
-                                background: matrixCells[row * 2]['background']
-                                    as Color,
+                                background:
+                                    matrixCells[row * 2]['background'] as Color,
                               ),
                             ),
                             const SizedBox(width: 10.0),

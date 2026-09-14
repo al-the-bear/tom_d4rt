@@ -117,11 +117,7 @@ Widget _narrativeCard(String body) {
     ),
     child: Text(
       body,
-      style: const TextStyle(
-        fontSize: 13.0,
-        height: 1.4,
-        color: _workshopInk,
-      ),
+      style: const TextStyle(fontSize: 13.0, height: 1.4, color: _workshopInk),
     ),
   );
 }
@@ -228,10 +224,7 @@ Widget _gridSurface({
       ),
       child: Center(
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: _workshopInk.withValues(alpha: 0.65),
             borderRadius: BorderRadius.circular(8.0),
@@ -312,10 +305,7 @@ class _DefaultViewerState extends State<_DefaultViewer> {
               child: _gridSurface(
                 width: 600.0,
                 height: 600.0,
-                gradient: const <Color>[
-                  Color(0xFF4FC3F7),
-                  Color(0xFF1976D2),
-                ],
+                gradient: const <Color>[Color(0xFF4FC3F7), Color(0xFF1976D2)],
                 label: '600x600 canvas',
               ),
             ),
@@ -492,10 +482,7 @@ Widget _toggleViewer({
               child: _gridSurface(
                 width: 280.0,
                 height: 220.0,
-                gradient: <Color>[
-                  tint.withValues(alpha: 0.5),
-                  tint,
-                ],
+                gradient: <Color>[tint.withValues(alpha: 0.5), tint],
                 label: title,
               ),
             ),
@@ -555,10 +542,7 @@ Widget _boundaryViewer({
               child: _gridSurface(
                 width: 260.0,
                 height: 200.0,
-                gradient: <Color>[
-                  tint.withValues(alpha: 0.45),
-                  tint,
-                ],
+                gradient: <Color>[tint.withValues(alpha: 0.45), tint],
                 label: label,
               ),
             ),
@@ -599,10 +583,7 @@ Widget _unconstrainedViewer() {
         child: _gridSurface(
           width: 1200.0,
           height: 800.0,
-          gradient: const <Color>[
-            Color(0xFFFFB74D),
-            Color(0xFFE65100),
-          ],
+          gradient: const <Color>[Color(0xFFFFB74D), Color(0xFFE65100)],
           label: 'constrained: false (1200x800 intrinsic)',
         ),
       ),
@@ -631,8 +612,10 @@ class _ControlledViewerState extends State<_ControlledViewer>
   Animation<Matrix4>? _tween;
 
   void _animateTo(Matrix4 target) {
-    _tween = Matrix4Tween(begin: _controller.value, end: target)
-        .animate(CurvedAnimation(parent: _anim, curve: Curves.easeOutCubic));
+    _tween = Matrix4Tween(
+      begin: _controller.value,
+      end: target,
+    ).animate(CurvedAnimation(parent: _anim, curve: Curves.easeOutCubic));
     _tween!.addListener(_apply);
     _anim
       ..reset()
@@ -650,18 +633,21 @@ class _ControlledViewerState extends State<_ControlledViewer>
   }
 
   void _zoomIn() {
-    final Matrix4 next = _controller.value.clone()..scaleByDouble(1.6, 1.6, 1.0, 1.0);
+    final Matrix4 next = _controller.value.clone()
+      ..scaleByDouble(1.6, 1.6, 1.0, 1.0);
     _animateTo(next);
   }
 
   void _zoomOut() {
     final double inv = 1.0 / 1.6;
-    final Matrix4 next = _controller.value.clone()..scaleByDouble(inv, inv, 1.0, 1.0);
+    final Matrix4 next = _controller.value.clone()
+      ..scaleByDouble(inv, inv, 1.0, 1.0);
     _animateTo(next);
   }
 
   void _center() {
-    final Matrix4 next = Matrix4.identity()..translateByDouble(-150.0, -100.0, 0.0, 1.0);
+    final Matrix4 next = Matrix4.identity()
+      ..translateByDouble(-150.0, -100.0, 0.0, 1.0);
     _animateTo(next);
   }
 
@@ -802,10 +788,7 @@ class _LargeTiledViewerState extends State<_LargeTiledViewer> {
       alignment: Alignment.center,
       child: Text(
         '$col,$row',
-        style: const TextStyle(
-          fontSize: 9.0,
-          color: Color(0xFF0D47A1),
-        ),
+        style: const TextStyle(fontSize: 9.0, color: Color(0xFF0D47A1)),
       ),
     );
   }
@@ -944,11 +927,7 @@ class _FauxMapViewState extends State<_FauxMapView> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Icon(
-                              Icons.place,
-                              size: 28.0,
-                              color: c.color,
-                            ),
+                            Icon(Icons.place, size: 28.0, color: c.color),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 6.0,
@@ -1057,17 +1036,13 @@ class _InteractionLogViewerState extends State<_InteractionLogViewer> {
                 },
                 onInteractionEnd: (ScaleEndDetails d) {
                   _push(
-                    'end    vel=${d.velocity.pixelsPerSecond.distance
-                        .toStringAsFixed(1)}',
+                    'end    vel=${d.velocity.pixelsPerSecond.distance.toStringAsFixed(1)}',
                   );
                 },
                 child: _gridSurface(
                   width: 480.0,
                   height: 480.0,
-                  gradient: const <Color>[
-                    Color(0xFFA1887F),
-                    Color(0xFF4E342E),
-                  ],
+                  gradient: const <Color>[Color(0xFFA1887F), Color(0xFF4E342E)],
                   label: 'log target',
                 ),
               ),
@@ -1371,10 +1346,7 @@ Widget _heroHeader() {
     padding: const EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF1F2933),
-          Color(0xFF3E4C59),
-        ],
+        colors: <Color>[Color(0xFF1F2933), Color(0xFF3E4C59)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1396,11 +1368,7 @@ Widget _heroHeader() {
             color: _workshopAccent,
             borderRadius: BorderRadius.circular(20.0),
           ),
-          child: const Icon(
-            Icons.pan_tool,
-            color: _workshopPaper,
-            size: 44.0,
-          ),
+          child: const Icon(Icons.pan_tool, color: _workshopPaper, size: 44.0),
         ),
         const SizedBox(width: 16.0),
         Expanded(

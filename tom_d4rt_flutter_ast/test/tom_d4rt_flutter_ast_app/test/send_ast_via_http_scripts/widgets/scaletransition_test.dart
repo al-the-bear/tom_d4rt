@@ -72,11 +72,7 @@ const TextStyle _kSub = TextStyle(
   letterSpacing: 1.2,
 );
 
-const TextStyle _kBody = TextStyle(
-  fontSize: 13.5,
-  color: _ink,
-  height: 1.45,
-);
+const TextStyle _kBody = TextStyle(fontSize: 13.5, color: _ink, height: 1.45);
 
 const TextStyle _kLabel = TextStyle(
   fontSize: 11.0,
@@ -207,11 +203,7 @@ Widget _hero() {
         const Text(
           'A study of how the ScaleTransition widget projects an '
           'Animation<double> onto the local Matrix4 of its subtree.',
-          style: TextStyle(
-            fontSize: 13.5,
-            color: _parchment,
-            height: 1.5,
-          ),
+          style: TextStyle(fontSize: 13.5, color: _parchment, height: 1.5),
         ),
         const SizedBox(height: 12.0),
         Wrap(
@@ -252,12 +244,18 @@ Widget _conceptSection() {
           'potentially overlapping siblings or being clipped by ancestors.',
         ),
         _divider(),
-        _bullet('scale: an Animation<double> — usually 0.0 .. 1.0, but any '
-            'non-negative value works (and negative flips).'),
-        _bullet('alignment: where on the child the scale is anchored '
-            '(default Alignment.center).'),
-        _bullet('filterQuality: optional ImageFilterQuality for raster '
-            'children when the scale induces resampling.'),
+        _bullet(
+          'scale: an Animation<double> — usually 0.0 .. 1.0, but any '
+          'non-negative value works (and negative flips).',
+        ),
+        _bullet(
+          'alignment: where on the child the scale is anchored '
+          '(default Alignment.center).',
+        ),
+        _bullet(
+          'filterQuality: optional ImageFilterQuality for raster '
+          'children when the scale induces resampling.',
+        ),
         _bullet('child: the subtree to scale.'),
         _divider(),
         Container(
@@ -358,19 +356,19 @@ Widget _anatomySection() {
         _anatomyRow(
           'scale (Animation<double>)',
           'Drives the size multiplier. Read each frame, projected onto x and '
-          'y simultaneously. 0.0 collapses the child; 1.0 leaves it unchanged.',
+              'y simultaneously. 0.0 collapses the child; 1.0 leaves it unchanged.',
           Icons.linear_scale,
         ),
         _anatomyRow(
           'alignment (Alignment)',
           'The fixed point that does not move while scaling. Imagine a pin '
-          'stuck through the child at this offset.',
+              'stuck through the child at this offset.',
           Icons.center_focus_strong,
         ),
         _anatomyRow(
           'filterQuality (FilterQuality?)',
           'Hint for the engine when the resulting paint involves resampling '
-          'pixels — most visible on bitmap children.',
+              'pixels — most visible on bitmap children.',
           Icons.tune,
         ),
         _anatomyRow(
@@ -381,7 +379,7 @@ Widget _anatomySection() {
         _anatomyRow(
           'source AnimationController',
           'In real apps, a controller drives `scale`. Here we replace it '
-          'with AlwaysStoppedAnimation<double> to freeze each value.',
+              'with AlwaysStoppedAnimation<double> to freeze each value.',
           Icons.settings_input_component,
         ),
       ],
@@ -461,10 +459,12 @@ Widget _frameStripSection() {
   ];
   final List<Widget> frames = <Widget>[];
   for (int i = 0; i < ts.length; i++) {
-    frames.add(Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: _labelledFrame(ts[i], palette[i]),
-    ));
+    frames.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: _labelledFrame(ts[i], palette[i]),
+      ),
+    );
   }
   return _card(
     child: Column(
@@ -490,10 +490,14 @@ Widget _frameStripSection() {
           'against the cell border.',
         ),
         _bullet('Hit-testing still uses the original layout box.'),
-        _bullet('Children beyond t=1.0 only "look" bigger; they do not '
-            'occupy more layout space.'),
-        _bullet('A negative value (not shown) flips horizontally and '
-            'vertically simultaneously.'),
+        _bullet(
+          'Children beyond t=1.0 only "look" bigger; they do not '
+          'occupy more layout space.',
+        ),
+        _bullet(
+          'A negative value (not shown) flips horizontally and '
+          'vertically simultaneously.',
+        ),
       ],
     ),
   );
@@ -582,10 +586,14 @@ Widget _alignmentGridSection() {
         ),
         _divider(),
         _bullet('Alignment.center (the default) shrinks "in place".'),
-        _bullet('Corner alignments make the child cling to a corner as it '
-            'shrinks — useful for pop-up menus, tooltips, and FAB reveals.'),
-        _bullet('Alignment may be any non-quantised value; '
-            'Alignment(0.3, -0.7) is perfectly fine.'),
+        _bullet(
+          'Corner alignments make the child cling to a corner as it '
+          'shrinks — useful for pop-up menus, tooltips, and FAB reveals.',
+        ),
+        _bullet(
+          'Alignment may be any non-quantised value; '
+          'Alignment(0.3, -0.7) is perfectly fine.',
+        ),
       ],
     ),
   );
@@ -620,11 +628,7 @@ Widget _qualityFrame(FilterQuality q, String label, Color color) {
                 borderRadius: BorderRadius.circular(6.0),
               ),
               alignment: Alignment.center,
-              child: const Icon(
-                Icons.bolt,
-                size: 26.0,
-                color: _parchment,
-              ),
+              child: const Icon(Icons.bolt, size: 26.0, color: _parchment),
             ),
           ),
         ),
@@ -745,17 +749,25 @@ Widget _vsTransformSection() {
         const SizedBox(height: 10.0),
         _scaleSideBySide(),
         _divider(),
-        _bullet('ScaleTransition: rebuilds the descendant subtree on every '
-            'tick of an Animation<double>. Ideal inside transition heroes '
-            'and route reveals where a controller is already in scope.'),
-        _bullet('Transform.scale: takes a literal double. Good for static '
-            'visual tweaks, or when you drive the value yourself with '
-            'setState/ValueListenable.'),
-        _bullet('Performance: ScaleTransition is slightly cheaper inside '
-            'an animation because it skips one layer of AnimatedBuilder you '
-            'would otherwise have to wire up by hand.'),
-        _bullet('Both stop being free once the child involves a saveLayer; '
-            'profile when in doubt.'),
+        _bullet(
+          'ScaleTransition: rebuilds the descendant subtree on every '
+          'tick of an Animation<double>. Ideal inside transition heroes '
+          'and route reveals where a controller is already in scope.',
+        ),
+        _bullet(
+          'Transform.scale: takes a literal double. Good for static '
+          'visual tweaks, or when you drive the value yourself with '
+          'setState/ValueListenable.',
+        ),
+        _bullet(
+          'Performance: ScaleTransition is slightly cheaper inside '
+          'an animation because it skips one layer of AnimatedBuilder you '
+          'would otherwise have to wire up by hand.',
+        ),
+        _bullet(
+          'Both stop being free once the child involves a saveLayer; '
+          'profile when in doubt.',
+        ),
       ],
     ),
   );
@@ -833,13 +845,19 @@ Widget _compositionSection() {
           ],
         ),
         _divider(),
-        _bullet('Order matters: putting FadeTransition outermost ensures '
-            'opacity applies to the already-scaled subtree.'),
-        _bullet('Reversing the nesting (Scale > Rotation > Fade) yields the '
-            'same visuals here because all are uniform transforms, but '
-            'compositing layers may differ.'),
-        _bullet('Each transition is independent — they can share or differ '
-            'in source controllers in a real app.'),
+        _bullet(
+          'Order matters: putting FadeTransition outermost ensures '
+          'opacity applies to the already-scaled subtree.',
+        ),
+        _bullet(
+          'Reversing the nesting (Scale > Rotation > Fade) yields the '
+          'same visuals here because all are uniform transforms, but '
+          'compositing layers may differ.',
+        ),
+        _bullet(
+          'Each transition is independent — they can share or differ '
+          'in source controllers in a real app.',
+        ),
       ],
     ),
   );
@@ -915,7 +933,10 @@ Widget _curveStudiesSection() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _kicker('section 09'),
-        const Text('Curve studies — same t, different rhythm', style: _kSection),
+        const Text(
+          'Curve studies — same t, different rhythm',
+          style: _kSection,
+        ),
         _para(
           'A curve maps the linear time t in [0..1] to an eased value. We '
           'evaluate Curves.X.transform(t) at six samples and feed the '
@@ -931,12 +952,16 @@ Widget _curveStudiesSection() {
         _curveRow('bounceOut', Curves.bounceOut),
         _curveRow('backOut', Curves.easeOutBack),
         _divider(),
-        _bullet('elasticOut overshoots past 1.0 and oscillates back — note '
-            'the >1.0 frames mid-row.'),
+        _bullet(
+          'elasticOut overshoots past 1.0 and oscillates back — note '
+          'the >1.0 frames mid-row.',
+        ),
         _bullet('bounceOut delivers a comic settle with multiple landings.'),
         _bullet('backOut briefly overshoots once. Great for "snap" reveals.'),
-        _bullet('Curves do not need a controller — Curves.X.transform(t) is '
-            'a pure synchronous function.'),
+        _bullet(
+          'Curves do not need a controller — Curves.X.transform(t) is '
+          'a pure synchronous function.',
+        ),
       ],
     ),
   );
@@ -1058,11 +1083,7 @@ Widget _zoomIconFrame(double t, String label) {
           alignment: Alignment.center,
           child: ScaleTransition(
             scale: AlwaysStoppedAnimation<double>(t),
-            child: const Icon(
-              Icons.check_circle,
-              color: _good,
-              size: 60.0,
-            ),
+            child: const Icon(Icons.check_circle, color: _good, size: 60.0),
           ),
         ),
         const SizedBox(height: 4.0),
@@ -1114,7 +1135,7 @@ Widget _recipesSection() {
         _recipeBlock(
           '2. Pop-card-in',
           'Combine FadeTransition + ScaleTransition with '
-          'alignment=bottomCenter so the toast "rises" from its anchor.',
+              'alignment=bottomCenter so the toast "rises" from its anchor.',
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -1235,12 +1256,18 @@ Widget _comparisonSection() {
           ],
         ),
         const SizedBox(height: 10.0),
-        _bullet('SizeTransition is the only one that actually changes the '
-            'amount of space taken in the parent.'),
-        _bullet('AnimatedScale wraps ScaleTransition with an implicit '
-            'AnimationController internally.'),
-        _bullet('Transform.scale supports independent x/y via the more '
-            'general Transform constructor with Matrix4.diagonal3Values.'),
+        _bullet(
+          'SizeTransition is the only one that actually changes the '
+          'amount of space taken in the parent.',
+        ),
+        _bullet(
+          'AnimatedScale wraps ScaleTransition with an implicit '
+          'AnimationController internally.',
+        ),
+        _bullet(
+          'Transform.scale supports independent x/y via the more '
+          'general Transform constructor with Matrix4.diagonal3Values.',
+        ),
       ],
     ),
   );
@@ -1259,10 +1286,7 @@ Widget _glossaryRow(String term, String definition) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 150.0,
-          child: Text(term, style: _kFrameLabel),
-        ),
+        SizedBox(width: 150.0, child: Text(term, style: _kFrameLabel)),
         Expanded(child: Text(definition, style: _kBody)),
       ],
     ),
@@ -1280,49 +1304,49 @@ Widget _glossarySection() {
         _glossaryRow(
           'Animation<T>',
           'A read-only object that exposes a value and a status, plus a '
-          'changeable status listener. Often produced by an '
-          'AnimationController and reshaped via curves and tweens.',
+              'changeable status listener. Often produced by an '
+              'AnimationController and reshaped via curves and tweens.',
         ),
         _glossaryRow(
           'AlwaysStoppedAnimation',
           'An Animation whose value never changes. Perfect for tests and '
-          'for "freezing" a transition at a deterministic frame.',
+              'for "freezing" a transition at a deterministic frame.',
         ),
         _glossaryRow(
           'AnimationController',
           'A Ticker-backed Animation<double> that you can play, reverse, '
-          'and seek. Not used in this demo; we simulate frames instead.',
+              'and seek. Not used in this demo; we simulate frames instead.',
         ),
         _glossaryRow(
           'Tween',
           'A mapping from [0..1] to a target type. ScaleTransition does not '
-          'need a Tween itself because the value type is already double.',
+              'need a Tween itself because the value type is already double.',
         ),
         _glossaryRow(
           'Curve',
           'A pure mapping from [0..1] to [0..1] (often). '
-          'Curves.elasticOut.transform(t) is synchronous and side-effect-free.',
+              'Curves.elasticOut.transform(t) is synchronous and side-effect-free.',
         ),
         _glossaryRow(
           'Matrix4.diagonal3Values',
           'A 4x4 transformation matrix where only the diagonal is non-unit. '
-          'A uniform scale matrix has equal x and y entries.',
+              'A uniform scale matrix has equal x and y entries.',
         ),
         _glossaryRow(
           'Alignment',
           'A 2D coordinate where (-1,-1) is the top-left corner of the '
-          'reference rect and (1,1) is the bottom-right. The fixed point '
-          'under scale.',
+              'reference rect and (1,1) is the bottom-right. The fixed point '
+              'under scale.',
         ),
         _glossaryRow(
           'FilterQuality',
           'Hint to the engine for paint resampling. low / medium / high / '
-          'none. Mostly relevant for raster children.',
+              'none. Mostly relevant for raster children.',
         ),
         _glossaryRow(
           'Transform.scale',
           'A non-animated widget that applies a uniform scale via the same '
-          'Matrix4 path used by ScaleTransition.',
+              'Matrix4 path used by ScaleTransition.',
         ),
         _glossaryRow(
           'FadeTransition',
@@ -1335,7 +1359,7 @@ Widget _glossarySection() {
         _glossaryRow(
           'SizeTransition',
           'Cousin that animates layout — actually changes the parent\'s '
-          'available space along one axis.',
+              'available space along one axis.',
         ),
       ],
     ),
@@ -1352,10 +1376,7 @@ Widget _epilogueSection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Epilogue',
-          style: _kSection.copyWith(color: _parchment),
-        ),
+        Text('Epilogue', style: _kSection.copyWith(color: _parchment)),
         const SizedBox(height: 6.0),
         const Text(
           'ScaleTransition is one of those quiet, reliable widgets that '
@@ -1404,8 +1425,10 @@ dynamic build(BuildContext context) {
   final String paletteName = 'amber-charcoal';
   final String mode = 'frozen-frame';
 
-  print('  sections=$sectionCount frames=$frameStripFrames '
-      'alignments=$alignmentCells palette=$paletteName mode=$mode');
+  print(
+    '  sections=$sectionCount frames=$frameStripFrames '
+    'alignments=$alignmentCells palette=$paletteName mode=$mode',
+  );
 
   final Widget hero = _hero();
   final Widget concept = _conceptSection();

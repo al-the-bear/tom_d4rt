@@ -273,11 +273,7 @@ dynamic build(BuildContext context) {
       color: Colors.deepPurple,
       borderRadius: BorderRadius.circular(8.0),
       boxShadow: [
-        BoxShadow(
-          color: Colors.black54,
-          blurRadius: 6.0,
-          offset: Offset(0, 3),
-        ),
+        BoxShadow(color: Colors.black54, blurRadius: 6.0, offset: Offset(0, 3)),
       ],
     ),
     child: Icon(Icons.brush, size: 36.0, color: Colors.deepPurple),
@@ -511,7 +507,11 @@ dynamic build(BuildContext context) {
     {'label': 'Offset', 'badge': offsetBadge, 'color': Colors.purple},
     {'label': 'Hidden', 'badge': hiddenBadge, 'color': Colors.grey},
     {'label': 'count(42)', 'badge': factoryBadge, 'color': Colors.red},
-    {'label': 'count(1000)', 'badge': factoryOverflowBadge, 'color': Colors.red.shade800},
+    {
+      'label': 'count(1000)',
+      'badge': factoryOverflowBadge,
+      'color': Colors.red.shade800,
+    },
   ];
 
   final badgeCards = <Widget>[];
@@ -1359,10 +1359,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2

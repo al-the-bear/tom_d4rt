@@ -100,7 +100,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            const Icon(Icons.touch_app_outlined, size: 56.0, color: Colors.white),
+            const Icon(
+              Icons.touch_app_outlined,
+              size: 56.0,
+              color: Colors.white,
+            ),
             const SizedBox(width: 16.0),
             Expanded(
               child: Column(
@@ -190,13 +194,34 @@ dynamic build(BuildContext context) {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              buildLifecycleStep('Down', Icons.touch_app, Colors.deepPurple, 'pointer makes contact'),
+              buildLifecycleStep(
+                'Down',
+                Icons.touch_app,
+                Colors.deepPurple,
+                'pointer makes contact',
+              ),
               const _Chevron(color: Colors.deepPurple),
-              buildLifecycleStep('Move x N', Icons.swap_horiz, Colors.indigo, 'optional drags'),
+              buildLifecycleStep(
+                'Move x N',
+                Icons.swap_horiz,
+                Colors.indigo,
+                'optional drags',
+              ),
               const _Chevron(color: Colors.indigo),
-              buildLifecycleStep('Move x N', Icons.swap_horiz, Colors.blue, 'until release'),
+              buildLifecycleStep(
+                'Move x N',
+                Icons.swap_horiz,
+                Colors.blue,
+                'until release',
+              ),
               const _Chevron(color: Colors.blue),
-              buildLifecycleStep('Up', Icons.swipe_up, Colors.green, 'pointer lifts off', highlight: true),
+              buildLifecycleStep(
+                'Up',
+                Icons.swipe_up,
+                Colors.green,
+                'pointer lifts off',
+                highlight: true,
+              ),
             ],
           ),
         ),
@@ -213,11 +238,27 @@ dynamic build(BuildContext context) {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              buildLifecycleStep('Down', Icons.touch_app, Colors.deepPurple, 'pointer makes contact'),
+              buildLifecycleStep(
+                'Down',
+                Icons.touch_app,
+                Colors.deepPurple,
+                'pointer makes contact',
+              ),
               const _Chevron(color: Colors.deepPurple),
-              buildLifecycleStep('Move x N', Icons.swap_horiz, Colors.indigo, 'gesture in flight'),
+              buildLifecycleStep(
+                'Move x N',
+                Icons.swap_horiz,
+                Colors.indigo,
+                'gesture in flight',
+              ),
               const _Chevron(color: Colors.indigo),
-              buildLifecycleStep('Cancel', Icons.cancel, Colors.red, 'arena rejected', highlight: true),
+              buildLifecycleStep(
+                'Cancel',
+                Icons.cancel,
+                Colors.red,
+                'arena rejected',
+                highlight: true,
+              ),
             ],
           ),
         ),
@@ -282,7 +323,8 @@ dynamic build(BuildContext context) {
       icon: Icons.place,
       color: Colors.green,
       typeText: 'Offset',
-      value: '(${eventMouse.position.dx.toStringAsFixed(1)}, ${eventMouse.position.dy.toStringAsFixed(1)})',
+      value:
+          '(${eventMouse.position.dx.toStringAsFixed(1)}, ${eventMouse.position.dy.toStringAsFixed(1)})',
       meaning: 'Global coordinate of the lift-off in logical pixels.',
     ),
     buildFieldCard(
@@ -290,7 +332,8 @@ dynamic build(BuildContext context) {
       icon: Icons.location_searching,
       color: Colors.lightGreen,
       typeText: 'Offset',
-      value: '(${eventMouse.localPosition.dx.toStringAsFixed(1)}, ${eventMouse.localPosition.dy.toStringAsFixed(1)})',
+      value:
+          '(${eventMouse.localPosition.dx.toStringAsFixed(1)}, ${eventMouse.localPosition.dy.toStringAsFixed(1)})',
       meaning: 'Same as position when no transform is set on the receiver.',
     ),
     buildFieldCard(
@@ -347,7 +390,8 @@ dynamic build(BuildContext context) {
       color: Colors.blue,
       typeText: 'double',
       value: eventMouse.size.toStringAsFixed(2),
-      meaning: 'Normalized contact area in [0, 1]; mostly meaningful for touch.',
+      meaning:
+          'Normalized contact area in [0, 1]; mostly meaningful for touch.',
     ),
     buildFieldCard(
       label: 'radiusMajor',
@@ -437,17 +481,10 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 4.0),
         Text(
           'Sample values taken from the canonical mouse PointerUpEvent above.',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
         ),
         const SizedBox(height: 12.0),
-        Wrap(
-          spacing: 12.0,
-          runSpacing: 12.0,
-          children: fieldCards,
-        ),
+        Wrap(spacing: 12.0, runSpacing: 12.0, children: fieldCards),
       ],
     ),
   );
@@ -461,7 +498,9 @@ dynamic build(BuildContext context) {
     _PressureFrame(value: 1.0, label: '1.00', note: 'maximum'),
   ];
 
-  final pressurePanels = pressureFrames.map((f) => _buildPressurePanel(f)).toList(growable: false);
+  final pressurePanels = pressureFrames
+      .map((f) => _buildPressurePanel(f))
+      .toList(growable: false);
 
   final pressureSection = Container(
     margin: const EdgeInsets.symmetric(vertical: 12.0),
@@ -498,18 +537,16 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 14.0,
-          runSpacing: 14.0,
-          children: pressurePanels,
-        ),
+        Wrap(spacing: 14.0, runSpacing: 14.0, children: pressurePanels),
       ],
     ),
   );
 
   // Section 5: Radius visualizer.
   const radiusValues = <double>[2.0, 5.0, 8.0, 10.0, 12.0];
-  final radiusPanels = radiusValues.map(buildRadiusPanel).toList(growable: false);
+  final radiusPanels = radiusValues
+      .map(buildRadiusPanel)
+      .toList(growable: false);
 
   final radiusSection = Container(
     margin: const EdgeInsets.symmetric(vertical: 12.0),
@@ -546,11 +583,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 14.0,
-          runSpacing: 14.0,
-          children: radiusPanels,
-        ),
+        Wrap(spacing: 14.0, runSpacing: 14.0, children: radiusPanels),
       ],
     ),
   );
@@ -576,7 +609,8 @@ dynamic build(BuildContext context) {
       bits: kTertiaryButton,
       color: Colors.teal,
       icon: Icons.adjust,
-      description: 'Middle button / wheel click. Often used for paste on Linux.',
+      description:
+          'Middle button / wheel click. Often used for paste on Linux.',
     ),
     _ButtonInfo(
       name: 'kBackMouseButton',
@@ -594,7 +628,9 @@ dynamic build(BuildContext context) {
     ),
   ];
 
-  final buttonsPanels = buttonInfos.map(_buildButtonPanel).toList(growable: false);
+  final buttonsPanels = buttonInfos
+      .map(_buildButtonPanel)
+      .toList(growable: false);
 
   final buttonsSection = Container(
     margin: const EdgeInsets.symmetric(vertical: 12.0),
@@ -631,11 +667,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         const SizedBox(height: 14.0),
-        Wrap(
-          spacing: 14.0,
-          runSpacing: 14.0,
-          children: buttonsPanels,
-        ),
+        Wrap(spacing: 14.0, runSpacing: 14.0, children: buttonsPanels),
       ],
     ),
   );
@@ -800,23 +832,47 @@ dynamic build(BuildContext context) {
           spacing: 10.0,
           runSpacing: 8.0,
           children: [
-            buildKvChip('timeStamp', '${eventMouse.timeStamp.inMilliseconds} ms'),
+            buildKvChip(
+              'timeStamp',
+              '${eventMouse.timeStamp.inMilliseconds} ms',
+            ),
             buildKvChip('pointer', '${eventMouse.pointer}'),
             buildKvChip('device', '${eventMouse.device}'),
             buildKvChip('kind', eventMouse.kind.name),
-            buildKvChip('position', '(${eventMouse.position.dx.toStringAsFixed(1)}, ${eventMouse.position.dy.toStringAsFixed(1)})'),
+            buildKvChip(
+              'position',
+              '(${eventMouse.position.dx.toStringAsFixed(1)}, ${eventMouse.position.dy.toStringAsFixed(1)})',
+            ),
             buildKvChip('buttons', '0x${eventMouse.buttons.toRadixString(16)}'),
             buildKvChip('pressure', eventMouse.pressure.toStringAsFixed(2)),
-            buildKvChip('pressureMin', eventMouse.pressureMin.toStringAsFixed(2)),
-            buildKvChip('pressureMax', eventMouse.pressureMax.toStringAsFixed(2)),
+            buildKvChip(
+              'pressureMin',
+              eventMouse.pressureMin.toStringAsFixed(2),
+            ),
+            buildKvChip(
+              'pressureMax',
+              eventMouse.pressureMax.toStringAsFixed(2),
+            ),
             buildKvChip('distance', eventMouse.distance.toStringAsFixed(2)),
-            buildKvChip('distanceMax', eventMouse.distanceMax.toStringAsFixed(2)),
+            buildKvChip(
+              'distanceMax',
+              eventMouse.distanceMax.toStringAsFixed(2),
+            ),
             buildKvChip('size', eventMouse.size.toStringAsFixed(2)),
-            buildKvChip('radiusMajor', eventMouse.radiusMajor.toStringAsFixed(2)),
-            buildKvChip('radiusMinor', eventMouse.radiusMinor.toStringAsFixed(2)),
+            buildKvChip(
+              'radiusMajor',
+              eventMouse.radiusMajor.toStringAsFixed(2),
+            ),
+            buildKvChip(
+              'radiusMinor',
+              eventMouse.radiusMinor.toStringAsFixed(2),
+            ),
             buildKvChip('radiusMin', eventMouse.radiusMin.toStringAsFixed(2)),
             buildKvChip('radiusMax', eventMouse.radiusMax.toStringAsFixed(2)),
-            buildKvChip('orientation', eventMouse.orientation.toStringAsFixed(2)),
+            buildKvChip(
+              'orientation',
+              eventMouse.orientation.toStringAsFixed(2),
+            ),
             buildKvChip('tilt', eventMouse.tilt.toStringAsFixed(2)),
             buildKvChip('embedderId', '${eventMouse.embedderId}'),
             buildKvChip('down', '${eventMouse.down}'),
@@ -859,7 +915,8 @@ dynamic build(BuildContext context) {
               title: 'Custom slider release',
               icon: Icons.tune,
               color: Colors.indigo,
-              body: 'A bespoke slider listens for PointerUpEvent to commit the '
+              body:
+                  'A bespoke slider listens for PointerUpEvent to commit the '
                   'final value. Move events stream interim values; the up event '
                   'finalises them so listeners can persist or animate.',
               eventDemo: eventMouse,
@@ -868,7 +925,8 @@ dynamic build(BuildContext context) {
               title: 'Click confirmation',
               icon: Icons.touch_app,
               color: Colors.green,
-              body: 'A button fires its onPressed only when both PointerDownEvent '
+              body:
+                  'A button fires its onPressed only when both PointerDownEvent '
                   'and PointerUpEvent occur within its hit area. The up event is '
                   'the gate; if it never arrives, the click is discarded.',
               eventDemo: eventTouch,
@@ -877,7 +935,8 @@ dynamic build(BuildContext context) {
               title: 'Tap-up haptics',
               icon: Icons.vibration,
               color: Colors.deepOrange,
-              body: 'On release, a UI may schedule haptic feedback (description '
+              body:
+                  'On release, a UI may schedule haptic feedback (description '
                   'only — no service calls in this demo). PointerUpEvent is the '
                   'natural cue because the user has just confirmed the action.',
               eventDemo: eventStylus,
@@ -917,33 +976,38 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 12.0),
         buildCaveat(
           title: 'Synthetic up events from cancelled gestures',
-          body: 'When a gesture loses the arena, Flutter may synthesise a '
+          body:
+              'When a gesture loses the arena, Flutter may synthesise a '
               'PointerCancelEvent rather than a PointerUpEvent. Application '
               'code that only listens for up will silently drop these.',
         ),
         buildCaveat(
           title: 'Platform-specific button bitmasks',
-          body: 'kBackMouseButton and kForwardMouseButton are not standardised '
+          body:
+              'kBackMouseButton and kForwardMouseButton are not standardised '
               'across all OSes. On platforms that do not surface these buttons, '
               'PointerUpEvent.buttons will not include the bits even if the '
               'physical button was actuated.',
         ),
         buildCaveat(
           title: 'Pressure availability',
-          body: 'pressure is meaningful only on devices that report it (3D '
+          body:
+              'pressure is meaningful only on devices that report it (3D '
               'Touch, force-touch trackpads, some stylii). For ordinary mice '
               'and capacitive touch screens, PointerUpEvent.pressure is 0.0 '
               'or 1.0 depending on the platform.',
         ),
         buildCaveat(
           title: 'Coordinate space',
-          body: 'position is in the global coordinate space. Use '
+          body:
+              'position is in the global coordinate space. Use '
               'localPosition (or pass through PointerEvent.transformed) when '
               'you need coordinates relative to a specific render object.',
         ),
         buildCaveat(
           title: 'Trackpad pointer kind',
-          body: 'PointerUpEvent forbids PointerDeviceKind.trackpad in its '
+          body:
+              'PointerUpEvent forbids PointerDeviceKind.trackpad in its '
               'constructor; trackpad gestures use PointerPanZoom* events '
               'instead. Code branching on kind must account for this.',
         ),
@@ -981,13 +1045,21 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 14.0),
-        buildTakeaway('PointerUpEvent ends a Down/Move stream the natural way.'),
+        buildTakeaway(
+          'PointerUpEvent ends a Down/Move stream the natural way.',
+        ),
         buildTakeaway('down == false and pressure is conventionally 0.0.'),
-        buildTakeaway('buttons reports the final pressed bitmask before release.'),
+        buildTakeaway(
+          'buttons reports the final pressed bitmask before release.',
+        ),
         buildTakeaway('Always pair with PointerCancelEvent in real handlers.'),
-        buildTakeaway('Use position for global coords, localPosition inside widgets.'),
+        buildTakeaway(
+          'Use position for global coords, localPosition inside widgets.',
+        ),
         buildTakeaway('Pressure / radius / tilt are device-dependent extras.'),
-        buildTakeaway('Recognizers like TapGestureRecognizer rely on Up to fire.'),
+        buildTakeaway(
+          'Recognizers like TapGestureRecognizer rely on Up to fire.',
+        ),
       ],
     ),
   );
@@ -1170,11 +1242,7 @@ Widget buildFieldCard({
         const SizedBox(height: 8.0),
         Text(
           meaning,
-          style: TextStyle(
-            fontSize: 11.0,
-            color: color.shade900,
-            height: 1.3,
-          ),
+          style: TextStyle(fontSize: 11.0, color: color.shade900, height: 1.3),
         ),
       ],
     ),
@@ -1380,10 +1448,7 @@ Widget _buildButtonPanel(_ButtonInfo info) {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: info.color.shade400,
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: info.color.shade400, width: 1.5),
                 ),
               ),
               Positioned(
@@ -1695,11 +1760,7 @@ Widget buildUsagePanel({
         const SizedBox(height: 8.0),
         Text(
           body,
-          style: TextStyle(
-            fontSize: 12.0,
-            color: color.shade900,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 12.0, color: color.shade900, height: 1.35),
         ),
         const SizedBox(height: 8.0),
         Container(
@@ -1727,7 +1788,10 @@ Widget buildUsagePanel({
                 'position',
                 '(${eventDemo.position.dx.toStringAsFixed(1)}, ${eventDemo.position.dy.toStringAsFixed(1)})',
               ),
-              buildKvLine('buttons', '0x${eventDemo.buttons.toRadixString(16)}'),
+              buildKvLine(
+                'buttons',
+                '0x${eventDemo.buttons.toRadixString(16)}',
+              ),
               buildKvLine('pressure', eventDemo.pressure.toStringAsFixed(2)),
               buildKvLine('down', '${eventDemo.down}'),
             ],
@@ -1876,11 +1940,7 @@ class _Chevron extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-      child: Icon(
-        Icons.chevron_right,
-        color: color.shade400,
-        size: 28.0,
-      ),
+      child: Icon(Icons.chevron_right, color: color.shade400, size: 28.0),
     );
   }
 }

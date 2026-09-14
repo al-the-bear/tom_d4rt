@@ -14,7 +14,11 @@ Widget _buildSectionHeader(String title) {
     ),
     child: Text(
       title,
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
     ),
   );
 }
@@ -30,17 +34,28 @@ Widget _buildInfoCard(String label, String value) {
     ),
     child: Row(
       children: [
-        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text(
+          label,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
         SizedBox(width: 8),
         Expanded(
-          child: Text(value, style: TextStyle(fontSize: 14, color: Colors.grey.shade700)),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
+          ),
         ),
       ],
     ),
   );
 }
 
-Widget _buildDurationBar(String label, int milliseconds, double maxMs, Color color) {
+Widget _buildDurationBar(
+  String label,
+  int milliseconds,
+  double maxMs,
+  Color color,
+) {
   double fraction = milliseconds / maxMs;
   double barWidth = fraction * 280;
   if (barWidth < 4) {
@@ -58,7 +73,14 @@ Widget _buildDurationBar(String label, int milliseconds, double maxMs, Color col
       children: [
         SizedBox(
           width: 100,
-          child: Text(label, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey.shade800)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade800,
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Container(
@@ -71,7 +93,11 @@ Widget _buildDurationBar(String label, int milliseconds, double maxMs, Color col
           alignment: Alignment.center,
           child: Text(
             '${milliseconds}ms',
-            style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -103,12 +129,21 @@ Widget _buildShortDurations() {
           children: [
             Icon(Icons.flash_on, color: Colors.blue.shade700, size: 24),
             SizedBox(width: 8),
-            Text('Short Durations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue.shade800)),
+            Text(
+              'Short Durations',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
-        Text('Quick, snappy animations for micro-interactions',
-          style: TextStyle(fontSize: 12, color: Colors.blue.shade600)),
+        Text(
+          'Quick, snappy animations for micro-interactions',
+          style: TextStyle(fontSize: 12, color: Colors.blue.shade600),
+        ),
         SizedBox(height: 12),
         _buildDurationBar('short1', short1Ms, 1000.0, Colors.blue.shade400),
         _buildDurationBar('short2', short2Ms, 1000.0, Colors.blue.shade500),
@@ -121,8 +156,10 @@ Widget _buildShortDurations() {
             color: Colors.blue.shade100,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text('Use short durations for hover effects, icon transitions, and toggle states',
-            style: TextStyle(fontSize: 11, color: Colors.blue.shade900)),
+          child: Text(
+            'Use short durations for hover effects, icon transitions, and toggle states',
+            style: TextStyle(fontSize: 11, color: Colors.blue.shade900),
+          ),
         ),
       ],
     ),
@@ -153,12 +190,21 @@ Widget _buildMediumDurations() {
           children: [
             Icon(Icons.timer, color: Colors.green.shade700, size: 24),
             SizedBox(width: 8),
-            Text('Medium Durations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green.shade800)),
+            Text(
+              'Medium Durations',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.green.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
-        Text('Standard animations for most UI transitions',
-          style: TextStyle(fontSize: 12, color: Colors.green.shade600)),
+        Text(
+          'Standard animations for most UI transitions',
+          style: TextStyle(fontSize: 12, color: Colors.green.shade600),
+        ),
         SizedBox(height: 12),
         _buildDurationBar('medium1', med1Ms, 1000.0, Colors.green.shade400),
         _buildDurationBar('medium2', med2Ms, 1000.0, Colors.green.shade500),
@@ -171,8 +217,10 @@ Widget _buildMediumDurations() {
             color: Colors.green.shade100,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text('Use medium durations for page transitions, expanding panels, and cards',
-            style: TextStyle(fontSize: 11, color: Colors.green.shade900)),
+          child: Text(
+            'Use medium durations for page transitions, expanding panels, and cards',
+            style: TextStyle(fontSize: 11, color: Colors.green.shade900),
+          ),
         ),
       ],
     ),
@@ -201,14 +249,27 @@ Widget _buildLongDurations() {
       children: [
         Row(
           children: [
-            Icon(Icons.hourglass_bottom, color: Colors.orange.shade700, size: 24),
+            Icon(
+              Icons.hourglass_bottom,
+              color: Colors.orange.shade700,
+              size: 24,
+            ),
             SizedBox(width: 8),
-            Text('Long Durations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange.shade800)),
+            Text(
+              'Long Durations',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
-        Text('Slower animations for larger or more complex transitions',
-          style: TextStyle(fontSize: 12, color: Colors.orange.shade600)),
+        Text(
+          'Slower animations for larger or more complex transitions',
+          style: TextStyle(fontSize: 12, color: Colors.orange.shade600),
+        ),
         SizedBox(height: 12),
         _buildDurationBar('long1', long1Ms, 1000.0, Colors.orange.shade400),
         _buildDurationBar('long2', long2Ms, 1000.0, Colors.orange.shade500),
@@ -221,8 +282,10 @@ Widget _buildLongDurations() {
             color: Colors.orange.shade100,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text('Use long durations for route transitions, drawer open/close, and modal dialogs',
-            style: TextStyle(fontSize: 11, color: Colors.orange.shade900)),
+          child: Text(
+            'Use long durations for route transitions, drawer open/close, and modal dialogs',
+            style: TextStyle(fontSize: 11, color: Colors.orange.shade900),
+          ),
         ),
       ],
     ),
@@ -253,12 +316,21 @@ Widget _buildExtraLongDurations() {
           children: [
             Icon(Icons.slow_motion_video, color: Colors.red.shade700, size: 24),
             SizedBox(width: 8),
-            Text('Extra Long Durations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red.shade800)),
+            Text(
+              'Extra Long Durations',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.red.shade800,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 8),
-        Text('Extended durations for dramatic or accessibility-focused animations',
-          style: TextStyle(fontSize: 12, color: Colors.red.shade600)),
+        Text(
+          'Extended durations for dramatic or accessibility-focused animations',
+          style: TextStyle(fontSize: 12, color: Colors.red.shade600),
+        ),
         SizedBox(height: 12),
         _buildDurationBar('extralong1', xl1Ms, 1000.0, Colors.red.shade400),
         _buildDurationBar('extralong2', xl2Ms, 1000.0, Colors.red.shade500),
@@ -271,8 +343,10 @@ Widget _buildExtraLongDurations() {
             color: Colors.red.shade100,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text('Use extra long durations for onboarding animations, accessibility, and emphasis',
-            style: TextStyle(fontSize: 11, color: Colors.red.shade900)),
+          child: Text(
+            'Use extra long durations for onboarding animations, accessibility, and emphasis',
+            style: TextStyle(fontSize: 11, color: Colors.red.shade900),
+          ),
         ),
       ],
     ),
@@ -282,22 +356,58 @@ Widget _buildExtraLongDurations() {
 Widget _buildComparisonTimeline() {
   debugPrint('Building comparison timeline');
   List<String> names = [
-    'short1', 'short2', 'short3', 'short4',
-    'medium1', 'medium2', 'medium3', 'medium4',
-    'long1', 'long2', 'long3', 'long4',
-    'extralong1', 'extralong2', 'extralong3', 'extralong4',
+    'short1',
+    'short2',
+    'short3',
+    'short4',
+    'medium1',
+    'medium2',
+    'medium3',
+    'medium4',
+    'long1',
+    'long2',
+    'long3',
+    'long4',
+    'extralong1',
+    'extralong2',
+    'extralong3',
+    'extralong4',
   ];
   List<Duration> durations = [
-    Durations.short1, Durations.short2, Durations.short3, Durations.short4,
-    Durations.medium1, Durations.medium2, Durations.medium3, Durations.medium4,
-    Durations.long1, Durations.long2, Durations.long3, Durations.long4,
-    Durations.extralong1, Durations.extralong2, Durations.extralong3, Durations.extralong4,
+    Durations.short1,
+    Durations.short2,
+    Durations.short3,
+    Durations.short4,
+    Durations.medium1,
+    Durations.medium2,
+    Durations.medium3,
+    Durations.medium4,
+    Durations.long1,
+    Durations.long2,
+    Durations.long3,
+    Durations.long4,
+    Durations.extralong1,
+    Durations.extralong2,
+    Durations.extralong3,
+    Durations.extralong4,
   ];
   List<Color> barColors = [
-    Colors.blue.shade300, Colors.blue.shade400, Colors.blue.shade500, Colors.blue.shade600,
-    Colors.green.shade300, Colors.green.shade400, Colors.green.shade500, Colors.green.shade600,
-    Colors.orange.shade300, Colors.orange.shade400, Colors.orange.shade500, Colors.orange.shade600,
-    Colors.red.shade300, Colors.red.shade400, Colors.red.shade500, Colors.red.shade600,
+    Colors.blue.shade300,
+    Colors.blue.shade400,
+    Colors.blue.shade500,
+    Colors.blue.shade600,
+    Colors.green.shade300,
+    Colors.green.shade400,
+    Colors.green.shade500,
+    Colors.green.shade600,
+    Colors.orange.shade300,
+    Colors.orange.shade400,
+    Colors.orange.shade500,
+    Colors.orange.shade600,
+    Colors.red.shade300,
+    Colors.red.shade400,
+    Colors.red.shade500,
+    Colors.red.shade600,
   ];
 
   List<Widget> bars = [];
@@ -316,10 +426,19 @@ Widget _buildComparisonTimeline() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Full Comparison Timeline', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey.shade800)),
+        Text(
+          'Full Comparison Timeline',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey.shade800,
+          ),
+        ),
         SizedBox(height: 4),
-        Text('All 16 duration constants shown relative to 1000ms',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'All 16 duration constants shown relative to 1000ms',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: bars),
       ],
@@ -335,7 +454,14 @@ Widget _buildCategoryChip(String label, Color color, int count) {
       color: color,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: Text('$label ($count)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.white)),
+    child: Text(
+      '$label ($count)',
+      style: TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+    ),
   );
 }
 
@@ -351,7 +477,14 @@ Widget _buildCategorySummary() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Duration Categories', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800)),
+        Text(
+          'Duration Categories',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Wrap(
           children: [
@@ -362,11 +495,19 @@ Widget _buildCategorySummary() {
           ],
         ),
         SizedBox(height: 12),
-        Text('Total: 16 duration constants in the Durations class',
-          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.grey.shade700)),
+        Text(
+          'Total: 16 duration constants in the Durations class',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey.shade700,
+          ),
+        ),
         SizedBox(height: 8),
-        Text('Each category has 4 levels (1-4) with increasing duration',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+        Text(
+          'Each category has 4 levels (1-4) with increasing duration',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
       ],
     ),
   );
@@ -393,16 +534,40 @@ Widget _buildUsageGuide() {
     'Dramatic reveals',
   ];
   List<String> categories = [
-    'short1', 'short2', 'short3', 'short4',
-    'medium1', 'medium2', 'medium3', 'medium4',
-    'long1', 'long2', 'long3', 'long4',
-    'extralong1', 'extralong2', 'extralong3', 'extralong4',
+    'short1',
+    'short2',
+    'short3',
+    'short4',
+    'medium1',
+    'medium2',
+    'medium3',
+    'medium4',
+    'long1',
+    'long2',
+    'long3',
+    'long4',
+    'extralong1',
+    'extralong2',
+    'extralong3',
+    'extralong4',
   ];
   List<Color> dotColors = [
-    Colors.blue.shade300, Colors.blue.shade400, Colors.blue.shade500, Colors.blue.shade600,
-    Colors.green.shade300, Colors.green.shade400, Colors.green.shade500, Colors.green.shade600,
-    Colors.orange.shade300, Colors.orange.shade400, Colors.orange.shade500, Colors.orange.shade600,
-    Colors.red.shade300, Colors.red.shade400, Colors.red.shade500, Colors.red.shade600,
+    Colors.blue.shade300,
+    Colors.blue.shade400,
+    Colors.blue.shade500,
+    Colors.blue.shade600,
+    Colors.green.shade300,
+    Colors.green.shade400,
+    Colors.green.shade500,
+    Colors.green.shade600,
+    Colors.orange.shade300,
+    Colors.orange.shade400,
+    Colors.orange.shade500,
+    Colors.orange.shade600,
+    Colors.red.shade300,
+    Colors.red.shade400,
+    Colors.red.shade500,
+    Colors.red.shade600,
   ];
 
   List<Widget> rows = [];
@@ -413,17 +578,31 @@ Widget _buildUsageGuide() {
         child: Row(
           children: [
             Container(
-              width: 10, height: 10,
-              decoration: BoxDecoration(color: dotColors[i], shape: BoxShape.circle),
+              width: 10,
+              height: 10,
+              decoration: BoxDecoration(
+                color: dotColors[i],
+                shape: BoxShape.circle,
+              ),
             ),
             SizedBox(width: 8),
             SizedBox(
               width: 80,
-              child: Text(categories[i], style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.grey.shade700)),
+              child: Text(
+                categories[i],
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey.shade700,
+                ),
+              ),
             ),
             SizedBox(width: 8),
             Expanded(
-              child: Text(usages[i], style: TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+              child: Text(
+                usages[i],
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              ),
             ),
           ],
         ),
@@ -441,7 +620,14 @@ Widget _buildUsageGuide() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Suggested Usage Guide', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800)),
+        Text(
+          'Suggested Usage Guide',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
       ],
@@ -451,14 +637,35 @@ Widget _buildUsageGuide() {
 
 Widget _buildProgressVisualization() {
   debugPrint('Building progress visualization');
-  List<String> labels = ['short1', 'short2', 'short3', 'short4', 'medium1', 'medium2', 'medium3', 'medium4'];
+  List<String> labels = [
+    'short1',
+    'short2',
+    'short3',
+    'short4',
+    'medium1',
+    'medium2',
+    'medium3',
+    'medium4',
+  ];
   List<Duration> durs = [
-    Durations.short1, Durations.short2, Durations.short3, Durations.short4,
-    Durations.medium1, Durations.medium2, Durations.medium3, Durations.medium4,
+    Durations.short1,
+    Durations.short2,
+    Durations.short3,
+    Durations.short4,
+    Durations.medium1,
+    Durations.medium2,
+    Durations.medium3,
+    Durations.medium4,
   ];
   List<Color> colors = [
-    Colors.blue.shade300, Colors.blue.shade400, Colors.blue.shade500, Colors.blue.shade600,
-    Colors.green.shade300, Colors.green.shade400, Colors.green.shade500, Colors.green.shade600,
+    Colors.blue.shade300,
+    Colors.blue.shade400,
+    Colors.blue.shade500,
+    Colors.blue.shade600,
+    Colors.green.shade300,
+    Colors.green.shade400,
+    Colors.green.shade500,
+    Colors.green.shade600,
   ];
 
   List<Widget> rows = [];
@@ -475,7 +682,10 @@ Widget _buildProgressVisualization() {
           children: [
             SizedBox(
               width: 70,
-              child: Text(labels[i], style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+              child: Text(
+                labels[i],
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              ),
             ),
             Expanded(
               child: Container(
@@ -497,7 +707,10 @@ Widget _buildProgressVisualization() {
               ),
             ),
             SizedBox(width: 8),
-            Text('${ms}ms', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+            Text(
+              '${ms}ms',
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+            ),
           ],
         ),
       ),
@@ -514,7 +727,14 @@ Widget _buildProgressVisualization() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Progress Bar Visualization (Short + Medium)', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800)),
+        Text(
+          'Progress Bar Visualization (Short + Medium)',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
       ],
@@ -524,14 +744,35 @@ Widget _buildProgressVisualization() {
 
 Widget _buildLongProgressVisualization() {
   debugPrint('Building long progress visualization');
-  List<String> labels = ['long1', 'long2', 'long3', 'long4', 'extralong1', 'extralong2', 'extralong3', 'extralong4'];
+  List<String> labels = [
+    'long1',
+    'long2',
+    'long3',
+    'long4',
+    'extralong1',
+    'extralong2',
+    'extralong3',
+    'extralong4',
+  ];
   List<Duration> durs = [
-    Durations.long1, Durations.long2, Durations.long3, Durations.long4,
-    Durations.extralong1, Durations.extralong2, Durations.extralong3, Durations.extralong4,
+    Durations.long1,
+    Durations.long2,
+    Durations.long3,
+    Durations.long4,
+    Durations.extralong1,
+    Durations.extralong2,
+    Durations.extralong3,
+    Durations.extralong4,
   ];
   List<Color> colors = [
-    Colors.orange.shade300, Colors.orange.shade400, Colors.orange.shade500, Colors.orange.shade600,
-    Colors.red.shade300, Colors.red.shade400, Colors.red.shade500, Colors.red.shade600,
+    Colors.orange.shade300,
+    Colors.orange.shade400,
+    Colors.orange.shade500,
+    Colors.orange.shade600,
+    Colors.red.shade300,
+    Colors.red.shade400,
+    Colors.red.shade500,
+    Colors.red.shade600,
   ];
 
   List<Widget> rows = [];
@@ -548,7 +789,10 @@ Widget _buildLongProgressVisualization() {
           children: [
             SizedBox(
               width: 80,
-              child: Text(labels[i], style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600)),
+              child: Text(
+                labels[i],
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
+              ),
             ),
             Expanded(
               child: Container(
@@ -570,7 +814,10 @@ Widget _buildLongProgressVisualization() {
               ),
             ),
             SizedBox(width: 8),
-            Text('${ms}ms', style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+            Text(
+              '${ms}ms',
+              style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+            ),
           ],
         ),
       ),
@@ -587,7 +834,14 @@ Widget _buildLongProgressVisualization() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Progress Bar Visualization (Long + Extra Long)', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade800)),
+        Text(
+          'Progress Bar Visualization (Long + Extra Long)',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple.shade800,
+          ),
+        ),
         SizedBox(height: 12),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: rows),
       ],
@@ -639,8 +893,14 @@ dynamic build(BuildContext context) {
             SizedBox(height: 32),
             _buildInfoCard('Class', 'Durations'),
             _buildInfoCard('Package', 'package:flutter/material.dart'),
-            _buildInfoCard('Purpose', 'Material Design 3 duration constants for animations'),
-            _buildInfoCard('Categories', 'short (4), medium (4), long (4), extralong (4)'),
+            _buildInfoCard(
+              'Purpose',
+              'Material Design 3 duration constants for animations',
+            ),
+            _buildInfoCard(
+              'Categories',
+              'short (4), medium (4), long (4), extralong (4)',
+            ),
             _buildInfoCard('Total Constants', '16 duration values'),
             SizedBox(height: 32),
           ],

@@ -195,7 +195,8 @@ dynamic build(BuildContext context) {
     _PropCase(
       title: 'Plain quoted (default)',
       property: StringProperty('label', 'Hello'),
-      hint: 'Default knobs: quoted=true, showName=true. Value gets wrapped in\n'
+      hint:
+          'Default knobs: quoted=true, showName=true. Value gets wrapped in\n'
           'double quotes; the property name is shown as a prefix.',
       tone: Colors.indigo,
     ),
@@ -210,7 +211,8 @@ dynamic build(BuildContext context) {
     _PropCase(
       title: 'showName: false',
       property: StringProperty('label', 'Hello', showName: false),
-      hint: 'showName:false drops the leading "label: ", which is handy when\n'
+      hint:
+          'showName:false drops the leading "label: ", which is handy when\n'
           'the name is redundant with the surrounding diagnostic context.',
       tone: Colors.deepPurple,
     ),
@@ -248,16 +250,19 @@ dynamic build(BuildContext context) {
     ),
     _PropCase(
       title: 'kNoDefaultValue sentinel',
-      property:
-          StringProperty('mode', 'auto', defaultValue: kNoDefaultValue),
-      hint: 'kNoDefaultValue means "there is intentionally no default". Do\n'
+      property: StringProperty('mode', 'auto', defaultValue: kNoDefaultValue),
+      hint:
+          'kNoDefaultValue means "there is intentionally no default". Do\n'
           'not pass null when you mean "no default" — null IS a valid default.',
       tone: Colors.pink,
     ),
     _PropCase(
       title: 'level: hidden',
-      property: StringProperty('secret', 'hidden-token',
-          level: DiagnosticLevel.hidden),
+      property: StringProperty(
+        'secret',
+        'hidden-token',
+        level: DiagnosticLevel.hidden,
+      ),
       hint:
           'level:hidden removes the property from default tree dumps. It is\n'
           'still reachable via debugFillProperties for explicit access.',
@@ -265,10 +270,7 @@ dynamic build(BuildContext context) {
     ),
     _PropCase(
       title: 'Multi-line value',
-      property: StringProperty(
-        'banner',
-        'line one\nline two\nline three',
-      ),
+      property: StringProperty('banner', 'line one\nline two\nline three'),
       hint:
           'Newlines are preserved. The renderer below shows escape sequences\n'
           'rather than raw line breaks so the card stays compact.',
@@ -281,7 +283,8 @@ dynamic build(BuildContext context) {
         'abc123',
         description: 'opaque session id, do not log',
       ),
-      hint: 'description is metadata for tooling; it is NOT in toString(),\n'
+      hint:
+          'description is metadata for tooling; it is NOT in toString(),\n'
           'but inspector panes may show it as a tooltip.',
       tone: Colors.amber,
     ),
@@ -294,7 +297,8 @@ dynamic build(BuildContext context) {
         showName: false,
         ifEmpty: '/',
       ),
-      hint: 'Knobs compose. An empty unquoted value with no name and an\n'
+      hint:
+          'Knobs compose. An empty unquoted value with no name and an\n'
           'ifEmpty fallback collapses to a single token: `/`.',
       tone: Colors.lime,
     ),
@@ -302,8 +306,7 @@ dynamic build(BuildContext context) {
 
   final List<Widget> caseCards = <Widget>[];
   for (final _PropCase c in cases) {
-    print(
-        'Case "${c.title}" -> toString() = ${c.property.toString()}');
+    print('Case "${c.title}" -> toString() = ${c.property.toString()}');
     caseCards.add(_buildCaseCard(c));
   }
   print('Built ${caseCards.length} case cards');
@@ -347,8 +350,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.account_tree,
-                color: Colors.lightGreenAccent.shade400, size: 20.0),
+            Icon(
+              Icons.account_tree,
+              color: Colors.lightGreenAccent.shade400,
+              size: 20.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'debugFillProperties tree dump',
@@ -451,8 +457,7 @@ dynamic build(BuildContext context) {
               ),
               Spacer(),
               Container(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 decoration: BoxDecoration(
                   color: Colors.indigo.shade200,
                   borderRadius: BorderRadius.circular(10.0),
@@ -559,8 +564,7 @@ dynamic build(BuildContext context) {
           'Order matters only for human readability — Flutter renders the\n'
           'tree in insertion order. Group related properties (identity, then\n'
           'state, then debug-only).',
-          style:
-              TextStyle(fontSize: 12.0, color: Colors.green.shade900),
+          style: TextStyle(fontSize: 12.0, color: Colors.green.shade900),
         ),
       ],
     ),
@@ -596,8 +600,11 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade700, size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade700,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Pitfalls',
@@ -872,10 +879,7 @@ Widget _buildCaseCard(_PropCase c) {
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          c.tone.shade50,
-          c.tone.shade100,
-        ],
+        colors: [c.tone.shade50, c.tone.shade100],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -964,11 +968,13 @@ Widget _buildCaseCard(_PropCase c) {
           children: [
             _miniBadge('level', c.property.level.name, c.tone),
             SizedBox(width: 6.0),
-            _miniBadge('isFiltered',
-                c.property.level.index <= DiagnosticLevel.fine.index
-                    ? 'yes'
-                    : 'no',
-                c.tone),
+            _miniBadge(
+              'isFiltered',
+              c.property.level.index <= DiagnosticLevel.fine.index
+                  ? 'yes'
+                  : 'no',
+              c.tone,
+            ),
           ],
         ),
       ],
@@ -981,8 +987,7 @@ Widget _buildCaseCard(_PropCase c) {
 // ----------------------------------------------------------------------
 Widget _buildTreeRow(DiagnosticsProperty node, {required bool isLast}) {
   final bool dim = node.level.index <= DiagnosticLevel.fine.index;
-  final Color color =
-      dim ? Colors.white38 : Colors.lightGreenAccent.shade100;
+  final Color color = dim ? Colors.white38 : Colors.lightGreenAccent.shade100;
   final String connector = isLast ? '└── ' : '├── ';
   return Padding(
     padding: EdgeInsets.only(left: 4.0, top: 2.0, bottom: 2.0),
@@ -1111,8 +1116,7 @@ Widget _pitfallRow(String headline, String body) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.error_outline,
-                color: Colors.red.shade400, size: 16.0),
+            Icon(Icons.error_outline, color: Colors.red.shade400, size: 16.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1169,10 +1173,7 @@ Widget _knobChip(String label, String hint) {
         SizedBox(width: 6.0),
         Text(
           hint,
-          style: TextStyle(
-            fontSize: 10.5,
-            color: Colors.deepOrange.shade700,
-          ),
+          style: TextStyle(fontSize: 10.5, color: Colors.deepOrange.shade700),
         ),
       ],
     ),

@@ -139,7 +139,12 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 30.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 30.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -179,10 +184,7 @@ Widget _sectionHeader(int index, String title, String tagline) {
 Widget _sectionDivider() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 16.0),
-    child: Container(
-      height: 1.0,
-      color: _kHairline,
-    ),
+    child: Container(height: 1.0, color: _kHairline),
   );
 }
 
@@ -190,7 +192,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -211,7 +216,12 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -253,11 +263,26 @@ Widget _codeBlock(List<TextSpan> spans) {
   );
 }
 
-TextSpan _kw(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeKeyword, fontWeight: FontWeight.w700));
-TextSpan _ty(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeType, fontWeight: FontWeight.w600));
-TextSpan _str(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeString));
-TextSpan _id(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeAccent));
-TextSpan _cm(String s) => TextSpan(text: s, style: const TextStyle(color: _kCodeComment));
+TextSpan _kw(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeKeyword, fontWeight: FontWeight.w700),
+);
+TextSpan _ty(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeType, fontWeight: FontWeight.w600),
+);
+TextSpan _str(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeString),
+);
+TextSpan _id(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeAccent),
+);
+TextSpan _cm(String s) => TextSpan(
+  text: s,
+  style: const TextStyle(color: _kCodeComment),
+);
 TextSpan _tx(String s) => TextSpan(text: s);
 
 Widget _annotation(String text) {
@@ -286,7 +311,11 @@ Widget _pitfall(String title, String body) {
       children: <Widget>[
         const Padding(
           padding: EdgeInsets.only(top: 1.0),
-          child: Icon(CupertinoIcons.exclamationmark_triangle_fill, color: _kAccentOrange, size: 18.0),
+          child: Icon(
+            CupertinoIcons.exclamationmark_triangle_fill,
+            color: _kAccentOrange,
+            size: 18.0,
+          ),
         ),
         const SizedBox(width: 10.0),
         Expanded(
@@ -368,7 +397,11 @@ Widget _propRow(String name, String typ, String description) {
         Expanded(
           child: Text(
             description,
-            style: const TextStyle(fontSize: 12.5, color: _kInkSecondary, height: 1.4),
+            style: const TextStyle(
+              fontSize: 12.5,
+              color: _kInkSecondary,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -437,7 +470,11 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFBF5AF2)],
+        colors: <Color>[
+          Color(0xFF0A84FF),
+          Color(0xFF5E5CE6),
+          Color(0xFFBF5AF2),
+        ],
       ),
       borderRadius: BorderRadius.circular(18.0),
       boxShadow: const <BoxShadow>[
@@ -453,7 +490,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(CupertinoIcons.list_bullet_indent, color: Color(0xFFFFFFFF), size: 26.0),
+            Icon(
+              CupertinoIcons.list_bullet_indent,
+              color: Color(0xFFFFFFFF),
+              size: 26.0,
+            ),
             SizedBox(width: 10.0),
             Text(
               'Cupertino lists',
@@ -522,7 +563,9 @@ dynamic build(BuildContext context) {
   print('  building section 2 - anatomy');
   final Widget anatomySection = CupertinoListSection.insetGrouped(
     header: const Text('GENERAL'),
-    footer: const Text('Tap any row to drill down.  This footer text typically explains the section to the user.'),
+    footer: const Text(
+      'Tap any row to drill down.  This footer text typically explains the section to the user.',
+    ),
     additionalDividerMargin: 6.0,
     dividerMargin: 16.0,
     hasLeading: true,
@@ -555,7 +598,10 @@ dynamic build(BuildContext context) {
         trailing: CupertinoListTileChevron(),
       ),
       CupertinoListTile(
-        leading: Icon(CupertinoIcons.antenna_radiowaves_left_right, color: _kAccentGreen),
+        leading: Icon(
+          CupertinoIcons.antenna_radiowaves_left_right,
+          color: _kAccentGreen,
+        ),
         title: Text('Cellular'),
         trailing: CupertinoListTileChevron(),
       ),
@@ -626,18 +672,63 @@ dynamic build(BuildContext context) {
   );
 
   final Widget anatomyCodeBlock = _codeBlock(<TextSpan>[
-    _kw('final'), _tx(' '), _ty('Widget'), _tx(' section = '), _id('CupertinoListSection'), _tx('.'), _id('insetGrouped'), _tx('(\n'),
-    _tx('  header: '), _ty('Text'), _tx('('), _str("'GENERAL'"), _tx('),\n'),
-    _tx('  footer: '), _ty('Text'), _tx('('), _str("'Tap any row...'"), _tx('),\n'),
-    _tx('  additionalDividerMargin: '), _id('6.0'), _tx(',\n'),
-    _tx('  dividerMargin: '), _id('16.0'), _tx(',\n'),
-    _tx('  hasLeading: '), _kw('true'), _tx(',\n'),
-    _tx('  separatorColor: '), _ty('Color'), _tx('('), _id('0xFFD0D0D5'), _tx('),\n'),
-    _tx('  topMargin: '), _id('16.0'), _tx(',\n'),
-    _tx('  margin: '), _ty('EdgeInsets'), _tx('.'), _id('symmetric'), _tx('(horizontal: '), _id('12.0'), _tx('),\n'),
-    _tx('  clipBehavior: '), _ty('Clip'), _tx('.'), _id('hardEdge'), _tx(',\n'),
-    _tx('  children: '), _kw('const'), _tx(' <'), _ty('Widget'), _tx('>['), _tx('\n'),
-    _tx('    '), _id('CupertinoListTile'), _tx('(...),'), _tx('\n'),
+    _kw('final'),
+    _tx(' '),
+    _ty('Widget'),
+    _tx(' section = '),
+    _id('CupertinoListSection'),
+    _tx('.'),
+    _id('insetGrouped'),
+    _tx('(\n'),
+    _tx('  header: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'GENERAL'"),
+    _tx('),\n'),
+    _tx('  footer: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Tap any row...'"),
+    _tx('),\n'),
+    _tx('  additionalDividerMargin: '),
+    _id('6.0'),
+    _tx(',\n'),
+    _tx('  dividerMargin: '),
+    _id('16.0'),
+    _tx(',\n'),
+    _tx('  hasLeading: '),
+    _kw('true'),
+    _tx(',\n'),
+    _tx('  separatorColor: '),
+    _ty('Color'),
+    _tx('('),
+    _id('0xFFD0D0D5'),
+    _tx('),\n'),
+    _tx('  topMargin: '),
+    _id('16.0'),
+    _tx(',\n'),
+    _tx('  margin: '),
+    _ty('EdgeInsets'),
+    _tx('.'),
+    _id('symmetric'),
+    _tx('(horizontal: '),
+    _id('12.0'),
+    _tx('),\n'),
+    _tx('  clipBehavior: '),
+    _ty('Clip'),
+    _tx('.'),
+    _id('hardEdge'),
+    _tx(',\n'),
+    _tx('  children: '),
+    _kw('const'),
+    _tx(' <'),
+    _ty('Widget'),
+    _tx('>['),
+    _tx('\n'),
+    _tx('    '),
+    _id('CupertinoListTile'),
+    _tx('(...),'),
+    _tx('\n'),
     _tx('  ],\n'),
     _tx(');'),
   ]);
@@ -694,14 +785,38 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         const Text(
           'Side-by-side comparison',
-          style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: _kInk),
+          style: TextStyle(
+            fontSize: 13.5,
+            fontWeight: FontWeight.w700,
+            color: _kInk,
+          ),
         ),
         const SizedBox(height: 8.0),
-        _propRow('CupertinoListSectionType', 'enum', '.base vs .insetGrouped switches the painting and clipping.'),
-        _propRow('outer margin', 'EdgeInsets', 'Plain: zero.  Inset: ~14dp horizontal so the card floats.'),
-        _propRow('corner radius', 'double', 'Plain: 0.  Inset: ~10dp rounded card.'),
-        _propRow('divider style', 'Color/double', 'Plain: full-width hairline.  Inset: indented hairline.'),
-        _propRow('use when', 'guidance', 'Plain: full-bleed lists.  Inset: settings/preferences with header+footer.'),
+        _propRow(
+          'CupertinoListSectionType',
+          'enum',
+          '.base vs .insetGrouped switches the painting and clipping.',
+        ),
+        _propRow(
+          'outer margin',
+          'EdgeInsets',
+          'Plain: zero.  Inset: ~14dp horizontal so the card floats.',
+        ),
+        _propRow(
+          'corner radius',
+          'double',
+          'Plain: 0.  Inset: ~10dp rounded card.',
+        ),
+        _propRow(
+          'divider style',
+          'Color/double',
+          'Plain: full-width hairline.  Inset: indented hairline.',
+        ),
+        _propRow(
+          'use when',
+          'guidance',
+          'Plain: full-bleed lists.  Inset: settings/preferences with header+footer.',
+        ),
       ],
     ),
   );
@@ -773,19 +888,66 @@ dynamic build(BuildContext context) {
   );
 
   final Widget notchedCodeBlock = _codeBlock(<TextSpan>[
-    _id('CupertinoListTile'), _tx('.'), _id('notched'), _tx('(\n'),
-    _tx('  leading: '), _ty('Icon'), _tx('('), _id('CupertinoIcons'), _tx('.'), _id('battery_100'), _tx('),\n'),
-    _tx('  title: '), _ty('Text'), _tx('('), _str("'Battery'"), _tx('),\n'),
-    _tx('  subtitle: '), _ty('Text'), _tx('('), _str("'Optimised charging'"), _tx('),\n'),
-    _tx('  additionalInfo: '), _ty('Text'), _tx('('), _str("'94%'"), _tx('),\n'),
-    _tx('  trailing: '), _ty('CupertinoListTileChevron'), _tx('(),\n'),
-    _tx('  backgroundColor: '), _ty('CupertinoColors'), _tx('.'), _id('systemBackground'), _tx(',\n'),
-    _tx('  backgroundColorActivated: '), _ty('Color'), _tx('('), _id('0xFFD9D9DE'), _tx('),\n'),
-    _tx('  padding: '), _ty('EdgeInsets'), _tx('.'), _id('symmetric'), _tx('(\n'),
-    _tx('    horizontal: '), _id('16.0'), _tx(', vertical: '), _id('12.0'), _tx(',\n'),
+    _id('CupertinoListTile'),
+    _tx('.'),
+    _id('notched'),
+    _tx('(\n'),
+    _tx('  leading: '),
+    _ty('Icon'),
+    _tx('('),
+    _id('CupertinoIcons'),
+    _tx('.'),
+    _id('battery_100'),
+    _tx('),\n'),
+    _tx('  title: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Battery'"),
+    _tx('),\n'),
+    _tx('  subtitle: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Optimised charging'"),
+    _tx('),\n'),
+    _tx('  additionalInfo: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'94%'"),
+    _tx('),\n'),
+    _tx('  trailing: '),
+    _ty('CupertinoListTileChevron'),
+    _tx('(),\n'),
+    _tx('  backgroundColor: '),
+    _ty('CupertinoColors'),
+    _tx('.'),
+    _id('systemBackground'),
+    _tx(',\n'),
+    _tx('  backgroundColorActivated: '),
+    _ty('Color'),
+    _tx('('),
+    _id('0xFFD9D9DE'),
+    _tx('),\n'),
+    _tx('  padding: '),
+    _ty('EdgeInsets'),
+    _tx('.'),
+    _id('symmetric'),
+    _tx('(\n'),
+    _tx('    horizontal: '),
+    _id('16.0'),
+    _tx(', vertical: '),
+    _id('12.0'),
+    _tx(',\n'),
     _tx('  ),\n'),
-    _tx('  leadingSize: '), _id('32.0'), _tx(', '), _cm('// larger square'), _tx('\n'),
-    _tx('  leadingToTitle: '), _id('14.0'), _tx(', '), _cm('// more gap'), _tx('\n'),
+    _tx('  leadingSize: '),
+    _id('32.0'),
+    _tx(', '),
+    _cm('// larger square'),
+    _tx('\n'),
+    _tx('  leadingToTitle: '),
+    _id('14.0'),
+    _tx(', '),
+    _cm('// more gap'),
+    _tx('\n'),
     _tx('  onTap: () {},\n'),
     _tx(');'),
   ]);
@@ -804,7 +966,11 @@ dynamic build(BuildContext context) {
           padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 4.0),
           child: Text(
             'Default vs .notched',
-            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w700, color: _kInk),
+            style: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w700,
+              color: _kInk,
+            ),
           ),
         ),
         const Padding(
@@ -823,13 +989,24 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
                     child: Text('default', style: _kAnnotationStyle),
                   ),
                   defaultTileA,
-                  Container(height: 1.0, color: _kHairline, margin: const EdgeInsets.symmetric(horizontal: 16.0)),
+                  Container(
+                    height: 1.0,
+                    color: _kHairline,
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
                   defaultTileB,
-                  Container(height: 1.0, color: _kHairline, margin: const EdgeInsets.symmetric(horizontal: 16.0)),
+                  Container(
+                    height: 1.0,
+                    color: _kHairline,
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
                   defaultTileC,
                 ],
               ),
@@ -840,13 +1017,24 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 4.0,
+                    ),
                     child: Text('.notched', style: _kAnnotationStyle),
                   ),
                   notchedTileA,
-                  Container(height: 1.0, color: _kHairline, margin: const EdgeInsets.symmetric(horizontal: 16.0)),
+                  Container(
+                    height: 1.0,
+                    color: _kHairline,
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
                   notchedTileB,
-                  Container(height: 1.0, color: _kHairline, margin: const EdgeInsets.symmetric(horizontal: 16.0)),
+                  Container(
+                    height: 1.0,
+                    color: _kHairline,
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
                   notchedTileC,
                 ],
               ),
@@ -891,7 +1079,10 @@ dynamic build(BuildContext context) {
   );
   final Widget formFieldC = CupertinoFormRow(
     prefix: const Text('Username'),
-    helper: const Text('Letters, numbers and underscores only.', style: _kCaptionStyle),
+    helper: const Text(
+      'Letters, numbers and underscores only.',
+      style: _kCaptionStyle,
+    ),
     child: SizedBox(
       width: 180.0,
       child: CupertinoTextFormFieldRow(
@@ -903,7 +1094,10 @@ dynamic build(BuildContext context) {
   );
   final Widget formFieldD = CupertinoFormRow(
     prefix: const Text('Password'),
-    error: const Text('Password must be at least 8 characters.', style: TextStyle(fontSize: 12.0, color: _kAccentRed)),
+    error: const Text(
+      'Password must be at least 8 characters.',
+      style: TextStyle(fontSize: 12.0, color: _kAccentRed),
+    ),
     child: SizedBox(
       width: 180.0,
       child: CupertinoTextFormFieldRow(
@@ -917,12 +1111,18 @@ dynamic build(BuildContext context) {
 
   final Widget formRowSwitch = CupertinoFormRow(
     prefix: const Text('Notifications'),
-    helper: const Text('Receive build status pings on success and failure.', style: _kCaptionStyle),
+    helper: const Text(
+      'Receive build status pings on success and failure.',
+      style: _kCaptionStyle,
+    ),
     child: CupertinoSwitch(value: true, onChanged: (bool v) {}),
   );
   final Widget formRowSlider = CupertinoFormRow(
     prefix: const Text('Volume'),
-    helper: const Text('Default ringtone volume for incoming alerts.', style: _kCaptionStyle),
+    helper: const Text(
+      'Default ringtone volume for incoming alerts.',
+      style: _kCaptionStyle,
+    ),
     child: SizedBox(
       width: 160.0,
       child: CupertinoSlider(
@@ -935,16 +1135,28 @@ dynamic build(BuildContext context) {
   );
   final Widget formRowSegmented = CupertinoFormRow(
     prefix: const Text('Theme'),
-    helper: const Text('Choose the appearance the section paints with.', style: _kCaptionStyle),
+    helper: const Text(
+      'Choose the appearance the section paints with.',
+      style: _kCaptionStyle,
+    ),
     child: SizedBox(
       width: 180.0,
       child: CupertinoSegmentedControl<int>(
         groupValue: 1,
         onValueChanged: (int v) {},
         children: const <int, Widget>{
-          0: Padding(padding: EdgeInsets.symmetric(horizontal: 8.0), child: Text('Light')),
-          1: Padding(padding: EdgeInsets.symmetric(horizontal: 8.0), child: Text('Auto')),
-          2: Padding(padding: EdgeInsets.symmetric(horizontal: 8.0), child: Text('Dark')),
+          0: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text('Light'),
+          ),
+          1: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text('Auto'),
+          ),
+          2: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text('Dark'),
+          ),
         },
       ),
     ),
@@ -952,40 +1164,70 @@ dynamic build(BuildContext context) {
 
   final Widget formSectionGallery = CupertinoFormSection.insetGrouped(
     header: const Text('SIGN UP'),
-    footer: const Text('All fields are required.  Email is used for build notifications only.'),
+    footer: const Text(
+      'All fields are required.  Email is used for build notifications only.',
+    ),
     margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-    children: <Widget>[
-      formFieldA,
-      formFieldB,
-      formFieldC,
-      formFieldD,
-    ],
+    children: <Widget>[formFieldA, formFieldB, formFieldC, formFieldD],
   );
 
   final Widget formControlsSection = CupertinoFormSection.insetGrouped(
     header: const Text('CONTROLS'),
-    footer: const Text('Generic CupertinoFormRow accepts any Widget in its child slot.'),
+    footer: const Text(
+      'Generic CupertinoFormRow accepts any Widget in its child slot.',
+    ),
     margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-    children: <Widget>[
-      formRowSwitch,
-      formRowSlider,
-      formRowSegmented,
-    ],
+    children: <Widget>[formRowSwitch, formRowSlider, formRowSegmented],
   );
 
   final Widget formCodeBlock = _codeBlock(<TextSpan>[
-    _id('CupertinoFormSection'), _tx('.'), _id('insetGrouped'), _tx('(\n'),
-    _tx('  header: '), _ty('Text'), _tx('('), _str("'SIGN UP'"), _tx('),\n'),
-    _tx('  footer: '), _ty('Text'), _tx('('), _str("'All fields...'"), _tx('),\n'),
-    _tx('  children: <'), _ty('Widget'), _tx('>[\n'),
-    _tx('    '), _id('CupertinoTextFormFieldRow'), _tx('(\n'),
-    _tx('      prefix: '), _ty('Text'), _tx('('), _str("'Name'"), _tx('),\n'),
-    _tx('      placeholder: '), _str("'Tom Forge'"), _tx(',\n'),
+    _id('CupertinoFormSection'),
+    _tx('.'),
+    _id('insetGrouped'),
+    _tx('(\n'),
+    _tx('  header: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'SIGN UP'"),
+    _tx('),\n'),
+    _tx('  footer: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'All fields...'"),
+    _tx('),\n'),
+    _tx('  children: <'),
+    _ty('Widget'),
+    _tx('>[\n'),
+    _tx('    '),
+    _id('CupertinoTextFormFieldRow'),
+    _tx('(\n'),
+    _tx('      prefix: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Name'"),
+    _tx('),\n'),
+    _tx('      placeholder: '),
+    _str("'Tom Forge'"),
+    _tx(',\n'),
     _tx('    ),\n'),
-    _tx('    '), _id('CupertinoFormRow'), _tx('(\n'),
-    _tx('      prefix: '), _ty('Text'), _tx('('), _str("'Notifications'"), _tx('),\n'),
-    _tx('      helper: '), _ty('Text'), _tx('('), _str("'Build pings...'"), _tx('),\n'),
-    _tx('      child: '), _ty('CupertinoSwitch'), _tx('(value: '), _kw('true'), _tx(', onChanged: ...),\n'),
+    _tx('    '),
+    _id('CupertinoFormRow'),
+    _tx('(\n'),
+    _tx('      prefix: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Notifications'"),
+    _tx('),\n'),
+    _tx('      helper: '),
+    _ty('Text'),
+    _tx('('),
+    _str("'Build pings...'"),
+    _tx('),\n'),
+    _tx('      child: '),
+    _ty('CupertinoSwitch'),
+    _tx('(value: '),
+    _kw('true'),
+    _tx(', onChanged: ...),\n'),
     _tx('    ),\n'),
     _tx('  ],\n'),
     _tx(');'),
@@ -1030,19 +1272,67 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Property mapping', subtitle: 'How CupertinoListTile slots map to Material ListTile slots.'),
+        _cardTitle(
+          'Property mapping',
+          subtitle:
+              'How CupertinoListTile slots map to Material ListTile slots.',
+        ),
         const SizedBox(height: 10.0),
-        _propRow('leading',         'Widget?',  'Identical.  Cupertino expects 28-32dp square; Material 40dp.'),
-        _propRow('title',           'Widget?',  'Identical.  Cupertino caps at one line by default.'),
-        _propRow('subtitle',        'Widget?',  'Identical.  Cupertino prefers a single line below title.'),
-        _propRow('additionalInfo',  'Widget?',  'Cupertino-only.  Right-aligned text before the chevron.'),
-        _propRow('trailing',        'Widget?',  'Identical.  Use CupertinoListTileChevron for drill-down.'),
-        _propRow('backgroundColor', 'Color?',   'Cupertino: per-tile background.  Material: use Container/Material.'),
-        _propRow('backgroundColorActivated', 'Color?', 'Cupertino-only.  Painted while pressed.'),
-        _propRow('onTap',           'VoidCallback?', 'Identical.  Both render a press feedback when non-null.'),
-        _propRow('padding',         'EdgeInsets?',   'Cupertino-only.  Material uses contentPadding instead.'),
-        _propRow('leadingSize',     'double?',       'Cupertino-only.  Controls the leading icon box.'),
-        _propRow('leadingToTitle',  'double?',       'Cupertino-only.  Horizontal gap to title column.'),
+        _propRow(
+          'leading',
+          'Widget?',
+          'Identical.  Cupertino expects 28-32dp square; Material 40dp.',
+        ),
+        _propRow(
+          'title',
+          'Widget?',
+          'Identical.  Cupertino caps at one line by default.',
+        ),
+        _propRow(
+          'subtitle',
+          'Widget?',
+          'Identical.  Cupertino prefers a single line below title.',
+        ),
+        _propRow(
+          'additionalInfo',
+          'Widget?',
+          'Cupertino-only.  Right-aligned text before the chevron.',
+        ),
+        _propRow(
+          'trailing',
+          'Widget?',
+          'Identical.  Use CupertinoListTileChevron for drill-down.',
+        ),
+        _propRow(
+          'backgroundColor',
+          'Color?',
+          'Cupertino: per-tile background.  Material: use Container/Material.',
+        ),
+        _propRow(
+          'backgroundColorActivated',
+          'Color?',
+          'Cupertino-only.  Painted while pressed.',
+        ),
+        _propRow(
+          'onTap',
+          'VoidCallback?',
+          'Identical.  Both render a press feedback when non-null.',
+        ),
+        _propRow(
+          'padding',
+          'EdgeInsets?',
+          'Cupertino-only.  Material uses contentPadding instead.',
+        ),
+        _propRow(
+          'leadingSize',
+          'double?',
+          'Cupertino-only.  Controls the leading icon box.',
+        ),
+        _propRow(
+          'leadingToTitle',
+          'double?',
+          'Cupertino-only.  Horizontal gap to title column.',
+        ),
         const SizedBox(height: 14.0),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1178,7 +1468,11 @@ dynamic build(BuildContext context) {
           alignment: Alignment.center,
           child: const Text(
             'TF',
-            style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w700, fontSize: 18.0),
+            style: TextStyle(
+              color: Color(0xFFFFFFFF),
+              fontWeight: FontWeight.w700,
+              fontSize: 18.0,
+            ),
           ),
         ),
         title: const Text('Tom Forge'),
@@ -1227,7 +1521,10 @@ dynamic build(BuildContext context) {
       ),
       CupertinoFormRow(
         prefix: const Text('Public'),
-        helper: const Text('Visible to all workspace members.', style: _kCaptionStyle),
+        helper: const Text(
+          'Visible to all workspace members.',
+          style: _kCaptionStyle,
+        ),
         child: CupertinoSwitch(value: false, onChanged: (bool v) {}),
       ),
     ],
@@ -1249,7 +1546,10 @@ dynamic build(BuildContext context) {
             child: Row(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 3.0,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0x33007AFF),
                     borderRadius: BorderRadius.circular(6.0),
@@ -1268,7 +1568,11 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, color: _kInk),
+                    style: const TextStyle(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.w700,
+                      color: _kInk,
+                    ),
                   ),
                 ),
               ],
@@ -1333,48 +1637,51 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Pitfalls', subtitle: 'Failure modes that survive code review.'),
+        _cardTitle(
+          'Pitfalls',
+          subtitle: 'Failure modes that survive code review.',
+        ),
         const SizedBox(height: 10.0),
         _pitfall(
           'Mixing dividerMargin and hasLeading',
           'When hasLeading is true the section already pads dividers past the leading column. '
-          'Setting dividerMargin to the same value adds the offset twice, producing a visible '
-          'misalignment under icons.',
+              'Setting dividerMargin to the same value adds the offset twice, producing a visible '
+              'misalignment under icons.',
         ),
         _pitfall(
           'Trailing CupertinoSwitch with no onChanged',
           'A CupertinoSwitch with null onChanged renders disabled.  Provide an empty consumer '
-          '(v) {} when you want a visually-enabled but stateful switch.',
+              '(v) {} when you want a visually-enabled but stateful switch.',
         ),
         _pitfall(
           'Long subtitles on default tile',
           'CupertinoListTile (default) keeps title and subtitle on the same row.  Long subtitles '
-          'truncate.  Use .notched for two-line layouts that wrap naturally.',
+              'truncate.  Use .notched for two-line layouts that wrap naturally.',
         ),
         _pitfall(
           'Padding overrides for accessibility',
           'Custom padding shrinks the hit target.  Keep vertical padding above 10dp so the tile '
-          'remains tappable on small devices.',
+              'remains tappable on small devices.',
         ),
         _pitfall(
           'Wrapping in Material ancestor',
           'CupertinoListSection does not require a Material ancestor.  Wrapping it in a Material '
-          'tile produces double ink splashes and breaks the activation highlight.',
+              'tile produces double ink splashes and breaks the activation highlight.',
         ),
         _pitfall(
           'Section margins inside ListView',
           'When embedding sections inside a ListView, set the margin to zero or the ListView '
-          'will double-pad rows.  Use Padding outside instead.',
+              'will double-pad rows.  Use Padding outside instead.',
         ),
         _pitfall(
           'CupertinoTextFormFieldRow without onChanged',
           'The form field reports value changes through onChanged in the parent form.  '
-          'Forgetting to wire onChanged means initial value is shown but never persisted on submit.',
+              'Forgetting to wire onChanged means initial value is shown but never persisted on submit.',
         ),
         _pitfall(
           'Backgrounds vs theme',
           'backgroundColor on the section overrides the CupertinoTheme.  Pass a '
-          'CupertinoDynamicColor (or resolve via context) if the section must adapt to dark mode.',
+              'CupertinoDynamicColor (or resolve via context) if the section must adapt to dark mode.',
         ),
       ],
     ),
@@ -1391,15 +1698,39 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _cardTitle('Cheat sheet', subtitle: 'Reach-for-it reference for the list widget family.'),
+        _cardTitle(
+          'Cheat sheet',
+          subtitle: 'Reach-for-it reference for the list widget family.',
+        ),
         const SizedBox(height: 10.0),
-        _legendDot(_kAccent,        'CupertinoListSection.insetGrouped  ->  rounded card, header + footer'),
-        _legendDot(_kAccentIndigo,  'CupertinoListSection                ->  edge-to-edge, full-bleed dividers'),
-        _legendDot(_kAccentGreen,   'CupertinoListTile                   ->  one-line title + subtitle + info + trailing'),
-        _legendDot(_kAccentOrange,  'CupertinoListTile.notched           ->  larger leading, more breathing room'),
-        _legendDot(_kAccentTeal,    'CupertinoFormSection                ->  same shape as list section but for forms'),
-        _legendDot(_kAccentPink,    'CupertinoFormRow                    ->  prefix + child + helper + error'),
-        _legendDot(_kAccentRed,     'CupertinoTextFormFieldRow           ->  text field wrapped in a CupertinoFormRow'),
+        _legendDot(
+          _kAccent,
+          'CupertinoListSection.insetGrouped  ->  rounded card, header + footer',
+        ),
+        _legendDot(
+          _kAccentIndigo,
+          'CupertinoListSection                ->  edge-to-edge, full-bleed dividers',
+        ),
+        _legendDot(
+          _kAccentGreen,
+          'CupertinoListTile                   ->  one-line title + subtitle + info + trailing',
+        ),
+        _legendDot(
+          _kAccentOrange,
+          'CupertinoListTile.notched           ->  larger leading, more breathing room',
+        ),
+        _legendDot(
+          _kAccentTeal,
+          'CupertinoFormSection                ->  same shape as list section but for forms',
+        ),
+        _legendDot(
+          _kAccentPink,
+          'CupertinoFormRow                    ->  prefix + child + helper + error',
+        ),
+        _legendDot(
+          _kAccentRed,
+          'CupertinoTextFormFieldRow           ->  text field wrapped in a CupertinoFormRow',
+        ),
         const SizedBox(height: 12.0),
         Container(height: 1.0, color: _kHairline),
         const SizedBox(height: 12.0),
@@ -1436,14 +1767,20 @@ dynamic build(BuildContext context) {
               heroIntro,
 
               // ---- SECTION 2 - anatomy ----
-              _sectionHeader(2, 'CupertinoListSection anatomy',
-                  'Every visible part labelled and explained.'),
+              _sectionHeader(
+                2,
+                'CupertinoListSection anatomy',
+                'Every visible part labelled and explained.',
+              ),
               _card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _cardTitle('Anatomy of an .insetGrouped section',
-                        subtitle: 'Annotated screenshot paired with explanations.'),
+                    _cardTitle(
+                      'Anatomy of an .insetGrouped section',
+                      subtitle:
+                          'Annotated screenshot paired with explanations.',
+                    ),
                     const SizedBox(height: 12.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1461,10 +1798,7 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         const SizedBox(width: 14.0),
-                        Expanded(
-                          flex: 5,
-                          child: anatomyAnnotations,
-                        ),
+                        Expanded(flex: 5, child: anatomyAnnotations),
                       ],
                     ),
                     const SizedBox(height: 16.0),
@@ -1476,14 +1810,20 @@ dynamic build(BuildContext context) {
               _sectionDivider(),
 
               // ---- SECTION 3 - inset vs plain ----
-              _sectionHeader(3, 'insetGrouped vs plain',
-                  'Side-by-side rendering of the two constructors.'),
+              _sectionHeader(
+                3,
+                'insetGrouped vs plain',
+                'Side-by-side rendering of the two constructors.',
+              ),
               _card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _cardTitle('Same children, different constructor',
-                        subtitle: 'CupertinoListSection() vs CupertinoListSection.insetGrouped().'),
+                    _cardTitle(
+                      'Same children, different constructor',
+                      subtitle:
+                          'CupertinoListSection() vs CupertinoListSection.insetGrouped().',
+                    ),
                     const SizedBox(height: 12.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1520,14 +1860,20 @@ dynamic build(BuildContext context) {
               _sectionDivider(),
 
               // ---- SECTION 4 - notched variant ----
-              _sectionHeader(4, 'CupertinoListTile.notched',
-                  'When and why to use the .notched constructor.'),
+              _sectionHeader(
+                4,
+                'CupertinoListTile.notched',
+                'When and why to use the .notched constructor.',
+              ),
               _card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _cardTitle('.notched constructor',
-                        subtitle: 'Larger leading box, more breathing room, distinct activation color.'),
+                    _cardTitle(
+                      '.notched constructor',
+                      subtitle:
+                          'Larger leading box, more breathing room, distinct activation color.',
+                    ),
                     const SizedBox(height: 10.0),
                     Text(
                       'The .notched factory produces a CupertinoListTile that matches the iOS '
@@ -1547,14 +1893,20 @@ dynamic build(BuildContext context) {
               _sectionDivider(),
 
               // ---- SECTION 5 - form section gallery ----
-              _sectionHeader(5, 'CupertinoFormSection gallery',
-                  'CupertinoFormSection, CupertinoFormRow, CupertinoTextFormFieldRow.'),
+              _sectionHeader(
+                5,
+                'CupertinoFormSection gallery',
+                'CupertinoFormSection, CupertinoFormRow, CupertinoTextFormFieldRow.',
+              ),
               _card(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    _cardTitle('Forms built on the section family',
-                        subtitle: 'CupertinoFormSection is shaped like CupertinoListSection but tuned for editable rows.'),
+                    _cardTitle(
+                      'Forms built on the section family',
+                      subtitle:
+                          'CupertinoFormSection is shaped like CupertinoListSection but tuned for editable rows.',
+                    ),
                     const SizedBox(height: 14.0),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1585,13 +1937,41 @@ dynamic build(BuildContext context) {
                     const SizedBox(height: 14.0),
                     formCodeBlock,
                     const SizedBox(height: 12.0),
-                    _propRow('prefix',         'Widget?',  'Label on the leading edge of the row.  Usually a Text.'),
-                    _propRow('helper',         'Widget?',  'Caption-style line below the input, on the same column.'),
-                    _propRow('error',          'Widget?',  'Red error line below the input; replaces helper visually.'),
-                    _propRow('child',          'Widget',   'Centered input slot - any Widget works (switch, slider, ...).'),
-                    _propRow('placeholder',    'String?',  'Greyed placeholder rendered inside the editable field.'),
-                    _propRow('keyboardType',   'TextInputType?', 'Drives the on-screen keyboard variant.'),
-                    _propRow('obscureText',    'bool',     'Mask characters - use for passwords / secrets.'),
+                    _propRow(
+                      'prefix',
+                      'Widget?',
+                      'Label on the leading edge of the row.  Usually a Text.',
+                    ),
+                    _propRow(
+                      'helper',
+                      'Widget?',
+                      'Caption-style line below the input, on the same column.',
+                    ),
+                    _propRow(
+                      'error',
+                      'Widget?',
+                      'Red error line below the input; replaces helper visually.',
+                    ),
+                    _propRow(
+                      'child',
+                      'Widget',
+                      'Centered input slot - any Widget works (switch, slider, ...).',
+                    ),
+                    _propRow(
+                      'placeholder',
+                      'String?',
+                      'Greyed placeholder rendered inside the editable field.',
+                    ),
+                    _propRow(
+                      'keyboardType',
+                      'TextInputType?',
+                      'Drives the on-screen keyboard variant.',
+                    ),
+                    _propRow(
+                      'obscureText',
+                      'bool',
+                      'Mask characters - use for passwords / secrets.',
+                    ),
                   ],
                 ),
               ),
@@ -1599,29 +1979,41 @@ dynamic build(BuildContext context) {
               _sectionDivider(),
 
               // ---- SECTION 6 - cupertino vs material ----
-              _sectionHeader(6, 'Cupertino vs Material',
-                  'Property mapping and a side-by-side preview.'),
+              _sectionHeader(
+                6,
+                'Cupertino vs Material',
+                'Property mapping and a side-by-side preview.',
+              ),
               comparisonMatrix,
 
               _sectionDivider(),
 
               // ---- SECTION 7 - recipes ----
-              _sectionHeader(7, 'Recipes',
-                  'Four common compositions you can lift directly.'),
+              _sectionHeader(
+                7,
+                'Recipes',
+                'Four common compositions you can lift directly.',
+              ),
               recipes,
 
               _sectionDivider(),
 
               // ---- SECTION 8 - pitfalls ----
-              _sectionHeader(8, 'Pitfalls',
-                  'Failure modes that survive review and bite later.'),
+              _sectionHeader(
+                8,
+                'Pitfalls',
+                'Failure modes that survive review and bite later.',
+              ),
               pitfalls,
 
               _sectionDivider(),
 
               // ---- SECTION 9 - cheat sheet ----
-              _sectionHeader(9, 'Cheat sheet',
-                  'Single-card reference for the whole family.'),
+              _sectionHeader(
+                9,
+                'Cheat sheet',
+                'Single-card reference for the whole family.',
+              ),
               cheatSheet,
 
               const SizedBox(height: 32.0),
@@ -1683,10 +2075,7 @@ class _HeroChip extends StatelessWidget {
           const SizedBox(width: 6.0),
           Text(
             value,
-            style: const TextStyle(
-              color: Color(0xEEFFFFFF),
-              fontSize: 11.5,
-            ),
+            style: const TextStyle(color: Color(0xEEFFFFFF), fontSize: 11.5),
           ),
         ],
       ),

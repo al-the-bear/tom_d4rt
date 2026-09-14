@@ -429,9 +429,7 @@ dynamic build(BuildContext context) {
               child: Stack(
                 children: <Widget>[
                   Positioned.fill(
-                    child: ColoredBox(
-                      color: CupertinoColors.systemGrey6,
-                    ),
+                    child: ColoredBox(color: CupertinoColors.systemGrey6),
                   ),
                   Positioned.fill(child: bar),
                 ],
@@ -479,14 +477,8 @@ dynamic build(BuildContext context) {
   print('Section 2: building shouldFullyObstruct comparison table.');
 
   final obstructionSamples = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'name': 'pure white',
-      'color': CupertinoColors.white,
-    },
-    <String, dynamic>{
-      'name': 'pure black',
-      'color': CupertinoColors.black,
-    },
+    <String, dynamic>{'name': 'pure white', 'color': CupertinoColors.white},
+    <String, dynamic>{'name': 'pure black', 'color': CupertinoColors.black},
     <String, dynamic>{
       'name': 'system blue',
       'color': CupertinoColors.activeBlue,
@@ -499,10 +491,7 @@ dynamic build(BuildContext context) {
       'name': 'grey 50%',
       'color': CupertinoColors.systemGrey.withOpacity(0.5),
     },
-    <String, dynamic>{
-      'name': 'transparent',
-      'color': const Color(0x00000000),
-    },
+    <String, dynamic>{'name': 'transparent', 'color': const Color(0x00000000)},
     <String, dynamic>{
       'name': 'tile 25%',
       'color': CupertinoColors.systemTeal.withOpacity(0.25),
@@ -584,10 +573,7 @@ dynamic build(BuildContext context) {
             ),
             SizedBox(
               width: 90.0,
-              child: Text(
-                color.opacity.toStringAsFixed(2),
-                style: bodyStyle,
-              ),
+              child: Text(color.opacity.toStringAsFixed(2), style: bodyStyle),
             ),
             Expanded(
               child: Row(
@@ -706,10 +692,7 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: <Widget>[
-          SizedBox(
-            width: 130.0,
-            child: Text(label, style: subHeadingStyle),
-          ),
+          SizedBox(width: 130.0, child: Text(label, style: subHeadingStyle)),
           Container(
             height: 36.0,
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
@@ -748,11 +731,7 @@ dynamic build(BuildContext context) {
   // ═════════════════════════════════════════════════════════════════════════
   print('Section 5: building PreferredSize wrapper recipes.');
 
-  Widget recipeCard(
-    String title,
-    String description,
-    PreferredSizeWidget bar,
-  ) {
+  Widget recipeCard(String title, String description, PreferredSizeWidget bar) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
       decoration: BoxDecoration(
@@ -957,10 +936,7 @@ dynamic build(BuildContext context) {
                 style: bodyStyle,
               ),
               const SizedBox(height: 6.0),
-              kvRow(
-                'preferredSize',
-                materialAppBar.preferredSize.toString(),
-              ),
+              kvRow('preferredSize', materialAppBar.preferredSize.toString()),
               kvRow('is PreferredSizeWidget', 'true'),
               kvRow('is ObstructingPreferredSizeWidget', 'false'),
             ],
@@ -1210,10 +1186,7 @@ dynamic build(BuildContext context) {
         ),
         backgroundColor: tintBlue,
         brightness: Brightness.dark,
-        trailing: const Icon(
-          CupertinoIcons.gear,
-          color: CupertinoColors.white,
-        ),
+        trailing: const Icon(CupertinoIcons.gear, color: CupertinoColors.white),
       ),
     ),
   ];
@@ -1224,60 +1197,36 @@ dynamic build(BuildContext context) {
   print('Section 9: building API reference cards.');
 
   final apiCards = <Widget>[
-    explainCard(
-      'PreferredSizeWidget',
-      <String>[
-        'abstract interface implemented by widgets that have a preferred size.',
-        'exposes preferredSize: Size — width may be infinite for flexible bars.',
-        'examples: AppBar, TabBar, CupertinoNavigationBar, PreferredSize.',
-      ],
-      tintBlue,
-    ),
-    explainCard(
-      'ObstructingPreferredSizeWidget',
-      <String>[
-        'extends PreferredSizeWidget with shouldFullyObstruct(BuildContext).',
-        'returns true when the bar paints fully opaque pixels (no see-through).',
-        'examples: CupertinoNavigationBar, CupertinoSliverNavigationBar.',
-      ],
-      tintOrange,
-    ),
-    explainCard(
-      'CupertinoNavigationBar',
-      <String>[
-        'top navigation bar matching iOS design language.',
-        'preferredSize.height = kMinInteractiveDimensionCupertino (44.0).',
-        'shouldFullyObstruct(context) is true iff backgroundColor alpha = 1.',
-      ],
-      tintGreen,
-    ),
-    explainCard(
-      'CupertinoSliverNavigationBar',
-      <String>[
-        'sliver variant with collapsing largeTitle.',
-        'must live inside a CustomScrollView (or other sliver host).',
-        'also implements ObstructingPreferredSizeWidget — same opacity rule.',
-      ],
-      CupertinoColors.systemTeal,
-    ),
-    explainCard(
-      'CupertinoNavigationBarBackButton',
-      <String>[
-        'standard back chevron used inside CupertinoNavigationBar.leading.',
-        'reads previousPageTitle from the route to render its caption.',
-        'inherits tint colors from the surrounding nav bar.',
-      ],
-      CupertinoColors.systemPurple,
-    ),
-    explainCard(
-      'PreferredSize',
-      <String>[
-        'concrete widget that wraps any child with a fixed preferredSize.',
-        'lets you satisfy PreferredSizeWidget hosts without subclassing.',
-        'does NOT implement ObstructingPreferredSizeWidget.',
-      ],
-      CupertinoColors.systemPink,
-    ),
+    explainCard('PreferredSizeWidget', <String>[
+      'abstract interface implemented by widgets that have a preferred size.',
+      'exposes preferredSize: Size — width may be infinite for flexible bars.',
+      'examples: AppBar, TabBar, CupertinoNavigationBar, PreferredSize.',
+    ], tintBlue),
+    explainCard('ObstructingPreferredSizeWidget', <String>[
+      'extends PreferredSizeWidget with shouldFullyObstruct(BuildContext).',
+      'returns true when the bar paints fully opaque pixels (no see-through).',
+      'examples: CupertinoNavigationBar, CupertinoSliverNavigationBar.',
+    ], tintOrange),
+    explainCard('CupertinoNavigationBar', <String>[
+      'top navigation bar matching iOS design language.',
+      'preferredSize.height = kMinInteractiveDimensionCupertino (44.0).',
+      'shouldFullyObstruct(context) is true iff backgroundColor alpha = 1.',
+    ], tintGreen),
+    explainCard('CupertinoSliverNavigationBar', <String>[
+      'sliver variant with collapsing largeTitle.',
+      'must live inside a CustomScrollView (or other sliver host).',
+      'also implements ObstructingPreferredSizeWidget — same opacity rule.',
+    ], CupertinoColors.systemTeal),
+    explainCard('CupertinoNavigationBarBackButton', <String>[
+      'standard back chevron used inside CupertinoNavigationBar.leading.',
+      'reads previousPageTitle from the route to render its caption.',
+      'inherits tint colors from the surrounding nav bar.',
+    ], CupertinoColors.systemPurple),
+    explainCard('PreferredSize', <String>[
+      'concrete widget that wraps any child with a fixed preferredSize.',
+      'lets you satisfy PreferredSizeWidget hosts without subclassing.',
+      'does NOT implement ObstructingPreferredSizeWidget.',
+    ], CupertinoColors.systemPink),
   ];
 
   // ═════════════════════════════════════════════════════════════════════════
@@ -1357,10 +1306,7 @@ dynamic build(BuildContext context) {
           'navBarPlain.preferredSize',
           navBarPlain.preferredSize.toString(),
         ),
-        kvRow(
-          'navBarFull.preferredSize',
-          navBarFull.preferredSize.toString(),
-        ),
+        kvRow('navBarFull.preferredSize', navBarFull.preferredSize.toString()),
         kvRow(
           'navBarBranded.preferredSize',
           navBarBranded.preferredSize.toString(),
@@ -1373,18 +1319,9 @@ dynamic build(BuildContext context) {
           'shouldFullyObstruct(translucent)',
           navBarTranslucent.shouldFullyObstruct(context).toString(),
         ),
-        kvRow(
-          'AppBar.preferredSize',
-          materialAppBar.preferredSize.toString(),
-        ),
-        kvRow(
-          'tallBar.preferredSize',
-          tallBar.preferredSize.toString(),
-        ),
-        kvRow(
-          'stripedBar.preferredSize',
-          stripedBar.preferredSize.toString(),
-        ),
+        kvRow('AppBar.preferredSize', materialAppBar.preferredSize.toString()),
+        kvRow('tallBar.preferredSize', tallBar.preferredSize.toString()),
+        kvRow('stripedBar.preferredSize', stripedBar.preferredSize.toString()),
       ],
     ),
   );
@@ -1558,133 +1495,163 @@ dynamic build(BuildContext context) {
 
   final body = <Widget>[];
   body.add(const SizedBox(height: 12.0));
-  body.add(sectionHeader(
-    0,
-    'Anatomy: PreferredSize family',
-    'Classes and contracts you will see in this demo.',
-  ));
+  body.add(
+    sectionHeader(
+      0,
+      'Anatomy: PreferredSize family',
+      'Classes and contracts you will see in this demo.',
+    ),
+  );
   body.add(anatomyBlock);
 
-  body.add(sectionHeader(
-    1,
-    'CupertinoNavigationBar gallery',
-    'Seven hand-tuned configurations rendered side-by-side.',
-  ));
+  body.add(
+    sectionHeader(
+      1,
+      'CupertinoNavigationBar gallery',
+      'Seven hand-tuned configurations rendered side-by-side.',
+    ),
+  );
   for (int i = 0; i < navBarGallery.length; i++) {
     body.add(navBarGallery[i]);
   }
 
-  body.add(sectionHeader(
-    2,
-    'shouldFullyObstruct — opaque vs translucent',
-    'How the background color drives the obstruction decision.',
-  ));
+  body.add(
+    sectionHeader(
+      2,
+      'shouldFullyObstruct — opaque vs translucent',
+      'How the background color drives the obstruction decision.',
+    ),
+  );
   body.add(obstructionTable);
 
-  body.add(sectionHeader(
-    3,
-    'CupertinoSliverNavigationBar',
-    'Live sliver hosts with collapsing largeTitle.',
-  ));
+  body.add(
+    sectionHeader(
+      3,
+      'CupertinoSliverNavigationBar',
+      'Live sliver hosts with collapsing largeTitle.',
+    ),
+  );
   for (int i = 0; i < sliverShowcases.length; i++) {
     body.add(sliverShowcases[i]);
   }
 
-  body.add(sectionHeader(
-    4,
-    'CupertinoNavigationBarBackButton',
-    'The classic iOS chevron-with-caption used in leading slots.',
-  ));
+  body.add(
+    sectionHeader(
+      4,
+      'CupertinoNavigationBarBackButton',
+      'The classic iOS chevron-with-caption used in leading slots.',
+    ),
+  );
   for (int i = 0; i < backButtonShowcase.length; i++) {
     body.add(backButtonShowcase[i]);
   }
 
-  body.add(sectionHeader(
-    5,
-    'PreferredSize wrapper recipes',
-    'Plain PreferredSize lets any widget satisfy the contract.',
-  ));
+  body.add(
+    sectionHeader(
+      5,
+      'PreferredSize wrapper recipes',
+      'Plain PreferredSize lets any widget satisfy the contract.',
+    ),
+  );
   for (int i = 0; i < recipes.length; i++) {
     body.add(recipes[i]);
   }
 
-  body.add(sectionHeader(
-    6,
-    'AppBar (Material) for comparison',
-    'AppBar is PreferredSize but NOT obstructing.',
-  ));
+  body.add(
+    sectionHeader(
+      6,
+      'AppBar (Material) for comparison',
+      'AppBar is PreferredSize but NOT obstructing.',
+    ),
+  );
   body.add(appBarCompareCard);
 
-  body.add(sectionHeader(
-    7,
-    'fullObstruction true vs false',
-    'Layout consequence of shouldFullyObstruct in action.',
-  ));
+  body.add(
+    sectionHeader(
+      7,
+      'fullObstruction true vs false',
+      'Layout consequence of shouldFullyObstruct in action.',
+    ),
+  );
   for (int i = 0; i < obstructionLayouts.length; i++) {
     body.add(obstructionLayouts[i]);
   }
 
-  body.add(sectionHeader(
-    8,
-    'Sample CupertinoPageScaffold layouts',
-    'Three live scaffolds, each with a different navigation bar.',
-  ));
+  body.add(
+    sectionHeader(
+      8,
+      'Sample CupertinoPageScaffold layouts',
+      'Three live scaffolds, each with a different navigation bar.',
+    ),
+  );
   for (int i = 0; i < samplePages.length; i++) {
     body.add(samplePages[i]);
   }
 
-  body.add(sectionHeader(
-    9,
-    'API reference cards',
-    'Short bullet summaries for each class in the family.',
-  ));
+  body.add(
+    sectionHeader(
+      9,
+      'API reference cards',
+      'Short bullet summaries for each class in the family.',
+    ),
+  );
   for (int i = 0; i < apiCards.length; i++) {
     body.add(apiCards[i]);
   }
 
-  body.add(sectionHeader(
-    10,
-    'Code reference blocks',
-    'Idiomatic snippets you can copy into your own scaffolds.',
-  ));
+  body.add(
+    sectionHeader(
+      10,
+      'Code reference blocks',
+      'Idiomatic snippets you can copy into your own scaffolds.',
+    ),
+  );
   for (int i = 0; i < codeBlocks.length; i++) {
     body.add(codeBlocks[i]);
   }
 
-  body.add(sectionHeader(
-    11,
-    'Numeric metrics',
-    'Concrete preferredSize and obstruction values from this demo.',
-  ));
+  body.add(
+    sectionHeader(
+      11,
+      'Numeric metrics',
+      'Concrete preferredSize and obstruction values from this demo.',
+    ),
+  );
   body.add(metricsCard);
 
-  body.add(sectionHeader(
-    12,
-    'Decision flow',
-    'When should my bar opt into obstruction?',
-  ));
+  body.add(
+    sectionHeader(
+      12,
+      'Decision flow',
+      'When should my bar opt into obstruction?',
+    ),
+  );
   body.add(decisionFlow);
 
-  body.add(sectionHeader(
-    13,
-    'Common pitfalls',
-    'Mistakes to avoid when combining these classes.',
-  ));
+  body.add(
+    sectionHeader(
+      13,
+      'Common pitfalls',
+      'Mistakes to avoid when combining these classes.',
+    ),
+  );
   for (int i = 0; i < pitfalls.length; i++) {
     body.add(pitfalls[i]);
   }
 
   body.add(const SizedBox(height: 24.0));
-  body.add(Center(
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Text(
-        'End of ObstructingPreferredSizeWidget deep visual demo.',
-        textAlign: TextAlign.center,
-        style: mutedStyle,
+  body.add(
+    Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          'End of ObstructingPreferredSizeWidget deep visual demo.',
+          textAlign: TextAlign.center,
+          style: mutedStyle,
+        ),
       ),
     ),
-  ));
+  );
   body.add(const SizedBox(height: 40.0));
 
   print('Section count: 14 (sections 0..13)');
@@ -1711,10 +1678,7 @@ dynamic build(BuildContext context) {
       navigationBar: hostNavBar,
       child: SafeArea(
         top: false,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: body,
-        ),
+        child: ListView(padding: EdgeInsets.zero, children: body),
       ),
     ),
   );

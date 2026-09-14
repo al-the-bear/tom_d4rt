@@ -33,7 +33,8 @@ class _OverflowBoxDeepDemoPage extends StatefulWidget {
   const _OverflowBoxDeepDemoPage();
 
   @override
-  State<_OverflowBoxDeepDemoPage> createState() => _OverflowBoxDeepDemoPageState();
+  State<_OverflowBoxDeepDemoPage> createState() =>
+      _OverflowBoxDeepDemoPageState();
 }
 
 class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
@@ -58,7 +59,11 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
               const Text('OverflowBox Deep Demo'),
               Text(
                 'constraint override patterns | intentional overflow composition',
-                style: TextStyle(color: Colors.white.withValues(alpha: 0.86), fontSize: 12, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.86),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -87,7 +92,12 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
                 title: 'Constraint Fundamentals Studio',
                 subtitle:
                     'Tune parent and child bounds while OverflowBox overrides min/max constraints and alignment behavior in real time.',
-                child: _FundamentalsScene(compact: _compact, guides: _guides, notes: _notes, zoom: _zoom),
+                child: _FundamentalsScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                  zoom: _zoom,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -96,7 +106,11 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
                 title: 'Alignment and Fit Matrix',
                 subtitle:
                     'Compare alignment anchors and fit policies under identical parent bounds to understand where overflow content is painted.',
-                child: _AlignmentMatrixScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _AlignmentMatrixScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -105,7 +119,11 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
                 title: 'Constraint Negotiation Lab',
                 subtitle:
                     'Side-by-side lanes show clipped and unclipped overflow behavior plus interaction markers for boundary reasoning.',
-                child: _NegotiationScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _NegotiationScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -114,7 +132,11 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
                 title: 'Interaction and Annotation Workshop',
                 subtitle:
                     'Oversized cards with annotation overlays demonstrate practical monitoring of intended bounds versus painted bounds.',
-                child: _AnnotationScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _AnnotationScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               _SceneShell(
@@ -123,7 +145,11 @@ class _OverflowBoxDeepDemoPageState extends State<_OverflowBoxDeepDemoPage> {
                 title: 'Practical Layout Console',
                 subtitle:
                     'Three module-style shells use OverflowBox for badges, callouts, and command clusters that intentionally exceed parent geometry.',
-                child: _PracticalScene(compact: _compact, guides: _guides, notes: _notes),
+                child: _PracticalScene(
+                  compact: _compact,
+                  guides: _guides,
+                  notes: _notes,
+                ),
               ),
               const SizedBox(height: 12),
               const _RecapCard(),
@@ -168,7 +194,12 @@ class _GlobalDeck extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [Color(0xFF18384E), Color(0xFF2A6AA2), Color(0xFF2F846E), Color(0xFF635AB1)],
+          colors: [
+            Color(0xFF18384E),
+            Color(0xFF2A6AA2),
+            Color(0xFF2F846E),
+            Color(0xFF635AB1),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -176,7 +207,14 @@ class _GlobalDeck extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('OverflowBox Control Deck', style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w800)),
+          const Text(
+            'OverflowBox Control Deck',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           const SizedBox(height: 6),
           const Text(
             'OverflowBox allows a child to receive constraints different from its parent. '
@@ -190,53 +228,83 @@ class _GlobalDeck extends StatelessWidget {
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: compact,
-                  onChanged: onCompactChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Compact scenes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
-                ),
-              ),
-              Expanded(
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: SwitchListTile(
-                  value: guides,
-                  onChanged: onGuidesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Guide overlays', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
+                    value: compact,
+                    onChanged: onCompactChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Compact scenes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: notes,
-                  onChanged: onNotesChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('Instruction notes', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                ),
+                    value: guides,
+                    onChanged: onGuidesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Guide overlays',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 child: Material(
                   type: MaterialType.transparency,
                   child: SwitchListTile(
-                  value: rtl,
-                  onChanged: onRtlChanged,
-                  dense: true,
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('RTL mode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    value: notes,
+                    onChanged: onNotesChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'Instruction notes',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
+              ),
+              Expanded(
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: SwitchListTile(
+                    value: rtl,
+                    onChanged: onRtlChanged,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                    title: const Text(
+                      'RTL mode',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Text('Scene zoom: ${zoom.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          Text(
+            'Scene zoom: ${zoom.toStringAsFixed(2)}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           Slider(
             value: zoom,
             min: 0.8,
@@ -253,7 +321,13 @@ class _GlobalDeck extends StatelessWidget {
 }
 
 class _SceneShell extends StatelessWidget {
-  const _SceneShell({required this.index, required this.tone, required this.title, required this.subtitle, required this.child});
+  const _SceneShell({
+    required this.index,
+    required this.tone,
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
 
   final int index;
   final Color tone;
@@ -268,7 +342,11 @@ class _SceneShell extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 14, offset: const Offset(0, 7)),
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 7),
+          ),
         ],
       ),
       child: Padding(
@@ -283,16 +361,32 @@ class _SceneShell extends StatelessWidget {
                   radius: 14,
                   backgroundColor: tone,
                   foregroundColor: Colors.white,
-                  child: Text('$index', style: const TextStyle(fontWeight: FontWeight.w800)),
+                  child: Text(
+                    '$index',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800, fontSize: 19)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: tone,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 19,
+                        ),
+                      ),
                       const SizedBox(height: 4),
-                      Text(subtitle, style: const TextStyle(color: Color(0xFF3A4F61), height: 1.34)),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF3A4F61),
+                          height: 1.34,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -308,7 +402,12 @@ class _SceneShell extends StatelessWidget {
 }
 
 class _FundamentalsScene extends StatefulWidget {
-  const _FundamentalsScene({required this.compact, required this.guides, required this.notes, required this.zoom});
+  const _FundamentalsScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+    required this.zoom,
+  });
 
   final bool compact;
   final bool guides;
@@ -373,7 +472,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Fundamentals controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamentals controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Text('Parent width: ${_parentW.toStringAsFixed(0)}'),
                       Slider(
@@ -382,7 +484,8 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         max: 760,
                         divisions: 27,
                         onChanged: (v) => setState(() => _parentW = v),
-                        onChangeEnd: (v) => _push('parent width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('parent width=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Parent height: ${_parentH.toStringAsFixed(0)}'),
                       Slider(
@@ -391,7 +494,8 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         max: 520,
                         divisions: 17,
                         onChanged: (v) => setState(() => _parentH = v),
-                        onChangeEnd: (v) => _push('parent height=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('parent height=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Child width intent: ${_childW.toStringAsFixed(0)}'),
                       Slider(
@@ -400,16 +504,21 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         max: 900,
                         divisions: 39,
                         onChanged: (v) => setState(() => _childW = v),
-                        onChangeEnd: (v) => _push('child width intent=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('child width intent=${v.toStringAsFixed(0)}'),
                       ),
-                      Text('Child height intent: ${_childH.toStringAsFixed(0)}'),
+                      Text(
+                        'Child height intent: ${_childH.toStringAsFixed(0)}',
+                      ),
                       Slider(
                         value: _childH,
                         min: 80,
                         max: 500,
                         divisions: 21,
                         onChanged: (v) => setState(() => _childH = v),
-                        onChangeEnd: (v) => _push('child height intent=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) => _push(
+                          'child height intent=${v.toStringAsFixed(0)}',
+                        ),
                       ),
                       const SizedBox(height: 6),
                       _EnumDropdown<int>(
@@ -431,8 +540,11 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         min: 0,
                         max: 700,
                         onChanged: (v) => setState(() => _minW = v),
-                        onToggleNull: (isNull) => setState(() => _minW = isNull ? null : 0),
-                        onChangeEnd: (v) => _push('minWidth=${v?.toStringAsFixed(0) ?? 'null'}'),
+                        onToggleNull: (isNull) =>
+                            setState(() => _minW = isNull ? null : 0),
+                        onChangeEnd: (v) => _push(
+                          'minWidth=${v?.toStringAsFixed(0) ?? 'null'}',
+                        ),
                       ),
                       _NullableSlider(
                         label: 'maxWidth',
@@ -440,8 +552,11 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         min: 120,
                         max: 900,
                         onChanged: (v) => setState(() => _maxW = v),
-                        onToggleNull: (isNull) => setState(() => _maxW = isNull ? null : 640),
-                        onChangeEnd: (v) => _push('maxWidth=${v?.toStringAsFixed(0) ?? 'null'}'),
+                        onToggleNull: (isNull) =>
+                            setState(() => _maxW = isNull ? null : 640),
+                        onChangeEnd: (v) => _push(
+                          'maxWidth=${v?.toStringAsFixed(0) ?? 'null'}',
+                        ),
                       ),
                       _NullableSlider(
                         label: 'minHeight',
@@ -449,8 +564,11 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         min: 0,
                         max: 500,
                         onChanged: (v) => setState(() => _minH = v),
-                        onToggleNull: (isNull) => setState(() => _minH = isNull ? null : 0),
-                        onChangeEnd: (v) => _push('minHeight=${v?.toStringAsFixed(0) ?? 'null'}'),
+                        onToggleNull: (isNull) =>
+                            setState(() => _minH = isNull ? null : 0),
+                        onChangeEnd: (v) => _push(
+                          'minHeight=${v?.toStringAsFixed(0) ?? 'null'}',
+                        ),
                       ),
                       _NullableSlider(
                         label: 'maxHeight',
@@ -458,27 +576,44 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                         min: 80,
                         max: 600,
                         onChanged: (v) => setState(() => _maxH = v),
-                        onToggleNull: (isNull) => setState(() => _maxH = isNull ? null : 300),
-                        onChangeEnd: (v) => _push('maxHeight=${v?.toStringAsFixed(0) ?? 'null'}'),
+                        onToggleNull: (isNull) =>
+                            setState(() => _maxH = isNull ? null : 300),
+                        onChangeEnd: (v) => _push(
+                          'maxHeight=${v?.toStringAsFixed(0) ?? 'null'}',
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showBounds,
-                        onChanged: (v) => setState(() => _showBounds = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show boundary overlays'),
-                      ),
+                          value: _showBounds,
+                          onChanged: (v) => setState(() => _showBounds = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show boundary overlays'),
+                        ),
                       ),
                       const SizedBox(height: 8),
-                      _FactTable(rows: [
-                        _FactRow('parent', '${_parentW.toStringAsFixed(0)} x ${_parentH.toStringAsFixed(0)}'),
-                        _FactRow('child intent', '${_childW.toStringAsFixed(0)} x ${_childH.toStringAsFixed(0)}'),
-                        _FactRow('min / max width', '${_minW?.toStringAsFixed(0) ?? 'null'} / ${_maxW?.toStringAsFixed(0) ?? 'null'}'),
-                        _FactRow('min / max height', '${_minH?.toStringAsFixed(0) ?? 'null'} / ${_maxH?.toStringAsFixed(0) ?? 'null'}'),
-                        _FactRow('alignment', _alignmentLabels[_alignment]),
-                      ]),
+                      _FactTable(
+                        rows: [
+                          _FactRow(
+                            'parent',
+                            '${_parentW.toStringAsFixed(0)} x ${_parentH.toStringAsFixed(0)}',
+                          ),
+                          _FactRow(
+                            'child intent',
+                            '${_childW.toStringAsFixed(0)} x ${_childH.toStringAsFixed(0)}',
+                          ),
+                          _FactRow(
+                            'min / max width',
+                            '${_minW?.toStringAsFixed(0) ?? 'null'} / ${_maxW?.toStringAsFixed(0) ?? 'null'}',
+                          ),
+                          _FactRow(
+                            'min / max height',
+                            '${_minH?.toStringAsFixed(0) ?? 'null'} / ${_maxH?.toStringAsFixed(0) ?? 'null'}',
+                          ),
+                          _FactRow('alignment', _alignmentLabels[_alignment]),
+                        ],
+                      ),
                       const SizedBox(height: 8),
                       if (widget.notes)
                         _InstructionCard(
@@ -490,7 +625,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Fundamentals timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Fundamentals timeline',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 190, child: _EventLog(lines: _events)),
                     ],
@@ -512,7 +650,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Overflow preview canvas', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Overflow preview canvas',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Expanded(
                         child: Center(
@@ -522,7 +663,10 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                             decoration: BoxDecoration(
                               color: _blue.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: _blue.withValues(alpha: 0.28), width: 2),
+                              border: Border.all(
+                                color: _blue.withValues(alpha: 0.28),
+                                width: 2,
+                              ),
                             ),
                             child: Stack(
                               fit: StackFit.expand,
@@ -553,28 +697,56 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
                                         end: Alignment.bottomRight,
                                       ),
                                       borderRadius: BorderRadius.circular(14),
-                                      border: Border.all(color: Colors.white.withValues(alpha: 0.7), width: 2),
+                                      border: Border.all(
+                                        color: Colors.white.withValues(
+                                          alpha: 0.7,
+                                        ),
+                                        width: 2,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(12),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          const Text('Overflow Child', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+                                          const Text(
+                                            'Overflow Child',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18,
+                                            ),
+                                          ),
                                           const SizedBox(height: 6),
                                           const Text(
                                             'This child is intentionally larger than parent bounds. '
                                             'Use controls to inspect alignment and constraint overrides.',
-                                            style: TextStyle(color: Colors.white, height: 1.35),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              height: 1.35,
+                                            ),
                                           ),
                                           const Spacer(),
                                           Wrap(
                                             spacing: 8,
                                             runSpacing: 8,
                                             children: [
-                                              _EventPill(label: 'Mark', onTap: () => _push('mark action')), 
-                                              _EventPill(label: 'Inspect', onTap: () => _push('inspect action')), 
-                                              _EventPill(label: 'Freeze', onTap: () => _push('freeze action')), 
+                                              _EventPill(
+                                                label: 'Mark',
+                                                onTap: () =>
+                                                    _push('mark action'),
+                                              ),
+                                              _EventPill(
+                                                label: 'Inspect',
+                                                onTap: () =>
+                                                    _push('inspect action'),
+                                              ),
+                                              _EventPill(
+                                                label: 'Freeze',
+                                                onTap: () =>
+                                                    _push('freeze action'),
+                                              ),
                                             ],
                                           ),
                                         ],
@@ -607,7 +779,11 @@ class _FundamentalsSceneState extends State<_FundamentalsScene> {
 }
 
 class _AlignmentMatrixScene extends StatefulWidget {
-  const _AlignmentMatrixScene({required this.compact, required this.guides, required this.notes});
+  const _AlignmentMatrixScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -641,7 +817,10 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Matrix controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Matrix controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Text('Parent width: ${_parentW.toStringAsFixed(0)}'),
                       Slider(
@@ -650,7 +829,8 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                         max: 480,
                         divisions: 14,
                         onChanged: (v) => setState(() => _parentW = v),
-                        onChangeEnd: (v) => _push('parent width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('parent width=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Parent height: ${_parentH.toStringAsFixed(0)}'),
                       Slider(
@@ -659,7 +839,8 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                         max: 360,
                         divisions: 10,
                         onChanged: (v) => setState(() => _parentH = v),
-                        onChangeEnd: (v) => _push('parent height=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('parent height=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Child width: ${_childW.toStringAsFixed(0)}'),
                       Slider(
@@ -668,7 +849,8 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                         max: 620,
                         divisions: 20,
                         onChanged: (v) => setState(() => _childW = v),
-                        onChangeEnd: (v) => _push('child width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('child width=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Child height: ${_childH.toStringAsFixed(0)}'),
                       Slider(
@@ -677,7 +859,8 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                         max: 380,
                         divisions: 13,
                         onChanged: (v) => setState(() => _childH = v),
-                        onChangeEnd: (v) => _push('child height=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('child height=${v.toStringAsFixed(0)}'),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -690,7 +873,10 @@ class _AlignmentMatrixSceneState extends State<_AlignmentMatrixScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Matrix timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Matrix timeline',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 200, child: _EventLog(lines: _events)),
                     ],
@@ -853,7 +1039,10 @@ class _AlignmentProbe extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
+          Text(
+            title,
+            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+          ),
           const Text('alignment probe', style: TextStyle(fontSize: 11)),
           const SizedBox(height: 8),
           Expanded(
@@ -878,11 +1067,22 @@ class _AlignmentProbe extends StatelessWidget {
                       width: childW,
                       height: childH,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(colors: [tone.withValues(alpha: 0.9), tone.withValues(alpha: 0.6)]),
+                        gradient: LinearGradient(
+                          colors: [
+                            tone.withValues(alpha: 0.9),
+                            tone.withValues(alpha: 0.6),
+                          ],
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Center(
-                        child: Text('Overflow Child', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                        child: Text(
+                          'Overflow Child',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -897,7 +1097,11 @@ class _AlignmentProbe extends StatelessWidget {
 }
 
 class _NegotiationScene extends StatefulWidget {
-  const _NegotiationScene({required this.compact, required this.guides, required this.notes});
+  const _NegotiationScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -933,7 +1137,10 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Negotiation controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Negotiation controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Text('Lane width: ${_laneWidth.toStringAsFixed(0)}'),
                       Slider(
@@ -942,7 +1149,8 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         max: 520,
                         divisions: 15,
                         onChanged: (v) => setState(() => _laneWidth = v),
-                        onChangeEnd: (v) => _push('lane width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('lane width=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Lane height: ${_laneHeight.toStringAsFixed(0)}'),
                       Slider(
@@ -951,7 +1159,8 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         max: 360,
                         divisions: 10,
                         onChanged: (v) => setState(() => _laneHeight = v),
-                        onChangeEnd: (v) => _push('lane height=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('lane height=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Child width: ${_childWidth.toStringAsFixed(0)}'),
                       Slider(
@@ -960,43 +1169,44 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                         max: 740,
                         divisions: 26,
                         onChanged: (v) => setState(() => _childWidth = v),
-                        onChangeEnd: (v) => _push('child width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('child width=${v.toStringAsFixed(0)}'),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _clipLeft,
-                        onChanged: (v) {
-                          setState(() => _clipLeft = v);
-                          _push('left lane clip=$v');
-                        },
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Clip left lane'),
-                      ),
-                      ),
-                      Material(
-                        type: MaterialType.transparency,
-                        child: SwitchListTile(
-                        value: _clipRight,
-                        onChanged: (v) {
-                          setState(() => _clipRight = v);
-                          _push('right lane clip=$v');
-                        },
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Clip right lane'),
-                      ),
+                          value: _clipLeft,
+                          onChanged: (v) {
+                            setState(() => _clipLeft = v);
+                            _push('left lane clip=$v');
+                          },
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Clip left lane'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showGuide,
-                        onChanged: (v) => setState(() => _showGuide = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show annotation guides'),
+                          value: _clipRight,
+                          onChanged: (v) {
+                            setState(() => _clipRight = v);
+                            _push('right lane clip=$v');
+                          },
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Clip right lane'),
+                        ),
                       ),
+                      Material(
+                        type: MaterialType.transparency,
+                        child: SwitchListTile(
+                          value: _showGuide,
+                          onChanged: (v) => setState(() => _showGuide = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show annotation guides'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -1009,7 +1219,10 @@ class _NegotiationSceneState extends State<_NegotiationScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Negotiation timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Negotiation timeline',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 180, child: _EventLog(lines: _events)),
                     ],
@@ -1109,9 +1322,7 @@ class _NegotiationLane extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           if (showGuide)
-            Positioned.fill(
-              child: CustomPaint(painter: _BoundsPainter()),
-            ),
+            Positioned.fill(child: CustomPaint(painter: _BoundsPainter())),
           OverflowBox(
             alignment: alignment,
             minWidth: 0,
@@ -1124,11 +1335,22 @@ class _NegotiationLane extends StatelessWidget {
                 width: childWidth,
                 height: laneHeight - 20,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [tone.withValues(alpha: 0.9), tone.withValues(alpha: 0.65)]),
+                  gradient: LinearGradient(
+                    colors: [
+                      tone.withValues(alpha: 0.9),
+                      tone.withValues(alpha: 0.65),
+                    ],
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: const Center(
-                  child: Text('Overflow child', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)),
+                  child: Text(
+                    'Overflow child',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -1151,8 +1373,14 @@ class _NegotiationLane extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(color: tone, fontWeight: FontWeight.w800)),
-          Text('clip=${clip ? 'on' : 'off'}', style: const TextStyle(fontSize: 11)),
+          Text(
+            title,
+            style: TextStyle(color: tone, fontWeight: FontWeight.w800),
+          ),
+          Text(
+            'clip=${clip ? 'on' : 'off'}',
+            style: const TextStyle(fontSize: 11),
+          ),
           const SizedBox(height: 8),
           Expanded(child: Center(child: content)),
         ],
@@ -1162,7 +1390,11 @@ class _NegotiationLane extends StatelessWidget {
 }
 
 class _AnnotationScene extends StatefulWidget {
-  const _AnnotationScene({required this.compact, required this.guides, required this.notes});
+  const _AnnotationScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -1196,7 +1428,10 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Annotation controls', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Annotation controls',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 8),
                       Text('Canvas width: ${_canvasW.toStringAsFixed(0)}'),
                       Slider(
@@ -1205,7 +1440,8 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                         max: 980,
                         divisions: 33,
                         onChanged: (v) => setState(() => _canvasW = v),
-                        onChangeEnd: (v) => _push('canvas width=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('canvas width=${v.toStringAsFixed(0)}'),
                       ),
                       Text('Canvas height: ${_canvasH.toStringAsFixed(0)}'),
                       Slider(
@@ -1214,27 +1450,28 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                         max: 520,
                         divisions: 16,
                         onChanged: (v) => setState(() => _canvasH = v),
-                        onChangeEnd: (v) => _push('canvas height=${v.toStringAsFixed(0)}'),
+                        onChangeEnd: (v) =>
+                            _push('canvas height=${v.toStringAsFixed(0)}'),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showOverlay,
-                        onChanged: (v) => setState(() => _showOverlay = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show boundary overlay'),
-                      ),
+                          value: _showOverlay,
+                          onChanged: (v) => setState(() => _showOverlay = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show boundary overlay'),
+                        ),
                       ),
                       Material(
                         type: MaterialType.transparency,
                         child: SwitchListTile(
-                        value: _showLabels,
-                        onChanged: (v) => setState(() => _showLabels = v),
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: const Text('Show annotation labels'),
-                      ),
+                          value: _showLabels,
+                          onChanged: (v) => setState(() => _showLabels = v),
+                          dense: true,
+                          contentPadding: EdgeInsets.zero,
+                          title: const Text('Show annotation labels'),
+                        ),
                       ),
                       const SizedBox(height: 8),
                       if (widget.notes)
@@ -1247,7 +1484,10 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                           ],
                         ),
                       const SizedBox(height: 8),
-                      const Text('Annotation timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                      const Text(
+                        'Annotation timeline',
+                        style: TextStyle(fontWeight: FontWeight.w800),
+                      ),
                       const SizedBox(height: 6),
                       SizedBox(height: 180, child: _EventLog(lines: _events)),
                     ],
@@ -1270,7 +1510,10 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                     decoration: BoxDecoration(
                       color: _rose.withValues(alpha: 0.08),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: _rose.withValues(alpha: 0.32), width: 2),
+                      border: Border.all(
+                        color: _rose.withValues(alpha: 0.32),
+                        width: 2,
+                      ),
                     ),
                     child: Stack(
                       children: [
@@ -1290,10 +1533,12 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                                 width: _canvasW + 180,
                                 height: _canvasH - 40,
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    _rose.withValues(alpha: 0.88),
-                                    _indigo.withValues(alpha: 0.86),
-                                  ]),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      _rose.withValues(alpha: 0.88),
+                                      _indigo.withValues(alpha: 0.86),
+                                    ],
+                                  ),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Stack(
@@ -1303,24 +1548,39 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                                       top: 14,
                                       child: Text(
                                         'Oversized Annotation Canvas',
-                                        style: TextStyle(color: Colors.white.withValues(alpha: 0.95), fontWeight: FontWeight.w800, fontSize: 18),
+                                        style: TextStyle(
+                                          color: Colors.white.withValues(
+                                            alpha: 0.95,
+                                          ),
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 18,
+                                        ),
                                       ),
                                     ),
                                     if (_showLabels) ...[
                                       Positioned(
                                         left: 22,
                                         top: 54,
-                                        child: _LabelTag(text: 'painted outside parent', tone: _amber),
+                                        child: _LabelTag(
+                                          text: 'painted outside parent',
+                                          tone: _amber,
+                                        ),
                                       ),
                                       Positioned(
                                         right: 18,
                                         bottom: 20,
-                                        child: _LabelTag(text: 'gesture target zone', tone: _jade),
+                                        child: _LabelTag(
+                                          text: 'gesture target zone',
+                                          tone: _jade,
+                                        ),
                                       ),
                                       Positioned(
                                         right: 40,
                                         top: 70,
-                                        child: _LabelTag(text: 'overflow corridor', tone: _blue),
+                                        child: _LabelTag(
+                                          text: 'overflow corridor',
+                                          tone: _blue,
+                                        ),
                                       ),
                                     ],
                                     Positioned(
@@ -1330,9 +1590,21 @@ class _AnnotationSceneState extends State<_AnnotationScene> {
                                         spacing: 8,
                                         runSpacing: 8,
                                         children: [
-                                          _ProbeAction(label: 'Mark anchor', tone: _amber, onTap: () => _push('mark anchor')), 
-                                          _ProbeAction(label: 'Trace bounds', tone: _jade, onTap: () => _push('trace bounds')), 
-                                          _ProbeAction(label: 'Tag issue', tone: _blue, onTap: () => _push('tag issue')), 
+                                          _ProbeAction(
+                                            label: 'Mark anchor',
+                                            tone: _amber,
+                                            onTap: () => _push('mark anchor'),
+                                          ),
+                                          _ProbeAction(
+                                            label: 'Trace bounds',
+                                            tone: _jade,
+                                            onTap: () => _push('trace bounds'),
+                                          ),
+                                          _ProbeAction(
+                                            label: 'Tag issue',
+                                            tone: _blue,
+                                            onTap: () => _push('tag issue'),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -1377,13 +1649,24 @@ class _LabelTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: Colors.white.withValues(alpha: 0.55)),
       ),
-      child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 }
 
 class _PracticalScene extends StatefulWidget {
-  const _PracticalScene({required this.compact, required this.guides, required this.notes});
+  const _PracticalScene({
+    required this.compact,
+    required this.guides,
+    required this.notes,
+  });
 
   final bool compact;
   final bool guides;
@@ -1424,7 +1707,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         FilledButton.tonal(
                           onPressed: () {
                             setState(() {
-                              _events.insert(0, '${_clock()} | snapshot captured');
+                              _events.insert(
+                                0,
+                                '${_clock()} | snapshot captured',
+                              );
                               _trim(_events, 64);
                             });
                           },
@@ -1444,7 +1730,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _blue,
                               title: 'Dashboard Shell',
-                              subtitle: 'Overflow badges and KPI ribbons extend beyond cards intentionally.',
+                              subtitle:
+                                  'Overflow badges and KPI ribbons extend beyond cards intentionally.',
                               revision: _revision,
                               onEvent: (e) => _push('dashboard: $e'),
                             ),
@@ -1454,7 +1741,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _jade,
                               title: 'Operations Shell',
-                              subtitle: 'Runbook callouts exceed tile bounds while preserving signal prominence.',
+                              subtitle:
+                                  'Runbook callouts exceed tile bounds while preserving signal prominence.',
                               revision: _revision,
                               onEvent: (e) => _push('operations: $e'),
                             ),
@@ -1464,7 +1752,8 @@ class _PracticalSceneState extends State<_PracticalScene> {
                             child: _PracticalModule(
                               tone: _indigo,
                               title: 'Release Shell',
-                              subtitle: 'Command clusters project outside parent tiles to maintain urgency hierarchy.',
+                              subtitle:
+                                  'Command clusters project outside parent tiles to maintain urgency hierarchy.',
                               revision: _revision,
                               onEvent: (e) => _push('release: $e'),
                             ),
@@ -1487,7 +1776,10 @@ class _PracticalSceneState extends State<_PracticalScene> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Practical guidance', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Practical guidance',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 8),
                     if (widget.notes)
                       _InstructionCard(
@@ -1499,13 +1791,18 @@ class _PracticalSceneState extends State<_PracticalScene> {
                         ],
                       ),
                     const SizedBox(height: 8),
-                    _FactTable(rows: [
-                      _FactRow('revision', '$_revision'),
-                      _FactRow('timeline entries', '${_events.length}'),
-                      _FactRow('clock', _clock()),
-                    ]),
+                    _FactTable(
+                      rows: [
+                        _FactRow('revision', '$_revision'),
+                        _FactRow('timeline entries', '${_events.length}'),
+                        _FactRow('clock', _clock()),
+                      ],
+                    ),
                     const SizedBox(height: 8),
-                    const Text('Practical timeline', style: TextStyle(fontWeight: FontWeight.w800)),
+                    const Text(
+                      'Practical timeline',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
                     const SizedBox(height: 6),
                     Expanded(child: _EventLog(lines: _events)),
                   ],
@@ -1527,7 +1824,13 @@ class _PracticalSceneState extends State<_PracticalScene> {
 }
 
 class _PracticalModule extends StatefulWidget {
-  const _PracticalModule({required this.tone, required this.title, required this.subtitle, required this.revision, required this.onEvent});
+  const _PracticalModule({
+    required this.tone,
+    required this.title,
+    required this.subtitle,
+    required this.revision,
+    required this.onEvent,
+  });
 
   final Color tone;
   final String title;
@@ -1583,7 +1886,15 @@ class _PracticalModuleState extends State<_PracticalModule> {
         children: [
           Row(
             children: [
-              Expanded(child: Text(widget.title, style: TextStyle(color: widget.tone, fontWeight: FontWeight.w800))),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                    color: widget.tone,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
               _ToneChip(tone: widget.tone, label: 'rev ${widget.revision}'),
             ],
           ),
@@ -1595,7 +1906,9 @@ class _PracticalModuleState extends State<_PracticalModule> {
             max: 420,
             divisions: 10,
             onChanged: (v) => setState(() => _tileW = v),
-            onChangeEnd: (v) => widget.onEvent('${widget.title}: tile width=${v.toStringAsFixed(0)}'),
+            onChangeEnd: (v) => widget.onEvent(
+              '${widget.title}: tile width=${v.toStringAsFixed(0)}',
+            ),
           ),
           Slider(
             value: _tileH,
@@ -1603,7 +1916,9 @@ class _PracticalModuleState extends State<_PracticalModule> {
             max: 320,
             divisions: 8,
             onChanged: (v) => setState(() => _tileH = v),
-            onChangeEnd: (v) => widget.onEvent('${widget.title}: tile height=${v.toStringAsFixed(0)}'),
+            onChangeEnd: (v) => widget.onEvent(
+              '${widget.title}: tile height=${v.toStringAsFixed(0)}',
+            ),
           ),
           Slider(
             value: _overflowW,
@@ -1611,7 +1926,9 @@ class _PracticalModuleState extends State<_PracticalModule> {
             max: 520,
             divisions: 14,
             onChanged: (v) => setState(() => _overflowW = v),
-            onChangeEnd: (v) => widget.onEvent('${widget.title}: overflow width=${v.toStringAsFixed(0)}'),
+            onChangeEnd: (v) => widget.onEvent(
+              '${widget.title}: overflow width=${v.toStringAsFixed(0)}',
+            ),
           ),
           _EnumDropdown<int>(
             label: 'anchor',
@@ -1646,7 +1963,12 @@ class _PracticalModuleState extends State<_PracticalModule> {
                     width: _overflowW,
                     height: _tileH - 20,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: [widget.tone.withValues(alpha: 0.9), widget.tone.withValues(alpha: 0.65)]),
+                      gradient: LinearGradient(
+                        colors: [
+                          widget.tone.withValues(alpha: 0.9),
+                          widget.tone.withValues(alpha: 0.65),
+                        ],
+                      ),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
@@ -1654,16 +1976,35 @@ class _PracticalModuleState extends State<_PracticalModule> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Overflow callout', style: TextStyle(color: Colors.white.withValues(alpha: 0.95), fontWeight: FontWeight.w800)),
+                          Text(
+                            'Overflow callout',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.95),
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                           const SizedBox(height: 6),
-                          const Text('Module priority ribbon exceeds tile bounds for emphasis.', style: TextStyle(color: Colors.white, fontSize: 12)),
+                          const Text(
+                            'Module priority ribbon exceeds tile bounds for emphasis.',
+                            style: TextStyle(color: Colors.white, fontSize: 12),
+                          ),
                           const Spacer(),
                           Wrap(
                             spacing: 6,
                             runSpacing: 6,
                             children: [
-                              _ProbeAction(label: 'Inspect', tone: _amber, onTap: () => widget.onEvent('${widget.title}: inspect')), 
-                              _ProbeAction(label: 'Escalate', tone: _rose, onTap: () => widget.onEvent('${widget.title}: escalate')), 
+                              _ProbeAction(
+                                label: 'Inspect',
+                                tone: _amber,
+                                onTap: () =>
+                                    widget.onEvent('${widget.title}: inspect'),
+                              ),
+                              _ProbeAction(
+                                label: 'Escalate',
+                                tone: _rose,
+                                onTap: () =>
+                                    widget.onEvent('${widget.title}: escalate'),
+                              ),
                             ],
                           ),
                         ],
@@ -1721,14 +2062,25 @@ class _EventPill extends StatelessWidget {
           borderRadius: BorderRadius.circular(999),
           border: Border.all(color: Colors.white.withValues(alpha: 0.4)),
         ),
-        child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12)),
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
+        ),
       ),
     );
   }
 }
 
 class _ProbeAction extends StatelessWidget {
-  const _ProbeAction({required this.label, required this.tone, required this.onTap});
+  const _ProbeAction({
+    required this.label,
+    required this.tone,
+    required this.onTap,
+  });
 
   final String label;
   final Color tone;
@@ -1746,7 +2098,14 @@ class _ProbeAction extends StatelessWidget {
           borderRadius: BorderRadius.circular(999),
           border: Border.all(color: Colors.white.withValues(alpha: 0.45)),
         ),
-        child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 11,
+          ),
+        ),
       ),
     );
   }
@@ -1829,8 +2188,22 @@ class _FactTable extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Row(
                   children: [
-                    SizedBox(width: 165, child: Text(r.label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700))),
-                    Expanded(child: Text(r.value, style: const TextStyle(fontSize: 12))),
+                    SizedBox(
+                      width: 165,
+                      child: Text(
+                        r.label,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        r.value,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1867,10 +2240,22 @@ class _InstructionCard extends StatelessWidget {
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
-                      child: Icon(Icons.circle, size: 7, color: Color(0xFFBFE3FF)),
+                      child: Icon(
+                        Icons.circle,
+                        size: 7,
+                        color: Color(0xFFBFE3FF),
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(child: Text(line, style: const TextStyle(color: Color(0xFFEAF6FF), height: 1.35))),
+                    Expanded(
+                      child: Text(
+                        line,
+                        style: const TextStyle(
+                          color: Color(0xFFEAF6FF),
+                          height: 1.35,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1896,13 +2281,22 @@ class _EventLog extends StatelessWidget {
         border: Border.all(color: const Color(0xFFCFDEEC)),
       ),
       child: lines.isEmpty
-          ? const Text('No events yet.', style: TextStyle(color: Color(0xFF62798D)))
+          ? const Text(
+              'No events yet.',
+              style: TextStyle(color: Color(0xFF62798D)),
+            )
           : ListView.builder(
               itemCount: lines.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 3),
-                  child: Text(lines[index], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                  child: Text(
+                    lines[index],
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                    ),
+                  ),
                 );
               },
             ),
@@ -1936,11 +2330,10 @@ class _NullableSlider extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(child: Text('$label: ${value?.toStringAsFixed(0) ?? 'null'}')),
-            Switch(
-              value: value == null,
-              onChanged: onToggleNull,
+            Expanded(
+              child: Text('$label: ${value?.toStringAsFixed(0) ?? 'null'}'),
             ),
+            Switch(value: value == null, onChanged: onToggleNull),
             const Text('null'),
           ],
         ),
@@ -1958,7 +2351,13 @@ class _NullableSlider extends StatelessWidget {
 }
 
 class _EnumDropdown<T> extends StatelessWidget {
-  const _EnumDropdown({required this.label, required this.value, required this.values, required this.labelBuilder, required this.onChanged});
+  const _EnumDropdown({
+    required this.label,
+    required this.value,
+    required this.values,
+    required this.labelBuilder,
+    required this.onChanged,
+  });
 
   final String label;
   final T value;
@@ -1970,7 +2369,13 @@ class _EnumDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 130, child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700))),
+        SizedBox(
+          width: 130,
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
+        ),
         Expanded(
           child: DropdownButton<T>(
             isExpanded: true,
@@ -2005,7 +2410,14 @@ class _ToneChip extends StatelessWidget {
         color: tone.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(label, style: TextStyle(color: tone, fontWeight: FontWeight.w700, fontSize: 11)),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: tone,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
     );
   }
 }
@@ -2024,7 +2436,14 @@ class _RecapCard extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Recap: OverflowBox', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18)),
+          Text(
+            'Recap: OverflowBox',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'OverflowBox is a constraint-override widget for deliberate visual overflow. '

@@ -159,12 +159,22 @@ Widget buildSliderWithTrackShape(
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('0', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+            Text(
+              '0',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            ),
             Text(
               'Value: ${initialValue.toInt()}',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: activeColor),
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: activeColor,
+              ),
             ),
-            Text('100', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+            Text(
+              '100',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+            ),
           ],
         ),
       ],
@@ -238,7 +248,9 @@ Widget buildTrackHeightShowcase() {
                 inactiveTrackColor: colors[i].withAlpha(50),
                 thumbColor: colors[i].shade800,
                 trackHeight: heights[i],
-                thumbShape: RoundSliderThumbShape(enabledThumbRadius: heights[i] * 0.7 + 4),
+                thumbShape: RoundSliderThumbShape(
+                  enabledThumbRadius: heights[i] * 0.7 + 4,
+                ),
                 overlayColor: colors[i].withAlpha(25),
               ),
               child: Slider(
@@ -259,7 +271,7 @@ Widget buildTrackHeightShowcase() {
 
 Widget buildActiveInactiveColorDemo() {
   print('Building active/inactive color demo');
-  
+
   List<Map<String, dynamic>> colorCombinations = [
     {
       'name': 'Blue Active - Grey Inactive',
@@ -307,7 +319,7 @@ Widget buildActiveInactiveColorDemo() {
     Color inactiveCol = combo['inactive'] as Color;
     double val = combo['value'] as double;
     String name = combo['name'] as String;
-    
+
     items.add(
       Container(
         margin: EdgeInsets.symmetric(vertical: 6),
@@ -386,11 +398,11 @@ Widget buildActiveInactiveColorDemo() {
 
 Widget buildRoundedVsRectangularComparison() {
   print('Building rounded vs rectangular comparison');
-  
+
   List<double> values = [30.0, 50.0, 70.0];
   List<MaterialColor> colors = [Colors.blue, Colors.green, Colors.orange];
   List<double> trackHeights = [4.0, 8.0, 12.0];
-  
+
   List<Widget> items = [];
   int i = 0;
   for (i = 0; i < values.length; i = i + 1) {
@@ -411,7 +423,10 @@ Widget buildRoundedVsRectangularComparison() {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12),
-            Text('RoundedRectSliderTrackShape:', style: TextStyle(fontSize: 13)),
+            Text(
+              'RoundedRectSliderTrackShape:',
+              style: TextStyle(fontSize: 13),
+            ),
             SizedBox(height: 6),
             SliderTheme(
               data: SliderThemeData(
@@ -430,7 +445,10 @@ Widget buildRoundedVsRectangularComparison() {
               ),
             ),
             SizedBox(height: 12),
-            Text('RectangularSliderTrackShape:', style: TextStyle(fontSize: 13)),
+            Text(
+              'RectangularSliderTrackShape:',
+              style: TextStyle(fontSize: 13),
+            ),
             SizedBox(height: 6),
             SliderTheme(
               data: SliderThemeData(
@@ -459,7 +477,7 @@ Widget buildRoundedVsRectangularComparison() {
 
 Widget buildPaintMethodDemo() {
   print('Building paint method demonstration');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -500,8 +518,10 @@ Widget buildPaintMethodDemo() {
           ),
           child: Column(
             children: [
-              Text('Active Track | Thumb | Inactive Track',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+              Text(
+                'Active Track | Thumb | Inactive Track',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 10),
               SliderTheme(
                 data: SliderThemeData(
@@ -529,7 +549,10 @@ Widget buildPaintMethodDemo() {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text('Active', style: TextStyle(color: Colors.white, fontSize: 11)),
+                    child: Text(
+                      'Active',
+                      style: TextStyle(color: Colors.white, fontSize: 11),
+                    ),
                   ),
                   SizedBox(width: 8),
                   Container(
@@ -538,7 +561,10 @@ Widget buildPaintMethodDemo() {
                       color: Colors.amber,
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Text('Thumb', style: TextStyle(color: Colors.black, fontSize: 11)),
+                    child: Text(
+                      'Thumb',
+                      style: TextStyle(color: Colors.black, fontSize: 11),
+                    ),
                   ),
                   SizedBox(width: 8),
                   Container(
@@ -561,7 +587,7 @@ Widget buildPaintMethodDemo() {
 
 Widget buildGetPreferredRectDemo() {
   print('Building getPreferredRect demonstration');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -604,15 +630,58 @@ Widget buildGetPreferredRectDemo() {
             children: [
               Row(
                 children: [
-                  Text('Rect(', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  Text('left', style: TextStyle(color: Colors.blue, fontFamily: 'monospace', fontSize: 12)),
-                  Text(', ', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  Text('top', style: TextStyle(color: Colors.green, fontFamily: 'monospace', fontSize: 12)),
-                  Text(', ', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  Text('right', style: TextStyle(color: Colors.orange, fontFamily: 'monospace', fontSize: 12)),
-                  Text(', ', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
-                  Text('bottom', style: TextStyle(color: Colors.red, fontFamily: 'monospace', fontSize: 12)),
-                  Text(')', style: TextStyle(fontFamily: 'monospace', fontSize: 12)),
+                  Text(
+                    'Rect(',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  ),
+                  Text(
+                    'left',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    ', ',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  ),
+                  Text(
+                    'top',
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    ', ',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  ),
+                  Text(
+                    'right',
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    ', ',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  ),
+                  Text(
+                    'bottom',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontFamily: 'monospace',
+                      fontSize: 12,
+                    ),
+                  ),
+                  Text(
+                    ')',
+                    style: TextStyle(fontFamily: 'monospace', fontSize: 12),
+                  ),
                 ],
               ),
               SizedBox(height: 12),
@@ -642,7 +711,7 @@ Widget buildGetPreferredRectDemo() {
 
 Widget buildCustomTrackShapeExample() {
   print('Building custom track shape example');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -684,8 +753,10 @@ Widget buildCustomTrackShapeExample() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Built-in implementations:', 
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+              Text(
+                'Built-in implementations:',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 8),
               Row(
                 children: [
@@ -695,8 +766,13 @@ Widget buildCustomTrackShapeExample() {
                       color: Colors.teal.shade100,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text('RoundedRectSliderTrackShape', 
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+                    child: Text(
+                      'RoundedRectSliderTrackShape',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -709,8 +785,13 @@ Widget buildCustomTrackShapeExample() {
                       color: Colors.orange.shade100,
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text('RectangularSliderTrackShape', 
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500)),
+                    child: Text(
+                      'RectangularSliderTrackShape',
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -724,7 +805,7 @@ Widget buildCustomTrackShapeExample() {
 
 Widget buildThemeIntegrationDemo() {
   print('Building theme integration demo');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     child: Column(
@@ -750,7 +831,10 @@ Widget buildThemeIntegrationDemo() {
               SizedBox(height: 10),
               Text(
                 'Set trackShape in SliderThemeData to use different track shapes.',
-                style: TextStyle(fontSize: 13, color: Colors.deepPurple.shade700),
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Colors.deepPurple.shade700,
+                ),
               ),
               SizedBox(height: 14),
               SliderTheme(
@@ -763,7 +847,10 @@ Widget buildThemeIntegrationDemo() {
                   thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10),
                   overlayColor: Colors.deepPurple.withAlpha(30),
                   valueIndicatorColor: Colors.deepPurple,
-                  valueIndicatorTextStyle: TextStyle(color: Colors.white, fontSize: 14),
+                  valueIndicatorTextStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
                 ),
                 child: Slider(
                   value: 55,
@@ -784,7 +871,7 @@ Widget buildThemeIntegrationDemo() {
 
 Widget buildDisabledSliderDemo() {
   print('Building disabled slider demo');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -808,7 +895,10 @@ Widget buildDisabledSliderDemo() {
         SizedBox(height: 12),
         Row(
           children: [
-            Text('Enabled:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+            Text(
+              'Enabled:',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
           ],
         ),
         SliderTheme(
@@ -819,17 +909,15 @@ Widget buildDisabledSliderDemo() {
             thumbColor: Colors.blue,
             trackHeight: 6,
           ),
-          child: Slider(
-            value: 60,
-            min: 0,
-            max: 100,
-            onChanged: (double v) {},
-          ),
+          child: Slider(value: 60, min: 0, max: 100, onChanged: (double v) {}),
         ),
         SizedBox(height: 8),
         Row(
           children: [
-            Text('Disabled:', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+            Text(
+              'Disabled:',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            ),
           ],
         ),
         SliderTheme(
@@ -840,12 +928,7 @@ Widget buildDisabledSliderDemo() {
             disabledThumbColor: Colors.grey.shade500,
             trackHeight: 6,
           ),
-          child: Slider(
-            value: 60,
-            min: 0,
-            max: 100,
-            onChanged: null,
-          ),
+          child: Slider(value: 60, min: 0, max: 100, onChanged: null),
         ),
       ],
     ),
@@ -854,7 +937,7 @@ Widget buildDisabledSliderDemo() {
 
 Widget buildSecondaryTrackDemo() {
   print('Building secondary track demo');
-  
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: 8),
     padding: EdgeInsets.all(16),
@@ -904,7 +987,10 @@ Widget buildSecondaryTrackDemo() {
                 color: Colors.lightBlue,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text('Primary: 40%', style: TextStyle(color: Colors.white, fontSize: 11)),
+              child: Text(
+                'Primary: 40%',
+                style: TextStyle(color: Colors.white, fontSize: 11),
+              ),
             ),
             SizedBox(width: 10),
             Container(
@@ -924,15 +1010,15 @@ Widget buildSecondaryTrackDemo() {
 
 Widget buildTrackShapeOverviewSection() {
   print('Building SliderTrackShape overview section');
-  
+
   return Column(
     children: [
       buildDescriptionBox(
         'SliderTrackShape Overview',
         'SliderTrackShape is the abstract base class for painting the horizontal line '
-        'on which the slider thumb moves. It defines two key methods: paint() for rendering '
-        'the track and getPreferredRect() for calculating track bounds. The framework provides '
-        'two concrete implementations: RoundedRectSliderTrackShape and RectangularSliderTrackShape.',
+            'on which the slider thumb moves. It defines two key methods: paint() for rendering '
+            'the track and getPreferredRect() for calculating track bounds. The framework provides '
+            'two concrete implementations: RoundedRectSliderTrackShape and RectangularSliderTrackShape.',
       ),
       buildInfoCard('Type', 'abstract class SliderTrackShape'),
       buildInfoCard('Package', 'flutter/material.dart'),
@@ -945,15 +1031,19 @@ Widget buildTrackShapeOverviewSection() {
 dynamic build(BuildContext context) {
   print('SliderTrackShape Demo - Building widget tree');
   print('Testing SliderTrackShape - base class for slider track painting');
-  print('This includes RoundedRectSliderTrackShape and RectangularSliderTrackShape');
-  
+  print(
+    'This includes RoundedRectSliderTrackShape and RectangularSliderTrackShape',
+  );
+
   var roundedTrackShape = RoundedRectSliderTrackShape();
   var rectangularTrackShape = RectangularSliderTrackShape();
-  
+
   print('Created track shape instances');
   print('RoundedRectSliderTrackShape type: ${roundedTrackShape.runtimeType}');
-  print('RectangularSliderTrackShape type: ${rectangularTrackShape.runtimeType}');
-  
+  print(
+    'RectangularSliderTrackShape type: ${rectangularTrackShape.runtimeType}',
+  );
+
   return MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'SliderTrackShape Demo',
@@ -974,13 +1064,13 @@ dynamic build(BuildContext context) {
           children: [
             buildSectionHeader('1. SliderTrackShape Overview'),
             buildTrackShapeOverviewSection(),
-            
+
             buildSectionHeader('2. Paint Method'),
             buildPaintMethodDemo(),
-            
+
             buildSectionHeader('3. getPreferredRect Method'),
             buildGetPreferredRectDemo(),
-            
+
             buildSectionHeader('4. RoundedRectSliderTrackShape'),
             buildSubsectionHeader('Basic Usage'),
             buildSliderWithTrackShape(
@@ -1010,7 +1100,7 @@ dynamic build(BuildContext context) {
               3,
               30,
             ),
-            
+
             buildSectionHeader('5. RectangularSliderTrackShape'),
             buildSubsectionHeader('Basic Usage'),
             buildSliderWithTrackShape(
@@ -1040,28 +1130,28 @@ dynamic build(BuildContext context) {
               3,
               40,
             ),
-            
+
             buildSectionHeader('6. Track Height Configurations'),
             buildTrackHeightShowcase(),
-            
+
             buildSectionHeader('7. Active/Inactive Track Colors'),
             buildActiveInactiveColorDemo(),
-            
+
             buildSubsectionHeader('Shape Comparison'),
             buildRoundedVsRectangularComparison(),
-            
+
             buildSubsectionHeader('Custom Track Shape Extensibility'),
             buildCustomTrackShapeExample(),
-            
+
             buildSubsectionHeader('Theme Integration'),
             buildThemeIntegrationDemo(),
-            
+
             buildSubsectionHeader('Disabled State'),
             buildDisabledSliderDemo(),
-            
+
             buildSubsectionHeader('Secondary Track'),
             buildSecondaryTrackDemo(),
-            
+
             SizedBox(height: 24),
             Container(
               width: double.infinity,

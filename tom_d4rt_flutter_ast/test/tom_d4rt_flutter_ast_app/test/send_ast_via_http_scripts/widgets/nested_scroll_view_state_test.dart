@@ -72,9 +72,8 @@ class _NestedScrollViewStateDemo extends StatelessWidget {
       },
       child: NestedScrollView(
         key: _nestedKey,
-        headerSliverBuilder:
-            (BuildContext ctx, bool innerBoxIsScrolled) =>
-                _buildHeaderSlivers(ctx, innerBoxIsScrolled),
+        headerSliverBuilder: (BuildContext ctx, bool innerBoxIsScrolled) =>
+            _buildHeaderSlivers(ctx, innerBoxIsScrolled),
         body: TabBarView(
           children: List<Widget>.generate(
             _tabLabels.length,
@@ -104,9 +103,7 @@ class _NestedScrollViewStateDemo extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            tabs: _tabLabels
-                .map((String l) => Tab(text: l))
-                .toList(),
+            tabs: _tabLabels.map((String l) => Tab(text: l)).toList(),
           ),
         ),
       ),
@@ -221,20 +218,13 @@ class _TabContent extends StatelessWidget {
     );
   }
 
-  Widget _buildTabPageContent(
-    BuildContext context,
-    int index,
-    String label,
-  ) {
+  Widget _buildTabPageContent(BuildContext context, int index, String label) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _SectionHeader(
-            title: 'Tab $label — index $index',
-            icon: Icons.tab,
-          ),
+          _SectionHeader(title: 'Tab $label — index $index', icon: Icons.tab),
           const SizedBox(height: 12),
 
           // Section 2: Inner / Outer controller display (shown on tab 0)
@@ -279,9 +269,7 @@ class _TabContent extends StatelessWidget {
             const SizedBox(height: 8),
             SizedBox(
               height: 340,
-              child: CustomPaint(
-                painter: _NestedScrollDiagramPainter(),
-              ),
+              child: CustomPaint(painter: _NestedScrollDiagramPainter()),
             ),
             const SizedBox(height: 24),
           ],
@@ -361,9 +349,9 @@ class _ControllerDisplay extends StatelessWidget {
           children: <Widget>[
             Text(
               'Live controller offsets',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
@@ -375,32 +363,30 @@ class _ControllerDisplay extends StatelessWidget {
             const SizedBox(height: 16),
             ValueListenableBuilder<double>(
               valueListenable: _outerOffset,
-              builder: (BuildContext ctx, double v, Widget? _) =>
-                  _OffsetRow(
-                    label: 'outerController.offset',
-                    value: v,
-                    maxValue: 260,
-                    color: cs.primary,
-                  ),
+              builder: (BuildContext ctx, double v, Widget? _) => _OffsetRow(
+                label: 'outerController.offset',
+                value: v,
+                maxValue: 260,
+                color: cs.primary,
+              ),
             ),
             const SizedBox(height: 12),
             ValueListenableBuilder<double>(
               valueListenable: _innerOffset,
-              builder: (BuildContext ctx, double v, Widget? _) =>
-                  _OffsetRow(
-                    label: 'innerController.offset',
-                    value: v,
-                    maxValue: 800,
-                    color: cs.secondary,
-                  ),
+              builder: (BuildContext ctx, double v, Widget? _) => _OffsetRow(
+                label: 'innerController.offset',
+                value: v,
+                maxValue: 800,
+                color: cs.secondary,
+              ),
             ),
             const SizedBox(height: 16),
             Text(
               'Scroll the outer SliverAppBar or the list content in any tab '
               'to see the values update here.',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontStyle: FontStyle.italic,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -470,9 +456,9 @@ class _ScrollGauges extends StatelessWidget {
           children: <Widget>[
             Text(
               'Slider-style scroll position indicators',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             _GaugeRow(
@@ -529,10 +515,12 @@ class _GaugeRow extends StatelessWidget {
                 SliderTheme(
                   data: SliderTheme.of(ctx).copyWith(
                     trackHeight: 8,
-                    thumbShape:
-                        const RoundSliderThumbShape(enabledThumbRadius: 8),
-                    overlayShape:
-                        const RoundSliderOverlayShape(overlayRadius: 0),
+                    thumbShape: const RoundSliderThumbShape(
+                      enabledThumbRadius: 8,
+                    ),
+                    overlayShape: const RoundSliderOverlayShape(
+                      overlayRadius: 0,
+                    ),
                     activeTrackColor: color,
                     thumbColor: color,
                     inactiveTrackColor: color.withAlpha(40),
@@ -547,10 +535,7 @@ class _GaugeRow extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      '0 px',
-                      style: TextStyle(fontSize: 10, color: color),
-                    ),
+                    Text('0 px', style: TextStyle(fontSize: 10, color: color)),
                     Text(
                       '${v.toStringAsFixed(0)} / ${maxValue.toStringAsFixed(0)} px',
                       style: TextStyle(
@@ -612,7 +597,8 @@ class _ScrollToTopFab extends StatelessWidget {
             onPressed: show ? _scrollToTop : null,
             icon: const Icon(Icons.vertical_align_top),
             label: const Text('Back to top'),
-            tooltip: 'Calls outerController.animateTo(0) + innerController.animateTo(0)',
+            tooltip:
+                'Calls outerController.animateTo(0) + innerController.animateTo(0)',
           ),
         );
       },
@@ -642,8 +628,7 @@ class _InnerScrollControls extends StatelessWidget {
       return;
     }
     if (state.innerController.hasClients) {
-      final double max =
-          state.innerController.position.maxScrollExtent;
+      final double max = state.innerController.position.maxScrollExtent;
       state.innerController.animateTo(
         max / 2,
         duration: const Duration(milliseconds: 400),
@@ -687,9 +672,9 @@ class _InnerScrollControls extends StatelessWidget {
             Text(
               'Uses _nestedKey.currentState!.innerController.animateTo(…). '
               'The innerController always refers to the currently active tab.',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: cs.onPrimaryContainer,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: cs.onPrimaryContainer),
             ),
             const SizedBox(height: 16),
             Wrap(
@@ -789,7 +774,11 @@ class _NestedScrollDiagramPainter extends CustomPainter {
     // Connecting arrow
     final double arrowY = outerRect.bottom + 4;
     final double midX = size.width / 2;
-    canvas.drawLine(Offset(midX, arrowY), Offset(midX, arrowY + 14), arrowPaint);
+    canvas.drawLine(
+      Offset(midX, arrowY),
+      Offset(midX, arrowY + 14),
+      arrowPaint,
+    );
     _drawArrowHead(canvas, Offset(midX, arrowY + 14), arrowPaint);
 
     // Inner scroll region box
@@ -931,24 +920,33 @@ class _CodeSnippetCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ColorScheme cs = Theme.of(context).colorScheme;
     final List<_CodeLine> lines = <_CodeLine>[
-      _CodeLine('// 1. Declare the key at widget scope or top-level', cs.outline),
       _CodeLine(
-        'final GlobalKey<NestedScrollViewState> _key =',
-        cs.onSurface,
+        '// 1. Declare the key at widget scope or top-level',
+        cs.outline,
       ),
+      _CodeLine('final GlobalKey<NestedScrollViewState> _key =', cs.onSurface),
       _CodeLine('    GlobalKey<NestedScrollViewState>();', cs.onSurface),
       _CodeLine('', cs.onSurface),
       _CodeLine('// 2. Attach it to the NestedScrollView', cs.outline),
       _CodeLine('NestedScrollView(', cs.tertiary),
       _CodeLine('  key: _key,', cs.onSurface),
-      _CodeLine('  headerSliverBuilder: (ctx, innerScrolled) => [...],', cs.onSurface),
+      _CodeLine(
+        '  headerSliverBuilder: (ctx, innerScrolled) => [...],',
+        cs.onSurface,
+      ),
       _CodeLine('  body: TabBarView(children: [...]),', cs.onSurface),
       _CodeLine(')', cs.tertiary),
       _CodeLine('', cs.onSurface),
       _CodeLine('// 3. Access the state after the first frame', cs.outline),
       _CodeLine('final state = _key.currentState!;', cs.onSurface),
-      _CodeLine('final outer = state.outerController;  // SliverAppBar host', cs.primary),
-      _CodeLine('final inner = state.innerController;  // active tab body', cs.secondary),
+      _CodeLine(
+        'final outer = state.outerController;  // SliverAppBar host',
+        cs.primary,
+      ),
+      _CodeLine(
+        'final inner = state.innerController;  // active tab body',
+        cs.secondary,
+      ),
       _CodeLine('', cs.onSurface),
       _CodeLine('// 4. Scroll programmatically', cs.outline),
       _CodeLine('outer.animateTo(0,', cs.onSurface),
@@ -970,9 +968,9 @@ class _CodeSnippetCard extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'GlobalKey access pattern',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -1058,9 +1056,7 @@ class _PitfallsTiles extends StatelessWidget {
     ];
 
     return Column(
-      children: pitfalls
-          .map((p) => _PitfallCard(data: p))
-          .toList(),
+      children: pitfalls.map((p) => _PitfallCard(data: p)).toList(),
     );
   }
 }
@@ -1094,11 +1090,7 @@ class _PitfallCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Icon(
-              data.icon,
-              size: 28,
-              color: isHigh ? cs.error : cs.secondary,
-            ),
+            Icon(data.icon, size: 28, color: isHigh ? cs.error : cs.secondary),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1264,19 +1256,28 @@ class _ComparisonTable extends StatelessWidget {
                   DataCell(
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 200),
-                      child: Text(r.nestedScrollView, style: const TextStyle(fontSize: 12)),
+                      child: Text(
+                        r.nestedScrollView,
+                        style: const TextStyle(fontSize: 12),
+                      ),
                     ),
                   ),
                   DataCell(
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 200),
-                      child: Text(r.customScrollView, style: const TextStyle(fontSize: 12)),
+                      child: Text(
+                        r.customScrollView,
+                        style: const TextStyle(fontSize: 12),
+                      ),
                     ),
                   ),
                   DataCell(
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 200),
-                      child: Text(r.coordinatedScroll, style: const TextStyle(fontSize: 12)),
+                      child: Text(
+                        r.coordinatedScroll,
+                        style: const TextStyle(fontSize: 12),
+                      ),
                     ),
                   ),
                 ],
@@ -1314,7 +1315,8 @@ class _ApiCheatSheet extends StatelessWidget {
             'Reading .offset gives the amount the header has collapsed. '
             'Always check .hasClients before accessing .offset or calling '
             'animateTo. This controller drives the collapsing effect.',
-        lifecycle: 'Available after first frame. Remains stable for the life of the NestedScrollView.',
+        lifecycle:
+            'Available after first frame. Remains stable for the life of the NestedScrollView.',
       ),
       _ApiEntry(
         member: 'innerController',
@@ -1324,7 +1326,8 @@ class _ApiCheatSheet extends StatelessWidget {
             'Points to the currently visible tab. Switches automatically when '
             'the user swipes between tabs. animateTo(0) resets the tab list '
             'to the top.',
-        lifecycle: 'Switches when the active tab changes. Re-check hasClients after tab switch.',
+        lifecycle:
+            'Switches when the active tab changes. Re-check hasClients after tab switch.',
       ),
       _ApiEntry(
         member: 'State lifecycle',
@@ -1344,7 +1347,8 @@ class _ApiCheatSheet extends StatelessWidget {
             'given BuildContext. Pass to SliverOverlapAbsorber in the header '
             'and SliverOverlapInjector in each tab body. Ensures tab content '
             'is not hidden under the SliverAppBar.',
-        lifecycle: 'Used at build time inside headerSliverBuilder and each tab.',
+        lifecycle:
+            'Used at build time inside headerSliverBuilder and each tab.',
       ),
       _ApiEntry(
         member: 'animateTo(offset, duration, curve)',
@@ -1354,7 +1358,8 @@ class _ApiCheatSheet extends StatelessWidget {
             'to collapse/expand the header, or on innerController to scroll '
             'the list. Requires .hasClients to be true. Returns a Future that '
             'completes when the animation finishes.',
-        lifecycle: 'Runtime. Requires mounted controller with at least one attached position.',
+        lifecycle:
+            'Runtime. Requires mounted controller with at least one attached position.',
       ),
       _ApiEntry(
         member: 'jumpTo(offset)',
@@ -1368,11 +1373,7 @@ class _ApiCheatSheet extends StatelessWidget {
     ];
 
     return Column(
-      children: entries
-          .map(
-            (e) => _ApiEntryCard(entry: e),
-          )
-          .toList(),
+      children: entries.map((e) => _ApiEntryCard(entry: e)).toList(),
     );
   }
 }
@@ -1439,7 +1440,10 @@ class _ApiEntryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text(entry.description, style: const TextStyle(fontSize: 12, height: 1.5)),
+            Text(
+              entry.description,
+              style: const TextStyle(fontSize: 12, height: 1.5),
+            ),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
@@ -1495,11 +1499,7 @@ class _SectionHeader extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          height: 2,
-          width: 40,
-          color: cs.primary.withAlpha(80),
-        ),
+        Container(height: 2, width: 40, color: cs.primary.withAlpha(80)),
       ],
     );
   }

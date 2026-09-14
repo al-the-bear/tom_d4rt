@@ -110,11 +110,7 @@ Widget _labelChip(String label, Color tone) {
     ),
     child: Text(
       label,
-      style: TextStyle(
-        color: tone,
-        fontSize: 11,
-        fontWeight: FontWeight.w600,
-      ),
+      style: TextStyle(color: tone, fontSize: 11, fontWeight: FontWeight.w600),
     ),
   );
 }
@@ -133,10 +129,7 @@ Widget _swatch(String name, Color color, double size) {
         ),
       ),
       const SizedBox(height: 4),
-      Text(
-        name,
-        style: const TextStyle(fontSize: 10, color: Colors.black87),
-      ),
+      Text(name, style: const TextStyle(fontSize: 10, color: Colors.black87)),
     ],
   );
 }
@@ -451,21 +444,22 @@ Widget _crossFadeCard({
               ),
             ),
           ),
-          layoutBuilder: (
-            Widget topChild,
-            Key topChildKey,
-            Widget bottomChild,
-            Key bottomChildKey,
-          ) {
-            return Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: <Widget>[
-                Positioned(key: bottomChildKey, child: bottomChild),
-                Positioned(key: topChildKey, child: topChild),
-              ],
-            );
-          },
+          layoutBuilder:
+              (
+                Widget topChild,
+                Key topChildKey,
+                Widget bottomChild,
+                Key bottomChildKey,
+              ) {
+                return Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Positioned(key: bottomChildKey, child: bottomChild),
+                    Positioned(key: topChildKey, child: topChild),
+                  ],
+                );
+              },
         ),
       ],
     ),
@@ -994,7 +988,15 @@ Widget _alignGrid() {
     ],
   ];
   final List<String> labels = <String>[
-    'TL', 'TC', 'TR', 'CL', 'CC', 'CR', 'BL', 'BC', 'BR',
+    'TL',
+    'TC',
+    'TR',
+    'CL',
+    'CC',
+    'CR',
+    'BL',
+    'BC',
+    'BR',
   ];
 
   final List<Widget> rowWidgets = <Widget>[];
@@ -1005,7 +1007,9 @@ Widget _alignGrid() {
       cells.add(_alignCell(rows[r][c], labels[idx]));
       idx = idx + 1;
     }
-    rowWidgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: cells));
+    rowWidgets.add(
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: cells),
+    );
   }
   return Column(children: rowWidgets);
 }
@@ -1124,18 +1128,12 @@ Widget _paddingRung(EdgeInsetsGeometry padding, String label) {
               borderRadius: BorderRadius.circular(4),
             ),
             alignment: Alignment.center,
-            child: const Text(
-              ' ',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text(' ', style: TextStyle(color: Colors.white)),
           ),
         ),
       ),
       const SizedBox(height: 4),
-      Text(
-        label,
-        style: const TextStyle(fontSize: 10, color: Colors.black87),
-      ),
+      Text(label, style: const TextStyle(fontSize: 10, color: Colors.black87)),
     ],
   );
 }
@@ -1166,10 +1164,7 @@ Widget _spatialSection() {
           Icons.center_focus_strong,
           Colors.amber,
         ),
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: _alignGrid(),
-        ),
+        Padding(padding: const EdgeInsets.all(12), child: _alignGrid()),
         _explainerCard(
           'AnimatedPositioned',
           'Implicit version of Positioned. Must be the direct child of a '
@@ -1200,9 +1195,18 @@ Widget _spatialSection() {
               _paddingRung(const EdgeInsets.all(2), 'all(2)'),
               _paddingRung(const EdgeInsets.all(6), 'all(6)'),
               _paddingRung(const EdgeInsets.all(12), 'all(12)'),
-              _paddingRung(const EdgeInsets.fromLTRB(20, 4, 4, 4), 'LTRB(20,4,4,4)'),
-              _paddingRung(const EdgeInsets.symmetric(horizontal: 16, vertical: 4), 'H16/V4'),
-              _paddingRung(const EdgeInsets.only(left: 24, top: 12), 'only(L24,T12)'),
+              _paddingRung(
+                const EdgeInsets.fromLTRB(20, 4, 4, 4),
+                'LTRB(20,4,4,4)',
+              ),
+              _paddingRung(
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                'H16/V4',
+              ),
+              _paddingRung(
+                const EdgeInsets.only(left: 24, top: 12),
+                'only(L24,T12)',
+              ),
             ],
           ),
         ),
@@ -1357,11 +1361,31 @@ Widget _animatedSizeShowcase() {
 
 Widget _animatedDefaultTextStyleShowcase() {
   final List<TextStyle> styles = <TextStyle>[
-    const TextStyle(fontSize: 12, color: Colors.black, fontWeight: FontWeight.w300),
-    const TextStyle(fontSize: 14, color: Colors.indigo, fontWeight: FontWeight.w400),
-    const TextStyle(fontSize: 16, color: Colors.teal, fontWeight: FontWeight.w500),
-    const TextStyle(fontSize: 20, color: Colors.deepOrange, fontWeight: FontWeight.bold),
-    const TextStyle(fontSize: 24, color: Colors.red, fontWeight: FontWeight.w900),
+    const TextStyle(
+      fontSize: 12,
+      color: Colors.black,
+      fontWeight: FontWeight.w300,
+    ),
+    const TextStyle(
+      fontSize: 14,
+      color: Colors.indigo,
+      fontWeight: FontWeight.w400,
+    ),
+    const TextStyle(
+      fontSize: 16,
+      color: Colors.teal,
+      fontWeight: FontWeight.w500,
+    ),
+    const TextStyle(
+      fontSize: 20,
+      color: Colors.deepOrange,
+      fontWeight: FontWeight.bold,
+    ),
+    const TextStyle(
+      fontSize: 24,
+      color: Colors.red,
+      fontWeight: FontWeight.w900,
+    ),
   ];
   final List<Widget> rows = <Widget>[];
   for (int i = 0; i < styles.length; i = i + 1) {
@@ -1653,10 +1677,22 @@ Widget _tweenReferenceCard() {
 
 Widget _summaryFooter() {
   final List<List<String>> entries = <List<String>>[
-    <String>['AnimatedSwitcher', 'Swap child by key with a custom transitionBuilder.'],
-    <String>['AnimatedCrossFade', 'Cross-fade and resize between two children.'],
-    <String>['AnimatedContainer', 'Implicit Container; interpolates every visual property.'],
-    <String>['AnimatedAlign', 'Implicit Align; interpolates alignment and size factors.'],
+    <String>[
+      'AnimatedSwitcher',
+      'Swap child by key with a custom transitionBuilder.',
+    ],
+    <String>[
+      'AnimatedCrossFade',
+      'Cross-fade and resize between two children.',
+    ],
+    <String>[
+      'AnimatedContainer',
+      'Implicit Container; interpolates every visual property.',
+    ],
+    <String>[
+      'AnimatedAlign',
+      'Implicit Align; interpolates alignment and size factors.',
+    ],
     <String>['AnimatedPositioned', 'Implicit Positioned inside a Stack.'],
     <String>['AnimatedPadding', 'Implicit Padding; interpolates EdgeInsets.'],
     <String>['AnimatedOpacity', 'Implicit Opacity; lerps the opacity layer.'],
@@ -1664,10 +1700,19 @@ Widget _summaryFooter() {
     <String>['AnimatedRotation', 'Implicit Transform.rotate via turns count.'],
     <String>['AnimatedSlide', 'Implicit fractional translation of child.'],
     <String>['AnimatedSize', 'Smoothly resizes to fit a changing child.'],
-    <String>['AnimatedDefaultTextStyle', 'Lerps TextStyle for descendant Text widgets.'],
-    <String>['AnimatedPhysicalModel', 'Lerps elevation, color, shadowColor for a surface.'],
+    <String>[
+      'AnimatedDefaultTextStyle',
+      'Lerps TextStyle for descendant Text widgets.',
+    ],
+    <String>[
+      'AnimatedPhysicalModel',
+      'Lerps elevation, color, shadowColor for a surface.',
+    ],
     <String>['AnimatedTheme', 'Lerps ThemeData for the subtree.'],
-    <String>['ImplicitlyAnimatedWidget', 'Base class — concrete subclasses override forEachTween.'],
+    <String>[
+      'ImplicitlyAnimatedWidget',
+      'Base class — concrete subclasses override forEachTween.',
+    ],
   ];
   final List<Widget> rows = <Widget>[];
   for (int i = 0; i < entries.length; i = i + 1) {
@@ -1754,10 +1799,14 @@ dynamic build(BuildContext context) {
   print('animated_widgets_adv_test: section 4 (Opacity/Scale/Rotation) ready');
 
   final Widget spatialSection = _spatialSection();
-  print('animated_widgets_adv_test: section 5 (spatial Align/Positioned/Padding) ready');
+  print(
+    'animated_widgets_adv_test: section 5 (spatial Align/Positioned/Padding) ready',
+  );
 
   final Widget anatomySection = _implicitAnatomySection();
-  print('animated_widgets_adv_test: section 6 (Implicit anatomy + cousins) ready');
+  print(
+    'animated_widgets_adv_test: section 6 (Implicit anatomy + cousins) ready',
+  );
 
   final Widget tweenSection = _tweenReferenceCard();
   print('animated_widgets_adv_test: section 7 (Tween.transform ladder) ready');

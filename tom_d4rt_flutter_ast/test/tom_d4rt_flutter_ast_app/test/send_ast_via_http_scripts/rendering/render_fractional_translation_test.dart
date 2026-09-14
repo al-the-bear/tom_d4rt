@@ -58,7 +58,11 @@ Widget _panel({
 // ============================================================
 // Helper: dark code panel
 // ============================================================
-Widget _codePanel({required String label, required String code, Color accent = const Color(0xFF80DEEA)}) {
+Widget _codePanel({
+  required String label,
+  required String code,
+  Color accent = const Color(0xFF80DEEA),
+}) {
   return Container(
     margin: const EdgeInsets.only(top: 12.0),
     padding: const EdgeInsets.all(14.0),
@@ -124,9 +128,7 @@ Widget _refFrame({
       clipBehavior: Clip.none,
       children: [
         // axes
-        Positioned.fill(
-          child: CustomPaint(painter: _GridPainter()),
-        ),
+        Positioned.fill(child: CustomPaint(painter: _GridPainter())),
         // origin ghost
         Positioned(
           left: (size - box) / 2,
@@ -233,7 +235,11 @@ class _GridPainter extends CustomPainter {
 // ============================================================
 // Helper: labeled cell with caption under a widget
 // ============================================================
-Widget _captioned({required Widget child, required String caption, required String sub}) {
+Widget _captioned({
+  required Widget child,
+  required String caption,
+  required String sub,
+}) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -249,10 +255,7 @@ Widget _captioned({required Widget child, required String caption, required Stri
       ),
       Text(
         sub,
-        style: const TextStyle(
-          fontSize: 11.0,
-          color: Color(0xFF6E5E91),
-        ),
+        style: const TextStyle(fontSize: 11.0, color: Color(0xFF6E5E91)),
       ),
     ],
   );
@@ -455,7 +458,8 @@ dynamic build(BuildContext context) {
 
   final hitTestCode = _codePanel(
     label: 'transformHitTests usage',
-    code: 'FractionalTranslation(\n'
+    code:
+        'FractionalTranslation(\n'
         '  translation: const Offset(0.6, -0.3),\n'
         '  transformHitTests: true,  // default\n'
         '  child: badge,\n'
@@ -563,7 +567,8 @@ dynamic build(BuildContext context) {
 
   final compareCode = _codePanel(
     label: 'Fractional vs pixel',
-    code: '// fractional — relative to the child\n'
+    code:
+        '// fractional — relative to the child\n'
         'FractionalTranslation(\n'
         '  translation: const Offset(0.5, -0.5),\n'
         '  child: badge,\n'
@@ -595,10 +600,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 'When the child resizes, fractional offsets follow; pixel '
                 'offsets stay constant.',
-                style: TextStyle(
-                  color: Color(0xFFBF360C),
-                  fontSize: 12.5,
-                ),
+                style: TextStyle(color: Color(0xFFBF360C), fontSize: 12.5),
               ),
             ),
           ],
@@ -612,10 +614,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 'Use fractional translation for badges, tooltip nubs and '
                 'overlay marks that must scale with the host.',
-                style: TextStyle(
-                  color: Color(0xFFBF360C),
-                  fontSize: 12.5,
-                ),
+                style: TextStyle(color: Color(0xFFBF360C), fontSize: 12.5),
               ),
             ),
           ],
@@ -672,20 +671,29 @@ dynamic build(BuildContext context) {
           Positioned(
             left: 30.0,
             top: 30.0,
-            child: tile(const Color(0xFF6A42CC), 'Card A',
-                const Offset(0.0, 0.0)),
+            child: tile(
+              const Color(0xFF6A42CC),
+              'Card A',
+              const Offset(0.0, 0.0),
+            ),
           ),
           Positioned(
             left: 30.0,
             top: 30.0,
             child: tile(
-                const Color(0xFF2196F3), 'Card B', const Offset(0.4, 0.2)),
+              const Color(0xFF2196F3),
+              'Card B',
+              const Offset(0.4, 0.2),
+            ),
           ),
           Positioned(
             left: 30.0,
             top: 30.0,
             child: tile(
-                const Color(0xFFEC407A), 'Card C', const Offset(0.8, 0.4)),
+              const Color(0xFFEC407A),
+              'Card C',
+              const Offset(0.8, 0.4),
+            ),
           ),
         ],
       ),
@@ -705,7 +713,9 @@ dynamic build(BuildContext context) {
             top: 20.0,
             child: Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 14.0, vertical: 10.0),
+                horizontal: 14.0,
+                vertical: 10.0,
+              ),
               decoration: BoxDecoration(
                 color: const Color(0xFF263238),
                 borderRadius: BorderRadius.circular(10.0),
@@ -759,7 +769,9 @@ dynamic build(BuildContext context) {
               translation: const Offset(0.3, -0.3),
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 4.0),
+                  horizontal: 10.0,
+                  vertical: 4.0,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFF8E24AA),
                   borderRadius: BorderRadius.circular(12.0),
@@ -794,10 +806,7 @@ dynamic build(BuildContext context) {
               child: Text(
                 'A small NEW chip floats with a fractional offset relative '
                 'to its host corner.',
-                style: TextStyle(
-                  color: Color(0xFF4A148C),
-                  fontSize: 11.5,
-                ),
+                style: TextStyle(color: Color(0xFF4A148C), fontSize: 11.5),
               ),
             ),
           ),
@@ -821,9 +830,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8.0),
         child: Stack(
           children: [
-            Positioned.fill(
-              child: Container(color: const Color(0xFFC8E6C9)),
-            ),
+            Positioned.fill(child: Container(color: const Color(0xFFC8E6C9))),
             const Positioned(
               left: 12.0,
               top: 24.0,
@@ -896,7 +903,8 @@ dynamic build(BuildContext context) {
 
   final realWorldCode = _codePanel(
     label: 'Real-world recipes',
-    code: '// overlapping cards (cascade)\n'
+    code:
+        '// overlapping cards (cascade)\n'
         'for (final i in [0, 1, 2])\n'
         '  FractionalTranslation(\n'
         '    translation: Offset(i * 0.4, i * 0.2),\n'
@@ -949,7 +957,8 @@ dynamic build(BuildContext context) {
 
   final animatedCode = _codePanel(
     label: 'Animated with AnimatedBuilder',
-    code: 'AnimatedBuilder(\n'
+    code:
+        'AnimatedBuilder(\n'
         '  animation: controller,\n'
         '  builder: (context, child) {\n'
         '    final dx = lerpDouble(-0.5, 1.0, controller.value)!;\n'
@@ -975,14 +984,11 @@ dynamic build(BuildContext context) {
       fontSize: 12.5,
     );
     Widget cell(String s) => Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: 10.0, vertical: 8.0),
-          child: Text(s, style: style),
-        );
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+      child: Text(s, style: style),
+    );
     return TableRow(
-      decoration: header
-          ? const BoxDecoration(color: Color(0xFFEDE2FF))
-          : null,
+      decoration: header ? const BoxDecoration(color: Color(0xFFEDE2FF)) : null,
       children: [cell(a), cell(b), cell(c)],
     );
   }
@@ -995,16 +1001,25 @@ dynamic build(BuildContext context) {
       2: FlexColumnWidth(2.0),
     },
     children: [
-      tableRow('Property', 'FractionalTranslation', 'Transform.translate',
-          header: true),
-      tableRow('Units', 'fraction of child size', 'absolute pixels'),
-      tableRow('Hit testing',
-          'configurable via transformHitTests', 'always uses transform'),
-      tableRow('Layout', 'no layout change', 'no layout change'),
       tableRow(
-          'Resizes with child', 'yes', 'no — stays at fixed pixel offset'),
-      tableRow('Typical use', 'badges, tooltip nubs, overlays',
-          'pan effects, parallax, drag offsets'),
+        'Property',
+        'FractionalTranslation',
+        'Transform.translate',
+        header: true,
+      ),
+      tableRow('Units', 'fraction of child size', 'absolute pixels'),
+      tableRow(
+        'Hit testing',
+        'configurable via transformHitTests',
+        'always uses transform',
+      ),
+      tableRow('Layout', 'no layout change', 'no layout change'),
+      tableRow('Resizes with child', 'yes', 'no — stays at fixed pixel offset'),
+      tableRow(
+        'Typical use',
+        'badges, tooltip nubs, overlays',
+        'pan effects, parallax, drag offsets',
+      ),
     ],
   );
 
@@ -1046,7 +1061,8 @@ dynamic build(BuildContext context) {
         _summaryItem(
           icon: Icons.touch_app,
           title: 'transformHitTests',
-          desc: 'true → taps follow paint, false → original area receives hits.',
+          desc:
+              'true → taps follow paint, false → original area receives hits.',
           color: const Color(0xFF00897B),
         ),
         _summaryItem(
@@ -1116,23 +1132,27 @@ dynamic build(BuildContext context) {
           'of the child size. Below: basic offsets, hit-test behavior, '
           'fractional-vs-pixel comparison, real-world recipes, animated '
           'frames, and a behavior table.',
-          style: TextStyle(color: Color(0xFFE1D5FF), fontSize: 13.0, height: 1.4),
+          style: TextStyle(
+            color: Color(0xFFE1D5FF),
+            fontSize: 13.0,
+            height: 1.4,
+          ),
         ),
       ],
     ),
   );
 
   Widget sectionTitle(String s) => Padding(
-        padding: const EdgeInsets.only(top: 22.0, bottom: 6.0),
-        child: Text(
-          s,
-          style: const TextStyle(
-            fontSize: 19.0,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF311B92),
-          ),
-        ),
-      );
+    padding: const EdgeInsets.only(top: 22.0, bottom: 6.0),
+    child: Text(
+      s,
+      style: const TextStyle(
+        fontSize: 19.0,
+        fontWeight: FontWeight.bold,
+        color: Color(0xFF311B92),
+      ),
+    ),
+  );
 
   final body = SingleChildScrollView(
     padding: const EdgeInsets.all(16.0),
@@ -1157,7 +1177,8 @@ dynamic build(BuildContext context) {
         ),
         _codePanel(
           label: 'Basic API',
-          code: 'FractionalTranslation(\n'
+          code:
+              'FractionalTranslation(\n'
               '  translation: const Offset(0.5, 0.0),\n'
               '  child: child,\n'
               ');\n\n'
@@ -1185,11 +1206,7 @@ dynamic build(BuildContext context) {
               'Fractional follows child size, pixel does not.',
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              compareRow,
-              compareCode,
-              compareNotes,
-            ],
+            children: [compareRow, compareCode, compareNotes],
           ),
         ),
         sectionTitle('4. Real-World Recipes'),

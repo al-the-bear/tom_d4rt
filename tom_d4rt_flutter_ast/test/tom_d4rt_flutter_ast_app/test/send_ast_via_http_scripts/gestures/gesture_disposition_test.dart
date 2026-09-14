@@ -156,12 +156,21 @@ dynamic build(BuildContext context) {
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
-            _buildBadge('Total values', '${GestureDisposition.values.length}',
-                Colors.purpleAccent),
-            _buildBadge('First',
-                GestureDisposition.values.first.name, Colors.greenAccent),
-            _buildBadge('Last',
-                GestureDisposition.values.last.name, Colors.redAccent),
+            _buildBadge(
+              'Total values',
+              '${GestureDisposition.values.length}',
+              Colors.purpleAccent,
+            ),
+            _buildBadge(
+              'First',
+              GestureDisposition.values.first.name,
+              Colors.greenAccent,
+            ),
+            _buildBadge(
+              'Last',
+              GestureDisposition.values.last.name,
+              Colors.redAccent,
+            ),
             _buildBadge('Type', 'enum', Colors.amberAccent),
           ],
         ),
@@ -184,8 +193,8 @@ dynamic build(BuildContext context) {
       'tagline': 'I claim this pointer',
       'detail':
           'The recognizer is confident the gesture matches. The arena sweeps '
-              'and assigns the pointer sequence to this contestant. All other '
-              'contestants for the same pointer are forced to reject.',
+          'and assigns the pointer sequence to this contestant. All other '
+          'contestants for the same pointer are forced to reject.',
       'callsite': 'resolve(GestureDisposition.accepted)',
       'progress': 1.0,
     },
@@ -196,8 +205,8 @@ dynamic build(BuildContext context) {
       'tagline': 'I am out of the running',
       'detail':
           'The recognizer is sure this pointer sequence is not its gesture. '
-              'It withdraws from the arena, freeing the pointer for others. '
-              'If a recognizer is the last one standing, it wins by default.',
+          'It withdraws from the arena, freeing the pointer for others. '
+          'If a recognizer is the last one standing, it wins by default.',
       'callsite': 'resolve(GestureDisposition.rejected)',
       'progress': 0.0,
     },
@@ -208,8 +217,7 @@ dynamic build(BuildContext context) {
     final color = data['color'] as MaterialColor;
     final progress = data['progress'] as double;
     final progressAnim = AlwaysStoppedAnimation<double>(progress);
-    print(
-        'Card: GestureDisposition.${value.name} -> ${data['tagline']}');
+    print('Card: GestureDisposition.${value.name} -> ${data['tagline']}');
     dispositionCards.add(
       Container(
         width: 320.0,
@@ -257,8 +265,11 @@ dynamic build(BuildContext context) {
                       ),
                     ],
                   ),
-                  child:
-                      Icon(data['icon'] as IconData, color: color, size: 32.0),
+                  child: Icon(
+                    data['icon'] as IconData,
+                    color: color,
+                    size: 32.0,
+                  ),
                 ),
                 SizedBox(width: 12.0),
                 Expanded(
@@ -777,18 +788,36 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 4.0),
         _buildTableRow('Meaning', 'I claim the pointer', 'I withdraw'),
-        _buildTableRow('Effect on others', 'They are forced to reject',
-            'No direct effect'),
-        _buildTableRow('When called', 'Threshold met / pointer up',
-            'Cannot match anymore'),
-        _buildTableRow('Triggers callback', 'Yes - acceptGesture()',
-            'No - rejectGesture()'),
         _buildTableRow(
-            'Reversible', 'Subsequent calls ignored', 'Subsequent calls ignored'),
-        _buildTableRow('Sweep behavior', 'Sweeps competitors',
-            'Self-removes from arena'),
-        _buildTableRow('Common example', 'Tap on pointer-up',
-            'Drag dropped below slop'),
+          'Effect on others',
+          'They are forced to reject',
+          'No direct effect',
+        ),
+        _buildTableRow(
+          'When called',
+          'Threshold met / pointer up',
+          'Cannot match anymore',
+        ),
+        _buildTableRow(
+          'Triggers callback',
+          'Yes - acceptGesture()',
+          'No - rejectGesture()',
+        ),
+        _buildTableRow(
+          'Reversible',
+          'Subsequent calls ignored',
+          'Subsequent calls ignored',
+        ),
+        _buildTableRow(
+          'Sweep behavior',
+          'Sweeps competitors',
+          'Self-removes from arena',
+        ),
+        _buildTableRow(
+          'Common example',
+          'Tap on pointer-up',
+          'Drag dropped below slop',
+        ),
       ],
     ),
   );
@@ -860,8 +889,7 @@ dynamic build(BuildContext context) {
         SizedBox(height: 14.0),
         Row(
           children: [
-            Icon(Icons.info_outline,
-                color: Colors.amberAccent, size: 16.0),
+            Icon(Icons.info_outline, color: Colors.amberAccent, size: 16.0),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -920,10 +948,7 @@ dynamic build(BuildContext context) {
               'rejected, full for accepted), and a short explanation.',
               style: TextStyle(fontSize: 13.0, color: Colors.black87),
             ),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: dispositionCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: dispositionCards),
             SizedBox(height: 24.0),
             Text(
               '3. The Gesture Arena',
@@ -1139,8 +1164,10 @@ Widget _buildTimelineRow(Map<String, Object> step, {required bool isLast}) {
                 Row(
                   children: [
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4.0),
@@ -1182,12 +1209,7 @@ Widget _buildTimelineRow(Map<String, Object> step, {required bool isLast}) {
   );
 }
 
-Widget _buildRecipeCard(
-  String title,
-  String prose,
-  String code,
-  Color accent,
-) {
+Widget _buildRecipeCard(String title, String prose, String code, Color accent) {
   return Container(
     padding: EdgeInsets.all(14.0),
     decoration: BoxDecoration(
@@ -1435,9 +1457,8 @@ class _ArenaPainter extends CustomPainter {
     ];
 
     for (int i = 0; i < contestants.length; i++) {
-      final angle = (-90.0 + (360.0 / contestants.length) * i) *
-          3.1415926535 /
-          180.0;
+      final angle =
+          (-90.0 + (360.0 / contestants.length) * i) * 3.1415926535 / 180.0;
       final pos = Offset(
         center.dx + radius * 0.85 * progress * _cos(angle),
         center.dy + radius * 0.85 * progress * _sin(angle),
@@ -1485,10 +1506,7 @@ class _ArenaPainter extends CustomPainter {
         ),
         textDirection: TextDirection.ltr,
       )..layout();
-      final labelPos = Offset(
-        pos.dx - labelPainter.width / 2.0,
-        pos.dy + 22.0,
-      );
+      final labelPos = Offset(pos.dx - labelPainter.width / 2.0, pos.dy + 22.0);
       labelPainter.paint(canvas, labelPos);
     }
   }
@@ -1500,8 +1518,8 @@ class _ArenaPainter extends CustomPainter {
   // Tiny trig helpers to avoid pulling in dart:math.
   double _cos(double r) {
     // Taylor series approximation around 0; sufficient for layout positions.
-    final x = ((r % (2 * 3.1415926535)) + 2 * 3.1415926535) %
-        (2 * 3.1415926535);
+    final x =
+        ((r % (2 * 3.1415926535)) + 2 * 3.1415926535) % (2 * 3.1415926535);
     final y = x - 3.1415926535;
     final y2 = y * y;
     return -(1.0 -

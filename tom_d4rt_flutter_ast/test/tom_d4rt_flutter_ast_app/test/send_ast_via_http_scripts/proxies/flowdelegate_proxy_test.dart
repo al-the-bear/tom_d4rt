@@ -96,8 +96,11 @@ void _kickAnimationLoop() {
     // Smoothly approach the target open progress for the toggleable menus.
     _fanOpen.value = _approach(_fanOpen.value, _fanOpenTarget, 0.08);
     _radialOpen.value = _approach(_radialOpen.value, _radialOpenTarget, 0.08);
-    _galleryOpen.value =
-        _approach(_galleryOpen.value, _galleryOpenTarget, 0.08);
+    _galleryOpen.value = _approach(
+      _galleryOpen.value,
+      _galleryOpenTarget,
+      0.08,
+    );
     _ringOpen.value = _approach(_ringOpen.value, _ringOpenTarget, 0.08);
 
     WidgetsBinding.instance.addPostFrameCallback(tick);
@@ -265,10 +268,8 @@ class _FanFlowDelegate extends FlowDelegate {
 // `phase + i / n` so they are evenly spaced.
 // =============================================================================
 class _OrbitFlowDelegate extends FlowDelegate {
-  _OrbitFlowDelegate({
-    required this.phase,
-    this.radius = 70.0,
-  }) : super(repaint: phase);
+  _OrbitFlowDelegate({required this.phase, this.radius = 70.0})
+    : super(repaint: phase);
 
   final ValueNotifier<double> phase;
   final double radius;
@@ -288,10 +289,7 @@ class _OrbitFlowDelegate extends FlowDelegate {
       final Size childSize = context.getChildSize(i) ?? Size.zero;
       final double dx = cx + radius * _cos(a) - childSize.width / 2;
       final double dy = cy + radius * _sin(a) - childSize.height / 2;
-      context.paintChild(
-        i,
-        transform: Matrix4.translationValues(dx, dy, 0.0),
-      );
+      context.paintChild(i, transform: Matrix4.translationValues(dx, dy, 0.0));
     }
   }
 
@@ -344,10 +342,7 @@ class _StaggeredFlowDelegate extends FlowDelegate {
       final double tri = offset < 0.5 ? offset * 2 : (1.0 - offset) * 2;
       final double dx = maxX * tri;
       final double dy = laneHeight * i + (laneHeight - childSize.height) / 2;
-      context.paintChild(
-        i,
-        transform: Matrix4.translationValues(dx, dy, 0.0),
-      );
+      context.paintChild(i, transform: Matrix4.translationValues(dx, dy, 0.0));
     }
   }
 
@@ -389,20 +384,14 @@ class _GridSnapFlowDelegate extends FlowDelegate {
       final int row = i ~/ columns;
       final double dx = col * (cell + gap);
       final double dy = row * (cell + gap);
-      context.paintChild(
-        i,
-        transform: Matrix4.translationValues(dx, dy, 0.0),
-      );
+      context.paintChild(i, transform: Matrix4.translationValues(dx, dy, 0.0));
     }
   }
 
   @override
   Size getSize(BoxConstraints constraints) {
     final double rows = 2.0;
-    return Size(
-      columns * (cell + gap),
-      rows * (cell + gap),
-    );
+    return Size(columns * (cell + gap), rows * (cell + gap));
   }
 
   @override
@@ -461,11 +450,7 @@ class _AnimatedExplodeFlowDelegate extends FlowDelegate {
         ..translate(childSize.width / 2, childSize.height / 2)
         ..rotateZ(a + t * 6.28318)
         ..translate(-childSize.width / 2, -childSize.height / 2);
-      context.paintChild(
-        i,
-        transform: m,
-        opacity: 0.4 + 0.6 * (1.0 - pulse),
-      );
+      context.paintChild(i, transform: m, opacity: 0.4 + 0.6 * (1.0 - pulse));
     }
   }
 
@@ -493,10 +478,8 @@ class _AnimatedExplodeFlowDelegate extends FlowDelegate {
 // of `Flow` (it is the canonical example in the framework docs).
 // =============================================================================
 class _RadialMenuFlowDelegate extends FlowDelegate {
-  _RadialMenuFlowDelegate({
-    required this.openListenable,
-    this.radius = 88.0,
-  }) : super(repaint: openListenable);
+  _RadialMenuFlowDelegate({required this.openListenable, this.radius = 88.0})
+    : super(repaint: openListenable);
 
   final ValueNotifier<double> openListenable;
   final double radius;
@@ -533,11 +516,7 @@ class _RadialMenuFlowDelegate extends FlowDelegate {
         ..translate(childSize.width / 2, childSize.height / 2)
         ..scale(scale, scale)
         ..translate(-childSize.width / 2, -childSize.height / 2);
-      context.paintChild(
-        i,
-        transform: m,
-        opacity: isAnchor ? 1.0 : t,
-      );
+      context.paintChild(i, transform: m, opacity: isAnchor ? 1.0 : t);
     }
   }
 
@@ -589,12 +568,7 @@ double _cos(double r) {
   final double x4 = x2 * x2;
   final double x6 = x4 * x2;
   final double x8 = x4 * x4;
-  return sign *
-      (1.0 -
-          x2 / 2.0 +
-          x4 / 24.0 -
-          x6 / 720.0 +
-          x8 / 40320.0);
+  return sign * (1.0 - x2 / 2.0 + x4 / 24.0 - x6 / 720.0 + x8 / 40320.0);
 }
 
 double _sin(double r) {
@@ -610,10 +584,7 @@ dynamic build(BuildContext context) {
 
   return MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      useMaterial3: true,
-      colorSchemeSeed: _palette1Tint,
-    ),
+    theme: ThemeData(useMaterial3: true, colorSchemeSeed: _palette1Tint),
     home: Scaffold(
       backgroundColor: const Color(0xFFFAFAFA),
       body: SafeArea(
@@ -732,8 +703,7 @@ Widget _section1IntroCard() {
         'Layout happens once. Painting can happen many times per frame, very '
         'cheaply, because the only thing that changes is the Matrix4 emitted '
         'into `context.paintChild(i, transform: m)`.',
-    caption:
-        'API: Flow(delegate: FlowDelegate, children: [...])',
+    caption: 'API: Flow(delegate: FlowDelegate, children: [...])',
     body: const _StaticIconRow(
       icons: [
         Icons.widgets,
@@ -765,8 +735,7 @@ Widget _section2FanShowcase() {
         'arc. The delegate reads its open-progress from a `ValueNotifier<double>` '
         'passed via `super(repaint: ...)` so `Flow` repaints automatically '
         'whenever the value changes.',
-    caption:
-        'paintChildren places each leaf at radius * t * (cos a, sin a).',
+    caption: 'paintChildren places each leaf at radius * t * (cos a, sin a).',
     body: Column(
       children: [
         SizedBox(
@@ -827,8 +796,7 @@ Widget _section3OrbitShowcase() {
         'shared rotational phase. The first canvas auto-rotates via the frame '
         'loop. The second is steered by a slider (the slider value is the '
         'phase in [0,1]).',
-    caption:
-        'paintChildren: dx = cx + radius * cos(phase + i*2pi/n)',
+    caption: 'paintChildren: dx = cx + radius * cos(phase + i*2pi/n)',
     body: Column(
       children: [
         SizedBox(
@@ -902,7 +870,10 @@ Widget _section3OrbitShowcase() {
                 ),
                 Text(
                   'phase = ${_manualOrbitAngle.value.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF558B2F)),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF558B2F),
+                  ),
                 ),
               ],
             );
@@ -928,8 +899,7 @@ Widget _section4StaggeredShowcase() {
         'per-index phase offset. The delegate also returns a different '
         '`getConstraintsForChild` per index, which is why the chips have '
         'different sizes.',
-    caption:
-        'getConstraintsForChild: 24 + (i % 5) * 6 px tight square',
+    caption: 'getConstraintsForChild: 24 + (i % 5) * 6 px tight square',
     body: SizedBox(
       height: 220,
       child: Flow(
@@ -1000,8 +970,7 @@ Widget _section6AnimatedExplode() {
         'via the `opacity` argument. `shouldRepaint` returns true whenever '
         'the phase notifier identity changes; the `repaint:` listenable '
         'covers the per-frame case.',
-    caption:
-        'Matrix4..translate(...)..rotateZ(...) plus opacity in [0.4, 1.0]',
+    caption: 'Matrix4..translate(...)..rotateZ(...) plus opacity in [0.4, 1.0]',
     body: SizedBox(
       height: 240,
       child: Flow(
@@ -1091,8 +1060,7 @@ Widget _section8PerformanceCard() {
         'Cost model:\n'
         '  - Stack+Positioned animation = N widget rebuilds + N layouts + N paints\n'
         '  - Flow animation              = 0 rebuilds + 0 layouts + N paints',
-    caption:
-        'Rule of thumb: if only paint position changes, prefer Flow.',
+    caption: 'Rule of thumb: if only paint position changes, prefer Flow.',
     body: const _PerfTable(),
   );
 }
@@ -1117,8 +1085,7 @@ Widget _section9ConstraintsShowcase() {
         'child does its normal layout under those constraints; the delegate '
         'then learns the actual size via `context.getChildSize(i)` inside '
         '`paintChildren`.',
-    caption:
-        'Below: each chip is sized 24 + (i*6) px, all the way to 78 px.',
+    caption: 'Below: each chip is sized 24 + (i*6) px, all the way to 78 px.',
     body: SizedBox(
       height: 110,
       child: Flow(
@@ -1193,8 +1160,7 @@ Widget _section10PhotoGalleryDock() {
         'out as if you were looking at a hand of cards. This pattern is '
         'used for image picker UIs, recent-photo trays, and chat sticker '
         'pickers.',
-    caption:
-        'Reuses _FanFlowDelegate with a wider sweep angle.',
+    caption: 'Reuses _FanFlowDelegate with a wider sweep angle.',
     body: Column(
       children: [
         SizedBox(
@@ -1206,10 +1172,8 @@ Widget _section10PhotoGalleryDock() {
               startAngle: -3.14159,
               sweepAngle: 3.14159,
             ),
-            children: List<Widget>.generate(
-              6,
-              (i) => _PhotoChip(index: i),
-            )..add(
+            children: List<Widget>.generate(6, (i) => _PhotoChip(index: i))
+              ..add(
                 const _Chip(
                   color: Color(0xFFAD1457),
                   icon: Icons.photo_library,
@@ -1223,8 +1187,7 @@ Widget _section10PhotoGalleryDock() {
           children: [
             ElevatedButton.icon(
               onPressed: () {
-                _galleryOpenTarget =
-                    _galleryOpenTarget > 0.5 ? 0.0 : 1.0;
+                _galleryOpenTarget = _galleryOpenTarget > 0.5 ? 0.0 : 1.0;
               },
               icon: const Icon(Icons.fullscreen),
               label: const Text('Spread / collapse'),
@@ -1254,8 +1217,7 @@ Widget _section11OrbitNotificationRing() {
         'painted by a separate (non-Flow) widget; the badges are a Flow on '
         'top, with the same orbit phase the system already maintains. Tap '
         '"Pulse" to bump the orbit listenable and watch them re-shuffle.',
-    caption:
-        'Stack(children: [avatar, Flow(...)]) - Flow is fully composable.',
+    caption: 'Stack(children: [avatar, Flow(...)]) - Flow is fully composable.',
     body: SizedBox(
       height: 220,
       child: Stack(
@@ -1268,11 +1230,7 @@ Widget _section11OrbitNotificationRing() {
               shape: BoxShape.circle,
               color: Color(0xFF37474F),
             ),
-            child: const Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 38,
-            ),
+            child: const Icon(Icons.person, color: Colors.white, size: 38),
           ),
           Flow(
             delegate: _OrbitFlowDelegate(phase: _orbitPhase, radius: 78.0),
@@ -1313,7 +1271,8 @@ Widget _section12DecisionCard() {
     tint: _palette12Tint,
     number: '12',
     title: 'Decision: Flow vs Stack vs Wrap vs CustomMultiChildLayout',
-    description: 'Pick the simplest tool that does the job:\n'
+    description:
+        'Pick the simplest tool that does the job:\n'
         '\n'
         '- **Stack + Positioned**: a few children, position is essentially '
         'static or animated infrequently. Easiest to read.\n'
@@ -1324,8 +1283,7 @@ Widget _section12DecisionCard() {
         '- **CustomMultiChildLayout**: like Flow, but also wants a custom '
         'LAYOUT pass each frame. Use when the position depends on each '
         'child\'s actual rendered size in a non-trivial way.',
-    caption:
-        'Flow wins when only the painted position is animated.',
+    caption: 'Flow wins when only the painted position is animated.',
     body: const _DecisionTable(),
   );
 }
@@ -1600,10 +1558,7 @@ class _PerfTable extends StatelessWidget {
       fontWeight: FontWeight.w700,
       color: Color(0xFFF57F17),
     );
-    final TextStyle c = const TextStyle(
-      fontSize: 12,
-      color: Color(0xFF424242),
-    );
+    final TextStyle c = const TextStyle(fontSize: 12, color: Color(0xFF424242));
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(2),
@@ -1620,24 +1575,30 @@ class _PerfTable extends StatelessWidget {
             Text('paint', style: h),
           ],
         ),
-        TableRow(children: [
-          Text('Stack+Positioned (animated)', style: c),
-          Text('N', style: c),
-          Text('N', style: c),
-          Text('N', style: c),
-        ]),
-        TableRow(children: [
-          Text('Flow (animated)', style: c),
-          Text('0', style: c),
-          Text('0', style: c),
-          Text('N', style: c),
-        ]),
-        TableRow(children: [
-          Text('CustomMultiChildLayout (animated)', style: c),
-          Text('0', style: c),
-          Text('N', style: c),
-          Text('N', style: c),
-        ]),
+        TableRow(
+          children: [
+            Text('Stack+Positioned (animated)', style: c),
+            Text('N', style: c),
+            Text('N', style: c),
+            Text('N', style: c),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('Flow (animated)', style: c),
+            Text('0', style: c),
+            Text('0', style: c),
+            Text('N', style: c),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('CustomMultiChildLayout (animated)', style: c),
+            Text('0', style: c),
+            Text('N', style: c),
+            Text('N', style: c),
+          ],
+        ),
       ],
     );
   }
@@ -1655,36 +1616,38 @@ class _DecisionTable extends StatelessWidget {
     );
     const TextStyle c = TextStyle(fontSize: 12, color: Color(0xFF424242));
     return Table(
-      columnWidths: const {
-        0: FlexColumnWidth(1.2),
-        1: FlexColumnWidth(2),
-      },
+      columnWidths: const {0: FlexColumnWidth(1.2), 1: FlexColumnWidth(2)},
       children: const [
-        TableRow(children: [
-          Text('Stack', style: h),
-          Text(
-            'Few children, mostly static, occasional position change.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('Wrap', style: h),
-          Text('Soft-wrapping row/column. Pure layout.', style: c),
-        ]),
-        TableRow(children: [
-          Text('Flow', style: h),
-          Text(
-            'Many children, position animates every frame.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('CustomMultiChildLayout', style: h),
-          Text(
-            'Layout depends on each child\'s rendered size; full custom pass.',
-            style: c,
-          ),
-        ]),
+        TableRow(
+          children: [
+            Text('Stack', style: h),
+            Text(
+              'Few children, mostly static, occasional position change.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('Wrap', style: h),
+            Text('Soft-wrapping row/column. Pure layout.', style: c),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('Flow', style: h),
+            Text('Many children, position animates every frame.', style: c),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('CustomMultiChildLayout', style: h),
+            Text(
+              'Layout depends on each child\'s rendered size; full custom pass.',
+              style: c,
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -1702,60 +1665,71 @@ class _DelegateRefTable extends StatelessWidget {
     );
     const TextStyle c = TextStyle(fontSize: 12, color: Color(0xFF424242));
     return Table(
-      columnWidths: const {
-        0: FlexColumnWidth(2),
-        1: FlexColumnWidth(3),
-      },
+      columnWidths: const {0: FlexColumnWidth(2), 1: FlexColumnWidth(3)},
       children: const [
-        TableRow(children: [
-          Text('_FanFlowDelegate', style: h),
-          Text(
-            'Children fan along an arc; takes openListenable + radius + start/sweep angles.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_OrbitFlowDelegate', style: h),
-          Text(
-            'Children orbit a center; takes phase listenable + radius.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_StaggeredFlowDelegate', style: h),
-          Text(
-            'Per-index drift across lanes; per-index size via getConstraintsForChild.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_GridSnapFlowDelegate', style: h),
-          Text(
-            'Static grid snap; useful when the only goal is layout, not motion.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_AnimatedExplodeFlowDelegate', style: h),
-          Text(
-            'Translate+rotate+opacity pulse from center; full Matrix4 demo.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_RadialMenuFlowDelegate', style: h),
-          Text(
-            'FAB-style pop-up: anchor pinned to corner, leaves on a quarter-arc.',
-            style: c,
-          ),
-        ]),
-        TableRow(children: [
-          Text('_GrowingChipsDelegate', style: h),
-          Text(
-            'Inline helper for the constraints showcase (per-index size).',
-            style: c,
-          ),
-        ]),
+        TableRow(
+          children: [
+            Text('_FanFlowDelegate', style: h),
+            Text(
+              'Children fan along an arc; takes openListenable + radius + start/sweep angles.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_OrbitFlowDelegate', style: h),
+            Text(
+              'Children orbit a center; takes phase listenable + radius.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_StaggeredFlowDelegate', style: h),
+            Text(
+              'Per-index drift across lanes; per-index size via getConstraintsForChild.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_GridSnapFlowDelegate', style: h),
+            Text(
+              'Static grid snap; useful when the only goal is layout, not motion.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_AnimatedExplodeFlowDelegate', style: h),
+            Text(
+              'Translate+rotate+opacity pulse from center; full Matrix4 demo.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_RadialMenuFlowDelegate', style: h),
+            Text(
+              'FAB-style pop-up: anchor pinned to corner, leaves on a quarter-arc.',
+              style: c,
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            Text('_GrowingChipsDelegate', style: h),
+            Text(
+              'Inline helper for the constraints showcase (per-index size).',
+              style: c,
+            ),
+          ],
+        ),
       ],
     );
   }

@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'Fixed Layout Footprint',
-      'body': 'SizedOverflowBox occupies a specific size in the parent\'s '
+      'body':
+          'SizedOverflowBox occupies a specific size in the parent\'s '
           'layout, defined by the "size" parameter. The parent sees only '
           'this declared size, regardless of the child\'s actual extent. '
           'This is the layout size — the space reserved in the widget tree.',
@@ -26,7 +27,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.open_with,
       'title': 'Unconstrained Child',
-      'body': 'Unlike SizedBox which constrains its child to fit, '
+      'body':
+          'Unlike SizedBox which constrains its child to fit, '
           'SizedOverflowBox passes the parent\'s original constraints '
           'through to its child. The child can potentially be much larger '
           '(or smaller) than the declared layout size.',
@@ -34,7 +36,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.format_paint,
       'title': 'Paint Outside Bounds',
-      'body': 'When the child is larger than the declared size, it paints '
+      'body':
+          'When the child is larger than the declared size, it paints '
           'outside the SizedOverflowBox\'s layout boundaries. This is not '
           'clipping — the child\'s pixels are actually rendered beyond the '
           'layout rectangle. Use ClipRect if you need to clip.',
@@ -42,7 +45,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.architecture,
       'title': 'Alignment Control',
-      'body': 'The alignment parameter controls where the child is positioned '
+      'body':
+          'The alignment parameter controls where the child is positioned '
           'relative to the layout rectangle. This determines which edges '
           'overflow and by how much. Common for decorative elements that '
           'extend beyond a reserving area.',
@@ -60,9 +64,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.deepPurple.withValues(alpha: 0.04),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: Colors.deepPurple.withValues(alpha: 0.12),
-          ),
+          border: Border.all(color: Colors.deepPurple.withValues(alpha: 0.12)),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +131,11 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              const Icon(Icons.crop_square, size: 48.0, color: Colors.deepPurple),
+              const Icon(
+                Icons.crop_square,
+                size: 48.0,
+                color: Colors.deepPurple,
+              ),
               const SizedBox(height: 8.0),
               const Text(
                 'SizedOverflowBox',
@@ -144,10 +150,7 @@ dynamic build(BuildContext context) {
                 'A widget that has a fixed size for layout but lets its '
                 'child overflow those bounds freely.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13.5,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 13.5, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -168,14 +171,16 @@ dynamic build(BuildContext context) {
       'name': 'size',
       'type': 'Size',
       'required': 'Yes',
-      'desc': 'The layout size of this widget. The parent will allocate '
+      'desc':
+          'The layout size of this widget. The parent will allocate '
           'this much space. The child may paint outside this rectangle.',
     },
     {
       'name': 'alignment',
       'type': 'AlignmentGeometry',
       'required': 'No',
-      'desc': 'How to position the child inside the layout rectangle. '
+      'desc':
+          'How to position the child inside the layout rectangle. '
           'Defaults to Alignment.center. Controls which direction(s) '
           'the child overflows toward.',
     },
@@ -183,7 +188,8 @@ dynamic build(BuildContext context) {
       'name': 'child',
       'type': 'Widget?',
       'required': 'No',
-      'desc': 'The child widget. It receives the parent\'s constraints, '
+      'desc':
+          'The child widget. It receives the parent\'s constraints, '
           'not constraints derived from the size parameter. May overflow.',
     },
   ];
@@ -348,7 +354,8 @@ dynamic build(BuildContext context) {
       'layoutH': 60.0,
       'childW': 180.0,
       'childH': 100.0,
-      'desc': 'The SizedOverflowBox is 100×60 in layout, but the child '
+      'desc':
+          'The SizedOverflowBox is 100×60 in layout, but the child '
           'is 180×100. The child overflows on all sides (centered).',
       'color': Colors.orange,
     },
@@ -358,7 +365,8 @@ dynamic build(BuildContext context) {
       'layoutH': 80.0,
       'childW': 120.0,
       'childH': 80.0,
-      'desc': 'When the child matches the declared size, there is no overflow. '
+      'desc':
+          'When the child matches the declared size, there is no overflow. '
           'Behaves identically to SizedBox.',
       'color': Colors.green,
     },
@@ -368,7 +376,8 @@ dynamic build(BuildContext context) {
       'layoutH': 100.0,
       'childW': 80.0,
       'childH': 50.0,
-      'desc': 'The child is smaller than the declared size. The widget takes '
+      'desc':
+          'The child is smaller than the declared size. The widget takes '
           'up 160×100 in layout, but only paints a small child.',
       'color': Colors.blue,
     },
@@ -378,7 +387,8 @@ dynamic build(BuildContext context) {
       'layoutH': 0.0,
       'childW': 140.0,
       'childH': 70.0,
-      'desc': 'With Size.zero, the widget takes no layout space, but the '
+      'desc':
+          'With Size.zero, the widget takes no layout space, but the '
           'child still renders! It paints entirely outside the layout box.',
       'color': Colors.red,
     },
@@ -419,10 +429,7 @@ dynamic build(BuildContext context) {
                 Container(
                   width: 10.0,
                   height: 10.0,
-                  decoration: BoxDecoration(
-                    color: clr,
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: BoxDecoration(color: clr, shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 8.0),
                 Expanded(
@@ -477,10 +484,7 @@ dynamic build(BuildContext context) {
                       width: childW,
                       height: childH,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          color: clr,
-                          width: 2.0,
-                        ),
+                        border: Border.all(color: clr, width: 2.0),
                         color: clr.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
@@ -527,10 +531,7 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(width: 6.0),
-                const Text(
-                  'Actual child',
-                  style: TextStyle(fontSize: 11.0),
-                ),
+                const Text('Actual child', style: TextStyle(fontSize: 11.0)),
               ],
             ),
             const SizedBox(height: 8.0),
@@ -573,15 +574,60 @@ dynamic build(BuildContext context) {
   print('=== Section 4: Alignment ===');
 
   final alignments = <Map<String, dynamic>>[
-    {'name': 'topLeft', 'align': Alignment.topLeft, 'desc': 'Child anchored at top-left corner. Overflow extends to the right and bottom.'},
-    {'name': 'topCenter', 'align': Alignment.topCenter, 'desc': 'Child anchored at top center. Overflow extends equally left/right and bottom.'},
-    {'name': 'topRight', 'align': Alignment.topRight, 'desc': 'Child anchored at top-right. Overflow extends to the left and bottom.'},
-    {'name': 'centerLeft', 'align': Alignment.centerLeft, 'desc': 'Child anchored center-left. Overflow extends right and equally top/bottom.'},
-    {'name': 'center', 'align': Alignment.center, 'desc': 'Default. Child centered. Overflow distributed equally on all sides.'},
-    {'name': 'centerRight', 'align': Alignment.centerRight, 'desc': 'Child anchored center-right. Overflow extends left and equally top/bottom.'},
-    {'name': 'bottomLeft', 'align': Alignment.bottomLeft, 'desc': 'Child anchored at bottom-left. Overflow extends right and upward.'},
-    {'name': 'bottomCenter', 'align': Alignment.bottomCenter, 'desc': 'Child anchored at bottom center. Overflow extends equally left/right and upward.'},
-    {'name': 'bottomRight', 'align': Alignment.bottomRight, 'desc': 'Child anchored at bottom-right. Overflow extends left and upward.'},
+    {
+      'name': 'topLeft',
+      'align': Alignment.topLeft,
+      'desc':
+          'Child anchored at top-left corner. Overflow extends to the right and bottom.',
+    },
+    {
+      'name': 'topCenter',
+      'align': Alignment.topCenter,
+      'desc':
+          'Child anchored at top center. Overflow extends equally left/right and bottom.',
+    },
+    {
+      'name': 'topRight',
+      'align': Alignment.topRight,
+      'desc':
+          'Child anchored at top-right. Overflow extends to the left and bottom.',
+    },
+    {
+      'name': 'centerLeft',
+      'align': Alignment.centerLeft,
+      'desc':
+          'Child anchored center-left. Overflow extends right and equally top/bottom.',
+    },
+    {
+      'name': 'center',
+      'align': Alignment.center,
+      'desc':
+          'Default. Child centered. Overflow distributed equally on all sides.',
+    },
+    {
+      'name': 'centerRight',
+      'align': Alignment.centerRight,
+      'desc':
+          'Child anchored center-right. Overflow extends left and equally top/bottom.',
+    },
+    {
+      'name': 'bottomLeft',
+      'align': Alignment.bottomLeft,
+      'desc':
+          'Child anchored at bottom-left. Overflow extends right and upward.',
+    },
+    {
+      'name': 'bottomCenter',
+      'align': Alignment.bottomCenter,
+      'desc':
+          'Child anchored at bottom center. Overflow extends equally left/right and upward.',
+    },
+    {
+      'name': 'bottomRight',
+      'align': Alignment.bottomRight,
+      'desc':
+          'Child anchored at bottom-right. Overflow extends left and upward.',
+    },
   ];
 
   final alignmentVisuals = <Widget>[];
@@ -678,7 +724,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        buildSOBSectionHeader('Alignment & Overflow Direction', Icons.open_with),
+        buildSOBSectionHeader(
+          'Alignment & Overflow Direction',
+          Icons.open_with,
+        ),
         const SizedBox(height: 8.0),
         Text(
           'Alignment controls where the child sits within the layout rect. '
@@ -742,7 +791,8 @@ dynamic build(BuildContext context) {
   final comparisonData = <Map<String, dynamic>>[
     {
       'widget': 'SizedBox',
-      'behavior': 'Constrains child to fit within its size. '
+      'behavior':
+          'Constrains child to fit within its size. '
           'Child is forced to be at most the declared size.',
       'overflow': 'No',
       'passParent': 'No',
@@ -751,7 +801,8 @@ dynamic build(BuildContext context) {
     },
     {
       'widget': 'SizedOverflowBox',
-      'behavior': 'Has a fixed layout size but passes parent\'s '
+      'behavior':
+          'Has a fixed layout size but passes parent\'s '
           'constraints to the child. Child may overflow.',
       'overflow': 'Yes',
       'passParent': 'Yes',
@@ -760,7 +811,8 @@ dynamic build(BuildContext context) {
     },
     {
       'widget': 'OverflowBox',
-      'behavior': 'Imposes its own min/max constraints on the child, '
+      'behavior':
+          'Imposes its own min/max constraints on the child, '
           'which may differ from what the parent provides.',
       'overflow': 'Yes',
       'passParent': 'No (custom)',
@@ -769,7 +821,8 @@ dynamic build(BuildContext context) {
     },
     {
       'widget': 'UnconstrainedBox',
-      'behavior': 'Removes constraints entirely. Child sizes itself '
+      'behavior':
+          'Removes constraints entirely. Child sizes itself '
           'unconstrained, may overflow the parent.',
       'overflow': 'Yes',
       'passParent': 'No (unconstrained)',
@@ -778,7 +831,8 @@ dynamic build(BuildContext context) {
     },
     {
       'widget': 'FittedBox',
-      'behavior': 'Scales the child to fit within the available space. '
+      'behavior':
+          'Scales the child to fit within the available space. '
           'Child never overflows; it is scaled down.',
       'overflow': 'No',
       'passParent': 'No (scaled)',
@@ -882,7 +936,8 @@ dynamic build(BuildContext context) {
       'title': 'Badge Positioning',
       'icon': Icons.notifications_active,
       'color': Colors.red,
-      'desc': 'Place a badge that overflows its container — the layout '
+      'desc':
+          'Place a badge that overflows its container — the layout '
           'space is zero, but the badge renders and positions itself '
           'relative to a parent Stack. The surrounding layout is unaffected.',
       'visual': _SOBBadgeDemo(),
@@ -891,7 +946,8 @@ dynamic build(BuildContext context) {
       'title': 'Decorative Overlapping Elements',
       'icon': Icons.auto_awesome,
       'color': Colors.amber,
-      'desc': 'Create decorative elements like highlights or glow effects '
+      'desc':
+          'Create decorative elements like highlights or glow effects '
           'that extend beyond a card\'s boundaries without disrupting '
           'the surrounding layout.',
       'visual': _SOBDecorativeDemo(),
@@ -900,7 +956,8 @@ dynamic build(BuildContext context) {
       'title': 'Tooltip Anchoring',
       'icon': Icons.chat_bubble_outline,
       'color': Colors.teal,
-      'desc': 'Anchor a tooltip-like widget to a specific point. The '
+      'desc':
+          'Anchor a tooltip-like widget to a specific point. The '
           'SizedOverflowBox has zero layout size at the anchor point, '
           'and the tooltip child overflows from there.',
       'visual': _SOBTooltipDemo(),
@@ -909,7 +966,8 @@ dynamic build(BuildContext context) {
       'title': 'Transition Placeholder',
       'icon': Icons.swap_horiz,
       'color': Colors.indigo,
-      'desc': 'During animations, reserve a fixed space while the animating '
+      'desc':
+          'During animations, reserve a fixed space while the animating '
           'element may temporarily be larger. The layout remains stable '
           'while the child transitions through different sizes.',
       'visual': _SOBTransitionDemo(),
@@ -1027,33 +1085,39 @@ dynamic build(BuildContext context) {
   final summaryItems = <Map<String, dynamic>>[
     {
       'icon': Icons.crop_square,
-      'text': 'SizedOverflowBox separates layout size from child painting — '
+      'text':
+          'SizedOverflowBox separates layout size from child painting — '
           'the parent sees a fixed size, but the child can extend beyond.',
     },
     {
       'icon': Icons.open_with,
-      'text': 'Alignment controls where the child sits within the layout rect '
+      'text':
+          'Alignment controls where the child sits within the layout rect '
           'and which direction(s) the overflow extends.',
     },
     {
       'icon': Icons.compare_arrows,
-      'text': 'Unlike SizedBox (constrains child), OverflowBox (custom constraints), '
+      'text':
+          'Unlike SizedBox (constrains child), OverflowBox (custom constraints), '
           'or UnconstrainedBox (no constraints) — SizedOverflowBox passes through '
           'the PARENT\'s constraints.',
     },
     {
       'icon': Icons.warning_amber,
-      'text': 'Overflow is not clipped by default. Wrap in ClipRect if you need '
+      'text':
+          'Overflow is not clipped by default. Wrap in ClipRect if you need '
           'to prevent painting outside the layout bounds.',
     },
     {
       'icon': Icons.build,
-      'text': 'Common in custom layouts for badges, decorative elements, tooltips, '
+      'text':
+          'Common in custom layouts for badges, decorative elements, tooltips, '
           'and animation placeholders where layout stability matters.',
     },
     {
       'icon': Icons.speed,
-      'text': 'No performance cost beyond a normal single-child widget. The '
+      'text':
+          'No performance cost beyond a normal single-child widget. The '
           'RenderObject simply uses the declared size for layout and positions '
           'the child via alignment.',
     },
@@ -1883,10 +1947,7 @@ class _SOBTooltipDemo extends StatelessWidget {
               ),
               child: const Text(
                 'Tooltip anchored via\nSizedOverflowBox',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 11.0,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 11.0),
               ),
             ),
           ),

@@ -54,8 +54,7 @@ class _StripePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _StripePainter oldDelegate) {
-    return oldDelegate.bandWidth != bandWidth ||
-        oldDelegate.opacity != opacity;
+    return oldDelegate.bandWidth != bandWidth || oldDelegate.opacity != opacity;
   }
 }
 
@@ -441,26 +440,28 @@ Widget _formCard(String label, Color accent) {
 Widget _miniRow(List<Color> colors, List<int> flexes) {
   final List<Widget> children = <Widget>[];
   for (int i = 0; i < colors.length; i++) {
-    children.add(Expanded(
-      flex: flexes[i],
-      child: Container(
-        height: 24.0,
-        margin: const EdgeInsets.symmetric(horizontal: 2.0),
-        decoration: BoxDecoration(
-          color: colors[i],
-          borderRadius: BorderRadius.circular(3.0),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          '${flexes[i]}',
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 10.0,
-            fontWeight: FontWeight.bold,
+    children.add(
+      Expanded(
+        flex: flexes[i],
+        child: Container(
+          height: 24.0,
+          margin: const EdgeInsets.symmetric(horizontal: 2.0),
+          decoration: BoxDecoration(
+            color: colors[i],
+            borderRadius: BorderRadius.circular(3.0),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            '${flexes[i]}',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -607,19 +608,12 @@ Widget _cheatHeaderRow() {
 // =====================================================================
 // _cheatRow — a data row in the cheat-sheet table.
 // =====================================================================
-Widget _cheatRow(
-  String symptom,
-  String cause,
-  String fix,
-  Color background,
-) {
+Widget _cheatRow(String symptom, String cause, String fix, Color background) {
   return Container(
     padding: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       color: background,
-      border: Border(
-        bottom: BorderSide(color: Colors.grey.shade300),
-      ),
+      border: Border(bottom: BorderSide(color: Colors.grey.shade300)),
     ),
     child: Row(
       children: <Widget>[
@@ -669,30 +663,34 @@ dynamic build(BuildContext context) {
   // SECTION 1: Hero header — what overflow is, what the indicator looks
   // like, when it appears, who paints it.
   // ===================================================================
-  body.add(_sectionHeader(
-    '1',
-    'The Overflow Detective\'s Handbook',
-    'A field guide to the yellow-and-black stripes you have all seen.',
-  ));
-  body.add(_narration(
-    'In Flutter, every RenderBox is laid out by its parent. The parent '
-    'hands the child a BoxConstraints object. The child must produce a '
-    'Size that satisfies those constraints. When a render object paints '
-    'children that fall outside of its own bounds — a Row with five '
-    'oversized buttons inside a 200px-wide phone column, for instance — '
-    'the layout has "overflowed".\n\n'
-    'During debug builds, DebugOverflowIndicatorMixin (used by RenderFlex '
-    'and a handful of other render objects) reacts by:\n'
-    '  1. Painting a black region inside the parent on the overflowing '
-    'edge.\n'
-    '  2. Painting yellow-and-black 45 deg warning stripes on the edge '
-    'itself, in the rect that lives just outside the parent.\n'
-    '  3. Emitting a red console message: "A RenderFlex overflowed by '
-    'N pixels on the …".\n\n'
-    'Release builds skip both the stripes and the message: '
-    'DebugOverflowIndicatorMixin is a debugging aid, not a runtime '
-    'safeguard. The fix always belongs in your layout code.',
-  ));
+  body.add(
+    _sectionHeader(
+      '1',
+      'The Overflow Detective\'s Handbook',
+      'A field guide to the yellow-and-black stripes you have all seen.',
+    ),
+  );
+  body.add(
+    _narration(
+      'In Flutter, every RenderBox is laid out by its parent. The parent '
+      'hands the child a BoxConstraints object. The child must produce a '
+      'Size that satisfies those constraints. When a render object paints '
+      'children that fall outside of its own bounds — a Row with five '
+      'oversized buttons inside a 200px-wide phone column, for instance — '
+      'the layout has "overflowed".\n\n'
+      'During debug builds, DebugOverflowIndicatorMixin (used by RenderFlex '
+      'and a handful of other render objects) reacts by:\n'
+      '  1. Painting a black region inside the parent on the overflowing '
+      'edge.\n'
+      '  2. Painting yellow-and-black 45 deg warning stripes on the edge '
+      'itself, in the rect that lives just outside the parent.\n'
+      '  3. Emitting a red console message: "A RenderFlex overflowed by '
+      'N pixels on the …".\n\n'
+      'Release builds skip both the stripes and the message: '
+      'DebugOverflowIndicatorMixin is a debugging aid, not a runtime '
+      'safeguard. The fix always belongs in your layout code.',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -733,18 +731,22 @@ dynamic build(BuildContext context) {
   // so readers see how the same painter applies to horizontal, vertical,
   // and square overflow patches.
   // ===================================================================
-  body.add(_sectionHeader(
-    '2',
-    'Stripe Legend',
-    'The single visual element of the indicator at varied dimensions.',
-  ));
-  body.add(_narration(
-    'The stripes are not orientation-aware. They are simply painted into '
-    'whatever rectangle represents the overflowed area: a thin tall sliver '
-    'on the right edge for a wide-overflow Row, a thin wide bar on the '
-    'bottom for a tall-overflow Column, an L-shape for bidirectional '
-    'overflow, or a full rectangle in dramatic cases.',
-  ));
+  body.add(
+    _sectionHeader(
+      '2',
+      'Stripe Legend',
+      'The single visual element of the indicator at varied dimensions.',
+    ),
+  );
+  body.add(
+    _narration(
+      'The stripes are not orientation-aware. They are simply painted into '
+      'whatever rectangle represents the overflowed area: a thin tall sliver '
+      'on the right edge for a wide-overflow Row, a thin wide bar on the '
+      'bottom for a tall-overflow Column, an L-shape for bidirectional '
+      'overflow, or a full rectangle in dramatic cases.',
+    ),
+  );
   body.add(
     Wrap(
       spacing: 12.0,
@@ -796,21 +798,25 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 3: Anatomy of paintOverflowIndicator — labelled diagram.
   // ===================================================================
-  body.add(_sectionHeader(
-    '3',
-    'Anatomy of paintOverflowIndicator',
-    'What the mixin actually draws on top of your render tree.',
-  ));
-  body.add(_narration(
-    'paintOverflowIndicator(PaintingContext context, Offset offset, Rect '
-    'containerRect, Rect childRect, {List<DiagnosticsNode>? overflowHints}) '
-    'is the single method the mixin exposes. The render object that uses '
-    'the mixin (RenderFlex, RenderConstrainedOverflowBox, …) calls it '
-    'during paint when childRect is not contained in containerRect. The '
-    'mixin then computes the four "leak" rectangles (left, top, right, '
-    'bottom of the container) and paints stripes into whichever are '
-    'non-empty. Hints are forwarded to the debug error message.',
-  ));
+  body.add(
+    _sectionHeader(
+      '3',
+      'Anatomy of paintOverflowIndicator',
+      'What the mixin actually draws on top of your render tree.',
+    ),
+  );
+  body.add(
+    _narration(
+      'paintOverflowIndicator(PaintingContext context, Offset offset, Rect '
+      'containerRect, Rect childRect, {List<DiagnosticsNode>? overflowHints}) '
+      'is the single method the mixin exposes. The render object that uses '
+      'the mixin (RenderFlex, RenderConstrainedOverflowBox, …) calls it '
+      'during paint when childRect is not contained in containerRect. The '
+      'mixin then computes the four "leak" rectangles (left, top, right, '
+      'bottom of the container) and paints stripes into whichever are '
+      'non-empty. Hints are forwarded to the debug error message.',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -905,27 +911,33 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 4: Row overflow — the canonical case.
   // ===================================================================
-  body.add(_sectionHeader(
-    '4',
-    'Row Overflow',
-    'A Row whose unflexed children total wider than its incoming width.',
-  ));
-  body.add(_narration(
-    'This is the situation that DebugOverflowIndicatorMixin was written '
-    'for. A Row with no Expanded/Flexible children and total child width '
-    '> incoming maxWidth will lay out the children at their preferred '
-    'sizes, paint them past the right edge, and trigger the indicator.',
-  ));
-  body.add(_codeBlock(
-    'Row(\n'
-    '  children: <Widget>[\n'
-    '    Container(width: 120, color: Colors.red),\n'
-    '    Container(width: 120, color: Colors.green),\n'
-    '    Container(width: 120, color: Colors.blue),\n'
-    '  ],\n'
-    ')   // inside a 220px-wide phone column',
-    caption: 'overflow_row.dart',
-  ));
+  body.add(
+    _sectionHeader(
+      '4',
+      'Row Overflow',
+      'A Row whose unflexed children total wider than its incoming width.',
+    ),
+  );
+  body.add(
+    _narration(
+      'This is the situation that DebugOverflowIndicatorMixin was written '
+      'for. A Row with no Expanded/Flexible children and total child width '
+      '> incoming maxWidth will lay out the children at their preferred '
+      'sizes, paint them past the right edge, and trigger the indicator.',
+    ),
+  );
+  body.add(
+    _codeBlock(
+      'Row(\n'
+      '  children: <Widget>[\n'
+      '    Container(width: 120, color: Colors.red),\n'
+      '    Container(width: 120, color: Colors.green),\n'
+      '    Container(width: 120, color: Colors.blue),\n'
+      '  ],\n'
+      ')   // inside a 220px-wide phone column',
+      caption: 'overflow_row.dart',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -993,29 +1005,35 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 5: Column overflow — the vertical counterpart.
   // ===================================================================
-  body.add(_sectionHeader(
-    '5',
-    'Column Overflow',
-    'A Column too tall for its parent constraints, indicator on the bottom.',
-  ));
-  body.add(_narration(
-    'Vertical overflow looks exactly the same — the indicator just appears '
-    'on the bottom edge instead of the right. This is the most common '
-    'overflow during keyboard insertion: a Column-based form does not '
-    'become scrollable, the keyboard reduces the available height, the '
-    'Column overflows, and you see the bottom stripes.',
-  ));
-  body.add(_codeBlock(
-    'Column(\n'
-    '  children: <Widget>[\n'
-    '    SizedBox(height: 80, child: Card()),\n'
-    '    SizedBox(height: 80, child: Card()),\n'
-    '    SizedBox(height: 80, child: Card()),\n'
-    '    SizedBox(height: 80, child: Card()),\n'
-    '  ],\n'
-    ')   // inside a 220px-tall constrained box',
-    caption: 'overflow_column.dart',
-  ));
+  body.add(
+    _sectionHeader(
+      '5',
+      'Column Overflow',
+      'A Column too tall for its parent constraints, indicator on the bottom.',
+    ),
+  );
+  body.add(
+    _narration(
+      'Vertical overflow looks exactly the same — the indicator just appears '
+      'on the bottom edge instead of the right. This is the most common '
+      'overflow during keyboard insertion: a Column-based form does not '
+      'become scrollable, the keyboard reduces the available height, the '
+      'Column overflows, and you see the bottom stripes.',
+    ),
+  );
+  body.add(
+    _codeBlock(
+      'Column(\n'
+      '  children: <Widget>[\n'
+      '    SizedBox(height: 80, child: Card()),\n'
+      '    SizedBox(height: 80, child: Card()),\n'
+      '    SizedBox(height: 80, child: Card()),\n'
+      '    SizedBox(height: 80, child: Card()),\n'
+      '  ],\n'
+      ')   // inside a 220px-tall constrained box',
+      caption: 'overflow_column.dart',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -1068,17 +1086,21 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 6: Bidirectional overflow.
   // ===================================================================
-  body.add(_sectionHeader(
-    '6',
-    'Bidirectional Overflow',
-    'When the child exceeds both width and height of its container.',
-  ));
-  body.add(_narration(
-    'If a child is too big in both axes, the mixin paints stripes on the '
-    'right *and* the bottom. The corner pixel where the two stripes meet '
-    'is painted twice but you cannot tell because they are the same band '
-    'pattern. The debug message in this case reports both axes.',
-  ));
+  body.add(
+    _sectionHeader(
+      '6',
+      'Bidirectional Overflow',
+      'When the child exceeds both width and height of its container.',
+    ),
+  );
+  body.add(
+    _narration(
+      'If a child is too big in both axes, the mixin paints stripes on the '
+      'right *and* the bottom. The corner pixel where the two stripes meet '
+      'is painted twice but you cannot tell because they are the same band '
+      'pattern. The debug message in this case reports both axes.',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -1147,18 +1169,22 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 7: How to fix — three side-by-side fix cards.
   // ===================================================================
-  body.add(_sectionHeader(
-    '7',
-    'How To Fix',
-    'Three idiomatic Flutter answers to a Row that overflows.',
-  ));
-  body.add(_narration(
-    'When the indicator appears, your job is to teach the layout how to '
-    'cope with not enough space. The three canonical strategies are: '
-    'Expanded (share remaining space), Flexible (allow but do not require '
-    'shrinking), and SingleChildScrollView (offload extra content to a '
-    'scroll viewport).',
-  ));
+  body.add(
+    _sectionHeader(
+      '7',
+      'How To Fix',
+      'Three idiomatic Flutter answers to a Row that overflows.',
+    ),
+  );
+  body.add(
+    _narration(
+      'When the indicator appears, your job is to teach the layout how to '
+      'cope with not enough space. The three canonical strategies are: '
+      'Expanded (share remaining space), Flexible (allow but do not require '
+      'shrinking), and SingleChildScrollView (offload extra content to a '
+      'scroll viewport).',
+    ),
+  );
   body.add(
     Wrap(
       alignment: WrapAlignment.center,
@@ -1182,11 +1208,14 @@ dynamic build(BuildContext context) {
                   '  ],\n'
                   ')',
                 ),
-                _miniRow(<Color>[
-                  Colors.red.shade300,
-                  Colors.green.shade300,
-                  Colors.blue.shade300,
-                ], <int>[1, 4, 1]),
+                _miniRow(
+                  <Color>[
+                    Colors.red.shade300,
+                    Colors.green.shade300,
+                    Colors.blue.shade300,
+                  ],
+                  <int>[1, 4, 1],
+                ),
               ],
             ),
           ),
@@ -1208,11 +1237,14 @@ dynamic build(BuildContext context) {
                   '  ],\n'
                   ')',
                 ),
-                _miniRow(<Color>[
-                  Colors.orange.shade300,
-                  Colors.amber.shade300,
-                  Colors.deepOrange.shade300,
-                ], <int>[3, 1, 2]),
+                _miniRow(
+                  <Color>[
+                    Colors.orange.shade300,
+                    Colors.amber.shade300,
+                    Colors.deepOrange.shade300,
+                  ],
+                  <int>[3, 1, 2],
+                ),
               ],
             ),
           ),
@@ -1231,12 +1263,15 @@ dynamic build(BuildContext context) {
                   '  child: Row(children: chips),\n'
                   ')',
                 ),
-                _miniRow(<Color>[
-                  Colors.purple.shade300,
-                  Colors.purple.shade400,
-                  Colors.purple.shade500,
-                  Colors.purple.shade600,
-                ], <int>[1, 1, 1, 1]),
+                _miniRow(
+                  <Color>[
+                    Colors.purple.shade300,
+                    Colors.purple.shade400,
+                    Colors.purple.shade500,
+                    Colors.purple.shade600,
+                  ],
+                  <int>[1, 1, 1, 1],
+                ),
               ],
             ),
           ),
@@ -1248,52 +1283,64 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 8: Why Row + Text without Flexible misbehaves.
   // ===================================================================
-  body.add(_sectionHeader(
-    '8',
-    'Row + Text Without Flexible',
-    'The single most common cause of mysterious right-edge stripes.',
-  ));
-  body.add(_narration(
-    'A Text widget reports its intrinsic width (no wrapping) when placed '
-    'in a Row, because Row gives unbounded width during the first layout '
-    'pass to non-flex children. So Text("a long sentence that is many many '
-    'pixels wide") asks for, say, 800 pixels — and the Row obediently '
-    'paints it, then overflows the parent.\n\n'
-    'The fix is to wrap the Text in Expanded or Flexible so it receives '
-    'bounded width and can wrap (or ellipsize).',
-  ));
-  body.add(_debugErrorPanel(
-    'FlutterError: A RenderFlex overflowed by 312 pixels on the right.',
-    'The relevant error-causing widget was:\n'
-    '  Row Row:file:///lib/main.dart:42:18\n\n'
-    'The overflowing RenderFlex has an orientation of Axis.horizontal.\n'
-    'Consider applying a flex factor (e.g. using an Expanded widget) to\n'
-    'force the children of the RenderFlex to fit within the available\n'
-    'space instead of being sized to their natural size.',
-  ));
+  body.add(
+    _sectionHeader(
+      '8',
+      'Row + Text Without Flexible',
+      'The single most common cause of mysterious right-edge stripes.',
+    ),
+  );
+  body.add(
+    _narration(
+      'A Text widget reports its intrinsic width (no wrapping) when placed '
+      'in a Row, because Row gives unbounded width during the first layout '
+      'pass to non-flex children. So Text("a long sentence that is many many '
+      'pixels wide") asks for, say, 800 pixels — and the Row obediently '
+      'paints it, then overflows the parent.\n\n'
+      'The fix is to wrap the Text in Expanded or Flexible so it receives '
+      'bounded width and can wrap (or ellipsize).',
+    ),
+  );
+  body.add(
+    _debugErrorPanel(
+      'FlutterError: A RenderFlex overflowed by 312 pixels on the right.',
+      'The relevant error-causing widget was:\n'
+          '  Row Row:file:///lib/main.dart:42:18\n\n'
+          'The overflowing RenderFlex has an orientation of Axis.horizontal.\n'
+          'Consider applying a flex factor (e.g. using an Expanded widget) to\n'
+          'force the children of the RenderFlex to fit within the available\n'
+          'space instead of being sized to their natural size.',
+    ),
+  );
 
   // ===================================================================
   // SECTION 9: Padding-induced overflow.
   // ===================================================================
-  body.add(_sectionHeader(
-    '9',
-    'Padding-Induced Overflow',
-    'When EdgeInsets eat more space than the parent has available.',
-  ));
-  body.add(_narration(
-    'A SizedBox(width: 100) wrapped in Padding(padding: EdgeInsets.all(80)) '
-    'asks the renderbox to lay out at width = 100 + 160 = 260, regardless '
-    'of incoming maxWidth. If the parent is only 200 wide, overflow occurs '
-    'on the right. Padding overflow is sneaky because the code looks '
-    'innocuous.',
-  ));
-  body.add(_codeBlock(
-    'Padding(\n'
-    '  padding: EdgeInsets.all(80),\n'
-    '  child: SizedBox(width: 100, height: 40, child: Text("Hi")),\n'
-    ') // inside a 200x80 parent',
-    caption: 'padding_overflow.dart',
-  ));
+  body.add(
+    _sectionHeader(
+      '9',
+      'Padding-Induced Overflow',
+      'When EdgeInsets eat more space than the parent has available.',
+    ),
+  );
+  body.add(
+    _narration(
+      'A SizedBox(width: 100) wrapped in Padding(padding: EdgeInsets.all(80)) '
+      'asks the renderbox to lay out at width = 100 + 160 = 260, regardless '
+      'of incoming maxWidth. If the parent is only 200 wide, overflow occurs '
+      'on the right. Padding overflow is sneaky because the code looks '
+      'innocuous.',
+    ),
+  );
+  body.add(
+    _codeBlock(
+      'Padding(\n'
+      '  padding: EdgeInsets.all(80),\n'
+      '  child: SizedBox(width: 100, height: 40, child: Text("Hi")),\n'
+      ') // inside a 200x80 parent',
+      caption: 'padding_overflow.dart',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -1344,18 +1391,22 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 10: SizedBox forced size.
   // ===================================================================
-  body.add(_sectionHeader(
-    '10',
-    'SizedBox Forced Size',
-    'When a SizedBox.fromSize or SizedBox(width:) refuses to shrink.',
-  ));
-  body.add(_narration(
-    'A SizedBox(width: 400) ignores incoming constraints when it is taller '
-    'than allowed (it is treated as tight in that dimension). If 400 > '
-    'parent maxWidth, overflow happens immediately. The fix is usually to '
-    'use ConstrainedBox(constraints: BoxConstraints(maxWidth: 400)) or to '
-    'wrap with FittedBox so the child scales down.',
-  ));
+  body.add(
+    _sectionHeader(
+      '10',
+      'SizedBox Forced Size',
+      'When a SizedBox.fromSize or SizedBox(width:) refuses to shrink.',
+    ),
+  );
+  body.add(
+    _narration(
+      'A SizedBox(width: 400) ignores incoming constraints when it is taller '
+      'than allowed (it is treated as tight in that dimension). If 400 > '
+      'parent maxWidth, overflow happens immediately. The fix is usually to '
+      'use ConstrainedBox(constraints: BoxConstraints(maxWidth: 400)) or to '
+      'wrap with FittedBox so the child scales down.',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),
@@ -1414,67 +1465,79 @@ dynamic build(BuildContext context) {
   // ===================================================================
   // SECTION 11: Debug practice card.
   // ===================================================================
-  body.add(_sectionHeader(
-    '11',
-    'Debug Practice',
-    'A repeatable workflow for resolving any overflow indicator sighting.',
-  ));
-  body.add(_narration(
-    'When you see stripes on a real device or in widget tests, do not '
-    'panic. Walk through the following four steps and you will resolve '
-    '95% of cases in under five minutes.',
-  ));
-  body.add(_practiceStep(
-    '1',
-    'Read the debug message',
-    'Look at the console for "A RenderFlex overflowed by N pixels on '
-    'the X". X is the axis (right, bottom, …) and the file:line link '
-    'points to the offending Row or Column.',
-    Icons.read_more,
-    Colors.blue.shade700,
-  ));
-  body.add(_practiceStep(
-    '2',
-    'Identify the parent',
-    'Use the Flutter Inspector or the file:line link to locate the '
-    'RenderFlex. Walk up the tree until you find what restricts its '
-    'cross-axis size (usually a SizedBox, Container, Padding, or '
-    'MediaQuery).',
-    Icons.account_tree,
-    Colors.green.shade700,
-  ));
-  body.add(_practiceStep(
-    '3',
-    'Find the unflexed child',
-    'The child whose intrinsic width pushes the total above the parent '
-    'is the culprit. Often a long Text, a SizedBox with a hard-coded '
-    'width, or an Image with no constraints.',
-    Icons.search,
-    Colors.orange.shade700,
-  ));
-  body.add(_practiceStep(
-    '4',
-    'Apply the right fix',
-    'Wrap with Expanded for "share remaining space", Flexible for '
-    '"allow shrinking", or refactor to a scroll view for unbounded '
-    'content.',
-    Icons.build,
-    Colors.purple.shade700,
-  ));
+  body.add(
+    _sectionHeader(
+      '11',
+      'Debug Practice',
+      'A repeatable workflow for resolving any overflow indicator sighting.',
+    ),
+  );
+  body.add(
+    _narration(
+      'When you see stripes on a real device or in widget tests, do not '
+      'panic. Walk through the following four steps and you will resolve '
+      '95% of cases in under five minutes.',
+    ),
+  );
+  body.add(
+    _practiceStep(
+      '1',
+      'Read the debug message',
+      'Look at the console for "A RenderFlex overflowed by N pixels on '
+          'the X". X is the axis (right, bottom, …) and the file:line link '
+          'points to the offending Row or Column.',
+      Icons.read_more,
+      Colors.blue.shade700,
+    ),
+  );
+  body.add(
+    _practiceStep(
+      '2',
+      'Identify the parent',
+      'Use the Flutter Inspector or the file:line link to locate the '
+          'RenderFlex. Walk up the tree until you find what restricts its '
+          'cross-axis size (usually a SizedBox, Container, Padding, or '
+          'MediaQuery).',
+      Icons.account_tree,
+      Colors.green.shade700,
+    ),
+  );
+  body.add(
+    _practiceStep(
+      '3',
+      'Find the unflexed child',
+      'The child whose intrinsic width pushes the total above the parent '
+          'is the culprit. Often a long Text, a SizedBox with a hard-coded '
+          'width, or an Image with no constraints.',
+      Icons.search,
+      Colors.orange.shade700,
+    ),
+  );
+  body.add(
+    _practiceStep(
+      '4',
+      'Apply the right fix',
+      'Wrap with Expanded for "share remaining space", Flexible for '
+          '"allow shrinking", or refactor to a scroll view for unbounded '
+          'content.',
+      Icons.build,
+      Colors.purple.shade700,
+    ),
+  );
 
   // ===================================================================
   // SECTION 12: Cheat-sheet card.
   // ===================================================================
-  body.add(_sectionHeader(
-    '12',
-    'Cheat Sheet',
-    'Symptom -> Likely Cause -> Fix.',
-  ));
-  body.add(_narration(
-    'Print this and stick it on your monitor. After a few weeks the '
-    'patterns become second nature and the indicator stops being '
-    'frightening.',
-  ));
+  body.add(
+    _sectionHeader('12', 'Cheat Sheet', 'Symptom -> Likely Cause -> Fix.'),
+  );
+  body.add(
+    _narration(
+      'Print this and stick it on your monitor. After a few weeks the '
+      'patterns become second nature and the indicator stops being '
+      'frightening.',
+    ),
+  );
   body.add(
     Container(
       margin: const EdgeInsets.all(16.0),

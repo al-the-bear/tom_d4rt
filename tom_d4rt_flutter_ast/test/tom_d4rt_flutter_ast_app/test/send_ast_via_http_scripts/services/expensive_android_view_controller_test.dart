@@ -51,21 +51,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: metallic, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -82,11 +88,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: icyBlue),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: navy.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: navy.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -119,16 +128,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: navy)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: navy,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -146,11 +155,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? navy : blueGrey)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? navy : blueGrey,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -167,18 +179,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? navy : darkSlate,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: steel),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: steel),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -209,8 +226,16 @@ dynamic build(BuildContext context) {
             _eaCostItem('Virtual display GPU allocation', Icons.memory, navy),
             _eaCostItem('Off-screen texture composition', Icons.layers, steel),
             _eaCostItem('Extra draw calls per frame', Icons.draw, blueGrey),
-            _eaCostItem('Thread synchronization overhead', Icons.sync, darkSlate),
-            _eaCostItem('Memory for full-size texture buffer', Icons.storage, midSteel),
+            _eaCostItem(
+              'Thread synchronization overhead',
+              Icons.sync,
+              darkSlate,
+            ),
+            _eaCostItem(
+              'Memory for full-size texture buffer',
+              Icons.storage,
+              midSteel,
+            ),
           ],
         ),
       ),
@@ -235,8 +260,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eaFlow(['Native View', 'Virtual Display', 'Surface Texture',
-                'Flutter Engine', 'Scene Graph']),
+            eaFlow([
+              'Native View',
+              'Virtual Display',
+              'Surface Texture',
+              'Flutter Engine',
+              'Scene Graph',
+            ]),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -249,10 +279,26 @@ dynamic build(BuildContext context) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _eaPipelineStep(1, 'Android creates VirtualDisplay', navy),
-                  _eaPipelineStep(2, 'Native view renders to virtual surface', steel),
-                  _eaPipelineStep(3, 'Surface content captured as texture', blueGrey),
-                  _eaPipelineStep(4, 'Flutter composites texture into frame', darkSlate),
-                  _eaPipelineStep(5, 'Result appears at widget position', midSteel),
+                  _eaPipelineStep(
+                    2,
+                    'Native view renders to virtual surface',
+                    steel,
+                  ),
+                  _eaPipelineStep(
+                    3,
+                    'Surface content captured as texture',
+                    blueGrey,
+                  ),
+                  _eaPipelineStep(
+                    4,
+                    'Flutter composites texture into frame',
+                    darkSlate,
+                  ),
+                  _eaPipelineStep(
+                    5,
+                    'Result appears at widget position',
+                    midSteel,
+                  ),
                 ],
               ),
             ),
@@ -286,13 +332,33 @@ dynamic build(BuildContext context) {
           ),
           child: Column(
             children: [
-              _eaStateBox('Uninitialized', 'Not yet created', Icons.circle_outlined, metallic),
+              _eaStateBox(
+                'Uninitialized',
+                'Not yet created',
+                Icons.circle_outlined,
+                metallic,
+              ),
               _eaArrow(),
-              _eaStateBox('Creating', 'Platform call in flight', Icons.hourglass_empty, steel),
+              _eaStateBox(
+                'Creating',
+                'Platform call in flight',
+                Icons.hourglass_empty,
+                steel,
+              ),
               _eaArrow(),
-              _eaStateBox('Created', 'Virtual display active', Icons.check_circle, const Color(0xFF2E7D32)),
+              _eaStateBox(
+                'Created',
+                'Virtual display active',
+                Icons.check_circle,
+                const Color(0xFF2E7D32),
+              ),
               _eaArrow(),
-              _eaStateBox('Disposed', 'Resources released', Icons.cancel, const Color(0xFFC62828)),
+              _eaStateBox(
+                'Disposed',
+                'Resources released',
+                Icons.cancel,
+                const Color(0xFFC62828),
+              ),
             ],
           ),
         ),
@@ -316,7 +382,11 @@ dynamic build(BuildContext context) {
         'Feature Comparison',
         Column(
           children: [
-            eaRow(['Feature', 'Virtual Display', 'Hybrid Composition'], isHeader: true),
+            eaRow([
+              'Feature',
+              'Virtual Display',
+              'Hybrid Composition',
+            ], isHeader: true),
             eaRow(['Controller', 'ExpensiveAndroid…', 'Standard PlatformView']),
             eaRow(['Rendering', 'Off-screen texture', 'In-view hierarchy']),
             eaRow(['Memory', 'Higher (texture buf)', 'Lower']),
@@ -348,8 +418,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eaFlow(['Allocate Texture', 'Bind to VDisplay',
-                'Render Frame', 'Composite']),
+            eaFlow([
+              'Allocate Texture',
+              'Bind to VDisplay',
+              'Render Frame',
+              'Composite',
+            ]),
             const SizedBox(height: 10),
             eaRow(['Operation', 'Cost', 'Frequency'], isHeader: true),
             eaRow(['Texture create', 'High', 'Once at init']),
@@ -380,8 +454,12 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eaFlow(['Flutter PointerEvent', 'Coordinate Transform',
-                'Android MotionEvent', 'Native View']),
+            eaFlow([
+              'Flutter PointerEvent',
+              'Coordinate Transform',
+              'Android MotionEvent',
+              'Native View',
+            ]),
             const SizedBox(height: 10),
             _eaTouchRow('pointerDown', 'ACTION_DOWN', navy),
             _eaTouchRow('pointerMove', 'ACTION_MOVE', steel),
@@ -508,11 +586,36 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _eaDecisionItem('Need Flutter overlays on native view', 'Virtual Display', true, navy),
-            _eaDecisionItem('Accessibility required', 'Hybrid Composition', false, steel),
-            _eaDecisionItem('Performance-sensitive (many views)', 'Hybrid Composition', false, blueGrey),
-            _eaDecisionItem('Old Android API compatibility', 'Virtual Display', true, darkSlate),
-            _eaDecisionItem('Single small view (map, camera)', 'Either works', true, midSteel),
+            _eaDecisionItem(
+              'Need Flutter overlays on native view',
+              'Virtual Display',
+              true,
+              navy,
+            ),
+            _eaDecisionItem(
+              'Accessibility required',
+              'Hybrid Composition',
+              false,
+              steel,
+            ),
+            _eaDecisionItem(
+              'Performance-sensitive (many views)',
+              'Hybrid Composition',
+              false,
+              blueGrey,
+            ),
+            _eaDecisionItem(
+              'Old Android API compatibility',
+              'Virtual Display',
+              true,
+              darkSlate,
+            ),
+            _eaDecisionItem(
+              'Single small view (map, camera)',
+              'Either works',
+              true,
+              midSteel,
+            ),
           ],
         ),
       ),
@@ -536,7 +639,11 @@ dynamic build(BuildContext context) {
         'Accessibility Comparison',
         Column(
           children: [
-            eaRow(['Feature', 'Virtual Display', 'Hybrid Comp.'], isHeader: true),
+            eaRow([
+              'Feature',
+              'Virtual Display',
+              'Hybrid Comp.',
+            ], isHeader: true),
             eaRow(['TalkBack discovery', 'Manual', 'Automatic']),
             eaRow(['Focus traversal', 'Manual', 'Native']),
             eaRow(['Content description', 'Via Semantics', 'Native']),
@@ -615,11 +722,36 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _eaUseCaseItem('Google Maps', 'MapView rendered via virtual display', Icons.map, navy),
-            _eaUseCaseItem('WebView', 'Browser content in Flutter layout', Icons.web, steel),
-            _eaUseCaseItem('Camera Preview', 'Live camera feed composited', Icons.camera_alt, blueGrey),
-            _eaUseCaseItem('Video Player', 'Native player with Flutter overlay', Icons.videocam, darkSlate),
-            _eaUseCaseItem('Ad Views', 'AdMob banner in Flutter', Icons.campaign, midSteel),
+            _eaUseCaseItem(
+              'Google Maps',
+              'MapView rendered via virtual display',
+              Icons.map,
+              navy,
+            ),
+            _eaUseCaseItem(
+              'WebView',
+              'Browser content in Flutter layout',
+              Icons.web,
+              steel,
+            ),
+            _eaUseCaseItem(
+              'Camera Preview',
+              'Live camera feed composited',
+              Icons.camera_alt,
+              blueGrey,
+            ),
+            _eaUseCaseItem(
+              'Video Player',
+              'Native player with Flutter overlay',
+              Icons.videocam,
+              darkSlate,
+            ),
+            _eaUseCaseItem(
+              'Ad Views',
+              'AdMob banner in Flutter',
+              Icons.campaign,
+              midSteel,
+            ),
           ],
         ),
       ),
@@ -645,9 +777,21 @@ dynamic build(BuildContext context) {
             eaRow(['Tactic', 'Benefit', 'Trade-off'], isHeader: true),
             eaRow(['Fixed size', 'No resize rebuild', 'Less flexible']),
             eaRow(['Lazy create', 'Defer GPU cost', 'Initial delay']),
-            eaRow(['Off-screen cull', 'Skip hidden frames', 'Re-create on show']),
-            eaRow(['Controller reuse', 'Skip re-allocation', 'Stale state risk']),
-            eaRow(['Reduce view count', 'Linear mem savings', 'UX limitations']),
+            eaRow([
+              'Off-screen cull',
+              'Skip hidden frames',
+              'Re-create on show',
+            ]),
+            eaRow([
+              'Controller reuse',
+              'Skip re-allocation',
+              'Stale state risk',
+            ]),
+            eaRow([
+              'Reduce view count',
+              'Linear mem savings',
+              'UX limitations',
+            ]),
           ],
         ),
       ),
@@ -671,10 +815,26 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             eaRow(['Error', 'Cause', 'Recovery'], isHeader: true),
-            eaRow(['Creation timeout', 'Platform overloaded', 'Retry with backoff']),
-            eaRow(['Invalid viewType', 'Missing registration', 'Check plugin init']),
-            eaRow(['Texture alloc fail', 'Low GPU memory', 'Reduce view count']),
-            eaRow(['Dispose after reparent', 'Widget tree change', 'Guard lifecycle']),
+            eaRow([
+              'Creation timeout',
+              'Platform overloaded',
+              'Retry with backoff',
+            ]),
+            eaRow([
+              'Invalid viewType',
+              'Missing registration',
+              'Check plugin init',
+            ]),
+            eaRow([
+              'Texture alloc fail',
+              'Low GPU memory',
+              'Reduce view count',
+            ]),
+            eaRow([
+              'Dispose after reparent',
+              'Widget tree change',
+              'Guard lifecycle',
+            ]),
             eaRow(['Resize flicker', 'Display rebuild', 'Use fixed size']),
           ],
         ),
@@ -738,11 +898,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('ExpensiveAndroidViewController — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'ExpensiveAndroidViewController — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'Virtual display rendering, texture management, touch forwarding, '
@@ -774,10 +937,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -805,8 +980,14 @@ Widget _eaCostItem(String text, IconData icon, Color color) {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 11,
+              color: color,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     ),
@@ -826,15 +1007,19 @@ Widget _eaPipelineStep(int num, String text, Color color) {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 11, color: color)),
+          child: Text(text, style: TextStyle(fontSize: 11, color: color)),
         ),
       ],
     ),
@@ -858,11 +1043,21 @@ Widget _eaStateBox(String label, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label,
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.bold, color: color)),
-              Text(desc,
-                  style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -875,7 +1070,11 @@ Widget _eaArrow() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Center(
-      child: Icon(Icons.arrow_downward, size: 16, color: const Color(0xFF90A4AE)),
+      child: Icon(
+        Icons.arrow_downward,
+        size: 16,
+        color: const Color(0xFF90A4AE),
+      ),
     ),
   );
 }
@@ -886,19 +1085,31 @@ Widget _eaTouchRow(String flutter, String android, Color color) {
     child: Row(
       children: [
         Expanded(
-          child: Text(flutter,
-              style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w600,
-                  color: color)),
+          child: Text(
+            flutter,
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
         ),
-        Icon(Icons.arrow_forward, size: 12, color: color.withValues(alpha: 0.5)),
+        Icon(
+          Icons.arrow_forward,
+          size: 12,
+          color: color.withValues(alpha: 0.5),
+        ),
         const SizedBox(width: 4),
         Expanded(
-          child: Text(android,
-              style: TextStyle(
-                  fontSize: 10, fontFamily: 'monospace', color: color)),
+          child: Text(
+            android,
+            style: TextStyle(
+              fontSize: 10,
+              fontFamily: 'monospace',
+              color: color,
+            ),
+          ),
         ),
       ],
     ),
@@ -915,17 +1126,26 @@ Widget _eaMemBox(String resolution, String size, Color color) {
     ),
     child: Column(
       children: [
-        Text(size,
-            style: TextStyle(
-                fontSize: 14, fontWeight: FontWeight.bold, color: color)),
-        Text(resolution,
-            style: TextStyle(fontSize: 10, color: color)),
+        Text(
+          size,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+        Text(resolution, style: TextStyle(fontSize: 10, color: color)),
       ],
     ),
   );
 }
 
-Widget _eaDecisionItem(String scenario, String recommendation, bool virtualDisplay, Color color) {
+Widget _eaDecisionItem(
+  String scenario,
+  String recommendation,
+  bool virtualDisplay,
+  Color color,
+) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
     child: Row(
@@ -933,13 +1153,14 @@ Widget _eaDecisionItem(String scenario, String recommendation, bool virtualDispl
         Icon(
           virtualDisplay ? Icons.check_circle : Icons.arrow_forward,
           size: 16,
-          color: virtualDisplay ? const Color(0xFF2E7D32) : const Color(0xFFFF6F00),
+          color: virtualDisplay
+              ? const Color(0xFF2E7D32)
+              : const Color(0xFFFF6F00),
         ),
         const SizedBox(width: 8),
         Expanded(
           flex: 3,
-          child: Text(scenario,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(scenario, style: TextStyle(fontSize: 10, color: color)),
         ),
         Expanded(
           flex: 2,
@@ -949,9 +1170,14 @@ Widget _eaDecisionItem(String scenario, String recommendation, bool virtualDispl
               color: color.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(recommendation,
-                style: TextStyle(
-                    fontSize: 9, fontWeight: FontWeight.w600, color: color)),
+            child: Text(
+              recommendation,
+              style: TextStyle(
+                fontSize: 9,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
           ),
         ),
       ],
@@ -975,13 +1201,20 @@ Widget _eaThreadRow(String thread, String role, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 100,
-          child: Text(thread,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            thread,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(role,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            role,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -1007,11 +1240,21 @@ Widget _eaUseCaseItem(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 11, fontWeight: FontWeight.bold, color: color)),
-              Text(desc,
-                  style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),

@@ -92,8 +92,7 @@ class _DemoRoot extends StatelessWidget {
       length: _tabLabels.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:
-              Theme.of(context).colorScheme.primaryContainer,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           title: const Text(
             'OrientationBuilder',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -102,9 +101,7 @@ class _DemoRoot extends StatelessWidget {
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             onTap: (int i) => _activeTabIndex.value = i,
-            tabs: _tabLabels
-                .map((String t) => Tab(text: t))
-                .toList(),
+            tabs: _tabLabels.map((String t) => Tab(text: t)).toList(),
           ),
         ),
         body: const TabBarView(
@@ -154,15 +151,18 @@ class _HeroTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Icon(Icons.screen_rotation,
-                    size: 56, color: Colors.white),
+                const Icon(
+                  Icons.screen_rotation,
+                  size: 56,
+                  color: Colors.white,
+                ),
                 const SizedBox(height: 16),
                 Text(
                   'OrientationBuilder',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 const Text(
@@ -227,26 +227,32 @@ class _HeroTab extends StatelessWidget {
               children: <Widget>[
                 _CompareRow(
                   label: 'Trigger',
-                  left: 'Layout constraint change\n(LayoutBuilder under the hood)',
+                  left:
+                      'Layout constraint change\n(LayoutBuilder under the hood)',
                   right: 'Platform sensor / window size\nreported by the OS',
                 ),
                 const Divider(),
                 _CompareRow(
                   label: 'Scope',
-                  left: 'Local to the widget subtree;\nindependent of window size',
+                  left:
+                      'Local to the widget subtree;\nindependent of window size',
                   right: 'Global — reflects the whole\napplication window',
                 ),
                 const Divider(),
                 _CompareRow(
                   label: 'Sandboxed',
-                  left: 'Works in Flutter web previews,\ntests, and d4rt sandbox',
-                  right: 'May return portrait in a\nlandscape-windowed browser tab',
+                  left:
+                      'Works in Flutter web previews,\ntests, and d4rt sandbox',
+                  right:
+                      'May return portrait in a\nlandscape-windowed browser tab',
                 ),
                 const Divider(),
                 _CompareRow(
                   label: 'Best for',
-                  left: 'Adaptive child widgets that\nneed their own layout context',
-                  right: 'Global orientation decisions\n(route, theme, locking)',
+                  left:
+                      'Adaptive child widgets that\nneed their own layout context',
+                  right:
+                      'Global orientation decisions\n(route, theme, locking)',
                 ),
               ],
             ),
@@ -256,9 +262,7 @@ class _HeroTab extends StatelessWidget {
           // Key insight callout
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .colorScheme
-                  .tertiaryContainer,
+              color: Theme.of(context).colorScheme.tertiaryContainer,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: Theme.of(context).colorScheme.tertiary,
@@ -268,8 +272,10 @@ class _HeroTab extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: <Widget>[
-                Icon(Icons.lightbulb,
-                    color: Theme.of(context).colorScheme.tertiary),
+                Icon(
+                  Icons.lightbulb,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -278,9 +284,7 @@ class _HeroTab extends StatelessWidget {
                     'get a different "orientation" result than the full window '
                     '— great for split-screen adaptive layouts.',
                     style: TextStyle(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onTertiaryContainer,
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
                       height: 1.5,
                     ),
                   ),
@@ -324,10 +328,9 @@ class _ToggleTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Simulated Orientation Toggle',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
@@ -335,10 +338,9 @@ class _ToggleTab extends StatelessWidget {
             'we drive orientation via a ValueNotifier<Orientation> and wrap '
             'the demo area in a MediaQuery override so OrientationBuilder '
             'sees the simulated size.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 20),
 
@@ -383,7 +385,9 @@ class _ToggleTab extends StatelessWidget {
                   // Status badge
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
+                      vertical: 10,
+                      horizontal: 16,
+                    ),
                     decoration: BoxDecoration(
                       color: ori == Orientation.portrait
                           ? const Color(0xFF1565C0)
@@ -412,7 +416,9 @@ class _ToggleTab extends StatelessWidget {
                         Text(
                           '(${fakeSize.width.toInt()} × ${fakeSize.height.toInt()})',
                           style: const TextStyle(
-                              color: Colors.white70, fontSize: 13),
+                            color: Colors.white70,
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
@@ -436,12 +442,12 @@ class _ToggleTab extends StatelessWidget {
                         child: MediaQuery(
                           data: MediaQuery.of(ctx).copyWith(size: fakeSize),
                           child: OrientationBuilder(
-                            builder: (BuildContext innerCtx,
-                                Orientation innerOri) {
-                              return _OrientationViewport(
-                                orientation: innerOri,
-                              );
-                            },
+                            builder:
+                                (BuildContext innerCtx, Orientation innerOri) {
+                                  return _OrientationViewport(
+                                    orientation: innerOri,
+                                  );
+                                },
                           ),
                         ),
                       ),
@@ -487,9 +493,7 @@ class _OrientationViewport extends StatelessWidget {
     final ColorScheme cs = Theme.of(context).colorScheme;
 
     return Container(
-      color: isLandscape
-          ? cs.primaryContainer
-          : cs.secondaryContainer,
+      color: isLandscape ? cs.primaryContainer : cs.secondaryContainer,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -516,15 +520,14 @@ class _OrientationViewport extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              isLandscape
-                  ? 'maxWidth ≥ maxHeight'
-                  : 'maxWidth < maxHeight',
+              isLandscape ? 'maxWidth ≥ maxHeight' : 'maxWidth < maxHeight',
               style: TextStyle(
                 fontSize: 12,
-                color: (isLandscape
-                        ? cs.onPrimaryContainer
-                        : cs.onSecondaryContainer)
-                    .withAlpha(178),
+                color:
+                    (isLandscape
+                            ? cs.onPrimaryContainer
+                            : cs.onSecondaryContainer)
+                        .withAlpha(178),
               ),
             ),
           ],
@@ -549,20 +552,17 @@ class _AdaptiveGridTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Adaptive Grid Layout',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Portrait → 2 columns.  Landscape → 4 columns.\n'
             'OrientationBuilder drives the crossAxisCount.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -602,16 +602,18 @@ class _AdaptiveGridTab extends StatelessWidget {
                 data: MediaQuery.of(ctx).copyWith(size: fakeSize),
                 child: OrientationBuilder(
                   builder: (BuildContext innerCtx, Orientation innerOri) {
-                    final int cols =
-                        innerOri == Orientation.landscape ? 4 : 2;
+                    final int cols = innerOri == Orientation.landscape ? 4 : 2;
                     return Column(
                       children: <Widget>[
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 6),
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
-                            color:
-                                Theme.of(innerCtx).colorScheme.primaryContainer,
+                            color: Theme.of(
+                              innerCtx,
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
@@ -619,9 +621,9 @@ class _AdaptiveGridTab extends StatelessWidget {
                             '${innerOri == Orientation.portrait ? "Portrait" : "Landscape"}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(innerCtx)
-                                  .colorScheme
-                                  .onPrimaryContainer,
+                              color: Theme.of(
+                                innerCtx,
+                              ).colorScheme.onPrimaryContainer,
                             ),
                           ),
                         ),
@@ -631,11 +633,11 @@ class _AdaptiveGridTab extends StatelessWidget {
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: cols,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1.2,
-                          ),
+                                crossAxisCount: cols,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1.2,
+                              ),
                           itemCount: _cardColors.length,
                           itemBuilder: (BuildContext c, int i) {
                             return _GridCard(
@@ -742,20 +744,17 @@ class _AdaptiveNavTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Adaptive Navigation',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Portrait → BottomNavigationBar.\n'
             'Landscape → NavigationRail (left-side vertical nav).',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -788,7 +787,8 @@ class _AdaptiveNavTab extends StatelessWidget {
             height: 340,
             decoration: BoxDecoration(
               border: Border.all(
-                  color: Theme.of(context).colorScheme.outlineVariant),
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ClipRRect(
@@ -854,23 +854,27 @@ class _NavShell extends StatelessWidget {
 
   static const List<NavigationDestination> _destinations =
       <NavigationDestination>[
-    NavigationDestination(
-        icon: Icon(Icons.home_outlined),
-        selectedIcon: Icon(Icons.home),
-        label: 'Home'),
-    NavigationDestination(
-        icon: Icon(Icons.search_outlined),
-        selectedIcon: Icon(Icons.search),
-        label: 'Search'),
-    NavigationDestination(
-        icon: Icon(Icons.favorite_border),
-        selectedIcon: Icon(Icons.favorite),
-        label: 'Saved'),
-    NavigationDestination(
-        icon: Icon(Icons.person_outline),
-        selectedIcon: Icon(Icons.person),
-        label: 'Profile'),
-  ];
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.search_outlined),
+          selectedIcon: Icon(Icons.search),
+          label: 'Search',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.favorite_border),
+          selectedIcon: Icon(Icons.favorite),
+          label: 'Saved',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ];
 
   static const List<String> _pageLabels = <String>[
     'Home Content',
@@ -894,7 +898,7 @@ class _NavShell extends StatelessWidget {
                   Icons.home,
                   Icons.search,
                   Icons.favorite,
-                  Icons.person
+                  Icons.person,
                 ][selectedIndex],
                 size: 48,
                 color: Theme.of(context).colorScheme.primary,
@@ -910,8 +914,8 @@ class _NavShell extends StatelessWidget {
                     ? 'NavigationRail (landscape)'
                     : 'BottomNavigationBar (portrait)',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -927,11 +931,13 @@ class _NavShell extends StatelessWidget {
             onDestinationSelected: onDestinationSelected,
             labelType: NavigationRailLabelType.all,
             destinations: _destinations
-                .map((NavigationDestination d) => NavigationRailDestination(
-                      icon: d.icon,
-                      selectedIcon: d.selectedIcon,
-                      label: Text(d.label),
-                    ))
+                .map(
+                  (NavigationDestination d) => NavigationRailDestination(
+                    icon: d.icon,
+                    selectedIcon: d.selectedIcon,
+                    label: Text(d.label),
+                  ),
+                )
                 .toList(),
           ),
           const VerticalDivider(thickness: 1, width: 1),
@@ -968,20 +974,17 @@ class _AdaptiveAppBarTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Adaptive AppBar',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Portrait → compact AppBar with title + menu icon.\n'
             'Landscape → expanded AppBar with inline action buttons.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -1013,7 +1016,8 @@ class _AdaptiveAppBarTab extends StatelessWidget {
             height: 280,
             decoration: BoxDecoration(
               border: Border.all(
-                  color: Theme.of(context).colorScheme.outlineVariant),
+                color: Theme.of(context).colorScheme.outlineVariant,
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: ClipRRect(
@@ -1028,8 +1032,7 @@ class _AdaptiveAppBarTab extends StatelessWidget {
                     data: MediaQuery.of(ctx).copyWith(size: fakeSize),
                     child: OrientationBuilder(
                       builder: (BuildContext innerCtx, Orientation innerOri) {
-                        return _AdaptiveAppBarPreview(
-                            orientation: innerOri);
+                        return _AdaptiveAppBarPreview(orientation: innerOri);
                       },
                     ),
                   );
@@ -1104,8 +1107,7 @@ class _AdaptiveAppBarPreview extends StatelessWidget {
             color: cs.onPrimaryContainer,
           ),
         ),
-        actions:
-            isLandscape ? landscapeActions : portraitActions,
+        actions: isLandscape ? landscapeActions : portraitActions,
       ),
       body: Center(
         child: Column(
@@ -1120,9 +1122,7 @@ class _AdaptiveAppBarPreview extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              isLandscape
-                  ? 'Inline actions visible'
-                  : 'Actions hidden in menu',
+              isLandscape ? 'Inline actions visible' : 'Actions hidden in menu',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
@@ -1147,20 +1147,17 @@ class _AdaptiveFormTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Adaptive Form Layout',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Portrait → fields stacked vertically.\n'
             'Landscape → fields arranged in two columns.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -1269,8 +1266,7 @@ class _AdaptiveForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(20),
@@ -1284,10 +1280,7 @@ class _AdaptiveForm extends StatelessWidget {
           const SizedBox(height: 16),
           ...rows,
           const SizedBox(height: 16),
-          FilledButton(
-            onPressed: () {},
-            child: const Text('Submit'),
-          ),
+          FilledButton(onPressed: () {}, child: const Text('Submit')),
         ],
       );
     }
@@ -1297,8 +1290,7 @@ class _AdaptiveForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.secondaryContainer,
             borderRadius: BorderRadius.circular(20),
@@ -1310,14 +1302,11 @@ class _AdaptiveForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        ...fieldWidgets.map((Widget w) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: w,
-            )),
-        FilledButton(
-          onPressed: () {},
-          child: const Text('Submit'),
+        ...fieldWidgets.map(
+          (Widget w) =>
+              Padding(padding: const EdgeInsets.only(bottom: 12), child: w),
         ),
+        FilledButton(onPressed: () {}, child: const Text('Submit')),
       ],
     );
   }
@@ -1361,20 +1350,17 @@ class _LayoutBuilderComparisonTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'OrientationBuilder vs LayoutBuilder',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'OrientationBuilder is a thin convenience wrapper around '
             'LayoutBuilder. The two panels below show equivalent code.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 20),
 
@@ -1429,31 +1415,41 @@ class _LayoutBuilderComparisonTab extends StatelessWidget {
                     _TableCell(text: 'LayoutBuilder', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Callback param'),
-                  _TableCell(text: 'Orientation enum'),
-                  _TableCell(text: 'BoxConstraints'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Decision'),
-                  _TableCell(text: 'Portrait / Landscape'),
-                  _TableCell(text: 'Full constraint set'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Flexibility'),
-                  _TableCell(text: 'Binary only'),
-                  _TableCell(text: 'Any breakpoint'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Verbosity'),
-                  _TableCell(text: 'Less (abstracts logic)'),
-                  _TableCell(text: 'More (explicit math)'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Use case'),
-                  _TableCell(text: 'Orientation switches'),
-                  _TableCell(text: 'Custom breakpoints'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Callback param'),
+                    _TableCell(text: 'Orientation enum'),
+                    _TableCell(text: 'BoxConstraints'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Decision'),
+                    _TableCell(text: 'Portrait / Landscape'),
+                    _TableCell(text: 'Full constraint set'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Flexibility'),
+                    _TableCell(text: 'Binary only'),
+                    _TableCell(text: 'Any breakpoint'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Verbosity'),
+                    _TableCell(text: 'Less (abstracts logic)'),
+                    _TableCell(text: 'More (explicit math)'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Use case'),
+                    _TableCell(text: 'Orientation switches'),
+                    _TableCell(text: 'Custom breakpoints'),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1530,8 +1526,7 @@ class _OrientationBuilderPanel extends StatelessWidget {
             'OrientationBuilder',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color:
-                  Theme.of(outerContext).colorScheme.onPrimaryContainer,
+              color: Theme.of(outerContext).colorScheme.onPrimaryContainer,
             ),
           ),
           const SizedBox(height: 8),
@@ -1544,8 +1539,7 @@ class _OrientationBuilderPanel extends StatelessWidget {
             '      : LandscapeWidget();\n'
             '  },\n'
             ')',
-            style:
-                TextStyle(fontFamily: 'monospace', fontSize: 11),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
           ),
           const SizedBox(height: 10),
           // Live demo
@@ -1589,8 +1583,7 @@ class _LayoutBuilderPanel extends StatelessWidget {
             'LayoutBuilder (equivalent)',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color:
-                  Theme.of(outerContext).colorScheme.onSecondaryContainer,
+              color: Theme.of(outerContext).colorScheme.onSecondaryContainer,
             ),
           ),
           const SizedBox(height: 8),
@@ -1604,8 +1597,7 @@ class _LayoutBuilderPanel extends StatelessWidget {
             '      : PortraitWidget();\n'
             '  },\n'
             ')',
-            style:
-                TextStyle(fontFamily: 'monospace', fontSize: 11),
+            style: TextStyle(fontFamily: 'monospace', fontSize: 11),
           ),
           const SizedBox(height: 10),
           // Live demo
@@ -1646,20 +1638,17 @@ class _MediaQueryOrientationTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'OrientationBuilder vs MediaQuery.orientation',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Both should agree when wrapping the full screen. '
             'This tab demonstrates that alignment and explains when they diverge.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 16),
 
@@ -1697,8 +1686,9 @@ class _MediaQueryOrientationTab extends StatelessWidget {
                 data: MediaQuery.of(ctx).copyWith(size: fakeSize),
                 child: Builder(
                   builder: (BuildContext innerCtx) {
-                    final Orientation mqOri =
-                        MediaQuery.of(innerCtx).orientation;
+                    final Orientation mqOri = MediaQuery.of(
+                      innerCtx,
+                    ).orientation;
                     return OrientationBuilder(
                       builder: (BuildContext obCtx, Orientation obOri) {
                         final bool agree = mqOri == obOri;
@@ -1725,19 +1715,16 @@ class _MediaQueryOrientationTab extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(
-                                    agree
-                                        ? Icons.check_circle
-                                        : Icons.warning,
+                                    agree ? Icons.check_circle : Icons.warning,
                                     color: Colors.white,
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
                                     agree
-                                        ? 'They agree: both ${ obOri == Orientation.portrait ? "Portrait" : "Landscape"}'
+                                        ? 'They agree: both ${obOri == Orientation.portrait ? "Portrait" : "Landscape"}'
                                         : 'They DISAGREE — split layout detected',
                                     style: const TextStyle(
                                       color: Colors.white,
@@ -1820,8 +1807,7 @@ class _OrientationReadout extends StatelessWidget {
               children: <Widget>[
                 Text(
                   source,
-                  style: const TextStyle(
-                      color: Colors.white70, fontSize: 11),
+                  style: const TextStyle(color: Colors.white70, fontSize: 11),
                 ),
                 Text(
                   isLandscape ? 'LANDSCAPE' : 'PORTRAIT',
@@ -1833,8 +1819,7 @@ class _OrientationReadout extends StatelessWidget {
                 ),
                 Text(
                   label,
-                  style: const TextStyle(
-                      color: Colors.white60, fontSize: 10),
+                  style: const TextStyle(color: Colors.white60, fontSize: 10),
                 ),
               ],
             ),
@@ -1860,20 +1845,17 @@ class _DiagramTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Portrait ↔ Landscape Diagram',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'CustomPainter renders device outlines with dimension labels '
             'and arrows showing how width and height swap.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 20),
 
@@ -1952,36 +1934,46 @@ class _DiagramTab extends StatelessWidget {
                     _TableCell(text: 'Result', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Phone portrait'),
-                  _TableCell(text: '360'),
-                  _TableCell(text: '780'),
-                  _TableCell(text: 'portrait'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Phone landscape'),
-                  _TableCell(text: '780'),
-                  _TableCell(text: '360'),
-                  _TableCell(text: 'landscape'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Tablet portrait'),
-                  _TableCell(text: '768'),
-                  _TableCell(text: '1024'),
-                  _TableCell(text: 'portrait'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Tablet landscape'),
-                  _TableCell(text: '1024'),
-                  _TableCell(text: '768'),
-                  _TableCell(text: 'landscape'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Square (rare)'),
-                  _TableCell(text: '400'),
-                  _TableCell(text: '400'),
-                  _TableCell(text: 'landscape'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Phone portrait'),
+                    _TableCell(text: '360'),
+                    _TableCell(text: '780'),
+                    _TableCell(text: 'portrait'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Phone landscape'),
+                    _TableCell(text: '780'),
+                    _TableCell(text: '360'),
+                    _TableCell(text: 'landscape'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Tablet portrait'),
+                    _TableCell(text: '768'),
+                    _TableCell(text: '1024'),
+                    _TableCell(text: 'portrait'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Tablet landscape'),
+                    _TableCell(text: '1024'),
+                    _TableCell(text: '768'),
+                    _TableCell(text: 'landscape'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Square (rare)'),
+                    _TableCell(text: '400'),
+                    _TableCell(text: '400'),
+                    _TableCell(text: 'landscape'),
+                  ],
+                ),
               ],
             ),
           ),
@@ -2015,9 +2007,7 @@ class _DeviceDiagramPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
-    final TextPainter tp = TextPainter(
-      textDirection: TextDirection.ltr,
-    );
+    final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
 
     final double cx = size.width / 2;
     final double midY = size.height / 2;
@@ -2036,11 +2026,7 @@ class _DeviceDiagramPainter extends CustomPainter {
     canvas.drawRRect(portraitRRect, framePaint);
 
     // Home button circle
-    canvas.drawCircle(
-      Offset(pLeft + pW / 2, pTop + pH - 10),
-      5,
-      framePaint,
-    );
+    canvas.drawCircle(Offset(pLeft + pW / 2, pTop + pH - 10), 5, framePaint);
 
     // Speaker
     final RRect speaker1 = RRect.fromRectAndRadius(
@@ -2050,20 +2036,43 @@ class _DeviceDiagramPainter extends CustomPainter {
     canvas.drawRRect(speaker1, framePaint);
 
     // Width arrow for portrait
-    _drawArrow(canvas, arrowPaint,
-        Offset(pLeft, pTop - 14), Offset(pLeft + pW, pTop - 14));
-    _drawLabel(canvas, tp, onSurface, '${pW.toInt()}px  W',
-        Offset(pLeft + pW / 2, pTop - 22));
+    _drawArrow(
+      canvas,
+      arrowPaint,
+      Offset(pLeft, pTop - 14),
+      Offset(pLeft + pW, pTop - 14),
+    );
+    _drawLabel(
+      canvas,
+      tp,
+      onSurface,
+      '${pW.toInt()}px  W',
+      Offset(pLeft + pW / 2, pTop - 22),
+    );
 
     // Height arrow for portrait
-    _drawArrow(canvas, arrowPaint,
-        Offset(pLeft + pW + 12, pTop), Offset(pLeft + pW + 12, pTop + pH));
-    _drawLabel(canvas, tp, onSurface, '${pH.toInt()}px\nH',
-        Offset(pLeft + pW + 30, midY));
+    _drawArrow(
+      canvas,
+      arrowPaint,
+      Offset(pLeft + pW + 12, pTop),
+      Offset(pLeft + pW + 12, pTop + pH),
+    );
+    _drawLabel(
+      canvas,
+      tp,
+      onSurface,
+      '${pH.toInt()}px\nH',
+      Offset(pLeft + pW + 30, midY),
+    );
 
     // Portrait label
-    _drawLabel(canvas, tp, primaryColor, 'PORTRAIT\nW < H',
-        Offset(pLeft + pW / 2, pTop + pH + 20));
+    _drawLabel(
+      canvas,
+      tp,
+      primaryColor,
+      'PORTRAIT\nW < H',
+      Offset(pLeft + pW / 2, pTop + pH + 20),
+    );
 
     // --- Landscape device (right half) ---
     const double lW = 130;
@@ -2079,11 +2088,7 @@ class _DeviceDiagramPainter extends CustomPainter {
     canvas.drawRRect(landscapeRRect, framePaint);
 
     // Home button (right side in landscape)
-    canvas.drawCircle(
-      Offset(lLeft + lW - 10, lTop + lH / 2),
-      5,
-      framePaint,
-    );
+    canvas.drawCircle(Offset(lLeft + lW - 10, lTop + lH / 2), 5, framePaint);
 
     // Speaker (top in landscape)
     final RRect speaker2 = RRect.fromRectAndRadius(
@@ -2093,20 +2098,43 @@ class _DeviceDiagramPainter extends CustomPainter {
     canvas.drawRRect(speaker2, framePaint);
 
     // Width arrow for landscape
-    _drawArrow(canvas, arrowPaint,
-        Offset(lLeft, lTop - 14), Offset(lLeft + lW, lTop - 14));
-    _drawLabel(canvas, tp, onSurface, '${lW.toInt()}px  W',
-        Offset(lLeft + lW / 2, lTop - 22));
+    _drawArrow(
+      canvas,
+      arrowPaint,
+      Offset(lLeft, lTop - 14),
+      Offset(lLeft + lW, lTop - 14),
+    );
+    _drawLabel(
+      canvas,
+      tp,
+      onSurface,
+      '${lW.toInt()}px  W',
+      Offset(lLeft + lW / 2, lTop - 22),
+    );
 
     // Height arrow for landscape
-    _drawArrow(canvas, arrowPaint,
-        Offset(lLeft + lW + 12, lTop), Offset(lLeft + lW + 12, lTop + lH));
-    _drawLabel(canvas, tp, onSurface, '${lH.toInt()}px H',
-        Offset(lLeft + lW + 36, midY));
+    _drawArrow(
+      canvas,
+      arrowPaint,
+      Offset(lLeft + lW + 12, lTop),
+      Offset(lLeft + lW + 12, lTop + lH),
+    );
+    _drawLabel(
+      canvas,
+      tp,
+      onSurface,
+      '${lH.toInt()}px H',
+      Offset(lLeft + lW + 36, midY),
+    );
 
     // Landscape label
-    _drawLabel(canvas, tp, const Color(0xFF2E7D32), 'LANDSCAPE\nW ≥ H',
-        Offset(lLeft + lW / 2, lTop + lH + 20));
+    _drawLabel(
+      canvas,
+      tp,
+      const Color(0xFF2E7D32),
+      'LANDSCAPE\nW ≥ H',
+      Offset(lLeft + lW / 2, lTop + lH + 20),
+    );
 
     // Central arrow between devices
     _drawArrow(
@@ -2118,26 +2146,22 @@ class _DeviceDiagramPainter extends CustomPainter {
       Offset(pLeft + pW + 20, midY),
       Offset(lLeft - 20, midY),
     );
-    _drawLabel(canvas, tp, const Color(0xFF6750A4), 'rotate',
-        Offset(cx, midY - 14));
+    _drawLabel(
+      canvas,
+      tp,
+      const Color(0xFF6750A4),
+      'rotate',
+      Offset(cx, midY - 14),
+    );
   }
 
-  void _drawArrow(
-      Canvas canvas, Paint paint, Offset from, Offset to) {
+  void _drawArrow(Canvas canvas, Paint paint, Offset from, Offset to) {
     canvas.drawLine(from, to, paint);
     final Offset dir = (to - from) / (to - from).distance;
     const double arrowSize = 7;
     final Offset perp = Offset(-dir.dy, dir.dx);
-    canvas.drawLine(
-      to,
-      to - dir * arrowSize + perp * arrowSize / 2,
-      paint,
-    );
-    canvas.drawLine(
-      to,
-      to - dir * arrowSize - perp * arrowSize / 2,
-      paint,
-    );
+    canvas.drawLine(to, to - dir * arrowSize + perp * arrowSize / 2, paint);
+    canvas.drawLine(to, to - dir * arrowSize - perp * arrowSize / 2, paint);
     // Also draw arrow at from end
     final Offset revDir = -dir;
     canvas.drawLine(
@@ -2152,21 +2176,19 @@ class _DeviceDiagramPainter extends CustomPainter {
     );
   }
 
-  void _drawLabel(Canvas canvas, TextPainter tp, Color color,
-      String text, Offset center) {
+  void _drawLabel(
+    Canvas canvas,
+    TextPainter tp,
+    Color color,
+    String text,
+    Offset center,
+  ) {
     tp.text = TextSpan(
       text: text,
-      style: TextStyle(
-        color: color,
-        fontSize: 10,
-        fontWeight: FontWeight.bold,
-      ),
+      style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
     );
     tp.layout();
-    tp.paint(
-      canvas,
-      center - Offset(tp.width / 2, tp.height / 2),
-    );
+    tp.paint(canvas, center - Offset(tp.width / 2, tp.height / 2));
   }
 
   @override
@@ -2235,20 +2257,17 @@ class _UseCasesTab extends StatelessWidget {
         children: <Widget>[
           Text(
             'Use Cases + API Cheat Sheet',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           Text(
             'Six real-world scenarios where OrientationBuilder is the '
             'right tool, plus the full property reference.',
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 20),
 
@@ -2256,8 +2275,7 @@ class _UseCasesTab extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate:
-                const SliverGridDelegateWithMaxCrossAxisExtent(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 320,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
@@ -2274,10 +2292,9 @@ class _UseCasesTab extends StatelessWidget {
           // API cheat sheet
           Text(
             'API Cheat Sheet',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
 
@@ -2305,17 +2322,22 @@ class _UseCasesTab extends StatelessWidget {
                     _TableCell(text: 'Description', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'key'),
-                  _TableCell(text: 'Key?'),
-                  _TableCell(text: 'Widget identity key (optional)'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'builder'),
-                  _TableCell(text: 'OrientationWidgetBuilder'),
-                  _TableCell(
-                      text: 'Required. Called with (context, orientation)'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'key'),
+                    _TableCell(text: 'Key?'),
+                    _TableCell(text: 'Widget identity key (optional)'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'builder'),
+                    _TableCell(text: 'OrientationWidgetBuilder'),
+                    _TableCell(
+                      text: 'Required. Called with (context, orientation)',
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -2343,14 +2365,18 @@ class _UseCasesTab extends StatelessWidget {
                     _TableCell(text: 'Condition', isHeader: true),
                   ],
                 ),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Orientation.portrait'),
-                  _TableCell(text: 'maxWidth < maxHeight'),
-                ]),
-                const TableRow(children: <Widget>[
-                  _TableCell(text: 'Orientation.landscape'),
-                  _TableCell(text: 'maxWidth >= maxHeight'),
-                ]),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Orientation.portrait'),
+                    _TableCell(text: 'maxWidth < maxHeight'),
+                  ],
+                ),
+                const TableRow(
+                  children: <Widget>[
+                    _TableCell(text: 'Orientation.landscape'),
+                    _TableCell(text: 'maxWidth >= maxHeight'),
+                  ],
+                ),
               ],
             ),
           ),
@@ -2363,23 +2389,28 @@ class _UseCasesTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const <Widget>[
                 _BulletItem(
-                  text: 'Use OrientationBuilder when you only need '
+                  text:
+                      'Use OrientationBuilder when you only need '
                       'portrait/landscape — cleaner API.',
                 ),
                 _BulletItem(
-                  text: 'Use LayoutBuilder when you need custom breakpoints '
+                  text:
+                      'Use LayoutBuilder when you need custom breakpoints '
                       '(e.g., compact < 400px, medium 400–800px, expanded > 800px).',
                 ),
                 _BulletItem(
-                  text: 'Use MediaQuery.of(context).orientation only for '
+                  text:
+                      'Use MediaQuery.of(context).orientation only for '
                       'global decisions (lock rotation, record analytics).',
                 ),
                 _BulletItem(
-                  text: 'In tests and sandboxes, inject a MediaQuery size '
+                  text:
+                      'In tests and sandboxes, inject a MediaQuery size '
                       'override to simulate rotation without a real device.',
                 ),
                 _BulletItem(
-                  text: 'OrientationBuilder is const-constructible — prefer '
+                  text:
+                      'OrientationBuilder is const-constructible — prefer '
                       'it when the subtree is otherwise constant.',
                 ),
               ],
@@ -2458,8 +2489,7 @@ class _UseCaseCard extends StatelessWidget {
           const SizedBox(height: 10),
           const Text(
             'Portrait',
-            style: TextStyle(
-                color: Colors.white54, fontSize: 10),
+            style: TextStyle(color: Colors.white54, fontSize: 10),
           ),
           Text(
             data.portrait,
@@ -2468,8 +2498,7 @@ class _UseCaseCard extends StatelessWidget {
           const SizedBox(height: 6),
           const Text(
             'Landscape',
-            style: TextStyle(
-                color: Colors.white54, fontSize: 10),
+            style: TextStyle(color: Colors.white54, fontSize: 10),
           ),
           Text(
             data.landscape,
@@ -2525,9 +2554,7 @@ class _SectionCard extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.outlineVariant,
-        ),
+        side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -2536,17 +2563,18 @@ class _SectionCard extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Icon(icon,
-                    size: 18,
-                    color: Theme.of(context).colorScheme.primary),
+                Icon(
+                  icon,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     title,
-                    style:
-                        Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -2584,13 +2612,13 @@ class _CompareRow extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          Expanded(
-            child: Text(left, style: const TextStyle(fontSize: 13)),
-          ),
+          Expanded(child: Text(left, style: const TextStyle(fontSize: 13))),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(right,
-                style: const TextStyle(fontSize: 13, color: Colors.grey)),
+            child: Text(
+              right,
+              style: const TextStyle(fontSize: 13, color: Colors.grey),
+            ),
           ),
         ],
       ),
@@ -2638,9 +2666,7 @@ class _BulletItem extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          Expanded(
-            child: Text(text, style: const TextStyle(height: 1.5)),
-          ),
+          Expanded(child: Text(text, style: const TextStyle(height: 1.5))),
         ],
       ),
     );

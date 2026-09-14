@@ -53,21 +53,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: coral, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -84,11 +90,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: petal),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: deepCrimson.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: deepCrimson.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -116,14 +125,18 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
             decoration: BoxDecoration(
               color: paleRose,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(7)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(7),
+              ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: deepCrimson)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: deepCrimson,
+              ),
+            ),
           ),
           Padding(padding: const EdgeInsets.all(12), child: content),
         ],
@@ -139,9 +152,10 @@ dynamic build(BuildContext context) {
         color: bg,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(label,
-          style:
-              TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: fg),
+      ),
     );
   }
 
@@ -153,15 +167,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 160,
-            child: Text(label,
-                style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: deepCrimson)),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: deepCrimson,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: TextStyle(fontSize: 12, color: maroon)),
+            child: Text(value, style: TextStyle(fontSize: 12, color: maroon)),
           ),
         ],
       ),
@@ -180,13 +196,17 @@ dynamic build(BuildContext context) {
               color: color,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: deepCrimson.withValues(alpha: 0.15), width: 1),
+                color: deepCrimson.withValues(alpha: 0.15),
+                width: 1,
+              ),
             ),
           ),
           const SizedBox(height: 4),
-          Text(name,
-              style: TextStyle(fontSize: 9, color: deepCrimson),
-              textAlign: TextAlign.center),
+          Text(
+            name,
+            style: TextStyle(fontSize: 9, color: deepCrimson),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );
@@ -201,13 +221,15 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(label,
-                  style: TextStyle(fontSize: 11, color: deepCrimson)),
-              Text('${(fraction * 100).toStringAsFixed(0)}%',
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: color)),
+              Text(label, style: TextStyle(fontSize: 11, color: deepCrimson)),
+              Text(
+                '${(fraction * 100).toStringAsFixed(0)}%',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 3),
@@ -248,20 +270,24 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 100,
-            child: Text(name,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: accent)),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: accent,
+              ),
+            ),
           ),
           SizedBox(
             width: 70,
-            child: Text(type,
-                style: TextStyle(fontSize: 10, color: maroon)),
+            child: Text(type, style: TextStyle(fontSize: 10, color: maroon)),
           ),
           Expanded(
-            child: Text(example,
-                style: TextStyle(fontSize: 10, color: deepCrimson)),
+            child: Text(
+              example,
+              style: TextStyle(fontSize: 10, color: deepCrimson),
+            ),
           ),
         ],
       ),
@@ -277,8 +303,9 @@ dynamic build(BuildContext context) {
         color: selected ? nodeColor.withValues(alpha: 0.12) : Colors.white,
         borderRadius: BorderRadius.circular(4),
         border: Border.all(
-            color: selected ? nodeColor : petal,
-            width: selected ? 2 : 1),
+          color: selected ? nodeColor : petal,
+          width: selected ? 2 : 1,
+        ),
       ),
       child: Row(
         children: [
@@ -288,11 +315,14 @@ dynamic build(BuildContext context) {
             color: selected ? nodeColor : coral.withValues(alpha: 0.5),
           ),
           const SizedBox(width: 6),
-          Text(label,
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.normal,
-                  color: selected ? nodeColor : deepCrimson)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.normal,
+              color: selected ? nodeColor : deepCrimson,
+            ),
+          ),
         ],
       ),
     );
@@ -311,14 +341,19 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$fieldName: ',
-              style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: accent)),
+          Text(
+            '$fieldName: ',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: accent,
+            ),
+          ),
           Expanded(
-            child: Text(fieldValue,
-                style: TextStyle(fontSize: 11, color: deepCrimson)),
+            child: Text(
+              fieldValue,
+              style: TextStyle(fontSize: 11, color: deepCrimson),
+            ),
           ),
         ],
       ),
@@ -333,34 +368,37 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('01', 'Overview & Purpose'),
       noteBox(
-          'InspectorReferenceData is a data container used by the Flutter '
-          'widget inspector to hold references to widgets, render objects, '
-          'and their associated diagnostic information. It bridges the '
-          'running widget tree with the inspector\'s display.'),
+        'InspectorReferenceData is a data container used by the Flutter '
+        'widget inspector to hold references to widgets, render objects, '
+        'and their associated diagnostic information. It bridges the '
+        'running widget tree with the inspector\'s display.',
+      ),
       infoCard(
-          'Core Identity',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Type', 'Data class / container'),
-              dataRow('Package', 'flutter/widgets (widgetInspector)'),
-              dataRow('Purpose', 'Hold inspector reference info'),
-              dataRow('Consumers', 'Inspector panel, DevTools'),
-              dataRow('Lifecycle', 'Created per selection, discarded'),
-            ],
-          )),
+        'Core Identity',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Type', 'Data class / container'),
+            dataRow('Package', 'flutter/widgets (widgetInspector)'),
+            dataRow('Purpose', 'Hold inspector reference info'),
+            dataRow('Consumers', 'Inspector panel, DevTools'),
+            dataRow('Lifecycle', 'Created per selection, discarded'),
+          ],
+        ),
+      ),
       infoCard(
-          'What It Holds',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Widget reference', 'The selected widget instance'),
-              dataRow('Element reference', 'The widget\'s element'),
-              dataRow('RenderObject', 'The render object if available'),
-              dataRow('Properties', 'DiagnosticsNode tree'),
-              dataRow('Location', 'Source file and line number'),
-            ],
-          )),
+        'What It Holds',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Widget reference', 'The selected widget instance'),
+            dataRow('Element reference', 'The widget\'s element'),
+            dataRow('RenderObject', 'The render object if available'),
+            dataRow('Properties', 'DiagnosticsNode tree'),
+            dataRow('Location', 'Source file and line number'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -372,23 +410,30 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('02', 'Data Fields'),
       noteBox(
-          'InspectorReferenceData contains multiple fields that together '
-          'describe everything the inspector needs to display about a '
-          'selected widget.'),
+        'InspectorReferenceData contains multiple fields that together '
+        'describe everything the inspector needs to display about a '
+        'selected widget.',
+      ),
       infoCard(
-          'Field Inventory',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              propertyRow('widget', 'Widget', 'Text("Hello")', crimson),
-              propertyRow('element', 'Element', 'StatelessElement', garnet),
-              propertyRow('renderObject', 'RenderObject?', 'RenderParagraph', maroon),
-              propertyRow('depth', 'int', '12', scarlet),
-              propertyRow('description', 'String', 'Text', crimson),
-              propertyRow('properties', 'List<DiagNode>', '[...props]', garnet),
-              propertyRow('children', 'List<RefData>', '[...kids]', maroon),
-            ],
-          )),
+        'Field Inventory',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            propertyRow('widget', 'Widget', 'Text("Hello")', crimson),
+            propertyRow('element', 'Element', 'StatelessElement', garnet),
+            propertyRow(
+              'renderObject',
+              'RenderObject?',
+              'RenderParagraph',
+              maroon,
+            ),
+            propertyRow('depth', 'int', '12', scarlet),
+            propertyRow('description', 'String', 'Text', crimson),
+            propertyRow('properties', 'List<DiagNode>', '[...props]', garnet),
+            propertyRow('children', 'List<RefData>', '[...kids]', maroon),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -400,25 +445,27 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('03', 'Widget Tree References'),
       noteBox(
-          'The reference data captures a snapshot of the widget tree '
-          'around the selected widget, including parent and children.'),
+        'The reference data captures a snapshot of the widget tree '
+        'around the selected widget, including parent and children.',
+      ),
       infoCard(
-          'Tree Reference Example',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              treeNode('MaterialApp', 0, false, crimson),
-              treeNode('Scaffold', 1, false, crimson),
-              treeNode('Column', 2, false, crimson),
-              treeNode('Padding', 3, true, crimson),
-              treeNode('Text("Hello")', 4, false, crimson),
-              treeNode('Icon(star)', 4, false, crimson),
-              const SizedBox(height: 8),
-              dataRow('Selected', 'Padding (depth 3)'),
-              dataRow('Parent chain', 'Column → Scaffold → MaterialApp'),
-              dataRow('Children', 'Text, Icon'),
-            ],
-          )),
+        'Tree Reference Example',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            treeNode('MaterialApp', 0, false, crimson),
+            treeNode('Scaffold', 1, false, crimson),
+            treeNode('Column', 2, false, crimson),
+            treeNode('Padding', 3, true, crimson),
+            treeNode('Text("Hello")', 4, false, crimson),
+            treeNode('Icon(star)', 4, false, crimson),
+            const SizedBox(height: 8),
+            dataRow('Selected', 'Padding (depth 3)'),
+            dataRow('Parent chain', 'Column → Scaffold → MaterialApp'),
+            dataRow('Children', 'Text, Icon'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -430,33 +477,36 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('04', 'Properties Display'),
       noteBox(
-          'The reference data provides a list of diagnostic properties '
-          'that the inspector displays as key-value pairs.'),
+        'The reference data provides a list of diagnostic properties '
+        'that the inspector displays as key-value pairs.',
+      ),
       infoCard(
-          'Property Types',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('StringProperty', 'Text values like "Hello"'),
-              dataRow('DoubleProperty', 'Numeric values like 16.0'),
-              dataRow('ColorProperty', 'Color values with swatch'),
-              dataRow('EnumProperty', 'Enum values like Axis.vertical'),
-              dataRow('FlagProperty', 'Boolean flags like hasSize'),
-              dataRow('DiagnosticsProperty', 'Complex nested objects'),
-            ],
-          )),
+        'Property Types',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('StringProperty', 'Text values like "Hello"'),
+            dataRow('DoubleProperty', 'Numeric values like 16.0'),
+            dataRow('ColorProperty', 'Color values with swatch'),
+            dataRow('EnumProperty', 'Enum values like Axis.vertical'),
+            dataRow('FlagProperty', 'Boolean flags like hasSize'),
+            dataRow('DiagnosticsProperty', 'Complex nested objects'),
+          ],
+        ),
+      ),
       infoCard(
-          'Example Properties for Padding',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              fieldBlock('padding', 'EdgeInsets.all(16.0)', crimson),
-              fieldBlock('child', 'Text', garnet),
-              fieldBlock('renderObject', 'RenderPadding', maroon),
-              fieldBlock('size', 'Size(375.0, 52.0)', scarlet),
-              fieldBlock('parentData', 'FlexParentData', crimson),
-            ],
-          )),
+        'Example Properties for Padding',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            fieldBlock('padding', 'EdgeInsets.all(16.0)', crimson),
+            fieldBlock('child', 'Text', garnet),
+            fieldBlock('renderObject', 'RenderPadding', maroon),
+            fieldBlock('size', 'Size(375.0, 52.0)', scarlet),
+            fieldBlock('parentData', 'FlexParentData', crimson),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -468,35 +518,38 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('05', 'Render Object Information'),
       noteBox(
-          'When available, the reference data includes render object '
-          'details — size, constraints, paint bounds, and more.'),
+        'When available, the reference data includes render object '
+        'details — size, constraints, paint bounds, and more.',
+      ),
       infoCard(
-          'Render Data Fields',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('type', 'RenderPadding, RenderFlex, etc.'),
-              dataRow('size', 'Width x Height in logical pixels'),
-              dataRow('constraints', 'BoxConstraints min/max'),
-              dataRow('parentData', 'Layout data from parent'),
-              dataRow('needsPaint', 'Whether repaint is scheduled'),
-              dataRow('needsLayout', 'Whether relayout is scheduled'),
-            ],
-          )),
+        'Render Data Fields',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('type', 'RenderPadding, RenderFlex, etc.'),
+            dataRow('size', 'Width x Height in logical pixels'),
+            dataRow('constraints', 'BoxConstraints min/max'),
+            dataRow('parentData', 'Layout data from parent'),
+            dataRow('needsPaint', 'Whether repaint is scheduled'),
+            dataRow('needsLayout', 'Whether relayout is scheduled'),
+          ],
+        ),
+      ),
       infoCard(
-          'Constraints Visualization',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              fieldBlock('minWidth', '0.0', crimson),
-              fieldBlock('maxWidth', '375.0', garnet),
-              fieldBlock('minHeight', '0.0', maroon),
-              fieldBlock('maxHeight', 'Infinity', scarlet),
-              const SizedBox(height: 6),
-              dataRow('Interpretation', 'Width bounded, height unbounded'),
-              dataRow('Typical of', 'Scrollable child'),
-            ],
-          )),
+        'Constraints Visualization',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            fieldBlock('minWidth', '0.0', crimson),
+            fieldBlock('maxWidth', '375.0', garnet),
+            fieldBlock('minHeight', '0.0', maroon),
+            fieldBlock('maxHeight', 'Infinity', scarlet),
+            const SizedBox(height: 6),
+            dataRow('Interpretation', 'Width bounded, height unbounded'),
+            dataRow('Typical of', 'Scrollable child'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -508,30 +561,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('06', 'Source Location'),
       noteBox(
-          'Reference data can include source file and line number, letting '
-          'DevTools jump to the definition in the IDE.'),
+        'Reference data can include source file and line number, letting '
+        'DevTools jump to the definition in the IDE.',
+      ),
       infoCard(
-          'Location Data',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('file', 'lib/screens/home.dart'),
-              dataRow('line', '42'),
-              dataRow('column', '12'),
-              dataRow('package', 'package:myapp/screens/home.dart'),
-            ],
-          )),
+        'Location Data',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('file', 'lib/screens/home.dart'),
+            dataRow('line', '42'),
+            dataRow('column', '12'),
+            dataRow('package', 'package:myapp/screens/home.dart'),
+          ],
+        ),
+      ),
       infoCard(
-          'IDE Integration',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Click to source', 'Opens file at line in IDE'),
-              dataRow('VS Code', 'dart.openFile command'),
-              dataRow('IntelliJ', 'Navigate to file action'),
-              dataRow('Availability', 'Debug builds only'),
-            ],
-          )),
+        'IDE Integration',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Click to source', 'Opens file at line in IDE'),
+            dataRow('VS Code', 'dart.openFile command'),
+            dataRow('IntelliJ', 'Navigate to file action'),
+            dataRow('Availability', 'Debug builds only'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -543,21 +599,23 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('07', 'Selection Flow'),
       noteBox(
-          'When a developer taps a widget in the inspector overlay, '
-          'InspectorReferenceData is created to capture that selection.'),
+        'When a developer taps a widget in the inspector overlay, '
+        'InspectorReferenceData is created to capture that selection.',
+      ),
       infoCard(
-          'Selection Steps',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. Tap overlay', 'User taps on widget'),
-              dataRow('2. Hit test', 'Find deepest RenderObject'),
-              dataRow('3. Walk up', 'Find corresponding Element'),
-              dataRow('4. Collect refs', 'Build InspectorReferenceData'),
-              dataRow('5. Send', 'Transmit to inspector panel'),
-              dataRow('6. Display', 'Show properties and tree'),
-            ],
-          )),
+        'Selection Steps',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. Tap overlay', 'User taps on widget'),
+            dataRow('2. Hit test', 'Find deepest RenderObject'),
+            dataRow('3. Walk up', 'Find corresponding Element'),
+            dataRow('4. Collect refs', 'Build InspectorReferenceData'),
+            dataRow('5. Send', 'Transmit to inspector panel'),
+            dataRow('6. Display', 'Show properties and tree'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -569,32 +627,39 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('08', 'Serialization'),
       noteBox(
-          'Reference data must be serialized when sending from the '
-          'running app to DevTools via the service extension protocol.'),
+        'Reference data must be serialized when sending from the '
+        'running app to DevTools via the service extension protocol.',
+      ),
       infoCard(
-          'Serialization Format',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Wire format', 'JSON map'),
-              dataRow('Widget ref', 'ID string (not full object)'),
-              dataRow('Properties', 'Serialized DiagnosticsNode list'),
-              dataRow('Children', 'Recursive ID references'),
-              dataRow('Render data', 'Flattened numeric values'),
-            ],
-          )),
+        'Serialization Format',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Wire format', 'JSON map'),
+            dataRow('Widget ref', 'ID string (not full object)'),
+            dataRow('Properties', 'Serialized DiagnosticsNode list'),
+            dataRow('Children', 'Recursive ID references'),
+            dataRow('Render data', 'Flattened numeric values'),
+          ],
+        ),
+      ),
       infoCard(
-          'JSON Structure',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              fieldBlock('widgetId', '"inspector-42"', crimson),
-              fieldBlock('description', '"Padding"', garnet),
-              fieldBlock('depth', '3', maroon),
-              fieldBlock('hasChildren', 'true', scarlet),
-              fieldBlock('creationLocation', '{"file": "...", "line": 42}', crimson),
-            ],
-          )),
+        'JSON Structure',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            fieldBlock('widgetId', '"inspector-42"', crimson),
+            fieldBlock('description', '"Padding"', garnet),
+            fieldBlock('depth', '3', maroon),
+            fieldBlock('hasChildren', 'true', scarlet),
+            fieldBlock(
+              'creationLocation',
+              '{"file": "...", "line": 42}',
+              crimson,
+            ),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -606,30 +671,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('09', 'DiagnosticsNode Connection'),
       noteBox(
-          'Properties in the reference data come from the widget\'s '
-          'debugDescribeChildren() and other diagnostics methods.'),
+        'Properties in the reference data come from the widget\'s '
+        'debugDescribeChildren() and other diagnostics methods.',
+      ),
       infoCard(
-          'Diagnostics API',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('debugDescribeChildren', 'List child diagnostics'),
-              dataRow('debugFillProperties', 'Add property descriptions'),
-              dataRow('toStringDeep', 'Full recursive text dump'),
-              dataRow('toDiagnosticsNode', 'Tree node representation'),
-            ],
-          )),
+        'Diagnostics API',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('debugDescribeChildren', 'List child diagnostics'),
+            dataRow('debugFillProperties', 'Add property descriptions'),
+            dataRow('toStringDeep', 'Full recursive text dump'),
+            dataRow('toDiagnosticsNode', 'Tree node representation'),
+          ],
+        ),
+      ),
       infoCard(
-          'Node Hierarchy',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('DiagnosticsNode', 'Base property/tree node'),
-              dataRow('DiagnosticableTree', 'Widget/RenderObject mixin'),
-              dataRow('DiagnosticsProperty', 'Typed property holder'),
-              dataRow('DiagnosticsBlock', 'Group of related properties'),
-            ],
-          )),
+        'Node Hierarchy',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('DiagnosticsNode', 'Base property/tree node'),
+            dataRow('DiagnosticableTree', 'Widget/RenderObject mixin'),
+            dataRow('DiagnosticsProperty', 'Typed property holder'),
+            dataRow('DiagnosticsBlock', 'Group of related properties'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -641,31 +709,34 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('10', 'DevTools Protocol'),
       noteBox(
-          'Reference data is transmitted to DevTools using the VM service '
-          'extension protocol, enabling remote debugging over websockets.'),
+        'Reference data is transmitted to DevTools using the VM service '
+        'extension protocol, enabling remote debugging over websockets.',
+      ),
       infoCard(
-          'Protocol Flow',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('1. App registers', 'Service extensions on startup'),
-              dataRow('2. DevTools connects', 'WebSocket to VM service'),
-              dataRow('3. Query sent', 'getSelectedWidget request'),
-              dataRow('4. App responds', 'Serialized reference data'),
-              dataRow('5. DevTools renders', 'Properties panel updated'),
-            ],
-          )),
+        'Protocol Flow',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('1. App registers', 'Service extensions on startup'),
+            dataRow('2. DevTools connects', 'WebSocket to VM service'),
+            dataRow('3. Query sent', 'getSelectedWidget request'),
+            dataRow('4. App responds', 'Serialized reference data'),
+            dataRow('5. DevTools renders', 'Properties panel updated'),
+          ],
+        ),
+      ),
       infoCard(
-          'Service Extensions',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('ext.flutter.inspector', 'Main inspector extension'),
-              dataRow('getSelectedRenderObject', 'Render object details'),
-              dataRow('getSelectedWidget', 'Widget diagnostics'),
-              dataRow('getSelectedSummaryWidget', 'Summary tree node'),
-            ],
-          )),
+        'Service Extensions',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('ext.flutter.inspector', 'Main inspector extension'),
+            dataRow('getSelectedRenderObject', 'Render object details'),
+            dataRow('getSelectedWidget', 'Widget diagnostics'),
+            dataRow('getSelectedSummaryWidget', 'Summary tree node'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -677,30 +748,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('11', 'Memory Management'),
       noteBox(
-          'Reference data holds strong references to live objects in the '
-          'widget tree, which must be managed carefully to avoid leaks.'),
+        'Reference data holds strong references to live objects in the '
+        'widget tree, which must be managed carefully to avoid leaks.',
+      ),
       infoCard(
-          'Reference Lifecycle',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Created', 'On widget selection'),
-              dataRow('Held', 'While selection is active'),
-              dataRow('Released', 'When new selection replaces'),
-              dataRow('GC eligible', 'After release and deselect'),
-            ],
-          )),
+        'Reference Lifecycle',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Created', 'On widget selection'),
+            dataRow('Held', 'While selection is active'),
+            dataRow('Released', 'When new selection replaces'),
+            dataRow('GC eligible', 'After release and deselect'),
+          ],
+        ),
+      ),
       infoCard(
-          'Leak Prevention',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Weak refs', 'Optional use for widget refs'),
-              dataRow('ID mapping', 'Map IDs instead of live objects'),
-              dataRow('Selection limit', 'Only one active at a time'),
-              dataRow('Overlay close', 'Clears all references'),
-            ],
-          )),
+        'Leak Prevention',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Weak refs', 'Optional use for widget refs'),
+            dataRow('ID mapping', 'Map IDs instead of live objects'),
+            dataRow('Selection limit', 'Only one active at a time'),
+            dataRow('Overlay close', 'Clears all references'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -712,21 +786,23 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('12', 'Comparison with DiagnosticsNode'),
       noteBox(
-          'While related, InspectorReferenceData and DiagnosticsNode '
-          'serve different roles in the inspector system.'),
+        'While related, InspectorReferenceData and DiagnosticsNode '
+        'serve different roles in the inspector system.',
+      ),
       infoCard(
-          'Key Differences',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('DiagnosticsNode', 'Property description for display'),
-              dataRow('ReferenceData', 'Live references + context'),
-              dataRow('DiagnosticsNode', 'Framework-level, any widget'),
-              dataRow('ReferenceData', 'Inspector-level, selected only'),
-              dataRow('DiagnosticsNode', 'Serializable text'),
-              dataRow('ReferenceData', 'Contains object references'),
-            ],
-          )),
+        'Key Differences',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('DiagnosticsNode', 'Property description for display'),
+            dataRow('ReferenceData', 'Live references + context'),
+            dataRow('DiagnosticsNode', 'Framework-level, any widget'),
+            dataRow('ReferenceData', 'Inspector-level, selected only'),
+            dataRow('DiagnosticsNode', 'Serializable text'),
+            dataRow('ReferenceData', 'Contains object references'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -738,34 +814,37 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('13', 'Tree Traversal'),
       noteBox(
-          'The reference data supports navigating up and down the widget '
-          'tree from the selected node.'),
+        'The reference data supports navigating up and down the widget '
+        'tree from the selected node.',
+      ),
       infoCard(
-          'Navigation Operations',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Parent', 'Navigate to parent widget'),
-              dataRow('Children', 'List direct children'),
-              dataRow('Siblings', 'Other children of same parent'),
-              dataRow('Ancestors', 'Full chain to root'),
-              dataRow('Subtree', 'All descendants recursively'),
-            ],
-          )),
+        'Navigation Operations',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Parent', 'Navigate to parent widget'),
+            dataRow('Children', 'List direct children'),
+            dataRow('Siblings', 'Other children of same parent'),
+            dataRow('Ancestors', 'Full chain to root'),
+            dataRow('Subtree', 'All descendants recursively'),
+          ],
+        ),
+      ),
       infoCard(
-          'Tree Snapshot',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              treeNode('Scaffold', 0, false, garnet),
-              treeNode('AppBar', 1, false, garnet),
-              treeNode('Body: Column', 1, false, garnet),
-              treeNode('Card', 2, true, garnet),
-              treeNode('ListTile', 3, false, garnet),
-              treeNode('Trailing: Icon', 3, false, garnet),
-              treeNode('BottomNavBar', 1, false, garnet),
-            ],
-          )),
+        'Tree Snapshot',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            treeNode('Scaffold', 0, false, garnet),
+            treeNode('AppBar', 1, false, garnet),
+            treeNode('Body: Column', 1, false, garnet),
+            treeNode('Card', 2, true, garnet),
+            treeNode('ListTile', 3, false, garnet),
+            treeNode('Trailing: Icon', 3, false, garnet),
+            treeNode('BottomNavBar', 1, false, garnet),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -777,30 +856,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('14', 'Filtering Reference Data'),
       noteBox(
-          'The inspector can filter reference data to show or hide '
-          'framework widgets, focusing on user-created widgets.'),
+        'The inspector can filter reference data to show or hide '
+        'framework widgets, focusing on user-created widgets.',
+      ),
       infoCard(
-          'Filter Modes',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Summary tree', 'Only user widgets (default)'),
-              dataRow('Full tree', 'All widgets including framework'),
-              dataRow('Render tree', 'RenderObject hierarchy'),
-              dataRow('Custom filter', 'By package or library'),
-            ],
-          )),
+        'Filter Modes',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Summary tree', 'Only user widgets (default)'),
+            dataRow('Full tree', 'All widgets including framework'),
+            dataRow('Render tree', 'RenderObject hierarchy'),
+            dataRow('Custom filter', 'By package or library'),
+          ],
+        ),
+      ),
       infoCard(
-          'Summary vs Full',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Summary: visible', 'Scaffold, Column, Text, etc.'),
-              dataRow('Summary: hidden', 'RawGestureDetector, Overlay, etc.'),
-              dataRow('Full: visible', 'Every single widget node'),
-              dataRow('Full: count', 'Often 10-50x more nodes'),
-            ],
-          )),
+        'Summary vs Full',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Summary: visible', 'Scaffold, Column, Text, etc.'),
+            dataRow('Summary: hidden', 'RawGestureDetector, Overlay, etc.'),
+            dataRow('Full: visible', 'Every single widget node'),
+            dataRow('Full: count', 'Often 10-50x more nodes'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -812,30 +894,33 @@ dynamic build(BuildContext context) {
     children: [
       sectionBanner('15', 'Debugging Reference Data'),
       noteBox(
-          'When the inspector shows wrong or missing data, debugging '
-          'the reference data pipeline helps find the problem.'),
+        'When the inspector shows wrong or missing data, debugging '
+        'the reference data pipeline helps find the problem.',
+      ),
       infoCard(
-          'Common Issues',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Empty properties', 'debugFillProperties not overridden'),
-              dataRow('Missing children', 'debugDescribeChildren incomplete'),
-              dataRow('Wrong selection', 'Hit test returning wrong render'),
-              dataRow('Stale data', 'Reference not updated after rebuild'),
-            ],
-          )),
+        'Common Issues',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Empty properties', 'debugFillProperties not overridden'),
+            dataRow('Missing children', 'debugDescribeChildren incomplete'),
+            dataRow('Wrong selection', 'Hit test returning wrong render'),
+            dataRow('Stale data', 'Reference not updated after rebuild'),
+          ],
+        ),
+      ),
       infoCard(
-          'Debug Commands',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('debugDumpApp()', 'Print full widget tree'),
-              dataRow('debugDumpRenderTree()', 'Print render tree'),
-              dataRow('debugPrintMarkNeedsLayoutStacks', 'Layout trace'),
-              dataRow('debugPrintMarkNeedsPaintStacks', 'Paint trace'),
-            ],
-          )),
+        'Debug Commands',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('debugDumpApp()', 'Print full widget tree'),
+            dataRow('debugDumpRenderTree()', 'Print render tree'),
+            dataRow('debugPrintMarkNeedsLayoutStacks', 'Layout trace'),
+            dataRow('debugPrintMarkNeedsPaintStacks', 'Paint trace'),
+          ],
+        ),
+      ),
     ],
   );
 
@@ -848,54 +933,57 @@ dynamic build(BuildContext context) {
       sectionBanner('16', 'Visual Dashboard'),
       noteBox('Complete overview of the InspectorReferenceData deep demo.'),
       infoCard(
-          'Demo Color Palette',
-          Wrap(
-            children: [
-              colorSwatch('Crimson', crimson),
-              colorSwatch('Garnet', garnet),
-              colorSwatch('Deep Crimson', deepCrimson),
-              colorSwatch('Pale Rose', paleRose),
-              colorSwatch('Ruby', ruby),
-              colorSwatch('Blush', blush),
-              colorSwatch('Maroon', maroon),
-              colorSwatch('Coral', coral),
-              colorSwatch('Petal', petal),
-              colorSwatch('Scarlet', scarlet),
-            ],
-          )),
+        'Demo Color Palette',
+        Wrap(
+          children: [
+            colorSwatch('Crimson', crimson),
+            colorSwatch('Garnet', garnet),
+            colorSwatch('Deep Crimson', deepCrimson),
+            colorSwatch('Pale Rose', paleRose),
+            colorSwatch('Ruby', ruby),
+            colorSwatch('Blush', blush),
+            colorSwatch('Maroon', maroon),
+            colorSwatch('Coral', coral),
+            colorSwatch('Petal', petal),
+            colorSwatch('Scarlet', scarlet),
+          ],
+        ),
+      ),
       infoCard(
-          'Section Coverage',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              progressBar('Overview', 1.0, crimson),
-              progressBar('Data Fields', 1.0, garnet),
-              progressBar('Widget Tree References', 1.0, maroon),
-              progressBar('Properties Display', 1.0, scarlet),
-              progressBar('Render Object Info', 1.0, crimson),
-              progressBar('Source Location', 1.0, garnet),
-              progressBar('Selection Flow', 1.0, maroon),
-              progressBar('Serialization', 1.0, scarlet),
-              progressBar('DiagnosticsNode', 1.0, crimson),
-              progressBar('DevTools Protocol', 1.0, garnet),
-              progressBar('Memory Management', 1.0, maroon),
-              progressBar('Comparison', 1.0, scarlet),
-              progressBar('Tree Traversal', 1.0, crimson),
-              progressBar('Filtering', 1.0, garnet),
-              progressBar('Debugging', 1.0, maroon),
-              progressBar('Dashboard', 1.0, scarlet),
-            ],
-          )),
+        'Section Coverage',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            progressBar('Overview', 1.0, crimson),
+            progressBar('Data Fields', 1.0, garnet),
+            progressBar('Widget Tree References', 1.0, maroon),
+            progressBar('Properties Display', 1.0, scarlet),
+            progressBar('Render Object Info', 1.0, crimson),
+            progressBar('Source Location', 1.0, garnet),
+            progressBar('Selection Flow', 1.0, maroon),
+            progressBar('Serialization', 1.0, scarlet),
+            progressBar('DiagnosticsNode', 1.0, crimson),
+            progressBar('DevTools Protocol', 1.0, garnet),
+            progressBar('Memory Management', 1.0, maroon),
+            progressBar('Comparison', 1.0, scarlet),
+            progressBar('Tree Traversal', 1.0, crimson),
+            progressBar('Filtering', 1.0, garnet),
+            progressBar('Debugging', 1.0, maroon),
+            progressBar('Dashboard', 1.0, scarlet),
+          ],
+        ),
+      ),
       infoCard(
-          'Statistics',
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              dataRow('Total sections', '16'),
-              dataRow('Theme', 'Crimson / Garnet'),
-              dataRow('Palette colors', '10'),
-            ],
-          )),
+        'Statistics',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dataRow('Total sections', '16'),
+            dataRow('Theme', 'Crimson / Garnet'),
+            dataRow('Palette colors', '10'),
+          ],
+        ),
+      ),
       Wrap(
         spacing: 6,
         runSpacing: 4,

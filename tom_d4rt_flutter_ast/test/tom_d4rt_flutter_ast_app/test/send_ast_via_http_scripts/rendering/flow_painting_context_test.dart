@@ -152,7 +152,12 @@ Widget _buildCodeBlock(String code) {
   );
 }
 
-Widget _buildDiagramBox(String label, Color color, {IconData? icon, double width = 100}) {
+Widget _buildDiagramBox(
+  String label,
+  Color color, {
+  IconData? icon,
+  double width = 100,
+}) {
   return Container(
     width: width,
     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
@@ -265,11 +270,23 @@ Widget _buildOverviewSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildDiagramBox('size', Color(0xFF00897B), icon: Icons.crop_square),
+                  _buildDiagramBox(
+                    'size',
+                    Color(0xFF00897B),
+                    icon: Icons.crop_square,
+                  ),
                   SizedBox(width: 8),
-                  _buildDiagramBox('childCount', Color(0xFF00897B), icon: Icons.numbers),
+                  _buildDiagramBox(
+                    'childCount',
+                    Color(0xFF00897B),
+                    icon: Icons.numbers,
+                  ),
                   SizedBox(width: 8),
-                  _buildDiagramBox('paintChild', Color(0xFF00897B), icon: Icons.brush),
+                  _buildDiagramBox(
+                    'paintChild',
+                    Color(0xFF00897B),
+                    icon: Icons.brush,
+                  ),
                 ],
               ),
             ],
@@ -347,7 +364,10 @@ Widget _buildPaintChildSection() {
               _buildInfoRow('Null transform', 'Child paints at origin (0,0)'),
               _buildInfoRow('Invalid index', 'Throws RangeError'),
               _buildInfoRow('Paint order', 'Children paint in order called'),
-              _buildInfoRow('Duplicate paint', 'Same child can paint multiple times'),
+              _buildInfoRow(
+                'Duplicate paint',
+                'Same child can paint multiple times',
+              ),
             ],
           ),
         ),
@@ -371,11 +391,23 @@ Widget _buildPaintChildSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildDiagramBox('paintChild()', Color(0xFFF57C00), icon: Icons.play_arrow),
+                  _buildDiagramBox(
+                    'paintChild()',
+                    Color(0xFFF57C00),
+                    icon: Icons.play_arrow,
+                  ),
                   _buildArrow(color: Color(0xFFFFB74D)),
-                  _buildDiagramBox('Apply Matrix', Color(0xFFFF9800), icon: Icons.transform),
+                  _buildDiagramBox(
+                    'Apply Matrix',
+                    Color(0xFFFF9800),
+                    icon: Icons.transform,
+                  ),
                   _buildArrow(color: Color(0xFFFFB74D)),
-                  _buildDiagramBox('Paint Child', Color(0xFFFFB300), icon: Icons.brush),
+                  _buildDiagramBox(
+                    'Paint Child',
+                    Color(0xFFFFB300),
+                    icon: Icons.brush,
+                  ),
                 ],
               ),
             ],
@@ -392,7 +424,7 @@ Widget _buildPaintChildSection() {
 
 class CircularFlowDelegate extends FlowDelegate {
   CircularFlowDelegate({required this.animation}) : super(repaint: animation);
-  
+
   Animation<double> animation;
 
   @override
@@ -402,15 +434,15 @@ class CircularFlowDelegate extends FlowDelegate {
     double centerX = size.width / 2;
     double centerY = size.height / 2;
     double radius = math.min(centerX, centerY) - 40;
-    
+
     for (int i = 0; i < n; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       double angle = 2 * math.pi * i / n + animation.value * 2 * math.pi;
       double x = centerX + radius * math.cos(angle) - childSize.width / 2;
       double y = centerY + radius * math.sin(angle) - childSize.height / 2;
-      
+
       Matrix4 transform = Matrix4.translationValues(x, y, 0);
       context.paintChild(i, transform: transform);
     }
@@ -424,7 +456,7 @@ class CircularFlowDelegate extends FlowDelegate {
 
 class WaveFlowDelegate extends FlowDelegate {
   WaveFlowDelegate({required this.animation}) : super(repaint: animation);
-  
+
   Animation<double> animation;
 
   @override
@@ -433,13 +465,13 @@ class WaveFlowDelegate extends FlowDelegate {
     for (int i = 0; i < context.childCount; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       double phase = animation.value * 2 * math.pi + i * 0.5;
       double dy = math.sin(phase) * 30 + 50;
-      
+
       Matrix4 transform = Matrix4.translationValues(dx, dy, 0);
       context.paintChild(i, transform: transform);
-      
+
       dx += childSize.width + 8;
     }
   }
@@ -516,7 +548,10 @@ Widget _buildFlowDelegateSection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildInfoRow('CircularFlowDelegate', 'Arranges children in a circle'),
+              _buildInfoRow(
+                'CircularFlowDelegate',
+                'Arranges children in a circle',
+              ),
               _buildInfoRow('WaveFlowDelegate', 'Creates wave motion effect'),
               _buildInfoRow('GridFlowDelegate', 'Positions in grid pattern'),
               _buildInfoRow('SpiralFlowDelegate', 'Creates spiral arrangement'),
@@ -576,10 +611,26 @@ Widget _buildChildTransformationSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildTransformDemo('Translate', Icons.open_with, Color(0xFF1E88E5)),
-                  _buildTransformDemo('Rotate', Icons.rotate_right, Color(0xFF43A047)),
-                  _buildTransformDemo('Scale', Icons.zoom_out_map, Color(0xFFE53935)),
-                  _buildTransformDemo('Skew', Icons.compare_arrows, Color(0xFF8E24AA)),
+                  _buildTransformDemo(
+                    'Translate',
+                    Icons.open_with,
+                    Color(0xFF1E88E5),
+                  ),
+                  _buildTransformDemo(
+                    'Rotate',
+                    Icons.rotate_right,
+                    Color(0xFF43A047),
+                  ),
+                  _buildTransformDemo(
+                    'Scale',
+                    Icons.zoom_out_map,
+                    Color(0xFFE53935),
+                  ),
+                  _buildTransformDemo(
+                    'Skew',
+                    Icons.compare_arrows,
+                    Color(0xFF8E24AA),
+                  ),
                 ],
               ),
             ],
@@ -636,7 +687,7 @@ Widget _buildTransformDemo(String label, IconData icon, Color color) {
 
 class FadeFlowDelegate extends FlowDelegate {
   FadeFlowDelegate({required this.animation}) : super(repaint: animation);
-  
+
   Animation<double> animation;
 
   @override
@@ -644,10 +695,10 @@ class FadeFlowDelegate extends FlowDelegate {
     for (int i = 0; i < context.childCount; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       double spacing = 60;
       double dx = i * spacing;
-      
+
       Matrix4 transform = Matrix4.translationValues(dx, 40, 0);
       context.paintChild(i, transform: transform);
     }
@@ -700,13 +751,29 @@ Widget _buildOpacityPositioningSection() {
                 ),
               ),
               SizedBox(height: 16),
-              _buildPositioningRow('Absolute', 'Direct translation values', Icons.place),
+              _buildPositioningRow(
+                'Absolute',
+                'Direct translation values',
+                Icons.place,
+              ),
               SizedBox(height: 8),
-              _buildPositioningRow('Relative', 'Based on parent size', Icons.aspect_ratio),
+              _buildPositioningRow(
+                'Relative',
+                'Based on parent size',
+                Icons.aspect_ratio,
+              ),
               SizedBox(height: 8),
-              _buildPositioningRow('Calculated', 'Based on child sizes', Icons.calculate),
+              _buildPositioningRow(
+                'Calculated',
+                'Based on child sizes',
+                Icons.calculate,
+              ),
               SizedBox(height: 8),
-              _buildPositioningRow('Animated', 'Using animation values', Icons.animation),
+              _buildPositioningRow(
+                'Animated',
+                'Using animation values',
+                Icons.animation,
+              ),
             ],
           ),
         ),
@@ -754,10 +821,7 @@ Widget _buildPositioningRow(String title, String description, IconData icon) {
             ),
             Text(
               description,
-              style: TextStyle(
-                color: Color(0xFF4DD0E1),
-                fontSize: 11,
-              ),
+              style: TextStyle(color: Color(0xFF4DD0E1), fontSize: 11),
             ),
           ],
         ),
@@ -772,7 +836,7 @@ Widget _buildPositioningRow(String title, String description, IconData icon) {
 
 class RotatingFlowDelegate extends FlowDelegate {
   RotatingFlowDelegate({required this.animation}) : super(repaint: animation);
-  
+
   Animation<double> animation;
 
   @override
@@ -780,20 +844,20 @@ class RotatingFlowDelegate extends FlowDelegate {
     Size size = context.size;
     double centerX = size.width / 2;
     double centerY = size.height / 2;
-    
+
     for (int i = 0; i < context.childCount; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       double rotation = animation.value * 2 * math.pi + i * math.pi / 4;
       double scale = 0.8 + 0.2 * math.sin(animation.value * 2 * math.pi);
-      
+
       Matrix4 transform = Matrix4.identity()
         ..translate(centerX, centerY)
         ..rotateZ(rotation)
         ..scale(scale)
         ..translate(-childSize.width / 2, -childSize.height / 2);
-      
+
       context.paintChild(i, transform: transform);
     }
   }
@@ -907,7 +971,7 @@ Widget _buildMatrixOperation(String operation, Color color) {
 
 class GridFlowDelegate extends FlowDelegate {
   GridFlowDelegate({required this.columns});
-  
+
   int columns;
 
   @override
@@ -915,17 +979,17 @@ class GridFlowDelegate extends FlowDelegate {
     double spacing = 8;
     double maxWidth = context.size.width;
     double itemWidth = (maxWidth - (columns - 1) * spacing) / columns;
-    
+
     for (int i = 0; i < context.childCount; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       int row = i ~/ columns;
       int col = i % columns;
-      
+
       double dx = col * (itemWidth + spacing);
       double dy = row * (childSize.height + spacing);
-      
+
       Matrix4 transform = Matrix4.translationValues(dx, dy, 0);
       context.paintChild(i, transform: transform);
     }
@@ -944,7 +1008,7 @@ class GridFlowDelegate extends FlowDelegate {
 
 class StackFlowDelegate extends FlowDelegate {
   StackFlowDelegate({required this.offsetStep});
-  
+
   double offsetStep;
 
   @override
@@ -964,8 +1028,8 @@ class StackFlowDelegate extends FlowDelegate {
 
 class RadialMenuDelegate extends FlowDelegate {
   RadialMenuDelegate({required this.animation, required this.startAngle})
-      : super(repaint: animation);
-  
+    : super(repaint: animation);
+
   Animation<double> animation;
   double startAngle;
 
@@ -976,22 +1040,22 @@ class RadialMenuDelegate extends FlowDelegate {
     double centerY = size.height / 2;
     double maxRadius = math.min(centerX, centerY) * 0.8;
     double radius = maxRadius * animation.value;
-    
+
     for (int i = 0; i < context.childCount; i++) {
       Size? childSize = context.getChildSize(i);
       if (childSize == null) continue;
-      
+
       double angle = startAngle + (math.pi / (context.childCount - 1)) * i;
       double dx = centerX + radius * math.cos(angle) - childSize.width / 2;
       double dy = centerY + radius * math.sin(angle) - childSize.height / 2;
-      
+
       double scale = animation.value;
-      
+
       Matrix4 transform = Matrix4.identity()
         ..translate(dx + childSize.width / 2, dy + childSize.height / 2)
         ..scale(scale)
         ..translate(-childSize.width / 2, -childSize.height / 2);
-      
+
       context.paintChild(i, transform: transform);
     }
   }
@@ -999,7 +1063,7 @@ class RadialMenuDelegate extends FlowDelegate {
   @override
   bool shouldRepaint(RadialMenuDelegate oldDelegate) {
     return animation != oldDelegate.animation ||
-           startAngle != oldDelegate.startAngle;
+        startAngle != oldDelegate.startAngle;
   }
 }
 
@@ -1047,10 +1111,22 @@ Widget _buildMultipleChildLayoutsSection() {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildLayoutPattern('Grid', Icons.grid_view, Color(0xFF3F51B5)),
+                  _buildLayoutPattern(
+                    'Grid',
+                    Icons.grid_view,
+                    Color(0xFF3F51B5),
+                  ),
                   _buildLayoutPattern('Stack', Icons.layers, Color(0xFF009688)),
-                  _buildLayoutPattern('Radial', Icons.radio_button_checked, Color(0xFFFF5722)),
-                  _buildLayoutPattern('Spiral', Icons.gesture, Color(0xFF9C27B0)),
+                  _buildLayoutPattern(
+                    'Radial',
+                    Icons.radio_button_checked,
+                    Color(0xFFFF5722),
+                  ),
+                  _buildLayoutPattern(
+                    'Spiral',
+                    Icons.gesture,
+                    Color(0xFF9C27B0),
+                  ),
                 ],
               ),
             ],
@@ -1087,7 +1163,11 @@ Widget _buildMultipleChildLayoutsSection() {
             children: [
               Row(
                 children: [
-                  Icon(Icons.tips_and_updates, color: Color(0xFF558B2F), size: 18),
+                  Icon(
+                    Icons.tips_and_updates,
+                    color: Color(0xFF558B2F),
+                    size: 18,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     'Best Practices',
@@ -1099,10 +1179,19 @@ Widget _buildMultipleChildLayoutsSection() {
                 ],
               ),
               SizedBox(height: 8),
-              _buildInfoRow('Cache calculations', 'Store positions when independent of animation'),
+              _buildInfoRow(
+                'Cache calculations',
+                'Store positions when independent of animation',
+              ),
               _buildInfoRow('Check null sizes', 'getChildSize can return null'),
-              _buildInfoRow('Use shouldRepaint', 'Return true only when needed'),
-              _buildInfoRow('Optimize repaints', 'Use repaint listenable for animations'),
+              _buildInfoRow(
+                'Use shouldRepaint',
+                'Return true only when needed',
+              ),
+              _buildInfoRow(
+                'Optimize repaints',
+                'Use repaint listenable for animations',
+              ),
             ],
           ),
         ),
@@ -1144,7 +1233,7 @@ Widget _buildLayoutPattern(String label, IconData icon, Color color) {
 dynamic build(BuildContext context) {
   print('FlowPaintingContext deep demo executing');
   print('=' * 60);
-  
+
   print('\n--- FlowPaintingContext Overview ---');
   print('FlowPaintingContext is an abstract class providing:');
   print('  - size: Size of the Flow widget');
@@ -1152,7 +1241,7 @@ dynamic build(BuildContext context) {
   print('  - getChildSize(int): Size of child at index');
   print('  - paintChild(int, {Matrix4?}): Paint child with transform');
   print('');
-  
+
   print('--- paintChild Method Details ---');
   print('paintChild(int childIndex, {Matrix4? transform})');
   print('  - childIndex: 0 to childCount-1');
@@ -1160,7 +1249,7 @@ dynamic build(BuildContext context) {
   print('  - Null transform paints at origin (0,0)');
   print('  - Invalid index throws RangeError');
   print('');
-  
+
   print('--- Flow Delegate Pattern ---');
   print('class MyFlowDelegate extends FlowDelegate {');
   print('  @override');
@@ -1173,7 +1262,7 @@ dynamic build(BuildContext context) {
   print('  }');
   print('}');
   print('');
-  
+
   print('--- Matrix4 Transform Examples ---');
   print('Translation: Matrix4.translationValues(100, 50, 0)');
   print('Rotation Z:  Matrix4.rotationZ(math.pi / 4)');
@@ -1183,7 +1272,7 @@ dynamic build(BuildContext context) {
   print('               ..rotateZ(angle)');
   print('               ..scale(factor)');
   print('');
-  
+
   print('--- Layout Patterns ---');
   print('Grid:    position = (col * width, row * height)');
   print('Circle:  position = (r*cos(angle), r*sin(angle))');
@@ -1191,7 +1280,7 @@ dynamic build(BuildContext context) {
   print('Stack:   position = (i*offset, i*offset)');
   print('Radial:  expanding arc menu arrangement');
   print('');
-  
+
   print('--- Performance Benefits ---');
   print('1. No relayout when transforms change');
   print('2. Only paint phase updates');

@@ -127,21 +127,27 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget sectionHeader(String index, String title, String subtitle,
-      Color accent, Color paper) {
+  Widget sectionHeader(
+    String index,
+    String title,
+    String subtitle,
+    Color accent,
+    Color paper,
+  ) {
     return Container(
       margin: EdgeInsets.only(top: 18, bottom: 10),
       padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [accent.withValues(alpha: 0.85), accent.withValues(alpha: 0.55)],
+          colors: [
+            accent.withValues(alpha: 0.85),
+            accent.withValues(alpha: 0.55),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: paper, width: 4),
-        ),
+        border: Border(left: BorderSide(color: paper, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -237,19 +243,12 @@ dynamic build(BuildContext context) {
             margin: EdgeInsets.only(top: 5, right: 8),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
           Expanded(
             child: Text(
               body,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 11,
-                height: 1.35,
-              ),
+              style: TextStyle(color: textColor, fontSize: 11, height: 1.35),
             ),
           ),
         ],
@@ -340,27 +339,15 @@ dynamic build(BuildContext context) {
         SizedBox(height: 4),
         Text(
           'a recognizer that watches a single pointer for either a tap or a',
-          style: TextStyle(
-            color: tideShallow,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: tideShallow, fontSize: 12, height: 1.4),
         ),
         Text(
           'free pan in any direction, then dispatches details payloads tuned',
-          style: TextStyle(
-            color: tideShallow,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: tideShallow, fontSize: 12, height: 1.4),
         ),
         Text(
           'for combined tap + drag interactions.',
-          style: TextStyle(
-            color: tideShallow,
-            fontSize: 12,
-            height: 1.4,
-          ),
+          style: TextStyle(color: tideShallow, fontSize: 12, height: 1.4),
         ),
         SizedBox(height: 14),
         Row(
@@ -368,7 +355,10 @@ dynamic build(BuildContext context) {
             palettePill('package', tideShoal, tideDeep),
             palettePill('flutter/gestures', brassWarm, tideDeep),
             palettePill(
-                'omni-directional', sunsetCoral.withValues(alpha: 0.85), tideDeep),
+              'omni-directional',
+              sunsetCoral.withValues(alpha: 0.85),
+              tideDeep,
+            ),
             palettePill('tap | pan', ropeCream, tideDeep),
           ],
         ),
@@ -517,20 +507,76 @@ dynamic build(BuildContext context) {
   // 03: API SURFACE TABLE
   // ---------------------------------------------------------------------------
   final List<List<String>> apiRows = [
-    ['onTapDown', 'GestureTapDragDownCallback?', 'fired when first contact lands and arena commits'],
-    ['onTapUp', 'GestureTapDragUpCallback?', 'fired when contact lifts having stayed below slop'],
-    ['onTapCancel', 'GestureCancelCallback?', 'fired when arena revokes after onTapDown'],
-    ['onDragStart', 'GestureTapDragStartCallback?', 'first movement that exceeds the slop threshold'],
-    ['onDragUpdate', 'GestureTapDragUpdateCallback?', 'every pointer move during an active drag'],
-    ['onDragEnd', 'GestureTapDragEndCallback?', 'pointer up with computed pan velocity'],
-    ['consecutiveTapCount', 'int', 'tally of successive taps within tap-slop window'],
-    ['eagerVictoryOnDrag', 'bool', 'if true, claim arena as soon as drag begins'],
-    ['supportedDevices', 'Set<PointerDeviceKind>?', 'limits which input devices are accepted'],
-    ['debugOwner', 'Object?', 'object reported in diagnostics to identify owner'],
-    ['acceptGesture', 'void Function(int pointer)', 'called by arena when this recognizer wins'],
-    ['rejectGesture', 'void Function(int pointer)', 'called by arena when another recognizer wins'],
-    ['didExceedSlopTolerance', '@protected bool', 'true once movement crossed the slop ring'],
-    ['dispose', 'void Function()', 'releases pointer subscription and arena entry'],
+    [
+      'onTapDown',
+      'GestureTapDragDownCallback?',
+      'fired when first contact lands and arena commits',
+    ],
+    [
+      'onTapUp',
+      'GestureTapDragUpCallback?',
+      'fired when contact lifts having stayed below slop',
+    ],
+    [
+      'onTapCancel',
+      'GestureCancelCallback?',
+      'fired when arena revokes after onTapDown',
+    ],
+    [
+      'onDragStart',
+      'GestureTapDragStartCallback?',
+      'first movement that exceeds the slop threshold',
+    ],
+    [
+      'onDragUpdate',
+      'GestureTapDragUpdateCallback?',
+      'every pointer move during an active drag',
+    ],
+    [
+      'onDragEnd',
+      'GestureTapDragEndCallback?',
+      'pointer up with computed pan velocity',
+    ],
+    [
+      'consecutiveTapCount',
+      'int',
+      'tally of successive taps within tap-slop window',
+    ],
+    [
+      'eagerVictoryOnDrag',
+      'bool',
+      'if true, claim arena as soon as drag begins',
+    ],
+    [
+      'supportedDevices',
+      'Set<PointerDeviceKind>?',
+      'limits which input devices are accepted',
+    ],
+    [
+      'debugOwner',
+      'Object?',
+      'object reported in diagnostics to identify owner',
+    ],
+    [
+      'acceptGesture',
+      'void Function(int pointer)',
+      'called by arena when this recognizer wins',
+    ],
+    [
+      'rejectGesture',
+      'void Function(int pointer)',
+      'called by arena when another recognizer wins',
+    ],
+    [
+      'didExceedSlopTolerance',
+      '@protected bool',
+      'true once movement crossed the slop ring',
+    ],
+    [
+      'dispose',
+      'void Function()',
+      'releases pointer subscription and arena entry',
+    ],
   ];
 
   final List<Widget> apiTableRows = [];
@@ -570,11 +616,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[2],
-                style: TextStyle(
-                  color: slateLow,
-                  fontSize: 11,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: slateLow, fontSize: 11, height: 1.35),
               ),
             ),
           ],
@@ -688,8 +730,9 @@ dynamic build(BuildContext context) {
             color: tideDeep,
             borderRadius: BorderRadius.circular(6),
             border: Border.all(
-              color: (constructed ? signalGreen : signalRed)
-                  .withValues(alpha: 0.7),
+              color: (constructed ? signalGreen : signalRed).withValues(
+                alpha: 0.7,
+              ),
               width: 1,
             ),
           ),
@@ -712,17 +755,37 @@ dynamic build(BuildContext context) {
   // 05: LIFECYCLE FLOW
   // ---------------------------------------------------------------------------
   final List<List<String>> lifecycleSteps = [
-    ['01', 'pointer down', 'addPointer(event) registers the pointer with arena'],
+    [
+      '01',
+      'pointer down',
+      'addPointer(event) registers the pointer with arena',
+    ],
     ['02', 'arena entry', 'GestureArenaEntry created; recognizer is candidate'],
-    ['03', 'tap-down callback', 'onTapDown(details) fires after small acceptance window'],
+    [
+      '03',
+      'tap-down callback',
+      'onTapDown(details) fires after small acceptance window',
+    ],
     ['04', 'movement watch', 'tracker compares each move to slop tolerance'],
-    ['05', 'inside slop', 'still a tap candidate — onTapUp possible if pointer lifts'],
+    [
+      '05',
+      'inside slop',
+      'still a tap candidate — onTapUp possible if pointer lifts',
+    ],
     ['06', 'exceeds slop', 'transition to drag; onDragStart(details) fires'],
     ['07', 'arena resolution', 'eagerVictoryOnDrag forces immediate claim'],
-    ['08', 'drag updates', 'onDragUpdate(details) emitted on every pointer move'],
+    [
+      '08',
+      'drag updates',
+      'onDragUpdate(details) emitted on every pointer move',
+    ],
     ['09', 'pointer up', 'either onTapUp (no drag) or onDragEnd (had drag)'],
     ['10', 'cancel path', 'onTapCancel if arena revokes after onTapDown'],
-    ['11', 'disposal', 'dispose() unregisters arena entry and clears callbacks'],
+    [
+      '11',
+      'disposal',
+      'dispose() unregisters arena entry and clears callbacks',
+    ],
   ];
 
   final List<Widget> lifecycleNodes = [];
@@ -742,8 +805,10 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: stepBg,
                   shape: BoxShape.circle,
-                  border:
-                      Border.all(color: brassWarm.withValues(alpha: 0.7), width: 2),
+                  border: Border.all(
+                    color: brassWarm.withValues(alpha: 0.7),
+                    width: 2,
+                  ),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -870,12 +935,27 @@ dynamic build(BuildContext context) {
   // 07: COMPARISON CARDS
   // ---------------------------------------------------------------------------
   final List<List<String>> compareTopics = [
-    ['arena posture', 'eagerly claims on drag', 'eagerly claims on drag', 'standard tap arbitration'],
+    [
+      'arena posture',
+      'eagerly claims on drag',
+      'eagerly claims on drag',
+      'standard tap arbitration',
+    ],
     ['drag direction', 'free 2D pan', 'horizontal axis only', 'n/a'],
     ['tap details', 'TapDragUpDetails', 'TapDragUpDetails', 'TapUpDetails'],
     ['drag details', 'TapDragUpdateDetails', 'TapDragUpdateDetails', 'n/a'],
-    ['use cases', 'maps, canvases', 'sliders, dismiss tiles', 'buttons, list rows'],
-    ['cancel cause', 'arena loss / out of slop after up', 'same', 'arena loss after down'],
+    [
+      'use cases',
+      'maps, canvases',
+      'sliders, dismiss tiles',
+      'buttons, list rows',
+    ],
+    [
+      'cancel cause',
+      'arena loss / out of slop after up',
+      'same',
+      'arena loss after down',
+    ],
   ];
 
   final List<Widget> compareRows = [];
@@ -964,31 +1044,19 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 topic[1],
-                style: TextStyle(
-                  color: tideDeep,
-                  fontSize: 11,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: tideDeep, fontSize: 11, height: 1.35),
               ),
             ),
             Expanded(
               child: Text(
                 topic[2],
-                style: TextStyle(
-                  color: tideDeep,
-                  fontSize: 11,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: tideDeep, fontSize: 11, height: 1.35),
               ),
             ),
             Expanded(
               child: Text(
                 topic[3],
-                style: TextStyle(
-                  color: tideDeep,
-                  fontSize: 11,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: tideDeep, fontSize: 11, height: 1.35),
               ),
             ),
           ],
@@ -1050,9 +1118,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: tideFoam,
           borderRadius: BorderRadius.circular(6),
-          border: Border(
-            left: BorderSide(color: rowAccent, width: 4),
-          ),
+          border: Border(left: BorderSide(color: rowAccent, width: 4)),
         ),
         child: Row(
           children: [
@@ -1167,9 +1233,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: twilightPlum,
           borderRadius: BorderRadius.circular(8),
-          border: Border(
-            left: BorderSide(color: brassLight, width: 4),
-          ),
+          border: Border(left: BorderSide(color: brassLight, width: 4)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1340,11 +1404,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 6),
             Text(
               s[1],
-              style: TextStyle(
-                color: slateLow,
-                fontSize: 11,
-                height: 1.35,
-              ),
+              style: TextStyle(color: slateLow, fontSize: 11, height: 1.35),
             ),
             SizedBox(height: 6),
             Container(
@@ -1443,14 +1503,9 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.only(bottom: 8),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Color.alphaBlend(
-            signalRed.withValues(alpha: 0.06),
-            ropeCream,
-          ),
+          color: Color.alphaBlend(signalRed.withValues(alpha: 0.06), ropeCream),
           borderRadius: BorderRadius.circular(8),
-          border: Border(
-            left: BorderSide(color: signalRed, width: 4),
-          ),
+          border: Border(left: BorderSide(color: signalRed, width: 4)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1488,11 +1543,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 5),
             Text(
               p[1],
-              style: TextStyle(
-                color: slateLow,
-                fontSize: 11,
-                height: 1.35,
-              ),
+              style: TextStyle(color: slateLow, fontSize: 11, height: 1.35),
             ),
             SizedBox(height: 5),
             Text(
@@ -1573,14 +1624,13 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 FractionallySizedBox(
-                  widthFactor:
-                      AlwaysStoppedAnimation<double>(value).value.clamp(0.0, 1.0),
+                  widthFactor: AlwaysStoppedAnimation<double>(
+                    value,
+                  ).value.clamp(0.0, 1.0),
                   child: Container(
                     height: 14,
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [tideShoal, brassLight],
-                      ),
+                      gradient: LinearGradient(colors: [tideShoal, brassLight]),
                       borderRadius: BorderRadius.circular(7),
                     ),
                   ),
@@ -1751,26 +1801,53 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
   // 14: GLOSSARY
   // ---------------------------------------------------------------------------
   final List<List<String>> glossary = [
-    ['arena', 'gesture recognizer competition manager — picks one winner per pointer'],
-    ['claim', 'recognizer asserts ownership of pointer; others get rejectGesture'],
-    ['slop', 'distance threshold below which movement does not count as a drag'],
-    ['kind', 'PointerDeviceKind: touch, mouse, stylus, trackpad, invertedStylus'],
+    [
+      'arena',
+      'gesture recognizer competition manager — picks one winner per pointer',
+    ],
+    [
+      'claim',
+      'recognizer asserts ownership of pointer; others get rejectGesture',
+    ],
+    [
+      'slop',
+      'distance threshold below which movement does not count as a drag',
+    ],
+    [
+      'kind',
+      'PointerDeviceKind: touch, mouse, stylus, trackpad, invertedStylus',
+    ],
     ['delta', 'change in position since last move event'],
-    ['primary axis', 'the dominant axis a recognizer cares about (n/a for 2D pan)'],
+    [
+      'primary axis',
+      'the dominant axis a recognizer cares about (n/a for 2D pan)',
+    ],
     ['velocity', 'estimated px/s at end of drag, computed from a tracker'],
-    ['eager victory', 'claiming the arena as soon as drag begins, preempting parents'],
+    [
+      'eager victory',
+      'claiming the arena as soon as drag begins, preempting parents',
+    ],
     ['consecutive tap count', 'count of taps within tap-slop time window'],
     ['debug owner', 'object name shown in diagnostics for a recognizer'],
-    ['tap-slop', 'temporal + spatial budget within which a tap remains "intact"'],
+    [
+      'tap-slop',
+      'temporal + spatial budget within which a tap remains "intact"',
+    ],
     ['pointer down', 'first contact event for a finger / mouse-button press'],
     ['pointer move', 'subsequent move event while contact persists'],
     ['pointer up', 'release of contact'],
     ['pointer cancel', 'OS revokes pointer (e.g. system gesture takes over)'],
-    ['details object', 'immutable bundle of fields describing a callback moment'],
+    [
+      'details object',
+      'immutable bundle of fields describing a callback moment',
+    ],
     ['supported devices', 'optional set restricting which kinds may trigger'],
     ['accept gesture', 'arena callback awarding a pointer to this recognizer'],
     ['reject gesture', 'arena callback denying a pointer to this recognizer'],
-    ['reset state', 'recognizer wipes per-pointer bookkeeping when arena exits'],
+    [
+      'reset state',
+      'recognizer wipes per-pointer bookkeeping when arena exits',
+    ],
   ];
 
   final List<Widget> glossaryRows = [];
@@ -1797,11 +1874,7 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
             Expanded(
               child: Text(
                 g[1],
-                style: TextStyle(
-                  color: paperInk,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: paperInk, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -1830,50 +1903,50 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
   final List<Widget> highlightBullets = [
     bullet(
       'a single recognizer that gates between tap and free 2D drag, used by '
-          'the framework as a foundation for combined-interaction widgets',
+      'the framework as a foundation for combined-interaction widgets',
       tideShoal,
       paperInk,
     ),
     bullet(
       'callbacks come in three families: tap-* (TapDragUpDetails, TapDragDownDetails), '
-          'drag-* (TapDragStartDetails, TapDragUpdateDetails, TapDragEndDetails), '
-          'and a parameterless onTapCancel',
+      'drag-* (TapDragStartDetails, TapDragUpdateDetails, TapDragEndDetails), '
+      'and a parameterless onTapCancel',
       tideShoal,
       paperInk,
     ),
     bullet(
       'consecutiveTapCount lets you build double / triple tap variants on top '
-          'without writing an additional recognizer',
+      'without writing an additional recognizer',
       tideShoal,
       paperInk,
     ),
     bullet(
       'eagerVictoryOnDrag controls arbitration: when true, the moment the '
-          'pointer leaves slop, the recognizer claims the arena',
+      'pointer leaves slop, the recognizer claims the arena',
       tideShoal,
       paperInk,
     ),
     bullet(
       'sibling: TapAndHorizontalDragGestureRecognizer constrains drag to the '
-          'horizontal axis; semantics otherwise mirror this class',
+      'horizontal axis; semantics otherwise mirror this class',
       tideShoal,
       paperInk,
     ),
     bullet(
       'always pair construction with explicit dispose(); leaked recognizers '
-          'pin pointer routes and risk arena starvation',
+      'pin pointer routes and risk arena starvation',
       tideShoal,
       paperInk,
     ),
     bullet(
       'PointerDeviceKind filtering through supportedDevices is recommended '
-          'when the gesture only makes sense for some inputs',
+      'when the gesture only makes sense for some inputs',
       tideShoal,
       paperInk,
     ),
     bullet(
       'velocity is supplied at end-of-drag — feed it directly into a Spring '
-          'simulation for natural inertia',
+      'simulation for natural inertia',
       tideShoal,
       paperInk,
     ),
@@ -1897,26 +1970,102 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
   // 16: ANATOMY OF DETAILS PAYLOADS
   // ---------------------------------------------------------------------------
   final List<List<String>> detailFields = [
-    ['TapDragDownDetails.globalPosition', 'Offset', 'where the pointer landed in window coords'],
-    ['TapDragDownDetails.localPosition', 'Offset', 'where it landed relative to the receiving render box'],
-    ['TapDragDownDetails.kind', 'PointerDeviceKind?', 'touch / mouse / stylus / trackpad'],
-    ['TapDragDownDetails.consecutiveTapCount', 'int', 'how many taps in a row are forming this gesture'],
-    ['TapDragUpDetails.globalPosition', 'Offset', 'where the pointer lifted in window coords'],
-    ['TapDragUpDetails.localPosition', 'Offset', 'where it lifted in local coords'],
-    ['TapDragUpDetails.kind', 'PointerDeviceKind?', 'identifying which input lifted'],
-    ['TapDragUpDetails.consecutiveTapCount', 'int', 'count at the moment of lift'],
-    ['TapDragStartDetails.sourceTimeStamp', 'Duration?', 'engine timestamp when drag started'],
-    ['TapDragStartDetails.globalPosition', 'Offset', 'global position at drag start'],
-    ['TapDragStartDetails.localPosition', 'Offset', 'local position at drag start'],
-    ['TapDragStartDetails.consecutiveTapCount', 'int', 'tap count carried into the drag'],
-    ['TapDragUpdateDetails.delta', 'Offset', 'movement since the previous update'],
-    ['TapDragUpdateDetails.primaryDelta', 'double?', 'main-axis component (null in 2D)'],
-    ['TapDragUpdateDetails.globalPosition', 'Offset', 'current global position'],
+    [
+      'TapDragDownDetails.globalPosition',
+      'Offset',
+      'where the pointer landed in window coords',
+    ],
+    [
+      'TapDragDownDetails.localPosition',
+      'Offset',
+      'where it landed relative to the receiving render box',
+    ],
+    [
+      'TapDragDownDetails.kind',
+      'PointerDeviceKind?',
+      'touch / mouse / stylus / trackpad',
+    ],
+    [
+      'TapDragDownDetails.consecutiveTapCount',
+      'int',
+      'how many taps in a row are forming this gesture',
+    ],
+    [
+      'TapDragUpDetails.globalPosition',
+      'Offset',
+      'where the pointer lifted in window coords',
+    ],
+    [
+      'TapDragUpDetails.localPosition',
+      'Offset',
+      'where it lifted in local coords',
+    ],
+    [
+      'TapDragUpDetails.kind',
+      'PointerDeviceKind?',
+      'identifying which input lifted',
+    ],
+    [
+      'TapDragUpDetails.consecutiveTapCount',
+      'int',
+      'count at the moment of lift',
+    ],
+    [
+      'TapDragStartDetails.sourceTimeStamp',
+      'Duration?',
+      'engine timestamp when drag started',
+    ],
+    [
+      'TapDragStartDetails.globalPosition',
+      'Offset',
+      'global position at drag start',
+    ],
+    [
+      'TapDragStartDetails.localPosition',
+      'Offset',
+      'local position at drag start',
+    ],
+    [
+      'TapDragStartDetails.consecutiveTapCount',
+      'int',
+      'tap count carried into the drag',
+    ],
+    [
+      'TapDragUpdateDetails.delta',
+      'Offset',
+      'movement since the previous update',
+    ],
+    [
+      'TapDragUpdateDetails.primaryDelta',
+      'double?',
+      'main-axis component (null in 2D)',
+    ],
+    [
+      'TapDragUpdateDetails.globalPosition',
+      'Offset',
+      'current global position',
+    ],
     ['TapDragUpdateDetails.localPosition', 'Offset', 'current local position'],
-    ['TapDragUpdateDetails.sourceTimeStamp', 'Duration?', 'engine timestamp for this move'],
-    ['TapDragEndDetails.velocity', 'Velocity', 'estimated end velocity in px/s'],
-    ['TapDragEndDetails.primaryVelocity', 'double?', 'main-axis component (null in 2D)'],
-    ['TapDragEndDetails.consecutiveTapCount', 'int', 'tap count carried into the end'],
+    [
+      'TapDragUpdateDetails.sourceTimeStamp',
+      'Duration?',
+      'engine timestamp for this move',
+    ],
+    [
+      'TapDragEndDetails.velocity',
+      'Velocity',
+      'estimated end velocity in px/s',
+    ],
+    [
+      'TapDragEndDetails.primaryVelocity',
+      'double?',
+      'main-axis component (null in 2D)',
+    ],
+    [
+      'TapDragEndDetails.consecutiveTapCount',
+      'int',
+      'tap count carried into the end',
+    ],
   ];
 
   final List<Widget> detailRows = [];
@@ -1956,11 +2105,7 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
             Expanded(
               child: Text(
                 df[2],
-                style: TextStyle(
-                  color: slateLow,
-                  fontSize: 11,
-                  height: 1.35,
-                ),
+                style: TextStyle(color: slateLow, fontSize: 11, height: 1.35),
               ),
             ),
           ],
@@ -2059,9 +2204,17 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
     ['indirectly GestureRecognizer', tideMid, ropeCream],
     ['stable since Flutter 3.13+', signalGreen, ropeCream],
     ['used by SelectableText.dragStartBehavior', sunsetCoral, paperInk],
-    ['drives default text-selection drag', sunsetCoral.withValues(alpha: 0.85), paperInk],
+    [
+      'drives default text-selection drag',
+      sunsetCoral.withValues(alpha: 0.85),
+      paperInk,
+    ],
     ['supports up to triple-tap counts', signalAmber, paperInk],
-    ['no rotation, no scale (use ScaleGestureRecognizer)', slateHigh, ropeCream],
+    [
+      'no rotation, no scale (use ScaleGestureRecognizer)',
+      slateHigh,
+      ropeCream,
+    ],
     ['eagerVictoryOnDrag default = false', tideMid, ropeCream],
     ['supportedDevices default = null (all)', tideShoal, ropeCream],
     ['debugOwner shown in DevTools', brassWarm, paperInk],
@@ -2080,10 +2233,7 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
         decoration: BoxDecoration(
           color: bg,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: fg.withValues(alpha: 0.25),
-            width: 1,
-          ),
+          border: Border.all(color: fg.withValues(alpha: 0.25), width: 1),
         ),
         child: Text(
           text,
@@ -2127,10 +2277,12 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
             ],
             stops: [
               0.0,
-              AlwaysStoppedAnimation<double>(0.4 - 0.05 * t).value
-                  .clamp(0.0, 0.5),
-              AlwaysStoppedAnimation<double>(0.7 - 0.05 * t).value
-                  .clamp(0.5, 0.95),
+              AlwaysStoppedAnimation<double>(
+                0.4 - 0.05 * t,
+              ).value.clamp(0.0, 0.5),
+              AlwaysStoppedAnimation<double>(
+                0.7 - 0.05 * t,
+              ).value.clamp(0.5, 0.95),
               1.0,
             ],
           ),
@@ -2193,10 +2345,7 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
             SizedBox(width: 8),
             Text(
               'starboard — clear sea ahead',
-              style: TextStyle(
-                color: ropeCream,
-                fontSize: 11,
-              ),
+              style: TextStyle(color: ropeCream, fontSize: 11),
             ),
             SizedBox(width: 18),
             Container(
@@ -2210,17 +2359,14 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
             SizedBox(width: 8),
             Text(
               'port — caution; arena starvation possible',
-              style: TextStyle(
-                color: ropeCream,
-                fontSize: 11,
-              ),
+              style: TextStyle(color: ropeCream, fontSize: 11),
             ),
           ],
         ),
         SizedBox(height: 6),
         Text(
           'a tap is a hello, a drag is a story; this recognizer is the harbour\'s '
-              'patient ear, listening for either with no preference.',
+          'patient ear, listening for either with no preference.',
           style: TextStyle(
             color: tideShallow,
             fontSize: 11,
@@ -2237,59 +2383,149 @@ recognizer.onDragEnd = (TapDragEndDetails d) {
   // ---------------------------------------------------------------------------
   final List<Widget> body = [
     heroPanel,
-    sectionHeader('01', 'palette', 'twenty named anchor swatches', tideMid, ropeCream),
+    sectionHeader(
+      '01',
+      'palette',
+      'twenty named anchor swatches',
+      tideMid,
+      ropeCream,
+    ),
     paletteSection,
-    sectionHeader('02', 'api surface', 'principal members and their signatures',
-        twilightPlum, ropeCream),
+    sectionHeader(
+      '02',
+      'api surface',
+      'principal members and their signatures',
+      twilightPlum,
+      ropeCream,
+    ),
     apiSurfaceSection,
-    sectionHeader('03', 'live probe',
-        'what we actually observed when constructing the recognizer',
-        tideShoal, tideDeep),
+    sectionHeader(
+      '03',
+      'live probe',
+      'what we actually observed when constructing the recognizer',
+      tideShoal,
+      tideDeep,
+    ),
     probedStateSection,
-    sectionHeader('04', 'lifecycle flow',
-        'sequence from pointer-down to disposal', brassWarm, tideDeep),
+    sectionHeader(
+      '04',
+      'lifecycle flow',
+      'sequence from pointer-down to disposal',
+      brassWarm,
+      tideDeep,
+    ),
     lifecycleSection,
-    sectionHeader('05', 'timing diagram',
-        'time-aligned ascii view of tap vs pan paths', paperInk, ropeCream),
+    sectionHeader(
+      '05',
+      'timing diagram',
+      'time-aligned ascii view of tap vs pan paths',
+      paperInk,
+      ropeCream,
+    ),
     timingDiagramSection,
-    sectionHeader('06', 'comparison',
-        'how this recognizer differs from neighbours', sunsetCoral, tideDeep),
+    sectionHeader(
+      '06',
+      'comparison',
+      'how this recognizer differs from neighbours',
+      sunsetCoral,
+      tideDeep,
+    ),
     comparisonSection,
-    sectionHeader('07', 'pointer-event timeline',
-        'a synthetic 120ms gesture, frame by frame', tideShoal, tideDeep),
+    sectionHeader(
+      '07',
+      'pointer-event timeline',
+      'a synthetic 120ms gesture, frame by frame',
+      tideShoal,
+      tideDeep,
+    ),
     pointerTimelineSection,
-    sectionHeader('08', 'callback gallery',
-        'each callback signature in isolation', twilightIndigo, ropeCream),
+    sectionHeader(
+      '08',
+      'callback gallery',
+      'each callback signature in isolation',
+      twilightIndigo,
+      ropeCream,
+    ),
     callbackGallerySection,
-    sectionHeader('09', 'scenarios',
-        'eight practical use-cases with branch behaviour', tideMid, ropeCream),
+    sectionHeader(
+      '09',
+      'scenarios',
+      'eight practical use-cases with branch behaviour',
+      tideMid,
+      ropeCream,
+    ),
     scenarioSection,
-    sectionHeader('10', 'pitfalls',
-        'common mistakes and how to avoid them', signalRed, ropeCream),
+    sectionHeader(
+      '10',
+      'pitfalls',
+      'common mistakes and how to avoid them',
+      signalRed,
+      ropeCream,
+    ),
     pitfallsSection,
-    sectionHeader('11', 'snapshot gauges',
-        'frozen synthetic metrics from a sample run', twilightPlum, ropeCream),
+    sectionHeader(
+      '11',
+      'snapshot gauges',
+      'frozen synthetic metrics from a sample run',
+      twilightPlum,
+      ropeCream,
+    ),
     gaugesSection,
-    sectionHeader('12', 'sample code',
-        'paste-ready snippets for typical wirings', tideDeep, brassLight),
+    sectionHeader(
+      '12',
+      'sample code',
+      'paste-ready snippets for typical wirings',
+      tideDeep,
+      brassLight,
+    ),
     sampleCodeSection,
-    sectionHeader('13', 'glossary',
-        'terms used throughout this catalogue', brassWarm, tideDeep),
+    sectionHeader(
+      '13',
+      'glossary',
+      'terms used throughout this catalogue',
+      brassWarm,
+      tideDeep,
+    ),
     glossarySection,
-    sectionHeader('14', 'highlights',
-        'the eight things to remember', tideShoal, tideDeep),
+    sectionHeader(
+      '14',
+      'highlights',
+      'the eight things to remember',
+      tideShoal,
+      tideDeep,
+    ),
     highlightsSection,
-    sectionHeader('15', 'details payloads',
-        'every field on every TapDrag*Details type', twilightIndigo, ropeCream),
+    sectionHeader(
+      '15',
+      'details payloads',
+      'every field on every TapDrag*Details type',
+      twilightIndigo,
+      ropeCream,
+    ),
     detailsSection,
-    sectionHeader('16', 'state machine',
-        'high-level states and transitions', paperInk, brassLight),
+    sectionHeader(
+      '16',
+      'state machine',
+      'high-level states and transitions',
+      paperInk,
+      brassLight,
+    ),
     stateMachineSection,
-    sectionHeader('17', 'quick-reference chips',
-        'one-liner facts for the road', tideMid, ropeCream),
+    sectionHeader(
+      '17',
+      'quick-reference chips',
+      'one-liner facts for the road',
+      tideMid,
+      ropeCream,
+    ),
     chipsSection,
-    sectionHeader('18', 'sign-off', 'closing the harbour log', twilightIndigo,
-        brassLight),
+    sectionHeader(
+      '18',
+      'sign-off',
+      'closing the harbour log',
+      twilightIndigo,
+      brassLight,
+    ),
     footerSection,
   ];
 

@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.visibility,
       'title': 'What is SliverVisibility?',
-      'body': 'SliverVisibility is the sliver equivalent of the Visibility '
+      'body':
+          'SliverVisibility is the sliver equivalent of the Visibility '
           'widget. It controls whether a sliver child is visible, while '
           'optionally keeping its state, animation, layout, semantics, '
           'and interactivity alive in the background.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.memory,
       'title': 'Why Maintain State?',
-      'body': 'When you conditionally remove a sliver from a CustomScrollView '
+      'body':
+          'When you conditionally remove a sliver from a CustomScrollView '
           'with an if-statement, its entire widget subtree is destroyed. '
           'SliverVisibility with maintainState: true keeps the sliver\'s '
           'state object alive even when hidden.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Maintain Size',
-      'body': 'With maintainSize: true, the hidden sliver still occupies '
+      'body':
+          'With maintainSize: true, the hidden sliver still occupies '
           'its full layout space. Other slivers do not shift when it is '
           'toggled. This prevents jarring layout jumps when showing/hiding '
           'sections dynamically.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_horiz,
       'title': 'Replacement Sliver',
-      'body': 'When visible is false and maintainSize is false, the sliver '
+      'body':
+          'When visible is false and maintainSize is false, the sliver '
           'is replaced by replacementSliver (defaults to a zero-extent '
           'SliverToBoxAdapter). You can provide a custom replacement for '
           'placeholder content.',
@@ -125,42 +129,48 @@ dynamic build(BuildContext context) {
       'param': 'visible',
       'type': 'bool',
       'default': 'true',
-      'desc': 'Whether the sliver child is visible. When false, the sliver '
+      'desc':
+          'Whether the sliver child is visible. When false, the sliver '
           'is hidden according to the maintain* flags.',
     },
     {
       'param': 'maintainState',
       'type': 'bool',
       'default': 'false',
-      'desc': 'Keep the sliver\'s State object alive while hidden. If false, '
+      'desc':
+          'Keep the sliver\'s State object alive while hidden. If false, '
           'the sliver is completely removed from the tree when not visible.',
     },
     {
       'param': 'maintainAnimation',
       'type': 'bool',
       'default': 'false',
-      'desc': 'Keep animations ticking while hidden. Requires maintainState. '
+      'desc':
+          'Keep animations ticking while hidden. Requires maintainState. '
           'Animations resume from current position when shown again.',
     },
     {
       'param': 'maintainSize',
       'type': 'bool',
       'default': 'false',
-      'desc': 'Keep the layout space occupied. The sliver is invisible but '
+      'desc':
+          'Keep the layout space occupied. The sliver is invisible but '
           'still takes up room. Requires maintainAnimation.',
     },
     {
       'param': 'maintainSemantics',
       'type': 'bool',
       'default': 'false',
-      'desc': 'Keep the semantic information available to screen readers '
+      'desc':
+          'Keep the semantic information available to screen readers '
           'while the sliver is hidden. Requires maintainSize.',
     },
     {
       'param': 'maintainInteractivity',
       'type': 'bool',
       'default': 'false',
-      'desc': 'Keep the sliver responsive to hit testing while hidden. '
+      'desc':
+          'Keep the sliver responsive to hit testing while hidden. '
           'Users can tap an invisible sliver. Requires maintainSemantics.',
     },
     {
@@ -173,7 +183,8 @@ dynamic build(BuildContext context) {
       'param': 'replacementSliver',
       'type': 'Widget',
       'default': 'SliverToBoxAdapter()',
-      'desc': 'Shown when visible is false and maintainSize is false. '
+      'desc':
+          'Shown when visible is false and maintainSize is false. '
           'Defaults to a zero-size sliver.',
     },
   ];
@@ -316,19 +327,15 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.cyan.shade100,
-                  child: Text('A${index + 1}'),
-                ),
-                title: Text(basicSections[0]['items'][index] as String),
-              );
-            },
-            childCount:
-                (basicSections[0]['items'] as List<String>).length,
-          ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.cyan.shade100,
+                child: Text('A${index + 1}'),
+              ),
+              title: Text(basicSections[0]['items'][index] as String),
+            );
+          }, childCount: (basicSections[0]['items'] as List<String>).length),
         ),
 
         // Section B — wrapped in SliverVisibility
@@ -375,19 +382,15 @@ dynamic build(BuildContext context) {
         SliverVisibility(
           visible: true,
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.orange.shade100,
-                    child: Text('B${index + 1}'),
-                  ),
-                  title: Text(basicSections[1]['items'][index] as String),
-                );
-              },
-              childCount:
-                  (basicSections[1]['items'] as List<String>).length,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.orange.shade100,
+                  child: Text('B${index + 1}'),
+                ),
+                title: Text(basicSections[1]['items'][index] as String),
+              );
+            }, childCount: (basicSections[1]['items'] as List<String>).length),
           ),
         ),
 
@@ -406,19 +409,15 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.green.shade100,
-                  child: Text('C${index + 1}'),
-                ),
-                title: Text(basicSections[2]['items'][index] as String),
-              );
-            },
-            childCount:
-                (basicSections[2]['items'] as List<String>).length,
-          ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            return ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.green.shade100,
+                child: Text('C${index + 1}'),
+              ),
+              title: Text(basicSections[2]['items'][index] as String),
+            );
+          }, childCount: (basicSections[2]['items'] as List<String>).length),
         ),
       ],
     ),
@@ -433,7 +432,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'No maintain flags',
       'code': 'SliverVisibility(\n  visible: false,\n  sliver: child,\n)',
-      'behavior': 'Sliver is completely removed. State is destroyed. '
+      'behavior':
+          'Sliver is completely removed. State is destroyed. '
           'When shown again, the widget rebuilds from scratch. Counters '
           'reset, scroll positions lost, animation states gone.',
       'icon': Icons.delete_outline,
@@ -441,8 +441,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'maintainState: true',
-      'code': 'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  sliver: child,\n)',
-      'behavior': 'State object remains alive. The widget is not rebuilt '
+      'code':
+          'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  sliver: child,\n)',
+      'behavior':
+          'State object remains alive. The widget is not rebuilt '
           'when toggled back. Counters, text fields, and other stateful '
           'data persist. The sliver takes no layout space.',
       'icon': Icons.save,
@@ -450,8 +452,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'maintainAnimation: true',
-      'code': 'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  maintainAnimation: true,\n  sliver: child,\n)',
-      'behavior': 'Animation controllers keep ticking. When shown again, '
+      'code':
+          'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  maintainAnimation: true,\n  sliver: child,\n)',
+      'behavior':
+          'Animation controllers keep ticking. When shown again, '
           'the animation is at the correct frame, not restarted. Useful '
           'for progress indicators and looping animations.',
       'icon': Icons.animation,
@@ -459,8 +463,10 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'maintainSize: true',
-      'code': 'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  maintainAnimation: true,\n  maintainSize: true,\n  sliver: child,\n)',
-      'behavior': 'The sliver remains in layout, occupying full space. '
+      'code':
+          'SliverVisibility(\n  visible: false,\n  maintainState: true,\n  maintainAnimation: true,\n  maintainSize: true,\n  sliver: child,\n)',
+      'behavior':
+          'The sliver remains in layout, occupying full space. '
           'Other slivers do not shift. Content is just invisible. No '
           'layout jumps when toggling visibility.',
       'icon': Icons.aspect_ratio,
@@ -570,15 +576,12 @@ dynamic build(BuildContext context) {
           ),
         ),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext ctx, int index) {
-              return ListTile(
-                leading: const Icon(Icons.check_circle, color: Colors.cyan),
-                title: Text('Visible item ${index + 1}'),
-              );
-            },
-            childCount: 3,
-          ),
+          delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+            return ListTile(
+              leading: const Icon(Icons.check_circle, color: Colors.cyan),
+              title: Text('Visible item ${index + 1}'),
+            );
+          }, childCount: 3),
         ),
 
         // Hidden section with custom replacement
@@ -628,15 +631,12 @@ dynamic build(BuildContext context) {
             ),
           ),
           sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext ctx, int index) {
-                return ListTile(
-                  leading: const Icon(Icons.article, color: Colors.orange),
-                  title: Text('Hidden item ${index + 1}'),
-                );
-              },
-              childCount: 5,
-            ),
+            delegate: SliverChildBuilderDelegate((BuildContext ctx, int index) {
+              return ListTile(
+                leading: const Icon(Icons.article, color: Colors.orange),
+                title: Text('Hidden item ${index + 1}'),
+              );
+            }, childCount: 5),
           ),
         ),
 
@@ -769,10 +769,7 @@ dynamic build(BuildContext context) {
                   ),
                   child: Text(
                     c['where'] as String,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                   ),
                 ),
               ],
@@ -861,9 +858,7 @@ dynamic build(BuildContext context) {
         decoration: BoxDecoration(
           color: Colors.cyan.withOpacity(0.03 + (i * 0.015)),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Colors.cyan.withOpacity(0.1 + (i * 0.05)),
-          ),
+          border: Border.all(color: Colors.cyan.withOpacity(0.1 + (i * 0.05))),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -918,32 +913,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.visibility,
-      'text': 'SliverVisibility controls sliver visibility with fine-grained '
+      'text':
+          'SliverVisibility controls sliver visibility with fine-grained '
           'maintain flags for state, animation, size, semantics, and hit testing.',
     },
     {
       'icon': Icons.memory,
-      'text': 'Use maintainState: true to avoid losing widget state when '
+      'text':
+          'Use maintainState: true to avoid losing widget state when '
           'temporarily hiding a sliver section.',
     },
     {
       'icon': Icons.aspect_ratio,
-      'text': 'Use maintainSize: true to prevent layout jumps — the hidden '
+      'text':
+          'Use maintainSize: true to prevent layout jumps — the hidden '
           'sliver still takes up its full space.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text': 'Provide a replacementSliver for placeholder content when the '
+      'text':
+          'Provide a replacementSliver for placeholder content when the '
           'main sliver is hidden without maintainSize.',
     },
     {
       'icon': Icons.compare,
-      'text': 'Choose SliverVisibility over conditionals when you need state '
+      'text':
+          'Choose SliverVisibility over conditionals when you need state '
           'preservation. Choose SliverOffstage for simpler always-maintain.',
     },
     {
       'icon': Icons.layers,
-      'text': 'The maintain flags form a dependency chain: interactivity '
+      'text':
+          'The maintain flags form a dependency chain: interactivity '
           'requires semantics, which requires size, animation, and state.',
     },
   ];
@@ -1262,10 +1263,7 @@ Widget _svRefRow(String label, String value, Color color) {
           ),
         ),
         Expanded(
-          child: Text(
-            value,
-            style: TextStyle(fontSize: 11, color: color),
-          ),
+          child: Text(value, style: TextStyle(fontSize: 11, color: color)),
         ),
       ],
     ),
@@ -1299,13 +1297,7 @@ Widget _svFlagChip(String label, bool active) {
         ),
       ),
       const SizedBox(height: 3),
-      Text(
-        label,
-        style: TextStyle(
-          fontSize: 9,
-          color: Colors.grey.shade500,
-        ),
-      ),
+      Text(label, style: TextStyle(fontSize: 9, color: Colors.grey.shade500)),
     ],
   );
 }

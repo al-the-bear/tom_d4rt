@@ -80,31 +80,19 @@ dynamic build(BuildContext context) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              _SectionDivider(
-                index: 1,
-                title: 'Intro — what does it do?',
-              ),
+              _SectionDivider(index: 1, title: 'Intro — what does it do?'),
               const _IntroSection(),
               const SizedBox(height: _kSectionGap),
 
-              _SectionDivider(
-                index: 2,
-                title: 'Drop the WIDTH constraint',
-              ),
+              _SectionDivider(index: 2, title: 'Drop the WIDTH constraint'),
               const _DropWidthSection(),
               const SizedBox(height: _kSectionGap),
 
-              _SectionDivider(
-                index: 3,
-                title: 'Drop the HEIGHT constraint',
-              ),
+              _SectionDivider(index: 3, title: 'Drop the HEIGHT constraint'),
               const _DropHeightSection(),
               const SizedBox(height: _kSectionGap),
 
-              _SectionDivider(
-                index: 4,
-                title: 'Drop BOTH constraints',
-              ),
+              _SectionDivider(index: 4, title: 'Drop BOTH constraints'),
               const _DropBothSection(),
               const SizedBox(height: _kSectionGap),
 
@@ -122,17 +110,11 @@ dynamic build(BuildContext context) {
               const _CustomTransformSection(),
               const SizedBox(height: _kSectionGap),
 
-              _SectionDivider(
-                index: 7,
-                title: 'ScrollView-friendly child',
-              ),
+              _SectionDivider(index: 7, title: 'ScrollView-friendly child'),
               const _ScrollFriendlySection(),
               const SizedBox(height: _kSectionGap),
 
-              _SectionDivider(
-                index: 8,
-                title: 'clipBehavior gallery',
-              ),
+              _SectionDivider(index: 8, title: 'clipBehavior gallery'),
               const _ClipBehaviorGallery(),
               const SizedBox(height: _kSectionGap),
 
@@ -212,10 +194,7 @@ class _SectionDivider extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-              ),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -234,10 +213,7 @@ class _Note extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Text(
-        text,
-        style: const TextStyle(fontSize: 14, height: 1.4),
-      ),
+      child: Text(text, style: const TextStyle(fontSize: 14, height: 1.4)),
     );
   }
 }
@@ -271,10 +247,7 @@ class _DemoCard extends StatelessWidget {
         children: <Widget>[
           Text(
             label,
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 15,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
           ),
           if (subLabel != null) ...<Widget>[
             const SizedBox(height: 2),
@@ -288,10 +261,7 @@ class _DemoCard extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 8),
-          if (height != null)
-            SizedBox(height: height, child: child)
-          else
-            child,
+          if (height != null) SizedBox(height: height, child: child) else child,
         ],
       ),
     );
@@ -437,8 +407,7 @@ class _IntroSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade300),
             ),
-            child: const Text(
-              '''
+            child: const Text('''
 ┌─────────────────────────────────────────────────────────────┐
 │            parent BoxConstraints ──► (incoming)             │
 │                       │                                     │
@@ -455,13 +424,7 @@ class _IntroSection extends StatelessWidget {
 │                       │                                     │
 │             align + clipBehavior on child                   │
 └─────────────────────────────────────────────────────────────┘
-''',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 12.5,
-                height: 1.25,
-              ),
-            ),
+''', style: TextStyle(fontFamily: 'monospace', fontSize: 12.5, height: 1.25)),
           ),
           const SizedBox(height: 12),
           // Live example: identity transform + a coloured tag.
@@ -621,10 +584,7 @@ class _DropHeightSection extends StatelessWidget {
                 title: 'topCenter',
                 alignment: Alignment.topCenter,
               ),
-              _AlignedColumnDemo(
-                title: 'center',
-                alignment: Alignment.center,
-              ),
+              _AlignedColumnDemo(title: 'center', alignment: Alignment.center),
               _AlignedColumnDemo(
                 title: 'bottomCenter',
                 alignment: Alignment.bottomCenter,
@@ -910,8 +870,7 @@ class _ScrollFriendlySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return _DemoCard(
       label: 'Wrap a Row in a horizontal SingleChildScrollView',
-      subLabel:
-          'Common real-world use: tag bar, breadcrumbs, kanban swimlane.',
+      subLabel: 'Common real-world use: tag bar, breadcrumbs, kanban swimlane.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -929,7 +888,8 @@ class _ScrollFriendlySection extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: ConstraintsTransformBox(
                 alignment: Alignment.centerLeft,
-                constraintsTransform: ConstraintsTransformBox.widthUnconstrained,
+                constraintsTransform:
+                    ConstraintsTransformBox.widthUnconstrained,
                 debugTransformType: 'scroll/widthUnconstrained',
                 child: const _TagRow(count: 12, width: 90, height: 44),
               ),
@@ -965,8 +925,9 @@ class _ScrollFriendlySection extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color:
-                          Colors.primaries[i % Colors.primaries.length].shade300,
+                      color: Colors
+                          .primaries[i % Colors.primaries.length]
+                          .shade300,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     alignment: Alignment.center,
@@ -1049,8 +1010,7 @@ class _ClipBehaviorTile extends StatelessWidget {
             child: ConstraintsTransformBox(
               alignment: Alignment.centerLeft,
               clipBehavior: clipBehavior,
-              constraintsTransform:
-                  ConstraintsTransformBox.widthUnconstrained,
+              constraintsTransform: ConstraintsTransformBox.widthUnconstrained,
               debugTransformType: 'clip:$label',
               child: const _TagRow(count: 6, width: 80, height: 50),
             ),
@@ -1204,10 +1164,7 @@ class _ComparisonCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            note,
-            style: const TextStyle(fontSize: 12, height: 1.3),
-          ),
+          Text(note, style: const TextStyle(fontSize: 12, height: 1.3)),
         ],
       ),
     );
@@ -1248,8 +1205,7 @@ class _PitfallsSection extends StatelessWidget {
             child: ConstraintsTransformBox(
               alignment: Alignment.centerLeft,
               clipBehavior: Clip.hardEdge,
-              constraintsTransform:
-                  ConstraintsTransformBox.widthUnconstrained,
+              constraintsTransform: ConstraintsTransformBox.widthUnconstrained,
               debugTransformType: 'pitfall1/safe',
               // Safe: mainAxisSize.min + non-flex children.
               child: const Row(
@@ -1277,8 +1233,7 @@ class _PitfallsSection extends StatelessWidget {
             child: ConstraintsTransformBox(
               alignment: Alignment.centerLeft,
               clipBehavior: Clip.hardEdge,
-              constraintsTransform:
-                  ConstraintsTransformBox.widthUnconstrained,
+              constraintsTransform: ConstraintsTransformBox.widthUnconstrained,
               debugTransformType: 'pitfall2',
               child: const _TagRow(count: 5, width: 80, height: 36),
             ),
@@ -1412,12 +1367,7 @@ class _PitfallCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(body, style: const TextStyle(fontSize: 13, height: 1.3)),
           const SizedBox(height: 8),
-          ClipRect(
-            child: SizedBox(
-              height: 60,
-              child: child,
-            ),
-          ),
+          ClipRect(child: SizedBox(height: 60, child: child)),
         ],
       ),
     );
@@ -1785,7 +1735,8 @@ class _ReferenceTable extends StatelessWidget {
         symbol: 'Clip.antiAlias',
         kind: 'Enum',
         signature: 'antialiased clip; smoother corners',
-        notes: 'Use with rounded shapes; slightly more expensive than hardEdge.',
+        notes:
+            'Use with rounded shapes; slightly more expensive than hardEdge.',
       ),
       _RefRow(
         symbol: 'Clip.antiAliasWithSaveLayer',
@@ -1799,13 +1750,9 @@ class _ReferenceTable extends StatelessWidget {
 
     return _DemoCard(
       label: 'Quick reference',
-      subLabel:
-          'Symbols you will reach for around ConstraintsTransformBox.',
+      subLabel: 'Symbols you will reach for around ConstraintsTransformBox.',
       child: Column(
-        children: <Widget>[
-          _RefHeader(),
-          for (final _RefRow r in rows) r,
-        ],
+        children: <Widget>[_RefHeader(), for (final _RefRow r in rows) r],
       ),
     );
   }
@@ -1886,10 +1833,7 @@ class _RefRow extends StatelessWidget {
             width: 90,
             child: Text(
               kind,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey.shade700,
-              ),
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
             ),
           ),
           Expanded(
@@ -1904,10 +1848,7 @@ class _RefRow extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  notes,
-                  style: const TextStyle(fontSize: 12, height: 1.3),
-                ),
+                Text(notes, style: const TextStyle(fontSize: 12, height: 1.3)),
               ],
             ),
           ),

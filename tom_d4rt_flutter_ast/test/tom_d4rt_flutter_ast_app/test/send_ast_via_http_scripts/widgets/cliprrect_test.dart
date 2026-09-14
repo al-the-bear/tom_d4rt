@@ -130,7 +130,10 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 4.0),
             Text(
               'r = ${r.toStringAsFixed(0)}',
-              style: const TextStyle(fontSize: 11.0, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
@@ -1053,7 +1056,7 @@ dynamic build(BuildContext context) {
         cheatRow(
           'clipBehavior:',
           'how the edges are rasterized: none / hardEdge / antiAlias / '
-          'antiAliasWithSaveLayer',
+              'antiAliasWithSaveLayer',
         ),
         cheatRow(
           'clipper:',
@@ -1100,10 +1103,7 @@ dynamic build(BuildContext context) {
                 child: Center(
                   child: Text(
                     't=${t.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11.0,
-                    ),
+                    style: const TextStyle(color: Colors.white, fontSize: 11.0),
                   ),
                 ),
               ),

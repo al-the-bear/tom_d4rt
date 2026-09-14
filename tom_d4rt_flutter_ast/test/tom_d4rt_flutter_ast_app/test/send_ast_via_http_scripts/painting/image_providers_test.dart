@@ -257,10 +257,7 @@ Widget kPipelineNode(String label, String sub, Color color) {
         const SizedBox(height: 2.0),
         Text(
           sub,
-          style: const TextStyle(
-            color: Color(0xFFEFE7D2),
-            fontSize: 11.0,
-          ),
+          style: const TextStyle(color: Color(0xFFEFE7D2), fontSize: 11.0),
         ),
       ],
     ),
@@ -284,11 +281,7 @@ Widget kImageStandIn({
           width: width,
           height: height,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: begin,
-              end: end,
-              colors: colors,
-            ),
+            gradient: LinearGradient(begin: begin, end: end, colors: colors),
             border: Border.all(color: kCharcoal, width: 1.0),
           ),
         ),
@@ -296,10 +289,7 @@ Widget kImageStandIn({
           left: 6.0,
           bottom: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 6.0,
-              vertical: 2.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             color: const Color(0xCC14110F),
             child: Text(
               caption,
@@ -368,10 +358,7 @@ Widget kProviderCard({
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 8.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
           decoration: BoxDecoration(
             color: accent,
             borderRadius: const BorderRadius.only(
@@ -429,9 +416,7 @@ Widget kComparisonRow(List<String> cells, {bool header = false}) {
   return Container(
     decoration: BoxDecoration(
       color: header ? kCharcoal : kIvoryPaper,
-      border: const Border(
-        bottom: BorderSide(color: kSepiaLight, width: 0.6),
-      ),
+      border: const Border(bottom: BorderSide(color: kSepiaLight, width: 0.6)),
     ),
     child: Row(
       children: [
@@ -448,8 +433,7 @@ Widget kComparisonRow(List<String> cells, {bool header = false}) {
                 style: TextStyle(
                   color: header ? kIvoryPaper : kEmulsion,
                   fontSize: 11.5,
-                  fontWeight:
-                      header ? FontWeight.w800 : FontWeight.w400,
+                  fontWeight: header ? FontWeight.w800 : FontWeight.w400,
                 ),
               ),
             ),
@@ -471,11 +455,7 @@ Widget kCheatRow(String when, String pick, Color color) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          width: 8.0,
-          height: 28.0,
-          color: color,
-        ),
+        Container(width: 8.0, height: 28.0, color: color),
         const SizedBox(width: 10.0),
         Expanded(
           flex: 3,
@@ -545,18 +525,12 @@ dynamic build(BuildContext context) {
   final NetworkImage netA = const NetworkImage(
     'https://example.com/lab/roll-A.jpg',
     scale: 1.0,
-    headers: <String, String>{
-      'Accept': 'image/jpeg',
-      'X-Lab-Roll': 'A',
-    },
+    headers: <String, String>{'Accept': 'image/jpeg', 'X-Lab-Roll': 'A'},
   );
   final NetworkImage netATwin = const NetworkImage(
     'https://example.com/lab/roll-A.jpg',
     scale: 1.0,
-    headers: <String, String>{
-      'Accept': 'image/jpeg',
-      'X-Lab-Roll': 'A',
-    },
+    headers: <String, String>{'Accept': 'image/jpeg', 'X-Lab-Roll': 'A'},
   );
   final NetworkImage netB = const NetworkImage(
     'https://example.com/lab/roll-B.jpg',
@@ -572,13 +546,26 @@ dynamic build(BuildContext context) {
   print('NetworkImage netA == netB     = ${netA == netB}');
 
   final Uint8List memBytes = Uint8List.fromList(<int>[
-    0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A,
-    0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52,
+    0x89,
+    0x50,
+    0x4E,
+    0x47,
+    0x0D,
+    0x0A,
+    0x1A,
+    0x0A,
+    0x00,
+    0x00,
+    0x00,
+    0x0D,
+    0x49,
+    0x48,
+    0x44,
+    0x52,
   ]);
   final MemoryImage memA = MemoryImage(memBytes, scale: 1.5);
   final MemoryImage memATwin = MemoryImage(memBytes, scale: 1.5);
-  final MemoryImage memB =
-      MemoryImage(Uint8List.fromList(<int>[1, 2, 3]));
+  final MemoryImage memB = MemoryImage(Uint8List.fromList(<int>[1, 2, 3]));
 
   print('MemoryImage memA.bytes.length = ${memA.bytes.length}');
   print('MemoryImage memA.scale        = ${memA.scale}');
@@ -684,10 +671,7 @@ dynamic build(BuildContext context) {
           right: 12.0,
           top: 6.0,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 4.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             decoration: BoxDecoration(
               color: kSafelightRed,
               borderRadius: BorderRadius.circular(4.0),
@@ -745,7 +729,9 @@ dynamic build(BuildContext context) {
   // -------------------------------------------------------------------
   print('--- section 2: lifecycle diagram ---');
   print('lifecycle nodes: configuration -> key -> cache -> completer -> frame');
-  print('the provider itself is just a recipe; nothing happens until resolve()');
+  print(
+    'the provider itself is just a recipe; nothing happens until resolve()',
+  );
   print('we therefore inspect providers WITHOUT invoking the loader');
 
   final Widget lifecycleDiagram = kPanel(
@@ -1149,7 +1135,11 @@ dynamic build(BuildContext context) {
                 '• Reducing memory pressure on long lists.\n'
                 '• Avoiding shipping multiple asset variants when a single '
                 'source can be decoded smaller on the fly.',
-                style: TextStyle(color: kIvoryPaper, fontSize: 11.5, height: 1.4),
+                style: TextStyle(
+                  color: kIvoryPaper,
+                  fontSize: 11.5,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
@@ -1219,10 +1209,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: c,
               borderRadius: BorderRadius.circular(4.0),
@@ -1262,22 +1249,54 @@ dynamic build(BuildContext context) {
           style: TextStyle(color: kEmulsion, fontSize: 12.0),
         ),
         const SizedBox(height: 10.0),
-        eqRow('asset (twin)', eqAsset, 'AssetImage($kAssetPath)',
-            'AssetImage($kAssetPath)'),
-        eqRow('asset (cross)', eqAssetCross,
-            'AssetImage($kAssetPath)', 'AssetImage($kAssetBar)'),
-        eqRow('network (twin)', eqNet, 'NetworkImage(roll-A.jpg)',
-            'NetworkImage(roll-A.jpg)'),
-        eqRow('network (cross)', eqNetCross, 'NetworkImage(roll-A.jpg)',
-            'NetworkImage(roll-B.jpg)'),
-        eqRow('memory (twin)', eqMem, 'MemoryImage(bytes#A,1.5)',
-            'MemoryImage(bytes#A,1.5)'),
-        eqRow('memory (cross)', eqMemCross, 'MemoryImage(bytes#A,1.5)',
-            'MemoryImage(bytes#B,1.0)'),
-        eqRow('exactAsset (twin)', eqExact,
-            'ExactAssetImage(grain_2x@2)', 'ExactAssetImage(grain_2x@2)'),
-        eqRow('exactAsset (cross)', eqExactCross,
-            'ExactAssetImage(grain_2x@2)', 'ExactAssetImage(grain_3x@3)'),
+        eqRow(
+          'asset (twin)',
+          eqAsset,
+          'AssetImage($kAssetPath)',
+          'AssetImage($kAssetPath)',
+        ),
+        eqRow(
+          'asset (cross)',
+          eqAssetCross,
+          'AssetImage($kAssetPath)',
+          'AssetImage($kAssetBar)',
+        ),
+        eqRow(
+          'network (twin)',
+          eqNet,
+          'NetworkImage(roll-A.jpg)',
+          'NetworkImage(roll-A.jpg)',
+        ),
+        eqRow(
+          'network (cross)',
+          eqNetCross,
+          'NetworkImage(roll-A.jpg)',
+          'NetworkImage(roll-B.jpg)',
+        ),
+        eqRow(
+          'memory (twin)',
+          eqMem,
+          'MemoryImage(bytes#A,1.5)',
+          'MemoryImage(bytes#A,1.5)',
+        ),
+        eqRow(
+          'memory (cross)',
+          eqMemCross,
+          'MemoryImage(bytes#A,1.5)',
+          'MemoryImage(bytes#B,1.0)',
+        ),
+        eqRow(
+          'exactAsset (twin)',
+          eqExact,
+          'ExactAssetImage(grain_2x@2)',
+          'ExactAssetImage(grain_2x@2)',
+        ),
+        eqRow(
+          'exactAsset (cross)',
+          eqExactCross,
+          'ExactAssetImage(grain_2x@2)',
+          'ExactAssetImage(grain_3x@3)',
+        ),
         const SizedBox(height: 8.0),
         kKeyValue('hash(assetA)', '${assetA.hashCode}'),
         kKeyValue('hash(twin)', '${assetATwin.hashCode}'),
@@ -1304,10 +1323,7 @@ dynamic build(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 14.0,
-            vertical: 10.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           color: kSepiaDeep,
           child: const Text(
             'Provider comparison',
@@ -1318,10 +1334,12 @@ dynamic build(BuildContext context) {
             ),
           ),
         ),
-        kComparisonRow(
-          ['Provider', 'Source', 'Cache-key type', 'Notes'],
-          header: true,
-        ),
+        kComparisonRow([
+          'Provider',
+          'Source',
+          'Cache-key type',
+          'Notes',
+        ], header: true),
         kComparisonRow([
           'AssetImage',
           'AssetBundle',
@@ -1370,8 +1388,12 @@ dynamic build(BuildContext context) {
   print('we describe T conceptually for each provider variant');
   print('keys must be == and hashCode for ImageCache to dedupe correctly');
 
-  Widget keyDiagram(String providerName, String keyType, String keyParts,
-      Color color) {
+  Widget keyDiagram(
+    String providerName,
+    String keyType,
+    String keyParts,
+    Color color,
+  ) {
     return Container(
       width: 340.0,
       margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -1385,10 +1407,7 @@ dynamic build(BuildContext context) {
         children: [
           Container(
             width: 110.0,
-            padding: const EdgeInsets.symmetric(
-              vertical: 6.0,
-              horizontal: 6.0,
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 6.0),
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(4.0),
@@ -1424,10 +1443,7 @@ dynamic build(BuildContext context) {
                 const SizedBox(height: 2.0),
                 Text(
                   keyParts,
-                  style: const TextStyle(
-                    color: kEmulsion,
-                    fontSize: 11.0,
-                  ),
+                  style: const TextStyle(color: kEmulsion, fontSize: 11.0),
                 ),
               ],
             ),
@@ -1560,31 +1576,31 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 8.0),
         kCheatRow(
           'Image is bundled in the app and you trust the bundle to '
-          'pick the right scale variant for you.',
+              'pick the right scale variant for you.',
           'AssetImage',
           kSepiaDeep,
         ),
         kCheatRow(
           'Image is bundled but you must override the variant logic and '
-          'pin a specific scale.',
+              'pin a specific scale.',
           'ExactAssetImage',
           kSafelightRed,
         ),
         kCheatRow(
           'Image lives on a remote server and you may need request '
-          'headers (auth, content-type).',
+              'headers (auth, content-type).',
           'NetworkImage',
           kMagentaProc,
         ),
         kCheatRow(
           'Bytes are already in memory — generated, decompressed, or '
-          'received over a non-HTTP channel.',
+              'received over a non-HTTP channel.',
           'MemoryImage',
           kKodakYellow,
         ),
         kCheatRow(
           'Image lives on the local filesystem (camera capture, '
-          'downloaded asset, cached blob).',
+              'downloaded asset, cached blob).',
           'FileImage',
           kEmulsion,
         ),
@@ -1682,11 +1698,7 @@ dynamic build(BuildContext context) {
               ),
             ],
           ),
-          child: const Icon(
-            Icons.photo_camera,
-            color: kInkBlack,
-            size: 28.0,
-          ),
+          child: const Icon(Icons.photo_camera, color: kInkBlack, size: 28.0),
         ),
         const SizedBox(width: 14.0),
         Expanded(
@@ -1741,25 +1753,36 @@ dynamic build(BuildContext context) {
       mainAxisSize: MainAxisSize.min,
       children: [
         titleBanner,
-        kSectionTitle('0', 'Anchor instances (constructed, not resolved)',
-            kSepiaDeep),
+        kSectionTitle(
+          '0',
+          'Anchor instances (constructed, not resolved)',
+          kSepiaDeep,
+        ),
         kPanel(
           background: kIvoryPaper,
           border: kSepiaDeep,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              kKeyValue('AssetImage A',
-                  '${assetA.assetName} (pkg=${assetA.package})'),
+              kKeyValue(
+                'AssetImage A',
+                '${assetA.assetName} (pkg=${assetA.package})',
+              ),
               kKeyValue('AssetImage B', assetB.assetName),
               kKeyValue('NetworkImage A', netA.url),
-              kKeyValue('NetworkImage B',
-                  '${netB.url} @${netB.scale}x'),
-              kKeyValue('MemoryImage A',
-                  'bytes=${memA.bytes.length}, scale=${memA.scale}'),
-              kKeyValue('ExactAssetImage', '${exactA.assetName} @${exactA.scale}x'),
-              kKeyValue('ResizeImage',
-                  'wraps ${resizeA.imageProvider.runtimeType}'),
+              kKeyValue('NetworkImage B', '${netB.url} @${netB.scale}x'),
+              kKeyValue(
+                'MemoryImage A',
+                'bytes=${memA.bytes.length}, scale=${memA.scale}',
+              ),
+              kKeyValue(
+                'ExactAssetImage',
+                '${exactA.assetName} @${exactA.scale}x',
+              ),
+              kKeyValue(
+                'ResizeImage',
+                'wraps ${resizeA.imageProvider.runtimeType}',
+              ),
               kKeyValue('total providers', '${providers.length}'),
             ],
           ),
@@ -1774,14 +1797,19 @@ dynamic build(BuildContext context) {
               kBullet('ImageProvider<T> is a *recipe*, not an image.'),
               kBullet('Each subclass declares how to derive a cache key.'),
               kBullet('The cache key controls deduplication in ImageCache.'),
-              kBullet('We illustrate construction, equality, and hashing only.'),
+              kBullet(
+                'We illustrate construction, equality, and hashing only.',
+              ),
             ],
           ),
         ),
         kSectionTitle('2', 'Anatomy — provider lifecycle', kCyanotype),
         lifecycleDiagram,
-        kSectionTitle('3', 'Provider gallery — six representative cards',
-            kMagentaProc),
+        kSectionTitle(
+          '3',
+          'Provider gallery — six representative cards',
+          kMagentaProc,
+        ),
         gallerySection,
         kSectionTitle('4', 'ResizeImage — fit vs exact', kCyanotype),
         resizeSection,
@@ -1789,11 +1817,17 @@ dynamic build(BuildContext context) {
         equalitySection,
         kSectionTitle('6', 'Provider comparison table', kSepiaDeep),
         comparisonSection,
-        kSectionTitle('7', 'obtainKey — cache identity (concept only)',
-            kCyanotype),
+        kSectionTitle(
+          '7',
+          'obtainKey — cache identity (concept only)',
+          kCyanotype,
+        ),
         keySection,
-        kSectionTitle('8', 'Cheat-sheet — picking the right provider',
-            kKodakYellow),
+        kSectionTitle(
+          '8',
+          'Cheat-sheet — picking the right provider',
+          kKodakYellow,
+        ),
         cheatSection,
         kSectionTitle('9', 'Signature', kSafelightRed),
         signatureCard,
@@ -1813,10 +1847,7 @@ dynamic build(BuildContext context) {
   // tripped a follow-up "BoxConstraints forces an infinite height").
   return Scaffold(
     body: SafeArea(
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: root,
-      ),
+      child: SingleChildScrollView(scrollDirection: Axis.vertical, child: root),
     ),
   );
 }

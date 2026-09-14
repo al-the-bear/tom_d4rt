@@ -63,10 +63,7 @@ dynamic build(BuildContext context) {
                 'RangeSlider allows users to select a range of values using '
                 'two thumbs. Unlike a regular Slider with one thumb, RangeSlider '
                 'lets you define both minimum and maximum bounds within a range.',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 16.0),
               Container(
@@ -114,9 +111,27 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('0', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
-                  Text('Selected: 20 - 80', style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
-                  Text('100', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600)),
+                  Text(
+                    '0',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  Text(
+                    'Selected: 20 - 80',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '100',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -229,24 +244,42 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.blue.shade100,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('18°C', style: TextStyle(fontSize: 12.0, color: Colors.blue.shade700)),
+                    child: Text(
+                      '18°C',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.blue.shade700,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.0),
                     child: Text('-', style: TextStyle(color: Colors.grey)),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 2.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.red.shade100,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Text('24°C', style: TextStyle(fontSize: 12.0, color: Colors.red.shade700)),
+                    child: Text(
+                      '24°C',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        color: Colors.red.shade700,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -266,8 +299,14 @@ dynamic build(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('10°C', style: TextStyle(fontSize: 11.0, color: Colors.grey)),
-              Text('35°C', style: TextStyle(fontSize: 11.0, color: Colors.grey)),
+              Text(
+                '10°C',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey),
+              ),
+              Text(
+                '35°C',
+                style: TextStyle(fontSize: 11.0, color: Colors.grey),
+              ),
             ],
           ),
         ],
@@ -311,15 +350,15 @@ dynamic build(BuildContext context) {
           'The divisions property creates discrete steps on the slider. '
           'Users can only select values at specific intervals, and visual tick '
           'marks appear along the track.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20.0),
 
         // No divisions (continuous)
-        Text('Continuous (no divisions):', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+        Text(
+          'Continuous (no divisions):',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+        ),
         RangeSlider(
           values: RangeValues(30.0, 70.0),
           min: 0.0,
@@ -329,7 +368,10 @@ dynamic build(BuildContext context) {
         ),
 
         SizedBox(height: 16.0),
-        Text('5 divisions:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+        Text(
+          '5 divisions:',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+        ),
         RangeSlider(
           values: RangeValues(20.0, 80.0),
           min: 0.0,
@@ -341,7 +383,10 @@ dynamic build(BuildContext context) {
         ),
 
         SizedBox(height: 16.0),
-        Text('10 divisions:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+        Text(
+          '10 divisions:',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+        ),
         RangeSlider(
           values: RangeValues(30.0, 70.0),
           min: 0.0,
@@ -353,7 +398,10 @@ dynamic build(BuildContext context) {
         ),
 
         SizedBox(height: 16.0),
-        Text('20 divisions:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+        Text(
+          '20 divisions:',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+        ),
         RangeSlider(
           values: RangeValues(25.0, 75.0),
           min: 0.0,
@@ -375,13 +423,41 @@ dynamic build(BuildContext context) {
 
   final colorSchemes = [
     {'name': 'Default', 'active': null, 'inactive': null},
-    {'name': 'Ocean Blue', 'active': Colors.blue, 'inactive': Colors.blue.shade100},
-    {'name': 'Forest Green', 'active': Colors.green.shade600, 'inactive': Colors.green.shade100},
-    {'name': 'Sunset Orange', 'active': Colors.deepOrange, 'inactive': Colors.orange.shade100},
-    {'name': 'Royal Purple', 'active': Colors.purple, 'inactive': Colors.purple.shade100},
-    {'name': 'Cherry Red', 'active': Colors.red.shade600, 'inactive': Colors.red.shade100},
-    {'name': 'Teal Dream', 'active': Colors.teal, 'inactive': Colors.teal.shade100},
-    {'name': 'Golden Hour', 'active': Colors.amber.shade700, 'inactive': Colors.amber.shade100},
+    {
+      'name': 'Ocean Blue',
+      'active': Colors.blue,
+      'inactive': Colors.blue.shade100,
+    },
+    {
+      'name': 'Forest Green',
+      'active': Colors.green.shade600,
+      'inactive': Colors.green.shade100,
+    },
+    {
+      'name': 'Sunset Orange',
+      'active': Colors.deepOrange,
+      'inactive': Colors.orange.shade100,
+    },
+    {
+      'name': 'Royal Purple',
+      'active': Colors.purple,
+      'inactive': Colors.purple.shade100,
+    },
+    {
+      'name': 'Cherry Red',
+      'active': Colors.red.shade600,
+      'inactive': Colors.red.shade100,
+    },
+    {
+      'name': 'Teal Dream',
+      'active': Colors.teal,
+      'inactive': Colors.teal.shade100,
+    },
+    {
+      'name': 'Golden Hour',
+      'active': Colors.amber.shade700,
+      'inactive': Colors.amber.shade100,
+    },
   ];
 
   final colorCards = <Widget>[];
@@ -396,7 +472,8 @@ dynamic build(BuildContext context) {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0),
           border: Border.all(
-            color: (scheme['active'] as Color? ?? Colors.grey.shade400).withValues(alpha: 0.4),
+            color: (scheme['active'] as Color? ?? Colors.grey.shade400)
+                .withValues(alpha: 0.4),
           ),
         ),
         child: Column(
@@ -480,15 +557,15 @@ dynamic build(BuildContext context) {
               Text(
                 'RangeLabels display values above the thumbs when the user '
                 'drags them. Labels only appear when divisions are set.',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 20.0),
 
               // Currency labels
-              Text('Currency Labels:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+              Text(
+                'Currency Labels:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+              ),
               SizedBox(height: 4.0),
               RangeSlider(
                 values: RangeValues(100.0, 500.0),
@@ -501,7 +578,10 @@ dynamic build(BuildContext context) {
               ),
 
               SizedBox(height: 16.0),
-              Text('Percentage Labels:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+              Text(
+                'Percentage Labels:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+              ),
               SizedBox(height: 4.0),
               RangeSlider(
                 values: RangeValues(20.0, 80.0),
@@ -514,7 +594,10 @@ dynamic build(BuildContext context) {
               ),
 
               SizedBox(height: 16.0),
-              Text('Time Labels:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+              Text(
+                'Time Labels:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+              ),
               SizedBox(height: 4.0),
               RangeSlider(
                 values: RangeValues(9.0, 17.0),
@@ -527,7 +610,10 @@ dynamic build(BuildContext context) {
               ),
 
               SizedBox(height: 16.0),
-              Text('Custom Text Labels:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0)),
+              Text(
+                'Custom Text Labels:',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.0),
+              ),
               SizedBox(height: 4.0),
               RangeSlider(
                 values: RangeValues(2.0, 4.0),
@@ -598,10 +684,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'E-Commerce Product Search',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.white70),
               ),
             ],
           ),
@@ -623,7 +706,10 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 6.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.indigo.shade50,
                       borderRadius: BorderRadius.circular(20.0),
@@ -653,18 +739,27 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('\$0', style: TextStyle(color: Colors.grey.shade500, fontSize: 12.0)),
-                  Text('\$1,000', style: TextStyle(color: Colors.grey.shade500, fontSize: 12.0)),
+                  Text(
+                    '\$0',
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                  Text(
+                    '\$1,000',
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12.0,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 24.0),
               // Sample products
               Text(
                 '324 products in range',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.grey.shade600),
               ),
               SizedBox(height: 12.0),
               Row(
@@ -736,10 +831,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Dating App Profile Settings',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 13.0, color: Colors.white70),
               ),
             ],
           ),
@@ -753,7 +845,10 @@ dynamic build(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 10.0,
+                    ),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Colors.pink.shade100, Colors.pink.shade200],
@@ -773,7 +868,11 @@ dynamic build(BuildContext context) {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Icon(Icons.favorite, color: Colors.pink, size: 20.0),
+                          child: Icon(
+                            Icons.favorite,
+                            color: Colors.pink,
+                            size: 20.0,
+                          ),
                         ),
                         Text(
                           '35',
@@ -809,8 +908,20 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('18', style: TextStyle(color: Colors.grey.shade500, fontSize: 12.0)),
-                  Text('65+', style: TextStyle(color: Colors.grey.shade500, fontSize: 12.0)),
+                  Text(
+                    '18',
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12.0,
+                    ),
+                  ),
+                  Text(
+                    '65+',
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12.0,
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 16.0),
@@ -1039,7 +1150,9 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
-                          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4.0)],
+                          boxShadow: [
+                            BoxShadow(color: Colors.black26, blurRadius: 4.0),
+                          ],
                         ),
                       ),
                     ),
@@ -1052,7 +1165,9 @@ dynamic build(BuildContext context) {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
-                          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 4.0)],
+                          boxShadow: [
+                            BoxShadow(color: Colors.black26, blurRadius: 4.0),
+                          ],
                         ),
                       ),
                     ),
@@ -1072,10 +1187,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Dual-thumb range selection control',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1101,10 +1213,7 @@ dynamic build(BuildContext context) {
         _buildSectionHeader('Section 4: Color Themes', Icons.palette),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),
-          child: Wrap(
-            alignment: WrapAlignment.center,
-            children: colorCards,
-          ),
+          child: Wrap(alignment: WrapAlignment.center, children: colorCards),
         ),
 
         // Section 5: Labels
@@ -1176,10 +1285,7 @@ Widget _buildPropertyRow(String name, String description) {
         Expanded(
           child: Text(
             description,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
           ),
         ),
       ],
@@ -1219,10 +1325,7 @@ Widget _buildProductCard(String price, String name, Color color) {
           ),
           Text(
             name,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.grey.shade600,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
           ),
         ],
       ),

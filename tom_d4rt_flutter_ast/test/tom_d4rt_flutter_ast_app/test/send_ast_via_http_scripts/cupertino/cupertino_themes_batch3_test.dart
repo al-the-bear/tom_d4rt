@@ -304,10 +304,7 @@ dynamic build(BuildContext context) {
                 child: const Text('Confirm'),
               ),
               const SizedBox(width: 10.0),
-              CupertinoButton(
-                onPressed: () {},
-                child: const Text('Cancel'),
-              ),
+              CupertinoButton(onPressed: () {}, child: const Text('Cancel')),
             ],
           ),
           const SizedBox(height: 10.0),
@@ -318,10 +315,7 @@ dynamic build(BuildContext context) {
               const CupertinoSwitch(value: false, onChanged: null),
               const SizedBox(width: 14.0),
               Expanded(
-                child: CupertinoSlider(
-                  value: 0.55,
-                  onChanged: (double _) {},
-                ),
+                child: CupertinoSlider(value: 0.55, onChanged: (double _) {}),
               ),
             ],
           ),
@@ -359,11 +353,7 @@ dynamic build(BuildContext context) {
       ),
       child: Row(
         children: <Widget>[
-          Icon(
-            CupertinoIcons.back,
-            color: actionColor,
-            size: 22.0,
-          ),
+          Icon(CupertinoIcons.back, color: actionColor, size: 22.0),
           const SizedBox(width: 4.0),
           Text(
             'Back',
@@ -383,11 +373,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           const Spacer(),
-          Icon(
-            CupertinoIcons.share,
-            color: actionColor,
-            size: 22.0,
-          ),
+          Icon(CupertinoIcons.share, color: actionColor, size: 22.0),
         ],
       ),
     );
@@ -509,9 +495,7 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Wrap(
-          children: <Widget>[],
-        ),
+        const Wrap(children: <Widget>[]),
         Wrap(
           children: <Widget>[
             swatch('primary', CupertinoColors.activeBlue),
@@ -566,10 +550,7 @@ dynamic build(BuildContext context) {
           labelColor: paletteAccent,
           borderColor: paletteOutline,
           background: Colors.white,
-          child: CupertinoTheme(
-            data: lightDefaults,
-            child: sampleControls(),
-          ),
+          child: CupertinoTheme(data: lightDefaults, child: sampleControls()),
         ),
       ],
     ),
@@ -600,11 +581,7 @@ dynamic build(BuildContext context) {
             swatch('primary', CupertinoColors.activeBlue),
             swatch('contrast', Colors.black, textColor: Colors.white),
             swatch('scaffold', Colors.black, textColor: Colors.white),
-            swatch(
-              'bar',
-              paletteNightCard,
-              textColor: Colors.white,
-            ),
+            swatch('bar', paletteNightCard, textColor: Colors.white),
           ],
         ),
         const SizedBox(height: 12.0),
@@ -643,11 +620,7 @@ dynamic build(BuildContext context) {
                 'CupertinoColors.systemFill (dark)',
                 Colors.white,
               ),
-              keyValueRow(
-                'applyThemeToAll',
-                'false (default)',
-                Colors.white,
-              ),
+              keyValueRow('applyThemeToAll', 'false (default)', Colors.white),
             ],
           ),
         ),
@@ -713,139 +686,137 @@ dynamic build(BuildContext context) {
     },
   ];
 
-  final List<Widget> primaryVariantTiles = List<Widget>.generate(
-    primaryVariants.length,
-    (int i) {
-      final Map<String, dynamic> spec = primaryVariants[i];
-      final Color color = spec['color'] as Color;
-      final Color soft = spec['soft'] as Color;
-      final String name = spec['name'] as String;
-      final CupertinoThemeData themeData = CupertinoThemeData(
-        brightness: Brightness.light,
-        primaryColor: color,
-      );
-      return Container(
-        width: 220.0,
-        margin: const EdgeInsets.all(6.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(color: color.withValues(alpha: 0.45), width: 1.2),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: color.withValues(alpha: 0.18),
-              blurRadius: 10.0,
-              offset: const Offset(0, 5),
+  final List<Widget>
+  primaryVariantTiles = List<Widget>.generate(primaryVariants.length, (int i) {
+    final Map<String, dynamic> spec = primaryVariants[i];
+    final Color color = spec['color'] as Color;
+    final Color soft = spec['soft'] as Color;
+    final String name = spec['name'] as String;
+    final CupertinoThemeData themeData = CupertinoThemeData(
+      brightness: Brightness.light,
+      primaryColor: color,
+    );
+    return Container(
+      width: 220.0,
+      margin: const EdgeInsets.all(6.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.0),
+        border: Border.all(color: color.withValues(alpha: 0.45), width: 1.2),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: color.withValues(alpha: 0.18),
+            blurRadius: 10.0,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 10.0,
             ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12.0,
-                vertical: 10.0,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(13.0),
+                topRight: Radius.circular(13.0),
               ),
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(13.0),
-                  topRight: Radius.circular(13.0),
+            ),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    name,
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8.0,
+                    vertical: 2.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.25),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 9.5,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const Spacer(),
-                  Container(
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: CupertinoTheme(
+              data: themeData,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CupertinoButton.filled(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 2.0,
+                      horizontal: 14.0,
+                      vertical: 6.0,
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.25),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Text(
-                      '#${color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2).toUpperCase()}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 9.5,
-                        fontWeight: FontWeight.w700,
+                    onPressed: () {},
+                    child: const Text('Filled'),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Row(
+                    children: <Widget>[
+                      const CupertinoSwitch(value: true, onChanged: null),
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: CupertinoSlider(
+                          value: 0.45,
+                          onChanged: (double _) {},
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CupertinoTheme(
-                data: themeData,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    CupertinoButton.filled(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14.0,
-                        vertical: 6.0,
-                      ),
-                      onPressed: () {},
-                      child: const Text('Filled'),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      children: <Widget>[
-                        const CupertinoSwitch(value: true, onChanged: null),
-                        const SizedBox(width: 8.0),
-                        Expanded(
-                          child: CupertinoSlider(
-                            value: 0.45,
-                            onChanged: (double _) {},
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 6.0,
+            ),
+            decoration: BoxDecoration(
+              color: soft,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(13.0),
+                bottomRight: Radius.circular(13.0),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 6.0,
-              ),
-              decoration: BoxDecoration(
-                color: soft,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(13.0),
-                  bottomRight: Radius.circular(13.0),
-                ),
-              ),
-              child: Text(
-                'primaryColor applies to filled buttons, switches, sliders, '
-                'and link-like CupertinoButton text.',
-                style: TextStyle(
-                  color: color,
-                  fontSize: 11.0,
-                  height: 1.4,
-                  fontWeight: FontWeight.w600,
-                ),
+            child: Text(
+              'primaryColor applies to filled buttons, switches, sliders, '
+              'and link-like CupertinoButton text.',
+              style: TextStyle(
+                color: color,
+                fontSize: 11.0,
+                height: 1.4,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
-      );
-    },
-  );
+          ),
+        ],
+      ),
+    );
+  });
 
   final Widget section3 = sectionShell(
     title: '03 · primaryColor variations',
@@ -857,10 +828,7 @@ dynamic build(BuildContext context) {
     surface: Colors.white,
     border: paletteOutline,
     titleColor: paletteIndigo,
-    child: Wrap(
-      alignment: WrapAlignment.start,
-      children: primaryVariantTiles,
-    ),
+    child: Wrap(alignment: WrapAlignment.start, children: primaryVariantTiles),
   );
 
   // ===========================================================================
@@ -878,8 +846,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'label': 'Mist',
       'color': paletteMist,
-      'note':
-          'A near-white off-tone that reduces glare in long form screens.',
+      'note': 'A near-white off-tone that reduces glare in long form screens.',
     },
     <String, dynamic>{
       'label': 'Cloud',
@@ -895,8 +862,7 @@ dynamic build(BuildContext context) {
     <String, dynamic>{
       'label': 'Night bg',
       'color': paletteNightBg,
-      'note':
-          'Dark-mode-friendly background even when brightness stays light.',
+      'note': 'Dark-mode-friendly background even when brightness stays light.',
     },
     <String, dynamic>{
       'label': 'Ink',
@@ -1176,10 +1142,7 @@ dynamic build(BuildContext context) {
             labelColor: paletteSlate,
             borderColor: paletteOutline,
             background: Colors.white,
-            child: CupertinoTheme(
-              data: applyOffTheme,
-              child: sampleControls(),
-            ),
+            child: CupertinoTheme(data: applyOffTheme, child: sampleControls()),
           ),
         ),
         const SizedBox(width: 12.0),
@@ -1189,10 +1152,7 @@ dynamic build(BuildContext context) {
             labelColor: paletteRose,
             borderColor: paletteRose,
             background: Colors.white,
-            child: CupertinoTheme(
-              data: applyOnTheme,
-              child: sampleControls(),
-            ),
+            child: CupertinoTheme(data: applyOnTheme, child: sampleControls()),
           ),
         ),
       ],
@@ -1364,9 +1324,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(
-            color: paletteOutline.withValues(alpha: 0.6),
-          ),
+          bottom: BorderSide(color: paletteOutline.withValues(alpha: 0.6)),
         ),
       ),
       child: Column(
@@ -1374,27 +1332,15 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Text(
-                'Back',
-                style: tabsNavText.navActionTextStyle,
-              ),
+              Text('Back', style: tabsNavText.navActionTextStyle),
               const Spacer(),
-              Text(
-                'Inbox',
-                style: tabsNavText.navTitleTextStyle,
-              ),
+              Text('Inbox', style: tabsNavText.navTitleTextStyle),
               const Spacer(),
-              Text(
-                'Edit',
-                style: tabsNavText.navActionTextStyle,
-              ),
+              Text('Edit', style: tabsNavText.navActionTextStyle),
             ],
           ),
           const SizedBox(height: 6.0),
-          Text(
-            'Mail',
-            style: tabsNavText.navLargeTitleTextStyle,
-          ),
+          Text('Mail', style: tabsNavText.navLargeTitleTextStyle),
         ],
       ),
     );
@@ -1402,14 +1348,8 @@ dynamic build(BuildContext context) {
 
   Widget mockTabBar() {
     final List<Map<String, dynamic>> entries = <Map<String, dynamic>>[
-      <String, dynamic>{
-        'icon': CupertinoIcons.house_fill,
-        'label': 'HOME',
-      },
-      <String, dynamic>{
-        'icon': CupertinoIcons.bell_fill,
-        'label': 'ALERTS',
-      },
+      <String, dynamic>{'icon': CupertinoIcons.house_fill, 'label': 'HOME'},
+      <String, dynamic>{'icon': CupertinoIcons.bell_fill, 'label': 'ALERTS'},
       <String, dynamic>{
         'icon': CupertinoIcons.person_alt_circle_fill,
         'label': 'YOU',
@@ -1426,11 +1366,7 @@ dynamic build(BuildContext context) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Icon(
-                entry['icon'] as IconData,
-                color: paletteTeal,
-                size: 22.0,
-              ),
+              Icon(entry['icon'] as IconData, color: paletteTeal, size: 22.0),
               const SizedBox(height: 4.0),
               Text(
                 entry['label'] as String,
@@ -1720,12 +1656,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Expanded(
-            child: Text(
-              'Cupertino · 1234567890',
-              style: style,
-            ),
-          ),
+          Expanded(child: Text('Cupertino · 1234567890', style: style)),
         ],
       ),
     );
@@ -1810,10 +1741,11 @@ dynamic build(BuildContext context) {
                   'brightness when their owning context falls back to '
                   'CupertinoTheme.',
                   style: TextStyle(
-                    color: (data.brightness == Brightness.dark
-                            ? Colors.white
-                            : paletteInk)
-                        .withValues(alpha: 0.72),
+                    color:
+                        (data.brightness == Brightness.dark
+                                ? Colors.white
+                                : paletteInk)
+                            .withValues(alpha: 0.72),
                     fontSize: 11.5,
                     height: 1.4,
                   ),
@@ -1830,10 +1762,7 @@ dynamic build(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 10.0),
-                CupertinoSlider(
-                  value: 0.65,
-                  onChanged: (double _) {},
-                ),
+                CupertinoSlider(value: 0.65, onChanged: (double _) {}),
               ],
             ),
           ),
@@ -1928,9 +1857,7 @@ dynamic build(BuildContext context) {
                 border: Border.all(color: paletteRose.withValues(alpha: 0.4)),
               ),
               child: CupertinoTheme(
-                data: const CupertinoThemeData(
-                  primaryColor: paletteRose,
-                ),
+                data: const CupertinoThemeData(primaryColor: paletteRose),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -2015,13 +1942,10 @@ dynamic build(BuildContext context) {
     border: paletteOutline,
     titleColor: palettePurple,
     child: CupertinoTheme(
-      data: const CupertinoThemeData(
-        primaryColor: palettePurple,
-      ),
+      data: const CupertinoThemeData(primaryColor: palettePurple),
       child: Builder(
         builder: (BuildContext innerContext) {
-          final Color primary =
-              CupertinoTheme.of(innerContext).primaryColor;
+          final Color primary = CupertinoTheme.of(innerContext).primaryColor;
           return Container(
             padding: const EdgeInsets.all(14.0),
             decoration: BoxDecoration(
@@ -2077,11 +2001,7 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Icon(Icons.star, color: primary, size: 22.0),
                     const SizedBox(width: 6.0),
-                    Icon(
-                      CupertinoIcons.heart_fill,
-                      color: primary,
-                      size: 22.0,
-                    ),
+                    Icon(CupertinoIcons.heart_fill, color: primary, size: 22.0),
                     const SizedBox(width: 6.0),
                     Text(
                       'Hybrid icons share the same primary tint.',
@@ -2130,10 +2050,7 @@ dynamic build(BuildContext context) {
                   onPressed: () {},
                   child: const Text('Filled'),
                 ),
-                CupertinoButton(
-                  onPressed: () {},
-                  child: const Text('Plain'),
-                ),
+                CupertinoButton(onPressed: () {}, child: const Text('Plain')),
                 const CupertinoActivityIndicator(radius: 12.0),
               ],
             ),
@@ -2145,10 +2062,7 @@ dynamic build(BuildContext context) {
                 const CupertinoSwitch(value: false, onChanged: null),
                 const SizedBox(width: 14.0),
                 Expanded(
-                  child: CupertinoSlider(
-                    value: 0.4,
-                    onChanged: (double _) {},
-                  ),
+                  child: CupertinoSlider(value: 0.4, onChanged: (double _) {}),
                 ),
               ],
             ),
@@ -2265,121 +2179,109 @@ dynamic build(BuildContext context) {
   // ===========================================================================
 
   final List<Map<String, dynamic>> compareThemes = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'name': 'Active Blue',
-      'color': paletteAccent,
-    },
-    <String, dynamic>{
-      'name': 'Indigo',
-      'color': paletteIndigo,
-    },
-    <String, dynamic>{
-      'name': 'Teal',
-      'color': paletteTeal,
-    },
-    <String, dynamic>{
-      'name': 'Rose',
-      'color': paletteRose,
-    },
+    <String, dynamic>{'name': 'Active Blue', 'color': paletteAccent},
+    <String, dynamic>{'name': 'Indigo', 'color': paletteIndigo},
+    <String, dynamic>{'name': 'Teal', 'color': paletteTeal},
+    <String, dynamic>{'name': 'Rose', 'color': paletteRose},
   ];
 
-  final List<Widget> compareRows = compareThemes
-      .map((Map<String, dynamic> entry) {
-        final Color color = entry['color'] as Color;
-        final String name = entry['name'] as String;
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              // Cluster H follow-up: section15 rendered 4 comparison rows
-              // [SizedBox(88) label + Expanded light-preview + SizedBox(8)
-              // + Expanded dark-preview]. The bridged Cupertino controls
-              // (CupertinoSwitch / CupertinoSlider) inside the preview
-              // frames have an intrinsic-width measurement that overflows
-              // by 1.8 px when the Expanded slot is at its baseline width
-              // (U15 bridge gap). Shrinking the label column from 88 to
-              // 70 hands ~18 px back to the two preview Expandeds, which
-              // is enough to absorb the bridged controls' rounding.
-              // Visual: label sits 18 px closer to the previews (the
-              // colored dot + "Active Blue"/"Indigo"/"Teal"/"Rose"
-              // labels remain fully visible — longest is 'Active Blue'
-              // at 11 chars × ~7 px = ~77 px including the dot+spacer,
-              // so the label is now allowed to wrap to a second line on
-              // the narrowest rendering width; previews now never
-              // overflow).
-              SizedBox(
-                width: 70.0,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 36.0),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 12.0,
-                        height: 12.0,
-                        decoration: BoxDecoration(
-                          color: color,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 6.0),
-                      Expanded(
-                        child: Text(
-                          name,
-                          style: TextStyle(
-                            color: color,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.w800,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: previewFrame(
-                  label: '$name · light',
-                  labelColor: color,
-                  borderColor: color.withValues(alpha: 0.4),
-                  background: Colors.white,
-                  height: 160.0,
-                  child: CupertinoTheme(
-                    data: CupertinoThemeData(
-                      brightness: Brightness.light,
-                      primaryColor: color,
-                      scaffoldBackgroundColor: Colors.white,
+  final List<Widget> compareRows = compareThemes.map((
+    Map<String, dynamic> entry,
+  ) {
+    final Color color = entry['color'] as Color;
+    final String name = entry['name'] as String;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // Cluster H follow-up: section15 rendered 4 comparison rows
+          // [SizedBox(88) label + Expanded light-preview + SizedBox(8)
+          // + Expanded dark-preview]. The bridged Cupertino controls
+          // (CupertinoSwitch / CupertinoSlider) inside the preview
+          // frames have an intrinsic-width measurement that overflows
+          // by 1.8 px when the Expanded slot is at its baseline width
+          // (U15 bridge gap). Shrinking the label column from 88 to
+          // 70 hands ~18 px back to the two preview Expandeds, which
+          // is enough to absorb the bridged controls' rounding.
+          // Visual: label sits 18 px closer to the previews (the
+          // colored dot + "Active Blue"/"Indigo"/"Teal"/"Rose"
+          // labels remain fully visible — longest is 'Active Blue'
+          // at 11 chars × ~7 px = ~77 px including the dot+spacer,
+          // so the label is now allowed to wrap to a second line on
+          // the narrowest rendering width; previews now never
+          // overflow).
+          SizedBox(
+            width: 70.0,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 36.0),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 12.0,
+                    height: 12.0,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
                     ),
-                    child: sampleControls(),
                   ),
-                ),
-              ),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: previewFrame(
-                  label: '$name · dark',
-                  labelColor: color,
-                  borderColor: color.withValues(alpha: 0.55),
-                  background: paletteNightBg,
-                  height: 160.0,
-                  child: CupertinoTheme(
-                    data: CupertinoThemeData(
-                      brightness: Brightness.dark,
-                      primaryColor: color,
-                      scaffoldBackgroundColor: paletteNightBg,
-                      barBackgroundColor: paletteNightCard,
+                  const SizedBox(width: 6.0),
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        color: color,
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    child: sampleControls(darkBg: true),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        );
-      })
-      .toList();
+          Expanded(
+            child: previewFrame(
+              label: '$name · light',
+              labelColor: color,
+              borderColor: color.withValues(alpha: 0.4),
+              background: Colors.white,
+              height: 160.0,
+              child: CupertinoTheme(
+                data: CupertinoThemeData(
+                  brightness: Brightness.light,
+                  primaryColor: color,
+                  scaffoldBackgroundColor: Colors.white,
+                ),
+                child: sampleControls(),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8.0),
+          Expanded(
+            child: previewFrame(
+              label: '$name · dark',
+              labelColor: color,
+              borderColor: color.withValues(alpha: 0.55),
+              background: paletteNightBg,
+              height: 160.0,
+              child: CupertinoTheme(
+                data: CupertinoThemeData(
+                  brightness: Brightness.dark,
+                  primaryColor: color,
+                  scaffoldBackgroundColor: paletteNightBg,
+                  barBackgroundColor: paletteNightCard,
+                ),
+                child: sampleControls(darkBg: true),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }).toList();
 
   final Widget section15 = sectionShell(
     title: '15 · Light / dark side-by-side',
@@ -2403,10 +2305,7 @@ dynamic build(BuildContext context) {
     padding: const EdgeInsets.all(18.0),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[
-          Color(0xFF101225),
-          Color(0xFF2B2D42),
-        ],
+        colors: <Color>[Color(0xFF101225), Color(0xFF2B2D42)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

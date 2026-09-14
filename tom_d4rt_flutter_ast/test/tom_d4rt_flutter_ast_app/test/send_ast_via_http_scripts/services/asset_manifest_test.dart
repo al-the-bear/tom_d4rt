@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: periwinkle, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: softBlue.withValues(alpha: 0.6)),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: darkIndigo.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: darkIndigo.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -103,16 +112,21 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label,
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: navy,
-                  fontFamily: 'monospace')),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: navy,
+              fontFamily: 'monospace',
+            ),
+          ),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(detail,
-                style: TextStyle(fontSize: 12, color: darkIndigo)),
+            child: Text(
+              detail,
+              style: TextStyle(fontSize: 12, color: darkIndigo),
+            ),
           ),
         ],
       ),
@@ -148,16 +162,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: navy)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: navy,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -175,11 +189,14 @@ dynamic build(BuildContext context) {
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? navy : darkIndigo)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? navy : darkIndigo,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -196,18 +213,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? navy : indigo,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.east, size: 12, color: midBlue),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.east, size: 12, color: midBlue),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -227,13 +249,14 @@ dynamic build(BuildContext context) {
         border: Border.all(color: color.withValues(alpha: 0.6)),
       ),
       child: Center(
-        child: Text(label,
-            style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: color.computeLuminance() > 0.5
-                    ? darkIndigo
-                    : Colors.white)),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: color.computeLuminance() > 0.5 ? darkIndigo : Colors.white,
+          ),
+        ),
       ),
     );
   }
@@ -265,10 +288,26 @@ dynamic build(BuildContext context) {
               'Asset loaded',
             ]),
             const SizedBox(height: 12),
-            amLayerBox('pubspec.yaml — asset declarations', indigo.withValues(alpha: 0.12), 38),
-            amLayerBox('AssetManifest.bin — binary manifest', midBlue.withValues(alpha: 0.2), 38),
-            amLayerBox('AssetBundle — runtime accessor', darkIndigo.withValues(alpha: 0.1), 38),
-            amLayerBox('Image / File — loaded content', navy.withValues(alpha: 0.08), 38),
+            amLayerBox(
+              'pubspec.yaml — asset declarations',
+              indigo.withValues(alpha: 0.12),
+              38,
+            ),
+            amLayerBox(
+              'AssetManifest.bin — binary manifest',
+              midBlue.withValues(alpha: 0.2),
+              38,
+            ),
+            amLayerBox(
+              'AssetBundle — runtime accessor',
+              darkIndigo.withValues(alpha: 0.1),
+              38,
+            ),
+            amLayerBox(
+              'Image / File — loaded content',
+              navy.withValues(alpha: 0.08),
+              38,
+            ),
           ],
         ),
       ),
@@ -318,10 +357,11 @@ dynamic build(BuildContext context) {
                 '    - assets/data/config.json      # Data file\n'
                 '    - packages/pkg/assets/icon.svg  # Package asset',
                 style: TextStyle(
-                    fontSize: 11,
-                    fontFamily: 'monospace',
-                    color: darkIndigo,
-                    height: 1.5),
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  color: darkIndigo,
+                  height: 1.5,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -354,18 +394,42 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _amBuildStep('1', 'Parse pubspec.yaml', 'Read asset declarations',
-                navy),
-            _amBuildStep('2', 'Walk directories', 'Find all matching files',
-                darkIndigo),
-            _amBuildStep('3', 'Discover variants', 'Match 2.0x/, 3.0x/ folders',
-                indigo),
-            _amBuildStep('4', 'Build variant map', 'Key → [base, 2x, 3x]',
-                midBlue),
-            _amBuildStep('5', 'Serialize manifest', 'Write .bin or .json',
-                lightIndigo),
-            _amBuildStep('6', 'Bundle into APK/IPA', 'Included in final app',
-                periwinkle),
+            _amBuildStep(
+              '1',
+              'Parse pubspec.yaml',
+              'Read asset declarations',
+              navy,
+            ),
+            _amBuildStep(
+              '2',
+              'Walk directories',
+              'Find all matching files',
+              darkIndigo,
+            ),
+            _amBuildStep(
+              '3',
+              'Discover variants',
+              'Match 2.0x/, 3.0x/ folders',
+              indigo,
+            ),
+            _amBuildStep(
+              '4',
+              'Build variant map',
+              'Key → [base, 2x, 3x]',
+              midBlue,
+            ),
+            _amBuildStep(
+              '5',
+              'Serialize manifest',
+              'Write .bin or .json',
+              lightIndigo,
+            ),
+            _amBuildStep(
+              '6',
+              'Bundle into APK/IPA',
+              'Included in final app',
+              periwinkle,
+            ),
           ],
         ),
       ),
@@ -479,10 +543,18 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.public, color: navy, size: 24),
                         const SizedBox(height: 4),
-                        Text('rootBundle',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: navy)),
-                        Text('Global singleton',
-                            style: TextStyle(fontSize: 9, color: darkIndigo)),
+                        Text(
+                          'rootBundle',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: navy,
+                          ),
+                        ),
+                        Text(
+                          'Global singleton',
+                          style: TextStyle(fontSize: 9, color: darkIndigo),
+                        ),
                       ],
                     ),
                   ),
@@ -499,10 +571,18 @@ dynamic build(BuildContext context) {
                       children: [
                         Icon(Icons.account_tree, color: indigo, size: 24),
                         const SizedBox(height: 4),
-                        Text('DefaultAssetBundle',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: indigo)),
-                        Text('Context-aware',
-                            style: TextStyle(fontSize: 9, color: darkIndigo)),
+                        Text(
+                          'DefaultAssetBundle',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: indigo,
+                          ),
+                        ),
+                        Text(
+                          'Context-aware',
+                          style: TextStyle(fontSize: 9, color: darkIndigo),
+                        ),
                       ],
                     ),
                   ),
@@ -532,7 +612,10 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             amCode('listAssets()', 'Returns List<String> of all asset keys'),
-            amCode('getAssetVariants(key)', 'Returns List<AssetMetadata> with DPR info'),
+            amCode(
+              'getAssetVariants(key)',
+              'Returns List<AssetMetadata> with DPR info',
+            ),
           ],
         ),
       ),
@@ -542,7 +625,11 @@ dynamic build(BuildContext context) {
           children: [
             amRow(['Property', 'Type', 'Description'], isHeader: true),
             amRow(['key', 'String', 'Full path to asset variant']),
-            amRow(['targetDevicePixelRatio', 'double?', 'DPR for this variant']),
+            amRow([
+              'targetDevicePixelRatio',
+              'double?',
+              'DPR for this variant',
+            ]),
             amRow(['main', 'bool', 'Whether this is the base variant']),
           ],
         ),
@@ -558,8 +645,10 @@ dynamic build(BuildContext context) {
               'AssetManifest instance',
             ]),
             const SizedBox(height: 8),
-            amNote('This async factory reads and parses the binary manifest '
-                'from the bundle, returning a ready-to-query instance.'),
+            amNote(
+              'This async factory reads and parses the binary manifest '
+              'from the bundle, returning a ready-to-query instance.',
+            ),
           ],
         ),
       ),
@@ -583,12 +672,42 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _amImageStep('1', 'Image.asset("logo.png")', 'Widget constructor', navy),
-            _amImageStep('2', 'AssetImage.resolve()', 'Key → variant lookup', darkIndigo),
-            _amImageStep('3', 'Manifest variant query', 'Best DPR match', indigo),
-            _amImageStep('4', 'AssetBundle.load()', 'Read bytes from bundle', midBlue),
-            _amImageStep('5', 'instantiateImageCodec()', 'Decode image bytes', lightIndigo),
-            _amImageStep('6', 'ImageCache stores', 'Avoid re-decoding', periwinkle),
+            _amImageStep(
+              '1',
+              'Image.asset("logo.png")',
+              'Widget constructor',
+              navy,
+            ),
+            _amImageStep(
+              '2',
+              'AssetImage.resolve()',
+              'Key → variant lookup',
+              darkIndigo,
+            ),
+            _amImageStep(
+              '3',
+              'Manifest variant query',
+              'Best DPR match',
+              indigo,
+            ),
+            _amImageStep(
+              '4',
+              'AssetBundle.load()',
+              'Read bytes from bundle',
+              midBlue,
+            ),
+            _amImageStep(
+              '5',
+              'instantiateImageCodec()',
+              'Decode image bytes',
+              lightIndigo,
+            ),
+            _amImageStep(
+              '6',
+              'ImageCache stores',
+              'Avoid re-decoding',
+              periwinkle,
+            ),
           ],
         ),
       ),
@@ -624,14 +743,49 @@ dynamic build(BuildContext context) {
         'Common Asset Categories',
         Column(
           children: [
-            _amAssetType(Icons.image, 'Images', 'PNG, JPEG, WebP, GIF, BMP, WBMP', navy),
-            _amAssetType(Icons.text_fields, 'Text', 'JSON, YAML, CSV, TXT, XML', darkIndigo),
-            _amAssetType(Icons.font_download, 'Fonts', 'TTF, OTF (declared separately)', indigo),
-            _amAssetType(Icons.audiotrack, 'Audio', 'MP3, WAV, OGG (via plugins)', midBlue),
-            _amAssetType(Icons.videocam, 'Video', 'MP4, WebM (via plugins)', lightIndigo),
-            _amAssetType(Icons.draw, 'Vector', 'SVG (via flutter_svg package)', periwinkle),
+            _amAssetType(
+              Icons.image,
+              'Images',
+              'PNG, JPEG, WebP, GIF, BMP, WBMP',
+              navy,
+            ),
+            _amAssetType(
+              Icons.text_fields,
+              'Text',
+              'JSON, YAML, CSV, TXT, XML',
+              darkIndigo,
+            ),
+            _amAssetType(
+              Icons.font_download,
+              'Fonts',
+              'TTF, OTF (declared separately)',
+              indigo,
+            ),
+            _amAssetType(
+              Icons.audiotrack,
+              'Audio',
+              'MP3, WAV, OGG (via plugins)',
+              midBlue,
+            ),
+            _amAssetType(
+              Icons.videocam,
+              'Video',
+              'MP4, WebM (via plugins)',
+              lightIndigo,
+            ),
+            _amAssetType(
+              Icons.draw,
+              'Vector',
+              'SVG (via flutter_svg package)',
+              periwinkle,
+            ),
             _amAssetType(Icons.code, 'Data', 'Protobuf, SQLite, binary', navy),
-            _amAssetType(Icons.animation, 'Animation', 'Lottie, Rive (via plugins)', darkIndigo),
+            _amAssetType(
+              Icons.animation,
+              'Animation',
+              'Lottie, Rive (via plugins)',
+              darkIndigo,
+            ),
           ],
         ),
       ),
@@ -667,11 +821,23 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Package pubspec',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: navy)),
+                        Text(
+                          'Package pubspec',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: navy,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text('flutter:\n  assets:\n    - assets/icon.png',
-                            style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: darkIndigo)),
+                        Text(
+                          'flutter:\n  assets:\n    - assets/icon.png',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: darkIndigo,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -690,11 +856,23 @@ dynamic build(BuildContext context) {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Manifest key',
-                            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: indigo)),
+                        Text(
+                          'Manifest key',
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: indigo,
+                          ),
+                        ),
                         const SizedBox(height: 4),
-                        Text('packages/my_pkg/\n  assets/icon.png',
-                            style: TextStyle(fontSize: 10, fontFamily: 'monospace', color: darkIndigo)),
+                        Text(
+                          'packages/my_pkg/\n  assets/icon.png',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'monospace',
+                            color: darkIndigo,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -703,8 +881,14 @@ dynamic build(BuildContext context) {
             ),
             const SizedBox(height: 10),
             amRow(['Loading Pattern', 'API'], isHeader: true),
-            amRow(['Image widget', 'Image.asset("pkg/icon.png", package: "my_pkg")']),
-            amRow(['Direct load', 'rootBundle.load("packages/my_pkg/icon.png")']),
+            amRow([
+              'Image widget',
+              'Image.asset("pkg/icon.png", package: "my_pkg")',
+            ]),
+            amRow([
+              'Direct load',
+              'rootBundle.load("packages/my_pkg/icon.png")',
+            ]),
             amRow(['AssetImage', 'AssetImage("icon.png", package: "my_pkg")']),
           ],
         ),
@@ -730,7 +914,11 @@ dynamic build(BuildContext context) {
         Column(
           children: [
             amRow(['Aspect', 'JSON (.json)', 'Binary (.bin)'], isHeader: true),
-            amRow(['Parse speed', 'Slower (text parse)', 'Faster (pre-serialized)']),
+            amRow([
+              'Parse speed',
+              'Slower (text parse)',
+              'Faster (pre-serialized)',
+            ]),
             amRow(['File size', 'Larger (text)', 'Smaller (binary)']),
             amRow(['Human readable', 'Yes', 'No']),
             amRow(['Codec', 'json.decode()', 'StandardMessageCodec']),
@@ -743,11 +931,31 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            amLayerBox('Header: magic bytes + version', navy.withValues(alpha: 0.15), 32),
-            amLayerBox('Asset count: uint32', darkIndigo.withValues(alpha: 0.12), 28),
-            amLayerBox('For each asset: key (String)', indigo.withValues(alpha: 0.1), 32),
-            amLayerBox('Variant count + variant entries', midBlue.withValues(alpha: 0.1), 32),
-            amLayerBox('Each variant: path + dpr (double)', lightIndigo.withValues(alpha: 0.1), 28),
+            amLayerBox(
+              'Header: magic bytes + version',
+              navy.withValues(alpha: 0.15),
+              32,
+            ),
+            amLayerBox(
+              'Asset count: uint32',
+              darkIndigo.withValues(alpha: 0.12),
+              28,
+            ),
+            amLayerBox(
+              'For each asset: key (String)',
+              indigo.withValues(alpha: 0.1),
+              32,
+            ),
+            amLayerBox(
+              'Variant count + variant entries',
+              midBlue.withValues(alpha: 0.1),
+              32,
+            ),
+            amLayerBox(
+              'Each variant: path + dpr (double)',
+              lightIndigo.withValues(alpha: 0.1),
+              28,
+            ),
           ],
         ),
       ),
@@ -803,7 +1011,11 @@ dynamic build(BuildContext context) {
             '      transformers:\n'
             '        - package: vector_graphics_compiler',
             style: TextStyle(
-                fontSize: 11, fontFamily: 'monospace', color: darkIndigo, height: 1.4),
+              fontSize: 11,
+              fontFamily: 'monospace',
+              color: darkIndigo,
+              height: 1.4,
+            ),
           ),
         ),
       ),
@@ -837,7 +1049,11 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 10),
             amRow(['Platform', 'Mechanism', 'Limit'], isHeader: true),
             amRow(['Android', 'Play Feature Delivery', '150 MB per module']),
-            amRow(['iOS', 'On Demand Resources', '20 MB initial, 512 MB total']),
+            amRow([
+              'iOS',
+              'On Demand Resources',
+              '20 MB initial, 512 MB total',
+            ]),
             amRow(['Web', 'Deferred libraries', 'JS splitting']),
           ],
         ),
@@ -905,9 +1121,21 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            amLayerBox('L1: AssetBundle.loadStructuredData()', navy.withValues(alpha: 0.2), 38),
-            amLayerBox('L2: ImageCache (decoded images)', indigo.withValues(alpha: 0.15), 38),
-            amLayerBox('L3: Engine GPU texture cache', midBlue.withValues(alpha: 0.1), 38),
+            amLayerBox(
+              'L1: AssetBundle.loadStructuredData()',
+              navy.withValues(alpha: 0.2),
+              38,
+            ),
+            amLayerBox(
+              'L2: ImageCache (decoded images)',
+              indigo.withValues(alpha: 0.15),
+              38,
+            ),
+            amLayerBox(
+              'L3: Engine GPU texture cache',
+              midBlue.withValues(alpha: 0.1),
+              38,
+            ),
             const SizedBox(height: 8),
             amRow(['Cache', 'What', 'Eviction'], isHeader: true),
             amRow(['AssetBundle', 'Parsed data (JSON → Map)', 'evict(key)']),
@@ -935,16 +1163,31 @@ dynamic build(BuildContext context) {
         'Common Issues & Fixes',
         Column(
           children: [
-            _amTroubleshoot('Asset not found', 'FlutterError',
-                'Verify path matches pubspec exactly; run flutter clean'),
-            _amTroubleshoot('Wrong resolution loaded', 'Visual',
-                'Check folder naming: 2.0x/, 3.0x/ (not @2x)'),
-            _amTroubleshoot('Package asset missing', 'FlutterError',
-                'Add package: parameter to Image.asset()'),
-            _amTroubleshoot('Stale manifest', 'Various',
-                'flutter clean && flutter pub get && rebuild'),
-            _amTroubleshoot('Large bundle size', 'Performance',
-                'Use deferred loading; compress images; tree-shake'),
+            _amTroubleshoot(
+              'Asset not found',
+              'FlutterError',
+              'Verify path matches pubspec exactly; run flutter clean',
+            ),
+            _amTroubleshoot(
+              'Wrong resolution loaded',
+              'Visual',
+              'Check folder naming: 2.0x/, 3.0x/ (not @2x)',
+            ),
+            _amTroubleshoot(
+              'Package asset missing',
+              'FlutterError',
+              'Add package: parameter to Image.asset()',
+            ),
+            _amTroubleshoot(
+              'Stale manifest',
+              'Various',
+              'flutter clean && flutter pub get && rebuild',
+            ),
+            _amTroubleshoot(
+              'Large bundle size',
+              'Performance',
+              'Use deferred loading; compress images; tree-shake',
+            ),
           ],
         ),
       ),
@@ -1007,11 +1250,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('AssetManifest — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'AssetManifest — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'From pubspec declarations through manifest generation, '
@@ -1042,10 +1288,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -1071,11 +1329,14 @@ Widget _amBuildStep(String num, String phase, String desc, Color accent) {
             borderRadius: BorderRadius.circular(13),
           ),
           child: Center(
-            child: Text(num,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              num,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -1083,13 +1344,18 @@ Widget _amBuildStep(String num, String phase, String desc, Color accent) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(phase,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: accent)),
-              Text(desc,
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF283593))),
+              Text(
+                phase,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: accent,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 11, color: Color(0xFF283593)),
+              ),
             ],
           ),
         ),
@@ -1101,11 +1367,10 @@ Widget _amBuildStep(String num, String phase, String desc, Color accent) {
 Widget _amDirEntry(int depth, String label, Color color) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 16.0, bottom: 3),
-    child: Text(label,
-        style: TextStyle(
-            fontSize: 11,
-            fontFamily: 'monospace',
-            color: color)),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color),
+    ),
   );
 }
 
@@ -1123,9 +1388,14 @@ Widget _amImageStep(String num, String code, String desc, Color accent) {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
-            child: Text(num,
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+            child: Text(
+              num,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
@@ -1133,14 +1403,19 @@ Widget _amImageStep(String num, String code, String desc, Color accent) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(code,
-                  style: TextStyle(
-                      fontSize: 11,
-                      fontFamily: 'monospace',
-                      fontWeight: FontWeight.w600,
-                      color: accent)),
-              Text(desc,
-                  style: const TextStyle(fontSize: 10, color: Color(0xFF283593))),
+              Text(
+                code,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
+                  color: accent,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF283593)),
+              ),
             ],
           ),
         ),
@@ -1168,13 +1443,18 @@ Widget _amAssetType(IconData icon, String name, String formats, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: color)),
-              Text(formats,
-                  style: const TextStyle(fontSize: 10, color: Color(0xFF283593))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                formats,
+                style: const TextStyle(fontSize: 10, color: Color(0xFF283593)),
+              ),
             ],
           ),
         ),
@@ -1199,11 +1479,18 @@ Widget _amTestStrategy(String title, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.bold, color: color)),
-              Text(desc,
-                  style: const TextStyle(fontSize: 11, color: Color(0xFF283593))),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: const TextStyle(fontSize: 11, color: Color(0xFF283593)),
+              ),
             ],
           ),
         ),
@@ -1224,17 +1511,25 @@ Widget _amTroubleshoot(String issue, String type, String fix) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(issue,
-                  style: const TextStyle(
-                      fontSize: 12, fontWeight: FontWeight.w600)),
-              Text('Type: $type',
-                  style: TextStyle(
-                      fontSize: 10,
-                      fontFamily: 'monospace',
-                      color: const Color(0xFF3F51B5))),
-              Text('Fix: $fix',
-                  style: const TextStyle(
-                      fontSize: 10, color: Color(0xFF283593))),
+              Text(
+                issue,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                'Type: $type',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontFamily: 'monospace',
+                  color: const Color(0xFF3F51B5),
+                ),
+              ),
+              Text(
+                'Fix: $fix',
+                style: const TextStyle(fontSize: 10, color: Color(0xFF283593)),
+              ),
             ],
           ),
         ),

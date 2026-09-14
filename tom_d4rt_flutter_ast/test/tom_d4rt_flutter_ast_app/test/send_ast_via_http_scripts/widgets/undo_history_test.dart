@@ -224,8 +224,7 @@ class _UhMastheadPainter extends CustomPainter {
 
     // Subtle paper grain over plate.
     final math.Random rng = math.Random(91);
-    final Paint dot = Paint()
-      ..color = _UhPal.paper.withValues(alpha: 0.04);
+    final Paint dot = Paint()..color = _UhPal.paper.withValues(alpha: 0.04);
     for (int i = 0; i < 220; i++) {
       final double x = rng.nextDouble() * size.width;
       final double y = rng.nextDouble() * size.height;
@@ -454,10 +453,7 @@ Widget _uhBullet(String text, {Color dotColor = _UhPal.ribbon}) {
           child: Container(
             width: 6,
             height: 6,
-            decoration: BoxDecoration(
-              color: dotColor,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
           ),
         ),
         Expanded(child: _uhInkText(text, size: 12.5, height: 1.4)),
@@ -704,9 +700,7 @@ Widget _uhHistoryStrip({
                 '#$i',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: i == cursorIndex
-                      ? _UhPal.ribbonDeep
-                      : _UhPal.inkGhost,
+                  color: i == cursorIndex ? _UhPal.ribbonDeep : _UhPal.inkGhost,
                   fontFamily: 'monospace',
                   fontSize: 11,
                   fontWeight: i == cursorIndex
@@ -789,9 +783,11 @@ dynamic build(BuildContext context) {
                         letterSpacing: 0.6,
                       ),
                       const SizedBox(width: 10),
-                      _uhPill('widgets.dart',
-                          background: _UhPal.ribbon,
-                          foreground: _UhPal.paper),
+                      _uhPill(
+                        'widgets.dart',
+                        background: _UhPal.ribbon,
+                        foreground: _UhPal.paper,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -839,22 +835,46 @@ dynamic build(BuildContext context) {
           spacing: 8,
           runSpacing: 6,
           children: <Widget>[
-            _uhPill('§1 Banner',
-                background: _UhPal.ribbon, foreground: _UhPal.paper),
-            _uhPill('§2 UndoHistoryValue',
-                background: _UhPal.ledger, foreground: _UhPal.paper),
-            _uhPill('§3 Timeline',
-                background: _UhPal.amber, foreground: _UhPal.ink),
-            _uhPill('§4 Controller API',
-                background: _UhPal.teal, foreground: _UhPal.paper),
-            _uhPill('§5 Push Conditions',
-                background: _UhPal.olive, foreground: _UhPal.paper),
-            _uhPill('§6 Code Pattern',
-                background: _UhPal.ink, foreground: _UhPal.paper),
-            _uhPill('§7 EditableText vs custom',
-                background: _UhPal.stop, foreground: _UhPal.paper),
-            _uhPill('§8 Recap',
-                background: _UhPal.inkFaded, foreground: _UhPal.paper),
+            _uhPill(
+              '§1 Banner',
+              background: _UhPal.ribbon,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§2 UndoHistoryValue',
+              background: _UhPal.ledger,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§3 Timeline',
+              background: _UhPal.amber,
+              foreground: _UhPal.ink,
+            ),
+            _uhPill(
+              '§4 Controller API',
+              background: _UhPal.teal,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§5 Push Conditions',
+              background: _UhPal.olive,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§6 Code Pattern',
+              background: _UhPal.ink,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§7 EditableText vs custom',
+              background: _UhPal.stop,
+              foreground: _UhPal.paper,
+            ),
+            _uhPill(
+              '§8 Recap',
+              background: _UhPal.inkFaded,
+              foreground: _UhPal.paper,
+            ),
           ],
         ),
       ],
@@ -900,21 +920,35 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        _uhPill('STRUCT',
-                            background: _UhPal.ribbon,
-                            foreground: _UhPal.paper),
+                        _uhPill(
+                          'STRUCT',
+                          background: _UhPal.ribbon,
+                          foreground: _UhPal.paper,
+                        ),
                         const SizedBox(width: 8),
-                        _uhInkText('UndoHistoryValue',
-                            size: 13, weight: FontWeight.w900),
+                        _uhInkText(
+                          'UndoHistoryValue',
+                          size: 13,
+                          weight: FontWeight.w900,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    _uhInkText('• final bool canUndo',
-                        size: 12, color: _UhPal.inkSoft),
-                    _uhInkText('• final bool canRedo',
-                        size: 12, color: _UhPal.inkSoft),
-                    _uhInkText('• static const empty = UndoHistoryValue();',
-                        size: 11.5, color: _UhPal.inkFaded),
+                    _uhInkText(
+                      '• final bool canUndo',
+                      size: 12,
+                      color: _UhPal.inkSoft,
+                    ),
+                    _uhInkText(
+                      '• final bool canRedo',
+                      size: 12,
+                      color: _UhPal.inkSoft,
+                    ),
+                    _uhInkText(
+                      '• static const empty = UndoHistoryValue();',
+                      size: 11.5,
+                      color: _UhPal.inkFaded,
+                    ),
                     const SizedBox(height: 6),
                     _uhAnnotation(
                       'No fields beyond the two flags.  The actual stack of '
@@ -939,12 +973,17 @@ dynamic build(BuildContext context) {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        _uhPill('NOTIFIER',
-                            background: _UhPal.ledger,
-                            foreground: _UhPal.paper),
+                        _uhPill(
+                          'NOTIFIER',
+                          background: _UhPal.ledger,
+                          foreground: _UhPal.paper,
+                        ),
                         const SizedBox(width: 8),
-                        _uhInkText('UndoHistoryController',
-                            size: 13, weight: FontWeight.w900),
+                        _uhInkText(
+                          'UndoHistoryController',
+                          size: 13,
+                          weight: FontWeight.w900,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 6),
@@ -953,12 +992,21 @@ dynamic build(BuildContext context) {
                       size: 12,
                       color: _UhPal.inkSoft,
                     ),
-                    _uhInkText('• ChangeNotifier onUndo',
-                        size: 12, color: _UhPal.inkSoft),
-                    _uhInkText('• ChangeNotifier onRedo',
-                        size: 12, color: _UhPal.inkSoft),
-                    _uhInkText('• void undo() / void redo()',
-                        size: 12, color: _UhPal.inkSoft),
+                    _uhInkText(
+                      '• ChangeNotifier onUndo',
+                      size: 12,
+                      color: _UhPal.inkSoft,
+                    ),
+                    _uhInkText(
+                      '• ChangeNotifier onRedo',
+                      size: 12,
+                      color: _UhPal.inkSoft,
+                    ),
+                    _uhInkText(
+                      '• void undo() / void redo()',
+                      size: 12,
+                      color: _UhPal.inkSoft,
+                    ),
                     const SizedBox(height: 6),
                     _uhAnnotation(
                       'Holds *only* the value; the actual stack is owned by '
@@ -980,7 +1028,10 @@ dynamic build(BuildContext context) {
             _uhFlagCard(canUndo: false, canRedo: false, label: 'fresh stack'),
             _uhFlagCard(canUndo: true, canRedo: false, label: 'after typing'),
             _uhFlagCard(
-                canUndo: true, canRedo: true, label: 'mid-history (after undo)'),
+              canUndo: true,
+              canRedo: true,
+              label: 'mid-history (after undo)',
+            ),
             _uhFlagCard(canUndo: false, canRedo: true, label: 'fully undone'),
           ],
         ),
@@ -1014,7 +1065,13 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         _uhHistoryStrip(
-          entries: const <String>['""', '"He"', '"Hello"', '"Hello,"', '"Hello, world"'],
+          entries: const <String>[
+            '""',
+            '"He"',
+            '"Hello"',
+            '"Hello,"',
+            '"Hello, world"',
+          ],
           cursorIndex: 4,
         ),
         const SizedBox(height: 6),
@@ -1031,7 +1088,13 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         _uhHistoryStrip(
-          entries: const <String>['""', '"He"', '"Hello"', '"Hello,"', '"Hello, world"'],
+          entries: const <String>[
+            '""',
+            '"He"',
+            '"Hello"',
+            '"Hello,"',
+            '"Hello, world"',
+          ],
           cursorIndex: 2,
         ),
         const SizedBox(height: 6),
@@ -1040,7 +1103,9 @@ dynamic build(BuildContext context) {
           '(snapshots #3 and #4 are still recoverable via redo)',
         ),
         _uhRule(),
-        _uhSubheading('Scenario C — editing while mid-stack truncates the future'),
+        _uhSubheading(
+          'Scenario C — editing while mid-stack truncates the future',
+        ),
         _uhInkText(
           'Once a new entry is pushed while the cursor is not at the tail, '
           'the entries to the right are dropped.  This is the "branching '
@@ -1069,7 +1134,13 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 8),
         _uhHistoryStrip(
-          entries: const <String>['""', '"He"', '"Hello"', '"Hello,"', '"Hello, world"'],
+          entries: const <String>[
+            '""',
+            '"He"',
+            '"Hello"',
+            '"Hello,"',
+            '"Hello, world"',
+          ],
           cursorIndex: 3,
         ),
         const SizedBox(height: 6),
@@ -1107,20 +1178,41 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         _uhSubheading('Members at a glance'),
         const SizedBox(height: 4),
-        _uhApiRow('value', 'UndoHistoryValue',
-            'Current canUndo / canRedo.  Listenable.'),
-        _uhApiRow('onUndo', 'ChangeNotifier',
-            'Fires every time someone calls controller.undo().'),
-        _uhApiRow('onRedo', 'ChangeNotifier',
-            'Fires every time someone calls controller.redo().'),
-        _uhApiRow('undo()', 'void',
-            'Imperative request — equivalent to a UndoTextIntent.'),
-        _uhApiRow('redo()', 'void',
-            'Imperative request — equivalent to a RedoTextIntent.'),
-        _uhApiRow('addListener(cb)', 'void',
-            'Inherited from ValueNotifier — re-runs cb on value change.'),
-        _uhApiRow('dispose()', 'void',
-            'Always pair with the State that constructed the controller.'),
+        _uhApiRow(
+          'value',
+          'UndoHistoryValue',
+          'Current canUndo / canRedo.  Listenable.',
+        ),
+        _uhApiRow(
+          'onUndo',
+          'ChangeNotifier',
+          'Fires every time someone calls controller.undo().',
+        ),
+        _uhApiRow(
+          'onRedo',
+          'ChangeNotifier',
+          'Fires every time someone calls controller.redo().',
+        ),
+        _uhApiRow(
+          'undo()',
+          'void',
+          'Imperative request — equivalent to a UndoTextIntent.',
+        ),
+        _uhApiRow(
+          'redo()',
+          'void',
+          'Imperative request — equivalent to a RedoTextIntent.',
+        ),
+        _uhApiRow(
+          'addListener(cb)',
+          'void',
+          'Inherited from ValueNotifier — re-runs cb on value change.',
+        ),
+        _uhApiRow(
+          'dispose()',
+          'void',
+          'Always pair with the State that constructed the controller.',
+        ),
         _uhRule(),
         _uhSubheading('Listening flow'),
         _uhCodeBlock(
@@ -1163,66 +1255,93 @@ dynamic build(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 _uhKeyCap('Ctrl'),
-                const Text('+',
-                    style: TextStyle(
-                        color: _UhPal.inkFaded,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  '+',
+                  style: TextStyle(
+                    color: _UhPal.inkFaded,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 _uhKeyCap('Z'),
                 const SizedBox(width: 8),
-                _uhInkText('→ undo (Win/Linux)',
-                    size: 12, color: _UhPal.inkSoft),
+                _uhInkText(
+                  '→ undo (Win/Linux)',
+                  size: 12,
+                  color: _UhPal.inkSoft,
+                ),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 _uhKeyCap('Ctrl'),
-                const Text('+',
-                    style: TextStyle(
-                        color: _UhPal.inkFaded,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  '+',
+                  style: TextStyle(
+                    color: _UhPal.inkFaded,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 _uhKeyCap('Y'),
                 const SizedBox(width: 8),
-                _uhInkText('→ redo (Win/Linux)',
-                    size: 12, color: _UhPal.inkSoft),
+                _uhInkText(
+                  '→ redo (Win/Linux)',
+                  size: 12,
+                  color: _UhPal.inkSoft,
+                ),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 _uhKeyCap('⌘', width: 30),
-                const Text('+',
-                    style: TextStyle(
-                        color: _UhPal.inkFaded,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  '+',
+                  style: TextStyle(
+                    color: _UhPal.inkFaded,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 _uhKeyCap('Z'),
                 const SizedBox(width: 8),
-                _uhInkText('→ undo (macOS / iOS)',
-                    size: 12, color: _UhPal.inkSoft),
+                _uhInkText(
+                  '→ undo (macOS / iOS)',
+                  size: 12,
+                  color: _UhPal.inkSoft,
+                ),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 _uhKeyCap('⌘', width: 30),
-                const Text('+',
-                    style: TextStyle(
-                        color: _UhPal.inkFaded,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  '+',
+                  style: TextStyle(
+                    color: _UhPal.inkFaded,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 _uhKeyCap('⇧', width: 30),
-                const Text('+',
-                    style: TextStyle(
-                        color: _UhPal.inkFaded,
-                        fontFamily: 'monospace',
-                        fontWeight: FontWeight.w800)),
+                const Text(
+                  '+',
+                  style: TextStyle(
+                    color: _UhPal.inkFaded,
+                    fontFamily: 'monospace',
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 _uhKeyCap('Z'),
                 const SizedBox(width: 8),
-                _uhInkText('→ redo (macOS / iOS)',
-                    size: 12, color: _UhPal.inkSoft),
+                _uhInkText(
+                  '→ redo (macOS / iOS)',
+                  size: 12,
+                  color: _UhPal.inkSoft,
+                ),
               ],
             ),
           ],
@@ -1518,8 +1637,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            _uhPill('RECAP',
-                background: _UhPal.ribbon, foreground: _UhPal.paper),
+            _uhPill(
+              'RECAP',
+              background: _UhPal.ribbon,
+              foreground: _UhPal.paper,
+            ),
             const SizedBox(width: 10),
             Text(
               'UndoHistory<T> in seven lines',
@@ -1534,33 +1656,40 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 12),
         _uhRecapLine(
-          '1.', 'Listens to a ValueNotifier<T> and pushes throttled '
-          'snapshots onto an internal stack.',
+          '1.',
+          'Listens to a ValueNotifier<T> and pushes throttled '
+              'snapshots onto an internal stack.',
         ),
         _uhRecapLine(
-          '2.', 'Exposes the cursor state through an UndoHistoryController '
-          'as an UndoHistoryValue (canUndo / canRedo).',
+          '2.',
+          'Exposes the cursor state through an UndoHistoryController '
+              'as an UndoHistoryValue (canUndo / canRedo).',
         ),
         _uhRecapLine(
-          '3.', 'controller.undo() / controller.redo() walk the cursor '
-          'and call onTriggered with the chosen snapshot.',
+          '3.',
+          'controller.undo() / controller.redo() walk the cursor '
+              'and call onTriggered with the chosen snapshot.',
         ),
         _uhRecapLine(
-          '4.', 'shouldChangeUndoStack(prev, next) lets you veto pushes — '
-          'caret-only changes, programmatic swaps, etc.',
+          '4.',
+          'shouldChangeUndoStack(prev, next) lets you veto pushes — '
+              'caret-only changes, programmatic swaps, etc.',
         ),
         _uhRecapLine(
-          '5.', 'Focus loss flushes pending changes; the throttle resets '
-          'when focus returns.',
+          '5.',
+          'Focus loss flushes pending changes; the throttle resets '
+              'when focus returns.',
         ),
         _uhRecapLine(
-          '6.', 'Editing while the cursor is mid-stack truncates the '
-          'future entries — branching history is collapsed.',
+          '6.',
+          'Editing while the cursor is mid-stack truncates the '
+              'future entries — branching history is collapsed.',
         ),
         _uhRecapLine(
-          '7.', 'Every TextField already gets all of this for free via '
-          'EditableText; reach for it manually only for application-level '
-          'undo over your own observable model.',
+          '7.',
+          'Every TextField already gets all of this for free via '
+              'EditableText; reach for it manually only for application-level '
+              'undo over your own observable model.',
         ),
         const SizedBox(height: 14),
         Container(
@@ -1704,11 +1833,7 @@ Widget _uhFlagBadge(String name, bool on) {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(
-          on ? Icons.check : Icons.close,
-          color: _UhPal.paper,
-          size: 12,
-        ),
+        Icon(on ? Icons.check : Icons.close, color: _UhPal.paper, size: 12),
         const SizedBox(width: 4),
         Text(
           name,
@@ -2233,8 +2358,6 @@ Widget _uhArrow({double width = 36, double height = 12, Color? color}) {
   return SizedBox(
     width: width,
     height: height,
-    child: CustomPaint(
-      painter: _UhArrowPainter(color: color ?? _UhPal.ledger),
-    ),
+    child: CustomPaint(painter: _UhArrowPainter(color: color ?? _UhPal.ledger)),
   );
 }

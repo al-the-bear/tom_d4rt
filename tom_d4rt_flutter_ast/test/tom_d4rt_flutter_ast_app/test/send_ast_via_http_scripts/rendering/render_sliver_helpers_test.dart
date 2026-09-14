@@ -81,8 +81,14 @@ Widget _shSectionTitle(String title, IconData icon) {
 Widget _shBadge(String label, Color bg, Color fg) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(4)),
-    child: Text(label, style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(fontSize: 10, color: fg, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -108,9 +114,23 @@ Widget _shInfoCard(String title, String body, IconData icon, {Color? accent}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: _shTextDark)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: _shTextDark,
+                ),
+              ),
               SizedBox(height: 4),
-              Text(body, style: TextStyle(fontSize: 12, color: _shTextMedium, height: 1.4)),
+              Text(
+                body,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _shTextMedium,
+                  height: 1.4,
+                ),
+              ),
             ],
           ),
         ),
@@ -125,8 +145,19 @@ Widget _shInfoCard(String title, String body, IconData icon, {Color? accent}) {
 Widget _shCode(String text, {Color? color}) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-    decoration: BoxDecoration(color: _shSurfaceDark, borderRadius: BorderRadius.circular(4)),
-    child: Text(text, style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: color ?? _shPrimary, fontWeight: FontWeight.w600)),
+    decoration: BoxDecoration(
+      color: _shSurfaceDark,
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: color ?? _shPrimary,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
@@ -164,13 +195,40 @@ Widget _shSection1Overview() {
         ),
         child: Column(
           children: [
-            Text('Mixin method catalogue', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Mixin method catalogue',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 8),
-            _shMethodRow('hitTestBoxChild()', 'Translate sliver hit coords to box child', _shBlue),
-            _shMethodRow('childMainAxisPosition()', 'Child offset along scroll axis', _shGreen),
-            _shMethodRow('childCrossAxisPosition()', 'Child offset perpendicular to scroll', _shTeal),
-            _shMethodRow('childScrollOffset()', 'Scroll offset for a specific child', _shPurple),
-            _shMethodRow('applyPaintTransform()', 'Paint matrix for box child in sliver', _shOrange),
+            _shMethodRow(
+              'hitTestBoxChild()',
+              'Translate sliver hit coords to box child',
+              _shBlue,
+            ),
+            _shMethodRow(
+              'childMainAxisPosition()',
+              'Child offset along scroll axis',
+              _shGreen,
+            ),
+            _shMethodRow(
+              'childCrossAxisPosition()',
+              'Child offset perpendicular to scroll',
+              _shTeal,
+            ),
+            _shMethodRow(
+              'childScrollOffset()',
+              'Scroll offset for a specific child',
+              _shPurple,
+            ),
+            _shMethodRow(
+              'applyPaintTransform()',
+              'Paint matrix for box child in sliver',
+              _shOrange,
+            ),
           ],
         ),
       ),
@@ -183,11 +241,23 @@ Widget _shMethodRow(String name, String desc, Color color) {
     padding: EdgeInsets.symmetric(vertical: 3),
     child: Row(
       children: [
-        Container(width: 4, height: 16, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
+        Container(
+          width: 4,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
         SizedBox(width: 8),
         _shCode(name, color: color),
         SizedBox(width: 8),
-        Expanded(child: Text(desc, style: TextStyle(fontSize: 10, color: _shTextMedium))),
+        Expanded(
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: _shTextMedium),
+          ),
+        ),
       ],
     ),
   );
@@ -230,12 +300,20 @@ Widget _shSection2HitTest() {
             ),
             // Label
             Positioned(
-              left: 8, top: 8,
-              child: _shBadge('Sliver coordinate space', _shPrimary, _shOnPrimary),
+              left: 8,
+              top: 8,
+              child: _shBadge(
+                'Sliver coordinate space',
+                _shPrimary,
+                _shOnPrimary,
+              ),
             ),
             // Box child inside sliver
             Positioned(
-              left: 40, top: 50, right: 40, bottom: 50,
+              left: 40,
+              top: 50,
+              right: 40,
+              bottom: 50,
               child: Container(
                 decoration: BoxDecoration(
                   color: _shBlue.withValues(alpha: 0.1),
@@ -245,12 +323,14 @@ Widget _shSection2HitTest() {
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 8, top: 8,
+                      left: 8,
+                      top: 8,
                       child: _shBadge('Box child', _shBlue, _shOnPrimary),
                     ),
                     // Hit point in sliver space
                     Positioned(
-                      left: 80, top: 40,
+                      left: 80,
+                      top: 40,
                       child: Column(
                         children: [
                           Container(
@@ -266,14 +346,19 @@ Widget _shSection2HitTest() {
                           Text(
                             'Hit point\n(mainAxis: 90, crossAxis: 120)',
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 9, color: _shRed, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: 9,
+                              color: _shRed,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     // Translated point
                     Positioned(
-                      right: 20, bottom: 15,
+                      right: 20,
+                      bottom: 15,
                       child: Container(
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
@@ -283,7 +368,11 @@ Widget _shSection2HitTest() {
                         ),
                         child: Text(
                           'Translated → (x: 80, y: 40)',
-                          style: TextStyle(fontSize: 9, color: _shGreen, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            fontSize: 9,
+                            color: _shGreen,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
@@ -293,12 +382,20 @@ Widget _shSection2HitTest() {
             ),
             // Arrow showing translation
             Positioned(
-              right: 8, top: 8,
+              right: 8,
+              top: 8,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Icon(Icons.arrow_downward, size: 16, color: _shAccent),
-                  Text('hitTestBoxChild()', style: TextStyle(fontSize: 9, color: _shAccent, fontWeight: FontWeight.w600)),
+                  Text(
+                    'hitTestBoxChild()',
+                    style: TextStyle(
+                      fontSize: 9,
+                      color: _shAccent,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -336,7 +433,14 @@ Widget _shSection3MainAxis() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Vertical sliver — main axis = Y', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Vertical sliver — main axis = Y',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             // Vertical axis demo
             Row(
@@ -356,7 +460,14 @@ Widget _shSection3MainAxis() {
                         ),
                       ),
                       Icon(Icons.arrow_downward, size: 14, color: _shGreen),
-                      Text('main', style: TextStyle(fontSize: 9, color: _shGreen, fontWeight: FontWeight.w600)),
+                      Text(
+                        'main',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: _shGreen,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -386,7 +497,14 @@ Widget _shSection3MainAxis() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Horizontal sliver — main axis = X', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Horizontal sliver — main axis = X',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Column(
               children: [
@@ -394,12 +512,22 @@ Widget _shSection3MainAxis() {
                   children: [
                     Icon(Icons.arrow_back, size: 14, color: _shOrange),
                     Expanded(
-                      child: Container(height: 2, color: _shOrange.withValues(alpha: 0.4)),
+                      child: Container(
+                        height: 2,
+                        color: _shOrange.withValues(alpha: 0.4),
+                      ),
                     ),
                     Icon(Icons.arrow_forward, size: 14, color: _shOrange),
                   ],
                 ),
-                Text('main axis', style: TextStyle(fontSize: 9, color: _shOrange, fontWeight: FontWeight.w600)),
+                Text(
+                  'main axis',
+                  style: TextStyle(
+                    fontSize: 9,
+                    color: _shOrange,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 SizedBox(height: 4),
                 Row(
                   children: [
@@ -430,7 +558,14 @@ Widget _shAxisChild(String label, int offset, Color color) {
     ),
     child: Row(
       children: [
-        Text(label, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: color)),
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+            color: color,
+          ),
+        ),
         Spacer(),
         _shBadge('mainAxisPos: $offset', color, _shOnPrimary),
       ],
@@ -451,7 +586,14 @@ Widget _shHAxisChild(String label, int offset, Color color) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: color)),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 12,
+              color: color,
+            ),
+          ),
           Text('pos: $offset', style: TextStyle(fontSize: 9, color: color)),
         ],
       ),
@@ -486,7 +628,14 @@ Widget _shSection4CrossAxis() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Cross axis positioning', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Cross axis positioning',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Container(
               height: 120,
@@ -499,56 +648,94 @@ Widget _shSection4CrossAxis() {
                 children: [
                   // Cross axis arrow
                   Positioned(
-                    left: 10, right: 10, top: 10,
+                    left: 10,
+                    right: 10,
+                    top: 10,
                     child: Row(
                       children: [
                         Icon(Icons.arrow_back, size: 12, color: _shTeal),
-                        Expanded(child: Container(height: 1, color: _shTeal.withValues(alpha: 0.4))),
+                        Expanded(
+                          child: Container(
+                            height: 1,
+                            color: _shTeal.withValues(alpha: 0.4),
+                          ),
+                        ),
                         Icon(Icons.arrow_forward, size: 12, color: _shTeal),
                       ],
                     ),
                   ),
                   Positioned(
-                    left: 0, right: 0, top: 22,
-                    child: Text('cross axis', textAlign: TextAlign.center, style: TextStyle(fontSize: 9, color: _shTeal)),
+                    left: 0,
+                    right: 0,
+                    top: 22,
+                    child: Text(
+                      'cross axis',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 9, color: _shTeal),
+                    ),
                   ),
                   // Main axis arrow
                   Positioned(
-                    left: 10, top: 30, bottom: 10,
+                    left: 10,
+                    top: 30,
+                    bottom: 10,
                     child: Column(
                       children: [
                         Icon(Icons.arrow_upward, size: 12, color: _shGreen),
-                        Expanded(child: Container(width: 1, color: _shGreen.withValues(alpha: 0.4))),
+                        Expanded(
+                          child: Container(
+                            width: 1,
+                            color: _shGreen.withValues(alpha: 0.4),
+                          ),
+                        ),
                         Icon(Icons.arrow_downward, size: 12, color: _shGreen),
                       ],
                     ),
                   ),
                   // Child with crossAxisPosition = 0
                   Positioned(
-                    left: 30, top: 40,
+                    left: 30,
+                    top: 40,
                     child: Container(
-                      width: 100, height: 30,
+                      width: 100,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: _shBlue.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: _shBlue),
                       ),
                       alignment: Alignment.center,
-                      child: Text('crossPos: 0', style: TextStyle(fontSize: 10, color: _shBlue, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        'crossPos: 0',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _shBlue,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                   // Child with crossAxisPosition > 0
                   Positioned(
-                    left: 140, top: 75,
+                    left: 140,
+                    top: 75,
                     child: Container(
-                      width: 120, height: 30,
+                      width: 120,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: _shPurple.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(color: _shPurple),
                       ),
                       alignment: Alignment.center,
-                      child: Text('crossPos: 110', style: TextStyle(fontSize: 10, color: _shPurple, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        'crossPos: 110',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _shPurple,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -588,13 +775,45 @@ Widget _shSection5PaintTransform() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Transform pipeline', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Transform pipeline',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 10),
-            _shPipelineStep(1, 'Start with identity Matrix4', Icons.crop_square, _shGrey),
-            _shPipelineStep(2, 'Translate by paintOffset (from layout)', Icons.open_with, _shBlue),
-            _shPipelineStep(3, 'Adjust for axis direction', Icons.swap_vert, _shGreen),
-            _shPipelineStep(4, 'Adjust for growth direction', Icons.trending_up, _shPurple),
-            _shPipelineStep(5, 'Result: child painted at correct sliver position', Icons.check_circle, _shPrimary),
+            _shPipelineStep(
+              1,
+              'Start with identity Matrix4',
+              Icons.crop_square,
+              _shGrey,
+            ),
+            _shPipelineStep(
+              2,
+              'Translate by paintOffset (from layout)',
+              Icons.open_with,
+              _shBlue,
+            ),
+            _shPipelineStep(
+              3,
+              'Adjust for axis direction',
+              Icons.swap_vert,
+              _shGreen,
+            ),
+            _shPipelineStep(
+              4,
+              'Adjust for growth direction',
+              Icons.trending_up,
+              _shPurple,
+            ),
+            _shPipelineStep(
+              5,
+              'Result: child painted at correct sliver position',
+              Icons.check_circle,
+              _shPrimary,
+            ),
           ],
         ),
       ),
@@ -613,14 +832,29 @@ Widget _shSection5PaintTransform() {
               ),
               child: Stack(
                 children: [
-                  Text('Without transform', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _shRed)),
+                  Text(
+                    'Without transform',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: _shRed,
+                    ),
+                  ),
                   Positioned(
-                    left: 0, top: 30,
+                    left: 0,
+                    top: 30,
                     child: Container(
-                      width: 60, height: 40,
-                      decoration: BoxDecoration(color: _shRed.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4)),
+                      width: 60,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: _shRed.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       alignment: Alignment.center,
-                      child: Text('(0,0)', style: TextStyle(fontSize: 9, color: _shRed)),
+                      child: Text(
+                        '(0,0)',
+                        style: TextStyle(fontSize: 9, color: _shRed),
+                      ),
                     ),
                   ),
                 ],
@@ -642,14 +876,29 @@ Widget _shSection5PaintTransform() {
               ),
               child: Stack(
                 children: [
-                  Text('With transform', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _shGreen)),
+                  Text(
+                    'With transform',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      color: _shGreen,
+                    ),
+                  ),
                   Positioned(
-                    left: 40, top: 45,
+                    left: 40,
+                    top: 45,
                     child: Container(
-                      width: 60, height: 40,
-                      decoration: BoxDecoration(color: _shGreen.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(4)),
+                      width: 60,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: _shGreen.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                       alignment: Alignment.center,
-                      child: Text('(40,45)', style: TextStyle(fontSize: 9, color: _shGreen)),
+                      child: Text(
+                        '(40,45)',
+                        style: TextStyle(fontSize: 9, color: _shGreen),
+                      ),
                     ),
                   ),
                 ],
@@ -668,15 +917,31 @@ Widget _shPipelineStep(int num, String desc, IconData icon, Color color) {
     child: Row(
       children: [
         Container(
-          width: 22, height: 22,
-          decoration: BoxDecoration(color: color.withValues(alpha: 0.15), shape: BoxShape.circle),
+          width: 22,
+          height: 22,
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.15),
+            shape: BoxShape.circle,
+          ),
           alignment: Alignment.center,
-          child: Text('$num', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color)),
+          child: Text(
+            '$num',
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
         ),
         SizedBox(width: 8),
         Icon(icon, size: 16, color: color),
         SizedBox(width: 6),
-        Expanded(child: Text(desc, style: TextStyle(fontSize: 11, color: _shTextMedium))),
+        Expanded(
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 11, color: _shTextMedium),
+          ),
+        ),
       ],
     ),
   );
@@ -717,7 +982,9 @@ Widget _shSection6AxisMapping() {
                     decoration: BoxDecoration(
                       color: _shGreen.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _shGreen.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: _shGreen.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -737,7 +1004,9 @@ Widget _shSection6AxisMapping() {
                     decoration: BoxDecoration(
                       color: _shOrange.withValues(alpha: 0.06),
                       borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _shOrange.withValues(alpha: 0.2)),
+                      border: Border.all(
+                        color: _shOrange.withValues(alpha: 0.2),
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -847,7 +1116,14 @@ Widget _shGrowthBlock(String label, String pos, Color color) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w600,
+            color: color,
+          ),
+        ),
         _shBadge(pos, color.withValues(alpha: 0.15), color),
       ],
     ),
@@ -882,7 +1158,14 @@ Widget _shSection8Overflow() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Overflow indicator visualisation', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
+            Text(
+              'Overflow indicator visualisation',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 8),
             Container(
               height: 80,
@@ -898,7 +1181,10 @@ Widget _shSection8Overflow() {
                     child: Container(
                       color: _shBlue.withValues(alpha: 0.1),
                       alignment: Alignment.center,
-                      child: Text('Content (fits)', style: TextStyle(fontSize: 10, color: _shBlue)),
+                      child: Text(
+                        'Content (fits)',
+                        style: TextStyle(fontSize: 10, color: _shBlue),
+                      ),
                     ),
                   ),
                   // Overflow area with stripe pattern
@@ -907,15 +1193,27 @@ Widget _shSection8Overflow() {
                     child: Container(
                       decoration: BoxDecoration(
                         color: _shAmber.withValues(alpha: 0.3),
-                        border: Border(left: BorderSide(color: _shRed, width: 2)),
+                        border: Border(
+                          left: BorderSide(color: _shRed, width: 2),
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.warning, size: 16, color: _shRed),
-                          Text('OVERFLOW', style: TextStyle(fontSize: 8, color: _shRed, fontWeight: FontWeight.w800)),
-                          Text('48px', style: TextStyle(fontSize: 8, color: _shRed)),
+                          Text(
+                            'OVERFLOW',
+                            style: TextStyle(
+                              fontSize: 8,
+                              color: _shRed,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Text(
+                            '48px',
+                            style: TextStyle(fontSize: 8, color: _shRed),
+                          ),
                         ],
                       ),
                     ),
@@ -931,7 +1229,11 @@ Widget _shSection8Overflow() {
                 Expanded(
                   child: Text(
                     'Debug-only: overflow indicators are not painted in release builds',
-                    style: TextStyle(fontSize: 10, color: _shTextMedium, fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: _shTextMedium,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ],
@@ -948,12 +1250,36 @@ Widget _shSection8Overflow() {
 // ---------------------------------------------------------------------------
 Widget _shSection9Practical() {
   final steps = <Map<String, dynamic>>[
-    {'step': 'Extend RenderSliver with RenderSliverHelpers', 'icon': Icons.extension, 'color': _shPrimary},
-    {'step': 'Set up RenderObjectWithChildMixin for box child', 'icon': Icons.child_care, 'color': _shBlue},
-    {'step': 'In performLayout(), lay out child with box constraints', 'icon': Icons.straighten, 'color': _shGreen},
-    {'step': 'Use childMainAxisPosition/crossAxisPosition in hit test', 'icon': Icons.touch_app, 'color': _shPurple},
-    {'step': 'Override applyPaintTransformForChild() for painting', 'icon': Icons.brush, 'color': _shOrange},
-    {'step': 'Call hitTestBoxChild() in hitTestChildren()', 'icon': Icons.adjust, 'color': _shTeal},
+    {
+      'step': 'Extend RenderSliver with RenderSliverHelpers',
+      'icon': Icons.extension,
+      'color': _shPrimary,
+    },
+    {
+      'step': 'Set up RenderObjectWithChildMixin for box child',
+      'icon': Icons.child_care,
+      'color': _shBlue,
+    },
+    {
+      'step': 'In performLayout(), lay out child with box constraints',
+      'icon': Icons.straighten,
+      'color': _shGreen,
+    },
+    {
+      'step': 'Use childMainAxisPosition/crossAxisPosition in hit test',
+      'icon': Icons.touch_app,
+      'color': _shPurple,
+    },
+    {
+      'step': 'Override applyPaintTransformForChild() for painting',
+      'icon': Icons.brush,
+      'color': _shOrange,
+    },
+    {
+      'step': 'Call hitTestBoxChild() in hitTestChildren()',
+      'icon': Icons.adjust,
+      'color': _shTeal,
+    },
   ];
 
   return Column(
@@ -979,30 +1305,56 @@ Widget _shSection9Practical() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Implementation steps', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12, color: _shTextDark)),
-            SizedBox(height: 8),
-            ...steps.asMap().entries.map((e) => Padding(
-              padding: EdgeInsets.symmetric(vertical: 3),
-              child: Row(
-                children: [
-                  Container(
-                    width: 22, height: 22,
-                    decoration: BoxDecoration(
-                      color: (e.value['color'] as Color).withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    alignment: Alignment.center,
-                    child: Text('${e.key + 1}', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: e.value['color'] as Color)),
-                  ),
-                  SizedBox(width: 8),
-                  Icon(e.value['icon'] as IconData, size: 16, color: e.value['color'] as Color),
-                  SizedBox(width: 6),
-                  Expanded(
-                    child: Text(e.value['step'] as String, style: TextStyle(fontSize: 11, color: _shTextMedium)),
-                  ),
-                ],
+            Text(
+              'Implementation steps',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+                color: _shTextDark,
               ),
-            )),
+            ),
+            SizedBox(height: 8),
+            ...steps.asMap().entries.map(
+              (e) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 3),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        color: (e.value['color'] as Color).withValues(
+                          alpha: 0.15,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${e.key + 1}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: e.value['color'] as Color,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      e.value['icon'] as IconData,
+                      size: 16,
+                      color: e.value['color'] as Color,
+                    ),
+                    SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        e.value['step'] as String,
+                        style: TextStyle(fontSize: 11, color: _shTextMedium),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -1028,7 +1380,14 @@ Widget _shSection9Practical() {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('CustomScrollView with slivers using helpers', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _shTextDark)),
+            Text(
+              'CustomScrollView with slivers using helpers',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: _shTextDark,
+              ),
+            ),
             SizedBox(height: 6),
             SizedBox(
               height: 150,
@@ -1041,10 +1400,19 @@ Widget _shSection9Practical() {
                       decoration: BoxDecoration(
                         color: _shBlue.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _shBlue.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: _shBlue.withValues(alpha: 0.3),
+                        ),
                       ),
                       alignment: Alignment.center,
-                      child: Text('SliverToBoxAdapter — uses RenderSliverHelpers', style: TextStyle(fontSize: 10, color: _shBlue, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        'SliverToBoxAdapter — uses RenderSliverHelpers',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _shBlue,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -1054,10 +1422,19 @@ Widget _shSection9Practical() {
                       decoration: BoxDecoration(
                         color: _shPurple.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _shPurple.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: _shPurple.withValues(alpha: 0.3),
+                        ),
                       ),
                       alignment: Alignment.center,
-                      child: Text('Each sliver delegates hit test via helpers', style: TextStyle(fontSize: 10, color: _shPurple, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        'Each sliver delegates hit test via helpers',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _shPurple,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -1067,10 +1444,19 @@ Widget _shSection9Practical() {
                       decoration: BoxDecoration(
                         color: _shTeal.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(color: _shTeal.withValues(alpha: 0.3)),
+                        border: Border.all(
+                          color: _shTeal.withValues(alpha: 0.3),
+                        ),
                       ),
                       alignment: Alignment.center,
-                      child: Text('Paint transform computed by applyPaintTransform', style: TextStyle(fontSize: 10, color: _shTeal, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        'Paint transform computed by applyPaintTransform',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: _shTeal,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -1085,7 +1471,10 @@ Widget _shSection9Practical() {
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [_shPrimary.withValues(alpha: 0.08), _shAccent.withValues(alpha: 0.08)],
+            colors: [
+              _shPrimary.withValues(alpha: 0.08),
+              _shAccent.withValues(alpha: 0.08),
+            ],
           ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: _shPrimary.withValues(alpha: 0.2)),
@@ -1096,7 +1485,11 @@ Widget _shSection9Practical() {
             SizedBox(height: 8),
             Text(
               'RenderSliverHelpers',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: _shTextDark),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: _shTextDark,
+              ),
             ),
             SizedBox(height: 4),
             Text(
@@ -1157,7 +1550,10 @@ dynamic build(BuildContext context) {
               SizedBox(height: 6),
               Text(
                 'Utility mixin for slivers with box children — coordinate translation',
-                style: TextStyle(fontSize: 12, color: _shOnPrimary.withValues(alpha: 0.85)),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _shOnPrimary.withValues(alpha: 0.85),
+                ),
               ),
             ],
           ),

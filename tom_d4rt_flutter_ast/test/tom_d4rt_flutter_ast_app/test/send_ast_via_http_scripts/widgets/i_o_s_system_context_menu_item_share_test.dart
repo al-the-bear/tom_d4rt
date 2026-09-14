@@ -30,16 +30,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: shOnSlate)),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: shOnSlate,
+            ),
+          ),
           const SizedBox(height: 4),
-          Text(subtitle,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: shOnSlate.withValues(alpha: 0.85))),
+          Text(
+            subtitle,
+            style: TextStyle(
+              fontSize: 12,
+              color: shOnSlate.withValues(alpha: 0.85),
+            ),
+          ),
         ],
       ),
     );
@@ -61,20 +67,25 @@ dynamic build(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
               color: shSlate.withValues(alpha: 0.07),
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(10)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
             ),
-            child: Text(heading,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: shSlate)),
+            child: Text(
+              heading,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: shSlate,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 8, 14, 12),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: children),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
           ),
         ],
       ),
@@ -87,12 +98,16 @@ dynamic build(BuildContext context) {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('▪ ',
-              style: TextStyle(color: shAccent, fontSize: 11)),
+          const Text('▪ ', style: TextStyle(color: shAccent, fontSize: 11)),
           Expanded(
-            child: Text(text,
-                style: const TextStyle(
-                    fontSize: 12, color: shTextDark, height: 1.4)),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 12,
+                color: shTextDark,
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -108,12 +123,15 @@ dynamic build(BuildContext context) {
         color: const Color(0xFF1A2530),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(code,
-          style: const TextStyle(
-              fontSize: 11,
-              fontFamily: 'monospace',
-              color: shSilver,
-              height: 1.5)),
+      child: Text(
+        code,
+        style: const TextStyle(
+          fontSize: 11,
+          fontFamily: 'monospace',
+          color: shSilver,
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -125,15 +143,20 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 140,
-            child: Text(key,
-                style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: shDark)),
+            child: Text(
+              key,
+              style: const TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: shDark,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(value,
-                style: const TextStyle(fontSize: 11, color: shTextDark)),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 11, color: shTextDark),
+            ),
           ),
         ],
       ),
@@ -150,12 +173,15 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: shAccent.withValues(alpha: 0.2)),
       ),
-      child: Text(text,
-          style: const TextStyle(
-              fontSize: 11,
-              fontStyle: FontStyle.italic,
-              color: shDark,
-              height: 1.4)),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 11,
+          fontStyle: FontStyle.italic,
+          color: shDark,
+          height: 1.4,
+        ),
+      ),
     );
   }
 
@@ -179,19 +205,26 @@ dynamic build(BuildContext context) {
               color: shSlate.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(icon,
-                style: const TextStyle(fontSize: 12, color: shSlate)),
+            child: Text(
+              icon,
+              style: const TextStyle(fontSize: 12, color: shSlate),
+            ),
           ),
           const SizedBox(width: 8),
-          Text(label,
-              style: const TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: shDark)),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: shDark,
+            ),
+          ),
           const SizedBox(width: 6),
           Expanded(
-            child: Text(value,
-                style: const TextStyle(fontSize: 11, color: shTextDark)),
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 11, color: shTextDark),
+            ),
           ),
         ],
       ),
@@ -218,15 +251,17 @@ dynamic build(BuildContext context) {
               text: TextSpan(
                 children: [
                   TextSpan(
-                      text: '$label: ',
-                      style: const TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: shDark)),
+                    text: '$label: ',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: shDark,
+                    ),
+                  ),
                   TextSpan(
-                      text: desc,
-                      style: const TextStyle(
-                          fontSize: 11, color: shTextDark)),
+                    text: desc,
+                    style: const TextStyle(fontSize: 11, color: shTextDark),
+                  ),
                 ],
               ),
             ),
@@ -256,54 +291,65 @@ dynamic build(BuildContext context) {
             shKeyValue('Class', 'IOSSystemContextMenuItemShare'),
             shKeyValue('Platform', 'iOS / iPadOS'),
             shKeyValue('Action', 'Opens UIActivityViewController'),
-            shKeyValue('Toolbar',
-                'CupertinoAdaptiveTextSelectionToolbar'),
+            shKeyValue('Toolbar', 'CupertinoAdaptiveTextSelectionToolbar'),
             shDivider(),
             shBullet(
-                'IOSSystemContextMenuItemShare represents the "Share..." '
-                'button in the iOS text selection context menu.'),
+              'IOSSystemContextMenuItemShare represents the "Share..." '
+              'button in the iOS text selection context menu.',
+            ),
             shBullet(
-                'Tapping it presents the system share sheet '
-                '(UIActivityViewController) with the selected text as '
-                'the shareable content.'),
+              'Tapping it presents the system share sheet '
+              '(UIActivityViewController) with the selected text as '
+              'the shareable content.',
+            ),
             shBullet(
-                'The share sheet shows all available share destinations '
-                'including AirDrop, Messages, Mail, Notes, and any '
-                'third-party apps that accept text.'),
+              'The share sheet shows all available share destinations '
+              'including AirDrop, Messages, Mail, Notes, and any '
+              'third-party apps that accept text.',
+            ),
           ]),
 
           // ── 2. share flow ──
           shSection('2 · Share Action Flow', [
             shBullet(
-                'Step 1: User selects text in a text field or SelectableText.'),
+              'Step 1: User selects text in a text field or SelectableText.',
+            ),
             shBullet(
-                'Step 2: Context menu appears; user taps chevron for secondary items.'),
+              'Step 2: Context menu appears; user taps chevron for secondary items.',
+            ),
+            shBullet('Step 3: User taps "Share..." from the secondary row.'),
             shBullet(
-                'Step 3: User taps "Share..." from the secondary row.'),
+              'Step 4: iOS presents UIActivityViewController as a modal sheet.',
+            ),
             shBullet(
-                'Step 4: iOS presents UIActivityViewController as a modal sheet.'),
+              'Step 5: User picks a destination (AirDrop, Messages, etc.).',
+            ),
             shBullet(
-                'Step 5: User picks a destination (AirDrop, Messages, etc.).'),
-            shBullet(
-                'Step 6: The selected text is passed to the chosen activity.'),
+              'Step 6: The selected text is passed to the chosen activity.',
+            ),
             shDivider(),
             shHighlight(
-                'The share sheet is system-managed. The app has no control '
-                'over which sharing options appear — that depends on installed '
-                'apps and system extensions. The only input is the selected text.'),
+              'The share sheet is system-managed. The app has no control '
+              'over which sharing options appear — that depends on installed '
+              'apps and system extensions. The only input is the selected text.',
+            ),
           ]),
 
           // ── 3. share sheet anatomy ──
           shSection('3 · UIActivityViewController Anatomy', [
             shBullet(
-                'Top row: AirDrop targets (nearby devices with AirDrop on).'),
+              'Top row: AirDrop targets (nearby devices with AirDrop on).',
+            ),
             shBullet(
-                'Second row: Favorites (Messages, Mail, user-pinned apps).'),
+              'Second row: Favorites (Messages, Mail, user-pinned apps).',
+            ),
             shBullet(
-                'Middle section: App suggestions based on usage frequency.'),
+              'Middle section: App suggestions based on usage frequency.',
+            ),
             shBullet(
-                'Bottom section: System actions (Copy, Add to Reading List, '
-                'Print, Assign to Contact, etc.).'),
+              'Bottom section: System actions (Copy, Add to Reading List, '
+              'Print, Assign to Contact, etc.).',
+            ),
             shDivider(),
             shKeyValue('Modal', 'Yes, covers bottom half of screen'),
             shKeyValue('Dismissible', 'Tap outside or Cancel button'),
@@ -313,13 +359,16 @@ dynamic build(BuildContext context) {
           // ── 4. visibility conditions ──
           shSection('4 · When Share Appears', [
             shBullet(
-                'Share appears when text is selected (non-collapsed selection).'),
+              'Share appears when text is selected (non-collapsed selection).',
+            ),
             shBullet(
-                'Available in BOTH editable and read-only fields — Share '
-                'does not modify the field content.'),
+              'Available in BOTH editable and read-only fields — Share '
+              'does not modify the field content.',
+            ),
             shBullet(
-                'Share does not require clipboard access, network, or any '
-                'special permissions.'),
+              'Share does not require clipboard access, network, or any '
+              'special permissions.',
+            ),
             shDivider(),
             shKeyValue('Selection required', 'Yes, non-collapsed'),
             shKeyValue('Editable required', 'No'),
@@ -330,11 +379,13 @@ dynamic build(BuildContext context) {
           // ── 5. menu positioning ──
           shSection('5 · Context Menu Positioning', [
             shBullet(
-                'Share is a SECONDARY item. The user must tap the chevron '
-                'arrow to access the secondary row.'),
+              'Share is a SECONDARY item. The user must tap the chevron '
+              'arrow to access the secondary row.',
+            ),
             shBullet(
-                'Typical secondary row: Look Up, Translate, Search Web, '
-                'Share, Scan Text.'),
+              'Typical secondary row: Look Up, Translate, Search Web, '
+              'Share, Scan Text.',
+            ),
             shDivider(),
             shKeyValue('Position', 'Secondary row of callout bar'),
             shKeyValue('Icon', 'None (text label "Share...")'),
@@ -351,11 +402,13 @@ dynamic build(BuildContext context) {
             shInfoRow('🔖', 'Books:', 'Highlight or notebook entry'),
             shDivider(),
             shBullet(
-                'Third-party apps with share extensions: WhatsApp, Telegram, '
-                'Slack, Twitter/X, LinkedIn, and many more.'),
+              'Third-party apps with share extensions: WhatsApp, Telegram, '
+              'Slack, Twitter/X, LinkedIn, and many more.',
+            ),
             shBullet(
-                'The order is personalized based on the user sharing history '
-                'and frequency — iOS learns preferred destinations.'),
+              'The order is personalized based on the user sharing history '
+              'and frequency — iOS learns preferred destinations.',
+            ),
           ]),
 
           // ── 7. share vs copy ──
@@ -364,67 +417,77 @@ dynamic build(BuildContext context) {
             shCompare('Share', 'Opens modal sheet for destination selection'),
             shDivider(),
             shBullet(
-                'Copy is instant and invisible. Share presents a full-screen '
-                'modal that requires user interaction.'),
+              'Copy is instant and invisible. Share presents a full-screen '
+              'modal that requires user interaction.',
+            ),
             shBullet(
-                'Copy puts text on the clipboard for pasting. Share can send '
-                'it to any app or service directly.'),
+              'Copy puts text on the clipboard for pasting. Share can send '
+              'it to any app or service directly.',
+            ),
             shBullet(
-                'Copy does not leave the current app. Share may open another '
-                'app (e.g., composing a message in Messages).'),
+              'Copy does not leave the current app. Share may open another '
+              'app (e.g., composing a message in Messages).',
+            ),
             shHighlight(
-                'Key difference: Copy stores text locally, Share transmits '
-                'it to a destination. Both are non-destructive — neither '
-                'modifies the original text.'),
+              'Key difference: Copy stores text locally, Share transmits '
+              'it to a destination. Both are non-destructive — neither '
+              'modifies the original text.',
+            ),
           ]),
 
           // ── 8. Flutter integration ──
           shSection('8 · Flutter Framework Integration', [
             shBullet(
-                'Share is auto-provided by the iOS system toolbar when text '
-                'is selected. Flutter does not add it manually.'),
+              'Share is auto-provided by the iOS system toolbar when text '
+              'is selected. Flutter does not add it manually.',
+            ),
             shBullet(
-                'In custom contextMenuBuilder, include system-provided '
-                'buttonItems to retain Share.'),
+              'In custom contextMenuBuilder, include system-provided '
+              'buttonItems to retain Share.',
+            ),
             shCodeBlock(
-                '// Preserve Share in custom menus:\n'
-                'TextField(\n'
-                '  contextMenuBuilder: (context, editableTextState) {\n'
-                '    final items =\n'
-                '        editableTextState.contextMenuButtonItems;\n'
-                '    return AdaptiveTextSelectionToolbar.buttonItems(\n'
-                '      anchors: editableTextState.contextMenuAnchors,\n'
-                '      buttonItems: items, // includes Share\n'
-                '    );\n'
-                '  },\n'
-                ')'),
+              '// Preserve Share in custom menus:\n'
+              'TextField(\n'
+              '  contextMenuBuilder: (context, editableTextState) {\n'
+              '    final items =\n'
+              '        editableTextState.contextMenuButtonItems;\n'
+              '    return AdaptiveTextSelectionToolbar.buttonItems(\n'
+              '      anchors: editableTextState.contextMenuAnchors,\n'
+              '      buttonItems: items, // includes Share\n'
+              '    );\n'
+              '  },\n'
+              ')',
+            ),
             shDivider(),
             shBullet(
-                'If you replace all buttonItems with custom actions, Share '
-                'disappears. Flutter has no API to manually invoke the '
-                'system share sheet from a context menu.'),
+              'If you replace all buttonItems with custom actions, Share '
+              'disappears. Flutter has no API to manually invoke the '
+              'system share sheet from a context menu.',
+            ),
             shBullet(
-                'For programmatic sharing, use the share_plus package or '
-                'platform channels to invoke UIActivityViewController.'),
+              'For programmatic sharing, use the share_plus package or '
+              'platform channels to invoke UIActivityViewController.',
+            ),
           ]),
 
           // ── 9. class properties ──
           shSection('9 · Class Properties & Constructor', [
             shCodeBlock(
-                '// IOSSystemContextMenuItemShare is a final class\n'
-                '// with a const constructor.\n'
-                'const IOSSystemContextMenuItemShare({\n'
-                '  super.title,  // optional custom label\n'
-                '})\n'
-                '\n'
-                '// Usage:\n'
-                'const item = IOSSystemContextMenuItemShare();\n'
-                '// item.title → null (uses system default "Share...")\n'
-                '\n'
-                'const custom = IOSSystemContextMenuItemShare(\n'
-                '  title: \'Send via...\',\n'
-                ');\n'
-                '// custom.title → "Send via..."'),
+              '// IOSSystemContextMenuItemShare is a final class\n'
+              '// with a const constructor.\n'
+              'const IOSSystemContextMenuItemShare({\n'
+              '  super.title,  // optional custom label\n'
+              '})\n'
+              '\n'
+              '// Usage:\n'
+              'const item = IOSSystemContextMenuItemShare();\n'
+              '// item.title → null (uses system default "Share...")\n'
+              '\n'
+              'const custom = IOSSystemContextMenuItemShare(\n'
+              '  title: \'Send via...\',\n'
+              ');\n'
+              '// custom.title → "Send via..."',
+            ),
             shDivider(),
             shKeyValue('title', 'Optional String, null uses system default'),
             shKeyValue('Const', 'Yes, supports const construction'),
@@ -435,38 +498,45 @@ dynamic build(BuildContext context) {
           // ── 10. share sheet customization ──
           shSection('10 · Share Sheet Customization', [
             shBullet(
-                'iOS allows apps to exclude specific activity types from '
-                'the share sheet. However, the context menu Share does NOT '
-                'allow this — it uses a default configuration.'),
+              'iOS allows apps to exclude specific activity types from '
+              'the share sheet. However, the context menu Share does NOT '
+              'allow this — it uses a default configuration.',
+            ),
             shBullet(
-                'The excludedActivityTypes property of UIActivityViewController '
-                'is only available when programmatically presenting it.'),
+              'The excludedActivityTypes property of UIActivityViewController '
+              'is only available when programmatically presenting it.',
+            ),
             shCodeBlock(
-                '// Only available in programmatic sharing:\n'
-                '// activityVC.excludedActivityTypes = [\n'
-                '//   UIActivity.ActivityType.print,\n'
-                '//   UIActivity.ActivityType.assignToContact,\n'
-                '// ]\n'
-                '//\n'
-                '// Context menu Share always shows ALL activities.'),
+              '// Only available in programmatic sharing:\n'
+              '// activityVC.excludedActivityTypes = [\n'
+              '//   UIActivity.ActivityType.print,\n'
+              '//   UIActivity.ActivityType.assignToContact,\n'
+              '// ]\n'
+              '//\n'
+              '// Context menu Share always shows ALL activities.',
+            ),
             shDivider(),
             shBullet(
-                'The user can customize the share sheet order by editing '
-                'their favorites row (long-press to rearrange, "Edit Actions" '
-                'button at the bottom).'),
+              'The user can customize the share sheet order by editing '
+              'their favorites row (long-press to rearrange, "Edit Actions" '
+              'button at the bottom).',
+            ),
           ]),
 
           // ── 11. AirDrop specifics ──
           shSection('11 · AirDrop Text Sharing', [
             shBullet(
-                'When sharing text via AirDrop, the receiving device shows '
-                'a notification with the text content.'),
+              'When sharing text via AirDrop, the receiving device shows '
+              'a notification with the text content.',
+            ),
             shBullet(
-                'The recipient can accept (copies to clipboard or opens in '
-                'Notes) or decline the transfer.'),
+              'The recipient can accept (copies to clipboard or opens in '
+              'Notes) or decline the transfer.',
+            ),
             shBullet(
-                'AirDrop uses Bluetooth for discovery and Wi-Fi for the '
-                'actual data transfer. No internet required.'),
+              'AirDrop uses Bluetooth for discovery and Wi-Fi for the '
+              'actual data transfer. No internet required.',
+            ),
             shDivider(),
             shKeyValue('Protocol', 'Bluetooth (discover) + Wi-Fi (transfer)'),
             shKeyValue('Range', 'Approximately 10 meters (30 feet)'),
@@ -482,22 +552,23 @@ dynamic build(BuildContext context) {
             shKeyValue('Web', 'Navigator.share() API (limited support)'),
             shDivider(),
             shBullet(
-                'On iPadOS, the share sheet may appear as a popover '
-                'anchored to the text selection rather than a bottom sheet.'),
+              'On iPadOS, the share sheet may appear as a popover '
+              'anchored to the text selection rather than a bottom sheet.',
+            ),
             shBullet(
-                'On Android, sharing uses the Intent system with '
-                'ACTION_SEND and EXTRA_TEXT, which is functionally similar.'),
+              'On Android, sharing uses the Intent system with '
+              'ACTION_SEND and EXTRA_TEXT, which is functionally similar.',
+            ),
           ]),
 
           // ── 13. VoiceOver accessibility ──
           shSection('13 · VoiceOver & Accessibility', [
+            shBullet('VoiceOver announces "Share, button" when focused.'),
+            shBullet('The accessibility hint is "Share the selected text."'),
             shBullet(
-                'VoiceOver announces "Share, button" when focused.'),
-            shBullet(
-                'The accessibility hint is "Share the selected text."'),
-            shBullet(
-                'After activation, VoiceOver focus moves to the share sheet '
-                'where each row and destination is separately focusable.'),
+              'After activation, VoiceOver focus moves to the share sheet '
+              'where each row and destination is separately focusable.',
+            ),
             shDivider(),
             shKeyValue('A11y label', '"Share"'),
             shKeyValue('A11y trait', 'Button'),
@@ -507,17 +578,21 @@ dynamic build(BuildContext context) {
           // ── 14. content types beyond text ──
           shSection('14 · Share Sheet Content Types', [
             shBullet(
-                'From text context menu: content is always NSString (plain text).'),
+              'From text context menu: content is always NSString (plain text).',
+            ),
             shBullet(
-                'Rich text formatting (bold, italic) is NOT preserved — '
-                'the share sheet receives the raw text content only.'),
+              'Rich text formatting (bold, italic) is NOT preserved — '
+              'the share sheet receives the raw text content only.',
+            ),
             shBullet(
-                'URLs within the text are not auto-detected. The entire '
-                'selection is shared as a single plain text string.'),
+              'URLs within the text are not auto-detected. The entire '
+              'selection is shared as a single plain text string.',
+            ),
             shHighlight(
-                'If you need to share rich content (images, URLs, files), '
-                'use programmatic sharing via UIActivityViewController '
-                'rather than the text context menu Share action.'),
+              'If you need to share rich content (images, URLs, files), '
+              'use programmatic sharing via UIActivityViewController '
+              'rather than the text context menu Share action.',
+            ),
           ]),
 
           // ── 15. complete menu reference ──
@@ -525,7 +600,10 @@ dynamic build(BuildContext context) {
             shCompare('Cut', 'Clipboard write + delete (editable only)'),
             shCompare('Copy', 'Clipboard write (any field)'),
             shCompare('Paste', 'Clipboard read + insert (editable only)'),
-            shCompare('Select All', 'Full text selection (any non-empty field)'),
+            shCompare(
+              'Select All',
+              'Full text selection (any non-empty field)',
+            ),
             shCompare('Look Up', 'Inline dictionary/wiki (any field)'),
             shCompare('Translate', 'System translation (any field)'),
             shCompare('Search Web', 'Safari search (any field)'),
@@ -544,14 +622,15 @@ dynamic build(BuildContext context) {
             shKeyValue('Leaves app', 'May open another app'),
             shDivider(),
             shCodeBlock(
-                '// Share is auto-included by the system toolbar.\n'
-                'const item = IOSSystemContextMenuItemShare();\n'
-                'print(item.title); // null (system default)\n'
-                'print(item is IOSSystemContextMenuItem); // true\n'
-                '\n'
-                'const custom = IOSSystemContextMenuItemShare(\n'
-                '  title: \'Share Text\',\n'
-                ');'),
+              '// Share is auto-included by the system toolbar.\n'
+              'const item = IOSSystemContextMenuItemShare();\n'
+              'print(item.title); // null (system default)\n'
+              'print(item is IOSSystemContextMenuItem); // true\n'
+              '\n'
+              'const custom = IOSSystemContextMenuItemShare(\n'
+              '  title: \'Share Text\',\n'
+              ');',
+            ),
           ]),
 
           // ── footer ──
@@ -563,9 +642,10 @@ dynamic build(BuildContext context) {
               'IOSSystemContextMenuItemShare · Slate Deep Demo',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 10,
-                  color: shMuted,
-                  fontStyle: FontStyle.italic),
+                fontSize: 10,
+                color: shMuted,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ),
         ],

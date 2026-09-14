@@ -248,8 +248,10 @@ class _IntroductionSection extends StatelessWidget {
             'lifecycle moments:',
           ),
           const SizedBox(height: 8),
-          _bullet('onWindowCloseRequested(controller) — the user (or platform) '
-              'requested close. Default: destroy(); subclasses can delay or veto.'),
+          _bullet(
+            'onWindowCloseRequested(controller) — the user (or platform) '
+            'requested close. Default: destroy(); subclasses can delay or veto.',
+          ),
           _bullet('onWindowDestroyed() — the window is gone; clean up.'),
           const SizedBox(height: 8),
           const Text(
@@ -551,8 +553,11 @@ class _SubclassStrategiesSectionState
     _dlgC = _AutoSaveDelegate(_logC);
   }
 
-  void _close(_DemoTooltipWindowController c,
-      TooltipWindowControllerDelegate d, List<String> log) {
+  void _close(
+    _DemoTooltipWindowController c,
+    TooltipWindowControllerDelegate d,
+    List<String> log,
+  ) {
     setState(() {
       d.onWindowCloseRequested(c);
       if (c.isDestroyed) {
@@ -773,8 +778,10 @@ class _MultipleTooltipShowcaseState extends State<_MultipleTooltipShowcase> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(c.message),
-                          Text('anchor: ${c.anchorRect}',
-                              style: const TextStyle(fontSize: 12)),
+                          Text(
+                            'anchor: ${c.anchorRect}',
+                            style: const TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -810,8 +817,7 @@ class _AnchorPositioningSection extends StatefulWidget {
       _AnchorPositioningSectionState();
 }
 
-class _AnchorPositioningSectionState
-    extends State<_AnchorPositioningSection> {
+class _AnchorPositioningSectionState extends State<_AnchorPositioningSection> {
   double _x = 40;
   double _y = 30;
   double _w = 100;
@@ -844,25 +850,51 @@ class _AnchorPositioningSectionState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Adjust the anchor rectangle. The mock controller stores '
-              'the rect; the delegate sees the same controller in callbacks.'),
+          const Text(
+            'Adjust the anchor rectangle. The mock controller stores '
+            'the rect; the delegate sees the same controller in callbacks.',
+          ),
           const SizedBox(height: 8),
-          _slider('x', _x, 0, 240, (double v) => setState(() {
-                _x = v;
-                _refresh();
-              })),
-          _slider('y', _y, 0, 200, (double v) => setState(() {
-                _y = v;
-                _refresh();
-              })),
-          _slider('width', _w, 20, 240, (double v) => setState(() {
-                _w = v;
-                _refresh();
-              })),
-          _slider('height', _h, 16, 80, (double v) => setState(() {
-                _h = v;
-                _refresh();
-              })),
+          _slider(
+            'x',
+            _x,
+            0,
+            240,
+            (double v) => setState(() {
+              _x = v;
+              _refresh();
+            }),
+          ),
+          _slider(
+            'y',
+            _y,
+            0,
+            200,
+            (double v) => setState(() {
+              _y = v;
+              _refresh();
+            }),
+          ),
+          _slider(
+            'width',
+            _w,
+            20,
+            240,
+            (double v) => setState(() {
+              _w = v;
+              _refresh();
+            }),
+          ),
+          _slider(
+            'height',
+            _h,
+            16,
+            80,
+            (double v) => setState(() {
+              _h = v;
+              _refresh();
+            }),
+          ),
           const SizedBox(height: 8),
           AspectRatio(
             aspectRatio: 16 / 9,
@@ -905,22 +937,21 @@ class _AnchorPositioningSectionState
   }
 
   Widget _slider(
-      String label, double value, double min, double max, ValueChanged<double> onChanged) {
+    String label,
+    double value,
+    double min,
+    double max,
+    ValueChanged<double> onChanged,
+  ) {
     return Row(
       children: <Widget>[
         SizedBox(width: 64, child: Text(label)),
         Expanded(
-          child: Slider(
-            value: value,
-            min: min,
-            max: max,
-            onChanged: onChanged,
-          ),
+          child: Slider(value: value, min: min, max: max, onChanged: onChanged),
         ),
         SizedBox(
           width: 56,
-          child: Text(value.toStringAsFixed(0),
-              textAlign: TextAlign.right),
+          child: Text(value.toStringAsFixed(0), textAlign: TextAlign.right),
         ),
       ],
     );
@@ -1030,11 +1061,7 @@ class _EventLogSectionState extends State<_EventLogSection> {
             ],
           ),
           const SizedBox(height: 12),
-          _LogPanel(
-            title: 'Aggregate log',
-            entries: _aggregate,
-            height: 180,
-          ),
+          _LogPanel(title: 'Aggregate log', entries: _aggregate, height: 180),
         ],
       ),
     );
@@ -1054,14 +1081,17 @@ class _PlatformNotesSection extends StatelessWidget {
     // chain with `==` (proven path; see _isCupertinoFamily in
     // foundation/target_platform_test.dart). Default initialiser also
     // guards against any unmatched future enum value.
-    String note = 'On ${p.name}, real tooltip windows are not currently '
+    String note =
+        'On ${p.name}, real tooltip windows are not currently '
         'produced; the delegate API is still callable in tests and demos '
         'via mock controllers like the ones used here.';
     if (p == TargetPlatform.macOS) {
-      note = 'macOS uses _window_macos.dart and forwards to NSWindow / '
+      note =
+          'macOS uses _window_macos.dart and forwards to NSWindow / '
           'NSPopover for anchored tooltip windows.';
     } else if (p == TargetPlatform.windows) {
-      note = 'Windows uses _window_win32.dart with HWND child windows that '
+      note =
+          'Windows uses _window_win32.dart with HWND child windows that '
           'follow the anchor rect.';
     } else if (p == TargetPlatform.linux) {
       note = 'Linux uses _window_linux.dart with xdg_popup-shaped surfaces.';
@@ -1306,10 +1336,7 @@ class _LayeredCallsSectionState extends State<_LayeredCallsSection> {
             'platform-default behavior with metrics or audit logs.',
           ),
           const SizedBox(height: 12),
-          FilledButton(
-            onPressed: _run,
-            child: const Text('Run layered close'),
-          ),
+          FilledButton(onPressed: _run, child: const Text('Run layered close')),
           const SizedBox(height: 12),
           _LogPanel(title: 'Layered log', entries: _log, height: 140),
         ],
@@ -1358,10 +1385,10 @@ class _GallerySection extends StatelessWidget {
         spacing: 12,
         runSpacing: 12,
         children: items
-            .map((_GalleryItem it) => SizedBox(
-                  width: 220,
-                  child: _GalleryCard(item: it),
-                ))
+            .map(
+              (_GalleryItem it) =>
+                  SizedBox(width: 220, child: _GalleryCard(item: it)),
+            )
             .toList(),
       ),
     );
@@ -1408,8 +1435,7 @@ class _GalleryCard extends StatelessWidget {
             child: Icon(item.icon, color: item.color),
           ),
           const SizedBox(height: 8),
-          Text(item.title,
-              style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(item.title, style: const TextStyle(fontWeight: FontWeight.w700)),
           const SizedBox(height: 4),
           Text(
             item.subtitle,
@@ -1545,8 +1571,10 @@ class _LogPanel extends StatelessWidget {
             height: height,
             child: entries.isEmpty
                 ? const Center(
-                    child: Text('(no entries)',
-                        style: TextStyle(color: Colors.grey)),
+                    child: Text(
+                      '(no entries)',
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   )
                 : ListView.builder(
                     itemCount: entries.length,
@@ -1556,7 +1584,9 @@ class _LogPanel extends StatelessWidget {
                         child: Text(
                           '${i + 1}. ${entries[i]}',
                           style: const TextStyle(
-                              fontFamily: 'monospace', fontSize: 12),
+                            fontFamily: 'monospace',
+                            fontSize: 12,
+                          ),
                         ),
                       );
                     },
@@ -1626,18 +1656,18 @@ class _NotesPanel extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Contract notes',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          Text('Contract notes', style: TextStyle(fontWeight: FontWeight.w700)),
           SizedBox(height: 6),
           Text(_kNoteContract),
           SizedBox(height: 8),
-          Text('Threading notes',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          Text(
+            'Threading notes',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
           SizedBox(height: 6),
           Text(_kNoteThreading),
           SizedBox(height: 8),
-          Text('Testing notes',
-              style: TextStyle(fontWeight: FontWeight.w700)),
+          Text('Testing notes', style: TextStyle(fontWeight: FontWeight.w700)),
           SizedBox(height: 6),
           Text(_kNoteTesting),
         ],
@@ -1769,11 +1799,7 @@ dynamic buildWithNotes(BuildContext context) {
       body: const SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
-          child: Column(
-            children: <Widget>[
-              _AllInOneSection(),
-            ],
-          ),
+          child: Column(children: <Widget>[_AllInOneSection()]),
         ),
       ),
     ),

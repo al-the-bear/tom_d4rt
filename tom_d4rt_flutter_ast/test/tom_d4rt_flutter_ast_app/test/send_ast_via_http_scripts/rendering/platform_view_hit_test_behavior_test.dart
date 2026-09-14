@@ -44,7 +44,12 @@ class _Faq {
 }
 
 class _Metric {
-  const _Metric({required this.label, required this.value, required this.note, required this.icon});
+  const _Metric({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -70,24 +75,42 @@ const List<_ArenaZone> _zones = [
   _ArenaZone(
     id: 'lab',
     name: 'Lab Surface',
-    description: 'Exploratory profile for behavior switching and edge-case routing.',
+    description:
+        'Exploratory profile for behavior switching and edge-case routing.',
     seed: Color(0xFF7C3AED),
     brightness: Brightness.dark,
   ),
   _ArenaZone(
     id: 'review',
     name: 'Review Surface',
-    description: 'Readable presentation mode for training and semantics walkthroughs.',
+    description:
+        'Readable presentation mode for training and semantics walkthroughs.',
     seed: Color(0xFF059669),
     brightness: Brightness.light,
   ),
 ];
 
 const List<_ArenaScenario> _scenarios = [
-  _ArenaScenario('overlay', 'Overlay Stack', 'Platform view overlayed by Flutter widgets with mixed hit routing.'),
-  _ArenaScenario('split', 'Split Panels', 'Side-by-side panels comparing behavior modes under identical pointer input.'),
-  _ArenaScenario('forms', 'Form Surface', 'Text controls layered with pseudo platform containers and tap targets.'),
-  _ArenaScenario('maps', 'Map-like Scene', 'Map/video style interaction where pass-through policy is critical.'),
+  _ArenaScenario(
+    'overlay',
+    'Overlay Stack',
+    'Platform view overlayed by Flutter widgets with mixed hit routing.',
+  ),
+  _ArenaScenario(
+    'split',
+    'Split Panels',
+    'Side-by-side panels comparing behavior modes under identical pointer input.',
+  ),
+  _ArenaScenario(
+    'forms',
+    'Form Surface',
+    'Text controls layered with pseudo platform containers and tap targets.',
+  ),
+  _ArenaScenario(
+    'maps',
+    'Map-like Scene',
+    'Map/video style interaction where pass-through policy is critical.',
+  ),
 ];
 
 const List<_BehaviorNote> _behaviorNotes = [
@@ -125,10 +148,22 @@ const List<String> _guide = [
 ];
 
 const List<_Faq> _faq = [
-  _Faq('How do I choose between opaque and translucent?', 'Choose opaque for exclusive control, translucent when both layers intentionally react.'),
-  _Faq('When is transparent useful?', 'Use transparent for visual-only platform surfaces where Flutter handles all interaction.'),
-  _Faq('Can translucent cause duplicate taps?', 'Yes, if both layers process the same event without coordination safeguards.'),
-  _Faq('How should I test mixed behavior pages?', 'Run comparative scenes with event counters and verify expected routing under multiple gestures.'),
+  _Faq(
+    'How do I choose between opaque and translucent?',
+    'Choose opaque for exclusive control, translucent when both layers intentionally react.',
+  ),
+  _Faq(
+    'When is transparent useful?',
+    'Use transparent for visual-only platform surfaces where Flutter handles all interaction.',
+  ),
+  _Faq(
+    'Can translucent cause duplicate taps?',
+    'Yes, if both layers process the same event without coordination safeguards.',
+  ),
+  _Faq(
+    'How should I test mixed behavior pages?',
+    'Run comparative scenes with event counters and verify expected routing under multiple gestures.',
+  ),
 ];
 
 dynamic build(BuildContext context) {
@@ -139,15 +174,18 @@ class _PlatformViewHitBehaviorStudio extends StatefulWidget {
   const _PlatformViewHitBehaviorStudio();
 
   @override
-  State<_PlatformViewHitBehaviorStudio> createState() => _PlatformViewHitBehaviorStudioState();
+  State<_PlatformViewHitBehaviorStudio> createState() =>
+      _PlatformViewHitBehaviorStudioState();
 }
 
-class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehaviorStudio> {
+class _PlatformViewHitBehaviorStudioState
+    extends State<_PlatformViewHitBehaviorStudio> {
   int _zoneIndex = 0;
   int _scenarioIndex = 0;
   int _boardIndex = 0;
 
-  PlatformViewHitTestBehavior _activeBehavior = PlatformViewHitTestBehavior.opaque;
+  PlatformViewHitTestBehavior _activeBehavior =
+      PlatformViewHitTestBehavior.opaque;
 
   bool _showDiagnostics = true;
   bool _dense = false;
@@ -201,7 +239,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       }
       _tick += 1;
       if (_autoLog) {
-        _event('Hit registered -> platform: $platform flutter: $flutter behavior: ${_activeBehavior.name}.');
+        _event(
+          'Hit registered -> platform: $platform flutter: $flutter behavior: ${_activeBehavior.name}.',
+        );
       }
     });
   }
@@ -212,7 +252,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
     final scenario = _scenarios[_scenarioIndex];
     final behavior = _activeBehavior;
 
-    final scheme = ColorScheme.fromSeed(seedColor: zone.seed, brightness: zone.brightness);
+    final scheme = ColorScheme.fromSeed(
+      seedColor: zone.seed,
+      brightness: zone.brightness,
+    );
     final theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
@@ -239,13 +282,19 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                         gradient: LinearGradient(
                           colors: [
                             theme.colorScheme.surface,
-                            theme.colorScheme.surfaceContainerHighest.withAlpha(166),
+                            theme.colorScheme.surfaceContainerHighest.withAlpha(
+                              166,
+                            ),
                             theme.colorScheme.surface,
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
-                        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+                        border: Border.all(
+                          color: theme.colorScheme.outlineVariant.withAlpha(
+                            130,
+                          ),
+                        ),
                       ),
                       child: _board(theme, zone, scenario, behavior),
                     ),
@@ -259,7 +308,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
     );
   }
 
-  Widget _header(ThemeData theme, _ArenaZone zone, _ArenaScenario scenario, PlatformViewHitTestBehavior behavior) {
+  Widget _header(
+    ThemeData theme,
+    _ArenaZone zone,
+    _ArenaScenario scenario,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     return Container(
       margin: const EdgeInsets.fromLTRB(12, 12, 12, 10),
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -274,7 +328,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(140),
+        ),
       ),
       child: Row(
         children: [
@@ -284,7 +340,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(134)),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withAlpha(134),
+              ),
             ),
             child: CustomPaint(
               painter: _ArenaGlyphPainter(
@@ -299,14 +357,27 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('PlatformViewHitTestBehavior Arena', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+                Text(
+                  'PlatformViewHitTestBehavior Arena',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'zone: ${zone.name}  scenario: ${scenario.title}  behavior: ${behavior.name}',
-                  style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withAlpha(180),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(zone.description, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(174))),
+                Text(
+                  zone.description,
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withAlpha(174),
+                  ),
+                ),
               ],
             ),
           ),
@@ -331,15 +402,24 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Behavior Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            Text(
+              'Behavior Controls',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             const SizedBox(height: 4),
-            const Text('Switch hit-test behavior and inspect event routing effects visually.'),
+            const Text(
+              'Switch hit-test behavior and inspect event routing effects visually.',
+            ),
             const SizedBox(height: 10),
             _dropdownCard(
               label: 'Zone',
@@ -382,7 +462,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                     _behaviorToggle = _single(_behaviorToggle, i);
                     _activeBehavior = PlatformViewHitTestBehavior.values[i];
                     _tick += 1;
-                    _event('Active behavior changed to ${_activeBehavior.name}.');
+                    _event(
+                      'Active behavior changed to ${_activeBehavior.name}.',
+                    );
                   });
                 },
                 children: const [
@@ -431,7 +513,8 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
             ),
             _switchCard(
               title: 'Pass-through overlay',
-              subtitle: 'Highlight areas where Flutter receives behind-layer taps',
+              subtitle:
+                  'Highlight areas where Flutter receives behind-layer taps',
               value: _showPassThroughOverlay,
               onChanged: (v) => setState(() => _showPassThroughOverlay = v),
             ),
@@ -495,9 +578,13 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
           const SizedBox(height: 6),
           DropdownButtonFormField<int>(
             initialValue: value,
-            decoration: const InputDecoration(border: OutlineInputBorder(), isDense: true),
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
             items: [
-              for (var i = 0; i < options.length; i++) DropdownMenuItem<int>(value: i, child: Text(options[i])),
+              for (var i = 0; i < options.length; i++)
+                DropdownMenuItem<int>(value: i, child: Text(options[i])),
             ],
             onChanged: (v) {
               if (v != null) {
@@ -529,11 +616,19 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
         children: [
           Row(
             children: [
-              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700))),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
               Switch(value: value, onChanged: onChanged),
             ],
           ),
-          Text(subtitle, style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160))),
+          Text(
+            subtitle,
+            style: TextStyle(fontSize: 12, color: Colors.black.withAlpha(160)),
+          ),
         ],
       ),
     );
@@ -557,14 +652,22 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(
+            '$label: ${value.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
           Slider(value: value, min: min, max: max, onChanged: onChanged),
         ],
       ),
     );
   }
 
-  Widget _board(ThemeData theme, _ArenaZone zone, _ArenaScenario scenario, PlatformViewHitTestBehavior behavior) {
+  Widget _board(
+    ThemeData theme,
+    _ArenaZone zone,
+    _ArenaScenario scenario,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     switch (_boardIndex) {
       case 0:
         return _arenaBoard(theme, scenario, behavior);
@@ -579,7 +682,11 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
     }
   }
 
-  Widget _arenaBoard(ThemeData theme, _ArenaScenario scenario, PlatformViewHitTestBehavior behavior) {
+  Widget _arenaBoard(
+    ThemeData theme,
+    _ArenaScenario scenario,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -626,7 +733,8 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                   children: [
                     FilledButton.icon(
                       onPressed: () => _registerHit(
-                        platform: behavior != PlatformViewHitTestBehavior.transparent,
+                        platform:
+                            behavior != PlatformViewHitTestBehavior.transparent,
                         flutter: behavior != PlatformViewHitTestBehavior.opaque,
                       ),
                       icon: const Icon(Icons.flash_on),
@@ -664,7 +772,11 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
     );
   }
 
-  Widget _layerStack(ThemeData theme, PlatformViewHitTestBehavior behavior, {required double height}) {
+  Widget _layerStack(
+    ThemeData theme,
+    PlatformViewHitTestBehavior behavior, {
+    required double height,
+  }) {
     return GestureDetector(
       onTap: () {
         final platform = behavior != PlatformViewHitTestBehavior.transparent;
@@ -675,7 +787,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
         height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+          border: Border.all(
+            color: theme.colorScheme.outlineVariant.withAlpha(130),
+          ),
           color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
         ),
         child: Stack(
@@ -691,7 +805,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                   child: Text(
                     'Flutter Behind Layer\n(receives hits when behavior != opaque)',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: theme.colorScheme.onPrimaryContainer, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: theme.colorScheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),
@@ -707,8 +824,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.indigo.withAlpha((80 + _overlayDensity * 140).toInt()),
-                        Colors.cyan.withAlpha((80 + _overlayDensity * 140).toInt()),
+                        Colors.indigo.withAlpha(
+                          (80 + _overlayDensity * 140).toInt(),
+                        ),
+                        Colors.cyan.withAlpha(
+                          (80 + _overlayDensity * 140).toInt(),
+                        ),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -720,13 +841,17 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                     child: Text(
                       'Pseudo Platform View\n(${behavior.name})',
                       textAlign: TextAlign.center,
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-            if (_showPassThroughOverlay && behavior == PlatformViewHitTestBehavior.transparent)
+            if (_showPassThroughOverlay &&
+                behavior == PlatformViewHitTestBehavior.transparent)
               Positioned(
                 left: 54,
                 right: 54,
@@ -736,10 +861,19 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.greenAccent.withAlpha(210), width: 2),
+                      border: Border.all(
+                        color: Colors.greenAccent.withAlpha(210),
+                        width: 2,
+                      ),
                     ),
                     child: const Center(
-                      child: Text('Pass-through enabled', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                      child: Text(
+                        'Pass-through enabled',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -766,7 +900,8 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
   Widget _routingBoard(ThemeData theme, PlatformViewHitTestBehavior behavior) {
     final rows = _behaviorNotes.map((n) {
       final active = n.behavior == behavior;
-      final platformGets = n.behavior != PlatformViewHitTestBehavior.transparent;
+      final platformGets =
+          n.behavior != PlatformViewHitTestBehavior.transparent;
       final flutterGets = n.behavior != PlatformViewHitTestBehavior.opaque;
       return _routingRow(
         theme: theme,
@@ -782,7 +917,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _section(theme, 'Routing Matrix', 'Visual matrix for behavior-to-route mapping under mixed layers.', 'matrix'),
+          _section(
+            theme,
+            'Routing Matrix',
+            'Visual matrix for behavior-to-route mapping under mixed layers.',
+            'matrix',
+          ),
           const SizedBox(height: 10),
           _card(
             theme,
@@ -799,9 +939,21 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _legendLine(theme, PlatformViewHitTestBehavior.opaque, 'Exclusive control, blocks behind layer.'),
-                  _legendLine(theme, PlatformViewHitTestBehavior.translucent, 'Shared routing, both layers can react.'),
-                  _legendLine(theme, PlatformViewHitTestBehavior.transparent, 'Pass-through routing to Flutter layer behind.'),
+                  _legendLine(
+                    theme,
+                    PlatformViewHitTestBehavior.opaque,
+                    'Exclusive control, blocks behind layer.',
+                  ),
+                  _legendLine(
+                    theme,
+                    PlatformViewHitTestBehavior.translucent,
+                    'Shared routing, both layers can react.',
+                  ),
+                  _legendLine(
+                    theme,
+                    PlatformViewHitTestBehavior.transparent,
+                    'Pass-through routing to Flutter layer behind.',
+                  ),
                 ],
               ),
             ),
@@ -823,8 +975,14 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: active ? theme.colorScheme.primaryContainer.withAlpha(120) : theme.colorScheme.surfaceContainerHighest.withAlpha(120),
-        border: Border.all(color: active ? theme.colorScheme.primary : theme.colorScheme.outlineVariant.withAlpha(130)),
+        color: active
+            ? theme.colorScheme.primaryContainer.withAlpha(120)
+            : theme.colorScheme.surfaceContainerHighest.withAlpha(120),
+        border: Border.all(
+          color: active
+              ? theme.colorScheme.primary
+              : theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -832,29 +990,61 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
-                  color: active ? theme.colorScheme.primary.withAlpha(40) : theme.colorScheme.secondary.withAlpha(36),
+                  color: active
+                      ? theme.colorScheme.primary.withAlpha(40)
+                      : theme.colorScheme.secondary.withAlpha(36),
                   borderRadius: BorderRadius.circular(999),
                 ),
-                child: Text(note.behavior.name, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+                child: Text(
+                  note.behavior.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
-              Text(active ? 'active' : 'inactive', style: TextStyle(fontSize: 12, color: theme.colorScheme.onSurface.withAlpha(180))),
+              Text(
+                active ? 'active' : 'inactive',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: theme.colorScheme.onSurface.withAlpha(180),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6),
           Text(note.summary),
           const SizedBox(height: 5),
-          Text('when to use: ${note.whenToUse}', style: const TextStyle(fontSize: 12.5)),
+          Text(
+            'when to use: ${note.whenToUse}',
+            style: const TextStyle(fontSize: 12.5),
+          ),
           const SizedBox(height: 4),
-          Text('risk: ${note.risk}', style: TextStyle(fontSize: 12.5, color: Colors.black.withAlpha(170))),
+          Text(
+            'risk: ${note.risk}',
+            style: TextStyle(
+              fontSize: 12.5,
+              color: Colors.black.withAlpha(170),
+            ),
+          ),
           const SizedBox(height: 6),
           Row(
             children: [
-              _routeBadge(platformGets ? 'platform gets event' : 'platform bypassed', platformGets ? Colors.blue : Colors.grey),
+              _routeBadge(
+                platformGets ? 'platform gets event' : 'platform bypassed',
+                platformGets ? Colors.blue : Colors.grey,
+              ),
               const SizedBox(width: 8),
-              _routeBadge(flutterGets ? 'flutter gets event' : 'flutter blocked', flutterGets ? Colors.green : Colors.red),
+              _routeBadge(
+                flutterGets ? 'flutter gets event' : 'flutter blocked',
+                flutterGets ? Colors.green : Colors.red,
+              ),
             ],
           ),
         ],
@@ -870,17 +1060,41 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withAlpha(140)),
       ),
-      child: Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+          fontSize: 11.5,
+        ),
+      ),
     );
   }
 
-  Widget _legendLine(ThemeData theme, PlatformViewHitTestBehavior behavior, String detail) {
+  Widget _legendLine(
+    ThemeData theme,
+    PlatformViewHitTestBehavior behavior,
+    String detail,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
       child: Row(
         children: [
-          SizedBox(width: 84, child: Text(behavior.name, style: const TextStyle(fontWeight: FontWeight.w700))),
-          Expanded(child: Text(detail, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180)))),
+          SizedBox(
+            width: 84,
+            child: Text(
+              behavior.name,
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              detail,
+              style: TextStyle(
+                color: theme.colorScheme.onSurface.withAlpha(180),
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -892,7 +1106,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _section(theme, 'Side-by-Side Comparison', 'Compare all behaviors under identical layered tap surfaces.', 'compare'),
+          _section(
+            theme,
+            'Side-by-Side Comparison',
+            'Compare all behaviors under identical layered tap surfaces.',
+            'compare',
+          ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 10,
@@ -907,13 +1126,23 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(behavior.name, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+                          Text(
+                            behavior.name,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           _miniArena(theme, behavior),
                           const SizedBox(height: 8),
                           Text(
-                            _behaviorNotes.firstWhere((b) => b.behavior == behavior).summary,
-                            style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180), fontSize: 12.5),
+                            _behaviorNotes
+                                .firstWhere((b) => b.behavior == behavior)
+                                .summary,
+                            style: TextStyle(
+                              color: theme.colorScheme.onSurface.withAlpha(180),
+                              fontSize: 12.5,
+                            ),
                           ),
                         ],
                       ),
@@ -940,7 +1169,9 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: theme.colorScheme.surfaceContainerHighest.withAlpha(120),
-          border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+          border: Border.all(
+            color: theme.colorScheme.outlineVariant.withAlpha(130),
+          ),
         ),
         child: Stack(
           children: [
@@ -952,7 +1183,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                     color: theme.colorScheme.primaryContainer.withAlpha(170),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Center(child: Text('Flutter base', style: TextStyle(fontWeight: FontWeight.w700))),
+                  child: const Center(
+                    child: Text(
+                      'Flutter base',
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -965,11 +1201,19 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                 opacity: _platformOpacity,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.indigo.withAlpha((120 + _overlayDensity * 110).toInt()),
+                    color: Colors.indigo.withAlpha(
+                      (120 + _overlayDensity * 110).toInt(),
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
-                    child: Text('platform (${behavior.name})', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                    child: Text(
+                      'platform (${behavior.name})',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -980,7 +1224,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
     );
   }
 
-  Widget _integratedBoard(ThemeData theme, _ArenaZone zone, _ArenaScenario scenario, PlatformViewHitTestBehavior behavior) {
+  Widget _integratedBoard(
+    ThemeData theme,
+    _ArenaZone zone,
+    _ArenaScenario scenario,
+    PlatformViewHitTestBehavior behavior,
+  ) {
     final metrics = _metrics();
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
@@ -1021,7 +1270,8 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                   children: [
                     FilledButton.icon(
                       onPressed: () => _registerHit(
-                        platform: behavior != PlatformViewHitTestBehavior.transparent,
+                        platform:
+                            behavior != PlatformViewHitTestBehavior.transparent,
                         flutter: behavior != PlatformViewHitTestBehavior.opaque,
                       ),
                       icon: const Icon(Icons.touch_app),
@@ -1030,7 +1280,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                     OutlinedButton.icon(
                       onPressed: () {
                         setState(() {
-                          _overlayDensity = (_overlayDensity + 0.08).clamp(0.1, 1.0);
+                          _overlayDensity = (_overlayDensity + 0.08).clamp(
+                            0.1,
+                            1.0,
+                          );
                           _tick += 1;
                         });
                       },
@@ -1040,7 +1293,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                     OutlinedButton.icon(
                       onPressed: () {
                         setState(() {
-                          _overlayDensity = (_overlayDensity - 0.08).clamp(0.1, 1.0);
+                          _overlayDensity = (_overlayDensity - 0.08).clamp(
+                            0.1,
+                            1.0,
+                          );
                           _tick += 1;
                         });
                       },
@@ -1070,11 +1326,23 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                             children: [
                               Icon(m.icon),
                               const SizedBox(width: 8),
-                              Expanded(child: Text(m.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                              Expanded(
+                                child: Text(
+                                  m.label,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 10),
-                          Text(m.value, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
+                          Text(
+                            m.value,
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                           const SizedBox(height: 6),
                           Text(m.note),
                         ],
@@ -1102,10 +1370,30 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
 
   List<_Metric> _metrics() {
     return [
-      _Metric(label: 'Platform Hits', value: '$_platformHits', note: 'events seen by platform layer', icon: Icons.phone_iphone),
-      _Metric(label: 'Flutter Hits', value: '$_flutterHits', note: 'events seen by Flutter layer', icon: Icons.flutter_dash),
-      _Metric(label: 'Both Hits', value: '$_bothHits', note: 'shared translucent interactions', icon: Icons.call_merge),
-      _Metric(label: 'Pass-through', value: '$_passThroughHits', note: 'flutter-only forwarded events', icon: Icons.compare_arrows),
+      _Metric(
+        label: 'Platform Hits',
+        value: '$_platformHits',
+        note: 'events seen by platform layer',
+        icon: Icons.phone_iphone,
+      ),
+      _Metric(
+        label: 'Flutter Hits',
+        value: '$_flutterHits',
+        note: 'events seen by Flutter layer',
+        icon: Icons.flutter_dash,
+      ),
+      _Metric(
+        label: 'Both Hits',
+        value: '$_bothHits',
+        note: 'shared translucent interactions',
+        icon: Icons.call_merge,
+      ),
+      _Metric(
+        label: 'Pass-through',
+        value: '$_passThroughHits',
+        note: 'flutter-only forwarded events',
+        icon: Icons.compare_arrows,
+      ),
     ];
   }
 
@@ -1115,7 +1403,12 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _section(theme, 'Guide + Timeline', 'Usage guidance for PlatformViewHitTestBehavior in mixed-layer apps.', 'guide'),
+          _section(
+            theme,
+            'Guide + Timeline',
+            'Usage guidance for PlatformViewHitTestBehavior in mixed-layer apps.',
+            'guide',
+          ),
           if (_showGuide) ...[
             const SizedBox(height: 10),
             Container(
@@ -1124,12 +1417,17 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: theme.colorScheme.tertiaryContainer.withAlpha(108),
-                border: Border.all(color: theme.colorScheme.tertiary.withAlpha(120)),
+                border: Border.all(
+                  color: theme.colorScheme.tertiary.withAlpha(120),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Usage Guide', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'Usage Guide',
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                  ),
                   const SizedBox(height: 8),
                   for (final line in _guide) _bullet(theme, line),
                 ],
@@ -1142,12 +1440,17 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: theme.colorScheme.surfaceContainerHighest.withAlpha(122),
-                border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+                border: Border.all(
+                  color: theme.colorScheme.outlineVariant.withAlpha(130),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('FAQ', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'FAQ',
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                  ),
                   const SizedBox(height: 8),
                   for (final f in _faq)
                     Padding(
@@ -1155,7 +1458,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(f.q, style: const TextStyle(fontWeight: FontWeight.w700)),
+                          Text(
+                            f.q,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
                           const SizedBox(height: 2),
                           Text(f.a),
                         ],
@@ -1173,22 +1479,37 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: theme.colorScheme.primaryContainer.withAlpha(106),
-                border: Border.all(color: theme.colorScheme.primary.withAlpha(130)),
+                border: Border.all(
+                  color: theme.colorScheme.primary.withAlpha(130),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Timeline', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                  const Text(
+                    'Timeline',
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+                  ),
                   const SizedBox(height: 8),
-                  Text('events: ${_timeline.length}  |  active behavior: ${behavior.name}  |  tick: $_tick'),
+                  Text(
+                    'events: ${_timeline.length}  |  active behavior: ${behavior.name}  |  tick: $_tick',
+                  ),
                   const SizedBox(height: 8),
                   if (_timeline.isEmpty)
-                    const Text('No interaction events yet. Use arena controls to populate timeline.')
+                    const Text(
+                      'No interaction events yet. Use arena controls to populate timeline.',
+                    )
                   else
                     for (final e in _timeline)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(e, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+                        child: Text(
+                          e,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
+                        ),
                       ),
                 ],
               ),
@@ -1217,9 +1538,20 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 19,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(176))),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withAlpha(176),
+                ),
+              ),
             ],
           ),
         ),
@@ -1229,7 +1561,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
             color: theme.colorScheme.primaryContainer.withAlpha(170),
             borderRadius: BorderRadius.circular(999),
           ),
-          child: Text(chip, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700)),
+          child: Text(
+            chip,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+          ),
         ),
       ],
     );
@@ -1242,14 +1577,19 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: theme.colorScheme.surface.withAlpha(194),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
-          Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180))),
+          Text(
+            subtitle,
+            style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180)),
+          ),
           const SizedBox(height: 8),
           child,
         ],
@@ -1269,12 +1609,18 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          ),
           const SizedBox(height: 8),
           for (final line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
-              child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+              child: Text(
+                line,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+              ),
             ),
         ],
       ),
@@ -1291,7 +1637,10 @@ class _PlatformViewHitBehaviorStudioState extends State<_PlatformViewHitBehavior
             margin: const EdgeInsets.only(top: 7, right: 8),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: theme.colorScheme.primary, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(child: Text(text)),
         ],
@@ -1335,11 +1684,7 @@ class _TinyIconLabel extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16),
-          const SizedBox(width: 5),
-          Text(text),
-        ],
+        children: [Icon(icon, size: 16), const SizedBox(width: 5), Text(text)],
       ),
     );
   }
@@ -1361,7 +1706,10 @@ class _ArenaGlyphPainter extends CustomPainter {
       final y = 8 + i * 8.0;
       p.color = Color.lerp(a, b, i / 5)?.withAlpha(220) ?? a;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, w, 5.2), const Radius.circular(4)),
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(8, y, w, 5.2),
+          const Radius.circular(4),
+        ),
         p,
       );
     }

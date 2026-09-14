@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.auto_fix_high,
       'title': 'Implicit Animations',
-      'body': 'Flutter has two animation systems: explicit (you control '
+      'body':
+          'Flutter has two animation systems: explicit (you control '
           'the AnimationController) and implicit (Flutter manages it). '
           'Implicit animations are the "easy mode" — just change a '
           'property and the widget animates to the new value. '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.foundation,
       'title': 'AnimatedWidgetBaseState',
-      'body': 'AnimatedWidgetBaseState is the State base class that '
+      'body':
+          'AnimatedWidgetBaseState is the State base class that '
           'powers every implicit animation widget. It manages an '
           'internal AnimationController, listens for property '
           'changes, creates/updates Tweens, and drives the animation. '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.tune,
       'title': 'forEachTween() — The Key Method',
-      'body': 'Each AnimatedWidgetBaseState subclass overrides '
+      'body':
+          'Each AnimatedWidgetBaseState subclass overrides '
           'forEachTween(), which is called whenever the widget rebuilds. '
           'In this method you declare each animated property: its current '
           'tween, the new target value, and a factory to create the tween. '
@@ -49,7 +52,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.play_circle,
       'title': 'Zero Boilerplate Animations',
-      'body': 'Unlike explicit animations (AnimationController, '
+      'body':
+          'Unlike explicit animations (AnimationController, '
           'TickerProviderStateMixin, dispose(), etc.), implicit '
           'animations need zero setup. Just use AnimatedContainer '
           'instead of Container, provide a duration, and changing any '
@@ -67,15 +71,16 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (card['accent'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: (card['accent'] as Color).withOpacity(0.3),
-        ),
+        border: Border.all(color: (card['accent'] as Color).withOpacity(0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(card['icon'] as IconData,
-              color: card['accent'] as Color, size: 32),
+          Icon(
+            card['icon'] as IconData,
+            color: card['accent'] as Color,
+            size: 32,
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -157,9 +162,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.purple.withOpacity(0.05),
         borderRadius: BorderRadius.circular(8),
-        border: Border(
-          left: BorderSide(color: Colors.purple, width: 4),
-        ),
+        border: Border(left: BorderSide(color: Colors.purple, width: 4)),
       ),
       child: Row(
         children: [
@@ -181,7 +184,9 @@ dynamic build(BuildContext context) {
                 Text(
                   item['value']!,
                   style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w600),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 Text(
                   item['detail']!,
@@ -204,7 +209,8 @@ dynamic build(BuildContext context) {
   final implicitFamily = <Map<String, dynamic>>[
     {
       'name': 'AnimatedContainer',
-      'animates': 'color, size, padding, margin, decoration, alignment, transform',
+      'animates':
+          'color, size, padding, margin, decoration, alignment, transform',
       'icon': Icons.crop_square,
       'color': Colors.blue,
     },
@@ -303,9 +309,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: (w['color'] as Color).withOpacity(0.06),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: (w['color'] as Color).withOpacity(0.2),
-        ),
+        border: Border.all(color: (w['color'] as Color).withOpacity(0.2)),
       ),
       child: Row(
         children: [
@@ -316,8 +320,11 @@ dynamic build(BuildContext context) {
               color: (w['color'] as Color).withOpacity(0.15),
               borderRadius: BorderRadius.circular(7),
             ),
-            child: Icon(w['icon'] as IconData,
-                color: w['color'] as Color, size: 18),
+            child: Icon(
+              w['icon'] as IconData,
+              color: w['color'] as Color,
+              size: 18,
+            ),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -353,7 +360,8 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'Widget Rebuilt',
-      'detail': 'A parent calls setState() and AnimatedContainer rebuilds '
+      'detail':
+          'A parent calls setState() and AnimatedContainer rebuilds '
           'with new property values (e.g., color changes from red to blue)',
       'icon': Icons.refresh,
       'color': Colors.purple[900]!,
@@ -361,7 +369,8 @@ dynamic build(BuildContext context) {
     {
       'step': '2',
       'label': 'didUpdateWidget() Called',
-      'detail': 'The ImplicitlyAnimatedWidgetState base detects the widget '
+      'detail':
+          'The ImplicitlyAnimatedWidgetState base detects the widget '
           'changed and calls forEachTween() on the state',
       'icon': Icons.update,
       'color': Colors.purple[700]!,
@@ -369,7 +378,8 @@ dynamic build(BuildContext context) {
     {
       'step': '3',
       'label': 'forEachTween() Iterates',
-      'detail': 'The state visits each animated property. For each one it '
+      'detail':
+          'The state visits each animated property. For each one it '
           'provides: (a) the current tween, (b) the new target value, '
           '(c) a factory to create a new tween if needed',
       'icon': Icons.loop,
@@ -378,7 +388,8 @@ dynamic build(BuildContext context) {
     {
       'step': '4',
       'label': 'Tweens Updated',
-      'detail': 'If the target value changed, the tween\'s end is updated '
+      'detail':
+          'If the target value changed, the tween\'s end is updated '
           '(and begin is set to the current evaluated value). If no tween '
           'exists yet, the factory creates one.',
       'icon': Icons.edit,
@@ -387,7 +398,8 @@ dynamic build(BuildContext context) {
     {
       'step': '5',
       'label': 'Controller Starts',
-      'detail': 'The AnimationController resets to 0.0 and runs forward() '
+      'detail':
+          'The AnimationController resets to 0.0 and runs forward() '
           'to duration. The curved animation drives all tweens.',
       'icon': Icons.play_arrow,
       'color': Colors.purple[400]!,
@@ -395,7 +407,8 @@ dynamic build(BuildContext context) {
     {
       'step': '6',
       'label': 'build() Called Per Frame',
-      'detail': 'Each frame, build() is called. The state evaluates each '
+      'detail':
+          'Each frame, build() is called. The state evaluates each '
           'tween at the current animation value and paints the '
           'interpolated result.',
       'icon': Icons.brush,
@@ -437,10 +450,7 @@ dynamic build(BuildContext context) {
                 color: (step['color'] as Color).withOpacity(0.08),
                 borderRadius: BorderRadius.circular(8),
                 border: Border(
-                  left: BorderSide(
-                    color: step['color'] as Color,
-                    width: 3,
-                  ),
+                  left: BorderSide(color: step['color'] as Color, width: 3),
                 ),
               ),
               child: Column(
@@ -448,8 +458,11 @@ dynamic build(BuildContext context) {
                 children: [
                   Row(
                     children: [
-                      Icon(step['icon'] as IconData,
-                          size: 16, color: step['color'] as Color),
+                      Icon(
+                        step['icon'] as IconData,
+                        size: 16,
+                        color: step['color'] as Color,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         step['label'] as String,
@@ -515,8 +528,10 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Center(
-          child: Text('Purple',
-              style: TextStyle(color: Colors.white, fontSize: 12)),
+          child: Text(
+            'Purple',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ),
       ),
       'note': 'Change color → smooth color transition',
@@ -533,8 +548,10 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: const Center(
-          child: Text('Wide',
-              style: TextStyle(color: Colors.white, fontSize: 12)),
+          child: Text(
+            'Wide',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ),
       ),
       'note': 'Change width/height → elastic size animation',
@@ -550,8 +567,10 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(40),
         ),
         child: const Center(
-          child: Text('Round',
-              style: TextStyle(color: Colors.white, fontSize: 11)),
+          child: Text(
+            'Round',
+            style: TextStyle(color: Colors.white, fontSize: 11),
+          ),
         ),
       ),
       'note': 'Change borderRadius → smooth corner transition',
@@ -568,8 +587,10 @@ dynamic build(BuildContext context) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: const Center(
-          child: Text('Tilted',
-              style: TextStyle(color: Colors.white, fontSize: 12)),
+          child: Text(
+            'Tilted',
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
         ),
       ),
       'note': 'Change transform → animated rotation/scale',
@@ -587,8 +608,10 @@ dynamic build(BuildContext context) {
             borderRadius: BorderRadius.circular(6),
           ),
           child: const Center(
-            child: Text('Pad',
-                style: TextStyle(color: Colors.white, fontSize: 12)),
+            child: Text(
+              'Pad',
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
           ),
         ),
       ),
@@ -645,7 +668,10 @@ dynamic build(BuildContext context) {
               child: Text(
                 demo['note'] as String,
                 style: TextStyle(
-                    fontSize: 11, color: Colors.grey[700], height: 1.3),
+                  fontSize: 11,
+                  color: Colors.grey[700],
+                  height: 1.3,
+                ),
               ),
             ),
           ),
@@ -699,35 +725,40 @@ dynamic build(BuildContext context) {
     {
       'step': '1',
       'label': 'Define Widget',
-      'detail': 'Extend ImplicitlyAnimatedWidget. Hold the animatable '
+      'detail':
+          'Extend ImplicitlyAnimatedWidget. Hold the animatable '
           'properties (e.g., color) and accept duration/curve.',
       'color': Colors.purple,
     },
     {
       'step': '2',
       'label': 'Create State',
-      'detail': 'Override createState() to return an '
+      'detail':
+          'Override createState() to return an '
           'AnimatedWidgetBaseState subclass.',
       'color': Colors.indigo,
     },
     {
       'step': '3',
       'label': 'Declare Tweens',
-      'detail': 'In the state, declare nullable Tween fields for '
+      'detail':
+          'In the state, declare nullable Tween fields for '
           'each property you want to animate.',
       'color': Colors.blue,
     },
     {
       'step': '4',
       'label': 'Override forEachTween',
-      'detail': 'Implement forEachTween() to register each tween with '
+      'detail':
+          'Implement forEachTween() to register each tween with '
           'the visitor. Provide current tween, target, factory.',
       'color': Colors.teal,
     },
     {
       'step': '5',
       'label': 'Build with Evaluation',
-      'detail': 'In build(), evaluate each tween at the current '
+      'detail':
+          'In build(), evaluate each tween at the current '
           'animation value: _color?.evaluate(animation).',
       'color': Colors.green,
     },
@@ -741,10 +772,7 @@ dynamic build(BuildContext context) {
         color: (step['color'] as Color).withOpacity(0.08),
         borderRadius: BorderRadius.circular(8),
         border: Border(
-          left: BorderSide(
-            color: step['color'] as Color,
-            width: 3,
-          ),
+          left: BorderSide(color: step['color'] as Color, width: 3),
         ),
       ),
       child: Row(
@@ -843,32 +871,40 @@ dynamic build(BuildContext context) {
       children: [
         SizedBox(
           width: 70,
-          child: Text('Aspect',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'Aspect',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('Implicit',
-              style: TextStyle(
-                  color: Colors.purple[100],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'Implicit',
+            style: TextStyle(
+              color: Colors.purple[100],
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
         Expanded(
-          child: Text('Explicit',
-              style: TextStyle(
-                  color: Colors.orange[100],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12)),
+          child: Text(
+            'Explicit',
+            style: TextStyle(
+              color: Colors.orange[100],
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+            ),
+          ),
         ),
       ],
     ),
   );
 
-  final comparisonRows =
-      comparisonData.asMap().entries.map<Widget>((entry) {
+  final comparisonRows = comparisonData.asMap().entries.map<Widget>((entry) {
     final i = entry.key;
     final row = entry.value;
     return Container(
@@ -885,19 +921,22 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 70,
-            child: Text(row['aspect']!,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 11)),
+            child: Text(
+              row['aspect']!,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+            ),
           ),
           Expanded(
-            child: Text(row['implicit']!,
-                style:
-                    TextStyle(fontSize: 11, color: Colors.purple[700])),
+            child: Text(
+              row['implicit']!,
+              style: TextStyle(fontSize: 11, color: Colors.purple[700]),
+            ),
           ),
           Expanded(
-            child: Text(row['explicit']!,
-                style:
-                    TextStyle(fontSize: 11, color: Colors.orange[800])),
+            child: Text(
+              row['explicit']!,
+              style: TextStyle(fontSize: 11, color: Colors.orange[800]),
+            ),
           ),
         ],
       ),
@@ -916,7 +955,11 @@ dynamic build(BuildContext context) {
     {'name': 'easeIn', 'curve': Curves.easeIn, 'color': Colors.blue},
     {'name': 'easeOut', 'curve': Curves.easeOut, 'color': Colors.green},
     {'name': 'easeInOut', 'curve': Curves.easeInOut, 'color': Colors.purple},
-    {'name': 'fastOutSlowIn', 'curve': Curves.fastOutSlowIn, 'color': Colors.red},
+    {
+      'name': 'fastOutSlowIn',
+      'curve': Curves.fastOutSlowIn,
+      'color': Colors.red,
+    },
     {'name': 'bounceIn', 'curve': Curves.bounceIn, 'color': Colors.orange},
     {'name': 'bounceOut', 'curve': Curves.bounceOut, 'color': Colors.teal},
     {'name': 'elasticIn', 'curve': Curves.elasticIn, 'color': Colors.indigo},
@@ -969,8 +1012,11 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(width: 8),
-          Icon(Icons.timeline, size: 16,
-              color: (curveItem['color'] as Color).withOpacity(0.6)),
+          Icon(
+            Icons.timeline,
+            size: 16,
+            color: (curveItem['color'] as Color).withOpacity(0.6),
+          ),
         ],
       ),
     );
@@ -982,12 +1028,36 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary Dashboard ===');
 
   final summaryItems = <Map<String, dynamic>>[
-    {'label': 'Implicit animation widgets', 'value': '${implicitFamily.length}', 'icon': Icons.auto_fix_high},
-    {'label': 'Tween cycle steps', 'value': '${tweenSteps.length}', 'icon': Icons.loop},
-    {'label': 'Animation curves', 'value': '${curveGallery.length}', 'icon': Icons.timeline},
-    {'label': 'Custom widget steps', 'value': '${customSteps.length}', 'icon': Icons.build},
-    {'label': 'Live demos shown', 'value': '${animatedContainerDemos.length}', 'icon': Icons.play_circle},
-    {'label': 'API properties', 'value': '${apiItems.length}', 'icon': Icons.code},
+    {
+      'label': 'Implicit animation widgets',
+      'value': '${implicitFamily.length}',
+      'icon': Icons.auto_fix_high,
+    },
+    {
+      'label': 'Tween cycle steps',
+      'value': '${tweenSteps.length}',
+      'icon': Icons.loop,
+    },
+    {
+      'label': 'Animation curves',
+      'value': '${curveGallery.length}',
+      'icon': Icons.timeline,
+    },
+    {
+      'label': 'Custom widget steps',
+      'value': '${customSteps.length}',
+      'icon': Icons.build,
+    },
+    {
+      'label': 'Live demos shown',
+      'value': '${animatedContainerDemos.length}',
+      'icon': Icons.play_circle,
+    },
+    {
+      'label': 'API properties',
+      'value': '${apiItems.length}',
+      'icon': Icons.code,
+    },
   ];
 
   final summaryGrid = Wrap(
@@ -1041,9 +1111,7 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 28, bottom: 14),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.purple, Colors.purple[300]!],
-        ),
+        gradient: LinearGradient(colors: [Colors.purple, Colors.purple[300]!]),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -1150,7 +1218,11 @@ dynamic build(BuildContext context) {
           ...apiWidgets,
 
           // Section 3
-          animSectionHeader('3', 'Implicit Animation Family', Icons.family_restroom),
+          animSectionHeader(
+            '3',
+            'Implicit Animation Family',
+            Icons.family_restroom,
+          ),
           Container(
             margin: const EdgeInsets.only(bottom: 12),
             padding: const EdgeInsets.all(12),
@@ -1232,12 +1304,7 @@ dynamic build(BuildContext context) {
               border: Border.all(color: Colors.purple.withOpacity(0.2)),
             ),
             clipBehavior: Clip.antiAlias,
-            child: Column(
-              children: [
-                comparisonHeader,
-                ...comparisonRows,
-              ],
-            ),
+            child: Column(children: [comparisonHeader, ...comparisonRows]),
           ),
 
           // Section 8

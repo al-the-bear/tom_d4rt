@@ -52,21 +52,27 @@ dynamic build(BuildContext context) {
               border: Border.all(color: jade, width: 1.5),
             ),
             child: Center(
-              child: Text(number,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold)),
+              child: Text(
+                number,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(title,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.3)),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.3,
+              ),
+            ),
           ),
         ],
       ),
@@ -83,11 +89,14 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: mint),
       ),
-      child: Text(text,
-          style: TextStyle(
-              fontSize: 13,
-              color: forest.withValues(alpha: 0.9),
-              height: 1.5)),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 13,
+          color: forest.withValues(alpha: 0.9),
+          height: 1.5,
+        ),
+      ),
     );
   }
 
@@ -120,16 +129,16 @@ dynamic build(BuildContext context) {
                 topRight: Radius.circular(8),
               ),
             ),
-            child: Text(heading,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: forest)),
+            child: Text(
+              heading,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: forest,
+              ),
+            ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: content,
-          ),
+          Padding(padding: const EdgeInsets.all(12), child: content),
         ],
       ),
     );
@@ -140,18 +149,19 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
       decoration: BoxDecoration(
         color: isHeader ? emerald.withValues(alpha: 0.06) : Colors.transparent,
-        border: Border(
-          bottom: BorderSide(color: jade.withValues(alpha: 0.3)),
-        ),
+        border: Border(bottom: BorderSide(color: jade.withValues(alpha: 0.3))),
       ),
       child: Row(
         children: cells.map((c) {
           return Expanded(
-            child: Text(c,
-                style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-                    color: isHeader ? forest : deepEmerald)),
+            child: Text(
+              c,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+                color: isHeader ? forest : deepEmerald,
+              ),
+            ),
           );
         }).toList(),
       ),
@@ -168,18 +178,23 @@ dynamic build(BuildContext context) {
             color: (i % 2 == 0) ? forest : deepEmerald,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(steps[i],
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600)),
+          child: Text(
+            steps[i],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       );
       if (i < steps.length - 1) {
-        items.add(Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4),
-          child: Icon(Icons.arrow_forward, size: 12, color: malachite),
-        ));
+        items.add(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Icon(Icons.arrow_forward, size: 12, color: malachite),
+          ),
+        );
       }
     }
     return SingleChildScrollView(
@@ -206,11 +221,20 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rbFlow(['Widget state', 'Register', 'Bucket stores',
-                'Engine persists', 'Restore on restart']),
+            rbFlow([
+              'Widget state',
+              'Register',
+              'Bucket stores',
+              'Engine persists',
+              'Restore on restart',
+            ]),
             const SizedBox(height: 10),
             _rbRoleBadge('Stores', 'Serializable state values', forest),
-            _rbRoleBadge('Organizes', 'Hierarchical tree of buckets', deepEmerald),
+            _rbRoleBadge(
+              'Organizes',
+              'Hierarchical tree of buckets',
+              deepEmerald,
+            ),
             _rbRoleBadge('Notifies', 'Listeners on data changes', emerald),
             _rbRoleBadge('Restores', 'State from engine data', malachite),
           ],
@@ -240,7 +264,12 @@ dynamic build(BuildContext context) {
             _rbTreeNode('Root Bucket', 'RestorationManager', 0, forest),
             _rbTreeNode('App Bucket', 'MaterialApp scope', 1, deepEmerald),
             _rbTreeNode('Page Bucket', 'Route restoration', 2, emerald),
-            _rbTreeNode('Widget Bucket', 'RestorableProperty host', 3, malachite),
+            _rbTreeNode(
+              'Widget Bucket',
+              'RestorableProperty host',
+              3,
+              malachite,
+            ),
             _rbTreeNode('Nested Bucket', 'Nested scope', 3, viridian),
           ],
         ),
@@ -329,10 +358,26 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _rbIdExample('restorationId: "home"', 'Scaffold scope', forest),
-            _rbIdExample('  └ restorationId: "counter"', 'RestorableInt key', deepEmerald),
-            _rbIdExample('  └ restorationId: "name"', 'RestorableString key', emerald),
-            _rbIdExample('restorationId: "settings"', 'Another Scaffold', malachite),
-            _rbIdExample('  └ restorationId: "counter"', 'Same name — OK, different scope', viridian),
+            _rbIdExample(
+              '  └ restorationId: "counter"',
+              'RestorableInt key',
+              deepEmerald,
+            ),
+            _rbIdExample(
+              '  └ restorationId: "name"',
+              'RestorableString key',
+              emerald,
+            ),
+            _rbIdExample(
+              'restorationId: "settings"',
+              'Another Scaffold',
+              malachite,
+            ),
+            _rbIdExample(
+              '  └ restorationId: "counter"',
+              'Same name — OK, different scope',
+              viridian,
+            ),
           ],
         ),
       ),
@@ -357,11 +402,20 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rbFlow(['Parent bucket', 'claimChild(id)',
-                'Child exists?', 'Return / create', 'Ready']),
+            rbFlow([
+              'Parent bucket',
+              'claimChild(id)',
+              'Child exists?',
+              'Return / create',
+              'Ready',
+            ]),
             const SizedBox(height: 10),
             _rbStepItem(1, 'Parent calls claimChild("counter")', forest),
-            _rbStepItem(2, 'Bucket checks stored data for "counter"', deepEmerald),
+            _rbStepItem(
+              2,
+              'Bucket checks stored data for "counter"',
+              deepEmerald,
+            ),
             _rbStepItem(3, 'If found: return pre-filled child bucket', emerald),
             _rbStepItem(4, 'If not: return new empty child bucket', malachite),
             _rbStepItem(5, 'Child bucket linked to parent tree', viridian),
@@ -421,10 +475,30 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _rbLifecycleState('Created', 'claimChild() or root init', Icons.add_circle_outline, forest),
-            _rbLifecycleState('Active', 'Storing / reading values', Icons.check_circle_outline, emerald),
-            _rbLifecycleState('Updated', 'Values changed, notify engine', Icons.sync, malachite),
-            _rbLifecycleState('Disposed', 'Scope detached, data dropped', Icons.remove_circle_outline, viridian),
+            _rbLifecycleState(
+              'Created',
+              'claimChild() or root init',
+              Icons.add_circle_outline,
+              forest,
+            ),
+            _rbLifecycleState(
+              'Active',
+              'Storing / reading values',
+              Icons.check_circle_outline,
+              emerald,
+            ),
+            _rbLifecycleState(
+              'Updated',
+              'Values changed, notify engine',
+              Icons.sync,
+              malachite,
+            ),
+            _rbLifecycleState(
+              'Disposed',
+              'Scope detached, data dropped',
+              Icons.remove_circle_outline,
+              viridian,
+            ),
           ],
         ),
       ),
@@ -518,8 +592,13 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            rbFlow(['Value changes', 'Bucket dirty', 'Manager notified',
-                'Batch send', 'Engine stores']),
+            rbFlow([
+              'Value changes',
+              'Bucket dirty',
+              'Manager notified',
+              'Batch send',
+              'Engine stores',
+            ]),
             const SizedBox(height: 10),
             rbRow(['Step', 'Component', 'Action'], isHeader: true),
             rbRow(['1', 'RestorableProperty', 'value = newValue']),
@@ -620,11 +699,23 @@ dynamic build(BuildContext context) {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _rbCheckItem('Enable "Don\'t Keep Activities" to simulate kill', forest),
-            _rbCheckItem('Check restorationId is non-null on all scopes', deepEmerald),
+            _rbCheckItem(
+              'Enable "Don\'t Keep Activities" to simulate kill',
+              forest,
+            ),
+            _rbCheckItem(
+              'Check restorationId is non-null on all scopes',
+              deepEmerald,
+            ),
             _rbCheckItem('Verify restoreState() is called on restart', emerald),
-            _rbCheckItem('Print bucket.debugOwner for ownership tracking', malachite),
-            _rbCheckItem('Watch for "restoration data too large" warnings', viridian),
+            _rbCheckItem(
+              'Print bucket.debugOwner for ownership tracking',
+              malachite,
+            ),
+            _rbCheckItem(
+              'Watch for "restoration data too large" warnings',
+              viridian,
+            ),
             _rbCheckItem('Test by force-stopping app from Recent Apps', beryl),
           ],
         ),
@@ -717,11 +808,14 @@ dynamic build(BuildContext context) {
         ),
         child: Column(
           children: [
-            const Text('RestorationBucket — Complete',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold)),
+            const Text(
+              'RestorationBucket — Complete',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               'Flutter\'s hierarchical state restoration container: from '
@@ -753,10 +847,22 @@ dynamic build(BuildContext context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            section1, section2, section3, section4,
-            section5, section6, section7, section8,
-            section9, section10, section11, section12,
-            section13, section14, section15, section16,
+            section1,
+            section2,
+            section3,
+            section4,
+            section5,
+            section6,
+            section7,
+            section8,
+            section9,
+            section10,
+            section11,
+            section12,
+            section13,
+            section14,
+            section15,
+            section16,
           ],
         ),
       ),
@@ -784,13 +890,20 @@ Widget _rbRoleBadge(String role, String desc, Color color) {
         const SizedBox(width: 8),
         SizedBox(
           width: 70,
-          child: Text(role,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.bold, color: color)),
+          child: Text(
+            role,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8))),
+          child: Text(
+            desc,
+            style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.8)),
+          ),
         ),
       ],
     ),
@@ -817,13 +930,22 @@ Widget _rbTreeNode(String name, String desc, int depth, Color color) {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 9, fontWeight: FontWeight.bold, color: color)),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 9,
+                  fontWeight: FontWeight.bold,
+                  color: color,
+                ),
+              ),
               const SizedBox(width: 4),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 8, color: color.withValues(alpha: 0.7))),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 8,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -839,15 +961,21 @@ Widget _rbIdExample(String id, String meaning, Color color) {
       children: [
         Expanded(
           flex: 3,
-          child: Text(id,
-              style: TextStyle(
-                  fontSize: 9, fontFamily: 'monospace', color: color)),
+          child: Text(
+            id,
+            style: TextStyle(
+              fontSize: 9,
+              fontFamily: 'monospace',
+              color: color,
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Text(meaning,
-              style: TextStyle(
-                  fontSize: 9, color: color.withValues(alpha: 0.7))),
+          child: Text(
+            meaning,
+            style: TextStyle(fontSize: 9, color: color.withValues(alpha: 0.7)),
+          ),
         ),
       ],
     ),
@@ -867,15 +995,19 @@ Widget _rbStepItem(int num, String desc, Color color) {
             borderRadius: BorderRadius.circular(11),
           ),
           child: Center(
-            child: Text('$num',
-                style: const TextStyle(
-                    color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+            child: Text(
+              '$num',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 9,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(desc,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(desc, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),
@@ -893,12 +1025,21 @@ Widget _rbLifecycleState(String name, String desc, IconData icon, Color color) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  style: TextStyle(
-                      fontSize: 10, fontWeight: FontWeight.w600, color: color)),
-              Text(desc,
-                  style: TextStyle(
-                      fontSize: 9, color: color.withValues(alpha: 0.7))),
+              Text(
+                name,
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: color.withValues(alpha: 0.7),
+                ),
+              ),
             ],
           ),
         ),
@@ -910,24 +1051,30 @@ Widget _rbLifecycleState(String name, String desc, IconData icon, Color color) {
 Widget _rbNestLine(int depth, String text, Color color) {
   return Padding(
     padding: EdgeInsets.only(left: depth * 16.0, bottom: 3),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.4)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.4,
+      ),
+    ),
   );
 }
 
 Widget _rbCodeLine(String text, Color color) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 2),
-    child: Text(text,
-        style: TextStyle(
-            fontSize: 10,
-            fontFamily: 'monospace',
-            color: color,
-            height: 1.3)),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 10,
+        fontFamily: 'monospace',
+        color: color,
+        height: 1.3,
+      ),
+    ),
   );
 }
 
@@ -939,8 +1086,7 @@ Widget _rbCheckItem(String text, Color color) {
         Icon(Icons.check_circle_outline, size: 14, color: color),
         const SizedBox(width: 6),
         Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 10, color: color)),
+          child: Text(text, style: TextStyle(fontSize: 10, color: color)),
         ),
       ],
     ),

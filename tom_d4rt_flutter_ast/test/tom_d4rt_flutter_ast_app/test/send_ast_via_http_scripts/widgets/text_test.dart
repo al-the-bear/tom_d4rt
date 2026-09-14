@@ -27,9 +27,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 14.0),
       decoration: BoxDecoration(
         color: cInk,
-        border: Border(
-          left: BorderSide(color: cVermilion, width: 6.0),
-        ),
+        border: Border(left: BorderSide(color: cVermilion, width: 6.0)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -77,7 +75,11 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget specimenBox({required String label, required Widget child, Color? bg}) {
+  Widget specimenBox({
+    required String label,
+    required Widget child,
+    Color? bg,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10.0),
       padding: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 12.0),
@@ -178,95 +180,133 @@ dynamic build(BuildContext context) {
   // SECTION 1: Basic Text gallery (size, weight, style, color, spacing).
   // ---------------------------------------------------------------------------
   final List<Widget> basicSamples = <Widget>[];
-  basicSamples.add(specimenBox(
-    label: 'fontSize: 12',
-    child: const Text(
-      'The quick brown fox jumps over the lazy dog.',
-      style: TextStyle(fontSize: 12.0, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'fontSize: 18',
-    child: const Text(
-      'The quick brown fox jumps over the lazy dog.',
-      style: TextStyle(fontSize: 18.0, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'fontSize: 28 / weight: w300',
-    child: const Text(
-      'Glyphs at large sizes',
-      style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w300, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'fontWeight: w900',
-    child: const Text(
-      'BLACK WEIGHT',
-      style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w900, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'fontStyle: italic',
-    child: const Text(
-      'A passage rendered in italic for emphasis.',
-      style: TextStyle(fontSize: 18.0, fontStyle: FontStyle.italic, color: cVermilion),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'color: lapis',
-    child: const Text(
-      'Lapis lazuli pigment',
-      style: TextStyle(fontSize: 20.0, color: cLapis, fontWeight: FontWeight.w600),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'letterSpacing: 6',
-    child: const Text(
-      'WIDE TRACKING',
-      style: TextStyle(fontSize: 16.0, letterSpacing: 6.0, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'letterSpacing: -1',
-    child: const Text(
-      'Tight tracking pulls letters together',
-      style: TextStyle(fontSize: 18.0, letterSpacing: -1.0, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'wordSpacing: 12',
-    child: const Text(
-      'Open word spacing for airy paragraphs',
-      style: TextStyle(fontSize: 16.0, wordSpacing: 12.0, color: cInk),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'height: 1.8',
-    child: const Text(
-      'When the line height multiplier is increased, lines breathe further '
-      'apart and a paragraph becomes easier to scan in dim light.',
-      style: TextStyle(fontSize: 14.0, height: 1.8, color: cInkSoft),
-    ),
-  ));
-  basicSamples.add(specimenBox(
-    label: 'color + shadows',
-    child: Text(
-      'Embossed glyphs',
-      style: TextStyle(
-        fontSize: 26.0,
-        fontWeight: FontWeight.w800,
-        color: cParchment,
-        shadows: <Shadow>[
-          Shadow(
-            color: cInk.withValues(alpha: 0.55),
-            offset: const Offset(2.0, 2.0),
-            blurRadius: 3.0,
-          ),
-        ],
+  basicSamples.add(
+    specimenBox(
+      label: 'fontSize: 12',
+      child: const Text(
+        'The quick brown fox jumps over the lazy dog.',
+        style: TextStyle(fontSize: 12.0, color: cInk),
       ),
     ),
-  ));
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'fontSize: 18',
+      child: const Text(
+        'The quick brown fox jumps over the lazy dog.',
+        style: TextStyle(fontSize: 18.0, color: cInk),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'fontSize: 28 / weight: w300',
+      child: const Text(
+        'Glyphs at large sizes',
+        style: TextStyle(
+          fontSize: 28.0,
+          fontWeight: FontWeight.w300,
+          color: cInk,
+        ),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'fontWeight: w900',
+      child: const Text(
+        'BLACK WEIGHT',
+        style: TextStyle(
+          fontSize: 22.0,
+          fontWeight: FontWeight.w900,
+          color: cInk,
+        ),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'fontStyle: italic',
+      child: const Text(
+        'A passage rendered in italic for emphasis.',
+        style: TextStyle(
+          fontSize: 18.0,
+          fontStyle: FontStyle.italic,
+          color: cVermilion,
+        ),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'color: lapis',
+      child: const Text(
+        'Lapis lazuli pigment',
+        style: TextStyle(
+          fontSize: 20.0,
+          color: cLapis,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'letterSpacing: 6',
+      child: const Text(
+        'WIDE TRACKING',
+        style: TextStyle(fontSize: 16.0, letterSpacing: 6.0, color: cInk),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'letterSpacing: -1',
+      child: const Text(
+        'Tight tracking pulls letters together',
+        style: TextStyle(fontSize: 18.0, letterSpacing: -1.0, color: cInk),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'wordSpacing: 12',
+      child: const Text(
+        'Open word spacing for airy paragraphs',
+        style: TextStyle(fontSize: 16.0, wordSpacing: 12.0, color: cInk),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'height: 1.8',
+      child: const Text(
+        'When the line height multiplier is increased, lines breathe further '
+        'apart and a paragraph becomes easier to scan in dim light.',
+        style: TextStyle(fontSize: 14.0, height: 1.8, color: cInkSoft),
+      ),
+    ),
+  );
+  basicSamples.add(
+    specimenBox(
+      label: 'color + shadows',
+      child: Text(
+        'Embossed glyphs',
+        style: TextStyle(
+          fontSize: 26.0,
+          fontWeight: FontWeight.w800,
+          color: cParchment,
+          shadows: <Shadow>[
+            Shadow(
+              color: cInk.withValues(alpha: 0.55),
+              offset: const Offset(2.0, 2.0),
+              blurRadius: 3.0,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 
   final Widget basicSection = Container(
     color: cParchmentDeep,
@@ -299,37 +339,39 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> alignSamples = <Widget>[];
   for (int i = 0; i < aligns.length; i = i + 1) {
-    alignSamples.add(Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 10.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: cParchment,
-        border: Border.all(color: cMargin),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            alignNames[i],
-            style: const TextStyle(
-              fontSize: 11.0,
-              color: cVermilion,
-              letterSpacing: 1.4,
-              fontWeight: FontWeight.w700,
+    alignSamples.add(
+      Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border.all(color: cMargin),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              alignNames[i],
+              style: const TextStyle(
+                fontSize: 11.0,
+                color: cVermilion,
+                letterSpacing: 1.4,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            'Per accidens hoc — a passage long enough to fill multiple lines '
-            'and reveal how alignment behaves with variable line widths.',
-            textAlign: aligns[i],
-            style: const TextStyle(fontSize: 13.5, color: cInk, height: 1.45),
-          ),
-        ],
+            const SizedBox(height: 6.0),
+            Text(
+              'Per accidens hoc — a passage long enough to fill multiple lines '
+              'and reveal how alignment behaves with variable line widths.',
+              textAlign: aligns[i],
+              style: const TextStyle(fontSize: 13.5, color: cInk, height: 1.45),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   final Widget alignSection = Container(
@@ -415,40 +457,42 @@ dynamic build(BuildContext context) {
   final List<Widget> maxLineSamples = <Widget>[];
   for (int i = 0; i < maxLineValues.length; i = i + 1) {
     final int n = maxLineValues[i];
-    maxLineSamples.add(Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 10.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: cParchment,
-        border: Border(left: BorderSide(color: cLapis, width: 4.0)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            'maxLines: $n + ellipsis',
-            style: const TextStyle(
-              fontSize: 11.0,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.2,
-              color: cLapis,
+    maxLineSamples.add(
+      Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 10.0),
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border(left: BorderSide(color: cLapis, width: 4.0)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'maxLines: $n + ellipsis',
+              style: const TextStyle(
+                fontSize: 11.0,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.2,
+                color: cLapis,
+              ),
             ),
-          ),
-          const SizedBox(height: 6.0),
-          Text(
-            'A truly extended passage. The first line of every novel matters. '
-            'The second carries the reader. The third orients them in space. '
-            'The fourth establishes time. The fifth introduces conflict. '
-            'And the sixth is where the writer sets the hook for the chapter.',
-            maxLines: n,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 13.5, color: cInk, height: 1.4),
-          ),
-        ],
+            const SizedBox(height: 6.0),
+            Text(
+              'A truly extended passage. The first line of every novel matters. '
+              'The second carries the reader. The third orients them in space. '
+              'The fourth establishes time. The fifth introduces conflict. '
+              'And the sixth is where the writer sets the hook for the chapter.',
+              maxLines: n,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 13.5, color: cInk, height: 1.4),
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget maxLineSection = Container(
     color: cParchmentDeep,
@@ -476,10 +520,7 @@ dynamic build(BuildContext context) {
             const TextSpan(text: 'In the beginning was the '),
             const TextSpan(
               text: 'Word',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                color: cVermilion,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w900, color: cVermilion),
             ),
             const TextSpan(text: ', and the Word was rendered by a '),
             const TextSpan(
@@ -553,59 +594,67 @@ dynamic build(BuildContext context) {
     'wavy',
   ];
   final List<Widget> decoSamples = <Widget>[];
-  decoSamples.add(specimenBox(
-    label: 'TextDecoration.underline',
-    child: const Text(
-      'Galley proof — underlined',
-      style: TextStyle(
-        fontSize: 18.0,
-        color: cInk,
-        decoration: TextDecoration.underline,
-        decorationColor: cVermilion,
-        decorationThickness: 2.0,
-      ),
-    ),
-  ));
-  decoSamples.add(specimenBox(
-    label: 'TextDecoration.overline',
-    child: const Text(
-      'Marginalia — overlined',
-      style: TextStyle(
-        fontSize: 18.0,
-        color: cInk,
-        decoration: TextDecoration.overline,
-        decorationColor: cLapis,
-      ),
-    ),
-  ));
-  decoSamples.add(specimenBox(
-    label: 'TextDecoration.lineThrough',
-    child: const Text(
-      'Struck — withdrawn from the manuscript',
-      style: TextStyle(
-        fontSize: 18.0,
-        color: cInkSoft,
-        decoration: TextDecoration.lineThrough,
-        decorationColor: cVermilion,
-        decorationThickness: 2.0,
-      ),
-    ),
-  ));
-  for (int i = 0; i < decoStyles.length; i = i + 1) {
-    decoSamples.add(specimenBox(
-      label: 'decorationStyle: ${decoStyleNames[i]}',
-      child: Text(
-        'Underlined with style ${decoStyleNames[i]}',
+  decoSamples.add(
+    specimenBox(
+      label: 'TextDecoration.underline',
+      child: const Text(
+        'Galley proof — underlined',
         style: TextStyle(
-          fontSize: 16.0,
+          fontSize: 18.0,
           color: cInk,
           decoration: TextDecoration.underline,
-          decorationStyle: decoStyles[i],
-          decorationColor: cVerdigris,
+          decorationColor: cVermilion,
           decorationThickness: 2.0,
         ),
       ),
-    ));
+    ),
+  );
+  decoSamples.add(
+    specimenBox(
+      label: 'TextDecoration.overline',
+      child: const Text(
+        'Marginalia — overlined',
+        style: TextStyle(
+          fontSize: 18.0,
+          color: cInk,
+          decoration: TextDecoration.overline,
+          decorationColor: cLapis,
+        ),
+      ),
+    ),
+  );
+  decoSamples.add(
+    specimenBox(
+      label: 'TextDecoration.lineThrough',
+      child: const Text(
+        'Struck — withdrawn from the manuscript',
+        style: TextStyle(
+          fontSize: 18.0,
+          color: cInkSoft,
+          decoration: TextDecoration.lineThrough,
+          decorationColor: cVermilion,
+          decorationThickness: 2.0,
+        ),
+      ),
+    ),
+  );
+  for (int i = 0; i < decoStyles.length; i = i + 1) {
+    decoSamples.add(
+      specimenBox(
+        label: 'decorationStyle: ${decoStyleNames[i]}',
+        child: Text(
+          'Underlined with style ${decoStyleNames[i]}',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: cInk,
+            decoration: TextDecoration.underline,
+            decorationStyle: decoStyles[i],
+            decorationColor: cVerdigris,
+            decorationThickness: 2.0,
+          ),
+        ),
+      ),
+    );
   }
   final Widget decoSection = Container(
     color: cParchmentDeep,
@@ -623,71 +672,79 @@ dynamic build(BuildContext context) {
   Widget featureSection;
   try {
     final List<Widget> featureSamples = <Widget>[];
-    featureSamples.add(specimenBox(
-      label: 'FontFeature.oldstyleFigures()',
-      child: Text(
-        '0 1 2 3 4 5 6 7 8 9',
-        style: TextStyle(
-          fontSize: 22.0,
-          color: cInk,
-          fontFeatures: <ui.FontFeature>[
-            const ui.FontFeature.oldstyleFigures(),
-          ],
+    featureSamples.add(
+      specimenBox(
+        label: 'FontFeature.oldstyleFigures()',
+        child: Text(
+          '0 1 2 3 4 5 6 7 8 9',
+          style: TextStyle(
+            fontSize: 22.0,
+            color: cInk,
+            fontFeatures: <ui.FontFeature>[
+              const ui.FontFeature.oldstyleFigures(),
+            ],
+          ),
         ),
       ),
-    ));
-    featureSamples.add(specimenBox(
-      label: 'FontFeature.tabularFigures()',
-      child: Text(
-        '11 22 33 44 55',
-        style: TextStyle(
-          fontSize: 22.0,
-          color: cInk,
-          fontFeatures: <ui.FontFeature>[
-            const ui.FontFeature.tabularFigures(),
-          ],
+    );
+    featureSamples.add(
+      specimenBox(
+        label: 'FontFeature.tabularFigures()',
+        child: Text(
+          '11 22 33 44 55',
+          style: TextStyle(
+            fontSize: 22.0,
+            color: cInk,
+            fontFeatures: <ui.FontFeature>[
+              const ui.FontFeature.tabularFigures(),
+            ],
+          ),
         ),
       ),
-    ));
-    featureSamples.add(specimenBox(
-      label: 'FontFeature.enable("smcp") — small caps',
-      child: Text(
-        'small caps petite text',
-        style: TextStyle(
-          fontSize: 20.0,
-          color: cInk,
-          fontFeatures: <ui.FontFeature>[
-            const ui.FontFeature.enable('smcp'),
-          ],
+    );
+    featureSamples.add(
+      specimenBox(
+        label: 'FontFeature.enable("smcp") — small caps',
+        child: Text(
+          'small caps petite text',
+          style: TextStyle(
+            fontSize: 20.0,
+            color: cInk,
+            fontFeatures: <ui.FontFeature>[const ui.FontFeature.enable('smcp')],
+          ),
         ),
       ),
-    ));
-    featureSamples.add(specimenBox(
-      label: 'FontFeature disable liga (ligatures off)',
-      child: Text(
-        'office finally affluent',
-        style: TextStyle(
-          fontSize: 20.0,
-          color: cInk,
-          fontFeatures: <ui.FontFeature>[
-            const ui.FontFeature.disable('liga'),
-          ],
+    );
+    featureSamples.add(
+      specimenBox(
+        label: 'FontFeature disable liga (ligatures off)',
+        child: Text(
+          'office finally affluent',
+          style: TextStyle(
+            fontSize: 20.0,
+            color: cInk,
+            fontFeatures: <ui.FontFeature>[
+              const ui.FontFeature.disable('liga'),
+            ],
+          ),
         ),
       ),
-    ));
-    featureSamples.add(specimenBox(
-      label: 'FontVariation wght: 700',
-      child: Text(
-        'Variable axis weight',
-        style: TextStyle(
-          fontSize: 20.0,
-          color: cInk,
-          fontVariations: <ui.FontVariation>[
-            const ui.FontVariation('wght', 700.0),
-          ],
+    );
+    featureSamples.add(
+      specimenBox(
+        label: 'FontVariation wght: 700',
+        child: Text(
+          'Variable axis weight',
+          style: TextStyle(
+            fontSize: 20.0,
+            color: cInk,
+            fontVariations: <ui.FontVariation>[
+              const ui.FontVariation('wght', 700.0),
+            ],
+          ),
         ),
       ),
-    ));
+    );
     featureSection = Container(
       color: cParchmentDeep,
       padding: const EdgeInsets.all(16.0),
@@ -712,22 +769,58 @@ dynamic build(BuildContext context) {
   final List<Widget> scalerSamples = <Widget>[];
   for (int i = 0; i < scales.length; i = i + 1) {
     final double s = scales[i];
-    scalerSamples.add(Container(
+    scalerSamples.add(
+      Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(bottom: 8.0),
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border.all(color: cMargin),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 130.0,
+              child: Text(
+                'TextScaler.linear($s)',
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  color: cVermilion,
+                  letterSpacing: 1.2,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            const SizedBox(width: 12.0),
+            Expanded(
+              child: Text(
+                'Accessibility text scaling',
+                textScaler: TextScaler.linear(s),
+                style: const TextStyle(fontSize: 14.0, color: cInk),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  scalerSamples.add(
+    Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 8.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: cParchment,
         border: Border.all(color: cMargin),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             width: 130.0,
             child: Text(
-              'TextScaler.linear($s)',
-              style: const TextStyle(
+              'TextScaler.noScaling',
+              style: TextStyle(
                 fontSize: 11.0,
                 color: cVermilion,
                 letterSpacing: 1.2,
@@ -736,49 +829,17 @@ dynamic build(BuildContext context) {
             ),
           ),
           const SizedBox(width: 12.0),
-          Expanded(
+          const Expanded(
             child: Text(
-              'Accessibility text scaling',
-              textScaler: TextScaler.linear(s),
-              style: const TextStyle(fontSize: 14.0, color: cInk),
+              'No scaling, fixed at 14',
+              textScaler: TextScaler.noScaling,
+              style: TextStyle(fontSize: 14.0, color: cInk),
             ),
           ),
         ],
       ),
-    ));
-  }
-  scalerSamples.add(Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(10.0),
-    decoration: BoxDecoration(
-      color: cParchment,
-      border: Border.all(color: cMargin),
     ),
-    child: Row(
-      children: <Widget>[
-        const SizedBox(
-          width: 130.0,
-          child: Text(
-            'TextScaler.noScaling',
-            style: TextStyle(
-              fontSize: 11.0,
-              color: cVermilion,
-              letterSpacing: 1.2,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        const SizedBox(width: 12.0),
-        const Expanded(
-          child: Text(
-            'No scaling, fixed at 14',
-            textScaler: TextScaler.noScaling,
-            style: TextStyle(fontSize: 14.0, color: cInk),
-          ),
-        ),
-      ],
-    ),
-  ));
+  );
   final Widget scalerSection = Container(
     color: cParchmentDeep,
     padding: const EdgeInsets.all(16.0),
@@ -876,7 +937,12 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Text(
         s,
-        style: TextStyle(fontSize: 13.0, color: color, fontWeight: w, height: 1.35),
+        style: TextStyle(
+          fontSize: 13.0,
+          color: color,
+          fontWeight: w,
+          height: 1.35,
+        ),
       ),
     );
   }
@@ -891,23 +957,51 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Property',
-              style: TextStyle(color: cParchment, fontWeight: FontWeight.w800, fontSize: 12.0, letterSpacing: 1.0)),
+          child: Text(
+            'Property',
+            style: TextStyle(
+              color: cParchment,
+              fontWeight: FontWeight.w800,
+              fontSize: 12.0,
+              letterSpacing: 1.0,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Text',
-              style: TextStyle(color: cParchment, fontWeight: FontWeight.w800, fontSize: 12.0, letterSpacing: 1.0)),
+          child: Text(
+            'Text',
+            style: TextStyle(
+              color: cParchment,
+              fontWeight: FontWeight.w800,
+              fontSize: 12.0,
+              letterSpacing: 1.0,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('RichText',
-              style: TextStyle(color: cParchment, fontWeight: FontWeight.w800, fontSize: 12.0, letterSpacing: 1.0)),
+          child: Text(
+            'RichText',
+            style: TextStyle(
+              color: cParchment,
+              fontWeight: FontWeight.w800,
+              fontSize: 12.0,
+              letterSpacing: 1.0,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('SelectableText',
-              style: TextStyle(color: cParchment, fontWeight: FontWeight.w800, fontSize: 12.0, letterSpacing: 1.0)),
+          child: Text(
+            'SelectableText',
+            style: TextStyle(
+              color: cParchment,
+              fontWeight: FontWeight.w800,
+              fontSize: 12.0,
+              letterSpacing: 1.0,
+            ),
+          ),
         ),
       ],
     );
@@ -934,12 +1028,22 @@ dynamic build(BuildContext context) {
         children: <TableRow>[
           headRow(),
           row('layer', 'widget', 'render-object', 'widget'),
-          row('default style', 'inherits DefaultTextStyle', 'no inherit', 'inherits'),
+          row(
+            'default style',
+            'inherits DefaultTextStyle',
+            'no inherit',
+            'inherits',
+          ),
           row('inline spans', 'via .rich', 'native (TextSpan)', 'via .rich'),
           row('selection', 'no', 'no', 'yes'),
           row('semantics label', 'yes', 'no', 'yes'),
           row('cost', 'low', 'lowest', 'higher'),
-          row('typical use', 'most labels', 'low-level layout', 'copy-paste UI'),
+          row(
+            'typical use',
+            'most labels',
+            'low-level layout',
+            'copy-paste UI',
+          ),
         ],
       ),
     ),
@@ -960,7 +1064,10 @@ dynamic build(BuildContext context) {
           child: Container(
             height: 22.0,
             color: cParchmentDeep.withValues(alpha: 0.7),
-            child: const Text('', style: TextStyle(fontSize: 14.0, color: cInk)),
+            child: const Text(
+              '',
+              style: TextStyle(fontSize: 14.0, color: cInk),
+            ),
           ),
         ),
         specimenBox(
@@ -986,11 +1093,16 @@ dynamic build(BuildContext context) {
           ),
         ),
         specimenBox(
-          label: 'semanticsLabel override (visible: 1.2K, semantics: "1200 items")',
+          label:
+              'semanticsLabel override (visible: 1.2K, semantics: "1200 items")',
           child: const Text(
             '1.2K',
             semanticsLabel: '1200 items',
-            style: TextStyle(fontSize: 18.0, color: cInk, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontSize: 18.0,
+              color: cInk,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
         specimenBox(
@@ -1041,41 +1153,57 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Property',
-              style: TextStyle(color: cGold, fontSize: 12.0, fontWeight: FontWeight.w800, letterSpacing: 1.2)),
+          child: Text(
+            'Property',
+            style: TextStyle(
+              color: cGold,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text('Description',
-              style: TextStyle(color: cGold, fontSize: 12.0, fontWeight: FontWeight.w800, letterSpacing: 1.2)),
+          child: Text(
+            'Description',
+            style: TextStyle(
+              color: cGold,
+              fontSize: 12.0,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 1.2,
+            ),
+          ),
         ),
       ],
     ),
   ];
   for (int i = 0; i < styleProps.length; i = i + 1) {
-    propRows.add(TableRow(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
-          child: Text(
-            styleProps[i][0],
-            style: const TextStyle(
-              fontSize: 12.5,
-              fontFamily: 'monospace',
-              color: cLapis,
-              fontWeight: FontWeight.w700,
+    propRows.add(
+      TableRow(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            child: Text(
+              styleProps[i][0],
+              style: const TextStyle(
+                fontSize: 12.5,
+                fontFamily: 'monospace',
+                color: cLapis,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
-          child: Text(
-            styleProps[i][1],
-            style: const TextStyle(fontSize: 12.5, color: cInk),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+            child: Text(
+              styleProps[i][1],
+              style: const TextStyle(fontSize: 12.5, color: cInk),
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 
   final Widget propSection = Container(
@@ -1151,10 +1279,7 @@ dynamic build(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          heightCard(
-            'default (apply both)',
-            const TextHeightBehavior(),
-          ),
+          heightCard('default (apply both)', const TextHeightBehavior()),
           heightCard(
             'first: false / last: true',
             const TextHeightBehavior(
@@ -1203,47 +1328,47 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> selectionRows = <Widget>[];
   for (int i = 0; i < selectionTints.length; i = i + 1) {
-    selectionRows.add(Container(
-      margin: const EdgeInsets.only(bottom: 8.0),
-      padding: const EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: cParchment,
-        border: Border.all(color: cMargin),
-      ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 130.0,
-            child: Text(
-              selectionNames[i],
-              style: const TextStyle(
-                fontSize: 11.0,
-                color: cInkSoft,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
+    selectionRows.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 8.0),
+        padding: const EdgeInsets.all(10.0),
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border.all(color: cMargin),
+        ),
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              width: 130.0,
+              child: Text(
+                selectionNames[i],
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  color: cInkSoft,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 12.0),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Positioned.fill(
-                  child: Container(color: selectionTints[i]),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Text(
-                    'A passage that simulates a current selection range.',
-                    style: const TextStyle(fontSize: 14.0, color: cInk),
+            const SizedBox(width: 12.0),
+            Expanded(
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(child: Container(color: selectionTints[i])),
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      'A passage that simulates a current selection range.',
+                      style: const TextStyle(fontSize: 14.0, color: cInk),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget selectionSection = Container(
     color: cParchmentDeep,
@@ -1272,29 +1397,27 @@ dynamic build(BuildContext context) {
   ];
   final List<Widget> spectrumRows = <Widget>[];
   for (int i = 0; i < spectrum.length; i = i + 1) {
-    spectrumRows.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
-      child: Row(
-        children: <Widget>[
-          Container(
-            width: 24.0,
-            height: 24.0,
-            color: spectrum[i],
-          ),
-          const SizedBox(width: 10.0),
-          Expanded(
-            child: Text(
-              'The same string sweeps the palette',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: spectrum[i],
-                fontWeight: FontWeight.w600,
+    spectrumRows.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0),
+        child: Row(
+          children: <Widget>[
+            Container(width: 24.0, height: 24.0, color: spectrum[i]),
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: Text(
+                'The same string sweeps the palette',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: spectrum[i],
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget spectrumSection = Container(
     color: cParchmentDeep,
@@ -1339,47 +1462,49 @@ dynamic build(BuildContext context) {
     final double size = typeScale[i][1] as double;
     final FontWeight w = typeScale[i][2] as FontWeight;
     final double tracking = typeScale[i][3] as double;
-    typeScaleRows.add(Container(
-      margin: const EdgeInsets.only(bottom: 6.0),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-      decoration: BoxDecoration(
-        color: cParchment,
-        border: Border(left: BorderSide(color: cVerdigris, width: 3.0)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 130.0,
-            child: Text(
-              name,
-              style: const TextStyle(
-                fontSize: 11.0,
-                color: cInkSoft,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.0,
-                fontFamily: 'monospace',
+    typeScaleRows.add(
+      Container(
+        margin: const EdgeInsets.only(bottom: 6.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+        decoration: BoxDecoration(
+          color: cParchment,
+          border: Border(left: BorderSide(color: cVerdigris, width: 3.0)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 130.0,
+              child: Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 11.0,
+                  color: cInkSoft,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.0,
+                  fontFamily: 'monospace',
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              'Specimen — Aa Bb Cc',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: size,
-                fontWeight: w,
-                letterSpacing: tracking,
-                color: cInk,
-                height: 1.0,
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                'Specimen — Aa Bb Cc',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: size,
+                  fontWeight: w,
+                  letterSpacing: tracking,
+                  color: cInk,
+                  height: 1.0,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   final Widget typeScaleSection = Container(
     color: cParchmentDeep,
@@ -1423,24 +1548,15 @@ dynamic build(BuildContext context) {
               children: const <InlineSpan>[
                 TextSpan(
                   text: '€',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
                   text: '49',
-                  style: TextStyle(
-                    fontSize: 56.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: TextStyle(fontSize: 56.0, fontWeight: FontWeight.w900),
                 ),
                 TextSpan(
                   text: '.99',
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
                 ),
                 TextSpan(
                   text: ' / mo',
@@ -1456,7 +1572,11 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 12.0),
           Text.rich(
             TextSpan(
-              style: const TextStyle(fontSize: 13.0, color: cInkSoft, height: 1.5),
+              style: const TextStyle(
+                fontSize: 13.0,
+                color: cInkSoft,
+                height: 1.5,
+              ),
               children: <InlineSpan>[
                 const TextSpan(text: 'Includes '),
                 const TextSpan(
@@ -1544,59 +1664,113 @@ dynamic build(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           hero,
-          sectionHeader('I', 'Basic Text gallery',
-              'Size, weight, italic, color, letter- and word-spacing, line height, shadows.'),
+          sectionHeader(
+            'I',
+            'Basic Text gallery',
+            'Size, weight, italic, color, letter- and word-spacing, line height, shadows.',
+          ),
           basicSection,
-          sectionHeader('II', 'TextAlign',
-              'All six alignment values applied to the same multi-line passage.'),
+          sectionHeader(
+            'II',
+            'TextAlign',
+            'All six alignment values applied to the same multi-line passage.',
+          ),
           alignSection,
-          sectionHeader('III', 'TextOverflow',
-              'clip / fade / ellipsis / visible — each in a 220-px constrained frame.'),
+          sectionHeader(
+            'III',
+            'TextOverflow',
+            'clip / fade / ellipsis / visible — each in a 220-px constrained frame.',
+          ),
           overflowSection,
-          sectionHeader('IV', 'maxLines + ellipsis',
-              'Same paragraph, capped at 1, 2, 3, then 4 lines.'),
+          sectionHeader(
+            'IV',
+            'maxLines + ellipsis',
+            'Same paragraph, capped at 1, 2, 3, then 4 lines.',
+          ),
           maxLineSection,
-          sectionHeader('V', 'Text.rich',
-              'A single paragraph composed from a TextSpan tree — inline styling per fragment.'),
+          sectionHeader(
+            'V',
+            'Text.rich',
+            'A single paragraph composed from a TextSpan tree — inline styling per fragment.',
+          ),
           richBox,
-          sectionHeader('VI', 'TextDecoration',
-              'Underline, overline, lineThrough, plus the five decoration styles.'),
+          sectionHeader(
+            'VI',
+            'TextDecoration',
+            'Underline, overline, lineThrough, plus the five decoration styles.',
+          ),
           decoSection,
-          sectionHeader('VII', 'FontFeature & FontVariation',
-              'OpenType toggles: oldstyle, tabular, smcp, liga; plus a variable wght axis.'),
+          sectionHeader(
+            'VII',
+            'FontFeature & FontVariation',
+            'OpenType toggles: oldstyle, tabular, smcp, liga; plus a variable wght axis.',
+          ),
           featureSection,
-          sectionHeader('VIII', 'TextScaler',
-              'TextScaler.linear at five scales versus TextScaler.noScaling.'),
+          sectionHeader(
+            'VIII',
+            'TextScaler',
+            'TextScaler.linear at five scales versus TextScaler.noScaling.',
+          ),
           scalerSection,
-          sectionHeader('IX', 'StrutStyle',
-              'Pinning line metrics with forceStrutHeight.'),
+          sectionHeader(
+            'IX',
+            'StrutStyle',
+            'Pinning line metrics with forceStrutHeight.',
+          ),
           strutSection,
-          sectionHeader('X', 'TextDirection',
-              'LTR vs RTL flow plus mixed-script runs.'),
+          sectionHeader(
+            'X',
+            'TextDirection',
+            'LTR vs RTL flow plus mixed-script runs.',
+          ),
           directionSection,
-          sectionHeader('XI', 'Text vs RichText vs SelectableText',
-              'A property-by-property comparison of the three principal text widgets.'),
+          sectionHeader(
+            'XI',
+            'Text vs RichText vs SelectableText',
+            'A property-by-property comparison of the three principal text widgets.',
+          ),
           compareSection,
-          sectionHeader('XII', 'Edge cases',
-              'Empty, unbreakable, soft-wrap off, semantic override, textWidthBasis.'),
+          sectionHeader(
+            'XII',
+            'Edge cases',
+            'Empty, unbreakable, soft-wrap off, semantic override, textWidthBasis.',
+          ),
           edgeSection,
-          sectionHeader('XIII', 'TextStyle reference',
-              'A scan-friendly index of the most useful TextStyle properties.'),
+          sectionHeader(
+            'XIII',
+            'TextStyle reference',
+            'A scan-friendly index of the most useful TextStyle properties.',
+          ),
           propSection,
-          sectionHeader('XIV', 'TextHeightBehavior',
-              'applyHeightToFirstAscent / applyHeightToLastDescent / leadingDistribution.'),
+          sectionHeader(
+            'XIV',
+            'TextHeightBehavior',
+            'applyHeightToFirstAscent / applyHeightToLastDescent / leadingDistribution.',
+          ),
           heightBehaviorSection,
-          sectionHeader('XV', 'Selection color (mock)',
-              'Visualizing how selectionColor tints a selected range across hues.'),
+          sectionHeader(
+            'XV',
+            'Selection color (mock)',
+            'Visualizing how selectionColor tints a selected range across hues.',
+          ),
           selectionSection,
-          sectionHeader('XVI', 'Color spectrum sweep',
-              'A single string repeated across a curated palette of foreground colors.'),
+          sectionHeader(
+            'XVI',
+            'Color spectrum sweep',
+            'A single string repeated across a curated palette of foreground colors.',
+          ),
           spectrumSection,
-          sectionHeader('XVII', 'Material type scale',
-              'Display, headline, title, body, and label sizes laid out side-by-side.'),
+          sectionHeader(
+            'XVII',
+            'Material type scale',
+            'Display, headline, title, body, and label sizes laid out side-by-side.',
+          ),
           typeScaleSection,
-          sectionHeader('XVIII', 'Pricing card via Text.rich',
-              'A realistic UI fragment composed entirely of inline TextSpan styling.'),
+          sectionHeader(
+            'XVIII',
+            'Pricing card via Text.rich',
+            'A realistic UI fragment composed entirely of inline TextSpan styling.',
+          ),
           pricingRich,
           footer,
         ],

@@ -124,7 +124,12 @@ class _ToolbarPlacementPainter extends CustomPainter {
         ).createShader(area),
     );
 
-    final Rect viewportRect = Rect.fromLTWH(14, 14, size.width - 28, size.height - 28);
+    final Rect viewportRect = Rect.fromLTWH(
+      14,
+      14,
+      size.width - 28,
+      size.height - 28,
+    );
     canvas.drawRRect(
       RRect.fromRectAndRadius(viewportRect, const Radius.circular(12)),
       Paint()..color = Colors.white.withValues(alpha: 0.82),
@@ -172,7 +177,8 @@ class _ToolbarPlacementPainter extends CustomPainter {
     }
 
     if (keyboardInset > 0) {
-      final double height = viewportRect.height * (keyboardInset / math.max(1, viewport.height));
+      final double height =
+          viewportRect.height * (keyboardInset / math.max(1, viewport.height));
       final Rect keyboardRect = Rect.fromLTWH(
         viewportRect.left,
         viewportRect.bottom - height,
@@ -185,11 +191,19 @@ class _ToolbarPlacementPainter extends CustomPainter {
       );
     }
 
-    final double x = viewportRect.left + (anchor.dx / math.max(1, viewport.width)) * viewportRect.width;
-    final double y = viewportRect.top + (anchor.dy / math.max(1, viewport.height)) * viewportRect.height;
+    final double x =
+        viewportRect.left +
+        (anchor.dx / math.max(1, viewport.width)) * viewportRect.width;
+    final double y =
+        viewportRect.top +
+        (anchor.dy / math.max(1, viewport.height)) * viewportRect.height;
 
     canvas.drawCircle(Offset(x, y), 8, Paint()..color = accent);
-    canvas.drawCircle(Offset(x, y), 15, Paint()..color = accent.withValues(alpha: 0.18));
+    canvas.drawCircle(
+      Offset(x, y),
+      15,
+      Paint()..color = accent.withValues(alpha: 0.18),
+    );
     canvas.drawLine(
       Offset(x - 15, y),
       Offset(x + 15, y),
@@ -207,7 +221,8 @@ class _ToolbarPlacementPainter extends CustomPainter {
 
     final TextPainter label = TextPainter(
       text: TextSpan(
-        text: 'Anchor ${anchor.dx.toStringAsFixed(1)}, ${anchor.dy.toStringAsFixed(1)}',
+        text:
+            'Anchor ${anchor.dx.toStringAsFixed(1)}, ${anchor.dy.toStringAsFixed(1)}',
         style: const TextStyle(
           color: Color(0xFF1A3558),
           fontWeight: FontWeight.w700,
@@ -260,7 +275,9 @@ class _ActionHeatmapPainter extends CustomPainter {
       for (int x = 0; x < 28; x++) {
         final double dx = x / 27;
         final double dy = y / 27;
-        final double dist = math.sqrt(math.pow(dx - ax, 2) + math.pow(dy - ay, 2));
+        final double dist = math.sqrt(
+          math.pow(dx - ax, 2) + math.pow(dy - ay, 2),
+        );
         final double influence = (1 - dist * (2.1 - spread)).clamp(0, 1);
         final Rect cell = Rect.fromLTWH(
           chart.left + chart.width * (x / 28),
@@ -336,7 +353,8 @@ dynamic build(BuildContext context) {
       keyboardInset: 0,
       actionCount: 3,
       rtl: false,
-      note: 'Ensures toolbar is placed visibly when vertical space above anchor is limited.',
+      note:
+          'Ensures toolbar is placed visibly when vertical space above anchor is limited.',
     ),
     const _ToolbarPreset(
       title: 'Bottom + Keyboard',
@@ -358,7 +376,8 @@ dynamic build(BuildContext context) {
       keyboardInset: 0,
       actionCount: 6,
       rtl: false,
-      note: 'Useful for desktop split editors and constrained side-by-side views.',
+      note:
+          'Useful for desktop split editors and constrained side-by-side views.',
     ),
     const _ToolbarPreset(
       title: 'RTL Review',
@@ -369,7 +388,8 @@ dynamic build(BuildContext context) {
       keyboardInset: 0,
       actionCount: 4,
       rtl: true,
-      note: 'Confirms toolbar remains understandable and anchored in RTL workflows.',
+      note:
+          'Confirms toolbar remains understandable and anchored in RTL workflows.',
     ),
   ];
 
@@ -421,18 +441,21 @@ dynamic build(BuildContext context) {
   final List<_ToolbarMatrixRow> matrixRows = <_ToolbarMatrixRow>[
     const _ToolbarMatrixRow(
       topic: 'Anchor near top',
-      behavior: 'Toolbar seeks visible placement without clipping status/toolbar regions.',
+      behavior:
+          'Toolbar seeks visible placement without clipping status/toolbar regions.',
       recommendation: 'Reserve top safe area and avoid long button labels.',
     ),
     const _ToolbarMatrixRow(
       topic: 'Anchor near bottom',
       behavior: 'Toolbar repositions around keyboard and lower bounds.',
-      recommendation: 'Track keyboard inset and update overlay frame before building toolbar.',
+      recommendation:
+          'Track keyboard inset and update overlay frame before building toolbar.',
     ),
     const _ToolbarMatrixRow(
       topic: 'High action count',
       behavior: 'Toolbar width grows and clamping pressure increases.',
-      recommendation: 'Limit action count or use compact labels in constrained layouts.',
+      recommendation:
+          'Limit action count or use compact labels in constrained layouts.',
     ),
     const _ToolbarMatrixRow(
       topic: 'Split-pane editor',
@@ -441,13 +464,16 @@ dynamic build(BuildContext context) {
     ),
     const _ToolbarMatrixRow(
       topic: 'RTL content',
-      behavior: 'Directionality changes perception while placement remains anchor-driven.',
-      recommendation: 'Validate action ordering for locale-specific UX expectations.',
+      behavior:
+          'Directionality changes perception while placement remains anchor-driven.',
+      recommendation:
+          'Validate action ordering for locale-specific UX expectations.',
     ),
     const _ToolbarMatrixRow(
       topic: 'Live selection movement',
       behavior: 'Frequent anchor updates trigger rapid toolbar repositioning.',
-      recommendation: 'Debounce updates if selection drags emit excessive events.',
+      recommendation:
+          'Debounce updates if selection drags emit excessive events.',
     ),
   ];
 
@@ -488,14 +514,20 @@ dynamic build(BuildContext context) {
   }
 
   void addEvent(String title, String detail, Color color) {
-    timeline.insert(0, _ToolbarEvent(title: title, detail: detail, color: color));
+    timeline.insert(
+      0,
+      _ToolbarEvent(title: title, detail: detail, color: color),
+    );
     if (timeline.length > 40) {
       timeline.removeLast();
     }
   }
 
   Offset clampAnchor(Offset input) {
-    final double maxY = math.max(1, viewport.height - (showKeyboard ? keyboardInset : 0));
+    final double maxY = math.max(
+      1,
+      viewport.height - (showKeyboard ? keyboardInset : 0),
+    );
     return Offset(input.dx.clamp(0, viewport.width), input.dy.clamp(0, maxY));
   }
 
@@ -585,7 +617,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  List<ContextMenuButtonItem> buildToolbarItems(void Function(void Function()) setState, Color color) {
+  List<ContextMenuButtonItem> buildToolbarItems(
+    void Function(void Function()) setState,
+    Color color,
+  ) {
     final List<_ActionSpec> specs = <_ActionSpec>[
       _ActionSpec(
         label: 'Replace',
@@ -695,7 +730,10 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 4),
               Text(
                 metric.value,
-                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                ),
               ),
             ],
           ),
@@ -727,9 +765,15 @@ dynamic build(BuildContext context) {
           Row(
             children: <Widget>[
               Expanded(
-                child: Text(label, style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+                child: Text(
+                  label,
+                  style: TextStyle(color: color, fontWeight: FontWeight.w700),
+                ),
               ),
-              Text(valueLabel, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
+              Text(
+                valueLabel,
+                style: TextStyle(color: color, fontWeight: FontWeight.w800),
+              ),
             ],
           ),
           SliderTheme(
@@ -753,7 +797,10 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget presetCard(_ToolbarPreset preset, void Function(void Function()) setState) {
+  Widget presetCard(
+    _ToolbarPreset preset,
+    void Function(void Function()) setState,
+  ) {
     return Container(
       width: 318,
       margin: const EdgeInsets.only(right: 12, bottom: 12),
@@ -772,7 +819,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             preset.title,
-            style: TextStyle(color: preset.accent, fontWeight: FontWeight.w800, fontSize: 16),
+            style: TextStyle(
+              color: preset.accent,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
           ),
           const SizedBox(height: 2),
           Text(
@@ -782,15 +833,25 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             preset.note,
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.34),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.34,
+            ),
           ),
           const SizedBox(height: 10),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: <Widget>[
-              chip('Anchor', '${fmt(preset.anchor.dx)}, ${fmt(preset.anchor.dy)}'),
-              chip('Viewport', '${fmt(preset.viewport.width)}x${fmt(preset.viewport.height)}'),
+              chip(
+                'Anchor',
+                '${fmt(preset.anchor.dx)}, ${fmt(preset.anchor.dy)}',
+              ),
+              chip(
+                'Viewport',
+                '${fmt(preset.viewport.width)}x${fmt(preset.viewport.height)}',
+              ),
               chip('Actions', '${preset.actionCount}'),
             ],
           ),
@@ -848,12 +909,19 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6),
               Text(
                 'Simulated Text Surface',
-                style: TextStyle(color: accent, fontWeight: FontWeight.w700, fontSize: 12),
+                style: TextStyle(
+                  color: accent,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 12,
+                ),
               ),
               const Spacer(),
               if (includeSeverityTag)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFFFF3E0),
                     borderRadius: BorderRadius.circular(999),
@@ -874,7 +942,11 @@ dynamic build(BuildContext context) {
           Text(
             'A production editor typically forwards misspelled-word coordinates into '
             'SpellCheckSuggestionsToolbar so correction commands appear adjacent to text.',
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.34),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.34,
+            ),
           ),
         ],
       ),
@@ -913,7 +985,11 @@ dynamic build(BuildContext context) {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(color: panelAccent, fontWeight: FontWeight.w800, fontSize: 16),
+            style: TextStyle(
+              color: panelAccent,
+              fontWeight: FontWeight.w800,
+              fontSize: 16,
+            ),
           ),
           const SizedBox(height: 2),
           Text(subtitle, style: TextStyle(color: Colors.blueGrey.shade700)),
@@ -929,37 +1005,58 @@ dynamic build(BuildContext context) {
               textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
               child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-                  final Size sceneSize = Size(constraints.maxWidth, constraints.maxHeight);
+                  final Size sceneSize = Size(
+                    constraints.maxWidth,
+                    constraints.maxHeight,
+                  );
                   final Offset sceneAnchor = Offset(
-                    (normalizedAnchor.dx / math.max(1, panelViewport.width)) * sceneSize.width,
-                    (normalizedAnchor.dy / math.max(1, panelViewport.height)) * sceneSize.height,
+                    (normalizedAnchor.dx / math.max(1, panelViewport.width)) *
+                        sceneSize.width,
+                    (normalizedAnchor.dy / math.max(1, panelViewport.height)) *
+                        sceneSize.height,
                   );
 
                   return GestureDetector(
                     onTapDown: allowInteract
                         ? (TapDownDetails details) {
-                            final RenderBox box = context.findRenderObject()! as RenderBox;
-                            final Offset local = box.globalToLocal(details.globalPosition);
+                            final RenderBox box =
+                                context.findRenderObject()! as RenderBox;
+                            final Offset local = box.globalToLocal(
+                              details.globalPosition,
+                            );
                             final Offset mapped = Offset(
-                              (local.dx / math.max(1, box.size.width)) * panelViewport.width,
-                              (local.dy / math.max(1, box.size.height)) * panelViewport.height,
+                              (local.dx / math.max(1, box.size.width)) *
+                                  panelViewport.width,
+                              (local.dy / math.max(1, box.size.height)) *
+                                  panelViewport.height,
                             );
                             setState(() {
                               anchor = clampAnchor(mapped);
                               anchorTaps += 1;
                               toolbarBuilds += 1;
                             });
-                            addLog('Tapped $title at ${fmt(anchor.dx)}, ${fmt(anchor.dy)}.');
-                            addEvent('Anchor tap', '$title updated anchor', panelAccent);
+                            addLog(
+                              'Tapped $title at ${fmt(anchor.dx)}, ${fmt(anchor.dy)}.',
+                            );
+                            addEvent(
+                              'Anchor tap',
+                              '$title updated anchor',
+                              panelAccent,
+                            );
                           }
                         : null,
                     onPanUpdate: allowInteract
                         ? (DragUpdateDetails details) {
-                            final RenderBox box = context.findRenderObject()! as RenderBox;
-                            final Offset local = box.globalToLocal(details.globalPosition);
+                            final RenderBox box =
+                                context.findRenderObject()! as RenderBox;
+                            final Offset local = box.globalToLocal(
+                              details.globalPosition,
+                            );
                             final Offset mapped = Offset(
-                              (local.dx / math.max(1, box.size.width)) * panelViewport.width,
-                              (local.dy / math.max(1, box.size.height)) * panelViewport.height,
+                              (local.dx / math.max(1, box.size.width)) *
+                                  panelViewport.width,
+                              (local.dy / math.max(1, box.size.height)) *
+                                  panelViewport.height,
                             );
                             setState(() {
                               anchor = clampAnchor(mapped);
@@ -1008,12 +1105,16 @@ dynamic build(BuildContext context) {
                             top: 12,
                             bottom: 12,
                             child: CustomSingleChildLayout(
-                              delegate: SpellCheckSuggestionsToolbarLayoutDelegate(
-                                anchor: sceneAnchor,
-                              ),
+                              delegate:
+                                  SpellCheckSuggestionsToolbarLayoutDelegate(
+                                    anchor: sceneAnchor,
+                                  ),
                               child: SpellCheckSuggestionsToolbar(
                                 anchor: sceneAnchor,
-                                buttonItems: buildToolbarItems(setState, panelAccent),
+                                buttonItems: buildToolbarItems(
+                                  setState,
+                                  panelAccent,
+                                ),
                               ),
                             ),
                           ),
@@ -1028,7 +1129,11 @@ dynamic build(BuildContext context) {
           Text(
             'This panel renders SpellCheckSuggestionsToolbar directly with contextual button items. '
             'Move the anchor to validate placement and action behavior.',
-            style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12, height: 1.3),
+            style: TextStyle(
+              color: Colors.blueGrey.shade700,
+              fontSize: 12,
+              height: 1.3,
+            ),
           ),
         ],
       ),
@@ -1057,14 +1162,25 @@ dynamic build(BuildContext context) {
     final List<Widget> rows = <Widget>[
       Row(
         children: <Widget>[
-          Expanded(flex: 2, child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF))),
           Expanded(
-            flex: 3,
-            child: cell('Observed Behavior', header: true, tint: const Color(0xFFF0F6FF)),
+            flex: 2,
+            child: cell('Topic', header: true, tint: const Color(0xFFF0F6FF)),
           ),
           Expanded(
             flex: 3,
-            child: cell('Recommendation', header: true, tint: const Color(0xFFF0F6FF)),
+            child: cell(
+              'Observed Behavior',
+              header: true,
+              tint: const Color(0xFFF0F6FF),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: cell(
+              'Recommendation',
+              header: true,
+              tint: const Color(0xFFF0F6FF),
+            ),
           ),
         ],
       ),
@@ -1074,7 +1190,14 @@ dynamic build(BuildContext context) {
       rows.add(
         Row(
           children: <Widget>[
-            Expanded(flex: 2, child: cell(row.topic, tint: const Color(0xFFFBFDFF), header: true)),
+            Expanded(
+              flex: 2,
+              child: cell(
+                row.topic,
+                tint: const Color(0xFFFBFDFF),
+                header: true,
+              ),
+            ),
             Expanded(flex: 3, child: cell(row.behavior)),
             Expanded(flex: 3, child: cell(row.recommendation)),
           ],
@@ -1096,49 +1219,66 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'Timeline is empty. Load presets, move anchors, and press toolbar actions to capture runtime events.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: timeline.map((entry) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: entry.color.withValues(alpha: 0.08),
-            border: Border.all(color: entry.color.withValues(alpha: 0.3)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                width: 10,
-                height: 10,
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: entry.color),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      entry.title,
-                      style: TextStyle(color: entry.color, fontWeight: FontWeight.w800),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(entry.detail, style: TextStyle(color: Colors.blueGrey.shade800, height: 1.3)),
-                  ],
+    return SingleChildScrollView(
+      child: Column(
+        children: timeline.map((entry) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: entry.color.withValues(alpha: 0.08),
+              border: Border.all(color: entry.color.withValues(alpha: 0.3)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: entry.color,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        entry.title,
+                        style: TextStyle(
+                          color: entry.color,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        entry.detail,
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.3,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget snapshotPanel() {
@@ -1152,40 +1292,57 @@ dynamic build(BuildContext context) {
         ),
         child: Text(
           'No snapshots captured yet. Use "Capture Snapshot" to save toolbar placement states.',
-          style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            color: Colors.blueGrey.shade700,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       );
     }
 
-    return SingleChildScrollView(child: Column(
-      children: snapshots.map((snapshot) {
-        return Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: snapshot.color.withValues(alpha: 0.08),
-            border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Snapshot #${snapshot.id} | anchor ${fmt(snapshot.anchor.dx)}, ${fmt(snapshot.anchor.dy)}',
-                style: TextStyle(color: snapshot.color, fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                'viewport ${fmt(snapshot.viewport.width)}x${fmt(snapshot.viewport.height)} | actions ${snapshot.actionCount}',
-                style: TextStyle(color: Colors.blueGrey.shade700, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 2),
-              Text(snapshot.note, style: TextStyle(color: Colors.blueGrey.shade700, fontSize: 12)),
-            ],
-          ),
-        );
-      }).toList(),
-    ));
+    return SingleChildScrollView(
+      child: Column(
+        children: snapshots.map((snapshot) {
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: snapshot.color.withValues(alpha: 0.08),
+              border: Border.all(color: snapshot.color.withValues(alpha: 0.3)),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Snapshot #${snapshot.id} | anchor ${fmt(snapshot.anchor.dx)}, ${fmt(snapshot.anchor.dy)}',
+                  style: TextStyle(
+                    color: snapshot.color,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 3),
+                Text(
+                  'viewport ${fmt(snapshot.viewport.width)}x${fmt(snapshot.viewport.height)} | actions ${snapshot.actionCount}',
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  snapshot.note,
+                  style: TextStyle(
+                    color: Colors.blueGrey.shade700,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
   }
 
   Widget consolePanel() {
@@ -1200,7 +1357,10 @@ dynamic build(BuildContext context) {
           ? const Center(
               child: Text(
                 'No logs yet. Interact with toolbar actions and anchor controls.',
-                style: TextStyle(color: Color(0xFFB7C9EA), fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: Color(0xFFB7C9EA),
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             )
           : ListView.builder(
@@ -1225,22 +1385,72 @@ dynamic build(BuildContext context) {
   return StatefulBuilder(
     builder: (BuildContext context, void Function(void Function()) setState) {
       final Offset clamped = clampAnchor(anchor);
-      final double normalizedX = (clamped.dx / math.max(1, viewport.width)).clamp(0, 1);
-      final double normalizedY = (clamped.dy / math.max(1, viewport.height)).clamp(0, 1);
+      final double normalizedX = (clamped.dx / math.max(1, viewport.width))
+          .clamp(0, 1);
+      final double normalizedY = (clamped.dy / math.max(1, viewport.height))
+          .clamp(0, 1);
 
       final List<_ToolbarMetric> metrics = <_ToolbarMetric>[
-        _ToolbarMetric(label: 'Anchor X', value: fmt(clamped.dx), color: accent),
-        _ToolbarMetric(label: 'Anchor Y', value: fmt(clamped.dy), color: const Color(0xFF6A1B9A)),
-        _ToolbarMetric(label: 'Viewport W', value: fmt(viewport.width), color: const Color(0xFF2E7D32)),
-        _ToolbarMetric(label: 'Viewport H', value: fmt(viewport.height), color: const Color(0xFF00838F)),
-        _ToolbarMetric(label: 'Norm X', value: fmt(normalizedX), color: const Color(0xFFE65100)),
-        _ToolbarMetric(label: 'Norm Y', value: fmt(normalizedY), color: const Color(0xFF455A64)),
-        _ToolbarMetric(label: 'Action count', value: '$actionCount', color: const Color(0xFF283593)),
-        _ToolbarMetric(label: 'Toolbar builds', value: '$toolbarBuilds', color: const Color(0xFF37474F)),
-        _ToolbarMetric(label: 'Action presses', value: '$actionPresses', color: const Color(0xFFAD1457)),
-        _ToolbarMetric(label: 'Preset loads', value: '$presetLoads', color: const Color(0xFF5D4037)),
-        _ToolbarMetric(label: 'Anchor taps', value: '$anchorTaps', color: const Color(0xFF1565C0)),
-        _ToolbarMetric(label: 'Anchor drags', value: '$anchorDrags', color: const Color(0xFF827717)),
+        _ToolbarMetric(
+          label: 'Anchor X',
+          value: fmt(clamped.dx),
+          color: accent,
+        ),
+        _ToolbarMetric(
+          label: 'Anchor Y',
+          value: fmt(clamped.dy),
+          color: const Color(0xFF6A1B9A),
+        ),
+        _ToolbarMetric(
+          label: 'Viewport W',
+          value: fmt(viewport.width),
+          color: const Color(0xFF2E7D32),
+        ),
+        _ToolbarMetric(
+          label: 'Viewport H',
+          value: fmt(viewport.height),
+          color: const Color(0xFF00838F),
+        ),
+        _ToolbarMetric(
+          label: 'Norm X',
+          value: fmt(normalizedX),
+          color: const Color(0xFFE65100),
+        ),
+        _ToolbarMetric(
+          label: 'Norm Y',
+          value: fmt(normalizedY),
+          color: const Color(0xFF455A64),
+        ),
+        _ToolbarMetric(
+          label: 'Action count',
+          value: '$actionCount',
+          color: const Color(0xFF283593),
+        ),
+        _ToolbarMetric(
+          label: 'Toolbar builds',
+          value: '$toolbarBuilds',
+          color: const Color(0xFF37474F),
+        ),
+        _ToolbarMetric(
+          label: 'Action presses',
+          value: '$actionPresses',
+          color: const Color(0xFFAD1457),
+        ),
+        _ToolbarMetric(
+          label: 'Preset loads',
+          value: '$presetLoads',
+          color: const Color(0xFF5D4037),
+        ),
+        _ToolbarMetric(
+          label: 'Anchor taps',
+          value: '$anchorTaps',
+          color: const Color(0xFF1565C0),
+        ),
+        _ToolbarMetric(
+          label: 'Anchor drags',
+          value: '$anchorDrags',
+          color: const Color(0xFF827717),
+        ),
       ];
 
       return Container(
@@ -1288,7 +1498,10 @@ dynamic build(BuildContext context) {
                             const SizedBox(height: 4),
                             Text(
                               'Interactive command center demonstrating how SpellCheckSuggestionsToolbar behaves across anchors, viewports, keyboard insets, and action densities.',
-                              style: TextStyle(color: Colors.blueGrey.shade700, height: 1.34),
+                              style: TextStyle(
+                                color: Colors.blueGrey.shade700,
+                                height: 1.34,
+                              ),
                             ),
                           ],
                         ),
@@ -1301,10 +1514,16 @@ dynamic build(BuildContext context) {
                     runSpacing: 8,
                     children: <Widget>[
                       chip('Anchor', '${fmt(clamped.dx)}, ${fmt(clamped.dy)}'),
-                      chip('Viewport', '${fmt(viewport.width)}x${fmt(viewport.height)}'),
+                      chip(
+                        'Viewport',
+                        '${fmt(viewport.width)}x${fmt(viewport.height)}',
+                      ),
                       chip('Actions', '$actionCount'),
                       chip('RTL', rtl ? 'on' : 'off'),
-                      chip('Keyboard', showKeyboard ? fmt(keyboardInset) : 'off'),
+                      chip(
+                        'Keyboard',
+                        showKeyboard ? fmt(keyboardInset) : 'off',
+                      ),
                       chip('Safe area', showSafeArea ? 'on' : 'off'),
                     ],
                   ),
@@ -1314,15 +1533,19 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Scenario Presets',
-              subtitle: 'Load practical spell-check contexts to inspect toolbar placement and interaction.',
+              subtitle:
+                  'Load practical spell-check contexts to inspect toolbar placement and interaction.',
               icon: Icons.auto_graph,
             ),
             const SizedBox(height: 10),
-            Wrap(children: presets.map((p) => presetCard(p, setState)).toList()),
+            Wrap(
+              children: presets.map((p) => presetCard(p, setState)).toList(),
+            ),
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Toolbar Controls',
-              subtitle: 'Tune viewport, anchor, actions, and mode switches for placement stress testing.',
+              subtitle:
+                  'Tune viewport, anchor, actions, and mode switches for placement stress testing.',
               icon: Icons.tune,
             ),
             const SizedBox(height: 10),
@@ -1351,7 +1574,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               toolbarBuilds += 1;
                             });
-                            addLog('Viewport width updated to ${fmt(viewport.width)}.');
+                            addLog(
+                              'Viewport width updated to ${fmt(viewport.width)}.',
+                            );
                           },
                           color: accent,
                         ),
@@ -1371,7 +1596,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               toolbarBuilds += 1;
                             });
-                            addLog('Viewport height updated to ${fmt(viewport.height)}.');
+                            addLog(
+                              'Viewport height updated to ${fmt(viewport.height)}.',
+                            );
                           },
                           color: const Color(0xFF2E7D32),
                         ),
@@ -1405,7 +1632,11 @@ dynamic build(BuildContext context) {
                           label: 'Anchor Y',
                           valueLabel: fmt(clamped.dy),
                           min: 0,
-                          max: math.max(100, viewport.height - (showKeyboard ? keyboardInset : 0)),
+                          max: math.max(
+                            100,
+                            viewport.height -
+                                (showKeyboard ? keyboardInset : 0),
+                          ),
                           divisions: 200,
                           value: clamped.dy,
                           onChanged: (double value) {
@@ -1437,7 +1668,9 @@ dynamic build(BuildContext context) {
                               anchor = clampAnchor(anchor);
                               toolbarBuilds += 1;
                             });
-                            addLog('Keyboard inset set to ${fmt(keyboardInset)}.');
+                            addLog(
+                              'Keyboard inset set to ${fmt(keyboardInset)}.',
+                            );
                           },
                           color: const Color(0xFF455A64),
                         ),
@@ -1470,78 +1703,49 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: toolbarVisible,
-                          title: const Text('Toolbar visible'),
-                          subtitle: const Text('Toggle SpellCheckSuggestionsToolbar rendering.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              toolbarVisible = value;
-                              toolbarBuilds += 1;
-                            });
-                            addLog(value ? 'Toolbar shown.' : 'Toolbar hidden.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: denseToolbar,
-                          title: const Text('Dense toolbar mode'),
-                          subtitle: const Text('Compact presentation emphasis.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              denseToolbar = value;
-                              if (denseToolbar && actionCount > 5) {
-                                actionCount = 5;
-                              }
-                              toolbarBuilds += 1;
-                            });
-                            addLog(value ? 'Dense toolbar enabled.' : 'Dense toolbar disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: includeUtilityActions,
-                          title: const Text('Include utility action'),
-                          subtitle: const Text('Adds fallback command button.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              includeUtilityActions = value;
-                              toolbarBuilds += 1;
-                            });
-                            addLog(value ? 'Utility action enabled.' : 'Utility action disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: toolbarVisible,
+                            title: const Text('Toolbar visible'),
+                            subtitle: const Text(
+                              'Toggle SpellCheckSuggestionsToolbar rendering.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                toolbarVisible = value;
+                                toolbarBuilds += 1;
+                              });
+                              addLog(
+                                value ? 'Toolbar shown.' : 'Toolbar hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: includeSeverityTag,
-                          title: const Text('Severity tag overlay'),
-                          subtitle: const Text('Show issue severity chip in editor backdrop.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              includeSeverityTag = value;
-                            });
-                            addLog(value ? 'Severity tag shown.' : 'Severity tag hidden.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: denseToolbar,
+                            title: const Text('Dense toolbar mode'),
+                            subtitle: const Text(
+                              'Compact presentation emphasis.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                denseToolbar = value;
+                                if (denseToolbar && actionCount > 5) {
+                                  actionCount = 5;
+                                }
+                                toolbarBuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Dense toolbar enabled.'
+                                    : 'Dense toolbar disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1552,75 +1756,47 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showGrid,
-                          title: const Text('Grid overlay'),
-                          subtitle: const Text('Draw scene lattice for spatial debugging.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showGrid = value;
-                            });
-                            addLog(value ? 'Grid overlay enabled.' : 'Grid overlay disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showSafeArea,
-                          title: const Text('Safe area guide'),
-                          subtitle: const Text('Show usable region boundary.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showSafeArea = value;
-                            });
-                            addLog(value ? 'Safe area guide enabled.' : 'Safe area guide disabled.');
-                          },
-                        ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showKeyboard,
-                          title: const Text('Keyboard inset active'),
-                          subtitle: const Text('Reserve lower viewport area.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showKeyboard = value;
-                              anchor = clampAnchor(anchor);
-                              toolbarBuilds += 1;
-                            });
-                            addLog(value ? 'Keyboard inset activated.' : 'Keyboard inset deactivated.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: includeUtilityActions,
+                            title: const Text('Include utility action'),
+                            subtitle: const Text(
+                              'Adds fallback command button.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                includeUtilityActions = value;
+                                toolbarBuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Utility action enabled.'
+                                    : 'Utility action disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: rtl,
-                          title: const Text('RTL mode'),
-                          subtitle: const Text('Switch scene directionality.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              rtl = value;
-                              toolbarBuilds += 1;
-                            });
-                            addLog(value ? 'RTL mode enabled.' : 'RTL mode disabled.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: includeSeverityTag,
+                            title: const Text('Severity tag overlay'),
+                            subtitle: const Text(
+                              'Show issue severity chip in editor backdrop.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                includeSeverityTag = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Severity tag shown.'
+                                    : 'Severity tag hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1631,34 +1807,149 @@ dynamic build(BuildContext context) {
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showHeatmap,
-                          title: const Text('Show heatmap panel'),
-                          subtitle: const Text('Visualize action density pressure.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showHeatmap = value;
-                            });
-                            addLog(value ? 'Heatmap panel shown.' : 'Heatmap panel hidden.');
-                          },
-                        ),
+                            contentPadding: EdgeInsets.zero,
+                            value: showGrid,
+                            title: const Text('Grid overlay'),
+                            subtitle: const Text(
+                              'Draw scene lattice for spatial debugging.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showGrid = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Grid overlay enabled.'
+                                    : 'Grid overlay disabled.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Material(
                           type: MaterialType.transparency,
                           child: SwitchListTile.adaptive(
-                          contentPadding: EdgeInsets.zero,
-                          value: showThirdScene,
-                          title: const Text('Show third scene'),
-                          subtitle: const Text('Enable compact comparison scene.'),
-                          onChanged: (bool value) {
-                            setState(() {
-                              showThirdScene = value;
-                            });
-                            addLog(value ? 'Third scene shown.' : 'Third scene hidden.');
-                          },
+                            contentPadding: EdgeInsets.zero,
+                            value: showSafeArea,
+                            title: const Text('Safe area guide'),
+                            subtitle: const Text(
+                              'Show usable region boundary.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showSafeArea = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Safe area guide enabled.'
+                                    : 'Safe area guide disabled.',
+                              );
+                            },
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showKeyboard,
+                            title: const Text('Keyboard inset active'),
+                            subtitle: const Text(
+                              'Reserve lower viewport area.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showKeyboard = value;
+                                anchor = clampAnchor(anchor);
+                                toolbarBuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'Keyboard inset activated.'
+                                    : 'Keyboard inset deactivated.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: rtl,
+                            title: const Text('RTL mode'),
+                            subtitle: const Text(
+                              'Switch scene directionality.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                rtl = value;
+                                toolbarBuilds += 1;
+                              });
+                              addLog(
+                                value
+                                    ? 'RTL mode enabled.'
+                                    : 'RTL mode disabled.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showHeatmap,
+                            title: const Text('Show heatmap panel'),
+                            subtitle: const Text(
+                              'Visualize action density pressure.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showHeatmap = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Heatmap panel shown.'
+                                    : 'Heatmap panel hidden.',
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: SwitchListTile.adaptive(
+                            contentPadding: EdgeInsets.zero,
+                            value: showThirdScene,
+                            title: const Text('Show third scene'),
+                            subtitle: const Text(
+                              'Enable compact comparison scene.',
+                            ),
+                            onChanged: (bool value) {
+                              setState(() {
+                                showThirdScene = value;
+                              });
+                              addLog(
+                                value
+                                    ? 'Third scene shown.'
+                                    : 'Third scene hidden.',
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -1674,11 +1965,20 @@ dynamic build(BuildContext context) {
                             OutlinedButton(
                               onPressed: () {
                                 setState(() {
-                                  anchor = clampAnchor(Offset(viewport.width / 2, viewport.height / 2));
+                                  anchor = clampAnchor(
+                                    Offset(
+                                      viewport.width / 2,
+                                      viewport.height / 2,
+                                    ),
+                                  );
                                   toolbarBuilds += 1;
                                 });
                                 addLog('Anchor centered.');
-                                addEvent('Probe', 'Centered anchor probe', accent);
+                                addEvent(
+                                  'Probe',
+                                  'Centered anchor probe',
+                                  accent,
+                                );
                               },
                               child: const Text('Center Anchor'),
                             ),
@@ -1696,11 +1996,17 @@ dynamic build(BuildContext context) {
                             OutlinedButton(
                               onPressed: () {
                                 setState(() {
-                                  anchor = clampAnchor(Offset(viewport.width, viewport.height));
+                                  anchor = clampAnchor(
+                                    Offset(viewport.width, viewport.height),
+                                  );
                                   toolbarBuilds += 1;
                                 });
                                 addLog('Bottom-right probe executed.');
-                                addEvent('Probe', 'Bottom-right edge test', accent);
+                                addEvent(
+                                  'Probe',
+                                  'Bottom-right edge test',
+                                  accent,
+                                );
                               },
                               child: const Text('Bottom-Right Probe'),
                             ),
@@ -1722,13 +2028,15 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Toolbar Scene Gallery',
-              subtitle: 'Multiple visual scenes showing direct SpellCheckSuggestionsToolbar usage in overlay-style layouts.',
+              subtitle:
+                  'Multiple visual scenes showing direct SpellCheckSuggestionsToolbar usage in overlay-style layouts.',
               icon: Icons.view_carousel,
             ),
             const SizedBox(height: 10),
             scenePanel(
               title: 'Primary Editor Scene',
-              subtitle: 'General-purpose editing surface with interactive toolbar anchoring.',
+              subtitle:
+                  'General-purpose editing surface with interactive toolbar anchoring.',
               panelViewport: viewport,
               panelAnchor: clamped,
               panelAccent: accent,
@@ -1738,8 +2046,12 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 12),
             scenePanel(
               title: 'Narrow Pane Scene',
-              subtitle: 'Constrained width emphasizes toolbar action density and clamping.',
-              panelViewport: Size(math.max(180, viewport.width * 0.62), viewport.height),
+              subtitle:
+                  'Constrained width emphasizes toolbar action density and clamping.',
+              panelViewport: Size(
+                math.max(180, viewport.width * 0.62),
+                viewport.height,
+              ),
               panelAnchor: clamped,
               panelAccent: const Color(0xFF2E7D32),
               allowInteract: true,
@@ -1749,8 +2061,12 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 12),
               scenePanel(
                 title: 'Keyboard-Constrained Scene',
-                subtitle: 'Reduced vertical room highlights lower-bound placement handling.',
-                panelViewport: Size(viewport.width, math.max(280, viewport.height * 0.82)),
+                subtitle:
+                    'Reduced vertical room highlights lower-bound placement handling.',
+                panelViewport: Size(
+                  viewport.width,
+                  math.max(280, viewport.height * 0.82),
+                ),
                 panelAnchor: Offset(clamped.dx, clamped.dy + 40),
                 panelAccent: const Color(0xFFE65100),
                 allowInteract: true,
@@ -1760,7 +2076,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Toolbar Inspector',
-              subtitle: 'Metrics and implementation sketch for direct toolbar integration in custom overlays.',
+              subtitle:
+                  'Metrics and implementation sketch for direct toolbar integration in custom overlays.',
               icon: Icons.analytics,
             ),
             const SizedBox(height: 10),
@@ -1813,7 +2130,8 @@ dynamic build(BuildContext context) {
               const SizedBox(height: 18),
               sectionTitle(
                 title: 'Action Density Heatmap',
-                subtitle: 'Visual cue for how action count and anchor location can pressure placement in constrained scenes.',
+                subtitle:
+                    'Visual cue for how action count and anchor location can pressure placement in constrained scenes.',
                 icon: Icons.blur_on,
               ),
               const SizedBox(height: 10),
@@ -1839,7 +2157,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Guidance Cards',
-              subtitle: 'Practical implementation advice for spell-check suggestion toolbars.',
+              subtitle:
+                  'Practical implementation advice for spell-check suggestion toolbars.',
               icon: Icons.menu_book,
             ),
             const SizedBox(height: 10),
@@ -1853,7 +2172,9 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: guide.color.withValues(alpha: 0.28)),
+                    border: Border.all(
+                      color: guide.color.withValues(alpha: 0.28),
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1865,7 +2186,10 @@ dynamic build(BuildContext context) {
                           Expanded(
                             child: Text(
                               guide.title,
-                              style: TextStyle(color: guide.color, fontWeight: FontWeight.w800),
+                              style: TextStyle(
+                                color: guide.color,
+                                fontWeight: FontWeight.w800,
+                              ),
                             ),
                           ),
                         ],
@@ -1873,7 +2197,11 @@ dynamic build(BuildContext context) {
                       const SizedBox(height: 6),
                       Text(
                         guide.body,
-                        style: TextStyle(color: Colors.blueGrey.shade800, height: 1.32, fontSize: 13),
+                        style: TextStyle(
+                          color: Colors.blueGrey.shade800,
+                          height: 1.32,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
@@ -1883,7 +2211,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Behavior Matrix',
-              subtitle: 'Reference table for toolbar behavior under edge and density constraints.',
+              subtitle:
+                  'Reference table for toolbar behavior under edge and density constraints.',
               icon: Icons.table_chart,
             ),
             const SizedBox(height: 10),
@@ -1899,7 +2228,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Snapshots',
-              subtitle: 'Stored toolbar states for comparing anchor and viewport-dependent behavior.',
+              subtitle:
+                  'Stored toolbar states for comparing anchor and viewport-dependent behavior.',
               icon: Icons.camera,
             ),
             const SizedBox(height: 10),
@@ -1907,7 +2237,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Timeline',
-              subtitle: 'Event stream of preset loads, probes, and toolbar action presses.',
+              subtitle:
+                  'Event stream of preset loads, probes, and toolbar action presses.',
               icon: Icons.timeline,
             ),
             const SizedBox(height: 10),
@@ -1915,7 +2246,8 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 18),
             sectionTitle(
               title: 'Diagnostics Console',
-              subtitle: 'Low-level interaction trace for interpreter-side verification.',
+              subtitle:
+                  'Low-level interaction trace for interpreter-side verification.',
               icon: Icons.terminal,
             ),
             const SizedBox(height: 10),
@@ -1948,7 +2280,10 @@ dynamic build(BuildContext context) {
               '${startedAt.hour.toString().padLeft(2, '0')}:'
               '${startedAt.minute.toString().padLeft(2, '0')}:'
               '${startedAt.second.toString().padLeft(2, '0')}.',
-              style: TextStyle(color: Colors.blueGrey.shade600, fontStyle: FontStyle.italic),
+              style: TextStyle(
+                color: Colors.blueGrey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),

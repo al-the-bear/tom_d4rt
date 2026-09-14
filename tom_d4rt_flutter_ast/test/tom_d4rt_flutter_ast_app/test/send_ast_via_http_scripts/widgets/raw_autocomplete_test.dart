@@ -63,10 +63,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   'Headless autocomplete — you style everything',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.0),
                 ),
               ],
             ),
@@ -132,12 +129,39 @@ dynamic build(BuildContext context) {
   // The optionsViewBuilder creates a custom dropdown.
 
   final fruitOptions = <String>[
-    'Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry',
-    'Cherry', 'Coconut', 'Cranberry', 'Dragon Fruit', 'Fig', 'Grape',
-    'Grapefruit', 'Guava', 'Kiwi', 'Lemon', 'Lime', 'Lychee', 'Mango',
-    'Melon', 'Nectarine', 'Orange', 'Papaya', 'Passion Fruit', 'Peach',
-    'Pear', 'Pineapple', 'Plum', 'Pomegranate', 'Raspberry', 'Strawberry',
-    'Tangerine', 'Watermelon',
+    'Apple',
+    'Apricot',
+    'Avocado',
+    'Banana',
+    'Blackberry',
+    'Blueberry',
+    'Cherry',
+    'Coconut',
+    'Cranberry',
+    'Dragon Fruit',
+    'Fig',
+    'Grape',
+    'Grapefruit',
+    'Guava',
+    'Kiwi',
+    'Lemon',
+    'Lime',
+    'Lychee',
+    'Mango',
+    'Melon',
+    'Nectarine',
+    'Orange',
+    'Papaya',
+    'Passion Fruit',
+    'Peach',
+    'Pear',
+    'Pineapple',
+    'Plum',
+    'Pomegranate',
+    'Raspberry',
+    'Strawberry',
+    'Tangerine',
+    'Watermelon',
   ];
 
   final fruitSearch = Container(
@@ -183,90 +207,95 @@ dynamic build(BuildContext context) {
               );
             });
           },
-          fieldViewBuilder: (
-            BuildContext context,
-            TextEditingController textEditingController,
-            FocusNode focusNode,
-            VoidCallback onFieldSubmitted,
-          ) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.teal.shade50,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.teal.shade300),
-              ),
-              child: TextField(
-                controller: textEditingController,
-                focusNode: focusNode,
-                decoration: InputDecoration(
-                  hintText: 'Search fruits...',
-                  prefixIcon: Icon(Icons.search, color: Colors.teal),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 14.0,
+          fieldViewBuilder:
+              (
+                BuildContext context,
+                TextEditingController textEditingController,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted,
+              ) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.teal.shade50,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.teal.shade300),
                   ),
-                ),
-                onSubmitted: (String value) {
-                  onFieldSubmitted();
-                },
-              ),
-            );
-          },
-          optionsViewBuilder: (
-            BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options,
-          ) {
-            return Align(
-              alignment: Alignment.topLeft,
-              child: Material(
-                elevation: 4.0,
-                borderRadius: BorderRadius.circular(8.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 200.0, maxWidth: 300.0),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: options.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final option = options.elementAt(index);
-                      return InkWell(
-                        onTap: () => onSelected(option),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 12.0,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Colors.grey.shade200,
-                                width: 0.5,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text('🍎', style: TextStyle(fontSize: 18.0)),
-                              SizedBox(width: 12.0),
-                              Text(
-                                option,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.teal.shade900,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                  child: TextField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'Search fruits...',
+                      prefixIcon: Icon(Icons.search, color: Colors.teal),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 14.0,
+                      ),
+                    ),
+                    onSubmitted: (String value) {
+                      onFieldSubmitted();
                     },
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+          optionsViewBuilder:
+              (
+                BuildContext context,
+                AutocompleteOnSelected<String> onSelected,
+                Iterable<String> options,
+              ) {
+                return Align(
+                  alignment: Alignment.topLeft,
+                  child: Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 200.0,
+                        maxWidth: 300.0,
+                      ),
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        itemCount: options.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final option = options.elementAt(index);
+                          return InkWell(
+                            onTap: () => onSelected(option),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 12.0,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey.shade200,
+                                    width: 0.5,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text('🍎', style: TextStyle(fontSize: 18.0)),
+                                  SizedBox(width: 12.0),
+                                  Text(
+                                    option,
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.teal.shade900,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
           onSelected: (String selection) {
             print('  Selected fruit: $selection');
           },
@@ -379,8 +408,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline,
-                  color: Colors.amber.shade700, size: 20.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -448,14 +480,29 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        _buildMockOptionCard('United States', 'North America', Icons.flag,
-            Colors.blue.shade50, Colors.blue.shade700),
+        _buildMockOptionCard(
+          'United States',
+          'North America',
+          Icons.flag,
+          Colors.blue.shade50,
+          Colors.blue.shade700,
+        ),
         SizedBox(height: 4.0),
-        _buildMockOptionCard('United Kingdom', 'Europe', Icons.flag,
-            Colors.red.shade50, Colors.red.shade700),
+        _buildMockOptionCard(
+          'United Kingdom',
+          'Europe',
+          Icons.flag,
+          Colors.red.shade50,
+          Colors.red.shade700,
+        ),
         SizedBox(height: 4.0),
-        _buildMockOptionCard('United Arab Emirates', 'Asia', Icons.flag,
-            Colors.green.shade50, Colors.green.shade700),
+        _buildMockOptionCard(
+          'United Arab Emirates',
+          'Asia',
+          Icons.flag,
+          Colors.green.shade50,
+          Colors.green.shade700,
+        ),
 
         SizedBox(height: 24.0),
 
@@ -501,7 +548,10 @@ dynamic build(BuildContext context) {
         _buildMockGroupHeader('Suggestions'),
         _buildMockGroupItem('RawAutocomplete', Icons.star),
         _buildMockGroupItem('Autocomplete', Icons.star_border),
-        _buildMockGroupItem('RawAutocomplete.optionsBuilder', Icons.star_border),
+        _buildMockGroupItem(
+          'RawAutocomplete.optionsBuilder',
+          Icons.star_border,
+        ),
 
         SizedBox(height: 16.0),
         Container(
@@ -605,8 +655,11 @@ dynamic build(BuildContext context) {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Icon(Icons.arrow_forward,
-                        color: Colors.indigo, size: 20.0),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.indigo,
+                      size: 20.0,
+                    ),
                   ),
                   _buildMappingBox(
                     '"Alice"',
@@ -635,8 +688,11 @@ dynamic build(BuildContext context) {
             children: [
               Row(
                 children: [
-                  Icon(Icons.play_arrow, color: Colors.amber.shade800,
-                      size: 22.0),
+                  Icon(
+                    Icons.play_arrow,
+                    color: Colors.amber.shade800,
+                    size: 22.0,
+                  ),
                   SizedBox(width: 8.0),
                   Text(
                     'initialValue',
@@ -661,8 +717,7 @@ dynamic build(BuildContext context) {
               ),
               SizedBox(height: 12.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
@@ -702,68 +757,73 @@ dynamic build(BuildContext context) {
               );
             });
           },
-          fieldViewBuilder: (
-            BuildContext context,
-            TextEditingController textEditingController,
-            FocusNode focusNode,
-            VoidCallback onFieldSubmitted,
-          ) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.indigo.shade50,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.indigo.shade300),
-              ),
-              child: TextField(
-                controller: textEditingController,
-                focusNode: focusNode,
-                decoration: InputDecoration(
-                  hintText: 'Pre-filled with "Cherry"',
-                  prefixIcon: Icon(Icons.edit, color: Colors.indigo),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 14.0,
+          fieldViewBuilder:
+              (
+                BuildContext context,
+                TextEditingController textEditingController,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted,
+              ) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.indigo.shade50,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.indigo.shade300),
                   ),
-                ),
-                onSubmitted: (String value) {
-                  onFieldSubmitted();
-                },
-              ),
-            );
-          },
-          optionsViewBuilder: (
-            BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options,
-          ) {
-            return Align(
-              alignment: Alignment.topLeft,
-              child: Material(
-                elevation: 4.0,
-                borderRadius: BorderRadius.circular(8.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 180.0,
-                    maxWidth: 280.0,
+                  child: TextField(
+                    controller: textEditingController,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'Pre-filled with "Cherry"',
+                      prefixIcon: Icon(Icons.edit, color: Colors.indigo),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 14.0,
+                      ),
+                    ),
+                    onSubmitted: (String value) {
+                      onFieldSubmitted();
+                    },
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: options.map((String option) {
-                      return ListTile(
-                        dense: true,
-                        title: Text(option),
-                        leading: Icon(Icons.local_florist,
-                            color: Colors.indigo, size: 18.0),
-                        onTap: () => onSelected(option),
-                      );
-                    }).toList(),
+                );
+              },
+          optionsViewBuilder:
+              (
+                BuildContext context,
+                AutocompleteOnSelected<String> onSelected,
+                Iterable<String> options,
+              ) {
+                return Align(
+                  alignment: Alignment.topLeft,
+                  child: Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 180.0,
+                        maxWidth: 280.0,
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: options.map((String option) {
+                          return ListTile(
+                            dense: true,
+                            title: Text(option),
+                            leading: Icon(
+                              Icons.local_florist,
+                              color: Colors.indigo,
+                              size: 18.0,
+                            ),
+                            onTap: () => onSelected(option),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
           onSelected: (String selection) {
             print('  initialValue demo selected: $selection');
           },
@@ -783,21 +843,81 @@ dynamic build(BuildContext context) {
   // data types and visual styles, showing independence.
 
   final countryOptions = <String>[
-    'Argentina', 'Australia', 'Austria', 'Belgium', 'Brazil', 'Canada',
-    'Chile', 'China', 'Colombia', 'Denmark', 'Egypt', 'Finland',
-    'France', 'Germany', 'Greece', 'India', 'Indonesia', 'Ireland',
-    'Israel', 'Italy', 'Japan', 'Kenya', 'Mexico', 'Netherlands',
-    'New Zealand', 'Norway', 'Peru', 'Philippines', 'Poland', 'Portugal',
-    'South Korea', 'Spain', 'Sweden', 'Switzerland', 'Thailand',
-    'Turkey', 'United Kingdom', 'United States', 'Vietnam',
+    'Argentina',
+    'Australia',
+    'Austria',
+    'Belgium',
+    'Brazil',
+    'Canada',
+    'Chile',
+    'China',
+    'Colombia',
+    'Denmark',
+    'Egypt',
+    'Finland',
+    'France',
+    'Germany',
+    'Greece',
+    'India',
+    'Indonesia',
+    'Ireland',
+    'Israel',
+    'Italy',
+    'Japan',
+    'Kenya',
+    'Mexico',
+    'Netherlands',
+    'New Zealand',
+    'Norway',
+    'Peru',
+    'Philippines',
+    'Poland',
+    'Portugal',
+    'South Korea',
+    'Spain',
+    'Sweden',
+    'Switzerland',
+    'Thailand',
+    'Turkey',
+    'United Kingdom',
+    'United States',
+    'Vietnam',
   ];
 
   final languageOptions = <String>[
-    'C', 'C++', 'C#', 'Clojure', 'CoffeeScript', 'Dart', 'Elixir',
-    'Erlang', 'F#', 'Go', 'Groovy', 'Haskell', 'Java', 'JavaScript',
-    'Julia', 'Kotlin', 'Lua', 'Nim', 'Objective-C', 'OCaml', 'Perl',
-    'PHP', 'Python', 'R', 'Ruby', 'Rust', 'Scala', 'Shell', 'SQL',
-    'Swift', 'TypeScript', 'V', 'Zig',
+    'C',
+    'C++',
+    'C#',
+    'Clojure',
+    'CoffeeScript',
+    'Dart',
+    'Elixir',
+    'Erlang',
+    'F#',
+    'Go',
+    'Groovy',
+    'Haskell',
+    'Java',
+    'JavaScript',
+    'Julia',
+    'Kotlin',
+    'Lua',
+    'Nim',
+    'Objective-C',
+    'OCaml',
+    'Perl',
+    'PHP',
+    'Python',
+    'R',
+    'Ruby',
+    'Rust',
+    'Scala',
+    'Shell',
+    'SQL',
+    'Swift',
+    'TypeScript',
+    'V',
+    'Zig',
   ];
 
   final multipleInstances = Container(
@@ -847,68 +967,73 @@ dynamic build(BuildContext context) {
               );
             });
           },
-          fieldViewBuilder: (
-            BuildContext context,
-            TextEditingController controller,
-            FocusNode focusNode,
-            VoidCallback onFieldSubmitted,
-          ) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.blue.shade300),
-              ),
-              child: TextField(
-                controller: controller,
-                focusNode: focusNode,
-                decoration: InputDecoration(
-                  hintText: 'Search countries...',
-                  prefixIcon: Icon(Icons.public, color: Colors.blue),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 14.0,
+          fieldViewBuilder:
+              (
+                BuildContext context,
+                TextEditingController controller,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted,
+              ) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.blue.shade300),
                   ),
-                ),
-                onSubmitted: (String value) {
-                  onFieldSubmitted();
-                },
-              ),
-            );
-          },
-          optionsViewBuilder: (
-            BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options,
-          ) {
-            return Align(
-              alignment: Alignment.topLeft,
-              child: Material(
-                elevation: 4.0,
-                borderRadius: BorderRadius.circular(8.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 160.0,
-                    maxWidth: 280.0,
+                  child: TextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'Search countries...',
+                      prefixIcon: Icon(Icons.public, color: Colors.blue),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 14.0,
+                      ),
+                    ),
+                    onSubmitted: (String value) {
+                      onFieldSubmitted();
+                    },
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: options.map((String option) {
-                      return ListTile(
-                        dense: true,
-                        title: Text(option),
-                        leading: Icon(Icons.location_on,
-                            color: Colors.blue, size: 18.0),
-                        onTap: () => onSelected(option),
-                      );
-                    }).toList(),
+                );
+              },
+          optionsViewBuilder:
+              (
+                BuildContext context,
+                AutocompleteOnSelected<String> onSelected,
+                Iterable<String> options,
+              ) {
+                return Align(
+                  alignment: Alignment.topLeft,
+                  child: Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 160.0,
+                        maxWidth: 280.0,
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: options.map((String option) {
+                          return ListTile(
+                            dense: true,
+                            title: Text(option),
+                            leading: Icon(
+                              Icons.location_on,
+                              color: Colors.blue,
+                              size: 18.0,
+                            ),
+                            onTap: () => onSelected(option),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
           onSelected: (String selection) {
             print('  Country selected: $selection');
           },
@@ -936,68 +1061,73 @@ dynamic build(BuildContext context) {
               );
             });
           },
-          fieldViewBuilder: (
-            BuildContext context,
-            TextEditingController controller,
-            FocusNode focusNode,
-            VoidCallback onFieldSubmitted,
-          ) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.deepOrange.shade50,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.deepOrange.shade300),
-              ),
-              child: TextField(
-                controller: controller,
-                focusNode: focusNode,
-                decoration: InputDecoration(
-                  hintText: 'Search languages (prefix match)...',
-                  prefixIcon: Icon(Icons.code, color: Colors.deepOrange),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 14.0,
+          fieldViewBuilder:
+              (
+                BuildContext context,
+                TextEditingController controller,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted,
+              ) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrange.shade50,
+                    borderRadius: BorderRadius.circular(8.0),
+                    border: Border.all(color: Colors.deepOrange.shade300),
                   ),
-                ),
-                onSubmitted: (String value) {
-                  onFieldSubmitted();
-                },
-              ),
-            );
-          },
-          optionsViewBuilder: (
-            BuildContext context,
-            AutocompleteOnSelected<String> onSelected,
-            Iterable<String> options,
-          ) {
-            return Align(
-              alignment: Alignment.topLeft,
-              child: Material(
-                elevation: 4.0,
-                borderRadius: BorderRadius.circular(8.0),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: 160.0,
-                    maxWidth: 280.0,
+                  child: TextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      hintText: 'Search languages (prefix match)...',
+                      prefixIcon: Icon(Icons.code, color: Colors.deepOrange),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 14.0,
+                      ),
+                    ),
+                    onSubmitted: (String value) {
+                      onFieldSubmitted();
+                    },
                   ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    children: options.map((String option) {
-                      return ListTile(
-                        dense: true,
-                        title: Text(option),
-                        leading: Icon(Icons.terminal,
-                            color: Colors.deepOrange, size: 18.0),
-                        onTap: () => onSelected(option),
-                      );
-                    }).toList(),
+                );
+              },
+          optionsViewBuilder:
+              (
+                BuildContext context,
+                AutocompleteOnSelected<String> onSelected,
+                Iterable<String> options,
+              ) {
+                return Align(
+                  alignment: Alignment.topLeft,
+                  child: Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: 160.0,
+                        maxWidth: 280.0,
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        children: options.map((String option) {
+                          return ListTile(
+                            dense: true,
+                            title: Text(option),
+                            leading: Icon(
+                              Icons.terminal,
+                              color: Colors.deepOrange,
+                              size: 18.0,
+                            ),
+                            onTap: () => onSelected(option),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
           onSelected: (String selection) {
             print('  Language selected: $selection');
           },
@@ -1055,7 +1185,7 @@ dynamic build(BuildContext context) {
           'optionsBuilder',
           'AutocompleteOptionsBuilder<T>',
           'Required. Takes TextEditingValue, returns Iterable<T>. Called every '
-          'time the input changes. Return empty iterable to hide the overlay.',
+              'time the input changes. Return empty iterable to hide the overlay.',
           Colors.cyan,
         ),
         SizedBox(height: 12.0),
@@ -1063,8 +1193,8 @@ dynamic build(BuildContext context) {
           'fieldViewBuilder',
           'AutocompleteFieldViewBuilder?',
           'Builds the text input widget. Receives a TextEditingController, '
-          'FocusNode, and onFieldSubmitted callback. If null, you must provide '
-          'a focusNode and textEditingController externally.',
+              'FocusNode, and onFieldSubmitted callback. If null, you must provide '
+              'a focusNode and textEditingController externally.',
           Colors.blue,
         ),
         SizedBox(height: 12.0),
@@ -1072,8 +1202,8 @@ dynamic build(BuildContext context) {
           'optionsViewBuilder',
           'AutocompleteOptionsViewBuilder<T>?',
           'Builds the suggestion overlay. Receives onSelected callback and '
-          'the filtered Iterable<T>. Defaults to a simple Material list if '
-          'not provided.',
+              'the filtered Iterable<T>. Defaults to a simple Material list if '
+              'not provided.',
           Colors.green,
         ),
         SizedBox(height: 12.0),
@@ -1081,7 +1211,7 @@ dynamic build(BuildContext context) {
           'optionsViewOpenDirection',
           'OptionsViewOpenDirection',
           'Controls whether the options overlay opens above (.up) or below '
-          '(.down) the field. Defaults to .down.',
+              '(.down) the field. Defaults to .down.',
           Colors.orange,
         ),
         SizedBox(height: 12.0),
@@ -1089,7 +1219,7 @@ dynamic build(BuildContext context) {
           'displayStringForOption',
           'AutocompleteOptionToString<T>',
           'Converts an option of type T to a String for the text field. '
-          'Defaults to calling .toString(). Essential when T is a custom class.',
+              'Defaults to calling .toString(). Essential when T is a custom class.',
           Colors.purple,
         ),
         SizedBox(height: 12.0),
@@ -1097,8 +1227,8 @@ dynamic build(BuildContext context) {
           'onSelected',
           'AutocompleteOnSelected<T>?',
           'Called when the user selects an option. Receives the selected T '
-          'value. The text field is automatically updated via '
-          'displayStringForOption.',
+              'value. The text field is automatically updated via '
+              'displayStringForOption.',
           Colors.red,
         ),
         SizedBox(height: 12.0),
@@ -1106,7 +1236,7 @@ dynamic build(BuildContext context) {
           'initialValue',
           'TextEditingValue?',
           'Sets the initial text in the field. Cannot be used together with '
-          'textEditingController. Useful for edit-mode forms.',
+              'textEditingController. Useful for edit-mode forms.',
           Colors.amber,
         ),
       ],
@@ -1237,8 +1367,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.tips_and_updates,
-                  color: Colors.pink.shade600, size: 20.0),
+              Icon(
+                Icons.tips_and_updates,
+                color: Colors.pink.shade600,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1379,8 +1512,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    Icon(Icons.arrow_downward,
-                        color: Colors.green, size: 20.0),
+                    Icon(Icons.arrow_downward, color: Colors.green, size: 20.0),
                     Container(
                       height: 60.0,
                       decoration: BoxDecoration(
@@ -1440,8 +1572,7 @@ dynamic build(BuildContext context) {
                         ),
                       ),
                     ),
-                    Icon(Icons.arrow_upward,
-                        color: Colors.blue, size: 20.0),
+                    Icon(Icons.arrow_upward, color: Colors.blue, size: 20.0),
                     Container(
                       height: 36.0,
                       decoration: BoxDecoration(
@@ -1632,8 +1763,11 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.warning_amber, color: Colors.amber.shade700,
-                  size: 20.0),
+              Icon(
+                Icons.warning_amber,
+                color: Colors.amber.shade700,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1734,10 +1868,7 @@ Widget _buildArchitectureStep(
         Container(
           width: 32.0,
           height: 32.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$stepNumber',
@@ -1781,7 +1912,11 @@ Widget _buildArchitectureArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Center(
-      child: Icon(Icons.arrow_downward, color: Colors.grey.shade400, size: 20.0),
+      child: Icon(
+        Icons.arrow_downward,
+        color: Colors.grey.shade400,
+        size: 20.0,
+      ),
     ),
   );
 }
@@ -1817,7 +1952,10 @@ Widget _buildMockOptionCard(
             ),
             Text(
               subtitle,
-              style: TextStyle(fontSize: 11.0, color: textColor.withValues(alpha: 0.7)),
+              style: TextStyle(
+                fontSize: 11.0,
+                color: textColor.withValues(alpha: 0.7),
+              ),
             ),
           ],
         ),
@@ -1918,10 +2056,7 @@ Widget _buildApiProperty(
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Text(
@@ -1961,11 +2096,7 @@ Widget _buildApiProperty(
   );
 }
 
-Widget _buildComparisonRow(
-  String feature,
-  String rawValue,
-  String autoValue,
-) {
+Widget _buildComparisonRow(String feature, String rawValue, String autoValue) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
     decoration: BoxDecoration(

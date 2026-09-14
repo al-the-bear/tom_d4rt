@@ -36,8 +36,10 @@ const Duration _kInstantDuration = Duration.zero;
 
 dynamic build(BuildContext context) {
   print('MaxLengthEnforcement Deep Demo executing');
-  print('Static motion locked at ${_kStaticMotion.value}, '
-      'duration=${_kInstantDuration.inMilliseconds}ms');
+  print(
+    'Static motion locked at ${_kStaticMotion.value}, '
+    'duration=${_kInstantDuration.inMilliseconds}ms',
+  );
 
   // Enumerate enum values so that downstream sections can rely on a stable
   // ordering. We also log the index so that a regression in d4rt's enum
@@ -111,11 +113,7 @@ dynamic build(BuildContext context) {
           'with the input method editor (IME). It is the difference between '
           'no limit, hard truncation on every keystroke, and a soft policy '
           'that waits until composition completes before trimming.',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Colors.white,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 14.0, color: Colors.white, height: 1.4),
         ),
         SizedBox(height: 12.0),
         Wrap(
@@ -368,8 +366,7 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 6.0),
-        for (final intent in intents)
-          _buildProgressionRow(intent, kLimit),
+        for (final intent in intents) _buildProgressionRow(intent, kLimit),
         SizedBox(height: 14.0),
         Container(
           padding: EdgeInsets.all(10.0),
@@ -384,11 +381,7 @@ dynamic build(BuildContext context) {
             'finish picking a candidate, then snaps the field back to "hello" '
             'on commit — the same final value, but a much friendlier path '
             'through the input method.',
-            style: TextStyle(
-              fontSize: 12.0,
-              color: _kInkDark,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12.0, color: _kInkDark, height: 1.45),
           ),
         ),
       ],
@@ -508,7 +501,8 @@ dynamic build(BuildContext context) {
           number: '2',
           title: 'IME EXTEND',
           subtitle: 'each keystroke grows composing.end',
-          decision: 'enforced -> truncates each frame  '
+          decision:
+              'enforced -> truncates each frame  '
               '|  none -> passes through  '
               '|  truncate... -> defers',
           color: Colors.teal.shade600,
@@ -518,7 +512,8 @@ dynamic build(BuildContext context) {
           number: '3',
           title: 'IME COMMIT',
           subtitle: 'composing collapses to TextRange.empty',
-          decision: 'truncate... -> NOW truncates to maxLength  '
+          decision:
+              'truncate... -> NOW truncates to maxLength  '
               '|  enforced -> already truncated  '
               '|  none -> still untouched',
           color: Colors.green.shade700,
@@ -528,7 +523,8 @@ dynamic build(BuildContext context) {
           number: '4',
           title: 'STEADY STATE',
           subtitle: 'TextEditingValue is fully committed',
-          decision: 'final length: '
+          decision:
+              'final length: '
               'none = unbounded, '
               'enforced = ≤ maxLength, '
               'truncate... = ≤ maxLength',
@@ -584,7 +580,8 @@ dynamic build(BuildContext context) {
         _kRecipeBlock(
           title: 'PIN code (numeric, hard cap)',
           rationale: 'No IME, no surrogate pairs — safe to clamp aggressively.',
-          code: 'TextField(\n'
+          code:
+              'TextField(\n'
               '  maxLength: 6,\n'
               '  keyboardType: TextInputType.number,\n'
               '  maxLengthEnforcement: MaxLengthEnforcement.enforced,\n'
@@ -598,7 +595,8 @@ dynamic build(BuildContext context) {
         _kRecipeBlock(
           title: 'Display name (CJK / emoji friendly)',
           rationale: 'Allow IME composition past the limit; trim on commit.',
-          code: 'TextField(\n'
+          code:
+              'TextField(\n'
               '  maxLength: 24,\n'
               '  maxLengthEnforcement:\n'
               '      MaxLengthEnforcement.truncateAfterCompositionEnds,\n'
@@ -609,7 +607,8 @@ dynamic build(BuildContext context) {
         _kRecipeBlock(
           title: 'Soft counter (advisory only)',
           rationale: 'maxLength is a hint to the counter, not a constraint.',
-          code: 'TextField(\n'
+          code:
+              'TextField(\n'
               '  maxLength: 280,\n'
               '  maxLengthEnforcement: MaxLengthEnforcement.none,\n'
               '  decoration: InputDecoration(\n'
@@ -621,8 +620,10 @@ dynamic build(BuildContext context) {
         SizedBox(height: 10.0),
         _kRecipeBlock(
           title: 'Platform default',
-          rationale: 'Pass null to delegate to the SDK\'s per-platform default.',
-          code: 'TextField(\n'
+          rationale:
+              'Pass null to delegate to the SDK\'s per-platform default.',
+          code:
+              'TextField(\n'
               '  maxLength: 16,\n'
               '  maxLengthEnforcement: null, // SDK picks the right one\n'
               ')',
@@ -644,7 +645,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.warning_amber,
       title: 'maxLength counts code units, not graphemes',
-      body: 'A user-perceived character such as 👨‍👩‍👧 (family) is 5 code '
+      body:
+          'A user-perceived character such as 👨‍👩‍👧 (family) is 5 code '
           'points joined by ZWJ, encoded as 11 UTF-16 code units. With '
           'maxLength: 10 and enforced, the family emoji can never be typed.',
       color: _kEnforcedColor,
@@ -652,7 +654,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.surround_sound,
       title: 'Surrogate pairs may be split mid-character',
-      body: 'On platforms that count UTF-16 units, an "enforced" cut can land '
+      body:
+          'On platforms that count UTF-16 units, an "enforced" cut can land '
           'between a high and low surrogate, leaving an invalid string. Prefer '
           'truncateAfterCompositionEnds for emoji-heavy fields.',
       color: _kTruncateColor,
@@ -660,7 +663,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.translate,
       title: 'Composition range is invisible but observable',
-      body: 'TextEditingValue.composing is a TextRange; its emptiness '
+      body:
+          'TextEditingValue.composing is a TextRange; its emptiness '
           '(start == end == -1 or 0..0) controls whether '
           'truncateAfterCompositionEnds defers. Inspect it during testing.',
       color: _kAccent,
@@ -668,7 +672,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.content_paste,
       title: 'Paste is treated like a non-composing edit',
-      body: 'Pasting bypasses IME composition, so '
+      body:
+          'Pasting bypasses IME composition, so '
           'truncateAfterCompositionEnds clips on paste exactly like enforced. '
           'Listen for onChanged if you need a paste-specific UX.',
       color: _kNoneColor,
@@ -676,7 +681,8 @@ dynamic build(BuildContext context) {
     _Pitfall(
       icon: Icons.smart_toy,
       title: 'Autofill / hardware keyboards may skip composition',
-      body: 'Autofilled values arrive in one frame with empty composing. '
+      body:
+          'Autofilled values arrive in one frame with empty composing. '
           'Treat enforcement as a function of the resulting TextEditingValue, '
           'not the input source.',
       color: Colors.deepPurple,
@@ -684,9 +690,7 @@ dynamic build(BuildContext context) {
   ];
   final Widget pitfallSection = Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      for (final p in pitfalls) _buildPitfallTile(p),
-    ],
+    children: [for (final p in pitfalls) _buildPitfallTile(p)],
   );
 
   // ==========================================================================
@@ -745,10 +749,7 @@ dynamic build(BuildContext context) {
           '(none=${MaxLengthEnforcement.none.index}, '
           'enforced=${MaxLengthEnforcement.enforced.index}, '
           'truncateAfterCompositionEnds=${MaxLengthEnforcement.truncateAfterCompositionEnds.index}).',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 11.0,
-          ),
+          style: TextStyle(color: Colors.white70, fontSize: 11.0),
         ),
       ],
     ),
@@ -779,10 +780,7 @@ dynamic build(BuildContext context) {
             anatomy,
             SizedBox(height: 28.0),
             _kSectionTitle('2. Per-value cards'),
-            for (final card in valueCards) ...[
-              card,
-              SizedBox(height: 12.0),
-            ],
+            for (final card in valueCards) ...[card, SizedBox(height: 12.0)],
             SizedBox(height: 16.0),
             _kSectionTitle('3. Mock TextField input progression'),
             mockProgression,
@@ -1000,10 +998,7 @@ Widget _buildValueCard(_EnumValueSpec spec) {
                   ),
                   Text(
                     'index ${spec.value.index} • ${spec.headline}',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: _kInkSoft,
-                    ),
+                    style: TextStyle(fontSize: 11.5, color: _kInkSoft),
                   ),
                 ],
               ),
@@ -1095,9 +1090,11 @@ Widget _buildProgressionRow(_InputIntent intent, int limit) {
   final String none = _applyNone(intent.raw, limit);
   final String enforced = _applyEnforced(intent.raw, limit);
   final String truncate = _applyTruncateAfter(intent.raw, limit, intent);
-  print('progression "${intent.label}" raw="${intent.raw}" '
-      'composing=${intent.composing} -> '
-      'none="$none" enforced="$enforced" truncate="$truncate"');
+  print(
+    'progression "${intent.label}" raw="${intent.raw}" '
+    'composing=${intent.composing} -> '
+    'none="$none" enforced="$enforced" truncate="$truncate"',
+  );
 
   return Container(
     margin: EdgeInsets.only(top: 4.0),
@@ -1108,9 +1105,7 @@ Widget _buildProgressionRow(_InputIntent intent, int limit) {
           : Colors.white,
       borderRadius: BorderRadius.circular(6.0),
       border: Border.all(
-        color: intent.isComposing
-            ? Colors.amber.shade400
-            : Colors.black12,
+        color: intent.isComposing ? Colors.amber.shade400 : Colors.black12,
       ),
     ),
     child: Row(
@@ -1313,10 +1308,7 @@ Widget _buildMatrix(List<_MatrixRow> rows) {
                   width: 220.0,
                   child: Text(
                     rows[i].axis,
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      color: _kInkDark,
-                    ),
+                    style: TextStyle(fontSize: 12.0, color: _kInkDark),
                   ),
                 ),
                 _kMatrixBoolCell(rows[i].none),
@@ -1517,10 +1509,7 @@ Widget _kRecipeBlock({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Expanded(

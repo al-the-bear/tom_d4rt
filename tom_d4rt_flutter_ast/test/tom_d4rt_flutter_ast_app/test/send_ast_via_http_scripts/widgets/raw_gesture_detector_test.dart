@@ -73,10 +73,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   'Factory-based gesture detection',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.0),
                 ),
               ],
             ),
@@ -173,7 +170,7 @@ dynamic build(BuildContext context) {
           1,
           'gestures Map',
           'Map<Type, GestureRecognizerFactory> defines which recognizers '
-          'to create. Each entry has a constructor and an initializer.',
+              'to create. Each entry has a constructor and an initializer.',
           Icons.map,
           Colors.blue,
         ),
@@ -182,7 +179,7 @@ dynamic build(BuildContext context) {
           2,
           'Factory Creates Recognizer',
           'The constructor callback creates a new GestureRecognizer. '
-          'The initializer callback configures callbacks on it.',
+              'The initializer callback configures callbacks on it.',
           Icons.build,
           Colors.purple,
         ),
@@ -191,7 +188,7 @@ dynamic build(BuildContext context) {
           3,
           'Pointer Events Arrive',
           'RawGestureDetector wraps a Listener internally. When pointer '
-          'events (down, move, up) arrive, they are routed to recognizers.',
+              'events (down, move, up) arrive, they are routed to recognizers.',
           Icons.mouse,
           Colors.orange,
         ),
@@ -200,7 +197,7 @@ dynamic build(BuildContext context) {
           4,
           'Gesture Arena',
           'Multiple recognizers compete. The arena resolves which gesture '
-          'wins (e.g., tap vs long press vs drag).',
+              'wins (e.g., tap vs long press vs drag).',
           Icons.sports_mma,
           Colors.red,
         ),
@@ -209,7 +206,7 @@ dynamic build(BuildContext context) {
           5,
           'Callback Fires',
           'The winning recognizer calls its configured callback '
-          '(e.g., onTap, onLongPress, onPanUpdate).',
+              '(e.g., onTap, onLongPress, onPanUpdate).',
           Icons.check_circle,
           Colors.green,
         ),
@@ -223,8 +220,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline,
-                  color: Colors.amber.shade700, size: 20.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -306,7 +306,8 @@ dynamic build(BuildContext context) {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text('1',
+                      child: Text(
+                        '1',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -380,7 +381,8 @@ dynamic build(BuildContext context) {
                       shape: BoxShape.circle,
                     ),
                     child: Center(
-                      child: Text('2',
+                      child: Text(
+                        '2',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -446,8 +448,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline, color: Colors.amber.shade700,
-                  size: 18.0),
+              Icon(
+                Icons.info_outline,
+                color: Colors.amber.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -509,19 +514,19 @@ dynamic build(BuildContext context) {
           gestures: <Type, GestureRecognizerFactory>{
             TapGestureRecognizer:
                 GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-              () => TapGestureRecognizer(),
-              (TapGestureRecognizer instance) {
-                instance.onTap = () {
-                  print('  TAP detected via RawGestureDetector!');
-                };
-                instance.onTapDown = (TapDownDetails details) {
-                  print('  TapDown at: ${details.globalPosition}');
-                };
-                instance.onTapUp = (TapUpDetails details) {
-                  print('  TapUp at: ${details.globalPosition}');
-                };
-              },
-            ),
+                  () => TapGestureRecognizer(),
+                  (TapGestureRecognizer instance) {
+                    instance.onTap = () {
+                      print('  TAP detected via RawGestureDetector!');
+                    };
+                    instance.onTapDown = (TapDownDetails details) {
+                      print('  TapDown at: ${details.globalPosition}');
+                    };
+                    instance.onTapUp = (TapUpDetails details) {
+                      print('  TapUp at: ${details.globalPosition}');
+                    };
+                  },
+                ),
           },
           child: Container(
             height: 120.0,
@@ -536,8 +541,11 @@ dynamic build(BuildContext context) {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.touch_app, color: Colors.teal.shade700,
-                      size: 36.0),
+                  Icon(
+                    Icons.touch_app,
+                    color: Colors.teal.shade700,
+                    size: 36.0,
+                  ),
                   SizedBox(height: 8.0),
                   Text(
                     'Tap Target Area',
@@ -639,37 +647,39 @@ dynamic build(BuildContext context) {
           gestures: <Type, GestureRecognizerFactory>{
             TapGestureRecognizer:
                 GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
-              () => TapGestureRecognizer(),
-              (TapGestureRecognizer instance) {
-                instance.onTap = () {
-                  print('  MULTI: Tap detected');
-                };
-              },
-            ),
+                  () => TapGestureRecognizer(),
+                  (TapGestureRecognizer instance) {
+                    instance.onTap = () {
+                      print('  MULTI: Tap detected');
+                    };
+                  },
+                ),
             LongPressGestureRecognizer:
-                GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
-              () => LongPressGestureRecognizer(),
-              (LongPressGestureRecognizer instance) {
-                instance.onLongPress = () {
-                  print('  MULTI: Long press detected');
-                };
-              },
-            ),
+                GestureRecognizerFactoryWithHandlers<
+                  LongPressGestureRecognizer
+                >(() => LongPressGestureRecognizer(), (
+                  LongPressGestureRecognizer instance,
+                ) {
+                  instance.onLongPress = () {
+                    print('  MULTI: Long press detected');
+                  };
+                }),
             VerticalDragGestureRecognizer:
-                GestureRecognizerFactoryWithHandlers<VerticalDragGestureRecognizer>(
-              () => VerticalDragGestureRecognizer(),
-              (VerticalDragGestureRecognizer instance) {
-                instance.onStart = (DragStartDetails details) {
-                  print('  MULTI: Vertical drag started');
-                };
-                instance.onUpdate = (DragUpdateDetails details) {
-                  print('  MULTI: Drag delta: ${details.delta}');
-                };
-                instance.onEnd = (DragEndDetails details) {
-                  print('  MULTI: Vertical drag ended');
-                };
-              },
-            ),
+                GestureRecognizerFactoryWithHandlers<
+                  VerticalDragGestureRecognizer
+                >(() => VerticalDragGestureRecognizer(), (
+                  VerticalDragGestureRecognizer instance,
+                ) {
+                  instance.onStart = (DragStartDetails details) {
+                    print('  MULTI: Vertical drag started');
+                  };
+                  instance.onUpdate = (DragUpdateDetails details) {
+                    print('  MULTI: Drag delta: ${details.delta}');
+                  };
+                  instance.onEnd = (DragEndDetails details) {
+                    print('  MULTI: Vertical drag ended');
+                  };
+                }),
           },
           child: Container(
             height: 160.0,
@@ -692,11 +702,7 @@ dynamic build(BuildContext context) {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildGestureIndicator(
-                      'Tap',
-                      Icons.touch_app,
-                      Colors.blue,
-                    ),
+                    _buildGestureIndicator('Tap', Icons.touch_app, Colors.blue),
                     _buildGestureIndicator(
                       'Long Press',
                       Icons.timer,
@@ -980,7 +986,7 @@ dynamic build(BuildContext context) {
           'gestures',
           'Map<Type, GestureRecognizerFactory>',
           'Required. Maps recognizer types to their factories. Each factory '
-          'creates and configures one GestureRecognizer.',
+              'creates and configures one GestureRecognizer.',
           Colors.teal,
         ),
         SizedBox(height: 10.0),
@@ -988,8 +994,8 @@ dynamic build(BuildContext context) {
           'behavior',
           'HitTestBehavior?',
           'Controls the hit test behavior. Options: deferToChild (default), '
-          'opaque (always absorbs hits), translucent (allows hits to pass '
-          'through while still receiving them).',
+              'opaque (always absorbs hits), translucent (allows hits to pass '
+              'through while still receiving them).',
           Colors.blue,
         ),
         SizedBox(height: 10.0),
@@ -997,7 +1003,7 @@ dynamic build(BuildContext context) {
           'excludeFromSemantics',
           'bool',
           'Whether to exclude the gesture detector from the semantics '
-          'tree. Default: false. Set true if gestures are decorative.',
+              'tree. Default: false. Set true if gestures are decorative.',
           Colors.purple,
         ),
         SizedBox(height: 10.0),
@@ -1005,7 +1011,7 @@ dynamic build(BuildContext context) {
           'semantics',
           'SemanticsGestureDelegate?',
           'Custom semantics delegate for gesture actions. Used when '
-          'the default semantics mapping is insufficient.',
+              'the default semantics mapping is insufficient.',
           Colors.orange,
         ),
         SizedBox(height: 10.0),
@@ -1013,7 +1019,7 @@ dynamic build(BuildContext context) {
           'child',
           'Widget?',
           'The widget below this one in the tree. Events on this child '
-          'will trigger the gesture recognizers.',
+              'will trigger the gesture recognizers.',
           Colors.green,
         ),
 
@@ -1285,8 +1291,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.tips_and_updates,
-                  color: Colors.pink.shade600, size: 20.0),
+              Icon(
+                Icons.tips_and_updates,
+                color: Colors.pink.shade600,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1466,9 +1475,7 @@ Widget _buildConceptBadge(String label, IconData icon) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: Colors.orangeAccent.withValues(alpha: 0.5),
-      ),
+      border: Border.all(color: Colors.orangeAccent.withValues(alpha: 0.5)),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1508,10 +1515,7 @@ Widget _buildPipelineStep(
         Container(
           width: 30.0,
           height: 30.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
           child: Center(
             child: Text(
               '$number',
@@ -1559,8 +1563,11 @@ Widget _buildPipelineArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 4.0),
     child: Center(
-      child: Icon(Icons.arrow_downward,
-          color: Colors.grey.shade400, size: 20.0),
+      child: Icon(
+        Icons.arrow_downward,
+        color: Colors.grey.shade400,
+        size: 20.0,
+      ),
     ),
   );
 }
@@ -1612,10 +1619,7 @@ Widget _buildRecognizerEntry(
         Container(
           width: 6.0,
           height: 6.0,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8.0),
         Expanded(
@@ -1751,10 +1755,7 @@ Widget _buildApiPropertyCard(
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Text(
@@ -1855,10 +1856,7 @@ Widget _buildComparisonRow(
           flex: 3,
           child: Text(
             rawValue,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.deepOrange.shade700,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.deepOrange.shade700),
           ),
         ),
         Expanded(

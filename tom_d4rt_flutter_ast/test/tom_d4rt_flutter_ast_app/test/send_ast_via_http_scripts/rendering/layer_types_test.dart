@@ -319,10 +319,7 @@ class _SectionHeader extends StatelessWidget {
 }
 
 class _Callout extends StatelessWidget {
-  const _Callout({
-    required this.message,
-    this.tone = _CalloutTone.info,
-  });
+  const _Callout({required this.message, this.tone = _CalloutTone.info});
 
   final String message;
   final _CalloutTone tone;
@@ -349,9 +346,7 @@ class _Callout extends StatelessWidget {
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(14),
-        border: Border(
-          left: BorderSide(color: edge, width: 4),
-        ),
+        border: Border(left: BorderSide(color: edge, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,10 +372,7 @@ class _Callout extends StatelessWidget {
 enum _CalloutTone { info, warn, tip }
 
 class _Card extends StatelessWidget {
-  const _Card({
-    required this.child,
-    this.shadows = _Palette.softElevation,
-  });
+  const _Card({required this.child, this.shadows = _Palette.softElevation});
 
   final Widget child;
   final List<BoxShadow> shadows;
@@ -650,8 +642,11 @@ class _OffsetAnchor extends StatelessWidget {
         boxShadow: _Palette.roseGlow,
       ),
       alignment: Alignment.center,
-      child: const Icon(Icons.center_focus_strong,
-          color: Colors.white, size: 14),
+      child: const Icon(
+        Icons.center_focus_strong,
+        color: Colors.white,
+        size: 14,
+      ),
     );
   }
 }
@@ -933,8 +928,7 @@ class _ClipRectVariant extends StatelessWidget {
                 width: 240,
                 height: 180,
                 child: const Center(
-                  child: Icon(Icons.wb_sunny,
-                      color: Colors.white, size: 56),
+                  child: Icon(Icons.wb_sunny, color: Colors.white, size: 56),
                 ),
               ),
             ),
@@ -999,9 +993,7 @@ class _ClipRRectLayerSection extends StatelessWidget {
               Expanded(
                 child: _RRectGalleryItem(
                   title: 'elliptical',
-                  radius: const BorderRadius.all(
-                    Radius.elliptical(60, 24),
-                  ),
+                  radius: const BorderRadius.all(Radius.elliptical(60, 24)),
                   gradient: _Palette.meadow,
                 ),
               ),
@@ -1266,16 +1258,8 @@ class _HeartClipper extends CustomClipper<Path> {
     final double w = size.width;
     final double h = size.height;
     path.moveTo(w * 0.5, h * 0.95);
-    path.cubicTo(
-      w * -0.05, h * 0.55,
-      w * 0.15, h * 0.05,
-      w * 0.5, h * 0.30,
-    );
-    path.cubicTo(
-      w * 0.85, h * 0.05,
-      w * 1.05, h * 0.55,
-      w * 0.5, h * 0.95,
-    );
+    path.cubicTo(w * -0.05, h * 0.55, w * 0.15, h * 0.05, w * 0.5, h * 0.30);
+    path.cubicTo(w * 0.85, h * 0.05, w * 1.05, h * 0.55, w * 0.5, h * 0.95);
     path.close();
     return path;
   }
@@ -1292,12 +1276,16 @@ class _WaveClipper extends CustomClipper<Path> {
     final Path path = Path();
     path.lineTo(0, size.height * 0.7);
     path.quadraticBezierTo(
-      size.width * 0.25, size.height * 0.95,
-      size.width * 0.5, size.height * 0.7,
+      size.width * 0.25,
+      size.height * 0.95,
+      size.width * 0.5,
+      size.height * 0.7,
     );
     path.quadraticBezierTo(
-      size.width * 0.75, size.height * 0.45,
-      size.width, size.height * 0.7,
+      size.width * 0.75,
+      size.height * 0.45,
+      size.width,
+      size.height * 0.7,
     );
     path.lineTo(size.width, 0);
     path.close();
@@ -1436,9 +1424,7 @@ class _BackdropFilterSection extends StatelessWidget {
               children: <Widget>[
                 Container(
                   height: 220,
-                  decoration: BoxDecoration(
-                    gradient: _Palette.prism,
-                  ),
+                  decoration: BoxDecoration(gradient: _Palette.prism),
                 ),
                 Positioned.fill(
                   child: Row(
@@ -1501,9 +1487,7 @@ class _BlurPanel extends StatelessWidget {
             color: Colors.white,
             fontWeight: FontWeight.w900,
             fontSize: 16,
-            shadows: <Shadow>[
-              Shadow(color: Colors.black54, blurRadius: 4),
-            ],
+            shadows: <Shadow>[Shadow(color: Colors.black54, blurRadius: 4)],
           ),
         ),
       ),
@@ -1625,44 +1609,103 @@ class _ColorFilterSection extends StatelessWidget {
   }
 
   static List<double> _identityMatrix() => <double>[
-        1, 0, 0, 0, 0,
-        0, 1, 0, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 0, 1, 0,
-      ];
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ];
 
   static List<double> _grayscaleMatrix() {
     const double r = 0.2126;
     const double g = 0.7152;
     const double b = 0.0722;
-    return <double>[
-      r, g, b, 0, 0,
-      r, g, b, 0, 0,
-      r, g, b, 0, 0,
-      0, 0, 0, 1, 0,
-    ];
+    return <double>[r, g, b, 0, 0, r, g, b, 0, 0, r, g, b, 0, 0, 0, 0, 0, 1, 0];
   }
 
   static List<double> _sepiaMatrix() => <double>[
-        0.393, 0.769, 0.189, 0, 0,
-        0.349, 0.686, 0.168, 0, 0,
-        0.272, 0.534, 0.131, 0, 0,
-        0, 0, 0, 1, 0,
-      ];
+    0.393,
+    0.769,
+    0.189,
+    0,
+    0,
+    0.349,
+    0.686,
+    0.168,
+    0,
+    0,
+    0.272,
+    0.534,
+    0.131,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ];
 
   static List<double> _invertMatrix() => <double>[
-        -1, 0, 0, 0, 255,
-        0, -1, 0, 0, 255,
-        0, 0, -1, 0, 255,
-        0, 0, 0, 1, 0,
-      ];
+    -1,
+    0,
+    0,
+    0,
+    255,
+    0,
+    -1,
+    0,
+    0,
+    255,
+    0,
+    0,
+    -1,
+    0,
+    255,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ];
 
   static List<double> _hueShiftMatrix() => <double>[
-        0.213, 0.715, 0.072, 0, 0,
-        0.213, 0.715, 0.072, 0, 0,
-        0.213, 0.715, 0.072, 0, 0,
-        0, 0, 0, 1, 0,
-      ];
+    0.213,
+    0.715,
+    0.072,
+    0,
+    0,
+    0.213,
+    0.715,
+    0.072,
+    0,
+    0,
+    0.213,
+    0.715,
+    0.072,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+  ];
 
   static List<double> _saturationMatrix(double s) {
     final double inv = 1 - s;
@@ -1670,19 +1713,51 @@ class _ColorFilterSection extends StatelessWidget {
     final double g = 0.715 * inv;
     final double b = 0.072 * inv;
     return <double>[
-      r + s, g, b, 0, 0,
-      r, g + s, b, 0, 0,
-      r, g, b + s, 0, 0,
-      0, 0, 0, 1, 0,
+      r + s,
+      g,
+      b,
+      0,
+      0,
+      r,
+      g + s,
+      b,
+      0,
+      0,
+      r,
+      g,
+      b + s,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
   }
 
   static List<double> _tintMatrix(Color c) {
     return <double>[
-      0.5, 0, 0, 0, c.r * 255 * 0.5,
-      0, 0.5, 0, 0, c.g * 255 * 0.5,
-      0, 0, 0.5, 0, c.b * 255 * 0.5,
-      0, 0, 0, 1, 0,
+      0.5,
+      0,
+      0,
+      0,
+      c.r * 255 * 0.5,
+      0,
+      0.5,
+      0,
+      0,
+      c.g * 255 * 0.5,
+      0,
+      0,
+      0.5,
+      0,
+      c.b * 255 * 0.5,
+      0,
+      0,
+      0,
+      1,
+      0,
     ];
   }
 }
@@ -1770,10 +1845,7 @@ class _PictureLayerSection extends StatelessWidget {
               boxShadow: _Palette.crispOutline,
             ),
             child: const RepaintBoundary(
-              child: CustomPaint(
-                painter: _GlyphPainter(),
-                size: Size.infinite,
-              ),
+              child: CustomPaint(painter: _GlyphPainter(), size: Size.infinite),
             ),
           ),
           const SizedBox(height: 16),
@@ -1806,23 +1878,23 @@ class _GlyphPainter extends CustomPainter {
           radius: 56,
         ),
       );
-    canvas.drawCircle(
-      Offset(size.width * 0.78, size.height * 0.32),
-      48,
-      sun,
-    );
+    canvas.drawCircle(Offset(size.width * 0.78, size.height * 0.32), 48, sun);
 
     // Draw stylized hills.
     final Path hill = Path()
       ..moveTo(0, size.height)
       ..lineTo(0, size.height * 0.7)
       ..quadraticBezierTo(
-        size.width * 0.25, size.height * 0.45,
-        size.width * 0.5, size.height * 0.65,
+        size.width * 0.25,
+        size.height * 0.45,
+        size.width * 0.5,
+        size.height * 0.65,
       )
       ..quadraticBezierTo(
-        size.width * 0.75, size.height * 0.85,
-        size.width, size.height * 0.6,
+        size.width * 0.75,
+        size.height * 0.85,
+        size.width,
+        size.height * 0.6,
       )
       ..lineTo(size.width, size.height)
       ..close();
@@ -2069,9 +2141,7 @@ class _LegendRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFFAF8FF),
         borderRadius: BorderRadius.circular(12),
-        border: Border(
-          left: BorderSide(color: entry.swatch, width: 4),
-        ),
+        border: Border(left: BorderSide(color: entry.swatch, width: 4)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -2092,10 +2162,7 @@ class _LegendRow extends StatelessWidget {
             width: 200,
             child: Text(
               entry.widget,
-              style: const TextStyle(
-                fontSize: 12,
-                color: _Palette.subtleInk,
-              ),
+              style: const TextStyle(fontSize: 12, color: _Palette.subtleInk),
             ),
           ),
           Expanded(

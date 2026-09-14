@@ -69,11 +69,7 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(
-                Icons.touch_app,
-                size: 44.0,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.touch_app, size: 44.0, color: Colors.white),
             ),
             SizedBox(width: 16.0),
             Expanded(
@@ -118,11 +114,7 @@ dynamic build(BuildContext context) {
             'Payload for SerialTapGestureRecognizer.onSerialTapUp — fired '
             'after each tap-up in a serial-tap sequence with an incrementing '
             'count (1, 2, 3, ...) until the inter-tap interval expires.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14.0,
-              height: 1.4,
-            ),
+            style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.4),
           ),
         ),
       ],
@@ -176,10 +168,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.10),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -248,11 +237,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 10.0),
             Text(
               field['desc'] as String,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: slateMid,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 12.0, color: slateMid, height: 1.35),
             ),
           ],
         ),
@@ -464,10 +449,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.12),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.12)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -523,11 +505,7 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               k['desc'] as String,
-              style: TextStyle(
-                fontSize: 11.5,
-                color: slateMid,
-                height: 1.35,
-              ),
+              style: TextStyle(fontSize: 11.5, color: slateMid, height: 1.35),
             ),
           ],
         ),
@@ -587,11 +565,7 @@ dynamic build(BuildContext context) {
           Container(
             width: 22.0,
             alignment: Alignment.center,
-            child: Icon(
-              Icons.east,
-              color: slateMid,
-              size: 16.0,
-            ),
+            child: Icon(Icons.east, color: slateMid, size: 16.0),
           ),
         );
       }
@@ -776,69 +750,66 @@ dynamic build(BuildContext context) {
                 child: Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Row(
-          children: [
-            Container(
-              width: 36.0,
-              height: 36.0,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.18),
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(
-                '×${s['count']}',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                  fontSize: 13.0,
-                ),
-              ),
-            ),
-            SizedBox(width: 12.0),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    s['label'] as String,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.0,
-                      color: slateDeep,
-                    ),
-                  ),
-                  SizedBox(height: 2.0),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: color.withValues(alpha: 0.10),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: Text(
-                      s['sample'] as String,
-                      style: TextStyle(
-                        fontFamily: 'monospace',
-                        fontSize: 12.0,
-                        color: color,
+                    children: [
+                      Container(
+                        width: 36.0,
+                        height: 36.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: color.withValues(alpha: 0.18),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Text(
+                          '×${s['count']}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: color,
+                            fontSize: 13.0,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(width: 12.0),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              s['label'] as String,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13.0,
+                                color: slateDeep,
+                              ),
+                            ),
+                            SizedBox(height: 2.0),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 4.0,
+                              ),
+                              decoration: BoxDecoration(
+                                color: color.withValues(alpha: 0.10),
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                              child: Text(
+                                s['sample'] as String,
+                                style: TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 12.0,
+                                  color: color,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 4.0),
+                            Text(
+                              s['desc'] as String,
+                              style: TextStyle(fontSize: 11.0, color: slateMid),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 4.0),
-                  Text(
-                    s['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 11.0,
-                      color: slateMid,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
                 ),
               ),
             ],
@@ -920,42 +891,17 @@ dynamic build(BuildContext context) {
   );
 
   final comparisonRowsData = [
-    [
-      'globalPosition',
-      'Offset (down)',
-      'Offset (up)',
-      '— (no position)',
-    ],
-    [
-      'localPosition',
-      'Offset?',
-      'Offset?',
-      '—',
-    ],
-    [
-      'kind',
-      'PointerDeviceKind',
-      'PointerDeviceKind',
-      '—',
-    ],
+    ['globalPosition', 'Offset (down)', 'Offset (up)', '— (no position)'],
+    ['localPosition', 'Offset?', 'Offset?', '—'],
+    ['kind', 'PointerDeviceKind', 'PointerDeviceKind', '—'],
     [
       'count',
       'int (1, 2, 3, ...)',
       'int (matches down)',
       'int (the cancelled one)',
     ],
-    [
-      'when fires',
-      'pointer-down',
-      'pointer-up',
-      'sequence aborted',
-    ],
-    [
-      'callback',
-      'onSerialTapDown',
-      'onSerialTapUp',
-      'onSerialTapCancel',
-    ],
+    ['when fires', 'pointer-down', 'pointer-up', 'sequence aborted'],
+    ['callback', 'onSerialTapDown', 'onSerialTapUp', 'onSerialTapCancel'],
   ];
 
   final comparisonBody = <Widget>[];
@@ -992,12 +938,7 @@ dynamic build(BuildContext context) {
         ),
       ],
     ),
-    child: Column(
-      children: [
-        comparisonHeader,
-        ...comparisonBody,
-      ],
-    ),
+    child: Column(children: [comparisonHeader, ...comparisonBody]),
   );
   print('Comparison table built');
 
@@ -1045,18 +986,12 @@ dynamic build(BuildContext context) {
           ],
         ),
         SizedBox(height: 12.0),
-        _code(
-          'final recognizer = SerialTapGestureRecognizer()',
-          tealSoft,
-        ),
+        _code('final recognizer = SerialTapGestureRecognizer()', tealSoft),
         _code(
           '  ..onSerialTapDown   = (SerialTapDownDetails d)   {}',
           slateSoft,
         ),
-        _code(
-          '  ..onSerialTapUp     = (SerialTapUpDetails u) {',
-          slateSoft,
-        ),
+        _code('  ..onSerialTapUp     = (SerialTapUpDetails u) {', slateSoft),
         _code(
           '    print(\'tap #\${u.count} at \${u.globalPosition}\');',
           Color(0xFFFCD34D),
@@ -1073,10 +1008,7 @@ dynamic build(BuildContext context) {
           '    if (u.count == 4) selectParagraph(u.localPosition);',
           Color(0xFF93C5FD),
         ),
-        _code(
-          '  }',
-          slateSoft,
-        ),
+        _code('  }', slateSoft),
         _code(
           '  ..onSerialTapCancel = (SerialTapCancelDetails c) {};',
           slateSoft,
@@ -1109,7 +1041,8 @@ dynamic build(BuildContext context) {
     {
       'n': 3,
       'title': 'fire onSerialTapUp(count=1)',
-      'desc': 'Recognizer constructs SerialTapUpDetails with count=1 and '
+      'desc':
+          'Recognizer constructs SerialTapUpDetails with count=1 and '
           'invokes the callback.',
       'icon': Icons.bolt,
       'color': coral,
@@ -1117,7 +1050,8 @@ dynamic build(BuildContext context) {
     {
       'n': 4,
       'title': 'next pointer-down within window',
-      'desc': 'Another tap arrives before the inter-tap timeout expires; '
+      'desc':
+          'Another tap arrives before the inter-tap timeout expires; '
           'count is bumped.',
       'icon': Icons.south,
       'color': indigo,
@@ -1125,7 +1059,8 @@ dynamic build(BuildContext context) {
     {
       'n': 5,
       'title': 'fire onSerialTapUp(count=2)',
-      'desc': 'New SerialTapUpDetails fires with count=2 — same series, '
+      'desc':
+          'New SerialTapUpDetails fires with count=2 — same series, '
           'same recognizer instance.',
       'icon': Icons.bolt,
       'color': coral,
@@ -1141,10 +1076,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.10),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1190,11 +1122,7 @@ dynamic build(BuildContext context) {
               ),
             ),
             SizedBox(width: 12.0),
-            Icon(
-              step['icon'] as IconData,
-              color: color,
-              size: 24.0,
-            ),
+            Icon(step['icon'] as IconData, color: color, size: 24.0),
             SizedBox(width: 12.0),
             Expanded(
               child: Column(
@@ -1235,35 +1163,40 @@ dynamic build(BuildContext context) {
   final footguns = [
     {
       'title': 'count resets on inter-tap timeout',
-      'desc': 'If the gap between taps exceeds the recognizer\'s window, '
+      'desc':
+          'If the gap between taps exceeds the recognizer\'s window, '
           'the next tap starts a new series with count=1.',
       'icon': Icons.timer_off,
       'color': coral,
     },
     {
       'title': 'kind defaults vary',
-      'desc': 'Always read details.kind from the SerialTapUpDetails — do '
+      'desc':
+          'Always read details.kind from the SerialTapUpDetails — do '
           'not assume PointerDeviceKind.touch on desktop.',
       'icon': Icons.devices,
       'color': amber,
     },
     {
       'title': 'position drift cancels the series',
-      'desc': 'Moving more than the slop tolerance between taps emits '
+      'desc':
+          'Moving more than the slop tolerance between taps emits '
           'SerialTapCancelDetails instead, ending the streak.',
       'icon': Icons.swipe,
       'color': indigo,
     },
     {
       'title': 'localPosition is nullable on the API',
-      'desc': 'The constructor accepts Offset?; if you read it via getter '
+      'desc':
+          'The constructor accepts Offset?; if you read it via getter '
           'it falls back to globalPosition. Treat it defensively.',
       'icon': Icons.crop_free,
       'color': teal,
     },
     {
       'title': 'count is 1-based, not 0-based',
-      'desc': 'Unlike some legacy APIs, SerialTapUpDetails.count starts at '
+      'desc':
+          'Unlike some legacy APIs, SerialTapUpDetails.count starts at '
           '1. count==2 means "double-tap completed".',
       'icon': Icons.exposure_plus_1,
       'color': Color(0xFF8B5CF6),
@@ -1311,11 +1244,7 @@ dynamic build(BuildContext context) {
                 color: color.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: Icon(
-                fg['icon'] as IconData,
-                color: color,
-                size: 24.0,
-              ),
+              child: Icon(fg['icon'] as IconData, color: color, size: 24.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1463,8 +1392,11 @@ dynamic build(BuildContext context) {
           Wrap(alignment: WrapAlignment.center, children: anatomyCards),
           SizedBox(height: 28.0),
 
-          _sectionHeader('2. Six instance gallery (count 1..6)', slateDeep,
-              coral),
+          _sectionHeader(
+            '2. Six instance gallery (count 1..6)',
+            slateDeep,
+            coral,
+          ),
           Wrap(alignment: WrapAlignment.center, children: galleryCards),
           SizedBox(height: 28.0),
 
@@ -1472,13 +1404,19 @@ dynamic build(BuildContext context) {
           Wrap(alignment: WrapAlignment.center, children: kindCards),
           SizedBox(height: 28.0),
 
-          _sectionHeader('4. count visualization (timing arrows)', slateDeep,
-              teal),
+          _sectionHeader(
+            '4. count visualization (timing arrows)',
+            slateDeep,
+            teal,
+          ),
           countViz,
           SizedBox(height: 28.0),
 
-          _sectionHeader('5. Real-world: text editor selection', slateDeep,
-              coral),
+          _sectionHeader(
+            '5. Real-world: text editor selection',
+            slateDeep,
+            coral,
+          ),
           editorMock,
           SizedBox(height: 28.0),
 
@@ -1486,13 +1424,19 @@ dynamic build(BuildContext context) {
           comparisonTable,
           SizedBox(height: 28.0),
 
-          _sectionHeader('7. onSerialTapUp callback signature', slateDeep,
-              tealDeep),
+          _sectionHeader(
+            '7. onSerialTapUp callback signature',
+            slateDeep,
+            tealDeep,
+          ),
           codeBlock,
           SizedBox(height: 28.0),
 
-          _sectionHeader('8. Lifecycle — five numbered steps', slateDeep,
-              indigo),
+          _sectionHeader(
+            '8. Lifecycle — five numbered steps',
+            slateDeep,
+            indigo,
+          ),
           ...lifecycleCards,
           SizedBox(height: 28.0),
 
@@ -1520,9 +1464,7 @@ Widget _sectionHeader(String text, Color textColor, Color accent) {
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10.0),
-      border: Border(
-        left: BorderSide(color: accent, width: 5.0),
-      ),
+      border: Border(left: BorderSide(color: accent, width: 5.0)),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),

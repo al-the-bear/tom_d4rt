@@ -41,11 +41,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          seedPrimary,
-          Color(0xFF7E5BC4),
-          Color(0xFF9A75DC),
-        ],
+        colors: [seedPrimary, Color(0xFF7E5BC4), Color(0xFF9A75DC)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         stops: [0.0, 0.55, 1.0],
@@ -80,11 +76,7 @@ dynamic build(BuildContext context) {
                   width: 1.5,
                 ),
               ),
-              child: Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 38.0,
-              ),
+              child: Icon(Icons.search, color: Colors.white, size: 38.0),
             ),
             SizedBox(width: 18.0),
             Expanded(
@@ -289,10 +281,12 @@ dynamic build(BuildContext context) {
   final tonalVariants = <Widget>[
     _buildBarCase(
       title: 'Filled - tonal (M3)',
-      description: 'Tonal surfaceContainerHighest + elevation 0. The '
+      description:
+          'Tonal surfaceContainerHighest + elevation 0. The '
           'canonical Material 3 search bar look.',
       accent: seedPrimary,
-      code: 'SearchBar(\n'
+      code:
+          'SearchBar(\n'
           '  backgroundColor: WidgetStatePropertyAll(\n'
           '    Color(0xFFE6E0E9),\n'
           '  ),\n'
@@ -310,10 +304,12 @@ dynamic build(BuildContext context) {
     ),
     _buildBarCase(
       title: 'Filled - tonal soft',
-      description: 'A lighter surfaceContainerLow tone - useful when the '
+      description:
+          'A lighter surfaceContainerLow tone - useful when the '
           'parent is already a high tonal level.',
       accent: Color(0xFF7E5BC4),
-      code: 'SearchBar(\n'
+      code:
+          'SearchBar(\n'
           '  backgroundColor: WidgetStatePropertyAll(\n'
           '    Color(0xFFF7F2FA),\n'
           '  ),\n'
@@ -331,10 +327,12 @@ dynamic build(BuildContext context) {
     ),
     _buildBarCase(
       title: 'Filled - primary container tint',
-      description: 'A primary-container backgroundColor reads as an '
+      description:
+          'A primary-container backgroundColor reads as an '
           'accent-flavoured filled bar.',
       accent: Color(0xFF8E24AA),
-      code: 'SearchBar(\n'
+      code:
+          'SearchBar(\n'
           '  backgroundColor: WidgetStatePropertyAll(\n'
           '    Color(0xFFEADDFF),\n'
           '  ),\n'
@@ -354,7 +352,8 @@ dynamic build(BuildContext context) {
       title: 'Filled - secondary container',
       description: 'Secondary container tone - a calmer filled flavour.',
       accent: Color(0xFF625B71),
-      code: 'backgroundColor: WidgetStatePropertyAll(\n'
+      code:
+          'backgroundColor: WidgetStatePropertyAll(\n'
           '  Color(0xFFE8DEF8),\n'
           ')',
       bar: SearchBar(
@@ -369,10 +368,12 @@ dynamic build(BuildContext context) {
     ),
     _buildBarCase(
       title: 'Flat (transparent)',
-      description: 'A "flat" interpretation - transparent fill against an '
+      description:
+          'A "flat" interpretation - transparent fill against an '
           'already-tinted surface, still elevation 0.',
       accent: Color(0xFF455A64),
-      code: 'backgroundColor: WidgetStatePropertyAll(\n'
+      code:
+          'backgroundColor: WidgetStatePropertyAll(\n'
           '  Colors.transparent,\n'
           ')\nside: WidgetStatePropertyAll(\n'
           '  BorderSide(color: outline),\n'
@@ -392,7 +393,8 @@ dynamic build(BuildContext context) {
     ),
     _buildBarCase(
       title: 'Elevated (counter-example)',
-      description: 'An elevated SearchBar uses elevation > 0 and a shadow - '
+      description:
+          'An elevated SearchBar uses elevation > 0 and a shadow - '
           'shown here for contrast with the filled style.',
       accent: Color(0xFF1976D2),
       code: 'elevation: WidgetStatePropertyAll(3.0)',
@@ -493,19 +495,20 @@ dynamic build(BuildContext context) {
                 SizedBox(width: 12.0),
                 Expanded(
                   child: SearchBar(
-                    backgroundColor:
-                        WidgetStatePropertyAll(surfaceContainerLowest),
+                    backgroundColor: WidgetStatePropertyAll(
+                      surfaceContainerLowest,
+                    ),
                     elevation: WidgetStatePropertyAll(0.0),
                     shadowColor: WidgetStatePropertyAll(Colors.transparent),
                     hintText: hintVariations[i],
                     hintStyle: WidgetStatePropertyAll(
-                      TextStyle(
-                        fontSize: 14.0,
-                        color: onSurfaceVariant,
-                      ),
+                      TextStyle(fontSize: 14.0, color: onSurfaceVariant),
                     ),
-                    leading: Icon(Icons.search,
-                        color: onSurfaceVariant, size: 20.0),
+                    leading: Icon(
+                      Icons.search,
+                      color: onSurfaceVariant,
+                      size: 20.0,
+                    ),
                     onTap: () {},
                     onChanged: (value) {},
                   ),
@@ -525,7 +528,8 @@ dynamic build(BuildContext context) {
   final leadingTrailingPatterns = <Widget>[
     _buildPatternCase(
       title: 'Search glyph leading',
-      description: 'Magnifier as the leading widget. The most common '
+      description:
+          'Magnifier as the leading widget. The most common '
           'pattern - users immediately recognise the affordance.',
       accent: seedPrimary,
       code: 'leading: Icon(Icons.search)',
@@ -541,10 +545,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Hamburger leading',
-      description: 'Filled SearchBar with a navigation drawer trigger - '
+      description:
+          'Filled SearchBar with a navigation drawer trigger - '
           'classic Google-style application shell.',
       accent: Color(0xFF1976D2),
-      code: 'leading: IconButton(\n'
+      code:
+          'leading: IconButton(\n'
           '  icon: Icon(Icons.menu),\n'
           '  onPressed: () {},\n'
           ')',
@@ -580,10 +586,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Back arrow leading',
-      description: 'Used when SearchBar acts as a search-page header in a '
+      description:
+          'Used when SearchBar acts as a search-page header in a '
           'navigation flow.',
       accent: Color(0xFF388E3C),
-      code: 'leading: IconButton(\n'
+      code:
+          'leading: IconButton(\n'
           '  icon: Icon(Icons.arrow_back),\n'
           '  onPressed: () {},\n'
           ')',
@@ -608,10 +616,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Mic + tune trailing',
-      description: 'Voice input plus a filter affordance - typical for '
+      description:
+          'Voice input plus a filter affordance - typical for '
           'media catalogues and finder UIs.',
       accent: Color(0xFFEF6C00),
-      code: 'trailing: <Widget>[\n'
+      code:
+          'trailing: <Widget>[\n'
           '  IconButton(icon: Icon(Icons.mic), ...),\n'
           '  IconButton(icon: Icon(Icons.tune), ...),\n'
           ']',
@@ -637,10 +647,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Clear button trailing',
-      description: 'A single trailing IconButton with Icons.close - a '
+      description:
+          'A single trailing IconButton with Icons.close - a '
           'clear-input affordance.',
       accent: Color(0xFFD81B60),
-      code: 'trailing: <Widget>[\n'
+      code:
+          'trailing: <Widget>[\n'
           '  IconButton(icon: Icon(Icons.close), ...),\n'
           ']',
       bar: SearchBar(
@@ -661,10 +673,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Avatar trailing',
-      description: 'Trailing avatar - quick access to the active user '
+      description:
+          'Trailing avatar - quick access to the active user '
           'inside the search context.',
       accent: Color(0xFF6A1B9A),
-      code: 'trailing: <Widget>[\n'
+      code:
+          'trailing: <Widget>[\n'
           '  CircleAvatar(child: Text(\'A\')),\n'
           ']',
       bar: SearchBar(
@@ -696,10 +710,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'Multiple trailing chips',
-      description: 'A trailing list with three actions - history, filter, '
+      description:
+          'A trailing list with three actions - history, filter, '
           'menu. Use sparingly.',
       accent: Color(0xFF00897B),
-      code: 'trailing: <Widget>[\n'
+      code:
+          'trailing: <Widget>[\n'
           '  IconButton(icon: Icon(Icons.history)),\n'
           '  IconButton(icon: Icon(Icons.filter_list)),\n'
           '  IconButton(icon: Icon(Icons.more_vert)),\n'
@@ -730,10 +746,12 @@ dynamic build(BuildContext context) {
     ),
     _buildPatternCase(
       title: 'No leading, only trailing',
-      description: 'Some surfaces choose to omit the leading magnifier and '
+      description:
+          'Some surfaces choose to omit the leading magnifier and '
           'instead rely on a trailing search icon.',
       accent: Color(0xFFC62828),
-      code: 'leading: null\n'
+      code:
+          'leading: null\n'
           'trailing: <Widget>[\n'
           '  IconButton(icon: Icon(Icons.search)),\n'
           ']',
@@ -791,7 +809,8 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Resting',
           stateColor: Color(0xFF388E3C),
-          description: 'Idle filled SearchBar with no text. The flat tonal '
+          description:
+              'Idle filled SearchBar with no text. The flat tonal '
               'fill is the resting state.',
           accent: seedPrimary,
           bar: SearchBar(
@@ -808,7 +827,8 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Focused (visualised)',
           stateColor: Color(0xFF1976D2),
-          description: 'Focus is portrayed via a tinted overlay and a '
+          description:
+              'Focus is portrayed via a tinted overlay and a '
               'primary-coloured border ring. SendTestRunner cannot raise '
               'real focus, so we draw the affordance manually.',
           accent: seedPrimary,
@@ -834,10 +854,7 @@ dynamic build(BuildContext context) {
                 Expanded(
                   child: Text(
                     'workspace|',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: onSurface,
-                    ),
+                    style: TextStyle(fontSize: 15.0, color: onSurface),
                   ),
                 ),
                 Icon(Icons.close, color: onSurfaceVariant),
@@ -849,7 +866,8 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Filled with text',
           stateColor: Color(0xFFEF6C00),
-          description: 'Filled SearchBar showing entered query - a static '
+          description:
+              'Filled SearchBar showing entered query - a static '
               'visualisation of post-input state.',
           accent: seedPrimary,
           bar: Container(
@@ -885,19 +903,21 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Disabled',
           stateColor: Color(0xFF757575),
-          description: 'Disabled by passing onTap and onChanged to no-ops '
+          description:
+              'Disabled by passing onTap and onChanged to no-ops '
               'plus reduced opacity tone for the surface. (Static illusion.)',
           accent: seedPrimary,
           bar: Opacity(
             opacity: 0.55,
             child: SearchBar(
-              backgroundColor:
-                  WidgetStatePropertyAll(surfaceContainerHighest),
+              backgroundColor: WidgetStatePropertyAll(surfaceContainerHighest),
               elevation: WidgetStatePropertyAll(0.0),
               shadowColor: WidgetStatePropertyAll(Colors.transparent),
               hintText: 'Search disabled',
-              leading: Icon(Icons.search,
-                  color: onSurfaceVariant.withValues(alpha: 0.6)),
+              leading: Icon(
+                Icons.search,
+                color: onSurfaceVariant.withValues(alpha: 0.6),
+              ),
               onTap: () {},
               onChanged: (value) {},
             ),
@@ -907,7 +927,8 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Error',
           stateColor: errorTone,
-          description: 'Visual error treatment - error tonal background '
+          description:
+              'Visual error treatment - error tonal background '
               'and a red border to flag invalid query syntax.',
           accent: errorTone,
           bar: Container(
@@ -941,7 +962,8 @@ dynamic build(BuildContext context) {
         _buildStateBlock(
           stateLabel: 'Loading (visualised)',
           stateColor: seedPrimary,
-          description: 'A trailing progress glyph implies a search is in '
+          description:
+              'A trailing progress glyph implies a search is in '
               'flight. SendTestRunner does not animate so we use a static '
               'icon.',
           accent: seedPrimary,
@@ -1034,8 +1056,11 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.format_color_fill,
-                            color: seedPrimary, size: 18.0),
+                        Icon(
+                          Icons.format_color_fill,
+                          color: seedPrimary,
+                          size: 18.0,
+                        ),
                         SizedBox(width: 6.0),
                         Text(
                           'Filled',
@@ -1049,14 +1074,13 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(height: 10.0),
                     SearchBar(
-                      backgroundColor:
-                          WidgetStatePropertyAll(surfaceContainerHighest),
+                      backgroundColor: WidgetStatePropertyAll(
+                        surfaceContainerHighest,
+                      ),
                       elevation: WidgetStatePropertyAll(0.0),
-                      shadowColor:
-                          WidgetStatePropertyAll(Colors.transparent),
+                      shadowColor: WidgetStatePropertyAll(Colors.transparent),
                       hintText: 'Filled tone',
-                      leading:
-                          Icon(Icons.search, color: onSurfaceVariant),
+                      leading: Icon(Icons.search, color: onSurfaceVariant),
                       onTap: () {},
                       onChanged: (value) {},
                     ),
@@ -1087,8 +1111,7 @@ dynamic build(BuildContext context) {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.crop_square,
-                            color: onSurface, size: 18.0),
+                        Icon(Icons.crop_square, color: onSurface, size: 18.0),
                         SizedBox(width: 6.0),
                         Text(
                           'Outlined',
@@ -1102,17 +1125,16 @@ dynamic build(BuildContext context) {
                     ),
                     SizedBox(height: 10.0),
                     SearchBar(
-                      backgroundColor:
-                          WidgetStatePropertyAll(Colors.transparent),
+                      backgroundColor: WidgetStatePropertyAll(
+                        Colors.transparent,
+                      ),
                       elevation: WidgetStatePropertyAll(0.0),
-                      shadowColor:
-                          WidgetStatePropertyAll(Colors.transparent),
+                      shadowColor: WidgetStatePropertyAll(Colors.transparent),
                       side: WidgetStatePropertyAll(
                         BorderSide(color: outlineSoft, width: 1.0),
                       ),
                       hintText: 'Outlined',
-                      leading:
-                          Icon(Icons.search, color: onSurfaceVariant),
+                      leading: Icon(Icons.search, color: onSurfaceVariant),
                       onTap: () {},
                       onChanged: (value) {},
                     ),
@@ -1151,16 +1173,31 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8.0),
-              _buildCompareRow('backgroundColor',
-                  'tonal surface', 'transparent', seedPrimary),
-              _buildCompareRow('side', '(none)',
-                  'BorderSide(color: outline)', seedPrimary),
               _buildCompareRow(
-                  'elevation', '0.0', '0.0', seedPrimary),
-              _buildCompareRow('shadowColor', 'transparent',
-                  'transparent', seedPrimary),
-              _buildCompareRow('Material 3 default',
-                  'preferred', 'alt look', seedPrimary),
+                'backgroundColor',
+                'tonal surface',
+                'transparent',
+                seedPrimary,
+              ),
+              _buildCompareRow(
+                'side',
+                '(none)',
+                'BorderSide(color: outline)',
+                seedPrimary,
+              ),
+              _buildCompareRow('elevation', '0.0', '0.0', seedPrimary),
+              _buildCompareRow(
+                'shadowColor',
+                'transparent',
+                'transparent',
+                seedPrimary,
+              ),
+              _buildCompareRow(
+                'Material 3 default',
+                'preferred',
+                'alt look',
+                seedPrimary,
+              ),
             ],
           ),
         ),
@@ -1216,8 +1253,7 @@ dynamic build(BuildContext context) {
         ),
         SizedBox(height: 18.0),
         SearchAnchor.bar(
-          barBackgroundColor:
-              WidgetStatePropertyAll(surfaceContainerHighest),
+          barBackgroundColor: WidgetStatePropertyAll(surfaceContainerHighest),
           barElevation: WidgetStatePropertyAll(0.0),
           barOverlayColor: WidgetStatePropertyAll(
             seedPrimary.withValues(alpha: 0.08),
@@ -1232,25 +1268,23 @@ dynamic build(BuildContext context) {
           ],
           suggestionsBuilder:
               (BuildContext context, SearchController controller) {
-            return <Widget>[];
-          },
+                return <Widget>[];
+              },
         ),
         SizedBox(height: 18.0),
         SearchAnchor.bar(
-          barBackgroundColor:
-              WidgetStatePropertyAll(Color(0xFFEADDFF)),
+          barBackgroundColor: WidgetStatePropertyAll(Color(0xFFEADDFF)),
           barElevation: WidgetStatePropertyAll(0.0),
           barHintText: 'SearchAnchor.bar primary container',
           barLeading: Icon(Icons.search, color: Color(0xFF21005D)),
           suggestionsBuilder:
               (BuildContext context, SearchController controller) {
-            return <Widget>[];
-          },
+                return <Widget>[];
+              },
         ),
         SizedBox(height: 18.0),
         SearchAnchor.bar(
-          barBackgroundColor:
-              WidgetStatePropertyAll(Color(0xFFE8DEF8)),
+          barBackgroundColor: WidgetStatePropertyAll(Color(0xFFE8DEF8)),
           barElevation: WidgetStatePropertyAll(0.0),
           barHintText: 'SearchAnchor.bar secondary container',
           barLeading: Icon(Icons.search, color: Color(0xFF1D192B)),
@@ -1273,8 +1307,8 @@ dynamic build(BuildContext context) {
           ],
           suggestionsBuilder:
               (BuildContext context, SearchController controller) {
-            return <Widget>[];
-          },
+                return <Widget>[];
+              },
         ),
       ],
     ),
@@ -1289,10 +1323,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1D1B20),
-          Color(0xFF2B2930),
-        ],
+        colors: [Color(0xFF1D1B20), Color(0xFF2B2930)],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -1437,10 +1468,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(22.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          seedPrimary,
-          Color(0xFF7E5BC4),
-        ],
+        colors: [seedPrimary, Color(0xFF7E5BC4)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1458,8 +1486,7 @@ dynamic build(BuildContext context) {
       children: [
         Row(
           children: [
-            Icon(Icons.check_circle_outline,
-                color: Colors.white, size: 26.0),
+            Icon(Icons.check_circle_outline, color: Colors.white, size: 26.0),
             SizedBox(width: 10.0),
             Text(
               'Recap',
@@ -1505,9 +1532,7 @@ dynamic build(BuildContext context) {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.20),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.20)),
           ),
           child: Text(
             'Filled recipe:\n'
@@ -1553,11 +1578,7 @@ dynamic build(BuildContext context) {
           Icons.layers,
         ),
         SizedBox(height: 12.0),
-        Wrap(
-          spacing: 16.0,
-          runSpacing: 16.0,
-          children: tonalVariants,
-        ),
+        Wrap(spacing: 16.0, runSpacing: 16.0, children: tonalVariants),
         SizedBox(height: 28.0),
         _buildSectionHeader(
           '4. Hint text variations',
@@ -1674,17 +1695,12 @@ Widget _buildSectionHeader(
     padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.10),
-          color.withValues(alpha: 0.02),
-        ],
+        colors: [color.withValues(alpha: 0.10), color.withValues(alpha: 0.02)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
       borderRadius: BorderRadius.circular(12.0),
-      border: Border(
-        left: BorderSide(color: color, width: 4.0),
-      ),
+      border: Border(left: BorderSide(color: color, width: 4.0)),
       boxShadow: [
         BoxShadow(
           color: color.withValues(alpha: 0.08),
@@ -1813,10 +1829,7 @@ Widget _buildBarCase({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.25),
-        width: 1.5,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.25), width: 1.5),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -1833,10 +1846,7 @@ Widget _buildBarCase({
             Container(
               width: 8.0,
               height: 8.0,
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             SizedBox(width: 8.0),
             Expanded(
@@ -1917,10 +1927,7 @@ Widget _buildPatternCase({
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(16.0),
-      border: Border.all(
-        color: accent.withValues(alpha: 0.25),
-        width: 1.5,
-      ),
+      border: Border.all(color: accent.withValues(alpha: 0.25), width: 1.5),
       boxShadow: [
         BoxShadow(
           color: accent.withValues(alpha: 0.15),
@@ -2001,10 +2008,7 @@ Widget _buildStateBlock({
     decoration: BoxDecoration(
       color: Color(0xFFFFFFFF),
       borderRadius: BorderRadius.circular(14.0),
-      border: Border.all(
-        color: stateColor.withValues(alpha: 0.30),
-        width: 1.2,
-      ),
+      border: Border.all(color: stateColor.withValues(alpha: 0.30), width: 1.2),
       boxShadow: [
         BoxShadow(
           color: stateColor.withValues(alpha: 0.08),
@@ -2019,16 +2023,11 @@ Widget _buildStateBlock({
         Row(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: stateColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(
-                  color: stateColor.withValues(alpha: 0.5),
-                ),
+                border: Border.all(color: stateColor.withValues(alpha: 0.5)),
               ),
               child: Text(
                 stateLabel,

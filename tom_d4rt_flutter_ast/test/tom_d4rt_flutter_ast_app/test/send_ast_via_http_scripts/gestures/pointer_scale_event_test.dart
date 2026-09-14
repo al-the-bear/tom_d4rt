@@ -281,11 +281,7 @@ Widget _buildSectionHeader(String number, String title) {
           ),
         ),
       ),
-      Container(
-        height: 2,
-        width: 60,
-        color: const Color(0xFF8C6A1A),
-      ),
+      Container(height: 2, width: 60, color: const Color(0xFF8C6A1A)),
     ],
   );
 }
@@ -296,16 +292,56 @@ Widget _buildSectionHeader(String number, String title) {
 
 Widget _buildApiSurfaceTable() {
   final List<List<String>> rows = [
-    ['timeStamp', 'Duration', 'Time at which the event was generated, relative to engine start.'],
-    ['pointer', 'int', 'Identifier for the pointer device. Stable across the life of a contact.'],
-    ['kind', 'PointerDeviceKind', 'trackpad / mouse / stylus / touch. Scale typically arrives as trackpad.'],
-    ['device', 'int', 'Embedder device id. Distinguishes physical trackpads on multi-device hosts.'],
-    ['position', 'Offset', 'Logical pixel position of the pointer when the scale signal arrived.'],
-    ['localPosition', 'Offset', 'Position in the coordinate space of the receiver. Defaults to position.'],
-    ['scale', 'double', 'Multiplicative scale factor since the previous signal. 1.0 means unchanged.'],
-    ['embedderId', 'int', 'Engine-supplied identifier when synthesised from a platform gesture.'],
-    ['original', 'PointerEvent?', 'If this event was transformed, the untransformed source event.'],
-    ['transform', 'Matrix4?', 'Transformation applied to compute localPosition.'],
+    [
+      'timeStamp',
+      'Duration',
+      'Time at which the event was generated, relative to engine start.',
+    ],
+    [
+      'pointer',
+      'int',
+      'Identifier for the pointer device. Stable across the life of a contact.',
+    ],
+    [
+      'kind',
+      'PointerDeviceKind',
+      'trackpad / mouse / stylus / touch. Scale typically arrives as trackpad.',
+    ],
+    [
+      'device',
+      'int',
+      'Embedder device id. Distinguishes physical trackpads on multi-device hosts.',
+    ],
+    [
+      'position',
+      'Offset',
+      'Logical pixel position of the pointer when the scale signal arrived.',
+    ],
+    [
+      'localPosition',
+      'Offset',
+      'Position in the coordinate space of the receiver. Defaults to position.',
+    ],
+    [
+      'scale',
+      'double',
+      'Multiplicative scale factor since the previous signal. 1.0 means unchanged.',
+    ],
+    [
+      'embedderId',
+      'int',
+      'Engine-supplied identifier when synthesised from a platform gesture.',
+    ],
+    [
+      'original',
+      'PointerEvent?',
+      'If this event was transformed, the untransformed source event.',
+    ],
+    [
+      'transform',
+      'Matrix4?',
+      'Transformation applied to compute localPosition.',
+    ],
   ];
   return Container(
     decoration: BoxDecoration(
@@ -443,11 +479,7 @@ Widget _buildScaleGallery() {
   for (int i = 0; i < scales.length; i++) {
     tiles.add(_buildScaleGalleryTile(scales[i], labels[i]));
   }
-  return Wrap(
-    spacing: 14,
-    runSpacing: 14,
-    children: tiles,
-  );
+  return Wrap(spacing: 14, runSpacing: 14, children: tiles);
 }
 
 Widget _buildScaleGalleryTile(double scale, String label) {
@@ -483,14 +515,13 @@ Widget _buildScaleGalleryTile(double scale, String label) {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: scale < 1.0
                     ? const Color(0xFF6E8C6A).withValues(alpha: 0.4)
                     : (scale > 1.0
-                        ? const Color(0xFFB0532A).withValues(alpha: 0.4)
-                        : const Color(0xFFC9A24A).withValues(alpha: 0.4)),
+                          ? const Color(0xFFB0532A).withValues(alpha: 0.4)
+                          : const Color(0xFFC9A24A).withValues(alpha: 0.4)),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
@@ -542,10 +573,7 @@ Widget _buildGauge(AlwaysStoppedAnimation<double> anim) {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFFC9A24A),
-                Color(0xFF8C6A1A),
-              ],
+              colors: [Color(0xFFC9A24A), Color(0xFF8C6A1A)],
             ),
           ),
         ),
@@ -633,22 +661,19 @@ Widget _buildConstructedSnapshots() {
     [const Duration(milliseconds: 180), const Offset(128, 80), 1.00, 'frame 6'],
   ];
   for (int i = 0; i < recipes.length; i++) {
-    cards.add(_buildSnapshotCard(
-      recipes[i][0] as Duration,
-      recipes[i][1] as Offset,
-      recipes[i][2] as double,
-      recipes[i][3] as String,
-    ));
+    cards.add(
+      _buildSnapshotCard(
+        recipes[i][0] as Duration,
+        recipes[i][1] as Offset,
+        recipes[i][2] as double,
+        recipes[i][3] as String,
+      ),
+    );
   }
-  return Wrap(
-    spacing: 12,
-    runSpacing: 12,
-    children: cards,
-  );
+  return Wrap(spacing: 12, runSpacing: 12, children: cards);
 }
 
-Widget _buildSnapshotCard(
-    Duration ts, Offset pos, double scale, String label) {
+Widget _buildSnapshotCard(Duration ts, Offset pos, double scale, String label) {
   String status;
   String repr;
   try {
@@ -661,7 +686,8 @@ Widget _buildSnapshotCard(
       embedderId: 42,
     );
     status = 'ok';
-    repr = 'ts=${ev.timeStamp.inMilliseconds}ms  '
+    repr =
+        'ts=${ev.timeStamp.inMilliseconds}ms  '
         'pos=(${ev.position.dx.toStringAsFixed(1)},'
         '${ev.position.dy.toStringAsFixed(1)})  '
         'scale=${ev.scale.toStringAsFixed(3)}';
@@ -700,8 +726,7 @@ Widget _buildSnapshotCard(
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 6, vertical: 2),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
                 color: status == 'ok'
                     ? const Color(0xFF6E8C6A).withValues(alpha: 0.4)
@@ -781,12 +806,7 @@ Widget _buildAsciiPanel(String text) {
 
 Widget _buildComparisonMatrix() {
   final List<List<String>> rows = [
-    [
-      'level',
-      'pointer signal',
-      'pointer signal',
-      'gesture recognizer',
-    ],
+    ['level', 'pointer signal', 'pointer signal', 'gesture recognizer'],
     [
       'class',
       'PointerScaleEvent',
@@ -805,24 +825,9 @@ Widget _buildComparisonMatrix() {
       'yes (delta per signal)',
       'no (absolute since start)',
     ],
-    [
-      'pan included',
-      'no',
-      'yes',
-      'yes (focalPoint)',
-    ],
-    [
-      'rotation included',
-      'no',
-      'yes',
-      'yes',
-    ],
-    [
-      'arena participation',
-      'no (signal)',
-      'no (signal)',
-      'yes (claims wins)',
-    ],
+    ['pan included', 'no', 'yes', 'yes (focalPoint)'],
+    ['rotation included', 'no', 'yes', 'yes'],
+    ['arena participation', 'no (signal)', 'no (signal)', 'yes (claims wins)'],
     [
       'typical source',
       'macOS/Linux trackpad pinch',
@@ -855,12 +860,8 @@ Widget _buildComparisonMatrix() {
 Widget _buildComparisonRow(List<String> cells, bool isHeader, bool zebra) {
   final Color bg = isHeader
       ? const Color(0xFF5A4214)
-      : (zebra
-          ? const Color(0xFFF4E4B0)
-          : const Color(0xFFE7D49A));
-  final Color fg = isHeader
-      ? const Color(0xFFF4E4B0)
-      : const Color(0xFF1B140A);
+      : (zebra ? const Color(0xFFF4E4B0) : const Color(0xFFE7D49A));
+  final Color fg = isHeader ? const Color(0xFFF4E4B0) : const Color(0xFF1B140A);
   return Container(
     color: bg,
     padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 12),
@@ -887,8 +888,7 @@ Widget _buildComparisonRow(List<String> cells, bool isHeader, bool zebra) {
               fontFamily: 'monospace',
               color: fg,
               fontSize: 12,
-              fontWeight:
-                  isHeader ? FontWeight.w800 : FontWeight.w400,
+              fontWeight: isHeader ? FontWeight.w800 : FontWeight.w400,
               height: 1.35,
             ),
           ),
@@ -901,8 +901,7 @@ Widget _buildComparisonRow(List<String> cells, bool isHeader, bool zebra) {
               fontFamily: 'monospace',
               color: fg,
               fontSize: 12,
-              fontWeight:
-                  isHeader ? FontWeight.w800 : FontWeight.w400,
+              fontWeight: isHeader ? FontWeight.w800 : FontWeight.w400,
               height: 1.35,
             ),
           ),
@@ -915,8 +914,7 @@ Widget _buildComparisonRow(List<String> cells, bool isHeader, bool zebra) {
               fontFamily: 'monospace',
               color: fg,
               fontSize: 12,
-              fontWeight:
-                  isHeader ? FontWeight.w800 : FontWeight.w400,
+              fontWeight: isHeader ? FontWeight.w800 : FontWeight.w400,
               height: 1.35,
             ),
           ),
@@ -1006,37 +1004,40 @@ Widget _buildPlatformNotes() {
 }
 
 Widget _buildPlatformCard(
-    String title, String subtitle, Color accent, List<String> bullets) {
+  String title,
+  String subtitle,
+  Color accent,
+  List<String> bullets,
+) {
   final List<Widget> lines = [];
   for (int i = 0; i < bullets.length; i++) {
-    lines.add(Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            margin: const EdgeInsets.only(top: 6, right: 8),
-            decoration: BoxDecoration(
-              color: accent,
-              shape: BoxShape.circle,
+    lines.add(
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              width: 6,
+              height: 6,
+              margin: const EdgeInsets.only(top: 6, right: 8),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
-          ),
-          Expanded(
-            child: Text(
-              bullets[i],
-              style: const TextStyle(
-                fontSize: 12.5,
-                color: Color(0xFF1B140A),
-                height: 1.45,
+            Expanded(
+              child: Text(
+                bullets[i],
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  color: Color(0xFF1B140A),
+                  height: 1.45,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
   return Container(
     decoration: BoxDecoration(
@@ -1159,11 +1160,7 @@ Widget _buildScenarioPanels() {
   for (int i = 0; i < scenarios.length; i++) {
     cards.add(_buildScenarioCard(scenarios[i]));
   }
-  return Wrap(
-    spacing: 14,
-    runSpacing: 14,
-    children: cards,
-  );
+  return Wrap(spacing: 14, runSpacing: 14, children: cards);
 }
 
 Widget _buildScenarioCard(List<String> data) {
@@ -1342,7 +1339,12 @@ Widget _buildPitfallsPanel() {
     crossAxisAlignment: CrossAxisAlignment.stretch,
     children: [
       for (int i = 0; i < pitfalls.length; i++)
-        _buildPitfallEntry(i + 1, pitfalls[i][0], pitfalls[i][1], pitfalls[i][2]),
+        _buildPitfallEntry(
+          i + 1,
+          pitfalls[i][0],
+          pitfalls[i][1],
+          pitfalls[i][2],
+        ),
     ],
   );
 }
@@ -1403,8 +1405,7 @@ Widget _buildPitfallEntry(int index, String title, String desc, String fix) {
               ),
               const SizedBox(height: 6),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color(0xFF6E8C6A).withValues(alpha: 0.35),
                   borderRadius: BorderRadius.circular(6),
@@ -1555,9 +1556,7 @@ Widget _buildGlossary() {
 
 Widget _buildGlossaryEntry(String term, String defn, bool zebra) {
   return Container(
-    color: zebra
-        ? const Color(0xFFF4E4B0)
-        : const Color(0xFFE7D49A),
+    color: zebra ? const Color(0xFFF4E4B0) : const Color(0xFFE7D49A),
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1609,17 +1608,15 @@ Widget _buildPaletteSwatches() {
   ];
   final List<Widget> tiles = [];
   for (int i = 0; i < swatches.length; i++) {
-    tiles.add(_buildPaletteTile(
-      swatches[i][0] as String,
-      Color(swatches[i][1] as int),
-      swatches[i][2] as String,
-    ));
+    tiles.add(
+      _buildPaletteTile(
+        swatches[i][0] as String,
+        Color(swatches[i][1] as int),
+        swatches[i][2] as String,
+      ),
+    );
   }
-  return Wrap(
-    spacing: 12,
-    runSpacing: 12,
-    children: tiles,
-  );
+  return Wrap(spacing: 12, runSpacing: 12, children: tiles);
 }
 
 Widget _buildPaletteTile(String name, Color color, String role) {
@@ -1745,10 +1742,7 @@ Widget _buildClosingColophon() {
           ],
         ),
         const SizedBox(height: 10),
-        Container(
-          height: 1.5,
-          color: const Color(0xFF8C6A1A),
-        ),
+        Container(height: 1.5, color: const Color(0xFF8C6A1A)),
         const SizedBox(height: 10),
         const Text(
           'end of reference.',

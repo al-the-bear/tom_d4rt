@@ -28,9 +28,7 @@ dynamic build(BuildContext context) {
       margin: const EdgeInsets.only(top: 24, bottom: 12),
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [pbNavy, pbAzure],
-        ),
+        gradient: const LinearGradient(colors: [pbNavy, pbAzure]),
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -91,11 +89,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 14,
-          color: pbBlack,
-          height: 1.55,
-        ),
+        style: const TextStyle(fontSize: 14, color: pbBlack, height: 1.55),
       ),
     );
   }
@@ -187,11 +181,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 14,
-                color: pbBlack,
-                height: 1.5,
-              ),
+              style: const TextStyle(fontSize: 14, color: pbBlack, height: 1.5),
             ),
           ),
         ],
@@ -229,11 +219,7 @@ dynamic build(BuildContext context) {
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                fontSize: 14,
-                color: pbBlack,
-                height: 1.5,
-              ),
+              style: const TextStyle(fontSize: 14, color: pbBlack, height: 1.5),
             ),
           ),
         ],
@@ -268,11 +254,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 6),
             Text(
               body,
-              style: const TextStyle(
-                fontSize: 13,
-                color: pbBlack,
-                height: 1.5,
-              ),
+              style: const TextStyle(fontSize: 13, color: pbBlack, height: 1.5),
             ),
           ],
         ),
@@ -419,11 +401,7 @@ dynamic build(BuildContext context) {
                 'the end of the document or backward toward the start. '
                 'The base (anchor) remains fixed, producing a selection '
                 'that spans one or more paragraph boundaries.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: pbFoam,
-                  height: 1.6,
-                ),
+                style: TextStyle(fontSize: 14, color: pbFoam, height: 1.6),
               ),
             ],
           ),
@@ -525,15 +503,17 @@ dynamic build(BuildContext context) {
           'the extent moves toward:',
         ),
 
-        pbRow('forward: true',
+        pbRow(
+          'forward: true',
           'Extent moves to the END of the current paragraph (the '
-          'position just before or at the next \\n). If already at '
-          'a paragraph end, jumps to the end of the next paragraph.',
+              'position just before or at the next \\n). If already at '
+              'a paragraph end, jumps to the end of the next paragraph.',
         ),
-        pbRow('forward: false',
+        pbRow(
+          'forward: false',
           'Extent moves to the START of the current paragraph (the '
-          'position just after the preceding \\n). If already at '
-          'a paragraph start, jumps to the start of the previous one.',
+              'position just after the preceding \\n). If already at '
+              'a paragraph start, jumps to the start of the previous one.',
         ),
 
         pbSubHeader('Step-Through Behavior'),
@@ -549,17 +529,17 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'Three consecutive forward invocations:',
           'Para 0: "Alpha paragraph."\n'
-          'Para 1: "Beta paragraph."\n'
-          'Para 2: "Gamma paragraph."\n'
-          'Para 3: "Delta paragraph."\n\n'
-          'Cursor starts in middle of Para 0:\n'
-          '  "Alpha par|agraph."\n\n'
-          'Invoke 1 (forward): extent \u2192 end of Para 0\n'
-          '  "Alpha par[agraph.]"\n\n'
-          'Invoke 2 (forward): extent \u2192 end of Para 1\n'
-          '  "Alpha par[agraph.\\nBeta paragraph.]"\n\n'
-          'Invoke 3 (forward): extent \u2192 end of Para 2\n'
-          '  "Alpha par[agraph.\\nBeta...\\nGamma paragraph.]"',
+              'Para 1: "Beta paragraph."\n'
+              'Para 2: "Gamma paragraph."\n'
+              'Para 3: "Delta paragraph."\n\n'
+              'Cursor starts in middle of Para 0:\n'
+              '  "Alpha par|agraph."\n\n'
+              'Invoke 1 (forward): extent \u2192 end of Para 0\n'
+              '  "Alpha par[agraph.]"\n\n'
+              'Invoke 2 (forward): extent \u2192 end of Para 1\n'
+              '  "Alpha par[agraph.\\nBeta paragraph.]"\n\n'
+              'Invoke 3 (forward): extent \u2192 end of Para 2\n'
+              '  "Alpha par[agraph.\\nBeta...\\nGamma paragraph.]"',
         ),
 
         pbDividerWidget(),
@@ -602,27 +582,27 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'Existing forward selection across two paragraphs:',
           'Para 0: "Alpha [paragraph.\\n"\n'
-          'Para 1: "Beta] paragraph.\\n"\n'
-          'Para 2: "Gamma paragraph."\n\n'
-          'base in Para 0, extent in middle of Para 1.',
+              'Para 1: "Beta] paragraph.\\n"\n'
+              'Para 2: "Gamma paragraph."\n\n'
+              'base in Para 0, extent in middle of Para 1.',
         ),
 
         pbDiagram(
           'After Extend forward=false (backward):',
           'Para 0: "[Alpha ]paragraph.\\n"\n'
-          'Para 1: "Beta paragraph.\\n"\n'
-          'Para 2: "Gamma paragraph."\n\n'
-          'Extent crossed base and moved to start of Para 0.\n'
-          'Selection is now reversed: extent < base.',
+              'Para 1: "Beta paragraph.\\n"\n'
+              'Para 2: "Gamma paragraph."\n\n'
+              'Extent crossed base and moved to start of Para 0.\n'
+              'Selection is now reversed: extent < base.',
         ),
 
         pbDiagram(
           'After Expand forward=false (backward) from same start:',
           'Para 0: "[Alpha paragraph.\\n"\n'
-          'Para 1: "Beta] paragraph.\\n"\n'
-          'Para 2: "Gamma paragraph."\n\n'
-          'Expand moved the base to Para 0 start.\n'
-          'Selection grew; it did not reverse.',
+              'Para 1: "Beta] paragraph.\\n"\n'
+              'Para 2: "Gamma paragraph."\n\n'
+              'Expand moved the base to Para 0 start.\n'
+              'Selection grew; it did not reverse.',
         ),
 
         pbDividerWidget(),
@@ -685,32 +665,39 @@ dynamic build(BuildContext context) {
           'architecture:',
         ),
 
-        pbStep(1,
+        pbStep(
+          1,
           'User presses Shift+Option+Down (or platform equivalent). '
           'The key event reaches the Shortcuts widget.',
         ),
-        pbStep(2,
+        pbStep(
+          2,
           'Shortcuts maps the key combination to '
           'ExtendSelectionToNextParagraphBoundaryIntent(forward: true).',
         ),
-        pbStep(3,
+        pbStep(
+          3,
           'Actions widget walks up the tree looking for an '
           'Action<ExtendSelectionToNextParagraphBoundaryIntent>.',
         ),
-        pbStep(4,
+        pbStep(
+          4,
           'EditableText provides the matching action which reads '
           'the current TextEditingValue and TextSelection.',
         ),
-        pbStep(5,
+        pbStep(
+          5,
           'The action scans the text content for the next newline '
           'character in the specified direction, starting from the '
           'current extent offset.',
         ),
-        pbStep(6,
+        pbStep(
+          6,
           'A new TextSelection is produced with the original base '
           'and the new extent at the paragraph boundary offset.',
         ),
-        pbStep(7,
+        pbStep(
+          7,
           'The TextEditingValue is updated, the rendering layer '
           'repaints the selection highlight, and the viewport '
           'scrolls to keep the new extent visible.',
@@ -754,9 +741,9 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'Initial state:',
           '"Flutter is an open-|source UI toolkit by Google.\\n"\n'
-          '"It enables cross-platform apps from a single codebase.\\n"\n'
-          '...\n\n'
-          'Cursor at offset 20, in paragraph 0.',
+              '"It enables cross-platform apps from a single codebase.\\n"\n'
+              '...\n\n'
+              'Cursor at offset 20, in paragraph 0.',
         ),
 
         pbSubHeader('Step 2 — Extend forward'),
@@ -764,9 +751,9 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'After ExtendSelectionToNextParagraphBoundaryIntent(forward: true):',
           '"Flutter is an open-[source UI toolkit by Google.]\\n"\n'
-          '"It enables cross-platform apps from a single codebase.\\n"\n'
-          '...\n\n'
-          'base=20, extent=44  (end of paragraph 0, before \\n)',
+              '"It enables cross-platform apps from a single codebase.\\n"\n'
+              '...\n\n'
+              'base=20, extent=44  (end of paragraph 0, before \\n)',
         ),
 
         pbSubHeader('Step 3 — Extend forward again'),
@@ -774,9 +761,9 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'Second invocation (forward: true):',
           '"Flutter is an open-[source UI toolkit by Google.\\n"\n'
-          '"It enables cross-platform apps from a single codebase.]\\n"\n'
-          '...\n\n'
-          'base=20, extent=98  (end of paragraph 1, before \\n)',
+              '"It enables cross-platform apps from a single codebase.]\\n"\n'
+              '...\n\n'
+              'base=20, extent=98  (end of paragraph 1, before \\n)',
         ),
 
         pbSubHeader('Step 4 — Extend backward from same state'),
@@ -784,14 +771,14 @@ dynamic build(BuildContext context) {
         pbDiagram(
           'Now invoke forward=false:',
           '"Flutter is an open-[source UI toolkit by Google.\\n"\n'
-          '"It enables cross-platform apps from a single codebase.\\n"\n'
-          '"Widgets are the building blocks of Flutter interfaces.\\n"\n'
-          '"The framework uses a reactive programming model."\n\n'
-          'Hmm — extent needs to move toward start of document.\n'
-          'From extent=98, previous paragraph boundary is offset 45\n'
-          '(start of paragraph 1).\n\n'
-          'Result: base=20, extent=45\n'
-          'Selection shrank but is still forward (45 > 20).',
+              '"It enables cross-platform apps from a single codebase.\\n"\n'
+              '"Widgets are the building blocks of Flutter interfaces.\\n"\n'
+              '"The framework uses a reactive programming model."\n\n'
+              'Hmm — extent needs to move toward start of document.\n'
+              'From extent=98, previous paragraph boundary is offset 45\n'
+              '(start of paragraph 1).\n\n'
+              'Result: base=20, extent=45\n'
+              'Selection shrank but is still forward (45 > 20).',
         ),
 
         pbDividerWidget(),
@@ -806,19 +793,21 @@ dynamic build(BuildContext context) {
           'levels in the extend-selection family:',
         ),
 
-        pbRow('Character',
+        pbRow(
+          'Character',
           'ExtendSelectionByCharacterIntent — one grapheme cluster',
         ),
-        pbRow('Word',
+        pbRow(
+          'Word',
           'ExtendSelectionToNextWordBoundaryIntent — word boundary',
         ),
-        pbRow('Line',
-          'ExtendSelectionToLineBreakIntent — line start/end',
-        ),
-        pbRow('Paragraph',
+        pbRow('Line', 'ExtendSelectionToLineBreakIntent — line start/end'),
+        pbRow(
+          'Paragraph',
           'ExtendSelectionToNextParagraphBoundaryIntent \u2190 this demo',
         ),
-        pbRow('Document',
+        pbRow(
+          'Document',
           'ExtendSelectionToDocumentBoundaryIntent — doc start/end',
         ),
 
@@ -827,17 +816,17 @@ dynamic build(BuildContext context) {
         pbRow(
           'Extend to paragraph',
           'Moves extent to paragraph boundary. '
-          'Can repeat to traverse multiple paragraphs.',
+              'Can repeat to traverse multiple paragraphs.',
         ),
         pbRow(
           'Expand to paragraph',
           'Grows selection to encompass paragraph boundary. '
-          'Selection only grows, never shrinks.',
+              'Selection only grows, never shrinks.',
         ),
         pbRow(
           'Extend to paragraph\nor caret location',
           'Composite intent: extends to paragraph boundary '
-          'OR caret location, whichever is appropriate.',
+              'OR caret location, whichever is appropriate.',
         ),
 
         pbDividerWidget(),
@@ -1067,10 +1056,7 @@ dynamic build(BuildContext context) {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                pbAzure.withValues(alpha: 0.12),
-                pbFoam,
-              ],
+              colors: [pbAzure.withValues(alpha: 0.12), pbFoam],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

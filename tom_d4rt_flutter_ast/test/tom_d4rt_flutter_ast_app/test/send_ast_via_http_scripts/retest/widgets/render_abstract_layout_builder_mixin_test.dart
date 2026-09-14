@@ -56,8 +56,10 @@ class _RenderAbstractLayoutBuilderMixinDemoState
     return Scaffold(
       backgroundColor: _kBg,
       appBar: AppBar(
-        title: Text('RenderAbstractLayoutBuilderMixin',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+        title: Text(
+          'RenderAbstractLayoutBuilderMixin',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -125,11 +127,15 @@ class _TheoryTab extends StatelessWidget {
         _sectionCard(
           title: 'Super-Mixin Requirements',
           children: [
-            _hierarchyRow('RenderObjectWithChildMixin<ChildType>',
-                'Single-child protocol (child getter/setter)'),
+            _hierarchyRow(
+              'RenderObjectWithChildMixin<ChildType>',
+              'Single-child protocol (child getter/setter)',
+            ),
             Divider(color: _kDivider, height: 20),
-            _hierarchyRow('RenderObjectWithLayoutCallbackMixin',
-                'Schedules layout callbacks during performLayout'),
+            _hierarchyRow(
+              'RenderObjectWithLayoutCallbackMixin',
+              'Schedules layout callbacks during performLayout',
+            ),
           ],
         ),
 
@@ -245,16 +251,31 @@ class _TheoryTab extends StatelessWidget {
         _sectionCard(
           title: 'performLayout Cycle',
           children: [
-            _cycleStep(1, 'Parent provides constraints',
-                'RenderObject receives BoxConstraints'),
-            _cycleStep(2, 'layoutCallback() invoked',
-                'Builder callback runs with layoutInfo'),
-            _cycleStep(3, 'Builder creates widget subtree',
-                'New widgets are built and elements created'),
-            _cycleStep(4, 'Child laid out',
-                'child!.layout(constraints, parentUsesSize: true)'),
-            _cycleStep(5, 'Size determined',
-                'size = constraints.constrain(child!.size)'),
+            _cycleStep(
+              1,
+              'Parent provides constraints',
+              'RenderObject receives BoxConstraints',
+            ),
+            _cycleStep(
+              2,
+              'layoutCallback() invoked',
+              'Builder callback runs with layoutInfo',
+            ),
+            _cycleStep(
+              3,
+              'Builder creates widget subtree',
+              'New widgets are built and elements created',
+            ),
+            _cycleStep(
+              4,
+              'Child laid out',
+              'child!.layout(constraints, parentUsesSize: true)',
+            ),
+            _cycleStep(
+              5,
+              'Size determined',
+              'size = constraints.constrain(child!.size)',
+            ),
           ],
         ),
 
@@ -350,8 +371,10 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
                   },
                 ),
                 SizedBox(width: 8),
-                Text('Tight constraints',
-                    style: TextStyle(fontSize: 12, color: _kDarkText)),
+                Text(
+                  'Tight constraints',
+                  style: TextStyle(fontSize: 12, color: _kDarkText),
+                ),
               ],
             ),
           ],
@@ -361,9 +384,7 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
         // ── constraint display ──
         _sectionCard(
           title: 'Incoming BoxConstraints',
-          children: [
-            _constraintBox(_currentConstraints),
-          ],
+          children: [_constraintBox(_currentConstraints)],
         ),
         SizedBox(height: 16),
 
@@ -426,27 +447,31 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
                             isWide && isTall
                                 ? 'Wide + Tall → full layout'
                                 : isWide
-                                    ? 'Wide → horizontal layout'
-                                    : isTall
-                                        ? 'Tall → vertical layout'
-                                        : 'Compact → minimal layout',
-                            style: TextStyle(
-                                fontSize: 11, color: _kSubtle),
+                                ? 'Wide → horizontal layout'
+                                : isTall
+                                ? 'Tall → vertical layout'
+                                : 'Compact → minimal layout',
+                            style: TextStyle(fontSize: 11, color: _kSubtle),
                           ),
                           if (constraints.isTight) ...[
                             SizedBox(height: 4),
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: _kAccent.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(4),
                               ),
-                              child: Text('TIGHT',
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700,
-                                      color: _kPrimary)),
+                              child: Text(
+                                'TIGHT',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                  color: _kPrimary,
+                                ),
+                              ),
                             ),
                           ],
                         ],
@@ -464,20 +489,40 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
         _sectionCard(
           title: 'Constraint Flow Pipeline',
           children: [
-            _pipelineStep('Parent', 'Provides constraints to child',
-                Icons.account_tree, _kPrimary),
+            _pipelineStep(
+              'Parent',
+              'Provides constraints to child',
+              Icons.account_tree,
+              _kPrimary,
+            ),
             _pipelineArrow(),
-            _pipelineStep('performLayout()', 'Calls layoutCallback()',
-                Icons.settings, Colors.deepOrange),
+            _pipelineStep(
+              'performLayout()',
+              'Calls layoutCallback()',
+              Icons.settings,
+              Colors.deepOrange,
+            ),
             _pipelineArrow(),
-            _pipelineStep('layoutCallback()', 'Invokes builder with layoutInfo',
-                Icons.build_circle, Colors.blue.shade700),
+            _pipelineStep(
+              'layoutCallback()',
+              'Invokes builder with layoutInfo',
+              Icons.build_circle,
+              Colors.blue.shade700,
+            ),
             _pipelineArrow(),
-            _pipelineStep('Builder callback', 'Receives constraints, returns widget',
-                Icons.widgets, _kAccent),
+            _pipelineStep(
+              'Builder callback',
+              'Receives constraints, returns widget',
+              Icons.widgets,
+              _kAccent,
+            ),
             _pipelineArrow(),
-            _pipelineStep('Child layout', 'child.layout(constraints)',
-                Icons.crop_free, Colors.teal),
+            _pipelineStep(
+              'Child layout',
+              'child.layout(constraints)',
+              Icons.crop_free,
+              Colors.teal,
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -487,18 +532,31 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
           title: 'Constraint Change Log',
           children: [
             if (_log.isEmpty)
-              Text('Move sliders to see events...',
-                  style: TextStyle(fontSize: 12, color: _kSubtle, fontStyle: FontStyle.italic)),
-            ..._log.take(15).map((e) => Padding(
-                  padding: EdgeInsets.only(bottom: 3),
-                  child: Row(
-                    children: [
-                      Icon(Icons.chevron_right, size: 14, color: _kPrimary),
-                      SizedBox(width: 4),
-                      Text(e, style: TextStyle(fontSize: 11, color: _kDarkText)),
-                    ],
+              Text(
+                'Move sliders to see events...',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: _kSubtle,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ..._log
+                .take(15)
+                .map(
+                  (e) => Padding(
+                    padding: EdgeInsets.only(bottom: 3),
+                    child: Row(
+                      children: [
+                        Icon(Icons.chevron_right, size: 14, color: _kPrimary),
+                        SizedBox(width: 4),
+                        Text(
+                          e,
+                          style: TextStyle(fontSize: 11, color: _kDarkText),
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
           ],
         ),
         SizedBox(height: 32),
@@ -507,13 +565,24 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
   }
 
   Widget _sliderRow(
-      String label, double value, double min, double max, ValueChanged<double> onChanged) {
+    String label,
+    double value,
+    double min,
+    double max,
+    ValueChanged<double> onChanged,
+  ) {
     return Row(
       children: [
         SizedBox(
           width: 80,
-          child: Text(label,
-              style: TextStyle(fontSize: 12, color: _kDarkText, fontWeight: FontWeight.w600)),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: _kDarkText,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Expanded(
           child: Slider(
@@ -526,8 +595,14 @@ class _ConstraintFlowLabTabState extends State<_ConstraintFlowLabTab> {
         ),
         SizedBox(
           width: 40,
-          child: Text(value.toStringAsFixed(0),
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kPrimary)),
+          child: Text(
+            value.toStringAsFixed(0),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
         ),
       ],
     );
@@ -624,8 +699,14 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
               children: [
                 SizedBox(
                   width: 120,
-                  child: Text('maxWidth',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+                  child: Text(
+                    'maxWidth',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _kDarkText,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Slider(
@@ -638,8 +719,14 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
                 ),
                 SizedBox(
                   width: 40,
-                  child: Text(_width.toStringAsFixed(0),
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kPrimary)),
+                  child: Text(
+                    _width.toStringAsFixed(0),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -648,8 +735,14 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
               children: [
                 SizedBox(
                   width: 120,
-                  child: Text('devicePixelRatio',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+                  child: Text(
+                    'devicePixelRatio',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _kDarkText,
+                    ),
+                  ),
                 ),
                 Expanded(
                   child: Slider(
@@ -663,8 +756,14 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
                 ),
                 SizedBox(
                   width: 40,
-                  child: Text(_density.toStringAsFixed(1),
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: _kPrimary)),
+                  child: Text(
+                    _density.toStringAsFixed(1),
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _kPrimary,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -673,16 +772,24 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
               children: [
                 SizedBox(
                   width: 120,
-                  child: Text('textDirection',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+                  child: Text(
+                    'textDirection',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _kDarkText,
+                    ),
+                  ),
                 ),
                 Switch(
                   value: _rtl,
                   activeColor: _kPrimary,
                   onChanged: (v) => setState(() => _rtl = v),
                 ),
-                Text(_rtl ? 'RTL' : 'LTR',
-                    style: TextStyle(fontSize: 12, color: _kDarkText)),
+                Text(
+                  _rtl ? 'RTL' : 'LTR',
+                  style: TextStyle(fontSize: 12, color: _kDarkText),
+                ),
               ],
             ),
             // Theme selector
@@ -690,20 +797,33 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
               children: [
                 SizedBox(
                   width: 120,
-                  child: Text('themeMode',
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+                  child: Text(
+                    'themeMode',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _kDarkText,
+                    ),
+                  ),
                 ),
                 SegmentedButton<String>(
                   segments: [
-                    ButtonSegment(value: 'light', label: Text('Light', style: TextStyle(fontSize: 11))),
-                    ButtonSegment(value: 'dark', label: Text('Dark', style: TextStyle(fontSize: 11))),
-                    ButtonSegment(value: 'system', label: Text('System', style: TextStyle(fontSize: 11))),
+                    ButtonSegment(
+                      value: 'light',
+                      label: Text('Light', style: TextStyle(fontSize: 11)),
+                    ),
+                    ButtonSegment(
+                      value: 'dark',
+                      label: Text('Dark', style: TextStyle(fontSize: 11)),
+                    ),
+                    ButtonSegment(
+                      value: 'system',
+                      label: Text('System', style: TextStyle(fontSize: 11)),
+                    ),
                   ],
                   selected: {_theme},
                   onSelectionChanged: (s) => setState(() => _theme = s.first),
-                  style: ButtonStyle(
-                    visualDensity: VisualDensity.compact,
-                  ),
+                  style: ButtonStyle(visualDensity: VisualDensity.compact),
                 ),
               ],
             ),
@@ -725,12 +845,17 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _infoField('constraints',
-                      'BoxConstraints(0.0 ≤ w ≤ ${_width.toStringAsFixed(0)}, unbounded h)'),
+                  _infoField(
+                    'constraints',
+                    'BoxConstraints(0.0 ≤ w ≤ ${_width.toStringAsFixed(0)}, unbounded h)',
+                  ),
                   SizedBox(height: 6),
                   _infoField('devicePixelRatio', _density.toStringAsFixed(1)),
                   SizedBox(height: 6),
-                  _infoField('textDirection', _rtl ? 'TextDirection.rtl' : 'TextDirection.ltr'),
+                  _infoField(
+                    'textDirection',
+                    _rtl ? 'TextDirection.rtl' : 'TextDirection.ltr',
+                  ),
                   SizedBox(height: 6),
                   _infoField('themeMode', _theme),
                 ],
@@ -772,9 +897,11 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.dashboard_customize,
-                            color: _theme == 'dark' ? _kAccent : _kPrimary,
-                            size: 20),
+                        Icon(
+                          Icons.dashboard_customize,
+                          color: _theme == 'dark' ? _kAccent : _kPrimary,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -782,29 +909,46 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
-                              color: _theme == 'dark' ? Colors.white : _kDarkText,
+                              color: _theme == 'dark'
+                                  ? Colors.white
+                                  : _kDarkText,
                             ),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    _previewMetric('Width', '${_width.toStringAsFixed(0)}px',
-                        _theme == 'dark' ? Colors.white70 : _kSubtle),
-                    _previewMetric('Density', '${_density.toStringAsFixed(1)}x',
-                        _theme == 'dark' ? Colors.white70 : _kSubtle),
-                    _previewMetric('Direction', _rtl ? 'RTL' : 'LTR',
-                        _theme == 'dark' ? Colors.white70 : _kSubtle),
-                    _previewMetric('Theme', _theme,
-                        _theme == 'dark' ? Colors.white70 : _kSubtle),
+                    _previewMetric(
+                      'Width',
+                      '${_width.toStringAsFixed(0)}px',
+                      _theme == 'dark' ? Colors.white70 : _kSubtle,
+                    ),
+                    _previewMetric(
+                      'Density',
+                      '${_density.toStringAsFixed(1)}x',
+                      _theme == 'dark' ? Colors.white70 : _kSubtle,
+                    ),
+                    _previewMetric(
+                      'Direction',
+                      _rtl ? 'RTL' : 'LTR',
+                      _theme == 'dark' ? Colors.white70 : _kSubtle,
+                    ),
+                    _previewMetric(
+                      'Theme',
+                      _theme,
+                      _theme == 'dark' ? Colors.white70 : _kSubtle,
+                    ),
                     SizedBox(height: 10),
                     // density bar
                     Row(
                       children: [
-                        Text('Pixel density: ',
-                            style: TextStyle(
-                                fontSize: 10,
-                                color: _theme == 'dark' ? Colors.white54 : _kSubtle)),
+                        Text(
+                          'Pixel density: ',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _theme == 'dark' ? Colors.white54 : _kSubtle,
+                          ),
+                        ),
                         Expanded(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(3),
@@ -832,9 +976,17 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
           children: [
             _comparisonHeader(),
             _comparisonRow('Data type', 'BoxConstraints', 'Custom class'),
-            _comparisonRow('Contains', 'min/max width & height', 'Constraints + extras'),
+            _comparisonRow(
+              'Contains',
+              'min/max width & height',
+              'Constraints + extras',
+            ),
             _comparisonRow('Override needed', 'No', 'Yes — get layoutInfo'),
-            _comparisonRow('Use case', 'LayoutBuilder', 'Custom layout widgets'),
+            _comparisonRow(
+              'Use case',
+              'LayoutBuilder',
+              'Custom layout widgets',
+            ),
             _comparisonRow('Complexity', 'Simple', 'More flexible'),
           ],
         ),
@@ -844,20 +996,35 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
         _sectionCard(
           title: 'Best Practices',
           children: [
-            _bestPractice(Icons.check_circle, 'Keep layoutInfo immutable',
-                'Create new instances each time, never mutate.'),
+            _bestPractice(
+              Icons.check_circle,
+              'Keep layoutInfo immutable',
+              'Create new instances each time, never mutate.',
+            ),
             SizedBox(height: 8),
-            _bestPractice(Icons.check_circle, 'Override layoutCallback() sparingly',
-                'The default invocation is correct for most cases.'),
+            _bestPractice(
+              Icons.check_circle,
+              'Override layoutCallback() sparingly',
+              'The default invocation is correct for most cases.',
+            ),
             SizedBox(height: 8),
-            _bestPractice(Icons.check_circle, 'Use markNeedsLayout()',
-                'When external data changes that affects layoutInfo.'),
+            _bestPractice(
+              Icons.check_circle,
+              'Use markNeedsLayout()',
+              'When external data changes that affects layoutInfo.',
+            ),
             SizedBox(height: 8),
-            _bestPractice(Icons.warning_amber, 'Avoid side effects in builder',
-                'The builder runs during layout — keep it pure.'),
+            _bestPractice(
+              Icons.warning_amber,
+              'Avoid side effects in builder',
+              'The builder runs during layout — keep it pure.',
+            ),
             SizedBox(height: 8),
-            _bestPractice(Icons.warning_amber, 'Do not read layoutInfo outside layout',
-                'It may not be computed yet.'),
+            _bestPractice(
+              Icons.warning_amber,
+              'Do not read layoutInfo outside layout',
+              'It may not be computed yet.',
+            ),
           ],
         ),
         SizedBox(height: 32),
@@ -870,11 +1037,15 @@ class _CustomLayoutInfoTabState extends State<_CustomLayoutInfoTab> {
       padding: EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
-          Text('$label: ',
-              style: TextStyle(fontSize: 11, color: textColor)),
-          Text(value,
-              style: TextStyle(
-                  fontSize: 11, fontWeight: FontWeight.w700, color: textColor)),
+          Text('$label: ', style: TextStyle(fontSize: 11, color: textColor)),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: textColor,
+            ),
+          ),
         ],
       ),
     );
@@ -892,7 +1063,11 @@ Widget _sectionCard({required String title, required List<Widget> children}) {
       color: _kCardBg,
       borderRadius: BorderRadius.circular(12),
       boxShadow: [
-        BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 8, offset: Offset(0, 2)),
+        BoxShadow(
+          color: Colors.black.withOpacity(0.06),
+          blurRadius: 8,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -903,8 +1078,14 @@ Widget _sectionCard({required String title, required List<Widget> children}) {
             Container(width: 4, height: 18, color: _kPrimary),
             SizedBox(width: 8),
             Expanded(
-              child: Text(title,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ),
           ],
         ),
@@ -923,8 +1104,15 @@ Widget _codeBlock(String code) {
       color: _kCodeBg,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(code,
-        style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _kDarkText, height: 1.5)),
+    child: Text(
+      code,
+      style: TextStyle(
+        fontSize: 11,
+        fontFamily: 'monospace',
+        color: _kDarkText,
+        height: 1.5,
+      ),
+    ),
   );
 }
 
@@ -937,12 +1125,22 @@ Widget _typeBadge(String name, String description) {
           color: _kAccent.withOpacity(0.25),
           borderRadius: BorderRadius.circular(4),
         ),
-        child: Text(name,
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, fontFamily: 'monospace', color: _kPrimary)),
+        child: Text(
+          name,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+            color: _kPrimary,
+          ),
+        ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(description, style: TextStyle(fontSize: 11, color: _kSubtle)),
+        child: Text(
+          description,
+          style: TextStyle(fontSize: 11, color: _kSubtle),
+        ),
       ),
     ],
   );
@@ -958,9 +1156,15 @@ Widget _hierarchyRow(String name, String description) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(name,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600,
-                    fontFamily: 'monospace', color: _kDarkText)),
+            Text(
+              name,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'monospace',
+                color: _kDarkText,
+              ),
+            ),
             Text(description, style: TextStyle(fontSize: 11, color: _kSubtle)),
           ],
         ),
@@ -980,7 +1184,14 @@ Widget _flowArrow(String from, String to) {
             color: _kPrimary.withOpacity(0.12),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(from, style: TextStyle(fontSize: 10, color: _kPrimary, fontWeight: FontWeight.w600)),
+          child: Text(
+            from,
+            style: TextStyle(
+              fontSize: 10,
+              color: _kPrimary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 6),
@@ -992,7 +1203,14 @@ Widget _flowArrow(String from, String to) {
             color: _kAccent.withOpacity(0.2),
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(to, style: TextStyle(fontSize: 10, color: _kDarkText, fontWeight: FontWeight.w600)),
+          child: Text(
+            to,
+            style: TextStyle(
+              fontSize: 10,
+              color: _kDarkText,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ],
     ),
@@ -1010,16 +1228,28 @@ Widget _cycleStep(int number, String title, String detail) {
           height: 24,
           decoration: BoxDecoration(shape: BoxShape.circle, color: _kPrimary),
           alignment: Alignment.center,
-          child: Text('$number',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white)),
+          child: Text(
+            '$number',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
         ),
         SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText,
+                ),
+              ),
               Text(detail, style: TextStyle(fontSize: 11, color: _kSubtle)),
             ],
           ),
@@ -1064,9 +1294,10 @@ Widget _constraintBox(BoxConstraints c) {
           child: Text(
             c.isTight ? 'TIGHT' : 'LOOSE',
             style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: c.isTight ? _kPrimary : _kSubtle),
+              fontSize: 10,
+              fontWeight: FontWeight.w700,
+              color: c.isTight ? _kPrimary : _kSubtle,
+            ),
           ),
         ),
       ],
@@ -1078,13 +1309,24 @@ Widget _constraintCell(String label, String value) {
   return Column(
     children: [
       Text(label, style: TextStyle(fontSize: 10, color: _kSubtle)),
-      Text(value,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kPrimary)),
+      Text(
+        value,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
+          color: _kPrimary,
+        ),
+      ),
     ],
   );
 }
 
-Widget _pipelineStep(String title, String subtitle, IconData icon, Color color) {
+Widget _pipelineStep(
+  String title,
+  String subtitle,
+  IconData icon,
+  Color color,
+) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     decoration: BoxDecoration(
@@ -1100,8 +1342,14 @@ Widget _pipelineStep(String title, String subtitle, IconData icon, Color color) 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title,
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: _kDarkText,
+                ),
+              ),
               Text(subtitle, style: TextStyle(fontSize: 11, color: _kSubtle)),
             ],
           ),
@@ -1114,9 +1362,7 @@ Widget _pipelineStep(String title, String subtitle, IconData icon, Color color) 
 Widget _pipelineArrow() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 2),
-    child: Center(
-      child: Icon(Icons.arrow_downward, size: 18, color: _kSubtle),
-    ),
+    child: Center(child: Icon(Icons.arrow_downward, size: 18, color: _kSubtle)),
   );
 }
 
@@ -1126,16 +1372,25 @@ Widget _infoField(String label, String value) {
     children: [
       SizedBox(
         width: 120,
-        child: Text('$label:',
-            style: TextStyle(
-                fontSize: 11,
-                fontFamily: 'monospace',
-                color: _kPrimary,
-                fontWeight: FontWeight.w600)),
+        child: Text(
+          '$label:',
+          style: TextStyle(
+            fontSize: 11,
+            fontFamily: 'monospace',
+            color: _kPrimary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       Expanded(
-        child: Text(value,
-            style: TextStyle(fontSize: 11, fontFamily: 'monospace', color: _kDarkText)),
+        child: Text(
+          value,
+          style: TextStyle(
+            fontSize: 11,
+            fontFamily: 'monospace',
+            color: _kDarkText,
+          ),
+        ),
       ),
     ],
   );
@@ -1152,18 +1407,36 @@ Widget _comparisonHeader() {
       children: [
         Expanded(
           flex: 2,
-          child: Text('Aspect',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _kPrimary)),
+          child: Text(
+            'Aspect',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text('Default (BoxConstraints)',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _kPrimary)),
+          child: Text(
+            'Default (BoxConstraints)',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text('Custom LayoutInfo',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: _kPrimary)),
+          child: Text(
+            'Custom LayoutInfo',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: _kPrimary,
+            ),
+          ),
         ),
       ],
     ),
@@ -1177,16 +1450,28 @@ Widget _comparisonRow(String aspect, String defaultVal, String customVal) {
       children: [
         Expanded(
           flex: 2,
-          child: Text(aspect,
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: _kDarkText)),
+          child: Text(
+            aspect,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: _kDarkText,
+            ),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(defaultVal, style: TextStyle(fontSize: 11, color: _kSubtle)),
+          child: Text(
+            defaultVal,
+            style: TextStyle(fontSize: 11, color: _kSubtle),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(customVal, style: TextStyle(fontSize: 11, color: _kSubtle)),
+          child: Text(
+            customVal,
+            style: TextStyle(fontSize: 11, color: _kSubtle),
+          ),
         ),
       ],
     ),
@@ -1198,14 +1483,24 @@ Widget _bestPractice(IconData icon, String title, String detail) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Icon(icon, size: 18, color: isWarning ? Colors.orange.shade700 : _kAccent),
+      Icon(
+        icon,
+        size: 18,
+        color: isWarning ? Colors.orange.shade700 : _kAccent,
+      ),
       SizedBox(width: 8),
       Expanded(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: _kDarkText)),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _kDarkText,
+              ),
+            ),
             Text(detail, style: TextStyle(fontSize: 11, color: _kSubtle)),
           ],
         ),

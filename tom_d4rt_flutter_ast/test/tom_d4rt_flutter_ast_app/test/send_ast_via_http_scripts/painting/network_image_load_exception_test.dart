@@ -18,31 +18,31 @@ dynamic build(BuildContext context) {
   // ============================================================
   final List<NetworkImageLoadException> exceptions =
       <NetworkImageLoadException>[
-    NetworkImageLoadException(
-      statusCode: 400,
-      uri: Uri.parse('https://cdn.example.com/images/avatars/u_42.png'),
-    ),
-    NetworkImageLoadException(
-      statusCode: 401,
-      uri: Uri.parse('https://api.example.com/private/asset/secret.jpg'),
-    ),
-    NetworkImageLoadException(
-      statusCode: 403,
-      uri: Uri.parse('https://images.example.com/locked/banner.webp'),
-    ),
-    NetworkImageLoadException(
-      statusCode: 404,
-      uri: Uri.parse('https://cdn.example.com/missing/photo.png'),
-    ),
-    NetworkImageLoadException(
-      statusCode: 500,
-      uri: Uri.parse('https://broken.example.com/internal/icon.gif'),
-    ),
-    NetworkImageLoadException(
-      statusCode: 503,
-      uri: Uri.parse('https://overloaded.example.com/maintenance/logo.svg'),
-    ),
-  ];
+        NetworkImageLoadException(
+          statusCode: 400,
+          uri: Uri.parse('https://cdn.example.com/images/avatars/u_42.png'),
+        ),
+        NetworkImageLoadException(
+          statusCode: 401,
+          uri: Uri.parse('https://api.example.com/private/asset/secret.jpg'),
+        ),
+        NetworkImageLoadException(
+          statusCode: 403,
+          uri: Uri.parse('https://images.example.com/locked/banner.webp'),
+        ),
+        NetworkImageLoadException(
+          statusCode: 404,
+          uri: Uri.parse('https://cdn.example.com/missing/photo.png'),
+        ),
+        NetworkImageLoadException(
+          statusCode: 500,
+          uri: Uri.parse('https://broken.example.com/internal/icon.gif'),
+        ),
+        NetworkImageLoadException(
+          statusCode: 503,
+          uri: Uri.parse('https://overloaded.example.com/maintenance/logo.svg'),
+        ),
+      ];
 
   for (final NetworkImageLoadException e in exceptions) {
     print('Built exception: status=${e.statusCode} uri=${e.uri}');
@@ -107,11 +107,7 @@ dynamic build(BuildContext context) {
           'Thrown by NetworkImage when an HTTP image request fails '
           'with a non-200 status code. Implements Exception and Diagnosticable. '
           'Carries the offending Uri and the received statusCode.',
-          style: TextStyle(
-            fontSize: 14.0,
-            color: Colors.white,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 14.0, color: Colors.white, height: 1.4),
         ),
         SizedBox(height: 12.0),
         Container(
@@ -140,18 +136,17 @@ dynamic build(BuildContext context) {
   print('=== Section 2: Anatomy ===');
 
   final NetworkImageLoadException anatomyExample = exceptions[3]; // 404
-  print('Anatomy example uri=${anatomyExample.uri} '
-      'status=${anatomyExample.statusCode}');
+  print(
+    'Anatomy example uri=${anatomyExample.uri} '
+    'status=${anatomyExample.statusCode}',
+  );
 
   final Widget anatomyCard = Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.red.shade50,
-          Colors.orange.shade50,
-        ],
+        colors: <Color>[Colors.red.shade50, Colors.orange.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -238,10 +233,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.grey.shade100,
-          Colors.red.shade50,
-        ],
+        colors: <Color>[Colors.grey.shade100, Colors.red.shade50],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -291,17 +283,24 @@ dynamic build(BuildContext context) {
     <dynamic>[408, 'Request Timeout', 'Server gave up waiting for client'],
     <dynamic>[429, 'Too Many Requests', 'Rate limit exceeded'],
     <dynamic>[500, 'Server Error', 'Generic server-side failure'],
-    <dynamic>[502, 'Bad Gateway', 'Upstream proxy returned an invalid response'],
-    <dynamic>[503, 'Service Unavailable', 'Service temporarily down/overloaded'],
+    <dynamic>[
+      502,
+      'Bad Gateway',
+      'Upstream proxy returned an invalid response',
+    ],
+    <dynamic>[
+      503,
+      'Service Unavailable',
+      'Service temporarily down/overloaded',
+    ],
     <dynamic>[504, 'Gateway Timeout', 'Upstream server did not reply in time'],
   ];
 
   final List<Widget> statusChips = statusReference
-      .map((List<dynamic> row) => _buildStatusChip(
-            row[0] as int,
-            row[1] as String,
-            row[2] as String,
-          ))
+      .map(
+        (List<dynamic> row) =>
+            _buildStatusChip(row[0] as int, row[1] as String, row[2] as String),
+      )
       .toList();
 
   final Widget statusReferenceSection = Container(
@@ -309,10 +308,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.amber.shade50,
-          Colors.red.shade50,
-        ],
+        colors: <Color>[Colors.amber.shade50, Colors.red.shade50],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       ),
@@ -354,26 +350,35 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               SizedBox(
                 width: 60.0,
-                child: Text('Code',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.red.shade900)),
+                child: Text(
+                  'Code',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.red.shade900,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 140.0,
-                child: Text('Name',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.red.shade900)),
+                child: Text(
+                  'Name',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.red.shade900,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('Typical cause',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.red.shade900)),
+                child: Text(
+                  'Typical cause',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.red.shade900,
+                  ),
+                ),
               ),
             ],
           ),
@@ -389,7 +394,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 5: Catching ===');
 
-  final String errorBuilderCode = 'Image.network(\n'
+  final String errorBuilderCode =
+      'Image.network(\n'
       '  url,\n'
       '  errorBuilder: (BuildContext ctx, Object err, StackTrace? st) {\n'
       '    if (err is NetworkImageLoadException) {\n'
@@ -415,10 +421,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.grey.shade900,
-          Colors.red.shade900,
-        ],
+        colors: <Color>[Colors.grey.shade900, Colors.red.shade900],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -494,8 +497,7 @@ dynamic build(BuildContext context) {
   ];
 
   final List<Widget> errorComparisonRows = errorComparison
-      .map((List<String> row) =>
-          _buildComparisonRow(row[0], row[1], row[2]))
+      .map((List<String> row) => _buildComparisonRow(row[0], row[1], row[2]))
       .toList();
 
   final Widget differencesSection = Container(
@@ -503,10 +505,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.orange.shade50,
-          Colors.amber.shade100,
-        ],
+        colors: <Color>[Colors.orange.shade50, Colors.amber.shade100],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -542,26 +541,35 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               SizedBox(
                 width: 170.0,
-                child: Text('Error type',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.deepOrange.shade900)),
+                child: Text(
+                  'Error type',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.deepOrange.shade900,
+                  ),
+                ),
               ),
               SizedBox(
                 width: 150.0,
-                child: Text('Trigger',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.deepOrange.shade900)),
+                child: Text(
+                  'Trigger',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.deepOrange.shade900,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text('Notes',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: Colors.deepOrange.shade900)),
+                child: Text(
+                  'Notes',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    color: Colors.deepOrange.shade900,
+                  ),
+                ),
               ),
             ],
           ),
@@ -580,11 +588,11 @@ dynamic build(BuildContext context) {
   final List<Uri> uriSamples = <Uri>[
     Uri.parse('https://cdn.example.com/photos/cat.png'),
     Uri.parse('http://insecure.example.com/legacy.jpg'),
-    Uri.parse(
-        'https://images.example.com/p/banner.webp?w=600&h=400&fit=cover'),
+    Uri.parse('https://images.example.com/p/banner.webp?w=600&h=400&fit=cover'),
     Uri.parse('https://files.example.com/My%20Folder/Image%20%231.png'),
     Uri.parse(
-        'https://auth.example.com/cdn/asset.png?token=abc.def.ghi&exp=123'),
+      'https://auth.example.com/cdn/asset.png?token=abc.def.ghi&exp=123',
+    ),
     Uri.parse('https://shard-3.example.com:8443/raw/asset_v2.bin'),
   ];
 
@@ -593,8 +601,10 @@ dynamic build(BuildContext context) {
       statusCode: 404,
       uri: u,
     );
-    print('Uri example scheme=${u.scheme} host=${u.host} '
-        'path=${u.path} query=${u.query} -> $uriExample');
+    print(
+      'Uri example scheme=${u.scheme} host=${u.host} '
+      'path=${u.path} query=${u.query} -> $uriExample',
+    );
   }
 
   final List<Widget> uriCards = uriSamples
@@ -665,10 +675,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.grey.shade800,
-          Colors.red.shade900,
-        ],
+        colors: <Color>[Colors.grey.shade800, Colors.red.shade900],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -736,7 +743,8 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 9: Real-world handler patterns ===');
 
-  final String retryPolicyCode = 'Future<Uint8List> loadWithRetry(\n'
+  final String retryPolicyCode =
+      'Future<Uint8List> loadWithRetry(\n'
       '  Uri uri, {\n'
       '  int maxAttempts = 3,\n'
       '}) async {\n'
@@ -760,7 +768,8 @@ dynamic build(BuildContext context) {
       '  throw lastError!;\n'
       '}';
 
-  final String fallbackAssetCode = 'Image.network(\n'
+  final String fallbackAssetCode =
+      'Image.network(\n'
       '  remoteUrl,\n'
       '  errorBuilder: (BuildContext ctx, Object err, StackTrace? st) {\n'
       '    if (err is NetworkImageLoadException) {\n'
@@ -771,7 +780,8 @@ dynamic build(BuildContext context) {
       '  },\n'
       ')';
 
-  final String telemetryCode = 'void reportImageFailure(Object err) {\n'
+  final String telemetryCode =
+      'void reportImageFailure(Object err) {\n'
       '  if (err is NetworkImageLoadException) {\n'
       '    analytics.event(\n'
       '      name: \'image_load_failed\',\n'
@@ -784,7 +794,8 @@ dynamic build(BuildContext context) {
       '  }\n'
       '}';
 
-  final String userMessageCode = 'String userMessageFor(Object err) {\n'
+  final String userMessageCode =
+      'String userMessageFor(Object err) {\n'
       '  if (err is NetworkImageLoadException) {\n'
       '    if (err.statusCode == 404) return \'Image is no longer available.\';\n'
       '    if (err.statusCode == 401) return \'Please sign in to view this image.\';\n'
@@ -916,10 +927,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: <Color>[
-          Colors.red.shade100,
-          Colors.deepOrange.shade100,
-        ],
+        colors: <Color>[Colors.red.shade100, Colors.deepOrange.shade100],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -938,8 +946,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.warning_amber_rounded,
-                color: Colors.red.shade900, size: 28.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.red.shade900,
+              size: 28.0,
+            ),
             SizedBox(width: 8.0),
             Expanded(
               child: Text(
@@ -965,18 +976,12 @@ dynamic build(BuildContext context) {
   print('=== Section 11: Recap ===');
 
   final List<List<String>> recapPoints = <List<String>>[
-    <String>[
-      'Type',
-      'Concrete subclass of Exception, also Diagnosticable.',
-    ],
+    <String>['Type', 'Concrete subclass of Exception, also Diagnosticable.'],
     <String>[
       'Origin',
       'Thrown inside NetworkImage._loadAsync when status != 200.',
     ],
-    <String>[
-      'Fields',
-      'statusCode (int) and uri (Uri); both required.',
-    ],
+    <String>['Fields', 'statusCode (int) and uri (Uri); both required.'],
     <String>[
       'Catch site',
       'Image.network errorBuilder, or your own try/catch around fetches.',
@@ -1060,11 +1065,7 @@ dynamic build(BuildContext context) {
             'was not 200 OK. Treat it as data — branch on statusCode, '
             'log the uri host/path, and prefer asset fallbacks for the '
             'human in front of the screen.',
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.white,
-              height: 1.4,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.white, height: 1.4),
           ),
         ),
       ],
@@ -1167,10 +1168,15 @@ Widget _buildFieldRow(
 // Helper: Build a single exception card. Color depends on status class.
 Widget _buildExceptionCard(NetworkImageLoadException e) {
   final bool isServerError = e.statusCode >= 500;
-  final Color accent = isServerError ? Colors.red.shade700 : Colors.amber.shade800;
-  final Color fillStart = isServerError ? Colors.red.shade50 : Colors.amber.shade50;
-  final Color fillEnd =
-      isServerError ? Colors.red.shade100 : Colors.amber.shade100;
+  final Color accent = isServerError
+      ? Colors.red.shade700
+      : Colors.amber.shade800;
+  final Color fillStart = isServerError
+      ? Colors.red.shade50
+      : Colors.amber.shade50;
+  final Color fillEnd = isServerError
+      ? Colors.red.shade100
+      : Colors.amber.shade100;
   final IconData icon = isServerError ? Icons.dns : Icons.broken_image;
 
   return Container(
@@ -1225,7 +1231,9 @@ Widget _buildExceptionCard(NetworkImageLoadException e) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                isServerError ? 'Server-side failure (5xx)' : 'Client-side failure (4xx)',
+                isServerError
+                    ? 'Server-side failure (5xx)'
+                    : 'Client-side failure (4xx)',
                 style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -1243,18 +1251,14 @@ Widget _buildExceptionCard(NetworkImageLoadException e) {
               ),
               SizedBox(height: 6.0),
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 8.0, vertical: 4.0),
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 child: Text(
                   e.toString(),
-                  style: TextStyle(
-                    fontSize: 11.0,
-                    color: Colors.grey.shade800,
-                  ),
+                  style: TextStyle(fontSize: 11.0, color: Colors.grey.shade800),
                 ),
               ),
             ],
@@ -1268,8 +1272,9 @@ Widget _buildExceptionCard(NetworkImageLoadException e) {
 // Helper: Build a row in the HTTP status reference table.
 Widget _buildStatusChip(int code, String name, String reason) {
   final bool serverError = code >= 500;
-  final Color accent =
-      serverError ? Colors.red.shade700 : Colors.amber.shade800;
+  final Color accent = serverError
+      ? Colors.red.shade700
+      : Colors.amber.shade800;
   return Container(
     margin: EdgeInsets.symmetric(vertical: 3.0),
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -1327,15 +1332,14 @@ Widget _buildStatusChip(int code, String name, String reason) {
 // Helper: Build a row in the differences-vs-other-errors table.
 Widget _buildComparisonRow(String type, String trigger, String notes) {
   final bool isFocus = type == 'NetworkImageLoadException';
-  final Color rowAccent =
-      isFocus ? Colors.red.shade700 : Colors.deepOrange.shade400;
+  final Color rowAccent = isFocus
+      ? Colors.red.shade700
+      : Colors.deepOrange.shade400;
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
     margin: EdgeInsets.symmetric(vertical: 2.0),
     decoration: BoxDecoration(
-      color: isFocus
-          ? Colors.red.shade50
-          : Colors.white.withValues(alpha: 0.4),
+      color: isFocus ? Colors.red.shade50 : Colors.white.withValues(alpha: 0.4),
       borderRadius: BorderRadius.circular(6.0),
       border: isFocus
           ? Border.all(color: Colors.red.shade300, width: 1.0)
@@ -1513,8 +1517,11 @@ Widget _buildFootgunCard(String title, String body) {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.dangerous_outlined,
-                color: Colors.red.shade700, size: 18.0),
+            Icon(
+              Icons.dangerous_outlined,
+              color: Colors.red.shade700,
+              size: 18.0,
+            ),
             SizedBox(width: 6.0),
             Expanded(
               child: Text(
@@ -1571,11 +1578,7 @@ Widget _buildRecapRow(String label, String body) {
         Expanded(
           child: Text(
             body,
-            style: TextStyle(
-              fontSize: 12.0,
-              color: Colors.white,
-              height: 1.35,
-            ),
+            style: TextStyle(fontSize: 12.0, color: Colors.white, height: 1.35),
           ),
         ),
       ],

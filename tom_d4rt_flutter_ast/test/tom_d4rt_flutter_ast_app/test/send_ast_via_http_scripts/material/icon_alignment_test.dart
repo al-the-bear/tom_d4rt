@@ -12,10 +12,7 @@ dynamic build(BuildContext context) {
   print('=== Section 1: IconAlignment Overview ===');
 
   // Demonstrate all enum values
-  final alignments = [
-    IconAlignment.start,
-    IconAlignment.end,
-  ];
+  final alignments = [IconAlignment.start, IconAlignment.end];
 
   print('IconAlignment.start: ${IconAlignment.start}');
   print('IconAlignment.end: ${IconAlignment.end}');
@@ -30,14 +27,16 @@ dynamic build(BuildContext context) {
   final alignmentDescriptions = {
     IconAlignment.start: {
       'title': 'Start',
-      'description': 'Icon appears at the start of the button (leading edge). For LTR, this means left side.',
+      'description':
+          'Icon appears at the start of the button (leading edge). For LTR, this means left side.',
       'icon': Icons.format_align_left,
       'color': Colors.blue,
       'position': 'Leading',
     },
     IconAlignment.end: {
       'title': 'End',
-      'description': 'Icon appears at the end of the button (trailing edge). For LTR, this means right side.',
+      'description':
+          'Icon appears at the end of the button (trailing edge). For LTR, this means right side.',
       'icon': Icons.format_align_right,
       'color': Colors.green,
       'position': 'Trailing',
@@ -54,7 +53,10 @@ dynamic build(BuildContext context) {
         margin: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.15), color.withValues(alpha: 0.05)],
+            colors: [
+              color.withValues(alpha: 0.15),
+              color.withValues(alpha: 0.05),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -93,7 +95,11 @@ dynamic build(BuildContext context) {
                         ),
                       ],
                     ),
-                    child: Icon(data['icon'] as IconData, color: color, size: 28.0),
+                    child: Icon(
+                      data['icon'] as IconData,
+                      color: color,
+                      size: 28.0,
+                    ),
                   ),
                   SizedBox(width: 16.0),
                   Expanded(
@@ -110,7 +116,10 @@ dynamic build(BuildContext context) {
                         ),
                         SizedBox(height: 4.0),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 2.0,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.8),
                             borderRadius: BorderRadius.circular(4.0),
@@ -157,10 +166,16 @@ dynamic build(BuildContext context) {
                           ? [
                               Icon(Icons.star, color: color, size: 20.0),
                               SizedBox(width: 8.0),
-                              Text('Button Label', style: TextStyle(fontWeight: FontWeight.w500)),
+                              Text(
+                                'Button Label',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
                             ]
                           : [
-                              Text('Button Label', style: TextStyle(fontWeight: FontWeight.w500)),
+                              Text(
+                                'Button Label',
+                                style: TextStyle(fontWeight: FontWeight.w500),
+                              ),
                               SizedBox(width: 8.0),
                               Icon(Icons.star, color: color, size: 20.0),
                             ],
@@ -292,9 +307,7 @@ dynamic build(BuildContext context) {
               onPressed: () {},
               icon: Icon(icon, size: 18.0),
               label: Text(label),
-              style: TextButton.styleFrom(
-                foregroundColor: color,
-              ),
+              style: TextButton.styleFrom(foregroundColor: color),
               iconAlignment: IconAlignment.start,
             ),
             Container(
@@ -317,9 +330,7 @@ dynamic build(BuildContext context) {
               onPressed: () {},
               icon: Icon(icon, size: 18.0),
               label: Text(label),
-              style: TextButton.styleFrom(
-                foregroundColor: color,
-              ),
+              style: TextButton.styleFrom(foregroundColor: color),
               iconAlignment: IconAlignment.end,
             ),
             Container(
@@ -376,7 +387,10 @@ dynamic build(BuildContext context) {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: color,
                   side: BorderSide(color: color),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 12.0,
+                  ),
                 ),
                 iconAlignment: IconAlignment.start,
               ),
@@ -402,7 +416,10 @@ dynamic build(BuildContext context) {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: color,
                   side: BorderSide(color: color),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 12.0,
+                  ),
                 ),
                 iconAlignment: IconAlignment.end,
               ),
@@ -421,10 +438,22 @@ dynamic build(BuildContext context) {
 
   final filledButtons = <Widget>[];
   final filledConfigs = [
-    {'label': 'Get Started', 'icon': Icons.rocket_launch, 'color': Colors.deepPurple},
-    {'label': 'Subscribe', 'icon': Icons.notifications_active, 'color': Colors.pink},
+    {
+      'label': 'Get Started',
+      'icon': Icons.rocket_launch,
+      'color': Colors.deepPurple,
+    },
+    {
+      'label': 'Subscribe',
+      'icon': Icons.notifications_active,
+      'color': Colors.pink,
+    },
     {'label': 'Save Changes', 'icon': Icons.save, 'color': Colors.green},
-    {'label': 'Continue', 'icon': Icons.arrow_forward_ios, 'color': Colors.blue},
+    {
+      'label': 'Continue',
+      'icon': Icons.arrow_forward_ios,
+      'color': Colors.blue,
+    },
   ];
 
   for (final config in filledConfigs) {
@@ -440,7 +469,10 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [color.withValues(alpha: 0.1), color.withValues(alpha: 0.05)],
+            colors: [
+              color.withValues(alpha: 0.1),
+              color.withValues(alpha: 0.05),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -509,7 +541,11 @@ dynamic build(BuildContext context) {
                   style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600),
                 ),
                 SizedBox(width: 4.0),
-                Icon(Icons.arrow_forward, size: 12.0, color: Colors.grey.shade500),
+                Icon(
+                  Icons.arrow_forward,
+                  size: 12.0,
+                  color: Colors.grey.shade500,
+                ),
               ],
             ),
           ],
@@ -557,10 +593,7 @@ dynamic build(BuildContext context) {
         Text(
           'IconAlignment respects text directionality. In RTL layouts, '
           'start and end positions are mirrored automatically.',
-          style: TextStyle(
-            fontSize: 13.0,
-            color: Colors.grey.shade700,
-          ),
+          style: TextStyle(fontSize: 13.0, color: Colors.grey.shade700),
         ),
         SizedBox(height: 20.0),
         // LTR Example
@@ -576,7 +609,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.blue.shade100,
                       borderRadius: BorderRadius.circular(4.0),
@@ -616,7 +652,13 @@ dynamic build(BuildContext context) {
                             iconAlignment: IconAlignment.start,
                           ),
                           SizedBox(height: 4.0),
-                          Text('start = Left', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                          Text(
+                            'start = Left',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -630,7 +672,13 @@ dynamic build(BuildContext context) {
                             iconAlignment: IconAlignment.end,
                           ),
                           SizedBox(height: 4.0),
-                          Text('end = Right', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                          Text(
+                            'end = Right',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -654,7 +702,10 @@ dynamic build(BuildContext context) {
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 4.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.shade100,
                       borderRadius: BorderRadius.circular(4.0),
@@ -694,7 +745,13 @@ dynamic build(BuildContext context) {
                             iconAlignment: IconAlignment.start,
                           ),
                           SizedBox(height: 4.0),
-                          Text('start = Right', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                          Text(
+                            'start = Right',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -708,7 +765,13 @@ dynamic build(BuildContext context) {
                             iconAlignment: IconAlignment.end,
                           ),
                           SizedBox(height: 4.0),
-                          Text('end = Left', style: TextStyle(fontSize: 10.0, color: Colors.grey)),
+                          Text(
+                            'end = Left',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -793,7 +856,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Tip: Back button uses start, forward button uses end',
-                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -825,7 +892,9 @@ dynamic build(BuildContext context) {
                       icon: Icon(Icons.download),
                       label: Text('Download'),
                       iconAlignment: IconAlignment.start,
-                      style: FilledButton.styleFrom(backgroundColor: Colors.green),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
                     ),
                   ),
                   SizedBox(width: 8.0),
@@ -835,7 +904,9 @@ dynamic build(BuildContext context) {
                       icon: Icon(Icons.send),
                       label: Text('Send'),
                       iconAlignment: IconAlignment.end,
-                      style: FilledButton.styleFrom(backgroundColor: Colors.blue),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
                     ),
                   ),
                 ],
@@ -843,7 +914,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Tip: Receiving actions use start, sending actions use end',
-                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -878,7 +953,11 @@ dynamic build(BuildContext context) {
               SizedBox(height: 4.0),
               Text(
                 'Tip: Dropdown indicators typically go at end position',
-                style: TextStyle(fontSize: 10.0, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontSize: 10.0,
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ],
           ),
@@ -921,7 +1000,8 @@ dynamic build(BuildContext context) {
     },
     {
       'signature': 'ButtonStyleButton.iconAlignment',
-      'description': 'Property found on ElevatedButton, TextButton, OutlinedButton, FilledButton',
+      'description':
+          'Property found on ElevatedButton, TextButton, OutlinedButton, FilledButton',
       'icon': Icons.smart_button,
     },
   ];
@@ -1039,11 +1119,19 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.format_align_left, size: 36.0, color: Colors.white),
+                  Icon(
+                    Icons.format_align_left,
+                    size: 36.0,
+                    color: Colors.white,
+                  ),
                   SizedBox(width: 16.0),
                   Icon(Icons.smart_button, size: 48.0, color: Colors.white),
                   SizedBox(width: 16.0),
-                  Icon(Icons.format_align_right, size: 36.0, color: Colors.white),
+                  Icon(
+                    Icons.format_align_right,
+                    size: 36.0,
+                    color: Colors.white,
+                  ),
                 ],
               ),
               SizedBox(height: 16.0),
@@ -1059,10 +1147,7 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'Control icon position in Material Design buttons',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.white70),
               ),
             ],
           ),
@@ -1071,26 +1156,17 @@ dynamic build(BuildContext context) {
         // Section 1: Overview
         SizedBox(height: 24.0),
         _buildSectionHeader('Section 1: Enum Overview', Icons.info_outline),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: overviewCards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: overviewCards),
 
         // Section 2: ElevatedButton
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 2: ElevatedButton', Icons.upload),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: elevatedButtons,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: elevatedButtons),
 
         // Section 3: TextButton
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 3: TextButton', Icons.text_fields),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: textButtons,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: textButtons),
 
         // Section 4: OutlinedButton
         SizedBox(height: 32.0),
@@ -1103,10 +1179,7 @@ dynamic build(BuildContext context) {
         // Section 5: FilledButton
         SizedBox(height: 32.0),
         _buildSectionHeader('Section 5: FilledButton', Icons.rectangle),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: filledButtons,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: filledButtons),
 
         // Section 6: Direction-Aware
         SizedBox(height: 32.0),

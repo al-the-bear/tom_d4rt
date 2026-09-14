@@ -438,8 +438,10 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontSize: 11.0, color: Colors.black54),
           ),
           const SizedBox(height: 8.0),
-          const Text('Border widths (1 / 2 / 3 px):',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Border widths (1 / 2 / 3 px):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           Wrap(
             children: <Widget>[
               outlinedCell(
@@ -463,8 +465,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 8.0),
-          const Text('Border colors (semantic):',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Border colors (semantic):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           Wrap(
             children: <Widget>[
               outlinedCell(
@@ -494,8 +498,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const SizedBox(height: 8.0),
-          const Text('Shape variants (stadium / rounded / square):',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Shape variants (stadium / rounded / square):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           Wrap(
             children: <Widget>[
               outlinedCell(
@@ -545,10 +551,7 @@ dynamic build(BuildContext context) {
             width: 80.0,
             child: Text(
               '${fontSize.toInt()}px',
-              style: const TextStyle(
-                fontSize: 11.0,
-                color: Colors.black54,
-              ),
+              style: const TextStyle(fontSize: 11.0, color: Colors.black54),
             ),
           ),
           TextButton(
@@ -598,8 +601,10 @@ dynamic build(BuildContext context) {
             weight: FontWeight.bold,
           ),
           const Divider(),
-          const Text('Alignment inside a constrained box:',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Alignment inside a constrained box:',
+            style: TextStyle(fontSize: 12.0),
+          ),
           SizedBox(
             width: 280.0,
             child: Row(
@@ -630,10 +635,7 @@ dynamic build(BuildContext context) {
   // pack into toolbars and headers.
   debugPrint('=== Section 7: IconButton variants + density ===');
 
-  Widget iconButtonCell({
-    required String label,
-    required Widget button,
-  }) {
+  Widget iconButtonCell({required String label, required Widget button}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -702,8 +704,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const Divider(),
-          const Text('Padding + visualDensity matrix:',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Padding + visualDensity matrix:',
+            style: TextStyle(fontSize: 12.0),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -746,10 +750,7 @@ dynamic build(BuildContext context) {
   // is the right call when the icon is ambiguous on its own.
   debugPrint('=== Section 8: FAB family ===');
 
-  Widget fabCell({
-    required String label,
-    required Widget fab,
-  }) {
+  Widget fabCell({required String label, required Widget fab}) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -818,8 +819,10 @@ dynamic build(BuildContext context) {
             ],
           ),
           const Divider(),
-          const Text('Shape variants (circular / squircle / rounded square):',
-              style: TextStyle(fontSize: 12.0)),
+          const Text(
+            'Shape variants (circular / squircle / rounded square):',
+            style: TextStyle(fontSize: 12.0),
+          ),
           Wrap(
             children: <Widget>[
               fabCell(
@@ -926,16 +929,23 @@ dynamic build(BuildContext context) {
           anatomyRow('side', 'BorderSide (color + width) for outlined.'),
           anatomyRow('shape', 'OutlinedBorder: stadium, rounded, circle...'),
           anatomyRow('mouseCursor', 'Cursor style on web/desktop.'),
-          anatomyRow('visualDensity', 'Compact / standard / comfortable spacing.'),
+          anatomyRow(
+            'visualDensity',
+            'Compact / standard / comfortable spacing.',
+          ),
           anatomyRow('tapTargetSize', 'shrinkWrap or padded 48dp target.'),
           anatomyRow('animationDuration', 'State change tween duration.'),
           anatomyRow('enableFeedback', 'Haptics + click sounds.'),
           anatomyRow('alignment', 'Alignment of child inside the button.'),
           anatomyRow('splashFactory', 'InkRipple, InkSparkle, noSplash...'),
-          anatomyRow('backgroundBuilder',
-              'Wrap the background with a custom widget.'),
-          anatomyRow('foregroundBuilder',
-              'Wrap the label + icon with a custom widget.'),
+          anatomyRow(
+            'backgroundBuilder',
+            'Wrap the background with a custom widget.',
+          ),
+          anatomyRow(
+            'foregroundBuilder',
+            'Wrap the label + icon with a custom widget.',
+          ),
         ],
       ),
     ),
@@ -952,22 +962,22 @@ dynamic build(BuildContext context) {
 
   // Example A — hover changes background color.
   final ButtonStyle hoverStyle = ButtonStyle(
-    backgroundColor: WidgetStateProperty.resolveWith<Color>(
-      (Set<WidgetState> states) {
-        // States observed during the button's lifecycle.
-        if (states.contains(WidgetState.disabled)) {
-          return Colors.grey.shade300;
-        }
-        if (states.contains(WidgetState.hovered)) {
-          // Hover swap — try mousing over the button.
-          return Colors.indigo.shade700;
-        }
-        if (states.contains(WidgetState.focused)) {
-          return Colors.indigo.shade400;
-        }
-        return Colors.indigo;
-      },
-    ),
+    backgroundColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      // States observed during the button's lifecycle.
+      if (states.contains(WidgetState.disabled)) {
+        return Colors.grey.shade300;
+      }
+      if (states.contains(WidgetState.hovered)) {
+        // Hover swap — try mousing over the button.
+        return Colors.indigo.shade700;
+      }
+      if (states.contains(WidgetState.focused)) {
+        return Colors.indigo.shade400;
+      }
+      return Colors.indigo;
+    }),
     foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
   );
 
@@ -975,51 +985,51 @@ dynamic build(BuildContext context) {
   final ButtonStyle pressedElevationStyle = ButtonStyle(
     backgroundColor: WidgetStateProperty.all<Color>(Colors.deepPurple),
     foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
-    elevation: WidgetStateProperty.resolveWith<double>(
-      (Set<WidgetState> states) {
-        // Higher elevation while pressed gives a "push-down" rebound feel.
-        if (states.contains(WidgetState.pressed)) {
-          return 12.0;
-        }
-        if (states.contains(WidgetState.hovered)) {
-          return 6.0;
-        }
-        return 2.0;
-      },
-    ),
+    elevation: WidgetStateProperty.resolveWith<double>((
+      Set<WidgetState> states,
+    ) {
+      // Higher elevation while pressed gives a "push-down" rebound feel.
+      if (states.contains(WidgetState.pressed)) {
+        return 12.0;
+      }
+      if (states.contains(WidgetState.hovered)) {
+        return 6.0;
+      }
+      return 2.0;
+    }),
   );
 
   // Example C — disabled changes opacity via overlayColor + foreground.
   final ButtonStyle disabledOpacityStyle = ButtonStyle(
-    backgroundColor: WidgetStateProperty.resolveWith<Color>(
-      (Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) {
-          return Colors.teal.withValues(alpha: 0.25);
-        }
-        return Colors.teal;
-      },
-    ),
-    foregroundColor: WidgetStateProperty.resolveWith<Color>(
-      (Set<WidgetState> states) {
-        if (states.contains(WidgetState.disabled)) {
-          return Colors.white.withValues(alpha: 0.6);
-        }
-        return Colors.white;
-      },
-    ),
-    overlayColor: WidgetStateProperty.resolveWith<Color>(
-      (Set<WidgetState> states) {
-        // Selected + pressed combine into a darker ink.
-        if (states.contains(WidgetState.selected) &&
-            states.contains(WidgetState.pressed)) {
-          return Colors.black.withValues(alpha: 0.2);
-        }
-        if (states.contains(WidgetState.dragged)) {
-          return Colors.amber.withValues(alpha: 0.4);
-        }
-        return Colors.white.withValues(alpha: 0.1);
-      },
-    ),
+    backgroundColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.disabled)) {
+        return Colors.teal.withValues(alpha: 0.25);
+      }
+      return Colors.teal;
+    }),
+    foregroundColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.disabled)) {
+        return Colors.white.withValues(alpha: 0.6);
+      }
+      return Colors.white;
+    }),
+    overlayColor: WidgetStateProperty.resolveWith<Color>((
+      Set<WidgetState> states,
+    ) {
+      // Selected + pressed combine into a darker ink.
+      if (states.contains(WidgetState.selected) &&
+          states.contains(WidgetState.pressed)) {
+        return Colors.black.withValues(alpha: 0.2);
+      }
+      if (states.contains(WidgetState.dragged)) {
+        return Colors.amber.withValues(alpha: 0.4);
+      }
+      return Colors.white.withValues(alpha: 0.1);
+    }),
   );
 
   Widget stateExample({
@@ -1041,9 +1051,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           ElevatedButton(
-            onPressed: enabled
-                ? () => debugPrint('state demo: $title')
-                : null,
+            onPressed: enabled ? () => debugPrint('state demo: $title') : null,
             style: style,
             child: Text(enabled ? 'Try me' : 'Disabled'),
           ),
@@ -1080,7 +1088,8 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8.0),
           stateExample(
             title: 'Hover swap',
-            narration: 'backgroundColor resolves indigo -> indigo.700 on hover.',
+            narration:
+                'backgroundColor resolves indigo -> indigo.700 on hover.',
             style: hoverStyle,
             enabled: true,
           ),
@@ -1092,7 +1101,8 @@ dynamic build(BuildContext context) {
           ),
           stateExample(
             title: 'Disabled fade',
-            narration: 'background and foreground fade via alpha when disabled.',
+            narration:
+                'background and foreground fade via alpha when disabled.',
             style: disabledOpacityStyle,
             enabled: false,
           ),
@@ -1253,12 +1263,12 @@ dynamic build(BuildContext context) {
 
   // ButtonStyle.copyWith — derive a tweaked variant from a base.
   final ButtonStyle themedElevatedStylePressed = themedElevatedStyle.copyWith(
-    elevation: WidgetStateProperty.resolveWith<double>(
-      (Set<WidgetState> states) {
-        if (states.contains(WidgetState.pressed)) return 10.0;
-        return 1.0;
-      },
-    ),
+    elevation: WidgetStateProperty.resolveWith<double>((
+      Set<WidgetState> states,
+    ) {
+      if (states.contains(WidgetState.pressed)) return 10.0;
+      return 1.0;
+    }),
   );
 
   final Widget themedDemo = Card(
@@ -1395,10 +1405,7 @@ dynamic build(BuildContext context) {
               onPressed: () => debugPrint('Enabled filled'),
               child: const Text('Save'),
             ),
-            disabled: const FilledButton(
-              onPressed: null,
-              child: Text('Save'),
-            ),
+            disabled: const FilledButton(onPressed: null, child: Text('Save')),
           ),
           disabledRow(
             family: 'FilledButton.tonal',
@@ -1428,10 +1435,7 @@ dynamic build(BuildContext context) {
               onPressed: () => debugPrint('Enabled text'),
               child: const Text('Skip'),
             ),
-            disabled: const TextButton(
-              onPressed: null,
-              child: Text('Skip'),
-            ),
+            disabled: const TextButton(onPressed: null, child: Text('Skip')),
           ),
           disabledRow(
             family: 'IconButton',
@@ -1493,12 +1497,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Expanded(
-            child: Text(
-              use,
-              style: const TextStyle(fontSize: 12.0),
-            ),
-          ),
+          Expanded(child: Text(use, style: const TextStyle(fontSize: 12.0))),
         ],
       ),
     );
@@ -1518,26 +1517,56 @@ dynamic build(BuildContext context) {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15.0),
           ),
           const SizedBox(height: 8.0),
-          sheetRow('FilledButton', 'highest',
-              'Primary CTA. "Buy now", "Submit", "Create account".'),
-          sheetRow('FilledButton.tonal', 'med-high',
-              'Important but not the screen\'s hero. "Apply filter".'),
-          sheetRow('ElevatedButton', 'medium',
-              'Floating affordance on a busy surface. "Open editor".'),
-          sheetRow('OutlinedButton', 'med-low',
-              'Peer-of-cancel actions. "Cancel" next to "Save".'),
-          sheetRow('TextButton', 'lowest',
-              '"Skip", "Learn more", footer links inside dialogs.'),
-          sheetRow('IconButton', 'low',
-              'Compact actions in toolbars. "Edit", "Share", "Delete".'),
-          sheetRow('IconButton.filled', 'med',
-              'Standalone icon CTA with strong visual weight.'),
-          sheetRow('IconButton.outlined', 'med-low',
-              'Icon CTA that needs a frame to register as tappable.'),
-          sheetRow('FAB', 'screen hero',
-              'The single most important action of the whole screen.'),
-          sheetRow('FAB.extended', 'screen hero',
-              'Same, but with a label — when the icon alone is ambiguous.'),
+          sheetRow(
+            'FilledButton',
+            'highest',
+            'Primary CTA. "Buy now", "Submit", "Create account".',
+          ),
+          sheetRow(
+            'FilledButton.tonal',
+            'med-high',
+            'Important but not the screen\'s hero. "Apply filter".',
+          ),
+          sheetRow(
+            'ElevatedButton',
+            'medium',
+            'Floating affordance on a busy surface. "Open editor".',
+          ),
+          sheetRow(
+            'OutlinedButton',
+            'med-low',
+            'Peer-of-cancel actions. "Cancel" next to "Save".',
+          ),
+          sheetRow(
+            'TextButton',
+            'lowest',
+            '"Skip", "Learn more", footer links inside dialogs.',
+          ),
+          sheetRow(
+            'IconButton',
+            'low',
+            'Compact actions in toolbars. "Edit", "Share", "Delete".',
+          ),
+          sheetRow(
+            'IconButton.filled',
+            'med',
+            'Standalone icon CTA with strong visual weight.',
+          ),
+          sheetRow(
+            'IconButton.outlined',
+            'med-low',
+            'Icon CTA that needs a frame to register as tappable.',
+          ),
+          sheetRow(
+            'FAB',
+            'screen hero',
+            'The single most important action of the whole screen.',
+          ),
+          sheetRow(
+            'FAB.extended',
+            'screen hero',
+            'Same, but with a label — when the icon alone is ambiguous.',
+          ),
         ],
       ),
     ),

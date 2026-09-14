@@ -95,7 +95,11 @@ Widget buildPanelTitle(String title, {String? subtitle}) {
   );
 }
 
-Widget buildPanelShell({required String title, String? subtitle, required Widget child}) {
+Widget buildPanelShell({
+  required String title,
+  String? subtitle,
+  required Widget child,
+}) {
   return Container(
     margin: const EdgeInsets.only(bottom: 18.0),
     padding: const EdgeInsets.all(14.0),
@@ -136,10 +140,7 @@ Widget buildBadge(String label, {Color bg = kAccentSoft, Color fg = kAccent}) {
 Widget buildCaption(String text) {
   return Padding(
     padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-    child: Text(
-      text,
-      style: const TextStyle(fontSize: 12.5, color: kMuted),
-    ),
+    child: Text(text, style: const TextStyle(fontSize: 12.5, color: kMuted)),
   );
 }
 
@@ -198,7 +199,10 @@ Widget buildGoodBadCard({
         Row(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6.0,
+                vertical: 2.0,
+              ),
               decoration: BoxDecoration(
                 color: fg,
                 borderRadius: BorderRadius.circular(4.0),
@@ -276,10 +280,7 @@ Widget buildArrow(String label) {
           ),
         ),
         const SizedBox(width: 6.0),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12.0, color: kMuted),
-        ),
+        Text(label, style: const TextStyle(fontSize: 12.0, color: kMuted)),
       ],
     ),
   );
@@ -518,7 +519,10 @@ Widget buildSection4ObjectKeyIdentity() {
   final ObjectKey ok1 = ObjectKey(same);
   final ObjectKey ok2 = ObjectKey(same);
 
-  final Todo clone = Todo(same.id, same.label); // equal-looking, different instance
+  final Todo clone = Todo(
+    same.id,
+    same.label,
+  ); // equal-looking, different instance
   final ObjectKey okClone = ObjectKey(clone);
 
   final bool sameEq = ok1 == ok2;
@@ -622,12 +626,15 @@ Widget buildScrollPositionCard(String label, double offset) {
 }
 
 Widget buildSection5PageStorage() {
-  final PageStorageKey<String> tabANewsKey =
-      const PageStorageKey<String>('tab-A-news-list');
-  final PageStorageKey<String> tabBChatKey =
-      const PageStorageKey<String>('tab-B-chat-list');
-  final PageStorageKey<String> tabCSettingsKey =
-      const PageStorageKey<String>('tab-C-settings-list');
+  final PageStorageKey<String> tabANewsKey = const PageStorageKey<String>(
+    'tab-A-news-list',
+  );
+  final PageStorageKey<String> tabBChatKey = const PageStorageKey<String>(
+    'tab-B-chat-list',
+  );
+  final PageStorageKey<String> tabCSettingsKey = const PageStorageKey<String>(
+    'tab-C-settings-list',
+  );
 
   final ListView demoList = ListView(
     key: tabANewsKey,
@@ -649,9 +656,18 @@ Widget buildSection5PageStorage() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        buildScrollPositionCard("PageStorageKey<String>('tab-A-news-list')", 482.0),
-        buildScrollPositionCard("PageStorageKey<String>('tab-B-chat-list')", 117.5),
-        buildScrollPositionCard("PageStorageKey<String>('tab-C-settings-list')", 0.0),
+        buildScrollPositionCard(
+          "PageStorageKey<String>('tab-A-news-list')",
+          482.0,
+        ),
+        buildScrollPositionCard(
+          "PageStorageKey<String>('tab-B-chat-list')",
+          117.5,
+        ),
+        buildScrollPositionCard(
+          "PageStorageKey<String>('tab-C-settings-list')",
+          0.0,
+        ),
         const SizedBox(height: 8.0),
         Text(
           'Key A: ${tabANewsKey.toString()}',
@@ -751,10 +767,7 @@ Widget buildSection6GlobalKey() {
               buildKvRow('runtimeType', kFormGlobalKey.runtimeType.toString()),
               buildKvRow('toString()', kFormGlobalKey.toString()),
               buildKvRow('currentState', 'GlobalKey<FormState>.currentState?'),
-              buildKvRow(
-                'usage',
-                'kFormGlobalKey.currentState?.validate()',
-              ),
+              buildKvRow('usage', 'kFormGlobalKey.currentState?.validate()'),
             ],
           ),
         ),
@@ -833,12 +846,21 @@ Widget buildSection7GlobalObjectKey() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              buildKvRow('kProfileIdentity', 'a module-level Object() instance'),
-              buildKvRow('kProfileGlobalObjectKey', kProfileGlobalObjectKey.toString()),
+              buildKvRow(
+                'kProfileIdentity',
+                'a module-level Object() instance',
+              ),
+              buildKvRow(
+                'kProfileGlobalObjectKey',
+                kProfileGlobalObjectKey.toString(),
+              ),
               buildKvRow('sameAgain', sameAgain.toString()),
               buildKvRow('== same identity', '$sameEq  (expected: true)'),
               buildKvRow('other (new Object())', other.toString()),
-              buildKvRow('== different identity', '$otherEq  (expected: false)'),
+              buildKvRow(
+                '== different identity',
+                '$otherEq  (expected: false)',
+              ),
             ],
           ),
         ),
@@ -910,7 +932,11 @@ Widget buildTodoTile(Todo t, {Key? key, required bool keyed}) {
   );
 }
 
-Widget buildOrderedColumn(String header, List<Todo> order, {required bool keyed}) {
+Widget buildOrderedColumn(
+  String header,
+  List<Todo> order, {
+  required bool keyed,
+}) {
   final List<Widget> children = <Widget>[
     Text(
       header,
@@ -924,11 +950,13 @@ Widget buildOrderedColumn(String header, List<Todo> order, {required bool keyed}
   ];
   for (int i = 0; i < order.length; i++) {
     final Todo t = order[i];
-    children.add(buildTodoTile(
-      t,
-      key: keyed ? ValueKey<String>(t.id) : null,
-      keyed: keyed,
-    ));
+    children.add(
+      buildTodoTile(
+        t,
+        key: keyed ? ValueKey<String>(t.id) : null,
+        keyed: keyed,
+      ),
+    );
   }
   return Container(
     padding: const EdgeInsets.all(8.0),
@@ -1017,7 +1045,9 @@ Widget buildSection8Reorder() {
         ),
         const SizedBox(height: 8.0),
         buildArrow('Reconcile by position: element 0 still maps to slot 0.'),
-        buildArrow('Reconcile by key: element with key="t-003" maps wherever t-003 is now.'),
+        buildArrow(
+          'Reconcile by key: element with key="t-003" maps wherever t-003 is now.',
+        ),
         buildCaption(
           'This is the classic motivation for keys: reorderable lists, '
           'AnimatedList, swappable tabs, draggable cards.',
@@ -1079,10 +1109,26 @@ Widget buildSection9Collection() {
       children: <Widget>[
         Row(
           children: <Widget>[
-            buildLabeledChild('Red', const Color(0xFFFFCDD2), const ValueKey<String>('red')),
-            buildLabeledChild('Green', const Color(0xFFC8E6C9), const ValueKey<String>('green')),
-            buildLabeledChild('Blue', const Color(0xFFBBDEFB), const ValueKey<String>('blue')),
-            buildLabeledChild('Yellow', const Color(0xFFFFF9C4), const ValueKey<String>('yellow')),
+            buildLabeledChild(
+              'Red',
+              const Color(0xFFFFCDD2),
+              const ValueKey<String>('red'),
+            ),
+            buildLabeledChild(
+              'Green',
+              const Color(0xFFC8E6C9),
+              const ValueKey<String>('green'),
+            ),
+            buildLabeledChild(
+              'Blue',
+              const Color(0xFFBBDEFB),
+              const ValueKey<String>('blue'),
+            ),
+            buildLabeledChild(
+              'Yellow',
+              const Color(0xFFFFF9C4),
+              const ValueKey<String>('yellow'),
+            ),
           ],
         ),
         const SizedBox(height: 10.0),
@@ -1119,7 +1165,8 @@ Widget buildSection10AntiPatterns() {
       children: <Widget>[
         buildGoodBadCard(
           title: "Same UniqueKey reused on multiple children",
-          verdict: "Flutter throws 'multiple widgets used the same GlobalKey' "
+          verdict:
+              "Flutter throws 'multiple widgets used the same GlobalKey' "
               "if it's a GlobalKey, and the LocalKey version causes both "
               "subtrees to be treated as one — state goes to the first match.",
           good: false,
@@ -1135,7 +1182,8 @@ Widget buildSection10AntiPatterns() {
         ),
         buildGoodBadCard(
           title: "Distinct ValueKeys per item id",
-          verdict: "Correct. Each child has a stable, unique key tied to its "
+          verdict:
+              "Correct. Each child has a stable, unique key tied to its "
               "data id.",
           good: true,
           snippet:
@@ -1148,7 +1196,8 @@ Widget buildSection10AntiPatterns() {
         ),
         buildGoodBadCard(
           title: "ValueKey('') for every item",
-          verdict: "All items collide on the empty-string key. Reorder/insert "
+          verdict:
+              "All items collide on the empty-string key. Reorder/insert "
               "behavior becomes effectively unkeyed (or worse, depending on "
               "framework version).",
           good: false,
@@ -1162,7 +1211,8 @@ Widget buildSection10AntiPatterns() {
         ),
         buildGoodBadCard(
           title: "UniqueKey() recreated every build",
-          verdict: "Every rebuild produces a fresh UniqueKey, so Flutter "
+          verdict:
+              "Every rebuild produces a fresh UniqueKey, so Flutter "
               "tears down and reconstructs the subtree. State is lost on "
               "every frame.",
           good: false,
@@ -1176,7 +1226,8 @@ Widget buildSection10AntiPatterns() {
         ),
         buildGoodBadCard(
           title: "GlobalKey declared at module scope",
-          verdict: "Stable across rebuilds, debugLabel makes errors easier "
+          verdict:
+              "Stable across rebuilds, debugLabel makes errors easier "
               "to trace.",
           good: true,
           snippet:
@@ -1189,7 +1240,8 @@ Widget buildSection10AntiPatterns() {
         ),
         buildGoodBadCard(
           title: "GlobalKey created inside build()",
-          verdict: "Each frame allocates a new GlobalKey, so currentState "
+          verdict:
+              "Each frame allocates a new GlobalKey, so currentState "
               "is always the freshly mounted one or null. Common cause of "
               '"why is currentState null?" bugs.',
           good: false,
@@ -1523,7 +1575,11 @@ dynamic build(BuildContext context) {
           children: <Widget>[
             buildBadge('LocalKey', bg: const Color(0xFFD9E5FA), fg: kAccent),
             const SizedBox(width: 6.0),
-            buildBadge('GlobalKey', bg: const Color(0xFFFFE3B0), fg: const Color(0xFF8A5A00)),
+            buildBadge(
+              'GlobalKey',
+              bg: const Color(0xFFFFE3B0),
+              fg: const Color(0xFF8A5A00),
+            ),
             const SizedBox(width: 6.0),
             buildBadge('PageStorage', bg: const Color(0xFFCFEFD9), fg: kGood),
           ],

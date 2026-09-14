@@ -1,3 +1,11 @@
+// REPO-WIDE GUARD (tom_d4rt_flutter_ast) — the cluster log's header table matches its sections, and both twins' test/README.md agree on what the corpus certifies.
+//
+// Its subject reaches OUTSIDE this package, so it runs only when tom_d4rt_flutter_ast's suite
+// runs and a session working elsewhere in the repo reaches none of it. SCD129
+// made that arrangement visible rather than incidental: `grep -rn 'REPO-WIDE
+// GUARD' */test` lists every one, and
+// `tom_d4rt/test/scd129_repo_wide_guard_index_test.dart` fails if a new one
+// arrives without this banner.
 /// Guard for the "What is still open" table in `doc/interpreter_issues.md`.
 ///
 /// That header table is a SUMMARY of the per-cluster sections below it, and a

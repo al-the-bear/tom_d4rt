@@ -31,7 +31,10 @@ Widget _clSection(String title, List<Widget> children) {
       border: Border.all(color: _clLightCotta, width: 1.5),
       boxShadow: const [
         BoxShadow(
-            color: Color(0x15C75B39), blurRadius: 6, offset: Offset(0, 2)),
+          color: Color(0x15C75B39),
+          blurRadius: 6,
+          offset: Offset(0, 2),
+        ),
       ],
     ),
     child: Column(
@@ -43,11 +46,14 @@ Widget _clSection(String title, List<Widget> children) {
             color: _clTerracotta,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(title,
-              style: const TextStyle(
-                  color: _clWhite,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700)),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: _clWhite,
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         const SizedBox(height: 12),
         ...children,
@@ -59,20 +65,24 @@ Widget _clSection(String title, List<Widget> children) {
 Widget _clLabel(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 6),
-    child: Text(text,
-        style: const TextStyle(
-            color: _clDarkCotta,
-            fontSize: 13,
-            fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: const TextStyle(
+        color: _clDarkCotta,
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
   );
 }
 
 Widget _clBody(String text) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 8),
-    child: Text(text,
-        style: const TextStyle(
-            color: _clDarkText, fontSize: 12.5, height: 1.5)),
+    child: Text(
+      text,
+      style: const TextStyle(color: _clDarkText, fontSize: 12.5, height: 1.5),
+    ),
   );
 }
 
@@ -86,12 +96,15 @@ Widget _clCodeBlock(String code) {
       borderRadius: BorderRadius.circular(6),
       border: Border.all(color: _clLightCotta.withValues(alpha: 0.6)),
     ),
-    child: Text(code,
-        style: const TextStyle(
-            fontFamily: 'monospace',
-            fontSize: 11.5,
-            color: _clDarkCotta,
-            height: 1.45)),
+    child: Text(
+      code,
+      style: const TextStyle(
+        fontFamily: 'monospace',
+        fontSize: 11.5,
+        color: _clDarkCotta,
+        height: 1.45,
+      ),
+    ),
   );
 }
 
@@ -103,9 +116,10 @@ Widget _clChip(String text, Color bg, Color fg) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(text,
-        style:
-            TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600)),
+    child: Text(
+      text,
+      style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.w600),
+    ),
   );
 }
 
@@ -138,8 +152,10 @@ dynamic build(BuildContext context) {
     ),
     home: Scaffold(
       appBar: AppBar(
-        title: const Text('Class (Widgets)',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16)),
+        title: const Text(
+          'Class (Widgets)',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -168,28 +184,44 @@ dynamic build(BuildContext context) {
                       color: _clWhite.withValues(alpha: 0.2),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.class_,
-                        color: _clWhite, size: 32),
+                    child: const Icon(Icons.class_, color: _clWhite, size: 32),
                   ),
                   const SizedBox(height: 14),
-                  const Text('Class',
-                      style: TextStyle(
-                          color: _clWhite,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800)),
+                  const Text(
+                    'Class',
+                    style: TextStyle(
+                      color: _clWhite,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                   const SizedBox(height: 6),
                   Text(
-                      'The Dart class as the foundation of every Flutter widget',
-                      style: TextStyle(
-                          color: _clWhite.withValues(alpha: 0.85),
-                          fontSize: 13)),
+                    'The Dart class as the foundation of every Flutter widget',
+                    style: TextStyle(
+                      color: _clWhite.withValues(alpha: 0.85),
+                      fontSize: 13,
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _clChip('Inheritance', _clWhite.withValues(alpha: 0.25), _clWhite),
-                      _clChip('Constructor', _clWhite.withValues(alpha: 0.25), _clWhite),
-                      _clChip('Lifecycle', _clWhite.withValues(alpha: 0.25), _clWhite),
+                      _clChip(
+                        'Inheritance',
+                        _clWhite.withValues(alpha: 0.25),
+                        _clWhite,
+                      ),
+                      _clChip(
+                        'Constructor',
+                        _clWhite.withValues(alpha: 0.25),
+                        _clWhite,
+                      ),
+                      _clChip(
+                        'Lifecycle',
+                        _clWhite.withValues(alpha: 0.25),
+                        _clWhite,
+                      ),
                     ],
                   ),
                 ],
@@ -270,9 +302,7 @@ dynamic build(BuildContext context) {
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 6: Key class members
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-            _clSection('6 · Key Class Members', [
-              _buildKeyMembersTable(),
-            ]),
+            _clSection('6 · Key Class Members', [_buildKeyMembersTable()]),
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
             // Section 7: Mixin composition
@@ -375,11 +405,26 @@ dynamic build(BuildContext context) {
                 child: Column(
                   children: [
                     _clSummaryRow(Icons.class_, 'Every widget is a Dart class'),
-                    _clSummaryRow(Icons.account_tree, 'Hierarchy: Widget → Stateless/Stateful → Your widget'),
-                    _clSummaryRow(Icons.build, 'Constructors: const, named, factory, redirecting'),
-                    _clSummaryRow(Icons.loop, 'Lifecycle methods: initState → build → dispose'),
-                    _clSummaryRow(Icons.extension, 'Mixins compose behavior without deep inheritance'),
-                    _clSummaryRow(Icons.data_object, 'Generics make classes type-safe and reusable'),
+                    _clSummaryRow(
+                      Icons.account_tree,
+                      'Hierarchy: Widget → Stateless/Stateful → Your widget',
+                    ),
+                    _clSummaryRow(
+                      Icons.build,
+                      'Constructors: const, named, factory, redirecting',
+                    ),
+                    _clSummaryRow(
+                      Icons.loop,
+                      'Lifecycle methods: initState → build → dispose',
+                    ),
+                    _clSummaryRow(
+                      Icons.extension,
+                      'Mixins compose behavior without deep inheritance',
+                    ),
+                    _clSummaryRow(
+                      Icons.data_object,
+                      'Generics make classes type-safe and reusable',
+                    ),
                   ],
                 ),
               ),
@@ -396,12 +441,42 @@ dynamic build(BuildContext context) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildClassHierarchy() {
   final levels = <Map<String, dynamic>>[
-    {'name': 'Object', 'desc': 'Root of all Dart classes', 'depth': 0, 'color': _clAccentIndigo},
-    {'name': 'DiagnosticableTree', 'desc': 'Debug printing support', 'depth': 1, 'color': _clAccentPurple},
-    {'name': 'Widget', 'desc': 'Abstract: key, createElement()', 'depth': 2, 'color': _clAccentBlue},
-    {'name': 'StatelessWidget', 'desc': 'Immutable, build() only', 'depth': 3, 'color': _clAccentGreen},
-    {'name': 'StatefulWidget', 'desc': 'Mutable via State<T>', 'depth': 3, 'color': _clAccentTeal},
-    {'name': 'RenderObjectWidget', 'desc': 'Direct render tree access', 'depth': 3, 'color': _clTerracotta},
+    {
+      'name': 'Object',
+      'desc': 'Root of all Dart classes',
+      'depth': 0,
+      'color': _clAccentIndigo,
+    },
+    {
+      'name': 'DiagnosticableTree',
+      'desc': 'Debug printing support',
+      'depth': 1,
+      'color': _clAccentPurple,
+    },
+    {
+      'name': 'Widget',
+      'desc': 'Abstract: key, createElement()',
+      'depth': 2,
+      'color': _clAccentBlue,
+    },
+    {
+      'name': 'StatelessWidget',
+      'desc': 'Immutable, build() only',
+      'depth': 3,
+      'color': _clAccentGreen,
+    },
+    {
+      'name': 'StatefulWidget',
+      'desc': 'Mutable via State<T>',
+      'depth': 3,
+      'color': _clAccentTeal,
+    },
+    {
+      'name': 'RenderObjectWidget',
+      'desc': 'Direct render tree access',
+      'depth': 3,
+      'color': _clTerracotta,
+    },
   ];
 
   return Container(
@@ -423,7 +498,8 @@ Widget _buildClassHierarchy() {
               color: (l['color'] as Color).withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
-                  color: (l['color'] as Color).withValues(alpha: 0.3)),
+                color: (l['color'] as Color).withValues(alpha: 0.3),
+              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -437,16 +513,20 @@ Widget _buildClassHierarchy() {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Text(l['name'] as String,
-                    style: TextStyle(
-                        color: l['color'] as Color,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace')),
+                Text(
+                  l['name'] as String,
+                  style: TextStyle(
+                    color: l['color'] as Color,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 const SizedBox(width: 6),
-                Text('— ${l['desc']}',
-                    style: const TextStyle(
-                        color: _clDarkText, fontSize: 10)),
+                Text(
+                  '— ${l['desc']}',
+                  style: const TextStyle(color: _clDarkText, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -463,7 +543,8 @@ List<Widget> _buildConstructorPatterns() {
   final patterns = <Map<String, dynamic>>[
     {
       'name': 'Default const',
-      'desc': 'Most widget constructors. Enables compile-time constant creation.',
+      'desc':
+          'Most widget constructors. Enables compile-time constant creation.',
       'code': 'const MyWidget({super.key, required this.title});',
       'color': _clAccentBlue,
       'icon': Icons.star,
@@ -471,14 +552,16 @@ List<Widget> _buildConstructorPatterns() {
     {
       'name': 'Named constructor',
       'desc': 'Alternative constructors for specialized configurations.',
-      'code': 'MyWidget.outlined({super.key})\n  : title = \'\', border = true;',
+      'code':
+          'MyWidget.outlined({super.key})\n  : title = \'\', border = true;',
       'color': _clAccentGreen,
       'icon': Icons.label,
     },
     {
       'name': 'Factory constructor',
       'desc': 'Returns existing instance or subtype. Used for caching.',
-      'code': 'factory MyWidget.cached(String id) {\n  return _cache[id] ??= MyWidget(id: id);\n}',
+      'code':
+          'factory MyWidget.cached(String id) {\n  return _cache[id] ??= MyWidget(id: id);\n}',
       'color': _clAccentPurple,
       'icon': Icons.factory,
     },
@@ -498,8 +581,7 @@ List<Widget> _buildConstructorPatterns() {
       decoration: BoxDecoration(
         color: (p['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -513,21 +595,28 @@ List<Widget> _buildConstructorPatterns() {
                   color: p['color'] as Color,
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Icon(p['icon'] as IconData,
-                    color: _clWhite, size: 14),
+                child: Icon(p['icon'] as IconData, color: _clWhite, size: 14),
               ),
               const SizedBox(width: 8),
-              Text(p['name'] as String,
-                  style: TextStyle(
-                      color: p['color'] as Color,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700)),
+              Text(
+                p['name'] as String,
+                style: TextStyle(
+                  color: p['color'] as Color,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
-          Text(p['desc'] as String,
-              style: const TextStyle(
-                  color: _clDarkText, fontSize: 10.5, height: 1.3)),
+          Text(
+            p['desc'] as String,
+            style: const TextStyle(
+              color: _clDarkText,
+              fontSize: 10.5,
+              height: 1.3,
+            ),
+          ),
           const SizedBox(height: 6),
           _clCodeBlock(p['code'] as String),
         ],
@@ -551,33 +640,25 @@ Widget _buildStatelessStatefulComparison() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: _clClassCard(
-            'StatelessWidget',
-            [
-              '1 class',
-              'const constructor',
-              'build() method',
-              'Immutable fields only',
-              'No state object',
-              'Rebuilt by parent only',
-            ],
-            _clAccentGreen,
-          ),
+          child: _clClassCard('StatelessWidget', [
+            '1 class',
+            'const constructor',
+            'build() method',
+            'Immutable fields only',
+            'No state object',
+            'Rebuilt by parent only',
+          ], _clAccentGreen),
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: _clClassCard(
-            'StatefulWidget',
-            [
-              '2 classes (Widget + State)',
-              'createState() method',
-              'State owns build()',
-              'Mutable state fields',
-              'initState() / dispose()',
-              'Can self-rebuild via setState',
-            ],
-            _clAccentTeal,
-          ),
+          child: _clClassCard('StatefulWidget', [
+            '2 classes (Widget + State)',
+            'createState() method',
+            'State owns build()',
+            'Mutable state fields',
+            'initState() / dispose()',
+            'Can self-rebuild via setState',
+          ], _clAccentTeal),
         ),
       ],
     ),
@@ -595,38 +676,46 @@ Widget _clClassCard(String title, List<String> items, Color color) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'monospace')),
+        Text(
+          title,
+          style: TextStyle(
+            color: color,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'monospace',
+          ),
+        ),
         const SizedBox(height: 6),
-        ...items.map((item) => Padding(
-              padding: const EdgeInsets.only(bottom: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 4,
-                    height: 4,
-                    margin: const EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                      color: color,
-                      shape: BoxShape.circle,
+        ...items.map(
+          (item) => Padding(
+            padding: const EdgeInsets.only(bottom: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 4,
+                  height: 4,
+                  margin: const EdgeInsets.only(top: 5),
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      color: _clDarkText,
+                      fontSize: 10,
+                      height: 1.3,
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  Expanded(
-                    child: Text(item,
-                        style: const TextStyle(
-                            color: _clDarkText,
-                            fontSize: 10,
-                            height: 1.3)),
-                  ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -637,12 +726,42 @@ Widget _clClassCard(String title, List<String> items, Color color) {
 // ─────────────────────────────────────────────────────────────
 Widget _buildLifecycleMethods() {
   final methods = <Map<String, dynamic>>[
-    {'method': 'initState()', 'phase': 'Creation', 'desc': 'Called once when State is first created', 'color': _clAccentBlue},
-    {'method': 'didChangeDependencies()', 'phase': 'Dependencies', 'desc': 'Called when InheritedWidget changes', 'color': _clAccentPurple},
-    {'method': 'build()', 'phase': 'Rendering', 'desc': 'Returns the widget tree — called frequently', 'color': _clAccentGreen},
-    {'method': 'didUpdateWidget()', 'phase': 'Update', 'desc': 'Parent rebuilt with new widget config', 'color': _clTerracotta},
-    {'method': 'deactivate()', 'phase': 'Removal', 'desc': 'Removed from tree (may be reinserted)', 'color': _clAccentTeal},
-    {'method': 'dispose()', 'phase': 'Cleanup', 'desc': 'Permanently removed — free resources', 'color': _clDarkCotta},
+    {
+      'method': 'initState()',
+      'phase': 'Creation',
+      'desc': 'Called once when State is first created',
+      'color': _clAccentBlue,
+    },
+    {
+      'method': 'didChangeDependencies()',
+      'phase': 'Dependencies',
+      'desc': 'Called when InheritedWidget changes',
+      'color': _clAccentPurple,
+    },
+    {
+      'method': 'build()',
+      'phase': 'Rendering',
+      'desc': 'Returns the widget tree — called frequently',
+      'color': _clAccentGreen,
+    },
+    {
+      'method': 'didUpdateWidget()',
+      'phase': 'Update',
+      'desc': 'Parent rebuilt with new widget config',
+      'color': _clTerracotta,
+    },
+    {
+      'method': 'deactivate()',
+      'phase': 'Removal',
+      'desc': 'Removed from tree (may be reinserted)',
+      'color': _clAccentTeal,
+    },
+    {
+      'method': 'dispose()',
+      'phase': 'Cleanup',
+      'desc': 'Permanently removed — free resources',
+      'color': _clDarkCotta,
+    },
   ];
 
   return Container(
@@ -662,7 +781,8 @@ Widget _buildLifecycleMethods() {
             color: (m['color'] as Color).withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-                color: (m['color'] as Color).withValues(alpha: 0.3)),
+              color: (m['color'] as Color).withValues(alpha: 0.3),
+            ),
           ),
           child: Row(
             children: [
@@ -674,11 +794,14 @@ Widget _buildLifecycleMethods() {
                   shape: BoxShape.circle,
                 ),
                 child: Center(
-                  child: Text('${entry.key + 1}',
-                      style: const TextStyle(
-                          color: _clWhite,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    '${entry.key + 1}',
+                    style: const TextStyle(
+                      color: _clWhite,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -688,21 +811,27 @@ Widget _buildLifecycleMethods() {
                   children: [
                     Row(
                       children: [
-                        Text(m['method'] as String,
-                            style: TextStyle(
-                                color: m['color'] as Color,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'monospace')),
+                        Text(
+                          m['method'] as String,
+                          style: TextStyle(
+                            color: m['color'] as Color,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: 'monospace',
+                          ),
+                        ),
                         const SizedBox(width: 6),
-                        _clChip(m['phase'] as String,
-                            (m['color'] as Color).withValues(alpha: 0.12),
-                            m['color'] as Color),
+                        _clChip(
+                          m['phase'] as String,
+                          (m['color'] as Color).withValues(alpha: 0.12),
+                          m['color'] as Color,
+                        ),
                       ],
                     ),
-                    Text(m['desc'] as String,
-                        style: const TextStyle(
-                            color: _clDarkText, fontSize: 10)),
+                    Text(
+                      m['desc'] as String,
+                      style: const TextStyle(color: _clDarkText, fontSize: 10),
+                    ),
                   ],
                 ),
               ),
@@ -743,19 +872,21 @@ Widget _buildKeyMembersTable() {
           color: isHeader
               ? _clTerracotta
               : entry.key.isEven
-                  ? _clLinen
-                  : _clWhite,
+              ? _clLinen
+              : _clWhite,
           child: Row(
             children: entry.value.asMap().entries.map((col) {
               return Expanded(
                 flex: col.key == 2 ? 3 : 2,
-                child: Text(col.value,
-                    style: TextStyle(
-                        color: isHeader ? _clWhite : _clDarkText,
-                        fontSize: 10.5,
-                        fontWeight:
-                            isHeader ? FontWeight.w700 : FontWeight.w400,
-                        fontFamily: col.key < 2 ? 'monospace' : null)),
+                child: Text(
+                  col.value,
+                  style: TextStyle(
+                    color: isHeader ? _clWhite : _clDarkText,
+                    fontSize: 10.5,
+                    fontWeight: isHeader ? FontWeight.w700 : FontWeight.w400,
+                    fontFamily: col.key < 2 ? 'monospace' : null,
+                  ),
+                ),
               );
             }).toList(),
           ),
@@ -770,10 +901,26 @@ Widget _buildKeyMembersTable() {
 // ─────────────────────────────────────────────────────────────
 List<Widget> _buildMixinCards() {
   final mixins = <Map<String, dynamic>>[
-    {'name': 'SingleTickerProviderStateMixin', 'desc': 'Provides a single AnimationController ticker', 'color': _clAccentBlue},
-    {'name': 'TickerProviderStateMixin', 'desc': 'Provides multiple tickers for animations', 'color': _clAccentGreen},
-    {'name': 'AutomaticKeepAliveClientMixin', 'desc': 'Keeps state alive in lazy lists', 'color': _clAccentPurple},
-    {'name': 'WidgetsBindingObserver', 'desc': 'Observes app lifecycle (resume, pause)', 'color': _clAccentTeal},
+    {
+      'name': 'SingleTickerProviderStateMixin',
+      'desc': 'Provides a single AnimationController ticker',
+      'color': _clAccentBlue,
+    },
+    {
+      'name': 'TickerProviderStateMixin',
+      'desc': 'Provides multiple tickers for animations',
+      'color': _clAccentGreen,
+    },
+    {
+      'name': 'AutomaticKeepAliveClientMixin',
+      'desc': 'Keeps state alive in lazy lists',
+      'color': _clAccentPurple,
+    },
+    {
+      'name': 'WidgetsBindingObserver',
+      'desc': 'Observes app lifecycle (resume, pause)',
+      'color': _clAccentTeal,
+    },
   ];
 
   return mixins.map((m) {
@@ -783,8 +930,7 @@ List<Widget> _buildMixinCards() {
       decoration: BoxDecoration(
         color: (m['color'] as Color).withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(8),
-        border:
-            Border.all(color: (m['color'] as Color).withValues(alpha: 0.3)),
+        border: Border.all(color: (m['color'] as Color).withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -801,15 +947,19 @@ List<Widget> _buildMixinCards() {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(m['name'] as String,
-                    style: TextStyle(
-                        color: m['color'] as Color,
-                        fontSize: 10.5,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'monospace')),
-                Text(m['desc'] as String,
-                    style: const TextStyle(
-                        color: _clDarkText, fontSize: 10)),
+                Text(
+                  m['name'] as String,
+                  style: TextStyle(
+                    color: m['color'] as Color,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+                Text(
+                  m['desc'] as String,
+                  style: const TextStyle(color: _clDarkText, fontSize: 10),
+                ),
               ],
             ),
           ),
@@ -824,10 +974,26 @@ List<Widget> _buildMixinCards() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildInheritanceChainDemo() {
   final chain = <Map<String, dynamic>>[
-    {'name': 'BaseCard', 'members': 'padding, elevation, radius', 'color': _clAccentIndigo},
-    {'name': 'InteractiveCard', 'members': '+ onTap, onLongPress', 'color': _clAccentBlue},
-    {'name': 'ProductCard', 'members': '+ name, price, image', 'color': _clAccentGreen},
-    {'name': 'FeaturedProductCard', 'members': '+ badge, highlight', 'color': _clTerracotta},
+    {
+      'name': 'BaseCard',
+      'members': 'padding, elevation, radius',
+      'color': _clAccentIndigo,
+    },
+    {
+      'name': 'InteractiveCard',
+      'members': '+ onTap, onLongPress',
+      'color': _clAccentBlue,
+    },
+    {
+      'name': 'ProductCard',
+      'members': '+ name, price, image',
+      'color': _clAccentGreen,
+    },
+    {
+      'name': 'FeaturedProductCard',
+      'members': '+ badge, highlight',
+      'color': _clTerracotta,
+    },
   ];
 
   return Container(
@@ -847,21 +1013,26 @@ Widget _buildInheritanceChainDemo() {
             color: (c['color'] as Color).withValues(alpha: 0.08),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-                color: (c['color'] as Color).withValues(alpha: 0.3)),
+              color: (c['color'] as Color).withValues(alpha: 0.3),
+            ),
           ),
           child: Row(
             children: [
-              Text(c['name'] as String,
-                  style: TextStyle(
-                      color: c['color'] as Color,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'monospace')),
+              Text(
+                c['name'] as String,
+                style: TextStyle(
+                  color: c['color'] as Color,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'monospace',
+                ),
+              ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(c['members'] as String,
-                    style: const TextStyle(
-                        color: _clDarkText, fontSize: 10)),
+                child: Text(
+                  c['members'] as String,
+                  style: const TextStyle(color: _clDarkText, fontSize: 10),
+                ),
               ),
             ],
           ),
@@ -876,10 +1047,26 @@ Widget _buildInheritanceChainDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildGenericUsageCards() {
   final usages = <Map<String, dynamic>>[
-    {'usage': 'DataList<String>', 'desc': 'List of strings', 'color': _clAccentBlue},
-    {'usage': 'DataList<Product>', 'desc': 'List of product objects', 'color': _clAccentGreen},
-    {'usage': 'DataList<int>', 'desc': 'List of numeric values', 'color': _clAccentPurple},
-    {'usage': 'Selector<Model, String>', 'desc': 'Type-safe field selection', 'color': _clAccentTeal},
+    {
+      'usage': 'DataList<String>',
+      'desc': 'List of strings',
+      'color': _clAccentBlue,
+    },
+    {
+      'usage': 'DataList<Product>',
+      'desc': 'List of product objects',
+      'color': _clAccentGreen,
+    },
+    {
+      'usage': 'DataList<int>',
+      'desc': 'List of numeric values',
+      'color': _clAccentPurple,
+    },
+    {
+      'usage': 'Selector<Model, String>',
+      'desc': 'Type-safe field selection',
+      'color': _clAccentTeal,
+    },
   ];
 
   return Wrap(
@@ -892,21 +1079,26 @@ Widget _buildGenericUsageCards() {
         decoration: BoxDecoration(
           color: (u['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border:
-              Border.all(color: (u['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (u['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(u['usage'] as String,
-                style: TextStyle(
-                    color: u['color'] as Color,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'monospace')),
-            Text(u['desc'] as String,
-                style:
-                    const TextStyle(color: _clDarkText, fontSize: 9.5)),
+            Text(
+              u['usage'] as String,
+              style: TextStyle(
+                color: u['color'] as Color,
+                fontSize: 10.5,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'monospace',
+              ),
+            ),
+            Text(
+              u['desc'] as String,
+              style: const TextStyle(color: _clDarkText, fontSize: 9.5),
+            ),
           ],
         ),
       );
@@ -919,14 +1111,51 @@ Widget _buildGenericUsageCards() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildRealWorldClassDemo() {
   final sections = <Map<String, dynamic>>[
-    {'label': 'Class declaration', 'code': 'class SearchBar extends StatefulWidget {', 'color': _clAccentIndigo},
-    {'label': 'Fields', 'code': '  final String hint;\n  final ValueChanged<String>? onChanged;', 'color': _clAccentBlue},
-    {'label': 'Constructor', 'code': '  const SearchBar({super.key, this.hint = "Search...", this.onChanged});', 'color': _clAccentGreen},
-    {'label': 'createState()', 'code': '  @override\n  State<SearchBar> createState() => _SearchBarState();', 'color': _clAccentPurple},
-    {'label': 'State class', 'code': 'class _SearchBarState extends State<SearchBar> {', 'color': _clTerracotta},
-    {'label': 'State fields', 'code': '  late final TextEditingController _ctrl;\n  bool _hasText = false;', 'color': _clAccentTeal},
-    {'label': 'initState()', 'code': '  @override void initState() {\n    super.initState();\n    _ctrl = TextEditingController();\n  }', 'color': _clAccentBlue},
-    {'label': 'dispose()', 'code': '  @override void dispose() {\n    _ctrl.dispose();\n    super.dispose();\n  }', 'color': _clDarkCotta},
+    {
+      'label': 'Class declaration',
+      'code': 'class SearchBar extends StatefulWidget {',
+      'color': _clAccentIndigo,
+    },
+    {
+      'label': 'Fields',
+      'code': '  final String hint;\n  final ValueChanged<String>? onChanged;',
+      'color': _clAccentBlue,
+    },
+    {
+      'label': 'Constructor',
+      'code':
+          '  const SearchBar({super.key, this.hint = "Search...", this.onChanged});',
+      'color': _clAccentGreen,
+    },
+    {
+      'label': 'createState()',
+      'code':
+          '  @override\n  State<SearchBar> createState() => _SearchBarState();',
+      'color': _clAccentPurple,
+    },
+    {
+      'label': 'State class',
+      'code': 'class _SearchBarState extends State<SearchBar> {',
+      'color': _clTerracotta,
+    },
+    {
+      'label': 'State fields',
+      'code':
+          '  late final TextEditingController _ctrl;\n  bool _hasText = false;',
+      'color': _clAccentTeal,
+    },
+    {
+      'label': 'initState()',
+      'code':
+          '  @override void initState() {\n    super.initState();\n    _ctrl = TextEditingController();\n  }',
+      'color': _clAccentBlue,
+    },
+    {
+      'label': 'dispose()',
+      'code':
+          '  @override void dispose() {\n    _ctrl.dispose();\n    super.dispose();\n  }',
+      'color': _clDarkCotta,
+    },
   ];
 
   return Container(
@@ -947,16 +1176,21 @@ Widget _buildRealWorldClassDemo() {
                 width: 80,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 6, vertical: 3),
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: (s['color'] as Color).withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Text(s['label'] as String,
-                      style: TextStyle(
-                          color: s['color'] as Color,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700)),
+                  child: Text(
+                    s['label'] as String,
+                    style: TextStyle(
+                      color: s['color'] as Color,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -967,14 +1201,18 @@ Widget _buildRealWorldClassDemo() {
                     color: const Color(0xFFFFF0E5),
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
-                        color: _clLightCotta.withValues(alpha: 0.5)),
+                      color: _clLightCotta.withValues(alpha: 0.5),
+                    ),
                   ),
-                  child: Text(s['code'] as String,
-                      style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 9.5,
-                          color: _clDarkCotta,
-                          height: 1.4)),
+                  child: Text(
+                    s['code'] as String,
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontSize: 9.5,
+                      color: _clDarkCotta,
+                      height: 1.4,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -990,12 +1228,42 @@ Widget _buildRealWorldClassDemo() {
 // ─────────────────────────────────────────────────────────────
 Widget _buildBestPracticesGrid() {
   final practices = <Map<String, dynamic>>[
-    {'do': 'Use const constructors', 'why': 'Enables compile-time optimization', 'icon': Icons.check_circle, 'color': _clAccentGreen},
-    {'do': 'Make fields final', 'why': 'Widget immutability contract', 'icon': Icons.lock, 'color': _clAccentBlue},
-    {'do': 'Prefer composition', 'why': 'Shallow inheritance trees', 'icon': Icons.layers, 'color': _clAccentPurple},
-    {'do': 'Dispose resources', 'why': 'Prevent memory leaks', 'icon': Icons.delete_sweep, 'color': _clAccentTeal},
-    {'do': 'Keep build() pure', 'why': 'No side effects in render', 'icon': Icons.spa, 'color': _clTerracotta},
-    {'do': 'Extract subwidgets', 'why': 'Granular rebuilds', 'icon': Icons.dashboard, 'color': _clAccentIndigo},
+    {
+      'do': 'Use const constructors',
+      'why': 'Enables compile-time optimization',
+      'icon': Icons.check_circle,
+      'color': _clAccentGreen,
+    },
+    {
+      'do': 'Make fields final',
+      'why': 'Widget immutability contract',
+      'icon': Icons.lock,
+      'color': _clAccentBlue,
+    },
+    {
+      'do': 'Prefer composition',
+      'why': 'Shallow inheritance trees',
+      'icon': Icons.layers,
+      'color': _clAccentPurple,
+    },
+    {
+      'do': 'Dispose resources',
+      'why': 'Prevent memory leaks',
+      'icon': Icons.delete_sweep,
+      'color': _clAccentTeal,
+    },
+    {
+      'do': 'Keep build() pure',
+      'why': 'No side effects in render',
+      'icon': Icons.spa,
+      'color': _clTerracotta,
+    },
+    {
+      'do': 'Extract subwidgets',
+      'why': 'Granular rebuilds',
+      'icon': Icons.dashboard,
+      'color': _clAccentIndigo,
+    },
   ];
 
   return Column(
@@ -1006,28 +1274,34 @@ Widget _buildBestPracticesGrid() {
         decoration: BoxDecoration(
           color: (p['color'] as Color).withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(8),
-          border:
-              Border.all(color: (p['color'] as Color).withValues(alpha: 0.3)),
+          border: Border.all(
+            color: (p['color'] as Color).withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
-            Icon(p['icon'] as IconData,
-                size: 20, color: p['color'] as Color),
+            Icon(p['icon'] as IconData, size: 20, color: p['color'] as Color),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(p['do'] as String,
-                      style: TextStyle(
-                          color: p['color'] as Color,
-                          fontSize: 11.5,
-                          fontWeight: FontWeight.w700)),
-                  Text(p['why'] as String,
-                      style: const TextStyle(
-                          color: _clDarkText,
-                          fontSize: 10,
-                          height: 1.3)),
+                  Text(
+                    p['do'] as String,
+                    style: TextStyle(
+                      color: p['color'] as Color,
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    p['why'] as String,
+                    style: const TextStyle(
+                      color: _clDarkText,
+                      fontSize: 10,
+                      height: 1.3,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1049,10 +1323,13 @@ Widget _clSummaryRow(IconData icon, String text) {
         Icon(icon, size: 18, color: _clWhite.withValues(alpha: 0.9)),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(text,
-              style: TextStyle(
-                  color: _clWhite.withValues(alpha: 0.95),
-                  fontSize: 12.5)),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: _clWhite.withValues(alpha: 0.95),
+              fontSize: 12.5,
+            ),
+          ),
         ),
       ],
     ),

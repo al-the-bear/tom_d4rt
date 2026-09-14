@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.replay_circle_filled,
       'title': 'AppLifecycleListener',
-      'body': 'AppLifecycleListener is a class that listens to changes '
+      'body':
+          'AppLifecycleListener is a class that listens to changes '
           'in the application lifecycle. Unlike WidgetsBindingObserver, '
           'it provides individual named callbacks for each state '
           'transition instead of a single didChangeAppLifecycleState '
@@ -28,7 +29,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_android,
       'title': 'Lifecycle States',
-      'body': 'Flutter apps move through states: resumed (foreground), '
+      'body':
+          'Flutter apps move through states: resumed (foreground), '
           'inactive (partially visible), hidden (not visible), paused '
           '(background), detached (no view). AppLifecycleListener '
           'fires callbacks for each transition.',
@@ -37,7 +39,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.exit_to_app,
       'title': 'Exit Requests',
-      'body': 'On desktop platforms, AppLifecycleListener can intercept '
+      'body':
+          'On desktop platforms, AppLifecycleListener can intercept '
           'window close requests via onExitRequested. Return '
           'AppExitResponse.exit to allow or AppExitResponse.cancel '
           'to prevent the close (e.g. unsaved changes dialog).',
@@ -46,7 +49,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare_arrows,
       'title': 'vs WidgetsBindingObserver',
-      'body': 'WidgetsBindingObserver requires a mixin on State and '
+      'body':
+          'WidgetsBindingObserver requires a mixin on State and '
           'manual addObserver/removeObserver. AppLifecycleListener '
           'is a standalone object: construction starts listening, '
           'dispose() stops. Much simpler and less error-prone.',
@@ -125,7 +129,8 @@ dynamic build(BuildContext context) {
   final states = <Map<String, dynamic>>[
     {
       'state': 'resumed',
-      'desc': 'App is in the foreground, fully visible, '
+      'desc':
+          'App is in the foreground, fully visible, '
           'and responding to user input.',
       'icon': Icons.play_circle_fill,
       'color': Colors.green,
@@ -133,7 +138,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'inactive',
-      'desc': 'App is partially visible or in an unfocused '
+      'desc':
+          'App is partially visible or in an unfocused '
           'state (e.g. phone call, split screen edge).',
       'icon': Icons.pause_circle,
       'color': Colors.amber,
@@ -141,7 +147,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'hidden',
-      'desc': 'App is completely hidden but still running '
+      'desc':
+          'App is completely hidden but still running '
           '(transition state between inactive and paused).',
       'icon': Icons.visibility_off,
       'color': Colors.orange,
@@ -149,7 +156,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'paused',
-      'desc': 'App is in the background. May be killed by OS '
+      'desc':
+          'App is in the background. May be killed by OS '
           'at any time without notification.',
       'icon': Icons.stop_circle,
       'color': Colors.red,
@@ -157,7 +165,8 @@ dynamic build(BuildContext context) {
     },
     {
       'state': 'detached',
-      'desc': 'Engine is running but no view is attached. '
+      'desc':
+          'Engine is running but no view is attached. '
           'Startup or shutdown transition state.',
       'icon': Icons.power_off,
       'color': Colors.grey,
@@ -216,14 +225,20 @@ dynamic build(BuildContext context) {
                     ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         s['platform'] as String,
-                        style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: Colors.grey.shade600,
+                        ),
                       ),
                     ),
                   ],
@@ -364,10 +379,7 @@ dynamic build(BuildContext context) {
             Container(
               width: 8,
               height: 8,
-              decoration: BoxDecoration(
-                color: color,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             ),
             const SizedBox(width: 10),
             SizedBox(
@@ -385,10 +397,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 cb['trigger'] as String,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
               ),
             ),
           ],
@@ -730,7 +739,11 @@ dynamic build(BuildContext context) {
           'On macOS, Windows, and Linux, applications can intercept '
           'the window close request. This enables "unsaved changes" '
           'dialogs and cleanup before exit.',
-          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.4,
+            color: Colors.grey.shade700,
+          ),
         ),
         const SizedBox(height: 14),
         // Flow chart for exit handling
@@ -939,27 +952,36 @@ dynamic build(BuildContext context) {
         children: [
           Expanded(
             flex: 2,
-            child: Text('Aspect',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.green.shade900)),
+            child: Text(
+              'Aspect',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.green.shade900,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text('WidgetsBindingObserver',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.green.shade900)),
+            child: Text(
+              'WidgetsBindingObserver',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.green.shade900,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text('AppLifecycleListener',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.green.shade900)),
+            child: Text(
+              'AppLifecycleListener',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.green.shade900,
+              ),
+            ),
           ),
         ],
       ),
@@ -1026,42 +1048,48 @@ dynamic build(BuildContext context) {
   final useCases = <Map<String, dynamic>>[
     {
       'title': 'Media Playback',
-      'desc': 'Pause audio/video on onPause, resume on onResume. '
+      'desc':
+          'Pause audio/video on onPause, resume on onResume. '
           'Prevents audio playing in background unexpectedly.',
       'icon': Icons.play_arrow,
       'color': Colors.red,
     },
     {
       'title': 'Auto-Save',
-      'desc': 'Save draft/progress on onInactive or onPause so user '
+      'desc':
+          'Save draft/progress on onInactive or onPause so user '
           'data is preserved even if the OS kills the app.',
       'icon': Icons.save,
       'color': Colors.blue,
     },
     {
       'title': 'Location Tracking',
-      'desc': 'Stop GPS polling on onPause to save battery. Restart '
+      'desc':
+          'Stop GPS polling on onPause to save battery. Restart '
           'tracking on onResume for accurate position.',
       'icon': Icons.location_on,
       'color': Colors.green,
     },
     {
       'title': 'WebSocket Reconnection',
-      'desc': 'On onResume, check if the websocket connection dropped '
+      'desc':
+          'On onResume, check if the websocket connection dropped '
           'during background time and reconnect if needed.',
       'icon': Icons.wifi,
       'color': Colors.orange,
     },
     {
       'title': 'Analytics Sessions',
-      'desc': 'Track active session duration. Start timer on onResume, '
+      'desc':
+          'Track active session duration. Start timer on onResume, '
           'pause on onPause. Report session length on onDetach.',
       'icon': Icons.analytics,
       'color': Colors.purple,
     },
     {
       'title': 'Desktop Unsaved Changes',
-      'desc': 'Use onExitRequested to show "Save before closing?" '
+      'desc':
+          'Use onExitRequested to show "Save before closing?" '
           'dialog. Return AppExitResponse.cancel if user declines.',
       'icon': Icons.warning,
       'color': Colors.deepOrange,
@@ -1095,7 +1123,11 @@ dynamic build(BuildContext context) {
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(uc['icon'] as IconData, color: Colors.white, size: 24),
+              child: Icon(
+                uc['icon'] as IconData,
+                color: Colors.white,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -1166,9 +1198,21 @@ dynamic build(BuildContext context) {
 
   final summaryStats = [
     {'label': 'States', 'value': '${states.length}', 'color': Colors.green},
-    {'label': 'Callbacks', 'value': '${callbacks.length}', 'color': Colors.blue},
-    {'label': 'Scenarios', 'value': '${transitionScenarios.length}', 'color': Colors.orange},
-    {'label': 'Use Cases', 'value': '${useCases.length}', 'color': Colors.purple},
+    {
+      'label': 'Callbacks',
+      'value': '${callbacks.length}',
+      'color': Colors.blue,
+    },
+    {
+      'label': 'Scenarios',
+      'value': '${transitionScenarios.length}',
+      'color': Colors.orange,
+    },
+    {
+      'label': 'Use Cases',
+      'value': '${useCases.length}',
+      'color': Colors.purple,
+    },
   ];
 
   final statTiles = <Widget>[];
@@ -1255,7 +1299,11 @@ dynamic build(BuildContext context) {
             color: Colors.green.shade50,
             child: Column(
               children: [
-                Icon(Icons.replay_circle_filled, size: 48, color: Colors.green.shade700),
+                Icon(
+                  Icons.replay_circle_filled,
+                  size: 48,
+                  color: Colors.green.shade700,
+                ),
                 const SizedBox(height: 10),
                 Text(
                   'AppLifecycleListener',
@@ -1270,10 +1318,7 @@ dynamic build(BuildContext context) {
                   'Listen to application lifecycle state changes with '
                   'clean, named callbacks.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.green.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13, color: Colors.green.shade600),
                 ),
               ],
             ),

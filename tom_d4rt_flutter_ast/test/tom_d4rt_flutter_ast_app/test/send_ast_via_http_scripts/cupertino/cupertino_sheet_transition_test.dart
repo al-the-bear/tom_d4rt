@@ -109,14 +109,7 @@ const List<double> _kPrimaryReel = <double>[
   1.0,
 ];
 
-const List<double> _kSecondaryReel = <double>[
-  0.0,
-  0.2,
-  0.4,
-  0.6,
-  0.8,
-  1.0,
-];
+const List<double> _kSecondaryReel = <double>[0.0, 0.2, 0.4, 0.6, 0.8, 1.0];
 
 // iOS sheet design tokens — the values Apple use in HIG and that
 // Flutter's CupertinoSheetTransition implements internally.
@@ -250,11 +243,7 @@ LinearGradient _heroGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF0A84FF),
-      Color(0xFF5E5CE6),
-      Color(0xFFBF5AF2),
-    ],
+    colors: <Color>[Color(0xFF0A84FF), Color(0xFF5E5CE6), Color(0xFFBF5AF2)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -263,10 +252,7 @@ LinearGradient _surfaceGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFFF7F8FB),
-      Color(0xFFE8ECF3),
-    ],
+    colors: <Color>[Color(0xFFF7F8FB), Color(0xFFE8ECF3)],
   );
 }
 
@@ -274,10 +260,7 @@ LinearGradient _anatomyGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFF6E0),
-      Color(0xFFFFE2A8),
-    ],
+    colors: <Color>[Color(0xFFFFF6E0), Color(0xFFFFE2A8)],
   );
 }
 
@@ -285,11 +268,7 @@ LinearGradient _reelGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE7F0FF),
-      Color(0xFFD0DDFF),
-      Color(0xFFBBC9F4),
-    ],
+    colors: <Color>[Color(0xFFE7F0FF), Color(0xFFD0DDFF), Color(0xFFBBC9F4)],
     stops: <double>[0.0, 0.6, 1.0],
   );
 }
@@ -298,11 +277,7 @@ LinearGradient _secondaryReelGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFE9F2),
-      Color(0xFFFFD3E4),
-      Color(0xFFFFBAD2),
-    ],
+    colors: <Color>[Color(0xFFFFE9F2), Color(0xFFFFD3E4), Color(0xFFFFBAD2)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -311,11 +286,7 @@ LinearGradient _mathGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFE0F7FA),
-      Color(0xFFB2EBF2),
-      Color(0xFF80DEEA),
-    ],
+    colors: <Color>[Color(0xFFE0F7FA), Color(0xFFB2EBF2), Color(0xFF80DEEA)],
     stops: <double>[0.0, 0.6, 1.0],
   );
 }
@@ -324,10 +295,7 @@ LinearGradient _snippetGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF111827),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF111827)],
   );
 }
 
@@ -335,11 +303,7 @@ LinearGradient _theoryGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFF3E8FF),
-      Color(0xFFE9D5FF),
-      Color(0xFFDDD6FE),
-    ],
+    colors: <Color>[Color(0xFFF3E8FF), Color(0xFFE9D5FF), Color(0xFFDDD6FE)],
     stops: <double>[0.0, 0.5, 1.0],
   );
 }
@@ -348,10 +312,7 @@ LinearGradient _pitfallsGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFE4E6),
-      Color(0xFFFCA5A5),
-    ],
+    colors: <Color>[Color(0xFFFFE4E6), Color(0xFFFCA5A5)],
   );
 }
 
@@ -359,11 +320,7 @@ LinearGradient _swatchGradient() {
   return const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: <Color>[
-      Color(0xFFFFFBEB),
-      Color(0xFFFFE4E6),
-      Color(0xFFFCE7F3),
-    ],
+    colors: <Color>[Color(0xFFFFFBEB), Color(0xFFFFE4E6), Color(0xFFFCE7F3)],
     stops: <double>[0.0, 0.55, 1.0],
   );
 }
@@ -372,10 +329,7 @@ LinearGradient _footerGradient() {
   return const LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[
-      Color(0xFF1F2937),
-      Color(0xFF0F172A),
-    ],
+    colors: <Color>[Color(0xFF1F2937), Color(0xFF0F172A)],
   );
 }
 
@@ -438,29 +392,39 @@ double _dimOpacity(double secondaryT) {
 
 dynamic build(BuildContext context) {
   print('[csheet-demo] entering build()');
-  print('[csheet-demo] Flutter SDK exposes CupertinoSheetTransition '
-      'with required Animation<double> primaryRouteAnimation, '
-      'Animation<double> secondaryRouteAnimation, Widget child, and '
-      'optional linearTransition and topGap parameters.');
-  print('[csheet-demo] Demo composes ${_kPrimaryReel.length} primary '
-      'snapshots and ${_kSecondaryReel.length} secondary snapshots, '
-      'each fed an AlwaysStoppedAnimation<double>(t).');
-  print('[csheet-demo] No AnimationController, no Navigator.push, no '
-      'setState — strictly static rendering.');
+  print(
+    '[csheet-demo] Flutter SDK exposes CupertinoSheetTransition '
+    'with required Animation<double> primaryRouteAnimation, '
+    'Animation<double> secondaryRouteAnimation, Widget child, and '
+    'optional linearTransition and topGap parameters.',
+  );
+  print(
+    '[csheet-demo] Demo composes ${_kPrimaryReel.length} primary '
+    'snapshots and ${_kSecondaryReel.length} secondary snapshots, '
+    'each fed an AlwaysStoppedAnimation<double>(t).',
+  );
+  print(
+    '[csheet-demo] No AnimationController, no Navigator.push, no '
+    'setState — strictly static rendering.',
+  );
 
   // Reference token/math/shadow helpers so the analyzer accepts them
   // as participating in the build output.  Each of these is a
   // top-level helper used either by an inline widget or by an
   // anatomy painter; printing once keeps them un-elided.
-  print('[csheet-demo] tokens: sheetRadius=$_kSheetRadius '
-      'higTopGap=$_kHigSheetTopGap '
-      'stackedTopInset=$_kHigStackedTopInset');
-  print('[csheet-demo] math probe: '
-      'offsetFraction(0.5)=${_sheetOffsetFraction(0.5).toStringAsFixed(3)} '
-      'presentingScale(0.5)=${_presentingScale(0.5).toStringAsFixed(3)} '
-      'presentingRadius(0.5)='
-      '${_presentingCornerRadius(0.5).toStringAsFixed(3)} '
-      'dimOpacity(0.5)=${_dimOpacity(0.5).toStringAsFixed(3)}');
+  print(
+    '[csheet-demo] tokens: sheetRadius=$_kSheetRadius '
+    'higTopGap=$_kHigSheetTopGap '
+    'stackedTopInset=$_kHigStackedTopInset',
+  );
+  print(
+    '[csheet-demo] math probe: '
+    'offsetFraction(0.5)=${_sheetOffsetFraction(0.5).toStringAsFixed(3)} '
+    'presentingScale(0.5)=${_presentingScale(0.5).toStringAsFixed(3)} '
+    'presentingRadius(0.5)='
+    '${_presentingCornerRadius(0.5).toStringAsFixed(3)} '
+    'dimOpacity(0.5)=${_dimOpacity(0.5).toStringAsFixed(3)}',
+  );
   print('[csheet-demo] sheetShadow layers: ${_sheetShadow().length}');
   print('[csheet-demo] sanity refs: ${_sanityRefs.length}');
 
@@ -624,10 +588,7 @@ class _CtorChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.18),
         borderRadius: BorderRadius.circular(999.0),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.35),
-          width: 1.0,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.35), width: 1.0),
       ),
       child: Text(
         label,
@@ -765,12 +726,7 @@ class _AnatomyPainter extends CustomPainter {
     final Paint pill = Paint()..color = const Color(0xFFB8B8C2);
     canvas.drawRRect(
       RRect.fromRectAndRadius(
-        Rect.fromLTWH(
-          (size.width - 36.0) / 2.0,
-          topGap + 8.0,
-          36.0,
-          5.0,
-        ),
+        Rect.fromLTWH((size.width - 36.0) / 2.0, topGap + 8.0, 36.0, 5.0),
         const Radius.circular(3.0),
       ),
       pill,
@@ -814,16 +770,8 @@ class _AnatomyPainter extends CustomPainter {
       ..strokeWidth = 1.5
       ..style = PaintingStyle.stroke;
     // topGap arrow.
-    canvas.drawLine(
-      const Offset(8.0, 0.0),
-      Offset(8.0, topGap),
-      guide,
-    );
-    canvas.drawLine(
-      const Offset(4.0, 4.0),
-      const Offset(12.0, 4.0),
-      guide,
-    );
+    canvas.drawLine(const Offset(8.0, 0.0), Offset(8.0, topGap), guide);
+    canvas.drawLine(const Offset(4.0, 4.0), const Offset(12.0, 4.0), guide);
     canvas.drawLine(
       Offset(4.0, topGap - 4.0),
       Offset(12.0, topGap - 4.0),
@@ -837,11 +785,7 @@ class _AnatomyPainter extends CustomPainter {
       14.0,
       guide,
     );
-    label(
-      'radius 10',
-      Offset(28.0, topGap + 4.0),
-      const Color(0xFFB45309),
-    );
+    label('radius 10', Offset(28.0, topGap + 4.0), const Color(0xFFB45309));
 
     // Sheet label.
     label(
@@ -849,11 +793,7 @@ class _AnatomyPainter extends CustomPainter {
       Offset(size.width - 70.0, topGap + 32.0),
       const Color(0xFF6B7280),
     );
-    label(
-      'PRESENTING',
-      const Offset(8.0, 92.0),
-      const Color(0xFFE5E7EB),
-    );
+    label('PRESENTING', const Offset(8.0, 92.0), const Color(0xFFE5E7EB));
   }
 
   @override
@@ -994,8 +934,7 @@ class _PrimaryReelCard extends StatelessWidget {
                     width: _kReelBezelWidth,
                     height: _kReelBezelHeight,
                     child: CupertinoSheetTransition(
-                      primaryRouteAnimation:
-                          AlwaysStoppedAnimation<double>(t),
+                      primaryRouteAnimation: AlwaysStoppedAnimation<double>(t),
                       secondaryRouteAnimation:
                           const AlwaysStoppedAnimation<double>(0.0),
                       linearTransition: false,
@@ -1094,8 +1033,9 @@ class _BezelFrame extends StatelessWidget {
                   height: 14.0,
                   decoration: const BoxDecoration(
                     color: Color(0xFF111827),
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(8.0)),
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(8.0),
+                    ),
                   ),
                 ),
               ),
@@ -1252,8 +1192,9 @@ class _SecondaryReelCard extends StatelessWidget {
                     child: CupertinoSheetTransition(
                       primaryRouteAnimation:
                           const AlwaysStoppedAnimation<double>(1.0),
-                      secondaryRouteAnimation:
-                          AlwaysStoppedAnimation<double>(s),
+                      secondaryRouteAnimation: AlwaysStoppedAnimation<double>(
+                        s,
+                      ),
                       linearTransition: false,
                       child: const _SheetSampleContent(),
                     ),
@@ -1442,14 +1383,8 @@ class _MathDiagramPainter extends CustomPainter {
         final double t0 = i / dashes;
         final double t1 = (i + 1) / dashes;
         canvas.drawLine(
-          Offset(
-            box.left + t0 * box.width,
-            box.bottom - t0 * box.height,
-          ),
-          Offset(
-            box.left + t1 * box.width,
-            box.bottom - t1 * box.height,
-          ),
+          Offset(box.left + t0 * box.width, box.bottom - t0 * box.height),
+          Offset(box.left + t1 * box.width, box.bottom - t1 * box.height),
           dashed,
         );
       }
@@ -1499,11 +1434,16 @@ class _MathDiagramPainter extends CustomPainter {
       tp.paint(canvas, at);
     }
 
-    label('easeOut (primary)', Offset(leftBox.left, leftBox.bottom + 4.0),
-        const Color(0xFF1D4ED8));
-    label('easeInOut (secondary)',
-        Offset(rightBox.left - 4.0, rightBox.bottom + 4.0),
-        const Color(0xFFBE185D));
+    label(
+      'easeOut (primary)',
+      Offset(leftBox.left, leftBox.bottom + 4.0),
+      const Color(0xFF1D4ED8),
+    );
+    label(
+      'easeInOut (secondary)',
+      Offset(rightBox.left - 4.0, rightBox.bottom + 4.0),
+      const Color(0xFFBE185D),
+    );
   }
 
   @override
@@ -1523,13 +1463,7 @@ class _DimOverlaySwatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<double> opacities = <double>[
-      0.0,
-      0.07,
-      0.14,
-      0.21,
-      0.28,
-    ];
+    const List<double> opacities = <double>[0.0, 0.07, 0.14, 0.21, 0.28];
 
     return Container(
       padding: const EdgeInsets.all(_kSectionPad),
@@ -1804,10 +1738,7 @@ class _CodeBlock extends StatelessWidget {
     return Container(
       width: 9.0,
       height: 9.0,
-      decoration: BoxDecoration(
-        color: colour,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: colour, shape: BoxShape.circle),
     );
   }
 }
@@ -1870,8 +1801,9 @@ class _SheetVsPageRouteCard extends StatelessWidget {
                   width: _kBezelWidth * 0.78,
                   height: _kBezelHeight * 0.78,
                   child: CupertinoSheetTransition(
-                    primaryRouteAnimation:
-                        const AlwaysStoppedAnimation<double>(1.0),
+                    primaryRouteAnimation: const AlwaysStoppedAnimation<double>(
+                      1.0,
+                    ),
                     secondaryRouteAnimation:
                         const AlwaysStoppedAnimation<double>(0.0),
                     linearTransition: false,
@@ -1986,30 +1918,15 @@ class _DecisionMatrix extends StatelessWidget {
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _MatrixRow(
-            scenario: 'Edit a record, then return',
-            pick: 'sheet',
-          ),
-          _MatrixRow(
-            scenario: 'Drill into a list item detail',
-            pick: 'page',
-          ),
-          _MatrixRow(
-            scenario: 'Settings panel from anywhere',
-            pick: 'sheet',
-          ),
+          _MatrixRow(scenario: 'Edit a record, then return', pick: 'sheet'),
+          _MatrixRow(scenario: 'Drill into a list item detail', pick: 'page'),
+          _MatrixRow(scenario: 'Settings panel from anywhere', pick: 'sheet'),
           _MatrixRow(
             scenario: 'Wizard with several sequential steps',
             pick: 'page',
           ),
-          _MatrixRow(
-            scenario: 'Compose a message',
-            pick: 'sheet',
-          ),
-          _MatrixRow(
-            scenario: 'Auth login flow',
-            pick: 'sheet',
-          ),
+          _MatrixRow(scenario: 'Compose a message', pick: 'sheet'),
+          _MatrixRow(scenario: 'Auth login flow', pick: 'sheet'),
         ],
       ),
     );
@@ -2034,10 +1951,7 @@ class _MatrixRow extends StatelessWidget {
           Expanded(
             child: Text(
               scenario,
-              style: const TextStyle(
-                fontSize: 12.0,
-                color: Color(0xFF1F2937),
-              ),
+              style: const TextStyle(fontSize: 12.0, color: Color(0xFF1F2937)),
             ),
           ),
           Container(
@@ -2156,10 +2070,7 @@ class _BulletRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 3.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
             decoration: BoxDecoration(
               color: const Color(0xFF6D28D9).withOpacity(0.15),
               borderRadius: BorderRadius.circular(6.0),
@@ -2461,10 +2372,12 @@ class _StackPhase extends StatelessWidget {
             children: <Widget>[
               // Bottom sheet — primary held at 1, secondary varies.
               CupertinoSheetTransition(
-                primaryRouteAnimation:
-                    const AlwaysStoppedAnimation<double>(1.0),
-                secondaryRouteAnimation:
-                    AlwaysStoppedAnimation<double>(bottomSecondary),
+                primaryRouteAnimation: const AlwaysStoppedAnimation<double>(
+                  1.0,
+                ),
+                secondaryRouteAnimation: AlwaysStoppedAnimation<double>(
+                  bottomSecondary,
+                ),
                 linearTransition: false,
                 child: Container(
                   color: const Color(0xFFFDE68A),
@@ -2483,10 +2396,12 @@ class _StackPhase extends StatelessWidget {
               ),
               // Top sheet — primary varies, secondary stays at 0.
               CupertinoSheetTransition(
-                primaryRouteAnimation:
-                    AlwaysStoppedAnimation<double>(topPrimary),
-                secondaryRouteAnimation:
-                    const AlwaysStoppedAnimation<double>(0.0),
+                primaryRouteAnimation: AlwaysStoppedAnimation<double>(
+                  topPrimary,
+                ),
+                secondaryRouteAnimation: const AlwaysStoppedAnimation<double>(
+                  0.0,
+                ),
                 linearTransition: false,
                 child: Container(
                   color: const Color(0xFFA7F3D0),
@@ -2606,10 +2521,7 @@ class _SectionHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 3.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
           decoration: BoxDecoration(
             color: tint.withOpacity(0.15),
             borderRadius: BorderRadius.circular(6.0),

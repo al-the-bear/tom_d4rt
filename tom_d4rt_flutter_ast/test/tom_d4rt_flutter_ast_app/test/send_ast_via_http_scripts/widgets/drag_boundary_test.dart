@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.crop_square,
       'title': 'Drag Region Constraint',
-      'body': 'DragBoundary is an InheritedWidget that defines a '
+      'body':
+          'DragBoundary is an InheritedWidget that defines a '
           'boundary region within which drag gestures are constrained. '
           'Draggable widgets and drag recognizers query the nearest '
           'DragBoundary ancestor to determine the permitted drag '
@@ -29,7 +30,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.extension,
       'title': 'DragBoundaryDelegate',
-      'body': 'The actual clamping logic lives in a DragBoundaryDelegate '
+      'body':
+          'The actual clamping logic lives in a DragBoundaryDelegate '
           'object. DragBoundary holds a reference to this delegate. '
           'When a drag gesture needs to be constrained, the delegate\'s '
           'clampDrag method is called to adjust the drag offset. '
@@ -39,7 +41,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.open_with,
       'title': 'Automatic Integration',
-      'body': 'Drag recognizers in Flutter automatically look up the '
+      'body':
+          'Drag recognizers in Flutter automatically look up the '
           'nearest DragBoundary when processing drag events. When '
           'a DragBoundary is present, the recognizer calls the '
           'delegate to clamp drag offsets before reporting them to '
@@ -49,7 +52,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.layers,
       'title': 'Nested Boundaries',
-      'body': 'DragBoundary widgets can be nested. The innermost '
+      'body':
+          'DragBoundary widgets can be nested. The innermost '
           'boundary applies to child drag gestures. This enables '
           'patterns like a large scrollable area containing smaller '
           'constrained zones where specific items can be dragged '
@@ -76,7 +80,8 @@ dynamic build(BuildContext context) {
       'name': 'DragBoundary',
       'depth': 1,
       'color': Colors.pink[700]!,
-      'note': 'InheritedWidget holding a DragBoundaryDelegate. '
+      'note':
+          'InheritedWidget holding a DragBoundaryDelegate. '
           'Look up with DragBoundary.of(context) or '
           'DragBoundary.maybeOf(context).',
     },
@@ -84,14 +89,16 @@ dynamic build(BuildContext context) {
       'name': 'DragBoundaryDelegate',
       'depth': 0,
       'color': Colors.purple[700]!,
-      'note': 'Abstract base for drag clamping logic. Implement '
+      'note':
+          'Abstract base for drag clamping logic. Implement '
           'clampDrag(Offset proposed, Offset original) to constrain.',
     },
     {
       'name': 'Custom Delegate',
       'depth': 1,
       'color': Colors.purple[500]!,
-      'note': 'Your implementation: e.g., RectDragBoundaryDelegate, '
+      'note':
+          'Your implementation: e.g., RectDragBoundaryDelegate, '
           'CircleDragBoundaryDelegate, etc.',
     },
   ];
@@ -109,7 +116,8 @@ dynamic build(BuildContext context) {
       'type': 'DragBoundaryDelegate',
       'icon': Icons.settings,
       'color': Colors.pink[700]!,
-      'description': 'The delegate that defines the drag clamping '
+      'description':
+          'The delegate that defines the drag clamping '
           'behavior. When a drag gesture queries this boundary, the '
           'delegate\'s clampDrag method is called to constrain the '
           'proposed drag offset.',
@@ -119,7 +127,8 @@ dynamic build(BuildContext context) {
       'type': 'Widget',
       'icon': Icons.widgets,
       'color': Colors.purple[700]!,
-      'description': 'The widget subtree within which drag gestures '
+      'description':
+          'The widget subtree within which drag gestures '
           'are constrained. All drag gestures from descendant widgets '
           'will query this boundary for clamping.',
     },
@@ -128,7 +137,8 @@ dynamic build(BuildContext context) {
       'type': 'DragBoundaryDelegate (static)',
       'icon': Icons.search,
       'color': Colors.pink[600]!,
-      'description': 'Retrieves the nearest DragBoundary ancestor\'s '
+      'description':
+          'Retrieves the nearest DragBoundary ancestor\'s '
           'delegate. Throws if no DragBoundary is found. Use when '
           'a boundary is expected to always be present.',
     },
@@ -137,7 +147,8 @@ dynamic build(BuildContext context) {
       'type': 'DragBoundaryDelegate? (static)',
       'icon': Icons.search_off,
       'color': Colors.purple[600]!,
-      'description': 'Retrieves the nearest DragBoundary ancestor\'s '
+      'description':
+          'Retrieves the nearest DragBoundary ancestor\'s '
           'delegate, or null if none exists. Use for optional '
           'boundary support where unconstrained drag is acceptable.',
     },
@@ -153,23 +164,27 @@ dynamic build(BuildContext context) {
   final delegateMethods = <Map<String, dynamic>>[
     {
       'name': 'clampDrag',
-      'signature': 'Offset clampDrag(\n'
+      'signature':
+          'Offset clampDrag(\n'
           '  Offset proposedPosition,\n'
           '  Offset originalPosition,\n'
           ')',
       'color': Colors.pink[700]!,
-      'description': 'Called during a drag gesture to constrain the '
+      'description':
+          'Called during a drag gesture to constrain the '
           'proposed position. Returns the clamped position. '
           'proposedPosition is where the drag wants to go, '
           'originalPosition is where the drag started.',
     },
     {
       'name': 'shouldRelayout',
-      'signature': 'bool shouldRelayout(\n'
+      'signature':
+          'bool shouldRelayout(\n'
           '  DragBoundaryDelegate oldDelegate,\n'
           ')',
       'color': Colors.purple[700]!,
-      'description': 'Called when the delegate changes to determine '
+      'description':
+          'Called when the delegate changes to determine '
           'whether dependent widgets should re-layout. Return true '
           'if the new clamping logic differs from the old one.',
     },
@@ -188,10 +203,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.crop_square,
       'color': Colors.pink[700]!,
       'shape': 'rectangle',
-      'description': 'Constrains drag to a rectangular area defined '
+      'description':
+          'Constrains drag to a rectangular area defined '
           'by left, top, right, bottom offsets. The most common '
           'boundary type. Item cannot leave the rectangle.',
-      'clampLogic': 'dx clamped to [left, right]\n'
+      'clampLogic':
+          'dx clamped to [left, right]\n'
           'dy clamped to [top, bottom]',
     },
     {
@@ -199,10 +216,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.circle_outlined,
       'color': Colors.purple[700]!,
       'shape': 'circle',
-      'description': 'Constrains drag to a circular area defined by '
+      'description':
+          'Constrains drag to a circular area defined by '
           'center and radius. If the proposed position exceeds '
           'the radius, it is projected back onto the circle edge.',
-      'clampLogic': 'distance = offset.distance\n'
+      'clampLogic':
+          'distance = offset.distance\n'
           'if distance > radius:\n'
           '  offset = offset / distance * radius',
     },
@@ -211,7 +230,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_horiz,
       'color': Colors.pink[600]!,
       'shape': 'horizontal',
-      'description': 'Constrains drag to horizontal movement only, '
+      'description':
+          'Constrains drag to horizontal movement only, '
           'ignoring vertical component. Useful for sliders, '
           'horizontal carousels, and timeline scrubbers.',
       'clampLogic': 'return Offset(proposed.dx, original.dy)',
@@ -221,7 +241,8 @@ dynamic build(BuildContext context) {
       'icon': Icons.swap_vert,
       'color': Colors.purple[600]!,
       'shape': 'vertical',
-      'description': 'Constrains drag to vertical movement only, '
+      'description':
+          'Constrains drag to vertical movement only, '
           'ignoring horizontal component. Useful for vertical '
           'range selectors and height-adjustable panels.',
       'clampLogic': 'return Offset(original.dx, proposed.dy)',
@@ -231,10 +252,12 @@ dynamic build(BuildContext context) {
       'icon': Icons.grid_on,
       'color': Colors.pink[500]!,
       'shape': 'grid',
-      'description': 'Snaps drag position to the nearest grid point. '
+      'description':
+          'Snaps drag position to the nearest grid point. '
           'Useful for diagram editors, tile placement, and any '
           'layout where alignment matters.',
-      'clampLogic': 'dx = (proposed.dx / gridSize).round()\n'
+      'clampLogic':
+          'dx = (proposed.dx / gridSize).round()\n'
           '     * gridSize\n'
           'dy = (proposed.dy / gridSize).round()\n'
           '     * gridSize',
@@ -253,7 +276,8 @@ dynamic build(BuildContext context) {
       'title': 'Kanban Board',
       'icon': Icons.view_column,
       'color': Colors.pink[700]!,
-      'description': 'A Kanban board where cards can be dragged within '
+      'description':
+          'A Kanban board where cards can be dragged within '
           'a column but cannot be dragged outside the column '
           'boundaries. Each column has its own DragBoundary ensuring '
           'cards stay within their lane.',
@@ -262,7 +286,8 @@ dynamic build(BuildContext context) {
       'title': 'Image Cropping',
       'icon': Icons.crop,
       'color': Colors.purple[700]!,
-      'description': 'A crop rectangle with drag handles that must '
+      'description':
+          'A crop rectangle with drag handles that must '
           'stay within the image bounds. The DragBoundary prevents '
           'handles from being dragged beyond the image edges.',
     },
@@ -270,7 +295,8 @@ dynamic build(BuildContext context) {
       'title': 'Game Character Movement',
       'icon': Icons.games,
       'color': Colors.pink[600]!,
-      'description': 'A game where a character can be dragged around '
+      'description':
+          'A game where a character can be dragged around '
           'a play area but cannot leave the game board. The boundary '
           'constrains movement to the board rectangle.',
     },
@@ -278,7 +304,8 @@ dynamic build(BuildContext context) {
       'title': 'Slider Track',
       'icon': Icons.linear_scale,
       'color': Colors.purple[600]!,
-      'description': 'A custom slider where the thumb can only be '
+      'description':
+          'A custom slider where the thumb can only be '
           'dragged along the track. A horizontal-only DragBoundary '
           'constrains the drag to the track\'s horizontal axis.',
     },
@@ -286,7 +313,8 @@ dynamic build(BuildContext context) {
       'title': 'Diagram Editor',
       'icon': Icons.account_tree,
       'color': Colors.pink[500]!,
-      'description': 'A node-based diagram editor where nodes can be '
+      'description':
+          'A node-based diagram editor where nodes can be '
           'dragged within the canvas area. The boundary prevents '
           'nodes from being dragged off-canvas. A grid delegate '
           'adds snap-to-grid behavior.',
@@ -304,7 +332,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Basic Setup with Custom Delegate',
       'color': Colors.pink[700]!,
-      'code': '// Define a boundary with a custom delegate\n'
+      'code':
+          '// Define a boundary with a custom delegate\n'
           'class RectBoundaryDelegate\n'
           '    extends DragBoundaryDelegate {\n'
           '  final Rect bounds;\n'
@@ -334,7 +363,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Using DragBoundary in Widget Tree',
       'color': Colors.purple[700]!,
-      'code': '// Wrap draggable content\n'
+      'code':
+          '// Wrap draggable content\n'
           'DragBoundary(\n'
           '  delegate: RectBoundaryDelegate(\n'
           '    Rect.fromLTWH(0, 0, 300, 300),\n'
@@ -365,7 +395,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Querying the Boundary',
       'color': Colors.pink[600]!,
-      'code': '// Look up the nearest boundary\n'
+      'code':
+          '// Look up the nearest boundary\n'
           'final delegate =\n'
           '    DragBoundary.of(context);\n'
           '\n'
@@ -387,7 +418,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Nested Boundaries',
       'color': Colors.purple[600]!,
-      'code': '// Outer boundary: full canvas\n'
+      'code':
+          '// Outer boundary: full canvas\n'
           'DragBoundary(\n'
           '  delegate: RectBoundaryDelegate(\n'
           '    Rect.fromLTWH(0, 0, 600, 400),\n'
@@ -425,7 +457,8 @@ dynamic build(BuildContext context) {
       'step': 1,
       'title': 'DragBoundary in Widget Tree',
       'color': Colors.pink[700]!,
-      'detail': 'DragBoundary extends InheritedWidget and stores a '
+      'detail':
+          'DragBoundary extends InheritedWidget and stores a '
           'DragBoundaryDelegate. It inserts itself into the build '
           'context inheritance chain so descendants can find it.',
     },
@@ -433,7 +466,8 @@ dynamic build(BuildContext context) {
       'step': 2,
       'title': 'Drag Gesture Starts',
       'color': Colors.purple[700]!,
-      'detail': 'When a drag gesture is recognized (e.g., by a '
+      'detail':
+          'When a drag gesture is recognized (e.g., by a '
           'GestureDetector or Draggable), the drag recognizer '
           'checks for a DragBoundary ancestor using '
           'DragBoundary.maybeOf(context).',
@@ -442,7 +476,8 @@ dynamic build(BuildContext context) {
       'step': 3,
       'title': 'Delegate Queried on Each Frame',
       'color': Colors.pink[600]!,
-      'detail': 'On each drag update, the recognizer calls '
+      'detail':
+          'On each drag update, the recognizer calls '
           'delegate.clampDrag(proposed, original) where proposed '
           'is the new offset from the raw gesture and original is '
           'the reference point (usually the drag start position).',
@@ -451,7 +486,8 @@ dynamic build(BuildContext context) {
       'step': 4,
       'title': 'Clamped Offset Returned',
       'color': Colors.purple[600]!,
-      'detail': 'The delegate computes and returns a constrained '
+      'detail':
+          'The delegate computes and returns a constrained '
           'offset. This might clamp to a rectangle, project onto '
           'a circle, snap to a grid, or apply any custom logic.',
     },
@@ -459,7 +495,8 @@ dynamic build(BuildContext context) {
       'step': 5,
       'title': 'Drag Event with Clamped Delta',
       'color': Colors.pink[500]!,
-      'detail': 'The recognizer uses the clamped offset to compute '
+      'detail':
+          'The recognizer uses the clamped offset to compute '
           'the reported drag delta. The gesture consumer (e.g., '
           'onPanUpdate) receives a constrained delta that respects '
           'the boundary.',
@@ -477,7 +514,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Keep Delegates Lightweight',
-      'body': 'The clampDrag method is called on every drag frame. '
+      'body':
+          'The clampDrag method is called on every drag frame. '
           'Keep the computation simple — basic clamping, rounding, '
           'or projection. Avoid allocations or heavy math in the '
           'delegate.',
@@ -486,7 +524,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Boundary != Containment Enforcement',
-      'body': 'DragBoundary constrains the reported drag offset, but '
+      'body':
+          'DragBoundary constrains the reported drag offset, but '
           'the actual widget positioning is up to your code. If '
           'you do not use the clamped values for positioning, the '
           'widget can still visually escape the boundary.',
@@ -495,7 +534,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Coordinate Systems',
-      'body': 'Ensure the delegate works in the correct coordinate '
+      'body':
+          'Ensure the delegate works in the correct coordinate '
           'system. The proposed/original offsets are relative to '
           'the drag start point. Transform to local coordinates '
           'if your boundary is defined in parent space.',
@@ -504,7 +544,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.warning_amber,
       'title': 'Testing Boundaries',
-      'body': 'In widget tests, use tester.drag() and verify the '
+      'body':
+          'In widget tests, use tester.drag() and verify the '
           'final position of the dragged widget. The boundary '
           'should prevent movement beyond the specified limits '
           'even when the simulated drag exceeds them.',
@@ -513,7 +554,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.lightbulb_outline,
       'title': 'Pair with Draggable or GestureDetector',
-      'body': 'DragBoundary works with any drag-based widget. Use '
+      'body':
+          'DragBoundary works with any drag-based widget. Use '
           'it with Draggable for drag-and-drop, GestureDetector '
           'for custom drag handling, or drag recognizers directly '
           'for low-level control.',
@@ -522,7 +564,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.check_circle_outline,
       'title': 'Dynamic Boundaries',
-      'body': 'The delegate can change at runtime. For example, '
+      'body':
+          'The delegate can change at runtime. For example, '
           'resizing a container updates the boundary rectangle. '
           'Implement shouldRelayout to trigger re-layout when the '
           'bounds change.',
@@ -597,50 +640,63 @@ dynamic build(BuildContext context) {
           // ── Section 1: Concept ──
           _dbHead('1', 'What is DragBoundary?'),
           SizedBox(height: 12),
-          ...conceptCards.map((c) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: c['accent'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2))
-                    ],
+          ...conceptCards.map(
+            (c) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: c['accent'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(c['icon'] as IconData,
-                            color: c['accent'] as Color, size: 22),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          c['icon'] as IconData,
+                          color: c['accent'] as Color,
+                          size: 22,
+                        ),
                         SizedBox(width: 10),
                         Expanded(
-                          child: Text(c['title'] as String,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[900])),
+                          child: Text(
+                            c['title'] as String,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[900],
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 10),
-                      Text(c['body'] as String,
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.grey[700],
-                              height: 1.5)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      c['body'] as String,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[700],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -655,9 +711,10 @@ dynamic build(BuildContext context) {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 3,
-                    offset: Offset(0, 1))
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                ),
               ],
             ),
             child: Column(
@@ -666,43 +723,53 @@ dynamic build(BuildContext context) {
                 ...hierarchyItems.map((h) {
                   final depth = h['depth'] as int;
                   return Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 8, left: depth * 24.0),
-                    child: Row(children: [
-                      if (depth > 0)
-                        Padding(
-                          padding: EdgeInsets.only(right: 6),
-                          child: Text('└─',
+                    padding: EdgeInsets.only(bottom: 8, left: depth * 24.0),
+                    child: Row(
+                      children: [
+                        if (depth > 0)
+                          Padding(
+                            padding: EdgeInsets.only(right: 6),
+                            child: Text(
+                              '└─',
                               style: TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 10,
-                                  color: Colors.grey[400])),
-                        ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: (h['color'] as Color)
-                              .withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(
-                              color: h['color'] as Color),
-                        ),
-                        child: Text(h['name'] as String,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11,
                                 fontFamily: 'monospace',
-                                color: h['color'] as Color)),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(h['note'] as String,
+                                fontSize: 10,
+                                color: Colors.grey[400],
+                              ),
+                            ),
+                          ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: (h['color'] as Color).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: h['color'] as Color),
+                          ),
+                          child: Text(
+                            h['name'] as String,
                             style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.grey[600])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 11,
+                              fontFamily: 'monospace',
+                              color: h['color'] as Color,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            h['note'] as String,
+                            style: TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }),
               ],
@@ -714,340 +781,410 @@ dynamic build(BuildContext context) {
           // ── Section 3: Properties ──
           _dbHead('3', 'Properties'),
           SizedBox(height: 12),
-          ...properties.map((p) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: p['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...properties.map(
+            (p) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: p['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(p['icon'] as IconData,
-                            color: p['color'] as Color, size: 18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          p['icon'] as IconData,
+                          color: p['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(p['name'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  fontFamily: 'monospace')),
+                          child: Text(
+                            p['name'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              fontFamily: 'monospace',
+                            ),
+                          ),
                         ),
-                        _dbTag(p['type'] as String,
-                            p['color'] as Color),
-                      ]),
-                      SizedBox(height: 8),
-                      Text(p['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                        _dbTag(p['type'] as String, p['color'] as Color),
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      p['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 4: Delegate API ──
           _dbHead('4', 'DragBoundaryDelegate API'),
           SizedBox(height: 12),
-          ...delegateMethods.map((dm) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: dm['color'] as Color, width: 4),
+          ...delegateMethods.map(
+            (dm) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: dm['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(dm['name'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: 'monospace',
-                              color: dm['color'] as Color)),
-                      SizedBox(height: 6),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(dm['signature'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 10,
-                                color: Colors.pink[200])),
-                      ),
-                      SizedBox(height: 8),
-                      Text(dm['description'] as String,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[700],
-                              height: 1.4)),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      dm['name'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'monospace',
+                        color: dm['color'] as Color,
+                      ),
+                    ),
+                    SizedBox(height: 6),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        dm['signature'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          color: Colors.pink[200],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      dm['description'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 5: Boundary Examples ──
           _dbHead('5', 'Boundary Shape Examples'),
           SizedBox(height: 12),
-          ...boundaryExamples.map((be) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: be['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...boundaryExamples.map(
+            (be) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: be['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(be['icon'] as IconData,
-                            color: be['color'] as Color, size: 20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          be['icon'] as IconData,
+                          color: be['color'] as Color,
+                          size: 20,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(be['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
-                        ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(be['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                      SizedBox(height: 6),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(be['clampLogic'] as String,
+                          child: Text(
+                            be['title'] as String,
                             style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.pink[200],
-                                height: 1.4)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      be['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 6),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        be['clampLogic'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.pink[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 6: Use Cases ──
           _dbHead('6', 'Use Cases'),
           SizedBox(height: 12),
-          ...useCases.map((uc) => Padding(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: uc['color'] as Color, width: 4),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
+          ...useCases.map(
+            (uc) => Padding(
+              padding: EdgeInsets.only(bottom: 12),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: uc['color'] as Color, width: 4),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        Icon(uc['icon'] as IconData,
-                            color: uc['color'] as Color, size: 18),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          uc['icon'] as IconData,
+                          color: uc['color'] as Color,
+                          size: 18,
+                        ),
                         SizedBox(width: 8),
                         Expanded(
-                          child: Text(uc['title'] as String,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13)),
+                          child: Text(
+                            uc['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
+                          ),
                         ),
-                      ]),
-                      SizedBox(height: 6),
-                      Text(uc['description'] as String,
-                          style: TextStyle(
-                              fontSize: 11,
-                              color: Colors.grey[700],
-                              height: 1.3)),
-                    ],
-                  ),
+                      ],
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      uc['description'] as String,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[700],
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 7: Code Patterns ──
           _dbHead('7', 'Code Patterns'),
           SizedBox(height: 12),
-          ...codePatterns.map((cp) => Padding(
-                padding: EdgeInsets.only(bottom: 14),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: cp['color'] as Color, width: 4),
+          ...codePatterns.map(
+            (cp) => Padding(
+              padding: EdgeInsets.only(bottom: 14),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: cp['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cp['title'] as String,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13)),
-                      SizedBox(height: 8),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(cp['code'] as String,
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 9,
-                                color: Colors.pink[200],
-                                height: 1.4)),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      cp['title'] as String,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        cp['code'] as String,
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 9,
+                          color: Colors.pink[200],
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
           // ── Section 8: Under the Hood ──
           _dbHead('8', 'How It Works Under the Hood'),
           SizedBox(height: 12),
-          ...mechanismSteps.map((ms) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border(
-                      left: BorderSide(
-                          color: ms['color'] as Color, width: 4),
+          ...mechanismSteps.map(
+            (ms) => Padding(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border(
+                    left: BorderSide(color: ms['color'] as Color, width: 4),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(0, 1),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(0, 1))
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 26,
-                        height: 26,
-                        decoration: BoxDecoration(
-                          color: ms['color'] as Color,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text('${ms['step']}',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            Text(ms['title'] as String,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12)),
-                            SizedBox(height: 4),
-                            Text(ms['detail'] as String,
-                                style: TextStyle(
-                                    fontSize: 11,
-                                    color: Colors.grey[700],
-                                    height: 1.3)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: ms['color'] as Color,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${ms['step']}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            ms['title'] as String,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            ms['detail'] as String,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: Colors.grey[700],
+                              height: 1.3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           SizedBox(height: 24),
 
@@ -1079,29 +1216,41 @@ dynamic build(BuildContext context) {
                   color: bgColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border(
-                      left: BorderSide(color: borderColor, width: 4)),
+                    left: BorderSide(color: borderColor, width: 4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(children: [
-                      Icon(tip['icon'] as IconData,
-                          color: borderColor, size: 20),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(tip['title'] as String,
+                    Row(
+                      children: [
+                        Icon(
+                          tip['icon'] as IconData,
+                          color: borderColor,
+                          size: 20,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            tip['title'] as String,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Colors.grey[900])),
-                      ),
-                    ]),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[900],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 6),
-                    Text(tip['body'] as String,
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey[800],
-                            height: 1.4)),
+                    Text(
+                      tip['body'] as String,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[800],
+                        height: 1.4,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -1140,20 +1289,26 @@ Widget _dbHead(String number, String title) {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(number,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14)),
+          child: Text(
+            number,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
         ),
       ),
       SizedBox(width: 10),
       Expanded(
-        child: Text(title,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[900])),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[900],
+          ),
+        ),
       ),
     ],
   );
@@ -1169,11 +1324,14 @@ Widget _dbTag(String text, Color color) {
       color: color.withOpacity(0.12),
       borderRadius: BorderRadius.circular(10),
     ),
-    child: Text(text,
-        style: TextStyle(
-            color: color,
-            fontSize: 9,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'monospace')),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: 9,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'monospace',
+      ),
+    ),
   );
 }

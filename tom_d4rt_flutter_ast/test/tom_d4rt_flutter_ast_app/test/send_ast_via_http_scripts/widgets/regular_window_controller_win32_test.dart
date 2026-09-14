@@ -28,8 +28,7 @@ final ValueNotifier<_Win32WindowState> _windowState =
     ValueNotifier<_Win32WindowState>(_Win32WindowState.normal);
 
 /// Whether the Snap Layouts popup is visible.
-final ValueNotifier<bool> _snapLayoutVisible =
-    ValueNotifier<bool>(false);
+final ValueNotifier<bool> _snapLayoutVisible = ValueNotifier<bool>(false);
 
 /// Selected snap zone index (0-5) or -1 for none.
 final ValueNotifier<int> _snapZone = ValueNotifier<int>(-1);
@@ -38,8 +37,13 @@ final ValueNotifier<int> _snapZone = ValueNotifier<int>(-1);
 final ValueNotifier<bool> _windowFocused = ValueNotifier<bool>(true);
 
 /// Enabled Win32 style flags bitmask simulation (indices into _kWin32Styles).
-final ValueNotifier<Set<int>> _enabledStyles =
-    ValueNotifier<Set<int>>(<int>{0, 1, 2, 3, 4});
+final ValueNotifier<Set<int>> _enabledStyles = ValueNotifier<Set<int>>(<int>{
+  0,
+  1,
+  2,
+  3,
+  4,
+});
 
 /// Simulated Win32 message event log.
 final ValueNotifier<List<_Win32Message>> _messageLog =
@@ -206,13 +210,15 @@ const List<_ShowWindowCmd> _kShowWindowCmds = <_ShowWindowCmd>[
   _ShowWindowCmd(
     constant: 'SW_SHOWFULLSCREEN',
     value: 3,
-    description: 'Custom: remove WS_OVERLAPPEDWINDOW + SetWindowPos to cover taskbar',
+    description:
+        'Custom: remove WS_OVERLAPPEDWINDOW + SetWindowPos to cover taskbar',
     state: _Win32WindowState.fullscreen,
   ),
   _ShowWindowCmd(
     constant: 'SW_HIDE',
     value: 0,
-    description: 'Hides the window and activates another; does not destroy HWND',
+    description:
+        'Hides the window and activates another; does not destroy HWND',
     state: _Win32WindowState.minimized,
   ),
 ];
@@ -221,7 +227,8 @@ const List<_Win32StyleFlag> _kWin32Styles = <_Win32StyleFlag>[
   _Win32StyleFlag(
     name: 'WS_OVERLAPPEDWINDOW',
     hex: '0x00CF0000',
-    description: 'Composite: WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX',
+    description:
+        'Composite: WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX',
     visual: 'Full title bar, resize, min/max buttons',
   ),
   _Win32StyleFlag(
@@ -274,7 +281,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0005',
     wParam: 'SIZE_RESTORED / SIZE_MINIMIZED / SIZE_MAXIMIZED',
     lParam: 'LOWORD=width, HIWORD=height (new client area)',
-    description: 'Posted when the window size changes. Flutter uses this to trigger a relayout of the surface. '
+    description:
+        'Posted when the window size changes. Flutter uses this to trigger a relayout of the surface. '
         'The new client dimensions are packed into lParam.',
     color: Color(0xFF1565C0),
     icon: Icons.open_in_full,
@@ -284,7 +292,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0003',
     wParam: '0 (unused)',
     lParam: 'LOWORD=x, HIWORD=y (new position of client area, screen coords)',
-    description: 'Posted when the window position changes. Important for multi-monitor DPI handling '
+    description:
+        'Posted when the window position changes. Important for multi-monitor DPI handling '
         'as the effective DPI may change when crossing monitor boundaries.',
     color: Color(0xFF2E7D32),
     icon: Icons.drag_indicator,
@@ -294,7 +303,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0006',
     wParam: 'WA_INACTIVE(0) / WA_ACTIVE(1) / WA_CLICKACTIVE(2)',
     lParam: 'HWND of the other window being activated/deactivated',
-    description: 'Sent when the window activation state changes. Flutter updates focus handling '
+    description:
+        'Sent when the window activation state changes. Flutter updates focus handling '
         'and rendering priority. WA_INACTIVE means the window is losing focus.',
     color: Color(0xFF6A1B9A),
     icon: Icons.window,
@@ -304,7 +314,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0010',
     wParam: '0 (unused)',
     lParam: '0 (unused)',
-    description: 'Sent when the user clicks the × button or Alt+F4. RegularWindowControllerWin32 '
+    description:
+        'Sent when the user clicks the × button or Alt+F4. RegularWindowControllerWin32 '
         'intercepts this to trigger the onCloseRequested callback before calling DestroyWindow.',
     color: Color(0xFFC62828),
     icon: Icons.close,
@@ -314,7 +325,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0002',
     wParam: '0 (unused)',
     lParam: '0 (unused)',
-    description: 'Posted when the window is being destroyed. PostQuitMessage(0) is typically called '
+    description:
+        'Posted when the window is being destroyed. PostQuitMessage(0) is typically called '
         'here for the main window. Flutter tears down the FlutterViewController at this point.',
     color: Color(0xFFBF360C),
     icon: Icons.delete_forever,
@@ -324,7 +336,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x02E0',
     wParam: 'LOWORD=new DPI (x), HIWORD=new DPI (y)',
     lParam: 'RECT* suggested new window rect at new DPI',
-    description: 'Sent when the effective DPI of the window changes (e.g. moved to a different monitor). '
+    description:
+        'Sent when the effective DPI of the window changes (e.g. moved to a different monitor). '
         'Flutter uses SetWindowPos with the suggested rect to resize and reposition correctly.',
     color: Color(0xFF00695C),
     icon: Icons.monitor,
@@ -334,7 +347,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0084',
     wParam: '0 (unused)',
     lParam: 'LOWORD=x, HIWORD=y (cursor position, screen coords)',
-    description: 'Used to determine which part of the window the cursor is over. Returning HTCAPTION '
+    description:
+        'Used to determine which part of the window the cursor is over. Returning HTCAPTION '
         'from non-caption areas allows custom drag regions for borderless windows.',
     color: Color(0xFF37474F),
     icon: Icons.mouse,
@@ -344,7 +358,8 @@ const List<_Win32Message> _kWin32Messages = <_Win32Message>[
     constant: '0x0014',
     wParam: 'HDC (device context)',
     lParam: '0 (unused)',
-    description: 'Flutter typically returns 1 (handled) without erasing, since the compositor '
+    description:
+        'Flutter typically returns 1 (handled) without erasing, since the compositor '
         'renders directly to the window surface. Prevents flicker during resize.',
     color: Color(0xFF4E342E),
     icon: Icons.format_color_fill,
@@ -356,44 +371,56 @@ const List<_Win32Feature> _kWin32Features = <_Win32Feature>[
     title: 'Snap Layouts',
     icon: Icons.dashboard_customize,
     color: Color(0xFF0078D4),
-    description: 'Windows 11 hover the maximise button to reveal zone pickers. '
+    description:
+        'Windows 11 hover the maximise button to reveal zone pickers. '
         'WM_GETMINMAXINFO controls the snapped size. Apps must handle WM_SIZE with SIZE_RESTORED.',
-    apiNote: 'No Win32 API; Windows Shell auto-detects WS_MAXIMIZEBOX.\n'
+    apiNote:
+        'No Win32 API; Windows Shell auto-detects WS_MAXIMIZEBOX.\n'
         'DwmSetWindowAttribute(DWMWA_DISALLOW_PEEK) for customisation.',
-    flutterNote: 'RegularWindowControllerWin32 exposes onSizeChanged. '
+    flutterNote:
+        'RegularWindowControllerWin32 exposes onSizeChanged. '
         'Snap zones trigger WM_SIZE → Flutter rebuilds layout.',
   ),
   _Win32Feature(
     title: 'Virtual Desktops',
     icon: Icons.view_quilt,
     color: Color(0xFF107C10),
-    description: 'Windows 10+ Virtual Desktops allow grouping windows into separate workspaces. '
+    description:
+        'Windows 10+ Virtual Desktops allow grouping windows into separate workspaces. '
         'Each desktop has its own z-order but windows share the same HWND space.',
-    apiNote: 'IVirtualDesktop COM interface (undocumented / internal).\n'
+    apiNote:
+        'IVirtualDesktop COM interface (undocumented / internal).\n'
         'VirtualDesktopManager::IsWindowOnCurrentVirtualDesktop(HWND, BOOL*)',
-    flutterNote: 'No direct Flutter API. Use ffi + CoCreateInstance to query '
+    flutterNote:
+        'No direct Flutter API. Use ffi + CoCreateInstance to query '
         'virtual desktop membership when needed for multi-window coordination.',
   ),
   _Win32Feature(
     title: 'Taskbar Pinning',
     icon: Icons.push_pin,
     color: Color(0xFF6B2D8B),
-    description: 'Apps register with the Windows taskbar via ITaskbarList3 COM interface. '
+    description:
+        'Apps register with the Windows taskbar via ITaskbarList3 COM interface. '
         'Thumbnails, progress overlays, and jump lists are all exposed through this interface.',
-    apiNote: 'ITaskbarList3::SetProgressValue(HWND, ULONGLONG, ULONGLONG)\n'
+    apiNote:
+        'ITaskbarList3::SetProgressValue(HWND, ULONGLONG, ULONGLONG)\n'
         'ITaskbarList3::SetOverlayIcon(HWND, HICON, LPCWSTR)',
-    flutterNote: 'Use package:win32 to access ITaskbarList3. '
+    flutterNote:
+        'Use package:win32 to access ITaskbarList3. '
         'RegularWindowControllerWin32 provides the HWND needed for these calls.',
   ),
   _Win32Feature(
     title: 'DWM Blur / Acrylic',
     icon: Icons.blur_on,
     color: Color(0xFF005A9E),
-    description: 'Desktop Window Manager (DWM) composites all windows. '
+    description:
+        'Desktop Window Manager (DWM) composites all windows. '
         'Acrylic/mica effects use DwmSetWindowAttribute with DWMWA_SYSTEMBACKDROP_TYPE (Win11).',
-    apiNote: 'DwmSetWindowAttribute(DWMWA_SYSTEMBACKDROP_TYPE, &backdropType, sizeof(backdropType))\n'
+    apiNote:
+        'DwmSetWindowAttribute(DWMWA_SYSTEMBACKDROP_TYPE, &backdropType, sizeof(backdropType))\n'
         'DWMSBT_MAINWINDOW → Mica, DWMSBT_TRANSIENTWINDOW → Acrylic',
-    flutterNote: 'Set window background to Colors.transparent and use '
+    flutterNote:
+        'Set window background to Colors.transparent and use '
         'flutter_acrylic or direct ffi calls with the HWND from RegularWindowControllerWin32.',
   ),
 ];
@@ -402,60 +429,70 @@ const List<_MultiWindowStep> _kMultiWindowSteps = <_MultiWindowStep>[
   _MultiWindowStep(
     index: 1,
     title: 'Call FlutterWindow.create()',
-    code: 'final controller = await FlutterWindow.create(\n'
+    code:
+        'final controller = await FlutterWindow.create(\n'
         '  size: const Size(800, 600),\n'
         '  title: "Secondary Window",\n'
         ');',
-    description: 'Flutter experimental API wraps Win32 CreateWindowEx internally. '
+    description:
+        'Flutter experimental API wraps Win32 CreateWindowEx internally. '
         'Returns a RegularWindowControllerWin32 (on Windows).',
     color: Color(0xFF1565C0),
   ),
   _MultiWindowStep(
     index: 2,
     title: 'Win32: CreateWindowEx',
-    code: 'HWND hWnd = CreateWindowEx(\n'
+    code:
+        'HWND hWnd = CreateWindowEx(\n'
         '  0, kWindowClassName, L"Secondary",\n'
         '  WS_OVERLAPPEDWINDOW,\n'
         '  CW_USEDEFAULT, CW_USEDEFAULT,\n'
         '  800, 600,\n'
         '  NULL, NULL, hInstance, NULL\n'
         ');',
-    description: 'Under the hood, the Flutter embedder calls CreateWindowEx to obtain an HWND. '
+    description:
+        'Under the hood, the Flutter embedder calls CreateWindowEx to obtain an HWND. '
         'Each HWND has its own message queue and WndProc.',
     color: Color(0xFF2E7D32),
   ),
   _MultiWindowStep(
     index: 3,
     title: 'Create FlutterViewController',
-    code: 'FlutterViewController controller(\n'
+    code:
+        'FlutterViewController controller(\n'
         '  project,\n'
         '  size: {800, 600},\n'
         '  parent: hWnd\n'
         ');\n'
         'SetParent(controller.view(), hWnd);',
-    description: 'A new FlutterViewController is created for the secondary HWND. '
+    description:
+        'A new FlutterViewController is created for the secondary HWND. '
         'It has its own engine or shares one (isolate-based).',
     color: Color(0xFF6A1B9A),
   ),
   _MultiWindowStep(
     index: 4,
     title: 'ShowWindow + UpdateWindow',
-    code: 'ShowWindow(hWnd, SW_SHOW);\n'
+    code:
+        'ShowWindow(hWnd, SW_SHOW);\n'
         'UpdateWindow(hWnd);',
-    description: 'The window becomes visible and receives WM_PAINT. '
+    description:
+        'The window becomes visible and receives WM_PAINT. '
         'Flutter begins rendering frames into the HWND surface.',
     color: Color(0xFFC62828),
   ),
   _MultiWindowStep(
     index: 5,
     title: 'Communicate via Isolates',
-    code: 'final port = ReceivePort();\n'
+    code:
+        'final port = ReceivePort();\n'
         'await Isolate.spawn(\n'
         '  secondWindowEntry,\n'
         '  port.sendPort,\n'
         ');\n'
         'port.listen(handleMessage);',
-    description: 'Secondary windows run in separate Dart isolates. '
+    description:
+        'Secondary windows run in separate Dart isolates. '
         'Use SendPort / ReceivePort for bidirectional communication.',
     color: Color(0xFF00695C),
   ),
@@ -467,12 +504,15 @@ const List<_PitfallCard> _kPitfalls = <_PitfallCard>[
     icon: Icons.warning_amber_rounded,
     color: Color(0xFFF57F17),
     severity: 'Critical',
-    problem: 'RegularWindowControllerWin32 and all Win32 HWND calls are compiled '
+    problem:
+        'RegularWindowControllerWin32 and all Win32 HWND calls are compiled '
         'only on Windows. Using them without platform guards causes compile errors '
         'on macOS/Linux.',
-    solution: 'Always guard with Platform.isWindows or use conditional imports. '
+    solution:
+        'Always guard with Platform.isWindows or use conditional imports. '
         'Prefer the abstract RegularWindowController base class API for cross-platform code.',
-    codeSnippet: 'import dart:io show Platform;\n\nif (Platform.isWindows) {\n'
+    codeSnippet:
+        'import dart:io show Platform;\n\nif (Platform.isWindows) {\n'
         '  // Win32-specific code here\n}',
   ),
   _PitfallCard(
@@ -480,13 +520,16 @@ const List<_PitfallCard> _kPitfalls = <_PitfallCard>[
     icon: Icons.monitor,
     color: Color(0xFF1565C0),
     severity: 'High',
-    problem: 'Without declaring DPI awareness, Windows scales your window via bitmap '
+    problem:
+        'Without declaring DPI awareness, Windows scales your window via bitmap '
         'stretching (DPI virtualisation), causing blurry text and incorrect layout '
         'on high-DPI monitors (4K, Surface, etc.).',
-    solution: 'Call SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2) '
+    solution:
+        'Call SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2) '
         'at startup. Handle WM_DPICHANGED to resize/reposition with the suggested RECT. '
         'Flutter embedder does this automatically since Flutter 3.x.',
-    codeSnippet: 'SetProcessDpiAwarenessContext(\n'
+    codeSnippet:
+        'SetProcessDpiAwarenessContext(\n'
         '  DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2\n'
         ');\n\n// In WndProc:\ncase WM_DPICHANGED:\n'
         '  RECT* r = (RECT*)lParam;\n'
@@ -500,14 +543,17 @@ const List<_PitfallCard> _kPitfalls = <_PitfallCard>[
     icon: Icons.security,
     color: Color(0xFFC62828),
     severity: 'Medium',
-    problem: 'Unsigned or newly built Flutter apps trigger Windows Defender SmartScreen '
+    problem:
+        'Unsigned or newly built Flutter apps trigger Windows Defender SmartScreen '
         '"Unknown Publisher" warnings. Code-signing certificates cost money and require '
         'renewal. UAC elevation requests appear if your app manifest requests '
         'requireAdministrator.',
-    solution: 'For development: use --allow-unsigned or add an exception. '
+    solution:
+        'For development: use --allow-unsigned or add an exception. '
         'For release: obtain an EV code-signing certificate. '
         'Keep your manifest at asInvoker unless elevation is truly needed.',
-        codeSnippet: '<!-- app.manifest -->\n<requestedPrivileges>\n'
+    codeSnippet:
+        '<!-- app.manifest -->\n<requestedPrivileges>\n'
         '  <requestedExecutionLevel\n'
         '    level="asInvoker"\n'
         '    uiAccess="false"/>\n'
@@ -518,14 +564,17 @@ const List<_PitfallCard> _kPitfalls = <_PitfallCard>[
     icon: Icons.sort,
     color: Color(0xFF37474F),
     severity: 'Medium',
-    problem: 'Win32 messages are not always posted in the expected order. '
+    problem:
+        'Win32 messages are not always posted in the expected order. '
         'WM_ACTIVATE arrives before WM_SIZE during maximise. '
         'WM_DESTROY arrives after child windows are already destroyed, so accessing '
         'child HWNDs in WM_DESTROY is unsafe.',
-    solution: 'Do cleanup in WM_NCDESTROY (last message sent). '
+    solution:
+        'Do cleanup in WM_NCDESTROY (last message sent). '
         'Use PostMessage instead of SendMessage for deferred operations. '
         'Never call DestroyWindow from within WndProc; post a custom message instead.',
-    codeSnippet: 'case WM_NCDESTROY:\n'
+    codeSnippet:
+        'case WM_NCDESTROY:\n'
         '  // Safe: last message ever sent to this HWND\n'
         '  SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);\n'
         '  delete pThis;\n'
@@ -535,96 +584,114 @@ const List<_PitfallCard> _kPitfalls = <_PitfallCard>[
 
 const List<_ApiEntry> _kApiEntries = <_ApiEntry>[
   _ApiEntry(
-    signature: 'RegularWindowControllerWin32({required FlutterViewController viewController})',
+    signature:
+        'RegularWindowControllerWin32({required FlutterViewController viewController})',
     category: 'Constructor',
-    description: 'Wraps an existing FlutterViewController to expose Win32 window management. '
+    description:
+        'Wraps an existing FlutterViewController to expose Win32 window management. '
         'The HWND is obtained via viewController.view().',
   ),
   _ApiEntry(
     signature: 'Future<void> setTitle(String title)',
     category: 'Window Properties',
-    description: 'Sets the window title via SetWindowText(hWnd, title). '
+    description:
+        'Sets the window title via SetWindowText(hWnd, title). '
         'Equivalent to WM_SETTEXT.',
   ),
   _ApiEntry(
     signature: 'Future<void> setSize(Size size)',
     category: 'Window Properties',
-    description: 'Resizes the window via SetWindowPos. Triggers WM_SIZE → Flutter relayout.',
+    description:
+        'Resizes the window via SetWindowPos. Triggers WM_SIZE → Flutter relayout.',
   ),
   _ApiEntry(
     signature: 'Future<void> setPosition(Offset position)',
     category: 'Window Properties',
-    description: 'Moves the window via SetWindowPos with SWP_NOSIZE. Triggers WM_MOVE.',
+    description:
+        'Moves the window via SetWindowPos with SWP_NOSIZE. Triggers WM_MOVE.',
   ),
   _ApiEntry(
     signature: 'Future<void> setMinimumSize(Size size)',
     category: 'Window Constraints',
-    description: 'Enforced via WM_GETMINMAXINFO. ptMinTrackSize is set to prevent '
+    description:
+        'Enforced via WM_GETMINMAXINFO. ptMinTrackSize is set to prevent '
         'the window from being resized smaller than the specified size.',
   ),
   _ApiEntry(
     signature: 'Future<void> setMaximumSize(Size size)',
     category: 'Window Constraints',
-    description: 'Enforced via WM_GETMINMAXINFO. ptMaxTrackSize is set to prevent '
+    description:
+        'Enforced via WM_GETMINMAXINFO. ptMaxTrackSize is set to prevent '
         'the window from being resized larger than the specified size.',
   ),
   _ApiEntry(
     signature: 'Future<void> show()',
     category: 'Visibility',
-    description: 'Calls ShowWindow(hWnd, SW_SHOW). Makes the window visible and active.',
+    description:
+        'Calls ShowWindow(hWnd, SW_SHOW). Makes the window visible and active.',
   ),
   _ApiEntry(
     signature: 'Future<void> hide()',
     category: 'Visibility',
-    description: 'Calls ShowWindow(hWnd, SW_HIDE). Hides without destroying HWND.',
+    description:
+        'Calls ShowWindow(hWnd, SW_HIDE). Hides without destroying HWND.',
   ),
   _ApiEntry(
     signature: 'Future<void> minimize()',
     category: 'State',
-    description: 'Calls ShowWindow(hWnd, SW_MINIMIZE). Posts WM_SIZE with SIZE_MINIMIZED.',
+    description:
+        'Calls ShowWindow(hWnd, SW_MINIMIZE). Posts WM_SIZE with SIZE_MINIMIZED.',
   ),
   _ApiEntry(
     signature: 'Future<void> maximize()',
     category: 'State',
-    description: 'Calls ShowWindow(hWnd, SW_MAXIMIZE). Posts WM_SIZE with SIZE_MAXIMIZED.',
+    description:
+        'Calls ShowWindow(hWnd, SW_MAXIMIZE). Posts WM_SIZE with SIZE_MAXIMIZED.',
   ),
   _ApiEntry(
     signature: 'Future<void> restore()',
     category: 'State',
-    description: 'Calls ShowWindow(hWnd, SW_RESTORE). Returns from minimized or maximized.',
+    description:
+        'Calls ShowWindow(hWnd, SW_RESTORE). Returns from minimized or maximized.',
   ),
   _ApiEntry(
     signature: 'Future<void> close()',
     category: 'Lifecycle',
-    description: 'Posts WM_CLOSE. If onCloseRequested is null, proceeds to DestroyWindow; '
+    description:
+        'Posts WM_CLOSE. If onCloseRequested is null, proceeds to DestroyWindow; '
         'otherwise waits for the callback to confirm closure.',
   ),
   _ApiEntry(
     signature: 'Future<void> destroy()',
     category: 'Lifecycle',
-    description: 'Calls DestroyWindow(hWnd) directly, bypassing WM_CLOSE. '
+    description:
+        'Calls DestroyWindow(hWnd) directly, bypassing WM_CLOSE. '
         'Use for programmatic teardown (e.g. app exit).',
   ),
   _ApiEntry(
     signature: 'void Function(CloseRequestedReason)? onCloseRequested',
     category: 'Callbacks',
-    description: 'Called when WM_CLOSE is received. Implement to show "unsaved changes?" dialogs. '
+    description:
+        'Called when WM_CLOSE is received. Implement to show "unsaved changes?" dialogs. '
         'Call controller.close() to confirm, or do nothing to cancel.',
   ),
   _ApiEntry(
     signature: 'void Function(Size)? onSizeChanged',
     category: 'Callbacks',
-    description: 'Called when WM_SIZE is received with the new client area size (logical pixels).',
+    description:
+        'Called when WM_SIZE is received with the new client area size (logical pixels).',
   ),
   _ApiEntry(
     signature: 'void Function(Offset)? onPositionChanged',
     category: 'Callbacks',
-    description: 'Called when WM_MOVE is received with the new top-left position (screen coords).',
+    description:
+        'Called when WM_MOVE is received with the new top-left position (screen coords).',
   ),
   _ApiEntry(
     signature: 'int get hwnd',
     category: 'Platform Access',
-    description: 'Returns the raw HWND (window handle) as an int. '
+    description:
+        'Returns the raw HWND (window handle) as an int. '
         'Pass to Win32 FFI calls via win32.HWND.fromAddress(controller.hwnd).',
   ),
 ];
@@ -644,11 +711,27 @@ class _ArchitecturePainter extends CustomPainter {
 
     final List<_ArchLayer> layers = <_ArchLayer>[
       _ArchLayer('Flutter Widget Tree', accentColor.withAlpha(220), 0xFF),
-      _ArchLayer('Flutter Engine (Impeller / Skia)', accentColor.withAlpha(180), 0xFF),
+      _ArchLayer(
+        'Flutter Engine (Impeller / Skia)',
+        accentColor.withAlpha(180),
+        0xFF,
+      ),
       _ArchLayer('FlutterViewController', accentColor.withAlpha(150), 0xFF),
-      _ArchLayer('RegularWindowControllerWin32 + HWND', accentColor.withAlpha(120), 0xFF),
-      _ArchLayer('Win32 Message Loop / WndProc', accentColor.withAlpha(90), 0xFF),
-      _ArchLayer('Windows OS (DWM Compositor)', accentColor.withAlpha(60), 0xFF),
+      _ArchLayer(
+        'RegularWindowControllerWin32 + HWND',
+        accentColor.withAlpha(120),
+        0xFF,
+      ),
+      _ArchLayer(
+        'Win32 Message Loop / WndProc',
+        accentColor.withAlpha(90),
+        0xFF,
+      ),
+      _ArchLayer(
+        'Windows OS (DWM Compositor)',
+        accentColor.withAlpha(60),
+        0xFF,
+      ),
     ];
 
     final Paint boxPaint = Paint()..style = PaintingStyle.fill;
@@ -664,7 +747,10 @@ class _ArchitecturePainter extends CustomPainter {
     for (int i = 0; i < layers.length; i++) {
       final double top = i * layerH;
       final Rect rect = Rect.fromLTWH(4, top + 3, w - 8, layerH - 6);
-      final RRect rRect = RRect.fromRectAndRadius(rect, const Radius.circular(8));
+      final RRect rRect = RRect.fromRectAndRadius(
+        rect,
+        const Radius.circular(8),
+      );
 
       boxPaint.color = layers[i].color;
       canvas.drawRRect(rRect, boxPaint);
@@ -684,7 +770,10 @@ class _ArchitecturePainter extends CustomPainter {
         textAlign: TextAlign.center,
       );
       tp.layout(maxWidth: w - 16);
-      tp.paint(canvas, Offset((w - tp.width) / 2, top + (layerH - tp.height) / 2));
+      tp.paint(
+        canvas,
+        Offset((w - tp.width) / 2, top + (layerH - tp.height) / 2),
+      );
 
       // Arrow between layers
       if (i < layers.length - 1) {
@@ -739,7 +828,10 @@ class _ArchLayer {
 
 /// Paints a simulated Windows 11 Snap Layouts overlay grid.
 class _SnapLayoutPainter extends CustomPainter {
-  const _SnapLayoutPainter({required this.selectedZone, required this.accentColor});
+  const _SnapLayoutPainter({
+    required this.selectedZone,
+    required this.accentColor,
+  });
   final int selectedZone;
   final Color accentColor;
 
@@ -752,16 +844,34 @@ class _SnapLayoutPainter extends CustomPainter {
 
     final List<Rect> zones = <Rect>[
       Rect.fromLTWH(pad, pad, w / 2 - gap / 2, h / 2 - gap / 2),
-      Rect.fromLTWH(pad + w / 2 + gap / 2, pad, w / 2 - gap / 2, h / 2 - gap / 2),
+      Rect.fromLTWH(
+        pad + w / 2 + gap / 2,
+        pad,
+        w / 2 - gap / 2,
+        h / 2 - gap / 2,
+      ),
       Rect.fromLTWH(pad, pad + h / 2 + gap / 2, w / 3 - gap, h / 2 - gap / 2),
-      Rect.fromLTWH(pad + w / 3 + gap / 2, pad + h / 2 + gap / 2, w / 3 - gap, h / 2 - gap / 2),
-      Rect.fromLTWH(pad + 2 * (w / 3 + gap / 2), pad + h / 2 + gap / 2, w / 3 - gap, h / 2 - gap / 2),
+      Rect.fromLTWH(
+        pad + w / 3 + gap / 2,
+        pad + h / 2 + gap / 2,
+        w / 3 - gap,
+        h / 2 - gap / 2,
+      ),
+      Rect.fromLTWH(
+        pad + 2 * (w / 3 + gap / 2),
+        pad + h / 2 + gap / 2,
+        w / 3 - gap,
+        h / 2 - gap / 2,
+      ),
       Rect.fromLTWH(pad, pad, w, h),
     ];
 
     for (int i = 0; i < zones.length && i < 5; i++) {
       final bool selected = i == selectedZone;
-      final RRect rr = RRect.fromRectAndRadius(zones[i], const Radius.circular(3));
+      final RRect rr = RRect.fromRectAndRadius(
+        zones[i],
+        const Radius.circular(3),
+      );
       canvas.drawRRect(
         rr,
         Paint()
@@ -795,11 +905,7 @@ Widget _buildHeroBanner(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          cs.primary,
-          cs.secondary,
-          cs.tertiary,
-        ],
+        colors: <Color>[cs.primary, cs.secondary, cs.tertiary],
       ),
       borderRadius: BorderRadius.circular(20),
     ),
@@ -826,16 +932,16 @@ Widget _buildHeroBanner(BuildContext context) {
                   Text(
                     'RegularWindowControllerWin32',
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Windows Desktop Window Management in Flutter',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.white.withAlpha(200),
-                        ),
+                      color: Colors.white.withAlpha(200),
+                    ),
                   ),
                 ],
               ),
@@ -909,8 +1015,10 @@ Widget _infoChip(IconData icon, String label) {
     children: <Widget>[
       Icon(icon, color: Colors.white.withAlpha(180), size: 13),
       const SizedBox(width: 4),
-      Text(label,
-          style: TextStyle(color: Colors.white.withAlpha(180), fontSize: 11)),
+      Text(
+        label,
+        style: TextStyle(color: Colors.white.withAlpha(180), fontSize: 11),
+      ),
     ],
   );
 }
@@ -922,8 +1030,11 @@ Widget _buildWindowChrome(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Simulated Win32 Window Chrome',
-          'Flutter-drawn Windows 11 title bar with interactive controls'),
+      _sectionHeader(
+        context,
+        'Simulated Win32 Window Chrome',
+        'Flutter-drawn Windows 11 title bar with interactive controls',
+      ),
       const SizedBox(height: 16),
       ValueListenableBuilder<bool>(
         valueListenable: _windowFocused,
@@ -969,34 +1080,42 @@ Widget _win32ChromeWidget({
   required int snapZoneIdx,
   required Color accentColor,
 }) {
-  final Color titleBarBg =
-      focused ? const Color(0xFF202020) : const Color(0xFF2D2D2D);
-  final Color titleBarText =
-      focused ? Colors.white : Colors.white.withAlpha(130);
-  final Color borderColor =
-      focused ? accentColor.withAlpha(180) : Colors.white.withAlpha(30);
+  final Color titleBarBg = focused
+      ? const Color(0xFF202020)
+      : const Color(0xFF2D2D2D);
+  final Color titleBarText = focused
+      ? Colors.white
+      : Colors.white.withAlpha(130);
+  final Color borderColor = focused
+      ? accentColor.withAlpha(180)
+      : Colors.white.withAlpha(30);
 
   String titleBarStateLabel = '';
   if (state == _Win32WindowState.minimized) titleBarStateLabel = ' [Minimized]';
   if (state == _Win32WindowState.maximized) titleBarStateLabel = ' [Maximized]';
-  if (state == _Win32WindowState.fullscreen) titleBarStateLabel = ' [Full Screen]';
+  if (state == _Win32WindowState.fullscreen)
+    titleBarStateLabel = ' [Full Screen]';
 
   return Container(
     decoration: BoxDecoration(
       border: Border.all(color: borderColor, width: 1.5),
-      borderRadius: BorderRadius.circular(state == _Win32WindowState.maximized ? 0 : 10),
+      borderRadius: BorderRadius.circular(
+        state == _Win32WindowState.maximized ? 0 : 10,
+      ),
       boxShadow: focused
           ? <BoxShadow>[
               BoxShadow(
                 color: accentColor.withAlpha(40),
                 blurRadius: 20,
                 spreadRadius: 2,
-              )
+              ),
             ]
           : null,
     ),
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(state == _Win32WindowState.maximized ? 0 : 9),
+      borderRadius: BorderRadius.circular(
+        state == _Win32WindowState.maximized ? 0 : 9,
+      ),
       child: Column(
         children: <Widget>[
           // Title bar
@@ -1028,7 +1147,8 @@ Widget _win32ChromeWidget({
                 ),
                 // Snap layouts button (Windows 11)
                 _chromeHoverButton(
-                  onPressed: () => _snapLayoutVisible.value = !_snapLayoutVisible.value,
+                  onPressed: () =>
+                      _snapLayoutVisible.value = !_snapLayoutVisible.value,
                   icon: Icons.dashboard_customize_outlined,
                   tooltip: 'Snap Layouts',
                   color: titleBarText,
@@ -1106,9 +1226,7 @@ Widget _win32ChromeWidget({
                               ? accentColor.withAlpha(180)
                               : Colors.white.withAlpha(20),
                           borderRadius: BorderRadius.circular(4),
-                          border: Border.all(
-                            color: Colors.white.withAlpha(40),
-                          ),
+                          border: Border.all(color: Colors.white.withAlpha(40)),
                         ),
                         child: CustomPaint(
                           painter: _SnapLayoutPainter(
@@ -1132,8 +1250,11 @@ Widget _win32ChromeWidget({
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.flutter_dash,
-                            color: accentColor.withAlpha(180), size: 40),
+                        Icon(
+                          Icons.flutter_dash,
+                          color: accentColor.withAlpha(180),
+                          size: 40,
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           'Flutter renders here via FlutterViewController',
@@ -1249,16 +1370,31 @@ Widget _chromeLegend(BuildContext context, ColorScheme cs) {
       children: <Widget>[
         Text(
           'Windows 11 Chrome Notes',
-          style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
-        _legendRow('Rounded corners', 'DwmSetWindowAttribute(DWMWA_WINDOW_CORNER_PREFERENCE) — Win11 only'),
-        _legendRow('Snap Layouts button', 'Auto-shown on WS_MAXIMIZEBOX — no API call needed'),
-        _legendRow('Active border glow', 'DWM compositor effect, controlled by theme colour'),
-        _legendRow('Mica background', 'DWMWA_SYSTEMBACKDROP_TYPE = DWMSBT_MAINWINDOW'),
-        _legendRow('Close button red hover', 'Shell-level styling, not programmable'),
+        _legendRow(
+          'Rounded corners',
+          'DwmSetWindowAttribute(DWMWA_WINDOW_CORNER_PREFERENCE) — Win11 only',
+        ),
+        _legendRow(
+          'Snap Layouts button',
+          'Auto-shown on WS_MAXIMIZEBOX — no API call needed',
+        ),
+        _legendRow(
+          'Active border glow',
+          'DWM compositor effect, controlled by theme colour',
+        ),
+        _legendRow(
+          'Mica background',
+          'DWMWA_SYSTEMBACKDROP_TYPE = DWMSBT_MAINWINDOW',
+        ),
+        _legendRow(
+          'Close button red hover',
+          'Shell-level styling, not programmable',
+        ),
       ],
     ),
   );
@@ -1298,8 +1434,11 @@ Widget _buildArchitectureDiagram(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Win32 Architecture Diagram',
-          'Flutter → FlutterViewController → HWND → Win32 message loop → WndProc'),
+      _sectionHeader(
+        context,
+        'Win32 Architecture Diagram',
+        'Flutter → FlutterViewController → HWND → Win32 message loop → WndProc',
+      ),
       const SizedBox(height: 16),
       Container(
         height: 360,
@@ -1325,10 +1464,22 @@ Widget _buildArchitectureDiagram(BuildContext context) {
 Widget _archCallFlow(BuildContext context, ColorScheme cs) {
   final List<(IconData, String, String)> steps = <(IconData, String, String)>[
     (Icons.widgets, 'Widget', 'FlutterWindow.create() / controller.setTitle()'),
-    (Icons.layers, 'Engine', 'Routes call through platform channel to embedder'),
-    (Icons.memory, 'Embedder', 'FlutterViewController dispatches to Win32 HWND'),
+    (
+      Icons.layers,
+      'Engine',
+      'Routes call through platform channel to embedder',
+    ),
+    (
+      Icons.memory,
+      'Embedder',
+      'FlutterViewController dispatches to Win32 HWND',
+    ),
     (Icons.window, 'HWND', 'SetWindowText / ShowWindow / SetWindowPos'),
-    (Icons.loop, 'WndProc', 'Intercepts WM_SIZE, WM_MOVE, WM_CLOSE → Dart callback'),
+    (
+      Icons.loop,
+      'WndProc',
+      'Intercepts WM_SIZE, WM_MOVE, WM_CLOSE → Dart callback',
+    ),
     (Icons.desktop_windows, 'DWM', 'Composites result to screen'),
   ];
   return Container(
@@ -1342,13 +1493,14 @@ Widget _archCallFlow(BuildContext context, ColorScheme cs) {
       children: <Widget>[
         Text(
           'Call Flow',
-          style: Theme.of(context)
-              .textTheme
-              .labelMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(
+            context,
+          ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
-        ...steps.asMap().entries.map((MapEntry<int, (IconData, String, String)> e) {
+        ...steps.asMap().entries.map((
+          MapEntry<int, (IconData, String, String)> e,
+        ) {
           final int i = e.key;
           final (IconData icon, String label, String desc) = e.value;
           return Padding(
@@ -1370,7 +1522,9 @@ Widget _archCallFlow(BuildContext context, ColorScheme cs) {
                   child: Text(
                     '${i + 1}. $label',
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 12),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -1396,8 +1550,11 @@ Widget _buildStateMachine(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Win32 Window State Machine',
-          'ShowWindow commands and state transitions'),
+      _sectionHeader(
+        context,
+        'Win32 Window State Machine',
+        'ShowWindow commands and state transitions',
+      ),
       const SizedBox(height: 16),
       ValueListenableBuilder<_Win32WindowState>(
         valueListenable: _windowState,
@@ -1418,13 +1575,20 @@ Widget _buildStateMachine(BuildContext context) {
 }
 
 Widget _stateDisplay(
-    BuildContext context, ColorScheme cs, _Win32WindowState state) {
-  final Map<_Win32WindowState, (IconData, String, Color)> stateInfo =
-      <_Win32WindowState, (IconData, String, Color)>{
+  BuildContext context,
+  ColorScheme cs,
+  _Win32WindowState state,
+) {
+  final Map<_Win32WindowState, (IconData, String, Color)>
+  stateInfo = <_Win32WindowState, (IconData, String, Color)>{
     _Win32WindowState.normal: (Icons.window, 'NORMAL', cs.primary),
     _Win32WindowState.minimized: (Icons.minimize, 'MINIMIZED', cs.secondary),
     _Win32WindowState.maximized: (Icons.crop_square, 'MAXIMIZED', cs.tertiary),
-    _Win32WindowState.fullscreen: (Icons.fullscreen, 'FULLSCREEN', Colors.deepOrange),
+    _Win32WindowState.fullscreen: (
+      Icons.fullscreen,
+      'FULLSCREEN',
+      Colors.deepOrange,
+    ),
   };
   final (IconData icon, String label, Color color) = stateInfo[state]!;
 
@@ -1448,9 +1612,9 @@ Widget _stateDisplay(
               Text(
                 'Current State: $label',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: color,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
@@ -1466,18 +1630,21 @@ Widget _stateDisplay(
 }
 
 String _stateDescription(_Win32WindowState s) => switch (s) {
-      _Win32WindowState.normal =>
-        'Window is visible and interactive at its normal size. HWND is shown.',
-      _Win32WindowState.minimized =>
-        'Window collapsed to taskbar. HWND still exists. WM_SIZE posted with SIZE_MINIMIZED.',
-      _Win32WindowState.maximized =>
-        'Window fills the working area (minus taskbar). WM_SIZE with SIZE_MAXIMIZED.',
-      _Win32WindowState.fullscreen =>
-        'WS_OVERLAPPEDWINDOW removed + SetWindowPos covers taskbar. Covers entire screen.',
-    };
+  _Win32WindowState.normal =>
+    'Window is visible and interactive at its normal size. HWND is shown.',
+  _Win32WindowState.minimized =>
+    'Window collapsed to taskbar. HWND still exists. WM_SIZE posted with SIZE_MINIMIZED.',
+  _Win32WindowState.maximized =>
+    'Window fills the working area (minus taskbar). WM_SIZE with SIZE_MAXIMIZED.',
+  _Win32WindowState.fullscreen =>
+    'WS_OVERLAPPEDWINDOW removed + SetWindowPos covers taskbar. Covers entire screen.',
+};
 
 Widget _showWindowButtons(
-    BuildContext context, ColorScheme cs, _Win32WindowState state) {
+  BuildContext context,
+  ColorScheme cs,
+  _Win32WindowState state,
+) {
   return Wrap(
     spacing: 8,
     runSpacing: 8,
@@ -1486,8 +1653,12 @@ Widget _showWindowButtons(
       return ElevatedButton.icon(
         onPressed: () {
           _windowState.value = cmd.state;
-          _logMessage(cmd.constant, '0x${cmd.value.toRadixString(16).padLeft(4, '0')}',
-              '0x0000', cmd.description);
+          _logMessage(
+            cmd.constant,
+            '0x${cmd.value.toRadixString(16).padLeft(4, '0')}',
+            '0x0000',
+            cmd.description,
+          );
         },
         icon: Icon(
           isActive ? Icons.radio_button_checked : Icons.radio_button_unchecked,
@@ -1504,7 +1675,10 @@ Widget _showWindowButtons(
 }
 
 Widget _showWindowTable(
-    BuildContext context, ColorScheme cs, _Win32WindowState currentState) {
+  BuildContext context,
+  ColorScheme cs,
+  _Win32WindowState currentState,
+) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
@@ -1520,9 +1694,26 @@ Widget _showWindowTable(
           ),
           child: const Row(
             children: <Widget>[
-              SizedBox(width: 150, child: Text('Command', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-              SizedBox(width: 60, child: Text('nCmd', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-              Expanded(child: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+              SizedBox(
+                width: 150,
+                child: Text(
+                  'Command',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
+              SizedBox(
+                width: 60,
+                child: Text(
+                  'nCmd',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Description',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
             ],
           ),
         ),
@@ -1540,8 +1731,7 @@ Widget _showWindowTable(
                     style: TextStyle(
                       fontSize: 11,
                       fontFamily: 'monospace',
-                      fontWeight:
-                          active ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: active ? FontWeight.bold : FontWeight.normal,
                       color: active ? cs.primary : null,
                     ),
                   ),
@@ -1550,7 +1740,10 @@ Widget _showWindowTable(
                   width: 60,
                   child: Text(
                     '${cmd.value}',
-                    style: const TextStyle(fontSize: 11, fontFamily: 'monospace'),
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
                 Expanded(
@@ -1575,8 +1768,11 @@ Widget _buildWindowStyles(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Win32 Window Styles',
-          'WS_* bitmask flags — toggle to see effect on simulated chrome'),
+      _sectionHeader(
+        context,
+        'Win32 Window Styles',
+        'WS_* bitmask flags — toggle to see effect on simulated chrome',
+      ),
       const SizedBox(height: 16),
       ValueListenableBuilder<Set<int>>(
         valueListenable: _enabledStyles,
@@ -1589,14 +1785,18 @@ Widget _buildWindowStyles(BuildContext context) {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: List<Widget>.generate(
-                    _kWin32Styles.length, (int i) {
+                children: List<Widget>.generate(_kWin32Styles.length, (int i) {
                   final _Win32StyleFlag flag = _kWin32Styles[i];
                   final bool on = enabled.contains(i);
                   return FilterChip(
                     selected: on,
-                    label: Text(flag.name,
-                        style: const TextStyle(fontSize: 11, fontFamily: 'monospace')),
+                    label: Text(
+                      flag.name,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontFamily: 'monospace',
+                      ),
+                    ),
                     onSelected: (bool v) {
                       final Set<int> next = Set<int>.from(enabled);
                       if (v) {
@@ -1647,7 +1847,10 @@ Widget _stylePreview(BuildContext context, ColorScheme cs, Set<int> enabled) {
                 Expanded(
                   child: Text(
                     'My Window',
-                    style: TextStyle(color: Colors.white.withAlpha(200), fontSize: 11),
+                    style: TextStyle(
+                      color: Colors.white.withAlpha(200),
+                      fontSize: 11,
+                    ),
                   ),
                 ),
                 if (hasSysMenu)
@@ -1657,7 +1860,11 @@ Widget _stylePreview(BuildContext context, ColorScheme cs, Set<int> enabled) {
                   const Icon(Icons.remove, color: Colors.white70, size: 14),
                 const SizedBox(width: 6),
                 if (hasMaxBox)
-                  const Icon(Icons.crop_square, color: Colors.white70, size: 14),
+                  const Icon(
+                    Icons.crop_square,
+                    color: Colors.white70,
+                    size: 14,
+                  ),
                 const SizedBox(width: 6),
                 const Icon(Icons.close, color: Colors.white70, size: 14),
                 const SizedBox(width: 8),
@@ -1672,7 +1879,10 @@ Widget _stylePreview(BuildContext context, ColorScheme cs, Set<int> enabled) {
               enabled.isEmpty
                   ? 'No styles (invisible/empty)'
                   : 'Active styles: ${enabled.length}',
-              style: TextStyle(color: Colors.white.withAlpha(130), fontSize: 11),
+              style: TextStyle(
+                color: Colors.white.withAlpha(130),
+                fontSize: 11,
+              ),
             ),
           ),
         ),
@@ -1698,13 +1908,32 @@ Widget _stylesTable(BuildContext context, ColorScheme cs, Set<int> enabled) {
           child: const Row(
             children: <Widget>[
               SizedBox(width: 32),
-              SizedBox(width: 170, child: Text('Style', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-              SizedBox(width: 110, child: Text('Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-              Expanded(child: Text('Visual Effect', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+              SizedBox(
+                width: 170,
+                child: Text(
+                  'Style',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
+              SizedBox(
+                width: 110,
+                child: Text(
+                  'Value',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  'Visual Effect',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                ),
+              ),
             ],
           ),
         ),
-        ..._kWin32Styles.asMap().entries.map((MapEntry<int, _Win32StyleFlag> e) {
+        ..._kWin32Styles.asMap().entries.map((
+          MapEntry<int, _Win32StyleFlag> e,
+        ) {
           final int i = e.key;
           final _Win32StyleFlag flag = e.value;
           final bool on = enabled.contains(i);
@@ -1726,7 +1955,9 @@ Widget _stylesTable(BuildContext context, ColorScheme cs, Set<int> enabled) {
                   child: Text(
                     flag.name,
                     style: const TextStyle(
-                        fontSize: 10, fontFamily: 'monospace'),
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -1734,7 +1965,10 @@ Widget _stylesTable(BuildContext context, ColorScheme cs, Set<int> enabled) {
                   child: Text(
                     flag.hex,
                     style: const TextStyle(
-                        fontSize: 10, fontFamily: 'monospace', color: Colors.deepOrange),
+                      fontSize: 10,
+                      fontFamily: 'monospace',
+                      color: Colors.deepOrange,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -1760,8 +1994,11 @@ Widget _buildWindows11Features(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Windows 11 Features',
-          'Snap Layouts, Virtual Desktops, Taskbar, DWM Acrylic/Mica'),
+      _sectionHeader(
+        context,
+        'Windows 11 Features',
+        'Snap Layouts, Virtual Desktops, Taskbar, DWM Acrylic/Mica',
+      ),
       const SizedBox(height: 16),
       ..._kWin32Features.map((_Win32Feature f) => _featureCard(context, cs, f)),
       const SizedBox(height: 8),
@@ -1771,7 +2008,10 @@ Widget _buildWindows11Features(BuildContext context) {
 }
 
 Widget _featureCard(
-    BuildContext context, ColorScheme cs, _Win32Feature feature) {
+  BuildContext context,
+  ColorScheme cs,
+  _Win32Feature feature,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 12),
     decoration: BoxDecoration(
@@ -1795,9 +2035,9 @@ Widget _featureCard(
               Text(
                 feature.title,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: feature.color,
-                    ),
+                  fontWeight: FontWeight.bold,
+                  color: feature.color,
+                ),
               ),
             ],
           ),
@@ -1807,8 +2047,10 @@ Widget _featureCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(feature.description,
-                  style: const TextStyle(fontSize: 12, height: 1.5)),
+              Text(
+                feature.description,
+                style: const TextStyle(fontSize: 12, height: 1.5),
+              ),
               const SizedBox(height: 10),
               _codeLabel('Win32 API'),
               _codeBlock(feature.apiNote, cs),
@@ -1820,8 +2062,10 @@ Widget _featureCard(
                   color: cs.primaryContainer.withAlpha(80),
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Text(feature.flutterNote,
-                    style: const TextStyle(fontSize: 11, height: 1.5)),
+                child: Text(
+                  feature.flutterNote,
+                  style: const TextStyle(fontSize: 11, height: 1.5),
+                ),
               ),
             ],
           ),
@@ -1846,9 +2090,9 @@ Widget _virtualDesktopSimulator(BuildContext context, ColorScheme cs) {
           children: <Widget>[
             Text(
               'Virtual Desktop Simulator',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Row(
@@ -1884,7 +2128,9 @@ Widget _virtualDesktopSimulator(BuildContext context, ColorScheme cs) {
                             'Desktop ${i + 1}',
                             style: TextStyle(
                               fontSize: 10,
-                              fontWeight: active ? FontWeight.bold : FontWeight.normal,
+                              fontWeight: active
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                               color: active ? cs.primary : cs.onSurfaceVariant,
                             ),
                           ),
@@ -1899,8 +2145,7 @@ Widget _virtualDesktopSimulator(BuildContext context, ColorScheme cs) {
             Text(
               'Active: Desktop ${desktop + 1} — '
               'IVirtualDesktopManager::IsWindowOnCurrentVirtualDesktop(hwnd, &bResult)',
-              style:
-                  Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
@@ -1912,7 +2157,9 @@ Widget _virtualDesktopSimulator(BuildContext context, ColorScheme cs) {
 // ── Tab 7: Win32 Message Gallery ──────────────────────────────────────────
 
 void _logMessage(String name, String wParam, String lParam, String desc) {
-  final List<_Win32Message> current = List<_Win32Message>.from(_messageLog.value);
+  final List<_Win32Message> current = List<_Win32Message>.from(
+    _messageLog.value,
+  );
   // Find matching message for colour/icon
   final _Win32Message? template = _kWin32Messages
       .where((_Win32Message m) => m.constant == name || m.name == name)
@@ -1940,8 +2187,11 @@ Widget _buildMessageGallery(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Win32 Message Gallery',
-          'WM_SIZE, WM_MOVE, WM_ACTIVATE, WM_CLOSE, WM_DESTROY, WM_DPICHANGED'),
+      _sectionHeader(
+        context,
+        'Win32 Message Gallery',
+        'WM_SIZE, WM_MOVE, WM_ACTIVATE, WM_CLOSE, WM_DESTROY, WM_DPICHANGED',
+      ),
       const SizedBox(height: 16),
       ValueListenableBuilder<int>(
         valueListenable: _selectedMessage,
@@ -1966,52 +2216,54 @@ Widget _messageSelector(BuildContext context, ColorScheme cs, int sel) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal,
     child: Row(
-      children: _kWin32Messages.asMap().entries.map(
-        (MapEntry<int, _Win32Message> e) {
-          final bool active = e.key == sel;
-          final _Win32Message msg = e.value;
-          return GestureDetector(
-            onTap: () {
-              _selectedMessage.value = e.key;
-              _logMessage(msg.name, msg.wParam, msg.lParam, msg.description);
-            },
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                color: active ? msg.color : msg.color.withAlpha(20),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: active ? msg.color : msg.color.withAlpha(60),
-                ),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(msg.icon,
-                      color: active ? Colors.white : msg.color, size: 16),
-                  const SizedBox(width: 6),
-                  Text(
-                    msg.name,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: active ? Colors.white : msg.color,
-                    ),
-                  ),
-                ],
+      children: _kWin32Messages.asMap().entries.map((
+        MapEntry<int, _Win32Message> e,
+      ) {
+        final bool active = e.key == sel;
+        final _Win32Message msg = e.value;
+        return GestureDetector(
+          onTap: () {
+            _selectedMessage.value = e.key;
+            _logMessage(msg.name, msg.wParam, msg.lParam, msg.description);
+          },
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            margin: const EdgeInsets.only(right: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: active ? msg.color : msg.color.withAlpha(20),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: active ? msg.color : msg.color.withAlpha(60),
               ),
             ),
-          );
-        },
-      ).toList(),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Icon(
+                  msg.icon,
+                  color: active ? Colors.white : msg.color,
+                  size: 16,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  msg.name,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: active ? Colors.white : msg.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
     ),
   );
 }
 
-Widget _messageDetail(
-    BuildContext context, ColorScheme cs, _Win32Message msg) {
+Widget _messageDetail(BuildContext context, ColorScheme cs, _Win32Message msg) {
   return Container(
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
@@ -2039,9 +2291,9 @@ Widget _messageDetail(
                 Text(
                   msg.name,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: msg.color,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: msg.color,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   msg.constant,
@@ -2056,8 +2308,10 @@ Widget _messageDetail(
           ],
         ),
         const SizedBox(height: 12),
-        Text(msg.description,
-            style: const TextStyle(fontSize: 12, height: 1.5)),
+        Text(
+          msg.description,
+          style: const TextStyle(fontSize: 12, height: 1.5),
+        ),
         const SizedBox(height: 12),
         _paramRow('wParam', msg.wParam, cs),
         const SizedBox(height: 6),
@@ -2088,9 +2342,7 @@ Widget _paramRow(String label, String value, ColorScheme cs) {
         ),
       ),
       const SizedBox(width: 8),
-      Expanded(
-        child: Text(value, style: const TextStyle(fontSize: 11)),
-      ),
+      Expanded(child: Text(value, style: const TextStyle(fontSize: 11))),
     ],
   );
 }
@@ -2103,10 +2355,9 @@ Widget _messageLogPanel(BuildContext context, ColorScheme cs) {
         children: <Widget>[
           Text(
             'Event Log (simulated)',
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium
-                ?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(
+              context,
+            ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           TextButton(
@@ -2205,13 +2456,17 @@ Widget _buildMultiWindow(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Multi-Window with Win32 CreateWindow',
-          'How Flutter creates secondary HWNDs and manages them'),
+      _sectionHeader(
+        context,
+        'Multi-Window with Win32 CreateWindow',
+        'How Flutter creates secondary HWNDs and manages them',
+      ),
       const SizedBox(height: 16),
       _multiWindowDiagram(context, cs),
       const SizedBox(height: 16),
-      ..._kMultiWindowSteps
-          .map((_MultiWindowStep s) => _multiWindowStepCard(context, cs, s)),
+      ..._kMultiWindowSteps.map(
+        (_MultiWindowStep s) => _multiWindowStepCard(context, cs, s),
+      ),
       const SizedBox(height: 8),
       _secondaryWindowCounter(context, cs),
     ],
@@ -2240,8 +2495,13 @@ Widget _multiWindowDiagram(BuildContext context, ColorScheme cs) {
   );
 }
 
-Widget _windowBox(BuildContext context, ColorScheme cs, String label,
-    Color color, bool isHwnd) {
+Widget _windowBox(
+  BuildContext context,
+  ColorScheme cs,
+  String label,
+  Color color,
+  bool isHwnd,
+) {
   return Expanded(
     child: Container(
       margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -2254,11 +2514,7 @@ Widget _windowBox(BuildContext context, ColorScheme cs, String label,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(
-            isHwnd ? Icons.window : Icons.code,
-            color: color,
-            size: 18,
-          ),
+          Icon(isHwnd ? Icons.window : Icons.code, color: color, size: 18),
           const SizedBox(height: 4),
           Text(
             label,
@@ -2280,7 +2536,10 @@ Widget _windowArrow(ColorScheme cs) {
 }
 
 Widget _multiWindowStepCard(
-    BuildContext context, ColorScheme cs, _MultiWindowStep step) {
+  BuildContext context,
+  ColorScheme cs,
+  _MultiWindowStep step,
+) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     decoration: BoxDecoration(
@@ -2295,7 +2554,9 @@ Widget _multiWindowStepCard(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: step.color.withAlpha(30),
-            borderRadius: const BorderRadius.horizontal(left: Radius.circular(11)),
+            borderRadius: const BorderRadius.horizontal(
+              left: Radius.circular(11),
+            ),
           ),
           child: Text(
             '${step.index}',
@@ -2316,13 +2577,15 @@ Widget _multiWindowStepCard(
                 Text(
                   step.title,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: step.color,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: step.color,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(step.description,
-                    style: const TextStyle(fontSize: 11, height: 1.4)),
+                Text(
+                  step.description,
+                  style: const TextStyle(fontSize: 11, height: 1.4),
+                ),
                 const SizedBox(height: 6),
                 _codeBlock(step.code, cs),
               ],
@@ -2349,9 +2612,9 @@ Widget _secondaryWindowCounter(BuildContext context, ColorScheme cs) {
           children: <Widget>[
             Text(
               'Simulated Secondary Windows',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Row(
@@ -2369,7 +2632,9 @@ Widget _secondaryWindowCounter(BuildContext context, ColorScheme cs) {
                     children: List<Widget>.generate(count, (int i) {
                       return Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: cs.secondaryContainer,
                           borderRadius: BorderRadius.circular(8),
@@ -2420,20 +2685,26 @@ Widget _buildPitfalls(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'Common Pitfalls',
-          'Windows-only, DPI scaling, UAC prompts, message ordering'),
+      _sectionHeader(
+        context,
+        'Common Pitfalls',
+        'Windows-only, DPI scaling, UAC prompts, message ordering',
+      ),
       const SizedBox(height: 16),
       _pitfallCard(context, cs, _kPitfalls[0], _platformCardExpanded),
       _pitfallCard(context, cs, _kPitfalls[1], _dpiCardExpanded),
       _pitfallCard(context, cs, _kPitfalls[2], _uacCardExpanded),
-      _pitfallCard(context, cs, _kPitfalls[3],
-          ValueNotifier<bool>(false)),
+      _pitfallCard(context, cs, _kPitfalls[3], ValueNotifier<bool>(false)),
     ],
   );
 }
 
-Widget _pitfallCard(BuildContext context, ColorScheme cs, _PitfallCard card,
-    ValueNotifier<bool> expanded) {
+Widget _pitfallCard(
+  BuildContext context,
+  ColorScheme cs,
+  _PitfallCard card,
+  ValueNotifier<bool> expanded,
+) {
   return ValueListenableBuilder<bool>(
     valueListenable: expanded,
     builder: (BuildContext ctx, bool isExpanded, Widget? _) {
@@ -2469,7 +2740,9 @@ Widget _pitfallCard(BuildContext context, ColorScheme cs, _PitfallCard card,
                           const SizedBox(height: 2),
                           Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 2),
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
                             decoration: BoxDecoration(
                               color: card.color.withAlpha(30),
                               borderRadius: BorderRadius.circular(4),
@@ -2544,8 +2817,11 @@ Widget _buildApiCheatSheet(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      _sectionHeader(context, 'API Cheat Sheet',
-          'RegularWindowControllerWin32 — complete method and property reference'),
+      _sectionHeader(
+        context,
+        'API Cheat Sheet',
+        'RegularWindowControllerWin32 — complete method and property reference',
+      ),
       const SizedBox(height: 16),
       ...grouped.entries.map((MapEntry<String, List<_ApiEntry>> entry) {
         return Column(
@@ -2553,8 +2829,7 @@ Widget _buildApiCheatSheet(BuildContext context) {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(bottom: 8, top: 4),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: cs.primaryContainer,
                 borderRadius: BorderRadius.circular(6),
@@ -2568,8 +2843,7 @@ Widget _buildApiCheatSheet(BuildContext context) {
                 ),
               ),
             ),
-            ...entry.value
-                .map((_ApiEntry e) => _apiEntryCard(context, cs, e)),
+            ...entry.value.map((_ApiEntry e) => _apiEntryCard(context, cs, e)),
             const SizedBox(height: 8),
           ],
         );
@@ -2617,23 +2891,22 @@ Widget _apiEntryCard(BuildContext context, ColorScheme cs, _ApiEntry entry) {
 
 // ── shared helpers ─────────────────────────────────────────────────────────
 
-Widget _sectionHeader(
-    BuildContext context, String title, String subtitle) {
+Widget _sectionHeader(BuildContext context, String title, String subtitle) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
       Text(
         title,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
       const SizedBox(height: 4),
       Text(
         subtitle,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
       ),
     ],
   );
@@ -2728,58 +3001,42 @@ dynamic build(BuildContext context) {
             // Tab 1: Overview / Hero
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildHeroBanner(context),
-              ],
+              children: <Widget>[_buildHeroBanner(context)],
             ),
             // Tab 2: Simulated Window Chrome
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildWindowChrome(context),
-              ],
+              children: <Widget>[_buildWindowChrome(context)],
             ),
             // Tab 3: Architecture Diagram
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildArchitectureDiagram(context),
-              ],
+              children: <Widget>[_buildArchitectureDiagram(context)],
             ),
             // Tab 4: Window State Machine
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildStateMachine(context),
-              ],
+              children: <Widget>[_buildStateMachine(context)],
             ),
             // Tab 5: Win32 Window Styles
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildWindowStyles(context),
-              ],
+              children: <Widget>[_buildWindowStyles(context)],
             ),
             // Tab 6: Windows 11 Features
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildWindows11Features(context),
-              ],
+              children: <Widget>[_buildWindows11Features(context)],
             ),
             // Tab 7: Win32 Message Gallery
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildMessageGallery(context),
-              ],
+              children: <Widget>[_buildMessageGallery(context)],
             ),
             // Tab 8: Multi-Window
             ListView(
               padding: const EdgeInsets.all(20),
-              children: <Widget>[
-                _buildMultiWindow(context),
-              ],
+              children: <Widget>[_buildMultiWindow(context)],
             ),
             // Tab 9: Pitfalls + API cheat sheet
             ListView(

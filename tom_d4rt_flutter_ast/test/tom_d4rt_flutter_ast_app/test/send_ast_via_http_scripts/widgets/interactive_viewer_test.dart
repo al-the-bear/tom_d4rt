@@ -272,10 +272,7 @@ Widget heroBanner() {
         SizedBox(width: 24),
         Expanded(
           flex: 4,
-          child: AspectRatio(
-            aspectRatio: 1.25,
-            child: heroMagnifyingGlass(),
-          ),
+          child: AspectRatio(aspectRatio: 1.25, child: heroMagnifyingGlass()),
         ),
       ],
     ),
@@ -399,10 +396,7 @@ Widget heroDot(Color c) {
     margin: EdgeInsets.only(right: 8),
     width: 18,
     height: 18,
-    decoration: BoxDecoration(
-      color: c,
-      shape: BoxShape.circle,
-    ),
+    decoration: BoxDecoration(color: c, shape: BoxShape.circle),
   );
 }
 
@@ -414,7 +408,8 @@ Widget anatomySection() {
   return sectionContainer(
     label: 'ANATOMY',
     title: 'The InteractiveViewer constructor',
-    lead: 'A single child plus a fistful of behavioural knobs. The child is laid out'
+    lead:
+        'A single child plus a fistful of behavioural knobs. The child is laid out'
         ' once, then the InteractiveViewer applies a Matrix4 transform on top of it'
         ' for pan and scale. Memorise this signature and you have memorised the widget.',
     child: Column(
@@ -456,11 +451,26 @@ Widget anatomySection() {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(child: anatomyBullet('child', 'The thing you want pannable. Anything: a Container, an Image, a custom CustomPaint, a long Text — anything.')),
+            Expanded(
+              child: anatomyBullet(
+                'child',
+                'The thing you want pannable. Anything: a Container, an Image, a custom CustomPaint, a long Text — anything.',
+              ),
+            ),
             SizedBox(width: 12),
-            Expanded(child: anatomyBullet('Matrix4', 'Internally InteractiveViewer maintains a 4x4 affine transform: translation columns 3, scale on the diagonal, no rotation.')),
+            Expanded(
+              child: anatomyBullet(
+                'Matrix4',
+                'Internally InteractiveViewer maintains a 4x4 affine transform: translation columns 3, scale on the diagonal, no rotation.',
+              ),
+            ),
             SizedBox(width: 12),
-            Expanded(child: anatomyBullet('controller', 'A TransformationController is a ValueNotifier<Matrix4>. Read .value to know "where" the user is.')),
+            Expanded(
+              child: anatomyBullet(
+                'controller',
+                'A TransformationController is a ValueNotifier<Matrix4>. Read .value to know "where" the user is.',
+              ),
+            ),
           ],
         ),
       ],
@@ -495,7 +505,8 @@ Widget liveDemoStrip() {
   return sectionContainer(
     label: 'LIVE STRIP',
     title: 'Four real InteractiveViewer widgets',
-    lead: 'Each card below is a real InteractiveViewer wrapping a different kind of'
+    lead:
+        'Each card below is a real InteractiveViewer wrapping a different kind of'
         ' child. We pass Matrix4.identity() as a frozen viewpoint so the page is'
         ' deterministic — in a real app you would hand it a TransformationController.',
     child: Column(
@@ -552,10 +563,7 @@ Widget demoCardShell({
           height: 220,
           child: ClipRRect(
             borderRadius: BorderRadius.zero,
-            child: Container(
-              color: paletteParchment,
-              child: viewer,
-            ),
+            child: Container(color: paletteParchment, child: viewer),
           ),
         ),
         Padding(
@@ -578,7 +586,8 @@ Widget demoCardGrid() {
   return demoCardShell(
     label: 'CHILD: 600x600 GRID',
     title: 'Coloured paint-by-numbers grid',
-    snippet: 'InteractiveViewer(\n'
+    snippet:
+        'InteractiveViewer(\n'
         '  minScale: 0.5, maxScale: 4,\n'
         '  boundaryMargin: EdgeInsets.all(40),\n'
         '  child: SizedBox(width: 600, height: 600, child: gridChild()),\n'
@@ -637,7 +646,8 @@ Widget demoCardCityMap() {
   return demoCardShell(
     label: 'CHILD: VECTOR MAP',
     title: 'Fake "city map" using shapes',
-    snippet: 'InteractiveViewer(\n'
+    snippet:
+        'InteractiveViewer(\n'
         '  constrained: false,\n'
         '  panAxis: PanAxis.free,\n'
         '  child: SizedBox(width: 720, height: 460, child: cityMapChild()),\n'
@@ -668,10 +678,26 @@ Widget cityMapChild() {
         Positioned(left: 80, top: 280, child: mapBlock(220, 110, paletteMap2)),
         Positioned(left: 340, top: 280, child: mapBlock(160, 100, paletteMap4)),
         Positioned(left: 540, top: 300, child: mapBlock(140, 80, paletteMap2)),
-        Positioned(left: 0, top: 130, child: Container(width: 720, height: 14, color: paletteInkSoft)),
-        Positioned(left: 0, top: 260, child: Container(width: 720, height: 14, color: paletteInkSoft)),
-        Positioned(left: 250, top: 0, child: Container(width: 14, height: 460, color: paletteInkSoft)),
-        Positioned(left: 460, top: 0, child: Container(width: 14, height: 460, color: paletteInkSoft)),
+        Positioned(
+          left: 0,
+          top: 130,
+          child: Container(width: 720, height: 14, color: paletteInkSoft),
+        ),
+        Positioned(
+          left: 0,
+          top: 260,
+          child: Container(width: 720, height: 14, color: paletteInkSoft),
+        ),
+        Positioned(
+          left: 250,
+          top: 0,
+          child: Container(width: 14, height: 460, color: paletteInkSoft),
+        ),
+        Positioned(
+          left: 460,
+          top: 0,
+          child: Container(width: 14, height: 460, color: paletteInkSoft),
+        ),
         Positioned(left: 360, top: 200, child: mapPin()),
       ],
     ),
@@ -712,7 +738,8 @@ Widget demoCardImageLike() {
   return demoCardShell(
     label: 'CHILD: IMAGE-LIKE',
     title: 'Container with corners + shadow',
-    snippet: 'InteractiveViewer(\n'
+    snippet:
+        'InteractiveViewer(\n'
         '  alignment: Alignment.center,\n'
         '  scaleFactor: 200,\n'
         '  child: imageLikeChild(),\n'
@@ -740,7 +767,11 @@ Widget imageLikeChild() {
         ),
         borderRadius: BorderRadius.circular(18),
         boxShadow: <BoxShadow>[
-          BoxShadow(color: Color(0x33000000), blurRadius: 18, offset: Offset(2, 8)),
+          BoxShadow(
+            color: Color(0x33000000),
+            blurRadius: 18,
+            offset: Offset(2, 8),
+          ),
         ],
       ),
       child: Center(
@@ -762,7 +793,8 @@ Widget demoCardLongText() {
   return demoCardShell(
     label: 'CHILD: LONG TEXT BLOCK',
     title: 'Pannable typography sample',
-    snippet: 'InteractiveViewer(\n'
+    snippet:
+        'InteractiveViewer(\n'
         '  panAxis: PanAxis.vertical,\n'
         '  boundaryMargin: EdgeInsets.symmetric(vertical: 200),\n'
         '  child: longTextChild(),\n'
@@ -810,7 +842,8 @@ Widget panAxisSection() {
   return sectionContainer(
     label: 'PAN AXIS',
     title: 'Restricting the direction of pan',
-    lead: 'panAxis trims the degrees of freedom of a one-finger drag. It does not'
+    lead:
+        'panAxis trims the degrees of freedom of a one-finger drag. It does not'
         ' affect a two-finger pinch. PanAxis.aligned is the unusual one: it locks'
         ' to whichever axis the gesture has the strongest delta on first frame.',
     child: Wrap(
@@ -835,24 +868,19 @@ Widget panAxisSection() {
         panAxisCard(
           name: 'PanAxis.horizontal',
           summary: 'Only X-axis movement is delivered to the controller.',
-          arrows: <PanArrow>[
-            PanArrow(angle: 0),
-            PanArrow(angle: 3.14),
-          ],
+          arrows: <PanArrow>[PanArrow(angle: 0), PanArrow(angle: 3.14)],
           good: 'Filmstrips, timelines, page-by-page horizontal scrollers',
         ),
         panAxisCard(
           name: 'PanAxis.vertical',
           summary: 'Only Y-axis movement is delivered to the controller.',
-          arrows: <PanArrow>[
-            PanArrow(angle: 1.57),
-            PanArrow(angle: -1.57),
-          ],
+          arrows: <PanArrow>[PanArrow(angle: 1.57), PanArrow(angle: -1.57)],
           good: 'Long documents, vertical mood-boards',
         ),
         panAxisCard(
           name: 'PanAxis.aligned',
-          summary: 'Locks to whichever axis the gesture is strongest on at start.',
+          summary:
+              'Locks to whichever axis the gesture is strongest on at start.',
           arrows: <PanArrow>[
             PanArrow(angle: 0),
             PanArrow(angle: 3.14),
@@ -920,10 +948,7 @@ Widget panAxisCard({
                         alignment: Alignment.centerRight,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0x002B6CB0),
-                              paletteAccent,
-                            ],
+                            colors: <Color>[Color(0x002B6CB0), paletteAccent],
                           ),
                         ),
                         child: Container(
@@ -958,54 +983,67 @@ Widget clipBehaviorSection() {
   return sectionContainer(
     label: 'CLIP BEHAVIOR',
     title: 'Where does the child stop existing?',
-    lead: 'InteractiveViewer creates a clip rectangle equal to its own layout size.'
+    lead:
+        'InteractiveViewer creates a clip rectangle equal to its own layout size.'
         ' clipBehavior governs how the GPU treats anything that bleeds outside.'
         ' Clip.none turns off the clip entirely — the child can paint outside,'
         ' but pointer hit-testing is still restricted to the InteractiveViewer rect.',
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: clipCard(
-          name: 'Clip.none',
-          subtitle: 'No clip.',
-          body: 'Cheapest. Child can paint outside the InteractiveViewer rect — useful for'
-              ' shadows that should extend past the boundary. Beware: pointer events do not'
-              ' extend past the boundary even if pixels do.',
-          tone: paletteWarnSoft,
-          tag: 'CHEAPEST',
-          tagColor: paletteWarn,
-        )),
+        Expanded(
+          child: clipCard(
+            name: 'Clip.none',
+            subtitle: 'No clip.',
+            body:
+                'Cheapest. Child can paint outside the InteractiveViewer rect — useful for'
+                ' shadows that should extend past the boundary. Beware: pointer events do not'
+                ' extend past the boundary even if pixels do.',
+            tone: paletteWarnSoft,
+            tag: 'CHEAPEST',
+            tagColor: paletteWarn,
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: clipCard(
-          name: 'Clip.hardEdge',
-          subtitle: 'Default. Pixel-aligned scissor clip.',
-          body: 'Pixel-perfect rectangular clipping. No anti-aliasing on the clip edge.'
-              ' This is what you want unless you have a specific reason to deviate.',
-          tone: paletteAccentSoft,
-          tag: 'DEFAULT',
-          tagColor: paletteAccent,
-        )),
+        Expanded(
+          child: clipCard(
+            name: 'Clip.hardEdge',
+            subtitle: 'Default. Pixel-aligned scissor clip.',
+            body:
+                'Pixel-perfect rectangular clipping. No anti-aliasing on the clip edge.'
+                ' This is what you want unless you have a specific reason to deviate.',
+            tone: paletteAccentSoft,
+            tag: 'DEFAULT',
+            tagColor: paletteAccent,
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: clipCard(
-          name: 'Clip.antiAlias',
-          subtitle: 'Smooth-edged clip.',
-          body: 'Same as hardEdge but anti-aliased on the edges. Slightly more expensive,'
-              ' rarely visible — InteractiveViewer is a rectangle, so anti-aliasing buys'
-              ' you nothing here.',
-          tone: paletteOkSoft,
-          tag: 'OK',
-          tagColor: paletteOk,
-        )),
+        Expanded(
+          child: clipCard(
+            name: 'Clip.antiAlias',
+            subtitle: 'Smooth-edged clip.',
+            body:
+                'Same as hardEdge but anti-aliased on the edges. Slightly more expensive,'
+                ' rarely visible — InteractiveViewer is a rectangle, so anti-aliasing buys'
+                ' you nothing here.',
+            tone: paletteOkSoft,
+            tag: 'OK',
+            tagColor: paletteOk,
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: clipCard(
-          name: 'Clip.antiAliasWithSaveLayer',
-          subtitle: 'Off-screen layer + AA.',
-          body: 'Heaviest option. Renders the child to an offscreen layer first, then'
-              ' composites it. Avoid unless you actually need the layer.',
-          tone: paletteBadSoft,
-          tag: 'EXPENSIVE',
-          tagColor: paletteBad,
-        )),
+        Expanded(
+          child: clipCard(
+            name: 'Clip.antiAliasWithSaveLayer',
+            subtitle: 'Off-screen layer + AA.',
+            body:
+                'Heaviest option. Renders the child to an offscreen layer first, then'
+                ' composites it. Avoid unless you actually need the layer.',
+            tone: paletteBadSoft,
+            tag: 'EXPENSIVE',
+            tagColor: paletteBad,
+          ),
+        ),
       ],
     ),
   );
@@ -1060,28 +1098,57 @@ Widget enableMatrixSection() {
   return sectionContainer(
     label: 'GESTURE TOGGLES',
     title: 'panEnabled  x  scaleEnabled',
-    lead: 'Both default to true. Switching them off disables the corresponding gesture'
+    lead:
+        'Both default to true. Switching them off disables the corresponding gesture'
         ' but does not freeze the controller — you can still drive the transform'
         ' programmatically by writing to TransformationController.value.',
     child: Column(
       children: <Widget>[
         Row(
           children: <Widget>[
-            Expanded(child: enableCell(true, true,
-                'pan + zoom', 'Default. Free 2-DoF interaction.', paletteOkSoft)),
+            Expanded(
+              child: enableCell(
+                true,
+                true,
+                'pan + zoom',
+                'Default. Free 2-DoF interaction.',
+                paletteOkSoft,
+              ),
+            ),
             SizedBox(width: 10),
-            Expanded(child: enableCell(true, false,
-                'pan only', 'Page-flick UIs, finite content.', paletteAccentSoft)),
+            Expanded(
+              child: enableCell(
+                true,
+                false,
+                'pan only',
+                'Page-flick UIs, finite content.',
+                paletteAccentSoft,
+              ),
+            ),
           ],
         ),
         SizedBox(height: 10),
         Row(
           children: <Widget>[
-            Expanded(child: enableCell(false, true,
-                'zoom only', 'Centered-zoom on a static photo.', paletteWarnSoft)),
+            Expanded(
+              child: enableCell(
+                false,
+                true,
+                'zoom only',
+                'Centered-zoom on a static photo.',
+                paletteWarnSoft,
+              ),
+            ),
             SizedBox(width: 10),
-            Expanded(child: enableCell(false, false,
-                'frozen', 'Useful as a clip + transform sink driven externally.', paletteBadSoft)),
+            Expanded(
+              child: enableCell(
+                false,
+                false,
+                'frozen',
+                'Useful as a clip + transform sink driven externally.',
+                paletteBadSoft,
+              ),
+            ),
           ],
         ),
       ],
@@ -1116,10 +1183,7 @@ Widget enableCell(bool pan, bool scale, String label, String body, Color tone) {
               SizedBox(height: 4),
               Text(body, style: styleBodySoft),
               SizedBox(height: 6),
-              Text(
-                'panEnabled: $pan, scaleEnabled: $scale',
-                style: styleCode,
-              ),
+              Text('panEnabled: $pan, scaleEnabled: $scale', style: styleCode),
             ],
           ),
         ),
@@ -1141,12 +1205,15 @@ Widget enableIcon(bool on, String label) {
       children: <Widget>[
         Icon(on ? Icons.check : Icons.close, size: 12, color: Colors.white),
         SizedBox(width: 4),
-        Text(label, style: TextStyle(
-          color: Colors.white,
-          fontSize: 9,
-          fontWeight: FontWeight.w800,
-          letterSpacing: 0.6,
-        )),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 9,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 0.6,
+          ),
+        ),
       ],
     ),
   );
@@ -1160,36 +1227,46 @@ Widget boundaryMarginSection() {
   return sectionContainer(
     label: 'BOUNDARY MARGIN',
     title: 'How far past the child the user can pan',
-    lead: 'EdgeInsets that extend the legal pan area beyond the child rect. Negative'
+    lead:
+        'EdgeInsets that extend the legal pan area beyond the child rect. Negative'
         ' insets shrink the area. EdgeInsets.all(double.infinity) lifts the limit'
         ' completely — required if you do not want pan to clamp at all.',
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(child: boundaryCard(
-          title: 'EdgeInsets.zero',
-          desc: 'Default. The child cannot be panned past its own bounding rect.'
-              ' At 1.0x scale you cannot pan at all unless the child is larger than the viewport.',
-          inner: 0,
-          accent: paletteAccent,
-        )),
+        Expanded(
+          child: boundaryCard(
+            title: 'EdgeInsets.zero',
+            desc:
+                'Default. The child cannot be panned past its own bounding rect.'
+                ' At 1.0x scale you cannot pan at all unless the child is larger than the viewport.',
+            inner: 0,
+            accent: paletteAccent,
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: boundaryCard(
-          title: 'EdgeInsets.all(80)',
-          desc: 'A hand-tuned amount of overdrag. Use this for "rubber-band" feel'
-              ' or when a small amount of slack is acceptable in your design.',
-          inner: 24,
-          accent: paletteWarn,
-        )),
+        Expanded(
+          child: boundaryCard(
+            title: 'EdgeInsets.all(80)',
+            desc:
+                'A hand-tuned amount of overdrag. Use this for "rubber-band" feel'
+                ' or when a small amount of slack is acceptable in your design.',
+            inner: 24,
+            accent: paletteWarn,
+          ),
+        ),
         SizedBox(width: 12),
-        Expanded(child: boundaryCard(
-          title: 'EdgeInsets.all(double.infinity)',
-          desc: 'No clamp. Right answer for pan-around-forever surfaces — endless'
-              ' canvases, infinite mind-maps, schematics with off-screen detail.',
-          inner: 60,
-          accent: paletteOk,
-          showInfinity: true,
-        )),
+        Expanded(
+          child: boundaryCard(
+            title: 'EdgeInsets.all(double.infinity)',
+            desc:
+                'No clamp. Right answer for pan-around-forever surfaces — endless'
+                ' canvases, infinite mind-maps, schematics with off-screen detail.',
+            inner: 60,
+            accent: paletteOk,
+            showInfinity: true,
+          ),
+        ),
       ],
     ),
   );
@@ -1263,7 +1340,8 @@ Widget scaleRangeSection() {
   return sectionContainer(
     label: 'SCALE RANGE',
     title: 'minScale, maxScale and scaleFactor',
-    lead: 'minScale and maxScale clamp the diagonal of the matrix. scaleFactor controls'
+    lead:
+        'minScale and maxScale clamp the diagonal of the matrix. scaleFactor controls'
         ' the desktop scroll-wheel sensitivity (pixels per scale-tick). The defaults are'
         ' 0.8/2.5/200 — enough for "subtle zoom in a card", inadequate for maps.',
     child: Column(
@@ -1315,12 +1393,15 @@ Widget scaleRulerRow(double min, double rest, double max, String label) {
                 color: paletteAccentSoft,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(label.toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 9,
-                      color: paletteAccentDeep,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.8)),
+              child: Text(
+                label.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 9,
+                  color: paletteAccentDeep,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.8,
+                ),
+              ),
             ),
           ],
         ),
@@ -1331,35 +1412,46 @@ Widget scaleRulerRow(double min, double rest, double max, String label) {
             color: paletteParchmentDeep,
             borderRadius: BorderRadius.circular(11),
           ),
-          child: LayoutBuilder(builder: (BuildContext c, BoxConstraints b) {
-            const double logLo = -4;
-            const double logHi = 5;
-            double mapValue(double v) {
-              final double l = (logBase2(v) - logLo) / (logHi - logLo);
-              return l.clamp(0.0, 1.0) * b.maxWidth;
-            }
+          child: LayoutBuilder(
+            builder: (BuildContext c, BoxConstraints b) {
+              const double logLo = -4;
+              const double logHi = 5;
+              double mapValue(double v) {
+                final double l = (logBase2(v) - logLo) / (logHi - logLo);
+                return l.clamp(0.0, 1.0) * b.maxWidth;
+              }
 
-            final double xMin = mapValue(min);
-            final double xRest = mapValue(rest);
-            final double xMax = mapValue(max);
+              final double xMin = mapValue(min);
+              final double xRest = mapValue(rest);
+              final double xMax = mapValue(max);
 
-            return Stack(
-              children: <Widget>[
-                Positioned(
-                  left: xMin,
-                  right: b.maxWidth - xMax,
-                  top: 9,
-                  child: Container(
-                    height: 4,
-                    color: paletteAccentSoft,
+              return Stack(
+                children: <Widget>[
+                  Positioned(
+                    left: xMin,
+                    right: b.maxWidth - xMax,
+                    top: 9,
+                    child: Container(height: 4, color: paletteAccentSoft),
                   ),
-                ),
-                Positioned(left: xMin - 5, top: 4, child: rulerTick(paletteAccent, 'min')),
-                Positioned(left: xRest - 5, top: 4, child: rulerTick(paletteInk, '1x')),
-                Positioned(left: xMax - 5, top: 4, child: rulerTick(paletteAccent, 'max')),
-              ],
-            );
-          }),
+                  Positioned(
+                    left: xMin - 5,
+                    top: 4,
+                    child: rulerTick(paletteAccent, 'min'),
+                  ),
+                  Positioned(
+                    left: xRest - 5,
+                    top: 4,
+                    child: rulerTick(paletteInk, '1x'),
+                  ),
+                  Positioned(
+                    left: xMax - 5,
+                    top: 4,
+                    child: rulerTick(paletteAccent, 'max'),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ],
     ),
@@ -1387,9 +1479,23 @@ Widget rulerTick(Color color, String label) {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Container(width: 10, height: 14, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
+      Container(
+        width: 10,
+        height: 14,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(2),
+        ),
+      ),
       SizedBox(height: 2),
-      Text(label, style: TextStyle(fontSize: 8, color: color, fontWeight: FontWeight.w700)),
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 8,
+          color: color,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     ],
   );
 }
@@ -1402,7 +1508,8 @@ Widget matrixExplainerSection() {
   return sectionContainer(
     label: 'MATRIX4',
     title: 'The 4x4 affine transform under the hood',
-    lead: 'TransformationController.value is a Matrix4 — column-major, 16 doubles. For'
+    lead:
+        'TransformationController.value is a Matrix4 — column-major, 16 doubles. For'
         ' InteractiveViewer the only entries that change are the diagonal scale'
         ' (m00, m11) and the translation column (m03, m13). Everything else stays'
         ' at identity values.',
@@ -1433,8 +1540,7 @@ Widget matrixGrid() {
     ),
     child: Column(
       children: <Widget>[
-        Text('Matrix4 (uniform scale, translate-only)',
-            style: styleCardTitle),
+        Text('Matrix4 (uniform scale, translate-only)', style: styleCardTitle),
         SizedBox(height: 12),
         Column(
           children: List<Widget>.generate(4, (int row) {
@@ -1542,29 +1648,33 @@ Widget builderRecipeSection() {
   return sectionContainer(
     label: 'INTERACTIVE VIEWER . BUILDER',
     title: 'Lazy children with .builder',
-    lead: 'When the child is too large to materialise eagerly — e.g. a tile pyramid,'
+    lead:
+        'When the child is too large to materialise eagerly — e.g. a tile pyramid,'
         ' a paged map, an infinite document — use InteractiveViewer.builder. It hands'
         ' you the viewport rect in *child* coordinates and lets you build only the part'
         ' of the child currently visible.',
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(flex: 6, child: codeBlock(<String>[
-          'InteractiveViewer.builder(',
-          '  minScale: 0.25,',
-          '  maxScale: 8.0,',
-          '  boundaryMargin: const EdgeInsets.all(double.infinity),',
-          '  builder: (BuildContext context, Quad viewport) {',
-          '    // viewport is a 3D Quad in child coordinates;',
-          '    // its .point0..point3 give the 4 corners.',
-          '    final Rect r = axisAlignedBoundingBox(viewport);',
-          '    return TilePyramid(',
-          '      visibleRect: r,',
-          '      tileSize: 256,',
-          '    );',
-          '  },',
-          ')',
-        ])),
+        Expanded(
+          flex: 6,
+          child: codeBlock(<String>[
+            'InteractiveViewer.builder(',
+            '  minScale: 0.25,',
+            '  maxScale: 8.0,',
+            '  boundaryMargin: const EdgeInsets.all(double.infinity),',
+            '  builder: (BuildContext context, Quad viewport) {',
+            '    // viewport is a 3D Quad in child coordinates;',
+            '    // its .point0..point3 give the 4 corners.',
+            '    final Rect r = axisAlignedBoundingBox(viewport);',
+            '    return TilePyramid(',
+            '      visibleRect: r,',
+            '      tileSize: 256,',
+            '    );',
+            '  },',
+            ')',
+          ]),
+        ),
         SizedBox(width: 14),
         Expanded(flex: 5, child: builderTips()),
       ],
@@ -1585,20 +1695,28 @@ Widget builderTips() {
       children: <Widget>[
         Text('WHY .builder?', style: styleCardLabel),
         SizedBox(height: 6),
-        Text('You never lay out content the user cannot see. For a 100k x 100k canvas the'
-            ' default constructor would crash; the builder version stays cheap.', style: styleBodySoft),
+        Text(
+          'You never lay out content the user cannot see. For a 100k x 100k canvas the'
+          ' default constructor would crash; the builder version stays cheap.',
+          style: styleBodySoft,
+        ),
         SizedBox(height: 10),
         Text('CONSTRAINTS', style: styleCardLabel),
         SizedBox(height: 6),
-        Text('-  constrained must be false (it is forced internally).\n'
-            '-  alignment must be null.\n'
-            '-  panAxis must be PanAxis.free.', style: styleBodySoft),
+        Text(
+          '-  constrained must be false (it is forced internally).\n'
+          '-  alignment must be null.\n'
+          '-  panAxis must be PanAxis.free.',
+          style: styleBodySoft,
+        ),
         SizedBox(height: 10),
         Text('PAIR WITH', style: styleCardLabel),
         SizedBox(height: 6),
-        Text('A custom child that takes a Rect, e.g. a tile-based map widget, a CustomPaint'
-            ' that culls off-screen geometry, or a SliverList variant for very long text.',
-            style: styleBodySoft),
+        Text(
+          'A custom child that takes a Rect, e.g. a tile-based map widget, a CustomPaint'
+          ' that culls off-screen geometry, or a SliverList variant for very long text.',
+          style: styleBodySoft,
+        ),
       ],
     ),
   );
@@ -1623,10 +1741,7 @@ Widget trackpadCallout() {
           width: 44,
           height: 44,
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: paletteWarn,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: paletteWarn, shape: BoxShape.circle),
           child: Icon(Icons.priority_high, color: Colors.white, size: 26),
         ),
         SizedBox(width: 14),
@@ -1634,8 +1749,10 @@ Widget trackpadCallout() {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('trackpadScrollCausesScale: a desktop-shaped landmine',
-                  style: styleCardTitle),
+              Text(
+                'trackpadScrollCausesScale: a desktop-shaped landmine',
+                style: styleCardTitle,
+              ),
               SizedBox(height: 4),
               Text(
                 'On a desktop, a trackpad two-finger scroll *pans* by default. If your'
@@ -1678,60 +1795,69 @@ Widget pitfallsSection() {
   return sectionContainer(
     label: 'PITFALLS',
     title: 'Things people learn the hard way',
-    lead: 'Half the bugs filed against InteractiveViewer are not bugs. Read these'
+    lead:
+        'Half the bugs filed against InteractiveViewer are not bugs. Read these'
         ' before opening one.',
     child: Column(
       children: <Widget>[
         pitfall(
           title: 'constrained: true silently shrinks your child',
-          body: 'When constrained is true (the default), the child is force-fit to the'
+          body:
+              'When constrained is true (the default), the child is force-fit to the'
               ' viewport size. A 4000-wide map ends up at 600 wide. Set constrained to'
               ' false whenever your child has a natural size you want to honour.',
           tone: paletteBadSoft,
         ),
         pitfall(
           title: 'transformationController.value is the live Matrix4',
-          body: 'There is no separate "current scale" double. Read it from the matrix:'
+          body:
+              'There is no separate "current scale" double. Read it from the matrix:'
               ' controller.value.getMaxScaleOnAxis(). Beware: storing the value in a'
               ' final does not snapshot it — Matrix4 is mutable.',
           tone: paletteWarnSoft,
         ),
         pitfall(
           title: 'boundaryMargin is in *unscaled child coordinates*',
-          body: 'EdgeInsets.all(40) at scale 4 looks like 160 pixels of overdrag. Always'
+          body:
+              'EdgeInsets.all(40) at scale 4 looks like 160 pixels of overdrag. Always'
               ' think in child-pixels, not viewport-pixels.',
           tone: paletteAccentSoft,
         ),
         pitfall(
           title: 'minScale > maxScale is a crash',
-          body: 'Asserts in debug, throws in release. Always verify the relationship'
+          body:
+              'Asserts in debug, throws in release. Always verify the relationship'
               ' before passing values that came from configuration.',
           tone: paletteBadSoft,
         ),
         pitfall(
           title: 'GestureDetectors inside the child still receive events',
-          body: 'InteractiveViewer participates in the gesture arena, so a tap on a child'
+          body:
+              'InteractiveViewer participates in the gesture arena, so a tap on a child'
               ' button still fires. But if your child uses a Drag gesture, it will fight'
               ' InteractiveViewer for the pan — and InteractiveViewer usually wins.',
           tone: paletteWarnSoft,
         ),
         pitfall(
           title: 'panAxis only restricts one-finger drags',
-          body: 'Pinch-to-zoom always allows movement on both axes during the pinch.'
+          body:
+              'Pinch-to-zoom always allows movement on both axes during the pinch.'
               ' If you want to lock translation in one axis even during a pinch, you'
               ' need to project the matrix yourself in onInteractionUpdate.',
           tone: paletteAccentSoft,
         ),
         pitfall(
           title: 'interactionEndFrictionCoefficient is a tiny number',
-          body: 'Defaults to 0.0000135. Treat it as "stiffness of the post-fling spring".'
+          body:
+              'Defaults to 0.0000135. Treat it as "stiffness of the post-fling spring".'
               ' Increase it (e.g. 0.0001) to make the inertia stop sooner; decrease it'
               ' for slick, glide-y feel. Setting it to 0 makes the fling never stop.',
           tone: paletteOkSoft,
         ),
         pitfall(
           title: 'onInteractionUpdate fires on every frame of the gesture',
-          body: 'Do not synchronously rebuild expensive widgets inside it. If you must'
+          body:
+              'Do not synchronously rebuild expensive widgets inside it. If you must'
               ' react, schedule the work post-frame or batch it via a ValueNotifier.',
           tone: paletteWarnSoft,
         ),
@@ -1740,7 +1866,11 @@ Widget pitfallsSection() {
   );
 }
 
-Widget pitfall({required String title, required String body, required Color tone}) {
+Widget pitfall({
+  required String title,
+  required String body,
+  required Color tone,
+}) {
   return Container(
     margin: EdgeInsets.only(bottom: 10),
     padding: EdgeInsets.all(14),
@@ -1799,12 +1929,20 @@ Widget footerSection() {
             children: <Widget>[
               Text(
                 'InteractiveViewer — wraps any child for pan, scale and a controllable Matrix4 viewpoint.',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
               SizedBox(height: 2),
               Text(
                 'Pair with a TransformationController to drive the view from code; switch to .builder for tile-pyramid content.',
-                style: TextStyle(color: Color(0xFFB6BFCB), fontWeight: FontWeight.w400, fontSize: 12),
+                style: TextStyle(
+                  color: Color(0xFFB6BFCB),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -1815,7 +1953,15 @@ Widget footerSection() {
             color: Color(0x33FFFFFF),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text('flutter / widgets', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 1)),
+          child: Text(
+            'flutter / widgets',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 1,
+            ),
+          ),
         ),
       ],
     ),

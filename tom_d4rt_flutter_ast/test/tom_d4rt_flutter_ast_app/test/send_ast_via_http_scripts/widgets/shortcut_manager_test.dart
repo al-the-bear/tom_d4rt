@@ -169,13 +169,15 @@ class _LoggingShortcutManager extends ShortcutManager {
     if (event is KeyDownEvent) {
       final String activator = _describeEvent(event);
       final String intent = _describeResult(result);
-      channel.push(_DispatchEvent(
-        timestamp: DateTime.now(),
-        activator: '$label :: $activator',
-        intent: intent,
-        modal: modal,
-        handled: result == KeyEventResult.handled,
-      ));
+      channel.push(
+        _DispatchEvent(
+          timestamp: DateTime.now(),
+          activator: '$label :: $activator',
+          intent: intent,
+          modal: modal,
+          handled: result == KeyEventResult.handled,
+        ),
+      );
     }
     return result;
   }
@@ -187,9 +189,11 @@ class _LoggingShortcutManager extends ShortcutManager {
     if (hw.isMetaPressed) buffer.write('Meta+');
     if (hw.isAltPressed) buffer.write('Alt+');
     if (hw.isShiftPressed) buffer.write('Shift+');
-    buffer.write(event.logicalKey.keyLabel.isEmpty
-        ? event.logicalKey.debugName ?? 'Unknown'
-        : event.logicalKey.keyLabel);
+    buffer.write(
+      event.logicalKey.keyLabel.isEmpty
+          ? event.logicalKey.debugName ?? 'Unknown'
+          : event.logicalKey.keyLabel,
+    );
     return buffer.toString();
   }
 
@@ -462,10 +466,7 @@ class _ControlRoomHeroPainter extends CustomPainter {
       ),
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: bannerRect.width - 16);
-    subtitle.paint(
-      canvas,
-      Offset(bannerRect.left + 14, bannerRect.bottom + 4),
-    );
+    subtitle.paint(canvas, Offset(bannerRect.left + 14, bannerRect.bottom + 4));
   }
 
   void _paintLedRow(Canvas canvas, Size size) {
@@ -489,11 +490,7 @@ class _ControlRoomHeroPainter extends CustomPainter {
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
       final Paint core = Paint()
         ..style = PaintingStyle.fill
-        ..color = Color.lerp(
-          _graphiteHi,
-          _lime,
-          brightness,
-        )!;
+        ..color = Color.lerp(_graphiteHi, _lime, brightness)!;
       canvas.drawCircle(center, 12, glow);
       canvas.drawCircle(center, 7, core);
       canvas.drawCircle(center, 7, ring);
@@ -720,8 +717,9 @@ class _LoggingManagerDemoState extends State<_LoggingManagerDemo> {
                         ],
                       ),
                       border: Border.all(
-                        color: const Color(0xFF84CC16)
-                            .withValues(alpha: _focusNode.hasFocus ? 0.9 : 0.35),
+                        color: const Color(
+                          0xFF84CC16,
+                        ).withValues(alpha: _focusNode.hasFocus ? 0.9 : 0.35),
                         width: 2,
                       ),
                     ),
@@ -826,10 +824,7 @@ class _KeyHint extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(
-              color: Color(0xFFFAF7F0),
-              fontSize: 11,
-            ),
+            style: const TextStyle(color: Color(0xFFFAF7F0), fontSize: 11),
           ),
         ],
       ),
@@ -941,8 +936,7 @@ class _RebindPanelState extends State<_RebindPanel> {
   }
 
   void _rebuildShortcuts() {
-    final Map<ShortcutActivator, Intent> next =
-        <ShortcutActivator, Intent>{};
+    final Map<ShortcutActivator, Intent> next = <ShortcutActivator, Intent>{};
     if (_enabled['Ctrl+K (primary)'] ?? false) {
       next[const SingleActivator(LogicalKeyboardKey.keyK, control: true)] =
           const _RebindPrimaryIntent();
@@ -972,8 +966,10 @@ class _RebindPanelState extends State<_RebindPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final List<MapEntry<ShortcutActivator, Intent>> current =
-        _manager.shortcuts.entries.toList();
+    final List<MapEntry<ShortcutActivator, Intent>> current = _manager
+        .shortcuts
+        .entries
+        .toList();
     return _SectionCard(
       title: 'Scene 3 — Runtime rebinding',
       subtitle:
@@ -1021,9 +1017,9 @@ class _RebindPanelState extends State<_RebindPanel> {
                       borderRadius: BorderRadius.circular(12),
                       color: const Color(0xFFFAF7F0).withValues(alpha: 0.1),
                       border: Border.all(
-                        color: const Color(0xFF84CC16).withValues(
-                          alpha: _focus.hasFocus ? 0.85 : 0.3,
-                        ),
+                        color: const Color(
+                          0xFF84CC16,
+                        ).withValues(alpha: _focus.hasFocus ? 0.85 : 0.3),
                         width: 2,
                       ),
                     ),
@@ -1081,8 +1077,9 @@ class _RebindPanelState extends State<_RebindPanel> {
                             vertical: 3,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF84CC16)
-                                .withValues(alpha: 0.18),
+                            color: const Color(
+                              0xFF84CC16,
+                            ).withValues(alpha: 0.18),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -1280,11 +1277,11 @@ class _ModalCompareCardState extends State<_ModalCompareCard> {
     super.initState();
     final Map<ShortcutActivator, Intent> childShortcuts =
         <ShortcutActivator, Intent>{
-      const SingleActivator(LogicalKeyboardKey.keyN, control: true):
-          const _FocusNextSurfaceIntent(),
-      const SingleActivator(LogicalKeyboardKey.keyB, control: true):
-          const _FocusPrevSurfaceIntent(),
-    };
+          const SingleActivator(LogicalKeyboardKey.keyN, control: true):
+              const _FocusNextSurfaceIntent(),
+          const SingleActivator(LogicalKeyboardKey.keyB, control: true):
+              const _FocusPrevSurfaceIntent(),
+        };
     _modalManager = _LoggingShortcutManager(
       channel: widget.channel,
       label: 'modal-child',
@@ -1322,10 +1319,7 @@ class _ModalCompareCardState extends State<_ModalCompareCard> {
             children: <Widget>[
               const Text(
                 'Inner manager modal toggle (both cards use manager.modal):',
-                style: TextStyle(
-                  color: Color(0xFFFAF7F0),
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Color(0xFFFAF7F0), fontSize: 12),
               ),
               const Spacer(),
               Switch(
@@ -1333,8 +1327,9 @@ class _ModalCompareCardState extends State<_ModalCompareCard> {
                 onChanged: (bool v) {
                   setState(() => _modal = v);
                 },
-                activeTrackColor:
-                    const Color(0xFF84CC16).withValues(alpha: 0.5),
+                activeTrackColor: const Color(
+                  0xFF84CC16,
+                ).withValues(alpha: 0.5),
                 activeThumbColor: const Color(0xFF84CC16),
               ),
               Text(
@@ -1375,8 +1370,7 @@ class _ModalCompareCardState extends State<_ModalCompareCard> {
                       hits: _modalChildHits,
                       modalActive: _modal,
                       onSelect: () => _modalFocus.requestFocus(),
-                      onIntent: () =>
-                          setState(() => _modalChildHits += 1),
+                      onIntent: () => setState(() => _modalChildHits += 1),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -1389,8 +1383,7 @@ class _ModalCompareCardState extends State<_ModalCompareCard> {
                       hits: _nonModalChildHits,
                       modalActive: false,
                       onSelect: () => _nonModalFocus.requestFocus(),
-                      onIntent: () =>
-                          setState(() => _nonModalChildHits += 1),
+                      onIntent: () => setState(() => _nonModalChildHits += 1),
                     ),
                   ),
                 ],
@@ -1677,10 +1670,7 @@ class _FieldRowTile extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 3,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFAF7F0).withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(4),
@@ -1766,10 +1756,7 @@ class _DispatchLog extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
-                const Divider(
-                  height: 1,
-                  color: Color(0xFF374151),
-                ),
+                const Divider(height: 1, color: Color(0xFF374151)),
                 const SizedBox(height: 4),
                 for (final _DispatchEvent e in events.take(12))
                   _LogRow(event: e),
@@ -1843,10 +1830,7 @@ class _LogRow extends StatelessWidget {
             flex: 5,
             child: Text(
               event.activator,
-              style: const TextStyle(
-                color: Color(0xFFFAF7F0),
-                fontSize: 11,
-              ),
+              style: const TextStyle(color: Color(0xFFFAF7F0), fontSize: 11),
             ),
           ),
           Expanded(

@@ -127,12 +127,7 @@ class OutsideSample {
   final Alignment alignment;
   final String narrative;
   final Color tint;
-  const OutsideSample(
-    this.label,
-    this.alignment,
-    this.narrative,
-    this.tint,
-  );
+  const OutsideSample(this.label, this.alignment, this.narrative, this.tint);
 }
 
 class UseCaseCard {
@@ -287,37 +282,83 @@ const List<AlongSample> kAlongSamples = <AlongSample>[
 ];
 
 const List<LerpFrame> kLerpFrames = <LerpFrame>[
-  LerpFrame('t=0.0', 0.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentLime),
-  LerpFrame('t≈0.17', 1.0 / 6.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentLimeDeep),
-  LerpFrame('t≈0.33', 2.0 / 6.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentEmerald),
-  LerpFrame('t=0.5', 0.5, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentTeal),
-  LerpFrame('t≈0.67', 4.0 / 6.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentMint),
-  LerpFrame('t≈0.83', 5.0 / 6.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentSpring),
-  LerpFrame('t=1.0', 1.0, Alignment(-1.0, -1.0), Alignment(0.8, 0.6),
-      kAccentAmber),
+  LerpFrame(
+    't=0.0',
+    0.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentLime,
+  ),
+  LerpFrame(
+    't≈0.17',
+    1.0 / 6.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentLimeDeep,
+  ),
+  LerpFrame(
+    't≈0.33',
+    2.0 / 6.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentEmerald,
+  ),
+  LerpFrame(
+    't=0.5',
+    0.5,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentTeal,
+  ),
+  LerpFrame(
+    't≈0.67',
+    4.0 / 6.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentMint,
+  ),
+  LerpFrame(
+    't≈0.83',
+    5.0 / 6.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentSpring,
+  ),
+  LerpFrame(
+    't=1.0',
+    1.0,
+    Alignment(-1.0, -1.0),
+    Alignment(0.8, 0.6),
+    kAccentAmber,
+  ),
 ];
 
 const List<DirectionalSample> kDirectionalSamples = <DirectionalSample>[
   DirectionalSample('topStart', AlignmentDirectional.topStart, kAccentLime),
   DirectionalSample(
-      'topCenter', AlignmentDirectional.topCenter, kAccentEmerald),
+    'topCenter',
+    AlignmentDirectional.topCenter,
+    kAccentEmerald,
+  ),
   DirectionalSample('topEnd', AlignmentDirectional.topEnd, kAccentTeal),
   DirectionalSample(
-      'centerStart', AlignmentDirectional.centerStart, kAccentMint),
+    'centerStart',
+    AlignmentDirectional.centerStart,
+    kAccentMint,
+  ),
   DirectionalSample('center', AlignmentDirectional.center, kAccentSpring),
   DirectionalSample('centerEnd', AlignmentDirectional.centerEnd, kAccentAmber),
-  DirectionalSample('bottomStart', AlignmentDirectional.bottomStart,
-      kAccentRose),
-  DirectionalSample('bottomCenter', AlignmentDirectional.bottomCenter,
-      kAccentClay),
   DirectionalSample(
-      'bottomEnd', AlignmentDirectional.bottomEnd, kAccentForest),
+    'bottomStart',
+    AlignmentDirectional.bottomStart,
+    kAccentRose,
+  ),
+  DirectionalSample(
+    'bottomCenter',
+    AlignmentDirectional.bottomCenter,
+    kAccentClay,
+  ),
+  DirectionalSample('bottomEnd', AlignmentDirectional.bottomEnd, kAccentForest),
 ];
 
 const List<OutsideSample> kOutsideSamples = <OutsideSample>[
@@ -751,8 +792,7 @@ Widget buildCornerLabel(String text, Alignment alignment) {
 }
 
 Widget buildCoordinatePlane(Alignment sample, Color tint, double frameSize) {
-  final Offset dot =
-      alignmentToFrameCenter(sample, Size(frameSize, frameSize));
+  final Offset dot = alignmentToFrameCenter(sample, Size(frameSize, frameSize));
   return SizedBox(
     width: frameSize,
     height: frameSize,
@@ -795,10 +835,7 @@ Widget buildCoordinatePlane(Alignment sample, Color tint, double frameSize) {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white, width: 2.0),
               boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: tint.withValues(alpha: 0.45),
-                  blurRadius: 8.0,
-                ),
+                BoxShadow(color: tint.withValues(alpha: 0.45), blurRadius: 8.0),
               ],
             ),
           ),
@@ -1433,10 +1470,7 @@ Widget buildLerpSection() {
 // Section 8: AlignmentDirectional comparison.
 // ---------------------------------------------------------------------------
 
-Widget buildDirectionalChip(
-  DirectionalSample sample,
-  TextDirection direction,
-) {
+Widget buildDirectionalChip(DirectionalSample sample, TextDirection direction) {
   final Alignment resolved = sample.value.resolve(direction);
   return Container(
     width: 220.0,
@@ -1452,10 +1486,7 @@ Widget buildDirectionalChip(
         Container(
           width: 12.0,
           height: 12.0,
-          decoration: BoxDecoration(
-            color: sample.tint,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: sample.tint, shape: BoxShape.circle),
         ),
         const SizedBox(width: 8.0),
         Expanded(
@@ -1573,8 +1604,10 @@ Widget buildOutsidePanel(OutsideSample sample) {
   const double plane = 160.0;
   // We deliberately don't clamp — show that the dot escapes the visible
   // frame, illustrating positions beyond [-1, 1].
-  final Offset dot =
-      alignmentToFrameCenter(sample.alignment, const Size(plane, plane));
+  final Offset dot = alignmentToFrameCenter(
+    sample.alignment,
+    const Size(plane, plane),
+  );
   return Container(
     width: 320.0,
     margin: const EdgeInsets.all(8.0),
@@ -1692,8 +1725,7 @@ Widget buildOutsideSection() {
         const SizedBox(height: 12.0),
         Wrap(
           children: <Widget>[
-            for (final OutsideSample s in kOutsideSamples)
-              buildOutsidePanel(s),
+            for (final OutsideSample s in kOutsideSamples) buildOutsidePanel(s),
           ],
         ),
       ],

@@ -53,8 +53,10 @@ class _Win32ControllerDemoState extends State<_Win32ControllerDemo>
     return Scaffold(
       backgroundColor: _kSurface,
       appBar: AppBar(
-        title: Text('RegularWindowControllerWin32',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
+        title: Text(
+          'RegularWindowControllerWin32',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+        ),
         backgroundColor: _kPrimary,
         foregroundColor: Colors.white,
         bottom: TabBar(
@@ -119,7 +121,11 @@ class _TheoryTab extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _kPrimary.withOpacity(0.3)),
         boxShadow: [
-          BoxShadow(color: _kPrimary.withOpacity(0.08), blurRadius: 6, offset: Offset(0, 2)),
+          BoxShadow(
+            color: _kPrimary.withOpacity(0.08),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       padding: EdgeInsets.all(18),
@@ -130,8 +136,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.window, color: _kPrimary, size: 22),
               SizedBox(width: 8),
-              Text('What is RegularWindowControllerWin32?',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'What is RegularWindowControllerWin32?',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -156,14 +168,21 @@ class _TheoryTab extends StatelessWidget {
                   child: Text(
                     'This controller is automatically selected by the framework when '
                     'running on Windows. You never instantiate it directly.',
-                    style: TextStyle(fontSize: 12, color: _kDarkText, fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: _kDarkText,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           SizedBox(height: 12),
-          _buildFeatureBullet(Icons.desktop_windows, 'Wraps a native HWND handle'),
+          _buildFeatureBullet(
+            Icons.desktop_windows,
+            'Wraps a native HWND handle',
+          ),
           _buildFeatureBullet(Icons.message, 'Processes Win32 message loop'),
           _buildFeatureBullet(Icons.aspect_ratio, 'DPI-aware scaling support'),
           _buildFeatureBullet(Icons.grid_view, 'Aero Snap integration'),
@@ -201,8 +220,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.account_tree, color: _kHwndColor, size: 22),
               SizedBox(width: 8),
-              Text('Class Hierarchy',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Class Hierarchy',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -219,18 +244,31 @@ class _TheoryTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('// Platform selection in RegularWindowController',
-                    style: TextStyle(fontSize: 11, color: Colors.green.shade800, fontFamily: 'monospace')),
+                Text(
+                  '// Platform selection in RegularWindowController',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.green.shade800,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text('factory RegularWindowController({\n'
-                    '  required WindowingOwner owner,\n'
-                    '}) {\n'
-                    '  if (Platform.isWindows) {\n'
-                    '    return RegularWindowControllerWin32(owner: owner);\n'
-                    '  }\n'
-                    '  // ... other platforms\n'
-                    '}',
-                    style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.6)),
+                Text(
+                  'factory RegularWindowController({\n'
+                  '  required WindowingOwner owner,\n'
+                  '}) {\n'
+                  '  if (Platform.isWindows) {\n'
+                  '    return RegularWindowControllerWin32(owner: owner);\n'
+                  '  }\n'
+                  '  // ... other platforms\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText,
+                    fontFamily: 'monospace',
+                    height: 1.6,
+                  ),
+                ),
               ],
             ),
           ),
@@ -245,7 +283,11 @@ class _TheoryTab extends StatelessWidget {
       child: Row(
         children: [
           if (depth > 0) ...[
-            Icon(Icons.subdirectory_arrow_right, color: color.withOpacity(0.5), size: 16),
+            Icon(
+              Icons.subdirectory_arrow_right,
+              color: color.withOpacity(0.5),
+              size: 16,
+            ),
             SizedBox(width: 4),
           ],
           Container(
@@ -255,8 +297,15 @@ class _TheoryTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
               border: Border.all(color: color.withOpacity(0.4)),
             ),
-            child: Text(name,
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+            child: Text(
+              name,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -278,18 +327,40 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.api, color: _kMessageColor, size: 22),
               SizedBox(width: 8),
-              Text('Win32 API Mapping',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Win32 API Mapping',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           _buildApiRow('setTitle()', 'SetWindowTextW(hwnd, text)', _kPrimary),
           _buildApiRow('activate()', 'SetForegroundWindow(hwnd)', _kSnapColor),
-          _buildApiRow('maximize()', 'ShowWindow(hwnd, SW_MAXIMIZE)', _kHwndColor),
-          _buildApiRow('minimize()', 'ShowWindow(hwnd, SW_MINIMIZE)', _kDpiColor),
-          _buildApiRow('restore()', 'ShowWindow(hwnd, SW_RESTORE)', _kMessageColor),
+          _buildApiRow(
+            'maximize()',
+            'ShowWindow(hwnd, SW_MAXIMIZE)',
+            _kHwndColor,
+          ),
+          _buildApiRow(
+            'minimize()',
+            'ShowWindow(hwnd, SW_MINIMIZE)',
+            _kDpiColor,
+          ),
+          _buildApiRow(
+            'restore()',
+            'ShowWindow(hwnd, SW_RESTORE)',
+            _kMessageColor,
+          ),
           _buildApiRow('destroy()', 'DestroyWindow(hwnd)', Colors.red.shade700),
-          _buildApiRow('requestSize()', 'SetWindowPos(hwnd, ...)', _kAccent.withAlpha(200)),
+          _buildApiRow(
+            'requestSize()',
+            'SetWindowPos(hwnd, ...)',
+            _kAccent.withAlpha(200),
+          ),
         ],
       ),
     );
@@ -307,15 +378,28 @@ class _TheoryTab extends StatelessWidget {
               color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(4),
             ),
-            child: Text(flutterApi,
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+            child: Text(
+              flutterApi,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Icon(Icons.arrow_forward, size: 14, color: Colors.grey),
           SizedBox(width: 8),
           Expanded(
-            child: Text(win32Api,
-                style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.8), fontFamily: 'monospace')),
+            child: Text(
+              win32Api,
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText.withOpacity(0.8),
+                fontFamily: 'monospace',
+              ),
+            ),
           ),
         ],
       ),
@@ -337,17 +421,53 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.timeline, color: _kSnapColor, size: 22),
               SizedBox(width: 8),
-              Text('HWND Lifecycle',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'HWND Lifecycle',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
-          _buildLifecycleStep(1, 'CreateWindowExW', 'Allocates HWND, registers class', _kSnapColor),
-          _buildLifecycleStep(2, 'ShowWindow', 'Makes window visible', _kPrimary),
-          _buildLifecycleStep(3, 'Message Loop', 'GetMessage / DispatchMessage cycle', _kMessageColor),
-          _buildLifecycleStep(4, 'User Events', 'WM_SIZE, WM_MOVE, WM_ACTIVATE', _kDpiColor),
-          _buildLifecycleStep(5, 'WM_CLOSE', 'Delegate decides to accept or reject', _kHwndColor),
-          _buildLifecycleStep(6, 'DestroyWindow', 'Releases HWND and GDI resources', Colors.red.shade700),
+          _buildLifecycleStep(
+            1,
+            'CreateWindowExW',
+            'Allocates HWND, registers class',
+            _kSnapColor,
+          ),
+          _buildLifecycleStep(
+            2,
+            'ShowWindow',
+            'Makes window visible',
+            _kPrimary,
+          ),
+          _buildLifecycleStep(
+            3,
+            'Message Loop',
+            'GetMessage / DispatchMessage cycle',
+            _kMessageColor,
+          ),
+          _buildLifecycleStep(
+            4,
+            'User Events',
+            'WM_SIZE, WM_MOVE, WM_ACTIVATE',
+            _kDpiColor,
+          ),
+          _buildLifecycleStep(
+            5,
+            'WM_CLOSE',
+            'Delegate decides to accept or reject',
+            _kHwndColor,
+          ),
+          _buildLifecycleStep(
+            6,
+            'DestroyWindow',
+            'Releases HWND and GDI resources',
+            Colors.red.shade700,
+          ),
         ],
       ),
     );
@@ -362,23 +482,39 @@ class _TheoryTab extends StatelessWidget {
           Container(
             width: 28,
             height: 28,
-            decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
-            ),
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
             alignment: Alignment.center,
-            child: Text('$step',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white)),
+            child: Text(
+              '$step',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
           ),
           SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                    fontFamily: 'monospace',
+                  ),
+                ),
                 SizedBox(height: 2),
-                Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7))),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText.withOpacity(0.7),
+                  ),
+                ),
               ],
             ),
           ),
@@ -402,15 +538,36 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.photo_size_select_large, color: _kDpiColor, size: 22),
               SizedBox(width: 8),
-              Text('DPI Awareness Levels',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'DPI Awareness Levels',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           _buildDpiLevel('Unaware', '96 DPI always', Colors.red.shade400, 0.25),
-          _buildDpiLevel('System DPI', 'Primary monitor only', Colors.orange.shade600, 0.5),
-          _buildDpiLevel('Per-Monitor v1', 'Each monitor, no non-client', _kDpiColor, 0.75),
-          _buildDpiLevel('Per-Monitor v2', 'Full scaling, recommended', _kSnapColor, 1.0),
+          _buildDpiLevel(
+            'System DPI',
+            'Primary monitor only',
+            Colors.orange.shade600,
+            0.5,
+          ),
+          _buildDpiLevel(
+            'Per-Monitor v1',
+            'Each monitor, no non-client',
+            _kDpiColor,
+            0.75,
+          ),
+          _buildDpiLevel(
+            'Per-Monitor v2',
+            'Full scaling, recommended',
+            _kSnapColor,
+            1.0,
+          ),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.all(10),
@@ -422,7 +579,12 @@ class _TheoryTab extends StatelessWidget {
               'Flutter uses Per-Monitor v2 DPI awareness.\n'
               'WM_DPICHANGED → controller updates device pixel ratio\n'
               'and resizes the FlutterView accordingly.',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.5),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.5,
+              ),
             ),
           ),
         ],
@@ -440,11 +602,23 @@ class _TheoryTab extends StatelessWidget {
             children: [
               SizedBox(
                 width: 130,
-                child: Text(name,
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: color)),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                  ),
+                ),
               ),
               Expanded(
-                child: Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7))),
+                child: Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText.withOpacity(0.7),
+                  ),
+                ),
               ),
             ],
           ),
@@ -478,8 +652,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.loop, color: _kPrimary, size: 22),
               SizedBox(width: 8),
-              Text('Win32 Message Loop Integration',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Win32 Message Loop Integration',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -504,7 +684,12 @@ class _TheoryTab extends StatelessWidget {
               '    case WM_DESTROY:  cleanup();        break;\n'
               '  }\n'
               '}',
-              style: TextStyle(fontSize: 11, color: _kDarkText, fontFamily: 'monospace', height: 1.5),
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText,
+                fontFamily: 'monospace',
+                height: 1.5,
+              ),
             ),
           ),
           SizedBox(height: 10),
@@ -512,7 +697,11 @@ class _TheoryTab extends StatelessWidget {
             'The Win32 controller receives window messages through the native '
             'message pump. Each message is translated to the corresponding '
             'RegularWindowController state change and notifies listeners.',
-            style: TextStyle(fontSize: 12, color: _kDarkText.withOpacity(0.8), height: 1.4),
+            style: TextStyle(
+              fontSize: 12,
+              color: _kDarkText.withOpacity(0.8),
+              height: 1.4,
+            ),
           ),
         ],
       ),
@@ -536,8 +725,14 @@ class _TheoryTab extends StatelessWidget {
             children: [
               Icon(Icons.science, color: _kMessageColor, size: 22),
               SizedBox(width: 8),
-              Text('Experimental Status',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Experimental Status',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
@@ -557,11 +752,21 @@ class _TheoryTab extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(Icons.warning_amber_rounded, color: Colors.amber.shade800, size: 18),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: Colors.amber.shade800,
+                  size: 18,
+                ),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text('Enable with: --enable-windowing runtime flag',
-                      style: TextStyle(fontSize: 11, color: Colors.amber.shade900, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    'Enable with: --enable-windowing runtime flag',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.amber.shade900,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -633,7 +838,11 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _kPrimary.withOpacity(0.3)),
         boxShadow: [
-          BoxShadow(color: _kPrimary.withOpacity(0.1), blurRadius: 8, offset: Offset(0, 3)),
+          BoxShadow(
+            color: _kPrimary.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
       padding: EdgeInsets.all(16),
@@ -644,13 +853,21 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
             children: [
               Icon(Icons.desktop_windows, color: _kPrimary, size: 20),
               SizedBox(width: 8),
-              Text('Simulated HWND Window',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Simulated HWND Window',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
               Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: _isActivated ? _kSnapColor.withOpacity(0.15) : Colors.grey.withOpacity(0.15),
+                  color: _isActivated
+                      ? _kSnapColor.withOpacity(0.15)
+                      : Colors.grey.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Text(
@@ -672,17 +889,25 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 350),
                 curve: Curves.easeOutCubic,
-                width: _isFullscreen ? 340 : (_isMaximized ? 320 : scaledW.clamp(100, 340)),
-                height: _isFullscreen ? 220 : (_isMaximized ? 200 : scaledH.clamp(60, 220)),
+                width: _isFullscreen
+                    ? 340
+                    : (_isMaximized ? 320 : scaledW.clamp(100, 340)),
+                height: _isFullscreen
+                    ? 220
+                    : (_isMaximized ? 200 : scaledH.clamp(60, 220)),
                 decoration: BoxDecoration(
-                  color: _isActivated ? _kPrimary.withOpacity(0.08) : Colors.grey.shade100,
+                  color: _isActivated
+                      ? _kPrimary.withOpacity(0.08)
+                      : Colors.grey.shade100,
                   borderRadius: _isFullscreen
                       ? BorderRadius.zero
                       : BorderRadius.circular(4),
                   border: _isFullscreen
                       ? null
                       : Border.all(
-                          color: _isActivated ? _kPrimary : Colors.grey.shade400,
+                          color: _isActivated
+                              ? _kPrimary
+                              : Colors.grey.shade400,
                           width: 1.5,
                         ),
                 ),
@@ -731,7 +956,9 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
                             Icon(
                               _isMinimized
                                   ? Icons.minimize
-                                  : (_isFullscreen ? Icons.fullscreen : Icons.widgets),
+                                  : (_isFullscreen
+                                        ? Icons.fullscreen
+                                        : Icons.widgets),
                               color: _kPrimary.withOpacity(0.3),
                               size: 28,
                             ),
@@ -740,7 +967,10 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
                               _snapState != 'none'
                                   ? 'Snapped: $_snapState'
                                   : '${scaledW.toInt()}×${scaledH.toInt()} @ ${_dpiScale}x',
-                              style: TextStyle(fontSize: 9, color: _kDarkText.withOpacity(0.5)),
+                              style: TextStyle(
+                                fontSize: 9,
+                                color: _kDarkText.withOpacity(0.5),
+                              ),
                             ),
                           ],
                         ),
@@ -761,7 +991,10 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
       width: 14,
       height: 14,
       alignment: Alignment.center,
-      child: Text(label, style: TextStyle(fontSize: 10, color: color, height: 1)),
+      child: Text(
+        label,
+        style: TextStyle(fontSize: 10, color: color, height: 1),
+      ),
     );
   }
 
@@ -776,11 +1009,19 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Window Controls',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+          Text(
+            'Window Controls',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 6),
-          Text('Simulates controller.method() → Win32 API calls',
-              style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6))),
+          Text(
+            'Simulates controller.method() → Win32 API calls',
+            style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6)),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
@@ -790,10 +1031,15 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
                 setState(() => _windowTitle = 'Hello');
                 _logMessage('WM_SETTEXT → "Hello"');
               }),
-              _buildActionChip('setTitle("My App")', Icons.title, _kPrimary, () {
-                setState(() => _windowTitle = 'My App');
-                _logMessage('WM_SETTEXT → "My App"');
-              }),
+              _buildActionChip(
+                'setTitle("My App")',
+                Icons.title,
+                _kPrimary,
+                () {
+                  setState(() => _windowTitle = 'My App');
+                  _logMessage('WM_SETTEXT → "My App"');
+                },
+              ),
               _buildActionChip('activate()', Icons.flash_on, _kSnapColor, () {
                 setState(() => _isActivated = true);
                 _logMessage('SetForegroundWindow → focus gained');
@@ -802,15 +1048,20 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
                 setState(() => _isActivated = false);
                 _logMessage('WM_ACTIVATE(INACTIVE)');
               }),
-              _buildActionChip('maximize()', Icons.open_in_full, _kHwndColor, () {
-                setState(() {
-                  _isMaximized = true;
-                  _isMinimized = false;
-                  _isFullscreen = false;
-                  _snapState = 'none';
-                });
-                _logMessage('ShowWindow(SW_MAXIMIZE)');
-              }),
+              _buildActionChip(
+                'maximize()',
+                Icons.open_in_full,
+                _kHwndColor,
+                () {
+                  setState(() {
+                    _isMaximized = true;
+                    _isMinimized = false;
+                    _isFullscreen = false;
+                    _snapState = 'none';
+                  });
+                  _logMessage('ShowWindow(SW_MAXIMIZE)');
+                },
+              ),
               _buildActionChip('minimize()', Icons.minimize, _kDpiColor, () {
                 setState(() {
                   _isMinimized = true;
@@ -828,26 +1079,41 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
                 });
                 _logMessage('ShowWindow(SW_RESTORE)');
               }),
-              _buildActionChip('enterFullscreen()', Icons.fullscreen, _kDarkText, () {
-                setState(() {
-                  _isFullscreen = true;
-                  _isMaximized = false;
-                  _isMinimized = false;
-                  _snapState = 'none';
-                });
-                _logMessage('Borderless fullscreen mode');
-              }),
-              _buildActionChip('exitFullscreen()', Icons.fullscreen_exit, Colors.grey.shade600, () {
-                setState(() => _isFullscreen = false);
-                _logMessage('Restored window borders');
-              }),
-              _buildActionChip('destroy()', Icons.delete_forever, Colors.red.shade700, () {
-                setState(() {
-                  _isActivated = false;
-                  _isMinimized = true;
-                });
-                _logMessage('DestroyWindow → HWND released');
-              }),
+              _buildActionChip(
+                'enterFullscreen()',
+                Icons.fullscreen,
+                _kDarkText,
+                () {
+                  setState(() {
+                    _isFullscreen = true;
+                    _isMaximized = false;
+                    _isMinimized = false;
+                    _snapState = 'none';
+                  });
+                  _logMessage('Borderless fullscreen mode');
+                },
+              ),
+              _buildActionChip(
+                'exitFullscreen()',
+                Icons.fullscreen_exit,
+                Colors.grey.shade600,
+                () {
+                  setState(() => _isFullscreen = false);
+                  _logMessage('Restored window borders');
+                },
+              ),
+              _buildActionChip(
+                'destroy()',
+                Icons.delete_forever,
+                Colors.red.shade700,
+                () {
+                  setState(() {
+                    _isActivated = false;
+                    _isMinimized = true;
+                  });
+                  _logMessage('DestroyWindow → HWND released');
+                },
+              ),
             ],
           ),
         ],
@@ -855,7 +1121,12 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
     );
   }
 
-  Widget _buildActionChip(String label, IconData icon, Color color, VoidCallback onTap) {
+  Widget _buildActionChip(
+    String label,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -870,8 +1141,15 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
           children: [
             Icon(icon, size: 14, color: color),
             SizedBox(width: 4),
-            Text(label,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color, fontFamily: 'monospace')),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: color,
+                fontFamily: 'monospace',
+              ),
+            ),
           ],
         ),
       ),
@@ -893,11 +1171,23 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
             children: [
               Icon(Icons.photo_size_select_large, color: _kDpiColor, size: 20),
               SizedBox(width: 8),
-              Text('DPI Scale: ${_dpiScale.toStringAsFixed(1)}x',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'DPI Scale: ${_dpiScale.toStringAsFixed(1)}x',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
               Spacer(),
-              Text('${(96 * _dpiScale).toInt()} DPI',
-                  style: TextStyle(fontSize: 11, color: _kDpiColor, fontFamily: 'monospace')),
+              Text(
+                '${(96 * _dpiScale).toInt()} DPI',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: _kDpiColor,
+                  fontFamily: 'monospace',
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8),
@@ -923,10 +1213,22 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('0.5x (48 DPI)', style: TextStyle(fontSize: 9, color: Colors.grey)),
-              Text('1.0x (96 DPI)', style: TextStyle(fontSize: 9, color: Colors.grey)),
-              Text('2.0x (192 DPI)', style: TextStyle(fontSize: 9, color: Colors.grey)),
-              Text('3.0x (288 DPI)', style: TextStyle(fontSize: 9, color: Colors.grey)),
+              Text(
+                '0.5x (48 DPI)',
+                style: TextStyle(fontSize: 9, color: Colors.grey),
+              ),
+              Text(
+                '1.0x (96 DPI)',
+                style: TextStyle(fontSize: 9, color: Colors.grey),
+              ),
+              Text(
+                '2.0x (192 DPI)',
+                style: TextStyle(fontSize: 9, color: Colors.grey),
+              ),
+              Text(
+                '3.0x (288 DPI)',
+                style: TextStyle(fontSize: 9, color: Colors.grey),
+              ),
             ],
           ),
         ],
@@ -949,40 +1251,88 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
             children: [
               Icon(Icons.grid_view, color: _kSnapColor, size: 20),
               SizedBox(width: 8),
-              Text('Aero Snap Simulation',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Aero Snap Simulation',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 6),
-          Text('Windows Aero Snap positions the window via WM_SIZE + WM_MOVE messages.',
-              style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6))),
+          Text(
+            'Windows Aero Snap positions the window via WM_SIZE + WM_MOVE messages.',
+            style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.6)),
+          ),
           SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _buildSnapButton('Left', 'left', Icons.align_horizontal_left)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Left',
+                  'left',
+                  Icons.align_horizontal_left,
+                ),
+              ),
               SizedBox(width: 8),
-              Expanded(child: _buildSnapButton('Right', 'right', Icons.align_horizontal_right)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Right',
+                  'right',
+                  Icons.align_horizontal_right,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8),
           Row(
             children: [
-              Expanded(child: _buildSnapButton('Top-Left', 'top-left', Icons.north_west)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Top-Left',
+                  'top-left',
+                  Icons.north_west,
+                ),
+              ),
               SizedBox(width: 8),
-              Expanded(child: _buildSnapButton('Top-Right', 'top-right', Icons.north_east)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Top-Right',
+                  'top-right',
+                  Icons.north_east,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8),
           Row(
             children: [
-              Expanded(child: _buildSnapButton('Bottom-Left', 'bottom-left', Icons.south_west)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Bottom-Left',
+                  'bottom-left',
+                  Icons.south_west,
+                ),
+              ),
               SizedBox(width: 8),
-              Expanded(child: _buildSnapButton('Bottom-Right', 'bottom-right', Icons.south_east)),
+              Expanded(
+                child: _buildSnapButton(
+                  'Bottom-Right',
+                  'bottom-right',
+                  Icons.south_east,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 8),
           Center(
-            child: _buildSnapButton('Restore (none)', 'none', Icons.fullscreen_exit),
+            child: _buildSnapButton(
+              'Restore (none)',
+              'none',
+              Icons.fullscreen_exit,
+            ),
           ),
           SizedBox(height: 10),
           Container(
@@ -1027,14 +1377,20 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 16, color: selected ? _kSnapColor : Colors.grey.shade600),
+            Icon(
+              icon,
+              size: 16,
+              color: selected ? _kSnapColor : Colors.grey.shade600,
+            ),
             SizedBox(width: 6),
-            Text(label,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                  color: selected ? _kSnapColor : Colors.grey.shade700,
-                )),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                color: selected ? _kSnapColor : Colors.grey.shade700,
+              ),
+            ),
           ],
         ),
       ),
@@ -1055,33 +1411,56 @@ class _Win32SimulatorTabState extends State<_Win32SimulatorTab> {
             children: [
               Icon(Icons.terminal, color: _kAccent, size: 18),
               SizedBox(width: 8),
-              Text('Win32 Message Log',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: _kAccent)),
+              Text(
+                'Win32 Message Log',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: _kAccent,
+                ),
+              ),
               Spacer(),
               GestureDetector(
                 onTap: () => setState(() => _messageLog.clear()),
-                child: Text('Clear', style: TextStyle(fontSize: 10, color: Colors.grey.shade500)),
+                child: Text(
+                  'Clear',
+                  style: TextStyle(fontSize: 10, color: Colors.grey.shade500),
+                ),
               ),
             ],
           ),
           SizedBox(height: 10),
           if (_messageLog.isEmpty)
-            Text('No messages yet. Use controls above.',
-                style: TextStyle(fontSize: 11, color: Colors.grey.shade600, fontStyle: FontStyle.italic))
+            Text(
+              'No messages yet. Use controls above.',
+              style: TextStyle(
+                fontSize: 11,
+                color: Colors.grey.shade600,
+                fontStyle: FontStyle.italic,
+              ),
+            )
           else
-            ..._messageLog.map((msg) => Padding(
-                  padding: EdgeInsets.only(bottom: 4),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('► ', style: TextStyle(fontSize: 11, color: _kAccent)),
-                      Expanded(
-                        child: Text(msg,
-                            style: TextStyle(fontSize: 11, color: Colors.grey.shade300, fontFamily: 'monospace')),
+            ..._messageLog.map(
+              (msg) => Padding(
+                padding: EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('► ', style: TextStyle(fontSize: 11, color: _kAccent)),
+                    Expanded(
+                      child: Text(
+                        msg,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey.shade300,
+                          fontFamily: 'monospace',
+                        ),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -1130,8 +1509,14 @@ class _PlatformComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Platform Controller Comparison',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+          Text(
+            'Platform Controller Comparison',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             'Each platform implements RegularWindowController with native APIs. '
@@ -1154,30 +1539,82 @@ class _PlatformComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Native API Mapping',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+          Text(
+            'Native API Mapping',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: _kDarkText,
+            ),
+          ),
           SizedBox(height: 12),
-          _buildComparisonRow('Window Handle', 'HWND', 'GdkWindow*', 'NSWindow*'),
-          _buildComparisonRow('Show Window', 'ShowWindow()', 'gtk_widget_show()', '[win makeKey...]'),
-          _buildComparisonRow('Set Title', 'SetWindowTextW()', 'gtk_window_set_title()', '[win setTitle:]'),
-          _buildComparisonRow('Resize', 'SetWindowPos()', 'gtk_window_resize()', '[win setFrame:]'),
-          _buildComparisonRow('Close', 'DestroyWindow()', 'gtk_window_close()', '[win close]'),
-          _buildComparisonRow('Focus', 'SetForeground...()', 'gtk_window_present()', '[win makeKey...]'),
-          _buildComparisonRow('Fullscreen', 'Custom borderless', 'gtk_window_fullscreen()', '[win toggle...]'),
+          _buildComparisonRow(
+            'Window Handle',
+            'HWND',
+            'GdkWindow*',
+            'NSWindow*',
+          ),
+          _buildComparisonRow(
+            'Show Window',
+            'ShowWindow()',
+            'gtk_widget_show()',
+            '[win makeKey...]',
+          ),
+          _buildComparisonRow(
+            'Set Title',
+            'SetWindowTextW()',
+            'gtk_window_set_title()',
+            '[win setTitle:]',
+          ),
+          _buildComparisonRow(
+            'Resize',
+            'SetWindowPos()',
+            'gtk_window_resize()',
+            '[win setFrame:]',
+          ),
+          _buildComparisonRow(
+            'Close',
+            'DestroyWindow()',
+            'gtk_window_close()',
+            '[win close]',
+          ),
+          _buildComparisonRow(
+            'Focus',
+            'SetForeground...()',
+            'gtk_window_present()',
+            '[win makeKey...]',
+          ),
+          _buildComparisonRow(
+            'Fullscreen',
+            'Custom borderless',
+            'gtk_window_fullscreen()',
+            '[win toggle...]',
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildComparisonRow(String operation, String win32, String linux, String macos) {
+  Widget _buildComparisonRow(
+    String operation,
+    String win32,
+    String linux,
+    String macos,
+  ) {
     return Padding(
       padding: EdgeInsets.only(bottom: 6),
       child: Row(
         children: [
           SizedBox(
             width: 80,
-            child: Text(operation,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: _kDarkText)),
+            child: Text(
+              operation,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: _kDarkText,
+              ),
+            ),
           ),
           Expanded(
             child: Container(
@@ -1187,9 +1624,15 @@ class _PlatformComparisonTab extends StatelessWidget {
                 color: _kPrimary.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(win32,
-                  style: TextStyle(fontSize: 9, color: _kPrimary, fontFamily: 'monospace'),
-                  overflow: TextOverflow.ellipsis),
+              child: Text(
+                win32,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: _kPrimary,
+                  fontFamily: 'monospace',
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
           Expanded(
@@ -1200,9 +1643,15 @@ class _PlatformComparisonTab extends StatelessWidget {
                 color: _kSnapColor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(linux,
-                  style: TextStyle(fontSize: 9, color: _kSnapColor, fontFamily: 'monospace'),
-                  overflow: TextOverflow.ellipsis),
+              child: Text(
+                linux,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: _kSnapColor,
+                  fontFamily: 'monospace',
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
           Expanded(
@@ -1212,9 +1661,15 @@ class _PlatformComparisonTab extends StatelessWidget {
                 color: _kHwndColor.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(3),
               ),
-              child: Text(macos,
-                  style: TextStyle(fontSize: 9, color: _kHwndColor, fontFamily: 'monospace'),
-                  overflow: TextOverflow.ellipsis),
+              child: Text(
+                macos,
+                style: TextStyle(
+                  fontSize: 9,
+                  color: _kHwndColor,
+                  fontFamily: 'monospace',
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
@@ -1237,8 +1692,14 @@ class _PlatformComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.compare_arrows, color: _kMessageColor, size: 20),
               SizedBox(width: 8),
-              Text('Window Management Models',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Window Management Models',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -1273,7 +1734,12 @@ class _PlatformComparisonTab extends StatelessWidget {
     );
   }
 
-  Widget _buildPlatformCard(String title, String desc, Color color, IconData icon) {
+  Widget _buildPlatformCard(
+    String title,
+    String desc,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -1290,9 +1756,23 @@ class _PlatformComparisonTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text(desc, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7), height: 1.4)),
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText.withOpacity(0.7),
+                    height: 1.4,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1316,25 +1796,48 @@ class _PlatformComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.display_settings, color: _kDpiColor, size: 20),
               SizedBox(width: 8),
-              Text('DPI / Scale Factor Handling',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'DPI / Scale Factor Handling',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
-          _buildDpiPlatformRow('Win32', 'WM_DPICHANGED message',
-              'SetProcessDpiAwarenessContext(PER_MONITOR_AWARE_V2)', _kPrimary),
+          _buildDpiPlatformRow(
+            'Win32',
+            'WM_DPICHANGED message',
+            'SetProcessDpiAwarenessContext(PER_MONITOR_AWARE_V2)',
+            _kPrimary,
+          ),
           SizedBox(height: 8),
-          _buildDpiPlatformRow('Linux', 'GDK scale-factor property',
-              'gdk_monitor_get_scale_factor()', _kSnapColor),
+          _buildDpiPlatformRow(
+            'Linux',
+            'GDK scale-factor property',
+            'gdk_monitor_get_scale_factor()',
+            _kSnapColor,
+          ),
           SizedBox(height: 8),
-          _buildDpiPlatformRow('macOS', 'NSScreen backingScaleFactor',
-              '[screen backingScaleFactor]', _kHwndColor),
+          _buildDpiPlatformRow(
+            'macOS',
+            'NSScreen backingScaleFactor',
+            '[screen backingScaleFactor]',
+            _kHwndColor,
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildDpiPlatformRow(String platform, String mechanism, String api, Color color) {
+  Widget _buildDpiPlatformRow(
+    String platform,
+    String mechanism,
+    String api,
+    Color color,
+  ) {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -1344,12 +1847,28 @@ class _PlatformComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(platform, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            platform,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
           SizedBox(height: 4),
-          Text(mechanism, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7))),
+          Text(
+            mechanism,
+            style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7)),
+          ),
           SizedBox(height: 2),
-          Text(api,
-              style: TextStyle(fontSize: 10, color: color.withOpacity(0.8), fontFamily: 'monospace')),
+          Text(
+            api,
+            style: TextStyle(
+              fontSize: 10,
+              color: color.withOpacity(0.8),
+              fontFamily: 'monospace',
+            ),
+          ),
         ],
       ),
     );
@@ -1370,8 +1889,14 @@ class _PlatformComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.fullscreen, color: _kHwndColor, size: 20),
               SizedBox(width: 8),
-              Text('Fullscreen Implementation Differences',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Fullscreen Implementation Differences',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
@@ -1413,13 +1938,25 @@ class _PlatformComparisonTab extends StatelessWidget {
         children: [
           SizedBox(
             width: 50,
-            child: Text(platform,
-                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: color)),
+            child: Text(
+              platform,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
           ),
           SizedBox(width: 8),
           Expanded(
-            child: Text(desc,
-                style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7), height: 1.4)),
+            child: Text(
+              desc,
+              style: TextStyle(
+                fontSize: 11,
+                color: _kDarkText.withOpacity(0.7),
+                height: 1.4,
+              ),
+            ),
           ),
         ],
       ),
@@ -1441,26 +1978,41 @@ class _PlatformComparisonTab extends StatelessWidget {
             children: [
               Icon(Icons.palette, color: _kAccent.withAlpha(200), size: 20),
               SizedBox(width: 8),
-              Text('System Theme Integration',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'System Theme Integration',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 14),
           Row(
             children: [
               Expanded(
-                child: _buildThemeCard('Win32 Dark Mode',
-                    'DwmSetWindowAttribute with\nDWMWA_USE_IMMERSIVE_DARK_MODE.\nTitle bar follows system pref.', _kPrimary),
+                child: _buildThemeCard(
+                  'Win32 Dark Mode',
+                  'DwmSetWindowAttribute with\nDWMWA_USE_IMMERSIVE_DARK_MODE.\nTitle bar follows system pref.',
+                  _kPrimary,
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
-                child: _buildThemeCard('GTK Theme',
-                    'gtk-theme-name property and\nprefer-dark-theme setting.\nCSS-based theming.', _kSnapColor),
+                child: _buildThemeCard(
+                  'GTK Theme',
+                  'gtk-theme-name property and\nprefer-dark-theme setting.\nCSS-based theming.',
+                  _kSnapColor,
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
-                child: _buildThemeCard('macOS Appearance',
-                    'NSApp.effectiveAppearance.\nAutomatic dark/light with\nNSAppearance names.', _kHwndColor),
+                child: _buildThemeCard(
+                  'macOS Appearance',
+                  'NSApp.effectiveAppearance.\nAutomatic dark/light with\nNSAppearance names.',
+                  _kHwndColor,
+                ),
               ),
             ],
           ),
@@ -1480,9 +2032,23 @@ class _PlatformComparisonTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: color)),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: color,
+            ),
+          ),
           SizedBox(height: 6),
-          Text(desc, style: TextStyle(fontSize: 10, color: _kDarkText.withOpacity(0.7), height: 1.4)),
+          Text(
+            desc,
+            style: TextStyle(
+              fontSize: 10,
+              color: _kDarkText.withOpacity(0.7),
+              height: 1.4,
+            ),
+          ),
         ],
       ),
     );
@@ -1503,10 +2069,20 @@ class _PlatformComparisonTab extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.cleaning_services, color: Colors.red.shade700, size: 20),
+              Icon(
+                Icons.cleaning_services,
+                color: Colors.red.shade700,
+                size: 20,
+              ),
               SizedBox(width: 8),
-              Text('Resource Cleanup on destroy()',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: _kDarkText)),
+              Text(
+                'Resource Cleanup on destroy()',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _kDarkText,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -1539,22 +2115,40 @@ class _PlatformComparisonTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(platform, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color)),
+        Text(
+          platform,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: color,
+          ),
+        ),
         SizedBox(height: 4),
-        ...steps.map((step) => Padding(
-              padding: EdgeInsets.only(left: 16, bottom: 3),
-              child: Row(
-                children: [
-                  Container(
-                    width: 5,
-                    height: 5,
-                    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+        ...steps.map(
+          (step) => Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 3),
+            child: Row(
+              children: [
+                Container(
+                  width: 5,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
                   ),
-                  SizedBox(width: 8),
-                  Text(step, style: TextStyle(fontSize: 11, color: _kDarkText.withOpacity(0.7))),
-                ],
-              ),
-            )),
+                ),
+                SizedBox(width: 8),
+                Text(
+                  step,
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _kDarkText.withOpacity(0.7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

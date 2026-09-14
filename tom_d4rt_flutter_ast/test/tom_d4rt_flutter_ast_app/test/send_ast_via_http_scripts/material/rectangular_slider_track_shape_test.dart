@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 dynamic build(BuildContext context) {
   print('RectangularSliderTrackShape Demo - Building widget tree');
   print('Testing rectangular slider track shape that draws a rectangle');
-  
+
   var sliderValue1 = 0.5;
   var sliderValue2 = 0.3;
   var sliderValue3 = 0.7;
@@ -16,13 +16,13 @@ dynamic build(BuildContext context) {
   var sliderValue8 = 0.55;
   var sliderValue9 = 0.15;
   var sliderValue10 = 0.9;
-  
+
   print('Initialized slider values for demonstrations');
-  
+
   var rectangularTrackShape = RectangularSliderTrackShape();
   print('Created RectangularSliderTrackShape instance');
   print('Track shape type: ${rectangularTrackShape.runtimeType}');
-  
+
   Widget buildSectionHeader(String title, String subtitle) {
     print('Building section header: $title');
     return Container(
@@ -47,17 +47,18 @@ dynamic build(BuildContext context) {
           SizedBox(height: 4.0),
           Text(
             subtitle,
-            style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.white70,
-            ),
+            style: TextStyle(fontSize: 14.0, color: Colors.white70),
           ),
         ],
       ),
     );
   }
-  
-  Widget buildSliderCard(String label, Widget sliderWidget, String description) {
+
+  Widget buildSliderCard(
+    String label,
+    Widget sliderWidget,
+    String description,
+  ) {
     print('Building slider card: $label');
     return Card(
       elevation: 4.0,
@@ -80,18 +81,20 @@ dynamic build(BuildContext context) {
             SizedBox(height: 8.0),
             Text(
               description,
-              style: TextStyle(
-                fontSize: 12.0,
-                color: Colors.grey.shade600,
-              ),
+              style: TextStyle(fontSize: 12.0, color: Colors.grey.shade600),
             ),
           ],
         ),
       ),
     );
   }
-  
-  Widget buildComparisonRow(String shape1Name, Widget slider1, String shape2Name, Widget slider2) {
+
+  Widget buildComparisonRow(
+    String shape1Name,
+    Widget slider1,
+    String shape2Name,
+    Widget slider2,
+  ) {
     print('Building comparison row: $shape1Name vs $shape2Name');
     return Container(
       padding: EdgeInsets.all(12.0),
@@ -147,7 +150,7 @@ dynamic build(BuildContext context) {
       ),
     );
   }
-  
+
   Widget buildInfoBox(String title, String content) {
     print('Building info box: $title');
     return Container(
@@ -179,18 +182,15 @@ dynamic build(BuildContext context) {
           SizedBox(height: 8.0),
           Text(
             content,
-            style: TextStyle(
-              fontSize: 13.0,
-              color: Colors.blue.shade900,
-            ),
+            style: TextStyle(fontSize: 13.0, color: Colors.blue.shade900),
           ),
         ],
       ),
     );
   }
-  
+
   print('Building Section 1: Basic Sliders with Rectangular Track');
-  
+
   var basicSlider1 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -203,7 +203,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var basicSlider2 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -218,7 +218,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var basicSlider3 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -234,7 +234,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var basicSlider4 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -247,9 +247,9 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   print('Building Section 2: Color Variations');
-  
+
   var colorSlider1 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -265,7 +265,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var colorSlider2 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -281,7 +281,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var colorSlider3 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -297,7 +297,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var colorSlider4 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -313,7 +313,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var colorSlider5 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -329,7 +329,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var colorSlider6 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -345,9 +345,9 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   print('Building Section 3: Track Height Demos');
-  
+
   var heightSlider1 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -362,7 +362,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var heightSlider2 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -377,7 +377,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var heightSlider3 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -392,7 +392,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var heightSlider4 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -407,7 +407,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var heightSlider5 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -422,7 +422,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var heightSlider6 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -437,9 +437,9 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   print('Building Section 4: SliderTheme Integration');
-  
+
   var themedSlider1 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -457,7 +457,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var themedSlider2 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -479,7 +479,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var themedSlider3 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -498,7 +498,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var themedSlider4 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -507,7 +507,10 @@ dynamic build(BuildContext context) {
       inactiveTrackColor: Colors.pink.shade50,
       thumbColor: Colors.pink,
       overlayColor: Colors.pink.withAlpha(30),
-      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0, disabledThumbRadius: 8.0),
+      thumbShape: RoundSliderThumbShape(
+        enabledThumbRadius: 10.0,
+        disabledThumbRadius: 8.0,
+      ),
     ),
     child: Slider(
       value: 0.35,
@@ -516,7 +519,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var disabledThemedSlider = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -525,14 +528,11 @@ dynamic build(BuildContext context) {
       disabledInactiveTrackColor: Colors.grey.shade200,
       disabledThumbColor: Colors.grey.shade400,
     ),
-    child: Slider(
-      value: 0.5,
-      onChanged: null,
-    ),
+    child: Slider(value: 0.5, onChanged: null),
   );
-  
+
   print('Building Section 5: Comparison with Other Track Shapes');
-  
+
   var rectangularCompare = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -547,7 +547,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var roundedCompare = SliderTheme(
     data: SliderThemeData(
       trackShape: RoundedRectSliderTrackShape(),
@@ -562,7 +562,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var rectangularThin = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -577,7 +577,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var roundedThin = SliderTheme(
     data: SliderThemeData(
       trackShape: RoundedRectSliderTrackShape(),
@@ -592,7 +592,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var rectangularThick = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -607,7 +607,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var roundedThick = SliderTheme(
     data: SliderThemeData(
       trackShape: RoundedRectSliderTrackShape(),
@@ -622,9 +622,9 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   print('Building Section 6: Custom Configurations');
-  
+
   var customSlider1 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -643,7 +643,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var customSlider2 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -665,7 +665,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var customSlider3 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -685,7 +685,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var customSlider4 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -703,7 +703,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var customSlider5 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -721,7 +721,7 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   var customSlider6 = SliderTheme(
     data: SliderThemeData(
       trackShape: RectangularSliderTrackShape(),
@@ -738,9 +738,9 @@ dynamic build(BuildContext context) {
       },
     ),
   );
-  
+
   print('Building additional demonstrations');
-  
+
   var gradientBgSlider = Container(
     decoration: BoxDecoration(
       gradient: LinearGradient(
@@ -767,7 +767,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  
+
   var darkModeSlider = Container(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
@@ -791,7 +791,7 @@ dynamic build(BuildContext context) {
       ),
     ),
   );
-  
+
   var multipleSliderColumn = Container(
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
@@ -801,7 +801,10 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Volume', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+        Text(
+          'Volume',
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+        ),
         SliderTheme(
           data: SliderThemeData(
             trackShape: RectangularSliderTrackShape(),
@@ -817,7 +820,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Text('Brightness', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+        Text(
+          'Brightness',
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+        ),
         SliderTheme(
           data: SliderThemeData(
             trackShape: RectangularSliderTrackShape(),
@@ -833,7 +839,10 @@ dynamic build(BuildContext context) {
           ),
         ),
         SizedBox(height: 8.0),
-        Text('Contrast', style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700)),
+        Text(
+          'Contrast',
+          style: TextStyle(fontSize: 12.0, color: Colors.grey.shade700),
+        ),
         SliderTheme(
           data: SliderThemeData(
             trackShape: RectangularSliderTrackShape(),
@@ -851,9 +860,9 @@ dynamic build(BuildContext context) {
       ],
     ),
   );
-  
+
   print('Building main layout');
-  
+
   return SingleChildScrollView(
     padding: EdgeInsets.all(16.0),
     child: Column(
@@ -884,205 +893,250 @@ dynamic build(BuildContext context) {
               SizedBox(height: 8.0),
               Text(
                 'A slider track shape that draws rectangular track',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white70,
-                ),
+                style: TextStyle(fontSize: 16.0, color: Colors.white70),
               ),
             ],
           ),
         ),
-        
+
         buildInfoBox(
           'About RectangularSliderTrackShape',
-          'RectangularSliderTrackShape creates a slider track with sharp corners instead of rounded ends. It is useful for designs that require a more geometric appearance.'
+          'RectangularSliderTrackShape creates a slider track with sharp corners instead of rounded ends. It is useful for designs that require a more geometric appearance.',
         ),
-        
+
         buildSectionHeader(
           'Section 1: Basic Sliders with Rectangular Track',
-          'Demonstrating basic rectangular track sliders with different heights'
+          'Demonstrating basic rectangular track sliders with different heights',
         ),
-        
+
         buildSliderCard(
           'Default Rectangular Track (4.0 height)',
           basicSlider1,
           'Basic slider with rectangular track shape and default styling',
         ),
-        
+
         buildSliderCard(
           'Rectangular Track (6.0 height)',
           basicSlider2,
           'Slider with slightly thicker rectangular track',
         ),
-        
+
         buildSliderCard(
           'Rectangular Track with Divisions',
           basicSlider3,
           'Slider with rectangular track and 10 divisions for stepped control',
         ),
-        
+
         buildSliderCard(
           'Thin Rectangular Track (2.0 height)',
           basicSlider4,
           'Minimal height rectangular track slider',
         ),
-        
+
         buildSectionHeader(
           'Section 2: Color Variations',
-          'Rectangular track sliders with various color themes'
+          'Rectangular track sliders with various color themes',
         ),
-        
-        buildSliderCard('Red Theme', colorSlider1, 'Red colored rectangular track slider'),
-        buildSliderCard('Green Theme', colorSlider2, 'Green colored rectangular track slider'),
-        buildSliderCard('Purple Theme', colorSlider3, 'Purple colored rectangular track slider'),
-        buildSliderCard('Orange Theme', colorSlider4, 'Orange colored rectangular track slider'),
-        buildSliderCard('Teal Theme', colorSlider5, 'Teal colored rectangular track slider'),
-        buildSliderCard('Indigo Theme', colorSlider6, 'Indigo colored rectangular track slider'),
-        
+
+        buildSliderCard(
+          'Red Theme',
+          colorSlider1,
+          'Red colored rectangular track slider',
+        ),
+        buildSliderCard(
+          'Green Theme',
+          colorSlider2,
+          'Green colored rectangular track slider',
+        ),
+        buildSliderCard(
+          'Purple Theme',
+          colorSlider3,
+          'Purple colored rectangular track slider',
+        ),
+        buildSliderCard(
+          'Orange Theme',
+          colorSlider4,
+          'Orange colored rectangular track slider',
+        ),
+        buildSliderCard(
+          'Teal Theme',
+          colorSlider5,
+          'Teal colored rectangular track slider',
+        ),
+        buildSliderCard(
+          'Indigo Theme',
+          colorSlider6,
+          'Indigo colored rectangular track slider',
+        ),
+
         buildSectionHeader(
           'Section 3: Track Height Demonstrations',
-          'Comparing different track heights with rectangular shape'
+          'Comparing different track heights with rectangular shape',
         ),
-        
-        buildSliderCard('Track Height: 2.0', heightSlider1, 'Extra thin rectangular track'),
-        buildSliderCard('Track Height: 4.0', heightSlider2, 'Thin rectangular track (default-like)'),
-        buildSliderCard('Track Height: 8.0', heightSlider3, 'Medium rectangular track'),
-        buildSliderCard('Track Height: 12.0', heightSlider4, 'Thick rectangular track'),
-        buildSliderCard('Track Height: 16.0', heightSlider5, 'Extra thick rectangular track'),
-        buildSliderCard('Track Height: 20.0', heightSlider6, 'Maximum thickness rectangular track'),
-        
+
+        buildSliderCard(
+          'Track Height: 2.0',
+          heightSlider1,
+          'Extra thin rectangular track',
+        ),
+        buildSliderCard(
+          'Track Height: 4.0',
+          heightSlider2,
+          'Thin rectangular track (default-like)',
+        ),
+        buildSliderCard(
+          'Track Height: 8.0',
+          heightSlider3,
+          'Medium rectangular track',
+        ),
+        buildSliderCard(
+          'Track Height: 12.0',
+          heightSlider4,
+          'Thick rectangular track',
+        ),
+        buildSliderCard(
+          'Track Height: 16.0',
+          heightSlider5,
+          'Extra thick rectangular track',
+        ),
+        buildSliderCard(
+          'Track Height: 20.0',
+          heightSlider6,
+          'Maximum thickness rectangular track',
+        ),
+
         buildSectionHeader(
           'Section 4: SliderTheme Integration',
-          'Combining rectangular track with various SliderTheme customizations'
+          'Combining rectangular track with various SliderTheme customizations',
         ),
-        
+
         buildSliderCard(
           'Custom Thumb Size',
           themedSlider1,
           'Rectangular track with enlarged thumb (12.0 radius)',
         ),
-        
+
         buildSliderCard(
           'With Value Indicator',
           themedSlider2,
           'Rectangular track with paddle value indicator',
         ),
-        
+
         buildSliderCard(
           'With Tick Marks',
           themedSlider3,
           'Rectangular track with visible tick marks and divisions',
         ),
-        
+
         buildSliderCard(
           'Pink Theme with Custom Overlay',
           themedSlider4,
           'Rectangular track with custom overlay appearance',
         ),
-        
+
         buildSliderCard(
           'Disabled State',
           disabledThemedSlider,
           'Rectangular track slider in disabled state',
         ),
-        
+
         buildSectionHeader(
           'Section 5: Comparison with Other Track Shapes',
-          'Visual comparison between rectangular and rounded track shapes'
+          'Visual comparison between rectangular and rounded track shapes',
         ),
-        
+
         buildComparisonRow(
           'Rectangular Track (Standard)',
           rectangularCompare,
           'Rounded Track (Standard)',
           roundedCompare,
         ),
-        
+
         buildComparisonRow(
           'Rectangular Track (Thin)',
           rectangularThin,
           'Rounded Track (Thin)',
           roundedThin,
         ),
-        
+
         buildComparisonRow(
           'Rectangular Track (Thick)',
           rectangularThick,
           'Rounded Track (Thick)',
           roundedThick,
         ),
-        
+
         buildInfoBox(
           'Shape Comparison Notes',
-          'The rectangular track shape has sharp 90-degree corners at the ends, while the rounded track shape has smooth semicircular ends. Choose based on your design requirements.'
+          'The rectangular track shape has sharp 90-degree corners at the ends, while the rounded track shape has smooth semicircular ends. Choose based on your design requirements.',
         ),
-        
+
         buildSectionHeader(
           'Section 6: Custom Configurations',
-          'Advanced customizations for rectangular track sliders'
+          'Advanced customizations for rectangular track sliders',
         ),
-        
+
         buildSliderCard(
           'Blue Theme with Large Overlay',
           customSlider1,
           'Custom blue slider with 24.0 overlay radius',
         ),
-        
+
         buildSliderCard(
           'Green with Value Indicator',
           customSlider2,
           'Custom green slider showing value on drag',
         ),
-        
+
         buildSliderCard(
           'Red with 8 Divisions',
           customSlider3,
           'Bold red slider with stepped divisions',
         ),
-        
+
         buildSliderCard(
           'Purple Compact',
           customSlider4,
           'Compact purple slider with small thumb',
         ),
-        
+
         buildSliderCard(
           'Orange Extra Large',
           customSlider5,
           'Extra large slider with 16.0 thumb radius',
         ),
-        
+
         buildSliderCard(
           'Cyan Minimal',
           customSlider6,
           'Minimal cyan slider with small footprint',
         ),
-        
+
         buildSectionHeader(
           'Additional Demonstrations',
-          'Special use cases and styling combinations'
+          'Special use cases and styling combinations',
         ),
-        
+
         buildSliderCard(
           'Gradient Background Container',
           gradientBgSlider,
           'Rectangular track slider on gradient background',
         ),
-        
+
         buildSliderCard(
           'Dark Mode Style',
           darkModeSlider,
           'Rectangular track slider styled for dark interfaces',
         ),
-        
+
         buildSliderCard(
           'Multiple Sliders Group',
           multipleSliderColumn,
           'Group of rectangular track sliders for settings panel',
         ),
-        
+
         SizedBox(height: 32.0),
-        
+
         Container(
           width: double.infinity,
           padding: EdgeInsets.all(16.0),
@@ -1106,10 +1160,7 @@ dynamic build(BuildContext context) {
                 'RectangularSliderTrackShape provides a clean geometric look for sliders. '
                 'It pairs well with modern, minimalist design systems and works '
                 'effectively with various track heights and color schemes.',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.grey.shade700,
-                ),
+                style: TextStyle(fontSize: 14.0, color: Colors.grey.shade700),
               ),
               SizedBox(height: 12.0),
               Text(
@@ -1136,7 +1187,7 @@ dynamic build(BuildContext context) {
             ],
           ),
         ),
-        
+
         SizedBox(height: 24.0),
       ],
     ),

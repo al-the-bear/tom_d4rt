@@ -92,7 +92,11 @@ Widget _buildPageHeader() {
     padding: const EdgeInsets.all(20),
     decoration: BoxDecoration(
       gradient: const LinearGradient(
-        colors: <Color>[Color(0xFF1A237E), Color(0xFF3949AB), Color(0xFF5C6BC0)],
+        colors: <Color>[
+          Color(0xFF1A237E),
+          Color(0xFF3949AB),
+          Color(0xFF5C6BC0),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -255,12 +259,17 @@ Widget _buildSection1HeroExplainer() {
           'title and other foreground elements always interpolate the same '
           'way. The mode selects how aggressively the background follows the '
           'collapse animation.',
-          style: TextStyle(fontSize: 13.5, height: 1.45, color: Color(0xFF2A3046)),
+          style: TextStyle(
+            fontSize: 13.5,
+            height: 1.45,
+            color: Color(0xFF2A3046),
+          ),
         ),
         const SizedBox(height: 14),
         _explainerRow(
           modeName: 'parallax',
-          tagline: 'Background drifts slower than the scroll — a soft "depth" '
+          tagline:
+              'Background drifts slower than the scroll — a soft "depth" '
               'illusion. This is the default.',
           color: const Color(0xFF1565C0),
           expandedOffset: 0,
@@ -269,7 +278,8 @@ Widget _buildSection1HeroExplainer() {
         const SizedBox(height: 12),
         _explainerRow(
           modeName: 'pin',
-          tagline: 'Background sticks to the bottom of the flexible space '
+          tagline:
+              'Background sticks to the bottom of the flexible space '
               'and seems to "stay put" while the bar shrinks.',
           color: const Color(0xFF6A1B9A),
           expandedOffset: 0,
@@ -278,7 +288,8 @@ Widget _buildSection1HeroExplainer() {
         const SizedBox(height: 12),
         _explainerRow(
           modeName: 'none',
-          tagline: 'Background scrolls one-to-one with content. Visually it '
+          tagline:
+              'Background scrolls one-to-one with content. Visually it '
               'simply slides upward off the screen.',
           color: const Color(0xFFB71C1C),
           expandedOffset: 0,
@@ -418,22 +429,21 @@ Widget _buildSection2Parallax() {
                       'Parallax sky',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    background: _buildSkyBackground(
-                      const <Color>[
-                        Color(0xFF0D47A1),
-                        Color(0xFF1976D2),
-                        Color(0xFF42A5F5),
-                        Color(0xFFBBDEFB),
-                      ],
-                      drawSun: true,
-                    ),
+                    background: _buildSkyBackground(const <Color>[
+                      Color(0xFF0D47A1),
+                      Color(0xFF1976D2),
+                      Color(0xFF42A5F5),
+                      Color(0xFFBBDEFB),
+                    ], drawSun: true),
                   ),
                 ),
-                SliverList.list(children: _decorativeTiles(
-                  baseColor: const Color(0xFF1976D2),
-                  count: 12,
-                  prefix: 'Cloud',
-                )),
+                SliverList.list(
+                  children: _decorativeTiles(
+                    baseColor: const Color(0xFF1976D2),
+                    count: 12,
+                    prefix: 'Cloud',
+                  ),
+                ),
               ],
             ),
           ),
@@ -443,7 +453,11 @@ Widget _buildSection2Parallax() {
           'Implementation: FlexibleSpaceBar(collapseMode: CollapseMode.parallax, '
           'background: <gradient sky>). The default is parallax — you usually '
           'do not need to specify the parameter unless you want pin or none.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -473,7 +487,11 @@ Widget _buildSkyBackground(List<Color> colors, {bool drawSun = false}) {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: const RadialGradient(
-                colors: <Color>[Color(0xFFFFF59D), Color(0xFFFFEE58), Color(0xFFFBC02D)],
+                colors: <Color>[
+                  Color(0xFFFFF59D),
+                  Color(0xFFFFEE58),
+                  Color(0xFFFBC02D),
+                ],
               ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
@@ -543,10 +561,7 @@ List<Widget> _decorativeTiles({
               ),
               child: Text(
                 '${i + 1}',
-                style: TextStyle(
-                  color: baseColor,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: baseColor, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(width: 12),
@@ -616,11 +631,13 @@ Widget _buildSection3Pin() {
                     background: _buildAuroraBackground(),
                   ),
                 ),
-                SliverList.list(children: _decorativeTiles(
-                  baseColor: const Color(0xFF6A1B9A),
-                  count: 12,
-                  prefix: 'Track',
-                )),
+                SliverList.list(
+                  children: _decorativeTiles(
+                    baseColor: const Color(0xFF6A1B9A),
+                    count: 12,
+                    prefix: 'Track',
+                  ),
+                ),
               ],
             ),
           ),
@@ -630,7 +647,11 @@ Widget _buildSection3Pin() {
           'Pin is great when the artwork is the "anchor" of the screen and '
           'should not appear to move at all. Album covers, hero portraits, '
           'and product close-ups all benefit from this mode.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -644,7 +665,11 @@ Widget _buildAuroraBackground() {
       const DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: <Color>[Color(0xFF311B92), Color(0xFF6A1B9A), Color(0xFFAD1457)],
+            colors: <Color>[
+              Color(0xFF311B92),
+              Color(0xFF6A1B9A),
+              Color(0xFFAD1457),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -749,11 +774,13 @@ Widget _buildSection4None() {
                     background: _buildSunsetBackground(),
                   ),
                 ),
-                SliverList.list(children: _decorativeTiles(
-                  baseColor: const Color(0xFFB71C1C),
-                  count: 12,
-                  prefix: 'Note',
-                )),
+                SliverList.list(
+                  children: _decorativeTiles(
+                    baseColor: const Color(0xFFB71C1C),
+                    count: 12,
+                    prefix: 'Note',
+                  ),
+                ),
               ],
             ),
           ),
@@ -763,7 +790,11 @@ Widget _buildSection4None() {
           'CollapseMode.none is the right pick when you want the background '
           'art to "fade away" with the rest of the content rather than '
           'persist or drift. Useful for transient hero artwork.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -800,7 +831,11 @@ Widget _buildSunsetBackground() {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: const RadialGradient(
-                colors: <Color>[Color(0xFFFFF8E1), Color(0xFFFFD54F), Color(0xFFFF6F00)],
+                colors: <Color>[
+                  Color(0xFFFFF8E1),
+                  Color(0xFFFFD54F),
+                  Color(0xFFFF6F00),
+                ],
               ),
               boxShadow: <BoxShadow>[
                 BoxShadow(
@@ -918,7 +953,11 @@ Widget _buildSection5SideBySide() {
           'Tip: scroll the leftmost panel first to see parallax. Then scroll '
           'the middle one — pin keeps the artwork glued. Then the rightmost '
           'one — none simply slides off.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -977,22 +1016,24 @@ Widget _miniComparison({
                   background: _buildMiniBackground(color),
                 ),
               ),
-              SliverList.list(children: <Widget>[
-                for (int i = 0; i < 8; i++)
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: color.withOpacity(0.18)),
+              SliverList.list(
+                children: <Widget>[
+                  for (int i = 0; i < 8; i++)
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: color.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: color.withOpacity(0.18)),
+                      ),
+                      child: Text(
+                        'Item ${i + 1}',
+                        style: const TextStyle(fontSize: 11),
+                      ),
                     ),
-                    child: Text(
-                      'Item ${i + 1}',
-                      style: const TextStyle(fontSize: 11),
-                    ),
-                  ),
-              ]),
+                ],
+              ),
             ],
           ),
         ),
@@ -1084,56 +1125,58 @@ Widget _buildSection6CityHeaderRecipe() {
                     background: _buildCitySkyline(),
                   ),
                 ),
-                SliverList.list(children: <Widget>[
-                  _cityInfoRow(
-                    icon: Icons.location_on,
-                    title: 'Downtown district',
-                    subtitle: '12 venues, 4 transit hubs',
-                    color: const Color(0xFF455A64),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.local_cafe,
-                    title: 'Coffee corners',
-                    subtitle: 'Hand-picked, micro-roasters',
-                    color: const Color(0xFF6D4C41),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.theater_comedy,
-                    title: 'Live shows tonight',
-                    subtitle: '7 events, 3 sold out',
-                    color: const Color(0xFFAD1457),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.train,
-                    title: 'Transit',
-                    subtitle: 'Subway runs every 4 minutes',
-                    color: const Color(0xFF1565C0),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.park,
-                    title: 'Green spaces',
-                    subtitle: '5 parks within walking distance',
-                    color: const Color(0xFF2E7D32),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.museum,
-                    title: 'Galleries',
-                    subtitle: 'Free admission Wednesdays',
-                    color: const Color(0xFF6A1B9A),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.restaurant,
-                    title: 'Food halls',
-                    subtitle: 'Open until 02:00',
-                    color: const Color(0xFFF57F17),
-                  ),
-                  _cityInfoRow(
-                    icon: Icons.directions_bike,
-                    title: 'Bike share',
-                    subtitle: '420 stations across town',
-                    color: const Color(0xFF00838F),
-                  ),
-                ]),
+                SliverList.list(
+                  children: <Widget>[
+                    _cityInfoRow(
+                      icon: Icons.location_on,
+                      title: 'Downtown district',
+                      subtitle: '12 venues, 4 transit hubs',
+                      color: const Color(0xFF455A64),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.local_cafe,
+                      title: 'Coffee corners',
+                      subtitle: 'Hand-picked, micro-roasters',
+                      color: const Color(0xFF6D4C41),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.theater_comedy,
+                      title: 'Live shows tonight',
+                      subtitle: '7 events, 3 sold out',
+                      color: const Color(0xFFAD1457),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.train,
+                      title: 'Transit',
+                      subtitle: 'Subway runs every 4 minutes',
+                      color: const Color(0xFF1565C0),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.park,
+                      title: 'Green spaces',
+                      subtitle: '5 parks within walking distance',
+                      color: const Color(0xFF2E7D32),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.museum,
+                      title: 'Galleries',
+                      subtitle: 'Free admission Wednesdays',
+                      color: const Color(0xFF6A1B9A),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.restaurant,
+                      title: 'Food halls',
+                      subtitle: 'Open until 02:00',
+                      color: const Color(0xFFF57F17),
+                    ),
+                    _cityInfoRow(
+                      icon: Icons.directions_bike,
+                      title: 'Bike share',
+                      subtitle: '420 stations across town',
+                      color: const Color(0xFF00838F),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1143,7 +1186,11 @@ Widget _buildSection6CityHeaderRecipe() {
           'Tip: parallax pairs especially well with skylines — the slow drift '
           'enhances the sense of looking out of a high window. Combine with '
           'pinned: true so the bar always remains visible.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -1228,7 +1275,12 @@ Widget _buildCitySkyline() {
   );
 }
 
-Widget _building(double height, double width, Color color, {bool withWindows = false}) {
+Widget _building(
+  double height,
+  double width,
+  Color color, {
+  bool withWindows = false,
+}) {
   final List<Widget> windows = <Widget>[];
   if (withWindows) {
     final int rows = (height / 14).floor().clamp(1, 8);
@@ -1237,14 +1289,16 @@ Widget _building(double height, double width, Color color, {bool withWindows = f
       final List<Widget> rowChildren = <Widget>[];
       for (int c = 0; c < cols; c++) {
         final bool lit = ((r * 3 + c * 5 + width.toInt()) % 4) != 0;
-        rowChildren.add(Container(
-          width: 3,
-          height: 4,
-          margin: const EdgeInsets.all(1),
-          color: lit
-              ? const Color(0xFFFFE082).withOpacity(0.85)
-              : Colors.transparent,
-        ));
+        rowChildren.add(
+          Container(
+            width: 3,
+            height: 4,
+            margin: const EdgeInsets.all(1),
+            color: lit
+                ? const Color(0xFFFFE082).withOpacity(0.85)
+                : Colors.transparent,
+          ),
+        );
       }
       windows.add(Row(mainAxisSize: MainAxisSize.min, children: rowChildren));
     }
@@ -1311,10 +1365,7 @@ Widget _cityInfoRow({
               const SizedBox(height: 2),
               Text(
                 subtitle,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Color(0xFF54607A),
-                ),
+                style: const TextStyle(fontSize: 12, color: Color(0xFF54607A)),
               ),
             ],
           ),
@@ -1363,14 +1414,16 @@ Widget _buildSection7MusicAlbumRecipe() {
                     background: _buildAlbumCover(),
                   ),
                 ),
-                SliverList.list(children: <Widget>[
-                  for (int i = 0; i < 10; i++)
-                    _trackRow(
-                      number: i + 1,
-                      title: _albumTrack(i).$1,
-                      duration: _albumTrack(i).$2,
-                    ),
-                ]),
+                SliverList.list(
+                  children: <Widget>[
+                    for (int i = 0; i < 10; i++)
+                      _trackRow(
+                        number: i + 1,
+                        title: _albumTrack(i).$1,
+                        duration: _albumTrack(i).$2,
+                      ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1379,7 +1432,11 @@ Widget _buildSection7MusicAlbumRecipe() {
         const Text(
           'Pin keeps the cover art rock-solid while the track list scrolls — '
           'a hallmark of Spotify, Apple Music and YouTube Music album pages.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -1485,18 +1542,10 @@ Widget _trackRow({
             ),
           ),
         ),
-        Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(fontSize: 14),
-          ),
-        ),
+        Expanded(child: Text(title, style: const TextStyle(fontSize: 14))),
         Text(
           duration,
-          style: const TextStyle(
-            color: Color(0xFF54607A),
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Color(0xFF54607A), fontSize: 12),
         ),
       ],
     ),
@@ -1546,26 +1595,33 @@ Widget _buildSection8SettingsRecipe() {
                     background: _buildSettingsBackground(),
                   ),
                 ),
-                SliverList.list(children: <Widget>[
-                  _settingsGroup('Account', <Widget>[
-                    _settingsTile(Icons.person, 'Profile', 'Tom Bear'),
-                    _settingsTile(Icons.email, 'Email',
-                        'tom@example.dev'),
-                    _settingsTile(Icons.lock, 'Password',
-                        'Last changed 12 days ago'),
-                  ]),
-                  _settingsGroup('Preferences', <Widget>[
-                    _settingsTile(Icons.brightness_6, 'Theme', 'System'),
-                    _settingsTile(Icons.language, 'Language', 'English (UK)'),
-                    _settingsTile(Icons.notifications, 'Notifications',
-                        'On — sounds disabled'),
-                  ]),
-                  _settingsGroup('About', <Widget>[
-                    _settingsTile(Icons.info, 'Version', '1.4.2'),
-                    _settingsTile(Icons.gavel, 'Licenses', 'Open-source'),
-                  ]),
-                  const SizedBox(height: 16),
-                ]),
+                SliverList.list(
+                  children: <Widget>[
+                    _settingsGroup('Account', <Widget>[
+                      _settingsTile(Icons.person, 'Profile', 'Tom Bear'),
+                      _settingsTile(Icons.email, 'Email', 'tom@example.dev'),
+                      _settingsTile(
+                        Icons.lock,
+                        'Password',
+                        'Last changed 12 days ago',
+                      ),
+                    ]),
+                    _settingsGroup('Preferences', <Widget>[
+                      _settingsTile(Icons.brightness_6, 'Theme', 'System'),
+                      _settingsTile(Icons.language, 'Language', 'English (UK)'),
+                      _settingsTile(
+                        Icons.notifications,
+                        'Notifications',
+                        'On — sounds disabled',
+                      ),
+                    ]),
+                    _settingsGroup('About', <Widget>[
+                      _settingsTile(Icons.info, 'Version', '1.4.2'),
+                      _settingsTile(Icons.gavel, 'Licenses', 'Open-source'),
+                    ]),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ],
             ),
           ),
@@ -1575,7 +1631,11 @@ Widget _buildSection8SettingsRecipe() {
           'On platforms with bouncing physics, pulling down past the top will '
           'now zoom and blur the leaf-pattern background — a delightful "give" '
           'effect that complements CollapseMode.none.',
-          style: TextStyle(fontSize: 12.5, height: 1.4, color: Color(0xFF54607A)),
+          style: TextStyle(
+            fontSize: 12.5,
+            height: 1.4,
+            color: Color(0xFF54607A),
+          ),
         ),
       ],
     ),
@@ -1687,19 +1747,22 @@ Widget _buildSection9ReferenceTable() {
     <String, String>{
       'name': 'parallax',
       'index': '0',
-      'when': 'Default. Cinematic depth. Use for landscape headers, hero '
+      'when':
+          'Default. Cinematic depth. Use for landscape headers, hero '
           'photography, weather screens, dashboards.',
     },
     <String, String>{
       'name': 'pin',
       'index': '1',
-      'when': 'Use when artwork is the anchor: album covers, product close-'
+      'when':
+          'Use when artwork is the anchor: album covers, product close-'
           'ups, profile portraits, single-character heroes.',
     },
     <String, String>{
       'name': 'none',
       'index': '2',
-      'when': 'Use for transient or generic backgrounds you are happy to '
+      'when':
+          'Use for transient or generic backgrounds you are happy to '
           'see slide off — settings pages, dense content lists.',
     },
   ];
@@ -1762,47 +1825,49 @@ Widget _buildSection9ReferenceTable() {
               const SizedBox(height: 8),
               const Divider(height: 1, color: Color(0xFFFFCC80)),
               const SizedBox(height: 8),
-              ...rows.map((Map<String, String> row) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          width: 90,
-                          child: Text(
-                            row['name']!,
-                            style: const TextStyle(
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12.5,
-                              color: Color(0xFF1A1F2E),
-                            ),
+              ...rows.map(
+                (Map<String, String> row) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 90,
+                        child: Text(
+                          row['name']!,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12.5,
+                            color: Color(0xFF1A1F2E),
                           ),
                         ),
-                        SizedBox(
-                          width: 50,
-                          child: Text(
-                            row['index']!,
-                            style: const TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 12.5,
-                              color: Color(0xFF54607A),
-                            ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: Text(
+                          row['index']!,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                            color: Color(0xFF54607A),
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            row['when']!,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              height: 1.4,
-                              color: Color(0xFF2A3046),
-                            ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          row['when']!,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            height: 1.4,
+                            color: Color(0xFF2A3046),
                           ),
                         ),
-                      ],
-                    ),
-                  )),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

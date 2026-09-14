@@ -72,10 +72,7 @@ dynamic build(BuildContext context) {
                 ),
                 Text(
                   'Direct dart:ui Image rendering',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 14.0,
-                  ),
+                  style: TextStyle(color: Colors.white70, fontSize: 14.0),
                 ),
               ],
             ),
@@ -213,8 +210,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.lightbulb_outline,
-                  color: Colors.amber.shade700, size: 20.0),
+              Icon(
+                Icons.lightbulb_outline,
+                color: Colors.amber.shade700,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -422,31 +422,24 @@ dynamic build(BuildContext context) {
                 children: [
                   Expanded(
                     child: _buildAlignmentCell(
-                        'topLeft', Alignment.topLeft, true),
+                      'topLeft',
+                      Alignment.topLeft,
+                      true,
+                    ),
                   ),
                   Expanded(
                     child: _buildAlignmentCell(
-                        'topCenter', Alignment.topCenter, false),
+                      'topCenter',
+                      Alignment.topCenter,
+                      false,
+                    ),
                   ),
                   Expanded(
                     child: _buildAlignmentCell(
-                        'topRight', Alignment.topRight, false),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildAlignmentCell(
-                        'centerLeft', Alignment.centerLeft, false),
-                  ),
-                  Expanded(
-                    child: _buildAlignmentCell(
-                        'center', Alignment.center, true),
-                  ),
-                  Expanded(
-                    child: _buildAlignmentCell(
-                        'centerRight', Alignment.centerRight, false),
+                      'topRight',
+                      Alignment.topRight,
+                      false,
+                    ),
                   ),
                 ],
               ),
@@ -454,15 +447,49 @@ dynamic build(BuildContext context) {
                 children: [
                   Expanded(
                     child: _buildAlignmentCell(
-                        'bottomLeft', Alignment.bottomLeft, false),
+                      'centerLeft',
+                      Alignment.centerLeft,
+                      false,
+                    ),
                   ),
                   Expanded(
                     child: _buildAlignmentCell(
-                        'bottomCenter', Alignment.bottomCenter, false),
+                      'center',
+                      Alignment.center,
+                      true,
+                    ),
                   ),
                   Expanded(
                     child: _buildAlignmentCell(
-                        'bottomRight', Alignment.bottomRight, true),
+                      'centerRight',
+                      Alignment.centerRight,
+                      false,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildAlignmentCell(
+                      'bottomLeft',
+                      Alignment.bottomLeft,
+                      false,
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildAlignmentCell(
+                      'bottomCenter',
+                      Alignment.bottomCenter,
+                      false,
+                    ),
+                  ),
+                  Expanded(
+                    child: _buildAlignmentCell(
+                      'bottomRight',
+                      Alignment.bottomRight,
+                      true,
+                    ),
                   ),
                 ],
               ),
@@ -899,8 +926,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.info_outline,
-                  color: Colors.amber.shade700, size: 18.0),
+              Icon(
+                Icons.info_outline,
+                color: Colors.amber.shade700,
+                size: 18.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -953,7 +983,7 @@ dynamic build(BuildContext context) {
           'image',
           'ui.Image?',
           'The dart:ui Image to display. If null, the widget paints '
-          'nothing (transparent). This is the raw bitmap data.',
+              'nothing (transparent). This is the raw bitmap data.',
           Colors.blue,
         ),
         SizedBox(height: 8.0),
@@ -961,7 +991,7 @@ dynamic build(BuildContext context) {
           'width / height',
           'double?',
           'Optional explicit dimensions. If not given, the widget sizes '
-          'itself based on the image dimensions and scale.',
+              'itself based on the image dimensions and scale.',
           Colors.teal,
         ),
         SizedBox(height: 8.0),
@@ -969,7 +999,7 @@ dynamic build(BuildContext context) {
           'scale',
           'double',
           'Image pixel to logical pixel ratio. Default: 1.0. '
-          'Higher values = smaller rendered size.',
+              'Higher values = smaller rendered size.',
           Colors.green,
         ),
         SizedBox(height: 8.0),
@@ -977,7 +1007,7 @@ dynamic build(BuildContext context) {
           'fit',
           'BoxFit?',
           'How the image is inscribed into the available space. '
-          'Same as Image.fit. See BoxFit section above.',
+              'Same as Image.fit. See BoxFit section above.',
           Colors.orange,
         ),
         SizedBox(height: 8.0),
@@ -985,7 +1015,7 @@ dynamic build(BuildContext context) {
           'alignment',
           'Alignment',
           'Where the image is positioned within its bounds. '
-          'Default: Alignment.center.',
+              'Default: Alignment.center.',
           Colors.purple,
         ),
         SizedBox(height: 8.0),
@@ -993,7 +1023,7 @@ dynamic build(BuildContext context) {
           'repeat',
           'ImageRepeat',
           'How to tile the image if it does not fill the bounds. '
-          'Default: ImageRepeat.noRepeat.',
+              'Default: ImageRepeat.noRepeat.',
           Colors.red,
         ),
         SizedBox(height: 8.0),
@@ -1001,7 +1031,7 @@ dynamic build(BuildContext context) {
           'centerSlice',
           'Rect?',
           '9-patch center slice for nine-piece stretching. The center '
-          'of the rectangle is stretched, edges are tiled, corners fixed.',
+              'of the rectangle is stretched, edges are tiled, corners fixed.',
           Colors.brown,
         ),
         SizedBox(height: 8.0),
@@ -1009,7 +1039,7 @@ dynamic build(BuildContext context) {
           'color',
           'Color?',
           'A color to blend with the image using colorBlendMode. '
-          'Used for tinting, overlays, and color effects.',
+              'Used for tinting, overlays, and color effects.',
           Colors.pink,
         ),
         SizedBox(height: 8.0),
@@ -1017,7 +1047,7 @@ dynamic build(BuildContext context) {
           'colorBlendMode',
           'BlendMode?',
           'How to blend color with the image pixels. '
-          'Options: srcOver, multiply, screen, overlay, etc.',
+              'Options: srcOver, multiply, screen, overlay, etc.',
           Colors.indigo,
         ),
         SizedBox(height: 8.0),
@@ -1025,7 +1055,7 @@ dynamic build(BuildContext context) {
           'filterQuality',
           'FilterQuality',
           'Rendering quality for scaled images. Default: low. '
-          'Options: none, low, medium, high.',
+              'Options: none, low, medium, high.',
           Colors.amber,
         ),
         SizedBox(height: 8.0),
@@ -1033,7 +1063,7 @@ dynamic build(BuildContext context) {
           'invertColors',
           'bool',
           'Whether to invert the image colors. Default: false. '
-          'Useful for dark mode or accessibility.',
+              'Useful for dark mode or accessibility.',
           Colors.grey,
         ),
         SizedBox(height: 8.0),
@@ -1041,7 +1071,7 @@ dynamic build(BuildContext context) {
           'isAntiAlias',
           'bool',
           'Whether to apply anti-aliasing to the image edges. '
-          'Default: false. Smoother edges when true.',
+              'Default: false. Smoother edges when true.',
           Colors.lime,
         ),
         SizedBox(height: 8.0),
@@ -1049,7 +1079,7 @@ dynamic build(BuildContext context) {
           'matchTextDirection',
           'bool',
           'Whether to flip the image in RTL layouts. Default: false. '
-          'Useful for directional icons and arrows.',
+              'Useful for directional icons and arrows.',
           Colors.cyan,
         ),
       ],
@@ -1238,7 +1268,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 4.0),
-                  Text('fill + none',
+                  Text(
+                    'fill + none',
                     style: TextStyle(fontSize: 10.0, color: Colors.grey),
                   ),
                 ],
@@ -1265,7 +1296,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 4.0),
-                  Text('blue modulate',
+                  Text(
+                    'blue modulate',
                     style: TextStyle(fontSize: 10.0, color: Colors.grey),
                   ),
                 ],
@@ -1290,7 +1322,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 4.0),
-                  Text('invertColors',
+                  Text(
+                    'invertColors',
                     style: TextStyle(fontSize: 10.0, color: Colors.grey),
                   ),
                 ],
@@ -1314,7 +1347,8 @@ dynamic build(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 4.0),
-                  Text('scale: 2.0',
+                  Text(
+                    'scale: 2.0',
                     style: TextStyle(fontSize: 10.0, color: Colors.grey),
                   ),
                 ],
@@ -1373,7 +1407,8 @@ dynamic build(BuildContext context) {
             children: [
               Expanded(
                 flex: 2,
-                child: Text('Feature',
+                child: Text(
+                  'Feature',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.0,
@@ -1383,7 +1418,8 @@ dynamic build(BuildContext context) {
               ),
               Expanded(
                 flex: 3,
-                child: Text('RawImage',
+                child: Text(
+                  'RawImage',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.0,
@@ -1393,7 +1429,8 @@ dynamic build(BuildContext context) {
               ),
               Expanded(
                 flex: 3,
-                child: Text('Image',
+                child: Text(
+                  'Image',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.0,
@@ -1405,26 +1442,28 @@ dynamic build(BuildContext context) {
           ),
         ),
         _buildVsRow('Input', 'dart:ui Image', 'ImageProvider'),
-        _buildVsRow('Loading',
-            'None — image must exist', 'Built-in load + decode'),
-        _buildVsRow('Caching',
-            'None — manual', 'ImageCache integration'),
-        _buildVsRow('Network',
-            'Not supported', 'Image.network()'),
-        _buildVsRow('Assets',
-            'Not supported', 'Image.asset()'),
-        _buildVsRow('File',
-            'Not supported', 'Image.file()'),
-        _buildVsRow('Memory',
-            'Not supported', 'Image.memory()'),
-        _buildVsRow('Rendering',
-            'Full control', 'Full control (delegates to RawImage)'),
-        _buildVsRow('Library',
-            'widgets (framework)', 'widgets (framework)'),
-        _buildVsRow('Relationship',
-            'Base widget', 'Wrapper around RawImage'),
-        _buildVsRow('Use case',
-            'Pre-existing ui.Image', 'Standard image display'),
+        _buildVsRow(
+          'Loading',
+          'None — image must exist',
+          'Built-in load + decode',
+        ),
+        _buildVsRow('Caching', 'None — manual', 'ImageCache integration'),
+        _buildVsRow('Network', 'Not supported', 'Image.network()'),
+        _buildVsRow('Assets', 'Not supported', 'Image.asset()'),
+        _buildVsRow('File', 'Not supported', 'Image.file()'),
+        _buildVsRow('Memory', 'Not supported', 'Image.memory()'),
+        _buildVsRow(
+          'Rendering',
+          'Full control',
+          'Full control (delegates to RawImage)',
+        ),
+        _buildVsRow('Library', 'widgets (framework)', 'widgets (framework)'),
+        _buildVsRow('Relationship', 'Base widget', 'Wrapper around RawImage'),
+        _buildVsRow(
+          'Use case',
+          'Pre-existing ui.Image',
+          'Standard image display',
+        ),
 
         SizedBox(height: 16.0),
         Container(
@@ -1437,8 +1476,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(Icons.tips_and_updates,
-                  color: Colors.pink.shade600, size: 20.0),
+              Icon(
+                Icons.tips_and_updates,
+                color: Colors.pink.shade600,
+                size: 20.0,
+              ),
               SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1500,9 +1542,7 @@ Widget _buildConceptTag(String label, IconData icon) {
     decoration: BoxDecoration(
       color: Colors.white.withValues(alpha: 0.2),
       borderRadius: BorderRadius.circular(20.0),
-      border: Border.all(
-        color: Colors.lightBlueAccent.withValues(alpha: 0.5),
-      ),
+      border: Border.all(color: Colors.lightBlueAccent.withValues(alpha: 0.5)),
     ),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -1588,8 +1628,11 @@ Widget _buildHierarchyConnector() {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 2.0),
     child: Center(
-      child: Icon(Icons.arrow_downward,
-          color: Colors.grey.shade400, size: 18.0),
+      child: Icon(
+        Icons.arrow_downward,
+        color: Colors.grey.shade400,
+        size: 18.0,
+      ),
     ),
   );
 }
@@ -1626,9 +1669,7 @@ Widget _buildFitDemo(
                 border: Border.all(color: color, width: 1.5),
                 borderRadius: BorderRadius.circular(2.0),
               ),
-              child: Center(
-                child: Icon(Icons.image, color: color, size: 14.0),
-              ),
+              child: Center(child: Icon(Icons.image, color: color, size: 14.0)),
             ),
           ),
         ),
@@ -1654,11 +1695,7 @@ Widget _buildFitDemo(
   );
 }
 
-Widget _buildAlignmentCell(
-  String name,
-  Alignment alignment,
-  bool highlighted,
-) {
+Widget _buildAlignmentCell(String name, Alignment alignment, bool highlighted) {
   return Container(
     height: 60.0,
     decoration: BoxDecoration(
@@ -1684,10 +1721,7 @@ Widget _buildAlignmentCell(
           right: 0.0,
           child: Text(
             name,
-            style: TextStyle(
-              fontSize: 7.0,
-              color: Colors.green.shade700,
-            ),
+            style: TextStyle(fontSize: 7.0, color: Colors.green.shade700),
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
           ),
@@ -1912,10 +1946,7 @@ Widget _buildApiCard(
           width: 6.0,
           height: 6.0,
           margin: EdgeInsets.only(top: 5.0),
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         SizedBox(width: 8.0),
         Expanded(
@@ -1960,11 +1991,7 @@ Widget _buildApiCard(
   );
 }
 
-Widget _buildVsRow(
-  String feature,
-  String rawValue,
-  String imageValue,
-) {
+Widget _buildVsRow(String feature, String rawValue, String imageValue) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 7.0, horizontal: 12.0),
     decoration: BoxDecoration(
@@ -1989,10 +2016,7 @@ Widget _buildVsRow(
           flex: 3,
           child: Text(
             rawValue,
-            style: TextStyle(
-              fontSize: 10.0,
-              color: Colors.deepOrange.shade700,
-            ),
+            style: TextStyle(fontSize: 10.0, color: Colors.deepOrange.shade700),
           ),
         ),
         Expanded(

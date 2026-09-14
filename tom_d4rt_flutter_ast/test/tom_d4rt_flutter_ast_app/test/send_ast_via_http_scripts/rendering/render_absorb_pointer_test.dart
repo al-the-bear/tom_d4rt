@@ -7,28 +7,32 @@ const List<_Profile> _profiles = [
   _Profile(
     id: 'beacon',
     name: 'Beacon Control',
-    description: 'Balanced profile for studying pointer absorption pathways in layered hosts.',
+    description:
+        'Balanced profile for studying pointer absorption pathways in layered hosts.',
     seed: Color(0xFF0284C7),
     brightness: Brightness.light,
   ),
   _Profile(
     id: 'midnight',
     name: 'Midnight Relay',
-    description: 'High-contrast diagnostics profile for event-routing analysis.',
+    description:
+        'High-contrast diagnostics profile for event-routing analysis.',
     seed: Color(0xFF0F172A),
     brightness: Brightness.dark,
   ),
   _Profile(
     id: 'amber',
     name: 'Amber Workshop',
-    description: 'Warm profile for teaching absorption semantics with clear visual contrast.',
+    description:
+        'Warm profile for teaching absorption semantics with clear visual contrast.',
     seed: Color(0xFFB45309),
     brightness: Brightness.light,
   ),
   _Profile(
     id: 'jade',
     name: 'Jade Review',
-    description: 'Readable profile for walkthrough sessions and onboarding demos.',
+    description:
+        'Readable profile for walkthrough sessions and onboarding demos.',
     seed: Color(0xFF059669),
     brightness: Brightness.light,
   ),
@@ -38,22 +42,26 @@ const List<_Scenario> _scenarios = [
   _Scenario(
     id: 'gallery',
     title: 'Gate Gallery',
-    subtitle: 'Visual summary of what RenderAbsorbPointer does in common integration contexts.',
+    subtitle:
+        'Visual summary of what RenderAbsorbPointer does in common integration contexts.',
   ),
   _Scenario(
     id: 'matrix',
     title: 'Absorption Matrix',
-    subtitle: 'Side-by-side comparison of absorbing ON/OFF and mixed configurations.',
+    subtitle:
+        'Side-by-side comparison of absorbing ON/OFF and mixed configurations.',
   ),
   _Scenario(
     id: 'lab',
     title: 'Interaction Lab',
-    subtitle: 'Live pointer experiments with toggles, overlays, and event counters.',
+    subtitle:
+        'Live pointer experiments with toggles, overlays, and event counters.',
   ),
   _Scenario(
     id: 'integrated',
     title: 'Integrated Cockpit',
-    subtitle: 'Comprehensive dashboard combining controls, hosts, metrics, and diagnostics.',
+    subtitle:
+        'Comprehensive dashboard combining controls, hosts, metrics, and diagnostics.',
   ),
   _Scenario(
     id: 'guide',
@@ -66,21 +74,24 @@ const List<_Blueprint> _blueprints = [
   _Blueprint(
     title: 'Modal Safety Shield',
     role: 'blocking',
-    note: 'Absorb pointer input behind a transient modal to prevent accidental interactions.',
+    note:
+        'Absorb pointer input behind a transient modal to prevent accidental interactions.',
     absorbing: true,
     emphasis: 0.84,
   ),
   _Blueprint(
     title: 'Passive Overlay',
     role: 'decorative',
-    note: 'Display visuals above content while still allowing pointer input to underlying targets.',
+    note:
+        'Display visuals above content while still allowing pointer input to underlying targets.',
     absorbing: false,
     emphasis: 0.22,
   ),
   _Blueprint(
     title: 'Workflow Pause Layer',
     role: 'safety',
-    note: 'Temporarily block child pointer events during sensitive state transitions.',
+    note:
+        'Temporarily block child pointer events during sensitive state transitions.',
     absorbing: true,
     emphasis: 0.56,
   ),
@@ -94,7 +105,8 @@ const List<_Blueprint> _blueprints = [
   _Blueprint(
     title: 'Signal Guard Rail',
     role: 'validation',
-    note: 'Prevent undesired interactions while asynchronous operations settle.',
+    note:
+        'Prevent undesired interactions while asynchronous operations settle.',
     absorbing: true,
     emphasis: 0.71,
   ),
@@ -127,19 +139,23 @@ const List<String> _bestPractices = [
 const List<_Faq> _faq = [
   _Faq(
     question: 'What is the main effect of absorbing=true?',
-    answer: 'Child render objects stop receiving pointer events from hit testing while visuals remain rendered.',
+    answer:
+        'Child render objects stop receiving pointer events from hit testing while visuals remain rendered.',
   ),
   _Faq(
     question: 'Does this replace gesture detectors?',
-    answer: 'No. It complements gesture logic by controlling whether the subtree receives pointer input at all.',
+    answer:
+        'No. It complements gesture logic by controlling whether the subtree receives pointer input at all.',
   ),
   _Faq(
     question: 'When should I toggle absorption dynamically?',
-    answer: 'During transitions, async operations, or temporary lock states where accidental input must be blocked.',
+    answer:
+        'During transitions, async operations, or temporary lock states where accidental input must be blocked.',
   ),
   _Faq(
     question: 'Why use a render-level demo here?',
-    answer: 'This repository validates interpreter interactions at low-level Flutter rendering primitives.',
+    answer:
+        'This repository validates interpreter interactions at low-level Flutter rendering primitives.',
   ),
 ];
 
@@ -160,7 +176,11 @@ class _Profile {
 }
 
 class _Scenario {
-  const _Scenario({required this.id, required this.title, required this.subtitle});
+  const _Scenario({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+  });
 
   final String id;
   final String title;
@@ -191,7 +211,12 @@ class _Faq {
 }
 
 class _Metric {
-  const _Metric({required this.label, required this.value, required this.note, required this.icon});
+  const _Metric({
+    required this.label,
+    required this.value,
+    required this.note,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -207,10 +232,12 @@ class _RenderAbsorbPointerStudio extends StatefulWidget {
   const _RenderAbsorbPointerStudio();
 
   @override
-  State<_RenderAbsorbPointerStudio> createState() => _RenderAbsorbPointerStudioState();
+  State<_RenderAbsorbPointerStudio> createState() =>
+      _RenderAbsorbPointerStudioState();
 }
 
-class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> {
+class _RenderAbsorbPointerStudioState
+    extends State<_RenderAbsorbPointerStudio> {
   int _profileIndex = 0;
   int _scenarioIndex = 0;
   int _boardIndex = 0;
@@ -318,10 +345,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
     final loops = _burstSelection[0]
         ? 1
         : _burstSelection[1]
-            ? 2
-            : _burstSelection[2]
-                ? 3
-                : 5;
+        ? 2
+        : _burstSelection[2]
+        ? 3
+        : 5;
 
     for (var i = 0; i < loops; i++) {
       _absorbingPrimary = !_absorbingPrimary;
@@ -332,20 +359,62 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
 
     setState(() {
       _tick += 1;
-      _log('Burst toggles complete: loops=$loops, states=[$_absorbingPrimary,$_absorbingSecondary,$_absorbingTertiary].');
+      _log(
+        'Burst toggles complete: loops=$loops, states=[$_absorbingPrimary,$_absorbingSecondary,$_absorbingTertiary].',
+      );
     });
   }
 
   List<_Metric> _metrics() {
     return [
-      _Metric(label: 'Toggles', value: '$_toggleCount', note: 'absorbing state changes', icon: Icons.toggle_on),
-      _Metric(label: 'Child taps', value: '$_childTapCount', note: 'tap callbacks from child controls', icon: Icons.touch_app),
-      _Metric(label: 'Shell taps', value: '$_shellTapCount', note: 'shell container tap count', icon: Icons.crop_square),
-      _Metric(label: 'Overlay taps', value: '$_overlayTapCount', note: 'overlay capture interactions', icon: Icons.layers),
-      _Metric(label: 'Pointers', value: '$_pointerCount', note: 'pointer events in render tile', icon: Icons.ads_click),
-      _Metric(label: 'Layouts', value: '$_layoutCount', note: 'child performLayout invocations', icon: Icons.grid_view),
-      _Metric(label: 'Paints', value: '$_paintCount', note: 'child paint invocations', icon: Icons.brush),
-      _Metric(label: 'Tick', value: '$_tick', note: 'state progression marker', icon: Icons.timeline),
+      _Metric(
+        label: 'Toggles',
+        value: '$_toggleCount',
+        note: 'absorbing state changes',
+        icon: Icons.toggle_on,
+      ),
+      _Metric(
+        label: 'Child taps',
+        value: '$_childTapCount',
+        note: 'tap callbacks from child controls',
+        icon: Icons.touch_app,
+      ),
+      _Metric(
+        label: 'Shell taps',
+        value: '$_shellTapCount',
+        note: 'shell container tap count',
+        icon: Icons.crop_square,
+      ),
+      _Metric(
+        label: 'Overlay taps',
+        value: '$_overlayTapCount',
+        note: 'overlay capture interactions',
+        icon: Icons.layers,
+      ),
+      _Metric(
+        label: 'Pointers',
+        value: '$_pointerCount',
+        note: 'pointer events in render tile',
+        icon: Icons.ads_click,
+      ),
+      _Metric(
+        label: 'Layouts',
+        value: '$_layoutCount',
+        note: 'child performLayout invocations',
+        icon: Icons.grid_view,
+      ),
+      _Metric(
+        label: 'Paints',
+        value: '$_paintCount',
+        note: 'child paint invocations',
+        icon: Icons.brush,
+      ),
+      _Metric(
+        label: 'Tick',
+        value: '$_tick',
+        note: 'state progression marker',
+        icon: Icons.timeline,
+      ),
     ];
   }
 
@@ -354,11 +423,16 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
     final profile = _profiles[_profileIndex];
     final scenario = _scenarios[_scenarioIndex];
 
-    final scheme = ColorScheme.fromSeed(seedColor: profile.seed, brightness: profile.brightness);
+    final scheme = ColorScheme.fromSeed(
+      seedColor: profile.seed,
+      brightness: profile.brightness,
+    );
     final theme = ThemeData(
       useMaterial3: true,
       colorScheme: scheme,
-      visualDensity: _compactCards ? VisualDensity.compact : VisualDensity.standard,
+      visualDensity: _compactCards
+          ? VisualDensity.compact
+          : VisualDensity.standard,
     );
 
     return Theme(
@@ -381,13 +455,19 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                         gradient: LinearGradient(
                           colors: [
                             theme.colorScheme.surface,
-                            theme.colorScheme.surfaceContainerHighest.withAlpha(150),
+                            theme.colorScheme.surfaceContainerHighest.withAlpha(
+                              150,
+                            ),
                             theme.colorScheme.surface,
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
-                        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+                        border: Border.all(
+                          color: theme.colorScheme.outlineVariant.withAlpha(
+                            130,
+                          ),
+                        ),
                       ),
                       child: _board(theme, scenario, _metrics()),
                     ),
@@ -416,7 +496,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(140)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(140),
+        ),
       ),
       child: Row(
         children: [
@@ -426,10 +508,16 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
             decoration: BoxDecoration(
               color: theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(132)),
+              border: Border.all(
+                color: theme.colorScheme.outlineVariant.withAlpha(132),
+              ),
             ),
             child: CustomPaint(
-              painter: _GlyphPainter(a: profile.seed, b: theme.colorScheme.tertiary, tick: _tick),
+              painter: _GlyphPainter(
+                a: profile.seed,
+                b: theme.colorScheme.tertiary,
+                tick: _tick,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -437,11 +525,19 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('RenderAbsorbPointer Pointer Gate Studio', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800)),
+                Text(
+                  'RenderAbsorbPointer Pointer Gate Studio',
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 4),
                 Text(
                   'profile: ${profile.name}  scenario: ${scenario.title}  states: [$_absorbingPrimary, $_absorbingSecondary, $_absorbingTertiary]',
-                  style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(176), fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withAlpha(176),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(profile.description),
@@ -469,15 +565,24 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Gate Controls', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800)),
+            Text(
+              'Gate Controls',
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w800,
+              ),
+            ),
             const SizedBox(height: 4),
-            const Text('Tune absorbing states, host geometry, overlays, and diagnostics presentation.'),
+            const Text(
+              'Tune absorbing states, host geometry, overlays, and diagnostics presentation.',
+            ),
             const SizedBox(height: 10),
             _dropdownCard(
               label: 'Profile',
@@ -578,20 +683,97 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
               value: _absorbingTertiary,
               onChanged: (_) => _toggleTertiary(),
             ),
-            _sliderCard(label: 'Host width', value: _hostWidth, min: 180, max: 560, onChanged: (v) => setState(() => _hostWidth = v)),
-            _sliderCard(label: 'Host height', value: _hostHeight, min: 120, max: 320, onChanged: (v) => setState(() => _hostHeight = v)),
-            _sliderCard(label: 'Density', value: _density, min: 0.1, max: 1.0, onChanged: (v) => setState(() => _density = v)),
-            _sliderCard(label: 'Accent', value: _accent, min: 0.1, max: 1.0, onChanged: (v) => setState(() => _accent = v)),
-            _sliderCard(label: 'Overlay opacity', value: _overlayOpacity, min: 0.05, max: 0.9, onChanged: (v) => setState(() => _overlayOpacity = v)),
-            _sliderCard(label: 'Noise', value: _noise, min: 0, max: 1.0, onChanged: (v) => setState(() => _noise = v)),
-            _sliderCard(label: 'Corner radius', value: _cornerRadius, min: 0, max: 40, onChanged: (v) => setState(() => _cornerRadius = v)),
-            _switchCard(title: 'Show diagnostics', subtitle: 'Show render snapshots and counters', value: _showDiagnostics, onChanged: (v) => setState(() => _showDiagnostics = v)),
-            _switchCard(title: 'Show timeline', subtitle: 'Show chronological events', value: _showTimeline, onChanged: (v) => setState(() => _showTimeline = v)),
-            _switchCard(title: 'Show guide', subtitle: 'Show guide and FAQ', value: _showGuide, onChanged: (v) => setState(() => _showGuide = v)),
-            _switchCard(title: 'Show grid', subtitle: 'Show grid overlay on hosts', value: _showGrid, onChanged: (v) => setState(() => _showGrid = v)),
-            _switchCard(title: 'Show noise', subtitle: 'Show dynamic noise overlay', value: _showNoise, onChanged: (v) => setState(() => _showNoise = v)),
-            _switchCard(title: 'Compact cards', subtitle: 'Use tighter metric cards', value: _compactCards, onChanged: (v) => setState(() => _compactCards = v)),
-            _switchCard(title: 'Auto log', subtitle: 'Automatically write timeline entries', value: _autoLog, onChanged: (v) => setState(() => _autoLog = v)),
+            _sliderCard(
+              label: 'Host width',
+              value: _hostWidth,
+              min: 180,
+              max: 560,
+              onChanged: (v) => setState(() => _hostWidth = v),
+            ),
+            _sliderCard(
+              label: 'Host height',
+              value: _hostHeight,
+              min: 120,
+              max: 320,
+              onChanged: (v) => setState(() => _hostHeight = v),
+            ),
+            _sliderCard(
+              label: 'Density',
+              value: _density,
+              min: 0.1,
+              max: 1.0,
+              onChanged: (v) => setState(() => _density = v),
+            ),
+            _sliderCard(
+              label: 'Accent',
+              value: _accent,
+              min: 0.1,
+              max: 1.0,
+              onChanged: (v) => setState(() => _accent = v),
+            ),
+            _sliderCard(
+              label: 'Overlay opacity',
+              value: _overlayOpacity,
+              min: 0.05,
+              max: 0.9,
+              onChanged: (v) => setState(() => _overlayOpacity = v),
+            ),
+            _sliderCard(
+              label: 'Noise',
+              value: _noise,
+              min: 0,
+              max: 1.0,
+              onChanged: (v) => setState(() => _noise = v),
+            ),
+            _sliderCard(
+              label: 'Corner radius',
+              value: _cornerRadius,
+              min: 0,
+              max: 40,
+              onChanged: (v) => setState(() => _cornerRadius = v),
+            ),
+            _switchCard(
+              title: 'Show diagnostics',
+              subtitle: 'Show render snapshots and counters',
+              value: _showDiagnostics,
+              onChanged: (v) => setState(() => _showDiagnostics = v),
+            ),
+            _switchCard(
+              title: 'Show timeline',
+              subtitle: 'Show chronological events',
+              value: _showTimeline,
+              onChanged: (v) => setState(() => _showTimeline = v),
+            ),
+            _switchCard(
+              title: 'Show guide',
+              subtitle: 'Show guide and FAQ',
+              value: _showGuide,
+              onChanged: (v) => setState(() => _showGuide = v),
+            ),
+            _switchCard(
+              title: 'Show grid',
+              subtitle: 'Show grid overlay on hosts',
+              value: _showGrid,
+              onChanged: (v) => setState(() => _showGrid = v),
+            ),
+            _switchCard(
+              title: 'Show noise',
+              subtitle: 'Show dynamic noise overlay',
+              value: _showNoise,
+              onChanged: (v) => setState(() => _showNoise = v),
+            ),
+            _switchCard(
+              title: 'Compact cards',
+              subtitle: 'Use tighter metric cards',
+              value: _compactCards,
+              onChanged: (v) => setState(() => _compactCards = v),
+            ),
+            _switchCard(
+              title: 'Auto log',
+              subtitle: 'Automatically write timeline entries',
+              value: _autoLog,
+              onChanged: (v) => setState(() => _autoLog = v),
+            ),
             const SizedBox(height: 8),
             _card(
               theme,
@@ -601,10 +783,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  FilledButton.icon(onPressed: _togglePrimary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle primary')),
-                  OutlinedButton.icon(onPressed: _toggleSecondary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle secondary')),
-                  OutlinedButton.icon(onPressed: _toggleTertiary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle tertiary')),
-                  OutlinedButton.icon(onPressed: _burstToggles, icon: const Icon(Icons.waves), label: const Text('Burst toggles')),
+                  FilledButton.icon(
+                    onPressed: _togglePrimary,
+                    icon: const Icon(Icons.toggle_on),
+                    label: const Text('Toggle primary'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: _toggleSecondary,
+                    icon: const Icon(Icons.toggle_on),
+                    label: const Text('Toggle secondary'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: _toggleTertiary,
+                    icon: const Icon(Icons.toggle_on),
+                    label: const Text('Toggle tertiary'),
+                  ),
+                  OutlinedButton.icon(
+                    onPressed: _burstToggles,
+                    icon: const Icon(Icons.waves),
+                    label: const Text('Burst toggles'),
+                  ),
                 ],
               ),
             ),
@@ -635,8 +833,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
           const SizedBox(height: 6),
           DropdownButtonFormField<int>(
             initialValue: value,
-            decoration: const InputDecoration(border: OutlineInputBorder(), isDense: true),
-            items: [for (var i = 0; i < options.length; i++) DropdownMenuItem<int>(value: i, child: Text(options[i]))],
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
+            items: [
+              for (var i = 0; i < options.length; i++)
+                DropdownMenuItem<int>(value: i, child: Text(options[i])),
+            ],
             onChanged: (v) {
               if (v != null) {
                 onChanged(v);
@@ -667,11 +871,22 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
         children: [
           Row(
             children: [
-              Expanded(child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700))),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+              ),
               Switch(value: value, onChanged: onChanged),
             ],
           ),
-          Text(subtitle, style: TextStyle(color: Colors.black.withAlpha(170), fontSize: 12.5)),
+          Text(
+            subtitle,
+            style: TextStyle(
+              color: Colors.black.withAlpha(170),
+              fontSize: 12.5,
+            ),
+          ),
         ],
       ),
     );
@@ -695,7 +910,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('$label: ${value.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.w700)),
+          Text(
+            '$label: ${value.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
           Slider(value: value, min: min, max: max, onChanged: onChanged),
         ],
       ),
@@ -742,11 +960,18 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(bp.title, style: const TextStyle(fontWeight: FontWeight.w700)),
+                            Text(
+                              bp.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                             const SizedBox(height: 4),
                             Text('role: ${bp.role}'),
                             const SizedBox(height: 4),
-                            Text('absorbing: ${bp.absorbing} • emphasis: ${bp.emphasis.toStringAsFixed(2)}'),
+                            Text(
+                              'absorbing: ${bp.absorbing} • emphasis: ${bp.emphasis.toStringAsFixed(2)}',
+                            ),
                             const SizedBox(height: 8),
                             Text(bp.note),
                             const SizedBox(height: 8),
@@ -755,7 +980,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                               runSpacing: 6,
                               children: [
                                 _chip('render-gate', Colors.indigo),
-                                _chip(bp.absorbing ? 'blocked' : 'pass-through', bp.absorbing ? Colors.orange : Colors.green),
+                                _chip(
+                                  bp.absorbing ? 'blocked' : 'pass-through',
+                                  bp.absorbing ? Colors.orange : Colors.green,
+                                ),
                                 _chip('pointer-flow', Colors.teal),
                               ],
                             ),
@@ -851,10 +1079,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
               spacing: 8,
               runSpacing: 8,
               children: [
-                FilledButton.icon(onPressed: _togglePrimary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle A')),
-                OutlinedButton.icon(onPressed: _toggleSecondary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle B')),
-                OutlinedButton.icon(onPressed: _toggleTertiary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle C')),
-                OutlinedButton.icon(onPressed: _burstToggles, icon: const Icon(Icons.waves), label: const Text('Burst all')),
+                FilledButton.icon(
+                  onPressed: _togglePrimary,
+                  icon: const Icon(Icons.toggle_on),
+                  label: const Text('Toggle A'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: _toggleSecondary,
+                  icon: const Icon(Icons.toggle_on),
+                  label: const Text('Toggle B'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: _toggleTertiary,
+                  icon: const Icon(Icons.toggle_on),
+                  label: const Text('Toggle C'),
+                ),
+                OutlinedButton.icon(
+                  onPressed: _burstToggles,
+                  icon: const Icon(Icons.waves),
+                  label: const Text('Burst all'),
+                ),
               ],
             ),
           ),
@@ -909,11 +1153,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _bullet(theme, 'When absorbing=true, child tap activity usually drops because pointer events are intercepted earlier.'),
-                _bullet(theme, 'Shell and overlay counters can still move, revealing where taps are rerouted.'),
-                _bullet(theme, 'Use matrix comparisons to validate temporary lock states during async workflows.'),
-                _bullet(theme, 'Visual overlays help explain pointer ownership to teammates without reading code first.'),
-                _bullet(theme, 'Toggle bursts reveal race-like sequences in event streams and counters.'),
+                _bullet(
+                  theme,
+                  'When absorbing=true, child tap activity usually drops because pointer events are intercepted earlier.',
+                ),
+                _bullet(
+                  theme,
+                  'Shell and overlay counters can still move, revealing where taps are rerouted.',
+                ),
+                _bullet(
+                  theme,
+                  'Use matrix comparisons to validate temporary lock states during async workflows.',
+                ),
+                _bullet(
+                  theme,
+                  'Visual overlays help explain pointer ownership to teammates without reading code first.',
+                ),
+                _bullet(
+                  theme,
+                  'Toggle bursts reveal race-like sequences in event streams and counters.',
+                ),
               ],
             ),
           ),
@@ -926,7 +1185,11 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
     );
   }
 
-  Widget _integratedBoard(ThemeData theme, _Scenario scenario, List<_Metric> metrics) {
+  Widget _integratedBoard(
+    ThemeData theme,
+    _Scenario scenario,
+    List<_Metric> metrics,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -954,10 +1217,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    FilledButton.icon(onPressed: _togglePrimary, icon: const Icon(Icons.toggle_on), label: const Text('Toggle main')),
-                    OutlinedButton.icon(onPressed: _burstToggles, icon: const Icon(Icons.waves), label: const Text('Burst sequence')),
-                    OutlinedButton.icon(onPressed: _toggleSecondary, icon: const Icon(Icons.layers), label: const Text('Toggle side host')),
-                    OutlinedButton.icon(onPressed: _toggleTertiary, icon: const Icon(Icons.view_stream), label: const Text('Toggle matrix host')),
+                    FilledButton.icon(
+                      onPressed: _togglePrimary,
+                      icon: const Icon(Icons.toggle_on),
+                      label: const Text('Toggle main'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _burstToggles,
+                      icon: const Icon(Icons.waves),
+                      label: const Text('Burst sequence'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _toggleSecondary,
+                      icon: const Icon(Icons.layers),
+                      label: const Text('Toggle side host'),
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _toggleTertiary,
+                      icon: const Icon(Icons.view_stream),
+                      label: const Text('Toggle matrix host'),
+                    ),
                   ],
                 ),
               ],
@@ -985,11 +1264,23 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                               children: [
                                 Icon(metric.icon),
                                 const SizedBox(width: 8),
-                                Expanded(child: Text(metric.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                                Expanded(
+                                  child: Text(
+                                    metric.label,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Text(metric.value, style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
+                            Text(
+                              metric.value,
+                              style: theme.textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                             const SizedBox(height: 4),
                             Text(metric.note),
                           ],
@@ -1005,7 +1296,11 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
     );
   }
 
-  Widget _guideBoard(ThemeData theme, _Scenario scenario, List<_Metric> metrics) {
+  Widget _guideBoard(
+    ThemeData theme,
+    _Scenario scenario,
+    List<_Metric> metrics,
+  ) {
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
       child: Column(
@@ -1030,7 +1325,9 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
               'Recommendations for robust absorption behavior in production-like integrations.',
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [for (final line in _bestPractices) _bullet(theme, line)],
+                children: [
+                  for (final line in _bestPractices) _bullet(theme, line),
+                ],
               ),
             ),
             const SizedBox(height: 10),
@@ -1047,7 +1344,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(item.question, style: const TextStyle(fontWeight: FontWeight.w700)),
+                          Text(
+                            item.question,
+                            style: const TextStyle(fontWeight: FontWeight.w700),
+                          ),
                           const SizedBox(height: 2),
                           Text(item.answer),
                         ],
@@ -1066,15 +1366,26 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('entries: ${_timeline.length} • tick: $_tick • toggles: $_toggleCount', style: const TextStyle(fontWeight: FontWeight.w700)),
+                  Text(
+                    'entries: ${_timeline.length} • tick: $_tick • toggles: $_toggleCount',
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
                   const SizedBox(height: 8),
                   if (_timeline.isEmpty)
-                    const Text('No events yet. Use controls and host interactions to populate timeline.')
+                    const Text(
+                      'No events yet. Use controls and host interactions to populate timeline.',
+                    )
                   else
                     for (final line in _timeline)
                       Padding(
                         padding: const EdgeInsets.only(bottom: 4),
-                        child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+                        child: Text(
+                          line,
+                          style: const TextStyle(
+                            fontFamily: 'monospace',
+                            fontSize: 12.5,
+                          ),
+                        ),
                       ),
                 ],
               ),
@@ -1095,7 +1406,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                         children: [
                           Icon(metric.icon, size: 18),
                           const SizedBox(width: 8),
-                          Expanded(child: Text(metric.label, style: const TextStyle(fontWeight: FontWeight.w700))),
+                          Expanded(
+                            child: Text(
+                              metric.label,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                           Text(metric.value),
                         ],
                       ),
@@ -1179,21 +1497,40 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
                           child: Container(
                             alignment: Alignment.topLeft,
                             padding: const EdgeInsets.all(8),
-                            color: Colors.blue.withAlpha((_overlayOpacity * 255).toInt()),
-                            child: const Text('Overlay', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                            color: Colors.blue.withAlpha(
+                              (_overlayOpacity * 255).toInt(),
+                            ),
+                            child: const Text(
+                              'Overlay',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       if (_showGrid)
                         Positioned.fill(
                           child: IgnorePointer(
-                            child: CustomPaint(painter: _GridPainter(color: Colors.white.withAlpha(68), step: 20)),
+                            child: CustomPaint(
+                              painter: _GridPainter(
+                                color: Colors.white.withAlpha(68),
+                                step: 20,
+                              ),
+                            ),
                           ),
                         ),
                       if (_showNoise)
                         Positioned.fill(
                           child: IgnorePointer(
-                            child: CustomPaint(painter: _NoisePainter(color: Colors.orange.withAlpha(90), amplitude: _noise, tick: _tick)),
+                            child: CustomPaint(
+                              painter: _NoisePainter(
+                                color: Colors.orange.withAlpha(90),
+                                amplitude: _noise,
+                                tick: _tick,
+                              ),
+                            ),
                           ),
                         ),
                       Positioned(
@@ -1252,7 +1589,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
           for (final line in lines)
             Padding(
               padding: const EdgeInsets.only(bottom: 4),
-              child: Text(line, style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5)),
+              child: Text(
+                line,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12.5),
+              ),
             ),
         ],
       ),
@@ -1266,9 +1606,20 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 19,
+                ),
+              ),
               const SizedBox(height: 4),
-              Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(176))),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface.withAlpha(176),
+                ),
+              ),
             ],
           ),
         ),
@@ -1278,7 +1629,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
             color: theme.colorScheme.primaryContainer.withAlpha(168),
             borderRadius: BorderRadius.circular(999),
           ),
-          child: Text(chip, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12)),
+          child: Text(
+            chip,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12),
+          ),
         ),
       ],
     );
@@ -1291,14 +1645,19 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: theme.colorScheme.surface.withAlpha(194),
-        border: Border.all(color: theme.colorScheme.outlineVariant.withAlpha(130)),
+        border: Border.all(
+          color: theme.colorScheme.outlineVariant.withAlpha(130),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: const TextStyle(fontWeight: FontWeight.w800)),
           const SizedBox(height: 4),
-          Text(subtitle, style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180))),
+          Text(
+            subtitle,
+            style: TextStyle(color: theme.colorScheme.onSurface.withAlpha(180)),
+          ),
           const SizedBox(height: 8),
           child,
         ],
@@ -1314,7 +1673,14 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
         borderRadius: BorderRadius.circular(999),
         border: Border.all(color: color.withAlpha(130)),
       ),
-      child: Text(text, style: TextStyle(color: color, fontWeight: FontWeight.w700, fontSize: 11.7)),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w700,
+          fontSize: 11.7,
+        ),
+      ),
     );
   }
 
@@ -1328,7 +1694,10 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
             margin: const EdgeInsets.only(top: 7, right: 8),
             width: 6,
             height: 6,
-            decoration: BoxDecoration(color: theme.colorScheme.primary, shape: BoxShape.circle),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primary,
+              shape: BoxShape.circle,
+            ),
           ),
           Expanded(child: Text(text)),
         ],
@@ -1355,11 +1724,7 @@ class _RenderAbsorbPointerStudioState extends State<_RenderAbsorbPointerStudio> 
 }
 
 class _AbsorbGateHost extends SingleChildRenderObjectWidget {
-  const _AbsorbGateHost({
-    super.key,
-    required this.absorbing,
-    super.child,
-  });
+  const _AbsorbGateHost({super.key, required this.absorbing, super.child});
 
   final bool absorbing;
 
@@ -1369,7 +1734,10 @@ class _AbsorbGateHost extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderAbsorbPointer renderObject) {
+  void updateRenderObject(
+    BuildContext context,
+    RenderAbsorbPointer renderObject,
+  ) {
     renderObject.absorbing = absorbing;
   }
 }
@@ -1404,7 +1772,10 @@ class _InteractiveTile extends LeafRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, _InteractiveTileRenderBox renderObject) {
+  void updateRenderObject(
+    BuildContext context,
+    _InteractiveTileRenderBox renderObject,
+  ) {
     renderObject
       ..hueShift = hueShift
       ..density = density
@@ -1423,9 +1794,9 @@ class _InteractiveTileRenderBox extends RenderBox {
     required this.onPointer,
     required this.onLayout,
     required this.onPaint,
-  })  : _hueShift = hueShift,
-        _density = density,
-        _accent = accent;
+  }) : _hueShift = hueShift,
+       _density = density,
+       _accent = accent;
 
   VoidCallback onPointer;
   VoidCallback onLayout;
@@ -1491,7 +1862,12 @@ class _InteractiveTileRenderBox extends RenderBox {
     final rect = offset & size;
 
     final base = HSVColor.fromAHSV(1, 360 * hueShift, 0.5, 0.85).toColor();
-    final accentColor = HSVColor.fromAHSV(1, (360 * hueShift + 62) % 360, 0.62, 0.92).toColor();
+    final accentColor = HSVColor.fromAHSV(
+      1,
+      (360 * hueShift + 62) % 360,
+      0.62,
+      0.92,
+    ).toColor();
 
     final bg = Paint()
       ..shader = LinearGradient(
@@ -1509,18 +1885,25 @@ class _InteractiveTileRenderBox extends RenderBox {
       ..strokeWidth = 1.4
       ..color = Colors.white.withAlpha(150);
 
-    final rrect = RRect.fromRectAndRadius(rect.deflate(1), const Radius.circular(12));
+    final rrect = RRect.fromRectAndRadius(
+      rect.deflate(1),
+      const Radius.circular(12),
+    );
     canvas.drawRRect(rrect, bg);
     canvas.drawRRect(rrect, border);
 
     final bars = (4 + density * 8).toInt();
-    final barPaint = Paint()..color = Colors.white.withAlpha((80 + accent * 80).toInt());
+    final barPaint = Paint()
+      ..color = Colors.white.withAlpha((80 + accent * 80).toInt());
 
     for (var i = 0; i < bars; i++) {
       final y = offset.dy + 12 + i * (size.height - 24) / bars;
       final w = (size.width - 24) * (0.3 + ((i % 5) * 0.12));
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(offset.dx + 12, y, w.clamp(26, size.width - 24), 5), const Radius.circular(4)),
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(offset.dx + 12, y, w.clamp(26, size.width - 24), 5),
+          const Radius.circular(4),
+        ),
         barPaint,
       );
     }
@@ -1533,7 +1916,10 @@ class _InteractiveTileRenderBox extends RenderBox {
     final rings = (2 + accent * 4).toInt();
     for (var i = 0; i < rings; i++) {
       canvas.drawRRect(
-        RRect.fromRectAndRadius(rect.deflate(8 + i * 6), const Radius.circular(10)),
+        RRect.fromRectAndRadius(
+          rect.deflate(8 + i * 6),
+          const Radius.circular(10),
+        ),
         ringPaint,
       );
     }
@@ -1552,11 +1938,7 @@ class _MiniLabel extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16),
-          const SizedBox(width: 5),
-          Text(text),
-        ],
+        children: [Icon(icon, size: 16), const SizedBox(width: 5), Text(text)],
       ),
     );
   }
@@ -1578,7 +1960,10 @@ class _GlyphPainter extends CustomPainter {
       final w = size.width * (0.34 + rnd.nextDouble() * 0.56);
       p.color = Color.lerp(a, b, i / 5)?.withAlpha(220) ?? a;
       canvas.drawRRect(
-        RRect.fromRectAndRadius(Rect.fromLTWH(8, y, w, 5.2), const Radius.circular(4)),
+        RRect.fromRectAndRadius(
+          Rect.fromLTWH(8, y, w, 5.2),
+          const Radius.circular(4),
+        ),
         p,
       );
     }
@@ -1617,7 +2002,11 @@ class _GridPainter extends CustomPainter {
 }
 
 class _NoisePainter extends CustomPainter {
-  _NoisePainter({required this.color, required this.amplitude, required this.tick});
+  _NoisePainter({
+    required this.color,
+    required this.amplitude,
+    required this.tick,
+  });
 
   final Color color;
   final double amplitude;
@@ -1647,6 +2036,8 @@ class _NoisePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _NoisePainter oldDelegate) {
-    return oldDelegate.color != color || oldDelegate.amplitude != amplitude || oldDelegate.tick != tick;
+    return oldDelegate.color != color ||
+        oldDelegate.amplitude != amplitude ||
+        oldDelegate.tick != tick;
   }
 }

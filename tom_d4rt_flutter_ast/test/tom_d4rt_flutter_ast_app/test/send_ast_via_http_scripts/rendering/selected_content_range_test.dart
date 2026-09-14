@@ -51,9 +51,7 @@ Widget _crSectionHeader(String title, {String? subtitle}) {
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     decoration: const BoxDecoration(
-      gradient: LinearGradient(
-        colors: [_crBurgundy, _crDarkBurgundy],
-      ),
+      gradient: LinearGradient(colors: [_crBurgundy, _crDarkBurgundy]),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,10 +191,7 @@ Widget _crKeyValueRow(String key, String value, {Color? valueColor}) {
         Expanded(
           child: Text(
             value,
-            style: TextStyle(
-              color: valueColor ?? _crCharcoal,
-              fontSize: 13,
-            ),
+            style: TextStyle(color: valueColor ?? _crCharcoal, fontSize: 13),
           ),
         ),
       ],
@@ -213,7 +208,8 @@ Widget _crBuildOverview() {
     children: [
       _crSectionHeader(
         '1. What Is SelectedContentRange?',
-        subtitle: 'A data class representing the range of selection within content',
+        subtitle:
+            'A data class representing the range of selection within content',
       ),
       const SizedBox(height: 12),
       _crInfoCard(
@@ -522,7 +518,8 @@ Widget _crBuildRangeScenarios() {
       _crSubheading('Scenario A: Single Word Selected'),
       _crRangeVisualization(
         'The quick brown fox',
-        4, 9,
+        4,
+        9,
         'Selected: "quick" (offsets 4..9)',
         _crBurgundy,
       ),
@@ -531,7 +528,8 @@ Widget _crBuildRangeScenarios() {
       _crSubheading('Scenario B: Full Text Selected'),
       _crRangeVisualization(
         'The quick brown fox',
-        0, 19,
+        0,
+        19,
         'Selected: entire text (offsets 0..19)',
         _crWine,
       ),
@@ -540,7 +538,8 @@ Widget _crBuildRangeScenarios() {
       _crSubheading('Scenario C: Collapsed Cursor'),
       _crRangeVisualization(
         'The quick brown fox',
-        10, 10,
+        10,
+        10,
         'Collapsed: cursor at offset 10 (no text selected)',
         _crTeal,
       ),
@@ -549,7 +548,8 @@ Widget _crBuildRangeScenarios() {
       _crSubheading('Scenario D: Partial Word'),
       _crRangeVisualization(
         'The quick brown fox',
-        6, 14,
+        6,
+        14,
         'Selected: "ick brow" — selection can cross word boundaries',
         _crLavender,
       ),
@@ -558,7 +558,8 @@ Widget _crBuildRangeScenarios() {
       _crSubheading('Scenario E: Single Character'),
       _crRangeVisualization(
         'The quick brown fox',
-        3, 4,
+        3,
+        4,
         'Selected: " " (space) — even single characters have ranges',
         _crGold,
       ),
@@ -694,17 +695,47 @@ Widget _crBuildSystemConnection() {
               ),
             ),
             const SizedBox(height: 12),
-            _crPipelineStep('1', 'User drags finger/mouse', Icons.touch_app, _crWine),
+            _crPipelineStep(
+              '1',
+              'User drags finger/mouse',
+              Icons.touch_app,
+              _crWine,
+            ),
             _crPipelineArrow(),
-            _crPipelineStep('2', 'SelectableRegion creates\nSelectionEdgeUpdateEvent', Icons.gesture, _crBurgundy),
+            _crPipelineStep(
+              '2',
+              'SelectableRegion creates\nSelectionEdgeUpdateEvent',
+              Icons.gesture,
+              _crBurgundy,
+            ),
             _crPipelineArrow(),
-            _crPipelineStep('3', 'Selectable.dispatchSelectionEvent()\ncomputes the affected offsets', Icons.calculate, _crTeal),
+            _crPipelineStep(
+              '3',
+              'Selectable.dispatchSelectionEvent()\ncomputes the affected offsets',
+              Icons.calculate,
+              _crTeal,
+            ),
             _crPipelineArrow(),
-            _crPipelineStep('4', 'SelectedContentRange created\nwith start/end offsets', Icons.highlight, _crGold),
+            _crPipelineStep(
+              '4',
+              'SelectedContentRange created\nwith start/end offsets',
+              Icons.highlight,
+              _crGold,
+            ),
             _crPipelineArrow(),
-            _crPipelineStep('5', 'SelectionGeometry updated\nwith handle positions', Icons.crop_square, _crLavender),
+            _crPipelineStep(
+              '5',
+              'SelectionGeometry updated\nwith handle positions',
+              Icons.crop_square,
+              _crLavender,
+            ),
             _crPipelineArrow(),
-            _crPipelineStep('6', 'Overlay draws highlight\nand drag handles', Icons.brush, _crBurgundy),
+            _crPipelineStep(
+              '6',
+              'Overlay draws highlight\nand drag handles',
+              Icons.brush,
+              _crBurgundy,
+            ),
           ],
         ),
       ),
@@ -737,10 +768,7 @@ Widget _crPipelineStep(String number, String desc, IconData icon, Color color) {
       Container(
         width: 32,
         height: 32,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-        ),
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         child: Center(
           child: Text(
             number,
@@ -758,11 +786,7 @@ Widget _crPipelineStep(String number, String desc, IconData icon, Color color) {
       Expanded(
         child: Text(
           desc,
-          style: const TextStyle(
-            color: _crCharcoal,
-            fontSize: 12,
-            height: 1.3,
-          ),
+          style: const TextStyle(color: _crCharcoal, fontSize: 12, height: 1.3),
         ),
       ),
     ],
@@ -948,7 +972,8 @@ Widget _crBuildMultiWidgetRange() {
             _crMultiRangeBlock(
               'Widget A',
               'Hello, Flutter world!',
-              14, 21, // "world!" selected
+              14,
+              21, // "world!" selected
               _crBurgundy,
               'range: 14..21 (partial end)',
             ),
@@ -958,7 +983,8 @@ Widget _crBuildMultiWidgetRange() {
             _crMultiRangeBlock(
               'Widget B',
               'This entire text is selected.',
-              0, 29,
+              0,
+              29,
               _crWine,
               'range: 0..29 (fully selected)',
             ),
@@ -968,7 +994,8 @@ Widget _crBuildMultiWidgetRange() {
             _crMultiRangeBlock(
               'Widget C',
               'Only the beginning here.',
-              0, 8, // "Only the" selected
+              0,
+              8, // "Only the" selected
               _crTeal,
               'range: 0..8 (partial start)',
             ),
@@ -1050,7 +1077,9 @@ Widget _crMultiRangeBlock(
                       : Colors.transparent,
                   border: Border(
                     bottom: BorderSide(
-                      color: (i >= start && i < end) ? color : Colors.transparent,
+                      color: (i >= start && i < end)
+                          ? color
+                          : Colors.transparent,
                       width: 2,
                     ),
                   ),
@@ -1111,24 +1140,70 @@ Widget _crBuildComparison() {
                 children: [
                   Expanded(
                     flex: 3,
-                    child: Text('Type', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Type',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Text('Contains', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Contains',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   Expanded(
                     flex: 3,
-                    child: Text('Purpose', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                    child: Text(
+                      'Purpose',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            _crCompRow('SelectedContentRange', 'start, end offsets', 'Which chars are selected', false),
-            _crCompRow('SelectedContent', 'plain text string', 'The actual selected text', true),
-            _crCompRow('SelectionGeometry', 'handle positions', 'Where to draw handles', false),
-            _crCompRow('SelectionPoint', 'offset + direction', 'One handle\'s location', true),
-            _crCompRow('TextSelection', 'base + extent', 'TextField selection range', false),
+            _crCompRow(
+              'SelectedContentRange',
+              'start, end offsets',
+              'Which chars are selected',
+              false,
+            ),
+            _crCompRow(
+              'SelectedContent',
+              'plain text string',
+              'The actual selected text',
+              true,
+            ),
+            _crCompRow(
+              'SelectionGeometry',
+              'handle positions',
+              'Where to draw handles',
+              false,
+            ),
+            _crCompRow(
+              'SelectionPoint',
+              'offset + direction',
+              'One handle\'s location',
+              true,
+            ),
+            _crCompRow(
+              'TextSelection',
+              'base + extent',
+              'TextField selection range',
+              false,
+            ),
           ],
         ),
       ),
@@ -1174,7 +1249,11 @@ Widget _crBuildComparison() {
                     const SizedBox(height: 6),
                     const Text(
                       'Simple, normalized',
-                      style: TextStyle(color: _crWine, fontSize: 10, fontStyle: FontStyle.italic),
+                      style: TextStyle(
+                        color: _crWine,
+                        fontSize: 10,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ],
                 ),
@@ -1207,7 +1286,11 @@ Widget _crBuildComparison() {
                     const SizedBox(height: 6),
                     const Text(
                       'Rich, directional',
-                      style: TextStyle(color: _crTeal, fontSize: 10, fontStyle: FontStyle.italic),
+                      style: TextStyle(
+                        color: _crTeal,
+                        fontSize: 10,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                   ],
                 ),
@@ -1228,15 +1311,29 @@ Widget _crCompRow(String type, String contains, String purpose, bool isAlt) {
       children: [
         Expanded(
           flex: 3,
-          child: Text(type, style: const TextStyle(color: _crDarkBurgundy, fontWeight: FontWeight.bold, fontFamily: 'monospace', fontSize: 11)),
+          child: Text(
+            type,
+            style: const TextStyle(
+              color: _crDarkBurgundy,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'monospace',
+              fontSize: 11,
+            ),
+          ),
         ),
         Expanded(
           flex: 2,
-          child: Text(contains, style: const TextStyle(color: _crCharcoal, fontSize: 11)),
+          child: Text(
+            contains,
+            style: const TextStyle(color: _crCharcoal, fontSize: 11),
+          ),
         ),
         Expanded(
           flex: 3,
-          child: Text(purpose, style: const TextStyle(color: _crCharcoal, fontSize: 11)),
+          child: Text(
+            purpose,
+            style: const TextStyle(color: _crCharcoal, fontSize: 11),
+          ),
         ),
       ],
     ),
@@ -1309,7 +1406,11 @@ Widget _crBuildUseCases() {
                   SizedBox(width: 8),
                   Text(
                     'Document Viewer',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -1385,7 +1486,11 @@ Widget _crBuildUseCases() {
                   const SizedBox(width: 8),
                   const Text(
                     'selectable_code.dart',
-                    style: TextStyle(color: _crBlush, fontWeight: FontWeight.bold, fontSize: 12),
+                    style: TextStyle(
+                      color: _crBlush,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                   const Spacer(),
                   _crBadge('Copy', _crTeal),
@@ -1437,15 +1542,19 @@ Widget _crBuildUseCases() {
               _crChatMessage(
                 'Assistant',
                 'It\'s a data class with startOffset and endOffset integers '
-                'that represents which characters are selected within a Selectable.',
+                    'that represents which characters are selected within a Selectable.',
                 false,
               ),
-              _crChatMessage('User', 'How does it relate to the clipboard?', true),
+              _crChatMessage(
+                'User',
+                'How does it relate to the clipboard?',
+                true,
+              ),
               _crChatMessage(
                 'Assistant',
                 'When you copy, the system extracts text using '
-                'text.substring(range.startOffset, range.endOffset) '
-                'from each participating Selectable.',
+                    'text.substring(range.startOffset, range.endOffset) '
+                    'from each participating Selectable.',
                 false,
               ),
             ],
@@ -1464,7 +1573,9 @@ Widget _crChatMessage(String sender, String text, bool isUser) {
       bottom: 8,
     ),
     child: Column(
-      crossAxisAlignment: isUser ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+      crossAxisAlignment: isUser
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.end,
       children: [
         Text(
           sender,
@@ -1481,7 +1592,9 @@ Widget _crChatMessage(String sender, String text, bool isUser) {
             color: isUser ? _crLightBlush : Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isUser ? _crBurgundy.withValues(alpha: 0.3) : _crTeal.withValues(alpha: 0.3),
+              color: isUser
+                  ? _crBurgundy.withValues(alpha: 0.3)
+                  : _crTeal.withValues(alpha: 0.3),
             ),
           ),
           child: Text(
@@ -1540,11 +1653,26 @@ Widget _crBuildSummary() {
               ],
             ),
             const SizedBox(height: 12),
-            _crSummaryItem('Simple structure', 'Just startOffset and endOffset — two integers'),
-            _crSummaryItem('Inclusive/exclusive', 'Start is inclusive, end is exclusive (like substring)'),
-            _crSummaryItem('Per-Selectable', 'Each Selectable in a cross-widget selection gets its own range'),
-            _crSummaryItem('Drives clipboard', 'The range determines which text goes to the clipboard'),
-            _crSummaryItem('Part of pipeline', 'Created after dispatchSelectionEvent, before geometry update'),
+            _crSummaryItem(
+              'Simple structure',
+              'Just startOffset and endOffset — two integers',
+            ),
+            _crSummaryItem(
+              'Inclusive/exclusive',
+              'Start is inclusive, end is exclusive (like substring)',
+            ),
+            _crSummaryItem(
+              'Per-Selectable',
+              'Each Selectable in a cross-widget selection gets its own range',
+            ),
+            _crSummaryItem(
+              'Drives clipboard',
+              'The range determines which text goes to the clipboard',
+            ),
+            _crSummaryItem(
+              'Part of pipeline',
+              'Created after dispatchSelectionEvent, before geometry update',
+            ),
           ],
         ),
       ),
@@ -1560,9 +1688,13 @@ Widget _crSummaryItem(String title, String desc) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 6, height: 6,
+          width: 6,
+          height: 6,
           margin: const EdgeInsets.only(top: 6),
-          decoration: const BoxDecoration(color: _crGold, shape: BoxShape.circle),
+          decoration: const BoxDecoration(
+            color: _crGold,
+            shape: BoxShape.circle,
+          ),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -1571,11 +1703,19 @@ Widget _crSummaryItem(String title, String desc) {
               children: [
                 TextSpan(
                   text: '$title — ',
-                  style: const TextStyle(color: _crBlush, fontWeight: FontWeight.bold, fontSize: 12),
+                  style: const TextStyle(
+                    color: _crBlush,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                  ),
                 ),
                 TextSpan(
                   text: desc,
-                  style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12, height: 1.4),
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.9),
+                    fontSize: 12,
+                    height: 1.4,
+                  ),
                 ),
               ],
             ),

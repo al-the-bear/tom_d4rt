@@ -25,36 +25,54 @@ class _DefaultTextEditingShortcutsDemoPage extends StatefulWidget {
   const _DefaultTextEditingShortcutsDemoPage();
 
   @override
-  State<_DefaultTextEditingShortcutsDemoPage> createState() => _DefaultTextEditingShortcutsDemoPageState();
+  State<_DefaultTextEditingShortcutsDemoPage> createState() =>
+      _DefaultTextEditingShortcutsDemoPageState();
 }
 
-class _DefaultTextEditingShortcutsDemoPageState extends State<_DefaultTextEditingShortcutsDemoPage> {
+class _DefaultTextEditingShortcutsDemoPageState
+    extends State<_DefaultTextEditingShortcutsDemoPage> {
   final FocusNode _overrideNodeA = FocusNode(debugLabel: 'override-a');
   final FocusNode _overrideNodeB = FocusNode(debugLabel: 'override-b');
   final FocusNode _overrideNodeC = FocusNode(debugLabel: 'override-c');
 
   final TextEditingController _baselineControllerA = TextEditingController(
-    text: 'Try selecting words with Shift+Arrow, Ctrl+A for select-all, and Backspace/Delete behaviors.',
+    text:
+        'Try selecting words with Shift+Arrow, Ctrl+A for select-all, and Backspace/Delete behaviors.',
   );
   final TextEditingController _baselineControllerB = TextEditingController(
-    text: 'DefaultTextEditingShortcuts installs a platform-aware Shortcuts map for text editing intents.',
+    text:
+        'DefaultTextEditingShortcuts installs a platform-aware Shortcuts map for text editing intents.',
   );
 
-  final TextEditingController _overrideControllerA = TextEditingController(text: 'Alt+Down should move focus to the next field.');
-  final TextEditingController _overrideControllerB = TextEditingController(text: 'Alt+Up should move focus to the previous field.');
-  final TextEditingController _overrideControllerC = TextEditingController(text: 'Cursor movement keys still work normally unless remapped.');
+  final TextEditingController _overrideControllerA = TextEditingController(
+    text: 'Alt+Down should move focus to the next field.',
+  );
+  final TextEditingController _overrideControllerB = TextEditingController(
+    text: 'Alt+Up should move focus to the previous field.',
+  );
+  final TextEditingController _overrideControllerC = TextEditingController(
+    text: 'Cursor movement keys still work normally unless remapped.',
+  );
 
   final TextEditingController _counterSceneController = TextEditingController(
-    text: 'ArrowUp and ArrowDown are remapped to counter actions in this scene.',
+    text:
+        'ArrowUp and ArrowDown are remapped to counter actions in this scene.',
   );
 
   final TextEditingController _logSceneController = TextEditingController(
-    text: 'Press Ctrl+Enter to commit, Ctrl+L to clear log, F2 to insert a timestamp marker.',
+    text:
+        'Press Ctrl+Enter to commit, Ctrl+L to clear log, F2 to insert a timestamp marker.',
   );
 
-  final TextEditingController _moduleControllerOps = TextEditingController(text: 'Operations backlog note...');
-  final TextEditingController _moduleControllerCreative = TextEditingController(text: 'Creative campaign note...');
-  final TextEditingController _moduleControllerResearch = TextEditingController(text: 'Research summary note...');
+  final TextEditingController _moduleControllerOps = TextEditingController(
+    text: 'Operations backlog note...',
+  );
+  final TextEditingController _moduleControllerCreative = TextEditingController(
+    text: 'Creative campaign note...',
+  );
+  final TextEditingController _moduleControllerResearch = TextEditingController(
+    text: 'Research summary note...',
+  );
 
   final List<String> _commandLog = [];
   int _counterValue = 0;
@@ -205,7 +223,9 @@ class _DefaultTextEditingShortcutsDemoPageState extends State<_DefaultTextEditin
                 },
                 onMarker: () {
                   final now = DateTime.now();
-                  _appendLog('marker inserted at ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}');
+                  _appendLog(
+                    'marker inserted at ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}',
+                  );
                 },
               ),
             ),
@@ -242,11 +262,7 @@ class _HeroBanner extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFF0A5D6D),
-            Color(0xFF2B8393),
-            Color(0xFF6E5AA7),
-          ],
+          colors: [Color(0xFF0A5D6D), Color(0xFF2B8393), Color(0xFF6E5AA7)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -369,7 +385,11 @@ class _SceneCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: accent),
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w800,
+                    color: accent,
+                  ),
                 ),
               ),
             ],
@@ -377,7 +397,11 @@ class _SceneCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: TextStyle(fontSize: 12, height: 1.45, color: accent.withValues(alpha: 0.8)),
+            style: TextStyle(
+              fontSize: 12,
+              height: 1.45,
+              color: accent.withValues(alpha: 0.8),
+            ),
           ),
           const SizedBox(height: 12),
           child,
@@ -423,12 +447,14 @@ class _ConceptScene extends StatelessWidget {
               accent: Color(0xFF2E7D62),
               line1: 'Ctrl/Cmd+C, X, V -> copy/cut/paste',
               line2: 'Ctrl+A -> select all',
-              line3: 'Shift+Delete and Insert variants supported on some platforms',
+              line3:
+                  'Shift+Delete and Insert variants supported on some platforms',
             ),
             _ShortcutCategoryCard(
               title: 'Extensibility model',
               accent: Color(0xFF6F5AA6),
-              line1: 'Add Shortcuts lower in tree to override only desired keys',
+              line1:
+                  'Add Shortcuts lower in tree to override only desired keys',
               line2: 'Map to built-in intents or custom intents',
               line3: 'Use Actions to execute behavior per intent type',
             ),
@@ -452,7 +478,11 @@ class _ConceptScene extends StatelessWidget {
             '    child: Actions(...),\n'
             '  ),\n'
             ')',
-            style: TextStyle(fontFamily: 'monospace', fontSize: 11, height: 1.4),
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              height: 1.4,
+            ),
           ),
         ),
       ],
@@ -489,7 +519,14 @@ class _ShortcutCategoryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent, fontSize: 13)),
+            Text(
+              title,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                color: accent,
+                fontSize: 13,
+              ),
+            ),
             const SizedBox(height: 6),
             Text(line1, style: const TextStyle(fontSize: 11.5, height: 1.35)),
             const SizedBox(height: 3),
@@ -504,10 +541,7 @@ class _ShortcutCategoryCard extends StatelessWidget {
 }
 
 class _BaselineScene extends StatelessWidget {
-  const _BaselineScene({
-    required this.controllerA,
-    required this.controllerB,
-  });
+  const _BaselineScene({required this.controllerA, required this.controllerB});
 
   final TextEditingController controllerA;
   final TextEditingController controllerB;
@@ -546,7 +580,9 @@ class _BaselineScene extends StatelessWidget {
             maxLines: 3,
             decoration: InputDecoration(
               labelText: 'Baseline editor A',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -555,7 +591,9 @@ class _BaselineScene extends StatelessWidget {
             maxLines: 3,
             decoration: InputDecoration(
               labelText: 'Baseline editor B',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
         ],
@@ -586,8 +624,10 @@ class _OverrideFocusScene extends StatelessWidget {
     return DefaultTextEditingShortcuts(
       child: Shortcuts(
         shortcuts: const <ShortcutActivator, Intent>{
-          SingleActivator(LogicalKeyboardKey.arrowDown, alt: true): NextFocusIntent(),
-          SingleActivator(LogicalKeyboardKey.arrowUp, alt: true): PreviousFocusIntent(),
+          SingleActivator(LogicalKeyboardKey.arrowDown, alt: true):
+              NextFocusIntent(),
+          SingleActivator(LogicalKeyboardKey.arrowUp, alt: true):
+              PreviousFocusIntent(),
         },
         child: FocusTraversalGroup(
           policy: OrderedTraversalPolicy(),
@@ -653,14 +693,19 @@ class _OverrideFieldCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontWeight: FontWeight.w800, color: accent)),
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.w800, color: accent),
+          ),
           const SizedBox(height: 6),
           TextField(
             focusNode: focusNode,
             controller: controller,
             maxLines: 2,
             decoration: InputDecoration(
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               labelText: 'Alt+Up / Alt+Down focus traversal active',
             ),
           ),
@@ -703,7 +748,8 @@ class _CounterIntentScene extends StatelessWidget {
       child: Shortcuts(
         shortcuts: const <ShortcutActivator, Intent>{
           SingleActivator(LogicalKeyboardKey.arrowUp): _IncreaseCounterIntent(),
-          SingleActivator(LogicalKeyboardKey.arrowDown): _DecreaseCounterIntent(),
+          SingleActivator(LogicalKeyboardKey.arrowDown):
+              _DecreaseCounterIntent(),
           SingleActivator(LogicalKeyboardKey.escape): _ResetCounterIntent(),
         },
         child: Actions(
@@ -745,7 +791,10 @@ class _CounterIntentScene extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.keyboard_alt_rounded, color: Color(0xFF6F5AA6)),
+                    const Icon(
+                      Icons.keyboard_alt_rounded,
+                      color: Color(0xFF6F5AA6),
+                    ),
                     const SizedBox(width: 10),
                     const Expanded(
                       child: Text(
@@ -754,7 +803,10 @@ class _CounterIntentScene extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF6F5AA6).withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(8),
@@ -776,7 +828,9 @@ class _CounterIntentScene extends StatelessWidget {
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Counter shortcut editor',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ],
@@ -819,8 +873,10 @@ class _CommandLogScene extends StatelessWidget {
     return DefaultTextEditingShortcuts(
       child: Shortcuts(
         shortcuts: const <ShortcutActivator, Intent>{
-          SingleActivator(LogicalKeyboardKey.enter, control: true): _CommitIntent(),
-          SingleActivator(LogicalKeyboardKey.keyL, control: true): _ClearLogIntent(),
+          SingleActivator(LogicalKeyboardKey.enter, control: true):
+              _CommitIntent(),
+          SingleActivator(LogicalKeyboardKey.keyL, control: true):
+              _ClearLogIntent(),
           SingleActivator(LogicalKeyboardKey.f2): _InsertMarkerIntent(),
         },
         child: Actions(
@@ -870,7 +926,9 @@ class _CommandLogScene extends StatelessWidget {
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Command editor',
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
               const SizedBox(height: 10),
@@ -885,31 +943,85 @@ class _CommandLogScene extends StatelessWidget {
                 child: commandLog.isEmpty
                     ? const Text(
                         'No commands yet. Trigger shortcuts to populate log.',
-                        style: TextStyle(fontSize: 12.2, color: Color(0xFF5A6D79)),
+                        style: TextStyle(
+                          fontSize: 12.2,
+                          color: Color(0xFF5A6D79),
+                        ),
                       )
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             'Recent commands',
-                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12.5,
+                            ),
                           ),
                           const SizedBox(height: 6),
-                          Text(commandLog[0], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                          Text(
+                            commandLog[0],
+                            style: const TextStyle(
+                              fontFamily: 'monospace',
+                              fontSize: 11,
+                            ),
+                          ),
                           if (commandLog.length > 1)
-                            Text(commandLog[1], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[1],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 2)
-                            Text(commandLog[2], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[2],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 3)
-                            Text(commandLog[3], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[3],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 4)
-                            Text(commandLog[4], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[4],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 5)
-                            Text(commandLog[5], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[5],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 6)
-                            Text(commandLog[6], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[6],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                           if (commandLog.length > 7)
-                            Text(commandLog[7], style: const TextStyle(fontFamily: 'monospace', fontSize: 11)),
+                            Text(
+                              commandLog[7],
+                              style: const TextStyle(
+                                fontFamily: 'monospace',
+                                fontSize: 11,
+                              ),
+                            ),
                         ],
                       ),
               ),
@@ -952,8 +1064,10 @@ class _ModuleArchitectureScene extends StatelessWidget {
               controller: opsController,
               commandHint: 'Alt+Down / Alt+Up focus movement between ops forms',
               shortcuts: const <ShortcutActivator, Intent>{
-                SingleActivator(LogicalKeyboardKey.arrowDown, alt: true): NextFocusIntent(),
-                SingleActivator(LogicalKeyboardKey.arrowUp, alt: true): PreviousFocusIntent(),
+                SingleActivator(LogicalKeyboardKey.arrowDown, alt: true):
+                    NextFocusIntent(),
+                SingleActivator(LogicalKeyboardKey.arrowUp, alt: true):
+                    PreviousFocusIntent(),
               },
             ),
             _ModuleEditorCard(
@@ -962,7 +1076,8 @@ class _ModuleArchitectureScene extends StatelessWidget {
               controller: creativeController,
               commandHint: 'Ctrl+Enter commit action for creative drafts',
               shortcuts: const <ShortcutActivator, Intent>{
-                SingleActivator(LogicalKeyboardKey.enter, control: true): _CommitIntent(),
+                SingleActivator(LogicalKeyboardKey.enter, control: true):
+                    _CommitIntent(),
               },
             ),
             _ModuleEditorCard(
@@ -1014,7 +1129,9 @@ class _ModuleEditorCard extends StatelessWidget {
                 onInvoke: (intent) {
                   final text = controller.text;
                   controller.text = '$text [marker]';
-                  controller.selection = TextSelection.collapsed(offset: controller.text.length);
+                  controller.selection = TextSelection.collapsed(
+                    offset: controller.text.length,
+                  );
                   return null;
                 },
               ),
@@ -1036,16 +1153,31 @@ class _ModuleEditorCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent)),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: accent,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(commandHint, style: TextStyle(fontSize: 11.2, color: accent.withValues(alpha: 0.82))),
+                  Text(
+                    commandHint,
+                    style: TextStyle(
+                      fontSize: 11.2,
+                      color: accent.withValues(alpha: 0.82),
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   TextField(
                     controller: controller,
                     maxLines: 3,
                     decoration: InputDecoration(
                       labelText: 'Reusable module editor',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
                 ],
@@ -1079,7 +1211,11 @@ class _RecapCard extends StatelessWidget {
         children: [
           Text(
             'Deep Demo Recap',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF314B5B)),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF314B5B),
+            ),
           ),
           SizedBox(height: 8),
           Text(

@@ -58,11 +58,7 @@ Widget _buildInfoCard(String label, String description) {
         SizedBox(height: 4),
         Text(
           description,
-          style: TextStyle(
-            fontSize: 13,
-            color: Color(0xFF1565C0),
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 13, color: Color(0xFF1565C0), height: 1.4),
         ),
       ],
     ),
@@ -277,9 +273,7 @@ dynamic build(BuildContext context) {
     onPressed: () {
       print('RoundedRect pressed');
     },
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     color: Color(0xFF7B1FA2),
     textColor: Colors.white,
     child: Text('Rounded Rect'),
@@ -312,9 +306,7 @@ dynamic build(BuildContext context) {
     onPressed: () {
       print('Beveled pressed');
     },
-    shape: BeveledRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
+    shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
     color: Color(0xFF558B2F),
     textColor: Colors.white,
     child: Text('Beveled'),
@@ -338,9 +330,7 @@ dynamic build(BuildContext context) {
     onPressed: () {
       print('ContinuousRect pressed');
     },
-    shape: ContinuousRectangleBorder(
-      borderRadius: BorderRadius.circular(28),
-    ),
+    shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(28)),
     color: Color(0xFF4E342E),
     textColor: Colors.white,
     child: Text('Continuous Rect'),
@@ -694,9 +684,7 @@ dynamic build(BuildContext context) {
     },
     color: Color(0xFF2E7D32),
     textColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
     child: Row(
       mainAxisSize: MainAxisSize.min,
@@ -732,9 +720,7 @@ dynamic build(BuildContext context) {
     color: Color(0xFF455A64),
     textColor: Colors.white,
     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(6),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -744,10 +730,14 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Settings',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-            Text('Configure app',
-                style: TextStyle(fontSize: 10, color: Color(0xAAFFFFFF))),
+            Text(
+              'Settings',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Configure app',
+              style: TextStyle(fontSize: 10, color: Color(0xAAFFFFFF)),
+            ),
           ],
         ),
       ],
@@ -760,9 +750,7 @@ dynamic build(BuildContext context) {
     },
     color: Color(0xFF7B1FA2),
     textColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -776,8 +764,7 @@ dynamic build(BuildContext context) {
             color: Color(0xFFFF5722),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Text('5',
-              style: TextStyle(fontSize: 12, color: Colors.white)),
+          child: Text('5', style: TextStyle(fontSize: 12, color: Colors.white)),
         ),
       ],
     ),
@@ -790,9 +777,7 @@ dynamic build(BuildContext context) {
     color: Colors.transparent,
     elevation: 0,
     padding: EdgeInsets.zero,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       decoration: BoxDecoration(
@@ -831,9 +816,7 @@ dynamic build(BuildContext context) {
     clipBehavior: Clip.hardEdge,
     color: Color(0xFF0277BD),
     textColor: Colors.white,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
-    ),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     child: Text('Clip.hardEdge'),
   );
 
@@ -888,11 +871,7 @@ dynamic build(BuildContext context) {
           margin: EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                Color(0xFF0D47A1),
-                Color(0xFF1565C0),
-                Color(0xFF42A5F5),
-              ],
+              colors: [Color(0xFF0D47A1), Color(0xFF1565C0), Color(0xFF42A5F5)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -930,7 +909,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'MaterialButton',
           'A utility class for building Material Design buttons. '
-          'Provides onPressed and onLongPress callbacks.',
+              'Provides onPressed and onLongPress callbacks.',
         ),
         _buildSubHeader('Default Button'),
         basicButton,
@@ -944,7 +923,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Color Properties',
           'MaterialButton supports color, textColor, disabledColor, '
-          'and disabledTextColor for full color customization.',
+              'and disabledTextColor for full color customization.',
         ),
         _buildDemoRow('Blue', coloredButton),
         _buildDemoRow('Green', greenButton),
@@ -958,35 +937,21 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Elevation',
           'Control shadow depth with elevation, highlightElevation, '
-          'hoverElevation, focusElevation, and disabledElevation.',
+              'hoverElevation, focusElevation, and disabledElevation.',
         ),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
             Column(
-              children: [
-                elevationZero,
-                _buildButtonLabel('elevation: 0'),
-              ],
+              children: [elevationZero, _buildButtonLabel('elevation: 0')],
+            ),
+            Column(children: [elevationTwo, _buildButtonLabel('elevation: 2')]),
+            Column(
+              children: [elevationEight, _buildButtonLabel('elevation: 8')],
             ),
             Column(
-              children: [
-                elevationTwo,
-                _buildButtonLabel('elevation: 2'),
-              ],
-            ),
-            Column(
-              children: [
-                elevationEight,
-                _buildButtonLabel('elevation: 8'),
-              ],
-            ),
-            Column(
-              children: [
-                elevationSixteen,
-                _buildButtonLabel('elevation: 16'),
-              ],
+              children: [elevationSixteen, _buildButtonLabel('elevation: 16')],
             ),
           ],
         ),
@@ -1000,47 +965,23 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Shape Property',
           'Use shape to set RoundedRectangleBorder, StadiumBorder, '
-          'CircleBorder, BeveledRectangleBorder, or ContinuousRectangleBorder.',
+              'CircleBorder, BeveledRectangleBorder, or ContinuousRectangleBorder.',
         ),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
             Column(
-              children: [
-                roundedRectButton,
-                _buildButtonLabel('RoundedRect'),
-              ],
+              children: [roundedRectButton, _buildButtonLabel('RoundedRect')],
+            ),
+            Column(children: [stadiumButton, _buildButtonLabel('Stadium')]),
+            Column(children: [circleButton, _buildButtonLabel('Circle')]),
+            Column(children: [beveledButton, _buildButtonLabel('Beveled')]),
+            Column(
+              children: [outlinedShapeButton, _buildButtonLabel('Outlined')],
             ),
             Column(
-              children: [
-                stadiumButton,
-                _buildButtonLabel('Stadium'),
-              ],
-            ),
-            Column(
-              children: [
-                circleButton,
-                _buildButtonLabel('Circle'),
-              ],
-            ),
-            Column(
-              children: [
-                beveledButton,
-                _buildButtonLabel('Beveled'),
-              ],
-            ),
-            Column(
-              children: [
-                outlinedShapeButton,
-                _buildButtonLabel('Outlined'),
-              ],
-            ),
-            Column(
-              children: [
-                continuousRectButton,
-                _buildButtonLabel('Continuous'),
-              ],
+              children: [continuousRectButton, _buildButtonLabel('Continuous')],
             ),
           ],
         ),
@@ -1051,7 +992,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Disabled State',
           'Setting onPressed to null disables the button. '
-          'Use disabledColor and disabledTextColor for custom disabled look.',
+              'Use disabledColor and disabledTextColor for custom disabled look.',
         ),
         _buildDemoRow('Enabled', enabledButton),
         _buildDemoRow('Disabled', disabledButton),
@@ -1064,17 +1005,14 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Sizing',
           'Control internal spacing with padding, and minimum dimensions '
-          'with minWidth and height properties.',
+              'with minWidth and height properties.',
         ),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
             Column(
-              children: [
-                noPaddingButton,
-                _buildButtonLabel('No Padding'),
-              ],
+              children: [noPaddingButton, _buildButtonLabel('No Padding')],
             ),
             Column(
               children: [
@@ -1102,12 +1040,7 @@ dynamic build(BuildContext context) {
                 _buildButtonLabel('minW:40 h:30'),
               ],
             ),
-            Column(
-              children: [
-                tallButton,
-                _buildButtonLabel('minW:100 h:80'),
-              ],
-            ),
+            Column(children: [tallButton, _buildButtonLabel('minW:100 h:80')]),
           ],
         ),
         SizedBox(height: 8),
@@ -1120,23 +1053,17 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Interaction Colors',
           'Customize splashColor, highlightColor, focusColor, and hoverColor '
-          'for rich tap and interaction feedback.',
+              'for rich tap and interaction feedback.',
         ),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
             Column(
-              children: [
-                redSplashButton,
-                _buildButtonLabel('Red Splash'),
-              ],
+              children: [redSplashButton, _buildButtonLabel('Red Splash')],
             ),
             Column(
-              children: [
-                greenSplashButton,
-                _buildButtonLabel('Green Splash'),
-              ],
+              children: [greenSplashButton, _buildButtonLabel('Green Splash')],
             ),
             Column(
               children: [
@@ -1156,17 +1083,14 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'VisualDensity',
           'Adjusts the compactness of the button. '
-          'Values: standard, comfortable, compact, or custom.',
+              'Values: standard, comfortable, compact, or custom.',
         ),
         Wrap(
           spacing: 10,
           runSpacing: 10,
           children: [
             Column(
-              children: [
-                standardDensityButton,
-                _buildButtonLabel('Standard'),
-              ],
+              children: [standardDensityButton, _buildButtonLabel('Standard')],
             ),
             Column(
               children: [
@@ -1175,22 +1099,13 @@ dynamic build(BuildContext context) {
               ],
             ),
             Column(
-              children: [
-                compactDensityButton,
-                _buildButtonLabel('Compact'),
-              ],
+              children: [compactDensityButton, _buildButtonLabel('Compact')],
             ),
             Column(
-              children: [
-                customDensityButton,
-                _buildButtonLabel('Custom +4'),
-              ],
+              children: [customDensityButton, _buildButtonLabel('Custom +4')],
             ),
             Column(
-              children: [
-                negativeDensityButton,
-                _buildButtonLabel('Custom -4'),
-              ],
+              children: [negativeDensityButton, _buildButtonLabel('Custom -4')],
             ),
           ],
         ),
@@ -1201,22 +1116,14 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'MaterialTapTargetSize',
           'padded ensures minimum 48px hit area. '
-          'shrinkWrap removes extra padding around the button.',
+              'shrinkWrap removes extra padding around the button.',
         ),
         Row(
           children: [
-            Column(
-              children: [
-                paddedTapTarget,
-                _buildButtonLabel('Padded'),
-              ],
-            ),
+            Column(children: [paddedTapTarget, _buildButtonLabel('Padded')]),
             SizedBox(width: 16),
             Column(
-              children: [
-                shrinkWrapTapTarget,
-                _buildButtonLabel('Shrink Wrap'),
-              ],
+              children: [shrinkWrapTapTarget, _buildButtonLabel('Shrink Wrap')],
             ),
           ],
         ),
@@ -1246,7 +1153,7 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'ColorBrightness',
           'Determines the default text color based on brightness. '
-          'Light uses dark text, dark uses light text.',
+              'Light uses dark text, dark uses light text.',
         ),
         _buildDemoRow('Light', lightBrightnessButton),
         _buildDemoRow('Dark', darkBrightnessButton),
@@ -1259,26 +1166,19 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'Custom Children',
           'MaterialButton child can be any widget. Use Row with Icon and Text, '
-          'badges, multi-line layouts, or gradient containers.',
+              'badges, multi-line layouts, or gradient containers.',
         ),
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          children: [
-            iconTextButton,
-            downloadButton,
-            deleteButton,
-          ],
+          children: [iconTextButton, downloadButton, deleteButton],
         ),
         SizedBox(height: 10),
         _buildSubHeader('Complex Children'),
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          children: [
-            settingsButton,
-            counterBadgeButton,
-          ],
+          children: [settingsButton, counterBadgeButton],
         ),
         SizedBox(height: 10),
         _buildSubHeader('Gradient Background'),
@@ -1290,19 +1190,14 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'ClipBehavior & AnimationDuration',
           'clipBehavior controls how overflow is handled. '
-          'animationDuration controls elevation transition speed.',
+              'animationDuration controls elevation transition speed.',
         ),
         _buildSubHeader('Clip Behaviors'),
         Wrap(
           spacing: 12,
           runSpacing: 12,
           children: [
-            Column(
-              children: [
-                clipNoneButton,
-                _buildButtonLabel('Clip.none'),
-              ],
-            ),
+            Column(children: [clipNoneButton, _buildButtonLabel('Clip.none')]),
             Column(
               children: [
                 clipHardEdgeButton,
@@ -1323,18 +1218,8 @@ dynamic build(BuildContext context) {
           spacing: 12,
           runSpacing: 12,
           children: [
-            Column(
-              children: [
-                shortAnimButton,
-                _buildButtonLabel('50ms'),
-              ],
-            ),
-            Column(
-              children: [
-                longAnimButton,
-                _buildButtonLabel('500ms'),
-              ],
-            ),
+            Column(children: [shortAnimButton, _buildButtonLabel('50ms')]),
+            Column(children: [longAnimButton, _buildButtonLabel('500ms')]),
           ],
         ),
         SizedBox(height: 16),
@@ -1344,11 +1229,11 @@ dynamic build(BuildContext context) {
         _buildInfoCard(
           'MaterialButton Properties Covered',
           'onPressed, onLongPress, color, textColor, disabledColor, '
-          'disabledTextColor, elevation, highlightElevation, hoverElevation, '
-          'focusElevation, disabledElevation, shape, padding, minWidth, '
-          'height, splashColor, highlightColor, focusColor, hoverColor, '
-          'visualDensity, materialTapTargetSize, colorBrightness, '
-          'clipBehavior, animationDuration, enableFeedback, child.',
+              'disabledTextColor, elevation, highlightElevation, hoverElevation, '
+              'focusElevation, disabledElevation, shape, padding, minWidth, '
+              'height, splashColor, highlightColor, focusColor, hoverColor, '
+              'visualDensity, materialTapTargetSize, colorBrightness, '
+              'clipBehavior, animationDuration, enableFeedback, child.',
         ),
         Container(
           width: double.infinity,
@@ -1371,16 +1256,14 @@ dynamic build(BuildContext context) {
                 ),
               ),
               SizedBox(height: 8),
-              Text('Total sections: 13',
-                  style: TextStyle(fontSize: 13)),
-              Text('Properties demonstrated: 26',
-                  style: TextStyle(fontSize: 13)),
-              Text('Button variations: 40+',
-                  style: TextStyle(fontSize: 13)),
-              Text('Shape types: 6',
-                  style: TextStyle(fontSize: 13)),
-              Text('Rich child patterns: 6',
-                  style: TextStyle(fontSize: 13)),
+              Text('Total sections: 13', style: TextStyle(fontSize: 13)),
+              Text(
+                'Properties demonstrated: 26',
+                style: TextStyle(fontSize: 13),
+              ),
+              Text('Button variations: 40+', style: TextStyle(fontSize: 13)),
+              Text('Shape types: 6', style: TextStyle(fontSize: 13)),
+              Text('Rich child patterns: 6', style: TextStyle(fontSize: 13)),
             ],
           ),
         ),

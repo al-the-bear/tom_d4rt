@@ -10,7 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class _ScriptContainerRenderBox extends RenderBox
-    with ContainerRenderObjectMixin<RenderBox, ContainerBoxParentData<RenderBox>> {}
+    with
+        ContainerRenderObjectMixin<
+          RenderBox,
+          ContainerBoxParentData<RenderBox>
+        > {}
 
 dynamic build(BuildContext context) {
   final render = _ScriptContainerRenderBox();

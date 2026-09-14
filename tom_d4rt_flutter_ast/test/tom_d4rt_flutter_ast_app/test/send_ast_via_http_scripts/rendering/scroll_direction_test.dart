@@ -31,8 +31,10 @@ import 'package:flutter/rendering.dart';
 
 dynamic build(BuildContext context) {
   print('ScrollDirection Deep Demo executing');
-  print('Enum has ${ScrollDirection.values.length} values: '
-      '${ScrollDirection.values.map((v) => v.name).join(", ")}');
+  print(
+    'Enum has ${ScrollDirection.values.length} values: '
+    '${ScrollDirection.values.map((v) => v.name).join(", ")}',
+  );
 
   // ============================================================
   // SECTION 1: Hero header
@@ -76,8 +78,11 @@ dynamic build(BuildContext context) {
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: const Icon(Icons.swap_vert,
-                  color: Colors.white, size: 40.0),
+              child: const Icon(
+                Icons.swap_vert,
+                color: Colors.white,
+                size: 40.0,
+              ),
             ),
             const SizedBox(width: 16.0),
             Expanded(
@@ -106,7 +111,9 @@ dynamic build(BuildContext context) {
             ),
             Container(
               padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0, vertical: 6.0),
+                horizontal: 12.0,
+                vertical: 6.0,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: 0.18),
                 borderRadius: BorderRadius.circular(20.0),
@@ -128,8 +135,7 @@ dynamic build(BuildContext context) {
           'direction of CONTENT motion, not finger motion. Used by '
           'UserScrollNotification, ScrollPosition.userScrollDirection, and '
           'every "hide on scroll" UI you have ever built.',
-          style: TextStyle(
-              color: Colors.white, fontSize: 14.0, height: 1.45),
+          style: TextStyle(color: Colors.white, fontSize: 14.0, height: 1.45),
         ),
       ],
     ),
@@ -171,18 +177,22 @@ dynamic build(BuildContext context) {
       ),
       child: Column(
         children: [
-          Text(top,
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: color,
-                  fontWeight: FontWeight.bold)),
+          Text(
+            top,
+            style: TextStyle(
+              fontSize: 11.0,
+              color: color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 4.0),
           Icon(icon, color: color, size: 36.0),
           const SizedBox(height: 4.0),
-          Text(bottom,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 10.0, color: Colors.grey.shade800)),
+          Text(
+            bottom,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade800),
+          ),
         ],
       ),
     );
@@ -210,18 +220,24 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.warning_amber_rounded,
-              color: Colors.orange.shade800, size: 22.0),
-          const SizedBox(width: 8.0),
-          Text(
-            'The famous confusion',
-            style: TextStyle(
+        Row(
+          children: [
+            Icon(
+              Icons.warning_amber_rounded,
+              color: Colors.orange.shade800,
+              size: 22.0,
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              'The famous confusion',
+              style: TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.orange.shade900),
-          ),
-        ]),
+                color: Colors.orange.shade900,
+              ),
+            ),
+          ],
+        ),
         const SizedBox(height: 12.0),
         const Text(
           'A user drags their finger UP on a default ListView (axis = down). '
@@ -294,8 +310,10 @@ dynamic build(BuildContext context) {
     required String horizontalMeaning,
     required String whenItFires,
   }) {
-    print('Building card for ScrollDirection.${value.name} '
-        '(index ${value.index})');
+    print(
+      'Building card for ScrollDirection.${value.name} '
+      '(index ${value.index})',
+    );
     return Container(
       width: 320.0,
       margin: const EdgeInsets.all(8.0),
@@ -355,7 +373,9 @@ dynamic build(BuildContext context) {
                     Text(
                       'index ${value.index}',
                       style: TextStyle(
-                          fontSize: 10.0, color: Colors.grey.shade700),
+                        fontSize: 10.0,
+                        color: Colors.grey.shade700,
+                      ),
                     ),
                   ],
                 ),
@@ -366,10 +386,11 @@ dynamic build(BuildContext context) {
           Text(
             oneLiner,
             style: TextStyle(
-                fontSize: 13.0,
-                color: Colors.grey.shade900,
-                fontStyle: FontStyle.italic,
-                height: 1.4),
+              fontSize: 13.0,
+              color: Colors.grey.shade900,
+              fontStyle: FontStyle.italic,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 12.0),
           _row('Vertical list', verticalMeaning, color),
@@ -455,10 +476,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            tone.withValues(alpha: 0.05),
-            tone.withValues(alpha: 0.18),
-          ],
+          colors: [tone.withValues(alpha: 0.05), tone.withValues(alpha: 0.18)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -477,9 +495,10 @@ dynamic build(BuildContext context) {
           Text(
             dir.name.toUpperCase(),
             style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                color: tone),
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              color: tone,
+            ),
           ),
           const SizedBox(height: 6.0),
           Stack(
@@ -491,25 +510,29 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
-                  border:
-                      Border.all(color: Colors.grey.shade400, width: 1.0),
+                  border: Border.all(color: Colors.grey.shade400, width: 1.0),
                 ),
                 child: Column(
                   children: List.generate(6, (i) {
                     return Container(
                       height: 22.0,
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 4.0, vertical: 2.0),
+                        horizontal: 4.0,
+                        vertical: 2.0,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(3.0),
                       ),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Text('item $i',
-                          style: TextStyle(
-                              fontSize: 10.0,
-                              color: Colors.grey.shade700)),
+                      child: Text(
+                        'item $i',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     );
                   }),
                 ),
@@ -519,10 +542,7 @@ dynamic build(BuildContext context) {
                 right: 0.0,
                 top: 0.0,
                 bottom: 0.0,
-                child: Container(
-                  width: 4.0,
-                  color: Colors.grey.shade200,
-                ),
+                child: Container(width: 4.0, color: Colors.grey.shade200),
               ),
               // Thumb position
               Positioned(
@@ -550,8 +570,7 @@ dynamic build(BuildContext context) {
             isForward
                 ? 'finger ↑ / offset ↑'
                 : (isReverse ? 'finger ↓ / offset ↓' : 'no drag'),
-            style:
-                TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
           ),
         ],
       ),
@@ -586,10 +605,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            tone.withValues(alpha: 0.05),
-            tone.withValues(alpha: 0.20),
-          ],
+          colors: [tone.withValues(alpha: 0.05), tone.withValues(alpha: 0.20)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -608,9 +624,10 @@ dynamic build(BuildContext context) {
           Text(
             'horizontal: ${dir.name}',
             style: TextStyle(
-                fontSize: 11.0,
-                fontWeight: FontWeight.bold,
-                color: tone),
+              fontSize: 11.0,
+              fontWeight: FontWeight.bold,
+              color: tone,
+            ),
           ),
           const SizedBox(height: 6.0),
           Stack(
@@ -621,8 +638,7 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(6.0),
-                  border:
-                      Border.all(color: Colors.grey.shade400, width: 1.0),
+                  border: Border.all(color: Colors.grey.shade400, width: 1.0),
                 ),
                 child: Row(
                   children: List.generate(5, (i) {
@@ -638,10 +654,13 @@ dynamic build(BuildContext context) {
                         borderRadius: BorderRadius.circular(3.0),
                       ),
                       alignment: Alignment.center,
-                      child: Text('$i',
-                          style: TextStyle(
-                              fontSize: 11.0,
-                              color: Colors.grey.shade700)),
+                      child: Text(
+                        '$i',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     );
                   }),
                 ),
@@ -676,8 +695,7 @@ dynamic build(BuildContext context) {
             isForward
                 ? 'finger ← / offset ↑'
                 : (isReverse ? 'finger → / offset ↓' : 'no drag'),
-            style:
-                TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
+            style: TextStyle(fontSize: 10.0, color: Colors.grey.shade700),
           ),
         ],
       ),
@@ -731,20 +749,22 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(icon, color: color, size: 24.0),
-            const SizedBox(width: 8.0),
-            Text(
-              title,
-              style: TextStyle(
+          Row(
+            children: [
+              Icon(icon, color: color, size: 24.0),
+              const SizedBox(width: 8.0),
+              Text(
+                title,
+                style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                  color: color),
-            ),
-          ]),
+                  color: color,
+                ),
+              ),
+            ],
+          ),
           const SizedBox(height: 8.0),
-          Text(why,
-              style: const TextStyle(fontSize: 12.0, height: 1.4)),
+          Text(why, style: const TextStyle(fontSize: 12.0, height: 1.4)),
           const SizedBox(height: 10.0),
           Container(
             padding: const EdgeInsets.all(12.0),
@@ -774,7 +794,8 @@ dynamic build(BuildContext context) {
         'content); show it again when they scroll reverse (heading back up). '
         'Note: rely on UserScrollNotification.direction, NOT on offset deltas '
         'across frames — the latter triggers on inertial settles too.',
-    code: 'NotificationListener<UserScrollNotification>(\n'
+    code:
+        'NotificationListener<UserScrollNotification>(\n'
         '  onNotification: (n) {\n'
         '    final dir = n.direction;\n'
         '    if (dir == ScrollDirection.forward) {\n'
@@ -798,7 +819,8 @@ dynamic build(BuildContext context) {
         'scrolling, and re-expands to icon+label when they stop. Watch for '
         'ScrollDirection.idle to know when to expand again — but remember '
         'idle fires when the DRAG ends, even if the page is still gliding.',
-    code: 'bool expanded = true; // track elsewhere\n'
+    code:
+        'bool expanded = true; // track elsewhere\n'
         'NotificationListener<UserScrollNotification>(\n'
         '  onNotification: (n) {\n'
         '    switch (n.direction) {\n'
@@ -825,7 +847,8 @@ dynamic build(BuildContext context) {
         'and fully reveals when they scroll reverse. The pattern is the same '
         'as the AppBar but inverted on the Y axis. RTL and reversed lists '
         'flip the meaning of forward/reverse — see Pitfalls.',
-    code: 'NotificationListener<UserScrollNotification>(\n'
+    code:
+        'NotificationListener<UserScrollNotification>(\n'
         '  onNotification: (n) {\n'
         '    final isPullingUp = n.direction == ScrollDirection.reverse;\n'
         '    sheetController.target = isPullingUp ? 1.0 : 0.2;\n'
@@ -843,8 +866,13 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 7: Gesture → Axis → ScrollDirection map ===');
 
-  Widget mapCell(String text,
-      {bool header = false, Color? bg, Color? fg, double width = 130.0}) {
+  Widget mapCell(
+    String text, {
+    bool header = false,
+    Color? bg,
+    Color? fg,
+    double width = 130.0,
+  }) {
     return Container(
       width: width,
       padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8.0),
@@ -890,69 +918,88 @@ dynamic build(BuildContext context) {
         Text(
           'Mapping table — finger → AxisDirection → ScrollDirection',
           style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.cyan.shade900),
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.cyan.shade900,
+          ),
         ),
         const SizedBox(height: 12.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Column(
             children: [
-              Row(children: [
-                mapCell('Finger', header: true),
-                mapCell('AxisDirection', header: true),
-                mapCell('Offset Δ', header: true),
-                mapCell('ScrollDirection', header: true),
-              ]),
-              Row(children: [
-                mapCell('drag UP'),
-                mapCell('down'),
-                mapCell('+', bg: Colors.green.shade50),
-                mapCell('forward', fg: Colors.green.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag DOWN'),
-                mapCell('down'),
-                mapCell('-', bg: Colors.red.shade50),
-                mapCell('reverse', fg: Colors.red.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag DOWN'),
-                mapCell('up (reversed)'),
-                mapCell('+', bg: Colors.green.shade50),
-                mapCell('forward', fg: Colors.green.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag UP'),
-                mapCell('up (reversed)'),
-                mapCell('-', bg: Colors.red.shade50),
-                mapCell('reverse', fg: Colors.red.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag LEFT'),
-                mapCell('right'),
-                mapCell('+', bg: Colors.green.shade50),
-                mapCell('forward', fg: Colors.green.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag RIGHT'),
-                mapCell('right'),
-                mapCell('-', bg: Colors.red.shade50),
-                mapCell('reverse', fg: Colors.red.shade800),
-              ]),
-              Row(children: [
-                mapCell('drag RIGHT'),
-                mapCell('left (RTL)'),
-                mapCell('+', bg: Colors.green.shade50),
-                mapCell('forward', fg: Colors.green.shade800),
-              ]),
-              Row(children: [
-                mapCell('no drag'),
-                mapCell('any'),
-                mapCell('±/0', bg: Colors.grey.shade100),
-                mapCell('idle', fg: Colors.blueGrey.shade800),
-              ]),
+              Row(
+                children: [
+                  mapCell('Finger', header: true),
+                  mapCell('AxisDirection', header: true),
+                  mapCell('Offset Δ', header: true),
+                  mapCell('ScrollDirection', header: true),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag UP'),
+                  mapCell('down'),
+                  mapCell('+', bg: Colors.green.shade50),
+                  mapCell('forward', fg: Colors.green.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag DOWN'),
+                  mapCell('down'),
+                  mapCell('-', bg: Colors.red.shade50),
+                  mapCell('reverse', fg: Colors.red.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag DOWN'),
+                  mapCell('up (reversed)'),
+                  mapCell('+', bg: Colors.green.shade50),
+                  mapCell('forward', fg: Colors.green.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag UP'),
+                  mapCell('up (reversed)'),
+                  mapCell('-', bg: Colors.red.shade50),
+                  mapCell('reverse', fg: Colors.red.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag LEFT'),
+                  mapCell('right'),
+                  mapCell('+', bg: Colors.green.shade50),
+                  mapCell('forward', fg: Colors.green.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag RIGHT'),
+                  mapCell('right'),
+                  mapCell('-', bg: Colors.red.shade50),
+                  mapCell('reverse', fg: Colors.red.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('drag RIGHT'),
+                  mapCell('left (RTL)'),
+                  mapCell('+', bg: Colors.green.shade50),
+                  mapCell('forward', fg: Colors.green.shade800),
+                ],
+              ),
+              Row(
+                children: [
+                  mapCell('no drag'),
+                  mapCell('any'),
+                  mapCell('±/0', bg: Colors.grey.shade100),
+                  mapCell('idle', fg: Colors.blueGrey.shade800),
+                ],
+              ),
             ],
           ),
         ),
@@ -962,9 +1009,10 @@ dynamic build(BuildContext context) {
           'developers is the RTL one: dragging RIGHT in an Arabic UI is '
           'forward, because the AxisDirection is left.',
           style: TextStyle(
-              fontSize: 11.0,
-              fontStyle: FontStyle.italic,
-              color: Colors.cyan.shade900),
+            fontSize: 11.0,
+            fontStyle: FontStyle.italic,
+            color: Colors.cyan.shade900,
+          ),
         ),
       ],
     ),
@@ -976,8 +1024,13 @@ dynamic build(BuildContext context) {
   // ============================================================
   print('=== Section 8: Neighbour comparison ===');
 
-  Widget compareCard(String title, String oneLiner, List<String> bullets,
-      Color color, IconData icon) {
+  Widget compareCard(
+    String title,
+    String oneLiner,
+    List<String> bullets,
+    Color color,
+    IconData icon,
+  ) {
     return Container(
       width: 280.0,
       margin: const EdgeInsets.all(8.0),
@@ -1004,23 +1057,25 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            Icon(icon, color: color, size: 22.0),
-            const SizedBox(width: 8.0),
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
+          Row(
+            children: [
+              Icon(icon, color: color, size: 22.0),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
                     fontFamily: 'monospace',
                     fontSize: 13.0,
                     fontWeight: FontWeight.bold,
-                    color: color),
+                    color: color,
+                  ),
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
           const SizedBox(height: 8.0),
-          Text(oneLiner,
-              style: const TextStyle(fontSize: 12.0, height: 1.4)),
+          Text(oneLiner, style: const TextStyle(fontSize: 12.0, height: 1.4)),
           const SizedBox(height: 8.0),
           for (final b in bullets)
             Padding(
@@ -1031,9 +1086,10 @@ dynamic build(BuildContext context) {
                   Icon(Icons.circle, size: 6.0, color: color),
                   const SizedBox(width: 6.0),
                   Expanded(
-                    child: Text(b,
-                        style: const TextStyle(
-                            fontSize: 11.0, height: 1.35)),
+                    child: Text(
+                      b,
+                      style: const TextStyle(fontSize: 11.0, height: 1.35),
+                    ),
                   ),
                 ],
               ),
@@ -1134,15 +1190,19 @@ dynamic build(BuildContext context) {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0,
-                        color: color)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                    color: color,
+                  ),
+                ),
                 const SizedBox(height: 4.0),
-                Text(body,
-                    style:
-                        const TextStyle(fontSize: 12.0, height: 1.45)),
+                Text(
+                  body,
+                  style: const TextStyle(fontSize: 12.0, height: 1.45),
+                ),
               ],
             ),
           ),
@@ -1169,56 +1229,57 @@ dynamic build(BuildContext context) {
         Text(
           'Pitfalls — read these BEFORE shipping a hide-on-scroll UI',
           style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.red.shade900),
+            fontSize: 16.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.red.shade900,
+          ),
         ),
         const SizedBox(height: 8.0),
         pitfall(
           'Idle hides the inertial settle',
           'After a fling, the user has lifted their finger but the list is '
-          'still gliding. ScrollDirection is already idle. If you key off '
-          'idle to expand a FAB, it will pop out mid-glide. Either pair with '
-          'ScrollPosition.isScrollingNotifier (debounced) or wait for '
-          'ScrollEndNotification.',
+              'still gliding. ScrollDirection is already idle. If you key off '
+              'idle to expand a FAB, it will pop out mid-glide. Either pair with '
+              'ScrollPosition.isScrollingNotifier (debounced) or wait for '
+              'ScrollEndNotification.',
           Colors.red.shade700,
           Icons.front_hand,
         ),
         pitfall(
           'Reversed lists invert "forward"',
           'A ListView with reverse: true has AxisDirection.up. A finger drag '
-          'DOWN now grows the offset and reports ScrollDirection.forward. If '
-          'your app bar hides on forward, it will hide when the user expects '
-          '"pull down to refresh". Test both reverse: true and reverse: '
-          'false.',
+              'DOWN now grows the offset and reports ScrollDirection.forward. If '
+              'your app bar hides on forward, it will hide when the user expects '
+              '"pull down to refresh". Test both reverse: true and reverse: '
+              'false.',
           Colors.deepOrange.shade700,
           Icons.flip_camera_android,
         ),
         pitfall(
           'RTL flips horizontal forward',
           'In a horizontal Scrollable inside an RTL Directionality, '
-          'AxisDirection becomes left. A finger drag RIGHT (which feels like '
-          '"go back to start" to an LTR developer) is forward in RTL. Keep '
-          'this in mind when wiring carousel chrome that depends on '
-          'direction.',
+              'AxisDirection becomes left. A finger drag RIGHT (which feels like '
+              '"go back to start" to an LTR developer) is forward in RTL. Keep '
+              'this in mind when wiring carousel chrome that depends on '
+              'direction.',
           Colors.purple.shade700,
           Icons.translate,
         ),
         pitfall(
           'NestedScrollView reports the outer position',
           'When using NestedScrollView, UserScrollNotification can fire from '
-          'either inner or outer Scrollable. Filter by depth or by '
-          'metrics.axis if you need to drive a header that only follows the '
-          'outer scroll.',
+              'either inner or outer Scrollable. Filter by depth or by '
+              'metrics.axis if you need to drive a header that only follows the '
+              'outer scroll.',
           Colors.indigo.shade700,
           Icons.layers,
         ),
         pitfall(
           'Do not derive direction from offset deltas',
           'It is tempting to compute (newOffset - oldOffset) and infer '
-          'direction. That fires during ballistic settles, overscroll '
-          'snapbacks, and programmatic animateTo() calls. Use '
-          'UserScrollNotification.direction — it filters those out for you.',
+              'direction. That fires during ballistic settles, overscroll '
+              'snapbacks, and programmatic animateTo() calls. Use '
+              'UserScrollNotification.direction — it filters those out for you.',
           Colors.teal.shade800,
           Icons.do_not_disturb_alt,
         ),
@@ -1266,22 +1327,27 @@ dynamic build(BuildContext context) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(children: [
-          Icon(Icons.insert_drive_file,
-              color: Colors.cyan.shade300, size: 18.0),
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              'test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/'
-              'rendering/scroll_direction_test.dart',
-              style: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 11.0,
-                color: Colors.cyan.shade300,
+        Row(
+          children: [
+            Icon(
+              Icons.insert_drive_file,
+              color: Colors.cyan.shade300,
+              size: 18.0,
+            ),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                'test/tom_d4rt_flutter_ast_app/test/send_ast_via_http_scripts/'
+                'rendering/scroll_direction_test.dart',
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 11.0,
+                  color: Colors.cyan.shade300,
+                ),
               ),
             ),
-          ),
-        ]),
+          ],
+        ),
         const SizedBox(height: 12.0),
         Container(
           padding: const EdgeInsets.all(10.0),
@@ -1320,10 +1386,7 @@ dynamic build(BuildContext context) {
         disambig,
         const SizedBox(height: 24.0),
         const _SectionTitle('2. The three values'),
-        Wrap(
-          alignment: WrapAlignment.center,
-          children: cards,
-        ),
+        Wrap(alignment: WrapAlignment.center, children: cards),
         const SizedBox(height: 24.0),
         const _SectionTitle('3. Vertical viewport simulation'),
         verticalRow,
@@ -1367,17 +1430,15 @@ Widget _row(String label, String value, Color color) {
         child: Text(
           label,
           style: TextStyle(
-              fontSize: 10.0,
-              fontWeight: FontWeight.bold,
-              color: color),
+            fontSize: 10.0,
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
         ),
       ),
       const SizedBox(width: 8.0),
       Expanded(
-        child: Text(
-          value,
-          style: const TextStyle(fontSize: 11.5, height: 1.4),
-        ),
+        child: Text(value, style: const TextStyle(fontSize: 11.5, height: 1.4)),
       ),
     ],
   );

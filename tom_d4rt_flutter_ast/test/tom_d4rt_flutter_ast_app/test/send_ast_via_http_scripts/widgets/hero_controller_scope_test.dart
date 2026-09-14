@@ -146,21 +146,15 @@ class _SectionCard extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
+                Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: child,
-          ),
+          Padding(padding: const EdgeInsets.all(14), child: child),
         ],
       ),
     );
@@ -208,11 +202,7 @@ class _Pill extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: c,
-          fontWeight: FontWeight.w600,
-          fontSize: 12,
-        ),
+        style: TextStyle(color: c, fontWeight: FontWeight.w600, fontSize: 12),
       ),
     );
   }
@@ -292,26 +282,36 @@ class _AnatomyDiagram extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           _DiagramRow(
-              level: 0,
-              label: 'MaterialApp',
-              detail: 'creates root HeroController + scope'),
+            level: 0,
+            label: 'MaterialApp',
+            detail: 'creates root HeroController + scope',
+          ),
           _DiagramRow(
-              level: 1,
-              label: 'Navigator (root)',
-              detail: 'inherits scope automatically'),
+            level: 1,
+            label: 'Navigator (root)',
+            detail: 'inherits scope automatically',
+          ),
           _DiagramRow(
-              level: 2, label: 'Hero("avatar")', detail: 'works out of the box'),
+            level: 2,
+            label: 'Hero("avatar")',
+            detail: 'works out of the box',
+          ),
           _DiagramRow(level: 1, label: 'YourScreen', detail: ''),
           _DiagramRow(
-              level: 2, label: 'HeroControllerScope', detail: 'YOU add this'),
+            level: 2,
+            label: 'HeroControllerScope',
+            detail: 'YOU add this',
+          ),
           _DiagramRow(
-              level: 3,
-              label: 'Navigator (embedded)',
-              detail: 'now sees the controller'),
+            level: 3,
+            label: 'Navigator (embedded)',
+            detail: 'now sees the controller',
+          ),
           _DiagramRow(
-              level: 4,
-              label: 'Hero("thumb")',
-              detail: 'animates between embedded routes'),
+            level: 4,
+            label: 'Hero("thumb")',
+            detail: 'animates between embedded routes',
+          ),
         ],
       ),
     );
@@ -319,8 +319,11 @@ class _AnatomyDiagram extends StatelessWidget {
 }
 
 class _DiagramRow extends StatelessWidget {
-  const _DiagramRow(
-      {required this.level, required this.label, required this.detail});
+  const _DiagramRow({
+    required this.level,
+    required this.label,
+    required this.detail,
+  });
   final int level;
   final String label;
   final String detail;
@@ -336,7 +339,9 @@ class _DiagramRow extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(
-                fontFamily: 'monospace', fontWeight: FontWeight.w600),
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w600,
+            ),
           ),
           if (detail.isNotEmpty) ...[
             const SizedBox(width: 8),
@@ -383,8 +388,11 @@ class _RootMaterialAppScopeCard extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 36,
                   backgroundColor: Colors.teal.shade200,
-                  child:
-                      const Icon(Icons.person, size: 32, color: Colors.white),
+                  child: const Icon(
+                    Icons.person,
+                    size: 32,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -425,8 +433,11 @@ class _RootImplicitDetailScreen extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 96,
                   backgroundColor: Colors.teal.shade400,
-                  child:
-                      const Icon(Icons.person, size: 80, color: Colors.white),
+                  child: const Icon(
+                    Icons.person,
+                    size: 80,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -562,8 +573,11 @@ class _BrokenDetailPage extends StatelessWidget {
                     color: Colors.red.shade400,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Icon(Icons.warning,
-                      color: Colors.white, size: 64),
+                  child: const Icon(
+                    Icons.warning,
+                    color: Colors.white,
+                    size: 64,
+                  ),
                 ),
               ),
             ),
@@ -740,8 +754,7 @@ class _WorkingDetailPage extends StatelessWidget {
                     color: Colors.green.shade500,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child:
-                      const Icon(Icons.check, color: Colors.white, size: 80),
+                  child: const Icon(Icons.check, color: Colors.white, size: 80),
                 ),
               ),
             ),
@@ -780,8 +793,11 @@ class _WorkingDetailPage2 extends StatelessWidget {
                     color: Colors.green.shade800,
                     borderRadius: BorderRadius.circular(70),
                   ),
-                  child:
-                      const Icon(Icons.flight, color: Colors.white, size: 80),
+                  child: const Icon(
+                    Icons.flight,
+                    color: Colors.white,
+                    size: 80,
+                  ),
                 ),
               ),
             ),
@@ -908,8 +924,7 @@ class _NoneDetailPage extends StatelessWidget {
                   width: 130,
                   height: 130,
                   color: Colors.deepOrange,
-                  child:
-                      const Icon(Icons.block, color: Colors.white, size: 72),
+                  child: const Icon(Icons.block, color: Colors.white, size: 72),
                 ),
               ),
             ),
@@ -1021,8 +1036,11 @@ class _PerTabControllerCardState extends State<_PerTabControllerCard>
 }
 
 class _TabHomePage extends StatelessWidget {
-  const _TabHomePage(
-      {required this.title, required this.tag, required this.color});
+  const _TabHomePage({
+    required this.title,
+    required this.tag,
+    required this.color,
+  });
   final String title;
   final String tag;
   final MaterialColor color;
@@ -1095,8 +1113,7 @@ class _TabDetailPage extends StatelessWidget {
                     color: color.shade700,
                     borderRadius: BorderRadius.circular(100),
                   ),
-                  child:
-                      const Icon(Icons.star, color: Colors.white, size: 120),
+                  child: const Icon(Icons.star, color: Colors.white, size: 120),
                 ),
               ),
             ),
@@ -1250,7 +1267,8 @@ class _ShuttleDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             const Text(
-                'Custom shuttle replaced the star with a heart mid-flight.'),
+              'Custom shuttle replaced the star with a heart mid-flight.',
+            ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Back'),
@@ -1535,11 +1553,14 @@ class _GalleryShell extends StatelessWidget {
       color: Colors.cyan.withOpacity(0.04),
       child: Column(
         children: [
-          TabBar(controller: tabs, tabs: const [
-            Tab(text: 'Pets'),
-            Tab(text: 'Food'),
-            Tab(text: 'Vehicles'),
-          ]),
+          TabBar(
+            controller: tabs,
+            tabs: const [
+              Tab(text: 'Pets'),
+              Tab(text: 'Food'),
+              Tab(text: 'Vehicles'),
+            ],
+          ),
           Expanded(
             child: TabBarView(
               controller: tabs,
@@ -1630,8 +1651,7 @@ class _GalleryDetailPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text(item.title,
-                style: Theme.of(context).textTheme.headlineMedium),
+            Text(item.title, style: Theme.of(context).textTheme.headlineMedium),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Back'),
@@ -1756,7 +1776,9 @@ class _RecipeListPage extends StatelessWidget {
                             color: Colors.transparent,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 4),
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: r.color,
                                 borderRadius: BorderRadius.circular(999),
@@ -1764,7 +1786,9 @@ class _RecipeListPage extends StatelessWidget {
                               child: Text(
                                 r.badge,
                                 style: const TextStyle(
-                                    color: Colors.white, fontSize: 10),
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
                             ),
                           ),
@@ -1838,7 +1862,9 @@ class _RecipeDetailPage extends StatelessWidget {
                     color: Colors.transparent,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 6),
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: recipe.color,
                         borderRadius: BorderRadius.circular(999),
@@ -1964,8 +1990,10 @@ class _ControllerLifecycleCardState extends State<_ControllerLifecycleCard> {
                 label: const Text('Dispose controller'),
               ),
               _Pill('Spawn count: $_spawnCount'),
-              _Pill(_alive ? 'Alive' : 'Disposed',
-                  color: _alive ? Colors.green : Colors.grey),
+              _Pill(
+                _alive ? 'Alive' : 'Disposed',
+                color: _alive ? Colors.green : Colors.grey,
+              ),
             ],
           ),
           const SizedBox(height: 10),
@@ -1986,7 +2014,8 @@ class _ControllerLifecycleCardState extends State<_ControllerLifecycleCard> {
                         ),
                       )
                     : const Center(
-                        child: Text('No controller — spawn one to enable.')),
+                        child: Text('No controller — spawn one to enable.'),
+                      ),
               ),
             ),
           ),
@@ -2220,33 +2249,27 @@ class _ReferenceTableCard extends StatelessWidget {
   const _ReferenceTableCard();
 
   static const _rows = <List<String>>[
-    [
-      'controller',
-      'Required by default ctor. The HeroController to expose.'
-    ],
+    ['controller', 'Required by default ctor. The HeroController to expose.'],
     [
       'child',
-      'Required. Subtree (typically a Navigator) that should see the controller.'
+      'Required. Subtree (typically a Navigator) that should see the controller.',
     ],
     [
       'HeroControllerScope.none()',
-      'Constructor that announces "deliberately no controller" to descendants.'
+      'Constructor that announces "deliberately no controller" to descendants.',
     ],
     [
       'HeroControllerScope.of(context)',
-      'Static lookup used by Navigator to find the nearest controller.'
+      'Static lookup used by Navigator to find the nearest controller.',
     ],
     [
       'lifecycle',
-      'You create and dispose the HeroController. The scope itself owns no state.'
+      'You create and dispose the HeroController. The scope itself owns no state.',
     ],
-    [
-      'placement',
-      'Always above the Navigator that should animate heroes.'
-    ],
+    ['placement', 'Always above the Navigator that should animate heroes.'],
     [
       'platform',
-      'Same behaviour on every platform (Theme.of(context).platform unaffected).'
+      'Same behaviour on every platform (Theme.of(context).platform unaffected).',
     ],
   ];
 
@@ -2257,10 +2280,7 @@ class _ReferenceTableCard extends StatelessWidget {
       subtitle: 'Quick API map for HeroControllerScope.',
       accent: Colors.indigo,
       child: Table(
-        columnWidths: const {
-          0: IntrinsicColumnWidth(),
-          1: FlexColumnWidth(),
-        },
+        columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
         defaultVerticalAlignment: TableCellVerticalAlignment.top,
         border: TableBorder.symmetric(
           inside: BorderSide(color: Theme.of(context).dividerColor),
@@ -2279,10 +2299,7 @@ class _ReferenceTableCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(row[1]),
-                ),
+                Padding(padding: const EdgeInsets.all(8), child: Text(row[1])),
               ],
             ),
         ],

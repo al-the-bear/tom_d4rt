@@ -466,10 +466,7 @@ dynamic build(BuildContext context) {
       story: 'Just past the slop threshold; first detectable drag motion.',
       totalDx: 12,
       totalDy: 4,
-      trail: <Offset>[
-        Offset(0, 0),
-        Offset(12, 4),
-      ],
+      trail: <Offset>[Offset(0, 0), Offset(12, 4)],
       tint: forestDeep,
     ),
     OriginSample(
@@ -746,11 +743,7 @@ dynamic build(BuildContext context) {
     child: const Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Icon(
-          Icons.drag_indicator,
-          color: Colors.white,
-          size: 64,
-        ),
+        Icon(Icons.drag_indicator, color: Colors.white, size: 64),
         SizedBox(width: 24),
         Expanded(
           child: Column(
@@ -799,62 +792,61 @@ dynamic build(BuildContext context) {
   );
 
   // Section title helper -------------------------------------------------
-  Widget sectionTitle(String index, String title, String subtitle) =>
-      Padding(
-        padding: const EdgeInsets.fromLTRB(24, 36, 24, 12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: emerald.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: emerald.withValues(alpha: 0.4),
-                  width: 1.5,
-                ),
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                index,
+  Widget sectionTitle(String index, String title, String subtitle) => Padding(
+    padding: const EdgeInsets.fromLTRB(24, 36, 24, 12),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: emerald.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: emerald.withValues(alpha: 0.4),
+              width: 1.5,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            index,
+            style: const TextStyle(
+              color: forestDeep,
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ),
+        const SizedBox(width: 14),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                title,
                 style: const TextStyle(
-                  color: forestDeep,
-                  fontSize: 16,
+                  color: barkInk,
+                  fontSize: 20,
                   fontWeight: FontWeight.w800,
                 ),
               ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: barkInk,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      color: barkInk.withValues(alpha: 0.7),
-                      fontSize: 13,
-                      height: 1.35,
-                    ),
-                  ),
-                ],
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: barkInk.withValues(alpha: 0.7),
+                  fontSize: 13,
+                  height: 1.35,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      );
+      ],
+    ),
+  );
 
   // 2. Phase timeline ----------------------------------------------------
   List<Widget> timelineNodes = <Widget>[];
@@ -908,11 +900,7 @@ dynamic build(BuildContext context) {
       timelineNodes.add(
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 6),
-          child: Icon(
-            Icons.chevron_right,
-            color: emerald,
-            size: 22,
-          ),
+          child: Icon(Icons.chevron_right, color: emerald, size: 22),
         ),
       );
     }
@@ -933,22 +921,22 @@ dynamic build(BuildContext context) {
   // cards to keep this demo visually distinct from the framed-box style of
   // the End demo.
   Widget waveStrip(Color tint) => SizedBox(
-        height: 14,
-        child: Row(
-          children: <Widget>[
-            for (int j = 0; j < 12; j++)
-              Expanded(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 1),
-                  decoration: BoxDecoration(
-                    color: tint.withValues(alpha: j.isEven ? 0.55 : 0.18),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                ),
+    height: 14,
+    child: Row(
+      children: <Widget>[
+        for (int j = 0; j < 12; j++)
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 1),
+              decoration: BoxDecoration(
+                color: tint.withValues(alpha: j.isEven ? 0.55 : 0.18),
+                borderRadius: BorderRadius.circular(3),
               ),
-          ],
-        ),
-      );
+            ),
+          ),
+      ],
+    ),
+  );
 
   // 3. Field grid --------------------------------------------------------
   List<Widget> fieldCards = <Widget>[];
@@ -1021,10 +1009,7 @@ dynamic build(BuildContext context) {
             waveStrip(entry.tint),
             const SizedBox(height: 12),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               decoration: BoxDecoration(
                 color: mossSurface,
                 borderRadius: BorderRadius.circular(8),
@@ -1055,11 +1040,7 @@ dynamic build(BuildContext context) {
   }
   Widget fieldGridSection = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 24),
-    child: Wrap(
-      spacing: 16,
-      runSpacing: 16,
-      children: fieldCards,
-    ),
+    child: Wrap(spacing: 16, runSpacing: 16, children: fieldCards),
   );
 
   // 4. delta vs localDelta panels ---------------------------------------
@@ -1068,8 +1049,9 @@ dynamic build(BuildContext context) {
     const double size = 120;
     const double half = size / 2;
     // Clamp the arrow to the panel.
-    final double scale =
-        s.magnitude == 0 ? 0 : math.min(half - 12, s.magnitude * 5) / s.magnitude;
+    final double scale = s.magnitude == 0
+        ? 0
+        : math.min(half - 12, s.magnitude * 5) / s.magnitude;
     final double endX = half + s.dx * scale;
     final double endY = half + s.dy * scale;
     return Container(
@@ -1078,10 +1060,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: s.tint.withValues(alpha: 0.4),
-          width: 1.4,
-        ),
+        border: Border.all(color: s.tint.withValues(alpha: 0.4), width: 1.4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1169,10 +1148,7 @@ dynamic build(BuildContext context) {
                       decoration: BoxDecoration(
                         color: s.tint,
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
-                        ),
+                        border: Border.all(color: Colors.white, width: 2),
                       ),
                     ),
                   ),
@@ -1210,10 +1186,7 @@ dynamic build(BuildContext context) {
     decoration: BoxDecoration(
       color: mossSurface,
       borderRadius: BorderRadius.circular(20),
-      border: Border.all(
-        color: emerald.withValues(alpha: 0.5),
-        width: 1.6,
-      ),
+      border: Border.all(color: emerald.withValues(alpha: 0.5), width: 1.6),
     ),
     child: const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1246,11 +1219,7 @@ dynamic build(BuildContext context) {
           'then split into a global view (offsetFromOrigin) and a local '
           'view (localOffsetFromOrigin), which is what you want when '
           'rendering hover-tracking overlays.',
-          style: TextStyle(
-            color: barkInk,
-            fontSize: 12.5,
-            height: 1.5,
-          ),
+          style: TextStyle(color: barkInk, fontSize: 12.5, height: 1.5),
         ),
       ],
     ),
@@ -1336,10 +1305,7 @@ dynamic build(BuildContext context) {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   color: sample.tint.withValues(alpha: 0.16),
                   borderRadius: BorderRadius.circular(8),
@@ -1400,15 +1366,15 @@ dynamic build(BuildContext context) {
 
   // 6. consecutiveTapCount showcase --------------------------------------
   Widget tapDot(Color tint) => Container(
-        width: 18,
-        height: 18,
-        margin: const EdgeInsets.only(right: 6),
-        decoration: BoxDecoration(
-          color: tint,
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 2),
-        ),
-      );
+    width: 18,
+    height: 18,
+    margin: const EdgeInsets.only(right: 6),
+    decoration: BoxDecoration(
+      color: tint,
+      shape: BoxShape.circle,
+      border: Border.all(color: Colors.white, width: 2),
+    ),
+  );
   Widget tapVignetteCard(TapCountVignette v) {
     final List<Widget> dotRow = <Widget>[];
     for (int i = 0; i < v.count; i++) {
@@ -1420,10 +1386,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: v.tint.withValues(alpha: 0.4),
-          width: 1.4,
-        ),
+        border: Border.all(color: v.tint.withValues(alpha: 0.4), width: 1.4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1531,30 +1494,30 @@ dynamic build(BuildContext context) {
 
   // 7. keysPressedOnDown showcase ---------------------------------------
   Widget keyCap(String label, Color tint) => Container(
-        margin: const EdgeInsets.only(right: 6, top: 4, bottom: 4),
-        padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
-          border: Border.all(color: tint, width: 1.4),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: tint.withValues(alpha: 0.18),
-              blurRadius: 3,
-              offset: const Offset(0, 1),
-            ),
-          ],
+    margin: const EdgeInsets.only(right: 6, top: 4, bottom: 4),
+    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: tint, width: 1.4),
+      boxShadow: <BoxShadow>[
+        BoxShadow(
+          color: tint.withValues(alpha: 0.18),
+          blurRadius: 3,
+          offset: const Offset(0, 1),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: tint,
-            fontSize: 11,
-            fontWeight: FontWeight.w800,
-            fontFamily: 'monospace',
-          ),
-        ),
-      );
+      ],
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: tint,
+        fontSize: 11,
+        fontWeight: FontWeight.w800,
+        fontFamily: 'monospace',
+      ),
+    ),
+  );
   Widget modifierVignetteCard(ModifierVignette v) {
     final List<Widget> caps = <Widget>[];
     if (v.keys.isEmpty) {
@@ -1586,10 +1549,7 @@ dynamic build(BuildContext context) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: v.tint.withValues(alpha: 0.4),
-          width: 1.4,
-        ),
+        border: Border.all(color: v.tint.withValues(alpha: 0.4), width: 1.4),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1647,11 +1607,7 @@ dynamic build(BuildContext context) {
                   'TapDragStartDetails).  Shown here as a conceptual '
                   'companion: the latched modifier set still drives '
                   'per-frame update behaviour.',
-                  style: TextStyle(
-                    color: barkInk,
-                    fontSize: 12,
-                    height: 1.4,
-                  ),
+                  style: TextStyle(color: barkInk, fontSize: 12, height: 1.4),
                 ),
               ),
             ],
@@ -1685,35 +1641,35 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
 ''';
 
   Widget readoutRow(String key, String value) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 200,
-              child: Text(
-                key,
-                style: const TextStyle(
-                  color: forestDeep,
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+    padding: const EdgeInsets.symmetric(vertical: 3),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(
+          width: 200,
+          child: Text(
+            key,
+            style: const TextStyle(
+              color: forestDeep,
+              fontSize: 12.5,
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.w700,
             ),
-            Expanded(
-              child: Text(
-                value,
-                style: TextStyle(
-                  color: barkInk.withValues(alpha: 0.85),
-                  fontSize: 12.5,
-                  fontFamily: 'monospace',
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
-      );
+        Expanded(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: barkInk.withValues(alpha: 0.85),
+              fontSize: 12.5,
+              fontFamily: 'monospace',
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 
   final String keysReadout = conceptualKeysPressedOnDown
       .map((LogicalKeyboardKey k) => k.debugName ?? '${k.keyId}')
@@ -1766,26 +1722,32 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
                 ),
               ),
               const SizedBox(height: 10),
-              readoutRow('runtimeType',
-                  canonical.runtimeType.toString()),
+              readoutRow('runtimeType', canonical.runtimeType.toString()),
+              readoutRow('globalPosition', canonical.globalPosition.toString()),
+              readoutRow('localPosition', canonical.localPosition.toString()),
               readoutRow(
-                  'globalPosition', canonical.globalPosition.toString()),
-              readoutRow(
-                  'localPosition', canonical.localPosition.toString()),
-              readoutRow('sourceTimeStamp',
-                  canonical.sourceTimeStamp?.toString() ?? 'null'),
+                'sourceTimeStamp',
+                canonical.sourceTimeStamp?.toString() ?? 'null',
+              ),
               readoutRow('delta', canonical.delta.toString()),
-              readoutRow('primaryDelta',
-                  canonical.primaryDelta?.toString() ?? 'null'),
+              readoutRow(
+                'primaryDelta',
+                canonical.primaryDelta?.toString() ?? 'null',
+              ),
               readoutRow('kind', canonical.kind?.toString() ?? 'null'),
-              readoutRow('offsetFromOrigin',
-                  canonical.offsetFromOrigin.toString()),
-              readoutRow('localOffsetFromOrigin',
-                  canonical.localOffsetFromOrigin.toString()),
-              readoutRow('consecutiveTapCount',
-                  canonical.consecutiveTapCount.toString()),
-              readoutRow('(conceptual) keysPressedOnDown',
-                  '{$keysReadout}'),
+              readoutRow(
+                'offsetFromOrigin',
+                canonical.offsetFromOrigin.toString(),
+              ),
+              readoutRow(
+                'localOffsetFromOrigin',
+                canonical.localOffsetFromOrigin.toString(),
+              ),
+              readoutRow(
+                'consecutiveTapCount',
+                canonical.consecutiveTapCount.toString(),
+              ),
+              readoutRow('(conceptual) keysPressedOnDown', '{$keysReadout}'),
             ],
           ),
         ),
@@ -1801,10 +1763,7 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: row.tint.withValues(alpha: 0.45),
-          width: 1.5,
-        ),
+        border: Border.all(color: row.tint.withValues(alpha: 0.45), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1845,11 +1804,7 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Icon(
-                    Icons.fiber_manual_record,
-                    color: row.tint,
-                    size: 9,
-                  ),
+                  Icon(Icons.fiber_manual_record, color: row.tint, size: 9),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
@@ -1882,57 +1837,54 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
 
   // 10. Real-world usage cards ------------------------------------------
   Widget usageCard(UsagePattern p) => Container(
-        width: 320,
-        padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
-        decoration: BoxDecoration(
-          color: p.tint.withValues(alpha: 0.06),
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: p.tint.withValues(alpha: 0.45),
-            width: 1.4,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+    width: 320,
+    padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
+    decoration: BoxDecoration(
+      color: p.tint.withValues(alpha: 0.06),
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: p.tint.withValues(alpha: 0.45), width: 1.4),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: p.tint.withValues(alpha: 0.16),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(p.icon, color: p.tint, size: 22),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    p.title,
-                    style: const TextStyle(
-                      color: barkInk,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-              ],
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: p.tint.withValues(alpha: 0.16),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.center,
+              child: Icon(p.icon, color: p.tint, size: 22),
             ),
-            const SizedBox(height: 10),
-            Text(
-              p.body,
-              style: TextStyle(
-                color: barkInk.withValues(alpha: 0.82),
-                fontSize: 12.5,
-                height: 1.5,
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                p.title,
+                style: const TextStyle(
+                  color: barkInk,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ],
         ),
-      );
+        const SizedBox(height: 10),
+        Text(
+          p.body,
+          style: TextStyle(
+            color: barkInk.withValues(alpha: 0.82),
+            fontSize: 12.5,
+            height: 1.5,
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget usageSection = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -1947,59 +1899,54 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
 
   // 11. Caveats ----------------------------------------------------------
   Widget caveatCard(CaveatItem c) => Container(
-        width: 320,
-        padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: c.tint.withValues(alpha: 0.45),
-            width: 1.4,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+    width: 320,
+    padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(color: c.tint.withValues(alpha: 0.45), width: 1.4),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Row(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(c.icon, color: c.tint, size: 22),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    c.title,
-                    style: TextStyle(
-                      color: c.tint,
-                      fontSize: 13.5,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
+            Icon(c.icon, color: c.tint, size: 22),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                c.title,
+                style: TextStyle(
+                  color: c.tint,
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w800,
                 ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            waveStrip(c.tint),
-            const SizedBox(height: 8),
-            Text(
-              c.body,
-              style: TextStyle(
-                color: barkInk.withValues(alpha: 0.82),
-                fontSize: 12,
-                height: 1.45,
               ),
             ),
           ],
         ),
-      );
+        const SizedBox(height: 8),
+        waveStrip(c.tint),
+        const SizedBox(height: 8),
+        Text(
+          c.body,
+          style: TextStyle(
+            color: barkInk.withValues(alpha: 0.82),
+            fontSize: 12,
+            height: 1.45,
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget caveatSection = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 24),
     child: Wrap(
       spacing: 16,
       runSpacing: 16,
-      children: <Widget>[
-        for (final CaveatItem c in caveats) caveatCard(c),
-      ],
+      children: <Widget>[for (final CaveatItem c in caveats) caveatCard(c)],
     ),
   );
 
@@ -2047,11 +1994,7 @@ final TapDragUpdateDetails details = TapDragUpdateDetails(
           'branching on device type.\n'
           '• Update frequency follows the engine\'s pointer-event rate; '
           'integrate with sourceTimeStamp when the maths needs time.',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            height: 1.6,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 14, height: 1.6),
         ),
       ],
     ),

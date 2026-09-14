@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 // Top-level state (STATELESS design via ValueNotifiers)
 // ============================================================
 
-final ValueNotifier<String> _liveText =
-    ValueNotifier<String>('Type here to see undo/redo in action…');
+final ValueNotifier<String> _liveText = ValueNotifier<String>(
+  'Type here to see undo/redo in action…',
+);
 
 final ValueNotifier<List<String>> _history = ValueNotifier<List<String>>([
   '',
@@ -37,9 +38,7 @@ dynamic build(BuildContext context) {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       useMaterial3: true,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: const Color(0xFF6750A4),
-      ),
+      colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6750A4)),
     ),
     home: const _RedoTextIntentDemoRoot(),
   );
@@ -72,10 +71,7 @@ class _RedoTextIntentDemoRoot extends StatelessWidget {
         appBar: AppBar(
           title: const Text('RedoTextIntent / UndoTextIntent — Deep Demo'),
           centerTitle: false,
-          bottom: const TabBar(
-            isScrollable: true,
-            tabs: _tabs,
-          ),
+          bottom: const TabBar(isScrollable: true, tabs: _tabs),
         ),
         body: const TabBarView(
           children: <Widget>[
@@ -112,9 +108,9 @@ Widget _sectionHeader(BuildContext context, String title, IconData icon) {
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: cs.primary,
-                  fontWeight: FontWeight.bold,
-                ),
+              color: cs.primary,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],
@@ -145,7 +141,9 @@ Widget _monoBox(BuildContext context, String code) {
 
 Widget _infoCard(BuildContext context, String body, {Color? accent}) {
   final cs = Theme.of(context).colorScheme;
-  final bg = accent?.withValues(alpha: 0.08) ?? cs.secondaryContainer.withValues(alpha: 0.45);
+  final bg =
+      accent?.withValues(alpha: 0.08) ??
+      cs.secondaryContainer.withValues(alpha: 0.45);
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(14),
@@ -179,10 +177,7 @@ class _HeroBannerTab extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 24),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: <Color>[
-                cs.primary,
-                cs.tertiary,
-              ],
+              colors: <Color>[cs.primary, cs.tertiary],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -202,26 +197,29 @@ class _HeroBannerTab extends StatelessWidget {
               Text(
                 'RedoTextIntent & UndoTextIntent',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: cs.onPrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: cs.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
                 'Flutter\'s undo/redo system for text editing — powered by '
                 'the Intent/Action architecture and baked directly into '
                 'TextField via DefaultTextEditingShortcuts.',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: cs.onPrimary.withValues(alpha: 0.9)),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: cs.onPrimary.withValues(alpha: 0.9),
+                ),
               ),
             ],
           ),
         ),
         const SizedBox(height: 24),
 
-        _sectionHeader(context, 'What are these Intents?', Icons.lightbulb_outline),
+        _sectionHeader(
+          context,
+          'What are these Intents?',
+          Icons.lightbulb_outline,
+        ),
         _infoCard(
           context,
           'UndoTextIntent — dispatched when the user presses Ctrl+Z (Windows/Linux) '
@@ -232,7 +230,11 @@ class _HeroBannerTab extends StatelessWidget {
         ),
         const SizedBox(height: 16),
 
-        _sectionHeader(context, 'How the System Fits Together', Icons.account_tree),
+        _sectionHeader(
+          context,
+          'How the System Fits Together',
+          Icons.account_tree,
+        ),
         _infoCard(
           context,
           'Both intents extend Intent and carry a SelectionChangedCause '
@@ -246,9 +248,7 @@ class _HeroBannerTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         _sectionHeader(context, 'Class Hierarchy', Icons.schema),
-        _monoBox(
-          context,
-          '''Object
+        _monoBox(context, '''Object
  └─ Intent
      ├─ UndoTextIntent        // Ctrl+Z / Cmd+Z
      └─ RedoTextIntent        // Ctrl+Y / Cmd+Shift+Z
@@ -259,8 +259,7 @@ Object
 
 Object
  └─ Action<RedoTextIntent>
-     └─ RedoTextAction        // calls controller.redo()''',
-        ),
+     └─ RedoTextAction        // calls controller.redo()'''),
         const SizedBox(height: 16),
 
         _sectionHeader(context, 'Availability', Icons.info),
@@ -291,12 +290,10 @@ Object
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Icon(Icons.check_circle_outline,
-                    size: 18, color: cs.primary),
+                Icon(Icons.check_circle_outline, size: 18, color: cs.primary),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: Text(s,
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  child: Text(s, style: Theme.of(context).textTheme.bodyMedium),
                 ),
               ],
             ),
@@ -319,8 +316,9 @@ class _LiveDemoTab extends StatelessWidget {
   static final GlobalKey<EditableTextState> _editKey =
       GlobalKey<EditableTextState>();
 
-  static final TextEditingController _ctrl =
-      TextEditingController(text: 'Hello World');
+  static final TextEditingController _ctrl = TextEditingController(
+    text: 'Hello World',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -345,16 +343,19 @@ class _LiveDemoTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Editable Field',
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                          color: cs.primary,
-                        )),
+                Text(
+                  'Editable Field',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelLarge?.copyWith(color: cs.primary),
+                ),
                 const SizedBox(height: 8),
                 EditableText(
                   key: _editKey,
                   controller: _ctrl,
                   focusNode: FocusNode(),
-                  style: Theme.of(context).textTheme.bodyLarge ??
+                  style:
+                      Theme.of(context).textTheme.bodyLarge ??
                       const TextStyle(fontSize: 16),
                   cursorColor: cs.primary,
                   backgroundCursorColor: cs.surface,
@@ -421,20 +422,17 @@ class _LiveDemoTab extends StatelessWidget {
               child: Text(
                 '"$val"',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: cs.onPrimaryContainer,
-                      fontStyle: FontStyle.italic,
-                    ),
+                  color: cs.onPrimaryContainer,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             );
           },
         ),
         const SizedBox(height: 24),
 
-        _sectionHeader(
-            context, 'How the Invocation Works', Icons.code),
-        _monoBox(
-          context,
-          '''// Invoke undo programmatically:
+        _sectionHeader(context, 'How the Invocation Works', Icons.code),
+        _monoBox(context, '''// Invoke undo programmatically:
 Actions.invoke(
   context,           // must be inside the action's scope
   const UndoTextIntent(SelectionChangedCause.keyboard),
@@ -444,8 +442,7 @@ Actions.invoke(
 Actions.invoke(
   context,
   const RedoTextIntent(SelectionChangedCause.keyboard),
-);''',
-        ),
+);'''),
         const SizedBox(height: 16),
         _infoCard(
           context,
@@ -458,17 +455,17 @@ Actions.invoke(
         const SizedBox(height: 20),
 
         _sectionHeader(
-            context, 'TextField (simpler) vs EditableText', Icons.compare),
-        _monoBox(
           context,
-          '''// With a plain TextField + focusNode key:
+          'TextField (simpler) vs EditableText',
+          Icons.compare,
+        ),
+        _monoBox(context, '''// With a plain TextField + focusNode key:
 //   Press Ctrl+Z in the field → auto handled by DefaultTextEditingShortcuts
 //   Press Ctrl+Y in the field → auto handled
 
 // Programmatic equivalent via controller (no context needed):
 controller.undo();   // same effect as UndoTextIntent
-controller.redo();   // same effect as RedoTextIntent''',
-        ),
+controller.redo();   // same effect as RedoTextIntent'''),
         const SizedBox(height: 20),
       ],
     );
@@ -488,8 +485,7 @@ class _HistoryVisualisationTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _sectionHeader(
-            context, 'Simulated History Stack', Icons.history),
+        _sectionHeader(context, 'Simulated History Stack', Icons.history),
         _infoCard(
           context,
           'The undo/redo system maintains two implicit stacks: past states '
@@ -564,25 +560,22 @@ class _HistoryVisualisationTab extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Current text at position $cur:',
-                    style:
-                        Theme.of(context).textTheme.labelMedium?.copyWith(
-                              color: cs.onPrimaryContainer,
-                            ),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: cs.onPrimaryContainer,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     text.isEmpty ? '(empty)' : '"$text"',
-                    style:
-                        Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              color: cs.onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: cs.onPrimaryContainer,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: <Widget>[
-                      _stackBadge(
-                          context, 'Undo stack: $cur', cs.secondary),
+                      _stackBadge(context, 'Undo stack: $cur', cs.secondary),
                       const SizedBox(width: 8),
                       _stackBadge(
                         context,
@@ -610,9 +603,7 @@ class _HistoryVisualisationTab extends StatelessWidget {
         const SizedBox(height: 16),
 
         _sectionHeader(context, 'UndoHistory Widget', Icons.widgets),
-        _monoBox(
-          context,
-          '''// Flutter exposes undo/redo history via:
+        _monoBox(context, '''// Flutter exposes undo/redo history via:
 class UndoHistory<T> extends StatefulWidget {
   const UndoHistory({
     required this.value,
@@ -625,8 +616,7 @@ class UndoHistory<T> extends StatefulWidget {
 }
 
 // EditableText registers its own UndoHistory internally.
-// You rarely need to use UndoHistory directly.''',
-        ),
+// You rarely need to use UndoHistory directly.'''),
         const SizedBox(height: 20),
       ],
     );
@@ -642,7 +632,11 @@ class UndoHistory<T> extends StatefulWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: 12,
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -668,9 +662,9 @@ class _HistoryTimeline extends StatelessWidget {
           children: <Widget>[
             Text(
               'History Timeline',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: cs.primary,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(color: cs.primary),
             ),
             const SizedBox(height: 14),
             SingleChildScrollView(
@@ -734,13 +728,13 @@ class _TimelineNode extends StatelessWidget {
     final bg = isCurrent
         ? cs.primary
         : isPast
-            ? cs.secondary
-            : cs.surfaceContainerHighest;
+        ? cs.secondary
+        : cs.surfaceContainerHighest;
     final fg = isCurrent
         ? cs.onPrimary
         : isPast
-            ? cs.onSecondary
-            : cs.onSurfaceVariant;
+        ? cs.onSecondary
+        : cs.onSurfaceVariant;
     return Column(
       children: <Widget>[
         Container(
@@ -765,7 +759,10 @@ class _TimelineNode extends StatelessWidget {
           child: Text(
             '$index',
             style: TextStyle(
-                color: fg, fontWeight: FontWeight.bold, fontSize: 13),
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
           ),
         ),
         const SizedBox(height: 4),
@@ -777,8 +774,9 @@ class _TimelineNode extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 10,
-                color: isCurrent ? cs.primary : cs.outline),
+              fontSize: 10,
+              color: isCurrent ? cs.primary : cs.outline,
+            ),
           ),
         ),
       ],
@@ -797,8 +795,8 @@ class _TimelineArrow extends StatelessWidget {
     final color = isActive
         ? cs.primary
         : isPast
-            ? cs.secondary.withValues(alpha: 0.5)
-            : cs.outlineVariant;
+        ? cs.secondary.withValues(alpha: 0.5)
+        : cs.outlineVariant;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Icon(Icons.arrow_forward, size: 18, color: color),
@@ -821,8 +819,7 @@ class _Legend extends StatelessWidget {
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 4),
-        Text(label,
-            style: Theme.of(context).textTheme.labelSmall),
+        Text(label, style: Theme.of(context).textTheme.labelSmall),
       ],
     );
   }
@@ -841,8 +838,7 @@ class _KeyboardShortcutTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _sectionHeader(
-            context, 'DefaultTextEditingShortcuts', Icons.keyboard),
+        _sectionHeader(context, 'DefaultTextEditingShortcuts', Icons.keyboard),
         _infoCard(
           context,
           'Flutter wraps every TextField (via EditableText) in a Shortcuts '
@@ -850,9 +846,7 @@ class _KeyboardShortcutTab extends StatelessWidget {
           'mapping for undo/redo looks like this:',
         ),
         const SizedBox(height: 16),
-        _monoBox(
-          context,
-          '''// From Flutter source (simplified):
+        _monoBox(context, '''// From Flutter source (simplified):
 // packages/flutter/lib/src/widgets/default_text_editing_shortcuts.dart
 
 Map<ShortcutActivator, Intent> get _shortcuts => <ShortcutActivator, Intent>{
@@ -874,8 +868,7 @@ Map<ShortcutActivator, Intent> get _shortcuts => <ShortcutActivator, Intent>{
   const SingleActivator(LogicalKeyboardKey.keyZ,
       meta: true, shift: true):     // Cmd+Shift+Z  (macOS)
     const RedoTextIntent(SelectionChangedCause.keyboard),
-};''',
-        ),
+};'''),
         const SizedBox(height: 20),
 
         _sectionHeader(context, 'Shortcut → Intent → Action', Icons.route),
@@ -891,12 +884,19 @@ Map<ShortcutActivator, Intent> get _shortcuts => <ShortcutActivator, Intent>{
         ),
         const SizedBox(height: 16),
 
-        _sectionHeader(context, 'Keyboard Shortcut Reference', Icons.table_chart),
+        _sectionHeader(
+          context,
+          'Keyboard Shortcut Reference',
+          Icons.table_chart,
+        ),
         _ShortcutTable(),
         const SizedBox(height: 20),
 
         _sectionHeader(
-            context, 'How to Override a Shortcut', Icons.build_circle),
+          context,
+          'How to Override a Shortcut',
+          Icons.build_circle,
+        ),
         _monoBox(
           context,
           '''// Wrap your widget in a Shortcuts widget to override:
@@ -923,7 +923,10 @@ Shortcuts(
         const SizedBox(height: 20),
 
         _sectionHeader(
-            context, 'Intent Routing Clarification', Icons.help_outline),
+          context,
+          'Intent Routing Clarification',
+          Icons.help_outline,
+        ),
         _infoCard(
           context,
           'The Shortcuts widget is responsible only for converting key events '
@@ -959,35 +962,70 @@ class _ShortcutTable extends StatelessWidget {
             color: cs.primaryContainer,
             child: Row(
               children: <Widget>[
-                Expanded(child: Text('Key', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: cs.onPrimaryContainer))),
-                Expanded(child: Text('Platform', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: cs.onPrimaryContainer))),
-                Expanded(child: Text('Intent', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: cs.onPrimaryContainer))),
+                Expanded(
+                  child: Text(
+                    'Key',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: cs.onPrimaryContainer,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Platform',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: cs.onPrimaryContainer,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Intent',
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: cs.onPrimaryContainer,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          ...rows.map((r) => Container(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: cs.outlineVariant)),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Text(r[0],
-                            style: const TextStyle(
-                                fontFamily: 'monospace', fontSize: 12))),
-                    Expanded(
-                        child:
-                            Text(r[1], style: Theme.of(context).textTheme.bodySmall)),
-                    Expanded(
-                        child: Text(r[2],
-                            style: TextStyle(
-                                fontFamily: 'monospace',
-                                fontSize: 11,
-                                color: cs.primary))),
-                  ],
-                ),
-              )),
+          ...rows.map(
+            (r) => Container(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: cs.outlineVariant)),
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      r[0],
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      r[1],
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      r[2],
+                      style: TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 11,
+                        color: cs.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -1003,10 +1041,10 @@ class _CustomActionsTab extends StatelessWidget {
 
   static final ValueNotifier<List<Color>> _paletteNotifier =
       ValueNotifier<List<Color>>([
-    const Color(0xFF6750A4),
-    const Color(0xFF625B71),
-    const Color(0xFF7D5260),
-  ]);
+        const Color(0xFF6750A4),
+        const Color(0xFF625B71),
+        const Color(0xFF7D5260),
+      ]);
 
   static final ValueNotifier<List<List<Color>>> _paletteUndo =
       ValueNotifier<List<List<Color>>>([]);
@@ -1079,8 +1117,7 @@ class _CustomActionsTab extends StatelessWidget {
         builder: (ctx) => ListView(
           padding: const EdgeInsets.all(20),
           children: <Widget>[
-            _sectionHeader(
-                ctx, 'Custom UndoTextIntent Action', Icons.tune),
+            _sectionHeader(ctx, 'Custom UndoTextIntent Action', Icons.tune),
             _infoCard(
               ctx,
               'This tab wraps its content in an Actions widget that provides '
@@ -1091,9 +1128,7 @@ class _CustomActionsTab extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            _monoBox(
-              ctx,
-              '''Actions(
+            _monoBox(ctx, '''Actions(
   actions: <Type, Action<Intent>>{
     UndoTextIntent: CallbackAction<UndoTextIntent>(
       onInvoke: (_) { myUndo(); return null; },
@@ -1103,8 +1138,7 @@ class _CustomActionsTab extends StatelessWidget {
     ),
   },
   child: yourCustomWidget,
-)''',
-            ),
+)'''),
             const SizedBox(height: 20),
 
             _sectionHeader(ctx, 'Colour Palette Editor', Icons.palette),
@@ -1179,10 +1213,9 @@ class _CustomActionsTab extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           'Current Palette (${palette.length} colours)',
-                          style:
-                              Theme.of(ctx).textTheme.labelLarge?.copyWith(
-                                    color: cs.primary,
-                                  ),
+                          style: Theme.of(
+                            ctx,
+                          ).textTheme.labelLarge?.copyWith(color: cs.primary),
                         ),
                         const SizedBox(height: 10),
                         palette.isEmpty
@@ -1191,15 +1224,17 @@ class _CustomActionsTab extends StatelessWidget {
                                 children: palette
                                     .map(
                                       (c) => Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8),
+                                        padding: const EdgeInsets.only(
+                                          right: 8,
+                                        ),
                                         child: Container(
                                           width: 32,
                                           height: 32,
                                           decoration: BoxDecoration(
                                             color: c,
-                                            borderRadius:
-                                                BorderRadius.circular(6),
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -1247,7 +1282,10 @@ class _IntentComparisonTab extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       children: <Widget>[
         _sectionHeader(
-            context, 'Text Editing Intent Comparison', Icons.compare_arrows),
+          context,
+          'Text Editing Intent Comparison',
+          Icons.compare_arrows,
+        ),
         _infoCard(
           context,
           'Flutter defines many text-editing intents. Here is a reference '
@@ -1285,10 +1323,12 @@ const MoveSelectionToEndTextIntent(SelectionChangedCause cause);''',
         ),
         const SizedBox(height: 20),
 
-        _sectionHeader(context, 'Common Usage Patterns', Icons.tips_and_updates),
-        _monoBox(
+        _sectionHeader(
           context,
-          '''// Programmatic copy:
+          'Common Usage Patterns',
+          Icons.tips_and_updates,
+        ),
+        _monoBox(context, '''// Programmatic copy:
 Actions.invoke(context, const CopySelectionTextIntent.copy());
 
 // Programmatic select-all:
@@ -1302,8 +1342,7 @@ Actions.invoke(context, const UndoTextIntent(
 ));
 
 // Programmatic delete character (forward = Delete key):
-Actions.invoke(context, const DeleteCharacterIntent(forward: true));''',
-        ),
+Actions.invoke(context, const DeleteCharacterIntent(forward: true));'''),
         const SizedBox(height: 20),
       ],
     );
@@ -1315,13 +1354,48 @@ class _IntentTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     const rows = <List<String>>[
-      ['UndoTextIntent', 'Ctrl+Z / Cmd+Z', 'UndoTextAction', 'controller.undo()'],
-      ['RedoTextIntent', 'Ctrl+Y / Cmd+Shift+Z', 'RedoTextAction', 'controller.redo()'],
-      ['CopySelectionTextIntent', 'Ctrl+C / Cmd+C', 'CopySelectionAction', 'Copy selection'],
-      ['CutSelectionTextIntent', 'Ctrl+X / Cmd+X', 'CutSelectionAction', 'Cut selection'],
-      ['PasteTextIntent', 'Ctrl+V / Cmd+V', 'PasteTextAction', 'Paste clipboard'],
-      ['SelectAllTextIntent', 'Ctrl+A / Cmd+A', 'SelectAllTextAction', 'Select all text'],
-      ['DeleteCharacterIntent', 'Backspace / Delete', 'DeleteTextAction', 'Delete one char'],
+      [
+        'UndoTextIntent',
+        'Ctrl+Z / Cmd+Z',
+        'UndoTextAction',
+        'controller.undo()',
+      ],
+      [
+        'RedoTextIntent',
+        'Ctrl+Y / Cmd+Shift+Z',
+        'RedoTextAction',
+        'controller.redo()',
+      ],
+      [
+        'CopySelectionTextIntent',
+        'Ctrl+C / Cmd+C',
+        'CopySelectionAction',
+        'Copy selection',
+      ],
+      [
+        'CutSelectionTextIntent',
+        'Ctrl+X / Cmd+X',
+        'CutSelectionAction',
+        'Cut selection',
+      ],
+      [
+        'PasteTextIntent',
+        'Ctrl+V / Cmd+V',
+        'PasteTextAction',
+        'Paste clipboard',
+      ],
+      [
+        'SelectAllTextIntent',
+        'Ctrl+A / Cmd+A',
+        'SelectAllTextAction',
+        'Select all text',
+      ],
+      [
+        'DeleteCharacterIntent',
+        'Backspace / Delete',
+        'DeleteTextAction',
+        'Delete one char',
+      ],
     ];
     return Card(
       elevation: 1,
@@ -1335,10 +1409,34 @@ class _IntentTable extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Row(
                 children: <Widget>[
-                  _cell(context, 'Intent', 170, bold: true, color: cs.onPrimaryContainer),
-                  _cell(context, 'Default Shortcut', 170, bold: true, color: cs.onPrimaryContainer),
-                  _cell(context, 'Action Class', 160, bold: true, color: cs.onPrimaryContainer),
-                  _cell(context, 'Effect', 130, bold: true, color: cs.onPrimaryContainer),
+                  _cell(
+                    context,
+                    'Intent',
+                    170,
+                    bold: true,
+                    color: cs.onPrimaryContainer,
+                  ),
+                  _cell(
+                    context,
+                    'Default Shortcut',
+                    170,
+                    bold: true,
+                    color: cs.onPrimaryContainer,
+                  ),
+                  _cell(
+                    context,
+                    'Action Class',
+                    160,
+                    bold: true,
+                    color: cs.onPrimaryContainer,
+                  ),
+                  _cell(
+                    context,
+                    'Effect',
+                    130,
+                    bold: true,
+                    color: cs.onPrimaryContainer,
+                  ),
                 ],
               ),
             ),
@@ -1349,14 +1447,15 @@ class _IntentTable extends StatelessWidget {
                   : cs.surfaceContainerHighest.withValues(alpha: 0.35);
               return Container(
                 color: bg,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 10,
+                ),
                 child: Row(
                   children: <Widget>[
-                    _cell(context, r[0], 170,
-                        mono: true, color: cs.primary),
+                    _cell(context, r[0], 170, mono: true, color: cs.primary),
                     _cell(context, r[1], 170),
-                    _cell(context, r[2], 160,
-                        mono: true, color: cs.tertiary),
+                    _cell(context, r[2], 160, mono: true, color: cs.tertiary),
                     _cell(context, r[3], 130),
                   ],
                 ),
@@ -1368,8 +1467,14 @@ class _IntentTable extends StatelessWidget {
     );
   }
 
-  Widget _cell(BuildContext context, String text, double width,
-      {bool bold = false, bool mono = false, Color? color}) {
+  Widget _cell(
+    BuildContext context,
+    String text,
+    double width, {
+    bool bold = false,
+    bool mono = false,
+    Color? color,
+  }) {
     return SizedBox(
       width: width,
       child: Text(
@@ -1421,7 +1526,11 @@ class _DiagramTab extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        _sectionHeader(context, 'Step-by-Step Breakdown', Icons.format_list_numbered),
+        _sectionHeader(
+          context,
+          'Step-by-Step Breakdown',
+          Icons.format_list_numbered,
+        ),
         ..._PipelineStep.steps.asMap().entries.map(
           (e) => Padding(
             padding: const EdgeInsets.only(bottom: 10),
@@ -1434,9 +1543,10 @@ class _DiagramTab extends StatelessWidget {
                   child: Text(
                     '${e.key + 1}',
                     style: TextStyle(
-                        color: cs.onPrimary,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
+                      color: cs.onPrimary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -1446,10 +1556,9 @@ class _DiagramTab extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         e.value.title,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         e.value.description,
@@ -1465,16 +1574,13 @@ class _DiagramTab extends StatelessWidget {
         const SizedBox(height: 20),
 
         _sectionHeader(context, 'Redo Pipeline (Mirror)', Icons.redo),
-        _monoBox(
-          context,
-          '''Ctrl+Y / Cmd+Shift+Z
+        _monoBox(context, '''Ctrl+Y / Cmd+Shift+Z
   → SingleActivator matches in DefaultTextEditingShortcuts
   → RedoTextIntent(SelectionChangedCause.keyboard) created
   → Actions.invoke() dispatched up widget tree
   → RedoTextAction.invoke(RedoTextIntent) found
   → TextEditingController.redo() called
-  → EditableText rebuilds with next text state''',
-        ),
+  → EditableText rebuilds with next text state'''),
         const SizedBox(height: 20),
       ],
     );
@@ -1494,27 +1600,27 @@ class _PipelineStep {
     _PipelineStep(
       'DefaultTextEditingShortcuts',
       'A Shortcuts widget (inserted by EditableText) maps the key combination '
-      'to UndoTextIntent via a SingleActivator.',
+          'to UndoTextIntent via a SingleActivator.',
     ),
     _PipelineStep(
       'UndoTextIntent created',
       'The intent carries SelectionChangedCause.keyboard to explain '
-      'the trigger source.',
+          'the trigger source.',
     ),
     _PipelineStep(
       'Actions.invoke() dispatch',
       'Flutter walks up the widget tree to find an Action registered for '
-      'UndoTextIntent.',
+          'UndoTextIntent.',
     ),
     _PipelineStep(
       'UndoTextAction found',
       'Registered by EditableText via DefaultTextEditingActions, this '
-      'action handles the intent.',
+          'action handles the intent.',
     ),
     _PipelineStep(
       'TextEditingController.undo()',
       'The action calls undo() on the active controller, reverting to the '
-      'previous TextEditingValue.',
+          'previous TextEditingValue.',
     ),
   ];
 }
@@ -1562,15 +1668,20 @@ class _PipelinePainter extends CustomPainter {
         text: TextSpan(
           text: boxes[i],
           style: TextStyle(
-              color: cs.onPrimaryContainer, fontSize: 10, height: 1.4),
+            color: cs.onPrimaryContainer,
+            fontSize: 10,
+            height: 1.4,
+          ),
         ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr,
       )..layout(maxWidth: boxW - 20);
       tp.paint(
         canvas,
-        Offset(x + 4 + (boxW - 12) / 2 - tp.width / 2,
-            startY + boxH / 2 - tp.height / 2),
+        Offset(
+          x + 4 + (boxW - 12) / 2 - tp.width / 2,
+          startY + boxH / 2 - tp.height / 2,
+        ),
       );
 
       // Arrow
@@ -1578,7 +1689,10 @@ class _PipelinePainter extends CustomPainter {
         final arrowX = x + boxW - 4;
         final midY = startY + boxH / 2;
         canvas.drawLine(
-            Offset(arrowX, midY), Offset(arrowX + 8, midY), arrowPaint);
+          Offset(arrowX, midY),
+          Offset(arrowX + 8, midY),
+          arrowPaint,
+        );
         // arrowhead
         final path = Path()
           ..moveTo(arrowX + 8, midY - 5)
@@ -1595,15 +1709,15 @@ class _PipelinePainter extends CustomPainter {
       text: TextSpan(
         text: 'UndoTextIntent dispatch pipeline — Ctrl+Z → controller.undo()',
         style: TextStyle(
-            color: cs.outline, fontSize: 11, fontStyle: FontStyle.italic),
+          color: cs.outline,
+          fontSize: 11,
+          fontStyle: FontStyle.italic,
+        ),
       ),
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
     )..layout(maxWidth: size.width - 40);
-    labelTp.paint(
-      canvas,
-      Offset(20, startY + boxH + 16),
-    );
+    labelTp.paint(canvas, Offset(20, startY + boxH + 16));
   }
 
   @override
@@ -1623,8 +1737,7 @@ class _SelectionChangedCauseTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _sectionHeader(
-            context, 'SelectionChangedCause', Icons.adjust),
+        _sectionHeader(context, 'SelectionChangedCause', Icons.adjust),
         _infoCard(
           context,
           'Both UndoTextIntent and RedoTextIntent carry a '
@@ -1634,9 +1747,7 @@ class _SelectionChangedCauseTab extends StatelessWidget {
         ),
         const SizedBox(height: 16),
 
-        _monoBox(
-          context,
-          '''enum SelectionChangedCause {
+        _monoBox(context, '''enum SelectionChangedCause {
   tap,          // Single tap/click
   doubleTap,    // Double-tap to select a word
   longPress,    // Long-press selection handle
@@ -1645,8 +1756,7 @@ class _SelectionChangedCauseTab extends StatelessWidget {
   toolBar,      // Selection toolbar (Cut/Copy/Paste bar)
   drag,         // Selection drag handle moved
   scribble,     // iPadOS Scribble input
-}''',
-        ),
+}'''),
         const SizedBox(height: 20),
 
         _sectionHeader(context, 'Cause Reference Table', Icons.table_rows),
@@ -1667,10 +1777,12 @@ class _SelectionChangedCauseTab extends StatelessWidget {
         ),
         const SizedBox(height: 16),
 
-        _sectionHeader(context, 'Accessing the Cause in a Custom Action', Icons.code),
-        _monoBox(
+        _sectionHeader(
           context,
-          '''class MyUndoAction extends Action<UndoTextIntent> {
+          'Accessing the Cause in a Custom Action',
+          Icons.code,
+        ),
+        _monoBox(context, '''class MyUndoAction extends Action<UndoTextIntent> {
   @override
   Object? invoke(UndoTextIntent intent) {
     final SelectionChangedCause cause = intent.cause;
@@ -1687,15 +1799,11 @@ class _SelectionChangedCauseTab extends StatelessWidget {
     }
     return null;
   }
-}''',
-        ),
+}'''),
         const SizedBox(height: 20),
 
-        _sectionHeader(
-            context, 'Constructor Signatures', Icons.construction),
-        _monoBox(
-          context,
-          '''// UndoTextIntent
+        _sectionHeader(context, 'Constructor Signatures', Icons.construction),
+        _monoBox(context, '''// UndoTextIntent
 const UndoTextIntent(this.cause);
 final SelectionChangedCause cause;
 
@@ -1706,8 +1814,7 @@ final SelectionChangedCause cause;
 // Example usages:
 const UndoTextIntent(SelectionChangedCause.keyboard)
 const UndoTextIntent(SelectionChangedCause.toolBar)
-const RedoTextIntent(SelectionChangedCause.keyboard)''',
-        ),
+const RedoTextIntent(SelectionChangedCause.keyboard)'''),
         const SizedBox(height: 20),
       ],
     );
@@ -1719,8 +1826,16 @@ class _CauseTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     const rows = <List<String>>[
-      ['keyboard', 'Physical/virtual key shortcut (Ctrl+Z etc.)', 'Undo/Redo via shortcut'],
-      ['toolBar', 'Selection toolbar action (context menu)', '"Undo" button in text toolbar'],
+      [
+        'keyboard',
+        'Physical/virtual key shortcut (Ctrl+Z etc.)',
+        'Undo/Redo via shortcut',
+      ],
+      [
+        'toolBar',
+        'Selection toolbar action (context menu)',
+        '"Undo" button in text toolbar',
+      ],
       ['tap', 'Single tap repositions cursor', 'Rare for undo/redo'],
       ['doubleTap', 'Double-tap selects word', 'Rare for undo/redo'],
       ['longPress', 'Long-press starts selection', 'Rare for undo/redo'],
@@ -1740,9 +1855,27 @@ class _CauseTable extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: Row(
                 children: <Widget>[
-                  _causeCell(context, 'Value', 120, bold: true, color: cs.onSecondaryContainer),
-                  _causeCell(context, 'Triggered By', 200, bold: true, color: cs.onSecondaryContainer),
-                  _causeCell(context, 'Undo/Redo Context', 180, bold: true, color: cs.onSecondaryContainer),
+                  _causeCell(
+                    context,
+                    'Value',
+                    120,
+                    bold: true,
+                    color: cs.onSecondaryContainer,
+                  ),
+                  _causeCell(
+                    context,
+                    'Triggered By',
+                    200,
+                    bold: true,
+                    color: cs.onSecondaryContainer,
+                  ),
+                  _causeCell(
+                    context,
+                    'Undo/Redo Context',
+                    180,
+                    bold: true,
+                    color: cs.onSecondaryContainer,
+                  ),
                 ],
               ),
             ),
@@ -1753,14 +1886,21 @@ class _CauseTable extends StatelessWidget {
                   : cs.surfaceContainerHighest.withValues(alpha: 0.35);
               return Container(
                 color: bg,
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 10,
+                ),
                 child: Row(
                   children: <Widget>[
-                    _causeCell(context, r[0], 120,
-                        mono: true, color: cs.secondary),
+                    _causeCell(
+                      context,
+                      r[0],
+                      120,
+                      mono: true,
+                      color: cs.secondary,
+                    ),
                     _causeCell(context, r[1], 200),
-                    _causeCell(context, r[2], 180,
-                        color: cs.onSurfaceVariant),
+                    _causeCell(context, r[2], 180, color: cs.onSurfaceVariant),
                   ],
                 ),
               );
@@ -1771,8 +1911,14 @@ class _CauseTable extends StatelessWidget {
     );
   }
 
-  Widget _causeCell(BuildContext context, String text, double width,
-      {bool bold = false, bool mono = false, Color? color}) {
+  Widget _causeCell(
+    BuildContext context,
+    String text,
+    double width, {
+    bool bold = false,
+    bool mono = false,
+    Color? color,
+  }) {
     return SizedBox(
       width: width,
       child: Text(
@@ -1801,8 +1947,7 @@ class _PitfallsTab extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: <Widget>[
-        _sectionHeader(
-            context, 'Common Pitfalls', Icons.warning_amber_rounded),
+        _sectionHeader(context, 'Common Pitfalls', Icons.warning_amber_rounded),
 
         _Pitfall(
           index: 1,
@@ -1812,8 +1957,7 @@ class _PitfallsTab extends StatelessWidget {
               'EditableText is focused before doing anything. If the field '
               'does not have focus, the intent is silently ignored.\n\n'
               'Fix: call FocusNode.requestFocus() before invoking the intent.',
-          code:
-              '''// Ensure focus before manual invocation:
+          code: '''// Ensure focus before manual invocation:
 _myFocusNode.requestFocus();
 WidgetsBinding.instance.addPostFrameCallback((_) {
   Actions.invoke(
@@ -1950,20 +2094,20 @@ class _Pitfall extends StatelessWidget {
                     child: Text(
                       '$index',
                       style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall
-                          ?.copyWith(
-                              fontWeight: FontWeight.bold, color: color),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      ),
                     ),
                   ),
                 ],
@@ -2048,8 +2192,10 @@ class _CheatSheetFooter extends StatelessWidget {
   Widget _divider() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 4),
-      child: Text('|',
-          style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14)),
+      child: Text(
+        '|',
+        style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
+      ),
     );
   }
 }

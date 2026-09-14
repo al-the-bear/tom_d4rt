@@ -143,8 +143,9 @@ dynamic build(BuildContext context) {
 
   IOSSystemContextMenuItemDataSearchWeb? searchWebItem;
   try {
-    searchWebItem =
-        const IOSSystemContextMenuItemDataSearchWeb(title: 'Search Web');
+    searchWebItem = const IOSSystemContextMenuItemDataSearchWeb(
+      title: 'Search Web',
+    );
     print('[ok] Constructed IOSSystemContextMenuItemDataSearchWeb(title:)');
   } catch (e) {
     print('[err] searchWeb sibling threw: $e');
@@ -256,10 +257,7 @@ dynamic build(BuildContext context) {
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: [
-            cMintFrost,
-            cPearl,
-          ],
+          colors: [cMintFrost, cPearl],
         ),
         border: Border(
           left: BorderSide(color: cCupertinoBlue, width: 4),
@@ -311,9 +309,7 @@ dynamic build(BuildContext context) {
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
-              border: Border(
-                bottom: BorderSide(color: cFrostBorder),
-              ),
+              border: Border(bottom: BorderSide(color: cFrostBorder)),
             ),
             child: Text(
               title,
@@ -325,10 +321,7 @@ dynamic build(BuildContext context) {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(14),
-            child: body,
-          ),
+          Padding(padding: const EdgeInsets.all(14), child: body),
         ],
       ),
     );
@@ -378,13 +371,7 @@ dynamic build(BuildContext context) {
             ),
           ),
           Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                color: cAshFog,
-                fontSize: 12,
-              ),
-            ),
+            child: Text(value, style: TextStyle(color: cAshFog, fontSize: 12)),
           ),
         ],
       ),
@@ -404,11 +391,7 @@ dynamic build(BuildContext context) {
       gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [
-          cIndigoNight,
-          cCupertinoBlue,
-          cSeafoamGlow,
-        ],
+        colors: [cIndigoNight, cCupertinoBlue, cSeafoamGlow],
       ),
       borderRadius: BorderRadius.circular(16),
     ),
@@ -448,11 +431,7 @@ dynamic build(BuildContext context) {
             'perform a copy; it tells the iOS runtime which built-in '
             'menu entry to render. The optional title overrides the '
             'system localised label.',
-            style: TextStyle(
-              color: cPearl,
-              fontSize: 13,
-              height: 1.45,
-            ),
+            style: TextStyle(color: cPearl, fontSize: 13, height: 1.45),
           ),
         ),
         const SizedBox(height: 12),
@@ -552,9 +531,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
         color: cTableHeader,
-        border: Border(
-          bottom: BorderSide(color: cFrostBorder),
-        ),
+        border: Border(bottom: BorderSide(color: cFrostBorder)),
       ),
       child: Row(
         children: [
@@ -634,11 +611,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[2],
-                style: TextStyle(
-                  color: cAshFog,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -815,9 +788,7 @@ dynamic build(BuildContext context) {
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         decoration: BoxDecoration(
-          color: isCopy
-              ? cMintFrost
-              : (stripe ? cTableStripe : cPearl),
+          color: isCopy ? cMintFrost : (stripe ? cTableStripe : cPearl),
           border: Border(
             bottom: BorderSide(color: cFrostBorder.withValues(alpha: 0.6)),
             left: isCopy
@@ -875,11 +846,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[4],
-                style: TextStyle(
-                  color: cAshFog,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -922,8 +889,7 @@ dynamic build(BuildContext context) {
         style: TextStyle(
           color: isHighlighted ? cCupertinoBlue : cSlateInk,
           fontSize: 13,
-          fontWeight:
-              isHighlighted ? FontWeight.w700 : FontWeight.w500,
+          fontWeight: isHighlighted ? FontWeight.w700 : FontWeight.w500,
         ),
       ),
     );
@@ -1181,10 +1147,7 @@ dynamic build(BuildContext context) {
             SizedBox(
               width: 90,
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: verdictColor.withValues(alpha: 0.6),
                   borderRadius: BorderRadius.circular(4),
@@ -1202,11 +1165,7 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[2],
-                style: TextStyle(
-                  color: cAshFog,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -1256,11 +1215,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 4),
           Text(
             result,
-            style: TextStyle(
-              color: cAshFog,
-              fontSize: 11,
-              height: 1.4,
-            ),
+            style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
           ),
         ],
       ),
@@ -1452,11 +1407,7 @@ dynamic build(BuildContext context) {
             const SizedBox(height: 8),
             Text(
               p[1],
-              style: TextStyle(
-                color: cAshFog,
-                fontSize: 12,
-                height: 1.4,
-              ),
+              style: TextStyle(color: cAshFog, fontSize: 12, height: 1.4),
             ),
             const SizedBox(height: 6),
             Container(
@@ -1586,9 +1537,7 @@ dynamic build(BuildContext context) {
     buildPaletteSwatch('LemonRibbon', '#FFD66B', cLemonRibbon),
     buildPaletteSwatch('IndigoNight', '#2A2F4A', cIndigoNight),
   ];
-  final Widget paletteRow = Wrap(
-    children: swatchTiles,
-  );
+  final Widget paletteRow = Wrap(children: swatchTiles);
 
   // -------------------------------------------------------------------
   // SECTION 13 : Equality comparison panel. Two const Copy instances
@@ -1621,16 +1570,8 @@ dynamic build(BuildContext context) {
         inequalityHolds ? 'true' : 'unverified',
         false,
       ),
-      buildKeyValueRow(
-        'runtimeType (no title)',
-        runtimeTypeName,
-        true,
-      ),
-      buildKeyValueRow(
-        'runtimeType (with title)',
-        titledRuntimeName,
-        false,
-      ),
+      buildKeyValueRow('runtimeType (no title)', runtimeTypeName, true),
+      buildKeyValueRow('runtimeType (with title)', titledRuntimeName, false),
       buildKeyValueRow(
         'is IOSSystemContextMenuItemData',
         'true (subtype relation)',
@@ -1688,11 +1629,7 @@ dynamic build(BuildContext context) {
           const SizedBox(height: 8),
           Text(
             body,
-            style: TextStyle(
-              color: cAshFog,
-              fontSize: 12,
-              height: 1.5,
-            ),
+            style: TextStyle(color: cAshFog, fontSize: 12, height: 1.5),
           ),
           const SizedBox(height: 8),
           Container(
@@ -1803,16 +1740,8 @@ dynamic build(BuildContext context) {
       'Limited (title only); Custom variant for app-specific',
       'Full widget tree control',
     ],
-    <String>[
-      'Available on Android',
-      'No',
-      'Yes',
-    ],
-    <String>[
-      'Available on web',
-      'No',
-      'Yes (with caveats)',
-    ],
+    <String>['Available on Android', 'No', 'Yes'],
+    <String>['Available on web', 'No', 'Yes (with caveats)'],
     <String>[
       'Performance',
       'Excellent - native compositor',
@@ -1894,21 +1823,13 @@ dynamic build(BuildContext context) {
             Expanded(
               child: Text(
                 row[1],
-                style: TextStyle(
-                  color: cAshFog,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
               ),
             ),
             Expanded(
               child: Text(
                 row[2],
-                style: TextStyle(
-                  color: cAshFog,
-                  fontSize: 11,
-                  height: 1.4,
-                ),
+                style: TextStyle(color: cAshFog, fontSize: 11, height: 1.4),
               ),
             ),
           ],
@@ -1941,9 +1862,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
       decoration: BoxDecoration(
         color: cMintFrost,
-        border: Border(
-          left: BorderSide(color: cCupertinoBlue, width: 4),
-        ),
+        border: Border(left: BorderSide(color: cCupertinoBlue, width: 4)),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(10),
           bottomRight: Radius.circular(10),
@@ -1966,11 +1885,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Text(
         text,
-        style: TextStyle(
-          color: cSlateInk,
-          fontSize: 13,
-          height: 1.55,
-        ),
+        style: TextStyle(color: cSlateInk, fontSize: 13, height: 1.55),
       ),
     );
   }
@@ -2079,9 +1994,7 @@ dynamic build(BuildContext context) {
     ],
     <String>[
       'IOSSystemContextMenuItemDataSelectAll()',
-      selectAllItem == null
-          ? 'null'
-          : selectAllItem.runtimeType.toString(),
+      selectAllItem == null ? 'null' : selectAllItem.runtimeType.toString(),
       selectAllItem == null ? 'unverified' : 'ok',
     ],
     <String>[
@@ -2187,10 +2100,7 @@ dynamic build(BuildContext context) {
             SizedBox(
               width: 80,
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 6,
-                  vertical: 2,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: ok
                       ? cSeafoamGlow.withValues(alpha: 0.6)
@@ -2284,26 +2194,11 @@ dynamic build(BuildContext context) {
         'Locale coverage on iOS (auto via system)',
         staticAnim.value + 0.30,
       ),
-      buildProgressBar(
-        'Visual fidelity vs UIKit (using system menu)',
-        0.96,
-      ),
-      buildProgressBar(
-        'Customisation flexibility (using system menu)',
-        0.18,
-      ),
-      buildProgressBar(
-        'Engine cost per show()',
-        0.05,
-      ),
-      buildProgressBar(
-        'Accessibility automatic-coverage',
-        0.92,
-      ),
-      buildProgressBar(
-        'Test coverage of bridging path',
-        0.55,
-      ),
+      buildProgressBar('Visual fidelity vs UIKit (using system menu)', 0.96),
+      buildProgressBar('Customisation flexibility (using system menu)', 0.18),
+      buildProgressBar('Engine cost per show()', 0.05),
+      buildProgressBar('Accessibility automatic-coverage', 0.92),
+      buildProgressBar('Test coverage of bridging path', 0.55),
     ],
   );
 
@@ -2338,11 +2233,7 @@ dynamic build(BuildContext context) {
           'is tiny but the behavioural surface around it - '
           'localisation, accessibility, paste-board semantics - is '
           'sizeable, which is why the demo file is, in turn, large.',
-          style: TextStyle(
-            color: cMintFrost,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: TextStyle(color: cMintFrost, fontSize: 12, height: 1.5),
         ),
       ],
     ),
@@ -2365,11 +2256,7 @@ dynamic build(BuildContext context) {
       'Outcome of each constructor invocation in this script.',
     ),
     buildPanel('Snapshot table', cMintFrost, snapshotTable),
-    buildPanel(
-      'Equality probes',
-      cMintFrost,
-      equalityPanel,
-    ),
+    buildPanel('Equality probes', cMintFrost, equalityPanel),
     buildSectionTitle(
       '3. Sibling Catalog',
       'The IOSSystemContextMenuItemData family in one table.',
@@ -2395,10 +2282,7 @@ dynamic build(BuildContext context) {
       'When does Flutter use the system menu vs in-app rendering?',
     ),
     buildPanel('Decision flow', cMintFrost, decisionTree),
-    buildSectionTitle(
-      '8. Pitfalls',
-      'Things that go wrong in the field.',
-    ),
+    buildSectionTitle('8. Pitfalls', 'Things that go wrong in the field.'),
     buildPanel('Common mistakes', cMintFrost, pitfallPanel),
     buildSectionTitle(
       '9. Glossary',
@@ -2450,9 +2334,7 @@ dynamic build(BuildContext context) {
     ),
     body: Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-      child: ListView(
-        children: bodyChildren,
-      ),
+      child: ListView(children: bodyChildren),
     ),
   );
 }

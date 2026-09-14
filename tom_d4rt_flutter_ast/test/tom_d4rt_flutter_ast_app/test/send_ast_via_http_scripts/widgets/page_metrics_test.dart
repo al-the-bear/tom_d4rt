@@ -32,15 +32,24 @@ dynamic build(BuildContext context) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: fg, fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: TextStyle(
+              color: fg,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
           if (sub.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(sub,
-                  style: TextStyle(
-                      color: fg.withValues(alpha: 0.85), fontSize: 12)),
+              child: Text(
+                sub,
+                style: TextStyle(
+                  color: fg.withValues(alpha: 0.85),
+                  fontSize: 12,
+                ),
+              ),
             ),
         ],
       ),
@@ -57,8 +66,7 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(8),
         border: Border(left: BorderSide(color: border, width: 4)),
       ),
-      child: Text(text,
-          style: TextStyle(fontSize: 13, color: darkAbyss)),
+      child: Text(text, style: TextStyle(fontSize: 13, color: darkAbyss)),
     );
   }
 
@@ -70,15 +78,17 @@ dynamic build(BuildContext context) {
         children: [
           SizedBox(
             width: 155,
-            child: Text(key,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                    color: accent)),
+            child: Text(
+              key,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                color: accent,
+              ),
+            ),
           ),
           Expanded(
-            child: Text(val,
-                style: TextStyle(fontSize: 13, color: darkAbyss)),
+            child: Text(val, style: TextStyle(fontSize: 13, color: darkAbyss)),
           ),
         ],
       ),
@@ -142,7 +152,9 @@ dynamic build(BuildContext context) {
   print('\n--- Fractional metrics (viewportFraction: 0.8) ---');
   print('pixels: ${fractionalMetrics.pixels}');
   print('page: ${fractionalMetrics.page}');
-  print('Effective page width: ${fractionalMetrics.viewportDimension * fractionalMetrics.viewportFraction}');
+  print(
+    'Effective page width: ${fractionalMetrics.viewportDimension * fractionalMetrics.viewportFraction}',
+  );
 
   print('\n--- copyWith ---');
   final copied = sampleMetrics.copyWith(pixels: 750.0);
@@ -178,37 +190,48 @@ dynamic build(BuildContext context) {
                   Icon(Icons.auto_stories, size: 28, color: lightAzure),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text('PageMetrics',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold)),
+                    child: Text(
+                      'PageMetrics',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 6),
-              Text('An immutable snapshot of a PageView\u0027s scroll '
-                  'state that extends FixedScrollMetrics. Adds '
-                  'viewportFraction and a computed page getter to '
-                  'track fractional page positions during scrolling.',
-                  style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 13)),
+              Text(
+                'An immutable snapshot of a PageView\u0027s scroll '
+                'state that extends FixedScrollMetrics. Adds '
+                'viewportFraction and a computed page getter to '
+                'track fractional page positions during scrolling.',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 13,
+                ),
+              ),
               const SizedBox(height: 10),
-              Wrap(children: [
-                tag('FixedScrollMetrics', ocean, Colors.white),
-                tag('page getter', azure, Colors.white),
-                tag('viewportFraction', softOcean, Colors.white),
-                tag('immutable', lightAzure, darkAbyss),
-              ]),
+              Wrap(
+                children: [
+                  tag('FixedScrollMetrics', ocean, Colors.white),
+                  tag('page getter', azure, Colors.white),
+                  tag('viewportFraction', softOcean, Colors.white),
+                  tag('immutable', lightAzure, darkAbyss),
+                ],
+              ),
             ],
           ),
         ),
 
         // ── 2. Inheritance chain ─────────────────────────────────────
-        heading('1 \u00b7 Inheritance Chain',
-            'Where PageMetrics sits in the class hierarchy',
-            deepOcean, Colors.white),
+        heading(
+          '1 \u00b7 Inheritance Chain',
+          'Where PageMetrics sits in the class hierarchy',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -223,14 +246,21 @@ dynamic build(BuildContext context) {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: [deepOcean, ocean, azure, softOcean][i]
-                        .withValues(alpha: 0.1),
+                    color: [
+                      deepOcean,
+                      ocean,
+                      azure,
+                      softOcean,
+                    ][i].withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: [deepOcean, ocean, azure, softOcean][i],
-                        width: i == 3 ? 2 : 1),
+                      color: [deepOcean, ocean, azure, softOcean][i],
+                      width: i == 3 ? 2 : 1,
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -242,11 +272,14 @@ dynamic build(BuildContext context) {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text('${i + 1}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10)),
+                          child: Text(
+                            '${i + 1}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -254,24 +287,28 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text([
-                              'Object',
-                              'ScrollMetrics (mixin)',
-                              'FixedScrollMetrics',
-                              'PageMetrics',
-                            ][i],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                    color: [deepOcean, ocean, azure, softOcean][i])),
-                            Text([
-                              'Dart base class',
-                              'Defines scroll position contract: pixels, extents, axis',
-                              'Immutable concrete ScrollMetrics with final fields',
-                              'Adds viewportFraction and computed page getter',
-                            ][i],
-                                style: TextStyle(
-                                    fontSize: 10, color: darkAbyss)),
+                            Text(
+                              [
+                                'Object',
+                                'ScrollMetrics (mixin)',
+                                'FixedScrollMetrics',
+                                'PageMetrics',
+                              ][i],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                color: [deepOcean, ocean, azure, softOcean][i],
+                              ),
+                            ),
+                            Text(
+                              [
+                                'Dart base class',
+                                'Defines scroll position contract: pixels, extents, axis',
+                                'Immutable concrete ScrollMetrics with final fields',
+                                'Adds viewportFraction and computed page getter',
+                              ][i],
+                              style: TextStyle(fontSize: 10, color: darkAbyss),
+                            ),
                           ],
                         ),
                       ),
@@ -281,8 +318,11 @@ dynamic build(BuildContext context) {
                 if (i < 3)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Icon(Icons.arrow_downward,
-                        size: 14, color: softOcean),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      size: 14,
+                      color: softOcean,
+                    ),
                   ),
               ],
             ],
@@ -291,9 +331,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 3. Constructor anatomy ───────────────────────────────────
-        heading('2 \u00b7 Constructor Parameters',
-            'All required named parameters',
-            ocean, Colors.white),
+        heading(
+          '2 \u00b7 Constructor Parameters',
+          'All required named parameters',
+          ocean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -304,20 +347,55 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final param in [
-                ('minScrollExtent', 'double?', 'Start of scrollable range (usually 0)',
-                    Icons.first_page, ocean),
-                ('maxScrollExtent', 'double?', 'End of scrollable range (total pages \u00d7 page width)',
-                    Icons.last_page, azure),
-                ('pixels', 'double?', 'Current scroll position in logical pixels',
-                    Icons.place, softOcean),
-                ('viewportDimension', 'double?', 'Visible area size along scroll axis',
-                    Icons.crop_free, deepOcean),
-                ('axisDirection', 'AxisDirection', 'Scroll direction: right, left, down, up',
-                    Icons.swap_horiz, accentMint),
-                ('viewportFraction', 'double', 'Fraction of viewport each page occupies (0.0\u20131.0+)',
-                    Icons.view_carousel, accentCoral),
-                ('devicePixelRatio', 'double', 'Device pixel density for scroll physics',
-                    Icons.devices, ocean),
+                (
+                  'minScrollExtent',
+                  'double?',
+                  'Start of scrollable range (usually 0)',
+                  Icons.first_page,
+                  ocean,
+                ),
+                (
+                  'maxScrollExtent',
+                  'double?',
+                  'End of scrollable range (total pages \u00d7 page width)',
+                  Icons.last_page,
+                  azure,
+                ),
+                (
+                  'pixels',
+                  'double?',
+                  'Current scroll position in logical pixels',
+                  Icons.place,
+                  softOcean,
+                ),
+                (
+                  'viewportDimension',
+                  'double?',
+                  'Visible area size along scroll axis',
+                  Icons.crop_free,
+                  deepOcean,
+                ),
+                (
+                  'axisDirection',
+                  'AxisDirection',
+                  'Scroll direction: right, left, down, up',
+                  Icons.swap_horiz,
+                  accentMint,
+                ),
+                (
+                  'viewportFraction',
+                  'double',
+                  'Fraction of viewport each page occupies (0.0\u20131.0+)',
+                  Icons.view_carousel,
+                  accentCoral,
+                ),
+                (
+                  'devicePixelRatio',
+                  'double',
+                  'Device pixel density for scroll physics',
+                  Icons.devices,
+                  ocean,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 3),
@@ -325,8 +403,7 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: param.$5.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border(
-                        left: BorderSide(color: param.$5, width: 3)),
+                    border: Border(left: BorderSide(color: param.$5, width: 3)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,31 +416,40 @@ dynamic build(BuildContext context) {
                           children: [
                             Row(
                               children: [
-                                Text(param.$1,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                        color: param.$5)),
+                                Text(
+                                  param.$1,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: param.$5,
+                                  ),
+                                ),
                                 const SizedBox(width: 6),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 1),
+                                    horizontal: 5,
+                                    vertical: 1,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: param.$5.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text(param.$2,
-                                      style: TextStyle(
-                                          fontFamily: 'monospace',
-                                          fontSize: 9,
-                                          color: param.$5)),
+                                  child: Text(
+                                    param.$2,
+                                    style: TextStyle(
+                                      fontFamily: 'monospace',
+                                      fontSize: 9,
+                                      color: param.$5,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
                             const SizedBox(height: 2),
-                            Text(param.$3,
-                                style: TextStyle(
-                                    fontSize: 11, color: darkAbyss)),
+                            Text(
+                              param.$3,
+                              style: TextStyle(fontSize: 11, color: darkAbyss),
+                            ),
                           ],
                         ),
                       ),
@@ -376,9 +462,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 4. The page getter ───────────────────────────────────────
-        heading('3 \u00b7 The page Getter',
-            'Computed fractional page index from scroll position',
-            deepOcean, Colors.white),
+        heading(
+          '3 \u00b7 The page Getter',
+          'Computed fractional page index from scroll position',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -395,21 +484,22 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepOcean.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepOcean.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepOcean.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'double? get page {\n'
-                    '  return pixels == null\n'
-                    '    ? null\n'
-                    '    : clampDouble(pixels, min, max) /\n'
-                    '      max(1.0,\n'
-                    '        viewportDimension * viewportFraction);\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: deepOcean)),
+                  'double? get page {\n'
+                  '  return pixels == null\n'
+                  '    ? null\n'
+                  '    : clampDouble(pixels, min, max) /\n'
+                  '      max(1.0,\n'
+                  '        viewportDimension * viewportFraction);\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: deepOcean,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               // Live computed values
@@ -424,25 +514,41 @@ dynamic build(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Live Computation (sample)',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 11,
-                            color: ocean)),
+                    Text(
+                      'Live Computation (sample)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 11,
+                        color: ocean,
+                      ),
+                    ),
                     const SizedBox(height: 6),
                     kvRow('pixels', sampleMetrics.pixels.toString(), ocean),
-                    kvRow('viewportDimension', sampleMetrics.viewportDimension.toString(), ocean),
-                    kvRow('viewportFraction', sampleMetrics.viewportFraction.toString(), ocean),
-                    kvRow('effectivePageWidth',
-                        '${sampleMetrics.viewportDimension * sampleMetrics.viewportFraction}',
-                        azure),
+                    kvRow(
+                      'viewportDimension',
+                      sampleMetrics.viewportDimension.toString(),
+                      ocean,
+                    ),
+                    kvRow(
+                      'viewportFraction',
+                      sampleMetrics.viewportFraction.toString(),
+                      ocean,
+                    ),
+                    kvRow(
+                      'effectivePageWidth',
+                      '${sampleMetrics.viewportDimension * sampleMetrics.viewportFraction}',
+                      azure,
+                    ),
                     const Divider(),
                     kvRow('page', sampleMetrics.page.toString(), deepOcean),
-                    Text('= 412.5 / max(1.0, 375.0 \u00d7 1.0) = 1.1',
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontStyle: FontStyle.italic,
-                            color: accentCoral)),
+                    Text(
+                      '= 412.5 / max(1.0, 375.0 \u00d7 1.0) = 1.1',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontStyle: FontStyle.italic,
+                        color: accentCoral,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -460,9 +566,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 5. viewportFraction effect ───────────────────────────────
-        heading('4 \u00b7 viewportFraction Effect',
-            'How the fraction changes page width and page index',
-            azure, Colors.white),
+        heading(
+          '4 \u00b7 viewportFraction Effect',
+          'How the fraction changes page width and page index',
+          azure,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -491,17 +600,23 @@ dynamic build(BuildContext context) {
                     children: [
                       Row(
                         children: [
-                          Text('viewportFraction: ${frac.$1}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: frac.$4)),
+                          Text(
+                            'viewportFraction: ${frac.$1}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: frac.$4,
+                            ),
+                          ),
                           const Spacer(),
-                          Text(frac.$3,
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontStyle: FontStyle.italic,
-                                  color: frac.$4)),
+                          Text(
+                            frac.$3,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontStyle: FontStyle.italic,
+                              color: frac.$4,
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 6),
@@ -513,7 +628,8 @@ dynamic build(BuildContext context) {
                           color: frac.$4.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: frac.$4.withValues(alpha: 0.3)),
+                            color: frac.$4.withValues(alpha: 0.3),
+                          ),
                         ),
                         child: FractionallySizedBox(
                           alignment: Alignment.centerLeft,
@@ -524,11 +640,14 @@ dynamic build(BuildContext context) {
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: Center(
-                              child: Text('page = ${frac.$2}px',
-                                  style: TextStyle(
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold,
-                                      color: frac.$4)),
+                              child: Text(
+                                'page = ${frac.$2}px',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                  color: frac.$4,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -551,9 +670,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 6. Live sample metrics card ──────────────────────────────
-        heading('5 \u00b7 Live Sample Metrics',
-            'All properties of the sample PageMetrics instance',
-            ocean, Colors.white),
+        heading(
+          '5 \u00b7 Live Sample Metrics',
+          'All properties of the sample PageMetrics instance',
+          ocean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -565,40 +687,79 @@ dynamic build(BuildContext context) {
             children: [
               kvRow('page', sampleMetrics.page.toString(), deepOcean),
               kvRow('pixels', sampleMetrics.pixels.toString(), ocean),
-              kvRow('minScrollExtent',
-                  sampleMetrics.minScrollExtent.toString(), ocean),
-              kvRow('maxScrollExtent',
-                  sampleMetrics.maxScrollExtent.toString(), ocean),
-              kvRow('viewportDimension',
-                  sampleMetrics.viewportDimension.toString(), azure),
-              kvRow('viewportFraction',
-                  sampleMetrics.viewportFraction.toString(), azure),
-              kvRow('axisDirection',
-                  sampleMetrics.axisDirection.toString(), softOcean),
-              kvRow('devicePixelRatio',
-                  sampleMetrics.devicePixelRatio.toString(), softOcean),
+              kvRow(
+                'minScrollExtent',
+                sampleMetrics.minScrollExtent.toString(),
+                ocean,
+              ),
+              kvRow(
+                'maxScrollExtent',
+                sampleMetrics.maxScrollExtent.toString(),
+                ocean,
+              ),
+              kvRow(
+                'viewportDimension',
+                sampleMetrics.viewportDimension.toString(),
+                azure,
+              ),
+              kvRow(
+                'viewportFraction',
+                sampleMetrics.viewportFraction.toString(),
+                azure,
+              ),
+              kvRow(
+                'axisDirection',
+                sampleMetrics.axisDirection.toString(),
+                softOcean,
+              ),
+              kvRow(
+                'devicePixelRatio',
+                sampleMetrics.devicePixelRatio.toString(),
+                softOcean,
+              ),
               const Divider(),
-              kvRow('extentBefore',
-                  sampleMetrics.extentBefore.toString(), accentCoral),
-              kvRow('extentInside',
-                  sampleMetrics.extentInside.toString(), accentCoral),
-              kvRow('extentAfter',
-                  sampleMetrics.extentAfter.toString(), accentCoral),
-              kvRow('hasContentDimensions',
-                  sampleMetrics.hasContentDimensions.toString(), accentMint),
-              kvRow('hasPixels',
-                  sampleMetrics.hasPixels.toString(), accentMint),
-              kvRow('hasViewportDimension',
-                  sampleMetrics.hasViewportDimension.toString(), accentMint),
+              kvRow(
+                'extentBefore',
+                sampleMetrics.extentBefore.toString(),
+                accentCoral,
+              ),
+              kvRow(
+                'extentInside',
+                sampleMetrics.extentInside.toString(),
+                accentCoral,
+              ),
+              kvRow(
+                'extentAfter',
+                sampleMetrics.extentAfter.toString(),
+                accentCoral,
+              ),
+              kvRow(
+                'hasContentDimensions',
+                sampleMetrics.hasContentDimensions.toString(),
+                accentMint,
+              ),
+              kvRow(
+                'hasPixels',
+                sampleMetrics.hasPixels.toString(),
+                accentMint,
+              ),
+              kvRow(
+                'hasViewportDimension',
+                sampleMetrics.hasViewportDimension.toString(),
+                accentMint,
+              ),
             ],
           ),
         ),
         const SizedBox(height: 14),
 
         // ── 7. Extents visual ────────────────────────────────────────
-        heading('6 \u00b7 Extents: Before, Inside, After',
-            'Visual breakdown of the scrollable area',
-            deepOcean, Colors.white),
+        heading(
+          '6 \u00b7 Extents: Before, Inside, After',
+          'Visual breakdown of the scrollable area',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -632,12 +793,15 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         child: Center(
-                          child: Text('before\n${sampleMetrics.extentBefore}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.bold,
-                                  color: accentCoral)),
+                          child: Text(
+                            'before\n${sampleMetrics.extentBefore}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                              color: accentCoral,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -650,15 +814,18 @@ dynamic build(BuildContext context) {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('inside (viewport)',
-                                  style: TextStyle(
-                                      fontSize: 7,
-                                      color: ocean)),
-                              Text(sampleMetrics.extentInside.toString(),
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: ocean)),
+                              Text(
+                                'inside (viewport)',
+                                style: TextStyle(fontSize: 7, color: ocean),
+                              ),
+                              Text(
+                                sampleMetrics.extentInside.toString(),
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: ocean,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -676,12 +843,15 @@ dynamic build(BuildContext context) {
                           ),
                         ),
                         child: Center(
-                          child: Text('after\n${sampleMetrics.extentAfter}',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 8,
-                                  fontWeight: FontWeight.bold,
-                                  color: accentMint)),
+                          child: Text(
+                            'after\n${sampleMetrics.extentAfter}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 8,
+                              fontWeight: FontWeight.bold,
+                              color: accentMint,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -693,15 +863,22 @@ dynamic build(BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('pixels: 0',
-                      style: TextStyle(fontSize: 8, color: softOcean)),
-                  Text('\u25bc scroll position: ${sampleMetrics.pixels}',
-                      style: TextStyle(
-                          fontSize: 8,
-                          fontWeight: FontWeight.bold,
-                          color: accentCoral)),
-                  Text('max: ${sampleMetrics.maxScrollExtent}',
-                      style: TextStyle(fontSize: 8, color: softOcean)),
+                  Text(
+                    'pixels: 0',
+                    style: TextStyle(fontSize: 8, color: softOcean),
+                  ),
+                  Text(
+                    '\u25bc scroll position: ${sampleMetrics.pixels}',
+                    style: TextStyle(
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold,
+                      color: accentCoral,
+                    ),
+                  ),
+                  Text(
+                    'max: ${sampleMetrics.maxScrollExtent}',
+                    style: TextStyle(fontSize: 8, color: softOcean),
+                  ),
                 ],
               ),
             ],
@@ -718,9 +895,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 8. copyWith ──────────────────────────────────────────────
-        heading('7 \u00b7 copyWith Method',
-            'Creating modified immutable copies',
-            azure, Colors.white),
+        heading(
+          '7 \u00b7 copyWith Method',
+          'Creating modified immutable copies',
+          azure,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -737,18 +917,19 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: azure.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: azure.withValues(alpha: 0.3)),
+                  border: Border.all(color: azure.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'final updated = metrics.copyWith(\n'
-                    '  pixels: 750.0,\n'
-                    '  viewportFraction: 0.8,\n'
-                    ');',
-                    style: TextStyle(
-                        fontSize: 11,
-                        fontFamily: 'monospace',
-                        color: azure)),
+                  'final updated = metrics.copyWith(\n'
+                  '  pixels: 750.0,\n'
+                  '  viewportFraction: 0.8,\n'
+                  ');',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'monospace',
+                    color: azure,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               // Show original vs copied
@@ -764,27 +945,33 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Original',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: ocean)),
-                          Text('pixels: ${sampleMetrics.pixels}',
-                              style: TextStyle(
-                                  fontSize: 9, color: darkAbyss)),
-                          Text('page: ${sampleMetrics.page}',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: ocean)),
+                          Text(
+                            'Original',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: ocean,
+                            ),
+                          ),
+                          Text(
+                            'pixels: ${sampleMetrics.pixels}',
+                            style: TextStyle(fontSize: 9, color: darkAbyss),
+                          ),
+                          Text(
+                            'page: ${sampleMetrics.page}',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: ocean,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Icon(Icons.arrow_forward,
-                        size: 16, color: azure),
+                    child: Icon(Icons.arrow_forward, size: 16, color: azure),
                   ),
                   Expanded(
                     child: Container(
@@ -796,19 +983,26 @@ dynamic build(BuildContext context) {
                       ),
                       child: Column(
                         children: [
-                          Text('Copy (pixels: 750)',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                  color: azure)),
-                          Text('pixels: ${copied.pixels}',
-                              style: TextStyle(
-                                  fontSize: 9, color: darkAbyss)),
-                          Text('page: ${copied.page}',
-                              style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.bold,
-                                  color: azure)),
+                          Text(
+                            'Copy (pixels: 750)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              color: azure,
+                            ),
+                          ),
+                          Text(
+                            'pixels: ${copied.pixels}',
+                            style: TextStyle(fontSize: 9, color: darkAbyss),
+                          ),
+                          Text(
+                            'page: ${copied.page}',
+                            style: TextStyle(
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              color: azure,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -821,9 +1015,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 9. PageView notification pipeline ────────────────────────
-        heading('8 \u00b7 Notification Pipeline',
-            'How PageMetrics flows from PageView to your code',
-            deepOcean, Colors.white),
+        heading(
+          '8 \u00b7 Notification Pipeline',
+          'How PageMetrics flows from PageView to your code',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -838,13 +1035,27 @@ dynamic build(BuildContext context) {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 8),
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: [deepOcean, ocean, azure, softOcean, accentCoral][i]
-                        .withValues(alpha: 0.1),
+                    color: [
+                      deepOcean,
+                      ocean,
+                      azure,
+                      softOcean,
+                      accentCoral,
+                    ][i].withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: [deepOcean, ocean, azure, softOcean, accentCoral][i]),
+                      color: [
+                        deepOcean,
+                        ocean,
+                        azure,
+                        softOcean,
+                        accentCoral,
+                      ][i],
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -852,15 +1063,24 @@ dynamic build(BuildContext context) {
                         width: 22,
                         height: 22,
                         decoration: BoxDecoration(
-                          color: [deepOcean, ocean, azure, softOcean, accentCoral][i],
+                          color: [
+                            deepOcean,
+                            ocean,
+                            azure,
+                            softOcean,
+                            accentCoral,
+                          ][i],
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: Text('${i + 1}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10)),
+                          child: Text(
+                            '${i + 1}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -868,26 +1088,36 @@ dynamic build(BuildContext context) {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text([
-                              'PageView receives scroll gesture',
-                              'PageController updates _PagePosition',
-                              '_PagePosition creates PageMetrics',
-                              'ScrollNotification dispatched up tree',
-                              'Your listener reads notification.metrics',
-                            ][i],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    color: [deepOcean, ocean, azure, softOcean, accentCoral][i])),
-                            Text([
-                              'User swipes or flings the page view',
-                              'Pixel position is updated from physics',
-                              'Immutable snapshot with page, extents, fraction',
-                              'NotificationListener<ScrollNotification> catches it',
-                              'Cast to PageMetrics for .page and .viewportFraction',
-                            ][i],
-                                style: TextStyle(
-                                    fontSize: 9, color: darkAbyss)),
+                            Text(
+                              [
+                                'PageView receives scroll gesture',
+                                'PageController updates _PagePosition',
+                                '_PagePosition creates PageMetrics',
+                                'ScrollNotification dispatched up tree',
+                                'Your listener reads notification.metrics',
+                              ][i],
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11,
+                                color: [
+                                  deepOcean,
+                                  ocean,
+                                  azure,
+                                  softOcean,
+                                  accentCoral,
+                                ][i],
+                              ),
+                            ),
+                            Text(
+                              [
+                                'User swipes or flings the page view',
+                                'Pixel position is updated from physics',
+                                'Immutable snapshot with page, extents, fraction',
+                                'NotificationListener<ScrollNotification> catches it',
+                                'Cast to PageMetrics for .page and .viewportFraction',
+                              ][i],
+                              style: TextStyle(fontSize: 9, color: darkAbyss),
+                            ),
                           ],
                         ),
                       ),
@@ -897,8 +1127,11 @@ dynamic build(BuildContext context) {
                 if (i < 4)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Icon(Icons.arrow_downward,
-                        size: 12, color: softOcean),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      size: 12,
+                      color: softOcean,
+                    ),
                   ),
               ],
             ],
@@ -907,9 +1140,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 10. Fractional page visual ───────────────────────────────
-        heading('9 \u00b7 Fractional Page Index Visual',
-            'What page values look like at different scroll positions',
-            ocean, Colors.white),
+        heading(
+          '9 \u00b7 Fractional Page Index Visual',
+          'What page values look like at different scroll positions',
+          ocean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -933,32 +1169,37 @@ dynamic build(BuildContext context) {
                   decoration: BoxDecoration(
                     color: snap.$3.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: snap.$3, width: 3)),
+                    border: Border(left: BorderSide(color: snap.$3, width: 3)),
                   ),
                   child: Row(
                     children: [
                       Container(
                         width: 48,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 3),
+                          horizontal: 6,
+                          vertical: 3,
+                        ),
                         decoration: BoxDecoration(
                           color: snap.$3.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(snap.$1.toStringAsFixed(2),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'monospace',
-                                fontSize: 11,
-                                color: snap.$3)),
+                        child: Text(
+                          snap.$1.toStringAsFixed(2),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'monospace',
+                            fontSize: 11,
+                            color: snap.$3,
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
-                        child: Text(snap.$2,
-                            style: TextStyle(
-                                fontSize: 11, color: darkAbyss)),
+                        child: Text(
+                          snap.$2,
+                          style: TextStyle(fontSize: 11, color: darkAbyss),
+                        ),
                       ),
                     ],
                   ),
@@ -969,9 +1210,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 11. Comparison with ScrollMetrics ────────────────────────
-        heading('10 \u00b7 PageMetrics vs ScrollMetrics',
-            'What PageMetrics adds to the base',
-            deepOcean, Colors.white),
+        heading(
+          '10 \u00b7 PageMetrics vs ScrollMetrics',
+          'What PageMetrics adds to the base',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -992,11 +1236,14 @@ dynamic build(BuildContext context) {
                   for (final h in ['Property', 'ScrollMetrics', 'PageMetrics'])
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(h,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9)),
+                      child: Text(
+                        h,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 9,
+                        ),
+                      ),
                     ),
                 ],
               ),
@@ -1013,32 +1260,39 @@ dynamic build(BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(row.$1,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 9,
-                              color: darkAbyss)),
+                      child: Text(
+                        row.$1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 9,
+                          color: darkAbyss,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(row.$2,
-                          style: TextStyle(
-                              fontSize: 9,
-                              color: row.$2.contains('\u2717')
-                                  ? accentCoral
-                                  : accentMint)),
+                      child: Text(
+                        row.$2,
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: row.$2.contains('\u2717')
+                              ? accentCoral
+                              : accentMint,
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(6),
-                      child: Text(row.$3,
-                          style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: row.$3.contains('new')
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: row.$3.contains('new')
-                                  ? ocean
-                                  : accentMint)),
+                      child: Text(
+                        row.$3,
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: row.$3.contains('new')
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                          color: row.$3.contains('new') ? ocean : accentMint,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1048,9 +1302,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 12. AxisDirection options ─────────────────────────────────
-        heading('11 \u00b7 AxisDirection Options',
-            'Four scroll directions supported by PageMetrics',
-            azure, Colors.white),
+        heading(
+          '11 \u00b7 AxisDirection Options',
+          'Four scroll directions supported by PageMetrics',
+          azure,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1063,9 +1320,19 @@ dynamic build(BuildContext context) {
             runSpacing: 8,
             children: [
               for (final dir in [
-                ('right', Icons.arrow_forward, 'Horizontal LTR (default)', ocean),
+                (
+                  'right',
+                  Icons.arrow_forward,
+                  'Horizontal LTR (default)',
+                  ocean,
+                ),
                 ('left', Icons.arrow_back, 'Horizontal RTL', azure),
-                ('down', Icons.arrow_downward, 'Vertical top-to-bottom', softOcean),
+                (
+                  'down',
+                  Icons.arrow_downward,
+                  'Vertical top-to-bottom',
+                  softOcean,
+                ),
                 ('up', Icons.arrow_upward, 'Vertical bottom-to-top', deepOcean),
               ])
                 Container(
@@ -1080,15 +1347,19 @@ dynamic build(BuildContext context) {
                     children: [
                       Icon(dir.$2, size: 22, color: dir.$4),
                       const SizedBox(height: 4),
-                      Text('AxisDirection.${dir.$1}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: dir.$4)),
-                      Text(dir.$3,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 9, color: darkAbyss)),
+                      Text(
+                        'AxisDirection.${dir.$1}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: dir.$4,
+                        ),
+                      ),
+                      Text(
+                        dir.$3,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 9, color: darkAbyss),
+                      ),
                     ],
                   ),
                 ),
@@ -1098,9 +1369,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 13. Page indicator pattern ───────────────────────────────
-        heading('12 \u00b7 Pattern: Page Indicator',
-            'Using PageMetrics.page for dot indicators',
-            ocean, Colors.white),
+        heading(
+          '12 \u00b7 Pattern: Page Indicator',
+          'Using PageMetrics.page for dot indicators',
+          ocean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1117,25 +1391,26 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: ocean.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: ocean.withValues(alpha: 0.3)),
+                  border: Border.all(color: ocean.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    'NotificationListener<ScrollNotification>(\n'
-                    '  onNotification: (notification) {\n'
-                    '    if (notification.metrics is PageMetrics) {\n'
-                    '      final pm = notification.metrics\n'
-                    '          as PageMetrics;\n'
-                    '      setState(() { currentPage = pm.page; });\n'
-                    '    }\n'
-                    '    return false;\n'
-                    '  },\n'
-                    '  child: PageView(...),\n'
-                    ')',
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                        color: ocean)),
+                  'NotificationListener<ScrollNotification>(\n'
+                  '  onNotification: (notification) {\n'
+                  '    if (notification.metrics is PageMetrics) {\n'
+                  '      final pm = notification.metrics\n'
+                  '          as PageMetrics;\n'
+                  '      setState(() { currentPage = pm.page; });\n'
+                  '    }\n'
+                  '    return false;\n'
+                  '  },\n'
+                  '  child: PageView(...),\n'
+                  ')',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: ocean,
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               // Mock page indicator for page 1.1
@@ -1156,11 +1431,14 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 4),
               Center(
-                child: Text('page: 1.1 \u2192 active dot at index 1',
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontStyle: FontStyle.italic,
-                        color: ocean)),
+                child: Text(
+                  'page: 1.1 \u2192 active dot at index 1',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontStyle: FontStyle.italic,
+                    color: ocean,
+                  ),
+                ),
               ),
             ],
           ),
@@ -1168,9 +1446,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 14. Snap detection pattern ───────────────────────────────
-        heading('13 \u00b7 Pattern: Snap Detection',
-            'Detecting when a page has fully snapped',
-            deepOcean, Colors.white),
+        heading(
+          '13 \u00b7 Pattern: Snap Detection',
+          'Detecting when a page has fully snapped',
+          deepOcean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1187,23 +1468,24 @@ dynamic build(BuildContext context) {
                 decoration: BoxDecoration(
                   color: deepOcean.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: deepOcean.withValues(alpha: 0.3)),
+                  border: Border.all(color: deepOcean.withValues(alpha: 0.3)),
                 ),
                 child: Text(
-                    '// In onNotification callback:\n'
-                    'final page = pm.page;\n'
-                    'if (page != null) {\n'
-                    '  final isSnapped = (page - page.roundToDouble())\n'
-                    '      .abs() < 0.001;\n'
-                    '  if (isSnapped) {\n'
-                    '    print("Snapped to page: \${page.round()}");\n'
-                    '  }\n'
-                    '}',
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: 'monospace',
-                        color: deepOcean)),
+                  '// In onNotification callback:\n'
+                  'final page = pm.page;\n'
+                  'if (page != null) {\n'
+                  '  final isSnapped = (page - page.roundToDouble())\n'
+                  '      .abs() < 0.001;\n'
+                  '  if (isSnapped) {\n'
+                  '    print("Snapped to page: \${page.round()}");\n'
+                  '  }\n'
+                  '}',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'monospace',
+                    color: deepOcean,
+                  ),
+                ),
               ),
               const SizedBox(height: 8),
               // List of snap states
@@ -1217,34 +1499,43 @@ dynamic build(BuildContext context) {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 5),
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: snap.$3
                         ? accentMint.withValues(alpha: 0.06)
                         : accentCoral.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
                     border: Border(
-                        left: BorderSide(
-                            color: snap.$3 ? accentMint : accentCoral,
-                            width: 2)),
+                      left: BorderSide(
+                        color: snap.$3 ? accentMint : accentCoral,
+                        width: 2,
+                      ),
+                    ),
                   ),
                   child: Row(
                     children: [
-                      Text('page: ${snap.$1}',
-                          style: TextStyle(
-                              fontFamily: 'monospace',
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: snap.$3 ? accentMint : accentCoral)),
+                      Text(
+                        'page: ${snap.$1}',
+                        style: TextStyle(
+                          fontFamily: 'monospace',
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          color: snap.$3 ? accentMint : accentCoral,
+                        ),
+                      ),
                       const SizedBox(width: 10),
-                      Icon(snap.$3 ? Icons.check_circle : Icons.motion_photos_on,
-                          size: 12,
-                          color: snap.$3 ? accentMint : accentCoral),
+                      Icon(
+                        snap.$3 ? Icons.check_circle : Icons.motion_photos_on,
+                        size: 12,
+                        color: snap.$3 ? accentMint : accentCoral,
+                      ),
                       const SizedBox(width: 4),
-                      Text(snap.$2,
-                          style: TextStyle(
-                              fontSize: 10,
-                              color: darkAbyss)),
+                      Text(
+                        snap.$2,
+                        style: TextStyle(fontSize: 10, color: darkAbyss),
+                      ),
                     ],
                   ),
                 ),
@@ -1254,8 +1545,12 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 15. Performance ──────────────────────────────────────────
-        heading('14 \u00b7 Performance',
-            'Lightweight immutable snapshot', ocean, Colors.white),
+        heading(
+          '14 \u00b7 Performance',
+          'Lightweight immutable snapshot',
+          ocean,
+          Colors.white,
+        ),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(12),
@@ -1266,24 +1561,41 @@ dynamic build(BuildContext context) {
           child: Column(
             children: [
               for (final perf in [
-                ('Immutable', 'No mutation — safe to store and compare across frames',
-                    Icons.lock, ocean),
-                ('Computed getter', 'page is computed on access, not stored — zero extra memory',
-                    Icons.calculate, azure),
-                ('copyWith', 'Creates new instance cheaply — just field copies',
-                    Icons.copy, deepOcean),
-                ('Notification-based', 'Arrives via existing scroll notification infrastructure — no extra listeners',
-                    Icons.notifications_none, softOcean),
+                (
+                  'Immutable',
+                  'No mutation — safe to store and compare across frames',
+                  Icons.lock,
+                  ocean,
+                ),
+                (
+                  'Computed getter',
+                  'page is computed on access, not stored — zero extra memory',
+                  Icons.calculate,
+                  azure,
+                ),
+                (
+                  'copyWith',
+                  'Creates new instance cheaply — just field copies',
+                  Icons.copy,
+                  deepOcean,
+                ),
+                (
+                  'Notification-based',
+                  'Arrives via existing scroll notification infrastructure — no extra listeners',
+                  Icons.notifications_none,
+                  softOcean,
+                ),
               ])
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 2),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 6),
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: perf.$4.withValues(alpha: 0.06),
                     borderRadius: BorderRadius.circular(6),
-                    border: Border(
-                        left: BorderSide(color: perf.$4, width: 2)),
+                    border: Border(left: BorderSide(color: perf.$4, width: 2)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1292,18 +1604,25 @@ dynamic build(BuildContext context) {
                       const SizedBox(width: 8),
                       Expanded(
                         child: RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
                                 text: '${perf.$1}: ',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 11,
-                                    color: perf.$4)),
-                            TextSpan(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: perf.$4,
+                                ),
+                              ),
+                              TextSpan(
                                 text: perf.$2,
                                 style: TextStyle(
-                                    fontSize: 11, color: darkAbyss)),
-                          ]),
+                                  fontSize: 11,
+                                  color: darkAbyss,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -1315,8 +1634,7 @@ dynamic build(BuildContext context) {
         const SizedBox(height: 14),
 
         // ── 16. Summary ──────────────────────────────────────────────
-        heading('15 \u00b7 Summary',
-            'Key takeaways', deepOcean, Colors.white),
+        heading('15 \u00b7 Summary', 'Key takeaways', deepOcean, Colors.white),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(14),
@@ -1348,15 +1666,22 @@ dynamic build(BuildContext context) {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('\u2022  ',
-                          style: TextStyle(
-                              color: lightAzure,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14)),
+                      Text(
+                        '\u2022  ',
+                        style: TextStyle(
+                          color: lightAzure,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
                       Expanded(
-                        child: Text(point,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 13)),
+                        child: Text(
+                          point,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                        ),
                       ),
                     ],
                   ),

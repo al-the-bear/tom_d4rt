@@ -16,7 +16,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.phone_iphone,
       'title': 'What is UiKitView?',
-      'body': 'UiKitView is the iOS-specific widget that embeds a native '
+      'body':
+          'UiKitView is the iOS-specific widget that embeds a native '
           'UIKit view inside Flutter\u0027s widget tree. It bridges the '
           'gap between Flutter\u0027s rendering engine and the iOS native '
           'view hierarchy.',
@@ -25,7 +26,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.view_in_ar,
       'title': 'Platform View Mechanism',
-      'body': 'Under the hood, a platform view allocates a native iOS '
+      'body':
+          'Under the hood, a platform view allocates a native iOS '
           'UIView and composites it into Flutter\u0027s rendering. The '
           'Flutter engine positions the native view to align with '
           'the widget\u0027s layout coordinates.',
@@ -34,7 +36,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.factory,
       'title': 'View Factories',
-      'body': 'iOS registers a factory for each viewType string. When '
+      'body':
+          'iOS registers a factory for each viewType string. When '
           'Flutter requests a platform view of that type, the factory '
           'creates and returns a new UIView. This is the native '
           'counterpart of Widget.build().',
@@ -43,7 +46,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'iOS vs Android',
-      'body': 'UiKitView is the iOS twin of AndroidView. On Android, '
+      'body':
+          'UiKitView is the iOS twin of AndroidView. On Android, '
           'AndroidView embeds a native Android View. On Web, '
           'HtmlElementView embeds DOM elements. Each uses the same '
           'concept but targets different platforms.',
@@ -122,7 +126,8 @@ dynamic build(BuildContext context) {
     {
       'name': 'viewType',
       'type': 'String',
-      'desc': 'Identifier for the native view factory. Must match the '
+      'desc':
+          'Identifier for the native view factory. Must match the '
           'string registered in the iOS app delegate via '
           'registerViewFactory. This is how Flutter finds which '
           'native view to create.',
@@ -130,14 +135,16 @@ dynamic build(BuildContext context) {
     {
       'name': 'onPlatformViewCreated',
       'type': 'PlatformViewCreatedCallback?',
-      'desc': 'Called when the native UIView has been created. Receives '
+      'desc':
+          'Called when the native UIView has been created. Receives '
           'the platform view ID (int) that can be used to communicate '
           'with the native view through method channels.',
     },
     {
       'name': 'hitTestBehavior',
       'type': 'PlatformViewHitTestBehavior',
-      'desc': 'Controls how touches are routed to the native view. '
+      'desc':
+          'Controls how touches are routed to the native view. '
           'opaque: all touches go to native. translucent: both '
           'Flutter and native receive touches. transparent: '
           'Flutter gets all touches.',
@@ -145,28 +152,32 @@ dynamic build(BuildContext context) {
     {
       'name': 'layoutDirection',
       'type': 'TextDirection?',
-      'desc': 'Controls the directionality of the native view. If null '
+      'desc':
+          'Controls the directionality of the native view. If null '
           'the ambient directionality from the widget tree is used. '
           'Affects RTL layout behavior of the embedded UIView.',
     },
     {
       'name': 'creationParams',
       'type': 'dynamic',
-      'desc': 'Optional parameters passed to the native factory when '
+      'desc':
+          'Optional parameters passed to the native factory when '
           'creating the view. Encoded using creationParamsCodec '
           'before sending over the platform channel.',
     },
     {
       'name': 'creationParamsCodec',
       'type': 'MessageCodec?',
-      'desc': 'Codec for serializing creationParams. Common options: '
+      'desc':
+          'Codec for serializing creationParams. Common options: '
           'StandardMessageCodec (default), JSONMessageCodec, '
           'StringCodec, or BinaryCodec for raw bytes.',
     },
     {
       'name': 'gestureRecognizers',
       'type': 'Set<Factory<OneSequenceGestureRecognizer>>?',
-      'desc': 'Gesture recognizers that should be applied to the '
+      'desc':
+          'Gesture recognizers that should be applied to the '
           'platform view. These compete in the gesture arena with '
           'Flutter gestures to determine who handles touch events.',
     },
@@ -258,7 +269,8 @@ dynamic build(BuildContext context) {
   final channelSteps = <Map<String, dynamic>>[
     {
       'step': '1. Register Factory (Swift)',
-      'desc': 'In AppDelegate.swift or a plugin, call '
+      'desc':
+          'In AppDelegate.swift or a plugin, call '
           'registrar.register(factory, withId: "my-view"). The factory '
           'conforms to FlutterPlatformViewFactory and returns a UIView.',
       'icon': Icons.app_registration,
@@ -266,7 +278,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '2. Create UiKitView (Dart)',
-      'desc': 'In your Flutter widget tree, add UiKitView(viewType: '
+      'desc':
+          'In your Flutter widget tree, add UiKitView(viewType: '
           '"my-view"). Flutter sends a create message to iOS over the '
           'platform view channel.',
       'icon': Icons.widgets,
@@ -274,7 +287,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '3. Factory Invoked (iOS)',
-      'desc': 'iOS receives the create request and calls the registered '
+      'desc':
+          'iOS receives the create request and calls the registered '
           'factory. The factory returns a UIView instance. '
           'creationParams (if any) are deserialized and passed in.',
       'icon': Icons.build_circle,
@@ -282,7 +296,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '4. View Composited (Engine)',
-      'desc': 'The Flutter engine composites the native UIView into its '
+      'desc':
+          'The Flutter engine composites the native UIView into its '
           'rendering surface. The view appears at the correct position '
           'and size dictated by Flutter\u0027s layout.',
       'icon': Icons.layers,
@@ -290,7 +305,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '5. Method Channel (Bidirectional)',
-      'desc': 'The platform view ID from onPlatformViewCreated enables '
+      'desc':
+          'The platform view ID from onPlatformViewCreated enables '
           'two-way communication. Dart sends commands to the native '
           'view; the native view can send events back.',
       'icon': Icons.swap_horiz,
@@ -298,7 +314,8 @@ dynamic build(BuildContext context) {
     },
     {
       'step': '6. Dispose (Dart/iOS)',
-      'desc': 'When the UiKitView widget is removed from the tree, '
+      'desc':
+          'When the UiKitView widget is removed from the tree, '
           'Flutter sends a dispose message. The iOS side deallocates '
           'the UIView and cleans up resources.',
       'icon': Icons.delete_outline,
@@ -325,11 +342,7 @@ dynamic build(BuildContext context) {
                     color: csColor.withOpacity(0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    cs['icon'] as IconData,
-                    color: csColor,
-                    size: 18,
-                  ),
+                  child: Icon(cs['icon'] as IconData, color: csColor, size: 18),
                 ),
                 if (i < channelSteps.length - 1)
                   Container(
@@ -525,7 +538,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'opaque',
       'subtitle': 'PlatformViewHitTestBehavior.opaque',
-      'desc': 'All touch events go to the native view. Flutter widgets '
+      'desc':
+          'All touch events go to the native view. Flutter widgets '
           'behind the platform view receive no touches. Use this '
           'when the native view needs full touch control.',
       'useCase': 'MKMapView, in-app browser, native video player',
@@ -534,7 +548,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'translucent',
       'subtitle': 'PlatformViewHitTestBehavior.translucent',
-      'desc': 'Both the native view and Flutter receive touches. The '
+      'desc':
+          'Both the native view and Flutter receive touches. The '
           'gesture arena decides the winner. Use for native views '
           'that need touches but Flutter also has gesture handlers.',
       'useCase': 'Interactive native chart with Flutter overlay controls',
@@ -543,7 +558,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'transparent',
       'subtitle': 'PlatformViewHitTestBehavior.transparent',
-      'desc': 'All touch events go to Flutter. The native view is purely '
+      'desc':
+          'All touch events go to Flutter. The native view is purely '
           'visual and does not receive any touches. Use for display-only '
           'native views like a WKWebView showing static content.',
       'useCase': 'Native ad view, static native label, preview panels',
@@ -552,7 +568,8 @@ dynamic build(BuildContext context) {
     {
       'title': 'Custom Recognizers',
       'subtitle': 'gestureRecognizers parameter',
-      'desc': 'You can pass a set of gesture recognizer factories to '
+      'desc':
+          'You can pass a set of gesture recognizer factories to '
           'compete in Flutter\u0027s gesture arena. A HorizontalDragGR '
           'or PanGR can be used to ensure the platform view wins '
           'specific gestures.',
@@ -621,10 +638,7 @@ dynamic build(BuildContext context) {
               ),
               const SizedBox(height: 6),
               Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: gtColor.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(4),
@@ -653,7 +667,8 @@ dynamic build(BuildContext context) {
   final compositionModes = <Map<String, dynamic>>[
     {
       'title': 'Hybrid Composition',
-      'desc': 'The default on iOS. The native UIView is placed in the '
+      'desc':
+          'The default on iOS. The native UIView is placed in the '
           'native view hierarchy and Flutter paints over/under using '
           'multiple layers. Supports all UIKit features but may have '
           'slight performance overhead from layer composition.',
@@ -672,7 +687,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Virtual Display (Android-only)',
-      'desc': 'Android can render platform views into a texture which '
+      'desc':
+          'Android can render platform views into a texture which '
           'Flutter composites. This mode is NOT used by UiKitView on '
           'iOS. Mentioned here for completeness when comparing '
           'AndroidView strategies.',
@@ -707,15 +723,14 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('\u2714 ', style: TextStyle(
-                color: Colors.green, fontSize: 11)),
+              const Text(
+                '\u2714 ',
+                style: TextStyle(color: Colors.green, fontSize: 11),
+              ),
               Expanded(
                 child: Text(
                   p as String,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
                 ),
               ),
             ],
@@ -732,15 +747,14 @@ dynamic build(BuildContext context) {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('\u2718 ', style: TextStyle(
-                color: Colors.red, fontSize: 11)),
+              const Text(
+                '\u2718 ',
+                style: TextStyle(color: Colors.red, fontSize: 11),
+              ),
               Expanded(
                 child: Text(
                   c as String,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade700,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade700),
                 ),
               ),
             ],
@@ -913,17 +927,11 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     'Native: ${pv['native']}',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                   Text(
                     'Composition: ${pv['composition']}',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -993,10 +1001,7 @@ dynamic build(BuildContext context) {
                   ),
                   Text(
                     uc['desc'] as String,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey.shade600,
-                    ),
+                    style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
                   ),
                 ],
               ),
@@ -1015,32 +1020,38 @@ dynamic build(BuildContext context) {
   final summaryPoints = <Map<String, dynamic>>[
     {
       'icon': Icons.phone_iphone,
-      'text': 'UiKitView embeds native iOS UIKit views in the '
+      'text':
+          'UiKitView embeds native iOS UIKit views in the '
           'Flutter widget tree via platform view composition.',
     },
     {
       'icon': Icons.factory,
-      'text': 'viewType string maps to a native factory registered '
+      'text':
+          'viewType string maps to a native factory registered '
           'in iOS code. The factory creates UIView instances.',
     },
     {
       'icon': Icons.swap_horiz,
-      'text': 'onPlatformViewCreated callback provides the view ID '
+      'text':
+          'onPlatformViewCreated callback provides the view ID '
           'for bidirectional Method Channel communication.',
     },
     {
       'icon': Icons.touch_app,
-      'text': 'hitTestBehavior (opaque/translucent/transparent) and '
+      'text':
+          'hitTestBehavior (opaque/translucent/transparent) and '
           'gestureRecognizers control touch routing.',
     },
     {
       'icon': Icons.layers,
-      'text': 'iOS uses Hybrid Composition: native view in view hierarchy '
+      'text':
+          'iOS uses Hybrid Composition: native view in view hierarchy '
           'with Flutter layers above and below.',
     },
     {
       'icon': Icons.compare,
-      'text': 'Counterparts: AndroidView (Android), HtmlElementView (Web), '
+      'text':
+          'Counterparts: AndroidView (Android), HtmlElementView (Web), '
           'AppKitView (macOS) — same concept, different platforms.',
     },
   ];
@@ -1263,10 +1274,7 @@ dynamic build(BuildContext context) {
                 ),
                 child: const Text(
                   'Common use cases for UiKitView:',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                 ),
               ),
               ...useCaseWidgets,

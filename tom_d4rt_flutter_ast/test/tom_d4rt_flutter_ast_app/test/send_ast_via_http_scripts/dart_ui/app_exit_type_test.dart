@@ -239,10 +239,7 @@ dynamic build(BuildContext context) {
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.5),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.5), width: 1.5),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.1),
@@ -676,11 +673,7 @@ dynamic build(BuildContext context) {
       'cancelable': 'For graceful flow',
       'required': 'For forced flow',
     },
-    {
-      'feature': 'Enum index',
-      'cancelable': '0',
-      'required': '1',
-    },
+    {'feature': 'Enum index', 'cancelable': '0', 'required': '1'},
   ];
 
   final comparisonTable = Container(
@@ -808,7 +801,8 @@ dynamic build(BuildContext context) {
       'name': 'Android',
       'icon': Icons.android,
       'color': Colors.green,
-      'cancelable': 'Back button via PopScope; system back triggers cancelable.',
+      'cancelable':
+          'Back button via PopScope; system back triggers cancelable.',
       'required': 'OS low-memory kill or user "Force Stop" → required.',
       'notes': 'Activity lifecycle drives most exit signals.',
     },
@@ -884,11 +878,7 @@ dynamic build(BuildContext context) {
                     color: color.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  child: Icon(
-                    p['icon'] as IconData,
-                    color: color,
-                    size: 22.0,
-                  ),
+                  child: Icon(p['icon'] as IconData, color: color, size: 22.0),
                 ),
                 SizedBox(width: 10.0),
                 Text(
@@ -906,10 +896,7 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: Colors.green.shade100,
                     borderRadius: BorderRadius.circular(4.0),
@@ -941,10 +928,7 @@ dynamic build(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6.0,
-                    vertical: 2.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
                   decoration: BoxDecoration(
                     color: Colors.red.shade100,
                     borderRadius: BorderRadius.circular(4.0),
@@ -1506,10 +1490,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: enumCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: enumCards),
             SizedBox(height: 28.0),
 
             // Section 2
@@ -1579,10 +1560,7 @@ dynamic build(BuildContext context) {
             // Footer pill
             Center(
               child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 10.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   color: Colors.amber.shade200,
                   borderRadius: BorderRadius.circular(20.0),

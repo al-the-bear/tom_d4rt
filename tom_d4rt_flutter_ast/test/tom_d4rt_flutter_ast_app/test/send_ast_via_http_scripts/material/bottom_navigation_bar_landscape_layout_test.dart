@@ -111,25 +111,25 @@ import 'package:flutter/material.dart';
 //  long form so the reader can map a colour back to its narrative role.
 // ---------------------------------------------------------------------------
 
-const Color cOceanDeep = Color(0xFF0F4A66);     // brine-ink: deep ocean
+const Color cOceanDeep = Color(0xFF0F4A66); // brine-ink: deep ocean
 const Color cOceanCerulean = Color(0xFF1B6E8C); // cerulean primary
-const Color cOceanWave = Color(0xFF4498BF);     // wave crest
-const Color cOceanFoam = Color(0xFFB6DCEE);     // foam pale
-const Color cOceanMist = Color(0xFFDDEEF6);     // sea mist
+const Color cOceanWave = Color(0xFF4498BF); // wave crest
+const Color cOceanFoam = Color(0xFFB6DCEE); // foam pale
+const Color cOceanMist = Color(0xFFDDEEF6); // sea mist
 const Color cDriftwoodDark = Color(0xFF8C7A55); // sun-baked plank shadow
-const Color cDriftwoodMid = Color(0xFFC5B58A);  // weathered plank
+const Color cDriftwoodMid = Color(0xFFC5B58A); // weathered plank
 const Color cDriftwoodLite = Color(0xFFE8DCC2); // pale driftwood beige
-const Color cSandPale = Color(0xFFF3EBD6);      // dry sand
-const Color cCoralAccent = Color(0xFFE36050);   // sun-coral primary accent
-const Color cCoralDeep = Color(0xFFB23F2F);     // sun-coral shadow
-const Color cCoralLite = Color(0xFFF0866C);     // sun-coral highlight
-const Color cBuoyYellow = Color(0xFFE7C46A);    // navigation buoy yellow
-const Color cBuoyShadow = Color(0xFF8E6F2C);    // buoy shadow
-const Color cKelpGreen = Color(0xFF3E6D55);     // kelp on the piling
-const Color cKelpDeep = Color(0xFF254535);      // wet kelp shadow
-const Color cBrineInk = Color(0xFF0A2230);      // deepest ink
-const Color cChromeRail = Color(0xFFA9C2CE);    // chrome handrail
-const Color cBoneWhite = Color(0xFFFAF6EC);     // bleached bone white
+const Color cSandPale = Color(0xFFF3EBD6); // dry sand
+const Color cCoralAccent = Color(0xFFE36050); // sun-coral primary accent
+const Color cCoralDeep = Color(0xFFB23F2F); // sun-coral shadow
+const Color cCoralLite = Color(0xFFF0866C); // sun-coral highlight
+const Color cBuoyYellow = Color(0xFFE7C46A); // navigation buoy yellow
+const Color cBuoyShadow = Color(0xFF8E6F2C); // buoy shadow
+const Color cKelpGreen = Color(0xFF3E6D55); // kelp on the piling
+const Color cKelpDeep = Color(0xFF254535); // wet kelp shadow
+const Color cBrineInk = Color(0xFF0A2230); // deepest ink
+const Color cChromeRail = Color(0xFFA9C2CE); // chrome handrail
+const Color cBoneWhite = Color(0xFFFAF6EC); // bleached bone white
 
 // Palette swatches surfaced in the title hero.
 const List<Map<String, Object>> kPalette = <Map<String, Object>>[
@@ -241,7 +241,11 @@ const List<Map<String, Object>> kNavItemsFive = <Map<String, Object>>[
   {'icon': Icons.home_outlined, 'iconSel': Icons.home, 'label': 'Pier'},
   {'icon': Icons.search_outlined, 'iconSel': Icons.search, 'label': 'Search'},
   {'icon': Icons.favorite_outline, 'iconSel': Icons.favorite, 'label': 'Saved'},
-  {'icon': Icons.notifications_outlined, 'iconSel': Icons.notifications, 'label': 'Tide'},
+  {
+    'icon': Icons.notifications_outlined,
+    'iconSel': Icons.notifications,
+    'label': 'Tide',
+  },
   {'icon': Icons.person_outline, 'iconSel': Icons.person, 'label': 'You'},
 ];
 
@@ -415,10 +419,7 @@ Widget _mockNavBar({
       width: width,
       height: height,
       decoration: barDeco,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: tiles,
-      ),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: tiles),
     );
   }
 
@@ -696,8 +697,10 @@ Widget _buildAnatomySection() {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const <Widget>[
-        Text('2. WHAT IS BottomNavigationBarLandscapeLayout?',
-            style: kSectionHeaderStyle),
+        Text(
+          '2. WHAT IS BottomNavigationBarLandscapeLayout?',
+          style: kSectionHeaderStyle,
+        ),
         SizedBox(height: 10),
         Text(
           'BottomNavigationBarLandscapeLayout is a Material enum with three '
@@ -1064,10 +1067,7 @@ Widget _buildLayoutDeepDive({
               width: 6,
               height: 6,
               margin: const EdgeInsets.only(top: 6, right: 8),
-              decoration: BoxDecoration(
-                color: accent,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: accent, shape: BoxShape.circle),
             ),
             Expanded(child: Text(bullets[i], style: kBodyStyle)),
           ],
@@ -1086,8 +1086,7 @@ Widget _buildLayoutDeepDive({
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.only(top: 1, right: 6),
-              child: Icon(Icons.check_circle,
-                  size: 14, color: cKelpGreen),
+              child: Icon(Icons.check_circle, size: 14, color: cKelpGreen),
             ),
             Expanded(
               child: Text(
@@ -1115,8 +1114,7 @@ Widget _buildLayoutDeepDive({
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.only(top: 1, right: 6),
-              child: Icon(Icons.cancel,
-                  size: 14, color: cCoralDeep),
+              child: Icon(Icons.cancel, size: 14, color: cCoralDeep),
             ),
             Expanded(
               child: Text(
@@ -1224,8 +1222,7 @@ Widget _buildLayoutDeepDive({
                 decoration: BoxDecoration(
                   color: cKelpGreen.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                      color: cKelpGreen.withValues(alpha: 0.4)),
+                  border: Border.all(color: cKelpGreen.withValues(alpha: 0.4)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1245,7 +1242,8 @@ Widget _buildLayoutDeepDive({
                   color: cCoralAccent.withValues(alpha: 0.08),
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(
-                      color: cCoralAccent.withValues(alpha: 0.4)),
+                    color: cCoralAccent.withValues(alpha: 0.4),
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1293,8 +1291,7 @@ Widget _buildItemCountGrid() {
     cKelpGreen,
     cCoralAccent,
   ];
-  final List<List<Map<String, Object>>> sets =
-      <List<Map<String, Object>>>[
+  final List<List<Map<String, Object>>> sets = <List<Map<String, Object>>>[
     kNavItemsTwo,
     kNavItemsThree,
     kNavItemsFour,
@@ -1311,9 +1308,7 @@ Widget _buildItemCountGrid() {
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
         color: cOceanDeep,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-        ),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(8)),
       ),
       child: const Text(
         'layout \\ items',
@@ -1343,9 +1338,7 @@ Widget _buildItemCountGrid() {
         decoration: BoxDecoration(
           color: cOceanDeep,
           borderRadius: br,
-          border: const Border(
-            left: BorderSide(color: cBoneWhite, width: 1),
-          ),
+          border: const Border(left: BorderSide(color: cBoneWhite, width: 1)),
         ),
         child: Text(
           '${counts[i]} items',
@@ -1374,9 +1367,7 @@ Widget _buildItemCountGrid() {
         alignment: Alignment.centerLeft,
         decoration: BoxDecoration(
           color: tint,
-          border: const Border(
-            top: BorderSide(color: cBoneWhite, width: 1),
-          ),
+          border: const Border(top: BorderSide(color: cBoneWhite, width: 1)),
         ),
         child: Text(
           layout,
@@ -1462,10 +1453,10 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'linear',
       'why':
           'Mail apps lean on labels (Inbox / Sent / Drafts / Archive). '
-              'In landscape, linear puts the labels right next to the icons, '
-              'so users do not need to read tiny vertical typography. '
-              'Wide inboxes also benefit from a shorter bar so more email '
-              'rows are visible.',
+          'In landscape, linear puts the labels right next to the icons, '
+          'so users do not need to read tiny vertical typography. '
+          'Wide inboxes also benefit from a shorter bar so more email '
+          'rows are visible.',
       'items': kNavItemsFour,
       'tint': cOceanCerulean,
       'icon': Icons.mail_outline,
@@ -1476,8 +1467,8 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'centered',
       'why':
           'Music apps usually have 3 items (Library / Now Playing / Search) '
-              'and benefit from feeling like a "tablet remote" in landscape. '
-              'Centered keeps the controls clustered like a media console.',
+          'and benefit from feeling like a "tablet remote" in landscape. '
+          'Centered keeps the controls clustered like a media console.',
       'items': kNavItemsThree,
       'tint': cKelpGreen,
       'icon': Icons.music_note,
@@ -1488,8 +1479,8 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'spread',
       'why':
           'Fitness apps typically have 5 items (Today / Workouts / Coach / '
-              'Stats / Profile) and want the bar to feel "the same as '
-              'portrait". Spread keeps users\' muscle memory intact.',
+          'Stats / Profile) and want the bar to feel "the same as '
+          'portrait". Spread keeps users\' muscle memory intact.',
       'items': kNavItemsFive,
       'tint': cCoralAccent,
       'icon': Icons.directions_run,
@@ -1500,8 +1491,8 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'linear',
       'why':
           'Banking labels are non-negotiable (Accounts / Pay / Cards / Profile) --- '
-              'misreading "Pay" as "Profile" is unacceptable. Linear keeps '
-              'labels prominent in landscape, especially on tablets.',
+          'misreading "Pay" as "Profile" is unacceptable. Linear keeps '
+          'labels prominent in landscape, especially on tablets.',
       'items': kNavItemsFour,
       'tint': cOceanDeep,
       'icon': Icons.account_balance_outlined,
@@ -1512,9 +1503,9 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'spread',
       'why':
           'Social apps have 5 prominent destinations and millions of '
-              'users with deep muscle memory. The portrait bar IS the '
-              'identity of the app. Spread preserves that shape in '
-              'landscape verbatim.',
+          'users with deep muscle memory. The portrait bar IS the '
+          'identity of the app. Spread preserves that shape in '
+          'landscape verbatim.',
       'items': kNavItemsFive,
       'tint': cCoralDeep,
       'icon': Icons.people_outline,
@@ -1525,8 +1516,8 @@ Widget _buildUseCaseCards() {
       'recommendKey': 'centered',
       'why':
           'News apps in landscape often switch to a multi-column reading '
-              'layout. Centered keeps the bar visually quiet on the sides '
-              'so the text columns can dominate.',
+          'layout. Centered keeps the bar visually quiet on the sides '
+          'so the text columns can dominate.',
       'items': kNavItemsThree,
       'tint': cKelpDeep,
       'icon': Icons.article_outlined,
@@ -1664,8 +1655,8 @@ Widget _buildComparisonTable() {
     final BorderRadius br = i == 0
         ? const BorderRadius.only(topLeft: Radius.circular(8))
         : (i == headers.length - 1
-            ? const BorderRadius.only(topRight: Radius.circular(8))
-            : BorderRadius.zero);
+              ? const BorderRadius.only(topRight: Radius.circular(8))
+              : BorderRadius.zero);
     headerCells.add(
       Container(
         width: widths[i],
@@ -1673,9 +1664,7 @@ Widget _buildComparisonTable() {
         decoration: BoxDecoration(
           color: cOceanDeep,
           borderRadius: br,
-          border: const Border(
-            left: BorderSide(color: cBoneWhite, width: 1),
-          ),
+          border: const Border(left: BorderSide(color: cBoneWhite, width: 1)),
         ),
         child: Text(
           headers[i],
@@ -1769,10 +1758,7 @@ Widget _buildTypeAndDefaultTable() {
       'BottomNavigationBar.landscapeLayout '
           '({BottomNavigationBarLandscapeLayout? landscapeLayout, ...})',
     ],
-    <String>[
-      'type',
-      'BottomNavigationBarLandscapeLayout? --- nullable enum',
-    ],
+    <String>['type', 'BottomNavigationBarLandscapeLayout? --- nullable enum'],
     <String>[
       'default value',
       'null on the constructor; resolved at layout-time to '
@@ -1825,9 +1811,7 @@ Widget _buildTypeAndDefaultTable() {
       Container(
         decoration: BoxDecoration(
           color: bg,
-          border: const Border(
-            top: BorderSide(color: cChromeRail, width: 1),
-          ),
+          border: const Border(top: BorderSide(color: cChromeRail, width: 1)),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Row(
@@ -1846,12 +1830,7 @@ Widget _buildTypeAndDefaultTable() {
               ),
             ),
             const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                rows[r][1],
-                style: kBodyStyle,
-              ),
-            ),
+            Expanded(child: Text(rows[r][1], style: kBodyStyle)),
           ],
         ),
       ),
@@ -1910,8 +1889,8 @@ Widget _buildAntiPatternGallery() {
       'title': 'Forcing centered with 5 items in a narrow viewport',
       'why':
           'Centered with 5 items cramps the icons in the middle and '
-              'wastes the horizontal room you fought for. Either drop to '
-              '3 items or switch to spread/linear.',
+          'wastes the horizontal room you fought for. Either drop to '
+          '3 items or switch to spread/linear.',
       'badLayout': 'centered',
       'badItems': kNavItemsFive,
       'goodLayout': 'spread',
@@ -1921,8 +1900,8 @@ Widget _buildAntiPatternGallery() {
       'title': 'Using linear when icons matter more than labels',
       'why':
           'A photo / camera / drawing app whose icons are the brand will '
-              'look cluttered if every icon gets a label glued to its '
-              'side. Spread preserves the iconic feel.',
+          'look cluttered if every icon gets a label glued to its '
+          'side. Spread preserves the iconic feel.',
       'badLayout': 'linear',
       'badItems': kNavItemsFive,
       'goodLayout': 'spread',
@@ -1932,8 +1911,8 @@ Widget _buildAntiPatternGallery() {
       'title': 'Switching layout per orientation in stateful navigation',
       'why':
           'Do not make the bar identity wobble: if portrait is spread, '
-              'do not switch to centered in landscape just to "use the '
-              'space". The user notices and feels the app is unstable.',
+          'do not switch to centered in landscape just to "use the '
+          'space". The user notices and feels the app is unstable.',
       'badLayout': 'centered',
       'badItems': kNavItemsFour,
       'goodLayout': 'spread',
@@ -1943,9 +1922,9 @@ Widget _buildAntiPatternGallery() {
       'title': 'Long labels with linear on a phone in landscape',
       'why':
           "On a 6\" phone in landscape, 'Notifications' + 'Library' + "
-              '"Profile" + "Settings" + "Discover" do not fit beside their '
-              'icons. Linear forces ellipsis or wrap. Use spread (or '
-              'shorter labels).',
+          '"Profile" + "Settings" + "Discover" do not fit beside their '
+          'icons. Linear forces ellipsis or wrap. Use spread (or '
+          'shorter labels).',
       'badLayout': 'linear',
       'badItems': kNavItemsFive,
       'goodLayout': 'spread',
@@ -2000,8 +1979,7 @@ Widget _buildAntiPatternGallery() {
               decoration: BoxDecoration(
                 color: cCoralAccent.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                    color: cCoralAccent.withValues(alpha: 0.5)),
+                border: Border.all(color: cCoralAccent.withValues(alpha: 0.5)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -2026,8 +2004,7 @@ Widget _buildAntiPatternGallery() {
               decoration: BoxDecoration(
                 color: cKelpGreen.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6),
-                border: Border.all(
-                    color: cKelpGreen.withValues(alpha: 0.5)),
+                border: Border.all(color: cKelpGreen.withValues(alpha: 0.5)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -2063,85 +2040,99 @@ Widget _buildGlossary() {
   final List<Map<String, String>> entries = <Map<String, String>>[
     {
       'term': 'orientation',
-      'def': 'The aspect ratio of the parent. Flutter exposes it as '
+      'def':
+          'The aspect ratio of the parent. Flutter exposes it as '
           'MediaQuery.of(context).orientation, which is either '
           'Orientation.portrait (taller than wide) or Orientation.landscape '
           '(wider than tall).',
     },
     {
       'term': 'breakpoint',
-      'def': 'A logical pixel width threshold at which a design changes '
+      'def':
+          'A logical pixel width threshold at which a design changes '
           'shape. BottomNavigationBarLandscapeLayout is itself a '
           'kind of breakpoint --- the bar switches behaviour at the '
           'portrait/landscape boundary.',
     },
     {
       'term': 'safe area',
-      'def': 'The rectangle of the screen NOT covered by system intrusions '
+      'def':
+          'The rectangle of the screen NOT covered by system intrusions '
           '(notch, status bar, gesture insets). BottomNavigationBar '
           'lives at the bottom of the safe area; the chosen landscape '
           'layout simply rearranges items inside that strip.',
     },
     {
       'term': 'gutter',
-      'def': 'Empty padding flanking a content region. With centered, the '
+      'def':
+          'Empty padding flanking a content region. With centered, the '
           'gutters are large; with spread/linear they are zero.',
     },
     {
       'term': 'item slot',
-      'def': 'The horizontal share of the bar that a single nav item gets. '
+      'def':
+          'The horizontal share of the bar that a single nav item gets. '
           'In spread/linear every slot is equal; in centered there ARE '
           'no equal slots --- items are sized to fit and grouped.',
     },
     {
       'term': 'icon-above-label',
-      'def': 'A vertical tile layout where the icon stacks on top of the '
+      'def':
+          'A vertical tile layout where the icon stacks on top of the '
           'label. Used by spread and centered.',
     },
     {
       'term': 'icon-beside-label',
-      'def': 'A horizontal tile layout where the icon sits to the left of '
+      'def':
+          'A horizontal tile layout where the icon sits to the left of '
           'the label. Used by linear.',
     },
     {
       'term': 'BottomNavigationBarType.fixed',
-      'def': 'A type of BottomNavigationBar where every item shows its '
+      'def':
+          'A type of BottomNavigationBar where every item shows its '
           'label and the bar background is a single color. Plays well '
           'with all three landscape layouts.',
     },
     {
       'term': 'BottomNavigationBarType.shifting',
-      'def': 'A type where the selected item grows and the bar background '
+      'def':
+          'A type where the selected item grows and the bar background '
           'changes to that item\'s color. The growth still respects the '
           'chosen landscape layout, but with centered, the growing item '
           'can push neighbours.',
     },
     {
       'term': 'currentIndex',
-      'def': 'Which item is currently selected. The selected item is '
+      'def':
+          'Which item is currently selected. The selected item is '
           'highlighted regardless of which landscape layout is in use.',
     },
     {
       'term': 'landscapeLayout (parameter)',
-      'def': 'The named argument on BottomNavigationBar that takes a '
+      'def':
+          'The named argument on BottomNavigationBar that takes a '
           'BottomNavigationBarLandscapeLayout. Nullable; null defaults '
           'to spread at layout time.',
     },
     {
       'term': 'NavigationBar (Material 3)',
-      'def': 'The Material 3 successor to BottomNavigationBar. It does '
+      'def':
+          'The Material 3 successor to BottomNavigationBar. It does '
           'NOT expose landscapeLayout; in landscape it uses an inline '
           'icon+label tile.',
     },
     {
       'term': 'NavigationRail',
-      'def': 'A vertical sibling to BottomNavigationBar designed for '
+      'def':
+          'A vertical sibling to BottomNavigationBar designed for '
           'wide layouts. Often the right answer for tablet-first UI '
           'instead of trying to make BottomNavigationBar adapt.',
     },
     {
       'term': 'showSelectedLabels',
-      'def': 'When false, only the selected item\'s label is visible. '
+      'def':
+          'When false, only the selected item\'s label is visible. '
           'Interacts subtly with linear (which assumes a label is '
           'always present beside the icon).',
     },
@@ -2319,11 +2310,7 @@ Widget _buildRecapFooter() {
           'are doing real work and the screen is wide enough to grant '
           'them room. And remember: in portrait, none of this matters. '
           'The enum is silent until the screen lies down.',
-          style: TextStyle(
-            color: cBoneWhite,
-            fontSize: 12,
-            height: 1.5,
-          ),
+          style: TextStyle(color: cBoneWhite, fontSize: 12, height: 1.5),
         ),
       ],
     ),

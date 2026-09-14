@@ -18,7 +18,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.list_alt,
       'title': 'AnimatedList Overview',
-      'body': 'AnimatedList is a scrollable list that animates items '
+      'body':
+          'AnimatedList is a scrollable list that animates items '
           'on insertion and removal. Items can fade, slide, scale, '
           'or use any combination of transitions. It replaces '
           'ListView when you need visual feedback for list changes.',
@@ -27,7 +28,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.key,
       'title': 'AnimatedListState',
-      'body': 'AnimatedListState is the State class behind AnimatedList. '
+      'body':
+          'AnimatedListState is the State class behind AnimatedList. '
           'You access it via a GlobalKey<AnimatedListState> to call '
           'insertItem(), removeItem(), and insertAllItems(). These '
           'trigger the entrance/exit animations automatically.',
@@ -36,7 +38,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.swap_vert,
       'title': 'Insert vs Remove Flow',
-      'body': 'insertItem(index) creates an AnimationController and '
+      'body':
+          'insertItem(index) creates an AnimationController and '
           'drives its value from 0→1, passing the Animation to your '
           'itemBuilder. removeItem(index, builder) drives 1→0 and '
           'uses the special builder for the departing widget.',
@@ -45,7 +48,8 @@ dynamic build(BuildContext context) {
     {
       'icon': Icons.compare,
       'title': 'AnimatedList vs ListView',
-      'body': 'ListView rebuilds instantly when its children change. '
+      'body':
+          'ListView rebuilds instantly when its children change. '
           'AnimatedList adds a temporal dimension — items transition '
           'smoothly. Use AnimatedList for dynamic collections '
           '(chat, todo, shopping cart) where users expect feedback.',
@@ -124,7 +128,8 @@ dynamic build(BuildContext context) {
   final apiEntries = <Map<String, dynamic>>[
     {
       'method': 'insertItem(int index, {Duration duration})',
-      'desc': 'Insert an item at index. The animation controller runs '
+      'desc':
+          'Insert an item at index. The animation controller runs '
           'from 0→1 over the given duration (default 300ms). Your '
           'itemBuilder receives the animation to drive transitions.',
       'icon': Icons.add,
@@ -132,14 +137,16 @@ dynamic build(BuildContext context) {
     },
     {
       'method': 'insertAllItems(int index, int length, {Duration duration})',
-      'desc': 'Insert multiple items starting at index. Items animate '
+      'desc':
+          'Insert multiple items starting at index. Items animate '
           'in staggered sequence for a flowing cascade.',
       'icon': Icons.playlist_add,
       'color': Colors.blue,
     },
     {
       'method': 'removeItem(int index, AnimatedRemovedItemBuilder, {Duration})',
-      'desc': 'Remove item at index. The builder gets the reverse '
+      'desc':
+          'Remove item at index. The builder gets the reverse '
           'animation (1→0) so you can fade/slide out. List '
           'compression happens automatically as the animation plays.',
       'icon': Icons.remove,
@@ -147,7 +154,8 @@ dynamic build(BuildContext context) {
     },
     {
       'method': 'removeAllItems(AnimatedRemovedItemBuilder, {Duration})',
-      'desc': 'Remove all items with the provided removal builder. '
+      'desc':
+          'Remove all items with the provided removal builder. '
           'Useful for a "clear all" with visual feedback.',
       'icon': Icons.clear_all,
       'color': Colors.orange,
@@ -295,7 +303,10 @@ dynamic build(BuildContext context) {
           child: Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.cyan,
                   borderRadius: BorderRadius.circular(8),
@@ -341,13 +352,16 @@ dynamic build(BuildContext context) {
             itemBuilder: (context, index, animation) {
               final color = itemColors[index % itemColors.length];
               return SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(-1, 0),
-                  end: Offset.zero,
-                ).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeOutCubic,
-                )),
+                position:
+                    Tween<Offset>(
+                      begin: const Offset(-1, 0),
+                      end: Offset.zero,
+                    ).animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeOutCubic,
+                      ),
+                    ),
                 child: FadeTransition(
                   opacity: animation,
                   child: Container(
@@ -418,7 +432,8 @@ dynamic build(BuildContext context) {
   final transitions = <Map<String, dynamic>>[
     {
       'name': 'Slide from Left',
-      'code': 'SlideTransition(\n'
+      'code':
+          'SlideTransition(\n'
           '  position: Tween<Offset>(\n'
           '    begin: Offset(-1, 0),\n'
           '    end: Offset.zero,\n'
@@ -431,7 +446,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Slide from Bottom',
-      'code': 'SlideTransition(\n'
+      'code':
+          'SlideTransition(\n'
           '  position: Tween<Offset>(\n'
           '    begin: Offset(0, 1),\n'
           '    end: Offset.zero,\n'
@@ -444,7 +460,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Scale with Bounce',
-      'code': 'ScaleTransition(\n'
+      'code':
+          'ScaleTransition(\n'
           '  scale: CurvedAnimation(\n'
           '    parent: animation,\n'
           '    curve: Curves.elasticOut,\n'
@@ -457,7 +474,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Size Expand',
-      'code': 'SizeTransition(\n'
+      'code':
+          'SizeTransition(\n'
           '  sizeFactor: animation,\n'
           '  axisAlignment: -1.0,\n'
           '  child: child,\n'
@@ -468,7 +486,8 @@ dynamic build(BuildContext context) {
     },
     {
       'name': 'Rotation + Fade',
-      'code': 'RotationTransition(\n'
+      'code':
+          'RotationTransition(\n'
           '  turns: Tween(begin: 0.05, end: 0.0)\n'
           '    .animate(animation),\n'
           '  child: FadeTransition(\n'
@@ -635,7 +654,11 @@ dynamic build(BuildContext context) {
           'removeItem() takes a special AnimatedRemovedItemBuilder '
           'that defines what the departing item looks like during '
           'the exit animation:',
-          style: TextStyle(fontSize: 12, height: 1.4, color: Colors.grey.shade700),
+          style: TextStyle(
+            fontSize: 12,
+            height: 1.4,
+            color: Colors.grey.shade700,
+          ),
         ),
         const SizedBox(height: 14),
         Container(
@@ -676,10 +699,12 @@ dynamic build(BuildContext context) {
         ),
         const SizedBox(height: 14),
         // Key points
-        ...['Capture the item data before removing from your list',
-            'Remove from your data model first',
-            'The builder closure "remembers" the removed item via closure',
-            'The animation drives from 1 → 0 (reverse of insert)'].map(
+        ...[
+          'Capture the item data before removing from your list',
+          'Remove from your data model first',
+          'The builder closure "remembers" the removed item via closure',
+          'The animation drives from 1 → 0 (reverse of insert)',
+        ].map(
           (point) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 3),
             child: Row(
@@ -713,9 +738,11 @@ dynamic build(BuildContext context) {
   final pitfalls = <Map<String, dynamic>>[
     {
       'title': 'Index Out of Sync',
-      'problem': 'Calling insertItem() before adding to your data list, '
+      'problem':
+          'Calling insertItem() before adding to your data list, '
           'or removeItem() after removing from data.',
-      'solution': 'For insert: add to data first, then call insertItem(). '
+      'solution':
+          'For insert: add to data first, then call insertItem(). '
           'For remove: capture item, remove from data, then call '
           'removeItem() with the captured item in its builder.',
       'icon': Icons.sync_problem,
@@ -723,27 +750,33 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Wrong initialItemCount',
-      'problem': 'Setting initialItemCount to 0 when data already exists, '
+      'problem':
+          'Setting initialItemCount to 0 when data already exists, '
           'causing an empty list despite having items.',
-      'solution': 'Always set initialItemCount to match your data list '
+      'solution':
+          'Always set initialItemCount to match your data list '
           'length at widget creation time.',
       'icon': Icons.format_list_numbered,
       'severity': 'medium',
     },
     {
       'title': 'Missing GlobalKey',
-      'problem': 'Creating the GlobalKey inside build(), causing it to be '
+      'problem':
+          'Creating the GlobalKey inside build(), causing it to be '
           'recreated on every rebuild.',
-      'solution': 'Declare the GlobalKey as a field on your State class, '
+      'solution':
+          'Declare the GlobalKey as a field on your State class, '
           'not inside build(). final _key = GlobalKey<AnimatedListState>();',
       'icon': Icons.vpn_key_off,
       'severity': 'high',
     },
     {
       'title': 'Not Disposing Animations',
-      'problem': 'Rapid add/remove calls can stack up animations and '
+      'problem':
+          'Rapid add/remove calls can stack up animations and '
           'cause jank or memory issues.',
-      'solution': 'Use reasonable animation durations (200-500ms). '
+      'solution':
+          'Use reasonable animation durations (200-500ms). '
           'For batch operations, use insertAllItems() or debounce '
           'individual calls.',
       'icon': Icons.speed,
@@ -757,8 +790,8 @@ dynamic build(BuildContext context) {
     final severityColor = severity == 'high'
         ? Colors.red
         : severity == 'medium'
-            ? Colors.orange
-            : Colors.yellow.shade700;
+        ? Colors.orange
+        : Colors.yellow.shade700;
     print('  Pitfall: ${pitfall['title']} ($severity)');
 
     pitfallCards.add(
@@ -775,7 +808,11 @@ dynamic build(BuildContext context) {
           children: [
             Row(
               children: [
-                Icon(pitfall['icon'] as IconData, color: severityColor, size: 22),
+                Icon(
+                  pitfall['icon'] as IconData,
+                  color: severityColor,
+                  size: 22,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -788,7 +825,10 @@ dynamic build(BuildContext context) {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: severityColor.withOpacity(0.15),
                     borderRadius: BorderRadius.circular(8),
@@ -809,12 +849,14 @@ dynamic build(BuildContext context) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Problem: ',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade600,
-                    )),
+                Text(
+                  'Problem: ',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
                 Expanded(
                   child: Text(
                     pitfall['problem'] as String,
@@ -831,12 +873,14 @@ dynamic build(BuildContext context) {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Fix: ',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green.shade600,
-                    )),
+                Text(
+                  'Fix: ',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green.shade600,
+                  ),
+                ),
                 Expanded(
                   child: Text(
                     pitfall['solution'] as String,
@@ -942,27 +986,36 @@ dynamic build(BuildContext context) {
         children: [
           Expanded(
             flex: 3,
-            child: Text('Widget',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.cyan.shade900)),
+            child: Text(
+              'Widget',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.cyan.shade900,
+              ),
+            ),
           ),
           Expanded(
             flex: 3,
-            child: Text('Layout',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.cyan.shade900)),
+            child: Text(
+              'Layout',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.cyan.shade900,
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
-            child: Text('Sliver?',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.cyan.shade900)),
+            child: Text(
+              'Sliver?',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 10,
+                color: Colors.cyan.shade900,
+              ),
+            ),
           ),
         ],
       ),
@@ -1030,28 +1083,32 @@ dynamic build(BuildContext context) {
   final patterns = <Map<String, dynamic>>[
     {
       'title': 'Chat Message Feed',
-      'desc': 'New messages slide up from the bottom. The list auto-scrolls '
+      'desc':
+          'New messages slide up from the bottom. The list auto-scrolls '
           'to newest. Deleted messages fade out smoothly.',
       'icon': Icons.chat_bubble,
       'color': Colors.blue,
     },
     {
       'title': 'Todo / Task List',
-      'desc': 'New tasks slide in from the left. Completing a task adds '
+      'desc':
+          'New tasks slide in from the left. Completing a task adds '
           'a strikethrough animation, then slides it off to the right.',
       'icon': Icons.checklist,
       'color': Colors.green,
     },
     {
       'title': 'Shopping Cart',
-      'desc': 'Added products scale in with a bounce. Removing items '
+      'desc':
+          'Added products scale in with a bounce. Removing items '
           'plays a shrink animation and updates the total smoothly.',
       'icon': Icons.shopping_bag,
       'color': Colors.orange,
     },
     {
       'title': 'Notification Center',
-      'desc': 'Notifications drop in from the top with a slide. '
+      'desc':
+          'Notifications drop in from the top with a slide. '
           'Swiping dismisses with a slide-out. "Clear All" uses '
           'removeAllItems for a cascade effect.',
       'icon': Icons.notifications,
@@ -1059,7 +1116,8 @@ dynamic build(BuildContext context) {
     },
     {
       'title': 'Search Results',
-      'desc': 'Results animate in one by one as they load from API. '
+      'desc':
+          'Results animate in one by one as they load from API. '
           'Staggered delays create a waterfall appearance. Clearing '
           'search collapses all items.',
       'icon': Icons.search,
@@ -1094,7 +1152,11 @@ dynamic build(BuildContext context) {
                 ),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(pattern['icon'] as IconData, color: Colors.white, size: 24),
+              child: Icon(
+                pattern['icon'] as IconData,
+                color: Colors.white,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -1164,11 +1226,31 @@ dynamic build(BuildContext context) {
   print('=== Section 9: Summary ===');
 
   final stats = [
-    {'label': 'List Items', 'value': '${listItems.length}', 'color': Colors.cyan},
-    {'label': 'API Methods', 'value': '${apiEntries.length}', 'color': Colors.teal},
-    {'label': 'Transitions', 'value': '${transitions.length}', 'color': Colors.blue},
-    {'label': 'Pitfalls', 'value': '${pitfalls.length}', 'color': Colors.orange},
-    {'label': 'Patterns', 'value': '${patterns.length}', 'color': Colors.purple},
+    {
+      'label': 'List Items',
+      'value': '${listItems.length}',
+      'color': Colors.cyan,
+    },
+    {
+      'label': 'API Methods',
+      'value': '${apiEntries.length}',
+      'color': Colors.teal,
+    },
+    {
+      'label': 'Transitions',
+      'value': '${transitions.length}',
+      'color': Colors.blue,
+    },
+    {
+      'label': 'Pitfalls',
+      'value': '${pitfalls.length}',
+      'color': Colors.orange,
+    },
+    {
+      'label': 'Patterns',
+      'value': '${patterns.length}',
+      'color': Colors.purple,
+    },
   ];
 
   final statTiles = <Widget>[];
@@ -1271,10 +1353,7 @@ dynamic build(BuildContext context) {
                   'State object for AnimatedList — animated insertions '
                   'and removals in a scrollable linear list.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.cyan.shade600,
-                  ),
+                  style: TextStyle(fontSize: 13, color: Colors.cyan.shade600),
                 ),
               ],
             ),

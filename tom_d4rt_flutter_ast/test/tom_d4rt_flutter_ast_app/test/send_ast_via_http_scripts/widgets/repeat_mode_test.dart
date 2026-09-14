@@ -202,9 +202,9 @@ Widget _bodyText(String text) {
 }
 
 Widget _divider() => const Padding(
-      padding: EdgeInsets.symmetric(vertical: 12),
-      child: Divider(color: _kBorder, thickness: 1),
-    );
+  padding: EdgeInsets.symmetric(vertical: 12),
+  child: Divider(color: _kBorder, thickness: 1),
+);
 
 Widget _chip(String label, Color bg) {
   return Container(
@@ -240,7 +240,11 @@ class _Card extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: _kBorder),
         boxShadow: const <BoxShadow>[
-          BoxShadow(color: Color(0x0D000000), blurRadius: 4, offset: Offset(0, 2)),
+          BoxShadow(
+            color: Color(0x0D000000),
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: child,
@@ -298,7 +302,8 @@ class _AnimatedBar extends StatelessWidget {
     if (restartNotifier != null) {
       return ValueListenableBuilder<int>(
         valueListenable: restartNotifier!,
-        builder: (BuildContext ctx, int tick, Widget? _) => _buildCore(ctx, duration),
+        builder: (BuildContext ctx, int tick, Widget? _) =>
+            _buildCore(ctx, duration),
       );
     }
     return _buildCore(context, duration);
@@ -964,7 +969,9 @@ class _NoneTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const <Widget>[
               _CodeLine('TweenAnimationBuilder<double>('),
-              _CodeLine('  key: ValueKey(restartCount),   // fresh key → replay'),
+              _CodeLine(
+                '  key: ValueKey(restartCount),   // fresh key → replay',
+              ),
               _CodeLine('  tween: Tween(begin: 0, end: 1),'),
               _CodeLine('  duration: Duration(seconds: 2),'),
               _CodeLine('  curve: Curves.easeOut,'),
@@ -1062,7 +1069,10 @@ class _UseCaseRow extends StatelessWidget {
                     color: _kInk,
                   ),
                 ),
-                Text(body, style: const TextStyle(fontSize: 12.5, color: _kInk)),
+                Text(
+                  body,
+                  style: const TextStyle(fontSize: 12.5, color: _kInk),
+                ),
               ],
             ),
           ),
@@ -1194,7 +1204,9 @@ class _LoopTab extends StatelessWidget {
               _CodeLine(''),
               _CodeLine('// Using TweenAnimationBuilder (stateless trick):'),
               _CodeLine('// Swap end value on completion using ValueNotifier'),
-              _CodeLine('onEnd: () => endNotifier.value = 1 - endNotifier.value,'),
+              _CodeLine(
+                'onEnd: () => endNotifier.value = 1 - endNotifier.value,',
+              ),
             ],
           ),
         ),
@@ -1399,7 +1411,9 @@ class _PingPongTab extends StatelessWidget {
               _CodeLine(''),
               _CodeLine('// TweenAnimationBuilder (stateless):'),
               _CodeLine('// Swap tween direction on each completion'),
-              _CodeLine('onEnd: () => endNotifier.value = 1 - endNotifier.value,'),
+              _CodeLine(
+                'onEnd: () => endNotifier.value = 1 - endNotifier.value,',
+              ),
               _CodeLine('// But apply Curves.easeInOut in both directions!'),
             ],
           ),
@@ -1409,7 +1423,10 @@ class _PingPongTab extends StatelessWidget {
         const SizedBox(height: 4),
         _PingCurveBar(label: 'Curves.linear', curve: Curves.linear),
         _PingCurveBar(label: 'Curves.easeInOut', curve: Curves.easeInOut),
-        _PingCurveBar(label: 'Curves.fastOutSlowIn', curve: Curves.fastOutSlowIn),
+        _PingCurveBar(
+          label: 'Curves.fastOutSlowIn',
+          curve: Curves.fastOutSlowIn,
+        ),
         _divider(),
         _sectionHeader('When to use pingPong', _kPing),
         const _UseCaseRow(
@@ -1648,7 +1665,10 @@ class _ReverseTab extends StatelessWidget {
         const SizedBox(height: 4),
         _ReverseCurveBar(label: 'Curves.easeIn', curve: Curves.easeIn),
         _ReverseCurveBar(label: 'Curves.decelerate', curve: Curves.decelerate),
-        _ReverseCurveBar(label: 'Curves.fastOutSlowIn', curve: Curves.fastOutSlowIn),
+        _ReverseCurveBar(
+          label: 'Curves.fastOutSlowIn',
+          curve: Curves.fastOutSlowIn,
+        ),
         _divider(),
         _sectionHeader('When to use reverse', _kReverse),
         const _UseCaseRow(
@@ -1692,10 +1712,16 @@ class _NoneReverseRow extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(none, style: const TextStyle(fontSize: 12, color: _kNone)),
+            child: Text(
+              none,
+              style: const TextStyle(fontSize: 12, color: _kNone),
+            ),
           ),
           Expanded(
-            child: Text(rev, style: const TextStyle(fontSize: 12, color: _kReverse)),
+            child: Text(
+              rev,
+              style: const TextStyle(fontSize: 12, color: _kReverse),
+            ),
           ),
         ],
       ),
@@ -1831,10 +1857,7 @@ class _LoopCurveCard extends StatelessWidget {
             label: label,
           ),
           const SizedBox(height: 6),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 12, color: _kInk),
-          ),
+          Text(description, style: const TextStyle(fontSize: 12, color: _kInk)),
         ],
       ),
     );
@@ -1866,10 +1889,7 @@ class _PingCurveCard extends StatelessWidget {
             label: label,
           ),
           const SizedBox(height: 6),
-          Text(
-            description,
-            style: const TextStyle(fontSize: 12, color: _kInk),
-          ),
+          Text(description, style: const TextStyle(fontSize: 12, color: _kInk)),
         ],
       ),
     );
@@ -1971,7 +1991,13 @@ class _ComparisonTab extends StatelessWidget {
               4: FlexColumnWidth(1),
             },
             children: <TableRow>[
-              _tableHeader(<String>['Property', 'none', 'loop', 'pingPong', 'reverse']),
+              _tableHeader(<String>[
+                'Property',
+                'none',
+                'loop',
+                'pingPong',
+                'reverse',
+              ]),
               _tableRow(<String>['Direction', 'fwd', 'fwd', 'fwd↔rev', 'rev']),
               _tableRow(<String>['Repeat?', 'No', 'Yes', 'Yes', 'No']),
               _tableRow(<String>['Waveform', '—', 'sawtooth', 'triangle', '—']),
@@ -1989,8 +2015,16 @@ class _ComparisonTab extends StatelessWidget {
             children: const <Widget>[
               _CircleMode(mode: _Mode.none, color: _kNone, label: 'none'),
               _CircleMode(mode: _Mode.loop, color: _kLoop, label: 'loop'),
-              _CircleMode(mode: _Mode.pingPong, color: _kPing, label: 'pingPong'),
-              _CircleMode(mode: _Mode.reverse, color: _kReverse, label: 'reverse'),
+              _CircleMode(
+                mode: _Mode.pingPong,
+                color: _kPing,
+                label: 'pingPong',
+              ),
+              _CircleMode(
+                mode: _Mode.reverse,
+                color: _kReverse,
+                label: 'reverse',
+              ),
             ],
           ),
         ),
@@ -2055,17 +2089,14 @@ class _CircleMode extends StatelessWidget {
       restartNotifier: mode == _Mode.none
           ? _noneRestartSignal
           : mode == _Mode.reverse
-              ? _reverseRestartSignal
-              : null,
+          ? _reverseRestartSignal
+          : null,
     );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        SizedBox(
-          width: 70,
-          child: bar,
-        ),
+        SizedBox(width: 70, child: bar),
         const SizedBox(height: 6),
         Text(
           label,
@@ -2385,7 +2416,8 @@ class _DiagramTab extends StatelessWidget {
           title: 'none',
           color: _kNone,
           painter: _NoneDiagramPainter(),
-          description: 'Rises from 0 to 1 once (easeOut curve), then holds at 1.',
+          description:
+              'Rises from 0 to 1 once (easeOut curve), then holds at 1.',
         ),
         const SizedBox(height: 10),
         _DiagramCard(
@@ -2406,7 +2438,8 @@ class _DiagramTab extends StatelessWidget {
           title: 'reverse',
           color: _kReverse,
           painter: _ReverseDiagramPainter(),
-          description: 'Falls from 1 to 0 once (easeIn curve), then holds at 0.',
+          description:
+              'Falls from 1 to 0 once (easeIn curve), then holds at 0.',
         ),
         _divider(),
         _sectionHeader('API Cheat Sheet', _kSeed),
@@ -2418,7 +2451,8 @@ class _DiagramTab extends StatelessWidget {
               _CheatRow(
                 mode: 'none',
                 color: _kNone,
-                snippet: 'TweenAnimationBuilder(\n'
+                snippet:
+                    'TweenAnimationBuilder(\n'
                     '  tween: Tween(begin:0, end:1),\n'
                     '  duration: ...,\n'
                     '  builder: (ctx,v,_) => ...,\n'
@@ -2428,7 +2462,8 @@ class _DiagramTab extends StatelessWidget {
               _CheatRow(
                 mode: 'loop',
                 color: _kLoop,
-                snippet: 'AnimationController(\n'
+                snippet:
+                    'AnimationController(\n'
                     '  vsync: this,\n'
                     '  duration: ...,\n'
                     ')..repeat(reverse: false)',
@@ -2437,7 +2472,8 @@ class _DiagramTab extends StatelessWidget {
               _CheatRow(
                 mode: 'pingPong',
                 color: _kPing,
-                snippet: 'AnimationController(\n'
+                snippet:
+                    'AnimationController(\n'
                     '  vsync: this,\n'
                     '  duration: ...,\n'
                     ')..repeat(reverse: true)',
@@ -2446,7 +2482,8 @@ class _DiagramTab extends StatelessWidget {
               _CheatRow(
                 mode: 'reverse',
                 color: _kReverse,
-                snippet: 'TweenAnimationBuilder(\n'
+                snippet:
+                    'TweenAnimationBuilder(\n'
                     '  tween: Tween(begin:1, end:0),\n'
                     '  duration: ...,\n'
                     '  builder: (ctx,v,_) => ...,\n'
@@ -2519,10 +2556,7 @@ class _DiagramCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          CustomPaint(
-            size: const Size(double.infinity, 130),
-            painter: painter,
-          ),
+          CustomPaint(size: const Size(double.infinity, 130), painter: painter),
           const SizedBox(height: 6),
           Text(description, style: const TextStyle(fontSize: 12, color: _kInk)),
         ],
@@ -2589,7 +2623,11 @@ void _drawAxes(Canvas canvas, Size size, Color color) {
     ..color = _kBorder
     ..strokeWidth = 1;
   // x-axis (bottom)
-  canvas.drawLine(Offset(0, size.height - 16), Offset(size.width, size.height - 16), axisPaint);
+  canvas.drawLine(
+    Offset(0, size.height - 16),
+    Offset(size.width, size.height - 16),
+    axisPaint,
+  );
   // y-axis (left)
   canvas.drawLine(const Offset(20, 0), Offset(20, size.height - 16), axisPaint);
   // mid-line dotted
@@ -2606,10 +2644,16 @@ void _drawAxes(Canvas canvas, Size size, Color color) {
   }
   // labels
   final TextPainter tp = TextPainter(textDirection: TextDirection.ltr);
-  tp.text = const TextSpan(text: '1.0', style: TextStyle(fontSize: 9, color: _kBorder));
+  tp.text = const TextSpan(
+    text: '1.0',
+    style: TextStyle(fontSize: 9, color: _kBorder),
+  );
   tp.layout();
   tp.paint(canvas, const Offset(2, 2));
-  tp.text = const TextSpan(text: '0.0', style: TextStyle(fontSize: 9, color: _kBorder));
+  tp.text = const TextSpan(
+    text: '0.0',
+    style: TextStyle(fontSize: 9, color: _kBorder),
+  );
   tp.layout();
   tp.paint(canvas, Offset(2, size.height - 28));
 }

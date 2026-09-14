@@ -161,7 +161,10 @@ dynamic build(BuildContext context) {
       margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color.withValues(alpha: 0.85), color.withValues(alpha: 0.55)],
+          colors: [
+            color.withValues(alpha: 0.85),
+            color.withValues(alpha: 0.55),
+          ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
@@ -220,9 +223,7 @@ dynamic build(BuildContext context) {
 
   // Variant 1: Default Scrollbar (hover-driven) — no thumbVisibility, no
   // explicit controller needed.
-  final scrollDefault = Scrollbar(
-    child: ListView(children: rainbowRows(20)),
-  );
+  final scrollDefault = Scrollbar(child: ListView(children: rainbowRows(20)));
   print('Variant 1: default Scrollbar');
 
   // Variant 2: thumbVisibility=true
@@ -327,10 +328,7 @@ dynamic build(BuildContext context) {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(6.0),
@@ -513,31 +511,19 @@ dynamic build(BuildContext context) {
 
   // 4a. Log viewer with dark theme
   final logLines = <Map<String, dynamic>>[
-    {
-      'level': 'INFO',
-      'msg': 'Server started on :8080',
-      'color': Colors.cyan,
-    },
+    {'level': 'INFO', 'msg': 'Server started on :8080', 'color': Colors.cyan},
     {
       'level': 'DEBUG',
       'msg': 'Connection pool initialized',
       'color': Colors.grey,
     },
-    {
-      'level': 'INFO',
-      'msg': 'Loaded 142 routes',
-      'color': Colors.cyan,
-    },
+    {'level': 'INFO', 'msg': 'Loaded 142 routes', 'color': Colors.cyan},
     {
       'level': 'WARN',
       'msg': 'Cache miss for key=user:42',
       'color': Colors.orange,
     },
-    {
-      'level': 'INFO',
-      'msg': 'Request GET /api/v1/items',
-      'color': Colors.cyan,
-    },
+    {'level': 'INFO', 'msg': 'Request GET /api/v1/items', 'color': Colors.cyan},
     {
       'level': 'DEBUG',
       'msg': 'SQL: SELECT * FROM items LIMIT 50',
@@ -548,21 +534,13 @@ dynamic build(BuildContext context) {
       'msg': 'Timeout on upstream service',
       'color': Colors.red,
     },
-    {
-      'level': 'INFO',
-      'msg': 'Retry attempt 1 of 3',
-      'color': Colors.cyan,
-    },
+    {'level': 'INFO', 'msg': 'Retry attempt 1 of 3', 'color': Colors.cyan},
     {
       'level': 'INFO',
       'msg': 'Retry succeeded after 240ms',
       'color': Colors.greenAccent,
     },
-    {
-      'level': 'DEBUG',
-      'msg': 'Response 200 OK (1.4 KB)',
-      'color': Colors.grey,
-    },
+    {'level': 'DEBUG', 'msg': 'Response 200 OK (1.4 KB)', 'color': Colors.grey},
     {
       'level': 'WARN',
       'msg': 'Slow query: 1.2s for /reports',
@@ -578,26 +556,14 @@ dynamic build(BuildContext context) {
       'msg': 'Job 8821 completed in 320ms',
       'color': Colors.greenAccent,
     },
-    {
-      'level': 'DEBUG',
-      'msg': 'Garbage collected 8 MiB',
-      'color': Colors.grey,
-    },
+    {'level': 'DEBUG', 'msg': 'Garbage collected 8 MiB', 'color': Colors.grey},
     {
       'level': 'ERROR',
       'msg': 'Auth failed for user=guest',
       'color': Colors.red,
     },
-    {
-      'level': 'INFO',
-      'msg': 'Healthcheck OK',
-      'color': Colors.cyan,
-    },
-    {
-      'level': 'INFO',
-      'msg': 'Metrics flushed to sink',
-      'color': Colors.cyan,
-    },
+    {'level': 'INFO', 'msg': 'Healthcheck OK', 'color': Colors.cyan},
+    {'level': 'INFO', 'msg': 'Metrics flushed to sink', 'color': Colors.cyan},
     {
       'level': 'DEBUG',
       'msg': 'Reloaded config (mtime changed)',
@@ -885,10 +851,7 @@ dynamic build(BuildContext context) {
             if (!isMe) SizedBox(width: 8.0),
             Flexible(
               child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 8.0,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 decoration: BoxDecoration(
                   color: isMe ? Colors.teal.shade400 : Colors.grey.shade200,
                   borderRadius: BorderRadius.only(
@@ -1493,10 +1456,7 @@ dynamic build(BuildContext context) {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 12.0),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: conceptCards,
-            ),
+            Wrap(alignment: WrapAlignment.center, children: conceptCards),
             SizedBox(height: 32.0),
 
             // Section 2: Material variants

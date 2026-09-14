@@ -19,10 +19,16 @@ import 'package:flutter/material.dart';
 /// - inputOnly: When rapid entry of known dates is priority
 
 dynamic build(BuildContext context) {
-  print('╔═══════════════════════════════════════════════════════════════════╗');
-  print('║          DatePickerEntryMode Deep Demonstration                   ║');
+  print(
+    '╔═══════════════════════════════════════════════════════════════════╗',
+  );
+  print(
+    '║          DatePickerEntryMode Deep Demonstration                   ║',
+  );
   print('║    Exploring Initial Interaction Modes for Date Pickers          ║');
-  print('╚═══════════════════════════════════════════════════════════════════╝');
+  print(
+    '╚═══════════════════════════════════════════════════════════════════╝',
+  );
 
   print('\n📋 DatePickerEntryMode enum values:');
   for (final mode in DatePickerEntryMode.values) {
@@ -332,10 +338,7 @@ class _DatePickerEntryModeShowcaseState
                     SizedBox(height: 4),
                     Text(
                       'Material Design Date Selection',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 14),
                     ),
                   ],
                 ),
@@ -354,11 +357,7 @@ class _DatePickerEntryModeShowcaseState
               'dialogs. It controls whether users see a calendar grid, a text '
               'input field, or if they can toggle between both. Choosing the '
               'right mode improves data entry efficiency and user experience.',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                height: 1.5,
-              ),
+              style: TextStyle(color: Colors.white, fontSize: 14, height: 1.5),
             ),
           ),
         ],
@@ -418,17 +417,19 @@ class _DatePickerEntryModeShowcaseState
                   ),
                 ),
                 const SizedBox(height: 4),
-                ...DatePickerEntryMode.values.map((mode) => Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 2),
-                      child: Text(
-                        '${mode.name},  // index ${mode.index}',
-                        style: const TextStyle(
-                          fontFamily: 'monospace',
-                          fontSize: 13,
-                          color: Color(0xFFA6ACCD),
-                        ),
+                ...DatePickerEntryMode.values.map(
+                  (mode) => Padding(
+                    padding: const EdgeInsets.only(left: 16, top: 2),
+                    child: Text(
+                      '${mode.name},  // index ${mode.index}',
+                      style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontSize: 13,
+                        color: Color(0xFFA6ACCD),
                       ),
-                    )),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 4),
                 const Text(
                   '}',
@@ -482,10 +483,7 @@ class _DatePickerEntryModeShowcaseState
           const SizedBox(height: 8),
           const Text(
             'Tap any mode button below to open a date picker with that entry mode:',
-            style: TextStyle(
-              fontSize: 13,
-              color: _DemoColors.slate600,
-            ),
+            style: TextStyle(fontSize: 13, color: _DemoColors.slate600),
           ),
           const SizedBox(height: 20),
 
@@ -502,16 +500,16 @@ class _DatePickerEntryModeShowcaseState
                   borderRadius: BorderRadius.circular(12),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: isSelected
                           ? info.color.withOpacity(0.15)
                           : _DemoColors.slate50,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: isSelected
-                            ? info.color
-                            : _DemoColors.slate200,
+                        color: isSelected ? info.color : _DemoColors.slate200,
                         width: isSelected ? 2 : 1,
                       ),
                     ),
@@ -547,8 +545,11 @@ class _DatePickerEntryModeShowcaseState
           // Selected date display
           Row(
             children: [
-              const Icon(Icons.event_available,
-                  color: _DemoColors.emerald600, size: 20),
+              const Icon(
+                Icons.event_available,
+                color: _DemoColors.emerald600,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Text(
                 _selectedDate != null
@@ -556,8 +557,9 @@ class _DatePickerEntryModeShowcaseState
                     : 'No date selected yet',
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight:
-                      _selectedDate != null ? FontWeight.w600 : FontWeight.w400,
+                  fontWeight: _selectedDate != null
+                      ? FontWeight.w600
+                      : FontWeight.w400,
                   color: _selectedDate != null
                       ? _DemoColors.emerald600
                       : _DemoColors.slate600,
@@ -695,27 +697,50 @@ class _DatePickerEntryModeShowcaseState
           const SizedBox(height: 8),
 
           // Table rows
-          _buildComparisonRow('calendar', true, false, true,
-              'Opens to calendar, can switch to input'),
-          _buildComparisonRow('input', false, true, true,
-              'Opens to input, can switch to calendar'),
-          _buildComparisonRow('calendarOnly', true, false, false,
-              'Calendar only, no toggle available'),
-          _buildComparisonRow('inputOnly', false, true, false,
-              'Input only, no toggle available'),
+          _buildComparisonRow(
+            'calendar',
+            true,
+            false,
+            true,
+            'Opens to calendar, can switch to input',
+          ),
+          _buildComparisonRow(
+            'input',
+            false,
+            true,
+            true,
+            'Opens to input, can switch to calendar',
+          ),
+          _buildComparisonRow(
+            'calendarOnly',
+            true,
+            false,
+            false,
+            'Calendar only, no toggle available',
+          ),
+          _buildComparisonRow(
+            'inputOnly',
+            false,
+            true,
+            false,
+            'Input only, no toggle available',
+          ),
         ],
       ),
     );
   }
 
   Widget _buildComparisonRow(
-      String mode, bool hasCalendar, bool hasInput, bool canToggle, String note) {
+    String mode,
+    bool hasCalendar,
+    bool hasInput,
+    bool canToggle,
+    String note,
+  ) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: _DemoColors.slate100),
-        ),
+        border: Border(bottom: BorderSide(color: _DemoColors.slate100)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -742,10 +767,7 @@ class _DatePickerEntryModeShowcaseState
           const SizedBox(height: 4),
           Text(
             note,
-            style: const TextStyle(
-              fontSize: 11,
-              color: _DemoColors.slate600,
-            ),
+            style: const TextStyle(fontSize: 11, color: _DemoColors.slate600),
           ),
         ],
       ),
@@ -782,10 +804,12 @@ class _DatePickerEntryModeShowcaseState
             ],
           ),
         ),
-        ..._modeInfoList.map((info) => Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: _buildModeDetailCard(info),
-            )),
+        ..._modeInfoList.map(
+          (info) => Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: _buildModeDetailCard(info),
+          ),
+        ),
       ],
     );
   }
@@ -913,7 +937,11 @@ class _DatePickerEntryModeShowcaseState
   }
 
   Widget _buildInfoSection(
-      String title, IconData icon, List<String> items, Color color) {
+    String title,
+    IconData icon,
+    List<String> items,
+    Color color,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -932,28 +960,27 @@ class _DatePickerEntryModeShowcaseState
           ],
         ),
         const SizedBox(height: 8),
-        ...items.map((item) => Padding(
-              padding: const EdgeInsets.only(bottom: 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '• ',
-                    style: TextStyle(color: color, fontSize: 12),
-                  ),
-                  Expanded(
-                    child: Text(
-                      item,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: _DemoColors.slate600,
-                        height: 1.3,
-                      ),
+        ...items.map(
+          (item) => Padding(
+            padding: const EdgeInsets.only(bottom: 4),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('• ', style: TextStyle(color: color, fontSize: 12)),
+                Expanded(
+                  child: Text(
+                    item,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: _DemoColors.slate600,
+                      height: 1.3,
                     ),
                   ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -984,21 +1011,16 @@ class _DatePickerEntryModeShowcaseState
             ],
           ),
           const SizedBox(height: 20),
-          _buildCodeBlock(
-            'Basic Usage with Calendar Mode',
-            '''
+          _buildCodeBlock('Basic Usage with Calendar Mode', '''
 final DateTime? picked = await showDatePicker(
   context: context,
   initialDate: DateTime.now(),
   firstDate: DateTime(2020),
   lastDate: DateTime(2030),
   initialEntryMode: DatePickerEntryMode.calendar,
-);''',
-          ),
+);'''),
           const SizedBox(height: 16),
-          _buildCodeBlock(
-            'Input Only for Birth Date Entry',
-            '''
+          _buildCodeBlock('Input Only for Birth Date Entry', '''
 final DateTime? birthDate = await showDatePicker(
   context: context,
   initialDate: DateTime(2000, 1, 1),
@@ -1007,12 +1029,9 @@ final DateTime? birthDate = await showDatePicker(
   initialEntryMode: DatePickerEntryMode.inputOnly,
   helpText: 'Enter your birth date',
   fieldLabelText: 'Birth date',
-);''',
-          ),
+);'''),
           const SizedBox(height: 16),
-          _buildCodeBlock(
-            'Calendar Only for Appointment Booking',
-            '''
+          _buildCodeBlock('Calendar Only for Appointment Booking', '''
 final DateTime? appointmentDate = await showDatePicker(
   context: context,
   initialDate: DateTime.now().add(Duration(days: 1)),
@@ -1024,8 +1043,7 @@ final DateTime? appointmentDate = await showDatePicker(
     return date.weekday != DateTime.saturday &&
            date.weekday != DateTime.sunday;
   },
-);''',
-          ),
+);'''),
         ],
       ),
     );
@@ -1191,7 +1209,11 @@ final DateTime? appointmentDate = await showDatePicker(
         children: [
           const Row(
             children: [
-              Icon(Icons.accessibility_new, color: _DemoColors.sky500, size: 22),
+              Icon(
+                Icons.accessibility_new,
+                color: _DemoColors.sky500,
+                size: 22,
+              ),
               SizedBox(width: 10),
               Text(
                 'Accessibility Considerations',
@@ -1206,10 +1228,7 @@ final DateTime? appointmentDate = await showDatePicker(
           const SizedBox(height: 16),
           const Text(
             'Different entry modes have varying accessibility implications:',
-            style: TextStyle(
-              fontSize: 13,
-              color: _DemoColors.slate700,
-            ),
+            style: TextStyle(fontSize: 13, color: _DemoColors.slate700),
           ),
           const SizedBox(height: 12),
           _buildAccessibilityNote(
@@ -1282,11 +1301,7 @@ final DateTime? appointmentDate = await showDatePicker(
       ),
       child: Column(
         children: [
-          const Icon(
-            Icons.date_range,
-            color: _DemoColors.indigo600,
-            size: 36,
-          ),
+          const Icon(Icons.date_range, color: _DemoColors.indigo600, size: 36),
           const SizedBox(height: 12),
           const Text(
             'DatePickerEntryMode Demo Complete',
@@ -1311,23 +1326,27 @@ final DateTime? appointmentDate = await showDatePicker(
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: DatePickerEntryMode.values
-                .map((mode) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: _DemoColors.indigo100,
-                        borderRadius: BorderRadius.circular(12),
+                .map(
+                  (mode) => Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _DemoColors.indigo100,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      mode.name,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: _DemoColors.indigo700,
                       ),
-                      child: Text(
-                        mode.name,
-                        style: const TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          color: _DemoColors.indigo700,
-                        ),
-                      ),
-                    ))
+                    ),
+                  ),
+                )
                 .toList(),
           ),
         ],

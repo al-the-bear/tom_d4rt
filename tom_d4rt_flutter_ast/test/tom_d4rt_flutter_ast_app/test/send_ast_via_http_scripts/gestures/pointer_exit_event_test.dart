@@ -270,10 +270,7 @@ Widget buildSection1Title() {
                 color: kSignalRed,
                 borderRadius: BorderRadius.circular(4),
                 boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: kSignalRed.withOpacity(0.6),
-                    blurRadius: 12,
-                  ),
+                  BoxShadow(color: kSignalRed.withOpacity(0.6), blurRadius: 12),
                 ],
               ),
               child: Text(
@@ -335,11 +332,7 @@ Widget buildSection1Title() {
           'Most often consumed through MouseRegion.onExit, but available\n'
           'through Listener and the lower gesture-arena APIs as well.\n'
           'Carries no button information beyond the moment of exit.',
-          style: TextStyle(
-            color: kPlacardWhite,
-            fontSize: 13,
-            height: 1.45,
-          ),
+          style: TextStyle(color: kPlacardWhite, fontSize: 13, height: 1.45),
         ),
       ],
     ),
@@ -573,11 +566,7 @@ Widget _kindCard({
         SizedBox(height: 8),
         Text(
           narrative,
-          style: TextStyle(
-            fontSize: 11,
-            color: kDepartureBlack,
-            height: 1.35,
-          ),
+          style: TextStyle(fontSize: 11, color: kDepartureBlack, height: 1.35),
         ),
       ],
     ),
@@ -1018,11 +1007,7 @@ Widget _lifecycleStep({
             child: Icon(icon, color: kPlacardWhite, size: 22),
           ),
           if (!isLast)
-            Container(
-              width: 3,
-              height: 50,
-              color: accent.withOpacity(0.5),
-            ),
+            Container(width: 3, height: 50, color: accent.withOpacity(0.5)),
         ],
       ),
       SizedBox(width: 12),
@@ -1048,10 +1033,7 @@ Widget _lifecycleStep({
               Row(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: accent,
                       borderRadius: BorderRadius.circular(4),
@@ -1253,24 +1235,9 @@ Widget buildSection6Comparison() {
       'zero or more per session',
       'exactly once per hover session',
     ],
-    <String>[
-      'MouseRegion',
-      'onEnter',
-      'onHover',
-      'onExit',
-    ],
-    <String>[
-      'down',
-      'false',
-      'false',
-      'false',
-    ],
-    <String>[
-      'buttons',
-      '0',
-      '0',
-      '0',
-    ],
+    <String>['MouseRegion', 'onEnter', 'onHover', 'onExit'],
+    <String>['down', 'false', 'false', 'false'],
+    <String>['buttons', '0', '0', '0'],
     <String>[
       'delta',
       'usually zero',
@@ -1418,11 +1385,7 @@ Widget _scenarioCard({
         SizedBox(height: 8),
         Text(
           narrative,
-          style: TextStyle(
-            fontSize: 12,
-            color: kDepartureBlack,
-            height: 1.4,
-          ),
+          style: TextStyle(fontSize: 12, color: kDepartureBlack, height: 1.4),
         ),
       ],
     ),
@@ -1708,9 +1671,7 @@ Widget buildFooter() {
     margin: EdgeInsets.only(top: 12),
     padding: EdgeInsets.all(16),
     decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: <Color>[kDepartureBlack, kRunwayShadow],
-      ),
+      gradient: LinearGradient(colors: <Color>[kDepartureBlack, kRunwayShadow]),
       borderRadius: BorderRadius.circular(12),
       boxShadow: <BoxShadow>[
         BoxShadow(
@@ -1743,11 +1704,7 @@ Widget buildFooter() {
           'device-kind gallery, MouseRegion integration, lifecycle diagram, '
           'comparison vs Enter/Hover, synthesized cases, and a usage '
           'cheat-sheet.',
-          style: TextStyle(
-            color: kPlacardWhite,
-            fontSize: 12,
-            height: 1.45,
-          ),
+          style: TextStyle(color: kPlacardWhite, fontSize: 12, height: 1.45),
         ),
       ],
     ),

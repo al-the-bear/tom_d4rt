@@ -54,7 +54,11 @@ const Color kEmberRed = Color(0xFFC44B2A);
 Widget hSpace(double w) => SizedBox(width: w);
 Widget vSpace(double h) => SizedBox(height: h);
 
-Widget filmLabel(String text, {Color color = kProjectorAmber, double size = 12}) {
+Widget filmLabel(
+  String text, {
+  Color color = kProjectorAmber,
+  double size = 12,
+}) {
   return Text(
     text,
     style: TextStyle(
@@ -179,7 +183,11 @@ Widget filmStripEdge({double height = 60, int holes = 6}) {
   );
 }
 
-Widget keyValueRow(String key, String value, {Color valueColor = kCyanFlicker}) {
+Widget keyValueRow(
+  String key,
+  String value, {
+  Color valueColor = kCyanFlicker,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 2),
     child: Row(
@@ -217,9 +225,7 @@ Widget badge(String text, Color bg, Color fg) {
     decoration: BoxDecoration(
       color: bg,
       borderRadius: BorderRadius.circular(3),
-      boxShadow: [
-        BoxShadow(color: bg.withOpacity(0.45), blurRadius: 4),
-      ],
+      boxShadow: [BoxShadow(color: bg.withOpacity(0.45), blurRadius: 4)],
     ),
     child: Text(
       text,
@@ -260,18 +266,40 @@ dynamic build(BuildContext context) {
   final AlwaysStoppedAnimation<double> animT100 =
       const AlwaysStoppedAnimation<double>(1.0);
 
-  print('animT00  -> value=' + animT00.value.toString() +
-      ' status=' + animT00.status.toString() +
-      ' rt=' + animT00.runtimeType.toString());
-  print('animT25  -> value=' + animT25.value.toString() +
-      ' status=' + animT25.status.toString());
-  print('animT50  -> value=' + animT50.value.toString() +
-      ' status=' + animT50.status.toString());
-  print('animT75  -> value=' + animT75.value.toString() +
-      ' status=' + animT75.status.toString());
-  print('animT100 -> value=' + animT100.value.toString() +
-      ' status=' + animT100.status.toString() +
-      ' rt=' + animT100.runtimeType.toString());
+  print(
+    'animT00  -> value=' +
+        animT00.value.toString() +
+        ' status=' +
+        animT00.status.toString() +
+        ' rt=' +
+        animT00.runtimeType.toString(),
+  );
+  print(
+    'animT25  -> value=' +
+        animT25.value.toString() +
+        ' status=' +
+        animT25.status.toString(),
+  );
+  print(
+    'animT50  -> value=' +
+        animT50.value.toString() +
+        ' status=' +
+        animT50.status.toString(),
+  );
+  print(
+    'animT75  -> value=' +
+        animT75.value.toString() +
+        ' status=' +
+        animT75.status.toString(),
+  );
+  print(
+    'animT100 -> value=' +
+        animT100.value.toString() +
+        ' status=' +
+        animT100.status.toString() +
+        ' rt=' +
+        animT100.runtimeType.toString(),
+  );
 
   // Five tiny anchor builders, each with its own snapshot.
   final Widget anchor00 = AnimatedBuilder(
@@ -286,8 +314,10 @@ dynamic build(BuildContext context) {
           border: Border.all(color: kSepiaWarm, width: 1),
         ),
         alignment: Alignment.center,
-        child: const Text('0.00',
-            style: TextStyle(color: kProjectorAmber, fontSize: 10)),
+        child: const Text(
+          '0.00',
+          style: TextStyle(color: kProjectorAmber, fontSize: 10),
+        ),
       );
     },
   );
@@ -304,8 +334,10 @@ dynamic build(BuildContext context) {
           border: Border.all(color: kSepiaWarm, width: 1),
         ),
         alignment: Alignment.center,
-        child: const Text('0.25',
-            style: TextStyle(color: kProjectorAmber, fontSize: 10)),
+        child: const Text(
+          '0.25',
+          style: TextStyle(color: kProjectorAmber, fontSize: 10),
+        ),
       );
     },
   );
@@ -322,8 +354,10 @@ dynamic build(BuildContext context) {
           border: Border.all(color: kProjectorGold, width: 1),
         ),
         alignment: Alignment.center,
-        child: const Text('0.50',
-            style: TextStyle(color: kIvoryFrame, fontSize: 10)),
+        child: const Text(
+          '0.50',
+          style: TextStyle(color: kIvoryFrame, fontSize: 10),
+        ),
       );
     },
   );
@@ -340,8 +374,10 @@ dynamic build(BuildContext context) {
           border: Border.all(color: kProjectorGold, width: 1),
         ),
         alignment: Alignment.center,
-        child: const Text('0.75',
-            style: TextStyle(color: kFilmBlack, fontSize: 10)),
+        child: const Text(
+          '0.75',
+          style: TextStyle(color: kFilmBlack, fontSize: 10),
+        ),
       );
     },
   );
@@ -356,13 +392,13 @@ dynamic build(BuildContext context) {
           color: kProjectorAmber,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: kEmberRed, width: 1),
-          boxShadow: const [
-            BoxShadow(color: Color(0x88FFB44A), blurRadius: 8),
-          ],
+          boxShadow: const [BoxShadow(color: Color(0x88FFB44A), blurRadius: 8)],
         ),
         alignment: Alignment.center,
-        child: const Text('1.00',
-            style: TextStyle(color: kFilmBlack, fontSize: 10)),
+        child: const Text(
+          '1.00',
+          style: TextStyle(color: kFilmBlack, fontSize: 10),
+        ),
       );
     },
   );
@@ -422,7 +458,11 @@ dynamic build(BuildContext context) {
       ),
       borderRadius: BorderRadius.circular(8),
       boxShadow: const [
-        BoxShadow(color: Color(0x88000000), blurRadius: 14, offset: Offset(0, 5)),
+        BoxShadow(
+          color: Color(0x88000000),
+          blurRadius: 14,
+          offset: Offset(0, 5),
+        ),
         BoxShadow(color: Color(0x33FFB44A), blurRadius: 26),
       ],
       border: Border.all(color: kSepiaWarm, width: 1.2),
@@ -494,8 +534,12 @@ dynamic build(BuildContext context) {
   print('Uses three connected boxes laid out in a row.');
   print('Each box has its own gradient + shadow.');
 
-  Widget anatomyBox(String label, String body, List<Color> grad,
-      {Color border = kSepiaWarm}) {
+  Widget anatomyBox(
+    String label,
+    String body,
+    List<Color> grad, {
+    Color border = kSepiaWarm,
+  }) {
     return Container(
       width: 150,
       padding: const EdgeInsets.all(10),
@@ -508,7 +552,11 @@ dynamic build(BuildContext context) {
         border: Border.all(color: border, width: 1.2),
         borderRadius: BorderRadius.circular(5),
         boxShadow: const [
-          BoxShadow(color: Color(0x55000000), blurRadius: 6, offset: Offset(0, 2)),
+          BoxShadow(
+            color: Color(0x55000000),
+            blurRadius: 6,
+            offset: Offset(0, 2),
+          ),
         ],
       ),
       child: Column(
@@ -532,9 +580,7 @@ dynamic build(BuildContext context) {
           width: 38,
           height: 2,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [kCyanFlicker, kProjectorAmber],
-            ),
+            gradient: LinearGradient(colors: [kCyanFlicker, kProjectorAmber]),
           ),
         ),
         const Icon(Icons.arrow_right, color: kProjectorAmber, size: 16),
@@ -641,7 +687,11 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(8),
       border: Border.all(color: kIvoryFrame, width: 1.2),
       boxShadow: const [
-        BoxShadow(color: Color(0x99000000), blurRadius: 6, offset: Offset(2, 3)),
+        BoxShadow(
+          color: Color(0x99000000),
+          blurRadius: 6,
+          offset: Offset(2, 3),
+        ),
       ],
     ),
     alignment: Alignment.center,
@@ -667,10 +717,7 @@ dynamic build(BuildContext context) {
           child: galleryChildCard,
           builder: (BuildContext c, Widget? child) {
             // turns: 0.10 -> 36 degrees
-            return Transform.rotate(
-              angle: 0.10 * 2 * math.pi,
-              child: child,
-            );
+            return Transform.rotate(angle: 0.10 * 2 * math.pi, child: child);
           },
         ),
       ),
@@ -773,7 +820,11 @@ dynamic build(BuildContext context) {
           animation: tColor,
           builder: (BuildContext c, Widget? child) {
             // Manual color lerp at t=0.90 between sepia and amber.
-            final Color blended = Color.lerp(kSepiaDeep, kProjectorAmber, 0.90)!;
+            final Color blended = Color.lerp(
+              kSepiaDeep,
+              kProjectorAmber,
+              0.90,
+            )!;
             return Container(
               width: 70,
               height: 70,
@@ -782,15 +833,15 @@ dynamic build(BuildContext context) {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: kIvoryFrame, width: 1.2),
                 boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x88FFB44A),
-                    blurRadius: 10,
-                  ),
+                  BoxShadow(color: Color(0x88FFB44A), blurRadius: 10),
                 ],
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.local_movies,
-                  color: kFilmBlack, size: 28),
+              child: const Icon(
+                Icons.local_movies,
+                color: kFilmBlack,
+                size: 28,
+              ),
             );
           },
         ),
@@ -849,7 +900,11 @@ dynamic build(BuildContext context) {
       borderRadius: BorderRadius.circular(10),
       border: Border.all(color: kIvoryFrame, width: 2),
       boxShadow: const [
-        BoxShadow(color: Color(0x88000000), blurRadius: 10, offset: Offset(0, 4)),
+        BoxShadow(
+          color: Color(0x88000000),
+          blurRadius: 10,
+          offset: Offset(0, 4),
+        ),
         BoxShadow(color: Color(0x33FFB44A), blurRadius: 18),
       ],
     ),
@@ -879,10 +934,7 @@ dynamic build(BuildContext context) {
     builder: (BuildContext c, Widget? child) {
       return Transform.rotate(
         angle: 0.45 * 0.6,
-        child: Transform.scale(
-          scale: 0.85 + 0.45 * 0.25,
-          child: child,
-        ),
+        child: Transform.scale(scale: 0.85 + 0.45 * 0.25, child: child),
       );
     },
   );
@@ -1010,8 +1062,7 @@ dynamic build(BuildContext context) {
                 ],
               ),
               alignment: Alignment.center,
-              child: const Icon(Icons.flare,
-                  color: kFilmBlack, size: 32),
+              child: const Icon(Icons.flare, color: kFilmBlack, size: 32),
             ),
           ),
         ),
@@ -1058,7 +1109,10 @@ dynamic build(BuildContext context) {
                   ),
                   vSpace(8),
                   keyValueRow('rot.transform(0.6)', rotVal.toStringAsFixed(3)),
-                  keyValueRow('scale.transform(0.6)', scaleVal.toStringAsFixed(3)),
+                  keyValueRow(
+                    'scale.transform(0.6)',
+                    scaleVal.toStringAsFixed(3),
+                  ),
                   keyValueRow('dx.transform(0.6)', dxVal.toStringAsFixed(3)),
                   keyValueRow('snapshot.value', tCompose.value.toString()),
                   keyValueRow('snapshot.status', tCompose.status.toString()),
@@ -1085,9 +1139,7 @@ dynamic build(BuildContext context) {
       padding: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
         color: kProjectorAmber,
-        border: Border(
-          right: BorderSide(color: kSepiaDeep, width: 1),
-        ),
+        border: Border(right: BorderSide(color: kSepiaDeep, width: 1)),
       ),
       child: Text(
         text,
@@ -1114,11 +1166,7 @@ dynamic build(BuildContext context) {
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: kIvoryFrame,
-          fontSize: 10,
-          height: 1.35,
-        ),
+        style: const TextStyle(color: kIvoryFrame, fontSize: 10, height: 1.35),
       ),
     );
   }
@@ -1211,32 +1259,43 @@ dynamic build(BuildContext context) {
       color: kFilmBlack,
       border: Border.all(color: kCyanGlow, width: 1),
       borderRadius: BorderRadius.circular(6),
-      boxShadow: const [
-        BoxShadow(color: Color(0x553D9CCC), blurRadius: 8),
-      ],
+      boxShadow: const [BoxShadow(color: Color(0x553D9CCC), blurRadius: 8)],
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        mono('// typedef from package:flutter/widgets.dart',
-            color: kSepiaLight, size: 10),
-        mono('typedef TransitionBuilder = Widget Function(',
-            color: kIvoryFrame, size: 11),
-        mono('    BuildContext context,',
-            color: kCyanFlicker, size: 11),
-        mono('    Widget? child,',
-            color: kProjectorAmber, size: 11),
+        mono(
+          '// typedef from package:flutter/widgets.dart',
+          color: kSepiaLight,
+          size: 10,
+        ),
+        mono(
+          'typedef TransitionBuilder = Widget Function(',
+          color: kIvoryFrame,
+          size: 11,
+        ),
+        mono('    BuildContext context,', color: kCyanFlicker, size: 11),
+        mono('    Widget? child,', color: kProjectorAmber, size: 11),
         mono(');', color: kIvoryFrame, size: 11),
         vSpace(8),
         mono('// arguments', color: kSepiaLight, size: 10),
-        mono('  context : the AnimatedBuilder element location',
-            color: kCyanFlicker, size: 10),
-        mono('  child   : the constructor "child:" — built once',
-            color: kProjectorAmber, size: 10),
+        mono(
+          '  context : the AnimatedBuilder element location',
+          color: kCyanFlicker,
+          size: 10,
+        ),
+        mono(
+          '  child   : the constructor "child:" — built once',
+          color: kProjectorAmber,
+          size: 10,
+        ),
         vSpace(8),
         mono('// return value', color: kSepiaLight, size: 10),
-        mono('  Widget  : the new subtree for this rebuild',
-            color: kIvoryFrame, size: 10),
+        mono(
+          '  Widget  : the new subtree for this rebuild',
+          color: kIvoryFrame,
+          size: 10,
+        ),
       ],
     ),
   );
@@ -1251,11 +1310,7 @@ dynamic build(BuildContext context) {
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        filmLabel('BUILDER SIGNATURE'),
-        vSpace(8),
-        signatureBlock,
-      ],
+      children: [filmLabel('BUILDER SIGNATURE'), vSpace(8), signatureBlock],
     ),
   );
 
@@ -1296,7 +1351,11 @@ dynamic build(BuildContext context) {
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: kIvoryFrame, width: 1),
         boxShadow: const [
-          BoxShadow(color: Color(0x77000000), blurRadius: 4, offset: Offset(1, 2)),
+          BoxShadow(
+            color: Color(0x77000000),
+            blurRadius: 4,
+            offset: Offset(1, 2),
+          ),
         ],
       ),
       alignment: Alignment.center,
@@ -1346,10 +1405,7 @@ dynamic build(BuildContext context) {
                   angle: tVal * math.pi,
                   child: Transform.scale(
                     scale: 0.6 + tVal * 0.6,
-                    child: Opacity(
-                      opacity: 0.4 + tVal * 0.6,
-                      child: child,
-                    ),
+                    child: Opacity(opacity: 0.4 + tVal * 0.6, child: child),
                   ),
                 );
               },
@@ -1453,10 +1509,7 @@ dynamic build(BuildContext context) {
       children: [
         filmLabel('STORYBOARD — 6 frames captured at fixed snapshots'),
         vSpace(10),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(6),
-          child: storyboard,
-        ),
+        ClipRRect(borderRadius: BorderRadius.circular(6), child: storyboard),
         vSpace(8),
         bodyLabel(
           'The same builder formula (rotate by t*pi, scale by 0.6 + t*0.6, '
@@ -1485,9 +1538,7 @@ dynamic build(BuildContext context) {
         children: [
           Icon(ic, color: kProjectorAmber, size: 14),
           hSpace(8),
-          Expanded(
-            child: bodyLabel(text, color: kIvoryFrame, size: 11),
-          ),
+          Expanded(child: bodyLabel(text, color: kIvoryFrame, size: 11)),
         ],
       ),
     );
@@ -1506,10 +1557,12 @@ dynamic build(BuildContext context) {
         filmLabel('CONSTRUCTOR', size: 10),
         vSpace(6),
         mono('AnimatedBuilder({', color: kIvoryFrame, size: 10),
-        mono('  required Listenable animation,',
-            color: kCyanFlicker, size: 10),
-        mono('  required TransitionBuilder builder,',
-            color: kProjectorAmber, size: 10),
+        mono('  required Listenable animation,', color: kCyanFlicker, size: 10),
+        mono(
+          '  required TransitionBuilder builder,',
+          color: kProjectorAmber,
+          size: 10,
+        ),
         mono('  Widget? child,', color: kSepiaLight, size: 10),
         mono('})', color: kIvoryFrame, size: 10),
       ],
@@ -1529,12 +1582,18 @@ dynamic build(BuildContext context) {
         filmLabel('IDIOMS', size: 10),
         vSpace(6),
         cheatRow(Icons.check_circle, 'Hoist heavy widgets into the child arg.'),
-        cheatRow(Icons.check_circle,
-            'Read animation.value once at builder start.'),
-        cheatRow(Icons.check_circle,
-            'Combine multiple animations via Listenable.merge.'),
-        cheatRow(Icons.check_circle,
-            'Use Tween.transform(t) for explicit ranges.'),
+        cheatRow(
+          Icons.check_circle,
+          'Read animation.value once at builder start.',
+        ),
+        cheatRow(
+          Icons.check_circle,
+          'Combine multiple animations via Listenable.merge.',
+        ),
+        cheatRow(
+          Icons.check_circle,
+          'Use Tween.transform(t) for explicit ranges.',
+        ),
       ],
     ),
   );
@@ -1553,10 +1612,14 @@ dynamic build(BuildContext context) {
         vSpace(6),
         cheatRow(Icons.warning, 'Building expensive subtrees inside builder.'),
         cheatRow(Icons.warning, 'Forgetting to listen to a new Listenable.'),
-        cheatRow(Icons.warning,
-            'Returning child unchanged when child is null.'),
-        cheatRow(Icons.warning,
-            'Closing over mutable state without notifying.'),
+        cheatRow(
+          Icons.warning,
+          'Returning child unchanged when child is null.',
+        ),
+        cheatRow(
+          Icons.warning,
+          'Closing over mutable state without notifying.',
+        ),
       ],
     ),
   );
@@ -1568,13 +1631,17 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: [kFilmBlack, kSepiaDeep, kProjectorAmber, kSepiaDeep, kFilmBlack],
+        colors: [
+          kFilmBlack,
+          kSepiaDeep,
+          kProjectorAmber,
+          kSepiaDeep,
+          kFilmBlack,
+        ],
         stops: [0.0, 0.25, 0.5, 0.75, 1.0],
       ),
       borderRadius: BorderRadius.circular(6),
-      boxShadow: const [
-        BoxShadow(color: Color(0x66FFB44A), blurRadius: 10),
-      ],
+      boxShadow: const [BoxShadow(color: Color(0x66FFB44A), blurRadius: 10)],
     ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,

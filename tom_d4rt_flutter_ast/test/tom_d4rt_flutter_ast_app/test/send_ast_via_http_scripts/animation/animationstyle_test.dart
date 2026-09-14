@@ -117,7 +117,12 @@ const EdgeInsets _kSectionPadding = EdgeInsets.symmetric(horizontal: 18.0);
 // to keep the file approachable to anyone reading top-to-bottom.
 Widget _sectionHeader(int index, String title, String tagline) {
   return Padding(
-    padding: const EdgeInsets.only(top: 28.0, bottom: 12.0, left: 18.0, right: 18.0),
+    padding: const EdgeInsets.only(
+      top: 28.0,
+      bottom: 12.0,
+      left: 18.0,
+      right: 18.0,
+    ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -158,7 +163,10 @@ Widget _card({
   required Widget child,
   Color background = _kCardBg,
   EdgeInsets padding = _kCardPadding,
-  EdgeInsets margin = const EdgeInsets.symmetric(horizontal: 18.0, vertical: 6.0),
+  EdgeInsets margin = const EdgeInsets.symmetric(
+    horizontal: 18.0,
+    vertical: 6.0,
+  ),
 }) {
   return Container(
     margin: margin,
@@ -179,7 +187,12 @@ Widget _card({
   );
 }
 
-Widget _cardTitle(String title, {String? subtitle, Color titleColor = _kInk, Color subtitleColor = _kInkSecondary}) {
+Widget _cardTitle(
+  String title, {
+  String? subtitle,
+  Color titleColor = _kInk,
+  Color subtitleColor = _kInkSecondary,
+}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -290,7 +303,12 @@ Widget _sectionDivider() {
   );
 }
 
-Widget _kvRow(String key, String value, {Color keyColour = _kInkSecondary, Color valueColour = _kInk}) {
+Widget _kvRow(
+  String key,
+  String value, {
+  Color keyColour = _kInkSecondary,
+  Color valueColour = _kInk,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3.0),
     child: Row(
@@ -329,9 +347,7 @@ Widget _tableRow(List<String> cells, {bool header = false, List<int>? flexes}) {
     padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
     decoration: BoxDecoration(
       color: header ? const Color(0xFFF1EEF7) : const Color(0xFFFFFFFF),
-      border: const Border(
-        bottom: BorderSide(color: _kHairline),
-      ),
+      border: const Border(bottom: BorderSide(color: _kHairline)),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,7 +373,11 @@ Widget _tableRow(List<String> cells, {bool header = false, List<int>? flexes}) {
   );
 }
 
-Widget _bullet(String text, {IconData icon = Icons.check_circle, Color colour = _kAccent}) {
+Widget _bullet(
+  String text, {
+  IconData icon = Icons.check_circle,
+  Color colour = _kAccent,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 3.0),
     child: Row(
@@ -376,7 +396,12 @@ Widget _bullet(String text, {IconData icon = Icons.check_circle, Color colour = 
   );
 }
 
-Widget _pitfallRow(String headline, String body, {IconData icon = Icons.warning_amber_rounded, Color colour = _kAccentOrange}) {
+Widget _pitfallRow(
+  String headline,
+  String body, {
+  IconData icon = Icons.warning_amber_rounded,
+  Color colour = _kAccentOrange,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(12.0),
@@ -546,7 +571,12 @@ Widget _curveTile(String name, Curve curve, {double height = 84.0}) {
   );
 }
 
-Widget _curveTileWithSource(String name, Curve curve, String source, {Color accent = _kAccent}) {
+Widget _curveTileWithSource(
+  String name,
+  Curve curve,
+  String source, {
+  Color accent = _kAccent,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(
@@ -575,7 +605,11 @@ Widget _curveTileWithSource(String name, Curve curve, String source, {Color acce
               SizedBox(
                 height: 80.0,
                 child: CustomPaint(
-                  painter: _CurveGraphPainter(curve: curve, lineColour: accent, fillColour: accent.withOpacity(0.12)),
+                  painter: _CurveGraphPainter(
+                    curve: curve,
+                    lineColour: accent,
+                    fillColour: accent.withOpacity(0.12),
+                  ),
                   size: Size.infinite,
                 ),
               ),
@@ -612,7 +646,9 @@ Widget _barBar(double value, {Color colour = _kAccent}) {
                 height: (v * 100.0).clamp(0.0, 100.0),
                 decoration: BoxDecoration(
                   color: colour,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(3.0)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(3.0),
+                  ),
                 ),
               ),
             ],
@@ -632,7 +668,12 @@ Widget _barBar(double value, {Color colour = _kAccent}) {
   );
 }
 
-Widget _barChart(String label, Curve curve, List<double> ts, {Color colour = _kAccent}) {
+Widget _barChart(
+  String label,
+  Curve curve,
+  List<double> ts, {
+  Color colour = _kAccent,
+}) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 6.0),
     padding: const EdgeInsets.all(10.0),
@@ -669,7 +710,8 @@ Widget _barChart(String label, Curve curve, List<double> ts, {Color colour = _kA
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              for (final double t in ts) _barBar(curve.transform(t), colour: colour),
+              for (final double t in ts)
+                _barBar(curve.transform(t), colour: colour),
             ],
           ),
         ),
@@ -705,6 +747,7 @@ Widget _styleSummaryRow(String label, AnimationStyle? style) {
     if (d == null) return '<null>';
     return '${d.inMilliseconds} ms';
   }
+
   String fmtCurve(Curve? c) => c == null ? '<null>' : c.toString();
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -717,12 +760,19 @@ Widget _styleSummaryRow(String label, AnimationStyle? style) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(label, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 12.5, color: _kAccent)),
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 12.5,
+            color: _kAccent,
+          ),
+        ),
         const SizedBox(height: 4.0),
-        _kvRow('duration:',        fmt(style?.duration)),
+        _kvRow('duration:', fmt(style?.duration)),
         _kvRow('reverseDuration:', fmt(style?.reverseDuration)),
-        _kvRow('curve:',           fmtCurve(style?.curve)),
-        _kvRow('reverseCurve:',    fmtCurve(style?.reverseCurve)),
+        _kvRow('curve:', fmtCurve(style?.curve)),
+        _kvRow('reverseCurve:', fmtCurve(style?.reverseCurve)),
       ],
     ),
   );
@@ -757,10 +807,7 @@ dynamic build(BuildContext context) {
       gradient: const LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: <Color>[
-          Color(0xFF6750A4),
-          Color(0xFF7D5260),
-        ],
+        colors: <Color>[Color(0xFF6750A4), Color(0xFF7D5260)],
       ),
       borderRadius: BorderRadius.circular(20.0),
       boxShadow: const <BoxShadow>[
@@ -874,7 +921,14 @@ dynamic build(BuildContext context) {
     duration: Duration(milliseconds: 400),
   );
 
-  Widget styleCard(String tag, String constructor, String useHint, AnimationStyle s, IconData icon, Color tint) {
+  Widget styleCard(
+    String tag,
+    String constructor,
+    String useHint,
+    AnimationStyle s,
+    IconData icon,
+    Color tint,
+  ) {
     return _card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -977,7 +1031,11 @@ dynamic build(BuildContext context) {
             SizedBox(width: 6.0),
             Text(
               'AnimationStyle.noAnimation',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: _kInk),
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w700,
+                color: _kInk,
+              ),
             ),
           ],
         ),
@@ -1017,7 +1075,11 @@ dynamic build(BuildContext context) {
             SizedBox(width: 6.0),
             Text(
               'AnimationStyle.lerp(a, b, t)',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700, color: _kInk),
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w700,
+                color: _kInk,
+              ),
             ),
           ],
         ),
@@ -1061,30 +1123,30 @@ dynamic build(BuildContext context) {
   // diagonal.
   // -------------------------------------------------------------------------
   final List<List<Object>> curveCatalog = <List<Object>>[
-    <Object>['linear',          Curves.linear],
-    <Object>['decelerate',      Curves.decelerate],
-    <Object>['ease',            Curves.ease],
-    <Object>['easeIn',          Curves.easeIn],
-    <Object>['easeOut',         Curves.easeOut],
-    <Object>['easeInOut',       Curves.easeInOut],
-    <Object>['easeInQuad',      Curves.easeInQuad],
-    <Object>['easeInCubic',     Curves.easeInCubic],
-    <Object>['easeInQuart',     Curves.easeInQuart],
-    <Object>['easeOutQuint',    Curves.easeOutQuint],
-    <Object>['easeInExpo',      Curves.easeInExpo],
-    <Object>['easeOutExpo',     Curves.easeOutExpo],
-    <Object>['easeInOutQuart',  Curves.easeInOutQuart],
-    <Object>['easeInOutCubic',  Curves.easeInOutCubic],
-    <Object>['fastOutSlowIn',   Curves.fastOutSlowIn],
-    <Object>['slowMiddle',      Curves.slowMiddle],
-    <Object>['bounceIn',        Curves.bounceIn],
-    <Object>['bounceOut',       Curves.bounceOut],
-    <Object>['bounceInOut',     Curves.bounceInOut],
-    <Object>['elasticIn',       Curves.elasticIn],
-    <Object>['elasticOut',      Curves.elasticOut],
-    <Object>['elasticInOut',    Curves.elasticInOut],
+    <Object>['linear', Curves.linear],
+    <Object>['decelerate', Curves.decelerate],
+    <Object>['ease', Curves.ease],
+    <Object>['easeIn', Curves.easeIn],
+    <Object>['easeOut', Curves.easeOut],
+    <Object>['easeInOut', Curves.easeInOut],
+    <Object>['easeInQuad', Curves.easeInQuad],
+    <Object>['easeInCubic', Curves.easeInCubic],
+    <Object>['easeInQuart', Curves.easeInQuart],
+    <Object>['easeOutQuint', Curves.easeOutQuint],
+    <Object>['easeInExpo', Curves.easeInExpo],
+    <Object>['easeOutExpo', Curves.easeOutExpo],
+    <Object>['easeInOutQuart', Curves.easeInOutQuart],
+    <Object>['easeInOutCubic', Curves.easeInOutCubic],
+    <Object>['fastOutSlowIn', Curves.fastOutSlowIn],
+    <Object>['slowMiddle', Curves.slowMiddle],
+    <Object>['bounceIn', Curves.bounceIn],
+    <Object>['bounceOut', Curves.bounceOut],
+    <Object>['bounceInOut', Curves.bounceInOut],
+    <Object>['elasticIn', Curves.elasticIn],
+    <Object>['elasticOut', Curves.elasticOut],
+    <Object>['elasticInOut', Curves.elasticInOut],
     <Object>['fastLinearToSlowEaseIn', Curves.fastLinearToSlowEaseIn],
-    <Object>['easeInToLinear',  Curves.easeInToLinear],
+    <Object>['easeInToLinear', Curves.easeInToLinear],
   ];
 
   Widget buildCurveGrid() {
@@ -1102,7 +1164,12 @@ dynamic build(BuildContext context) {
         final Curve curve = curveCatalog[idx][1] as Curve;
         rowChildren.add(Expanded(child: _curveTile(name, curve)));
       }
-      rows.add(Row(crossAxisAlignment: CrossAxisAlignment.start, children: rowChildren));
+      rows.add(
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: rowChildren,
+        ),
+      );
     }
     return Column(children: rows);
   }
@@ -1156,7 +1223,8 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Custom curve constructors',
-                subtitle: 'Cubic, SawTooth, ElasticInCurve, FlippedCurve, Interval, Threshold',
+                subtitle:
+                    'Cubic, SawTooth, ElasticInCurve, FlippedCurve, Interval, Threshold',
               ),
             ],
           ),
@@ -1221,7 +1289,13 @@ dynamic build(BuildContext context) {
   final int durAMs = durA.inMilliseconds;
   final int durCSec = durC.inSeconds;
 
-  Widget durCard(String title, String code, String result, IconData icon, Color tint) {
+  Widget durCard(
+    String title,
+    String code,
+    String result,
+    IconData icon,
+    Color tint,
+  ) {
     return _card(
       margin: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5.0),
       child: Column(
@@ -1231,7 +1305,14 @@ dynamic build(BuildContext context) {
             children: <Widget>[
               Icon(icon, color: tint, size: 16.0),
               const SizedBox(width: 6.0),
-              Text(title, style: const TextStyle(fontSize: 13.0, fontWeight: FontWeight.w700, color: _kInk)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w700,
+                  color: _kInk,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 6.0),
@@ -1253,7 +1334,15 @@ dynamic build(BuildContext context) {
             ),
             child: Row(
               children: <Widget>[
-                const Text('=>', style: TextStyle(fontFamily: 'monospace', fontSize: 12.0, color: _kAccentGreen, fontWeight: FontWeight.w700)),
+                const Text(
+                  '=>',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 12.0,
+                    color: _kAccentGreen,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(width: 6.0),
                 Expanded(child: Text(result, style: _kMonoBody)),
               ],
@@ -1269,8 +1358,8 @@ dynamic build(BuildContext context) {
       durCard(
         '1. Sum two durations',
         "const Duration a = Duration(milliseconds: 300);\n"
-        "const Duration b = Duration(milliseconds: 250);\n"
-        "final Duration sum = a + b;",
+            "const Duration b = Duration(milliseconds: 250);\n"
+            "final Duration sum = a + b;",
         'sum.inMilliseconds == ${durSum.inMilliseconds}  // ${durSum.toString()}',
         Icons.add_circle_outline,
         _kAccent,
@@ -1278,7 +1367,7 @@ dynamic build(BuildContext context) {
       durCard(
         '2. Difference of two durations',
         "const Duration c = Duration(seconds: 1);\n"
-        "final Duration diff = c - a;",
+            "final Duration diff = c - a;",
         'diff.inMilliseconds == ${durDiff.inMilliseconds}  // ${durDiff.toString()}',
         Icons.remove_circle_outline,
         _kAccentTertiary,
@@ -1300,20 +1389,20 @@ dynamic build(BuildContext context) {
       durCard(
         '5. Compare two durations',
         "final int cmpAB = a.compareTo(b);\n"
-        "final int cmpAC = a.compareTo(c);",
+            "final int cmpAC = a.compareTo(c);",
         'cmpAB == $cmpAB  // a > b => 1\n'
-        'cmpAC == $cmpAC  // a < c => -1',
+            'cmpAC == $cmpAC  // a < c => -1',
         Icons.compare_arrows,
         _kAccentOrange,
       ),
       durCard(
         '6. Extract numeric components',
         "final int aMs = a.inMilliseconds;\n"
-        "final int cSec = c.inSeconds;\n"
-        "const Duration zero = Duration.zero;",
+            "final int cSec = c.inSeconds;\n"
+            "const Duration zero = Duration.zero;",
         'aMs == $durAMs\n'
-        'cSec == $durCSec\n'
-        'zero == ${durZero.toString()}',
+            'cSec == $durCSec\n'
+            'zero == ${durZero.toString()}',
         Icons.calculate,
         _kAccentGreen,
       ),
@@ -1328,7 +1417,17 @@ dynamic build(BuildContext context) {
   // contrasting shapes.
   // -------------------------------------------------------------------------
   final List<double> tGrid = <double>[
-    0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0,
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
   ];
   final Widget transformBars = _card(
     child: Column(
@@ -1345,10 +1444,25 @@ dynamic build(BuildContext context) {
           ],
         ),
         const SizedBox(height: 8.0),
-        _barChart('Curves.linear',       Curves.linear,       tGrid, colour: _kAccentBlue),
-        _barChart('Curves.easeInOut',    Curves.easeInOut,    tGrid, colour: _kAccent),
-        _barChart('Curves.bounceOut',    Curves.bounceOut,    tGrid, colour: _kAccentOrange),
-        _barChart('Curves.elasticOut',   Curves.elasticOut,   tGrid, colour: _kAccentTertiary),
+        _barChart('Curves.linear', Curves.linear, tGrid, colour: _kAccentBlue),
+        _barChart(
+          'Curves.easeInOut',
+          Curves.easeInOut,
+          tGrid,
+          colour: _kAccent,
+        ),
+        _barChart(
+          'Curves.bounceOut',
+          Curves.bounceOut,
+          tGrid,
+          colour: _kAccentOrange,
+        ),
+        _barChart(
+          'Curves.elasticOut',
+          Curves.elasticOut,
+          tGrid,
+          colour: _kAccentTertiary,
+        ),
       ],
     ),
   );
@@ -1372,7 +1486,8 @@ dynamic build(BuildContext context) {
               const SizedBox(width: 6.0),
               _cardTitle(
                 'Who does what?',
-                subtitle: 'AnimationStyle vs Tween vs CurvedAnimation vs Animation<double>',
+                subtitle:
+                    'AnimationStyle vs Tween vs CurvedAnimation vs Animation<double>',
               ),
             ],
           ),
@@ -1383,7 +1498,13 @@ dynamic build(BuildContext context) {
           child: Column(
             children: <Widget>[
               _tableRow(
-                <String>['Type', 'Owns time?', 'Owns shape?', 'Owns value?', 'Used with'],
+                <String>[
+                  'Type',
+                  'Owns time?',
+                  'Owns shape?',
+                  'Owns value?',
+                  'Used with',
+                ],
                 header: true,
                 flexes: <int>[2, 2, 2, 2, 3],
               ),
@@ -1540,7 +1661,11 @@ dynamic build(BuildContext context) {
       children: <Widget>[
         Row(
           children: const <Widget>[
-            Icon(Icons.warning_amber_rounded, color: _kAccentOrange, size: 22.0),
+            Icon(
+              Icons.warning_amber_rounded,
+              color: _kAccentOrange,
+              size: 22.0,
+            ),
             SizedBox(width: 8.0),
             Text(
               'Five Pitfalls',
@@ -1562,42 +1687,42 @@ dynamic build(BuildContext context) {
         _pitfallRow(
           '1. reverseCurve == null silently reuses curve',
           'When AnimationStyle.reverseCurve is null the consumer widget '
-          'falls back to AnimationStyle.curve. That is often fine, but it '
-          'means a symmetrical-looking style may behave very differently '
-          'on reverse than the developer expected.',
+              'falls back to AnimationStyle.curve. That is often fine, but it '
+              'means a symmetrical-looking style may behave very differently '
+              'on reverse than the developer expected.',
         ),
         _pitfallRow(
           '2. AnimationStyle.lerp does not blend curve fields',
           'The lerp helper only interpolates durations. Curves snap from '
-          '`a.curve` to `b.curve` at t = 0.5, with no smooth transition. '
-          'If you need a smooth curve transition, you must compose curves '
-          'yourself.',
+              '`a.curve` to `b.curve` at t = 0.5, with no smooth transition. '
+              'If you need a smooth curve transition, you must compose curves '
+              'yourself.',
           icon: Icons.swap_calls,
         ),
         _pitfallRow(
           '3. Curves.linear is not the identity tween',
           'Curves.linear is a Curve - it returns t for t in [0,1]. The '
-          'identity *tween* is `Tween<double>(begin: 0.0, end: 1.0)`. '
-          'Mixing the two concepts leads to "why is nothing animating?" '
-          'questions.',
+              'identity *tween* is `Tween<double>(begin: 0.0, end: 1.0)`. '
+              'Mixing the two concepts leads to "why is nothing animating?" '
+              'questions.',
           icon: Icons.straighten,
           colour: _kAccentBlue,
         ),
         _pitfallRow(
           '4. Bouncing / elastic curves overshoot [0, 1]',
           'bounceOut, elasticIn, elasticOut produce values < 0 or > 1 at '
-          'intermediate t. If you wire them into a Tween that expects '
-          'values inside the begin..end range (eg. a Color), apply '
-          'CurvedAnimation first and clamp where needed.',
+              'intermediate t. If you wire them into a Tween that expects '
+              'values inside the begin..end range (eg. a Color), apply '
+              'CurvedAnimation first and clamp where needed.',
           icon: Icons.sports_basketball,
           colour: _kAccentTertiary,
         ),
         _pitfallRow(
           '5. reverseDuration without duration is undefined',
           'AnimationStyle(reverseDuration: Duration(ms: 200)) with no '
-          'forward duration leaves the forward animation to whatever the '
-          'consumer widget defaults to. Always set both, or rely on '
-          'AnimationStyle.noAnimation when you mean "instant".',
+              'forward duration leaves the forward animation to whatever the '
+              'consumer widget defaults to. Always set both, or rely on '
+              'AnimationStyle.noAnimation when you mean "instant".',
           icon: Icons.timer_off,
           colour: _kAccentRed,
         ),
@@ -1611,7 +1736,11 @@ dynamic build(BuildContext context) {
   // A compact dark card with three columns: the Curves namespace, the
   // AnimationStyle constructor variants and Duration helpers.
   // -------------------------------------------------------------------------
-  Widget _cheatRow(String left, String right, {Color leftColour = _kCodeAccent}) {
+  Widget _cheatRow(
+    String left,
+    String right, {
+    Color leftColour = _kCodeAccent,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -1645,7 +1774,11 @@ dynamic build(BuildContext context) {
     );
   }
 
-  Widget _cheatColumn(String title, List<Widget> rows, {Color tint = _kAccent}) {
+  Widget _cheatColumn(
+    String title,
+    List<Widget> rows, {
+    Color tint = _kAccent,
+  }) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -1712,57 +1845,75 @@ dynamic build(BuildContext context) {
           style: TextStyle(fontSize: 12.0, color: _kInkOnDarkSecondary),
         ),
         const SizedBox(height: 14.0),
-        _cheatColumn(
-          'AnimationStyle constructor variants',
-          <Widget>[
-            _cheatRow('AnimationStyle()',         'all four fields nullable; consumer fills defaults'),
-            _cheatRow('curve:',                   'Curve - shape of forward animation'),
-            _cheatRow('reverseCurve:',            'Curve? - shape of reverse animation; falls back to curve'),
-            _cheatRow('duration:',                'Duration? - length of forward animation'),
-            _cheatRow('reverseDuration:',         'Duration? - length of reverse; falls back to duration'),
-            _cheatRow('AnimationStyle.noAnimation', 'singleton with zero forward & reverse durations'),
-            _cheatRow('AnimationStyle.lerp(a,b,t)', 'lerps durations, snaps curves at t == 0.5'),
-          ],
-          tint: _kAccent,
-        ),
+        _cheatColumn('AnimationStyle constructor variants', <Widget>[
+          _cheatRow(
+            'AnimationStyle()',
+            'all four fields nullable; consumer fills defaults',
+          ),
+          _cheatRow('curve:', 'Curve - shape of forward animation'),
+          _cheatRow(
+            'reverseCurve:',
+            'Curve? - shape of reverse animation; falls back to curve',
+          ),
+          _cheatRow('duration:', 'Duration? - length of forward animation'),
+          _cheatRow(
+            'reverseDuration:',
+            'Duration? - length of reverse; falls back to duration',
+          ),
+          _cheatRow(
+            'AnimationStyle.noAnimation',
+            'singleton with zero forward & reverse durations',
+          ),
+          _cheatRow(
+            'AnimationStyle.lerp(a,b,t)',
+            'lerps durations, snaps curves at t == 0.5',
+          ),
+        ], tint: _kAccent),
         const SizedBox(height: 10.0),
-        _cheatColumn(
-          'Curves namespace (selected)',
-          <Widget>[
-            _cheatRow('Curves.linear',           'identity in [0,1]'),
-            _cheatRow('Curves.ease',             'CSS-style ease (Cubic(.25,.1,.25,1))'),
-            _cheatRow('Curves.easeIn / easeOut', 'asymmetric ease-only-on-one-end variants'),
-            _cheatRow('Curves.easeInOut',       'symmetric ease-in and ease-out'),
-            _cheatRow('Curves.fastOutSlowIn',   'Material standard easing'),
-            _cheatRow('Curves.decelerate',      'rapid start, slow end'),
-            _cheatRow('Curves.bounceIn/Out/InOut','overshooting bounce curves'),
-            _cheatRow('Curves.elasticIn/Out/InOut','oscillating spring curves'),
-            _cheatRow('Cubic(a,b,c,d)',          'arbitrary Bezier with two control points'),
-            _cheatRow('SawTooth(count)',         'count repeats of t in [0,1)'),
-            _cheatRow('Interval(start,end,curve:)','sub-range of t mapped onto curve'),
-            _cheatRow('Threshold(t)',            'step at threshold t'),
-            _cheatRow('FlippedCurve(inner)',     'inner curve with t reversed'),
-            _cheatRow('ElasticInCurve(period)',  'elastic-in with custom period'),
-          ],
-          tint: _kAccentSecondary,
-        ),
+        _cheatColumn('Curves namespace (selected)', <Widget>[
+          _cheatRow('Curves.linear', 'identity in [0,1]'),
+          _cheatRow('Curves.ease', 'CSS-style ease (Cubic(.25,.1,.25,1))'),
+          _cheatRow(
+            'Curves.easeIn / easeOut',
+            'asymmetric ease-only-on-one-end variants',
+          ),
+          _cheatRow('Curves.easeInOut', 'symmetric ease-in and ease-out'),
+          _cheatRow('Curves.fastOutSlowIn', 'Material standard easing'),
+          _cheatRow('Curves.decelerate', 'rapid start, slow end'),
+          _cheatRow('Curves.bounceIn/Out/InOut', 'overshooting bounce curves'),
+          _cheatRow('Curves.elasticIn/Out/InOut', 'oscillating spring curves'),
+          _cheatRow(
+            'Cubic(a,b,c,d)',
+            'arbitrary Bezier with two control points',
+          ),
+          _cheatRow('SawTooth(count)', 'count repeats of t in [0,1)'),
+          _cheatRow(
+            'Interval(start,end,curve:)',
+            'sub-range of t mapped onto curve',
+          ),
+          _cheatRow('Threshold(t)', 'step at threshold t'),
+          _cheatRow('FlippedCurve(inner)', 'inner curve with t reversed'),
+          _cheatRow('ElasticInCurve(period)', 'elastic-in with custom period'),
+        ], tint: _kAccentSecondary),
         const SizedBox(height: 10.0),
-        _cheatColumn(
-          'Duration helpers',
-          <Widget>[
-            _cheatRow('Duration.zero',           'sentinel for "no time"'),
-            _cheatRow('Duration(milliseconds:)', 'most common unit for UI motion'),
-            _cheatRow('Duration(seconds:)',      'use for slow transitions only'),
-            _cheatRow('Duration(microseconds:)', 'rare; ticker-precision arithmetic'),
-            _cheatRow('a + b / a - b',           'add or subtract two durations'),
-            _cheatRow('a * factor',              'scale by integer or double'),
-            _cheatRow('a ~/ divisor',            'integer-divide by an int'),
-            _cheatRow('a.compareTo(b)',          '-1 / 0 / 1 ordering'),
-            _cheatRow('a.inMilliseconds',        'numeric component for logs'),
-            _cheatRow('a.inSeconds',             'numeric component for human display'),
-          ],
-          tint: _kAccentTeal,
-        ),
+        _cheatColumn('Duration helpers', <Widget>[
+          _cheatRow('Duration.zero', 'sentinel for "no time"'),
+          _cheatRow(
+            'Duration(milliseconds:)',
+            'most common unit for UI motion',
+          ),
+          _cheatRow('Duration(seconds:)', 'use for slow transitions only'),
+          _cheatRow(
+            'Duration(microseconds:)',
+            'rare; ticker-precision arithmetic',
+          ),
+          _cheatRow('a + b / a - b', 'add or subtract two durations'),
+          _cheatRow('a * factor', 'scale by integer or double'),
+          _cheatRow('a ~/ divisor', 'integer-divide by an int'),
+          _cheatRow('a.compareTo(b)', '-1 / 0 / 1 ordering'),
+          _cheatRow('a.inMilliseconds', 'numeric component for logs'),
+          _cheatRow('a.inSeconds', 'numeric component for human display'),
+        ], tint: _kAccentTeal),
         const SizedBox(height: 14.0),
         Container(
           padding: const EdgeInsets.all(12.0),
@@ -1773,7 +1924,11 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: <Widget>[
-              const Icon(Icons.info_outline, color: Color(0xFFFFD60A), size: 18.0),
+              const Icon(
+                Icons.info_outline,
+                color: Color(0xFFFFD60A),
+                size: 18.0,
+              ),
               const SizedBox(width: 8.0),
               Expanded(
                 child: Text(
@@ -1804,27 +1959,63 @@ dynamic build(BuildContext context) {
   print('  building widget tree with 11 sections');
   final List<Widget> sectionWidgets = <Widget>[
     heroIntro,
-    _sectionHeader(2, 'Constructor showcase',  'Six literal AnimationStyle(...) cards'),
+    _sectionHeader(
+      2,
+      'Constructor showcase',
+      'Six literal AnimationStyle(...) cards',
+    ),
     constructorShowcase,
-    _sectionHeader(3, 'noAnimation & lerp',    'Instant transition + style blending'),
+    _sectionHeader(
+      3,
+      'noAnimation & lerp',
+      'Instant transition + style blending',
+    ),
     noAnimCard,
     lerpCard,
-    _sectionHeader(4, 'Curve gallery',         '24 curves plotted in a 3-column grid'),
+    _sectionHeader(4, 'Curve gallery', '24 curves plotted in a 3-column grid'),
     curveGalleryCard,
-    _sectionHeader(5, 'Custom curves',         'Cubic, SawTooth, Interval, Threshold, Flipped, ElasticIn'),
+    _sectionHeader(
+      5,
+      'Custom curves',
+      'Cubic, SawTooth, Interval, Threshold, Flipped, ElasticIn',
+    ),
     customCurvesCard,
-    _sectionHeader(6, 'Duration arithmetic',   'sum, diff, scale, compareTo, inMilliseconds'),
+    _sectionHeader(
+      6,
+      'Duration arithmetic',
+      'sum, diff, scale, compareTo, inMilliseconds',
+    ),
     durationCards,
-    _sectionHeader(7, 'curve.transform(t)',    'Bar charts for four selected curves'),
+    _sectionHeader(
+      7,
+      'curve.transform(t)',
+      'Bar charts for four selected curves',
+    ),
     transformBars,
-    _sectionHeader(8, 'Comparison',            'AnimationStyle vs Tween vs CurvedAnimation vs Animation<double>'),
+    _sectionHeader(
+      8,
+      'Comparison',
+      'AnimationStyle vs Tween vs CurvedAnimation vs Animation<double>',
+    ),
     comparisonTable,
-    _sectionHeader(9, 'Usage code blocks',     'Theme, AnimatedSwitcher, ExpansionTile, AnimatedTheme, ImplicitlyAnimatedWidget, Hero'),
+    _sectionHeader(
+      9,
+      'Usage code blocks',
+      'Theme, AnimatedSwitcher, ExpansionTile, AnimatedTheme, ImplicitlyAnimatedWidget, Hero',
+    ),
     usageCards,
     _sectionDivider(),
-    _sectionHeader(10, 'Pitfalls',             'Five common mistakes when using AnimationStyle'),
+    _sectionHeader(
+      10,
+      'Pitfalls',
+      'Five common mistakes when using AnimationStyle',
+    ),
     pitfalls,
-    _sectionHeader(11, 'Cheat sheet',          'Surface area of AnimationStyle, Curves and Duration'),
+    _sectionHeader(
+      11,
+      'Cheat sheet',
+      'Surface area of AnimationStyle, Curves and Duration',
+    ),
     cheatSheet,
   ];
   print('  section widget count: ${sectionWidgets.length}');

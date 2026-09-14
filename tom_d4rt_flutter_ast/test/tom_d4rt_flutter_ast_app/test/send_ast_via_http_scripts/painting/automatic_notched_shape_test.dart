@@ -14,11 +14,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(28.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF1E293B),
-          Color(0xFF334155),
-          Color(0xFF0F766E),
-        ],
+        colors: [Color(0xFF1E293B), Color(0xFF334155), Color(0xFF0F766E)],
         stops: [0.0, 0.55, 1.0],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -99,11 +95,7 @@ dynamic build(BuildContext context) {
           ),
           child: Row(
             children: [
-              Icon(
-                Icons.crop_square,
-                color: Color(0xFFFBBF24),
-                size: 18.0,
-              ),
+              Icon(Icons.crop_square, color: Color(0xFFFBBF24), size: 18.0),
               SizedBox(width: 10.0),
               Expanded(
                 child: Text(
@@ -143,10 +135,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFF8FAFC),
-          Color(0xFFE2E8F0),
-        ],
+        colors: [Color(0xFFF8FAFC), Color(0xFFE2E8F0)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -218,10 +207,7 @@ dynamic build(BuildContext context) {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFFBBF24).withValues(alpha: 0.22),
-                    border: Border.all(
-                      color: Color(0xFFB45309),
-                      width: 2.0,
-                    ),
+                    border: Border.all(color: Color(0xFFB45309), width: 2.0),
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: Center(
@@ -273,10 +259,7 @@ dynamic build(BuildContext context) {
                 left: 230.0,
                 top: 70.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Color(0xFFB45309),
                     borderRadius: BorderRadius.circular(4.0),
@@ -295,10 +278,7 @@ dynamic build(BuildContext context) {
                 left: 30.0,
                 top: 178.0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8.0,
-                    vertical: 4.0,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                   decoration: BoxDecoration(
                     color: Color(0xFF0F766E),
                     borderRadius: BorderRadius.circular(4.0),
@@ -379,10 +359,7 @@ dynamic build(BuildContext context) {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(14.0),
-          border: Border.all(
-            color: color.withValues(alpha: 0.6),
-            width: 1.5,
-          ),
+          border: Border.all(color: color.withValues(alpha: 0.6), width: 1.5),
           boxShadow: [
             BoxShadow(
               color: color.withValues(alpha: 0.18),
@@ -461,9 +438,7 @@ dynamic build(BuildContext context) {
   final hostVariants4 = <Map<String, dynamic>>[
     {
       'name': 'RoundedRectangleBorder',
-      'shape': RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
-      ),
+      'shape': RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.0)),
       'desc': 'right-angled corners with optional rounding',
       'color': Color(0xFF0F766E),
     },
@@ -506,10 +481,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.08),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.08)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -527,10 +499,7 @@ dynamic build(BuildContext context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 4.0,
-              ),
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(6.0),
@@ -784,10 +753,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.white,
-              color.withValues(alpha: 0.10),
-            ],
+            colors: [Colors.white, color.withValues(alpha: 0.10)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -893,17 +859,16 @@ dynamic build(BuildContext context) {
     CircleBorder(),
   );
   final compareNotchedCircular = CircularNotchedRectangle();
-  print('Compare: ${compareNotchedAuto.runtimeType} vs ${compareNotchedCircular.runtimeType}');
+  print(
+    'Compare: ${compareNotchedAuto.runtimeType} vs ${compareNotchedCircular.runtimeType}',
+  );
 
   final comparisonPanel = Container(
     margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFFFEF3C7),
-          Color(0xFFFDE68A),
-        ],
+        colors: [Color(0xFFFEF3C7), Color(0xFFFDE68A)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -948,11 +913,7 @@ dynamic build(BuildContext context) {
                 'rectangular bounds',
                 'curved circular arc',
               ),
-              _tableRow(
-                'Inputs',
-                'host + guest shapes',
-                'no inputs',
-              ),
+              _tableRow('Inputs', 'host + guest shapes', 'no inputs'),
               _tableRow(
                 'Best for',
                 'non-circular FAB',
@@ -1028,10 +989,7 @@ dynamic build(BuildContext context) {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFE0F2FE),
-                      Color(0xFFFEF3C7),
-                    ],
+                    colors: [Color(0xFFE0F2FE), Color(0xFFFEF3C7)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -1048,10 +1006,7 @@ dynamic build(BuildContext context) {
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF0F766E),
-                      Color(0xFF14B8A6),
-                    ],
+                    colors: [Color(0xFF0F766E), Color(0xFF14B8A6)],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                   ),
@@ -1184,11 +1139,7 @@ dynamic build(BuildContext context) {
                         SizedBox(width: 18.0),
                         Icon(Icons.home, color: Colors.white, size: 22.0),
                         SizedBox(width: 28.0),
-                        Icon(
-                          Icons.search,
-                          color: Colors.white70,
-                          size: 20.0,
-                        ),
+                        Icon(Icons.search, color: Colors.white70, size: 20.0),
                         Spacer(),
                         Icon(
                           Icons.notifications_none,
@@ -1219,10 +1170,7 @@ dynamic build(BuildContext context) {
                   height: 56.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFFBBF24),
-                        Color(0xFFB45309),
-                      ],
+                      colors: [Color(0xFFFBBF24), Color(0xFFB45309)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -1256,40 +1204,40 @@ dynamic build(BuildContext context) {
       'title': 'Rect notch ignores guest curvature',
       'detail':
           'The notch is the guest\'s axis-aligned bounding rectangle. A '
-              'circle, star, and hexagon with the same bounds yield the same '
-              'rect notch. Use CircularNotchedRectangle for a curved notch.',
+          'circle, star, and hexagon with the same bounds yield the same '
+          'rect notch. Use CircularNotchedRectangle for a curved notch.',
       'icon': Icons.crop_square,
     },
     {
       'title': 'Guest must intersect host',
       'detail':
           'If guest is entirely outside the host rect, you\'ll see the host '
-              'outline unchanged. The notch only appears where guest.bounds '
-              'crosses the host\'s top edge.',
+          'outline unchanged. The notch only appears where guest.bounds '
+          'crosses the host\'s top edge.',
       'icon': Icons.layers,
     },
     {
       'title': 'Null guest = plain host outline',
       'detail':
           'getOuterPath(host, null) returns just host.getOuterPath(host). '
-              'Always pass a real Rect when you actually want a notch.',
+          'Always pass a real Rect when you actually want a notch.',
       'icon': Icons.help_outline,
     },
     {
       'title': 'Tight notch can clip FAB shadow',
       'detail':
           'AutomaticNotchedShape gives a hard rectangle. The FAB\'s soft '
-              'drop shadow may bleed past the notch edges. Add a small '
-              'guestPadding or use Scaffold.floatingActionButtonLocation '
-              'docked variants.',
+          'drop shadow may bleed past the notch edges. Add a small '
+          'guestPadding or use Scaffold.floatingActionButtonLocation '
+          'docked variants.',
       'icon': Icons.warning_amber,
     },
     {
       'title': 'Performance: rebuilding shape',
       'detail':
           'Constructing a new AutomaticNotchedShape on every build allocates '
-              'fresh shape borders. Hoist it to a top-level final or store '
-              'in a const-like cache when host/guest are static.',
+          'fresh shape borders. Hoist it to a top-level final or store '
+          'in a const-like cache when host/guest are static.',
       'icon': Icons.speed,
     },
   ];
@@ -1303,10 +1251,7 @@ dynamic build(BuildContext context) {
         padding: EdgeInsets.all(14.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFFFEE2E2),
-              Color(0xFFFECACA),
-            ],
+            colors: [Color(0xFFFEE2E2), Color(0xFFFECACA)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -1329,11 +1274,7 @@ dynamic build(BuildContext context) {
                 color: Color(0xFFDC2626),
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Icon(
-                Icons.warning_amber,
-                color: Colors.white,
-                size: 18.0,
-              ),
+              child: Icon(Icons.warning_amber, color: Colors.white, size: 18.0),
             ),
             SizedBox(width: 12.0),
             Expanded(
@@ -1376,7 +1317,8 @@ dynamic build(BuildContext context) {
     {
       'n': '1',
       'title': 'Class purpose',
-      'text': 'Wraps a host ShapeBorder with an axis-aligned rect notch '
+      'text':
+          'Wraps a host ShapeBorder with an axis-aligned rect notch '
           'derived from a guest\'s bounds.',
     },
     {
@@ -1387,7 +1329,8 @@ dynamic build(BuildContext context) {
     {
       'n': '3',
       'title': 'Method',
-      'text': 'getOuterPath(host, guest) returns Path of host minus '
+      'text':
+          'getOuterPath(host, guest) returns Path of host minus '
           'guest.bounds.',
     },
     {
@@ -1412,10 +1355,7 @@ dynamic build(BuildContext context) {
     padding: EdgeInsets.all(20.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF312E81),
-          Color(0xFF0F766E),
-        ],
+        colors: [Color(0xFF312E81), Color(0xFF0F766E)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -1633,10 +1573,7 @@ Widget _sectionLabel(String text, Color color) {
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [
-          color.withValues(alpha: 0.18),
-          color.withValues(alpha: 0.05),
-        ],
+        colors: [color.withValues(alpha: 0.18), color.withValues(alpha: 0.05)],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
       ),
@@ -1655,12 +1592,7 @@ Widget _sectionLabel(String text, Color color) {
   );
 }
 
-Widget _tableRow(
-  String a,
-  String b,
-  String c, {
-  bool isHeader = false,
-}) {
+Widget _tableRow(String a, String b, String c, {bool isHeader = false}) {
   final bg = isHeader
       ? Color(0xFFB45309).withValues(alpha: 0.15)
       : Colors.transparent;
@@ -1686,10 +1618,7 @@ Widget _tableRow(
       children: [
         SizedBox(
           width: 90.0,
-          child: Text(
-            a,
-            style: style.copyWith(fontWeight: FontWeight.bold),
-          ),
+          child: Text(a, style: style.copyWith(fontWeight: FontWeight.bold)),
         ),
         Expanded(child: Text(b, style: style)),
         Expanded(child: Text(c, style: style)),
@@ -1810,11 +1739,7 @@ class _NotchPainter extends CustomPainter {
     canvas.drawPath(path, stroke);
     // FAB indicator
     final fabPaint = Paint()..color = Color(0xFFFBBF24);
-    canvas.drawCircle(
-      Offset(size.width / 2.0, 30.0),
-      18.0,
-      fabPaint,
-    );
+    canvas.drawCircle(Offset(size.width / 2.0, 30.0), 18.0, fabPaint);
   }
 
   @override

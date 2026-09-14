@@ -130,11 +130,7 @@ dynamic build(BuildContext context) {
             'Controls SnackBar layout: pinned-fullwidth (fixed) or '
             'floating-with-margin (floating). Choose deliberately - it '
             'affects FAB clearance, bottom navigation, and gestures.',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: Colors.white,
-              height: 1.45,
-            ),
+            style: TextStyle(fontSize: 12.5, color: Colors.white, height: 1.45),
           ),
         ),
       ],
@@ -360,7 +356,11 @@ dynamic build(BuildContext context) {
                   ['1', 'Body content', Colors.grey.shade300],
                   ['2', 'BottomAppBar', Colors.deepOrange.shade200],
                   ['3', 'FAB', Colors.deepOrange.shade400],
-                  ['4', 'SnackBar (lifted, margin)', Colors.deepOrange.shade700],
+                  [
+                    '4',
+                    'SnackBar (lifted, margin)',
+                    Colors.deepOrange.shade700,
+                  ],
                 ],
               ),
             ),
@@ -840,7 +840,9 @@ dynamic build(BuildContext context) {
               _sectionTitle('3. SnackBarBehavior.floating - mock app frame'),
               floatingMockFrame,
               SizedBox(height: 22.0),
-              _sectionTitle('4. Layout diagram - FAB / BottomAppBar / SnackBar'),
+              _sectionTitle(
+                '4. Layout diagram - FAB / BottomAppBar / SnackBar',
+              ),
               layoutDiagram,
               SizedBox(height: 22.0),
               _sectionTitle('5. Comparison matrix'),
@@ -920,7 +922,10 @@ Widget _buildMockPhoneFrame({
     padding: EdgeInsets.all(16.0),
     decoration: BoxDecoration(
       gradient: LinearGradient(
-        colors: [accent.withValues(alpha: 0.05), accent.withValues(alpha: 0.18)],
+        colors: [
+          accent.withValues(alpha: 0.05),
+          accent.withValues(alpha: 0.18),
+        ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -952,11 +957,7 @@ Widget _buildMockPhoneFrame({
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.phone_android,
-                color: Colors.white,
-                size: 18.0,
-              ),
+              child: Icon(Icons.phone_android, color: Colors.white, size: 18.0),
             ),
             SizedBox(width: 10.0),
             Expanded(
@@ -1477,10 +1478,7 @@ Widget _buildSnackbarSample({
           ),
           SizedBox(width: 10.0),
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 6.0,
-              vertical: 2.0,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
             decoration: BoxDecoration(
               color: accent.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(4.0),
@@ -1540,10 +1538,7 @@ Widget _buildRecipeBlock({
     decoration: BoxDecoration(
       color: Colors.black.withValues(alpha: 0.35),
       borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: color.withValues(alpha: 0.35),
-        width: 1.0,
-      ),
+      border: Border.all(color: color.withValues(alpha: 0.35), width: 1.0),
     ),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
